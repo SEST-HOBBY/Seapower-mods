@@ -3441,6 +3441,7 @@ DEPLOY_PULL_PADS = (DEPLOY_NEAR_PAD_NM, 0.3, 0.15)
 # that unit's kind may reach: the pad and the corner beyond it.
 DEPLOY_START_ALLOW_NM = 1.0
 DEPLOY_EDGE_NM = 0.5            # a counted unit this near a circle's edge gets no box
+DEPLOY_KEEP_OUT_NM = 0.3        # how far outside a generated mission's box its other units stay
 
 
 def rect_nm(rect, x, z):
@@ -3626,6 +3627,29 @@ def deployment_zones(mission, placed, members):
         x, z = spot[tag]
         return math.hypot(x - a["x"], z - a["z"]) - a["r"]
 
+    # Task Force Mode, the stock pattern (15 Oct 2026). In a Generated or
+    # Replaced mission the game builds the player's force from what they
+    # own, and a Deployment zone is where that force goes: stock's 10
+    # Vengeance at Luzon boxes the anchor (the hull it replaces with the
+    # player's first ship) and its four air-tasking slots, and nothing else.
+    # The 13 and 14 Oct builds boxed the convoys, escorts and recon aircraft
+    # the mission supplies, and the player reported them missing in game.
+    # So here only the anchor and the slot-tagged aircraft get a box, and no
+    # box may hold any other Taskforce1 unit: every other one keeps its
+    # authored place, unmovable, as before 13 Oct. A mission that launches
+    # as authored (blank generation) keeps the boxes below.
+    generated = bool(mission.get("generation"))
+    keep_out = []
+    if generated:
+        holders = {mission.get("_anchor_section")} | {
+            tag for tag, keys in keys_of.items()
+            if tag.startswith("Taskforce1") and "TaskForceModeAirTaskingSlot" in keys}
+        holders.discard(None)
+        keep_out = [spot[tag] for tag in spot if tag.startswith("Taskforce1") and tag not in holders]
+        units = [u for u in units if u[0] in holders]
+        areas = [a for a in areas if a["counted"] & holders]
+        mission["_holders"] = holders
+
     # The game lets a unit be placed in ANY box that admits its type (stock's
     # 10 Vengeance at Luzon offers its one submarine a second, empty patrol
     # box), so what a box holds at the start does not limit what can be put
@@ -3642,7 +3666,7 @@ def deployment_zones(mission, placed, members):
     # edge, where no box round it stays out. Each stays where the mission
     # puts it.
     parked = {}
-    for u in units:
+    for u in ([] if generated else units):
         for a in live:
             if u[4] not in counted_types(a):
                 continue
@@ -3667,7 +3691,11 @@ def deployment_zones(mission, placed, members):
     order = {u[0]: i for i, u in enumerate(units)}
 
     def chain(items):
-        """Single-linkage groups, each in file order, in order of first member."""
+        """Single-linkage groups, each in file order, in order of first member.
+        In a generated mission each unit is a group of its own: a box round
+        two slots far apart could take in a supplied ship between them."""
+        if generated:
+            return [[h] for h in sorted(items, key=lambda u: order[u[0]])]
         groups = []
         for h in items:
             joined = [g for g in groups
@@ -3699,6 +3727,38 @@ def deployment_zones(mission, placed, members):
     def water(x, z):
         return fix_land_positions.water(centre[0] + z / 60.0, centre[1] + x / 60.0,
                                         clearance=DEPLOY_LAND_DEG)
+
+    def cut_out(box, extent):
+        """box with each other Taskforce1 unit of a generated mission cut
+        out of it: for each one inside (or within DEPLOY_KEEP_OUT_NM), the
+        side between it and the group moves in to leave it outside, the cut
+        that keeps the most area. A unit inside the group's own extent on
+        both axes cannot be cut out; the gate names it."""
+        b = list(box)
+        for x, z in keep_out:
+            if rect_nm(b, x, z) >= DEPLOY_KEEP_OUT_NM:
+                continue
+            room = 2 * DEPLOY_HOLD_NM          # the group stays this far inside
+            options = []
+            if x > extent[1]:
+                options.append((1, max(extent[1] + room, x - DEPLOY_KEEP_OUT_NM)))
+            if x < extent[0]:
+                options.append((0, min(extent[0] - room, x + DEPLOY_KEEP_OUT_NM)))
+            if z > extent[3]:
+                options.append((3, max(extent[3] + room, z - DEPLOY_KEEP_OUT_NM)))
+            if z < extent[2]:
+                options.append((2, min(extent[2] - room, z + DEPLOY_KEEP_OUT_NM)))
+            best = None
+            for i, v in options:
+                trial = list(b)
+                trial[i] = v
+                area = (trial[1] - trial[0]) * (trial[3] - trial[2])
+                # the cut must leave the unit clearly outside
+                if rect_nm(trial, x, z) >= DEPLOY_KEEP_OUT_NM / 2 and (best is None or area > best[0]):
+                    best = (area, trial)
+            if best:
+                b = best[1]
+        return b
 
     def need(a, kind):
         """How far outside live circle a a box admitting kind must stay:
@@ -3738,6 +3798,7 @@ def deployment_zones(mission, placed, members):
         extent = [min(xs), max(xs), min(zs), max(zs)]
         box = [extent[0] - DEPLOY_PAD_NM, extent[1] + DEPLOY_PAD_NM,
                extent[2] - DEPLOY_PAD_NM, extent[3] + DEPLOY_PAD_NM]
+        box = cut_out(box, extent)
         # For each live circle and each kind it counts that the group has,
         # the box keeps the need: its sides that face the circle are pulled
         # in to the group's units OF THAT KIND, with a shrinking pad. A
@@ -3770,6 +3831,8 @@ def deployment_zones(mission, placed, members):
                 trial = list(box)
                 trial[i] += sign
                 if any(rect_nm(trial, x, z) < d - DEPLOY_SLACK_NM for x, z, d in in_play):
+                    break
+                if any(rect_nm(trial, x, z) < DEPLOY_KEEP_OUT_NM for x, z in keep_out):
                     break
                 # no nearer to a circle than its need, or than the box
                 # already is where the start itself is nearer
@@ -3893,12 +3956,32 @@ def check_deployment_cover(mission, placed, zones):
     carry them, not from the grouping that made them."""
     centre = mission["centre"]
     parked = mission.get("_parked", {})
+    boxed = mission.get("_holders")          # a generated mission boxes these only
     out = [f"{keys['Type']} at {tag} ({ty}, {x:.1f},{z:.1f} NM)"
            for tag, keys, x, z, ty in deploy_units(placed)
-           if tag not in parked and not any(zone_holds(z_, centre, x, z, ty) for z_ in zones)]
+           if tag not in parked and (boxed is None or tag in boxed)
+           and not any(zone_holds(z_, centre, x, z, ty) for z_ in zones)]
     if out:
         raise SystemExit(f"{mission['key']}: outside every Deployment zone that "
                          "admits it - the player could not move it: " + "; ".join(out))
+    # A generated mission's boxes hold the anchor and the air-tasking slots
+    # and nothing else of the player's (deployment_zones, the stock pattern).
+    holders = mission.get("_holders")
+    if holders is not None:
+        inside = []
+        for entries in placed.values():
+            for tag, keys, _n, _x in entries:
+                xz = unit_spot(keys)
+                if not tag.startswith("Taskforce1") or tag in holders or not xz:
+                    continue
+                for i, z_ in enumerate(zones, 1):
+                    x0, x1, z0, z1 = zone_box(z_, centre)
+                    if x0 <= xz[0] <= x1 and z0 <= xz[1] <= z1:
+                        inside.append(f"{keys['Type']} at {tag} in Zone{i} ({z_['label']})")
+        if inside:
+            raise SystemExit(f"{mission['key']}: a generated mission's box holds a unit the mission "
+                             "supplies - the game may take it for a slot of the player's force and "
+                             "leave it out: " + "; ".join(inside))
 
 
 def check_zone_areas(mission, placed, zones, text):
@@ -3933,6 +4016,10 @@ def check_zone_areas(mission, placed, zones, text):
             if not (pos and rad and units):
                 continue
             tags = [u.strip() for u in units.group(1).split(",") if u.strip() in family]
+            # A generated mission boxes only the anchor and the slots: a
+            # circle that counts none of them cannot be reached from a box.
+            if mission.get("_holders") is not None:
+                tags = [u for u in tags if u in mission["_holders"]]
             if not tags:
                 continue
             key = (float(pos.group(1)), float(pos.group(2)), float(rad.group(1)))

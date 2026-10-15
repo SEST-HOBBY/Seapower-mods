@@ -1689,6 +1689,37 @@ class DeploymentZones(unittest.TestCase):
         self.assertIn("placed into an objective", str(cm.exception))
         self.assertIn("Zone1 (Deployment Zone)", str(cm.exception))
 
+    # --- generated missions: the stock pattern (15 October) ---------------
+
+    def generated(self):
+        """The anchor, an escort 0.6 NM off her, a freighter of the convoy
+        4 NM off, a slot-tagged P-8 and a supplied Triton 40 NM away."""
+        placed = self.placement([("ran_ffh_anzac", 0, 0), ("ran_ffh_anzac", 0.6, 0),
+                                 ("civ_ms_freighter_a", 0, 4)])
+        placed["Taskforce1Aircraft"] = [
+            ("Taskforce1Aircraft1", _keys("usn_p8", 40, 0, TaskForceModeAirTaskingSlot="1"), None, False),
+            ("Taskforce1Aircraft2", _keys("raaf_mq-4c_triton", 40, 6), None, False)]
+        return self.mission(generation="Generated"), placed
+
+    def test_a_generated_mission_boxes_the_anchor_and_the_slots_only(self):
+        mission, placed = self.generated()
+        zones = bp.deployment_zones(mission, placed, {})
+        self.assertEqual([(z["label"], z["tags"]) for z in zones],
+                         [("Deployment Zone", ["Taskforce1Vessel1"]),
+                          ("Air Station", ["Taskforce1Aircraft1"])])
+        for x, z in ((0.6, 0), (0, 4), (40, 6)):          # escort, freighter, Triton
+            self.assertFalse(any(self.holds(zone, x, z) for zone in zones), (x, z))
+        west, east, south, north = self.box(zones[0])
+        self.assertLessEqual(east, 0.6 - bp.DEPLOY_KEEP_OUT_NM + 0.05)   # the escort cut out
+        bp.check_deployment_cover(mission, placed, zones)
+
+    def test_the_gate_refuses_a_generated_box_holding_a_supplied_unit(self):
+        mission, placed = self.generated()
+        zones = bp.deployment_zones(mission, placed, {})
+        zones[0]["width"] += 20                              # now reaches the escort
+        with self.assertRaisesRegex(SystemExit, "Taskforce1Vessel2 in Zone1"):
+            bp.check_deployment_cover(mission, placed, zones)
+
     def test_only_a_box_a_hull_can_be_moved_in_is_held_off_land(self):
         saved = bp.fix_land_positions.water
         bp.fix_land_positions.water = lambda *a, **k: False       # land everywhere

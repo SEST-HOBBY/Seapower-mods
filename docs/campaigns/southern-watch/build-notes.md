@@ -3097,3 +3097,44 @@ box, how it labels the boxes, that a ship may indeed be dragged into
 another box that admits ships (inferred from stock's empty boxes, not
 seen), and what it does with a vehicle dragged over the sea. Test card
 6I, rows I.7 to I.13.
+
+## The stock box layout in Task Force Mode missions (15 October)
+
+The player reported, on the 13 October build and again on the 15 October
+one, that most missions had changed: the supply ships to be escorted were
+missing, and patrol and recon aircraft sometimes did not appear. The mission
+files still held every one of those units, unchanged since 4 October; what
+had changed around them was the deployment boxes. The 13 October build put
+the escorts and the convoy inside the force's box (92 of 99 supplied ships);
+the 14 October build added boxes round every aircraft and convoy, and its
+objective rule left ten flagships outside every box.
+
+In a Generated or Replaced mission the game builds the player's force from
+what they own, and a box is where that force goes. Stock's `10 Vengeance at
+Luzon` boxes the anchor (the hull the game replaces with the player's first
+ship) and its four air-tasking slots, and nothing else. A unit the mission
+supplies that sits inside a box is, on this evidence, taken for a slot of
+the player's force and left out when nothing fills it. Not proven in game;
+the fix follows stock rather than a theory of the game's code.
+
+`deployment_zones()` now does in a generated mission what stock does:
+
+- one box round the anchor, and one round each slot-tagged aircraft, each on
+  its own (a box round two slots far apart could take in a ship between
+  them); no other Taskforce1 unit gets one;
+- every other Taskforce1 unit stays at least 0.3 NM outside every box
+  (`DEPLOY_KEEP_OUT_NM`): a box that would take one in is cut on the side
+  facing it, the cut that keeps the most room, and does not open over it;
+- the objective rule applies to the circles a boxed unit can complete;
+  a circle that counts only the convoy's ships cannot be reached from a box,
+  since those ships cannot be moved;
+- `check_deployment_cover()` stops the build if any supplied unit lies
+  inside a box.
+
+Measured on the built files: the 50 generated missions carry 124 boxes
+holding the 159 anchors and slots; the 185 units the missions supply are
+outside every box. The seven missions that launch as authored keep the
+boxes of the 14 October rule. "A box for every playable unit" (the 14
+October decision) no longer holds in generated missions: the convoys, escorts
+and supplied aircraft start where the mission puts them, as before 13
+October. Two tests cover the rule.
