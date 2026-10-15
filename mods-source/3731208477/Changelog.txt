@@ -1,3 +1,11 @@
+v1.46 - 20261014
+
+	Ammunitions: LaunchReliability, SeekerReliability, and WarheadReliability values ​​updated.
+	Ammunitions: Added DudExplosionClass effect class.
+	Vessels: Updated AssociatedSensors list of various units.
+
+v1.45 - 20261007 - Internal alias test.
+
 v1.44 - 20260928
 
 	- AV-8B: Modified OpticalView and MaxG values, recalculated ReadyUpTime for various loadouts, added AI SEAD role.

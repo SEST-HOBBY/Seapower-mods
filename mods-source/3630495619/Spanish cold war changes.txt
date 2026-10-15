@@ -1,5 +1,25 @@
 SPANISH MOD (#coldwar)  CHANGELOG
 
+v3.54 - 20261014
+	NEW:
+	- El Khattabi Moroccan Navy fast attack crafts based on Lazaga class, two versions, PTM armed with 4 MM30 Exocet missiles and PTG without missiles
+	FIXED:
+	- Corrected uniforms on Bofors gunners on Dédalo and Galicia
+	- Scenarios are now grouped into "Spanish Mod Scenarios" folder
+	- Added AI scheduled air missions and few enhancements on Spanish Guinea 1991 scenario
+
+v3.53 - 20261014
+
+	- Aircrafts, helicopters, vessels: Silhouette area values ​​added to units that did not have one defined.
+	- P-3A: Removed date-based anti-ship and reconnaissance loadouts imported from the US Navy P-3C (due to alias usage).
+	- Ammunitions: LaunchReliability, SeekerReliability, and WarheadReliability values ​​updated.
+	- Ammunitions: Added DudExplosionClass effect class.
+	- Ammunition: MaxAARange values ​​added for the C21 Canarias' AAW ammunitions.
+	- Vessels: Updated AssociatedSensors list of various units.
+	- Descubierta Late: Update Aspide missile version (from Euromod)
+
+v3.52 - 20261001 (Internal alias test version)
+
 v3.51 - 20260928
 
 	- Mk14 Torpedo - Adjusted position of cavitation bubble effect.
