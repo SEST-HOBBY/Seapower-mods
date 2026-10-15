@@ -3,8 +3,25 @@ Change log
 
 ===============================================================================
 
-08-Oct-2026: 0.8.5 Build 261008
+12-Oct-2026: 0.8.6 Build 261014 Public Release
+----------------------------------------------
+[UPD] New patch release, see below for changes
+
+===============================================================================
+12-Oct-2026: 0.8.5 Build 261012
 -------------------------------
+[FIX] Fixed crash on some machines on scene change
+[FIX] Fixed potential crash for trail renderers
+[FIX] Fixed crash when the units catalog exceeds 4032 classes (mods)
+[FIX] Fixed burst related crashes due to faulty class ids
+[FIX] Fixed webview async crashes
+
+[UPD] Updated Unity to 6000.0.84f1 as there were some crash fixes from the Unity side which affect Sea Power
+
+===============================================================================
+
+08-Oct-2026: 0.8.5 Build 261008 Public Release
+----------------------------------------------
 [UPD] New patch release, see below for changes
 
 ===============================================================================
