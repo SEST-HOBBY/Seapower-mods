@@ -1,4 +1,18 @@
 # Lines from Player-prev.log matching Exception/Error/not found/missing/failed.
-# 1 hit(s) - the first place to look when something did not load.
+# 15 hit(s) - the first place to look when something did not load.
 
     131: [IDX][Localization.cs:24 Load] [IDX] localization ini not found: C:/Program Files (x86)/Steam/steamapps/common/Sea Power/Sea Power_Data/StreamingAssets\IdentifyExpanded\language_en\identify_expanded.ini
+    321: MissingMethodException: Method not found: !!0 System.Text.Json.JsonSerializer.Deserialize<!0>(System.ReadOnlySpan`1<byte>,System.Text.Json.JsonSerializerOptions)
+    325: UnityEngine.DebugLogHandler:Internal_LogException_Injected(Exception, IntPtr)
+    326: UnityEngine.DebugLogHandler:Internal_LogException(Exception, Object)
+    327: UnityEngine.DebugLogHandler:LogException(Exception, Object)
+    328: Sentry.Unity.Integrations.UnityLogHandlerIntegration:LogException(Exception, Object)
+    329: UnityEngine.Logger:LogException(Exception, Object)
+    330: UnityEngine.Debug:CallOverridenDebugHandler(Exception, Object)
+    394: MissingMethodException: Method not found: !!0 System.Text.Json.JsonSerializer.Deserialize<!0>(System.ReadOnlySpan`1<byte>,System.Text.Json.JsonSerializerOptions)
+    398: UnityEngine.DebugLogHandler:Internal_LogException_Injected(Exception, IntPtr)
+    399: UnityEngine.DebugLogHandler:Internal_LogException(Exception, Object)
+    400: UnityEngine.DebugLogHandler:LogException(Exception, Object)
+    401: Sentry.Unity.Integrations.UnityLogHandlerIntegration:LogException(Exception, Object)
+    402: UnityEngine.Logger:LogException(Exception, Object)
+    403: UnityEngine.Debug:CallOverridenDebugHandler(Exception, Object)
