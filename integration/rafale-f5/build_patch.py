@@ -118,7 +118,7 @@ Description=JATM-era fits for the late Rafales: AIM-260 intercept, AIM-424 \
 MALICE, and LRASM anti-ship on the heavy stations. Wingtip MICA IR retained.
 
 [Compatibility]
-ApproximateVersion=0.8.5
+ApproximateVersion=0.8.6
 """
 
 

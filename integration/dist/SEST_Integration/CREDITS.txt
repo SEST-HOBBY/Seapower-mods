@@ -21,14 +21,14 @@ photographs from the SEST gallery. Each carries its photographer
 and licence on the picture; the full credits, with sources, are
 in Gallery/PHOTO_CREDITS.txt.
 
-510 of the unit files here are another author's file with
+514 of the unit files here are another author's file with
 changes made to it. A Sea Power unit file is a whole-file
 override - there is no way to alter one line of somebody's
 aircraft without shipping the whole aircraft - so this is how a
 patch has to work, and this list is what it patches.
 
 Measured, not declared: every shipped unit file is diffed against
-every file of its kind in the collection, and the 510 below
+every file of its kind in the collection, and the 514 below
 came back 90% or more alike. The percentage is how much of the
 file is unchanged.
 Files carried for a mod that was removed from the Workshop are
@@ -101,10 +101,14 @@ listed whatever the percentage: they are still that author's.
        98%  vessels/ae_ao_teide.ini 
       100%  vessels/ae_cvl_dedalo.ini 
       100%  vessels/ae_cvl_principe_asturias.ini 
+      100%  vessels/ae_ffg_baleares.ini 
       100%  vessels/ae_ffg_baleares_late.ini 
       100%  vessels/ae_ffg_descubierta.ini 
        98%  vessels/ae_ffg_descubierta_late.ini 
+      100%  vessels/ae_ffg_santa_maria.ini 
+      100%  vessels/ae_ffg_santa_maria_late.ini 
       100%  vessels/ae_ptm_lazaga.ini 
+      100%  vessels/mor_ptm_lazaga.ini 
        98%  vessels/ran_aor_supply.ini from ae_ao_teide.ini
        98%  vessels/usn_tao_kaiser.ini from ae_ao_teide.ini
 

@@ -1287,7 +1287,7 @@ def main():
         "(Workshop 3813157776): the SEST 2028 world - bases, fleets, air groups, supply ships and "
         "patrols from the SEST research - as a persistent campaign, listed in the Campaign menu "
         "marked [Dynamic]. Ships inside the SEST Integration Pack.\n\n"
-        "[Compatibility]\nApproximateVersion=0.8.5\n",
+        "[Compatibility]\nApproximateVersion=0.8.6\n",
         encoding="utf-8")
     report["values_basis"] = value_basis
     report["counts"] = {

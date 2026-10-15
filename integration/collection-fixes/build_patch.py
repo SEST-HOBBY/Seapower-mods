@@ -105,7 +105,7 @@ crews, park slots, taxi speed - where the mods dropped or lowered them. Generate
 integration/collection-fixes/build_patch.py; must load above every workshop mod.
 
 [Compatibility]
-ApproximateVersion=0.8.5
+ApproximateVersion=0.8.6
 """
 
 

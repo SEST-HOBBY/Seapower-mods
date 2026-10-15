@@ -42,7 +42,7 @@ Name=SEST Gallery
 Description=An offline photo gallery of the collection's units: open Gallery/gallery.html in a web browser. The same photos appear in the SEST mission briefings.
 
 [Compatibility]
-ApproximateVersion=0.8.5
+ApproximateVersion=0.8.6
 """
 
 

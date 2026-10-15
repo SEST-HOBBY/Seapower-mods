@@ -3,146 +3,107 @@ WORKSHOP REFRESH SUMMARY
 Written by tools/workshop_refresh_summary.py from data/install-snapshot/ and the
 canonical lists. Facts only; compatibility is judged in a later review.
 
-capture date           : 2026-10-14T16:58:19
-repo commit captured at: f6172148 (chore/workshop-refresh-20261014)
-previous capture       : 24734251c045
-previous export        : 0b0d137bee58
+capture date           : 2026-10-15T17:57:43
+repo commit captured at: ac15c0b3 (chore/workshop-refresh-20261015)
+previous capture       : 73515fc696ac
+previous export        : 73515fc696ac
 Sea Power              : 08-Oct-2026: 0.8.5 Build 261008
-  Steam build id       : 25806545
-  engine               : Unity 6000.0.67f1 (78a1c2bbeb6a)
+  Steam build id       : 25936448
+  engine               : Unity 6000.0.84f1 (78ab6fc243d5)
 
 COUNTS
-  A Steam-tracked subscriptions : 197
-  B Workshop folders on disk    : 197
-  C canonical Workshop ids      : 195
-  D catalog installed entries   : 195
+  A Steam-tracked subscriptions : 196
+  B Workshop folders on disk    : 196
+  C canonical Workshop ids      : 196
+  D catalog installed entries   : 196
   SEST entries in the order     : 1 (SEST_Integration)
-  SEST in the live order        : 3812461539 at 1 (on, Workshop copy)
-  local SEST folders (StreamingAssets): 0
-  canonical Mod Manager entries : 196
+  SEST in the live order        : SEST_Integration at 1 (on)
+  local SEST folders (StreamingAssets): 1
+  canonical Mod Manager entries : 197
   live Mod Manager entries      : 198
   pending (NeedsDownload / NeedsUpdate): 0 / 0
 
 SINCE THE PREVIOUS CAPTURE
   new folders:
-  3812461539  SEST Integration Pack [SEST's own Workshop item]
-  3819522350  Anduril Maritime Drones
-  removed folders:
   (none)
+  removed folders:
+  3812461539  SEST Integration Pack [SEST's own Workshop item]
   updated on the Workshop (folder date changed - the folder's last-write time, which
-  an update that only rewrites files inside existing subfolders does not move; the
+  an update that only rewrites files inside existing subfolders does not move; one of
+  the two captures predates Steam's timeupdated in the capture, 14 Oct 2026; the
   exported files below are the full record):
-  3390330875  Euromod - Modern US Navy  2026-10-13 -> 2026-10-14
-  3695809489  Euromod-(Japan)JMSDF Modern navy  2026-10-03 -> 2026-10-14
-  3732654992  THE REDFOR MOD  2026-10-10 -> 2026-10-14
-  3737267013  US Naval Aviation  2026-10-13 -> 2026-10-14
-  3766210676  Saronic Corsair ASV  2026-10-12 -> 2026-10-14
-  3790594162  Identify Expanded  2026-10-10 -> 2026-10-14
-  3796349767  YF-23 Black Widow II  2026-10-12 -> 2026-10-14
-  3804868806  Anduril FQ-44 Fury US Navy Carrier Wingmen  2026-10-12 -> 2026-10-14
-  3808882954  RC-135V/W Rivet Joint  2026-09-30 -> 2026-10-14
-  3810611344  MV-75 Cheyenne II  2026-10-12 -> 2026-10-14
-  3813033771  EC-2 Stand Off Jammer  2026-10-12 -> 2026-10-14
-  exported files changed since the previous export (0b0d137bee58; A added, D removed, M modified, R renamed):
-  3390330875  Euromod - Modern US Navy  files 270 -> 278  (A 8, D 0, M 7, R 1)
-      A aircraft/usn_mh-60r_p2.ini
-      A aircraft/usn_mh-60r_p2_squadrons.ini
-      A ammunition/usn_ssq-62.ini
-      A animations/animations_usn_mh-60r_p2.ini
-      A assets/models/aircraft/usn_mh-60r_p2/usn_flir_mat.ini
-      A assets/models/aircraft/usn_mh-60r_p2/usn_mh-60r_2_mat.ini
-      A assets/models/aircraft/usn_mh-60r_p2/usn_mh-60r_mat.ini
-      A language_en/aircraft_names.ini
-      R version_counter_614.txt
-      M language_cn/ammunition_names.ini
-      M language_en/ammunition_names.ini
-      M vessels/usn_ffg_oliver_hazard_perry_longhull_lamps-3.ini
-      ... and 4 more
-  3413868677  Red Storm Arsenal  files 1108 -> 1108  (A 0, D 0, M 1, R 0)
-      M vessels/usn_ffg_constellation.ini
-  3695809489  Euromod-(Japan)JMSDF Modern navy  files 41 -> 41  (A 0, D 0, M 5, R 1)
-      R version_counter_36.txt
-      M aircraft/jmsdf_sh-60j.ini
-      M aircraft/jmsdf_sh-60k.ini
-      M vessels/jmsdf_dd_asahi.ini
-      M vessels/jmsdf_ddg_atago.ini
-      M vessels/jmsdf_ddg_maya.ini
-  3732654992  THE REDFOR MOD  files 314 -> 318  (A 4, D 0, M 12, R 0)
-      A aircraft/wp_tu95k.ini
-      A aircraft/wp_tu95k_squadrons.ini
-      A vessels/wp_mpk_grisha4.ini
-      A vessels/wp_mpk_grisha4_variants.ini
-      M REDFOR.txt
-      M ammunition/wp_r-500.ini
-      M land_units/wp_5p85te2_s400.ini
-      M land_units/wp_baz_tel.ini
-      M language_en/aircraft_names.ini
+  3390330875  Euromod - Modern US Navy  2026-10-14 -> 2026-10-15
+  3629144864  Euromod - Main Pack  2026-10-12 -> 2026-10-15
+  3630495619  Spanish Navy Mod (Cold War)  2026-09-29 -> 2026-10-15
+  3731208477  Spanish Navy Mod (Modern)  2026-09-29 -> 2026-10-15
+  3790594162  Identify Expanded  2026-10-14 -> 2026-10-15
+  exported files changed since the previous export (73515fc696ac; A added, D removed, M modified, R renamed):
+  3390330875  Euromod - Modern US Navy  files 278 -> 278  (A 0, D 0, M 59, R 1)
+      R version_counter_615.txt
       M language_en/vessel_names.ini
+      M vessels/usn_ddg_burke_f1_051.ini
+      M vessels/usn_ddg_burke_f1_051_early.ini
+      M vessels/usn_ddg_burke_f1_051_late.ini
+      M vessels/usn_ddg_burke_f1_051_late_variants.ini
+      M vessels/usn_ddg_burke_f1_051_variants.ini
+      M vessels/usn_ddg_burke_f1_052.ini
+      M vessels/usn_ddg_burke_f1_052_early.ini
+      M vessels/usn_ddg_burke_f1_052_late.ini
+      M vessels/usn_ddg_burke_f1_052_late_variants.ini
+      M vessels/usn_ddg_burke_f1_052_variants.ini
+      ... and 48 more
+  3629144864  Euromod - Main Pack  files 745 -> 747  (A 2, D 0, M 5, R 1)
+      A ammunition/is_shafrir_2.ini
+      A ammunition/usa_cal_30mm_hedp.ini
+      R version_counter_475.txt
+      M ammunition/eu_30mm_bushmaster.ini
+      M language_en/ammunition_names.ini
+      M language_en/systemgroups.ini
       M systems/sensors.ini
-      M vessels/wp_bpk_karaL.ini
-      ... and 4 more
-  3737267013  US Naval Aviation  files 264 -> 264  (A 0, D 0, M 5, R 1)
-      R version_counter_92.txt
-      M aircraft/usn_mh-60r.ini
-      M aircraft/usn_sh-60b.ini
-      M aircraft/usn_sh-60f.ini
-      M ammunition/usn_agm-158b-2.ini
-      M ammunition/usn_agm-158c-3.ini
-  3766210676  Saronic Corsair ASV  files 43 -> 43  (A 0, D 0, M 1, R 0)
+      M systems/weapons.ini
+  3630495619  Spanish Navy Mod (Cold War)  files 182 -> 186  (A 4, D 0, M 47, R 8)
+      A vessels/mor_ptg_lazaga.ini
+      A vessels/mor_ptg_lazaga_variants.ini
+      A vessels/mor_ptm_lazaga.ini
+      A vessels/mor_ptm_lazaga_variants.ini
+      R missions/Spanish Mod Scenarios/ASW_EX_1973_Spanish_coast.ini
+      R missions/Spanish Mod Scenarios/ASW_EX_1973_Spanish_coast_briefing/BriefingMap_en.xml
+      R missions/Spanish Mod Scenarios/ASW_EX_1973_Spanish_coast_briefing/BriefingText_en.xml
+      R missions/Spanish Mod Scenarios/ASW_EX_1973_Spanish_coast_briefing/_info.ini
+      R missions/Spanish Mod Scenarios/Spanish_Guinea-1991.ini
+      R missions/Spanish Mod Scenarios/Spanish_Guinea-1991_briefing/BriefingMap_en.xml
+      R missions/Spanish Mod Scenarios/Spanish_Guinea-1991_briefing/BriefingText_en.xml
+      R missions/Spanish Mod Scenarios/Spanish_Guinea-1991_briefing/_info.ini
+      ... and 47 more
+  3731208477  Spanish Navy Mod (Modern)  files 125 -> 125  (A 0, D 0, M 20, R 0)
+      M Changelog.txt
       M _info.ini
-  3790594162  Identify Expanded  files 10 -> 10  (A 0, D 0, M 1, R 0)
-      M language_en/identify_expanded.ini
-  3796349767  YF-23 Black Widow II  files 73 -> 73  (A 0, D 0, M 1, R 0)
-      M _info.ini
-  3804868806  Anduril FQ-44 Fury US Navy Carrier Wingmen  files 75 -> 75  (A 0, D 0, M 1, R 0)
-      M _info.ini
-  3808882954  RC-135V/W Rivet Joint  files 16 -> 44  (A 38, D 10, M 2, R 2)
-      D aircraft/boeing-rc135.ini
-      D aircraft/boeing-rc135_early.ini
-      D aircraft/boeing-rc135_early_squadrons.ini
-      D aircraft/boeing-rc135_squadrons.ini
-      D assets/models/aircraft/boeing-rc135-early/rc135_glass_mat.ini
-      D assets/models/aircraft/boeing-rc135-early/rc135_skin1_mat.ini
-      D assets/models/aircraft/boeing-rc135/rc135_glass_mat.ini
-      D assets/models/aircraft/boeing-rc135/rc135_skin1_mat.ini
-      D workshop/changelog.md
-      D workshop/description.md
-      A aircraft/boeing_rc135.ini
-      A aircraft/boeing_rc135_early.ini
-      ... and 40 more
-  3810611344  MV-75 Cheyenne II  files 249 -> 249  (A 0, D 0, M 1, R 0)
-      M _info.ini
-  3813033771  EC-2 Stand Off Jammer  files 52 -> 52  (A 0, D 0, M 1, R 0)
-      M _info.ini
-  3819522350  Anduril Maritime Drones  files - -> 119  (A 119, D 0, M 0, R 0)
-      A LICENSE.txt
-      A README.txt
-      A _info.ini
-      A ammunition/usn_copperhead_100m.ini
-      A ammunition/usn_copperhead_500m.ini
-      A ammunition/usn_k5_strike_payload.ini
-      A effects/anduril_maritime/copperhead_100_cavitation.ini
-      A effects/anduril_maritime/copperhead_100_vortex.ini
-      A effects/anduril_maritime/copperhead_500_cavitation.ini
-      A effects/anduril_maritime/copperhead_500_vortex.ini
-      A effects/anduril_maritime/dive_ld_cavitation.ini
-      A effects/anduril_maritime/dive_ld_vortex.ini
-      ... and 107 more
+      M ammunition/ger_dm2a4_er.ini
+      M ammunition/spa_agm-114m.ini
+      M ammunition/spa_agm-119b.ini
+      M ammunition/spa_agm-65f.ini
+      M ammunition/spa_aim-120b.ini
+      M ammunition/spa_aim-120c.ini
+      M ammunition/spa_iris-t.ini
+      M ammunition/spa_jsm-sl.ini
+      M ammunition/spa_kepd-350.ini
+      M ammunition/spa_meteor.ini
+      ... and 8 more
+  3819522350  Anduril Maritime Drones  files 119 -> 121  (A 2, D 0, M 2, R 0)
+      A ships/usn_uuv_dive_ld/dive_ld_propeller_mat.ini
+      A ships/usn_uuv_dive_xl/dive_xl_propeller_mat.ini
+      M vessels/usn_uuv_dive_ld.ini
+      M vessels/usn_uuv_dive_xl.ini
   plugin DLLs changed:
+  [game] UnityPlayer.dll
   [workshop] 3790594162\IdentifyExpanded.dll
   plugin DLLs new:
-  [workshop] 3790594162\Newtonsoft.Json.dll
-  [workshop] 3790594162\System.Buffers.dll
-  [workshop] 3790594162\System.Memory.dll
-  [workshop] 3790594162\System.Numerics.Vectors.dll
-  [workshop] 3790594162\System.Runtime.CompilerServices.Unsafe.dll
-  [workshop] 3812461539\plugins\SEST.MenuBackground.dll
+  [SEST_Integration\plugins] SEST.MenuBackground.dll
 
 INVENTORY
-  subscribed + downloaded + canonical + catalogued: 195
+  subscribed + downloaded + canonical + catalogued: 196
   subscribed but unplaced (B not C):
-  3812461539  SEST Integration Pack [SEST's own Workshop item]
-  3819522350  Anduril Maritime Drones
+  (none)
   canonical but not downloaded (C not B):
   (none)
   canonical but not catalogued (C not D):
@@ -150,8 +111,7 @@ INVENTORY
   catalogued installed but not on disk (D not B):
   (none)
   new uncatalogued subscriptions (B not in any catalog entry):
-  3812461539  SEST Integration Pack [SEST's own Workshop item]
-  3819522350  Anduril Maritime Drones
+  (none)
   historical catalog entries (status not installed): 8
   Steam-tracked but not on disk: (none)
   on disk but not Steam-tracked: (none)
@@ -169,24 +129,15 @@ EXPORTER UPDATE CHECK (export-mod-configs.ps1 -CheckUpdates)
   Found Sea Power (app 1286220)
     game dir : c:\program files (x86)\steam\steamapps\common\Sea Power
     workshop : c:\program files (x86)\steam\steamapps\workshop\content\1286220
-  unchanged since the last export : 180
+  unchanged since the last export : 187
   UPDATED by their authors (re-export to pick the changes up):
     3390330875  Euromod - Modern US Navy
-    3695809489  Euromod-(Japan)JMSDF Modern navy
-    3732654992  THE REDFOR MOD
-    3737267013  US Naval Aviation
-    3766210676  Saronic Corsair ASV
+    3629144864  Euromod - Main Pack
+    3630495619  Spanish Navy Mod (Cold War)
+    3731208477  Spanish Navy Mod (Modern)
     3775128499  PLAN Pack
     3776340577  Ka-27RLD - Ka-31 AEW Helicopter
     3780118683  Tu-214R Family Pack
     3781062859  E-3G AWAC
-    3790594162  Identify Expanded
-    3796349767  YF-23 Black Widow II
-    3804868806  Anduril FQ-44 Fury US Navy Carrier Wingmen
-    3808882954  RC-135V/W Rivet Joint
-    3810611344  MV-75 Cheyenne II
-    3813033771  EC-2 Stand Off Jammer
-  NEW subscriptions (not exported yet):
-    3812461539  SEST Integration Pack
     3819522350  Anduril Maritime Drones
   To capture: re-run this script without -CheckUpdates, then commit and push.
