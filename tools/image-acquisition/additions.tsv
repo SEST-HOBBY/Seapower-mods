@@ -1,0 +1,28 @@
+unit_id|label|provider|note
+wp_buk-m3|Buk-M3 9A317M TELAR|3564792549|Exact Buk-M3 image needed
+wp_bukslave|Buk-M3 battery launcher|3564792549|Verify modeled vehicle before claiming exact photo
+wp_m3-radar|Buk-M3 radar|3564792549|Radar-specific asset preferred
+ina_prithvi_tel|Indian Prithvi II III TEL|3731931836|Verify TEL configuration
+wp_ss-27_tel|Topol-M mobile TEL|3571718093|Land based mobile strategic missile
+pla_df-41_tel|DF-41 mobile TEL|3571718093|Real DF-41 images difficult; avoid sketch when real photo needed
+usaf_icbm_silo|Minuteman III silo|3556629790|Silo image not a specific location
+wp_icbm_silo|RT-23 Molodets silo|3556629790|Hold unless verifiable exact silo; avoid random silo as exact
+wp_iskander|Iskander-K TEL|3569219326|Reuse existing Iskander mapping; standalone mod shadowed by REDFOR
+rok_f15k|ROKAF F-15K Slam Eagle|3789208859|Korean-specific reference
+rok_f35a|ROKAF F-35A|3789208859|Reuse F-35A family if no Korean photo
+rok_f4e|ROKAF F-4E|3789208859|Korean operator preferred
+rok_f5e|ROKAF F-5E|3789208859|Korean operator preferred
+rok_fa50|ROKAF FA-50 Fighting Eagle|3789208859|Korean operator preferred, Philippine family photo possible
+rok_kf16|ROKAF KF-16|3789208859|Korean F-16 derivative
+rok_kf21|ROKAF KF-21 Boramae|3789208859|Exact KF-21 image
+rok_kuh1|ROK KUH-1 Surion|3789208859|Exact Korean helicopter
+rok_p-3c|ROK P-3C Orion|3789208859|Exact ROK maritime patrol aircraft if possible
+rok_mh60|ROK MH-60R Seahawk|3789208859|Variant and operator verify against repo
+usaf_hh-3|HH-3 helicopter|3373960386|USAF HH-3 exact image
+sv22_2024_osprey|SV-22 ASW Osprey concept|3806466625|Only real parent V-22 with explicit representative label
+govu|Government building objective|3600788156|Contextual photograph only; needs actual unit ID check
+anduril:dive_ld|Dive-LD family|3819522350|No public-domain exact imagery verified; request authorization for Anduril media or Alpine render
+anduril:dive_xl|Dive-XL family|3819522350|No public-domain exact imagery verified; includes XL SU variants, verify exported ids
+anduril:copperhead_100|Copperhead-100 family|3819522350|No Commons exact image; include 100M torpedo and survey configurations by alias
+anduril:copperhead_500|Copperhead-500 family|3819522350|No Commons exact image; include 500M torpedo and survey configurations by alias
+anduril:k5_kraken|K5 KRAKEN USV|3819522350|Requires permission for product or mod render; reference user screenshot only

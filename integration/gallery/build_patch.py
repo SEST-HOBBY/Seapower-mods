@@ -88,6 +88,14 @@ def main():
             sys.exit(f"{row['file']}: added-photo-credits.csv is not applied - run "
                      "python3 integration/gallery/apply_added_photos.py, then rebuild")
 
+    # The reviewed Commons photos: every row of commons-photos.csv must be
+    # in the catalogue as written.
+    import commons_photos
+    late = commons_photos.stale(cat)
+    if late:
+        sys.exit(f"commons-photos.csv is not applied ({', '.join(late[:5])}) - run "
+                 "python3 integration/gallery/commons_photos.py apply, then rebuild")
+
     profiles = write_profiles(cat)
 
     print(f"built {OUT.name}: {len(src)} files, {len(cat['assets'])} photos, "

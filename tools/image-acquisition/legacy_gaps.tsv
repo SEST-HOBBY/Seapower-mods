@@ -1,0 +1,90 @@
+unit_id|label|existing_state|missions
+civ_humpback|Humpback|NO PHOTO|13
+E7A_Wedgetail|E-7A Wedgetail|NO PHOTO|12
+plan_type_001|CV-16 Liaoning|NO PHOTO|9
+plan_j-15|J-15|WEAK PHOTO|8
+plan_j-15d|J-15D|WEAK PHOTO|7
+airbase_raaf_darwin|RAAF Base Darwin|NO PHOTO|7
+plan_ss_type_039c|Type 039C Yuan-class|NO PHOTO|7
+plan_ssn_type_093b|Type 093B Shang III-class SSN|NO PHOTO|7
+ran_ssg_collins|Collins-class SSG (stand-in)|WEAK PHOTO|5
+airbase_raaf_east_sale|RAAF Base East Sale|WEAK PHOTO|5
+airbase_raaf_edinburgh|RAAF Base Edinburgh|NO PHOTO|5
+ir_ptg_peykaap_3|Peykaap III-class|NO PHOTO|5
+ran_opv_arafura|Arafura-class OPV (stand-in)|NO PHOTO|4
+4tentgroup|4 Tent Group|WEAK PHOTO|4
+pla_airbase_modern|Modern Chinese airforce base|NO PHOTO|4
+airbase_raaf_scherger|RAAF Base Scherger (Bare Base)|NO PHOTO|3
+airbase_raaf_tindal|RAAF Base Tindal|NO PHOTO|2
+mv22b_osprey|MV-22B Osprey|NO PHOTO|2
+plan_cv_type_003|Type 003|WEAK PHOTO|2
+plan_lpd_type_071|Type 071 Amphibious Transport Dock|NO PHOTO|2
+plan_type_052d_p3|Type 052D Phase 3|NO PHOTO|2
+shahed_tel_black|Shahed-136-black|NO PHOTO|2
+usmc_kc-130j|KC-130J|WEAK PHOTO|2
+usn_ForpostR705|Forpost-R UAV|NO PHOTO|2
+wp_airbase_modern|Modern Russian airforce base|NO PHOTO|2
+wp_ssgn_yasen|Yasen-class|NO PHOTO|2
+ko_ffg-818|Daegu Class|NO PHOTO|1
+usaf_f-15e_SE|F-15E|NO PHOTO|1
+spa_av-8b_plus|AV-8B+|NO PHOTO|1
+usaf_f-15ex_SEII|F-15EX|NO PHOTO|1
+Coal_PowerPlant|Coal Power Plant|NO PHOTO|1
+FOB|Forward Operating Base|NO PHOTO|1
+Liberty|Statue Of Liberty|NO PHOTO|1
+Oil_pump|Oil Pump|NO PHOTO|1
+S-70B-2_Seahawk|S-70B-2|NO PHOTO|1
+airbase_raaf_curtin|RAAF Base Curtin (Bare Base)|NO PHOTO|1
+airbase_rnzaf_auckland|RNZAF Base Auckland (Whenuapai)|NO PHOTO|1
+airbase_us|U.S. Air Force Base|NO PHOTO|1
+airfield_a-10|A-10 Airbase|NO PHOTO|1
+airfield_us|US aviation base|NO PHOTO|1
+civ_spar_rig_helo|Armed oil rig with helo - Iran|NO PHOTO|1
+fr_as_332M|AS332M Super Puma|NO PHOTO|1
+idf_dsws|David's Sling TEL|WEAK PHOTO|1
+idf_dsws_radar|David's Sling Radar|WEAK PHOTO|1
+ir_aor_delvar|Delvar supply vessel|NO PHOTO|1
+jp_12ssmht|Type-12-SSM-ER-System-2024|NO PHOTO|1
+nato_large_pvo_airbase1|Barksdale Air Force Base|NO PHOTO|1
+pla_9k331|Tor-M1|NO PHOTO|1
+pla_df-21c_tel|DF-21C TEL|WEAK PHOTO|1
+pla_df-26b_tel|DF-26B TEL|WEAK PHOTO|1
+pla_h-200a_radar|H-200A FCR|NO PHOTO|1
+pla_z21|Z-21|NO PHOTO|1
+plaaf_j-11bg|J-11BG|WEAK PHOTO|1
+plaaf_j-11bs|J-11BS|WEAK PHOTO|1
+plaaf_j36|J-36 Tailless Fighter|NO PHOTO|1
+plan_cvn_004|Type 004 Zhejiang-class|NO PHOTO|1
+plan_j-35|J-35|WEAK PHOTO|1
+plan_j-50|J-50|NO PHOTO|1
+plan_ss_type_039|Type 039 Song-class|NO PHOTO|1
+rfn_ffg_11356|Project 11356R Admiral Grigorovich|NO PHOTO|1
+rn_ddg_type45|Type 45 class|WEAK PHOTO|1
+ru_spaa_mt-lb_sosna|MTLB Sosna|NO PHOTO|1
+shahed_tel_white|Shahed-136-white|NO PHOTO|1
+thaad_tel|THAAD|WEAK PHOTO|1
+usa_car_hemtt|HEMTT|NO PHOTO|1
+usaf_b-52g|B-52G|WEAK PHOTO|1
+usaf_f-16a|F-16A|WEAK PHOTO|1
+usaf_rq-180|RQ-180 White Bat|NO PHOTO|1
+wp_an_tpy_2|AN/TPY-2|WEAK PHOTO|1
+wp_rkr_kirov_improved|Kirov-class (Improved)|NO PHOTO|1
+wp_scud_9k72|SCUD-B|WEAK PHOTO|1
+wp_sejjil_tel|Sejjil|NO PHOTO|1
+wp_ss-26_tel|SS-26 TEL|NO PHOTO|1
+ae_ffg_bonifaz|Bonifaz-class|NO PHOTO|0
+ae_lpd_galicia|Galicia-class|NO PHOTO|0
+ae_ssk_s80|S-80-class|NO PHOTO|0
+fr_ssn_suffren|Suffren-class|NO PHOTO|0
+ger_ffg_f124_MLU|F124 Sachsen-class MLU|NO PHOTO|0
+ger_ffg_f125_MLU|F125 Baden-Wuerttemberg-class MLU|NO PHOTO|0
+ger_ssk_type_212a_batch1|Type 212A-class (Batch 1)|NO PHOTO|0
+ita_fs_ppx|Vivaldi Class|NO PHOTO|0
+ita_ssk_todaro_batch1|Todaro class (Batch I)|NO PHOTO|0
+ko_ffg-811|Incheon Class|NO PHOTO|0
+ko_ffg-828|Chungnam Class|NO PHOTO|0
+mm_ddgh_durand_de_la_penne_02|Luigi Durand de la Penne-class|WEAK PHOTO|0
+rn_ddg_type45_26|Type 45 class 2026|WEAK PHOTO|0
+usn_ddg_arleigh_flt2A_119_2027|Arleigh Burke Flt.2A 2027|NO PHOTO|0
+usn_ssn_los_angeles_flt3_2026|Los Angeles-class Flt3 2026|NO PHOTO|0
+mm_av-8b_plus|AV-8B+ Harrier II|NO PHOTO|0
