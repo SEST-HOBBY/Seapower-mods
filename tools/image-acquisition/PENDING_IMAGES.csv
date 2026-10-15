@@ -1,0 +1,32 @@
+﻿asset_group,unit_ids,status,reason
+anduril_copperhead_100,anduril:copperhead_100,HOLD: obtain rights/authorized mod model render; no automatic download,No Commons exact image; include 100M torpedo and survey configurations by alias; Survey and torpedo variants alias to parent
+anduril_copperhead_500,anduril:copperhead_500,HOLD: obtain rights/authorized mod model render; no automatic download,No Commons exact image; include 500M torpedo and survey configurations by alias; Survey and torpedo variants alias to parent
+anduril_dive_ld,anduril:dive_ld,HOLD: obtain rights/authorized mod model render; no automatic download,No public-domain exact imagery verified; request authorization for Anduril media or Alpine render; Ask Alpine/Anduril for permission to use an exact model render or photo
+anduril_dive_xl,anduril:dive_xl,HOLD: obtain rights/authorized mod model render; no automatic download,"No public-domain exact imagery verified; includes XL SU variants, verify exported ids; Includes Dive-XL SU? must check exported unit IDs"
+anduril_k5_kraken,anduril:k5_kraken,HOLD: obtain rights/authorized mod model render; no automatic download,Requires permission for product or mod render; reference user screenshot only; No license for Workshop author's screenshot; keep as private reference only
+pla_airbase,pla_airbase_modern,FAILED / review required,"No acceptable real, sufficiently sized licensed image was found"
+shahed_tel,shahed_tel_black; shahed_tel_white,FAILED / review required,"No acceptable real, sufficiently sized licensed image was found"
+shang_family,plan_ssn_type_093b,FAILED / review required,"No acceptable real, sufficiently sized licensed image was found"
+df41,pla_df-41_tel,FAILED / review required,"No acceptable real, sufficiently sized licensed image was found"
+j15,plan_j-15,FAILED / review required,"No acceptable real, sufficiently sized licensed image was found"
+prithvi,ina_prithvi_tel,FAILED / review required,"No acceptable real, sufficiently sized licensed image was found"
+burke2a,usn_ddg_arleigh_flt2A_119_2027,FAILED / review required,"No acceptable real, sufficiently sized licensed image was found"
+delvar,ir_aor_delvar,FAILED / review required,"No acceptable real, sufficiently sized licensed image was found"
+elm2084,idf_dsws_radar,FAILED / review required,"No acceptable real, sufficiently sized licensed image was found"
+galicia,ae_lpd_galicia,FAILED / review required,"No acceptable real, sufficiently sized licensed image was found"
+h200,pla_h-200a_radar,FAILED / review required,"No acceptable real, sufficiently sized licensed image was found"
+j36,plaaf_j36,HOLD: do not mislabel conceptual or unidentified hardware,Only verified prototype photo or authorized game render
+j50,plan_j-50,HOLD: do not mislabel conceptual or unidentified hardware,Concept/prototype verification required
+kirov,wp_rkr_kirov_improved,FAILED / review required,"No acceptable real, sufficiently sized licensed image was found"
+losangeles,usn_ssn_los_angeles_flt3_2026,FAILED / review required,"No acceptable real, sufficiently sized licensed image was found"
+oilrig,civ_spar_rig_helo,FAILED / review required,"No acceptable real, sufficiently sized licensed image was found"
+ppx_vivaldi,ita_fs_ppx,HOLD: do not mislabel conceptual or unidentified hardware,PPX Vivaldi actual configuration uncertain
+rq180,usaf_rq-180,HOLD: do not mislabel conceptual or unidentified hardware,Public real photography unverified
+scudb,wp_scud_9k72,FAILED / review required,"No acceptable real, sufficiently sized licensed image was found"
+sejjil,wp_sejjil_tel,FAILED / review required,"No acceptable real, sufficiently sized licensed image was found"
+song,plan_ss_type_039,FAILED / review required,"No acceptable real, sufficiently sized licensed image was found"
+sosna,ru_spaa_mt-lb_sosna,FAILED / review required,"No acceptable real, sufficiently sized licensed image was found"
+tpy2,wp_an_tpy_2,FAILED / review required,"No acceptable real, sufficiently sized licensed image was found"
+type004,plan_cvn_004,HOLD: do not mislabel conceptual or unidentified hardware,Type 004 fictional/future depiction; do not mislabel a carrier
+z21,pla_z21,HOLD: do not mislabel conceptual or unidentified hardware,Model/prototype photo not confirmed
+rt23_silo,wp_icbm_silo,HOLD: do not mislabel conceptual or unidentified hardware,Hold unless verifiable exact silo; avoid random silo as exact; No confirmed exact RT-23 silo photograph; avoid mislabeled silo
