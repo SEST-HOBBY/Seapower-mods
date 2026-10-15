@@ -1,5 +1,11 @@
 SPANISH MOD (#coldwar)  CHANGELOG
 
+v3.55 - 20261015
+	
+	Internal fixes.
+	- Fixed wrong cockpit glass textures on static SH-3D
+	- Enhanced textures for moroccan Lazaga vessels	
+
 v3.54 - 20261014
 	NEW:
 	- El Khattabi Moroccan Navy fast attack crafts based on Lazaga class, two versions, PTM armed with 4 MM30 Exocet missiles and PTG without missiles
