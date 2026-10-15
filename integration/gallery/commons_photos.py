@@ -28,7 +28,10 @@ Two steps:
 
 review.csv columns: asset_group, decision (approve or reject), verdict
 (same_type, same_family or context), category (optional: a gallery
-category, else taken from the units' folder), note. same_type and
+category, else taken from the units' folder), also_units (optional: more
+unit ids, separated by ;, that the photo shows too), note. A group whose id
+the gallery already uses for another photo is refused: an existing photo,
+the SEST author's own above all, is never replaced from here. same_type and
 same_family make the photo the units' encyclopedia picture (same_family is
 labelled "Class photo"); context puts it in the gallery only.
 """
@@ -114,6 +117,8 @@ def intake(kit, review_path):
     acquired = {r["asset_group"]: r for r in read(kit / "ACQUIRED_IMAGES.csv")}
     folders = unit_folders()
     rows = {r["asset_id"]: r for r in sheet()}
+    existing = {a["asset_id"]: a["file"] for a in load_catalogue()["assets"]
+                if a.get("origin") != "wikimedia_commons_reviewed"}
     taken = 0
     for rv in read(review_path):
         group = rv["asset_group"].strip()
@@ -128,7 +133,11 @@ def intake(kit, review_path):
             sys.exit(f"{group}: {src} is missing")
         if sha(src) != a["sha256"]:
             sys.exit(f"{group}: {src.name} does not match the kit's SHA-256 - re-download it")
-        units = [u.strip() for u in a["unit_ids"].split(";") if u.strip()]
+        if group in existing:
+            sys.exit(f"{group}: the gallery already has a photo by that id ({existing[group]}); "
+                     "reject it in review.csv, or rename the group")
+        units = [u.strip() for u in a["unit_ids"].split(";") + rv.get("also_units", "").split(";")
+                 if u.strip()]
         known = [u for u in units if u.lower() in folders]
         if not known:
             sys.exit(f"{group}: none of {units} is a unit in the build")
@@ -258,9 +267,10 @@ def apply():
         pat = re.compile(rf"^{re.escape(aid)} — .*?\n\n", re.M | re.S)
         credits = pat.sub(lambda _m: block + "\n", credits, count=1) if pat.search(credits) \
             else credits.rstrip("\n") + "\n\n" + block + "\n"
-        # the encyclopedia picture: a reviewed same_type or same_family photo
-        # replaces the unit's row, unless the row already holds a same_type
-        # photo and this one is only same_family
+        # the encyclopedia picture: a reviewed photo takes a unit with no
+        # row, or a row whose photo was judged wrong or unusable; a same_type
+        # photo also takes a same_family row. A reviewed same_type row is
+        # never replaced.
         if row["verdict"] in ("same_type", "same_family"):
             for uid in [u for u in row["unit_ids"].split(";") if u]:
                 hit = next((i for i, l in enumerate(profile_lines)
@@ -270,7 +280,8 @@ def apply():
                     profile_lines.append(new)
                 else:
                     have = profile_lines[hit].split("\t")
-                    if have[1] == aid or not (have[2] == "same_type" and row["verdict"] == "same_family"):
+                    if (have[1] == aid or have[2] not in ("same_type", "same_family")
+                            or (have[2] == "same_family" and row["verdict"] == "same_type")):
                         profile_lines[hit] = new
     cat["summary"]["photo_assets"] = len(cat["assets"])
     cat["summary"]["unique_photo_hashes"] = len({a["sha256"] for a in cat["assets"]})

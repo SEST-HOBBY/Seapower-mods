@@ -1,0 +1,80 @@
+asset_group,decision,verdict,category,also_units,note
+a10_base,approve,same_family,,,A-10s on a USAF flightline; a base of the kind the unit stands for
+arafura,approve,same_type,,,HMAS Arafura (203) alongside in Sydney
+bukm3,approve,same_type,,,9A317M TELAR at Armiya 2021
+bukm3_radar,approve,same_type,,,9S36M radar head on its mast
+e7a_wedgetail,approve,same_type,,,RAAF E-7A landing at Nellis
+f125,approve,same_family,,,Baden-Wurttemberg (F222); the unit is a modernised F125
+grigorovich,approve,same_type,,,Admiral Grigorovich (745)
+harrier_av8b,approve,same_type,,,Spanish Navy AV-8B Harrier II Plus; the Italian unit is the same type
+hemtt,approve,same_type,,,HEMTT tractor unloading
+hh3,approve,same_type,,,HH-3E at Kirtland 1980
+humpback,approve,same_type,,,humpback whale surfacing
+incheon,approve,same_type,,,ROKS Incheon (FFG-811)
+j15d,approve,same_family,,,"J-15 family in flight; the D's wingtip pods are not shown"
+kc130j,approve,same_type,,,VMGR-252 KC-130J in flight
+kf21,approve,same_type,,,KF-21 Boramae at ADEX 2023
+liaoning,approve,context,,,"Liaoning at Dalian, small behind the shipyard: gallery only"
+minuteman_silo,approve,context,,,"a training launch tube, not a real silo: gallery only"
+oilpump,approve,same_family,,,pumpjack
+p3c_rok,approve,same_family,,,"ROK Navy P-3 tail and fuselage, partly in frame"
+peykaap3,approve,same_type,,,Peykaap III boats at their commissioning
+raaf_east_sale,approve,same_type,,,the base gate and its Winjeel
+raaf_edinburgh,approve,same_type,,,"Global Hawk on the runway, from Commons' RAAF Base Edinburgh category"
+raaf_scherger,approve,same_type,,,the base gate sign
+raaf_tindal,approve,same_type,,,RAAF F-35A refuelled in a Tindal hangar
+s70b2,approve,same_family,,,Seahawk with a swimmer; the exact operator is not visible
+s80,approve,same_family,,,"submarine at Cartagena, where the S-80s are based; the class is not confirmed"
+surion,approve,same_type,,,KUH-1 Surion in Alaska
+todaro,approve,same_type,,,ITS Salvatore Todaro (S 526)
+topolm,approve,same_type,,,Topol-M TEL in Moscow
+torm1,approve,same_type,,,Tor-M1 beside an S-300V launcher
+type071,approve,same_type,,,"Changbai Shan (989) with landing craft, at a distance"
+type12,approve,same_family,,,JGSDF Type 12 launcher; the unit is the extended-range version
+us_airfield,approve,same_family,,,Chinooks on a US Army airfield
+yasen,approve,same_type,,,K-560 Severodvinsk
+yuan_family,approve,same_family,,,Yuan-class boat; the unit is the 039C
+field_tents,approve,same_family,,,troops raising a field tent
+fa50,approve,same_family,,,"FA-50 nearest, with other ROKAF types"
+f5e_rok,approve,same_family,,,"ROKAF F-5E nearest, Team Spirit 84 formation"
+b52g,reject,,,,the SEST author's own photo stays
+df21,reject,,,,the SEST author's own photo stays
+df26,reject,,,,the SEST author's own photo stays
+f16a,reject,,,,the SEST author's own photo stays
+j35,reject,,,,the SEST author's own photo stays
+f15ex,reject,,,,the gallery already has this same Commons file
+type45,reject,,,,the gallery already has a photo of HMS Daring
+durand,reject,,,,the gallery's whole-ship photo is better than this deck view
+f15e,reject,,,,the gallery's photo stays
+forpost,reject,,,,the gallery's photo stays
+iskander,reject,,,,the gallery's Iskander-M TEL is the better match
+superpuma,reject,,,,the gallery's photo stays
+thaad,reject,,,,the gallery's photo stays
+coalplant,reject,,,,the gallery's photo stays
+bukm3_launcher,reject,,,,the same file as bukm3 and shows the TELAR not the launcher
+barksdale,reject,,,,a house; no airbase in view
+bonifaz,reject,,,,a render
+chungnam,reject,,,,a render
+collins,reject,,,,the submarine is not visible
+daegu,reject,,,,the ships are too far to identify
+davids_sling,reject,,,,an interception in the sky; no launcher
+f124,reject,,,,the F124 cannot be picked out of the group
+f15k,reject,,,,the F-15Ks are specks behind a B-1B
+f35a_rok,reject,,,,a mixed formation; no ROK F-35A identifiable
+f4e_rok,reject,,,,the F-16 fills the frame; the F-4E is behind it
+fob,reject,,,,two soldiers shaking hands; no base
+fujian,reject,,,,a shipyard from the air; no carrier identifiable
+government_objective,reject,,,,a construction worker
+j11b,reject,,,,the aircraft are specks
+kf16,reject,,,,the aircraft are specks
+liberty,reject,,,,the statue is not in the picture
+mh60_rok,reject,,,,people talking; no helicopter
+mv22b,reject,,,,people disembarking; no Osprey in view
+raaf_curtin,reject,,,,silhouettes at sunset
+raaf_darwin,reject,,,,inside a C-5's hold
+russian_airbase,reject,,,,US troops at night; not a Russian base
+suffren,reject,,,,a drawing
+type052d,reject,,,,the destroyers are too far to identify
+type212a,reject,,,,beach chairs; the submarine is a speck
+usaf_base,reject,,,,a 1950s French airfield in Indochina
+whenuapai,reject,,,,a childcare centre

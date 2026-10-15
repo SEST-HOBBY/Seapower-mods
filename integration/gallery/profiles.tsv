@@ -327,7 +327,7 @@ plaf_j16a block3	j16	same_type	PLAAF J-16 two-seat Flanker in flight, clear plan
 plaf_j16d	j16d	same_type	J-16D electronic-warfare jet with wingtip pods on static display at Zhuhai. / J-16D electronic-warfare aircraft with wingtip jamming pods at the Zhuhai Airshow.
 plan_j-15	j15	unusable	Magazine 3D-render infographic of the J-15T with callouts, not a photograph. / Scanned magazine spread of labelled 3D renders (J-15 catapult variant), not a photograph.
 plan_j-15a	j15	unusable	Magazine 3D-render infographic of the J-15T with callouts, not a photograph. / Scanned magazine spread of labelled 3D renders (J-15 catapult variant), not a photograph.
-plan_j-15d	j15	unusable	Magazine 3D-render infographic of the single-seat J-15T, not a photograph and not the two-seat EW J-15D. / Scanned magazine spread of renders of the J-15T catapult fighter, not a photograph and not the J-15D EW variant.
+plan_j-15d	j15d	same_family	Wikimedia Commons, reviewed 15 Oct 2026
 plan_j-15dt	j15	unusable	Chinese magazine infographic of 3D renders of a catapult J-15 with callouts, not a photograph. / Labelled magazine 3D-render spread of a J-15T fighter, not a photograph (and not the EW J-15DT).
 plan_j-15t	j15	unusable	Chinese magazine infographic of 3D renders of a J-15T with text callouts, not a photograph. / Labelled magazine 3D-render spread of the catapult J-15T with Chinese callouts, not a photograph.
 plan_j-35	j35	same_type	PLA Navy J-35 stealth fighter (serial 93, shark tail art) landing on a runway, clear side view. / PLA Navy J-35 (bort 93, shark tail art) landing on a runway, side view.
@@ -801,3 +801,34 @@ thaad_tel	thaad	same_type	Photo shows a THAAD interceptor launching from its tru
 wp_ss_kilo	kilo	same_type	Photo shows a surfaced Kilo-class (Project 636) diesel submarine underway, with the hull and sail clearly visible. / Surfaced Russian Kilo-class diesel submarine underway (appears to be an Improved Kilo, Project 636), with the class hull and sail clearly shown.
 wp_bpk_udaloy	udaloy	same_type	Broadside photo of Udaloy-class destroyer 548 Admiral Panteleyev off Honolulu. / Udaloy-class destroyer Admiral Panteleyev (548) in full broadside off Honolulu.
 wp_vt_boris_chilikin	boris_chilikin	same_type	Aerial view of the Boris Chilikin-class replenishment oiler Dnestr, with the full hull and replenishment gantries visible. / Aerial view of the Soviet/Russian replenishment oiler Dnestr, a Boris Chilikin-class ship, with its gantry RAS rigs and aft superstructure clearly visible.
+airfield_a-10	a10_base	same_family	Wikimedia Commons, reviewed 15 Oct 2026
+ran_opv_arafura	arafura	same_type	Wikimedia Commons, reviewed 15 Oct 2026
+wp_buk-m3	bukm3	same_type	Wikimedia Commons, reviewed 15 Oct 2026
+wp_m3-radar	bukm3_radar	same_type	Wikimedia Commons, reviewed 15 Oct 2026
+ger_ffg_f125_MLU	f125	same_family	Wikimedia Commons, reviewed 15 Oct 2026
+rok_f5e	f5e_rok	same_family	Wikimedia Commons, reviewed 15 Oct 2026
+rok_fa50	fa50	same_family	Wikimedia Commons, reviewed 15 Oct 2026
+rfn_ffg_11356	grigorovich	same_type	Wikimedia Commons, reviewed 15 Oct 2026
+spa_av-8b_plus	harrier_av8b	same_type	Wikimedia Commons, reviewed 15 Oct 2026
+mm_av-8b_plus	harrier_av8b	same_type	Wikimedia Commons, reviewed 15 Oct 2026
+usa_car_hemtt	hemtt	same_type	Wikimedia Commons, reviewed 15 Oct 2026
+usaf_hh-3	hh3	same_type	Wikimedia Commons, reviewed 15 Oct 2026
+civ_humpback	humpback	same_type	Wikimedia Commons, reviewed 15 Oct 2026
+ko_ffg-811	incheon	same_type	Wikimedia Commons, reviewed 15 Oct 2026
+rok_kf21	kf21	same_type	Wikimedia Commons, reviewed 15 Oct 2026
+Oil_pump	oilpump	same_family	Wikimedia Commons, reviewed 15 Oct 2026
+rok_p-3c	p3c_rok	same_family	Wikimedia Commons, reviewed 15 Oct 2026
+ir_ptg_peykaap_3	peykaap3	same_type	Wikimedia Commons, reviewed 15 Oct 2026
+airbase_raaf_edinburgh	raaf_edinburgh	same_type	Wikimedia Commons, reviewed 15 Oct 2026
+airbase_raaf_scherger	raaf_scherger	same_type	Wikimedia Commons, reviewed 15 Oct 2026
+airbase_raaf_tindal	raaf_tindal	same_type	Wikimedia Commons, reviewed 15 Oct 2026
+ae_ssk_s80	s80	same_family	Wikimedia Commons, reviewed 15 Oct 2026
+rok_kuh1	surion	same_type	Wikimedia Commons, reviewed 15 Oct 2026
+ita_ssk_todaro_batch1	todaro	same_type	Wikimedia Commons, reviewed 15 Oct 2026
+wp_ss-27_tel	topolm	same_type	Wikimedia Commons, reviewed 15 Oct 2026
+pla_9k331	torm1	same_type	Wikimedia Commons, reviewed 15 Oct 2026
+plan_lpd_type_071	type071	same_type	Wikimedia Commons, reviewed 15 Oct 2026
+jp_12ssmht	type12	same_family	Wikimedia Commons, reviewed 15 Oct 2026
+airfield_us	us_airfield	same_family	Wikimedia Commons, reviewed 15 Oct 2026
+wp_ssgn_yasen	yasen	same_type	Wikimedia Commons, reviewed 15 Oct 2026
+plan_ss_type_039c	yuan_family	same_family	Wikimedia Commons, reviewed 15 Oct 2026

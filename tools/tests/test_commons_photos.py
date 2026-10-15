@@ -32,7 +32,15 @@ class CommonsPhotos(unittest.TestCase):
         (src / "data").mkdir(parents=True)
         for rel in ("catalogue.js", "PHOTO_CREDITS.txt", "data/unit_image_mapping.csv"):
             shutil.copyfile(GALLERY / "source" / rel, src / rel)
-        shutil.copyfile(GALLERY / "profiles.tsv", self.tmp / "profiles.tsv")
+        import json, re
+        cat = json.loads(re.match(r"window\.CATALOGUE=(.*);\s*$", (src / "catalogue.js").read_text(
+            encoding="utf-8"), re.S).group(1))
+        cat["assets"] = [a for a in cat["assets"] if a["asset_id"] != "topolm"]
+        (src / "catalogue.js").write_text("window.CATALOGUE=" + json.dumps(cat) + ";\n", encoding="utf-8")
+        # the table without the test unit's own row, whatever the real one holds
+        (self.tmp / "profiles.tsv").write_text("".join(
+            l for l in (GALLERY / "profiles.tsv").read_text(encoding="utf-8").splitlines(True)
+            if not l.lower().startswith("wp_ss-27_tel\t")), encoding="utf-8")
         self.cp.SOURCE, self.cp.STORE = src, self.tmp / "commons"
         self.cp.SHEET, self.cp.PROFILES = self.tmp / "commons-photos.csv", self.tmp / "profiles.tsv"
         # a kit run: one downloaded photo and its record
@@ -100,6 +108,23 @@ class CommonsPhotos(unittest.TestCase):
         (self.kit / "downloaded" / "verified_file_pages" / "topolm.jpg").write_bytes(b"\xff\xd8 not it")
         with self.assertRaises(SystemExit):
             self.cp.intake(self.kit, self.review)
+
+    def test_a_photo_the_gallery_already_has_is_refused(self):
+        cat = self.cp.load_catalogue()
+        cat["assets"].append({"asset_id": "topolm", "file": "images/land/topolm_sest.jpg"})
+        (self.cp.SOURCE / "catalogue.js").write_text(
+            "window.CATALOGUE=" + __import__("json").dumps(cat) + ";\n", encoding="utf-8")
+        self.write_review()
+        with self.assertRaisesRegex(SystemExit, "already has a photo"):
+            self.cp.intake(self.kit, self.review)
+
+    def test_a_reviewed_same_type_picture_is_kept(self):
+        with self.cp.PROFILES.open("a", encoding="utf-8") as f:
+            f.write("wp_ss-27_tel\tother\tsame_type\tearlier\n")
+        self.write_review()
+        self.cp.intake(self.kit, self.review)
+        self.cp.apply()
+        self.assertIn("wp_ss-27_tel\tother\tsame_type", self.cp.PROFILES.read_text(encoding="utf-8"))
 
     def test_the_builder_notices_an_unapplied_sheet(self):
         self.write_review()

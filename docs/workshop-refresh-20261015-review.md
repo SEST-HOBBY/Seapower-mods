@@ -61,3 +61,31 @@ Every gate passes but `check_inventory` (the four CR-stripped mods still owed
 a `git add --renormalize`). 191 campaign tests and 98 tool tests pass. The
 zone rule holds on the rebuilt files: no box inside a circle still waiting
 for a unit, 22 escorts with no box as before.
+
+## 5. Commons photos from the acquisition kit
+
+The image acquisition kit of 14 Oct (`tools/image-acquisition`) ran on the PC
+and downloaded 79 licence-checked Wikimedia Commons photos; 31 groups stayed
+pending (five Anduril families held for permission, seven concepts held, 19
+with no usable photo). The photos went to `chore/image-intake-20261015`, which
+is never merged. Every one was looked at against its unit
+(`integration/gallery/commons-review-20261015.csv` gives each verdict and
+reason):
+
+- **38 approved**, taken in by `integration/gallery/commons_photos.py` with
+  their Commons credit, licence and SHA-256 (`commons-photos.csv`): 23 the
+  same type as the unit, 13 class photos, two gallery-only context photos
+  (Liaoning small behind the Dalian yard; a training launch tube for the
+  Minuteman silo). 17 public domain, 2 CC0, 19 CC BY or BY-SA.
+- **32 units get a new encyclopedia picture**, among them the Buk-M3 and its
+  radar, Topol-M, KF-21, KUH-1 Surion, Yasen, Admiral Grigorovich, Incheon,
+  Peykaap III, Todaro, HH-3E, the Arafura and RAAF Edinburgh, Scherger and
+  Tindal. The J-15D's render-infographic picture, judged unusable, is
+  replaced by a J-15 class photo. A reviewed exact picture is never
+  replaced.
+- **41 rejected**: five would have replaced the SEST author's own photos
+  (B-52G, DF-21, DF-26, F-16A, J-35) and are refused by the importer; nine
+  duplicate or fall short of photos the gallery already has; the rest show
+  the wrong subject (a childcare centre for Whenuapai, a house for
+  Barksdale, a meeting for the ROK MH-60), a render or drawing (Bonifaz,
+  Chungnam, Suffren), or the subject too small to see.
