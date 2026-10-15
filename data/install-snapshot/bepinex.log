@@ -1,4 +1,4 @@
-# BepInEx\LogOutput.log - whole file, 648 line(s), 0.1 MB, last written 2026-10-15T17:56:26. 
+# BepInEx\LogOutput.log - whole file, 664 line(s), 0.1 MB, last written 2026-10-15T23:50:01. 
 [Error  :   BepInEx] Unable to start Unity log writer
 [Message:   BepInEx] BepInEx 5.4.23.2 - Sea Power (15/10/2026 4:59:12 PM)
 [Info   :   BepInEx] Running under Unity v6000.0.84.7908207
@@ -647,3 +647,19 @@ OK      ObjectBase.CurrentOrder (the AI's bombers inside their missiles' minimum
 OK      ObjectBase.StateMachine (the AI's bombers inside their missiles' minimum range sent out of it in battle)
 OK      StateMachine.CurrentStateName (the AI's bombers inside their missiles' minimum range sent out of it in battle)
 [Info   :Dynamic Campaign Mod] Patched: dynamic campaigns will appear in the Campaign menu marked [Dynamic].
+[Info   :WeaponLauncherEffects] [WeaponLauncherEffects] [eu_mk41_quad] anchor ready: ContainerBase='eu_8-cell_mk41_base_quad_v4' (vessel ContainerBase, world (-592.5310, 0.0895, -101.3802)), container='AmmunitionParent' (world (-592.5360, 0.0395, -101.3724)), shipRoot='1-ran_ddg_hobart'.
+[Info   :WeaponLauncherEffects] [WeaponLauncherEffects] [eu_mk41] anchor ready: ContainerBase='eu_8-cell_mk41_base_v4' (vessel ContainerBase, world (-592.5770, 0.0895, -101.3802)), container='AmmunitionParent' (world (-592.5720, 0.0395, -101.3880)), shipRoot='1-ran_ddg_hobart'.
+[Info   :WeaponLauncherEffects] [WeaponLauncherEffects] [eu_mk41] anchor ready: ContainerBase='eu_8-cell_mk41_base_v4' (vessel ContainerBase, world (-592.5310, 0.0895, -101.4098)), container='AmmunitionParent' (world (-592.5360, 0.0395, -101.4020)), shipRoot='1-ran_ddg_hobart'.
+[Info   :WeaponLauncherEffects] [WeaponLauncherEffects] [eu_mk41] anchor ready: ContainerBase='eu_8-cell_mk41_base_v4' (vessel ContainerBase, world (-592.5770, 0.0895, -101.4098)), container='AmmunitionParent' (world (-592.5720, 0.0395, -101.4176)), shipRoot='1-ran_ddg_hobart'.
+[Info   :WeaponLauncherEffects] [WeaponLauncherEffects] [eu_mk41] anchor ready: ContainerBase='eu_8-cell_mk41_base_v4' (vessel ContainerBase, world (-592.5310, 0.0895, -101.4393)), container='AmmunitionParent' (world (-592.5360, 0.0395, -101.4315)), shipRoot='1-ran_ddg_hobart'.
+[Info   :WeaponLauncherEffects] [WeaponLauncherEffects] [eu_mk41] anchor ready: ContainerBase='eu_8-cell_mk41_base_v4' (vessel ContainerBase, world (-592.5770, 0.0895, -101.4393)), container='AmmunitionParent' (world (-592.5720, 0.0395, -101.4471)), shipRoot='1-ran_ddg_hobart'.
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.GameTime and name time
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.GameTime and name time
+[Info   :Coordinated Strike Tool] [t=210.40s] in mission: True, game menu open: True, HUD visible: False
+[Info   :Coordinated Strike Tool] [t=219.30s] in mission: True, game menu open: False, HUD visible: True
+[Info   :Coordinated Strike Tool] [t=233.31s] in mission: True, game menu open: True, HUD visible: False
+[Info   :Coordinated Strike Tool] [t=238.17s] in mission: False, game menu open: False, HUD visible: True
+[Info   :Coordinated Strike Tool] [t=380.87s] in mission: True, game menu open: True, HUD visible: False
+[Info   :Coordinated Strike Tool] [t=388.52s] in mission: True, game menu open: False, HUD visible: True
+[Info   :Coordinated Strike Tool] [t=396.97s] in mission: True, game menu open: True, HUD visible: False
+[Info   :Coordinated Strike Tool] [t=400.72s] in mission: False, game menu open: False, HUD visible: True

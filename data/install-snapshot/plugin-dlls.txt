@@ -74,5 +74,5 @@
   winhttp.dll       26112  d3b62f4c9c3e2196ef82603c52d6b98c043a0d6c125c081fd33d7ca3798b41b8  4.3.0.0 / 4.3.0  2024-06-11 12:39
 
 [SEST_Integration\plugins]  1 DLL(s)
-  SEST.MenuBackground.dll       27136  af699e42d6085431d4424f0ed8232a4c7ed072066e166f5cd71b0acf80a36675  0.0.0.0 /    2026-10-15 17:15
+  SEST.MenuBackground.dll       31232  4e5324e63a8eea68ce7000fdc7dc75ea4d5c4c2bf7dcea258ab547f8e55bb30a  0.0.0.0 /    2026-10-15 23:42
 

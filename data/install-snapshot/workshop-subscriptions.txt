@@ -177,7 +177,7 @@
 3782020901   Y-20 / KJ-3000                                       updated 2026-10-06 05:40  folder 2026-10-06 17:18
 3784474738   Euromod - Anchorchain Expansion Pack                 updated 2026-10-10 02:13  folder 2026-10-10 07:48
 3789188689   PLA & PLAN & PLAAF AEP                               updated 2026-10-08 06:53  folder 2026-10-08 07:18
-3789208859   Euromod-South Korea Navy                             updated 2026-10-12 03:16  folder 2026-10-11 08:28
+3789208859   Euromod-South Korea Navy                             updated 2026-10-15 23:12  folder 2026-10-11 08:28
 3790594162   Identify Expanded                                    updated 2026-10-15 13:18  folder 2026-10-15 16:59
 3796113927   RQ-180 White Bat Airframe                            updated 2026-09-06 17:03  folder 2026-09-16 16:09
 3796349767   YF-23 Black Widow II                                 updated 2026-10-14 10:13  folder 2026-10-14 15:53
@@ -193,7 +193,7 @@
 3807164392   Euromod-India-Navy                                   updated 2026-10-11 12:02  folder 2026-10-04 20:22
 3808882954   RC-135V/W Rivet Joint                                updated 2026-10-14 11:45  folder 2026-10-14 15:53
 3810611344   MV-75 Cheyenne II                                    updated 2026-10-14 10:12  folder 2026-10-14 15:53
-3812111085   PLAAF Aircraft Pack                                  updated 2026-10-05 19:32  folder 2026-10-03 20:53
+3812111085   PLAAF Aircraft Pack                                  updated 2026-10-15 18:26  folder 2026-10-03 20:53
 3812140001   Pakistani Pack                                       updated 2026-10-03 18:18  folder 2026-10-04 20:20
 3812454152   Euromod-Philippine-Navy                              updated 2026-10-10 14:56  folder 2026-10-04 20:21
 3813033771   EC-2 Stand Off Jammer                                updated 2026-10-14 10:12  folder 2026-10-14 15:53
