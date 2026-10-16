@@ -5479,7 +5479,11 @@ ROSTER_NATION = {"china": "PLAN", "russia": "Russia", "ussr": "Russia", "soviet"
                  "usa": "USN", "us": "USN", "united states": "USN", "japan": "JMSDF",
                  "korea": "ROKN", "south korea": "ROKN", "france": "France",
                  "panama": "Panama", "philippines": "Philippine Navy",
-                 "thailand": "Royal Thai Navy"}
+                 "thailand": "Royal Thai Navy",
+                 # The narco-submarine mod (3413868677) registers Nation=pirates in
+                 # lower case; the Situation window shows the label raw, and the
+                 # 16 Oct 2026 test read a "pirates" tab. Vanilla's own key is Pirates.
+                 "pirates": "Pirates"}
 FLAGSHIP_TONS = 9000
 ROSTER_ORDER = ("SurfaceMajorFlagships", "SurfacePersistent", "SurfaceReusable",
                 "SubmarinesPersistent", "AircraftReusable", "HelicoptersReusable")
@@ -5569,7 +5573,16 @@ def enemy_roster_ini(missions, placements):
                         keys.get("VariantReference") or "Default")
                 elif utype in ("Aircraft", "VTOL", "Helicopter"):
                     section = "HelicoptersReusable" if utype == "Helicopter" else "AircraftReusable"
-                    counts[(label, section, uid, keys.get("SquadronReference") or "Squadron1")] += 1
+                    squadron = keys.get("SquadronReference") or "Squadron1"
+                    # The Situation window takes a row's flag from the squadron it
+                    # names: one its winning squadrons file does not define showed
+                    # the unknown flag (the JH-7A, 16 Oct 2026 test).
+                    if squadron not in squadrons(uid):
+                        problems.append(f"{m['key']}: {uid} is rostered as {squadron}, which its "
+                                        "winning squadrons file does not define - the Situation "
+                                        "window would show no flag")
+                        continue
+                    counts[(label, section, uid, squadron)] += 1
                 # land units: the stock roster carries none
         for (label, section, uid, squadron), n in counts.items():
             group = flights[(label, section)].setdefault(uid, {})

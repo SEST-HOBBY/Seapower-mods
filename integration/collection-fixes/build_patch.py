@@ -840,6 +840,23 @@ def main():
           "[Squadron1], 816 Squadron's 'Tiger'.")
     built.append("S-70B-2_Seahawk_squadrons")
 
+    # plaaf_jh7a_squadrons - the JH-7A has no squadron. 3526982088's table
+    # declares NumberOfSquadrons=7 but defines only [Default] Nation=China, so
+    # a mission or roster naming Squadron1 finds nothing: the campaigns'
+    # enemy rosters file it as Squadron1, and the Situation window showed the
+    # unknown flag on its row (16 Oct 2026 test). One delta: a [Squadron1]
+    # repeating the Default's Nation, and the count the table actually holds.
+    t = read("3526982088", "aircraft/plaaf_jh7a_squadrons.ini").replace("\r\n", "\n")
+    if re.search(r"^\[Squadron\d+\]", t, re.M) or not re.search(r"^Nation=China$", t, re.M):
+        sys.exit("plaaf_jh7a_squadrons: donor now defines squadrons or another nation - retire this fix")
+    t = edit(t, r"^NumberOfSquadrons=7$", "NumberOfSquadrons=1", 1, "plaaf_jh7a_squadrons")
+    t = t.rstrip("\n") + "\n\n[Squadron1]\nNation=China\n"
+    write("aircraft/plaaf_jh7a_squadrons.ini", t,
+          "SEST Collection Fixes - base: 3526982088's JH-7A squadron table.\n"
+          "One delta: [Squadron1] Nation=China (the mod declares seven squadrons\n"
+          "and defines none), NumberOfSquadrons=1 to match.")
+    built.append("plaaf_jh7a_squadrons")
+
     build_mh60r_names()
     added = build_missing_sensors()
     named = build_missing_loadout_names()

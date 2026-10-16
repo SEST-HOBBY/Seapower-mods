@@ -66,7 +66,7 @@ namespace Sest.MenuBackground
     // Anchor Chain creates this with Activator.CreateInstance, which a Unity
     // component cannot be, so the entry point builds the component itself on
     // a GameObject that survives scene changes.
-    [ACPlugin("io.github.sest-hobby.menu-background", "SEST Menu Background", "1.2.0")]
+    [ACPlugin("io.github.sest-hobby.menu-background", "SEST Menu Background", "1.2.1")]
     public class MenuBackgroundMod : IAnchorChainMod
     {
         public void TriggerEntryPoint()
@@ -96,7 +96,8 @@ namespace Sest.MenuBackground
         string film;          // the SEST film's full path; null when off, missing or failed
         string pinned;        // ClipName= in the ini: this clip is swapped whether or not it loops
         string menuClip;      // without a pin, the first looping clip seen
-        float scanUntil, nextScan;
+        float nextScan;
+        int unmatchedLogged;  // players logged that are not the menu film's; capped
         bool picturesOn;      // Pictures= in the ini, read with the rest
         PictureLog pictures;  // the stock-pictures log; null when off or stopped
         PictureSwap backdrops; // SEST photos in place of other backdrops; null when off or stopped
@@ -106,16 +107,13 @@ namespace Sest.MenuBackground
             try { Configure(); }
             catch (Exception e) { film = null; Debug.LogWarning(Tag + "not started: " + e.Message); }
             SceneManager.sceneLoaded += OnSceneLoaded;
-            // The game can take minutes to load a large collection before the
-            // menu shows; look for ten, then for half a minute after each scene.
-            scanUntil = Time.realtimeSinceStartup + 600f;
-            if (picturesOn) pictures = new PictureLog(scanUntil);
+            // The pictures log's periodic passes cover the first ten minutes.
+            if (picturesOn) pictures = new PictureLog(Time.realtimeSinceStartup + 600f);
         }
 
         void OnSceneLoaded(Scene scene, LoadSceneMode mode)
         {
             float now = Time.realtimeSinceStartup;
-            scanUntil = Mathf.Max(scanUntil, now + 30f);
             if (pictures != null)
             {
                 pictures.Schedule(now + 2f, "scene '" + scene.name + "' +2s");
@@ -133,7 +131,13 @@ namespace Sest.MenuBackground
                 try
                 {
                     Keep();
-                    if (now <= scanUntil) Scan();
+                    // Every half second for the whole session. The game builds
+                    // the menu's player anew each time the main menu comes back
+                    // (after a mission or a campaign, the Mod Manager, the
+                    // editor) and coming back loads no scene, so a scan bounded
+                    // to the first ten minutes and to scene loads left the
+                    // stock film on after a long campaign (16 Oct 2026 test).
+                    Scan();
                 }
                 catch (Exception e) { film = null; Debug.LogWarning(Tag + "stopped: " + e.Message); }
             }
@@ -155,8 +159,17 @@ namespace Sest.MenuBackground
                 FindObjectsInactive.Include, FindObjectsSortMode.None);
             foreach (VideoPlayer vp in players)
             {
-                if (vp == null || !seen.Add(vp.GetInstanceID())) continue;
+                // A player found before the game gives it its clip is looked at
+                // again next time rather than written off for the session.
+                if (vp == null || (vp.source == VideoSource.VideoClip && vp.clip == null)) continue;
+                if (!seen.Add(vp.GetInstanceID())) continue;
                 string clip = vp.clip != null ? vp.clip.name : "";
+                bool menus = vp.source == VideoSource.VideoClip && vp.clip != null
+                             && (!string.IsNullOrEmpty(pinned) ? clip == pinned : vp.isLooping);
+                // Scanning all session, a mission that makes video players over
+                // and over must not fill Player.log: the menu's own are always
+                // written, the others up to fifty.
+                if (!menus && ++unmatchedLogged > 50) continue;
                 Debug.Log(Tag + "video player '" + PathOf(vp.transform) + "' in scene '" + vp.gameObject.scene.name
                           + "': source=" + vp.source + " clip='" + clip + "' url='" + vp.url + "' render="
                           + vp.renderMode + " loop=" + vp.isLooping + " playing=" + vp.isPlaying
@@ -197,6 +210,7 @@ namespace Sest.MenuBackground
                 for (ushort i = 0; i < vp.clip.audioTrackCount; i++)
                     snd.SetDirectAudioVolume(i, vp.GetDirectAudioVolume(i));
                 s.Sound = snd;
+                seen.Add(snd.GetInstanceID());   // a later scan must not take it for the menu's player
             }
             swapped.Add(s);
             Point(vp);

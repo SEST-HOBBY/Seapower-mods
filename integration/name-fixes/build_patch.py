@@ -67,6 +67,13 @@ EXPLICIT = {
         ("Davids Sling Radar,Davids Sling Radar", "David's Sling Radar,David's Sling Radar"),
     ("land_units_names.ini", "[idf_dsws_radar]", "Variant1"):
         ("Davids Sling Radar,Davids Sling Radar", "David's Sling Radar,David's Sling Radar"),
+    # J-10C (3481228992) and JH-7A (3526982088): the English names are the
+    # lower-case file id and the run-together designation; the enemy order of
+    # battle read "j10" and "JH7A" (16 Oct 2026 test).
+    ("aircraft_names.ini", "[plaaf_j10c]", "Default"): ("j10,j10", "J-10C Vigorous Dragon,J-10C"),
+    ("aircraft_names.ini", "[plaaf_j10c]", "Squadron1"): ("j10,j10", "J-10C Vigorous Dragon,J-10C"),
+    ("aircraft_names.ini", "[plaaf_jh7a]", "Default"): ("JH7A,JH7A", "JH-7A Flying Leopard,JH-7A"),
+    ("aircraft_names.ini", "[plaaf_jh7a]", "Squadron1"): ("JH7A,JH7A", "JH-7A Flying Leopard,JH-7A"),
     ("aircraft_names.ini", "[usaf_rq-180]", "Callsigns"):
         ("Squadron1,蝙蝠,White Bat", "Squadron1,BAT,White Bat"),
 }

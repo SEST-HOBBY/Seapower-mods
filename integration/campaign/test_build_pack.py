@@ -1160,6 +1160,25 @@ class SameNationDiscount(unittest.TestCase):
         self.assertIn("[HelicoptersReusable_PLAN]\nplan_z-9d=Squadron1,1", text)
         self.assertNotIn("ran_ffh_anzac", text, "the player's own ships are not enemy ORBAT")
 
+    def test_the_narco_submarine_files_under_a_capitalised_pirates_tab(self):
+        # The narco-sub mod registers Nation=pirates; the Situation window shows
+        # the roster label raw, and the 16 Oct 2026 test read a "pirates" tab.
+        missions = [dict(key="m", group="core", red_nation="China")]
+        placed = {"Taskforce2Submarine": [
+            ("Taskforce2Submarine1", {"Type": "_narco_narcosub_adv", "VariantReference": "Variant1"}, None, False)]}
+        text = bp.enemy_roster_ini(missions, {"m": placed})
+        self.assertIn("[SubmarinesPersistent_Pirates]\n_narco_narcosub_adv=Variant1", text)
+        self.assertNotIn("_pirates]", text)
+
+    def test_a_rostered_squadron_the_unit_does_not_define_stops_the_build(self):
+        # The JH-7A filed as Squadron1 when its table defined none, and its row
+        # showed the unknown flag. A squadron no winning file defines is refused.
+        missions = [dict(key="m", group="core", red_nation="China")]
+        placed = {"Taskforce2Aircraft": [
+            ("Taskforce2Aircraft1", {"Type": "plan_j-15d", "SquadronReference": "Squadron99"}, None, False)]}
+        with self.assertRaisesRegex(SystemExit, "plan_j-15d is rostered as Squadron99"):
+            bp.enemy_roster_ini(missions, {"m": placed})
+
     def test_the_enemy_roster_is_what_the_missions_place(self):
         # The built pack: every Taskforce2 unit a campaign's missions place is
         # in its roster, the twin carries the same file, and the spine names it.

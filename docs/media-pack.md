@@ -54,8 +54,12 @@ DLL in every mod folder the game's FileManager knows - a pack in StreamingAssets
 as well as on the Workshop - and starts each class marked `[ACPlugin]` that
 implements `IAnchorChainMod`. The SEST class builds a component on a
 GameObject kept across scenes; that component looks for Unity VideoPlayers
-for ten minutes after start and half a minute after each scene load, and
-swaps the first one that loops a clip from the game's data. A one-shot film
+every half second for the whole session, and swaps the one playing the
+menu's clip from the game's data. Until 1.2.1 (16 Oct 2026) it looked only
+for ten minutes after start and half a minute after each scene load; the
+game builds the menu's player anew whenever the main menu comes back, and
+coming back from a campaign loads no scene, so after a long campaign the
+stock film played. A one-shot film
 (an intro the game may wait on) and the mission browser's file-based films
 are never touched; if Unity cannot play the SEST film the game's clip is put
 back; `sest_menu.ini` can name the clip or turn the plugin off. Every
