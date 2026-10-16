@@ -10,8 +10,9 @@ This campaign reaches 23 of the enabled mods and packs; the 197 it does not are 
 |---|---|---|
 | `unit` | places the unit; this mod wins its file | 12 |
 | `variant` | supplies the hull variant the placed unit uses | 3 |
+| `squadron` | supplies the squadron the placed airframe flies from | 1 |
 | `roster` | the requisition roster prices it, so the player can buy it | 2 |
-| `store` | supplies a round the placed unit's loadout hangs | 6 |
+| `store` | supplies a round the placed unit's loadout hangs | 5 |
 
 Sea and land positions are snapped to points already used by a loading mission; the furthest any anchor had to move is 0.6 NM.
 
@@ -37,7 +38,7 @@ Sea and land positions are snapped to points already used by a loading mission; 
 | `small-medium-uav-series` | Small and Medium-Sized UAV Series [WIP] (中小型无人机系列) | `unit` | usn_ForpostR705 | Service at Sea |
 | `thailand-siam-shield` | Thailand: The Siam Shield | `roster` | tha_S-70B-7_Seahawk at 30 points | requisition roster |
 | `type-003-004-maneuverwarfare` | Type 003 Fujian / Type 004 CVN Aircraft Carriers | `store` | plaaf_jh7a / plaaf_pl-5c | Balabac Strait |
-| `SEST_Collection_Fixes` | SEST Collection Fixes | `store` | rok_f-50_ph / usn_aim-9l | Fire Mission Jolo |
+| `SEST_Collection_Fixes` | SEST Collection Fixes | `squadron` | plaaf_jh7a | Balabac Strait |
 | `SEST_RAN_Fleet` | SEST RAN Fleet | `roster` | ran_ffh_anzac at 280 points | requisition roster |
 | `SEST_Replenishment` | SEST Replenishment At Sea | `unit` | pn_ffg-150 | The Island Road |
 

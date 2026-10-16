@@ -31,7 +31,7 @@ pack's root, is the union across every campaign in the pack.
 2. SEST INTEGRATION PACKS (3): this project's own patches, already inside this pack (SEST Integration Pack, Workshop 3812461539);
 there is nothing more to subscribe to.
 
-  (local)       a weapon a loadout hangs         SEST Collection Fixes
+  (local)       a squadron a flight comes from   SEST Collection Fixes
   (local)       a unit the player can buy        SEST RAN Fleet
   (local)       a unit a mission places          SEST Replenishment At Sea
 
