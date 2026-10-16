@@ -226,7 +226,7 @@ Sea and land positions are snapped to points already used by a loading mission; 
 | `SEST_F16CM_JATM` | SEST F-16CM JATM | `unit` | usaf_f-16cm-bl52d | Long Reach |
 | `SEST_Gallery` | SEST Gallery | `library` | an offline photo gallery under `Gallery/` that the player opens in a web browser; the briefings' recognition photos are read from its source by the campaign builder, not from this pack | - |
 | `SEST_Growler_NGJ_MALICE` | SEST Growler NGJ + MALICE | `unit` | usn_ea-18g | Long Way Home |
-| `SEST_Intercept_Model` | SEST Intercept Model | `store` | idf_dsws / idf_stunner | Range Week |
+| `SEST_Intercept_Model` | SEST Intercept Model | `store` | ko_ffg-818 / rok_k-sam-II | Borrowed Shield |
 | `SEST_JMSDF_Mogami` | SEST JMSDF Mogami | `unit` | js_ffg_mogami | Common Sea |
 | `SEST_Name_Fixes` | SEST Name Fixes | `library` | display-name corrections, one language key each; no unit, no round | - |
 | `SEST_RAAF_Bases` | SEST RAAF Bases | `unit` | airbase_raaf_darwin | White Water |

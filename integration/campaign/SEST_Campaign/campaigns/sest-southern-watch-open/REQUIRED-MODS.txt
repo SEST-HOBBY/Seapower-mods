@@ -156,7 +156,7 @@ mod in LOAD-ORDER.txt and stops if one is missing.
   3433957933    a unit a mission places          Virginia-, Seawolf-, and Ohio-class Submarines
   3796349767    a unit a mission places          YF-23 Black Widow II
 
-2. SEST INTEGRATION PACKS (14): this project's own patches, already inside this pack (SEST Integration Pack, Workshop 3812461539);
+2. SEST INTEGRATION PACKS (15): this project's own patches, already inside this pack (SEST Integration Pack, Workshop 3812461539);
 there is nothing more to subscribe to.
 
   (local)       a unit a mission places          SEST ADF Persistent ISR
@@ -165,6 +165,7 @@ there is nothing more to subscribe to.
   (local)       a unit the player can buy        SEST F-15EX Revamp
   (local)       a unit a mission places          SEST F-35C JATM
   (local)       a unit a mission places          SEST Growler NGJ + MALICE
+  (local)       a weapon a loadout hangs         SEST Intercept Model
   (local)       a unit a mission places          SEST JMSDF Mogami
   (local)       a unit a mission places          SEST RAAF Bases
   (local)       a unit a mission places          SEST RAAF F-35A JATM

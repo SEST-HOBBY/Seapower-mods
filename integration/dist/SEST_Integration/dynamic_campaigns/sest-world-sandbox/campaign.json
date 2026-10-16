@@ -7315,6 +7315,7 @@
     "ko_kddx": 233,
     "ko_pcc-756": 60,
     "ko_pkg-711": 36,
+    "ko_pkg-711_scl": 36,
     "ko_pkm-329": 16,
     "ko_pkmr-211": 21,
     "mm_cg_garibaldi": 272,
@@ -13759,6 +13760,12 @@
     },
     {
       "unit": "ko_pkg-711",
+      "side": "blue",
+      "nation": "South_Korea",
+      "tier": 0
+    },
+    {
+      "unit": "ko_pkg-711_scl",
       "side": "blue",
       "nation": "South_Korea",
       "tier": 0
