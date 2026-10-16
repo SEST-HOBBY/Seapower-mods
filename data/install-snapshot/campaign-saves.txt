@@ -3,7 +3,7 @@
 # only evidence of what survives between missions.
 
 root: <USER>\AppData\LocalLow\Triassic Games\Sea Power\Saves
-    steam_autocloud.vdf                                                52 bytes  2026-10-16 07:02
+    steam_autocloud.vdf                                                52 bytes  2026-10-16 14:30
     campaigns\linear_campaign_20261014T180700.sav                 126,944 bytes  2026-10-14 18:07
     campaigns\linear_campaign_20261014T002816.sav                 101,552 bytes  2026-10-14 00:28
     campaigns\linear_campaign_20261013T220956.sav                  35,016 bytes  2026-10-13 22:09
@@ -26,7 +26,7 @@ root: <USER>\AppData\LocalLow\Triassic Games\Sea Power\Saves
     _QuickSave.sav                                                771,590 bytes  2026-02-07 13:48
     (listing only - re-run with -IncludeSaves to copy the campaign saves)
 root: <USER>\AppData\LocalLow\Triassic Games\Sea Power\saves
-    steam_autocloud.vdf                                                52 bytes  2026-10-16 07:02
+    steam_autocloud.vdf                                                52 bytes  2026-10-16 14:30
     campaigns\linear_campaign_20261014T180700.sav                 126,944 bytes  2026-10-14 18:07
     campaigns\linear_campaign_20261014T002816.sav                 101,552 bytes  2026-10-14 00:28
     campaigns\linear_campaign_20261013T220956.sav                  35,016 bytes  2026-10-13 22:09

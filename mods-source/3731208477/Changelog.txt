@@ -1,8 +1,14 @@
+v1.47 - 20261015
+
+	- AV-8B: New cockpit textures for the static model.
+	- F100: New position for the flag, to eliminate the impression that the flag is floating.
+	- L61: New aircraft and helicopters in a static configuration on the flight deck.
+
 v1.46 - 20261014
 
-	Ammunitions: LaunchReliability, SeekerReliability, and WarheadReliability values ​​updated.
-	Ammunitions: Added DudExplosionClass effect class.
-	Vessels: Updated AssociatedSensors list of various units.
+	- Ammunitions: LaunchReliability, SeekerReliability, and WarheadReliability values ​​updated.
+	- Ammunitions: Added DudExplosionClass effect class.
+	- Vessels: Updated AssociatedSensors list of various units.
 
 v1.45 - 20261007 - Internal alias test.
 
