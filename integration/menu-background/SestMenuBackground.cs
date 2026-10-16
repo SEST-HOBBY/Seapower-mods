@@ -66,7 +66,7 @@ namespace Sest.MenuBackground
     // Anchor Chain creates this with Activator.CreateInstance, which a Unity
     // component cannot be, so the entry point builds the component itself on
     // a GameObject that survives scene changes.
-    [ACPlugin("io.github.sest-hobby.menu-background", "SEST Menu Background", "1.2.1")]
+    [ACPlugin("io.github.sest-hobby.menu-background", "SEST Menu Background", "1.2.2")]
     public class MenuBackgroundMod : IAnchorChainMod
     {
         public void TriggerEntryPoint()
@@ -151,6 +151,16 @@ namespace Sest.MenuBackground
                 try { backdrops.Tick(now); }
                 catch (Exception e) { backdrops = null; Debug.LogWarning(PictureSwap.Tag + "stopped: " + e.Message); }
             }
+        }
+
+        // The loading screen's picture, every frame after the game's own
+        // Update and before the frame is drawn (PictureSwap.Watch).
+        bool watchStopped;
+        void LateUpdate()
+        {
+            if (backdrops == null || watchStopped) return;
+            try { backdrops.Watch(Time.realtimeSinceStartup); }
+            catch (Exception e) { watchStopped = true; Debug.LogWarning(PictureSwap.Tag + "loading screen watch stopped: " + e.Message); }
         }
 
         void Scan()
@@ -859,6 +869,10 @@ namespace Sest.MenuBackground
     // photo. A texture that cannot be written (not readable, compressed) is
     // left as it is and named once in the log. Looked for every second for
     // the whole session: the game loads a backdrop when it first shows it.
+    // The loading screen's own picture is also watched every frame (Watch):
+    // found only by the one-second look it was on screen first, for as long
+    // as a load held the game (16 Oct 2026: stock pictures while a saved
+    // campaign loaded).
     public class PictureSwap
     {
         public const string Tag = "[SEST Backdrops] ";
@@ -895,12 +909,147 @@ namespace Sest.MenuBackground
         {
             if (now < next) return;
             next = now + 1f;
+            ScanAll();
+        }
+
+        void ScanAll()
+        {
             foreach (Texture2D t in Resources.FindObjectsOfTypeAll<Texture2D>())
             {
                 if (t == null || !done.Add(t.GetInstanceID())) continue;
                 if (!Wanted(t.name)) continue;
                 Paint(t);
             }
+        }
+
+        // The game shows a loading picture by setting the LoadScreen view
+        // model's BackgroundImage (the loading screen's Grid binds its
+        // background to it), and draws it in the same frame, often just
+        // before a long load holds the next one. Read here in LateUpdate,
+        // after the game's Update and before the frame is drawn, a new
+        // picture is painted before it is ever on screen. The view model is
+        // found by reflection from the NoesisView whose content is the
+        // LoadScreenView; nothing of the game's is referenced or patched.
+        object loadScreen;
+        PropertyInfo backgroundProp;
+        object lastBackground;
+        float nextFind, changeWindow;
+        int changes;
+        Type viewType;
+        bool viewTypeMissing, watchNoted;
+
+        public void Watch(float now)
+        {
+            if (loadScreen == null)
+            {
+                if (now < nextFind) return;
+                nextFind = now + 2f;
+                if (!FindLoadScreen()) return;
+            }
+            object bg;
+            try { bg = backgroundProp.GetValue(loadScreen, null); }
+            catch (Exception) { loadScreen = null; return; }
+            if (ReferenceEquals(bg, lastBackground)) return;
+            lastBackground = bg;
+            // A getter that builds a new object on every read would look like a
+            // new picture every frame and run the full look every frame: more
+            // than ten in a second and the watch stands down.
+            if (now - changeWindow >= 1f) { changeWindow = now; changes = 0; }
+            if (++changes > 10)
+            {
+                loadScreen = null; viewTypeMissing = true;
+                Note("loading screen watch off: BackgroundImage gives a new object on every read; left to the one-second look");
+                return;
+            }
+            if (bg == null) return;
+            // A new picture: its texture is loaded by now. A TextureSource does
+            // not hand its texture back in this game (the 16 Oct log describes
+            // it by size only), so every texture is looked at now, in this
+            // frame, rather than at the next one-second look.
+            Texture2D t = Member(bg, "Texture") as Texture2D;
+            if (t != null)
+            {
+                if (done.Add(t.GetInstanceID()) && Wanted(t.name)) Paint(t);
+                return;
+            }
+            ScanAll();
+        }
+
+        bool FindLoadScreen()
+        {
+            if (viewType == null)
+            {
+                if (viewTypeMissing) return false;
+                viewType = ComponentType("NoesisView");
+                if (viewType == null) { viewTypeMissing = true; Note("loading screen not watched: no NoesisView component type is loaded"); return false; }
+            }
+            foreach (UnityEngine.Object o in UnityEngine.Object.FindObjectsByType(viewType, FindObjectsInactive.Include, FindObjectsSortMode.None))
+            {
+                object root = Member(o, "Content") ?? Member(Member(o, "View"), "Content");
+                if (root == null || root.GetType().Name != "LoadScreenView") continue;
+                object dc = Member(root, "DataContext");
+                if (dc == null) continue;
+                PropertyInfo p = PropertyOf(dc.GetType(), "BackgroundImage");
+                if (p == null || !p.CanRead)
+                {
+                    if (!watchNoted) { watchNoted = true; Note("loading screen not watched: " + dc.GetType().Name + " has no BackgroundImage"); }
+                    continue;
+                }
+                loadScreen = dc;
+                backgroundProp = p;
+                lastBackground = null;
+                if (!watchNoted)
+                {
+                    watchNoted = true;
+                    var names = new List<string>();
+                    foreach (PropertyInfo q in dc.GetType().GetProperties(AnyMember)) names.Add(q.Name + ":" + q.PropertyType.Name);
+                    Note("watching the loading screen's picture (" + dc.GetType().Name + ".BackgroundImage) every frame; its members: "
+                         + string.Join(", ", names.ToArray()));
+                }
+                return true;
+            }
+            return false;
+        }
+
+        const BindingFlags AnyMember = BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance;
+
+        static PropertyInfo PropertyOf(Type t, string name)
+        {
+            try { return t.GetProperty(name, AnyMember); }
+            catch (AmbiguousMatchException)
+            {
+                foreach (PropertyInfo p in t.GetProperties(AnyMember)) if (p.Name == name) return p;
+                return null;
+            }
+        }
+
+        static object Member(object o, string name)
+        {
+            if (o == null) return null;
+            try
+            {
+                PropertyInfo p = PropertyOf(o.GetType(), name);
+                return p != null && p.CanRead ? p.GetValue(o, null) : null;
+            }
+            catch (Exception) { return null; }
+        }
+
+        // A MonoBehaviour type by its bare name in any assembly but the
+        // runtime's and Unity's own; looked up once.
+        static Type ComponentType(string name)
+        {
+            foreach (Assembly a in AppDomain.CurrentDomain.GetAssemblies())
+            {
+                string an = a.GetName().Name ?? "";
+                if (an.StartsWith("System") || an.StartsWith("mscorlib") || an.StartsWith("UnityEngine") || an.StartsWith("Unity.")) continue;
+                Type[] all;
+                try { all = a.GetTypes(); }
+                catch (ReflectionTypeLoadException e) { all = e.Types; }
+                catch (Exception) { continue; }
+                foreach (Type c in all)
+                    if (c != null && c.Name == name && typeof(MonoBehaviour).IsAssignableFrom(c)) return c;
+            }
+            return null;
         }
 
         // A file path through a backdrop folder, not the SEST pack's.
