@@ -29,3 +29,30 @@ only with SEST packs and loses them all, correct as placed. The Korea pack's
 Gates: 11 of 12 pass; `check_inventory` fails on the same four CR-stripped
 mods as before. Campaign tests 196 pass, tool tests 105 pass. The campaign
 missions did not change.
+
+## 3. Second capture, 16 October (473805ea)
+
+The PC re-ran the capture block on the same branch name; the block reset it to
+the morning capture and added the new export on top, so the push was a plain
+fast-forward. Eight mods changed:
+
+| Mod | Change | Effect on SEST |
+|---|---|---|
+| Anduril Maritime Drones (3819522350), Saronic Corsair ASV (3766210676) | Steelfin interceptor (`usn_steelfin`, `usn_steelfin_boat`), a Kraken K5 and a Corsair carrying it; renamed vessels in every language | The shared Steelfin files are byte-identical in each mod, so load order does not matter. |
+| YF-23 (3796349767), Anduril Fury (3804868806), MV-75 Cheyenne II (3810611344) | A `Steelfin` loadout with `usn_steelfin_air` (identical in all three); the YF-23 and Fury files re-saved with new line endings, about ten real lines each; MV-75 material files | None of the three names the `Steelfin` loadout, so the picker would read MISSING TEXT, including in SEST missions that place the YF-23, Fury and MV-75 (`check_campaign_coverage`). SEST Collection Fixes now names it "Steelfin (air-defence interceptor)". SEST ships no copy of these aircraft, so the loadout reaches the game untouched. |
+| Euromod - South Korea Navy (3789208859) | CIWS-II radar and Goalkeeper on the KDDX and FFG-828; `ships/non/ddh_975` removed | SEST Replenishment's KDDX and FFG-828 follow the new fits. |
+| Spanish Navy Mod (Modern) (3731208477) | Álvaro de Bazán, Cristóbal Colón and Juan Carlos I fits; Juan Carlos deck park | SEST Replenishment follows; RAN Fleet's Hobart and Canberra, built on these hulls, take the new model position and deck park. |
+| Dynamic Campaign Mod (3813157776) | Three new sample campaigns; East Asia 1985 extended | See below. |
+
+`check_dynamic_campaign.py` learned its force and patrol keys from the first
+sample campaign by name. The new `atlantic_1972_hold_the_gap` sorts ahead of
+`east_asia_1985` and puts no `hold` on a patrol, so the world campaign's six
+submarine patrols failed the check. East Asia 1985 and the new Pacific 1985
+both still use `hold` on patrols; the checker now reads every sample. The
+world campaign itself is unchanged.
+
+Gates: 11 of 12 pass (`check_inventory`, the same four mods). Campaign tests
+196 pass, tool tests 105 pass.
+
+Next time the capture block should get a fresh branch name from a session;
+reusing one works only while that branch's last capture is the deployed one.

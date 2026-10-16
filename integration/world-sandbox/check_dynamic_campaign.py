@@ -63,14 +63,22 @@ def game_hull_names():
 
 
 def sample_keys():
-    """{"force": keys, "patrol": keys} the plugin's own sample campaign uses,
-    or None when the Dynamic Campaign Mod is not exported."""
+    """{"force": keys, "patrol": keys} the plugin's own sample campaigns use,
+    or None when the Dynamic Campaign Mod is not exported.
+
+    Every sample counts: a key any of them puts on a force or a patrol is one
+    the engine reads there. Reading only the first by name broke on 16 Oct
+    2026, when the mod added atlantic_1972_hold_the_gap, which sorts ahead of
+    east_asia_1985 and has no "hold" on its patrols."""
     found = sorted(adapter.ROOT.glob("mods-source/3813157776/dynamic_campaigns/*/campaign.json"))
     if not found:
         return None
-    d = json.loads(found[0].read_text(encoding="utf-8-sig"))
-    return {"force": set().union(*(set(f) for f in d.get("forces", []))),
-            "patrol": set().union(*(set(p) for p in d.get("patrols", [])))}
+    out = {"force": set(), "patrol": set()}
+    for path in found:
+        d = json.loads(path.read_text(encoding="utf-8-sig"))
+        out["force"] |= set().union(*(set(f) for f in d.get("forces", [])))
+        out["patrol"] |= set().union(*(set(p) for p in d.get("patrols", [])))
+    return out
 
 
 def main():

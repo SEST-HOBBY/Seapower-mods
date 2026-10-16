@@ -1117,6 +1117,11 @@ MISSING_LOADOUT_NAMES = {
     # it, so the fit carries nothing. Named for what it is rather than
     # disguised as the real Default.
     "Defaul": "Unarmed (mod typo)",
+    # The YF-23 (3796349767), the Fury escort and strike (3804868806) and the
+    # MV-75 (3810611344) added a Steelfin loadout on 16 Oct 2026, the
+    # air-launched interceptor each mod ships as usn_steelfin_air ("Air-launched
+    # Steelfin interceptor"), and none of them names the loadout.
+    "Steelfin": "Steelfin (air-defence interceptor)",
 }
 
 
