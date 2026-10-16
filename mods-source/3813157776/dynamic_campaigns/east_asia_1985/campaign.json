@@ -1,14 +1,16 @@
 {
   "id": "bungalow.east_asia_1985",
-  "name": "Bungalow's Dynamic Campaign Pacific 1985",
-  "description": "June 1985. There was no ultimatum. In the small hours of a spring night, Soviet bombers came in low over Okinawa while Chinese assault boats ran for the beaches of Taiwan, and by dawn the war had already been lost in a dozen places at once.\n\nThe weeks since have been a long retreat. Seoul, Manila and Singapore have fallen; Kadena and Clark fly the enemy's colours, and the Indonesian islands went without a fight. The Seventh Fleet has pulled back to lick its wounds: Constellation lies at Darwin, the Marines are regrouping on Guam, and only the destroyers of the Japanese Self-Defense Force still hold the home ports; the carrier Midway has put to sea and is racing round Kyushu to meet the enemy.\n\nNow the enemy is coming for Japan itself. In the Korea Strait and the East China Sea a Soviet landing force under Minsk's guns and a Chinese one are closing on Sasebo, and the patrol planes say they will be off the harbour by nightfall. Out in the central Pacific their submarines wait across the lanes every convoy from Pearl Harbor must cross.\n\nYou command what is left in the Pacific. Hold Kyushu. Keep the tankers and the ammunition ships coming. Rebuild the fleet, and then take back, island by island, everything they took. The war ends when every base beyond the Russian and Chinese mainland is ours again, or when theirs is the flag over everything we hold outside Australia and Hawaii.",
+  "name": "DCM Pacific 1985: Island by Island",
+  "stars": 2,
+  "seed": "Bungalow's Dynamic Campaign Pacific 1985",
+  "description": "June 1985. There was no ultimatum. In the small hours of a spring night, Soviet bombers came in low over Okinawa while Chinese assault boats ran for the beaches of Taiwan, and by dawn the war had already been lost in a dozen places at once.\n\nThe weeks since have been a long retreat. Seoul, Manila and Singapore have fallen; Kadena and Clark fly the enemy's colours, and the Indonesian islands went without a fight. The Seventh Fleet has pulled back to lick its wounds: Constellation lies at Darwin with two fifths of her air wing, the Marines are regrouping on Guam, and only the destroyers of the Japanese Self-Defense Force still hold the home ports; the carrier Midway, with half her air wing, has put to sea and is racing round Kyushu to meet the enemy.\n\nNow the enemy is coming for Japan itself. In the Korea Strait and the East China Sea a Soviet landing force under Minsk's guns and a Chinese one are closing on Sasebo, and the patrol planes say they will be off the harbour by nightfall. Out in the central and south Pacific their submarines wait across the lanes every convoy from Pearl Harbor must cross, and a Soviet squadron out of Surabaya is loose in the Flores Sea, two days' steaming from Darwin.\n\nYou command what is left in the Pacific. Hold Kyushu. Keep the tankers and the ammunition ships coming. Rebuild the fleet, and then take back, island by island, everything they took. The war ends when every base beyond the Russian and Chinese mainland is ours again, or when theirs is the flag over everything we hold outside Australia and Hawaii.",
   "start": "1985-06-01T00:00:00Z",
   "bounds": { "latMin": -47.0, "latMax": 62.0, "lonMin": 90.0, "lonMax": 210.0 },
   "view": { "lat": 32.0, "lon": 138.0, "pixelsPerDegree": 22.0 },
 
   "sides": [
     { "id": "blue", "name": "US / Japan / Australia", "nations": ["US", "Japan", "Australia"], "hq": "CINCPACFLT", "command": "CNO WASHINGTON DC", "color": "#4A90E2", "startingPoints": 400 },
-    { "id": "red", "name": "Soviet Union / China", "nations": ["Soviet", "China"], "hq": "COMPACFLT VLADIVOSTOK", "command": "MAIN NAVAL STAFF MOSCOW", "color": "#E24A4A", "startingPoints": 400, "comingSoon": true }
+    { "id": "red", "name": "Soviet Union / China", "nations": ["Soviet", "China"], "hq": "COMPACFLT VLADIVOSTOK", "command": "MAIN NAVAL STAFF MOSCOW", "color": "#E24A4A", "startingPoints": 400, "aiOnly": true }
   ],
 
   "bases": [
@@ -182,7 +184,8 @@
     { "name": "VP-40", "side": "blue", "base": "misawa", "type": "Air", "units": ["usn_p-3c x4"] },
     { "name": "3rd TFW", "side": "blue", "base": "tindal", "type": "Air", "units": ["usaf_f-4e x8"] },
     { "name": "VP-1 Detachment", "side": "blue", "base": "tindal", "type": "Air", "units": ["usn_p-3c x2"] },
-    { "name": "43rd Bomb Wing", "side": "blue", "base": "andersen", "type": "Air", "units": ["usaf_b-52g x6"] },
+    { "name": "VP-22 Detachment", "side": "blue", "base": "wake", "type": "Air", "units": ["usn_p-3c x1"] },
+    { "name": "43rd Bomb Wing", "side": "blue", "base": "andersen", "type": "Air", "units": ["usaf_b-52g x1"] },
     { "name": "2nd Air Wing", "side": "blue", "base": "misawa", "type": "Air", "units": ["jasdf_f-4ej x4"] },
     { "name": "2nd Air Wing Detachment", "side": "blue", "base": "atsugi", "type": "Air", "units": ["jasdf_f-4ej x4"] },
     { "name": "8th Air Wing", "side": "blue", "base": "tsuiki", "type": "Air", "units": ["jasdf_f-1 x4"] },
@@ -194,7 +197,7 @@
 
     { "name": "Minsk Group", "side": "red", "base": "vladivostok", "type": "Surface", "at": [35.16, 129.76],
       "units": ["wp_takr_kiev named Minsk", "wp_bpk_kara named Tashkent BPK-712", "wp_bpk_udaloy named Admiral Spiridonov BPK-409", "wp_skr_krivak2 named Revnostny SKR-671"] },
-    { "name": "Novorossiysk Group", "side": "red", "base": "vladivostok", "type": "Surface",
+    { "name": "Novorossiysk Group", "side": "red", "base": "cam_ranh", "type": "Surface",
       "units": ["wp_takr_kiev named Novorossiysk", "wp_bpk_kara named Petropavlovsk BPK-591", "wp_bpk_kashin named Steregushchiy BPK-563",
                 "wp_skr_krivak1 named Razumnyy SKR-640"] },
     { "name": "Pacific Fleet Surface Group", "side": "red", "base": "vladivostok", "type": "Surface", "at": [41.5, 133.5],
@@ -215,7 +218,15 @@
     { "name": "Okhotsk Bastion Escort", "side": "red", "base": "petropavlovsk", "type": "Surface", "at": [51.0, 148.0],
       "units": ["wp_ssn_victor3 named K-242 50 let Komsomolsku-na-Amure"] },
     { "name": "Kamchatka Flotilla", "side": "red", "base": "petropavlovsk", "type": "Surface", "at": [21.0, 178.0],
-      "units": ["wp_ssgn_echo2 named K-116", "wp_ssgn_charlie1 named K-212", "wp_skr_krivak1 named Razyashchiy SKR-692", "wp_mpk_grisha3"] },
+      "units": ["wp_ssgn_echo2 named K-116", "wp_ssgn_charlie1 named K-212"] },
+    { "name": "Hawaiian Approaches Submarine Patrol", "side": "red", "base": "petropavlovsk", "type": "Surface", "at": [20.0, 196.5],
+      "units": ["wp_ssn_victor3 named K-251", "wp_ssn_victor1 named K-454"] },
+    { "name": "Midway Submarine Patrol", "side": "red", "base": "petropavlovsk", "type": "Surface", "at": [26.7, 187.5],
+      "units": ["wp_ssgn_echo2 named K-108", "wp_ssn_victor1 named K-469"] },
+    { "name": "Marianas Submarine Patrol", "side": "red", "base": "cam_ranh", "type": "Surface", "at": [14.6, 152.0],
+      "units": ["wp_ssgn_echo2 named K-56", "wp_ssgn_charlie1 named K-302"] },
+    { "name": "South Pacific Submarine Patrol", "side": "red", "base": "cam_ranh", "type": "Surface", "at": [-3.5, 179.0],
+      "units": ["wp_ssgn_echo2 named K-10", "wp_ssgn_charlie1 named K-308"] },
     { "name": "Sovetskaya Gavan Brigade", "side": "red", "base": "sovetskaya_gavan", "type": "Surface", "units": ["wp_mpk_grisha3", "wp_mrk_nanuchka", "wp_ptg_tarantul x2"] },
     { "name": "Cam Ranh Squadron", "side": "red", "base": "cam_ranh", "type": "Surface", "at": [15.5, 118.5], "units": ["wp_skr_krivak1 named Poryvistyy SKR-806"] },
     { "name": "Cam Ranh Submarine Detachment", "side": "red", "base": "cam_ranh", "type": "Surface", "at": [13.0, 126.5], "units": ["wp_ssgn_echo2 named K-184", "wp_ss_foxtrot named B-130"] },
@@ -223,6 +234,10 @@
       "units": ["wp_bpk_kresta2", "wp_bpk_kashin", "wp_skr_krivak1 x2"] },
     { "name": "Subic Surface Action Group", "side": "red", "base": "subic_bay", "type": "Surface", "at": [16.5, 117.0],
       "units": ["wp_bpk_kashin", "wp_skr_krivak2", "wp_skr_krivak1 x2"] },
+    { "name": "Surabaya Surface Action Group", "side": "red", "base": "surabaya", "type": "Surface", "at": [-7.0, 122.0],
+      "units": ["wp_bpk_kara named Tallin BPK-597", "wp_bpk_kashin named Strogiy BPK-574", "wp_skr_krivak2 named Ryany SKR-628", "wp_skr_krivak1"] },
+    { "name": "Timor Sea Submarine Patrol", "side": "red", "base": "surabaya", "type": "Surface", "at": [-10.3, 126.8], "units": ["wp_ss_kilo named B-248"] },
+    { "name": "Arafura Sea Submarine Patrol", "side": "red", "base": "surabaya", "type": "Surface", "at": [-9.8, 132.4], "units": ["wp_ss_foxtrot"] },
     { "name": "Cam Ranh Landing Detachment", "side": "red", "base": "cam_ranh", "type": "Surface", "units": ["wp_bdk_alligator x2"] },
     { "name": "Subic Landing Detachment", "side": "red", "base": "subic_bay", "type": "Surface", "units": ["wp_bdk_ropucha x2"] },
     { "name": "Backfire Regiment", "side": "red", "base": "knevichi", "type": "Air", "units": ["wp_tu-22m2 x8"] },
@@ -280,18 +295,65 @@
     { "landing": "Pacific Fleet Landing Group", "troops": [], "escort": "Minsk Group", "target": "sasebo", "sailHours": 0 },
     { "landing": "South Sea Fleet Landing Squadron", "troops": [], "escort": "East Sea Fleet Destroyer Flotilla", "target": "sasebo", "sailHours": 0 }
   ],
+  "texts": {
+    "guideWar": "June 1985. The Soviet Union and China struck first: Taiwan, Korea, Okinawa, the Philippines, Malaysia, Singapore and Indonesia have fallen. You command what is left of the Allied fleets in the Pacific: the US Seventh Fleet, the Japanese escort flotillas and the Australians.",
+    "guideWarTask": "A landing force is already at sea for Sasebo. Your first task is to stop it; then rebuild, and take everything back.",
+    "guideHour2": "An hour in, the Admiralty orders you to defend Sasebo: ACCEPT it (the briefing opens by itself; with a panel open, the badge on the Admiralty icon shows it waiting).",
+    "guideHour3": "Double-click Sasebo, Kure or Maizuru: on the base screen, pick a task force and press Sortie.",
+    "guideHour4": "Select it on the map and right-click the sea where it should go, or use MISSION (bottom bar) to patrol around Sasebo.",
+    "guideHour6": "Press Space or Play (top right). When the landing force is found, the contact screen comes up.",
+    "guideExampleMove": "DESRON 15 holds off Yokosuka. Right-click south of Shikoku: it plots a route round the coast and shows its arrival time at each waypoint.",
+    "guideExampleSplit": "Split the frigates off CVBG Midway to escort a convoy, then merge them back when it is safely in.",
+    "guideLift": "Battalions ride in landing ships: Tarawa 3 · Austin 2 · Charleston or Newport 1 (the enemy's landing ships 2).",
+    "guideLiftIslands": "Select the group and right-click an enemy port, or an island airfield with no port (Wake, Midway, Kwajalein).",
+    "guideExampleInvade": "ARG Alpha at Guam carries 7 battalions (Tarawa 3, Dubuque 2, St. Louis 1, San Bernardino 1): enough for a port such as White Beach, not for a depot.",
+    "guideDeckRates": "Midway 6; Forrestal, Kitty Hawk, America 8; Enterprise and Nimitz 10",
+    "guideExampleCarrier": "Midway starts with half her air wing and loses 6 F-4Js and 2 A-7Es over the Korea Strait: back at Yokosuka, Replace lost aircraft makes her wing whole, each aircraft she lacks at 15 % of its price. At Sasebo (no depot) she can refill her magazine from the base's aviation stores, as far as they go, but not replace aircraft.",
+    "guideReplen": "Sacramento (fuel and weapons), the T2 oiler (fuel) and Kilauea (weapons) are in the Shipyard panel, under Replenishment (their card says what each carries). In a friendly port they load from its stock, never taking it below half of what it should hold.",
+    "guideTanker": "A KC-10A Extender of the 9th ARS waits at NAF Atsugi, loaded with 90 t of fuel for your other aircraft (more in the Shipyard panel under Support, from Admiral).",
+    "guideExampleStrike": "The B-52 at Andersen (the 43rd Bomb Wing has one) with StrikeHeavy on a red field before your landing: fewer fighters to meet your landing ships.",
+    "guideDepots": "Yokosuka, Pearl Harbor, Fleet Base East. They make fuel and weapons every day and send the convoys by themselves. Each makes its own share: lose one, and your side makes that much less.",
+    "guideExampleSupply": "Sasebo is about to be fought for: set it to High so its missiles are topped up before the landing comes.",
+    "guideExampleIntel": "\"A satellite pass at 0456Z shows about 9 surface ships 127 nm from Chinhae\": the red circle on the map is that area, not a firm position.",
+    "guideCarrierPrices": "Their price in the Shipyard panel. Carriers by tier: Forrestal 1,250, Kitty Hawk and Enterprise 1,400, America 1,500, Nimitz 1,600.",
+    "guideYardsList": "Ships join at your shipyards (the crane badge: Pearl Harbor, Yokosuka, Fleet Base East), aircraft at the airfield by them.",
+    "guideVictory": "The first side to hold every base in the theatre but those on the enemy's mainland wins: for you, everything outside mainland Russia and China, islands included (Sakhalin, Hainan, Zhoushan, Taiwan, Okinawa...); for the enemy, everything outside mainland Australia and Hawaii (Pearl Harbor and Hickam).",
+    "guideRoad": "Hold Kyushu, retake Chinhae and Okinawa, then Taiwan (Tsoying brings Ching Chuan Kang with it), the Philippines, and last the far south: Singapore, Malaya and the Indonesian ports.",
+    "guideFieldModels": " (the small field in its US, Japanese and Chinese versions, under Australia's flag at its fields; the NATO airbase for the big US fields, Misawa, Andersen and Hickam; for the Soviets' a Soviet field sized by the base, the small fighter field only where no large aircraft are based: one where a bomber or patrol aircraft is based stands as a larger one)",
+    "guideReplenStart": "The Allies' T2 oiler and Flint (Kilauea class) at Darwin and Sacramento at Pearl Harbor start loaded.",
+    "guideAllies": " (Soviet ships rearm in Chinese ports and the other way round, American ones in Australian ports)",
+    "guideBatteries": " (US and Japan: M110 and M109 guns; Australia: M109; Soviet: Rubezh and Redut; China: HY-2 and HY-1)",
+    "guideSams": " (US: Nike Hercules; Japan: Nike Hercules, Type 81; Australia: Rapier; Soviet: SA-3, SA-8; China: SA-2 for its HQ-2)",
+    "guideDepotGarrison": ", a red depot 3 and 5",
+    "guideCaptured": "Bases taken in the war's first days start at 55 % of their stocks (two batteries).",
+    "guideOpeningWarning": "The opening warning on Sasebo comes 1 hour in (the landing forces sail at once and are off Sasebo some 12 hours in); ",
+    "guideEnemy": "The enemy plays under the same fog, with its own sensors and reports. Its daily income is 1.5 times what its bases pay (Normal, the one difficulty for now; its bases pay more than yours: 124 a day against 79 at the start). Its orders arrive in half your time (in half that again while its warships are under half of what it may have, twice your ships). It never has more than twice your ships (its own on order counted, landing ships aside; it orders above that, so at first it orders only landing ships), at most 12 aircraft on order at once and never more than twice your aircraft, your carriers' counted (its points bank meanwhile), and below 20 escorts it gets escorts back at once, free, as far as twice your ships allow (counting no capital ships, patrol craft, submarines, landing ships or auxiliaries). It starts with 120 ships, the south's Kiev group (Novorossiysk), two surface action groups and four landing ships at Cam Ranh and Subic Bay, a third surface action group out of Surabaya and submarine pairs far out in the Pacific among them, and 25 Soviet small combatants (missile and torpedo boats, Stenkas and Petyas) in patrol groups at Qingdao, Shanghai, Fuzhou, Huangpu, Yulin, Cam Ranh, Subic Bay and Singapore. It organises its fleet into capital groups (5 to 8 ships), surface action groups, ASW and patrol groups and submarine groups; orders at Vladivostok, Shanghai and Cam Ranh, the safest yard first; keeps 4 landing ships on each front, north and south of 25°N (each counted on the front of its home: where it started or arrived; a front with no yard left gets them ordered at another's, and they sail to it), gathered in a port of that front. Each front lands on its own: with 6 battalions or so (the rest kept for the next landing), at a target on its front within 2,500 nm of any base the enemy holds (on the other front only when that front can't land or this one has no target in reach), one landing at a time, and not within 12 days of its last capture (the opening landing on Sasebo counts for the north). It retakes its lost ports first and at once (the 12 days and a landing under way don't hold a retake back; the bases its landings took count as its own; weighted towards depots, then yards, then by what it pays), and a landing sailing elsewhere turns back to retake a port lost behind it; then it goes for its objectives (a base that isn't one only when none is in reach), weighing each target's sailing time (a retake 5 days off at most, a new conquest 9) against the defence it knows there and near it (the base's land units, its ships in port and aircraft, as it last saw them), with some luck, and now and then sends a light group towards another as a feint. Its escort is 5 ships, one more for each 36 of strength it knows near the target (about a four-ship group), 9 at most; short of it, it calls a group in and waits up to two days, then goes for a target its escort is enough for, or the best. It never sails with fewer than 3 escorts: it calls groups from further out meanwhile, or takes its landing ships back to a port of their front with warships; in the south its depot's guard stays home. A landing short of its 6 battalions (ships sunk) turns home, the opening ones too; one at the beach gives it up after 3 battles there in a row that destroy nothing ashore, 24 hours there without its hold beginning, or with nothing left that can hit a target ashore, and regroups in the nearest port of its front to rearm, then may land again (that beach last, for 3 days); its landing ships and escorts sail only once refuelled, rearmed and repaired (after two days in port, without what the port can't give them, as long as they have enough fuel and weapons and no heavy damage); a group its port can't make fit for sea goes to a port that can. Its landing groups and its convoys' escorts burn two thirds of the fuel (it refuels them under way, abstractly). It raids your groups at sea with 2 to 8 anti-ship aircraft, as many as it reckons the group calls for (an unidentified group of 3 ships draws 4, one of 6 ships 7; all from one squadron, so often fewer), never one alone. It raids, of its own choosing, a group of about 3 ships' worth or more, a landing force, a convoy it has identified or a carrier group (a lone ship far from its bases is left to its ships and submarines), and a group within 300 nm of its bases that none of its ships is sent after; at most one such raid every 4 hours, and each group at most once a day. A landing force, or a group near one of its depots, is struck without waiting the 4 hours. On top of that, it flies at most one raid on your convoys, one on your other groups and one strike on your bases a day (for the whole enemy side), each not before its own time of day, drawn afresh every day between 0000Z and 2000Z; raids at a landing force or any group within 100 nm of one of its bases don't count. A strike on your fields before one of its landings uses the day's base strike too. A raid goes only at a group one of its spotters holds: a patrol or reconnaissance aircraft (it sends one to shadow the group first, from 80 nm out), one of its ship groups or a submarine that has it on its own sensors. At least 2 fighters escort every raid whenever some can reach the target, your aircraft near it or not, armed so as to be ready with its bombers; beyond their reach the raid goes alone. A raid that has fought a battle, at its target or met by your fighters on the way, goes home after it, with what it has left, and its escorts with it (unless another raid on that group is still on its way; an escort still arming goes home as soon as it is up): it doesn't come back at that group or look for another. A battle left at once, with nothing fired or lost, doesn't count: the raid flies on. A raid that has lost its target without a battle still looks for another group within reach that one of its spotters holds before turning home. It strikes your airfields near its landings' targets from the air, and now and then the nearest, only where it knows your aircraft are (before a landing, also a field it hasn't looked at lately; never one it saw empty), or a port where it knows your ships lie. It shifts free warship groups to a front that lost a port or whose landing waits for its escort (keeping its depots' guards), and orders more warships while a port of its is lost. It escorts its convoys once it loses them on a lane, blockades your ports with submarines, scouts by sea and air, patrols the approaches to what it took, and keeps three fighter patrols of two up, keeping off a station for a day for each fighter it lost there (two at most); it puts fighters over a group going into a fight once every 6 hours, only when it knows your aircraft are within 400 nm (never over a submarine hunt; over a landing without a gap, and against a field of yours it hasn't looked at lately too). A squadron whose field can't arm it isn't asked again for 6 hours. Its patrol groups (craft under 1,200 t) patrol the coast off their base, guard its depots and the approaches near them and meet threats within 150 nm of their base, never further; they never escort, raid, blockade, scout or hunt far out, so its larger groups are free for that. It never has more than three Kirovs or three Orels at a time, and has at most two capital ships of each class at a time (carriers, and ships of 20,000 t and more such as the Kirov and the Iowa; with those on order); when it loses one, it orders none of that class for 4 days. None of its surface ships goes on a mission alone (a raid, a scout, a hunt, a patrol, a blockade): groups of two ships or more, a capital ship only with at least 2 escorts; a lone ship sails home or to another port to join a group, or waits for one (submarines may go alone). It keeps at least 4 groups out on patrol or on missions, weak or strong, as far as it has them; its groups, its standing patrols too, come home when low on fuel or weapons, damaged or long at sea. A standing patrol sails again once refuelled, rearmed and repaired; after two days in a port that can't give it what it lacks, it goes to one that can, or sails as it is. It weighs a carrier group by its air wing; its own carriers short of a third of their wing sail for a depot and replace their lost aircraft there from its points (the depot whose way costs least by its length and what it knows of your bases, forces and its losses along it, your bases as it last saw them, else as such a base would hold, looked at again every 3 hours on the way; none if every way is too dangerous: it waits in a safe port; its other groups weigh their way home by the danger too, by half; not while it can't pay for one), and come home to a port that can refill their magazine when it is down to a quarter (points, or any of their missiles or torpedoes counted apart). It has no replenishment ships.",
+    "guideYards": "The catalogue's tiers open with your rank (renown {ranks}); a ship's loadouts open by rank too. Ships take 5 to 20 days to arrive (the enemy's half that) and join at a shipyard (Pearl Harbor, Yokosuka and Fleet Base East; the enemy's Vladivostok, Shanghai and Cam Ranh: ships are ordered at these only); aircraft are delivered to the airfield by a yard: US aircraft by Pearl Harbor (Hickam AFB) unless you pick Yokosuka or Fleet Base East under Join at, Japanese and Australian aircraft by their nation's yard. The enemy's tier grows with the days of war. Prices are the game's own point values (a Knox 115, a Spruance 249, a Ticonderoga 605, an F-14A 187 each); carriers are priced by tier: Forrestal 1,250, Kitty Hawk and Enterprise 1,400, America 1,500, Nimitz 1,600 (the enemy's Moskva 300, Kiev 750, Orel 1,300), and they take longest to arrive: Forrestal 16 days, Kitty Hawk and Enterprise 18, America 19, Nimitz 20 (Moskva 14, Kiev 17, Orel 20), every other ship 5 to 15 by its price; replenishment ships: the T2 oiler 120, Kilauea 140, Sacramento 220. USS Alaska, the game's what-if nuclear cruiser, can be ordered from Vice Admiral for 826 points.",
+    "guideVictoryDepth": "Each side's objectives are every base but the enemy's home soil (marked in the campaign: the Russian and Chinese mainland for the enemy, mainland Australia for you, HMAS Stirling included). The first to hold all of its objectives has won; later changes don't undo it. Hawaii (Pearl Harbor and Hickam) is not an objective for the enemy, though you must hold it.",
+    "guideSamReach": "Nike Hercules 70 nm, SA-2 and HQ-2 25, SA-3 15, SA-8 6, Type 81 5, Rapier 4",
+    "guideColocated": "Misawa AB with Ominato, RAAF Williamtown with Fleet Base East",
+    "guideReplenShips": " (Sacramento 24,000 t of fuel and 2,150 t of weapons, the T2 oiler 16,000 t of fuel, Kilauea 5,000 t of weapons)",
+    "victorySummary": "The campaign is won by the first side to hold every base in the theatre but those on the enemy's home soil. Islands count (Sakhalin, Hainan, Taiwan, Okinawa...), and each side must keep its own bases too. Hawaii is not an objective for the enemy.",
+    "endingWon": "The last base the enemy held beyond its home soil has fallen. Its fleets are back behind their own coasts, and the sea lanes of the Pacific are ours. The war is won.",
+    "endingLost": "The enemy holds every base we had beyond our home soil. What is left of the fleet has fallen back to its last harbours. The war is lost.",
+    "procurementLift": "a place in an assault ship (Tarawa 3 · Austin 2 · Charleston or Newport 1 · Soviet and Chinese landing ships 2)",
+    "messageVictory": "Victory. Every base outside {enemy}'s home soil{besides} is ours: the campaign is won.",
+    "messageDefeat": "Defeat. {winner} holds every base outside our home soil{besides}: the campaign is lost."
+  },
+
   "story": {
     "opening": {
       "blue": {
         "situation": [
           "The Soviet Union and the People's Republic of China opened hostilities without warning some weeks ago. In a short campaign they have overrun Taiwan, South Korea, the Ryukyu Islands, the Philippines, Singapore, Malaysia and the Indonesian islands.",
           "The north is China's: Chinese forces hold Taiwan, the Ryukyus and Korea, and Chinese fighters fly from Ching Chuan Kang. The south is the Soviets': staging through Cam Ranh Bay, they hold the Philippines, Singapore, Malaysia and Indonesia, their fighters fly from Clark and their naval bombers from Tengah.",
-          "Seventh Fleet has fallen back to Darwin and east into the Pacific. Midway's group is at sea off southern Kyushu, half a day's steaming from Sasebo; the Japanese flotillas lie at Yokosuka, Sasebo, Maizuru and Kure.",
+          "Seventh Fleet has fallen back to Darwin and east into the Pacific, its carriers' air wings at half strength or less after the retreat. Midway's group is at sea off southern Kyushu, half a day's steaming from Sasebo; the Japanese flotillas lie at Yokosuka, Sasebo, Maizuru and Kure.",
           "Supply now comes the long way: across the central Pacific from Pearl Harbor, and up from Sydney."
         ],
         "enemy": [
-          "The enemy is on a war footing. About two thirds of the enemy fleets are believed at sea; the rest lie in Vladivostok, Petropavlovsk and the Chinese ports.",
-          "Enemy submarines are believed across our supply lanes in the central Pacific, between Hawaii, Guam and Japan. Treat every convoy route as threatened.",
+          "The enemy is on a war footing. About two thirds of the enemy fleets are believed at sea; the rest lie in Vladivostok, Petropavlovsk, Cam Ranh Bay and the Chinese ports.",
+          "Enemy submarines are believed across our supply lanes in the central and south Pacific, between Hawaii, Guam, Japan and Australia, and in the approaches to Darwin. Treat every convoy route as threatened.",
+          "A Soviet surface action group out of Surabaya is believed in the Flores Sea, two days' steaming from Darwin.",
           "Soviet and Chinese landing forces are at sea. An assault on Kyushu is feared within hours: with a foothold there the enemy would command the Tsushima Strait."
         ],
         "intent": [
@@ -309,6 +371,13 @@
     { "force": "Missile Cruiser Brigade", "points": [[36.5, 146.0], [33.0, 148.0], [38.5, 150.0]] },
     { "force": "Pacific Fleet Submarine Brigade", "points": [[24.0, 142.2], [20.0, 143.6], [27.0, 141.8]] },
     { "force": "Kamchatka Flotilla", "points": [[21.0, 178.0], [19.8, 170.0], [18.0, 161.0], [20.5, 186.0]] },
+    { "force": "Hawaiian Approaches Submarine Patrol", "points": [[20.0, 196.5], [18.8, 197.0], [21.6, 195.8]] },
+    { "force": "Midway Submarine Patrol", "points": [[26.7, 187.5], [25.6, 191.0], [27.8, 185.6]] },
+    { "force": "Marianas Submarine Patrol", "points": [[14.6, 152.0], [13.2, 151.5], [16.2, 152.5]] },
+    { "force": "South Pacific Submarine Patrol", "points": [[-3.5, 179.0], [-1.5, 183.0], [-6.0, 177.5]] },
+    { "force": "Surabaya Surface Action Group", "points": [[-7.0, 122.0], [-6.3, 126.5], [-9.8, 127.3]] },
+    { "force": "Timor Sea Submarine Patrol", "points": [[-10.3, 126.8], [-9.7, 128.4], [-10.6, 125.6]] },
+    { "force": "Arafura Sea Submarine Patrol", "points": [[-9.8, 132.4], [-10.2, 131.2], [-9.6, 133.2]] },
     { "force": "Cam Ranh Submarine Detachment", "points": [[13.0, 126.5], [10.0, 127.5], [15.5, 125.5]] },
     { "force": "North Sea Fleet Submarine Flotilla", "points": [[24.5, 124.5], [22.8, 123.2], [26.0, 125.8]] },
     { "force": "DESRON 15", "points": [[33.5, 141.0], [31.0, 138.5], [33.8, 136.5]] },
@@ -338,9 +407,16 @@
     "usn_ff_garcia": "pearl_harbor, yokosuka, sydney", "usn_ffg_brooke": "pearl_harbor, yokosuka, sydney"
   },
 
+  "aircraftYards": { "US": "pearl_harbor, yokosuka, sydney" },
+
   "airWings": {
     "usn_cvn_nimitz": { "usn_f-14a": "", "usn_a-7e": "", "usn_fa-18a": "Squadron1,21|Squadron2,21" },
     "usn_cv_kitty_hawk named Midway CV-41": { "usn_f-14a": "", "usn_f-4j": "Squadron4,11|Squadron14,10" }
+  },
+
+  "startingWingStrength": {
+    "usn_cv_kitty_hawk named Midway CV-41": 0.5,
+    "usn_cv_kitty_hawk named Constellation CV-64": 0.4
   },
 
   "replenishment": {

@@ -1,0 +1,13 @@
+{
+  "id": "bungalow.atlantic_1972_red_storm_rising",
+  "name": "DCM Atlantic 1972: Red Storm Rising",
+  "stars": 5,
+  "comingSoon": true,
+  "description": "Summer 1972. The Northern Fleet sails to break through the gap and cut the Atlantic before America's convoys can reach Europe. Coming in a later version.",
+  "start": "1972-07-01T00:00:00Z",
+
+  "sides": [
+    { "id": "red", "name": "Soviet Union / Warsaw Pact", "nations": ["Soviet", "DDR", "Poland"], "color": "#E24A4A" },
+    { "id": "blue", "name": "NATO: US / UK / Norway and allies", "nations": ["US", "UK", "Norway", "Netherlands", "Canada"], "color": "#4A90E2", "aiOnly": true }
+  ]
+}
