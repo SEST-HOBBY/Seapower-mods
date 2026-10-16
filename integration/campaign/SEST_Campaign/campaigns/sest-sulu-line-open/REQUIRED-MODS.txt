@@ -40,7 +40,7 @@ LOAD-ORDER.txt is missing. (Anchor Chain is one a mod in list 1 asks
 for; the map, salvo and rescue tools are conveniences.)
 
 
-4. NOT USED BY THIS CAMPAIGN (197): enabled while it was built, and left in the order because removing one changes which copy of a
+4. NOT USED BY THIS CAMPAIGN (198): enabled while it was built, and left in the order because removing one changes which copy of a
 shared file wins for the mods above.
 
   3438479626    1143.5 Kuznetsov
@@ -94,6 +94,7 @@ shared file wins for the mods above.
   3488139470    Euromod - Modern Italian Navy
   3695809489    Euromod - Modern Japanese Maritime Self Defence Force
   3642656500    Euromod - Modern Nordic Navy
+  3820759806    Euromod - Modern Royal Australian Navy Mod
   3731208477    Euromod - Modern Spanish Navy
   3776730617    EUROMOD-Armada de Chile
   3678767059    Euromod-Brazilian Armed Forces(2000)

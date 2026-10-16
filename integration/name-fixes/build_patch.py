@@ -43,8 +43,6 @@ NAME_KEY = re.compile(r"^(Type|Default|Variant\d+|Squadron\d+|Callsigns)$")
 
 # (file, section, key): (the winning text today, the correction)
 EXPLICIT = {
-    ("vessel_names.ini", "[ran_ffh_anzac]", "Default"):
-        ("Anzac-class FFH,Frigate Helicopter", "Anzac-class FFH,Anzac"),
     ("vessel_names.ini", "[js_ffg_mogami]", "Variant4"):
         ("FFM-4 JS Mikuma,Mikma", "FFM-4 JS Mikuma,Mikuma"),
     ("vessel_names.ini", "[ko_ddg-991]", "Variant2"):

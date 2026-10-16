@@ -1174,8 +1174,25 @@ def loadouts(path, depth=0):
     return loadouts(base, depth + 1) if base else []
 
 
-def pick_loadout(uid, path, want):
-    """The loadout to write, and why. Never invents a name the file lacks."""
+def loadout_dates(path, depth=0):
+    """{fit: year} from the file's LoadoutDate_<fit>= keys, alias base included."""
+    found = {m.group(1).strip(): int(m.group(2)) for m in
+             re.finditer(r"^LoadoutDate_([^=\n]+)=(\d{4})", read(path), re.M)}
+    if found:
+        return found
+    base = alias_target(path) if depth < 4 else None
+    return loadout_dates(base, depth + 1) if base else {}
+
+
+def pick_loadout(uid, path, want, year=None):
+    """The loadout to write, and why. Never invents a name the file lacks.
+
+    A file that dates its fits (LoadoutDate_<fit>=year, the stock mechanism the
+    game uses to fit a ship to the mission's date) gets the latest fit in
+    service by the mission's year; ties go to the first offered. Writing
+    Default there forced the oldest fit: Euromod's Anzac and Hobart sailed a
+    2028 campaign without NSM (17 Oct 2026). An undated fit counts as in
+    service from the start."""
     offered = loadouts(path)
     if not offered:
         return None, "file offers none"
@@ -1184,6 +1201,12 @@ def pick_loadout(uid, path, want):
             raise SystemExit(f"{uid}: loadout {want!r} is not offered by the "
                              f"winning file (offers: {', '.join(offered)})")
         return want, "declared"
+    dates = loadout_dates(path) if year else {}
+    if dates:
+        live = [f for f in offered if dates.get(f, 0) <= year]
+        if live:
+            best = max(dates.get(f, 0) for f in live)
+            return next(f for f in live if dates.get(f, 0) == best), f"in service by {year}"
     if "Default" in offered:
         return "Default", "default"
     return offered[0], "first offered"
@@ -1260,7 +1283,7 @@ def mod_token(mod_id):
     return _TOKENS[mod_id]
 
 
-def resolve(spec):
+def resolve(spec, year=None):
     """Fill one authored unit in: winning file, kind, variant, squadron, fit.
 
     Returns the block keys the mission needs plus the credit set - every mod
@@ -1306,7 +1329,7 @@ def resolve(spec):
             keys["SquadronReference"] = want
             note(owner(f"aircraft/{uid}_squadrons.ini"), "squadron", uid)
 
-    fit, _why = pick_loadout(uid, path, spec.get("loadout"))
+    fit, _why = pick_loadout(uid, path, spec.get("loadout"), year)
     if fit:
         keys["LoadoutVariant"] = fit
     for store in stores(uid, kind_dir, path, fit):
@@ -1544,7 +1567,7 @@ def place(mission, snapper):
             pick = {k.lower(): v for k, v in by_flag.items()}.get(flag.lower())
             if pick:
                 spec["squadron"] = pick
-        kind, keys, credit = resolve(spec)
+        kind, keys, credit = resolve(spec, (mission.get("date") or (None,))[0])
         family = FAMILY[(spec["side"], kind)]
         idx = len(placed[family]) + 1
         tag = f"{family}{idx}"

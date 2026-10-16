@@ -21,14 +21,14 @@ photographs from the SEST gallery. Each carries its photographer
 and licence on the picture; the full credits, with sources, are
 in Gallery/PHOTO_CREDITS.txt.
 
-512 of the unit files here are another author's file with
+515 of the unit files here are another author's file with
 changes made to it. A Sea Power unit file is a whole-file
 override - there is no way to alter one line of somebody's
 aircraft without shipping the whole aircraft - so this is how a
 patch has to work, and this list is what it patches.
 
 Measured, not declared: every shipped unit file is diffed against
-every file of its kind in the collection, and the 512 below
+every file of its kind in the collection, and the 515 below
 came back 90% or more alike. The percentage is how much of the
 file is unchanged.
 Files carried for a mod that was removed from the Workshop are
@@ -38,9 +38,6 @@ listed whatever the percentage: they are still that author's.
       100%  vessels/ru_cv_kuznetsov.ini 
       100%  vessels/ru_cv_varyag.ini 
       100%  vessels/yns_cv_kuznetsov.ini 
-
-  [DEPRECATED] Anzac Class Frigate  (workshop 3440622312)
-       99%  vessels/ran_ffh_anzac.ini 
 
   A-10A Thunderbolt II  (workshop 3414146266)
        95%  aircraft/usaf_a-10c_plus_squadrons.ini from usa_a-10a_squadrons.ini
@@ -203,6 +200,12 @@ listed whatever the percentage: they are still that author's.
       100%  vessels/knm_cor_skjold.ini 
       100%  vessels/swe_fsg_visby_v5.ini 
       100%  vessels/swe_fsg_visby_v6.ini 
+
+  Euromod - Modern Royal Australian Navy Mod  (workshop 3820759806)
+      100%  vessels/ran_ddg_hobart.ini 
+      100%  vessels/ran_ffh_anzac.ini 
+      100%  vessels/ran_lhd_canberra.ini 
+      100%  vessels/ran_ssg_collins.ini 
 
   Euromod - Modern Spanish Navy  (workshop 3731208477)
       100%  vessels/ae_ffg_alvaro_bazan.ini 

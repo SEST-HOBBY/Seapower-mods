@@ -1,6 +1,6 @@
 Southern Reach - Workshop mods this campaign reaches (reference only)
 
-39 items, in canonical load order. NOT the Workshop item's
+41 items, in canonical load order. NOT the Workshop item's
 Required Items list. All four campaigns ship in one item, the SEST
 Integration Pack (3812461539), whose Required Items - like the
 collection 'SEST - Modernised Campaign Collection' (3812390790) -
@@ -20,11 +20,13 @@ https://steamcommunity.com/sharedfiles/filedetails/?id=3775128499    # Modern PL
 https://steamcommunity.com/sharedfiles/filedetails/?id=3607989779    # F-35C Lightning II Alt. Loadouts
 https://steamcommunity.com/sharedfiles/filedetails/?id=3395022688    # Tu-95 With AS-15 (Kh-55) ALCM (more realistic nuke)
 https://steamcommunity.com/sharedfiles/filedetails/?id=3438479626    # 1143.5 Kuznetsov
+https://steamcommunity.com/sharedfiles/filedetails/?id=3820759806    # Euromod - Modern Royal Australian Navy Mod
 https://steamcommunity.com/sharedfiles/filedetails/?id=3440622312    # [DEPRECATED] Anzac Class Frigate
 https://steamcommunity.com/sharedfiles/filedetails/?id=3432668460    # Auxilliary Merchant Pack
 https://steamcommunity.com/sharedfiles/filedetails/?id=3567256221    # Charles De Gaulle & Modern French Navy Pack (WIP)
 https://steamcommunity.com/sharedfiles/filedetails/?id=3384079999    # Humpback Whale
 https://steamcommunity.com/sharedfiles/filedetails/?id=3430106996    # Merchants Expanded
+https://steamcommunity.com/sharedfiles/filedetails/?id=3599752717    # Euromod - Modern British Navy
 https://steamcommunity.com/sharedfiles/filedetails/?id=3594891803    # PLAN Submarines
 https://steamcommunity.com/sharedfiles/filedetails/?id=3774859959    # PLAN Type 001 Aircraft Carrier Liaoning
 https://steamcommunity.com/sharedfiles/filedetails/?id=3436170138    # Shenyang J-11
@@ -33,7 +35,6 @@ https://steamcommunity.com/sharedfiles/filedetails/?id=3417801942    # Chinese N
 https://steamcommunity.com/sharedfiles/filedetails/?id=3597650470    # Russian Navy 21
 https://steamcommunity.com/sharedfiles/filedetails/?id=3468260539    # Russian Submarines (Yasen, Akula, Sierra I/II, Oscar II, Belgorod, Typhoon, Delta IV classes)
 https://steamcommunity.com/sharedfiles/filedetails/?id=3630495619    # Euromod - Cold War Spanish Navy
-https://steamcommunity.com/sharedfiles/filedetails/?id=3731208477    # Euromod - Modern Spanish Navy
 https://steamcommunity.com/sharedfiles/filedetails/?id=3737267013    # United States Naval Aviation
 https://steamcommunity.com/sharedfiles/filedetails/?id=3602046770    # Boeing P-8 Poseidon
 https://steamcommunity.com/sharedfiles/filedetails/?id=3459682829    # A-10C
@@ -48,6 +49,7 @@ https://steamcommunity.com/sharedfiles/filedetails/?id=3567228449    # French He
 https://steamcommunity.com/sharedfiles/filedetails/?id=3503670861    # General Atomics MQ-9 Reaper
 https://steamcommunity.com/sharedfiles/filedetails/?id=3717610332    # IL-78 TANKER
 https://steamcommunity.com/sharedfiles/filedetails/?id=3722749887    # KC-135 STRATOTANKER
+https://steamcommunity.com/sharedfiles/filedetails/?id=3571718093    # Road Mobile ICBMs (Topol-M, DF-41)
 https://steamcommunity.com/sharedfiles/filedetails/?id=3732654992    # THE REDFOR MOD
 https://steamcommunity.com/sharedfiles/filedetails/?id=3413868677    # Red Storm Arsenal
 https://steamcommunity.com/sharedfiles/filedetails/?id=3605013271    # RE-power: the resupply mod

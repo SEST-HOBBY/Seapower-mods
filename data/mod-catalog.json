@@ -2,7 +2,7 @@
   "meta": {
     "game": "Sea Power: Naval Combat in the Missile Age",
     "source": "Steam Workshop subscription list pasted by user, 2026-08-23 (see data/raw-workshop-list.txt) Extended 2026-08-24: +18 new subscriptions (titles only — file-level fields pending a mods-source re-export); 1 unsubscribed; Tu-95K-22 re-subscription was a duplicate of an existing entry. Extended 2026-09-20: mods-source re-exported after a long gap, which is what brought these in - only the Anzac Class Frigate is a NEW subscription (user-stated). The other 10 folders that appeared (F-2A, J-16 Multirole, PLA AEP, Auto Time-on-Target, RQ-180, YF-23, MiG-31, CH-53E, J-36, and the already-catalogued Y-8/Y-9 family) were subscribed earlier and simply never exported; the repo cannot date them, since data/raw-workshop-list.txt is the 109-item list from 2026-08-23 and predates all of them. Y-8/Y-9 proves the backlog was real: it was catalogued and in the load order already, with no files. 3 mods unsubscribed and pruned (F-35C MyGo, F/A-18E/F MyGo, AI Doctrine Overhaul). meta.count now tracks catalog entries, which is what tools/generate_catalog.py asserts. Extended 2026-09-30: RC-135V/W Rivet Joint and Coordinated Strike Tool subscribed (user-stated; both in the 30 Sep export). The Dassault Rafale (3504168760) has been absent from the PC's subscriptions since the 28 Sep snapshot and the 30 Sep export pruned its folder; it stays active here until the player says whether it is coming back. Extended 2026-10-03: Auto Time-on-Target unsubscribed by the user (Coordinated Strike Tool is the one salvo planner kept). Extended 2026-10-03 (evening): four new subscriptions in the export - Moloti's Armed Merchantmen, French Air Force (which brings the Rafale family back under the old ids), MV-75 Cheyenne II and the PLAAF Aircraft Pack. Extended 2026-10-04: ten further subscriptions (Hyuga class, AS350, S-350 Vityaz, Shahed 238, EMAD, Fattah-1, Fattah-2, Iran Bell-212, Project 2498 Zyetseth, Thailand: The Siam Shield). Extended 2026-10-11: Dynamic Campaign Mod (3813157776) added to the load order at the user's request. Extended 2026-10-13: five new subscriptions placed in the order on the player's decision - BUK-M3, ISKANDER-K, ICBM silos, Road Mobile ICBMs (Topol-M, DF-41) and Prithvi TBM. Extended 2026-10-14: Anduril Maritime Drones (3819522350) subscribed by the user and placed below Saronic Corsair ASV.",
-    "count": 204,
+    "count": 205,
     "field_notes": {
       "faction": "Primary operator the content represents (usa, russia, china, japan, australia, europe, france, italy, spain, iran, thailand, multi, civilian, utility)",
       "type": "framework | weapons | fixed-wing | rotary | uav | ship | submarine | land | airbase | patch (modifies other mods or vanilla units) | civilian | campaign (a third-party mission or campaign pack that ships no units of its own)",
@@ -1965,6 +1965,21 @@
       "requires": [
         "anchor-chain (stated: 'Requires Anchor Chain and its one-time preloader setup')"
       ]
+    },
+    {
+      "id": "euromod-ran",
+      "workshop_id": "3820759806",
+      "title": "Euromod - Modern Royal Australian Navy Mod",
+      "author": "Peter Garrett, USS Dogwater, Mitchell600",
+      "faction": "australia",
+      "type": "ship",
+      "status": "active",
+      "requires": [
+        "euromod-main",
+        "us-naval-aviation",
+        "french-helicopter-package"
+      ],
+      "notes": "Modern RAN and RAAF, early 2000s to the near future (v1.0.0.1, posted 16 Oct 2026, subscribed 17 Oct). Ships: Hobart (DDG 39/41/42), Anzac (all eight, each with an S-70B-2 and an MH-60R variant) and a wartime Anzac, Canberra and Adelaide in amphibious and air-assault fits plus an LHD-CV carrier conversion, Collins (all six), the Adelaide FFG upgrade and a Quickmatch-class future destroyer. Aircraft: RAAF F/A-18A (two fits), F/A-18F, EA-18G (two fits), P-8A, AP-3C, E-7A, F-111C AUP, RNZAF P-8A, RAN MH-60R, S-70B-2, Sea Lynx, Sea King Mk 50, F-35B, UH-60M, Army MRH-90, Tiger and AH-64E. Its Hobart, Anzac, Canberra and Collins use the unit ids SEST's campaigns already use: SEST RAN Fleet patches its files for them (17 Oct 2026; NSM, Tomahawk, SM-6 and date-based ESSM are already in its fits), so they sail on this mod's models with SEST's RAN air group. Placed above the Anzac Class Frigate mod so its own ran_ffh_anzac variants (hull numbers, emblems) win."
     },
     {
       "id": "anzac-class-frigate",

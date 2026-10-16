@@ -6443,7 +6443,7 @@
     "ran_aor_supply": 70,
     "ran_ffh_anzac": 125,
     "ran_opv_arafura": 103,
-    "ran_ssg_collins": 110,
+    "ran_ssg_collins": 120,
     "rfn_aor_pashin": 111,
     "rfn_cvt_20380_3-6": 91,
     "rfn_cvt_20380_7-12": 91,
@@ -6547,6 +6547,7 @@
     "wp_tu95ms": 89,
     "ace_f-2a": 46,
     "adf_ah-1g": 39,
+    "adf_ah-64e": 39,
     "am_f104g": 46,
     "am_f104s": 46,
     "am_f104sasa": 46,
@@ -6826,11 +6827,20 @@
     "qeaf_m2k-5eda_late": 46,
     "raac_ah_mk_1": 39,
     "raac_lynx_ah7": 25,
+    "raaf_ap-3c": 89,
     "raaf_canberra_bomber": 172,
+    "raaf_e-7a": 242,
+    "raaf_ea-18g": 46,
+    "raaf_ea-18g_2026": 46,
     "raaf_f-111c": 78,
+    "raaf_f-111c_aup": 78,
     "raaf_f-4e": 46,
     "raaf_f-4e_79": 46,
+    "raaf_fa-18a": 46,
+    "raaf_fa-18a_2011": 46,
+    "raaf_fa-18f": 46,
     "raaf_n22": 2,
+    "raaf_p8": 89,
     "raaf_queenair": 2,
     "raaf_searchmaster_b": 2,
     "raaf_searchmaster_l": 2,
@@ -6842,8 +6852,10 @@
     "ran_as350": 28,
     "ran_as350_recon": 28,
     "ran_C1A": 23,
+    "ran_f-35b": 46,
     "ran_h34": 39,
     "ran_h34_sar": 40,
+    "ran_mh-60r": 39,
     "ran_S-70B-2_Seahawk": 39,
     "ran_S-70B-2_Seahawk_late": 39,
     "ran_S2": 89,
@@ -6853,7 +6865,9 @@
     "ran_sea_gannet_aew": 242,
     "ran_sea_harrier84": 46,
     "ran_sea_king_aew2": 242,
+    "ran_sea_lynx_3": 39,
     "ran_sea_venom": 46,
+    "ran_uh-60m": 39,
     "ran_westlandseaking": 39,
     "rn_buccaneer_s1": 46,
     "rn_buccaneer_s2": 46,
@@ -6887,6 +6901,7 @@
     "rn_wessex": 39,
     "rn_wildcat": 39,
     "rnzaf_a-4k": 78,
+    "rnzaf_p8": 89,
     "rnzn_sh-2gi": 39,
     "rnzn_wasp": 39,
     "rok_f15k": 46,
@@ -7424,19 +7439,25 @@
     "ran_dd_anzac1968": 118,
     "ran_dd_daring": 124,
     "ran_dd_daring1968": 124,
-    "ran_ddg_hobart": 174,
+    "ran_ddg_hobart": 184,
     "ran_ddg_hobart_alt_early": 245,
     "ran_ddg_hobart_alt_late": 245,
     "ran_ddg_perth": 146,
     "ran_ddg_perth_91": 146,
     "ran_ddg_perth_early": 146,
+    "ran_ddl_quickmatch_late": 139,
     "ran_de_type15": 92,
     "ran_ffg_adelaide": 137,
     "ran_ffg_adelaide_93": 137,
     "ran_ffg_adelaide_ffg_upgrade": 137,
     "ran_ffg_adelaide_late": 137,
     "ran_ffg_adelaide_shorthull": 137,
+    "ran_ffg_adelaide_upgrade": 137,
+    "ran_ffh_anzac_wartime": 125,
+    "ran_lhd-cv_canberra": 487,
+    "ran_lhd-cv_canberra_late": 487,
     "ran_lhd_canberra": 487,
+    "ran_lhd_canberra_late": 487,
     "ran_lsd_choules": 311,
     "ran_lsh_tobruk": 173,
     "ran_lsm_lsm1": 35,
@@ -10652,6 +10673,12 @@
       "tier": 1
     },
     {
+      "unit": "ran_ddl_quickmatch_late",
+      "side": "blue",
+      "nation": "Australia",
+      "tier": 1
+    },
+    {
       "unit": "ran_ffg_adelaide",
       "side": "blue",
       "nation": "Australia",
@@ -10682,7 +10709,19 @@
       "tier": 1
     },
     {
+      "unit": "ran_ffg_adelaide_upgrade",
+      "side": "blue",
+      "nation": "Australia",
+      "tier": 1
+    },
+    {
       "unit": "ran_ffh_anzac",
+      "side": "blue",
+      "nation": "Australia",
+      "tier": 1
+    },
+    {
+      "unit": "ran_ffh_anzac_wartime",
       "side": "blue",
       "nation": "Australia",
       "tier": 1
@@ -10736,7 +10775,25 @@
       "tier": 3
     },
     {
+      "unit": "ran_lhd-cv_canberra",
+      "side": "blue",
+      "nation": "Australia",
+      "tier": 3
+    },
+    {
+      "unit": "ran_lhd-cv_canberra_late",
+      "side": "blue",
+      "nation": "Australia",
+      "tier": 3
+    },
+    {
       "unit": "ran_lhd_canberra",
+      "side": "blue",
+      "nation": "Australia",
+      "tier": 3
+    },
+    {
+      "unit": "ran_lhd_canberra_late",
       "side": "blue",
       "nation": "Australia",
       "tier": 3
@@ -10756,6 +10813,13 @@
     },
     {
       "unit": "adf_ah-1g",
+      "side": "blue",
+      "nation": "Australia",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "adf_ah-64e",
       "side": "blue",
       "nation": "Australia",
       "tier": 0,
@@ -10790,7 +10854,35 @@
       "aircraft": true
     },
     {
+      "unit": "raaf_ap-3c",
+      "side": "blue",
+      "nation": "Australia",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "raaf_ea-18g",
+      "side": "blue",
+      "nation": "Australia",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "raaf_ea-18g_2026",
+      "side": "blue",
+      "nation": "Australia",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
       "unit": "raaf_f-111c",
+      "side": "blue",
+      "nation": "Australia",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "raaf_f-111c_aup",
       "side": "blue",
       "nation": "Australia",
       "tier": 0,
@@ -10818,7 +10910,35 @@
       "aircraft": true
     },
     {
+      "unit": "raaf_fa-18a",
+      "side": "blue",
+      "nation": "Australia",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "raaf_fa-18a_2011",
+      "side": "blue",
+      "nation": "Australia",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "raaf_fa-18f",
+      "side": "blue",
+      "nation": "Australia",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
       "unit": "raaf_mq-4c_triton",
+      "side": "blue",
+      "nation": "Australia",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "raaf_p8",
       "side": "blue",
       "nation": "Australia",
       "tier": 0,
@@ -10895,6 +11015,13 @@
       "aircraft": true
     },
     {
+      "unit": "ran_f-35b",
+      "side": "blue",
+      "nation": "Australia",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
       "unit": "ran_h34",
       "side": "blue",
       "nation": "Australia",
@@ -10903,6 +11030,13 @@
     },
     {
       "unit": "ran_h34_sar",
+      "side": "blue",
+      "nation": "Australia",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "ran_mh-60r",
       "side": "blue",
       "nation": "Australia",
       "tier": 0,
@@ -10930,7 +11064,21 @@
       "aircraft": true
     },
     {
+      "unit": "ran_sea_lynx_3",
+      "side": "blue",
+      "nation": "Australia",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
       "unit": "ran_sea_venom",
+      "side": "blue",
+      "nation": "Australia",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "ran_uh-60m",
       "side": "blue",
       "nation": "Australia",
       "tier": 0,
@@ -10973,6 +11121,13 @@
     },
     {
       "unit": "raaf_canberra_bomber",
+      "side": "blue",
+      "nation": "Australia",
+      "tier": 1,
+      "aircraft": true
+    },
+    {
+      "unit": "raaf_e-7a",
       "side": "blue",
       "nation": "Australia",
       "tier": 1,
@@ -14215,6 +14370,13 @@
     },
     {
       "unit": "rnzaf_a-4k",
+      "side": "blue",
+      "nation": "NewZealand",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "rnzaf_p8",
       "side": "blue",
       "nation": "NewZealand",
       "tier": 0,

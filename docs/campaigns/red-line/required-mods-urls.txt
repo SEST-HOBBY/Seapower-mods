@@ -1,6 +1,6 @@
 Red Line - Workshop mods this campaign reaches (reference only)
 
-34 items, in canonical load order. NOT the Workshop item's
+33 items, in canonical load order. NOT the Workshop item's
 Required Items list. All four campaigns ship in one item, the SEST
 Integration Pack (3812461539), whose Required Items - like the
 collection 'SEST - Modernised Campaign Collection' (3812390790) -
@@ -19,20 +19,19 @@ https://steamcommunity.com/sharedfiles/filedetails/?id=3629144864    # Euromod -
 https://steamcommunity.com/sharedfiles/filedetails/?id=3775128499    # Modern PLAN Systems
 https://steamcommunity.com/sharedfiles/filedetails/?id=3607989779    # F-35C Lightning II Alt. Loadouts
 https://steamcommunity.com/sharedfiles/filedetails/?id=3438479626    # 1143.5 Kuznetsov
+https://steamcommunity.com/sharedfiles/filedetails/?id=3820759806    # Euromod - Modern Royal Australian Navy Mod
 https://steamcommunity.com/sharedfiles/filedetails/?id=3432668460    # Auxilliary Merchant Pack
 https://steamcommunity.com/sharedfiles/filedetails/?id=3695809489    # Euromod - Modern Japanese Maritime Self Defence Force
 https://steamcommunity.com/sharedfiles/filedetails/?id=3461044389    # Gerald R. Ford-class CVN Aircraft Carrier (Updated Dependencies)
 https://steamcommunity.com/sharedfiles/filedetails/?id=3384079999    # Humpback Whale
 https://steamcommunity.com/sharedfiles/filedetails/?id=3430106996    # Merchants Expanded
 https://steamcommunity.com/sharedfiles/filedetails/?id=3599752717    # Euromod - Modern British Navy
-https://steamcommunity.com/sharedfiles/filedetails/?id=3390330875    # Modern US Navy
 https://steamcommunity.com/sharedfiles/filedetails/?id=3456859157    # Mogami-class Frigate
 https://steamcommunity.com/sharedfiles/filedetails/?id=3594891803    # PLAN Submarines
 https://steamcommunity.com/sharedfiles/filedetails/?id=3774859959    # PLAN Type 001 Aircraft Carrier Liaoning
 https://steamcommunity.com/sharedfiles/filedetails/?id=3436170138    # Shenyang J-11
 https://steamcommunity.com/sharedfiles/filedetails/?id=3486502935    # Type 003 Fujian / Type 004 CVN Aircraft Carriers
 https://steamcommunity.com/sharedfiles/filedetails/?id=3417801942    # Chinese Navy (PLAN)
-https://steamcommunity.com/sharedfiles/filedetails/?id=3731208477    # Euromod - Modern Spanish Navy
 https://steamcommunity.com/sharedfiles/filedetails/?id=3737267013    # United States Naval Aviation
 https://steamcommunity.com/sharedfiles/filedetails/?id=3433957933    # Virginia-, Seawolf-, and Ohio-class Submarines
 https://steamcommunity.com/sharedfiles/filedetails/?id=3602046770    # Boeing P-8 Poseidon

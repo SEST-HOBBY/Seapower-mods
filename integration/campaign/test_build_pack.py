@@ -534,6 +534,20 @@ class OpeningRanges(StandoffAndClosure):
         self.assertGreater(bp.ship_reach("plan_ka-28", fit), 0)
         self.assertLess(bp.ship_reach("plan_ka-28", fit), 10)
 
+    def test_a_ship_with_dated_fits_sails_the_fit_in_service_by_the_mission_year(self):
+        # Euromod's Anzac dates its fits (Default 2011, AMCAP 2019, AMCAP Late
+        # 2025). Writing Default sent a 2028 campaign out without NSM.
+        kind_dir, path = bp.unit_file("ran_ffh_anzac")
+        self.assertEqual(bp.pick_loadout("ran_ffh_anzac", path, None, 2028)[0], "AMCAP Late")
+        self.assertEqual(bp.pick_loadout("ran_ffh_anzac", path, None, 2020)[0], "AMCAP")
+        self.assertEqual(bp.pick_loadout("ran_ffh_anzac", path, None, 2015)[0], "Default")
+        # a declared fit still wins, and no year keeps the old rule
+        self.assertEqual(bp.pick_loadout("ran_ffh_anzac", path, "AMCAP", 2028)[0], "AMCAP")
+        self.assertEqual(bp.pick_loadout("ran_ffh_anzac", path, None)[0], "Default")
+        # ties go to the first offered: the Hobart's five 2025 fits -> Late
+        _k, hob = bp.unit_file("ran_ddg_hobart")
+        self.assertEqual(bp.pick_loadout("ran_ddg_hobart", hob, None, 2028)[0], "Late")
+
 
 class QuietOpening(OpeningRanges):
     """The stricter gate of 13 October (Fujian's Shadow): nothing red can fire
