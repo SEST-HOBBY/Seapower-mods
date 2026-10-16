@@ -1160,6 +1160,21 @@ class SameNationDiscount(unittest.TestCase):
         self.assertIn("[HelicoptersReusable_PLAN]\nplan_z-9d=Squadron1,1", text)
         self.assertNotIn("ran_ffh_anzac", text, "the player's own ships are not enemy ORBAT")
 
+    def test_a_hull_the_campaign_places_more_than_once_is_reusable(self):
+        # Three Peykaaps under one variant are a class, not one named boat:
+        # tracked as persistent, the first sunk read "Destroyed" while the next
+        # missions still sailed them (16 Oct 2026 test). A hull and variant
+        # placed once stays a tracked, named ship.
+        missions = [dict(key="m1", group="core", red_nation="China"),
+                    dict(key="m2", group="core", red_nation="China")]
+        boat = lambda n: ("Taskforce2Vessel%d" % n, {"Type": "plan_type_056a", "VariantReference": "Variant1"}, None, False)
+        once = ("Taskforce2Vessel9", {"Type": "plan_type_054a_p5", "VariantReference": "Variant1"}, None, False)
+        text = bp.enemy_roster_ini(missions, {"m1": {"Taskforce2Vessel": [boat(1), boat(2), once]},
+                                              "m2": {"Taskforce2Vessel": [boat(1)]}})
+        self.assertIn("[SurfaceReusable_PLAN]\nplan_type_056a=Default", text)
+        self.assertIn("[SurfacePersistent_PLAN]\nplan_type_054a_p5=Variant1", text)
+        self.assertNotIn("plan_type_056a=Variant1", text)
+
     def test_the_narco_submarine_files_under_a_capitalised_pirates_tab(self):
         # The narco-sub mod registers Nation=pirates; the Situation window shows
         # the roster label raw, and the 16 Oct 2026 test read a "pirates" tab.

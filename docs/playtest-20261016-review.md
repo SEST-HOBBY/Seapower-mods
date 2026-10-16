@@ -69,3 +69,45 @@ captures.
 
 Gates 11 of 12 (`check_inventory`, the four CR-stripped mods as before);
 campaign tests 198, tool tests 105.
+
+## 4. Stock loading pictures while a saved campaign loaded (later the same day)
+
+SEST's backdrop painter found new pictures once a second. The game loads a
+fresh texture from disk for every loading screen, puts it on screen at once,
+and a long load (a saved campaign) can hold the game before the next look, so
+the stock or another mod's picture showed. A TextureSource does not hand its
+texture back in this game (the playtest log describes the loading screen's
+picture by size only). Plugin 1.2.2 reads the LoadScreen view model's
+`BackgroundImage` every frame, in LateUpdate and again from
+`Application.onBeforeRender`, found by reflection from the NoesisView whose
+content is the LoadScreenView, looked up again every two seconds; when the
+value changes it runs the texture look at once and paints the new picture
+before the frame is drawn. It stands down for good, with one log line, if the
+property gives a new object on every read, and it writes the view model's
+members once to the log. The one-second look stays. Two reviewers checked the
+change; the stand-down that did not stand down, a stale view model and a
+shared log flag were fixed. Not seen in game yet: the next log should carry
+`[SEST Backdrops] watching the loading screen's picture ...`.
+
+The campaign-map error box was seen again (same trace); see section 2.
+
+## 5. A Peykaap reading "Destroyed" in mission 2
+
+The game's roster notes say a ship listed with a variant is persistent:
+"killing in one mission kills them for the campaign and they are tracked".
+SEST listed every hull a mission places with a variant that way, so the one
+Peykaap sunk in White Water read Destroyed for the campaign while the later
+missions still sail Peykaaps under the same variant (up to three in one
+mission, in nine missions across the campaigns). SEST's missions carry no
+generator slots (`DynamicGeneration*`), so the roster changes nothing that
+sails; it is what the Situation window shows. A hull and variant placed once
+in a campaign stays persistent and tracked; one placed more than once is filed
+`SurfaceReusable` by class, as the stock roster files its light craft:
+Southern Watch's Peykaap, Luda, Sovremenny and 054A, Southern Reach's Okean,
+052D, 054A and 056A, Sulu Line's Peykaap and Qiongsha. Test added; campaign
+tests 199.
+
+Not changed: the Meridian Maritime Group rows show Iran's flag and the units'
+own Iranian names (IRIS Deylam, IRGCNS Peykaap III). The roster has no
+per-unit nation, so the flag comes from the unit's own files; in the missions
+SEST flies them under the Meridian flag.

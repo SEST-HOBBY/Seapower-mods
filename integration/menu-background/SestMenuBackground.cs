@@ -107,6 +107,7 @@ namespace Sest.MenuBackground
             try { Configure(); }
             catch (Exception e) { film = null; Debug.LogWarning(Tag + "not started: " + e.Message); }
             SceneManager.sceneLoaded += OnSceneLoaded;
+            Application.onBeforeRender += OnBeforeRender;
             // The pictures log's periodic passes cover the first ten minutes.
             if (picturesOn) pictures = new PictureLog(Time.realtimeSinceStartup + 600f);
         }
@@ -154,9 +155,15 @@ namespace Sest.MenuBackground
         }
 
         // The loading screen's picture, every frame after the game's own
-        // Update and before the frame is drawn (PictureSwap.Watch).
+        // Update and again just before the frame is drawn, for a picture set
+        // in a LateUpdate that runs after this one (PictureSwap.Watch; a
+        // second look in the same frame finds nothing new and costs one read).
         bool watchStopped;
-        void LateUpdate()
+        void LateUpdate() { WatchLoadScreen(); }
+        void OnBeforeRender() { WatchLoadScreen(); }
+        void OnDestroy() { Application.onBeforeRender -= OnBeforeRender; }
+
+        void WatchLoadScreen()
         {
             if (backdrops == null || watchStopped) return;
             try { backdrops.Watch(Time.realtimeSinceStartup); }
@@ -936,15 +943,17 @@ namespace Sest.MenuBackground
         float nextFind, changeWindow;
         int changes;
         Type viewType;
-        bool viewTypeMissing, watchNoted;
+        bool viewTypeMissing, watchNoted, missingNoted;
 
         public void Watch(float now)
         {
-            if (loadScreen == null)
+            // Looked for again every two seconds, so a new view model the game
+            // gives a later loading screen is followed, not a stale one.
+            if (loadScreen == null || now >= nextFind)
             {
-                if (now < nextFind) return;
+                if (loadScreen == null && now < nextFind) return;
                 nextFind = now + 2f;
-                if (!FindLoadScreen()) return;
+                if (!FindLoadScreen()) { loadScreen = null; return; }
             }
             object bg;
             try { bg = backgroundProp.GetValue(loadScreen, null); }
@@ -957,7 +966,7 @@ namespace Sest.MenuBackground
             if (now - changeWindow >= 1f) { changeWindow = now; changes = 0; }
             if (++changes > 10)
             {
-                loadScreen = null; viewTypeMissing = true;
+                loadScreen = null; viewType = null; viewTypeMissing = true;
                 Note("loading screen watch off: BackgroundImage gives a new object on every read; left to the one-second look");
                 return;
             }
@@ -992,12 +1001,12 @@ namespace Sest.MenuBackground
                 PropertyInfo p = PropertyOf(dc.GetType(), "BackgroundImage");
                 if (p == null || !p.CanRead)
                 {
-                    if (!watchNoted) { watchNoted = true; Note("loading screen not watched: " + dc.GetType().Name + " has no BackgroundImage"); }
+                    if (!missingNoted) { missingNoted = true; Note("loading screen not watched: " + dc.GetType().Name + " has no BackgroundImage"); }
                     continue;
                 }
+                if (!ReferenceEquals(dc, loadScreen)) lastBackground = null;
                 loadScreen = dc;
                 backgroundProp = p;
-                lastBackground = null;
                 if (!watchNoted)
                 {
                     watchNoted = true;

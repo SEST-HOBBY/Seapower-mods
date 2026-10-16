@@ -5542,6 +5542,22 @@ def enemy_roster_ini(missions, placements):
     picks = collections.defaultdict(lambda: collections.defaultdict(set))
     flights = collections.defaultdict(dict)   # (nation, section) -> uid -> squadron -> flight
     order, problems = [], []
+    # How often the campaign places each hull and variant. The Situation
+    # window tracks a SurfacePersistent entry as one named ship: sunk once, it
+    # reads Destroyed for the rest of the campaign. A hull and variant the
+    # missions place more than once - three Peykaaps in one mission, a Type
+    # 054A in two dozen - is a class, not a ship, and the 16 Oct 2026 test
+    # read "Destroyed" against a Peykaap the next missions still sail. The
+    # missions are authored and carry no generator slots, so this changes
+    # what the window shows and nothing that sails.
+    placed_times = collections.Counter()
+    for m in missions:
+        if m["group"] == "dispatch":
+            continue
+        for family, rows in placements[m["key"]].items():
+            if family == "Taskforce2Vessel":
+                for _tag, keys, _name, _flag in rows:
+                    placed_times[(keys["Type"], keys.get("VariantReference"))] += 1
     for m in missions:
         if m["group"] == "dispatch":          # browser missions the campaign never loads
             continue
@@ -5565,8 +5581,12 @@ def enemy_roster_ini(missions, placements):
                     order.append(label)
                 if utype == "Vessel":
                     variant = keys.get("VariantReference")
-                    section = ("SurfaceMajorFlagships" if flagship(uid)
-                               else "SurfacePersistent" if variant else "SurfaceReusable")
+                    if flagship(uid):
+                        section = "SurfaceMajorFlagships"
+                    elif variant and placed_times[(uid, variant)] == 1:
+                        section = "SurfacePersistent"
+                    else:
+                        section, variant = "SurfaceReusable", None
                     picks[(label, section)][uid].add(variant or "Default")
                 elif utype == "Submarine":
                     picks[(label, "SubmarinesPersistent")][uid].add(
