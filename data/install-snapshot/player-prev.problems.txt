@@ -1,4 +1,65 @@
 # Lines from Player-prev.log matching Exception/Error/not found/missing/failed.
-# 1 hit(s) - the first place to look when something did not load.
+# 62 hit(s) - the first place to look when something did not load.
 
     141: [IDX][Localization.cs:24 Load] [IDX] localization ini not found: C:/Program Files (x86)/Steam/steamapps/common/Sea Power/Sea Power_Data/StreamingAssets\IdentifyExpanded\language_en\identify_expanded.ini
+   2256: [SEST Pictures] texture2d '<USER>\AppData\Local\Temp\Triassic Games\Sea Power\linear_campaign\task_force_mode_mission_3_briefing\sest_the_missing_beacon_map.png' 2192x1328 ARGB32
+   2414: [SEST Pictures] noesis Image '' in MissionBriefView: Source=TextureSource 'Noesis.TextureSource' 2192x1328 Source bound to 'Assets[sest_the_missing_beacon_map]' visible=True opacity=1 DataContext=MissionBriefViewModel
+   3600: NullReferenceException: Object reference not set to an instance of an object
+   3615: UnityEngine.DebugLogHandler:Internal_LogException_Injected(Exception, IntPtr)
+   3616: UnityEngine.DebugLogHandler:Internal_LogException(Exception, Object)
+   3617: UnityEngine.DebugLogHandler:LogException(Exception, Object)
+   3618: Sentry.Unity.Integrations.UnityLogHandlerIntegration:LogException(Exception, Object)
+   3619: UnityEngine.Logger:LogException(Exception, Object)
+   3620: UnityEngine.Debug:LogException(Exception)
+   3621: NoesisUnity:OnUnhandledException(Exception)
+   3622: Noesis.Error:UnhandledException(Exception)
+   3907: [SEST Pictures] texture2d '<USER>\AppData\Local\Temp\Triassic Games\Sea Power\linear_campaign\task_force_mode_mission_3_briefing\sest_the_missing_beacon_map.png' 2192x1328 ARGB32
+   4495: SpawnPool Effects: aswtorpedo_cavitation_particle(Clone) not found in SpawnPool
+   4496: SpawnPool Effects: aswtorpedo_cavitation_particle(Clone) not found in SpawnPool
+   4497: SpawnPool Effects: aswtorpedo_cavitation_particle(Clone) not found in SpawnPool
+   4498: SpawnPool Effects: aswtorpedo_cavitation_particle(Clone) not found in SpawnPool
+   4499: SpawnPool Effects: aswtorpedo_cavitation_particle(Clone) not found in SpawnPool
+   4500: SpawnPool Effects: aswtorpedo_cavitation_particle(Clone) not found in SpawnPool
+   4507: SpawnPool Effects: aswtorpedo_cavitation_particle(Clone) not found in SpawnPool
+   4508: SpawnPool Effects: aswtorpedo_cavitation_particle(Clone) not found in SpawnPool
+   4807: [SEST Pictures] texture2d '<USER>\AppData\Local\Temp\Triassic Games\Sea Power\linear_campaign\task_force_mode_mission_3_briefing\sest_the_missing_beacon_map.png' 2192x1328 ARGB32
+   5364: SpawnPool Effects: aswtorpedo_cavitation_particle(Clone) not found in SpawnPool
+   5372: SpawnPool Effects: aswtorpedo_cavitation_particle(Clone) not found in SpawnPool
+   5380: SpawnPool Effects: aswtorpedo_cavitation_particle(Clone) not found in SpawnPool
+   5382: SpawnPool Effects: aswtorpedo_cavitation_particle(Clone) not found in SpawnPool
+   5383: SpawnPool Effects: aswtorpedo_cavitation_particle(Clone) not found in SpawnPool
+   5384: SpawnPool Effects: aswtorpedo_cavitation_particle(Clone) not found in SpawnPool
+   5692: [SEST Pictures] texture2d '<USER>\AppData\Local\Temp\Triassic Games\Sea Power\linear_campaign\task_force_mode_mission_3_briefing\sest_the_missing_beacon_map.png' 2192x1328 ARGB32
+   6233: SpawnPool Effects: aswtorpedo_cavitation_particle(Clone) not found in SpawnPool
+   6237: SpawnPool Effects: aswtorpedo_cavitation_particle(Clone) not found in SpawnPool
+   6358: SpawnPool Effects: aswtorpedo_cavitation_particle(Clone) not found in SpawnPool
+   6359: SpawnPool Effects: aswtorpedo_cavitation_particle(Clone) not found in SpawnPool
+   6360: SpawnPool Effects: aswtorpedo_cavitation_particle(Clone) not found in SpawnPool
+   6361: SpawnPool Effects: aswtorpedo_cavitation_particle(Clone) not found in SpawnPool
+   6678: [SEST Pictures] texture2d '<USER>\AppData\Local\Temp\Triassic Games\Sea Power\linear_campaign\task_force_mode_mission_3_briefing\sest_the_missing_beacon_map.png' 2192x1328 ARGB32
+   7208: SpawnPool Effects: aswtorpedo_cavitation_particle(Clone) not found in SpawnPool
+   7209: SpawnPool Effects: aswtorpedo_cavitation_particle(Clone) not found in SpawnPool
+   7210: SpawnPool Effects: aswtorpedo_cavitation_particle(Clone) not found in SpawnPool
+   7211: SpawnPool Effects: aswtorpedo_cavitation_particle(Clone) not found in SpawnPool
+   7212: SpawnPool Effects: aswtorpedo_cavitation_particle(Clone) not found in SpawnPool
+   7214: SpawnPool Effects: aswtorpedo_cavitation_particle(Clone) not found in SpawnPool
+   8162: SpawnPool Effects: aswtorpedo_cavitation_particle(Clone) not found in SpawnPool
+   8666: SpawnPool Effects: aswtorpedo_cavitation_particle(Clone) not found in SpawnPool
+   9009: [SEST Pictures] texture2d '<USER>\AppData\Local\Temp\Triassic Games\Sea Power\linear_campaign\task_force_mode_mission_3_briefing\sest_the_missing_beacon_map.png' 2192x1328 ARGB32
+   9787: SpawnPool Effects: aswtorpedo_cavitation_particle(Clone) not found in SpawnPool
+  13676: SpawnPool Effects: aswtorpedo_cavitation_particle(Clone) not found in SpawnPool
+  13683: SpawnPool Effects: aswtorpedo_cavitation_particle(Clone) not found in SpawnPool
+  13684: SpawnPool Effects: aswtorpedo_cavitation_particle(Clone) not found in SpawnPool
+  13686: SpawnPool Effects: aswtorpedo_cavitation_particle(Clone) not found in SpawnPool
+  13687: SpawnPool Effects: aswtorpedo_cavitation_particle(Clone) not found in SpawnPool
+  13688: SpawnPool Effects: aswtorpedo_cavitation_particle(Clone) not found in SpawnPool
+  14503: SpawnPool Effects: aswtorpedo_cavitation_particle(Clone) not found in SpawnPool
+  14505: SpawnPool Effects: aswtorpedo_cavitation_particle(Clone) not found in SpawnPool
+  14508: SpawnPool Effects: aswtorpedo_cavitation_particle(Clone) not found in SpawnPool
+  14509: SpawnPool Effects: aswtorpedo_cavitation_particle(Clone) not found in SpawnPool
+  15102: SpawnPool Effects: aswtorpedo_cavitation_particle(Clone) not found in SpawnPool
+  15158: SpawnPool Effects: aswtorpedo_cavitation_particle(Clone) not found in SpawnPool
+  15313: SpawnPool Effects: aswtorpedo_cavitation_particle(Clone) not found in SpawnPool
+  15314: SpawnPool Effects: aswtorpedo_cavitation_particle(Clone) not found in SpawnPool
+  15315: SpawnPool Effects: aswtorpedo_cavitation_particle(Clone) not found in SpawnPool
+  15316: SpawnPool Effects: aswtorpedo_cavitation_particle(Clone) not found in SpawnPool
