@@ -1,9 +1,9 @@
-# The [LoadOrder] Sea Power is actually using, captured 2026-10-16T14:36:42.
+# The [LoadOrder] Sea Power is actually using, captured 2026-10-17T08:15:12.
 # Compare against data\load-order.tokens.txt - the canonical order.
 
 NumberOfModFiles=198   entries parsed: 198
 
-   1. SEST_Integration on     
+   1. 3812461539   on     SEST Integration Pack
    2. 3380210757   on     Anchor Chain
    3. 3784474738   on     Euromod - Anchorchain Expansion Pack
    4. 3789188689   on     PLA & PLAN & PLAAF AEP
@@ -40,13 +40,13 @@ NumberOfModFiles=198   entries parsed: 198
   35. 3642656500   on     Euromod-Scandinavian Navy
   36. 3461044389   on     Gerald R. Ford-class CVN
   37. 3384079999   on     Humpback Whale
-  38. 3505420313   on     Italian Navy mod
+  38. 3505420313   on     Euromod - Cold War Italian Navy
   39. 3406985435   on     Kirov-class (Pyotr Velikiy Upgrade)
   40. 3430106996   on     Merchants Expanded
   41. 3485917612   on     Moloti's Armed Merchantmen
   42. 3417446309   on     MIG-29 Family
   43. 3599752717   on     Euromod - Modern British Navy
-  44. 3488139470   on     Modern Italian Navy - Euromod
+  44. 3488139470   on     Euromod - Modern Italian Navy
   45. 3390330875   on     Euromod - Modern US Navy
   46. 3456859157   on     Mogami-class frigate
   47. 3802216383   on     JMSDF Hyūga-class — Hyūga & Ise
@@ -203,7 +203,7 @@ NumberOfModFiles=198   entries parsed: 198
  198. ACConfigs    OFF    
 
 --- drift against the canonical order ---
-canonical but not live (0): 
-live but not canonical (1): ACConfigs
+canonical but not live (1): SEST_Integration
+live but not canonical (2): 3812461539, ACConfigs
 order of shared entries matches: YES
 disabled in game (1): ACConfigs

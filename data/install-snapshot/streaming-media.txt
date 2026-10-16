@@ -634,7 +634,7 @@ original\: 558 picture/film file(s)
   ... and 58 more
 
 --- Workshop pictures named for loading screens, backgrounds or menus ---
-89 file(s) in 11 mod(s): 3491248180 (30), 3711297532 (2), 3732654992 (24), 3752415457 (2), 3758943352 (1), 3766210676 (3), 3775128499 (15), 3784474738 (1), 3789208859 (8), 3807164392 (1), 3812454152 (2)
+197 file(s) in 13 mod(s): 3491248180 (30), 3629144864 (10), 3711297532 (2), 3732654992 (24), 3752415457 (2), 3758943352 (1), 3766210676 (3), 3775128499 (15), 3784474738 (1), 3789208859 (8), 3807164392 (1), 3812454152 (2), 3812461539 (98)
   3491248180\ui\backgrounds\loading_screen_1.png                                                1,057
   3491248180\ui\backgrounds\loading_screen_10.png                                               2,341
   3491248180\ui\backgrounds\loading_screen_11.png                                               1,038
@@ -665,6 +665,16 @@ original\: 558 picture/film file(s)
   3491248180\ui\backgrounds\loading_screen_7.png                                                  515
   3491248180\ui\backgrounds\loading_screen_8.png                                                  913
   3491248180\ui\backgrounds\loading_screen_9.png                                                  694
+  3629144864\ui\backgrounds\eu_zeran_101.png                                                    2,115
+  3629144864\ui\backgrounds\eu_zeran_104.png                                                    1,716
+  3629144864\ui\backgrounds\eu_zeran_Sea_Power.exe_Screenshot_2026.08.23_-_20.47.29.18.png     11,127
+  3629144864\ui\backgrounds\eu_zeran_Sea_Power.exe_Screenshot_2026.08.23_-_20.48.53.78.png      3,311
+  3629144864\ui\backgrounds\eu_zeran_Sea_Power.exe_Screenshot_2026.08.24_-_19.39.41.47.png      8,138
+  3629144864\ui\backgrounds\eu_zeran_Sea_Power.exe_Screenshot_2026.08.24_-_22.12.56.62.png      2,286
+  3629144864\ui\backgrounds\eu_zeran_Sea_Power.exe_Screenshot_2026.09.21_-_21.07.35.43.png      5,469
+  3629144864\ui\backgrounds\eu_zeran_Sea_Power.exe_Screenshot_2026.09.23_-_18.26.05.55.png      1,950
+  3629144864\ui\backgrounds\eu_zeran_Sea_Power.exe_Screenshot_2026.10.09_-_19.17.11.04.png      3,159
+  3629144864\ui\backgrounds\eu_zeran_Sea_Power.exe_Screenshot_2026.10.09_-_20.00.37.98.png      2,076
   3711297532\Screenshots\Thailand The Siam Shield splash.jpg                                      393
   3711297532\Thailand The Siam Shield splash1.jpg                                                 397
   3732654992\ui\backgrounds\loading_screen_1.png                                                2,947
@@ -724,3 +734,101 @@ original\: 558 picture/film file(s)
   3807164392\ui\backgrounds\1.png                                                               1,839
   3812454152\ui\backgrounds\background_1.png                                                    2,005
   3812454152\ui\backgrounds\background_2.png                                                    2,888
+  3812461539\campaigns\sest-red-line\art\00_campaign_background.png                             1,061
+  3812461539\campaigns\sest-southern-reach\art\00_campaign_background.png                       1,713
+  3812461539\campaigns\sest-southern-watch\art\00_campaign_background.png                         940
+  3812461539\campaigns\sest-sulu-line\art\00_campaign_background.png                            1,850
+  3812461539\Gallery\visuals\loading\arleigh_burke_1920x1080.jpg                                  468
+  3812461539\Gallery\visuals\loading\caesar_1920x1080.jpg                                         725
+  3812461539\Gallery\visuals\loading\chungmugong_1920x1080.jpg                                    997
+  3812461539\Gallery\visuals\loading\collins_1920x1080.jpg                                        904
+  3812461539\Gallery\visuals\loading\f35a_raaf_1920x1080.jpg                                      551
+  3812461539\Gallery\visuals\loading\hobart_1920x1080.jpg                                         383
+  3812461539\Gallery\visuals\loading\leclerc_1920x1080.jpg                                        625
+  3812461539\Gallery\visuals\loading\maya_1920x1080.jpg                                           698
+  3812461539\Gallery\visuals\loading\mh60r_1920x1080.jpg                                          398
+  3812461539\Gallery\visuals\loading\p8a_1920x1080.jpg                                            293
+  3812461539\Gallery\visuals\loading\patriot_1920x1080.jpg                                        637
+  3812461539\Gallery\visuals\loading\virginia_ssn_1920x1080.jpg                                   480
+  3812461539\Gallery\visuals\steam\collection-background.jpg                                      342
+  3812461539\plugins\sest_menu.mp4                                                             10,336
+  3812461539\ui\backgrounds\loading_screen_1.png                                                  364
+  3812461539\ui\backgrounds\loading_screen_10.png                                                 639
+  3812461539\ui\backgrounds\loading_screen_11.png                                                 477
+  3812461539\ui\backgrounds\loading_screen_12.png                                                 452
+  3812461539\ui\backgrounds\loading_screen_13.png                                                 210
+  3812461539\ui\backgrounds\loading_screen_14.png                                                 253
+  3812461539\ui\backgrounds\loading_screen_15.png                                                 320
+  3812461539\ui\backgrounds\loading_screen_16.png                                                 307
+  3812461539\ui\backgrounds\loading_screen_17.png                                                 444
+  3812461539\ui\backgrounds\loading_screen_18.png                                                 173
+  3812461539\ui\backgrounds\loading_screen_19.png                                                 466
+  3812461539\ui\backgrounds\loading_screen_2.png                                                  238
+  3812461539\ui\backgrounds\loading_screen_20.png                                                 410
+  3812461539\ui\backgrounds\loading_screen_21.png                                                 417
+  3812461539\ui\backgrounds\loading_screen_22.png                                                 386
+  3812461539\ui\backgrounds\loading_screen_23.png                                                 182
+  3812461539\ui\backgrounds\loading_screen_24.png                                                 477
+  3812461539\ui\backgrounds\loading_screen_25.png                                                 388
+  3812461539\ui\backgrounds\loading_screen_26.png                                                 302
+  3812461539\ui\backgrounds\loading_screen_27.png                                                 120
+  3812461539\ui\backgrounds\loading_screen_28.png                                                 501
+  3812461539\ui\backgrounds\loading_screen_29.png                                                 369
+  3812461539\ui\backgrounds\loading_screen_3.png                                                  272
+  3812461539\ui\backgrounds\loading_screen_30.png                                                 364
+  3812461539\ui\backgrounds\loading_screen_31.png                                                 238
+  3812461539\ui\backgrounds\loading_screen_32.png                                                 272
+  3812461539\ui\backgrounds\loading_screen_33.png                                                 336
+  3812461539\ui\backgrounds\loading_screen_34.png                                                 175
+  3812461539\ui\backgrounds\loading_screen_35.png                                                 574
+  3812461539\ui\backgrounds\loading_screen_36.png                                                 527
+  3812461539\ui\backgrounds\loading_screen_37.png                                                 279
+  3812461539\ui\backgrounds\loading_screen_38.png                                                 345
+  3812461539\ui\backgrounds\loading_screen_39.png                                                 639
+  3812461539\ui\backgrounds\loading_screen_4.png                                                  336
+  3812461539\ui\backgrounds\loading_screen_40.png                                                 477
+  3812461539\ui\backgrounds\loading_screen_41.png                                                 452
+  3812461539\ui\backgrounds\loading_screen_42.png                                                 210
+  3812461539\ui\backgrounds\loading_screen_43.png                                                 253
+  3812461539\ui\backgrounds\loading_screen_44.png                                                 320
+  3812461539\ui\backgrounds\loading_screen_45.png                                                 307
+  3812461539\ui\backgrounds\loading_screen_46.png                                                 444
+  3812461539\ui\backgrounds\loading_screen_47.png                                                 173
+  3812461539\ui\backgrounds\loading_screen_48.png                                                 466
+  3812461539\ui\backgrounds\loading_screen_49.png                                                 410
+  3812461539\ui\backgrounds\loading_screen_5.png                                                  175
+  3812461539\ui\backgrounds\loading_screen_50.png                                                 417
+  3812461539\ui\backgrounds\loading_screen_51.png                                                 386
+  3812461539\ui\backgrounds\loading_screen_52.png                                                 182
+  3812461539\ui\backgrounds\loading_screen_53.png                                                 477
+  3812461539\ui\backgrounds\loading_screen_54.png                                                 388
+  3812461539\ui\backgrounds\loading_screen_55.png                                                 302
+  3812461539\ui\backgrounds\loading_screen_56.png                                                 120
+  3812461539\ui\backgrounds\loading_screen_57.png                                                 501
+  3812461539\ui\backgrounds\loading_screen_58.png                                                 369
+  3812461539\ui\backgrounds\loading_screen_59.png                                                 364
+  3812461539\ui\backgrounds\loading_screen_6.png                                                  574
+  3812461539\ui\backgrounds\loading_screen_60.png                                                 238
+  3812461539\ui\backgrounds\loading_screen_61.png                                                 272
+  3812461539\ui\backgrounds\loading_screen_62.png                                                 336
+  3812461539\ui\backgrounds\loading_screen_63.png                                                 175
+  3812461539\ui\backgrounds\loading_screen_64.png                                                 574
+  3812461539\ui\backgrounds\loading_screen_65.png                                                 527
+  3812461539\ui\backgrounds\loading_screen_66.png                                                 279
+  3812461539\ui\backgrounds\loading_screen_67.png                                                 345
+  3812461539\ui\backgrounds\loading_screen_68.png                                                 639
+  3812461539\ui\backgrounds\loading_screen_69.png                                                 477
+  3812461539\ui\backgrounds\loading_screen_7.png                                                  527
+  3812461539\ui\backgrounds\loading_screen_70.png                                                 452
+  3812461539\ui\backgrounds\loading_screen_71.png                                                 210
+  3812461539\ui\backgrounds\loading_screen_72.png                                                 253
+  3812461539\ui\backgrounds\loading_screen_73.png                                                 320
+  3812461539\ui\backgrounds\loading_screen_74.png                                                 307
+  3812461539\ui\backgrounds\loading_screen_75.png                                                 444
+  3812461539\ui\backgrounds\loading_screen_76.png                                                 173
+  3812461539\ui\backgrounds\loading_screen_77.png                                                 466
+  3812461539\ui\backgrounds\loading_screen_78.png                                                 410
+  3812461539\ui\backgrounds\loading_screen_79.png                                                 417
+  3812461539\ui\backgrounds\loading_screen_8.png                                                  279
+  3812461539\ui\backgrounds\loading_screen_80.png                                                 386
+  3812461539\ui\backgrounds\loading_screen_9.png                                                  345
