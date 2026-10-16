@@ -1,4 +1,4 @@
-# BepInEx\LogOutput.log - whole file, 1191 line(s), 0.1 MB, last written 2026-10-16T14:33:42. 
+# BepInEx\LogOutput.log - whole file, 1229 line(s), 0.1 MB, last written 2026-10-16T16:17:56. 
 [Error  :   BepInEx] Unable to start Unity log writer
 [Message:   BepInEx] BepInEx 5.4.23.2 - Sea Power (15/10/2026 4:59:12 PM)
 [Info   :   BepInEx] Running under Unity v6000.0.84.7908207
@@ -1190,3 +1190,41 @@
 [Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.STOLTakeOff and name _airVehicle
 [Info   :Dynamic Campaign Mod] Game members: all 704 found.
 [Info   :Dynamic Campaign Mod] Patched: the dynamic campaigns will appear in the Campaign menu.
+[Info   :Coordinated Strike Tool] [t=213.17s] in mission: True, game menu open: False, HUD visible: True
+[Info   :SubAmmunition] å¯¹è±¡æ± ä¿®å¤ï¼šfreeObject å‰æ‘˜è¡¨ Noisemakerï¼ˆç´¯è®¡ 1ï¼‰
+[Info   :SubAmmunition] å¯¹è±¡æ± ä¿®å¤ï¼šfreeObject å‰æ‘˜è¡¨ Noisemakerï¼ˆç´¯è®¡ 2ï¼‰
+[Info   :SubAmmunition] å¯¹è±¡æ± ä¿®å¤ï¼šfreeObject å‰æ‘˜è¡¨ Noisemakerï¼ˆç´¯è®¡ 3ï¼‰
+[Info   :WeaponLauncherEffects] [WeaponLauncherEffects] [eu_mk41] anchor ready: ContainerBase='eu_8-cell_mk41_base_v4' (vessel ContainerBase, world (52.3732, 0.1386, 63.9147)), container='AmmunitionParent' (world (52.3682, 0.0886, 63.9225)), shipRoot='2-ko_kddx'.
+[Info   :WeaponLauncherEffects] [WeaponLauncherEffects] [eu_mk41] anchor ready: ContainerBase='eu_8-cell_mk41_base_v4' (vessel ContainerBase, world (52.3272, 0.1386, 63.9147)), container='AmmunitionParent' (world (52.3322, 0.0886, 63.9069)), shipRoot='2-ko_kddx'.
+[Info   :WeaponLauncherEffects] [WeaponLauncherEffects] [eu_mk41] anchor ready: ContainerBase='eu_8-cell_mk41_base_v4' (vessel ContainerBase, world (52.3732, 0.1386, 63.8852)), container='AmmunitionParent' (world (52.3682, 0.0886, 63.8930)), shipRoot='2-ko_kddx'.
+[Info   :WeaponLauncherEffects] [WeaponLauncherEffects] [eu_mk41] anchor ready: ContainerBase='eu_8-cell_mk41_base_v4' (vessel ContainerBase, world (52.3272, 0.1386, 63.8852)), container='AmmunitionParent' (world (52.3322, 0.0886, 63.8774)), shipRoot='2-ko_kddx'.
+[Info   :WeaponLauncherEffects] [WeaponLauncherEffects] [eu_mk41] anchor ready: ContainerBase='ko_4-cell_kvls_base' (vessel ContainerBase, world (52.2765, 0.2246, 63.2726)), container='AmmunitionParent' (world (52.2691, 0.1546, 63.2521)), shipRoot='2-ko_kddx'.
+[Info   :WeaponLauncherEffects] [WeaponLauncherEffects] [eu_mk41] anchor ready: ContainerBase='ko_4-cell_kvls_base' (vessel ContainerBase, world (52.3088, 0.2246, 63.2726)), container='AmmunitionParent' (world (52.3014, 0.1546, 63.2521)), shipRoot='2-ko_kddx'.
+[Info   :WeaponLauncherEffects] [WeaponLauncherEffects] [eu_mk41] anchor ready: ContainerBase='ko_4-cell_kvls_base' (vessel ContainerBase, world (52.2765, 0.2246, 63.3174)), container='AmmunitionParent' (world (52.2691, 0.1546, 63.2969)), shipRoot='2-ko_kddx'.
+[Info   :WeaponLauncherEffects] [WeaponLauncherEffects] [eu_mk41] anchor ready: ContainerBase='ko_4-cell_kvls_base' (vessel ContainerBase, world (52.3088, 0.2246, 63.3174)), container='AmmunitionParent' (world (52.3014, 0.1546, 63.2969)), shipRoot='2-ko_kddx'.
+[Info   :Coordinated Strike Tool] [t=465.70s] in mission: True, game menu open: True, HUD visible: False
+[Info   :Coordinated Strike Tool] [t=468.17s] in mission: False, game menu open: False, HUD visible: True
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.GameTime and name time
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.GameTime and name time
+[Info   :Coordinated Strike Tool] [t=934.07s] in mission: True, game menu open: True, HUD visible: False
+[Info   :Coordinated Strike Tool] [t=945.28s] in mission: True, game menu open: False, HUD visible: True
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.Helicopter and name AircraftAnimation
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.Helicopter and name AircraftAnimation
+[Warning:  HarmonyX] AccessTools.TypeByName: Could not find type named IFFTransponder.IFFUtil
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.Helicopter and name AircraftAnimation
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.Helicopter and name AircraftAnimation
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.Helicopter and name AircraftAnimation
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.Helicopter and name AircraftAnimation
+[Warning:  HarmonyX] AccessTools.TypeByName: Could not find type named IFFTransponder.IFFUtil
+[Warning:  HarmonyX] AccessTools.TypeByName: Could not find type named IFFTransponder.IFFUtil
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.Helicopter and name AircraftAnimation
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.Helicopter and name AircraftAnimation
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.Helicopter and name AircraftAnimation
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.Helicopter and name AircraftAnimation
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.Helicopter and name AircraftAnimation
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.Helicopter and name AircraftAnimation
+[Info   :SubAmmunition] å¯¹è±¡æ± ä¿®å¤ï¼šfreeObject å‰æ‘˜è¡¨ Missileï¼ˆç´¯è®¡ 4ï¼‰
+[Info   :SubAmmunition] å¯¹è±¡è¡¨æ¸…ç†ï¼šå‰”é™¤å·²é”€æ¯å¯¹è±¡ 1 ä¸ªï¼ˆç´¯è®¡ 1ï¼‰
+[Info   :SubAmmunition] å¯¹è±¡è¡¨æ¸…ç†ï¼šå‰”é™¤å·²é”€æ¯å¯¹è±¡ 1 ä¸ªï¼ˆç´¯è®¡ 2ï¼‰
+[Info   :Coordinated Strike Tool] [t=1758.79s] in mission: True, game menu open: True, HUD visible: False
+[Info   :Coordinated Strike Tool] [t=1779.33s] in mission: False, game menu open: False, HUD visible: True

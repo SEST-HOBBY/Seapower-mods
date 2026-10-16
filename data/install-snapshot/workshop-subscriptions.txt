@@ -196,17 +196,18 @@
 3812111085   PLAAF Aircraft Pack                                  updated 2026-10-15 18:26  folder 2026-10-03 20:53
 3812140001   Pakistani Pack                                       updated 2026-10-03 18:18  folder 2026-10-04 20:20
 3812454152   Euromod-Philippine-Navy                              updated 2026-10-10 14:56  folder 2026-10-04 20:21
+3812461539   SEST Integration Pack                                updated 2026-10-16 15:38  folder 2026-10-16 15:42
 3813033771   EC-2 Stand Off Jammer                                updated 2026-10-14 10:12  folder 2026-10-14 15:53
 3813157776   Dynamic Campaign Mod                                 updated 2026-10-16 08:32  folder 2026-10-16 13:55
 3819522350   Anduril Maritime Drones                              updated 2026-10-16 12:08  folder 2026-10-16 13:55
 
-subscribed but UNPLACED (0): 
+subscribed but UNPLACED (1): 3812461539
 placed but NOT SUBSCRIBED (0): 
 
 --- Steam client record (appworkshop_1286220.acf) ---
 acf file(s)              : c:\program files (x86)\steam\steamapps\workshop\appworkshop_1286220.acf
-folders on disk          : 196
-ids Steam tracks locally : 196
+folders on disk          : 197
+ids Steam tracks locally : 197
 NeedsDownload / NeedsUpdate: 0 / 0
 tracked but NOT on disk (0): 
 on disk but NOT tracked (0): 
