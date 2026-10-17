@@ -150,3 +150,58 @@ Australian Navy (3820759806, also a Required Item of the SEST item, since
 SEST RAN Fleet patches its ships) and Steelfin (3820576916). SETUP now checks
 for Steelfin, as for every mod in LOAD-ORDER.txt, but no SEST file needs it,
 so it belongs in the collection rather than the Required Items.
+
+## 5. Third capture: U.S. Navy 2027, PLAN Pack, South Korea; line endings restored
+
+Capture `9e9ad29e` on `chore/workshop-refresh-20261017c`, taken with the
+line-ending repair in the same commit.
+
+- **Line endings.** The four mods whose files had lost their carriage returns
+  in the repo (PLAN Pack 3775128499, Ka-31 3776340577, Tu-214R 3780118683,
+  E-3G 3781062859) were re-staged with `git add --renormalize`. The Ka-31,
+  Tu-214R and E-3G show no content change ignoring line endings; the PLAN
+  Pack's content change is its author's update (below). Cause, for the
+  record: the files were committed as LF before `mods-source/** -text` was
+  set, and the exporter's `Copy-Item` keeps file times, so git never saw the
+  real bytes as a change until they were renormalized.
+- **U.S. Navy 2027 Capabilities (3606774881)**, ApproximateVersion 0.8.6.
+  - The MH-60R, which SEST's RAN air group flies (816 Squadron, Squadron20),
+    moves its three ASW sonobuoys to Euromod Main's lettered rounds
+    (`usn_ssq-53h`, `usn_ssq-77c`, `usn_ssq-62g`), all three shipped by
+    Euromod Main, which SEST already requires.
+  - Every 2027 Burke (25 hulls) and the 2027 Ticonderoga: search radars
+    listed per launcher (`AssociatedSearchSensors`), Mk 41 cells grouped
+    (`SystemGroup=MK41_aft`), the external guiding systems commented out, and
+    the deck torpedo stock 28 -> 34 of 40. The Ticonderoga's variants get
+    their real hull numbers, emblems, the Bunker Hill livery and a two-
+    Seahawk air group (Squadron1, 13 and 14; all three in SEST's composed
+    20-squadron table).
+  - Rounds: AIM-424 reaches 360 NM (was 350); SM-6 Block I and IB
+    (`usn_rim-174a`, `usn_rim-174c`), SM-2MR Block IIIC (`usn_rim-66p`), ESSM
+    Block II (`usn_rim-162e`) and RAM Block II (`usn_rim-116c`) retuned (kill probabilities, terminal loft,
+    reliabilities); the Tomahawk J ship and submarine rounds
+    (`usn_rgm-109j`, `usn_ugm-109j`) switch to `MidCourseCorrection=4`, the
+    satellite mid-course guidance of the Euromod Anchorchain pack's SATCOM
+    plugin. SEST's own AIM-424 (`sest_aim-424`) is unaffected.
+  - SEST re-forks what it ships of these: eight hulls and four rounds in SEST
+    Replenishment, the SM-6 Block I (`usn_rim-174a`) in SEST Collection Fixes.
+  - The author's update also moved a stray `vessels/Virginia.ini` into a new
+    `vessels/Backup/261017/` folder and left a full older copy of
+    `usn_cg_ticonderoga_vls_2027.ini` there. If the game reads subfolders of
+    `vessels/`, that copy is a second definition of the same id; whether it
+    does is not known (the same open question as `systems/` subfolders).
+- **PLAN Pack (3775128499).** Every named hull's `ServiceDate` rewritten,
+  mostly to an open-ended commissioning year (`2018|`); `Volume=` added to
+  rounds; the Type 055 variants gain sections. No PLAN hull a SEST mission
+  places leaves service by 2028 (Type 003, 052D, 054A P5 Variant1-4 and
+  056A checked against the new dates).
+- **Euromod - South Korea Navy (3789208859).** The K-SAM II's 70,000 ft
+  engagement floor is fixed upstream (now 10 ft), and the kill
+  probabilities above 1 on it and the L-SAM are corrected to 0.98; the L-SAM
+  reaches 135 NM (was 120); the SAAM-400K retuned; one line on
+  `ko_ddg-995`.
+  - SEST Intercept Model carried that floor fix. Its builder stopped the
+    build when the upstream file already had the low floor; the override is
+    now a tag-only copy, as for Red Storm's SM-6 A and C, because SEST
+    Replenishment meters the round and reads its tag from SEST's copy. The
+    pack's description and FEATURES.md say so.

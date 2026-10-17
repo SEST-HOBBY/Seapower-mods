@@ -273,7 +273,7 @@ broken. These are the fixes.
 - SM-3: a reachable 150,000 ft floor, its loft angle back, and its author's
   seeker and launch profile, with or without the Anchor Chain preloader.
 - SM-6 and PAC-3 MSE loft angles back.
-- SM-6 and K-SAM II engagement floor down to 15 ft.
+- SM-6 Block IA (Red Storm `usn_rim_174b`) engagement floor down to 15 ft; Red Storm fixed its other two SM-6s upstream in October 2026, and Euromod South Korea its K-SAM II on 17 Oct 2026.
 - David's Sling ceiling no longer misread as 51 ft.
 
 **Intercept table restored:** one older mod deletes eight of the game's
