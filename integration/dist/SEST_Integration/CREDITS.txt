@@ -228,7 +228,7 @@ listed whatever the percentage: they are still that author's.
       100%  ammunition/rok_L-sam.ini 
       100%  ammunition/rok_hgv.ini 
       100%  ammunition/rok_hyunmoo_4_2.ini 
-       97%  ammunition/rok_k-sam-II.ini 
+       98%  ammunition/rok_k-sam-II.ini 
       100%  vessels/ko_ddg-991.ini 
       100%  vessels/ko_ddg-995.ini 
       100%  vessels/ko_ddh-971.ini 
