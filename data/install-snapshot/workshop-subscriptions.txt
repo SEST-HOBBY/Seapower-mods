@@ -100,7 +100,7 @@
 3594891803   PLAN Submarines (039, 039A/B/C, 093/093A/093B, 094/094A) updated 2026-10-06 05:53  folder 2026-10-06 17:18
 3595014060   NATO E-3A Sentry                                     updated 2026-08-07 18:03  folder 2026-10-04 20:28
 3597650470   Russian Navy 21                                      updated 2026-09-28 03:36  folder 2026-08-31 18:22
-3599752717   Euromod - Modern British Navy                        updated 2026-10-17 03:23  folder 2026-10-17 08:05
+3599752717   Euromod - Modern British Navy                        updated 2026-10-17 12:08  folder 2026-10-17 15:18
 3600788156   Buildings and Objectives                             updated 2026-10-12 09:30  folder 2026-10-12 15:35
 3601891050   中小型无人机系列                                             updated 2026-07-09 01:03  folder 2026-08-15 19:40
 3602046770                                                        updated 2025-11-12 03:38  folder 2026-08-16 11:44
@@ -109,11 +109,11 @@
 3605013271   RE-power: the resupply mod                           updated 2026-08-11 20:18  folder 2026-08-26 15:53
 3606134711   Custom Loadout Editor                                updated 2026-09-08 02:14  folder 2026-09-08 10:34
 3606774881   U.S. Navy 2027 Capabilities                          updated 2026-10-10 00:53  folder 2026-10-10 07:48
-3607989779   F-35C Lightning II Alt. Loadouts                     updated 2026-10-08 23:00  folder 2026-10-10 07:48
+3607989779   F-35C Lightning II Alt. Loadouts                     updated 2026-10-17 15:16  folder 2026-10-17 15:18
 3628201887   Clemenceau -class Aircraft Carrier                   updated 2026-03-04 08:36  folder 2026-10-04 20:32
 3628203171   Bréguet Br.1050 Alizé                                updated 2025-12-29 03:16  folder 2026-10-04 20:33
 3628247436   Sea Venom - Aquilon                                  updated 2026-01-03 05:11  folder 2026-10-04 20:33
-3629144864   Euromod - Main Pack                                  updated 2026-10-17 06:03  folder 2026-10-16 06:57
+3629144864   Euromod - Main Pack                                  updated 2026-10-17 12:08  folder 2026-10-17 15:18
 3629269283   Modern Russian Airbase                               updated 2026-09-13 08:50  folder 2026-08-16 12:05
 3630495619   Spanish Navy Mod (Cold War)                          updated 2026-10-16 03:05  folder 2026-10-16 06:57
 3631042692   Modern Chinese Airbase                               updated 2026-08-13 02:42  folder 2026-08-16 12:02
@@ -175,9 +175,9 @@
 3780118683   Tu-214R Family Pack                                  updated 2026-10-03 22:20  folder 2026-10-04 11:22
 3781062859   E-3G AWAC                                            updated 2026-08-10 23:05  folder 2026-08-17 00:49
 3782020901   Y-20 / KJ-3000                                       updated 2026-10-06 05:40  folder 2026-10-06 17:18
-3784474738   Euromod - Anchorchain Expansion Pack                 updated 2026-10-10 02:13  folder 2026-10-10 07:48
+3784474738   Euromod - Anchorchain Expansion Pack                 updated 2026-10-17 09:29  folder 2026-10-17 15:18
 3789188689   PLA & PLAN & PLAAF AEP                               updated 2026-10-08 06:53  folder 2026-10-08 07:18
-3789208859   Euromod-South Korea Navy                             updated 2026-10-17 06:51  folder 2026-10-11 08:28
+3789208859   Euromod-South Korea Navy                             updated 2026-10-17 08:52  folder 2026-10-11 08:28
 3790594162   Identify Expanded                                    updated 2026-10-15 13:18  folder 2026-10-15 16:59
 3796113927   RQ-180 White Bat Airframe                            updated 2026-09-06 17:03  folder 2026-09-16 16:09
 3796349767   YF-23 Black Widow II                                 updated 2026-10-16 12:07  folder 2026-10-16 13:55
@@ -193,22 +193,23 @@
 3807164392   Euromod-India-Navy                                   updated 2026-10-11 12:02  folder 2026-10-04 20:22
 3808882954   RC-135V/W Rivet Joint                                updated 2026-10-14 11:45  folder 2026-10-14 15:53
 3810611344   MV-75 Cheyenne II                                    updated 2026-10-16 12:08  folder 2026-10-16 13:55
-3812111085   PLAAF Aircraft Pack                                  updated 2026-10-15 18:26  folder 2026-10-03 20:53
+3812111085   PLAAF Aircraft Pack                                  updated 2026-10-17 11:17  folder 2026-10-03 20:53
 3812140001   Pakistani Pack                                       updated 2026-10-03 18:18  folder 2026-10-04 20:20
 3812454152   Euromod-Philippine-Navy                              updated 2026-10-10 14:56  folder 2026-10-04 20:21
 3812461539   SEST Integration Pack                                updated 2026-10-16 17:49  folder 2026-10-16 17:53
 3813033771   EC-2 Stand Off Jammer                                updated 2026-10-14 10:12  folder 2026-10-14 15:53
 3813157776   Dynamic Campaign Mod                                 updated 2026-10-16 08:32  folder 2026-10-16 13:55
-3819522350   Anduril Maritime Drones                              updated 2026-10-16 12:08  folder 2026-10-16 13:55
-3820759806   Euromod - Modern Royal Australian Navy Mod           updated 2026-10-17 06:47  folder 2026-10-17 08:10
+3819522350   Anduril Maritime Drones                              updated 2026-10-17 13:50  folder 2026-10-16 13:55
+3820576916   Steelfin                                             updated 2026-10-17 15:06  folder 2026-10-17 15:22
+3820759806   Euromod - Modern Royal Australian Navy Mod           updated 2026-10-17 14:57  folder 2026-10-17 15:18
 
-subscribed but UNPLACED (2): 3812461539, 3820759806
+subscribed but UNPLACED (3): 3812461539, 3820576916, 3820759806
 placed but NOT SUBSCRIBED (0): 
 
 --- Steam client record (appworkshop_1286220.acf) ---
 acf file(s)              : c:\program files (x86)\steam\steamapps\workshop\appworkshop_1286220.acf
-folders on disk          : 198
-ids Steam tracks locally : 198
+folders on disk          : 199
+ids Steam tracks locally : 199
 NeedsDownload / NeedsUpdate: 0 / 0
 tracked but NOT on disk (0): 
 on disk but NOT tracked (0): 

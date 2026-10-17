@@ -1,7 +1,7 @@
-# The [LoadOrder] Sea Power is actually using, captured 2026-10-17T08:15:12.
+# The [LoadOrder] Sea Power is actually using, captured 2026-10-17T15:35:39.
 # Compare against data\load-order.tokens.txt - the canonical order.
 
-NumberOfModFiles=198   entries parsed: 198
+NumberOfModFiles=200   entries parsed: 200
 
    1. 3812461539   on     SEST Integration Pack
    2. 3380210757   on     Anchor Chain
@@ -201,9 +201,11 @@ NumberOfModFiles=198   entries parsed: 198
  196. 3605013271   on     RE-power: the resupply mod
  197. 3796706214   on     飞机与直升机的真实照片
  198. ACConfigs    OFF    
+ 199. 3820576916   on     Steelfin
+ 200. 3820759806   on     Euromod - Modern Royal Australian Navy Mod
 
 --- drift against the canonical order ---
 canonical but not live (1): SEST_Integration
-live but not canonical (2): 3812461539, ACConfigs
+live but not canonical (4): 3812461539, ACConfigs, 3820576916, 3820759806
 order of shared entries matches: YES
 disabled in game (1): ACConfigs

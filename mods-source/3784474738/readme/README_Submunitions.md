@@ -125,6 +125,10 @@ Submunition1Position=0,0,-1
 
 Use an existing Stage 2 or set Stage=1. Chaff forms at the configured mount position. It follows native cloud behavior: Aim, EjectVelocity and InitialDrop do not steer or propel it; Radius must be zero. Rotation, Position and Spacing place the release. A cloud-owned mount keeps emitted effects independent after the carrier is destroyed. This route is for ordinary Chaff; custom EnhancedDecoy/AirDecoy flight behavior is not part of this feature.
 
+## Optional diagnostics
+
+Set SubmunitionDiagnostics=True in the carrier ammunition's [Models] section to log launches, hit slots and particle samples. Default: False. Normal error/warning logging remains enabled. The diagnostic setting follows each released daughter and is saved with it. Launch a fresh carrier after changing its INI. This setting does not change effects, hit classification or damage.
+
 ## Saving and limits
 
 Released counts, salvo remainder, spread seed and missile/bomb/torpedo release metadata are saved. Chaff clouds use the native transient lifecycle; this mod adds no restoration of already emitted chaff effects. A changed or missing launcher save record disables that launcher on the restored carrier to avoid duplicate weapons; launch a fresh carrier after adding this feature to an old save. Daughter stage/glow features work, but daughters cannot launch another generation. Native nested submunition ammunition is rejected.
