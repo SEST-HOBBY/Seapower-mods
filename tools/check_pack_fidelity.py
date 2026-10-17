@@ -40,7 +40,7 @@ ROOT = Path(__file__).resolve().parents[1]
 PACK = ROOT / "integration" / "replenishment" / "SEST_Replenishment"
 
 sys.path.insert(0, str(ROOT / "integration"))
-sys.path.insert(0, str(ROOT / "integration" / "missions"))
+sys.path.insert(0, str(ROOT / "integration" / "mission-seeds"))
 sys.path.insert(0, str(ROOT / "integration" / "replenishment"))
 import build_patch as builder  # noqa: E402
 from common.ras import (CLONES, RESTORE_ROUNDS, SUPPLIERS,  # noqa: E402

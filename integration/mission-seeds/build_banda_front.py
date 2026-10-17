@@ -30,8 +30,8 @@ Compared with SEST Indo-Pacific Land Assets:
   - The US destroyers stand in the Celebes Sea, and a PLAN amphibious group
     lies off the Batang lodgement in the Java Sea.
 
-    python3 integration/missions/build_banda_front.py              # write the mission
-    python3 integration/missions/build_banda_front.py --density standard
+    python3 integration/mission-seeds/build_banda_front.py              # write the mission
+    python3 integration/mission-seeds/build_banda_front.py --density standard
 """
 import sys
 from pathlib import Path

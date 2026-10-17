@@ -42,9 +42,9 @@ save and [Taskforce1Vessel8] after it are routinely different ships. Units
 inside an inserted or deleted run are skipped entirely rather than guessed at.
 
 Usage (repo root):
-    python3 integration/missions/restore_roe.py --mission "SEST Banda Front Lean v2"
-    python3 integration/missions/restore_roe.py --mission "SEST Banda Front Lean v2" --write
-    python3 integration/missions/restore_roe.py --mission "SEST Banda Front Lean v2" --check
+    python3 integration/mission-seeds/restore_roe.py --mission "SEST Banda Front Lean v2"
+    python3 integration/mission-seeds/restore_roe.py --mission "SEST Banda Front Lean v2" --write
+    python3 integration/mission-seeds/restore_roe.py --mission "SEST Banda Front Lean v2" --check
 """
 import argparse
 import collections

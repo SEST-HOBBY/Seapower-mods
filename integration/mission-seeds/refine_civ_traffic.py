@@ -5,8 +5,8 @@ Piggy-backs on the player's own edited mission. For mission <M> it reads
 (first found)
   1. mods-source/_vanilla/user/missions/user_missions/<M>.ini
      (the copy exported from the game, carrying the player's hand edits)
-  2. integration/missions/<M>.ini  (repo copy)
-and writes integration/missions/<M>.ini. Pass --repo-only when the repo
+  2. integration/mission-seeds/<M>.ini  (repo copy)
+and writes integration/mission-seeds/<M>.ini. Pass --repo-only when the repo
 copy IS the authoritative hand-edited file and must not be replaced by a
 stale game export.
 
@@ -25,8 +25,8 @@ Variant pools and squadron lists are parsed from the actual mod files under
 mods-source/ — nothing is hardcoded that can drift.
 
 Usage (repo root):
-    python3 integration/missions/refine_civ_traffic.py
-    python3 integration/missions/refine_civ_traffic.py \
+    python3 integration/mission-seeds/refine_civ_traffic.py
+    python3 integration/mission-seeds/refine_civ_traffic.py \
         --mission "NORTHERN FRONT III" --repo-only --rename-to "NORTHERN FRONT III"
 """
 import argparse
@@ -315,7 +315,7 @@ def parse_args():
     ap.add_argument("--mission", default=DEFAULT_MISSION,
                     help="mission name without .ini (default: %(default)s)")
     ap.add_argument("--repo-only", action="store_true",
-                    help="treat integration/missions/<mission>.ini as authoritative "
+                    help="treat integration/mission-seeds/<mission>.ini as authoritative "
                          "and ignore any game export of it")
     ap.add_argument("--rename-to", default=None,
                     help="rewrite every [Language_*] Name= entry to this title")

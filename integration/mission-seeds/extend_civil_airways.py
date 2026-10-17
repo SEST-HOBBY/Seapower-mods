@@ -23,9 +23,9 @@ Idempotent: a route already long enough is untouched, so running it again
 changes nothing. Backups (files with "backup-" in the name) are skipped.
 
 Usage (repo root):
-    python3 integration/missions/extend_civil_airways.py            # report only
-    python3 integration/missions/extend_civil_airways.py --write    # apply
-    python3 integration/missions/extend_civil_airways.py --mission "NORTHERN FRONT III" --write
+    python3 integration/mission-seeds/extend_civil_airways.py            # report only
+    python3 integration/mission-seeds/extend_civil_airways.py --write    # apply
+    python3 integration/mission-seeds/extend_civil_airways.py --mission "NORTHERN FRONT III" --write
 """
 import argparse
 import math

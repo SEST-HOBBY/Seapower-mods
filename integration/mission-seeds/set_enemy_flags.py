@@ -2,8 +2,8 @@
 """Set the enemy flags of the standalone missions: Nation= on every Taskforce2
 unit whose unit file registers a nation this war does not have.
 
-    python3 integration/missions/set_enemy_flags.py          # report only
-    python3 integration/missions/set_enemy_flags.py --write  # rewrite in place
+    python3 integration/mission-seeds/set_enemy_flags.py          # report only
+    python3 integration/mission-seeds/set_enemy_flags.py --write  # rewrite in place
 
 The campaign builder applies the same rule as it writes (build_pack.py);
 this is the pass for the missions kept as .ini here - Northern Front, the

@@ -78,7 +78,7 @@ VANILLA = MODS / "_vanilla" / "original"
 OUT = Path(__file__).resolve().parent / "SEST_Replenishment"
 
 sys.path.insert(0, str(ROOT / "integration"))
-sys.path.insert(0, str(ROOT / "integration" / "missions"))
+sys.path.insert(0, str(ROOT / "integration" / "mission-seeds"))
 from common.ras import (                                          # noqa: E402
     CLONES, METER_CATEGORIES, METER_EXEMPT, METER_THRESHOLD,
     FREE_ROUND_ACCEPTED, RELOAD_LINE, RESTORE_ROUNDS, STORE_FIXES, SUPPLIERS,
@@ -367,7 +367,7 @@ def _alias_target(text):
     # Russian SAM stubs (rfn_40n6, rfn_48n6m and more) open with three '#====='
     # lines and put '#!alias' on line 5. Reading only the first line made them
     # rounds with no price, type or role, and the metering silently dropped
-    # them. The same rule as integration/missions/build_land_defence.py.
+    # them. The same rule as integration/mission-seeds/build_land_defence.py.
     for line in text.splitlines():
         stripped = line.strip().lstrip("\ufeff")
         if not stripped:

@@ -7,7 +7,7 @@
     Chains the whole round trip:
 
       1. import   - copy the mission out of the game's user_missions folder
-                    into integration\missions (skip with -SkipImport)
+                    into integration\mission-seeds (skip with -SkipImport)
       2. dress    - realistic hull types and airline liveries for the neutral
                     civilian traffic (refine_civ_traffic.py)
       3. depth    - add the extra merchants, airliners and whale pods if they
@@ -73,7 +73,7 @@ $ErrorActionPreference = "Stop"
 
 $scriptDir = if ($PSScriptRoot) { $PSScriptRoot } else { Split-Path -Parent $MyInvocation.MyCommand.Path }
 $repoRoot = Split-Path -Parent $scriptDir
-$missionsDir = Join-Path $repoRoot "integration\missions"
+$missionsDir = Join-Path $repoRoot "integration\mission-seeds"
 . (Join-Path $scriptDir "lib\common.ps1")
 
 # Not a param default: those are bound before $repoRoot exists.
@@ -90,7 +90,7 @@ if (-not $py) {
     Write-Host "    (tick 'Add python.exe to PATH' in the installer), then re-run this; or"
     Write-Host "  * push the imported mission and have it processed for you:"
     Write-Host "      powershell -ExecutionPolicy Bypass -File .\tools\import-mission.ps1 -Mission `"$Mission`""
-    Write-Host "      git add integration\missions ; git commit -m `"Import edited mission`" ; git push"
+    Write-Host "      git add integration\mission-seeds ; git commit -m `"Import edited mission`" ; git push"
     exit 1
 }
 Write-Host ("Python: {0} {1}" -f $py.Exe, ($py.Pre -join " "))
@@ -193,17 +193,28 @@ if ($LandDefence) {
 }
 
 # --- 7. Put it back in the game ----------------------------------------------
+# Only this one mission (and its briefing map) goes back into user_missions.
+# install-sest-packs.ps1 stopped copying integration\mission-seeds into the
+# game on 17 Oct 2026, so a seed reaches the editor only when asked for here.
 if ($Install) {
-    Write-Host "`n[7/7] installing back into the game..." -ForegroundColor Cyan
-    $installArgs = @{}
-    if ($StreamingAssetsDir) { $installArgs["StreamingAssetsDir"] = $StreamingAssetsDir }
-    & (Join-Path $scriptDir "install-sest-packs.ps1") @installArgs
+    Write-Host "`n[7/7] copying '$Mission' back into the game..." -ForegroundColor Cyan
+    if (-not $StreamingAssetsDir) { $StreamingAssetsDir = Find-StreamingAssets }
+    if (-not $StreamingAssetsDir) { throw "Could not auto-detect Sea Power's StreamingAssets. Re-run with -StreamingAssetsDir '<...>\Sea Power_Data\StreamingAssets'" }
+    $dest = Join-Path $StreamingAssetsDir "user\missions\user_missions"
+    New-Item -ItemType Directory -Force -Path $dest | Out-Null
+    Copy-Item -LiteralPath $missionFile -Destination $dest -Force
+    $briefing = Join-Path $missionsDir "${Mission}_briefing"
+    if (Test-Path -LiteralPath $briefing) {
+        $old = Join-Path $dest "${Mission}_briefing"
+        if (Test-Path -LiteralPath $old) { Remove-Item -LiteralPath $old -Recurse -Force }
+        Copy-Item -LiteralPath $briefing -Destination $dest -Recurse -Force
+    }
 } else {
-    Write-Host "`n[7/7] not installed (pass -Install to deploy it back)" -ForegroundColor DarkGray
+    Write-Host "`n[7/7] not copied back (pass -Install to put it back in the game)" -ForegroundColor DarkGray
 }
 
 Write-Host "`nDone. '$Mission' has been refreshed." -ForegroundColor Green
 Write-Host "Commit the result so the repo keeps your edits:"
-Write-Host "  git add integration\missions"
+Write-Host "  git add integration\mission-seeds"
 Write-Host "  git commit -m `"Refresh $Mission`""
 Write-Host "  git push"

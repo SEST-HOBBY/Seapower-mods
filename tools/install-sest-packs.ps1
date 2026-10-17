@@ -14,14 +14,13 @@
     folders earlier versions installed) is removed: they would double-define
     every unit alongside the consolidated pack.
 
-    Missions are plain add-and-overwrite: every .ini under integration\missions
-    is copied into the game's user_missions folder - new ones added, changed
-    ones replaced in place, unchanged ones left alone, nothing deleted, no
-    backup copies and no renaming. Git holds the history, so run
-    import-mission.ps1 on anything you edited in game before installing.
-    Each mission's "<name>_briefing" folder (its briefing map) is copied
-    beside it. Old "<name> backup-<stamp>.ini" files are no longer deployed;
-    -PurgeBackups removes the ones already in the game folder.
+    Missions are not copied into user_missions. Every SEST mission ships
+    inside the campaign pack; integration\mission-seeds\ (the early
+    scenarios and editor saves) is an archive, never installed. Copies of
+    those seeds that earlier versions of this script put into user_missions
+    are moved out, once, into Documents\SEST-retired-missions; the player's
+    own missions are not touched.
+    -PurgeBackups removes the old "<name> backup-<stamp>.ini" copies.
 
 .EXAMPLE
     # From the repo root, in PowerShell:
@@ -141,64 +140,46 @@ foreach ($d in Get-ChildItem -LiteralPath $StreamingAssetsDir -Directory -Filter
 }
 
 # --- Missions ----------------------------------------------------------------
-# Plain add-and-overwrite. Every .ini under integration\missions (scenarios\
-# included; the game lists user_missions flat) is copied into the game's
-# user_missions folder: new files are added, changed files are overwritten in
-# place, unchanged files are left alone, and nothing the game has is ever
-# deleted. There are no backup copies and no renaming - git is the backup, so
-# import-mission.ps1 anything you edited in game BEFORE installing, or the
-# in-game copy is replaced by the repo's. Files named "<name> backup-<stamp>.ini"
-# (made by the old backup scheme) are not deployed; -PurgeBackups removes the
-# ones already in the game folder.
-$missionSrc = Join-Path $repoRoot "integration\missions"
-if (Test-Path $missionSrc) {
-    $missionDest = Join-Path $StreamingAssetsDir "user\missions\user_missions"
-    New-Item -ItemType Directory -Force -Path $missionDest | Out-Null
-    if ($PurgeBackups) {
-        foreach ($bak in Get-ChildItem -LiteralPath $missionDest -Filter "* backup-*.ini") {
-            # Only the old scheme's own "<name> backup-<yyyyMMdd-HHmmss>" names.
-            # user_missions also holds the player's own missions, and a title
-            # such as "Strait backup-plan" must survive the purge.
-            if ($bak.BaseName -notmatch ' backup-[0-9-]+$') { continue }
-            if ($WhatIfOnly) { Write-Host ("  would purge  {0}" -f $bak.Name); continue }
-            Remove-Item -LiteralPath $bak.FullName -Force
-            Write-Host ("  purged     {0}" -f $bak.Name)
+# Nothing is copied into user_missions any more. Every SEST mission the game
+# should list ships inside the campaign pack (integration\dist\SEST_Integration\
+# missions\ and campaigns\), installed above with the pack. integration\
+# mission-seeds\ is the archive of the early scenarios and editor saves the
+# side operations are refined from; it is never installed. Until 17 Oct 2026
+# this script copied all of it into user_missions, so a developer's game
+# listed 60-odd drafts beside the player's own missions. This step moves those
+# copies (matched by name against the seeds, so the player's own missions are
+# untouched) out of the game into Documents\SEST-retired-missions, once.
+$seedSrc = Join-Path $repoRoot "integration\mission-seeds"
+$missionDest = Join-Path $StreamingAssetsDir "user\missions\user_missions"
+if ($PurgeBackups -and (Test-Path -LiteralPath $missionDest)) {
+    foreach ($bak in Get-ChildItem -LiteralPath $missionDest -Filter "* backup-*.ini") {
+        # Only the old scheme's own "<name> backup-<yyyyMMdd-HHmmss>" names.
+        # user_missions also holds the player's own missions, and a title
+        # such as "Strait backup-plan" must survive the purge.
+        if ($bak.BaseName -notmatch ' backup-[0-9-]+$') { continue }
+        if ($WhatIfOnly) { Write-Host ("  would purge  {0}" -f $bak.Name); continue }
+        Remove-Item -LiteralPath $bak.FullName -Force
+        Write-Host ("  purged     {0}" -f $bak.Name)
+    }
+}
+if ((Test-Path $seedSrc) -and (Test-Path -LiteralPath $missionDest)) {
+    $retired = Join-Path ([Environment]::GetFolderPath('MyDocuments')) "SEST-retired-missions"
+    $moved = 0
+    foreach ($m in Get-ChildItem -LiteralPath $seedSrc -Filter "*.ini" -Recurse) {
+        foreach ($name in @($m.Name, ($m.BaseName + "_briefing"))) {
+            $old = Join-Path $missionDest $name
+            if (-not (Test-Path -LiteralPath $old)) { continue }
+            if ($WhatIfOnly) { Write-Host ("  would retire  {0}" -f $name); $moved++; continue }
+            New-Item -ItemType Directory -Force -Path $retired | Out-Null
+            $target = Join-Path $retired $name
+            if (Test-Path -LiteralPath $target) { Remove-Item -LiteralPath $target -Recurse -Force }
+            Move-Item -LiteralPath $old -Destination $target -Force
+            Write-Host ("  retired    {0}" -f $name)
+            $moved++
         }
     }
-    $overwritten = @()
-    foreach ($m in Get-ChildItem -LiteralPath $missionSrc -Filter "*.ini" -Recurse) {
-        if ($m.BaseName -match ' backup-[0-9-]+$') { continue }
-        $destFile = Join-Path $missionDest $m.Name
-        if (Test-Path -LiteralPath $destFile) {
-            if ((Get-Content -LiteralPath $m.FullName -Raw) -eq (Get-Content -LiteralPath $destFile -Raw)) {
-                Write-Host ("  mission    {0} (unchanged)" -f $m.Name)
-                continue
-            }
-            $overwritten += $m.Name
-            if ($WhatIfOnly) { Write-Host ("  would update  {0}" -f $m.Name); continue }
-            Copy-Item -LiteralPath $m.FullName -Destination $destFile -Force
-            Write-Host ("  mission    {0} (updated)" -f $m.Name)
-        } else {
-            if ($WhatIfOnly) { Write-Host ("  would add     {0}" -f $m.Name); continue }
-            Copy-Item -LiteralPath $m.FullName -Destination $destFile -Force
-            Write-Host ("  mission    {0} (new)" -f $m.Name)
-        }
-    }
-    if ($overwritten.Count -and $WhatIfOnly) {
-        Write-Host ("  would replace the in-game copy of: {0}" -f ($overwritten -join ", ")) -ForegroundColor Yellow
-        Write-Host "  (import-mission.ps1 any of those you edited in game before installing for real)"
-    } elseif ($overwritten.Count) {
-        Write-Host ("  replaced the in-game copy of: {0}" -f ($overwritten -join ", ")) -ForegroundColor Yellow
-        Write-Host "  (if any of those carried unsaved editor work, it is gone - import-mission.ps1 first next time)"
-    }
-    # The briefing map pane reads "<mission>_briefing\" beside the .ini; without
-    # it the right-hand pane is blank. Generated, so replaced wholesale.
-    foreach ($b in Get-ChildItem -LiteralPath $missionSrc -Directory -Filter "*_briefing" -Recurse) {
-        if ($WhatIfOnly) { Write-Host ("  would copy    {0}" -f $b.Name); continue }
-        $destDir = Join-Path $missionDest $b.Name
-        if (Test-Path -LiteralPath $destDir) { Remove-Item -LiteralPath $destDir -Recurse -Force }
-        Copy-Item -LiteralPath $b.FullName -Destination $missionDest -Recurse -Force
-        Write-Host ("  briefing   {0}" -f $b.Name)
+    if ($moved -and -not $WhatIfOnly) {
+        Write-Host ("  {0} old seed copies moved out of user_missions into {1}" -f $moved, $retired) -ForegroundColor Yellow
     }
 }
 

@@ -10,8 +10,8 @@ Natural Earth coastlines fetched once into ~/.cache/sest-naturalearth); the
 campaign builder uses the same module for the campaign's own missions. The
 PNGs are committed, so installing never needs Pillow or the network.
 
-    python3 integration/missions/build_briefing_maps.py          # all SEST missions
-    python3 integration/missions/build_briefing_maps.py --list   # what it would draw
+    python3 integration/mission-seeds/build_briefing_maps.py          # all SEST missions
+    python3 integration/mission-seeds/build_briefing_maps.py --list   # what it would draw
 """
 import argparse
 import re

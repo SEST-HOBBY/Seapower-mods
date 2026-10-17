@@ -35,8 +35,8 @@ Six problems, deliberately not six versions of one problem:
   Tigers over Papua     deep strike on relocatable launchers
 
 Usage (repo root):
-    python3 integration/missions/build_banda_vignettes.py           # report
-    python3 integration/missions/build_banda_vignettes.py --write   # emit
+    python3 integration/mission-seeds/build_banda_vignettes.py           # report
+    python3 integration/mission-seeds/build_banda_vignettes.py --write   # emit
 """
 import argparse
 import re
@@ -44,9 +44,9 @@ import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
-sys.path.insert(0, str(ROOT / "integration" / "missions"))
+sys.path.insert(0, str(ROOT / "integration" / "mission-seeds"))
 from refine_civ_traffic import winning_file  # noqa: E402
-MISSIONS = ROOT / "integration" / "missions"
+MISSIONS = ROOT / "integration" / "mission-seeds"
 MODS = ROOT / "mods-source"
 PARENT = MISSIONS / "SEST Banda Front Lean v2.ini"   # the repo's own copy
 

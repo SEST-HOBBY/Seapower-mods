@@ -25,7 +25,7 @@ argparse, so ANY invocation used to rebuild the mission - including
 It now refuses to run without --force.
 
 Usage (repo root):
-    python3 "integration/missions/build_northern_front_ii.py" --force
+    python3 "integration/mission-seeds/build_northern_front_ii.py" --force
 """
 import glob
 import re
@@ -39,7 +39,7 @@ if "--force" not in sys.argv:
         "by accident. Pass --force if that is genuinely what you want.")
 
 SRC = Path("mods-source/_vanilla/user/missions/NORTHERN FRONT.ini")
-OUT = Path("integration/missions/NORTHERN FRONT II.ini")
+OUT = Path("integration/mission-seeds/NORTHERN FRONT II.ini")
 Y = "220.4727"  # vanilla vessel-waypoint sea-level constant
 MLAT, MLON = 54.27, -26.28  # mission map datum: x = (lon-MLON)*60, z = (lat-MLAT)*60
 

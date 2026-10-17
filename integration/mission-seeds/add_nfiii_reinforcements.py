@@ -16,7 +16,7 @@ Three additions, all found in the RSA survey:
 Idempotent: each addition has a presence marker and is skipped when found, so
 the pass can sit in the refresh-mission chain and survive editor round-trips.
 
-    python3 integration/missions/add_nfiii_reinforcements.py --mission "NORTHERN FRONT III FINAL" --write
+    python3 integration/mission-seeds/add_nfiii_reinforcements.py --mission "NORTHERN FRONT III FINAL" --write
 """
 import argparse
 import re

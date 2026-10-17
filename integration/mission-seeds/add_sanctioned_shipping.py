@@ -25,7 +25,7 @@ non-reactive. Escorts are vanilla hulls built for exactly this masquerade:
 THAT POSTURE DOES NOT SURVIVE THE EDITOR. Saving the mission in game rewrites
 every Hold and every Tight to Free, so one round-trip turns this fleet from a
 shadowing problem into a shooting match, with nothing in the file to show for
-it. Run integration/missions/restore_roe.py after every editor save;
+it. Run integration/mission-seeds/restore_roe.py after every editor save;
 tools/import-mission.ps1 does it for each mission it imports.
 
 GEOGRAPHY IS READ, NOT ASSUMED. The lift clusters anchor on the mission's own
@@ -39,8 +39,8 @@ eaten them) marks the pass as already run. Only appends and count bumps -
 no existing line is rewritten.
 
 Usage (repo root):
-    python3 integration/missions/add_sanctioned_shipping.py --mission "NORTHERN FRONT III FINAL"
-    python3 integration/missions/add_sanctioned_shipping.py --mission "NORTHERN FRONT III FINAL" --write
+    python3 integration/mission-seeds/add_sanctioned_shipping.py --mission "NORTHERN FRONT III FINAL"
+    python3 integration/mission-seeds/add_sanctioned_shipping.py --mission "NORTHERN FRONT III FINAL" --write
 """
 import argparse
 import re

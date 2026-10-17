@@ -217,7 +217,7 @@ their side's lead nation's (US or China) garrisons, escorts and convoys.
 | Aircraft rows (not embarked) | One air force per aircraft type at the node's airfield |
 | Hull names | `named`, from the register's hull names, quoted variant names or carrier asset ids |
 | Supply ships | `replenishment` with fuel and ammunition tonnes; their forces start with `cargo: full` |
-| Unit ids the collection retired | Retargeted through `integration/missions/retarget_units.py`'s table |
+| Unit ids the collection retired | Retargeted through `integration/mission-seeds/retarget_units.py`'s table |
 
 ### Scenario choices the adapter makes
 

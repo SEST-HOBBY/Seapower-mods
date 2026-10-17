@@ -98,8 +98,8 @@ COMPANIONS = ("_squadrons", "_variants")
 # Where units are fielded: mission sources, built missions and campaigns, and
 # the campaign buy lists.
 FIELDED_GLOBS = (
-    "integration/missions/*.ini",
-    "integration/missions/scenarios/*.ini",
+    "integration/mission-seeds/*.ini",
+    "integration/mission-seeds/scenarios/*.ini",
     "integration/dist/SEST_Integration/campaigns/*/missions/*.ini",
     "integration/dist/SEST_Integration/campaigns/*/campaign.ini",
     "integration/dist/SEST_Integration/campaigns/*/player_task_force_roster.ini",

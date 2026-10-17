@@ -27,10 +27,10 @@ Squadron files are resolved through the canonical Mod Manager order, so both
 checks match the copy the game really loads - SEST packs included.
 
 Usage (repo root):
-    python3 integration/missions/fix_squadron_refs.py                  # report only
-    python3 integration/missions/fix_squadron_refs.py --write          # apply
-    python3 integration/missions/fix_squadron_refs.py --mission "NORTHERN FRONT III" --write
-    python3 integration/missions/fix_squadron_refs.py --spread --write # re-split collapsed groups
+    python3 integration/mission-seeds/fix_squadron_refs.py                  # report only
+    python3 integration/mission-seeds/fix_squadron_refs.py --write          # apply
+    python3 integration/mission-seeds/fix_squadron_refs.py --mission "NORTHERN FRONT III" --write
+    python3 integration/mission-seeds/fix_squadron_refs.py --spread --write # re-split collapsed groups
 """
 import argparse
 import re

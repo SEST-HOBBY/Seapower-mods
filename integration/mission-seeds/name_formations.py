@@ -15,8 +15,8 @@ Nothing but the label field of a formation line changes - members, shape,
 spacing and OverrideSpawnPositions are preserved verbatim.
 
 Usage (repo root):
-    python3 integration/missions/name_formations.py --mission "NORTHERN FRONT III"
-    python3 integration/missions/name_formations.py --mission "NORTHERN FRONT III" --write
+    python3 integration/mission-seeds/name_formations.py --mission "NORTHERN FRONT III"
+    python3 integration/mission-seeds/name_formations.py --mission "NORTHERN FRONT III" --write
 """
 import argparse
 import re

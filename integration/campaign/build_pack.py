@@ -61,7 +61,7 @@ import tempfile
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
-sys.path.insert(0, str(ROOT / "integration" / "missions"))
+sys.path.insert(0, str(ROOT / "integration" / "mission-seeds"))
 from refine_civ_traffic import load_order  # noqa: E402
 import fix_land_positions  # noqa: E402  (firm ground for land units; needs global-land-mask)
 sys.path.insert(0, str(ROOT / "integration"))
@@ -775,7 +775,7 @@ def unit_type(uid, depth=0):
 
 # --- proven positions --------------------------------------------------------
 
-POOL_ROOTS = ("integration/missions",
+POOL_ROOTS = ("integration/mission-seeds",
               "mods-source/_vanilla/original/missions",
               "mods-source/_vanilla/original/campaigns",
               "mods-source/_vanilla/user/missions")
@@ -7252,7 +7252,7 @@ def main():
     # The briefing maps the same way: the renderer needs Pillow AND the
     # Natural Earth coastlines (fetched once, cached), and a machine with
     # neither keeps the committed maps rather than shipping a blank pane.
-    sys.path.insert(0, str(ROOT / "integration" / "missions"))
+    sys.path.insert(0, str(ROOT / "integration" / "mission-seeds"))
     try:
         import briefing_maps
         geo, maps_reason = briefing_maps.available()
@@ -7370,7 +7370,7 @@ def main():
 
         # The briefing map beside every mission - the right-hand pane of the
         # briefing screen, drawn from <mission>_briefing/BriefingMap_en.xml
-        # and the image it binds (see integration/missions/briefing_maps.py).
+        # and the image it binds (see integration/mission-seeds/briefing_maps.py).
         # Every stock mission ships one; these shipped none, and the pane was
         # blank. Drawn once into the campaign copy and mirrored byte-for-byte
         # into the browser copy, which check_campaign_coverage requires to be

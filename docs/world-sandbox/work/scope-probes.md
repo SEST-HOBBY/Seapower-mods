@@ -28,12 +28,12 @@ Probes are opt-in measurement files. They answer what the repository cannot. Eac
 ## Rules common to every probe
 
 - **Opt-in and never deployed.**
-  - Keep probe files out of `integration/missions/`. `tools/install-sest-packs.ps1:143-183` copies every `.ini` there, recursively, into the game.
+  - Keep probe files out of `integration/mission-seeds/`. `tools/install-sest-packs.ps1:143-183` copies every `.ini` there, recursively, into the game.
   - Keep them out of `integration/dist/` and out of the builder's position pool (`integration/campaign/build_pack.py:751-754` POOL_ROOTS). Untested positions must not become "proven points".
   - Suggested home: `docs/world-sandbox/probes/`, with filenames prefixed `ZZ PROBE`. The user copies a probe by hand into `<StreamingAssets>\user\missions\user_missions` (path from `install-sest-packs.ps1:155`) and deletes it afterwards.
   - Do not let a later snapshot carry probe files into `mods-source/_vanilla/user/missions`, which is also a pool root.
 - **Generate the files with a standalone script, not `build_pack.py`.** Its output is hard-wired to `SEST_Campaign` and it rewrites pack files (`build_pack.py:68`, `:6246-6259`). The script should also write an `expected.json` (intended lat/lon per unit, expected arrival times) so the captured saves can be scored automatically.
-- **Preflight cannot see these files.** `tools/preflight.py:262-271` only finds missions in `integration/missions` or `integration/campaign`. Either copy `Type=` lines from missions that already load, or add a path argument to preflight [BUILDER].
+- **Preflight cannot see these files.** `tools/preflight.py:262-271` only finds missions in `integration/mission-seeds` or `integration/campaign`. Either copy `Type=` lines from missions that already load, or add a path argument to preflight [BUILDER].
 - **Placement maths:**
   - `x = (lon − MapCenterLongitude) × 60`
   - `z = (lat − MapCenterLatitude) × 60`

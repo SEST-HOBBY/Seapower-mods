@@ -24,10 +24,10 @@ then edited in the game (submarine patrols, a supply ship, moved placements)
 and given back its rules of engagement, so re-deriving it would lose all of
 that.
 
-    python3 integration/missions/thin_waypoints.py                   # Living Seas -> Living Seas thinned, narco subs and fishing boats
-    python3 integration/missions/thin_waypoints.py --dry-run
-    python3 integration/missions/thin_waypoints.py --match narco --match civ_fv --laps 2
-    python3 integration/missions/thin_waypoints.py --all             # every unit whose route repeats
+    python3 integration/mission-seeds/thin_waypoints.py                   # Living Seas -> Living Seas thinned, narco subs and fishing boats
+    python3 integration/mission-seeds/thin_waypoints.py --dry-run
+    python3 integration/mission-seeds/thin_waypoints.py --match narco --match civ_fv --laps 2
+    python3 integration/mission-seeds/thin_waypoints.py --all             # every unit whose route repeats
 """
 import argparse
 import re

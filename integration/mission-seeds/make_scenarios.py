@@ -24,9 +24,9 @@ pack in the load order defines its type, so build the packs first
 (tools/build_all.py): the SEST packs are resolved from their consolidated
 output.
 
-    python3 integration/missions/make_scenarios.py            # build all
-    python3 integration/missions/make_scenarios.py --list     # show formations
-    python3 integration/missions/make_scenarios.py --source "OTHER MISSION"
+    python3 integration/mission-seeds/make_scenarios.py            # build all
+    python3 integration/mission-seeds/make_scenarios.py --list     # show formations
+    python3 integration/mission-seeds/make_scenarios.py --source "OTHER MISSION"
 """
 import argparse
 import math
@@ -38,7 +38,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 from refine_civ_traffic import winning_file  # noqa: E402
 
 ROOT = Path(__file__).resolve().parents[2]
-MISSIONS = ROOT / "integration" / "missions"
+MISSIONS = ROOT / "integration" / "mission-seeds"
 SCENARIO_DIR = MISSIONS / "scenarios"
 
 UNIT_CLASSES = ("Vessel", "Submarine", "Aircraft", "LandUnit", "Biologic")
@@ -527,9 +527,9 @@ against their consolidated output.
 
 ```bash
 python3 tools/build_all.py                                # the packs the extras come from
-python3 integration/missions/make_scenarios.py            # build all + this README
-python3 integration/missions/make_scenarios.py --list     # show the source's formations
-python3 integration/missions/build_briefing_maps.py       # redraw the briefing maps
+python3 integration/mission-seeds/make_scenarios.py            # build all + this README
+python3 integration/mission-seeds/make_scenarios.py --list     # show the source's formations
+python3 integration/mission-seeds/build_briefing_maps.py       # redraw the briefing maps
 python3 tools/check_scenarios.py                          # validate every scenario
 ```
 
@@ -539,11 +539,10 @@ the only cross-references a mission file has.
 
 ## In game
 
-{len(built)} scenarios. They deploy with everything else (`tools\\install-sest-packs.ps1`
-copies the missions under `integration\\missions`, this folder included, and the
-`_briefing` folder beside each) and appear in the mission list alongside the full missions,
-prefixed `SEST NF3 -`. The `scenarios/` subfolder is repo-side grouping only; the game
-lists `user_missions` flat.
+{len(built)} scenarios. Since 17 Oct 2026 they are seeds, not deployed: `tools\\install-sest-packs.ps1`
+no longer copies `integration\\mission-seeds` into the game, and what the game lists
+is the campaign pack's own missions. To try one in the editor, copy its `.ini` and the
+`_briefing` folder beside it into `user_missions` by hand; the game lists that folder flat.
 """
     (SCENARIO_DIR / "README.md").write_text(body, encoding="utf-8")
 

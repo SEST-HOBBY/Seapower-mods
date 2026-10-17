@@ -1852,7 +1852,7 @@ STALE_OVERWRITES = {
 # Spruance. Euromod Main Pack still ships a combat-system patch for each old
 # id, which check_alias_bases reports as eight unit files the game cannot
 # load. The five SULU SEA OFFENSIVE missions that fielded the 2025 fit were
-# moved to the new hull by integration/missions/retarget_units.py.
+# moved to the new hull by integration/mission-seeds/retarget_units.py.
 for _year in ("1990", "1996", "2004", "2011", "2013", "2018", "2025"):
     STALE_OVERWRITES[f"usn_cg_ticonderoga_vls_{_year}_CombatSystems_OVWR.ini"] = (
         f"vessels/usn_cg_ticonderoga_vls_{_year}.ini", "vessels/usn_cg_bunker_hill_vls_2024.ini",

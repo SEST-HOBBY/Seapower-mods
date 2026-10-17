@@ -37,7 +37,7 @@ WHAT RESTORING THEM ACTUALLY DOES
   Counted by tools/survey_attack_altitudes.py over the winning copy of all
   1774 ammunition ids - workshop mods AND the SEST packs, which introduce five
   rounds of their own - resolved through the repo's own load-order resolver
-  (winning_file in integration/missions/refine_civ_traffic.py) AND through
+  (winning_file in integration/mission-seeds/refine_civ_traffic.py) AND through
   #!alias and #!extend inheritance, since 115 of those files are directive stubs
   whose base is itself resolved by load order, so a round can carry a band it
   never literally declares. That gives 557 anti-air-capable rounds. Against
@@ -144,7 +144,7 @@ WHAT THE CLAMP WOULD BREAK, AND IS FIXED HERE
   Watch dispatch Range Week places, so that fix is live in the campaign. The
   21 hulls carrying the Red Storm SM-6 are all from that mod; seven of them -
   both alternative Hobarts, the Ticonderoga VLS, Kansas, two Burke Flight IIIs
-  and Trump - appear in loose missions under integration/missions/ (AUS DEF,
+  and Trump - appear in loose missions under integration/mission-seeds/ (AUS DEF,
   AUS INDO-PAC ESCA among them), none in either campaign. No mission places
   ko_ffg-828. The rest are fixed because the units are selectable.
 

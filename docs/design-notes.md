@@ -83,7 +83,7 @@ and the rule gets a new revision — that has happened three times already.
   saw radars, bunkers and launchers standing in the water along coasts and
   islands (10 Oct 2026): the land mask is a 1 km grid like the game's, and a
   unit the mask put a few hundred metres inside the coast could be in the
-  sea in game. `integration/missions/fix_land_positions.py` now moves every
+  sea in game. `integration/mission-seeds/fix_land_positions.py` now moves every
   land unit with less than 600 m of land all round onto firm ground (about 600
   units across 19 missions, most by under half a mile), and the campaign
   builder does the same for every land unit it places. Ports, rigs and
@@ -149,7 +149,7 @@ One thing is real loss, and it is the one that changes the scenario:
   free. Nothing warned: the unit count was right and preflight resolved every
   reference, because every reference was still valid. Only the intent was gone.
 
-`integration/missions/restore_roe.py` restores it, and `import-mission.ps1` runs it
+`integration/mission-seeds/restore_roe.py` restores it, and `import-mission.ps1` runs it
 on every mission it imports, so the fix lands before the commit rather than after.
 
 **"The previous commit" is not a safe reference, and getting that wrong hides exactly
@@ -163,7 +163,7 @@ refused, and the summary line states how many restrained units the reference hol
 a zero is never mistaken for a pass. A check that cannot fail is not a check.
 
 **A mission that never restrained anyone is information, not a failure.** Four of
-the 54 missions at the top of `integration/missions/` (backup copies aside) carry
+the 54 missions at the top of `integration/mission-seeds/` (backup copies aside) carry
 `Hold` or `Tight`, and the import hook runs the pass on every mission it brings in.
 As first written, a history with no restraint in it exited 1, so nearly every import
 would have printed "could not settle". It now says that nothing was compared and
@@ -515,7 +515,7 @@ and adds a structural backstop for stale exports. Negative-tested both ways.
   `AvailableLoadouts=AEW` yet still carries a `[WeaponSystem1Default]` block, and
   confirmed fixed in game once the variant was made explicit. The editor omits the
   key whenever a loadout was never picked by hand, so
-  `integration/missions/fix_loadout_variants.py` re-applies it as step 6b of the
+  `integration/mission-seeds/fix_loadout_variants.py` re-applies it as step 6b of the
   refresh chain and `preflight` fails on it (negative-tested).
 
   The lesson beyond the bug: the message named a *unit id*, which sent the hunt
@@ -527,7 +527,7 @@ and adds a structural backstop for stale exports. Negative-tested both ways.
   And the lesson after that: the fix has to land in every file the game can
   open, not just the one the tooling refreshes. The refresh chain only ever
   touched the active mission, while the installer deploys every other `.ini`
-  under `integration/missions/` too (drafts, older saves, edited chapters,
+  under `integration/mission-seeds/` too (drafts, older saves, edited chapters,
   scenarios) and the editor opens any of them. The KJ-500 crash was fixed in
   NORTHERN FRONT III FINAL NEWEST and still live in the FINAL, DRAFT and earlier
   copies listed right beside it: 32 aircraft in 9 deployed files on 25 Sep 2026

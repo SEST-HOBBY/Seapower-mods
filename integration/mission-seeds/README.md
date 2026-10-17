@@ -1,11 +1,60 @@
-# SEST Missions
+# SEST mission seeds
 
-Missions deployed by `tools/install-sest-packs.ps1` into
-`StreamingAssets\user\missions\user_missions\`: new files are added, files with the same name
-are overwritten, nothing is deleted and no backup copies are made (git is the history, so
-`tools\import-mission.ps1` anything you edited in game before you install). The
-`* backup-*.ini` files still in this folder are leftovers of the old backup scheme and are not
-deployed; `install-sest-packs.ps1 -PurgeBackups` removes the ones already in the game.
+The early scenarios, editor saves and sandboxes, and the scripts that refine them. **Nothing
+here is installed.** Until 17 Oct 2026 `tools/install-sest-packs.ps1` copied every `.ini`
+in this folder into the game's `user_missions`; it now leaves `user_missions` alone and moves
+the copies it made there earlier into `Documents\SEST-retired-missions`. Every mission SEST
+ships lives in the campaign pack (`integration/campaign/`, built by `build_pack.py` with its
+gates) and reaches the game only through the pack.
+
+The seeds stay because the campaign builder still reads them: `build_pack.py` harvests the
+sea and land positions every unit here was saved on (its proven-position pool), and several
+builders import the helper modules (`sea_routes.py`, `briefing_maps.py`, the flag and
+position fixers). A seed becomes a game mission by being rebuilt as a campaign mission spec,
+not by being copied.
+
+## Seed index
+
+Proposed homes follow the 17 Oct 2026 decision: side operations go in as in-theatre optional
+missions of the existing campaigns, themed on smugglers and arms runners, privately escorted
+armed merchants, air defence, and major assault and defence operations. "Proposed" means not
+built yet.
+
+| Seed | Idea | Proposed home |
+|---|---|---|
+| SEST Banda - Narco Transit | Night hunt for a narco-submarine among fishing boats, shallow water | Sulu Line optional (smugglers) |
+| SEST Banda - Sanctioned Cargo | Interdict sanctioned lifts and a Q-ship under identification pressure | Built: SW01 White Water; rest feeds the Southern Watch "Paper Trail" optional |
+| SEST Banda - Warramunga's Shot | NSM shot on an armed-merchant group | Built: SW05 Weapons Free |
+| SEST NF3 - Sanctioned Convoy | Escorted sanctioned convoy with the full civilian layer | Southern Watch optional (escorted armed merchants) |
+| SEST NF3 - Coastal Ambush | Anti-ship battery and drones on a coastal route | Sulu Line optional (coast armed by Meridian) |
+| SEST Banda - Viper Zero | JASDF F-2A strike on an amphibious group off Kalimantan | Southern Watch optional, 17 Nov (major assault) |
+| SEST Banda - Tigers over Papua | B-1B ARRW strike on mobile ballistic launchers | Southern Watch optional, 12 Nov |
+| SEST Banda - Rafale, Timor Gap | French stand-off strike on two frigates in bad weather | Southern Watch optional, 19 Nov |
+| SEST Banda - Mogami's Corner | JMSDF Mogami ASW at night against a Type 093B | Southern Watch optional (allied detachment) |
+| SEST Banda - Triton's Picture | Triton-cued kill chain from a Hobart | Southern Watch optional |
+| SEST Banda - Foxhound Sweep | Defend the Wedgetail and tanker orbit against MiG-31s | Southern Watch optional (air defence) |
+| SEST NF3 - Bomber Stream | Intercept an H-6K and Tu-95 raid on northern Australia | Southern Watch optional (air defence) |
+| SEST NF3 - Ballistic Shield | THAAD and Patriot at Darwin and Scherger against a mixed missile raid | Southern Watch or Southern Reach optional (air defence; overlaps D5 Range Week) |
+| SEST NF3 - SEAD over the Shelf | B-52 ARRW and F-15EX against an S-400 and HQ-9 belt | Southern Watch optional (assault) |
+| SEST NF3 - Deep Strike Corridor | Strike through a layered Chinese air-defence belt | Southern Watch optional (assault) |
+| SEST NF3 - Boomer Hunt | Coalition group hunting a Type 096 among civilian traffic | Southern Watch optional (allied detachment) |
+| SEST ANL Convoy - Coral Sea | Merchant convoy against a diesel-submarine line | Southern Watch or Tasman Shield optional (escorted merchants) |
+| DARWIN US SUPPLY | Fast transport convoy to Darwin through a submarine line | Southern Watch optional (major defence) |
+| NEWEST NORTHERN AUS CH DEFENCE | Defend the north against a carrier group and armed merchants | Southern Watch optional (major defence) |
+| SULU SEA OFFENSIVE smaller v3 | Two-carrier strike in the Sulu Sea | Sulu Line optional (major assault) |
+| SEST Banda - The Biak Regiment | SEAD on the Biak S-400 site | Built: SW08 The Open Door |
+| SEST Banda - Fujian's Shadow | Carrier air defence against a Type 003 group | Built: SW11 Fujian's Shadow |
+| SEST Banda - Black Widow Debut, Fury Wingmen | YF-23 and Fury showcases | Built: D6 Long Reach |
+| SEST NF3 - Carrier Duel, Fujian Strike | Carrier against carrier | Covered by SW11; no further home |
+| SEST NF3 - Northern Fleet Sortie, Fifth Generation Sweep | European group against a Russian group; F-22 sweep | Parked |
+| newest 0.7 updated mods v2 | Korea and Japan: Ford, Kadena and Misawa against a China/Russia group | Parked (no campaign in that theatre) |
+| 0 Prologue, chapter 1-6 | The 2026 Europe series | Parked (no campaign in that theatre) |
+| 01 Threads, 02 Hot Gulf | 1984 Persian Gulf, Soviet side | Parked |
+| AUS DEF, AUS INDO-PAC ESCAv2 | Early alternate-history saves, enemy AI disabled | Retire |
+| NORTHERN FRONT II, NORTHERN FRONT III FINAL, FINAL NEWEST | The big theatre saves the NF3 cuts are carved from | Sources only |
+| SEST Banda Front (all five), SEST Indo-Pacific Land Assets | Free-play sandboxes and the land-site reference | Sources only |
+
+## Seed notes
 
 `set_enemy_flags.py --write` sets the enemy flags of the Indo-Pacific missions here (Russian
 Federation on Soviet-registered units, the Meridian flag on the network's Iranian-registered
@@ -31,7 +80,7 @@ regenerating a mission.
   Iranian-armed insurgent enclave in Mindanao with every technical the pickup mod makes.
   Neutral: TNI bases, Indonesian refineries and LNG plants, Malaysian and Bruneian ports,
   bridges, the Timor Sea rigs. A small naval layer on each side gives the defences a threat
-  axis. Regenerate with `python3 integration/missions/build_indo_pacific_showcase.py`
+  axis. Regenerate with `python3 integration/mission-seeds/build_indo_pacific_showcase.py`
   (`--density standard` or `light` for fewer defence units); every coordinate is real and
   nudged onto land by the mask, the reef bases and rigs excepted. The generator needs
   `pip install global-land-mask numpy`: without them it still writes the file, but with no
@@ -81,7 +130,7 @@ regenerating a mission.
   Hughes 500s on the short hops and rig runs). 72 sites, 794 land units, 199 types. The first
   draft of the Banda Front line, superseded by the two above and kept because it is the
   generator's output and the PC already has it. Regenerate with
-  `python3 integration/missions/build_banda_front.py` (it imports
+  `python3 integration/mission-seeds/build_banda_front.py` (it imports
   `build_indo_pacific_showcase.py` and `build_land_defence.py`, and needs
   `pip install global-land-mask numpy`); its last step is the airway pass, so the output is
   this file byte for byte.
@@ -109,7 +158,7 @@ regenerating a mission.
   carry more than one. The fifteen neutral land units whose files can spawn aircraft (eleven
   TNI, RMAF, Balinese and Halim airfields and the four Timor Sea helo rigs) carry an empty
   `CustomAirGroup=True`, so no neutral E-3, P-3 or Sea King takes off on its own. Regenerate
-  with `python3 integration/missions/trim_land_sites.py`; the output is this file byte for byte.
+  with `python3 integration/mission-seeds/trim_land_sites.py`; the output is this file byte for byte.
   The save lays a formation out as rings at the editor's 1.5 nm spacing, so 31 of the 40
   launchers the trim keeps stand outside their radar's guidance radius, as they do in the save;
   the trim reports that and moves nothing.
@@ -146,15 +195,15 @@ An aircraft or helicopter entry with no `LoadoutVariant=` whose winning unit fil
 `Default` loadout crashes the mission editor's map panel ("An item with the same key has
 already been added. Key: plaaf_kj-500"). The editor leaves the key out whenever a loadout was
 never picked by hand, so it comes back with every save. The refresh chain fixes the mission it
-refreshes; the installer deploys every mission here, so the rest are swept too:
+refreshes; every seed here still opens in the editor, so the rest are swept too:
 
 ```bash
-python3 integration/missions/fix_loadout_variants.py --all          # report; exits 1 if any would change
-python3 integration/missions/fix_loadout_variants.py --all --write  # write the type's first loadout
+python3 integration/mission-seeds/fix_loadout_variants.py --all          # report; exits 1 if any would change
+python3 integration/mission-seeds/fix_loadout_variants.py --all --write  # write the type's first loadout
 python3 tools/preflight.py --all                                    # fails on this crash, lists the rest
 ```
 
-`--all` means what the installer deploys: every `.ini` here and under `scenarios/`, except
+`--all` means every seed: every `.ini` here and under `scenarios/`, except
 the stamped backups, which are snapshots and are left as they are. `preflight --all` also lists
 every other dangling reference, mostly units and fits the older saves name that mods have
 since dropped or renamed; those are for information and do not fail it. The sweep is
@@ -170,11 +219,11 @@ unit positions and committed:
 
 ```bash
 pip install pillow
-python3 integration/missions/build_briefing_maps.py
+python3 integration/mission-seeds/build_briefing_maps.py
 ```
 
-Re-run after moving units in a mission. The installer copies the folders next to the
-missions. The campaign's own missions get theirs from the same renderer
+Re-run after moving units in a mission. To open a seed in the editor with its map, copy the
+folder into `user_missions` beside the `.ini`. The campaign's own missions get theirs from the same renderer
 (`briefing_maps.py`) when the campaign pack is built.
 
 ## Land defence and site builder
@@ -196,13 +245,13 @@ inside its radar's `ExternalGuidingSystemSearchRadius`. With the land-mask packa
 nothing is stood up in the sea (a rig at sea is skipped, not flooded).
 
 ```bash
-python3 integration/missions/build_land_defence.py                       # plan for the active mission
-python3 integration/missions/build_land_defence.py --write               # apply it
-python3 integration/missions/build_land_defence.py --around Townsville --posture heavy --coastal --write
-python3 integration/missions/build_land_defence.py --build fob --at -11.55 130.95 \
+python3 integration/mission-seeds/build_land_defence.py                       # plan for the active mission
+python3 integration/mission-seeds/build_land_defence.py --write               # apply it
+python3 integration/mission-seeds/build_land_defence.py --around Townsville --posture heavy --coastal --write
+python3 integration/mission-seeds/build_land_defence.py --build fob --at -11.55 130.95 \
     --side Taskforce2 --nation china --label "Melville FOB" --posture heavy --coastal --write
-python3 integration/missions/build_land_defence.py --list-sites          # what it sees, and what each site has
-python3 integration/missions/build_land_defence.py --catalog             # what each doctrine resolves to, and from which mod
+python3 integration/mission-seeds/build_land_defence.py --list-sites          # what it sees, and what each site has
+python3 integration/mission-seeds/build_land_defence.py --catalog             # what each doctrine resolves to, and from which mod
 ```
 
 `--build` also creates the site itself (`fob`, `depot`, `radar_station`, `coastal_battery`,
@@ -221,10 +270,10 @@ sequence of each section family (inserting one ship renumbers every section afte
 section names do not identify units), and puts back only `WeaponStatus`.
 
 ```bash
-python3 integration/missions/restore_roe.py --mission "SEST Banda Front Lean v2"           # report
-python3 integration/missions/restore_roe.py --mission "SEST Banda Front Lean v2" --write   # restore
-python3 integration/missions/restore_roe.py --mission "SEST Banda Front Lean v2" --check   # exit 1 if any is lost
-python3 integration/missions/restore_roe.py --mission "X" --ref <revision>                 # compare with that copy
+python3 integration/mission-seeds/restore_roe.py --mission "SEST Banda Front Lean v2"           # report
+python3 integration/mission-seeds/restore_roe.py --mission "SEST Banda Front Lean v2" --write   # restore
+python3 integration/mission-seeds/restore_roe.py --mission "SEST Banda Front Lean v2" --check   # exit 1 if any is lost
+python3 integration/mission-seeds/restore_roe.py --mission "X" --ref <revision>                 # compare with that copy
 ```
 
 `tools\import-mission.ps1` runs it with `--write` on every mission it imports, before you
@@ -256,9 +305,9 @@ the result after, and every kept unit's block is checked byte for byte against t
 before anything is written.
 
 ```bash
-python3 integration/missions/trim_land_sites.py --dry-run         # the plan and the numbers
-python3 integration/missions/trim_land_sites.py                   # SEST Banda Front EDITED -> SEST Banda Front Lean
-python3 integration/missions/trim_land_sites.py --source "X" --out "X Lean" --tels 4 --no-bmd
+python3 integration/mission-seeds/trim_land_sites.py --dry-run         # the plan and the numbers
+python3 integration/mission-seeds/trim_land_sites.py                   # SEST Banda Front EDITED -> SEST Banda Front Lean
+python3 integration/mission-seeds/trim_land_sites.py --source "X" --out "X Lean" --tels 4 --no-bmd
 ```
 
 Removal lives in `build_land_defence.py`'s `Mission` class next to the add path:
@@ -284,9 +333,9 @@ restored ROE away. An output that exists and differs from what the run would wri
 replaced without `--force`.
 
 ```bash
-python3 integration/missions/thin_waypoints.py --dry-run          # who repeats, and by how much
-python3 integration/missions/thin_waypoints.py                    # Living Seas -> Living Seas thinned
-python3 integration/missions/thin_waypoints.py --all --laps 2 --out "SEST Banda Front Living Seas wide"
+python3 integration/mission-seeds/thin_waypoints.py --dry-run          # who repeats, and by how much
+python3 integration/mission-seeds/thin_waypoints.py                    # Living Seas -> Living Seas thinned
+python3 integration/mission-seeds/thin_waypoints.py --all --laps 2 --out "SEST Banda Front Living Seas wide"
 ```
 
 ## Regression tests

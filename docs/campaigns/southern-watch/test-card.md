@@ -35,9 +35,9 @@ first; the detail lives where each line points:
    *The SM-3 seeker*).
 9. **The editor-crash sweep** — open the missions you edit in the mission
    editor: no "An item with the same key has already been added"
-   (`integration/missions/README.md`).
+   (`integration/mission-seeds/README.md`).
 10. **The new scenarios** — eleven `SEST NF3 -` missions in the list, five with
-    a supply ship (`integration/missions/scenarios/README.md`).
+    a supply ship (`integration/mission-seeds/scenarios/README.md`).
 11. **Red Line's Hold/Tight and unseen triggers** — `../red-line/test-card.md`,
     4 and 5.
 

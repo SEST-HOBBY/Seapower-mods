@@ -47,13 +47,13 @@ sit in the refresh chain (refresh-mission.ps1 -LandDefence). Nothing already
 in the mission is moved or retyped.
 
 Usage (repo root):
-    python3 integration/missions/build_land_defence.py                   # plan for the active mission
-    python3 integration/missions/build_land_defence.py --write           # apply the plan
-    python3 integration/missions/build_land_defence.py --around Townsville --posture heavy --coastal --write
-    python3 integration/missions/build_land_defence.py --build fob --at -11.55 130.95 \\
+    python3 integration/mission-seeds/build_land_defence.py                   # plan for the active mission
+    python3 integration/mission-seeds/build_land_defence.py --write           # apply the plan
+    python3 integration/mission-seeds/build_land_defence.py --around Townsville --posture heavy --coastal --write
+    python3 integration/mission-seeds/build_land_defence.py --build fob --at -11.55 130.95 \\
         --side Taskforce2 --nation china --label "Melville FOB" --posture heavy --coastal --write
-    python3 integration/missions/build_land_defence.py --list-sites      # the site analysis only
-    python3 integration/missions/build_land_defence.py --catalog         # what each doctrine resolves to
+    python3 integration/mission-seeds/build_land_defence.py --list-sites      # the site analysis only
+    python3 integration/mission-seeds/build_land_defence.py --catalog         # what each doctrine resolves to
 """
 import argparse
 import functools

@@ -405,7 +405,7 @@ thing from the campaign map's card: the game draws it from
 whose `<Image>` binds an asset by file stem to an image in the same folder.
 Every stock mission and every stock campaign mission ships one; no SEST
 mission did, so the pane was blank - the "large area where an image should
-be" the first install reported. `integration/missions/briefing_maps.py`
+be" the first install reported. `integration/mission-seeds/briefing_maps.py`
 now draws one per mission from the mission's own unit positions on Natural
 Earth coastlines (own forces placed, enemy as reported areas, enemy
 submarines withheld with a threat note, neutrals as shipping), at 2192x1328
@@ -2769,7 +2769,7 @@ gate.
   group, 46 NM from its spawn, before 5:00. Whether the reveal holds once
   they join is unknown; at worst they come up unidentified. Test card 5.3b.
 - The briefing chart no longer draws held-back units
-  (`integration/missions/briefing_maps.py` skips `Disabled=True`), so the
+  (`integration/mission-seeds/briefing_maps.py` skips `Disabled=True`), so the
   brief's "expect ... within about N minutes" is the only warning. D8 is
   where that matters most: the J-16 appears inside PL-15 reach of the
   gunship's whole working area, and losing the gunship ends the operation.
@@ -3086,7 +3086,7 @@ is to the circle's edge):
 Measured on the built files after the rule (`scratchpad/zone_measure.py`,
 the campaign and the Dispatches): 65 missions and single missions carry 170 boxes (141 in the 57 campaign missions: 56 Deployment Zones, 77 Air Stations, 7 Detachment Zones, 1 Submarine Patrol Box; 29 in the 8 Dispatches); 109 box-and-circle pairs where the box admits a kind the circle counts, none inside a circle still waiting for a unit, 13 under 5 NM, every one of those at a counted unit's own start less 1 NM at most.
 
-The briefing charts (`integration/missions/briefing_maps.py`) do not draw
+The briefing charts (`integration/mission-seeds/briefing_maps.py`) do not draw
 zones - they draw the player's units, reported enemy areas and shipping -
 and nothing there changed; the game draws the zones itself on the briefing
 map and the campaign map (`VisibleIn=CampaignMap,BriefingMap`).

@@ -16,7 +16,7 @@ from types import SimpleNamespace
 from unittest.mock import patch
 
 ROOT = Path(__file__).resolve().parents[2]
-MISSIONS = ROOT / "integration" / "missions"
+MISSIONS = ROOT / "integration" / "mission-seeds"
 sys.path.insert(0, str(MISSIONS))
 import trim_land_sites as trim  # noqa: E402
 from build_land_defence import Mission  # noqa: E402

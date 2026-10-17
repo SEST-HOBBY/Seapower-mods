@@ -47,7 +47,7 @@ PACK = Path(__file__).resolve().parent / "SEST_World_Campaign"
 CAMPAIGN_DIR = PACK / "dynamic_campaigns" / "sest-world-sandbox"
 
 sys.path.insert(0, str(ROOT / "integration" / "campaign"))
-sys.path.insert(0, str(ROOT / "integration" / "missions"))
+sys.path.insert(0, str(ROOT / "integration" / "mission-seeds"))
 import build_pack as bp                      # noqa: E402  winning-file resolver
 from retarget_units import RETARGET           # noqa: E402  ids the collection retired
 sys.path.insert(0, str(Path(__file__).resolve().parent))
@@ -329,7 +329,7 @@ def resolve(uid):
         return uid, "as registered"
     new = RETARGET.get(uid)
     if new and bp.unit_file(new)[1] is not None:
-        return new, f"retargeted from {uid} (integration/missions/retarget_units.py)"
+        return new, f"retargeted from {uid} (integration/mission-seeds/retarget_units.py)"
     return None, "no enabled mod defines it"
 
 

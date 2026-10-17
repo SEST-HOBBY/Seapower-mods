@@ -33,9 +33,9 @@ offending lines are rewritten.
 Requires the global-land-mask package (pip install global-land-mask numpy).
 
 Usage (repo root):
-    python3 integration/missions/fix_land_positions.py                  # report
-    python3 integration/missions/fix_land_positions.py --write          # apply
-    python3 integration/missions/fix_land_positions.py --mission "NORTHERN FRONT III" --write
+    python3 integration/mission-seeds/fix_land_positions.py                  # report
+    python3 integration/mission-seeds/fix_land_positions.py --write          # apply
+    python3 integration/mission-seeds/fix_land_positions.py --mission "NORTHERN FRONT III" --write
 """
 import argparse
 import functools

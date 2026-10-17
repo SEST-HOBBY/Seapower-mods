@@ -409,12 +409,12 @@ Add `-LandDefence` to also stand up air defences around every airbase, port,
 installation and missile site that lacks them (`-Posture heavy` for the full
 stack with BMD). It is opt-in because it adds units, but it is idempotent: a
 site that already has a layer is left alone. The same tool runs on its own
-for one site or a new one — see `integration/missions/README.md`.
+for one site or a new one — see `integration/mission-seeds/README.md`.
 
 Afterwards, commit so the repo keeps your edits:
 
 ```powershell
-git add integration\missions
+git add integration\mission-seeds
 git commit -m "Refresh mission"
 git push
 ```
@@ -429,7 +429,7 @@ NORTHERN FRONT III FINAL NEWEST
 ```
 
 Both `tools\refresh-mission.ps1` / `tools\import-mission.ps1` and every script in
-`integration\missions\` read that one file, so switching development to another scenario is a
+`integration\mission-seeds\` read that one file, so switching development to another scenario is a
 one-line edit here. Before this existed the name was duplicated as a default in five places, and
 they had already drifted — `refresh-mission.ps1` defaulted to NORTHERN FRONT III while
 `refine_civ_traffic.py` defaulted to NORTHERN FRONT II, so running either with no arguments

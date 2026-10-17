@@ -323,7 +323,7 @@ game's own values back. *Not yet confirmed in game.*
 - The Rivet Joint's briefing pictures: the author's rename of the aircraft
   had dropped its photo from Red Line 03 and Tasman Shield 11 (another banner
   stood in); the gallery's profile table follows the new ids.
-- The local scenarios in `integration/missions` cleaned and tuned (the review
+- The local scenarios in `integration/mission-seeds` cleaned and tuned (the review
   of 14 Oct, section 9): three SULU cuts removed, retired unit ids replaced,
   the Tu-95 raid held back, player aircraft started outside enemy SAM reach.
 
@@ -360,7 +360,7 @@ checked automatically.
   flies China's.
 - Applied by the campaign builder and, for the standalone Indo-Pacific
   missions (Northern Front, the Banda Front family, the showcase), by
-  `integration/missions/set_enemy_flags.py`. An explicit flag in the mission
+  `integration/mission-seeds/set_enemy_flags.py`. An explicit flag in the mission
   always wins; the Baltic chapters are left alone.
 
 ## 6. Readability and presentation

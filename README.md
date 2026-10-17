@@ -35,7 +35,7 @@ shows — and `data/mod-catalog.json` is the table that joins them, including th
 | `docs/campaigns/<campaign>/` | One folder per campaign (`southern-watch/`, `southern-reach/`, `red-line/`, `sulu-line/`): the design bible, the build notes — including what the campaign has **not** been shown to do — the play-test card and, for `southern-watch/` and `southern-reach/`, the procedure that lines the gaming PC up with the branch; `southern-watch/` also holds the Workshop publishing procedure |
 | `integration/<pack>/` | One SEST pack per topic: a builder plus its generated `SEST_*` output |
 | `integration/dist/SEST_Integration/` | **The deployable** — all packs merged by `tools/consolidate_packs.py`; the only thing the installer copies into the game |
-| `integration/missions/` | Playable missions and the scripts that refine them |
+| `integration/mission-seeds/` | The early scenarios, editor saves and sandboxes the side operations are refined from, and the scripts that refine them. Never installed: every mission SEST ships is in the campaign pack |
 | `integration/campaign/` | **Four native Task Force Mode campaigns in one pack.** *SEST Southern Watch* (twelve main missions, four optional operations, two contingencies, eight dispatches), *SEST Southern Reach* (two chapters, 26 missions, 20 story pages; its data lives in `southern_reach/`) *SEST Red Line* (six missions from the other side; `red_line/`) and *SEST Sulu Line* (seven Philippine Navy missions with no free rearm; `sulu_line/`), built so that every enabled mod is reached by something one of them places or prices |
 | `mods-source/` | Byte-faithful export of every subscribed mod's text configs, plus `_vanilla/` |
 | `tools/` | Builders, checkers, generators, and the PowerShell scripts that talk to the game |
@@ -64,8 +64,8 @@ python3 tools/build_all.py --from-scratch   # rebuild all 24 packs + the consoli
                                             # a clean `git status` after = the regression gate
 python3 tools/preflight.py                  # resolve every reference the active mission makes
 python3 tools/preflight.py --all            # every deployed mission: fails on the editor crash, lists the rest
-python3 integration/missions/fix_loadout_variants.py --all --write   # sweep that crash out of them
-python3 integration/missions/restore_roe.py --mission "<name>" --write  # put back the Hold/Tight an editor save turned Free
+python3 integration/mission-seeds/fix_loadout_variants.py --all --write   # sweep that crash out of them
+python3 integration/mission-seeds/restore_roe.py --mission "<name>" --write  # put back the Hold/Tight an editor save turned Free
 python3 -m unittest discover -s tools/tests -p 'test_*.py'             # the tools' regression tests; runs the PowerShell ones below too when pwsh is installed
 pwsh -File tools/tests/test_scan_ui_assets.ps1  # the UI-asset scan's name extraction, on synthetic files (Windows PowerShell runs it too)
 pwsh -File tools/tests/test_set_mod_order.ps1   # SEST's Workshop item against the local folder in the mod order, on a stand-in settings file
@@ -97,14 +97,17 @@ Gaming PC (PowerShell, from the repo root, `-ExecutionPolicy Bypass` because a d
 Windows install refuses unsigned local scripts):
 
 ```powershell
-powershell -ExecutionPolicy Bypass -File .\tools\install-sest-packs.ps1        # deploy SEST_Integration + missions
+powershell -ExecutionPolicy Bypass -File .\tools\install-sest-packs.ps1        # deploy SEST_Integration
 powershell -ExecutionPolicy Bypass -File .\tools\set-mod-order.ps1 -AddMissing # game CLOSED: apply order
 powershell -ExecutionPolicy Bypass -File .\tools\export-mod-configs.ps1 -IncludeVanilla  # refresh mods-source/
 ```
 
-Missions install add-and-overwrite with no backup copies, so import anything edited in
-game first (`tools\import-mission.ps1`, which also puts back the `Hold`/`Tight` weapon status
-the editor turns into `Free` on save); `install-sest-packs.ps1 -PurgeBackups` clears the
+The installer no longer copies missions into `user_missions`: every SEST mission is in the pack,
+and the seeds under `integration/mission-seeds/` stay in the repo (it moves the copies it made
+before 17 Oct 2026 into `Documents\SEST-retired-missions`, once). A seed edited in game comes back
+with `tools\import-mission.ps1`, which also puts back the `Hold`/`Tight` weapon status the editor
+turns into `Free` on save, and goes back in with `refresh-mission.ps1 -Install`;
+`install-sest-packs.ps1 -PurgeBackups` clears the
 old `* backup-*.ini` copies out of the game once, and `tools\clean-backups.ps1` (preview with
 `-WhatIfOnly`) clears every other backup copy, orphaned `_briefing` folder and all but the newest
 three `usersettings.ini.bak_*` files. `set-mod-order.ps1` itself now keeps only the newest three. The exporter mirrors deletions inside each

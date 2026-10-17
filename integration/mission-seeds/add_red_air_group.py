@@ -26,8 +26,8 @@ Positions come from the mission's own MapCenter, using the same lat/lon
 mapping as the other mission tools.
 
 Usage (repo root):
-    python3 integration/missions/add_red_air_group.py --mission "NORTHERN FRONT III FINAL"
-    python3 integration/missions/add_red_air_group.py --mission "..." --write
+    python3 integration/mission-seeds/add_red_air_group.py --mission "NORTHERN FRONT III FINAL"
+    python3 integration/mission-seeds/add_red_air_group.py --mission "..." --write
 """
 import argparse
 import math

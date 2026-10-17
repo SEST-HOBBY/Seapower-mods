@@ -44,10 +44,10 @@ shipped missions use. Blue and red air groups are not touched.
 The source mission is read, never written; the output is a new file. Every
 choice is by rule and file order, so re-running gives the same bytes.
 
-    python3 integration/missions/trim_land_sites.py                       # SEST Banda Front EDITED -> SEST Banda Front Lean
-    python3 integration/missions/trim_land_sites.py --dry-run             # the plan and the numbers, nothing written
-    python3 integration/missions/trim_land_sites.py --source "X" --out "Y"
-    python3 integration/missions/trim_land_sites.py --tels 4 --no-bmd     # bigger battery, no THAAD
+    python3 integration/mission-seeds/trim_land_sites.py                       # SEST Banda Front EDITED -> SEST Banda Front Lean
+    python3 integration/mission-seeds/trim_land_sites.py --dry-run             # the plan and the numbers, nothing written
+    python3 integration/mission-seeds/trim_land_sites.py --source "X" --out "Y"
+    python3 integration/mission-seeds/trim_land_sites.py --tels 4 --no-bmd     # bigger battery, no THAAD
 """
 import argparse
 import re

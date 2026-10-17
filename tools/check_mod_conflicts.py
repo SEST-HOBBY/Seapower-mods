@@ -39,7 +39,7 @@ import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-sys.path.insert(0, str(ROOT / "integration" / "missions"))
+sys.path.insert(0, str(ROOT / "integration" / "mission-seeds"))
 from refine_civ_traffic import winning_file, load_order  # noqa: E402
 
 UNIT_DIRS = {"aircraft", "vessels", "submarines", "land_units", "ammunition",
@@ -171,7 +171,7 @@ def mod_name(token):
 def units_in_play():
     """Unit ids your missions field and your SEST packs roster."""
     used = set()
-    for f in (ROOT / "integration" / "missions").glob("*.ini"):
+    for f in (ROOT / "integration" / "mission-seeds").glob("*.ini"):
         t = f.read_text(encoding="utf-8", errors="replace")
         used |= set(re.findall(r"^Type=(\S+)", t, re.M))
         used |= set(re.findall(r"^([A-Za-z0-9_.\-]+)=Squadron\d+,\d+", t, re.M))

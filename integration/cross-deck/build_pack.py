@@ -52,7 +52,7 @@ ROOT = Path(__file__).resolve().parents[2]
 OUT = Path(__file__).resolve().parent / "SEST_Cross_Deck"
 MODS = ROOT / "mods-source"
 
-sys.path.insert(0, str(ROOT / "integration" / "missions"))
+sys.path.insert(0, str(ROOT / "integration" / "mission-seeds"))
 from refine_civ_traffic import load_order  # noqa: E402
 
 INFO_INI = """\

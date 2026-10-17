@@ -189,7 +189,7 @@ waypoint on that bearing, half again beyond what an airliner at cruise
 covers in the mission's clock. A new build gate refuses any neutral civil
 aircraft without a route that outlasts the clock. In the loose missions, 30
 civil aircraft in 10 files ran out of route inside two hours;
-`integration/missions/extend_civil_airways.py` appends one waypoint along
+`integration/mission-seeds/extend_civil_airways.py` appends one waypoint along
 each one's last leg (nothing else in the file changes, and it is idempotent),
 and `sync-sest.ps1 -RefreshMissions` now runs it after an import.
 
@@ -300,7 +300,7 @@ build and are the order to test in (`test-card.md`):
 |---|---|
 | `integration/campaign/southern_reach/` | the campaign package: `__init__.py` (spec, calendar enforcement, variable audit), `tables.py` (modules, calendar, roster, task force, difficulties, commander), `lore.py` (20 events), 26 mission modules, `AUTHORING.md` |
 | `integration/campaign/coast.py`, `geo/southern_theatre_coast.json`, `tools/make_coast_extract.py` | the coastline proof |
-| `integration/campaign/build_pack.py`, `make_art.py`, `integration/missions/briefing_maps.py` | multi-campaign builder, art prefix/label, map focus and inset |
+| `integration/campaign/build_pack.py`, `make_art.py`, `integration/mission-seeds/briefing_maps.py` | multi-campaign builder, art prefix/label, map focus and inset |
 | `integration/raaf-bases/` | the two RNZAF bases |
 | `docs/campaigns/southern-reach/` | this file, `campaign-bible.md`, `test-card.md`, `coverage.md` (generated), `required-mods-urls.txt` (generated) |
 
@@ -381,7 +381,7 @@ real Enhanced Air Cooperation arrangement.
 The briefing charts name an unarmed aircraft more than 120 NM from the ships
 in the corner ("OFF CHART: TEXACO 249 NM NNE" on TS09's chart) the way they
 already named a far airfield, rather than drawing it: charted, TS09's tanker
-made the convoy action a third of the size it had been (`integration/missions/briefing_maps.py`,
+made the convoy action a third of the size it had been (`integration/mission-seeds/briefing_maps.py`,
 `off_chart`; tested in `test_build_pack.py`, BriefingChartSupport).
 
 What it costs: every mod a mission places is one the campaign needs, so the

@@ -44,8 +44,8 @@ Scope: live missions only. The timestamped *backup-*.ini files are snapshots
 of a mission at a moment, and rewriting them would destroy the only thing
 they are for.
 
-    python3 integration/missions/retarget_units.py            # report
-    python3 integration/missions/retarget_units.py --write    # apply
+    python3 integration/mission-seeds/retarget_units.py            # report
+    python3 integration/mission-seeds/retarget_units.py --write    # apply
 
 Idempotent: a mission already retargeted reports no change.
 """
@@ -55,7 +55,7 @@ import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
-MISSIONS = ROOT / "integration" / "missions"
+MISSIONS = ROOT / "integration" / "mission-seeds"
 MODS = ROOT / "mods-source"
 
 # retired id -> replacement id

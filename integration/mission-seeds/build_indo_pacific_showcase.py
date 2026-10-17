@@ -30,8 +30,8 @@ Infrastructure and supply units are period-flexible (vanilla fuel farms,
 warehouses and refineries stand in where no modern model exists); combat units
 are modern wherever the collection has one.
 
-    python3 integration/missions/build_indo_pacific_showcase.py            # write the mission
-    python3 integration/missions/build_indo_pacific_showcase.py --density standard   # lighter defences
+    python3 integration/mission-seeds/build_indo_pacific_showcase.py            # write the mission
+    python3 integration/mission-seeds/build_indo_pacific_showcase.py --density standard   # lighter defences
 
 Every run ends with the coverage of modded land units: how many the
 collection offers, how many the mission places, and which are still unused.

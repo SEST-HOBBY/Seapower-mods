@@ -134,11 +134,11 @@ function Resolve-MissionConflicts {
     $conflicts = @((& git diff --name-only --diff-filter=U) | Where-Object { $_ })
     if (-not $conflicts) { return @() }
 
-    $missions = @($conflicts | Where-Object { $_ -like "integration/missions/*.ini" })
-    $others   = @($conflicts | Where-Object { $_ -notlike "integration/missions/*.ini" })
+    $missions = @($conflicts | Where-Object { $_ -like "integration/mission-seeds/*.ini" })
+    $others   = @($conflicts | Where-Object { $_ -notlike "integration/mission-seeds/*.ini" })
     if ($others) {
         Write-Host ""
-        Write-Warning "conflicts outside integration\missions - stopping, these need you:"
+        Write-Warning "conflicts outside integration\mission-seeds - stopping, these need you:"
         $others | ForEach-Object { Write-Host "    $_" }
         throw "resolve them, run 'git commit', then re-run this script."
     }
@@ -273,12 +273,12 @@ if ($RefreshMissions) {
     if (-not $py) {
         Write-Warning "Python 3 not found - skipping. Install it from python.org (tick 'Add to PATH')."
     } else {
-        $tool = Join-Path $repoRoot "integration\missions\fix_squadron_refs.py"
+        $tool = Join-Path $repoRoot "integration\mission-seeds\fix_squadron_refs.py"
         $argList = @($py.Pre) + @($tool, "--spread", "--write")
         & $py.Exe @argList
         # civil aircraft that would reach the end of their route and circle
         # get one waypoint further along their airway; idempotent
-        $tool = Join-Path $repoRoot "integration\missions\extend_civil_airways.py"
+        $tool = Join-Path $repoRoot "integration\mission-seeds\extend_civil_airways.py"
         $argList = @($py.Pre) + @($tool, "--write")
         & $py.Exe @argList
         Write-Host "`nFor the full civilian-traffic and water passes on one mission, use:"

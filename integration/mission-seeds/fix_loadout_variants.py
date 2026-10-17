@@ -19,12 +19,11 @@ the editor would have stored had the loadout ever been picked by hand. It is
 idempotent: entries that already name a variant are left alone, so it is safe
 in the refresh chain after every editor round-trip.
 
-The refresh chain only ever runs it on the active mission, but the installer
-deploys every other .ini under integration/missions/ too (drafts and
-scenarios included), and each of those opens in the editor. The KJ-500 crash
+The refresh chain only ever runs it on the active mission, but every other
+.ini under integration/mission-seeds/ (drafts and scenarios included) opens
+in the editor too on a developer's PC. The KJ-500 crash
 came back that way: fixed in the active mission, still live in the sibling
-missions the game lists right next to it. --all sweeps every file the
-installer deploys. The old scheme's "<name> backup-<stamp>.ini" snapshots are
+missions the editor lists right next to it. --all sweeps every seed. The old scheme's "<name> backup-<stamp>.ini" snapshots are
 not deployed and are left as they are; name one with --mission to fix it
 before restoring it.
 
@@ -32,10 +31,10 @@ Helicopter entries ([TaskforceNHelicopterM]) go through the same converter
 and are treated the same way, as preflight does.
 
 Usage (repo root):
-    python3 integration/missions/fix_loadout_variants.py            # active mission, report
-    python3 integration/missions/fix_loadout_variants.py --write    # active mission, apply
-    python3 integration/missions/fix_loadout_variants.py --mission "NORTHERN FRONT III" --write
-    python3 integration/missions/fix_loadout_variants.py --all --write   # every deployed mission
+    python3 integration/mission-seeds/fix_loadout_variants.py            # active mission, report
+    python3 integration/mission-seeds/fix_loadout_variants.py --write    # active mission, apply
+    python3 integration/mission-seeds/fix_loadout_variants.py --mission "NORTHERN FRONT III" --write
+    python3 integration/mission-seeds/fix_loadout_variants.py --all --write   # every deployed mission
 """
 import argparse
 import glob
@@ -44,13 +43,13 @@ import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
-MISSIONS = ROOT / "integration" / "missions"
+MISSIONS = ROOT / "integration" / "mission-seeds"
 
 
 def deployed_missions():
-    """Every .ini install-sest-packs.ps1 copies into the game: all of
-    integration/missions/ (scenarios/ included) except the old scheme's
-    "<name> backup-<stamp>" snapshots, which it skips by the same test."""
+    """Every seed: all of integration/mission-seeds/ (scenarios/ included)
+    except the old scheme's "<name> backup-<stamp>" snapshots. The installer
+    stopped copying these into the game on 17 Oct 2026; the name stays."""
     return sorted(p for p in MISSIONS.rglob("*.ini")
                   if not re.search(r" backup-[0-9-]+$", p.stem))
 
@@ -128,8 +127,8 @@ def main() -> None:
     ap = argparse.ArgumentParser(description=__doc__.split("\n")[0])
     ap.add_argument("--mission", help="mission name without .ini (default: the active mission)")
     ap.add_argument("--all", action="store_true",
-                    help="every mission the installer deploys (integration/missions/ and "
-                         "scenarios/, stamped backups excepted)")
+                    help="every seed (integration/mission-seeds/ and scenarios/, stamped "
+                         "backups excepted)")
     ap.add_argument("--write", action="store_true", help="apply the fixes")
     args = ap.parse_args()
 

@@ -18,8 +18,8 @@ file's own fleet list, so their presence is the signature that the depth
 pass already ran.
 
 Usage (repo root):
-    python3 integration/missions/add_civ_depth.py --mission "NORTHERN FRONT III"
-    python3 integration/missions/add_civ_depth.py --mission "NORTHERN FRONT III" --write
+    python3 integration/mission-seeds/add_civ_depth.py --mission "NORTHERN FRONT III"
+    python3 integration/mission-seeds/add_civ_depth.py --mission "NORTHERN FRONT III" --write
 """
 import argparse
 import re

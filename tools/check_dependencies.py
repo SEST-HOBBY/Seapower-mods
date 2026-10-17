@@ -35,7 +35,7 @@ import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-sys.path.insert(0, str(ROOT / "integration" / "missions"))
+sys.path.insert(0, str(ROOT / "integration" / "mission-seeds"))
 from refine_civ_traffic import winning_file, load_order  # noqa: E402
 
 UNIT_DIRS = ("aircraft", "vessels", "submarines", "land_units", "ammunition", "biologic")
