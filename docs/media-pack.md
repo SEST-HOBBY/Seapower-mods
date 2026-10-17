@@ -65,6 +65,18 @@ are never touched; if Unity cannot play the SEST film the game's clip is put
 back; `sest_menu.ini` can name the clip or turn the plugin off. Every
 VideoPlayer it sees is logged to Player.log as `[SEST Menu]`.
 
+Since 1.3.0 (17 Oct 2026) the plugin also guards the campaign map. Back on a
+linear campaign's map after a mission, the map recentres on the next mission
+while the mission scene is still unloading, and drawing a tile then throws a
+`NullReferenceException` in `SeapowerTileMap.LoadTile`; the game shows its
+error box and the rest of the return step is cut short (seen on 16 Oct 2026
+under Dynamic Campaign Mod 0.25.0, whose patch on `LoadTiles` is in the
+stack). The plugin puts a Harmony finalizer on `LoadTile`, through the
+HarmonyX BepInEx has already loaded and found by name at run time, that drops
+that one exception and skips the tile; any other exception goes on as
+before. `TileGuard=0` in `sest_menu.ini` turns it off. It is the only part of
+the plugin that patches game code, and it has not been seen in game.
+
 The first test (10 Oct 2026, game 0.8.5) answered the open questions from
 Player.log: Anchor Chain loaded and started the plugin, which found the menu
 player - clip `main_menu`, loop off, playing its sound itself - and, under

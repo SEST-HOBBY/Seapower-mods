@@ -6927,6 +6927,12 @@ Backdrops=1
 ; pictures that are not SEST's (the base game's campaigns, other mods'
 ; scenarios). Unit photos, flags, maps and the game's logos are never touched.
 CampaignArt=1
+; TileGuard=1 (on unless 0) stops the error box that can come up on the
+; campaign map after a mission: drawing a map tile while the mission is still
+; unloading fails, and the plugin skips that tile instead. Lines starting
+; [SEST TileGuard] in Player.log say when it did. TileGuard=0 lets the error
+; through as before.
+TileGuard=1
 """
 MENU_README = """SEST MENU BACKGROUND
 
@@ -6942,8 +6948,13 @@ Manager pages, and campaign and mission title pictures.
   sest_menu.ini            Enabled=0 turns it all off; Backdrops=0 and
                            CampaignArt=0 put the game's pictures back;
                            Pictures=0 turns off the [SEST Pictures] lines
-                           it writes to Player.log.
+                           it writes to Player.log; TileGuard=0 turns off
+                           the campaign map's tile guard (below).
   MENU_CREDITS.txt         who took each photograph, and the licence.
+
+It also guards the campaign map: after a mission, drawing a map tile while
+the mission is still unloading can fail and bring up the game's error box.
+The plugin skips that one tile instead.
 
 Without Anchor Chain the plugin never runs and the menu is the game's own.
 If the film cannot be played, the plugin puts the game's own film back.

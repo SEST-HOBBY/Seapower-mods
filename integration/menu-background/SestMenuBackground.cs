@@ -6,8 +6,8 @@
 // mod folder the game knows and starts each class marked [ACPlugin] that
 // implements IAnchorChainMod - the SEST pack's plugins/ folder included. This
 // one finds the Unity VideoPlayer that loops the menu's clip and points it at
-// plugins/sest_menu.mp4 instead. No game code is patched and no game type is
-// referenced, only Unity's own VideoPlayer.
+// plugins/sest_menu.mp4 instead. No game code is patched for this and no game
+// type is referenced, only Unity's own VideoPlayer.
 //
 // What it will and will not swap:
 //   - the clip sest_menu.ini names (ClipName=main_menu: the 10 Oct 2026 test
@@ -50,6 +50,11 @@
 // (CampaignArt=1) are treated the same way. Unit photos, flags, maps and the
 // game's logos are not touched.
 //
+// Since 17 Oct 2026 (1.3.0) it also guards the campaign map against the
+// error box after a mission (TileGuard, TileGuard=1 in the ini, on unless
+// 0): see TileGuard below. It is the only part that patches game code, and
+// it does so through the HarmonyX BepInEx has already loaded.
+//
 // Built by build_plugin.py against Unity's public API and Anchor Chain's
 // two public types (stubs/AnchorChain.cs).
 using System;
@@ -66,7 +71,7 @@ namespace Sest.MenuBackground
     // Anchor Chain creates this with Activator.CreateInstance, which a Unity
     // component cannot be, so the entry point builds the component itself on
     // a GameObject that survives scene changes.
-    [ACPlugin("io.github.sest-hobby.menu-background", "SEST Menu Background", "1.2.2")]
+    [ACPlugin("io.github.sest-hobby.menu-background", "SEST Menu Background", "1.3.0")]
     public class MenuBackgroundMod : IAnchorChainMod
     {
         public void TriggerEntryPoint()
@@ -306,6 +311,10 @@ namespace Sest.MenuBackground
                 Debug.Log(Tag + "off (Enabled=0 in " + IniName + ")");
                 return;
             }
+            // The campaign map's tile guard is on unless TileGuard=0; it needs
+            // nothing else of the pack.
+            if (!(ini.TryGetValue("TileGuard", out v) && v.Trim() == "0")) TileGuard.Install();
+            else Debug.Log(TileGuard.Tag + "off (TileGuard=0 in " + IniName + ")");
             // The pictures log is on unless Pictures=0; a missing film below
             // stops the swap, not the log.
             picturesOn = !(ini.TryGetValue("Pictures", out v) && v.Trim() == "0");
@@ -372,6 +381,119 @@ namespace Sest.MenuBackground
             string p = t.name;
             for (Transform u = t.parent; u != null; u = u.parent) p = u.name + "/" + p;
             return p;
+        }
+    }
+
+    // The campaign map's tile guard (TileGuard=1 in the ini, on unless 0).
+    // Returning to a linear campaign's map from a finished mission, the map
+    // recentres on the next mission while the mission scene is still
+    // unloading, and drawing a tile then throws NullReferenceException in
+    // SeapowerTileMap.RenderTileFromHeightmap, called from LoadTile. Noesis
+    // catches it and the game puts up its error box; the rest of the
+    // return-to-map step (selecting the next event) is cut short with it. Seen
+    // on 16 Oct 2026 under Dynamic Campaign Mod 0.25.0, whose Harmony patch on
+    // LoadTiles is in the stack; whether the game alone does it is not known.
+    // The guard puts a Harmony finalizer on SeapowerTileMap.LoadTile: a
+    // NullReferenceException there is logged and dropped, so that one tile is
+    // skipped instead of the whole step failing; any other exception goes on
+    // as before. HarmonyX is the copy BepInEx has already loaded, found by
+    // name at run time, so nothing is referenced at compile time and the
+    // guard installs nothing if it, the type or the method is missing. No
+    // file of any other mod is touched. Not yet seen in game.
+    public static class TileGuard
+    {
+        public const string Tag = "[SEST TileGuard] ";
+        const BindingFlags Any = BindingFlags.Instance | BindingFlags.Static | BindingFlags.Public |
+                                 BindingFlags.NonPublic | BindingFlags.DeclaredOnly;
+        static int skipped;
+
+        public static void Install()
+        {
+            try
+            {
+                Type harmonyType = null, methodType = null, mapType = null;
+                foreach (var asm in AppDomain.CurrentDomain.GetAssemblies())
+                {
+                    if (harmonyType == null) harmonyType = asm.GetType("HarmonyLib.Harmony", false);
+                    if (methodType == null) methodType = asm.GetType("HarmonyLib.HarmonyMethod", false);
+                    if (mapType == null) mapType = asm.GetType("Seapower.SceneEditor.SeapowerTileMap", false);
+                }
+                if (harmonyType == null || methodType == null)
+                {
+                    Debug.Log(Tag + "not installed: HarmonyX is not loaded");
+                    return;
+                }
+                if (mapType == null)
+                {
+                    Debug.Log(Tag + "not installed: no Seapower.SceneEditor.SeapowerTileMap in this game build");
+                    return;
+                }
+                var targets = new List<MethodInfo>();
+                foreach (var m in mapType.GetMethods(Any))
+                    if (m.Name == "LoadTile" && !m.IsAbstract && !m.ContainsGenericParameters) targets.Add(m);
+                if (targets.Count == 0)
+                {
+                    Debug.Log(Tag + "not installed: SeapowerTileMap has no LoadTile in this game build");
+                    return;
+                }
+                // Harmony.Patch(MethodBase original, ..., HarmonyMethod finalizer, ...):
+                // the overload with a finalizer parameter, every other argument null.
+                MethodInfo patch = null;
+                foreach (var m in harmonyType.GetMethods(BindingFlags.Instance | BindingFlags.Public))
+                {
+                    if (m.Name != "Patch") continue;
+                    var ps = m.GetParameters();
+                    if (ps.Length < 2 || ps[0].ParameterType != typeof(MethodBase)) continue;
+                    foreach (var p in ps)
+                        if (p.Name == "finalizer" && p.ParameterType == methodType) { patch = m; break; }
+                    if (patch != null) break;
+                }
+                var ctor = methodType.GetConstructor(new[] { typeof(MethodInfo) });
+                if (patch == null || ctor == null)
+                {
+                    Debug.Log(Tag + "not installed: this HarmonyX has no Patch(..., finalizer) or HarmonyMethod(MethodInfo)");
+                    return;
+                }
+                object harmony = Activator.CreateInstance(harmonyType, "io.github.sest-hobby.tile-guard");
+                object finalizer = ctor.Invoke(new object[] {
+                    typeof(TileGuard).GetMethod("Finalizer", BindingFlags.Static | BindingFlags.NonPublic) });
+                foreach (var target in targets)
+                {
+                    var ps = patch.GetParameters();
+                    var args = new object[ps.Length];
+                    args[0] = target;
+                    for (int i = 1; i < ps.Length; i++) args[i] = ps[i].Name == "finalizer" ? finalizer : null;
+                    patch.Invoke(harmony, args);
+                    Debug.Log(Tag + "guarding " + Describe(target));
+                }
+            }
+            catch (Exception e)
+            {
+                if (e is TargetInvocationException && e.InnerException != null) e = e.InnerException;
+                Debug.LogWarning(Tag + "not installed: " + e.GetType().Name + ": " + e.Message);
+            }
+        }
+
+        // Harmony runs this after LoadTile with whatever it threw: null means
+        // it is dropped, the exception itself that it goes on as before.
+        static Exception Finalizer(Exception __exception)
+        {
+            if (!(__exception is NullReferenceException)) return __exception;
+            skipped++;
+            if (skipped <= 3)
+                Debug.LogWarning(Tag + "map tile skipped (" + skipped + "): " + __exception.Message +
+                                 "\n" + __exception.StackTrace);
+            else if (skipped == 4)
+                Debug.LogWarning(Tag + "further skipped tiles are counted, not logged");
+            return null;
+        }
+
+        static string Describe(MethodInfo m)
+        {
+            var names = new List<string>();
+            foreach (var p in m.GetParameters()) names.Add(p.ParameterType.Name);
+            return m.DeclaringType.FullName + "." + m.Name + "(" + string.Join(", ", names.ToArray()) +
+                   ") -> " + m.ReturnType.Name;
         }
     }
 

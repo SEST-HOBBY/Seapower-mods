@@ -205,3 +205,33 @@ line-ending repair in the same commit.
     now a tag-only copy, as for Red Storm's SM-6 A and C, because SEST
     Replenishment meters the round and reads its tag from SEST's copy. The
     pack's description and FEATURES.md say so.
+
+## 6. The campaign-map error box: SEST's tile guard (plugin 1.3.0)
+
+The player asked for the error box after a campaign mission to go
+(`docs/playtest-20261016-review.md`, section 2: `NullReferenceException` in
+`SeapowerTileMap.RenderTileFromHeightmap`, from `LoadTile`, under the Harmony-
+patched `LoadTiles`, while the mission scene unloads). SEST cannot change the
+Dynamic Campaign Mod's files, but its own plugin can stop the exception short
+of the dialog.
+
+- `SestMenuBackground.cs` gains `TileGuard`: a Harmony finalizer on
+  `Seapower.SceneEditor.SeapowerTileMap.LoadTile` that drops a
+  `NullReferenceException` (that one tile is skipped; the rest of the return
+  step, which selects the next campaign event, now completes) and lets any
+  other exception through. It finds HarmonyX, the type and the method by name
+  at run time, so nothing is referenced at compile time, and installs nothing,
+  with one log line, if any is missing. The first three skips are logged in
+  full (`[SEST TileGuard]`), later ones counted.
+- `TileGuard=1` in the shipped `sest_menu.ini`, on unless 0; README.txt in the
+  pack's plugins folder says so. Version 1.3.0; the DLL is 37,888 bytes.
+- Checked: HarmonyX 2.10.2's own API documentation (its NuGet package's
+  `0Harmony.xml`, read, not run) has the three members the guard calls,
+  `Harmony(string)`, `HarmonyMethod(MethodInfo)` and `Patch(MethodBase,
+  prefix, postfix, transpiler, finalizer[, ilmanipulator])`. A test against
+  stand-ins for Harmony, the tile map and Unity's log (compiled with the guard's
+  own source, run under Mono) shows it patches `LoadTile` with the finalizer
+  only, drops a null reference, passes any other exception on, logs three
+  skips, and installs nothing when Harmony or the map type is missing.
+- Not seen in game: whether the skipped tile draws on the next viewport move,
+  and whether the error ever came from anything but this path.

@@ -434,6 +434,11 @@ how to check each.
   ships, which stock's empty boxes imply and the objective rule assumes.
 - **The world campaign:** that the Dynamic Campaign Mod lists and starts it,
   and how it plays (battles, supply, submarine patrols, save and reload).
+- **The campaign map's tile guard** (menu plugin 1.3.0, 17 Oct 2026): that
+  returning to a linear campaign's map after a mission no longer brings up the
+  error box (`NullReferenceException` in `SeapowerTileMap.LoadTile`), that the
+  campaign then moves on to its next event as it should, and how many map
+  tiles it skipped (`[SEST TileGuard]` lines in Player.log).
 
 ---
 
