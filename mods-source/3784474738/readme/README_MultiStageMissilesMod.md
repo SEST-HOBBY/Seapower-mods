@@ -1,4 +1,8 @@
-# Multi-Stage Missiles 1.7.4
+# Multi-Stage Missiles 1.7.7
+
+Version 1.7.7 reduces repeated main-thread work: completed submodel animations and launchers leave their update lists, delayed effects wait for their deadlines, and unchanged glow colours/audio volumes are not resent to Unity. Stage/release timing, salvo limits and thermal sampling remain unchanged. Detailed submunition effect logging is now opt-in with [Models] SubmunitionDiagnostics=True.
+
+Optional alternate hit effects above a combined missile-plus-target speed threshold: [configuration](README_ImpactSpeedEffects.md). No stages required; damage remains unchanged.
 
 Optional sounds for native INI particle effects: [INI effect audio](README_IniEffectAudio.md). Configure per-effect volume, audible distance in metres, one-shots/loops, delay, pitch and fades. Custom WAVs use the installed CustomAudioLoader.
 

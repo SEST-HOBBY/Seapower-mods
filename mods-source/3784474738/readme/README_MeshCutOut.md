@@ -81,9 +81,9 @@ Only the original surface inside the cutter remains visible. With multiple cutte
 
 ## Reload models and materials: Ctrl + F10
 
-Select your own ship or submarine and press **Ctrl + F10** after saving your changes. This respawns the unit using fresh vessel INI settings, material INIs and OBJ files, including the CutOut cutter meshes. Cutouts and reverse cutouts are recalculated for the new unit and its LODs.
+Select your own ship, submarine, aircraft, helicopter or land unit and press **Ctrl + F10** after saving your changes. This respawns the selected unit using fresh unit INI settings, material INIs and OBJ files, including the CutOut cutter meshes. Cutouts and reverse cutouts are recalculated for the new unit and its LODs. Weapons, biologics and markers are not supported by the game's unit respawn function.
 
-Both Ctrl keys work. Normal F10 keeps its usual debug-panel behaviour. The shortcut is inactive while typing, rebinding keys, or using a menu or console. The usual respawn resets apply.
+Both Ctrl keys work. Normal F10 keeps its usual debug-panel behaviour. The shortcut is inactive while typing, rebinding keys, or using a menu or console. The usual respawn resets apply: this is not a state-preserving material refresh. Test aircraft in flight; native respawn creates them with flight defaults, including retracted gear, and does not preserve their carrier/home-base assignment.
 
 Only OBJ and material-INI resources requested during this respawn are refreshed, once per resource. Existing units retain their meshes and materials. Basegame resources and texture images remain cached: changed texture assignments work, but replacing image-file contents is not covered by this shortcut. Newly added files may still require a restart if the game's file index has not discovered them.
 
