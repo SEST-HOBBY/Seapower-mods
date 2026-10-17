@@ -2,14 +2,14 @@ Found Sea Power (app 1286220)
   game dir : c:\program files (x86)\steam\steamapps\common\Sea Power
   workshop : c:\program files (x86)\steam\steamapps\workshop\content\1286220
 
-unchanged since the last export : 173
-skipped, SEST's own Workshop item: 3812461539
+unchanged since the last export : 172
 
 UPDATED by their authors (re-export to pick the changes up):
   3390330875  Euromod - Modern US Navy
   3488139470  Euromod - Modern Italian Navy
   3505420313  Euromod - Cold War Italian Navy
   3599752717  Euromod - Modern British Navy
+  3606774881  U.S. Navy 2027 Capabilities
   3607989779  F-35C Lightning II Alt. Loadouts
   3629144864  Euromod - Main Pack
   3630495619  Spanish Navy Mod (Cold War)
