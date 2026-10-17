@@ -108,7 +108,7 @@
 3603367264   北约地面增强系列2：火炮                                         updated 2025-11-11 02:53  folder 2026-10-04 20:28
 3605013271   RE-power: the resupply mod                           updated 2026-08-11 20:18  folder 2026-08-26 15:53
 3606134711   Custom Loadout Editor                                updated 2026-09-08 02:14  folder 2026-09-08 10:34
-3606774881   U.S. Navy 2027 Capabilities                          updated 2026-10-10 00:53  folder 2026-10-10 07:48
+3606774881   U.S. Navy 2027 Capabilities                          updated 2026-10-17 15:19  folder 2026-10-17 16:03
 3607989779   F-35C Lightning II Alt. Loadouts                     updated 2026-10-17 15:16  folder 2026-10-17 15:18
 3628201887   Clemenceau -class Aircraft Carrier                   updated 2026-03-04 08:36  folder 2026-10-04 20:32
 3628203171   Bréguet Br.1050 Alizé                                updated 2025-12-29 03:16  folder 2026-10-04 20:33
@@ -168,7 +168,7 @@
 3774572038   PLAN Type 071 LPD                                    updated 2026-08-03 03:14  folder 2026-08-15 19:20
 3774746803   PLA Z-21                                             updated 2026-07-31 09:24  folder 2026-08-15 19:19
 3774859959   PLAN Type 001 Aircraft Carrier Liaoning              updated 2026-08-05 18:16  folder 2026-08-16 11:51
-3775128499   PLAN Pack                                            updated 2026-10-10 03:34  folder 2026-10-03 05:47
+3775128499   PLAN Pack                                            updated 2026-10-17 15:45  folder 2026-10-03 05:47
 3776340577   Ka-27RLD - Ka-31 AEW Helicopter                      updated 2026-08-03 00:39  folder 2026-08-16 12:06
 3776730617   EUROMOD-Armada de Chile                              updated 2026-08-06 09:24  folder 2026-10-04 20:22
 3779799226   Operation STEADFAST LANTERN                          updated 2026-08-15 01:30  folder 2026-10-04 20:22
@@ -177,7 +177,7 @@
 3782020901   Y-20 / KJ-3000                                       updated 2026-10-06 05:40  folder 2026-10-06 17:18
 3784474738   Euromod - Anchorchain Expansion Pack                 updated 2026-10-17 09:29  folder 2026-10-17 15:18
 3789188689   PLA & PLAN & PLAAF AEP                               updated 2026-10-08 06:53  folder 2026-10-08 07:18
-3789208859   Euromod-South Korea Navy                             updated 2026-10-17 08:52  folder 2026-10-11 08:28
+3789208859   Euromod-South Korea Navy                             updated 2026-10-17 16:07  folder 2026-10-11 08:28
 3790594162   Identify Expanded                                    updated 2026-10-15 13:18  folder 2026-10-15 16:59
 3796113927   RQ-180 White Bat Airframe                            updated 2026-09-06 17:03  folder 2026-09-16 16:09
 3796349767   YF-23 Black Widow II                                 updated 2026-10-16 12:07  folder 2026-10-16 13:55
@@ -196,20 +196,19 @@
 3812111085   PLAAF Aircraft Pack                                  updated 2026-10-17 11:17  folder 2026-10-03 20:53
 3812140001   Pakistani Pack                                       updated 2026-10-03 18:18  folder 2026-10-04 20:20
 3812454152   Euromod-Philippine-Navy                              updated 2026-10-10 14:56  folder 2026-10-04 20:21
-3812461539   SEST Integration Pack                                updated 2026-10-16 17:49  folder 2026-10-16 17:53
 3813033771   EC-2 Stand Off Jammer                                updated 2026-10-14 10:12  folder 2026-10-14 15:53
 3813157776   Dynamic Campaign Mod                                 updated 2026-10-16 08:32  folder 2026-10-16 13:55
 3819522350   Anduril Maritime Drones                              updated 2026-10-17 13:50  folder 2026-10-16 13:55
 3820576916   Steelfin                                             updated 2026-10-17 15:06  folder 2026-10-17 15:22
 3820759806   Euromod - Modern Royal Australian Navy Mod           updated 2026-10-17 14:57  folder 2026-10-17 15:18
 
-subscribed but UNPLACED (3): 3812461539, 3820576916, 3820759806
+subscribed but UNPLACED (0): 
 placed but NOT SUBSCRIBED (0): 
 
 --- Steam client record (appworkshop_1286220.acf) ---
 acf file(s)              : c:\program files (x86)\steam\steamapps\workshop\appworkshop_1286220.acf
-folders on disk          : 199
-ids Steam tracks locally : 199
+folders on disk          : 198
+ids Steam tracks locally : 198
 NeedsDownload / NeedsUpdate: 0 / 0
 tracked but NOT on disk (0): 
 on disk but NOT tracked (0): 
