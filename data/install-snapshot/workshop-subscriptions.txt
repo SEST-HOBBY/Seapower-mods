@@ -20,7 +20,7 @@
 3410473695   Ground upgrade: MBT                                  updated 2026-06-01 00:38  folder 2026-10-04 20:27
 3411341227   Tu-95K-22                                            updated 2026-08-31 23:53  folder 2026-09-01 17:08
 3412480633   Ground upgrade: IFV                                  updated 2026-06-01 00:34  folder 2026-10-04 20:27
-3413868677   Red Storm Arsenal                                    updated 2026-10-13 15:29  folder 2026-08-25 09:32
+3413868677   Red Storm Arsenal                                    updated 2026-10-17 20:26  folder 2026-08-25 09:32
 3414146266   A-10                                                 updated 2026-02-21 18:07  folder 2026-08-16 12:07
 3416372890   MIG-29A & F-16A                                      updated 2026-02-28 14:23  folder 2026-08-16 12:06
 3417446309   MIG-29 Family                                        updated 2026-10-02 21:36  folder 2026-08-24 07:41
@@ -42,7 +42,7 @@
 3444379330   Euromod-Dutch Navy                                   updated 2026-09-02 22:47  folder 2026-08-16 12:00
 3448845252   F-117                                                updated 2025-08-02 15:22  folder 2026-08-16 22:50
 3451166840   SU-25 Frogfoot                                       updated 2026-08-06 04:36  folder 2026-08-16 12:06
-3455404959   Royal Australian Defence Forces [v0.7.5.0.2]         updated 2026-10-02 23:34  folder 2026-10-04 20:32
+3455404959   Royal Australian Defence Forces [v0.7.5.0.3]         updated 2026-10-17 22:08  folder 2026-10-18 00:36
 3455931957   Sea Lynx                                             updated 2025-08-02 21:22  folder 2026-08-16 12:00
 3456859157   Mogami-class frigate                                 updated 2026-10-06 04:33  folder 2026-08-24 07:52
 3458148344   Mi-8EW                                               updated 2025-04-05 11:51  folder 2026-08-16 12:06

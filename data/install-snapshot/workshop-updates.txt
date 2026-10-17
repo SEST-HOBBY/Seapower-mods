@@ -2,10 +2,12 @@ Found Sea Power (app 1286220)
   game dir : c:\program files (x86)\steam\steamapps\common\Sea Power
   workshop : c:\program files (x86)\steam\steamapps\workshop\content\1286220
 
-unchanged since the last export : 172
+unchanged since the last export : 170
 
 UPDATED by their authors (re-export to pick the changes up):
   3390330875  Euromod - Modern US Navy
+  3413868677  Red Storm Arsenal
+  3455404959  Royal Australian Defence Forces [v0.7.5.0.3]
   3488139470  Euromod - Modern Italian Navy
   3505420313  Euromod - Cold War Italian Navy
   3599752717  Euromod - Modern British Navy

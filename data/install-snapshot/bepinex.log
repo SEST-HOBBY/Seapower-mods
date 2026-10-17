@@ -1,4 +1,4 @@
-# BepInEx\LogOutput.log - whole file, 1210 line(s), 0.1 MB, last written 2026-10-17T16:35:50. 
+# BepInEx\LogOutput.log - whole file, 1199 line(s), 0.1 MB, last written 2026-10-18T00:40:52. 
 [Error  :   BepInEx] Unable to start Unity log writer
 [Message:   BepInEx] BepInEx 5.4.23.2 - Sea Power (15/10/2026 4:59:12 PM)
 [Info   :   BepInEx] Running under Unity v6000.0.84.7908207
@@ -1198,14 +1198,3 @@
 [Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.STOLTakeOff and name _airVehicle
 [Info   :Dynamic Campaign Mod] Game members: all 704 found.
 [Info   :Dynamic Campaign Mod] Patched: the dynamic campaigns will appear in the Campaign menu.
-[Info   :SubAmmunition] å¯¹è±¡æ± ä¿®å¤ï¼šfreeObject å‰æ‘˜è¡¨ Missileï¼ˆç´¯è®¡ 1ï¼‰
-[Info   :SubAmmunition] å¯¹è±¡æ± ä¿®å¤ï¼šfreeObject å‰æ‘˜è¡¨ Missileï¼ˆç´¯è®¡ 2ï¼‰
-[Info   :SubAmmunition] å¯¹è±¡æ± ä¿®å¤ï¼šfreeObject å‰æ‘˜è¡¨ Missileï¼ˆç´¯è®¡ 3ï¼‰
-[Info   :SubAmmunition] å¯¹è±¡æ± ä¿®å¤ï¼šfreeObject å‰æ‘˜è¡¨ Missileï¼ˆç´¯è®¡ 4ï¼‰
-[Info   :SubAmmunition] å¯¹è±¡æ± ä¿®å¤ï¼šfreeObject å‰æ‘˜è¡¨ Missileï¼ˆç´¯è®¡ 5ï¼‰
-[Info   :WeaponLauncherEffects] [WeaponLauncherEffects] [eu_mk41_quad] anchor ready: ContainerBase='eu_8-cell_mk41_base_quad_v4' (vessel ContainerBase, world (2.7524, 0.1600, 63.1814)), container='AmmunitionParent' (world (2.7602, 0.1100, 63.1864)), shipRoot='2-ran_ffh_anzac'.
-[Info   :Coordinated Strike Tool] [t=844.98s] in mission: True, game menu open: True, HUD visible: False
-[Info   :Coordinated Strike Tool] [t=860.04s] in mission: True, game menu open: False, HUD visible: True
-[Warning:  HarmonyX] AccessTools.TypeByName: Could not find type named IFFTransponder.IFFUtil
-[Info   :Coordinated Strike Tool] [t=986.41s] in mission: True, game menu open: True, HUD visible: False
-[Info   :Coordinated Strike Tool] [t=989.38s] in mission: False, game menu open: False, HUD visible: True

@@ -1,4 +1,4 @@
-# The [LoadOrder] Sea Power is actually using, captured 2026-10-17T16:54:07.
+# The [LoadOrder] Sea Power is actually using, captured 2026-10-18T00:42:05.
 # Compare against data\load-order.tokens.txt - the canonical order.
 
 NumberOfModFiles=200   entries parsed: 200
@@ -193,7 +193,7 @@ NumberOfModFiles=200   entries parsed: 200
  188. 3672072359   on     Ultimate Missile Workshop
  189. 3413868677   on     Red Storm Arsenal
  190. 3812140001   on     Pakistani Pack
- 191. 3455404959   on     Royal Australian Defence Forces [v0.7.5.0.2]
+ 191. 3455404959   on     Royal Australian Defence Forces [v0.7.5.0.3]
  192. 3491248180   on     The Royal Navy
  193. 3628203171   on     Bréguet Br.1050 Alizé
  194. 3628247436   on     Sea Venom - Aquilon
