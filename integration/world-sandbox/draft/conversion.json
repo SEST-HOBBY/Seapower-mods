@@ -8339,8 +8339,8 @@
     "aircraft": 167
    },
    "blue Australia": {
-    "ships": 45,
-    "aircraft": 49
+    "ships": 44,
+    "aircraft": 48
    },
    "blue Japan": {
     "ships": 23,
@@ -9051,7 +9051,6 @@
   "ran_h34_sar": "Role SAR",
   "ran_mh-60r": "Role ASW",
   "ran_S-70B-2_Seahawk": "Role ASW",
-  "ran_S-70B-2_Seahawk_late": "Role ASW",
   "ran_S2": "Role MPA",
   "ran_S2_late": "Role MPA",
   "ran_scout": "Role Attack",
@@ -9645,7 +9644,6 @@
   "ran_ffg_adelaide": "Displacement 4100 t",
   "ran_ffg_adelaide_93": "Displacement 4100 t",
   "ran_ffg_adelaide_ffg_upgrade": "Displacement 4100 t",
-  "ran_ffg_adelaide_late": "Displacement 4100 t",
   "ran_ffg_adelaide_shorthull": "Displacement 4100 t",
   "ran_ffg_adelaide_upgrade": "Displacement 4100 t",
   "ran_ffh_anzac_wartime": "Displacement 3600 t",
@@ -10070,8 +10068,8 @@
    "Air": 107
   },
   "patrols": 49,
-  "catalogue": 1556,
-  "values": 1556,
+  "catalogue": 1554,
+  "values": 1554,
   "lanes_kept": 11,
   "lanes_authored": 11,
   "skipped_nodes": 34

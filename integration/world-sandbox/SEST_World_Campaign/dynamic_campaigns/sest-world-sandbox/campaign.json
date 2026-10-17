@@ -6857,7 +6857,6 @@
     "ran_h34_sar": 40,
     "ran_mh-60r": 39,
     "ran_S-70B-2_Seahawk": 39,
-    "ran_S-70B-2_Seahawk_late": 39,
     "ran_S2": 89,
     "ran_S2_late": 89,
     "ran_scout": 25,
@@ -7451,7 +7450,6 @@
     "ran_ffg_adelaide": 137,
     "ran_ffg_adelaide_93": 137,
     "ran_ffg_adelaide_ffg_upgrade": 137,
-    "ran_ffg_adelaide_late": 137,
     "ran_ffg_adelaide_shorthull": 137,
     "ran_ffg_adelaide_upgrade": 137,
     "ran_ffh_anzac_wartime": 125,
@@ -10698,12 +10696,6 @@
       "tier": 1
     },
     {
-      "unit": "ran_ffg_adelaide_late",
-      "side": "blue",
-      "nation": "Australia",
-      "tier": 1
-    },
-    {
       "unit": "ran_ffg_adelaide_shorthull",
       "side": "blue",
       "nation": "Australia",
@@ -10968,13 +10960,6 @@
     },
     {
       "unit": "ran_S-70B-2_Seahawk",
-      "side": "blue",
-      "nation": "Australia",
-      "tier": 0,
-      "aircraft": true
-    },
-    {
-      "unit": "ran_S-70B-2_Seahawk_late",
       "side": "blue",
       "nation": "Australia",
       "tier": 0,

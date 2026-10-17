@@ -235,3 +235,33 @@ of the dialog.
   skips, and installs nothing when Harmony or the map type is missing.
 - Not seen in game: whether the skipped tile draws on the next viewport move,
   and whether the error ever came from anything but this path.
+
+## 7. Fourth capture: Red Storm Arsenal and Royal Australian Defence Forces
+
+Capture `4d4744e8` on `chore/workshop-refresh-20261017d`.
+
+- **Red Storm Arsenal (3413868677).** One file: the Constellation frigate's
+  RAM launcher moves to its proper mount (`RAM_2` -> `RAM_1`, its container
+  likewise). SEST Replenishment's fork of `usn_ffg_constellation` follows.
+- **Royal Australian Defence Forces (3455404959), v0.7.5.0.3.**
+  - Moved into `Legacy Files/` and `Legacy/` subfolders, which the game is
+    not known to read: the late S-70B-2 Seahawk (`ran_S-70B-2_Seahawk_late`),
+    the late Adelaide (`ran_ffg_adelaide_late`) and six rounds. Of the rounds,
+    the Nixie decoy, the Mk 2 noisemaker, the ESSM `usn_rim-162a` and the
+    SSQ-53D/62C sonobuoys are still shipped by other mods; `ran_rim_66m_rail`
+    now is not, and nothing else names it. No SEST mission placed either unit.
+    On rebuild the world campaign's buy list drops both (Australia 44 ships, 48
+    aircraft; catalogue 1,554) and SEST Cross-Deck drops the late Seahawk from
+    its Seahawk family on 36 allied decks. The offline Gallery's catalogue
+    (compiled 5 Oct) still lists both; it is a static photo list the game
+    never reads.
+  - The sonobuoy `ran_ssq-81b` is renamed `ran_ssq-801`, with a new
+    `ran_ssq-801b`, and the S-70B-2 takes them by date
+    (`DateBased_Sonobouy`). The S-70B-2 SEST flies is Euromod RAN's, which
+    loads above and wins, so this does not reach it.
+  - The New Zealand Leanders' sonar is renamed (`Type_177` -> `Type177`) and
+    the SH-2G(I) moves from AGM-65F to AGM-65B. RADF is the only shipper of
+    both units, and no SEST mission places them.
+
+Checks: all 12 gates pass; nothing SEST builds names a unit that no longer
+loads.
