@@ -1137,8 +1137,10 @@ MISSING_LOADOUT_NAMES = {
     # The YF-23 (3796349767), the Fury escort and strike (3804868806) and the
     # MV-75 (3810611344) added a Steelfin loadout on 16 Oct 2026, the
     # air-launched interceptor each mod ships as usn_steelfin_air ("Air-launched
-    # Steelfin interceptor"), and none of them names the loadout.
-    "Steelfin": "Steelfin (air-defence interceptor)",
+    # Steelfin interceptor"), and none of them names the loadout. Since 17 Oct
+    # the Steelfin mod (3820576916) names it "Steelfin"; none of the three
+    # requires that mod, so the entry stays, with the same text.
+    "Steelfin": "Steelfin",
 }
 
 

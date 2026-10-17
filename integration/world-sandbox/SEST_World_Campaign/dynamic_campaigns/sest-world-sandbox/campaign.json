@@ -7328,6 +7328,7 @@
     "ko_ff-951": 60,
     "ko_ffg-811": 115,
     "ko_kddx": 233,
+    "ko_lph-6112": 383,
     "ko_pcc-756": 60,
     "ko_pkg-711": 36,
     "ko_pkg-711_scl": 36,
@@ -13981,6 +13982,12 @@
     },
     {
       "unit": "ko_lph-6111",
+      "side": "blue",
+      "nation": "South_Korea",
+      "tier": 2
+    },
+    {
+      "unit": "ko_lph-6112",
       "side": "blue",
       "nation": "South_Korea",
       "tier": 2

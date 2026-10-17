@@ -187,7 +187,7 @@ for; the map, salvo and rescue tools are conveniences.)
   3790594162    library                          Identify Expanded
   3796706214    library                          Real photos of airplanes and helicopters
 
-3b. THIRD-PARTY CAMPAIGNS AND OTHER COLLECTION CONTENT (39): in the collection for
+3b. THIRD-PARTY CAMPAIGNS AND OTHER COLLECTION CONTENT (40): in the collection for
 campaigns and scenarios this one does not include. Keep them installed anyway: SETUP
 stops if any mod in LOAD-ORDER.txt is missing.
 
@@ -227,6 +227,7 @@ stops if any mod in LOAD-ORDER.txt is missing.
   3496055699    other campaigns                  S-500
   3766210676    other campaigns                  Saronic Corsair ASV
   3628247436    other campaigns                  Sea Venom - Aquilon
+  3820576916    other campaigns                  Steelfin
   3491248180    other campaigns                  The Royal Navy
   3709961172    other campaigns                  The Second Northern War
   3672072359    other campaigns                  Ultimate Missile Workshop

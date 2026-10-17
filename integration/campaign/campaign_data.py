@@ -284,6 +284,10 @@ EXCUSES = {
         "external", "USN uncrewed undersea and surface vehicles with four scenarios of "
         "their own (14 Oct 2026); no 2028 SEST mission has an uncrewed-vehicle "
         "role yet"),
+    "steelfin": (
+        "external", "the Steelfin interceptor (2027) with a Steelfin cruiser, a land "
+        "battery and a test scenario of its own (17 Oct 2026); no 2028 SEST "
+        "mission fields it yet"),
     # The ten further October subscriptions (4 Oct export). In the collection
     # and the order; no SEST mission places them yet.
     "jmsdf-hyuga-class": (

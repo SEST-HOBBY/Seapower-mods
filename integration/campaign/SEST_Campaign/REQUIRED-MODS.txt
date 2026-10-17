@@ -205,7 +205,7 @@ by something above them. The campaign does not call for them.
 
 --------------------------------------------------------------------------
 
-In the collection for other campaigns and scenarios (39):
+In the collection for other campaigns and scenarios (40):
 the third-party campaigns the collection carries, the mods they
 place, and content none of these four campaigns uses. They are in
 LOAD-ORDER.txt, so SETUP still requires them.
@@ -246,6 +246,7 @@ LOAD-ORDER.txt, so SETUP still requires them.
 3496055699    other campaigns                  S-500
 3766210676    other campaigns                  Saronic Corsair ASV
 3628247436    other campaigns                  Sea Venom - Aquilon
+3820576916    other campaigns                  Steelfin
 3491248180    other campaigns                  The Royal Navy
 3709961172    other campaigns                  The Second Northern War
 3672072359    other campaigns                  Ultimate Missile Workshop

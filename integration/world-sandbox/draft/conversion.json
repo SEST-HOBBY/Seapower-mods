@@ -8403,7 +8403,7 @@
     "aircraft": 1
    },
    "blue South_Korea": {
-    "ships": 15,
+    "ships": 16,
     "aircraft": 14
    },
    "blue Philippines": {
@@ -9522,6 +9522,7 @@
   "ko_ff-951": "Displacement 1220 t",
   "ko_ffg-811": "Displacement 3200 t",
   "ko_kddx": "Displacement 9000 t",
+  "ko_lph-6112": "Displacement 18800 t",
   "ko_pcc-756": "Displacement 1220 t",
   "ko_pkg-711": "Displacement 570 t",
   "ko_pkg-711_scl": "Displacement 570 t",
@@ -10069,8 +10070,8 @@
    "Air": 107
   },
   "patrols": 49,
-  "catalogue": 1555,
-  "values": 1555,
+  "catalogue": 1556,
+  "values": 1556,
   "lanes_kept": 11,
   "lanes_authored": 11,
   "skipped_nodes": 34
