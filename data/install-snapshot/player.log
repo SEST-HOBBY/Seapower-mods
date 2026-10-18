@@ -1,4 +1,4 @@
-# Player.log - last 1150 of 1150 line(s), captured 2026-10-18T10:24:18.
+# Player.log - last 724 of 724 line(s), captured 2026-10-18T19:24:17.
 # Unity writes this fresh each launch; -prev is the session before.
 
 Mono path[0] = 'C:/Program Files (x86)/Steam/steamapps/common/Sea Power/Sea Power_Data/Managed'
@@ -17,8 +17,8 @@ Direct3D:
     VRAM:     7989 MB
     Driver:   32.0.16.1088
 Begin MonoManager ReloadAssembly
-- Loaded All Assemblies, in  0.180 seconds
-- Finished resetting the current domain, in  0.002 seconds
+- Loaded All Assemblies, in  0.235 seconds
+- Finished resetting the current domain, in  0.003 seconds
 [Physics::Module] Selected backend.
 [Physics::Module] Name: PhysX
 [Physics::Module] Id: 0xf2b8ea05
@@ -27,8 +27,9 @@ Begin MonoManager ReloadAssembly
 [Physics::Module] Threading Mode: Multi-Threaded
 FileManager.Directories contains Mods
 FileManager.Directories contains Mods
-[SEST Backdrops] ready: 80 SEST photographs from C:\Program Files (x86)\Steam\steamapps\common\Sea Power\Sea Power_Data\StreamingAssets\SEST_Integration\ui\backgrounds; campaign and mission pictures included
-[SEST Menu] ready: C:\Program Files (x86)\Steam\steamapps\common\Sea Power\Sea Power_Data\StreamingAssets\SEST_Integration\plugins\sest_menu.mp4 for clip 'main_menu'
+[SEST TileGuard] guarding Seapower.SceneEditor.SeapowerTileMap.LoadTile(Tile) -> Void
+[SEST Backdrops] ready: 80 SEST photographs from C:\Program Files (x86)\Steam\steamapps\workshop\content\1286220\3812461539\ui\backgrounds; campaign and mission pictures included
+[SEST Menu] ready: C:\Program Files (x86)\Steam\steamapps\workshop\content\1286220\3812461539\plugins\sest_menu.mp4 for clip 'main_menu'
 [CustomAudioLoader] bereit.
 [EnhancedDecoyMod] bereit.
 [Euromod-Welldeck] bereit.
@@ -85,7 +86,7 @@ Using Windows.Gaming.Input
 <RI> Input initialized.
 
 [3D WebView] Using Vuplex 3D WebView for Windows v4.15.2 
-UnloadTime: 2.660400 ms
+UnloadTime: 2.874600 ms
 [3D WebView] System info (used by Vuplex support):
 Unity version: 6000.0.84f1
 Development build: False
@@ -105,29 +106,29 @@ launchangles installed
 salute installed
 deckstate installed
 Fury voice routing 1.5.0 installed through the speaker voice path; optional-content marker respected.
-FileManager.OnStart(Game) Subscribed Items = [(3820576916, k_EItemStateSubscribed, k_EItemStateInstalled), (3820759806, k_EItemStateSubscribed, k_EItemStateInstalled), (3819522350, k_EItemStateSubscribed, k_EItemStateInstalled), (3813157776, k_EItemStateSubscribed, k_EItemStateInstalled), (3485917612, k_EItemStateSubscribed, k_EItemStateInstalled), (3758943352, k_EItemStateSubscribed, k_EItemStateInstalled), (3810611344, k_EItemStateSubscribed, k_EItemStateInstalled), (3812111085, k_EItemStateSubscribed, k_EItemStateInstalled), (3806686336, k_EItemStateSubscribed, k_EItemStateInstalled), (3808882954, k_EItemStateSubscribed, k_EItemStateInstalled), (3804868806, k_EItemStateSubscribed, k_EItemStateInstalled), (3790594162, k_EItemStateSubscribed, k_EItemStateInstalled), (3806466625, k_EItemStateSubscribed, k_EItemStateInstalled), (3789208859, k_EItemStateSubscribed, k_EItemStateInstalled), (3774105087, k_EItemStateSubscribed, k_EItemStateInstalled), (3440622312, k_EItemStateSubscribed, k_EItemStateInstalled), (3796113927, k_EItemStateSubscribed, k_EItemStateInstalled), (3769142422, k_EItemStateSubscribed, k_EItemStateInstalled), (3755769170, k_EItemStateSubscribed, k_EItemStateInstalled), (3801363152, k_EItemStateSubscribed, k_EItemStateInstalled), (3799742828, k_EItemStateSubscribed, k_EItemStateInstalled), (3789188689, k_EItemStateSubscribed, k_EItemStateInstalled), (3801549552, k_EItemStateSubscribed, k_EItemStateInstalled), (3796349767, k_EItemStateSubscribed, k_EItemStateInstalled), (3637954857, k_EItemStateSubscribed, k_EItemStateInstalled), (3784474738, k_EItemStateSubscribed, k_EItemStateInstalled), (3553116604, k_EItemStateSubscribed, k_EItemStateInstalled), (3605013271, k_EItemStateSubscribed, k_EItemStateInstalled), (3413868677, k_EItemStateSubscribed, k_EItemStateInstalled), (3502273861, k_EItemStateSubscribed, k_EItemStateInstalled), (3558173926, k_EItemStateSubscribed, k_EItemStateInstalled), (3406985435, k_EItemStateSubscribed, k_EItemStateInstalled), (3600788156, k_EItemStateSubscribed, k_EItemStateInstalled), (3408662804, k_EItemStateSubscribed, k_EItemStateInstalled), (3456859157, k_EItemStateSubscribed, k_EItemStateInstalled), (3461519690, k_EItemStateSubscribed, k_EItemStateInstalled), (3384079999, k_EItemStateSubscribed, k_EItemStateInstalled), (3392434750, k_EItemStateSubscribed, k_EItemStateInstalled), (3681873198, k_EItemStateSubscribed, k_EItemStateInstalled), (3606134711, k_EItemStateSubscribed, k_EItemStateInstalled), (3551676319, k_EItemStateSubscribed, k_EItemStateInstalled), (3378409795, k_EItemStateSubscribed, k_EItemStateInstalled), (3432668460, k_EItemStateSubscribed, k_EItemStateInstalled), (3373356293, k_EItemStateSubscribed, k_EItemStateInstalled), (3411341227, k_EItemStateSubscribed, k_EItemStateInstalled), (3417446309, k_EItemStateSubscribed, k_EItemStateInstalled), (3403993583, k_EItemStateSubscribed, k_EItemStateInstalled), (3430106996, k_EItemStateSubscribed, k_EItemStateInstalled), (3768036424, k_EItemStateSubscribed, k_EItemStateInstalled), (3499239964, k_EItemStateSubscribed, k_EItemStateInstalled), (3741944366, k_EItemStateSubscribed, k_EItemStateInstalled), (3497601759, k_EItemStateSubscribed, k_EItemStateInstalled), (3488139470, k_EItemStateSubscribed, k_EItemStateInstalled), (3781062859, k_EItemStateSubscribed, k_EItemStateInstalled), (3448845252, k_EItemStateSubscribed, k_EItemStateInstalled), (3478767194, k_EItemStateSubscribed, k_EItemStateInstalled), (3403661005, k_EItemStateSubscribed, k_EItemStateInstalled), (3394781441, k_EItemStateSubscribed, k_EItemStateInstalled), (3592460366, k_EItemStateSubscribed, k_EItemStateInstalled), (3459682829, k_EItemStateSubscribed, k_EItemStateInstalled), (3414146266, k_EItemStateSubscribed, k_EItemStateInstalled), (3470643173, k_EItemStateSubscribed, k_EItemStateInstalled), (3695809489, k_EItemStateSubscribed, k_EItemStateInstalled), (3505420313, k_EItemStateSubscribed, k_EItemStateInstalled), (3780118683, k_EItemStateSubscribed, k_EItemStateInstalled), (3395022688, k_EItemStateSubscribed, k_EItemStateInstalled), (3716049886, k_EItemStateSubscribed, k_EItemStateInstalled), (3659742367, k_EItemStateSubscribed, k_EItemStateInstalled), (3451166840, k_EItemStateSubscribed, k_EItemStateInstalled), (3416372890, k_EItemStateSubscribed, k_EItemStateInstalled), (3587091564, k_EItemStateSubscribed, k_EItemStateInstalled), (3629269283, k_EItemStateSubscribed, k_EItemStateInstalled), (3715323261, k_EItemStateSubscribed, k_EItemStateInstalled), (3597650470, k_EItemStateSubscribed, k_EItemStateInstalled), (3776340577, k_EItemStateSubscribed, k_EItemStateInstalled), (3465256032, k_EItemStateSubscribed, k_EItemStateInstalled), (3458148344, k_EItemStateSubscribed, k_EItemStateInstalled), (3673908868, k_EItemStateSubscribed, k_EItemStateInstalled), (3481228992, k_EItemStateSubscribed, k_EItemStateInstalled), (3729579342, k_EItemStateSubscribed, k_EItemStateInstalled), (3486502935, k_EItemStateSubscribed, k_EItemStateInstalled), (3433577445, k_EItemStateSubscribed, k_EItemStateInstalled), (3526982088, k_EItemStateSubscribed, k_EItemStateInstalled), (3468959181, k_EItemStateSubscribed, k_EItemStateInstalled), (3506979898, k_EItemStateSubscribed, k_EItemStateInstalled), (3417801942, k_EItemStateSubscribed, k_EItemStateInstalled), (3631042692, k_EItemStateSubscribed, k_EItemStateInstalled), (3587877691, k_EItemStateSubscribed, k_EItemStateInstalled), (3508275114, k_EItemStateSubscribed, k_EItemStateInstalled), (3642656500, k_EItemStateSubscribed, k_EItemStateInstalled), (3444379330, k_EItemStateSubscribed, k_EItemStateInstalled), (3455931957, k_EItemStateSubscribed, k_EItemStateInstalled), (3575847216, k_EItemStateSubscribed, k_EItemStateInstalled), (3736147136, k_EItemStateSubscribed, k_EItemStateInstalled), (3567228449, k_EItemStateSubscribed, k_EItemStateInstalled), (3567256221, k_EItemStateSubscribed, k_EItemStateInstalled), (3717610332, k_EItemStateSubscribed, k_EItemStateInstalled), (3524112296, k_EItemStateSubscribed, k_EItemStateInstalled), (3762023575, k_EItemStateSubscribed, k_EItemStateInstalled), (3774859959, k_EItemStateSubscribed, k_EItemStateInstalled), (3630495619, k_EItemStateSubscribed, k_EItemStateInstalled), (3731208477, k_EItemStateSubscribed, k_EItemStateInstalled), (3461044389, k_EItemStateSubscribed, k_EItemStateInstalled), (3606774881, k_EItemStateSubscribed, k_EItemStateInstalled), (3607989779, k_EItemStateSubscribed, k_EItemStateInstalled), (3590477166, k_EItemStateSubscribed, k_EItemStateInstalled), (3432592449, k_EItemStateSubscribed, k_EItemStateInstalled), (3461091581, k_EItemStateSubscribed, k_EItemStateInstalled), (3373960386, k_EItemStateSubscribed, k_EItemStateInstalled), (3430135740, k_EItemStateSubscribed, k_EItemStateInstalled), (3602046770, k_EItemStateSubscribed, k_EItemStateInstalled), (3782020901, k_EItemStateSubscribed, k_EItemStateInstalled), (3438479626, k_EItemStateSubscribed, k_EItemStateInstalled), (3599752717, k_EItemStateSubscribed, k_EItemStateInstalled), (3513571010, k_EItemStateSubscribed, k_EItemStateInstalled), (3437105712, k_EItemStateSubscribed, k_EItemStateInstalled), (3636386513, k_EItemStateSubscribed, k_EItemStateInstalled), (3425450153, k_EItemStateSubscribed, k_EItemStateInstalled), (3559495372, k_EItemStateSubscribed, k_EItemStateInstalled), (3434072450, k_EItemStateSubscribed, k_EItemStateInstalled), (3601891050, k_EItemStateSubscribed, k_EItemStateInstalled), (3503670861, k_EItemStateSubscribed, k_EItemStateInstalled), (3737267013, k_EItemStateSubscribed, k_EItemStateInstalled), (3629144864, k_EItemStateSubscribed, k_EItemStateInstalled), (3390330875, k_EItemStateSubscribed, k_EItemStateInstalled), (3594891803, k_EItemStateSubscribed, k_EItemStateInstalled), (3468260539, k_EItemStateSubscribed, k_EItemStateInstalled), (3433957933, k_EItemStateSubscribed, k_EItemStateInstalled), (3480965706, k_EItemStateSubscribed, k_EItemStateInstalled), (3509329205, k_EItemStateSubscribed, k_EItemStateInstalled), (3760871384, k_EItemStateSubscribed, k_EItemStateInstalled), (3652097318, k_EItemStateSubscribed, k_EItemStateInstalled), (3503594612, k_EItemStateSubscribed, k_EItemStateInstalled), (3591563716, k_EItemStateSubscribed, k_EItemStateInstalled), (3673250557, k_EItemStateSubscribed, k_EItemStateInstalled), (3670643788, k_EItemStateSubscribed, k_EItemStateInstalled), (3683253079, k_EItemStateSubscribed, k_EItemStateInstalled), (3746453639, k_EItemStateSubscribed, k_EItemStateInstalled), (3436170138, k_EItemStateSubscribed, k_EItemStateInstalled), (3729578404, k_EItemStateSubscribed, k_EItemStateInstalled), (3722749887, k_EItemStateSubscribed, k_EItemStateInstalled), (3744475027, k_EItemStateSubscribed, k_EItemStateInstalled), (3774572038, k_EItemStateSubscribed, k_EItemStateInstalled), (3380210757, k_EItemStateSubscribed, k_EItemStateInstalled), (3733719765, k_EItemStateSubscribed, k_EItemStateInstalled), (3774746803, k_EItemStateSubscribed, k_EItemStateInstalled), (3758320372, k_EItemStateSubscribed, k_EItemStateInstalled), (3775128499, k_EItemStateSubscribed, k_EItemStateInstalled), (3740293822, k_EItemStateSubscribed, k_EItemStateInstalled), (3418252667, k_EItemStateSubscribed, k_EItemStateInstalled), (3603367264, k_EItemStateSubscribed, k_EItemStateInstalled), (3603306548, k_EItemStateSubscribed, k_EItemStateInstalled), (3551621846, k_EItemStateSubscribed, k_EItemStateInstalled), (3652906664, k_EItemStateSubscribed, k_EItemStateInstalled), (3493115616, k_EItemStateSubscribed, k_EItemStateInstalled), (3555361900, k_EItemStateSubscribed, k_EItemStateInstalled), (3496055699, k_EItemStateSubscribed, k_EItemStateInstalled), (3681748718, k_EItemStateSubscribed, k_EItemStateInstalled), (3628203171, k_EItemStateSubscribed, k_EItemStateInstalled), (3628201887, k_EItemStateSubscribed, k_EItemStateInstalled), (3678767059, k_EItemStateSubscribed, k_EItemStateInstalled), (3776730617, k_EItemStateSubscribed, k_EItemStateInstalled), (3807164392, k_EItemStateSubscribed, k_EItemStateInstalled), (3812454152, k_EItemStateSubscribed, k_EItemStateInstalled), (3591820675, k_EItemStateSubscribed, k_EItemStateInstalled), (3672497668, k_EItemStateSubscribed, k_EItemStateInstalled), (3412480633, k_EItemStateSubscribed, k_EItemStateInstalled), (3410473695, k_EItemStateSubscribed, k_EItemStateInstalled), (3549377308, k_EItemStateSubscribed, k_EItemStateInstalled), (3673703427, k_EItemStateSubscribed, k_EItemStateInstalled), (3686449681, k_EItemStateSubscribed, k_EItemStateInstalled), (3520352434, k_EItemStateSubscribed, k_EItemStateInstalled), (3802216383, k_EItemStateSubscribed, k_EItemStateInstalled), (3813033771, k_EItemStateSubscribed, k_EItemStateInstalled), (3759042728, k_EItemStateSubscribed, k_EItemStateInstalled), (3434693420, k_EItemStateSubscribed, k_EItemStateInstalled), (3806197116, k_EItemStateSubscribed, k_EItemStateInstalled), (3812140001, k_EItemStateSubscribed, k_EItemStateInstalled), (3595014060, k_EItemStateSubscribed, k_EItemStateInstalled), (3752415457, k_EItemStateSubscribed, k_EItemStateInstalled), (3399699218, k_EItemStateSubscribed, k_EItemStateInstalled), (3455404959, k_EItemStateSubscribed, k_EItemStateInstalled), (3766210676, k_EItemStateSubscribed, k_EItemStateInstalled), (3636213685, k_EItemStateSubscribed, k_EItemStateInstalled), (3628247436, k_EItemStateSubscribed, k_EItemStateInstalled), (3779799226, k_EItemStateSubscribed, k_EItemStateInstalled), (3711297532, k_EItemStateSubscribed, k_EItemStateInstalled), (3732654992, k_EItemStateSubscribed, k_EItemStateInstalled), (3524446392, k_EItemStateSubscribed, k_EItemStateInstalled), (3491248180, k_EItemStateSubscribed, k_EItemStateInstalled), (3709961172, k_EItemStateSubscribed, k_EItemStateInstalled), (3672072359, k_EItemStateSubscribed, k_EItemStateInstalled), (3796706214, k_EItemStateSubscribed, k_EItemStateInstalled), (3556629790, k_EItemStateSubscribed, k_EItemStateInstalled), (3569219326, k_EItemStateSubscribed, k_EItemStateInstalled), (3571718093, k_EItemStateSubscribed, k_EItemStateInstalled), (3564792549, k_EItemStateSubscribed, k_EItemStateInstalled), (3731931836, k_EItemStateSubscribed, k_EItemStateInstalled)]
+FileManager.OnStart(Game) Subscribed Items = [(3812461539, k_EItemStateSubscribed, k_EItemStateInstalled), (3820576916, k_EItemStateSubscribed, k_EItemStateInstalled), (3820759806, k_EItemStateSubscribed, k_EItemStateInstalled), (3819522350, k_EItemStateSubscribed, k_EItemStateInstalled), (3813157776, k_EItemStateSubscribed, k_EItemStateInstalled), (3485917612, k_EItemStateSubscribed, k_EItemStateInstalled), (3758943352, k_EItemStateSubscribed, k_EItemStateInstalled), (3810611344, k_EItemStateSubscribed, k_EItemStateInstalled), (3812111085, k_EItemStateSubscribed, k_EItemStateInstalled), (3806686336, k_EItemStateSubscribed, k_EItemStateInstalled), (3808882954, k_EItemStateSubscribed, k_EItemStateInstalled), (3804868806, k_EItemStateSubscribed, k_EItemStateInstalled), (3790594162, k_EItemStateSubscribed, k_EItemStateInstalled), (3806466625, k_EItemStateSubscribed, k_EItemStateInstalled), (3789208859, k_EItemStateSubscribed, k_EItemStateInstalled), (3774105087, k_EItemStateSubscribed, k_EItemStateInstalled), (3440622312, k_EItemStateSubscribed, k_EItemStateInstalled), (3796113927, k_EItemStateSubscribed, k_EItemStateInstalled), (3769142422, k_EItemStateSubscribed, k_EItemStateInstalled), (3755769170, k_EItemStateSubscribed, k_EItemStateInstalled), (3801363152, k_EItemStateSubscribed, k_EItemStateInstalled), (3799742828, k_EItemStateSubscribed, k_EItemStateInstalled), (3789188689, k_EItemStateSubscribed, k_EItemStateInstalled), (3801549552, k_EItemStateSubscribed, k_EItemStateInstalled), (3796349767, k_EItemStateSubscribed, k_EItemStateInstalled), (3637954857, k_EItemStateSubscribed, k_EItemStateInstalled), (3784474738, k_EItemStateSubscribed, k_EItemStateInstalled), (3553116604, k_EItemStateSubscribed, k_EItemStateInstalled), (3605013271, k_EItemStateSubscribed, k_EItemStateInstalled), (3413868677, k_EItemStateSubscribed, k_EItemStateInstalled), (3502273861, k_EItemStateSubscribed, k_EItemStateInstalled), (3558173926, k_EItemStateSubscribed, k_EItemStateInstalled), (3406985435, k_EItemStateSubscribed, k_EItemStateInstalled), (3600788156, k_EItemStateSubscribed, k_EItemStateInstalled), (3408662804, k_EItemStateSubscribed, k_EItemStateInstalled), (3456859157, k_EItemStateSubscribed, k_EItemStateInstalled), (3461519690, k_EItemStateSubscribed, k_EItemStateInstalled), (3384079999, k_EItemStateSubscribed, k_EItemStateInstalled), (3392434750, k_EItemStateSubscribed, k_EItemStateInstalled), (3681873198, k_EItemStateSubscribed, k_EItemStateInstalled), (3606134711, k_EItemStateSubscribed, k_EItemStateInstalled), (3551676319, k_EItemStateSubscribed, k_EItemStateInstalled), (3378409795, k_EItemStateSubscribed, k_EItemStateInstalled), (3432668460, k_EItemStateSubscribed, k_EItemStateInstalled), (3373356293, k_EItemStateSubscribed, k_EItemStateInstalled), (3411341227, k_EItemStateSubscribed, k_EItemStateInstalled), (3417446309, k_EItemStateSubscribed, k_EItemStateInstalled), (3403993583, k_EItemStateSubscribed, k_EItemStateInstalled), (3430106996, k_EItemStateSubscribed, k_EItemStateInstalled), (3768036424, k_EItemStateSubscribed, k_EItemStateInstalled), (3499239964, k_EItemStateSubscribed, k_EItemStateInstalled), (3741944366, k_EItemStateSubscribed, k_EItemStateInstalled), (3497601759, k_EItemStateSubscribed, k_EItemStateInstalled), (3488139470, k_EItemStateSubscribed, k_EItemStateInstalled), (3781062859, k_EItemStateSubscribed, k_EItemStateInstalled), (3448845252, k_EItemStateSubscribed, k_EItemStateInstalled), (3478767194, k_EItemStateSubscribed, k_EItemStateInstalled), (3403661005, k_EItemStateSubscribed, k_EItemStateInstalled), (3394781441, k_EItemStateSubscribed, k_EItemStateInstalled), (3592460366, k_EItemStateSubscribed, k_EItemStateInstalled), (3459682829, k_EItemStateSubscribed, k_EItemStateInstalled), (3414146266, k_EItemStateSubscribed, k_EItemStateInstalled), (3470643173, k_EItemStateSubscribed, k_EItemStateInstalled), (3695809489, k_EItemStateSubscribed, k_EItemStateInstalled), (3505420313, k_EItemStateSubscribed, k_EItemStateInstalled), (3780118683, k_EItemStateSubscribed, k_EItemStateInstalled), (3395022688, k_EItemStateSubscribed, k_EItemStateInstalled), (3716049886, k_EItemStateSubscribed, k_EItemStateInstalled), (3659742367, k_EItemStateSubscribed, k_EItemStateInstalled), (3451166840, k_EItemStateSubscribed, k_EItemStateInstalled), (3416372890, k_EItemStateSubscribed, k_EItemStateInstalled), (3587091564, k_EItemStateSubscribed, k_EItemStateInstalled), (3629269283, k_EItemStateSubscribed, k_EItemStateInstalled), (3715323261, k_EItemStateSubscribed, k_EItemStateInstalled), (3597650470, k_EItemStateSubscribed, k_EItemStateInstalled), (3776340577, k_EItemStateSubscribed, k_EItemStateInstalled), (3465256032, k_EItemStateSubscribed, k_EItemStateInstalled), (3458148344, k_EItemStateSubscribed, k_EItemStateInstalled), (3673908868, k_EItemStateSubscribed, k_EItemStateInstalled), (3481228992, k_EItemStateSubscribed, k_EItemStateInstalled), (3729579342, k_EItemStateSubscribed, k_EItemStateInstalled), (3486502935, k_EItemStateSubscribed, k_EItemStateInstalled), (3433577445, k_EItemStateSubscribed, k_EItemStateInstalled), (3526982088, k_EItemStateSubscribed, k_EItemStateInstalled), (3468959181, k_EItemStateSubscribed, k_EItemStateInstalled), (3506979898, k_EItemStateSubscribed, k_EItemStateInstalled), (3417801942, k_EItemStateSubscribed, k_EItemStateInstalled), (3631042692, k_EItemStateSubscribed, k_EItemStateInstalled), (3587877691, k_EItemStateSubscribed, k_EItemStateInstalled), (3508275114, k_EItemStateSubscribed, k_EItemStateInstalled), (3642656500, k_EItemStateSubscribed, k_EItemStateInstalled), (3444379330, k_EItemStateSubscribed, k_EItemStateInstalled), (3455931957, k_EItemStateSubscribed, k_EItemStateInstalled), (3575847216, k_EItemStateSubscribed, k_EItemStateInstalled), (3736147136, k_EItemStateSubscribed, k_EItemStateInstalled), (3567228449, k_EItemStateSubscribed, k_EItemStateInstalled), (3567256221, k_EItemStateSubscribed, k_EItemStateInstalled), (3717610332, k_EItemStateSubscribed, k_EItemStateInstalled), (3524112296, k_EItemStateSubscribed, k_EItemStateInstalled), (3762023575, k_EItemStateSubscribed, k_EItemStateInstalled), (3774859959, k_EItemStateSubscribed, k_EItemStateInstalled), (3630495619, k_EItemStateSubscribed, k_EItemStateInstalled), (3731208477, k_EItemStateSubscribed, k_EItemStateInstalled), (3461044389, k_EItemStateSubscribed, k_EItemStateInstalled), (3606774881, k_EItemStateSubscribed, k_EItemStateInstalled), (3607989779, k_EItemStateSubscribed, k_EItemStateInstalled), (3590477166, k_EItemStateSubscribed, k_EItemStateInstalled), (3432592449, k_EItemStateSubscribed, k_EItemStateInstalled), (3461091581, k_EItemStateSubscribed, k_EItemStateInstalled), (3373960386, k_EItemStateSubscribed, k_EItemStateInstalled), (3430135740, k_EItemStateSubscribed, k_EItemStateInstalled), (3602046770, k_EItemStateSubscribed, k_EItemStateInstalled), (3782020901, k_EItemStateSubscribed, k_EItemStateInstalled), (3438479626, k_EItemStateSubscribed, k_EItemStateInstalled), (3599752717, k_EItemStateSubscribed, k_EItemStateInstalled), (3513571010, k_EItemStateSubscribed, k_EItemStateInstalled), (3437105712, k_EItemStateSubscribed, k_EItemStateInstalled), (3636386513, k_EItemStateSubscribed, k_EItemStateInstalled), (3425450153, k_EItemStateSubscribed, k_EItemStateInstalled), (3559495372, k_EItemStateSubscribed, k_EItemStateInstalled), (3434072450, k_EItemStateSubscribed, k_EItemStateInstalled), (3601891050, k_EItemStateSubscribed, k_EItemStateInstalled), (3503670861, k_EItemStateSubscribed, k_EItemStateInstalled), (3737267013, k_EItemStateSubscribed, k_EItemStateInstalled), (3629144864, k_EItemStateSubscribed, k_EItemStateInstalled), (3390330875, k_EItemStateSubscribed, k_EItemStateInstalled), (3594891803, k_EItemStateSubscribed, k_EItemStateInstalled), (3468260539, k_EItemStateSubscribed, k_EItemStateInstalled), (3433957933, k_EItemStateSubscribed, k_EItemStateInstalled), (3480965706, k_EItemStateSubscribed, k_EItemStateInstalled), (3509329205, k_EItemStateSubscribed, k_EItemStateInstalled), (3760871384, k_EItemStateSubscribed, k_EItemStateInstalled), (3652097318, k_EItemStateSubscribed, k_EItemStateInstalled), (3503594612, k_EItemStateSubscribed, k_EItemStateInstalled), (3591563716, k_EItemStateSubscribed, k_EItemStateInstalled), (3673250557, k_EItemStateSubscribed, k_EItemStateInstalled), (3670643788, k_EItemStateSubscribed, k_EItemStateInstalled), (3683253079, k_EItemStateSubscribed, k_EItemStateInstalled), (3746453639, k_EItemStateSubscribed, k_EItemStateInstalled), (3436170138, k_EItemStateSubscribed, k_EItemStateInstalled), (3729578404, k_EItemStateSubscribed, k_EItemStateInstalled), (3722749887, k_EItemStateSubscribed, k_EItemStateInstalled), (3744475027, k_EItemStateSubscribed, k_EItemStateInstalled), (3774572038, k_EItemStateSubscribed, k_EItemStateInstalled), (3380210757, k_EItemStateSubscribed, k_EItemStateInstalled), (3733719765, k_EItemStateSubscribed, k_EItemStateInstalled), (3774746803, k_EItemStateSubscribed, k_EItemStateInstalled), (3758320372, k_EItemStateSubscribed, k_EItemStateInstalled), (3775128499, k_EItemStateSubscribed, k_EItemStateInstalled), (3740293822, k_EItemStateSubscribed, k_EItemStateInstalled), (3418252667, k_EItemStateSubscribed, k_EItemStateInstalled), (3603367264, k_EItemStateSubscribed, k_EItemStateInstalled), (3603306548, k_EItemStateSubscribed, k_EItemStateInstalled), (3551621846, k_EItemStateSubscribed, k_EItemStateInstalled), (3652906664, k_EItemStateSubscribed, k_EItemStateInstalled), (3493115616, k_EItemStateSubscribed, k_EItemStateInstalled), (3555361900, k_EItemStateSubscribed, k_EItemStateInstalled), (3496055699, k_EItemStateSubscribed, k_EItemStateInstalled), (3681748718, k_EItemStateSubscribed, k_EItemStateInstalled), (3628203171, k_EItemStateSubscribed, k_EItemStateInstalled), (3628201887, k_EItemStateSubscribed, k_EItemStateInstalled), (3678767059, k_EItemStateSubscribed, k_EItemStateInstalled), (3776730617, k_EItemStateSubscribed, k_EItemStateInstalled), (3807164392, k_EItemStateSubscribed, k_EItemStateInstalled), (3812454152, k_EItemStateSubscribed, k_EItemStateInstalled), (3591820675, k_EItemStateSubscribed, k_EItemStateInstalled), (3672497668, k_EItemStateSubscribed, k_EItemStateInstalled), (3412480633, k_EItemStateSubscribed, k_EItemStateInstalled), (3410473695, k_EItemStateSubscribed, k_EItemStateInstalled), (3549377308, k_EItemStateSubscribed, k_EItemStateInstalled), (3673703427, k_EItemStateSubscribed, k_EItemStateInstalled), (3686449681, k_EItemStateSubscribed, k_EItemStateInstalled), (3520352434, k_EItemStateSubscribed, k_EItemStateInstalled), (3802216383, k_EItemStateSubscribed, k_EItemStateInstalled), (3813033771, k_EItemStateSubscribed, k_EItemStateInstalled), (3759042728, k_EItemStateSubscribed, k_EItemStateInstalled), (3434693420, k_EItemStateSubscribed, k_EItemStateInstalled), (3806197116, k_EItemStateSubscribed, k_EItemStateInstalled), (3812140001, k_EItemStateSubscribed, k_EItemStateInstalled), (3595014060, k_EItemStateSubscribed, k_EItemStateInstalled), (3752415457, k_EItemStateSubscribed, k_EItemStateInstalled), (3399699218, k_EItemStateSubscribed, k_EItemStateInstalled), (3455404959, k_EItemStateSubscribed, k_EItemStateInstalled), (3766210676, k_EItemStateSubscribed, k_EItemStateInstalled), (3636213685, k_EItemStateSubscribed, k_EItemStateInstalled), (3628247436, k_EItemStateSubscribed, k_EItemStateInstalled), (3779799226, k_EItemStateSubscribed, k_EItemStateInstalled), (3711297532, k_EItemStateSubscribed, k_EItemStateInstalled), (3732654992, k_EItemStateSubscribed, k_EItemStateInstalled), (3524446392, k_EItemStateSubscribed, k_EItemStateInstalled), (3491248180, k_EItemStateSubscribed, k_EItemStateInstalled), (3709961172, k_EItemStateSubscribed, k_EItemStateInstalled), (3672072359, k_EItemStateSubscribed, k_EItemStateInstalled), (3796706214, k_EItemStateSubscribed, k_EItemStateInstalled), (3556629790, k_EItemStateSubscribed, k_EItemStateInstalled), (3569219326, k_EItemStateSubscribed, k_EItemStateInstalled), (3571718093, k_EItemStateSubscribed, k_EItemStateInstalled), (3564792549, k_EItemStateSubscribed, k_EItemStateInstalled), (3731931836, k_EItemStateSubscribed, k_EItemStateInstalled)]
 FileManager.Directories contains Mods
 [SEST Pictures] pass 1 (start, 7 s after start):
-[SEST Pictures] texture2d 'C:\Program Files (x86)\Steam\steamapps\common\Sea Power\Sea Power_Data\StreamingAssets\original\ui/backgrounds\loading_screen_54.png' 1920x1080 ARGB32
+[SEST Pictures] texture2d 'C:\Program Files (x86)\Steam\steamapps\common\Sea Power\Sea Power_Data\StreamingAssets\original\ui/backgrounds\loading_screen_59.png' 1920x1080 ARGB32
 [SEST Pictures] sprite '2560px-MicroProse' 2048x437 of texture '2560px-MicroProse'
 [SEST Pictures] sprite 'triassic_white_900px' 900x900 of texture 'triassic_white_900px'
 [SEST Pictures] texture2d 'hull_damage' 512x512 DXT5
 [SEST Pictures] texture2d 'HullDamage opaque hull_damage steel' 256x256 RGBA32
 [SEST Pictures] noesis view 'LoadCamera' in scene 'background': content LoadScreenView '' DataContext=LoadScreen
 [SEST Pictures] pass 1 (start, 7 s after start) done: 5 texture(s) of 256 px or more, 0 UI image(s), 1 Noesis view(s), 1 element(s) walked, 0 picture element(s); Mod Manager not seen
-[SEST Backdrops] SEST photo loading_screen_80.png in place of C:\Program Files (x86)\Steam\steamapps\common\Sea Power\Sea Power_Data\StreamingAssets\original\ui/backgrounds\loading_screen_54.png (1920x1080); 1 so far
+[SEST Backdrops] SEST photo loading_screen_29.png in place of C:\Program Files (x86)\Steam\steamapps\common\Sea Power\Sea Power_Data\StreamingAssets\original\ui/backgrounds\loading_screen_59.png (1920x1080); 1 so far
 [EnhancedUIMod] bereit.
-[IDX][CampaignCapture.cs:74 Load] [IDX-Prize] Loaded prize roster: 3 prize(s)
+[IDX][CampaignCapture.cs:74 Load] [IDX-Prize] Loaded prize roster: 5 prize(s)
 [IDX][Localization.cs:24 Load] [IDX] localization ini not found: C:/Program Files (x86)/Steam/steamapps/common/Sea Power/Sea Power_Data/StreamingAssets\IdentifyExpanded\language_en\identify_expanded.ini
 [IDX][TensionConfig.cs:62 SetRaw] [IDX-Tension] set to TENSE -> Tense (DEFCON 3)
 [IDX][TensionConfig.cs:283 Load] [IDX-Tension] no config found, defaulting to TENSE DEFCON 3 (neutral)
 [IDX][BroadcastService.cs:2807 WriteLog] [IDX] _mainGameViewModel is null
-[IDX][CampaignCapture.cs:232 AnnouncePrizes] [IDX-Prize] Roster for mission:unknown: 1/3 boarded
+[IDX][CampaignCapture.cs:232 AnnouncePrizes] [IDX-Prize] Roster for mission:unknown: 2/5 boarded
 [SEST Backdrops] watching the loading screen's picture (LoadScreen.BackgroundImage) every frame; its members: ScaleValueX:Single, ScaleValueY:Single, CoroutineWeight:Single, CurrentIndex:Int32, CurrentSubStep:Int32, BackgroundImage:TextureSource, LoadText:String, LoadPercent:Single, LoadingTipHeader:String, LoadingTip:String, HasLoadingTip:Boolean, ShowWarningPSE:Boolean, WarningPSE:String, WindowHost:WindowHost, LoadScreenView:NoesisView, destroyCancellationToken:CancellationToken, useGUILayout:Boolean, didStart:Boolean, didAwake:Boolean, enabled:Boolean, isActiveAndEnabled:Boolean, transform:Transform, gameObject:GameObject, tag:String, name:String, hideFlags:HideFlags
 [SEST Pictures] pass 2 (scene 'background' +2s, 8 s after start):
 [SEST Pictures] rendertexture 'TempBuffer 4 2560x1440' 2560x1440 ARGBHalf
 [SEST Pictures] rendertexture 'TempBuffer 3 2560x1440' 2560x1440 ARGBHalf
-[SEST Pictures] texture2d 'C:\Program Files (x86)\Steam\steamapps\common\Sea Power\Sea Power_Data\StreamingAssets\original\ui/backgrounds\loading_screen_54.png' 1920x1080 ARGB32
+[SEST Pictures] texture2d 'C:\Program Files (x86)\Steam\steamapps\common\Sea Power\Sea Power_Data\StreamingAssets\original\ui/backgrounds\loading_screen_59.png' 1920x1080 ARGB32
 [SEST Pictures] texture2d '2560px-MicroProse' 2048x437 RGBA32
 [SEST Pictures] sprite '2560px-MicroProse' 2048x437 of texture '2560px-MicroProse'
 [SEST Pictures] texture2d 'triassic_white_900px' 900x900 DXT5
@@ -146,7 +147,7 @@ FileManager.CheckForUpdates(): The following files require update []
 [SEST Pictures] pass 3 (scene 'console' +2s, 10 s after start):
 [SEST Pictures] rendertexture 'TempBuffer 4 2560x1440' 2560x1440 ARGBHalf
 [SEST Pictures] rendertexture 'TempBuffer 3 2560x1440' 2560x1440 ARGBHalf
-[SEST Pictures] texture2d 'C:\Program Files (x86)\Steam\steamapps\common\Sea Power\Sea Power_Data\StreamingAssets\original\ui/backgrounds\loading_screen_54.png' 1920x1080 ARGB32
+[SEST Pictures] texture2d 'C:\Program Files (x86)\Steam\steamapps\common\Sea Power\Sea Power_Data\StreamingAssets\original\ui/backgrounds\loading_screen_59.png' 1920x1080 ARGB32
 [SEST Pictures] texture2d '2560px-MicroProse' 2048x437 RGBA32
 [SEST Pictures] sprite '2560px-MicroProse' 2048x437 of texture '2560px-MicroProse'
 [SEST Pictures] texture2d 'triassic_white_900px' 900x900 DXT5
@@ -157,14 +158,14 @@ FileManager.CheckForUpdates(): The following files require update []
 [SEST Pictures] texture2d 'HullDamage torn plating' 256x512 RGBA32
 [SEST Pictures] texture2d 'HullDamage opaque hull_damage steel' 256x256 RGBA32
 [SEST Pictures] texture2d 'Font Texture' 256x256 Alpha8
+[SEST Pictures] noesis view 'ConsoleCamera' in scene 'console': content ConsoleView '' DataContext=ConsoleView
 [SEST Pictures] noesis view 'LoadCamera' in scene 'background': content LoadScreenView '' DataContext=LoadScreen
 [SEST Pictures] noesis Grid '' in LoadScreenView: Background=ImageBrush ImageSource=TextureSource 'Noesis.TextureSource' 1920x1080 ImageSource bound to 'BackgroundImage' visible=True opacity=1 DataContext=LoadScreen
-[SEST Pictures] noesis view 'ConsoleCamera' in scene 'console': content ConsoleView '' DataContext=ConsoleView
-[SEST Pictures] pass 3 (scene 'console' +2s, 10 s after start) done: 13 texture(s) of 256 px or more, 0 UI image(s), 2 Noesis view(s), 107 element(s) walked, 1 picture element(s); Mod Manager not seen
+[SEST Pictures] pass 3 (scene 'console' +2s, 10 s after start) done: 13 texture(s) of 256 px or more, 0 UI image(s), 2 Noesis view(s), 21 element(s) walked, 1 picture element(s); Mod Manager not seen
 [SEST Pictures] pass 4 (start +15s, 22 s after start):
 [SEST Pictures] rendertexture 'TempBuffer 4 2560x1440' 2560x1440 ARGBHalf
 [SEST Pictures] rendertexture 'TempBuffer 3 2560x1440' 2560x1440 ARGBHalf
-[SEST Pictures] texture2d 'C:\Program Files (x86)\Steam\steamapps\common\Sea Power\Sea Power_Data\StreamingAssets\original\ui/backgrounds\loading_screen_54.png' 1920x1080 ARGB32
+[SEST Pictures] texture2d 'C:\Program Files (x86)\Steam\steamapps\common\Sea Power\Sea Power_Data\StreamingAssets\original\ui/backgrounds\loading_screen_59.png' 1920x1080 ARGB32
 [SEST Pictures] texture2d '2560px-MicroProse' 2048x437 RGBA32
 [SEST Pictures] sprite '2560px-MicroProse' 2048x437 of texture '2560px-MicroProse'
 [SEST Pictures] texture2d 'triassic_white_900px' 900x900 DXT5
@@ -175,14 +176,14 @@ FileManager.CheckForUpdates(): The following files require update []
 [SEST Pictures] texture2d 'HullDamage torn plating' 256x512 RGBA32
 [SEST Pictures] texture2d 'HullDamage opaque hull_damage steel' 256x256 RGBA32
 [SEST Pictures] texture2d 'Font Texture' 256x256 Alpha8
+[SEST Pictures] noesis view 'ConsoleCamera' in scene 'console': content ConsoleView '' DataContext=ConsoleView
 [SEST Pictures] noesis view 'LoadCamera' in scene 'background': content LoadScreenView '' DataContext=LoadScreen
 [SEST Pictures] noesis Grid '' in LoadScreenView: Background=ImageBrush ImageSource=TextureSource 'Noesis.TextureSource' 1920x1080 ImageSource bound to 'BackgroundImage' visible=True opacity=1 DataContext=LoadScreen
-[SEST Pictures] noesis view 'ConsoleCamera' in scene 'console': content ConsoleView '' DataContext=ConsoleView
-[SEST Pictures] pass 4 (start +15s, 22 s after start) done: 13 texture(s) of 256 px or more, 0 UI image(s), 2 Noesis view(s), 107 element(s) walked, 1 picture element(s); Mod Manager not seen
+[SEST Pictures] pass 4 (start +15s, 22 s after start) done: 13 texture(s) of 256 px or more, 0 UI image(s), 2 Noesis view(s), 21 element(s) walked, 1 picture element(s); Mod Manager not seen
 [SEST Pictures] pass 5 (scene 'background' +20s, 25 s after start):
 [SEST Pictures] rendertexture 'TempBuffer 4 2560x1440' 2560x1440 ARGBHalf
 [SEST Pictures] rendertexture 'TempBuffer 3 2560x1440' 2560x1440 ARGBHalf
-[SEST Pictures] texture2d 'C:\Program Files (x86)\Steam\steamapps\common\Sea Power\Sea Power_Data\StreamingAssets\original\ui/backgrounds\loading_screen_54.png' 1920x1080 ARGB32
+[SEST Pictures] texture2d 'C:\Program Files (x86)\Steam\steamapps\common\Sea Power\Sea Power_Data\StreamingAssets\original\ui/backgrounds\loading_screen_59.png' 1920x1080 ARGB32
 [SEST Pictures] texture2d '2560px-MicroProse' 2048x437 RGBA32
 [SEST Pictures] sprite '2560px-MicroProse' 2048x437 of texture '2560px-MicroProse'
 [SEST Pictures] texture2d 'triassic_white_900px' 900x900 DXT5
@@ -193,14 +194,14 @@ FileManager.CheckForUpdates(): The following files require update []
 [SEST Pictures] texture2d 'HullDamage torn plating' 256x512 RGBA32
 [SEST Pictures] texture2d 'HullDamage opaque hull_damage steel' 256x256 RGBA32
 [SEST Pictures] texture2d 'Font Texture' 256x256 Alpha8
+[SEST Pictures] noesis view 'ConsoleCamera' in scene 'console': content ConsoleView '' DataContext=ConsoleView
 [SEST Pictures] noesis view 'LoadCamera' in scene 'background': content LoadScreenView '' DataContext=LoadScreen
 [SEST Pictures] noesis Grid '' in LoadScreenView: Background=ImageBrush ImageSource=TextureSource 'Noesis.TextureSource' 1920x1080 ImageSource bound to 'BackgroundImage' visible=True opacity=1 DataContext=LoadScreen
-[SEST Pictures] noesis view 'ConsoleCamera' in scene 'console': content ConsoleView '' DataContext=ConsoleView
-[SEST Pictures] pass 5 (scene 'background' +20s, 25 s after start) done: 13 texture(s) of 256 px or more, 0 UI image(s), 2 Noesis view(s), 107 element(s) walked, 1 picture element(s); Mod Manager not seen
+[SEST Pictures] pass 5 (scene 'background' +20s, 25 s after start) done: 13 texture(s) of 256 px or more, 0 UI image(s), 2 Noesis view(s), 21 element(s) walked, 1 picture element(s); Mod Manager not seen
 [SEST Pictures] pass 6 (scene 'console' +20s, 28 s after start):
 [SEST Pictures] rendertexture 'TempBuffer 4 2560x1440' 2560x1440 ARGBHalf
 [SEST Pictures] rendertexture 'TempBuffer 3 2560x1440' 2560x1440 ARGBHalf
-[SEST Pictures] texture2d 'C:\Program Files (x86)\Steam\steamapps\common\Sea Power\Sea Power_Data\StreamingAssets\original\ui/backgrounds\loading_screen_54.png' 1920x1080 ARGB32
+[SEST Pictures] texture2d 'C:\Program Files (x86)\Steam\steamapps\common\Sea Power\Sea Power_Data\StreamingAssets\original\ui/backgrounds\loading_screen_59.png' 1920x1080 ARGB32
 [SEST Pictures] texture2d '2560px-MicroProse' 2048x437 RGBA32
 [SEST Pictures] sprite '2560px-MicroProse' 2048x437 of texture '2560px-MicroProse'
 [SEST Pictures] texture2d 'triassic_white_900px' 900x900 DXT5
@@ -211,30 +212,14 @@ FileManager.CheckForUpdates(): The following files require update []
 [SEST Pictures] texture2d 'HullDamage torn plating' 256x512 RGBA32
 [SEST Pictures] texture2d 'HullDamage opaque hull_damage steel' 256x256 RGBA32
 [SEST Pictures] texture2d 'Font Texture' 256x256 Alpha8
+[SEST Pictures] noesis view 'ConsoleCamera' in scene 'console': content ConsoleView '' DataContext=ConsoleView
 [SEST Pictures] noesis view 'LoadCamera' in scene 'background': content LoadScreenView '' DataContext=LoadScreen
 [SEST Pictures] noesis Grid '' in LoadScreenView: Background=ImageBrush ImageSource=TextureSource 'Noesis.TextureSource' 1920x1080 ImageSource bound to 'BackgroundImage' visible=True opacity=1 DataContext=LoadScreen
-[SEST Pictures] noesis view 'ConsoleCamera' in scene 'console': content ConsoleView '' DataContext=ConsoleView
-[SEST Pictures] pass 6 (scene 'console' +20s, 28 s after start) done: 13 texture(s) of 256 px or more, 0 UI image(s), 2 Noesis view(s), 107 element(s) walked, 1 picture element(s); Mod Manager not seen
-[SEST Pictures] pass 7 (periodic, 127 s after start):
-[SEST Pictures] rendertexture 'TempBuffer 4 2560x1440' 2560x1440 ARGBHalf
-[SEST Pictures] rendertexture 'TempBuffer 3 2560x1440' 2560x1440 ARGBHalf
-[SEST Pictures] texture2d 'C:\Program Files (x86)\Steam\steamapps\common\Sea Power\Sea Power_Data\StreamingAssets\original\ui/backgrounds\loading_screen_54.png' 1920x1080 ARGB32
-[SEST Pictures] texture2d '2560px-MicroProse' 2048x437 RGBA32
-[SEST Pictures] sprite '2560px-MicroProse' 2048x437 of texture '2560px-MicroProse'
-[SEST Pictures] texture2d 'triassic_white_900px' 900x900 DXT5
-[SEST Pictures] sprite 'triassic_white_900px' 900x900 of texture 'triassic_white_900px'
-[SEST Pictures] texture2d 'damage_0' 512x512 DXT5
-[SEST Pictures] texture2d 'damage_0_nm' 512x512 DXT5
-[SEST Pictures] texture2d 'hull_damage' 512x512 DXT5
-[SEST Pictures] texture2d 'HullDamage torn plating' 256x512 RGBA32
-[SEST Pictures] texture2d 'HullDamage opaque hull_damage steel' 256x256 RGBA32
-[SEST Pictures] texture2d 'Font Texture' 256x256 Alpha8
-[SEST Pictures] noesis view 'LoadCamera' in scene 'background': content LoadScreenView '' DataContext=LoadScreen
-[SEST Pictures] noesis Grid '' in LoadScreenView: Background=ImageBrush ImageSource=TextureSource 'Noesis.TextureSource' 1920x1080 ImageSource bound to 'BackgroundImage' visible=True opacity=1 DataContext=LoadScreen
-[SEST Pictures] noesis view 'ConsoleCamera' in scene 'console': content ConsoleView '' DataContext=ConsoleView
-[SEST Pictures] pass 7 (periodic, 127 s after start) done: 13 texture(s) of 256 px or more, 0 UI image(s), 2 Noesis view(s), 21 element(s) walked, 1 picture element(s); Mod Manager not seen
-LoadMaterialFromFile(effects/weapons/emitters/solidrocket_aam_small/exhaust_additive.ini): SetColor(_TintColor, {*}FFFFFFFF)
-LoadMaterialFromFile(effects/weapons/emitters/solidrocket_aam_small/exhaust_additive.ini): SetFloat(_InvFade, 1)
+[SEST Pictures] pass 6 (scene 'console' +20s, 28 s after start) done: 13 texture(s) of 256 px or more, 0 UI image(s), 2 Noesis view(s), 21 element(s) walked, 1 picture element(s); Mod Manager not seen
+LoadMaterialFromFile(effects/weapons/materials/solidrocket_white.ini): SetColor(_TintColor, {*}FFDBD0FF)
+LoadMaterialFromFile(effects/weapons/materials/solidrocket_white.ini): SetFloat(_InvFade, 1)
+LoadMaterialFromFile(effects/weapons/emitters/solidrocket_large/large_hot_smoke_additive.ini): SetColor(_TintColor, {*}FFFFFFFF)
+LoadMaterialFromFile(effects/weapons/emitters/solidrocket_large/large_hot_smoke_additive.ini): SetFloat(_InvFade, 1)
 LoadMaterialFromFile(effects/weapons/materials/missile_smoke_lit.ini): SetFloat(_Threshold, 1)
 LoadMaterialFromFile(effects/weapons/materials/missile_smoke_lit.ini): SetFloat(_Min, 1)
 LoadMaterialFromFile(effects/weapons/materials/missile_smoke_lit.ini): SetFloat(_AdditivePass, 1)
@@ -248,11 +233,6 @@ LoadMaterialFromFile(effects/weapons/materials/missile_smoke_lit.ini): SetColor(
 LoadMaterialFromFile(effects/weapons/materials/missile_smoke_lit.ini): SetColor(_C2, {*}808080FF)
 LoadMaterialFromFile(effects/weapons/materials/missile_smoke_lit.ini): SetFloat(_FogFadeFactor, -0.5)
 LoadMaterialFromFile(effects/weapons/materials/missile_smoke_lit.ini): SetFloat(_Cutoff, 0.5)
-LoadMaterialFromFile(effects/weapons/emitters/solidrocket_aam_small/exhaust_heat_material.ini): SetFloat(_BumpAmt, 120)
-LoadMaterialFromFile(effects/weapons/emitters/solidrocket_aam_small/exhaust_heat_material.ini): SetFloat(_UseMainAlpha, 1)
-LoadMaterialFromFile(effects/weapons/emitters/solidrocket_aam_small/exhaust_heat_material.ini): SetFloat(_UseSeparateCutOut, 0)
-LoadMaterialFromFile(effects/weapons/emitters/solidrocket_aam_small/exhaust_heat_material.ini): SetFloat(_Cutoff, 0)
-LoadMaterialFromFile(effects/weapons/emitters/solidrocket_aam_small/exhaust_heat_material.ini): SetFloat(_InvFade, 0)
 LoadMaterialFromFile(effects/weapons/emitters/ramjet_large/ramjet_trail_material.ini): SetFloat(_Threshold, 1)
 LoadMaterialFromFile(effects/weapons/emitters/ramjet_large/ramjet_trail_material.ini): SetFloat(_Min, 1)
 LoadMaterialFromFile(effects/weapons/emitters/ramjet_large/ramjet_trail_material.ini): SetFloat(_AdditivePass, 0)
@@ -266,19 +246,6 @@ LoadMaterialFromFile(effects/weapons/emitters/ramjet_large/ramjet_trail_material
 LoadMaterialFromFile(effects/weapons/emitters/ramjet_large/ramjet_trail_material.ini): SetColor(_C2, {*}808080FF)
 LoadMaterialFromFile(effects/weapons/emitters/ramjet_large/ramjet_trail_material.ini): SetFloat(_FogFadeFactor, -0.5)
 LoadMaterialFromFile(effects/weapons/emitters/ramjet_large/ramjet_trail_material.ini): SetFloat(_Cutoff, 0.5)
-LoadMaterialFromFile(effects/weapons/materials/solidrocket_white.ini): SetColor(_TintColor, {*}FFDBD0FF)
-LoadMaterialFromFile(effects/weapons/materials/solidrocket_white.ini): SetFloat(_InvFade, 1)
-LoadMaterialFromFile(effects/weapons/emitters/solidrocket_aam_medium/exhaust_additive.ini): SetColor(_TintColor, {*}FFFFFFFF)
-LoadMaterialFromFile(effects/weapons/emitters/solidrocket_aam_medium/exhaust_additive.ini): SetFloat(_InvFade, 1)
-LoadMaterialFromFile(effects/weapons/emitters/solidrocket_aam_medium/exhaust_heat_material.ini): SetFloat(_BumpAmt, 120)
-LoadMaterialFromFile(effects/weapons/emitters/solidrocket_aam_medium/exhaust_heat_material.ini): SetFloat(_UseMainAlpha, 1)
-LoadMaterialFromFile(effects/weapons/emitters/solidrocket_aam_medium/exhaust_heat_material.ini): SetFloat(_UseSeparateCutOut, 0)
-LoadMaterialFromFile(effects/weapons/emitters/solidrocket_aam_medium/exhaust_heat_material.ini): SetFloat(_Cutoff, 0)
-LoadMaterialFromFile(effects/weapons/emitters/solidrocket_aam_medium/exhaust_heat_material.ini): SetFloat(_InvFade, 0)
-LoadMaterialFromFile(effects/weapons/emitters/solidrocket_large/large_hot_smoke_additive.ini): SetColor(_TintColor, {*}FFFFFFFF)
-LoadMaterialFromFile(effects/weapons/emitters/solidrocket_large/large_hot_smoke_additive.ini): SetFloat(_InvFade, 1)
-LoadMaterialFromFile(effects/explosions/emitters/kinetic_kill_hit_pac3/materials/ejecta_shell.ini): SetColor(_TintColor, white)
-LoadMaterialFromFile(effects/explosions/emitters/kinetic_kill_hit_pac3/materials/ejecta_shell.ini): SetFloat(_InvFade, 1)
 LoadMaterialFromFile(effects/weapons/materials/control_thruster_large_smoke.ini): SetColor(_TintColor, {*}FFFFFF80)
 LoadMaterialFromFile(effects/weapons/materials/control_thruster_large_smoke.ini): SetFloat(_InvFade, 1)
 LoadMaterialFromFile(effects/weapons/emitters/ramjet_large/ramjet_flame_material.ini): SetColor(_TintColor, {*}FFDBD0FF)
@@ -290,6 +257,15 @@ LoadMaterialFromFile(effects/weapons/emitters/ramjet_large/ramjet_heat_material.
 LoadMaterialFromFile(effects/weapons/emitters/ramjet_large/ramjet_heat_material.ini): SetFloat(_InvFade, 0)
 LoadMaterialFromFile(effects/weapons/emitters/ramjet_large/ramjet_haze_material.ini): SetColor(_TintColor, {*}80808080)
 LoadMaterialFromFile(effects/weapons/emitters/ramjet_large/ramjet_haze_material.ini): SetFloat(_InvFade, 1)
+LoadMaterialFromFile(effects/weapons/emitters/solidrocket_aam_small/exhaust_additive.ini): SetColor(_TintColor, {*}FFFFFFFF)
+LoadMaterialFromFile(effects/weapons/emitters/solidrocket_aam_small/exhaust_additive.ini): SetFloat(_InvFade, 1)
+LoadMaterialFromFile(effects/weapons/emitters/solidrocket_aam_small/exhaust_heat_material.ini): SetFloat(_BumpAmt, 120)
+LoadMaterialFromFile(effects/weapons/emitters/solidrocket_aam_small/exhaust_heat_material.ini): SetFloat(_UseMainAlpha, 1)
+LoadMaterialFromFile(effects/weapons/emitters/solidrocket_aam_small/exhaust_heat_material.ini): SetFloat(_UseSeparateCutOut, 0)
+LoadMaterialFromFile(effects/weapons/emitters/solidrocket_aam_small/exhaust_heat_material.ini): SetFloat(_Cutoff, 0)
+LoadMaterialFromFile(effects/weapons/emitters/solidrocket_aam_small/exhaust_heat_material.ini): SetFloat(_InvFade, 0)
+LoadMaterialFromFile(effects/explosions/emitters/kinetic_kill_hit_pac3/materials/ejecta_shell.ini): SetColor(_TintColor, white)
+LoadMaterialFromFile(effects/explosions/emitters/kinetic_kill_hit_pac3/materials/ejecta_shell.ini): SetFloat(_InvFade, 1)
 LoadMaterialFromFile(effects/weapons/emitters/solidrocket_verylarge/large_smoke_lit.ini): SetFloat(_Threshold, 1)
 LoadMaterialFromFile(effects/weapons/emitters/solidrocket_verylarge/large_smoke_lit.ini): SetFloat(_Min, 1)
 LoadMaterialFromFile(effects/weapons/emitters/solidrocket_verylarge/large_smoke_lit.ini): SetFloat(_AdditivePass, 1)
@@ -320,15 +296,20 @@ LoadMaterialFromFile(effects/weapons/emitters/solidrocket_upperstage/plume_addit
 LoadMaterialFromFile(effects/weapons/emitters/solidrocket_upperstage/plume_additive.ini): SetFloat(_InvFade, 1)
 LoadMaterialFromFile(effects/weapons/emitters/solidrocket_upperstage/residual_alpha.ini): SetColor(_TintColor, {*}FFFFFF80)
 LoadMaterialFromFile(effects/weapons/emitters/solidrocket_upperstage/residual_alpha.ini): SetFloat(_InvFade, 1)
-[2101 - HTTPRequestCompleted] - 3 -- 1 -- True -- k_EHTTPStatusCode200OK -- 3797
+LoadMaterialFromFile(effects/weapons/emitters/solidrocket_aam_medium/exhaust_additive.ini): SetColor(_TintColor, {*}FFFFFFFF)
+LoadMaterialFromFile(effects/weapons/emitters/solidrocket_aam_medium/exhaust_additive.ini): SetFloat(_InvFade, 1)
+LoadMaterialFromFile(effects/weapons/emitters/solidrocket_aam_medium/exhaust_heat_material.ini): SetFloat(_BumpAmt, 120)
+LoadMaterialFromFile(effects/weapons/emitters/solidrocket_aam_medium/exhaust_heat_material.ini): SetFloat(_UseMainAlpha, 1)
+LoadMaterialFromFile(effects/weapons/emitters/solidrocket_aam_medium/exhaust_heat_material.ini): SetFloat(_UseSeparateCutOut, 0)
+LoadMaterialFromFile(effects/weapons/emitters/solidrocket_aam_medium/exhaust_heat_material.ini): SetFloat(_Cutoff, 0)
+LoadMaterialFromFile(effects/weapons/emitters/solidrocket_aam_medium/exhaust_heat_material.ini): SetFloat(_InvFade, 0)
+[2101 - HTTPRequestCompleted] - 18 -- 1 -- True -- k_EHTTPStatusCode200OK -- 3797
 [SEST Menu] video player 'MediaPlayer' in scene 'background': source=VideoClip clip='main_menu' url='' render=APIOnly loop=False playing=False audio=Direct tracks=0
-[SEST Menu] menu film now C:\Program Files (x86)\Steam\steamapps\common\Sea Power\Sea Power_Data\StreamingAssets\SEST_Integration\plugins\sest_menu.mp4
-[SEST Pictures] pass 8 (scene 'main-menu' +2s, 265 s after start):
-[SEST Pictures] texture2d 'fx_explosion_aerial' 4096x4096 DXT5
+[SEST Menu] menu film now C:\Program Files (x86)\Steam\steamapps\workshop\content\1286220\3812461539\plugins\sest_menu.mp4
+[SEST Pictures] pass 7 (scene 'main-menu' +2s, 128 s after start):
 [SEST Pictures] texture2d 'fx_explosion_8' 4096x4096 DXT5
 [SEST Pictures] texture2d 'fx_explosion_4' 4096x4096 DXT5
-[SEST Pictures] texture2d 'fx_explosion_3' 4096x4096 DXT5
-[SEST Pictures] texture2d 'fx_explosion_10' 4096x4096 DXT5
+[SEST Pictures] texture2d 'fx_explosion_aerial' 4096x4096 DXT5
 [SEST Pictures] texture2d 'fx_firesmoke_6' 4096x4096 DXT5
 [SEST Pictures] texture2d 'fx_firesmoke_8' 4096x4096 DXT5
 [SEST Pictures] texture2d 'fx_firesmoke_9' 4096x4096 DXT5
@@ -336,56 +317,59 @@ LoadMaterialFromFile(effects/weapons/emitters/solidrocket_upperstage/residual_al
 [SEST Pictures] texture2d 'fx_hit_large_1' 4096x4096 DXT5
 [SEST Pictures] texture2d 'fx_hit_large_2' 4096x4096 DXT5
 [SEST Pictures] texture2d 'fx_underwater_1' 4096x4096 DXT5
-[SEST Pictures] texture2d 'fx_underwater_5' 4096x4096 DXT5
+[SEST Pictures] texture2d 'fx_explosion_3' 4096x4096 DXT5
 [SEST Pictures] texture2d 'fx_underwater_9' 4096x4096 DXT5
+[SEST Pictures] texture2d 'fx_underwater_5' 4096x4096 DXT5
 [SEST Pictures] texture2d 'ground_shell_hit_1' 4096x4096 DXT5
 [SEST Pictures] texture2d 'ground_shell_hit_2' 4096x4096 DXT5
 [SEST Pictures] texture2d 'ground_shell_hit_3' 4096x4096 DXT5
 [SEST Pictures] texture2d 'ground_shell_hit_4' 4096x4096 DXT5
+[SEST Pictures] texture2d 'fx_explosion_10' 4096x4096 DXT5
 [SEST Pictures] texture2d 'fx_fireball_2' 4096x2048 DXT5
+[SEST Pictures] texture2d 'fx_water_splash_color' 2048x2048 DXT5
 [SEST Pictures] texture2d 'Water_Spike_1' 2048x2048 DXT5
+[SEST Pictures] texture2d 'HD_Splash1_9x9' 2048x2048 DXT5
+[SEST Pictures] texture2d 'ParticlesAtlas_AF' 2048x2048 DXT5
+[SEST Pictures] texture2d 'fx_fireball' 2048x2048 DXT5
 [SEST Pictures] texture2d 'fx_explosion_misc' 2048x2048 DXT5
+[SEST Pictures] texture2d 'tfx_aerial3_256px' 2048x2048 DXT5
+[SEST Pictures] texture2d 'Smoke_8x8_01w' 2048x2048 DXT5
+[SEST Pictures] texture2d 'fx_water_circle_smoke_masked' 2048x2048 DXT5
 [SEST Pictures] texture2d 'Smoke_8x8_01c' 2048x2048 DXT5
 [SEST Pictures] texture2d 'CircleMaskSoft' 2048x2048 DXT5
-[SEST Pictures] texture2d 'Smoke_8x8_01w' 2048x2048 DXT5
-[SEST Pictures] texture2d 'tfx_aerial3_256px' 2048x2048 DXT5
-[SEST Pictures] texture2d 'ParticlesAtlas_AF' 2048x2048 DXT5
-[SEST Pictures] texture2d 'fx_water_circle_smoke_masked' 2048x2048 DXT5
-[SEST Pictures] texture2d 'fx_water_splash_color' 2048x2048 DXT5
-[SEST Pictures] texture2d 'HD_Splash1_9x9' 2048x2048 DXT5
-[SEST Pictures] texture2d 'fx_fireball' 2048x2048 DXT5
-[SEST Pictures] rendertexture 'TempBuffer 4 2560x1440' 2560x1440 ARGBHalf
 [SEST Pictures] rendertexture 'TempBuffer 3 2560x1440' 2560x1440 ARGBHalf
-[SEST Pictures] texture2d 'timeline_flamepuff1' 2048x1024 DXT5
-[SEST Pictures] texture2d 'timeline_underwater_medium2' 2048x1024 DXT5
+[SEST Pictures] rendertexture 'TempBuffer 4 2560x1440' 2560x1440 ARGBHalf
 [SEST Pictures] texture2d 'effects/weapons/textures/fx_boostersmoke2_white' 1024x2048 DXT5
-[SEST Pictures] texture2d 'C:\Program Files (x86)\Steam\steamapps\common\Sea Power\Sea Power_Data\StreamingAssets\SEST_Integration\ui/backgrounds\loading_screen_28.png' 1920x1080 RGB24
-[SEST Pictures] texture2d 'usn_f-4j_lm' 1024x1024 DXT1
-[SEST Pictures] texture2d 'usn_a-6e_tx' 1024x1024 DXT5
-[SEST Pictures] texture2d 'usn_a-7e_nm' 1024x1024 DXT5
+[SEST Pictures] texture2d 'timeline_underwater_medium2' 2048x1024 DXT5
+[SEST Pictures] texture2d 'timeline_flamepuff1' 2048x1024 DXT5
+[SEST Pictures] texture2d 'C:\Program Files (x86)\Steam\steamapps\workshop\content\1286220\3812461539\ui/backgrounds\loading_screen_60.png' 1920x1080 RGB24
+[SEST Pictures] texture2d 'C:\Program Files (x86)\Steam\steamapps\common\Sea Power\Sea Power_Data\StreamingAssets\original\ui/backgrounds\loading_screen_59.png' 1920x1080 ARGB32
 [SEST Pictures] texture2d 'usn_a-7e_spec' 1024x1024 DXT5
+[SEST Pictures] texture2d 'usn_a-7e_nm' 1024x1024 DXT5
+[SEST Pictures] texture2d 'Smoke_Combined_8x8' 1024x1024 DXT5
+[SEST Pictures] texture2d 'usn_a-6e_nm' 1024x1024 DXT5
+[SEST Pictures] texture2d 'usn_a-6e_spec' 1024x1024 DXT5
 [SEST Pictures] texture2d 'usn_a-7e_tx' 1024x1024 DXT5
+[SEST Pictures] texture2d 'Cloud03_8x8' 1024x1024 DXT5
+[SEST Pictures] texture2d 'usn_a-6e_tx' 1024x1024 DXT5
 [SEST Pictures] texture2d 'usn_f-14a_nm' 1024x1024 DXT5
 [SEST Pictures] texture2d 'usn_f-14a_spec' 1024x1024 DXT5
 [SEST Pictures] texture2d 'usn_f-14a_tps' 1024x1024 DXT5
-[SEST Pictures] texture2d 'Smoke_Combined_8x8' 1024x1024 DXT5
-[SEST Pictures] texture2d 'usn_a-6e_nm' 1024x1024 DXT5
-[SEST Pictures] texture2d 'usn_f-4j_nm' 1024x1024 DXT5
-[SEST Pictures] texture2d 'usn_f-4j_spec' 1024x1024 DXT5
-[SEST Pictures] texture2d 'usn_f-4j_tx' 1024x1024 DXT5
-[SEST Pictures] texture2d 'usn_ra-5c_tx' 1024x1024 DXT5
-[SEST Pictures] texture2d 'usn_ra-5c_nm' 1024x1024 DXT5
+[SEST Pictures] texture2d 'wp_mig-23a_spec' 1024x1024 DXT5
+[SEST Pictures] texture2d 'wp_mig-23a_nm' 1024x1024 DXT5
+[SEST Pictures] texture2d 'usn_s-3a_tx' 1024x1024 DXT5
+[SEST Pictures] texture2d 'usn_s-3a_spec' 1024x1024 DXT5
 [SEST Pictures] texture2d 'usn_ra-5c_spec' 1024x1024 DXT5
 [SEST Pictures] texture2d 'usn_s-3a_nm' 1024x1024 DXT5
-[SEST Pictures] texture2d 'usn_s-3a_spec' 1024x1024 DXT5
-[SEST Pictures] texture2d 'usn_s-3a_tx' 1024x1024 DXT5
-[SEST Pictures] texture2d 'wp_mig-23a_nm' 1024x1024 DXT5
-[SEST Pictures] texture2d 'wp_mig-23a_spec' 1024x1024 DXT5
+[SEST Pictures] texture2d 'usn_ra-5c_tx' 1024x1024 DXT5
+[SEST Pictures] texture2d 'usn_f-4j_tx' 1024x1024 DXT5
+[SEST Pictures] texture2d 'usn_f-4j_spec' 1024x1024 DXT5
+[SEST Pictures] texture2d 'usn_f-4j_nm' 1024x1024 DXT5
+[SEST Pictures] texture2d 'usn_f-4j_lm' 1024x1024 DXT1
+[SEST Pictures] texture2d 'usn_ra-5c_nm' 1024x1024 DXT5
 [SEST Pictures] texture2d 'wp_mig-23a_tx' 1024x1024 DXT5
-[SEST Pictures] texture2d 'usn_a-6e_spec' 1024x1024 DXT5
-[SEST Pictures] texture2d 'Cloud03_8x8' 1024x1024 DXT5
-[SEST Pictures] sprite '2560px-MicroProse' 2048x437 of texture '2560px-MicroProse'
 [SEST Pictures] texture2d '2560px-MicroProse' 2048x437 RGBA32
+[SEST Pictures] sprite '2560px-MicroProse' 2048x437 of texture '2560px-MicroProse'
 [SEST Pictures] texture2d 'triassic_white_900px' 900x900 DXT5
 [SEST Pictures] sprite 'triassic_white_900px' 900x900 of texture 'triassic_white_900px'
 [SEST Pictures] texture2d 'triassic_logo' 1024x512 DXT5
@@ -425,7 +409,7 @@ LoadMaterialFromFile(effects/weapons/emitters/solidrocket_upperstage/residual_al
 [SEST Pictures] texture2d 'wp_ss-n-14_tx' 256x256 DXT5
 [SEST Pictures] texture2d 'wp_ss-n-3_spec' 256x256 DXT5
 [SEST Pictures] texture2d 'pla_yj-1_tx' 256x256 DXT5
-[SEST Pictures] texture2d 'MetalDebris1' 256x256 DXT5
+[SEST Pictures] texture2d 'MetalDebris2' 256x256 DXT5
 [SEST Pictures] texture2d 'pla_yj-1_nm' 256x256 DXT5
 [SEST Pictures] texture2d 'effects/particle textures/illumination_flare' 256x256 DXT5
 [SEST Pictures] texture2d 'spark_flare' 256x256 DXT5
@@ -448,20 +432,20 @@ LoadMaterialFromFile(effects/weapons/emitters/solidrocket_upperstage/residual_al
 [SEST Pictures] texture2d 'MetalDebris3' 256x256 DXT5
 [SEST Pictures] texture2d 'contrail' 256x256 RGB24
 [SEST Pictures] texture2d 'splash_CETO' 256x256 DXT5
-[SEST Pictures] texture2d 'MetalDebris2' 256x256 DXT5
+[SEST Pictures] texture2d 'MetalDebris1' 256x256 DXT5
+[SEST Pictures] noesis view 'ConsoleCamera' in scene 'console': content ConsoleView '' DataContext=ConsoleView
 [SEST Pictures] noesis view 'Menu Camera' in scene 'main-menu': content MenuSystemView 'MenuSystem' DataContext=MenuSystemViewModel
 [SEST Pictures] noesis Image '' in MenuSystemView: Source=TextureSource 'Noesis.TextureSource' 1920x1080 Source bound to 'BackgroundImage' visible=True opacity=1 DataContext=MenuSystemViewModel
 [SEST Pictures] noesis Image '' in MainMenuView: Source=null visible=True opacity=1 DataContext=MainMenuViewModel
 [SEST Pictures] noesis Image '' in MainMenuView: Source=BitmapImage 'Assets/Scripts/UI/Main Menu/Images/Sea_Power_Logo.png' visible=True opacity=1 DataContext=MainMenuViewModel
 [SEST Pictures] noesis Image '' in MainMenuView: Source=BitmapImage 'Assets/Scripts/UI/Main Menu/Images/triassic_logo.png' visible=True opacity=1 DataContext=MainMenuViewModel
-[SEST Pictures] noesis view 'ConsoleCamera' in scene 'console': content ConsoleView '' DataContext=ConsoleView
 [SEST Pictures] noesis view 'LoadCamera' in scene 'background': content LoadScreenView '' DataContext=LoadScreen
 [SEST Pictures] noesis Grid '' in LoadScreenView: Background=ImageBrush ImageSource=null ImageSource bound to 'BackgroundImage' visible=True opacity=1 DataContext=LoadScreen
-[SEST Pictures] pass 8 (scene 'main-menu' +2s, 265 s after start) done: 125 texture(s) of 256 px or more, 0 UI image(s), 3 Noesis view(s), 229 element(s) walked, 5 picture element(s); Mod Manager not seen
-Unexpected timestamp values detected. This can occur in H.264 videos not encoded with the baseline profile. Timestamps will be skewed to correct the playback for C:\Program Files (x86)\Steam\steamapps\common\Sea Power\Sea Power_Data\StreamingAssets\SEST_Integration\plugins\sest_menu.mp4
-Color primaries 0 is unknown or unsupported by WindowsMediaFoundation. Falling back to default may result in color shift. C:\Program Files (x86)\Steam\steamapps\common\Sea Power\Sea Power_Data\StreamingAssets\SEST_Integration\plugins\sest_menu.mp4
+[SEST Pictures] pass 7 (scene 'main-menu' +2s, 128 s after start) done: 126 texture(s) of 256 px or more, 0 UI image(s), 3 Noesis view(s), 229 element(s) walked, 5 picture element(s); Mod Manager not seen
 Unexpected timestamp values detected. This can occur in H.264 videos not encoded with the baseline profile. Timestamps will be skewed to correct the playback for C:\Program Files (x86)\Steam\steamapps\common\Sea Power\Sea Power_Data\sharedassets1.resource
-[SEST Pictures] pass 9 (scene 'main-menu' +20s, 266 s after start):
+Unexpected timestamp values detected. This can occur in H.264 videos not encoded with the baseline profile. Timestamps will be skewed to correct the playback for C:\Program Files (x86)\Steam\steamapps\workshop\content\1286220\3812461539\plugins\sest_menu.mp4
+Color primaries 0 is unknown or unsupported by WindowsMediaFoundation. Falling back to default may result in color shift. C:\Program Files (x86)\Steam\steamapps\workshop\content\1286220\3812461539\plugins\sest_menu.mp4
+[SEST Pictures] pass 8 (scene 'main-menu' +20s, 128 s after start):
 [SEST Pictures] texture2d 'fx_explosion_aerial' 4096x4096 DXT5
 [SEST Pictures] texture2d 'fx_explosion_4' 4096x4096 DXT5
 [SEST Pictures] texture2d 'fx_explosion_8' 4096x4096 DXT5
@@ -497,7 +481,7 @@ Unexpected timestamp values detected. This can occur in H.264 videos not encoded
 [SEST Pictures] texture2d 'timeline_underwater_medium2' 2048x1024 DXT5
 [SEST Pictures] texture2d 'timeline_flamepuff1' 2048x1024 DXT5
 [SEST Pictures] texture2d 'effects/weapons/textures/fx_boostersmoke2_white' 1024x2048 DXT5
-[SEST Pictures] texture2d 'C:\Program Files (x86)\Steam\steamapps\common\Sea Power\Sea Power_Data\StreamingAssets\SEST_Integration\ui/backgrounds\loading_screen_28.png' 1920x1080 RGB24
+[SEST Pictures] texture2d 'C:\Program Files (x86)\Steam\steamapps\workshop\content\1286220\3812461539\ui/backgrounds\loading_screen_60.png' 1920x1080 RGB24
 [SEST Pictures] texture2d 'usn_a-7e_tx' 1024x1024 DXT5
 [SEST Pictures] texture2d 'usn_a-7e_spec' 1024x1024 DXT5
 [SEST Pictures] texture2d 'usn_a-7e_nm' 1024x1024 DXT5
@@ -589,16 +573,16 @@ Unexpected timestamp values detected. This can occur in H.264 videos not encoded
 [SEST Pictures] texture2d 'pla_yj-1_nm' 256x256 DXT5
 [SEST Pictures] texture2d 'nuke_cloud_loop' 256x256 DXT5
 [SEST Pictures] texture2d 'MetalDebris2' 256x256 DXT5
+[SEST Pictures] noesis view 'ConsoleCamera' in scene 'console': content ConsoleView '' DataContext=ConsoleView
 [SEST Pictures] noesis view 'Menu Camera' in scene 'main-menu': content MenuSystemView 'MenuSystem' DataContext=MenuSystemViewModel
 [SEST Pictures] noesis Image '' in MenuSystemView: Source=TextureSource 'Noesis.TextureSource' 1920x1080 Source bound to 'BackgroundImage' visible=True opacity=1 DataContext=MenuSystemViewModel
 [SEST Pictures] noesis Image '' in MainMenuView: Source=TextureSource 'Noesis.TextureSource' 1280x720 visible=True opacity=1 DataContext=MainMenuViewModel
 [SEST Pictures] noesis Image '' in MainMenuView: Source=BitmapImage 'Assets/Scripts/UI/Main Menu/Images/Sea_Power_Logo.png' visible=True opacity=1 DataContext=MainMenuViewModel
 [SEST Pictures] noesis Image '' in MainMenuView: Source=BitmapImage 'Assets/Scripts/UI/Main Menu/Images/triassic_logo.png' visible=True opacity=1 DataContext=MainMenuViewModel
-[SEST Pictures] noesis view 'ConsoleCamera' in scene 'console': content ConsoleView '' DataContext=ConsoleView
 [SEST Pictures] noesis view 'LoadCamera' in scene 'background': content LoadScreenView '' DataContext=LoadScreen
 [SEST Pictures] noesis Grid '' in LoadScreenView: Background=ImageBrush ImageSource=null ImageSource bound to 'BackgroundImage' visible=True opacity=1 DataContext=LoadScreen
-[SEST Pictures] pass 9 (scene 'main-menu' +20s, 266 s after start) done: 127 texture(s) of 256 px or more, 0 UI image(s), 3 Noesis view(s), 229 element(s) walked, 5 picture element(s); Mod Manager not seen
-[SEST Pictures] pass 10 (periodic, 266 s after start):
+[SEST Pictures] pass 8 (scene 'main-menu' +20s, 128 s after start) done: 127 texture(s) of 256 px or more, 0 UI image(s), 3 Noesis view(s), 229 element(s) walked, 5 picture element(s); Mod Manager not seen
+[SEST Pictures] pass 9 (periodic, 129 s after start):
 [SEST Pictures] texture2d 'fx_explosion_aerial' 4096x4096 DXT5
 [SEST Pictures] texture2d 'fx_explosion_4' 4096x4096 DXT5
 [SEST Pictures] texture2d 'fx_explosion_8' 4096x4096 DXT5
@@ -634,7 +618,7 @@ Unexpected timestamp values detected. This can occur in H.264 videos not encoded
 [SEST Pictures] texture2d 'timeline_underwater_medium2' 2048x1024 DXT5
 [SEST Pictures] texture2d 'timeline_flamepuff1' 2048x1024 DXT5
 [SEST Pictures] texture2d 'effects/weapons/textures/fx_boostersmoke2_white' 1024x2048 DXT5
-[SEST Pictures] texture2d 'C:\Program Files (x86)\Steam\steamapps\common\Sea Power\Sea Power_Data\StreamingAssets\SEST_Integration\ui/backgrounds\loading_screen_28.png' 1920x1080 RGB24
+[SEST Pictures] texture2d 'C:\Program Files (x86)\Steam\steamapps\workshop\content\1286220\3812461539\ui/backgrounds\loading_screen_60.png' 1920x1080 RGB24
 [SEST Pictures] texture2d 'usn_a-7e_tx' 1024x1024 DXT5
 [SEST Pictures] texture2d 'usn_a-7e_spec' 1024x1024 DXT5
 [SEST Pictures] texture2d 'usn_a-7e_nm' 1024x1024 DXT5
@@ -726,425 +710,15 @@ Unexpected timestamp values detected. This can occur in H.264 videos not encoded
 [SEST Pictures] texture2d 'pla_yj-1_nm' 256x256 DXT5
 [SEST Pictures] texture2d 'nuke_cloud_loop' 256x256 DXT5
 [SEST Pictures] texture2d 'MetalDebris2' 256x256 DXT5
+[SEST Pictures] noesis view 'ConsoleCamera' in scene 'console': content ConsoleView '' DataContext=ConsoleView
 [SEST Pictures] noesis view 'Menu Camera' in scene 'main-menu': content MenuSystemView 'MenuSystem' DataContext=MenuSystemViewModel
 [SEST Pictures] noesis Image '' in MenuSystemView: Source=TextureSource 'Noesis.TextureSource' 1920x1080 Source bound to 'BackgroundImage' visible=True opacity=1 DataContext=MenuSystemViewModel
 [SEST Pictures] noesis Image '' in MainMenuView: Source=TextureSource 'Noesis.TextureSource' 1280x720 visible=True opacity=1 DataContext=MainMenuViewModel
 [SEST Pictures] noesis Image '' in MainMenuView: Source=BitmapImage 'Assets/Scripts/UI/Main Menu/Images/Sea_Power_Logo.png' visible=True opacity=1 DataContext=MainMenuViewModel
 [SEST Pictures] noesis Image '' in MainMenuView: Source=BitmapImage 'Assets/Scripts/UI/Main Menu/Images/triassic_logo.png' visible=True opacity=1 DataContext=MainMenuViewModel
-[SEST Pictures] noesis view 'ConsoleCamera' in scene 'console': content ConsoleView '' DataContext=ConsoleView
 [SEST Pictures] noesis view 'LoadCamera' in scene 'background': content LoadScreenView '' DataContext=LoadScreen
 [SEST Pictures] noesis Grid '' in LoadScreenView: Background=ImageBrush ImageSource=null ImageSource bound to 'BackgroundImage' visible=True opacity=1 DataContext=LoadScreen
-[SEST Pictures] pass 10 (periodic, 266 s after start) done: 127 texture(s) of 256 px or more, 0 UI image(s), 3 Noesis view(s), 229 element(s) walked, 5 picture element(s); Mod Manager not seen
-[SEST Pictures] pass 11 (periodic, 387 s after start):
-[SEST Pictures] texture2d 'fx_explosion_aerial' 4096x4096 DXT5
-[SEST Pictures] texture2d 'fx_explosion_4' 4096x4096 DXT5
-[SEST Pictures] texture2d 'fx_explosion_8' 4096x4096 DXT5
-[SEST Pictures] texture2d 'fx_firesmoke_6' 4096x4096 DXT5
-[SEST Pictures] texture2d 'fx_firesmoke_8' 4096x4096 DXT5
-[SEST Pictures] texture2d 'fx_firesmoke_9' 4096x4096 DXT5
-[SEST Pictures] texture2d 'fx_helicopter_fire' 4096x4096 DXT5
-[SEST Pictures] texture2d 'fx_hit_large_1' 4096x4096 DXT5
-[SEST Pictures] texture2d 'fx_hit_large_2' 4096x4096 DXT5
-[SEST Pictures] texture2d 'fx_underwater_1' 4096x4096 DXT5
-[SEST Pictures] texture2d 'fx_explosion_3' 4096x4096 DXT5
-[SEST Pictures] texture2d 'fx_underwater_9' 4096x4096 DXT5
-[SEST Pictures] texture2d 'fx_underwater_5' 4096x4096 DXT5
-[SEST Pictures] texture2d 'ground_shell_hit_1' 4096x4096 DXT5
-[SEST Pictures] texture2d 'ground_shell_hit_2' 4096x4096 DXT5
-[SEST Pictures] texture2d 'ground_shell_hit_3' 4096x4096 DXT5
-[SEST Pictures] texture2d 'ground_shell_hit_4' 4096x4096 DXT5
-[SEST Pictures] texture2d 'fx_explosion_10' 4096x4096 DXT5
-[SEST Pictures] texture2d 'fx_fireball_2' 4096x2048 DXT5
-[SEST Pictures] texture2d 'fx_water_splash_color' 2048x2048 DXT5
-[SEST Pictures] texture2d 'Water_Spike_1' 2048x2048 DXT5
-[SEST Pictures] texture2d 'HD_Splash1_9x9' 2048x2048 DXT5
-[SEST Pictures] texture2d 'tfx_aerial3_256px' 2048x2048 DXT5
-[SEST Pictures] texture2d 'fx_fireball' 2048x2048 DXT5
-[SEST Pictures] texture2d 'fx_explosion_misc' 2048x2048 DXT5
-[SEST Pictures] texture2d 'ParticlesAtlas_AF' 2048x2048 DXT5
-[SEST Pictures] texture2d 'Smoke_8x8_01w' 2048x2048 DXT5
-[SEST Pictures] texture2d 'fx_water_circle_smoke_masked' 2048x2048 DXT5
-[SEST Pictures] texture2d 'Smoke_8x8_01c' 2048x2048 DXT5
-[SEST Pictures] texture2d 'CircleMaskSoft' 2048x2048 DXT5
-[SEST Pictures] rendertexture 'TempBuffer 3 2560x1440' 2560x1440 ARGBHalf
-[SEST Pictures] rendertexture 'TempBuffer 4 2560x1440' 2560x1440 ARGBHalf
-[SEST Pictures] texture2d 'timeline_underwater_medium2' 2048x1024 DXT5
-[SEST Pictures] texture2d 'timeline_flamepuff1' 2048x1024 DXT5
-[SEST Pictures] texture2d 'effects/weapons/textures/fx_boostersmoke2_white' 1024x2048 DXT5
-[SEST Pictures] texture2d 'C:\Program Files (x86)\Steam\steamapps\common\Sea Power\Sea Power_Data\StreamingAssets\SEST_Integration\ui/backgrounds\loading_screen_28.png' 1920x1080 RGB24
-[SEST Pictures] texture2d 'usn_a-7e_tx' 1024x1024 DXT5
-[SEST Pictures] texture2d 'usn_a-7e_spec' 1024x1024 DXT5
-[SEST Pictures] texture2d 'usn_a-7e_nm' 1024x1024 DXT5
-[SEST Pictures] texture2d 'usn_a-6e_spec' 1024x1024 DXT5
-[SEST Pictures] texture2d 'usn_a-6e_tx' 1024x1024 DXT5
-[SEST Pictures] texture2d 'usn_f-14a_nm' 1024x1024 DXT5
-[SEST Pictures] texture2d 'usn_a-6e_nm' 1024x1024 DXT5
-[SEST Pictures] texture2d 'Cloud03_8x8' 1024x1024 DXT5
-[SEST Pictures] texture2d 'Smoke_Combined_8x8' 1024x1024 DXT5
-[SEST Pictures] texture2d 'wp_mig-23a_tx' 1024x1024 DXT5
-[SEST Pictures] texture2d 'usn_f-14a_spec' 1024x1024 DXT5
-[SEST Pictures] texture2d 'usn_f-4j_lm' 1024x1024 DXT1
-[SEST Pictures] texture2d 'wp_mig-23a_spec' 1024x1024 DXT5
-[SEST Pictures] texture2d 'wp_mig-23a_nm' 1024x1024 DXT5
-[SEST Pictures] texture2d 'usn_s-3a_tx' 1024x1024 DXT5
-[SEST Pictures] texture2d 'usn_s-3a_spec' 1024x1024 DXT5
-[SEST Pictures] texture2d 'usn_f-14a_tps' 1024x1024 DXT5
-[SEST Pictures] texture2d 'usn_ra-5c_spec' 1024x1024 DXT5
-[SEST Pictures] texture2d 'usn_s-3a_nm' 1024x1024 DXT5
-[SEST Pictures] texture2d 'usn_ra-5c_tx' 1024x1024 DXT5
-[SEST Pictures] texture2d 'usn_f-4j_tx' 1024x1024 DXT5
-[SEST Pictures] texture2d 'usn_f-4j_spec' 1024x1024 DXT5
-[SEST Pictures] texture2d 'usn_f-4j_nm' 1024x1024 DXT5
-[SEST Pictures] texture2d 'usn_ra-5c_nm' 1024x1024 DXT5
-[SEST Pictures] rendertexture 'TempBuffer 5 1280x720' 1280x720 ARGB32
-[SEST Pictures] texture2d 'WindowsVideoMedia_DecodeTexture' 1280x720 BGRA32
-[SEST Pictures] sprite '2560px-MicroProse' 2048x437 of texture '2560px-MicroProse'
-[SEST Pictures] texture2d '2560px-MicroProse' 2048x437 RGBA32
-[SEST Pictures] texture2d 'triassic_white_900px' 900x900 DXT5
-[SEST Pictures] sprite 'triassic_white_900px' 900x900 of texture 'triassic_white_900px'
-[SEST Pictures] texture2d 'triassic_logo' 1024x512 DXT5
-[SEST Pictures] texture2d 'fx_fire_plume' 512x512 DXT5
-[SEST Pictures] texture2d 'hull_damage' 512x512 DXT5
-[SEST Pictures] texture2d 'usn_parts_nm' 512x512 DXT5
-[SEST Pictures] texture2d 'usn_parts_spec' 512x512 DXT5
-[SEST Pictures] texture2d 'usn_parts_tx' 512x512 DXT5
-[SEST Pictures] texture2d 'fx_missile_plume' 512x512 DXT5
-[SEST Pictures] texture2d 'damage_0' 512x512 DXT5
-[SEST Pictures] texture2d 'pla_hy-3_nm' 512x512 DXT5
-[SEST Pictures] texture2d 'pla_hy-3_spec' 512x512 DXT5
-[SEST Pictures] texture2d 'Spark_01' 512x512 DXT5
-[SEST Pictures] texture2d 'DuDvMap_tweaked2' 512x512 DXT1
-[SEST Pictures] texture2d 'pla_hy-3_tx' 512x512 DXT5
-[SEST Pictures] texture2d 'damage_0_nm' 512x512 DXT5
-[SEST Pictures] texture2d 'foam128' 512x512 DXT5
-[SEST Pictures] texture2d 'MuzzleflashBig' 512x512 DXT1
-[SEST Pictures] texture2d 'Sea_Power_Logo' 876x261 RGBA32
-[SEST Pictures] texture2d 'HullDamage torn plating' 256x512 RGBA32
-[SEST Pictures] texture2d 'wp_ss-n-12_nm' 256x256 DXT5
-[SEST Pictures] texture2d 'wp_s-75_tx' 256x256 DXT5
-[SEST Pictures] texture2d 'wp_ss-n-12_spec' 256x256 DXT5
-[SEST Pictures] texture2d 'wp_ss-n-14_spec' 256x256 DXT5
-[SEST Pictures] texture2d 'wp_ss-n-14_nm' 256x256 DXT5
-[SEST Pictures] texture2d 'wp_s-75_spec' 256x256 DXT5
-[SEST Pictures] texture2d 'wp_ss-n-14_tx' 256x256 DXT5
-[SEST Pictures] texture2d 'wp_ss-n-19_nm' 256x256 DXT5
-[SEST Pictures] texture2d 'wp_ss-n-19_spec' 256x256 DXT5
-[SEST Pictures] texture2d 'wp_ss-n-19_tx' 256x256 DXT5
-[SEST Pictures] texture2d 'wp_ss-n-3_nm' 256x256 DXT5
-[SEST Pictures] texture2d 'wp_ss-n-3_spec' 256x256 DXT5
-[SEST Pictures] texture2d 'wp_ss-n-3_tx' 256x256 DXT5
-[SEST Pictures] texture2d 'contrail' 256x256 RGB24
-[SEST Pictures] texture2d 'Circle10' 256x256 RGBA32
-[SEST Pictures] texture2d 'Font Texture' 256x256 Alpha8
-[SEST Pictures] texture2d 'HullDamage opaque hull_damage steel' 256x256 RGBA32
-[SEST Pictures] texture2d 'wp_ss-n-12_tx' 256x256 DXT5
-[SEST Pictures] texture2d 'wp_s-75_nm' 256x256 DXT5
-[SEST Pictures] texture2d 'MetalDebris1' 256x256 DXT5
-[SEST Pictures] texture2d 'pla_yj-1_spec' 256x256 DXT5
-[SEST Pictures] texture2d 'spark_flare' 256x256 DXT5
-[SEST Pictures] texture2d 'WaterCircle1' 256x256 DXT5
-[SEST Pictures] texture2d 'WaterCircle1_Underwater' 256x256 DXT5
-[SEST Pictures] texture2d 'WaterCircle2_Underwater' 256x256 DXT5
-[SEST Pictures] texture2d 'WaterSpikeMist2' 256x256 DXT5
-[SEST Pictures] texture2d 'effects/particle textures/illumination_flare' 256x256 DXT5
-[SEST Pictures] texture2d 'underwater_explosion_light_rim' 256x256 DXT5
-[SEST Pictures] texture2d 'Particle_Trail' 256x256 DXT5
-[SEST Pictures] texture2d 'ImpactWaterCloud' 256x256 DXT5
-[SEST Pictures] texture2d 'pla_yj-1_tx' 256x256 DXT5
-[SEST Pictures] texture2d 'splash_CETO' 256x256 DXT5
-[SEST Pictures] texture2d 'WaterCircle_CETO' 256x256 DXT5
-[SEST Pictures] texture2d 'nuke_cloud_flame_loop' 256x256 DXT5
-[SEST Pictures] texture2d 'effects/weapons/textures/heathaze_rings' 256x256 DXT5
-[SEST Pictures] texture2d 'square_parachute_nm' 256x256 DXT5
-[SEST Pictures] texture2d 'usa_mim-14_nm' 256x256 DXT5
-[SEST Pictures] texture2d 'usa_mim-14_spec' 256x256 DXT5
-[SEST Pictures] texture2d 'usa_mim-14_tx' 256x256 DXT5
-[SEST Pictures] texture2d 'MetalDebris3' 256x256 DXT5
-[SEST Pictures] texture2d 'pla_yj-1_nm' 256x256 DXT5
-[SEST Pictures] texture2d 'nuke_cloud_loop' 256x256 DXT5
-[SEST Pictures] texture2d 'MetalDebris2' 256x256 DXT5
-[SEST Pictures] noesis view 'Menu Camera' in scene 'main-menu': content MenuSystemView 'MenuSystem' DataContext=MenuSystemViewModel
-[SEST Pictures] noesis Image '' in MenuSystemView: Source=TextureSource 'Noesis.TextureSource' 1920x1080 Source bound to 'BackgroundImage' visible=True opacity=1 DataContext=MenuSystemViewModel
-[SEST Pictures] noesis Image '' in MainMenuView: Source=TextureSource 'Noesis.TextureSource' 1280x720 visible=True opacity=1 DataContext=MainMenuViewModel
-[SEST Pictures] noesis Image '' in MainMenuView: Source=BitmapImage 'Assets/Scripts/UI/Main Menu/Images/Sea_Power_Logo.png' visible=True opacity=1 DataContext=MainMenuViewModel
-[SEST Pictures] noesis Image '' in MainMenuView: Source=BitmapImage 'Assets/Scripts/UI/Main Menu/Images/triassic_logo.png' visible=True opacity=1 DataContext=MainMenuViewModel
-[SEST Pictures] noesis view 'ConsoleCamera' in scene 'console': content ConsoleView '' DataContext=ConsoleView
-[SEST Pictures] noesis view 'LoadCamera' in scene 'background': content LoadScreenView '' DataContext=LoadScreen
-[SEST Pictures] noesis Grid '' in LoadScreenView: Background=ImageBrush ImageSource=null ImageSource bound to 'BackgroundImage' visible=True opacity=1 DataContext=LoadScreen
-[SEST Pictures] pass 11 (periodic, 387 s after start) done: 127 texture(s) of 256 px or more, 0 UI image(s), 3 Noesis view(s), 229 element(s) walked, 5 picture element(s); Mod Manager not seen
-[SEST Pictures] pass 12 (periodic, 507 s after start):
-[SEST Pictures] texture2d 'fx_explosion_aerial' 4096x4096 DXT5
-[SEST Pictures] texture2d 'fx_explosion_4' 4096x4096 DXT5
-[SEST Pictures] texture2d 'fx_explosion_8' 4096x4096 DXT5
-[SEST Pictures] texture2d 'fx_firesmoke_6' 4096x4096 DXT5
-[SEST Pictures] texture2d 'fx_firesmoke_8' 4096x4096 DXT5
-[SEST Pictures] texture2d 'fx_firesmoke_9' 4096x4096 DXT5
-[SEST Pictures] texture2d 'fx_helicopter_fire' 4096x4096 DXT5
-[SEST Pictures] texture2d 'fx_hit_large_1' 4096x4096 DXT5
-[SEST Pictures] texture2d 'fx_hit_large_2' 4096x4096 DXT5
-[SEST Pictures] texture2d 'fx_underwater_1' 4096x4096 DXT5
-[SEST Pictures] texture2d 'fx_explosion_3' 4096x4096 DXT5
-[SEST Pictures] texture2d 'fx_underwater_9' 4096x4096 DXT5
-[SEST Pictures] texture2d 'fx_underwater_5' 4096x4096 DXT5
-[SEST Pictures] texture2d 'ground_shell_hit_1' 4096x4096 DXT5
-[SEST Pictures] texture2d 'ground_shell_hit_2' 4096x4096 DXT5
-[SEST Pictures] texture2d 'ground_shell_hit_3' 4096x4096 DXT5
-[SEST Pictures] texture2d 'ground_shell_hit_4' 4096x4096 DXT5
-[SEST Pictures] texture2d 'fx_explosion_10' 4096x4096 DXT5
-[SEST Pictures] texture2d 'fx_fireball_2' 4096x2048 DXT5
-[SEST Pictures] texture2d 'fx_water_splash_color' 2048x2048 DXT5
-[SEST Pictures] texture2d 'Water_Spike_1' 2048x2048 DXT5
-[SEST Pictures] texture2d 'HD_Splash1_9x9' 2048x2048 DXT5
-[SEST Pictures] texture2d 'tfx_aerial3_256px' 2048x2048 DXT5
-[SEST Pictures] texture2d 'fx_fireball' 2048x2048 DXT5
-[SEST Pictures] texture2d 'fx_explosion_misc' 2048x2048 DXT5
-[SEST Pictures] texture2d 'ParticlesAtlas_AF' 2048x2048 DXT5
-[SEST Pictures] texture2d 'Smoke_8x8_01w' 2048x2048 DXT5
-[SEST Pictures] texture2d 'fx_water_circle_smoke_masked' 2048x2048 DXT5
-[SEST Pictures] texture2d 'Smoke_8x8_01c' 2048x2048 DXT5
-[SEST Pictures] texture2d 'CircleMaskSoft' 2048x2048 DXT5
-[SEST Pictures] rendertexture 'TempBuffer 3 2560x1440' 2560x1440 ARGBHalf
-[SEST Pictures] rendertexture 'TempBuffer 4 2560x1440' 2560x1440 ARGBHalf
-[SEST Pictures] texture2d 'timeline_underwater_medium2' 2048x1024 DXT5
-[SEST Pictures] texture2d 'timeline_flamepuff1' 2048x1024 DXT5
-[SEST Pictures] texture2d 'effects/weapons/textures/fx_boostersmoke2_white' 1024x2048 DXT5
-[SEST Pictures] texture2d 'C:\Program Files (x86)\Steam\steamapps\common\Sea Power\Sea Power_Data\StreamingAssets\SEST_Integration\ui/backgrounds\loading_screen_28.png' 1920x1080 RGB24
-[SEST Pictures] texture2d 'usn_a-7e_tx' 1024x1024 DXT5
-[SEST Pictures] texture2d 'usn_a-7e_spec' 1024x1024 DXT5
-[SEST Pictures] texture2d 'usn_a-7e_nm' 1024x1024 DXT5
-[SEST Pictures] texture2d 'usn_a-6e_spec' 1024x1024 DXT5
-[SEST Pictures] texture2d 'usn_a-6e_tx' 1024x1024 DXT5
-[SEST Pictures] texture2d 'usn_f-14a_nm' 1024x1024 DXT5
-[SEST Pictures] texture2d 'usn_a-6e_nm' 1024x1024 DXT5
-[SEST Pictures] texture2d 'Cloud03_8x8' 1024x1024 DXT5
-[SEST Pictures] texture2d 'Smoke_Combined_8x8' 1024x1024 DXT5
-[SEST Pictures] texture2d 'wp_mig-23a_tx' 1024x1024 DXT5
-[SEST Pictures] texture2d 'usn_f-14a_spec' 1024x1024 DXT5
-[SEST Pictures] texture2d 'usn_f-4j_lm' 1024x1024 DXT1
-[SEST Pictures] texture2d 'wp_mig-23a_spec' 1024x1024 DXT5
-[SEST Pictures] texture2d 'wp_mig-23a_nm' 1024x1024 DXT5
-[SEST Pictures] texture2d 'usn_s-3a_tx' 1024x1024 DXT5
-[SEST Pictures] texture2d 'usn_s-3a_spec' 1024x1024 DXT5
-[SEST Pictures] texture2d 'usn_f-14a_tps' 1024x1024 DXT5
-[SEST Pictures] texture2d 'usn_ra-5c_spec' 1024x1024 DXT5
-[SEST Pictures] texture2d 'usn_s-3a_nm' 1024x1024 DXT5
-[SEST Pictures] texture2d 'usn_ra-5c_tx' 1024x1024 DXT5
-[SEST Pictures] texture2d 'usn_f-4j_tx' 1024x1024 DXT5
-[SEST Pictures] texture2d 'usn_f-4j_spec' 1024x1024 DXT5
-[SEST Pictures] texture2d 'usn_f-4j_nm' 1024x1024 DXT5
-[SEST Pictures] texture2d 'usn_ra-5c_nm' 1024x1024 DXT5
-[SEST Pictures] rendertexture 'TempBuffer 5 1280x720' 1280x720 ARGB32
-[SEST Pictures] texture2d 'WindowsVideoMedia_DecodeTexture' 1280x720 BGRA32
-[SEST Pictures] sprite '2560px-MicroProse' 2048x437 of texture '2560px-MicroProse'
-[SEST Pictures] texture2d '2560px-MicroProse' 2048x437 RGBA32
-[SEST Pictures] texture2d 'triassic_white_900px' 900x900 DXT5
-[SEST Pictures] sprite 'triassic_white_900px' 900x900 of texture 'triassic_white_900px'
-[SEST Pictures] texture2d 'triassic_logo' 1024x512 DXT5
-[SEST Pictures] texture2d 'fx_fire_plume' 512x512 DXT5
-[SEST Pictures] texture2d 'hull_damage' 512x512 DXT5
-[SEST Pictures] texture2d 'usn_parts_nm' 512x512 DXT5
-[SEST Pictures] texture2d 'usn_parts_spec' 512x512 DXT5
-[SEST Pictures] texture2d 'usn_parts_tx' 512x512 DXT5
-[SEST Pictures] texture2d 'fx_missile_plume' 512x512 DXT5
-[SEST Pictures] texture2d 'damage_0' 512x512 DXT5
-[SEST Pictures] texture2d 'pla_hy-3_nm' 512x512 DXT5
-[SEST Pictures] texture2d 'pla_hy-3_spec' 512x512 DXT5
-[SEST Pictures] texture2d 'Spark_01' 512x512 DXT5
-[SEST Pictures] texture2d 'DuDvMap_tweaked2' 512x512 DXT1
-[SEST Pictures] texture2d 'pla_hy-3_tx' 512x512 DXT5
-[SEST Pictures] texture2d 'damage_0_nm' 512x512 DXT5
-[SEST Pictures] texture2d 'foam128' 512x512 DXT5
-[SEST Pictures] texture2d 'MuzzleflashBig' 512x512 DXT1
-[SEST Pictures] texture2d 'Sea_Power_Logo' 876x261 RGBA32
-[SEST Pictures] texture2d 'HullDamage torn plating' 256x512 RGBA32
-[SEST Pictures] texture2d 'wp_ss-n-12_nm' 256x256 DXT5
-[SEST Pictures] texture2d 'wp_s-75_tx' 256x256 DXT5
-[SEST Pictures] texture2d 'wp_ss-n-12_spec' 256x256 DXT5
-[SEST Pictures] texture2d 'wp_ss-n-14_spec' 256x256 DXT5
-[SEST Pictures] texture2d 'wp_ss-n-14_nm' 256x256 DXT5
-[SEST Pictures] texture2d 'wp_s-75_spec' 256x256 DXT5
-[SEST Pictures] texture2d 'wp_ss-n-14_tx' 256x256 DXT5
-[SEST Pictures] texture2d 'wp_ss-n-19_nm' 256x256 DXT5
-[SEST Pictures] texture2d 'wp_ss-n-19_spec' 256x256 DXT5
-[SEST Pictures] texture2d 'wp_ss-n-19_tx' 256x256 DXT5
-[SEST Pictures] texture2d 'wp_ss-n-3_nm' 256x256 DXT5
-[SEST Pictures] texture2d 'wp_ss-n-3_spec' 256x256 DXT5
-[SEST Pictures] texture2d 'wp_ss-n-3_tx' 256x256 DXT5
-[SEST Pictures] texture2d 'contrail' 256x256 RGB24
-[SEST Pictures] texture2d 'Circle10' 256x256 RGBA32
-[SEST Pictures] texture2d 'Font Texture' 256x256 Alpha8
-[SEST Pictures] texture2d 'HullDamage opaque hull_damage steel' 256x256 RGBA32
-[SEST Pictures] texture2d 'wp_ss-n-12_tx' 256x256 DXT5
-[SEST Pictures] texture2d 'wp_s-75_nm' 256x256 DXT5
-[SEST Pictures] texture2d 'MetalDebris1' 256x256 DXT5
-[SEST Pictures] texture2d 'pla_yj-1_spec' 256x256 DXT5
-[SEST Pictures] texture2d 'spark_flare' 256x256 DXT5
-[SEST Pictures] texture2d 'WaterCircle1' 256x256 DXT5
-[SEST Pictures] texture2d 'WaterCircle1_Underwater' 256x256 DXT5
-[SEST Pictures] texture2d 'WaterCircle2_Underwater' 256x256 DXT5
-[SEST Pictures] texture2d 'WaterSpikeMist2' 256x256 DXT5
-[SEST Pictures] texture2d 'effects/particle textures/illumination_flare' 256x256 DXT5
-[SEST Pictures] texture2d 'underwater_explosion_light_rim' 256x256 DXT5
-[SEST Pictures] texture2d 'Particle_Trail' 256x256 DXT5
-[SEST Pictures] texture2d 'ImpactWaterCloud' 256x256 DXT5
-[SEST Pictures] texture2d 'pla_yj-1_tx' 256x256 DXT5
-[SEST Pictures] texture2d 'splash_CETO' 256x256 DXT5
-[SEST Pictures] texture2d 'WaterCircle_CETO' 256x256 DXT5
-[SEST Pictures] texture2d 'nuke_cloud_flame_loop' 256x256 DXT5
-[SEST Pictures] texture2d 'effects/weapons/textures/heathaze_rings' 256x256 DXT5
-[SEST Pictures] texture2d 'square_parachute_nm' 256x256 DXT5
-[SEST Pictures] texture2d 'usa_mim-14_nm' 256x256 DXT5
-[SEST Pictures] texture2d 'usa_mim-14_spec' 256x256 DXT5
-[SEST Pictures] texture2d 'usa_mim-14_tx' 256x256 DXT5
-[SEST Pictures] texture2d 'MetalDebris3' 256x256 DXT5
-[SEST Pictures] texture2d 'pla_yj-1_nm' 256x256 DXT5
-[SEST Pictures] texture2d 'nuke_cloud_loop' 256x256 DXT5
-[SEST Pictures] texture2d 'MetalDebris2' 256x256 DXT5
-[SEST Pictures] noesis view 'Menu Camera' in scene 'main-menu': content MenuSystemView 'MenuSystem' DataContext=MenuSystemViewModel
-[SEST Pictures] noesis Image '' in MenuSystemView: Source=TextureSource 'Noesis.TextureSource' 1920x1080 Source bound to 'BackgroundImage' visible=True opacity=1 DataContext=MenuSystemViewModel
-[SEST Pictures] noesis Image '' in MainMenuView: Source=TextureSource 'Noesis.TextureSource' 1280x720 visible=True opacity=1 DataContext=MainMenuViewModel
-[SEST Pictures] noesis Image '' in MainMenuView: Source=BitmapImage 'Assets/Scripts/UI/Main Menu/Images/Sea_Power_Logo.png' visible=True opacity=1 DataContext=MainMenuViewModel
-[SEST Pictures] noesis Image '' in MainMenuView: Source=BitmapImage 'Assets/Scripts/UI/Main Menu/Images/triassic_logo.png' visible=True opacity=1 DataContext=MainMenuViewModel
-[SEST Pictures] noesis view 'ConsoleCamera' in scene 'console': content ConsoleView '' DataContext=ConsoleView
-[SEST Pictures] noesis view 'LoadCamera' in scene 'background': content LoadScreenView '' DataContext=LoadScreen
-[SEST Pictures] noesis Grid '' in LoadScreenView: Background=ImageBrush ImageSource=null ImageSource bound to 'BackgroundImage' visible=True opacity=1 DataContext=LoadScreen
-[SEST Pictures] pass 12 (periodic, 507 s after start) done: 127 texture(s) of 256 px or more, 0 UI image(s), 3 Noesis view(s), 229 element(s) walked, 5 picture element(s); Mod Manager not seen
-[SEST Backdrops] SEST photo loading_screen_11.png in place of C:\Program Files (x86)\Steam\steamapps\common\Sea Power\Sea Power_Data\StreamingAssets\original\ui/backgrounds\loading_screen_14.png (1920x1080); 2 so far
-[SEST Pictures] pass 13 (Mod Manager on screen: ModMenuView '', 742 s after start):
-[SEST Pictures] texture2d 'fx_explosion_aerial' 4096x4096 DXT5
-[SEST Pictures] texture2d 'fx_explosion_8' 4096x4096 DXT5
-[SEST Pictures] texture2d 'fx_explosion_4' 4096x4096 DXT5
-[SEST Pictures] texture2d 'fx_explosion_3' 4096x4096 DXT5
-[SEST Pictures] texture2d 'fx_explosion_10' 4096x4096 DXT5
-[SEST Pictures] texture2d 'fx_firesmoke_6' 4096x4096 DXT5
-[SEST Pictures] texture2d 'fx_firesmoke_8' 4096x4096 DXT5
-[SEST Pictures] texture2d 'fx_firesmoke_9' 4096x4096 DXT5
-[SEST Pictures] texture2d 'fx_helicopter_fire' 4096x4096 DXT5
-[SEST Pictures] texture2d 'fx_hit_large_1' 4096x4096 DXT5
-[SEST Pictures] texture2d 'fx_hit_large_2' 4096x4096 DXT5
-[SEST Pictures] texture2d 'fx_underwater_1' 4096x4096 DXT5
-[SEST Pictures] texture2d 'fx_underwater_5' 4096x4096 DXT5
-[SEST Pictures] texture2d 'fx_underwater_9' 4096x4096 DXT5
-[SEST Pictures] texture2d 'ground_shell_hit_1' 4096x4096 DXT5
-[SEST Pictures] texture2d 'ground_shell_hit_2' 4096x4096 DXT5
-[SEST Pictures] texture2d 'ground_shell_hit_3' 4096x4096 DXT5
-[SEST Pictures] texture2d 'ground_shell_hit_4' 4096x4096 DXT5
-[SEST Pictures] texture2d 'fx_fireball_2' 4096x2048 DXT5
-[SEST Pictures] texture2d 'Water_Spike_1' 2048x2048 DXT5
-[SEST Pictures] texture2d 'fx_explosion_misc' 2048x2048 DXT5
-[SEST Pictures] texture2d 'Smoke_8x8_01c' 2048x2048 DXT5
-[SEST Pictures] texture2d 'CircleMaskSoft' 2048x2048 DXT5
-[SEST Pictures] texture2d 'Smoke_8x8_01w' 2048x2048 DXT5
-[SEST Pictures] texture2d 'tfx_aerial3_256px' 2048x2048 DXT5
-[SEST Pictures] texture2d 'ParticlesAtlas_AF' 2048x2048 DXT5
-[SEST Pictures] texture2d 'fx_water_circle_smoke_masked' 2048x2048 DXT5
-[SEST Pictures] texture2d 'fx_water_splash_color' 2048x2048 DXT5
-[SEST Pictures] texture2d 'HD_Splash1_9x9' 2048x2048 DXT5
-[SEST Pictures] texture2d 'fx_fireball' 2048x2048 DXT5
-[SEST Pictures] rendertexture 'TempBuffer 4 2560x1440' 2560x1440 ARGBHalf
-[SEST Pictures] rendertexture 'TempBuffer 3 2560x1440' 2560x1440 ARGBHalf
-[SEST Pictures] texture2d 'timeline_flamepuff1' 2048x1024 DXT5
-[SEST Pictures] texture2d 'timeline_underwater_medium2' 2048x1024 DXT5
-[SEST Pictures] texture2d 'effects/weapons/textures/fx_boostersmoke2_white' 1024x2048 DXT5
-[SEST Pictures] texture2d 'C:\Program Files (x86)\Steam\steamapps\common\Sea Power\Sea Power_Data\StreamingAssets\original\ui/backgrounds\loading_screen_14.png' 1920x1080 ARGB32
-[SEST Pictures] texture2d 'usn_f-4j_lm' 1024x1024 DXT1
-[SEST Pictures] texture2d 'usn_a-6e_tx' 1024x1024 DXT5
-[SEST Pictures] texture2d 'usn_a-7e_nm' 1024x1024 DXT5
-[SEST Pictures] texture2d 'usn_a-7e_spec' 1024x1024 DXT5
-[SEST Pictures] texture2d 'usn_a-7e_tx' 1024x1024 DXT5
-[SEST Pictures] texture2d 'usn_f-14a_nm' 1024x1024 DXT5
-[SEST Pictures] texture2d 'usn_f-14a_spec' 1024x1024 DXT5
-[SEST Pictures] texture2d 'usn_f-14a_tps' 1024x1024 DXT5
-[SEST Pictures] texture2d 'Smoke_Combined_8x8' 1024x1024 DXT5
-[SEST Pictures] texture2d 'usn_a-6e_nm' 1024x1024 DXT5
-[SEST Pictures] texture2d 'usn_f-4j_nm' 1024x1024 DXT5
-[SEST Pictures] texture2d 'usn_f-4j_spec' 1024x1024 DXT5
-[SEST Pictures] texture2d 'usn_f-4j_tx' 1024x1024 DXT5
-[SEST Pictures] texture2d 'usn_ra-5c_tx' 1024x1024 DXT5
-[SEST Pictures] texture2d 'usn_ra-5c_nm' 1024x1024 DXT5
-[SEST Pictures] texture2d 'usn_ra-5c_spec' 1024x1024 DXT5
-[SEST Pictures] texture2d 'usn_s-3a_nm' 1024x1024 DXT5
-[SEST Pictures] texture2d 'usn_s-3a_spec' 1024x1024 DXT5
-[SEST Pictures] texture2d 'usn_s-3a_tx' 1024x1024 DXT5
-[SEST Pictures] texture2d 'wp_mig-23a_nm' 1024x1024 DXT5
-[SEST Pictures] texture2d 'wp_mig-23a_spec' 1024x1024 DXT5
-[SEST Pictures] texture2d 'wp_mig-23a_tx' 1024x1024 DXT5
-[SEST Pictures] texture2d 'usn_a-6e_spec' 1024x1024 DXT5
-[SEST Pictures] texture2d 'Cloud03_8x8' 1024x1024 DXT5
-[SEST Pictures] sprite '2560px-MicroProse' 2048x437 of texture '2560px-MicroProse'
-[SEST Pictures] texture2d '2560px-MicroProse' 2048x437 RGBA32
-[SEST Pictures] texture2d 'triassic_white_900px' 900x900 DXT5
-[SEST Pictures] sprite 'triassic_white_900px' 900x900 of texture 'triassic_white_900px'
-[SEST Pictures] texture2d 'triassic_logo' 1024x512 DXT5
-[SEST Pictures] texture2d 'fx_fire_plume' 512x512 DXT5
-[SEST Pictures] texture2d 'pla_hy-3_tx' 512x512 DXT5
-[SEST Pictures] texture2d 'pla_hy-3_spec' 512x512 DXT5
-[SEST Pictures] texture2d 'pla_hy-3_nm' 512x512 DXT5
-[SEST Pictures] texture2d 'usn_parts_tx' 512x512 DXT5
-[SEST Pictures] texture2d 'usn_parts_spec' 512x512 DXT5
-[SEST Pictures] texture2d 'usn_parts_nm' 512x512 DXT5
-[SEST Pictures] texture2d 'hull_damage' 512x512 DXT5
-[SEST Pictures] texture2d 'foam128' 512x512 DXT5
-[SEST Pictures] texture2d 'damage_0_nm' 512x512 DXT5
-[SEST Pictures] texture2d 'damage_0' 512x512 DXT5
-[SEST Pictures] texture2d 'fx_missile_plume' 512x512 DXT5
-[SEST Pictures] texture2d 'MuzzleflashBig' 512x512 DXT1
-[SEST Pictures] texture2d 'DuDvMap_tweaked2' 512x512 DXT1
-[SEST Pictures] texture2d 'Spark_01' 512x512 DXT5
-[SEST Pictures] texture2d 'Sea_Power_Logo' 876x261 RGBA32
-[SEST Pictures] texture2d 'HullDamage torn plating' 256x512 RGBA32
-[SEST Pictures] texture2d 'wp_ss-n-19_nm' 256x256 DXT5
-[SEST Pictures] texture2d 'HullDamage opaque hull_damage steel' 256x256 RGBA32
-[SEST Pictures] texture2d 'wp_s-75_spec' 256x256 DXT5
-[SEST Pictures] texture2d 'wp_s-75_tx' 256x256 DXT5
-[SEST Pictures] texture2d 'Circle10' 256x256 RGBA32
-[SEST Pictures] texture2d 'Font Texture' 256x256 Alpha8
-[SEST Pictures] texture2d 'wp_ss-n-19_spec' 256x256 DXT5
-[SEST Pictures] texture2d 'wp_ss-n-3_tx' 256x256 DXT5
-[SEST Pictures] texture2d 'wp_ss-n-3_nm' 256x256 DXT5
-[SEST Pictures] texture2d 'wp_ss-n-12_nm' 256x256 DXT5
-[SEST Pictures] texture2d 'wp_ss-n-12_spec' 256x256 DXT5
-[SEST Pictures] texture2d 'wp_ss-n-12_tx' 256x256 DXT5
-[SEST Pictures] texture2d 'wp_ss-n-14_nm' 256x256 DXT5
-[SEST Pictures] texture2d 'wp_s-75_nm' 256x256 DXT5
-[SEST Pictures] texture2d 'wp_ss-n-14_spec' 256x256 DXT5
-[SEST Pictures] texture2d 'wp_ss-n-19_tx' 256x256 DXT5
-[SEST Pictures] texture2d 'wp_ss-n-14_tx' 256x256 DXT5
-[SEST Pictures] texture2d 'wp_ss-n-3_spec' 256x256 DXT5
-[SEST Pictures] texture2d 'pla_yj-1_tx' 256x256 DXT5
-[SEST Pictures] texture2d 'MetalDebris1' 256x256 DXT5
-[SEST Pictures] texture2d 'pla_yj-1_nm' 256x256 DXT5
-[SEST Pictures] texture2d 'effects/particle textures/illumination_flare' 256x256 DXT5
-[SEST Pictures] texture2d 'spark_flare' 256x256 DXT5
-[SEST Pictures] texture2d 'WaterCircle1' 256x256 DXT5
-[SEST Pictures] texture2d 'WaterCircle1_Underwater' 256x256 DXT5
-[SEST Pictures] texture2d 'WaterCircle2_Underwater' 256x256 DXT5
-[SEST Pictures] texture2d 'WaterSpikeMist2' 256x256 DXT5
-[SEST Pictures] texture2d 'underwater_explosion_light_rim' 256x256 DXT5
-[SEST Pictures] texture2d 'Particle_Trail' 256x256 DXT5
-[SEST Pictures] texture2d 'nuke_cloud_loop' 256x256 DXT5
-[SEST Pictures] texture2d 'pla_yj-1_spec' 256x256 DXT5
-[SEST Pictures] texture2d 'ImpactWaterCloud' 256x256 DXT5
-[SEST Pictures] texture2d 'nuke_cloud_flame_loop' 256x256 DXT5
-[SEST Pictures] texture2d 'WaterCircle_CETO' 256x256 DXT5
-[SEST Pictures] texture2d 'effects/weapons/textures/heathaze_rings' 256x256 DXT5
-[SEST Pictures] texture2d 'square_parachute_nm' 256x256 DXT5
-[SEST Pictures] texture2d 'usa_mim-14_nm' 256x256 DXT5
-[SEST Pictures] texture2d 'usa_mim-14_spec' 256x256 DXT5
-[SEST Pictures] texture2d 'usa_mim-14_tx' 256x256 DXT5
-[SEST Pictures] texture2d 'MetalDebris3' 256x256 DXT5
-[SEST Pictures] texture2d 'contrail' 256x256 RGB24
-[SEST Pictures] texture2d 'splash_CETO' 256x256 DXT5
-[SEST Pictures] texture2d 'MetalDebris2' 256x256 DXT5
-[SEST Pictures] noesis view 'Menu Camera' in scene 'main-menu': content MenuSystemView 'MenuSystem' DataContext=MenuSystemViewModel
-[SEST Pictures] noesis Image '' in MenuSystemView: Source=TextureSource 'Noesis.TextureSource' 1920x1080 Source bound to 'BackgroundImage' visible=True opacity=1 DataContext=MenuSystemViewModel
-[SEST Pictures] noesis view 'ConsoleCamera' in scene 'console': content ConsoleView '' DataContext=ConsoleView
-[SEST Pictures] noesis view 'LoadCamera' in scene 'background': content LoadScreenView '' DataContext=LoadScreen
-[SEST Pictures] noesis Grid '' in LoadScreenView: Background=ImageBrush ImageSource=null ImageSource bound to 'BackgroundImage' visible=True opacity=1 DataContext=LoadScreen
-[SEST Pictures] pass 13 (Mod Manager on screen: ModMenuView '', 742 s after start) done: 125 texture(s) of 256 px or more, 0 UI image(s), 3 Noesis view(s), 5948 element(s) walked, 2 picture element(s); Mod Manager on screen (ModMenuView '')
-[SEST Menu] video player 'MediaPlayer' in scene 'background': source=VideoClip clip='main_menu' url='' render=APIOnly loop=False playing=False audio=Direct tracks=0
-[SEST Menu] menu film now C:\Program Files (x86)\Steam\steamapps\common\Sea Power\Sea Power_Data\StreamingAssets\SEST_Integration\plugins\sest_menu.mp4
-[SEST Backdrops] SEST photo loading_screen_50.png in place of C:\Program Files (x86)\Steam\steamapps\workshop\content\1286220\3775128499\ui/backgrounds\plan_loading_screen_11.png (1920x1080); 3 so far
+[SEST Pictures] pass 9 (periodic, 129 s after start) done: 127 texture(s) of 256 px or more, 0 UI image(s), 3 Noesis view(s), 229 element(s) walked, 5 picture element(s); Mod Manager not seen
 [3D WebView] [StandaloneWebView.TerminateBrowserProcess] Terminating the browser process.
 [Physics::Module] Cleanup current backned.
 [Physics::Module] Id: 0xf2b8ea05
