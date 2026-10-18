@@ -1,30 +1,44 @@
-# Impact speed hit effects (MultiStageMissiles 1.7.12)
+# Impact speed hit effects (MultiStageMissiles 1.7.14)
 
-Put these keys in the ammunition's existing [Particles] section.
+Put the alternate effect in the ammunition's existing [Particles] section.
 Works on missiles and missile submunitions without requiring stages.
 
 ~~~ini
 [Particles]
-HitEffectSpeedThreshold=2000
-HighSpeedHitDefaultExplosion=effects/your_kinetic_hit
+HighSpeedHitDefaultExplosion=effects/your_kinetic_hit.ini
+HighSpeedHitDefaultExplosionUseTargetVelocity=True
 ~~~
 
-Replace the example path with an existing effect. At or above 2000 knots
-configured impact speed, the alternate effect replaces the ordinary hit explosion.
-Below the threshold, or without HitEffectSpeedThreshold, native effects remain.
+The effect definition enables the feature. The direction flag is optional.
+Ammunition without a HighSpeed effect definition retains ordinary effects.
 No damage, guidance, collision or fuze parameters change.
 
-By default, speed is the sum of missile and actual hit-object speed magnitudes.
-Set HitEffectSpeedMode=Relative to account for both flight directions: magnitude
-of the velocity difference (head-on sum, pursuit difference, vector result for
-crossing paths). The selected mode controls both threshold and visual scaling.
-A stationary land/water hit uses the missile's speed. Invalid moving directions
-retain the ordinary effect. No intended-target substitution.
+These values are built-in defaults; omit them from ammunition INIs:
 
-Targetless mid-air self-destruction retains its ordinary effect.
-The intended target's speed is not used when a different object is hit.
+| Optional key | Default |
+| --- | ---: |
+| HitEffectSpeedThreshold | 3000 |
+| HighSpeedHitEffectScaleMinSpeed | 3000 |
+| HighSpeedHitEffectScaleMaxSpeed | 12000 |
+| HighSpeedHitEffectScaleMin | 0.5 |
+| HighSpeedHitEffectScaleMax | 5 |
 
-Optional specific overrides, all in [Particles]:
+At 3000 knots the alternate starts at factor 0.5; at 7500 knots its factor is
+2.75; at and above 12000 knots its factor is 5. Below the threshold the ordinary
+effect remains. Any key can override its default independently.
+MinSpeed/MaxSpeed are finite knots, with 0 <= MinSpeed < MaxSpeed.
+Size factors satisfy 0 < Min <= Max <= 20; the default maximum is 5.
+To use a fixed factor, set both ScaleMin and ScaleMax to that same value.
+An invalid explicit setting disables this ammunition's override with a warning.
+
+HitEffectSpeedMode defaults to Sum (missile speed plus actual hit-object speed).
+Relative uses the magnitude of the velocity difference instead: head-on sum,
+pursuit difference, vector result for crossing paths. The selected mode controls
+both threshold and visual size. A stationary land/water hit uses missile speed.
+Invalid moving directions retain the ordinary effect. No intended-target
+substitution. Targetless mid-air destruction retains its ordinary effect.
+
+Optional specific overrides, also in [Particles]:
 - HighSpeedHitAirExplosion
 - HighSpeedHitShipExplosion
 - HighSpeedHitObjectExplosion
@@ -32,107 +46,50 @@ Optional specific overrides, all in [Particles]:
 - HighSpeedHitWaterSplash
 - HighSpeedExplosionOverwaterSplash
 
-Selection order for Default, Air, Ship, Object and Ground explosions:
-1. The matching HighSpeed entry.
-2. HighSpeedHitDefaultExplosion.
-3. HighSpeedHitAirExplosion, for existing air-only configurations.
-4. The ordinary effect.
+For Default/Air/Ship/Object/Ground explosions, selection prefers the matching
+specific entry, then HighSpeedHitDefaultExplosion, then HighSpeedHitAirExplosion
+for older air-only configurations, then the ordinary effect. Thus the Default
+entry alone also covers air hits. Duplicate Air entries are unnecessary.
+Explicit entries including None win. Splash slots stay independent; for open-water
+impacts use HighSpeedExplosionOverwaterSplash when the game selects that slot.
+Dud, shockwave and debris effects are unchanged.
 
-Thus an existing HighSpeedHitAirExplosion also covers ship, object, ground and
-default hits above the threshold; no additional INI keys are required.
-Explicit per-slot entries (including None) remain authoritative.
-Splash entries are independent:
-the generic high-speed explosion does NOT replace accompanying water splashes.
-For a missile striking open water, use HighSpeedExplosionOverwaterSplash because
-the game can select only that splash slot.
+The standard Effect loader supports Class, Position, Rotation and Scale suffixes.
+Missing/unavailable assets fall back to the generic alternate or ordinary effect.
+INI audio and Models/IndependentEffectInstances=True continue to apply.
 
-Each alternate uses the standard Effect loader, including the Class, Position,
-Rotation and Scale suffixes. For example HighSpeedHitAirExplosionScale=1.5,1.5,1.5.
-INI effect audio and Models/IndependentEffectInstances=True continue to apply.
-An explicit None suppresses that alternate slot. Missing/unavailable assets
-fall back to the generic alternate or ordinary effect. Dud, shockwave and debris
-effects are not replaced. Native air/land/ship/object classification is retained.
+HighSpeedHitDefaultExplosionUseTargetVelocity=True aligns the selected Default
+effect with actual target velocity, including when used for an Air/Ship/Object/
+Ground hit. HighSpeedHitAirExplosionUseTargetVelocity=True follows the selected
+Air effect, including its fallback uses. Both flags default False. The selected
+effect's flag controls behavior; explicit ship/object/ground overrides retain
+native orientation. A missing, stationary or invalid target retains native motion.
 
-The threshold accepts a finite nonnegative number in knots (0 means every eligible
-impact). Invalid thresholds disable this feature for that ammunition with a warning.
-Settings are loaded with ammunition resources, not read per frame or per hit.
-Fully restart the game after editing INIs.
+World/Custom-space particles with InheritVelocity=Initial retain the midpoint
+of their configured fraction of target velocity in world coordinates. Random
+ejection remains in start speed/shape. Existing linear-velocity modules and
+Local-space particles retain native behavior. Floating-origin handling is retained.
 
-Optional size scaling in [Particles] (requires MultiStageMissiles 1.7.12):
-~~~ini
-HitEffectSpeedMode=Relative
-HitEffectSpeedThreshold=3000
-HighSpeedHitEffectScaleMinSpeed=3000
-HighSpeedHitEffectScaleMaxSpeed=5800
-HighSpeedHitEffectScaleMin=0.5
-HighSpeedHitEffectScaleMax=5
-~~~
-At MinSpeed the factor is Min; at MaxSpeed it is Max. Between those speeds,
-size grows linearly (4400 knots = 2.75 in this example). Above MaxSpeed it stays
-at Max. Below the hit threshold the ordinary effect remains.
-Both speed bounds must be finite, with 0 <= MinSpeed < MaxSpeed. Size factors
-must satisfy 0 < Min <= Max <= 5. Speeds use HitEffectSpeedMode and are in knots.
+Size multiplies particle size, emission shape, child offsets, random ejection
+speed and noise displacement on the instance. Lifetime, counts, target momentum,
+damage, sound and lights are unchanged. Splashes, dud and native debris do not
+scale. Nonparticle mesh renderers and existing linear-velocity modules do not scale.
+Settings restore on disable for pooling. Scaling is visual, not an energy calculation.
 
-The earlier HighSpeedHitEffectScaleReferenceSpeed option remains supported:
-factor = clamp(impact speed / reference speed, Min, Max). Explicit MinSpeed and
-MaxSpeed take precedence over ReferenceSpeed. Omit both speed bounds and
-ReferenceSpeed to keep fixed INI size. A partial or invalid range disables this
-ammunition's high-speed override with a warning.
+Legacy HighSpeedHitEffectScaleReferenceSpeed remains supported when no explicit
+speed bound is present: factor = clamp(speed / reference, Min, Max). A reference
+must be positive and finite. An explicit speed bound selects range scaling, with
+the missing bound using its default. Omission of all scale keys uses the defaults.
 
-This factor multiplies the selected main hit's existing particle sizes, emission
-shape, child offsets, random ejection speed and noise displacement. It leaves
-lifetimes, counts, inherited target momentum, damage, sound and lights unchanged.
-Splashes, dud and native debris do not scale. Intended for particle-based effects;
-nonparticle mesh renderers and pre-existing linear velocity modules are not scaled.
-Values are applied to the spawned instance, never its shared prefab, and restored
-on disable before pool reuse. Below the threshold the ordinary effect still runs.
-The scale is artistic, not an explosion-energy or damage calculation.
-For diagnosis, Player.log records the first 16 configured destruction events per
-ammunition type per game process: actual target, missile and target speeds,
-configured impact speed/mode, threshold, size factor, native/alternate decision, selected slot, target-motion decision
-and spawn result.
-Targetless air destruction and below-threshold decisions are recorded too.
-This runs only on destruction/effect events, never as a per-frame speed check.
-A successful spawn does not prove the camera saw the particle effect.
+Inactive high-speed copies returned by the native pool are activated after
+orientation, size and motion setup. Active copies are not restarted; native
+pooling/lifetime and PlayOnAwake=False remain. No cooldown or frame polling.
+The first 16 configured destruction events per ammunition log speed/threshold,
+selected effect, size, target motion, activation and spawn result. These entries
+do not prove that the camera saw particles.
 
-Optional target direction and particle motion, in [Particles]:
-
-~~~ini
-HighSpeedHitDefaultExplosionUseTargetVelocity=True
-~~~
-
-This aligns the selected HighSpeedHitDefaultExplosion with the actual hit object's
-velocity, including when it supplies an Air, Ship, Object or Ground fallback.
-HighSpeedHitAirExplosionUseTargetVelocity=True does the same for the selected
-air effect, including when that effect supplies a Default/Ship/Object/Ground hit.
-Both settings default to False. The selected effect's setting applies:
-an explicit air effect uses its own flag, not the default effect's flag.
-An explicit ship/object/ground override keeps native orientation.
-
-Without a moving actual hit object (or with invalid velocity), native orientation
-and particle motion remain. The intended target is never substituted.
-Eligible World/Custom-space particles with InheritVelocity=Initial retain their
-configured fraction of target velocity. Existing linear velocity modules and
-Local-space particles stay unchanged. Splash, dud, shockwave and debris effects
-do not inherit target motion. Setup runs once per hit, with no per-frame update.
-
-
-Current AC Pack SAM coverage (2026-10-17)
-
-The KV high-speed preset is assigned only in the 55 existing SAM override files
-under AC Pack/ammunition_overwrite: IRIS-T SLM/SLX, Aster, CAMM, PAC-3 MSE,
-RIM variants and SA/SA-N variants. Their existing extend targets remain unchanged.
-The 65 existing high-speed profiles (55 SAM and 10 AIM profiles) use threshold
-3000 knots and size factors 0.5 at 3000 knots through 5 at 5800 knots.
-The selected speed mode and each profile's existing high-speed effect asset
-remain unchanged: the AIM profiles retain their previous warhead effects.
-Ordinary hit entries remain unchanged. No high-speed preset is added to
-previously unconfigured ammunition. Restart Sea Power to discard cached resources.
-
-
-Selected high-speed effects are activated after orientation, scale and target-motion
-setup if the native pool returns an inactive copy. Native pooling and lifetime
-cleanup are retained; no cooldown or extra INI key is added. Already-active copies
-are not restarted. PlayOnAwake=False is respected.
-Diagnostics include activated (this correction was needed) and active (the returned
-object is active in the scene). Neither value alone proves particles were visible.
+Current AC Pack coverage (2026-10-17): 65 existing profiles (55 SAM kinetic effects
+and 10 AIM warhead effects) inherit the defaults above. Redundant Air definitions
+are removed, or migrated to Default for former air-only profiles. Effect assets,
+direction settings and speed modes are retained. No preset is added to previously
+unconfigured ammunition. Fully restart Sea Power after INI/DLL changes.

@@ -1,8 +1,15 @@
 SPANISH MOD (#coldwar)  CHANGELOG
 
+v3.56 - 20261017
+	- Loadout changes on R01 and R11
+	- Added deck crew on R11
+	- Added Mirage IIIEE all tailcodes and numbers on 3 squadrons: 111,112 and 11
+	- Custom Mirage IIIEE Air to Air missiles loadouts
+	- New static model: AV-8A/S Matador 
+
 v3.55 - 20261015
 	
-	Internal fixes.
+	- Internal fixes.
 	- Fixed wrong cockpit glass textures on static SH-3D
 	- Enhanced textures for moroccan Lazaga vessels	
 

@@ -2,7 +2,7 @@ Found Sea Power (app 1286220)
   game dir : c:\program files (x86)\steam\steamapps\common\Sea Power
   workshop : c:\program files (x86)\steam\steamapps\workshop\content\1286220
 
-unchanged since the last export : 170
+unchanged since the last export : 169
 
 UPDATED by their authors (re-export to pick the changes up):
   3390330875  Euromod - Modern US Navy
@@ -27,6 +27,7 @@ UPDATED by their authors (re-export to pick the changes up):
   3789208859  Euromod-South Korea Navy
   3796349767  YF-23 Black Widow II
   3804868806  Anduril FQ-44 Fury US Navy Carrier Wingmen
+  3807164392  Euromod-India-Navy
   3810611344  MV-75 Cheyenne II
   3812111085  PLAAF Aircraft Pack
   3813157776  Dynamic Campaign Mod

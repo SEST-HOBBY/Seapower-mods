@@ -78,3 +78,50 @@ uses its original name-based sharing. The runtime DLL belongs only in AC Pack.
 Release/beta API and grouping behavior were checked offline against the installed
 public assembly and available historical release/stable-beta fixtures. Gameplay
 and save/load acceptance in the game are still pending.
+
+## Ammunition copies and launcher diagnostics (1.1.2)
+
+On builds that clone cached ammunition parameters, the clone retains the exact
+master's optional distance and altitude policy. Constructor-based older builds
+continue to use the original loading hook. No INI changes are required.
+
+For an SM-6/SM-3 launch-abort investigation, create an empty file at
+`%USERPROFILE%\AppData\LocalLow\Triassic Games\Sea Power\Mods\OptimalTargetDist\launcher-diagnostics.enabled`
+and fully restart the game. `[LauncherAbort]` lines record the native abort message,
+launcher state, magazine/loaded counts and associated search-sensor status.
+Messages are limited to one per launcher per real second. Remove the file and
+restart to disable tracing. The trace changes no firing conditions or inventory.
+
+## Target-aware loft optimization (1.2.0)
+
+The existing ammunition switch also enables the incoming-missile correction:
+
+```ini
+[Guidance]
+OptimizeLoftAlt=True
+```
+
+The current game defaults this switch to True. No additional key or DLL is needed.
+False disables the correction. It applies to kinematic KappaLoft paths against
+approaching missiles; aircraft and surface-target profiles retain native behavior.
+
+When little time remains, the optimized loft peak is reduced using the target's
+three-dimensional position and velocity, including its descent. Very urgent shots
+use the game's linear path to the moving intercept point. TerminalApproachDist,
+TerminalLoft, native target leading, speed limits and turn limits are retained.
+
+This is a constant-velocity estimate, calculated when waypoints are created or
+rebuilt. It is not continuously recomputed and cannot guarantee interception.
+Range/launch checks and displayed trajectory estimates still use the existing
+native or worker prediction model; this change adjusts the live missile path.
+
+Numerical workers keep their existing snapshots and shared result caches. The
+correction updates only this missile's waypoint settings on the main thread.
+Older asynchronous game builds apply it after the native result is published.
+There is no added per-frame simulation, polling, thread pool or worker dependency.
+
+Fully exit and restart Sea Power after replacing the DLL. The same 1.2.0 binary was
+checked offline against the installed public build and available historical
+release/beta assemblies, including four-thread tests with the installed workers,
+MultiStage API checks and MissileControl waypoint composition. In-game flight
+acceptance remains pending.

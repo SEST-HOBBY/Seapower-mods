@@ -113,9 +113,9 @@
 3628201887   Clemenceau -class Aircraft Carrier                   updated 2026-03-04 08:36  folder 2026-10-04 20:32
 3628203171   Bréguet Br.1050 Alizé                                updated 2025-12-29 03:16  folder 2026-10-04 20:33
 3628247436   Sea Venom - Aquilon                                  updated 2026-01-03 05:11  folder 2026-10-04 20:33
-3629144864   Euromod - Main Pack                                  updated 2026-10-17 12:08  folder 2026-10-17 15:18
+3629144864   Euromod - Main Pack                                  updated 2026-10-18 03:20  folder 2026-10-18 03:37
 3629269283   Modern Russian Airbase                               updated 2026-09-13 08:50  folder 2026-08-16 12:05
-3630495619   Spanish Navy Mod (Cold War)                          updated 2026-10-16 03:05  folder 2026-10-16 06:57
+3630495619   Spanish Navy Mod (Cold War)                          updated 2026-10-18 04:08  folder 2026-10-18 04:22
 3631042692   Modern Chinese Airbase                               updated 2026-08-13 02:42  folder 2026-08-16 12:02
 3636213685   wp_sattelite_center                                  updated 2026-01-01 09:52  folder 2026-10-04 20:26
 3636386513   F-15EX                                               updated 2026-10-03 17:57  folder 2026-10-03 17:57
@@ -149,7 +149,7 @@
 3732654992   THE REDFOR MOD                                       updated 2026-10-14 04:18  folder 2026-10-14 05:30
 3733719765   中国地面单位包                                              updated 2026-10-04 19:54  folder 2026-10-03 06:32
 3736147136   French army vehicule                                 updated 2026-09-18 05:58  folder 2026-09-19 10:05
-3737267013   US Naval Aviation                                    updated 2026-10-16 04:10  folder 2026-10-16 06:57
+3737267013   US Naval Aviation                                    updated 2026-10-18 01:17  folder 2026-10-18 01:21
 3740293822   KC-10A Extender by ZeroTwo                           updated 2026-07-07 15:22  folder 2026-08-15 19:17
 3741944366   B-52H                                                updated 2026-06-10 23:26  folder 2026-09-13 19:52
 3744475027   Boeing KC-46 Pegasus by ZeroTwo                      updated 2026-07-20 16:40  folder 2026-08-15 19:20
@@ -175,7 +175,7 @@
 3780118683   Tu-214R Family Pack                                  updated 2026-10-03 22:20  folder 2026-10-04 11:22
 3781062859   E-3G AWAC                                            updated 2026-08-10 23:05  folder 2026-08-17 00:49
 3782020901   Y-20 / KJ-3000                                       updated 2026-10-06 05:40  folder 2026-10-06 17:18
-3784474738   Euromod - Anchorchain Expansion Pack                 updated 2026-10-17 09:29  folder 2026-10-17 15:18
+3784474738   Euromod - Anchorchain Expansion Pack                 updated 2026-10-18 04:24  folder 2026-10-18 05:07
 3789188689   PLA & PLAN & PLAAF AEP                               updated 2026-10-08 06:53  folder 2026-10-08 07:18
 3789208859   Euromod-South Korea Navy                             updated 2026-10-17 16:07  folder 2026-10-11 08:28
 3790594162   Identify Expanded                                    updated 2026-10-15 13:18  folder 2026-10-15 16:59
@@ -190,7 +190,7 @@
 3806197116   Civilian AS350 Ecureuil/AStar MOD                    updated 2026-09-24 00:54  folder 2026-10-05 03:05
 3806466625   V-22 Osprey / SV-22 2024 ASW prototype               updated 2026-10-12 05:31  folder 2026-10-12 15:35
 3806686336   Coordinated Strike Tool                              updated 2026-09-25 21:51  folder 2026-09-30 21:22
-3807164392   Euromod-India-Navy                                   updated 2026-10-11 12:02  folder 2026-10-04 20:22
+3807164392   Euromod-India-Navy                                   updated 2026-10-18 05:15  folder 2026-10-18 05:52
 3808882954   RC-135V/W Rivet Joint                                updated 2026-10-14 11:45  folder 2026-10-14 15:53
 3810611344   MV-75 Cheyenne II                                    updated 2026-10-16 12:08  folder 2026-10-16 13:55
 3812111085   PLAAF Aircraft Pack                                  updated 2026-10-17 11:17  folder 2026-10-03 20:53

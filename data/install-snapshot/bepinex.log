@@ -1,4 +1,4 @@
-# BepInEx\LogOutput.log - whole file, 1199 line(s), 0.1 MB, last written 2026-10-18T00:40:52. 
+# BepInEx\LogOutput.log - whole file, 1193 line(s), 0.1 MB, last written 2026-10-18T10:15:28. 
 [Error  :   BepInEx] Unable to start Unity log writer
 [Message:   BepInEx] BepInEx 5.4.23.2 - Sea Power (15/10/2026 4:59:12 PM)
 [Info   :   BepInEx] Running under Unity v6000.0.84.7908207
@@ -23,13 +23,13 @@
 [Info   :AnchorChain] Loaded assembly EnhancedDecoyMod, Version=0.5.3.0, Culture=neutral, PublicKeyToken=null
 [Info   :AnchorChain] Loaded assembly EnhancedUIMod, Version=0.1.1.0, Culture=neutral, PublicKeyToken=null
 [Info   :AnchorChain] Loaded assembly Euromod-Welldeck, Version=1.0.3.0, Culture=neutral, PublicKeyToken=null
-[Info   :AnchorChain] Loaded assembly HighAltitudeSkyFix, Version=1.2.1.0, Culture=neutral, PublicKeyToken=null
-[Info   :AnchorChain] Loaded assembly HullDamage, Version=0.4.2.0, Culture=neutral, PublicKeyToken=null
+[Info   :AnchorChain] Loaded assembly HighAltitudeSkyFix, Version=1.2.2.0, Culture=neutral, PublicKeyToken=null
+[Info   :AnchorChain] Loaded assembly HullDamage, Version=0.5.7.0, Culture=neutral, PublicKeyToken=null
 [Info   :AnchorChain] Loaded assembly MeshCutOut.ACPack, Version=0.5.1.0, Culture=neutral, PublicKeyToken=null
 [Info   :AnchorChain] Loaded assembly MissileControlMod, Version=0.1.16.0, Culture=neutral, PublicKeyToken=null
 [Info   :AnchorChain] Loaded assembly MissileControlSurfaces, Version=1.1.3.0, Culture=neutral, PublicKeyToken=null
-[Info   :AnchorChain] Loaded assembly MultiStageMissiles, Version=1.7.12.0, Culture=neutral, PublicKeyToken=null
-[Info   :AnchorChain] Loaded assembly OptimalTargetDist, Version=1.1.2.0, Culture=neutral, PublicKeyToken=null
+[Info   :AnchorChain] Loaded assembly MultiStageMissiles, Version=1.7.14.0, Culture=neutral, PublicKeyToken=null
+[Info   :AnchorChain] Loaded assembly OptimalTargetDist, Version=1.2.0.0, Culture=neutral, PublicKeyToken=null
 [Info   :AnchorChain] Loaded assembly ParallelRangeProbe, Version=0.12.0.0, Culture=neutral, PublicKeyToken=null
 [Info   :AnchorChain] Loaded assembly ProfileImage1024, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 [Info   :AnchorChain] Loaded assembly SATCOM, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
@@ -76,9 +76,6 @@
 [Info   :AnchorChain] Loaded plugin Sonar Audio Loader (io.github.euromod.sonar-audio-loader)
 [Info   :AnchorChain] Loaded plugin EnhancedDecoyMod (io.github.euromod.enhanceddecoymod)
 [Info   :AnchorChain] Loaded plugin EnhancedUIMod (local.seapower.enhanceduimod)
-[Info   :Euromod Well Deck] Euromod Well Deck 1.0.2 loaded through AnchorChain.
-[Info   :Euromod Well Deck] Well Deck: patched ObjectBaseViewModel.GetContextMenuItems().
-[Info   :Euromod Well Deck] Well Deck: MENU ONLY -- no keyboard controls.
 [Info   :AnchorChain] Loaded plugin Euromod Well Deck (euromod.welldeck)
 [Warning:  HarmonyX] AccessTools.Method: Could not find method for type SeaPower.DynamicSky and name UpdateSky and parameters 
 [Info   :AnchorChain] Loaded plugin High Altitude Sky Fix (io.github.euromod.high-altitude-sky-fix)
@@ -94,10 +91,7 @@
 [Info   :AnchorChain] Loaded plugin Smoke Particle LOD (euromod.smoke-particle-lod)
 [Info   :AnchorChain] Loaded plugin Vessel SubModel Stabilization (io.github.euromod.submodel-stabilization)
 [Info   :AnchorChain] Loaded plugin UI Preparation Workers Trial (local.seapower.uiworkerprobe)
-[Info   :Euromod V-22 Tiltrotor + Pivot BFWS] V-22 time compatibility: using SeaPower.GameTime.deltaTime for BFWS/nacelle animation timing.
-[Info   :Euromod V-22 Tiltrotor + Pivot BFWS] Euromod V-22 Tiltrotor + Pivot BFWS 2.8.13 loaded. Aircraft name detection: v-22 (case-insensitive). Navigation lights resolved by INI submodel keys; night-only rotor lights. 2 rotor-index pivots + 6 pitch pivots + 6 hinge pivots; MirrorObjX=False, PreventStartupRefold=True, HoldStaticBladesOffAfterShutdown=True. TimeSource=SeaPower.GameTime.deltaTime. CFG=C:\Program Files (x86)\Steam\steamapps\common\Sea Power\BepInEx\config\euromod.v22tiltrotor.cfg
 [Info   :AnchorChain] Loaded plugin Euromod V-22 Tiltrotor + Pivot BFWS (euromod.v22tiltrotor)
-[Info   :WeaponLauncherEffects] [WeaponLauncherEffects] Loaded; mapped launcher effects are active.
 [Info   :AnchorChain] Loaded plugin Weapon Launcher Effects (io.github.euromod.weaponlaunchereffects)
 [Info   :SecondThrust] Debug logging OFF (create C:\Program Files (x86)\Steam\steamapps\workshop\content\1286220\3789188689\debug.ini with 'Enabled=1' to enable)
 [Info   :AnchorChain] Loaded plugin Second Thrust (io.github.yourname.second-thrust)
