@@ -1060,6 +1060,120 @@ class CoastExtracts(unittest.TestCase):
         self.assertFalse(c.on_land(5.70, 120.35))     # the Sulu Sea north of Tawi-Tawi
 
 
+def _trigger_numbers(text):
+    """{trigger name: its number} in a rendered mission."""
+    return {m.group(2): int(m.group(1)) for m in
+            re.finditer(r"^\[Trigger(\d+)\][^\n]*\nName=([^\n]+)", text, re.M)}
+
+
+class PlayTest18Oct(unittest.TestCase):
+    """The rules the play test of 18 Oct 2026 asked for: a stage held for
+    minutes before the win arms (SW03's lifters), a second win by sinking
+    (SW04's craft), deck prep before the start, a deck's own air group
+    (Canberra's Apaches) and air-tasking rows that offer every fit an
+    aircraft can fly for the job."""
+
+    def test_a_held_stage_arms_the_win_after_its_minutes(self):
+        v = dict(small_mission()["victory"],
+                 after=dict(kind="area", units="group", at=(-4.40, 128.70), radius=3,
+                            min_units=1, hold_minutes=3, intel="Over the rig.",
+                            held=("Loaded.", "All aboard.")))
+        m = small_mission(victory=v)
+        triggers = rendered(m)
+        _name, text = bp.render(m, *small_placement())
+        n = _trigger_numbers(text)
+        self.assertIn(f"Action_EnableTriggers=Trigger{n['Stage held']}", triggers["Stage"])
+        held = triggers["Stage held"]
+        self.assertIn("Disabled=True", held)
+        self.assertIn("Condition_Condition2_Time=180", held)
+        self.assertIn("ConditionsCompleted=<Condition1> AND <Condition2>", held)
+        self.assertIn("Action_Taskforce1_Message=StageHeldMessage", held)
+        self.assertIn(f"Action_EnableTriggers=Trigger{n['Objective met']}", held)
+        self.assertIn("Disabled=True", triggers["Objective met"])
+        self.assertIn("StageHeldMessage=<color=yellow>Loaded.</color>|All aboard.", text)
+
+    def test_a_held_stage_needs_its_message(self):
+        v = dict(small_mission()["victory"],
+                 after=dict(kind="area", units="group", at=(-4.40, 128.70),
+                            hold_minutes=3))
+        with self.assertRaisesRegex(SystemExit, "held"):
+            rendered(small_mission(victory=v))
+
+    def test_sinking_after_the_stage_is_a_win_without_the_bonus(self):
+        objectives = small_mission()["objectives"] + [("Taken", "Take her", "15,0,None")]
+        v = dict(kind="arrive", station="spoiler", at=(-4.30, 128.60), radius=12,
+                 objective="Withdrawal", bonus=["Taken"], or_destroyed="She is sunk.",
+                 after=dict(kind="classify", units="spoiler", min_units=1))
+        m = small_mission(victory=v, objectives=objectives,
+                          resolve={"Withdrawal": "victory", "Taken": "victory",
+                                   "Spoiler": ("destroy", "spoiler", 1)})
+        triggers = rendered(m)
+        _name, text = bp.render(m, *small_placement())
+        n = _trigger_numbers(text)
+        self.assertIn(f"Action_EnableTriggers=Trigger{n['Objective met']},"
+                      f"Trigger{n['Objective met by sinking']}", triggers["Stage"])
+        self.assertIn("Action_ObjectivesCompleted=Withdrawal,Taken", triggers["Objective met"])
+        sunk = triggers["Objective met by sinking"]
+        self.assertIn("Disabled=True", sunk)
+        self.assertIn("Condition_Condition1_Type=UnitDestroyed", sunk)
+        self.assertIn("Action_ObjectivesCompleted=Withdrawal", sunk)
+        self.assertIn("Action_Victory=Taskforce1", sunk)
+        self.assertIn("Action_Taskforce1_Message=SunkVictoryMessage", sunk)
+
+    def test_deck_prep_where_a_player_deck_is(self):
+        self.assertIn("Allow initial flight deck prep", rendered(small_mission()))
+        placed, members = small_placement()
+        placed["Taskforce1Vessel"] = [
+            ("Taskforce1Vessel1", _keys("civ_ms_freighter_b", 0, 9), None, False),
+            ("Taskforce1Vessel2", _keys("civ_ms_freighter_b", -12, 6), None, False)]
+        self.assertNotIn("Allow initial flight deck prep",
+                         rendered(small_mission(), placed, members))
+        self.assertIn("Allow initial flight deck prep",
+                      rendered(small_mission(generation="Generated"), placed, members))
+
+    def _deck(self, **unit):
+        m = dict(key="Test Deck", centre=(-11.6, 126.6), date=(2028, 10, 24),
+                 blue_nation="Australia", red_nation="China",
+                 stations={"amphib": S(-11.6, 126.6, "Amphibious group", heading=10)},
+                 units=[U("blue", "SEST_RAN_Fleet", "ran_lhd_canberra", "amphib", **unit)])
+        placed, _m, credits, _f = bp.place(m, bp.CoastPlacer(bp.coast_data(m), m))
+        return placed["Taskforce1Vessel"][0][1], credits
+
+    def test_a_deck_carries_its_own_air_group(self):
+        keys, credits = self._deck(
+            air_group=[("adf_ah-64e", "Squadron1", 2)],
+            ready=[("adf_ah-64e", "Squadron1", "AntiShip", 2, 0)])
+        self.assertEqual(keys["CustomAirGroup"], "True")
+        self.assertEqual(keys["adf_ah-64e"], "Squadron1,2")
+        self.assertEqual(keys["FlightDeck_ReadyUpTasks"], "1")
+        self.assertEqual(keys["FlightDeck_ReadyUpTask1"], "adf_ah-64e,Squadron1,AntiShip,2,0")
+        self.assertIn(bp.owner("aircraft/adf_ah-64e.ini"), credits)
+
+    def test_an_air_group_the_deck_cannot_take_stops_the_build(self):
+        with self.assertRaisesRegex(SystemExit, "does not take"):
+            self._deck(air_group=[("usn_p8", "Squadron3", 1)])
+        with self.assertRaisesRegex(SystemExit, "offers"):
+            self._deck(air_group=[("adf_ah-64e", "Squadron1", 2)],
+                       ready=[("adf_ah-64e", "Squadron1", "NoSuchFit", 2, 0)])
+
+    def test_tasking_rows_offer_every_fit_for_the_job(self):
+        missions = [dict(window=dict(flights=[
+            "CAP|Combat Air Patrol|Fighter|2|MurderHornetCAP",
+            "Attack|Maritime Strike|Bomber/SEAD|2|MurderHornetAntiShip"]))]
+        bp.widen_flights(missions, [dict(unit="usn_fa-18f_blk3")])
+        cap, attack = (set(r.split("|")[4].split("/")) for r in missions[0]["window"]["flights"])
+        self.assertIn("MurderHornetPenetrator", cap)       # AIM-120D and AIM-174B
+        self.assertNotIn("MH_CAP_424", cap)                # AIM-424: barred
+        self.assertNotIn("SEST_Intercept260", cap)         # AIM-260: barred
+        self.assertNotIn("MurderHornetSEAD", cap)          # carries AGM-88G
+        self.assertNotIn("Empty", cap)
+        self.assertIn("MH_LRASM", attack)                  # LRASM-ER, an alias of the LRASM
+        self.assertIn("MurderHornetSEAD", attack)
+        self.assertNotIn("MurderHornetCAP", attack)
+        self.assertEqual(missions[0]["window"]["flights"][0].split("|")[4].split("/")[0],
+                         "MurderHornetCAP")                 # the authored fit stays first
+
+
 class HomeBases(unittest.TestCase):
     """Where the player's force is generated in, a player-side aircraft
     names no Taskforce1 ship as its HomeBase - stock never does, and Rig

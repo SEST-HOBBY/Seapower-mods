@@ -12,9 +12,8 @@ This campaign reaches 28 of the enabled mods and packs; the 194 it does not are 
 |---|---|---|
 | `unit` | places the unit; this mod wins its file | 17 |
 | `variant` | supplies the hull variant the placed unit uses | 2 |
-| `squadron` | supplies the squadron the placed airframe flies from | 1 |
 | `roster` | the requisition roster prices it, so the player can buy it | 2 |
-| `store` | supplies a round the placed unit's loadout hangs | 5 |
+| `store` | supplies a round the placed unit's loadout hangs | 6 |
 | `asset` | supplies a model folder the placed unit's file draws from | 1 |
 
 Sea and land positions in 7 of the 10 missions are snapped to points already used by a loading mission (the furthest any anchor had to move is 0.7 NM); the other 3 use them as authored, checked against the coastline extract.
@@ -30,7 +29,7 @@ Sea and land positions in 7 of the 10 missions are snapped to points already use
 | `iran-bell-212` | Iran Bell-212 | `unit` | irinavy_bell-212 | The Okean |
 | `iran-shahed-238` | Iran UAV Shahed 238 | `unit` | wp_shahed238_launcher | The Drone Yard |
 | `j-11` | Shenyang J-11 | `store` | plaaf_jh7a / plaaf_pl-8b | Balabac Strait |
-| `jh-7a` | XIAN JH-7A (歼轰-7A 飞豹) | `unit` | plaaf_jh7a | Balabac Strait |
+| `jh-7a` | XIAN JH-7A (歼轰-7A 飞豹) | `store` | plaaf_jh7a / plaaf_JH7A_fueltank_new | Balabac Strait |
 | `merchants-expanded` | Merchants Expanded | `variant` | civ_ms_super_p | The Okean |
 | `modern-plan-systems` | Modern PLAN Systems | `unit` | plaaf_kj-500 | Ayungin |
 | `philippines-luzon-line` | Philippines: The Luzon Line | `unit` | phl_h-76 | The Island Road |
@@ -46,7 +45,7 @@ Sea and land positions in 7 of the 10 missions are snapped to points already use
 | `small-medium-uav-series` | Small and Medium-Sized UAV Series [WIP] (中小型无人机系列) | `unit` | usn_ForpostR705 | Service at Sea |
 | `thailand-siam-shield` | Thailand: The Siam Shield | `roster` | tha_S-70B-7_Seahawk at 30 points | requisition roster |
 | `type-003-004-maneuverwarfare` | Type 003 Fujian / Type 004 CVN Aircraft Carriers | `store` | plaaf_jh7a / plaaf_pl-5c | Balabac Strait |
-| `SEST_Collection_Fixes` | SEST Collection Fixes | `squadron` | plaaf_jh7a | Balabac Strait |
+| `SEST_Collection_Fixes` | SEST Collection Fixes | `unit` | plaaf_jh7a | Balabac Strait |
 | `SEST_RAN_Fleet` | SEST RAN Fleet | `roster` | ran_ffh_anzac at 280 points | requisition roster |
 | `SEST_Replenishment` | SEST Replenishment At Sea | `unit` | pn_ffg-150 | The Island Road |
 

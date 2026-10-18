@@ -738,7 +738,7 @@
       "faction": "china",
       "type": "fixed-wing",
       "status": "active",
-      "notes": "Twin-engine two-seat supersonic fighter-bomber, in PLAAF service 2005.",
+      "notes": "Twin-engine two-seat supersonic fighter-bomber, in PLAAF service 2005. The author mounts two AN/ALQ-99s on every fit (SensorSystem9 and 10, which no fit removes): the EA-6B's tactical jamming suite, Universal, 1,000 km, 0.45 jam chance per pod, which left the Weapons Free strike pair all but impossible to engage (play test, 18 Oct 2026). SEST Collection Fixes ships the author's file with one delta: one self-protection jammer, the game's own AircraftDECM_Late (Defensive, 0.40, no stand-off reach), in place of the pair - the KG-300G-class pod the real aircraft carries for itself. The second pod's header has no closing bracket upstream (\"[SensorSystem10 #ECM Pod Right\"); that section goes with it and NumberOfSensorSystems drops to 9.",
       "overlaps": [
         "PL-series AAM definitions likely duplicated across Chinese fighter mods (multiple authors)"
       ]

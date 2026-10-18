@@ -886,6 +886,35 @@ def main():
           "and defines none), NumberOfSquadrons=1 to match.")
     built.append("plaaf_jh7a_squadrons")
 
+    # plaaf_jh7a - the JH-7A flies two AN/ALQ-99s. 3526982088 mounts them as
+    # SensorSystem9 and 10 on every fit (no *_SensorsToRemove takes them off):
+    # the EA-6B's tactical jamming suite, Universal type, 1,000 km, a 0.45
+    # jam chance per pod against every round fired at it. The play test of
+    # 18 Oct 2026 asked whether that is right, having found the strike pair
+    # in Weapons Free all but impossible to engage. It is not: the ALQ-99 is
+    # an American system on American electronic-attack aircraft, and the
+    # JH-7A carries a Chinese self-protection pod (the KG-300G class) for
+    # itself, not a stand-off jammer for a package. One delta: one pod, the
+    # game's own late self-protection jammer (AircraftDECM_Late: Defensive,
+    # 0.40, no stand-off reach). The second pod's header in the donor has no
+    # closing bracket ("[SensorSystem10 #ECM Pod Right"), so the count drops
+    # to the nine sections that are well formed.
+    t = read("3526982088", "aircraft/plaaf_jh7a.ini").replace("\r\n", "\n")
+    t = edit(t, r"^NumberOfSensorSystems=10$", "NumberOfSensorSystems=9", 1, "plaaf_jh7a")
+    t = edit(t, r"^(\[SensorSystem9\] #ECM Pod Left\nType=ECM\n)SystemName=AN/ALQ-99$",
+             r"\1SystemName=AircraftDECM_Late  // SEST Collection Fixes: was AN/ALQ-99",
+             1, "plaaf_jh7a")
+    t = edit(t, r"^\[SensorSystem10 #ECM Pod Right\nType=ECM\nSystemName=AN/ALQ-99\nModuleType=Sensor\n",
+             "", 1, "plaaf_jh7a")
+    if re.search(r"^SystemName=AN/ALQ-99", t, re.M):
+        sys.exit("plaaf_jh7a: donor mounts another AN/ALQ-99 - rebase this fix")
+    write("aircraft/plaaf_jh7a.ini", t,
+          "SEST Collection Fixes - base: 3526982088's JH-7A.\n"
+          "One delta: the two AN/ALQ-99 tactical jamming pods become one\n"
+          "self-protection jammer (AircraftDECM_Late), and the malformed second\n"
+          "pod section goes with them. Everything else is the author's file.")
+    built.append("plaaf_jh7a")
+
     build_mh60r_names()
     added = build_missing_sensors()
     named = build_missing_loadout_names()

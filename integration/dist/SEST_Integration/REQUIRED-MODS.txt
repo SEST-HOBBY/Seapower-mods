@@ -184,7 +184,7 @@ Workshop id   supplies                         mod
 3806466625    a unit a mission places          V-22 Osprey / SV-22 2024 ASW prototype
 3478767194    a unit a mission places          VH-3D Marine One MOD
 3433957933    a unit a mission places          Virginia-, Seawolf-, and Ohio-class Submarines
-3526982088    a unit a mission places          XIAN JH-7A (歼轰-7A 飞豹)
+3526982088    a weapon a loadout hangs         XIAN JH-7A (歼轰-7A 飞豹)
 3782020901    a unit a mission places          Y-20 / KJ-3000
 3796349767    a unit a mission places          YF-23 Black Widow II
 
