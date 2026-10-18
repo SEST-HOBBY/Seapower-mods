@@ -117,7 +117,7 @@ mod in LOAD-ORDER.txt and stops if one is missing.
 
   3587091564    a unit a mission places          3M25 <<МЕТЕОРИТ>> (AS-X-19 Koala)
   3673908868    a unit a mission places          <<Tu-16N>>
-  3403661005    a unit a mission places          [DEPRECATED] S-70B-2 Seahawk with AGM-114 'Hellfire' Missiles
+  3403661005    a model a placed unit draws      [DEPRECATED] S-70B-2 Seahawk with AGM-114 'Hellfire' Missiles
   3414146266    a unit a mission places          A-10A Thunderbolt II
   3425450153    a squadron a flight comes from   AH-64 Apache
   3461091581    a unit a mission places          Air Deck Operations Upgrade - Nimitz (2000s)

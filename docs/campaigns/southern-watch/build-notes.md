@@ -3262,3 +3262,42 @@ with one delta: one pod, the game's own `AircraftDECM_Late` (Defensive,
 0.40, no stand-off reach). The second pod's header in the mod has no closing
 bracket, and that section goes too. This changes the JH-7A everywhere it
 flies, in SEST's missions and anyone else's.
+
+## One Redback for every strike aircraft, and three unnamed units (19 October)
+
+**The AGR-30 Redback is SEST's one upgraded APKWS.** The 8 nm laser APKWS
+II-ER (`sest_apkws_er`, its pod `sest_agr-20er` and the Ocean Apache's
+`SEST_APKWS_ER` fit) is gone. The Redback stays `dts_apkws-ii` with the
+minimum deltas, now: an infrared fire-and-forget seeker reaching as far as
+it may be shot (30 nm); the APKWS's own boost, then a sustainer
+(`SustainerAccelerationTime=170`, `SustainerAcceleration=0.5`) while
+`VelocityBleed=0.4` brings it down from 1,500 kt to about 600 kt for the
+cruise; the NSM's terrain following and sea skimming key for key
+(`TerrainFollowFlight`, `SeaSkimming*`, `FinalFlightPhase*`,
+`TerminalApproachDist`) in place of the APKWS's loft and terminal dive; and
+an anti-surface primary, since the APKWS's anti-air one would fly that low
+profile at aircraft. Each of those keys already flies from a pod somewhere
+in the collection (the TOW-2B and AT-6 skim, the AGM-65B and AGM-88A have
+sustainers); the combination in one round is new. If a Redback launch ever
+freezes the game, the sustainer comes out first.
+
+**The fit, everywhere.** `integration/common/redback.py` is the one recipe:
+clone a fit the aircraft already flies and put Redback pods on the pylons
+named, the count checked. Allied Fixes ships it on the US and UK Apaches,
+the Sea Apache, the RAAF AH-64E, both A-10s (C and A), both MQ-9s, the
+US Navy and RAN MH-60R, both S-70B-2s, and the RAAF F/A-18F and F/A-18A.
+The A-10C+, the F-16CM and the three US Super Hornets are other SEST packs'
+files and get the same fit from their own builders. On the Seahawks the pods
+take the Hellfire launchers' outer pair (or the torpedo pylons on the RAN
+S-70B-2) and the torpedoes or tanks stay; on the fighters they take a CAS
+or strike fit's pylons. The tasking rows offer `SEST_REDBACK` wherever a
+sold aircraft carries it.
+
+**Unit Reference: three units with no name.** Found by scanning every unit
+in the collection for a name: `mm_skyguard_sam` (Euromod Cold War Italian
+Navy) and `usaf_f-16c_blk40` (Euromod South Korea Navy, which also ships no
+squadron table) now have names in Name Fixes; the RAN Sea King Mk.50A/B
+(`ran_seakingmk50ab`) had its squadron table spelled
+`ran_seakingmk50bab_squadrons.ini`, so Collection Fixes ships it under the
+name the game reads, and gives the F-16C Block 40 a table cloned from the
+same mod's KF-16. Both retire themselves when the authors fix them.

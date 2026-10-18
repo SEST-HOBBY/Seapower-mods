@@ -31,6 +31,7 @@ OUT = Path(__file__).resolve().parent / "SEST_Growler_NGJ_MALICE"
 
 sys.path.insert(0, str(ROOT / "integration"))
 from common.aim424 import AIM424_ID, write_aim424  # noqa: E402
+from common.redback import add_fit as add_redback  # noqa: E402
 
 
 # TANK MESH HISTORY - the coupling theory below was superseded, keep both.
@@ -940,6 +941,9 @@ def build_super_hornet(file_name: str) -> None:
     text = derive_hornet_escorts(text, wing_tank, source.name)
     if file_name == "usn_fa-18e.ini":
         text = port_tanker_fit(text, source.name)
+    # The Redback fit SEST's strike aircraft share (common/redback.py): the
+    # Maverick CAS fit's six rails become Redback pods.
+    text = add_redback(text, source.name, "MurderHornetCASAGM", [("usn_agm-65d", "pod", 6)])
     report_tank_clearance(text, source.name)
     if text.count("[WeaponSystem1SEST_MaliceBlockIII]") != 1:
         sys.exit(f"{source.name}: invalid generated MALICE section count")

@@ -10,11 +10,11 @@ This campaign reaches 215 of the enabled mods and packs; the 7 it does not are l
 
 | class | meaning | mods |
 |---|---|---|
-| `unit` | places the unit; this mod wins its file | 140 |
+| `unit` | places the unit; this mod wins its file | 139 |
 | `variant` | supplies the hull variant the placed unit uses | 13 |
 | `squadron` | supplies the squadron the placed airframe flies from | 6 |
 | `store` | supplies a round the placed unit's loadout hangs | 9 |
-| `asset` | supplies a model folder the placed unit's file draws from | 7 |
+| `asset` | supplies a model folder the placed unit's file draws from | 8 |
 | `library` | ships no file a mission can name — systems, effects, UI or a bare dependency marker — and applies install-wide | 13 |
 | `shadowed` | every file it ships is outranked by something above it; nothing it contains can load | 4 |
 | `external` | in the collection for a third-party campaign or scenario, or as content none of these campaigns places; required all the same (SETUP checks every mod in the order) | 22 |
@@ -175,7 +175,7 @@ Sea and land positions in 26 of the 32 missions are snapped to points already us
 | `s-300pmu2` | S-300PMU2 | `unit` | wp_tombstone | Second Ring |
 | `s-350-vityaz` | S-350 Vityaz | `unit` | ru_50n6 | Second Ring |
 | `s-500` | S-500 | `external` | S-500 battery kept for scenarios; no mission places it, and the Flap Lid it shares with S-400 SAM loses to S-400's identical copy | - |
-| `s-70b-2-seahawk` | [DEPRECATED] S-70B-2 Seahawk with AGM-114 'Hellfire' Missiles | `unit` | S-70B-2_Seahawk | Before the Lifeline |
+| `s-70b-2-seahawk` | [DEPRECATED] S-70B-2 Seahawk with AGM-114 'Hellfire' Missiles | `asset` | S-70B-2_Seahawk / aircraft/S-70B-2_Seahawk | Before the Lifeline |
 | `sa-21-s400` | SA-21/S-400 SAM | `unit` | wp_sam_site_sa-21 | The Open Door |
 | `saab-aewc-pack` | SAAB AEW&C PACK | `unit` | dts_saab_ge | Western Passage |
 | `sam-pack` | SAM Pack | `unit` | fr_vl-mica_tel | Rig Seventeen |
@@ -207,7 +207,7 @@ Sea and land positions in 26 of the 32 missions are snapped to points already us
 | `u-2` | U-2 "Dragon Lady" | `unit` | usaf_u-2_1960 | Before the Lifeline |
 | `ultimate-missile-workshop` | Ultimate Missile Workshop | `external` | a missile rebalance placed below every mod it duplicates on the player's call: its 95 contested rounds load from the mods that field them, and no unit in the collection hangs the 16 rounds only it ships | - |
 | `us-naval-aviation` | United States Naval Aviation | `unit` | usmc_kc-130j | The Open Door |
-| `us-navy-2027` | U.S. Navy 2027 Capabilities mod | `unit` | usn_mh-60r | White Water |
+| `us-navy-2027` | U.S. Navy 2027 Capabilities mod | `unit` | usn_ddg_arleigh_flt3_2027 | Fujian's Shadow |
 | `us-submarines` | Virginia-, Seawolf-, and Ohio-class Submarines | `unit` | usn_ssn_seawolf | Flight Deck Day |
 | `vh-3d-marine-one` | VH-3D Marine One MOD | `unit` | usmc_vh-3d | Flight Deck Day |
 | `wp-sattelite-center` | wp_sattelite_center | `shadowed` | both files it ships are byte-identical to THE REDFOR MOD's, which sits directly above it, so nothing it contains loads | - |
@@ -217,7 +217,7 @@ Sea and land positions in 26 of the 32 missions are snapped to points already us
 | `z-21` | AVIC HARBIN Z-21 | `unit` | pla_z21 | The Long Perimeter |
 | `SEST_A10C_Plus` | SEST A-10C+ | `unit` | usaf_a-10c_plus | Range Week |
 | `SEST_ADF_Persistent_ISR` | SEST ADF Persistent ISR | `unit` | raaf_mq-4c_triton | White Water |
-| `SEST_Allied_Fixes` | SEST Allied Fixes | `unit` | usn_p8 | White Water |
+| `SEST_Allied_Fixes` | SEST Allied Fixes | `unit` | usn_mh-60r | White Water |
 | `SEST_B52_ARRW` | SEST B-52 ARRW | `unit` | usaf_b-52o | Long Reach |
 | `SEST_Campaign` | SEST Southern Watch Campaign | `campaign` | this pack: it ships the campaign, its missions, its requisition roster and their briefings. It is what the coverage below is measured on, so it cannot place a unit to reach itself | - |
 | `SEST_Collection_Fixes` | SEST Collection Fixes | `unit` | plaaf_jh7a | Weapons Free |

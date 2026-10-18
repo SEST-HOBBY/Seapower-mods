@@ -29,7 +29,7 @@ Workshop id   supplies                         mod
 3673908868    a unit a mission places          <<Tu-16N>>
 3440622312    a model a placed unit draws      [DEPRECATED] Anzac Class Frigate
 3499239964    a unit a mission places          [DEPRECATED] E-7A Wedgetail
-3403661005    a unit a mission places          [DEPRECATED] S-70B-2 Seahawk with AGM-114 'Hellfire' Missiles
+3403661005    a model a placed unit draws      [DEPRECATED] S-70B-2 Seahawk with AGM-114 'Hellfire' Missiles
 3414146266    a unit a mission places          A-10A Thunderbolt II
 3459682829    a weapon a loadout hangs         A-10C
 3425450153    a squadron a flight comes from   AH-64 Apache

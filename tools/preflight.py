@@ -232,9 +232,23 @@ def check_packs():
             if f.parent.name not in UNIT_DIRS:
                 continue
             text = f.read_text(encoding="utf-8", errors="replace")
+            # DateBased_<name> is the game's own by-year store: the same file
+            # declares `DateBased_<name>=year,round|year,round...`, and the
+            # pylon hangs whichever round is in service on the mission's date
+            # (Euromod's RAAF Hornets and RAN Seahawk, shipped by SEST Allied
+            # Fixes since they carry the Redback fit). It resolves when every
+            # round it names does.
+            dated = {m.group(1): [p.split(",", 1)[1] for p in m.group(2).split("|") if "," in p]
+                     for m in re.finditer(r"^(DateBased_\w+)=(\S+)", text, re.M)}
             for store in sorted({s.split("|")[0] for s in
                                  re.findall(r"^Station\d+=([A-Za-z]\S*)", text, re.M)}):
                 checked += 1
+                if store in dated:
+                    gone = [r for r in dated[store] if winning_file(f"ammunition/{r}.ini") is None]
+                    if gone or not dated[store]:
+                        problems.append(f"{pack.name}/{f.name}: {store} names "
+                                        f"{', '.join(gone) or 'no round'} with no ammunition file")
+                    continue
                 if winning_file(f"ammunition/{store}.ini") is None:
                     problems.append(
                         f"{pack.name}/{f.name}: Station store '{store}' has no "

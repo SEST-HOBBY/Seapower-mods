@@ -886,6 +886,36 @@ def main():
           "and defines none), NumberOfSquadrons=1 to match.")
     built.append("plaaf_jh7a_squadrons")
 
+    # ran_seakingmk50ab_squadrons - Euromod RAN's Sea King Mk.50A/B is
+    # aircraft/ran_seakingmk50ab.ini, but its squadron table is spelled
+    # ran_seakingmk50bab_squadrons.ini, so the game finds none: the Unit
+    # Reference showed it under Missing Type and Missing Class, 0 m long
+    # (19 Oct 2026). The table is copied verbatim under the name the game
+    # reads, while no mod ships one under that name.
+    if (MODS / "3820759806" / "aircraft" / "ran_seakingmk50ab_squadrons.ini").exists():
+        sys.exit("ran_seakingmk50ab_squadrons: upstream now ships the right name - retire this fix")
+    t = read("3820759806", "aircraft/ran_seakingmk50bab_squadrons.ini").replace("\r\n", "\n")
+    write("aircraft/ran_seakingmk50ab_squadrons.ini", t,
+          "SEST Collection Fixes - base: 3820759806's ran_seakingmk50bab_squadrons.ini,\n"
+          "verbatim, under the name its aircraft (ran_seakingmk50ab) is read with.")
+    built.append("ran_seakingmk50ab_squadrons")
+
+    # usaf_f-16c_blk40_squadrons - Euromod South Korea Navy's USAF F-16C
+    # Block 40 has no squadron table at all (and no name: SEST Name Fixes
+    # gives it one). Cloned from the same mod's KF-16 table, which carries
+    # no livery fields either, with the US flag and one squadron.
+    if (MODS / "3789208859" / "aircraft" / "usaf_f-16c_blk40_squadrons.ini").exists():
+        sys.exit("usaf_f-16c_blk40_squadrons: upstream now ships one - retire this fix")
+    t = read("3789208859", "aircraft/rok_kf16_squadrons.ini").replace("\r\n", "\n")
+    t = edit(t, r"^NumberOfSquadrons=0$", "NumberOfSquadrons=1", 1, "usaf_f-16c_blk40_squadrons")
+    t = edit(t, r"^FlagTexture=South Korea$", "FlagTexture=flag_usn", 1, "usaf_f-16c_blk40_squadrons")
+    t = edit(t, r"^Nation=South_Korea$", "Nation=US", 1, "usaf_f-16c_blk40_squadrons")
+    t = t.rstrip("\n") + "\n\n[Squadron1]\nNation=US\n"
+    write("aircraft/usaf_f-16c_blk40_squadrons.ini", t,
+          "SEST Collection Fixes - base: 3789208859's rok_kf16_squadrons.ini, for the\n"
+          "same mod's usaf_f-16c_blk40, which ships no table: the US flag and one squadron.")
+    built.append("usaf_f-16c_blk40_squadrons")
+
     # plaaf_jh7a - the JH-7A flies two AN/ALQ-99s. 3526982088 mounts them as
     # SensorSystem9 and 10 on every fit (no *_SensorsToRemove takes them off):
     # the EA-6B's tactical jamming suite, Universal type, 1,000 km, a 0.45

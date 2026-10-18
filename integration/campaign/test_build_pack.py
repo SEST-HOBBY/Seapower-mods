@@ -964,7 +964,7 @@ class RosterAndSeahawk(unittest.TestCase):
                  stations={"deck": S(-47.50, 140.50, "Deck"),
                            "flight": S(-47.48, 140.50, "Flight", alt=500)},
                  units=[U(side, "SEST_RAN_Fleet", "ran_ffh_anzac", "deck", weapons="Hold"),
-                        U(side, "us-navy-2027", "usn_mh-60r", "flight", **kw)])
+                        U(side, "SEST_Allied_Fixes", "usn_mh-60r", "flight", **kw)])
         placed, _members, _credits, _far = bp.place(m, bp.CoastPlacer(bp.coast_data(), m))
         family = "Taskforce1Helicopter" if side == "blue" else "Taskforce2Helicopter"
         return placed[family][0][1]["SquadronReference"]

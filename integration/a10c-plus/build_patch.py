@@ -55,6 +55,7 @@ OUT = Path(__file__).resolve().parent / "SEST_A10C_Plus"
 
 sys.path.insert(0, str(ROOT / "integration"))
 from common.a10c import fix_squadron_count, register_ir_head  # noqa: E402
+from common.redback import add_fit as add_redback  # noqa: E402
 
 UNIT = "usaf_a-10c_plus"
 BASE = "usa_a-10c"
@@ -173,6 +174,10 @@ def main():
                  "changed its loadout table, re-check which fits carry the rails")
     if not (ROOT / "mods-source" / "3606774881" / "ammunition" / "usn_aim-9x.ini").exists():
         sys.exit(f"{UNIT}: usn_aim-9x is not defined by U.S. Navy 2027 - re-check the provider")
+
+    # 3b. the Redback fit, as every SEST A-10 carries it (common/redback.py):
+    #     CAS1's five rocket pods become Redback pods.
+    text = add_redback(text, UNIT, "CAS1", [("usn_agr-20b", "pod", 5)])
 
     # 4. sanity: every AssociatedSensors entry now resolves
     have = {int(x) for x in re.findall(r"^\[SensorSystem(\d+)\]", text, re.M)}

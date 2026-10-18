@@ -589,7 +589,7 @@ MISSIONS.append(dict(
     units=[
         U("blue", "SEST_RAN_Fleet", "ran_ffh_anzac", "warramunga",
           variant="Variant3", weapons="Tight"),
-        U("blue", "us-navy-2027", "usn_mh-60r", "flight", alt=500, weapons="Tight"),
+        U("blue", "SEST_Allied_Fixes", "usn_mh-60r", "flight", alt=500, weapons="Tight"),
         U("blue", "p-8-poseidon", "usn_p8", "air", squadron="Squadron3",
           name="Bluefin 21", alt=18000, weapons="Tight"),
         U("blue", "SEST_ADF_Persistent_ISR", "raaf_mq-4c_triton", "high",
@@ -776,7 +776,7 @@ MISSIONS.append(dict(
         # ship and a maritime-patrol slot for the P-8 the roster starts
         # selling here. The two F-35A cockpits and their CAP row are gone -
         # this mission declares no air threat and sells no fighter.
-        U("blue", "us-navy-2027", "usn_mh-60r", "flight"),
+        U("blue", "SEST_Allied_Fixes", "usn_mh-60r", "flight"),
         U("blue", "p-8-poseidon", "usn_p8", "mpa", squadron="Squadron3",
           alt=6000),
     ],
@@ -1033,7 +1033,7 @@ MISSIONS.append(dict(
     units=[
         U("blue", "SEST_RAN_Fleet", "ran_opv_arafura", "patrol",
           weapons="Tight"),
-        U("blue", "us-navy-2027", "usn_mh-60r", "air",
+        U("blue", "SEST_Allied_Fixes", "usn_mh-60r", "air",
           alt=2500, weapons="Tight"),
         U("blue", "p-8-poseidon", "usn_p8", "mpa", squadron="Squadron3", alt=15000, weapons="Tight"),
         U("red", "red-storm-arsenal", "_narco_narcosub_adv", "passenger",
@@ -1143,7 +1143,7 @@ MISSIONS.append(dict(
     units=[
         U("blue", "SEST_RAN_Fleet", "ran_ffh_anzac", "warramunga",
           variant="Variant3"),
-        U("blue", "us-navy-2027", "usn_mh-60r", "air", alt=3000),
+        U("blue", "SEST_Allied_Fixes", "usn_mh-60r", "air", alt=3000),
         U("red", "chinese-navy-plan", "plan_em_sovremenny", "sag",
           name="Opposing escort", route=[(-10.3, 131.85, 0)], telegraph=3),
         U("red", "type-071-lpd", "plan_lpd_type_071", "sag",
@@ -1741,7 +1741,7 @@ MISSIONS.append(dict(
         U("blue", "SEST_RAN_Fleet", "ran_ffh_anzac", "escort", variant="Variant8"),
         U("blue", "re-power-resupply", "civ_ms_amra", "stores",
           name="MV Coral Provider"),
-        U("blue", "us-navy-2027", "usn_mh-60r", "air",
+        U("blue", "SEST_Allied_Fixes", "usn_mh-60r", "air",
           alt=2500),
         U("blue", "buildings-targets-missions", "FOB", "cape",
           name="Cape York forward strip", weapons="Hold"),
@@ -2217,7 +2217,7 @@ MISSIONS.append(dict(
         # Air-tasking placeholder: no name, no objective, no line in the
         # briefing. Its only job is to be a cockpit a purchased aircraft can
         # take, the way every slot-tagged section in the shipped campaign is.
-        U("blue", "us-navy-2027", "usn_mh-60r", "air"),
+        U("blue", "SEST_Allied_Fixes", "usn_mh-60r", "air"),
         U("blue", "SEST_RAAF_F-35A_JATM", "raaf_f-35a", "cap"),
         U("blue", "SEST_RAAF_F-35A_JATM", "raaf_f-35a", "cap", squadron="Squadron3"),
     ],
@@ -3430,7 +3430,7 @@ MISSIONS.append(dict(
         # On its ASW fit (sonobuoys and two Mk 46), which is what the RAN's
         # Seahawks carried in 1988. The file's Default hangs four Hellfires,
         # which an RAN Seahawk did not carry that year.
-        U("blue", "s-70b-2-seahawk", "S-70B-2_Seahawk", "sea",
+        U("blue", "SEST_Allied_Fixes", "S-70B-2_Seahawk", "sea",
           name="Tiger 01", alt=1500, weapons="Tight", loadout="ASW"),
         # The KC-10A, in service from 1981: it left D2's 2028 carrier box
         # for this. Out of the fight, Hold.
@@ -3734,7 +3734,7 @@ MISSIONS.append(dict(
         U("blue", "SEST_RAN_Fleet", "ran_ffh_anzac", "patrol", variant="Variant3",
           weapons="Tight"),
         # The Ship's Flight slot a bought Seahawk fills. No trigger names it.
-        U("blue", "us-navy-2027", "usn_mh-60r", "flight", alt=500,
+        U("blue", "SEST_Allied_Fixes", "usn_mh-60r", "flight", alt=500,
           weapons="Tight"),
         U("neutral", "_vanilla", "civ_ms_encounter", "wreck",
           name="MV Torres Light"),
@@ -3864,7 +3864,7 @@ MISSIONS.append(dict(
         U("blue", "SEST_RAN_Fleet", "ran_ffh_anzac", "hobart", variant="Variant3",
           weapons="Tight"),
         # The Ship's Flight slot a bought Seahawk fills. No trigger names it.
-        U("blue", "us-navy-2027", "usn_mh-60r", "flight", alt=500,
+        U("blue", "SEST_Allied_Fixes", "usn_mh-60r", "flight", alt=500,
           weapons="Tight"),
         # Not a Steel Highway hull: any of that convoy's four can be lost
         # the day before, and a page or a mission never names a losable hull
@@ -4102,7 +4102,7 @@ MISSIONS.append(dict(
     },
     units=[
         U("blue", "SEST_RAN_Fleet", "ran_ffh_anzac", "escort", variant="Variant8"),
-        U("blue", "us-navy-2027", "usn_mh-60r", "flight", alt=500),
+        U("blue", "SEST_Allied_Fixes", "usn_mh-60r", "flight", alt=500),
         U("red", "re-power-resupply", "civ_ms_andizhan", "cargo", name="MV Ocean Pearl",
           nation="Panama", weapons="Hold", route=[(-6.05, 132.20, 0)], telegraph=3),
         U("red", "re-power-resupply", "civ_ms_freighter_a", "cargo", name="MV Golden Wren",

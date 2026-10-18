@@ -10,10 +10,10 @@ This campaign reaches 50 of the enabled mods and packs; the 172 it does not are 
 
 | class | meaning | mods |
 |---|---|---|
-| `unit` | places the unit; this mod wins its file | 26 |
+| `unit` | places the unit; this mod wins its file | 25 |
 | `variant` | supplies the hull variant the placed unit uses | 2 |
 | `squadron` | supplies the squadron the placed airframe flies from | 3 |
-| `store` | supplies a round the placed unit's loadout hangs | 6 |
+| `store` | supplies a round the placed unit's loadout hangs | 7 |
 | `asset` | supplies a model folder the placed unit's file draws from | 13 |
 
 Sea and land positions are used as authored and checked against the coastline extract, not snapped to points from a loading mission; no anchor was moved.
@@ -60,9 +60,9 @@ Sea and land positions are used as authored and checked against the coastline ex
 | `tu-95-as-15` | Tu-95 With AS-15 (Kh-55) ALCM (more realistic nuke) | `store` | wp_ssn_akula / wp_65-76 | Silent Track |
 | `type-003-004-maneuverwarfare` | Type 003 Fujian / Type 004 CVN Aircraft Carriers | `unit` | plan_j-15 | Cold Route |
 | `us-naval-aviation` | United States Naval Aviation | `unit` | usmc_kc-130j | The Gateway |
-| `us-navy-2027` | U.S. Navy 2027 Capabilities mod | `unit` | usn_mh-60r | Southern Departure |
+| `us-navy-2027` | U.S. Navy 2027 Capabilities mod | `store` | usn_p8 / usn_haawc_p8 | Southern Departure |
 | `SEST_ADF_Persistent_ISR` | SEST ADF Persistent ISR | `unit` | raaf_mq-4c_triton | Southern Departure |
-| `SEST_Allied_Fixes` | SEST Allied Fixes | `unit` | usn_p8 | Southern Departure |
+| `SEST_Allied_Fixes` | SEST Allied Fixes | `unit` | usn_mh-60r | Southern Departure |
 | `SEST_Collection_Fixes` | SEST Collection Fixes | `squadron` | usn_mh-60r | Southern Departure |
 | `SEST_Growler_NGJ_MALICE` | SEST Growler NGJ + MALICE | `unit` | usn_fa-18f_blk3 | The Southern Convoy |
 | `SEST_RAAF_Bases` | SEST RAAF Bases | `unit` | airbase_raaf_edinburgh | Southern Departure |

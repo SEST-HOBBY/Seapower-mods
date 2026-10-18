@@ -21,14 +21,14 @@ photographs from the SEST gallery. Each carries its photographer
 and licence on the picture; the full credits, with sources, are
 in Gallery/PHOTO_CREDITS.txt.
 
-517 of the unit files here are another author's file with
+523 of the unit files here are another author's file with
 changes made to it. A Sea Power unit file is a whole-file
 override - there is no way to alter one line of somebody's
 aircraft without shipping the whole aircraft - so this is how a
 patch has to work, and this list is what it patches.
 
 Measured, not declared: every shipped unit file is diffed against
-every file of its kind in the collection, and the 517 below
+every file of its kind in the collection, and the 523 below
 came back 90% or more alike. The percentage is how much of the
 file is unchanged.
 Files carried for a mod that was removed from the Workshop are
@@ -39,23 +39,25 @@ listed whatever the percentage: they are still that author's.
       100%  vessels/ru_cv_varyag.ini 
       100%  vessels/yns_cv_kuznetsov.ini 
 
+  [DEPRECATED] S-70B-2 Seahawk with AGM-114 'Hellfire' Missiles  (workshop 3403661005)
+       99%  aircraft/S-70B-2_Seahawk.ini 
+
   A-10A Thunderbolt II  (workshop 3414146266)
+       99%  aircraft/usa_a-10a.ini 
        95%  aircraft/usaf_a-10c_plus_squadrons.ini from usa_a-10a_squadrons.ini
 
   A-10C  (workshop 3459682829)
        99%  aircraft/usa_a-10c.ini 
        95%  aircraft/usa_a-10c_squadrons.ini 
-       97%  aircraft/usaf_a-10c_plus.ini from usa_a-10c.ini
+       96%  aircraft/usaf_a-10c_plus.ini from usa_a-10c.ini
 
   AH-64 Apache  (workshop 3425450153)
-       98%  aircraft/uk_ah_mk_1.ini 
+       99%  aircraft/uk_ah_mk_1.ini 
        99%  aircraft/usa_ah-64a.ini 
        99%  aircraft/usa_ah-64d.ini 
        99%  aircraft/usa_ah-64e.ini 
        99%  aircraft/usn_ah-64na.ini 
-       96%  ammunition/sest_agr-20er.ini from usn_agr-20b_apache.ini
        96%  ammunition/sest_agr-30_pod.ini from usn_agr-20b_apache.ini
-       99%  ammunition/sest_apkws_er.ini from usa_apkws_2_m282.ini
 
   ARRW (AGM-183)  (workshop 3502273861)
        99%  aircraft/usaf_b-52h_419_flts.ini 
@@ -90,9 +92,6 @@ listed whatever the percentage: they are still that author's.
 
   David's Sling  (workshop 3558173926)
        97%  ammunition/idf_stunner.ini 
-
-  Dingtools Weapon Pack  (workshop 3760871384)
-       96%  ammunition/sest_agr-30.ini from dts_apkws-ii.ini
 
   Euromod - Cold War Spanish Navy  (workshop 3630495619)
        98%  vessels/ae_ao_teide.ini 
@@ -202,6 +201,12 @@ listed whatever the percentage: they are still that author's.
       100%  vessels/swe_fsg_visby_v6.ini 
 
   Euromod - Modern Royal Australian Navy Mod  (workshop 3820759806)
+       99%  aircraft/adf_ah-64e.ini 
+       99%  aircraft/raaf_fa-18a_2011.ini 
+       98%  aircraft/raaf_fa-18f.ini 
+       99%  aircraft/ran_S-70B-2_Seahawk.ini 
+       99%  aircraft/ran_mh-60r.ini 
+       96%  aircraft/ran_seakingmk50ab_squadrons.ini from ran_seakingmk50bab_squadrons.ini
       100%  vessels/ran_ddg_hobart.ini 
       100%  vessels/ran_ffh_anzac.ini 
       100%  vessels/ran_lhd_canberra.ini 
@@ -249,7 +254,7 @@ listed whatever the percentage: they are still that author's.
        96%  ammunition/dts_agm-183a(w62).ini 
 
   F-16C Fighting Falcon (modern)  (workshop 3758320372)
-       99%  aircraft/usaf_f-16cm-bl52d.ini 
+       98%  aircraft/usaf_f-16cm-bl52d.ini 
        99%  ammunition/usn_agm-88.ini 
        98%  ammunition/usn_aim-9l.ini 
 
@@ -641,6 +646,7 @@ listed whatever the percentage: they are still that author's.
        97%  aircraft/usn_fa-18e.ini 
        97%  aircraft/usn_fa-18f.ini 
        97%  aircraft/usn_fa-18f_blk3.ini 
+       99%  aircraft/usn_mh-60r.ini 
        99%  ammunition/usn_aim-9x.ini 
       100%  ammunition/usn_rgm-109j.ini 
        96%  ammunition/usn_rim-174b.ini 
