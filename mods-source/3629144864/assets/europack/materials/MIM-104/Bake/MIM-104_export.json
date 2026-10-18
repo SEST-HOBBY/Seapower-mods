@@ -1,0 +1,15 @@
+{
+  "format": 1,
+  "name": "MIM-104",
+  "shader": "Marmoset/Bumped Specular IBL",
+  "ao_in_diffuse": true,
+  "source": "Cylinder, Cube, Cube.001",
+  "size": [
+    1024,
+    1024
+  ],
+  "texture_root": "assets/europack/materials",
+  "specular_alpha": "1 - roughness",
+  "normal": "tangent RGB, +Y, linear data",
+  "scope": "Opaque Principled materials; spec/gloss approximation"
+}
