@@ -637,6 +637,7 @@ listed whatever the percentage: they are still that author's.
       100%  vessels/plan_cvn_004.ini 
 
   U.S. Navy 2027 Capabilities mod  (workshop 3606774881)
+       92%  aircraft/usn_ea-18g.ini 
        97%  aircraft/usn_fa-18e.ini 
        97%  aircraft/usn_fa-18f.ini 
        97%  aircraft/usn_fa-18f_blk3.ini 
@@ -658,7 +659,6 @@ listed whatever the percentage: they are still that author's.
       100%  vessels/usn_ssn_virginia_seal_2027.ini 
 
   United States Naval Aviation  (workshop 3737267013)
-       92%  aircraft/usn_ea-18g.ini 
        97%  aircraft/usn_ea-18g_2020.ini 
        96%  aircraft/usn_f-35c_squadrons.ini 
        97%  aircraft/usn_mh-60r_squadrons.ini 
