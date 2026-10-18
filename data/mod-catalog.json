@@ -1288,7 +1288,7 @@
       "faction": "europe",
       "type": "framework",
       "status": "active",
-      "notes": "Shared database of European weapons and sensors. The Euromod dependency is explicitly stated by 5 of the 8 addons in this list (Nordic, Dutch, German, British, Cold War Spanish) and inferred for the other 3 (Italian, JMSDF, Modern Spanish). No author placement instruction; recommendation: keep above all Euromod addons. 15 Oct 2026: added the Shafrir 2 (is_shafrir_2) and a 30 mm HEDP round, and sensor and weapon sections all prefixed eu_ (eu_M230, eu_AN/APG-78, eu_AN/ASQ-170_M-TADS, eu_AN/ASQ-170_laser, eu_APR-39Av4, eu_ELM-2001B, eu_Agave), so none collides with AH-64 Apache's M230 and APG-78 or Etendard Family Jets' Agave."
+      "notes": "Shared database of European weapons and sensors. The Euromod dependency is explicitly stated by 5 of the 8 addons in this list (Nordic, Dutch, German, British, Cold War Spanish) and inferred for the other 3 (Italian, JMSDF, Modern Spanish). No author placement instruction; recommendation: keep above all Euromod addons. 15 Oct 2026: added the Shafrir 2 (is_shafrir_2) and a 30 mm HEDP round, and sensor and weapon sections all prefixed eu_ (eu_M230, eu_AN/APG-78, eu_AN/ASQ-170_M-TADS, eu_AN/ASQ-170_laser, eu_APR-39Av4, eu_ELM-2001B, eu_Agave), so none collides with AH-64 Apache's M230 and APG-78 or Etendard Family Jets' Agave. 18 Oct 2026 (19:39 update): adds its own Patriot family under SAM Pack's ids - usa_mim-104b/c/d/e/f_mi and an f_mse_mi alias of usn_pac3_mse - and SAM Pack, higher in the order, keeps all five base files, so Euromod's copies never load; adds the high-speed hit effect lines (HighSpeedHitDefaultExplosion, kinetic_kill_hit) to RIM-7M, RIM-7P, SA-N-11 and SA-N-22, which are cosmetic; names the new rounds in English. SEST's build did not change."
     },
     {
       "id": "modern-us-navy",
@@ -1898,7 +1898,7 @@
       "requires": [
         "anchor-chain"
       ],
-      "notes": "Extends the Anchor Chain framework: three systems files plus ammunition_overwrite/language_overwrite folders (Anchor Chain's own patching mechanic) and a welldeck config. No whole-file collision with anything; placed directly under Anchor Chain so the framework and its expansion stay together."
+      "notes": "Extends the Anchor Chain framework: three systems files plus ammunition_overwrite/language_overwrite folders (Anchor Chain's own patching mechanic) and a welldeck config. No whole-file collision with anything; placed directly under Anchor Chain so the framework and its expansion stay together. 18 Oct 2026 (19:39 update): six Anchor Chain #!extend overwrites for the Patriot rounds (usa_mim-104b..f_mi, f_mse_mi). They apply to the copy that wins - SAM Pack's - so SAM Pack's Patriot launchers, Ballistic Shield's PAC-3 among them, fly Euromod's model and hit effects, and the PAC-3 (MIM-104F) a 45-degree loft, 45 deg/s turn and an 80,000 ft ceiling; range, speed and warhead stay SAM Pack's. A mixed lineage (SAM Pack's base, Euromod's deltas written for its own base), accepted as placed. Not yet seen in game."
     },
     {
       "id": "f-15e-strike-eagle",

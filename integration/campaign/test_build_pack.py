@@ -1387,7 +1387,9 @@ class SameNationDiscount(unittest.TestCase):
         ini = (Path(bp.__file__).resolve().parent / "SEST_Campaign" / "campaigns" /
                "sest-southern-watch" / "missions" / "Southern Watch 02 - Steel Highway.ini")
         text = ini.read_text(encoding="utf-8")
-        self.assertIn("Action_UnitRevealToTaskforce=Taskforce1\nAction_UnitRevealTime=900\n", text)
+        # One minute, stock Sub Duel's initial contact: fifteen left the boat
+        # on the plot with nothing seeming to hold it (play test, 18 Oct 2026).
+        self.assertIn("Action_UnitRevealToTaskforce=Taskforce1\nAction_UnitRevealTime=60\n", text)
         self.assertNotIn("Taskforce1|Classify", text)
 
     # Sulu Line is the one campaign whose roster is a coalition on purpose:
