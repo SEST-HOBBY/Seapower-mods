@@ -265,3 +265,37 @@ Capture `4d4744e8` on `chore/workshop-refresh-20261017d`.
 
 Checks: all 12 gates pass; nothing SEST builds names a unit that no longer
 loads.
+
+## 8. 18 Oct capture: five overnight updates
+
+Capture `532c082e` on `chore/workshop-refresh-20261018`, taken on the PC at
+`9ad230d7` with the 16 Oct menu plugin (1.2.2) still installed.
+
+- **US Naval Aviation (3737267013).** Two new rounds, the AGM-154C JSOW
+  Block II (`usn_agm-154c`, a BROACH penetrator for hardened targets) and the
+  Block III (`usn_agm-154c-1`, datalinked, anti-ship as well), with their
+  model material and names; the infrared sensor's look-down multiplier
+  0.8 -> 1.0. No aircraft in the mod loads them yet.
+- **Euromod - Main Pack (3629144864).** The Indian BrahMos and BrahMos-ER
+  gain seeker and warhead reliability (0.8), a circular error against
+  installations and the infrared display flag.
+- **Euromod - India Navy (3807164392).** New Shivalik-class frigate
+  (`ins_p-17a`, three variants, Indian, in service 2010), with the Barak-1,
+  Barak-8 ER and Shtil-1 rounds it fires.
+- **Spanish Navy Mod (Cold War) (3630495619), v3.56.** New loadouts on the
+  Dedalo (R01) and Principe de Asturias (R11), deck crew on R11, the Mirage
+  IIIEE in all three squadrons (111, 112 and 11) with its own air-to-air
+  fits, and a static AV-8A/S Matador. SEST Replenishment's two carrier
+  forks (`ae_cvl_dedalo`, `ae_cvl_principe_asturias`) re-fork from the new
+  files.
+- **Euromod - Anchorchain Expansion Pack (3784474738).** Every plugin
+  rebuilt (Hull Damage 0.4.2 -> 0.5.7; the old one left as `HullDamage.dll_`,
+  which nothing loads); the high-speed hit effects removed again from 65
+  of its ammunition overlays; READMEs moved under `readme/`. CombatWorker still
+  stands down on the PLA AEP's SecondThrust hook, as before.
+
+**Seen in game, at last:** this session's Player.log shows the 16 Oct plugin's
+loading-screen watcher working. It found the loading screen's picture
+(`LoadScreen.BackgroundImage`), watched it every frame, and painted SEST
+photographs over the stock and other mods' loading pictures (lines 118, 126,
+1012 and 1147). The PC has not yet synced plugin 1.3.0 (the tile guard).
