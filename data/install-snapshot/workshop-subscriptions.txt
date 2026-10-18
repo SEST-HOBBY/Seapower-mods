@@ -113,7 +113,7 @@
 3628201887   Clemenceau -class Aircraft Carrier                   updated 2026-03-04 08:36  folder 2026-10-04 20:32
 3628203171   Bréguet Br.1050 Alizé                                updated 2025-12-29 03:16  folder 2026-10-04 20:33
 3628247436   Sea Venom - Aquilon                                  updated 2026-01-03 05:11  folder 2026-10-04 20:33
-3629144864   Euromod - Main Pack                                  updated 2026-10-18 03:20  folder 2026-10-18 03:37
+3629144864   Euromod - Main Pack                                  updated 2026-10-18 17:27  folder 2026-10-18 19:19
 3629269283   Modern Russian Airbase                               updated 2026-09-13 08:50  folder 2026-08-16 12:05
 3630495619   Spanish Navy Mod (Cold War)                          updated 2026-10-18 04:08  folder 2026-10-18 04:22
 3631042692   Modern Chinese Airbase                               updated 2026-08-13 02:42  folder 2026-08-16 12:02
@@ -190,25 +190,26 @@
 3806197116   Civilian AS350 Ecureuil/AStar MOD                    updated 2026-09-24 00:54  folder 2026-10-05 03:05
 3806466625   V-22 Osprey / SV-22 2024 ASW prototype               updated 2026-10-12 05:31  folder 2026-10-12 15:35
 3806686336   Coordinated Strike Tool                              updated 2026-09-25 21:51  folder 2026-09-30 21:22
-3807164392   Euromod-India-Navy                                   updated 2026-10-18 05:15  folder 2026-10-18 05:52
+3807164392   Euromod-India-Navy                                   updated 2026-10-18 18:22  folder 2026-10-18 05:52
 3808882954   RC-135V/W Rivet Joint                                updated 2026-10-14 11:45  folder 2026-10-14 15:53
-3810611344   MV-75 Cheyenne II                                    updated 2026-10-16 12:08  folder 2026-10-16 13:55
+3810611344   MV-75 Cheyenne II                                    updated 2026-10-18 15:45  folder 2026-10-16 13:55
 3812111085   PLAAF Aircraft Pack                                  updated 2026-10-17 11:17  folder 2026-10-03 20:53
 3812140001   Pakistani Pack                                       updated 2026-10-03 18:18  folder 2026-10-04 20:20
 3812454152   Euromod-Philippine-Navy                              updated 2026-10-10 14:56  folder 2026-10-04 20:21
+3812461539   SEST Integration Pack                                updated 2026-10-18 13:00  folder 2026-10-18 13:23
 3813033771   EC-2 Stand Off Jammer                                updated 2026-10-14 10:12  folder 2026-10-14 15:53
 3813157776   Dynamic Campaign Mod                                 updated 2026-10-16 08:32  folder 2026-10-16 13:55
 3819522350   Anduril Maritime Drones                              updated 2026-10-17 13:50  folder 2026-10-16 13:55
 3820576916   Steelfin                                             updated 2026-10-17 15:06  folder 2026-10-17 15:22
-3820759806   Euromod - Modern Royal Australian Navy Mod           updated 2026-10-17 14:57  folder 2026-10-17 15:18
+3820759806   Euromod - Modern Royal Australian Navy Mod           updated 2026-10-18 15:14  folder 2026-10-18 19:19
 
-subscribed but UNPLACED (0): 
+subscribed but UNPLACED (1): 3812461539
 placed but NOT SUBSCRIBED (0): 
 
 --- Steam client record (appworkshop_1286220.acf) ---
 acf file(s)              : c:\program files (x86)\steam\steamapps\workshop\appworkshop_1286220.acf
-folders on disk          : 198
-ids Steam tracks locally : 198
+folders on disk          : 199
+ids Steam tracks locally : 199
 NeedsDownload / NeedsUpdate: 0 / 0
 tracked but NOT on disk (0): 
 on disk but NOT tracked (0): 
