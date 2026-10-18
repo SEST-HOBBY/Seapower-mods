@@ -19,7 +19,7 @@ repository and checked by automated gates before each upload.
 | Workshop mods integrated | 195 (the download size has not been re-measured since 190) |
 | SEST source packs | 24, merged into one deployable folder |
 | Campaigns | 4, each also as an Open Allocation version, plus a world campaign (draft) for the Dynamic Campaign Mod |
-| Campaign missions | 57, plus 8 single missions (Southern Watch - Dispatches) |
+| Campaign missions | 66, plus 8 single missions (Southern Watch - Dispatches) |
 | Story pages | Press pages, signals, ship's logs and intelligence summaries between missions |
 | Units with a real encyclopedia photo | 636 |
 | Photos in the offline gallery | 517, every one credited |
@@ -42,9 +42,17 @@ experience carry forward from mission to mission.
 - 12 core missions keeping the northern sea routes open as a coercion campaign
   turns into a limited regional war: the Arafura, Timor and Banda seas, the
   Biak enclave and the Chinese carrier groups in the Banda approaches.
-- 4 optional operations whose results carry into later missions: a classified
+- 10 optional operations whose results carry into later missions: a classified
   submarine stays classified, Korean warships join if you bring them in, a
   tanker appears if you held the coasters.
+- Six of them are side operations *(new, 18 October 2026)*, most flown by
+  somebody else's force: shadow a Meridian handover with RAN and US uncrewed
+  boats (*Paper Trail*), stop a dark convoy the day after Weapons Free (*The
+  Second Convoy*), a B-52/Growler strike on the rebuilt Russian air-defence
+  belt at Biak (*Second Ring*), an F-35A and F-22 intercept of an H-6K raid on
+  Darwin (*Bomber Stream*), a JASDF F-2A and EC-2 strike for JS Hyuga (*Viper
+  Zero*) and THAAD, Patriot and Steelfin against ballistic missiles at
+  Langgur (*Ballistic Shield*). See `docs/campaigns/side-operations.md`.
 - 2 contingency missions.
 - 8 single missions in the mission list (*Southern Watch - Dispatches*):
   allied and opposing ships in the same weeks, a weapons range trial, a 2034
@@ -100,6 +108,11 @@ experience carry forward from mission to mission.
   6. *The Aborlan Battery*: two Silkworm launchers that fire back.
   7. *Balabac Strait*: the fleet action against the Chinese southern surface
      group.
+- Three optional side operations *(new, 18 October 2026)*, flown by the
+  Navy's Tawi-Tawi patrol group or the Air Force so the no-rearm magazines
+  are untouched: a narco semi-submersible (*Night Market*), an armed trawler
+  with a hidden torpedo tube (*The Okean*) and an FA-50 strike on a Shahed 238
+  drone yard (*The Drone Yard*). Each one changes a later core mission.
 - The Philippine flag as navy emblem; Philippine Navy rank ladder.
 
 ### In every campaign
@@ -414,6 +427,10 @@ These are built and pass every automated check, but have not been watched
 working in the game. The play-test guide (`docs/play-test-guide.md`) says
 how to check each.
 
+- **The side operations** (`docs/campaigns/side-operations.md` lists what
+  each depends on): land ballistic and drone launchers firing on a track
+  another unit gives them, the EC-2's jamming, the Okean's mid-route weapons
+  order.
 - **Sulu Line's no-rearm rule:**
   - that the game keeps a ship's spent ammunition between missions;
   - that a supply ship's own stock stays used up between missions.

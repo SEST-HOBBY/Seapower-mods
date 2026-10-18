@@ -1,81 +1,122 @@
-# Side operations: the slate
+# Side operations
 
-Decided 17 Oct 2026: side operations go into the existing campaigns as
-**in-theatre optional missions**, themed on four kinds of work:
-smugglers and arms runners, privately escorted armed merchants, air defence,
-and major assault and defence operations. Some are linked to each other and
-to the core missions; others stand alone. Each one puts collection mods to
-work that no SEST mission uses yet, where they fit.
+Decided 17 Oct 2026, built 18 Oct 2026: side operations go into the existing
+campaigns as **in-theatre optional missions**, on four themes: smugglers and
+arms runners, privately escorted armed merchants, air defence, and major
+assault and defence operations. Some are chained to each other and to the
+core missions; others stand alone. Each puts collection mods to work that no
+SEST mission used before.
 
-Nothing here is built yet. Seeds are in `integration/mission-seeds/` (index in
-its README). Every operation is rebuilt as a campaign mission spec and passes
-the same gates as the core missions.
+Every operation below is built: a campaign mission spec, through the same
+builder and gates as the core missions (`build_pack.py`). None has been
+flown in the game.
 
-## How an optional works here (constraints that shape the slate)
+## How they work
 
-- **Same sea area and date window** as its campaign; it hangs off the main
-  chain (`group="optional"`, `expires_after`), so skipping it never blocks the
-  campaign.
-- **A fixed detachment flies it** (`window=dict(detachment=True)`) unless
-  noted: no buy, repair or rearm window, and the player's owned ships are not
-  spent. That matters most in Sulu Line, where there is no free rearm.
-- **Links are campaign variables**: an optional `declares` an outcome and a
-  later mission reads it (`spawn_if`), the way TS10A Northern Priority feeds
-  TS11 Approaches. That is the only link the game carries between missions,
-  and only within one campaign's save.
-- **Units must have ids a campaign file can name.** Project 2498 Zyetseth
-  (`Project 2498 Zyetseth Class Assault Vessel`) has spaces in its id, so it is
-  out; its sister file `civ_fv_okean_surprise` (a fishing trawler with a hidden
-  torpedo tube) is in. The Steelfin cruiser is a `#!copy` overlay; that SEST's
-  builder places it correctly is unverified.
-- **A mod an optional uses becomes a requirement** of that campaign, and comes
-  off the coverage excuse list.
+- **Optional, in theatre, on the calendar.** Each hangs off its campaign's
+  chain (`group="optional"`, `expires_after`): skip it and the campaign plays
+  unchanged; fly it and something specific is better later, or it pays its
+  points and stands alone.
+- **Who flies them.** Where the player's own ships could be there, they are
+  (a detachment, as Southern Watch's O1, O3 and O4 already do). Where the
+  story is somebody else's (a Philippine Navy patrol group, a Japanese strike,
+  a US bomber package), the mission brings its own fixed force and nothing
+  the player owns sails. In Sulu Line that matters most: there is no free
+  rearm, so a side operation flown by the player's ships would spend
+  magazines the campaign never gives back.
+- **Links are campaign variables.** An optional writes a variable when it is
+  won; a later mission reads it (`reveal_if`, or `spawn_if` to keep a threat
+  away). That is the only thing the game carries between missions, and only
+  inside one campaign's save.
+- **Geography.** The proven-position pool (spots some loading mission once
+  put a ship on) is thin south of Jolo and round Tanimbar, so the side
+  operations are proved against the coastline instead, as Southern Reach
+  is: two new Natural Earth extracts, `geo/sulu_theatre_coast.json` (116-127E,
+  3-12N) and `geo/banda_theatre_coast.json` (118-142E, 15S-2N), cut with
+  `tools/make_coast_extract.py`. A mission opts in with `geography="coast"`
+  and is proved on the extract whose box holds its centre.
 
-## Thread A: The Night Market (Sulu Line; smugglers and arms runners; linked)
+## Sulu Line: the Night Market thread (smugglers and arms runners)
 
-The drug money is what buys Meridian's guns. Two optionals and one change to
-a core mission.
+The drug money is what buys Meridian's guns. Three optionals, two of them
+chained, and two core missions that read them. All three are flown by the
+Navy's Tawi-Tawi patrol group or the Air Force, not the player's task group.
 
-| ID / date | Operation | Task | Forces and mods exercised | Link |
+| ID · date | Operation | Task | Forces and mods put to work | Link |
 |---|---|---|---|---|
-| SL-O1 · 15 Oct | **Night Market** (seed: Narco Transit) | Night, calm sea: find a narco-submarine running south through the Sulu Sea among fishing boats, and take it before it reaches the Tawi-Tawi coast. A civilian AS350 is the runners' eye. | Philippine Navy patrol ship and its helicopter (detachment). Red Storm Arsenal's `_narco_narcosub_adv` and `_narco_speedboat`; **civilian AS350** (`civ_as-350`, unused); fishing traffic. | Declares `SLNarcoTaken` |
-| SL-O2 · 29 Oct | **The Okean** | The money's delivery: an armed trawler mother-ship transfers crates to fast boats off Tawi-Tawi, with a Meridian helicopter shuttling. Board-or-sink choice by classification; the trawler fights back with its hidden torpedo. | Detachment as above. **Project 2498's `civ_fv_okean_surprise`** (unused) under the Meridian flag; **Iranian Navy Bell 212** (`irinavy_bell-212`, unused) as the Meridian shuttle; `_narco_speedboat`. If `SLNarcoTaken`, the trawler's name is in the brief and she is revealed at the start. | Declares `SLOkeanTaken` |
-| SL05 · 9 Nov (core, changed) | **Celebes Gate** | As built. | As built. | If `SLOkeanTaken`, the spotter drone does not come: the network lost its money and its eyes. |
+| SL01A · 15 Oct | **Night Market** | Night, flat calm, north of Tawi-Tawi: find a semi-submersible running for the coast among six fishing boats, with a chartered civilian helicopter as the runners' eye, and stop her before she reaches the pickup boats. | BRP Emilio Jacinto and two Jose Andrada patrol boats (Luzon Line, first use), a Navy H-76 out of Sanga-Sanga. Red Storm Arsenal's semi-submersible and speedboats; **civilian AS350** (first use) under the Pirates flag. | writes `SLNarcoTaken` |
+| SL03A · 29 Oct | **The Okean** | The Sibutu Passage at night: an armed Meridian trawler among two real Okean-class trawlers, coming north to hand arms to fast boats. Her hidden torpedo tube goes live when she reaches them. | BRP Apolinario Mabini, BRP Florencio Inigo, a Navy H-76. **Project 2498's `civ_fv_okean_surprise`** (first use) beside two vanilla `civ_fv_okean`; **Iranian Navy Bell 212** (first use) as Meridian's shuttle. | reads `SLNarcoTaken` (her name is in the semi-submersible's navigation set: she starts classified); writes `SLOkeanTaken` |
+| SL05 · 9 Nov (core) | Celebes Gate | As built. | As built. | reads `SLOkeanTaken`: the spotter drone does not come |
+| SL05A · 12 Nov | **The Drone Yard** | Two FA-50s against a Meridian drone yard on Mapun, before its spotter drone finds a Navy charter fifty miles away. | Tabak 11 and 12, BRP Artemio Ricarte and the charter. **Shahed 238 launchers** (first use), a Shahed-136 rail, two guns, a Forpost spotter. | writes `SLYardStruck` |
+| SL06 · 16 Nov (core) | The Aborlan Battery | As built. | As built. | reads `SLYardStruck`: if the yard was never struck, a Shahed-136 rail from Mapun joins the battery |
 
-## Thread B: Escorted Hulls (Southern Watch; privately escorted armed merchants; linked)
+## Southern Watch
 
-Meridian's escorts in the Arafura and Banda Seas, before and after the
-shooting starts.
+Six more optionals beside O1-O4 and the two contingencies. Paper Trail is
+the bible's O02 and Viper Zero its O09, built at last; the others are new.
+Only The Second Convoy sails the player's own ships (a detachment, the day
+after Weapons Free); the rest are somebody else's operation and bring their
+own fixed force, as Southern Cross does.
 
-| ID / date | Operation | Task | Forces and mods exercised | Link |
+### Escorted hulls (arms runners and privately escorted armed merchants; chained)
+
+| ID · date | Operation | Task | Forces and mods put to work | Link |
 |---|---|---|---|---|
-| SW-O5 · 21 Oct | **Paper Trail** (bible O02; seed: Sanctioned Cargo) | Shadow a Meridian-escorted logistics merchant to its handover and identify the receiver, without firing first: the rules are still Hold. | An Anzac and its Seahawk; a US uncrewed scout loaned to the RAN: **Saronic Corsair Scout** (`usn_asv_saronic_corsair_scout`, unused) or **Anduril K5 KRAKEN** (`usn_usv_k5_kraken`, unused), the RAN's own Ghost Shark being the same idea. | Declares `SWPaperTrail`; SW04 The Quiet Passenger reveals one patrol lane if true (bible: "identifies a likely patrol lane for SW04"). |
-| SW-O6 · 3 Nov | **The Second Convoy** (seed: NF3 Sanctioned Convoy) | Weapons Free now: stop an escorted armed convoy running dark for Biak, with civilian traffic in the same water. | An Anzac pair (detachment). Armed merchants (`wp_ms_andizhan_armed`), the Q-ship (`wp_ms_mercur_decoy`), **`civ_fv_okean_surprise`** (unused), Peykaap escorts, all under the Meridian flag. | Reads `SWPaperTrail` (the convoy's route is known if true). |
+| O5 · 21 Oct | **Paper Trail** | North of Tanimbar, a week before anyone may shoot: shadow a Meridian-escorted merchant to her handover and identify the receiver among three waiting ships, with two uncrewed boats doing the close work and the patrol ship kept out of the escort's sight (an `unseen` objective). | HMAS Eyre; **Anduril K5 KRAKEN** under the RAN flag and a **Saronic Corsair Scout** lent by the US Navy (both first use). A Peykaap escort, a Meridian-chartered coaster. | writes `O5ReceiverNamed` |
+| SW04 · 30 Oct (core) | The Quiet Passenger | As built. | As built. | reads `O5ReceiverNamed`: the passenger starts as a fifteen-minute datum (the bible's "likely patrol lane") |
+| O6 · 3 Nov | **The Second Convoy** | The day after Weapons Free, between Tanimbar and Kai: stop two cargo ships running dark for Biak before they reach the Banda Sea, past an armed merchant, two boats, a radar decoy that radiates like a frigate and a trawler with a hidden torpedo tube. | The player's detachment and Seahawk. The armed `wp_ms_andizhan_armed` (first use), the radar decoy `wp_ms_mercur_decoy`, Peykaaps, Project 2498's armed Okean. | reads `O5ReceiverNamed`: both cargo ships start classified |
 
-## Thread C: Air defence (Southern Watch; stand-alone)
+### Major assault (chained)
 
-| ID / date | Operation | Task | Forces and mods exercised |
-|---|---|---|---|
-| SW-O7 · 15 Nov | **Bomber Stream** (seed: NF3 Bomber Stream) | Intercept an H-6K and Tu-95 raid on Tindal and Darwin before launch range. | RAAF F-35A JATM, Wedgetail and tankers, a US F-22 detachment; the raid from the PLAAF and Russian bomber mods. |
-| SW-O8 · 22 Nov | **Ballistic Shield** (seed: NF3 Ballistic Shield) | Meridian's missiles from the Biak enclave: hold Darwin against a mixed raid of ballistic missiles and one-way drones. | Patriot and THAAD at Darwin; the US **Steelfin land battery** (`usa_steelfin_launcher`, unused). Raid: **Fattah-1, Fattah-2** (unused), **Shahed 238** (unused), **Emad** (unused). Overlaps Dispatch D5 Range Week in kind but not in place or stakes. |
-
-## Thread D: Major assault and defence (Southern Watch; stand-alone, with rewards)
-
-| ID / date | Operation | Task | Forces and mods exercised | Reward |
+| ID · date | Operation | Task | Forces and mods put to work | Link |
 |---|---|---|---|---|
-| SW-O9 · 15 Nov | **Second Ring** (seeds: NF3 SEAD over the Shelf, Deep Strike Corridor) | After The Open Door, Russia has rebuilt the Biak belt with newer kit. Take it down before the relief ships go through. | B-52 with ARRW, F-15EX, EA-18G. Red: **S-350 Vityaz**, **Buk-M3**, **Nebo-U**, **S-300PMU2** (all unused). | Fewer air threats in SW09 Southern Lifeline. |
-| SW-O10 · 17 Nov | **Viper Zero** (bible O09; seed: Viper Zero) | JASDF F-2A strike on a PLAN amphibious group off Kalimantan that threatens the arriving Japanese task group. | JASDF F-2A Late, the **EC-2 stand-off jammer** (`jasdf_ec-2`, unused) in support, and the **JMSDF Hyuga** (`jmsdf_ddh_hyuga`, unused) group the strike protects. | F-2A support becomes the Japanese option for SW10 (bible). |
+| O7 · 14 Nov | **Second Ring** | The night after The Open Door, Russia has rebuilt the belt round the Biak field. Destroy its two engagement radars from two hundred miles out. | Two B-52H with ARRW, RAAF Growlers with AGM-88G, two F-15EX, a Wedgetail. **S-350 Vityaz**, **S-300PMU2**, **Buk-M3**, **Nebo-U**, **Iskander-M** (all first use), two J-16. | writes `O7RingDown` |
+| O9 · 17 Nov | **Viper Zero** | Four F-2A with ASM-3 and an EC-2 jammer stop a PLAN group (054A, 056A, Type 071) closing on JS Hyuga as she comes south for Common Sea. | **JS Hyuga** (first use), JS Asahi, an SH-60K; **EC-2 stand-off jammer** (first use). | writes `O9GroupStruck` |
+| SW10 · 20 Nov (core) | Common Sea | As built. | As built. | reads `O9GroupStruck`: the frigate from the east starts classified (Common Sea already flies the F-2A option the bible promised) |
 
-## Order of work
+### Air defence
 
-1. **SL-O1 Night Market**, the pilot: the first thread's first step, and
-   the first optional in Sulu Line, which proves the package handles
-   optionals and a declared variable.
-2. SL-O2 and the SL05 link, closing Thread A.
-3. Thread B, then D (Viper Zero has its slot and reward written already),
-   then C.
+| ID · date | Operation | Task | Forces and mods put to work | Link |
+|---|---|---|---|---|
+| O8 · 15 Nov | **Bomber Stream** | Four H-6K with YJ-12 and two J-16 for the ships forming at Darwin: shoot down three bombers before any is inside two hundred miles, with a Darwin-Denpasar airliner crossing the intercept. | Four RAAF F-35A with AIM-260, two F-22, a Wedgetail, an RAAF KC-30A (the French Air Force mod's, first use in a campaign). | stand-alone |
+| O10 · 21 Nov | **Ballistic Shield** | Hold the Langgur strip in the Kai Islands against the enclave's ballistic missiles while two F-15EX with ARRW and a Triton hunt the five launchers on Biak. | **THAAD**, Patriot PAC-3, the **Steelfin** battery (first use); **Fattah-1**, **Fattah-2**, **Emad** (all first use), a Shahed 238 battery, a Tu-214R spotter. | reads `O7RingDown`: if Second Ring was won, the S-350 over the pads is not there |
 
-Of the 40 mods no SEST mission uses yet, this slate puts 16 to work: civilian
-AS350, the Project 2498 trawler, Iranian Bell 212, Saronic Corsair, Anduril
-Maritime Drones, Steelfin, Fattah-1, Fattah-2, Shahed 238, Emad, S-350,
-Buk-M3, Nebo-U, S-300PMU2, EC-2 and Hyuga.
+## Mods put to work
+
+Seventeen mods no SEST mission used before: civilian AS350, Project 2498
+Zyetseth, Iran Bell-212, Shahed 238, Anduril Maritime Drones, Saronic
+Corsair ASV, S-350 Vityaz, S-300PMU2, Buk-M3, Nebo-U, Iskander-M, EC-2,
+JMSDF Hyuga class, Fattah-1, Fattah-2, Emad and Steelfin. All seventeen were
+on the coverage excuse list and are off it. Units placed for the first time
+from mods already in use: the Luzon Line's Jacinto and Andrada patrol craft,
+the armed Andizhan and the RAAF KC-30A.
+
+Royal Australian Defence Forces is now reached too, through the Jacinto's
+Perth_parts material folder, and its excuse is retired. Each campaign's
+reference list (`required-mods-urls.txt`) gains the mods its side operations
+place; the pack's Required Items already hold them all.
+
+## Left out
+
+- **Project 2498 Zyetseth** itself (the assault freighter) has spaces in its
+  unit id, which a campaign file cannot name. Its sister file, the Okean
+  trawler with the hidden tube, is what the slate uses.
+
+## Not yet confirmed in the game
+
+The builder proves positions, reach, the fair opening, prices and
+variables. It cannot prove behaviour:
+
+- that a Shahed 238 launcher fires on a ship another red unit is tracking
+  (The Drone Yard);
+- that the Okean's mid-route weapons order turns her torpedo tube on
+  (`SetWeaponStatus` at a waypoint, the stock order);
+- that a semi-submersible at periscope depth is as hard to find at night as
+  the brief says;
+- that the Pirates flag shows on an aircraft;
+- that the Fattah, Emad and Shahed 238 launchers fire on land targets from a
+  track the Tu-214R gives them, and that THAAD, Patriot and Steelfin engage
+  what they fire (Ballistic Shield);
+- that the EC-2's jammer degrades the 054A's radars (Viper Zero);
+- that the Meridian escort classifying HMAS Eyre is what fails Paper Trail's
+  `unseen` objective, as stock's Polar Fury trigger does for a submarine.

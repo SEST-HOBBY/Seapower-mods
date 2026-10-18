@@ -8,7 +8,7 @@ listed in subscribes you to all of them in one press. If that
 works you do not need the list below at all, and it is here to
 check against rather than to work through by hand.
 
-146 mods. Each supplies a file a mission names directly - by
+164 mods. Each supplies a file a mission names directly - by
 Type=, SquadronReference=, VariantReference=, a loadout's store,
 or a model folder a placed unit's own file draws from.
 
@@ -35,6 +35,7 @@ Workshop id   supplies                         mod
 3425450153    a squadron a flight comes from   AH-64 Apache
 3461091581    a unit a mission places          Air Deck Operations Upgrade - Nimitz (2000s)
 3804868806    a unit a mission places          Anduril FQ-44 Fury US Navy Carrier Wingmen
+3819522350    a unit a mission places          Anduril Maritime Drones
 3416372890    a unit a mission places          Apex Predators MIG-29A & F-16A
 3403993583    a unit a mission places          Armed Oil Rig with Helo MOD
 3502273861    a unit a mission places          ARRW (AGM-183)
@@ -46,14 +47,18 @@ Workshop id   supplies                         mod
 3741944366    a squadron a flight comes from   B-52H Stratofortress
 3602046770    a model a placed unit draws      Boeing P-8 Poseidon
 3600788156    a unit a mission places          Buildings and Targets for Missions
+3564792549    a hull variant in use            BUK-M3
 3801363152    a unit a mission places          CH-53E Standalone v0.1.0
 3567256221    a unit a mission places          Charles De Gaulle & Modern French Navy Pack (WIP)
 3481228992    a unit a mission places          ChengDu J-10C Vigorous Dragon
 3417801942    a unit a mission places          Chinese Navy (PLAN)
 3746453639    a unit a mission places          Civil Aircraft Mod (Airbus Family)
+3806197116    a unit a mission places          Civilian AS350 Ecureuil/AStar MOD
 3606134711    a weapon a loadout hangs         Custom Loadout Editor
 3558173926    a unit a mission places          David's Sling
 3760871384    a weapon a loadout hangs         Dingtools Weapon Pack
+3813033771    a unit a mission places          EC-2 Stand Off Jammer
+3493115616    a unit a mission places          EMAD
 3587877691    a unit a mission places          Eurofighter Typhoon
 3630495619    a unit a mission places          Euromod - Cold War Spanish Navy
 3629144864    a weapon a loadout hangs         Euromod - Main Pack
@@ -75,6 +80,8 @@ Workshop id   supplies                         mod
 3755769170    a unit a mission places          F-2A 'Viper Zero'
 3607989779    a weapon a loadout hangs         F-35C Lightning II Alt. Loadouts
 3430135740    a unit a mission places          F/A-18 Murder Hornet with AIM-174B
+3673703427    a unit a mission places          Fattah-1
+3672497668    a unit a mission places          Fattah-2
 3373960386    a unit a mission places          Flight Deck Ops
 3758943352    a unit a mission places          French Air Force
 3736147136    a unit a mission places          French Army Vehicles
@@ -84,10 +91,14 @@ Workshop id   supplies                         mod
 3508275114    a unit a mission places          Ground Upgrade: SPAA
 3384079999    a unit a mission places          Humpback Whale
 3717610332    a unit a mission places          IL-78 TANKER
+3549377308    a unit a mission places          Iran Bell-212
+3686449681    a unit a mission places          Iran UAV Shahed 238
 3408662804    a unit a mission places          Iskander TBM
+3681748718    a unit a mission places          ISKANDER-M
 3505420313    a unit a mission places          Italian Navy Mod
 3591563716    a unit a mission places          J-20 (歼-20 威龙)
 3801549552    a unit a mission places          J-36 Tailless Fighter
+3802216383    a unit a mission places          JMSDF Hyūga Class — Hyūga & Ise
 3776340577    a unit a mission places          Ka-27RLD
 3722749887    a unit a mission places          KC-135 STRATOTANKER
 3744475027    a unit a mission places          KC-46A Pegasus - Strategic Tanker
@@ -112,6 +123,7 @@ Workshop id   supplies                         mod
 3716049886    a unit a mission places          MORE SU-24M VARIANTS
 3810611344    a unit a mission places          MV-75 Cheyenne II
 3595014060    a model a placed unit draws      NATO E-3A Sentry
+3551621846    a unit a mission places          NEBO-U
 3812140001    a model a placed unit draws      Pakistani Pack
 3752415457    a unit a mission places          Philippines: The Luzon Line
 3681873198    a unit a mission places          Pickup truck extension
@@ -123,19 +135,24 @@ Workshop id   supplies                         mod
 3594891803    a unit a mission places          PLAN Submarines
 3774859959    a unit a mission places          PLAN Type 001 Aircraft Carrier Liaoning
 3774572038    a hull variant in use            PLAN Type 071 Amphibious Transport Dock
+3399699218    a unit a mission places          Project 2498 Zyetseth Class Assault Vessel
 3808882954    a unit a mission places          RC-135V/W Rivet Joint
 3605013271    a unit a mission places          RE-power: the resupply mod
 3769142422    a unit a mission places          Rebuilt J-16 / J-16D
 3413868677    a unit a mission places          Red Storm Arsenal
 3571718093    a model a placed unit draws      Road Mobile ICBMs (Topol-M, DF-41)
+3455404959    a model a placed unit draws      Royal Australian Defence Forces
 3378409795    a hull variant in use            Royal Navy Type 23 'Duke Class' Frigate [OLD]
 3373356293    a unit a mission places          Royal Navy Westland Lynx HAS.3 Kitbash [OLD]
 3796113927    a unit a mission places          RQ-180 White Bat Airframe
 3597650470    a hull variant in use            Russian Navy 21
 3468260539    a unit a mission places          Russian Submarines (Yasen, Akula, Sierra I/II, Oscar II, Belgorod, Typhoon, Delta IV classes)
+3652906664    a unit a mission places          S-300PMU2
+3524446392    a unit a mission places          S-350 Vityaz
 3392434750    a unit a mission places          SA-21/S-400 SAM
 3673250557    a unit a mission places          SAAB AEW&C PACK
 3437105712    a unit a mission places          SAM Pack
+3766210676    a unit a mission places          Saronic Corsair ASV
 3461519690    a unit a mission places          SCUD-B
 3455931957    a unit a mission places          Sea Lynx
 3551676319    a unit a mission places          SEJJIL (Iran Ballistic Missiles)
@@ -146,6 +163,7 @@ Workshop id   supplies                         mod
 3433577445    a unit a mission places          Shenyang J-8
 3601891050    a unit a mission places          Small and Medium-Sized UAV Series [WIP] (中小型无人机系列)
 3524112296    a unit a mission places          Soviet AEW&C + Transport Aircraft (A-50 / Il-76)
+3820576916    a unit a mission places          Steelfin
 3451166840    a unit a mission places          Su-25 Frogfoot
 3762023575    a unit a mission places          Su-30SM2
 3503594612    a unit a mission places          SU-57 Felon (重刑犯)
@@ -175,7 +193,7 @@ above does, in its own description. Skipping one breaks the mod
 that asked for it.
 
 3380210757    required by another mod          Anchor Chain
-                                                 asked for by: Anduril FQ-44 Fury US Navy Carrier Wingmen, B-2 Spirit, V-22 Osprey / SV-22 2024 ASW prototype, YF-23 Black Widow II
+                                                 asked for by: Anduril FQ-44 Fury US Navy Carrier Wingmen, B-2 Spirit, EC-2 Stand Off Jammer, Saronic Corsair ASV, V-22 Osprey / SV-22 2024 ASW prototype, YF-23 Black Widow II
 
 NOT IN THIS LIST AND STILL REQUIRED:
 
@@ -205,48 +223,30 @@ by something above them. The campaign does not call for them.
 
 --------------------------------------------------------------------------
 
-In the collection for other campaigns and scenarios (40):
+In the collection for other campaigns and scenarios (22):
 the third-party campaigns the collection carries, the mods they
 place, and content none of these four campaigns uses. They are in
 LOAD-ORDER.txt, so SETUP still requires them.
 
-3819522350    other campaigns                  Anduril Maritime Drones
 3628203171    other campaigns                  Bréguet Br.1050 Alizé
-3564792549    other campaigns                  BUK-M3
-3806197116    other campaigns                  Civilian AS350 Ecureuil/AStar MOD
 3628201887    other campaigns                  Clemenceau-class Aircraft Carrier
-3813033771    other campaigns                  EC-2 Stand Off Jammer
-3493115616    other campaigns                  EMAD
 3555361900    other campaigns                  Etendard Family Jets
 3776730617    other campaigns                  EUROMOD-Armada de Chile
 3678767059    other campaigns                  Euromod-Brazilian Armed Forces(2000)
 3807164392    other campaigns                  Euromod-India-Navy
 3434693420    other campaigns                  F-15J Peace Eagle
 3591820675    other campaigns                  F-8 Crusader
-3673703427    other campaigns                  Fattah-1
-3672497668    other campaigns                  Fattah-2
 3412480633    other campaigns                  Ground Upgrade: IFV
 3410473695    other campaigns                  Ground Upgrade: MBT
 3556629790    other campaigns                  ICBM silos
-3549377308    other campaigns                  Iran Bell-212
-3686449681    other campaigns                  Iran UAV Shahed 238
-3681748718    other campaigns                  ISKANDER-M
 3520352434    other campaigns                  JAS-39 Gripen
-3802216383    other campaigns                  JMSDF Hyūga Class — Hyūga & Ise
 3759042728    other campaigns                  Mare Nostrum '28
 3603367264    other campaigns                  NATO Ground Enhancement Series 2: Artillery
-3551621846    other campaigns                  NEBO-U
 3779799226    other campaigns                  Operation STEADFAST LANTERN
 3731931836    other campaigns                  Prithvi TBM (大地弹道导弹)
-3399699218    other campaigns                  Project 2498 Zyetseth Class Assault Vessel
-3455404959    other campaigns                  Royal Australian Defence Forces
 3603306548    other campaigns                  Russian Ground Enhancement Series 1: Artillery
-3652906664    other campaigns                  S-300PMU2
-3524446392    other campaigns                  S-350 Vityaz
 3496055699    other campaigns                  S-500
-3766210676    other campaigns                  Saronic Corsair ASV
 3628247436    other campaigns                  Sea Venom - Aquilon
-3820576916    other campaigns                  Steelfin
 3491248180    other campaigns                  The Royal Navy
 3709961172    other campaigns                  The Second Northern War
 3672072359    other campaigns                  Ultimate Missile Workshop

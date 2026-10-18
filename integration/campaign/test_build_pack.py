@@ -1044,6 +1044,16 @@ class CoastExtracts(unittest.TestCase):
         self.assertEqual(name(dict(centre=(50.0, -20.0))), "southern_theatre_coast.json")
         self.assertEqual(name(None), "southern_theatre_coast.json")
 
+    def test_land_units_on_one_station_stand_apart(self):
+        del bp.PLACEMENT_PROBLEMS[:]
+        m = dict(key="Test Yard", centre=(7.30, 118.70),
+                 stations={"yard": dict(S(7.005, 118.505, "Yard"), coastal=True)})
+        placer = bp.CoastPlacer(bp.coast_data(m), m)
+        spots = [placer.take("land", (7.005, 118.505), where="Test Yard yard")[0]
+                 for _ in range(3)]
+        self.assertEqual(len(set(spots)), 3)
+        self.assertEqual(bp.PLACEMENT_PROBLEMS, [])      # all three still on Mapun
+
     def test_the_sulu_coast_puts_jolo_ashore(self):
         c = bp.coast_data(dict(centre=(6.0, 121.0)))
         self.assertTrue(c.on_land(6.03, 121.05))      # Jolo island

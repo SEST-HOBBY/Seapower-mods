@@ -212,18 +212,9 @@ EXCUSES = {
     "jas-39-gripen": (
         "external", "the Second Northern War's Swedish fighters (Red Sky, Reckoning for "
         "Moonsund); no SEST theatre has a Swedish air arm"),
-    "iskander-m": (
-        "external", "the Second Northern War's twelve Iskander-M launchers (Dawn of "
-        "Narva); SEST's own Range Week uses the separate Iskander TBM mod"),
     "s-500": (
         "external", "S-500 battery kept for scenarios; no mission places it, and the "
         "Flap Lid it shares with S-400 SAM loses to S-400's identical copy"),
-    "s-300pmu2": (
-        "external", "S-300PMU2 battery kept for scenarios; no mission places it, and it "
-        "supplies the eight files it shares with THE REDFOR MOD"),
-    "nebo-u": (
-        "external", "Nebo-U early-warning radar kept for scenarios; no mission places "
-        "it and it shares no file with any other mod"),
     "wp-sattelite-center": (
         "shadowed", "both files it ships are byte-identical to THE REDFOR MOD's, which "
         "sits directly above it, so nothing it contains loads"),
@@ -268,44 +259,11 @@ EXCUSES = {
     "f-15j-peace-eagle": (
         "external", "a 1981-fit JASDF F-15J with Sparrow and Sidewinder loads only; "
         "SEST's 2028 JASDF presence is the F-2A"),
-    "ec-2-stand-off-jammer": (
-        "external", "JASDF stand-off jammer (2027 squadron dates) not yet written into "
-        "a SEST mission; its licence forbids forking its files, and its "
-        "comms jamming needs Anchor Chain in game"),
-    "saronic-corsair-asv": (
-        "external", "a USN autonomous-boat family with its own four test scenarios; its "
-        "contact detonation runs in its Anchor Chain DLL, and no 2028 SEST "
-        "mission has an unmanned-boat role"),
-    "anduril-maritime-drones": (
-        "external", "USN uncrewed undersea and surface vehicles with four scenarios of "
-        "their own (14 Oct 2026); no 2028 SEST mission has an uncrewed-vehicle "
-        "role yet"),
-    "steelfin": (
-        "external", "the Steelfin interceptor (2027) with a Steelfin cruiser, a land "
-        "battery and a test scenario of its own (17 Oct 2026); no 2028 SEST "
-        "mission fields it yet"),
     # The ten further October subscriptions (4 Oct export). In the collection
     # and the order; no SEST mission places them yet.
-    "jmsdf-hyuga-class": (
-        "external", "Hyuga and Ise helicopter destroyers not yet written into a SEST "
-        "mission; the JMSDF detachment the campaigns field is Mogami and Maya"),
-    "s-350-vityaz": (
-        "external", "S-350 Vityaz batteries kept for scenarios; no SEST theatre has "
-        "a Russian-supplied medium-range SAM belt, and its two shared "
-        "files lose to Euromod's"),
-    "emad-iran-bm": (
-        "external", "Emad ballistic-missile TELs kept for scenarios; Range Week's "
-        "Iranian pad is the SEJJIL"),
-    "fattah-1": (
-        "external", "Fattah-1 TELs kept for scenarios; no SEST mission places them"),
-    "fattah-2": (
-        "external", "Fattah-2 TELs kept for scenarios; no SEST mission places them"),
     "prithvi-tbm": (
         "external", "Indian Prithvi II/III TELs kept for scenarios; no SEST mission "
         "places them, and the world campaign's India does not field them"),
-    "buk-m3": (
-        "external", "Buk-M3 battery kept for scenarios until an in-game check; the "
-        "land-defence sites still field the 1980s SA-11 battery"),
     "iskander-k": (
         "shadowed", "every file it ships loses to THE REDFOR MOD directly above it "
         "(fuller wp_iskander and wp_r-500) or is an identical copy, so nothing it "
@@ -3845,6 +3803,733 @@ MISSIONS.append(dict(
 ))
 
 # =============================================================================
+# THE SIDE OPERATIONS (18 Oct 2026; docs/campaigns/side-operations.md)
+#
+# Six more optionals on four themes: arms runners and privately escorted
+# armed merchants (O5 Paper Trail -> SW04 and O6), air defence (O8 Bomber
+# Stream, O10 Ballistic Shield) and major assault (O7 Second Ring -> O10,
+# O9 Viper Zero -> SW10). O6 sails the player's detachment; the rest are
+# somebody else's operation and bring their own fixed force, as O2 does.
+# The pool is thin round Tanimbar, Kai and Biak, so each is proved against
+# the coastline (geo/banda_theatre_coast.json) instead: geography="coast".
+# Their table rows (SCHEDULE, WINDOWS, TIMEOUTS, RESOLVERS, SLOTS, ROLES,
+# VARIABLES) sit with the others below.
+# =============================================================================
+
+MISSIONS.append(dict(
+    group="optional", num="O5", key="Paper Trail",
+    place="Banda approaches, north of Tanimbar", expires_after="Rig Seventeen",
+    geography="coast",
+    intro="Optional. A Meridian-escorted merchant is going to hand something over "
+          "north of Tanimbar. Two uncrewed boats can get close enough to see to "
+          "whom; the patrol ship must not be seen.",
+    special=(
+        "Optional operation. HMAS Eyre with an RAN uncrewed surface vessel and one lent by "
+        "the US Navy: your task group remains on the Coral Sea passage. Identify the ship "
+        "that receives the Meridian merchant's cargo. What she is tells The Quiet Passenger "
+        "and the next convoy which lane to watch. Closes when Rig Seventeen is complete."
+    ),
+    sender="Commodore Alex Mercer; Lieutenant Commander Dana Whitlock, RAN uncrewed "
+           "systems, for the boats",
+    intent=("This is a week before anyone is allowed to shoot, and I want it to "
+            "stay that way. The merchant has an escort and the escort has a "
+            "radar. Keep Eyre over its horizon and let the boats do the "
+            "looking: they are small, fast and nobody's sailors. Put a name on "
+            "whoever takes the cargo and a boat inside three miles of the "
+            "handover so we have it on camera. Nobody fires at anything."),
+    date=(2028, 10, 21), time=(10, 40), sea=3, clouds="Scattered_1", wind="SE",
+    difficulty=2, minutes=100, centre=(-6.85, 132.20),
+    blue_nation="Australia", red_nation="China",
+    brief=(
+        (
+            "BANDA APPROACHES, NORTH OF TANIMBAR, 1040. MV Kota Meridian, a logistics "
+            "merchant under a Meridian escort boat, has been working north from the Arafura "
+            "since dawn. Signals intelligence expects a handover to a second ship somewhere "
+            "north of the Tanimbar group this afternoon, and three ships are waiting there: "
+            "two Indonesian traders and a trawler, any of which could be the receiver.\\n\\n"
+            "HMAS Eyre has two uncrewed boats in company. KRAKEN 1 is the RAN's own K5, three "
+            "months in service; CORSAIR 41 is a Saronic Corsair the US Navy lent the RAN for "
+            "the fortnight. Both are unarmed, both are quick, and neither has anyone aboard "
+            "to lose.\\n\\nIdentify the receiver and put a boat within three miles of the "
+            "handover. The escort boat is weapons tight; so are you. Keep Eyre out of its "
+            "sight if you can: a Meridian report naming an Australian warship off Tanimbar "
+            "is a story Canberra does not want this week."
+        )),
+    forces=(
+        "HMAS Eyre with KRAKEN 1 (RAN) and CORSAIR 41 (US Navy, on loan). Opposing, neither "
+        "of them firing: MV Kota Meridian, one Meridian escort boat and the receiver, which "
+        "is one of three ships at the handover. Neutral: lane traffic."
+    ),
+    objectives=[
+        ("Trail", "Identify the receiver, then put a boat within three miles of the "
+                  "handover", "30,-25,Fail,Main"),
+        ("Unseen", "Keep HMAS Eyre unidentified by Meridian", "10,-10,Complete"),
+        ("Restraint", "Do not fire on the merchant", "10,-20,Complete"),
+        ("Traffic", "Harm no lane traffic", "0,-25,Complete"),
+    ],
+    victory=dict(kind="arrive", station="scouts", at=(-6.70, 132.05), radius=3,
+                 min_units=1, objective="Trail",
+                 after=dict(kind="classify", units="receiver", min_units=1,
+                            sets="O5ReceiverNamed",
+                            intel=(
+                                "KRAKEN 1 / CORSAIR 41: Receiver identified, KM Sinar Harapan, "
+                                "Indonesian flag, Meridian charter. Her owners run two more "
+                                "coasters on the Seram passage. Hold a boat within three miles"
+                                " of the handover until the camera has it."
+                            ))),
+    declares=["O5ReceiverNamed"],
+    neutral_objective="Traffic",
+    win=(
+        "The receiver has a name and the handover is on camera. The intelligence cell has the "
+        "Seram passage route, and nothing was fired by anyone."
+    ),
+    lose=(
+        "The handover happened and nobody can say to whom. Whatever Kota Meridian carried is "
+        "somewhere in the Banda Sea."
+    ),
+    stations={
+        # Eyre south-east of the handover and 18 NM from the merchant's
+        # escort, over its radar horizon; the boats 8 NM ahead of her; the
+        # merchant coming up from the Arafura; the three waiting ships at
+        # the handover.
+        "patrol": S(-7.05, 132.20, "HMAS Eyre", heading=330),
+        "scouts": S(-6.98, 132.15, "Uncrewed boats", heading=330),
+        "merchant": S(-6.95, 132.45, "Logistics merchant", heading=300),
+        "escort": S(-6.92, 132.42, "Meridian escort boat", heading=300),
+        "receiver": S(-6.68, 132.10, "Waiting ship", heading=120),
+        "waiting": S(-6.71, 132.03, "Waiting ships", heading=120),
+        "lane": S(-6.85, 131.80, "Lane traffic", heading=80),
+    },
+    units=[
+        U("blue", "SEST_RAN_Fleet", "ran_opv_arafura", "patrol", variant="Variant2",
+          weapons="Tight"),
+        U("blue", "anduril-maritime-drones", "usn_usv_k5_kraken", "scouts",
+          name="KRAKEN 1 (RAN)", nation="Australia", weapons="Hold"),
+        U("blue", "saronic-corsair-asv", "usn_asv_saronic_corsair_scout", "scouts",
+          name="CORSAIR 41 (USN, on loan)", weapons="Hold"),
+        U("red", "re-power-resupply", "civ_ms_freighter_d", "merchant",
+          name="MV Kota Meridian", nation="Panama", weapons="Hold",
+          route=[(-6.70, 132.12, 0)], telegraph=2),
+        U("red", "red-storm-arsenal", "ir_ptg_peykaap_3", "escort",
+          name="Meridian Escort 11", nation="Panama", weapons="Tight",
+          route=[(-6.74, 132.16, 0)], telegraph=2),
+        U("red", "_vanilla", "civ_ms_encounter", "receiver", name="KM Sinar Harapan",
+          nation="Indonesia", weapons="Hold"),
+        U("neutral", "_vanilla", "civ_ms_encounter", "waiting", name="KM Tual Jaya",
+          nation="Indonesia"),
+        U("neutral", "_vanilla", "civ_fv_sterntrawler_a", "waiting",
+          name="Banda trawler Bintang Timur", nation="Indonesia"),
+        U("neutral", "re-power-resupply", "civ_ms_freighter_a", "lane",
+          name="MV Saumlaki Trader", route=[(-6.60, 132.60, 0)], telegraph=3),
+    ],
+))
+MISSIONS.append(dict(
+    group="optional", num="O6", key="The Second Convoy",
+    place="Banda Sea, between Tanimbar and Kai", expires_after="Blind Horizon",
+    geography="coast",
+    intro="Optional. The day after Weapons Free, a second Meridian convoy is "
+          "running dark for Biak with an armed merchant, a decoy and two boats "
+          "round it. Stop the cargo before it reaches the Banda Sea.",
+    special=(
+        "Optional operation. Select a detachment from the ships Weapons Free left you, with an "
+        "embarked helicopter if assigned. Stop two cargo ships bound for the Biak enclave "
+        "before they enter the Banda Sea. The request closes when Blind Horizon is complete."
+    ),
+    sender="Commodore Alex Mercer",
+    intent=("They have read yesterday the way we have: the rules changed and they "
+            "are moving everything they can before we use them. Two cargo ships "
+            "with the enclave's next month in them, an armed merchant riding "
+            "shotgun, two boats out front, and something with a lot of radars "
+            "on it that wants to be mistaken for a frigate. The cargo is the "
+            "target. Find out which hull is which before you spend a missile, "
+            "and leave the fishermen out of it."),
+    date=(2028, 11, 3), time=(5, 40), sea=3, clouds="Scattered_2", wind="SE",
+    difficulty=3, minutes=110, centre=(-6.55, 132.30),
+    blue_nation="Australia", red_nation="China",
+    brief=(
+        (
+            "BANDA SEA APPROACHES, 0540, between the Tanimbar and Kai groups. A Meridian "
+            "convoy left the Arafura last night with its transponders off and is going north "
+            "for the Banda Sea and Biak: two cargo ships, the armed merchant MV Meridian "
+            "Vigilant with a 57 mm gun, two fast attack craft ahead and a trawler astern. A "
+            "sixth hull is radiating like a frigate and is almost certainly not one: the "
+            "same trick Meridian Assurance played on the eighteenth of October.\\n\\n"
+            "Weapons Free has held for a day. The cargo ships are lawful targets under the "
+            "new rules; the Indonesian fishing boats and the tanker going south are not. Your"
+            " detachment is south-west of the convoy, forty miles off, with the Seahawk if "
+            "you embarked one.\\n\\nStop both cargo ships before they reach the Banda Sea "
+            "entrance. The boats will come for you when they see you, the armed merchant will"
+            " fight, and the trawler astern is the one that sank a fishing boat off Dobo last"
+            " week with something that was not a gun."
+        )),
+    forces=(
+        "Your detachment, and its Seahawk if one is embarked. Opposing: two cargo ships, the "
+        "armed merchant Meridian Vigilant, a radar decoy, two Peykaap fast attack craft and an "
+        "armed trawler. Neutral: two Indonesian fishing boats and a southbound tanker."
+    ),
+    objectives=[
+        ("Convoy", "Stop both cargo ships before they reach the Banda Sea",
+         "35,-35,Fail,Main"),
+        ("Vigilant", "Sink the armed merchant Meridian Vigilant", "10,0,None"),
+        ("Decoy", "Classify the radar decoy", "10,0,None"),
+        ("Flagship", "Bring your lead ship out", "10,-15,Complete"),
+        ("Traffic", "Harm no fishing boat or tanker", "0,-30,Complete"),
+    ],
+    victory=dict(kind="destroy", stations=["cargo"], min_units=2, objective="Convoy"),
+    fatal=[F("Convoy", ["escort"])],
+    denied=[dict(units=["cargo"], at=(-6.05, 132.20), radius=8, objective="Convoy",
+                 message=(
+                     "ESCORT WATCH: A cargo ship is into the Banda Sea and under Indonesian "
+                     "archipelagic rules, where we do not follow without Jakarta. The enclave "
+                     "gets its month."
+                 ))],
+    neutral_objective="Traffic",
+    # Paper Trail's receiver was the Seram passage's charterer, and her
+    # owners' paperwork named both cargo ships: they start classified.
+    reveal_if=[dict(variable="O5ReceiverNamed", units=["cargo"], level="Classify",
+                    intel=(
+                        "INTELLIGENCE CELL: The charter papers taken off KM Sinar Harapan's "
+                        "owners name both cargo ships, MV Ocean Pearl and MV Golden Wren. Both "
+                        "are on your plot, classified. The rest of the convoy is yours to sort."
+                    ))],
+    win=(
+        "Both cargo ships are stopped short of the Banda Sea. What the enclave was waiting for "
+        "is on the bottom between Tanimbar and Kai."
+    ),
+    lose=(
+        "A cargo ship is through, or the detachment's lead ship is lost. The enclave will be "
+        "fighting with this month's stores after all."
+    ),
+    stations={
+        # The detachment 40 NM south-west of the convoy, north of the
+        # Tanimbar group; the convoy on its way north-west for the Banda
+        # entrance, its escorts round it; the traffic across its track.
+        "escort": S(-6.95, 132.00, "Detachment", heading=40),
+        "flight": S(-6.93, 132.02, "Ship's flight", heading=40, alt=500),
+        "cargo": S(-6.40, 132.55, "Convoy", heading=315),
+        "guard": S(-6.36, 132.48, "Armed merchant", heading=315),
+        "boats": S(-6.28, 132.42, "Fast attack craft", heading=315),
+        "decoy": S(-6.48, 132.68, "Radiating hull", heading=315),
+        "trawler": S(-6.56, 132.62, "Trawler astern", heading=315),
+        "fishing": S(-6.22, 132.12, "Fishing boats", heading=90),
+        "tanker": S(-6.30, 132.75, "Tanker", heading=200),
+    },
+    units=[
+        U("blue", "SEST_RAN_Fleet", "ran_ffh_anzac", "escort", variant="Variant8"),
+        U("blue", "us-navy-2027", "usn_mh-60r", "flight", alt=500),
+        U("red", "re-power-resupply", "civ_ms_andizhan", "cargo", name="MV Ocean Pearl",
+          nation="Panama", weapons="Hold", route=[(-6.05, 132.20, 0)], telegraph=3),
+        U("red", "re-power-resupply", "civ_ms_freighter_a", "cargo", name="MV Golden Wren",
+          nation="Panama", weapons="Hold", route=[(-6.05, 132.20, 0)], telegraph=3),
+        U("red", "re-power-resupply", "wp_ms_andizhan_armed", "guard",
+          name="MV Meridian Vigilant", nation="Panama",
+          route=[(-6.10, 132.15, 0)], telegraph=3),
+        U("red", "red-storm-arsenal", "ir_ptg_peykaap_3", "boats", name="Meridian Escort 21",
+          nation="Panama", route=[(-6.10, 132.10, 0)], telegraph=3),
+        U("red", "red-storm-arsenal", "ir_ptg_peykaap_3", "boats", name="Meridian Escort 22",
+          nation="Panama", route=[(-6.10, 132.10, 0)], telegraph=3),
+        U("red", "_vanilla", "wp_ms_mercur_decoy", "decoy", name="MV Meridian Assurance II",
+          nation="Panama", weapons="Hold", route=[(-6.15, 132.30, 0)], telegraph=3),
+        # Hold until the convoy is half-way to the Banda entrance; then her
+        # tube is Free.
+        U("red", "project-2498-zyetseth", "civ_fv_okean_surprise", "trawler",
+          name="FV Sea Lantern", nation="Panama", weapons="Hold",
+          route=[(-6.35, 132.40, 0, [("SetWeaponStatus", "Free")]), (-6.10, 132.25, 0)],
+          telegraph=3),
+        U("neutral", "_vanilla", "civ_fv_fishingboat_a", "fishing",
+          name="KM Bintang Laut", route=[(-6.25, 132.45, 0)], telegraph=1),
+        U("neutral", "_vanilla", "civ_fv_fishingboat_b", "fishing",
+          name="KM Sinar Kei", route=[(-6.30, 132.35, 0)], telegraph=1),
+        U("neutral", "_vanilla", "civ_ms_ritina", "tanker", name="MT Arafura Dawn",
+          route=[(-6.85, 132.45, 0)], telegraph=3),
+    ],
+))
+MISSIONS.append(dict(
+    group="optional", num="O7", key="Second Ring",
+    place="The Biak enclave", expires_after="Common Sea",
+    geography="coast",
+    intro="Optional. The Open Door went through the enclave's first belt. In "
+          "three nights Russia has put a newer one round the field. Take its "
+          "radars down before the enclave fires anything else south.",
+    special=(
+        "Optional operation. A US and RAAF strike package: two B-52H with ARRW, an RAAF "
+        "Growler pair, two F-15EX and a Wedgetail. Your task group is not committed. Destroy "
+        "the new belt's two engagement radars; with them gone, the enclave's launchers have "
+        "no cover when Ballistic Shield is flown. Closes when Common Sea is complete."
+    ),
+    sender="Wing Commander Daniel Ward, Air Component, RAAF Tindal; Colonel Dale "
+           "Rourke, USAF, for the bombers",
+    intent=("The Open Door got the relief through and cost them a battery. They "
+            "have replaced it with better: an S-350 and an S-300PMU2 under a "
+            "Nebo-U, and a Buk-M3 for the low end. Everything the enclave "
+            "launches south from here on flies under that umbrella. Take the "
+            "two engagement radars and the launchers are blind; take the "
+            "Iskander while you are there and nobody will complain. The "
+            "bombers are borrowed from Guam and I want them back."),
+    date=(2028, 11, 14), time=(4, 10), sea=2, clouds="Scattered_1", wind="NW",
+    difficulty=4, minutes=90, centre=(-2.60, 136.30),
+    blue_nation="Australia", red_nation="China",
+    brief=(
+        (
+            "THE BIAK ENCLAVE, 0410. Since The Open Door the enclave has had three nights "
+            "of Russian transports. Imagery shows an S-350 Vityaz battery with its 50N6 "
+            "radar west of the field, an S-300PMU2 launcher with its 30N6E2 to the east, a "
+            "Buk-M3 on the northern ridge and a Nebo-U early-warning radar on the coast "
+            "above them all. An Iskander-M launcher arrived last night.\\n\\nThe package is"
+            " two hundred miles south over New Guinea: DOOM 41 and 42, B-52H out of Tindal "
+            "with ARRW; GRIZZLY 31 and 32, RAAF Growlers with AGM-88G; EAGLE II 21 and 22 "
+            "as escort; and WEDGETAIL 04 for the picture. The S-300 reaches a hundred miles "
+            "and the S-350 sixty-five; stay outside both until the Growlers have a fix.\\n\\n"
+            "The win is the two engagement radars. Two J-16s are on the enclave field and "
+            "will be up within ten minutes of the first emission. A relief ship is in the "
+            "anchorage south of the field: she is not a target, and neither is the town."
+        )),
+    forces=(
+        "Two B-52H with ARRW, two RAAF EA-18G, two F-15EX, an E-7A Wedgetail. Opposing: an "
+        "S-350 battery (50N6 radar and a launcher), an S-300PMU2 (30N6E2 and a launcher), a "
+        "Buk-M3, a Nebo-U radar, an Iskander-M launcher and two J-16. "
+        "Neutral: a relief ship in the anchorage."
+    ),
+    objectives=[
+        ("Ring", "Destroy the S-350's 50N6 radar and the S-300's 30N6E2",
+         "35,-35,Fail,Main"),
+        ("Buk", "Destroy the Buk-M3", "10,0,None"),
+        ("Nebo", "Destroy the Nebo-U radar", "5,0,None"),
+        ("Iskander", "Destroy the Iskander-M launcher", "10,0,None"),
+        ("Bombers", "Lose neither B-52", "10,-20,Complete"),
+        ("Relief", "Harm no relief shipping", "0,-30,Complete"),
+    ],
+    victory=dict(kind="destroy", stations=["s350#1", "s300#1"], min_units=2,
+                 objective="Ring", sets="O7RingDown"),
+    declares=["O7RingDown"],
+    neutral_objective="Relief",
+    win=(
+        "Both engagement radars are burning. The belt round the enclave is launchers and "
+        "nothing to aim them with, and the bombers are on their way home."
+    ),
+    lose=(
+        "The belt still stands, or a bomber did not come back. Whatever the enclave sends "
+        "south next week will fly under it."
+    ),
+    stations={
+        # The package two hundred miles south of the field, over New Guinea;
+        # the belt on Biak round the enclave field (SW08's), each system on
+        # its own site and its launchers within reach of their radar.
+        "bombers": S(-4.20, 137.00, "Bomber stream", heading=330, alt=30000),
+        "growlers": S(-3.90, 136.60, "Growlers", heading=350, alt=25000),
+        "eagles": S(-3.80, 136.40, "Escort", heading=350, alt=30000),
+        "wedgetail": S(-5.20, 136.00, "AEW orbit", heading=90, alt=32000),
+        "s350": dict(S(-1.10, 135.90, "S-350 battery"), coastal=True),
+        "s300": dict(S(-1.15, 136.15, "S-300PMU2"), coastal=True),
+        "buk": dict(S(-1.05, 135.95, "Buk-M3"), coastal=True),
+        "nebo": dict(S(-0.95, 136.00, "Nebo-U"), coastal=True),
+        "tel": dict(S(-1.12, 136.10, "Iskander-M"), coastal=True),
+        "enclave": S(-1.25, 136.30, "Enclave fighters", heading=180, alt=25000),
+        "relief": S(-1.22, 136.00, "Relief ship", heading=90),
+        "tindal": S(-14.521, 132.378, "RAAF Base Tindal"),
+        # Where the fighters recover: Prasetyo's strip in the Kai group, as
+        # in The Open Door.
+        "strip": dict(S(-5.6614, 132.7314, "Forward strip, Kai group"), coastal=True),
+    },
+    units=[
+        U("blue", "b-52h", "dts_b-52h", "bombers", name="Doom 41", loadout="Strike183",
+          alt=30000),
+        U("blue", "b-52h", "dts_b-52h", "bombers", name="Doom 42", loadout="Strike183",
+          alt=30000),
+        U("blue", "SEST_Growler_NGJ_MALICE", "usn_ea-18g", "growlers", squadron="Squadron6",
+          name="Grizzly 31", loadout="SEST_SEAD120D", alt=25000),
+        U("blue", "SEST_Growler_NGJ_MALICE", "usn_ea-18g", "growlers", squadron="Squadron6",
+          name="Grizzly 32", loadout="SEST_SEAD120D", alt=25000),
+        U("blue", "SEST_F-15EX_Revamp", "usaf_f-15ex_SEII", "eagles", name="Eagle II 21",
+          loadout="AirToAir", alt=30000),
+        U("blue", "SEST_F-15EX_Revamp", "usaf_f-15ex_SEII", "eagles", name="Eagle II 22",
+          loadout="AirToAir", alt=30000),
+        U("blue", "e-7a-wedgetail", "E7A_Wedgetail", "wedgetail", name="Wedgetail 04",
+          alt=32000, weapons="Hold",
+          route=[(-5.20, 136.00, 32000), (-5.00, 137.20, 32000)], loop=True),
+        U("blue", "SEST_RAAF_Bases", "airbase_raaf_tindal", "tindal",
+          name="RAAF Base Tindal", nation="australia", weapons="Hold"),
+        U("blue", "_vanilla", "airfield_small_1", "strip", name="Langgur forward strip",
+          weapons="Hold"),
+        # Each launcher stands with its radar: the S-350's needs the 50N6
+        # within 7 NM, the S-300's its 30N6E2 within a mile. The radar is
+        # each station's first unit (#1). Radars count as combat units, so
+        # the strike role's eight is two radars, three launchers, the Buk
+        # and the two fighters.
+        U("red", "s-350-vityaz", "ru_50n6", "s350", name="50N6 radar"),
+        U("red", "s-350-vityaz", "ru_vityaz-lr_tel", "s350", name="Vityaz launcher 1"),
+        U("red", "s-300pmu2", "wp_tombstone", "s300", name="30N6E2 radar"),
+        U("red", "s-300pmu2", "wp_kraz_tel", "s300", name="S-300 launcher"),
+        U("red", "buk-m3", "wp_buk-m3", "buk", name="Buk-M3 TELAR"),
+        U("red", "nebo-u", "wp_nebou", "nebo", name="Nebo-U radar"),
+        U("red", "iskander-m", "wp_iskander_m", "tel", name="Iskander-M launcher"),
+        U("red", "j-16-multirole", "plaaf_j16", "enclave", name="Enclave 21",
+          loadout="AirToAir", alt=25000, route=[(-2.00, 136.40, 30000)], enter=10),
+        U("red", "j-16-multirole", "plaaf_j16", "enclave", name="Enclave 22",
+          loadout="AirToAir", alt=25000, route=[(-2.00, 136.40, 30000)], enter=10),
+        U("neutral", "_vanilla", "civ_ms_encounter", "relief", name="MV Kasih Papua (relief)"),
+    ],
+))
+MISSIONS.append(dict(
+    group="optional", num="O8", key="Bomber Stream",
+    place="Timor Sea, north-west of Darwin", expires_after="Common Sea",
+    geography="coast",
+    intro="Optional. Four H-6K are coming down the Timor Sea for the ships "
+          "forming at Darwin. Get them before they are close enough to fire.",
+    special=(
+        "Optional operation. RAAF fighters out of Tindal and Darwin, a USAF F-22 pair, a "
+        "Wedgetail and a KC-30A. Your task group is not committed. Shoot down the raid before"
+        " it reaches YJ-12 range of the Darwin anchorage. Closes when Common Sea is complete."
+    ),
+    sender="Wing Commander Daniel Ward, Air Component, RAAF Tindal",
+    intent=("Four bombers and two escorts, and the bombers are carrying YJ-12 for "
+            "the ships at Darwin, which is everything we have assembled for the "
+            "Common Sea convoy. A YJ-12 has two hundred and seventy miles in it; "
+            "they will want to be a lot closer than that before they trust a "
+            "track. Kill the bombers before they get there and the escorts if "
+            "they let you. There is an airliner on the Denpasar track in the "
+            "middle of it, and she is the one thing out there you may not shoot."),
+    date=(2028, 11, 15), time=(21, 30), sea=3, clouds="Broken_2", wind="NW",
+    difficulty=4, minutes=60, centre=(-10.20, 129.20),
+    blue_nation="Australia", red_nation="China",
+    brief=(
+        (
+            "TIMOR SEA, 2130. Wedgetail 02 has a raid out of the north-west: four H-6K and "
+            "two J-16, three hundred and forty miles from Darwin and closing at four hundred "
+            "and forty knots. Signals say YJ-12. The target is the anchorage, where the ships"
+            " for the Common Sea convoy are forming.\\n\\nTaipan 11 to 14, No. 75 Squadron "
+            "F-35As with AIM-260, are on CAP a hundred and forty miles out; Raptor 31 and 32,"
+            " USAF F-22s out of Tindal, are behind them. Dragon 41, a KC-30A, is south of the "
+            "CAP. The bombers' own radar will not give them a track on the anchorage until "
+            "they are inside two hundred miles, and that is the line.\\n\\nShoot down at "
+            "least three of the four before any of them reaches it. Darwin-Denpasar 112 is "
+            "on her normal track and has been told nothing; she will cross the raid's path. "
+            "Identify before you fire."
+        )),
+    forces=(
+        "Four RAAF F-35A, two USAF F-22, an E-7A Wedgetail and a KC-30A, out of Tindal and "
+        "Darwin; two merchants at the Darwin anchorage. Opposing: four H-6K with YJ-12 and two "
+        "J-16. Neutral: an airliner on the Darwin-Denpasar track."
+    ),
+    objectives=[
+        ("Raid", "Shoot down three of the four bombers before they reach launch range",
+         "35,-35,Fail,Main"),
+        ("Escorts", "Shoot down both J-16s", "10,0,None"),
+        ("Fighters", "Lose no fighter", "10,-15,Complete"),
+        ("Anchorage", "Lose no ship at Darwin", "10,-20,Complete"),
+        ("Airliner", "Harm no civil aircraft", "0,-40,Complete"),
+    ],
+    victory=dict(kind="destroy", stations=["raid"], min_units=3, objective="Raid"),
+    denied=[dict(units=["raid"], at=(-12.33, 130.74), radius=200, objective="Raid",
+                 message=(
+                     "WEDGETAIL 02: A bomber is inside two hundred miles of the anchorage and "
+                     "her radar has the ships. Missiles away. The raid is through the line."
+                 ))],
+    neutral_objective="Airliner",
+    win=(
+        "The raid is broken short of the line. What is left of it is turning north, and the "
+        "anchorage did not see a missile."
+    ),
+    lose=(
+        "The bombers reached launch range, or the fighters paid too much to stop them. The "
+        "Common Sea convoy is counting what it has left."
+    ),
+    stations={
+        # The raid 340 NM north-west of the anchorage on the line to it; the
+        # F-35As 140 NM down that line, inside AIM-260 reach of it but over
+        # 128 NM from the J-16s' PL-15s; the F-22s behind them; Wedgetail
+        # and the tanker south of the CAP; the airliner crossing.
+        "raid": S(-7.60, 127.60, "Raid", heading=145, alt=28000),
+        "escort": S(-7.70, 127.75, "Escort", heading=145, alt=32000),
+        "cap": S(-9.56, 128.89, "F-35A CAP", heading=325, alt=35000),
+        "raptors": S(-10.04, 129.22, "F-22 pair", heading=325, alt=40000),
+        "wedgetail": S(-11.00, 129.80, "AEW orbit", heading=60, alt=32000),
+        "tanker": S(-11.30, 130.20, "Tanker track", heading=60, alt=26000),
+        "airway": S(-11.05, 130.40, "Darwin-Denpasar", heading=290, alt=37000),
+        "anchorage": S(-12.33, 130.74, "Darwin anchorage", heading=0),
+        "darwin": S(-12.409, 130.8665, "RAAF Base Darwin"),
+        "tindal": S(-14.521, 132.378, "RAAF Base Tindal"),
+    },
+    units=[
+        U("blue", "SEST_RAAF_F-35A_JATM", "raaf_f-35a", "cap", squadron="Squadron3",
+          name="Taipan 11", loadout="Intercept260Stealth", alt=35000),
+        U("blue", "SEST_RAAF_F-35A_JATM", "raaf_f-35a", "cap", squadron="Squadron3",
+          name="Taipan 12", loadout="Intercept260Stealth", alt=35000),
+        U("blue", "SEST_RAAF_F-35A_JATM", "raaf_f-35a", "cap", squadron="Squadron3",
+          name="Taipan 13", loadout="Intercept260Stealth", alt=35000),
+        U("blue", "SEST_RAAF_F-35A_JATM", "raaf_f-35a", "cap", squadron="Squadron3",
+          name="Taipan 14", loadout="Intercept260Stealth", alt=35000),
+        U("blue", "f-22", "usaf_f-22_s6", "raptors", name="Raptor 31",
+          loadout="AirToAirIntercept", alt=40000),
+        U("blue", "f-22", "usaf_f-22_s6", "raptors", name="Raptor 32",
+          loadout="AirToAirIntercept", alt=40000),
+        U("blue", "e-7a-wedgetail", "E7A_Wedgetail", "wedgetail", name="Wedgetail 02",
+          alt=32000, weapons="Hold",
+          route=[(-11.00, 129.80, 32000), (-10.60, 130.60, 32000)], loop=True),
+        U("blue", "french-air-force", "aus_a330_mrtt", "tanker", name="Dragon 41",
+          alt=26000, weapons="Hold",
+          route=[(-11.30, 130.20, 26000), (-10.90, 130.90, 26000)], loop=True),
+        U("blue", "auxilliary-merchant-pack", "ran_ms_antares", "anchorage",
+          name="MV Timor Provider", weapons="Hold"),
+        U("blue", "re-power-resupply", "civ_ms_freighter_a", "anchorage",
+          name="MV Arnhem Trader"),
+        U("blue", "SEST_RAAF_Bases", "airbase_raaf_darwin", "darwin",
+          name="RAAF Base Darwin", nation="australia", weapons="Hold"),
+        U("blue", "SEST_RAAF_Bases", "airbase_raaf_tindal", "tindal",
+          name="RAAF Base Tindal", nation="australia", weapons="Hold"),
+        U("red", "plaaf-aircraft-pack", "plaaf_h-6k_late", "raid", name="Badger 51",
+          loadout="AntiShip", alt=28000, route=[(-12.33, 130.74, 28000)], telegraph=3),
+        U("red", "plaaf-aircraft-pack", "plaaf_h-6k_late", "raid", name="Badger 52",
+          loadout="AntiShip", alt=28000, route=[(-12.33, 130.74, 28000)], telegraph=3),
+        U("red", "plaaf-aircraft-pack", "plaaf_h-6k_late", "raid", name="Badger 53",
+          loadout="AntiShip", alt=28000, route=[(-12.33, 130.74, 28000)], telegraph=3),
+        U("red", "plaaf-aircraft-pack", "plaaf_h-6k_late", "raid", name="Badger 54",
+          loadout="AntiShip", alt=28000, route=[(-12.33, 130.74, 28000)], telegraph=3),
+        U("red", "j-16-multirole", "plaaf_j16", "escort", name="Escort 31",
+          loadout="AirToAir", alt=32000, route=[(-11.00, 130.00, 32000)], telegraph=3),
+        U("red", "j-16-multirole", "plaaf_j16", "escort", name="Escort 32",
+          loadout="AirToAir", alt=32000, route=[(-11.00, 130.00, 32000)], telegraph=3),
+        U("neutral", "civil-aircraft-airbus", "civ_a330", "airway",
+          name="Darwin-Denpasar 112", airway=(-8.75, 115.17)),  # Denpasar
+    ],
+))
+MISSIONS.append(dict(
+    group="optional", num="O9", key="Viper Zero",
+    place="Banda Sea, south of Seram", expires_after="Common Sea",
+    geography="coast",
+    intro="Optional. A PLAN amphibious group is closing on the Japanese "
+          "helicopter destroyer coming south for Common Sea. Four F-2As and an "
+          "EC-2 have one sortie to stop it.",
+    special=(
+        "Optional operation. A Japanese air sortie: four JASDF F-2A out of Langgur with ASM-3 "
+        "and an EC-2 stand-off jammer. Your task group is not committed. Sink the group's two "
+        "warships before they reach JS Hyuga. What the EC-2 learns about the rest of the "
+        "group goes into Common Sea's picture. Closes when Common Sea is complete."
+    ),
+    sender="Commodore Alex Mercer; Colonel Kenji Arai, JASDF, Langgur detachment",
+    intent=("Tokyo's rules: the F-2As go because Hyuga is threatened, and only "
+            "at the ships that threaten her. That is the Type 054A and the 056A "
+            "with the landing ship. Arai has four aircraft and four missiles "
+            "each, and the EC-2 to blind the frigate's radar while they run in. "
+            "Sink the two warships; the landing ship is a bonus, and I would "
+            "rather nobody chases it into Seram's waters."),
+    date=(2028, 11, 17), time=(6, 50), sea=3, clouds="Scattered_2", wind="E",
+    difficulty=3, minutes=75, centre=(-4.70, 129.60),
+    blue_nation="Australia", red_nation="China",
+    brief=(
+        (
+            "BANDA SEA, SOUTH OF SERAM, 0650. JS Hyuga and JS Asahi are coming south out of "
+            "the Manipa Strait for the Kai Islands and Common Sea. A hundred and fifteen miles "
+            "east of them, a PLAN group is closing at eighteen knots: a Type 054A, a Type 056A "
+            "and the Type 071 Changbai Shan, which has been carrying stores for the Biak "
+            "enclave. The 054A's YJ-83A reaches eighty-five miles, and she is closing on Hyuga"
+            " to use it.\\n\\nVIPER 51 to 54, JASDF F-2As from the Langgur detachment, are "
+            "airborne with four ASM-3 each. JAMMER 71, an EC-2 of the Electronic Warfare "
+            "Operations Group, is on station south of the group to jam the frigate's search "
+            "and fire-control radars while they run in.\\n\\nSink the 054A and the 056A. The "
+            "Japanese ships are weapons tight under their own rules and will defend "
+            "themselves. A Pelni ferry and Banda fishing boats are in the same water."
+        )),
+    forces=(
+        "Four JASDF F-2A with ASM-3 and an EC-2 jammer; JS Hyuga with her SH-60K and JS Asahi."
+        " Opposing: a Type 054A, a Type 056A and the Type 071 Changbai Shan. Neutral: a Pelni"
+        " ferry and fishing boats."
+    ),
+    objectives=[
+        ("Group", "Sink the Type 054A and the Type 056A", "35,-35,Fail,Main"),
+        ("Hyuga", "JS Hyuga is not hit", "15,-30,Complete"),
+        ("Lander", "Sink the Type 071", "10,0,None"),
+        ("Vipers", "Lose no F-2A", "10,-15,Complete"),
+        ("Traffic", "Harm no ferry or fishing boat", "0,-30,Complete"),
+    ],
+    victory=dict(kind="destroy", stations=["sag#1", "sag#2"], min_units=2,
+                 objective="Group", sets="O9GroupStruck"),
+    declares=["O9GroupStruck"],
+    neutral_objective="Traffic",
+    win=(
+        "Both warships are sinking and Changbai Shan has turned north. Hyuga comes south "
+        "untouched, and the EC-2 has every emitter the group had on tape."
+    ),
+    lose=(
+        "The group is still between Hyuga and the Kai Islands, or Hyuga has been hit. Tokyo "
+        "will reconsider how far south its ships come."
+    ),
+    stations={
+        # The Japanese pair out of the Manipa Strait 115 NM west of the
+        # group; the group closing them from the east; the F-2As 105 NM
+        # from it, inside ASM-3 reach (161) and outside HQ-16C (46); the
+        # EC-2 south of the group, inside its 450 km jammer; the Kai strip.
+        "jmsdf": S(-4.60, 127.90, "Japanese group", heading=110),
+        "helo": S(-4.58, 127.95, "Hyuga's flight", heading=110, alt=1500),
+        "sag": S(-4.30, 129.80, "PLAN group", heading=255),
+        "lander": S(-4.25, 129.95, "Type 071", heading=255),
+        "vipers": S(-5.00, 131.40, "Viper flight", heading=290, alt=20000),
+        "jammer": S(-5.40, 130.60, "EC-2 orbit", heading=270, alt=32000),
+        "ferry": S(-4.90, 128.60, "Pelni ferry", heading=80),
+        "fishing": S(-4.45, 129.20, "Fishing boats", heading=200),
+        "strip": dict(S(-5.6614, 132.7314, "Forward strip, Kai group"), coastal=True),
+        "darwin": S(-12.409, 130.8665, "RAAF Base Darwin"),
+    },
+    units=[
+        U("blue", "jmsdf-hyuga-class", "jmsdf_ddh_hyuga", "jmsdf", variant="Variant1",
+          name="JS Hyuga (DDH-181)", weapons="Tight", route=[(-5.00, 129.20, 0)],
+          telegraph=3),
+        U("blue", "euromod-jmsdf", "jmsdf_dd_asahi", "jmsdf", name="JS Asahi (DD-119)",
+          weapons="Tight", route=[(-5.00, 129.20, 0)], telegraph=3),
+        U("blue", "euromod-jmsdf", "jmsdf_sh-60k", "helo", name="Hyuga Flight",
+          alt=1500, weapons="Tight"),
+        U("blue", "f-2a-viper-zero", "jp_f-2a_late", "vipers", name="Viper 51",
+          loadout="AntiShip", alt=20000),
+        U("blue", "f-2a-viper-zero", "jp_f-2a_late", "vipers", name="Viper 52",
+          loadout="AntiShip", alt=20000),
+        U("blue", "f-2a-viper-zero", "jp_f-2a_late", "vipers", name="Viper 53",
+          loadout="AntiShip", alt=20000),
+        U("blue", "f-2a-viper-zero", "jp_f-2a_late", "vipers", name="Viper 54",
+          loadout="AntiShip", alt=20000),
+        U("blue", "ec-2-stand-off-jammer", "jasdf_ec-2", "jammer", squadron="Squadron2",
+          name="Jammer 71", alt=32000, weapons="Hold",
+          route=[(-5.40, 130.60, 32000), (-5.10, 129.60, 32000)], loop=True),
+        U("blue", "_vanilla", "airfield_small_1", "strip", name="Langgur forward strip",
+          weapons="Hold"),
+        U("blue", "SEST_RAAF_Bases", "airbase_raaf_darwin", "darwin",
+          name="RAAF Base Darwin", nation="australia", weapons="Hold"),
+        U("red", "modern-plan-systems", "plan_type_054a_p5", "sag", variant="Variant7",
+          name="Huaibei (516)", route=[(-4.55, 128.40, 0)], telegraph=3),
+        U("red", "modern-plan-systems", "plan_type_056a", "sag", variant="Variant1",
+          name="Huangshi (502)", route=[(-4.55, 128.40, 0)], telegraph=3),
+        U("red", "type-071-lpd", "plan_lpd_type_071", "lander", variant="Variant3",
+          name="Changbai Shan (989)", route=[(-4.50, 128.50, 0)], telegraph=3),
+        U("neutral", "_vanilla", "civ_ms_roro_b", "ferry", name="KM Sirimau (Pelni)",
+          route=[(-4.60, 129.90, 0)], telegraph=3),
+        U("neutral", "_vanilla", "civ_fv_fishingboat_a", "fishing",
+          name="KM Mina Banda", route=[(-4.60, 129.10, 0)], telegraph=1),
+        U("neutral", "_vanilla", "civ_fv_fishingboat_b", "fishing",
+          name="KM Pala Jaya", route=[(-4.35, 129.30, 0)], telegraph=1),
+    ],
+))
+MISSIONS.append(dict(
+    group="optional", num="O10", key="Ballistic Shield",
+    place="Kai Islands and the Biak enclave", expires_after="Fujian's Shadow",
+    geography="coast",
+    intro="Optional. The enclave has moved ballistic missiles onto Biak and "
+          "Langgur is the strip in range. Hold it under THAAD, Patriot and "
+          "Steelfin while two F-15EX hunt the launchers.",
+    special=(
+        "Optional operation. The coalition air-defence group at Langgur (THAAD, Patriot and a "
+        "US Steelfin battery), two F-15EX with ARRW and a Triton. Your task group is not "
+        "committed. Destroy three of the five launchers on Biak and keep the strip working. "
+        "If Second Ring took the belt down, the launchers have no cover. Closes when Fujian's "
+        "Shadow is complete."
+    ),
+    sender="Wing Commander Daniel Ward, Air Component, RAAF Tindal; Captain Ratna "
+           "Prasetyo, Indonesian Navy (TNI-AL), for the strip",
+    intent=("Five launchers on the Biak pads: two Fattah-1, a Fattah-2, an Emad "
+            "and a Shahed 238 battery, and Langgur is three hundred and forty "
+            "miles away, which is in range of all of them. The batteries hold "
+            "the strip; the F-15EXs go for the launchers as soon as the Triton "
+            "finds them. Each ballistic launcher has one round. The longer they "
+            "stand, the more of them get to use it. Prasetyo's people are on "
+            "that strip; so are the fuel bladders The Open Door flew on."),
+    date=(2028, 11, 21), time=(3, 50), sea=2, clouds="Clear", wind="SE",
+    difficulty=4, minutes=70, centre=(-3.40, 134.40),
+    blue_nation="Australia", red_nation="China",
+    brief=(
+        (
+            "KAI ISLANDS, 0350. Last night's imagery shows the enclave's new pads on Biak: "
+            "two Fattah-1 launchers, a Fattah-2, an Emad and a Shahed 238 battery with eight "
+            "jet drones. Everything on them reaches Langgur. A Tu-214R has flown the same "
+            "track south towards the Kai group three nights running; tonight it will be "
+            "looking for the batteries.\\n\\nOn Kai Kecil: a THAAD launcher with its AN/TPY-2,"
+            " a Patriot PAC-3 launcher with its radar, and a US Army Steelfin battery, the "
+            "first of its kind deployed outside a range. EAGLE II 31 and 32 are up out of "
+            "Langgur with ARRW and SENTRY 05, an RAAF Triton, is off Biak to find the pads "
+            "for them.\\n\\nDestroy three of the five launchers and keep the strip in action."
+            " If Second Ring took down the S-350 and S-300 radars on the fourteenth, the "
+            "pads have no cover; if it did not, the S-350 is still over them. Tual's ferry "
+            "and its fishing boats are out tonight."
+        )),
+    forces=(
+        "THAAD with AN/TPY-2, Patriot PAC-3 with AN/MPQ-65, a Steelfin battery, the Langgur "
+        "strip; two F-15EX with ARRW and an RAAF Triton. Opposing: two Fattah-1, a Fattah-2 "
+        "and an Emad launcher, a Shahed 238 battery, a Tu-214R, and the S-350 if Second Ring "
+        "did not take it down. Neutral: the Tual ferry and fishing boats."
+    ),
+    objectives=[
+        ("Pads", "Destroy three of the five launchers on Biak", "35,-35,Fail,Main"),
+        ("Strip", "Keep the Langgur strip in action", "20,-40,Complete"),
+        ("Radar", "Lose nothing of the THAAD battery", "10,-15,Complete"),
+        ("Coot", "Shoot down the Tu-214R", "5,0,None"),
+        ("Traffic", "Harm no ferry or fishing boat", "0,-30,Complete"),
+    ],
+    victory=dict(kind="destroy", stations=["pads"], min_units=3, objective="Pads"),
+    fatal=[F("Strip", ["strip"])],
+    neutral_objective="Traffic",
+    win=(
+        "Three of the launchers are burning on Biak and the strip is still turning aircraft "
+        "round. Whatever is left on the pads has to come out of hiding to fire."
+    ),
+    lose=(
+        "The strip is out of action, or the launchers are still standing. Langgur will not "
+        "be anybody's alternate this week."
+    ),
+    stations={
+        # The air-defence group inland on Kai Kecil, south of the strip
+        # (SW08's Langgur, as in Weather Alternate); the pads inland on
+        # Biak, 340 NM north-east; the S-350 where Second Ring found it.
+        "strip": dict(S(-5.6614, 132.7314, "Forward strip, Kai group"), coastal=True),
+        "battery": dict(S(-5.77, 132.73, "THAAD"), coastal=True),
+        "patriot": dict(S(-5.83, 132.72, "Patriot"), coastal=True),
+        "steelfin": dict(S(-5.79, 132.76, "Steelfin battery"), coastal=True),
+        "eagles": S(-5.20, 133.20, "Eagle II flight", heading=30, alt=30000),
+        "sentry": S(-2.40, 135.00, "Triton orbit", heading=60, alt=50000),
+        "pads": dict(S(-1.05, 136.02, "Launch pads"), coastal=True),
+        "s350": dict(S(-1.10, 135.90, "S-350 battery"), coastal=True),
+        "coot": S(-2.20, 134.80, "Tu-214R track", heading=200, alt=34000),
+        "ferry": S(-5.55, 132.90, "Tual ferry", heading=160),
+        "fishing": S(-5.50, 132.60, "Fishing boats", heading=270),
+        "darwin": S(-12.409, 130.8665, "RAAF Base Darwin"),
+    },
+    units=[
+        U("blue", "_vanilla", "airfield_small_1", "strip", name="Langgur forward strip",
+          weapons="Hold"),
+        U("blue", "thaad", "thaad_tel", "battery", name="THAAD launcher"),
+        U("blue", "thaad", "wp_an_tpy_2", "battery", name="AN/TPY-2"),
+        U("blue", "sam-pack", "usa_pac-3_launcher", "patriot", variant="Variant1",
+          name="Patriot PAC-3 launcher"),
+        U("blue", "sam-pack", "usa_an_mpq-65_radar", "patriot", variant="Variant1",
+          name="AN/MPQ-65"),
+        U("blue", "steelfin", "usa_steelfin_launcher", "steelfin", name="Steelfin battery"),
+        U("blue", "SEST_F-15EX_Revamp", "usaf_f-15ex_SEII", "eagles", name="Eagle II 31",
+          loadout="Strike183", alt=30000),
+        U("blue", "SEST_F-15EX_Revamp", "usaf_f-15ex_SEII", "eagles", name="Eagle II 32",
+          loadout="Strike183", alt=30000),
+        U("blue", "SEST_ADF_Persistent_ISR", "raaf_mq-4c_triton", "sentry",
+          name="Sentry 05", alt=50000, weapons="Hold",
+          route=[(-2.40, 135.00, 50000), (-2.00, 135.60, 50000)], loop=True),
+        U("blue", "SEST_RAAF_Bases", "airbase_raaf_darwin", "darwin",
+          name="RAAF Base Darwin", nation="australia", weapons="Hold"),
+        U("red", "fattah-1", "wp_fattah1_tel", "pads", name="Fattah-1 launcher A"),
+        U("red", "fattah-1", "wp_fattah1_tel", "pads", name="Fattah-1 launcher B"),
+        U("red", "fattah-2", "wp_fattah2_tel", "pads", name="Fattah-2 launcher"),
+        U("red", "emad-iran-bm", "wp_emad_tel", "pads", name="Emad launcher"),
+        U("red", "iran-shahed-238", "wp_shahed238_launcher", "pads", name="Shahed 238 battery"),
+        # Second Ring's promise: with the belt's radars gone on the
+        # fourteenth (O7RingDown) the pads stand without cover.
+        U("red", "s-350-vityaz", "ru_50n6", "s350", name="50N6 radar",
+          spawn_if=("O7RingDown", "IsFalse")),
+        U("red", "s-350-vityaz", "ru_vityaz-lr_tel", "s350", name="Vityaz launcher",
+          spawn_if=("O7RingDown", "IsFalse")),
+        U("red", "tu-214r-family", "msdvd_tu-214r", "coot", name="Coot-A 91",
+          alt=34000, weapons="Hold", enter=5,
+          route=[(-4.60, 133.40, 34000), (-3.60, 134.20, 34000)], loop=True),
+        U("neutral", "_vanilla", "civ_ms_roro_b", "ferry", name="KM Tual Express",
+          route=[(-5.90, 133.10, 0)], telegraph=3),
+        U("neutral", "_vanilla", "civ_fv_fishingboat_a", "fishing", name="KM Kei Besar",
+          route=[(-5.40, 132.50, 0)], telegraph=1),
+    ],
+))
+
+# =============================================================================
 # THE SIX-WEEK CALENDAR AND THE REQUISITION ALLOCATIONS
 #
 # Dates and completion points come from the bible's chapter table and its
@@ -3872,19 +4557,25 @@ SCHEDULE = {
     # num: (date, completion points, service window, generation, anchor station)
     "01": ((2028, 10, 18), 100, False, "Generated", "warramunga"),
     "O1": ((2028, 10, 19), 50, False, "Generated", "patrol"),
+    "O5": ((2028, 10, 21), 60, False, None, "patrol"),
     "02": ((2028, 10, 22), 140, False, "Generated", "escort"),
     "C1": ((2028, 10, 23), 0, False, "Generated", "hobart"),
     "O2": ((2028, 10, 24), 50, False, None, "patrol"),
     "03": ((2028, 10, 26), 120, True, "Generated", "escort"),
     "04": ((2028, 10, 30), 100, False, "Generated", "patrol"),
     "05": ((2028, 11, 2), 140, True, "Replaced", "warramunga"),
+    "O6": ((2028, 11, 3), 60, False, "Generated", "escort"),
     "O3": ((2028, 11, 4), 60, False, "Generated", "escort"),
     "06": ((2028, 11, 6), 140, False, "Generated", "hobart"),
     "07": ((2028, 11, 9), 120, True, None, "picket"),
     "O4": ((2028, 11, 10), 50, False, "Generated", "escort"),
     "08": ((2028, 11, 13), 180, False, None, None),
+    "O7": ((2028, 11, 14), 70, False, None, None),
+    "O8": ((2028, 11, 15), 60, False, None, None),
+    "O9": ((2028, 11, 17), 70, False, None, None),
     "09": ((2028, 11, 16), 160, True, "Generated", "escort"),
     "10": ((2028, 11, 20), 180, False, "Generated", "escort"),
+    "O10": ((2028, 11, 21), 70, False, None, None),
     "11": ((2028, 11, 23), 200, True, "Generated", "escort"),
     "C2": ((2028, 11, 25), 30, False, "Generated", "escort"),
     "12": ((2028, 11, 28), 0, True, "Generated", "escort"),
@@ -4433,8 +5124,14 @@ WINDOWS = {
     # Seahawk if one was bought. No builder, no repair: it is the next day.
     "O1": dict(flights=[HELO], detachment=True),
     "O2": dict(),
+    "O5": dict(),
+    "O7": dict(),
+    "O8": dict(),
+    "O9": dict(),
+    "O10": dict(),
     "O3": dict(detachment=True),
     "O4": dict(detachment=True),
+    "O6": dict(flights=[HELO], detachment=True),
     "C2": dict(detachment=True),
     "02": dict(buy=True, situation="Force allocation before Steel Highway. The next window is before Rig Seventeen.", allow=BUY_02, repair=True, rearm=True,
                flights=[HELO, RECON]),
@@ -4519,12 +5216,25 @@ TIMEOUTS = {
           "first in the morning will read it.",
     "O2": "Kiwi 01 is at the end of her allocation with the coaster unnamed. "
           "Wellington's hours were spent and nothing came of them.",
+    "O5": "{deadline_clock}, and the handover has happened somewhere among three "
+          "ships nobody has named. Kota Meridian is going home empty.",
+    "O7": "{deadline_clock}, and both engagement radars are still radiating. The "
+          "package turns for home on its fuel, and the belt stays up.",
+    "O8": "{deadline_clock}, and the raid is still in the air between the fighters and "
+          "Darwin. The anchorage is putting to sea in the dark.",
+    "O9": "{deadline_clock}, and the frigate is still afloat and closing. The F-2As are "
+          "back at Langgur with nothing left, and Hyuga turns north for the strait.",
+    "O10": "{deadline_clock}, and the pads on Biak are still standing. Whatever they have "
+           "left will come south when they choose, not when we do.",
     "O3": "The join point is empty at the end of the window. The Korean "
           "detachment turns back for Surabaya, and the fortnight was spent on "
           "the approach.",
     "O4": "The light went with the bladders still forty miles short. The Open "
           "Door flies on internal fuel and Prasetyo's strip is a runway with "
           "nothing on it.",
+    "O6": "{deadline_clock}, and the cargo ships are still moving north in the dark "
+          "with the armed merchant between you and them. They will be in the Banda "
+          "Sea before the detachment can get a clean shot.",
     "C2": "Stuart is still short of the line at first light with a Kilo "
           "somewhere astern, and the tug from Darwin has nothing to meet.",
     "02": "The window at Moresby closed. The plant and the medical stores are "
@@ -4600,10 +5310,34 @@ RESOLVERS = {
            "Restraint": ("spare", "meridian")},
     "O2": {"Picture": "victory", "Traffic": "neutral",
            "Kiwi": ("protect", "kiwi")},
+    "O5": {"Trail": "victory", "Traffic": "neutral",
+           "Unseen": ("unseen", "patrol"),
+           "Restraint": ("spare", "merchant")},
+    "O7": {"Ring": "victory", "Relief": "neutral",
+           "Buk": ("destroy", "buk", 1),
+           "Nebo": ("destroy", "nebo", 1),
+           "Iskander": ("destroy", "tel", 1),
+           "Bombers": ("protect", "bombers")},
+    "O8": {"Raid": "victory", "Airliner": "neutral",
+           "Escorts": ("destroy", "escort", 2),
+           "Fighters": ("protect", "cap"),
+           "Anchorage": ("protect", "anchorage")},
+    "O9": {"Group": "victory", "Traffic": "neutral",
+           "Hyuga": ("protect", "jmsdf#1"),
+           "Lander": ("destroy", "lander", 1),
+           "Vipers": ("protect", "vipers")},
+    "O10": {"Pads": "victory", "Traffic": "neutral",
+            "Strip": ("protect", "strip"),
+            "Radar": ("protect", "battery"),
+            "Coot": ("destroy", "coot", 1)},
     "O3": {"Shield": "victory", "Traffic": "neutral",
            "Stores": ("protect", "rok#3")},
     "O4": {"Fuel": "victory", "Town": "neutral",
            "Site": ("destroy", "site", 1)},
+    "O6": {"Convoy": "victory", "Traffic": "neutral",
+           "Vigilant": ("destroy", "guard", 1),
+           "Decoy": ("classify", "decoy", 1),
+           "Flagship": ("protect", "escort")},
     "C2": {"Stuart": "victory", "Traffic": "neutral"},
     "02": {"Cargo": "victory", "Neutrals": "neutral",
            "Medical": ("protect", "convoy#1")},
@@ -4705,6 +5439,7 @@ SLOTS = {
     # references. Aircraft an objective depends on carry JOINS instead.
     ("01", "usn_mh-60r"): "HeloRecon", ("O1", "usn_mh-60r"): "HeloRecon",
     ("C1", "usn_mh-60r"): "HeloRecon",
+    ("O6", "usn_mh-60r"): "HeloRecon",
     ("02", "usn_mh-60r"): "HeloRecon", ("02", "usn_p8"): "Recon",
     ("05", "raaf_f-35a"): "Attack",
     ("09", "usn_p8"): "Recon",
@@ -4793,6 +5528,12 @@ ROLES = {
     # watching the air picture.
     "11": "fleet", "12": "escort",
     "O2": "patrol", "O3": "escort", "O4": "logistics", "C2": "escort",
+    "O6": "strike",
+    "O5": "recon",
+    "O7": "strike",
+    "O8": "escort",
+    "O9": "strike",
+    "O10": "strike",
     "D1": "escort", "D2": "exercise", "D3": "logistics", "D4": "escort",
     "D5": "exercise", "D6": "strike", "D7": "exercise", "D8": "strike",
 }
@@ -4924,6 +5665,9 @@ VARIABLES = {
     "O2": dict(declares=["O2KiwiPicture"]),
     "O3": dict(declares=["O3ShieldJoined"]),
     "O4": dict(declares=["O4LanggurStocked"]),
+    "O5": dict(declares=["O5ReceiverNamed"]),
+    "O7": dict(declares=["O7RingDown"]),
+    "O9": dict(declares=["O9GroupStruck"]),
     # Classifying the northern surface group is worth something three weeks
     # later, which is what makes exposing the Triton a decision rather than a
     # chore.
@@ -4957,6 +5701,30 @@ for _m in MISSIONS:
                 "on this route. Her last plot of the contact is on your display as a datum and "
                 "will age off in fifteen minutes. Classification is yours; engage under the "
                 "current orders."
+            ))]
+    if _m["num"] == "04":
+        # Paper Trail's promise (the bible's O02: "identifies a likely
+        # patrol lane for SW04"): the receiver's owners run the Seram
+        # passage, so the passenger's last position is a datum for fifteen
+        # minutes, the way Kiwi 01's picture puts the submarine on the plot.
+        _m["reveal_if"] = _m.get("reveal_if", []) + [dict(
+            variable="O5ReceiverNamed", units=["passenger"], level="", time=900,
+            intel=(
+                "INTELLIGENCE CELL: KM Sinar Harapan's owners run the Seram passage, and their"
+                " schedule puts a low-profile craft on this lane this morning. Her estimated "
+                "position is on your display as a datum and will age off in fifteen minutes."
+            ))]
+    if _m["num"] == "10":
+        # Viper Zero's EC-2 took every emitter of the PLAN group on tape:
+        # the frigate coming in from the east is the group's other 054A, and
+        # she starts on the plot classified (the bible's O09 reward is the
+        # Japanese air option, which Common Sea already flies).
+        _m["reveal_if"] = _m.get("reveal_if", []) + [dict(
+            variable="O9GroupStruck", units=["red_sag"], level="Classify",
+            intel=(
+                "JAMMER 71 / VIPER ZERO: The EC-2's recording from the seventeenth matches the "
+                "frigate coming in from the east: the group's second Type 054A. Her position "
+                "is on your plot, classified."
             ))]
     if _m["num"] == "06":
         # ("classify", ref, minimum, variable-to-set)

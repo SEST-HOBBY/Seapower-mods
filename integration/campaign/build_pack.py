@@ -887,7 +887,7 @@ class CoastPlacer:
     positions are used as authored and refused if the coastline disagrees.
     Hulls sharing a coastal station are spread 0.4 NM abeam, the way the pool
     placer's distinct points spread them, so two ships never spawn on one
-    coordinate.
+    coordinate; land units sharing a station stand 0.15 NM apart.
     """
 
     def __init__(self, coast, mission):
@@ -913,6 +913,15 @@ class CoastPlacer:
             beam = math.radians(st.get("heading", 90) + 90)
             lat = at[0] + side * 0.4 * math.cos(beam) / 60.0
             lon = at[1] + side * 0.4 * math.sin(beam) / (60.0 * math.cos(math.radians(at[0])))
+        elif kind == "land":
+            # Land units sharing a station (a launcher and its radar, a
+            # battery's guns) stand 0.15 NM apart on an east-west line, each
+            # proved ashore on its own: one coordinate for all of them is a
+            # pile-up the game shoves apart wherever it likes.
+            n = self.berths[where]
+            self.berths[where] += 1
+            side = (n + 1) // 2 * (1 if n % 2 else -1)
+            lon = at[1] + side * 0.15 / (60.0 * math.cos(math.radians(at[0])))
         if self._cover((lat, lon), where):
             land, nm = self.coast.check(lat, lon)
             if kind == "land" and not land:

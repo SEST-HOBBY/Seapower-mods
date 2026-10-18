@@ -36,7 +36,7 @@ shows — and `data/mod-catalog.json` is the table that joins them, including th
 | `integration/<pack>/` | One SEST pack per topic: a builder plus its generated `SEST_*` output |
 | `integration/dist/SEST_Integration/` | **The deployable** — all packs merged by `tools/consolidate_packs.py`; the only thing the installer copies into the game |
 | `integration/mission-seeds/` | The early scenarios, editor saves and sandboxes the side operations are refined from, and the scripts that refine them. Never installed: every mission SEST ships is in the campaign pack |
-| `integration/campaign/` | **Four native Task Force Mode campaigns in one pack.** *SEST Southern Watch* (twelve main missions, four optional operations, two contingencies, eight dispatches), *SEST Southern Reach* (two chapters, 26 missions, 20 story pages; its data lives in `southern_reach/`) *SEST Red Line* (six missions from the other side; `red_line/`) and *SEST Sulu Line* (seven Philippine Navy missions with no free rearm; `sulu_line/`), built so that every enabled mod is reached by something one of them places or prices |
+| `integration/campaign/` | **Four native Task Force Mode campaigns in one pack.** *SEST Southern Watch* (twelve main missions, ten optional operations, two contingencies, eight dispatches), *SEST Southern Reach* (two chapters, 26 missions, 20 story pages; its data lives in `southern_reach/`) *SEST Red Line* (six missions from the other side; `red_line/`) and *SEST Sulu Line* (seven Philippine Navy missions with no free rearm and three optional side operations; `sulu_line/`), built so that every enabled mod is reached by something one of them places or prices |
 | `mods-source/` | Byte-faithful export of every subscribed mod's text configs, plus `_vanilla/` |
 | `tools/` | Builders, checkers, generators, and the PowerShell scripts that talk to the game |
 
@@ -140,7 +140,8 @@ who subscribes still sees the warning for the same mods: their files are their a
 `integration/campaign/` builds four campaigns into one `SEST_Campaign` pack. The
 first is **SEST Southern Watch — The Northern Lifeline**:
 twelve connected missions in October–November 2028 in which Australia and its
-regional partners keep the northern sea routes open, four optional operations
+regional partners keep the northern sea routes open, ten optional operations
+(six of them the side operations in `docs/campaigns/side-operations.md`)
 and two contingencies that the core reads back, plus eight dispatches
 (allied rotations, an opposing-force passage, a weapons range, an openly
 speculative 2034 branch and a 1988 exercise). `docs/campaigns/southern-watch/`
