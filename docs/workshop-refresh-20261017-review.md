@@ -300,6 +300,11 @@ Capture `532c082e` on `chore/workshop-refresh-20261018`, taken on the PC at
     new keys. Both are engine keys, so they are folded for the IIB only
     (`SM3_OVWR_ROUND_ONLY`); the IIA and IB overlays do not set them.
 
+Rebuilt: the SM-3 Block IIB, the two Spanish carriers' Replenishment forks,
+and the world campaign's buy list, which takes the Shivalik for India (five
+ship types; catalogue 1,555). All 12 gates pass; campaign tests 201, tool
+tests 105.
+
 **Seen in game, at last:** this session's Player.log shows the 16 Oct plugin's
 loading-screen watcher working. It found the loading screen's picture
 (`LoadScreen.BackgroundImage`), watched it every frame, and painted SEST

@@ -8443,7 +8443,7 @@
     "aircraft": 14
    },
    "blue India": {
-    "ships": 4,
+    "ships": 5,
     "aircraft": 11
    },
    "blue Egypt": {
@@ -9479,6 +9479,7 @@
   "idn_ss_tjakra_71": "Displacement 1342 t",
   "idn_vt_uda": "Displacement 16250 t",
   "ins_ff_blackwood": "Displacement 1456 t",
+  "ins_p-17a": "Displacement 6200 t",
   "ins_pt_saar": "Displacement 206 t",
   "ins_ptg_aliya": "Displacement 498 t",
   "ins_ptg_saar_2": "Displacement 250 t",
@@ -10068,8 +10069,8 @@
    "Air": 107
   },
   "patrols": 49,
-  "catalogue": 1554,
-  "values": 1554,
+  "catalogue": 1555,
+  "values": 1555,
   "lanes_kept": 11,
   "lanes_authored": 11,
   "skipped_nodes": 34
