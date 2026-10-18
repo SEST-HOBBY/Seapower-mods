@@ -293,6 +293,12 @@ Capture `532c082e` on `chore/workshop-refresh-20261018`, taken on the PC at
   which nothing loads); the high-speed hit effects removed again from 65
   of its ammunition overlays; READMEs moved under `readme/`. CombatWorker still
   stands down on the PLA AEP's SecondThrust hook, as before.
+  - The SM-3 Block IIB's overlay (`usn_rim-161d_OVWR.ini`) now also sets
+    `TerminalLoft=True` and `OptimizeLoftAlt=True`. SEST Collection Fixes
+    folds that overlay's flight model into the round, so it flies the same
+    without the Anchor Chain preloader, and its builder stopped on the two
+    new keys. Both are engine keys, so they are folded for the IIB only
+    (`SM3_OVWR_ROUND_ONLY`); the IIA and IB overlays do not set them.
 
 **Seen in game, at last:** this session's Player.log shows the 16 Oct plugin's
 loading-screen watcher working. It found the loading screen's picture

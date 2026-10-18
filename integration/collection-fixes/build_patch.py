@@ -196,6 +196,16 @@ def sm3_value(key, name):
 SM3_OVWR_DECLINED = {
     "MaxFlightTime": {"usn_rim-161d": "3000"},
 }
+# Keys the overwrite sets for some rounds only, copied for those rounds (a
+# round not listed must not set the key). 18 Oct 2026 export: the author gave
+# the Block IIB (usn_rim-161d) a terminal loft and an optimised loft altitude.
+# Both are engine keys (vanilla's wp_ss-1c declares OptimizeLoftAlt; the D's
+# own base file carries TerminalLoft=True commented out), so they are folded
+# like the others and the D flies the same with or without the preloader.
+SM3_OVWR_ROUND_ONLY = {
+    "TerminalLoft": {"usn_rim-161d": "True"},
+    "OptimizeLoftAlt": {"usn_rim-161d": "True"},
+}
 # Keys the overwrite sets to the base file's own value. They are checked,
 # not copied: if the overwrite moves off the base value (the 2026-09-20
 # export cleared CanNotAttackTypes, so only with the preloader did the
@@ -254,7 +264,14 @@ def sm3_check_overwrite(t, name):
             sys.exit(f"{name}: the Anchorchain overwrite now has {key}="
                      f"{shown(ovwr.get(key))}, the base file {shown(base.get(key))} - "
                      f"decide which the round should have and {rebase}")
-    known = set(SM3_OVWR_VALUES) | set(SM3_OVWR_DECLINED) | set(SM3_OVWR_SAME)
+    for key, per_round in SM3_OVWR_ROUND_ONLY.items():
+        want = [per_round[name]] if name in per_round else None
+        if ovwr.get(key) != want:
+            sys.exit(f"{name}: the Anchorchain overwrite now has {key}="
+                     f"{shown(ovwr.get(key))} where {shown(want)} was recorded - "
+                     f"{rebase}")
+    known = (set(SM3_OVWR_VALUES) | set(SM3_OVWR_DECLINED) | set(SM3_OVWR_SAME)
+             | set(SM3_OVWR_ROUND_ONLY))
     new = sorted(k for k in ovwr if k not in known and not SM3_OVWR_IGNORABLE.search(k))
     if new:
         sys.exit(f"{name}: the Anchorchain overwrite now also sets {', '.join(new)}. "
@@ -283,12 +300,24 @@ def sm3_fold_overwrite(t, name):
                      rf"\1\n{key}={sm3_value(key, name)}", 1, name)
         else:
             sys.exit(f"{name}: no {key} line in the donor - rebase this fix")
+    own = {k: v[name] for k, v in SM3_OVWR_ROUND_ONLY.items() if name in v}
+    for key, value in own.items():
+        if re.search(rf"^{key}=", t, re.M):
+            sys.exit(f"{name}: {key} is now live in the donor - drop this edit")
+        if re.search(rf"^[;#]{key}=", t, re.M):
+            t = edit(t, rf"^[;#]{key}=[^\s/]*", f"{key}={value}", 1, name)
+        elif key == "OptimizeLoftAlt":
+            # Not in the donor even commented out; beside the loft ceiling.
+            t = edit(t, r"^(MaxLoftAlt=[^\n]*)$", rf"\1\n{key}={value}", 1, name)
+        else:
+            sys.exit(f"{name}: no {key} line in the donor - rebase this fix")
     # Kept to three lines: the header counts against the file's similarity
     # to its donor, and below 90% the file drops out of dist CREDITS.txt.
     # "These", not "the round": the D's declined MaxFlightTime still differs
     # with the preloader.
     note = ("From the Anchorchain overwrite, so these hold without the preloader "
-            "too: " + ", ".join(f"{k}={sm3_value(k, name)}" for k in SM3_OVWR_VALUES)
+            "too: " + ", ".join([f"{k}={sm3_value(k, name)}" for k in SM3_OVWR_VALUES]
+                                + [f"{k}={v}" for k, v in own.items()])
             + ".")
     return t, "\n" + textwrap.fill(note, 76, break_on_hyphens=False)
 
