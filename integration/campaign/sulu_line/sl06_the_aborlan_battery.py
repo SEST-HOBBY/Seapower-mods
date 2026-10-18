@@ -121,6 +121,12 @@ MISSION = dict(
           nation="Panama", enter=5),
         U("red", "_vanilla", "pla_spaag_type63", "battery", name="AA gun south",
           nation="Panama", enter=5),
+        # What was not destroyed on Mapun (SL05A The Drone Yard) has moved
+        # here: a Shahed-136 rail, there only if the yard was never struck.
+        # Last in the list, so battery#1-#3 are still what they were.
+        U("red", "shahed-136-zero-two", "shahed_tel_black", "battery",
+          name="Launch rail (from Mapun)", nation="Panama", enter=5,
+          spawn_if=("SLYardStruck", "IsFalse")),
         U("neutral", "_vanilla", "civ_fv_fishingboat_a", "bancas",
           name="Banca Lady Narra", route=[(9.00, 118.80, 0)], telegraph=2),
     ],

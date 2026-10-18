@@ -110,7 +110,9 @@ file; the builder refuses a unit whose stated mod the game would not read.
 ### Stations and geometry - the coastline gate
 
 Every mission here is `geography="coast"` (the package sets it). The builder
-proves each position against `geo/southern_theatre_coast.json`:
+proves each position against `geo/southern_theatre_coast.json` (a coast
+mission elsewhere is proved on the extract whose box holds its centre:
+`sulu_theatre_coast.json`, `banda_theatre_coast.json`):
 
 - an offshore station must be on water **2 NM or more** from any coast;
 - a `coastal=True` station, and a `snap="sea"` unit, must be on water (any distance);

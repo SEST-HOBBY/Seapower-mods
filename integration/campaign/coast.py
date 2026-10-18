@@ -103,11 +103,30 @@ class Coast:
         return self.on_land(lat, lon), self.nm_to_coast(lat, lon)
 
 
-_COAST = None
+_COAST = {}
+_BOXES = None
 
 
-def coast():
-    global _COAST
-    if _COAST is None:
-        _COAST = Coast()
-    return _COAST
+def coast(name="southern_theatre_coast.json"):
+    """The extract in geo/ called `name`, loaded once."""
+    if name not in _COAST:
+        _COAST[name] = Coast(HERE / "geo" / name)
+    return _COAST[name]
+
+
+def covering(lat, lon):
+    """The extract whose box holds (lat, lon), the smallest box if several
+    do; None if none does. Southern Reach's southern theatre, Sulu Line's
+    Sulu and Celebes Seas and Southern Watch's Banda and Arafura are separate
+    boxes, so a mission is proved on the coast it is set on."""
+    global _BOXES
+    if _BOXES is None:
+        _BOXES = [(json.loads(f.read_text(encoding="utf-8"))["box"], f.name)
+                  for f in sorted((HERE / "geo").glob("*.json"))]
+    best = None
+    for (w, s, e, n), name in _BOXES:
+        if w <= lon <= e and s <= lat <= n:
+            area = (e - w) * (n - s)
+            if best is None or area < best[0]:
+                best = (area, name)
+    return coast(best[1]) if best else None

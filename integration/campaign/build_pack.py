@@ -868,8 +868,15 @@ OFFSHORE_MIN = 2.0
 COAST_CHECKED = []
 
 
-def coast_data():
-    from coast import coast
+def coast_data(mission=None):
+    """The coastline a "coast" mission is proved on: the extract in geo/ whose
+    box holds the mission's centre (Southern Reach's southern theatre, Sulu
+    Line's Sulu and Celebes Seas, Southern Watch's Banda and Arafura). No
+    mission, or no extract holding it: the southern theatre's, whose box
+    check then names every position outside it."""
+    from coast import coast, covering
+    if mission and mission.get("centre"):
+        return covering(*mission["centre"]) or coast()
     return coast()
 
 
@@ -7087,7 +7094,7 @@ def main():
         play_credits = dict(credits)
         for mission in missions:
             if (mission.get("geography") or GEOGRAPHY) == "coast":
-                placer = CoastPlacer(coast_data(), mission)
+                placer = CoastPlacer(coast_data(mission), mission)
             else:
                 placer = Snapper(pool, limit_nm=mission.get("snap_limit", 60.0))
             placed, members, mission_credits, far = place(mission, placer)

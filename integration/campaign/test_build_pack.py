@@ -1027,6 +1027,29 @@ class RosterOnSale(unittest.TestCase):
         self.assertIn("usaf_kc-46a_boom", str(caught.exception))
 
 
+class CoastExtracts(unittest.TestCase):
+    """A "coast" mission is proved on the extract its centre is in. One
+    campaign-wide extract leaked between campaigns: after Southern Watch's
+    spec, Southern Reach's Southern Ocean positions were "outside the box"."""
+
+    def test_each_theatre_gets_its_own_coast(self):
+        def name(mission):
+            c = bp.coast_data(mission)
+            return [k for k, v in __import__("coast")._COAST.items() if v is c][0]
+        self.assertEqual(name(dict(centre=(-47.5, 140.5))), "southern_theatre_coast.json")
+        self.assertEqual(name(dict(centre=(5.62, 120.05))), "sulu_theatre_coast.json")
+        self.assertEqual(name(dict(centre=(-6.5, 131.5))), "banda_theatre_coast.json")
+        # Nothing holds the North Atlantic: the southern default, whose box
+        # check then names the positions.
+        self.assertEqual(name(dict(centre=(50.0, -20.0))), "southern_theatre_coast.json")
+        self.assertEqual(name(None), "southern_theatre_coast.json")
+
+    def test_the_sulu_coast_puts_jolo_ashore(self):
+        c = bp.coast_data(dict(centre=(6.0, 121.0)))
+        self.assertTrue(c.on_land(6.03, 121.05))      # Jolo island
+        self.assertFalse(c.on_land(5.70, 120.35))     # the Sulu Sea north of Tawi-Tawi
+
+
 class HomeBases(unittest.TestCase):
     """Where the player's force is generated in, a player-side aircraft
     names no Taskforce1 ship as its HomeBase - stock never does, and Rig

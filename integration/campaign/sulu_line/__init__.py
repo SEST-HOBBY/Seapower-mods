@@ -23,10 +23,13 @@ docstring, southern_reach/AUTHORING.md) plus three of this campaign's own:
      from water a frigate can steam; what the gun fires comes back only
      from a supply ship.
 
-  3. "Blue" is the player: Taskforce1 is the Philippines. The north has no
-     coastline extract, so every mission uses the proven-point pool.
+  3. "Blue" is the player: Taskforce1 is the Philippines. The core
+     missions use the proven-point pool. The side operations south of Jolo,
+     where the pool has almost no points, are proved against the coastline
+     instead (geo/sulu_theatre_coast.json, per mission geography="coast").
 
-Each mission is its own module (sl01_*.py ... sl07_*.py) exporting MISSION:
+Each mission is its own module (sl01_*.py ... sl07_*.py, and the optional
+side operations sl01a_*.py and on) exporting MISSION:
 
     python3 integration/campaign/build_pack.py --dry-run --campaign sulu-line --only SL01
 """

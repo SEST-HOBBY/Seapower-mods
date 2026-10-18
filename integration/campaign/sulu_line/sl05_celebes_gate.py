@@ -108,9 +108,12 @@ MISSION = dict(
         # radar on the patrol from 28 NM was the track that let the escort
         # (49 NM of anti-ship reach, 36 NM out) fire before the player had
         # classified anything.
+        # Not there at all if The Okean was stopped (SLOkeanTaken): the
+        # network lost the money that paid for its eyes.
         U("red", "small-medium-uav-series", "usn_ForpostR705", "drone",
           name="Spotter drone", nation="Panama", weapons="Hold",
-          route=[(5.70, 122.70, 9000), (5.40, 122.60, 9000)], loop=True, enter=5),
+          route=[(5.70, 122.70, 9000), (5.40, 122.60, 9000)], loop=True, enter=5,
+          spawn_if=("SLOkeanTaken", "IsFalse")),
         U("neutral", "_vanilla", "civ_ms_freighter_a", "coasters",
           name="KM Sinar Bitung", route=[(6.60, 122.00, 0)], telegraph=3),
         U("neutral", "re-power-resupply", "civ_ms_freighter_b", "coasters",

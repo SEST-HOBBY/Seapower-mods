@@ -251,10 +251,6 @@ EXCUSES = {
         "external", "US, Philippine and Aeronavale Crusaders, the last retired in 1999, "
         "which no 2028 mission fields; the Clemenceau's 1970-1990 air "
         "groups embark them"),
-    "royal-australian-defence-forces": (
-        "external", "Cold War to 2010s RAN, RAAF, RNZN and Indonesian forces for its "
-        "own showcase mission and for scenarios; the 2028 campaigns field "
-        "the modern RAN from SEST RAN Fleet"),
     "the-royal-navy": (
         "external", "Cold War Royal Navy (County, Leander, Type 42, Invincible, "
         "Buccaneer, Sea Vixen, Nimrod) for its own Falklands missions; SEST "
@@ -293,16 +289,10 @@ EXCUSES = {
     "jmsdf-hyuga-class": (
         "external", "Hyuga and Ise helicopter destroyers not yet written into a SEST "
         "mission; the JMSDF detachment the campaigns field is Mogami and Maya"),
-    "civilian-as350": (
-        "external", "a civilian AS350 helicopter for scenarios; SEST's civilian "
-        "traffic is shipping, not light helicopters"),
     "s-350-vityaz": (
         "external", "S-350 Vityaz batteries kept for scenarios; no SEST theatre has "
         "a Russian-supplied medium-range SAM belt, and its two shared "
         "files lose to Euromod's"),
-    "iran-shahed-238": (
-        "external", "Shahed 238 launchers kept for scenarios; SEST's Range Week and "
-        "shore sites field the Shahed-136"),
     "emad-iran-bm": (
         "external", "Emad ballistic-missile TELs kept for scenarios; Range Week's "
         "Iranian pad is the SEJJIL"),
@@ -324,12 +314,6 @@ EXCUSES = {
         "external", "US and Soviet ICBM silo fields kept for the mission editor; "
         "their rounds are nuclear-scale (Power 10000) and no SEST campaign puts "
         "nuclear weapons in a magazine"),
-    "iran-bell-212": (
-        "external", "Iranian Army, Navy and IRIAA Bell 212s; no SEST mission is set "
-        "in Iranian waters"),
-    "project-2498-zyetseth": (
-        "external", "a Cold War Soviet converted assault freighter for scenarios; "
-        "no 2028 SEST mission fields it"),
 }
 
 EVENTS = [
