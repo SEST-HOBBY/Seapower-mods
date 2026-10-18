@@ -39,16 +39,37 @@
     CLOSE THE GAME FIRST. It rewrites usersettings.ini on exit, so an edit made
     while it is running is silently thrown away. The script checks.
 
+    THE WORKSHOP COPY. Since 14 Oct 2026 this PC can run the published pack as
+    a subscriber: Steam puts it under steamapps\workshop\content\1286220\
+    3812461539, beside the other mods, and the game lists it by that id where
+    the local folder would be SEST_Integration. The install step recreates
+    the local folder, and the game must never load both copies - two packs
+    fighting over the same files, which SETUP refuses too. So while that
+    folder is on disk this script stops before it pulls or copies anything
+    and says the two ways out: unsubscribe from 3812461539, wait until the
+    folder is gone and run again (the local install, this PC's normal
+    state); or keep the Workshop copy and run with -SkipInstall, which is the
+    existing switch for exactly that - the pull and the order step still run,
+    and set-mod-order.ps1 keeps 3812461539 at position 1. Both copies on
+    disk at once is refused whatever the switches: one has to go first.
+
 .EXAMPLE
     powershell -ExecutionPolicy Bypass -File .\tools\sync-sest.ps1
 
 .EXAMPLE
     # also re-run the mission tooling over your imported edits
     powershell -ExecutionPolicy Bypass -File .\tools\sync-sest.ps1 -RefreshMissions
+
+.EXAMPLE
+    # the Workshop copy of SEST stays; pull and set the order, install nothing
+    powershell -ExecutionPolicy Bypass -File .\tools\sync-sest.ps1 -SkipInstall
 #>
 [CmdletBinding()]
 param(
     [string]$StreamingAssetsDir,
+    # Steam's workshop\content\1286220 folder, when auto-detection is not
+    # wanted (a second library; the tests). Passed on to set-mod-order.ps1.
+    [string]$WorkshopContentDir,
     [switch]$SkipPull,
     [switch]$SkipInstall,
     [switch]$SkipOrder,
@@ -67,6 +88,41 @@ if ((Test-SeaPowerRunning) -and -not $Force) {
            "undo the mod order this sets. Quit the game and re-run (-Force to override).")
 }
 
+# --- the Workshop copy of SEST ----------------------------------------------
+# Checked before anything is pulled or copied, so a stop here changes nothing.
+# See THE WORKSHOP COPY in the header. -SkipInstall is the way to keep the
+# Workshop copy; both copies on disk at once is refused with any switches.
+$wsCopy = Find-SestWorkshopCopy -WorkshopContentDir $WorkshopContentDir
+if ($wsCopy) {
+    $wsId = Split-Path -Leaf $wsCopy
+    $saDir = $StreamingAssetsDir
+    if (-not $saDir) { $saDir = Find-StreamingAssets }
+    $localCopy = $(if ($saDir) { Join-Path $saDir $SestDistToken } else { $null })
+    $localPresent = [bool]($localCopy -and (Test-Path -LiteralPath $localCopy))
+    if ($localPresent -or -not $SkipInstall) {
+        Write-Host ""
+        Write-Host "  The Workshop copy of SEST is on disk:" -ForegroundColor Red
+        Write-Host "      $wsCopy" -ForegroundColor Red
+        if ($localPresent) {
+            Write-Host "  and so is the local copy this script installs:" -ForegroundColor Red
+            Write-Host "      $localCopy" -ForegroundColor Red
+        }
+        Write-Host "  The game must never load both it and the local StreamingAssets\$SestDistToken" -ForegroundColor Yellow
+        Write-Host "  folder: two packs fighting over the same files. Two ways out:" -ForegroundColor Yellow
+        Write-Host "    1. Unsubscribe from $wsId in Steam, wait until that folder is gone, and run" -ForegroundColor Yellow
+        Write-Host "       this script again (the local install - this PC's normal state)." -ForegroundColor Yellow
+        if ($localPresent) {
+            Write-Host "    2. Keep the Workshop copy: with the game closed, delete the local folder named" -ForegroundColor Yellow
+            Write-Host "       above, then re-run with -SkipInstall." -ForegroundColor Yellow
+            throw "both copies of SEST are on disk (Workshop item $wsId and the local $SestDistToken) - remove one first."
+        }
+        Write-Host "    2. Keep the Workshop copy: re-run with -SkipInstall. The pull and the order step" -ForegroundColor Yellow
+        Write-Host "       still run, and set-mod-order.ps1 keeps $wsId at position 1 in place of $SestDistToken." -ForegroundColor Yellow
+        throw "the Workshop copy of SEST ($wsId) is on disk - not installing the local copy beside it."
+    }
+    Write-Host "Workshop copy of SEST on disk ($wsCopy): -SkipInstall given, so no local copy is installed and the order step keeps $wsId at position 1." -ForegroundColor Yellow
+}
+
 function Resolve-MissionConflicts {
     <# Stage every unmerged file, keeping YOUR copy for missions. Returns the
        mission paths kept, or throws if something else is conflicted.
@@ -78,11 +134,11 @@ function Resolve-MissionConflicts {
     $conflicts = @((& git diff --name-only --diff-filter=U) | Where-Object { $_ })
     if (-not $conflicts) { return @() }
 
-    $missions = @($conflicts | Where-Object { $_ -like "integration/missions/*.ini" })
-    $others   = @($conflicts | Where-Object { $_ -notlike "integration/missions/*.ini" })
+    $missions = @($conflicts | Where-Object { $_ -like "integration/mission-seeds/*.ini" })
+    $others   = @($conflicts | Where-Object { $_ -notlike "integration/mission-seeds/*.ini" })
     if ($others) {
         Write-Host ""
-        Write-Warning "conflicts outside integration\missions - stopping, these need you:"
+        Write-Warning "conflicts outside integration\mission-seeds - stopping, these need you:"
         $others | ForEach-Object { Write-Host "    $_" }
         throw "resolve them, run 'git commit', then re-run this script."
     }
@@ -197,6 +253,7 @@ if (-not $SkipOrder) {
     Write-Host "`n[3/3] setting the mod order..." -ForegroundColor Cyan
     $orderArgs = @{ AddMissing = $true }
     if ($StreamingAssetsDir) { $orderArgs["StreamingAssetsDir"] = $StreamingAssetsDir }
+    if ($WorkshopContentDir) { $orderArgs["WorkshopContentDir"] = $WorkshopContentDir }
     if ($Force) { $orderArgs["Force"] = $true }
     & (Join-Path $scriptDir "set-mod-order.ps1") @orderArgs
 } else {
@@ -209,6 +266,17 @@ if (-not $SkipOrder) {
 Write-Host "`nchecking mod debug switches..." -ForegroundColor Cyan
 & (Join-Path $scriptDir "quiet-mod-debug.ps1")
 
+# --- the start-up "not compatible" warning ------------------------------------
+# A mod update puts its author's _info.ini back too; see mark-mods-compatible.ps1.
+Write-Host "`nmarking out-of-date mods compatible..." -ForegroundColor Cyan
+$compatArgs = @{}
+if ($WorkshopContentDir) { $compatArgs["WorkshopContentDir"] = $WorkshopContentDir }
+if ($StreamingAssetsDir) { $compatArgs["StreamingAssetsDir"] = $StreamingAssetsDir }
+# A start-up warning is not worth stopping the sync for: say what went wrong
+# and carry on.
+try { & (Join-Path $scriptDir "mark-mods-compatible.ps1") @compatArgs }
+catch { Write-Warning ("mods not marked compatible: " + $_.Exception.Message) }
+
 # --- optional: re-run the mission tooling ------------------------------------
 if ($RefreshMissions) {
     Write-Host "`nre-running the mission tooling..." -ForegroundColor Cyan
@@ -216,12 +284,12 @@ if ($RefreshMissions) {
     if (-not $py) {
         Write-Warning "Python 3 not found - skipping. Install it from python.org (tick 'Add to PATH')."
     } else {
-        $tool = Join-Path $repoRoot "integration\missions\fix_squadron_refs.py"
+        $tool = Join-Path $repoRoot "integration\mission-seeds\fix_squadron_refs.py"
         $argList = @($py.Pre) + @($tool, "--spread", "--write")
         & $py.Exe @argList
         # civil aircraft that would reach the end of their route and circle
         # get one waypoint further along their airway; idempotent
-        $tool = Join-Path $repoRoot "integration\missions\extend_civil_airways.py"
+        $tool = Join-Path $repoRoot "integration\mission-seeds\extend_civil_airways.py"
         $argList = @($py.Pre) + @($tool, "--write")
         & $py.Exe @argList
         Write-Host "`nFor the full civilian-traffic and water passes on one mission, use:"

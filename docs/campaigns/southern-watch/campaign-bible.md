@@ -40,8 +40,8 @@ The design is pinned to [`SEST-HOBBY/Seapower-mods`, commit `afed87cef9dfbcf63fa
 | Canonical order | 140 tokens: 139 Workshop entries plus `SEST_Integration`; every Workshop token has a catalog entry |
 | SEST source packs | 16 registered packs, consolidated into one deployable |
 | Active mission setting | `NORTHERN FRONT III FINAL NEWEST`; always name the new mission explicitly when running tools |
-| Banda scenarios | Twelve generated vignettes in `integration/missions/`, produced by `build_banda_vignettes.py` |
-| Living Seas and Lean v2 | Current default branch contains exported copies under `mods-source/_vanilla/user/missions/user_missions/`; it does not contain their top-level `integration/missions/` versions from the other branches. Both have since been ported into `integration/missions/` (26 Sep 2026), unchanged from the exported copies apart from civil air routes extended along their airways |
+| Banda scenarios | Twelve generated vignettes in `integration/mission-seeds/`, produced by `build_banda_vignettes.py` |
+| Living Seas and Lean v2 | Current default branch contains exported copies under `mods-source/_vanilla/user/missions/user_missions/`; it does not contain their top-level `integration/mission-seeds/` versions from the other branches. Both have since been ported into `integration/mission-seeds/` (26 Sep 2026), unchanged from the exported copies apart from civil air routes extended along their airways |
 | Living Seas exported content | Declares 51 neutral vessels, 37 neutral aircraft, 9 neutral biologics and 396 total land units. It is a useful world reference, not a suitable mandatory starting size for every chapter |
 | New Anzac model | Current builder patches Workshop `3440622312`'s actual Anzac model. The RAN pack README still describes the old Type 23 stand-in; use the builder and winning output as evidence |
 | Aegis BMD / intercept fixes | Present on `sest-dev/kind-faraday-ctr5h0` at `b45ad8cb859290f6b44d62374d6eede3153a6448`; absent from the current default branch's registered packs. The SM-3 work has since landed in SEST Collection Fixes in another form, and the Intercept Model pack has since been ported (26 Sep 2026) as `SEST_Intercept_Model`, not yet tested in game |
@@ -52,7 +52,7 @@ The dry-run vignette builder, load-order checker and dependency checker passed d
 
 **Branch integration rule:** carry needed work onto the deploy branch, `sest-dev/loving-bell-3cnvvw` (named in `data/deploy-branch.txt`); the PC syncs from it and the published pack (Workshop 3812461539) is built from it. The campaign was built there (section 12), not on the new `feature/southern-watch-campaign` branch this brief first proposed. Review the BMD/intercept changes and older mission builders separately, preserve newer Anzac and aircraft work, rebuild the consolidated pack, and resolve winners again. Do not replace the current deployable wholesale with one from an older branch.
 
-Repository evidence: [catalog](https://github.com/SEST-HOBBY/Seapower-mods/blob/afed87cef9dfbcf63fa2f16cd620cde3c477a7d0/data/mod-catalog.json), [load order](https://github.com/SEST-HOBBY/Seapower-mods/blob/afed87cef9dfbcf63fa2f16cd620cde3c477a7d0/data/load-order.tokens.txt), [vignette builder](https://github.com/SEST-HOBBY/Seapower-mods/blob/afed87cef9dfbcf63fa2f16cd620cde3c477a7d0/integration/missions/build_banda_vignettes.py), [RAN builder](https://github.com/SEST-HOBBY/Seapower-mods/blob/afed87cef9dfbcf63fa2f16cd620cde3c477a7d0/integration/ran-fleet/build_fleet.py), [separate integration branch](https://github.com/SEST-HOBBY/Seapower-mods/tree/b45ad8cb859290f6b44d62374d6eede3153a6448).
+Repository evidence: [catalog](https://github.com/SEST-HOBBY/Seapower-mods/blob/afed87cef9dfbcf63fa2f16cd620cde3c477a7d0/data/mod-catalog.json), [load order](https://github.com/SEST-HOBBY/Seapower-mods/blob/afed87cef9dfbcf63fa2f16cd620cde3c477a7d0/data/load-order.tokens.txt), [vignette builder](https://github.com/SEST-HOBBY/Seapower-mods/blob/afed87cef9dfbcf63fa2f16cd620cde3c477a7d0/integration/mission-seeds/build_banda_vignettes.py), [RAN builder](https://github.com/SEST-HOBBY/Seapower-mods/blob/afed87cef9dfbcf63fa2f16cd620cde3c477a7d0/integration/ran-fleet/build_fleet.py), [separate integration branch](https://github.com/SEST-HOBBY/Seapower-mods/tree/b45ad8cb859290f6b44d62374d6eede3153a6448).
 
 ## 3. Research translated into design decisions
 
@@ -415,8 +415,8 @@ Use existing tools first, naming the mission explicitly. For example, after SW01
 
 ```bash
 python3 tools/preflight.py "SEST Southern Watch 01 - White Water"
-python3 integration/missions/fix_squadron_refs.py --mission "SEST Southern Watch 01 - White Water"
-python3 integration/missions/fix_loadout_variants.py --mission "SEST Southern Watch 01 - White Water"
+python3 integration/mission-seeds/fix_squadron_refs.py --mission "SEST Southern Watch 01 - White Water"
+python3 integration/mission-seeds/fix_loadout_variants.py --mission "SEST Southern Watch 01 - White Water"
 python3 tools/check_load_order.py
 python3 tools/check_dependencies.py
 ```

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Validate every carved scenario in integration/missions/scenarios/.
+"""Validate every carved scenario in integration/mission-seeds/scenarios/.
 
 Carving a mission is mostly bookkeeping, and bookkeeping is exactly what fails
 quietly. `make_scenarios.py` collects the chosen units, renumbers each class
@@ -31,7 +31,7 @@ import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-SCENARIOS = ROOT / "integration" / "missions" / "scenarios"
+SCENARIOS = ROOT / "integration" / "mission-seeds" / "scenarios"
 
 SIDES = ("Taskforce1", "Taskforce2", "Neutral")
 # NumberOf* uses the plural; section names use the singular. "Aircraft" is its
@@ -96,7 +96,7 @@ def main():
         sys.exit(f"no scenarios directory: {SCENARIOS.relative_to(ROOT)}")
     files = sorted(SCENARIOS.glob("*.ini"))
     if not files:
-        sys.exit("no scenarios found — run integration/missions/make_scenarios.py first")
+        sys.exit("no scenarios found — run integration/mission-seeds/make_scenarios.py first")
 
     failed, units = 0, 0
     for path in files:
@@ -111,7 +111,7 @@ def main():
     print(f"\nchecked {len(files)} scenario(s), {units} unit sections")
     if failed:
         sys.exit(f"{failed} scenario(s) failed — regenerate with "
-                 "python3 integration/missions/make_scenarios.py")
+                 "python3 integration/mission-seeds/make_scenarios.py")
     print("every count, formation reference and section number is consistent")
 
 

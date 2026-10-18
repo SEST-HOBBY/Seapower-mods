@@ -7,9 +7,10 @@ loading-screen slots.
 The game draws its loading-screen backgrounds from ui/backgrounds/
 loading_screen_1.png .. loading_screen_80.png (data/install-snapshot/
 streaming-media.txt, 10 Oct 2026, game 0.8.5) and looks them up through its
-FileManager, so a file of the same name in the SEST pack - first in the load
-order - stands in for the game's. One collection mod (3491248180) already
-ships 30 of the 80 that way.
+FileManager. The 15 Oct 2026 log showed it pools every mod's backdrops and its
+own rather than letting a same-named file stand in, so these join the pool and
+the menu plugin's backdrop swap (integration/menu-background) paints them over
+the rest.
 
 The set is the 17 media-report photographs (integration/media-pack, cropped
 16:9 by build_media.py) and the 12 gallery loading backgrounds

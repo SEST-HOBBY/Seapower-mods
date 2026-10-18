@@ -63,13 +63,13 @@
 ### 2.1 Positions are an arcminute lat/lon datum, not a local flat map [GAME, high]
 
 - **Format.** `RelativePositionInNM=x,y,z` decodes as lat = centre + z/60 and lon = centre + x/60, with no cos(lat) factor.
-  - NORTHERN FRONT III FINAL places Darwin at `9429.85,low,-4001.8` (`integration/missions/NORTHERN FRONT III FINAL.ini:2087`). That decodes to −12.4267, 130.8842.
+  - NORTHERN FRONT III FINAL places Darwin at `9429.85,low,-4001.8` (`integration/mission-seeds/NORTHERN FRONT III FINAL.ini:2087`). That decodes to −12.4267, 130.8842.
   - The game-written save has `GeoPosition=-12.4266681555732,130.884157640465` (`saves/New midgame.sav:238`).
   - In `NORTHERN FRONT MIDGAME III.sav`, 49 of 52 land units match within 0.1 NM. The 3 outliers are rigs that were moved later (builder-limits lens, scratch `savecheck.py`).
   - The stock Texas twins differ by exactly dx = 3669.00 = 61.15° × 60 (`stock/missions/NATO/Don't Mess With Texas (Blue Side).ini:110-111` against `stock/missions/Warsaw Pact/Don't Mess With Texas (Red Side).ini:33-34,72`).
 - **Consequence.** One x unit is cos(lat) NM on the ground: about 0.36 NM at 69N and 0.62 NM at 52S.
 - **The stock documentation is wrong in two places.** It says "negative values go west for x and north for z" (`MFI:443`) and "offset in miles" (`MFI:447`). The data show z is positive north. The developer calls the frame "our flat Earth" (`CL:2618`), and `stock/ui/minimap.ini:15` says "one degree is 60nm".
-- **The builders already match the game:** `bp:770-773`, `integration/missions/build_northern_front_ii.py:44-51` and `integration/missions/build_land_defence.py:772`.
+- **The builders already match the game:** `bp:770-773`, `integration/mission-seeds/build_northern_front_ii.py:44-51` and `integration/mission-seeds/build_land_defence.py:772`.
 
 ### 2.2 Units far from the centre load, run and save [GAME, high]
 
@@ -107,7 +107,7 @@ Anchors are approximate. World figures are measured from a centre at 42N 20E (sc
 |---|---|---|---|
 | Great-circle distance from centre | 7,002 NM (Pearl) | 8,781 NM (`New midgame.sav`) | — |
 | \|x\| | 10,677 (Pearl) | 11,361 (save, 163.07E) | 12,117.71 (`Strawberries Red:73`) |
-| \|z\| | **5,629** (Mount Pleasant) | 4,529 (save, 21.22S) | 4,819 (`integration/missions/AUS DEF.ini:549`, no play record) (`scratch/maxz.py`) |
+| \|z\| | **5,629** (Mount Pleasant) | 4,529 (save, 21.22S) | 4,819 (`integration/mission-seeds/AUS DEF.ini:549`, no play record) (`scratch/maxz.py`) |
 | Unit-to-unit separation | **~10,150 NM** (Norfolk–Stirling); 9,547 (Yokosuka–Mount Pleasant) | 3,450 NM | 4,913 NM (stock waypoints) |
 
 The two bold rows are gaps. Neither is a known limit; both are untested.
@@ -144,7 +144,7 @@ The two bold rows are gaps. Neither is a known limit; both are untested.
 
 - **Stock maximum: 87 declared units**, in `stock/campaigns/pacific-strike-task-force/missions/09 Shadows off Palawan.ini:277-287`. The "130 units" in the game-data lens is a double count; see the appendix.
 - **Played and saved:** 298 units plus 634 aircraft in air groups (`New midgame.sav`).
-- **Loaded and re-saved in the editor, with no simulation record:** SEST Banda Front EDITED, 857 units (`integration/missions/README.md:91-93`).
+- **Loaded and re-saved in the editor, with no simulation record:** SEST Banda Front EDITED, 857 units (`integration/mission-seeds/README.md:91-93`).
 - **No recorded load at all:** SEST Indo-Pacific Land Assets, 974 units.
 - **No key or UI string declares a unit cap.** The only caps found are:
   - a per-air-operation concurrent cap (`stock/language_en/ui.ini:424`);
@@ -200,7 +200,7 @@ The two bold rows are gaps. Neither is a known limit; both are untested.
 
 ### 2.11 Other in-game behaviours that matter for a persistent world [GAME]
 
-- **Editor round-trips flatten ROE.** A round-trip turned every Hold and Tight weapon status into Free (`docs/design-notes.md:103-138`). `restore_roe.py` is the builder mitigation (`integration/missions/README.md:208-231`).
+- **Editor round-trips flatten ROE.** A round-trip turned every Hold and Tight weapon status into Free (`docs/design-notes.md:103-138`). `restore_roe.py` is the builder mitigation (`integration/mission-seeds/README.md:208-231`).
 - **Aircraft orbit when their route ends.** One with no waypoints orbits its spawn point, and one that reaches its last waypoint orbits there (commit `1ff115b7`).
 - **Sea state cuts ship speed:** a replenishment ship made 7 kn at flank in sea state 5 (`SW-notes:2045-2048`; `ui.ini:1250`).
 
@@ -214,13 +214,13 @@ The two bold rows are gaps. Neither is a known limit; both are untested.
 | B2 | Offshore stations more than 25 NM from every pool land point are accepted unvalidated | `bp:825-829`, `:929-971` (case 1 "unproven") | Every offshore station off the US coasts, Hawaii, the Falklands and Brest goes in unchecked | The same fix as B1 |
 | B3 | Coastline extract covers one box: 100–180E, 25–72S | `tools/make_coast_extract.py:97-98`; `integration/campaign/geo/southern_theatre_coast.json` | Coast mode reports every world position outside the box as a problem | Cut a global extract with the repo's own code. Measured in scratch: 9,632 rings, 8.7 MB, 3.8 s to cut, 1.7 s to index, 6–8 ms per query |
 | B4 | Natural Earth 1:10m outer rings only; lakes and holes dropped | `coast.py:51`; `make_coast_extract.py:112` | Hood Canal (47.73, −122.72), Kola Bay at Severomorsk (69.07, 33.42) and Apra inner harbour (13.44, 144.66) read as land. **Diego Garcia lagoon reads as water** (probe pass, correcting the builder-limits lens) | Per-site water overrides after P8. Otherwise pier-side land units plus an offshore anchorage |
-| B5 | Only mission-level tools use the worldwide 1 km land mask | `integration/missions/fix_land_positions.py:31-45`, `sea_routes.py:31-34`; `build_pack.py` does not use it. Not installed in this container | A global check exists but the campaign builder does not use it | Wire `global_land_mask` into placement |
+| B5 | Only mission-level tools use the worldwide 1 km land mask | `integration/mission-seeds/fix_land_positions.py:31-45`, `sea_routes.py:31-34`; `build_pack.py` does not use it. Not installed in this container | A global check exists but the campaign builder does not use it | Wire `global_land_mask` into placement |
 | B6 | About 16 distance and bearing sites in `bp` treat x/z as nautical miles | 18 `math.hypot` lines in `bp` (e.g. `:1791`, `:1891`, `:2561`, `:3719`, `:4891`); `_bearing` docstring `:2453-2457` | Overstates east-west distance by 1/cos(lat): ×1.49 at Brest, ×2.79 at Kola | Convert to lat/lon and great-circle. Final form waits on P7 |
-| B7 | No antimeridian wrap | `nm_between` `bp:816-819` (flat mean-latitude formula); `coast.py:40-44,82`; `sea_routes.py:155-160` (bounding box); `integration/missions/briefing_maps.py:171-185`; `bp` harvest `:795-796` | Guam–Pearl computes as 17,333 NM, true 3,305. Lanes across 180 cannot be routed | Normalise longitudes and wrap deltas. The form to emit waits on P3a |
+| B7 | No antimeridian wrap | `nm_between` `bp:816-819` (flat mean-latitude formula); `coast.py:40-44,82`; `sea_routes.py:155-160` (bounding box); `integration/mission-seeds/briefing_maps.py:171-185`; `bp` harvest `:795-796` | Guam–Pearl computes as 17,333 NM, true 3,305. Lanes across 180 cannot be routed | Normalise longitudes and wrap deltas. The form to emit waits on P3a |
 | B8 | Civil airway stretch is unclamped | `bp:1606-1617`; `civil_reach_nm` `:813` | Under a long persistent clock, waypoints go past the poles | Clamp the stretch, or loop the route |
 | B9 | Mission clocks and density budgets are design choices | `integration/campaign/campaign_data.py` (45–75 min); `docs/campaigns/southern-watch/campaign-bible.md:383-385` ("not measured engine limits"); `SW-notes:2316-2321` | Not evidence of an engine cap | Replace with the measured N\* from P4 |
 | B10 | Output is hard-wired to the published pack | `bp:68` (OUT = SEST_Campaign); `:6246-6259` rewrites `_info.ini`, REQUIRED-MODS and LOAD-ORDER | Reusing `bp` as-is would change published content | A world builder needs its own output root (required by "keep published content unchanged") |
-| B11 | Preflight only finds missions in `integration/missions` or `integration/campaign` | `tools/preflight.py:262-271` | Probe and world files are not checked | Add a path argument |
+| B11 | Preflight only finds missions in `integration/mission-seeds` or `integration/campaign` | `tools/preflight.py:262-271` | Probe and world files are not checked | Add a path argument |
 | B12 | No tool emits GeoPosition | grep of `*.py` | Every unit is centre-relative | Optional geo emission once P1 confirms GeoPosition for every unit class |
 | B13 | Briefing maps cannot frame a global or date-line mission | `briefing_maps.py:171-190`, `:342`, `:434-436` | Cosmetic | Per-region insets; the game can generate its own view (`ui.ini:704`) |
 | B14 | Scenario carving was a design judgment | `tools/make_scenarios.py:3-6` ("heavy for a quick fight") | Not evidence | — |
@@ -318,7 +318,7 @@ Probes are opt-in measurement files. Nothing below has been run.
 ### 6.1 Rules common to every probe
 
 - **Never deploy probe files.**
-  - Keep them out of `integration/missions/`, because `tools/install-sest-packs.ps1:143-160` copies every `.ini` under it into the game.
+  - Keep them out of `integration/mission-seeds/`, because `tools/install-sest-packs.ps1:143-160` copies every `.ini` under it into the game.
   - Keep them out of `integration/dist/`.
   - Keep them out of every `bp` POOL_ROOT (`bp:751-754`), so untested positions never become "proven points".
   - Do not let a later snapshot carry probe files into `mods-source/_vanilla/user/missions`, which is also a pool root.

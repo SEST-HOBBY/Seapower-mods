@@ -17,7 +17,8 @@ before the patch does.
   order then held, plus the pack. It is one of the two ways a subscriber gets
   the dependencies; the item's Required Items are the other. The October 2026
   additions went into it with the 5 Oct update: the pinned discussion tells
-  subscribers it holds 190 Workshop mods and to press Subscribe to all again.
+  subscribers it holds 190 Workshop mods and to press Subscribe to all again;
+  the load order holds 198 since 18 Oct 2026 (Steelfin and Euromod RAN added).
   Check its banner (published as "149 Workshop items, 3 campaigns, 19 fix
   packs") and counts were redone. It must stay in step with the load order:
   SETUP refuses to run while any mod in the pack's LOAD-ORDER.txt is missing.
@@ -33,8 +34,8 @@ before the patch does.
   2028 to February 2029 dates), and the collection banner and pack images
   were redone.
 
-The counts come from the repo: `data/load-order.tokens.txt` has 191
-non-comment entries, 190 Workshop ids and `SEST_Integration` (149 and 148
+The counts come from the repo: `data/load-order.tokens.txt` has 199
+non-comment entries, 198 Workshop ids and `SEST_Integration` (149 and 148
 when the collection was published). The "135 mods"
 and "133-mod" figures in older notes are out of date.
 

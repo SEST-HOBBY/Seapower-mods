@@ -1,7 +1,7 @@
 # Seapower-mods
 
 Custom loadouts, upgrade variants, cross-mod fixes and missions for a
-**Sea Power: Naval Combat in the Missile Age** install with **195 Workshop
+**Sea Power: Naval Combat in the Missile Age** install with **198 Workshop
 subscriptions** — all shipped as one deployable mod, the **SEST Integration Pack**.
 
 The pack is published on the Steam Workshop as *SEST Integration Pack - Modernised
@@ -35,8 +35,8 @@ shows — and `data/mod-catalog.json` is the table that joins them, including th
 | `docs/campaigns/<campaign>/` | One folder per campaign (`southern-watch/`, `southern-reach/`, `red-line/`, `sulu-line/`): the design bible, the build notes — including what the campaign has **not** been shown to do — the play-test card and, for `southern-watch/` and `southern-reach/`, the procedure that lines the gaming PC up with the branch; `southern-watch/` also holds the Workshop publishing procedure |
 | `integration/<pack>/` | One SEST pack per topic: a builder plus its generated `SEST_*` output |
 | `integration/dist/SEST_Integration/` | **The deployable** — all packs merged by `tools/consolidate_packs.py`; the only thing the installer copies into the game |
-| `integration/missions/` | Playable missions and the scripts that refine them |
-| `integration/campaign/` | **Four native Task Force Mode campaigns in one pack.** *SEST Southern Watch* (twelve main missions, four optional operations, two contingencies, eight dispatches), *SEST Southern Reach* (two chapters, 26 missions, 20 story pages; its data lives in `southern_reach/`) *SEST Red Line* (six missions from the other side; `red_line/`) and *SEST Sulu Line* (seven Philippine Navy missions with no free rearm; `sulu_line/`), built so that every enabled mod is reached by something one of them places or prices |
+| `integration/mission-seeds/` | The early scenarios, editor saves and sandboxes the side operations are refined from, and the scripts that refine them. Never installed: every mission SEST ships is in the campaign pack |
+| `integration/campaign/` | **Four native Task Force Mode campaigns in one pack.** *SEST Southern Watch* (twelve main missions, ten optional operations, two contingencies, eight dispatches), *SEST Southern Reach* (two chapters, 26 missions, 20 story pages; its data lives in `southern_reach/`) *SEST Red Line* (six missions from the other side; `red_line/`) and *SEST Sulu Line* (seven Philippine Navy missions with no free rearm and three optional side operations; `sulu_line/`), built so that every enabled mod is reached by something one of them places or prices |
 | `mods-source/` | Byte-faithful export of every subscribed mod's text configs, plus `_vanilla/` |
 | `tools/` | Builders, checkers, generators, and the PowerShell scripts that talk to the game |
 
@@ -64,14 +64,19 @@ python3 tools/build_all.py --from-scratch   # rebuild all 24 packs + the consoli
                                             # a clean `git status` after = the regression gate
 python3 tools/preflight.py                  # resolve every reference the active mission makes
 python3 tools/preflight.py --all            # every deployed mission: fails on the editor crash, lists the rest
-python3 integration/missions/fix_loadout_variants.py --all --write   # sweep that crash out of them
-python3 integration/missions/restore_roe.py --mission "<name>" --write  # put back the Hold/Tight an editor save turned Free
-python3 -m unittest discover -s tools/tests -p 'test_*.py'             # the mission and inventory tools' regression tests
+python3 integration/mission-seeds/fix_loadout_variants.py --all --write   # sweep that crash out of them
+python3 integration/mission-seeds/restore_roe.py --mission "<name>" --write  # put back the Hold/Tight an editor save turned Free
+python3 -m unittest discover -s tools/tests -p 'test_*.py'             # the tools' regression tests; runs the PowerShell ones below too when pwsh is installed
+pwsh -File tools/tests/test_scan_ui_assets.ps1  # the UI-asset scan's name extraction, on synthetic files (Windows PowerShell runs it too)
+pwsh -File tools/tests/test_set_mod_order.ps1   # SEST's Workshop item against the local folder in the mod order, on a stand-in settings file
+pwsh -File tools/tests/test_sync_sest_guard.ps1 # the sync stops while the Workshop copy of SEST is on disk, and goes on with -SkipInstall
+pwsh -File tools/tests/test_common_helpers.ps1  # Steam's acf record read, a log kept whole or head-and-tail, the Workshop copy found
+pwsh -File tools/tests/test_export_check_updates.ps1  # -CheckUpdates skips SEST's item and writes its report as UTF-8
 python3 tools/check_inventory.py            # mods-source agrees with its export manifest (red on four line-ending mods until renormalised)
 python3 tools/check_alias_bases.py          # every #!alias / #!extend base resolves (after each export)
 python3 tools/check_vanilla_drift.py        # what changed in the game's own files since the last export, and what here depends on it
 python3 tools/check_game_version.py         # every SEST pack declares the installed game's version; which mods' ranges exclude it
-python3 tools/check_load_order.py           # every SEST override still outranks its target
+python3 tools/check_load_order.py           # every SEST override still outranks its target, in the canonical order and the captured live one
 python3 tools/check_dependencies.py         # every pack's upstreams exported and ordered (stores, rosters, system names)
 python3 tools/check_scenarios.py            # the carved NF3 scenarios' counts, formations and section numbers
 python3 tools/check_stale_phrases.py        # retired claims (the pre-reveal AIM-424) stay out of builders and packs
@@ -92,14 +97,17 @@ Gaming PC (PowerShell, from the repo root, `-ExecutionPolicy Bypass` because a d
 Windows install refuses unsigned local scripts):
 
 ```powershell
-powershell -ExecutionPolicy Bypass -File .\tools\install-sest-packs.ps1        # deploy SEST_Integration + missions
+powershell -ExecutionPolicy Bypass -File .\tools\install-sest-packs.ps1        # deploy SEST_Integration
 powershell -ExecutionPolicy Bypass -File .\tools\set-mod-order.ps1 -AddMissing # game CLOSED: apply order
 powershell -ExecutionPolicy Bypass -File .\tools\export-mod-configs.ps1 -IncludeVanilla  # refresh mods-source/
 ```
 
-Missions install add-and-overwrite with no backup copies, so import anything edited in
-game first (`tools\import-mission.ps1`, which also puts back the `Hold`/`Tight` weapon status
-the editor turns into `Free` on save); `install-sest-packs.ps1 -PurgeBackups` clears the
+The installer no longer copies missions into `user_missions`: every SEST mission is in the pack,
+and the seeds under `integration/mission-seeds/` stay in the repo (it moves the copies it made
+before 17 Oct 2026 into `Documents\SEST-retired-missions`, once). A seed edited in game comes back
+with `tools\import-mission.ps1`, which also puts back the `Hold`/`Tight` weapon status the editor
+turns into `Free` on save, and goes back in with `refresh-mission.ps1 -Install`;
+`install-sest-packs.ps1 -PurgeBackups` clears the
 old `* backup-*.ini` copies out of the game once, and `tools\clean-backups.ps1` (preview with
 `-WhatIfOnly`) clears every other backup copy, orphaned `_briefing` folder and all but the newest
 three `usersettings.ini.bak_*` files. `set-mod-order.ps1` itself now keeps only the newest three. The exporter mirrors deletions inside each
@@ -113,8 +121,17 @@ been resolving only through a leftover file.
 `tools\quiet-mod-debug.ps1` turns off debug switches that Workshop mods ship switched on -
 so far the PLA & PLAN & PLAAF AEP's `debug.ini`, whose logging on every physics tick froze
 Steel Highway once BepInEx was installed. A mod update puts the author's file back, so
-`sync-sest.ps1` runs it on every sync. `capture-context.ps1` now also takes the tail of
-BepInEx's own `LogOutput.log`, where the code mods write.
+`sync-sest.ps1` runs it on every sync. `capture-context.ps1` also copies BepInEx's own
+`LogOutput.log`, where the code mods write, whole (head and tail with a marker line over 50 MB).
+
+`tools\mark-mods-compatible.ps1` stops the Mod Manager's start-up warning that mods are not
+compatible with this game version: every mod whose `_info.ini` declares an `ApproximateVersion`
+with a different MAJOR.MINOR from the game's (68 on 18 Oct 2026, last set for 0.4 to 0.7) has that
+one line set to the game's version, on this PC only. The authors' own files are kept under
+`%LOCALAPPDATA%\SEST\compat-originals`, `export-mod-configs.ps1` exports those, so `mods-source/`
+and the update check still see the authors' files, and `-Restore` puts them all back.
+`sync-sest.ps1` runs it on every sync, since a mod update puts the author's file back. A player
+who subscribes still sees the warning for the same mods: their files are their authors'.
 
 `docs/setup-runbook.md` is the full walkthrough.
 
@@ -123,7 +140,8 @@ BepInEx's own `LogOutput.log`, where the code mods write.
 `integration/campaign/` builds four campaigns into one `SEST_Campaign` pack. The
 first is **SEST Southern Watch — The Northern Lifeline**:
 twelve connected missions in October–November 2028 in which Australia and its
-regional partners keep the northern sea routes open, four optional operations
+regional partners keep the northern sea routes open, ten optional operations
+(six of them the side operations in `docs/campaigns/side-operations.md`)
 and two contingencies that the core reads back, plus eight dispatches
 (allied rotations, an opposing-force passage, a weapons range, an openly
 speculative 2034 branch and a 1988 exercise). `docs/campaigns/southern-watch/`
@@ -176,7 +194,7 @@ squadron the winning file actually offers — a price naming a fit the hull no
 longer has fails the build. None of the economy has been exercised in game;
 each campaign's `build-notes.md` says so in detail.
 
-Its point is coverage. 195 Workshop mods are a lot of content to own and never
+Its point is coverage. 198 Workshop mods are a lot of content to own and never
 see, so the campaigns are built so that **every mod in the canonical load
 order, and every SEST pack, is reached by something one of them places** — and
 "reached" is

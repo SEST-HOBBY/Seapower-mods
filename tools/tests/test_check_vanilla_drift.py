@@ -107,7 +107,7 @@ class VanillaDriftTests(unittest.TestCase):
         self.write("integration/campaign/test_build_pack.py", 'assert "usn_f-14a" in roster\n')
         # The dist copy must not count as a pack.
         self.write("integration/dist/SEST_Integration/vessels/wp_pb_don.ini", "[General]\nUnitType=Vessel\n")
-        self.write("integration/missions/01 Threads.ini",
+        self.write("integration/mission-seeds/01 Threads.ini",
                    "[Unit1]\nType=usn_f-14a\nFlightDeck_ReadyUpTask1=usn_e-2c,Squadron1,AEW,2,0\n")
         self.write(f"{CAMPAIGN}/missions/X 01.ini", "[Unit1]\nType=USN_F-14A\n")
         self.write(f"{CAMPAIGN}/campaign.ini",
@@ -359,7 +359,7 @@ class VanillaDriftTests(unittest.TestCase):
         self.assertEqual(code, 1)
         placed = self.section(out, 3)
         self.assertIn("aircraft/usn_f-14a.ini  REMOVED - usn_f-14a fielded by 2 file(s): "
-                      "dist/SEST_Integration/campaigns/sest-x/missions/X 01.ini, missions/01 Threads.ini", placed)
+                      "dist/SEST_Integration/campaigns/sest-x/missions/X 01.ini, mission-seeds/01 Threads.ini", placed)
         self.assertIn("NEEDS A HUMAN: aircraft/usn_f-14a.ini: removed, but 2 file(s) field usn_f-14a", out)
 
     def test_a_removed_unit_a_workshop_mod_still_ships_is_not_a_finding(self):
@@ -380,7 +380,7 @@ class VanillaDriftTests(unittest.TestCase):
         code, out = self.run_tool("--since", self.baseline)
         self.assertEqual(code, 1)
         placed = self.section(out, 3)
-        self.assertIn("aircraft/usn_e-2c.ini  REMOVED - usn_e-2c fielded by 1 file(s): missions/01 Threads.ini", placed)
+        self.assertIn("aircraft/usn_e-2c.ini  REMOVED - usn_e-2c fielded by 1 file(s): mission-seeds/01 Threads.ini", placed)
         self.assertIn("vessels/wp_ss_kilo.ini  REMOVED - wp_ss_kilo fielded by 2 file(s): "
                       "dist/SEST_Integration/campaigns/sest-x/campaign.ini, "
                       "dist/SEST_Integration/campaigns/sest-x/player_task_force_roster.ini", placed)

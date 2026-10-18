@@ -21,7 +21,7 @@ Seven declared, one defined — and the language file names that one `F-22A`. Tw
 - **Every Raptor in the game is anonymous.** The unit reads "F-22A" whatever squadron it belongs to.
 - **`SquadronReference=Squadron2..7` does not resolve.** Missions that asked for them (NORTHERN FRONT II
   wanted Squadron4–7 at one airbase) had aircraft spawning without a resolved squadron, which is why
-  `integration/missions/fix_squadron_refs.py` had to fold them all back onto Squadron1.
+  `integration/mission-seeds/fix_squadron_refs.py` had to fold them all back onto Squadron1.
 
 ## What this ships
 

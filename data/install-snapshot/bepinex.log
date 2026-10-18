@@ -1,4 +1,247 @@
-# BepInEx\LogOutput.log - last 600 line(s) of a 0.1 MB file, last written 2026-10-13T20:42:23. 
+# BepInEx\LogOutput.log - whole file, 1193 line(s), 0.1 MB, last written 2026-10-18T10:15:28. 
+[Error  :   BepInEx] Unable to start Unity log writer
+[Message:   BepInEx] BepInEx 5.4.23.2 - Sea Power (15/10/2026 4:59:12 PM)
+[Info   :   BepInEx] Running under Unity v6000.0.84.7908207
+[Info   :   BepInEx] CLR runtime version: 4.0.30319.42000
+[Info   :   BepInEx] Supports SRE: True
+[Info   :   BepInEx] System platform: Bits64, Windows
+[Message:   BepInEx] Preloader started
+[Info   :   BepInEx] Loaded 1 patcher method from [BepInEx.Preloader 5.4.23.2]
+[Info   :   BepInEx] 1 patcher plugin loaded
+[Info   :   BepInEx] Patching [UnityEngine.CoreModule] with [BepInEx.Chainloader]
+[Message:   BepInEx] Preloader finished
+[Message:   BepInEx] Chainloader ready
+[Message:   BepInEx] Chainloader started
+[Info   :   BepInEx] 1 plugin to load
+[Info   :   BepInEx] Loading [AnchorChain Preloader 1.0.0]
+[Info   :AnchorChain Preloader] AnchorChain Preloader started!
+[Info   :AnchorChain Preloader] Loaded assembly AnchorChain, Version=1.1.0.0, Culture=neutral, PublicKeyToken=null
+[Info   :AnchorChain] Loaded assembly SEST.MenuBackground, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+[Info   :AnchorChain] Loaded assembly AnchorChain, Version=1.1.0.0, Culture=neutral, PublicKeyToken=null
+[Info   :AnchorChain] Loaded assembly CombatWorker, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null
+[Info   :AnchorChain] Loaded assembly CustomAudioLoader, Version=2.5.6.0, Culture=neutral, PublicKeyToken=null
+[Info   :AnchorChain] Loaded assembly EnhancedDecoyMod, Version=0.5.3.0, Culture=neutral, PublicKeyToken=null
+[Info   :AnchorChain] Loaded assembly EnhancedUIMod, Version=0.1.1.0, Culture=neutral, PublicKeyToken=null
+[Info   :AnchorChain] Loaded assembly Euromod-Welldeck, Version=1.0.3.0, Culture=neutral, PublicKeyToken=null
+[Info   :AnchorChain] Loaded assembly HighAltitudeSkyFix, Version=1.2.2.0, Culture=neutral, PublicKeyToken=null
+[Info   :AnchorChain] Loaded assembly HullDamage, Version=0.5.7.0, Culture=neutral, PublicKeyToken=null
+[Info   :AnchorChain] Loaded assembly MeshCutOut.ACPack, Version=0.5.1.0, Culture=neutral, PublicKeyToken=null
+[Info   :AnchorChain] Loaded assembly MissileControlMod, Version=0.1.16.0, Culture=neutral, PublicKeyToken=null
+[Info   :AnchorChain] Loaded assembly MissileControlSurfaces, Version=1.1.3.0, Culture=neutral, PublicKeyToken=null
+[Info   :AnchorChain] Loaded assembly MultiStageMissiles, Version=1.7.14.0, Culture=neutral, PublicKeyToken=null
+[Info   :AnchorChain] Loaded assembly OptimalTargetDist, Version=1.2.0.0, Culture=neutral, PublicKeyToken=null
+[Info   :AnchorChain] Loaded assembly ParallelRangeProbe, Version=0.12.0.0, Culture=neutral, PublicKeyToken=null
+[Info   :AnchorChain] Loaded assembly ProfileImage1024, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+[Info   :AnchorChain] Loaded assembly SATCOM, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+[Info   :AnchorChain] Loaded assembly SmokeParticleLOD, Version=0.4.1.0, Culture=neutral, PublicKeyToken=null
+[Info   :AnchorChain] Loaded assembly SubModelStabilization, Version=1.1.2.0, Culture=neutral, PublicKeyToken=null
+[Info   :AnchorChain] Loaded assembly UiWorkerProbe, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null
+[Info   :AnchorChain] Loaded assembly V22Tiltrotor, Version=2.8.15.0, Culture=neutral, PublicKeyToken=null
+[Info   :AnchorChain] Loaded assembly WeaponLauncherEffects, Version=1.0.18.0, Culture=neutral, PublicKeyToken=null
+[Info   :AnchorChain] Loaded assembly SecondThrustMod, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+[Info   :AnchorChain] Loaded assembly SubAmmunitionMod, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+[Info   :AnchorChain] Loaded assembly SubAmmunitionMod, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+[Warning:AnchorChain] Attempted to load a duplicate plugin: Sub Ammunition (io.github.yourname.sub-ammunition)
+[Info   :AnchorChain] Loaded assembly LoadoutManager, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+[Info   :AnchorChain] Loaded assembly BetterTacMap, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+[Info   :AnchorChain] Loaded assembly CoordinatedStrikeTool, Version=1.3.1.0, Culture=neutral, PublicKeyToken=null
+[Info   :AnchorChain] Loaded assembly AutomaticSAR, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+[Info   :AnchorChain] Loaded assembly IdentifyExpanded, Version=3.420.6967.0, Culture=neutral, PublicKeyToken=null
+[Info   :AnchorChain] Loaded assembly DynamicCampaignMod, Version=0.25.0.0, Culture=neutral, PublicKeyToken=null
+[Info   :AnchorChain] Loaded assembly ACC.CV16.SkiJumpFix, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+[Info   :AnchorChain] Loaded assembly Z20RotorVisualSync, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+[Info   :AnchorChain] Loaded assembly SaronicCorsairStrikeUSV, Version=4.12.1.0, Culture=neutral, PublicKeyToken=null
+[Info   :AnchorChain] Loaded assembly AlpineSeaPower, Version=0.3.1.0, Culture=neutral, PublicKeyToken=null
+[Info   :AnchorChain] Loaded assembly FuryFormation, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+[Info   :AnchorChain] Loaded assembly FuryLights, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+[Info   :AnchorChain] Loaded assembly FuryVoice.Harmony, Version=1.5.0.0, Culture=neutral, PublicKeyToken=null
+[Info   :AnchorChain] Loaded assembly EC2CommsJamming, Version=1.0.1.0, Culture=neutral, PublicKeyToken=null
+[Info   :AnchorChain] Loaded assembly EC2Formation, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+[Info   :AnchorChain] Loaded assembly EC2Lights, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+[Info   :AnchorChain] Loaded assembly EC2Tooltip, Version=1.0.2.0, Culture=neutral, PublicKeyToken=null
+[Info   :AnchorChain] Loaded assembly J16Systems, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+[Info   :AnchorChain] Loaded assembly J36AfterburnerNozzle, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+[Info   :AnchorChain] Loaded assembly OspreyDeckOps, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+[Info   :AnchorChain] Loaded assembly OspreyMechanics, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+[Info   :AnchorChain] Loaded assembly BellSystemsFixtureTilt, Version=0.5.1.0, Culture=neutral, PublicKeyToken=null
+[Info   :AnchorChain] Loaded assembly MV75Formation, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+[Info   :AnchorChain] Loaded assembly Z21GunMoveFire, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.WeaponSystem and name _containerBaseObject
+[Info   :AnchorChain] Loaded assembly AlpineSeaPower, Version=0.3.1.0, Culture=neutral, PublicKeyToken=null
+[Warning:AnchorChain] Attempted to load a duplicate plugin: Sea Power scoped runtime fixes (alpine.seapower.runtime)
+[Info   :AnchorChain] Loaded assembly YF23Formation, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+[Info   :AnchorChain] Loaded assembly YF23Lights, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+[Info   :AnchorChain] Loaded plugin SEST Menu Background (io.github.sest-hobby.menu-background)
+[Info   :AnchorChain] Loaded plugin Combat Batch Worker (experimental) (local.seapower.combatworker)
+[Info   :AnchorChain] Loaded plugin Sonar Audio Loader (io.github.euromod.sonar-audio-loader)
+[Info   :AnchorChain] Loaded plugin EnhancedDecoyMod (io.github.euromod.enhanceddecoymod)
+[Info   :AnchorChain] Loaded plugin EnhancedUIMod (local.seapower.enhanceduimod)
+[Info   :AnchorChain] Loaded plugin Euromod Well Deck (euromod.welldeck)
+[Warning:  HarmonyX] AccessTools.Method: Could not find method for type SeaPower.DynamicSky and name UpdateSky and parameters 
+[Info   :AnchorChain] Loaded plugin High Altitude Sky Fix (io.github.euromod.high-altitude-sky-fix)
+[Info   :AnchorChain] Loaded plugin Hull Damage (euromod.hull-damage)
+[Info   :AnchorChain] Loaded plugin Mesh CutOut (euromod.mesh-cutout.acpack)
+[Info   :AnchorChain] Loaded plugin MissileControlMod (io.github.euromod.missilecontrol)
+[Info   :AnchorChain] Loaded plugin Missile Control Surfaces (io.github.euromod.missile-control-surfaces)
+[Info   :AnchorChain] Loaded plugin Multi-Stage Missiles, Glow and Submunitions (io.github.euromod.multistagemissiles)
+[Info   :AnchorChain] Loaded plugin Optimal Target Distance (io.github.euromod.optimal-target-distance)
+[Info   :AnchorChain] Loaded plugin Datalink Reuse and Contact Jobs Trial (local.seapower.parallelrangeprobe)
+[Info   :AnchorChain] Loaded plugin Profile Image 1024 (io.github.euromod.profile-image-1024)
+[Info   :AnchorChain] Loaded plugin SATCOM Mid-Course Correction (io.github.euromod.satcom)
+[Info   :AnchorChain] Loaded plugin Smoke Particle LOD (euromod.smoke-particle-lod)
+[Info   :AnchorChain] Loaded plugin Vessel SubModel Stabilization (io.github.euromod.submodel-stabilization)
+[Info   :AnchorChain] Loaded plugin UI Preparation Workers Trial (local.seapower.uiworkerprobe)
+[Info   :AnchorChain] Loaded plugin Euromod V-22 Tiltrotor + Pivot BFWS (euromod.v22tiltrotor)
+[Info   :AnchorChain] Loaded plugin Weapon Launcher Effects (io.github.euromod.weaponlaunchereffects)
+[Info   :SecondThrust] Debug logging OFF (create C:\Program Files (x86)\Steam\steamapps\workshop\content\1286220\3789188689\debug.ini with 'Enabled=1' to enable)
+[Info   :AnchorChain] Loaded plugin Second Thrust (io.github.yourname.second-thrust)
+[Info   :SubAmmunition] Debug logging OFF (create C:\Program Files (x86)\Steam\steamapps\workshop\content\1286220\3789188689\debug.ini with 'Enabled=1' to enable)
+[Info   :SubAmmunition] SubAmmunitionPatches applied
+[Info   :SubAmmunition] å¯¹è±¡æ± ä¿®å¤ï¼šå·²æŒ‚ PoolManager.freeObjectï¼ˆå›žæ”¶å‰å…ˆ removeObjectï¼‰
+[Info   :SubAmmunition] å¯¹è±¡è¡¨æ¸…ç†ï¼šå·²æŒ‚ SensorSystemsLink.OnUpdate
+[Info   :SubAmmunition] LoS é˜²æŠ–ï¼šå·²æŒ‚ UnitsHaveRadarlLOS
+[Info   :SubAmmunition] LoS é˜²æŠ–ï¼šå·²æŒ‚ UnitsHaveVisualLOS
+[Info   :SubAmmunition] LoS é˜²æŠ–ï¼šå·²æŒ‚ UnitsHaveDirectlLOS
+[Info   :SubAmmunition] ESM æ­»å¯¹è±¡æ¸…ç†ï¼šå·²æŒ‚ createListOfPotentialContactsï¼ˆ_homeObject=okï¼‰
+[Info   :SubAmmunition] PatchAll + Apply done
+[Info   :SubAmmunition] Driver GameObject created
+[Info   :AnchorChain] Loaded plugin Sub Ammunition (io.github.yourname.sub-ammunition)
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
 [Warning:  HarmonyX] AccessTools.Method: name is null
 [Warning:  HarmonyX] AccessTools.Method: name is null
 [Warning:  HarmonyX] AccessTools.Method: name is null
@@ -129,7 +372,7 @@
 [Info   :AnchorChain] Loaded plugin Coordinated Strike Tool (coordinatedstriketool)
 [Info   :AnchorChain] Loaded plugin Automatic SAR (local.automatic-sar)
 [Info   :AnchorChain] Loaded plugin IdentifyExpanded (com.fmsv.identifyexpanded)
-[Info   :Dynamic Campaign Mod] Dynamic Campaign Mod 0.24.3 loaded. Patches are applied once the main menu is up.
+[Info   :Dynamic Campaign Mod] Dynamic Campaign Mod 0.25.0 loaded. Patches are applied once the main menu is up.
 [Info   :AnchorChain] Loaded plugin Dynamic Campaign Mod (dynamiccampaignmod)
 [Warning:  HarmonyX] meltemi.acc.cv16.skijumpfix: You should only patch implemented methods/constructors to avoid issues. Patch the declared method void SeaPower.FlightDeckPoint::Release(SeaPower.ObjectBase occupyingObject) instead of void SeaPower.FlightDeckPoint::Release(SeaPower.ObjectBase occupyingObject).
 [Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.PendingLaunchTask and name _vehicleType
@@ -163,439 +406,789 @@
 [Info   :AnchorChain] Loaded AnchorChain V1.1.0!
 [Message:   BepInEx] Chainloader startup complete
 [Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.ObjectBase and name _nation
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.ObjectBase and name _jamBearings
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.ObjectBase and name EnableAllRadars
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.ObjectBase and name EnableAllRadars
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.ObjectBase and name DisableAllRadars
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.ObjectBase and name DisableAllRadars
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.ObjectBase and name setEMCON
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.ObjectBase and name setEMCON
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.ObjectBase and name IsAirSearchRadarsOn
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.ObjectBase and name IsSurfaceSearchRadarsOn
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.ObjectBase and name _obp
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.ObjectBaseParameters and name _ecmSystems
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.ObjectBaseParameters and name _airSearchRadars
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.ObjectBaseParameters and name _surfaceSearchRadars
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.SensorSystemECM and name _ecm
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.ECM and name _ep
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.ECMParameters and name _type
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.ECM and name ceaseOffensiveJam
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.ECM and name ceaseOffensiveJam
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.SensorSystem and name IsOn
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.SensorSystem and name Inoperable
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.SensorSystem and name Disable
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.SensorSystem and name Disable
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.ObjectBase and name HasRole
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.ObjectBase and name HasRole
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.AI and name UpdateJammerPositioning
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.AI and name UpdateJammerPositioning
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.AI and name UpdateAutoJamming
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.AI and name UpdateAutoJamming
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.AI and name _baseObject
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.ObjectBase and name Emcon
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.TerrainUtils and name GetRealHeightInMetersAt
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.TerrainUtils and name GetRealHeightInMetersAt
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.ObjectBase and name ExportWaypoints
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.ObjectBase and name ExportWaypoints
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.ObjectBase and name ImportWaypoints
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.ObjectBase and name ImportWaypoints
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.WaypointData and name wpName
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.UnitFormation and name LeaderStation
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.UnitFormation and name Stations
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.Station and name UnitObject
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.Station and name StationPosition
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.Station and name UnitActsIndependently
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.ObjectBase and name Formation
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.ObjectBase and name IsFormationLeader
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.ObjectBase and name IsFormationWingman
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.ObjectBase and name FollowingFormation
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.ObjectBase and name _performingAirOps
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.ObjectBase and name _userRoot
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.ObjectBase and name _velocityInKnots
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.ObjectBase and name WaypointTolerance
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.FlightDeck and name _vehiclesOnBoard
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.FlightDeck and name FlightDeckTasks
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.FlightDeck and name _flightDeckTasksToAdd
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.FlightDeck and name _currentAmmo
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.FlightDeck and name _accountableAmmunition
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.PendingLaunchTask and name _launchCount
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.PendingLaunchTask and name LaunchCount
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.PendingLaunchTask and name _loadoutIndex
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.FlightDeckTask and name VehicleType
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.FlightDeckTask and name Vehicle
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.VehicleTypeOnBoard and name _loadouts
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.VehicleTypeOnBoard and name _fileName
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.VehicleTypeOnBoard and name Numbers
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.CoolDownTask and name iniRef
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.Loadout and name _ammoPoints
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.Loadout and name _accountableAmmunition
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.ObjectBase and name _homeBase
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.ObjectBase and name _spawnTime
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.ObjectBase and name RangeInKm
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.ObjectBaseParameters and name _maxRangeInKm
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.Aircraft and name UpdateFuelConsumption
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.Aircraft and name UpdateFuelConsumption
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.ObjectBase and name RangeInKm
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.Aircraft and name _isInFlight
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.ObjectBase and name Disable
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.ObjectBase and name Disable
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.UnitFormation and name DetachUnit
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.UnitFormation and name DetachUnit
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.WeaponBase and name CurrentIntendedTargetObject
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.ObjectBase and name _velocityInKnots
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.GameTime and name TimeCompression
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.TerrainUtils and name GetRealHeightInMetersAt
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.TerrainUtils and name GetRealHeightInMetersAt
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.TerrainUtils and name GetHeightAt
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.TerrainUtils and name GetHeightAt
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.ObjectBase and name SetTeleportProtection
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.ObjectBase and name SetTeleportProtection
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.LandUnit and name _groundOffset
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.ObjectBase and name Disable
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.ObjectBase and name Disable
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.Utils and name longLatToLocalV3
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.Utils and name longLatToLocalV3
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.TerrainUtils and name GetRealHeightInMetersAt
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.TerrainUtils and name GetRealHeightInMetersAt
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.ObjectBase and name SetTeleportProtection
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.ObjectBase and name SetTeleportProtection
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.Utils and name longLatToLocalV3
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.Utils and name longLatToLocalV3
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.WeaponBase and name CurrentIntendedTargetObject
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.SceneCreator and name IsLoadingDone
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.ObjectBase and name GetMapVehicle
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.ObjectBase and name GetMapVehicle
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.Vehicle and name Identified
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.Vehicle and name IsDormant
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.WeaponBase and name CurrentIntendedTargetObject
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.WeaponBase and name CurrentTarget
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.Globals and name _playerTaskforce
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.Aircraft and name _isInFlight
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.ObjectBase and name _homeBase
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.ObjectBase and name CurrentOrder
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.Order and name OrderType
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.ObjectBase and name GetAllWaypointsNames
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.ObjectBase and name GetAllWaypointsNames
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.ObjectBase and name RemoveWaypoints
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.ObjectBase and name RemoveWaypoints
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.ObjectBase and name setWaypointTask
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.ObjectBase and name setWaypointTask
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.ObjectBase and name StateMachine
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.StateMachine and name CurrentState
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.ObjectBase and name Formation
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.ObjectBase and name IsFormationLeader
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.ObjectBase and name IsFormationWingman
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.ObjectBase and name FollowingFormation
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.ObjectBase and name AcceptsOrdersFromPlayer
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.ObjectBase and name _homeBase
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.Aircraft and name _isInFlight
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.UnitFormation and name LeaderStation
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.UnitFormation and name Stations
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.UnitFormation and name DetachUnit
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.UnitFormation and name DetachUnit
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.Station and name UnitObject
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.UnitFormation and name GetContextMenuItems
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.UnitFormation and name GetContextMenuItems
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.ExtActionTask and name _baseObject
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.WeaponSystem and name getOnWeaponAmmunition
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.WeaponSystem and name getOnWeaponAmmunition
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.WeaponSystem and name _loadedAmmunitionCount
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.WeaponMagazineSystem and name _ammunitionList
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.WeaponMagazineSystem and name _isCampaignMagazine
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.Aircraft and name _isInFlight
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.FlightDeck and name _campaignUnitsOnBoard
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.ObjectBase and name _homeBase
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.ObjectBase and name _childAircraft
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.ObjectBase and name _hasControl
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.ObjectBase and name Rebase
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.ObjectBase and name Rebase
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.ObjectBase and name CanAcceptAircraft
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.ObjectBase and name CanAcceptAircraft
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.ObjectBase and name SearchForHomeBase
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.ObjectBase and name SearchForHomeBase
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.Taskforce and name _taskforceUnits
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.BaseSystem and name Inoperable
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.ObjectBase and name CurrentOrder
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.Order and name OrderType
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.Order and name TargetUnit
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.ObjectBase and name RemoveWaypoints
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.ObjectBase and name RemoveWaypoints
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.Aircraft and name _isInFlight
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.LandUnit and name _landUnitOverallDamage
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.ObjectBase and name _totalDamagePoints
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.ObjectBaseParameters and name _loadoutVariant
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.ObjectBaseParameters and name _flightDeck
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.ObjectBase and name StateMachine
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.StateMachine and name CurrentStateName
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.StateMachine and name SetStateByName
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.StateMachine and name SetStateByName
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.ObjectBase and name IsControllable
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.ObjectBase and name _flightDeckState
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.ObjectBaseParameters and name _maxRangeInKm
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.WeaponBase and name _launchPlatform
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.MissionManager and name _triggers
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.Trigger and name _completed
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.Trigger and name Name
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.Trigger and name _actionUnits
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.Trigger and name ActionTrigger
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.Trigger and name ActionTrigger
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.Trigger and name Name
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.Trigger and name _section
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.Trigger and name _actionUnits
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.ObjectBase and name _userRoot
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.ObjectBase and name RemoveWaypoints
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.ObjectBase and name RemoveWaypoints
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.ObjectBase and name SetWaypointTask
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.ObjectBase and name SetWaypointTask
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.WaypointData and name _geoposition
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.WaypointData and name _setTelegraph
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.WaypointData and name _allowFormationManeuver
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.ObjectBase and name GetMapVehicle
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.ObjectBase and name GetMapVehicle
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.Vehicle and name IsDormant
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.Vehicle and name Position
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.ObjectBase and name CourseCommand
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.ObjectBase and name CommandPosition
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.ObjectBase and name _velocityInKnots
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.ObjectBase and name _performingAirOps
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.ObjectBase and name _playerCommandOverride
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.ObjectBase and name FollowingFormation
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.ObjectBase and name IsFormationWingman
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.ObjectBase and name _userRoot
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.UserRootNode and name TaskViewModels
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.ObjectBase and name StateMachine
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.StateMachine and name CurrentState
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.VisualActionTask and name WaypointPosition
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.ObjectBase and name GetCurrentActiveWaypointName
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.ObjectBase and name GetCurrentActiveWaypointName
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.ObjectBase and name GetLastWaypoint
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.ObjectBase and name GetLastWaypoint
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.ObjectBase and name ExportWaypoints
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.ObjectBase and name ExportWaypoints
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.ObjectBase and name ImportWaypoints
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.ObjectBase and name ImportWaypoints
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.ObjectBase and name RemoveWaypoints
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.ObjectBase and name RemoveWaypoints
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.ObjectBase and name SetWaypointTask
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.ObjectBase and name SetWaypointTask
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.WaypointData and name _geoposition
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.WaypointData and name _allowFormationManeuver
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.WaypointData and name wpName
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.SetCourse and name Course
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.MissionManager and name _triggers
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.Trigger and name _completed
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.Trigger and name Name
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.Trigger and name _actionUnits
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.Vessel and name getSetRudderAngle
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.Vessel and name getSetRudderAngle
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.Submarine and name getSetRudderAngle
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.Submarine and name getSetRudderAngle
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.ObjectBase and name setRudderAngle
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.ObjectBase and name setRudderAngle
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.ObjectBase and name setTelegraph
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.ObjectBase and name setTelegraph
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.ObjectBase and name getTelegraph
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.ObjectBase and name getTelegraph
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.TerrainUtils and name GetRealHeightInMetersAt
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.TerrainUtils and name GetRealHeightInMetersAt
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.ObjectsManager and name _listOfAllAircraftObjects
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.Helicopter and name _isInFlight
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.ObjectBase and name HasControl
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.ObjectBase and name IsPlayerObject
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.ObjectBase and name _taskforce
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.ObjectBase and name _ai
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.AI and name _turnOffTowedSonarsTime
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.ObjectBase and name _obp
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.ObjectBaseParameters and name _towedSonarSystems
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.SensorSystem and name _isDippingSonar
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.SensorSystem and name _wasSetOn
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.SensorSystem and name _parentTowedSystem
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.BaseSystem and name Inoperable
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.BaseSystem and name IsOn
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.TowedSystem and name _isClipOnArray
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.ObjectBase and name RetractTowedSonars
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.ObjectBase and name RetractTowedSonars
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.ObjectBase and name UniqueID
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.LaunchTaskParameters and name _waypoints
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.FlightDeckTask and name _ltp
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.FlightDeckTask and name Vehicle
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.FlightDeck and name _vehiclesOnBoard
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.FlightDeck and name _flightDeckTasksToAdd
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.FlightDeck and name FlightDeckTasks
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.VehicleTypeOnBoard and name _fileName
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.VehicleTypeOnBoard and name _type
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.VehicleTypeOnBoard and name _objectType
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.VehicleTypeOnBoard and name Numbers
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.ObjectBase and name _ai
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.AI and name _objectToDestroy
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.ObjectBase and name _selectedAmmunitionForEngage
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.ObjectBase and name GetDefaultAmmunitionForEngage
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.ObjectBase and name GetDefaultAmmunitionForEngage
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.ObjectBase and name CeaseFire
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.ObjectBase and name CeaseFire
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.ObjectBase and name _currentEngageTasks
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.Order and name TargetUnit
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.Order and name OrderType
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.ObjectBase and name Aligning
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.ObjectBase and name GetMapVehicle
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.ObjectBase and name GetMapVehicle
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.Vehicle and name Identified
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.Vehicle and name IsDormant
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.ObjectBase and name _homeBase
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.Aircraft and name _isInFlight
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.ObjectBase and name _flightDeckState
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.ObjectBase and name CurrentOrder
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.ObjectBase and name StateMachine
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.StateMachine and name CurrentStateName
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.Globals and name _playerTaskforce
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.ObjectBase and name setWaypointTask
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.ObjectBase and name setWaypointTask
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.ObjectBase and name RemoveWaypoints
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.ObjectBase and name RemoveWaypoints
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.ObjectBase and name GetAllWaypointsNames
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.ObjectBase and name GetAllWaypointsNames
 [Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.ObjectBase and name _geoPosition
-[Warning:Dynamic Campaign Mod] Game members (some missing: their features are off):
-OK      MissionDebriefViewModel._exitInProgress (battle results)
-OK      MissionDebriefViewModel._restartMission (battle results)
-OK      MissionDebriefViewModel.ConfirmExitVisible (battle results)
-OK      ObjectBase._campaignTag (battle results)
-OK      MapPanel.ParentMapProperty (the campaign map's overlays)
-OK      CampaignMapViewModel.InitialiseMissionCommand (double-clicking a group)
-OK      PauseMenuViewModel.NotifyPropertyChanged (the pause menu's Save & Exit)
-OK      PauseMenuButton.contentKey (the battle pause menu's Load hidden)
-OK      MessageBoxViewModel (the no-enemy prompt in battle)
-OK      MessageBoxViewModel.AcknowledgeCommand (the no-enemy prompt in battle)
-OK      MessageBoxViewModel.CancelCommandLabel (the no-enemy prompt in battle)
-OK      MessageBoxViewModel.Header (the no-enemy prompt in battle)
-OK      MessageBoxViewModel.Message (the no-enemy prompt in battle)
-OK      MessageBoxViewModel.MessageBoxType (the no-enemy prompt in battle)
-OK      MessageBoxViewModel.AcknowledgeCommandLabel (the no-enemy prompt in battle)
-OK      MessageBoxViewModel.CancelCommand (the no-enemy prompt in battle)
-OK      BaseSystem.SetCurrentDamageType (damage carried into battle)
-OK      SeapowerTileMap.loadedTextures (the map tiles' larger cache)
-OK      MapTileLayerBase.IsBaseMapLayer (the map tiles' coarser levels)
-OK      EncyclopedicDataManager (unit pictures)
-OK      FlightDeck._vehiclesOnBoard (the carriers' air wings read back from battle)
-OK      FlightDeck.FlightDeckTasks (the carriers' air wings read back from battle)
-OK      FlightDeck._flightDeckTasksToAdd (the carriers' air wings read back from battle)
-OK      FlightDeck._currentAmmo (the carriers' air wings read back from battle)
-OK      FlightDeck._accountableAmmunition (the carriers' air wings read back from battle)
-OK      PendingLaunchTask._launchCount (the carriers' air wings read back from battle)
-OK      PendingLaunchTask.LaunchCount (the carriers' air wings read back from battle)
-OK      PendingLaunchTask._loadoutIndex (the carriers' air wings read back from battle)
-OK      FlightDeckTask.VehicleType (the carriers' air wings read back from battle)
-OK      FlightDeckTask.Vehicle (the carriers' air wings read back from battle)
-OK      VehicleTypeOnBoard._loadouts (the carriers' air wings read back from battle)
-OK      VehicleTypeOnBoard._fileName (the carriers' air wings read back from battle)
-OK      VehicleTypeOnBoard.Numbers (the carriers' air wings read back from battle)
-OK      CoolDownTask.iniRef (the carriers' air wings read back from battle)
-OK      Loadout._ammoPoints (the carriers' air wings read back from battle)
-OK      Loadout._accountableAmmunition (the carriers' air wings read back from battle)
-OK      ObjectBase._homeBase (the carriers' air wings read back from battle)
-OK      ObjectBase._spawnTime (the carriers' air wings read back from battle)
-OK      ObjectBase.RangeInKm (campaign fuel in battle)
-OK      ObjectBaseParameters._maxRangeInKm (campaign fuel in battle)
-OK      Aircraft.UpdateFuelConsumption (campaign fuel in battle)
-OK      ObjectBase.RangeInKm (bingo fuel in battle (aircraft home))
-OK      Aircraft._isInFlight (bingo fuel in battle (aircraft home))
-OK      ObjectBase.Disable (bingo fuel in battle (aircraft home))
-OK      UnitFormation.DetachUnit (bingo fuel in battle (aircraft home))
-OK      WeaponBase.CurrentIntendedTargetObject (bingo fuel in battle (aircraft home))
-OK      TerrainUtils.GetRealHeightInMetersAt (land units checked ashore in battle)
-OK      TerrainUtils.GetHeightAt (land units checked ashore in battle)
-OK      ObjectBase.SetTeleportProtection (land units checked ashore in battle)
-OK      LandUnit._groundOffset (land units checked ashore in battle)
-OK      ObjectBase.Disable (land units checked ashore in battle)
-OK      Utils.longLatToLocalV3 (land units checked ashore in battle)
-OK      TerrainUtils.GetRealHeightInMetersAt (ships checked afloat in battle)
-OK      ObjectBase.SetTeleportProtection (ships checked afloat in battle)
-OK      Utils.longLatToLocalV3 (ships checked afloat in battle)
-OK      WeaponBase.CurrentIntendedTargetObject (weapons in flight when leaving a battle)
-OK      SceneCreator.IsLoadingDone (the battle's checks awaiting the mission's load)
-OK      ObjectBase.GetMapVehicle (the battle's contacts read on leaving it (enemy units named when identified, undetected submarines slipping away) and in it (what we saw becoming campaign contacts))
-OK      Vehicle.Identified (the battle's contacts read on leaving it (enemy units named when identified, undetected submarines slipping away) and in it (what we saw becoming campaign contacts))
-OK      Vehicle.IsDormant (the battle's contacts read on leaving it (enemy units named when identified, undetected submarines slipping away) and in it (what we saw becoming campaign contacts))
-OK      WeaponBase.CurrentIntendedTargetObject (the battle's contacts read on leaving it (enemy units named when identified, undetected submarines slipping away) and in it (what we saw becoming campaign contacts))
-OK      WeaponBase.CurrentTarget (the battle's contacts read on leaving it (enemy units named when identified, undetected submarines slipping away) and in it (what we saw becoming campaign contacts))
-OK      Globals._playerTaskforce (the battle's contacts read on leaving it (enemy units named when identified, undetected submarines slipping away) and in it (what we saw becoming campaign contacts))
-OK      Aircraft._isInFlight (enemy aircraft on deck left out in battle (leaving it, the no-enemy prompt))
-OK      ObjectBase._homeBase (enemy carrier aircraft fought as their carrier's when leaving a battle)
-OK      ObjectBase.CurrentOrder (Return to base for campaign aircraft in battle)
-OK      Order.OrderType (Return to base for campaign aircraft in battle)
-OK      ObjectBase.setOrder (Return to base for campaign aircraft in battle)
-OK      ObjectBase.GetAllWaypointsNames (Return to base for campaign aircraft in battle)
-OK      ObjectBase.RemoveWaypoints (Return to base for campaign aircraft in battle)
-OK      ObjectBase.setWaypointTask (Return to base for campaign aircraft in battle)
-OK      ObjectBase.StateMachine (Return to base for campaign aircraft in battle)
-OK      StateMachine.CurrentState (Return to base for campaign aircraft in battle)
-OK      ObjectBase.Formation (Return to base for campaign aircraft in battle)
-OK      ObjectBase.IsFormationLeader (Return to base for campaign aircraft in battle)
-OK      ObjectBase.IsFormationWingman (Return to base for campaign aircraft in battle)
-OK      ObjectBase.FollowingFormation (Return to base for campaign aircraft in battle)
-OK      ObjectBase.AcceptsOrdersFromPlayer (Return to base for campaign aircraft in battle)
-OK      ObjectBase._homeBase (Return to base for campaign aircraft in battle)
-OK      Aircraft._isInFlight (Return to base for campaign aircraft in battle)
-OK      UnitFormation.LeaderStation (Return to base for campaign aircraft in battle)
-OK      UnitFormation.Stations (Return to base for campaign aircraft in battle)
-OK      UnitFormation.DetachUnit (Return to base for campaign aircraft in battle)
-OK      Station.UnitObject (Return to base for campaign aircraft in battle)
-OK      AircraftStates.ReturnToBase (Return to base for campaign aircraft in battle)
-OK      ObjectBaseViewModel.GetContextMenuItems (Return to base in the unit's and formation's menus for campaign aircraft in battle)
-OK      ObjectBaseViewModel._objectBase (Return to base in the unit's and formation's menus for campaign aircraft in battle)
-OK      UnitFormation.GetContextMenuItems (Return to base in the unit's and formation's menus for campaign aircraft in battle)
-OK      ContextMenuItem.Label (Return to base in the unit's and formation's menus for campaign aircraft in battle)
-OK      ContextMenuItem.Items (Return to base in the unit's and formation's menus for campaign aircraft in battle)
-OK      ContextMenuItem.Command (Return to base in the unit's and formation's menus for campaign aircraft in battle)
-OK      LanguageResourceHandler.getText (Return to base in the unit's and formation's menus for campaign aircraft in battle)
-OK      AircraftStates.ReturnToBase.onEnter (Return to base by the T key, and the game's own, for campaign aircraft in battle)
-OK      AircraftStates.StateTemplate._aircraft (Return to base by the T key, and the game's own, for campaign aircraft in battle)
-OK      AircraftStates.Winchester (Return to base by the T key, and the game's own, for campaign aircraft in battle)
-OK      AttackTask.OnExecute (an attack ordered calling off a campaign aircraft sent home in battle)
-OK      ExtActionTask._baseObject (an attack ordered calling off a campaign aircraft sent home in battle)
-OK      WeaponSystem.getOnWeaponAmmunition (the enemy's strikes sent home in battle once they have released their strike weapons)
-OK      WeaponSystem._loadedAmmunitionCount (the enemy's strikes sent home in battle once they have released their strike weapons)
-OK      WeaponMagazineSystem._ammunitionList (the enemy's strikes sent home in battle once they have released their strike weapons)
-OK      WeaponMagazineSystem._isCampaignMagazine (the enemy's strikes sent home in battle once they have released their strike weapons)
-OK      Aircraft._isInFlight (the enemy's strikes sent home in battle once they have released their strike weapons)
-OK      Utils.openVirtualIniFile (weapons.ini merged across mods for ships' launchers and gun mounts)
-OK      FlightDeck._campaignUnitsOnBoard (airfields in battle (homes, landings, launches and damage read back))
-OK      FlightDeck.CampaignUnitOnBoard.CampaignTag (airfields in battle (homes, landings, launches and damage read back))
-OK      ObjectBase._homeBase (airfields in battle (homes, landings, launches and damage read back))
-OK      ObjectBase._childAircraft (airfields in battle (homes, landings, launches and damage read back))
-OK      ObjectBase._hasControl (airfields in battle (homes, landings, launches and damage read back))
-OK      ObjectBase.Rebase (airfields in battle (homes, landings, launches and damage read back))
-OK      ObjectBase.CanAcceptAircraft (airfields in battle (homes, landings, launches and damage read back))
-OK      ObjectBase.SearchForHomeBase (airfields in battle (homes, landings, launches and damage read back))
-OK      Taskforce._taskforceUnits (airfields in battle (homes, landings, launches and damage read back))
-OK      BaseSystem.Inoperable (airfields in battle (homes, landings, launches and damage read back))
-OK      ObjectBase.CurrentOrder (airfields in battle (homes, landings, launches and damage read back))
-OK      Order.OrderType (airfields in battle (homes, landings, launches and damage read back))
-OK      Order.TargetUnit (airfields in battle (homes, landings, launches and damage read back))
-OK      ObjectBase.setOrder (airfields in battle (homes, landings, launches and damage read back))
-OK      ObjectBase.RemoveWaypoints (airfields in battle (homes, landings, launches and damage read back))
-OK      Aircraft._isInFlight (airfields in battle (homes, landings, launches and damage read back))
-OK      LandUnit._landUnitOverallDamage (airfields in battle (homes, landings, launches and damage read back))
-OK      ObjectBase._totalDamagePoints (airfields in battle (homes, landings, launches and damage read back))
-OK      ObjectBaseParameters._loadoutVariant (airfields in battle (homes, landings, launches and damage read back))
-OK      ObjectBaseParameters._flightDeck (airfields in battle (homes, landings, launches and damage read back))
-OK      ObjectBase.StateMachine (airfields in battle (homes, landings, launches and damage read back))
-OK      StateMachine.CurrentStateName (airfields in battle (homes, landings, launches and damage read back))
-OK      StateMachine.SetStateByName (airfields in battle (homes, landings, launches and damage read back))
-OK      ObjectBase.IsControllable (airfields in battle (homes, landings, launches and damage read back))
-OK      ObjectBase._flightDeckState (airfields in battle (homes, landings, launches and damage read back))
-OK      ObjectBaseParameters._maxRangeInKm (airfields in battle (homes, landings, launches and damage read back))
-OK      WeaponBase._launchPlatform (enemy groups holding off counted as gone in battle (who fires each weapon))
-OK      MissionManager._triggers (enemy groups' charges read in battle (the mission's triggers fired))
-OK      Trigger._completed (enemy groups' charges read in battle (the mission's triggers fired))
-OK      Trigger.Name (enemy groups' charges read in battle (the mission's triggers fired))
-OK      Trigger._actionUnits (enemy groups' charges read in battle (the mission's triggers fired))
-OK      Trigger.ActionTrigger (scatters, withdrawals and charges re-routed in battle as their triggers fire)
-OK      Trigger.Name (scatters, withdrawals and charges re-routed in battle as their triggers fire)
-OK      Trigger._section (scatters, withdrawals and charges re-routed in battle as their triggers fire)
-OK      Trigger._actionUnits (scatters, withdrawals and charges re-routed in battle as their triggers fire)
-OK      ObjectBase._userRoot (scatters, withdrawals and charges re-routed in battle as their triggers fire)
-OK      ObjectBase.RemoveWaypoints (scatters, withdrawals and charges re-routed in battle as their triggers fire)
-OK      ObjectBase.SetWaypointTask (scatters, withdrawals and charges re-routed in battle as their triggers fire)
-OK      WaypointData._geoposition (scatters, withdrawals and charges re-routed in battle as their triggers fire)
-OK      WaypointData._setTelegraph (scatters, withdrawals and charges re-routed in battle as their triggers fire)
-OK      WaypointData._allowFormationManeuver (scatters, withdrawals and charges re-routed in battle as their triggers fire)
-OK      ObjectBase.GetMapVehicle (scatters, withdrawals and charges re-routed in battle as their triggers fire)
-OK      Vehicle.IsDormant (scatters, withdrawals and charges re-routed in battle as their triggers fire)
-OK      Vehicle.Position (scatters, withdrawals and charges re-routed in battle as their triggers fire)
-OK      ObjectBase.CourseCommand (the AI's ships kept off shallows in battle (the keel watch))
-OK      ObjectBase.CommandPosition (the AI's ships kept off shallows in battle (the keel watch))
-OK      ObjectBase._velocityInKnots (the AI's ships kept off shallows in battle (the keel watch))
-OK      ObjectBase._performingAirOps (the AI's ships kept off shallows in battle (the keel watch))
-OK      ObjectBase._playerCommandOverride (the AI's ships kept off shallows in battle (the keel watch))
-OK      ObjectBase.FollowingFormation (the AI's ships kept off shallows in battle (the keel watch))
-OK      ObjectBase.IsFormationWingman (the AI's ships kept off shallows in battle (the keel watch))
-OK      ObjectBase._userRoot (the AI's ships kept off shallows in battle (the keel watch))
-OK      UserRootNode.TaskViewModels (the AI's ships kept off shallows in battle (the keel watch))
-OK      ObjectBase.StateMachine (the AI's ships kept off shallows in battle (the keel watch))
-OK      StateMachine.CurrentState (the AI's ships kept off shallows in battle (the keel watch))
-OK      VesselStates.ClearBafflesTurningBack (the AI's ships kept off shallows in battle (the keel watch))
-OK      VisualActionTask.WaypointPosition (the AI's ships kept off shallows in battle (the keel watch))
-OK      ObjectBase.GetCurrentActiveWaypointName (the AI's ships kept off shallows in battle (the keel watch))
-OK      ObjectBase.GetLastWaypoint (the AI's ships kept off shallows in battle (the keel watch))
-OK      ObjectBase.ExportWaypoints (the AI's ships kept off shallows in battle (the keel watch))
-OK      ObjectBase.ImportWaypoints (the AI's ships kept off shallows in battle (the keel watch))
-OK      ObjectBase.RemoveWaypoints (the AI's ships kept off shallows in battle (the keel watch))
-OK      ObjectBase.SetWaypointTask (the AI's ships kept off shallows in battle (the keel watch))
-OK      WaypointData._geoposition (the AI's ships kept off shallows in battle (the keel watch))
-OK      WaypointData._allowFormationManeuver (the AI's ships kept off shallows in battle (the keel watch))
-OK      WaypointData.wpName (the AI's ships kept off shallows in battle (the keel watch))
-OK      SetCourse.Course (the AI's ships kept off shallows in battle (the keel watch))
-OK      MissionManager._triggers (the AI's ships kept off shallows in battle (the keel watch))
-OK      Trigger._completed (the AI's ships kept off shallows in battle (the keel watch))
-OK      Trigger.Name (the AI's ships kept off shallows in battle (the keel watch))
-OK      Trigger._actionUnits (the AI's ships kept off shallows in battle (the keel watch))
-OK      VesselStates.TorpedoEvasion.onFixedUpdate, IsFinished, _vessel (the AI's torpedo evasion kept off shallows in battle)
-OK      SubmarineStates.TorpedoEvasion.onFixedUpdate, IsFinished, _submarine (the AI's torpedo evasion kept off shallows in battle)
-OK      Vessel.getSetRudderAngle (the AI's torpedo evasion kept off shallows in battle)
-OK      Submarine.getSetRudderAngle (the AI's torpedo evasion kept off shallows in battle)
-OK      ObjectBase.setRudderAngle (the AI's torpedo evasion kept off shallows in battle)
-OK      ObjectBase.setTelegraph (the AI's torpedo evasion kept off shallows in battle)
-OK      ObjectBase.getTelegraph (the AI's torpedo evasion kept off shallows in battle)
-OK      TerrainUtils.GetRealHeightInMetersAt (the AI's torpedo evasion kept off shallows in battle)
-OK      ObjectsManager._listOfAllAircraftObjects (the AI's helicopters' dipping sonars raised in battle once their dip is over)
-OK      Helicopter._isInFlight (the AI's helicopters' dipping sonars raised in battle once their dip is over)
-OK      ObjectBase.HasControl (the AI's helicopters' dipping sonars raised in battle once their dip is over)
-OK      ObjectBase.IsPlayerObject (the AI's helicopters' dipping sonars raised in battle once their dip is over)
-OK      ObjectBase._taskforce (the AI's helicopters' dipping sonars raised in battle once their dip is over)
-OK      ObjectBase._ai (the AI's helicopters' dipping sonars raised in battle once their dip is over)
-OK      AI._turnOffTowedSonarsTime (the AI's helicopters' dipping sonars raised in battle once their dip is over)
-OK      ObjectBase._obp (the AI's helicopters' dipping sonars raised in battle once their dip is over)
-OK      ObjectBaseParameters._towedSonarSystems (the AI's helicopters' dipping sonars raised in battle once their dip is over)
-OK      SensorSystem._isDippingSonar (the AI's helicopters' dipping sonars raised in battle once their dip is over)
-OK      SensorSystem._wasSetOn (the AI's helicopters' dipping sonars raised in battle once their dip is over)
-OK      SensorSystem._parentTowedSystem (the AI's helicopters' dipping sonars raised in battle once their dip is over)
-OK      BaseSystem.Inoperable (the AI's helicopters' dipping sonars raised in battle once their dip is over)
-OK      BaseSystem.IsOn (the AI's helicopters' dipping sonars raised in battle once their dip is over)
-OK      TowedSystem._isClipOnArray (the AI's helicopters' dipping sonars raised in battle once their dip is over)
-OK      ObjectBase.RetractTowedSonars (the AI's helicopters' dipping sonars raised in battle once their dip is over)
-OK      ObjectBase.UniqueID (the AI's helicopters' dipping sonars raised in battle once their dip is over)
-OK      ObjectBase.FlightDeckLaunchUnit(file, LaunchTaskParameters) (the enemy carriers' search pairs launched and their fighters ordered on our aircraft in battle)
-OK      LaunchTaskParameters._waypoints (the enemy carriers' search pairs launched and their fighters ordered on our aircraft in battle)
-OK      FlightDeckTask._ltp (the enemy carriers' search pairs launched and their fighters ordered on our aircraft in battle)
-OK      FlightDeckTask.Vehicle (the enemy carriers' search pairs launched and their fighters ordered on our aircraft in battle)
-OK      FlightDeck._vehiclesOnBoard (the enemy carriers' search pairs launched and their fighters ordered on our aircraft in battle)
-OK      FlightDeck._flightDeckTasksToAdd (the enemy carriers' search pairs launched and their fighters ordered on our aircraft in battle)
-OK      FlightDeck.FlightDeckTasks (the enemy carriers' search pairs launched and their fighters ordered on our aircraft in battle)
-OK      VehicleTypeOnBoard._fileName (the enemy carriers' search pairs launched and their fighters ordered on our aircraft in battle)
-OK      VehicleTypeOnBoard._type (the enemy carriers' search pairs launched and their fighters ordered on our aircraft in battle)
-OK      VehicleTypeOnBoard._objectType (the enemy carriers' search pairs launched and their fighters ordered on our aircraft in battle)
-OK      VehicleTypeOnBoard.Numbers (the enemy carriers' search pairs launched and their fighters ordered on our aircraft in battle)
-OK      ObjectBase._ai (the enemy carriers' search pairs launched and their fighters ordered on our aircraft in battle)
-OK      AI._objectToDestroy (the enemy carriers' search pairs launched and their fighters ordered on our aircraft in battle)
-OK      ObjectBase._selectedAmmunitionForEngage (the enemy carriers' search pairs launched and their fighters ordered on our aircraft in battle)
-OK      ObjectBase.GetDefaultAmmunitionForEngage (the enemy carriers' search pairs launched and their fighters ordered on our aircraft in battle)
-OK      ObjectBase.CeaseFire (the enemy carriers' search pairs launched and their fighters ordered on our aircraft in battle)
-OK      ObjectBase._currentEngageTasks (the enemy carriers' search pairs launched and their fighters ordered on our aircraft in battle)
-OK      Order.TargetUnit (the enemy carriers' search pairs launched and their fighters ordered on our aircraft in battle)
-OK      Order.OrderType (the enemy carriers' search pairs launched and their fighters ordered on our aircraft in battle)
-OK      ObjectBase.Aligning (the enemy carriers' search pairs launched and their fighters ordered on our aircraft in battle)
-OK      ObjectBase.setOrder (the enemy carriers' search pairs launched and their fighters ordered on our aircraft in battle)
-OK      ObjectBase.GetMapVehicle (the enemy carriers' search pairs launched and their fighters ordered on our aircraft in battle)
-OK      Vehicle.Identified (the enemy carriers' search pairs launched and their fighters ordered on our aircraft in battle)
-OK      Vehicle.IsDormant (the enemy carriers' search pairs launched and their fighters ordered on our aircraft in battle)
-OK      ObjectBase._homeBase (the enemy carriers' search pairs launched and their fighters ordered on our aircraft in battle)
-OK      Aircraft._isInFlight (the enemy carriers' search pairs launched and their fighters ordered on our aircraft in battle)
-OK      ObjectBase._flightDeckState (the enemy carriers' search pairs launched and their fighters ordered on our aircraft in battle)
-OK      ObjectBase.CurrentOrder (the enemy carriers' search pairs launched and their fighters ordered on our aircraft in battle)
-OK      ObjectBase.StateMachine (the enemy carriers' search pairs launched and their fighters ordered on our aircraft in battle)
-OK      StateMachine.CurrentStateName (the enemy carriers' search pairs launched and their fighters ordered on our aircraft in battle)
-OK      Globals._playerTaskforce (the enemy carriers' search pairs launched and their fighters ordered on our aircraft in battle)
-OK      ObjectBase.setWaypointTask (the AI's bombers inside their missiles' minimum range sent out of it in battle)
-OK      ObjectBase.RemoveWaypoints (the AI's bombers inside their missiles' minimum range sent out of it in battle)
-OK      ObjectBase.GetAllWaypointsNames (the AI's bombers inside their missiles' minimum range sent out of it in battle)
-MISSING ObjectBase._geoPosition (the AI's bombers inside their missiles' minimum range sent out of it in battle)
-OK      ObjectBase._type (the AI's bombers inside their missiles' minimum range sent out of it in battle)
-OK      Aircraft._isInFlight (the AI's bombers inside their missiles' minimum range sent out of it in battle)
-OK      ObjectBase._flightDeckState (the AI's bombers inside their missiles' minimum range sent out of it in battle)
-OK      ObjectBase.CurrentOrder (the AI's bombers inside their missiles' minimum range sent out of it in battle)
-OK      ObjectBase.StateMachine (the AI's bombers inside their missiles' minimum range sent out of it in battle)
-OK      StateMachine.CurrentStateName (the AI's bombers inside their missiles' minimum range sent out of it in battle)
-[Info   :Dynamic Campaign Mod] Patched: dynamic campaigns will appear in the Campaign menu marked [Dynamic].
-[Warning:Dynamic Campaign Mod] weapons.ini has no [KT-190]; assuming 1 round per container.
-[Warning:Dynamic Campaign Mod] weapons.ini has no [Mk36]; assuming 1 round per container.
-[Info   :Dynamic Campaign Mod] Weapon usn_rim-161c: fired from 50 to 486 nm
-[Info   :Dynamic Campaign Mod] Weapon usn_rgm-109e5a: fired from 15 to 950 nm
-[Info   :Dynamic Campaign Mod] Weapon usn_rgm-109e5: fired from 15 to 950 nm
-[Info   :Dynamic Campaign Mod] Weapon usn_rim-161d: fired from 50 to 1500 nm
-[Info   :Dynamic Campaign Mod] Weapon usn_ugm-109e5a: fired from 15 to 950 nm
-[Info   :Dynamic Campaign Mod] Weapon fr__mdcn: fired from 40 to 900 nm
-[Info   :Dynamic Campaign Mod] Weapon usn_rgm-109e: fired from 15 to 950 nm
-[Info   :Dynamic Campaign Mod] Weapon ko_Hycore: fired from 30 to 550 nm
-[Info   :Dynamic Campaign Mod] Weapon rok_hgv: fired from 30 to 450 nm
-[Info   :Dynamic Campaign Mod] Weapon rok_hyunmoo_4_2: fired from 50 to 310 nm
-[Info   :Dynamic Campaign Mod] Weapon usn_rgm-109b1: fired from 20 to 250 nm
-[Info   :Dynamic Campaign Mod] Weapon usn_rgm-109c: fired from 40 to 675 nm
-[Info   :Dynamic Campaign Mod] Weapon usn_ugm-109e5: fired from 15 to 950 nm
-[Info   :Dynamic Campaign Mod] Weapon usn_ugm-109j: fired from 13 to 1000 nm
-[Info   :Dynamic Campaign Mod] Weapon fr__m51: fired from 500 to 5400 nm
-[Info   :Dynamic Campaign Mod] Weapon usn_trident: fired from 300 to 4100 nm
-[Info   :Dynamic Campaign Mod] Weapon usn_rgm-109b: fired from 20 to 250 nm
-[Info   :Dynamic Campaign Mod] Weapon wp_ss-n-19: fired from 30 to 378 nm
-[Info   :Dynamic Campaign Mod] Weapon wp_ss_n_27: fired from 10 to 410 nm
-[Info   :Dynamic Campaign Mod] Weapon rfn_3m14: fired from 40 to 918 nm
-[Info   :Dynamic Campaign Mod] Weapon rfn_3m54: fired from 15 to 410 nm
-[Info   :Dynamic Campaign Mod] Weapon wp_ss_n_12b: fired from 30 to 415 nm
-[Info   :Dynamic Campaign Mod] Weapon wp_ss_n_30a: fired from 10 to 410 nm
-[Info   :Dynamic Campaign Mod] Weapon wp_r-39: fired from 100 to 5200 nm
-[Info   :Dynamic Campaign Mod] Weapon wp_r-29rmu: fired from 100 to 4481 nm
-[Info   :Dynamic Campaign Mod] Weapon wp_ss-n-27a: fired from 20 to 573 nm
-[Info   :Dynamic Campaign Mod] Weapon pla_jl-3: fired from 100 to 8100 nm
-[Info   :Dynamic Campaign Mod] Weapon usn_agm-158c-3: fired from 10 to 800 nm
-[Info   :Dynamic Campaign Mod] Weapon usn_agm-158b-2: fired from 10 to 800 nm
-[Info   :Dynamic Campaign Mod] Weapon b-2_lrasm: fired from 10 to 225 nm
-[Info   :Dynamic Campaign Mod] Weapon b-2_lrasm_ER: fired from 10 to 550 nm
-[Info   :Dynamic Campaign Mod] Weapon b-2_jassm: fired from 10 to 480 nm
-[Info   :Dynamic Campaign Mod] Weapon usn_agm_88g: fired from 25 to 175.7 nm
-[Info   :Dynamic Campaign Mod] Weapon usaf_agm-86c: fired from 40 to 680 nm
-[Info   :Dynamic Campaign Mod] Weapon dts_agm-158b-2: fired from 10 to 800 nm
-[Info   :Dynamic Campaign Mod] Weapon dts_agm-183a: fired from 50 to 865 nm
-[Info   :Dynamic Campaign Mod] Weapon dts_agm-158c-3: fired from 10 to 800 nm
-[Info   :Dynamic Campaign Mod] Weapon usaf_agm-86b: fired from 40 to 680 nm
-[Info   :Dynamic Campaign Mod] Weapon dts_agm-183a(w62): fired from 50 to 865 nm
-[Info   :Dynamic Campaign Mod] Weapon usn_arrw: fired from 132 to 1375 nm
-[Info   :Dynamic Campaign Mod] Weapon b-2_agm-109b: fired from 40 to 243 nm
-[Info   :Dynamic Campaign Mod] Weapon b-2_agm-109c: fired from 40 to 900 nm
-[Info   :Dynamic Campaign Mod] Weapon eu_scalp-eg: fired from 25 to 270 nm
-[Info   :Dynamic Campaign Mod] Weapon wp_as-4: fired from 100 to 250 nm
-[Info   :Dynamic Campaign Mod] Weapon wp_as-4b: fired from 100 to 188 nm
-[Info   :Dynamic Campaign Mod] Weapon KH-55: fired from 47 to 1350 nm
-[Info   :Dynamic Campaign Mod] Weapon KH-101: fired from 35 to 2159 nm
-[Info   :Dynamic Campaign Mod] Weapon KH-55SM: fired from 50 to 1450 nm
-[Info   :Dynamic Campaign Mod] Weapon KH-555: fired from 45 to 1619 nm
-[Info   :Dynamic Campaign Mod] Weapon KH-555S: fired from 10 to 1619 nm
-[Info   :Dynamic Campaign Mod] Weapon 3M22: fired from 60 to 550 nm
-[Info   :Dynamic Campaign Mod] Weapon fr_scalp-eg: fired from 25 to 270 nm
-[Info   :Dynamic Campaign Mod] Weapon eu_kepd_350: fired from 22 to 270 nm
-[Info   :Dynamic Campaign Mod] Weapon spa_kepd-350: fired from 22 to 270 nm
-[Info   :Dynamic Campaign Mod] Weapon scalp-eg: fired from 10 to 250 nm
-[Info   :Dynamic Campaign Mod] Weapon f16_agm-158b-2: fired from 10 to 575 nm
-[Info   :Dynamic Campaign Mod] Weapon fr_scalp-eg_LQS: fired from 25 to 270 nm
-[Info   :Dynamic Campaign Mod] Weapon se_kepd_350_LQS: fired from 22 to 270 nm
-[Info   :Dynamic Campaign Mod] Weapon uae_black_shaheen: fired from 25 to 156 nm
-[Info   :Dynamic Campaign Mod] Weapon plaaf_yj-98: fired from 10 to 320 nm
-[Info   :Dynamic Campaign Mod] Weapon plaaf_akf-98a: fired from 10 to 320 nm
-[Info   :Dynamic Campaign Mod] Weapon plaaf_yj-21: fired from 170 to 475 nm
-[Info   :Dynamic Campaign Mod] Weapon plaaf_kd-63c: fired from 13 to 135 nm
-[Info   :Dynamic Campaign Mod] Weapon plaaf_cj-20: fired from 30 to 1600 nm
-[Info   :Dynamic Campaign Mod] Weapon plaaf_kd-63b: fired from 13 to 130 nm
-[Info   :Dynamic Campaign Mod] Weapon plaaf_kd-63: fired from 13 to 108 nm
-[Info   :Dynamic Campaign Mod] Weapon plaaf_cm-400akg: fired from 25 to 129.7 nm
-[Info   :Dynamic Campaign Mod] Weapon plaaf_cm-400akg_arm: fired from 25 to 129.7 nm
-[Warning:Dynamic Campaign Mod] campaign.json names "CVN-68 Nimitz" (usn_cvn_nimitz_2025): the game has no hull of that name; it sails as its class's default hull under that name.
-[Warning:Dynamic Campaign Mod] campaign.json names "CG-64 Gettysburg" (usn_cg_bunker_hill_vls_2024): the game has no hull of that name; it sails as its class's default hull under that name.
-[Warning:Dynamic Campaign Mod] campaign.json names "Shunde PTG-771" (plan_ptg_type037IIE): the game has no hull of that name; it sails as its class's default hull under that name.
-[Warning:Dynamic Campaign Mod] campaign.json names "Yuan Zheng 64 Hao (364)" (plan_ss_kilo): the game has no hull of that name; it sails as its class's default hull under that name.
-[Warning:Dynamic Campaign Mod] campaign.json names "INS Kalvari" (ch_ss_scorpene): the game has no hull of that name; it sails as its class's default hull under that name.
-[Warning:Dynamic Campaign Mod] campaign.json names "INS Khanderi" (ch_ss_scorpene): the game has no hull of that name; it sails as its class's default hull under that name.
-[Warning:Dynamic Campaign Mod] campaign.json names "INS Karanj" (ch_ss_scorpene): the game has no hull of that name; it sails as its class's default hull under that name.
-[Warning:Dynamic Campaign Mod] campaign.json names "INS Vela" (ch_ss_scorpene): the game has no hull of that name; it sails as its class's default hull under that name.
-[Warning:Dynamic Campaign Mod] campaign.json names "HMS Astute" (rn_swiftsure_class_ssn): the game has no hull of that name; it sails as its class's default hull under that name.
-[Warning:Dynamic Campaign Mod] campaign.json names "HMS Ambush" (rn_swiftsure_class_ssn): the game has no hull of that name; it sails as its class's default hull under that name.
-[Warning:Dynamic Campaign Mod] campaign.json names "HMS Artful" (rn_swiftsure_class_ssn): the game has no hull of that name; it sails as its class's default hull under that name.
-[Warning:Dynamic Campaign Mod] campaign.json names "HMS Audacious" (rn_swiftsure_class_ssn): the game has no hull of that name; it sails as its class's default hull under that name.
-[Warning:Dynamic Campaign Mod] campaign.json names "HMS Anson" (rn_swiftsure_class_ssn): the game has no hull of that name; it sails as its class's default hull under that name.
-[Warning:Dynamic Campaign Mod] campaign.json names "ROKS Lee Sunsin SS-068" (type_209): the game has no hull of that name; it sails as its class's default hull under that name.
-[Warning:Dynamic Campaign Mod] campaign.json names "ROKS Na Daeyong SS-069" (type_209): the game has no hull of that name; it sails as its class's default hull under that name.
-[Warning:Dynamic Campaign Mod] campaign.json names "ROKS Lee Eokgi SS-071" (type_209): the game has no hull of that name; it sails as its class's default hull under that name.
-[Warning:Dynamic Campaign Mod] campaign.json names "INS Dolphin" (ger_ssk_type_212a_batch1): the game has no hull of that name; it sails as its class's default hull under that name.
-[Warning:Dynamic Campaign Mod] campaign.json names "INS Tanin" (ger_ssk_type_212a_batch1): the game has no hull of that name; it sails as its class's default hull under that name.
-[Warning:Dynamic Campaign Mod] campaign.json names "INS Rahav" (ger_ssk_type_212a_batch1): the game has no hull of that name; it sails as its class's default hull under that name.
-[Warning:Dynamic Campaign Mod] campaign.json names "KNM Ula" (ger_ssk_type_212a_batch1): the game has no hull of that name; it sails as its class's default hull under that name.
-[Warning:Dynamic Campaign Mod] campaign.json names "KNM Utstein" (ger_ssk_type_212a_batch1): the game has no hull of that name; it sails as its class's default hull under that name.
-[Warning:Dynamic Campaign Mod] campaign.json names "HQ-182 Ha Noi" (wp_ss_improved_kilo): the game has no hull of that name; it sails as its class's default hull under that name.
-[Warning:Dynamic Campaign Mod] campaign.json names "HQ-183 Ho Chi Minh City" (wp_ss_improved_kilo): the game has no hull of that name; it sails as its class's default hull under that name.
-[Warning:Dynamic Campaign Mod] campaign.json names "HQ-184 Hai Phong" (wp_ss_improved_kilo): the game has no hull of that name; it sails as its class's default hull under that name.
-[Warning:Dynamic Campaign Mod] campaign.json names "HQ-185 Khanh Hoa" (wp_ss_improved_kilo): the game has no hull of that name; it sails as its class's default hull under that name.
-[Warning:Dynamic Campaign Mod] campaign.json names "HQ-186 Da Nang" (wp_ss_improved_kilo): the game has no hull of that name; it sails as its class's default hull under that name.
-[Warning:Dynamic Campaign Mod] campaign.json names "HQ-187 Ba Ria-Vung Tau" (wp_ss_improved_kilo): the game has no hull of that name; it sails as its class's default hull under that name.
-[Info   :Dynamic Campaign Mod] Starting 'SEST World Sandbox 2028 (draft)' (sest.world_sandbox_2028) as blue (Normal): nav grid 3580x1360, game files in C:/Users/<USER>/AppData/LocalLow/Triassic Games/Sea Power\DynamicCampaignMod\campaigns\sest.world_sandbox_2028 (3609 ms).
-[Info   :Dynamic Campaign Mod] Drawing tools: the game's drawing templates merged (Assets/Scripts/UI/Game/Views/DrawingToolsView.xaml, 30 resources; layer template found).
-[Info   :Dynamic Campaign Mod] Campaign map tiles: 16 terrain files read ahead, 26 kept.
-[Info   :Dynamic Campaign Mod] Campaign started.
-[Info   :Dynamic Campaign Mod] Message (Other, Notice): SITREP 001 from SEST WORLD - BLUE, the situation at the outbreak, is in the Messages panel (Admiralty).
-[Info   :Dynamic Campaign Mod] Window host 2560x1410 (computed 1745x952: screen 2560x1440, UI scale 1.1).
-[Warning:Dynamic Campaign Mod] weapons.ini has no [MM-38 Exocet]; assuming 1 round per container.
-[Info   :Dynamic Campaign Mod] Campaign map tiles: the terrain layer builds 3 coarser levels.
-[Info   :Dynamic Campaign Mod] Campaign map tiles: our loading active (10 tiles to draw, 31 already drawn or coming).
-[Warning:Dynamic Campaign Mod] weapons.ini has no [GJB_5860-2006]; assuming 1 round per container.
-[Warning:Dynamic Campaign Mod] weapons.ini has no [YJ-12]; assuming 1 round per container.
-[Warning:Dynamic Campaign Mod] weapons.ini has no [eu_NSM_dual_launcher]; assuming 1 round per container.
-[Error  :Dynamic Campaign Mod] Watchdog: stuck in Simulation for 5 s (simulation step AI), campaign time 2028-10-01 00:00Z.
-[Warning:Dynamic Campaign Mod] Watchdog: Simulation came back after 7.8 s.
-[Info   :Dynamic Campaign Mod] Message (Supply, Notice): T-AKE 1 USNS Lewis and Clark can't load at Naval Base San Diego: the port keeps half its stock in reserve (weapons 100 % of target). It loads once production and convoys bring it above half.
-[Info   :Dynamic Campaign Mod] Message (Supply, Notice): T-AOE 6 USNS Supply can't load at Naval Station Norfolk: the port keeps half its stock in reserve (weapons 100 % of target). It loads once production and convoys bring it above half.
-[Info   :Dynamic Campaign Mod] Message (Supply, Notice): Lewis and Clark-class T-AKE (stand-in) can't load at Naval Base Guam (Apra Harbor): the port keeps half its stock in reserve (weapons 100 % of target). It loads once production and convoys bring it above half.
-[Info   :Dynamic Campaign Mod] Message (Supply, Notice): Lewis and Clark-class T-AKE (stand-in) 2 can't load at Naval Support Activity Bahrain: the port keeps half its stock in reserve (weapons 100 % of target). It loads once production and convoys bring it above half.
-[Info   :Dynamic Campaign Mod] Message (Supply, Notice): T-AKE 11 USNS Washington Chambers can't load at Naval Support Activity Souda Bay: the port keeps half its stock in reserve (weapons 55 % of target). It loads once convoys bring it above half, or at a depot.
-[Info   :Dynamic Campaign Mod] Message (Air, Alert): Raid inbound: 4 J-10C heading for Hsinchu Air Base, 79 nm off, over it about 01:36Z. Send fighters to meet them on the way: over it only its 2 SAM sites fire (each a 4 % chance at each raider).
-[Info   :Dynamic Campaign Mod] Message (Air, Notice): Air strike on Hsinchu Air Base: Hsinchu Air Base's runway out for 48 h, 1 aircraft destroyed on the ground; none of the 4 aircraft was stopped (2 SAM sites fired).
-[Info   :Dynamic Campaign Mod] Message (Air, Notice): Hsinchu Air Base: Eagle 1 (4 Mirage 2000-5EI (1998-2026), AirToAirLongRange) armed, waiting to launch (AIR OPS).
-[Info   :Dynamic Campaign Mod] Message (Admiralty, Notice): The Admiralty proposes: Cover Convoy 227 to Gimhae Air Base. Accept or decline (Admiralty panel).
-[Info   :Dynamic Campaign Mod] Message (Admiralty, Notice): The Admiralty proposes: Intercept the force sent against Eckernfoerde Naval Base submarines patrol. Accept or decline (Admiralty panel).
-[Info   :Dynamic Campaign Mod] Another window host (PauseMenuView) is now the game's current one; our windows stay in the campaign view's.
-[Info   :Dynamic Campaign Mod] Campaign closed.
-[Info   :WeaponLauncherEffects] [WeaponLauncherEffects] [eu_mk41_quad] anchor ready: ContainerBase='eu_8-cell_mk41_base_quad_v4' (vessel ContainerBase, world (482.3301, 0.0895, -150.9804)), container='AmmunitionParent' (world (482.3251, 0.0395, -150.9726)), shipRoot='1-ran_ddg_hobart'.
-[Info   :WeaponLauncherEffects] [WeaponLauncherEffects] [eu_mk41] anchor ready: ContainerBase='eu_8-cell_mk41_base_v4' (vessel ContainerBase, world (482.2841, 0.0895, -150.9804)), container='AmmunitionParent' (world (482.2891, 0.0395, -150.9882)), shipRoot='1-ran_ddg_hobart'.
-[Info   :WeaponLauncherEffects] [WeaponLauncherEffects] [eu_mk41] anchor ready: ContainerBase='eu_8-cell_mk41_base_v4' (vessel ContainerBase, world (482.3301, 0.0895, -151.0099)), container='AmmunitionParent' (world (482.3251, 0.0395, -151.0022)), shipRoot='1-ran_ddg_hobart'.
-[Info   :WeaponLauncherEffects] [WeaponLauncherEffects] [eu_mk41] anchor ready: ContainerBase='eu_8-cell_mk41_base_v4' (vessel ContainerBase, world (482.2841, 0.0895, -151.0099)), container='AmmunitionParent' (world (482.2891, 0.0395, -151.0178)), shipRoot='1-ran_ddg_hobart'.
-[Info   :WeaponLauncherEffects] [WeaponLauncherEffects] [eu_mk41] anchor ready: ContainerBase='eu_8-cell_mk41_base_v4' (vessel ContainerBase, world (482.3301, 0.0895, -151.0395)), container='AmmunitionParent' (world (482.3251, 0.0395, -151.0317)), shipRoot='1-ran_ddg_hobart'.
-[Info   :WeaponLauncherEffects] [WeaponLauncherEffects] [eu_mk41] anchor ready: ContainerBase='eu_8-cell_mk41_base_v4' (vessel ContainerBase, world (482.2841, 0.0895, -151.0395)), container='AmmunitionParent' (world (482.2891, 0.0395, -151.0473)), shipRoot='1-ran_ddg_hobart'.
-[Info   :WeaponLauncherEffects] [WeaponLauncherEffects] [eu_mk41_quad] anchor ready: ContainerBase='eu_8-cell_mk41_base_quad_v4' (vessel ContainerBase, world (469.6134, 0.1127, -161.7480)), container='AmmunitionParent' (world (469.6084, 0.0627, -161.7402)), shipRoot='3-usn_ddg_burke_f3_125'.
-[Info   :WeaponLauncherEffects] [WeaponLauncherEffects] [eu_mk41] anchor ready: ContainerBase='eu_8-cell_mk41_base_v4' (vessel ContainerBase, world (469.5674, 0.1127, -161.7480)), container='AmmunitionParent' (world (469.5724, 0.0627, -161.7558)), shipRoot='3-usn_ddg_burke_f3_125'.
-[Info   :WeaponLauncherEffects] [WeaponLauncherEffects] [eu_mk41] anchor ready: ContainerBase='eu_8-cell_mk41_base_v4' (vessel ContainerBase, world (469.6134, 0.1127, -161.7775)), container='AmmunitionParent' (world (469.6084, 0.0627, -161.7697)), shipRoot='3-usn_ddg_burke_f3_125'.
-[Info   :WeaponLauncherEffects] [WeaponLauncherEffects] [eu_mk41] anchor ready: ContainerBase='eu_8-cell_mk41_base_v4' (vessel ContainerBase, world (469.5674, 0.1127, -161.7775)), container='AmmunitionParent' (world (469.5724, 0.0627, -161.7853)), shipRoot='3-usn_ddg_burke_f3_125'.
-[Info   :WeaponLauncherEffects] [WeaponLauncherEffects] [eu_mk41] anchor ready: ContainerBase='eu_8-cell_mk41_base_v4' (vessel ContainerBase, world (469.6134, 0.1413, -162.8530)), container='AmmunitionParent' (world (469.6084, 0.0913, -162.8452)), shipRoot='3-usn_ddg_burke_f3_125'.
-[Info   :WeaponLauncherEffects] [WeaponLauncherEffects] [eu_mk41] anchor ready: ContainerBase='eu_8-cell_mk41_base_v4' (vessel ContainerBase, world (469.5674, 0.1413, -162.8530)), container='AmmunitionParent' (world (469.5724, 0.0913, -162.8608)), shipRoot='3-usn_ddg_burke_f3_125'.
-[Info   :WeaponLauncherEffects] [WeaponLauncherEffects] [eu_mk41] anchor ready: ContainerBase='eu_8-cell_mk41_base_v4' (vessel ContainerBase, world (469.6134, 0.1413, -162.8826)), container='AmmunitionParent' (world (469.6084, 0.0913, -162.8748)), shipRoot='3-usn_ddg_burke_f3_125'.
-[Info   :WeaponLauncherEffects] [WeaponLauncherEffects] [eu_mk41] anchor ready: ContainerBase='eu_8-cell_mk41_base_v4' (vessel ContainerBase, world (469.5674, 0.1413, -162.8826)), container='AmmunitionParent' (world (469.5724, 0.0913, -162.8904)), shipRoot='3-usn_ddg_burke_f3_125'.
-[Info   :WeaponLauncherEffects] [WeaponLauncherEffects] [eu_mk41] anchor ready: ContainerBase='eu_8-cell_mk41_base_v4' (vessel ContainerBase, world (469.6134, 0.1413, -162.9121)), container='AmmunitionParent' (world (469.6084, 0.0913, -162.9043)), shipRoot='3-usn_ddg_burke_f3_125'.
-[Info   :WeaponLauncherEffects] [WeaponLauncherEffects] [eu_mk41] anchor ready: ContainerBase='eu_8-cell_mk41_base_v4' (vessel ContainerBase, world (469.5674, 0.1413, -162.9121)), container='AmmunitionParent' (world (469.5724, 0.0913, -162.9200)), shipRoot='3-usn_ddg_burke_f3_125'.
-[Info   :WeaponLauncherEffects] [WeaponLauncherEffects] [eu_mk41] anchor ready: ContainerBase='eu_8-cell_mk41_base_v4' (vessel ContainerBase, world (469.6134, 0.1413, -162.9417)), container='AmmunitionParent' (world (469.6084, 0.0913, -162.9339)), shipRoot='3-usn_ddg_burke_f3_125'.
-[Info   :WeaponLauncherEffects] [WeaponLauncherEffects] [eu_mk41] anchor ready: ContainerBase='eu_8-cell_mk41_base_v4' (vessel ContainerBase, world (469.5674, 0.1413, -162.9417)), container='AmmunitionParent' (world (469.5724, 0.0913, -162.9495)), shipRoot='3-usn_ddg_burke_f3_125'.
-[Info   :WeaponLauncherEffects] [WeaponLauncherEffects] [eu_mk41] anchor ready: ContainerBase='eu_8-cell_mk41_base_quad_v4' (vessel ContainerBase, world (494.9963, 0.1127, -140.2507)), container='AmmunitionParent' (world (494.9913, 0.0627, -140.2430)), shipRoot='4-usn_ddg_arleigh_flt3_2027'.
-[Info   :WeaponLauncherEffects] [WeaponLauncherEffects] [eu_mk41] anchor ready: ContainerBase='eu_8-cell_mk41_base_v4' (vessel ContainerBase, world (494.9503, 0.1127, -140.2507)), container='AmmunitionParent' (world (494.9553, 0.0627, -140.2585)), shipRoot='4-usn_ddg_arleigh_flt3_2027'.
-[Info   :WeaponLauncherEffects] [WeaponLauncherEffects] [eu_mk41] anchor ready: ContainerBase='eu_8-cell_mk41_base_v4' (vessel ContainerBase, world (494.9963, 0.1127, -140.2803)), container='AmmunitionParent' (world (494.9913, 0.0627, -140.2725)), shipRoot='4-usn_ddg_arleigh_flt3_2027'.
-[Info   :WeaponLauncherEffects] [WeaponLauncherEffects] [eu_mk41] anchor ready: ContainerBase='eu_8-cell_mk41_base_v4' (vessel ContainerBase, world (494.9503, 0.1127, -140.2803)), container='AmmunitionParent' (world (494.9553, 0.0627, -140.2881)), shipRoot='4-usn_ddg_arleigh_flt3_2027'.
-[Info   :WeaponLauncherEffects] [WeaponLauncherEffects] [eu_mk41] anchor ready: ContainerBase='eu_8-cell_mk41_base_v4' (vessel ContainerBase, world (494.9963, 0.1413, -141.3558)), container='AmmunitionParent' (world (494.9913, 0.0913, -141.3480)), shipRoot='4-usn_ddg_arleigh_flt3_2027'.
-[Info   :WeaponLauncherEffects] [WeaponLauncherEffects] [eu_mk41] anchor ready: ContainerBase='eu_8-cell_mk41_base_v4' (vessel ContainerBase, world (494.9503, 0.1413, -141.3558)), container='AmmunitionParent' (world (494.9553, 0.0913, -141.3636)), shipRoot='4-usn_ddg_arleigh_flt3_2027'.
-[Info   :WeaponLauncherEffects] [WeaponLauncherEffects] [eu_mk41] anchor ready: ContainerBase='eu_8-cell_mk41_base_v4' (vessel ContainerBase, world (494.9963, 0.1413, -141.3853)), container='AmmunitionParent' (world (494.9913, 0.0913, -141.3775)), shipRoot='4-usn_ddg_arleigh_flt3_2027'.
-[Info   :WeaponLauncherEffects] [WeaponLauncherEffects] [eu_mk41_quad] anchor ready: ContainerBase='eu_8-cell_mk41_base_v4' (vessel ContainerBase, world (494.9503, 0.1413, -141.3853)), container='AmmunitionParent' (world (494.9553, 0.0913, -141.3931)), shipRoot='4-usn_ddg_arleigh_flt3_2027'.
-[Info   :WeaponLauncherEffects] [WeaponLauncherEffects] [eu_mk41] anchor ready: ContainerBase='eu_8-cell_mk41_base_v4' (vessel ContainerBase, world (494.9963, 0.1413, -141.4149)), container='AmmunitionParent' (world (494.9913, 0.0913, -141.4071)), shipRoot='4-usn_ddg_arleigh_flt3_2027'.
-[Info   :WeaponLauncherEffects] [WeaponLauncherEffects] [eu_mk41] anchor ready: ContainerBase='eu_8-cell_mk41_base_v4' (vessel ContainerBase, world (494.9503, 0.1413, -141.4149)), container='AmmunitionParent' (world (494.9553, 0.0913, -141.4227)), shipRoot='4-usn_ddg_arleigh_flt3_2027'.
-[Info   :WeaponLauncherEffects] [WeaponLauncherEffects] [eu_mk41] anchor ready: ContainerBase='eu_8-cell_mk41_base_v4' (vessel ContainerBase, world (494.9963, 0.1413, -141.4445)), container='AmmunitionParent' (world (494.9913, 0.0913, -141.4367)), shipRoot='4-usn_ddg_arleigh_flt3_2027'.
-[Info   :WeaponLauncherEffects] [WeaponLauncherEffects] [eu_mk41] anchor ready: ContainerBase='eu_8-cell_mk41_base_v4' (vessel ContainerBase, world (494.9503, 0.1413, -141.4445)), container='AmmunitionParent' (world (494.9553, 0.0913, -141.4523)), shipRoot='4-usn_ddg_arleigh_flt3_2027'.
-[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.GameTime and name time
-[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.GameTime and name time
-[Info   :Coordinated Strike Tool] [t=466.01s] in mission: True, game menu open: True, HUD visible: False
-[Info   :Coordinated Strike Tool] [t=477.96s] in mission: True, game menu open: False, HUD visible: True
-[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.Aircraft and name AircraftAnimation
-[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.Aircraft and name AircraftAnimation
-[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.Aircraft and name AircraftAnimation
-[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.Helicopter and name AircraftAnimation
-[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.Helicopter and name AircraftAnimation
-[Info   :SubAmmunition] å¯¹è±¡æ± ä¿®å¤ï¼šfreeObject å‰æ‘˜è¡¨ Missileï¼ˆç´¯è®¡ 1ï¼‰
-[Info   :SubAmmunition] å¯¹è±¡æ± ä¿®å¤ï¼šfreeObject å‰æ‘˜è¡¨ Missileï¼ˆç´¯è®¡ 2ï¼‰
-[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.Aircraft and name AircraftAnimation
-[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.Aircraft and name AircraftAnimation
-[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.Helicopter and name AircraftAnimation
-[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.Helicopter and name AircraftAnimation
-[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.Aircraft and name AircraftAnimation
-[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.Aircraft and name AircraftAnimation
-[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.Aircraft and name AircraftAnimation
-[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.Aircraft and name AircraftAnimation
-[Info   :SubAmmunition] å¯¹è±¡æ± ä¿®å¤ï¼šfreeObject å‰æ‘˜è¡¨ Missileï¼ˆç´¯è®¡ 3ï¼‰
-[Info   :SubAmmunition] å¯¹è±¡è¡¨æ¸…ç†ï¼šå‰”é™¤å·²é”€æ¯å¯¹è±¡ 1 ä¸ªï¼ˆç´¯è®¡ 1ï¼‰
-[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.Aircraft and name AircraftAnimation
-[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.Aircraft and name AircraftAnimation
-[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.Aircraft and name AircraftAnimation
-[Info   :SubAmmunition] å¯¹è±¡æ± ä¿®å¤ï¼šfreeObject å‰æ‘˜è¡¨ ChaffCloudï¼ˆç´¯è®¡ 4ï¼‰
-[Info   :SubAmmunition] å¯¹è±¡æ± ä¿®å¤ï¼šfreeObject å‰æ‘˜è¡¨ ChaffCloudï¼ˆç´¯è®¡ 5ï¼‰
-[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.Aircraft and name AircraftAnimation
-[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.Aircraft and name AircraftAnimation
-[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.Helicopter and name AircraftAnimation
-[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.Helicopter and name AircraftAnimation
-[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.Aircraft and name AircraftAnimation
-[Info   :SubAmmunition] å¯¹è±¡æ± ä¿®å¤ï¼šfreeObject å‰æ‘˜è¡¨ Missileï¼ˆç´¯è®¡ 20ï¼‰
-[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.Aircraft and name AircraftAnimation
-[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.Helicopter and name AircraftAnimation
-[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.Helicopter and name AircraftAnimation
-[Info   :SubAmmunition] å¯¹è±¡è¡¨æ¸…ç†ï¼šå‰”é™¤å·²é”€æ¯å¯¹è±¡ 1 ä¸ªï¼ˆç´¯è®¡ 2ï¼‰
-[Info   :Coordinated Strike Tool] [t=632.51s] in mission: True, game menu open: True, HUD visible: False
-[Info   :Coordinated Strike Tool] [t=633.27s] in mission: True, game menu open: False, HUD visible: True
-[Info   :Coordinated Strike Tool] [t=633.70s] in mission: True, game menu open: True, HUD visible: False
-[Info   :Coordinated Strike Tool] [t=637.63s] in mission: False, game menu open: False, HUD visible: True
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.ObjectBase and name _type
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.Aircraft and name _isInFlight
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.ObjectBase and name _flightDeckState
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.ObjectBase and name CurrentOrder
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.ObjectBase and name StateMachine
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.StateMachine and name CurrentStateName
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.Taskforce and name VoiceoverNation
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.Taskforce and name _taskforceLandUnits
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.Taskforce and name _taskforceVessels
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.Taskforce and name _taskforceSubmarines
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.Taskforce and name _taskforceAircraft
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.Taskforce and name _taskforceHelicopters
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.ObjectBase and name getNation
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.ObjectBase and name getNation
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.Submarine and name SP
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.SubmarineParameters and name _telegraphVelocities
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.SubmarineParameters and name _surfaceCoefficient
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.Submarine and name _telegraph
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.Submarine and name IsSubmerged
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.ObjectBase and name _velocityInKnots
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.ObjectBase and name _velocityInUnity
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.UnitFormation and name OnUpdate
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.UnitFormation and name OnUpdate
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.UnitFormation and name CheckASWAssignment
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.UnitFormation and name CheckASWAssignment
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.UnitFormation and name Stations
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.UnitFormation and name LeaderStation
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.UnitFormation and name GetStationForUnit
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.UnitFormation and name GetStationForUnit
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.UnitFormation and name ReturnToFormation
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.UnitFormation and name ReturnToFormation
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.UnitFormation and name _taskforce
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.UnitFormation and name _isDisbanded
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.Station and name StationPosition
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.Station and name UnitObject
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.Station and name UnitActsIndependently
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.Station and name rotationOverride
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.UnitFormation and name RotateStationsAroundLeader
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.Station and name GeoPosition
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.ObjectBase and name Formation
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.ObjectBase and name CourseCommand
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.ObjectBase and name CommandPosition
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.ObjectBase and name StateMachine
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.StateMachine and name CurrentState
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.ObjectBase and name _ai
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.ObjectBase and name HasWaypoints
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.ObjectBase and name HasWaypoints
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.ObjectBase and name SetSpeedCommand
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.ObjectBase and name SetSpeedCommand
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.ObjectBase and name _performingFormationTurn
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.ObjectBase and name _performingOuterTurn
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.ObjectBase and name IsAirUnit
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.ObjectBase and name _velocityInKnots
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.ObjectBase and name _geoPosition
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.AI and name _contactsToInvestigate
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.AI and name _enemiesInvestigatingThisUnit
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.AI and name _objectToClassify
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.AI and name _objectToIdentify
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.AI and name _objectToAttack
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.Taskforce and name PlottingTable
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.PlottingTable and name LocalVehicles
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.ObjectBase and name GetMapVehicle
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.ObjectBase and name GetMapVehicle
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.Vehicle and name Position
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.Vehicle and name Identified
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.Vehicle and name IsDormant
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.Vehicle and name IsClassified
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.Vehicle and name UnityVelocityVector
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.ObjectBase and name _velocityInKnots
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.ObjectBase and name _geoPosition
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.ObjectBase and name IsFormationLeader
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.ObjectBase and name Formation
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.ObjectBase and name HasWaypoints
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.ObjectBase and name HasWaypoints
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.ObjectBase and name HasObservedIdentifiedInboundWeapon
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.ObjectBase and name HasObservedIdentifiedInboundWeapon
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.Globals and name _playerTaskforce
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.Globals and name _enemyTaskforce
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.Globals and name _secondEnemyTaskforce
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.ObjectBase and name RemoveWaypoints
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.ObjectBase and name RemoveWaypoints
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.ObjectBase and name SetWaypointTask
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.ObjectBase and name SetWaypointTask
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.WaypointData and name _geoposition
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.WaypointData and name _setTelegraph
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.WaypointData and name _allowFormationManeuver
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.ObjectBase and name setTelegraph
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.ObjectBase and name setTelegraph
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.ObjectBase and name CourseCommand
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.SetCourse and name Course
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.ObjectBase and name _playerCommandOverride
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.ObjectBase and name GetCurrentActiveWaypointName
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.ObjectBase and name GetCurrentActiveWaypointName
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.ObjectBase and name StateMachine
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.StateMachine and name CurrentState
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.MissionManager and name _triggers
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.Trigger and name Disabled
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.Trigger and name Name
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.Trigger and name _actionUnits
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.ObjectBase and name EnableAirSearchRadars
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.ObjectBase and name EnableAirSearchRadars
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.ObjectBase and name EnableSurfaceSearchRadars
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.ObjectBase and name EnableSurfaceSearchRadars
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.ObjectBase and name setEMCON
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.ObjectBase and name setEMCON
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.ObjectBase and name _ai
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.AI and name _excludeFromAIRadarRoutine
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.ObjectBaseParameters and name _surfaceSearchRadars
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.ObjectBaseParameters and name _airSearchRadars
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.SensorSystem and name Disable
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.SensorSystem and name Disable
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.SensorSystem and name IsOn
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.SensorSystem and name Inoperable
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.ObjectBase and name InsertEngageTask
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.ObjectBase and name InsertEngageTask
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.ObjectBase and name GetEngagePriority
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.ObjectBase and name GetEngagePriority
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.ObjectBase and name getAmmunitionAmountByName
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.ObjectBase and name getAmmunitionAmountByName
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.ObjectBase and name getAmmunitionByName
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.ObjectBase and name getAmmunitionByName
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.ObjectBase and name GetWeaponSystemsForAmmunition
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.ObjectBase and name GetWeaponSystemsForAmmunition
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.ObjectBase and name _currentEngageTasks
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.WeaponSystem and name _vwp
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.BaseSystem and name Inoperable
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.WeaponParameters and name _fireRatePerMinute
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.WeaponParameters and name _preLaunchDelay
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.WeaponParameters and name _maxReactiontime
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.WeaponParameters and name _magazineReloadTime
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.Ammunition and name _ap
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.AmmunitionParameters and name _type
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.AmmunitionParameters and name _targetType
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.AmmunitionParameters and name _maxVelocityInKnots
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.AmmunitionParameters and name _maxDepthUnity
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.AI and name SafeToFireCruiseMissile
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.AI and name SafeToFireCruiseMissile
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.ObjectBase and name HasObservedIdentifiedInboundWeapon
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.ObjectBase and name HasObservedIdentifiedInboundWeapon
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.ObjectBase and name GetMapVehicle
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.ObjectBase and name GetMapVehicle
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.Vehicle and name IsDormant
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.AmmunitionParameters and name _terminalVelocityInKnots
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.AmmunitionParameters and name _terminalApproachDistMiles
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.AmmunitionParameters and name _terminalLoft
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.AmmunitionParameters and name _maxLoftVelocityInKnots
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.AmmunitionParameters and name _maxLoftAltUnity
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.AmmunitionParameters and name _seaSkimmingStartDistToTargetUnity
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.AmmunitionParameters and name _finalFlightPhaseDistToTarget
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.ReactionTime and name Acquisition
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.ReactionTime and name Acquisition
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.WeaponSystem and name _isReloading
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.WeaponSystem and name _remainingReloadTime
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.Utils and name longLatToLocalV3
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.Utils and name longLatToLocalV3
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.Globals and name _currentCenterTile
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.ObjectBase and name _geoPosition
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.Submarine and name _pendingClearDatum
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.Submarine and name _clearDatumSawMissileTask
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.Submarine and name _clearDatumPendingSince
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.Submarine and name _clearDatumFrom
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.AI and name _internalContacts
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.EngageTask and name _requiresDatalink
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.EngageTask and name _uid
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.EngageTask and name _shotsToFire
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.ObjectBase and name _obp
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.ObjectBaseParameters and name _weaponSystems
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.WeaponSystem and name _executingEngageTask
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.WeaponSystem and name _alignmentUID
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.WeaponSystem and name _cantInterruptEngage
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.AI and name ShipAntiShipMissileAutoEngagementBlocked
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.AI and name ShipAntiShipMissileAutoEngagementBlocked
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.AI and name _baseObject
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.AI and name _defensiveMissileTargets
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.AI and name _airstrikeAllowedTime
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.AI and name UpdateAirStations
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.AI and name UpdateAirStations
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.ObjectBase and name _ai
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.FlightDeck and name _threatBearing
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.FlightDeck and name _currentCAPRadius
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.FlightDeck and name _recalculateThreatBearing
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.FlightDeck and name _aiDisabled
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.FlightDeck and name _vehiclesOnBoard
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.FlightDeck and name FlightDeckTasks
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.FlightDeck and name _flightDeckTasksToAdd
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.FlightDeckTask and name _ltp
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.FlightDeckTask and name Vehicle
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.VehicleTypeOnBoard and name _fileName
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.VehicleTypeOnBoard and name _objectType
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.VehicleTypeOnBoard and name Numbers
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.VehicleTypeOnBoard and name Loadouts
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.Loadout and name Available
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.Loadout and name Name
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.Loadout and name OwnerIni
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.LoadoutSummary and name HasNightCapableSensors
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.LoadoutSummary and name HasNightCapableSensors
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.SensorUtils and name IsTooDarkForVisualOnlySensors
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.SensorUtils and name IsTooDarkForVisualOnlySensors
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.Utils and name GetSOP
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.Utils and name GetSOP
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.SimpleObjectParameters and name _ini
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.ObjectBase and name FlightDeckGetUnitAndNumberForLoadout
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.ObjectBase and name FlightDeckGetUnitAndNumberForLoadout
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.LaunchTaskParameters and name _waypoints
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.ObjectBaseParameters and name _unitRoles
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.ObjectBaseParameters and name _flightDeck
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.ObjectBase and name GetDistToCurrentActiveWaypoint
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.ObjectBase and name GetDistToCurrentActiveWaypoint
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.ObjectBase and name GetKinematicRange
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.ObjectBase and name GetKinematicRange
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.AmmunitionParameters and name TypicalTargetAlt
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.AmmunitionParameters and name TypicalTargetVelocity
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.ObjectBase and name AmmunitionAmountDictionary
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.ObjectBase and name InsertEngageTask
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.ObjectBase and name InsertEngageTask
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.AirStrike and name _type
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.AirStrike and name _participatingAirBases
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.AirStrike and name _initialTargets
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.AirStrike and name _targetGeoPos
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.AirStrike and name _airstrikeRadius
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.AirStrike and name _maxVehicles
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.AirStrike and name _additionalAttackAircraft
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.AirStrike and name _airstrikePower
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.AirStrike and name _allowPartial
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.AirStrike and name _skipReadyUp
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.AirStrike and name _allowLarge
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.AirStrike and name _forceVehicles
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.AirStrike and name _forceloadouts
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.AirStrike and name _retreating
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.AirStrike and name _isFinished
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.AirStrike and name _attackAircraft
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.AirStrike and name _attackFormation
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.AirStrike and name _maxRelevantWeaponRangeNM
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.AirStrike and name init
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.AirStrike and name init
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.AirStrike and name StateMachine
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.StateMachine and name CurrentStateName
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.Taskforce and name _airStrikes
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.Taskforce and name PlottingTable
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.PlottingTable and name LocalVehicles
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.Vehicle and name CurrentRelationship
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.Vehicle and name CurrentRelationship
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.Vehicle and name IsDormant
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.Vehicle and name Identified
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.Vehicle and name Position
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.Vehicle and name UnityVelocityVector
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.ObjectBase and name GetMapVehicle
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.ObjectBase and name GetMapVehicle
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.UnitFormation and name LeaderStation
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.UnitFormation and name GetStationForUnit
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.UnitFormation and name GetStationForUnit
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.Station and name Role
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.Station and name UnitObject
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.Aircraft and name _isInFlight
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.ObjectBase and name _homeBase
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.AI and name _objectToDestroy
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.ObjectBase and name _currentEngageTasks
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.ObjectBase and name GetCurrentActiveWaypointName
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.ObjectBase and name GetCurrentActiveWaypointName
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.ObjectBase and name GetNumberOfWaypoints
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.ObjectBase and name GetNumberOfWaypoints
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.ObjectBase and name RemoveWaypoints
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.ObjectBase and name RemoveWaypoints
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.ObjectBase and name setWaypointTask
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.ObjectBase and name setWaypointTask
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.ObjectBase and name GetDefaultAmmunitionForEngage
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.ObjectBase and name GetDefaultAmmunitionForEngage
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.ObjectBase and name _selectedAmmunitionForEngage
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.ObjectBase and name CeaseFire
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.ObjectBase and name CeaseFire
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.ObjectBase and name Aligning
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.ObjectBase and name CurrentOrder
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.ObjectBase and name getAmmunitionAmountByName
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.ObjectBase and name getAmmunitionAmountByName
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.ObjectBase and name getAmmunitionByName
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.ObjectBase and name getAmmunitionByName
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.AmmunitionParameters and name _maxVelocityInKnots
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.AmmunitionParameters and name _terminalVelocityInKnots
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.AmmunitionParameters and name _terminalApproachDistMiles
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.AmmunitionParameters and name _terminalLoft
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.AmmunitionParameters and name _maxLoftVelocityInKnots
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.AmmunitionParameters and name _maxLoftAltUnity
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.AmmunitionParameters and name _seaSkimmingStartDistToTargetUnity
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.AmmunitionParameters and name _finalFlightPhaseDistToTarget
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.AirStrike and name _parentAirStrike
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.AirStrike and name _supportingAirstrikes
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.AirStrike and name _escortFighters
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.AirStrike and name _attackAircraftToLaunch
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.ObjectBase and name _unlimitedFuel
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.ObjectBase and name _currentLoadoutCapabilities
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.FlightDeck and name abortLaunchTask
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.FlightDeck and name abortLaunchTask
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.FlightDeckTask and name _uid
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.LaunchTaskParameters and name _airStrike
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.GeoPosition and name CourseTo
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.GeoPosition and name CourseTo
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.AI and name CheckAEWLaunch
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.AI and name CheckAEWLaunch
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.AI and name CheckMPALaunch
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.AI and name CheckMPALaunch
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.ObjectBase and name FlightDeckLaunchCAP
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.ObjectBase and name FlightDeckLaunchCAP
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.ObjectBase and name FlightDeckLaunchInterceptor
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.ObjectBase and name FlightDeckLaunchInterceptor
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.FlightDeck and name createLaunchTask
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.FlightDeck and name createLaunchTask
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.PendingLaunchTask and name launchAllowed
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.PendingLaunchTask and name AllowLaunchFunc
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.PendingLaunchTask and name AllowLaunchFunc
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.FlightDeckTask and name _stateMachine
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.FlightDeckTask and name _duration
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.StateMachine and name CurrentState
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.LaunchTaskParameters and name _missionType
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.VehicleTypeOnBoard and name Squadrons
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.Squadron and name Numbers
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.Squadron and name Callsigns
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.ObjectBase and name RangeOnMap
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.ObjectBase and name _velocityInKnots
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.FlightDeck and name _currentMPARadius
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.FlightDeck and name SetThreatBearingStationPosition
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.FlightDeck and name SetThreatBearingStationPosition
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.FlightDeck and name _activeTime
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.PendingLaunchTask and name _loadoutIndex
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.FlightDeckTask and name VehicleType
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.ObjectBase and name GetAllWaypointsGeoPositions
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.ObjectBase and name GetAllWaypointsGeoPositions
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.ObjectBase and name setTelegraph
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.ObjectBase and name setTelegraph
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.ObjectBase and name getTelegraph
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.ObjectBase and name getTelegraph
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.ObjectBase and name _flightDeckState
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.UnitFormation and name LeaderStation
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.Environment and name SeaState
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.Environment and name IsFog
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.Environment and name IsRaining
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.Environment and name IsSnowing
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.Vehicle and name DetectingSensors
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.AI and name _objectToIdentify
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.AI and name ProcessContacts
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.AI and name ProcessContacts
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.AI and name GetPossibleTargetsList
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.AI and name GetPossibleTargetsList
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.AI and name _objectsToDestroyList
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.AI and name _possibleTargetsWithPriorities
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.AI and name _objectToDestroy
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.AI and name _baseObject
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.ObjectBase and name HasGuidingAlignment
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.ObjectBase and name HasGuidingAlignment
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.ObjectBase and name ClearEngageTasksKeepGuiding
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.ObjectBase and name ClearEngageTasksKeepGuiding
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.ObjectBase and name isAirTarget
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.ObjectBase and name isAirTarget
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.Aircraft and name _missileToEvade
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.StateMachine and name CurrentStateName
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.ObjectBase and name ThreateningMissile
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.WeaponBase and name _launchPlatform
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.ObjectBase and name IsCurrentActiveWaypointRelative
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.ObjectBase and name IsCurrentActiveWaypointRelative
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.UnitFormation and name PerformConsequetiveTurn
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.UnitFormation and name PerformConsequetiveTurn
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.Station and name _unitObject
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.Station and name rotationOverride
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.Submarine and name BatterySystem
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.BatterySystem and name MaxCapacity
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.BatterySystem and name CapacityLeft
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.ObjectBase and name PlottingTable
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.PlottingTable and name VehicleForObject
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.PlottingTable and name VehicleForObject
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.AI and name _allowedTargetsForSubmarineTorpedoes
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.ObjectBase and name _currentEngageTasks
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.EngageTask and name _targetObject
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.ObjectBase and name InsertEngageTask
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.ObjectBase and name InsertEngageTask
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.ObjectBase and name GetEngagePriority
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.ObjectBase and name GetEngagePriority
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.ObjectBase and name getAmmunitionAmountByName
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.ObjectBase and name getAmmunitionAmountByName
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.Submarine and name _telegraph
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.Submarine and name _currentPresetDepth
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.Submarine and name setPresetDepth
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.Submarine and name setPresetDepth
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.Submarine and name setRudderBasedOnCourse
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.Submarine and name setRudderBasedOnCourse
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.Submarine and name UpdateGroundingAvoidance
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.Submarine and name UpdateGroundingAvoidance
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.Submarine and name ApplyAiTransitSpeed
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.Submarine and name ApplyAiTransitSpeed
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.Submarine and name setRudderAngle
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.Submarine and name setRudderAngle
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.ObjectBase and name CommandPosition
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.ObjectBase and name CourseCommand
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.ObjectBase and name RemoveWaypoints
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.ObjectBase and name RemoveWaypoints
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.ObjectBase and name SetWaypointTask
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.ObjectBase and name SetWaypointTask
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.WaypointData and name _setTelegraph
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.MissionManager and name _triggers
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.Trigger and name Disabled
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.Trigger and name _actionUnits
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.ObjectBaseParameters and name _sonarSystems
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.ObjectBase and name _playerCommandOverride
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.ObjectBase and name _incomingWeapons
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.WeaponBase and name _launchPlatform
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.Vehicle and name UnityVelocityVector
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.ObjectBase and name _currentEngageTasks
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.Taskforce and name PlottingTable
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.PlottingTable and name LocalVehicles
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.Vehicle and name CurrentRelationship
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.Vehicle and name CurrentRelationship
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.Vehicle and name IsDormant
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.Vehicle and name Position
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.ObjectBase and name isUnit
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.ObjectBase and name isUnit
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.FlightDeck and name _vehiclesOnBoard
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.FlightDeck and name _aiDisabled
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.FlightDeck and name FlightDeckTasks
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.FlightDeck and name _flightDeckTasksToAdd
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.FlightDeckTask and name _ltp
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.FlightDeckTask and name Vehicle
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.FlightDeck and name abortLaunchTask
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.FlightDeck and name abortLaunchTask
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.FlightDeckTask and name _uid
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.FlightDeck and name Inoperable
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.VehicleTypeOnBoard and name _fileName
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.VehicleTypeOnBoard and name _objectType
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.VehicleTypeOnBoard and name Numbers
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.VehicleTypeOnBoard and name Loadouts
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.Loadout and name Available
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.Loadout and name Name
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.LaunchTaskParameters and name _waypoints
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.Helicopter and name _isInFlight
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.Aircraft and name _isInFlight
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.ObjectBase and name AmmunitionNameToAmmunitionDictionary
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.ObjectBase and name getAmmunitionAmountByName
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.ObjectBase and name getAmmunitionAmountByName
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.Ammunition and name _ap
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.AmmunitionParameters and name _type
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.ObjectBase and name GetNumberOfWaypoints
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.ObjectBase and name GetNumberOfWaypoints
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.ObjectBase and name RemoveWaypoints
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.ObjectBase and name RemoveWaypoints
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.ObjectBase and name setWaypointTask
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.ObjectBase and name setWaypointTask
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.ObjectBase and name CurrentOrder
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.ObjectBaseParameters and name _activeSonarSystems
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.ObjectBaseParameters and name _flightDeck
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.ObjectBase and name GetDefaultAmmunitionForEngage
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.ObjectBase and name GetDefaultAmmunitionForEngage
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.ObjectBase and name _selectedAmmunitionForEngage
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.ObjectBase and name Aligning
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.UnitFormation and name DetachUnit
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.UnitFormation and name DetachUnit
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.UnitFormation and name SwapLeader
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.UnitFormation and name SwapLeader
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.UnitFormation and name AddUnit
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.UnitFormation and name AddUnit
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.UnitFormation and name LeaderStation
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.Station and name UnitObject
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.ObjectBase and name Formation
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.ObjectBase and name IsFormationLeader
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.UnitFormationParameters and name _leaderObject
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.UnitFormationParameters and name _name
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.UnitFormationParameters and name _pattern
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.UnitFormationParameters and name _spacing
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.MissionManager and name _triggers
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.Trigger and name Disabled
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.Trigger and name _actionUnits
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.Trigger and name Conditions
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.Condition and name _type
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.Condition and name _conditionUnits
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.Condition and name _minimumConditionUnits
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.UnitFormation and name SwapLeader
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.UnitFormation and name SwapLeader
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.UnitFormation and name Reform
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.UnitFormation and name Reform
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.UnitFormation and name LeaderStation
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.UnitFormation and name _isDisbanded
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.UnitFormation and name Stations
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.Taskforce and name Formations
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.Station and name StationPosition
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.Station and name UnitActsIndependently
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.Vessel and name _telegraph
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.ObjectBase and name GetAllWaypointsGeoPositions
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.ObjectBase and name GetAllWaypointsGeoPositions
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.ObjectBase and name IsCurrentActiveWaypointRelative
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.ObjectBase and name IsCurrentActiveWaypointRelative
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.STOLTakeOff and name onExit
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.STOLTakeOff and name onExit
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.PlaneTakeOff and name onExit
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.PlaneTakeOff and name onExit
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.Taxi and name _airVehicle
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.STOLTakeOff and name _airVehicle
+[Info   :Dynamic Campaign Mod] Game members: all 704 found.
+[Info   :Dynamic Campaign Mod] Patched: the dynamic campaigns will appear in the Campaign menu.

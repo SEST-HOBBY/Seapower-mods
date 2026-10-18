@@ -47,7 +47,7 @@ PACK = Path(__file__).resolve().parent / "SEST_World_Campaign"
 CAMPAIGN_DIR = PACK / "dynamic_campaigns" / "sest-world-sandbox"
 
 sys.path.insert(0, str(ROOT / "integration" / "campaign"))
-sys.path.insert(0, str(ROOT / "integration" / "missions"))
+sys.path.insert(0, str(ROOT / "integration" / "mission-seeds"))
 import build_pack as bp                      # noqa: E402  winning-file resolver
 from retarget_units import RETARGET           # noqa: E402  ids the collection retired
 sys.path.insert(0, str(Path(__file__).resolve().parent))
@@ -329,7 +329,7 @@ def resolve(uid):
         return uid, "as registered"
     new = RETARGET.get(uid)
     if new and bp.unit_file(new)[1] is not None:
-        return new, f"retargeted from {uid} (integration/missions/retarget_units.py)"
+        return new, f"retargeted from {uid} (integration/mission-seeds/retarget_units.py)"
     return None, "no enabled mod defines it"
 
 
@@ -351,6 +351,11 @@ def text_of(uid, depth=0):
 def num(uid, key):
     m = re.search(rf"^\s*{key}\s*=\s*(\d+(?:\.\d+)?)", text_of(uid), re.M)
     return float(m.group(1)) if m else None
+
+
+def hidden_from_editor(uid):
+    m = re.search(r"^\s*HideIn\s*=\s*([^\n/]+)", text_of(uid), re.M)
+    return bool(m) and "missioneditor" in m.group(1).replace(" ", "").lower()
 
 
 def role(uid):
@@ -1083,6 +1088,11 @@ def arsenal():
         if role(uid) in NOT_ARSENAL_ROLES:
             left[f"role {role(uid)}"].append(uid)
             continue
+        if hidden_from_editor(uid):
+            # The author hid it from the mission editor (REDFOR's kitbash
+            # Grisha IV, 14 Oct 2026): not for sale either.
+            left["hidden by its author (HideIn=MissionEditor)"].append(uid)
+            continue
         per = collections.Counter(nations)
         best = max(per, key=lambda n: (per[n], -SIDE_ORDER[n]))
         found[uid] = (SIDE_OF[best], best)
@@ -1277,7 +1287,7 @@ def main():
         "(Workshop 3813157776): the SEST 2028 world - bases, fleets, air groups, supply ships and "
         "patrols from the SEST research - as a persistent campaign, listed in the Campaign menu "
         "marked [Dynamic]. Ships inside the SEST Integration Pack.\n\n"
-        "[Compatibility]\nApproximateVersion=0.8.5\n",
+        "[Compatibility]\nApproximateVersion=0.8.6\n",
         encoding="utf-8")
     report["values_basis"] = value_basis
     report["counts"] = {

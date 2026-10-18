@@ -2102,7 +2102,7 @@
       "usn_cg_bunker_hill_vls_2024"
      ],
      "scenario_quantity": "1 (Variant5 'CG-64 Gettysburg'; hull chosen at build; world dedup)",
-     "notes": "Embarks MH-60R x2 (unit default). No supply system. No real-world Yokosuka assignment of any named hull is asserted. REVISED 10 Oct 2026: Euromod - Modern US Navy (3390330875) retired usn_cg_ticonderoga_vls_2025 in the 9 Oct export and folded its fits into usn_cg_bunker_hill_vls_2024 (nine named ships; CG-64 Gettysburg is Variant5). Same retarget as integration/missions/retarget_units.py."
+     "notes": "Embarks MH-60R x2 (unit default). No supply system. No real-world Yokosuka assignment of any named hull is asserted. REVISED 10 Oct 2026: Euromod - Modern US Navy (3390330875) retired usn_cg_ticonderoga_vls_2025 in the 9 Oct export and folded its fits into usn_cg_bunker_hill_vls_2024 (nine named ships; CG-64 Gettysburg is Variant5). Same retarget as integration/mission-seeds/retarget_units.py."
     },
     {
      "asset_id": "asset:wpac:gw_csg_ddg1",
@@ -5343,7 +5343,7 @@
    "checks": [
     "No resident aircraft are named in R01. Check the current detachments. All types are SCENARIO CHOICES.",
     "Host status: UK Sovereign Base Area. Label the host carefully (register).",
-    "The us-air-and-land lens hints of US rotations at Akrotiri (U-2, RC-135, F-15E, F-16) are not research and are not populated. RAF RC-135 (boeing-rc135 Squadron6/7, Nation=UK) and RAF P-8 (usn_p8 Squadron4) exist if later research supports them.",
+    "The us-air-and-land lens hints of US rotations at Akrotiri (U-2, RC-135, F-15E, F-16) are not research and are not populated. RAF RC-135 (boeing_rc135 Squadron6/7, Nation=UK) and RAF P-8 (usn_p8 Squadron4) exist if later research supports them.",
     "Build no sanctuary or invulnerability rule from the word 'crucial'."
    ],
    "gaps": [
@@ -6988,7 +6988,7 @@
    "operator": "Russian Long-Range Aviation (R01:41, R03:70); country Russia",
    "populate_policy": "populate",
    "role_source": "SOURCE: one of the most critical LRA installations (R01:41, R03:70); table 'Maritime/Land Strike, Staging' (R03:86); home of 40th Composite Aviation Regiment, Tu-22M3 maritime-attack and land-strike (R03:72); bombers routinely fly extended combat sorties southward to launch standoff cruise missiles (R03:72, restored per fidelity check); imagery 2024-25 'confirmed' up to 35 Tu-22M3, 10 Tu-95MS, several Tu-160, An-12 (R03:72); Spider's Web June 2025 drone swarms 'successfully navigated the immense distance' and damaged Tu-22M3/Tu-95MS (R03:74); proximity to GIUK Gap, North Atlantic, Norwegian border (R03:70); redeployment strain guidance (R03:162).",
-   "position": "approx 68.15N 33.46E (approx, verify; public knowledge, consistent with R03:70 '92 km south of Murmansk'). In-game evidence: wp_airbase_1 header 'layout based on Olenegorsk/Olenya'; never placed at these coordinates in a repo mission (nearest proven placement air 44 NM, land 69 NM); one Kola positional precedent, 'chapter 4 - Kill Kuznetsov' (map centre 69.25,33.23), present in several copies, variants and backups (17 files under integration/missions and mods-source/_vanilla/user/missions); its Russian ship ids are partly stale (4 of 7 surface-ship types do not resolve with find_unit_file); vanilla world data port_ussr_severomorsk 69.0964,33.4313 (~57 NM N) and airports.ini XLMF Afrikanda 67.4567,32.7867. From candidate centre 42N 20E: x~808, z~1569 (~1,630 NM), inside loaded/saved extent. Runway/terrain fit for heavy bombers unvalidated; placement pending.",
+   "position": "approx 68.15N 33.46E (approx, verify; public knowledge, consistent with R03:70 '92 km south of Murmansk'). In-game evidence: wp_airbase_1 header 'layout based on Olenegorsk/Olenya'; never placed at these coordinates in a repo mission (nearest proven placement air 44 NM, land 69 NM); one Kola positional precedent, 'chapter 4 - Kill Kuznetsov' (map centre 69.25,33.23), present in several copies, variants and backups (17 files under integration/mission-seeds and mods-source/_vanilla/user/missions); its Russian ship ids are partly stale (4 of 7 surface-ship types do not resolve with find_unit_file); vanilla world data port_ussr_severomorsk 69.0964,33.4313 (~57 NM N) and airports.ini XLMF Afrikanda 67.4567,32.7867. From candidate centre 42N 20E: x~808, z~1569 (~1,630 NM), inside loaded/saved extent. Runway/terrain fit for heavy bombers unvalidated; placement pending.",
    "forces": [
     {
      "asset_id": "asset:rus:olenya_base",
@@ -7685,10 +7685,10 @@
      "source_basis": "R03:117 staging only (operator not stated)",
      "outcome": "exact",
      "unit_ids": [
-      "boeing-rc135"
+      "boeing_rc135"
      ],
      "scenario_quantity": "1",
-     "notes": "SCENARIO: boeing-rc135 Squadron2 (USAF ACC/55th Wing, generic livery), LoadoutVariant=SIGINT. Squadron3-5 (USAF tails) and 6-7 (RAF ZZ664/ZZ665) are named airframes that must be allocated once world-wide; Akrotiri, Souda, Andersen and Muharraq also map this unit. Authored as a separate aircraft entry (Nation=US) and kept out of the Evenes CustomAirGroup."
+     "notes": "SCENARIO: boeing_rc135 Squadron2 (USAF ACC/55th Wing, generic livery), LoadoutVariant=SIGINT. Squadron3-5 (USAF tails) and 6-7 (RAF ZZ664/ZZ665) are named airframes that must be allocated once world-wide; Akrotiri, Souda, Andersen and Muharraq also map this unit. Authored as a separate aircraft entry (Nation=US) and kept out of the Evenes CustomAirGroup."
     },
     {
      "asset_id": "asset:mpn:evenes_nasams_radar_1",
@@ -7740,7 +7740,7 @@
    "support_services": [
     "Ship ammunition supply: not applicable. The sources give Evenes no berth role, and the collection has no Norwegian replenishment hull (Maud: none).",
     "Aircraft turnaround/ordnance: nato_small_airbase has FlightDeck_AmmoCapacity 1,500,000 and accountable AirTorpedo 60, Ovod 120, Harpoon 120. Whether usn_p8 HAAWC, sonobuoys and AGM-84N rearm from that stock, and whether repeat sorties work: not established (test). An airbase_us clone defines no FlightDeck_AmmoCapacity, so its turnaround stock is not established either.",
-    "Air-to-air refuelling: not established. usn_p8, boeing-rc135 and raaf_f-35a declare no ReceiverSystems. otan_a330_mrtt Squadron5 (Nation=Norway, ProbeAndDrogue) is not sourced at Evenes and has no compatible receiver here, so it is not allocated.",
+    "Air-to-air refuelling: not established. usn_p8, boeing_rc135 and raaf_f-35a declare no ReceiverSystems. otan_a330_mrtt Squadron5 (Nation=Norway, ProbeAndDrogue) is not sourced at Evenes and has no compatible receiver here, so it is not allocated.",
     "Supplier restocking: not established.",
     "Fuel: not established.",
     "Repair: not established."
@@ -7800,10 +7800,10 @@
     "The F-35A presence is commonly described as a forward QRA detachment, not a main base. The pair is SCENARIO.",
     "Verify the NASAMS III battalion and counter-UAS claim; do not fabricate exact present-day defences (plan:24). R03:162 repeats R03:117.",
     "The basis for UK staging under a US agreement is not stated; the North Pole flight is undated.",
-    "R03:117 does not say whose RC-135 stages. The US pick is SCENARIO. Named-tail squadrons (boeing-rc135 Sq3-7) are allocated once world-wide.",
+    "R03:117 does not say whose RC-135 stages. The US pick is SCENARIO. Named-tail squadrons (boeing_rc135 Sq3-7) are allocated once world-wide.",
     "The visiting USN P-8A must be subtracted from the Jacksonville package allocation (one identity, one allocation).",
     "Individual P-8A names are register identities only. Per-airframe naming inside an AirGroup is not established.",
-    "Set an explicit LoadoutVariant on every usn_p8, usn_p_8a, boeing-rc135, raaf_f-35a and civ_as-350 entry: their AvailableLoadouts list no 'Default' (civ_as-350 lists only Transport), which is the map-panel crash pattern (docs/design-notes.md:495-527). preflight checks only [TaskforceNAircraftM]/[TaskforceNHelicopterM] entries, so a neutral civ_as-350 is not caught by it; vanilla missions do set LoadoutVariant on neutral aircraft entries.",
+    "Set an explicit LoadoutVariant on every usn_p8, usn_p_8a, boeing_rc135, raaf_f-35a and civ_as-350 entry: their AvailableLoadouts list no 'Default' (civ_as-350 lists only Transport), which is the map-panel crash pattern (docs/design-notes.md:495-527). preflight checks only [TaskforceNAircraftM]/[TaskforceNHelicopterM] entries, so a neutral civ_as-350 is not caught by it; vanilla missions do set LoadoutVariant on neutral aircraft entries.",
     "'Kill web' (R03:117) and 'impenetrable nets' (R03:111) are rhetoric: no perfect-detection rule. R03:166 is explicit simulation guidance to model shared situational awareness rather than individual vision cones. The SCENARIO choice departs from it: no scripted shared vision or detection beyond the engine's own datalink and contact sharing (the register invents no engine keys, plan:63). CHECK: the engine's real datalink and contact sharing between allied MPAs is untested.",
     "Mixed-nation AirGroup behaviour at a Norway-flagged base is untested (which nation and side a UK or US squadron spawns as). SEST RAAF Bases (for example airbase_raaf_tindal, Nation=Australia, with USAF squadrons) and DARWIN US SUPPLY already author US squadrons in Australia-flagged air groups, but the raaf-bases first-flight checks are open, so the behaviour is not established. Until tested, the three visitors are separate aircraft entries with their own Nation (US, UK, US) and LoadoutVariant (ASW, ASW, SIGINT), outside the Evenes CustomAirGroup.",
     "AirGroup sizing: the Evenes CustomAirGroup holds only the 4 at-base P-8A (usn_p8=Squadron5,4). The patrol airframe Vingtor is airborne only, so no identity appears both airborne and at base.",
@@ -8571,7 +8571,7 @@
    "operator": "France (Marine Nationale); host France (Brest roadstead)",
    "populate_policy": "context_only",
    "role_source": "SOURCE CLAIM: on a peninsula in the Brest roadstead; described as most secretive and heavily defended; exclusive base of the Force Océanique Stratégique (R03:150); hosts four Triomphant-class submarines; Fusiliers Marins perimeter defence (R03:152); R02:67 says France's strategic deterrence relies on [secure handling at Île Longue, not extracted], the base for its SSBN force (referent corrected per fidelity check 3); R01:61 repeats.",
-   "position": "Approx 48.3, -4.5 (approx, verify). Stock world data: campaigns/ports.ini [Port Brest Fr] 48.3904,-4.4861 Nation=France, no LandUnit (~5 NM); sea_links [Ushant - Brest]/[Brest - Ushant] to the Ushant TSS points 48.90,-5.80 / 48.78,-5.60 (~52-62 NM); patrol_areas [Manche Fishing] LinkedSpawns include Port Brest Fr civ_fv_. No proven mission placement within 138 NM (sea) or 481 NM (land); B1 pool 512 NM; builder east-west distance x1.49 here (B6). Proposed patrol box approx 48.15-48.33N, 4.8-5.2W (approx, verify), mostly open water west of Crozon and south of the Molène archipelago. CHECK: the Les Pierres Noires reef and lighthouse (about 48.31N, 4.91W) lies inside the box, and Béniguet (about 48.35N, 4.88W) lies just north of it (approx, verify; outside knowledge, below the land mask's resolution). Keep waypoints clear of both. The earlier 48.2-48.4N, 4.7-5.2W box took in the Pointe Saint-Mathieu / Le Conquet shore (global-land-mask scan at 0.01°: land at 48.34-48.40N, 4.70-4.78W; none in the trimmed box). Islets and reefs below mask resolution remain a CHECK. Run integration/missions/fix_land_positions.py on every waypoint before placement.",
+   "position": "Approx 48.3, -4.5 (approx, verify). Stock world data: campaigns/ports.ini [Port Brest Fr] 48.3904,-4.4861 Nation=France, no LandUnit (~5 NM); sea_links [Ushant - Brest]/[Brest - Ushant] to the Ushant TSS points 48.90,-5.80 / 48.78,-5.60 (~52-62 NM); patrol_areas [Manche Fishing] LinkedSpawns include Port Brest Fr civ_fv_. No proven mission placement within 138 NM (sea) or 481 NM (land); B1 pool 512 NM; builder east-west distance x1.49 here (B6). Proposed patrol box approx 48.15-48.33N, 4.8-5.2W (approx, verify), mostly open water west of Crozon and south of the Molène archipelago. CHECK: the Les Pierres Noires reef and lighthouse (about 48.31N, 4.91W) lies inside the box, and Béniguet (about 48.35N, 4.88W) lies just north of it (approx, verify; outside knowledge, below the land mask's resolution). Keep waypoints clear of both. The earlier 48.2-48.4N, 4.7-5.2W box took in the Pointe Saint-Mathieu / Le Conquet shore (global-land-mask scan at 0.01°: land at 48.34-48.40N, 4.70-4.78W; none in the trimmed box). Islets and reefs below mask resolution remain a CHECK. Run integration/mission-seeds/fix_land_positions.py on every waypoint before placement.",
    "forces": [
     {
      "asset_id": "asset:eur:ile_longue_ssbn_force",

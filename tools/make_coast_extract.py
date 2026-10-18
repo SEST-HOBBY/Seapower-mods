@@ -27,7 +27,7 @@ import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-sys.path.insert(0, str(ROOT / "integration" / "missions"))
+sys.path.insert(0, str(ROOT / "integration" / "mission-seeds"))
 import briefing_maps  # noqa: E402  (the Natural Earth fetch/cache lives there)
 
 OUT_DIR = ROOT / "integration" / "campaign" / "geo"

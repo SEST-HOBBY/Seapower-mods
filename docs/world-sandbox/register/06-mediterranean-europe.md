@@ -435,7 +435,7 @@ Rejected airfield alternatives:
 - No named base.
 - No modern UK SAR helicopter. rn_sea_king_hc4 squadrons end in 2013-2016.
 - UK F-35B: missing_fit.
-- Exact RAF RC-135 (boeing-rc135 Sq6/7) and RAF P-8 (usn_p8 Sq4) units exist if later research supports them.
+- Exact RAF RC-135 (boeing_rc135 Sq6/7) and RAF P-8 (usn_p8 Sq4) units exist if later research supports them.
 
 ---
 

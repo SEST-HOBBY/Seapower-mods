@@ -127,9 +127,9 @@ The other two AIM-424 files share one id, `usn_aim-424`: US Naval Aviation
 order wins that id; they differ again (1,600 against 2,650 knots top speed,
 250 against 350 NM). All four are 680 kg, as the Navy's fact file says.
 
-Nothing is changed for this note. Options, for the player to choose:
-1. leave the YF-23 its author's own round (the current state, and the
-   catalog's position since the YF-23 gained it upstream);
+Nothing was changed for this note. Options, for the player to choose:
+1. leave the YF-23 its author's own round (the state until 14 Oct, and the
+   catalog's position from when the YF-23 gained it upstream until then);
 2. give the YF-23 SEST's round, so every AIM-424 in the collection flies
    alike - a whole-file override of `usaf_yf-23_black_widow_ii.ini`, stations
    15-16 only, which then has to follow every YF-23 update;
@@ -139,27 +139,26 @@ Nothing is changed for this note. Options, for the player to choose:
 The APKWS Redback draft cites the AIM-424 as a precedent; it should name
 which of these it means.
 
-**Decision (13 Oct 2026, the player): option 1.** The YF-23 keeps its
-author's round.
+**Decision (13 Oct 2026, the player): option 1**, the YF-23 to keep its
+author's round. Replaced the same day.
 
-**Then (13 Oct 2026, the player): U.S. Navy 2027's flight model for every
-AIM-424, no 3D model changes yet.** On `feature/aim424-usn2027-flight-model`:
-SEST's round takes U.S. Navy 2027's `[Guidance]` key for key (`FLIGHT` in
-`integration/common/aim424.py`), and SEST Collection Fixes lays the same keys
-over the YF-23's round with an `#!extend`
-(`ammunition_overwrite/yf23_aim424_internal_FlightModel_SEST.ini`, read by the
-Anchor Chain preloader). The table above shows the figures before that change.
-Each round keeps its own model, warhead and effects, so the YF-23 still fires
-its author's round on its own mesh; option 3 (a real mesh for SEST's round) is
-still open.
+**Then (13 Oct 2026, the player; never merged, replaced on 14 Oct): every
+AIM-424 to fly U.S. Navy 2027's flight model, no 3D model changes yet.** Built
+on `feature/aim424-usn2027-flight-model`: SEST's round was to take U.S. Navy
+2027's `[Guidance]` key for key (`FLIGHT` in that branch's
+`integration/common/aim424.py`), and SEST Collection Fixes was to lay the same
+keys over the YF-23's round with an `#!extend`
+(`ammunition_overwrite/yf23_aim424_internal_FlightModel_SEST.ini`). Each round
+was to keep its own model, warhead and effects. The branch is not merged and
+should not be: the 14 Oct decision below replaces it.
 
-**Which plays, and which is closest to the real missile.** U.S. Navy 2027
-(load order 21) outranks US Naval Aviation (73), so the `usn_aim-424` in game
-is U.S. Navy 2027's flight figures on US Naval Aviation's `aim-424.obj` model
-(U.S. Navy 2027 points at that asset). Against what the Navy published (680
-kg, 4.11 m, 34.3 cm, "in excess of 250" NM, a solid motor read as two-stage,
-blast-fragmentation) - speed and seeker are not public, so the rest is
-estimate:
+**Which played before 14 Oct, and which is closest to the real missile.** U.S.
+Navy 2027 (load order 21) outranks US Naval Aviation (73), so the `usn_aim-424`
+in game was U.S. Navy 2027's flight figures on US Naval Aviation's
+`aim-424.obj` model (U.S. Navy 2027 points at that asset). Against what the
+Navy published (680 kg, 4.11 m, 34.3 cm, "in excess of 250" NM, a solid motor
+read as two-stage, blast-fragmentation) - speed and seeker are not public, so
+the rest is estimate:
 - US Naval Aviation's own figures are the least plausible: 1,600 knots
   (the same-diameter AIM-174B is 2,650 in the collection), a 15-degree loft,
   exactly 250 NM. Its model is the best: the real shape.
@@ -176,3 +175,92 @@ Power China Test Group and Euromod), the largest (264 exported files) and the
 most often changed (15 exports); U.S. Navy 2027 is one author, changed its
 AIM-424 most recently (10 Oct 2026), and is fragile by construction (alias
 patches over Modern US Navy hulls); the YF-23 is the smallest (4 exports).
+
+**Now (14 Oct 2026, the player): every AIM-424 flies SEST's own flight
+model on SEST's own 3D model block.** This replaces both 13 Oct decisions.
+SEST's round, `sest_aim-424` in `integration/common/aim424.py`, is not
+changed: its figures are the right-hand column of the table above, on the
+AGM-88G stand-in. SEST Collection Fixes lays it over every other AIM-424 id
+with one Anchor Chain `#!extend` per id in `ammunition_overwrite/`, the folder
+the Euromod Anchorchain Expansion (3784474738) patches 90 rounds from
+(`usn_rim-161*_OVWR.ini` among them). `build_aim424` in
+`integration/collection-fixes/build_patch.py` reads every value from
+`aim424.py` when the pack is built, so the stubs cannot drift from SEST's
+round. Each stub sets:
+- SEST's `[Guidance]`, all 54 keys: motor, loft, datalink and terminal
+  handover, seeker, agility, envelope, flight time, ECCM;
+- SEST's model block: every key of `[Models]`, `[Colliders]` and `[col_main]`,
+  and the four encyclopedia camera keys of `[General]`. That block is US
+  Naval Aviation's `usn_agm-88g` key for key; the build checks it on every run;
+- the round's own effect positions, moved to `0,0,-0.04`, where US Naval
+  Aviation's AGM-88G puts all three of its effects. The effects themselves
+  stay the author's.
+
+A fifth AIM-424 file came in with the 13 Oct export: the FQ-44 Fury's
+`fury_aim424` (3804868806), a copy of the YF-23's round (same figures, a
+0.25 s drop) on a copy of its mesh. It is covered too. Positions are from
+`data/load-order.preview.txt`; carriers are the winning aircraft files.
+
+| Id | Round the stub lands on | Carried by (loadout: stations) | Stub file | Keeps of its own |
+|---|---|---|---|---|
+| `usn_aim-424` | U.S. Navy 2027's (3606774881, 15th), which outranks US Naval Aviation's (3737267013, 67th) | F/A-18E, F/A-18F, F/A-18F Block III (`MH_CAP_424`: 32-33, `MH_LRAAM`: 30-33, `MH_PenetratorLRAAM`: 30-31; SEST Growler NGJ+MALICE's forks win these files); F-35C (`AirToAirInterceptLongRange`, `AirToAirLRAAM`, `AirToAirLRAAMclean`: 5-6; SEST F-35C JATM's fork); ROK F-35A, Euromod-South Korea Navy (`AirToAirInterceptLongRange`: 5-6) | `usn_aim-424_OVWR.ini`, the name of U.S. Navy 2027's own overwrite of this round, so it replaces it (below) | warhead (fragmentation, Power 20, Pk 1.02, 15 m fuze), mass 680, AmmoPoints 1010, signature, effects (SAM booster plume, a sustainer plume from 31 s), name; `RangeGate=2` and `SizeGate=1.1`, seeker gating keys SEST's round does not set and an extend cannot remove |
+| `yf23_aim424_internal` | YF-23 Black Widow II's (3796349767, 164th), the only copy | YF-23 (`AirToAirIntercept`: 15-16, internal) | `yf23_aim424_internal_SEST.ini` | warhead (type 0, Power 23, Pk 0.85, fuze distance 40), mass 680.4, AmmoPoints 2000, signature, effects (its own 58 s motor plume), name |
+| `fury_aim424` | the FQ-44 Fury's (3804868806, 73rd), the only copy | FQ-44 Interceptor, `usn_fury_interceptor` (`AirToAirIntercept`: 5, 6, 15, 16) | `fury_aim424_SEST.ini`; also `ResourcesMeshRotation=0,0,0` in place of the author's `0,0,45`, which turned his own mesh | as the YF-23's, with its own motor plume and smoke trail, and its `[Sounds]` |
+
+U.S. Navy 2027 patches its own `usn_aim-424` with
+`ammunition_overwrite/usn_aim-424_OVWR.ini`: a multi-stage block (the
+Euromod Anchorchain Expansion's keys) whose `Stage1Mesh=aim-424` names a part
+of the `aim-424.obj` model, with a 31 s smokeless motor plume and motor audio.
+That block does not fit the AGM-88G model, and in what order two extends of
+one id apply has not been seen, so the SEST stub takes that file's name and
+replaces it. The file's camera and `Resources*` keys repeat the round's own
+values; the build checks that, and stops if the file changes.
+
+What `build_aim424` stops on, so nothing changes silently: an AIM-424 file
+joining or leaving the export; a round's winning copy moving to another mod;
+a round gaining or losing any key the stub sets; a key a round sets in a laid
+section that SEST's round does not (an extend cannot remove a key, and
+`RangeGate`, `SizeGate` and the Fury's `ResourcesMeshRotation` are the only
+three recorded, each with its reason); another mod extending one of the ids;
+U.S. Navy 2027's overwrite changing; SEST's model block no longer reading as
+US Naval Aviation's `usn_agm-88g`.
+
+Option 2 (a whole-file YF-23 override) is not needed: the round is
+overridden, and the YF-23's aircraft file stays its author's. Option 3 (a
+real mesh for SEST's round) is still open; since the stubs read `aim424.py`,
+a change to SEST's model block now changes all four ids at once. Each id's
+encyclopedia name and description stay its own mod's; none of the other
+three quotes a flight figure.
+
+**Not demonstrated in game:**
+- that these stubs apply at all. SEST has not shipped an
+  `ammunition_overwrite/` file before, and none has been seen in game, least
+  of all one that sets `[Models]` keys. The Euromod Anchorchain Expansion
+  (`usn_aim-120d_OVWR.ini` and others) and U.S. Navy 2027 ship such files.
+  The 13 Oct PC capture lists AnchorChain.Preloader 1.0.0 loaded
+  (`docs/workshop-refresh-20261013-review.md`, section 5). Without the
+  preloader none of the three stubs applies, and each round flies and looks
+  as its author shipped it;
+- that a SEST Collection Fixes file of the same name replaces U.S. Navy 2027's
+  `usn_aim-424_OVWR.ini` (the rule `STALE_OVERWRITES` relies on, also not seen).
+  If it does not, both extends land on `usn_aim-424` and the stage block
+  sits over the AGM-88G;
+- the RIM-7 risk. SEST's own round once fell back to the `usn_rim-7`
+  asset-bundle stand-in, a short fat Sea Sparrow, after one extra key
+  (`ResourcesMeshScale`) in its model block (the note in `aim424.py`). The
+  stubs carry SEST's block key for key and the build refuses a model key it
+  does not know, but a block assembled by `#!extend` from base keys plus
+  overwrite keys has not been seen to render the same as one written whole.
+  A Sea Sparrow under the YF-23, the Fury or a Super Hornet's 424 fit is
+  this risk: bring back Player.log;
+- the effects' timing. The YF-23's and the Fury's motor effects run 58 s
+  (`Duration=58` in their effect files), for their author's single burn;
+  SEST's motor burns 4 s then 20 s, so on those two rounds the plume outlasts
+  the motor. On `usn_aim-424` the sustainer plume starts at 31 s, after SEST's
+  motor has stopped. The effects were left as the authors' on purpose; only
+  the positions moved, because they belong to the mesh.
+
+Where to look: Southern Watch D6 Long Reach and SEST Banda - Black Widow
+Debut field YF-23s on `AirToAirIntercept` (two `yf23_aim424_internal` each);
+the Super Hornets' MH CAP 424, MH Interceptor 424 and MH Penetrator 424 fits
+carry `usn_aim-424`.

@@ -54,12 +54,28 @@ DLL in every mod folder the game's FileManager knows - a pack in StreamingAssets
 as well as on the Workshop - and starts each class marked `[ACPlugin]` that
 implements `IAnchorChainMod`. The SEST class builds a component on a
 GameObject kept across scenes; that component looks for Unity VideoPlayers
-for ten minutes after start and half a minute after each scene load, and
-swaps the first one that loops a clip from the game's data. A one-shot film
+every half second for the whole session, and swaps the one playing the
+menu's clip from the game's data. Until 1.2.1 (16 Oct 2026) it looked only
+for ten minutes after start and half a minute after each scene load; the
+game builds the menu's player anew whenever the main menu comes back, and
+coming back from a campaign loads no scene, so after a long campaign the
+stock film played. A one-shot film
 (an intro the game may wait on) and the mission browser's file-based films
 are never touched; if Unity cannot play the SEST film the game's clip is put
 back; `sest_menu.ini` can name the clip or turn the plugin off. Every
 VideoPlayer it sees is logged to Player.log as `[SEST Menu]`.
+
+Since 1.3.0 (17 Oct 2026) the plugin also guards the campaign map. Back on a
+linear campaign's map after a mission, the map recentres on the next mission
+while the mission scene is still unloading, and drawing a tile then throws a
+`NullReferenceException` in `SeapowerTileMap.LoadTile`; the game shows its
+error box and the rest of the return step is cut short (seen on 16 Oct 2026
+under Dynamic Campaign Mod 0.25.0, whose patch on `LoadTiles` is in the
+stack). The plugin puts a Harmony finalizer on `LoadTile`, through the
+HarmonyX BepInEx has already loaded and found by name at run time, that drops
+that one exception and skips the tile; any other exception goes on as
+before. `TileGuard=0` in `sest_menu.ini` turns it off. It is the only part of
+the plugin that patches game code, and it has not been seen in game.
 
 The first test (10 Oct 2026, game 0.8.5) answered the open questions from
 Player.log: Anchor Chain loaded and started the plugin, which found the menu
@@ -68,3 +84,39 @@ its looping-only rule, left it alone. The plugin now swaps the clip
 `sest_menu.ini` names (`ClipName=main_menu`, shipped), keeps the clip's
 sound track playing on a second player without a picture when it has one,
 and puts the SEST film back if the game sets its clip again.
+
+### The pictures log (14 Oct 2026, not yet run in the game)
+
+Three pictures are still the game's own: the startup screen, the still
+between menu pages and the Mod Manager's background
+(`docs/workshop-refresh-20261013-review.md`, section 9). Before one can be
+swapped the plugin has to say which texture it is and what the UI binds it
+to, so since 14 Oct the plugin also writes a stock-pictures log when
+`sest_menu.ini` has `Pictures=1` (on unless set to 0; the film swap is the
+same either way). Every line starts `[SEST Pictures]`. A pass writes (a)
+every loaded Texture2D, RenderTexture and Sprite of 256 px or more each way,
+largest first, with size and format; (b) every UnityEngine.UI Image or
+RawImage showing a texture; (c) from every NoesisGUI view, each Image or
+MediaElement and each element whose Background or Fill is an ImageBrush -
+the view it sits in, its Source (a BitmapImage's URI, or a TextureSource's
+Unity texture), the property's binding path where it has one, whether it is
+visible, and its DataContext's type. Passes run at the first Update, 15 s
+later, every two minutes for ten, 2 s and 20 s after each scene load, and
+once each time the Mod Manager appears (a Noesis element whose type or Name
+says ModMenu or ModManager, looked for every 3 s while the menu's scene,
+`background`, is loaded; five such passes at most). Each part of a pass
+stops at 300 lines and says `... N more`; a pass walks at most 20,000 Noesis
+elements; a Noesis or UI member the game's build lacks is noted once as
+`skipped:` and passed over. The Noesis and uGUI types are found by name at
+run time - nothing beyond Unity's CoreModule and VideoModule is referenced -
+so the log is the first test of those names in the game.
+
+Reading it, after `tools\capture-context.ps1` (which now keeps the last
+20,000 lines of Player.log): the startup picture is the `noesis ... in
+LoadScreenView` line of the first passes, matched to the `texture2d` line
+of the same name in part (a) - the review expects `background1`, bound to
+`BackgroundImage`; the still between pages is the Image or ImageBrush in
+the main menu's own view whose Source is not the film's TextureSource, in
+the passes while the menu is up; the Mod Manager's background is in the
+pass headed `Mod Manager on screen`. Those names are the review's
+expectation: no pass has been run in the game yet.

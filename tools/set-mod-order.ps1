@@ -52,6 +52,19 @@
     canonical mod the game has discovered but parked beyond NumberOfModFiles,
     where it was previously invisible.
 
+    SEST'S OWN WORKSHOP ITEM, 3812461539 (lib\common.ps1, $SestOwnWorkshopIds),
+    is the published copy of the SEST_Integration folder, and since 14 Oct
+    2026 this PC can run it as a subscriber. The game lists it by its id
+    where the local folder would be SEST_Integration, and the two must never
+    load together. So the id is not a stale Workshop entry: with the local
+    folder absent (-AddMissing checks StreamingAssets) it takes
+    SEST_Integration's position, 1, enabled; with the local folder present,
+    SEST_Integration keeps position 1 and the id is dropped with a warning
+    that says to unsubscribe (the game lists it again at its next scan while
+    the subscription stands). Never both. Without -AddMissing the disk is not
+    read, so the settings decide: SEST_Integration when the game lists it,
+    else the id when the game lists that.
+
 .EXAMPLE
     # game CLOSED, from the repo root:
     powershell -ExecutionPolicy Bypass -File .\tools\set-mod-order.ps1 -DryRun         # preview
@@ -61,6 +74,11 @@
 param(
     [string]$SettingsPath = (Join-Path $env:USERPROFILE "AppData\LocalLow\Triassic Games\Sea Power\usersettings.ini"),
     [string]$StreamingAssetsDir,
+    # Steam's workshop\content\1286220 folder, when auto-detection is not
+    # wanted (a second library; the tests). Only read with -AddMissing.
+    [string]$WorkshopContentDir,
+    # The canonical order; the tests pass their own.
+    [string]$TokensPath,
     [switch]$AddMissing,
     [switch]$Force,
     [switch]$DryRun
@@ -70,7 +88,7 @@ $ErrorActionPreference = "Stop"
 $scriptDir = if ($PSScriptRoot) { $PSScriptRoot } else { Split-Path -Parent $MyInvocation.MyCommand.Path }
 . (Join-Path $scriptDir "lib\common.ps1")
 
-$tokensPath = Join-Path (Split-Path -Parent $scriptDir) "data\load-order.tokens.txt"
+$tokensPath = if ($TokensPath) { $TokensPath } else { Join-Path (Split-Path -Parent $scriptDir) "data\load-order.tokens.txt" }
 
 if (-not (Test-Path -LiteralPath $SettingsPath)) { throw "settings file not found: $SettingsPath" }
 if (-not (Test-Path -LiteralPath $tokensPath)) { throw "canonical order not found (git pull?): $tokensPath" }
@@ -140,7 +158,11 @@ $workshopIds = @{}
 if ($AddMissing) {
     $numericTokens = @($canonical | Where-Object { $_ -match '^\d+$' })
     $bestCount = 0; $bestDir = $null
-    foreach ($lib in Get-SteamLibraries) {
+    if ($WorkshopContentDir) {
+        if (-not (Test-Path -LiteralPath $WorkshopContentDir)) { throw "workshop content folder not found: $WorkshopContentDir" }
+        $bestDir = $WorkshopContentDir
+    }
+    foreach ($lib in $(if ($bestDir) { @() } else { Get-SteamLibraries })) {
         $content = Join-Path $lib "workshop\content"
         if (-not (Test-Path -LiteralPath $content)) { continue }
         foreach ($app in Get-ChildItem -LiteralPath $content -Directory -ErrorAction SilentlyContinue) {
@@ -157,11 +179,51 @@ if ($AddMissing) {
     }
 }
 
+# --- SEST's own Workshop item -------------------------------------------------
+# The published copy of SEST_Integration. The game lists it as 3812461539 where
+# the local folder would be SEST_Integration; Steam's folder for it sits in the
+# workshop content folder with the other mods. Known from the settings (the
+# game has listed it) or, with -AddMissing, from the disk.
+$sestWorkshopId = $null
+foreach ($id in $SestOwnWorkshopIds) {
+    if ($current.Contains($id) -or $workshopIds.ContainsKey($id)) { $sestWorkshopId = $id; break }
+}
+
 # --- build the final order ---------------------------------------------------
 $final = New-Object System.Collections.Generic.List[string]
 $flags = @{}
 $added = @()
 foreach ($tok in $canonical) {
+    if ($tok -eq $SestDistToken) {
+        # SEST's slot, position 1: the local folder, or SEST's own Workshop
+        # item standing in for it. Never both - the game must not load two
+        # copies of the pack. With -AddMissing the disk decides: a listed
+        # SEST_Integration whose folder is gone is a dead entry (the state of
+        # 13-14 Oct 2026, when the install was replaced by the subscription),
+        # and the Workshop copy takes the slot instead.
+        $localListed = $current.Contains($tok)
+        $localOnDisk = $installed.ContainsKey($tok)
+        if ($localListed -and -not ($AddMissing -and -not $localOnDisk -and $sestWorkshopId)) {
+            $final.Add($tok); $flags[$tok] = $current[$tok]; continue
+        }
+        if ($AddMissing -and $localOnDisk) {
+            $final.Add($tok); $flags[$tok] = "True"; $added += $tok; continue
+        }
+        if ($sestWorkshopId) {
+            $final.Add($sestWorkshopId)
+            $flags[$sestWorkshopId] = $(if ($current.Contains($sestWorkshopId)) { $current[$sestWorkshopId] } else { "True" })
+            if (-not $current.Contains($sestWorkshopId)) { $added += $sestWorkshopId }
+            Write-Host ("SEST loads from its Workshop item: {0} takes {1}'s position 1 (no local folder in StreamingAssets)" -f $sestWorkshopId, $tok) -ForegroundColor Green
+            if ($localListed) { Write-Warning "dropped $tok - its folder is not in StreamingAssets; the Workshop copy $sestWorkshopId stands in for it" }
+            continue
+        }
+        if ($AddMissing) {
+            Write-Warning "canonical pack not installed in StreamingAssets, and no Workshop copy of it either (run install-sest-packs.ps1): $tok"
+        } else {
+            Write-Warning "in canonical order but not in your settings (skipped): $tok"
+        }
+        continue
+    }
     if ($current.Contains($tok)) {
         $final.Add($tok)
         $flags[$tok] = $current[$tok]
@@ -189,8 +251,10 @@ foreach ($tok in $canonical) {
     if ($tok -like "SEST_*" -and $AddMissing) {
         Write-Warning "canonical pack not installed in StreamingAssets (run install-sest-packs.ps1): $tok"
     } elseif ($tok -match '^\d+$' -and $AddMissing) {
-        # Interpolation, not -f: PowerShell binds + tighter than the format
-        # operator, so "{0}..." -f $tok + "more" appends into the placeholder.
+        # Interpolation, not -f: the format operator binds tighter than +, so
+        # "a {0}" + "b {0}" -f $tok formats only the right-hand string and
+        # leaves the left one's placeholder as it is (checked in pwsh 7.6:
+        # "a {0}b x").
         Write-Warning ("workshop mod $tok is in the canonical order, but Steam has not " +
                        "downloaded it and the game has never listed it - so there is " +
                        "nothing to place. Subscribe in Steam, let it finish downloading, " +
@@ -207,7 +271,14 @@ foreach ($tok in $current.Keys) {
         # leftover ENABLED kept the phantom KJ-500 mod alive as entry 144,
         # implicated in the duplicate-key crash on quit. Drop numeric
         # unknowns; keep non-numeric ones (local packs we do not manage).
-        if ($tok -match '^\d+$') {
+        # SEST's own item is the one numeric token that is not stale: it is
+        # dropped only because the local folder holds SEST's slot, and the
+        # warning says what to do about the subscription.
+        if ($SestOwnWorkshopIds -contains $tok) {
+            # Interpolation, not -f (see the note above on + and -f).
+            Write-Warning ("dropped SEST's own Workshop item ${tok}: $SestDistToken holds SEST's position 1 and the game " +
+                           "must never load both copies. Unsubscribe from $tok in Steam, or the game lists it again at its next scan.")
+        } elseif ($tok -match '^\d+$') {
             Write-Warning "dropped stale workshop entry (game re-adds it if still subscribed): $tok"
         } elseif ($tok -like "SEST_*") {
             # Our own packs: the canonical list is authoritative for them, so a
@@ -241,7 +312,7 @@ $final | Select-Object -First 25 | ForEach-Object -Begin { $i = 0 } -Process {
 if ($added) { Write-Host "`nADDED and enabled: $($added -join ', ')" -ForegroundColor Green }
 
 # A SEST pack sitting disabled is the usual reason "the patch did nothing".
-$sestOff = $final | Where-Object { $_ -like "SEST_*" -and $flags[$_] -eq "False" }
+$sestOff = $final | Where-Object { ($_ -like "SEST_*" -or $SestOwnWorkshopIds -contains $_) -and $flags[$_] -eq "False" }
 if ($sestOff) { Write-Warning "SEST packs present but DISABLED: $($sestOff -join ', ')" }
 $disabled = ($flags.GetEnumerator() | Where-Object { $_.Value -eq "False" }).Name
 if ($disabled) { Write-Host "`npreserved as DISABLED: $($disabled -join ', ')" }

@@ -108,7 +108,7 @@
 - In-game evidence:
   - wp_airbase_1, whose header says its layout is 'based on Olenegorsk/Olenya'.
   - No repo mission has placed it at these coordinates. The nearest proven placements are 44 NM by air and 69 NM by land.
-  - One Kola positional precedent: 'chapter 4 - Kill Kuznetsov' (map centre 69.25,33.23), present in several copies, variants and backups (17 files under integration/missions and mods-source/_vanilla/user/missions). Its Russian ship ids are partly stale: 4 of its 7 surface-ship types do not resolve with find_unit_file.
+  - One Kola positional precedent: 'chapter 4 - Kill Kuznetsov' (map centre 69.25,33.23), present in several copies, variants and backups (17 files under integration/mission-seeds and mods-source/_vanilla/user/missions). Its Russian ship ids are partly stale: 4 of its 7 surface-ship types do not resolve with find_unit_file.
   - port_ussr_severomorsk sits about 57 NM north (69.0964,33.4313), and airports.ini XLMF Afrikanda at 67.4567,32.7867.
 - From the candidate centre 42N 20E: x about 808, z about 1,569 (about 1,630 NM). Runway and terrain fit for the heavy bombers is unvalidated.
 

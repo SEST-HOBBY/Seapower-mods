@@ -21,15 +21,16 @@ So this walks the references instead of the files:
 
     python3 tools/preflight.py [mission name]   # the active mission by default;
                                                 # also finds a campaign mission
-    python3 tools/preflight.py --all            # every mission the installer deploys
+    python3 tools/preflight.py --all            # every seed under integration/mission-seeds/
 
 Exits non-zero if anything dangles; --all is narrower, see below.
 
-The installer copies every .ini under integration/missions/ into the game
-(drafts and scenarios included; only the old "<name> backup-<stamp>"
-snapshots are skipped), and each opens in the editor - so a defect that
-crashes the editor is live in every file that carries it, not just the one
-the tooling refreshes. --all is the sweep for that. It lists every dangling
+integration/mission-seeds/ holds the early scenarios and editor saves the
+side operations are refined from (drafts and scenarios included; only the old
+"<name> backup-<stamp>" snapshots are skipped). Since 17 Oct 2026 the installer
+no longer copies them into the game, but each still opens in the editor on a
+developer's PC, and a defect that crashes the editor is live in every file
+that carries it. --all is the sweep for that. It lists every dangling
 reference in every deployed mission, but only the editor crash (and a SEST
 pylon store with no file, as in the default run) fails it. The older saves
 also name units and fits that mods have since dropped or renamed, which the
@@ -42,7 +43,7 @@ import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-MISSIONS = ROOT / "integration" / "missions"
+MISSIONS = ROOT / "integration" / "mission-seeds"
 sys.path.insert(0, str(MISSIONS))
 sys.path.insert(0, str(ROOT / "integration"))
 from refine_civ_traffic import winning_file  # noqa: E402
@@ -166,7 +167,7 @@ def check_mission(mission):
                     f"line {ln}: {uid} names no LoadoutVariant and its winning file "
                     f"offers no 'Default' to fall back on\n"
                     f"        has: {', '.join(avail)}\n"
-                    f"        fix: integration/missions/fix_loadout_variants.py --all --write")
+                    f"        fix: integration/mission-seeds/fix_loadout_variants.py --all --write")
                 problems.append(crashes[-1])
         pending = None
         saw_variant = False
@@ -252,7 +253,7 @@ def main():
     ap = argparse.ArgumentParser(description=__doc__.split("\n")[0])
     ap.add_argument("mission", nargs="*", help="mission name without .ini (default: the active mission)")
     ap.add_argument("--all", action="store_true",
-                    help="every mission the installer deploys; only the editor crash fails it")
+                    help="every seed under integration/mission-seeds/; only the editor crash fails it")
     args = ap.parse_args()
 
     if args.all:
@@ -262,7 +263,7 @@ def main():
         mission = MISSIONS / f"{name}.ini"
         if not mission.exists():
             # Campaign missions live inside their pack rather than in
-            # integration/missions, so name one ("01 White Water") and it is
+            # integration/mission-seeds, so name one ("01 White Water") and it is
             # found there too - the checks are the same and the campaign
             # deserves them.
             found = sorted((ROOT / "integration" / "campaign").rglob(f"{name}.ini"))

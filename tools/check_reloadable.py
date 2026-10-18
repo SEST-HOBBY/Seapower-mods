@@ -43,7 +43,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "integration"))
-sys.path.insert(0, str(ROOT / "integration" / "missions"))
+sys.path.insert(0, str(ROOT / "integration" / "mission-seeds"))
 sys.path.insert(0, str(ROOT / "integration" / "replenishment"))
 import build_patch as builder                                    # noqa: E402
 from common.ras import _WEAPON_BLOCK, _HAS_MAGAZINE              # noqa: E402

@@ -80,14 +80,38 @@ def live_sest(live, assets):
     return ", ".join(hits) or "none", (m.group(1) if m else "not captured")
 
 
+STAMP = r"\d{4}-\d\d-\d\d(?: \d\d:\d\d)?|unknown"
+
+
 def folders(text):
-    """{id: (name, updated)} from workshop-subscriptions.txt's id lines."""
+    """{id: (name, updated, folder)} from workshop-subscriptions.txt's id lines.
+
+    Since 14 Oct 2026 "updated" is Steam's timeupdated for the item (date and
+    time) and a second column, "folder", carries the folder's last-write
+    time; a capture before that has only the folder's date as "updated", and
+    folder is None for it.
+    """
     out = {}
     for line in (text or "").splitlines():
-        m = re.match(r"^(\d{6,})\s+(.*?)\s+updated (\S+)\s*$", line)
+        m = re.match(rf"^(\d{{6,}})\s+(.*?)\s+updated ({STAMP})(?:\s+folder ({STAMP}))?\s*$", line)
         if m:
-            out[m.group(1)] = (m.group(2), m.group(3))
+            out[m.group(1)] = (m.group(2), m.group(3), m.group(4))
     return out
+
+
+def moved(then, now):
+    """Whether a mod's update stamp changed between two captures, like with like.
+
+    Two captures that carry Steam's time are compared on it; against a
+    capture that has only the folder's date, the folder dates are compared,
+    which an update that only rewrites files inside existing subfolders does
+    not move. Returns (changed, stamp then, stamp now).
+    """
+    if then[2] is not None and now[2] is not None:
+        return then[1] != now[1], then[1], now[1]
+    a = then[1] if then[2] is None else then[2]
+    b = now[1] if now[2] is None else now[2]
+    return a[:10] != b[:10], a[:10], b[:10]
 
 
 def field(text, label):
@@ -158,7 +182,7 @@ def main():
     subs_now = (ROOT / SUBS).read_text(encoding="utf-8", errors="replace")
     subs_then = at(since, SUBS) if since else None
     b_now, b_then = folders(subs_now), folders(subs_then)
-    names = {i: n for i, (n, _) in {**b_then, **b_now}.items()}
+    names = {i: row[0] for i, row in {**b_then, **b_now}.items()}
     for i in SEST_OWN:
         names[i] = f"{names.get(i, 'SEST')} [SEST's own Workshop item]"
     catalog = json.loads((ROOT / "data" / "mod-catalog.json").read_text(encoding="utf-8-sig"))
@@ -182,7 +206,9 @@ def main():
         if (SNAP / "environment.txt").is_file() else ""
     changelog_line, buildid, unity = game_version()
 
-    updated = sorted(i for i in b & set(b_then) if b_now[i][1] != b_then[i][1])
+    updated = sorted(i for i in b & set(b_then) if moved(b_then[i], b_now[i])[0])
+    steam_both = all(b_then[i][2] is not None and b_now[i][2] is not None for i in b & set(b_then)) \
+        and bool(b & set(b_then))
     exported = file_changes(since_export) if since_export else {}
     man_now = manifest((ROOT / "mods-source" / "_export-manifest.csv").read_text(encoding="utf-8-sig"))
     man_then = manifest(at(since_export, MANIFEST)) if since_export else {}
@@ -219,10 +245,14 @@ def main():
          f"  pending (NeedsDownload / NeedsUpdate): {pending}", ""]
     L += ["SINCE THE PREVIOUS CAPTURE", "  new folders:"] + listing(b - set(b_then), names)
     L += ["  removed folders:"] + listing(set(b_then) - b, names)
-    L += ["  updated on the Workshop (folder date changed - the folder's last-write time, which",
-          "  an update that only rewrites files inside existing subfolders does not move; the",
-          "  exported files below are the full record):"] + [
-        f"  {i}  {names.get(i, '')}  {b_then[i][1]} -> {b_now[i][1]}" for i in updated]
+    L += (["  updated on the Workshop (Steam's timeupdated for the item changed, from",
+           "  appworkshop_1286220.acf; the exported files below are the full record):"] if steam_both else
+          ["  updated on the Workshop (folder date changed - the folder's last-write time, which",
+           "  an update that only rewrites files inside existing subfolders does not move; one of",
+           "  the two captures predates Steam's timeupdated in the capture, 14 Oct 2026; the",
+           "  exported files below are the full record):"]) + [
+        f"  {i}  {names.get(i, '')}  {moved(b_then[i], b_now[i])[1]} -> {moved(b_then[i], b_now[i])[2]}"
+        for i in updated]
     if not updated:
         L.append("  (none)")
     L += [f"  exported files changed since the previous export "

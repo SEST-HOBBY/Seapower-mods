@@ -1,0 +1,11 @@
+AMRAAM-ER missile asset
+
+The mesh is appended to existing assets/europack/models/weapons.obj.
+All original OBJ bytes and custom normals are preserved.
+eu_amraam_er.ini uses #!alias ammunition/usn_rim-162j.ini (ESSM Block II).
+Source textures and Blender mesh are unchanged; the shipped normal map has +Y green.
+The INI applies 0.975 axial visual scale to fit existing NASAMS canisters.
+Flight settings are provisional ESSM-derived values; live firing remains untested.
+
+NASAMS launcher, Sentinel and all five loadouts remain in scandinavyUpdate.
+Enable Euromod and US Naval Aviation for the launcher ammunition.

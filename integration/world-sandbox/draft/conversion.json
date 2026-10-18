@@ -3339,11 +3339,11 @@
    "asset_id": "asset:mpn:evenes_rc135_det",
    "allocation": "underway_deployed",
    "units": [
-    "boeing-rc135"
+    "boeing_rc135"
    ],
    "outcome": "converted",
    "why": "air force at the node's air base",
-   "unit": "boeing-rc135",
+   "unit": "boeing_rc135",
    "resolved": "as registered",
    "base": "hn_evenes_air_station"
   },
@@ -7118,9 +7118,9 @@
    "count": 1
   },
   {
-   "force": "Evenes Air Station RC-135V/W Rivet Joint (Modern)",
+   "force": "Evenes Air Station RC-135V/W Rivet Joint",
    "node": "hn_evenes_air_station",
-   "aircraft": "boeing-rc135",
+   "aircraft": "boeing_rc135",
    "count": 1
   },
   {
@@ -8205,6 +8205,13 @@
  ],
  "arsenal": {
   "left_out": {
+   "hidden by its author (HideIn=MissionEditor)": [
+    "usn_ssn_virginia_2027",
+    "usn_ssn_virginia_seal_2027",
+    "wp_bpk_udaloy2",
+    "wp_mpk_grisha4",
+    "wp_su-30mkk"
+   ],
    "not a fighting unit (id)": [
     "Project 2498 Zyetseth Class Assault Vessel",
     "all_assault_raft",
@@ -8319,6 +8326,7 @@
    "Malaysia": 2,
    "Yuktobanian": 2,
    "pirates": 2,
+   "Morocco": 2,
    "South_Vietnam": 2,
    "Finland": 1,
    "Singapore": 1,
@@ -8327,12 +8335,12 @@
   },
   "catalogue_by_side_nation": {
    "blue US": {
-    "ships": 244,
-    "aircraft": 166
+    "ships": 248,
+    "aircraft": 167
    },
    "blue Australia": {
-    "ships": 39,
-    "aircraft": 35
+    "ships": 44,
+    "aircraft": 48
    },
    "blue Japan": {
     "ships": 23,
@@ -8347,8 +8355,8 @@
     "aircraft": 17
    },
    "blue UK": {
-    "ships": 43,
-    "aircraft": 39
+    "ships": 44,
+    "aircraft": 40
    },
    "blue Norway": {
     "ships": 8,
@@ -8395,7 +8403,7 @@
     "aircraft": 1
    },
    "blue South_Korea": {
-    "ships": 13,
+    "ships": 16,
     "aircraft": 14
    },
    "blue Philippines": {
@@ -8408,7 +8416,7 @@
    },
    "blue NewZealand": {
     "ships": 5,
-    "aircraft": 3
+    "aircraft": 4
    },
    "blue RoC": {
     "ships": 0,
@@ -8435,7 +8443,7 @@
     "aircraft": 14
    },
    "blue India": {
-    "ships": 4,
+    "ships": 5,
     "aircraft": 11
    },
    "blue Egypt": {
@@ -8448,11 +8456,11 @@
    },
    "red China": {
     "ships": 94,
-    "aircraft": 106
+    "aircraft": 105
    },
    "red Russia": {
-    "ships": 111,
-    "aircraft": 101
+    "ships": 110,
+    "aircraft": 102
    },
    "red Iran": {
     "ships": 12,
@@ -8495,7 +8503,7 @@
   "ae_opv_meteoro": "Displacement 2700 t",
   "ae_ssk_s80": "Displacement 2965 t",
   "bel_a400m_tankers": "Role AEW",
-  "boeing-rc135": "Role EW",
+  "boeing_rc135": "Role EW",
   "bra_f-5em": "Role Fighter",
   "bra_ffg_niteroi_2005": "Displacement 33550 t",
   "bra_ffg_tamandare": "Displacement 3500 t",
@@ -8629,7 +8637,7 @@
   "ran_aor_supply": "Displacement 8190 t, auxiliary x0.32",
   "ran_ffh_anzac": "Displacement 3600 t",
   "ran_opv_arafura": "Displacement 2700 t",
-  "ran_ssg_collins": "Displacement 2965 t",
+  "ran_ssg_collins": "Displacement 3400 t",
   "rfn_aor_pashin": "Displacement 16250 t, auxiliary x0.32",
   "rfn_cvt_20380_3-6": "Displacement 2250 t",
   "rfn_cvt_20380_7-12": "Displacement 2250 t",
@@ -8733,6 +8741,7 @@
   "wp_tu95ms": "Role MPA",
   "ace_f-2a": "Role Fighter",
   "adf_ah-1g": "Role ASuW",
+  "adf_ah-64e": "Role ASuW",
   "am_f104g": "Role Fighter",
   "am_f104s": "Role Fighter",
   "am_f104sasa": "Role Fighter",
@@ -8745,7 +8754,7 @@
   "aus_mrh90_tth": "Role Transport",
   "be_nh90": "Role ASW",
   "bel_a400m_airdroop-para": "Role AEW",
-  "boeing-rc135_early": "Role EW",
+  "boeing_rc135_early": "Role EW",
   "br_a330_mrtt": "Role AEW",
   "bra_a4m": "Role Fighter",
   "bra_ah11": "Role ASW",
@@ -9010,12 +9019,22 @@
   "qeaf_m2k-5dda_late": "Role Fighter",
   "qeaf_m2k-5eda": "Role Fighter",
   "qeaf_m2k-5eda_late": "Role Fighter",
+  "raac_ah_mk_1": "Role ASuW",
   "raac_lynx_ah7": "Role Attack",
+  "raaf_ap-3c": "Role MPA",
   "raaf_canberra_bomber": "Role HeavyBomber",
+  "raaf_e-7a": "Role AEW",
+  "raaf_ea-18g": "Role Fighter",
+  "raaf_ea-18g_2026": "Role Fighter",
   "raaf_f-111c": "Role Bomber",
+  "raaf_f-111c_aup": "Role Bomber",
   "raaf_f-4e": "Role Fighter",
   "raaf_f-4e_79": "Role Fighter",
+  "raaf_fa-18a": "Role Fighter",
+  "raaf_fa-18a_2011": "Role Fighter",
+  "raaf_fa-18f": "Role Fighter",
   "raaf_n22": "Role Airliner",
+  "raaf_p8": "Role MPA",
   "raaf_queenair": "Role Airliner",
   "raaf_searchmaster_b": "Role Airliner",
   "raaf_searchmaster_l": "Role Airliner",
@@ -9027,10 +9046,11 @@
   "ran_as350": "Role Recon",
   "ran_as350_recon": "Role Recon",
   "ran_C1A": "Role Transport",
+  "ran_f-35b": "Role Fighter",
   "ran_h34": "Role ASW",
   "ran_h34_sar": "Role SAR",
+  "ran_mh-60r": "Role ASW",
   "ran_S-70B-2_Seahawk": "Role ASW",
-  "ran_S-70B-2_Seahawk_late": "Role ASW",
   "ran_S2": "Role MPA",
   "ran_S2_late": "Role MPA",
   "ran_scout": "Role Attack",
@@ -9038,7 +9058,9 @@
   "ran_sea_gannet_aew": "Role AEW",
   "ran_sea_harrier84": "Role Fighter",
   "ran_sea_king_aew2": "Role AEW",
+  "ran_sea_lynx_3": "Role ASW",
   "ran_sea_venom": "Role Fighter",
+  "ran_uh-60m": "Role ASW",
   "ran_westlandseaking": "Role ASW",
   "rn_buccaneer_s1": "Role Fighter",
   "rn_buccaneer_s2": "Role Fighter",
@@ -9072,6 +9094,7 @@
   "rn_wessex": "Role ASW",
   "rn_wildcat": "Role ASW",
   "rnzaf_a-4k": "Role Bomber",
+  "rnzaf_p8": "Role MPA",
   "rnzn_sh-2gi": "Role ASW",
   "rnzn_wasp": "Role ASW",
   "rok_f15k": "Role Fighter",
@@ -9252,6 +9275,7 @@
   "usn_fury_sead": "Role SEAD",
   "usn_fury_strike": "Role Bomber",
   "usn_ka-3b": "Role EW",
+  "usn_mh-60r_p2": "Role ASW",
   "usn_Mugin5705": "Role Recon",
   "usn_orlan10705": "Role Recon",
   "usn_p-2h": "Role MPA",
@@ -9338,7 +9362,6 @@
   "wp_su-27": "Role Fighter",
   "wp_su-27sm": "Role Fighter",
   "wp_su-30m": "Role Fighter",
-  "wp_su-30mkk": "Role Fighter",
   "wp_su-30sm2": "Role Fighter",
   "wp_su-35s": "Role Fighter",
   "wp_su-57": "Role Fighter",
@@ -9362,6 +9385,7 @@
   "wp_tu-95ma": "Role HeavyBomber",
   "wp_tu-95ms": "Role MPA",
   "wp_tu-95rt": "Role MPA",
+  "wp_tu95k": "Role MPA",
   "wp_yak-38": "Role Bomber",
   "wp_yak_44": "Role AEW",
   "ae_ao_teide": "Displacement 8190 t, auxiliary x0.32",
@@ -9455,6 +9479,7 @@
   "idn_ss_tjakra_71": "Displacement 1342 t",
   "idn_vt_uda": "Displacement 16250 t",
   "ins_ff_blackwood": "Displacement 1456 t",
+  "ins_p-17a": "Displacement 6200 t",
   "ins_pt_saar": "Displacement 206 t",
   "ins_ptg_aliya": "Displacement 498 t",
   "ins_ptg_saar_2": "Displacement 250 t",
@@ -9496,8 +9521,11 @@
   "ko_ddh-971": "Displacement 3900 t",
   "ko_ff-951": "Displacement 1220 t",
   "ko_ffg-811": "Displacement 3200 t",
+  "ko_kddx": "Displacement 9000 t",
+  "ko_lph-6112": "Displacement 18800 t",
   "ko_pcc-756": "Displacement 1220 t",
   "ko_pkg-711": "Displacement 570 t",
+  "ko_pkg-711_scl": "Displacement 570 t",
   "ko_pkm-329": "Displacement 170 t",
   "ko_pkmr-211": "Displacement 250 t",
   "mm_cg_garibaldi": "Displacement 11350 t",
@@ -9606,19 +9634,24 @@
   "ran_dd_anzac1968": "Displacement 3310 t",
   "ran_dd_daring": "Displacement 3560 t",
   "ran_dd_daring1968": "Displacement 3560 t",
-  "ran_ddg_hobart": "Displacement 5853 t",
+  "ran_ddg_hobart": "Displacement 6391 t",
   "ran_ddg_hobart_alt_early": "Displacement 9700 t",
   "ran_ddg_hobart_alt_late": "Displacement 9700 t",
   "ran_ddg_perth": "Displacement 4526 t",
   "ran_ddg_perth_91": "Displacement 4526 t",
   "ran_ddg_perth_early": "Displacement 4526 t",
+  "ran_ddl_quickmatch_late": "Displacement 4200 t",
   "ran_de_type15": "Displacement 2300 t",
   "ran_ffg_adelaide": "Displacement 4100 t",
   "ran_ffg_adelaide_93": "Displacement 4100 t",
   "ran_ffg_adelaide_ffg_upgrade": "Displacement 4100 t",
-  "ran_ffg_adelaide_late": "Displacement 4100 t",
   "ran_ffg_adelaide_shorthull": "Displacement 4100 t",
+  "ran_ffg_adelaide_upgrade": "Displacement 4100 t",
+  "ran_ffh_anzac_wartime": "Displacement 3600 t",
+  "ran_lhd-cv_canberra": "Displacement 26800 t",
+  "ran_lhd-cv_canberra_late": "Displacement 26800 t",
   "ran_lhd_canberra": "Displacement 26800 t",
+  "ran_lhd_canberra_late": "Displacement 26800 t",
   "ran_lsd_choules": "Displacement 13815 t",
   "ran_lsh_tobruk": "Displacement 5791 t",
   "ran_lsm_lsm1": "Displacement 540 t",
@@ -9671,6 +9704,7 @@
   "rn_ff_type23_mlu": "Displacement 4900 t",
   "rn_ff_type42": "Displacement 3500 t",
   "rn_lph_ocean": "Displacement 21500 t",
+  "rn_lph_ocean_09": "Displacement 21500 t",
   "rn_lph_ocean_asw": "Displacement 21500 t",
   "rn_lph_ocean_asw_00": "Displacement 21500 t",
   "rn_lph_ocean_asw_13": "Displacement 21500 t",
@@ -9727,6 +9761,7 @@
   "usn_cg_bunker_hill": "Displacement 9600 t",
   "usn_cg_bunker_hill_vls_2004": "Displacement 9600 t",
   "usn_cg_bunker_hill_vls_2014": "Displacement 9600 t",
+  "usn_cg_bunker_hill_vls_2024_late": "Displacement 9600 t",
   "usn_cg_kansas_late": "Displacement 13500 t",
   "usn_cg_leahy": "Displacement 8200 t",
   "usn_cg_leahy_68": "Displacement 8200 t",
@@ -9915,7 +9950,6 @@
   "usn_ssn_sturgeon": "Displacement 4640 t",
   "usn_ssn_sturgeon_72": "Displacement 4640 t",
   "usn_ssn_virginia": "Displacement 7900 t",
-  "usn_ssn_virginia_2027": "Displacement 7900 t",
   "usn_ssn_virginia_block1": "Displacement 7900 t",
   "usn_ssn_virginia_block1_2015": "Displacement 7900 t",
   "usn_ssn_virginia_block1_2026": "Displacement 7900 t",
@@ -9924,7 +9958,11 @@
   "usn_ssn_virginia_block3": "Displacement 7900 t",
   "usn_ssn_virginia_block5": "Displacement 7900 t",
   "usn_ssn_virginia_seal": "Displacement 7900 t",
-  "usn_ssn_virginia_seal_2027": "Displacement 7900 t",
+  "usn_usv_k5_kraken": "Displacement 6 t",
+  "usn_uuv_copperhead_100": "Displacement 0 t",
+  "usn_uuv_copperhead_500": "Displacement 1 t",
+  "usn_uuv_dive_ld": "Displacement 3 t",
+  "usn_uuv_dive_xl": "Displacement 20 t",
   "wp_bdk_alligator": "Displacement 4950 t",
   "wp_bdk_ivan_rogov": "Displacement 11730 t",
   "wp_bdk_ivan_rogov_90": "Displacement 11730 t",
@@ -9935,7 +9973,6 @@
   "wp_bpk_kashin_mod": "Displacement 4300 t",
   "wp_bpk_kresta2": "Displacement 7535 t",
   "wp_bpk_udaloy": "Displacement 7570 t",
-  "wp_bpk_udaloy2": "Displacement 7570 t",
   "wp_bpk_udaloy3": "Displacement 7570 t",
   "wp_cv_orel": "Displacement 80000 t",
   "wp_cv_orel_1991": "Displacement 80000 t",
@@ -10032,8 +10069,8 @@
    "Air": 107
   },
   "patrols": 49,
-  "catalogue": 1526,
-  "values": 1526,
+  "catalogue": 1555,
+  "values": 1555,
   "lanes_kept": 11,
   "lanes_authored": 11,
   "skipped_nodes": 34

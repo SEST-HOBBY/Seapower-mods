@@ -8,7 +8,7 @@
 - The four nodes that were register-derived in the previous version (Naha, Mount Pleasant, Mare Harbour, Île Longue) and the end of the Atsugi package now come from real packages. No register-derived placeholder remains.
 - The second-skeptic results for all eleven regions are now applied in the final packages (see each file's `applied` list) and are reflected here wherever they touch identity, allocation, connections, gaps or counts. Indian Ocean/Australia had none open. Section 5.4 lists the region items still open after the final pass.
 
-**Unit ids.** Every unit id was re-resolved on branch sest-dev/sweet-lovelace-3kxsve (HEAD 1647837f, 2026-10-07; no unit, variant or ammunition file has changed since c9d8bf51) with `find_unit_file` / `winning_file` from `integration/missions/refine_civ_traffic.py`. This covers the 148 distinct ids in the final force rows and 72 more ids named in these sections: 46 vessel, aircraft and land-unit ids (including four Burke files written in shorthand: `_081_late`, `_085_late`, `_097_late`, `_100_late`) and 26 ammunition ids, 220 in all. Variant names come from the language_en stack and ServiceDates from the winning variants files. Two ids do not resolve, and neither is used:
+**Unit ids.** Every unit id was re-resolved on branch sest-dev/sweet-lovelace-3kxsve (HEAD 1647837f, 2026-10-07; no unit, variant or ammunition file has changed since c9d8bf51) with `find_unit_file` / `winning_file` from `integration/mission-seeds/refine_civ_traffic.py`. This covers the 148 distinct ids in the final force rows and 72 more ids named in these sections: 46 vessel, aircraft and land-unit ids (including four Burke files written in shorthand: `_081_late`, `_085_late`, `_097_late`, `_100_late`) and 26 ammunition ids, 220 in all. Variant names come from the language_en stack and ServiceDates from the winning variants files. Two ids do not resolve, and neither is used:
 - `ita_ddg_durand_de_la_penne` was refuted; `mm_ddgh_durand_de_la_penne_02` and `mm_ffg_maestrale` resolve but are not proposed.
 - `usn_mh-60r_26` is unresolved.
 
@@ -46,7 +46,7 @@
   - The ship's shipped AirGroup is a SCENARIO CHOICE unless a mission CustomAirGroup replaces it.
 - **Base air groups.**
   - Every placed base gets an explicit CustomAirGroup that lists only its allocated at-base aircraft. Shipped default groups would otherwise spawn unallocated duplicate identities (C8).
-  - An AirGroup line holds squadron and count only. A ready at-base airframe gets its loadout from `FlightDeck_ReadyUpTaskN=<type>,<squadron>,<loadout>,<count>,0` on the base entry. Vanilla precedent: `Showdown off Guam Blue 1985.ini:523` `FlightDeck_ReadyUpTask2=usn_p-3c,Squadron14,Recon,1,0`; also `integration/missions/DARWIN US SUPPLY.ini:70-72`. Servicing and reserve airframes get no ready-up task, and runtime behaviour is untested.
+  - An AirGroup line holds squadron and count only. A ready at-base airframe gets its loadout from `FlightDeck_ReadyUpTaskN=<type>,<squadron>,<loadout>,<count>,0` on the base entry. Vanilla precedent: `Showdown off Guam Blue 1985.ini:523` `FlightDeck_ReadyUpTask2=usn_p-3c,Squadron14,Recon,1,0`; also `integration/mission-seeds/DARWIN US SUPPLY.ini:70-72`. Servicing and reserve airframes get no ready-up task, and runtime behaviour is untested.
   - Editor round-trips drop empty CustomAirGroup lines and flatten ROE, so the restore step is needed (`restore_roe.py`).
 - **Aircraft labels.**
   - No repo or mods-source mission sets a display name on an aircraft entry (1,041 files, per the Japan/Norway second check). So a name override, even once proven, could label only separate airborne entries, never airframes inside a CustomAirGroup.
@@ -189,7 +189,7 @@
 | Voyager (`uk_a330_mrtt`) / A400M | Akrotiri 1/1; Mount Pleasant 1/1. At Mount Pleasant, AAR to the Typhoons and the A400M's supply-drop, SAR and maritime-patrol roles are missing_fit. | 2 / 2 |
 | F-35A (`raaf_f-35a` Sq3) | Tindal 4 (cut from 8). Evenes QRA 2 are missing_fit and not placed. | 4 placed (+2 pending a Norway squadron) |
 | MQ-9A / MQ-4C / KC-130J | Lemonnier 2 / Tindal 1 optional (SEST-authored "Det Tindal" squadron) / Lemonnier 1 | 2 / 0–1 / 1 |
-| RC-135 (`boeing-rc135`) | Evenes Sq2 ×1. R03:117 states no operator; the US operator is SCENARIO. The named tails Sq3–7 are unallocated (allocate once if used). | 1 |
+| RC-135 (`boeing_rc135`) | Evenes Sq2 ×1. R03:117 states no operator; the US operator is SCENARIO. The named tails Sq3–7 are unallocated (allocate once if used). | 1 |
 | Russian LRA | Tu-22M2 (proxy for M3): Olenya 6, Belaya 3. Tu-95MS: Olenya 2, Engels 2, Ukrainka 3. Tu-160 (Tu-160M proxy at Engels): Olenya 1, Engels 2. Tu-142M 1, Il-76MD (An-12 proxy) 1 and Il-78 1 (optional), all at Olenya. Belaya Il-78 0 (optional 1). A dispersal event moves an allocation; it never copies it. | 9 / 7 / 3 / 1 / 1 / 1 (+1 optional) |
 | US carrier-embarked wings | Vinson 25, Roosevelt 25, Lincoln 25, GW 31, Truman 22 (unallocated in the RCOH contingency), Ike CQ det 8; LHD ACE 14 (12 without the AH-1W pair) | 150 |
 | Escort-embarked helicopters | Counted: US Pacific 16, Rota 8, Gulf 3 (MH-60R); RAN 2 (MH-60R Sq20); PLAN Djibouti 2; French AS565 1; Italian SH-101A 1; Brest NH90 1. Not yet counted (C7): US Atlantic 8, W/C Pacific 9, China maritime 9, Russian context 3. | 34 counted (+29 pending) |

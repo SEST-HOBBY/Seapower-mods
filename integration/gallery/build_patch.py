@@ -42,7 +42,7 @@ Name=SEST Gallery
 Description=An offline photo gallery of the collection's units: open Gallery/gallery.html in a web browser. The same photos appear in the SEST mission briefings.
 
 [Compatibility]
-ApproximateVersion=0.8.5
+ApproximateVersion=0.8.6
 """
 
 
@@ -87,6 +87,14 @@ def main():
                 or a["sha256"] != digest(added.ADDED / row["file"])):
             sys.exit(f"{row['file']}: added-photo-credits.csv is not applied - run "
                      "python3 integration/gallery/apply_added_photos.py, then rebuild")
+
+    # The reviewed Commons photos: every row of commons-photos.csv must be
+    # in the catalogue as written.
+    import commons_photos
+    late = commons_photos.stale(cat)
+    if late:
+        sys.exit(f"commons-photos.csv is not applied ({', '.join(late[:5])}) - run "
+                 "python3 integration/gallery/commons_photos.py apply, then rebuild")
 
     profiles = write_profiles(cat)
 
@@ -160,15 +168,24 @@ def write_profiles(cat):
     """ui/profiles/<unit id>.png for the reviewed pairs in profiles.tsv."""
     if not PROFILES.is_file():
         return 0
-    order = {l.strip() for l in (HERE.parents[1] / "data" / "load-order.tokens.txt")
-             .read_text().splitlines() if l.strip().isdigit()}
-    real_photo = set()       # units the real-photos mod pictures
+    order = [l.strip() for l in (HERE.parents[1] / "data" / "load-order.tokens.txt")
+             .read_text().splitlines() if l.strip().isdigit()]
+    rank = {tok: i for i, tok in enumerate(order)}
+    # The mod whose picture the game shows for each unit: the highest in the
+    # order of those that ship one. Skipping a unit because the real-photos
+    # mod pictures it, when another mod above it wins, left the J-20A on
+    # 3591563716's render in the Situation window (16 Oct 2026 test).
+    winner = {}
     for line in EXISTING.read_text(encoding="utf-8").splitlines():
         if line.startswith("#") or line.startswith("id\t") or "\t" not in line:
             continue
         uid, mod, _size = line.split("\t")
-        if mod == REAL_PHOTOS and mod in order:
-            real_photo.add(uid.lower())
+        if mod not in rank:
+            continue
+        uid = uid.lower()
+        if uid not in winner or rank[mod] < rank[winner[uid]]:
+            winner[uid] = mod
+    real_photo = {uid for uid, mod in winner.items() if mod == REAL_PHOTOS}
     assets = {a["asset_id"]: a for a in cat["assets"]}
     out = OUT / "ui" / "profiles"
     n = 0

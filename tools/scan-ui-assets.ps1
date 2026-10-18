@@ -19,6 +19,16 @@
     third line of the output records each file's size, and the scan is
     skipped when nothing has changed since the last one.
 
+    Every name found is listed. Until 14 Oct 2026 two limits hid names: the
+    list stopped at 400 per file (Seapower-Scripts.dll showed 400 of its 796),
+    and a run was read inside a window of 60 characters either side of the
+    matched word and then dropped when longer than 120, so a XAML line such as
+    the main menu's <Image Source="{Binding BackgroundImage}" ...> came out
+    cut at the window. Now a run is followed to its own ends, up to $maxRun
+    characters either side of the word; the rare longer run is cut there and
+    marked "..." at the cut end. tools\tests\test_scan_ui_assets.ps1 checks
+    this on a synthetic data folder.
+
     tools\capture-context.ps1 runs this; on its own:
         powershell -ExecutionPolicy Bypass -File .\tools\scan-ui-assets.ps1 -DataDir "<...>\Sea Power_Data"
 #>
@@ -32,41 +42,54 @@ param(
 $ErrorActionPreference = "Stop"
 $pictureWords = '(?i)background|loading|load_?screen|splash|wallpaper|mod ?manager|modmanager|main_?menu|menu_?bg|title_?screen'
 $codeWords = $pictureWords + '|(?<![A-Za-z0-9])ui[/\\]'
-$maxPerFile = 400
+$maxRun = 1000   # characters kept either side of a matched word; a longer run is cut there and marked
 $latin1 = [System.Text.Encoding]::GetEncoding(28591)
 
-# Every printable run (up to 120 characters) around each match of $words in
-# $text, trimmed. A Unity file stores a name as a plain run of characters, so
-# the run around "background" is the name that holds it.
-function Get-Runs([string]$text, [string]$words, [hashtable]$into) {
+# The printable run around each match of $words in $text, trimmed. A Unity
+# file stores a name as a plain run of characters, so the run around
+# "background" is the name that holds it. The run is followed to its ends, up
+# to $maxRun characters either side of the word: a run cut there gets "..."
+# at the cut end. $text may be one piece of a larger file: a match within
+# $maxRun of the piece's start was seen whole by the previous piece, one whose
+# run could reach past its end is left to the next, unless the piece is the
+# file's first or last.
+function Get-Runs([string]$text, [string]$words, [hashtable]$into, [bool]$first = $true, [bool]$last = $true) {
     foreach ($m in [regex]::Matches($text, $words)) {
-        $from = [Math]::Max(0, $m.Index - 60)
-        $win = $text.Substring($from, [Math]::Min($text.Length - $from, 60 + $m.Length + 60))
+        if (-not $first -and $m.Index -lt $maxRun) { continue }
+        if (-not $last -and $m.Index + $m.Length + $maxRun -gt $text.Length) { continue }
+        $from = [Math]::Max(0, $m.Index - $maxRun)
+        $to = [Math]::Min($text.Length, $m.Index + $m.Length + $maxRun)
+        $win = $text.Substring($from, $to - $from)
         $at = $m.Index - $from
         $run = [regex]::Matches($win, '[\x20-\x7E]+') | Where-Object { $_.Index -le $at -and $_.Index + $_.Length -ge $at + $m.Length } | Select-Object -First 1
         if ($run) {
-            $name = $run.Value.Trim()
-            if ($name.Length -ge 4 -and $name.Length -le 120) { $into[$name] = $true }
+            $name = $run.Value
+            if ($run.Index -eq 0 -and $from -gt 0) { $name = "..." + $name }
+            if ($run.Index + $run.Length -eq $win.Length -and $to -lt $text.Length) { $name = $name + "..." }
+            $name = $name.Trim()
+            if ($name.Length -ge 4) { $into[$name] = $true }
         }
     }
 }
 
-# A serialized file, read in 32 MB pieces that overlap by 256 bytes so a name
-# split between two pieces is still seen whole in one of them.
+# A serialized file, read in 32 MB pieces that overlap by a little more than
+# twice $maxRun, so the whole run around any match fits in one piece (see
+# Get-Runs for which piece takes it).
 function Find-InData([string]$path, [string]$words) {
     $found = @{}
     $stream = [System.IO.File]::OpenRead($path)
     try {
-        $size = 32MB; $overlap = 256
+        $size = 32MB; $overlap = 2 * $maxRun + 64
         $buf = New-Object byte[] ($size + $overlap)
-        $carry = 0
+        $carry = 0; $first = $true
         while ($true) {
             $n = $stream.Read($buf, $carry, $size)
             if ($n -le 0) { break }
-            Get-Runs ($latin1.GetString($buf, 0, $carry + $n)) $words $found
+            $last = $stream.Position -ge $stream.Length
+            Get-Runs ($latin1.GetString($buf, 0, $carry + $n)) $words $found $first $last
             $keep = [Math]::Min($overlap, $carry + $n)
             [Array]::Copy($buf, $carry + $n - $keep, $buf, 0, $keep)
-            $carry = $keep
+            $carry = $keep; $first = $false
         }
     } finally { $stream.Dispose() }
     return $found
@@ -106,16 +129,14 @@ foreach ($f in $serialized) {
     $names = @((Find-InData $f.FullName $pictureWords).Keys | Sort-Object)
     if (-not $names.Count) { continue }
     $lines += ("== {0}  ({1:N0} MB)  {2} name(s)" -f $f.Name, ($f.Length / 1MB), $names.Count)
-    $lines += @($names | Select-Object -First $maxPerFile | ForEach-Object { "  $_" })
-    if ($names.Count -gt $maxPerFile) { $lines += "  ... and $($names.Count - $maxPerFile) more" }
+    $lines += @($names | ForEach-Object { "  $_" })
     $lines += ""
 }
 foreach ($f in $code) {
     $names = @((Find-InCode $f.FullName $codeWords).Keys | Sort-Object)
     if (-not $names.Count) { continue }
     $lines += ("== Managed\{0}  (code)  {1} name(s)" -f $f.Name, $names.Count)
-    $lines += @($names | Select-Object -First $maxPerFile | ForEach-Object { "  $_" })
-    if ($names.Count -gt $maxPerFile) { $lines += "  ... and $($names.Count - $maxPerFile) more" }
+    $lines += @($names | ForEach-Object { "  $_" })
     $lines += ""
 }
 New-Item -ItemType Directory -Force -Path (Split-Path -Parent $OutFile) | Out-Null

@@ -1,0 +1,117 @@
+unit_id|asset_group|source_mode|commons_ref|image_exactness|verified_web_license|note
+civ_humpback|humpback|category|Category:Megaptera novaeangliae|exact_class_photo||Real whale image, not submarine technology
+E7A_Wedgetail|e7a_wedgetail|file|File:E-7A Wedgetail assigned to RAAF Base, lands at Nellis Air Force Base.jpg|exact_photo|Public domain|USAF official duty image of RAAF E-7A
+plan_type_001|liaoning|file|File:Liaoning (CV-16).jpg|exact_photo|Public domain|Use donor PD version rather than Baycrest CC BY-SA bespoke condition file
+plan_j-15|j15|file|File:PLAN Shenyang J-15 carrier-based fighter aircraft 20230424.jpg|exact_class_photo|CC BY 4.0|Carrier jet; do not confuse base J-15 and J-15D
+plan_j-15d|j15d|file|File:J-15.jpg|exact_photo|CC0 1.0|J-15T and J-15D in the same frame; label exact mixed formation
+airbase_raaf_darwin|raaf_darwin|category|Category:RAAF Base Darwin|exact_base_reference||Base context image
+plan_ss_type_039c|yuan_family|category|Category:Type 039A submarines|family_reference||039A family; do not claim exact 039C
+plan_ssn_type_093b|shang_family|search|Chinese Type 093 attack submarine|family_reference||Exact 093B public image uncertain
+ran_ssg_collins|collins|search|Collins class submarine Australian Navy|exact_class_photo||Real Collins class; mod is a stand-in
+airbase_raaf_east_sale|raaf_east_sale|category|Category:RAAF Base East Sale|exact_base_reference||Base context image
+airbase_raaf_edinburgh|raaf_edinburgh|category|Category:RAAF Base Edinburgh|exact_base_reference||Base context image
+ir_ptg_peykaap_3|peykaap3|file|File:Commissioning of 112 IRGCN vessels (03).jpg|exact_class_photo|CC BY 4.0|Contains Peykaap III; verify visually before publishing exact crop
+ran_opv_arafura|arafura|file|File:HMASArafura.jpg|exact_class_photo|CC BY-SA 4.0|Exact HMAS Arafura; user mod may be model stand-in
+4tentgroup|field_tents|search|military field tents forward operating base|context_reference||Generic tents only
+pla_airbase_modern|pla_airbase|search|People Liberation Army Air Force air base flightline|context_reference||Generic PLA airbase, never mark exact installation
+airbase_raaf_scherger|raaf_scherger|category|Category:RAAF Base Scherger|exact_base_reference||Exact base context
+airbase_raaf_tindal|raaf_tindal|category|Category:RAAF Base Tindal|exact_base_reference||Exact base context
+mv22b_osprey|mv22b|category|Category:MV-22B Osprey|exact_photo||USMC MV-22B service photo
+plan_cv_type_003|fujian|category|Category:PLANS Fujian (CV-18)|exact_class_photo||Exact Fujian file must be checked for rights
+plan_lpd_type_071|type071|category|Category:PLANS Changbai Mountain (LPD-989)|exact_class_photo||Exact Type 071 hull photo; class mapping
+plan_type_052d_p3|type052d|category|Category:PLANS Xiamen (DDG-154)|family_reference||Type 052D baseline, later phase needs verification
+shahed_tel_black|shahed_tel|search|Shahed-136 mobile launcher Iran|family_reference||Use same Shahed family asset for black/white variant
+usmc_kc-130j|kc130j|search|US Marine Corps KC-130J Hercules aerial refueling|exact_photo||USMC exact variant, source from US government preferred
+usn_ForpostR705|forpost|category|Category:Forpost (UAV)|family_reference||Forpost family - Forpost-R must be visually verified
+wp_airbase_modern|russian_airbase|search|Russian air force base flightline aircraft|context_reference||Generic Russian airbase
+wp_ssgn_yasen|yasen|category|Category:K-560 Severodvinsk (submarine, 2014)|exact_class_photo||Yasen-class exact hull; avoid model/drawing
+ko_ffg-818|daegu|category|Category:ROKS Daejeon (FFG-823)|exact_class_photo||Daegu-class sister ship, operator exact; needs visually recognizable photo
+usaf_f-15e_SE|f15e|search|USAF F-15E Strike Eagle in flight|exact_photo||USAF exact subtype
+spa_av-8b_plus|harrier_av8b|search|Spanish Navy AV-8B Harrier II Plus|operator_family_reference||Spanish operator preferred; class family acceptable
+usaf_f-15ex_SEII|f15ex|file|File:F-15EX Eagle II.jpg|exact_photo|Public domain|F-15EX exact photo
+Coal_PowerPlant|coalplant|search|coal fired power station|context_reference||Generic objective, low priority
+FOB|fob|search|US Army forward operating base camp|context_reference||Generic FOB objective
+Liberty|liberty|search|Statue of Liberty New York real photo|exact_photo||Context landmark, low priority
+Oil_pump|oilpump|search|oil pumpjack fields|context_reference||Oil infrastructure, low priority
+S-70B-2_Seahawk|s70b2|category|Category:S-70B-2 Seahawk in service with Australia|exact_photo||RAA/RAN exact S-70B-2 subject
+airbase_raaf_curtin|raaf_curtin|category|Category:RAAF Base Curtin|exact_base_reference||Base context
+airbase_rnzaf_auckland|whenuapai|category|Category:Whenuapai|context_reference||Ensure photo is of RNZAF base, not unrelated locality
+airbase_us|usaf_base|search|United States Air Force base flightline hangars|context_reference||Generic base
+airfield_a-10|a10_base|search|A-10 Thunderbolt on airfield flightline|context_reference||Generic airfield, not individual unit
+airfield_us|us_airfield|search|U.S. military aviation base runway aircraft|context_reference||Generic base
+civ_spar_rig_helo|oilrig|search|offshore spar oil platform helicopter landing|context_reference||Exact armed fictional installation does not exist
+fr_as_332M|superpuma|category|Category:Eurocopter AS 332 Super Puma|exact_class_photo||Subtype/operator requires verification
+idf_dsws|davids_sling|category|Category:David's Sling|exact_class_photo||Launcher, not generic missile shot
+idf_dsws_radar|elm2084|search|EL M 2084 radar Israel David Sling|family_reference||Radar-specific candidate
+ir_aor_delvar|delvar|search|Iranian navy supply ship Delvar|operator_family_reference||Exact hull identification needs verification
+jp_12ssmht|type12|category|Category:JGSDF Type 12 (AShM)|family_reference||Baseline Type 12 only; do not call 2024 ER exact
+nato_large_pvo_airbase1|barksdale|category|Category:Barksdale Air Force Base|exact_base_reference||Actual base image
+pla_9k331|torm1|category|Category:Tor-M1|exact_class_photo||Chinese operator preferred when possible
+pla_df-21c_tel|df21|category|Category:DF-21|family_reference||DF-21 C variant unconfirmed
+pla_df-26b_tel|df26|category|Category:DF-26|family_reference||DF-26B variant unconfirmed
+pla_h-200a_radar|h200|search|H-200A radar China HQ 9 launcher|family_reference||Exact radar scarce
+pla_z21|z21|hold||concept_reference||Model/prototype photo not confirmed
+plaaf_j-11bg|j11b|category|Category:Shenyang J-11B|family_reference||J-11B family
+plaaf_j-11bs|j11b|reuse|plaaf_j-11bg|family_reference||Same J-11 family image with two-seat limitation
+plaaf_j36|j36|hold||concept_reference||Only verified prototype photo or authorized game render
+plan_cvn_004|type004|hold||concept_reference||Type 004 fictional/future depiction; do not mislabel a carrier
+plan_j-35|j35|category|Category:Shenyang J-35|exact_class_photo||Real J-35 prototype/service photos as available
+plan_j-50|j50|hold||concept_reference||Concept/prototype verification required
+plan_ss_type_039|song|search|Chinese Type 039 Song-class submarine|exact_class_photo||Song class parent real photo
+rfn_ffg_11356|grigorovich|search|Admiral Grigorovich frigate 11356R|exact_class_photo||Exact Russian frigate
+rn_ddg_type45|type45|search|Royal Navy Type 45 destroyer HMS Daring|exact_class_photo||Exact Type 45 class, avoid Type 45 2026 modifications claim
+ru_spaa_mt-lb_sosna|sosna|search|Sosna air defense system on MT-LB|family_reference||Model match needs check
+shahed_tel_white|shahed_tel|reuse|shahed_tel_black|family_reference||Share Shahed TEL photo; colour only in mod config
+thaad_tel|thaad|search|THAAD Terminal High Altitude Area Defense missile launcher US Army|exact_photo||Prefer exact deployment photograph
+usa_car_hemtt|hemtt|search|US Army HEMTT military truck|exact_class_photo||Actual HEMTT, no guarantee matches variant
+usaf_b-52g|b52g|file|File:B-52G with AGM-86B ALCMs.JPEG|exact_photo|Public domain|Archival exact G model
+usaf_f-16a|f16a|search|United States Air Force F-16A Fighting Falcon|exact_photo||Exact first-generation airframe
+usaf_rq-180|rq180|hold||concept_reference||Public real photography unverified
+wp_an_tpy_2|tpy2|category|Category:AN/TPY-2|exact_photo||Radar-specific photo
+wp_rkr_kirov_improved|kirov|search|Pyotr Velikiy Kirov class battlecruiser|family_reference||Parent hull only, improved version fictional
+wp_scud_9k72|scudb|search|R-17 Elbrus Scud B transporter erector launcher|exact_class_photo||9K72 Scud-B family
+wp_sejjil_tel|sejjil|search|Sejjil missile Iranian mobile launcher|exact_class_photo||Launcher system, verify from photo
+wp_ss-26_tel|iskander|search|Russian 9K720 Iskander missile TEL|family_reference||Same family image reusable for Iskander-K
+ae_ffg_bonifaz|bonifaz|category|Category:F110 class frigates|concept_reference||May be a planned hull/model; real ship not assured
+ae_lpd_galicia|galicia|search|Spanish Navy L50 Galicia amphibious ship|exact_class_photo||Exact ship/class
+ae_ssk_s80|s80|search|S-81 Isaac Peral Spanish submarine|exact_class_photo||Actual S-80 Plus
+fr_ssn_suffren|suffren|category|Category:Suffren class submarines|exact_class_photo||Exact hull where possible; subcat may be needed
+ger_ffg_f124_MLU|f124|category|Category:Sachsen class|family_reference||F124 parent hull; MLU variant not visual-proof
+ger_ffg_f125_MLU|f125|category|Category:Baden-Württemberg class|family_reference||F125 parent hull; MLU variant not visual-proof
+ger_ssk_type_212a_batch1|type212a|category|Category:Type 212 submarine of Germany|exact_class_photo||Batch-specific only after verification
+ita_fs_ppx|ppx_vivaldi|hold||concept_reference||PPX Vivaldi actual configuration uncertain
+ita_ssk_todaro_batch1|todaro|category|Category:Todaro class submarines|exact_class_photo||Italian Type 212A batch I
+ko_ffg-811|incheon|category|Category:Incheon class frigates|exact_class_photo||Actual Korean Incheon class
+ko_ffg-828|chungnam|category|Category:Chungnam class frigates|exact_class_photo||Actual Korean FFX Batch III
+mm_ddgh_durand_de_la_penne_02|durand|category|Category:Durand de la Penne class destroyer|exact_class_photo||Italian destroyer
+rn_ddg_type45_26|type45|reuse|rn_ddg_type45|family_reference||2026 configuration is parent Type 45 photo
+usn_ddg_arleigh_flt2A_119_2027|burke2a|search|USS Delbert D Black DDG 119 Arleigh Burke Flight IIA|family_reference||Parent class, 2027 upgrade not visually verified
+usn_ssn_los_angeles_flt3_2026|losangeles|search|Los Angeles class submarine 688i Flight III|family_reference||Parent hull only, 2026 upgrades unverified
+mm_av-8b_plus|harrier_av8b|reuse|spa_av-8b_plus|family_reference||Only same Harrier family, operator distinct
+wp_buk-m3|bukm3|file|File:9A317M "Buk-M3" during the "Armiya 2021" exhibition.jpg|exact_photo|CC BY-SA 4.0|Exact Buk-M3 TELAR photo
+wp_bukslave|bukm3_launcher|category|Category:9A317M|family_reference||Verify secondary launcher unit model; category may show TELAR only
+wp_m3-radar|bukm3_radar|search|Buk-M3 radar 9S36M|family_reference||Search for radar-specific mobile vehicle; no exact asset verified
+ina_prithvi_tel|prithvi|search|Prithvi ballistic missile transporter erector launcher DRDO|exact_class_photo||No exact Commons file verified yet
+wp_ss-27_tel|topolm|file|File:Topol-M-09-05-2011.jpg|exact_photo|CC0 1.0|Topol-M road-mobile launcher
+pla_df-41_tel|df41|search|DF-41 mobile missile TEL China military parade|family_reference||Source must show DF-41 and not only artwork
+usaf_icbm_silo|minuteman_silo|search|Minuteman III missile silo launch facility United States Air Force|context_reference||Exact Minuteman III infrastructure preferred
+wp_icbm_silo|rt23_silo|hold||context_reference||No confirmed exact RT-23 silo photograph; avoid mislabeled silo
+wp_iskander|iskander|reuse|wp_ss-26_tel|family_reference||Shadowed definition; use existing Iskander photo
+rok_f15k|f15k|category|Category:F-15K Slam Eagle|exact_photo||Find Korean operator photo, avoid short-low-res images
+rok_f35a|f35a_rok|search|Republic of Korea Air Force F-35A Lightning II|operator_family_reference||Korean operator preferred
+rok_f4e|f4e_rok|search|Republic of Korea Air Force F-4E Phantom II|operator_family_reference||Korean operator preferred
+rok_f5e|f5e_rok|search|Republic of Korea Air Force F-5E Tiger II|operator_family_reference||Korean operator preferred
+rok_fa50|fa50|category|Category:FA-50 Fighting Eagle|exact_class_photo||Select Korean operator photo if available
+rok_kf16|kf16|search|Republic of Korea Air Force KF-16 Fighting Falcon|operator_family_reference||Exact Korean configuration preferred
+rok_kf21|kf21|file|File:KF21ADEX-20.10.2023 1.jpg|exact_photo|CC BY 4.0|Exact Korean KF-21 public airshow image
+rok_kuh1|surion|file|File:KUH-1 Surion in Alaska (12201684294).jpg|exact_photo||Commons exact file; licence revalidate at download
+rok_p-3c|p3c_rok|search|Republic of Korea Navy P-3C Orion patrol aircraft|operator_family_reference||ROK exact if available
+rok_mh60|mh60_rok|search|Republic of Korea Navy MH-60R Seahawk helicopter|operator_family_reference||Verify exact ROK operator and model
+usaf_hh-3|hh3|file|File:HH-3E at Kirtland AFB 1980.JPEG|exact_class_photo|Public domain|HH-3E version; check repo modeled HH-3 subtype
+sv22_2024_osprey|mv22b|reuse|mv22b_osprey|parent_airframe_reference||Real V-22 as illustrative only; mod is speculative SV-22
+govu|government_objective|search|government administrative building exterior|context_reference||Generic objective
+anduril:dive_ld|anduril_dive_ld|permission||authorized_mod_render||Ask Alpine/Anduril for permission to use an exact model render or photo
+anduril:dive_xl|anduril_dive_xl|permission||authorized_mod_render||Includes Dive-XL SU? must check exported unit IDs
+anduril:copperhead_100|anduril_copperhead_100|permission||authorized_mod_render||Survey and torpedo variants alias to parent
+anduril:copperhead_500|anduril_copperhead_500|permission||authorized_mod_render||Survey and torpedo variants alias to parent
+anduril:k5_kraken|anduril_k5_kraken|permission||authorized_mod_render||No license for Workshop author's screenshot; keep as private reference only

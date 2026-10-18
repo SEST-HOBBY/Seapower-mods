@@ -1991,7 +1991,7 @@ The E-7A Wedgetail mod (workshop 3499239964) ships a [Default] squadron only wit
   If the donor changes: If the author later populates SerialnumberReferences or an emblem folder, the override hides it — design-notes.md: "Upstream moves under you. A shadowed file can receive author updates the …
 
 - **Keep [Default] Nation=Australia unchanged as squadron zero.**  
-  *Upstream donor* — Upstream's [Default] block is Nation=Australia; the pack's template hardcodes the same. Live missions still reference it: "E7A_Wedgetail=Default,2" (integration/missions/AUS DEF.ini:498), "Default,4" (AUS DEF.ini:604), "Default,3" (DARWIN US SUPPLY.ini:344), "Default,1" (AUS INDO-PAC ESCA.ini:249), and every spawned airframe ("Type=E7A_W…
+  *Upstream donor* — Upstream's [Default] block is Nation=Australia; the pack's template hardcodes the same. Live missions still reference it: "E7A_Wedgetail=Default,2" (integration/mission-seeds/AUS DEF.ini:498), "Default,4" (AUS DEF.ini:604), "Default,3" (DARWIN US SUPPLY.ini:344), "Default,1" (AUS INDO-PAC ESCA.ini:249), and every spawned airframe ("Type=E7A_W…
   
   Effect: Every existing Default reference keeps working unchanged; nothing already placed in a mission moves nation or identity.
   
@@ -2140,7 +2140,7 @@ The F-22 mod declares NumberOfSquadrons=7 in all three of its squadron files but
 |---|---|---|---|
 | `integration/raptor-squadrons/SEST_Raptor_Squadrons/…` | overrides | 3418252667 — "F-22 Raptor" by misaka (d… | No competing donor exists: a scan of all 133 mods-source/*/aircraft directories finds F-22 files in exactly one mod (3418252667 ships usaf_f-22.ini, … |
 | `integration/raptor-squadrons/SEST_Raptor_Squadrons/…` | overrides | 3418252667 — "F-22 Raptor" (misaka) | Same sole provider. The three upstream squadron files are byte-identical stubs ([General] + [Default] Nation=US + [Squadron1] Nation=US, NumberOfSqua… |
-| `integration/raptor-squadrons/SEST_Raptor_Squadrons/…` | overrides | 3418252667 — "F-22 Raptor" (misaka) | Same sole provider; _s6 is the variant the missions actually field (every usaf_f-22 AirGroup line in integration/missions/*.ini is usaf_f-22_s6, e.g.… |
+| `integration/raptor-squadrons/SEST_Raptor_Squadrons/…` | overrides | 3418252667 — "F-22 Raptor" (misaka) | Same sole provider; _s6 is the variant the missions actually field (every usaf_f-22 AirGroup line in integration/mission-seeds/*.ini is usaf_f-22_s6, e.g.… |
 | `integration/raptor-squadrons/SEST_Raptor_Squadrons/…` | merges | 3418252667 — "F-22 Raptor" (misaka), la… | 90 mods ship a language_en/aircraft_names.ini and the engine merges them key-by-key, so there is no override contest — but only 3418252667 defines th… |
 | `integration/raptor-squadrons/SEST_Raptor_Squadrons/…` | merges | 3418252667 — "F-22 Raptor" (misaka), la… | Same sole owner of the F-22 sections. The Chinese donor is rebased separately rather than dropped, so upstream's Chinese Type=战斗机 and DefaultDescript… |
 | `integration/raptor-squadrons/SEST_Raptor_Squadrons/…` | adds | none — written by the builder (INFO_INI… | Pack manifest; carries the load-order mandate in its own Description: "Requires the F-22 mod and must sit ABOVE it." |
@@ -2261,7 +2261,7 @@ The F-22 mod declares NumberOfSquadrons=7 in all three of its squadron files but
   
   If the donor changes: Upstream loadout/sensor updates to usaf_f-22*.ini flow through untouched, because those files are not shadowed.
 
-- **Mission-side counterpart: unresolved Squadron2..7 references were folded onto Squadron1 by integration/missions/fix_squadron_refs.py before this pack existed, and can be re-split afterwards…**  
+- **Mission-side counterpart: unresolved Squadron2..7 references were folded onto Squadron1 by integration/mission-seeds/fix_squadron_refs.py before this pack existed, and can be re-split afterwards…**  
   *File semantics* — fix_squadron_refs.py docstring: "Missions built in the editor can name squadrons the providing mod does not define (e.g. usaf_f-22_s6 offers only Default and Squadron1, but a mission asks for Squadron4-7), which leaves those aircraft without a livery at spawn." and "--spread is the inverse, for after a SEST pack adds squadrons a mod neve…
   
   Effect: With the pack loaded, a base's Raptor wing can read as four separate named squadrons on the tacmap instead of one anonymous 16+ ship block (--spread only fires on a single squadron of >= SP…
@@ -2287,7 +2287,7 @@ The F-22 mod declares NumberOfSquadrons=7 in all three of its squadron files but
 - Workshop 3418252667 "F-22 Raptor" (misaka) — MANDATORY. The pack is six .ini files and no assets; without the mod there is no F22.obj mesh, no f-22_mat.ini texture set and no usaf_f-22* unit definitions, so the squadron files def…
 - Load-order position: SEST_Integration (which carries this pack) must outrank 3418252667. Below it, the three *_squadrons.ini overrides lose and the patch is silently inert — every Raptor reverts to the anonymous "F-22A" with Squa…
 - mods-source/3418252667/ must stay exported in the repo for rebuilds — build_patch.py hard-exits with "upstream squadrons file missing" / "upstream language file missing" if the donor tree is absent.
-- Downstream: integration/missions/fix_squadron_refs.py --spread depends on this pack being the winning provider of aircraft/usaf_f-22*_squadrons.ini to know that Squadron2..7 now exist.
+- Downstream: integration/mission-seeds/fix_squadron_refs.py --spread depends on this pack being the winning provider of aircraft/usaf_f-22*_squadrons.ini to know that Squadron2..7 now exist.
 
 **Known limits**
 
@@ -2706,7 +2706,7 @@ Gives the three late-standard Dassault Rafales (fr_rafale_b_l / c_l / m_l) six J
   If the donor changes: Purely internal; safe against any workshop mod that later defines SEST_Intercept260.
 
 - **Only the three late-standard combat airframes are overridden. The other 15 fr_rafale_*.ini files upstream ships (squadron rosters, nuclear variants, the tanker, and the early B/C/M) are lef…**  
-  *In-game observation* — AIRFRAMES = ['fr_rafale_b_l', 'fr_rafale_c_l', 'fr_rafale_m_l'] with the docstring's justification for the M: 'the M_L is fielded in every NORTHERN FRONT mission' (confirmed against integration/missions/). The inclusion of the B_L and C_L rests on nothing recorded beyond being the same late standard, and the exclusion of fr_rafale_*_squa…
+  *In-game observation* — AIRFRAMES = ['fr_rafale_b_l', 'fr_rafale_c_l', 'fr_rafale_m_l'] with the docstring's justification for the M: 'the M_L is fielded in every NORTHERN FRONT mission' (confirmed against integration/mission-seeds/). The inclusion of the B_L and C_L rests on nothing recorded beyond being the same late standard, and the exclusion of fr_rafale_*_squa…
   
   Effect: Squadron rosters and nuclear/tanker Rafales continue to receive upstream updates untouched; only the three combat airframes get SEST fits.
   

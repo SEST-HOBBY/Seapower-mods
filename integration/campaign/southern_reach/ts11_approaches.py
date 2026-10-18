@@ -156,7 +156,7 @@ MISSION = dict(
         # nothing to switch off; Hold, and homed on Williamtown. SIGINT is
         # its one fit, an empty hardpoint; the mod ships no name string for
         # it, so SEST Collection Fixes supplies one.
-        U("blue", "rc-135-rivet-joint", "boeing-rc135", "rivet", name="Rivet 21",
+        U("blue", "rc-135-rivet-joint", "boeing_rc135", "rivet", name="Rivet 21",
           squadron="Squadron2", loadout="SIGINT", alt=31000, weapons="Hold",
           route=[(-34.60, 151.20, 31000), (-34.60, 152.00, 31000)], loop=True,
           telegraph=3),

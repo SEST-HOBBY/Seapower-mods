@@ -52,7 +52,7 @@ ROOT = Path(__file__).resolve().parents[2]
 OUT = Path(__file__).resolve().parent / "SEST_Cross_Deck"
 MODS = ROOT / "mods-source"
 
-sys.path.insert(0, str(ROOT / "integration" / "missions"))
+sys.path.insert(0, str(ROOT / "integration" / "mission-seeds"))
 from refine_civ_traffic import load_order  # noqa: E402
 
 INFO_INI = """\
@@ -68,7 +68,7 @@ Anchor Chain extend per deck; the hull's own list is kept and only existing \
 allied aircraft are added.
 
 [Compatibility]
-ApproximateVersion=0.8.5
+ApproximateVersion=0.8.6
 """
 
 # Navies whose decks and aircraft cross-deck with each other. The nation
@@ -86,7 +86,7 @@ ALLIES = {
 # a member no enabled mod ships is simply not added.
 FAMILIES = {
     "Seahawk (S-70B / SH-60 / MH-60)": [
-        "usn_mh-60r", "usn_mh-60r_26", "usn_sh-60b", "usn_sh-60f", "usn_hh-60",
+        "usn_mh-60r", "usn_mh-60r_26", "usn_mh-60r_p2", "usn_sh-60b", "usn_sh-60f", "usn_hh-60",
         "S-70B-2_Seahawk", "ran_S-70B-2_Seahawk", "ran_S-70B-2_Seahawk_late",
         "jmsdf_sh-60j", "jmsdf_sh-60k", "spa_sh-60b", "spa_sh-60b_block1",
         "spa_sh-60bv1", "spa_sh-60bv1_block1", "dk_mh-60r", "tha_S-70B-7_Seahawk",

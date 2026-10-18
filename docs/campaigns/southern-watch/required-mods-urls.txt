@@ -1,6 +1,6 @@
 Southern Watch - Workshop mods this campaign reaches (reference only)
 
-142 items, in canonical load order. NOT the Workshop item's
+158 items, in canonical load order. NOT the Workshop item's
 Required Items list. All four campaigns ship in one item, the SEST
 Integration Pack (3812461539), whose Required Items - like the
 collection 'SEST - Modernised Campaign Collection' (3812390790) -
@@ -29,6 +29,7 @@ https://steamcommunity.com/sharedfiles/filedetails/?id=3373960386    # Flight De
 https://steamcommunity.com/sharedfiles/filedetails/?id=3461091581    # Air Deck Operations Upgrade - Nimitz (2000s)
 https://steamcommunity.com/sharedfiles/filedetails/?id=3508275114    # Ground Upgrade: SPAA
 https://steamcommunity.com/sharedfiles/filedetails/?id=3438479626    # 1143.5 Kuznetsov
+https://steamcommunity.com/sharedfiles/filedetails/?id=3820759806    # Euromod - Modern Royal Australian Navy Mod
 https://steamcommunity.com/sharedfiles/filedetails/?id=3440622312    # [DEPRECATED] Anzac Class Frigate
 https://steamcommunity.com/sharedfiles/filedetails/?id=3432668460    # Auxilliary Merchant Pack
 https://steamcommunity.com/sharedfiles/filedetails/?id=3567256221    # Charles De Gaulle & Modern French Navy Pack (WIP)
@@ -48,6 +49,7 @@ https://steamcommunity.com/sharedfiles/filedetails/?id=3599752717    # Euromod -
 https://steamcommunity.com/sharedfiles/filedetails/?id=3488139470    # Euromod - Modern Italian Navy
 https://steamcommunity.com/sharedfiles/filedetails/?id=3390330875    # Modern US Navy
 https://steamcommunity.com/sharedfiles/filedetails/?id=3456859157    # Mogami-class Frigate
+https://steamcommunity.com/sharedfiles/filedetails/?id=3802216383    # JMSDF Hyūga Class — Hyūga & Ise
 https://steamcommunity.com/sharedfiles/filedetails/?id=3594891803    # PLAN Submarines
 https://steamcommunity.com/sharedfiles/filedetails/?id=3774859959    # PLAN Type 001 Aircraft Carrier Liaoning
 https://steamcommunity.com/sharedfiles/filedetails/?id=3774572038    # PLAN Type 071 Amphibious Transport Dock
@@ -55,8 +57,12 @@ https://steamcommunity.com/sharedfiles/filedetails/?id=3436170138    # Shenyang 
 https://steamcommunity.com/sharedfiles/filedetails/?id=3486502935    # Type 003 Fujian / Type 004 CVN Aircraft Carriers
 https://steamcommunity.com/sharedfiles/filedetails/?id=3417801942    # Chinese Navy (PLAN)
 https://steamcommunity.com/sharedfiles/filedetails/?id=3597650470    # Russian Navy 21
+https://steamcommunity.com/sharedfiles/filedetails/?id=3399699218    # Project 2498 Zyetseth Class Assault Vessel
 https://steamcommunity.com/sharedfiles/filedetails/?id=3468260539    # Russian Submarines (Yasen, Akula, Sierra I/II, Oscar II, Belgorod, Typhoon, Delta IV classes)
 https://steamcommunity.com/sharedfiles/filedetails/?id=3403661005    # [DEPRECATED] S-70B-2 Seahawk with AGM-114 'Hellfire' Missiles
+https://steamcommunity.com/sharedfiles/filedetails/?id=3820576916    # Steelfin
+https://steamcommunity.com/sharedfiles/filedetails/?id=3766210676    # Saronic Corsair ASV
+https://steamcommunity.com/sharedfiles/filedetails/?id=3819522350    # Anduril Maritime Drones
 https://steamcommunity.com/sharedfiles/filedetails/?id=3630495619    # Euromod - Cold War Spanish Navy
 https://steamcommunity.com/sharedfiles/filedetails/?id=3731208477    # Euromod - Modern Spanish Navy
 https://steamcommunity.com/sharedfiles/filedetails/?id=3378409795    # Royal Navy Type 23 'Duke Class' Frigate [OLD]
@@ -80,6 +86,7 @@ https://steamcommunity.com/sharedfiles/filedetails/?id=3746453639    # Civil Air
 https://steamcommunity.com/sharedfiles/filedetails/?id=3781062859    # <<E-3G>>
 https://steamcommunity.com/sharedfiles/filedetails/?id=3595014060    # NATO E-3A Sentry
 https://steamcommunity.com/sharedfiles/filedetails/?id=3499239964    # [DEPRECATED] E-7A Wedgetail
+https://steamcommunity.com/sharedfiles/filedetails/?id=3813033771    # EC-2 Stand Off Jammer
 https://steamcommunity.com/sharedfiles/filedetails/?id=3587877691    # Eurofighter Typhoon
 https://steamcommunity.com/sharedfiles/filedetails/?id=3448845252    # F-117 Nighthawk
 https://steamcommunity.com/sharedfiles/filedetails/?id=3636386513    # F-15 EX Eagle II
@@ -111,6 +118,7 @@ https://steamcommunity.com/sharedfiles/filedetails/?id=3513571010    # Mil Mi-24
 https://steamcommunity.com/sharedfiles/filedetails/?id=3716049886    # MORE SU-24M VARIANTS
 https://steamcommunity.com/sharedfiles/filedetails/?id=3806466625    # V-22 Osprey / SV-22 2024 ASW prototype
 https://steamcommunity.com/sharedfiles/filedetails/?id=3810611344    # MV-75 Cheyenne II
+https://steamcommunity.com/sharedfiles/filedetails/?id=3551621846    # NEBO-U
 https://steamcommunity.com/sharedfiles/filedetails/?id=3587091564    # 3M25 <<МЕТЕОРИТ>> (AS-X-19 Koala)
 https://steamcommunity.com/sharedfiles/filedetails/?id=3681873198    # Pickup truck extension
 https://steamcommunity.com/sharedfiles/filedetails/?id=3774746803    # AVIC HARBIN Z-21
@@ -118,12 +126,19 @@ https://steamcommunity.com/sharedfiles/filedetails/?id=3729578404    # PLA Sheny
 https://steamcommunity.com/sharedfiles/filedetails/?id=3433577445    # Shenyang J-8
 https://steamcommunity.com/sharedfiles/filedetails/?id=3729579342    # PLA Sukhoi Su-27UBK
 https://steamcommunity.com/sharedfiles/filedetails/?id=3796113927    # RQ-180 White Bat Airframe
+https://steamcommunity.com/sharedfiles/filedetails/?id=3652906664    # S-300PMU2
 https://steamcommunity.com/sharedfiles/filedetails/?id=3392434750    # SA-21/S-400 SAM
+https://steamcommunity.com/sharedfiles/filedetails/?id=3524446392    # S-350 Vityaz
+https://steamcommunity.com/sharedfiles/filedetails/?id=3564792549    # BUK-M3
 https://steamcommunity.com/sharedfiles/filedetails/?id=3673250557    # SAAB AEW&C PACK
 https://steamcommunity.com/sharedfiles/filedetails/?id=3461519690    # SCUD-B
 https://steamcommunity.com/sharedfiles/filedetails/?id=3455931957    # Sea Lynx
 https://steamcommunity.com/sharedfiles/filedetails/?id=3551676319    # SEJJIL (Iran Ballistic Missiles)
 https://steamcommunity.com/sharedfiles/filedetails/?id=3497601759    # Shahed-136 Kamikaze Drone (Geran-2)
+https://steamcommunity.com/sharedfiles/filedetails/?id=3686449681    # Iran UAV Shahed 238
+https://steamcommunity.com/sharedfiles/filedetails/?id=3493115616    # EMAD
+https://steamcommunity.com/sharedfiles/filedetails/?id=3673703427    # Fattah-1
+https://steamcommunity.com/sharedfiles/filedetails/?id=3672497668    # Fattah-2
 https://steamcommunity.com/sharedfiles/filedetails/?id=3451166840    # Su-25 Frogfoot
 https://steamcommunity.com/sharedfiles/filedetails/?id=3762023575    # Su-30SM2
 https://steamcommunity.com/sharedfiles/filedetails/?id=3503594612    # SU-57 Felon (重刑犯)
@@ -143,6 +158,7 @@ https://steamcommunity.com/sharedfiles/filedetails/?id=3782020901    # Y-20 / KJ
 https://steamcommunity.com/sharedfiles/filedetails/?id=3796349767    # YF-23 Black Widow II
 https://steamcommunity.com/sharedfiles/filedetails/?id=3601891050    # Small and Medium-Sized UAV Series [WIP] (中小型无人机系列)
 https://steamcommunity.com/sharedfiles/filedetails/?id=3408662804    # Iskander TBM
+https://steamcommunity.com/sharedfiles/filedetails/?id=3681748718    # ISKANDER-M
 https://steamcommunity.com/sharedfiles/filedetails/?id=3470643173    # Type 12 SSM-ER Anti-Ship Missile System
 https://steamcommunity.com/sharedfiles/filedetails/?id=3571718093    # Road Mobile ICBMs (Topol-M, DF-41)
 https://steamcommunity.com/sharedfiles/filedetails/?id=3631042692    # Modern Chinese Airbase (Large)

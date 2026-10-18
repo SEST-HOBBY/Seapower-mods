@@ -87,8 +87,9 @@ $haveOrder = @($live.Keys | Where-Object { $canonical -contains $_ })
 $outOfOrder = 0
 for ($i = 0; $i -lt $wantOrder.Count; $i++) { if ($wantOrder[$i] -ne $haveOrder[$i]) { $outOfOrder++ } }
 
-$unknown  = @($live.Keys | Where-Object { $canonical -notcontains $_ })
-$sestOff  = @($live.Keys | Where-Object { $_ -like "SEST_*" -and $live[$_] -eq "False" })
+$unknown  = @($live.Keys | Where-Object { $canonical -notcontains $_ -and $SestOwnWorkshopIds -notcontains $_ })
+$sestOwn  = @($live.Keys | Where-Object { $SestOwnWorkshopIds -contains $_ })
+$sestOff  = @($live.Keys | Where-Object { ($_ -like "SEST_*" -or $SestOwnWorkshopIds -contains $_) -and $live[$_] -eq "False" })
 $notListed = @($canonical | Where-Object { -not $live.Contains($_) })
 
 Write-Host ""
@@ -96,9 +97,13 @@ Write-Host ("what the game has now : {0} entries, {1} in a different position to
 # What actually happens to these depends on the token: set-mod-order.ps1 DROPS
 # an unknown workshop id (the game re-adds it next launch, wherever it likes)
 # and only appends non-numeric ones. Saying "appended" for all of them sent
-# people looking for a mod at the bottom of a list it is not in.
+# people looking for a mod at the bottom of a list it is not in. SEST's own
+# Workshop item (3812461539) is neither: set-mod-order.ps1 keeps it at
+# position 1 while the local SEST_Integration folder is absent, and drops it
+# with a warning when the folder is present.
 $unknownIds = @($unknown | Where-Object { $_ -match '^\d+$' })
 $unknownOther = @($unknown | Where-Object { $_ -notmatch '^\d+$' })
+if ($sestOwn)      { Write-Host ("SEST's own Workshop item listed: {0} - kept at position 1 unless the local SEST_Integration folder is installed" -f ($sestOwn -join ', ')) -ForegroundColor DarkGray }
 if ($unknownIds)   { Write-Warning "not in data\load-order.tokens.txt - these will be REMOVED from the order (the game re-adds a still-subscribed mod on next launch, at its own position): $($unknownIds -join ', ')" }
 if ($unknownOther) { Write-Warning "not in data\load-order.tokens.txt (appended at the end): $($unknownOther -join ', ')" }
 if ($sestOff)   { Write-Warning "SEST packs you have DISABLED (their patches will do nothing): $($sestOff -join ', ')" }

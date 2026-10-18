@@ -15,9 +15,10 @@ stays sunk until the next of them, and costs its price again.
 # The mission modules, in campaign order. The builder sorts the spine by
 # date, so this order is also the date order.
 MODULES = [
-    "sl01_the_island_road", "sl02_fire_mission_jolo", "sl03_ayungin",
-    "sl04_service_at_sea", "sl05_celebes_gate", "sl06_the_aborlan_battery",
-    "sl07_balabac_strait",
+    "sl01_the_island_road", "sl01a_night_market", "sl02_fire_mission_jolo",
+    "sl03_ayungin", "sl03a_the_okean", "sl04_service_at_sea", "sl05_celebes_gate",
+    "sl05a_the_drone_yard",
+    "sl06_the_aborlan_battery", "sl07_balabac_strait",
 ]
 
 # code: (date, completion points, generation, anchor station)
@@ -29,10 +30,16 @@ MODULES = [
 # the bought force - supply ships included - sails in all seven.
 CALENDAR = {
     "SL01": ((2028, 10, 12), 100, "Generated", "screen"),
+    # The side operations (docs/campaigns/side-operations.md): optional,
+    # flown by a fixed force the mission supplies, so nothing the player
+    # owns sails and the no-free-rearm magazines are untouched.
+    "SL01A": ((2028, 10, 15), 50, None, None),
     "SL02": ((2028, 10, 19), 120, "Generated", "gunline"),
     "SL03": ((2028, 10, 26), 120, "Generated", "escort"),
+    "SL03A": ((2028, 10, 29), 60, None, None),
     "SL04": ((2028, 11, 2), 100, "Generated", "screen"),
     "SL05": ((2028, 11, 9), 140, "Generated", "patrol"),
+    "SL05A": ((2028, 11, 12), 60, None, None),
     "SL06": ((2028, 11, 16), 140, "Generated", "gunline"),
     "SL07": ((2028, 11, 23), 0, "Generated", "screen"),
 }

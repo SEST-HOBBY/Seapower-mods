@@ -51,6 +51,16 @@ SPA_COLDWAR = "3630495619"  # Spanish Navy Mod (Cold War)
 # its only customer and now patches the real hull instead. The mod stays
 # subscribed: SEST_Allied_Fixes patches HMS Ocean out of it.
 ANZAC = "3440622312"        # Anzac Class Frigate - the REAL hull, subscribed 2026-09-20
+# Euromod - Modern Royal Australian Navy (subscribed 17 Oct 2026) models the
+# Hobart, Anzac, Canberra and Collins under the very ids the campaigns use,
+# with the RAN's own fits: NSM, Tomahawk, SM-6, date-based ESSM and Nulka,
+# real hull numbers and emblems, and its own Aegis/9LV/BYG-1 combat systems.
+# Those four are PATCHES of its files now ("euromod": True below): the hull,
+# fit, variants and systems are the mod's, and this pack changes only what
+# the campaigns need - the RAN MH-60R air group the rosters sell, the decks
+# that take it, the LHD's USMC lift, the reload flag and the HMAS names.
+EUROMOD_RAN = "3820759806"
+EUROMOD_RAN_HELOS = "ran_mh-60r,ran_S-70B-2_Seahawk"   # its own, kept on the decks
 
 HELOS = "usn_mh-60r,S-70B-2_Seahawk"
 
@@ -214,7 +224,8 @@ def verify_nsm_channel(ship_id, text):
     association, the failure is silent in game (the ship just holds its
     missiles) and this is the last place that can see it coming."""
     ids = "|".join(re.escape(i) for i in NSM_IDS)
-    mounts = re.findall(rf"(?ms)^\[WeaponSystem\d+\][^\n]*\n(?:(?!^\[).)*?"
+    # A loadout's own block ([WeaponSystem7Late], Euromod's NSM fit) counts.
+    mounts = re.findall(rf"(?ms)^\[WeaponSystem\d+[^\]\n]*\][^\n]*\n(?:(?!^\[).)*?"
                         rf"^Ammunition=(?:{ids})[^\n]*\n(?:(?!^\[).)*", text)
     if not mounts:
         sys.exit(f"{ship_id}: no NSM mount found after the swap")
@@ -366,7 +377,9 @@ def refresh_armament(ship_id, text):
 
 FLEET = {
     "ran_ddg_hobart": {
-        "donor": (SPA_MODERN, "ae_ffg_alvaro_bazan"),
+        "donor": (EUROMOD_RAN, "ran_ddg_hobart"),
+        "patch": True,
+        "euromod": True,
         "class_name": "Hobart-class DDG",
         "type_line": "DDG,Destroyer",
         "short": "Hobart",
@@ -394,9 +407,14 @@ FLEET = {
     # now ships NEITHER for the Anzac and lets the mod's win. The hulls list
     # below is kept for the build summary and as the record of what the class
     # is; nothing is generated from it any more.
+    #
+    # 17 Oct 2026: the patch moved again, onto Euromod's Anzac, which carries
+    # NSM and date-based ESSM itself and names the Variant1-8 hulls in the same
+    # FFH-150..157 order (its Variant9-14 are the same ships with the MH-60R).
     "ran_ffh_anzac": {
-        "donor": (ANZAC, "ran_ffh_anzac"),
+        "donor": (EUROMOD_RAN, "ran_ffh_anzac"),
         "patch": True,
+        "euromod": True,
         "class_name": "Anzac-class FFH",
         "type_line": "FFH,Frigate",
         "short": "Anzac",
@@ -415,7 +433,9 @@ FLEET = {
         "airgroup": ["usn_mh-60r=Squadron20,1"],
     },
     "ran_lhd_canberra": {
-        "donor": (SPA_MODERN, "ae_lhd_juan_carlos"),
+        "donor": (EUROMOD_RAN, "ran_lhd_canberra"),
+        "patch": True,
+        "euromod": True,
         "class_name": "Canberra-class LHD",
         "type_line": "LHD,Amphibious",
         "short": "Canberra",
@@ -458,13 +478,13 @@ FLEET = {
         "airgroup": None,
     },
     "ran_ssg_collins": {
-        "donor": (SPA_MODERN, "ae_ssk_s80"),
-        "class_name": "Collins-class SSG (stand-in)",
+        "donor": (EUROMOD_RAN, "ran_ssg_collins"),
+        "patch": True,
+        "euromod": True,
+        "class_name": "Collins-class SSG",
         "type_line": "SSG,Submarine",
         "short": "Collins",
-        "desc": ("Royal Australian Navy long-range diesel-electric attack submarine. "
-                 "Stand-in hull: the S-80 Plus family stands in for the Collins — a large, "
-                 "modern conventional boat of comparable role."),
+        "desc": ("Royal Australian Navy long-range diesel-electric attack submarine."),
         "service": "1996|2040",
         "hulls": [("SSG 73 HMAS Collins", "Collins"),
                   ("SSG 74 HMAS Farncomb", "Farncomb"),
@@ -532,10 +552,10 @@ CIWS = {
 
 INFO_INI = """[Language_en]
 Name=SEST RAN Fleet
-Description=Royal Australian Navy fleet cloned from its real European design donors: Hobart-class DDG (F-100), Canberra-class LHD (Juan Carlos I), Collins stand-in (S-80), HMAS Choules (Galicia), Supply-class (Teide), Arafura OPV (Meteoro) - new unit ids, donors untouched. The Anzac is different: it patches the real Anzac Class Frigate mod rather than cloning anything, giving it the fleet-standard NSM, repairing a Mk41 magazine that silently held 16 ESSM instead of 32, re-shipping that ESSM under an id without a space in it so it resolves, and letting the deck operate the MH-60R. HMAS Supply and Stalwart carry a working Replenishment At Sea system and every hull's magazine-less launchers are flagged reloadable, in step with SEST Replenishment At Sea. For Sea Power 0.8.3 each combatant names the combat system the real ship carries (Aegis Baseline 9 on the Hobart, Saab 9LV on the Anzac, Canberra, Arafura and Supply; profiles in SEST Collection Fixes) and the Anzac's Phalanx is the Block 1 definition. Requires Euromod Main, the Modern + Cold War Spanish Navy packs, the Anzac Class Frigate mod, and an MH-60R / S-70B-2 source. Place ABOVE the Anzac mod and below the Euromod packs.
+Description=Royal Australian Navy fleet for the SEST campaigns. The Hobart, Anzac, Canberra and Collins are Euromod - Modern Royal Australian Navy's own ships (their models, fits, hull numbers and combat systems), patched only to embark the RAN MH-60R the campaigns sell, to let their decks take both RAN Seahawks (and the Canberra the USMC CH-53E and MV-22B) and to name every hull. HMAS Choules (Galicia), the Supply class (Teide) and the Arafura OPV (Meteoro) are stand-ins cloned from Spanish designs - new unit ids, donors untouched. HMAS Supply and Stalwart carry a working Replenishment At Sea system and every hull's magazine-less launchers are flagged reloadable, in step with SEST Replenishment At Sea. The Euromod ships keep the mod's own combat systems (Aegis Baseline 9, Saab 9LV, AN/BYG-1); the Arafura and Supply name Saab 9LV, from profiles in SEST Collection Fixes. Requires Euromod - Modern Royal Australian Navy, Euromod Main, the Modern + Cold War Spanish Navy packs and an MH-60R / S-70B-2 source. Place ABOVE every ship mod.
 
 [Compatibility]
-ApproximateVersion=0.8.5
+ApproximateVersion=0.8.6
 """
 
 DEFAULT_VARIANT = """ResourcesHullnumberFolder=textures/Misc/
@@ -587,11 +607,13 @@ def main():
         if n == 0:
             print(f"note: {donor} has no DisplayClassName line; relying on language names")
 
-        if ship.get("patch"):
+        own = ship.get("euromod")
+        if ship.get("patch") and not own:
             check_essm()
             text = fix_vls_magazine(ship_id, text)
-        text = refresh_armament(ship_id, text)
-        if ship_id in NSM_LOADS:
+        if not own:
+            text = refresh_armament(ship_id, text)
+        if ship_id in NSM_LOADS or (own and re.search(r"^Ammunition\d*=(?:knm_nsm_1a|usn_rgm_184a)", text, re.M)):
             n_mounts = verify_nsm_channel(ship_id, text)
             print(f"  {ship_id}: {n_mounts} NSM mount(s), each with a guidance channel")
 
@@ -614,11 +636,12 @@ def main():
                 if not anchor:
                     sys.exit(f"{ship_id}: donor {donor} has neither an "
                              "AircraftSupported line nor a [FlightDeck] to add one to")
+                helos = HELOS + ("," + EUROMOD_RAN_HELOS if ship.get("euromod") else "")
                 text = (text[:anchor.end(1)]
-                        + f"AircraftSupported={HELOS}"
+                        + f"AircraftSupported={helos}"
                         + "   // SEST: the deck operates both RAN Seahawks\n"
                         + text[anchor.end(1):])
-                print(f"  {ship_id}: added AircraftSupported ({HELOS}) - donor had none")
+                print(f"  {ship_id}: added AircraftSupported ({helos}) - donor had none")
 
         if ship.get("deck"):
             # Types the deck operates beyond the donor's own list and the
@@ -648,11 +671,11 @@ def main():
 
         # 0.8.3: the combat system the real ship carries, and the Anzac's
         # Phalanx on the Block 1 definition (COMBAT and CIWS above).
-        if ship_id in COMBAT:
+        if ship_id in COMBAT and not ship.get("euromod"):
             text = set_combat_system(text, COMBAT[ship_id], ship_id,
                                      note="SEST RAN Fleet: the real ship's system")
             systems.append(f"{ship['short']} {COMBAT[ship_id]}")
-        if ship_id in CIWS:
+        if ship_id in CIWS and not ship.get("euromod"):
             text, n = swap_systems(text, CIWS[ship_id], ship_id)
             systems.append(f"{ship['short']} CIWS {' '.join(CIWS[ship_id].values())} x{n}")
 
@@ -669,6 +692,15 @@ def main():
                 stale.unlink()
                 print(f"  {ship_id}: removed the clone's variants file - the mod's "
                       "own carries real hull numbers and emblems")
+            if ship.get("euromod"):
+                # Euromod names Variant1..N "Warramunga (S-70B-2) FFH-152" and
+                # the like; this pack embarks the MH-60R on every hull, so those
+                # keys take the HMAS names. Language files merge key by key:
+                # the class line, description and its extra variants stay its.
+                names.append(f"[{ship_id}]")
+                names += [f"Variant{i}={full},{shrt}"
+                          for i, (full, shrt) in enumerate(ship["hulls"], start=1)]
+                names.append("")
             continue
 
         # Variants: keep the donor's [General] block (texture/reference wiring must

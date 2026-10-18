@@ -405,7 +405,7 @@ thing from the campaign map's card: the game draws it from
 whose `<Image>` binds an asset by file stem to an image in the same folder.
 Every stock mission and every stock campaign mission ships one; no SEST
 mission did, so the pane was blank - the "large area where an image should
-be" the first install reported. `integration/missions/briefing_maps.py`
+be" the first install reported. `integration/mission-seeds/briefing_maps.py`
 now draws one per mission from the mission's own unit positions on Natural
 Earth coastlines (own forces placed, enemy as reported areas, enemy
 submarines withheld with a threat note, neutrals as shipping), at 2192x1328
@@ -2616,6 +2616,12 @@ What it made, across the four campaigns' 57 campaign missions:
 The browser copies of the campaign missions carry the same zones; whether
 the game offers placement in a single mission is not known.
 
+*Superseded on 14 October:* the rule that a far group "stays where the
+story puts it" and that aircraft, helicopters and land units are never
+boxed. Every playable unit now has a box; see *A box for every playable
+unit (14 October)* below. The first box, and the panel, are as described
+here.
+
 **"Submarines can't be seen in the formation editor once added to the task
 force. A submarine I dismissed didn't leave: it spawned in the mission and
 carried on with me."** Only the Open Allocation versions of Southern Watch
@@ -2726,8 +2732,8 @@ gate.
 | SW06 Blind Horizon | Two J-16s free at the enclave-fighters station, 114-115 NM from the unarmed Triton at 50,000 ft with 108 NM PL-15s: 6-7 NM of flying from a shot (the gate wants 128) | Both join at minute 5 (one formation, one minute) at the same spawn, on the same patrol box. The brief keeps them airborne but unseen - "a pair of J-16s has come south off the enclave field. Nobody holds them yet: expect them within about five minutes" - because Biak is about 450 NM from where they appear, so "getting airborne" was not true. The Picture-classified reveal that names them is unchanged |
 | SW07 Long Way Home | Two MiG-31BMs at 52,000 ft free 68-70 NM from the Growler and the returning package, inside their 86 NM R-33s (the gate wants 106) | Both join at minute 5 on the same sweep, which turns back at about 18 minutes instead of 13; a tanker that leaves at once is still never in reach. Brief: "has put two MiG-31s up out of the enclave field. Wedgetail does not hold them yet: expect them within about five minutes, above fifty thousand feet and close" - already up, as Ward's memo's "coverage is not a guarantee of detection at takeoff" allows, not just launching from Biak 330 NM away. Test card 6C.2 |
 | SW08 The Open Door | The S-400 site (48N6E3 156 NM, 40N6 250 NM) and the 40N6 TEL free with the package 123 NM away at 30,000 ft, inside both envelopes and the radar's line of sight; the data's own comment had claimed the package started outside a 130 NM 48N6 | The whole battery - site, Flap Lid, TEL - joins at minute 5 (one land formation). Five minutes for jamming and HARMs, then the mission as hard as it was. Brief: "The battery went dark when the window was agreed; nobody expects it to stay dark, and its radars should be back up within about five minutes." Weapons Tight was rejected: at Tight the AI engages only what it has classified hostile, and might never fire on the F-35s. Test card 6C.9 |
-| SW09 Southern Lifeline | The Akula (SS-N-27, 573 NM) free 40 NM from the escort, with the Tu-214R (Hold, 34,000 ft) 161 NM out giving her the track; and the trawler ZVEZDA (Hold) with the group on radar 15 NM from Stalwart, a spotter the gate does not count | The Tu-214R joins at minute 5 and looks at about 25 minutes instead of 20, still ahead of the Kh-31A window at 30-34. The Akula joins at minute 5 too, 40 NM out and outside the ring, because the trawler's picture would otherwise have put the SS-N-27s on the group from the first second. No text changes. Test card 6C.3 |
-| SW10 Common Sea | J-11BG (PL-15 108 NM) free 105 NM from an F-2A at 24,000 ft (the gate wants 128); three more fighters on the same station 116-121 NM from the convoy | All four join at minute 5 (one formation) and arrive over the convoy at about 20 minutes instead of 15; the J-10C's YJ-91 (59 NM) is clear at 116 NM. The 039C (32 NM) and the 054A are unchanged. No text changes |
+| SW09 Southern Lifeline | The Akula (SS-N-27, 573 NM) free 40 NM from the escort, with the Tu-214R (Hold, 34,000 ft) 161 NM out giving her the track; and the trawler ZVEZDA (Hold) with the group on radar 15 NM from Stalwart, a spotter the gate does not count | The Tu-214R joins at minute 5 and looks at about 25 minutes instead of 20, still ahead of the Kh-31A window at 30-34. The Akula joins at minute 5 too, 40 NM out and outside the ring, because the trawler's picture would otherwise have put the SS-N-27s on the group from the first second. The brief now says the scout is back over the box about five minutes in, with the Akula behind her (14 Oct). Test card 6C.3 |
+| SW10 Common Sea | J-11BG (PL-15 108 NM) free 105 NM from an F-2A at 24,000 ft (the gate wants 128); three more fighters on the same station 116-121 NM from the convoy | All four join at minute 5 (one formation) and arrive over the convoy at about 20 minutes instead of 15; the J-10C's YJ-91 (59 NM) is clear at 116 NM. The 039C (32 NM) and the 054A are unchanged. The brief now says the fighters are still on the enclave field, off at about five minutes and over the convoy at about twenty (14 Oct) |
 | SW11 Fujian's Shadow | H-6K (YJ-12, 270 NM) 126 NM from Ford and J-15D (YJ-83, 156 NM) 127 NM, both inside their reach; the 093B (YJ-18, 350 NM) 54 NM out with the KJ-600's track; J-35 and J-20A half a minute from PL-15 range of the F-35Cs | CAP at minute 5, KJ-600 at 8, J-15D and H-6K at 10 from a form-up point about 180 NM from Ford, beyond their carrier (above). Test card 6C.4 and H.13 |
 | C2 Broken Wake | J-15D pair (YJ-83, 156 NM) free 124 NM from Stuart, 32 NM inside its own reach (the gate wants 176); the station comment had said it started outside | Both join at minute 5 at the same 124 NM station, which the raid rule accepts (120 NM); they still join inside their reach, and the quiet minutes are the warning. The Kilo (33.5 NM) is unchanged |
 | D1 Western Passage | MiG-35 pair (86 NM air-to-air) free 95 NM north of the escort flights' Merlin and Wildcat at 3,000 ft: 9 NM of flying from a shot (the gate wants 106) | The shadowers' station moved 16 NM north on the same bearing: 111 NM from the escort flights, 109-110 from the tanker, about two minutes more to the group; the routes onto it are unchanged. Nothing held back - the brief has the GlobalEye reporting the pair and the Su-24MP at the start, and it still does |
@@ -2763,7 +2769,7 @@ gate.
   group, 46 NM from its spawn, before 5:00. Whether the reveal holds once
   they join is unknown; at worst they come up unidentified. Test card 5.3b.
 - The briefing chart no longer draws held-back units
-  (`integration/missions/briefing_maps.py` skips `Disabled=True`), so the
+  (`integration/mission-seeds/briefing_maps.py` skips `Disabled=True`), so the
   brief's "expect ... within about N minutes" is the only warning. D8 is
   where that matters most: the J-16 appears inside PL-15 reach of the
   gunship's whole working area, and losing the gunship ends the operation.
@@ -2809,3 +2815,359 @@ Southern Reach's (70 and 63 before).
 
 Not demonstrated: that the engine honours an `AircraftSupported` set
 through `#!extend`. Test card 6J.
+
+## Three upstream defects repaired, three briefs, and a new mod (14 October)
+
+The player's calls of 14 October, on the 13 October review's open items.
+
+**USS Richard Morris (Red Storm Arsenal).** The hull's `[SensorSystem12]
+#CAPTAS-4` named `SystemName=UMS-4249`, a sonar no mod's sensors.ini defines
+(the mod's own VDS section is `[CAPTAS-4]`, users usn_ffg_constellation), so
+the VDS did nothing; and its NSM containers named `NSM_1_R1_Open` and the rest
+from `animations_NSM_launcher.ini`, which the hull's `[Animations]` block did
+not list (the Constellation lists all three files), so the hatches never
+animated. SEST Replenishment already forks the hull for its reload lines, so
+the two repairs ride in that fork: `HULL_REPAIRS` in `integration/common/ras.py`
+replaces the sonar line and lists the third animation file, each a whole-line
+match counted exactly once, and the builder stops the day the author ships the
+fix. `tools/check_pack_fidelity.py` applies the same table forward to the
+upstream copy, so the fork still has to be the author's file plus only the
+intended lines; it passes. `check_dependencies` no longer lists UMS-4249.
+
+**BUK-M3.** Its TELAR (`wp_buk-m3`) and its 9A316M launcher (`wp_bukslave`,
+two mounts) named the shared `[SA-26]`, which KC-135 Stratotanker and MORE
+SU-24M VARIANTS define above it with `ReloadTime=0` (stale copies of the game's
+weapons.ini, the CIWS story above), so the battery reloaded at once. SEST
+Collection Fixes now forks the three units with the launcher renamed
+`SA-26_BukM3` (`LAND_UNIT_REPAIRS`, the `AIRBASE_RETUNE` shape: the mod must
+win the file, each line is counted) and adds that section to its weapons.ini
+as a verbatim copy of the mod's own `[SA-26]`, 120 s reload included
+(`ADDED_LAUNCHERS`). The shared section, and REDFOR's 3K60 Bal that reads it,
+are untouched.
+
+**Topol-M and DF-41 (Road Mobile ICBMs).** Both trucks named
+`SystemName=ICBM_Launcher` while the mod's weapons.ini defines
+`[ICBM_Launchers]` (ICBM silos the same), so the launcher resolved to nothing.
+Forked with the plural name, the same way. Mission editor only: nothing SEST
+places uses them.
+
+**Three briefs.** Southern Lifeline, Common Sea and Broken Wake hold an enemy
+unit back (the quiet opening above) but their briefs did not say when it
+joins, as the other thirteen do. They do now: the Tu-214R back over the box
+about five minutes in with the Akula behind her; the four enclave fighters off
+at about five and over the convoy at about twenty; the strike pair from the
+north about five minutes in.
+
+**Anduril Maritime Drones (3819522350).** Subscribed by the player on 14
+October: ten uncrewed undersea and surface variants, three rounds, ten weapon
+and sensor sections of its own and four scenarios; no whole-file collision.
+Placed below Saronic Corsair ASV, catalogued, and excused from coverage like
+the Corsair (no 2028 SEST mission has an uncrewed-vehicle role). Its
+`language_en/anduril_maritime_ui.ini` sets `YearsFromStart=85`, which is how
+its README's "Mission Editor includes years through 2031" is done, a
+collection-wide side effect on the editor's year list.
+
+Not demonstrated: all three repairs in game (the play-test guide, section 6,
+has the editor checks); the Buk-M3's two-minute reload rests on the game
+reading a launcher section this pack adds under a new name.
+
+## A box for every playable unit (14 October)
+
+The player's decision of 14 October: "for all missions give every playable
+unit a movable zone, i.e. the Global Hawk or Seahawks flying included in
+the mission plan etc". The 13 October build boxed the hulls round the
+anchor and a far group of boats, and nothing else: of the 321 player units
+the 57 campaign missions place that are not bases, 119 in 42 missions
+started outside every box that admitted their type - every aircraft and
+helicopter on station, SW11's convoy, O3's Korean group, Red Line 06's boat
+and tender - and could not be moved.
+
+`deployment_zones()` now boxes them all. The first box is unchanged: the
+hulls chained within 25 NM of the anchor, every unit type, labelled
+Deployment Zone, opened as described above. Every other player unit with a
+position that the first box does not hold is then clustered the same way
+(single linkage, 25 NM), and each cluster gets a box of its own:
+
+- its `AllowedUnitTypes` is the union of the cluster's types in the game's
+  words - Vessel, Submarine, Helicopter, Aircraft, Land - so a flight's box
+  takes aircraft and nothing else;
+- its label is *Submarine Patrol Box* for boats alone, *Air Station* for
+  aircraft and helicopters alone, *Detachment Zone* for anything else;
+  repeats are numbered as stock numbers its "Sub Patrol Box 1" and "2"
+  (10 Vengeance at Luzon);
+- it starts as the cluster's extent plus the 3 NM pad and opens up to 25 NM
+  a side by the same enemy, goal and slack rules as the first box. The land
+  test applies only to a box that admits Vessel or Submarine; an aircraft
+  box may lie over land.
+
+What is a candidate. The game has no parked aircraft: the 182 player
+aircraft and helicopter sections in the 153 shipped mission and campaign
+files all carry `RelativePositionInNM` with an altitude (one P-3C at 0, in
+the prototype campaign's 04B), and none of the 25 keys they use parks one
+at a field. This builder writes every aircraft the same way (`place()`:
+station, altitude, airborne), and the campaign's owned aircraft enter a
+mission only through an air-tasking slot, which is such a section with the
+player's airframe in it. So every `Taskforce1Aircraft` and
+`Taskforce1Helicopter` section is a candidate, slot placeholders included;
+an owned aircraft with no slot is not in the mission at all.
+
+What is a base. Land units are told apart by `LandUnitSubType`, read the
+way `fix_land_positions.land_unit()` reads it for placement. The builder's
+own STAYS set - Airbase, Port, OilRig, the units that bring their own
+ground - plus Installation (a FOB, a bunker, a plant) and Bridge are places
+and get no box (`DEPLOY_FIXED_LAND`). The other subtypes in the collection
+(SAM, MissileSite, Radar, AAA, MobileUnit) are batteries, launchers,
+radars, guns and vehicles, and are boxed with Land; a subtype the builder
+cannot read is treated as mobile. No campaign mission places a mobile land
+unit on the player's side: the 51 player land units the 57 missions place
+are 49 airbases and two installations (Steel Highway's Liberty, Southern
+Lifeline's FOB), and none has a box. The eight Dispatches, single missions
+the same `render()` writes, do place them (two APCs in The Relief Ship, a
+THAAD launcher, an AN/TPY-2, two DSWS pieces and a Type 12 launcher in
+Range Week, a Jaguar and a HEMTT in The Long Perimeter), and each cluster
+got a Land box labelled Detachment Zone; the unit test (`DeploymentZones`,
+a HY-2 launcher boxed beside an airfield that is not) covers the same
+path. A Land box is not held onto land: the land test is for a box a hull
+can be dragged ashore from, and the decision did not ask for its mirror.
+Range Week's box (10.5 x 11.5 NM) is land at every edge and corner; The
+Relief Ship's (31.2 x 31.4) and The Long Perimeter's (6.1 x 32.1) reach
+over the sea on three sides, so a vehicle could be dragged into the water
+there. What the game does with that is not known.
+
+The build-stop is stricter than before. It used to stop only when the
+owned force sailed into a mission with no zone; `check_deployment_cover()`
+now reads the zone dicts back as the file carries them (GeoPoint, WidthNm,
+HeightNm, AllowedUnitTypes) and stops the build if any player unit a box
+should hold - a hull, a boat, an aircraft, a helicopter, a mobile land unit
+- is outside every box that admits its type, by 0.1 NM or more inside the
+edge. That implies the old rule. `campaign.ini` is unchanged:
+`TaskForceModeDeploymentOptions=True` only where the owned force sails; the
+new boxes are for the mission's own units and are visible on both maps as
+before.
+
+A far box that admits Vessel can take the formation. The 13 October note
+kept far groups unboxed because "a second all-types zone would let the
+player's formation jump to them". The far boxes now carry only their
+cluster's types, so a flight's box cannot take ships, but Red Line 06's
+boat-and-tender box, Fujian's Shadow's convoy box and O3's Korean group
+box admit Vessel and the formation could be dragged into them. The player
+accepted that with the decision; it is written here as such, and test card
+I.9 checks what the game does with it.
+
+What it made, across the 57 campaign missions (counts from the build):
+
+- **Every mission has a zone** (56 before: Southern Reach 05, aircraft
+  only, had none). 131 zones in all, 1 to 5 a mission (14 missions keep
+  one, 24 have two, 9 three, 8 four, Tasman Shield 07 and 11 five); the
+  median is 2. The 56 Deployment Zones are the 13 October boxes key for
+  key (same GeoPoint, WidthNm, HeightNm and types in all 56).
+- **75 new boxes.** 72 Air Stations: 68 take aircraft only, two take a
+  helicopter only (Red Line 03's Z-9C, Southern Lifeline's Seahawk), two
+  both (Rig Seventeen's Osprey and CH-53, The First Ship Through's P-8,
+  Wedgetail, F-35As and Seahawk). Three Detachment Zones: Red Line 06's
+  tender and 039C (Vessel,Submarine; 41.8 x 35.2 NM), Fujian's Shadow's
+  three convoy ships (Vessel; 31.6 x 7), Borrowed Shield's Korean group
+  with its Lynx (Vessel,Helicopter; 38.2 x 34.6).
+- **0 of the 321 movable player units are outside a box of their type**;
+  the 51 bases have none.
+- **Four new boxes are the pad alone** (6 x 6, or 9 x 6 for a pair), each
+  held on every side by an enemy in play or a goal, as the first boxes of
+  Red Line 03 and The Open Door are: Cold Route's Air Station 1 (the
+  P-8: the 093B 27 NM west, the arrival point 18 NM north, the J-15D and a
+  Z-18F in reach east and south); Southern Cross's Air Station 1 (the P-8
+  between the 054A and 093B 13-15 NM south-west and the AGI 38 NM
+  north-east); Blind Horizon's Air Station 2 (the F-35A pair: the ships to
+  classify 63 NM north, the Y-20 to classify east, the arrival point 55 NM
+  west and south); Southern Lifeline's Air Station 2 (the Seahawk: the
+  pickup point 15 NM west, the Akula 28 NM east and south, the armed
+  trawler 18 NM north). The rule is the first box's: an aircraft inside an
+  enemy's reach keeps its pad and no more.
+- One edge case: Great Australian Bight's P-8 sits exactly on the west
+  edge of the first box, so it counts as outside and has an Air Station of
+  its own (31 x 31) that overlaps the first box. Boxes overlap elsewhere
+  too, wherever one opens over another's units (Long Way Home's tanker box
+  opens over the F-22s); the stock files' empty boxes (10 Vengeance at
+  Luzon, below) say a unit may be placed in any box that admits its type.
+- **The eight Dispatches** (not in the 57): six had a zone and Range Week
+  and The Long Perimeter, with no ship, had none; 61 of their 90 movable
+  units were outside. Now 27 zones, 2 to 6 a mission, 21 of them new: 18
+  Air Stations and the three Land Detachment Zones above; 0 of the 90
+  outside. Where there is no ship the first box is an Air Station, as
+  Southern Reach 05's is.
+
+**No box into an objective (14 October, later the same day).** The
+player's report: moving the ships forward inside the zone can put the force
+very close to the objective. Measured on the built files it was worse than
+close. A box never opens towards a goal point (that rule dates from the first
+box), but the padded start box itself, 3 NM round the force, could already
+lie across the arrival circle, and nothing read the circle's radius: twelve
+missions' first boxes overlapped their own arrival circle - Southern Watch 10
+and D1 had the circle's centre inside the box (12 NM inside its edge),
+Tasman Shield 04 and 09 and Southern Watch 09 and 12 were 4 to 6 NM inside
+- so a force placed forward won `Objective met` before the clock started.
+Now (`DEPLOY_CLEAR_NM`, `deployment_areas`, `check_zone_areas`):
+
+- Every circle a player unit's presence completes a stage or the mission
+  in, or lifts a restraint in - the arrival circle, an also-term's, a stage
+  area, a resolve arrival, a lift area - is read from the spec with the
+  trigger builder's own keys and defaults (one circle, however many
+  conditions name it). A circle is *live* while a unit it counts has still
+  to arrive; one that every counted unit starts inside - Southern Watch
+  09's and Southern Reach 04's service windows, Red Line 06's, Cook
+  Strait's, where the force is meant to be there and a Time condition does
+  the rest - constrains nothing.
+- **The game lets a unit be placed in any box that admits its type.** The
+  stock files say so: `10 Vengeance at Luzon` gives its one Oberon a second
+  Sub Patrol Box, empty, 125 NM from the first, and an unlabelled 400 x 100
+  NM Vessel box 200 NM from the Kidd's; `06 Raid on Lombok` has two empty
+  polygons that admit everything. So the rule is on what a box *admits*,
+  not on what it holds at the start: a box that admits a kind a live
+  circle counts keeps 5 NM outside it - 15 minutes' steaming at 20 knots
+  before anything can complete - whichever units start in it.
+- Where a unit the circle counts itself starts nearer than that, boxes of
+  its kind may reach her own distance less 1 NM: the half-mile pad on the
+  pulled side and the box's corner a pad's diagonal beyond her (a
+  cluster's corner lies nearer the circle than any of its ships). The
+  designer's start, no nearer; Return Passage's Kommunist, 4 NM from her
+  circle, keeps 3 NM. A counted unit within half a mile of a live circle's
+  edge, or inside it, gets no box (none is, today).
+- **A unit of a kind a live circle counts, not counted by it, within 5 NM
+  of the circle gets no box at all** - an escort waiting near where its
+  convoy must arrive: any box round it admits the convoy's kind, and the
+  convoy could be placed in it. 22 ships in 14 missions, listed below;
+  each stays where the mission puts it, and the build prints them. The
+  earlier rule of the same day boxed them with the pad pulled off, which
+  the stock evidence above makes unsafe: Western Passage's six escorts had
+  a box 0.3 NM off the convoy's circle, and the convoy could have started
+  there. Move the start in the spec if one should be placeable.
+- A box too near a live circle has the sides that face it pulled in to its
+  units of the counted kind, with a pad of 0.5, 0.3 or 0.15 NM, the first
+  that keeps the need. A group whose box cannot keep it even so - two
+  ships on different bearings round a circle, so that their bounding box
+  passes nearer than either - is halved along its wider axis until each
+  piece's can. A unit a pull leaves outside (Borrowed Shield's Lynx, 7 NM
+  nearer the circle than its ships) is boxed again on its own. The band
+  split of the earlier rule, which cut The First Ship Through's convoy
+  into three overlapping boxes and Return Passage's escorts into two, is
+  gone; the two ship boxes that still overlap (Blind Horizon's, The Quiet
+  Side's) are boxes opened over each other's units, as before.
+- A box that holds only ships no longer admits the helicopter or aircraft
+  kinds a live circle counts where it reaches that kind's need: Rig
+  Seventeen's force box, with the rig's 12 NM circle for the lifters inside
+  it, admits no helicopter or aircraft; Flight Deck Day's carrier box
+  likewise.
+- The build stops if any written box that admits a kind a live circle
+  counts comes nearer than the rule allows, read back from the file's own
+  `[Zones]` and `UnitsInTheArea` triggers (one circle's conditions pooled,
+  whichever triggers carry them, so the per-unit chain's "Objective met
+  by" triggers read as one), so a circle the spec reader does not know
+  cannot ship. Ten tests cover the rule.
+
+The 22 ships with no box (`has no box` in the build's output; the distance
+is to the circle's edge):
+
+| Mission | Ship | Starts | Circle |
+| --- | --- | --- | --- |
+| Southern Watch 09 Southern Lifeline | Anzac | 3.4 NM off | the convoy's 12 NM arrival |
+| Southern Watch 10 Common Sea | Anzac, Mogami, Maya | 1.8, 5.0 and 4.5 NM inside | the convoy's 12 NM arrival |
+| Southern Watch 12 The First Ship Through | Anzac, Arafura | 0.5 and 0.2 NM off | the convoy's 12 NM arrival |
+| Southern Watch C2 Broken Wake | Anzac | 0.2 NM off | the straggler's 10 NM arrival |
+| Southern Watch D1 Western Passage | Type 45, F124, Karel Doorman, Iver Huitfeldt, FREMM, Type 23 | 0.5 to 3.4 NM off | the convoy's 12 NM arrival |
+| Southern Watch D4 Return Passage | Admiral Grigorovich (11356) | 4.9 NM off | the Kommunist's 12 NM arrival |
+| Southern Reach 01 Southern Departure | Anzac | 1.1 NM off | the convoy's 12 NM arrival |
+| Southern Reach 04 Macquarie Passage | Anzac | 1.3 NM off | the convoy's 12 NM arrival |
+| Tasman Shield 09 The Southern Convoy | Hobart | 1.3 NM inside | the convoy's 15 NM arrival |
+| Tasman Shield 11 Approaches | Hobart | 0.9 NM off | the convoy's 15 NM arrival |
+| Tasman Shield 12 Southern Cross | Anzac | 3.1 NM off | the convoy's 15 NM arrival |
+| Red Line 01 Trailing Contact | the 054A | 2.6 NM off | the shadowed ship's 10 NM arrival |
+| Red Line 04 The Order to Withdraw | Ritina | 0.9 NM off | the withdrawing pair's 12 NM arrival |
+| Sulu Line 04 Service at Sea | the C8 | at the centre | the 3 NM service circle round her, which the tanker must reach |
+
+Measured on the built files after the rule (`scratchpad/zone_measure.py`,
+the campaign and the Dispatches): 65 missions and single missions carry 170 boxes (141 in the 57 campaign missions: 56 Deployment Zones, 77 Air Stations, 7 Detachment Zones, 1 Submarine Patrol Box; 29 in the 8 Dispatches); 109 box-and-circle pairs where the box admits a kind the circle counts, none inside a circle still waiting for a unit, 13 under 5 NM, every one of those at a counted unit's own start less 1 NM at most.
+
+The briefing charts (`integration/mission-seeds/briefing_maps.py`) do not draw
+zones - they draw the player's units, reported enemy areas and shipping -
+and nothing there changed; the game draws the zones itself on the briefing
+map and the campaign map (`VisibleIn=CampaignMap,BriefingMap`).
+
+Not demonstrated: everything in this section - that the game offers an
+aircraft, a helicopter, a far ship or a vehicle for placement inside its
+box, how it labels the boxes, that a ship may indeed be dragged into
+another box that admits ships (inferred from stock's empty boxes, not
+seen), and what it does with a vehicle dragged over the sea. Test card
+6I, rows I.7 to I.13.
+
+## The stock box layout in Task Force Mode missions (15 October)
+
+The player reported, on the 13 October build and again on the 15 October
+one, that most missions had changed: the supply ships to be escorted were
+missing, and patrol and recon aircraft sometimes did not appear. The mission
+files still held every one of those units, unchanged since 4 October; what
+had changed around them was the deployment boxes. The 13 October build put
+the escorts and the convoy inside the force's box (92 of 99 supplied ships);
+the 14 October build added boxes round every aircraft and convoy, and its
+objective rule left ten flagships outside every box.
+
+In a Generated or Replaced mission the game builds the player's force from
+what they own, and a box is where that force goes. Stock's `10 Vengeance at
+Luzon` boxes the anchor (the hull the game replaces with the player's first
+ship) and its four air-tasking slots, and nothing else. A unit the mission
+supplies that sits inside a box is, on this evidence, taken for a slot of
+the player's force and left out when nothing fills it. Not proven in game;
+the fix follows stock rather than a theory of the game's code.
+
+`deployment_zones()` now does in a generated mission what stock does:
+
+- one box round the anchor, and one round each slot-tagged aircraft, each on
+  its own (a box round two slots far apart could take in a ship between
+  them); no other Taskforce1 unit gets one;
+- every other Taskforce1 unit stays at least 0.3 NM outside every box
+  (`DEPLOY_KEEP_OUT_NM`): a box that would take one in is cut on the side
+  facing it, the cut that keeps the most room, and does not open over it;
+- the objective rule applies to the circles a boxed unit can complete;
+  a circle that counts only the convoy's ships cannot be reached from a box,
+  since those ships cannot be moved;
+- `check_deployment_cover()` stops the build if any supplied unit lies
+  inside a box.
+
+Measured on the built files: the 50 generated missions carry 124 boxes
+holding the 159 anchors and slots; the 185 units the missions supply are
+outside every box. The seven missions that launch as authored keep the
+boxes of the 14 October rule. "A box for every playable unit" (the 14
+October decision) no longer holds in generated missions: the convoys, escorts
+and supplied aircraft start where the mission puts them, as before 13
+October. Two tests cover the rule.
+
+## The supplied units are flagged TaskForceModeIgnoreUnit (15 October, later)
+
+The box layout above did not bring the convoys back: the player's campaign
+save still launched `Southern Departure` without its three merchantmen. The
+reasoning above is wrong on its evidence. Stock's `09 Shadows off Palawan`
+puts its supplied Charleston, Newport and two LSMs inside its box, and they
+appear. What those four carry, and no SEST unit did, is
+`TaskForceModeIgnoreUnit=True`.
+
+The key goes with the deployment panel. Across the stock pacific-strike
+missions, the five that set `TaskForceModeDeploymentOptions=True` (05, 06,
+07, 09, 10) have no Taskforce1 ship or aircraft that is not the anchor, a
+numbered Replaced slot, an air-tasking slot or flagged IgnoreUnit. The
+missions without the panel (01, 02, 04) supply a sealift ship, an E-3A,
+P-3Cs and F-15Cs unflagged. The 13 October build turned the panel on
+wherever the player's force sails (50 missions plus the six detachments),
+the same build after which the convoys and the authored recon aircraft went
+missing, and wrote the flag on nothing.
+
+`mark_supplied()` now flags, in every mission where `deployment_panel()`
+turns the panel on, each Taskforce1 ship, aircraft and helicopter that is
+not the anchor, a Replaced slot, an air-tasking slot or a granted
+(`JoinTaskForce`) unit. Submarines and land units stay unflagged, as stock
+10 leaves its Oberon and its radars and airfield. The built files carry the
+flag on 136 units in 42 missions; nothing else in them changed. Southern
+Departure flags its freighter, Mairangi Bay, sealift ship, P-8 and Triton.
+Three tests cover the rule.
+
+The rule is read from stock, not from the game's code, and is not yet seen
+in game. The box layout of the section above stays: it does no harm, and
+the supplied units outside the boxes begin where the mission puts them. Its
+claim that a box drops a supplied unit is withdrawn.

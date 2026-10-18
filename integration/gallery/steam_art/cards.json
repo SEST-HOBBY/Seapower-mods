@@ -3,27 +3,27 @@
   "out": "../source/visuals/steam/pack-1-latest-update.jpg",
   "bg": "../../media-pack/source/images/naval/sm3_decatur.jpg",
   "pos": "center 60%",
-  "kicker": "LATEST UPDATE  ·  13 OCTOBER 2026",
-  "head": "Six new mods, a world campaign, 37 hulls up to date.",
+  "kicker": "LATEST UPDATE  ·  14 OCTOBER 2026",
+  "head": "One AIM-424, a box for every flight, one new mod.",
   "cols": [
    {
-    "label": "SIX MODS JOIN",
+    "label": "CAMPAIGNS",
     "items": [
      [
-      "Dynamic Campaign Mod",
-      "alpha; its own 1985 campaign"
+      "A box for every flight",
+      "air stations, patrol boxes"
      ],
      [
-      "BUK-M3",
-      "SA-27 battery on SA-11 models"
+      "No box into an objective",
+      "5 NM clear of every circle"
      ],
      [
-      "Prithvi TBM",
-      "Indian road-mobile missile"
+      "Briefs say when raids join",
+      "Southern Watch 09, 10, C2"
      ],
      [
-      "ICBMs and ISKANDER-K",
-      "no SEST mission places them"
+      "Rivet Joint photo back",
+      "Red Line 03, Tasman Shield 11"
      ]
     ]
    },
@@ -31,20 +31,20 @@
     "label": "SHIPS AND WEAPONS",
     "items": [
      [
-      "SM-6 Block IB",
-      "now from the U.S. Navy 2027 mod"
+      "One AIM-424",
+      "SEST's model on every round"
      ],
      [
-      "37 hulls up to date",
-      "Modern US Navy, RSA, South Korea"
+      "Buk-M3 reloads in 120 s",
+      "its own launcher section"
      ],
      [
-      "Mk 41 launches 1 s apart",
-      "Euromod; not yet confirmed in game"
+      "Richard Morris sonar",
+      "named after its definition"
      ],
      [
-      "GBU-12D seeker",
-      "view widened from 10° to 90°"
+      "Topol-M and DF-41 fire",
+      "launcher name corrected"
      ]
     ]
    },
@@ -52,26 +52,26 @@
     "label": "ALSO IN THIS UPDATE",
     "items": [
      [
-      "DDG-995 gets an MH-60",
-      "not yet confirmed in game"
+      "Anduril Maritime Drones",
+      "new mod; 196 in the order"
      ],
      [
-      "No missing systems",
-      "Constellation, concept Burke"
+      "MH-60R Phase II",
+      "on every Wasp and allied deck"
      ],
      [
-      "Old Krivak II dropped",
-      "Red Storm Arsenal removed it"
+      "14 Oct mod updates followed",
+      "JMSDF, REDFOR, US Navy"
      ],
      [
-      "SEST world campaign",
-      "draft for the Dynamic Campaign Mod"
+      "Pictures log",
+      "menu plugin 1.1.0; not yet seen"
      ]
     ]
    }
   ],
   "foot": [
-   "Six mods joined; no SEST mission places their units. Subscribe to all again.",
+   "One mod joined: Anduril Maritime Drones. Subscribe to all again.",
    "After updating: close the game and run SETUP again."
   ],
   "credit": [
@@ -151,7 +151,7 @@
   ],
   "foot": [
    "Every campaign also as Open Allocation: whole roster from mission one.",
-   "Needs the 195 mods in the collection. Built for Sea Power 0.8.5."
+   "Needs the 196 mods in the collection. Built for Sea Power 0.8.5."
   ],
   "credit": [
    "Photo: U.S. Navy, JO2 Patrick Reilly · Public domain · adapted",

@@ -43,8 +43,6 @@ NAME_KEY = re.compile(r"^(Type|Default|Variant\d+|Squadron\d+|Callsigns)$")
 
 # (file, section, key): (the winning text today, the correction)
 EXPLICIT = {
-    ("vessel_names.ini", "[ran_ffh_anzac]", "Default"):
-        ("Anzac-class FFH,Frigate Helicopter", "Anzac-class FFH,Anzac"),
     ("vessel_names.ini", "[js_ffg_mogami]", "Variant4"):
         ("FFM-4 JS Mikuma,Mikma", "FFM-4 JS Mikuma,Mikuma"),
     ("vessel_names.ini", "[ko_ddg-991]", "Variant2"):
@@ -67,6 +65,13 @@ EXPLICIT = {
         ("Davids Sling Radar,Davids Sling Radar", "David's Sling Radar,David's Sling Radar"),
     ("land_units_names.ini", "[idf_dsws_radar]", "Variant1"):
         ("Davids Sling Radar,Davids Sling Radar", "David's Sling Radar,David's Sling Radar"),
+    # J-10C (3481228992) and JH-7A (3526982088): the English names are the
+    # lower-case file id and the run-together designation; the enemy order of
+    # battle read "j10" and "JH7A" (16 Oct 2026 test).
+    ("aircraft_names.ini", "[plaaf_j10c]", "Default"): ("j10,j10", "J-10C Vigorous Dragon,J-10C"),
+    ("aircraft_names.ini", "[plaaf_j10c]", "Squadron1"): ("j10,j10", "J-10C Vigorous Dragon,J-10C"),
+    ("aircraft_names.ini", "[plaaf_jh7a]", "Default"): ("JH7A,JH7A", "JH-7A Flying Leopard,JH-7A"),
+    ("aircraft_names.ini", "[plaaf_jh7a]", "Squadron1"): ("JH7A,JH7A", "JH-7A Flying Leopard,JH-7A"),
     ("aircraft_names.ini", "[usaf_rq-180]", "Callsigns"):
         ("Squadron1,蝙蝠,White Bat", "Squadron1,BAT,White Bat"),
 }
@@ -184,7 +189,7 @@ Name=SEST Name Fixes
 Description=Corrects unit and squadron display names one key at a time: typos (Rocketeers, Mikuma, Desert, David's Sling), the Anzac's short name, full-width brackets and commas the game's font cannot show, and Russian names written in Cyrillic in English text (transliterated).
 
 [Compatibility]
-ApproximateVersion=0.8.5
+ApproximateVersion=0.8.6
 """
 
 

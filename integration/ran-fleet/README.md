@@ -1,5 +1,16 @@
 # SEST RAN Fleet
 
+> **17 Oct 2026:** Euromod - Modern Royal Australian Navy (3820759806) models the Hobart,
+> Anzac, Canberra and Collins under the very ids the campaigns use, with the RAN's own fits
+> (NSM, Tomahawk, SM-6, date-based ESSM and Nulka), real hull numbers and emblems, and its own
+> Aegis / 9LV / BYG-1 combat systems. Those four are now patches of its files: the hull, fit,
+> variants and systems are the mod's, and this pack changes only the air group (the RAN MH-60R
+> the rosters sell), the decks that take both RAN Seahawks and the mod's own helicopters, the
+> Canberra's USMC lift, the reload flag and the HMAS names of Variant1..N. The table below
+> describes the earlier clones; Choules, Supply and Arafura are still clones of Spanish hulls.
+> Missions pick each ship's fit by date (the latest in service by the mission's year): AMCAP
+> Late on the Anzac, Late on the Hobart, Phase 6 Modernisation on the Collins.
+
 The Royal Australian Navy, cloned from its real European design donors in the Euromod packs.
 This is the honest way to build the RAN from this collection — most of its ships literally
 *are* European designs. Every clone is a **new unit id**: the Spanish donors are untouched

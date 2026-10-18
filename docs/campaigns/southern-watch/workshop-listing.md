@@ -16,7 +16,7 @@ Everything below is for the Steam Workshop page. The mod's own
 page a subscriber reads before they click. Nothing here is generated, so if
 the campaigns change, this changes by hand.
 
-A note before the copy: this pack **depends on 190 other Workshop mods** (the
+A note before the copy: this pack **depends on 198 other Workshop mods** (the
 collection 'SEST - Modernised Campaign Collection', 3812390790). That
 is not a footnote, it is the headline risk of publishing it. A subscriber who
 skims the description, subscribes, and starts a campaign with forty of them
@@ -29,6 +29,11 @@ collection does the same job. SETUP writes the order. The description must
 tell subscribers to answer no if the Mod Manager offers to move dependencies
 above the pack ("Move dependencies above this mod"): that undoes every fix in it, and
 SETUP run again repairs it. `publishing.md` (*Dependencies*) has the detail.
+
+The counts below are the 18 Oct 2026 build (`8732b75f`): 198 Workshop mods in
+`data/load-order.tokens.txt` (199 entries with the pack), 164 of them named
+directly by a mission (the pack's REQUIRED-MODS.txt), and 516 borrowed files
+from 60 mods (its CREDITS.txt). Redo them from those files when they change.
 
 ---
 
@@ -44,9 +49,9 @@ SEST Integration Pack - Modernised Campaigns
 ## Short description (the card blurb)
 
 ```
-Three Task Force Mode campaigns (Southern Watch, Southern Reach / Tasman
-Shield, Red Line) and every SEST fix in one Mod Manager entry. Needs the
-190 Workshop mods in the 'SEST - Modernised Campaign Collection'
+Four Task Force Mode campaigns (Southern Watch, Southern Reach / Tasman
+Shield, Red Line, Sulu Line) and every SEST fix in one Mod Manager entry.
+Needs the 198 Workshop mods in the 'SEST - Modernised Campaign Collection'
 (3812390790): subscribe to it, then run SETUP.
 ```
 
@@ -55,10 +60,12 @@ Shield, Red Line) and every SEST fix in one Mod Manager entry. Needs the
 ```
 SEST INTEGRATION PACK - MODERNISED CAMPAIGNS
 
-Three Task Force Mode campaigns and every SEST fix in one Mod Manager entry:
+Four Task Force Mode campaigns and every SEST fix in one Mod Manager entry:
 Southern Watch (October–November 2028), Southern Reach / Tasman Shield
-(December 2028 to March 2029) and Red Line (November 2028 to February 2029,
-from the other bridge).
+(December 2028 to March 2029), Red Line (November 2028 to February 2029,
+from the other bridge) and Sulu Line (October–November 2028, the Philippine
+Navy's side). Each also comes as an Open Allocation version. A draft world
+campaign for the Dynamic Campaign Mod is included.
 
 SOUTHERN WATCH — THE NORTHERN LIFELINE
 
@@ -77,10 +84,15 @@ It does not stay small.
 WHAT IT IS
   • Task Force Mode. You buy the force, and losses and expenditure carry
     forward. Losing a support ship costs you what that ship was doing.
-  • Twelve core missions, plus four optional operations and two
+  • Twelve core missions, plus ten optional operations and two
     contingencies. What you do in an optional operation is read later: a
     contact briefing with a picture in it, a Korean destroyer in your screen,
-    a tanker on the track, a rearm you earned by holding a service window.
+    a tanker on the track, a frigate already identified when you meet her.
+  • Six of the optional operations are side operations flown by somebody
+    else's force: uncrewed boats shadowing a handover, a dark convoy the day
+    after Weapons Free, a bomber strike on an air-defence belt, a fighter
+    intercept of a bomber raid on Darwin, a Japanese strike to protect a
+    helicopter destroyer, and missile defence of a forward airstrip.
   • Partners arrive on their own terms - a New Zealand Poseidon for one
     sortie, a Korean detachment for a fortnight, a Japanese pair, an American
     carrier under a bounded arrangement - and none of them is yours to keep.
@@ -91,6 +103,8 @@ WHAT IT IS
     Several missions are about finding something, and the campaign map will
     not tell you where it is.
   • Civilian traffic in almost every mission. Neutral losses end operations.
+  • Every mission has a planned time; it is lost at one and a half times the
+    plan, and the briefing states both.
 
 SOUTHERN REACH — TASMAN SHIELD
 
@@ -110,16 +124,28 @@ radio. Every mission is won by restraint, escort or evasion, and each
 victory is written to fit the other two campaigns' story whatever happens
 in it.
 
+SULU LINE — THE ISLAND ROAD
+
+Seven missions in the Sulu Sea and the West Philippine Sea, the same weeks as
+Southern Watch at the other end of the archipelago, with a Philippine-led
+task group, a Royal Thai Navy detachment and one Australian frigate. There is
+no free rearm: after the first mission a ship gets ammunition back only from
+a supply ship you bought, alongside at sea, or from the convoy you escort in
+Service at Sea. Three optional side operations are flown by the Navy's
+Tawi-Tawi patrol group or the Air Force: a drug-running semi-submersible, an
+armed trawler with a hidden torpedo tube, and a strike on a drone yard. Each
+changes a later mission.
+
 WHAT IT NEEDS — READ THIS PART
 
 These campaigns are built on a large mod collection. They name units from
-**143 Steam Workshop mods**; the collection built for them,
-'SEST - Modernised Campaign Collection', holds 190 Workshop mods (those 143,
+164 Steam Workshop mods; the collection built for them,
+'SEST - Modernised Campaign Collection', holds 198 Workshop mods (those 164,
 the mods they or the load order depend on, and the third-party campaigns and
-other content added in October 2026) plus this
-pack. That is the point of it — the campaigns exist to give a very large
-collection somewhere purposeful to be used — but it means subscribing to
-this alone is not enough.
+other content added in October 2026) plus this pack. That is the point of
+it — the campaigns exist to give a very large collection somewhere
+purposeful to be used — but it means subscribing to this alone is not
+enough.
 
 You should not have to subscribe to them one at a time. Subscribe to the
 collection 'SEST - Modernised Campaign Collection' (3812390790); it
@@ -129,12 +155,15 @@ subscribes you to all of them in one press. Then open this mod's folder
 Anchor Chain preloader and sets the whole load order. It is safe to run
 again.
 
+If the Mod Manager offers to move this pack's dependencies above it, answer
+no: that undoes every fix in it. Running SETUP again puts the order back.
+
 The files in this mod's folder (run SETUP first; the rest are there to
 check against):
 
   SETUP - double-click me.cmd — the installer above; run it with the game closed
   REQUIRED-MODS.txt — every Workshop mod the campaigns name, with its ID
-  LOAD-ORDER.txt    — the 181-entry Mod Manager order it was built against
+  LOAD-ORDER.txt    — the 199-entry Mod Manager order it was built against
   CREDITS.txt       — whose work this is built on
 
 Put this pack at the TOP of your load order. It contains whole-file
@@ -155,18 +184,23 @@ the collection need it (B-2 Spirit, A-10A, Su-25, Mi-8 T/TV and the Type
 003/004 carriers name it), the collection does not carry it, and subscribing
 to it is not enough - it needs a manual install.
 
+The Mod Manager may list some collection mods as made for an older game
+version. That is the authors' own version line; they load and play.
+
 CREDIT WHERE IT IS DUE
 
 This pack is a set of patches, and a Sea Power unit file is a whole-file
 override - there is no way to change one line of somebody's aircraft without
-shipping the whole aircraft. So 465 of the unit files here are another
-author's file with edits in it, each 90% or more unchanged, drawn from 51
-different Workshop mods. HMAS Hobart is Euromod's Alvaro de Bazan; the
+shipping the whole aircraft. So 516 of the files here are another author's
+file with edits in it, each 90% or more unchanged, drawn from 60 different
+Workshop mods. HMAS Hobart is Euromod - Modern Royal Australian Navy's; the
 Super Hornets are US Navy 2027's.
 
 CREDITS.txt inside the folder lists every one of them, which mod it came from
 and how much of the file is unchanged. It is generated by diffing the shipped
-files against the collection, not typed, so nothing can fall off it.
+files against the collection, not typed, so nothing can fall off it. Every
+encyclopedia picture and gallery photo is a real photograph, credited to its
+photographer.
 
 If you wrote one of those mods and would rather this pack did not carry a copy
 of your file, say so and it will be changed.
@@ -186,12 +220,38 @@ locale is set to, but the writing in them is not translated.
 
 STATUS
 
-The build is checked automatically — every unit, squadron, loadout variant
-and weapon in every mission of all three campaigns is verified to
-resolve against the mod that wins the load order, on every build. What that
-does NOT check is balance. No mission here has been played to completion by
-its author at the time of writing. Feedback on difficulty, pacing and anything
-that turns out to be impossible is genuinely wanted.
+Built for Sea Power 0.8.6. The build is checked automatically — every unit,
+squadron, loadout variant and weapon in every mission of all four campaigns
+is verified to resolve against the mod that wins the load order, on every
+build. What that does NOT check is balance. Most missions have not been
+played to completion by their author, and none of the October 2026 side
+operations has been. Feedback on difficulty, pacing and anything that turns
+out to be impossible is genuinely wanted.
+```
+
+## Collection description (SEST - Modernised Campaign Collection, 3812390790)
+
+Short; the pack's page carries the detail. Keep the pinned "Read first"
+discussion's install steps in step with it.
+
+```
+Everything the SEST Integration Pack's four campaigns need: 198 Workshop mods
+plus the pack itself (3812461539).
+
+1. Subscribe to all.
+2. In the game's Mod Manager, open the SEST Integration Pack's folder, quit
+   the game and double-click 'SETUP - double-click me.cmd'. It checks the
+   subscriptions, installs the Anchor Chain preloader and writes the load
+   order, with the pack at the top.
+3. If the Mod Manager offers to move the pack's dependencies above it, say
+   no. Running SETUP again puts the order back.
+
+SeaLifter is not in the collection and needs a manual install; several mods
+here name it.
+
+Campaigns: Southern Watch, Southern Reach / Tasman Shield, Red Line and Sulu
+Line, each with an Open Allocation version, plus a draft world campaign for
+the Dynamic Campaign Mod. All fiction, set in 2028-29.
 ```
 
 ## Tags
@@ -205,8 +265,8 @@ pack folder; the Create Mod image picker only browses StreamingAssets.
 
 The pack generates its own art. The mission sheets are the stock 1184×640 and the backdrop and story images 1920×1080; the screenshot slots take those as they are
 and are in `campaigns/sest-southern-watch/art/` inside the mod (Southern
-Reach's and Red Line's are in `campaigns/sest-southern-reach/art/` and
-`campaigns/sest-red-line/art/`). Screenshots, in this order:
+Reach's, Red Line's and Sulu Line's are in `campaigns/sest-southern-reach/art/`,
+`campaigns/sest-red-line/art/` and `campaigns/sest-sulu-line/art/`). Screenshots, in this order:
 
 1. `00_campaign_background.png` — the theatre chart. Sets the scale of the
    thing before anything else does.

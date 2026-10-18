@@ -46,7 +46,7 @@ def air(nation, bid, name, lat, lon, heading, units, port=None, field=None):
     harbour and a runway), so the two are one installation to the engine.
     field: the airfield unit, where the generic airfield_small_1 is wrong - the
     reef bases use the PLA airbases SEST Indo-Pacific Land Assets places there
-    (integration/missions/build_indo_pacific_showcase.py). A reef is too small
+    (integration/mission-seeds/build_indo_pacific_showcase.py). A reef is too small
     for the land mask and may be missing from the game's terrain; a land unit
     there floats at one metre (docs/design-notes.md), as in that mission."""
     return {"nation": nation, "id": bid, "name": name, "kind": "AirBase", "lat": lat,

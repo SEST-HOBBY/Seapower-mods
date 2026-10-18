@@ -5110,3 +5110,307 @@ Supplied by: the SEST author (October 2026)
 Changes: As supplied by the SEST author; no edits.
 Reference limits: Supplied by the SEST author; not mapped to a unit.
 
+a10_base — A-10 Airbase
+Creator: Chrissy Cuttita
+Licence: Public domain
+Source: https://commons.wikimedia.org/wiki/File:45th_OSS_ensures_safe_flying_operations_at_Patrick_AFB_(160728-F-SC564-010).jpg
+File: File:45th OSS ensures safe flying operations at Patrick AFB (160728-F-SC564-010).jpg
+Changes: resized by Wikimedia Commons thumbnail service
+Reference limits: Reviewed against the unit: same family. A-10s on a USAF flightline; a base of the kind the unit stands for
+
+arafura — Arafura-class OPV (stand-in)
+Creator: VolgaDnper1488
+Licence: CC BY-SA 4.0 (https://creativecommons.org/licenses/by-sa/4.0)
+Source: https://commons.wikimedia.org/wiki/File:HMASArafura.jpg
+File: File:HMASArafura.jpg
+Changes: resized by Wikimedia Commons thumbnail service
+Reference limits: Reviewed against the unit: same type. HMAS Arafura (203) alongside in Sydney
+
+bukm3 — Buk-M3 9A317M TELAR
+Creator: Kirill Borisenko
+Licence: CC BY-SA 4.0 (https://creativecommons.org/licenses/by-sa/4.0)
+Source: https://commons.wikimedia.org/wiki/File:9A317M_%22Buk-M3%22_during_the_%22Armiya_2021%22_exhibition.jpg
+File: File:9A317M "Buk-M3" during the "Armiya 2021" exhibition.jpg
+Changes: resized by Wikimedia Commons thumbnail service
+Reference limits: Reviewed against the unit: same type. 9A317M TELAR at Armiya 2021
+
+bukm3_radar — Buk-M3 radar
+Creator: Boevaya mashina
+Licence: CC BY-SA 4.0 (https://creativecommons.org/licenses/by-sa/4.0)
+Source: https://commons.wikimedia.org/wiki/File:9S36M_radar_gondola.jpg
+File: File:9S36M radar gondola.jpg
+Changes: resized by Wikimedia Commons thumbnail service
+Reference limits: Reviewed against the unit: same type. 9S36M radar head on its mast
+
+e7a_wedgetail — E-7A Wedgetail
+Creator: William R. Lewis
+Licence: Public domain
+Source: https://commons.wikimedia.org/wiki/File:E-7A_Wedgetail_assigned_to_RAAF_Base%2C_lands_at_Nellis_Air_Force_Base.jpg
+File: File:E-7A Wedgetail assigned to RAAF Base, lands at Nellis Air Force Base.jpg
+Changes: resized by Wikimedia Commons thumbnail service
+Reference limits: Reviewed against the unit: same type. RAAF E-7A landing at Nellis
+
+f125 — F125 Baden-Wuerttemberg-class MLU
+Creator: Petty Officer 1st Class John Bellino
+Licence: Public domain
+Source: https://commons.wikimedia.org/wiki/File:German_frigate_Baden-W%C3%BCrtemberg_(F222)_sails_in_formation_off_the_coast_of_Hawaii_during_RIMPAC_2024_on_22_July_2024_-_1.jpg
+File: File:German frigate Baden-Würtemberg (F222) sails in formation off the coast of Hawaii during RIMPAC 2024 on 22 July 2024 - 1.jpg
+Changes: resized by Wikimedia Commons thumbnail service
+Reference limits: Reviewed against the unit: same family. Baden-Wurttemberg (F222); the unit is a modernised F125
+
+f5e_rok — ROKAF F-5E
+Creator: TSgt. Ken Hammond, USAF
+Licence: Public domain
+Source: https://commons.wikimedia.org/wiki/File:ROKAF_and_USAF_fighters_during_Team_Spirit_84.JPEG
+File: File:ROKAF and USAF fighters during Team Spirit 84.JPEG
+Changes: resized by Wikimedia Commons thumbnail service
+Reference limits: Reviewed against the unit: same family. ROKAF F-5E nearest, Team Spirit 84 formation
+
+fa50 — ROKAF FA-50 Fighting Eagle
+Creator: 대한민국 국군 Republic of Korea Armed Forces
+Licence: CC BY-SA 2.0 (https://creativecommons.org/licenses/by-sa/2.0)
+Source: https://commons.wikimedia.org/wiki/File:2015.2_%EA%B3%B5%EA%B5%B0_%EC%86%8C%EB%A7%81_%EC%9D%B4%EA%B8%80_%ED%9B%88%EB%A0%A8_Soaring_Eagle_of_ROK_AirForce_(16091270163).jpg
+File: File:2015.2 공군 소링 이글 훈련 Soaring Eagle of ROK AirForce (16091270163).jpg
+Changes: resized by Wikimedia Commons thumbnail service
+Reference limits: Reviewed against the unit: same family. FA-50 nearest, with other ROKAF types
+
+field_tents — 4 Tent Group
+Creator: U.S. Marine Corps photo by Cpl. Apollo Wilson
+Licence: Public domain
+Source: https://commons.wikimedia.org/wiki/File:CORE26_-_Logistics_Marines_provide_Forward_Base_Camp_to_Support_Infantry_Marines_during_Arctic_exercise_(9572938).jpg
+File: File:CORE26 - Logistics Marines provide Forward Base Camp to Support Infantry Marines during Arctic exercise (9572938).jpg
+Changes: resized by Wikimedia Commons thumbnail service
+Reference limits: Reviewed against the unit: same family. troops raising a field tent
+
+grigorovich — Project 11356R Admiral Grigorovich
+Creator: Mil.ru
+Licence: CC BY 4.0 (https://creativecommons.org/licenses/by/4.0)
+Source: https://commons.wikimedia.org/wiki/File:%D0%90%D0%B4%D0%BC%D0%B8%D1%80%D0%B0%D0%BB_%D0%93%D1%80%D0%B8%D0%B3%D0%BE%D1%80%D0%BE%D0%B2%D0%B8%D1%87.jpg
+File: File:Адмирал Григорович.jpg
+Changes: resized by Wikimedia Commons thumbnail service
+Reference limits: Reviewed against the unit: same type. Admiral Grigorovich (745)
+
+harrier_av8b — AV-8B+
+Creator: David Fierro Iglesias
+Licence: CC BY 2.0 (https://creativecommons.org/licenses/by/2.0)
+Source: https://commons.wikimedia.org/wiki/File:AV-8B_Harrier_II_Plus_spanish_navy_(cropped).jpg
+File: File:AV-8B Harrier II Plus spanish navy (cropped).jpg
+Changes: resized by Wikimedia Commons thumbnail service
+Reference limits: Reviewed against the unit: same type. Spanish Navy AV-8B Harrier II Plus; the Italian unit is the same type
+
+hemtt — HEMTT
+Creator: U.S. Army photo by Sgt. Devin Davis
+Licence: Public domain
+Source: https://commons.wikimedia.org/wiki/File:Talisman_Sabre_2025_Logistics_Download_Operations_at_Royal_Australian_Air_Force_base_Darwin%2C_Australia_(9145907).jpg
+File: File:Talisman Sabre 2025 Logistics Download Operations at Royal Australian Air Force base Darwin, Australia (9145907).jpg
+Changes: resized by Wikimedia Commons thumbnail service
+Reference limits: Reviewed against the unit: same type. HEMTT tractor unloading
+
+hh3 — HH-3 helicopter
+Creator: TSgt. Gerald Hansen, USAF
+Licence: Public domain
+Source: https://commons.wikimedia.org/wiki/File:HH-3E_at_Kirtland_AFB_1980.JPEG
+File: File:HH-3E at Kirtland AFB 1980.JPEG
+Changes: resized by Wikimedia Commons thumbnail service
+Reference limits: Reviewed against the unit: same type. HH-3E at Kirtland 1980
+
+humpback — Humpback
+Creator: Murray Foubister
+Licence: CC BY-SA 2.0 (https://creativecommons.org/licenses/by-sa/2.0)
+Source: https://commons.wikimedia.org/wiki/File:Another_spectacular_cruise_northward_along_the_NW_coast_of_the_Antarctic_Peninsula.more_Humpback_whales_surfacing_near_the_ship._(25988580406).jpg
+File: File:Another spectacular cruise northward along the NW coast of the Antarctic Peninsula.more Humpback whales surfacing near the ship. (25988580406).jpg
+Changes: resized by Wikimedia Commons thumbnail service
+Reference limits: Reviewed against the unit: same type. humpback whale surfacing
+
+incheon — Incheon Class
+Creator: Roakr
+Licence: Public domain
+Source: https://commons.wikimedia.org/wiki/File:Incheon_0228.JPG
+File: File:Incheon 0228.JPG
+Changes: resized by Wikimedia Commons thumbnail service
+Reference limits: Reviewed against the unit: same type. ROKS Incheon (FFG-811)
+
+j15d — J-15D
+Creator: Z3144228
+Licence: CC0 (http://creativecommons.org/publicdomain/zero/1.0/deed.en)
+Source: https://commons.wikimedia.org/wiki/File:J-15.jpg
+File: File:J-15.jpg
+Changes: resized by Wikimedia Commons thumbnail service
+Reference limits: Reviewed against the unit: same family. J-15 family in flight; the D's wingtip pods are not shown
+
+kc130j — KC-130J
+Creator: U.S. Marine Corps photo by Lance Cpl. Andrea Cleopatra Dickerson
+Licence: Public domain
+Source: https://commons.wikimedia.org/wiki/File:Lockheed_Martin_KC-130J_Hercules_of_VMGR-252_in_flight_over_North_Carolina_on_22_May_2013.jpg
+File: File:Lockheed Martin KC-130J Hercules of VMGR-252 in flight over North Carolina on 22 May 2013.jpg
+Changes: resized by Wikimedia Commons thumbnail service
+Reference limits: Reviewed against the unit: same type. VMGR-252 KC-130J in flight
+
+kf21 — ROKAF KF-21 Boramae
+Creator: AnShmat
+Licence: CC BY 4.0 (https://creativecommons.org/licenses/by/4.0)
+Source: https://commons.wikimedia.org/wiki/File:KF21ADEX-20.10.2023_1.jpg
+File: File:KF21ADEX-20.10.2023 1.jpg
+Changes: resized by Wikimedia Commons thumbnail service
+Reference limits: Reviewed against the unit: same type. KF-21 Boramae at ADEX 2023
+
+liaoning — CV-16 Liaoning
+Creator: 辽宁号航母123
+Licence: Public domain
+Source: https://commons.wikimedia.org/wiki/File:Liaoning_(CV-16).jpg
+File: File:Liaoning (CV-16).jpg
+Changes: resized by Wikimedia Commons thumbnail service
+Reference limits: Reviewed against the unit: context. Liaoning at Dalian, small behind the shipyard: gallery only
+
+minuteman_silo — Minuteman III silo
+Creator: U.S. Air Force photo by Staff Sgt. Michael Richmond
+Licence: Public domain
+Source: https://commons.wikimedia.org/wiki/File:Hands-On_Missile_Maintenance-_Airmen_Train_Inside_Simulated_Launch_Tube_(9175922).jpg
+File: File:Hands-On Missile Maintenance- Airmen Train Inside Simulated Launch Tube (9175922).jpg
+Changes: resized by Wikimedia Commons thumbnail service
+Reference limits: Reviewed against the unit: context. a training launch tube, not a real silo: gallery only
+
+oilpump — Oil Pump
+Creator: roy.luck
+Licence: CC BY 2.0 (https://creativecommons.org/licenses/by/2.0)
+Source: https://commons.wikimedia.org/wiki/File:Pumpjack%2C_Glenn_Pool_oil_field_OK.jpg
+File: File:Pumpjack, Glenn Pool oil field OK.jpg
+Changes: resized by Wikimedia Commons thumbnail service
+Reference limits: Reviewed against the unit: same family. pumpjack
+
+p3c_rok — ROK P-3C Orion
+Creator: U.S. Navy photo by Photographer’s Mate 2nd Class Richard J. Brunson
+Licence: Public domain
+Source: https://commons.wikimedia.org/wiki/File:USN_and_ROK_P-3_Orions.jpg
+File: File:USN and ROK P-3 Orions.jpg
+Changes: resized by Wikimedia Commons thumbnail service
+Reference limits: Reviewed against the unit: same family. ROK Navy P-3 tail and fuselage, partly in frame
+
+peykaap3 — Peykaap III-class
+Creator: Fars Media Corporation
+Licence: CC BY 4.0 (https://creativecommons.org/licenses/by/4.0)
+Source: https://commons.wikimedia.org/wiki/File:Commissioning_of_112_IRGCN_vessels_(03).jpg
+File: File:Commissioning of 112 IRGCN vessels (03).jpg
+Changes: resized by Wikimedia Commons thumbnail service
+Reference limits: Reviewed against the unit: same type. Peykaap III boats at their commissioning
+
+raaf_east_sale — RAAF Base East Sale
+Creator: Goatindex
+Licence: CC BY-SA 4.0 (https://creativecommons.org/licenses/by-sa/4.0)
+Source: https://commons.wikimedia.org/wiki/File:RAAF_Base_East_Sale_Winjeel.jpg
+File: File:RAAF Base East Sale Winjeel.jpg
+Changes: resized by Wikimedia Commons thumbnail service
+Reference limits: Reviewed against the unit: same type. the base gate and its Winjeel
+
+raaf_edinburgh — RAAF Base Edinburgh
+Creator: STAFF SGT. JEREMY LOCK
+Licence: Public domain
+Source: https://commons.wikimedia.org/wiki/File:Northrop_Grumman_contractors_tow_in_the_Global_Hawk_aircraft_after_working_on_its_sensors_at_Edinburgh_Air_Force_Base%2C_Adelaide%2C_Australia%2C_May_13%2C_2001%2C_in_support_of_Exercise_Tandem_Thrust_010513-F-JQ435-013.jpg
+File: File:Northrop Grumman contractors tow in the Global Hawk aircraft after working on its sensors at Edinburgh Air Force Base, Adelaide, Australia, May 13, 2001, in support of Exercise Tandem Thrust 010513-F-JQ435-013.jpg
+Changes: resized by Wikimedia Commons thumbnail service
+Reference limits: Reviewed against the unit: same type. Global Hawk on the runway, from Commons' RAAF Base Edinburgh category
+
+raaf_scherger — RAAF Base Scherger (Bare Base)
+Creator: DIAC images
+Licence: CC BY 2.0 (https://creativecommons.org/licenses/by/2.0)
+Source: https://commons.wikimedia.org/wiki/File:RAAF_Base_Scherger_gate_(5423526507).jpg
+File: File:RAAF Base Scherger gate (5423526507).jpg
+Changes: resized by Wikimedia Commons thumbnail service
+Reference limits: Reviewed against the unit: same type. the base gate sign
+
+raaf_tindal — RAAF Base Tindal
+Creator: U.S. Air Force photo by Tech. Sgt. Andrea Posey
+Licence: Public domain
+Source: https://commons.wikimedia.org/wiki/File:A35-019_being_refuelled_at_RAAF_Base_Tindal_during_Exercise_Pitch_Black_2024.jpg
+File: File:A35-019 being refuelled at RAAF Base Tindal during Exercise Pitch Black 2024.jpg
+Changes: resized by Wikimedia Commons thumbnail service
+Reference limits: Reviewed against the unit: same type. RAAF F-35A refuelled in a Tindal hangar
+
+s70b2 — S-70B-2
+Creator: Chris Phutully from Australia
+Licence: CC BY 2.0 (https://creativecommons.org/licenses/by/2.0)
+Source: https://commons.wikimedia.org/wiki/File:Just_Droppin_In_(10508198145).jpg
+File: File:Just Droppin In (10508198145).jpg
+Changes: resized by Wikimedia Commons thumbnail service
+Reference limits: Reviewed against the unit: same family. Seahawk with a swimmer; the exact operator is not visible
+
+s80 — S-80-class
+Creator: A Guy Named Nyal
+Licence: CC BY-SA 2.0 (https://creativecommons.org/licenses/by-sa/2.0)
+Source: https://commons.wikimedia.org/wiki/File:Whale_Watching%2C_Cartagena_Spain_-_Flickr_-_A_Guy_Named_Nyal.jpg
+File: File:Whale Watching, Cartagena Spain - Flickr - A Guy Named Nyal.jpg
+Changes: resized by Wikimedia Commons thumbnail service
+Reference limits: Reviewed against the unit: same family. submarine at Cartagena, where the S-80s are based; the class is not confirmed
+
+surion — ROK KUH-1 Surion
+Creator: Korea Aerospace Industries
+Licence: CC BY 2.0 (https://creativecommons.org/licenses/by/2.0)
+Source: https://commons.wikimedia.org/wiki/File:KUH-1_Surion_in_Alaska_(12201684294).jpg
+File: File:KUH-1 Surion in Alaska (12201684294).jpg
+Changes: resized by Wikimedia Commons thumbnail service
+Reference limits: Reviewed against the unit: same type. KUH-1 Surion in Alaska
+
+todaro — Todaro class (Batch I)
+Creator: U.S. Navy photo by John Narewski
+Licence: Public domain
+Source: https://commons.wikimedia.org/wiki/File:US_Navy_080821-N-8467N-003_Italian_submarine_ITS_Salvatore_Todaro_(S_526)_pulls_into_Submarine_Base_New_London_to_begin_a_14-day_visit.jpg
+File: File:US Navy 080821-N-8467N-003 Italian submarine ITS Salvatore Todaro (S 526) pulls into Submarine Base New London to begin a 14-day visit.jpg
+Changes: resized by Wikimedia Commons thumbnail service
+Reference limits: Reviewed against the unit: same type. ITS Salvatore Todaro (S 526)
+
+topolm — Topol-M mobile TEL
+Creator: Stanislav Kozlovskiy
+Licence: CC0 (http://creativecommons.org/publicdomain/zero/1.0/deed.en)
+Source: https://commons.wikimedia.org/wiki/File:Topol-M-09-05-2011.jpg
+File: File:Topol-M-09-05-2011.jpg
+Changes: resized by Wikimedia Commons thumbnail service
+Reference limits: Reviewed against the unit: same type. Topol-M TEL in Moscow
+
+torm1 — Tor-M1
+Creator: Vitaliy Ragulin
+Licence: CC BY-SA 3.0 (https://creativecommons.org/licenses/by-sa/3.0)
+Source: https://commons.wikimedia.org/wiki/File:Tor-M1_and_S-300V_SAM%2C_2008.jpg
+File: File:Tor-M1 and S-300V SAM, 2008.jpg
+Changes: resized by Wikimedia Commons thumbnail service
+Reference limits: Reviewed against the unit: same type. Tor-M1 beside an S-300V launcher
+
+type071 — Type 071 Amphibious Transport Dock
+Creator: RIA Novosti archive, image # / CC-BY-SA 3.0
+Licence: CC BY-SA 3.0 (https://creativecommons.org/licenses/by-sa/3.0)
+Source: https://commons.wikimedia.org/wiki/File:PLANS_Changbai_Mountain_(LPD-989)_20150825.jpg
+File: File:PLANS Changbai Mountain (LPD-989) 20150825.jpg
+Changes: resized by Wikimedia Commons thumbnail service
+Reference limits: Reviewed against the unit: same type. Changbai Shan (989) with landing craft, at a distance
+
+type12 — Type-12-SSM-ER-System-2024
+Creator: Hunini
+Licence: CC BY-SA 4.0 (https://creativecommons.org/licenses/by-sa/4.0)
+Source: https://commons.wikimedia.org/wiki/File:JGSDF_Type_12_SSM_launcher_unit_(04-0602)_left_front_view_at_Camp_Tsuchiura_September_28%2C_2025_04.jpg
+File: File:JGSDF Type 12 SSM launcher unit (04-0602) left front view at Camp Tsuchiura September 28, 2025 04.jpg
+Changes: resized by Wikimedia Commons thumbnail service
+Reference limits: Reviewed against the unit: same family. JGSDF Type 12 launcher; the unit is the extended-range version
+
+us_airfield — US aviation base
+Creator: Sgt. Marcus Floyd
+Licence: Public domain
+Source: https://commons.wikimedia.org/wiki/File:101st_Combat_Aviation_Brigade_Ready%2C_Continues_Preparations_to_Support_Hurricane_Irma_Relief_170911-A-JI163-041.jpg
+File: File:101st Combat Aviation Brigade Ready, Continues Preparations to Support Hurricane Irma Relief 170911-A-JI163-041.jpg
+Changes: resized by Wikimedia Commons thumbnail service
+Reference limits: Reviewed against the unit: same family. Chinooks on a US Army airfield
+
+yasen — Yasen-class
+Creator: Mil.ru
+Licence: CC BY 4.0 (https://creativecommons.org/licenses/by/4.0)
+Source: https://commons.wikimedia.org/wiki/File:%D0%9A-560_%C2%AB%D0%A1%D0%B5%D0%B2%D0%B5%D1%80%D0%BE%D0%B4%D0%B2%D0%B8%D0%BD%D1%81%D0%BA%C2%BB.jpg
+File: File:К-560 «Северодвинск».jpg
+Changes: resized by Wikimedia Commons thumbnail service
+Reference limits: Reviewed against the unit: same type. K-560 Severodvinsk
+
+yuan_family — Type 039C Yuan-class
+Creator: Petty Officer 1st Class Chad J. McNeeley, U.S. Navy
+Licence: Public domain
+Source: https://commons.wikimedia.org/wiki/File:Mike_Mullen_departs_the_Chinese_Navy_submarine_Yuan_at_the_Zhoushan_Naval_Base.jpg
+File: File:Mike Mullen departs the Chinese Navy submarine Yuan at the Zhoushan Naval Base.jpg
+Changes: resized by Wikimedia Commons thumbnail service
+Reference limits: Reviewed against the unit: same family. Yuan-class boat; the unit is the 039C
+

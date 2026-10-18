@@ -78,11 +78,11 @@ VANILLA = MODS / "_vanilla" / "original"
 OUT = Path(__file__).resolve().parent / "SEST_Replenishment"
 
 sys.path.insert(0, str(ROOT / "integration"))
-sys.path.insert(0, str(ROOT / "integration" / "missions"))
+sys.path.insert(0, str(ROOT / "integration" / "mission-seeds"))
 from common.ras import (                                          # noqa: E402
     CLONES, METER_CATEGORIES, METER_EXEMPT, METER_THRESHOLD,
     FREE_ROUND_ACCEPTED, RELOAD_LINE, RESTORE_ROUNDS, STORE_FIXES, SUPPLIERS,
-    _WEAPON_BLOCK, apply_airgroup_fix, apply_refit, apply_store_fix, insert_supply_block,
+    _WEAPON_BLOCK, apply_airgroup_fix, apply_hull_repair, apply_refit, apply_store_fix, insert_supply_block,
     make_reloadable, tag_ammunition)
 from refine_civ_traffic import winning_file                       # noqa: E402
 
@@ -148,7 +148,7 @@ Name=SEST Replenishment At Sea
 Description=Working Replenishment At Sea for the modern fleet, alongside RE-power (3605013271). Ten upstream auxiliaries (Sacramento, Kilauea, T2, Boris Chilikin, Kazbek, Don tender, Delvar, Sealift Pacific, Algol, Teide) five merchant ships (the C8 and Seabee barge carriers, two Ro-Ros and the Soviet Mercur container ship) and two Philippine and Thai hulls (the LPD BRP Tarlac and the oiler HTMS Chula) get a tuned supply system using RE-power's field-proven SystemName=TruckSupplySystem. Each is forked from VANILLA (the Teide, which vanilla does not ship, from the Cold War Spanish pack) and given nothing but that block (and, on the Don, the reload flag for its two chaff launchers), so none of RE-power's other edits to those hulls - deleted optics, altered armour and acceleration - ride along under this pack's name. Eight modern replenishment ships arrive as new unit ids cloned from vanilla donors, five BLUE and three RED: Supply-class T-AOE, Lewis and Clark T-AKE, Henry J. Kaiser T-AO, JMSDF Mashuu, RFA Tide, PLAN Type 901 Fuyu, PLAN Type 903A Fuchi and Project 23130 Akademik Pashin. Each clone is refitted to its own navy and decade rather than wearing its 1960s donor's fit - Artisan and Sea Ceptor on the Tide, OPS-48 and NOLQ-2 on the Mashuu, Type 382/364 radar and twin Type 730 on the Fuyu - and they group in the editor under Replenishment (BLUE) and Replenishment (RED). Every supplier targets Vessel,Submarine so a boat can rearm; heavy strike and area-SAM rounds are metered by two counted SEST_ categories, derived from the data on each build rather than hand-listed, with per-hull MaxAmmoPoints ceilings deciding what each class of auxiliary can pass. Four rounds whose vanilla AmmoPoints and SupplyCategory a stats stub strips get exactly those two keys back, and six ammunition references upstream mistyped are repaired in place - launchers that had no round at all. Most importantly, ReloadableWithoutMagazine=True lands on every bare launcher of every modern hull, the Philippine and Thai navies' included - deck canisters, fixed tubes and Red Storm Arsenal's per-cell Mk41 VLS - because a launcher with no magazine and no such flag can never be reloaded, which is why anti-ship missiles and torpedoes do not replenish today. Must sit ABOVE every ship mod, RE-power included; this pack wins the hulls both touch and leaves RE-power's merchant suppliers to work below it.
 
 [Compatibility]
-ApproximateVersion=0.8.5
+ApproximateVersion=0.8.6
 """
 
 
@@ -367,7 +367,7 @@ def _alias_target(text):
     # Russian SAM stubs (rfn_40n6, rfn_48n6m and more) open with three '#====='
     # lines and put '#!alias' on line 5. Reading only the first line made them
     # rounds with no price, type or role, and the metering silently dropped
-    # them. The same rule as integration/missions/build_land_defence.py.
+    # them. The same rule as integration/mission-seeds/build_land_defence.py.
     for line in text.splitlines():
         stripped = line.strip().lstrip("\ufeff")
         if not stripped:
@@ -1020,6 +1020,11 @@ def stage_launchers(owned, already_written):
         text, re_embarked = apply_airgroup_fix(text, Path(rel).stem)
         if re_embarked:
             fixed.append((rel, title, re_embarked))
+        # ... and the lines HULL_REPAIRS names (a sonar defined nowhere, an
+        # animation file the hull forgot to list).
+        text, repaired_lines = apply_hull_repair(text, Path(rel).stem)
+        if repaired_lines:
+            fixed.append((rel, title, {'repaired': ', '.join(repaired_lines)}))
         broken = dangling_stores(text)
         if broken:
             unfixable.append((rel, title, broken))

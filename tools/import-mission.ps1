@@ -7,7 +7,7 @@
     user\missions\user_missions folder, so a mission you just edited lives
     outside the repo. This finds the game the same way the other tools do,
     copies the named mission (or every user mission) into
-    integration\missions\, and normalises CRLF to LF so the diff stays clean.
+    integration\mission-seeds\, and normalises CRLF to LF so the diff stays clean.
 
     The editor turns every WeaponStatus=Hold and =Tight into Free on save,
     so each imported mission then goes through restore_roe.py, which puts
@@ -20,7 +20,7 @@
 .EXAMPLE
     # From the repo root, with the game closed:
     powershell -ExecutionPolicy Bypass -File .\tools\import-mission.ps1
-    git add integration\missions ; git commit -m "Import edited mission" ; git push
+    git add integration\mission-seeds ; git commit -m "Import edited mission" ; git push
 
 .EXAMPLE
     # Bring in everything you have edited:
@@ -51,7 +51,7 @@ if (-not $Mission -and -not $All) {
     $Mission = Get-ActiveMission $repoRoot
     Write-Host "No -Mission given; using the active mission: $Mission"
 }
-$destDir = Join-Path $repoRoot "integration\missions"
+$destDir = Join-Path $repoRoot "integration\mission-seeds"
 
 # --- Locate StreamingAssets --------------------------------------------------
 if (-not $StreamingAssetsDir) {
@@ -92,7 +92,7 @@ foreach ($f in $files) {
     $importedNames += $f.BaseName
 }
 
-Write-Host "`n$imported mission(s) imported into integration\missions."
+Write-Host "`n$imported mission(s) imported into integration\mission-seeds."
 
 # --- Restore the ROE the editor flattened ------------------------------------
 # Saving in the editor rewrites every WeaponStatus=Hold and =Tight to Free, so
@@ -108,11 +108,11 @@ if ($importedNames.Count -gt 0) {
         Write-Host "The editor turns every Hold and Tight into Free on save. Either install"
         Write-Host "Python and run the line(s) below, or push the import and say it needs it:"
         foreach ($n in $importedNames) {
-            Write-Host ("  python .\integration\missions\restore_roe.py --mission `"{0}`" --write" -f $n)
+            Write-Host ("  python .\integration\mission-seeds\restore_roe.py --mission `"{0}`" --write" -f $n)
         }
     } else {
         Write-Host "`nRestoring the ROE the editor flattened:"
-        $roe = Join-Path $repoRoot "integration\missions\restore_roe.py"
+        $roe = Join-Path $repoRoot "integration\mission-seeds\restore_roe.py"
         foreach ($n in $importedNames) {
             $argList = @($py.Pre) + @($roe, "--mission", $n, "--write")
             & $py.Exe @argList
@@ -124,7 +124,7 @@ if ($importedNames.Count -gt 0) {
 }
 
 Write-Host "`nNext:"
-Write-Host "  git add integration\missions"
+Write-Host "  git add integration\mission-seeds"
 Write-Host "  git commit -m `"Import edited mission`""
 Write-Host "  git push"
 Write-Host "Then the rest of the mission tooling can be re-run over your edits (it is idempotent)."

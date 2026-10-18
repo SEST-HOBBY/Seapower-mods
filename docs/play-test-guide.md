@@ -177,9 +177,13 @@ Full card: `docs/campaigns/red-line/test-card.md`.
 | Spruance | Encyclopedia → Spruance class (VLS, LAMPS III) | Named, no "Missing Class"; places on the map without an error |
 | Apache AH Mk 1 | Default loadout on the ground and in flight | Rocket pods no longer drawn over the Brimstones |
 | RAAF F-35A | Strike Long Range Stealth (internal JSM) | No empty wing pylons |
+| One AIM-424 | Southern Watch D6 Long Reach (YF-23s on AirToAirIntercept); Encyclopedia → the AIM-424 of the YF-23, the FQ-44 Fury and the Super Hornets | The AGM-88G stand-in under the jet, not a short fat Sea Sparrow; each card gives SEST's MALICE range, 290 nm. A Sea Sparrow: bring back Player.log |
 | Merchant supply ships | Any mission with a C8, Seabee, Ro-Ro A/B or Mercur on your side | Ships take stores alongside at 8 kn or less |
 | Map lines | Tactical map with several routes | Black lines by day, white at night, selected route red |
 | Gallery | Mod Manager → SEST Integration Pack → Open Folder → Gallery → gallery.html | Opens in a browser with photos and credits |
+| Richard Morris (editor) | Place Red Storm Arsenal's USS Richard Morris; deploy the variable-depth sonar; fire an NSM | The VDS cable pays out (it named a sonar that did not exist); the NSM hatches open before launch (14 Oct) |
+| Buk-M3 (editor) | Place a Buk-M3 battery against a few aircraft | A launcher that has fired takes about two minutes to reload, not seconds (14 Oct) |
+| Topol-M and DF-41 (editor) | Place a Road Mobile ICBMs truck with a land target 100 NM or more away | It fires; before 14 Oct its launcher name matched nothing |
 
 ---
 

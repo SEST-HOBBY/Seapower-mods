@@ -18,7 +18,8 @@ one genuinely-CRLF upstream file), strips the deliberate insertions, and
 requires byte equality:
 
   vessels/   the supply block (suppliers), ReloadableWithoutMagazine lines,
-             and the STORE_FIXES repair of a broken upstream ammunition id
+             the STORE_FIXES repair of a broken upstream ammunition id and
+             the HULL_REPAIRS lines (a sonar name, an animation file)
   ammunition/ one SupplyCategory line (metered rounds), a synthesised
              [General] header on alias files, AmmoPoints/SupplyCategory
              restorations
@@ -39,11 +40,11 @@ ROOT = Path(__file__).resolve().parents[1]
 PACK = ROOT / "integration" / "replenishment" / "SEST_Replenishment"
 
 sys.path.insert(0, str(ROOT / "integration"))
-sys.path.insert(0, str(ROOT / "integration" / "missions"))
+sys.path.insert(0, str(ROOT / "integration" / "mission-seeds"))
 sys.path.insert(0, str(ROOT / "integration" / "replenishment"))
 import build_patch as builder  # noqa: E402
 from common.ras import (CLONES, RESTORE_ROUNDS, SUPPLIERS,  # noqa: E402
-                        apply_airgroup_fix, apply_refit, apply_store_fix,
+                        apply_airgroup_fix, apply_hull_repair, apply_refit, apply_store_fix,
                         render_supply_block)
 
 # The emitted supply block is not matched by pattern, it is RE-RENDERED from
@@ -203,7 +204,9 @@ def main():
                 Path(rel).stem)[0]
             # The same forward application for an air group a mod update
             # broke (AIRGROUP_FIXES).
-            want = apply_airgroup_fix(want, Path(rel).stem)[0].encode("utf-8", "surrogateescape")
+            want = apply_airgroup_fix(want, Path(rel).stem)[0]
+            # ... and HULL_REPAIRS, the same way.
+            want = apply_hull_repair(want, Path(rel).stem)[0].encode("utf-8", "surrogateescape")
         got = strip_insertions(rel, f.read_bytes())
         if Path(rel).stem in RESTORE_ROUNDS:
             # the upstream lacks the restored keys by definition; nothing to strip there

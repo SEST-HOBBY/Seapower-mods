@@ -50,7 +50,7 @@ from pathlib import Path
 from collections import defaultdict
 
 ROOT = Path(__file__).resolve().parents[1]
-sys.path.insert(0, str(ROOT / "integration" / "missions"))
+sys.path.insert(0, str(ROOT / "integration" / "mission-seeds"))
 from refine_civ_traffic import file_stack, winning_file  # noqa: E402
 
 INTEGRATION = ROOT / "integration"
@@ -222,7 +222,7 @@ def assoc_names(body, sensors):
 
 
 def mission_units(name):
-    t = txt(ROOT / "integration" / "missions" / f"{name}.ini")
+    t = txt(ROOT / "integration" / "mission-seeds" / f"{name}.ini")
     queue = list(set(re.findall(r"^Type=(.+?)\s*$", t, re.M)) |
                  set(re.findall(r"^([a-z0-9_.\-]+)=Squadron\d+,\d+", t, re.M)))
     seen = set()
