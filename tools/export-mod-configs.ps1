@@ -145,7 +145,10 @@ if ($CheckUpdates) {
             if ($TextExtensions -notcontains $f.Extension.ToLower()) { continue }
             if ($f.Length -gt $MaxFileBytes) { continue }
             $rel = $f.FullName.Substring($dir.Length).TrimStart('\', '/').Replace('\', '/').ToLower()
-            $hash = [BitConverter]::ToString($sha.ComputeHash([IO.File]::ReadAllBytes($f.FullName))).Replace('-', '').ToLower()
+            # The author's bytes: a _info.ini mark-mods-compatible.ps1 rewrote
+            # hashes as the kept original, so marking a mod is not an update.
+            $authorBytes = Get-AuthorModFileBytes -ModId (Split-Path -Leaf $dir) -Path $f.FullName -Rel $rel
+            $hash = [BitConverter]::ToString($sha.ComputeHash($authorBytes)).Replace('-', '').ToLower()
             $parts.Add("${rel}:${hash}")
         }
         if ($parts.Count -eq 0) { return $null }
@@ -227,9 +230,16 @@ foreach ($mod in $modDirs) {
         $rel = $f.FullName.Substring($mod.FullName.Length).TrimStart('\', '/')
         $target = Join-Path (Join-Path $DestDir $mod.Name) $rel
         New-Item -ItemType Directory -Force -Path (Split-Path $target) | Out-Null
-        Copy-Item -LiteralPath $f.FullName -Destination $target -Force
+        # A _info.ini mark-mods-compatible.ps1 rewrote on this PC exports as
+        # its author's own copy, so mods-source stays the authors' files.
+        $authorBytes = Get-AuthorModFileBytes -ModId $mod.Name -Path $f.FullName -Rel $rel
+        if ($rel -ieq '_info.ini') {
+            [IO.File]::WriteAllBytes($target, $authorBytes)
+        } else {
+            Copy-Item -LiteralPath $f.FullName -Destination $target -Force
+        }
         $kept[$rel.ToLower()] = $true
-        $copied++; $bytes += $f.Length
+        $copied++; $bytes += $authorBytes.Length
     }
     # Mirror deletions INSIDE the mod too. This loop only ever added and
     # overwrote, so a file the author removed in an update stayed in the repo

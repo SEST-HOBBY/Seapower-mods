@@ -124,6 +124,15 @@ Steel Highway once BepInEx was installed. A mod update puts the author's file ba
 `sync-sest.ps1` runs it on every sync. `capture-context.ps1` also copies BepInEx's own
 `LogOutput.log`, where the code mods write, whole (head and tail with a marker line over 50 MB).
 
+`tools\mark-mods-compatible.ps1` stops the Mod Manager's start-up warning that mods are not
+compatible with this game version: every mod whose `_info.ini` declares an `ApproximateVersion`
+with a different MAJOR.MINOR from the game's (68 on 18 Oct 2026, last set for 0.4 to 0.7) has that
+one line set to the game's version, on this PC only. The authors' own files are kept under
+`%LOCALAPPDATA%\SEST\compat-originals`, `export-mod-configs.ps1` exports those, so `mods-source/`
+and the update check still see the authors' files, and `-Restore` puts them all back.
+`sync-sest.ps1` runs it on every sync, since a mod update puts the author's file back. A player
+who subscribes still sees the warning for the same mods: their files are their authors'.
+
 `docs/setup-runbook.md` is the full walkthrough.
 
 ## The campaigns

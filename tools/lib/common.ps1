@@ -233,3 +233,36 @@ function Get-LogExcerpt {
              @($all[-$TailLines..-1])
     return @{ Lines = $lines; Total = $all.Count; Whole = $false }
 }
+
+# --- Mods marked compatible (tools\mark-mods-compatible.ps1) -----------------
+# The Mod Manager warns at start-up about every mod whose _info.ini declares an
+# ApproximateVersion whose MAJOR.MINOR differs from the game's. On the gaming
+# PC, mark-mods-compatible.ps1 rewrites that one line in each such mod's
+# Workshop folder and keeps the author's file here. The exporter reads the
+# author's copy back from here, so mods-source stays a faithful mirror.
+$SestCompatMarker = '; SEST marked this mod compatible'
+
+function Get-CompatBackupDir {
+    <# Where mark-mods-compatible.ps1 keeps the authors' own _info.ini files. #>
+    $base = $env:LOCALAPPDATA
+    if (-not $base) { $base = [Environment]::GetFolderPath('LocalApplicationData') }
+    if (-not $base) { $base = [IO.Path]::GetTempPath() }
+    return (Join-Path (Join-Path $base "SEST") "compat-originals")
+}
+
+function Get-AuthorModFileBytes {
+    <# A Workshop file's bytes as its author shipped them: for a mod's own
+       _info.ini that mark-mods-compatible.ps1 has rewritten, the kept
+       original; for every other file, the file itself. -BackupDir overrides
+       the default store (tests). #>
+    param([Parameter(Mandatory)][string]$ModId, [Parameter(Mandatory)][string]$Path,
+          [Parameter(Mandatory)][string]$Rel, [string]$BackupDir)
+    $bytes = [IO.File]::ReadAllBytes($Path)
+    if ($Rel -ine '_info.ini') { return ,$bytes }
+    if (-not $BackupDir) { $BackupDir = Get-CompatBackupDir }
+    $kept = Join-Path $BackupDir "$ModId._info.ini"
+    if (-not (Test-Path -LiteralPath $kept)) { return ,$bytes }
+    $text = (New-Object Text.UTF8Encoding($false)).GetString($bytes)
+    if ($text.IndexOf($SestCompatMarker, [StringComparison]::Ordinal) -lt 0) { return ,$bytes }
+    return ,([IO.File]::ReadAllBytes($kept))
+}

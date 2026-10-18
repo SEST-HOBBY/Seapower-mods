@@ -266,6 +266,17 @@ if (-not $SkipOrder) {
 Write-Host "`nchecking mod debug switches..." -ForegroundColor Cyan
 & (Join-Path $scriptDir "quiet-mod-debug.ps1")
 
+# --- the start-up "not compatible" warning ------------------------------------
+# A mod update puts its author's _info.ini back too; see mark-mods-compatible.ps1.
+Write-Host "`nmarking out-of-date mods compatible..." -ForegroundColor Cyan
+$compatArgs = @{}
+if ($WorkshopContentDir) { $compatArgs["WorkshopContentDir"] = $WorkshopContentDir }
+if ($StreamingAssetsDir) { $compatArgs["StreamingAssetsDir"] = $StreamingAssetsDir }
+# A start-up warning is not worth stopping the sync for: say what went wrong
+# and carry on.
+try { & (Join-Path $scriptDir "mark-mods-compatible.ps1") @compatArgs }
+catch { Write-Warning ("mods not marked compatible: " + $_.Exception.Message) }
+
 # --- optional: re-run the mission tooling ------------------------------------
 if ($RefreshMissions) {
     Write-Host "`nre-running the mission tooling..." -ForegroundColor Cyan
