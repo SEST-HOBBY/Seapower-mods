@@ -1,4 +1,4 @@
-# Impact speed hit effects (MultiStageMissiles 1.7.14)
+# Impact speed hit effects (MultiStageMissiles 1.7.15)
 
 Put the alternate effect in the ammunition's existing [Particles] section.
 Works on missiles and missile submunitions without requiring stages.
@@ -20,14 +20,14 @@ These values are built-in defaults; omit them from ammunition INIs:
 | HitEffectSpeedThreshold | 3000 |
 | HighSpeedHitEffectScaleMinSpeed | 3000 |
 | HighSpeedHitEffectScaleMaxSpeed | 12000 |
-| HighSpeedHitEffectScaleMin | 0.5 |
-| HighSpeedHitEffectScaleMax | 5 |
+| HighSpeedHitEffectScaleMin | 0.1 |
+| HighSpeedHitEffectScaleMax | 2 |
 
-At 3000 knots the alternate starts at factor 0.5; at 7500 knots its factor is
-2.75; at and above 12000 knots its factor is 5. Below the threshold the ordinary
+At 3000 knots the alternate starts at factor 0.1; at 7500 knots its factor is
+1.05; at and above 12000 knots its factor is 2. Below the threshold the ordinary
 effect remains. Any key can override its default independently.
 MinSpeed/MaxSpeed are finite knots, with 0 <= MinSpeed < MaxSpeed.
-Size factors satisfy 0 < Min <= Max <= 20; the default maximum is 5.
+Size factors satisfy 0 < Min <= Max <= 20; the default maximum is 2.
 To use a fixed factor, set both ScaleMin and ScaleMax to that same value.
 An invalid explicit setting disables this ammunition's override with a warning.
 
@@ -81,15 +81,14 @@ speed bound is present: factor = clamp(speed / reference, Min, Max). A reference
 must be positive and finite. An explicit speed bound selects range scaling, with
 the missing bound using its default. Omission of all scale keys uses the defaults.
 
-Inactive high-speed copies returned by the native pool are activated after
-orientation, size and motion setup. Active copies are not restarted; native
-pooling/lifetime and PlayOnAwake=False remain. No cooldown or frame polling.
-The first 16 configured destruction events per ammunition log speed/threshold,
-selected effect, size, target motion, activation and spawn result. These entries
-do not prove that the camera saw particles.
+Inactive INI copies receive particle size and target-motion setup before activation,
+including pooled reuse, fresh pool copies and independent copies. Active copies are
+not restarted; native pooling/lifetime and PlayOnAwake=False remain. Existing active
+built-in prefabs can already emit during instantiation; use an inactive INI effect
+for guaranteed pre-activation setup. No cooldown, particle rewriting or frame polling.
+Normal successful impact diagnostics are quiet; failures remain visible.
 
-Current AC Pack coverage (2026-10-17): 65 existing profiles (55 SAM kinetic effects
-and 10 AIM warhead effects) inherit the defaults above. Redundant Air definitions
-are removed, or migrated to Default for former air-only profiles. Effect assets,
-direction settings and speed modes are retained. No preset is added to previously
-unconfigured ammunition. Fully restart Sea Power after INI/DLL changes.
+Existing AC Pack high-speed profiles inherit these defaults when their numeric
+keys are omitted. Effect assets, direction settings and speed modes are retained.
+No preset is added to previously unconfigured ammunition.
+Fully restart Sea Power after INI/DLL changes.
