@@ -2,7 +2,8 @@ Found Sea Power (app 1286220)
   game dir : c:\program files (x86)\steam\steamapps\common\Sea Power
   workshop : c:\program files (x86)\steam\steamapps\workshop\content\1286220
 
-unchanged since the last export : 169
+unchanged since the last export : 166
+skipped, SEST's own Workshop item: 3812461539
 
 UPDATED by their authors (re-export to pick the changes up):
   3390330875  Euromod - Modern US Navy
@@ -17,8 +18,10 @@ UPDATED by their authors (re-export to pick the changes up):
   3630495619  Spanish Navy Mod (Cold War)
   3642656500  Euromod-Scandinavian Navy
   3731208477  Spanish Navy Mod (Modern)
+  3732654992  THE REDFOR MOD
   3737267013  US Naval Aviation
   3766210676  Saronic Corsair ASV
+  3768036424  BetterTacMap
   3775128499  PLAN Pack
   3776340577  Ka-27RLD - Ka-31 AEW Helicopter
   3780118683  Tu-214R Family Pack
@@ -30,6 +33,7 @@ UPDATED by their authors (re-export to pick the changes up):
   3807164392  Euromod-India-Navy
   3810611344  MV-75 Cheyenne II
   3812111085  PLAAF Aircraft Pack
+  3813033771  EC-2 Stand Off Jammer
   3813157776  Dynamic Campaign Mod
   3819522350  Anduril Maritime Drones
 
