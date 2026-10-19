@@ -30,10 +30,12 @@ tell subscribers to answer no if the Mod Manager offers to move dependencies
 above the pack ("Move dependencies above this mod"): that undoes every fix in it, and
 SETUP run again repairs it. `publishing.md` (*Dependencies*) has the detail.
 
-The counts below are the 18 Oct 2026 build (`8732b75f`): 198 Workshop mods in
+The counts below are the 19 Oct 2026 build (`368e40c6`): 198 Workshop mods in
 `data/load-order.tokens.txt` (199 entries with the pack), 164 of them named
-directly by a mission (the pack's REQUIRED-MODS.txt), and 516 borrowed files
-from 60 mods (its CREDITS.txt). Redo them from those files when they change.
+directly by a mission (the pack's REQUIRED-MODS.txt), and 524 borrowed files
+from 62 mods (its CREDITS.txt). Redo them from those files when they change.
+The 18 Oct build (`8732b75f`, the Workshop item's update of 18 Oct 13:00)
+had 516 from 60.
 
 ---
 
@@ -191,8 +193,8 @@ CREDIT WHERE IT IS DUE
 
 This pack is a set of patches, and a Sea Power unit file is a whole-file
 override - there is no way to change one line of somebody's aircraft without
-shipping the whole aircraft. So 516 of the files here are another author's
-file with edits in it, each 90% or more unchanged, drawn from 60 different
+shipping the whole aircraft. So 524 of the files here are another author's
+file with edits in it, each 90% or more unchanged, drawn from 62 different
 Workshop mods. HMAS Hobart is Euromod - Modern Royal Australian Navy's; the
 Super Hornets are US Navy 2027's.
 
@@ -227,6 +229,44 @@ build. What that does NOT check is balance. Most missions have not been
 played to completion by their author, and none of the October 2026 side
 operations has been. Feedback on difficulty, pacing and anything that turns
 out to be impossible is genuinely wanted.
+```
+
+## Change log: the 19 Oct 2026 update (`368e40c6`)
+
+The `ChangeLog` field of the update after the 18 Oct one (`8732b75f`). Steam
+renders the BBCode. The required mods are the same 198, so the Required
+Items and the collection stay as they are.
+
+```
+[h2]19 October 2026[/h2]
+
+[b]The AGR-30 Redback, on every strike aircraft[/b]
+[list]
+[*]SEST's two upgraded 70 mm guided rockets become one. The 8 NM laser APKWS II-ER is retired; the AGR-30 Redback replaces it: infrared fire and forget out to 30 NM, a rocket boost then a cruise at about 600 knots, a shallow climb and a dive onto the target. It takes aircraft and drones first, ships and land targets second.
+[*]A new "SEST Redback Strike" loadout on the A-10C, A-10A and A-10C+, the US and British Apaches, the Sea Apache, the RAAF AH-64E, both MQ-9s, the US Navy and RAN MH-60R, both S-70B-2 Seahawks, the F-16CM, the three US Super Hornets, and the RAAF F/A-18F and F/A-18A. Every original loadout is still there.
+[*]The Ocean Apache's "SEST APKWS-ER Strike" loadout goes with its rocket.
+[/list]
+
+[b]Campaigns: the 18 October play test[/b]
+[list]
+[*]Air Tasking: every row now offers every loadout its aircraft can fly for that job, not only the two or three written into it. Southern Watch's strike row goes from 8 loadouts to 31. The Redback loadout sits with the strike loadouts.
+[*]Missions with a player flight deck allow deck preparation from the start, and prepare your airbase where your air wing has one.
+[*]Steel Highway: the missing-beacon datum holds for one minute and is a record, not a contact; the briefing no longer promises a live sonobuoy field. The boat is a Type 039B.
+[*]After the Wake: now a search, with three life rafts (finding two is optional) and a different boat, Contact CHARLIE, snorkelling.
+[*]Southern Cross: two F-35As over the lane; the drone flies low on a loop back across it, and shooting it down is optional.
+[*]Rig Seventeen: both helicopters must hold over the rig for three minutes, then a "Rig crew loaded" message arms the win; they then return to the amphibious group. HMAS Canberra carries her own air group: two Apaches ready with Hellfire and two MH-60Rs.
+[*]The Quiet Passenger: search, classify and stop her. Make her heave to in the handover box for the bonus, or sink her once she is classified.
+[*]Weapons Free: the strike aircraft recover to RAAF Base Darwin, 140 NM away, instead of Tindal at 250.
+[/list]
+
+[b]Fixes and follow-ups[/b]
+[list]
+[*]The JH-7A carries one self-protection jammer in place of two American AN/ALQ-99 tactical jamming pods.
+[*]Names for two units that showed none (the Italian Skyguard SAM and the South Korean F-16C Block 40); the RAN Sea King Mk.50A/B's squadrons now load, and the F-16C Block 40 has a squadron table.
+[*]Follows the authors' latest updates, among them the PAC-3 MSE's 150,000 ft ceiling (Euromod Main Pack), HMAS Hobart's damage model (Euromod RAN) and the EA-18G's two new EO views (US Naval Aviation).
+[/list]
+
+No new subscriptions: the same 198 Workshop mods.
 ```
 
 ## Collection description (SEST - Modernised Campaign Collection, 3812390790)
