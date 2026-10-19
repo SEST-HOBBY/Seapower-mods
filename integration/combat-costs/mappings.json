@@ -1,0 +1,215 @@
+{
+  "weapon": [
+    {
+      "target": "sest_aim-424",
+      "source": "usn_aim-424",
+      "basis": "SEST MALICE: retain the author's explicitly unknown AIM-424 prices",
+      "category": "AAM"
+    },
+    {
+      "target": "sest_agr-30",
+      "basis": "Redback is a bespoke fictional upgrade; no supported USD unit price",
+      "category": "ATGM"
+    },
+    {
+      "target": "usn_arrw",
+      "source": "dts_agm-183a",
+      "basis": "AGM-183A conventional ARRW family estimate; retain the source's 2020 reference basis",
+      "category": "Land Attack"
+    },
+    {
+      "target": "usaf_gbu-31_v1",
+      "source": "usn_gbu-31v1",
+      "basis": "Same GBU-31(V)1 JDAM complete-round estimate"
+    },
+    {
+      "target": "usn_rgm-109j",
+      "source": "usn_rgm-109e5a",
+      "basis": "Maritime-strike Tomahawk family proxy; retain the source estimate and 2021 reference basis"
+    },
+    {
+      "target": "usn_ugm-109j",
+      "source": "usn_ugm-109e5a",
+      "basis": "Submarine maritime-strike Tomahawk family proxy; retain the source estimate and 2021 reference basis"
+    }
+  ],
+  "aircraft": [
+    {
+      "target": "S-70B-2_Seahawk",
+      "source": "ran_s-70b-2_seahawk",
+      "basis": "Same RAN S-70B-2 airframe; author's SH-60-family estimate"
+    },
+    {
+      "target": "adf_ah-64e",
+      "source": "usa_ah-64e",
+      "basis": "AH-64E airframe-family proxy; not an Australian package or sustainment quote"
+    },
+    {
+      "target": "dts_b-52h",
+      "source": "usaf_b-52g",
+      "basis": "Author's B-52 D/G family proxy for a B-52H; retain its 1956 reference basis"
+    },
+    {
+      "target": "usaf_b-52h_419_flts",
+      "source": "usaf_b-52g",
+      "basis": "Author's B-52 D/G family proxy for the 419 FLTS H model; retain its 1956 reference basis"
+    },
+    {
+      "target": "raaf_fa-18a_2011",
+      "source": "usn_fa-18a",
+      "basis": "F/A-18A airframe-family proxy; source Hornet reference basis, not a 2011 purchase quote"
+    },
+    {
+      "target": "raaf_fa-18f",
+      "source": "usn_fa-18f",
+      "basis": "F/A-18F airframe-family proxy; excludes loaded weapons and Australian support packages"
+    },
+    {
+      "target": "ran_mh-60r",
+      "source": "usn_mh-60r",
+      "basis": "MH-60R airframe-family proxy; not a complete Australian procurement package"
+    },
+    {
+      "target": "usaf_a-10c_plus",
+      "source": "usa_a-10c",
+      "basis": "A-10C airframe-family proxy; no invented premium for SEST's upgrade"
+    }
+  ],
+  "vessel": [
+    {
+      "target": "ran_ddg_hobart",
+      "source": "ran_ddg_hobart_alt_late",
+      "basis": "Author's Hobart/Aegis-export family estimate; retain its 2002 reference basis",
+      "category": "DDG"
+    },
+    {
+      "target": "mor_ptm_lazaga",
+      "source": "ae_ptm_lazaga",
+      "basis": "Authored alias of the same Lazaga hull; Spanish catalog family proxy"
+    },
+    {
+      "target": "usn_cg_ticonderoga_vls_2027",
+      "source": "usn_cg_ticonderoga_vls_2025",
+      "basis": "Ticonderoga VLS fitted-hull family estimate; no invented premium for the 2027 fit"
+    },
+    {
+      "target": "usn_ddg_arleigh_flt1_051_2027",
+      "source": "usn_ddg_burke_f1_051_late",
+      "basis": "Same DDG-51 hull family; no invented premium for the 2027 fit"
+    },
+    {
+      "target": "usn_ddg_arleigh_flt1_052_2027",
+      "source": "usn_ddg_burke_f1_052_late",
+      "basis": "Same DDG-52 hull family; no invented premium for the 2027 fit"
+    },
+    {
+      "target": "usn_ddg_arleigh_flt1_054_2027",
+      "source": "usn_ddg_burke_f1_054_late",
+      "basis": "Same DDG-54 hull family; no invented premium for the 2027 fit"
+    },
+    {
+      "target": "usn_ddg_arleigh_flt1_064_2027",
+      "source": "usn_ddg_burke_f1_064_late",
+      "basis": "Same DDG-64 hull family; no invented premium for the 2027 fit"
+    },
+    {
+      "target": "usn_ddg_arleigh_flt2_072_2027",
+      "source": "usn_ddg_burke_f2_072_late",
+      "basis": "Same DDG-72 hull family; no invented premium for the 2027 fit"
+    },
+    {
+      "target": "usn_ddg_arleigh_flt2_075_2027",
+      "source": "usn_ddg_burke_f2_075_late",
+      "basis": "Same DDG-75 hull family; no invented premium for the 2027 fit"
+    },
+    {
+      "target": "usn_ssn_virginia_2027",
+      "source": "usn_ssn_virginia",
+      "basis": "Virginia-class fitted-hull family estimate; ammunition remains separately counted"
+    },
+    {
+      "target": "usn_ssn_virginia_seal_2027",
+      "source": "usn_ssn_virginia",
+      "basis": "Virginia-class family proxy; no unsupported price for the SEAL fit"
+    },
+    {
+      "target": "usn_ssn_los_angeles_flt3_2027",
+      "source": "usn_ssn_los_angeles_flt3_2026",
+      "basis": "Same Flight III Los Angeles-class family across adjacent scenario years"
+    },
+    {
+      "target": "wp_rkr_kirov_improved",
+      "source": "wp_rkr_kirov",
+      "basis": "Author's Kirov fitted-hull family/refit proxy; no invented upgrade surcharge",
+      "category": "CGN"
+    },
+    {
+      "target": "usn_cg_bunker_hill_vls_2004",
+      "source": "usn_cg_ticonderoga_vls_2004",
+      "basis": "Same Ticonderoga VLS class and 2004 fit; fitted-hull family estimate"
+    },
+    {
+      "target": "ran_lhd_canberra",
+      "source": "ae_lhd_juan_carlos",
+      "basis": "Canberra/Juan Carlos I design-family proxy; retain the Spanish catalog estimate, not an Australian contract price",
+      "category": "LHD"
+    },
+    {
+      "target": "rn_lph_ocean_09",
+      "source": "rn_lph_ocean",
+      "basis": "Same HMS Ocean hull family with a scenario-year suffix"
+    },
+    {
+      "target": "plan_em_sovremenny",
+      "source": "wp_em_sovremenny_98",
+      "basis": "Sovremenny export-hull family proxy; no invented modernization surcharge",
+      "category": "DDG"
+    },
+    {
+      "target": "ko_kddx",
+      "source": "non/ko_kddx",
+      "basis": "Exact KDDX reference stored under the author catalog non/ path; classify the missile destroyer as DDG",
+      "category": "DDG"
+    },
+    {
+      "target": "ran_ffh_anzac",
+      "basis": "Modern Anzac FFH is not the catalog Battle-class Anzac destroyer; no supported price. Map FFH to the supported FFG display category.",
+      "category": "FFG"
+    },
+    {
+      "target": "ran_ssg_collins",
+      "basis": "No Collins-class price in the captured catalog; do not substitute an Oberon or another submarine class",
+      "category": "SSG"
+    },
+    {
+      "target": "ran_aor_supply",
+      "basis": "Modern Supply-class AOR is not the catalog old HMAS Supply; retain unknown USD values and classify as AO",
+      "category": "AO"
+    },
+    {
+      "target": "ran_lsd_choules",
+      "basis": "Bay-class Choules has a Galicia model stand-in; a model donor alone does not establish an appropriate USD price",
+      "category": "LSD"
+    },
+    {
+      "target": "ran_opv_arafura",
+      "basis": "No Arafura-class price in the captured catalog; no unsupported foreign OPV price substitution",
+      "category": "OPV"
+    },
+    {
+      "target": "rfn_aor_pashin",
+      "basis": "No Pashin-class price in the captured catalog; map the unsupported AOR prefix to AO without assigning a price",
+      "category": "AO"
+    },
+    {
+      "target": "rn_aor_tide",
+      "basis": "No Tide-class price in the captured catalog; map the unsupported AOR prefix to AO without assigning a price",
+      "category": "AO"
+    },
+    {
+      "target": "tha_aor_chula",
+      "basis": "No Chula-class price in the captured catalog; map the unsupported AOR prefix to AO without assigning a price",
+      "category": "AO"
+    }
+  ]
+}

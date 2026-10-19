@@ -154,6 +154,15 @@ EXCUSES = {
         "helicopter or ship picks up is paid at every debrief"),
     "better-tacmap": (
         "library", "player interface - ships `settings.cfg` and nothing else"),
+    "formation-manager-replacement": (
+        "library", "compact formation UI and aircraft map grouping through Anchor Chain; "
+        "no unit or ammunition a mission can place"),
+    "combat-cost-tracker": (
+        "library", "USD expenditure and equipment-loss overlay through Anchor Chain; "
+        "its cost catalogs apply to all missions and do not alter purchase points"),
+    "SEST_Combat_Costs": (
+        "library", "three Combat Cost Tracker catalog extensions: spelling corrections "
+        "and reviewed airframe/hull/weapon-family estimates; no performance or mission changes"),
     "euromod-anchorchain-expansion": (
         "library", "well-deck and effects framework: 182 effect files, six "
         "`systems/` files and 66 ammunition overwrites that the EuroMod hulls "

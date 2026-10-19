@@ -1,0 +1,201 @@
+SEST COMBAT COST COMPATIBILITY
+
+Requires enabled Combat Cost Tracker and Anchor Chain, then a full game restart.
+Only cost catalogs are extended; no weapon, aircraft or ship performance changes.
+Values are the tracker's existing USD estimates, not new procurement quotes.
+Source reference years remain the source's years; CurrentYearCost is independent.
+Task Force purchase points and ammo_prices.csv scores are never treated as USD.
+No global price preference, category visibility, overlay scale or currency is changed.
+Native tracking covers expended ammunition, vessels and aircraft; land-platform loss pricing is unsupported.
+
+weapon: 19 compatibility entries; SEST-priced historical/current 122/122 of 137 eligible references.
+vessel: 27 compatibility entries; SEST-priced historical/current 297/297 of 338 eligible references.
+aircraft: 17 compatibility entries; SEST-priced historical/current 34/34 of 36 eligible references.
+
+REVIEWED / NORMALIZED MAPPINGS
+weapon fr_sm-40 <- fr__sm40: WeaponCosts=380000, CurrentYearCost=2360000, Category=ASM
+  Same catalog reference after path/punctuation normalization
+weapon plaaf_ld-10 <- plaaf_ld10: WeaponCosts=350000, CurrentYearCost=1000000, Category=ARM
+  Same catalog reference after path/punctuation normalization
+weapon plan_pl-15 <- plan_pl15: WeaponCosts=800000, CurrentYearCost=1200000, Category=AAM
+  Same catalog reference after path/punctuation normalization
+weapon plan_yj-82 <- plan_yj_82: WeaponCosts=730000, CurrentYearCost=1650000, Category=ASM
+  Same catalog reference after path/punctuation normalization
+weapon plan_yj-83k <- plan_yj83k: WeaponCosts=730000, CurrentYearCost=1650000, Category=ASM
+  Same catalog reference after path/punctuation normalization
+weapon sest_agr-30 <- unknown: WeaponCosts=unknown, CurrentYearCost=unknown, Category=ATGM
+  Redback is a bespoke fictional upgrade; no supported USD unit price
+weapon sest_aim-424 <- usn_aim-424: WeaponCosts=unknown, CurrentYearCost=unknown, Category=AAM
+  SEST MALICE: retain the author's explicitly unknown AIM-424 prices
+weapon su_kh35 <- su_kh-35: WeaponCosts=730000, CurrentYearCost=1650000, Category=ASM
+  Same catalog reference after path/punctuation normalization
+weapon usaf_gbu-31_v1 <- usn_gbu-31v1: WeaponCosts=28000, CurrentYearCost=45000, Category=Bomb
+  Same GBU-31(V)1 JDAM complete-round estimate
+weapon usn_agm-84n <- usn_agm_84n: WeaponCosts=1470000, CurrentYearCost=2190000, Category=ASM
+  Same catalog reference after path/punctuation normalization
+weapon usn_aim-120b <- usn_aim_120b: WeaponCosts=535000, CurrentYearCost=1200000, Category=AAM
+  Same catalog reference after path/punctuation normalization
+weapon usn_arrw <- dts_agm-183a: WeaponCosts=6720000, CurrentYearCost=8700000, Category=Land Attack
+  AGM-183A conventional ARRW family estimate; retain the source's 2020 reference basis
+weapon usn_rgm-109j <- usn_rgm-109e5a: WeaponCosts=2430000, CurrentYearCost=3000000, Category=ASM
+  Maritime-strike Tomahawk family proxy; retain the source estimate and 2021 reference basis
+weapon usn_ugm-109j <- usn_ugm-109e5a: WeaponCosts=2430000, CurrentYearCost=3000000, Category=ASM
+  Submarine maritime-strike Tomahawk family proxy; retain the source estimate and 2021 reference basis
+weapon wp_as_17a <- wp_as-17a: WeaponCosts=33000, CurrentYearCost=110000, Category=ASM
+  Same catalog reference after path/punctuation normalization
+weapon wp_sa-20a <- wp_sa_20a: WeaponCosts=345000, CurrentYearCost=1110000, Category=SAM
+  Same catalog reference after path/punctuation normalization
+weapon wp_sa-n-12 <- wp_sa_n_12: WeaponCosts=345000, CurrentYearCost=1110000, Category=SAM
+  Same catalog reference after path/punctuation normalization
+weapon wp_sa-n-12b <- wp_sa_n_12b: WeaponCosts=345000, CurrentYearCost=1110000, Category=SAM
+  Same catalog reference after path/punctuation normalization
+weapon wp_sa-n-28a <- wp_sa_n_28a: WeaponCosts=1600000, CurrentYearCost=2580000, Category=SAM
+  Same catalog reference after path/punctuation normalization
+vessel ko_kddx <- non/ko_kddx: VesselCosts=1605000000, CurrentYearCost=2077000000, Category=DDG
+  Exact KDDX reference stored under the author catalog non/ path; classify the missile destroyer as DDG
+vessel mor_ptm_lazaga <- ae_ptm_lazaga: VesselCosts=10000000, CurrentYearCost=35000000, Category=PTM
+  Authored alias of the same Lazaga hull; Spanish catalog family proxy
+vessel plan_em_sovremenny <- wp_em_sovremenny_98: VesselCosts=205000000, CurrentYearCost=835000000, Category=DDG
+  Sovremenny export-hull family proxy; no invented modernization surcharge
+vessel ran_aor_supply <- unknown: VesselCosts=unknown, CurrentYearCost=unknown, Category=AO
+  Modern Supply-class AOR is not the catalog old HMAS Supply; retain unknown USD values and classify as AO
+vessel ran_ddg_hobart <- ran_ddg_hobart_alt_late: VesselCosts=1022000000, CurrentYearCost=1904000000, Category=DDG
+  Author's Hobart/Aegis-export family estimate; retain its 2002 reference basis
+vessel ran_ffh_anzac <- unknown: VesselCosts=unknown, CurrentYearCost=unknown, Category=FFG
+  Modern Anzac FFH is not the catalog Battle-class Anzac destroyer; no supported price. Map FFH to the supported FFG display category.
+vessel ran_lhd_canberra <- ae_lhd_juan_carlos: VesselCosts=704000000, CurrentYearCost=1169000000, Category=LHD
+  Canberra/Juan Carlos I design-family proxy; retain the Spanish catalog estimate, not an Australian contract price
+vessel ran_lsd_choules <- unknown: VesselCosts=unknown, CurrentYearCost=unknown, Category=LSD
+  Bay-class Choules has a Galicia model stand-in; a model donor alone does not establish an appropriate USD price
+vessel ran_opv_arafura <- unknown: VesselCosts=unknown, CurrentYearCost=unknown, Category=OPV
+  No Arafura-class price in the captured catalog; no unsupported foreign OPV price substitution
+vessel ran_ssg_collins <- unknown: VesselCosts=unknown, CurrentYearCost=unknown, Category=SSG
+  No Collins-class price in the captured catalog; do not substitute an Oberon or another submarine class
+vessel rfn_aor_pashin <- unknown: VesselCosts=unknown, CurrentYearCost=unknown, Category=AO
+  No Pashin-class price in the captured catalog; map the unsupported AOR prefix to AO without assigning a price
+vessel rn_aor_tide <- unknown: VesselCosts=unknown, CurrentYearCost=unknown, Category=AO
+  No Tide-class price in the captured catalog; map the unsupported AOR prefix to AO without assigning a price
+vessel rn_lph_ocean_09 <- rn_lph_ocean: VesselCosts=455000000, CurrentYearCost=935000000, Category=LPH
+  Same HMS Ocean hull family with a scenario-year suffix
+vessel tha_aor_chula <- unknown: VesselCosts=unknown, CurrentYearCost=unknown, Category=AO
+  No Chula-class price in the captured catalog; map the unsupported AOR prefix to AO without assigning a price
+vessel usn_cg_bunker_hill_vls_2004 <- usn_cg_ticonderoga_vls_2004: VesselCosts=972000000, CurrentYearCost=3269000000, Category=CG
+  Same Ticonderoga VLS class and 2004 fit; fitted-hull family estimate
+vessel usn_cg_ticonderoga_vls_2027 <- usn_cg_ticonderoga_vls_2025: VesselCosts=972000000, CurrentYearCost=3269000000, Category=CG
+  Ticonderoga VLS fitted-hull family estimate; no invented premium for the 2027 fit
+vessel usn_ddg_arleigh_flt1_051_2027 <- usn_ddg_burke_f1_051_late: VesselCosts=704000000, CurrentYearCost=1731000000, Category=DDG
+  Same DDG-51 hull family; no invented premium for the 2027 fit
+vessel usn_ddg_arleigh_flt1_052_2027 <- usn_ddg_burke_f1_052_late: VesselCosts=704000000, CurrentYearCost=1731000000, Category=DDG
+  Same DDG-52 hull family; no invented premium for the 2027 fit
+vessel usn_ddg_arleigh_flt1_054_2027 <- usn_ddg_burke_f1_054_late: VesselCosts=704000000, CurrentYearCost=1731000000, Category=DDG
+  Same DDG-54 hull family; no invented premium for the 2027 fit
+vessel usn_ddg_arleigh_flt1_064_2027 <- usn_ddg_burke_f1_064_late: VesselCosts=704000000, CurrentYearCost=1731000000, Category=DDG
+  Same DDG-64 hull family; no invented premium for the 2027 fit
+vessel usn_ddg_arleigh_flt2_072_2027 <- usn_ddg_burke_f2_072_late: VesselCosts=900000000, CurrentYearCost=1731000000, Category=DDG
+  Same DDG-72 hull family; no invented premium for the 2027 fit
+vessel usn_ddg_arleigh_flt2_075_2027 <- usn_ddg_burke_f2_075_late: VesselCosts=900000000, CurrentYearCost=1731000000, Category=DDG
+  Same DDG-75 hull family; no invented premium for the 2027 fit
+vessel usn_lhd_wasp_early <- pending/usn_lhd_wasp_early: VesselCosts=318000000, CurrentYearCost=1871000000, Category=LHD
+  Same catalog reference after path/punctuation normalization
+vessel usn_ssn_los_angeles_flt3_2027 <- usn_ssn_los_angeles_flt3_2026: VesselCosts=245000000, CurrentYearCost=1442000000, Category=SSN
+  Same Flight III Los Angeles-class family across adjacent scenario years
+vessel usn_ssn_virginia_2027 <- usn_ssn_virginia: VesselCosts=2225000000, CurrentYearCost=3945000000, Category=SSN
+  Virginia-class fitted-hull family estimate; ammunition remains separately counted
+vessel usn_ssn_virginia_seal_2027 <- usn_ssn_virginia: VesselCosts=2225000000, CurrentYearCost=3945000000, Category=SSN
+  Virginia-class family proxy; no unsupported price for the SEAL fit
+vessel wp_rkr_kirov_improved <- wp_rkr_kirov: VesselCosts=743000000, CurrentYearCost=3020000000, Category=CGN
+  Author's Kirov fitted-hull family/refit proxy; no invented upgrade surcharge
+aircraft adf_ah-64e <- usa_ah-64e: AircraftCosts=12000000, CurrentYearCost=36500000
+  AH-64E airframe-family proxy; not an Australian package or sustainment quote
+aircraft dts_b-52h <- usaf_b-52g: AircraftCosts=6700000, CurrentYearCost=120000000
+  Author's B-52 D/G family proxy for a B-52H; retain its 1956 reference basis
+aircraft plaaf_j-16 <- plaaf_j16: AircraftCosts=35000000, CurrentYearCost=70000000
+  Same catalog reference after path/punctuation normalization
+aircraft plaaf_j36 <- plaaf_j-36: AircraftCosts=unknown, CurrentYearCost=unknown
+  Same catalog reference after path/punctuation normalization
+aircraft raaf_fa-18a_2011 <- usn_fa-18a: AircraftCosts=16100000, CurrentYearCost=54200000
+  F/A-18A airframe-family proxy; source Hornet reference basis, not a 2011 purchase quote
+aircraft raaf_fa-18f <- usn_fa-18f: AircraftCosts=44100000, CurrentYearCost=83300000
+  F/A-18F airframe-family proxy; excludes loaded weapons and Australian support packages
+aircraft ran_mh-60r <- usn_mh-60r: AircraftCosts=33800000, CurrentYearCost=56200000
+  MH-60R airframe-family proxy; not a complete Australian procurement package
+aircraft S-70B-2_Seahawk <- ran_s-70b-2_seahawk: AircraftCosts=11300000, CurrentYearCost=36500000
+  Same RAN S-70B-2 airframe; author's SH-60-family estimate
+aircraft usaf_a-10c_plus <- usa_a-10c: AircraftCosts=10000000, CurrentYearCost=25000000
+  A-10C airframe-family proxy; no invented premium for SEST's upgrade
+aircraft usaf_b-52h_419_flts <- usaf_b-52g: AircraftCosts=6700000, CurrentYearCost=120000000
+  Author's B-52 D/G family proxy for the 419 FLTS H model; retain its 1956 reference basis
+aircraft usn_p-8a <- usn_p_8a: AircraftCosts=148000000, CurrentYearCost=170000000
+  Same catalog reference after path/punctuation normalization
+aircraft wp_su_27sm <- wp_su-27sm: AircraftCosts=20000000, CurrentYearCost=50000000
+  Same catalog reference after path/punctuation normalization
+aircraft wp_su_30m <- wp_su-30m: AircraftCosts=35000000, CurrentYearCost=70000000
+  Same catalog reference after path/punctuation normalization
+aircraft wp_su_30mkk <- wp_su-30mkk: AircraftCosts=35000000, CurrentYearCost=70000000
+  Same catalog reference after path/punctuation normalization
+aircraft wp_su_30sm <- wp_su-30sm: AircraftCosts=35000000, CurrentYearCost=70000000
+  Same catalog reference after path/punctuation normalization
+aircraft wp_su_35s <- wp_su-35s: AircraftCosts=55000000, CurrentYearCost=85000000
+  Same catalog reference after path/punctuation normalization
+aircraft wp_tu95ms <- wp_tu-95ms: AircraftCosts=15000000, CurrentYearCost=100000000
+  Same catalog reference after path/punctuation normalization
+
+SEST REFERENCES STILL INCOMPLETE
+weapon knm_terne_shell: historical/current
+weapon plan_cm-302: historical/current
+weapon raaf_f-35_gun_pod: historical/current
+weapon rn_squid_shell: historical/current
+weapon rok_hgv: historical/current
+weapon rok_L-sam: historical/current
+weapon sest_agr-30: historical/current
+weapon sest_agr-30_pod: historical/current
+weapon sest_agr-30_pod19: historical/current
+weapon sest_aim-424: historical/current
+weapon usn_gbu-12d: historical/current
+weapon usn_gbu-24: historical/current
+weapon usn_ssq-47: historical/current
+weapon usn_tank_1200_f-18: historical/current
+weapon usn_tank_610_f-18: historical/current
+vessel jmsdf_aoe_mashuu: historical/current
+vessel ko_lph-6112: historical/current
+vessel ko_pkg-711_scl: historical/current
+vessel phl_ff_hamilton: historical/current
+vessel phl_fs_pohang: historical/current
+vessel phl_lpd_tarlac: historical/current
+vessel phl_pt_jacinto: historical/current
+vessel plan_aor_type901: historical/current
+vessel plan_aor_type903a: historical/current
+vessel plan_ddg_luda_typ_051: historical/current
+vessel plan_ddg_luda_typ_051d: historical/current
+vessel plan_ddg_luda_typ_051dt: historical/current
+vessel plan_lpd_type_071: historical/current
+vessel pn_ffg-06: historical/current
+vessel pn_ffg-150: historical/current
+vessel pn_ffg-150_2: historical/current
+vessel ran_aor_supply: historical/current
+vessel ran_ffh_anzac: historical/current
+vessel ran_lsd_choules: historical/current
+vessel ran_opv_arafura: historical/current
+vessel ran_ssg_collins: historical/current
+vessel rfn_aor_pashin: historical/current
+vessel rn_aor_tide: historical/current
+vessel tha_aor_chula: historical/current
+vessel tha_cvl_chakri_naruebet: historical/current
+vessel tha_ff_053HT: historical/current
+vessel tha_ff_053HT_H: historical/current
+vessel tha_ff_knox_84: historical/current
+vessel tha_ff_makut_rajakumarn: historical/current
+vessel tha_ff_makut_rajakumarn_88: historical/current
+vessel tha_ffg_naresuan: historical/current
+vessel tha_fs_khamronsin: historical/current
+vessel tha_fs_ratanakosin: historical/current
+vessel tha_fs_tapi: historical/current
+vessel tha_pt_chonburi: historical/current
+vessel tha_pt_hua_hin: historical/current
+vessel tha_ptg_prabrarapak: historical/current
+vessel tha_ptg_ratcharit: historical/current
+vessel usn_take_lewis_clark: historical/current
+vessel usn_tao_kaiser: historical/current
+vessel usn_taoe_supply: historical/current
+aircraft plaaf_jh7a: historical/current
+aircraft raaf_mq-4c_triton: historical/current

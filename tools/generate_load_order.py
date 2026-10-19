@@ -43,6 +43,8 @@ TIER1 = [("anchor-chain", "loader, with its preloader (SeaLifter is not needed)"
 TIER1B = [
     ("custom-loadout-editor", "code mod — position not order-sensitive"),
     ("better-tacmap", "code mod — UI"),
+    ("formation-manager-replacement", "compact formation UI and aircraft map grouping; Anchor Chain"),
+    ("combat-cost-tracker", "USD expenditure and loss overlay; SEST cost catalog extensions load above it"),
     ("coordinated-strike-tool", "code mod — time-on-target planner (F8); no game data, one _info.ini"),
     ("automatic-sar", "code mod — right-click SAR; the campaign pays for survivors"),
     ("identify-expanded", "code mod — identification and challenge orders; reads its own ini"),

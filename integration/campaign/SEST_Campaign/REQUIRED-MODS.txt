@@ -199,16 +199,18 @@ that asked for it.
 
 --------------------------------------------------------------------------
 
-Also enabled while this was built (11), and left in the order
+Also enabled while this was built (13), and left in the order
 because removing one changes which file wins: these ship systems,
 effects or UI rather than anything a mission names, or are outranked
 by something above them. The campaign does not call for them.
 
 3774105087    library                          Automatic SAR
 3768036424    library                          Better TacMap
+3807187341    library                          Combat Cost Tracker
 3806686336    library                          Coordinated Strike Tool
 3813157776    library                          Dynamic Campaign Mod
 3784474738    library                          Euromod - Anchorchain Expansion Pack
+3818251045    library                          Formation Manager Replacement
 3790594162    library                          Identify Expanded
 3569219326    shadowed                         ISKANDER-K
 3432592449    shadowed                         Nimitz Expanded
@@ -256,6 +258,7 @@ to; the repository also builds each of them on its own.
 (local)       unit                             SEST Allied Fixes
 (local)       unit                             SEST B-52 ARRW
 (local)       unit                             SEST Collection Fixes
+(local)       library                          SEST Combat Cost Compatibility
 (local)       library                          SEST Cross-Deck
 (local)       unit                             SEST F-15EX Revamp
 (local)       unit                             SEST F-16CM JATM

@@ -8,196 +8,198 @@
    4. 3789188689        PLA & PLAN & PLAAF AEP
    5. 3606134711        Custom Loadout Editor
    6. 3768036424        BetterTacMap
-   7. 3806686336        Coordinated Strike Tool
-   8. 3774105087        Automatic SAR
-   9. 3790594162        Identify Expanded
-  10. 3813157776        Dynamic Campaign Mod
-  11. 3779799226        Operation STEADFAST LANTERN
-  12. 3437105712        SAM Pack
-  13. 3733719765        PLA Land Unit Pack
-  14. 3760871384        Dingtools Weapon Pack
-  15. 3606774881        U.S. Navy 2027 Capabilities
-  16. 3629144864        Euromod - Main Pack
-  17. 3775128499        PLAN Pack
-  18. 3637954857        KJ-500
-  19. 3607989779        F-35C Lightning II Alt. Loadouts
-  20. 3430135740        Murder Hornet with AIM-174B
-  21. 3394781441        B-52G with AGM-86 ALCM(more realistic nuke)
-  22. 3395022688        Tu-95MS with AS-15 ALCM(more realistic nuke)
-  23. 3373960386        Flight Deck Ops
-  24. 3461091581        Air Deck Operations Upgrade - Nimitz (2000s)
-  25. 3508275114        Ground upgrade: SPAA
-  26. 3438479626        1143.5 Kuznetsov
-  27. 3820759806        Euromod - Modern Royal Australian Navy Mod
-  28. 3440622312        Anzac Class Frigate
-  29. 3432668460        Auxilliary Merchant Pack
-  30. 3567256221        Charles De Gaulle & Modern French Navy
-  31. 3628201887        Clemenceau -class Aircraft Carrier
-  32. 3695809489        Euromod-(Japan)JMSDF Modern navy
-  33. 3575847216        Euromod-Addon Modern German Navy
-  34. 3444379330        Euromod-Dutch Navy
-  35. 3789208859        Euromod-South Korea Navy
-  36. 3642656500        Euromod-Scandinavian Navy
-  37. 3461044389        Gerald R. Ford-class CVN
-  38. 3384079999        Humpback Whale
-  39. 3505420313        Euromod - Cold War Italian Navy
-  40. 3406985435        Kirov-class (Pyotr Velikiy Upgrade)
-  41. 3430106996        Merchants Expanded
-  42. 3485917612        Moloti's Armed Merchantmen
-  43. 3417446309        MIG-29 Family
-  44. 3599752717        Euromod - Modern British Navy
-  45. 3488139470        Euromod - Modern Italian Navy
-  46. 3390330875        Euromod - Modern US Navy
-  47. 3456859157        Mogami-class frigate
-  48. 3802216383        JMSDF Hyūga-class — Hyūga & Ise
-  49. 3432592449        Nimitz Expanded
-  50. 3594891803        PLAN Submarines (039, 039A/B/C, 093/093A/093B, 094/094A)
-  51. 3774859959        PLAN Type 001 Aircraft Carrier Liaoning
-  52. 3774572038        PLAN Type 071 LPD
-  53. 3436170138        PLAAF J-11
-  54. 3486502935        Type 003 CV / future Type 004 CVN aircraft carriers
-  55. 3417801942        PRC Chinese Navy (PLAN)
-  56. 3597650470        Russian Navy 21
-  57. 3399699218        Project 2498 Zyetseth Class Assault Vessel
-  58. 3468260539        Russian Submarines
-  59. 3403661005        S-70B-2 Seahawk with AGM-114 'Hellfire' Missiles
-  60. 3820576916        Steelfin
-  61. 3766210676        Saronic Corsair ASV
-  62. 3819522350        Anduril Maritime Drones
-  63. 3630495619        Spanish Navy Mod (Cold War)
-  64. 3731208477        Spanish Navy Mod (Modern)
-  65. 3678767059        Euromod-Brazilian Armed Forces(2000)
-  66. 3807164392        Euromod-India-Navy
-  67. 3812454152        Euromod-Philippine-Navy
-  68. 3378409795        Type 23 Frigate
-  69. 3590477166        MH-60R
-  70. 3737267013        US Naval Aviation
-  71. 3433957933        Virginia, Seawolf, and Ohio-class submarines
-  72. 3602046770        Boeing P-8 Poseidon
-  73. 3414146266        A-10
-  74. 3459682829        A-10C
-  75. 3425450153        AH-64  Apache
-  76. 3804868806        Anduril FQ-44 Fury US Navy Carrier Wingmen
-  77. 3403993583        Armed Oil Rig with helo
-  78. 3652097318        B-1B Lancer
-  79. 3480965706        B-2 Spirit
-  80. 3741944366        B-52H
-  81. 3524112296        Beriev a-50 series AEW&C AND Il-76 Airliner
-  82. 3744475027        Boeing KC-46 Pegasus by ZeroTwo
-  83. 3600788156        Buildings and Objectives
-  84. 3801363152        CH-53E Standalone v0.1.0
-  85. 3746453639        Civil Aircraft Mod
-  86. 3806197116        Civilian AS350 Ecureuil/AStar MOD
-  87. 3781062859        E-3G AWAC
-  88. 3595014060        NATO E-3A Sentry
-  89. 3808882954        RC-135V/W Rivet Joint
-  90. 3499239964        E-7A Wedgetail
-  91. 3813033771        EC-2 Stand Off Jammer
-  92. 3587877691        Eurofighter Typhoon
-  93. 3448845252        F-117
-  94. 3636386513        F-15EX
-  95. 3553116604        F-15E StrikeEagle
-  96. 3434693420        F-15J Peace Eagle
-  97. 3758320372        F-16C Fighting Falcon (by ZeroTwo)
-  98. 3418252667        F-22
-  99. 3755769170        F-2A 'Viper Zero'
- 100. 3736147136        French army vehicule
- 101. 3567228449        French Helicopter Package
- 102. 3503670861        General Atomics MQ-9 Reaper
- 103. 3717610332        IL-78 TANKER
- 104. 3506979898        J-16
- 105. 3769142422        Rebuilt J-16 / J-16D
- 106. 3591563716        J-20A
- 107. 3801549552        J-36 Tailless Fighter
- 108. 3670643788        J-50
- 109. 3481228992        J10C
- 110. 3526982088        JH7A
- 111. 3776340577        Ka-27RLD - Ka-31 AEW Helicopter
- 112. 3740293822        KC-10A Extender by ZeroTwo
- 113. 3722749887        KC-135 Stratotanker
- 114. 3559495372        Lockheed AC-130
- 115. 3759042728        Mare Nostrum '28
- 116. 3458148344        Mi-8EW
- 117. 3465256032        Mi-8T/TV
- 118. 3410473695        Ground upgrade: MBT
- 119. 3416372890        MIG-29A & F-16A
- 120. 3799742828        MiG-31 Foxhound
- 121. 3659742367        Mig-35
- 122. 3513571010        Mil Mi-24 Hind
- 123. 3716049886        MORE SU24M VARIANTS
- 124. 3806466625        V-22 Osprey / SV-22 2024 ASW prototype
- 125. 3810611344        MV-75 Cheyenne II
- 126. 3551621846        NEBO-U
- 127. 3587091564        P-750 Meteorit-A
- 128. 3681873198        Pickup
- 129. 3412480633        Ground upgrade: IFV
- 130. 3774746803        PLA Z-21
- 131. 3729578404        PLAAF J-11BS
- 132. 3433577445        PLAAF J-8
- 133. 3729579342        PLAAF Su-27UBK
- 134. 3731931836        Prithvi TBM
- 135. 3796113927        RQ-180 White Bat Airframe
- 136. 3652906664        S-300PMU2
- 137. 3392434750        S-400 SAM
- 138. 3496055699        S-500
- 139. 3524446392        S-350 Vityaz
- 140. 3564792549        BUK-M3
- 141. 3673250557        Saab Global Eye
- 142. 3461519690        SCUD-B
- 143. 3455931957        Sea Lynx
- 144. 3551676319        SEJJIL (Ballistic Missiles)
- 145. 3497601759        Shahed 136
- 146. 3686449681        Iran UAV Shahed 238
- 147. 3493115616        EMAD
- 148. 3673703427        Fattah-1
- 149. 3672497668        Fattah-2
- 150. 3549377308        Iran Bell-212
- 151. 3451166840        SU-25 Frogfoot
- 152. 3762023575        Su-30SM2
- 153. 3503594612        SU-57
- 154. 3434072450        Sukhoi Su-27
- 155. 3683253079        THAAD & AN/TPY-2
- 156. 3558173926        David's Sling
- 157. 3502273861        arrw
- 158. 3509329205        TU-160
- 159. 3673908868        TU-16N AIR TANKER
- 160. 3780118683        Tu-214R Family Pack
- 161. 3411341227        Tu-95K-22
- 162. 3715323261        Tu-95MS
- 163. 3468959181        U-2 Dragon Lady
- 164. 3478767194        VH-3D Marine One Mod
- 165. 3373356293        Westland Lynx HAS.3
- 166. 3782020901        Y-20 / KJ-3000
- 167. 3796349767        YF-23 Black Widow II
- 168. 3601891050        Small and Medium-Sized UAV Series
- 169. 3408662804        Iskander
- 170. 3681748718        ISKANDER-M
- 171. 3470643173        Coastal Missile Complex “Type 12 SSM-ER System”
- 172. 3556629790        ICBM silos
- 173. 3571718093        Road Mobile ICBMs (Topol-M, DF-41)
- 174. 3603306548        Russian Ground Enhancement Series 1：Artillery
- 175. 3603367264        NATO Ground Enhancement Series 2: Artillery
- 176. 3709961172        The Second Northern War
- 177. 3631042692        Modern Chinese Airbase
- 178. 3629269283        Modern Russian Airbase
- 179. 3592460366        Modern US Airbase
- 180. 3732654992        THE REDFOR MOD
- 181. 3569219326        ISKANDER-K
- 182. 3636213685        wp_sattelite_center
- 183. 3758943352        French Air Force
- 184. 3555361900        Etendard Family Jets
- 185. 3591820675        F-8 十字军战士
- 186. 3520352434        JAS-39 Gripen
- 187. 3812111085        PLAAF Aircraft Pack
- 188. 3672072359        Ultimate Missile Workshop
- 189. 3413868677        Red Storm Arsenal
- 190. 3812140001        Pakistani Pack
- 191. 3455404959        Royal Australian Defence Forces [v0.7.5.0.3]
- 192. 3491248180        The Royal Navy
- 193. 3628203171        Bréguet Br.1050 Alizé
- 194. 3628247436        Sea Venom - Aquilon
- 195. 3776730617        EUROMOD-Armada de Chile
- 196. 3752415457        Philippines: The Luzon Line [v0.8.3.03.10]
- 197. 3711297532        Thailand: The Siam Shield [v0.8.3.03.10]
- 198. 3605013271        RE-power: the resupply mod
- 199. 3796706214        Real photos of airplanes and helicopters
+   7. 3818251045        Group Manager
+   8. 3807187341        Combat Cost Tracker
+   9. 3806686336        Coordinated Strike Tool
+  10. 3774105087        Automatic SAR
+  11. 3790594162        Identify Expanded
+  12. 3813157776        Dynamic Campaign Mod
+  13. 3779799226        Operation STEADFAST LANTERN
+  14. 3437105712        SAM Pack
+  15. 3733719765        PLA Land Unit Pack
+  16. 3760871384        Dingtools Weapon Pack
+  17. 3606774881        U.S. Navy 2027 Capabilities
+  18. 3629144864        Euromod - Main Pack
+  19. 3775128499        PLAN Pack
+  20. 3637954857        KJ-500
+  21. 3607989779        F-35C Lightning II Alt. Loadouts
+  22. 3430135740        Murder Hornet with AIM-174B
+  23. 3394781441        B-52G with AGM-86 ALCM(more realistic nuke)
+  24. 3395022688        Tu-95MS with AS-15 ALCM(more realistic nuke)
+  25. 3373960386        Flight Deck Ops
+  26. 3461091581        Air Deck Operations Upgrade - Nimitz (2000s)
+  27. 3508275114        Ground upgrade: SPAA
+  28. 3438479626        1143.5 Kuznetsov
+  29. 3820759806        Euromod - Modern Royal Australian Navy Mod
+  30. 3440622312        Anzac Class Frigate
+  31. 3432668460        Auxilliary Merchant Pack
+  32. 3567256221        Charles De Gaulle & Modern French Navy
+  33. 3628201887        Clemenceau -class Aircraft Carrier
+  34. 3695809489        Euromod-(Japan)JMSDF Modern navy
+  35. 3575847216        Euromod-Addon Modern German Navy
+  36. 3444379330        Euromod-Dutch Navy
+  37. 3789208859        Euromod-South Korea Navy
+  38. 3642656500        Euromod-Scandinavian Navy
+  39. 3461044389        Gerald R. Ford-class CVN
+  40. 3384079999        Humpback Whale
+  41. 3505420313        Euromod - Cold War Italian Navy
+  42. 3406985435        Kirov-class (Pyotr Velikiy Upgrade)
+  43. 3430106996        Merchants Expanded
+  44. 3485917612        Moloti's Armed Merchantmen
+  45. 3417446309        MIG-29 Family
+  46. 3599752717        Euromod - Modern British Navy
+  47. 3488139470        Euromod - Modern Italian Navy
+  48. 3390330875        Euromod - Modern US Navy
+  49. 3456859157        Mogami-class frigate
+  50. 3802216383        JMSDF Hyūga-class — Hyūga & Ise
+  51. 3432592449        Nimitz Expanded
+  52. 3594891803        PLAN Submarines (039, 039A/B/C, 093/093A/093B, 094/094A)
+  53. 3774859959        PLAN Type 001 Aircraft Carrier Liaoning
+  54. 3774572038        PLAN Type 071 LPD
+  55. 3436170138        PLAAF J-11
+  56. 3486502935        Type 003 CV / future Type 004 CVN aircraft carriers
+  57. 3417801942        PRC Chinese Navy (PLAN)
+  58. 3597650470        Russian Navy 21
+  59. 3399699218        Project 2498 Zyetseth Class Assault Vessel
+  60. 3468260539        Russian Submarines
+  61. 3403661005        S-70B-2 Seahawk with AGM-114 'Hellfire' Missiles
+  62. 3820576916        Steelfin
+  63. 3766210676        Saronic Corsair ASV
+  64. 3819522350        Anduril Maritime Drones
+  65. 3630495619        Spanish Navy Mod (Cold War)
+  66. 3731208477        Spanish Navy Mod (Modern)
+  67. 3678767059        Euromod-Brazilian Armed Forces(2000)
+  68. 3807164392        Euromod-India-Navy
+  69. 3812454152        Euromod-Philippine-Navy
+  70. 3378409795        Type 23 Frigate
+  71. 3590477166        MH-60R
+  72. 3737267013        US Naval Aviation
+  73. 3433957933        Virginia, Seawolf, and Ohio-class submarines
+  74. 3602046770        Boeing P-8 Poseidon
+  75. 3414146266        A-10
+  76. 3459682829        A-10C
+  77. 3425450153        AH-64  Apache
+  78. 3804868806        Anduril FQ-44 Fury US Navy Carrier Wingmen
+  79. 3403993583        Armed Oil Rig with helo
+  80. 3652097318        B-1B Lancer
+  81. 3480965706        B-2 Spirit
+  82. 3741944366        B-52H
+  83. 3524112296        Beriev a-50 series AEW&C AND Il-76 Airliner
+  84. 3744475027        Boeing KC-46 Pegasus by ZeroTwo
+  85. 3600788156        Buildings and Objectives
+  86. 3801363152        CH-53E Standalone v0.1.0
+  87. 3746453639        Civil Aircraft Mod
+  88. 3806197116        Civilian AS350 Ecureuil/AStar MOD
+  89. 3781062859        E-3G AWAC
+  90. 3595014060        NATO E-3A Sentry
+  91. 3808882954        RC-135V/W Rivet Joint
+  92. 3499239964        E-7A Wedgetail
+  93. 3813033771        EC-2 Stand Off Jammer
+  94. 3587877691        Eurofighter Typhoon
+  95. 3448845252        F-117
+  96. 3636386513        F-15EX
+  97. 3553116604        F-15E StrikeEagle
+  98. 3434693420        F-15J Peace Eagle
+  99. 3758320372        F-16C Fighting Falcon (by ZeroTwo)
+ 100. 3418252667        F-22
+ 101. 3755769170        F-2A 'Viper Zero'
+ 102. 3736147136        French army vehicule
+ 103. 3567228449        French Helicopter Package
+ 104. 3503670861        General Atomics MQ-9 Reaper
+ 105. 3717610332        IL-78 TANKER
+ 106. 3506979898        J-16
+ 107. 3769142422        Rebuilt J-16 / J-16D
+ 108. 3591563716        J-20A
+ 109. 3801549552        J-36 Tailless Fighter
+ 110. 3670643788        J-50
+ 111. 3481228992        J10C
+ 112. 3526982088        JH7A
+ 113. 3776340577        Ka-27RLD - Ka-31 AEW Helicopter
+ 114. 3740293822        KC-10A Extender by ZeroTwo
+ 115. 3722749887        KC-135 Stratotanker
+ 116. 3559495372        Lockheed AC-130
+ 117. 3759042728        Mare Nostrum '28
+ 118. 3458148344        Mi-8EW
+ 119. 3465256032        Mi-8T/TV
+ 120. 3410473695        Ground upgrade: MBT
+ 121. 3416372890        MIG-29A & F-16A
+ 122. 3799742828        MiG-31 Foxhound
+ 123. 3659742367        Mig-35
+ 124. 3513571010        Mil Mi-24 Hind
+ 125. 3716049886        MORE SU24M VARIANTS
+ 126. 3806466625        V-22 Osprey / SV-22 2024 ASW prototype
+ 127. 3810611344        MV-75 Cheyenne II
+ 128. 3551621846        NEBO-U
+ 129. 3587091564        P-750 Meteorit-A
+ 130. 3681873198        Pickup
+ 131. 3412480633        Ground upgrade: IFV
+ 132. 3774746803        PLA Z-21
+ 133. 3729578404        PLAAF J-11BS
+ 134. 3433577445        PLAAF J-8
+ 135. 3729579342        PLAAF Su-27UBK
+ 136. 3731931836        Prithvi TBM
+ 137. 3796113927        RQ-180 White Bat Airframe
+ 138. 3652906664        S-300PMU2
+ 139. 3392434750        S-400 SAM
+ 140. 3496055699        S-500
+ 141. 3524446392        S-350 Vityaz
+ 142. 3564792549        BUK-M3
+ 143. 3673250557        Saab Global Eye
+ 144. 3461519690        SCUD-B
+ 145. 3455931957        Sea Lynx
+ 146. 3551676319        SEJJIL (Ballistic Missiles)
+ 147. 3497601759        Shahed 136
+ 148. 3686449681        Iran UAV Shahed 238
+ 149. 3493115616        EMAD
+ 150. 3673703427        Fattah-1
+ 151. 3672497668        Fattah-2
+ 152. 3549377308        Iran Bell-212
+ 153. 3451166840        SU-25 Frogfoot
+ 154. 3762023575        Su-30SM2
+ 155. 3503594612        SU-57
+ 156. 3434072450        Sukhoi Su-27
+ 157. 3683253079        THAAD & AN/TPY-2
+ 158. 3558173926        David's Sling
+ 159. 3502273861        arrw
+ 160. 3509329205        TU-160
+ 161. 3673908868        TU-16N AIR TANKER
+ 162. 3780118683        Tu-214R Family Pack
+ 163. 3411341227        Tu-95K-22
+ 164. 3715323261        Tu-95MS
+ 165. 3468959181        U-2 Dragon Lady
+ 166. 3478767194        VH-3D Marine One Mod
+ 167. 3373356293        Westland Lynx HAS.3
+ 168. 3782020901        Y-20 / KJ-3000
+ 169. 3796349767        YF-23 Black Widow II
+ 170. 3601891050        Small and Medium-Sized UAV Series
+ 171. 3408662804        Iskander
+ 172. 3681748718        ISKANDER-M
+ 173. 3470643173        Coastal Missile Complex “Type 12 SSM-ER System”
+ 174. 3556629790        ICBM silos
+ 175. 3571718093        Road Mobile ICBMs (Topol-M, DF-41)
+ 176. 3603306548        Russian Ground Enhancement Series 1：Artillery
+ 177. 3603367264        NATO Ground Enhancement Series 2: Artillery
+ 178. 3709961172        The Second Northern War
+ 179. 3631042692        Modern Chinese Airbase
+ 180. 3629269283        Modern Russian Airbase
+ 181. 3592460366        Modern US Airbase
+ 182. 3732654992        THE REDFOR MOD
+ 183. 3569219326        ISKANDER-K
+ 184. 3636213685        wp_sattelite_center
+ 185. 3758943352        French Air Force
+ 186. 3555361900        Etendard Family Jets
+ 187. 3591820675        F-8 十字军战士
+ 188. 3520352434        JAS-39 Gripen
+ 189. 3812111085        PLAAF Aircraft Pack
+ 190. 3672072359        Ultimate Missile Workshop
+ 191. 3413868677        Red Storm Arsenal
+ 192. 3812140001        Pakistani Pack
+ 193. 3455404959        Royal Australian Defence Forces [v0.7.5.0.3]
+ 194. 3491248180        The Royal Navy
+ 195. 3628203171        Bréguet Br.1050 Alizé
+ 196. 3628247436        Sea Venom - Aquilon
+ 197. 3776730617        EUROMOD-Armada de Chile
+ 198. 3752415457        Philippines: The Luzon Line [v0.8.3.03.10]
+ 199. 3711297532        Thailand: The Siam Shield [v0.8.3.03.10]
+ 200. 3605013271        RE-power: the resupply mod
+ 201. 3796706214        Real photos of airplanes and helicopters
