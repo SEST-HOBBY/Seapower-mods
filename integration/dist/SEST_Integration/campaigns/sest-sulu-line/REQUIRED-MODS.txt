@@ -31,12 +31,12 @@ pack's root, is the union across every campaign in the pack.
   3601891050    a unit a mission places          Small and Medium-Sized UAV Series [WIP] (中小型无人机系列)
   3711297532    a unit the player can buy        Thailand: The Siam Shield
   3486502935    a weapon a loadout hangs         Type 003 Fujian / Type 004 CVN Aircraft Carriers
-  3526982088    a unit a mission places          XIAN JH-7A (歼轰-7A 飞豹)
+  3526982088    a weapon a loadout hangs         XIAN JH-7A (歼轰-7A 飞豹)
 
 2. SEST INTEGRATION PACKS (3): this project's own patches, already inside this pack (SEST Integration Pack, Workshop 3812461539);
 there is nothing more to subscribe to.
 
-  (local)       a squadron a flight comes from   SEST Collection Fixes
+  (local)       a unit a mission places          SEST Collection Fixes
   (local)       a unit the player can buy        SEST RAN Fleet
   (local)       a unit a mission places          SEST Replenishment At Sea
 

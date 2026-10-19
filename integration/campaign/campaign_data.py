@@ -589,7 +589,7 @@ MISSIONS.append(dict(
     units=[
         U("blue", "SEST_RAN_Fleet", "ran_ffh_anzac", "warramunga",
           variant="Variant3", weapons="Tight"),
-        U("blue", "us-navy-2027", "usn_mh-60r", "flight", alt=500, weapons="Tight"),
+        U("blue", "SEST_Allied_Fixes", "usn_mh-60r", "flight", alt=500, weapons="Tight"),
         U("blue", "p-8-poseidon", "usn_p8", "air", squadron="Squadron3",
           name="Bluefin 21", alt=18000, weapons="Tight"),
         U("blue", "SEST_ADF_Persistent_ISR", "raaf_mq-4c_triton", "high",
@@ -648,19 +648,22 @@ MISSIONS.append(dict(
         "Four priority merchant ships are in company with your flagship, the "
         "patrol vessel EYRE and the replenishment ship SUPPLY, "
         "and a Wedgetail is up with a tanker behind it.\\n\\n"
-        "Ninety minutes ago a Poseidon laid a sonobuoy field on a diesel-electric "
-        "contact across the planned track, thirty miles ahead at the far edge "
-        "of the approach box. The field is still live, and a Poseidon "
-        "assigned to you starts over it. The masters want to press on at "
-        "twelve knots. We want time to classify it. You will not get both.\\n\\n"
+        "Ninety minutes ago a Poseidon had a diesel-electric contact across "
+        "the planned track, thirty miles ahead at the far edge of the "
+        "approach box, and lost it when the buoys ran down. Nothing holds it "
+        "now: it is a report, not a track, and it will not be on your plot "
+        "until your own sensors put it there. The Poseidon assigned to you "
+        "starts over the convoy. The masters want to press on at twelve "
+        "knots. We want time to find it. You will not get both.\\n\\n"
         "Three of four must reach the Moresby approach box, and two of the "
         "three are fixed: Kokoda Star, the medical and engineering ship, and "
         "Coral Pioneer. "
         "Background traffic in this sea is ordinary commerce - it is not "
         "joining your convoy and it is not your enemy."),
     forces="Your escort group with HMAS Eyre and HMAS Supply attached, four priority merchants, "
-           "E-7A Wedgetail and a KC-46 on the tanker track. One Type 039C in "
-           "the area. Port Moresby is open beyond the box.",
+           "E-7A Wedgetail and a KC-46 on the tanker track. One Type 039B, a "
+           "Yuan-class boat on air-independent power, reported in the area. "
+           "Port Moresby is open beyond the box.",
     objectives=[
         ("Cargo", "Get three of four priority ships, Kokoda Star and Coral "
                   "Pioneer among them, into the Moresby approach box",
@@ -759,7 +762,11 @@ MISSIONS.append(dict(
           name="Jackson Field", nation="australia", weapons="Hold"),
         U("blue", "buildings-targets-missions", "Liberty", "moresby",
           name="Moresby wharf", weapons="Hold"),
-        U("red", "plan-submarines", "plan_ss_type_039c", "sub",
+        # A Type 039B, not the 039C of After the Wake and Common Sea:
+        # the play test of 18 Oct 2026 found SW02 and C1 the same mission
+        # with the same boat in the same sea. This one waits on the track
+        # on air-independent power, slow and quiet.
+        U("red", "modern-plan-systems", "plan_ss_type_039b", "sub",
           name="Contact BRAVO", depth="belowlayer", radars="False",
           route=[(-10.24, 144.85, "belowlayer")], telegraph=1),
         # Air-tasking placeholder: no name, no objective, no line in the
@@ -769,7 +776,7 @@ MISSIONS.append(dict(
         # ship and a maritime-patrol slot for the P-8 the roster starts
         # selling here. The two F-35A cockpits and their CAP row are gone -
         # this mission declares no air threat and sells no fighter.
-        U("blue", "us-navy-2027", "usn_mh-60r", "flight"),
+        U("blue", "SEST_Allied_Fixes", "usn_mh-60r", "flight"),
         U("blue", "p-8-poseidon", "usn_p8", "mpa", squadron="Squadron3",
           alt=6000),
     ],
@@ -782,10 +789,10 @@ MISSIONS.append(dict(
     sender="Commodore Alex Mercer; Captain Ratna Prasetyo, Indonesian Navy (TNI-AL), embarked",
     intent=("The platform is not a target. The armed contractors on its upper "
             "deck are Captain Prasetyo's problem afterwards and not yours now. "
-            "Two lift aircraft, each with seats for the whole crew, and a "
-            "patrol boat closing from the north that has answered nobody. "
-            "Get the crew off before it arrives, "
-            "or hold it off until they are."),
+            "Two lift aircraft, and it takes both to bring thirty people and "
+            "their injured off a helideck, and a patrol boat closing from the "
+            "north that has answered nobody. Get the crew off before it "
+            "arrives, or hold it off until they are."),
     date=(2028, 10, 24), time=(16, 10), sea=3, clouds="Overcast", wind="W",
     difficulty=2, minutes=60, centre=(-11.0, 126.5),
     blue_nation="Australia", red_nation="China",
@@ -800,49 +807,56 @@ MISSIONS.append(dict(
         "cover an evacuation, you may not level the installation. CHOULES is "
         "in company with CANBERRA, and the US Marine Rotational Force in "
         "Darwin has lent the lift for one afternoon at the end of its "
-        "rotation: a Super Stallion and an Osprey off Canberra's deck, each "
-        "with a seat for everyone on that platform.\\n\\n"
-        "Get the lifters in, get the people off, get everybody out before "
-        "the light goes. Not every platform out here is hostile, and most of "
-        "this coast is working its ordinary week. The lifter that takes the "
-        "crew off is the lifter that has to bring them south - lose her after "
-        "the pickup and they are gone with her."),
-    forces="HMAS Choules and HMAS Canberra, a USMC CH-53E and MV-22B on "
-           "loan from the Darwin rotational force for the lift, and your escort. "
+        "rotation: a Super Stallion and an Osprey, airborne south of the rig. "
+        "Canberra has two Army Apaches on deck, armed with Hellfire and ready "
+        "to launch, for the patrol boat, and two Romeos.\\n\\n"
+        "Bring BOTH lifters over the platform, within three miles of it, and "
+        "hold them there for three minutes while the crew is loaded - half "
+        "go in each aircraft. AMPHIBIOUS CONTROL will tell you when everybody "
+        "is aboard. Then bring both lifters back to the amphibious group "
+        "before the light goes. Lose either lifter and the people in it are "
+        "lost with her. Not every platform out here is hostile, and most of "
+        "this coast is working its ordinary week."),
+    forces="HMAS Choules and HMAS Canberra with two Army AH-64E Apaches and two "
+           "MH-60R, a USMC CH-53E and MV-22B on loan from the Darwin rotational "
+           "force for the lift, and your escort. "
            "Ashore: a launcher site, a VL MICA battery, a Sosna vehicle and "
            "a technical. At sea: one armed patrol boat closing from the north.",
     objectives=[
-        ("Evacuate", "Get a lift helicopter back to the amphibious group "
-                     "with the platform crew", "35,-35,Fail,Main"),
+        ("Evacuate", "Hold both lifters at the rig until the crew is aboard, then "
+                     "bring both back to the amphibious group", "35,-35,Fail,Main"),
         ("Platform", "Leave the civilian platform standing", "10,-20,Complete"),
         ("Ships", "Keep both amphibious ships afloat", "10,-20,Complete"),
     ],
     victory=dict(kind="arrive", station="lift", at=(-11.55, 126.62), radius=12,
-                 # Not scored until a lifter has been over the platform. The
-                 # first build could be won by flying straight south from
-                 # spawn and never going near the thing the mission is about.
-                 # One chain per lifter: the aircraft that reached the platform
-                 # is the aircraft that has to reach the line, and losing it
-                 # after the pickup loses the people aboard. The reviewed build
-                 # let A visit the rig and B finish the rescue from the box.
+                 # Not scored until the lifters have been over the platform:
+                 # the first build could be won by flying straight south from
+                 # spawn. Both lifters now, and held there: the play test of
+                 # 18 Oct 2026 asked for the crew to be loaded by both
+                 # aircraft over time, with a pop-up saying so. The arrival at
+                 # the rig enables a held trigger whose clock starts then
+                 # (hold_minutes); it shows the pop-up and arms the win.
                  after=dict(kind="area", units="lift", at_unit="rig", radius=3,
-                            min_units=1, per_unit=True,
+                            min_units=2, hold_minutes=3,
                             intel=(
-                                "AMPHIBIOUS CONTROL: The lifter is over Rig Seventeen. The "
-                                "platform crew is on the helideck and boarding. Return the "
-                                "helicopter to the amphibious group; keep the approach clear of"
-                                " the patrol boat."
+                                "AMPHIBIOUS CONTROL: Both lifters are over Rig Seventeen. "
+                                "The platform crew is coming up to the helideck. Hold both "
+                                "aircraft at the platform until loading is complete."
                             ),
-                            lost="The lifter with the platform crew aboard is "
-                                 "down. There is nobody left to bring south."),
-                 min_units=1, objective="Evacuate"),
-    fatal=[F("Ships", ["amphib"])],
+                            held=("Rig crew loaded.",
+                                  "AMPHIBIOUS CONTROL: All thirty aboard, half in each "
+                                  "lifter. Bring both back to the amphibious group; keep "
+                                  "the approach clear of the patrol boat.")),
+                 min_units=2, objective="Evacuate"),
+    # Either lifter lost ends it: half the crew is aboard each one once they
+    # are loaded, and the loading takes both before that.
+    fatal=[F("Ships", ["amphib"]), F("Evacuate", ["lift"])],
     neutral_objective="Platform",
-    win="A lifter is back with the amphibious group and the platform crew aboard. Rig "
+    win="Both lifters are back with the amphibious group and the platform crew aboard. Rig "
         "Seventeen is still standing and somebody else can argue about who "
         "owns it.",
-    lose="The evacuation window closed with people still on the platform. There will not be "
-         "another one this week.",
+    lose="A lifter is down, or the evacuation window closed with people still on the "
+         "platform. There will not be another one this week.",
     stations={
         "amphib": S(-11.6, 126.6, "Amphibious group", heading=10),
         # The player's force forms here; the amphibious ships are scripted
@@ -867,8 +881,12 @@ MISSIONS.append(dict(
           variant="Variant3", weapons="Tight"),
         U("blue", "SEST_RAN_Fleet", "ran_lsd_choules", "amphib",
           name="HMAS Choules"),
+        # Her own flight, written out (air_group): two Army Apaches, prepared
+        # with Hellfire at the start for the patrol boat, and two Romeos.
         U("blue", "SEST_RAN_Fleet", "ran_lhd_canberra", "amphib",
-          name="HMAS Canberra"),
+          name="HMAS Canberra",
+          air_group=[("adf_ah-64e", "Squadron1", 2), ("usn_mh-60r", "Squadron20", 2)],
+          ready=[("adf_ah-64e", "Squadron1", "AntiShip", 2, 0)]),
         # The Rescue fit: 37 seats. The default fit is two Mk48 torpedoes and
         # TransportCapacity=0, which is not a lift helicopter, it is an ASW
         # helicopter with a story attached.
@@ -908,10 +926,14 @@ MISSIONS.append(dict(
     intro="A low-profile craft, a genuine submarine somewhere in the same "
           "water, and a whale that will waste an hour of your life.",
     sender="Commodore Alex Mercer",
-    intent=("Classify the craft, then walk it into the handover box. Do not "
-            "sink it: what it is carrying is evidence, and where it is going "
-            "is the hard-liners' supply route. The submarine and the whale "
-            "will both want your attention. Only the craft matters tonight."),
+    intent=("Find the craft and classify her, then stop her. She has been "
+            "ordered by radio to heave to and has not answered. Be in the "
+            "handover box with her when she gets there and the Indonesian "
+            "boarding party takes her surrender, cargo and all: that is the "
+            "result I want. If she will not stop, sink her once she is "
+            "classified - we lose the evidence, not the route. The submarine "
+            "and the whale will both want your attention. Only the craft "
+            "matters tonight."),
     date=(2028, 10, 27), time=(2, 30), sea=2, clouds="Clear", wind="E",
     difficulty=2, minutes=45, centre=(-6.0, 130.5),
     blue_nation="Australia", red_nation="China",
@@ -927,23 +949,43 @@ MISSIONS.append(dict(
         "There is also a real submarine in this water - a Type 039 that has "
         "been quiet for eleven hours - and a biologic contact that three "
         "different ships have now reported as a hostile boat.\\n\\n"
-        "Classify the craft - the passenger - then track it into the "
-        "handover box to the south. Classify what else is down there. Do not "
-        "lose the ship doing it."),
+        "SEARCH the lane south of the passage for her: she shows little on "
+        "radar and less on sonar, and your helicopter and Poseidon are your "
+        "best eyes. CLASSIFY her before anybody fires - on a night like this "
+        "the fishing boat and the whale look the same. Then STOP her. Have "
+        "your ship in the handover box to the south when she reaches it and "
+        "she heaves to under your guns for the boarding party: her surrender "
+        "and her cargo are the full result. If she will not stop, or you "
+        "cannot be there in time, you are cleared to sink her once she is "
+        "classified.\\n\\nDo not lose the ship doing it."),
     forces="Your patrol group, and your MH-60R and P-8A if you have them. In "
            "the water: a low-profile craft, a Type 039, a fishing boat and one "
            "very large mammal. Overhead, for a foreign military: a KJ-500 "
            "early-warning aircraft, a Ka-28 and a spotter drone.",
     objectives=[
-        ("Track", "Classify the low-profile craft, then walk it into the "
-                  "handover box",
+        ("Track", "Find and classify the low-profile craft, then stop her: be in "
+                  "the handover box with her when she arrives, or sink her",
          "30,-30,Fail,Main"),
+        # The full result, scored only by the surrender: sinking her wins the
+        # mission without it.
+        ("Seized", "Take her intact: your ship in the handover box when she "
+                   "arrives", "15,0,None"),
         ("Patrol", "Keep your flagship afloat", "15,-25,Complete"),
         ("Neutrals", "Do not shoot the wildlife or the fishermen",
          "0,-20,Complete"),
     ],
     victory=dict(kind="arrive", station="passenger", at=(-7.1, 130.1),
                  radius=20, min_units=1, objective="Track",
+                 # The play test of 18 Oct 2026 found it unclear what to do
+                 # with the craft. Two ends now, both said in the brief: she
+                 # surrenders if the player's ship is in the box with her
+                 # (also), or she is sunk once classified (or_destroyed).
+                 also=[dict(units=["patrol"], min_units=1)],
+                 bonus=["Seized"],
+                 or_destroyed=(
+                     "WHISKEY would not stop and is on the bottom of the Banda Sea, cargo and "
+                     "all. The route is closed for tonight; the evidence went down with her."
+                 ),
                  # The contact used to score the mission by driving itself
                  # into the box. Now nothing counts until the player has
                  # classified it - the mission is called The Quiet Passenger
@@ -951,21 +993,22 @@ MISSIONS.append(dict(
                  after=dict(kind="classify", units="passenger", min_units=1,
                             intel=(
                                 "ESCORT CONTACT REPORT: WHISKEY classified as a low-profile "
-                                "semi-submersible. Correlate the local observations with the "
-                                "surface track and keep the craft under surveillance to the "
-                                "handover box. Its cargo is still unconfirmed. Do not sink the "
-                                "evidence."
+                                "semi-submersible. She has not answered the order to heave "
+                                "to. Get your ship into the handover box with her and she "
+                                "surrenders to the boarding party. If she will not stop, you "
+                                "are cleared to sink her."
                             ))),
-    # Sinking the passenger ends it: the whole point is where it was going.
-    fatal=[F("Patrol", ["patrol"]), F("Track", ["passenger"])],
+    # Sinking the craft is a win once she is classified (or_destroyed); sunk
+    # before that, nothing can complete Track and the clock runs out.
+    fatal=[F("Patrol", ["patrol"])],
     neutral_objective="Neutrals",
     win=(
-        "The low-profile craft has reached the handover under surveillance. The boarding "
-        "authority can now secure the vessel and its cargo. Forward all additional submarine "
-        "and traffic reports separately."
+        "WHISKEY has heaved to in the handover box under your guns, and the boarding party "
+        "is aboard her. Her cargo and her crew are the Indonesian authorities' now. Forward "
+        "all additional submarine and traffic reports separately."
     ),
-    lose="The passenger is gone - into the passage, or onto the bottom with "
-         "whatever it was carrying. Either way the route it was running is "
+    lose="The passenger is gone - into the handover without you, into the passage, or onto "
+         "the bottom before anybody knew what she was. Either way the route it was running is "
          "still a rumour, and the only thing you positively identified all "
          "night had a blowhole.",
     stations={
@@ -990,7 +1033,7 @@ MISSIONS.append(dict(
     units=[
         U("blue", "SEST_RAN_Fleet", "ran_opv_arafura", "patrol",
           weapons="Tight"),
-        U("blue", "us-navy-2027", "usn_mh-60r", "air",
+        U("blue", "SEST_Allied_Fixes", "usn_mh-60r", "air",
           alt=2500, weapons="Tight"),
         U("blue", "p-8-poseidon", "usn_p8", "mpa", squadron="Squadron3", alt=15000, weapons="Tight"),
         U("red", "red-storm-arsenal", "_narco_narcosub_adv", "passenger",
@@ -1046,7 +1089,8 @@ MISSIONS.append(dict(
         "within range of this box and their helicopter is already up. The "
         "merchants in the lane are not targets because somebody wrote "
         "SANCTIONED on a manifest."),
-    forces="One escort of your choice, with her anti-ship missiles and her flight. Opposing: a Sovremenny, "
+    forces="One escort of your choice, with her anti-ship missiles and her flight, and RAAF Base "
+           "Darwin for the strike aircraft you task. Opposing: a Sovremenny, "
            "a Type 071 with its Z-20J, a JH-7A pair, a Z-21 and Meridian Escort "
            "Seven. Four protected merchants behind you, two neutral ones ahead.",
     objectives=[
@@ -1091,12 +1135,15 @@ MISSIONS.append(dict(
         # four ships from the first second (first public report, Oct 2026).
         "inspection": S(-10.05, 132.25, "Inspection point", heading=240),
         "air": S(-10.35, 131.85, "Warramunga Flight", heading=320, alt=3000),
-        "home": S(-14.5212, 132.3778, "RAAF Base Tindal"),
+        # Darwin, not Tindal (play test, 18 Oct 2026): the strike cockpits
+        # recover 140 NM away instead of 250, and the field the convoy sails
+        # from is the one the player can plan before the start.
+        "home": S(-12.409, 130.8665, "RAAF Base Darwin"),
     },
     units=[
         U("blue", "SEST_RAN_Fleet", "ran_ffh_anzac", "warramunga",
           variant="Variant3"),
-        U("blue", "us-navy-2027", "usn_mh-60r", "air", alt=3000),
+        U("blue", "SEST_Allied_Fixes", "usn_mh-60r", "air", alt=3000),
         U("red", "chinese-navy-plan", "plan_em_sovremenny", "sag",
           name="Opposing escort", route=[(-10.3, 131.85, 0)], telegraph=3),
         U("red", "type-071-lpd", "plan_lpd_type_071", "sag",
@@ -1130,8 +1177,8 @@ MISSIONS.append(dict(
         # take, the way every slot-tagged section in the shipped campaign is.
         U("blue", "SEST_RAAF_F-35A_JATM", "raaf_f-35a", "air"),
         U("blue", "SEST_RAAF_F-35A_JATM", "raaf_f-35a", "air"),
-        U("blue", "SEST_RAAF_Bases", "airbase_raaf_tindal", "home",
-          name="RAAF Base Tindal", nation="australia", weapons="Hold"),
+        U("blue", "SEST_RAAF_Bases", "airbase_raaf_darwin", "home",
+          name="RAAF Base Darwin", nation="australia", weapons="Hold"),
     ],
 ))
 
@@ -1694,7 +1741,7 @@ MISSIONS.append(dict(
         U("blue", "SEST_RAN_Fleet", "ran_ffh_anzac", "escort", variant="Variant8"),
         U("blue", "re-power-resupply", "civ_ms_amra", "stores",
           name="MV Coral Provider"),
-        U("blue", "us-navy-2027", "usn_mh-60r", "air",
+        U("blue", "SEST_Allied_Fixes", "usn_mh-60r", "air",
           alt=2500),
         U("blue", "buildings-targets-missions", "FOB", "cape",
           name="Cape York forward strip", weapons="Hold"),
@@ -2170,7 +2217,7 @@ MISSIONS.append(dict(
         # Air-tasking placeholder: no name, no objective, no line in the
         # briefing. Its only job is to be a cockpit a purchased aircraft can
         # take, the way every slot-tagged section in the shipped campaign is.
-        U("blue", "us-navy-2027", "usn_mh-60r", "air"),
+        U("blue", "SEST_Allied_Fixes", "usn_mh-60r", "air"),
         U("blue", "SEST_RAAF_F-35A_JATM", "raaf_f-35a", "cap"),
         U("blue", "SEST_RAAF_F-35A_JATM", "raaf_f-35a", "cap", squadron="Squadron3"),
     ],
@@ -2222,18 +2269,23 @@ MISSIONS.append(dict(
             "Darwin on a national allocation: one sortie, Squadron Leader Rewi's crew, and she "
             "goes home to Darwin when it is done - she is not yours to keep and not yours to "
             "lose. The patrol vessel PILBARA is on the lane with the ordinary traffic, and a "
-            "Meridian escort boat has been working the same water since Sunday with a drone "
-            "spotting for it.\\n\\nGet Kiwi 01 close enough to put a name on the coaster, keep "
-            "her out of the escort boat's reach, and bring her to the assigned recovery "
-            "handover for Darwin. Everything else on the lane is somebody's living."
+            "Meridian escort boat has been working the same water since Sunday with a Forpost "
+            "drone spotting for it, low over the lane.\\n\\nTAIPAN 21 and 22, RAAF F-35As out of "
+            "Darwin, are airborne over the lane to cover Kiwi 01. The drone is unmanned and may "
+            "be engaged: it is too small for most radars to hold at range, so take it with the "
+            "fighters, or with Pilbara's guns when it comes within a few miles of her.\\n\\n"
+            "Get Kiwi 01 close enough to put a name on the coaster, keep her out of the escort "
+            "boat's reach, and bring her to the assigned recovery handover for Darwin. "
+            "Everything else on the lane is somebody's living."
         )),
-    forces="HMAS Pilbara. One RNZAF P-8A on a single national sortie. Lane "
-           "traffic: two merchants and a trawler. Opposing: one coaster with "
-           "her transponder off, one Meridian escort boat, one spotter drone.",
+    forces="HMAS Pilbara. One RNZAF P-8A on a single national sortie; two RAAF F-35A "
+           "covering her. Lane traffic: two merchants and a trawler. Opposing: one "
+           "coaster with her transponder off, one Meridian escort boat, one spotter drone.",
     objectives=[
         ("Picture", "Identify the coaster, then recover Kiwi 01 to Darwin",
          "30,-25,Fail,Main"),
         ("Kiwi", "Do not lose Kiwi 01", "20,-30,Complete"),
+        ("Drone", "Shoot down the spotter drone", "5,0,None"),
         ("Traffic", "Harm no lane traffic", "0,-25,Complete"),
     ],
     # Stage: the New Zealand aircraft classifies the coaster - which writes
@@ -2273,7 +2325,13 @@ MISSIONS.append(dict(
         # weapons tight: this is the week before Weapons Free, and it
         # shadows the lane, it does not open the war on it.
         "raider": S(-10.12, 131.6, "Meridian escort boat", heading=110),
-        "spotter": S(-10.15, 131.55, "Spotter drone", heading=110, alt=10000),
+        # Play test of 18 Oct 2026: no gun could take the drone. Its RCS and
+        # IR signature are 0.01 (the smallest stock aircraft, the QH-50, is
+        # 5), and it sat at 10,000 ft beside the boat 35 NM from Pilbara, so
+        # nothing ever held a firing track. It flies low now, on a loop that
+        # brings it back across the lane, and two F-35As are up to take it.
+        "spotter": S(-10.15, 131.55, "Spotter drone", heading=200, alt=3000),
+        "cover": S(-10.75, 131.10, "F-35A cover", heading=20, alt=20000),
         "home": S(-12.409, 130.8665, "RAAF Base Darwin"),
     },
     units=[
@@ -2290,7 +2348,12 @@ MISSIONS.append(dict(
           name="Meridian Escort 3", weapons="Tight",
           route=[(-10.3, 131.98, 0)], telegraph=2),
         U("red", "small-medium-uav-series", "usn_ForpostR705", "spotter",
-          name="Spotter drone", alt=10000),
+          name="Spotter drone", alt=3000,
+          route=[(-10.15, 131.55, 3000), (-10.45, 131.30, 3000)], loop=True),
+        U("blue", "SEST_RAAF_F-35A_JATM", "raaf_f-35a", "cover", squadron="Squadron3",
+          name="Taipan 21", loadout="AirToAir", alt=20000),
+        U("blue", "SEST_RAAF_F-35A_JATM", "raaf_f-35a", "cover", squadron="Squadron3",
+          name="Taipan 22", loadout="AirToAir", alt=20000),
         U("neutral", "_vanilla", "civ_ms_roro_b", "lane", name="MV Wessel Trader",
           route=[(-10.4, 131.9, 0)], telegraph=3),
         U("neutral", "re-power-resupply", "civ_ms_freighter_d", "lane",
@@ -3367,7 +3430,7 @@ MISSIONS.append(dict(
         # On its ASW fit (sonobuoys and two Mk 46), which is what the RAN's
         # Seahawks carried in 1988. The file's Default hangs four Hellfires,
         # which an RAN Seahawk did not carry that year.
-        U("blue", "s-70b-2-seahawk", "S-70B-2_Seahawk", "sea",
+        U("blue", "SEST_Allied_Fixes", "S-70B-2_Seahawk", "sea",
           name="Tiger 01", alt=1500, weapons="Tight", loadout="ASW"),
         # The KC-10A, in service from 1981: it left D2's 2028 carrier box
         # for this. Out of the fight, Hold.
@@ -3671,7 +3734,7 @@ MISSIONS.append(dict(
         U("blue", "SEST_RAN_Fleet", "ran_ffh_anzac", "patrol", variant="Variant3",
           weapons="Tight"),
         # The Ship's Flight slot a bought Seahawk fills. No trigger names it.
-        U("blue", "us-navy-2027", "usn_mh-60r", "flight", alt=500,
+        U("blue", "SEST_Allied_Fixes", "usn_mh-60r", "flight", alt=500,
           weapons="Tight"),
         U("neutral", "_vanilla", "civ_ms_encounter", "wreck",
           name="MV Torres Light"),
@@ -3712,9 +3775,10 @@ MISSIONS.append(dict(
     ),
     sender="Commodore Alex Mercer",
     intent=((
-        "Work the drift area to its northern boundary with your lead ship. Use the embarked "
-        "helicopter if available and report survivors as they are found. Do not abandon the "
-        "search to pursue an unconfirmed submarine contact."
+        "Work the drift area to its northern boundary with your lead ship. Three of Kerema "
+        "Trader's life rafts are unaccounted for: find them, with the embarked helicopter if "
+        "you have one, and report each as it is found. Do not abandon the search to pursue "
+        "an unconfirmed submarine contact."
     )),
     date=(2028, 10, 23), time=(6, 10), sea=4, clouds="Overcast", wind="SE",
     difficulty=2, minutes=75, centre=(-10.5, 144.5),
@@ -3724,20 +3788,29 @@ MISSIONS.append(dict(
             "GULF OF PAPUA, first light. MV Kerema Trader sailed independent - Santos's people "
             "call it going without - and went down at 2140 last night with twenty-six aboard, "
             "forty miles off the convoy track. Eleven are accounted for. The rest are somewhere"
-            " inside a drift box that has been growing all night.\\n\\nYour detachment is just "
-            "south of the box. The Type 039C that sank her has not left the area - it is inside"
-            " torpedo range of the box - and the search you need to run is exactly the pattern "
-            "it will expect.\\n\\nTake your lead ship through the box to its northern edge, "
+            " inside a drift box that has been growing all night: three life rafts, none of "
+            "them with a working beacon.\\n\\nYour detachment is just south of the box. This is "
+            "not the boat from the convoy track. The one that sank Kerema Trader is a Type 039C,"
+            " and after a night at speed she has to charge her batteries: she is somewhere north"
+            " of the box at periscope depth with her snorkel up, and a radar can see a snorkel "
+            "where a sonar would struggle. She is still inside torpedo range of the box.\\n\\n"
+            "Find the rafts, and take your lead ship through the box to its northern edge "
             "whatever you find. A Seahawk, if you have one embarked, covers more water than any"
-            " hull. If the boat presents itself, classify it: pass that identification to "
-            "command without delaying the search for survivors. Your weapons are tight."
+            " hull and carries the radar for both jobs. If the boat presents itself, classify "
+            "it: pass that identification to command without delaying the search for "
+            "survivors. Your weapons are tight."
         )),
-    forces="Your detachment, and its Seahawk if one is embarked. One Type "
-           "039C still in the area. Two merchant hulls diverted to assist.",
+    forces="Your detachment, and its Seahawk if one is embarked. Three life rafts in the "
+           "drift box. One Type 039C still in the area, snorkelling. Two merchant hulls "
+           "diverted to assist.",
     objectives=[
         ("Survivors", "Take your lead ship through the drift box to its "
                       "northern edge",
          "30,-25,Fail,Main"),
+        # The search itself. Optional, as the boat is: a raft three metres
+        # across is the hardest contact in the mission, and the win must not
+        # hang on whether a sensor sees one.
+        ("Rafts", "Find two of Kerema Trader's three life rafts", "15,0,None"),
         # `None` with a zero failure score - the native pairing for an
         # optional task. The boat is a bonus, as the brief says.
         ("Contact", "Classify the submarine", "10,0,None"),
@@ -3778,6 +3851,12 @@ MISSIONS.append(dict(
         # range of the search; it started 14 NM from the Anzac with YJ-18 and
         # torpedoes free (first public report, Oct 2026).
         "sub": S(-10.27, 144.74, "Submarine datum", heading=200),
+        # Kerema Trader's three rafts, spread across the drift box between
+        # the detachment and the northern edge: one on the lead ship's line,
+        # one either side of it for the helicopter.
+        "raft_a": S(-10.60, 144.65, "Life raft", heading=0),
+        "raft_b": S(-10.56, 144.52, "Life raft", heading=0),
+        "raft_c": S(-10.52, 144.76, "Life raft", heading=0),
     },
     units=[
         # The anchor: replaced by the player's first ship. Unnamed - the
@@ -3785,7 +3864,7 @@ MISSIONS.append(dict(
         U("blue", "SEST_RAN_Fleet", "ran_ffh_anzac", "hobart", variant="Variant3",
           weapons="Tight"),
         # The Ship's Flight slot a bought Seahawk fills. No trigger names it.
-        U("blue", "us-navy-2027", "usn_mh-60r", "flight", alt=500,
+        U("blue", "SEST_Allied_Fixes", "usn_mh-60r", "flight", alt=500,
           weapons="Tight"),
         # Not a Steel Highway hull: any of that convoy's four can be lost
         # the day before, and a page or a mission never names a losable hull
@@ -3795,10 +3874,17 @@ MISSIONS.append(dict(
           name="MV Gulf Trader", weapons="Hold"),
         U("neutral", "re-power-resupply", "civ_ms_amra", "assist",
           name="MV Coral Provider"),
-        # Across the box, towards the detachment's line of search.
+        # Across the box, towards the detachment's line of search - but
+        # snorkelling, not deep: the play test of 18 Oct 2026 found this
+        # mission and Steel Highway the same hunt with the same boat. Here
+        # the boat is a different one (Contact CHARLIE), shallow and slow,
+        # a radar problem where Steel Highway's 039B is a sonar one.
         U("red", "plan-submarines", "plan_ss_type_039c", "sub",
-          name="Contact BRAVO", depth="belowlayer",
-          route=[(-10.6, 144.6, "belowlayer")], telegraph=2),
+          name="Contact CHARLIE", depth="periscope",
+          route=[(-10.6, 144.6, "periscope")], telegraph=1),
+        U("neutral", "_vanilla", "all_life_raft", "raft_a", name="Kerema Trader raft 1"),
+        U("neutral", "_vanilla", "all_life_raft", "raft_b", name="Kerema Trader raft 2"),
+        U("neutral", "_vanilla", "all_life_raft", "raft_c", name="Kerema Trader raft 3"),
     ],
 ))
 
@@ -4016,7 +4102,7 @@ MISSIONS.append(dict(
     },
     units=[
         U("blue", "SEST_RAN_Fleet", "ran_ffh_anzac", "escort", variant="Variant8"),
-        U("blue", "us-navy-2027", "usn_mh-60r", "flight", alt=500),
+        U("blue", "SEST_Allied_Fixes", "usn_mh-60r", "flight", alt=500),
         U("red", "re-power-resupply", "civ_ms_andizhan", "cargo", name="MV Ocean Pearl",
           nation="Panama", weapons="Hold", route=[(-6.05, 132.20, 0)], telegraph=3),
         U("red", "re-power-resupply", "civ_ms_freighter_a", "cargo", name="MV Golden Wren",
@@ -5309,7 +5395,8 @@ RESOLVERS = {
     "O1": {"Search": "victory", "Traffic": "neutral",
            "Restraint": ("spare", "meridian")},
     "O2": {"Picture": "victory", "Traffic": "neutral",
-           "Kiwi": ("protect", "kiwi")},
+           "Kiwi": ("protect", "kiwi"),
+           "Drone": ("destroy", "spotter", 1)},
     "O5": {"Trail": "victory", "Traffic": "neutral",
            "Unseen": ("unseen", "patrol"),
            "Restraint": ("spare", "merchant")},
@@ -5342,11 +5429,12 @@ RESOLVERS = {
     "02": {"Cargo": "victory", "Neutrals": "neutral",
            "Medical": ("protect", "convoy#1")},
     "C1": {"Survivors": "victory", "Assist": "neutral",
-           "Contact": ("classify", "sub", 1)},
+           "Contact": ("classify", "sub", 1),
+           "Rafts": ("classify", ["raft_a", "raft_b", "raft_c"], 2)},
     "03": {"Evacuate": "victory", "Platform": "neutral",
            "Ships": ("protect", "amphib")},
     "04": {"Track": "victory", "Neutrals": "neutral",
-           "Patrol": ("protect", "patrol")},
+           "Patrol": ("protect", "patrol"), "Seized": "victory"},
     "05": {"Escort": "victory", "Convoy": ("protect", "convoy", 2),
            # The NSM round the Anzac's deck launchers carry. Empty them and
            # the objective fails; come out with any left and it stands.
@@ -5478,6 +5566,7 @@ DEPTHS = {
     # work for its contact; the semi-submersible runs at periscope depth
     # because that is what it is.
     "plan_ss_type_039c": "belowlayer", "plan_ss_type_039": "belowlayer",
+    "plan_ss_type_039b": "belowlayer",
     "plan_ss_kilo": "belowlayer", "wp_ssn_akula": "belowlayer",
     "plan_ssn_type_093b": "belowlayer", "usn_ssn_seawolf": "belowlayer",
     "_narco_narcosub_adv": "periscope",
@@ -5694,13 +5783,18 @@ for _m in MISSIONS:
         # minute. The stock Sub Duel's "Initial contact" is the model - a bare
         # reveal that holds briefly - so the record now puts a detection on the
         # plot for fifteen minutes and classification stays the player's.
+        # Play test of 18 Oct 2026: with fifteen minutes of reveal the boat
+        # sat on the plot as an unknown submerged contact from the first
+        # second and nothing on the player's side seemed to hold it. One
+        # minute now, the stock Sub Duel's "Initial contact", and the intel
+        # line says what it is: a position from a record, not a sensor.
         _m["reveal_if"] = [dict(
-            variable="O1BeaconFound", units=["sub"], level="", time=900,
+            variable="O1BeaconFound", units=["sub"], level="", time=60,
             intel=(
-                "ASW CELL: Torres Light's recovered bridge record matches the submarine report "
-                "on this route. Her last plot of the contact is on your display as a datum and "
-                "will age off in fifteen minutes. Classification is yours; engage under the "
-                "current orders."
+                "ASW CELL: Torres Light's recovered bridge record puts the reported submarine "
+                "here an hour ago. That position is on your display for one minute only. It "
+                "is a record, not a contact: none of your sensors holds this boat. Find her "
+                "with your own."
             ))]
     if _m["num"] == "04":
         # Paper Trail's promise (the bible's O02: "identifies a likely

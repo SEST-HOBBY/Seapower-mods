@@ -6866,6 +6866,7 @@
     "ran_sea_king_aew2": 242,
     "ran_sea_lynx_3": 39,
     "ran_sea_venom": 46,
+    "ran_seakingmk50ab": 23,
     "ran_uh-60m": 39,
     "ran_westlandseaking": 39,
     "rn_buccaneer_s1": 46,
@@ -6985,6 +6986,7 @@
     "usaf_f-15e_SE": 46,
     "usaf_f-15ex_SEII": 46,
     "usaf_f-16a": 46,
+    "usaf_f-16c_blk40": 46,
     "usaf_f-16cm-bl52d": 46,
     "usaf_f-22": 46,
     "usaf_f-22_s5": 46,
@@ -7284,8 +7286,9 @@
     "idn_kr_sverdlov": 353,
     "idn_ss_tjakra_71": 64,
     "idn_vt_uda": 347,
+    "ins_F-33": 190,
+    "ins_F-47": 181,
     "ins_ff_blackwood": 68,
-    "ins_p-17a": 181,
     "ins_pt_saar": 18,
     "ins_ptg_aliya": 33,
     "ins_ptg_saar_2": 21,
@@ -9597,6 +9600,13 @@
       "aircraft": true
     },
     {
+      "unit": "usaf_f-16c_blk40",
+      "side": "blue",
+      "nation": "US",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
       "unit": "usaf_f-16cm-bl52d",
       "side": "blue",
       "nation": "US",
@@ -11059,6 +11069,13 @@
     },
     {
       "unit": "ran_sea_venom",
+      "side": "blue",
+      "nation": "Australia",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "ran_seakingmk50ab",
       "side": "blue",
       "nation": "Australia",
       "tier": 0,
@@ -14734,6 +14751,18 @@
       "tier": 0
     },
     {
+      "unit": "ins_F-33",
+      "side": "blue",
+      "nation": "India",
+      "tier": 1
+    },
+    {
+      "unit": "ins_F-47",
+      "side": "blue",
+      "nation": "India",
+      "tier": 1
+    },
+    {
       "unit": "ins_d-63",
       "side": "blue",
       "nation": "India",
@@ -14741,12 +14770,6 @@
     },
     {
       "unit": "ins_d-66",
-      "side": "blue",
-      "nation": "India",
-      "tier": 1
-    },
-    {
-      "unit": "ins_p-17a",
       "side": "blue",
       "nation": "India",
       "tier": 1

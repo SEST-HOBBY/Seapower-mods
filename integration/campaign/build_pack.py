@@ -1707,6 +1707,49 @@ def place(mission, snapper):
             remapped = flags.flag_for(pick_nation(spec["type"], pick), spec["type"])
             if remapped:
                 keys["Nation"] = remapped
+        # air_group=[(type, squadron, count)]: the deck's own aircraft, the way
+        # every stock Task Force Mode mission writes them - CustomAirGroup=True
+        # and one `type=SquadronN,count` line each, on the anchor and on every
+        # player ship with a flight (Pacific Strike 01-10). This builder never
+        # wrote one, and HMAS Canberra sailed Rig Seventeen with no helicopter
+        # the player could launch (play test, 18 Oct 2026). ready=[(type,
+        # squadron, fit, count, seconds)] are the FlightDeck_ReadyUpTask lines
+        # that have some of them prepared at the start (Molniya 01's roro).
+        # Each type is checked against the deck and credited to its mod.
+        if spec.get("air_group") is not None:
+            keys["CustomAirGroup"] = "True"
+            group = {}
+            for atype, squadron, count in spec["air_group"]:
+                akind, apath = unit_file(atype)
+                if apath is None:
+                    sys.exit(f"{mission['key']}: air_group names {atype!r}, which "
+                             "no enabled mod defines")
+                if deck_fit(atype, unit_type(atype), spec["type"],
+                            kind == "vessel") is None:
+                    sys.exit(f"{mission['key']}: {spec['type']}'s deck does not "
+                             f"take {atype}")
+                if not any(re.search(rf"^\[{squadron}\]", read(f), re.M)
+                           for f in all_copies(f"{akind}/{atype}_squadrons.ini")):
+                    sys.exit(f"{mission['key']}: {atype} has no {squadron}")
+                keys[atype] = f"{squadron},{count}"
+                group[(atype, squadron)] = (apath, count)
+                token = owner(f"{akind}/{atype}.ini")
+                if token and token not in credit:
+                    credit[token] = ("unit", atype)
+            ready = spec.get("ready", [])
+            if ready:
+                keys["FlightDeck_ReadyUpTasks"] = str(len(ready))
+            for i, (atype, squadron, fit, count, seconds) in enumerate(ready, 1):
+                if (atype, squadron) not in group:
+                    sys.exit(f"{mission['key']}: ready names {atype} {squadron}, "
+                             "which the air_group does not carry")
+                apath, carried = group[(atype, squadron)]
+                if fit not in loadouts(apath) or count > carried:
+                    sys.exit(f"{mission['key']}: ready {atype} {fit} x{count} - "
+                             f"the file offers {', '.join(loadouts(apath))} and "
+                             f"the group carries {carried}")
+                keys[f"FlightDeck_ReadyUpTask{i}"] = (
+                    f"{atype},{squadron},{fit},{count},{seconds}")
         for k, v in spec.get("extra", {}).items():
             keys[k] = v
 
@@ -3282,11 +3325,15 @@ def message_texts(mission):
     no mission in the game, the repo or its mods puts a '|' in one."""
     out = [(k, mission[k]) for k in ("brief", "win", "lose", "timeout")
            if mission.get(k)]
+    if mission.get("victory", {}).get("or_destroyed"):
+        out.append(("victory.or_destroyed", mission["victory"]["or_destroyed"]))
     after = mission.get("victory", {}).get("after", {})
     if after.get("lost"):
         out.append(("victory.after.lost (stage lost)", after["lost"]))
     if after.get("intel"):
         out.append(("victory.after.intel (stage intel)", after["intel"]))
+    if after.get("held"):
+        out.append(("victory.after.held (stage held)", after["held"]))
     for i, deny in enumerate(mission.get("denied", []), 1):
         out.append((f"denied[{i}].message", deny["message"]))
     for oid, reward in mission.get("reveals", {}).items():
@@ -4164,6 +4211,9 @@ def render(mission, placed, members):
              f"{ini_text(mission['brief'])}")
     L.append("Taskforce1VictoryMessage=<color=lime>Operation complete.</color>|"
              f"{ini_text(mission['win'])}")
+    if mission.get("victory", {}).get("or_destroyed"):
+        L.append("SunkVictoryMessage=<color=lime>Operation complete.</color>|"
+                 + ini_text(mission["victory"]["or_destroyed"]))
     L.append("Taskforce1DefeatMessage=<color=red>Operation failed.</color>|"
              f"{ini_text(mission['lose'])}")
     L.append("Taskforce2VictoryMessage=<color=lime>Opposing force prevailed.</color>|"
@@ -4189,6 +4239,9 @@ def render(mission, placed, members):
     if mission.get("victory", {}).get("after", {}).get("lost"):
         L.append("StageLostMessage=<color=red>Operation failed.</color>|"
                  + ini_text(mission["victory"]["after"]["lost"]))
+    if mission.get("victory", {}).get("after", {}).get("held"):
+        title, text = mission["victory"]["after"]["held"]
+        L.append(f"StageHeldMessage=<color=yellow>{title}</color>|{ini_text(text)}")
     for reveal in mission.get("reveal_if", []):
         L.append(f"{reveal['variable']}Intel={ini_text(reveal['intel'])}")
     for i, deny in enumerate(mission.get("denied", []), 1):
@@ -4348,6 +4401,22 @@ def render(mission, placed, members):
     trigger("Start message", [
         "Condition_Type=Time", "Condition_Time=1",
         "Action_Taskforce1_Message=Taskforce1StartMessage"])
+    # Flight deck prep before the clock runs: the game holds at the start
+    # with its own AIRCRAFT PREPARATION notice, and every aircraft the player
+    # assigns on a deck or an airfield is ready for take-off when the game is
+    # unpaused. Play test of 18 Oct 2026: with no such trigger, no deck or
+    # airfield could be planned before the start. Wherever a player deck is
+    # in the mission - the task force sails with its flights, or a placed
+    # player ship or airfield has one - 01 Wolves of the South Atlantic
+    # Trigger6, key for key.
+    if mission.get("generation") or any(
+            deck_size(keys["Type"])
+            for family in ("Taskforce1Vessel", "Taskforce1LandUnit")
+            for _tag, keys, _n, _x in placed.get(family, [])):
+        trigger("Allow initial flight deck prep", [
+            "Condition_Condition1_Type=OnMissionStart",
+            "ConditionsCompleted=<Condition1>",
+            "Action_PrepareFlightDeck=True"])
     # disable=: systems off from the first second, one trigger per set of
     # systems - 08 Defense of North Borneo Trigger4, key for key.
     groups = collections.defaultdict(list)
@@ -4392,7 +4461,8 @@ def render(mission, placed, members):
                  "Action_Taskforce2_Message=Taskforce2DefeatMessage",
                  "Action_Victory=Taskforce1",
                  "Action_ObjectivesCompleted="
-                 + ",".join([main] + [o for o in held if o != main])]
+                 + ",".join([main] + [o for o in held if o != main]
+                            + victory.get("bonus", []))]
     if victory.get("sets"):
         win_lines.append(f"Action_VariableSet={victory['sets']},True")
     win_lines.append(EXIT)
@@ -4495,13 +4565,58 @@ def render(mission, placed, members):
                          message="StageLostMessage" if stage.get("lost") else "Taskforce1DefeatMessage",
                          victor="Taskforce2")
         else:
-            met_no = len(T) + 2          # this stage trigger, then the arrival
+            # hold_minutes: the stage is not done on arrival but after the
+            # units have been there that long - SW03's lifters loading thirty
+            # people. A Time condition counts from when its trigger is
+            # enabled, which is what 04 Chagos Gambit's rain loop (Trigger3
+            # and Trigger4, each Time= and each re-enabling the other) only
+            # works by; so the arrival enables a held trigger whose clock
+            # starts then, and that trigger shows the pop-up and arms the
+            # win. Its area test is the arrival's again.
+            hold = stage.get("hold_minutes")
+            # Trigger numbers, in the order they are written: the stage, the
+            # held trigger, then the arrival that wins.
+            stage_no = len(T) + 1
+            held_no = stage_no + 1 if hold else None
+            met_no = (held_no or stage_no) + 1
             s_cond = stage_conditions(s_units)
-            s_cond.append(f"Action_EnableTriggers=Trigger{met_no}")
+            # or_destroyed: the arrival's units destroyed after the stage is a
+            # win too, written right after the arrival's trigger and armed by
+            # the stage - SW04's craft, sunk once classified because she
+            # would not stop (play test, 18 Oct 2026).
+            sunk = f",Trigger{met_no + 1}" if victory.get("or_destroyed") else ""
+            s_cond.append(f"Action_EnableTriggers=Trigger{held_no or met_no}{sunk}")
             trigger("Stage", s_cond)
+            if hold:
+                if stage["kind"] != "area" or not stage.get("held") or stage.get("lost"):
+                    raise SystemExit(f"{mission['key']}: hold_minutes needs an "
+                                     "area stage and a `held` message, and no "
+                                     "`lost` (make the units fatal instead)")
+                h_cond = area_condition(1, centre, s_at, stage.get("radius", 3),
+                                        s_units, stage.get("min_units", 1))
+                trigger("Stage held", ["Disabled=True"] + h_cond + [
+                    "Condition_Condition2_Type=Time",
+                    f"Condition_Condition2_Time={round(hold * 60)}",
+                    "ConditionsCompleted=<Condition1> AND <Condition2>",
+                    "Action_Taskforce1_Message=StageHeldMessage",
+                    f"Action_EnableTriggers=Trigger{met_no}"])
             cond.insert(0, "Disabled=True")
     if not per_unit:
         trigger("Objective met", cond + win_lines)
+    if victory.get("or_destroyed"):
+        if not stage or per_unit or hold:
+            raise SystemExit(f"{mission['key']}: or_destroyed needs a victory "
+                             "stage (not per_unit, not held) to arm it")
+        trigger("Objective met by sinking",
+                ["Disabled=True"] + destroyed_condition(1, win_units, 1)
+                + ["ConditionsCompleted=<Condition1>",
+                   "Action_Taskforce1_Message=SunkVictoryMessage",
+                   # the bonus (taken intact) is the arrival's alone
+                   "Action_ObjectivesCompleted="
+                   + ",".join([main] + [o for o in held if o != main])]
+                + [l for l in win_lines if not l.startswith(
+                    ("ConditionsCompleted=", "Action_Taskforce1_Message=",
+                     "Action_ObjectivesCompleted="))])
 
     # Every objective needs a predicate. "victory" is completed by the trigger
     # above; everything else gets its own, and an objective with no resolver
@@ -6154,6 +6269,108 @@ def check_flights(rows, roster, authored=()):
         raise SystemExit("air tasking failed:\n  " + "\n  ".join(problems))
 
 
+# Rounds a tasking row never offers, whatever the airframe carries: the
+# AIM-260 and AIM-424 seats belong to Future Front (rule 3, the conventional
+# fit), and the hand-written rows already kept every fit hanging them out.
+TASKING_BARRED = frozenset({"dts_aim-260", "dts_aim-260_w", "usn_aim-424",
+                            "sest_aim-424"})
+
+# Which fits each row's job takes, by what the fit hangs rather than by name:
+# a CAP fit carries air-to-air missiles and nothing for the surface; an
+# Attack or SuCAP fit carries something for the surface; a patrol fit hunts
+# submarines or ships. AEW is fitless (E-7A, KJ-500) and gains nothing.
+_ROW_JOBS = {"CAP": "air", "Attack": "surface", "SuCAP": "surface",
+             "Recon": "patrol", "HeloRecon": "patrol"}
+
+
+@functools.lru_cache(maxsize=None)
+def store_kind(store, depth=0):
+    """(Type, TargetType) of one round, through `#!alias` and through a pod
+    to the round it holds: the LRASM-ER is an alias of the LRASM, and the
+    H-76's rocket fit hangs a LAU-68 Container whose round is the Hydra."""
+    text = "".join(read(f) for f in all_copies(f"ammunition/{store}.ini"))
+    kind = re.search(r"^Type=(\w+)", text, re.M)
+    aim = re.search(r"^TargetType=(\w+)", text, re.M)
+    if depth < 4:
+        if kind and kind.group(1) == "Container":
+            inner = re.search(r"^Ammunition\d*=([^\s#/|]+)", text, re.M)
+            if inner:
+                return store_kind(inner.group(1), depth + 1)
+        if not kind:
+            base = re.search(r"#!alias\s+ammunition/(\S+?)\.ini", text)
+            if base:
+                return store_kind(base.group(1), depth + 1)
+    return kind and kind.group(1), aim and aim.group(1)
+
+
+@functools.lru_cache(maxsize=None)
+def fit_jobs(uid, fit):
+    """(air, surface, asw, barred) for one aircraft fit, read off its stores."""
+    kind_dir, path = unit_file(uid)
+    air = surface = asw = False
+    held = {s for s in stores(uid, kind_dir, path, fit) if s[0].isalpha()}
+    for store in held:
+        kind, aim = store_kind(store)
+        if kind == "Missile" and aim == "AAW":
+            air = True
+        elif aim == "ASuW" and kind in ("Missile", "Bomb", "AerialRocket"):
+            surface = True
+        elif aim == "ASW":
+            asw = True
+    return air, surface, asw, bool(held & TASKING_BARRED)
+
+
+def widen_flights(missions, roster):
+    """Every air-tasking row also offers each fit its roster aircraft can fly.
+
+    Play test of 18 Oct 2026: the Air Tasking screen showed only a few
+    loadouts. A row's fit field is the whole menu - each aircraft flies the
+    intersection - and the hand-written rows named two or three fits per
+    airframe: the Super Hornet's strike row offered two of its thirty.
+    The authored fits stay first and in their order; to them is added every
+    fit a roster aircraft matching the row's roles defines whose stores suit
+    the row's job (see _ROW_JOBS). Left out: fits with a barred round, fits
+    that carry nothing for the job (Ferry, Empty, Transport, Passengers),
+    nuclear fits, and names a campaign file cannot write (a space or `#`).
+    Only the base roster widens a row, so every added fit passes
+    check_flights' first rule by construction.
+    """
+    sellable = []
+    for e in roster:
+        kind_dir, path = unit_file(e["unit"])
+        if kind_dir in ("aircraft", "helicopters"):
+            sellable.append((e["unit"], ai_roles(e["unit"]), loadouts(path)))
+    done = {}
+
+    def widen(row):
+        label, display, roles, count, fits = row.split("|")
+        job = _ROW_JOBS.get(label)
+        if not job:
+            return row
+        want_roles = frozenset(x for x in roles.split("/") if x)
+        out = [x for x in fits.split("/") if x]
+        for uid, have, offered in sellable:
+            if not have & want_roles:
+                continue
+            for fit in offered:
+                if (fit in out or re.search(r"[\s#]", fit)
+                        or re.search(r"nuke|nuclear", fit, re.I)):
+                    continue
+                air, surface, asw, barred = fit_jobs(uid, fit)
+                if barred:
+                    continue
+                if ((job == "air" and air and not surface and not asw)
+                        or (job == "surface" and surface)
+                        or (job == "patrol" and (asw or surface))):
+                    out.append(fit)
+        return f"{label}|{display}|{roles}|{count}|{'/'.join(out)}"
+
+    for m in missions:
+        rows = m.get("window", {}).get("flights")
+        if rows:
+            m["window"]["flights"] = [done.setdefault(r, widen(r)) for r in rows]
+
+
 def window_of(mission):
     return mission.get("window", {})
 
@@ -6348,15 +6565,23 @@ def campaign_ini(missions, events, placements):
                 title, text = window["notice"]
                 L += [f"TaskForceModeDebriefNoticeTitle_en={title}",
                       f"TaskForceModeDebriefNoticeText_en={ini_text(text)}"]
-            if window.get("airbase_prep"):
-                if not any("airbase" in k["Type"].lower() or "airfield" in k["Type"].lower()
-                           for _t, k, _n, _x in placed.get("Taskforce1LandUnit", [])):
-                    raise SystemExit(f"{mission['key']}: airbase_prep needs a "
-                                     "player land unit whose Type contains "
-                                     "airbase or airfield (the guide's rule)")
+            # Prepare Airbase: the briefing's own planner for the airwing at a
+            # player airfield. Stock offers it in five Pacific Strike missions
+            # (1-4 ready flights, 1-4 half-prepared). Play test of 18 Oct
+            # 2026: no airfield could be planned before the start, because
+            # only three missions asked for it. Now every mission whose
+            # airwing sails (it has tasking rows) and that has a player
+            # airfield offers it; `airbase_prep=True` still insists.
+            base = any("airbase" in k["Type"].lower() or "airfield" in k["Type"].lower()
+                       for _t, k, _n, _x in placed.get("Taskforce1LandUnit", []))
+            if window.get("airbase_prep") and not base:
+                raise SystemExit(f"{mission['key']}: airbase_prep needs a "
+                                 "player land unit whose Type contains "
+                                 "airbase or airfield (the guide's rule)")
+            if base and (window.get("airbase_prep") or (flights and not detached)):
                 L += ["TaskForceModeAirbasePrepAvailable=True",
-                      "TaskForceModeAirbasePrepReadySlots=2",
-                      "TaskForceModeAirbasePrepInProgressSlots=1"]
+                      "TaskForceModeAirbasePrepReadySlots=4",
+                      "TaskForceModeAirbasePrepInProgressSlots=2"]
             if i == last_playable:
                 # Stock marks its final mission so the campaign can be
                 # replayed in sandbox afterwards.
@@ -7088,6 +7313,7 @@ def main():
         # Read once, here: rendering rewrites a mission's rows in place, and
         # the Open Allocation twin checks its own roster against these same
         # rows after the missions are built.
+        widen_flights(spec["MISSIONS"], ROSTER)
         flight_rows = [r for m in spec["MISSIONS"] for r in m.get("window", {}).get("flights", [])]
         authored = {u["type"] for m in spec["MISSIONS"] for u in m["units"] if u.get("slot")}
         check_flights(flight_rows, ROSTER, authored=authored)

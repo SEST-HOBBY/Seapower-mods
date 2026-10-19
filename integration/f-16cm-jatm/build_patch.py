@@ -30,6 +30,7 @@ AIRFRAME = "usaf_f-16cm-bl52d"
 
 sys.path.insert(0, str(ROOT / "integration"))
 from common.aim424 import AIM424_ID, write_aim424  # noqa: E402
+from common.redback import add_fit as add_redback  # noqa: E402
 
 NEW_KEYS = ["SEST_F16_Intercept260", "SEST_F16_MALICE"]
 
@@ -105,6 +106,11 @@ def main():
     missing = sorted(refs - known)
     if missing:
         sys.exit(f"unresolved ammunition ids: {missing}")
+
+    # The Redback fit SEST's strike aircraft share (common/redback.py): the
+    # SDB fit's two quad racks become Redback pods. Its pod is SEST Allied
+    # Fixes' (sest_agr-30_pod), so it is added after the check above.
+    text = add_redback(text, AIRFRAME, "StrikeSDB", [("f16_gbu-39_quad", "pod", 2)])
 
     (OUT / "aircraft").mkdir(parents=True, exist_ok=True)
     (OUT / "aircraft" / f"{AIRFRAME}.ini").write_text(text, encoding="utf-8")

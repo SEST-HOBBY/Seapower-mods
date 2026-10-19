@@ -3171,3 +3171,133 @@ The rule is read from stock, not from the game's code, and is not yet seen
 in game. The box layout of the section above stays: it does no harm, and
 the supplied units outside the boxes begin where the mission puts them. Its
 claim that a box drops a supplied unit is withdrawn.
+
+## The play test of 18 October
+
+Eight points from a play of the campaign, each fixed in the builder or the
+mission it names. None is yet seen in game.
+
+**Air tasking showed only a few loadouts.** A row's fit field is the whole
+menu the Air Tasking screen offers, and each aircraft flies the intersection.
+The hand-written rows named two or three fits per airframe; the Super
+Hornet's strike row offered two of its thirty. `widen_flights()` now adds to
+each row every fit a roster aircraft matching its roles defines, chosen by
+what the fit hangs, not by its name: a CAP fit carries air-to-air missiles
+and nothing for the surface, an Attack or SuCAP fit carries something for the
+surface, a patrol fit carries torpedoes, sonobuoys or anti-ship rounds. The
+authored fits stay first. Left out: any fit with an AIM-260 or AIM-424
+(`TASKING_BARRED`, the conventional-fit rule the rows already followed),
+nuclear fits, fits carrying nothing for the job (Ferry, Empty, Transport) and
+names a campaign file cannot write. Southern Watch's strike row goes from 8
+fits to 31, its CAP row from 5 to 6, the helicopter and patrol rows from 4
+and 2 to 6 and 7.
+
+**No deck or airfield could be planned before the start.** Two stock
+mechanisms, both now written. Every mission with a player deck (the task
+force sails, or a placed player ship or airfield has one) carries stock's
+"Allow initial flight deck prep" trigger (`Action_PrepareFlightDeck`, 01
+Wolves of the South Atlantic Trigger6): the game holds at the start with its
+AIRCRAFT PREPARATION notice, and what the player assigns on a deck or a field
+is ready when the game is unpaused. And every mission whose airwing sails and
+that has a player airfield offers Prepare Airbase in the briefing
+(`TaskForceModeAirbasePrep*`, four ready flights and two half-prepared; stock
+uses 1-4 of each), where only three missions asked for it before.
+
+**Steel Highway's submarine was on the plot from the first second.** The
+Missing Beacon reward revealed it for fifteen minutes as an unknown
+submerged contact, and nothing of the player's seemed to hold it. One minute
+now, stock Sub Duel's initial contact, with an intel line that says it is a
+recorded position and not a sensor contact. The brief no longer says a
+sonobuoy field is still live over it: there is none in the mission.
+
+**Steel Highway and After the Wake played as one mission.** Same sea, same
+Type 039C, both called Contact BRAVO, ten miles apart. Steel Highway's boat
+is a Type 039B now (Modern PLAN Systems: its own sensors and magazine),
+waiting deep on air-independent power, a sonar problem. After the Wake's is
+Contact CHARLIE, the 039C, snorkelling at periscope depth after a night at
+speed, a radar problem; and the mission is a search: three of Kerema
+Trader's life rafts (vanilla `all_life_raft`) in the drift box, with finding
+two an optional objective (classify, 15). The raft is a unit the game spawns
+for itself: the play-test log has `[AutomaticSAR] usn_mh-60r assigned to life
+raft`. No stock mission places one.
+
+**Southern Cross: nothing could take the drone.** The Forpost's RCS and IR
+signature are 0.01 (the smallest stock aircraft, the QH-50, is 5), and it sat
+at 10,000 ft beside the escort boat 35 NM from Pilbara. It flies at 3,000 ft
+now on a loop back across the lane; two RAAF F-35As (Taipan 21, 22, AirToAir)
+are up over the lane; shooting it down is an optional objective.
+
+**Rig Seventeen: the crew-loaded message, and Canberra's helicopters.** The
+win now takes both lifters over the rig, held there three minutes, then both
+back to the amphibious group. A Time condition counts from when its trigger
+is enabled: 04 Chagos Gambit's rain loop (Trigger3 and Trigger4, each Time=
+and each re-enabling the other) only works that way. So the arrival at the
+rig enables a held trigger (`hold_minutes`) whose clock starts then; it shows
+"Rig crew loaded." as a pop-up and arms the win. Losing either lifter ends
+the mission. Canberra had no aircraft of her own in the mission: every stock
+Task Force Mode mission writes `CustomAirGroup=True` and a
+`type=SquadronN,count` line on each player ship with a flight, and this
+builder never had. A unit's `air_group` now writes them, checked against the
+deck's AircraftSupported and the squadrons file and credited to the mod;
+`ready` writes FlightDeck_ReadyUpTask lines (Molniya 01). Canberra carries
+two Army AH-64E (Euromod RAN, Squadron1, Australia), ready at the start with
+Hellfire for the patrol boat, and two MH-60R.
+
+**The Quiet Passenger: what to do with the craft.** The brief, intent,
+objective and stage message now say it in order: search, classify, stop her.
+Two ends: be in the handover box with her when she arrives and she heaves to
+for the boarding party (the win's `also` term, plus the bonus "Seized", 15);
+or sink her once she is classified (`or_destroyed`, a second win trigger the
+stage arms, without the bonus). Sunk before she is classified, nothing can
+complete the task. Her sinking is no longer fatal.
+
+**Weapons Free: Darwin, and the JH-7A's jammer.** The strike cockpits recover
+to RAAF Base Darwin, 140 NM away, instead of Tindal at 250. The JH-7A mod
+mounts two AN/ALQ-99s on every fit: the EA-6B's tactical jamming suite, a
+Universal jammer with 1,000 km reach and a 0.45 chance per pod of jamming each
+round fired at it. That is not the aircraft's: the ALQ-99 is American, on
+American electronic-attack aircraft, and the JH-7A carries a Chinese
+self-protection pod for itself. SEST Collection Fixes ships the author's file
+with one delta: one pod, the game's own `AircraftDECM_Late` (Defensive,
+0.40, no stand-off reach). The second pod's header in the mod has no closing
+bracket, and that section goes too. This changes the JH-7A everywhere it
+flies, in SEST's missions and anyone else's.
+
+## One Redback for every strike aircraft, and three unnamed units (19 October)
+
+**The AGR-30 Redback is SEST's one upgraded APKWS.** The 8 nm laser APKWS
+II-ER (`sest_apkws_er`, its pod `sest_agr-20er` and the Ocean Apache's
+`SEST_APKWS_ER` fit) is gone. The Redback stays `dts_apkws-ii` with the
+minimum deltas, now: an infrared fire-and-forget seeker reaching as far as
+it may be shot (30 nm); the APKWS's own boost, then a sustainer
+(`SustainerAccelerationTime=170`, `SustainerAcceleration=0.5`) while
+`VelocityBleed=0.4` brings it down from 1,500 kt to about 600 kt for the
+cruise; the NSM's terrain following and sea skimming key for key
+(`TerrainFollowFlight`, `SeaSkimming*`, `FinalFlightPhase*`,
+`TerminalApproachDist`) in place of the APKWS's loft and terminal dive; and
+an anti-surface primary, since the APKWS's anti-air one would fly that low
+profile at aircraft. Each of those keys already flies from a pod somewhere
+in the collection (the TOW-2B and AT-6 skim, the AGM-65B and AGM-88A have
+sustainers); the combination in one round is new. If a Redback launch ever
+freezes the game, the sustainer comes out first.
+
+**The fit, everywhere.** `integration/common/redback.py` is the one recipe:
+clone a fit the aircraft already flies and put Redback pods on the pylons
+named, the count checked. Allied Fixes ships it on the US and UK Apaches,
+the Sea Apache, the RAAF AH-64E, both A-10s (C and A), both MQ-9s, the
+US Navy and RAN MH-60R, both S-70B-2s, and the RAAF F/A-18F and F/A-18A.
+The A-10C+, the F-16CM and the three US Super Hornets are other SEST packs'
+files and get the same fit from their own builders. On the Seahawks the pods
+take the Hellfire launchers' outer pair (or the torpedo pylons on the RAN
+S-70B-2) and the torpedoes or tanks stay; on the fighters they take a CAS
+or strike fit's pylons. The tasking rows offer `SEST_REDBACK` wherever a
+sold aircraft carries it.
+
+**Unit Reference: three units with no name.** Found by scanning every unit
+in the collection for a name: `mm_skyguard_sam` (Euromod Cold War Italian
+Navy) and `usaf_f-16c_blk40` (Euromod South Korea Navy, which also ships no
+squadron table) now have names in Name Fixes; the RAN Sea King Mk.50A/B
+(`ran_seakingmk50ab`) had its squadron table spelled
+`ran_seakingmk50bab_squadrons.ini`, so Collection Fixes ships it under the
+name the game reads, and gives the F-16C Block 40 a table cloned from the
+same mod's KF-16. Both retire themselves when the authors fix them.
