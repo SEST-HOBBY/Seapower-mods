@@ -651,6 +651,7 @@ read by the next pass.
    ```bash
    python3 tools/generate_load_order.py      # docs/load-order-full.md
    python3 tools/generate_catalog.py         # docs/mod-catalog.md
+   python3 tools/fingerprint_mods.py         # data/mod-fingerprints.json, the -CheckUpdates baseline
    find integration/dist/SEST_Integration -type f | wc -l   # the installed file count: 1266 on 4 Oct 2026
    ```
 
