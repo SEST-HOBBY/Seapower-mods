@@ -205,19 +205,17 @@ def main():
     # everywhere: 30 nm and a rocket's boost then a slower cruise. It stays
     # dts_apkws-ii - the proven in-pod rocket it was rebased onto after two
     # freezes, the weapon pack's counter-drone APKWS - with the minimum deltas:
-    #   - an infrared seeker, fire and forget (GuidanceType 1, MidCourse 0;
-    #     five in-container precedents), reaching as far as it may be shot;
-    #   - the boost is the APKWS's own; a sustainer then holds it on while
-    #     VelocityBleed brings it down to about 600 kt for the cruise (stock's
-    #     own pair: Seacat's SustainerAcceleration/Time, VelocityBleed on 85
-    #     rounds).
-    # Everything else is the APKWS's own: air first, ships and land second
-    # (TargetType=AAW, SecondaryTargetType=ASuW), and its shallow climb (5
-    # degrees to 1,500 ft) and terminal dive - the profile already proven to
-    # fire from a pod without a freeze. The first cut of 19 Oct flew the
-    # NSM's sea skimming under an anti-surface primary instead; no stock
-    # round pairs that low flight with an air target, so against a drone it
-    # would most likely have stayed low and passed underneath.
+    # The 19 Oct playtest asks for a 2 km loft, six seconds of visible motor,
+    # then 150 kt cruise, with retargeting. Use the legacy phase speed caps
+    # (SS-N-22's MaxLoftVelocity/MaxVelocity), NOT VelocityBleed: the latter
+    # is a lifetime-dependent kinematics factor, not a cruise-speed setting.
+    # AIM-54A uses a timed SustainerEffect for its visible motor; its initial
+    # booster is effectively zero. The same effect slot burns for six seconds
+    # here, without an everlasting InFlightEffect. Flight physics stay in
+    # legacy mode so an unpowered 150 kt rocket is not modelled as a stall.
+    # The active seeker and command link use stock missile keys; Walleye II
+    # demonstrates Retargetable with MidCourseCorrection=1. These settings
+    # require a new in-game test; they do not prove hits or terrain clearance.
     for stale in ("sest_apkws_er.ini", "sest_agr-20er.ini"):
         if (OUT / "ammunition" / stale).exists():
             (OUT / "ammunition" / stale).unlink()
@@ -229,31 +227,39 @@ def main():
             sys.exit(f"{need.relative_to(ROOT)} missing - export it first")
     rb = rb_src.read_text(encoding="utf-8-sig", errors="replace")
     swaps = [
-        (r"^GuidanceType=5\b", "GuidanceType=1"),
-        (r"^SeekerPassiveRange=6\.0\b", "SeekerPassiveRange=30"),
+        (r"^GuidanceType=5\b", "GuidanceType=3"),
+        (r"^MidCourseCorrection=0[^\n]*", "MidCourseCorrection=1  // radio command; autonomous seeker in terminal"),
+        (r"^SeekerPassiveRange=6\.0[^\n]*", "SeekerPassiveRange=35\nSeekerActiveRange=35\nSeekerGain=50\nSeekerReliability=0.99\nTargetMemory=True\nRetargetable=True\nSelfDestructAfterTargetGone=False"),
         (r"^MaxLaunchRange=6\b", "MaxLaunchRange=30"),
-        (r"^(MaxVelocity=)2000\b", r"\g<1>1500"),
-        (r"^(Acceleration=200\b[^\n]*\n)",
-         r"\g<1>SustainerAccelerationTime=170\nSustainerAcceleration=0.5\nVelocityBleed=0.4\n"),
-        (r"^(InFlightEffectClass=[^\n]*\n)",
-         r"\g<1>SustainerEffect=effects/weapons/emitters/missile_sustainer_small_effect\n"
-         r"SustainerEffectPosition=0,0,-0.02\nSustainerEffectStartTime=1\n"),
+        (r"^MaxLoftAngle=5\.0[^\n]*", "MaxLoftAngle=35.0"),
+        (r"^MaxLoftAlt=1500[^\n]*", "MaxLoftAlt=6562  // feet: approximately 2 km\nMaxLoftVelocity=450"),
+        (r"^TerminalApproachDist=100[^\n]*", "TerminalApproachDist=1.0"),
+        (r"^TerminalDiveDistance=2[^\n]*", "TerminalDiveDistance=1.0"),
+        (r"^MaxVelocity=2000[^\n]*", "MaxVelocity=150  // legacy cruise phase cap, knots\nApplyKinematics=False\nMaxFlightTime=1500\nTimeLimited=True"),
+        (r"^AccelerationTime=1[^\n]*", "AccelerationTime=0.01"),
+        (r"^Acceleration=200[^\n]*", "Acceleration=0\nSustainerAccelerationTime=6\nSustainerAcceleration=8"),
+        (r"^KillProbability=0\.6\b", "KillProbability=0.95"),
+        (r"^SeekerFOV=15\b", "SeekerFOV=60"),
+        (r"^SeekerGimbalFOV=90\b", "SeekerGimbalFOV=120"),
+        (r"^BoosterEffect=[^\n]*\nBoosterEffectPosition=[^\n]*\n", ""),
+        (r"^InFlightEffectClass=[^\n]*\nInFlightEffectPosition=[^\n]*\nInFlightEffectStartTime=[^\n]*",
+         "SustainerEffect=effects/weapons/emitters/missile_sustainer_small_effect\n"
+         "SustainerEffectPosition=0,0,-0.02\nSustainerEffectStartTime=0"),
     ]
     for pat, rep in swaps:
         rb, k = re.subn(pat, rep, rb, count=1, flags=re.M)
         if k != 1:
             sys.exit(f"dts_apkws-ii: {pat} matched {k} times - upstream changed")
-    # The targeting and the climb and dive are kept as upstream wrote them;
-    # the description promises them, so stop if they move.
-    for key in (r"TargetType=AAW", r"SecondaryTargetType=ASuW", r"MaxLoftAngle=5\.0",
-                r"MaxLoftAlt=1500", r"TerminalApproachDist=100", r"TerminalAlt=Maintain",
-                r"TerminalDiveDistance=2"):
+    # Preserve the donor's target classes, including mobile land targets.
+    for key in (r"TargetType=AAW", r"SecondaryTargetType=ASuW",
+                r"LandAttackCapability=All", r"TerminalAlt=Maintain"):
         if not re.search(rf"^{key}\b", rb, re.M):
             sys.exit(f"dts_apkws-ii: {key} changed upstream - re-check the Redback profile")
     (OUT / "ammunition").mkdir(parents=True, exist_ok=True)
     (OUT / "ammunition" / "sest_agr-30.ini").write_text(
-        "# SEST AGR-30 Redback - dts_apkws-ii (proven in-pod, lofting) with an IR\n"
-        "# seeker, 30 nm and a sustainer cruise after the boost.\n"
+        "# SEST AGR-30 Redback - fictional 30 nm guided rocket.\n"
+        "# 2 km loft / 450 kt loft cap / 150 kt cruise; six-second motor effect.\n"
+        "# Active terminal seeker, radio midcourse and retargeting. Playtest required.\n"
         + rb, encoding="utf-8")
     rbpod, k = re.subn(r"^Ammunition=usa_apkws_2_m282\s*$", "Ammunition=sest_agr-30",
                        pod_src.read_text(encoding="utf-8-sig", errors="replace"), flags=re.M)
@@ -283,11 +289,11 @@ def main():
         "[AmmunitionNames]\n"
         "sest_agr-30=AGR-30,Redback,GFFAR,"
         "What-if evolution of the 70mm guided rocket family: the AGR-30 "
-        "Redback replaces the APKWS II laser kit with an imaging-infrared "
-        "seeker for fire and forget out to 30 nautical miles. A rocket boost, "
-        "then a sustained cruise at about 600 knots in a shallow climb and a "
-        "dive onto the target. Built from the counter-drone APKWS, it takes "
-        "aircraft and drones first, ships and land targets second. Same "
+        "Redback adds active terminal homing and radio midcourse retargeting "
+        "out to 30 nautical miles. A six-second motor burn and a loft to "
+        "approximately 2 km precede a 150-knot cruise and terminal dive. "
+        "Eligible against aircraft, drones, ships and land targets. Its slow "
+        "cruise is intended for surface targets and slow aircraft. Same "
         "airframe and warhead as the APKWS II.\n",
         encoding="utf-8")
     (lang / "loadout_names.ini").write_text(
@@ -325,20 +331,17 @@ def main():
          [("uav_agm-114k", "pod", 2), ("uav_gbu-49", "pod", 2)]),
         ("3503670861", "usaf_mq-9_er.ini", "Strike",
          [("uav_agm-114k", "pod", 2), ("uav_gbu-49", "pod", 2)]),
-        # Seahawks: one 19-tube pod a side, as the Navy's MH-60S carries its
-        # APKWS. On the MH-60R it takes the Hellfire launcher's place (the
-        # launcher is hidden; the pod was a pair on its rails), the inner
-        # pair's missiles dropped, the torpedoes or tanks kept. The S-70B-2s
-        # hang it on the torpedo pylons, where four 7-tube pods once stood
-        # two by two on one Hellfire launcher's rails.
+        # Keep the Seahawk's actual supporting geometry visible. The MH-60R
+        # pods use the lower Hellfire seats and retain H60_Pylon114; hiding
+        # that submodel removed their support. The S-70B-2 has one modelled
+        # missile arm: use its Penguin seat, not a floating pod each side on
+        # the torpedo-specific MK46 offsets. Its AntiShip fit keeps the arm.
         ("3606774881", "usn_mh-60r.ini", "AntiShipLate",
-         [("usa_agm-114l_mm", "pod19", 2, ""), ("usa_agm-114k_hh", None, 2)],
-         dict(hide=("H60_Pylon114",))),
+         [("usa_agm-114l_mm", None, 2), ("usa_agm-114k_hh", "pod19", 2, "")]),
         ("3820759806", "ran_mh-60r.ini", "AntiShip",
-         [("usa_agm-114l_mm", "pod19", 2, ""), ("usa_agm-114k_hh", None, 2)],
-         dict(hide=("H60_Pylon114",))),
-        ("3403661005", "S-70B-2_Seahawk.ini", "ASW", [("usn_mk46_air", "pod19", 2)]),
-        ("3820759806", "ran_S-70B-2_Seahawk.ini", "ASW", [("usn_mk46_mod5_air", "pod19", 2)]),
+         [("usa_agm-114l_mm", None, 2), ("usa_agm-114k_hh", "pod19", 2, "")]),
+        ("3403661005", "S-70B-2_Seahawk.ini", "AntiShip", [("knm_penguin_mk2", "pod19", 1)]),
+        ("3820759806", "ran_S-70B-2_Seahawk.ini", "AntiShip", [("knm_penguin_mk2", "pod19", 1)]),
         # RAAF Hornets. The F/A-18A's CAS fit already flies the layout: wing
         # tanks, and two 7-tube pods on the pylon outboard of them (the twin
         # Zuni mount). The F/A-18F takes it from its long-range anti-ship

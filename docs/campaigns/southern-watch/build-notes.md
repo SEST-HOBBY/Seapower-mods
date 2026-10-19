@@ -3265,6 +3265,11 @@ flies, in SEST's missions and anyone else's.
 
 ## One Redback for every strike aircraft, and three unnamed units (19 October)
 
+**Historical build `e7b32f11`.** Its rocket profile and Seahawk mount choices
+below are superseded by [the follow-up playtest fixes](../../playtest-20261019-fixes.md).
+The automatic initial preparation pause described in the 18 October notes
+is also superseded: it is opt-in after the player could not select a deck.
+
 **The AGR-30 Redback is SEST's one upgraded APKWS.** The 8 nm laser APKWS
 II-ER (`sest_apkws_er`, its pod `sest_agr-20er` and the Ocean Apache's
 `SEST_APKWS_ER` fit) is gone. The Redback stays `dts_apkws-ii`, the weapon

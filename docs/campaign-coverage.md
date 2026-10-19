@@ -6,7 +6,7 @@ The campaign is 32 missions built from 482 placed units. Every mod in the canoni
 
 This campaign reaches 215 of the enabled mods and packs; the 7 it does not are listed at the end. The pack's coverage rule - every enabled mod placed or excused - is met by the pack as a whole, not by each campaign in it.
 
-51 station(s) were proved against the coastline extract (`integration/campaign/geo/`) rather than a pool of proven points: nothing in this repo had sailed this water before.
+70 station(s) were proved against the coastline extract (`integration/campaign/geo/`) rather than a pool of proven points: nothing in this repo had sailed this water before.
 
 | class | meaning | mods |
 |---|---|---|
@@ -20,7 +20,7 @@ This campaign reaches 215 of the enabled mods and packs; the 7 it does not are l
 | `external` | in the collection for a third-party campaign or scenario, or as content none of these campaigns places; required all the same (SETUP checks every mod in the order) | 22 |
 | `campaign` | this pack - the campaign being measured | 1 |
 
-Sea and land positions in 26 of the 32 missions are snapped to points already used by a loading mission (the furthest any anchor had to move is 15.4 NM); the other 6 use them as authored, checked against the coastline extract.
+Sea and land positions in 24 of the 32 missions are snapped to points already used by a loading mission (the furthest any anchor had to move is 15.4 NM); the other 8 use them as authored, checked against the coastline extract.
 
 | mod / pack | title | class | via | mission |
 |---|---|---|---|---|

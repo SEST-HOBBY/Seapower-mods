@@ -132,7 +132,9 @@ MISSION = dict(
           route=[(-44.60, 167.60, 0)], telegraph=3),
         U("neutral", "_vanilla", "civ_ms_roro_c", "exped",
           name="MV Tutoko Explorer (expedition ship)",
-          route=[(-44.60, 167.60, 0)], telegraph=3),
+          # First stand west of Puysegur. The direct Milford leg clipped
+          # the Fiordland coast despite both endpoints being at sea.
+          route=[(-45.70, 166.10, 0), (-44.60, 167.60, 0)], telegraph=3),
         U("neutral", "_vanilla", "civ_fv_crabboat", "cray1", name="Cray boat Kotare",
           route=[(-46.55, 167.50, 0)], telegraph=2),
         U("neutral", "_vanilla", "civ_fv_fishingboat_a", "cray2", name="Cray boat Ranui",

@@ -26,14 +26,15 @@ first; the detail lives where each line points:
 5. **The ARRW profile** — *SEST NF3 - SEAD over the Shelf*: the B-52Os'
    AGM-183As loft to about 99,000 ft, where they used to cruise level at
    90,000.
-6. **The Redback** — *SEST NF3 - Coastal Ambush*: the A-10Cs' AGR-30s guide
-   out to 30 NM in a shallow climb and dive at the end, not skimming. Against
-   a drone, note the range at which the infrared seeker locks (`build-notes.md`,
-   *One Redback for every strike aircraft*). Then the pods, in the loadout
+6. **The Redback** — *SEST NF3 - Coastal Ambush*: test the candidate 2 km
+   loft, six-second visible motor, 150-knot cruise and terminal dive at 1x.
+   Check the active seeker against a crossing ship and slow drone, then
+   retarget after launch (`docs/playtest-20261019-fixes.md`). Then the pods, in the loadout
    screen's SEST Redback Strike on the F-16CM, an F/A-18F, an Apache, an
    MH-60R and an A-10: each pod hangs from its pylon, not inside a rack or
    below it in the air, and the F/A-18F shows two pods side by side on each
-   mid pylon beside its wing tanks (*The pods, each on its own mount*).
+   mid pylon beside its wing tanks. MH-60R supports remain visible; the
+   S-70B-2 uses one pod on its single modelled missile arm.
 7. **MALICE mass** — an F-15EX on its Malice6 fit (six AIM-424s, 680 kg each
    now) gets airborne and reaches its station.
 8. **SM-3 terminal** — a Flight III Burke's SM-3 IIA at a DF-21D or DF-26B

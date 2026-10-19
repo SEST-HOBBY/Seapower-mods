@@ -37,6 +37,41 @@ except ImportError:          # Pillow missing: the art tests are skipped
 _ABSENT = object()
 
 
+class SailedLegs(unittest.TestCase):
+    """Wet endpoints must not let a ship cross an island between them."""
+
+    def setUp(self):
+        self.before = bp.PLACEMENT_PROBLEMS[:]
+        bp.PLACEMENT_PROBLEMS.clear()
+        self.placer = bp.CoastPlacer(bp.coast_data({"centre": (-5.8, 132.7)}), {})
+
+    def tearDown(self):
+        bp.PLACEMENT_PROBLEMS[:] = self.before
+
+    def test_the_reported_kai_crossing_is_rejected_with_wet_endpoints(self):
+        start, end = (-5.7, 133.1), (-6.05, 132.65)
+        self.assertFalse(self.placer.coast.on_land(*start))
+        self.assertFalse(self.placer.coast.on_land(*end))
+        self.placer.route(start, [end], "Weather Alternate raider")
+        self.assertTrue(bp.PLACEMENT_PROBLEMS)
+        self.assertIn("leg 1 crosses", bp.PLACEMENT_PROBLEMS[0])
+
+    def test_a_bend_through_the_passage_is_accepted(self):
+        self.placer.route((-5.90, 132.82),
+                          [(-5.80, 132.84), (-5.72, 132.86), (-5.66, 132.84)],
+                          "Weather Alternate fuel coaster")
+        self.assertEqual(bp.PLACEMENT_PROBLEMS, [])
+
+    def test_the_spawn_to_first_waypoint_is_checked(self):
+        self.placer.route((-5.8, 132.7), [(-5.8, 132.84)], "Beached start")
+        self.assertIn("leg 1 crosses land", bp.PLACEMENT_PROBLEMS[0])
+
+    def test_a_route_outside_the_extract_is_not_silently_approved(self):
+        self.placer.route((-5.8, 144), [(-5.8, 145)], "Outside chart")
+        self.assertIn("outside the coastline extract", bp.PLACEMENT_PROBLEMS[0])
+
+
+
 # --- a small mission, rendered ----------------------------------------------
 # The ceasefire-morning shape from the Red Line design: a frigate, a carrier
 # withdrawing, an armed coaster in company that has turned for the convoy
@@ -1120,16 +1155,14 @@ class PlayTest18Oct(unittest.TestCase):
         self.assertIn("Action_Victory=Taskforce1", sunk)
         self.assertIn("Action_Taskforce1_Message=SunkVictoryMessage", sunk)
 
-    def test_deck_prep_where_a_player_deck_is(self):
-        self.assertIn("Allow initial flight deck prep", rendered(small_mission()))
-        placed, members = small_placement()
-        placed["Taskforce1Vessel"] = [
-            ("Taskforce1Vessel1", _keys("civ_ms_freighter_b", 0, 9), None, False),
-            ("Taskforce1Vessel2", _keys("civ_ms_freighter_b", -12, 6), None, False)]
-        self.assertNotIn("Allow initial flight deck prep",
-                         rendered(small_mission(), placed, members))
-        self.assertIn("Allow initial flight deck prep",
-                      rendered(small_mission(generation="Generated"), placed, members))
+    def test_deck_prep_pause_requires_an_explicit_mission_choice(self):
+        # A carrier or generated force must not imply the unusable modal.
+        for generation in (None, "Generated"):
+            self.assertNotIn("Allow initial flight deck prep",
+                             rendered(small_mission(generation=generation)))
+        self.assertIn("Action_PrepareFlightDeck=True",
+                      rendered(small_mission(initial_deck_prep=True))[
+                          "Allow initial flight deck prep"])
 
     def _deck(self, **unit):
         m = dict(key="Test Deck", centre=(-11.6, 126.6), date=(2028, 10, 24),

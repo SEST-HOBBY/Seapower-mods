@@ -959,6 +959,32 @@ class CoastPlacer:
                     f"{'ashore' if land else 'in the surf'} ({nm:.1f} NM from the "
                     "coast) - route the track round the headland")
 
+    def route(self, start, waypoints, where):
+        """Check each sailed leg, including spawn to the first waypoint.
+
+        Two wet endpoints do not prove a wet passage: Weather Alternate's
+        raiders crossed Kai Kecil between them. Quarter-NM samples with a
+        half-NM shore margin also reject near misses between sample points.
+        """
+        for leg, end in enumerate(waypoints, 1):
+            steps = max(1, math.ceil(nm_between(start, end) / 0.25))
+            dlon = (end[1] - start[1] + 180) % 360 - 180
+            for i in range(steps + 1):
+                fraction = i / steps
+                at = (start[0] + (end[0] - start[0]) * fraction,
+                      (start[1] + dlon * fraction + 180) % 360 - 180)
+                if not self._cover(at, f"{where} leg {leg}"):
+                    break
+                land, nm = self.coast.check(*at)
+                if land or nm < 0.5:
+                    PLACEMENT_PROBLEMS.append(
+                        f"{where}: leg {leg} crosses "
+                        f"{'land' if land else 'the surf'} near "
+                        f"({at[0]:.4f}, {at[1]:.4f}); "
+                        "route round the island or headland")
+                    break
+            start = end
+
     def point(self, at, where, least=1.0):
         """An authored point a trigger uses - a box centre, a stage area."""
         if self._cover(at, where):
@@ -1828,9 +1854,8 @@ def place(mission, snapper):
             route = [(p[0], p[1], p[2], list(p[3]) if len(p) > 3 else [])
                      for p in spec["route"]]
             if isinstance(snapper, CoastPlacer) and kind in ("vessel", "sub"):
-                for la, lo, _a, _o in route:
-                    snapper.waypoint((la, lo), f"{mission['key']} {spec['station']} "
-                                               f"({spec['type']})")
+                snapper.route((lat, lon), [(la, lo) for la, lo, _a, _o in route],
+                              f"{mission['key']} {spec['station']} ({spec['type']})")
             keys["Waypoints"] = "|".join(
                 f"{(lo - centre[1]) * 60:.2f},{a},{(la - centre[0]) * 60:.2f}"
                 + waypoint_orders(mission, spec, kind, keys, orders, pending, tag, n)
@@ -4317,6 +4342,16 @@ def render(mission, placed, members):
         for i, (label, group) in enumerate(groups, 1):
             shape = "Vic" if ("Aircraft" in group[0] or "Helicopter" in group[0]) else "Loose"
             spacing = "0.1" if shape == "Vic" else "1.5"
+            # Coastal traffic must fit the passage as a formation as well as
+            # along its leader's route. Weather Alternate's eastern channel
+            # cannot safely take the default 1.5 NM spread.
+            station = next((mission["stations"][st] for st, tags in members.items()
+                            if group[0] in tags), {})
+            if "formation_spacing" in station:
+                value = float(station["formation_spacing"])
+                if not math.isfinite(value) or value <= 0:
+                    raise SystemExit(f"{mission['key']}: {label} has invalid formation spacing")
+                spacing = f"{value:g}"
             L.append(f"{side}_Formation{i}={','.join(group)}|{label}|{shape}|{spacing}")
 
     # --- triggers -----------------------------------------------------------
@@ -4401,18 +4436,12 @@ def render(mission, placed, members):
     trigger("Start message", [
         "Condition_Type=Time", "Condition_Time=1",
         "Action_Taskforce1_Message=Taskforce1StartMessage"])
-    # Flight deck prep before the clock runs: the game holds at the start
-    # with its own AIRCRAFT PREPARATION notice, and every aircraft the player
-    # assigns on a deck or an airfield is ready for take-off when the game is
-    # unpaused. Play test of 18 Oct 2026: with no such trigger, no deck or
-    # airfield could be planned before the start. Wherever a player deck is
-    # in the mission - the task force sails with its flights, or a placed
-    # player ship or airfield has one - 01 Wolves of the South Atlantic
-    # Trigger6, key for key.
-    if mission.get("generation") or any(
-            deck_size(keys["Type"])
-            for family in ("Taskforce1Vessel", "Taskforce1LandUnit")
-            for _tag, keys, _n, _x in placed.get(family, [])):
+    # The 19 Oct playtest could not select a launch platform during the
+    # forced stock preparation pause. Keep the supported action opt-in for
+    # a mission author who can test it, rather than interrupt every launch.
+    # Task Force Mode's native Airbase Prep below remains the pre-mission
+    # planner. The stock guide exposes no equivalent ship-deck picker key.
+    if mission.get("initial_deck_prep"):
         trigger("Allow initial flight deck prep", [
             "Condition_Condition1_Type=OnMissionStart",
             "ConditionsCompleted=<Condition1>",
