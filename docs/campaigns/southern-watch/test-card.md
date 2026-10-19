@@ -46,6 +46,10 @@ first; the detail lives where each line points:
     a supply ship (`integration/mission-seeds/scenarios/README.md`).
 11. **Red Line's Hold/Tight and unseen triggers** — `../red-line/test-card.md`,
     4 and 5.
+12. **The B-2's MALD** — in the mission editor, a B-2 Spirit on *SEAD (JSOW &
+    MALD)* releasing high at a distant target: the MALD holds near its release
+    height and dives only in the last 15 NM, rather than dropping to skim the
+    sea (`build-notes.md`, *The B-2's MALD glides*).
 
 ## Install
 

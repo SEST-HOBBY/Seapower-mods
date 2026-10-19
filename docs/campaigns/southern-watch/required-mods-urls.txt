@@ -171,7 +171,3 @@ https://steamcommunity.com/sharedfiles/filedetails/?id=3413868677    # Red Storm
 https://steamcommunity.com/sharedfiles/filedetails/?id=3812140001    # Pakistani Pack
 https://steamcommunity.com/sharedfiles/filedetails/?id=3605013271    # RE-power: the resupply mod
 
-NOT IN THE COLLECTION - players install these by hand, as the
-pack-level REQUIRED-MODS.txt tells them; not in the Required Items:
-  SeaLifter  (required by B-2 Spirit)
-

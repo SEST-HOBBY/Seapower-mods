@@ -39,7 +39,7 @@ TIER0 = [
 ]
 
 # Explicit sequences (order within these lists is the recommendation)
-TIER1 = [("anchor-chain", "loader — SeaLifter loads via its preloader alongside")]
+TIER1 = [("anchor-chain", "loader, with its preloader (SeaLifter is not needed)")]
 TIER1B = [
     ("custom-loadout-editor", "code mod — position not order-sensitive"),
     ("better-tacmap", "code mod — UI"),

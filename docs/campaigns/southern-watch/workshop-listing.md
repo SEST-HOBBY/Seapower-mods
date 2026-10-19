@@ -10,13 +10,13 @@ The item's Required Items are the load order's Workshop mods, so Subscribe
 offers them all in one click, as the collection does; SETUP writes the order.
 `publishing.md` (*Dependencies*) has the detail.
 
-Counts (19 Oct 2026, with the 19-tube Redback pod): 198 Workshop mods in
-`data/load-order.tokens.txt` (199 entries with the pack), 164 named by a
-mission (REQUIRED-MODS.txt), 525 borrowed files from 62 mods (CREDITS.txt).
-Redo them from those files when they change. The 525th, the 19-tube pod, is
-credited to RADF's `adf_lau-3a`: the pod is the game's own `usn_lau-3a`,
+Counts (19 Oct 2026, with the 19-tube Redback pod and the B-2's MALD): 198
+Workshop mods in `data/load-order.tokens.txt` (199 entries with the pack), 164
+named by a mission (REQUIRED-MODS.txt), 526 borrowed files from 63 mods
+(CREDITS.txt). Redo them from those files when they change. The 19-tube pod
+is credited to RADF's `adf_lau-3a`: the pod is the game's own `usn_lau-3a`,
 which CREDITS.txt never compares against, and RADF's is that file with one
-line changed.
+line changed. The MALD brought in the B-2 Spirit as the 63rd mod.
 
 ---
 
@@ -80,8 +80,8 @@ installs the Anchor Chain preloader and writes the 199-entry load order with
 this pack at the top. It is safe to run again.
   • If the Mod Manager offers to move this pack's dependencies above it,
     answer no: that undoes every fix in it. SETUP puts the order back.
-  • SeaLifter is not in the collection and needs a manual install (the B-2,
-    A-10A, Su-25, Mi-8 and Type 003/004 carriers name it).
+  • Some mods still name SeaLifter as a requirement. It is not needed; they
+    run without it.
   • A missing mod means a missing unit at best and a mission that will not
     load at worst. Without the collection and SETUP, this is not the
     download for you.
@@ -90,8 +90,8 @@ In the folder: SETUP, REQUIRED-MODS.txt (every mod the campaigns name),
 LOAD-ORDER.txt and CREDITS.txt.
 
 CREDIT
-A Sea Power unit file is a whole-file override, so 525 files here are other
-authors' files with edits, each 90% or more unchanged, from 62 Workshop mods.
+A Sea Power unit file is a whole-file override, so 526 files here are other
+authors' files with edits, each 90% or more unchanged, from 63 Workshop mods.
 CREDITS.txt lists every one, measured by diffing against the collection.
 Every photograph is real and credited. If you wrote one of those mods and
 would rather this pack did not carry your file, say so and it will change.
@@ -129,12 +129,17 @@ collection stay as they are.
 
 [b]Fixes[/b]
 [list]
+[*]The B-2's ADM-160 MALD decoy glides at its release height and dives at the end, instead of dropping to skim the sea at 6 ft.
 [*]The JH-7A carries one self-protection jammer instead of two AN/ALQ-99s.
 [*]Names for the Italian Skyguard SAM and the South Korean F-16C Block 40; the RAN Sea King Mk.50A/B's squadrons load.
 [*]Follows the latest mod updates: the PAC-3 MSE's ceiling, HMAS Hobart's damage model, the EA-18G's EO views.
 [/list]
 
-Nothing new to subscribe to.
+[b]Install[/b]
+[list]
+[*]SeaLifter is no longer listed as a requirement. The mods that name it run without it, so nothing needs a manual install.
+[*]Nothing new to subscribe to: the same 198 Workshop mods.
+[/list]
 ```
 
 ## Collection description (3812390790)
@@ -153,7 +158,8 @@ plus the pack itself (3812461539).
 3. If the Mod Manager offers to move the pack's dependencies above it, say
    no. Running SETUP again puts the order back.
 
-SeaLifter is not in the collection and needs a manual install.
+Nothing needs a manual install: some mods still name SeaLifter, but they run
+without it.
 
 Campaigns: Southern Watch, Southern Reach / Tasman Shield, Red Line and Sulu
 Line, each with an Open Allocation version, plus a draft world campaign for

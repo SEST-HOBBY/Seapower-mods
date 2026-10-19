@@ -6946,8 +6946,13 @@ def prerequisites(need, rest):
         index[_squash(row[1])] = row
     # Spelled out because they are not in the load order to be derived from:
     # a dependency this collection does not carry is exactly the one a player
-    # is most likely to be missing.
-    OUTSIDE = {"sealifter": "SeaLifter"}
+    # is most likely to be missing. Empty since 19 Oct 2026: SeaLifter, the
+    # one entry, is no longer needed. The B-2's "Requires AnchorChain and
+    # SeaLifter" dates from its game 0.4.0 _info.ini; the PC has never had
+    # SeaLifter, and the B-2, A-10A, Su-25, Mi-8 and Type 003 all show their
+    # models in the encyclopedia without it. Anchor Chain's preloader, which
+    # was the manual part of the old install, SETUP installs.
+    OUTSIDE = {}
     promoted, elsewhere = {}, {}
     for row in need:
         info = MODS / row[5] / "_info.ini"

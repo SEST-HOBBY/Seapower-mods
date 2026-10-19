@@ -3354,3 +3354,36 @@ squadron table) now have names in Name Fixes; the RAN Sea King Mk.50A/B
 `ran_seakingmk50bab_squadrons.ini`, so Collection Fixes ships it under the
 name the game reads, and gives the F-16C Block 40 a table cloned from the
 same mod's KF-16. Both retire themselves when the authors fix them.
+
+## The B-2's MALD glides, and SeaLifter is not needed (19 October, later)
+
+**The ADM-160 MALD.** Seen in game: the B-2 Spirit's MALD decoy
+(`b-2_jsow_ecm`, on the mod's "SEAD (JSOW & MALD)" fit) did not glide; it
+skimmed the sea at about 6 ft. The mod builds it as an unpowered JSOW with no
+flight profile - no kinematics, no terminal dive - and `GravityFactor=4`, so
+it falls at four times gravity to the game's default wave-top height and stays
+there. SEST Collection Fixes now ships it with the glide the Dingtools JSOW
+(`dts_agm-154a`) flies: `ApplyKinematics=True` (the game's full flight model,
+in 760 of the collection's rounds), its 680 kt ceiling (a glider stalls at a
+quarter of it), at release height until `TerminalDiveDistance=15` nm out, then
+down. `GravityFactor=4` and `VelocityBleed=2` are gone. The decoy jammer
+(`LRASM_ECM`), the 70 nm range and the seekerless guidance stay the author's.
+The B-2's three JSOWs (`b-2_jsow`, `_clus`, `_sead`) share the old profile and
+are unchanged. No SEST mission flies the MALD fit (The Long Perimeter's B-2
+takes Strike), so nothing placed changes; how far it now glides from a given
+height the game shows, not the build. US Naval Aviation's own MALD
+(`usn_adm-160b`) is carried only by that mod's Super Hornets, which SEST's
+copies replace, so it is not in the build.
+
+**SeaLifter, settled.** Six mods - B-2 Spirit, A-10A, A-10C, Su-25, Mi-8 T/TV
+and the Type 003/004 carriers - name SeaLifter as a requirement, and
+`REQUIRED-MODS.txt` told players to find it and install it by hand. It is not
+needed. The B-2's "Requires AnchorChain and SeaLifter" is in an `_info.ini`
+that declares game 0.4.0; the old install was subscribe to SeaLifter,
+subscribe to Anchor Chain, install the preloader by hand, and SETUP installs
+the preloader. The PC has never had SeaLifter (no DLL, no log line, no
+subscription), and on 19 Oct 2026 it showed the B-2, A-10A, Su-25, Mi-8 and
+Type 003 in the encyclopedia with their models. `OUTSIDE` in `build_pack.py`
+is empty, with the reason, so `REQUIRED-MODS.txt`, each campaign's
+requirement list and `required-mods-urls.txt` no longer name it; the
+description, the collection description and `publishing.md` follow.

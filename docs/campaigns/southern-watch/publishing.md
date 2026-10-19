@@ -24,8 +24,8 @@ before the patch does.
   SETUP refuses to run while any mod in the pack's LOAD-ORDER.txt is missing.
 - **Required Items: the load order's Workshop mods.** Set in October 2026, so
   that pressing Subscribe on the item offers every Workshop mod in the load
-  order in one click (about 24 GB; SeaLifter, below, still needs a manual
-  install). They and the collection must both be the Workshop mods of
+  order in one click (about 24 GB; SeaLifter, below, is not needed). They
+  and the collection must both be the Workshop mods of
   `data/load-order.tokens.txt`. The section after next says what that costs
   and how to keep them in step.
 - **The page text.** The pack description, its change log, the collection
@@ -221,18 +221,20 @@ are the mods `REQUIRED-MODS.txt` lists as "also enabled while this was built":
 no mission names them, but they stay in the order because removing one
 changes which file wins.
 
-### SeaLifter: still open
+### SeaLifter: settled, not needed (19 Oct 2026)
 
-One dependency is in neither the load order nor the collection, and has no id
-in this repo: **SeaLifter**, which B-2 Spirit declares as its own requirement.
-`required-mods-urls.txt` lists it under NOT IN THE COLLECTION, and
-`REQUIRED-MODS.txt` in the pack tells players to find it on the
-Workshop and that it needs a manual install: subscribing alone is not enough.
-It is not among the Required Items either, having no id here. Settling it
-means finding its id, or dropping the B-2 from the campaigns; if it joins
-the load order, the collection, its count and banner, and the Required Items
-change with it. Until then
-it is the one dependency most likely to break a subscriber's install.
+**SeaLifter** (Workshop 3390724600) is named as a requirement by the B-2
+Spirit, A-10A, Su-25, Mi-8 T/TV and Type 003/004 mods, and is in neither the
+load order nor the collection. It is not needed. The B-2's "Requires
+AnchorChain and SeaLifter" comes from an `_info.ini` that declares game
+0.4.0; the old install was subscribe to SeaLifter, subscribe to Anchor Chain
+and install the preloader by hand, and SETUP installs the preloader. On
+19 Oct 2026 the PC, which has never had SeaLifter, showed all five mods' units
+in the encyclopedia with their models. So `REQUIRED-MODS.txt`,
+`required-mods-urls.txt`, the description and the collection description no
+longer mention it (`OUTSIDE` in `build_pack.py` is empty, with the reason).
+If a future update of one of those mods brings the requirement back for
+real, it goes into the load order and the collection like any other mod.
 
 ## Before you press Submit
 

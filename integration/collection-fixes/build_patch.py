@@ -78,7 +78,9 @@ its own, points the Topol-M and DF-41 trucks at the launcher section their mod \
 defines so they can fire, \
 restores the vanilla-fidelity AGM-88 HARM the F-16 fleet was authored against, \
 opens the GBU-53/B StormBreaker's 200-ft release window to 500-45000 ft, \
-returns the GBU-12D and GBU-24 to conventional Paveway behaviour, gives the \
+returns the GBU-12D and GBU-24 to conventional Paveway behaviour, makes the \
+B-2's ADM-160 MALD decoy glide at its release height instead of skimming the \
+sea, gives the \
 ESSM its only ECCM bonuses, re-unites the AC-130's 30mm definition with \
 Euromod's ballistics, lifts the Hellfire's 2000-ft launch ceiling for the \
 gunship, fixes AIM-9L/M impact size and speed-penalty keys, raises the \
@@ -449,6 +451,32 @@ def main():
           "prior winner shipped a 363 kg GBU-27 under this id; the only consumer\n"
           "(vanilla A-6E) expects this file.")
     built.append("usn_gbu-24")
+
+    # b-2_jsow_ecm, the B-2 Spirit's ADM-160 MALD decoy (play test, 19 Oct
+    # 2026: "does not glide, it sea skims at 6 feet"). The mod builds it as
+    # an unpowered JSOW with no flight profile at all - no kinematics, no
+    # terminal dive - and GravityFactor=4, so it falls at four times gravity
+    # to the game's default wave-top height and skims there. The fix is the
+    # glide the Dingtools JSOW (dts_agm-154a) flies: full kinematics, its
+    # 680 kt ceiling (a glider's stall is a quarter of it), at release height
+    # until 15 nm out and then down. Its decoy jammer, range and seekerless
+    # guidance stay the author's. The B-2's three JSOWs share the profile and
+    # are not changed here.
+    t = read("3480965706", "ammunition/b-2_jsow_ecm.ini")
+    t = edit(t, r"^GravityFactor=4[^\n]*\n", "", 1, "b-2_jsow_ecm")
+    t = edit(t, r"^VelocityBleed=2[^\n]*\n", "", 1, "b-2_jsow_ecm")
+    t = edit(t, r"^MaxVelocity=1000\b", "MaxVelocity=680", 1, "b-2_jsow_ecm")
+    if re.search(r"^(ApplyKinematics|TerminalDiveDistance)=", t, re.M):
+        sys.exit("b-2_jsow_ecm: donor now defines its own glide - rebase")
+    t = edit(t, r"^(TerminalApproachDist=1000.*)$",
+             "\\1\nApplyKinematics=True\nTerminalDiveDistance=15                 // in N. miles.",
+             1, "b-2_jsow_ecm")
+    write("ammunition/b-2_jsow_ecm.ini", t,
+          "SEST Collection Fixes - base: 3480965706's ADM-160 MALD (the B-2 Spirit).\n"
+          "It glides instead of skimming the sea: ApplyKinematics=True and a 15 nm\n"
+          "terminal dive, as the Dingtools JSOW flies; GravityFactor=4 and\n"
+          "VelocityBleed=2 removed; MaxVelocity 1000 -> 680 kt.")
+    built.append("b-2_jsow_ecm")
 
     # usa_agm-114k [audit: usa_agm-114k cohort]. The French Helicopter
     # Package's winning Hellfire has the better kinematics (13 deg/s, 5.94 nm,

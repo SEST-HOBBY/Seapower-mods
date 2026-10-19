@@ -195,13 +195,6 @@ that asked for it.
 3380210757    required by another mod          Anchor Chain
                                                  asked for by: Anduril FQ-44 Fury US Navy Carrier Wingmen, B-2 Spirit, EC-2 Stand Off Jammer, Saronic Corsair ASV, V-22 Osprey / SV-22 2024 ASW prototype, YF-23 Black Widow II
 
-NOT IN THIS LIST AND STILL REQUIRED:
-
-  SeaLifter - named as a requirement by B-2 Spirit.
-  It is not one of the mods above and this collection does not carry it.
-  Find it on the Workshop. It needs a manual install: subscribing alone
-  is not enough.
-
 --------------------------------------------------------------------------
 
 Also enabled while this was built (11), and left in the order
