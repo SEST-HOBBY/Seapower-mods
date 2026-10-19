@@ -3,7 +3,6 @@ Found Sea Power (app 1286220)
   workshop : c:\program files (x86)\steam\steamapps\workshop\content\1286220
 
 unchanged since the last export : 166
-skipped, SEST's own Workshop item: 3812461539
 
 UPDATED by their authors (re-export to pick the changes up):
   3390330875  Euromod - Modern US Navy
