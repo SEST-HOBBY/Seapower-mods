@@ -1032,6 +1032,22 @@ def apply_airgroup_fix(text, unit_id):
         return applied[old]
 
     body = _AIRGROUP_LINE.sub(one, m.group(1))
+    # Modern US Navy's native decks name squadrons from another provider's
+    # tables. In the installed collection F/A-18F Squadron3/9 are fictional
+    # nations, F/A-18E 10/19 and EA-18G 11 do not exist. Keep aircraft counts
+    # and types; choose the actual US squadrons in the winning tables.
+    repairs = {
+        "usn_cvn_nimitz_2025": {
+            "usn_fa-18f=Squadron3,12": "usn_fa-18f=Squadron2,12",
+            "usn_fa-18e=Squadron10,12|Squadron19,12": "usn_fa-18e=Squadron1,12|Squadron2,12",
+            "usn_ea-18g=Squadron11,7": "usn_ea-18g=Squadron1,7"},
+        "usn_cvn_ford": {
+            "usn_fa-18f=Squadron1,12|Squadron9,12": "usn_fa-18f=Squadron1,12|Squadron2,12"},
+    }
+    for old, new in repairs.get(unit_id, {}).items():
+        if old in body.splitlines():
+            body = body.replace(old, new, 1)
+            applied[old] = new
     return text[:m.start(1)] + body + text[m.end(1):], applied
 
 

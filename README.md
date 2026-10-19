@@ -15,7 +15,7 @@ pack's dependencies above it, the answer is no (that would undo every fix in it)
 run again puts the order back. Every upload is an update to the same item;
 `docs/campaigns/southern-watch/publishing.md` is the procedure.
 
-**[docs/FEATURES.md](docs/FEATURES.md)** is the full feature list; **[docs/play-test-guide.md](docs/play-test-guide.md)** is how to test all four campaigns in the game.
+**[docs/FEATURES.md](docs/FEATURES.md)** is the full feature list; **[docs/play-test-guide.md](docs/play-test-guide.md)** is how to test all four campaigns in the game. The private fleet, weapons and forward-UAV revision is documented in **[docs/playtest-20261020.md](docs/playtest-20261020.md)**.
 
 Everything here is built around interoperability: a mod is known by three names — a
 catalog slug (`us-naval-aviation`), a Steam Workshop id (`3737267013`, which names its
@@ -36,7 +36,7 @@ shows — and `data/mod-catalog.json` is the table that joins them, including th
 | `integration/<pack>/` | One SEST pack per topic: a builder plus its generated `SEST_*` output |
 | `integration/dist/SEST_Integration/` | **The deployable** — all packs merged by `tools/consolidate_packs.py`; the only thing the installer copies into the game |
 | `integration/mission-seeds/` | The early scenarios, editor saves and sandboxes the side operations are refined from, and the scripts that refine them. Never installed: every mission SEST ships is in the campaign pack |
-| `integration/campaign/` | **Four native Task Force Mode campaigns in one pack.** *SEST Southern Watch* (twelve main missions, ten optional operations, two contingencies, eight dispatches), *SEST Southern Reach* (two chapters, 26 missions, 20 story pages; its data lives in `southern_reach/`) *SEST Red Line* (six missions from the other side; `red_line/`) and *SEST Sulu Line* (seven Philippine Navy missions with no free rearm and three optional side operations; `sulu_line/`), built so that every enabled mod is reached by something one of them places or prices |
+| `integration/campaign/` | **Four native Task Force Mode campaigns in one pack.** *SEST Southern Watch* (twelve main missions, ten optional operations, two contingencies, eleven dispatches), *SEST Southern Reach* (two chapters, 26 missions, 20 story pages; its data lives in `southern_reach/`) *SEST Red Line* (six missions from the other side; `red_line/`) and *SEST Sulu Line* (seven Philippine Navy missions with no free rearm and three optional side operations; `sulu_line/`), built so that every enabled mod is reached by something one of them places or prices |
 | `mods-source/` | Byte-faithful export of every subscribed mod's text configs, plus `_vanilla/` |
 | `tools/` | Builders, checkers, generators, and the PowerShell scripts that talk to the game |
 
@@ -49,7 +49,7 @@ The 24 packs, as `local_packs` lists them: `SEST_A10C_Plus`, `SEST_ADF_Persisten
 aircraft), `SEST_Gallery`, `SEST_Name_Fixes`, `SEST_World_Campaign` (the Dynamic Campaign
 Mod's world campaign) and `SEST_Campaign` (the four campaigns, each also listed as an Open
 Allocation twin that sells its whole roster from the first window - and, for the two RAN
-campaigns, the allied fleet). Consolidated, they are 3697
+campaigns, the allied fleet). Consolidated, they are 4087
 files in `integration/dist/SEST_Integration/`. `SEST_Zumwalt_CPS` was retired on 20 Sep 2026,
 when Modern US Navy fixed what it patched. `SEST_Rafale_F5` was retired for one build on
 3 Oct 2026, the Rafale mod it patched having left the collection, and rebuilt the same
@@ -142,7 +142,7 @@ first is **SEST Southern Watch — The Northern Lifeline**:
 twelve connected missions in October–November 2028 in which Australia and its
 regional partners keep the northern sea routes open, ten optional operations
 (six of them the side operations in `docs/campaigns/side-operations.md`)
-and two contingencies that the core reads back, plus eight dispatches
+and two contingencies that the core reads back, plus eleven dispatches
 (allied rotations, an opposing-force passage, a weapons range, an openly
 speculative 2034 branch and a 1988 exercise). `docs/campaigns/southern-watch/`
 holds the design bible it was built from and the build notes.

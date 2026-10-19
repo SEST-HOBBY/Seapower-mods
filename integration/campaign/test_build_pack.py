@@ -1514,7 +1514,9 @@ class SameNationDiscount(unittest.TestCase):
     # Sulu Line is the one campaign whose roster is a coalition on purpose:
     # the Thai detachment, one RAN frigate and the MSC charter are sold at
     # their listed price, and the rules page says so.
-    PARTNER_NATIONS = {"sest-sulu-line": {"thailand", "australia", "us"}}
+    PARTNER_NATIONS = {"sest-sulu-line": {"thailand", "australia", "us"},
+                       "sest-southern-watch": {"uk", "japan", "south_korea"},
+                       "sest-southern-reach": {"uk", "japan", "south_korea"}}
 
     def test_every_shipped_roster_is_the_commanders_own(self):
         for spec in bp.campaign_specs():
@@ -1539,7 +1541,10 @@ class SameNationDiscount(unittest.TestCase):
             self.assertEqual(bp.pick_nation(uid, pick), "Australia", uid)
 
     def test_the_page_carries_the_games_binding_and_the_cover(self):
-        page = bp.campaign_rules(bp.campaign_specs()[0])
+        spec = dict(bp.campaign_specs()[0])
+        nations = bp.roster_nations(spec["ROSTER"])
+        spec["ROSTER"] = [e for e in spec["ROSTER"] if nations[e["unit"]] == "Australia"]
+        page = bp.campaign_rules(spec)
         self.assertIn("{Binding SameNationDiscountPercentText}", page)
         self.assertIn("registered to Australia by its squadron or hull variant, so the "
                       "discount applies to all of it", page)
@@ -1555,7 +1560,8 @@ class SameNationDiscount(unittest.TestCase):
 
     def test_a_foreign_unit_is_named_at_its_listed_price(self):
         spec = dict(bp.campaign_specs()[0])
-        spec["ROSTER"] = spec["ROSTER"] + [
+        nations = bp.roster_nations(spec["ROSTER"])
+        spec["ROSTER"] = [e for e in spec["ROSTER"] if nations[e["unit"]] == "Australia"] + [
             dict(unit="plan_j-15", picks=["Squadron1"], points=40)]
         page = bp.campaign_rules(spec)
         self.assertIn("The discount covers the 10 classes registered to Australia. The 1 "
@@ -2054,12 +2060,13 @@ class DeploymentZones(unittest.TestCase):
         self.assertTrue(bp.deployment_panel(mission, placed))
         self.assertEqual(bp.mark_supplied(mission, placed),
                          ["Taskforce1Vessel2", "Taskforce1Vessel3",
+                          "Taskforce1Submarine1",
                           "Taskforce1Aircraft2", "Taskforce1Helicopter1"])
         flagged = {tag for entries in placed.values() for tag, keys, _n, _x in entries
                    if keys.get("TaskForceModeIgnoreUnit") == "True"}
         self.assertNotIn("Taskforce1Vessel1", flagged)        # the anchor
         self.assertNotIn("Taskforce1Aircraft1", flagged)      # the slot
-        self.assertNotIn("Taskforce1Submarine1", flagged)     # stock 10 leaves its sub
+        self.assertIn("Taskforce1Submarine1", flagged)        # retain the supplied boat
         text = bp.block("Taskforce1Vessel3", placed["Taskforce1Vessel"][2][1])
         self.assertIn("TaskForceModeIgnoreUnit=True", text)
 
@@ -2179,7 +2186,7 @@ class RulesPage(unittest.TestCase):
             page = bp.campaign_rules(spec)
             xml.dom.minidom.parseString(page.encode("utf-8"))
             self.assertIn(f'Text="{bp._xml_text(spec["TITLE"])} - Task Force Mode"', page)
-            for stock in ("Pacific Strike", "Japan", "optional side missions",
+            for stock in ("Pacific Strike", "Japanese units, for example", "optional side missions",
                           "include their airwing for free"):
                 self.assertNotIn(stock, page, f"{spec['SLUG']}: {stock}")
 

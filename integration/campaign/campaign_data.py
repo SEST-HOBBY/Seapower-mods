@@ -59,11 +59,8 @@ INFO_DESC = (
 )
 
 
-# 816 Squadron RAN: the one squadron of the MH-60R under the Australian flag.
-# Every source of the airframe ships only US Navy squadrons, so SEST Collection
-# Fixes composes the table and appends this one; a Seahawk on an Australian
-# side is always a Royal Australian Navy ship's flight.
-RAN_SEAHAWK = "Squadron20"
+# 816 Squadron RAN on Euromod's Australian MH-60R model and decal textures.
+RAN_SEAHAWK = "Squadron1"
 
 # Shared modern resident detachment; twenty aircraft leave room in the
 # 48-place small field for each mission's airborne recovery package.
@@ -74,7 +71,7 @@ LANGGUR_AIR_GROUP = [
     ("usn_ea-18g", "Squadron6", 2),
     ("usn_p8", "Squadron3", 2),
     ("usaf_kc-46a_boom", "Squadron1", 1),
-    ("usn_mh-60r", RAN_SEAHAWK, 2),
+    ("ran_mh-60r", RAN_SEAHAWK, 2),
 ]
 
 
@@ -90,6 +87,10 @@ def U(side, mod, type, station, **kw):
     and it came out as a US Navy squadron. The builder applies it once the
     mission's nations are known; an explicit squadron= always wins."""
     if type == "usn_mh-60r":
+        # Compatibility for older authored scenarios; current RAN missions
+        # use ran_mh-60r and the Australian model below.
+        kw.setdefault("squadron_by_nation", {"Australia": "Squadron20"})
+    if type == "ran_mh-60r":
         kw.setdefault("squadron_by_nation", {"Australia": RAN_SEAHAWK})
     return dict(side=side, mod=mod, type=type, station=station, **kw)
 
@@ -450,7 +451,7 @@ ROSTER = [
     dict(unit="raaf_mq-4c_triton", picks=["Squadron1"], points=40,
          note="unarmed in this implementation, so priced under the P-8 and "
               "the F-35A"),
-    dict(unit="usn_mh-60r", picks=[RAN_SEAHAWK], points=20,
+    dict(unit="ran_mh-60r", picks=[RAN_SEAHAWK], points=20,
          note="816 Squadron RAN; one family chosen explicitly - usn_mh-60r_26 "
               "is a different unit and is never substituted for it"),
 ]
@@ -460,7 +461,7 @@ ROSTER = [
 # squadrons would be priced as American. They are not: no unit file here
 # declares a nation, and every pick the roster sells is registered to
 # Australia by its squadron or hull variant (the Super Hornet's Squadron8,
-# the Growler's Squadron6, the P-8's Squadron3, the Seahawk's Squadron20).
+# the Growler's Squadron6, the P-8's Squadron3, the Seahawk's Australian Squadron1).
 # build_pack.roster_nations() re-reads that on every build and stops on a
 # pick with no declared nation; the rules page lists any unit the discount
 # does not cover. Set 28 Sep at the player's request.
@@ -601,7 +602,7 @@ MISSIONS.append(dict(
     units=[
         U("blue", "SEST_RAN_Fleet", "ran_ffh_anzac", "warramunga",
           variant="Variant3", weapons="Tight"),
-        U("blue", "SEST_Allied_Fixes", "usn_mh-60r", "flight", alt=500, weapons="Tight"),
+        U("blue", "SEST_Allied_Fixes", "ran_mh-60r", "flight", alt=500, weapons="Tight"),
         U("blue", "p-8-poseidon", "usn_p8", "air", squadron="Squadron3",
           name="Bluefin 21", alt=18000, weapons="Tight"),
         U("blue", "SEST_ADF_Persistent_ISR", "raaf_mq-4c_triton", "high",
@@ -788,7 +789,7 @@ MISSIONS.append(dict(
         # ship and a maritime-patrol slot for the P-8 the roster starts
         # selling here. The two F-35A cockpits and their CAP row are gone -
         # this mission declares no air threat and sells no fighter.
-        U("blue", "SEST_Allied_Fixes", "usn_mh-60r", "flight"),
+        U("blue", "SEST_Allied_Fixes", "ran_mh-60r", "flight"),
         U("blue", "p-8-poseidon", "usn_p8", "mpa", squadron="Squadron3",
           alt=6000),
     ],
@@ -905,7 +906,7 @@ MISSIONS.append(dict(
         # with Hellfire at the start for the patrol boat, and two Romeos.
         U("blue", "SEST_RAN_Fleet", "ran_lhd_canberra", "amphib",
           name="HMAS Canberra",
-          air_group=[("adf_ah-64e", "Squadron1", 2), ("usn_mh-60r", "Squadron20", 2)],
+          air_group=[("adf_ah-64e", "Squadron1", 2), ("ran_mh-60r", "Squadron1", 2)],
           ready=[("adf_ah-64e", "Squadron1", "AntiShip", 2, 0)]),
         # The Rescue fit: 37 seats. The default fit is two Mk48 torpedoes and
         # TransportCapacity=0, which is not a lift helicopter, it is an ASW
@@ -1060,7 +1061,7 @@ MISSIONS.append(dict(
     units=[
         U("blue", "SEST_RAN_Fleet", "ran_opv_arafura", "patrol",
           weapons="Tight"),
-        U("blue", "SEST_Allied_Fixes", "usn_mh-60r", "air",
+        U("blue", "SEST_Allied_Fixes", "ran_mh-60r", "air",
           alt=2500, weapons="Tight"),
         U("blue", "p-8-poseidon", "usn_p8", "mpa", squadron="Squadron3", alt=15000, weapons="Tight"),
         U("red", "red-storm-arsenal", "_narco_narcosub_adv", "passenger",
@@ -1170,7 +1171,7 @@ MISSIONS.append(dict(
     units=[
         U("blue", "SEST_RAN_Fleet", "ran_ffh_anzac", "warramunga",
           variant="Variant3"),
-        U("blue", "SEST_Allied_Fixes", "usn_mh-60r", "air", alt=3000),
+        U("blue", "SEST_Allied_Fixes", "ran_mh-60r", "air", alt=3000),
         U("red", "chinese-navy-plan", "plan_em_sovremenny", "sag",
           name="Opposing escort", route=[(-10.3, 131.85, 0)], telegraph=3),
         U("red", "type-071-lpd", "plan_lpd_type_071", "sag",
@@ -1774,7 +1775,7 @@ MISSIONS.append(dict(
         U("blue", "SEST_RAN_Fleet", "ran_ffh_anzac", "escort", variant="Variant8"),
         U("blue", "re-power-resupply", "civ_ms_amra", "stores",
           name="MV Coral Provider"),
-        U("blue", "SEST_Allied_Fixes", "usn_mh-60r", "air",
+        U("blue", "SEST_Allied_Fixes", "ran_mh-60r", "air",
           alt=2500),
         U("blue", "buildings-targets-missions", "FOB", "cape",
           name="Cape York forward strip", weapons="Hold"),
@@ -2250,7 +2251,7 @@ MISSIONS.append(dict(
         # Air-tasking placeholder: no name, no objective, no line in the
         # briefing. Its only job is to be a cockpit a purchased aircraft can
         # take, the way every slot-tagged section in the shipped campaign is.
-        U("blue", "SEST_Allied_Fixes", "usn_mh-60r", "air"),
+        U("blue", "SEST_Allied_Fixes", "ran_mh-60r", "air"),
         U("blue", "SEST_RAAF_F-35A_JATM", "raaf_f-35a", "cap"),
         U("blue", "SEST_RAAF_F-35A_JATM", "raaf_f-35a", "cap", squadron="Squadron3"),
     ],
@@ -3782,7 +3783,7 @@ MISSIONS.append(dict(
         U("blue", "SEST_RAN_Fleet", "ran_ffh_anzac", "patrol", variant="Variant3",
           weapons="Tight"),
         # The Ship's Flight slot a bought Seahawk fills. No trigger names it.
-        U("blue", "SEST_Allied_Fixes", "usn_mh-60r", "flight", alt=500,
+        U("blue", "SEST_Allied_Fixes", "ran_mh-60r", "flight", alt=500,
           weapons="Tight"),
         U("neutral", "_vanilla", "civ_ms_encounter", "wreck",
           name="MV Torres Light"),
@@ -3912,7 +3913,7 @@ MISSIONS.append(dict(
         U("blue", "SEST_RAN_Fleet", "ran_ffh_anzac", "hobart", variant="Variant3",
           weapons="Tight"),
         # The Ship's Flight slot a bought Seahawk fills. No trigger names it.
-        U("blue", "SEST_Allied_Fixes", "usn_mh-60r", "flight", alt=500,
+        U("blue", "SEST_Allied_Fixes", "ran_mh-60r", "flight", alt=500,
           weapons="Tight"),
         # Not a Steel Highway hull: any of that convoy's four can be lost
         # the day before, and a page or a mission never names a losable hull
@@ -4150,7 +4151,7 @@ MISSIONS.append(dict(
     },
     units=[
         U("blue", "SEST_RAN_Fleet", "ran_ffh_anzac", "escort", variant="Variant8"),
-        U("blue", "SEST_Allied_Fixes", "usn_mh-60r", "flight", alt=500),
+        U("blue", "SEST_Allied_Fixes", "ran_mh-60r", "flight", alt=500),
         U("red", "re-power-resupply", "civ_ms_andizhan", "cargo", name="MV Ocean Pearl",
           nation="Panama", weapons="Hold", route=[(-6.05, 132.20, 0)], telegraph=3),
         U("red", "re-power-resupply", "civ_ms_freighter_a", "cargo", name="MV Golden Wren",
@@ -5192,7 +5193,7 @@ RECON = "Recon|Maritime Patrol|MPA/ASW/ESM/AEW|1|ASW/AntiShip"
 # names here; they are granted outright now, so nothing that can take this
 # slot flies a CH53SA* fit and advertising one would be an orphan name.
 HELO = ("HeloRecon|Ship's Flight|SAR|1|"
-        "ASW/ASWLongRange/ASWPatrol/AntiShipLate")
+        "ASW/ASWLongRange/ASWHunter/AntiShip/SEST_REDBACK")
 STRIKE = ("Attack|Maritime Strike|Bomber/SEAD|2|"
           "Strike/StrikeLongRange/StrikePrecision/AntiShip/AntiShipHeavy/"
           "MurderHornetSEAD/MurderHornetAntiShip/SEST_SEAD120D")
@@ -5217,7 +5218,7 @@ STRIKE_FORD = STRIKE + "/SEAD"
 # stages, so each purchase window names what is actually available then -
 # rendered into TaskForceModeAllowedRosterUnits, which Pacific Strike uses
 # eleven times for exactly this. The variants come from ROSTER, never restated.
-ESCORTS = ["ran_ffh_anzac", "ran_opv_arafura", "usn_mh-60r"]
+ESCORTS = ["ran_ffh_anzac", "ran_opv_arafura", "ran_mh-60r"]
 AIR_EARLY = ["usn_p8", "raaf_f-35a"]
 AIR_LATE = ["usn_fa-18f_blk3", "E7A_Wedgetail", "usn_ea-18g",
             "raaf_mq-4c_triton"]
@@ -5242,14 +5243,14 @@ BUY_09 = BUY_07
 # Shadow, and window 12 sells all three for the finale that does. The P-8
 # stays - its Bomber role and AntiShip fit take the Attack row.
 BUY_11 = [u for u in BUY_09
-          if u not in ("usn_mh-60r", "E7A_Wedgetail", "raaf_mq-4c_triton")]
+          if u not in ("ran_mh-60r", "E7A_Wedgetail", "raaf_mq-4c_triton")]
 # SW12 replaces aircraft and repairs hulls; it does not sell new ones. That
 # was a comment above the window until the allowlist made it a rule.
 # The finale sells what its rows can fly - a CAP row for the fighters, the
 # helicopter and patrol rows - and, after a fleet action that sails the whole
 # force, a replacement hull or two. No Growler: there is no Attack row.
 BUY_12 = ["usn_p8", "raaf_f-35a", "usn_fa-18f_blk3", "E7A_Wedgetail",
-          "raaf_mq-4c_triton", "usn_mh-60r", "ran_opv_arafura", "ran_ffh_anzac"]
+          "raaf_mq-4c_triton", "ran_mh-60r", "ran_opv_arafura", "ran_ffh_anzac"]
 
 WINDOWS = {
     "01": dict(buy=True, situation=(
@@ -5576,18 +5577,18 @@ SLOTS = {
     # player's own aircraft fills, and no native mission binds an objective to
     # one: 20 slot-tagged sections in the shipped campaign, 0 trigger
     # references. Aircraft an objective depends on carry JOINS instead.
-    ("01", "usn_mh-60r"): "HeloRecon", ("O1", "usn_mh-60r"): "HeloRecon",
-    ("C1", "usn_mh-60r"): "HeloRecon",
-    ("O6", "usn_mh-60r"): "HeloRecon",
-    ("02", "usn_mh-60r"): "HeloRecon", ("02", "usn_p8"): "Recon",
+    ("01", "ran_mh-60r"): "HeloRecon", ("O1", "ran_mh-60r"): "HeloRecon",
+    ("C1", "ran_mh-60r"): "HeloRecon",
+    ("O6", "ran_mh-60r"): "HeloRecon",
+    ("02", "ran_mh-60r"): "HeloRecon", ("02", "usn_p8"): "Recon",
     ("05", "raaf_f-35a"): "Attack",
     ("09", "usn_p8"): "Recon",
     ("10", "usn_p8"): "Recon",
-    ("12", "usn_mh-60r"): "HeloRecon",
-    ("04", "usn_mh-60r"): "HeloRecon", ("04", "usn_p8"): "Recon",
-    ("05", "usn_mh-60r"): "HeloRecon",
+    ("12", "ran_mh-60r"): "HeloRecon",
+    ("04", "ran_mh-60r"): "HeloRecon", ("04", "usn_p8"): "Recon",
+    ("05", "ran_mh-60r"): "HeloRecon",
     ("06", "raaf_f-35a"): "CAP", ("06", "E7A_Wedgetail"): "Recon",
-    ("09", "usn_mh-60r"): "HeloRecon",
+    ("09", "ran_mh-60r"): "HeloRecon",
     ("11", "usn_f-35c"): "CAP", ("11", "usn_ea-18g_2020"): "Attack",
     ("12", "usn_p8"): "Recon", ("12", "raaf_f-35a"): "CAP",
 }
@@ -5954,3 +5955,10 @@ for _m in MISSIONS:
         for _u in _m["units"]:
             if _u["station"] == "spoiler_air":
                 _u["spawn_if"] = ("SW11FujianSunk", "IsFalse")
+
+from playtest_revision import apply_watch
+apply_watch(MISSIONS, U, S)
+from additional_dispatches import missions as additional_dispatches
+MISSIONS.extend(additional_dispatches(U, S))
+for _used in ("russian-ground-artillery", "nato-ground-artillery"):
+    EXCUSES.pop(_used, None)

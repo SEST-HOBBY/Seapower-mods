@@ -231,9 +231,13 @@ def main():
             sys.exit(f"{need.relative_to(ROOT)} missing - export it first")
     rb = rb_src.read_text(encoding="utf-8-sig", errors="replace")
     swaps = [
+        # Surface attack is the primary AI job; retain counter-drone eligibility.
+        # The laser donor had no active-radar transmitter or target-height band.
+        (r"^TargetType=AAW[^\n]*", "TargetType=ASuW"),
+        (r"^SecondaryTargetType=ASuW[^\n]*", "SecondaryTargetType=AAW"),
         (r"^GuidanceType=5\b", "GuidanceType=3"),
         (r"^MidCourseCorrection=0[^\n]*", "MidCourseCorrection=1  // radio command; autonomous seeker in terminal"),
-        (r"^SeekerPassiveRange=6\.0[^\n]*", "SeekerPassiveRange=35\nSeekerActiveRange=35\nSeekerGain=50\nSeekerReliability=0.99\nTargetMemory=True\nRetargetable=True\nSelfDestructAfterTargetGone=False"),
+        (r"^SeekerPassiveRange=6\.0[^\n]*", "SeekerPassiveRange=0\nSeekerActiveRange=35\nSeekerGain=50\nFrequency=Ka-Band\nPeakPower=11.0\nMinAttackAltitude=0\nMaxAttackAltitude=20000\nSeekerReliability=0.99\nTargetMemory=True\nRetargetable=True\nSelfDestructAfterTargetGone=False"),
         (r"^MaxLaunchRange=6\b", "MaxLaunchRange=30"),
         (r"^MaxLoftAngle=5\.0[^\n]*", "MaxLoftAngle=35.0"),
         (r"^MaxLoftAlt=1500[^\n]*", "MaxLoftAlt=6562  // feet: approximately 2 km\nMaxLoftVelocity=450"),
@@ -256,7 +260,7 @@ def main():
         if k != 1:
             sys.exit(f"dts_apkws-ii: {pat} matched {k} times - upstream changed")
     # Preserve the donor's target classes, including mobile land targets.
-    for key in (r"TargetType=AAW", r"SecondaryTargetType=ASuW",
+    for key in (r"TargetType=ASuW", r"SecondaryTargetType=AAW",
                 r"LandAttackCapability=All", r"TerminalAlt=Maintain"):
         if not re.search(rf"^{key}\b", rb, re.M):
             sys.exit(f"dts_apkws-ii: {key} changed upstream - re-check the Redback profile")
@@ -307,7 +311,7 @@ def main():
     (lang / "loadout_names.ini").write_text(
         "[LoadoutNames]\nSEST_REDBACK=SEST Redback Strike (AGR-30 guided rockets)\n",
         encoding="utf-8")
-    print("  Redback: sest_agr-30 (30 nm, boost + cruise, loft and dive, air first), "
+    print("  Redback: sest_agr-30 (30 nm, boost + cruise, loft and dive, surface first), "
           "its LAU-68 and LAU-3 pods")
 
     # The fit, on every carrier whose file this pack ships. Each clones a fit
@@ -411,6 +415,16 @@ def main():
 
     if not built:
         sys.exit("nothing built - no target mod is exported")
+    # Stock scenery, explicitly restricted to the small UAV section.
+    (OUT / "land_units").mkdir(parents=True, exist_ok=True)
+    (OUT / "land_units/sest_uav_forward.ini").write_text(
+        "#!alias land_units/airfield_small_1.ini\n\n[AirGroup]\n"
+        "usn_rq7705=Squadron1,2\nusa_dj01705=Squadron1,2\n\n"
+        "[FlightDeck]\nAircraftCapacity=8\nAircraftSupported=usn_rq7705,usa_dj01705,usn_ForpostR705,usn_orlan10705\n",
+        encoding="utf-8")
+    (OUT / "language_en/land_units_names.ini").write_text(
+        "[sest_uav_forward]\nType=Forward UAV recovery strip\nDefault=Forward UAV section,Forward UAV section\n",
+        encoding="utf-8")
 
 
 if __name__ == "__main__":

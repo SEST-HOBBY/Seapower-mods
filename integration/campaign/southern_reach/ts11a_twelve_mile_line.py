@@ -156,7 +156,7 @@ MISSION = dict(
         # detachment does not fire first.
         U("blue", "SEST_RAN_Fleet", "ran_ffh_anzac", "escort", variant="Variant7",
           weapons="Tight"),
-        U("blue", "SEST_Allied_Fixes", "usn_mh-60r", "flight", alt=500, weapons="Tight",
+        U("blue", "SEST_Allied_Fixes", "ran_mh-60r", "flight", alt=500, weapons="Tight",
           slot="HeloRecon"),
         U("blue", "p-8-poseidon", "usn_p8", "mpa", squadron="Squadron3", alt=12000,
           weapons="Tight", loadout="ASW", slot="Recon"),

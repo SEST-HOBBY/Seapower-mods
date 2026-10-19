@@ -498,6 +498,8 @@ def campaign_specs():
         spec.setdefault("ALLIED_FLEET",
                         allied_fleet.FOR_NATION.get(nation.group(1).strip(), [])
                         if nation else [])
+    import mission_depth
+    mission_depth.apply(specs)
     return specs
 
 
@@ -1682,8 +1684,11 @@ def place(mission, snapper):
             # sides of the snapped point so the group centres on it
             side = (n + 1) // 2 * (1 if n % 2 else -1)
             beam = math.radians(st.get("heading", 90) + 90)
-            lat = alat + side * 0.6 * math.cos(beam) / 60.0
-            lon = alon + side * 0.6 * math.sin(beam) / (60.0 * math.cos(math.radians(alat)))
+            berth = float(st.get("spawn_spacing", 0.6))
+            if not math.isfinite(berth) or berth <= 0:
+                raise SystemExit(f"{mission['key']}: {key} has invalid spawn spacing")
+            lat = alat + side * berth * math.cos(beam) / 60.0
+            lon = alon + side * berth * math.sin(beam) / (60.0 * math.cos(math.radians(alat)))
             # A submarine at 0 is on the surface. That is deliberate for the
             # boat alongside its tender in SW09 and wrong for everything that
             # is meant to be hunting; depth is authored per unit.
@@ -1936,12 +1941,16 @@ def place(mission, snapper):
         # it only from the minute it enters.
         if spec.get("enter") is not None:
             minute = spec["enter"]
-            if spec["side"] != "red" or isinstance(minute, bool) \
+            if spec["side"] not in ("red", "blue") or isinstance(minute, bool) \
                     or not isinstance(minute, (int, float)) \
                     or not 0 < minute < mission["minutes"]:
-                sys.exit(f"{mission['key']}: enter= is the minute a red unit joins, "
+                sys.exit(f"{mission['key']}: enter= is the minute a combat-side unit joins, "
                          f"inside the {mission['minutes']}-minute plan; {spec['type']} "
                          f"({spec['side']}) has {minute!r}")
+            if spec.get("slot") or spec.get("join") or tag == mission.get("_anchor_section"):
+                sys.exit(f"{mission['key']}: enter= cannot defer a purchased or granted unit")
+            if spec["side"] == "blue" and spec["type"] not in SMALL_UAV_TYPES:
+                sys.exit(f"{mission['key']}: delayed blue support is restricted to small reconnaissance UAVs")
             keys["Disabled"] = "True"
             entering.append((tag, minute))
         for token, why in credit.items():
@@ -2001,6 +2010,14 @@ def place(mission, snapper):
     mission["_disabled"] = disabled
     mission["_enter"] = dict(entering)
     return placed, members, credits, worst
+
+
+SMALL_UAV_TYPES = {"usn_rq7705", "usn_ForpostR705", "usn_orlan10705", "usn_Mugin5705"}
+
+
+def deck_places_needed(uid, kind):
+    # Small UAVs need one place; a ship must still explicitly support the type.
+    return 1 if kind == "Helicopter" or uid in SMALL_UAV_TYPES else 10
 
 
 def assign_home_bases(placed, generated=False):
@@ -2080,7 +2097,7 @@ def assign_home_bases(placed, generated=False):
                     # A helicopter takes any deck; a fast jet needs a field
                     # or a carrier; a VTOL takes a deck that names it and a
                     # field otherwise.
-                    needs = 1 if kind == "Helicopter" else 10
+                    needs = deck_places_needed(keys["Type"], kind)
                     if kind == "VTOL" and d[4] and fit == 0:
                         needs = 1
                     if d[1] < needs:
@@ -2957,7 +2974,7 @@ def check_opening(mission, placed):
                 except ValueError:
                     alt = 0.0
                 out.append(dict(tag=tag, uid=keys["Type"], x=x, z=z, kind=kind,
-                                alt=alt, name=name,
+                                alt=alt, depth=bits[1].lower(), name=name,
                                 free=keys.get("WeaponStatus") == "Free",
                                 fit=keys.get("LoadoutVariant"),
                                 joins=joins.get(tag)))
@@ -2965,7 +2982,8 @@ def check_opening(mission, placed):
 
     player, red = rows("Taskforce1"), rows("Taskforce2")
     hulls = [b for b in player if b["kind"] in ("sea", "sub")]
-    flying = [b for b in player if b["kind"] == "air" and b["alt"] > 0]
+    flying = [b for b in player if b["kind"] == "air" and b["alt"] > 0
+              and (b["joins"] is None or b["joins"] < OPENING_QUIET_MIN)]
     excused = mission.get("_contact", set())
 
     def gap(a, b):
@@ -2992,6 +3010,11 @@ def check_opening(mission, placed):
     eyes = [r for r in red if r["kind"] == "air" and opening(r)]
 
     def track(hull):
+        # A radar aircraft cannot provide an anti-ship track on a boat below
+        # the layer. The separate close-submarine gate still applies. Numeric
+        # positive values are depths here; 0 and periscope stay conservative.
+        if hull["kind"] == "sub" and hull["depth"] not in ("0", "0.0", "periscope", "surface"):
+            return None
         for s in eyes:
             d = gap(s, hull)
             if d < OPENING_SPOTTER_NM:
@@ -3369,6 +3392,10 @@ def message_texts(mission):
         out.append((f"reveals[{oid}].intel", reward["intel"]))
     for i, loss in enumerate(mission.get("support_loss", []), 1):
         out.append((f"support_loss[{i}].intel", loss["intel"]))
+    for i, report in enumerate(mission.get("reports", []), 1):
+        if not 0 < report["minute"] < mission["minutes"]:
+            raise SystemExit(f"{mission['key']}: report {i} falls outside the mission")
+        out.append((f"reports[{i}].intel", report["intel"]))
     for reveal in mission.get("reveal_if", []):
         out.append((f"reveal_if[{reveal['variable']}].intel", reveal["intel"]))
     for flag in mission.get("flags", []):
@@ -4193,7 +4220,7 @@ def deployment_panel(mission, placed):
 
 
 # The families a deployment-panel mission flags when the mission supplies them.
-SUPPLIED_FAMILIES = ("Taskforce1Vessel", "Taskforce1Aircraft", "Taskforce1Helicopter")
+SUPPLIED_FAMILIES = ("Taskforce1Vessel", "Taskforce1Submarine", "Taskforce1Aircraft", "Taskforce1Helicopter")
 
 
 def mark_supplied(mission, placed):
@@ -4209,8 +4236,9 @@ def mark_supplied(mission, placed):
     TaskForceModeIgnoreUnit=True. 09 Shadows off Palawan supplies a Charleston,
     a Newport and two LSMs, and flags all four. The missions without the panel
     (01, 02, 04) supply a sealift ship, an E-3A, P-3Cs and F-15Cs unflagged.
-    Stock 10 leaves a Taskforce1 submarine and its land units unflagged beside
-    the panel, so those families are left as they are. A granted unit
+    Explicitly retain supplied submarines too: SW09's Collins was reported
+    absent in the deployed build, and had no retention flag beside the panel.
+    Land units remain the stock pattern. A granted unit
     (JoinTaskForce) joins the force and is never ignored."""
     if not deployment_panel(mission, placed):
         return []
@@ -4263,6 +4291,8 @@ def render(mission, placed, members):
         L.append(f"{oid}Intel={ini_text(reward['intel'])}")
     for i, loss in enumerate(mission.get("support_loss", []), 1):
         L.append(f"SupportLoss{i}Intel={ini_text(loss['intel'])}")
+    for i, report in enumerate(mission.get("reports", []), 1):
+        L.append(f"SituationReport{i}Intel={ini_text(report['intel'])}")
     if mission.get("victory", {}).get("after", {}).get("intel"):
         L.append(f"StageIntel={ini_text(mission['victory']['after']['intel'])}")
     if mission.get("victory", {}).get("after", {}).get("lost"):
@@ -4440,6 +4470,10 @@ def render(mission, placed, members):
     trigger("Start message", [
         "Condition_Type=Time", "Condition_Time=1",
         "Action_Taskforce1_Message=Taskforce1StartMessage"])
+    for i, report in enumerate(mission.get("reports", []), 1):
+        trigger(f"Situation report {i}", ["Condition_Type=Time",
+                f"Condition_Time={round(report['minute'] * 60)}",
+                f"Action_Taskforce1_Intel=SituationReport{i}Intel"])
     # The 19 Oct playtest could not select a launch platform during the
     # forced stock preparation pause. Keep the supported action opt-in for
     # a mission author who can test it, rather than interrupt every launch.
@@ -5135,7 +5169,7 @@ def render(mission, placed, members):
         L += lines
         L.append("")
     check_zone_areas(mission, placed, zones, "\n".join(L))
-    return name, "\n".join(L) + "\n"
+    return name, "\n".join(L).rstrip() + "\n"
 
 
 # --- the campaign, its events and its briefings ------------------------------
@@ -6139,7 +6173,7 @@ def airframe_rows(uid, mission, placed):
             for d in decks:
                 if deck_fit(uid, kind, d[3], d[4]) != 0:
                     continue
-                needs = 1 if kind == "Helicopter" else 10
+                needs = deck_places_needed(uid, kind)
                 if kind == "VTOL" and d[4]:
                     needs = 1
                 if d[1] < needs or not (sp and d[2]):
@@ -7371,7 +7405,7 @@ def main():
             credits[token] = (why[0], why[1], "requisition roster")
         # What the campaign itself loads - its own missions and its roster -
         # apart from the Dispatches, which are browser missions the campaign
-        # never loads. Southern Watch's eight Dispatches place a unit from
+        # never loads. Southern Watch's Dispatches place a unit from
         # nearly every mod in the collection (they are the pack's coverage),
         # and a REQUIRED-MODS built from both told a player of the campaign
         # to install 137 mods it does not use (user report, 28 Sep).

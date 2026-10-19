@@ -128,7 +128,7 @@ MISSION = dict(
     },
     units=[
         U("blue", "SEST_RAN_Fleet", "ran_ddg_hobart", "escort"),
-        U("blue", "SEST_Allied_Fixes", "usn_mh-60r", "flight", alt=500,
+        U("blue", "SEST_Allied_Fixes", "ran_mh-60r", "flight", alt=500,
           slot="HeloRecon"),
         U("blue", "p-8-poseidon", "usn_p8", "mpa", squadron="Squadron3", alt=12000,
           loadout="ASW", slot="Recon"),
@@ -243,7 +243,7 @@ MISSION = dict(
                 ))],
     window=dict(buy=True, repair=True, rearm=True,
                 allow=["ran_ffh_anzac", "ran_ddg_hobart", "ran_opv_arafura",
-                       "usn_mh-60r", "usn_p8", "raaf_mq-4c_triton", "E7A_Wedgetail",
+                       "ran_mh-60r", "usn_p8", "raaf_mq-4c_triton", "E7A_Wedgetail",
                        "raaf_f-35a", "usn_fa-18f_blk3", "usn_ea-18g"],
                 flights=[HELO, RECON, CAP, STRIKE],
                 situation=(

@@ -142,11 +142,12 @@ class RedbackProfile(unittest.TestCase):
         self.assertNotRegex(self.text, r'(?m)^TerminalDiveAngle=', 'unverified game key')
 
     def test_profile_retains_guidance_target_classes_and_one_timed_flame(self):
-        for required in ('TargetType=AAW', 'SecondaryTargetType=ASuW',
+        for required in ('TargetType=ASuW', 'SecondaryTargetType=AAW',
                          'LandAttackCapability=All', 'Retargetable=True',
                          'TargetMemory=True', 'GuidanceType=3',
                          'MidCourseCorrection=1', 'TerminalAlt=Maintain',
-                         'ApplyKinematics=False'):
+                         'ApplyKinematics=False', 'MinAttackAltitude=0',
+                         'Frequency=Ka-Band', 'PeakPower=11.0'):
             self.assertIn(required, self.text)
         self.assertEqual(len(re.findall(r'^SustainerEffect=', self.text, re.M)), 1)
         self.assertNotRegex(self.text, r'(?m)^InFlightEffect(?:Class)?=')
