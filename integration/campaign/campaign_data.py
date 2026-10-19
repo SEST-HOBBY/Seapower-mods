@@ -797,16 +797,16 @@ MISSIONS.append(dict(
 MISSIONS.append(dict(
     group="core", num="03", key="Rig Seventeen", place="Timor Sea",
     intro="Civilians on an offshore platform, armed contractors on the deck "
-          "above them, and a patrol closing from the north.",
+          "above them, and armed patrols closing around the platform.",
     sender="Commodore Alex Mercer; Captain Ratna Prasetyo, Indonesian Navy (TNI-AL), embarked",
     intent=("The platform is not a target. The armed contractors on its upper "
             "deck are Captain Prasetyo's problem afterwards and not yours now. "
             "Two lift aircraft, and it takes both to bring thirty people and "
-            "their injured off a helideck, and a patrol boat closing from the "
-            "north that has answered nobody. Get the crew off before it "
-            "arrives, or hold it off until they are."),
+            "their injured off a helideck. Three armed patrol craft are closing "
+            "from different directions, with a gunship expected later. Keep "
+            "them off the lifters until everybody is back aboard."),
     date=(2028, 10, 24), time=(16, 10), sea=3, clouds="Overcast", wind="W",
-    difficulty=2, minutes=60, centre=(-11.0, 126.5),
+    difficulty=3, minutes=60, centre=(-11.0, 126.5),
     blue_nation="Australia", red_nation="China",
     brief=(
         "TIMOR SEA, late afternoon. Rig Seventeen has not answered its shore "
@@ -821,7 +821,11 @@ MISSIONS.append(dict(
         "Darwin has lent the lift for one afternoon at the end of its "
         "rotation: a Super Stallion and an Osprey, airborne south of the rig. "
         "Canberra has two Army Apaches on deck, armed with Hellfire and ready "
-        "to launch, for the patrol boat, and two Romeos.\\n\\n"
+        "to launch, for the patrol boats, and two Romeos. Meridian has two "
+        "missile boats closing from the north and north-west, a fast gunboat "
+        "coming in from the east, and a Hind gunship expected to join after "
+        "fifteen minutes. Those are military targets; the civilian platform "
+        "and passing traffic are not.\\n\\n"
         "Bring BOTH lifters over the platform, within three miles of it, and "
         "hold them there for three minutes while the crew is loaded - half "
         "go in each aircraft. AMPHIBIOUS CONTROL will tell you when everybody "
@@ -833,7 +837,8 @@ MISSIONS.append(dict(
            "MH-60R, a USMC CH-53E and MV-22B on loan from the Darwin rotational "
            "force for the lift, and your escort. "
            "Ashore: a launcher site, a VL MICA battery, a Sosna vehicle and "
-           "a technical. At sea: one armed patrol boat closing from the north.",
+           "a technical. At sea: two missile boats and a fast gunboat closing "
+           "on the rig. A Hind gunship joins after fifteen minutes.",
     objectives=[
         ("Evacuate", "Hold both lifters at the rig until the crew is aboard, then "
                      "bring both back to the amphibious group", "35,-35,Fail,Main"),
@@ -858,7 +863,7 @@ MISSIONS.append(dict(
                             held=("Rig crew loaded.",
                                   "AMPHIBIOUS CONTROL: All thirty aboard, half in each "
                                   "lifter. Bring both back to the amphibious group; keep "
-                                  "the approach clear of the patrol boat.")),
+                                  "the approach clear of the patrol craft and gunship.")),
                  min_units=2, objective="Evacuate"),
     # Either lifter lost ends it: half the crew is aboard each one once they
     # are loaded, and the loading takes both before that.
@@ -887,6 +892,9 @@ MISSIONS.append(dict(
         # north with a route onto the rig - the thing the lift is racing.
         "traffic": S(-10.75, 126.15, "Timor traffic", heading=100),
         "patrol": S(-10.23, 126.35, "Patrol from the north", heading=180),
+        "patrol_west": S(-10.30, 126.00, "North-west missile boat", heading=125),
+        "gunboat": S(-10.55, 126.68, "Eastern gunboat", heading=255),
+        "gunship": S(-10.05, 126.65, "Meridian gunship approach", heading=190, alt=2500),
     },
     units=[
         U("blue", "SEST_RAN_Fleet", "ran_ffh_anzac", "escort",
@@ -920,6 +928,13 @@ MISSIONS.append(dict(
         # patrol is closing from the north. It is not ours."
         U("red", "red-storm-arsenal", "ir_ptg_peykaap_3", "patrol",
           name="Meridian Escort 4", route=[(-10.62, 126.42, 0)], telegraph=4),
+        U("red", "red-storm-arsenal", "ir_ptg_peykaap_3", "patrol_west",
+          name="Meridian Escort 7", route=[(-10.58, 126.32, 0)], telegraph=4),
+        U("red", "_vanilla", "ir_fab_boghammar", "gunboat",
+          name="Meridian Raider 2", route=[(-10.66, 126.44, 0)], telegraph=4),
+        U("red", "mi-24", "wp_mi-24p", "gunship", name="Meridian Hind 31",
+          nation="Meridian", alt=2500, enter=15,
+          route=[(-10.65, 126.55, 2500), (-11.05, 126.58, 2000)]),
         U("red", "shahed-136-zero-two", "shahed_tel_black", "shore",
           name="Meridian launcher site"),
         U("red", "sam-pack", "fr_vl-mica_tel", "shore",

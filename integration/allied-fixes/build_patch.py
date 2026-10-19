@@ -71,8 +71,8 @@ Apache AH1 her sister hulls already support, the RNZAF and ROKN P-8 \
 squadrons named nations the game has no flag for, and the A-10C's infrared \
 head was never registered as a sensor module while its squadron file \
 declared seven squadrons against two defined liveries. Also SEST's AGR-30 \
-Redback - an infrared fire-and-forget 70mm guided rocket, 30 nm, a boost \
-then a cruise, air targets first and the surface second - as a SEST_REDBACK \
+Redback - a fictional active-homing 70mm guided rocket, 30 nm, a ten-second \
+boost, slow cruise and diving approach, with radio retargeting - as a SEST_REDBACK \
 fit on the Apaches, the A-10s, the MQ-9s, \
 the Seahawks and the RAAF Hornets.
 
@@ -205,14 +205,18 @@ def main():
     # everywhere: 30 nm and a rocket's boost then a slower cruise. It stays
     # dts_apkws-ii - the proven in-pod rocket it was rebased onto after two
     # freezes, the weapon pack's counter-drone APKWS - with the minimum deltas:
-    # The 19 Oct playtest asks for a 2 km loft, six seconds of visible motor,
-    # then 150 kt cruise, with retargeting. Use the legacy phase speed caps
-    # (SS-N-22's MaxLoftVelocity/MaxVelocity), NOT VelocityBleed: the latter
-    # is a lifetime-dependent kinematics factor, not a cruise-speed setting.
-    # AIM-54A uses a timed SustainerEffect for its visible motor; its initial
-    # booster is effectively zero. The same effect slot burns for six seconds
-    # here, without an everlasting InFlightEffect. Flight physics stay in
-    # legacy mode so an unpowered 150 kt rocket is not modelled as a stall.
+    # The second 19 Oct request extends the visible motor to ten seconds and
+    # asks for gentler slowdown, an approximately 45-degree final descent and
+    # some terminal speed pickup. Legacy phase caps keep the fictional slow
+    # cruise without modelling an unpowered 70mm rocket's real-world stall.
+    # AS-4 demonstrates TerminalVelocity and Deceleration; the latter's
+    # 0.8 factor is gentler than the documented legacy default of 3.0.
+    # A 6562-ft loft over 1.1 horizontal NM gives about 44.5 degrees to a
+    # sea-level target. IgnoreHeightDifferenceForTargetDist is essential to
+    # that geometry. This is not a verified fixed-pitch control: terrain,
+    # target height, short shots and target motion change the approach.
+    # AIM-54A's timed SustainerEffect supplies the ten-second visible motor,
+    # without an everlasting InFlightEffect or a new flame in terminal.
     # The active seeker and command link use stock missile keys; Walleye II
     # demonstrates Retargetable with MidCourseCorrection=1. These settings
     # require a new in-game test; they do not prove hits or terrain clearance.
@@ -233,11 +237,12 @@ def main():
         (r"^MaxLaunchRange=6\b", "MaxLaunchRange=30"),
         (r"^MaxLoftAngle=5\.0[^\n]*", "MaxLoftAngle=35.0"),
         (r"^MaxLoftAlt=1500[^\n]*", "MaxLoftAlt=6562  // feet: approximately 2 km\nMaxLoftVelocity=450"),
-        (r"^TerminalApproachDist=100[^\n]*", "TerminalApproachDist=1.0"),
-        (r"^TerminalDiveDistance=2[^\n]*", "TerminalDiveDistance=1.0"),
+        (r"^TerminalApproachDist=100[^\n]*", "TerminalApproachDist=2.0"),
+        (r"^TerminalDiveDistance=2[^\n]*", "TerminalDiveDistance=1.1\nTerminalVelocity=220  // legacy terminal phase target, knots\nIgnoreHeightDifferenceForTargetDist=True"),
         (r"^MaxVelocity=2000[^\n]*", "MaxVelocity=150  // legacy cruise phase cap, knots\nApplyKinematics=False\nMaxFlightTime=1500\nTimeLimited=True"),
         (r"^AccelerationTime=1[^\n]*", "AccelerationTime=0.01"),
-        (r"^Acceleration=200[^\n]*", "Acceleration=0\nSustainerAccelerationTime=6\nSustainerAcceleration=8"),
+        (r"^Acceleration=200[^\n]*", "Acceleration=2.0\nDeceleration=0.8\nSustainerAccelerationTime=10\nSustainerAcceleration=8"),
+        (r"^MaxTurnRate=50\.0[^\n]*", "MaxTurnRate=20.0  // soften the nose-over while retaining target correction"),
         (r"^KillProbability=0\.6\b", "KillProbability=0.95"),
         (r"^SeekerFOV=15\b", "SeekerFOV=60"),
         (r"^SeekerGimbalFOV=90\b", "SeekerGimbalFOV=120"),
@@ -258,7 +263,8 @@ def main():
     (OUT / "ammunition").mkdir(parents=True, exist_ok=True)
     (OUT / "ammunition" / "sest_agr-30.ini").write_text(
         "# SEST AGR-30 Redback - fictional 30 nm guided rocket.\n"
-        "# 2 km loft / 450 kt loft cap / 150 kt cruise; six-second motor effect.\n"
+        "# Ten-second motor / 450 kt loft cap / 150 kt cruise / 220 kt terminal target.\n"
+        "# 2 km loft and 1.1 horizontal NM dive start approximate a 45-degree surface attack.\n"
         "# Active terminal seeker, radio midcourse and retargeting. Playtest required.\n"
         + rb, encoding="utf-8")
     rbpod, k = re.subn(r"^Ammunition=usa_apkws_2_m282\s*$", "Ammunition=sest_agr-30",
@@ -290,8 +296,10 @@ def main():
         "sest_agr-30=AGR-30,Redback,GFFAR,"
         "What-if evolution of the 70mm guided rocket family: the AGR-30 "
         "Redback adds active terminal homing and radio midcourse retargeting "
-        "out to 30 nautical miles. A six-second motor burn and a loft to "
-        "approximately 2 km precede a 150-knot cruise and terminal dive. "
+        "out to 30 nautical miles. A ten-second motor and loft to approximately "
+        "2 km precede a gradual slowdown toward 150 knots. The final descent "
+        "is tuned for roughly 45 degrees against surface targets, with a "
+        "220-knot terminal speed target. This is an experimental game profile. "
         "Eligible against aircraft, drones, ships and land targets. Its slow "
         "cruise is intended for surface targets and slow aircraft. Same "
         "airframe and warhead as the APKWS II.\n",

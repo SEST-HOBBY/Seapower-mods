@@ -27,7 +27,9 @@ first; the detail lives where each line points:
    AGM-183As loft to about 99,000 ft, where they used to cruise level at
    90,000.
 6. **The Redback** — *SEST NF3 - Coastal Ambush*: test the candidate 2 km
-   loft, six-second visible motor, 150-knot cruise and terminal dive at 1x.
+   loft, ten-second visible motor, gradual slowdown toward 150 knots, then
+   an approximately 45-degree surface dive and a 220-knot terminal speed
+   target at 1x. Record the observed curve; these are candidate settings.
    Check the active seeker against a crossing ship and slow drone, then
    retarget after launch (`docs/playtest-20261019-fixes.md`). Then the pods, in the loadout
    screen's SEST Redback Strike on the F-16CM, an F/A-18F, an Apache, an

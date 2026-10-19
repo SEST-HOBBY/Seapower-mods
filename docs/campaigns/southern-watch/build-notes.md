@@ -3406,3 +3406,11 @@ transfer anchorage, with a four-NM route-clearance requirement. The coaster
 tracks are over 8.9 NM off the committed coastline. See
 [the second playtest follow-up](../../playtest-20261019-r2.md) for aircraft
 counts, exact positions, the tanker rule and the remaining game checks.
+
+The same playtest follow-up extends Redback's motor to ten seconds, softens
+the legacy deceleration factor, sets a higher terminal speed target, and
+uses the 2 km loft/1.1 horizontal NM dive geometry to approximate a 45-degree
+surface approach. This is a candidate for measurement in the game, not a
+verified fixed-angle controller. Rig Seventeen also gains a north-western
+missile boat, an eastern gunboat and a Hind joining after fifteen minutes;
+the evacuation, platform-protection and amphibious-ship objectives remain.

@@ -1,11 +1,12 @@
 #!/usr/bin/env python3
-"""Regression checks for the shared Redback fit recipe (integration/common/redback.py).
+"""Regression checks for the shared Redback fit recipe and generated flight profile.
 
 Run from the repository root:
     python3 -m unittest discover -s tools/tests -p 'test_redback.py' -v
 """
 import sys
 import re
+import math
 import unittest
 from pathlib import Path
 
@@ -106,6 +107,52 @@ class SeahawkMounts(unittest.TestCase):
                 self.assertIn("Station9=" + redback.POD19, body)
                 self.assertNotIn("|MK46", body)
                 self.assertEqual(body.count(redback.POD19), 1)
+
+
+class RedbackProfile(unittest.TestCase):
+    """Requirement invariants for the generated game profile, not flight proof."""
+
+    def setUp(self):
+        self.paths = [ROOT / p / 'ammunition/sest_agr-30.ini' for p in (
+            'integration/allied-fixes/SEST_Allied_Fixes',
+            'integration/dist/SEST_Integration')]
+        self.text = self.paths[0].read_text()
+
+    def number(self, name):
+        return float(re.search(rf'^{name}=([0-9.]+)', self.text, re.M).group(1))
+
+    def test_burn_and_phase_targets_match_the_requested_shape(self):
+        self.assertAlmostEqual(self.number('SustainerAccelerationTime'), 10)
+        self.assertGreater(self.number('SustainerAcceleration'), 0)
+        self.assertLessEqual(140, self.number('MaxVelocity'))
+        self.assertLessEqual(self.number('MaxVelocity'), 160)
+        self.assertLess(self.number('MaxVelocity'), self.number('TerminalVelocity'))
+        self.assertLess(self.number('TerminalVelocity'), self.number('MaxLoftVelocity'))
+        self.assertGreater(self.number('Deceleration'), 0)
+        self.assertLess(self.number('Deceleration'), 3)  # native legacy default
+
+    def test_dive_geometry_uses_horizontal_distance_and_is_near_45_degrees(self):
+        drop_nm = self.number('MaxLoftAlt') / 6076.11549
+        slope = math.degrees(math.atan2(drop_nm, self.number('TerminalDiveDistance')))
+        self.assertGreater(slope, 40)
+        self.assertLess(slope, 50)
+        self.assertIn('IgnoreHeightDifferenceForTargetDist=True', self.text)
+        self.assertGreater(self.number('TerminalApproachDist'),
+                           self.number('TerminalDiveDistance'))
+        self.assertNotRegex(self.text, r'(?m)^TerminalDiveAngle=', 'unverified game key')
+
+    def test_profile_retains_guidance_target_classes_and_one_timed_flame(self):
+        for required in ('TargetType=AAW', 'SecondaryTargetType=ASuW',
+                         'LandAttackCapability=All', 'Retargetable=True',
+                         'TargetMemory=True', 'GuidanceType=3',
+                         'MidCourseCorrection=1', 'TerminalAlt=Maintain',
+                         'ApplyKinematics=False'):
+            self.assertIn(required, self.text)
+        self.assertEqual(len(re.findall(r'^SustainerEffect=', self.text, re.M)), 1)
+        self.assertNotRegex(self.text, r'(?m)^InFlightEffect(?:Class)?=')
+
+    def test_installed_profile_is_the_generated_source_profile(self):
+        self.assertEqual(self.paths[0].read_bytes(), self.paths[1].read_bytes())
 
 
 if __name__ == "__main__":

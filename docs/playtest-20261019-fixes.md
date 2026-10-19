@@ -1,6 +1,6 @@
 # Follow-up to the 19 October playtest
 
-The SW08 carrier, Langgur wing, Texaco support and O4 routing changes in this
+The Redback profile, SW08 carrier, Langgur wing, Texaco support and O4 routing changes in this
 first patch are superseded by [the second playtest follow-up](playtest-20261019-r2.md).
 The first patch's eastern Kai passage still beached vessels in the game.
 
