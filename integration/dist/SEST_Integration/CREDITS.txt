@@ -21,14 +21,14 @@ photographs from the SEST gallery. Each carries its photographer
 and licence on the picture; the full credits, with sources, are
 in Gallery/PHOTO_CREDITS.txt.
 
-524 of the unit files here are another author's file with
+525 of the unit files here are another author's file with
 changes made to it. A Sea Power unit file is a whole-file
 override - there is no way to alter one line of somebody's
 aircraft without shipping the whole aircraft - so this is how a
 patch has to work, and this list is what it patches.
 
 Measured, not declared: every shipped unit file is diffed against
-every file of its kind in the collection, and the 524 below
+every file of its kind in the collection, and the 525 below
 came back 90% or more alike. The percentage is how much of the
 file is unchanged.
 Files carried for a mod that was removed from the Workshop are
@@ -206,7 +206,7 @@ listed whatever the percentage: they are still that author's.
   Euromod - Modern Royal Australian Navy Mod  (workshop 3820759806)
        99%  aircraft/adf_ah-64e.ini 
        99%  aircraft/raaf_fa-18a_2011.ini 
-       98%  aircraft/raaf_fa-18f.ini 
+       99%  aircraft/raaf_fa-18f.ini 
        99%  aircraft/ran_S-70B-2_Seahawk.ini 
        99%  aircraft/ran_mh-60r.ini 
        96%  aircraft/ran_seakingmk50ab_squadrons.ini from ran_seakingmk50bab_squadrons.ini
@@ -296,6 +296,7 @@ listed whatever the percentage: they are still that author's.
        97%  aircraft/fr_rafale_m_l.ini 
 
   French Helicopter Package  (workshop 3567228449)
+       96%  ammunition/sest_agr-30_pod19.ini from adf_lau-3a.ini
        98%  ammunition/usa_agm-114k.ini 
 
   General Atomics MQ-9 Reaper  (workshop 3503670861)
@@ -647,8 +648,8 @@ listed whatever the percentage: they are still that author's.
   U.S. Navy 2027 Capabilities mod  (workshop 3606774881)
        92%  aircraft/usn_ea-18g.ini 
        97%  aircraft/usn_fa-18e.ini 
-       97%  aircraft/usn_fa-18f.ini 
-       97%  aircraft/usn_fa-18f_blk3.ini 
+       96%  aircraft/usn_fa-18f.ini 
+       96%  aircraft/usn_fa-18f_blk3.ini 
        99%  aircraft/usn_mh-60r.ini 
        99%  ammunition/usn_aim-9x.ini 
       100%  ammunition/usn_rgm-109j.ini 

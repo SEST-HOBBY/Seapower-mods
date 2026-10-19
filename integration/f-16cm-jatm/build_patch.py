@@ -108,9 +108,12 @@ def main():
         sys.exit(f"unresolved ammunition ids: {missing}")
 
     # The Redback fit SEST's strike aircraft share (common/redback.py): the
-    # SDB fit's two quad racks become Redback pods. Its pod is SEST Allied
-    # Fixes' (sest_agr-30_pod), so it is added after the check above.
-    text = add_redback(text, AIRFRAME, "StrikeSDB", [("f16_gbu-39_quad", "pod", 2)])
+    # SDB fit's two quad racks become 19-tube Redback pods, on the 2,000 lb
+    # JDAM's mount for those stations, with the racks' bru-61_outer model
+    # hidden - the pods sat inside it. Its pod is SEST Allied Fixes'
+    # (sest_agr-30_pod19), so it is added after the check above.
+    text = add_redback(text, AIRFRAME, "StrikeSDB",
+                       [("f16_gbu-39_quad", "pod19", 2, "GBU-31-outer")], hide=("bru-61_outer",))
 
     (OUT / "aircraft").mkdir(parents=True, exist_ok=True)
     (OUT / "aircraft" / f"{AIRFRAME}.ini").write_text(text, encoding="utf-8")

@@ -30,12 +30,15 @@ tell subscribers to answer no if the Mod Manager offers to move dependencies
 above the pack ("Move dependencies above this mod"): that undoes every fix in it, and
 SETUP run again repairs it. `publishing.md` (*Dependencies*) has the detail.
 
-The counts below are the 19 Oct 2026 build (`368e40c6`): 198 Workshop mods in
-`data/load-order.tokens.txt` (199 entries with the pack), 164 of them named
-directly by a mission (the pack's REQUIRED-MODS.txt), and 524 borrowed files
-from 62 mods (its CREDITS.txt). Redo them from those files when they change.
-The 18 Oct build (`8732b75f`, the Workshop item's update of 18 Oct 13:00)
-had 516 from 60.
+The counts below are the 19 Oct 2026 build with the 19-tube Redback pod: 198
+Workshop mods in `data/load-order.tokens.txt` (199 entries with the pack), 164
+of them named directly by a mission (the pack's REQUIRED-MODS.txt), and 525
+borrowed files from 62 mods (its CREDITS.txt). Redo them from those files when
+they change. The 18 Oct build (`8732b75f`, the Workshop item's update of 18
+Oct 13:00) had 516 from 60, and `368e40c6` 524. The 525th is the 19-tube pod,
+credited to the Royal Australian Defence Forces mod's `adf_lau-3a`: the pod
+is the game's own `usn_lau-3a`, which CREDITS.txt never compares against, and
+RADF's is that file with one line changed.
 
 ---
 
@@ -193,7 +196,7 @@ CREDIT WHERE IT IS DUE
 
 This pack is a set of patches, and a Sea Power unit file is a whole-file
 override - there is no way to change one line of somebody's aircraft without
-shipping the whole aircraft. So 524 of the files here are another author's
+shipping the whole aircraft. So 525 of the files here are another author's
 file with edits in it, each 90% or more unchanged, drawn from 62 different
 Workshop mods. HMAS Hobart is Euromod - Modern Royal Australian Navy's; the
 Super Hornets are US Navy 2027's.
@@ -244,6 +247,8 @@ Items and the collection stay as they are.
 [list]
 [*]SEST's two upgraded 70 mm guided rockets become one. The 8 NM laser APKWS II-ER is retired; the AGR-30 Redback replaces it: infrared fire and forget out to 30 NM, a rocket boost then a cruise at about 600 knots, a shallow climb and a dive onto the target. It takes aircraft and drones first, ships and land targets second.
 [*]A new "SEST Redback Strike" loadout on the A-10C, A-10A and A-10C+, the US and British Apaches, the Sea Apache, the RAAF AH-64E, both MQ-9s, the US Navy and RAN MH-60R, both S-70B-2 Seahawks, the F-16CM, the three US Super Hornets, and the RAAF F/A-18F and F/A-18A. Every original loadout is still there.
+[*]The pods: 19-round LAU-3 pods on the single pylons of the Apaches, the Seahawks, the A-10s and the F-16CM; 7-round LAU-68s where a rack carries several, and on the MQ-9s. Each pod now hangs on its own mount - the F-16CM's no longer sit inside the SDB racks, and the Seahawks' no longer stack on the Hellfire rails.
+[*]The Super Hornets (RAAF F/A-18F, US F/A-18E, F/A-18F and Block III) fly the F/A-18A's layout: wing tanks, two pods side by side on the pylon outboard of them, and a 19-round pod on the outer pylon.
 [*]The Ocean Apache's "SEST APKWS-ER Strike" loadout goes with its rocket.
 [/list]
 

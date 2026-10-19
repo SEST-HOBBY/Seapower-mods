@@ -261,6 +261,21 @@ def main():
         sys.exit("usn_agr-20b_apache: Ammunition line changed upstream (Redback pod)")
     (OUT / "ammunition" / "sest_agr-30_pod.ini").write_text(
         "# SEST LAU-68 pod loaded with the AGR-30 Redback.\n" + rbpod, encoding="utf-8")
+    # The 19-tube pod, for a single pylon: the game's own LAU-3/A (its model
+    # ships with the game, so the pod needs no mod) with the Redback in place
+    # of the Hydra, and a salvo of two like the 7-tube pod's - eight was for
+    # unguided rockets spread over an area. The Euromod RAN mod's
+    # usn_lau-3a_APKWS already flies 19 guided rockets from this pod.
+    lau3 = (ROOT / "mods-source" / "_vanilla" / "original" / "ammunition"
+            / "usn_lau-3a.ini").read_text(encoding="utf-8-sig", errors="replace")
+    for pat, rep in ((r"^Ammunition=usn_hydra\b", "Ammunition=sest_agr-30"),
+                     (r"^SalvoFireAmount=8\b", "SalvoFireAmount=2")):
+        lau3, k = re.subn(pat, rep, lau3, count=1, flags=re.M)
+        if k != 1:
+            sys.exit(f"usn_lau-3a: {pat} matched {k} times - the game changed the pod")
+    (OUT / "ammunition" / "sest_agr-30_pod19.ini").write_text(
+        "# SEST LAU-3/A pod loaded with 19 AGR-30 Redbacks, a salvo of two.\n" + lau3,
+        encoding="utf-8")
 
     lang = OUT / "language_en"
     lang.mkdir(parents=True, exist_ok=True)
@@ -278,39 +293,64 @@ def main():
     (lang / "loadout_names.ini").write_text(
         "[LoadoutNames]\nSEST_REDBACK=SEST Redback Strike (AGR-30 guided rockets)\n",
         encoding="utf-8")
-    print("  Redback: sest_agr-30 (30 nm, boost + cruise, loft and dive, air first) and its LAU-68 pod")
+    print("  Redback: sest_agr-30 (30 nm, boost + cruise, loft and dive, air first), "
+          "its LAU-68 and LAU-3 pods")
 
     # The fit, on every carrier whose file this pack ships. Each clones a fit
     # it already flies and puts Redback pods on the pylons named (common/
     # redback.py). The A-10C+, F-16CM and US Super Hornets are other SEST
-    # packs' files and get the same fit from their own builders.
+    # packs' files and get the same fit from their own builders. The 19-tube
+    # pod goes on a single pylon, on the airframe's own mount for a store its
+    # size; the 7-tube stays where a rack hangs several (the A-10's TERs, the
+    # Hornets' twin mounts) and on the MQ-9's light pylons.
     ROLLOUT = [
-        ("3425450153", "uk_ah_mk_1.ini", "Strike", [("usn_agr-20b_apache", "pod", 4)]),
-        ("3425450153", "usa_ah-64a.ini", "Strike", [("usn_agr-20b_apache", "pod", 4)]),
-        ("3425450153", "usa_ah-64d.ini", "Strike", [("usn_agr-20b_apache", "pod", 4)]),
-        ("3425450153", "usa_ah-64e.ini", "Strike", [("usn_agr-20b_apache", "pod", 4)]),
-        ("3425450153", "usn_ah-64na.ini", "Strike", [("usn_agr-20b_apache", "pod", 4)]),
+        # Apaches: four 19-tube pods on the mod's own LAU-3 mount, as its
+        # Default fit hangs them.
+        ("3425450153", "uk_ah_mk_1.ini", "Strike", [("usn_agr-20b_apache", "pod19", 4, "LAU-3")]),
+        ("3425450153", "usa_ah-64a.ini", "Strike", [("usn_agr-20b_apache", "pod19", 4, "LAU-3")]),
+        ("3425450153", "usa_ah-64d.ini", "Strike", [("usn_agr-20b_apache", "pod19", 4, "LAU-3")]),
+        ("3425450153", "usa_ah-64e.ini", "Strike", [("usn_agr-20b_apache", "pod19", 4, "LAU-3")]),
+        ("3425450153", "usn_ah-64na.ini", "Strike", [("usn_agr-20b_apache", "pod19", 4, "LAU-3")]),
         ("3820759806", "adf_ah-64e.ini", "StrikePrecision",
-         [("usn_agr-20b_apache", "pod", 2), ("usn_lau-3a_APKWS", "pod", 2)]),
-        ("3459682829", "usa_a-10c.ini", "CAS1", [("usn_agr-20b", "pod", 5)]),
-        ("3414146266", "usa_a-10a.ini", "CAS", [("usn_lau-68", "pod", 4)]),
+         [("usn_agr-20b_apache", "pod19", 2, "LAU-3"), ("usn_lau-3a_APKWS", "pod19", 2)]),
+        # A-10s: a 19-tube pod on each single outer pylon, on the 2,000 lb
+        # bomb's mount (the files write MK-82's twice, the second about 20 m
+        # below the wing); the TERs keep three or two 7-tube pods on their
+        # own points.
+        ("3459682829", "usa_a-10c.ini", "CAS1",
+         [("usn_agr-20b", "pod19", 1, "MK-84", (3,)), ("usn_agr-20b", "pod", 4)]),
+        ("3414146266", "usa_a-10a.ini", "CAS",
+         [("usn_lau-68", "pod19", 2, "MK-84", (3, 4)), ("usn_lau-68", "pod", 2)]),
         ("3503670861", "usaf_mq-9a.ini", "Strike",
          [("uav_agm-114k", "pod", 2), ("uav_gbu-49", "pod", 2)]),
         ("3503670861", "usaf_mq-9_er.ini", "Strike",
          [("uav_agm-114k", "pod", 2), ("uav_gbu-49", "pod", 2)]),
-        # Seahawks: pods on the Hellfire launchers' outer pair, the inner
-        # pair's missiles dropped, the torpedoes or tanks kept.
+        # Seahawks: one 19-tube pod a side, as the Navy's MH-60S carries its
+        # APKWS. On the MH-60R it takes the Hellfire launcher's place (the
+        # launcher is hidden; the pod was a pair on its rails), the inner
+        # pair's missiles dropped, the torpedoes or tanks kept. The S-70B-2s
+        # hang it on the torpedo pylons, where four 7-tube pods once stood
+        # two by two on one Hellfire launcher's rails.
         ("3606774881", "usn_mh-60r.ini", "AntiShipLate",
-         [("usa_agm-114l_mm", "pod", 2), ("usa_agm-114k_hh", None, 2)]),
+         [("usa_agm-114l_mm", "pod19", 2, ""), ("usa_agm-114k_hh", None, 2)],
+         dict(hide=("H60_Pylon114",))),
         ("3820759806", "ran_mh-60r.ini", "AntiShip",
-         [("usa_agm-114l_mm", "pod", 2), ("usa_agm-114k_hh", None, 2)]),
-        ("3403661005", "S-70B-2_Seahawk.ini", "Strike", [("agm-114", "pod", 4)]),
-        ("3820759806", "ran_S-70B-2_Seahawk.ini", "ASW", [("usn_mk46_mod5_air", "pod", 2)]),
-        # RAAF Hornets: the CAS fit's bomb or rocket pylons.
-        ("3820759806", "raaf_fa-18f.ini", "CAS", [("usn_gbu-12", "pod", 6)]),
+         [("usa_agm-114l_mm", "pod19", 2, ""), ("usa_agm-114k_hh", None, 2)],
+         dict(hide=("H60_Pylon114",))),
+        ("3403661005", "S-70B-2_Seahawk.ini", "ASW", [("usn_mk46_air", "pod19", 2)]),
+        ("3820759806", "ran_S-70B-2_Seahawk.ini", "ASW", [("usn_mk46_mod5_air", "pod19", 2)]),
+        # RAAF Hornets. The F/A-18A's CAS fit already flies the layout: wing
+        # tanks, and two 7-tube pods on the pylon outboard of them (the twin
+        # Zuni mount). The F/A-18F takes it from its long-range anti-ship
+        # fit, whose wing and centreline tanks stay: two 7-tube pods on the
+        # mid pylon (a twin mount at the A's spacing, which SEST adds), and a
+        # 19-tube pod on the outboard pylon, on the bombs' outer mount.
+        ("3820759806", "raaf_fa-18f.ini", "AntishipLongRange",
+         [("usn_aim-9x", "pod19", 2, "GBU24A", (3, 4)), ("DateBased_AShM", "pod", 2, "RedbackTwin")],
+         dict(positions={"RedbackTwin": "-0.004146,-0.001,0|0.004146,-0.001,0"})),
         ("3820759806", "raaf_fa-18a_2011.ini", "CAS", [("usn_lau-10a", "pod", 2)]),
     ]
-    for mod, fname, donor, pylons in ROLLOUT:
+    for mod, fname, donor, pylons, *opts in ROLLOUT:
         csrc = ROOT / "mods-source" / mod / "aircraft" / fname
         cdst = OUT / "aircraft" / fname
         if not csrc.exists():
@@ -339,7 +379,7 @@ def main():
                 sys.exit("uk_ah_mk_1: Default fit's doubled inner-pylon rocket pods not found - "
                          "upstream changed, re-check the overlap fix")
             extra = ", Default fit's doubled pods moved outboard"
-        ct = add_redback(ct, fname, donor, pylons)
+        ct = add_redback(ct, fname, donor, pylons, **(opts[0] if opts else {}))
         if fname == "usa_a-10c.ini":
             # Two defects in the standard aircraft, repaired here because
             # this pack already ships the file. They are bugs, not the

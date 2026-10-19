@@ -3302,11 +3302,49 @@ named, the count checked. Allied Fixes ships it on the US and UK Apaches,
 the Sea Apache, the RAAF AH-64E, both A-10s (C and A), both MQ-9s, the
 US Navy and RAN MH-60R, both S-70B-2s, and the RAAF F/A-18F and F/A-18A.
 The A-10C+, the F-16CM and the three US Super Hornets are other SEST packs'
-files and get the same fit from their own builders. On the Seahawks the pods
-take the Hellfire launchers' outer pair (or the torpedo pylons on the RAN
-S-70B-2) and the torpedoes or tanks stay; on the fighters they take a CAS
-or strike fit's pylons. The tasking rows offer `SEST_REDBACK` wherever a
-sold aircraft carries it.
+files and get the same fit from their own builders. The tasking rows offer
+`SEST_REDBACK` wherever a sold aircraft carries it. Where each pod hangs is
+the next section's.
+
+**The pods, each on its own mount (19 October, later).** Seen in game: the
+F-16CM's Redback pods sat inside the quad SDB racks they had replaced. A
+station's seat - the name after `|` - picks the airframe's `<seat>Positions=`
+offsets, and the recipe kept the replaced store's seat, so every pod hung
+where that store had: the F-16CM's on no offset at all with the SDB racks'
+`bru-61_outer` model still drawn, the MH-60Rs' two to a side on the Hellfire
+rails (`TERAGM114`), the S-70B-2's four stacked two by two on one Hellfire
+launcher's rail points, the Super Hornets' on no offset. The recipe now names
+each pod's seat, can hide a rack, and can add a mount the airframe lacks.
+There are two pods: the 7-tube LAU-68 (`sest_agr-30_pod`) and a 19-tube
+LAU-3/A (`sest_agr-30_pod19`), the game's own pod with the Redback in place
+of the Hydra and a salvo of two rather than eight. The Euromod RAN mod's
+`usn_lau-3a_APKWS` already flies 19 guided rockets from it. The 19-tube goes
+on a single pylon; the 7-tube stays where a rack hangs several, and on the
+MQ-9s.
+
+| Carrier | Redback fit now |
+|---|---|
+| Apaches (US A/D/E, UK AH1, Sea Apache, RAAF AH-64E) | four 19-tube pods on the mod's own `LAU-3` mount |
+| A-10C, A-10C+ | a 19-tube on the outer pylon (`MK-84` mount), two 7-tube on each of four TERs |
+| A-10A | 19-tube on both outer pylons (`MK-84`; the file writes `MK-82` twice, the second about 20 m below the wing), three 7-tube on each inner TER |
+| F-16CM | two 19-tube on the SDB stations, on the 2,000 lb JDAM's `GBU-31-outer` mount, `bru-61_outer` hidden |
+| F/A-18A | unchanged: wing tanks, two 7-tube on each outer pylon (the twin Zuni mount) |
+| F/A-18F (RAAF), F/A-18E/F and Block III (US) | the F/A-18A's layout: wing and centreline tanks, two 7-tube on each mid pylon (a SEST `RedbackTwin` mount at the A's spacing), a 19-tube on each outboard pylon, AIM-9X on the tips |
+| MH-60R (US Navy, RAN) | one 19-tube a side in the Hellfire launcher's place (`H60_Pylon114` hidden); torpedoes or tanks stay |
+| S-70B-2 (both) | one 19-tube on each torpedo pylon (`MK46`), from the ASW fit |
+| MQ-9A, MQ-9 ER | unchanged: 7-tube |
+
+The F/A-18Fs start from a fit that already hangs their tanks: the RAAF one
+from its long-range anti-ship fit, the US ones from their own Maverick CAS fit
+with extended fuel (`MH_CASAGMEF`), whose wing-tank attachment stays drawn.
+`RedbackTwin` is the F/A-18A's `TwinMk83` spacing (the two models share a
+scale) on the mid pylon's store point. On the US airframes the outboard
+19-tube sits 0.0008 below the Maverick it replaces (`RedbackLAU3`), for the
+pod's wider body. These mounts are worked out from the files' own station
+coordinates; whether each pod sits cleanly on its pylon, not in it or
+floating below it, the loadout screen shows and the build cannot. If the
+19-tube pod on a launch ever freezes the game where the 7-tube does not, the
+pod goes back.
 
 **Unit Reference: three units with no name.** Found by scanning every unit
 in the collection for a name: `mm_skyguard_sam` (Euromod Cold War Italian

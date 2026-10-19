@@ -176,8 +176,11 @@ def main():
         sys.exit(f"{UNIT}: usn_aim-9x is not defined by U.S. Navy 2027 - re-check the provider")
 
     # 3b. the Redback fit, as every SEST A-10 carries it (common/redback.py):
-    #     CAS1's five rocket pods become Redback pods.
-    text = add_redback(text, UNIT, "CAS1", [("usn_agr-20b", "pod", 5)])
+    #     CAS1's five rocket pods become Redback pods - a 19-tube on the
+    #     single outer pylon, on the 2,000 lb bomb's mount, and 7-tube pods
+    #     on the TERs' own points.
+    text = add_redback(text, UNIT, "CAS1",
+                       [("usn_agr-20b", "pod19", 1, "MK-84", (3,)), ("usn_agr-20b", "pod", 4)])
 
     # 4. sanity: every AssociatedSensors entry now resolves
     have = {int(x) for x in re.findall(r"^\[SensorSystem(\d+)\]", text, re.M)}
