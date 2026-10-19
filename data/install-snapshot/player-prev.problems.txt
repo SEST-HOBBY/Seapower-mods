@@ -1,5 +1,11 @@
 # Lines from Player-prev.log matching Exception/Error/not found/missing/failed.
-# 2 hit(s) - the first place to look when something did not load.
+# 8 hit(s) - the first place to look when something did not load.
 
     100: [CombatWorker 0.2.0] Native fallback: NotSupportedException: Conflicting hook: io.github.yourname.second-thrust / Single CalculateThrustOverTime(SeaPower.AmmunitionParameters, Boolean, Single, Single)
     120: [IDX][Localization.cs:24 Load] [IDX] localization ini not found: C:/Program Files (x86)/Steam/steamapps/common/Sea Power/Sea Power_Data/StreamingAssets\IdentifyExpanded\language_en\identify_expanded.ini
+   2489: Default audio device was changed, but the audio system failed to initialize it. Attempting to reset sound system.
+   2490: FMOD failed to initialize the output device.: "Error initializing output device. " (60)
+   2805: Default audio device was changed, but the audio system failed to initialize it. Attempting to reset sound system.
+   2806: FMOD failed to initialize the output device.: "Error initializing output device. " (60)
+   2808: FMOD failed to initialize the output device.: "Error initializing output device. " (60)
+   2809: FMOD failed to initialize any audio devices, running on emulated software output with no sound. Please check your audio drivers and/or hardware for malfunction.
