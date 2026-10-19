@@ -1713,6 +1713,14 @@ class DeploymentZones(unittest.TestCase):
         self.assertIsNone(bp.deploy_type("Taskforce1LandUnit3", {"Type": "FOB"}))
         self.assertEqual(bp.deploy_type("Taskforce1LandUnit4", {"Type": "china_hq15_launcher"}), "Land")
 
+    def test_a_sest_base_resolves_without_the_consolidated_pack(self):
+        # airbase_raaf_darwin ships only in SEST_RAAF_Bases, and the consolidated
+        # pack is written after this builder: read through it, a --from-scratch
+        # build found no file, took Darwin for a movable land unit and boxed it.
+        f = bp.fix_land_positions.winning_file("land_units/airbase_raaf_darwin.ini")
+        self.assertEqual(f.parts[-3], "SEST_RAAF_Bases")
+        self.assertIsNone(bp.deploy_type("Taskforce1LandUnit1", {"Type": "airbase_raaf_darwin"}))
+
     def test_a_far_boat_and_her_tender_share_a_detachment_box(self):
         # Red Line 06's shape: the escort here, the tender and the boat 80 NM off
         main, far = self.zones([("plan_type_054a_p5", 0, 0), ("civ_ms_kommunist", -80, 0),

@@ -177,6 +177,26 @@ def _resolve(base, relpath):
     return _ci_index(str(base)).get(relpath.lower())
 
 
+def sest_sources():
+    """The per-pack SEST outputs, which stand in for the SEST token.
+
+    The one SEST token in the canonical order is the consolidated pack,
+    integration/dist/SEST_Integration, and it is written last, after every
+    builder. Resolving through it made a builder read the previous build's
+    copy, or nothing at all on a --from-scratch build: the campaign builder
+    then could not find SEST_RAAF_Bases' airbase_raaf_darwin, took the base
+    for a land unit the player moves, and drew it a deployment box in eleven
+    missions. The per-pack outputs are what the consolidated pack is merged
+    from, byte-identical for every unit path (tools/consolidate_packs.py fails
+    on any disagreement), so they answer the same question without waiting
+    for it - the way the campaign and Cross-Deck builders' providers() already
+    resolve. Language and systems files are merged rather than copied, so no
+    single copy of one is the shipped file; file_stack lists them all.
+    """
+    return sorted(p for p in (ROOT / "integration").glob("*/SEST_*")
+                  if p.is_dir() and p.parent.name != "dist")
+
+
 def file_stack(relpath):
     """Every copy of <relpath> the collection holds, highest priority first.
 
@@ -191,7 +211,7 @@ def file_stack(relpath):
     out = []
     for token in _ORDER:
         if token.startswith("SEST_"):
-            for pack in (ROOT / "integration").glob(f"*/{token}"):
+            for pack in sest_sources():
                 f = _resolve(pack, relpath)
                 if f:
                     out.append(f)
@@ -219,7 +239,7 @@ def winning_file(relpath):
         # SEST packs live in the repo, not in mods-source, but they occupy
         # real positions in the Mod Manager order and win files there.
         if token.startswith("SEST_"):
-            for pack in (ROOT / "integration").glob(f"*/{token}"):
+            for pack in sest_sources():
                 f = _resolve(pack, relpath)
                 if f:
                     return f
