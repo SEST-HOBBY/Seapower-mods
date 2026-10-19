@@ -205,7 +205,7 @@ shipped missions imply.
 | 6.5 | Get alongside Torres Light first in O1, then start SW02 | An intel line and the submarine on the route shown as a **classified** contact from the start; skip O1, or let Meridian's ship get there first, and it is not |
 | 6.6 | Identify the coaster in O2, then start SW04 | The same shape: Kiwi 01's picture as intel, the submarine classified |
 | 6.7 | Bring both Korean warships in at O3, then start SW06 | **ROKS Sejong the Great** is in the screen. Lose either, or skip O3, and she is not (`SpawnByVariableAND=O3ShieldJoined,IsTrue` — the first `IsTrue` spawn in the pack) |
-| 6.8 | Put both coasters in at O4, then start SW08 | A **KC-46** on the track south of the box; skip or fail O4 and there is none |
+| 6.8 | Start SW08 fresh, then compare a campaign with O4 completed | **Texaco 52 is always present** on its south-western refuelling track. Completing O4 adds **Texaco 53** on a separate track; skipping or failing O4 leaves Texaco 52 available. Langgur has its modern resident wing in both cases. |
 | 6.9 | Hold the SW09 service window, then open the SW10 pre-mission screen | A **rearm** is offered. Miss the window (leave the box before 35:00 and lose it) and it is not (`TaskForceModeRearmByVariableAND`) |
 
 6.4 is the real test. Declaration, write and read are all present in the files

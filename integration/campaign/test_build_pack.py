@@ -13,6 +13,7 @@ builder emits. Nothing is written into the tree.
 """
 import collections
 import contextlib
+import copy
 import importlib.abc
 import io
 import re
@@ -69,6 +70,88 @@ class SailedLegs(unittest.TestCase):
     def test_a_route_outside_the_extract_is_not_silently_approved(self):
         self.placer.route((-5.8, 144), [(-5.8, 145)], "Outside chart")
         self.assertIn("outside the coastline extract", bp.PLACEMENT_PROBLEMS[0])
+
+    def test_wider_clearance_rejects_the_in_game_reported_eastern_passage(self):
+        self.placer.route((-5.90, 132.82),
+                          [(-5.80, 132.84), (-5.72, 132.86), (-5.66, 132.84)],
+                          "Weather Alternate old passage", least=4)
+        self.assertTrue(bp.PLACEMENT_PROBLEMS)
+        self.assertIn("4 NM shore margin", bp.PLACEMENT_PROBLEMS[0])
+
+    def test_route_clearance_cannot_disable_validation(self):
+        for least in (0, -1, float("nan"), float("inf")):
+            with self.assertRaisesRegex(SystemExit, "finite and positive"):
+                self.placer.route((-5.96, 132.48), [(-5.72, 132.50)],
+                                  "Weather Alternate", least=least)
+
+
+class SouthernWatchFollowup(unittest.TestCase):
+    """Exercise the real mission placements behind the reported regressions."""
+
+    @classmethod
+    def setUpClass(cls):
+        from campaign_data import MISSIONS
+        cls.missions = {}
+        cls.placements = {}
+        for num in ("08", "O4"):
+            mission = copy.deepcopy(next(m for m in MISSIONS if m["num"] == num))
+            placed, members, _credits, _worst = bp.place(
+                mission, bp.CoastPlacer(bp.coast_data(mission), mission))
+            cls.missions[num] = mission
+            cls.placements[num] = placed
+
+    def test_carrier_is_south_of_papua_with_open_water_clearance(self):
+        mission = self.missions["08"]
+        keys = self.placements["08"]["Taskforce1Vessel"][0][1]
+        x, _y, z = map(float, keys["RelativePositionInNM"].split(","))
+        at = (mission["centre"][0] + z / 60, mission["centre"][1] + x / 60)
+        self.assertLess(at[0], -6)
+        self.assertFalse(bp.coast_data(mission).on_land(*at))
+        self.assertGreater(bp.coast_data(mission).nm_to_coast(*at), 20)
+
+    def test_langgur_has_a_modern_wing_with_room_for_recoveries(self):
+        keys = self.placements["08"]["Taskforce1LandUnit"][0][1]
+        self.assertEqual(keys["CustomAirGroup"], "True")
+        self.assertIn("usaf_f-16cm-bl52d", keys)
+        self.assertIn("dts_saab_ge", keys)
+        self.assertNotIn("usaf_f-4e", keys)
+        self.assertNotIn("usn_ea-6b", keys)
+        from campaign_data import LANGGUR_AIR_GROUP
+        self.assertLess(sum(n for _t, _s, n in LANGGUR_AIR_GROUP) + 7,
+                        bp.deck_size(keys["Type"]))
+
+    def test_texaco_is_available_without_a_campaign_flag_and_bonus_remains_gated(self):
+        rows = {name: keys for _tag, keys, name, _x
+                in self.placements["08"]["Taskforce1Aircraft"]}
+        self.assertNotIn("SpawnByVariableAND", rows["Texaco 52"])
+        self.assertIn("HomeBase", rows["Texaco 52"])
+        self.assertTrue(rows["Texaco 52"]["Waypoints"].endswith("|Loop"))
+        self.assertEqual(rows["Texaco 53"]["SpawnByVariableAND"],
+                         "O4LanggurStocked,IsTrue")
+
+    def test_emitted_coaster_tracks_stay_well_offshore_and_stop_in_the_goal(self):
+        mission = self.missions["O4"]
+        coast = bp.coast_data(mission)
+        centre = mission["centre"]
+        for _tag, keys, name, _x in self.placements["O4"]["Taskforce1Vessel"]:
+            if name not in ("MV Langgur Provider", "MV Kei Star"):
+                continue
+            def geo(point):
+                x, _y, z = map(float, point.split("/")[0].split(","))
+                return (centre[0] + z / 60, centre[1] + x / 60)
+            route = [geo(keys["RelativePositionInNM"])]
+            route.extend(geo(w) for w in keys["Waypoints"].split("|"))
+            for a, b in zip(route, route[1:]):
+                for i in range(101):
+                    at = (a[0] + (b[0] - a[0]) * i / 100,
+                          a[1] + (b[1] - a[1]) * i / 100)
+                    self.assertFalse(coast.on_land(*at), name)
+                    self.assertGreater(coast.nm_to_coast(*at), 8, name)
+            self.assertIn("/SetTelegraph,0", keys["Waypoints"].split("|")[-1])
+            self.assertLess(bp.nm_between(route[-1], mission["victory"]["at"]),
+                            mission["victory"]["radius"])
+            self.assertLess(sum(bp.nm_between(a, b) for a, b in zip(route, route[1:])),
+                            13 * mission["minutes"] / 60)
 
 
 

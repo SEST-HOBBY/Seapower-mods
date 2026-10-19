@@ -959,13 +959,16 @@ class CoastPlacer:
                     f"{'ashore' if land else 'in the surf'} ({nm:.1f} NM from the "
                     "coast) - route the track round the headland")
 
-    def route(self, start, waypoints, where):
+    def route(self, start, waypoints, where, least=0.5):
         """Check each sailed leg, including spawn to the first waypoint.
 
         Two wet endpoints do not prove a wet passage: Weather Alternate's
         raiders crossed Kai Kecil between them. Quarter-NM samples with a
-        half-NM shore margin also reject near misses between sample points.
+        half-NM default shore margin also reject near misses between sample
+        points. A mission may demand more room where game terrain differs.
         """
+        if not math.isfinite(least) or least <= 0:
+            raise SystemExit(f"{where}: route clearance must be finite and positive")
         for leg, end in enumerate(waypoints, 1):
             steps = max(1, math.ceil(nm_between(start, end) / 0.25))
             dlon = (end[1] - start[1] + 180) % 360 - 180
@@ -976,10 +979,10 @@ class CoastPlacer:
                 if not self._cover(at, f"{where} leg {leg}"):
                     break
                 land, nm = self.coast.check(*at)
-                if land or nm < 0.5:
+                if land or nm < least:
                     PLACEMENT_PROBLEMS.append(
                         f"{where}: leg {leg} crosses "
-                        f"{'land' if land else 'the surf'} near "
+                        f"{'land' if land else f'the {least:g} NM shore margin'} near "
                         f"({at[0]:.4f}, {at[1]:.4f}); "
                         "route round the island or headland")
                     break
@@ -1855,7 +1858,8 @@ def place(mission, snapper):
                      for p in spec["route"]]
             if isinstance(snapper, CoastPlacer) and kind in ("vessel", "sub"):
                 snapper.route((lat, lon), [(la, lo) for la, lo, _a, _o in route],
-                              f"{mission['key']} {spec['station']} ({spec['type']})")
+                              f"{mission['key']} {spec['station']} ({spec['type']})",
+                              least=mission.get("route_clearance_nm", 0.5))
             keys["Waypoints"] = "|".join(
                 f"{(lo - centre[1]) * 60:.2f},{a},{(la - centre[0]) * 60:.2f}"
                 + waypoint_orders(mission, spec, kind, keys, orders, pending, tag, n)

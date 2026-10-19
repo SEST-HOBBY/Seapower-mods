@@ -3392,3 +3392,17 @@ Type 003 in the encyclopedia with their models. `OUTSIDE` in `build_pack.py`
 is empty, with the reason, so `REQUIRED-MODS.txt`, each campaign's
 requirement list and `required-mods-urls.txt` no longer name it; the
 description, the collection description and `publishing.md` follow.
+
+## 19 October 2026: second SW08 and O4 playtest correction
+
+The first playtest correction put the carrier afloat in Cenderawasih Bay,
+but the requested deployment is south of Papua. It now uses an Arafura
+station. Langgur has a shared modern resident detachment rather than an
+empty wing. Texaco 52 always spawns; O4 success adds Texaco 53.
+
+The eastern Kai passage still beached coasters in the game despite passing
+the source map check. O4 now uses a broad western approach to an offshore
+transfer anchorage, with a four-NM route-clearance requirement. The coaster
+tracks are over 8.9 NM off the committed coastline. See
+[the second playtest follow-up](../../playtest-20261019-r2.md) for aircraft
+counts, exact positions, the tanker rule and the remaining game checks.

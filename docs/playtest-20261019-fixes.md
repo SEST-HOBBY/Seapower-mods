@@ -1,5 +1,9 @@
 # Follow-up to the 19 October playtest
 
+The SW08 carrier, Langgur wing, Texaco support and O4 routing changes in this
+first patch are superseded by [the second playtest follow-up](playtest-20261019-r2.md).
+The first patch's eastern Kai passage still beached vessels in the game.
+
 Base: `e7b32f11a906418b6e1343beff31b867d8dd7557`, the user's last Steam
 upload and PC install (4,084 deployed files). Changes are on
 `fix/playtest-20261019`; the existing deployment branch is preserved.
