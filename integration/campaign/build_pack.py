@@ -6282,15 +6282,25 @@ TASKING_BARRED = frozenset({"dts_aim-260", "dts_aim-260_w", "usn_aim-424",
 _ROW_JOBS = {"CAP": "air", "Attack": "surface", "SuCAP": "surface",
              "Recon": "patrol", "HeloRecon": "patrol"}
 
+# Rounds whose SecondaryTargetType=ASuW also makes a fit a surface fit. The
+# AGR-30 Redback is air first, ships and land second - the counter-drone
+# APKWS it is built from - and SEST_REDBACK is a strike fit: read off its
+# primary alone it would leave the strike rows for the CAP rows. Other AAW
+# rounds with an ASuW secondary (AIM-174B, AIM-54C, MICA, Mistral) are not
+# here, so their fits stay air-to-air.
+SURFACE_SECONDARY = frozenset({"sest_agr-30"})
+
 
 @functools.lru_cache(maxsize=None)
 def store_kind(store, depth=0):
-    """(Type, TargetType) of one round, through `#!alias` and through a pod
-    to the round it holds: the LRASM-ER is an alias of the LRASM, and the
-    H-76's rocket fit hangs a LAU-68 Container whose round is the Hydra."""
+    """(Type, TargetType, SecondaryTargetType, round) of one store, through
+    `#!alias` and through a pod to the round it holds: the LRASM-ER is an
+    alias of the LRASM, and the H-76's rocket fit hangs a LAU-68 Container
+    whose round is the Hydra."""
     text = "".join(read(f) for f in all_copies(f"ammunition/{store}.ini"))
     kind = re.search(r"^Type=(\w+)", text, re.M)
     aim = re.search(r"^TargetType=(\w+)", text, re.M)
+    second = re.search(r"^SecondaryTargetType=(\w+)", text, re.M)
     if depth < 4:
         if kind and kind.group(1) == "Container":
             inner = re.search(r"^Ammunition\d*=([^\s#/|]+)", text, re.M)
@@ -6300,7 +6310,7 @@ def store_kind(store, depth=0):
             base = re.search(r"#!alias\s+ammunition/(\S+?)\.ini", text)
             if base:
                 return store_kind(base.group(1), depth + 1)
-    return kind and kind.group(1), aim and aim.group(1)
+    return kind and kind.group(1), aim and aim.group(1), second and second.group(1), store
 
 
 @functools.lru_cache(maxsize=None)
@@ -6310,10 +6320,11 @@ def fit_jobs(uid, fit):
     air = surface = asw = False
     held = {s for s in stores(uid, kind_dir, path, fit) if s[0].isalpha()}
     for store in held:
-        kind, aim = store_kind(store)
+        kind, aim, second, round_ = store_kind(store)
         if kind == "Missile" and aim == "AAW":
             air = True
-        elif aim == "ASuW" and kind in ("Missile", "Bomb", "AerialRocket"):
+        if kind in ("Missile", "Bomb", "AerialRocket") and (
+                aim == "ASuW" or (second == "ASuW" and round_ in SURFACE_SECONDARY)):
             surface = True
         elif aim == "ASW":
             asw = True

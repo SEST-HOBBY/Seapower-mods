@@ -27,7 +27,9 @@ first; the detail lives where each line points:
    AGM-183As loft to about 99,000 ft, where they used to cruise level at
    90,000.
 6. **The Redback** — *SEST NF3 - Coastal Ambush*: the A-10Cs' AGR-30s guide
-   out to 25 NM; before, a shot past 8 NM fell unguided.
+   out to 30 NM in a shallow climb and dive at the end, not skimming. Against
+   a drone, note the range at which the infrared seeker locks (`build-notes.md`,
+   *One Redback for every strike aircraft*).
 7. **MALICE mass** — an F-15EX on its Malice6 fit (six AIM-424s, 680 kg each
    now) gets airborne and reaches its station.
 8. **SM-3 terminal** — a Flight III Burke's SM-3 IIA at a DF-21D or DF-26B

@@ -3267,19 +3267,34 @@ flies, in SEST's missions and anyone else's.
 
 **The AGR-30 Redback is SEST's one upgraded APKWS.** The 8 nm laser APKWS
 II-ER (`sest_apkws_er`, its pod `sest_agr-20er` and the Ocean Apache's
-`SEST_APKWS_ER` fit) is gone. The Redback stays `dts_apkws-ii` with the
-minimum deltas, now: an infrared fire-and-forget seeker reaching as far as
-it may be shot (30 nm); the APKWS's own boost, then a sustainer
-(`SustainerAccelerationTime=170`, `SustainerAcceleration=0.5`) while
-`VelocityBleed=0.4` brings it down from 1,500 kt to about 600 kt for the
-cruise; the NSM's terrain following and sea skimming key for key
-(`TerrainFollowFlight`, `SeaSkimming*`, `FinalFlightPhase*`,
-`TerminalApproachDist`) in place of the APKWS's loft and terminal dive; and
-an anti-surface primary, since the APKWS's anti-air one would fly that low
-profile at aircraft. Each of those keys already flies from a pod somewhere
-in the collection (the TOW-2B and AT-6 skim, the AGM-65B and AGM-88A have
-sustainers); the combination in one round is new. If a Redback launch ever
-freezes the game, the sustainer comes out first.
+`SEST_APKWS_ER` fit) is gone. The Redback stays `dts_apkws-ii`, the weapon
+pack's counter-drone APKWS, with the minimum deltas: an infrared
+fire-and-forget seeker reaching as far as it may be shot (30 nm), and the
+APKWS's own boost, then a sustainer (`SustainerAccelerationTime=170`,
+`SustainerAcceleration=0.5`) while `VelocityBleed=0.4` brings it down from
+1,500 kt to about 600 kt for the cruise. Everything else is the APKWS's own:
+air first, ships and land second (`TargetType=AAW`,
+`SecondaryTargetType=ASuW`), and its shallow climb (`MaxLoftAngle=5.0` to
+`MaxLoftAlt=1500`) with the terminal dive (`TerminalApproachDist=100`,
+`TerminalAlt=Maintain`, `TerminalDiveDistance=2`) - the profile already
+proven to fire from a pod without freezing the game. The sustainer is the
+one addition the APKWS did not already fly (the AGM-65B and AGM-88A have
+them). If a Redback launch ever freezes the game, the sustainer comes out
+first.
+
+*Revised the same day.* The first cut flew the NSM's terrain following and
+sea skimming, copied key for key from `knm_nsm_1a`, in place of the loft and
+dive, under an anti-surface primary. No stock round pairs that low flight
+with an anti-air target, so against a drone it would most likely have
+stayed at 12 ft and passed underneath. The tasking rows read a fit's job
+off its rounds' primary target type, so the air-first Redback would have
+moved from the strike rows to the CAP rows; `fit_jobs` in `build_pack.py`
+now also counts an ASuW secondary as anti-surface for the rounds named in
+`SURFACE_SECONDARY` (only `sest_agr-30`). The AIM-174B, AIM-54C, MICA and
+Mistral also carry an ASuW secondary and are not named, so their fits stay
+in the CAP rows. Small drones give off very little heat, so the infrared
+seeker may only lock on at short range against them; the build cannot show
+that, only play can.
 
 **The fit, everywhere.** `integration/common/redback.py` is the one recipe:
 clone a fit the aircraft already flies and put Redback pods on the pylons

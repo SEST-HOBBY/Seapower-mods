@@ -1170,6 +1170,9 @@ class PlayTest18Oct(unittest.TestCase):
         self.assertIn("MH_LRASM", attack)                  # LRASM-ER, an alias of the LRASM
         self.assertIn("MurderHornetSEAD", attack)
         self.assertNotIn("MurderHornetCAP", attack)
+        self.assertIn("SEST_REDBACK", attack)              # AGR-30: air first, ASuW second
+        self.assertNotIn("SEST_REDBACK", cap)
+        self.assertNotIn("MurderHornetPenetrator", attack) # AIM-174B's ASuW secondary is not counted
         self.assertEqual(missions[0]["window"]["flights"][0].split("|")[4].split("/")[0],
                          "MurderHornetCAP")                 # the authored fit stays first
 

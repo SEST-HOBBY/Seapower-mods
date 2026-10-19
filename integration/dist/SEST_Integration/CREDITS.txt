@@ -21,14 +21,14 @@ photographs from the SEST gallery. Each carries its photographer
 and licence on the picture; the full credits, with sources, are
 in Gallery/PHOTO_CREDITS.txt.
 
-523 of the unit files here are another author's file with
+524 of the unit files here are another author's file with
 changes made to it. A Sea Power unit file is a whole-file
 override - there is no way to alter one line of somebody's
 aircraft without shipping the whole aircraft - so this is how a
 patch has to work, and this list is what it patches.
 
 Measured, not declared: every shipped unit file is diffed against
-every file of its kind in the collection, and the 523 below
+every file of its kind in the collection, and the 524 below
 came back 90% or more alike. The percentage is how much of the
 file is unchanged.
 Files carried for a mod that was removed from the Workshop are
@@ -92,6 +92,9 @@ listed whatever the percentage: they are still that author's.
 
   David's Sling  (workshop 3558173926)
        97%  ammunition/idf_stunner.ini 
+
+  Dingtools Weapon Pack  (workshop 3760871384)
+       95%  ammunition/sest_agr-30.ini from dts_apkws-ii.ini
 
   Euromod - Cold War Spanish Navy  (workshop 3630495619)
        98%  vessels/ae_ao_teide.ini 
