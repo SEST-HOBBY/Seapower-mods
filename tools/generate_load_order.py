@@ -122,7 +122,6 @@ NOTES = {
     "rn-type23-old": "verified additive — position free",
     "rn-lynx-has3-old": "verified additive — position free",
     "e-7a-wedgetail": "KEEP — the only source of E7A_Wedgetail, which the campaigns place; SEST RAAF Wedgetail and SEST RAAF Bases depend on it",
-    "anzac-class-frigate": "KEEP — the only source of the RAN Anzac hull the campaigns use; since 20 Sep 2026 SEST RAN Fleet patches this mod's own vessels/ran_ffh_anzac.ini, so its real ASMD hull is what loads",
     "pla-plan-plaaf-aep": "Anchorchain expansion — below the loader, with the Euromod one",
     "j-16-multirole": "duplicate platform with Shenyang J-16A — different unit ids, both load",
     "s-70b-2-seahawk": "KEEP — the only source of S-70B-2_Seahawk, which the campaigns place; SEST RAN Fleet and SEST RAAF Bases depend on it",

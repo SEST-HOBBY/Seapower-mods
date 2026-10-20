@@ -985,12 +985,12 @@
   ],
   "coverage": {
     "weapon": {
-      "eligible": 2167,
-      "historical_known": 1106,
-      "current_known": 1106,
-      "sest_eligible": 137,
-      "sest_historical_known": 122,
-      "sest_current_known": 122,
+      "eligible": 2165,
+      "historical_known": 1104,
+      "current_known": 1104,
+      "sest_eligible": 138,
+      "sest_historical_known": 123,
+      "sest_current_known": 123,
       "unknown": [
         {
           "id": "#cn_df-15_warhead",

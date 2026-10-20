@@ -92,3 +92,60 @@ on Steam before the next upload.
   reach gate reads 125, which is conservative.
 - Upstream, worth telling the authors: the OHP Mk 13 magazine name and the
   Chinese name key `usn_ffg_ohp_longhull_sh-60b` (Modern US Navy).
+
+## 5. Evening capture: Red Storm Arsenal, Buildings and Objectives, Euromod RAN
+
+`e412fe07` on `chore/workshop-refresh-20261020c`, taken on top of the
+merged build `8ea70ca6` after the PC synced to it (IN LINE, 4265 files).
+The update check named exactly three mods, the fingerprints having been
+rebased in `8ea70ca6`.
+
+- **Red Storm Arsenal (3413868677)**: 23 rounds rewritten in the newer file
+  format. Its PLAN anti-ship missiles gain longer seekers (YJ-12 14 -> 22
+  NM, YJ-18 14 -> 20, YJ-83K 20 NM) and the YJ-83K reaches 135 NM (was 97);
+  PL-12A, PL-15 and PL-8B are retuned; the Yu-6, Yu-7C and Yu-12 torpedoes
+  move from one MaxLaunchRange to the 0.8.x SpeedSettings/SpeedSettingRanges
+  table; its own-id US rounds (`usn_aim_120c`/`_120d`, `usn_aim_174b`,
+  `usn_aim_9x`, `usn_aim_54c`, `usn_aim_7p`, `usn_agm_88g` - underscores,
+  not the hyphenated ids SEST and US Naval Aviation use) are retuned too.
+  These rounds hang on RSA's own hulls and aircraft, none of which a SEST
+  mission places. SEST Replenishment re-forks `plan_yj18`, `plan_yj18_sub`
+  and now `plan_yj12_ship`, giving each the land-attack supply category; the
+  weapon-employment gate reports one inherited finding fewer (the YJ-18 now
+  has its midcourse channel).
+- **Buildings and Objectives (3600788156)**: a new UGC land unit; unused.
+- **Euromod - Modern Royal Australian Navy (3820759806), v1.0.0.4**: adds
+  the `spa_ARIES_PAR` approach radar for its Juan Carlos/Canberra hull and
+  renames its F/A-18F squadron to 1 Squadron, the real RAAF unit. No SEST
+  sensor key clashes.
+
+All twelve gates green; tools 133 tests (7 skipped), campaign 222 tests.
+
+## 6. The old Anzac Class Frigate mod leaves (3440622312)
+
+The player asked whether it could go. It can: since 17 Oct SEST RAN Fleet
+builds the Anzac on Euromod - Modern Royal Australian Navy (3820759806),
+which ranks above it and ships every file the two have in common - the
+hull, its variants and names, and the `ships/ran_ffh_anzac/` model folder,
+the one thing that still had REQUIRED-MODS crediting the old mod ("a model
+a placed unit draws"). No sensor, round, animation or name SEST uses is
+defined only in the old mod; its own RGM-184A and RIM-162 ESSM were never
+fired; SEST borrowed none of its files, so nothing is carried in
+`mods-source/_retired`. Catalogued `unsubscribed`, dropped from the
+canonical order (199 Workshop mods, 200 entries), its export removed (the
+next capture, unsubscribed, mirrors the same deletion), the stale KEEP note
+and the unused ANZAC constant in `ran-fleet/build_fleet.py` gone.
+
+Not demonstrated: the model folder's textures are binary and outside the
+export, so whether Euromod's folder is complete on its own is a PC check -
+after unsubscribing, look at an Anzac (encyclopedia, or Southern Watch 01's
+HMAS Warramunga) for missing textures.
+
+## 7. Build determinism: D8's deployment boxes
+
+D8 The Long Perimeter came out with one detachment box or two from one
+build to the next. `deployment_zones` walked sets of unit kinds - in the
+box pull and in the halving split - and Python seeds string hashing afresh
+each run, so the first kind found, and with it the box, varied. Both loops
+now take the kinds sorted; the campaign pack builds byte-identical under
+PYTHONHASHSEED 1, 2 and 3.

@@ -21,14 +21,14 @@ photographs from the SEST gallery. Each carries its photographer
 and licence on the picture; the full credits, with sources, are
 in Gallery/PHOTO_CREDITS.txt.
 
-526 of the unit files here are another author's file with
+527 of the unit files here are another author's file with
 changes made to it. A Sea Power unit file is a whole-file
 override - there is no way to alter one line of somebody's
 aircraft without shipping the whole aircraft - so this is how a
 patch has to work, and this list is what it patches.
 
 Measured, not declared: every shipped unit file is diffed against
-every file of its kind in the collection, and the 526 below
+every file of its kind in the collection, and the 527 below
 came back 90% or more alike. The percentage is how much of the
 file is unchanged.
 Files carried for a mod that was removed from the Workshop are
@@ -438,6 +438,7 @@ listed whatever the percentage: they are still that author's.
   Red Storm Arsenal  (workshop 3413868677)
        96%  aircraft/usaf_b-52o.ini
       100%  ammunition/plan_cj_10a.ini
+      100%  ammunition/plan_yj12_ship.ini
       100%  ammunition/plan_yj18.ini
       100%  ammunition/plan_yj18_sub.ini
       100%  ammunition/plan_yj_20.ini

@@ -8,7 +8,7 @@ listed in subscribes you to all of them in one press. If that
 works you do not need the list below at all, and it is here to
 check against rather than to work through by hand.
 
-166 mods. Each supplies a file a mission names directly - by
+165 mods. Each supplies a file a mission names directly - by
 Type=, SquadronReference=, VariantReference=, a loadout's store,
 or a model folder a placed unit's own file draws from.
 
@@ -27,7 +27,6 @@ Workshop id   supplies                         mod
 3587091564    a unit a mission places          3M25 <<МЕТЕОРИТ>> (AS-X-19 Koala)
 3781062859    a unit a mission places          <<E-3G>>
 3673908868    a unit a mission places          <<Tu-16N>>
-3440622312    a model a placed unit draws      [DEPRECATED] Anzac Class Frigate
 3499239964    a unit a mission places          [DEPRECATED] E-7A Wedgetail
 3403661005    a model a placed unit draws      [DEPRECATED] S-70B-2 Seahawk with AGM-114 'Hellfire' Missiles
 3414146266    a unit a mission places          A-10A Thunderbolt II

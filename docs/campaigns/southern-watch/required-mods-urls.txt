@@ -1,6 +1,6 @@
 Southern Watch - Workshop mods this campaign reaches (reference only)
 
-162 items, in canonical load order. NOT the Workshop item's
+161 items, in canonical load order. NOT the Workshop item's
 Required Items list. All four campaigns ship in one item, the SEST
 Integration Pack (3812461539), whose Required Items - like the
 collection 'SEST - Modernised Campaign Collection' (3812390790) -
@@ -30,7 +30,6 @@ https://steamcommunity.com/sharedfiles/filedetails/?id=3461091581    # Air Deck 
 https://steamcommunity.com/sharedfiles/filedetails/?id=3508275114    # Ground Upgrade: SPAA
 https://steamcommunity.com/sharedfiles/filedetails/?id=3438479626    # 1143.5 Kuznetsov
 https://steamcommunity.com/sharedfiles/filedetails/?id=3820759806    # Euromod - Modern Royal Australian Navy Mod
-https://steamcommunity.com/sharedfiles/filedetails/?id=3440622312    # [DEPRECATED] Anzac Class Frigate
 https://steamcommunity.com/sharedfiles/filedetails/?id=3432668460    # Auxilliary Merchant Pack
 https://steamcommunity.com/sharedfiles/filedetails/?id=3567256221    # Charles De Gaulle & Modern French Navy Pack (WIP)
 https://steamcommunity.com/sharedfiles/filedetails/?id=3695809489    # Euromod - Modern Japanese Maritime Self Defence Force

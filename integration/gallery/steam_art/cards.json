@@ -52,7 +52,7 @@
     "label": "ALSO IN THIS UPDATE",
     "items": [
      [
-      "Two mods joined",
+      "Two mods in, one out",
       "Combat Cost Tracker, Group Manager"
      ],
      [
@@ -65,14 +65,14 @@
      ],
      [
       "20 Oct mod updates",
-      "Ford, Mogami, Wasp, F-35C, OHP"
+      "Ford, Mogami, RSA missiles, OHP"
      ]
     ]
    }
   ],
   "foot": [
-   "Two mods joined: Combat Cost Tracker and Group Manager. Subscribe to all again.",
-   "After updating: close the game and run SETUP again."
+   "Two mods joined (Combat Cost Tracker, Group Manager); the old Anzac frigate left.",
+   "Subscribe to all again, then close the game and run SETUP."
   ],
   "credit": [
    "Photo: U.S. Navy, MC2 Ridge Leoni · Public domain · adapted",
@@ -151,7 +151,7 @@
   ],
   "foot": [
    "Every campaign also as Open Allocation: whole roster from mission one.",
-   "Needs the 200 mods in the collection. Built for Sea Power 0.8.6."
+   "Needs the 199 mods in the collection. Built for Sea Power 0.8.6."
   ],
   "credit": [
    "Photo: U.S. Navy, JO2 Patrick Reilly · Public domain · adapted",

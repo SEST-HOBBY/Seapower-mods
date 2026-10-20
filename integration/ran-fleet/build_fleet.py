@@ -12,11 +12,12 @@ pennants), and MH-60R / S-70B-2 air groups.
 Clones are NEW unit ids — nothing overrides the donors, so both fleets coexist.
 
 The Anzac is the exception, and the reason there are two modes here. It was a
-Type 23 MLU clone only because the collection had no Anzac; since 2026-09-20 it
-has the real ASMD hull (Workshop 3440622312), so that entry is a PATCH of the
-mod's own ran_ffh_anzac rather than a clone of somebody else's frigate. Patch
-mode keeps the mod's identity - its hull-number and emblem textures, its eight
-HMAS names - and changes only what is wrong or missing: see the entry in FLEET.
+Type 23 MLU clone only because the collection had no Anzac; from 2026-09-20 it
+patched the real ASMD hull of the Anzac Class Frigate mod (Workshop
+3440622312), and since 17 Oct 2026 it patches Euromod - Modern Royal Australian
+Navy's ran_ffh_anzac (the old mod was unsubscribed on 20 Oct). Patch mode keeps
+the mod's identity - its hull-number and emblem textures, its eight HMAS names
+- and changes only what is wrong or missing: see the entry in FLEET.
 
 Replenishment At Sea is applied here rather than by the SEST Replenishment
 pack, because these seven hulls belong to THIS pack and two packs shipping
@@ -50,7 +51,6 @@ SPA_COLDWAR = "3630495619"  # Spanish Navy Mod (Cold War)
 # Modern British Navy (3599752717) is no longer a donor here - the Anzac was
 # its only customer and now patches the real hull instead. The mod stays
 # subscribed: SEST_Allied_Fixes patches HMS Ocean out of it.
-ANZAC = "3440622312"        # Anzac Class Frigate - the REAL hull, subscribed 2026-09-20
 # Euromod - Modern Royal Australian Navy (subscribed 17 Oct 2026) models the
 # Hobart, Anzac, Canberra and Collins under the very ids the campaigns use,
 # with the RAN's own fits: NSM, Tomahawk, SM-6, date-based ESSM and Nulka,

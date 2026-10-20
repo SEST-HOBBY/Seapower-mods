@@ -8,7 +8,7 @@ Task Force purchase points and ammo_prices.csv scores are never treated as USD.
 No global price preference, category visibility, overlay scale or currency is changed.
 Native tracking covers expended ammunition, vessels and aircraft; land-platform loss pricing is unsupported.
 
-weapon: 19 compatibility entries; SEST-priced historical/current 122/122 of 137 eligible references.
+weapon: 19 compatibility entries; SEST-priced historical/current 123/123 of 138 eligible references.
 vessel: 27 compatibility entries; SEST-priced historical/current 297/297 of 339 eligible references.
 aircraft: 17 compatibility entries; SEST-priced historical/current 35/35 of 37 eligible references.
 

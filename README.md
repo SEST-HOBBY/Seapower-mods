@@ -1,7 +1,7 @@
 # Seapower-mods
 
 Custom loadouts, upgrade variants, cross-mod fixes and missions for a
-**Sea Power: Naval Combat in the Missile Age** install with **200 Workshop
+**Sea Power: Naval Combat in the Missile Age** install with **199 Workshop
 subscriptions** — all shipped as one deployable mod, the **SEST Integration Pack**.
 
 The pack is published on the Steam Workshop as *SEST Integration Pack - Modernised
@@ -50,7 +50,7 @@ aircraft), `SEST_Gallery`, `SEST_Name_Fixes`, `SEST_World_Campaign` (the Dynamic
 Mod's world campaign), `SEST_Combat_Costs` (documented USD catalog compatibility)
 and `SEST_Campaign` (the four campaigns, each also listed as an Open
 Allocation twin that sells its whole roster from the first window - and, for the two RAN
-campaigns, the allied fleet). Consolidated, they are 4265
+campaigns, the allied fleet). Consolidated, they are 4266
 files in `integration/dist/SEST_Integration/`. `SEST_Zumwalt_CPS` was retired on 20 Sep 2026,
 when Modern US Navy fixed what it patched. `SEST_Rafale_F5` was retired for one build on
 3 Oct 2026, the Rafale mod it patched having left the collection, and rebuilt the same
@@ -195,7 +195,7 @@ squadron the winning file actually offers — a price naming a fit the hull no
 longer has fails the build. None of the economy has been exercised in game;
 each campaign's `build-notes.md` says so in detail.
 
-Its point is coverage. 200 Workshop mods are a lot of content to own and never
+Its point is coverage. 199 Workshop mods are a lot of content to own and never
 see, so the campaigns are built so that **every mod in the canonical load
 order, and every SEST pack, is reached by something one of them places** — and
 "reached" is

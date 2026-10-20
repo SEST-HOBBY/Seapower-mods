@@ -10,9 +10,9 @@ The item's Required Items are the load order's Workshop mods, so Subscribe
 offers them all in one click, as the collection does; SETUP writes the order.
 `publishing.md` (*Dependencies*) has the detail.
 
-Counts (20 Oct 2026, with GPT's fleet, terrain and debrief line and the two
-new mods): 200 Workshop mods in `data/load-order.tokens.txt` (201 entries
-with the pack), 166 named by a mission (REQUIRED-MODS.txt), 526 borrowed
+Counts (20 Oct 2026, with GPT's fleet, terrain and debrief line, the two
+new mods and the old Anzac mod gone): 199 Workshop mods in
+`data/load-order.tokens.txt` (200 entries with the pack), 165 named by a mission (REQUIRED-MODS.txt), 526 borrowed
 files from 62 mods (CREDITS.txt). Redo them from those files when they
 change. The 19-tube pod
 is credited to RADF's `adf_lau-3a`: the pod is the game's own `usn_lau-3a`,
@@ -34,7 +34,7 @@ SEST Integration Pack - Modernised Campaigns
 ```
 Four Task Force Mode campaigns (Southern Watch, Southern Reach / Tasman
 Shield, Red Line, Sulu Line) and every SEST fix in one Mod Manager entry.
-Needs the 200 Workshop mods in the 'SEST - Modernised Campaign Collection'
+Needs the 199 Workshop mods in the 'SEST - Modernised Campaign Collection'
 (3812390790): subscribe to it, then run SETUP.
 ```
 
@@ -76,10 +76,10 @@ HOW IT PLAYS
 
 WHAT IT NEEDS - READ THIS
 The campaigns name units from 166 Workshop mods. Subscribe to the collection
-'SEST - Modernised Campaign Collection' (3812390790): all 200 of its mods in
+'SEST - Modernised Campaign Collection' (3812390790): all 199 of its mods in
 one press. Then Mod Manager → Open Folder on this pack, quit the game and
 double-click 'SETUP - double-click me.cmd'. It checks the subscriptions,
-installs the Anchor Chain preloader and writes the 201-entry load order with
+installs the Anchor Chain preloader and writes the 200-entry load order with
 this pack at the top. It is safe to run again.
   • If the Mod Manager offers to move this pack's dependencies above it,
     answer no: that undoes every fix in it. SETUP puts the order back.
@@ -110,9 +110,10 @@ been played to completion. Feedback on difficulty and pacing is wanted.
 ## Change log: 20 Oct 2026
 
 For the update after the 19 Oct one. If the 19 Oct update was never
-uploaded, paste its log below this one as well. Two mods joined: add
-Combat Cost Tracker (3807187341) and Group Manager (3818251045) to the
-collection and to the item's Required Items before Submit.
+uploaded, paste its log below this one as well. Two mods joined and one
+left: add Combat Cost Tracker (3807187341) and Group Manager (3818251045) to
+the collection and to the item's Required Items, and remove the
+[DEPRECATED] Anzac Class Frigate (3440622312) from both, before Submit.
 
 ```
 [h2]20 October 2026[/h2]
@@ -138,14 +139,15 @@ collection and to the item's Required Items before Submit.
 [b]Also[/b]
 [list]
 [*]Two new mods: Combat Cost Tracker (SEST's units priced in its catalogues) and Group Manager.
+[*]The old Anzac Class Frigate mod is no longer needed: the Anzacs come from Euromod - Modern Royal Australian Navy. You can unsubscribe it.
 [*]The task-force debrief lists ships lost in a mission again.
 [*]Briefings show recognition photos for 54 more classes, the P-8A among them.
-[*]Follows the 20 Oct mod updates: Ford, Mogami, Wasp, F-35C and the OHP long hull.
+[*]Follows the 20 Oct mod updates: Ford, Mogami, Wasp, F-35C, the OHP long hull and Red Storm Arsenal's Chinese missiles.
 [/list]
 
 [b]Install[/b]
 [list]
-[*]Subscribe to all again for the two new mods, then close the game and run SETUP.
+[*]Subscribe to all again for the two new mods, then close the game and run SETUP. SETUP leaves the old Anzac mod out of the order.
 [/list]
 ```
 
@@ -192,7 +194,7 @@ collection stay as they are.
 Keep the pinned "Read first" discussion's install steps in step with it.
 
 ```
-Everything the SEST Integration Pack's four campaigns need: 200 Workshop mods
+Everything the SEST Integration Pack's four campaigns need: 199 Workshop mods
 plus the pack itself (3812461539).
 
 1. Subscribe to all.

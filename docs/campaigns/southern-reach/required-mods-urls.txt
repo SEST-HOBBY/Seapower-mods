@@ -1,6 +1,6 @@
 Southern Reach - Workshop mods this campaign reaches (reference only)
 
-46 items, in canonical load order. NOT the Workshop item's
+45 items, in canonical load order. NOT the Workshop item's
 Required Items list. All four campaigns ship in one item, the SEST
 Integration Pack (3812461539), whose Required Items - like the
 collection 'SEST - Modernised Campaign Collection' (3812390790) -
@@ -22,7 +22,6 @@ https://steamcommunity.com/sharedfiles/filedetails/?id=3607989779    # F-35C Lig
 https://steamcommunity.com/sharedfiles/filedetails/?id=3395022688    # Tu-95 With AS-15 (Kh-55) ALCM (more realistic nuke)
 https://steamcommunity.com/sharedfiles/filedetails/?id=3438479626    # 1143.5 Kuznetsov
 https://steamcommunity.com/sharedfiles/filedetails/?id=3820759806    # Euromod - Modern Royal Australian Navy Mod
-https://steamcommunity.com/sharedfiles/filedetails/?id=3440622312    # [DEPRECATED] Anzac Class Frigate
 https://steamcommunity.com/sharedfiles/filedetails/?id=3432668460    # Auxilliary Merchant Pack
 https://steamcommunity.com/sharedfiles/filedetails/?id=3567256221    # Charles De Gaulle & Modern French Navy Pack (WIP)
 https://steamcommunity.com/sharedfiles/filedetails/?id=3384079999    # Humpback Whale

@@ -4027,7 +4027,7 @@ def deployment_zones(mission, placed, members):
         own_types = {h[4] for h in group}
         limits = []
         for a in live:
-            for kind in counted_types(a) & own_types:
+            for kind in sorted(counted_types(a) & own_types):   # pulls compound: fixed order
                 want = need(a, kind)
                 limits.append((a["x"], a["z"], a["r"] + want))
                 if keeps(box, a, want):
@@ -4085,7 +4085,11 @@ def deployment_zones(mission, placed, members):
             g = todo.pop()
             halve = None
             for a in live:
-                for kind in counted_types(a) & {h[4] for h in g}:
+                # sorted: a set's order follows string hashing, which Python
+                # seeds afresh each run, and the first kind found decides the
+                # axis - D8's detachment box came out one or two boxes from
+                # one build to the next (20 Oct 2026).
+                for kind in sorted(counted_types(a) & {h[4] for h in g}):
                     mem = [h for h in g if h[4] == kind]
                     if len(mem) < 2:
                         continue
