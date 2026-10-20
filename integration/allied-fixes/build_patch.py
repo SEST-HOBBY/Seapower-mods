@@ -422,8 +422,17 @@ def main():
         "usn_rq7705=Squadron1,2\nusa_dj01705=Squadron1,2\n\n"
         "[FlightDeck]\nAircraftCapacity=8\nAircraftSupported=usn_rq7705,usa_dj01705,usn_ForpostR705,usn_orlan10705\n",
         encoding="utf-8")
+    # The new unit id needs its own companion variants file for the native
+    # class/variant lookup. Do not inherit the donor's national air groups.
+    # Missions supply their nation and two-aircraft custom air group.
+    (OUT / "land_units/sest_uav_forward_variants.ini").write_text(
+        "[General]\nAllVariantsAreOfSameNation=True\nNumberOfVariants=1\n\n"
+        "[Default]\nNation=Australia\n\n[Variant1]\nNation=Australia\n",
+        encoding="utf-8")
     (OUT / "language_en/land_units_names.ini").write_text(
-        "[sest_uav_forward]\nType=Forward UAV recovery strip\nDefault=Forward UAV section,Forward UAV section\n",
+        "[sest_uav_forward]\nType=Forward UAV recovery strip\n"
+        "Default=Forward UAV section,UAV strip\n"
+        "Variant1=Forward UAV section,UAV strip\n",
         encoding="utf-8")
 
 

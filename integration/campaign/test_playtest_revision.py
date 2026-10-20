@@ -78,6 +78,27 @@ class PlaytestRevision(unittest.TestCase):
                 self.assertIn(10, m["_enter"].values())
                 self.assertEqual(m["resolve"]["ForwardRecon"][0], "classify")
 
+    def test_uav_strip_has_a_registered_and_localized_mission_variant(self):
+        uid = "sest_uav_forward"
+        registered = b.variants(uid, "land_units")
+        self.assertTrue(registered, "an alias needs its own companion variants file")
+        variants = b.read(b.winning(f"land_units/{uid}_variants.ini"))
+        self.assertNotRegex(variants, r"(?m)^CustomAirGroup=True")
+        language = b.read(b.winning("language_en/land_units_names.ini"))
+        names = re.search(rf"^\[{uid}\]\n(.*?)(?=^\[|\Z)", language, re.M | re.S)[1]
+        targets = [code for code, mission in self.missions.items()
+                   if any(u["type"] == uid for u in mission["units"])]
+        for code in targets:
+            with self.subTest(code=code):
+                _m, p, _members = self.placed(code)
+                strip = next(k for entries in p.values() for _t, k, _n, _x in entries
+                             if k["Type"] == uid)
+                pick = strip.get("VariantReference")
+                self.assertIn(pick, registered)
+                self.assertRegex(names, rf"(?m)^{re.escape(pick)}=[^,\n]+,[^,\n]+$")
+                self.assertEqual(strip["CustomAirGroup"], "True")
+                self.assertEqual(strip["usn_rq7705"], "Squadron1,2")
+
     def test_all_missions_have_reports_and_pair_is_controlled(self):
         self.assertEqual(len(self.missions), 77)
         for code, m in self.missions.items():
