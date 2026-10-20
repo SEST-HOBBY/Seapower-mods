@@ -3,4 +3,4 @@
 
      31: [SEST Runtime] task-force debrief correction installed: append explicitly destroyed launch-snapshot hulls missing from section 3
     105: [CombatWorker 0.2.0] Native fallback: NotSupportedException: Conflicting hook: io.github.yourname.second-thrust / Single CalculateThrustOverTime(SeaPower.AmmunitionParameters, Boolean, Single, Single)
-    126: [IDX][Localization.cs:24 Load] [IDX] localization ini not found: C:/Program Files (x86)/Steam/steamapps/common/Sea Power/Sea Power_Data/StreamingAssets\IdentifyExpanded\language_en\identify_expanded.ini
+    125: [IDX][Localization.cs:24 Load] [IDX] localization ini not found: C:/Program Files (x86)/Steam/steamapps/common/Sea Power/Sea Power_Data/StreamingAssets\IdentifyExpanded\language_en\identify_expanded.ini

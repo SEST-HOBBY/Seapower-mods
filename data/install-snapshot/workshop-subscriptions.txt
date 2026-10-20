@@ -20,7 +20,7 @@
 3410473695   Ground upgrade: MBT                                  updated 2026-06-01 00:38  folder 2026-10-04 20:27
 3411341227   Tu-95K-22                                            updated 2026-08-31 23:53  folder 2026-09-01 17:08
 3412480633   Ground upgrade: IFV                                  updated 2026-06-01 00:34  folder 2026-10-04 20:27
-3413868677   Red Storm Arsenal                                    updated 2026-10-17 20:26  folder 2026-08-25 09:32
+3413868677   Red Storm Arsenal                                    updated 2026-10-20 21:30  folder 2026-08-25 09:32
 3414146266   A-10                                                 updated 2026-02-21 18:07  folder 2026-08-16 12:07
 3416372890   MIG-29A & F-16A                                      updated 2026-02-28 14:23  folder 2026-08-16 12:06
 3417446309   MIG-29 Family                                        updated 2026-10-02 21:36  folder 2026-08-24 07:41
@@ -101,7 +101,7 @@
 3595014060   NATO E-3A Sentry                                     updated 2026-08-07 18:03  folder 2026-10-04 20:28
 3597650470   Russian Navy 21                                      updated 2026-09-28 03:36  folder 2026-08-31 18:22
 3599752717   Euromod - Modern British Navy                        updated 2026-10-17 12:08  folder 2026-10-17 15:18
-3600788156   Buildings and Objectives                             updated 2026-10-12 09:30  folder 2026-10-12 15:35
+3600788156   Buildings and Objectives                             updated 2026-10-20 21:50  folder 2026-10-12 15:35
 3601891050   中小型无人机系列                                             updated 2026-07-09 01:03  folder 2026-08-15 19:40
 3602046770                                                        updated 2025-11-12 03:38  folder 2026-08-16 11:44
 3603306548   俄国地面增强系列1：火炮                                         updated 2025-11-11 00:42  folder 2026-10-04 20:28
@@ -202,9 +202,9 @@
 3818251045   Group Manager                                        updated 2026-10-12 10:47  folder 2026-10-20 02:50
 3819522350   Anduril Maritime Drones                              updated 2026-10-20 10:14  folder 2026-10-20 10:37
 3820576916   Steelfin                                             updated 2026-10-19 02:02  folder 2026-10-17 15:22
-3820759806   Euromod - Modern Royal Australian Navy Mod           updated 2026-10-18 15:14  folder 2026-10-18 19:19
+3820759806   Euromod - Modern Royal Australian Navy Mod           updated 2026-10-20 20:49  folder 2026-10-20 22:09
 
-subscribed but UNPLACED (2): 3807187341, 3818251045
+subscribed but UNPLACED (0): 
 placed but NOT SUBSCRIBED (0): 
 
 --- Steam client record (appworkshop_1286220.acf) ---
