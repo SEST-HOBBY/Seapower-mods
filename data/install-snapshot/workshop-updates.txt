@@ -2,42 +2,19 @@ Found Sea Power (app 1286220)
   game dir : c:\program files (x86)\steam\steamapps\common\Sea Power
   workshop : c:\program files (x86)\steam\steamapps\workshop\content\1286220
 
-unchanged since the last export : 166
+unchanged since the last export : 191
 
 UPDATED by their authors (re-export to pick the changes up):
   3390330875  Euromod - Modern US Navy
-  3413868677  Red Storm Arsenal
-  3455404959  Royal Australian Defence Forces [v0.7.5.0.3]
-  3488139470  Euromod - Modern Italian Navy
-  3505420313  Euromod - Cold War Italian Navy
-  3599752717  Euromod - Modern British Navy
-  3606774881  U.S. Navy 2027 Capabilities
-  3607989779  F-35C Lightning II Alt. Loadouts
+  3456859157  Mogami-class frigate
+  3461044389  Gerald R. Ford-class CVN
   3629144864  Euromod - Main Pack
-  3630495619  Spanish Navy Mod (Cold War)
-  3642656500  Euromod-Scandinavian Navy
-  3731208477  Spanish Navy Mod (Modern)
-  3732654992  THE REDFOR MOD
   3737267013  US Naval Aviation
-  3766210676  Saronic Corsair ASV
-  3768036424  BetterTacMap
-  3775128499  PLAN Pack
-  3776340577  Ka-27RLD - Ka-31 AEW Helicopter
-  3780118683  Tu-214R Family Pack
-  3781062859  E-3G AWAC
-  3784474738  Euromod - Anchorchain Expansion Pack
-  3789208859  Euromod-South Korea Navy
-  3796349767  YF-23 Black Widow II
-  3804868806  Anduril FQ-44 Fury US Navy Carrier Wingmen
-  3807164392  Euromod-India-Navy
-  3810611344  MV-75 Cheyenne II
   3812111085  PLAAF Aircraft Pack
-  3813033771  EC-2 Stand Off Jammer
-  3813157776  Dynamic Campaign Mod
   3819522350  Anduril Maritime Drones
 
 NEW subscriptions (not exported yet):
-  3820576916  Steelfin
-  3820759806  Euromod - Modern Royal Australian Navy Mod
+  3807187341  Combat Cost Tracker
+  3818251045  Group Manager
 
 To capture: re-run this script without -CheckUpdates, then commit and push.

@@ -1,6 +1,6 @@
 Anduril Maritime Drones
 
-Enable Anduril Maritime Drones in the mod menu and restart Sea Power. No other mods are required.
+Requires Anchor Chain and its preloader setup. Enable Anduril Maritime Drones in the mod menu and restart Sea Power.
 
 Included vehicles
 Dive-LD: survey, mine countermeasures and a variant with two Copperhead-100M torpedoes.
@@ -15,7 +15,7 @@ Controls and tips
 Give survey vehicles waypoints. Without a route they remain near their starting position.
 Steer the Dive-LD MCM through the mine lane at low speed.
 Fire Copperheads ahead of a moving target. Fast ships can outrun a torpedo fired from behind.
-For the K5 one-way attack, steer a parallel course alongside the target and release the strike payload within 35 m. The blast destroys the boat.
+For the K5 one-way attack, select the strike payload and order an attack against a hostile surface vessel. The boat leaves formation, pursues the target and detonates at hull contact. A new course or waypoint order cancels the run.
 Undersea vehicles cannot recharge at sea. Armed variants carry no reloads.
 The Mission Editor includes years through 2031. These units enter service in the editor in 2026.
 
