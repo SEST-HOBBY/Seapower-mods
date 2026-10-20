@@ -81,6 +81,7 @@
   UnityPlayer.dll    34436016  be173b8bf3acecd85ac324a650e719caa8c97a7fd9b7720b912fb4eeb08ab432  6000.0.84.7908207 / 6000.0.84f1 (78ab6fc243d5)  2026-10-15 16:59
   winhttp.dll       26112  d3b62f4c9c3e2196ef82603c52d6b98c043a0d6c125c081fd33d7ca3798b41b8  4.3.0.0 / 4.3.0  2024-06-11 12:39
 
-[SEST_Integration\plugins]  1 DLL(s)
-  SEST.MenuBackground.dll       37888  a100367450cd75d0201c7ad2dc0c0ec664242a5acdfa5692d3ae2967d0dbfe45  0.0.0.0 /    2026-10-20 10:12
+[SEST_Integration\plugins]  2 DLL(s)
+  SEST.MenuBackground.dll       37888  a100367450cd75d0201c7ad2dc0c0ec664242a5acdfa5692d3ae2967d0dbfe45  0.0.0.0 /    2026-10-20 17:47
+  SEST.RuntimeFixes.dll       20480  9aa55df8d9079e0ad35205e21b6730dc6483261b01b8dd2d1b23182aad4fa5b6  0.0.0.0 /    2026-10-20 17:47
 

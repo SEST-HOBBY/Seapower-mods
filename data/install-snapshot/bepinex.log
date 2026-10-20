@@ -1,4 +1,4 @@
-# BepInEx\LogOutput.log - whole file, 1205 line(s), 0.1 MB, last written 2026-10-20T12:15:55. 
+# BepInEx\LogOutput.log - whole file, 1207 line(s), 0.1 MB, last written 2026-10-20T17:51:24. 
 [Error  :   BepInEx] Unable to start Unity log writer
 [Message:   BepInEx] BepInEx 5.4.23.2 - Sea Power (15/10/2026 4:59:12 PM)
 [Info   :   BepInEx] Running under Unity v6000.0.84.7908207
@@ -17,6 +17,7 @@
 [Info   :AnchorChain Preloader] AnchorChain Preloader started!
 [Info   :AnchorChain Preloader] Loaded assembly AnchorChain, Version=1.1.0.0, Culture=neutral, PublicKeyToken=null
 [Info   :AnchorChain] Loaded assembly SEST.MenuBackground, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+[Info   :AnchorChain] Loaded assembly SEST.RuntimeFixes, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
 [Info   :AnchorChain] Loaded assembly AnchorChain, Version=1.1.0.0, Culture=neutral, PublicKeyToken=null
 [Info   :AnchorChain] Loaded assembly CombatWorker, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null
 [Info   :AnchorChain] Loaded assembly CustomAudioLoader, Version=2.5.6.0, Culture=neutral, PublicKeyToken=null
@@ -76,6 +77,7 @@
 [Info   :AnchorChain] Loaded assembly YF23Formation, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 [Info   :AnchorChain] Loaded assembly YF23Lights, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 [Info   :AnchorChain] Loaded plugin SEST Menu Background (io.github.sest-hobby.menu-background)
+[Info   :AnchorChain] Loaded plugin SEST Runtime Fixes (io.github.sest-hobby.runtime-fixes)
 [Info   :AnchorChain] Loaded plugin Combat Batch Worker (experimental) (local.seapower.combatworker)
 [Info   :AnchorChain] Loaded plugin Sonar Audio Loader (io.github.euromod.sonar-audio-loader)
 [Info   :AnchorChain] Loaded plugin EnhancedDecoyMod (io.github.euromod.enhanceddecoymod)
