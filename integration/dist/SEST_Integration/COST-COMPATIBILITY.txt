@@ -10,7 +10,7 @@ Native tracking covers expended ammunition, vessels and aircraft; land-platform 
 
 weapon: 19 compatibility entries; SEST-priced historical/current 122/122 of 137 eligible references.
 vessel: 27 compatibility entries; SEST-priced historical/current 297/297 of 338 eligible references.
-aircraft: 17 compatibility entries; SEST-priced historical/current 34/34 of 36 eligible references.
+aircraft: 17 compatibility entries; SEST-priced historical/current 35/35 of 37 eligible references.
 
 REVIEWED / NORMALIZED MAPPINGS
 weapon fr_sm-40 <- fr__sm40: WeaponCosts=380000, CurrentYearCost=2360000, Category=ASM

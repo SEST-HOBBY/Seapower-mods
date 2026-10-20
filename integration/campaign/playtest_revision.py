@@ -5,6 +5,13 @@ module changes the named detachments and records damage, rather than replacing
 the campaigns with new templates. Imported after Southern Watch's old tables.
 """
 from copy import deepcopy
+from pathlib import Path
+import sys
+
+# Campaign packages also import campaign_data directly, before build_pack has
+# installed its paths (including unittest discovery through those packages).
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+from common.carrier_wings import FORD_WING
 
 
 ROOSEVELT_WING = [
@@ -17,8 +24,74 @@ ROOSEVELT_WING = [
 ]
 
 
+def deepen_broken_wake(m, U, S):
+    """A choice between screening, ASW and breaking a time-limited relay."""
+    m["difficulty"] = 4
+    # Use the coastline extract for this operation. The older harvested pool
+    # would move the eastern submarine almost 28 nm away from its patrol box.
+    m["geography"] = "coast"
+    m["intro"] = ("Contingency. Escort the six-knot Stuart through a submarine datum and a civilian lane. "
+                  "An armed relay trawler is preparing a second attack; stopping it early can prevent that attack.")
+    m["special"] = ("Detached recovery: Stuart, thirty-one wounded, six knots. Preserve the civilian traffic. "
+                    "Sheean supports the underwater screen with weapons held. The first air raid is committed; "
+                    "destroying the armed relay before minute 25 cancels the later missile-boat attack.")
+    m["stations"]["relay"] = S(-5.82, 130.39, "Eastern relay search sector", 205)
+    m["stations"]["followup"] = S(-5.62, 130.62, "Eastern fast-craft approach", 225)
+    m["stations"]["sub_support"] = dict(S(-6.30, 130.52, "Sheean eastern barrier", 250), coastal=True)
+    m["units"] += [
+        U("red", "armed-merchantmen", "civ_fv_okean_armed", "relay", name="Banda Surveyor",
+          route=[(-6.00, 130.28, 0)], telegraph=2),
+        U("red", "red-storm-arsenal", "ir_ptg_peykaap_3", "followup", name="Meridian 23",
+          enter=25, route=[(-6.00, 130.35, 0), (-6.20, 130.20, 0)], telegraph=4),
+        U("blue", "SEST_RAN_Fleet", "ran_ssg_collins", "sub_support", name="HMAS Sheean", variant="Variant5",
+          weapons="Hold", depth="belowlayer", telegraph=2, independent=True,
+          route=[(-6.30, 130.37, "belowlayer")]),
+    ]
+    m["objectives"] += [
+        ("RelayID", "Classify the armed relay trawler", "5,0,None"),
+        ("Relay", "Silence the armed relay trawler", "5,0,None"),
+        ("ClearDatum", "Neutralize the Kilo on the recovery approach", "10,0,None"),
+        ("Sheean", "Preserve SHEEAN", "5,-5,Complete"),
+    ]
+    m["resolve"].update(RelayID=("classify", "relay", 1), Relay=("destroy", "relay", 1),
+                          ClearDatum=("destroy", "red_sub", 1), Sheean=("protect", "sub_support"))
+    m["reinforcement_cutoffs"] = [dict(source=["relay"], reinforcements=["followup"], minute=25,
+        intel="ELLIS: The armed relay was silenced before its scheduled transmission. The follow-on fast-craft attack has been cancelled. The Kilo and the already committed J-15Ds are unaffected.")]
+    m.setdefault("reports", []).extend([
+        dict(minute=18, intel="ELLIS: Seven minutes to the relay deadline. If Banda Surveyor is still afloat, classify the eastern contact and decide whether you can stop it without stripping Stuart's screen. This report gives no target reveal."),
+        dict(minute=35, intel="STUART / CHIEF MASON: Shaft vibration is steady at six knots. Keep the screen ahead of our bow and the merchants clear of the recovery lane. Nobody in my engine room has authorized a dash."),
+    ])
+    m["brief"] = ("BANDA SEA, before dawn. STUART has one shaft, thirty-one wounded and a six-knot engineering limit. "
+        "Bring her south-south-east to Darwin's tug handover line. The recovery remains the main task; sinking "
+        "the opposing ships is not a substitute for a live frigate at the line.\\n\\n"
+        "SCREEN AND SEARCH: A Kilo is working the south-western approach. Flying Shark 31 and 32 are already "
+        "committed and join from the north at minute five. Keep the helicopter or an escort ahead of Stuart "
+        "while the air-defence ship covers the straggler. HMAS SHEEAN is allocated on the eastern barrier, "
+        "submerged with weapons held. You command her; deconflict her patrol from the flight's torpedo attacks. "
+        "She is a theatre attachment for this operation, not a new permanent roster purchase.\\n\\n"
+        "BREAK THE RELAY: An armed Okean trawler, operating as BANDA SURVEYOR, is east of the recovery lane. "
+        "She is due to release a fast missile craft at minute twenty-five. Identify the contact among the "
+        "civilian traffic. If you destroy this hostile relay before that deadline, the follow-on craft never "
+        "joins. Once released, sinking the relay will not recall it. The first air raid and Kilo are independent. "
+        "Continue searching for the other threats with your own sensors.\\n\\n"
+        "CHOICES AND CONSEQUENCES: Split the screen to hunt the relay and risk the southern submarine approach, "
+        "or keep the escorts close and prepare for the later surface attack. Classifying the relay, silencing it, "
+        "neutralizing the Kilo and preserving Sheean earn separate credit. They are optional; the main recovery "
+        "ends the mission, so do them before Stuart reaches the line if you choose. MT BANDA SPIRIT and "
+        "MV TANIMBAR TRADER remain neutral throughout. Harming either fails the operation.\\n\\n"
+        "CHIEF MASON has taped a red spider over the broken shaft repeater. Mercer says the spider is the "
+        "only member of this detachment authorized to move faster than six knots.")
+    m["forces"] = ("Your recovery detachment and Stuart; Sheean on an independent eastern submarine barrier, "
+        "weapons held. Two protected neutral merchants. Opposing: one Kilo, a J-15D strike pair at minute five, "
+        "one armed relay trawler and one fast missile craft at minute twenty-five if the relay survives its deadline.")
+    m["intent"] = ("Bring Stuart to the line at six knots. Assign separate ASW and air-defence sectors. "
+        "Use Sheean without confusing her with TANGO. Break the eastern relay before minute 25 if the screen "
+        "can spare the effort; otherwise meet the fast craft without abandoning the wounded or firing on a merchant.")
+
+
 def apply_watch(missions, U, S):
     by = {m["num"]: m for m in missions}
+    deepen_broken_wake(by["C2"], U, S)
     door, ring, service = (by[n] for n in ("08", "O7", "09"))
     by["O4"]["intent"] = by["O4"]["intent"].replace(
         "Langgur is where The Open Door's F-35 pair will recover", "Langgur supports the forward aircraft for The Open Door and Second Ring")
@@ -129,3 +202,10 @@ def apply_watch(missions, U, S):
         LaunchControl=("destroy", "missile_command", 1))
     shield["brief"] += ("\\n\\nDISPERSED SUPPORT TARGETS: Military missile stores west of the pads, the eastern fuel reserve and a command truck in the northern hide are separate optional aimpoints. Reconnoitre them and allocate remaining weapons before completing the third launcher kill, which ends the operation. The launchers already hold their first rounds; destroying a support site does not magically disarm them. Civilian infrastructure is not a target.")
     shield["forces"] += " Separate military ammunition, fuel and command targets on Biak."
+
+    # Also put the requested wing explicitly into SW11, so authored mission
+    # inventory takes precedence over any later upstream variant change.
+    for u in by["11"]["units"]:
+        if u["type"] == "usn_cvn_ford":
+            u["air_group"] = deepcopy(FORD_WING)
+    by["11"]["brief"] += ("\\n\\nFORD AIR WING: Sixteen F-35Cs are embarked alongside twenty-four F/A-18Es, twelve F/A-18Fs, six Growlers, four Hawkeyes and eight Seahawks. This is a 70-aircraft SEST 2028 wing; the F-35Cs are available in the carrier's Flight Deck window as well as the airborne cover. Set their loadouts during preparation before starting the operation.")

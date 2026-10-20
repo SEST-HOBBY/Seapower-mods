@@ -24,7 +24,7 @@ A custom three-field preparation message explains the interaction: choose Start 
 
 The captured native `Trigger.ActionTrigger` handles this phase and filters player-controlled, surviving decks; its standard language text instructs the player to prepare while paused. The before-launch campaign airbase planner additionally requires a nonblank mission generation type. O10 deliberately has blank generation, so adding an AirbasePrepAvailable key alone would not expose that planner. This update uses the native loaded-mission phase instead.
 
-A previous PC report could not select a platform in the forced standard preparation pause. The native phase therefore remains the main PC acceptance risk: dismiss the preparation message before selection and verify that the map and platform controls respond. The new explanatory message is not evidence that this earlier UI failure has been fixed. No game DLL, Harmony hook or UI plugin is changed. If selection still fails, preserve the current log and report which window remains open; a separate UI correction will be needed.
+A previous PC report could not select a platform in the forced standard preparation pause. The native phase therefore remains the main PC acceptance risk: dismiss the preparation message before selection and verify that the map and platform controls respond. The new explanatory message is not evidence that this earlier UI failure has been fixed. The preparation feature itself introduces no Harmony hook or custom UI. If selection still fails, preserve the current log and report which window remains open; a separate UI correction will be needed.
 
 ## Validation and PC test
 

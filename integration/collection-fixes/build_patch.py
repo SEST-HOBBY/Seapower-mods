@@ -986,6 +986,8 @@ def main():
     malice = build_aim424()
     flags = build_nation_flags()
     returned = build_stale_vanilla_files()
+    built.extend(build_ford_wing_variants())
+    built.extend(build_j20_close_range())
     fields = build_airbases()
     repaired_land = build_land_repairs()
     returned += restore_vanilla_sensor_sections()
@@ -1995,6 +1997,42 @@ AIRBASE_RETUNE = {
     "china_large_airbase": "3413868677",    # Modern PLAN Systems' large base
     "usa_airbase": "3413868677",            # the US base the NF missions use
 }
+
+
+def build_ford_wing_variants():
+    # Native CustomAirGroup in a variant outranks the base [AirGroup]. Patch
+    # both modern Ford families so a hull-number selection cannot drop JSFs.
+    from common.carrier_wings import modern_ford_group
+    built = []
+    for mod, uid in (("3461044389", "usn_cvn_ford"),
+                     ("3413868677", "usn_cvn_gerald_r_ford")):
+        rel = f"vessels/{uid}_variants.ini"
+        text = modern_ford_group(read(mod, rel), uid, variants=True)
+        write(rel, text, "SEST 2028 Ford air wing: 16 F-35Cs, US squadrons, 70 total.\n"
+              "Hull-number, livery and nation metadata remain the donor's.\n"
+              "This authored wing is not a claim about an actual deployed CVW.")
+        built.append(uid + "_variants")
+    return built
+
+
+def build_j20_close_range():
+    """An explicit SEST playability choice, independent of radar stealth."""
+    rel = "aircraft/plaaf_j-20a.ini"
+    text = read("3591563716", rel)
+    for key, before, after in (("VisualIdentificationRange", "5", "6"),
+                               ("IRSignature", "SemiSmall", "Meager")):
+        text = edit(text, rf"^{key}={before}(?=\s|$)[^\n]*", f"{key}={after}", 1, "J-20 close-range profile")
+    # RCS is a nonzero numeric value. The encyclopedia rounds it to 0 m².
+    if not re.search(r"^RCS=0\.0014\s*$", text, re.M):
+        sys.exit("J-20: donor radar signature changed; review before retaining this balance override")
+    write(rel, text,
+          "SEST playtest choice, 20 October 2026; base: J-20A, Workshop 3591563716.\n"
+          "Visual identification 5 -> 6 nm, matching ordinary SEST fighter VID caps.\n"
+          "IRSignature SemiSmall (10) -> Meager (50), an authored close-range IR\n"
+          "balance adjustment, not a measured real-world signature. This changes\n"
+          "no radar RCS (0.0014), radar seeker, flight model or weapon parameters.\n"
+          "Cloud, aspect, sensor field of view and seeker requirements still apply.")
+    return ["plaaf_j-20a"]
 
 
 def build_airbases():

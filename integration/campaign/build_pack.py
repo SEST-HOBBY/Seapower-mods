@@ -3401,6 +3401,8 @@ def message_texts(mission):
     for flag in mission.get("flags", []):
         if flag.get("intel"):
             out.append((f"flags[{flag['name']}].intel", flag["intel"]))
+    for i, cutoff in enumerate(mission.get("reinforcement_cutoffs", []), 1):
+        out.append((f"reinforcement_cutoffs[{i}].intel", cutoff["intel"]))
     for find in mission.get("discoveries", []):
         out.append((f"discoveries[{find['objective']}].intel", find["intel"]))
     for lift in mission.get("lift", []):
@@ -4306,6 +4308,8 @@ def render(mission, placed, members):
         L.append(f"SupportLoss{i}Intel={ini_text(loss['intel'])}")
     for i, report in enumerate(mission.get("reports", []), 1):
         L.append(f"SituationReport{i}Intel={ini_text(report['intel'])}")
+    for i, cutoff in enumerate(mission.get("reinforcement_cutoffs", []), 1):
+        L.append(f"ReinforcementCancelled{i}Intel={ini_text(cutoff['intel'])}")
     if mission.get("victory", {}).get("after", {}).get("intel"):
         L.append(f"StageIntel={ini_text(mission['victory']['after']['intel'])}")
     if mission.get("victory", {}).get("after", {}).get("lost"):
@@ -4513,6 +4517,7 @@ def render(mission, placed, members):
     joining = collections.defaultdict(list)
     for tag, minute in mission.get("_enter", {}).items():
         joining[minute].append(tag)
+    join_triggers = {}
     for minute, tags in sorted(joining.items()):
         trigger(f"Joins at minute {minute:g}", [
             "Condition_Condition1_Type=Time",
@@ -4520,6 +4525,26 @@ def render(mission, placed, members):
             "ConditionsCompleted=<Condition1>",
             "Action_SetEnabledStatus=True",
             f"Action_Units={','.join(tags)}"])
+        join_triggers[minute] = len(T)
+
+    # Broken Wake's relay must be stopped before it releases a follow-on
+    # attack. Stock supports AND NOT time and disabling a trigger. A shared
+    # timed join cannot be cancelled if it would also remove unrelated units.
+    for i, cutoff in enumerate(mission.get("reinforcement_cutoffs", []), 1):
+        minute = cutoff["minute"]
+        sources = [t for r in cutoff["source"] for t in refs(members, r)]
+        targets = [t for r in cutoff["reinforcements"] for t in refs(members, r)]
+        if (minute <= 0 or not sources or not targets or
+                any(not t.startswith("Taskforce2") for t in sources + targets) or
+                set(targets) != set(joining.get(minute, []))):
+            raise SystemExit(f"{mission['key']}: reinforcement cutoff must name an entire opposing join at its exact minute")
+        trigger(f"Reinforcements cancelled before minute {minute:g}",
+                destroyed_condition(1, sources, len(sources)) + [
+                    "Condition_Condition2_Type=Time",
+                    f"Condition_Condition2_Time={round(minute * 60)}",
+                    "ConditionsCompleted=<Condition1> AND NOT <Condition2>",
+                    f"Action_DisableTriggers=Trigger{join_triggers[minute]}",
+                    f"Action_Taskforce1_Intel=ReinforcementCancelled{i}Intel"])
 
     if victory["kind"] == "arrive":
         win_units = ([tag for r in victory["units"] for tag in refs(members, r)]
@@ -7316,6 +7341,19 @@ def write_menu_background(out):
           f"{film.name} ({film.stat().st_size // 1024} KB) in plugins/")
 
 
+def write_runtime_fixes(out):
+    source = ROOT / "integration/runtime-fixes"
+    dll = source / "SEST.RuntimeFixes.dll"
+    if not dll.is_file():
+        raise SystemExit("SEST runtime plugin missing: run integration/runtime-fixes/build_plugin.py")
+    folder = out / "plugins"
+    folder.mkdir(parents=True, exist_ok=True)
+    (folder / dll.name).write_bytes(dll.read_bytes())
+    for name in ("sest_runtime.ini", "SEST_RUNTIME_README.txt"):
+        (folder / name).write_bytes((source / name).read_bytes())
+    print(f"  runtime fixes: {dll.name} ({dll.stat().st_size} bytes); own code only")
+
+
 # The game's loading-screen backgrounds: ui/backgrounds/loading_screen_1.png ..
 # _80.png (data/install-snapshot/streaming-media.txt, 10 Oct 2026, game
 # 0.8.5). The 15 Oct 2026 log showed the game pools every mod's and its own
@@ -7833,6 +7871,7 @@ def main():
         if src.is_file() and not src.name.startswith("."):
             (OUT / src.name).write_bytes(src.read_bytes())
     write_menu_background(OUT)
+    write_runtime_fixes(OUT)
     write_loading_screens(OUT)
 
     files = sum(1 for f in OUT.rglob("*") if f.is_file())

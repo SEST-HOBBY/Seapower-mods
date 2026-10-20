@@ -158,6 +158,89 @@ class PlaytestRevision(unittest.TestCase):
                                     for entries in p.values() for _t, k, _n, _x in entries])
         self.assertIsNone(self.missions["SWO10"].get("generation"))
 
+    def test_ford_has_usable_us_f35cs_without_overfilling_the_carrier(self):
+        from common.carrier_wings import FORD_WING
+        carrier = next(u for u in self.missions["SW11"]["units"] if u["type"] == "usn_cvn_ford")
+        self.assertEqual(carrier["air_group"], FORD_WING)
+        self.assertEqual(sum(n for uid, _sq, n in FORD_WING if uid == "usn_f-35c"), 16)
+        self.assertEqual(sum(n for _uid, _sq, n in FORD_WING), 70)
+        self.assertLess(sum(n for _uid, _sq, n in FORD_WING), b.deck_size(carrier["type"]))
+        for uid, sq, _n in FORD_WING:
+            self.assertIn(sq, b.squadrons(uid))
+            self.assertEqual(b.pick_nation(uid, sq), "US", (uid, sq))
+
+    def test_ford_variant_wings_cannot_hide_the_f35s(self):
+        from common.carrier_wings import FORD_TYPES, FORD_WING, ford_lines
+        for uid in FORD_TYPES:
+            text = b.read(b.winning(f"vessels/{uid}_variants.ini"))
+            sections = re.findall(r"^\[(Default|Variant\d+)\]\n(.*?)(?=^\[|\Z)", text, re.M | re.S)
+            self.assertTrue(sections, uid)
+            for variant, body in sections:
+                with self.subTest(uid=uid, variant=variant):
+                    self.assertIn("CustomAirGroup=True", body)
+                    self.assertIn(ford_lines().strip(), body)
+                    rows = re.findall(r"^(usn_[^=]+)=([^\n]+)", body, re.M)
+                    count = sum(int(p.split(",")[1]) for _unit, values in rows for p in values.split("|"))
+                    self.assertEqual(count, 70)
+            self.assertLess(sum(n for _u, _s, n in FORD_WING), b.deck_size(uid))
+        jsf = next(u for u in self.missions["SWD6"]["units"] if u["type"] == "usn_cvn_ford_jsf")
+        self.assertEqual(jsf.get("name"), "USS Enterprise")
+
+    def test_broken_wake_relay_cancels_only_the_uncommitted_surface_attack(self):
+        m, p, members = self.placed("SWC2")
+        b.solve_arrival(m, p, members)
+        _name, text = b.render(m, p, members)
+        blocks = re.findall(r"^\[Trigger(\d+)\][^\n]*\n(.*?)(?=^\[|\Z)", text, re.M | re.S)
+        joins = [(number, body) for number, body in blocks if "Name=Joins at minute 25\n" in body]
+        self.assertEqual(len(joins), 1)
+        number, body = joins[0]
+        self.assertIn("Action_Units=" + ",".join(members["followup"]), body)
+        cancel = next(body for _n, body in blocks if "Name=Reinforcements cancelled before minute 25" in body)
+        self.assertIn("Condition_Condition1_Units=" + ",".join(members["relay"]), cancel)
+        self.assertIn("Condition_Condition2_Time=1500", cancel)
+        self.assertIn("ConditionsCompleted=<Condition1> AND NOT <Condition2>", cancel)
+        self.assertIn(f"Action_DisableTriggers=Trigger{number}", cancel)
+        first_raid = next(body for _n, body in blocks if "Name=Joins at minute 5\n" in body)
+        self.assertNotIn("Action_DisableTriggers", first_raid)
+        self.assertEqual(m["victory"]["station"], "straggler")
+        self.assertEqual(m["victory"]["transit"], 6)
+        self.assertEqual(m["neutral_objective"], "Traffic")
+        self.assertEqual(m["resolve"]["RelayID"], ("classify", "relay", 1))
+        self.assertEqual(m["resolve"]["ClearDatum"], ("destroy", "red_sub", 1))
+        self.assertNotIn("Action_UnitReveal", text)
+        b.mark_supplied(m, p)
+        submarine = next(k for tag, k, name, _ in p["Taskforce1Submarine"] if name == "HMAS Sheean")
+        self.assertEqual(submarine["WeaponStatus"], "Hold")
+        self.assertEqual(submarine["TaskForceModeIgnoreUnit"], "True")
+        self.assertEqual(m["geography"], "coast")
+        x, _depth, z = submarine["RelativePositionInNM"].split(",")
+        actual = (m["centre"][0] + float(z) / 60, m["centre"][1] + float(x) / 60)
+        self.assertAlmostEqual(actual[0], -6.30, places=3)
+        self.assertAlmostEqual(actual[1], 130.52, places=3)
+        self.assertGreater(b.coast_data(m).nm_to_coast(*actual), 20)
+
+    def test_relay_cannot_cancel_unrelated_units_sharing_its_deadline(self):
+        m, p, members = self.placed("SWC2")
+        b.solve_arrival(m, p, members)
+        for tag, minute in list(m["_enter"].items()):
+            if minute == 5:
+                m["_enter"][tag] = 25
+        with self.assertRaisesRegex(SystemExit, "entire opposing join"):
+            b.render(m, p, members)
+
+    def test_j20_close_range_choice_leaves_radar_and_weapons_intact(self):
+        # Compare only the intentional pair of keys, not a synthetic radar buff.
+        donor = b.read(b.ROOT / "mods-source/3591563716/aircraft/plaaf_j-20a.ini")
+        built = b.read(b.winning("aircraft/plaaf_j-20a.ini"))
+        def values(text):
+            return {match[1]: match[2].split("//")[0].strip()
+                    for match in re.finditer(r"^([^#\[\s][^=\n]*)=([^\n]*)", text, re.M)}
+        a, c = values(donor), values(built)
+        self.assertEqual({key for key in a if a[key] != c.get(key)}, {"VisualIdentificationRange", "IRSignature"})
+        self.assertEqual(c["RCS"], "0.0014")
+        self.assertEqual(c["VisualIdentificationRange"], "6")
+        self.assertEqual(c["IRSignature"], "Meager")
+
     def test_all_missions_have_reports_and_pair_is_controlled(self):
         self.assertEqual(len(self.missions), 77)
         for code, m in self.missions.items():

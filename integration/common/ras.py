@@ -1048,7 +1048,14 @@ def apply_airgroup_fix(text, unit_id):
         if old in body.splitlines():
             body = body.replace(old, new, 1)
             applied[old] = new
-    return text[:m.start(1)] + body + text[m.end(1):], applied
+    result = text[:m.start(1)] + body + text[m.end(1):]
+    # SEST's 2028 Ford wing includes F-35Cs even when the upstream default
+    # and a selected hull variant otherwise select a Hornet-only wing.
+    from common.carrier_wings import FORD_TYPES, modern_ford_group
+    if unit_id in FORD_TYPES:
+        result = modern_ford_group(result, unit_id)
+        applied["SEST_2028_Ford_wing"] = "70 aircraft including 16 F-35C"
+    return result, applied
 
 
 # Upstream lines that are simply wrong, repaired in the fork this pack writes

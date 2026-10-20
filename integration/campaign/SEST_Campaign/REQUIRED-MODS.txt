@@ -96,7 +96,7 @@ Workshop id   supplies                         mod
 3408662804    a unit a mission places          Iskander TBM
 3681748718    a unit a mission places          ISKANDER-M
 3505420313    a unit a mission places          Italian Navy Mod
-3591563716    a unit a mission places          J-20 (歼-20 威龙)
+3591563716    a squadron a flight comes from   J-20 (歼-20 威龙)
 3801549552    a unit a mission places          J-36 Tailless Fighter
 3802216383    a unit a mission places          JMSDF Hyūga Class — Hyūga & Ise
 3776340577    a unit a mission places          Ka-27RLD
