@@ -1,0 +1,21 @@
+{
+  "capture_file": "SEST-map-review-20261020-101247-b00f38.zip",
+  "sha256": "53824683d9aca039cd3409f112774f125d16ef6a04b5b70f4a5da966bb0b79ec",
+  "captured_at": "2026-10-20T10:12:47.5626116+10:00",
+  "manifest_files_verified": 74,
+  "map_update_stack_entries": 18090,
+  "captured_o10_matches_71bd3004": true,
+  "captured_o10_matches_44cde6d0": false,
+  "captured_before_confirmed_44_install": true,
+  "game_assembly_was_actually_included": false,
+  "native_game_assembly_reference_name": "Seapower-Scripts",
+  "cost_tracker_ready_in_startup_log": true,
+  "cost_tracker_accounting_or_extension_loading_validated": false,
+  "group_manager_version": "0.2.16.0",
+  "combat_costs_version": "0.7.1.0",
+  "captured_new_plugin_dlls_unchanged_since_prior_cost_capture": true,
+  "reviewed_mapknown_update_direct_hooks_in_group_manager_bettermap_costs_identify": false,
+  "root_cause_of_map_exception_confirmed": false,
+  "next_step": "Test a fresh O10 in installed build 44cde6d0; if it still fails, use corrected collector including native game assembly, all plugin DLLs and worker status.",
+  "supplied_update_zip_matches_delivered_zip": true
+}

@@ -5,7 +5,7 @@
     Run after reproducing the problem and closing Sea Power. Writes a ZIP to
     Downloads containing recent logs, the saved LoadOrder, selected map-plugin
     DLLs/configs, and the installed Eagle/UAV/O10 definitions. Optionally includes
-    Assembly-CSharp.dll for read-only inspection of the failing native method.
+    Seapower-Scripts.dll for read-only inspection of the failing native method.
 #>
 [CmdletBinding()]
 param(
@@ -13,10 +13,19 @@ param(
     [string]$WorkshopContentDir,
     [string]$UserDataDirectory,
     [string]$OutputDirectory,
+    [string]$Repository,
     [switch]$IncludeGameAssembly
 )
 $ErrorActionPreference = 'Stop'
-. (Join-Path $PSScriptRoot 'lib\common.ps1')
+$SESTCommon = Join-Path $PSScriptRoot 'lib\common.ps1'
+if (-not (Test-Path -LiteralPath $SESTCommon -PathType Leaf)) {
+    if (-not $Repository) { $Repository = (Get-Location).Path }
+    $SESTCommon = Join-Path $Repository 'tools\lib\common.ps1'
+}
+if (-not (Test-Path -LiteralPath $SESTCommon -PathType Leaf)) {
+    throw 'SEST helpers not found. Pass -Repository with the existing Seapower-mods clone.'
+}
+. $SESTCommon
 if (Test-SeaPowerRunning) { throw 'Close Sea Power after reproducing the error, then run this capture.' }
 if (-not $GameDirectory) {
     $SESTAssets = Find-StreamingAssets
@@ -76,6 +85,7 @@ if ($WorkshopContentDir) { $SESTDLLRoots += $WorkshopContentDir }
 $SESTDLLRows = @(foreach ($SESTDLLRoot in $SESTDLLRoots) {
     if (-not (Test-Path -LiteralPath $SESTDLLRoot)) { continue }
     foreach ($SESTDLL in Get-ChildItem -LiteralPath $SESTDLLRoot -Recurse -File -Filter *.dll) {
+        if ($SESTDLL.Extension -ine '.dll') { continue }
         $SESTAssembly = $null
         try { $SESTAssembly = [Reflection.AssemblyName]::GetAssemblyName($SESTDLL.FullName) } catch { }
         [pscustomobject]@{
@@ -86,13 +96,16 @@ $SESTDLLRows = @(foreach ($SESTDLLRoot in $SESTDLLRoots) {
             Bytes = $SESTDLL.Length
             SHA256 = (Get-FileHash -LiteralPath $SESTDLL.FullName -Algorithm SHA256).Hash.ToLowerInvariant()
         }
+        $SESTDLLKind = if ($SESTDLLRoot -eq $WorkshopContentDir) { 'Workshop' } else { 'BepInEx' }
+        $SESTDLLRel = $SESTDLL.FullName.Substring($SESTDLLRoot.TrimEnd('\', '/').Length + 1)
+        Copy-MapFile $SESTDLL.FullName (Join-Path ('all-plugin-dlls\' + $SESTDLLKind) $SESTDLLRel)
     }
 })
 $SESTDLLRows | Export-Csv -LiteralPath (Join-Path $SESTStage 'plugin-inventory.csv') -NoTypeInformation -Encoding UTF8
 foreach ($SESTConfigRoot in @($UserDataDirectory, (Join-Path $GameDirectory 'BepInEx\config'))) {
     if (-not (Test-Path -LiteralPath $SESTConfigRoot)) { continue }
     foreach ($SESTConfig in Get-ChildItem -LiteralPath $SESTConfigRoot -Recurse -File -Filter *.cfg) {
-        if ($SESTConfig.Name -notmatch '(?i)squad|better.?tac|identify') { continue }
+        if ($SESTConfig.FullName -notmatch '(?i)squad|better.?tac|identify') { continue }
         $SESTConfigRel = $SESTConfig.FullName.Substring($SESTConfigRoot.TrimEnd('\', '/').Length + 1)
         $SESTConfigKind = if ($SESTConfigRoot -eq $UserDataDirectory) { 'user' } else { 'bepinex' }
         Copy-MapFile $SESTConfig.FullName (Join-Path ('config\' + $SESTConfigKind) $SESTConfigRel)
@@ -109,14 +122,45 @@ $SESTDefinitions = @(
     'campaigns\sest-southern-watch-open\missions\Southern Watch O10 - Ballistic Shield.ini'
 )
 foreach ($SESTRel in $SESTDefinitions) { Copy-MapFile (Join-Path $SESTLocal $SESTRel) (Join-Path 'installed-SEST' $SESTRel) }
+$SESTGameAssemblies = New-Object System.Collections.Generic.List[string]
 if ($IncludeGameAssembly) {
-    Copy-MapFile (Join-Path $GameDirectory 'Sea Power_Data\Managed\Assembly-CSharp.dll') 'game-reference\Assembly-CSharp.dll'
+    $SESTManaged = Join-Path $GameDirectory 'Sea Power_Data\Managed'
+    foreach ($SESTAssemblyName in @('Seapower-Scripts.dll', 'Assembly-CSharp.dll')) {
+        $SESTAssemblyPath = Join-Path $SESTManaged $SESTAssemblyName
+        if (-not (Test-Path -LiteralPath $SESTAssemblyPath -PathType Leaf)) { continue }
+        Copy-MapFile $SESTAssemblyPath (Join-Path 'game-reference' $SESTAssemblyName)
+        $SESTGameAssemblies.Add($SESTAssemblyName)
+    }
+    if ($SESTGameAssemblies.Count -eq 0) {
+        foreach ($SESTCandidate in Get-ChildItem -LiteralPath $SESTManaged -File -Filter *.dll) {
+            $SESTIdentity = $null
+            try { $SESTIdentity = [Reflection.AssemblyName]::GetAssemblyName($SESTCandidate.FullName) } catch { }
+            if (-not $SESTIdentity -or $SESTIdentity.Name -ne 'Seapower-Scripts') { continue }
+            Copy-MapFile $SESTCandidate.FullName (Join-Path 'game-reference' $SESTCandidate.Name)
+            $SESTGameAssemblies.Add($SESTCandidate.Name)
+        }
+    }
+    if ($SESTGameAssemblies.Count -eq 0) { throw 'The native game assembly was not found in Managed. No incomplete review ZIP was created.' }
+}
+foreach ($SESTCoreName in @('0Harmony.dll', 'BepInEx.dll')) {
+    Copy-MapFile (Join-Path $GameDirectory ('BepInEx\core\' + $SESTCoreName)) (Join-Path 'loader-reference' $SESTCoreName)
+}
+# Read worker settings/status without writing a live mode request.
+foreach ($SESTWorker in @('CombatWorker', 'ParallelRangeProbe', 'UiWorkerProbe')) {
+    foreach ($SESTWorkerFile in @('settings.ini', 'live\status.txt', 'live\mode.request')) {
+        $SESTWorkerRel = Join-Path $SESTWorker $SESTWorkerFile
+        Copy-MapFile (Join-Path (Join-Path $UserDataDirectory 'Mods') $SESTWorkerRel) (Join-Path 'worker-status' $SESTWorkerRel)
+    }
 }
 [ordered]@{
     captured_at = (Get-Date).ToString('o')
     reproduction_mission = 'Southern Watch O10 - Ballistic Shield'
     reports = @('Controllable F-15EX absent or unidentified on map','Forward UAV section MISSING','MapKnownUnits.Update NullReferenceException')
-    included_game_assembly = [bool]$IncludeGameAssembly
+    capture_version = 2
+    game_assembly_requested = [bool]$IncludeGameAssembly
+    included_game_assembly = ($SESTGameAssemblies.Count -gt 0)
+    captured_game_assemblies = @($SESTGameAssemblies.ToArray())
+    included_all_plugin_dlls = $true
     missing_optional_files = @($SESTMissing.ToArray())
     modified_game_or_settings = $false
 } | ConvertTo-Json -Depth 5 | Set-Content -LiteralPath (Join-Path $SESTStage 'capture.json') -Encoding UTF8
@@ -130,7 +174,7 @@ $SESTRows = @(foreach ($SESTFile in $SESTFiles) {
     }
 })
 $SESTRows | Export-Csv -LiteralPath (Join-Path $SESTStage 'file-manifest.csv') -NoTypeInformation -Encoding UTF8
-$SESTZip = Join-Path $OutputDirectory ('SEST-map-review-' + (Get-Date -Format 'yyyyMMdd-HHmmss') + '-' + [guid]::NewGuid().ToString('N').Substring(0,6) + '.zip')
+$SESTZip = Join-Path $OutputDirectory ('SEST-map-review-complete-' + (Get-Date -Format 'yyyyMMdd-HHmmss') + '-' + [guid]::NewGuid().ToString('N').Substring(0,6) + '.zip')
 Compress-Archive -Path (Join-Path $SESTStage '*') -DestinationPath $SESTZip -CompressionLevel Optimal
 Remove-Item -LiteralPath $SESTStage -Recurse -Force
 Write-Host ('Map review saved: ' + $SESTZip) -ForegroundColor Green
