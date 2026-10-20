@@ -1,7 +1,7 @@
 # SEST Integration Pack — feature list
 
 **SEST Integration Pack - Modernised Campaigns** (Steam Workshop 3812461539) turns
-198 Workshop mods for *Sea Power: Naval Combat in the Missile Age* into one
+200 Workshop mods for *Sea Power: Naval Combat in the Missile Age* into one
 modern game, set in 2028–29. It is one mod folder, sitting at the top of the
 Mod Manager, plus a SETUP file that does the ordering. Players subscribe to the
 collection *SEST - Modernised Campaign Collection* (3812390790), which brings the
@@ -16,10 +16,10 @@ repository and checked by automated gates before each upload.
 
 | | |
 |---|---|
-| Workshop mods integrated | 198 (the download size has not been re-measured since 190) |
+| Workshop mods integrated | 200 (the download size has not been re-measured since 190) |
 | SEST source packs | 24, merged into one deployable folder |
 | Campaigns | 4, each also as an Open Allocation version, plus a world campaign (draft) for the Dynamic Campaign Mod |
-| Campaign missions | 66, plus 8 single missions (Southern Watch - Dispatches) |
+| Campaign missions | 66, plus 11 single missions (Southern Watch - Dispatches) |
 | Story pages | Press pages, signals, ship's logs and intelligence summaries between missions |
 | Units with a real encyclopedia photo | 729 |
 | Photos in the offline gallery | 555, every one credited |
@@ -54,9 +54,11 @@ experience carry forward from mission to mission.
   Zero*) and THAAD, Patriot and Steelfin against ballistic missiles at
   Langgur (*Ballistic Shield*). See `docs/campaigns/side-operations.md`.
 - 2 contingency missions.
-- 8 single missions in the mission list (*Southern Watch - Dispatches*):
+- 11 single missions in the mission list (*Southern Watch - Dispatches*):
   allied and opposing ships in the same weeks, a weapons range trial, a 2034
-  bomber escort and a 1988 exercise that went live.
+  bomber escort, a 1988 exercise that went live, a 2030 joint fires school
+  (*Joint Fires School*) and a 2034 air-to-air range flown twice, with the
+  targets' sensors off and on (*The Far Picture*).
 - Campaign memory: lose HMAS Supply early and her replacement merchant is
   missing later; hold a service window and the next mission is rearmed.
 

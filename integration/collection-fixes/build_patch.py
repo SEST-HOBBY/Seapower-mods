@@ -347,25 +347,36 @@ def main():
     # 350x Large / 167x VerySmall repo-wide, zero numeric) - and drops
     # InterceptSpeedPenaltyMultiplier that vanilla carries. Everything else kept.
     #
-    # DONOR REBASED TWICE. 2026-09-20: the original donor was the deprecated
-    # Super Hornet (3426791311), unsubscribed and pruned, so it moved to US
-    # Naval Aviation (3737267013). 2026-10-09: USNA deleted its copy in the
-    # 9 Oct export, which failed this build outright - "donor missing
-    # (re-export 3737267013?)". The F-16 pack (3758320372) is now the SOLE
-    # provider and carries the IDENTICAL defect at the identical lines:
-    # ImpactSize=5, no InterceptSpeedPenaltyMultiplier, KillProbability=0.80.
-    # Vanilla has VerySmall and 0.75, so the fix still earns its place - only
-    # the donor changes. A third rebase means re-measuring again, not assuming.
+    # DONOR REBASED THREE TIMES. 2026-09-20: the original donor was the
+    # deprecated Super Hornet (3426791311), unsubscribed and pruned, so it
+    # moved to US Naval Aviation (3737267013). 2026-10-09: USNA deleted its
+    # copy in the 9 Oct export, which failed this build outright, and the
+    # F-16 pack (3758320372) became the sole provider. 2026-10-20: USNA v99
+    # re-ships its copy and outranks the F-16 pack again, so the donor is
+    # USNA's once more. Re-measured, not assumed: USNA's 9L carries the same
+    # two defects (ImpactSize=5, no InterceptSpeedPenaltyMultiplier,
+    # KillProbability=0.80), and its flight model is vanilla's - 1450 kt,
+    # 24 deg/s capped at 40 g, ACM 0.1 - where the F-16 pack's turned at
+    # 90 deg/s, out-turning the R-73 (60) and SEST's AIM-9X (70) and, with
+    # USNA's vanilla-model AIM-9M now winning, its own successor almost four
+    # times over. The player's call (20 Oct 2026): whichever is realistic,
+    # which is vanilla's scale for both.
     #
-    # usn_aim-9m is RETIRED from this pack: the winning copy is already
+    # usn_aim-9m is RETIRED from this pack: the winning copy (USNA's since
+    # 20 Oct, vanilla's flight model, ACM 0.25 above the 9L's 0.1) is already
     # ImpactSize=VerySmall with InterceptSpeedPenaltyMultiplier present, so
-    # there is nothing left to correct. Shipping it would be an override that
-    # changes nothing.
+    # there is nothing left to correct. The check below keeps that true: a
+    # new winner carrying either defect stops the build instead of shipping.
+    nine_m = read(top_provider("ammunition/usn_aim-9m.ini"), "ammunition/usn_aim-9m.ini")
+    if (not re.search(r"^ImpactSize=VerySmall\b", nine_m, re.M)
+            or "InterceptSpeedPenaltyMultiplier" not in nine_m):
+        sys.exit("usn_aim-9m: the winning copy now carries ImpactSize/ISPM defects - "
+                 "bring it back into this pack")
     ispm = ("InterceptSpeedPenaltyMultiplier=0.75                  "
             "// multiplier to the severity of the speed penalty, 0.75 for good, "
             "1.0 for average, 1.25 for poor")
     for name, kp in (("usn_aim-9l", "0.80"),):
-        t = read("3758320372", f"ammunition/{name}.ini")
+        t = read("3737267013", f"ammunition/{name}.ini")
         t = edit(t, r"^ImpactSize=5(\s)", r"ImpactSize=VerySmall\1", 1, name)
         if "InterceptSpeedPenaltyMultiplier" in t:
             sys.exit(f"{name}: donor now defines InterceptSpeedPenaltyMultiplier - rebase")
@@ -440,9 +451,13 @@ def main():
     built.append("usn_gbu-12d")
 
     # usn_gbu-24 [audit: usn_gbu-24 cohort]. The winning copy is a 363 kg
-    # GBU-27 substituted under the GBU-24's id; the only consumer anywhere is
-    # the vanilla A-6E. Vanilla body verbatim: guaranteed assets, and exactly
-    # what that consumer was authored against.
+    # GBU-27 substituted under the GBU-24's id (Murder Hornet, 3430135740).
+    # Live consumers: the vanilla A-6E (DateBased_GBU from 1983) and the
+    # Italian Cold War Tornado IDS '95 (3505420313 am_tornado_ids_95). Since
+    # 20 Oct 2026 US Naval Aviation re-ships a 907 kg copy that it says needs
+    # a stats revision; it ranks below Murder Hornet and this pack, so it
+    # never loads. Vanilla body verbatim: guaranteed assets, and what those
+    # consumers were authored against.
     t = read("_vanilla/original", "ammunition/usn_gbu-24.ini")
     if "Mass=1050" not in t:
         sys.exit("usn_gbu-24: vanilla export changed - re-verify")
@@ -1742,6 +1757,14 @@ def load_rank():
     toks = [l.strip() for l in (ROOT / "data" / "load-order.tokens.txt").read_text(
         encoding="utf-8").splitlines() if l.strip() and not l.startswith("#")]
     return {t: i for i, t in enumerate(toks)}
+
+
+def top_provider(rel):
+    """The highest-ranked Workshop mod in the load order that ships rel, for
+    read(); vanilla when none does."""
+    rank = load_rank()
+    mods = [m for m in rank if (MODS / m / rel).is_file()]
+    return min(mods, key=rank.get) if mods else "_vanilla/original"
 
 
 def ini_sections(text):

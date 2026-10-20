@@ -7364,7 +7364,7 @@
       "eligible": 936,
       "historical_known": 809,
       "current_known": 809,
-      "sest_eligible": 338,
+      "sest_eligible": 339,
       "sest_historical_known": 297,
       "sest_current_known": 297,
       "unknown": [
@@ -8035,8 +8035,8 @@
           "current_unknown": true
         },
         {
-          "id": "usn_ffg_oliver_hazard_perry_longhull_lamps-3",
-          "owner": "3390330875",
+          "id": "usn_ffg_ohp_longhull_sh60b",
+          "owner": "SEST_Replenishment",
           "historical_unknown": true,
           "current_unknown": true
         },

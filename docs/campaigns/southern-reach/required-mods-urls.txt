@@ -1,6 +1,6 @@
 Southern Reach - Workshop mods this campaign reaches (reference only)
 
-41 items, in canonical load order. NOT the Workshop item's
+46 items, in canonical load order. NOT the Workshop item's
 Required Items list. All four campaigns ship in one item, the SEST
 Integration Pack (3812461539), whose Required Items - like the
 collection 'SEST - Modernised Campaign Collection' (3812390790) -
@@ -14,6 +14,7 @@ not reach.
 
 https://steamcommunity.com/sharedfiles/filedetails/?id=3789188689    # PLA & PLAN & PLAAF AEP
 https://steamcommunity.com/sharedfiles/filedetails/?id=3733719765    # PLA Land Unit Pack
+https://steamcommunity.com/sharedfiles/filedetails/?id=3760871384    # Dingtools Weapon Pack
 https://steamcommunity.com/sharedfiles/filedetails/?id=3606774881    # U.S. Navy 2027 Capabilities mod
 https://steamcommunity.com/sharedfiles/filedetails/?id=3629144864    # Euromod - Main Pack
 https://steamcommunity.com/sharedfiles/filedetails/?id=3775128499    # Modern PLAN Systems
@@ -27,6 +28,7 @@ https://steamcommunity.com/sharedfiles/filedetails/?id=3567256221    # Charles D
 https://steamcommunity.com/sharedfiles/filedetails/?id=3384079999    # Humpback Whale
 https://steamcommunity.com/sharedfiles/filedetails/?id=3430106996    # Merchants Expanded
 https://steamcommunity.com/sharedfiles/filedetails/?id=3599752717    # Euromod - Modern British Navy
+https://steamcommunity.com/sharedfiles/filedetails/?id=3390330875    # Modern US Navy
 https://steamcommunity.com/sharedfiles/filedetails/?id=3594891803    # PLAN Submarines
 https://steamcommunity.com/sharedfiles/filedetails/?id=3774859959    # PLAN Type 001 Aircraft Carrier Liaoning
 https://steamcommunity.com/sharedfiles/filedetails/?id=3436170138    # Shenyang J-11
@@ -38,6 +40,7 @@ https://steamcommunity.com/sharedfiles/filedetails/?id=3630495619    # Euromod -
 https://steamcommunity.com/sharedfiles/filedetails/?id=3737267013    # United States Naval Aviation
 https://steamcommunity.com/sharedfiles/filedetails/?id=3602046770    # Boeing P-8 Poseidon
 https://steamcommunity.com/sharedfiles/filedetails/?id=3459682829    # A-10C
+https://steamcommunity.com/sharedfiles/filedetails/?id=3652097318    # B-1B Lancer
 https://steamcommunity.com/sharedfiles/filedetails/?id=3524112296    # Soviet AEW&C + Transport Aircraft (A-50 / Il-76)
 https://steamcommunity.com/sharedfiles/filedetails/?id=3744475027    # KC-46A Pegasus - Strategic Tanker
 https://steamcommunity.com/sharedfiles/filedetails/?id=3746453639    # Civil Aircraft Mod (Airbus Family)
@@ -45,6 +48,7 @@ https://steamcommunity.com/sharedfiles/filedetails/?id=3781062859    # <<E-3G>>
 https://steamcommunity.com/sharedfiles/filedetails/?id=3595014060    # NATO E-3A Sentry
 https://steamcommunity.com/sharedfiles/filedetails/?id=3808882954    # RC-135V/W Rivet Joint
 https://steamcommunity.com/sharedfiles/filedetails/?id=3499239964    # [DEPRECATED] E-7A Wedgetail
+https://steamcommunity.com/sharedfiles/filedetails/?id=3636386513    # F-15 EX Eagle II
 https://steamcommunity.com/sharedfiles/filedetails/?id=3567228449    # French Helicopter Package
 https://steamcommunity.com/sharedfiles/filedetails/?id=3503670861    # General Atomics MQ-9 Reaper
 https://steamcommunity.com/sharedfiles/filedetails/?id=3717610332    # IL-78 TANKER
@@ -52,5 +56,6 @@ https://steamcommunity.com/sharedfiles/filedetails/?id=3722749887    # KC-135 ST
 https://steamcommunity.com/sharedfiles/filedetails/?id=3571718093    # Road Mobile ICBMs (Topol-M, DF-41)
 https://steamcommunity.com/sharedfiles/filedetails/?id=3732654992    # THE REDFOR MOD
 https://steamcommunity.com/sharedfiles/filedetails/?id=3413868677    # Red Storm Arsenal
+https://steamcommunity.com/sharedfiles/filedetails/?id=3752415457    # Philippines: The Luzon Line
 https://steamcommunity.com/sharedfiles/filedetails/?id=3605013271    # RE-power: the resupply mod
 

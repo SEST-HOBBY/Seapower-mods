@@ -171,7 +171,7 @@ Workshop id   supplies                         mod
 3503594612    a unit a mission places          SU-57 Felon (重刑犯)
 3434072450    a unit a mission places          Sukhoi Flanker Family (苏霍伊侧卫家族)
 3683253079    a unit a mission places          Terminal High Altitude Area Defense (T.H.A.A.D) System (AN/TPY-2 Radar System included)
-3711297532    a unit the player can buy        Thailand: The Siam Shield
+3711297532    a squadron a flight comes from   Thailand: The Siam Shield
 3732654992    a model a placed unit draws      THE REDFOR MOD
 3509329205    a unit a mission places          TU-160 Blackjack
 3780118683    a unit a mission places          Tu-214R Family (图-214R家族)
@@ -195,7 +195,7 @@ above does, in its own description. Skipping one breaks the mod
 that asked for it.
 
 3380210757    required by another mod          Anchor Chain
-                                                 asked for by: Anduril FQ-44 Fury US Navy Carrier Wingmen, B-2 Spirit, EC-2 Stand Off Jammer, Saronic Corsair ASV, V-22 Osprey / SV-22 2024 ASW prototype, YF-23 Black Widow II
+                                                 asked for by: Anduril FQ-44 Fury US Navy Carrier Wingmen, Anduril Maritime Drones, B-2 Spirit, EC-2 Stand Off Jammer, Saronic Corsair ASV, V-22 Osprey / SV-22 2024 ASW prototype, YF-23 Black Widow II
 
 --------------------------------------------------------------------------
 

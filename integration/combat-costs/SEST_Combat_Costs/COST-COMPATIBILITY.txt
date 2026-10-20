@@ -9,7 +9,7 @@ No global price preference, category visibility, overlay scale or currency is ch
 Native tracking covers expended ammunition, vessels and aircraft; land-platform loss pricing is unsupported.
 
 weapon: 19 compatibility entries; SEST-priced historical/current 122/122 of 137 eligible references.
-vessel: 27 compatibility entries; SEST-priced historical/current 297/297 of 338 eligible references.
+vessel: 27 compatibility entries; SEST-priced historical/current 297/297 of 339 eligible references.
 aircraft: 17 compatibility entries; SEST-priced historical/current 35/35 of 37 eligible references.
 
 REVIEWED / NORMALIZED MAPPINGS
@@ -194,6 +194,7 @@ vessel tha_pt_chonburi: historical/current
 vessel tha_pt_hua_hin: historical/current
 vessel tha_ptg_prabrarapak: historical/current
 vessel tha_ptg_ratcharit: historical/current
+vessel usn_ffg_ohp_longhull_sh60b: historical/current
 vessel usn_take_lewis_clark: historical/current
 vessel usn_tao_kaiser: historical/current
 vessel usn_taoe_supply: historical/current

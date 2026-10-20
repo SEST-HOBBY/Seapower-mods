@@ -16,19 +16,19 @@ RAAF F-35A Lighting II by Greene (workshop 3514484654):
       assets/models/vehicle/aircraft/f-35/textures/f-35a_tex.png
       assets/textures/f-35/raaf_f-35a.png
 
-The 729 encyclopedia pictures in ui/profiles/ are real
+The 731 encyclopedia pictures in ui/profiles/ are real
 photographs from the SEST gallery. Each carries its photographer
 and licence on the picture; the full credits, with sources, are
 in Gallery/PHOTO_CREDITS.txt.
 
-525 of the unit files here are another author's file with
+526 of the unit files here are another author's file with
 changes made to it. A Sea Power unit file is a whole-file
 override - there is no way to alter one line of somebody's
 aircraft without shipping the whole aircraft - so this is how a
 patch has to work, and this list is what it patches.
 
 Measured, not declared: every shipped unit file is diffed against
-every file of its kind in the collection, and the 525 below
+every file of its kind in the collection, and the 526 below
 came back 90% or more alike. The percentage is how much of the
 file is unchanged.
 Files carried for a mod that was removed from the Workshop are
@@ -257,7 +257,6 @@ listed whatever the percentage: they are still that author's.
   F-16C Fighting Falcon (modern)  (workshop 3758320372)
        98%  aircraft/usaf_f-16cm-bl52d.ini
        99%  ammunition/usn_agm-88.ini
-       98%  ammunition/usn_aim-9l.ini
 
   F-22 Raptor  (workshop 3418252667)
        97%  land_units/airbase_raaf_amberley.ini from airfield_us_large.ini
@@ -279,7 +278,7 @@ listed whatever the percentage: they are still that author's.
        97%  land_units/airbase_rnzaf_ohakea.ini from airfield_us_large.ini
 
   F-35C Lightning II Alt. Loadouts  (workshop 3607989779)
-       93%  aircraft/usn_f-35c.ini
+       92%  aircraft/usn_f-35c.ini
        98%  ammunition/usn_gbu-53.ini
 
   F/A-18 Murder Hornet with AIM-174B  (workshop 3430135740)
@@ -369,6 +368,7 @@ listed whatever the percentage: they are still that author's.
       100%  vessels/usn_ddg_burke_f1_062_late.ini
       100%  vessels/usn_ddg_burke_f1_064_late.ini
       100%  vessels/usn_ddg_burke_f2_072_early.ini
+      100%  vessels/usn_ffg_ohp_longhull_sh60b.ini
       100%  vessels/usn_ffg_oliver_hazard_perry_mlu.ini
       100%  vessels/usn_lcs_freedom_suw_early.ini
       100%  vessels/usn_lcs_freedom_suw_late.ini
@@ -674,6 +674,7 @@ listed whatever the percentage: they are still that author's.
        97%  aircraft/usn_ea-18g_2020.ini
        96%  aircraft/usn_f-35c_squadrons.ini
        97%  aircraft/usn_mh-60r_squadrons.ini
+       98%  ammunition/usn_aim-9l.ini
        98%  ammunition/usn_gbu-12d.ini
        97%  ammunition/usn_gbu-39.ini
 

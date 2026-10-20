@@ -1,29 +1,29 @@
 [
  {
   "out": "../source/visuals/steam/pack-1-latest-update.jpg",
-  "bg": "../source/images/aircraft/a10c.jpg",
-  "pos": "center 70%",
-  "kicker": "LATEST UPDATE  ·  19 OCTOBER 2026",
-  "head": "One Redback rocket, campaign fixes, a MALD that glides.",
+  "bg": "../source/images/ships/ford.jpg",
+  "pos": "center 60%",
+  "kicker": "LATEST UPDATE  ·  20 OCTOBER 2026",
+  "head": "Ford F-35Cs, a deeper Broken Wake, two new mods.",
   "cols": [
    {
     "label": "CAMPAIGNS",
     "items": [
      [
-      "Every loadout on offer",
-      "Air Tasking strike row: 8 to 31"
+      "Broken Wake, deeper",
+      "Sheean; sink the relay by min 25"
      ],
      [
-      "Deck prep from the start",
-      "flight deck and airbase"
+      "O10 field team",
+      "an RQ-7 team on Yapen"
      ],
      [
-      "Steel Highway's datum",
-      "After the Wake: a life-raft search"
+      "Three new dispatches",
+      "Joint Fires School, Far Picture"
      ],
      [
-      "Rig Seventeen, Canberra",
-      "a 3-minute hover; her own Apaches"
+      "Linked operations",
+      "Open Door, Second Ring, Lifeline"
      ]
     ]
    },
@@ -31,20 +31,20 @@
     "label": "SHIPS AND WEAPONS",
     "items": [
      [
-      "AGR-30 Redback",
-      "IR fire and forget to 30 NM"
+      "Ford's F-35Cs",
+      "16 in a 70-aircraft US wing"
      ],
      [
-      "SEST Redback Strike",
-      "A-10, Apache, MQ-9, Seahawk, F-16"
+      "MST over land",
+      "500 ft over terrain in cruise"
      ],
      [
-      "19- and 7-round pods",
-      "each on its own mount"
+      "J-20A close in",
+      "6 NM visual, stronger IR"
      ],
      [
-      "B-2's MALD glides",
-      "no more sea-skimming at 6 ft"
+      "AIM-9L and OHP fixed",
+      "stock 9L flight; the Mk 13 loads"
      ]
     ]
    },
@@ -52,30 +52,30 @@
     "label": "ALSO IN THIS UPDATE",
     "items": [
      [
-      "JH-7A jammer",
-      "one self-protection pod"
+      "Two mods joined",
+      "Combat Cost Tracker, Group Manager"
      ],
      [
-      "Three units fixed",
-      "Skyguard, F-16C Block 40, Sea King"
+      "Lost ships in the debrief",
+      "section 3 lists them again"
      ],
      [
-      "Mod updates followed",
-      "PAC-3 MSE, Hobart, EA-18G"
+      "More briefing photos",
+      "54 more classes pictured"
      ],
      [
-      "SeaLifter not needed",
-      "the same 198 mods"
+      "20 Oct mod updates",
+      "Ford, Mogami, Wasp, F-35C, OHP"
      ]
     ]
    }
   ],
   "foot": [
-   "No new mods to subscribe to: the same 198.",
+   "Two mods joined: Combat Cost Tracker and Group Manager. Subscribe to all again.",
    "After updating: close the game and run SETUP again."
   ],
   "credit": [
-   "Photo: U.S. Air Force, A1C Alesia Goosic · Public domain · adapted",
+   "Photo: U.S. Navy, MC2 Ridge Leoni · Public domain · adapted",
    "via Wikimedia Commons"
   ]
  },
@@ -90,7 +90,7 @@
     "items": [
      [
       "Southern Watch",
-      "RAN · 24 missions · 8 dispatches"
+      "RAN · 24 missions · 11 dispatches"
      ],
      [
       "Southern Reach",
@@ -151,7 +151,7 @@
   ],
   "foot": [
    "Every campaign also as Open Allocation: whole roster from mission one.",
-   "Needs the 198 mods in the collection. Built for Sea Power 0.8.6."
+   "Needs the 200 mods in the collection. Built for Sea Power 0.8.6."
   ],
   "credit": [
    "Photo: U.S. Navy, JO2 Patrick Reilly · Public domain · adapted",
@@ -203,7 +203,7 @@
   "subtitle": "The Northern Lifeline",
   "meta": "Royal Australian Navy  ·  Oct–Nov 2028",
   "desc": "Keep the northern sea routes open as a coercion campaign escalates into a limited regional war. Identify before you shoot.",
-  "counts": "12 missions, 10 optional operations,\n2 contingencies; 8 dispatches.",
+  "counts": "12 missions, 10 optional operations,\n2 contingencies; 11 dispatches.",
   "mapLabel": "IN-GAME CAMPAIGN MAP",
   "map": "../../dist/SEST_Integration/campaigns/sest-southern-watch/art/00_campaign_background.png",
   "note": "Also as an Open Allocation version.",
@@ -279,7 +279,7 @@
   "title": "SEST",
   "title2": "INTEGRATION PACK",
   "sub": "MODERNISED CAMPAIGNS",
-  "line": "4 campaigns  ·  74 missions  ·  photo gallery  ·  one-click SETUP",
+  "line": "4 campaigns  ·  77 missions  ·  photo gallery  ·  one-click SETUP",
   "credit": [
    "Photo: U.S. Air Force, SrA J. Michael Peña · Public domain · adapted",
    "via Wikimedia Commons"
@@ -292,7 +292,7 @@
   "pos": "55% center",
   "title": "SEST",
   "sub": "MODERNISED CAMPAIGN COLLECTION",
-  "line": "4 campaigns  ·  74 missions  ·  2028–29",
+  "line": "4 campaigns  ·  77 missions  ·  2028–29",
   "credit": [
    "Photo: Japan Maritime Self-Defense Force · CC BY 4.0 · adapted",
    "creativecommons.org/licenses/by/4.0 · via Wikimedia Commons"
@@ -324,7 +324,7 @@
     "CAMPAIGNS"
    ],
    [
-    "74",
+    "77",
     "MISSIONS"
    ],
    [
@@ -337,7 +337,7 @@
     "photo": "../source/images/ships/hobart.jpg",
     "name": "SOUTHERN WATCH",
     "meta": "RAN  ·  Oct–Nov 2028",
-    "count": "24 missions  ·  8 dispatches"
+    "count": "24 missions  ·  11 dispatches"
    },
    {
     "photo": "../source/images/submarines/collins.jpg",

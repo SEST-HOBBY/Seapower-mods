@@ -5,30 +5,39 @@ variants they name, the rounds their loadouts hang and the units its
 roster sells. The pack-level REQUIRED-MODS.txt two folders up, at the
 pack's root, is the union across every campaign in the pack.
 
-1. HARD REQUIRED (33): a mission names a file of theirs, or a mod above says it cannot run without them.
+1. HARD REQUIRED (46): a mission names a file of theirs, or a mod above says it cannot run without them.
 
   3438479626    a weapon a loadout hangs         1143.5 Kuznetsov
   3499239964    a unit a mission places          [DEPRECATED] E-7A Wedgetail
   3459682829    a model a placed unit draws      A-10C
   3432668460    a unit a mission places          Auxilliary Merchant Pack
   3602046770    a model a placed unit draws      Boeing P-8 Poseidon
+  3481228992    a unit a mission places          ChengDu J-10C Vigorous Dragon
   3417801942    a unit a mission places          Chinese Navy (PLAN)
   3746453639    a unit a mission places          Civil Aircraft Mod (Airbus Family)
   3629144864    a weapon a loadout hangs         Euromod - Main Pack
   3599752717    a model a placed unit draws      Euromod - Modern British Navy
-  3695809489    a hull variant in use            Euromod - Modern Japanese Maritime Self Defence Force
+  3695809489    a unit a mission places          Euromod - Modern Japanese Maritime Self Defence Force
   3820759806    a hull variant in use            Euromod - Modern Royal Australian Navy Mod
   3607989779    a weapon a loadout hangs         F-35C Lightning II Alt. Loadouts
+  3758943352    a weapon a loadout hangs         French Air Force
+  3567228449    a weapon a loadout hangs         French Helicopter Package
   3503670861    a model a placed unit draws      General Atomics MQ-9 Reaper
   3461044389    a weapon a loadout hangs         Gerald R. Ford-class CVN Aircraft Carrier (Updated Dependencies)
   3384079999    a unit a mission places          Humpback Whale
+  3591563716    a squadron a flight comes from   J-20 (歼-20 威龙)
+  3801549552    a weapon a loadout hangs         J-36 Tailless Fighter
   3430106996    a unit a mission places          Merchants Expanded
+  3417446309    a weapon a loadout hangs         MIG-29 Family
   3631042692    a hull variant in use            Modern Chinese Airbase (Large)
   3775128499    a unit a mission places          Modern PLAN Systems
   3456859157    a hull variant in use            Mogami-class Frigate
   3595014060    a model a placed unit draws      NATO E-3A Sentry
   3789188689    a weapon a loadout hangs         PLA & PLAN & PLAAF AEP
   3733719765    a weapon a loadout hangs         PLA Land Unit Pack
+  3729578404    a unit a mission places          PLA Shenyang J-11BS
+  3729579342    a unit a mission places          PLA Sukhoi Su-27UBK
+  3812111085    a weapon a loadout hangs         PLAAF Aircraft Pack
   3594891803    a unit a mission places          PLAN Submarines
   3774859959    a unit a mission places          PLAN Type 001 Aircraft Carrier Liaoning
   3808882954    a unit a mission places          RC-135V/W Rivet Joint
@@ -36,9 +45,13 @@ pack's root, is the union across every campaign in the pack.
   3413868677    a model a placed unit draws      Red Storm Arsenal
   3571718093    a model a placed unit draws      Road Mobile ICBMs (Topol-M, DF-41)
   3436170138    a weapon a loadout hangs         Shenyang J-11
+  3506979898    a weapon a loadout hangs         Shenyang J-16A (歼-16A 潜龙)
+  3670643788    a weapon a loadout hangs         Shenyang J-50 (沈阳航空工业 歼-50)
+  3433577445    a unit a mission places          Shenyang J-8
+  3434072450    a weapon a loadout hangs         Sukhoi Flanker Family (苏霍伊侧卫家族)
   3486502935    a unit a mission places          Type 003 Fujian / Type 004 CVN Aircraft Carriers
   3606774881    a hull variant in use            U.S. Navy 2027 Capabilities mod
-  3737267013    a model a placed unit draws      United States Naval Aviation
+  3737267013    a weapon a loadout hangs         United States Naval Aviation
   3433957933    a hull variant in use            Virginia-, Seawolf-, and Ohio-class Submarines
 
 2. SEST INTEGRATION PACKS (9): this project's own patches, already inside this pack (SEST Integration Pack, Workshop 3812461539);
@@ -59,7 +72,7 @@ LOAD-ORDER.txt is missing. (Anchor Chain is one a mod in list 1 asks
 for; the map, salvo and rescue tools are conveniences.)
 
 
-4. NOT USED BY THIS CAMPAIGN (183): enabled while it was built, and left in the order because removing one changes which copy of a
+4. NOT USED BY THIS CAMPAIGN (170): enabled while it was built, and left in the order because removing one changes which copy of a
 shared file wins for the mods above.
 
   3587091564    3M25 <<МЕТЕОРИТ>> (AS-X-19 Koala)
@@ -88,7 +101,6 @@ shared file wins for the mods above.
   3564792549    BUK-M3
   3801363152    CH-53E Standalone v0.1.0
   3567256221    Charles De Gaulle & Modern French Navy Pack (WIP)
-  3481228992    ChengDu J-10C Vigorous Dragon
   3806197116    Civilian AS350 Ecureuil/AStar MOD
   3628201887    Clemenceau-class Aircraft Carrier
   3807187341    Combat Cost Tracker
@@ -126,9 +138,7 @@ shared file wins for the mods above.
   3672497668    Fattah-2
   3373960386    Flight Deck Ops
   3818251045    Formation Manager Replacement
-  3758943352    French Air Force
   3736147136    French Army Vehicles
-  3567228449    French Helicopter Package
   3412480633    Ground Upgrade: IFV
   3410473695    Ground Upgrade: MBT
   3508275114    Ground Upgrade: SPAA
@@ -141,8 +151,6 @@ shared file wins for the mods above.
   3569219326    ISKANDER-K
   3681748718    ISKANDER-M
   3505420313    Italian Navy Mod
-  3591563716    J-20 (歼-20 威龙)
-  3801549552    J-36 Tailless Fighter
   3520352434    JAS-39 Gripen
   3802216383    JMSDF Hyūga Class — Hyūga & Ise
   3776340577    Ka-27RLD
@@ -155,7 +163,6 @@ shared file wins for the mods above.
   3590477166    MH-60R Seahawk
   3465256032    Mi-8 T/TV
   3458148344    Mi-8EW
-  3417446309    MIG-29 Family
   3799742828    MiG-31 Foxhound
   3659742367    MiG-35 Fulcrum-F (米格-35 支点-F)
   3513571010    Mil Mi-24 Hind
@@ -172,9 +179,6 @@ shared file wins for the mods above.
   3812140001    Pakistani Pack
   3752415457    Philippines: The Luzon Line
   3681873198    Pickup truck extension
-  3729578404    PLA Shenyang J-11BS
-  3729579342    PLA Sukhoi Su-27UBK
-  3812111085    PLAAF Aircraft Pack
   3774572038    PLAN Type 071 Amphibious Transport Dock
   3731931836    Prithvi TBM (大地弹道导弹)
   3399699218    Project 2498 Zyetseth Class Assault Vessel
@@ -215,16 +219,12 @@ shared file wins for the mods above.
   (local)       SEST TacMap Colors
   (local)       SEST World Campaign (Dynamic Campaign Mod)
   3497601759    Shahed-136 Kamikaze Drone (Geran-2)
-  3506979898    Shenyang J-16A (歼-16A 潜龙)
-  3670643788    Shenyang J-50 (沈阳航空工业 歼-50)
-  3433577445    Shenyang J-8
   3601891050    Small and Medium-Sized UAV Series [WIP] (中小型无人机系列)
   3524112296    Soviet AEW&C + Transport Aircraft (A-50 / Il-76)
   3820576916    Steelfin
   3451166840    Su-25 Frogfoot
   3762023575    Su-30SM2
   3503594612    SU-57 Felon (重刑犯)
-  3434072450    Sukhoi Flanker Family (苏霍伊侧卫家族)
   3683253079    Terminal High Altitude Area Defense (T.H.A.A.D) System (AN/TPY-2 Radar System included)
   3711297532    Thailand: The Siam Shield
   3732654992    THE REDFOR MOD

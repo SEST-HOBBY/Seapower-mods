@@ -1330,6 +1330,72 @@ def mod_token(mod_id):
     return _TOKENS[mod_id]
 
 
+@functools.lru_cache(maxsize=None)
+def chain_owners(relpath, depth=0):
+    """Every mod whose copy of one file the game reads, highest first.
+
+    The winner, and while the copy just taken is an Anchor Chain `#!extend`
+    stub, the copy below it as well: the J-35's PL-15S is a stub in the PLA
+    AEP layered on the PLAAF Aircraft Pack's full file, and crediting only
+    the stub said the PLAAF pack was unused. A copy that is `#!alias` of
+    another file credits that file's chain and stops.
+    """
+    pairs = providers()
+    out = []
+    for f in all_copies(relpath):
+        token = next((t for t, base in pairs if f.is_relative_to(base)), None)
+        if token and token not in out:
+            out.append(token)
+        text = read(f)
+        a = re.search(r"#!alias\s+(\S+)", text)
+        if a and depth < 4:
+            out += [t for t in chain_owners(a.group(1), depth + 1) if t not in out]
+            break
+        if not re.search(r"^\s*#!extend\s", text, re.M):
+            break
+    return tuple(out)
+
+
+@functools.lru_cache(maxsize=None)
+def aircraft_credit(atype):
+    """(token, how, detail) for one embarked aircraft type: its unit and
+    squadron files, and every round any of its fits hangs."""
+    akind, apath = unit_file(atype)
+    if apath is None:
+        return ()
+    out = [(owner(f"{akind}/{atype}.ini"), "unit", atype),
+           (owner(f"{akind}/{atype}_squadrons.ini"), "squadron", atype)]
+    for afit in loadouts(apath) or [None]:
+        for store in stores(atype, akind, apath, afit):
+            out += [(token, "store", f"{atype} / {store}")
+                    for token in chain_owners(f"ammunition/{store}.ini")]
+    return tuple(out)
+
+
+def deck_aircraft(uid, kind_dir, path, variant, spec):
+    """Aircraft ids a placed deck embarks: the mission's own air_group when it
+    writes one (CustomAirGroup=True on the unit), else the variant's
+    CustomAirGroup, else the unit's [AirGroup], following #!alias."""
+    if spec.get("air_group") is not None:
+        return [atype for atype, _sq, _n in spec["air_group"]]
+    entry = re.compile(r"^\s*([^#\s=]+)\s*=\s*\w+,\d+", re.M)
+    vf = winning(f"{kind_dir}/{uid}_variants.ini")
+    if vf and variant:
+        sec = re.search(rf"^\[{re.escape(variant)}\][^\n]*\n((?:[^\[\n][^\n]*\n?)*)",
+                        read(vf), re.M)
+        if sec and re.search(r"^CustomAirGroup\s*=\s*True", sec.group(1), re.M | re.I):
+            return entry.findall(sec.group(1))
+    p = path
+    for _ in range(4):
+        group = re.search(r"^\[AirGroup\][^\n]*\n((?:[^\[\n][^\n]*\n?)*)", read(p), re.M)
+        if group:
+            return entry.findall(group.group(1))
+        p = alias_target(p)
+        if not p:
+            break
+    return []
+
+
 def resolve(spec, year=None):
     """Fill one authored unit in: winning file, kind, variant, squadron, fit.
 
@@ -1380,7 +1446,16 @@ def resolve(spec, year=None):
     if fit:
         keys["LoadoutVariant"] = fit
     for store in stores(uid, kind_dir, path, fit):
-        note(owner(f"ammunition/{store}.ini"), "store", f"{uid} / {store}")
+        for token in chain_owners(f"ammunition/{store}.ini"):
+            note(token, "store", f"{uid} / {store}")
+    # A deck's aircraft fly from it whether or not the mission names them,
+    # and every fit they offer can be armed on deck. Until 20 Oct 2026 none
+    # of it was credited: Red Line and Southern Reach listed the PLAAF
+    # Aircraft Pack as not used while the Fujian's and Liaoning's J-35s and
+    # J-15Ts hang rounds only it ships.
+    for atype in deck_aircraft(uid, kind_dir, path, keys.get("VariantReference"), spec):
+        for token, how, detail in aircraft_credit(atype):
+            note(token, how, f"{uid} deck / {detail}")
     for folder in sorted(set(ASSET_FOLDER.findall(read(path)))):
         for token in sorted(asset_owners(folder)):
             note(token, "asset", f"{uid} / {folder.rstrip('/')}")
@@ -5296,14 +5371,23 @@ def gallery_catalogue():
     cat = json.loads(re.match(r"window\.CATALOGUE=(.*);\s*$",
                               js.read_text(encoding="utf-8"), re.S).group(1))
     assets = {a["asset_id"]: a for a in cat["assets"]}
-    out = {}
+    out, other = {}, {}
     for e in cat["entries"]:
         a = assets.get(e.get("asset_id") or "")
-        if (not e.get("is_winning_copy") or not a
-                or e.get("mapping_status") not in REC_STATUSES
+        if (not a or e.get("mapping_status") not in REC_STATUSES
                 or (a.get("quality_review") or {}).get("priority") == "P1"):
             continue
-        out[e["unit_id"].lower()] = (e, a)
+        if e.get("is_winning_copy"):
+            out[e["unit_id"].lower()] = (e, a)
+        else:
+            other.setdefault(e["unit_id"].lower(), (e, a))
+    # A unit SEST now forks (a fix, a reload flag, a wing) is won by the
+    # pack's own record, which the index carries without the photo the
+    # original mod's record has - so 54 placed units, the P-8A in 35
+    # missions among them, showed no picture (20 Oct 2026). The same id is
+    # the same class: the photo from another record of it stands in.
+    for uid, hit in other.items():
+        out.setdefault(uid, hit)
     return out
 
 
@@ -5359,19 +5443,30 @@ def profile_pictures():
 
 
 def recognition(mission):
-    """[(stem, entry, asset)] for the briefing, the player's side first."""
+    """[(stem, entry, asset)] for the briefing, the player's side first.
+
+    Each side has half the slots, and a side that cannot fill its half
+    leaves the rest to the other. Until 20 Oct 2026 the player's side took
+    every slot it could, and once 54 more classes had photos (the P-8A, the
+    Type 054A) it crowded the opposition out - Red Line 03 lost the RAAF
+    F-35A it exists to recognise."""
     cat, prof = gallery_catalogue(), profile_pictures()
-    picked, seen = [], set()
+    sides, seen = {"blue": [], "red": []}, set()
+    # Military classes before civilian traffic (civ_*) within a side: a
+    # merchant on a side's roster is background the briefing can drop when
+    # the slots run out; a warship or an aircraft is what it is for.
+    units = sorted(mission["units"], key=lambda u: u["type"].lower().startswith("civ_"))
     for side in ("blue", "red"):
-        for u in mission["units"]:
+        for u in units:
             if u["side"] != side or u.get("spawn_if"):
                 continue
             hit = cat.get(u["type"].lower()) or prof.get(u["type"].lower())
             if not hit or hit[1]["asset_id"] in seen:
                 continue
             seen.add(hit[1]["asset_id"])
-            picked.append((f"sest_rec_{hit[1]['asset_id']}", hit[0], hit[1], side))
-    return picked[:REC_MAX]
+            sides[side].append((f"sest_rec_{hit[1]['asset_id']}", hit[0], hit[1], side))
+    blue = sides["blue"][:max(REC_MAX // 2, REC_MAX - len(sides["red"]))]
+    return blue + sides["red"][:REC_MAX - len(blue)]
 
 
 @functools.lru_cache(maxsize=None)

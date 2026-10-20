@@ -6,7 +6,7 @@ The units SEST's campaigns place or sell that have no usable photo in the briefi
 
 **How sure the leads are:** an agent read each unit's own file to say exactly what it is, and searched for leads. "(seen)" marks a lead it actually looked at. The second, checking pass did not run (spend limit), so treat the rest as places to start, not answers. The 25 base-game units at the end of P2/P3 were identified from the game's own name files only.
 
-**97 units:** 27 P1, 32 P2, 38 P3. Separately, 54 units already have a gallery photo that the briefings fail to show; that is a fix on my side, listed at the end, nothing to research.
+**97 units:** 27 P1, 32 P2, 38 P3. Separately, 54 units had a gallery photo the briefings failed to show; that is fixed (listed at the end). 9 units from GPT's new missions are added near the end, so the list is 106 in all.
 
 
 ## P1 - your forces, or 5+ missions
@@ -816,9 +816,76 @@ The units SEST's campaigns place or sell that have no usable photo in the briefi
 - **Licence:** Not usable: JetPhotos, airliners.net and helis.com photos, and Royal Thai Navy website or Facebook images (all rights reserved, no free licence). Thai government images are not public domain. Use only US Navy/DVIDS frames of RTN Seahawks or files under a genuine CC licence.
 
 
+## Added after the merge (20 Oct, GPT's new missions) - 9 units, brief research only
+
+Two more new ones needed no research: the RAN's own Seahawk (`ran_mh-60r`, now in 31 missions) and the RQ-7 field team (`sest_uav_forward`, 12) use the gallery's MH-60R and RQ-7 photos, the way the Danish MH-60R already does.
+
+### `de_pzh2000` - PzH 2000 self-propelled howitzer (P2)
+
+- **Where:** 1 (D9 Joint Fires School), player
+- **Find:** German Army PzH 2000 155 mm tracked howitzer, any 2000s+ photo; Bundeswehr or a NATO user (Netherlands, Italy) is fine as same type
+- **Leads:** Commons: Category:Panzerhaubitze 2000; DVIDS 'PzH 2000' (US-taken photos at Grafenwoehr exercises are public domain)
+- **Licence:** Bundeswehr Flickr photos are often CC BY 2.0 - check each; no NC
+
+### `kr_k9` - K9 Thunder self-propelled howitzer (P2)
+
+- **Where:** 1 (D9), player
+- **Find:** ROK Army K9 Thunder 155 mm, or an export user (Australia's AS9 Huntsman is a K9 derivative - family only)
+- **Leads:** Commons: Category:K9 Thunder; DVIDS 'K9 Thunder' (US Forces Korea exercises, public domain); Korea.net (KOGL Type 1)
+- **Licence:** KOGL Type 1 is fine with credit; Hanwha marketing images are not
+
+### `wp_2s19` - 2S19 Msta-S self-propelled howitzer (P2)
+
+- **Where:** 1 (D9), opposing
+- **Find:** Russian 2S19 Msta-S on its tracked hull, ideally the 2S19M2 era
+- **Leads:** Commons: Category:2S19 Msta-S; mil.ru (CC BY 4.0 on Commons)
+- **Licence:** mil.ru and kremlin.ru are CC BY 4.0 - keep the credit
+
+### `wp_2s43` - 2S43 Malva wheeled self-propelled howitzer (P2)
+
+- **Where:** 1 (D9), opposing
+- **Find:** Russian 2S43 Malva 152 mm on the BAZ-6010 8x8 chassis (2020s)
+- **Leads:** Commons search 'Malva self-propelled'; mil.ru Army-20xx expo photos (CC BY 4.0)
+- **Licence:** Few free photos exist; Vitaly Kuzmin's photos are CC BY-SA on Commons - check
+
+### `usn_Mugin5705` - Mugin-5 fixed-wing UAV (P2)
+
+- **Where:** 1 (SW05 Weapons Free), opposing
+- **Find:** Mugin-5 (5 m twin-boom commercial drone) - a photo of the airframe on the ground or in flight
+- **Leads:** Commons search 'Mugin-5'; news photos of recovered drones are usually not free
+- **Licence:** Manufacturer images not allowed; a context UAV photo is the honest fallback
+
+### `ir_fab_boghammar` - Boghammar fast attack boat (base game) (P3)
+
+- **Where:** 1 (SW03 Rig Seventeen), opposing
+- **Find:** IRGCN Boghammar-type armed speedboat; US Navy photos from the 1980s tanker war are public domain
+- **Leads:** Commons: Category:Boghammar boats; navy.mil / NHHC archive (public domain)
+- **Licence:** US Navy archive photos are public domain
+
+### `tgt_ammo_depot_small` - Small ammunition depot (base game target) (P3)
+
+- **Where:** 1 (O10 Ballistic Shield), opposing
+- **Find:** any military ammunition storage bunker/igloo area; context photo
+- **Leads:** Commons: Category:Ammunition depots; DVIDS 'ammunition supply point' (public domain)
+- **Licence:** generic - a context picture is fine
+
+### `tgt_fueltanks_medium` - Medium fuel tank depot (base game target) (P3)
+
+- **Where:** 1 (O10), opposing
+- **Find:** bulk fuel storage tanks at a military or port depot; context photo
+- **Leads:** Commons: Category:Fuel depots; DVIDS 'bulk fuel farm' (public domain)
+- **Licence:** generic - a context picture is fine
+
+### `wp_car_ural_command` - Ural mobile command truck (base game) (P3)
+
+- **Where:** 1 (O10), opposing
+- **Find:** Ural-4320 with a command/communications shelter body
+- **Leads:** Commons: Category:Ural-4320; mil.ru (CC BY 4.0)
+- **Licence:** check each file
+
 ## Already in the gallery, not shown in briefings (54) - my fix
 
-SEST now ships its own copy of these units (a fix or a fork), and the gallery's photo is attached to the original mod's copy, so `build_pack.recognition` skips it. The fix is to carry the photo across to the copy the game loads; it waits for GPT's work to be merged because it touches `build_pack.py`.
+SEST now ships its own copy of these units (a fix or a fork), and the gallery's photo is attached to the original mod's copy, so `build_pack.recognition` skips it. **Fixed 20 Oct 2026** (after GPT's work was merged): `build_pack.gallery_catalogue` now carries the photo across to the copy the game loads, and all 54 show in their briefings.
 
 - `usn_p8` (35 missions): photo p8a
 - `plan_type_054a_p5` (25 missions): photo type054a

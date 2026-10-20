@@ -10,13 +10,16 @@ The item's Required Items are the load order's Workshop mods, so Subscribe
 offers them all in one click, as the collection does; SETUP writes the order.
 `publishing.md` (*Dependencies*) has the detail.
 
-Counts (19 Oct 2026, with the 19-tube Redback pod and the B-2's MALD): 198
-Workshop mods in `data/load-order.tokens.txt` (199 entries with the pack), 164
-named by a mission (REQUIRED-MODS.txt), 526 borrowed files from 63 mods
-(CREDITS.txt). Redo them from those files when they change. The 19-tube pod
+Counts (20 Oct 2026, with GPT's fleet, terrain and debrief line and the two
+new mods): 200 Workshop mods in `data/load-order.tokens.txt` (201 entries
+with the pack), 166 named by a mission (REQUIRED-MODS.txt), 526 borrowed
+files from 62 mods (CREDITS.txt). Redo them from those files when they
+change. The 19-tube pod
 is credited to RADF's `adf_lau-3a`: the pod is the game's own `usn_lau-3a`,
 which CREDITS.txt never compares against, and RADF's is that file with one
-line changed. The MALD brought in the B-2 Spirit as the 63rd mod.
+line changed. The MALD brought in the B-2 Spirit on 19 Oct; on 20 Oct the
+J-20 balance file brought in the J-20 mod, and the reworked Redback no
+longer derives from the Dingtools Weapon Pack's APKWS.
 
 ---
 
@@ -31,7 +34,7 @@ SEST Integration Pack - Modernised Campaigns
 ```
 Four Task Force Mode campaigns (Southern Watch, Southern Reach / Tasman
 Shield, Red Line, Sulu Line) and every SEST fix in one Mod Manager entry.
-Needs the 198 Workshop mods in the 'SEST - Modernised Campaign Collection'
+Needs the 200 Workshop mods in the 'SEST - Modernised Campaign Collection'
 (3812390790): subscribe to it, then run SETUP.
 ```
 
@@ -50,7 +53,7 @@ THE CAMPAIGNS
     limited regional war. It opens small - one frigate, a Seahawk, a lane
     full of traffic, weapons tight - and does not stay small. Plus ten
     optional operations (six flown by somebody else's force), two
-    contingencies and eight standalone dispatches.
+    contingencies and eleven standalone dispatches.
   • Southern Reach / Tasman Shield (December 2028 – March 2029). Twenty-six
     missions, from the Antarctic resupply at 60°S to a ceasefire. A boat sunk
     in the Tasman is missing later; an approach not held reinforces the
@@ -72,11 +75,11 @@ HOW IT PLAYS
     briefing states both.
 
 WHAT IT NEEDS - READ THIS
-The campaigns name units from 164 Workshop mods. Subscribe to the collection
-'SEST - Modernised Campaign Collection' (3812390790): all 198 of its mods in
+The campaigns name units from 166 Workshop mods. Subscribe to the collection
+'SEST - Modernised Campaign Collection' (3812390790): all 200 of its mods in
 one press. Then Mod Manager → Open Folder on this pack, quit the game and
 double-click 'SETUP - double-click me.cmd'. It checks the subscriptions,
-installs the Anchor Chain preloader and writes the 199-entry load order with
+installs the Anchor Chain preloader and writes the 201-entry load order with
 this pack at the top. It is safe to run again.
   • If the Mod Manager offers to move this pack's dependencies above it,
     answer no: that undoes every fix in it. SETUP puts the order back.
@@ -91,7 +94,7 @@ LOAD-ORDER.txt and CREDITS.txt.
 
 CREDIT
 A Sea Power unit file is a whole-file override, so 526 files here are other
-authors' files with edits, each 90% or more unchanged, from 63 Workshop mods.
+authors' files with edits, each 90% or more unchanged, from 62 Workshop mods.
 CREDITS.txt lists every one, measured by diffing against the collection.
 Every photograph is real and credited. If you wrote one of those mods and
 would rather this pack did not carry your file, say so and it will change.
@@ -102,6 +105,48 @@ take no position on any real dispute. English only. Built for Sea Power
 0.8.6: every unit, squadron, loadout and weapon in every mission is checked
 to resolve on every build, but balance is not, and most missions have not
 been played to completion. Feedback on difficulty and pacing is wanted.
+```
+
+## Change log: 20 Oct 2026
+
+For the update after the 19 Oct one. If the 19 Oct update was never
+uploaded, paste its log below this one as well. Two mods joined: add
+Combat Cost Tracker (3807187341) and Group Manager (3818251045) to the
+collection and to the item's Required Items before Submit.
+
+```
+[h2]20 October 2026[/h2]
+
+[b]Southern Watch[/b]
+[list]
+[*]Broken Wake is deeper: HMAS Sheean joins the underwater screen, and sinking the armed relay trawler before minute 25 calls off a later missile-boat attack. Stuart's six-knot recovery and the civilians stay at its heart.
+[*]O10 Ballistic Shield adds a small RQ-7 field team on Yapen and dispersed ammunition, fuel and command targets.
+[*]Three new dispatches: Joint Fires School (2030 artillery training) and The Far Picture, a 2034 air-to-air range flown twice, with the targets' sensors off and then on.
+[*]The Open Door, Second Ring and Southern Lifeline revised: B-52Hs with ARRW, RAAF F-35As with JSM, Collins surfacing at the rendezvous.
+[*]Missions that start with a loaded deck start with aircraft being prepared.
+[/list]
+
+[b]Ships and weapons[/b]
+[list]
+[*]The Ford carries sixteen F-35Cs in a 70-aircraft US Navy wing, whichever hull you pick.
+[*]Tomahawk MST Block Va climbs to keep 500 ft over land ahead during cruise; sea-skimming and the terminal attack are unchanged.
+[*]J-20A: visual identification at 6 NM and a stronger infrared signature close in. Its radar stealth is unchanged.
+[*]The AIM-9L flies on the stock game's figures, like the AIM-9M it now shares the air with.
+[*]The new Oliver Hazard Perry long hull's Mk 13 launcher loads its Harpoons and SM-1s.
+[/list]
+
+[b]Also[/b]
+[list]
+[*]Two new mods: Combat Cost Tracker (SEST's units priced in its catalogues) and Group Manager.
+[*]The task-force debrief lists ships lost in a mission again.
+[*]Briefings show recognition photos for 54 more classes, the P-8A among them.
+[*]Follows the 20 Oct mod updates: Ford, Mogami, Wasp, F-35C and the OHP long hull.
+[/list]
+
+[b]Install[/b]
+[list]
+[*]Subscribe to all again for the two new mods, then close the game and run SETUP.
+[/list]
 ```
 
 ## Change log: 19 Oct 2026
@@ -131,7 +176,7 @@ collection stay as they are.
 [list]
 [*]The B-2's ADM-160 MALD decoy glides at its release height and dives at the end, instead of dropping to skim the sea at 6 ft.
 [*]The JH-7A carries one self-protection jammer instead of two AN/ALQ-99s.
-[*]Names for the Italian Skyguard SAM and the South Korean F-16C Block 40; the RAN Sea King Mk.50A/B's squadrons load.
+[*]Names for the Italian Skyguard SAM and the F-16C Block 40 in the South Korean navy mod; the RAN Sea King Mk.50A/B's squadrons load.
 [*]Follows the latest mod updates: the PAC-3 MSE's ceiling, HMAS Hobart's damage model, the EA-18G's EO views.
 [/list]
 
@@ -147,7 +192,7 @@ collection stay as they are.
 Keep the pinned "Read first" discussion's install steps in step with it.
 
 ```
-Everything the SEST Integration Pack's four campaigns need: 198 Workshop mods
+Everything the SEST Integration Pack's four campaigns need: 200 Workshop mods
 plus the pack itself (3812461539).
 
 1. Subscribe to all.

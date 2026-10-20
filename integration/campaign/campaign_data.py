@@ -2769,8 +2769,11 @@ MISSIONS.append(dict(
           name="HDMS Iver Huitfeldt"),
         U("blue", "euromod-italian-modern", "ita_ffg_fremm_asw", "escort",
           name="ITS Carabiniere"),
+        # Her deck's own group is a Wildcat and a Sea King; the Sea King left
+        # service in 2018 and Richmond Flight below is her one helicopter, so
+        # the deck carries nothing else (20 Oct 2026).
         U("blue", "rn-type23-old", "rn_type23_refit", "escort",
-          name="HMS Richmond"),
+          name="HMS Richmond", air_group=[]),
         U("blue", "euromod-british", "rn_merlin_hm2", "helo", name="Duncan Flight"),
         U("blue", "rn-lynx-has3-old", "rn_wildcat", "helo",
           name="Richmond Flight"),

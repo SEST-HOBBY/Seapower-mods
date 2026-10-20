@@ -7714,9 +7714,9 @@
     "usn_ff_knox_84": 137,
     "usn_ffg_brooke": 120,
     "usn_ffg_constellation": 202,
+    "usn_ffg_ohp_longhull_sh60b": 137,
     "usn_ffg_oliver_hazard_perry": 137,
     "usn_ffg_oliver_hazard_perry_longhull": 137,
-    "usn_ffg_oliver_hazard_perry_longhull_lamps-3": 137,
     "usn_ffg_oliver_hazard_perry_mlu": 145,
     "usn_ffg_oliver_hazard_perry_vls_refit": 137,
     "usn_lcs_freedom_suw_early": 123,
@@ -8773,6 +8773,12 @@
       "tier": 1
     },
     {
+      "unit": "usn_ffg_ohp_longhull_sh60b",
+      "side": "blue",
+      "nation": "US",
+      "tier": 1
+    },
+    {
       "unit": "usn_ffg_oliver_hazard_perry",
       "side": "blue",
       "nation": "US",
@@ -8780,12 +8786,6 @@
     },
     {
       "unit": "usn_ffg_oliver_hazard_perry_longhull",
-      "side": "blue",
-      "nation": "US",
-      "tier": 1
-    },
-    {
-      "unit": "usn_ffg_oliver_hazard_perry_longhull_lamps-3",
       "side": "blue",
       "nation": "US",
       "tier": 1

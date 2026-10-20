@@ -1,6 +1,6 @@
 Southern Watch - Workshop mods this campaign reaches (reference only)
 
-160 items, in canonical load order. NOT the Workshop item's
+162 items, in canonical load order. NOT the Workshop item's
 Required Items list. All four campaigns ship in one item, the SEST
 Integration Pack (3812461539), whose Required Items - like the
 collection 'SEST - Modernised Campaign Collection' (3812390790) -
@@ -171,5 +171,7 @@ https://steamcommunity.com/sharedfiles/filedetails/?id=3758943352    # French Ai
 https://steamcommunity.com/sharedfiles/filedetails/?id=3812111085    # PLAAF Aircraft Pack
 https://steamcommunity.com/sharedfiles/filedetails/?id=3413868677    # Red Storm Arsenal
 https://steamcommunity.com/sharedfiles/filedetails/?id=3812140001    # Pakistani Pack
+https://steamcommunity.com/sharedfiles/filedetails/?id=3752415457    # Philippines: The Luzon Line
+https://steamcommunity.com/sharedfiles/filedetails/?id=3711297532    # Thailand: The Siam Shield
 https://steamcommunity.com/sharedfiles/filedetails/?id=3605013271    # RE-power: the resupply mod
 
