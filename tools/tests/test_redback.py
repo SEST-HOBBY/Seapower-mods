@@ -1,10 +1,12 @@
 #!/usr/bin/env python3
-"""Regression checks for the shared Redback fit recipe (integration/common/redback.py).
+"""Regression checks for the shared Redback fit recipe and generated flight profile.
 
 Run from the repository root:
     python3 -m unittest discover -s tools/tests -p 'test_redback.py' -v
 """
 import sys
+import re
+import math
 import unittest
 from pathlib import Path
 
@@ -76,6 +78,82 @@ class RedbackFit(unittest.TestCase):
                 redback.add_fit(AIRFRAME, "t", "CAS", swaps, **opts)
         with self.assertRaises(SystemExit):
             redback.add_fit(AIRFRAME, "t", "Missing", [("usn_gbu-12", "pod", 2)])
+
+
+class SeahawkMounts(unittest.TestCase):
+    """The generated fit must retain the geometry supporting its pods."""
+
+    def test_mh60_pods_keep_their_missile_arm_and_use_the_lower_seats(self):
+        for uid in ("ran_mh-60r", "usn_mh-60r"):
+            with self.subTest(uid=uid):
+                text = (ROOT / "integration/allied-fixes/SEST_Allied_Fixes/aircraft"
+                        / f"{uid}.ini").read_text()
+                body = fit(text)
+                hidden = re.search(r"^SubModelsToHide=([^\n]*)", body, re.M)
+                self.assertNotIn("H60_Pylon114", hidden.group(1).split(",") if hidden else [])
+                self.assertIn("[H60_Pylon114]", text)
+                self.assertIn("Station12=" + redback.POD19, body)
+                self.assertIn("Station13=" + redback.POD19, body)
+                self.assertNotRegex(body, r"Station(?:10|11)=")
+
+    def test_s70_pod_uses_the_modelled_single_missile_arm(self):
+        for uid in ("ran_S-70B-2_Seahawk", "S-70B-2_Seahawk"):
+            with self.subTest(uid=uid):
+                text = (ROOT / "integration/allied-fixes/SEST_Allied_Fixes/aircraft"
+                        / f"{uid}.ini").read_text()
+                body = fit(text)
+                self.assertIn("[AGM-114_Rails]", text)
+                self.assertNotIn("SubModelsToHide=AGM-114_Rails", body)
+                self.assertIn("Station9=" + redback.POD19, body)
+                self.assertNotIn("|MK46", body)
+                self.assertEqual(body.count(redback.POD19), 1)
+
+
+class RedbackProfile(unittest.TestCase):
+    """Requirement invariants for the generated game profile, not flight proof."""
+
+    def setUp(self):
+        self.paths = [ROOT / p / 'ammunition/sest_agr-30.ini' for p in (
+            'integration/allied-fixes/SEST_Allied_Fixes',
+            'integration/dist/SEST_Integration')]
+        self.text = self.paths[0].read_text()
+
+    def number(self, name):
+        return float(re.search(rf'^{name}=([0-9.]+)', self.text, re.M).group(1))
+
+    def test_burn_and_phase_targets_match_the_requested_shape(self):
+        self.assertAlmostEqual(self.number('SustainerAccelerationTime'), 10)
+        self.assertGreater(self.number('SustainerAcceleration'), 0)
+        self.assertLessEqual(140, self.number('MaxVelocity'))
+        self.assertLessEqual(self.number('MaxVelocity'), 160)
+        self.assertLess(self.number('MaxVelocity'), self.number('TerminalVelocity'))
+        self.assertLess(self.number('TerminalVelocity'), self.number('MaxLoftVelocity'))
+        self.assertGreater(self.number('Deceleration'), 0)
+        self.assertLess(self.number('Deceleration'), 3)  # native legacy default
+
+    def test_dive_geometry_uses_horizontal_distance_and_is_near_45_degrees(self):
+        drop_nm = self.number('MaxLoftAlt') / 6076.11549
+        slope = math.degrees(math.atan2(drop_nm, self.number('TerminalDiveDistance')))
+        self.assertGreater(slope, 40)
+        self.assertLess(slope, 50)
+        self.assertIn('IgnoreHeightDifferenceForTargetDist=True', self.text)
+        self.assertGreater(self.number('TerminalApproachDist'),
+                           self.number('TerminalDiveDistance'))
+        self.assertNotRegex(self.text, r'(?m)^TerminalDiveAngle=', 'unverified game key')
+
+    def test_profile_retains_guidance_target_classes_and_one_timed_flame(self):
+        for required in ('TargetType=ASuW', 'SecondaryTargetType=AAW',
+                         'LandAttackCapability=All', 'Retargetable=True',
+                         'TargetMemory=True', 'GuidanceType=3',
+                         'MidCourseCorrection=1', 'TerminalAlt=Maintain',
+                         'ApplyKinematics=False', 'MinAttackAltitude=0',
+                         'Frequency=Ka-Band', 'PeakPower=11.0'):
+            self.assertIn(required, self.text)
+        self.assertEqual(len(re.findall(r'^SustainerEffect=', self.text, re.M)), 1)
+        self.assertNotRegex(self.text, r'(?m)^InFlightEffect(?:Class)?=')
+
+    def test_installed_profile_is_the_generated_source_profile(self):
+        self.assertEqual(self.paths[0].read_bytes(), self.paths[1].read_bytes())
 
 
 if __name__ == "__main__":

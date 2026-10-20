@@ -1,6 +1,6 @@
 Sulu Line - Workshop mods this campaign reaches (reference only)
 
-25 items, in canonical load order. NOT the Workshop item's
+27 items, in canonical load order. NOT the Workshop item's
 Required Items list. All four campaigns ship in one item, the SEST
 Integration Pack (3812461539), whose Required Items - like the
 collection 'SEST - Modernised Campaign Collection' (3812390790) -
@@ -17,8 +17,10 @@ https://steamcommunity.com/sharedfiles/filedetails/?id=3733719765    # PLA Land 
 https://steamcommunity.com/sharedfiles/filedetails/?id=3629144864    # Euromod - Main Pack
 https://steamcommunity.com/sharedfiles/filedetails/?id=3775128499    # Modern PLAN Systems
 https://steamcommunity.com/sharedfiles/filedetails/?id=3508275114    # Ground Upgrade: SPAA
+https://steamcommunity.com/sharedfiles/filedetails/?id=3820759806    # Euromod - Modern Royal Australian Navy Mod
 https://steamcommunity.com/sharedfiles/filedetails/?id=3432668460    # Auxilliary Merchant Pack
 https://steamcommunity.com/sharedfiles/filedetails/?id=3430106996    # Merchants Expanded
+https://steamcommunity.com/sharedfiles/filedetails/?id=3485917612    # Moloti's Armed Merchantmen
 https://steamcommunity.com/sharedfiles/filedetails/?id=3594891803    # PLAN Submarines
 https://steamcommunity.com/sharedfiles/filedetails/?id=3436170138    # Shenyang J-11
 https://steamcommunity.com/sharedfiles/filedetails/?id=3486502935    # Type 003 Fujian / Type 004 CVN Aircraft Carriers

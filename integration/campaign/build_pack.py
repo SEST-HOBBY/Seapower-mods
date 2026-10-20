@@ -498,6 +498,8 @@ def campaign_specs():
         spec.setdefault("ALLIED_FLEET",
                         allied_fleet.FOR_NATION.get(nation.group(1).strip(), [])
                         if nation else [])
+    import mission_depth
+    mission_depth.apply(specs)
     return specs
 
 
@@ -958,6 +960,35 @@ class CoastPlacer:
                     f"{where}: waypoint {at} is "
                     f"{'ashore' if land else 'in the surf'} ({nm:.1f} NM from the "
                     "coast) - route the track round the headland")
+
+    def route(self, start, waypoints, where, least=0.5):
+        """Check each sailed leg, including spawn to the first waypoint.
+
+        Two wet endpoints do not prove a wet passage: Weather Alternate's
+        raiders crossed Kai Kecil between them. Quarter-NM samples with a
+        half-NM default shore margin also reject near misses between sample
+        points. A mission may demand more room where game terrain differs.
+        """
+        if not math.isfinite(least) or least <= 0:
+            raise SystemExit(f"{where}: route clearance must be finite and positive")
+        for leg, end in enumerate(waypoints, 1):
+            steps = max(1, math.ceil(nm_between(start, end) / 0.25))
+            dlon = (end[1] - start[1] + 180) % 360 - 180
+            for i in range(steps + 1):
+                fraction = i / steps
+                at = (start[0] + (end[0] - start[0]) * fraction,
+                      (start[1] + dlon * fraction + 180) % 360 - 180)
+                if not self._cover(at, f"{where} leg {leg}"):
+                    break
+                land, nm = self.coast.check(*at)
+                if land or nm < least:
+                    PLACEMENT_PROBLEMS.append(
+                        f"{where}: leg {leg} crosses "
+                        f"{'land' if land else f'the {least:g} NM shore margin'} near "
+                        f"({at[0]:.4f}, {at[1]:.4f}); "
+                        "route round the island or headland")
+                    break
+            start = end
 
     def point(self, at, where, least=1.0):
         """An authored point a trigger uses - a box centre, a stage area."""
@@ -1653,8 +1684,11 @@ def place(mission, snapper):
             # sides of the snapped point so the group centres on it
             side = (n + 1) // 2 * (1 if n % 2 else -1)
             beam = math.radians(st.get("heading", 90) + 90)
-            lat = alat + side * 0.6 * math.cos(beam) / 60.0
-            lon = alon + side * 0.6 * math.sin(beam) / (60.0 * math.cos(math.radians(alat)))
+            berth = float(st.get("spawn_spacing", 0.6))
+            if not math.isfinite(berth) or berth <= 0:
+                raise SystemExit(f"{mission['key']}: {key} has invalid spawn spacing")
+            lat = alat + side * berth * math.cos(beam) / 60.0
+            lon = alon + side * berth * math.sin(beam) / (60.0 * math.cos(math.radians(alat)))
             # A submarine at 0 is on the surface. That is deliberate for the
             # boat alongside its tender in SW09 and wrong for everything that
             # is meant to be hunting; depth is authored per unit.
@@ -1828,9 +1862,9 @@ def place(mission, snapper):
             route = [(p[0], p[1], p[2], list(p[3]) if len(p) > 3 else [])
                      for p in spec["route"]]
             if isinstance(snapper, CoastPlacer) and kind in ("vessel", "sub"):
-                for la, lo, _a, _o in route:
-                    snapper.waypoint((la, lo), f"{mission['key']} {spec['station']} "
-                                               f"({spec['type']})")
+                snapper.route((lat, lon), [(la, lo) for la, lo, _a, _o in route],
+                              f"{mission['key']} {spec['station']} ({spec['type']})",
+                              least=mission.get("route_clearance_nm", 0.5))
             keys["Waypoints"] = "|".join(
                 f"{(lo - centre[1]) * 60:.2f},{a},{(la - centre[0]) * 60:.2f}"
                 + waypoint_orders(mission, spec, kind, keys, orders, pending, tag, n)
@@ -1907,12 +1941,16 @@ def place(mission, snapper):
         # it only from the minute it enters.
         if spec.get("enter") is not None:
             minute = spec["enter"]
-            if spec["side"] != "red" or isinstance(minute, bool) \
+            if spec["side"] not in ("red", "blue") or isinstance(minute, bool) \
                     or not isinstance(minute, (int, float)) \
                     or not 0 < minute < mission["minutes"]:
-                sys.exit(f"{mission['key']}: enter= is the minute a red unit joins, "
+                sys.exit(f"{mission['key']}: enter= is the minute a combat-side unit joins, "
                          f"inside the {mission['minutes']}-minute plan; {spec['type']} "
                          f"({spec['side']}) has {minute!r}")
+            if spec.get("slot") or spec.get("join") or tag == mission.get("_anchor_section"):
+                sys.exit(f"{mission['key']}: enter= cannot defer a purchased or granted unit")
+            if spec["side"] == "blue" and spec["type"] not in SMALL_UAV_TYPES:
+                sys.exit(f"{mission['key']}: delayed blue support is restricted to small reconnaissance UAVs")
             keys["Disabled"] = "True"
             entering.append((tag, minute))
         for token, why in credit.items():
@@ -1972,6 +2010,14 @@ def place(mission, snapper):
     mission["_disabled"] = disabled
     mission["_enter"] = dict(entering)
     return placed, members, credits, worst
+
+
+SMALL_UAV_TYPES = {"usn_rq7705", "usn_ForpostR705", "usn_orlan10705", "usn_Mugin5705"}
+
+
+def deck_places_needed(uid, kind):
+    # Small UAVs need one place; a ship must still explicitly support the type.
+    return 1 if kind == "Helicopter" or uid in SMALL_UAV_TYPES else 10
 
 
 def assign_home_bases(placed, generated=False):
@@ -2051,7 +2097,7 @@ def assign_home_bases(placed, generated=False):
                     # A helicopter takes any deck; a fast jet needs a field
                     # or a carrier; a VTOL takes a deck that names it and a
                     # field otherwise.
-                    needs = 1 if kind == "Helicopter" else 10
+                    needs = deck_places_needed(keys["Type"], kind)
                     if kind == "VTOL" and d[4] and fit == 0:
                         needs = 1
                     if d[1] < needs:
@@ -2928,7 +2974,7 @@ def check_opening(mission, placed):
                 except ValueError:
                     alt = 0.0
                 out.append(dict(tag=tag, uid=keys["Type"], x=x, z=z, kind=kind,
-                                alt=alt, name=name,
+                                alt=alt, depth=bits[1].lower(), name=name,
                                 free=keys.get("WeaponStatus") == "Free",
                                 fit=keys.get("LoadoutVariant"),
                                 joins=joins.get(tag)))
@@ -2936,7 +2982,8 @@ def check_opening(mission, placed):
 
     player, red = rows("Taskforce1"), rows("Taskforce2")
     hulls = [b for b in player if b["kind"] in ("sea", "sub")]
-    flying = [b for b in player if b["kind"] == "air" and b["alt"] > 0]
+    flying = [b for b in player if b["kind"] == "air" and b["alt"] > 0
+              and (b["joins"] is None or b["joins"] < OPENING_QUIET_MIN)]
     excused = mission.get("_contact", set())
 
     def gap(a, b):
@@ -2963,6 +3010,11 @@ def check_opening(mission, placed):
     eyes = [r for r in red if r["kind"] == "air" and opening(r)]
 
     def track(hull):
+        # A radar aircraft cannot provide an anti-ship track on a boat below
+        # the layer. The separate close-submarine gate still applies. Numeric
+        # positive values are depths here; 0 and periscope stay conservative.
+        if hull["kind"] == "sub" and hull["depth"] not in ("0", "0.0", "periscope", "surface"):
+            return None
         for s in eyes:
             d = gap(s, hull)
             if d < OPENING_SPOTTER_NM:
@@ -3340,11 +3392,17 @@ def message_texts(mission):
         out.append((f"reveals[{oid}].intel", reward["intel"]))
     for i, loss in enumerate(mission.get("support_loss", []), 1):
         out.append((f"support_loss[{i}].intel", loss["intel"]))
+    for i, report in enumerate(mission.get("reports", []), 1):
+        if not 0 < report["minute"] < mission["minutes"]:
+            raise SystemExit(f"{mission['key']}: report {i} falls outside the mission")
+        out.append((f"reports[{i}].intel", report["intel"]))
     for reveal in mission.get("reveal_if", []):
         out.append((f"reveal_if[{reveal['variable']}].intel", reveal["intel"]))
     for flag in mission.get("flags", []):
         if flag.get("intel"):
             out.append((f"flags[{flag['name']}].intel", flag["intel"]))
+    for i, cutoff in enumerate(mission.get("reinforcement_cutoffs", []), 1):
+        out.append((f"reinforcement_cutoffs[{i}].intel", cutoff["intel"]))
     for find in mission.get("discoveries", []):
         out.append((f"discoveries[{find['objective']}].intel", find["intel"]))
     for lift in mission.get("lift", []):
@@ -4164,7 +4222,7 @@ def deployment_panel(mission, placed):
 
 
 # The families a deployment-panel mission flags when the mission supplies them.
-SUPPLIED_FAMILIES = ("Taskforce1Vessel", "Taskforce1Aircraft", "Taskforce1Helicopter")
+SUPPLIED_FAMILIES = ("Taskforce1Vessel", "Taskforce1Submarine", "Taskforce1Aircraft", "Taskforce1Helicopter")
 
 
 def mark_supplied(mission, placed):
@@ -4180,8 +4238,9 @@ def mark_supplied(mission, placed):
     TaskForceModeIgnoreUnit=True. 09 Shadows off Palawan supplies a Charleston,
     a Newport and two LSMs, and flags all four. The missions without the panel
     (01, 02, 04) supply a sealift ship, an E-3A, P-3Cs and F-15Cs unflagged.
-    Stock 10 leaves a Taskforce1 submarine and its land units unflagged beside
-    the panel, so those families are left as they are. A granted unit
+    Explicitly retain supplied submarines too: SW09's Collins was reported
+    absent in the deployed build, and had no retention flag beside the panel.
+    Land units remain the stock pattern. A granted unit
     (JoinTaskForce) joins the force and is never ignored."""
     if not deployment_panel(mission, placed):
         return []
@@ -4209,6 +4268,19 @@ def render(mission, placed, members):
         L.append(f"Objective_{oid}={ini_text(text)}")
     L.append(f"Taskforce1StartMessage=<color=yellow>{mission['key']}</color>|"
              f"{ini_text(mission['brief'])}")
+    prep_decks = [tag for family in ("Taskforce1Vessel", "Taskforce1LandUnit")
+                  for tag, keys, _name, _x in placed.get(family, [])
+                  if keys.get("Disabled") != "True" and deck_size(keys["Type"]) > 0]
+    prepare = mission.get("initial_deck_prep") and bool(prep_decks)
+    if prepare:
+        L.append("FlightDeckPrepMessage=AIRCRAFT AND UNIT PREPARATION|"
+                 "Choose Start preparation to close this message. Keep the simulation paused; "
+                 "select your ships and ground teams on the map or in Formation Manager. "
+                 "Open each Flight Deck window and assign aircraft and loadouts. "
+                 "Set weapon status and individual sensor switches using the normal unit controls. "
+                 "When flight-deck timings are enabled, the native preparation phase finishes "
+                 "queued aircraft preparation at the first unpause. Review air-defence orders "
+                 "before unpausing; the operation clock and enemy action then begin.|Start preparation")
     L.append("Taskforce1VictoryMessage=<color=lime>Operation complete.</color>|"
              f"{ini_text(mission['win'])}")
     if mission.get("victory", {}).get("or_destroyed"):
@@ -4234,6 +4306,10 @@ def render(mission, placed, members):
         L.append(f"{oid}Intel={ini_text(reward['intel'])}")
     for i, loss in enumerate(mission.get("support_loss", []), 1):
         L.append(f"SupportLoss{i}Intel={ini_text(loss['intel'])}")
+    for i, report in enumerate(mission.get("reports", []), 1):
+        L.append(f"SituationReport{i}Intel={ini_text(report['intel'])}")
+    for i, cutoff in enumerate(mission.get("reinforcement_cutoffs", []), 1):
+        L.append(f"ReinforcementCancelled{i}Intel={ini_text(cutoff['intel'])}")
     if mission.get("victory", {}).get("after", {}).get("intel"):
         L.append(f"StageIntel={ini_text(mission['victory']['after']['intel'])}")
     if mission.get("victory", {}).get("after", {}).get("lost"):
@@ -4317,6 +4393,16 @@ def render(mission, placed, members):
         for i, (label, group) in enumerate(groups, 1):
             shape = "Vic" if ("Aircraft" in group[0] or "Helicopter" in group[0]) else "Loose"
             spacing = "0.1" if shape == "Vic" else "1.5"
+            # Coastal traffic must fit the passage as a formation as well as
+            # along its leader's route. Weather Alternate's eastern channel
+            # cannot safely take the default 1.5 NM spread.
+            station = next((mission["stations"][st] for st, tags in members.items()
+                            if group[0] in tags), {})
+            if "formation_spacing" in station:
+                value = float(station["formation_spacing"])
+                if not math.isfinite(value) or value <= 0:
+                    raise SystemExit(f"{mission['key']}: {label} has invalid formation spacing")
+                spacing = f"{value:g}"
             L.append(f"{side}_Formation{i}={','.join(group)}|{label}|{shape}|{spacing}")
 
     # --- triggers -----------------------------------------------------------
@@ -4401,22 +4487,20 @@ def render(mission, placed, members):
     trigger("Start message", [
         "Condition_Type=Time", "Condition_Time=1",
         "Action_Taskforce1_Message=Taskforce1StartMessage"])
-    # Flight deck prep before the clock runs: the game holds at the start
-    # with its own AIRCRAFT PREPARATION notice, and every aircraft the player
-    # assigns on a deck or an airfield is ready for take-off when the game is
-    # unpaused. Play test of 18 Oct 2026: with no such trigger, no deck or
-    # airfield could be planned before the start. Wherever a player deck is
-    # in the mission - the task force sails with its flights, or a placed
-    # player ship or airfield has one - 01 Wolves of the South Atlantic
-    # Trigger6, key for key.
-    if mission.get("generation") or any(
-            deck_size(keys["Type"])
-            for family in ("Taskforce1Vessel", "Taskforce1LandUnit")
-            for _tag, keys, _n, _x in placed.get(family, [])):
+    for i, report in enumerate(mission.get("reports", []), 1):
+        trigger(f"Situation report {i}", ["Condition_Type=Time",
+                f"Condition_Time={round(report['minute'] * 60)}",
+                f"Action_Taskforce1_Intel=SituationReport{i}Intel"])
+    # Native OnMissionStart preparation queues the player's actual decks,
+    # including generated hulls. The first prompt must be dismissed before
+    # selecting another unit. A Time=1 trigger would merely complete existing
+    # jobs and would not register the initial preparation phase.
+    if prepare:
         trigger("Allow initial flight deck prep", [
             "Condition_Condition1_Type=OnMissionStart",
             "ConditionsCompleted=<Condition1>",
-            "Action_PrepareFlightDeck=True"])
+            "Action_PrepareFlightDeck=True",
+            "Action_Taskforce1_Message=FlightDeckPrepMessage"])
     # disable=: systems off from the first second, one trigger per set of
     # systems - 08 Defense of North Borneo Trigger4, key for key.
     groups = collections.defaultdict(list)
@@ -4433,6 +4517,7 @@ def render(mission, placed, members):
     joining = collections.defaultdict(list)
     for tag, minute in mission.get("_enter", {}).items():
         joining[minute].append(tag)
+    join_triggers = {}
     for minute, tags in sorted(joining.items()):
         trigger(f"Joins at minute {minute:g}", [
             "Condition_Condition1_Type=Time",
@@ -4440,6 +4525,26 @@ def render(mission, placed, members):
             "ConditionsCompleted=<Condition1>",
             "Action_SetEnabledStatus=True",
             f"Action_Units={','.join(tags)}"])
+        join_triggers[minute] = len(T)
+
+    # Broken Wake's relay must be stopped before it releases a follow-on
+    # attack. Stock supports AND NOT time and disabling a trigger. A shared
+    # timed join cannot be cancelled if it would also remove unrelated units.
+    for i, cutoff in enumerate(mission.get("reinforcement_cutoffs", []), 1):
+        minute = cutoff["minute"]
+        sources = [t for r in cutoff["source"] for t in refs(members, r)]
+        targets = [t for r in cutoff["reinforcements"] for t in refs(members, r)]
+        if (minute <= 0 or not sources or not targets or
+                any(not t.startswith("Taskforce2") for t in sources + targets) or
+                set(targets) != set(joining.get(minute, []))):
+            raise SystemExit(f"{mission['key']}: reinforcement cutoff must name an entire opposing join at its exact minute")
+        trigger(f"Reinforcements cancelled before minute {minute:g}",
+                destroyed_condition(1, sources, len(sources)) + [
+                    "Condition_Condition2_Type=Time",
+                    f"Condition_Condition2_Time={round(minute * 60)}",
+                    "ConditionsCompleted=<Condition1> AND NOT <Condition2>",
+                    f"Action_DisableTriggers=Trigger{join_triggers[minute]}",
+                    f"Action_Taskforce1_Intel=ReinforcementCancelled{i}Intel"])
 
     if victory["kind"] == "arrive":
         win_units = ([tag for r in victory["units"] for tag in refs(members, r)]
@@ -5102,7 +5207,7 @@ def render(mission, placed, members):
         L += lines
         L.append("")
     check_zone_areas(mission, placed, zones, "\n".join(L))
-    return name, "\n".join(L) + "\n"
+    return name, "\n".join(L).rstrip() + "\n"
 
 
 # --- the campaign, its events and its briefings ------------------------------
@@ -6106,7 +6211,7 @@ def airframe_rows(uid, mission, placed):
             for d in decks:
                 if deck_fit(uid, kind, d[3], d[4]) != 0:
                     continue
-                needs = 1 if kind == "Helicopter" else 10
+                needs = deck_places_needed(uid, kind)
                 if kind == "VTOL" and d[4]:
                     needs = 1
                 if d[1] < needs or not (sp and d[2]):
@@ -7236,6 +7341,19 @@ def write_menu_background(out):
           f"{film.name} ({film.stat().st_size // 1024} KB) in plugins/")
 
 
+def write_runtime_fixes(out):
+    source = ROOT / "integration/runtime-fixes"
+    dll = source / "SEST.RuntimeFixes.dll"
+    if not dll.is_file():
+        raise SystemExit("SEST runtime plugin missing: run integration/runtime-fixes/build_plugin.py")
+    folder = out / "plugins"
+    folder.mkdir(parents=True, exist_ok=True)
+    (folder / dll.name).write_bytes(dll.read_bytes())
+    for name in ("sest_runtime.ini", "SEST_RUNTIME_README.txt"):
+        (folder / name).write_bytes((source / name).read_bytes())
+    print(f"  runtime fixes: {dll.name} ({dll.stat().st_size} bytes); own code only")
+
+
 # The game's loading-screen backgrounds: ui/backgrounds/loading_screen_1.png ..
 # _80.png (data/install-snapshot/streaming-media.txt, 10 Oct 2026, game
 # 0.8.5). The 15 Oct 2026 log showed the game pools every mod's and its own
@@ -7338,7 +7456,7 @@ def main():
             credits[token] = (why[0], why[1], "requisition roster")
         # What the campaign itself loads - its own missions and its roster -
         # apart from the Dispatches, which are browser missions the campaign
-        # never loads. Southern Watch's eight Dispatches place a unit from
+        # never loads. Southern Watch's Dispatches place a unit from
         # nearly every mod in the collection (they are the pack's coverage),
         # and a REQUIRED-MODS built from both told a player of the campaign
         # to install 137 mods it does not use (user report, 28 Sep).
@@ -7753,6 +7871,7 @@ def main():
         if src.is_file() and not src.name.startswith("."):
             (OUT / src.name).write_bytes(src.read_bytes())
     write_menu_background(OUT)
+    write_runtime_fixes(OUT)
     write_loading_screens(OUT)
 
     files = sum(1 for f in OUT.rglob("*") if f.is_file())

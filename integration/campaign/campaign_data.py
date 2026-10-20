@@ -59,11 +59,20 @@ INFO_DESC = (
 )
 
 
-# 816 Squadron RAN: the one squadron of the MH-60R under the Australian flag.
-# Every source of the airframe ships only US Navy squadrons, so SEST Collection
-# Fixes composes the table and appends this one; a Seahawk on an Australian
-# side is always a Royal Australian Navy ship's flight.
-RAN_SEAHAWK = "Squadron20"
+# 816 Squadron RAN on Euromod's Australian MH-60R model and decal textures.
+RAN_SEAHAWK = "Squadron1"
+
+# Shared modern resident detachment; twenty aircraft leave room in the
+# 48-place small field for each mission's airborne recovery package.
+LANGGUR_AIR_GROUP = [
+    ("usaf_f-16cm-bl52d", "Squadron1", 8),
+    ("dts_saab_ge", "Squadron2", 1),
+    ("raaf_f-35a", "Squadron3", 4),
+    ("usn_ea-18g", "Squadron6", 2),
+    ("usn_p8", "Squadron3", 2),
+    ("usaf_kc-46a_boom", "Squadron1", 1),
+    ("ran_mh-60r", RAN_SEAHAWK, 2),
+]
 
 
 def U(side, mod, type, station, **kw):
@@ -78,6 +87,10 @@ def U(side, mod, type, station, **kw):
     and it came out as a US Navy squadron. The builder applies it once the
     mission's nations are known; an explicit squadron= always wins."""
     if type == "usn_mh-60r":
+        # Compatibility for older authored scenarios; current RAN missions
+        # use ran_mh-60r and the Australian model below.
+        kw.setdefault("squadron_by_nation", {"Australia": "Squadron20"})
+    if type == "ran_mh-60r":
         kw.setdefault("squadron_by_nation", {"Australia": RAN_SEAHAWK})
     return dict(side=side, mod=mod, type=type, station=station, **kw)
 
@@ -141,6 +154,15 @@ EXCUSES = {
         "helicopter or ship picks up is paid at every debrief"),
     "better-tacmap": (
         "library", "player interface - ships `settings.cfg` and nothing else"),
+    "formation-manager-replacement": (
+        "library", "compact formation UI and aircraft map grouping through Anchor Chain; "
+        "no unit or ammunition a mission can place"),
+    "combat-cost-tracker": (
+        "library", "USD expenditure and equipment-loss overlay through Anchor Chain; "
+        "its cost catalogs apply to all missions and do not alter purchase points"),
+    "SEST_Combat_Costs": (
+        "library", "three Combat Cost Tracker catalog extensions: spelling corrections "
+        "and reviewed airframe/hull/weapon-family estimates; no performance or mission changes"),
     "euromod-anchorchain-expansion": (
         "library", "well-deck and effects framework: 182 effect files, six "
         "`systems/` files and 66 ammunition overwrites that the EuroMod hulls "
@@ -438,7 +460,7 @@ ROSTER = [
     dict(unit="raaf_mq-4c_triton", picks=["Squadron1"], points=40,
          note="unarmed in this implementation, so priced under the P-8 and "
               "the F-35A"),
-    dict(unit="usn_mh-60r", picks=[RAN_SEAHAWK], points=20,
+    dict(unit="ran_mh-60r", picks=[RAN_SEAHAWK], points=20,
          note="816 Squadron RAN; one family chosen explicitly - usn_mh-60r_26 "
               "is a different unit and is never substituted for it"),
 ]
@@ -448,7 +470,7 @@ ROSTER = [
 # squadrons would be priced as American. They are not: no unit file here
 # declares a nation, and every pick the roster sells is registered to
 # Australia by its squadron or hull variant (the Super Hornet's Squadron8,
-# the Growler's Squadron6, the P-8's Squadron3, the Seahawk's Squadron20).
+# the Growler's Squadron6, the P-8's Squadron3, the Seahawk's Australian Squadron1).
 # build_pack.roster_nations() re-reads that on every build and stops on a
 # pick with no declared nation; the rules page lists any unit the discount
 # does not cover. Set 28 Sep at the player's request.
@@ -589,7 +611,7 @@ MISSIONS.append(dict(
     units=[
         U("blue", "SEST_RAN_Fleet", "ran_ffh_anzac", "warramunga",
           variant="Variant3", weapons="Tight"),
-        U("blue", "SEST_Allied_Fixes", "usn_mh-60r", "flight", alt=500, weapons="Tight"),
+        U("blue", "SEST_Allied_Fixes", "ran_mh-60r", "flight", alt=500, weapons="Tight"),
         U("blue", "p-8-poseidon", "usn_p8", "air", squadron="Squadron3",
           name="Bluefin 21", alt=18000, weapons="Tight"),
         U("blue", "SEST_ADF_Persistent_ISR", "raaf_mq-4c_triton", "high",
@@ -776,7 +798,7 @@ MISSIONS.append(dict(
         # ship and a maritime-patrol slot for the P-8 the roster starts
         # selling here. The two F-35A cockpits and their CAP row are gone -
         # this mission declares no air threat and sells no fighter.
-        U("blue", "SEST_Allied_Fixes", "usn_mh-60r", "flight"),
+        U("blue", "SEST_Allied_Fixes", "ran_mh-60r", "flight"),
         U("blue", "p-8-poseidon", "usn_p8", "mpa", squadron="Squadron3",
           alt=6000),
     ],
@@ -785,16 +807,16 @@ MISSIONS.append(dict(
 MISSIONS.append(dict(
     group="core", num="03", key="Rig Seventeen", place="Timor Sea",
     intro="Civilians on an offshore platform, armed contractors on the deck "
-          "above them, and a patrol closing from the north.",
+          "above them, and armed patrols closing around the platform.",
     sender="Commodore Alex Mercer; Captain Ratna Prasetyo, Indonesian Navy (TNI-AL), embarked",
     intent=("The platform is not a target. The armed contractors on its upper "
             "deck are Captain Prasetyo's problem afterwards and not yours now. "
             "Two lift aircraft, and it takes both to bring thirty people and "
-            "their injured off a helideck, and a patrol boat closing from the "
-            "north that has answered nobody. Get the crew off before it "
-            "arrives, or hold it off until they are."),
+            "their injured off a helideck. Three armed patrol craft are closing "
+            "from different directions, with a gunship expected later. Keep "
+            "them off the lifters until everybody is back aboard."),
     date=(2028, 10, 24), time=(16, 10), sea=3, clouds="Overcast", wind="W",
-    difficulty=2, minutes=60, centre=(-11.0, 126.5),
+    difficulty=3, minutes=60, centre=(-11.0, 126.5),
     blue_nation="Australia", red_nation="China",
     brief=(
         "TIMOR SEA, late afternoon. Rig Seventeen has not answered its shore "
@@ -809,7 +831,11 @@ MISSIONS.append(dict(
         "Darwin has lent the lift for one afternoon at the end of its "
         "rotation: a Super Stallion and an Osprey, airborne south of the rig. "
         "Canberra has two Army Apaches on deck, armed with Hellfire and ready "
-        "to launch, for the patrol boat, and two Romeos.\\n\\n"
+        "to launch, for the patrol boats, and two Romeos. Meridian has two "
+        "missile boats closing from the north and north-west, a fast gunboat "
+        "coming in from the east, and a Hind gunship expected to join after "
+        "fifteen minutes. Those are military targets; the civilian platform "
+        "and passing traffic are not.\\n\\n"
         "Bring BOTH lifters over the platform, within three miles of it, and "
         "hold them there for three minutes while the crew is loaded - half "
         "go in each aircraft. AMPHIBIOUS CONTROL will tell you when everybody "
@@ -821,7 +847,8 @@ MISSIONS.append(dict(
            "MH-60R, a USMC CH-53E and MV-22B on loan from the Darwin rotational "
            "force for the lift, and your escort. "
            "Ashore: a launcher site, a VL MICA battery, a Sosna vehicle and "
-           "a technical. At sea: one armed patrol boat closing from the north.",
+           "a technical. At sea: two missile boats and a fast gunboat closing "
+           "on the rig. A Hind gunship joins after fifteen minutes.",
     objectives=[
         ("Evacuate", "Hold both lifters at the rig until the crew is aboard, then "
                      "bring both back to the amphibious group", "35,-35,Fail,Main"),
@@ -846,7 +873,7 @@ MISSIONS.append(dict(
                             held=("Rig crew loaded.",
                                   "AMPHIBIOUS CONTROL: All thirty aboard, half in each "
                                   "lifter. Bring both back to the amphibious group; keep "
-                                  "the approach clear of the patrol boat.")),
+                                  "the approach clear of the patrol craft and gunship.")),
                  min_units=2, objective="Evacuate"),
     # Either lifter lost ends it: half the crew is aboard each one once they
     # are loaded, and the loading takes both before that.
@@ -875,6 +902,9 @@ MISSIONS.append(dict(
         # north with a route onto the rig - the thing the lift is racing.
         "traffic": S(-10.75, 126.15, "Timor traffic", heading=100),
         "patrol": S(-10.23, 126.35, "Patrol from the north", heading=180),
+        "patrol_west": S(-10.30, 126.00, "North-west missile boat", heading=125),
+        "gunboat": S(-10.55, 126.68, "Eastern gunboat", heading=255),
+        "gunship": S(-10.05, 126.65, "Meridian gunship approach", heading=190, alt=2500),
     },
     units=[
         U("blue", "SEST_RAN_Fleet", "ran_ffh_anzac", "escort",
@@ -885,7 +915,7 @@ MISSIONS.append(dict(
         # with Hellfire at the start for the patrol boat, and two Romeos.
         U("blue", "SEST_RAN_Fleet", "ran_lhd_canberra", "amphib",
           name="HMAS Canberra",
-          air_group=[("adf_ah-64e", "Squadron1", 2), ("usn_mh-60r", "Squadron20", 2)],
+          air_group=[("adf_ah-64e", "Squadron1", 2), ("ran_mh-60r", "Squadron1", 2)],
           ready=[("adf_ah-64e", "Squadron1", "AntiShip", 2, 0)]),
         # The Rescue fit: 37 seats. The default fit is two Mk48 torpedoes and
         # TransportCapacity=0, which is not a lift helicopter, it is an ASW
@@ -908,6 +938,13 @@ MISSIONS.append(dict(
         # patrol is closing from the north. It is not ours."
         U("red", "red-storm-arsenal", "ir_ptg_peykaap_3", "patrol",
           name="Meridian Escort 4", route=[(-10.62, 126.42, 0)], telegraph=4),
+        U("red", "red-storm-arsenal", "ir_ptg_peykaap_3", "patrol_west",
+          name="Meridian Escort 7", route=[(-10.58, 126.32, 0)], telegraph=4),
+        U("red", "_vanilla", "ir_fab_boghammar", "gunboat",
+          name="Meridian Raider 2", route=[(-10.66, 126.44, 0)], telegraph=4),
+        U("red", "mi-24", "wp_mi-24p", "gunship", name="Meridian Hind 31",
+          nation="Meridian", alt=2500, enter=15,
+          route=[(-10.65, 126.55, 2500), (-11.05, 126.58, 2000)]),
         U("red", "shahed-136-zero-two", "shahed_tel_black", "shore",
           name="Meridian launcher site"),
         U("red", "sam-pack", "fr_vl-mica_tel", "shore",
@@ -1033,7 +1070,7 @@ MISSIONS.append(dict(
     units=[
         U("blue", "SEST_RAN_Fleet", "ran_opv_arafura", "patrol",
           weapons="Tight"),
-        U("blue", "SEST_Allied_Fixes", "usn_mh-60r", "air",
+        U("blue", "SEST_Allied_Fixes", "ran_mh-60r", "air",
           alt=2500, weapons="Tight"),
         U("blue", "p-8-poseidon", "usn_p8", "mpa", squadron="Squadron3", alt=15000, weapons="Tight"),
         U("red", "red-storm-arsenal", "_narco_narcosub_adv", "passenger",
@@ -1143,7 +1180,7 @@ MISSIONS.append(dict(
     units=[
         U("blue", "SEST_RAN_Fleet", "ran_ffh_anzac", "warramunga",
           variant="Variant3"),
-        U("blue", "SEST_Allied_Fixes", "usn_mh-60r", "air", alt=3000),
+        U("blue", "SEST_Allied_Fixes", "ran_mh-60r", "air", alt=3000),
         U("red", "chinese-navy-plan", "plan_em_sovremenny", "sag",
           name="Opposing escort", route=[(-10.3, 131.85, 0)], telegraph=3),
         U("red", "type-071-lpd", "plan_lpd_type_071", "sag",
@@ -1454,7 +1491,7 @@ MISSIONS.append(dict(
     )),
     detached=True,
     date=(2028, 11, 8), time=(4, 50), sea=2, clouds="Scattered_1", wind="NE",
-    difficulty=4, minutes=70, centre=(-2.0, 136.0),
+    difficulty=4, minutes=70, centre=(-2.0, 136.0), geography="coast",
     blue_nation="Australia", red_nation="Russia",
     brief=(
         (
@@ -1470,14 +1507,17 @@ MISSIONS.append(dict(
             "has lent the strip for this one operation and not an hour longer, and the pair "
             "recovers there, not on the carrier. The two relief KC-130Js are holding to the "
             "west and will not come in while that radar is up. If the coasters got fuel into "
-            "Langgur on the tenth, a KC-46 is on the track south of the box and the pair has "
-            "additional refuelling support for time on station; if not, the pair has what it "
-            "took off with.\\n\\nSuppress the battery, put its launcher out of the argument, and "
+            "Langgur on the tenth, a second KC-46, TEXACO 53, backs up TEXACO 52 on the "
+            "refuelling tracks south-west of the box. TEXACO 52 is available either way. "
+            "Langgur also has a modern resident detachment: F-16CMs, a Saab GlobalEye, "
+            "F-35As, Growlers, P-8s, a KC-46 and Seahawks. THEODORE ROOSEVELT is in the "
+            "Arafura Sea, south of Papua.\\n\\nSuppress the battery, put its launcher out of the argument, and "
             "let the transports through. You are not levelling a regional industrial complex to"
             " do it. Everything on that field that is not shooting at you is somebody's town."
         )),
     forces="One EA-18G off Theodore Roosevelt, two F-35A out of Langgur, "
-           "two relief transports. Opposing: an S-400 "
+           "two relief transports, Texaco 52 and Langgur's modern resident wing. "
+           "Texaco 53 joins if Weather Alternate was completed. Opposing: an S-400 "
            "battery with its Flap Lid, a ballistic launcher, a modern airbase, "
            "and a small Russian detachment with Hinds, Hips and Frogfoots.",
     objectives=[
@@ -1526,7 +1566,9 @@ MISSIONS.append(dict(
         # 230 NM from the package, inside the radius, on proven ground, and
         # in the fiction Prasetyo's to lend. It is placed whether or not
         # any optional operation was flown: SW08 must launch on its own.
-        "cvn": S(-4.3133, 135.8867, "Carrier group"),
+        # Cenderawasih Bay was on the wrong side of Papua. Use the Arafura
+        # Sea SOUTH of Papua, over 36 NM off the source coast, clear of Aru.
+        "cvn": S(-6.4, 135.5, "Carrier group south of Papua"),
         "strip": S(-5.6614, 132.7314, "Langgur forward strip"),
     },
     units=[
@@ -1586,7 +1628,8 @@ MISSIONS.append(dict(
         U("blue", "modern-us-navy", "usn_cvn_nimitz_2025", "cvn",
           name="USS Theodore Roosevelt"),
         U("blue", "_vanilla", "airfield_small_1", "strip",
-          name="Langgur forward strip", weapons="Hold"),
+          name="Langgur forward strip", weapons="Hold", air_group=LANGGUR_AIR_GROUP),
+        # Shared modern detachment; no inherited F-4/EA-6 resident aircraft.
     ],
 ))
 
@@ -1741,7 +1784,7 @@ MISSIONS.append(dict(
         U("blue", "SEST_RAN_Fleet", "ran_ffh_anzac", "escort", variant="Variant8"),
         U("blue", "re-power-resupply", "civ_ms_amra", "stores",
           name="MV Coral Provider"),
-        U("blue", "SEST_Allied_Fixes", "usn_mh-60r", "air",
+        U("blue", "SEST_Allied_Fixes", "ran_mh-60r", "air",
           alt=2500),
         U("blue", "buildings-targets-missions", "FOB", "cape",
           name="Cape York forward strip", weapons="Hold"),
@@ -1925,7 +1968,7 @@ MISSIONS.append(dict(
         U("blue", "SEST_RAAF_Bases", "airbase_raaf_darwin", "home",
           name="RAAF Base Darwin", nation="australia", weapons="Hold"),
         U("blue", "_vanilla", "airfield_small_1", "strip",
-          name="Langgur forward strip", weapons="Hold"),
+          name="Langgur forward strip", weapons="Hold", air_group=LANGGUR_AIR_GROUP),
     ],
 ))
 
@@ -2049,7 +2092,7 @@ MISSIONS.append(dict(
         U("blue", "re-power-resupply", "civ_ms_andizhan", "transports",
           name="MV Moresby Star"),
         U("blue", "_vanilla", "airfield_small_1", "strip",
-          name="Langgur forward strip", weapons="Hold"),
+          name="Langgur forward strip", weapons="Hold", air_group=LANGGUR_AIR_GROUP),
         # The PLAN Pack ships its own Fujian since 3 Oct, above the Fujian mod's
         # in the order, so the hull the game reads is the PLAN Pack's.
         U("red", "modern-plan-systems", "plan_cv_type_003", "red_cv", name="PLANS Fujian"),
@@ -2217,7 +2260,7 @@ MISSIONS.append(dict(
         # Air-tasking placeholder: no name, no objective, no line in the
         # briefing. Its only job is to be a cockpit a purchased aircraft can
         # take, the way every slot-tagged section in the shipped campaign is.
-        U("blue", "SEST_Allied_Fixes", "usn_mh-60r", "air"),
+        U("blue", "SEST_Allied_Fixes", "ran_mh-60r", "air"),
         U("blue", "SEST_RAAF_F-35A_JATM", "raaf_f-35a", "cap"),
         U("blue", "SEST_RAAF_F-35A_JATM", "raaf_f-35a", "cap", squadron="Squadron3"),
     ],
@@ -2467,33 +2510,37 @@ MISSIONS.append(dict(
     group="optional", num="O4", key="Weather Alternate",
     place="Kai Islands", expires_after="The Open Door",
     intro="Optional. A strip is only an alternate if there is fuel on it. "
-          "Take the bladders the last forty miles to Langgur.",
+          "Take the bladders the last fifteen miles to Langgur.",
     special="Optional operation. Put the fuel on Langgur and The Open Door "
-            "gets a tanker on station south of the enclave; miss it and the "
-            "F-35 pair flies on what it took off with. The strip is Prasetyo's "
+            "gets a second tanker on station south of the enclave. Texaco 52 "
+            "is available either way. The strip is Prasetyo's "
             "either way.",
     sender="Commodore Alex Mercer; Captain Ratna Prasetyo, Indonesian Navy "
            "(TNI-AL), for the strip",
     intent=("Langgur is where The Open Door's F-35 pair will recover, and a "
             "strip is only an alternate if there is fuel on it. Get both "
-            "coasters in. "
-            "Langgur town is at the head of the anchorage: nothing in it is "
+            "coasters into the offshore transfer anchorage west of Kai Kecil. "
+            "The fuel goes ashore by local craft; do not enter the island passages. "
+            "Langgur town is beyond the anchorage: nothing in it is "
             "yours to break."),
     date=(2028, 11, 10), time=(14, 0), sea=2, clouds="Scattered_1", wind="E",
-    difficulty=3, minutes=70, centre=(-5.8, 132.7),
+    difficulty=3, minutes=70, centre=(-5.8, 132.7), geography="coast",
+    route_clearance_nm=4.0,
     blue_nation="Australia", red_nation="China",
     brief=(
         "KAI ISLANDS, afternoon. Captain Prasetyo has lent us the strip at "
         "Langgur for the enclave relief window and not an hour longer. "
         "LANGGUR PROVIDER and KEI STAR carry the fuel bladders and the "
         "ground party; you take them the last "
-        "forty miles into the anchorage.\\n\\n"
+        "fifteen miles up the open-water western approach to the offshore transfer "
+        "anchorage. Local craft take the bladders ashore to Langgur; neither coaster "
+        "is to enter the passages between the Kai islands.\\n\\n"
         "The enclave knows what Langgur is for. A Meridian escort pair has "
         "been working the Kai passages since Tuesday, and the last transit "
         "reported a drone launcher site on Kai Besar, across the strait "
         "east of "
         "the anchorage. "
-        "Langgur town is at the head of it and every building in it is "
+        "Langgur town is beyond the anchorage and every building in it is "
         "somebody's.\\n\\n"
         "Get both coasters in. Put the launcher out of the argument if you "
         "can do it without touching the town."),
@@ -2501,49 +2548,60 @@ MISSIONS.append(dict(
            "the anchorage, the strip beyond it. Opposing: a Meridian escort "
            "pair, a drone launcher site on Kai Besar.",
     objectives=[
-        ("Fuel", "Get both coasters into the Langgur anchorage", "35,-35,Fail,Main"),
+        ("Fuel", "Get both coasters into the western transfer anchorage", "35,-35,Fail,Main"),
         ("Site", "Neutralise the Kai Besar launcher site", "15,-10,Complete"),
         ("Town", "Leave Langgur alone", "0,-30,Complete"),
     ],
     victory=dict(kind="arrive", station="fuel", min_units=2, objective="Fuel",
-                 transit=12, sets="O4LanggurStocked"),
+                 at=(-5.72, 132.50), radius=2, transit=12, sets="O4LanggurStocked"),
     declares=["O4LanggurStocked"],
     fatal=[F("Fuel", ["fuel"], 1)],
     neutral_objective="Town",
     win="Both coasters are in the anchorage and the ground party is pumping "
-        "before the light goes. The Open Door has a tanker on the track.",
-    lose="The bladders are on the bottom forty miles short. The Open Door "
-         "flies on internal fuel and Prasetyo's strip is a runway with "
-         "nothing on it.",
+        "before the light goes. The Open Door has a second tanker on the track.",
+    lose="The bladders are on the bottom short of Langgur. The Open Door "
+         "has Texaco 52 but no second tanker to extend the support window.",
     stations={
-        "escort": S(-6.15, 132.7, "Detachment", heading=30),
-        "fuel": S(-6.1, 132.6, "Fuel coasters", heading=30),
-        "raiders": S(-5.7, 133.1, "Meridian pair", heading=210),
+        # The eastern passage still beached coasters in game. This broad
+        # western approach stays at least 8.9 NM off the source coastline
+        # throughout the coasters' 14.5 NM route.
+        "escort": S(-5.99, 132.48, "Detachment", heading=0),
+        "fuel": dict(S(-5.96, 132.48, "Fuel coasters", heading=0), coastal=True,
+                     formation_spacing=0.3),
+        "raiders": dict(S(-5.40, 132.52, "Meridian pair", heading=185),
+                        formation_spacing=0.3),
         "site": S(-5.3643, 133.116, "Kai Besar launcher site", heading=240),
         # Langgur town on Kai Kecil; the strip the fuel is for is the same
         # place in the story - it needs no unit here, nothing in this mission
         # flies from it. Until 10 Oct 2026 this and the strip stood on a
         # "proven" point 22 NM north of Langgur, in the sea, and the launcher
         # site 22 NM east of Kai Besar (133.516 for 133.116).
-        "town": S(-5.640, 132.745, "Langgur", heading=0),
-        "fishing": S(-5.9, 132.5, "Kai fishing", heading=60),
+        "town": S(-5.640, 132.770, "Langgur", heading=0),
+        "fishing": S(-5.88, 132.30, "Kai fishing", heading=15),
     },
     units=[
         U("blue", "SEST_RAN_Fleet", "ran_ffh_anzac", "escort", variant="Variant3",
           weapons="Tight"),
         U("blue", "re-power-resupply", "civ_ms_freighter_d", "fuel",
-          name="MV Langgur Provider"),
-        U("blue", "_vanilla", "civ_ms_encounter", "fuel", name="MV Kei Star"),
+          name="MV Langgur Provider", telegraph=3,
+          route=[(-5.82, 132.48, 0),
+                 (-5.72, 132.50, 0, [("SetTelegraph", 0)])]),
+        U("blue", "_vanilla", "civ_ms_encounter", "fuel", name="MV Kei Star",
+          telegraph=3,
+          route=[(-5.82, 132.48, 0),
+                 (-5.72, 132.50, 0, [("SetTelegraph", 0)])]),
         U("red", "red-storm-arsenal", "ir_ptg_peykaap_3", "raiders",
-          name="Meridian Escort 5", route=[(-6.05, 132.65, 0)], telegraph=4),
+          name="Meridian Escort 5", telegraph=4,
+          route=[(-5.65, 132.48, 0), (-5.85, 132.48, 0)]),
         U("red", "red-storm-arsenal", "ir_ptg_peykaap_3", "raiders",
-          name="Meridian Escort 6", route=[(-6.1, 132.7, 0)], telegraph=4),
+          name="Meridian Escort 6", telegraph=4,
+          route=[(-5.65, 132.48, 0), (-5.85, 132.48, 0)]),
         U("red", "shahed-136-zero-two", "shahed_tel_black", "site",
           name="Kai Besar launcher site"),
         U("neutral", "buildings-targets-missions", "4tentgroup", "town",
           name="Langgur town"),
         U("neutral", "_vanilla", "civ_fv_sterntrawler_a", "fishing",
-          name="Kai fishing boat", route=[(-5.75, 132.62, 0)], telegraph=2),
+          name="Kai fishing boat", route=[(-5.70, 132.35, 0)], telegraph=2),
     ],
 ))
 
@@ -3316,7 +3374,7 @@ MISSIONS.append(dict(
         U("red", "type-003-004-maneuverwarfare", "plan_cvn_004", "sea",
           name="Type 004 picket"),
         U("blue", "_vanilla", "airfield_small_1", "strip",
-          name="Langgur forward strip", weapons="Hold"),
+          name="Langgur forward strip", weapons="Hold", air_group=LANGGUR_AIR_GROUP),
         U("red", "modern-chinese-airbase", "pla_airbase_modern", "red_field",
           name="Enclave field", weapons="Hold"),
         U("blue", "SEST_RAAF_Bases", "airbase_raaf_darwin", "home",
@@ -3734,7 +3792,7 @@ MISSIONS.append(dict(
         U("blue", "SEST_RAN_Fleet", "ran_ffh_anzac", "patrol", variant="Variant3",
           weapons="Tight"),
         # The Ship's Flight slot a bought Seahawk fills. No trigger names it.
-        U("blue", "SEST_Allied_Fixes", "usn_mh-60r", "flight", alt=500,
+        U("blue", "SEST_Allied_Fixes", "ran_mh-60r", "flight", alt=500,
           weapons="Tight"),
         U("neutral", "_vanilla", "civ_ms_encounter", "wreck",
           name="MV Torres Light"),
@@ -3864,7 +3922,7 @@ MISSIONS.append(dict(
         U("blue", "SEST_RAN_Fleet", "ran_ffh_anzac", "hobart", variant="Variant3",
           weapons="Tight"),
         # The Ship's Flight slot a bought Seahawk fills. No trigger names it.
-        U("blue", "SEST_Allied_Fixes", "usn_mh-60r", "flight", alt=500,
+        U("blue", "SEST_Allied_Fixes", "ran_mh-60r", "flight", alt=500,
           weapons="Tight"),
         # Not a Steel Highway hull: any of that convoy's four can be lost
         # the day before, and a page or a mission never names a losable hull
@@ -4102,7 +4160,7 @@ MISSIONS.append(dict(
     },
     units=[
         U("blue", "SEST_RAN_Fleet", "ran_ffh_anzac", "escort", variant="Variant8"),
-        U("blue", "SEST_Allied_Fixes", "usn_mh-60r", "flight", alt=500),
+        U("blue", "SEST_Allied_Fixes", "ran_mh-60r", "flight", alt=500),
         U("red", "re-power-resupply", "civ_ms_andizhan", "cargo", name="MV Ocean Pearl",
           nation="Panama", weapons="Hold", route=[(-6.05, 132.20, 0)], telegraph=3),
         U("red", "re-power-resupply", "civ_ms_freighter_a", "cargo", name="MV Golden Wren",
@@ -4236,7 +4294,7 @@ MISSIONS.append(dict(
         U("blue", "SEST_RAAF_Bases", "airbase_raaf_tindal", "tindal",
           name="RAAF Base Tindal", nation="australia", weapons="Hold"),
         U("blue", "_vanilla", "airfield_small_1", "strip", name="Langgur forward strip",
-          weapons="Hold"),
+          weapons="Hold", air_group=LANGGUR_AIR_GROUP),
         # Each launcher stands with its radar: the S-350's needs the 50N6
         # within 7 NM, the S-300's its 30N6E2 within a mile. The radar is
         # each station's first unit (#1). Radars count as combat units, so
@@ -4476,7 +4534,7 @@ MISSIONS.append(dict(
           name="Jammer 71", alt=32000, weapons="Hold",
           route=[(-5.40, 130.60, 32000), (-5.10, 129.60, 32000)], loop=True),
         U("blue", "_vanilla", "airfield_small_1", "strip", name="Langgur forward strip",
-          weapons="Hold"),
+          weapons="Hold", air_group=LANGGUR_AIR_GROUP),
         U("blue", "SEST_RAAF_Bases", "airbase_raaf_darwin", "darwin",
           name="RAAF Base Darwin", nation="australia", weapons="Hold"),
         U("red", "modern-plan-systems", "plan_type_054a_p5", "sag", variant="Variant7",
@@ -4577,7 +4635,7 @@ MISSIONS.append(dict(
     },
     units=[
         U("blue", "_vanilla", "airfield_small_1", "strip", name="Langgur forward strip",
-          weapons="Hold"),
+          weapons="Hold", air_group=LANGGUR_AIR_GROUP),
         U("blue", "thaad", "thaad_tel", "battery", name="THAAD launcher"),
         U("blue", "thaad", "wp_an_tpy_2", "battery", name="AN/TPY-2"),
         U("blue", "sam-pack", "usa_pac-3_launcher", "patriot", variant="Variant1",
@@ -4609,7 +4667,10 @@ MISSIONS.append(dict(
           alt=34000, weapons="Hold", enter=5,
           route=[(-4.60, 133.40, 34000), (-3.60, 134.20, 34000)], loop=True),
         U("neutral", "_vanilla", "civ_ms_roro_b", "ferry", name="KM Tual Express",
-          route=[(-5.90, 133.10, 0)], telegraph=3),
+          # The straight south-east leg crossed Kai Besar. Keep the ferry
+          # in the passage, then take her into open water south of Kai.
+          route=[(-5.70, 132.88, 0), (-5.80, 132.84, 0),
+                 (-5.90, 132.82, 0), (-6.08, 132.82, 0)], telegraph=3),
         U("neutral", "_vanilla", "civ_fv_fishingboat_a", "fishing", name="KM Kei Besar",
           route=[(-5.40, 132.50, 0)], telegraph=1),
     ],
@@ -5141,7 +5202,7 @@ RECON = "Recon|Maritime Patrol|MPA/ASW/ESM/AEW|1|ASW/AntiShip"
 # names here; they are granted outright now, so nothing that can take this
 # slot flies a CH53SA* fit and advertising one would be an orphan name.
 HELO = ("HeloRecon|Ship's Flight|SAR|1|"
-        "ASW/ASWLongRange/ASWPatrol/AntiShipLate")
+        "ASW/ASWLongRange/ASWHunter/AntiShip/SEST_REDBACK")
 STRIKE = ("Attack|Maritime Strike|Bomber/SEAD|2|"
           "Strike/StrikeLongRange/StrikePrecision/AntiShip/AntiShipHeavy/"
           "MurderHornetSEAD/MurderHornetAntiShip/SEST_SEAD120D")
@@ -5166,7 +5227,7 @@ STRIKE_FORD = STRIKE + "/SEAD"
 # stages, so each purchase window names what is actually available then -
 # rendered into TaskForceModeAllowedRosterUnits, which Pacific Strike uses
 # eleven times for exactly this. The variants come from ROSTER, never restated.
-ESCORTS = ["ran_ffh_anzac", "ran_opv_arafura", "usn_mh-60r"]
+ESCORTS = ["ran_ffh_anzac", "ran_opv_arafura", "ran_mh-60r"]
 AIR_EARLY = ["usn_p8", "raaf_f-35a"]
 AIR_LATE = ["usn_fa-18f_blk3", "E7A_Wedgetail", "usn_ea-18g",
             "raaf_mq-4c_triton"]
@@ -5191,14 +5252,14 @@ BUY_09 = BUY_07
 # Shadow, and window 12 sells all three for the finale that does. The P-8
 # stays - its Bomber role and AntiShip fit take the Attack row.
 BUY_11 = [u for u in BUY_09
-          if u not in ("usn_mh-60r", "E7A_Wedgetail", "raaf_mq-4c_triton")]
+          if u not in ("ran_mh-60r", "E7A_Wedgetail", "raaf_mq-4c_triton")]
 # SW12 replaces aircraft and repairs hulls; it does not sell new ones. That
 # was a comment above the window until the allowlist made it a rule.
 # The finale sells what its rows can fly - a CAP row for the fighters, the
 # helicopter and patrol rows - and, after a fleet action that sails the whole
 # force, a replacement hull or two. No Growler: there is no Attack row.
 BUY_12 = ["usn_p8", "raaf_f-35a", "usn_fa-18f_blk3", "E7A_Wedgetail",
-          "raaf_mq-4c_triton", "usn_mh-60r", "ran_opv_arafura", "ran_ffh_anzac"]
+          "raaf_mq-4c_triton", "ran_mh-60r", "ran_opv_arafura", "ran_ffh_anzac"]
 
 WINDOWS = {
     "01": dict(buy=True, situation=(
@@ -5315,9 +5376,8 @@ TIMEOUTS = {
     "O3": "The join point is empty at the end of the window. The Korean "
           "detachment turns back for Surabaya, and the fortnight was spent on "
           "the approach.",
-    "O4": "The light went with the bladders still forty miles short. The Open "
-          "Door flies on internal fuel and Prasetyo's strip is a runway with "
-          "nothing on it.",
+    "O4": "The light went with the bladders still short of Langgur. The Open "
+          "Door has Texaco 52 but no second tanker to extend the support window.",
     "O6": "{deadline_clock}, and the cargo ships are still moving north in the dark "
           "with the armed merchant between you and them. They will be in the Banda "
           "Sea before the detachment can get a clean shot.",
@@ -5379,7 +5439,8 @@ ARRIVALS = {
     "06": (-131, 12),
     "07": (-170, 20),
     "O3": (90, 12),
-    "O4": (30, 8),
+    # O4 has an authored anchorage on the Langgur approach, not a box solved
+    # along a bearing which can end on Kai Kecil. Its route is coast-checked.
     "C2": (160, 10),
     "10": (139, 12),
     "11": (138, 12),
@@ -5525,18 +5586,18 @@ SLOTS = {
     # player's own aircraft fills, and no native mission binds an objective to
     # one: 20 slot-tagged sections in the shipped campaign, 0 trigger
     # references. Aircraft an objective depends on carry JOINS instead.
-    ("01", "usn_mh-60r"): "HeloRecon", ("O1", "usn_mh-60r"): "HeloRecon",
-    ("C1", "usn_mh-60r"): "HeloRecon",
-    ("O6", "usn_mh-60r"): "HeloRecon",
-    ("02", "usn_mh-60r"): "HeloRecon", ("02", "usn_p8"): "Recon",
+    ("01", "ran_mh-60r"): "HeloRecon", ("O1", "ran_mh-60r"): "HeloRecon",
+    ("C1", "ran_mh-60r"): "HeloRecon",
+    ("O6", "ran_mh-60r"): "HeloRecon",
+    ("02", "ran_mh-60r"): "HeloRecon", ("02", "usn_p8"): "Recon",
     ("05", "raaf_f-35a"): "Attack",
     ("09", "usn_p8"): "Recon",
     ("10", "usn_p8"): "Recon",
-    ("12", "usn_mh-60r"): "HeloRecon",
-    ("04", "usn_mh-60r"): "HeloRecon", ("04", "usn_p8"): "Recon",
-    ("05", "usn_mh-60r"): "HeloRecon",
+    ("12", "ran_mh-60r"): "HeloRecon",
+    ("04", "ran_mh-60r"): "HeloRecon", ("04", "usn_p8"): "Recon",
+    ("05", "ran_mh-60r"): "HeloRecon",
     ("06", "raaf_f-35a"): "CAP", ("06", "E7A_Wedgetail"): "Recon",
-    ("09", "usn_mh-60r"): "HeloRecon",
+    ("09", "ran_mh-60r"): "HeloRecon",
     ("11", "usn_f-35c"): "CAP", ("11", "usn_ea-18g_2020"): "Attack",
     ("12", "usn_p8"): "Recon", ("12", "raaf_f-35a"): "CAP",
 }
@@ -5858,11 +5919,20 @@ for _m in MISSIONS:
                              name="ROKS Sejong the Great",
                              spawn_if=("O3ShieldJoined", "IsTrue")))
     if _m["num"] == "08":
-        # Weather Alternate, kept: a tanker on the track south of the box.
+        # Baseline support must also exist in standalone, with no O4 flag.
+        # Weather Alternate earns a SECOND tanker, not the only one.
         _m["stations"]["tanker"] = S(-3.9, 134.3, "Tanker track", heading=90,
                                      alt=26000)
         _m["units"].append(U("blue", "kc-46a", "usaf_kc-46a_boom", "tanker",
                              name="Texaco 52", alt=26000, weapons="Hold",
+                             route=[(-3.9, 134.0, 26000), (-3.9, 134.6, 26000)],
+                             loop=True))
+        _m["stations"]["tanker_reserve"] = S(-4.2, 134.3, "Reserve tanker track",
+                                             heading=270, alt=28000)
+        _m["units"].append(U("blue", "kc-46a", "usaf_kc-46a_boom", "tanker_reserve",
+                             name="Texaco 53", alt=28000, weapons="Hold",
+                             route=[(-4.2, 134.6, 28000), (-4.2, 134.0, 28000)],
+                             loop=True,
                              spawn_if=("O4LanggurStocked", "IsTrue")))
     if _m["num"] == "09":
         # The second replenishment hull only exists if SUPPLY came through
@@ -5894,3 +5964,10 @@ for _m in MISSIONS:
         for _u in _m["units"]:
             if _u["station"] == "spoiler_air":
                 _u["spawn_if"] = ("SW11FujianSunk", "IsFalse")
+
+from playtest_revision import apply_watch
+apply_watch(MISSIONS, U, S)
+from additional_dispatches import missions as additional_dispatches
+MISSIONS.extend(additional_dispatches(U, S))
+for _used in ("russian-ground-artillery", "nato-ground-artillery"):
+    EXCUSES.pop(_used, None)

@@ -119,7 +119,7 @@ ROSTER = [
     dict(unit="raaf_mq-4c_triton", picks=["Squadron1"], points=40,
          note="unarmed in this implementation, so priced under the P-8 and "
               "the F-35A"),
-    dict(unit="usn_mh-60r", picks=[RAN_SEAHAWK], points=20,
+    dict(unit="ran_mh-60r", picks=[RAN_SEAHAWK], points=20,
          note="816 Squadron RAN; one family chosen explicitly - usn_mh-60r_26 "
               "is a different unit and is never substituted for it"),
 ]

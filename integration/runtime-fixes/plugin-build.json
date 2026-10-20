@@ -1,0 +1,15 @@
+{
+  "format": 1,
+  "binary": "SEST.RuntimeFixes.dll",
+  "sha256": "9aa55df8d9079e0ad35205e21b6730dc6483261b01b8dd2d1b23182aad4fa5b6",
+  "inputs": {
+    "integration/runtime-fixes/Policy.cs": "9c2958f2f0feadf6dcf258e9003ec250c03aedb35f00f9290fdb078853379e28",
+    "integration/runtime-fixes/SestRuntimeFixes.cs": "a69be206668be6688f1ce4dcbd3718771905f09b0dc8433172629659b43b1b01",
+    "integration/runtime-fixes/TaskForceDebrief.cs": "54629b5b4a530b4e5fe34e4fc8cb9cc3ff42c7eb12294077bafd67ff7c90e949",
+    "integration/runtime-fixes/TerrainClearance.cs": "abb529c87fba9104ec3432f3be64f7c7ef1af7d0f7b0b8b6c8ad22c1a7244f7a",
+    "integration/menu-background/stubs/AnchorChain.cs": "1769efe756d568c53bbf64753a09cc4c2da4f5a58904710145a6086fee71fb63",
+    "integration/runtime-fixes/build_plugin.py": "984248b6485f3fc131a305e4b9d85165dc6d9605fac0946713e74293109e3b24",
+    "integration/runtime-fixes/tests/RuntimeTests.cs": "8211db69a7f7bda3f0545f4e8ce120e32791cdd75e5bee1d8fcdbd6fc6619ce5"
+  },
+  "validation": "37 assertions passed using mocked native APIs; no Unity gameplay claim"
+}

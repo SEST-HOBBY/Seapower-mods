@@ -1,6 +1,6 @@
 Southern Watch - Workshop mods this campaign reaches (reference only)
 
-158 items, in canonical load order. NOT the Workshop item's
+160 items, in canonical load order. NOT the Workshop item's
 Required Items list. All four campaigns ship in one item, the SEST
 Integration Pack (3812461539), whose Required Items - like the
 collection 'SEST - Modernised Campaign Collection' (3812390790) -
@@ -161,6 +161,8 @@ https://steamcommunity.com/sharedfiles/filedetails/?id=3408662804    # Iskander 
 https://steamcommunity.com/sharedfiles/filedetails/?id=3681748718    # ISKANDER-M
 https://steamcommunity.com/sharedfiles/filedetails/?id=3470643173    # Type 12 SSM-ER Anti-Ship Missile System
 https://steamcommunity.com/sharedfiles/filedetails/?id=3571718093    # Road Mobile ICBMs (Topol-M, DF-41)
+https://steamcommunity.com/sharedfiles/filedetails/?id=3603306548    # Russian Ground Enhancement Series 1: Artillery
+https://steamcommunity.com/sharedfiles/filedetails/?id=3603367264    # NATO Ground Enhancement Series 2: Artillery
 https://steamcommunity.com/sharedfiles/filedetails/?id=3631042692    # Modern Chinese Airbase (Large)
 https://steamcommunity.com/sharedfiles/filedetails/?id=3629269283    # Modern Russian Airbase (Large)
 https://steamcommunity.com/sharedfiles/filedetails/?id=3592460366    # Modern US Airbase

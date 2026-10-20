@@ -26,14 +26,17 @@ first; the detail lives where each line points:
 5. **The ARRW profile** — *SEST NF3 - SEAD over the Shelf*: the B-52Os'
    AGM-183As loft to about 99,000 ft, where they used to cruise level at
    90,000.
-6. **The Redback** — *SEST NF3 - Coastal Ambush*: the A-10Cs' AGR-30s guide
-   out to 30 NM in a shallow climb and dive at the end, not skimming. Against
-   a drone, note the range at which the infrared seeker locks (`build-notes.md`,
-   *One Redback for every strike aircraft*). Then the pods, in the loadout
+6. **The Redback** — *SEST NF3 - Coastal Ambush*: test the candidate 2 km
+   loft, ten-second visible motor, gradual slowdown toward 150 knots, then
+   an approximately 45-degree surface dive and a 220-knot terminal speed
+   target at 1x. Record the observed curve; these are candidate settings.
+   Check the active seeker against a crossing ship and slow drone, then
+   retarget after launch (`docs/playtest-20261019-fixes.md`). Then the pods, in the loadout
    screen's SEST Redback Strike on the F-16CM, an F/A-18F, an Apache, an
    MH-60R and an A-10: each pod hangs from its pylon, not inside a rack or
    below it in the air, and the F/A-18F shows two pods side by side on each
-   mid pylon beside its wing tanks (*The pods, each on its own mount*).
+   mid pylon beside its wing tanks. MH-60R supports remain visible; the
+   S-70B-2 uses one pod on its single modelled missile arm.
 7. **MALICE mass** — an F-15EX on its Malice6 fit (six AIM-424s, 680 kg each
    now) gets airborne and reaches its station.
 8. **SM-3 terminal** — a Flight III Burke's SM-3 IIA at a DF-21D or DF-26B
@@ -204,7 +207,7 @@ shipped missions imply.
 | 6.5 | Get alongside Torres Light first in O1, then start SW02 | An intel line and the submarine on the route shown as a **classified** contact from the start; skip O1, or let Meridian's ship get there first, and it is not |
 | 6.6 | Identify the coaster in O2, then start SW04 | The same shape: Kiwi 01's picture as intel, the submarine classified |
 | 6.7 | Bring both Korean warships in at O3, then start SW06 | **ROKS Sejong the Great** is in the screen. Lose either, or skip O3, and she is not (`SpawnByVariableAND=O3ShieldJoined,IsTrue` — the first `IsTrue` spawn in the pack) |
-| 6.8 | Put both coasters in at O4, then start SW08 | A **KC-46** on the track south of the box; skip or fail O4 and there is none |
+| 6.8 | Start SW08 fresh, then compare a campaign with O4 completed | **Texaco 52 is always present** on its south-western refuelling track. Completing O4 adds **Texaco 53** on a separate track; skipping or failing O4 leaves Texaco 52 available. Langgur has its modern resident wing in both cases. |
 | 6.9 | Hold the SW09 service window, then open the SW10 pre-mission screen | A **rearm** is offered. Miss the window (leave the box before 35:00 and lose it) and it is not (`TaskForceModeRearmByVariableAND`) |
 
 6.4 is the real test. Declaration, write and read are all present in the files

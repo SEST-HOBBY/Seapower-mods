@@ -1,8 +1,8 @@
 {
   "meta": {
     "game": "Sea Power: Naval Combat in the Missile Age",
-    "source": "Steam Workshop subscription list pasted by user, 2026-08-23 (see data/raw-workshop-list.txt) Extended 2026-08-24: +18 new subscriptions (titles only — file-level fields pending a mods-source re-export); 1 unsubscribed; Tu-95K-22 re-subscription was a duplicate of an existing entry. Extended 2026-09-20: mods-source re-exported after a long gap, which is what brought these in - only the Anzac Class Frigate is a NEW subscription (user-stated). The other 10 folders that appeared (F-2A, J-16 Multirole, PLA AEP, Auto Time-on-Target, RQ-180, YF-23, MiG-31, CH-53E, J-36, and the already-catalogued Y-8/Y-9 family) were subscribed earlier and simply never exported; the repo cannot date them, since data/raw-workshop-list.txt is the 109-item list from 2026-08-23 and predates all of them. Y-8/Y-9 proves the backlog was real: it was catalogued and in the load order already, with no files. 3 mods unsubscribed and pruned (F-35C MyGo, F/A-18E/F MyGo, AI Doctrine Overhaul). meta.count now tracks catalog entries, which is what tools/generate_catalog.py asserts. Extended 2026-09-30: RC-135V/W Rivet Joint and Coordinated Strike Tool subscribed (user-stated; both in the 30 Sep export). The Dassault Rafale (3504168760) has been absent from the PC's subscriptions since the 28 Sep snapshot and the 30 Sep export pruned its folder; it stays active here until the player says whether it is coming back. Extended 2026-10-03: Auto Time-on-Target unsubscribed by the user (Coordinated Strike Tool is the one salvo planner kept). Extended 2026-10-03 (evening): four new subscriptions in the export - Moloti's Armed Merchantmen, French Air Force (which brings the Rafale family back under the old ids), MV-75 Cheyenne II and the PLAAF Aircraft Pack. Extended 2026-10-04: ten further subscriptions (Hyuga class, AS350, S-350 Vityaz, Shahed 238, EMAD, Fattah-1, Fattah-2, Iran Bell-212, Project 2498 Zyetseth, Thailand: The Siam Shield). Extended 2026-10-11: Dynamic Campaign Mod (3813157776) added to the load order at the user's request. Extended 2026-10-13: five new subscriptions placed in the order on the player's decision - BUK-M3, ISKANDER-K, ICBM silos, Road Mobile ICBMs (Topol-M, DF-41) and Prithvi TBM. Extended 2026-10-14: Anduril Maritime Drones (3819522350) subscribed by the user and placed below Saronic Corsair ASV. Extended 2026-10-17: Steelfin (3820576916) subscribed by the user and placed directly above Saronic Corsair ASV.",
-    "count": 206,
+    "source": "Steam Workshop subscription list pasted by user, 2026-08-23 (see data/raw-workshop-list.txt) Extended 2026-08-24: +18 new subscriptions (titles only — file-level fields pending a mods-source re-export); 1 unsubscribed; Tu-95K-22 re-subscription was a duplicate of an existing entry. Extended 2026-09-20: mods-source re-exported after a long gap, which is what brought these in - only the Anzac Class Frigate is a NEW subscription (user-stated). The other 10 folders that appeared (F-2A, J-16 Multirole, PLA AEP, Auto Time-on-Target, RQ-180, YF-23, MiG-31, CH-53E, J-36, and the already-catalogued Y-8/Y-9 family) were subscribed earlier and simply never exported; the repo cannot date them, since data/raw-workshop-list.txt is the 109-item list from 2026-08-23 and predates all of them. Y-8/Y-9 proves the backlog was real: it was catalogued and in the load order already, with no files. 3 mods unsubscribed and pruned (F-35C MyGo, F/A-18E/F MyGo, AI Doctrine Overhaul). meta.count now tracks catalog entries, which is what tools/generate_catalog.py asserts. Extended 2026-09-30: RC-135V/W Rivet Joint and Coordinated Strike Tool subscribed (user-stated; both in the 30 Sep export). The Dassault Rafale (3504168760) has been absent from the PC's subscriptions since the 28 Sep snapshot and the 30 Sep export pruned its folder; it stays active here until the player says whether it is coming back. Extended 2026-10-03: Auto Time-on-Target unsubscribed by the user (Coordinated Strike Tool is the one salvo planner kept). Extended 2026-10-03 (evening): four new subscriptions in the export - Moloti's Armed Merchantmen, French Air Force (which brings the Rafale family back under the old ids), MV-75 Cheyenne II and the PLAAF Aircraft Pack. Extended 2026-10-04: ten further subscriptions (Hyuga class, AS350, S-350 Vityaz, Shahed 238, EMAD, Fattah-1, Fattah-2, Iran Bell-212, Project 2498 Zyetseth, Thailand: The Siam Shield). Extended 2026-10-11: Dynamic Campaign Mod (3813157776) added to the load order at the user's request. Extended 2026-10-13: five new subscriptions placed in the order on the player's decision - BUK-M3, ISKANDER-K, ICBM silos, Road Mobile ICBMs (Topol-M, DF-41) and Prithvi TBM. Extended 2026-10-14: Anduril Maritime Drones (3819522350) subscribed by the user and placed below Saronic Corsair ASV. Extended 2026-10-17: Steelfin (3820576916) subscribed by the user and placed directly above Saronic Corsair ASV. Extended 2026-10-20: Combat Cost Tracker and Formation Manager Replacement installed and selected by the player; their current text exports are captured.",
+    "count": 208,
     "field_notes": {
       "faction": "Primary operator the content represents (usa, russia, china, japan, australia, europe, france, italy, spain, iran, thailand, multi, civilian, utility)",
       "type": "framework | weapons | fixed-wing | rotary | uav | ship | submarine | land | airbase | patch (modifies other mods or vanilla units) | civilian | campaign (a third-party mission or campaign pack that ships no units of its own)",
@@ -187,7 +187,8 @@
         "SEST_Rafale_F5",
         "SEST_Raptor_Squadrons",
         "SEST_Replenishment",
-        "SEST_TacMap_Colors"
+        "SEST_TacMap_Colors",
+        "SEST_Combat_Costs"
       ]
     },
     {
@@ -250,6 +251,34 @@
         "SEST_Raptor_Squadrons",
         "SEST_Replenishment",
         "SEST_TacMap_Colors"
+      ]
+    },
+    {
+      "folder": "SEST_Combat_Costs",
+      "source": "integration/combat-costs",
+      "builder": "build_pack.py",
+      "title": "SEST Combat Cost Compatibility",
+      "build_after": [
+        "SEST_A10C_Plus",
+        "SEST_ADF_Persistent_ISR",
+        "SEST_Allied_Fixes",
+        "SEST_B52_ARRW",
+        "SEST_Collection_Fixes",
+        "SEST_F-15EX_Revamp",
+        "SEST_F-35C_JATM",
+        "SEST_F16CM_JATM",
+        "SEST_Growler_NGJ_MALICE",
+        "SEST_Intercept_Model",
+        "SEST_JMSDF_Mogami",
+        "SEST_RAAF_Bases",
+        "SEST_RAAF_F-35A_JATM",
+        "SEST_RAAF_Wedgetail",
+        "SEST_RAN_Fleet",
+        "SEST_Rafale_F5",
+        "SEST_Raptor_Squadrons",
+        "SEST_Replenishment",
+        "SEST_TacMap_Colors",
+        "SEST_Cross_Deck"
       ]
     }
   ],
@@ -2865,6 +2894,32 @@
       "status": "active",
       "load_order": "Last in the order, below every other mod. It ships nothing but encyclopedia profile pictures (ui/profiles/<unit id>.png, 463 images) and a profile picture is a whole file, so whichever mod is highest supplies it: at the bottom, every mod author's own picture still wins and this one only fills units nobody else pictures, and replaces the base game's aircraft pictures, which is its purpose.",
       "notes": "Encyclopedia profile pictures only: real photographs for 463 aircraft and helicopter ids, no unit, round or text file (its export is the one _info.ini). Against the 5 Oct 2026 listing of the profile pictures already in the collection (integration/gallery/existing-profiles.tsv): 228 of its ids already have a picture from another mod and keep it; 76 mod units with no picture at all get one (13 the campaigns field: Atlantique 2, Sea Lynx Mk88, NH90, Z-21, B-2, B-52G, YF-23, Il-78, Mi-8, Su-30SM2, Tu-16N, Tu-95 and the Forpost); 101 base-game aircraft get a photo in place of the stock picture; 58 ids are units this collection does not have. Added 5 Oct 2026 at the user's call, as a subscription rather than copied into SEST, so its images stay its author's. ApproximateVersion=0.8.0 (minor version matches 0.8.4)."
+    },
+    {
+      "id": "combat-cost-tracker",
+      "workshop_id": "3807187341",
+      "title": "Combat Cost Tracker",
+      "author": "Chevron 9",
+      "faction": "utility",
+      "type": "framework",
+      "status": "active",
+      "requires": [
+        "anchor-chain"
+      ],
+      "notes": "Captured CombatCosts.dll 0.7.1.0 on 20 October 2026. Data-only USD expenditure and loss overlay; F11. Supports catalog extensions and per-field inline/list precedence. SEST Combat Cost Compatibility fills spelling and reviewed family mappings; unsupported prices remain unknown. Restart after enabling. Captured saved order selects it, but the captured process reported it disabled at startup."
+    },
+    {
+      "id": "formation-manager-replacement",
+      "workshop_id": "3818251045",
+      "title": "Formation Manager Replacement",
+      "author": "DiMkA",
+      "faction": "utility",
+      "type": "framework",
+      "status": "active",
+      "requires": [
+        "anchor-chain"
+      ],
+      "notes": "Captured SeaPowerSquadPanel.dll 0.2.16.0 and its source ZIP on 20 October 2026. Compact formation UI, aircraft map grouping and persistent panel settings. Loaded through Anchor Chain in the captured log; map threshold slider attached. No equipment data overrides; runtime compatibility with Better TacMap still requires the player trial."
     }
   ]
 }

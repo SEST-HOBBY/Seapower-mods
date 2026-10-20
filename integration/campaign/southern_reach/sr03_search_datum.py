@@ -109,7 +109,7 @@ MISSION = dict(
           weapons="Tight"),
         # Air-tasking placeholders: the cockpits a purchased Seahawk and
         # Poseidon take. Unnamed, and named by no trigger.
-        U("blue", "SEST_Allied_Fixes", "usn_mh-60r", "flight", alt=500, weapons="Tight",
+        U("blue", "SEST_Allied_Fixes", "ran_mh-60r", "flight", alt=500, weapons="Tight",
           slot="HeloRecon"),
         U("blue", "p-8-poseidon", "usn_p8", "mpa", squadron="Squadron3", alt=15000,
           weapons="Tight", loadout="ASW", slot="Recon"),
@@ -144,7 +144,7 @@ MISSION = dict(
              "Collector": ("classify", "shadow", 1)},
     declares=["SR03CrewRecovered"],
     window=dict(buy=True, repair=True, rearm=True,
-                allow=["ran_ffh_anzac", "ran_ddg_hobart", "usn_mh-60r", "usn_p8",
+                allow=["ran_ffh_anzac", "ran_ddg_hobart", "ran_mh-60r", "usn_p8",
                        "raaf_mq-4c_triton"],
                 flights=[HELO, RECON],
                 situation=(

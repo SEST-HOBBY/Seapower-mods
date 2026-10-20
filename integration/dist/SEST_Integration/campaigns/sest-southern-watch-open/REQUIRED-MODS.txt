@@ -5,7 +5,7 @@ variants they name, the rounds their loadouts hang and the units its
 roster sells. The pack-level REQUIRED-MODS.txt two folders up, at the
 pack's root, is the union across every campaign in the pack.
 
-1. HARD REQUIRED (108): a mission names a file of theirs, or a mod above says it cannot run without them.
+1. HARD REQUIRED (110): a mission names a file of theirs, or a mod above says it cannot run without them.
 
   3438479626    a weapon a loadout hangs         1143.5 Kuznetsov
   3781062859    a model a placed unit draws      <<E-3G>>
@@ -48,14 +48,14 @@ pack's root, is the union across every campaign in the pack.
   3758943352    a unit a mission places          French Air Force
   3567228449    a model a placed unit draws      French Helicopter Package
   3503670861    a model a placed unit draws      General Atomics MQ-9 Reaper
-  3461044389    a hull variant in use            Gerald R. Ford-class CVN Aircraft Carrier (Updated Dependencies)
+  3461044389    a weapon a loadout hangs         Gerald R. Ford-class CVN Aircraft Carrier (Updated Dependencies)
   3508275114    a unit a mission places          Ground Upgrade: SPAA
   3384079999    a unit a mission places          Humpback Whale
   3717610332    a unit a mission places          IL-78 TANKER
   3686449681    a unit a mission places          Iran UAV Shahed 238
   3681748718    a unit a mission places          ISKANDER-M
   3505420313    a unit the player can buy        Italian Navy Mod
-  3591563716    a unit a mission places          J-20 (歼-20 威龙)
+  3591563716    a squadron a flight comes from   J-20 (歼-20 威龙)
   3802216383    a unit a mission places          JMSDF Hyūga Class — Hyūga & Ise
   3776340577    a unit a mission places          Ka-27RLD
   3722749887    a unit a mission places          KC-135 STRATOTANKER
@@ -89,10 +89,12 @@ pack's root, is the union across every campaign in the pack.
   3769142422    a unit a mission places          Rebuilt J-16 / J-16D
   3413868677    a unit a mission places          Red Storm Arsenal
   3571718093    a model a placed unit draws      Road Mobile ICBMs (Topol-M, DF-41)
+  3597650470    a hull variant in use            Russian Navy 21
   3468260539    a unit a mission places          Russian Submarines (Yasen, Akula, Sierra I/II, Oscar II, Belgorod, Typhoon, Delta IV classes)
   3652906664    a unit a mission places          S-300PMU2
   3524446392    a unit a mission places          S-350 Vityaz
   3392434750    a unit a mission places          SA-21/S-400 SAM
+  3673250557    a unit a mission places          SAAB AEW&C PACK
   3437105712    a unit a mission places          SAM Pack
   3766210676    a unit a mission places          Saronic Corsair ASV
   3497601759    a unit a mission places          Shahed-136 Kamikaze Drone (Geran-2)
@@ -152,11 +154,11 @@ mod in LOAD-ORDER.txt and stops if one is missing.
   3716049886    a unit a mission places          MORE SU-24M VARIANTS
   3810611344    a unit a mission places          MV-75 Cheyenne II
   3595014060    a model a placed unit draws      NATO E-3A Sentry
+  3603367264    a unit a mission places          NATO Ground Enhancement Series 2: Artillery
   3378409795    a hull variant in use            Royal Navy Type 23 'Duke Class' Frigate [OLD]
   3373356293    a unit a mission places          Royal Navy Westland Lynx HAS.3 Kitbash [OLD]
   3796113927    a unit a mission places          RQ-180 White Bat Airframe
-  3597650470    a hull variant in use            Russian Navy 21
-  3673250557    a unit a mission places          SAAB AEW&C PACK
+  3603306548    a unit a mission places          Russian Ground Enhancement Series 1: Artillery
   3461519690    a unit a mission places          SCUD-B
   3455931957    a unit a mission places          Sea Lynx
   3551676319    a unit a mission places          SEJJIL (Iran Ballistic Missiles)
@@ -180,7 +182,7 @@ there is nothing more to subscribe to.
   (local)       a unit a mission places          SEST B-52 ARRW
   (local)       a unit a mission places          SEST Collection Fixes
   (local)       a unit a mission places          SEST F-15EX Revamp
-  (local)       a unit the player can buy        SEST F-16CM JATM
+  (local)       a unit a mission places          SEST F-16CM JATM
   (local)       a unit a mission places          SEST F-35C JATM
   (local)       a unit a mission places          SEST Growler NGJ + MALICE
   (local)       a weapon a loadout hangs         SEST Intercept Model
@@ -193,20 +195,22 @@ there is nothing more to subscribe to.
   (local)       a squadron a flight comes from   SEST Raptor Squadrons
   (local)       a unit a mission places          SEST Replenishment At Sea
 
-3. INSTALL-WIDE LIBRARIES AND UI (8): ship no file a mission names. Keep them installed anyway: SETUP stops if any mod in
+3. INSTALL-WIDE LIBRARIES AND UI (10): ship no file a mission names. Keep them installed anyway: SETUP stops if any mod in
 LOAD-ORDER.txt is missing. (Anchor Chain is one a mod in list 1 asks
 for; the map, salvo and rescue tools are conveniences.)
 
   3380210757    library                          Anchor Chain
   3774105087    library                          Automatic SAR
   3768036424    library                          Better TacMap
+  3807187341    library                          Combat Cost Tracker
   3806686336    library                          Coordinated Strike Tool
   3813157776    library                          Dynamic Campaign Mod
   3784474738    library                          Euromod - Anchorchain Expansion Pack
+  3818251045    library                          Formation Manager Replacement
   3790594162    library                          Identify Expanded
   3796706214    library                          Real photos of airplanes and helicopters
 
-3b. THIRD-PARTY CAMPAIGNS AND OTHER COLLECTION CONTENT (22): in the collection for
+3b. THIRD-PARTY CAMPAIGNS AND OTHER COLLECTION CONTENT (20): in the collection for
 campaigns and scenarios this one does not include. Keep them installed anyway: SETUP
 stops if any mod in LOAD-ORDER.txt is missing.
 
@@ -223,10 +227,8 @@ stops if any mod in LOAD-ORDER.txt is missing.
   3556629790    other campaigns                  ICBM silos
   3520352434    other campaigns                  JAS-39 Gripen
   3759042728    other campaigns                  Mare Nostrum '28
-  3603367264    other campaigns                  NATO Ground Enhancement Series 2: Artillery
   3779799226    other campaigns                  Operation STEADFAST LANTERN
   3731931836    other campaigns                  Prithvi TBM (大地弹道导弹)
-  3603306548    other campaigns                  Russian Ground Enhancement Series 1: Artillery
   3496055699    other campaigns                  S-500
   3628247436    other campaigns                  Sea Venom - Aquilon
   3491248180    other campaigns                  The Royal Navy

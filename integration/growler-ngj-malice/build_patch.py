@@ -162,7 +162,7 @@ BLOCK_III_LOADOUT = """\
 [WeaponSystem1SEST_MaliceBlockIII]
 ReadyUpTime=30               // minutes to refuel and rearm before takeoff
 CoolDownTime=60              // minutes of maintenance after landing
-SubModelsToHide=aam_point2,aam_pointCRIR,aam_pointCRIL,agm_inner_point,agm_point,gbu_point,Targeting_Pod,fule_tank_point,BRU_55_Left,BRU_55_Right,BRU_55_Left_Inner,BRU_55_Right_Inner,gbu_outer,gbu_inner
+SubModelsToHide=aam_point2,aam_pointCRIR,aam_pointCRIL,agm_inner_point,agm_point,gbu_point,Targeting_Pod,fule_tank_point,BRU_55_Left,BRU_55_Right,BRU_55_Left_Inner,BRU_55_Right_Inner,gbu_outer,gbu_inner,bru-61a_left,bru-61a_right,bru-61a_left_inner,bru-61a_right_inner
 Station1=usn_aim-9x
 Station2=usn_aim-9x
 Station3=usn_aim-120d3

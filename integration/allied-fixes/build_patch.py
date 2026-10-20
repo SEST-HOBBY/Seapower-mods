@@ -71,8 +71,8 @@ Apache AH1 her sister hulls already support, the RNZAF and ROKN P-8 \
 squadrons named nations the game has no flag for, and the A-10C's infrared \
 head was never registered as a sensor module while its squadron file \
 declared seven squadrons against two defined liveries. Also SEST's AGR-30 \
-Redback - an infrared fire-and-forget 70mm guided rocket, 30 nm, a boost \
-then a cruise, air targets first and the surface second - as a SEST_REDBACK \
+Redback - a fictional active-homing 70mm guided rocket, 30 nm, a ten-second \
+boost, slow cruise and diving approach, with radio retargeting - as a SEST_REDBACK \
 fit on the Apaches, the A-10s, the MQ-9s, \
 the Seahawks and the RAAF Hornets.
 
@@ -205,19 +205,21 @@ def main():
     # everywhere: 30 nm and a rocket's boost then a slower cruise. It stays
     # dts_apkws-ii - the proven in-pod rocket it was rebased onto after two
     # freezes, the weapon pack's counter-drone APKWS - with the minimum deltas:
-    #   - an infrared seeker, fire and forget (GuidanceType 1, MidCourse 0;
-    #     five in-container precedents), reaching as far as it may be shot;
-    #   - the boost is the APKWS's own; a sustainer then holds it on while
-    #     VelocityBleed brings it down to about 600 kt for the cruise (stock's
-    #     own pair: Seacat's SustainerAcceleration/Time, VelocityBleed on 85
-    #     rounds).
-    # Everything else is the APKWS's own: air first, ships and land second
-    # (TargetType=AAW, SecondaryTargetType=ASuW), and its shallow climb (5
-    # degrees to 1,500 ft) and terminal dive - the profile already proven to
-    # fire from a pod without a freeze. The first cut of 19 Oct flew the
-    # NSM's sea skimming under an anti-surface primary instead; no stock
-    # round pairs that low flight with an air target, so against a drone it
-    # would most likely have stayed low and passed underneath.
+    # The second 19 Oct request extends the visible motor to ten seconds and
+    # asks for gentler slowdown, an approximately 45-degree final descent and
+    # some terminal speed pickup. Legacy phase caps keep the fictional slow
+    # cruise without modelling an unpowered 70mm rocket's real-world stall.
+    # AS-4 demonstrates TerminalVelocity and Deceleration; the latter's
+    # 0.8 factor is gentler than the documented legacy default of 3.0.
+    # A 6562-ft loft over 1.1 horizontal NM gives about 44.5 degrees to a
+    # sea-level target. IgnoreHeightDifferenceForTargetDist is essential to
+    # that geometry. This is not a verified fixed-pitch control: terrain,
+    # target height, short shots and target motion change the approach.
+    # AIM-54A's timed SustainerEffect supplies the ten-second visible motor,
+    # without an everlasting InFlightEffect or a new flame in terminal.
+    # The active seeker and command link use stock missile keys; Walleye II
+    # demonstrates Retargetable with MidCourseCorrection=1. These settings
+    # require a new in-game test; they do not prove hits or terrain clearance.
     for stale in ("sest_apkws_er.ini", "sest_agr-20er.ini"):
         if (OUT / "ammunition" / stale).exists():
             (OUT / "ammunition" / stale).unlink()
@@ -229,31 +231,45 @@ def main():
             sys.exit(f"{need.relative_to(ROOT)} missing - export it first")
     rb = rb_src.read_text(encoding="utf-8-sig", errors="replace")
     swaps = [
-        (r"^GuidanceType=5\b", "GuidanceType=1"),
-        (r"^SeekerPassiveRange=6\.0\b", "SeekerPassiveRange=30"),
+        # Surface attack is the primary AI job; retain counter-drone eligibility.
+        # The laser donor had no active-radar transmitter or target-height band.
+        (r"^TargetType=AAW[^\n]*", "TargetType=ASuW"),
+        (r"^SecondaryTargetType=ASuW[^\n]*", "SecondaryTargetType=AAW"),
+        (r"^GuidanceType=5\b", "GuidanceType=3"),
+        (r"^MidCourseCorrection=0[^\n]*", "MidCourseCorrection=1  // radio command; autonomous seeker in terminal"),
+        (r"^SeekerPassiveRange=6\.0[^\n]*", "SeekerPassiveRange=0\nSeekerActiveRange=35\nSeekerGain=50\nFrequency=Ka-Band\nPeakPower=11.0\nMinAttackAltitude=0\nMaxAttackAltitude=20000\nSeekerReliability=0.99\nTargetMemory=True\nRetargetable=True\nSelfDestructAfterTargetGone=False"),
         (r"^MaxLaunchRange=6\b", "MaxLaunchRange=30"),
-        (r"^(MaxVelocity=)2000\b", r"\g<1>1500"),
-        (r"^(Acceleration=200\b[^\n]*\n)",
-         r"\g<1>SustainerAccelerationTime=170\nSustainerAcceleration=0.5\nVelocityBleed=0.4\n"),
-        (r"^(InFlightEffectClass=[^\n]*\n)",
-         r"\g<1>SustainerEffect=effects/weapons/emitters/missile_sustainer_small_effect\n"
-         r"SustainerEffectPosition=0,0,-0.02\nSustainerEffectStartTime=1\n"),
+        (r"^MaxLoftAngle=5\.0[^\n]*", "MaxLoftAngle=35.0"),
+        (r"^MaxLoftAlt=1500[^\n]*", "MaxLoftAlt=6562  // feet: approximately 2 km\nMaxLoftVelocity=450"),
+        (r"^TerminalApproachDist=100[^\n]*", "TerminalApproachDist=2.0"),
+        (r"^TerminalDiveDistance=2[^\n]*", "TerminalDiveDistance=1.1\nTerminalVelocity=220  // legacy terminal phase target, knots\nIgnoreHeightDifferenceForTargetDist=True"),
+        (r"^MaxVelocity=2000[^\n]*", "MaxVelocity=150  // legacy cruise phase cap, knots\nApplyKinematics=False\nMaxFlightTime=1500\nTimeLimited=True"),
+        (r"^AccelerationTime=1[^\n]*", "AccelerationTime=0.01"),
+        (r"^Acceleration=200[^\n]*", "Acceleration=2.0\nDeceleration=0.8\nSustainerAccelerationTime=10\nSustainerAcceleration=8"),
+        (r"^MaxTurnRate=50\.0[^\n]*", "MaxTurnRate=20.0  // soften the nose-over while retaining target correction"),
+        (r"^KillProbability=0\.6\b", "KillProbability=0.95"),
+        (r"^SeekerFOV=15\b", "SeekerFOV=60"),
+        (r"^SeekerGimbalFOV=90\b", "SeekerGimbalFOV=120"),
+        (r"^BoosterEffect=[^\n]*\nBoosterEffectPosition=[^\n]*\n", ""),
+        (r"^InFlightEffectClass=[^\n]*\nInFlightEffectPosition=[^\n]*\nInFlightEffectStartTime=[^\n]*",
+         "SustainerEffect=effects/weapons/emitters/missile_sustainer_small_effect\n"
+         "SustainerEffectPosition=0,0,-0.02\nSustainerEffectStartTime=0"),
     ]
     for pat, rep in swaps:
         rb, k = re.subn(pat, rep, rb, count=1, flags=re.M)
         if k != 1:
             sys.exit(f"dts_apkws-ii: {pat} matched {k} times - upstream changed")
-    # The targeting and the climb and dive are kept as upstream wrote them;
-    # the description promises them, so stop if they move.
-    for key in (r"TargetType=AAW", r"SecondaryTargetType=ASuW", r"MaxLoftAngle=5\.0",
-                r"MaxLoftAlt=1500", r"TerminalApproachDist=100", r"TerminalAlt=Maintain",
-                r"TerminalDiveDistance=2"):
+    # Preserve the donor's target classes, including mobile land targets.
+    for key in (r"TargetType=ASuW", r"SecondaryTargetType=AAW",
+                r"LandAttackCapability=All", r"TerminalAlt=Maintain"):
         if not re.search(rf"^{key}\b", rb, re.M):
             sys.exit(f"dts_apkws-ii: {key} changed upstream - re-check the Redback profile")
     (OUT / "ammunition").mkdir(parents=True, exist_ok=True)
     (OUT / "ammunition" / "sest_agr-30.ini").write_text(
-        "# SEST AGR-30 Redback - dts_apkws-ii (proven in-pod, lofting) with an IR\n"
-        "# seeker, 30 nm and a sustainer cruise after the boost.\n"
+        "# SEST AGR-30 Redback - fictional 30 nm guided rocket.\n"
+        "# Ten-second motor / 450 kt loft cap / 150 kt cruise / 220 kt terminal target.\n"
+        "# 2 km loft and 1.1 horizontal NM dive start approximate a 45-degree surface attack.\n"
+        "# Active terminal seeker, radio midcourse and retargeting. Playtest required.\n"
         + rb, encoding="utf-8")
     rbpod, k = re.subn(r"^Ammunition=usa_apkws_2_m282\s*$", "Ammunition=sest_agr-30",
                        pod_src.read_text(encoding="utf-8-sig", errors="replace"), flags=re.M)
@@ -283,17 +299,19 @@ def main():
         "[AmmunitionNames]\n"
         "sest_agr-30=AGR-30,Redback,GFFAR,"
         "What-if evolution of the 70mm guided rocket family: the AGR-30 "
-        "Redback replaces the APKWS II laser kit with an imaging-infrared "
-        "seeker for fire and forget out to 30 nautical miles. A rocket boost, "
-        "then a sustained cruise at about 600 knots in a shallow climb and a "
-        "dive onto the target. Built from the counter-drone APKWS, it takes "
-        "aircraft and drones first, ships and land targets second. Same "
+        "Redback adds active terminal homing and radio midcourse retargeting "
+        "out to 30 nautical miles. A ten-second motor and loft to approximately "
+        "2 km precede a gradual slowdown toward 150 knots. The final descent "
+        "is tuned for roughly 45 degrees against surface targets, with a "
+        "220-knot terminal speed target. This is an experimental game profile. "
+        "Eligible against aircraft, drones, ships and land targets. Its slow "
+        "cruise is intended for surface targets and slow aircraft. Same "
         "airframe and warhead as the APKWS II.\n",
         encoding="utf-8")
     (lang / "loadout_names.ini").write_text(
         "[LoadoutNames]\nSEST_REDBACK=SEST Redback Strike (AGR-30 guided rockets)\n",
         encoding="utf-8")
-    print("  Redback: sest_agr-30 (30 nm, boost + cruise, loft and dive, air first), "
+    print("  Redback: sest_agr-30 (30 nm, boost + cruise, loft and dive, surface first), "
           "its LAU-68 and LAU-3 pods")
 
     # The fit, on every carrier whose file this pack ships. Each clones a fit
@@ -325,20 +343,17 @@ def main():
          [("uav_agm-114k", "pod", 2), ("uav_gbu-49", "pod", 2)]),
         ("3503670861", "usaf_mq-9_er.ini", "Strike",
          [("uav_agm-114k", "pod", 2), ("uav_gbu-49", "pod", 2)]),
-        # Seahawks: one 19-tube pod a side, as the Navy's MH-60S carries its
-        # APKWS. On the MH-60R it takes the Hellfire launcher's place (the
-        # launcher is hidden; the pod was a pair on its rails), the inner
-        # pair's missiles dropped, the torpedoes or tanks kept. The S-70B-2s
-        # hang it on the torpedo pylons, where four 7-tube pods once stood
-        # two by two on one Hellfire launcher's rails.
+        # Keep the Seahawk's actual supporting geometry visible. The MH-60R
+        # pods use the lower Hellfire seats and retain H60_Pylon114; hiding
+        # that submodel removed their support. The S-70B-2 has one modelled
+        # missile arm: use its Penguin seat, not a floating pod each side on
+        # the torpedo-specific MK46 offsets. Its AntiShip fit keeps the arm.
         ("3606774881", "usn_mh-60r.ini", "AntiShipLate",
-         [("usa_agm-114l_mm", "pod19", 2, ""), ("usa_agm-114k_hh", None, 2)],
-         dict(hide=("H60_Pylon114",))),
+         [("usa_agm-114l_mm", None, 2), ("usa_agm-114k_hh", "pod19", 2, "")]),
         ("3820759806", "ran_mh-60r.ini", "AntiShip",
-         [("usa_agm-114l_mm", "pod19", 2, ""), ("usa_agm-114k_hh", None, 2)],
-         dict(hide=("H60_Pylon114",))),
-        ("3403661005", "S-70B-2_Seahawk.ini", "ASW", [("usn_mk46_air", "pod19", 2)]),
-        ("3820759806", "ran_S-70B-2_Seahawk.ini", "ASW", [("usn_mk46_mod5_air", "pod19", 2)]),
+         [("usa_agm-114l_mm", None, 2), ("usa_agm-114k_hh", "pod19", 2, "")]),
+        ("3403661005", "S-70B-2_Seahawk.ini", "AntiShip", [("knm_penguin_mk2", "pod19", 1)]),
+        ("3820759806", "ran_S-70B-2_Seahawk.ini", "AntiShip", [("knm_penguin_mk2", "pod19", 1)]),
         # RAAF Hornets. The F/A-18A's CAS fit already flies the layout: wing
         # tanks, and two 7-tube pods on the pylon outboard of them (the twin
         # Zuni mount). The F/A-18F takes it from its long-range anti-ship
@@ -400,6 +415,66 @@ def main():
 
     if not built:
         sys.exit("nothing built - no target mod is exported")
+    # Use the collection's actual field-drone squad geometry and its tested
+    # catapult/recovery positions, not a runway and hangars on hostile ground.
+    # Keep only one fixed-wing lane and RQ-7 inventory. The donor also carries
+    # unrelated one-way attack drones, a GPS sensor 3.5 km above its model and
+    # an orphan third hit zone; none belongs in this reconnaissance section.
+    drone_source = ROOT / "mods-source/3601891050/land_units/dronesquad705_1.ini"
+    team = drone_source.read_text(encoding="utf-8-sig")
+    edits = {
+        "General": {"DisplayClassName": "RQ-7 field detachment", "DefaultCameraDistance": "0.15",
+                    "MinCameraDistanceForeAft": "0.08", "MinCameraDistanceBroadside": "0.08"},
+        "AirGroup": {"usn_rq7705": "Squadron1,2"},
+        "FlightDeck": {"AircraftCapacity": "3", "NumberOfElevators": "1",
+                       "NumberOfLaunchPoints": "1", "NumberOfRecoveryPoints": "1",
+                       "NumberOfTaxiPaths": "2", "AircraftSupported": "usn_rq7705"},
+        "SensorSystems": {"NumberOfSensorSystems": "1"},
+        "SensorSystem1": {"MountPosition": "0,0.02,0"},
+        "WeaponSystems": {"NumberOfWeaponSystems": "0"},
+        "TargetingData": {"NumberOfTargetPoints": "2",
+                          "TargetPointPosition1": "0,0.017,-0.0023",
+                          "TargetPointPosition2": "0,0.003,-0.0023"},
+    }
+    drop = {"SensorSystem2", "WeaponSystem1", "WeaponMagazineMissile",
+            "Elevator2", "LaunchPoint2", "RecoveryPoint2", "TaxiPath3", "TaxiPath4"}
+    chunks = []
+    for chunk in re.split(r"(?=^\[)", team, flags=re.M):
+        match = re.match(r"^\[([^]\n]+)\]", chunk)
+        section = match[1] if match else ""
+        if section in drop:
+            continue
+        if section == "AirGroup":
+            chunk = "[AirGroup]\n"
+        if section == "Submodels":
+            chunk = "[Submodels]\nSubModel1=net\n\n"
+        for key, value in edits.get(section, {}).items():
+            pattern = rf"^{re.escape(key)}=[^\n]*$"
+            if re.search(pattern, chunk, re.M):
+                chunk = re.sub(pattern, f"{key}={value}", chunk, flags=re.M)
+            else:
+                chunk = chunk.rstrip() + f"\n{key}={value}\n"
+        if section == "TargetingData":
+            chunk = re.sub(r"^TargetPoint(?:Position|AssociatedSystems|Priority)3=[^\n]*\n?", "", chunk, flags=re.M)
+        chunks.append(chunk)
+    (OUT / "land_units").mkdir(parents=True, exist_ok=True)
+    team = ("# SEST RQ-7 field team. Model and launch/recovery layout from\n"
+            "# FallschimJager705, Small and Medium-Sized UAV Series (3601891050).\n"
+            "# Uses the subscribed mod's dronesquad assets; no mesh is redistributed.\n"
+            + "".join(chunks))
+    (OUT / "land_units/sest_uav_forward.ini").write_text(team, encoding="utf-8")
+    # The new unit id needs its own companion variants file for the native
+    # class/variant lookup. Do not inherit the donor's national air groups.
+    # Missions supply their nation and two-aircraft custom air group.
+    (OUT / "land_units/sest_uav_forward_variants.ini").write_text(
+        "[General]\nAllVariantsAreOfSameNation=True\nNumberOfVariants=1\n\n"
+        "[Default]\nNation=Australia\n\n[Variant1]\nNation=Australia\n",
+        encoding="utf-8")
+    (OUT / "language_en/land_units_names.ini").write_text(
+        "[sest_uav_forward]\nType=RQ-7 field detachment\n"
+        "Default=Forward UAV team,UAV team\n"
+        "Variant1=Forward UAV team,UAV team\n",
+        encoding="utf-8")
 
 
 if __name__ == "__main__":

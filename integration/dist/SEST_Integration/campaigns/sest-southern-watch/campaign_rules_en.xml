@@ -46,7 +46,7 @@
             <TextBlock FontSize="15" Foreground="#D8DDE8" TextWrapping="Wrap" Margin="0,0,0,5">
               <Run Text="- Commanders receive a "/><Run Text="{Binding SameNationDiscountPercentText}"/><Run Text="% point discount when purchasing units from their own nation."/>
             </TextBlock>
-            <TextBlock Text="- Every unit on this campaign's roster is registered to Australia by its squadron or hull variant, so the discount applies to all of it." FontSize="15" Foreground="#D8DDE8" TextWrapping="Wrap" Margin="0,0,0,14"/>
+            <TextBlock Text="- The discount covers the 10 classes registered to Australia. The 3 classes registered to other nations - from Japan (1), South Korea (1), United Kingdom (1) - cost their listed price." FontSize="15" Foreground="#D8DDE8" TextWrapping="Wrap" Margin="0,0,0,14"/>
             <Border Height="1" Background="{StaticResource Brush.Glyph.Normal}" Opacity="0.45" Margin="0,0,0,14"/>
 
             <TextBlock Text="Awards and Promotions" FontSize="17" FontWeight="Bold" Foreground="White" TextWrapping="Wrap" Margin="0,0,0,6"/>

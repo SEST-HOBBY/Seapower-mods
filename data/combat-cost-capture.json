@@ -1,0 +1,38 @@
+{
+  "capture": "SEST-cost-review-20261020-030948.zip",
+  "captured_local": "2026-10-20T03:10:30+10:00",
+  "playtest_commit": "71bd300470919af84a364c47337d73c5a2c91999",
+  "verified_capture_files": 19971,
+  "plugins": {
+    "3807187341": {
+      "name": "Combat Cost Tracker",
+      "assembly_version": "0.7.1.0",
+      "sha256": "74afa9028fc0c52b93f415263504f51ecf8d056a624feaebcc8053ba5a1c0ac3"
+    },
+    "3818251045": {
+      "name": "Formation Manager Replacement",
+      "assembly_version": "0.2.16.0",
+      "sha256": "36175f068b0d3eaef418551edf677e3c6a58d25757f1395d23053b9f158550bc"
+    }
+  },
+  "runtime": {
+    "both_selected_in_saved_order": true,
+    "cost_tracker_reported_disabled_at_startup": true,
+    "formation_plugin_loaded_and_map_slider_attached": true,
+    "new_cost_extension_gameplay_verified": false
+  },
+  "deferred_upstream_config_changes": {
+    "3461044389": 3,
+    "3737267013": 10,
+    "3456859157": 1,
+    "3812111085": 16
+  },
+  "scope": "Import the two new plugin exports only. Four other changed Workshop exports are recorded for separate review; this update changes no equipment performance.",
+  "other_runtime_findings": [
+    {
+      "component": "CombatWorker 0.2.0",
+      "observed": "Native fallback after a conflicting io.github.yourname.second-thrust CalculateThrustOverTime hook",
+      "scope": "Recorded only. Not attributed to Combat Cost Tracker and not changed by this pricing revision."
+    }
+  ]
+}

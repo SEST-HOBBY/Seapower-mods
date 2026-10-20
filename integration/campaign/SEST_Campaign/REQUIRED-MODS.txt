@@ -8,7 +8,7 @@ listed in subscribes you to all of them in one press. If that
 works you do not need the list below at all, and it is here to
 check against rather than to work through by hand.
 
-164 mods. Each supplies a file a mission names directly - by
+166 mods. Each supplies a file a mission names directly - by
 Type=, SquadronReference=, VariantReference=, a loadout's store,
 or a model folder a placed unit's own file draws from.
 
@@ -96,7 +96,7 @@ Workshop id   supplies                         mod
 3408662804    a unit a mission places          Iskander TBM
 3681748718    a unit a mission places          ISKANDER-M
 3505420313    a unit a mission places          Italian Navy Mod
-3591563716    a unit a mission places          J-20 (歼-20 威龙)
+3591563716    a squadron a flight comes from   J-20 (歼-20 威龙)
 3801549552    a unit a mission places          J-36 Tailless Fighter
 3802216383    a unit a mission places          JMSDF Hyūga Class — Hyūga & Ise
 3776340577    a unit a mission places          Ka-27RLD
@@ -123,6 +123,7 @@ Workshop id   supplies                         mod
 3716049886    a unit a mission places          MORE SU-24M VARIANTS
 3810611344    a unit a mission places          MV-75 Cheyenne II
 3595014060    a model a placed unit draws      NATO E-3A Sentry
+3603367264    a unit a mission places          NATO Ground Enhancement Series 2: Artillery
 3551621846    a unit a mission places          NEBO-U
 3812140001    a model a placed unit draws      Pakistani Pack
 3752415457    a unit a mission places          Philippines: The Luzon Line
@@ -145,6 +146,7 @@ Workshop id   supplies                         mod
 3378409795    a hull variant in use            Royal Navy Type 23 'Duke Class' Frigate [OLD]
 3373356293    a unit a mission places          Royal Navy Westland Lynx HAS.3 Kitbash [OLD]
 3796113927    a unit a mission places          RQ-180 White Bat Airframe
+3603306548    a unit a mission places          Russian Ground Enhancement Series 1: Artillery
 3597650470    a hull variant in use            Russian Navy 21
 3468260539    a unit a mission places          Russian Submarines (Yasen, Akula, Sierra I/II, Oscar II, Belgorod, Typhoon, Delta IV classes)
 3652906664    a unit a mission places          S-300PMU2
@@ -197,16 +199,18 @@ that asked for it.
 
 --------------------------------------------------------------------------
 
-Also enabled while this was built (11), and left in the order
+Also enabled while this was built (13), and left in the order
 because removing one changes which file wins: these ship systems,
 effects or UI rather than anything a mission names, or are outranked
 by something above them. The campaign does not call for them.
 
 3774105087    library                          Automatic SAR
 3768036424    library                          Better TacMap
+3807187341    library                          Combat Cost Tracker
 3806686336    library                          Coordinated Strike Tool
 3813157776    library                          Dynamic Campaign Mod
 3784474738    library                          Euromod - Anchorchain Expansion Pack
+3818251045    library                          Formation Manager Replacement
 3790594162    library                          Identify Expanded
 3569219326    shadowed                         ISKANDER-K
 3432592449    shadowed                         Nimitz Expanded
@@ -216,7 +220,7 @@ by something above them. The campaign does not call for them.
 
 --------------------------------------------------------------------------
 
-In the collection for other campaigns and scenarios (22):
+In the collection for other campaigns and scenarios (20):
 the third-party campaigns the collection carries, the mods they
 place, and content none of these four campaigns uses. They are in
 LOAD-ORDER.txt, so SETUP still requires them.
@@ -234,10 +238,8 @@ LOAD-ORDER.txt, so SETUP still requires them.
 3556629790    other campaigns                  ICBM silos
 3520352434    other campaigns                  JAS-39 Gripen
 3759042728    other campaigns                  Mare Nostrum '28
-3603367264    other campaigns                  NATO Ground Enhancement Series 2: Artillery
 3779799226    other campaigns                  Operation STEADFAST LANTERN
 3731931836    other campaigns                  Prithvi TBM (大地弹道导弹)
-3603306548    other campaigns                  Russian Ground Enhancement Series 1: Artillery
 3496055699    other campaigns                  S-500
 3628247436    other campaigns                  Sea Venom - Aquilon
 3491248180    other campaigns                  The Royal Navy
@@ -256,6 +258,7 @@ to; the repository also builds each of them on its own.
 (local)       unit                             SEST Allied Fixes
 (local)       unit                             SEST B-52 ARRW
 (local)       unit                             SEST Collection Fixes
+(local)       library                          SEST Combat Cost Compatibility
 (local)       library                          SEST Cross-Deck
 (local)       unit                             SEST F-15EX Revamp
 (local)       unit                             SEST F-16CM JATM

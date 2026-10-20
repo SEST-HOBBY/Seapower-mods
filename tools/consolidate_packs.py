@@ -292,7 +292,7 @@ def credits_text(staged):
             gone = ", removed from the Workshop - this pack carries it" if token in retired else ""
             L.append(f"  {title}  (workshop {token}{gone})")
             for rel, ratio, origin in sorted(items):
-                same = " " if origin == rel.split("/")[-1] else f" from {origin}"
+                same = "" if origin == rel.split("/")[-1] else f" from {origin}"
                 L.append(f"      {ratio:>4.0%}  {rel}{same}")
             L.append("")
         L += ["If you are the author of one of those and would rather this pack",
