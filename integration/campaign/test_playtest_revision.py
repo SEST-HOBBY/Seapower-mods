@@ -99,6 +99,65 @@ class PlaytestRevision(unittest.TestCase):
                 self.assertEqual(strip["CustomAirGroup"], "True")
                 self.assertEqual(strip["usn_rq7705"], "Squadron1,2")
 
+    def test_uav_team_uses_field_squad_geometry_and_only_recon_inventory(self):
+        text = b.read(b.winning("land_units/sest_uav_forward.ini"))
+        self.assertIn("ResourcesRoot=dronesquad.obj", text)
+        self.assertNotIn("#!alias land_units/airfield_small", text)
+        self.assertRegex(text, r"(?m)^AircraftCapacity=3$")
+        self.assertRegex(text, r"(?m)^AircraftSupported=usn_rq7705$")
+        self.assertRegex(text, r"(?m)^NumberOfWeaponSystems=0$")
+        self.assertNotIn("[WeaponSystem1]", text)
+        self.assertNotIn("Mugin5FPV", text)
+        self.assertNotIn("[SensorSystem2]", text)
+        self.assertNotIn("HitZone3", text)
+        self.assertNotIn("TargetPointPosition3=", text)
+        self.assertRegex(text, r"(?m)^NumberOfLaunchPoints=1$")
+        self.assertRegex(text, r"(?m)^NumberOfRecoveryPoints=1$")
+
+    def test_o10_team_is_on_yapen_and_has_a_finite_recovery_margin(self):
+        m, p, members = self.placed("SWO10")
+        team = next(k for _tag, k, _n, _x in p["Taskforce1LandUnit"]
+                    if k["Type"] == "sest_uav_forward")
+        # Station intent is Yapen, south across water from the enclave.
+        self.assertLess(m["stations"]["uav_strip"]["at"][0], -1.6)
+        self.assertGreater(m["stations"]["pads"]["at"][0], -1.3)
+        distance = b.nm_between(m["stations"]["uav_strip"]["at"], m["stations"]["uav_scout"]["at"])
+        self.assertLess(distance * 2 + 10, 100)
+        self.assertGreater(distance, 10)
+        drone = next(k for _t, k, n, _x in p["Taskforce1Aircraft"] if n == "Moth 11")
+        self.assertEqual(drone["HomeBase"], members["uav_strip"][0])
+        self.assertIn("friendly Yapen", m["brief"])
+
+    def test_o10_support_targets_are_separate_and_not_main_launcher_kills(self):
+        m, p, members = self.placed("SWO10")
+        self.assertEqual(m["victory"]["stations"], ["pads"])
+        self.assertEqual(m["victory"]["min_units"], 3)
+        self.assertEqual(len(members["pads"]), 5)
+        _name, text = b.render(m, p, members)
+        for oid, station in (("MissileStores", "missile_ammo"),
+                             ("MilitaryFuel", "missile_fuel"),
+                             ("LaunchControl", "missile_command")):
+            self.assertEqual(m["resolve"][oid], ("destroy", station, 1))
+            self.assertTrue(all(tag.startswith("Taskforce2LandUnit") for tag in members[station]))
+            self.assertFalse(set(members[station]) & set(members["pads"]))
+            self.assertIn("Action_ObjectivesCompleted=" + oid, text)
+            self.assertGreater(b.nm_between(m["stations"][station]["at"], m["stations"]["pads"]["at"]), 5)
+
+    def test_authored_operations_offer_preparation_without_changing_force_generation(self):
+        for code in ("SWO10", "SW08", "SWD9"):
+            m, p, members = self.placed(code)
+            before = [(k.get("WeaponStatus"), k.get("RadarsActive"))
+                      for entries in p.values() for _t, k, _n, _x in entries]
+            _name, text = b.render(m, p, members)
+            self.assertIn("Action_PrepareFlightDeck=True", text)
+            self.assertIn("Action_Taskforce1_Message=FlightDeckPrepMessage", text)
+            message = next(line for line in text.splitlines() if line.startswith("FlightDeckPrepMessage="))
+            self.assertEqual(message.count("|"), 2)
+            self.assertIn("Keep the simulation paused", message)
+            self.assertEqual(before, [(k.get("WeaponStatus"), k.get("RadarsActive"))
+                                    for entries in p.values() for _t, k, _n, _x in entries])
+        self.assertIsNone(self.missions["SWO10"].get("generation"))
+
     def test_all_missions_have_reports_and_pair_is_controlled(self):
         self.assertEqual(len(self.missions), 77)
         for code, m in self.missions.items():

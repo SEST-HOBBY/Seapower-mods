@@ -4266,6 +4266,19 @@ def render(mission, placed, members):
         L.append(f"Objective_{oid}={ini_text(text)}")
     L.append(f"Taskforce1StartMessage=<color=yellow>{mission['key']}</color>|"
              f"{ini_text(mission['brief'])}")
+    prep_decks = [tag for family in ("Taskforce1Vessel", "Taskforce1LandUnit")
+                  for tag, keys, _name, _x in placed.get(family, [])
+                  if keys.get("Disabled") != "True" and deck_size(keys["Type"]) > 0]
+    prepare = mission.get("initial_deck_prep") and bool(prep_decks)
+    if prepare:
+        L.append("FlightDeckPrepMessage=AIRCRAFT AND UNIT PREPARATION|"
+                 "Choose Start preparation to close this message. Keep the simulation paused; "
+                 "select your ships and ground teams on the map or in Formation Manager. "
+                 "Open each Flight Deck window and assign aircraft and loadouts. "
+                 "Set weapon status and individual sensor switches using the normal unit controls. "
+                 "When flight-deck timings are enabled, the native preparation phase finishes "
+                 "queued aircraft preparation at the first unpause. Review air-defence orders "
+                 "before unpausing; the operation clock and enemy action then begin.|Start preparation")
     L.append("Taskforce1VictoryMessage=<color=lime>Operation complete.</color>|"
              f"{ini_text(mission['win'])}")
     if mission.get("victory", {}).get("or_destroyed"):
@@ -4474,16 +4487,16 @@ def render(mission, placed, members):
         trigger(f"Situation report {i}", ["Condition_Type=Time",
                 f"Condition_Time={round(report['minute'] * 60)}",
                 f"Action_Taskforce1_Intel=SituationReport{i}Intel"])
-    # The 19 Oct playtest could not select a launch platform during the
-    # forced stock preparation pause. Keep the supported action opt-in for
-    # a mission author who can test it, rather than interrupt every launch.
-    # Task Force Mode's native Airbase Prep below remains the pre-mission
-    # planner. The stock guide exposes no equivalent ship-deck picker key.
-    if mission.get("initial_deck_prep"):
+    # Native OnMissionStart preparation queues the player's actual decks,
+    # including generated hulls. The first prompt must be dismissed before
+    # selecting another unit. A Time=1 trigger would merely complete existing
+    # jobs and would not register the initial preparation phase.
+    if prepare:
         trigger("Allow initial flight deck prep", [
             "Condition_Condition1_Type=OnMissionStart",
             "ConditionsCompleted=<Condition1>",
-            "Action_PrepareFlightDeck=True"])
+            "Action_PrepareFlightDeck=True",
+            "Action_Taskforce1_Message=FlightDeckPrepMessage"])
     # disable=: systems off from the first second, one trigger per set of
     # systems - 08 Defense of North Borneo Trigger4, key for key.
     groups = collections.defaultdict(list)

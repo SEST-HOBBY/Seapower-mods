@@ -107,3 +107,25 @@ def apply_watch(missions, U, S):
                                route=[(-13.36, 148.78, 0)], telegraph=3))
     service["brief"] += ("\\n\\nSERVICE DETAIL: Collins uses the collection's actual Collins hull and begins on the surface at the rendezvous. Collins and Stalwart both have the four-knot service telegraph selected. They creep south inside the box during the check; after the 35-minute signal, order withdrawal speed and depth yourself. The clock does not verify depth.\\n\\nKILA: A light Russian corvette is approaching from the north-east, expected about twelve minutes into the window. Her missiles make her a real surface threat. The trawler remains a separate identification problem. Keep a surface screen while the flight and Poseidon work VICTOR.")
     service["forces"] += " A light Russian Steregushchiy-class corvette approaches after twelve minutes."
+
+    # O10's fixed strike force keeps its main three-of-five launcher task.
+    # These are separate military support sites, not a larger launcher tally.
+    shield = by["O10"]
+    for station, at, label, uid, name in (
+        ("missile_ammo", (-1.03, 135.88), "Western missile stores", "tgt_ammo_depot_small", "Military missile stores"),
+        ("missile_fuel", (-1.18, 136.13), "Eastern military fuel site", "tgt_fueltanks_medium", "Military fuel reserve"),
+        ("missile_command", (-0.95, 135.92), "Northern command hide", "wp_car_ural_command", "Enclave command truck"),
+    ):
+        shield["stations"][station] = dict(S(*at, label), coastal=True)
+        shield["units"].append(U("red", "_vanilla", uid, station, name=name, weapons="Hold"))
+    shield["objectives"] += [
+        ("MissileStores", "Destroy the western military ammunition site", "5,0,None"),
+        ("MilitaryFuel", "Destroy the eastern military fuel reserve", "5,0,None"),
+        ("LaunchControl", "Destroy the enclave command truck", "5,0,None"),
+    ]
+    shield.setdefault("resolve", {}).update(
+        MissileStores=("destroy", "missile_ammo", 1),
+        MilitaryFuel=("destroy", "missile_fuel", 1),
+        LaunchControl=("destroy", "missile_command", 1))
+    shield["brief"] += ("\\n\\nDISPERSED SUPPORT TARGETS: Military missile stores west of the pads, the eastern fuel reserve and a command truck in the northern hide are separate optional aimpoints. Reconnoitre them and allocate remaining weapons before completing the third launcher kill, which ends the operation. The launchers already hold their first rounds; destroying a support site does not magically disarm them. Civilian infrastructure is not a target.")
+    shield["forces"] += " Separate military ammunition, fuel and command targets on Biak."

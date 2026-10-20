@@ -415,13 +415,54 @@ def main():
 
     if not built:
         sys.exit("nothing built - no target mod is exported")
-    # Stock scenery, explicitly restricted to the small UAV section.
+    # Use the collection's actual field-drone squad geometry and its tested
+    # catapult/recovery positions, not a runway and hangars on hostile ground.
+    # Keep only one fixed-wing lane and RQ-7 inventory. The donor also carries
+    # unrelated one-way attack drones, a GPS sensor 3.5 km above its model and
+    # an orphan third hit zone; none belongs in this reconnaissance section.
+    drone_source = ROOT / "mods-source/3601891050/land_units/dronesquad705_1.ini"
+    team = drone_source.read_text(encoding="utf-8-sig")
+    edits = {
+        "General": {"DisplayClassName": "RQ-7 field detachment", "DefaultCameraDistance": "0.15",
+                    "MinCameraDistanceForeAft": "0.08", "MinCameraDistanceBroadside": "0.08"},
+        "AirGroup": {"usn_rq7705": "Squadron1,2"},
+        "FlightDeck": {"AircraftCapacity": "3", "NumberOfElevators": "1",
+                       "NumberOfLaunchPoints": "1", "NumberOfRecoveryPoints": "1",
+                       "NumberOfTaxiPaths": "2", "AircraftSupported": "usn_rq7705"},
+        "SensorSystems": {"NumberOfSensorSystems": "1"},
+        "SensorSystem1": {"MountPosition": "0,0.02,0"},
+        "WeaponSystems": {"NumberOfWeaponSystems": "0"},
+        "TargetingData": {"NumberOfTargetPoints": "2",
+                          "TargetPointPosition1": "0,0.017,-0.0023",
+                          "TargetPointPosition2": "0,0.003,-0.0023"},
+    }
+    drop = {"SensorSystem2", "WeaponSystem1", "WeaponMagazineMissile",
+            "Elevator2", "LaunchPoint2", "RecoveryPoint2", "TaxiPath3", "TaxiPath4"}
+    chunks = []
+    for chunk in re.split(r"(?=^\[)", team, flags=re.M):
+        match = re.match(r"^\[([^]\n]+)\]", chunk)
+        section = match[1] if match else ""
+        if section in drop:
+            continue
+        if section == "AirGroup":
+            chunk = "[AirGroup]\n"
+        if section == "Submodels":
+            chunk = "[Submodels]\nSubModel1=net\n\n"
+        for key, value in edits.get(section, {}).items():
+            pattern = rf"^{re.escape(key)}=[^\n]*$"
+            if re.search(pattern, chunk, re.M):
+                chunk = re.sub(pattern, f"{key}={value}", chunk, flags=re.M)
+            else:
+                chunk = chunk.rstrip() + f"\n{key}={value}\n"
+        if section == "TargetingData":
+            chunk = re.sub(r"^TargetPoint(?:Position|AssociatedSystems|Priority)3=[^\n]*\n?", "", chunk, flags=re.M)
+        chunks.append(chunk)
     (OUT / "land_units").mkdir(parents=True, exist_ok=True)
-    (OUT / "land_units/sest_uav_forward.ini").write_text(
-        "#!alias land_units/airfield_small_1.ini\n\n[AirGroup]\n"
-        "usn_rq7705=Squadron1,2\nusa_dj01705=Squadron1,2\n\n"
-        "[FlightDeck]\nAircraftCapacity=8\nAircraftSupported=usn_rq7705,usa_dj01705,usn_ForpostR705,usn_orlan10705\n",
-        encoding="utf-8")
+    team = ("# SEST RQ-7 field team. Model and launch/recovery layout from\n"
+            "# FallschimJager705, Small and Medium-Sized UAV Series (3601891050).\n"
+            "# Uses the subscribed mod's dronesquad assets; no mesh is redistributed.\n"
+            + "".join(chunks))
+    (OUT / "land_units/sest_uav_forward.ini").write_text(team, encoding="utf-8")
     # The new unit id needs its own companion variants file for the native
     # class/variant lookup. Do not inherit the donor's national air groups.
     # Missions supply their nation and two-aircraft custom air group.
@@ -430,9 +471,9 @@ def main():
         "[Default]\nNation=Australia\n\n[Variant1]\nNation=Australia\n",
         encoding="utf-8")
     (OUT / "language_en/land_units_names.ini").write_text(
-        "[sest_uav_forward]\nType=Forward UAV recovery strip\n"
-        "Default=Forward UAV section,UAV strip\n"
-        "Variant1=Forward UAV section,UAV strip\n",
+        "[sest_uav_forward]\nType=RQ-7 field detachment\n"
+        "Default=Forward UAV team,UAV team\n"
+        "Variant1=Forward UAV team,UAV team\n",
         encoding="utf-8")
 
 

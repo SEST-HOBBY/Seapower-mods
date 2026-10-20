@@ -36,7 +36,7 @@ REPORTS = {
     "SWO7": "WARD: Four internal-JSM Lightnings, two radar aimpoints. Check the surviving airfield support before committing the package. The new mobile belt is not proof that yesterday's runway has repaired itself.",
     "SWO8": "AIR CONTROL: A bomber's turn is not necessarily its launch cue. Keep a fighter pair with the protected anchorage while the other pair works the stream. The airliner is still neutral.",
     "SWO9": "ARAI / VIPER: Use the EC-2's picture to split the surface group, then identify each aimpoint. Hyuga's helicopter is also a recovery asset; do not spend it as a fighter scout.",
-    "SWO10": "LANGGUR: Counter-battery and air defence are parallel tasks. The forward UAV can update the mobile-pad picture after the first shot, but it is small and has no protection against a live SAM belt.",
+    "SWO10": "LANGGUR / ELLIS: The RQ-7 team is on friendly Yapen, south of the Biak enclave. Work the southern approach, confirm launchers and optional support sites, and recover before fuel runs short. Moth has no protection against a live SAM belt.",
     "SWD1": "LIAISON / ELLIS: The borrowed escorts bring different sensors and magazines. Assign sectors and recovery duties before chasing the first electronic-warfare aircraft. The oiler remains the reason for the passage.",
     "SWD2": "DECK CONTROL: A clean launch is half the serial. Stagger the recoveries, watch the maintenance queue, and keep a rescue helicopter available. Someone has written SEND THE NEXT ONE inside the launch folder.",
     "SWD3": "RELIEF COORDINATOR: Work the road approaches with reconnaissance before committing the lift. A vehicle near the landing area is a contact to classify, not permission to shell the town.",
@@ -100,7 +100,7 @@ UAV_SITES = {
     "SWD6": ((-0.90, 131.30), "complex"),
     "SWD8": ((-8.60, 140.70), "ridge"),
     "SWO7": ((-0.80, 135.60), "s350"),
-    "SWO10": ((-0.80, 135.60), "pads"),
+    "SWO10": ((-1.72, 135.96), "pads"),
     "SL02": ((6.09, 121.30), "ridge"),
     "SL06": ((9.53, 118.62), "battery"),
 }
@@ -128,10 +128,10 @@ def add_uav(m, code, U, S):
     # Start halfway between the strip and the target with a short oblique
     # orbit. It sees what its own sensors see, not a scripted target reveal.
     centre = ((base[0] + at[0]) / 2, (base[1] + at[1]) / 2)
-    m["stations"]["uav_strip"] = dict(S(*base, "Forward UAV recovery section"), coastal=True)
+    m["stations"]["uav_strip"] = dict(S(*base, "Forward UAV field team"), coastal=True)
     m["stations"]["uav_scout"] = S(*centre, "Moth reconnaissance UAV", 90, 3000)
     m["units"].append(U("blue", "SEST_Allied_Fixes", "sest_uav_forward", "uav_strip",
-        name="Forward UAV section", nation=m["blue_nation"], weapons="Hold",
+        name="Forward UAV team", nation=m["blue_nation"], weapons="Hold",
         air_group=[("usn_rq7705", "Squadron1", 2)]))
     m["units"].append(U("blue", "small-medium-uav-series", "usn_rq7705", "uav_scout",
         name="Moth 11", squadron="Squadron1", nation=m["blue_nation"], weapons="Hold",
@@ -141,8 +141,10 @@ def add_uav(m, code, U, S):
     # the job if Moth is lost. Main task and failure rules stay unchanged.
     m["objectives"].append(("ForwardRecon", "Obtain a current classification of the land target area", "5,0,None"))
     m.setdefault("resolve", {})["ForwardRecon"] = ("classify", target, 1)
-    m["brief"] += ("\\n\\nFORWARD RECON: MOTH 11, a small RQ-7 reconnaissance UAV, joins over the local approach at minute ten, allowing time for initial air-defence suppression. Two reserve UAVs are at the forward recovery section from the start. They are unarmed, have finite fuel and a local recovery field. Use their sensors to classify the military installations and update strike aimpoints. The small airframes are vulnerable; no scripted reveal grants a target solution. Keep a recovery margin and reposition the initial track as needed.")
-    m["forces"] += " Forward RQ-7 section: two reserve UAVs at a local strip; Moth 11 joins at minute ten."
+    location = ("The field team is on friendly Yapen, south of hostile Biak, with a portable launcher and recovery lane; no friendly airfield has been established inside the enclave. "
+                if code == "SWO10" else "The field team uses a portable launcher and local recovery lane. ")
+    m["brief"] += ("\\n\\nFORWARD RECON: MOTH 11, a small RQ-7 reconnaissance UAV, joins over the local approach at minute ten, allowing time for initial air-defence suppression. " + location + "Two reserve UAVs are with the team from the start. They are unarmed and have finite fuel. Use their sensors to classify the military installations and update strike aimpoints. The small airframes are vulnerable; no scripted reveal grants a target solution. Keep a recovery margin and reposition the initial track as needed.")
+    m["forces"] += " Forward RQ-7 field team: two reserve UAVs and a portable launcher; Moth 11 joins at minute ten."
 
 
 def add_sub(m, code, U, S):
@@ -244,6 +246,9 @@ def apply(specs):
             if m.get("_depth_revision"):
                 continue
             code = code_of(m)
+            # Explicit author opt-in to the native preparation phase. The
+            # renderer emits it only when a starting player deck exists.
+            m["initial_deck_prep"] = True
             if code not in REPORTS:
                 raise SystemExit(f"{code}: no reviewed tactical report for this SEST mission")
             m.setdefault("reports", []).append(dict(minute=min(8, m["minutes"] / 4), intel=REPORTS[code]))
