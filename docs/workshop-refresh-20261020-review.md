@@ -149,3 +149,27 @@ box pull and in the halving split - and Python seeds string hashing afresh
 each run, so the first kind found, and with it the box, varied. Both loops
 now take the kinds sorted; the campaign pack builds byte-identical under
 PYTHONHASHSEED 1, 2 and 3.
+
+## 8. Late capture: Red Storm Arsenal again, Euromod-India-Navy again
+
+`87b43e03` on `chore/workshop-refresh-20261020d`, on top of `c8f1b0f5`
+after the PC unsubscribed the old Anzac mod (the export did not bring it
+back) and synced to it.
+
+- **Red Storm Arsenal**: its two alternative Hobart hulls rewritten (SEST
+  Replenishment re-forks them; no SEST mission places them) and six
+  aircraft sensors rewritten - APG-73, APG-65(V1), APG-81, APY-9, APY-10
+  and EOTS. Higher-ranked mods (US Naval Aviation, the E-2D and F-35 mods)
+  define all six, and systems files merge key by key, so only keys RSA
+  alone set ever reached the game. Three of those are now gone: the APY-9
+  (E-2D) no longer gets `CanDetectLandTargets=True` or RSA's channel
+  counts, EOTS no longer gets `UseIRValues`/`Infrared` (the game documents
+  `UseIRValues` as encyclopedia-only; EOTS is a laser designator), and the
+  APY-10 (P-8) loses RSA's `BeamWidth`. Left as the authors now have it;
+  restoring the APY-9's overland detection in SEST Collection Fixes is an
+  option if the E-2D is seen to miss ground targets.
+- **Euromod-India-Navy**: the Shtil-1 round and the F-47 hull again; not
+  placed by SEST.
+
+The campaign pack is unchanged by this capture (D8 included). All twelve
+gates green; tools 133 tests (7 skipped), campaign 222 tests.
