@@ -1,4 +1,4 @@
-# The [LoadOrder] Sea Power is actually using, captured 2026-10-20T22:13:25.
+# The [LoadOrder] Sea Power is actually using, captured 2026-10-20T23:28:35.
 # Compare against data\load-order.tokens.txt - the canonical order.
 
 NumberOfModFiles=202   entries parsed: 202
@@ -32,7 +32,7 @@ NumberOfModFiles=202   entries parsed: 202
   27. 3508275114   on     Ground upgrade: SPAA
   28. 3438479626   on     1143.5 Kuznetsov
   29. 3820759806   on     Euromod - Modern Royal Australian Navy Mod
-  30. 3440622312   on     Anzac Class Frigate
+  30. 3440622312   on     
   31. 3432668460   on     Auxilliary Merchant Pack
   32. 3567256221   on     Charles De Gaulle & Modern French Navy
   33. 3628201887   on     Clemenceau -class Aircraft Carrier
@@ -208,6 +208,6 @@ NumberOfModFiles=202   entries parsed: 202
 
 --- drift against the canonical order ---
 canonical but not live (0): 
-live but not canonical (1): ACConfigs
+live but not canonical (2): 3440622312, ACConfigs
 order of shared entries matches: YES
 disabled in game (1): ACConfigs

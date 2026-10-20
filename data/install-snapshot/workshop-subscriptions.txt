@@ -20,7 +20,7 @@
 3410473695   Ground upgrade: MBT                                  updated 2026-06-01 00:38  folder 2026-10-04 20:27
 3411341227   Tu-95K-22                                            updated 2026-08-31 23:53  folder 2026-09-01 17:08
 3412480633   Ground upgrade: IFV                                  updated 2026-06-01 00:34  folder 2026-10-04 20:27
-3413868677   Red Storm Arsenal                                    updated 2026-10-20 21:30  folder 2026-08-25 09:32
+3413868677   Red Storm Arsenal                                    updated 2026-10-20 22:33  folder 2026-08-25 09:32
 3414146266   A-10                                                 updated 2026-02-21 18:07  folder 2026-08-16 12:07
 3416372890   MIG-29A & F-16A                                      updated 2026-02-28 14:23  folder 2026-08-16 12:06
 3417446309   MIG-29 Family                                        updated 2026-10-02 21:36  folder 2026-08-24 07:41
@@ -38,7 +38,6 @@
 3436170138   PLAAF J-11                                           updated 2026-06-08 16:06  folder 2026-08-15 19:21
 3437105712   SAM Pack                                             updated 2026-08-16 01:25  folder 2026-09-06 08:24
 3438479626   1143.5 Kuznetsov                                     updated 2026-10-08 23:29  folder 2026-10-10 07:48
-3440622312   Anzac Class Frigate                                  updated 2025-11-29 13:04  folder 2026-09-20 22:13
 3444379330   Euromod-Dutch Navy                                   updated 2026-09-02 22:47  folder 2026-08-16 12:00
 3448845252   F-117                                                updated 2025-08-02 15:22  folder 2026-08-16 22:50
 3451166840   SU-25 Frogfoot                                       updated 2026-08-06 04:36  folder 2026-08-16 12:06
@@ -190,7 +189,7 @@
 3806197116   Civilian AS350 Ecureuil/AStar MOD                    updated 2026-09-24 00:54  folder 2026-10-05 03:05
 3806466625   V-22 Osprey / SV-22 2024 ASW prototype               updated 2026-10-12 05:31  folder 2026-10-12 15:35
 3806686336   Coordinated Strike Tool                              updated 2026-09-25 21:51  folder 2026-09-30 21:22
-3807164392   Euromod-India-Navy                                   updated 2026-10-20 14:37  folder 2026-10-18 21:44
+3807164392   Euromod-India-Navy                                   updated 2026-10-20 22:07  folder 2026-10-18 21:44
 3807187341   Combat Cost Tracker                                  updated 2026-09-27 03:28  folder 2026-10-20 02:50
 3808882954   RC-135V/W Rivet Joint                                updated 2026-10-14 11:45  folder 2026-10-14 15:53
 3810611344   MV-75 Cheyenne II                                    updated 2026-10-19 14:49  folder 2026-10-19 15:31
@@ -209,8 +208,8 @@ placed but NOT SUBSCRIBED (0):
 
 --- Steam client record (appworkshop_1286220.acf) ---
 acf file(s)              : c:\program files (x86)\steam\steamapps\workshop\appworkshop_1286220.acf
-folders on disk          : 200
-ids Steam tracks locally : 200
+folders on disk          : 199
+ids Steam tracks locally : 199
 NeedsDownload / NeedsUpdate: 0 / 0
 tracked but NOT on disk (0): 
 on disk but NOT tracked (0): 

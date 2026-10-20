@@ -6,7 +6,6 @@ unchanged since the last export : 197
 
 UPDATED by their authors (re-export to pick the changes up):
   3413868677  Red Storm Arsenal
-  3600788156  Buildings and Objectives
-  3820759806  Euromod - Modern Royal Australian Navy Mod
+  3807164392  Euromod-India-Navy
 
 To capture: re-run this script without -CheckUpdates, then commit and push.
