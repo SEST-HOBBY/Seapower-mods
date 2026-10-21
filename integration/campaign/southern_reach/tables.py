@@ -124,20 +124,23 @@ ROSTER = [
               "is a different unit and is never substituted for it"),
 ]
 
-# The allied reserve (owner's decision Q3, 20 Oct 2026): three escort classes
-# on sale from Tasman Crossing, the first window after TANGO, the Tasman
-# chapter's first authorised kill (Chatham Watch) - allies arrive once there
-# is a war in these waters. Until then the unreleased build sold them at
-# every window. Ships only: the bible keeps every allied aircraft a theatre
-# asset that "never join[s] the owned roster". JS Mogami (Variant1) and
-# Daegu (Variant1) are not among the hulls on sale: Southern Watch's Common
-# Sea and O3 and Red Line's The Other Picture place them
-# (mission_depth.apply_reserve).
-RESERVE = [
-    dict(unit="rn_ff_type23", name="Type 23", opens="TS04"),
-    dict(unit="js_ffg_mogami", name="Mogami", opens="TS04"),
-    dict(unit="ko_ffg-818", name="Daegu", opens="TS04"),
-]
+# The allied reserve. The owner's decision Q3 of 20 Oct 2026 put three
+# escort classes - Type 23, Mogami and Daegu - on sale from Tasman Crossing,
+# the first window after TANGO, the Tasman chapter's first authorised kill
+# (Chatham Watch): allies arrive once there is a war in these waters. Until
+# then the unreleased build sold them at every window. On 21 Oct, retiring
+# the Open Allocation version, the owner put everything it sold here from
+# the same window: the whole allied fleet (allied_fleet.ALLIED), at its own
+# navies' prices. Earlier windows keep the story's own lists. The bible's
+# rule that an allied aircraft is a theatre asset that "never join[s] the
+# owned roster" holds until Tasman Crossing; from there an allied aircraft
+# is sold where a row here launches and recovers it
+# (build_pack.admit_reserve_aircraft). No hull a mission places is sold:
+# JS Mogami (Variant1) and Daegu (Variant1) sail in Southern Watch's Common
+# Sea and O3 and Red Line's The Other Picture, and HMAS Choules and every
+# Supply-class AOR in this campaign or Southern Watch, so those two classes
+# are left out (mission_depth.apply_reserve).
+RESERVE_FLEET = dict(opens="TS04")
 
 # The same RAN ladder Southern Watch uses (the base game's own, from Pacific
 # Strike's commander_settings.ini). Level 6 is Captain: the commander who

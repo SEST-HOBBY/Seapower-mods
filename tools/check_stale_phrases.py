@@ -102,6 +102,14 @@ TWINS_RETIRED = ("retired by the owner on 21 Oct 2026: no campaign in the pack s
 RL03_HELD = ("held by the owner on 21 Oct 2026: The Other Picture reads nothing from The "
              "Ships from the North until a reveal at Classify is shown to satisfy a "
              "UnitClassified stage (Red Line test card 7.4; restorable from 9035f291)")
+# The rules page every campaign ships, built and consolidated.
+RULES_PAGES = ["integration/*/SEST_*/campaigns/*/campaign_rules_en.xml"]
+FLEET_ON_SALE = ("retired by the owner on 21 Oct 2026: the standard campaigns sell what the "
+                 "Open Allocation versions sold beyond the story's lists - the allied fleet "
+                 "from Weapons Free and Tasman Crossing, its aircraft where a row can fly "
+                 "them, and Red Line's Type 901 and 903A from its first force allocation "
+                 "(Southern Watch build notes, '21 October: the allied fleet in the standard "
+                 "campaigns')")
 
 # (regex, globs, why[, WRAPPED])
 STALE = [
@@ -146,6 +154,11 @@ STALE = [
     (r"both (Japanese )?escorts (start|begin)s? (on (the|its|your) plot )?classified"
      r"|starts \*?The Other Picture\*? with both",
      RED_LINE_TEXT + PLAYER_TEXT, RL03_HELD, WRAPPED),
+    (r"(carriers|allied aircraft|Type 901 and 903A)[^.\n]*\bno longer on sale"
+     r"|No allied aircraft, carrier, amphibious ship or tanker is sold"
+     r"|No carriers, amphibious ships, tankers or allied aircraft"
+     r"|Allied escorts are on sale from the force allocation",
+     PLAYER_TEXT + RULES_PAGES, FLEET_ON_SALE, WRAPPED),
 ]
 
 

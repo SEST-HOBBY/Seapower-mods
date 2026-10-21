@@ -8,6 +8,7 @@ No enrichment replaces an existing main objective or civilian protection rule.
 import collections
 from copy import deepcopy
 import math
+import re
 
 
 # Red Line's reports speak as roles, never names: its bible names no person
@@ -222,33 +223,71 @@ def _navy(entry):
     return navy
 
 
+def _class(entry):
+    """The class an allied entry names, from the same note."""
+    return entry["note"].partition(" - ")[2]
+
+
 def _names(items):
     return items[0] if len(items) == 1 else f"{', '.join(items[:-1])} and {items[-1]}"
 
 
-def reserve_classes(spec, units):
-    """The reserve classes among `units` by navy, in the order RESERVE lists
-    them: "Type 23 and River Batch 2 (United Kingdom); Mogami (Japan)"."""
+# The navies whose names take an article in a sentence ("from the USA").
+_THE = {"USA", "United Kingdom", "Netherlands"}
+
+
+def _commander(spec, key):
+    """CommanderNations or NavyName<nation> from the spec's commander file."""
+    m = re.search(rf"^{key}\w*=(.+)$", spec.get("COMMANDER", ""), re.M)
+    return m.group(1).strip() if m else ""
+
+
+def is_aircraft(entry):
+    """An entry sold by squadron is an aircraft; a hull is sold by variant.
+    That is roster_ini's rule, and build_pack re-checks it against the unit's
+    own file before an aircraft is judged (admit_reserve_aircraft)."""
+    return bool(entry["picks"]) and all(p.startswith("Squadron") for p in entry["picks"])
+
+
+def reserve_phrase(spec, units):
+    """The reserve's `units`, in words: the allied fleet counted by ships and
+    aircraft and named by navy, most classes first, and any of the
+    commander's own navy's classes by name. A window and the rules page say
+    it this way; sixty classes cannot be listed one by one (21 Oct 2026)."""
     priced = {e["unit"]: e for e in spec["ROSTER"]}
-    navies = {}
-    for r in spec["RESERVE"]:
-        if r["unit"] in units:
-            navies.setdefault(_navy(priced[r["unit"]]), []).append(r["name"])
-    return "; ".join(f"{_names(names)} ({navy})" for navy, names in navies.items())
+    entries = [priced[u] for u in units]
+    nation = _commander(spec, "CommanderNations")
+    allied = [e for e in entries if _navy(e) != nation]
+    own = [e for e in entries if _navy(e) == nation]
+    parts = []
+    if allied:
+        air = sum(1 for e in allied if is_aircraft(e))
+        ships = len(allied) - air
+        what = [f"{ships} ship class{'es' if ships != 1 else ''}"] if ships else []
+        what += [f"{air} aircraft type{'s' if air != 1 else ''}"] if air else []
+        count = collections.Counter(_navy(e) for e in allied)
+        navies = [("the " if n in _THE else "") + n
+                  for n, _c in sorted(count.items(), key=lambda x: (-x[1], x[0]))]
+        parts.append(f"the allied fleet - {_names(what)} from {_names(navies)} -"
+                     if own else f"the allied fleet, {_names(what)} from {_names(navies)}")
+    if own:
+        parts.append(f"the {_commander(spec, 'NavyName')}'s "
+                     + _names([_class(e) for e in own]))
+    return " and ".join(parts)
 
 
 def reserve_offer(spec):
-    """[(mission, classes)] - each reserve opening, earliest first: the
-    mission whose force-allocation window first sells them, and the classes
-    reserve_classes() names. The rules page says it in these words. Only
-    what the roster sells: a reserve unit taken off it sells nothing."""
+    """[(mission, units)] - each reserve opening, earliest first: the mission
+    whose force-allocation window first sells them, and the reserve units it
+    opens, in roster order. Only what the roster sells: a unit left out
+    (RESERVE_LEFT_OUT) or an aircraft not yet judged sells nothing."""
     by_code = {code_of(m): m for m in spec["MISSIONS"]}
-    priced = {e["unit"] for e in spec["ROSTER"]}
+    opens = spec.get("RESERVE_OPENS", {})
     opening = collections.defaultdict(list)
-    for r in spec.get("RESERVE", []):
-        if r["unit"] in priced:
-            opening[r["opens"]].append(r["unit"])
-    return [(by_code[code], reserve_classes(spec, units))
+    for e in spec["ROSTER"]:
+        if e["unit"] in opens:
+            opening[opens[e["unit"]]].append(e["unit"])
+    return [(by_code[code], units)
             for code, units in sorted(opening.items(), key=lambda kv: _when(by_code[kv[0]]))]
 
 
@@ -256,24 +295,64 @@ def _when(m):
     return (m["date"], m.get("time") or (0, 0))
 
 
+def _open_windows(spec, units):
+    """Put `units` (reserve units on the roster) on sale at every buy window
+    from each one's opening. A new list, never extended in place:
+    campaign_data's windows share theirs (BUY_03 is BUY_02, BUY_09 is
+    BUY_07), and one extended would open the reserve a window early. Adding
+    only what is missing makes a second call change nothing."""
+    by_code = {code_of(m): m for m in spec["MISSIONS"]}
+    opens = spec["RESERVE_OPENS"]
+    for m in spec["MISSIONS"]:
+        w = m.get("window", {})
+        if not w.get("buy"):
+            continue
+        selling = [u for u in units if _when(m) >= _when(by_code[opens[u]])]
+        if w.get("allow") and any(u not in w["allow"] for u in selling):
+            w["allow"] = w["allow"] + [u for u in selling if u not in w["allow"]]
+
+
 def apply_reserve(specs):
-    """The allied reserve: the escort ships a standard campaign sells beside
-    its own navy, each from a window its story names (spec RESERVE, a list of
-    dict(unit, name, opens=<mission code>)).
+    """The allied reserve: what a standard campaign sells beside its own
+    navy, each class from a window its story names.
+
+    A spec names it two ways, and may use both: RESERVE, a list of
+    dict(unit, opens=<mission code>), for chosen classes of the fleet its
+    commander calls on (spec ALLIED_FLEET, allied_fleet.FOR_NATION by
+    commander nation); and RESERVE_FLEET=dict(opens=<mission code>) for the
+    rest of that fleet, every class. Windows are keyed by mission code, not
+    window number, because Southern Reach's two chapters repeat window
+    numbers.
 
     It replaced expand_roster on 20 Oct 2026, which sold Type 23, Mogami and
     Daegu at every window but Southern Watch's first three, as a set
-    hard-coded here. The owner's decisions of that day: Southern Watch sells
-    eleven escort classes from Weapons Free, frigates and destroyers alike,
-    and Southern Reach three from Tasman Crossing (Q2 and Q3). Ships only:
-    an allied aircraft stays under its own national command, and a bought
-    deck has no air group. Windows are keyed by mission code, not window
-    number, because Southern Reach's two chapters repeat window numbers.
+    hard-coded here. The owner's decisions of that day sold escorts only:
+    eleven classes in Southern Watch from Weapons Free, three in Southern
+    Reach from Tasman Crossing (Q2 and Q3). On 21 Oct, retiring the Open
+    Allocation twins, the owner put what the twins sold in the standard
+    campaigns from those same windows: the whole allied fleet - carriers,
+    amphibious and replenishment ships and allied aircraft with the escorts
+    - and in Red Line, whose commander calls on no allies, the PLAN's own
+    Type 901 and 903A from the first force allocation. Earlier windows keep
+    the story's own lists.
 
-    The entry, price and note are allied_fleet's, for the campaign's
-    commander; the unit leaves ALLIED_FLEET, so an Open Allocation twin, for
+    Each entry, price and note is allied_fleet's. A hull any mission of any
+    campaign places is never sold, and an entry left with none is set aside
+    with the reason (spec RESERVE_LEFT_OUT) rather than stopping the build:
+    the twins sold HMAS Choules and the Supply-class AOR, and every hull of
+    both sails in a Southern Watch or Southern Reach mission. Ships go on
+    the roster and on sale here. Aircraft are held (spec RESERVE_AIR): only
+    the built missions say whether a row launches and recovers one, so
+    build_pack's main() judges them after placement (usable_allied) and
+    hands what passes to admit_aircraft(). say_reserve() then writes each
+    window's sentence from what the roster sells. RESERVE_OPENS maps every
+    reserve unit to its opening.
+
+    Every reserve unit leaves ALLIED_FLEET, so an Open Allocation twin, for
     a campaign that opts in to one (none in the pack since 21 Oct 2026),
-    sells it once, from the roster.
+    sells it once, from the roster. Repeated campaign_specs() calls change
+    nothing: a spec dict already resolved is skipped, and the module lists
+    a fresh one shares (ROSTER, the windows) already carry the reserve.
     """
     # A placed variant is a named ship - JS Mogami in Common Sea and The
     # Other Picture, Daegu in O3 - and a hull the player could also buy
@@ -284,16 +363,25 @@ def apply_reserve(specs):
               for spec in specs for m in spec.get("MISSIONS", [])
               if m["group"] != "dispatch" for u in m["units"]}
     for spec in specs:
-        reserve = spec.get("RESERVE")
-        if not reserve or "MISSIONS" not in spec:
+        if "MISSIONS" not in spec or "RESERVE_OPENS" in spec:
+            continue
+        named = list(spec.get("RESERVE", []))
+        whole = spec.get("RESERVE_FLEET")
+        if not named and not whole:
             continue
         by_code = {code_of(m): m for m in spec["MISSIONS"]}
         fleet = {e["unit"]: e for e in spec.get("ALLIED_FLEET", [])}
         on_roster = {e["unit"] for e in spec["ROSTER"]}
+        reserve = named + ([dict(unit=e["unit"], opens=whole["opens"])
+                            for e in spec.get("ALLIED_FLEET", [])
+                            if e["unit"] not in {r["unit"] for r in named}]
+                           if whole else [])
+        opens, held, left_out = {}, [], []
         for r in reserve:
             if r["opens"] not in by_code:
                 raise SystemExit(f"{spec['TITLE']}: the reserve's {r['unit']} opens at "
                                  f"{r['opens']}, which is not one of its missions")
+            opens[r["unit"]] = r["opens"]
             # Already on the roster after a repeated campaign_specs() call:
             # the module's own ROSTER list carries it from the first.
             if r["unit"] in on_roster:
@@ -302,34 +390,67 @@ def apply_reserve(specs):
                 raise SystemExit(f"{spec['TITLE']}: the reserve's {r['unit']} is not in "
                                  "the allied fleet its commander calls on (allied_fleet.py)")
             e = deepcopy(fleet[r["unit"]])
+            aircraft = is_aircraft(e)
             e["picks"] = [p for p in e["picks"] if (e["unit"], p) not in placed]
             if not e["picks"]:
-                raise SystemExit(f"{spec['TITLE']}: every {r['unit']} hull is placed by a "
-                                 "mission - the reserve has none to sell")
-            spec["ROSTER"].append(e)
-        units = {r["unit"] for r in reserve}
+                left_out.append((e, "every hull it prices is placed by a mission"))
+            elif aircraft:
+                held.append(e)
+            else:
+                spec["ROSTER"].append(e)
+        spec["RESERVE_OPENS"] = opens
+        spec["RESERVE_AIR"] = held
+        spec["RESERVE_LEFT_OUT"] = left_out
         spec["ALLIED_FLEET"] = [e for e in spec.get("ALLIED_FLEET", [])
-                                if e["unit"] not in units]
+                                if e["unit"] not in opens]
+        latest = max((_when(by_code[code]) for code in opens.values()), default=None)
         for m in spec["MISSIONS"]:
             w = m.get("window", {})
-            if not w.get("buy") or w.get("_reserve_revision"):
-                continue
-            selling = [r["unit"] for r in reserve if _when(m) >= _when(by_code[r["opens"]])]
             # An open builder with no allowlist sells the whole roster, and
-            # now the reserve with it, whatever the story says.
-            if not w.get("allow") and len(selling) < len(reserve):
+            # the reserve with it, whatever the story says.
+            if latest and w.get("buy") and not w.get("allow") and _when(m) < latest:
                 raise SystemExit(f"{spec['TITLE']}: {code_of(m)}'s window has no allowlist, "
                                  "so it sells the allied reserve before the reserve opens")
-            if selling:
-                # A new list, never extended in place: campaign_data's
-                # windows share theirs (BUY_03 is BUY_02, BUY_09 is BUY_07),
-                # and one extended would open the reserve a window early.
-                if w.get("allow"):
-                    w["allow"] = w["allow"] + [u for u in selling if u not in w["allow"]]
-                w["situation"] = (w.get("situation", "") + " Allied escorts can also be "
-                                  "requisitioned here at their own navies' prices: "
-                                  + reserve_classes(spec, selling) + ".")
-            w["_reserve_revision"] = True
+        _open_windows(spec, [e["unit"] for e in spec["ROSTER"] if e["unit"] in opens])
+
+
+def admit_aircraft(spec, kept, dropped):
+    """The held reserve aircraft (RESERVE_AIR) after build_pack has judged
+    them on the built missions: `kept` go on the roster and on sale from
+    their opening, `dropped` [(entry, why)] join RESERVE_LEFT_OUT."""
+    if not spec.get("RESERVE_OPENS"):
+        return
+    on_roster = {e["unit"] for e in spec["ROSTER"]}
+    for e in kept:
+        if e["unit"] not in on_roster:
+            spec["ROSTER"].append(e)
+    left = {e["unit"] for e, _why in spec["RESERVE_LEFT_OUT"]}
+    spec["RESERVE_LEFT_OUT"] += [(e, why) for e, why in dropped if e["unit"] not in left]
+    _open_windows(spec, [e["unit"] for e in spec["ROSTER"]
+                         if e["unit"] in spec["RESERVE_OPENS"]])
+
+
+def say_reserve(spec):
+    """Each window from an opening says what the reserve sells there, once,
+    from what the roster sells: build_pack's main() calls it after
+    admit_aircraft(), before the spine is written."""
+    if not spec.get("RESERVE_OPENS"):
+        return
+    by_code = {code_of(m): m for m in spec["MISSIONS"]}
+    opens = spec["RESERVE_OPENS"]
+    nation = _commander(spec, "CommanderNations")
+    units = [e for e in spec["ROSTER"] if e["unit"] in opens]
+    for m in spec["MISSIONS"]:
+        w = m.get("window", {})
+        if not w.get("buy") or w.get("_reserve_said"):
+            continue
+        selling = [e for e in units if _when(m) >= _when(by_code[opens[e["unit"]]])]
+        if selling:
+            prices = (", at their own navies' prices"
+                      if any(_navy(e) != nation for e in selling) else "")
+            w["situation"] = (w.get("situation", "") + f" Also on sale here{prices}: "
+                              + reserve_phrase(spec, [e["unit"] for e in selling]) + ".")
+        w["_reserve_said"] = True
 
 
 def apply(specs):

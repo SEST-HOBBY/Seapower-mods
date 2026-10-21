@@ -465,32 +465,22 @@ ROSTER = [
               "is a different unit and is never substituted for it"),
 ]
 
-# The allied reserve (owner's decision Q2, 20 Oct 2026): eleven escort
-# classes the standard campaign sells beside the RAN's own from Weapons
-# Free, frigates and destroyers together, at their own navies' prices - the
-# same-nation discount is Australia's. The bible's "limited US/Japanese/
-# French support" and "a small number of escorts", and the UK's Indo-Pacific
-# patrol ships; window 12 keeps them all. Not in it: carriers, amphibious and
-# replenishment ships (the theatre's, scripted where a mission needs one, and
-# a bought deck carries no air group), Zumwalt, Japan's missile-defence
-# destroyers (they stay home), Sejong (O3's earned partner) and Jeongjo, and
-# every allied aircraft. Entry, picks and price are allied_fleet's;
+# The allied reserve. The owner's decision Q2 of 20 Oct 2026 sold eleven
+# escort classes beside the RAN's own from Weapons Free, frigates and
+# destroyers together - the bible's "limited US/Japanese/French support" and
+# "a small number of escorts", and the UK's Indo-Pacific patrol ships - and
+# kept back carriers, amphibious and replenishment ships, Zumwalt, Japan's
+# missile-defence destroyers, Sejong and Jeongjo, and every allied aircraft.
+# On 21 Oct, retiring the Open Allocation version, the owner put everything
+# it sold in this campaign from the same window: the whole allied fleet
+# (allied_fleet.ALLIED), at its own navies' prices - the same-nation discount
+# is Australia's. Windows 01 to 03 keep the story's own lists. A bought deck
+# carries no air group, and an allied aircraft is sold only where a row here
+# launches and recovers it (build_pack.admit_reserve_aircraft).
 # mission_depth.apply_reserve() takes off any hull a mission places, here or
-# in another campaign.
-RESERVE = [
-    dict(unit="rn_ff_type23", name="Type 23", opens="SW05"),
-    dict(unit="rn_opv_river_batch2", name="River Batch 2", opens="SW05"),
-    dict(unit="rn_ddg_type45_26", name="Type 45", opens="SW05"),
-    dict(unit="js_ffg_mogami", name="Mogami", opens="SW05"),
-    dict(unit="jmsdf_dd_asahi", name="Asahi", opens="SW05"),
-    dict(unit="ko_ffg-818", name="Daegu", opens="SW05"),
-    dict(unit="ko_ffg-828", name="Chungnam", opens="SW05"),
-    dict(unit="fr_ffg_lafayette_modernized", name="La Fayette", opens="SW05"),
-    dict(unit="fr_ffg_aquitaine_asw", name="Aquitaine", opens="SW05"),
-    dict(unit="usn_ddg_arleigh_flt2A_119_2027", name="Arleigh Burke Flight IIA",
-         opens="SW05"),
-    dict(unit="usn_ddg_arleigh_flt3_2027", name="Arleigh Burke Flight III", opens="SW05"),
-]
+# in another campaign, and leaves out a class with none left (HMAS Choules
+# and the Supply-class AOR).
+RESERVE_FLEET = dict(opens="SW05")
 
 # Australian commander, and Pacific Strike's own same-nation discount (0.2).
 # It shipped at 0 while the fear was that US-built airframes flying Australian
@@ -5262,12 +5252,15 @@ AIR_EARLY = ["usn_p8", "raaf_f-35a"]
 AIR_LATE = ["usn_fa-18f_blk3", "E7A_Wedgetail", "usn_ea-18g",
             "raaf_mq-4c_triton"]
 BUY_01 = ESCORTS
-# No amphibious ship, submarine or tanker is for sale: every one of them is a
-# scripted theatre asset in the mission that needs it, and the reviewed build
-# sold 1,100 points of hulls no mission could deploy and a KC-46 no field
-# could receive. Allied escorts are, from window 05 (RESERVE above; until
-# 20 Oct 2026 this said none was). The Growler goes on sale before the
-# strike it exists for.
+# The RAN's own roster sells no amphibious ship, submarine or tanker: each
+# is a scripted theatre asset in the mission that needs it, and the reviewed
+# build sold 1,100 points of hulls no mission could deploy and a KC-46 no
+# field could receive. From window 05 the allied fleet sells them
+# (RESERVE_FLEET above, 21 Oct 2026): carriers, amphibious and replenishment
+# ships as hulls without aircraft, and allied aircraft only where a row here
+# launches and recovers them. Until 20 Oct this said nothing allied was on
+# sale, and until 21 Oct only allied escorts were. No submarine is, ever.
+# The Growler goes on sale before the strike it exists for.
 BUY_02 = ESCORTS + ["ran_ddg_hobart", "usn_p8"]
 # The F-35A goes on sale where it first flies. Window 03 used to sell it,
 # and neither Rig Seventeen (no tasking rows) nor The Quiet Passenger (Ship's

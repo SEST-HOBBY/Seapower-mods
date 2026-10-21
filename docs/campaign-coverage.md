@@ -244,6 +244,40 @@ Sea and land positions in 23 of the 35 missions are snapped to points already us
 | `SEST_TacMap_Colors` | SEST TacMap Colors | `library` | recolours the tactical map (`ui/`); no unit, no round | - |
 | `SEST_World_Campaign` | SEST World Campaign (Dynamic Campaign Mod) | `library` | a campaign for the Dynamic Campaign Mod, under `dynamic_campaigns/`; the Task Force Mode campaigns place nothing from it, and its own units are checked against this load order by integration/world-sandbox/check_dynamic_campaign.py on every build | - |
 
+## The reserve
+
+What this campaign sells beside its own roster from a window its story names (`mission_depth.apply_reserve`): on sale at every force allocation from the one before the mission named, at the unit's own navy's price. A hull a mission places is never sold, and an aircraft only where a row here launches and recovers it (`admit_reserve_aircraft`).
+
+| from the window before | ships | aircraft |
+|---|---|---|
+| 05 Weapons Free | 53 | 19 |
+
+Not sold (21):
+
+| unit | why |
+|---|---|
+| `ran_lsd_choules` | every hull it prices is placed by a mission |
+| `ran_aor_supply` | every hull it prices is placed by a mission |
+| `usaf_b-2_spirit` | no air-tasking row in this campaign takes it |
+| `usaf_b-1b_dts` | no air-tasking row in this campaign takes it |
+| `dts_b-52h` | no air-tasking row in this campaign takes it |
+| `usaf_e-3g` | a row takes its role but offers none of its fits: Recon: sells usaf_e-3g into this flight, and it defines none of ASW/AntiShip/ASWLongRange/ASWHunter/SEST_REDBACK (has: AEW) |
+| `usaf_kc-46a_warp` | no air-tasking row in this campaign takes it |
+| `usn_e-2d` | a row takes its role but offers none of its fits: Recon: sells usn_e-2d into this flight, and it defines none of ASW/AntiShip/ASWLongRange/ASWHunter/SEST_REDBACK (has: Recon) |
+| `usaf_ac-130j` | a row takes its role but offers none of its fits: CAP: sells usaf_ac-130j into this flight, and it defines none of AirToAir/AirToAirStealth/MurderHornetCAP/MurderHornetInterceptor/SEST_SEAD120D/MurderHornetPenetrator (has: Default) |
+| `usmc_uh-1y` | no air-tasking row in this campaign takes it |
+| `rn_merlin_hm2` | no field or deck in reach in After the Wake HeloRecon, Southern Lifeline HeloRecon, Southern Lifeline Recon, The Missing Beacon HeloRecon, The Second Convoy HeloRecon |
+| `rn_wildcat` | no field or deck in reach in Blind Horizon Recon, Southern Lifeline Recon, Steel Highway Recon, The First Ship Through Recon, The Quiet Passenger Recon |
+| `fr_e2d` | a row takes its role but offers none of its fits: Recon: sells fr_e2d into this flight, and it defines none of ASW/AntiShip/ASWLongRange/ASWHunter/SEST_REDBACK (has: Recon) |
+| `fr_ec_665_had-e` | no air-tasking row in this campaign takes it |
+| `fr_nh90` | no field or deck in reach in Southern Lifeline Recon |
+| `fr_as-565_sa` | no field or deck in reach in After the Wake HeloRecon, Southern Lifeline HeloRecon, Southern Lifeline Recon, The Missing Beacon HeloRecon, The Quiet Passenger HeloRecon, The Quiet Passenger Recon, The Second Convoy HeloRecon |
+| `ger_nh90` | no field or deck in reach in Southern Lifeline Recon |
+| `ita_sh-101a` | no field or deck in reach in Southern Lifeline Recon |
+| `ita_sh90` | no field or deck in reach in Southern Lifeline Recon |
+| `nl_nh90` | no field or deck in reach in Southern Lifeline Recon |
+| `usa_ah-64e` | no air-tasking row in this campaign takes it |
+
 ## Enabled, and not reached by this campaign
 
 Left in the load order because removing one changes which file wins for the mods that are. See the campaign's own REQUIRED-MODS.txt for the four lists a subscriber needs.

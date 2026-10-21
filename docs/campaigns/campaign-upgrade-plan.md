@@ -2,11 +2,13 @@
 
 Planning document, 20 Oct 2026. I edited, built and committed nothing. The repository is at `4defe5c8` on `sest-dev/jolly-ride-rptj4t` with a clean tree. For this final pass I re-checked at that commit every fact that Section 8 depends on, using reads of the source and the built output plus read-only imports (`python3 -B`). The facts that come only from the planners' and reviewers' work are attributed to them.
 
-**The owner's decisions of 21 Oct 2026, after this plan was written.** Both are in the pending 20 Oct update.
+**The owner's decisions of 21 Oct 2026, after this plan was written.** All three are in the pending 20 Oct update.
 - **The Open Allocation twins retire now** (Q5, option b): "make open allocation redundant. will be used for other world wide campaign or dynamic sest world campaign." That drops the one released update of proof and the notice one release ahead that this plan set (§1, §3.2 item 4, A4, B12). Each campaign is listed once; `-open` saves, `NEW TEST 1.sav` among them, cannot be continued. The builder keeps the twin machinery dormant and tested as an opt-in (spec `OPEN_ALLOCATION`) for a world-wide Task Force Mode campaign; the SEST World Campaign, a Dynamic Campaign Mod campaign that `build_pack` does not build, could draw on AF's priced list. A4's retirement is done; B12 keeps A3's PLAN reserve and the optional names. SWBN, "Open Allocation retired from the pack (21 October 2026)".
 - **RL03's Classify-level reveal on `RLO2EscortsNamed` is held** until the Red Line test card's 7.4 is answered: "If you don't want to play it through first, I recommend removing it now and adding it back once it's proven." RLO2 writes nothing and RL03 reads nothing; the proof is Southern Reach card 3.10 and Sulu Line card 7.1. Red Line build notes, "RL03's reveal held (21 October)".
 
-Where this plan says the twins stay, or that RL03 reads RLO2, read it with these two decisions.
+- **Open Allocation is built into the standard campaigns** ("Build open allocation into standard campaign"). Asked from which window, the owner chose the reserve's own (recommended): "Everything goes on sale from the window where allied escorts already open: Weapons Free in Southern Watch, Tasman Crossing in Southern Reach, and Red Line's first force allocation. Earlier windows keep the story's own list, so the opening stays small and nothing the versions sold is lost. Bought aircraft still need a usable base or deck." The reserve now names the whole fleet (spec `RESERVE_FLEET`): in Southern Watch and Southern Reach the allied fleet - 52 ship classes, carriers, amphibious and replenishment ships among them, HMAS Adelaide, and 19 and 10 allied aircraft types where a row launches and recovers them - and in Red Line the PLAN's own Type 901 and 903A, which is A3's 901 and 903A done without its 052D and 055. That reverses §1's "No carriers, amphibious ships, tankers or allied aircraft". No twin comes back; HMAS Choules and the Supply-class AOR stay off sale (missions place every hull of both). SWBN, "21 October: the allied fleet in the standard campaigns".
+
+Where this plan says the twins stay, that the reserve sells escorts only, or that RL03 reads RLO2, read it with these three decisions.
 
 **Path shorthand:**
 - Code: BP = `integration/campaign/build_pack.py`, CD = `integration/campaign/campaign_data.py`, MD = `integration/campaign/mission_depth.py`, AF = `integration/campaign/allied_fleet.py`, CCC = `tools/check_campaign_coverage.py`, TBP = `integration/campaign/test_build_pack.py`.
@@ -24,7 +26,7 @@ Where this plan says the twins stay, or that RL03 reads RLO2, read it with these
    - **Open Allocation folded in.** The Open Allocation idea moves into the standard campaigns as a small, realistic **allied reserve** of escort ships:
      - Southern Watch: frigates from *Weapons Free*, destroyers from *Southern Lifeline*.
      - Southern Reach: three frigate classes from *Tasman Crossing*.
-     - No carriers, amphibious ships, tankers or allied aircraft.
+     - No carriers, amphibious ships, tankers or allied aircraft. *Superseded 21 Oct 2026: the whole allied fleet from the same windows, aircraft where a row can fly them.*
      - No ship that a mission names elsewhere is for sale.
    - **The four Open Allocation twins stay** as they are. The one exception is Sulu Line's twin, whose two defects are fixed. *Superseded 21 Oct 2026: the owner retired all four in this update (Q5, option b).*
    - **Shipped defects fixed.** These are defects the planners and reviewers found and I re-confirmed:
@@ -461,7 +463,7 @@ About 9 sessions in all.
 | B9 | SR-AB | 8 | B4, builder neutral fix | 9 spine side missions, 8 pages | **One** Southern Reach restart |
 | B10 | Red Line RL-4 and RL-5 | 6.5 | B8 | RL10–RL12 and the rest | Red Line restart |
 | B11 | Remaining dispatches (SR-D2, RL-6, SL-4) | 6.5 | coast extracts | 17 dispatches | None |
-| B12 | A3 and A4 | 1.5–2 | Reserve proven in one release | PLAN reserve, ~~twins retired~~ (done with Batch 1, 21 Oct 2026), optional names | Twin saves stranded on 21 Oct, with no notice ahead |
+| B12 | A3 and A4 | 1.5–2 | Reserve proven in one release | PLAN reserve (the 901 and 903A done with Batch 1, 21 Oct 2026; 052D and 055 open), ~~twins retired~~ (done with Batch 1, 21 Oct 2026), optional names | Twin saves stranded on 21 Oct, with no notice ahead |
 
 Total about 47 sessions.
 
@@ -606,6 +608,7 @@ Total about 47 sessions.
   - Southern Watch's standard campaign sells all eleven allied escort classes, frigates and destroyers together, from *Weapons Free* (owner's decision Q2, option c, 20 Oct 2026).
   - Southern Reach sells three escort classes from *Tasman Crossing*.
   - Each is said in the window text and on the rules page.
+  - *Extended 21 Oct 2026:* the whole allied fleet from the same windows, and Red Line's Type 901 and 903A from its first force allocation (the owner's third decision above).
   - ~~The four twins remain the "everything from the start" option. Sulu's twin now follows the story's supply-ship windows.~~ Superseded 21 Oct 2026: the twins are retired in this update, and each campaign is listed once.
 - **Side choice:** no new entry and no rename. Red Line, the Eastern side, stops giving away its puzzles in the briefing and the Situation window, and labels coalition units it must not fire on. That is the groundwork for the mirror dispatches in B5.
 
@@ -617,17 +620,17 @@ Total about 47 sessions.
 - The twelve gates (ASSUMPTION 2): `check_inventory` (red only on its four known CR-stripped mods), `check_alias_bases`, `check_vanilla_drift`, `check_game_version`, `check_load_order`, `check_dependencies`, `check_scenarios`, `check_stale_phrases` (retire "CAPTAIN LI", "POLITICAL OFFICER CHEN", "neither campaign places"), `check_station_clash 0.001`, `check_weapon_employment`, `check_pack_fidelity`, `check_campaign_coverage`.
 
 **Unit tests.**
-- `python3 -m unittest integration/campaign/test_build_pack.py integration/campaign/test_playtest_revision.py`: 222 tests plus the new ones (241 ran at `5076cd99`, the inherited opening-range classes counted twice; 270 with Batch 1's, 278 with RL-1's, 284 with the 21 Oct 2026 changes: the twins retired, RL03's reveal held).
+- `python3 -m unittest integration/campaign/test_build_pack.py integration/campaign/test_playtest_revision.py`: 222 tests plus the new ones (241 ran at `5076cd99`, the inherited opening-range classes counted twice; 270 with Batch 1's, 278 with RL-1's, 284 with the 21 Oct 2026 changes: the twins retired, RL03's reveal held; 289 with the allied fleet in the standard campaigns, later that day).
 - `python3 -m unittest discover -s tools/tests -p 'test_*.py'`: 133 tests.
 
 **Offline output checks.**
 
 | Where | Expect |
 |---|---|
-| Southern Watch [Mission17] (SW05) allowlist | All eleven reserve classes, frigates and destroyers alike (Q2, option c) |
-| Southern Watch [Mission30], [Mission36] and [Mission40] (SW09, SW11, SW12) allowlists | All eleven reserve classes |
-| SW01–SW03 allowlists ([Mission2], [Mission8], [Mission13]) | No allied hull |
-| Southern Watch and Southern Reach `campaign_rules_en.xml` | One "Allied escorts are on sale from the force allocation before …" line: *Weapons Free* and *Tasman Crossing*; none in Red Line, Sulu Line ~~or any twin~~ (no twin ships since 21 Oct 2026) |
+| Southern Watch [Mission17] (SW05) allowlist | All eleven reserve classes, frigates and destroyers alike (Q2, option c); since 21 Oct 2026 the whole allied fleet the build keeps (72 units) |
+| Southern Watch [Mission30], [Mission36] and [Mission40] (SW09, SW11, SW12) allowlists | All eleven reserve classes; since 21 Oct 2026 the same 72 |
+| SW01–SW03 allowlists ([Mission2], [Mission8], [Mission13]) | No allied hull, and no allied aircraft |
+| Southern Watch and Southern Reach `campaign_rules_en.xml` | One line on the reserve: *Weapons Free* and *Tasman Crossing*; ~~"Allied escorts are on sale from the force allocation before …"~~ since 21 Oct 2026 "Every force allocation from the one before … also sells the allied fleet - …"; Red Line's names its Type 901 and 903A, never as allied; none in Sulu Line ~~or any twin~~ (no twin ships since 21 Oct 2026) |
 | Southern Reach roster | No `js_ffg_mogami` Variant1 and no `ko_ffg-818` Variant1 |
 | Southern Reach windows before TS04 | No allied escort |
 | ~~Sulu twin [Mission2]~~ | ~~No C8~~ Superseded 21 Oct 2026: the twin is retired; TBP `SuluOpenAllocation` builds it in a temporary folder and checks this |

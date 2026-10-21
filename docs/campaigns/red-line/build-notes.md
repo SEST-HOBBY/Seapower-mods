@@ -496,7 +496,10 @@ before her last Red Line appearance).**
   commander's whole allied fleet (plan section 3.2, item 4), JS Maya's hull
   among it, and the test pinned that one exception - until they left the
   pack on 21 October 2026. No exception is left; the test pins a Red Line
-  hull on any twin a campaign opts in to, and none does.
+  hull on any twin a campaign opts in to, and none does. From later that
+  day the standard Southern Watch and Southern Reach sell that whole fleet
+  through the reserve's pack-wide filter, so Maya Variant1 is on no roster
+  ("21 October: the allied fleet in the standard campaigns", below).
 
 **Spared, and why.** GOLF is in *Datum*'s Restraint fatal, beside the
 Poseidon: she must be there for the next two northern missions, and the
@@ -631,3 +634,42 @@ back once 7.4 is answered: restore the three lines above, let
 in `RedLineSideOperations`, and rewrite the text this note changed (test
 card 7.4, the bible, `side-operations.md`, the play-test guide, FEATURES,
 the README).
+
+## 21 October: the allied fleet in the standard campaigns
+
+The owner's request of 21 October, "Build open allocation into standard
+campaign", put what each Open Allocation version sold beyond the story's
+lists in the standard campaign; for Red Line, from its first force
+allocation. Its version sold, beside the whole roster from the first
+window, the PLAN's own Type 901 and 903A replenishment ships
+(`allied_fleet.PLAN_SUPPORT`, which this commander calls on in place of an
+allied fleet), and the standard campaign now sells both from Trailing
+Contact's window, at every force allocation after it - RL02, RL03 and
+RL06 (`RESERVE_FLEET = dict(opens="RL01")` in `red_line/tables.py`). The
+story's own lists are as they were: the version's other gift, the Y-9,
+KJ-500, J-15 and J-15D at the first window, is not part of this (they
+were on the roster already and stay on sale where the story sells them).
+
+- **The PLAN's own, not allied.** Both are registered to China, so they
+  take the same-nation discount (901 at 160, 903A at 120). The window
+  text says "Also on sale here: the People's Liberation Army Navy's Type
+  901 Fuyu fast combat support ship and Type 903A Fuchi replenishment
+  oiler", and the rules page "Every force allocation also sells" the same,
+  with no "allied" anywhere (`mission_depth.reserve_phrase` names the
+  commander's own navy's classes; `RulesPage` holds it).
+- **Named hulls.** Variant1 of each is a ship a mission places - *The
+  Order to Withdraw*'s Hulunhu, Southern Reach's Taihu and Hulunhu - so the
+  901 sells one hull (Variant2) and the 903A three (Variant2 to 4). The
+  roster goes from 9 entries to 11; the windows from 4, 5, 8 and 3 units
+  to 6, 7, 10 and 5.
+- **The bible's rule on coalition hulls** is unchanged and now covers the
+  standard rosters' whole allied fleet: the reserve's named-hull filter is
+  pack-wide, so JS Maya Variant1 (*The Other Picture*), which the twins
+  sold, is on no roster, and `RedLineSideOperations` checks every other
+  campaign's roster against every Red Line coalition warship.
+- **Saves.** Only window allowlists and situations and the rules page
+  change. A Red Line campaign under way may keep its old windows: start a
+  new one to see the supply ships (test card 3.9).
+
+Southern Watch build notes, "21 October: the allied fleet in the standard
+campaigns", has the mechanism.

@@ -293,22 +293,38 @@ def campaign_rules(spec, open_allocation=False, allied=0):
     # The allied reserve (mission_depth.apply_reserve), said once on the
     # story page: the Unit Catalog lists the whole roster file from the first
     # window, reserve classes included, and this is what says when they are
-    # really on sale. The twin sells them from the first anyway.
-    if spec.get("RESERVE") and not open_allocation:
+    # really on sale. The twin sells them from the first anyway. Until 21 Oct
+    # 2026 it named eleven escort classes and said no allied aircraft,
+    # carrier, amphibious ship or tanker was sold; the whole fleet is now,
+    # counted by navy (mission_depth.reserve_phrase), and Red Line's line
+    # names the PLAN's own two supply ships without calling them allied.
+    if spec.get("RESERVE_OPENS") and not open_allocation:
         import mission_depth
-        not_ships = [r["unit"] for r in spec["RESERVE"] if unit_type(r["unit"]) != "Vessel"]
-        if not_ships:
-            raise SystemExit(f"{spec['TITLE']}: the allied reserve sells ships only, and "
-                             f"{', '.join(not_ships)} is not one")
-        offer = ", and from the one before ".join(
-            f"{m['key']}: {classes}" for m, classes in mission_depth.reserve_offer(spec))
-        if offer:
-            at = t.index("/>", t.index('Text="- Unit availability changes between missions')) + 2
-            t = t[:at] + indent + line.format(_xml_text(
-                f"- Allied escorts are on sale from the force allocation before {offer}. "
-                "They cost their own navies' listed prices, and the Unit Catalog lists "
-                "them from the start. No allied aircraft, carrier, amphibious ship or "
-                "tanker is sold, and no hull a mission names."), 5) + t[at:]
+        nation = re.search(r"^CommanderNations=(.+)$", spec["COMMANDER"], re.M).group(1).strip()
+        buying = [m for m in spec["MISSIONS"] if m.get("window", {}).get("buy")]
+        first = min(buying, key=mission_depth._when) if buying else None
+        priced = {e["unit"]: e for e in spec["ROSTER"]}
+        at = t.index("/>", t.index('Text="- Unit availability changes between missions')) + 2
+        for m, units in reversed(mission_depth.reserve_offer(spec)):
+            allied = any(mission_depth._navy(priced[u]) != nation for u in units)
+            said = [("Every force allocation also sells " if m is first else
+                     f"Every force allocation from the one before {m['key']} also sells ")
+                    + mission_depth.reserve_phrase(spec, units) + "."]
+            if m is not first:
+                said.append("The Unit Catalog lists them from the start.")
+            if allied:
+                said.append("Allied classes cost their own navies' listed prices, without "
+                            "the same-nation discount.")
+            # A deck of more than four is a carrier's or an amphibious ship's
+            # (Galicia 6 to Ford 90); an escort's flight is one to three.
+            if any(unit_type(u) == "Vessel" and deck_size(u) > 4 for u in units):
+                said.append("Carriers and amphibious ships come without aircraft, as "
+                            "every ship bought here does.")
+            if spec.get("RESERVE_AIR"):
+                said.append("An allied aircraft is sold only where some mission here "
+                            "can launch and recover it.")
+            said.append("No hull a mission names is sold.")
+            t = t[:at] + indent + line.format(_xml_text("- " + " ".join(said)), 5) + t[at:]
     swap('Text="- Ships purchased in Task Force Builder include their airwing for free, and '
          'those aircraft are assigned to the ship automatically. Replacement aircraft must '
          'be purchased separately if aircraft are lost."',
@@ -381,13 +397,16 @@ def campaign_rules(spec, open_allocation=False, allied=0):
 # Campaign (integration/world-sandbox, a Dynamic Campaign Mod campaign with
 # its own buy list) should it want allied_fleet.py's priced lists. Every
 # campaign shipped a twin from 27 Sep to 21 Oct 2026; the owner retired them
-# from the pack on 21 Oct, once the allied reserve
-# (mission_depth.apply_reserve) put allied escorts on sale in the standard
-# campaigns. A spec opts in with OPEN_ALLOCATION=True: open_allocation_twin()
-# and write_open_twin() then build and write campaigns/<slug>-open, and
-# tools/check_campaign_coverage.py holds it to open_twin(). No spec in the
-# pack sets it, and the tests build a twin into a temporary folder so the
-# code and OPEN_HOLD stay checked against the shipped campaigns.
+# from the pack on 21 Oct and put what they sold beyond the roster in the
+# standard campaigns instead: the allied reserve (mission_depth.
+# apply_reserve) sells the whole allied fleet from Weapons Free and Tasman
+# Crossing, and Red Line's PLAN supply ships from its first window. Only
+# this twin path is dormant. A spec opts in with OPEN_ALLOCATION=True:
+# open_allocation_twin() and write_open_twin() then build and write
+# campaigns/<slug>-open, and tools/check_campaign_coverage.py holds it to
+# open_twin(). No spec in the pack sets it, and the tests build a twin into
+# a temporary folder so the code and OPEN_HOLD stay checked against the
+# shipped campaigns.
 OPEN_SUFFIX = "-open"
 # The window's own situation follows the note unchanged: it still says what
 # sails, what is rearmed and where the next window is, and what it says is on
@@ -584,7 +603,7 @@ def campaign_specs():
         ROSTER_SOURCE="campaign_data.py",
         INFO_DESC=sw.INFO_DESC, DISPATCH_DESC=sw.DISPATCH_DESC,
         TASKFORCE=sw.TASKFORCE, DIFFICULTIES=sw.DIFFICULTIES,
-        ROSTER=sw.ROSTER, RESERVE=sw.RESERVE, COMMANDER=sw.COMMANDER,
+        ROSTER=sw.ROSTER, RESERVE_FLEET=sw.RESERVE_FLEET, COMMANDER=sw.COMMANDER,
         EVENTS=sw.EVENTS, MISSIONS=sw.MISSIONS, EXCUSES=sw.EXCUSES)
     specs = [watch, sr.CAMPAIGN]
     import allied_fleet                              # noqa: E402
@@ -625,9 +644,11 @@ def campaign_specs():
                                  f"set {key}={spec[key]} - each campaign needs its own")
             seen[value] = spec.get("TITLE")
     # The allied fleet their commander's navy can call on (allied_fleet.py),
-    # chosen by the commander's nation. The allied reserve takes its picks
-    # and prices from it (mission_depth.apply_reserve), and a campaign that
-    # opts in to OPEN_ALLOCATION sells the rest of it on its twin.
+    # chosen by the commander's nation. The allied reserve sells it in the
+    # standard campaigns, from the window each names (mission_depth.
+    # apply_reserve; the whole fleet since 21 Oct 2026), and a campaign that
+    # opts in to OPEN_ALLOCATION sells on its twin whatever the reserve
+    # leaves in it.
     for spec in specs:
         nation = re.search(r"^CommanderNations=(.+)$", spec.get("COMMANDER", ""), re.M)
         spec.setdefault("ALLIED_FLEET",
@@ -6548,7 +6569,9 @@ def check_purchased_recovery(mission, placed, roster_types):
 
 
 def usable_allied(entries, missions, placements, rows=(), roster=(), authored=()):
-    """(kept, dropped) - the allied entries an Open Allocation twin may sell.
+    """(kept, dropped) - the allied entries a campaign may sell: the allied
+    reserve's aircraft in the standard campaign (admit_reserve_aircraft) and
+    the allied fleet on an Open Allocation twin.
 
     Ships are always kept: a ship sails in every mission that includes the
     task force. (No submarine is on the list: see allied_fleet.py.)
@@ -6587,6 +6610,51 @@ def usable_allied(entries, missions, placements, rows=(), roster=(), authored=()
         else:
             kept.append(e)
     return kept, dropped
+
+
+def admit_reserve_aircraft(spec, missions, placements, rows=(), authored=()):
+    """(kept, dropped) - the allied reserve's held aircraft (spec RESERVE_AIR,
+    mission_depth.apply_reserve) judged on the built missions, as the Open
+    Allocation twins judged theirs (usable_allied), and handed back to
+    mission_depth.admit_aircraft(): what is kept goes on the roster and on
+    sale from its opening, and what is dropped is recorded with the reason.
+
+    Judged on every mission of the campaign, not only those from the
+    opening, though no aircraft can be bought earlier: check_flights and
+    check_purchased_recovery hold every roster aircraft to every row, and
+    a narrower judgment could sell an aircraft those gates then refuse. On
+    21 Oct 2026 both judgments kept the same aircraft (Southern Watch 19 of
+    38, Southern Reach 10 of 38). `rows` are the campaign's flight rows as
+    widened by its own roster (widen_flights), as the twins' were: an allied
+    aircraft flies the fits a row already offers, so the rows of the windows
+    before the opening do not change.
+    """
+    import mission_depth
+    held = spec.get("RESERVE_AIR", [])
+    wrong = [f"{e['unit']} ({unit_type(e['unit'])})" for e in held
+             if unit_type(e["unit"]) not in ("Aircraft", "Helicopter", "VTOL")]
+    if wrong:
+        raise SystemExit(f"{spec['TITLE']}: the allied reserve holds {', '.join(wrong)} "
+                         "as aircraft (priced by squadron), and the unit file says otherwise")
+    kept, dropped = usable_allied(held, missions, placements, rows, ROSTER, authored)
+    mission_depth.admit_aircraft(spec, kept, dropped)
+    return kept, dropped
+
+
+def print_reserve(spec):
+    """The reserve as the build settled it, into the build log: what each
+    opening sells, and what was left out and why (spec RESERVE_LEFT_OUT)."""
+    import mission_depth
+    for m, units in mission_depth.reserve_offer(spec):
+        air = sum(1 for u in units if unit_type(u) in ("Aircraft", "Helicopter", "VTOL"))
+        print(f"{TITLE}: the reserve sells {len(units)} unit(s) from "
+              f"{mission_depth.code_of(m)} {m['key']}: {len(units) - air} ship(s), "
+              f"{air} aircraft")
+    left = spec.get("RESERVE_LEFT_OUT", [])
+    if left:
+        print(f"{TITLE}: {len(left)} reserve unit(s) left out:")
+        for e, why in left:
+            print(f"   {e['unit']:<30} {why}")
 
 
 def check_flights(rows, roster, authored=()):
@@ -7150,7 +7218,36 @@ def coverage(credits, excuses):
     return rows, missing
 
 
-def report(rows, missions, worst, unused=(), coast=(), pooled=None):
+def reserve_report(spec):
+    """The coverage report's record of the reserve (21 Oct 2026): what each
+    opening sells beside the campaign's own roster, and every class of the
+    fleet it draws on that is not sold, with the reason - a hull a mission
+    places (mission_depth.apply_reserve) or an aircraft no row here can fly
+    and recover (admit_reserve_aircraft). The build log says the same."""
+    import mission_depth
+    if not spec or not spec.get("RESERVE_OPENS"):
+        return []
+    air = ("Aircraft", "Helicopter", "VTOL")
+    L = ["## The reserve", "",
+         "What this campaign sells beside its own roster from a window its story "
+         "names (`mission_depth.apply_reserve`): on sale at every force allocation "
+         "from the one before the mission named, at the unit's own navy's price. A "
+         "hull a mission places is never sold, and an aircraft only where a row here "
+         "launches and recovers it (`admit_reserve_aircraft`).", "",
+         "| from the window before | ships | aircraft |", "|---|---|---|"]
+    for m, units in mission_depth.reserve_offer(spec):
+        planes = sum(1 for u in units if unit_type(u) in air)
+        L.append(f"| {mission_code(m)} {m['key']} | {len(units) - planes} | {planes} |")
+    left = spec.get("RESERVE_LEFT_OUT", [])
+    if left:
+        L += ["", f"Not sold ({len(left)}):", "", "| unit | why |", "|---|---|"]
+        for e, why in left:
+            L.append(f"| `{e['unit']}` | {why.replace('|', '/')} |")
+    L.append("")
+    return L
+
+
+def report(rows, missions, worst, unused=(), coast=(), pooled=None, spec=None):
     counts = collections.Counter(r[2] for r in rows)
     L = [f"# {TITLE} — mod coverage", "",
          "Generated by `integration/campaign/build_pack.py`. Do not edit.", "",
@@ -7206,6 +7303,7 @@ def report(rows, missions, worst, unused=(), coast=(), pooled=None):
     for mid, title, how, detail, mission, _token in rows:
         L.append(f"| `{mid}` | {title} | `{how}` | {detail} | {mission} |")
     L.append("")
+    L += reserve_report(spec)
     if unused:
         L += ["## Enabled, and not reached by this campaign", "",
               "Left in the load order because removing one changes which file "
@@ -7749,16 +7847,7 @@ def main():
         flight_rows = [r for m in spec["MISSIONS"] for r in m.get("window", {}).get("flights", [])]
         authored = {u["type"] for m in spec["MISSIONS"] for u in m["units"] if u.get("slot")}
         check_flights(flight_rows, ROSTER, authored=authored)
-        built, credits, worst, placements = [], {}, 0.0, {}
-        for token, why in roster_credits.items():
-            credits[token] = (why[0], why[1], "requisition roster")
-        # What the campaign itself loads - its own missions and its roster -
-        # apart from the Dispatches, which are browser missions the campaign
-        # never loads. Southern Watch's Dispatches place a unit from
-        # nearly every mod in the collection (they are the pack's coverage),
-        # and a REQUIRED-MODS built from both told a player of the campaign
-        # to install 137 mods it does not use (user report, 28 Sep).
-        play_credits = dict(credits)
+        built, worst, placements, reached = [], 0.0, {}, []
         for mission in missions:
             if (mission.get("geography") or GEOGRAPHY) == "coast":
                 placer = CoastPlacer(coast_data(mission), mission)
@@ -7782,14 +7871,7 @@ def main():
             name, text = render(mission, placed, members)
             built.append((name, text, mission))
             placements[mission["key"]] = placed
-            for token, why in mission_credits.items():
-                best = credits.get(token)
-                if best is None or STRENGTH[why[0]] < STRENGTH[best[0]]:
-                    credits[token] = why
-                if mission["group"] != "dispatch":
-                    best = play_credits.get(token)
-                    if best is None or STRENGTH[why[0]] < STRENGTH[best[0]]:
-                        play_credits[token] = why
+            reached.append((mission, mission_credits))
             units = sum(len(v) for v in placed.values())
             gap = (f" gap{picture[0]:6.0f} reach{picture[1]:6.0f} NM"
                    if picture else "")
@@ -7823,6 +7905,45 @@ def main():
             sys.exit("geometry failed:\n  " + "\n  ".join(
                 PLACEMENT_PROBLEMS + REACH_PROBLEMS + CLOSURE_PROBLEMS
                 + OPENING_PROBLEMS))
+
+        # The allied reserve's aircraft (mission_depth.apply_reserve held them
+        # back): only the built missions say whether a row launches and
+        # recovers one. What passes goes on the roster and on sale from its
+        # opening, and then every window from an opening says what the
+        # reserve sells there. The roster and the flight rows are checked
+        # again as they were above, now with the aircraft on sale.
+        import mission_depth
+        kept, _dropped = admit_reserve_aircraft(spec, [m for _n, _t, m in built],
+                                                placements, flight_rows, authored)
+        mission_depth.say_reserve(spec)
+        if kept:
+            roster_text, roster_credits = roster_ini(ROSTER)
+            check_roster_on_sale(ROSTER, spec["MISSIONS"], TITLE)
+            check_flights(flight_rows, ROSTER, authored=authored)
+        if spec.get("RESERVE_OPENS"):
+            print_reserve(spec)
+        # The roster's credits first, then each mission's in build order, a
+        # stronger kind replacing a weaker one: merged here rather than as
+        # each mission was built, so that the roster is the one the reserve
+        # has settled (21 Oct 2026). What the campaign itself loads - its own
+        # missions and its roster - is apart from the Dispatches, which are
+        # browser missions the campaign never loads. Southern Watch's
+        # Dispatches place a unit from nearly every mod in the collection
+        # (they are the pack's coverage), and a REQUIRED-MODS built from both
+        # told a player of the campaign to install 137 mods it does not use
+        # (user report, 28 Sep).
+        credits = {token: (why[0], why[1], "requisition roster")
+                   for token, why in roster_credits.items()}
+        play_credits = dict(credits)
+        for mission, mission_credits in reached:
+            for token, why in mission_credits.items():
+                best = credits.get(token)
+                if best is None or STRENGTH[why[0]] < STRENGTH[best[0]]:
+                    credits[token] = why
+                if mission["group"] != "dispatch":
+                    best = play_credits.get(token)
+                    if best is None or STRENGTH[why[0]] < STRENGTH[best[0]]:
+                        play_credits[token] = why
 
         # Built BEFORE the dry-run exit, because every air-tasking gate lives
         # in here - the row/section pairing, the role and fit checks, the
@@ -8088,7 +8209,7 @@ def main():
         COVERAGE_DOC.parent.mkdir(parents=True, exist_ok=True)
         COVERAGE_DOC.write_text(report(c["rows"], spec["MISSIONS"], c["worst"],
                                        unused=c["missing"], coast=c["coast"],
-                                       pooled=c["pooled"]),
+                                       pooled=c["pooled"], spec=spec),
                                 encoding="utf-8")
         # A reference list for the publisher, kept in docs/ rather than the
         # download. It is NOT the Workshop item's Required Items, which (like

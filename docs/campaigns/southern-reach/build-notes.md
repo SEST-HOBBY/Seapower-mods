@@ -614,3 +614,38 @@ Every brief says when to expect what is held back; the briefing chart does
 not draw it. Whether a unit the game switches on at its minute then flies
 its route, and whether this AI's Tight holds against an identified
 aircraft, are for the test card (4.13 to 4.16).
+
+## 21 October: the allied fleet in the standard campaigns
+
+The allied reserve sold Type 23, Mogami and Daegu from *Tasman Crossing*
+from 20 October (the owner's Q3). On 21 October, retiring the Open
+Allocation version, the owner put everything it sold beyond the story's
+lists in this campaign from the same window: `RESERVE_FLEET =
+dict(opens="TS04")` in `southern_reach/tables.py`. From the window before
+TS04, at every force allocation to TS12, the builder now also offers 52
+allied ship classes of eleven navies - carriers, amphibious and
+replenishment ships, destroyers and frigates - HMAS Adelaide (Canberra
+class, Variant2), and the 10 allied aircraft types a row here launches and
+recovers: F-22, P-8A (2027), F-35C, F-15E, F/A-18E, the RAF and German
+Typhoons, Atlantique 2, SH-60K and SH-60J. The roster goes from 13
+entries to 73; the windows before TS04 are unchanged, and from TS04 they
+sell 73 units (72 at TS12). The bible's line that every allied aircraft is
+a theatre asset that never joins the owned roster holds until *Tasman
+Crossing* (`campaign-bible.md`, dated note).
+
+Left out, and why (the build log, and `coverage.md`, "The reserve"):
+HMAS Choules and the Supply-class AOR, whose every hull a mission places,
+and 28 aircraft. Eight are fighters with no field in reach of *Southern
+Cross*'s and *Tasman Crossing*'s Combat Air Patrol cockpits (the F-15EX,
+F-16CM, both Rafales, both AV-8B+, the Spanish Typhoon and the F-2A); the
+MQ-9ER and eight helicopters have no deck or field in reach of a Recon or
+Ship's Flight row; the bombers, the tanker, the UH-1Y, Tigre and AH-64E
+are taken by no row; the E-3G, both E-2Ds and the AC-130J are taken by a
+row that offers none of their fits. Seven mods the campaign did not use
+are its hard requirements now (the Eurofighter Typhoon, F-15E Strike
+Eagle, F-22 Raptor, Italian Navy Mod and the Modern Dutch, Italian and
+JMSDF Euromods): REQUIRED-MODS goes from 45 hard-required to 52, and the
+SEST packs from 12 to 13 (SEST F-35C JATM).
+
+How it is built, judged and worded: Southern Watch build notes, "21
+October: the allied fleet in the standard campaigns". Test card 2.11.

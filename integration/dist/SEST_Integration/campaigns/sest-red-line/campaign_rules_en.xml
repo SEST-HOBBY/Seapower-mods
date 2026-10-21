@@ -147,6 +147,7 @@
             </TextBlock>
             <TextBlock Text="- Selected units are not purchased until the task force is confirmed." FontSize="15" Foreground="#D8DDE8" TextWrapping="Wrap" Margin="0,0,0,5"/>
             <TextBlock Text="- Unit availability changes between missions: Task Force Builder offers only what the current force-allocation window allows." FontSize="15" Foreground="#D8DDE8" TextWrapping="Wrap" Margin="0,0,0,5"/>
+            <TextBlock Text="- Every force allocation also sells the People's Liberation Army Navy's Type 901 Fuyu fast combat support ship and Type 903A Fuchi replenishment oiler. No hull a mission names is sold." FontSize="15" Foreground="#D8DDE8" TextWrapping="Wrap" Margin="0,0,0,5"/>
             <TextBlock FontSize="15" Foreground="#D8DDE8" TextWrapping="Wrap" Margin="0,0,0,5">
               <Run Text="- Use the task force bar to repair damage, inspect weapons, change loadouts, view proficiency, and manage aircraft assignments."/>
             </TextBlock>

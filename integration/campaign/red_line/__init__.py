@@ -49,7 +49,8 @@ HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE.parent))
 
 from .lore import EVENTS  # noqa: E402
-from .tables import CALENDAR, MODULES, ROSTER, TASKFORCE, DIFFICULTIES, COMMANDER  # noqa: E402
+from .tables import (CALENDAR, MODULES, ROSTER, RESERVE_FLEET, TASKFORCE,  # noqa: E402
+                     DIFFICULTIES, COMMANDER)
 
 # While a mission is being written the others may not exist yet. With
 # SR_ALLOW_MISSING set (the builder's own switch for a partial campaign) the
@@ -133,5 +134,5 @@ CAMPAIGN = dict(
     CAMPAIGN_DIFFICULTY="3", MAP_FOCUS_NM=350, MAP_INSET=(100, -50, 172, 8),
     ROSTER_SOURCE="red_line/tables.py",
     INFO_DESC=INFO_DESC, DISPATCH_DESC="", TASKFORCE=TASKFORCE,
-    DIFFICULTIES=DIFFICULTIES, ROSTER=ROSTER, COMMANDER=COMMANDER,
-    EVENTS=EVENTS, MISSIONS=MISSIONS, EXCUSES={})
+    DIFFICULTIES=DIFFICULTIES, ROSTER=ROSTER, RESERVE_FLEET=RESERVE_FLEET,
+    COMMANDER=COMMANDER, EVENTS=EVENTS, MISSIONS=MISSIONS, EXCUSES={})

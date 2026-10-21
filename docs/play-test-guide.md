@@ -123,10 +123,12 @@ Dispatches*. Full card: `docs/campaigns/southern-watch/test-card.md`.
 | Rearm earned **(6.9)** | Hold mission 9's service window, then look before mission 10 | A rearm is offered. Miss the window and it is not |
 | Rearm at sea **(6E)** | Mission 9, fire a missile, then go within half a mile of HMAS Stalwart at 12 kn or less | The missile comes back |
 | Optional ops **(6.7)** | Bring both Korean warships in at O3, then start mission 6 | ROKS Sejong the Great is in your screen |
-| Allied escorts **(2.9)** | A **new** campaign, windows before missions 1-3 | No allied hull offered; Campaign Rules has an "Allied escorts" line saying they are on sale from Weapons Free |
-| Allied escorts **(2.10)** | Window before mission 5, Weapons Free: buy a Mogami or a Type 23 | All eleven allied classes offered at list price (frigates and the Type 45 and Burke destroyers alike); the bought ship sails; still only one ship sails |
-| Allied escorts **(2.11)** | Windows before missions 9, 11 and 12 | The same eleven offered; a bought one sails in mission 9 |
-| Old save **(2.12)** | Load a Southern Watch save from before this update, mid-campaign | It loads. Note whether the allied escorts are offered (maybe not: a campaign under way may keep its old windows) |
+| Allied fleet **(2.9)** | A **new** campaign, windows before missions 1-3 | Nothing allied offered, ship or aircraft; Campaign Rules has a line saying every force allocation from the one before Weapons Free sells the allied fleet |
+| Allied fleet **(2.10)** | Window before mission 5, Weapons Free: buy a Mogami or a Type 23 | The allied fleet offered at its own navies' prices: carriers, amphibious and supply ships, destroyers and frigates (52 classes), and 19 allied aircraft types; the bought ship sails; still only one ship sails |
+| Allied fleet **(2.11)** | Windows before missions 9, 11 and 12 | The same fleet offered; a bought ship sails in mission 9 |
+| Allied carrier **(G.12)** | Before mission 5, buy a Ford or a Wasp; sail it in mission 9 | It comes with an empty deck and sails with the force |
+| Allied aircraft **(G.13)** | Before mission 5, buy a Typhoon FGR.4; fly missions 5 and 6 | Offered the strike row in mission 5 and Combat Air Patrol in mission 6; it gets back to its field |
+| Old save **(2.12)** | Load a Southern Watch save from before this update, mid-campaign | It loads. Note what its windows offer: the whole fleet, the escorts alone, or nothing (a campaign under way may keep its old windows) |
 | Both datums **(6.6a)** | Do O2 and O5, then start mission 4, The Quiet Passenger | Two intel lines; the submarine **and** the passenger on the plot as fifteen-minute datums |
 | Orphaned save | Open `NEW TEST 1.sav`, a *Southern Watch - Open Allocation* save from before 21 Oct 2026 | It cannot be continued: the version it belongs to is retired. Note what the game does with it (hidden, an error, a broken menu). The campaign menu still opens and lists the four campaigns |
 
@@ -150,7 +152,7 @@ is the thing to watch. Full card: `docs/campaigns/southern-reach/test-card.md`.
 | Consequences **(3.6, 3.11)** | Sink VICTOR in SR07 → check SR10; sink ROMEO in TS05 → check TS09 | The sunk boat is missing later |
 | Weapons Tight **(4.8)** | SR10, everything red starts Tight | Nothing fires until you do |
 | Defector **(6)** | TS11A The Twelve-Mile Line | See section 6 of the card |
-| Allied escorts **(2.11)** | A **new** campaign: every window, through Tasman Crossing | No allied hull until the window before TS04; from it, Type 23, Mogami and Daegu at list price. JS Mogami (Mogami Variant1) and Daegu Variant1 are **never** offered |
+| Allied fleet **(2.11)** | A **new** campaign: every window, through Tasman Crossing | Nothing allied until the window before TS04; from it the allied fleet at its own navies' prices - 52 ship classes and 10 aircraft types. JS Mogami (Mogami Variant1), Daegu Variant1, HMAS Choules and the Supply-class AOR are **never** offered |
 
 ---
 
@@ -170,6 +172,7 @@ started before the side operations must be **started again** (17 entries, not
 | Weapons Tight **(4.3)** | RL02, frigate at Tight with the Poseidon passing overhead | It does not shoot the Poseidon |
 | Direct order **(4.4)** | RL04, frigate at Hold, order it to fire on *Meridian Harmony* | The order is obeyed. Note what weapons state it switches to |
 | No rearm **(3.4)** | Before RL04 | Repair only, no rearm offered |
+| Supply ships **(3.9)** | A **new** campaign, before RL01 | The Type 901 and Type 903A on sale at 160 and 120, the PLAN's own: nothing calls them allied |
 | Unseen **(5.1–5.2)** | RL05: wait deep and slow for a minute, then come to periscope depth under the Poseidon | Nothing at first; once the Poseidon classifies the boat, the mission is lost |
 | Racetracks **(8.1)** | RL05 at 8x, watch the Poseidon for the whole mission | It keeps flying back and forth; it does not circle one end |
 | Timing **(6.1)** | RL04, ignore the coaster | She clears the screen and the mission is lost around T+40 to T+60. Note the minute |

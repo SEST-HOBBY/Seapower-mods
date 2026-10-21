@@ -3430,8 +3430,9 @@ briefed or scored.
   (UK), Mogami and Asahi (Japan), Daegu and Chungnam (South Korea), La
   Fayette and Aquitaine (France), Arleigh Burke Flight IIA and III (USA).
   Windows 09, 11 and 12 keep them. No carrier, amphibious or replenishment
-  ship and no allied aircraft: those stay the theatre's (`RESERVE` in
-  `campaign_data.py` says why). Southern Reach sells Type 23, Mogami and
+  ship and no allied aircraft: those stayed the theatre's until the next
+  day, when the whole fleet went on sale from the same window ("21
+  October: the allied fleet in the standard campaigns", below). Southern Reach sells Type 23, Mogami and
   Daegu from *Tasman Crossing* (Q3); Red Line and Sulu Line sell none (Q4).
   `mission_depth.apply_reserve()` replaced `expand_roster`, which had sold
   Type 23, Mogami and Daegu at every window but this campaign's first
@@ -3531,6 +3532,10 @@ listed once.
   Super Hornet, the MQ-9 ER, the Rafale B and the Spanish, Italian, German,
   Dutch, Norwegian and Korean escorts among them (counted from the built
   rosters at `9035f291`). Their mods stay covered through other units.
+  *Superseded later the same day: every one of the 65 but HMAS Choules and
+  the Supply-class AOR, whose hulls missions place, is on sale in a
+  standard campaign again ("21 October: the allied fleet in the standard
+  campaigns", below).*
 - **Saves.** A campaign under way in a twin cannot be continued: the save
   names the twin's folder (`NEW TEST 1.sav` is `#!alias
   campaigns/sest-southern-watch-open/campaign.ini`), and a standard
@@ -3553,3 +3558,116 @@ listed once.
 
 Red Line's *The Other Picture* stopped reading *The Ships from the North*
 the same day (Red Line build notes, "RL03's reveal held").
+
+## 21 October: the allied fleet in the standard campaigns
+
+The owner's request of 21 October, the same day as the twins' retirement:
+"Build open allocation into standard campaign." Asked from which window,
+the owner chose the reserve's own: everything the Open Allocation versions
+sold beyond the story's lists goes on sale from the window where the allied
+escorts already opened - *Weapons Free* here, *Tasman Crossing* in Southern
+Reach, Red Line's first force allocation - and earlier windows keep the
+story's own lists, "so the opening stays small and nothing the versions
+sold is lost. Bought aircraft still need a usable base or deck." No twin
+comes back: the twin path stays dormant and tested (above).
+
+- **The reserve names the whole fleet.** A spec's `RESERVE_FLEET =
+  dict(opens=<mission code>)` puts every class of the fleet its commander
+  calls on (`ALLIED_FLEET`, `allied_fleet.FOR_NATION`) on sale from that
+  mission's window; `RESERVE`, a list of `dict(unit, opens)`, still names
+  chosen classes, and a spec may use both, a named class opening earlier
+  than the rest. Southern Watch's eleven-class `RESERVE` became
+  `RESERVE_FLEET = dict(opens="SW05")`, Southern Reach's three
+  `dict(opens="TS04")`, and Red Line has `dict(opens="RL01")` over
+  `PLAN_SUPPORT`. A world-wide campaign would take the same path. Sulu
+  Line's commander calls on no fleet, and its twin sold nothing beyond its
+  roster, so it is unchanged.
+- **What is sold here.** From the window before *Weapons Free*, at every
+  force allocation after it: 52 allied ship classes of eleven navies -
+  the Ford and Nimitz carriers, Wasp, Mistral, Juan Carlos and Galicia,
+  the T-AOE, T-AKE, T-AO, Tide and Mashuu, Zumwalt and every destroyer and
+  frigate on the list - the RAN's own Canberra-class LHD (HMAS Adelaide,
+  Variant2; HMAS Canberra sails in *Rig Seventeen*), and 19 allied aircraft
+  types. The roster goes from 21 entries to 82, and windows 05, 09, 11 and
+  12 from 20, 21, 18 and 19 units to 81, 82, 79 and 80; windows 01 to 03
+  are unchanged. Southern Reach's roster goes from 13 to 73 (52 ships, the
+  LHD, 10 aircraft; TS04 to TS12), Red Line's from 9 to 11.
+- **Named hulls, pack-wide, and none fatal.** No hull any campaign's
+  mission places is sold, as on 20 October; a class left with no hull is
+  now set aside with the reason (spec `RESERVE_LEFT_OUT`) instead of
+  stopping the build. HMAS Choules and both Supply-class AORs sail in this
+  campaign or Southern Reach, so the twins' Choules and Supply are not
+  sold. JS Maya Variant1, *The Other Picture*'s, is off sale with the rest
+  (the twins sold it: Red Line build notes); Maya Variant2 is on.
+- **Aircraft where they can fly, judged after placement.** A reserve
+  aircraft is held (`RESERVE_AIR`) at spec time, because only the built
+  missions say whether a row launches and recovers it. `main()` judges the
+  held aircraft after placement with `usable_allied` - the twins' own test,
+  on every mission of the campaign, against the rows as the campaign's own
+  roster widens them - and `admit_reserve_aircraft` puts what passes on the
+  roster and on sale from its opening. The roster, `check_roster_on_sale`
+  and `check_flights` run again on the settled roster, and the roster's
+  credits are merged before each mission's, as they were before. The build
+  log lists what each opening sells and what is left out and why, and so
+  does the coverage report's new "The reserve" section. Here 19 of 38 are
+  kept: F-22, F-15EX, P-8A (2027), F-35C, F-15E, F/A-18E, F-16CM, MQ-9ER,
+  the RAF, German and Spanish Typhoons, Atlantique 2, Rafale M and B, both
+  AV-8B+, F-2A, SH-60K and SH-60J. Left out: the B-2, B-1B, B-52H, KC-46,
+  UH-1Y, Tigre and AH-64E (no row takes them), the E-3G, both E-2Ds and the
+  AC-130J (a row takes the role but offers none of their fits), and the
+  Merlin HM2 and Italy's SH-101A, the Wildcat, the Panther and four NH90
+  types (no field or deck in reach).
+  Southern Reach keeps 10 and leaves out 28. Judging only the missions from
+  the opening, which a bought aircraft can fly, kept the same lists in both
+  campaigns; the whole campaign is judged because `check_flights` and
+  `check_purchased_recovery` hold every roster aircraft to every row.
+- **Decks without aircraft.** `ShipIncludesAirwing=False` is every
+  campaign's, so a bought carrier or LHD comes with an empty deck, as the
+  RAN's own ships always have; the twins sold them so (*The allied fleet*,
+  above). Recovery is judged on the decks and fields a mission places, so a
+  bought deck never makes an aircraft sellable.
+- **Words.** A window from the opening ends "Also on sale here, at their own
+  navies' prices: the allied fleet - 52 ship classes and 19 aircraft types
+  from the USA, France, ... - and the Royal Australian Navy's Canberra-class
+  LHD." (`mission_depth.reserve_phrase`: allied navies counted, the
+  commander's own classes named; sixty classes cannot be listed). The
+  rules page's line says every force allocation from the one before
+  *Weapons Free* sells it, that allied classes cost their own navies'
+  listed prices without the same-nation discount, that carriers and
+  amphibious ships come without aircraft, that an allied aircraft is sold
+  only where a mission can launch and recover it, and that no hull a
+  mission names is sold. It no longer says no allied aircraft, carrier,
+  amphibious ship or tanker is sold, and the reserve no longer refuses a
+  unit that is not a ship; a held aircraft whose file is not one stops the
+  build. Red Line's wording names the PLAN's ships and never calls them
+  allied.
+- **Coverage and requirements.** Still all 224 accounted for, and no
+  excuse went stale. What the roster now sells makes more mods hard
+  requirements of the campaign itself: this campaign's REQUIRED-MODS goes
+  from 113 hard-required to 118 (the Eurofighter Typhoon, F-15E Strike
+  Eagle, Italian Navy Mod and the Modern Dutch and Italian Euromods, all
+  dispatch-only until now) and its SEST packs from 16 to 17 (SEST Rafale
+  F5). Southern Reach's goes from 45 to 52 (those five, the Modern JMSDF
+  Euromod and F-22 Raptor) and 12 to 13 (SEST F-35C JATM), and its
+  `required-mods-urls.txt` with it. The pack-level REQUIRED-MODS and
+  LOAD-ORDER are unchanged.
+- **Saves.** Only window allowlists and situations change, and the rules
+  page; no `MissionFile`, gate or spine entry moved. A campaign under way
+  may keep the `campaign.ini` it started with, so it may offer only the
+  eleven escorts of 20 October, or none: start a new campaign to see the
+  fleet (test card 2.12).
+- **Tests.** `AlliedReserve` pins the fleet from each opening (counts
+  derived from `allied_fleet`), the story's own lists before it and first
+  after it, copies not extensions, a second `campaign_specs()` changing
+  nothing, admission and the window sentence once, a class with no hull
+  set aside, the pack-wide filter on the spec and on the built missions,
+  no submarine, every class the twins sold either on the built roster or
+  in the coverage report's record, and the aircraft judgment re-run with
+  `usable_allied` on the built missions matching the build's, reason for
+  reason. `RulesPage` holds the new line.
+
+Not demonstrated, and asked on the test card: that the game reads a roster
+of 82 entries and allowlist lines of about 4,200 characters (stock's longest
+is about 1,900); that a bought carrier sails with an empty deck; that an
+allied aircraft bought at *Weapons Free* flies its rows and gets home
+(G.10-G.13, 2.9-2.12).

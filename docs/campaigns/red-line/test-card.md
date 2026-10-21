@@ -70,14 +70,15 @@ for the mission browser.
 
 | # | Before | Expect | If not |
 |---|---|---|---|
-| 3.1 | RL01 | Builder open: Type 054A (224: the roster's 280 less the 20% same-nation discount, Southern Watch G.6), Luda (128), Sovremenny (256), Z-9C (16); one Ship's Flight row | Anything else on sale = the allowlist is not read; the roster's own prices (280, 160, 320, 20) = the discount is not applied: report it under Southern Watch G.6 |
+| 3.1 | RL01 | Builder open: Type 054A (224: the roster's 280 less the 20% same-nation discount, Southern Watch G.6), Luda (128), Sovremenny (256), Z-9C (16), and since 21 Oct 2026 the Type 901 (160) and Type 903A (120) supply ships (3.9); one Ship's Flight row | Anything else on sale = the allowlist is not read; the roster's own prices (280, 160, 320, 20) = the discount is not applied: report it under Southern Watch G.6 |
 | 3.2 | RL02 | The same, plus the Y-9 (40) and a Maritime Patrol row | |
 | 3.3 | RL03 | Plus the J-15 (32), J-15D (36) and KJ-500 (56); a Maritime Patrol row and a two-seat CAP row. A Y-9 bought in RL02 is offered for the Maritime Patrol row | A Y-9 or KJ-500 with no row to fly = the Recon row is not read |
 | 3.4 | RL04 | Repair only: no purchase, no rearm ("what the twenty-third spent stays spent") | Rearm offered = `TaskForceModeRearm=False` ignored |
 | 3.5 | RL05 | No builder and no deployment: Hull 419 alone, as authored | Any of the screen on the plot = blank generation not honoured |
-| 3.6 | RL06 | On sale: Type 054A, Type 056A (96), Z-9C; the Sovremenny and Luda are not. One already owned still sails with the screen (`TaskForceModeRequireEntireTaskForce`) | A northern hull left behind = the whole force is not required after all; say which |
+| 3.6 | RL06 | On sale: Type 054A, Type 056A (96), Z-9C and the two supply ships; the Sovremenny and Luda are not. One already owned still sails with the screen (`TaskForceModeRequireEntireTaskForce`) | A northern hull left behind = the whole force is not required after all; say which |
 | 3.7 | O1 and O2 | No builder and no deployment of the screen: the enclave's Y-9 (and in O2 two J-15s) as authored, with a box to move them in | The screen on the plot = blank generation not honoured |
 | 3.8 | C1 | A detachment: pick the lead ship and its flight; no purchase, repair or rearm | The whole force required, or a purchase offered: say which |
+| 3.9 | A **new** campaign: RL01, RL02, RL03 and RL06 (21 Oct 2026) | The Type 901 Fuyu (one hull, Variant2) and the Type 903A Fuchi (three hulls) on sale at every window, at a fifth off; each window's text and the rules page name them as the PLAN's own, never as allied. Buy a 901 at RL01: it sails with the screen in Trailing Contact. Note whether a frigate that fires a missile and goes alongside it (Southern Watch 6E: half a mile, 12 kn or less) gets the round back. *The Order to Withdraw*'s own 901 (Variant1) is never on sale. A Red Line campaign started before this update may not offer them: start a new one | Either missing = an old `campaign.ini`; a 901 Variant1 on sale = the named-hull filter did not run |
 
 ## 4 — the rules of engagement (the biggest single risk)
 

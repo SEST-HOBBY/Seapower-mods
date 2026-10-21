@@ -69,9 +69,10 @@ THE CAMPAIGNS
 
 HOW IT PLAYS
   • You buy the force. Losses and expenditure carry forward. Partners arrive
-    on their own terms; in Southern Watch and Southern Reach allied escorts
-    can also be requisitioned at their own prices, and in Sulu Line the Thai
-    detachment and one RAN frigate are bought into the task group.
+    on their own terms; partway through Southern Watch and Southern Reach
+    the allied fleet can also be requisitioned at its own navies' prices,
+    and in Sulu Line the Thai detachment and one RAN frigate are bought into
+    the task group.
   • Finding things matters more often than fleet battles. Civilian traffic
     is everywhere, and neutral losses end operations.
   • Each mission has a planned time and is lost at 1.5 times it; the
@@ -156,16 +157,18 @@ decision): paste the Description (above) and the Collection description
 [*]Follows the 20 Oct mod updates: Ford, Mogami, Wasp, F-35C, the OHP long hull and Red Storm Arsenal's Chinese missiles.
 [/list]
 
-[b]Allied escorts[/b]
+[b]The allied fleet[/b]
 [list]
-[*]Southern Watch: allied escorts can now be requisitioned in the standard campaign, at their own navies' prices. Every class is on sale from Weapons Free: Type 23, River-class and Type 45 (UK), Mogami and Asahi (Japan), Daegu and Chungnam (South Korea), La Fayette and Aquitaine (France), and Arleigh Burke Flight IIA and III (USA). No carriers, amphibious ships, tankers or allied aircraft, and no ship a mission names elsewhere.
-[*]Southern Reach: Type 23, Mogami and Daegu escorts from Tasman Crossing.
+[*]Southern Watch: from Weapons Free the standard campaign also sells the allied fleet, at its own navies' prices: 52 ship classes from eleven navies - carriers, amphibious ships, replenishment ships, destroyers and frigates - and the RAN's second Canberra-class LHD, with 19 allied aircraft types where a mission can launch and recover them. The windows before Weapons Free sell what they did.
+[*]Southern Reach: the same ships from Tasman Crossing, with the 10 allied aircraft types its missions can fly.
+[*]Red Line: the PLAN's own Type 901 and Type 903A supply ships, from the first force allocation, before Trailing Contact.
+[*]Carriers and amphibious ships come without aircraft, as every ship you buy does. No submarine is sold, and no ship a mission names.
 [*]A campaign already under way may not show them: start a new campaign to see them.
 [/list]
 
 [b]Every campaign[/b]
 [list]
-[*]The Open Allocation versions are retired: each campaign is listed once, and allied escorts are on sale in the standard Southern Watch and Southern Reach instead. Their carriers, allied aircraft and Red Line's Type 901 and 903A are no longer on sale. A campaign under way in an Open Allocation version cannot be continued: start the standard campaign.
+[*]The Open Allocation versions are retired: what they sold beyond each story's own list is in the standard campaigns now, from the windows above, so each campaign is listed once. A campaign under way in an Open Allocation version cannot be continued: start the standard campaign.
 [/list]
 
 [b]Fixes[/b]

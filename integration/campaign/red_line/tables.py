@@ -78,9 +78,11 @@ DIFFICULTIES = [
 #
 # Not for sale, on purpose: Fujian and Liaoning (the group's carriers are the
 # thing the screen protects, placed and named where a mission needs one), the
-# submarines (every boat operation is authored and named), the Z-18F and the
-# replenishment ship (allocated where the story puts them), and the Type 052D
-# (its thousand-mile hypersonic has no place in a campaign won by restraint).
+# submarines (every boat operation is authored and named), the Z-18F
+# (allocated where the story puts it), and the Type 052D (its thousand-mile
+# hypersonic has no place in a campaign won by restraint). The replenishment
+# ships were on that list until 21 Oct 2026; they are on sale now, from
+# RESERVE_FLEET below, and The Order to Withdraw's own Type 901 is not.
 ROSTER = [
     dict(unit="plan_type_054a_p5", picks=["Variant1", "Variant2", "Variant3", "Variant4"],
          points=280,
@@ -101,6 +103,17 @@ ROSTER = [
          note="carrier-capable; recovers on the enclave field when no deck is placed"),
     dict(unit="plan_j-15d", picks=["Squadron1"], points=45),
 ]
+
+# The PLAN's own Type 901 and 903A replenishment ships (allied_fleet.
+# PLAN_SUPPORT, which this commander calls on in place of an allied fleet),
+# on sale from the first force allocation, Trailing Contact's: the owner's
+# decision of 21 Oct 2026, retiring the Open Allocation version, which sold
+# them from there. They are the group's own supply ships, not allies, and
+# sell with the same-nation discount. The hulls a mission places are not
+# sold - The Order to Withdraw's 901 and Southern Reach's (Variant1 of
+# each) - so the 901 sells one hull and the 903A three
+# (mission_depth.apply_reserve).
+RESERVE_FLEET = dict(opens="RL01")
 
 # Air-tasking rows in the fit vocabulary of the aircraft this roster sells.
 # Southern Watch's rows name RAAF and US Navy fits (MurderHornetCAP,

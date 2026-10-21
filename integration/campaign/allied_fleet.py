@@ -1,13 +1,18 @@
 """The allied fleet a campaign's commander can call on.
 
-The allied reserve (mission_depth.apply_reserve, spec RESERVE) takes its
-entries, picks and prices from here: the escorts Southern Watch and
-Southern Reach sell from their own windows. The rest is dormant since the
-owner retired the Open Allocation twins from the pack (21 Oct 2026), which
-sold all of it beside the roster from the first window. It is kept, and
-tested against the current mods, for a world-wide Task Force Mode campaign
-that opts in to OPEN_ALLOCATION, or as a curated, in-service-in-2028 list
-the SEST World Campaign could draw on (build_pack.py, "open allocation").
+The allied reserve (mission_depth.apply_reserve, spec RESERVE_FLEET) sells
+all of it in the standard campaigns, from a window each names: Southern
+Watch from Weapons Free and Southern Reach from Tasman Crossing, and Red
+Line, whose commander calls on PLAN_SUPPORT below, from its first force
+allocation. The owner decided it on 21 Oct 2026, retiring the Open
+Allocation twins, which had sold all of it beside the roster from the first
+window; until then the reserve sold eleven escort classes in Southern Watch
+and three in Southern Reach, and the rest was the twins' alone. The
+reserve sells no hull a mission places, and an allied aircraft only where
+a row launches and recovers it (build_pack.admit_reserve_aircraft). Only
+the twin path is dormant: a world-wide Task Force Mode campaign could opt
+in to OPEN_ALLOCATION, and the SEST World Campaign could draw on this as a
+curated, in-service-in-2028 list (build_pack.py, "open allocation").
 
 Review of 2e845dc9 (28 Sep): carriers priced as hulls, like the amphibians -
 ships come without aircraft and no row launches from a bought deck (Ford 650,
@@ -252,12 +257,13 @@ ALLIED = [
 # Allocation twin sold no replenishment ship at all until October 2026,
 # although the pack builds two modern PLAN ones (SEST Replenishment's Type
 # 901 Fuyu and Type 903A Fuchi clones, every variant registered to China)
-# and the carrier group sails with a 901 in The Order to Withdraw. Story
-# Red Line still sells none: it rearms at its windows, and a bought hull
-# needs a row to sail in. Prices on Red Line's own scale - 054A 280, Luda
-# 160, 056A 120: the 901 is the carrier group's 48,000-tonne station ship,
-# the 903A a 23,000-tonne replenishment oiler. Dormant since the twins left
-# the pack (21 Oct 2026): it serves a Red Line twin or reserve that opts in.
+# and the carrier group sails with a 901 in The Order to Withdraw. Prices
+# on Red Line's own scale - 054A 280, Luda 160, 056A 120: the 901 is the
+# carrier group's 48,000-tonne station ship, the 903A a 23,000-tonne
+# replenishment oiler. Story Red Line sold none until 21 Oct 2026 (it
+# rearms at its windows); since the twins left the pack its reserve sells
+# both from the first force allocation, as the PLAN's own ships with the
+# same-nation discount, less the hulls a mission places.
 PLAN_SUPPORT = [
     _e('plan_aor_type901', ['Variant1', 'Variant2'], 200,
        'China - Type 901 Fuyu fast combat support ship'),

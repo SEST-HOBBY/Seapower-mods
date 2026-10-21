@@ -547,7 +547,11 @@ The Korean contribution is the Euromod addon **Euromod-South Korea Navy**
 (Workshop 3789208859): Sejong the Great (`ko_ddg-991`: SM-2, RAM, Hyunmoo,
 Haeseong), Daegu (`ko_ffg-818`: K-SAAM, 127 mm, ASROC, Mk46) and the
 `rok_mk99_a` Lynx. It is a temporary allied attachment, never sold: its hulls
-carry no `TaskForceCost`.
+carry no `TaskForceCost`. *(The attachment's own hulls are still never sold.
+Other Daegu hulls have been on sale from Weapons Free since 20 Oct 2026, and
+other Sejong hulls since 21 Oct, with the rest of the allied fleet; the
+build takes every hull a mission places off sale. Build notes, "21 October:
+the allied fleet in the standard campaigns".)*
 
 ## 13. Money: requisition, maintenance and replacements
 

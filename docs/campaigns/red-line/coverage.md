@@ -79,6 +79,14 @@ Sea and land positions in 4 of the 9 missions are snapped to points already used
 | `SEST_RAN_Fleet` | SEST RAN Fleet | `unit` | ran_ssg_collins | Trailing Contact |
 | `SEST_Replenishment` | SEST Replenishment At Sea | `unit` | plan_type_054a_p5 | Trailing Contact |
 
+## The reserve
+
+What this campaign sells beside its own roster from a window its story names (`mission_depth.apply_reserve`): on sale at every force allocation from the one before the mission named, at the unit's own navy's price. A hull a mission places is never sold, and an aircraft only where a row here launches and recovers it (`admit_reserve_aircraft`).
+
+| from the window before | ships | aircraft |
+|---|---|---|
+| RL01 Trailing Contact | 2 | 0 |
+
 ## Enabled, and not reached by this campaign
 
 Left in the load order because removing one changes which file wins for the mods that are. See the campaign's own REQUIRED-MODS.txt for the four lists a subscriber needs.

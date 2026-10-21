@@ -48,12 +48,14 @@ The 25 packs, as `local_packs` lists them: `SEST_A10C_Plus`, `SEST_ADF_Persisten
 `SEST_TacMap_Colors`, `SEST_Cross_Deck` (allied decks operate the similar allied
 aircraft), `SEST_Gallery`, `SEST_Name_Fixes`, `SEST_World_Campaign` (the Dynamic Campaign
 Mod's world campaign), `SEST_Combat_Costs` (documented USD catalog compatibility)
-and `SEST_Campaign` (the four campaigns; the two RAN campaigns sell a reserve of
-allied escorts from a window their story names. The Open Allocation twins that sold each
-campaign's whole roster from the first window were retired from the pack on 21 Oct 2026,
-and the builder keeps them as an opt-in for a world-wide campaign). Consolidated, they are 4304
-files in `integration/dist/SEST_Integration/`. `SEST_Zumwalt_CPS` was retired on 20 Sep 2026,
-when Modern US Navy fixed what it patched. `SEST_Rafale_F5` was retired for one build on
+and `SEST_Campaign` (the four campaigns; the two RAN campaigns sell the allied fleet -
+carriers, amphibious and supply ships, escorts, and the allied aircraft a mission can fly -
+from a window their story names, and Red Line the PLAN's Type 901 and 903A supply ships
+from its first. The Open Allocation twins that sold each campaign's whole roster from the
+first window were retired from the pack on 21 Oct 2026, what they sold beyond the roster
+went into the standard campaigns, and the builder keeps them as an opt-in for a world-wide
+campaign). Consolidated, they are 4304 files in `integration/dist/SEST_Integration/`.
+`SEST_Zumwalt_CPS` was retired on 20 Sep 2026, when Modern US Navy fixed what it patched. `SEST_Rafale_F5` was retired for one build on
 3 Oct 2026, the Rafale mod it patched having left the collection, and rebuilt the same
 evening on the French Air Force mod, which ships the same Rafales (`docs/packaging-and-recovery.md`).
 

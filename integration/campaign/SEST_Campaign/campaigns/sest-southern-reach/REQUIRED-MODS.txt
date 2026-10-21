@@ -5,7 +5,7 @@ variants they name, the rounds their loadouts hang and the units its
 roster sells. The pack-level REQUIRED-MODS.txt two folders up, at the
 pack's root, is the union across every campaign in the pack.
 
-1. HARD REQUIRED (45): a mission names a file of theirs, or a mod above says it cannot run without them.
+1. HARD REQUIRED (52): a mission names a file of theirs, or a mod above says it cannot run without them.
 
   3438479626    a squadron a flight comes from   1143.5 Kuznetsov
   3781062859    a model a placed unit draws      <<E-3G>>
@@ -18,21 +18,28 @@ pack's root, is the union across every campaign in the pack.
   3417801942    a unit a mission places          Chinese Navy (PLAN)
   3746453639    a unit a mission places          Civil Aircraft Mod (Airbus Family)
   3760871384    a weapon a loadout hangs         Dingtools Weapon Pack
-  3630495619    a model a placed unit draws      Euromod - Cold War Spanish Navy
+  3587877691    a unit the player can buy        Eurofighter Typhoon
+  3630495619    a unit the player can buy        Euromod - Cold War Spanish Navy
   3629144864    a weapon a loadout hangs         Euromod - Main Pack
   3599752717    a model a placed unit draws      Euromod - Modern British Navy
+  3444379330    a unit the player can buy        Euromod - Modern Dutch navy
+  3488139470    a unit the player can buy        Euromod - Modern Italian Navy
+  3695809489    a unit the player can buy        Euromod - Modern Japanese Maritime Self Defence Force
   3820759806    a hull variant in use            Euromod - Modern Royal Australian Navy Mod
   3636386513    a weapon a loadout hangs         F-15 EX Eagle II
+  3553116604    a unit the player can buy        F-15E StrikeEagle
+  3418252667    a unit the player can buy        F-22 Raptor
   3607989779    a weapon a loadout hangs         F-35C Lightning II Alt. Loadouts
   3567228449    a unit a mission places          French Helicopter Package
   3503670861    a squadron a flight comes from   General Atomics MQ-9 Reaper
   3384079999    a unit a mission places          Humpback Whale
   3717610332    a unit a mission places          IL-78 TANKER
+  3505420313    a unit the player can buy        Italian Navy Mod
   3722749887    a model a placed unit draws      KC-135 STRATOTANKER
   3744475027    a unit a mission places          KC-46A Pegasus - Strategic Tanker
   3430106996    a unit a mission places          Merchants Expanded
   3775128499    a unit a mission places          Modern PLAN Systems
-  3390330875    a weapon a loadout hangs         Modern US Navy
+  3390330875    a unit the player can buy        Modern US Navy
   3595014060    a model a placed unit draws      NATO E-3A Sentry
   3752415457    a squadron a flight comes from   Philippines: The Luzon Line
   3789188689    a weapon a loadout hangs         PLA & PLAN & PLAAF AEP
@@ -53,7 +60,7 @@ pack's root, is the union across every campaign in the pack.
   3606774881    a hull variant in use            U.S. Navy 2027 Capabilities mod
   3737267013    a unit a mission places          United States Naval Aviation
 
-2. SEST INTEGRATION PACKS (12): this project's own patches, already inside this pack (SEST Integration Pack, Workshop 3812461539);
+2. SEST INTEGRATION PACKS (13): this project's own patches, already inside this pack (SEST Integration Pack, Workshop 3812461539);
 there is nothing more to subscribe to.
 
   (local)       a unit a mission places          SEST ADF Persistent ISR
@@ -61,6 +68,7 @@ there is nothing more to subscribe to.
   (local)       a weapon a loadout hangs         SEST B-52 ARRW
   (local)       a weapon a loadout hangs         SEST Collection Fixes
   (local)       a unit a mission places          SEST F-15EX Revamp
+  (local)       a unit the player can buy        SEST F-35C JATM
   (local)       a unit a mission places          SEST Growler NGJ + MALICE
   (local)       a unit the player can buy        SEST JMSDF Mogami
   (local)       a unit a mission places          SEST RAAF Bases
@@ -74,7 +82,7 @@ LOAD-ORDER.txt is missing. (Anchor Chain is one a mod in list 1 asks
 for; the map, salvo and rescue tools are conveniences.)
 
 
-4. NOT USED BY THIS CAMPAIGN (167): enabled while it was built, and left in the order because removing one changes which copy of a
+4. NOT USED BY THIS CAMPAIGN (159): enabled while it was built, and left in the order because removing one changes which copy of a
 shared file wins for the mods above.
 
   3587091564    3M25 <<МЕТЕОРИТ>> (AS-X-19 Koala)
@@ -110,12 +118,8 @@ shared file wins for the mods above.
   3813033771    EC-2 Stand Off Jammer
   3493115616    EMAD
   3555361900    Etendard Family Jets
-  3587877691    Eurofighter Typhoon
   3784474738    Euromod - Anchorchain Expansion Pack
-  3444379330    Euromod - Modern Dutch navy
   3575847216    Euromod - Modern German Navy
-  3488139470    Euromod - Modern Italian Navy
-  3695809489    Euromod - Modern Japanese Maritime Self Defence Force
   3642656500    Euromod - Modern Nordic Navy
   3731208477    Euromod - Modern Spanish Navy
   3776730617    EUROMOD-Armada de Chile
@@ -124,10 +128,8 @@ shared file wins for the mods above.
   3812454152    Euromod-Philippine-Navy
   3789208859    Euromod-South Korea Navy
   3448845252    F-117 Nighthawk
-  3553116604    F-15E StrikeEagle
   3434693420    F-15J Peace Eagle
   3758320372    F-16C Fighting Falcon (modern)
-  3418252667    F-22 Raptor
   3755769170    F-2A 'Viper Zero'
   3591820675    F-8 Crusader
   3430135740    F/A-18 Murder Hornet with AIM-174B
@@ -148,7 +150,6 @@ shared file wins for the mods above.
   3408662804    Iskander TBM
   3569219326    ISKANDER-K
   3681748718    ISKANDER-M
-  3505420313    Italian Navy Mod
   3591563716    J-20 (歼-20 威龙)
   3801549552    J-36 Tailless Fighter
   3520352434    JAS-39 Gripen
@@ -206,7 +207,6 @@ shared file wins for the mods above.
   (local)       SEST Combat Cost Compatibility
   (local)       SEST Cross-Deck
   (local)       SEST F-16CM JATM
-  (local)       SEST F-35C JATM
   (local)       SEST Gallery
   (local)       SEST Intercept Model
   (local)       SEST Name Fixes
