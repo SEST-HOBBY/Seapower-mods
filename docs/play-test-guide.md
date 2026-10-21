@@ -39,7 +39,7 @@ depend on it.
 
 | Do | Expect | If not |
 |---|---|---|
-| Open **Campaigns** | Eight entries: Southern Watch, Southern Reach - Tasman Shield, Red Line - The Other Watch, Sulu Line - The Island Road, and an *Open Allocation* version of each | Name the ones missing |
+| Open **Campaigns** | Four entries: Southern Watch, Southern Reach - Tasman Shield, Red Line - The Other Watch, Sulu Line - The Island Road. No *Open Allocation* version: they were retired on 21 Oct 2026 | Name the ones missing, or any Open Allocation entry still listed |
 | Look at each campaign's background | A dark chart with numbered mission marks, the campaign name bottom-left | Blank or a stock picture: say which campaign |
 | Mission browser (single missions) | Folders: Southern Watch, Southern Watch - Dispatches, Southern Reach, Tasman Shield, Red Line, Sulu Line | A missing folder |
 | Load one mission from each folder from the browser: **Southern Watch 01 - White Water**, **Southern Reach 04 - Macquarie Passage**, **Red Line 01 - Trailing Contact**, **Sulu Line 01 - The Island Road** | Every ship and aircraft appears, flags shown, no ship on land | A missing or grounded unit: its name and the mission |
@@ -64,7 +64,6 @@ rests on one rule: there is no free rearm.** Check that first.
 | Read Campaign Rules → Your Goal | "Rearm: never free…", and a paragraph naming the three supply-ship sales | Still says "for free" **(1.3)** |
 | Open the Task Force builder before mission 1 | 1,000 points. On sale: Jose Rizal class, Miguel Malvar class, Del Pilar class, Conrado Yap, BRP Tarlac / Davao del Sur, HTMS Chula, the H-76 helicopter. **Not** on sale yet: Thai frigate, RAN Anzac, FA-50, the C8 charter **(1.1)** | Anything else on sale, or a supply ship missing |
 | Check prices | Philippine units 20% cheaper than their list price; Thai, Australian and MSC units at full price. Note especially whether the **Jose Rizal** and **Miguel Malvar** get the discount (their files spell the nation in lower case) **(4.2)** | Note the prices you see |
-| Start *Sulu Line - Open Allocation* and look at the windows before missions 1 and 2 | Mission 1: Tarlac / Davao del Sur and Chula, **no** C8. Mission 2: **no** supply ship, and the note says the story keeps some units to its own windows. The campaign-list description names no allied fleet **(2.6)** | A supply ship before mission 2, or the C8 before mission 1 |
 
 **Buy:** at least one frigate, one Tarlac, and the H-76.
 
@@ -129,7 +128,7 @@ Dispatches*. Full card: `docs/campaigns/southern-watch/test-card.md`.
 | Allied escorts **(2.11)** | Windows before missions 9, 11 and 12 | The same eleven offered; a bought one sails in mission 9 |
 | Old save **(2.12)** | Load a Southern Watch save from before this update, mid-campaign | It loads. Note whether the allied escorts are offered (maybe not: a campaign under way may keep its old windows) |
 | Both datums **(6.6a)** | Do O2 and O5, then start mission 4, The Quiet Passenger | Two intel lines; the submarine **and** the passenger on the plot as fifteen-minute datums |
-| Open Allocation save | Open `NEW TEST 1.sav` | It opens the Open Allocation campaign as before |
+| Orphaned save | Open `NEW TEST 1.sav`, a *Southern Watch - Open Allocation* save from before 21 Oct 2026 | It cannot be continued: the version it belongs to is retired. Note what the game does with it (hidden, an error, a broken menu). The campaign menu still opens and lists the four campaigns |
 
 ---
 
@@ -174,11 +173,11 @@ started before the side operations must be **started again** (17 entries, not
 | Unseen **(5.1–5.2)** | RL05: wait deep and slow for a minute, then come to periscope depth under the Poseidon | Nothing at first; once the Poseidon classifies the boat, the mission is lost |
 | Racetracks **(8.1)** | RL05 at 8x, watch the Poseidon for the whole mission | It keeps flying back and forth; it does not circle one end |
 | Timing **(6.1)** | RL04, ignore the coaster | She clears the screen and the mission is lost around T+40 to T+60. Note the minute |
-| Supply ships (Open Allocation) | Start *Red Line - Open Allocation* | Type 901 and 903A supply ships on sale |
 | Briefings and Situation **(8A.5-8A.6)** | RL01 and RL02 briefings, and the Situation button | No Collins or Virginia photo, and no submarine in the Situation list; the Poseidon's, Triton's and Wedgetail's photos read "Protected - do not engage" |
 | Flags **(8A.7)** | RL01's ferry and tuna trawler; the cruise ships in RL05 and RL06 | Indonesian flags in RL01, Panama's on the cruise ships; no Russian flag |
 | Side operations **(8B.1, 8B.3, 8B.5)** | A **new** campaign: fly O1, O2 and C1 | O1: the Y-9 classifies GOLF with buoys and nothing fires. O2: both Japanese escorts classified, and neither fighter pair fires first (8B.3a). C1: the lead ship stopped within three cables of the raft, "Pilot aboard." four minutes later and the win at once, at about minute 34 at full speed, before the patrol vessel reaches him at about 39. Note the minute the patrol vessel reaches the raft if you lose the race |
-| What they leave **(7.3, 7.4)** | After O1, RL02; after O2, RL03 | RL02: GOLF on the plot for fifteen minutes as an unknown contact. RL03: Mogami and Maya classified from the start; say whether classifying Coral Pioneer alone then brings the PICTURE REPORT. **Release blocker:** if it never comes, RL03 cannot be won after O2, and its reveal comes out before upload |
+| What they leave **(7.3, 7.4)** | After O1, RL02; after O2, RL03 | RL02: GOLF on the plot for fifteen minutes as an unknown contact. RL03 (7.4, held since 21 Oct 2026): no AIR OPERATIONS line at the start naming Mogami and Maya, and both unclassified until you classify them, whether O2 was won or not. The AIR OPERATIONS report at minute 8 ("A second look from another bearing") is RL03's own and comes in every run |
+| Reveal proof **(Southern Reach 3.10, Sulu Line 7.1)** | Southern Reach: win TS01, then fly TS03 *Chatham Watch*. Or Sulu Line: win *Night Market*, then fly *The Okean* | The tender (TS03) or the armed trawler (The Okean) starts on the plot classified. Say whether its classify objective - *Tender* in TS03, *Identify* in The Okean - completes at once, only after you classify her again, or never. This decides whether RL03's reveal after O2 comes back (7.4) |
 
 ---
 

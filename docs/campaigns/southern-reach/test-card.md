@@ -153,7 +153,7 @@ writer both ways where the card says so.
 | 3.7 | SR08: classify the corvette | TS02 | The 056A from Cape Campbell is classified at start |
 | 3.8 | SR09: lose Derwent Spirit / keep her; win / lose | SR11 | No tanker in the convoy / a tanker; rearm offered only after a win |
 | 3.9 | SR12: name the network | TS01, TS04 | The collector (TS01) and the 054A (TS04) classified at start |
-| 3.10 | TS01, TS02, TS03: classify the tender, TANGO, the tender again | TS03, TS05 | Both revealed at the rendezvous; the survey ship revealed under the Tasman |
+| 3.10 | TS01, TS02, TS03: classify the tender, TANGO, the tender again | TS03, TS05 | Both revealed at the rendezvous; the survey ship revealed under the Tasman. **After a TS01 win, say exactly what TS03's *Tender* objective does** with a tender that starts classified: completes at once (at T+0), completes only after you classify her again, or never. Then say whether TS05 starts with the survey ship classified (it reads TS03's Tender). This is the proof that decides whether Red Line's RL03 reveal after O2 comes back (Red Line card 7.4, held since 21 Oct 2026) |
 | 3.11 | TS05: sink ROMEO / miss her | TS09, TS12 | No 093B under either convoy / a 093B under both |
 | 3.12 | TS08: sink SIERRA-TWO / miss her | TS09 | No Yasen in the convoy action / a Yasen |
 | 3.13 | TS10A won / TS10B won / neither played | TS11 | No corvette-and-collector from the north / no second frigate from the south / both present |

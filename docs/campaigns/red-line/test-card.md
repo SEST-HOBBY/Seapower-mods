@@ -117,14 +117,14 @@ boat: it fails when the coalition *classifies* her, not when it detects her.
 | 6.4 | RL06 | Keep the frigate on the decoy station to T+30 | "DECOY REPORT..." at T+30; then the win when the tender and the boat are both at the holding position | The report early (the frigate merely inside at any time) or never |
 | 6.5 | RL06 | Take the frigate off the station before T+30 | No report and no win, however the tender does | |
 
-## 7 — the one consequence
+## 7 — the consequences
 
 | # | Write | Then read | Expect |
 |---|---|---|---|
 | 7.1 | RL02: sink GOLF | RL04 | No submarine astern (`RL02GolfSunk`), and nothing fails at the first second: *Boat* stays open to the end. If *Boat* shows failed at T+0, the engine counts a unit that never spawned as destroyed - report it, because Southern Reach's *Last Ship South* tanker has the same shape. That is why GOLF is in no fatal |
 | 7.2 | RL02: leave her | RL04 | GOLF astern at weapons Hold; the SUBMARINE THREAT line on the briefing map either way |
 | 7.3 | O1: classify GOLF (`RLO1GolfDatum`) | RL02 | At the start, the AIR OPERATIONS line and GOLF on the plot as an unknown contact for fifteen minutes, then gone; the Boat objective still open until she is classified again. Skip O1: no line, no contact |
-| 7.4 | O2: classify both escorts (`RLO2EscortsNamed`) | RL03 | **Release blocker.** At the start, the AIR OPERATIONS line and Mogami and Maya on the plot classified for the whole mission. Classify Coral Pioneer: does the PICTURE REPORT come, so the frigate can go home? That is the plan's assumption that a reveal at Classify satisfies a `UnitClassified` stage, and nothing has shown it: Common Sea's O9 reveal is on a frigate no classify stage names, and the two that do have this shape (Southern Reach's *Chatham Watch*, Sulu Line's *The Okean*) have not been flown either. If PICTURE REPORT never comes after classifying Coral Pioneer with O2 won, RL03 is unwinnable for that save: the escorts are already classified, so the player's own sensors cannot do it again. Pull the RL03 reveal (`reveal_if` on `RLO2EscortsNamed`) before upload, and look at those two the same way |
+| 7.4 | O2: classify both escorts | RL03 | **Held (owner, 21 Oct 2026).** O2 leaves nothing: RL03 starts with no AIR OPERATIONS line naming the escorts and with Mogami and Maya unclassified, whether O2 was won or not, and the Picture objective needs all three classified by the player as before. The AIR OPERATIONS report at minute 8 ("A second look from another bearing ...") is RL03's own and comes in every run. Until 21 Oct O2 wrote `RLO2EscortsNamed` and RL03 revealed both escorts at Classify for the whole mission; that rested on the assumption that a reveal at Classify satisfies a `UnitClassified` stage, and if it did not, RL03 could not be won after O2 (the escorts already classified, the player's own sensors could not do it again). The reveal comes back, restorable from commit `9035f291` (build notes, *RL03's reveal held*), once a Classify reveal is shown to satisfy `UnitClassified`: Southern Reach card 3.10 (TS03's *Tender* after TS01) or Sulu Line card 7.1 (The Okean's *Identify* after Night Market). Until then, check only that RL03 after O2 starts with no line naming Mogami and Maya (Sea Ear 31's recording) and no classified escort |
 
 ## 8 — what the playability review could not settle
 
@@ -177,8 +177,9 @@ For each mission played: the result (win / lose / timeout), the objective
 ledger as shown, the points awarded, the minute RL04's coaster reached her box
 (6.1), whether 4.4's direct order worked and at what weapons state, the time
 the Poseidon took to classify each boat (5.2, 5.3, 5.5), the three telegraph
-speeds (8.2), whether a looped racetrack held (8.1), the range GOLF fired
-from (8.6), the minute the patrol vessel reached the raft in C1 (8B.6),
-what the held stage did when the ship left and came back (8B.7), who fired
-first in O2 (8B.3a), whether O2's reveal completed RL03's picture (7.4), and
-any unit that was ashore, missing or misnamed.
+speeds (8.2), whether a looped racetrack held (8.1), the range GOLF fired from
+(8.6), the minute the patrol vessel reached the raft in C1 (8B.6), what the
+held stage did when the ship left and came back (8B.7), who fired first in O2
+(8B.3a), that RL03 after O2 started with no AIR OPERATIONS line naming the
+escorts and with them unclassified (7.4, held; the minute-8 report is
+RL03's own), and any unit that was ashore, missing or misnamed.

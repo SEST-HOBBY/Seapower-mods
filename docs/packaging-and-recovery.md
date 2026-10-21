@@ -788,6 +788,17 @@ Watch test card 6.4 (save mid-campaign, quit, reload) is the check, and
 *When something is wrong* in the install guide has the capture command for
 a mission that dies loading.
 
+**21 Oct 2026: `NEW TEST 1.sav` is orphaned.** The Open Allocation versions
+left the pack that day (`docs/campaigns/southern-watch/build-notes.md`,
+"Open Allocation retired from the pack"), so
+`campaigns/sest-southern-watch-open/` is no longer installed and the save's
+alias names a campaign that is not there. It cannot be continued, and
+neither can any player's save in an Open Allocation version: the standard
+campaign keeps its own progress (test card G.4) and is where to start
+again. What the game does with an orphaned save - hide it, refuse it, or
+break the campaign menu - is not known; the play-test guide's *Orphaned
+save* row asks. The snapshot keeps the file as the record.
+
 ### The Workshop mods' own declarations
 
 The Mod Manager reads `[Compatibility]` from every mod's `_info.ini`. The

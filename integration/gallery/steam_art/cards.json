@@ -3,7 +3,7 @@
   "out": "../source/visuals/steam/pack-1-latest-update.jpg",
   "bg": "../source/images/ships/ford.jpg",
   "pos": "center 60%",
-  "kicker": "LATEST UPDATE  ·  20 OCTOBER 2026",
+  "kicker": "LATEST UPDATE  ·  OCTOBER 2026",
   "head": "Allied escorts, Red Line side operations, Ford F-35Cs.",
   "cols": [
    {
@@ -64,14 +64,14 @@
       "54 more classes pictured"
      ],
      [
-      "20 Oct mod updates",
+      "Latest mod updates",
       "Ford, Mogami, RSA missiles, OHP"
      ]
     ]
    }
   ],
   "foot": [
-   "A Red Line campaign under way must be started again for its side operations.",
+   "Open Allocation retired; Red Line gained side operations. Start a new campaign.",
    "Subscribe to all again, then close the game and run SETUP."
   ],
   "credit": [
@@ -150,7 +150,7 @@
    }
   ],
   "foot": [
-   "Every campaign also as Open Allocation: whole roster from mission one.",
+   "Allied escorts on sale in Southern Watch and Southern Reach, at their own prices.",
    "Needs the 199 mods in the collection. Built for Sea Power 0.8.6."
   ],
   "credit": [
@@ -179,7 +179,7 @@
    ],
    [
     "Pick a campaign",
-    "Southern Watch, Southern Reach, Red Line or Sulu Line for the story. Open Allocation sells everything up front."
+    "Southern Watch, Southern Reach, Red Line or Sulu Line: the story releases your forces as it goes."
    ]
   ],
   "footTop": 930,
@@ -206,7 +206,7 @@
   "counts": "12 missions, 10 optional operations,\n2 contingencies; 11 dispatches.",
   "mapLabel": "IN-GAME CAMPAIGN MAP",
   "map": "../../dist/SEST_Integration/campaigns/sest-southern-watch/art/00_campaign_background.png",
-  "note": "Also as an Open Allocation version.",
+  "note": "Allied escorts from Weapons Free.",
   "credit": [
    "Photo: Japan Maritime Self-Defense Force · CC BY 4.0 · adapted",
    "creativecommons.org/licenses/by/4.0 · via Wikimedia Commons"
@@ -225,7 +225,7 @@
   "counts": "26 missions in two chapters, three of them optional.",
   "mapLabel": "IN-GAME CAMPAIGN MAP",
   "map": "../../dist/SEST_Integration/campaigns/sest-southern-reach/art/00_campaign_background.png",
-  "note": "Also as an Open Allocation version.",
+  "note": "Allied escorts from Tasman Crossing.",
   "credit": [
    "Photo: U.S. Navy, MC1 Leonard Adams · Public domain · adapted",
    "Map: Canberra class LHD, Nick-D · CC BY-SA 4.0 · adapted",
@@ -245,7 +245,7 @@
   "counts": "6 missions and 3 side operations.\nWon by restraint, deception, escort and evasion.",
   "mapLabel": "IN-GAME CAMPAIGN MAP",
   "map": "../../dist/SEST_Integration/campaigns/sest-red-line/art/00_campaign_background.png",
-  "note": "Also as an Open Allocation version.",
+  "note": "",
   "credit": [
    "Photo: U.S. Navy, MC1 Scott Taylor · Public domain · adapted",
    "Map: Type 003 Fujian, China News Service · CC BY 4.0 · adapted",
@@ -265,7 +265,7 @@
   "counts": "7 missions and 3 side operations.\nSupply ships are sold three times.",
   "mapLabel": "IN-GAME CAMPAIGN MAP",
   "map": "../../dist/SEST_Integration/campaigns/sest-sulu-line/art/00_campaign_background.png",
-  "note": "Also as an Open Allocation version.",
+  "note": "",
   "credit": [
    "Photo: Philippine Navy Public Affairs Office · Public domain · adapted",
    "Map: BRP Tarlac, U.S. Navy, MC1 Daniel Barker · CC BY-SA 4.0 · adapted",

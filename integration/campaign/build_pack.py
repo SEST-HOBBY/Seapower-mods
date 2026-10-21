@@ -1,9 +1,11 @@
 #!/usr/bin/env python3
-"""Build the SEST campaign pack: Southern Watch, Southern Reach, Red Line.
+"""Build the SEST campaign pack: Southern Watch, Southern Reach, Red Line
+and Sulu Line.
 
-Southern Reach carries Tasman Shield as its second chapter, and each of the
-three also ships an Open Allocation twin. Their orders of battle are drawn
-from the whole collection.
+Southern Reach carries Tasman Shield as its second chapter. Their orders of
+battle are drawn from the whole collection. An Open Allocation twin is a
+campaign's opt-in (spec OPEN_ALLOCATION), and no campaign in the pack takes
+one since 21 Oct 2026 (see "open allocation" below).
 
 WHY THIS EXISTS
 
@@ -361,18 +363,31 @@ def campaign_rules(spec, open_allocation=False, allied=0):
 
 
 # ---------------------------------------------------------- open allocation
-# Each campaign also ships as an Open Allocation twin (user request, 27 Sep):
-# the same missions, points and prices, but every force-allocation window
-# sells the whole roster instead of what the story has released so far. The
-# game has no switch for that. A difficulty preset carries points, airwing,
-# loadout, repair, refund and crew keys and nothing else (the Difficulty*
-# strings under ui.ini [TaskForceMode]); its own Unrestricted start option
-# sells every unit of every nation, ignoring the roster. So the switch is a
-# second entry in the campaign list, chosen at the start the way the game's
-# own start options are, with its own save. The twin is the base campaign.ini
-# with four kinds of line changed, and it loads the base campaign's missions
-# and art by path - MissionFile and every art key are StreamingAssets-relative
-# in every stock campaign - so nothing but the spine is duplicated.
+# An Open Allocation twin (user request, 27 Sep 2026) is a campaign's second
+# entry in the campaign list: the same missions, points and prices, but every
+# force-allocation window sells the whole roster instead of what the story
+# has released so far. The game has no switch for that. A difficulty preset
+# carries points, airwing, loadout, repair, refund and crew keys and nothing
+# else (the Difficulty* strings under ui.ini [TaskForceMode]); its own
+# Unrestricted start option sells every unit of every nation, ignoring the
+# roster. So the switch is a second entry, chosen at the start the way the
+# game's own start options are, with its own save. The twin is the base
+# campaign.ini with four kinds of line changed, and it loads the base
+# campaign's missions and art by path - MissionFile and every art key are
+# StreamingAssets-relative in every stock campaign - so nothing but the spine
+# is duplicated.
+#
+# Kept for a world-wide Task Force Mode campaign, or for the SEST World
+# Campaign (integration/world-sandbox, a Dynamic Campaign Mod campaign with
+# its own buy list) should it want allied_fleet.py's priced lists. Every
+# campaign shipped a twin from 27 Sep to 21 Oct 2026; the owner retired them
+# from the pack on 21 Oct, once the allied reserve
+# (mission_depth.apply_reserve) put allied escorts on sale in the standard
+# campaigns. A spec opts in with OPEN_ALLOCATION=True: open_allocation_twin()
+# and write_open_twin() then build and write campaigns/<slug>-open, and
+# tools/check_campaign_coverage.py holds it to open_twin(). No spec in the
+# pack sets it, and the tests build a twin into a temporary folder so the
+# code and OPEN_HOLD stay checked against the shipped campaigns.
 OPEN_SUFFIX = "-open"
 # The window's own situation follows the note unchanged: it still says what
 # sails, what is rearmed and where the next window is, and what it says is on
@@ -475,6 +490,78 @@ def open_allocation_ini(text, slug, roster, allied="", hold=()):
     return "\n".join(out)
 
 
+def open_allocation_twin(spec, campaign_text, missions, placements, flight_rows,
+                         authored=(), play_credits=None):
+    """Everything an Open Allocation twin is, for the campaign set_campaign()
+    last chose: a dict of its roster, roster file, rules page, spine and
+    coverage rows, plus the allied entries it sells and those it leaves out.
+
+    Its roster is this campaign's own, then the allied fleet its commander
+    can call on (spec ALLIED_FLEET), aircraft only where a row here launches
+    and recovers them (usable_allied). `campaign_text` is the base spine as
+    written; `missions` and `placements` are the built missions and what
+    they placed; `play_credits` is what the campaign itself loads, Dispatches
+    left out, which the twin's REQUIRED-MODS adds its roster to. Everything
+    that can stop the build happens here, so main() calls it before the dry
+    run returns and before the pack folder is cleared. Only a spec with
+    OPEN_ALLOCATION is built this way (21 Oct 2026); the tests call it
+    directly.
+    """
+    allied, allied_dropped = usable_allied(spec.get("ALLIED_FLEET", []), missions,
+                                           placements, flight_rows, ROSTER, authored)
+    twin_roster = list(ROSTER) + allied
+    # The twin's rows against the twin's roster, as the base build checks
+    # its own; usable_allied has already kept only what passes.
+    check_flights(flight_rows, twin_roster, authored=authored)
+    # The allied-fleet sentence names what the twin adds, not the twin's
+    # whole roster: called with twin_roster until 20 Oct 2026, it counted
+    # Sulu Line's own Thai, Australian and MSC units as an allied fleet
+    # ("5 classes from Thailand, Australia and USA"), and a campaign's
+    # allied reserve, on its base roster already, would count twice.
+    foreign = allied_line(allied, spec["COMMANDER"])
+    rules_text = campaign_rules(dict(spec, ROSTER=twin_roster), open_allocation=True,
+                                allied=bool(foreign))
+    spine = open_allocation_ini(campaign_text, SLUG, twin_roster, foreign,
+                                spec.get("OPEN_HOLD", ()))
+    roster_text, roster_credits = roster_ini(
+        twin_roster, heading=f"; SEST {TITLE} - Open Allocation requisition roster: "
+                             "the campaign's own units, then the allied fleet.")
+    credits = dict(play_credits or {})
+    for token, why in roster_credits.items():
+        credits.setdefault(token, (why[0], why[1], "requisition roster"))
+    rows, missing = coverage(credits, spec.get("EXCUSES", {}))
+    return dict(roster=twin_roster, roster_text=roster_text, rules_text=rules_text,
+                campaign_text=spine, rows=rows, missing=missing,
+                allied=allied, allied_dropped=allied_dropped)
+
+
+def write_open_twin(out, spec, twin, all_rows=()):
+    """Write `twin` (open_allocation_twin()) as campaigns/<slug>-open under
+    `out`, beside the base campaign already written there, and return the
+    folder. It holds its own spine, rules page, roster and REQUIRED-MODS
+    (the campaign's units and the allied fleet), and copies of the base's
+    commander settings and enemy roster; the missions and art stay in the
+    base folder (see open_allocation_ini()). `all_rows` is the base
+    campaign's full coverage, Dispatches included, for the list of mods only
+    the Dispatches need.
+    """
+    import shutil
+    camp = out / "campaigns" / SLUG
+    folder = out / "campaigns" / open_slug(SLUG)
+    folder.mkdir(parents=True)
+    (folder / "campaign.ini").write_text(twin["campaign_text"], encoding="utf-8")
+    (folder / "campaign_rules_en.xml").write_text(twin["rules_text"], encoding="utf-8")
+    (folder / "player_task_force_roster.ini").write_text(twin["roster_text"],
+                                                         encoding="utf-8")
+    (folder / "REQUIRED-MODS.txt").write_text(
+        campaign_requirements(twin["rows"], twin["missing"], f"{TITLE} - Open Allocation",
+                              dispatch_only(all_rows, twin["rows"]),
+                              spec["DISPATCHES"]), encoding="utf-8")
+    shutil.copy2(camp / "commander_settings.ini", folder / "commander_settings.ini")
+    shutil.copy2(camp / "enemy_theater_roster.ini", folder / "enemy_theater_roster.ini")
+    return folder
+
+
 def campaign_specs():
     """The campaigns this pack ships, in the order they are built.
 
@@ -537,8 +624,10 @@ def campaign_specs():
                 raise SystemExit(f"{seen[value]} and {spec.get('TITLE')} both "
                                  f"set {key}={spec[key]} - each campaign needs its own")
             seen[value] = spec.get("TITLE")
-    # The Open Allocation twins also sell the allied fleet their commander's
-    # navy can call on (allied_fleet.py), chosen by the commander's nation.
+    # The allied fleet their commander's navy can call on (allied_fleet.py),
+    # chosen by the commander's nation. The allied reserve takes its picks
+    # and prices from it (mission_depth.apply_reserve), and a campaign that
+    # opts in to OPEN_ALLOCATION sells the rest of it on its twin.
     for spec in specs:
         nation = re.search(r"^CommanderNations=(.+)$", spec.get("COMMANDER", ""), re.M)
         spec.setdefault("ALLIED_FLEET",
@@ -7654,8 +7743,8 @@ def main():
         # ... and the air-tasking rows against that same roster, before any of
         # them is written into a campaign entry.
         # Read once, here: rendering rewrites a mission's rows in place, and
-        # the Open Allocation twin checks its own roster against these same
-        # rows after the missions are built.
+        # an Open Allocation twin (spec OPEN_ALLOCATION) checks its own
+        # roster against these same rows after the missions are built.
         widen_flights(spec["MISSIONS"], ROSTER)
         flight_rows = [r for m in spec["MISSIONS"] for r in m.get("window", {}).get("flights", [])]
         authored = {u["type"] for m in spec["MISSIONS"] for u in m["units"] if u.get("slot")}
@@ -7748,52 +7837,30 @@ def main():
         rows, missing = coverage(credits, spec.get("EXCUSES", {}))
         print(f"\n{TITLE}: reaches {len(rows)} mods and packs; "
               f"{len(missing)} enabled and not reached by this campaign")
-        # The Open Allocation twin's roster: this campaign's own, then the
-        # allied fleet its commander can call on (spec ALLIED_FLEET), aircraft
-        # only where a row here launches and recovers them (usable_allied).
+        # The allied fleet may not repeat the roster, twin or no twin: the
+        # allied reserve moves its classes from one to the other.
         repeat = sorted({e["unit"] for e in spec.get("ALLIED_FLEET", [])}
                         & {e["unit"] for e in ROSTER})
         if repeat:
             sys.exit(f"{TITLE}: the allied fleet repeats roster units {repeat}")
-        allied, allied_dropped = usable_allied(spec.get("ALLIED_FLEET", []),
-                                               [m for _n, _t, m in built], placements,
-                                               flight_rows, ROSTER, authored)
-        twin_roster = list(ROSTER) + allied
-        # The twin's rows against the twin's roster, as the base build checks
-        # its own (above); usable_allied has already kept only what passes.
-        check_flights(flight_rows, twin_roster, authored=authored)
         # Everything that can stop the build is decided here, before the dry
-        # run returns and before the pack folder is cleared: the rules pages
-        # (roster nations, no submarine on sale) and the twin's spine.
-        # The allied-fleet sentence names what the twin adds, not the twin's
-        # whole roster: called with twin_roster until 20 Oct 2026, it counted
-        # Sulu Line's own Thai, Australian and MSC units as an allied fleet
-        # ("5 classes from Thailand, Australia and USA"), and a campaign's
-        # allied reserve, on its base roster already, would count twice.
-        foreign = allied_line(allied, spec["COMMANDER"])
+        # run returns and before the pack folder is cleared: the rules page
+        # (roster nations, no submarine on sale) and, for a campaign that
+        # opts in to OPEN_ALLOCATION, the twin and its spine. No campaign in
+        # the pack does since 21 Oct 2026 (see "open allocation" above).
         rules_text = campaign_rules(spec)
-        twin_rules_text = campaign_rules(dict(spec, ROSTER=twin_roster), open_allocation=True,
-                                         allied=bool(foreign))
-        twin_campaign_text = open_allocation_ini(campaign_text, SLUG, twin_roster, foreign,
-                                                 spec.get("OPEN_HOLD", ()))
-        twin_roster_text, twin_roster_credits = roster_ini(
-            twin_roster, heading=f"; SEST {TITLE} - Open Allocation requisition roster: "
-                                 "the campaign's own units, then the allied fleet.")
         play_rows, play_missing = coverage(play_credits, spec.get("EXCUSES", {}))
-        twin_credits = dict(play_credits)
-        for token, why in twin_roster_credits.items():
-            twin_credits.setdefault(token, (why[0], why[1], "requisition roster"))
-        twin_rows, twin_missing = coverage(twin_credits, spec.get("EXCUSES", {}))
-        if spec.get("ALLIED_FLEET"):
-            print(f"{TITLE} - Open Allocation: {len(allied)} allied unit(s) on sale, "
-                  f"{len(allied_dropped)} aircraft left out:")
-            for e, why in allied_dropped:
-                print(f"   {e['unit']:<28} {why}")
+        twin = None
+        if spec.get("OPEN_ALLOCATION"):
+            twin = open_allocation_twin(spec, campaign_text, [m for _n, _t, m in built],
+                                        placements, flight_rows, authored, play_credits)
+            if spec.get("ALLIED_FLEET"):
+                print(f"{TITLE} - Open Allocation: {len(twin['allied'])} allied unit(s) on "
+                      f"sale, {len(twin['allied_dropped'])} aircraft left out:")
+                for e, why in twin["allied_dropped"]:
+                    print(f"   {e['unit']:<28} {why}")
         campaigns.append(dict(spec=spec, built=built, placements=placements,
-                              twin_roster=twin_roster, twin_roster_text=twin_roster_text,
-                              rules_text=rules_text, twin_rules_text=twin_rules_text,
-                              twin_campaign_text=twin_campaign_text,
-                              twin_rows=twin_rows, twin_missing=twin_missing,
+                              rules_text=rules_text, twin=twin,
                               play_rows=play_rows, play_missing=play_missing,
                               credits=credits, rows=rows, missing=missing,
                               worst=worst, roster_text=roster_text,
@@ -8016,23 +8083,8 @@ def main():
             campaign_requirements(c["play_rows"], c["play_missing"], TITLE,
                                   dispatch_only(c["rows"], c["play_rows"]),
                                   spec["DISPATCHES"]), encoding="utf-8")
-        # The Open Allocation twin: its own spine, rules page, roster and
-        # REQUIRED-MODS (the campaign's units, and for Southern Watch and
-        # Southern Reach the allied fleet) and a copy of the commander
-        # settings; the missions and art stay here (see open_allocation_ini()).
-        twin = OUT / "campaigns" / open_slug(SLUG)
-        twin.mkdir(parents=True)
-        (twin / "campaign.ini").write_text(c["twin_campaign_text"], encoding="utf-8")
-        (twin / "campaign_rules_en.xml").write_text(c["twin_rules_text"], encoding="utf-8")
-        (twin / "player_task_force_roster.ini").write_text(c["twin_roster_text"],
-                                                          encoding="utf-8")
-        (twin / "REQUIRED-MODS.txt").write_text(
-            campaign_requirements(c["twin_rows"], c["twin_missing"],
-                                  f"{TITLE} - Open Allocation",
-                                  dispatch_only(c["rows"], c["twin_rows"]),
-                                  spec["DISPATCHES"]), encoding="utf-8")
-        shutil.copy2(camp / "commander_settings.ini", twin / "commander_settings.ini")
-        shutil.copy2(camp / "enemy_theater_roster.ini", twin / "enemy_theater_roster.ini")
+        # The Open Allocation twin, for a campaign that opts in to one.
+        twin = write_open_twin(OUT, spec, c["twin"], c["rows"]) if c["twin"] else None
         COVERAGE_DOC.parent.mkdir(parents=True, exist_ok=True)
         COVERAGE_DOC.write_text(report(c["rows"], spec["MISSIONS"], c["worst"],
                                        unused=c["missing"], coast=c["coast"],
@@ -8047,11 +8099,12 @@ def main():
                                                          encoding="utf-8")
         files = sum(1 for f in camp.rglob("*") if f.is_file())
         total_files += files
-        twin_files = sum(1 for f in twin.rglob("*") if f.is_file())
+        twin_files = sum(1 for f in twin.rglob("*") if f.is_file()) if twin else 0
         total_files += twin_files
         print(f"  {TITLE}: {len(built)} missions, {len(spec['EVENTS'])} events, "
-              f"{files} files under campaigns/{SLUG}, {twin_files} under "
-              f"campaigns/{open_slug(SLUG)}; wrote {COVERAGE_DOC.relative_to(ROOT)}")
+              f"{files} files under campaigns/{SLUG}"
+              + (f", {twin_files} under campaigns/{open_slug(SLUG)}" if twin else "")
+              + f"; wrote {COVERAGE_DOC.relative_to(ROOT)}")
 
     # The pack's own entry in the Mod Manager. No Type= here: that key
     # classifies a MISSION folder, and native mod roots do not carry one.
@@ -8061,10 +8114,26 @@ def main():
     # The campaigns' own descriptions are the in-game bios and stay in the
     # world. What a player needs to install it belongs here, on the pack's
     # Mod Manager entry, once.
+    # The Open Allocation sentence only while some campaign ships a twin,
+    # naming those that do: none has since 21 Oct 2026.
+    opened = [c["spec"]["TITLE"] for c in campaigns if c["twin"]]
+    if opened and len(opened) == len(campaigns):
+        twins = (" Each campaign is also listed as an Open Allocation version, which "
+                 "offers its whole roster from the first force allocation instead of "
+                 "as the story releases it.")
+    elif opened:
+        names = (opened[0] if len(opened) == 1
+                 else ", ".join(opened[:-1]) + " and " + opened[-1])
+        twins = (f" {names} " + ("is also listed as an Open Allocation version, which "
+                                 "offers its whole roster from the first force allocation "
+                                 "instead of as the story releases it." if len(opened) == 1 else
+                                 "are also listed as Open Allocation versions, which "
+                                 "offer their whole rosters from the first force allocation "
+                                 "instead of as the story releases them."))
+    else:
+        twins = ""
     blurb = (" ".join(c["spec"]["INFO_DESC"] for c in campaigns)
-             + " Each campaign is also listed as an Open Allocation version, which "
-               "offers its whole roster from the first force allocation instead of "
-               "as the story releases it."
+             + twins
              + " Needs the Steam Workshop mods listed in REQUIRED-MODS.txt in "
                "this mod's folder; LOAD-ORDER.txt beside it is the Mod Manager "
                "order it was built and tested against. SETUP: Open Folder on "

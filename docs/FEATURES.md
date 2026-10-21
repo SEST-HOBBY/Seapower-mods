@@ -18,7 +18,7 @@ repository and checked by automated gates before each upload.
 |---|---|
 | Workshop mods integrated | 199 (the download size has not been re-measured since 190) |
 | SEST source packs | 24, merged into one deployable folder |
-| Campaigns | 4, each also as an Open Allocation version, plus a world campaign (draft) for the Dynamic Campaign Mod |
+| Campaigns | 4, plus a world campaign (draft) for the Dynamic Campaign Mod |
 | Campaign missions | 69, plus 11 single missions (Southern Watch - Dispatches) |
 | Story pages | Press pages, signals, ship's logs and intelligence summaries between missions |
 | Units with a real encyclopedia photo | 729 |
@@ -90,8 +90,9 @@ experience carry forward from mission to mission.
   Australians only hear on the radio, and three side operations
   *(20 October 2026)*: put a class on a submarine nobody has claimed, name the
   Japanese escorts coming south for the coalition's convoy, and race an
-  Australian patrol vessel to a J-15 pilot in the water. The first two change
-  what the next mission shows you.
+  Australian patrol vessel to a J-15 pilot in the water. The first changes
+  what the next mission shows you; the second's carry-over is held until it
+  is proven in game *(21 October 2026)*.
 - Won by restraint, deception, escort and evasion: classify the submarine
   trailing your carrier without firing on it, get fuel into the Biak enclave,
   stop the one ship in your own company that wants the war back.
@@ -100,7 +101,6 @@ experience carry forward from mission to mission.
   class and navy for you to find, and label the coalition units you must not
   fire on *(20 October 2026)*.
 - Written to fit the other two campaigns' story whatever happens in it.
-- The Open Allocation version sells the PLAN Type 901 and 903A supply ships.
 - Its own PLAN navy emblem on the commander screen.
 
 ### Sulu Line — The Island Road *(new, October 2026)*
@@ -134,11 +134,11 @@ experience carry forward from mission to mission.
 - The Philippine flag as navy emblem; Philippine Navy rank ladder.
 
 ### In every campaign
-- **Open Allocation versions:** the whole roster on sale from the first
-  mission. The two Australian campaigns also sell the US, UK, European,
-  Japanese and Korean fleets: ships and aircraft, not submarines (the game's
-  task force cannot take a bought one). Sulu Line's still sells its supply
-  ships only at the story's three sales, because there they are the rearm.
+- **Open Allocation versions retired** *(21 October 2026)*: each campaign is
+  listed once. The versions that sold the whole roster from the first
+  mission left the pack once allied escorts went on sale in the standard
+  Southern Watch and Southern Reach; a campaign under way in one cannot be
+  continued. The builder keeps them for a world-wide campaign.
 - **Position your force before each mission:** a blue Deployment Zone round
   your ships, with Formation or Dispersed. It reaches up to 28 NM back and to
   the sides (a 3 NM margin round the ships, then up to 25 NM more), and only
@@ -450,8 +450,10 @@ how to check each.
   each depends on): land ballistic and drone launchers firing on a track
   another unit gives them, the EC-2's jamming, the Okean's mid-route weapons
   order, and a reveal at Classify counting for a later mission's classify
-  objective (Red Line's *The Other Picture* after *The Ships from the North*,
-  which the play-test guide makes a release blocker).
+  objective. Red Line's *The Other Picture* read *The Ships from the North*
+  that way until 21 October 2026 and is held until it is proven; Southern
+  Reach's *Chatham Watch* and Sulu Line's *The Okean* still read it, on
+  optional objectives, and are the proof (the play-test guide says how).
 - **Sulu Line's no-rearm rule:**
   - that the game keeps a ship's spent ammunition between missions;
   - that a supply ship's own stock stays used up between missions.

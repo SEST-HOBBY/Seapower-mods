@@ -49,7 +49,7 @@ def missions():
     # mission browser - and the two copies must stay byte-identical, or the
     # campaign and the browser quietly diverge. The browser folder is the
     # campaign's own rule (Southern Reach files its two chapters apart), so
-    # each campaign's spec says where its twin is.
+    # each campaign's spec says where its browser copy is.
     by_name = {}
     for spec in bp.campaign_specs():
         bp.set_campaign(spec)
@@ -391,6 +391,10 @@ def open_twin(pack, slug, hold=()):
     situation (the note first, then the base text unchanged). A twin that
     drifted - a gate, a reward, a MissionFile - would be a different campaign
     under the same missions, and nothing in game would say so.
+
+    main() runs it only for a campaign that opts in (spec OPEN_ALLOCATION).
+    None in the pack has since 21 Oct 2026; test_build_pack builds a twin
+    into a temporary folder and holds it to this gate.
     """
     name = bp.open_slug(slug)
     base, twin = pack / "campaigns" / slug, pack / "campaigns" / name
@@ -498,6 +502,25 @@ def open_twin(pack, slug, hold=()):
     return out + art_resolves(pack, name)
 
 
+def stray_campaigns(pack, specs):
+    """Every folder under the pack's campaigns/ is a campaign or an opted-in twin.
+
+    An Open Allocation twin is built only for a campaign that opts in to one
+    (spec OPEN_ALLOCATION). None in the pack does since the owner retired the
+    twins on 21 Oct 2026, and a folder under campaigns/ that is neither a
+    campaign nor an opted-in twin is a campaign-list entry nothing builds or
+    checks - a twin left behind by a stale pack, for one.
+    """
+    known = ([spec["SLUG"] for spec in specs]
+             + [bp.open_slug(spec["SLUG"]) for spec in specs if spec.get("OPEN_ALLOCATION")])
+    return [f"campaigns/{folder.name}: no campaign builds it"
+            + (" - an Open Allocation twin, and its campaign does not "
+               "opt in to one (OPEN_ALLOCATION)"
+               if folder.name.endswith(bp.OPEN_SUFFIX) else "")
+            for folder in sorted((pack / "campaigns").iterdir())
+            if folder.name not in known]
+
+
 def loadout_names(pack, slug, dispatches):
     """Every loadout a player-side aircraft is offered has a display name.
 
@@ -549,11 +572,19 @@ def main():
     pack = CAMPAIGN / "SEST_Campaign"
     specs = bp.campaign_specs()
     slugs = [spec["SLUG"] for spec in specs]
+    # An Open Allocation twin only for a campaign that opts in to one (spec
+    # OPEN_ALLOCATION); none in the pack does since 21 Oct 2026, and
+    # stray_campaigns() refuses a twin folder that nothing builds.
+    twins = [bp.open_slug(spec["SLUG"]) for spec in specs if spec.get("OPEN_ALLOCATION")]
     for spec in specs:
         problems += art_resolves(pack, spec["SLUG"])
         problems += loadout_names(pack, spec["SLUG"], spec["DISPATCHES"])
-        problems += open_twin(pack, spec["SLUG"], spec.get("OPEN_HOLD", ()))
-        problems += loadout_names(pack, bp.open_slug(spec["SLUG"]), spec["DISPATCHES"])
+        if spec.get("OPEN_ALLOCATION"):
+            twin = bp.open_slug(spec["SLUG"])
+            problems += open_twin(pack, spec["SLUG"], spec.get("OPEN_HOLD", ()))
+            if (pack / "campaigns" / twin / "player_task_force_roster.ini").is_file():
+                problems += loadout_names(pack, twin, spec["DISPATCHES"])
+    problems += stray_campaigns(pack, specs)
 
     for f in files:
         rel = f.relative_to(ROOT)
@@ -622,8 +653,8 @@ def main():
     # The requisition roster is read from the BUILT file too: a unit the player
     # can buy is reached by the campaign, and a price naming a variant the hull
     # no longer offers is a purchase the game would refuse. One roster per
-    # campaign.
-    for slug in slugs + [bp.open_slug(s) for s in slugs]:
+    # campaign, and one per opted-in twin.
+    for slug in slugs + twins:
         roster = pack / "campaigns" / slug / "player_task_force_roster.ini"
         if not roster.exists():
             problems.append(f"no player_task_force_roster.ini under campaigns/{slug}")

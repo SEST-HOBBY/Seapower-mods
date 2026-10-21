@@ -7,13 +7,13 @@ names the aircraft its deck will launch and recover; a hull with no list takes
 anything carrier-capable (and any helicopter), a hull listing the game's own
 `Helicopters` token takes every helicopter, and a hull with an explicit list
 takes those types and nothing else. The mods write those lists for their own
-navy: a Type 45 names the Royal Navy's Lynx, Merlin and Wildcat, an Iver
-Huitfeldt the Danish MH-60R, an Italian FREMM its own SH-101A, AB 212 and
-SH-90, a Maya the JMSDF's SH-60J/K and, as it happens, the US MH-60R. So the
-campaigns' MH-60R could not land on a bought Iver Huitfeldt, a Royal Navy
-Merlin on an Italian FREMM, a German Sea Lynx on a Type 45 or an Australian
-S-70B-2 on a Maya, although allied navies cross-deck helicopters of one
-family.
+navy: a Type 45 or a Type 23 names the Royal Navy's Lynx, Merlin and
+Wildcat, a Mogami the JMSDF's SH-60J/K, an Italian FREMM its own SH-101A,
+AB 212 and SH-90, a Maya the JMSDF's SH-60J/K and, as it happens, the US
+MH-60R. So the campaigns' MH-60R could not land on a Mogami bought from the
+allied reserve, a German Sea Lynx on a Type 45 or Type 23, a Royal Navy
+Merlin on an Italian FREMM or an Australian S-70B-2 on a Maya, although
+allied navies cross-deck helicopters of one family.
 
 The rule here is the one the real navies use: a deck that already operates one
 member of a family operates the allied members of that family. The families

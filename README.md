@@ -48,10 +48,10 @@ The 25 packs, as `local_packs` lists them: `SEST_A10C_Plus`, `SEST_ADF_Persisten
 `SEST_TacMap_Colors`, `SEST_Cross_Deck` (allied decks operate the similar allied
 aircraft), `SEST_Gallery`, `SEST_Name_Fixes`, `SEST_World_Campaign` (the Dynamic Campaign
 Mod's world campaign), `SEST_Combat_Costs` (documented USD catalog compatibility)
-and `SEST_Campaign` (the four campaigns, each also listed as an Open
-Allocation twin that sells its whole roster from the first window - and, for the two RAN
-campaigns, the allied fleet; the two RAN campaigns' standard entries sell a reserve of
-allied escorts from a window their story names). Consolidated, they are 4328
+and `SEST_Campaign` (the four campaigns; the two RAN campaigns sell a reserve of
+allied escorts from a window their story names. The Open Allocation twins that sold each
+campaign's whole roster from the first window were retired from the pack on 21 Oct 2026,
+and the builder keeps them as an opt-in for a world-wide campaign). Consolidated, they are 4304
 files in `integration/dist/SEST_Integration/`. `SEST_Zumwalt_CPS` was retired on 20 Sep 2026,
 when Modern US Navy fixed what it patched. `SEST_Rafale_F5` was retired for one build on
 3 Oct 2026, the Rafale mod it patched having left the collection, and rebuilt the same
@@ -171,7 +171,8 @@ ceasefire, and in the south passes a Poseidon barrier and meets a tender off
 Fiordland without being classified. Three side operations (20 Oct 2026) put a
 class on the boat nobody has claimed, name the Japanese escorts coming south
 and race an Australian patrol vessel to a J-15 pilot in the water; the first
-two change what the next mission shows. Every mission is won by restraint,
+changes what the next mission shows (the second's carry-over is held until
+it is proven in game). Every mission is won by restraint,
 escort or evasion, and each victory is written to fit the other two
 campaigns' story whatever happens in it. `docs/campaigns/red-line/` holds its
 bible (with the timeline against both), build notes and test card.

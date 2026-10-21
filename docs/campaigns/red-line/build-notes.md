@@ -16,7 +16,7 @@ are theirs and are not repeated.
 | Placed units | 93 (69 before the side operations); 25 positions in RL05, RL06 and the three side operations proved against the coastline extracts, RL01–RL04's 22 stations used as authored (below) |
 | Mods reached | 58 directly on 20 October 2026 (`coverage.md`; 44 at first, 55 before the side operations); the pack union with the other two campaigns reaches all 168 enabled mods and SEST packs (the 148 Workshop mods in the load order plus the 20 SEST source packs) |
 | Points | 720: 560 across the six core missions and 160 for the side operations (60, 70, 30); opening budget 1,000 (Supported 1,250 / Veteran 850), cap 1,500 (1,250 on Veteran) |
-| The pack | `SEST_Campaign` now carries three campaigns and their Open Allocation twins, 676 files and 58 missions; the consolidated `SEST_Integration` was 766 files with Red Line (691 before), 1189 with the ported work (`../southern-reach/install-alignment.md`, §6), 1201 with The Twelve-Mile Line, 1203 on the 0.8.3 game files, 1265 with the combat systems (60 extend files, two systems files), 1257 once the PLAN Pack's own update took over its eight hulls, 1260 with the three campaigns' enemy rosters and their twins' copies, less the briefly retired Rafale F5 pack, 1264 with the Rafale F5 pack back (rebuilt on the French Air Force mod, 3758943352) and the four new mods, and 1266 with SETUP in the pack: the 4 October build, published as Workshop item 3812461539 |
+| The pack | `SEST_Campaign` carried three campaigns and their Open Allocation twins (the twins retired from the pack on 21 October 2026), 676 files and 58 missions; the consolidated `SEST_Integration` was 766 files with Red Line (691 before), 1189 with the ported work (`../southern-reach/install-alignment.md`, §6), 1201 with The Twelve-Mile Line, 1203 on the 0.8.3 game files, 1265 with the combat systems (60 extend files, two systems files), 1257 once the PLAN Pack's own update took over its eight hulls, 1260 with the three campaigns' enemy rosters and their twins' copies, less the briefly retired Rafale F5 pack, 1264 with the Rafale F5 pack back (rebuilt on the French Air Force mod, 3758943352) and the four new mods, and 1266 with SETUP in the pack: the 4 October build, published as Workshop item 3812461539 |
 | The other campaigns | every mission file, story page and `campaign.ini` of Southern Watch and Southern Reach is byte-identical. Nine of their mission cards changed, on purpose (below) |
 
 The code is `integration/campaign/red_line/`: `__init__.py` (the spec, the
@@ -260,7 +260,9 @@ The campaign is also listed as "Red Line - The Other Watch - Open Allocation",
 which offers the whole roster at every open force-allocation window (the Y-9,
 KJ-500, J-15 and J-15D are on sale at RL01) and is otherwise this campaign,
 line for line, loading these missions by path. Why a twin and what it changes:
-Southern Watch build notes, "Open Allocation"; test card 6G there.
+Southern Watch build notes, "Open Allocation"; test card 6G there. Retired
+from the pack on 21 October 2026: Southern Watch build notes, "Open
+Allocation retired from the pack (21 October 2026)".
 
 ## Same-nation discount (28 September)
 
@@ -453,14 +455,15 @@ Test card 8A.5 to 8A.7.
 Red Line's step RL-1 of `docs/campaigns/campaign-upgrade-plan.md` (section
 4.2), which the owner put into the first upgrade batch (decision Q1, 20
 October 2026; a Red Line restart is accepted): two optional operations, a
-contingency, the two readers and four pages. The spine is 17 entries (10
+contingency, the two readers (one held since 21 October: *RL03's reveal
+held*, below) and four pages. The spine is 17 entries (10
 before), so a Red Line campaign under way must be started again; no other
 campaign's spine changed.
 
 | Mission | Date | Flown by | Writes, and who reads it |
 |---|---|---|---|
 | RLO1 *Datum*, north of Biak | 11 Nov, 0640, 90 min | the enclave detachment's Y-9, *Sea Ear 31*, and the enclave field: blank generation, no window | `RLO1GolfDatum`, set when GOLF is classified (the stage). *Routes They Can See* reveals GOLF for 900 seconds with no class, the bare reveal Southern Watch's O2 gives SW04 |
-| RLO2 *The Ships from the North*, Ceram Sea | 18 Nov, 0920, 80 min | the Y-9 and two J-15s released to the field (*Flying Shark 81* and *82*) | `RLO2EscortsNamed`, set when both escorts are classified. *The Other Picture* reveals both at Classify for the whole mission, the shape Viper Zero gives Common Sea; whether that counts for its classify stage is not shown (*Not demonstrated*, below) |
+| RLO2 *The Ships from the North*, Ceram Sea | 18 Nov, 0920, 80 min | the Y-9 and two J-15s released to the field (*Flying Shark 81* and *82*) | nothing since 21 October (*RL03's reveal held*, below). It wrote `RLO2EscortsNamed` when both escorts were classified, and *The Other Picture* revealed both at Classify for the whole mission, the shape Viper Zero gives Common Sea; whether that counts for its classify stage is not shown (*Not demonstrated*, below) |
 | RLC1 *Pilot in the Water*, Banda Sea | 24 Nov, 0610, 60 min | a detachment of the screen (Generated, `detachment=True`; no purchase, repair or rearm) | nothing |
 
 **Dates (correction X3).** Red Line flies no day Southern Watch or Southern
@@ -489,9 +492,11 @@ before her last Red Line appearance).**
   unchanged; Common Sea is on the 20th, after both Red Line appearances.
 - The same test checks every Red Line coalition warship against every other
   standard campaign's roster, allied reserve included, and its player-side
-  placements. The Open Allocation twins are excepted: they sell their
+  placements. The Open Allocation twins were excepted - they sold their
   commander's whole allied fleet (plan section 3.2, item 4), JS Maya's hull
-  among it, and the test pins that one exception.
+  among it, and the test pinned that one exception - until they left the
+  pack on 21 October 2026. No exception is left; the test pins a Red Line
+  hull on any twin a campaign opts in to, and none does.
 
 **Spared, and why.** GOLF is in *Datum*'s Restraint fatal, beside the
 Poseidon: she must be there for the next two northern missions, and the
@@ -560,12 +565,14 @@ OPERATIONS (twice) and SEA BOAT.
 
 - That a reveal at Classify counts for *The Other Picture*'s
   `UnitClassified` stage: the plan's ASSUMPTION, and a release blocker on
-  test card 7.4. If it does not, the escorts are classified and cannot be
-  classified again, and RL03 cannot be won after O2: its reveal comes out
-  before upload. Southern Watch's Common Sea is no precedent - its O9 reveal
-  is on a frigate no classify stage names. Southern Reach's *Chatham Watch*
-  (TS01 -> TS03) and Sulu Line's *The Okean* (SL01A -> SL03A) reveal the
-  very unit a classify stage then names, and neither has been flown.
+  test card 7.4 until the owner held the reveal on 21 October (*RL03's
+  reveal held*, below). If it does not, the escorts are classified and
+  cannot be classified again, and RL03 cannot be won after O2. Southern
+  Watch's Common Sea is no precedent - its O9 reveal is on a frigate no
+  classify stage names. Southern Reach's *Chatham Watch* (TS01 -> TS03) and
+  Sulu Line's *The Okean* (SL01A -> SL03A) reveal the very unit a classify
+  objective then names, on optional objectives, and neither has been flown:
+  they are the proof (Southern Reach card 3.10, Sulu Line card 7.1).
 - That a Y-9 at weapons Hold can classify a dived Virginia with buoys inside
   ninety minutes; and that JASDF F-2As at Tight shadow and do not fire.
 - The patrol vessel's speed at telegraph 4, and what the held stage does
@@ -574,3 +581,53 @@ OPERATIONS (twice) and SEA BOAT.
   at Tight (8B.3a): no objective scores it.
 - Whether the J-15 pair, 315 NM from its field, has the fuel for eighty
   minutes on station.
+
+## RL03's reveal held (21 October)
+
+The owner's decision of 21 October 2026, for the pending 20 October update:
+"If you don't want to play it through first, I recommend removing it now and
+adding it back once it's proven." *The Ships from the North* writes nothing
+and *The Other Picture* reads nothing until test card 7.4 is answered.
+Restorable from commit `9035f291`:
+
+- `rl03_the_other_picture.py`, the reveal (no `time`, so held for the whole
+  mission; built, RL03's Trigger15, so `NumberOfTriggers` is 14 now, not 15):
+
+  ```python
+  reveal_if=[dict(
+      variable="RLO2EscortsNamed", units=["jmsdf"], level="Classify",
+      intel=(
+          "AIR OPERATIONS: Sea Ear 31's recording from the Ceram Sea yesterday matches the "
+          "two escorts with the convoy: JS Mogami and JS Maya. Both are on your plot, "
+          "classified. The merchant that matters still needs a name."
+      ))],
+  ```
+
+- `rlo2_the_ships_from_the_north.py`: `sets="RLO2EscortsNamed"` on the
+  classify stage and `declares=["RLO2EscortsNamed"]` (now `declares=[]`).
+  Its win line ("Tomorrow's picture of the convoy starts with two names"),
+  its special note ("The names go into the convoy's picture tomorrow") and
+  the stage's intel ("for tomorrow's picture") promised the carry-over; they
+  now say the names go to headquarters.
+
+O2 stays worth flying for its own 70 completion points (`tables.py`), which
+RL03's window can spend, as *Pilot in the Water* writes nothing either. The
+spine is unchanged at 17 entries, so this asks no restart beyond the side
+operations' own. A bare datum in its place (the RLO1 -> RL02 shape) was
+considered and not taken: that a contact revealed with no class can still
+complete a `UnitClassified` stage is no better shown, and a KJ-500 110 NM
+from escorts beside a convoy whose position the brief gives gains nothing
+from one.
+
+The proof is the same shape on optional objectives, kept in the pack for
+that reason: TS03's *Tender* after TS01 (Southern Reach card 3.10) and *The
+Okean*'s *Identify* after *Night Market* (Sulu Line card 7.1); the play-test
+guide has the row. `test_build_pack.RevealBeforeClassify` refuses a reveal
+at Classify or Identify on any unit a classify stage of the same mission
+names, and allows it on those two optional objectives by name.
+`test_build_pack.RedLineSideOperations` pins the hold. To bring the reveal
+back once 7.4 is answered: restore the three lines above, let
+`RevealBeforeClassify` take RL03's stage by name, put the RL03 reveal back
+in `RedLineSideOperations`, and rewrite the text this note changed (test
+card 7.4, the bible, `side-operations.md`, the play-test guide, FEATURES,
+the README).

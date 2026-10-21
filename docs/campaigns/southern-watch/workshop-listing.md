@@ -44,8 +44,7 @@ Needs the 199 Workshop mods in the 'SEST - Modernised Campaign Collection'
 SEST INTEGRATION PACK - MODERNISED CAMPAIGNS
 
 Four Task Force Mode campaigns and every SEST fix in one Mod Manager entry.
-Each campaign also comes as an Open Allocation version, and a draft world
-campaign for the Dynamic Campaign Mod is included.
+A draft world campaign for the Dynamic Campaign Mod is included.
 
 THE CAMPAIGNS
   • Southern Watch (October–November 2028). Twelve connected missions keeping
@@ -118,6 +117,9 @@ uploaded, paste its log below this one as well. Two mods joined and one
 left: add Combat Cost Tracker (3807187341) and Group Manager (3818251045) to
 the collection and to the item's Required Items, and remove the
 [DEPRECATED] Anzac Class Frigate (3440622312) from both, before Submit.
+The Open Allocation versions left the pack on 21 Oct (the owner's
+decision): paste the Description (above) and the Collection description
+(below) as well, since both stopped offering them.
 
 ```
 [h2]20 October 2026[/h2]
@@ -133,7 +135,7 @@ the collection and to the item's Required Items, and remove the
 
 [b]Red Line[/b]
 [list]
-[*]Three side operations: in Datum and The Ships from the North the enclave's Y-9 puts a class on the submarine nobody has claimed and names the Japanese escorts coming south, and the next mission starts with what it found; in Pilot in the Water your screen races an Australian patrol vessel to a downed J-15 pilot. Four new pages. A Red Line campaign already under way must be started again.
+[*]Three side operations: in Datum the enclave's Y-9 puts a class on the submarine nobody has claimed, and the next mission starts with her position on the plot for fifteen minutes; in The Ships from the North it names the Japanese escorts coming south; in Pilot in the Water your screen races an Australian patrol vessel to a downed J-15 pilot. Four new pages. A Red Line campaign already under way must be started again.
 [/list]
 
 [b]Ships and weapons[/b]
@@ -158,7 +160,12 @@ the collection and to the item's Required Items, and remove the
 [list]
 [*]Southern Watch: allied escorts can now be requisitioned in the standard campaign, at their own navies' prices. Every class is on sale from Weapons Free: Type 23, River-class and Type 45 (UK), Mogami and Asahi (Japan), Daegu and Chungnam (South Korea), La Fayette and Aquitaine (France), and Arleigh Burke Flight IIA and III (USA). No carriers, amphibious ships, tankers or allied aircraft, and no ship a mission names elsewhere.
 [*]Southern Reach: Type 23, Mogami and Daegu escorts from Tasman Crossing.
-[*]A campaign already under way may not show them: start a new campaign to see them. Their Open Allocation versions still offer everything from the first window; there, too, these escort classes come without the few named hulls a mission places.
+[*]A campaign already under way may not show them: start a new campaign to see them.
+[/list]
+
+[b]Every campaign[/b]
+[list]
+[*]The Open Allocation versions are retired: each campaign is listed once, and allied escorts are on sale in the standard Southern Watch and Southern Reach instead. Their carriers, allied aircraft and Red Line's Type 901 and 903A are no longer on sale. A campaign under way in an Open Allocation version cannot be continued: start the standard campaign.
 [/list]
 
 [b]Fixes[/b]
@@ -167,7 +174,6 @@ the collection and to the item's Required Items, and remove the
 [*]Red Line: briefings and the Situation window no longer show the trailing submarines' class or navy before you classify them. Civilian ships fly their own flags, and the command-net reports no longer name officers.
 [*]Every campaign: a ship or aircraft your orders protect is labelled "Protected - do not engage" under its briefing photo, not "Expected opposition". In The Twelve-Mile Line the frigate and her helicopter read "Opposition - do not fire first".
 [*]Sulu Line, Service at Sea: losing Sulu Provider no longer ends the mission. Complete the rendezvous without her and she is missing at The Aborlan Battery.
-[*]Sulu Line - Open Allocation: supply ships are on sale only where the story sells them, and the description no longer lists Sulu's own Thai and Australian units as an allied fleet.
 [/list]
 
 [b]Install[/b]
@@ -234,8 +240,8 @@ Nothing needs a manual install: some mods still name SeaLifter, but they run
 without it.
 
 Campaigns: Southern Watch, Southern Reach / Tasman Shield, Red Line and Sulu
-Line, each with an Open Allocation version, plus a draft world campaign for
-the Dynamic Campaign Mod. All fiction, set in 2028-29.
+Line, plus a draft world campaign for the Dynamic Campaign Mod. All fiction,
+set in 2028-29.
 ```
 
 ## Tags, images, and what to leave off

@@ -9,8 +9,10 @@ intercepted on 25 February. Five missions sail his screen, four in the
 Banda approaches and one off Fiordland; one is a detached submarine
 operation in the Southern Ocean. Three side operations in the north joined
 them on 20 Oct 2026 (campaign-upgrade-plan.md section 4.2, step RL-1): two
-optionals flown by the enclave field's own aircraft, whose results the next
-mission reads, and a contingency for the screen's own detachment.
+optionals flown by the enclave field's own aircraft, of which Datum's result
+the next mission reads (The Ships from the North's is held until the test
+card's 7.4 is answered, 21 Oct 2026), and a contingency for the screen's
+own detachment.
 
 Built to docs/campaigns/red-line/campaign-bible.md. The rules that hold the
 data together are Southern Watch's and Southern Reach's (campaign_data.py's

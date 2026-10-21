@@ -1,4 +1,13 @@
-"""The allied fleet an Open Allocation campaign sells beside its own roster.
+"""The allied fleet a campaign's commander can call on.
+
+The allied reserve (mission_depth.apply_reserve, spec RESERVE) takes its
+entries, picks and prices from here: the escorts Southern Watch and
+Southern Reach sell from their own windows. The rest is dormant since the
+owner retired the Open Allocation twins from the pack (21 Oct 2026), which
+sold all of it beside the roster from the first window. It is kept, and
+tested against the current mods, for a world-wide Task Force Mode campaign
+that opts in to OPEN_ALLOCATION, or as a curated, in-service-in-2028 list
+the SEST World Campaign could draw on (build_pack.py, "open allocation").
 
 Review of 2e845dc9 (28 Sep): carriers priced as hulls, like the amphibians -
 ships come without aircraft and no row launches from a bought deck (Ford 650,
@@ -247,7 +256,8 @@ ALLIED = [
 # Red Line still sells none: it rearms at its windows, and a bought hull
 # needs a row to sail in. Prices on Red Line's own scale - 054A 280, Luda
 # 160, 056A 120: the 901 is the carrier group's 48,000-tonne station ship,
-# the 903A a 23,000-tonne replenishment oiler.
+# the 903A a 23,000-tonne replenishment oiler. Dormant since the twins left
+# the pack (21 Oct 2026): it serves a Red Line twin or reserve that opts in.
 PLAN_SUPPORT = [
     _e('plan_aor_type901', ['Variant1', 'Variant2'], 200,
        'China - Type 901 Fuyu fast combat support ship'),

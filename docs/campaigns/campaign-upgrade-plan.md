@@ -2,6 +2,12 @@
 
 Planning document, 20 Oct 2026. I edited, built and committed nothing. The repository is at `4defe5c8` on `sest-dev/jolly-ride-rptj4t` with a clean tree. For this final pass I re-checked at that commit every fact that Section 8 depends on, using reads of the source and the built output plus read-only imports (`python3 -B`). The facts that come only from the planners' and reviewers' work are attributed to them.
 
+**The owner's decisions of 21 Oct 2026, after this plan was written.** Both are in the pending 20 Oct update.
+- **The Open Allocation twins retire now** (Q5, option b): "make open allocation redundant. will be used for other world wide campaign or dynamic sest world campaign." That drops the one released update of proof and the notice one release ahead that this plan set (§1, §3.2 item 4, A4, B12). Each campaign is listed once; `-open` saves, `NEW TEST 1.sav` among them, cannot be continued. The builder keeps the twin machinery dormant and tested as an opt-in (spec `OPEN_ALLOCATION`) for a world-wide Task Force Mode campaign; the SEST World Campaign, a Dynamic Campaign Mod campaign that `build_pack` does not build, could draw on AF's priced list. A4's retirement is done; B12 keeps A3's PLAN reserve and the optional names. SWBN, "Open Allocation retired from the pack (21 October 2026)".
+- **RL03's Classify-level reveal on `RLO2EscortsNamed` is held** until the Red Line test card's 7.4 is answered: "If you don't want to play it through first, I recommend removing it now and adding it back once it's proven." RLO2 writes nothing and RL03 reads nothing; the proof is Southern Reach card 3.10 and Sulu Line card 7.1. Red Line build notes, "RL03's reveal held (21 October)".
+
+Where this plan says the twins stay, or that RL03 reads RLO2, read it with these two decisions.
+
 **Path shorthand:**
 - Code: BP = `integration/campaign/build_pack.py`, CD = `integration/campaign/campaign_data.py`, MD = `integration/campaign/mission_depth.py`, AF = `integration/campaign/allied_fleet.py`, CCC = `tools/check_campaign_coverage.py`, TBP = `integration/campaign/test_build_pack.py`.
 - Campaign packages: SR/ = `integration/campaign/southern_reach/`, RL/ = `integration/campaign/red_line/`, SL/ = `integration/campaign/sulu_line/`.
@@ -20,7 +26,7 @@ Planning document, 20 Oct 2026. I edited, built and committed nothing. The repos
      - Southern Reach: three frigate classes from *Tasman Crossing*.
      - No carriers, amphibious ships, tankers or allied aircraft.
      - No ship that a mission names elsewhere is for sale.
-   - **The four Open Allocation twins stay** as they are. The one exception is Sulu Line's twin, whose two defects are fixed.
+   - **The four Open Allocation twins stay** as they are. The one exception is Sulu Line's twin, whose two defects are fixed. *Superseded 21 Oct 2026: the owner retired all four in this update (Q5, option b).*
    - **Shipped defects fixed.** These are defects the planners and reviewers found and I re-confirmed:
      - The lost O5 → SW04 reveal.
      - Red Line's briefing and order of battle show which navy its two submarines belong to, before the player has classified them.
@@ -39,7 +45,7 @@ Planning document, 20 Oct 2026. I edited, built and committed nothing. The repos
    - After Batch 1 fixes its leaks, a "mirror" helper and one Chinese-side pilot dispatch follow.
    - Russia stays in dispatches.
    - No Sulu Line red side by default.
-   - The twins retire only after the reserve has been proven in one released update.
+   - ~~The twins retire only after the reserve has been proven in one released update.~~ The owner retired them on 21 Oct 2026, in Batch 1's update, without that release or the notice (Q5).
 
 **Effort:** about 47 sessions in all, plus play time on the PC (Section 5).
 
@@ -50,7 +56,7 @@ Questions Q1–Q8 in Section 6. In short:
 - which allied classes go in the reserve, and from when;
 - when Southern Reach's reserve opens;
 - no reserve for Red Line or Sulu Line yet;
-- keep the twins;
+- keep the twins (decided otherwise on 21 Oct 2026: retire them now);
 - no renames yet;
 - re-pick the RAN Anzacs to their MH-60R variants;
 - how Sulu's Service at Sea should work.
@@ -112,7 +118,7 @@ Every place where the planners and reviewers disagreed, I followed the reviewers
 1. **One curated allied reserve, inside a standard campaign only where it is realistic.** This means Southern Watch now and Southern Reach in limited form. The campaign's own navy stays released by the story.
 2. **Escort ships only, no aircraft, in the first version.** This is realistic: allied air assets stay under their own national command, and SRB:101 says allied aircraft "never join the owned roster". It also avoids the builder-ordering problem with `usable_allied()` and `widen_flights` that the reviewer found (BP:7541-7552, BP:7648-7650).
 3. **No duplicate named hulls anywhere in the pack.** A reserve variant that any campaign mission places, on any side, is not for sale. Dispatches are excluded from this check.
-4. **The twins stay unchanged for now**, except for the Sulu fixes. They remain the "everything from the first window" option. They retire only after the reserve has been proven in game.
+4. **The twins stay unchanged for now**, except for the Sulu fixes. They remain the "everything from the first window" option. They retire only after the reserve has been proven in game. *Superseded 21 Oct 2026: retired with Batch 1, before the reserve is proven (Q5, option b).*
 5. **Sides are separate campaign entries.** The game allows one roster, one commander, one rules page and one Situation order of battle per entry (engine research §1, hard constraint 3), and the builder writes no forks (BP:6653-6700).
    - Red Line is the Eastern side of Southern Watch (RL01–RL04) and Southern Reach (RL05–RL06).
    - The player stays Taskforce1 in every mission.
@@ -127,8 +133,8 @@ Every place where the planners and reviewers disagreed, I followed the reviewers
 
 | Stage | Entries | Names |
 |---|---|---|
-| Next update (Batch 1) | 8: four standard, four `-open` twins. Every folder path is unchanged, so no save is stranded | Unchanged (`OUT/*/campaign.ini:64`, e.g. "Southern Watch (Royal Australian Navy)"). The bracketed navy already says which side the player is on. A bloc tag waits for Q6 |
-| After the reserve is proven (B12) | 4 standard entries; twins retired | Optional side tag before the bracket, e.g. "Red Line - The Other Watch - Eastern side (People's Liberation Army Navy)", if Q6 says so |
+| Next update (Batch 1) | 8: four standard, four `-open` twins. Every folder path is unchanged, so no save is stranded. *Superseded 21 Oct 2026: 4 standard entries, the twins retired; `-open` saves are stranded* | Unchanged (`OUT/*/campaign.ini:64`, e.g. "Southern Watch (Royal Australian Navy)"). The bracketed navy already says which side the player is on. A bloc tag waits for Q6 |
+| After the reserve is proven (B12) | ~~4 standard entries; twins retired~~ Done with Batch 1 (21 Oct 2026) | Optional side tag before the bracket, e.g. "Red Line - The Other Watch - Eastern side (People's Liberation Army Navy)", if Q6 says so |
 
 ### 3.4 Mechanism
 
@@ -190,7 +196,7 @@ Every place where the planners and reviewers disagreed, I followed the reviewers
   - a `mirror()` helper for flipping a mission's sides;
   - a priced PLAN escort tier, with a bible change to `RL/tables.py:64-68`;
   - side tags in names if chosen;
-  - retiring the twins (CCC:541-542 and :612, the TBP `OpenAllocation` tests, `docs/play-test-guide.md:42`, `integration/campaign/setup/sest-setup.ps1:309`).
+  - ~~retiring the twins (CCC:541-542 and :612, the TBP `OpenAllocation` tests, `docs/play-test-guide.md:42`, `integration/campaign/setup/sest-setup.ps1:309`).~~ Done 21 Oct 2026, with Batch 1: no spec opts in to a twin (`OPEN_ALLOCATION`), the gate checks one only for a spec that does, and the TBP tests build one in a temporary folder.
 
 ### 3.8 Phasing
 
@@ -199,7 +205,7 @@ Every place where the planners and reviewers disagreed, I followed the reviewers
 | A1 (in Batch 1) | Reserve, filter, rules line, twin hold, twin sentence fix, Red Line `recognise`/`orbat` and label keys | about 1.1 |
 | A2 (B5) | `threat_profile` scoped to spare/Hold; neutral flags pack-wide; `mirror()` plus a pilot: *Bomber Stream* (O8) flown from the Chinese side as "Red Line - Dispatches" (key exists, `RL/__init__.py:116`; `DISPATCH_DESC` is empty at :126) | about 3 |
 | A3 | Red Line reserve: 901 and 903A everywhere they make sense, 052D and 055 after pricing, with RLT and RLB changes (Q5) | about 1 |
-| A4 (B12) | Retire the twins, with a notice one release ahead; side tags in names if Q6 says so | 0.5–1 |
+| A4 (B12) | ~~Retire the twins, with a notice one release ahead~~ (done 21 Oct 2026, with Batch 1 and no notice: the owner's Q5); side tags in names if Q6 says so | 0.5–1 |
 | A5 (conditional) | Sulu red-side dispatch | 1 |
 
 ### 3.9 Risks
@@ -318,7 +324,7 @@ About 13.5 sessions in all.
 |---|---|---|
 | RL01 | ALPHA Variant6 → Variant3 (`RL/rl01_trailing_contact.py:137`); `recognise=False, orbat=False`; explicit nations on the ferry and trawler (built as Russia at `OUT/sest-red-line/missions/Red Line 01 - Trailing Contact.ini:87,114`); report rewritten (MD:74) | Coast geography after moving the 2.40N waypoint |
 | RL02 | GOLF `recognise=False, orbat=False`. Today the briefing shows "Virginia-class (2027)", and `OUT/sest-red-line/enemy_theater_roster.ini:21-24` files her under USN. Report rewritten (MD:75 says "ceasefire" on 12 Nov) | Reads RLO1 (900-second datum); one ship |
-| RL03 | Spared units labelled "do not engage" (BP:5746); report (MD:76 names LI) | Reads RLO2; support loss on Dragon Eye 05; one ship |
+| RL03 | Spared units labelled "do not engage" (BP:5746); report (MD:76 names LI) | Reads RLO2 (built with RL-1; held 21 Oct 2026 until Red Line test card 7.4 is answered); support loss on Dragon Eye 05; one ship |
 | RL04 | Report (MD:77 names CHEN) | GOLF can also be sunk in RL08 |
 | RL05 | Nation on the cruise ship (built :67); report (MD:78 "snorkel" on a nuclear 093B) | Reads RLO6 as a **datum on HOTEL**. The Triton stays a fatal spare: the plan's removal broke RLB:27 (reviewer C4). Points 80 → 100 |
 | RL06 | Nation on the cruise ship (built :84); report (MD:79) | Reads RLO8 and RLC2; one ship; points 0 → 160 |
@@ -330,7 +336,7 @@ About 13.5 sessions in all.
 | RLO3 | 7 Nov | Bahodopi Roads | optional, detachment | Meridian "inspects" a Chinese ore carrier off Morowali | RLO3MeridianStruck → RL07, RLO5 | Hold Fire and Restraint as separate objectives (`lift`) |
 | RL07 | 8 Nov | Weda Bay | core, one ship | The evacuation half of the mandate | — | The jetty stage must use `at_unit` or a box at least 1 NM off (BP:993-1000) |
 | RLO1 | 11 Nov | Datum | optional, Y-9 | Put a class on GOLF and fire nothing | RLO1GolfDatum → RL02 | Checked clean against the canon timeline |
-| RLO2 | 18 Nov | The Ships from the North | optional, Y-9 and J-15 | Name the Japanese escorts | RLO2EscortsNamed → RL03 | ASSUMPTION: a reveal satisfies classify |
+| RLO2 | 18 Nov | The Ships from the North | optional, Y-9 and J-15 | Name the Japanese escorts | RLO2EscortsNamed → RL03 (held, owner, 21 Oct 2026) | ASSUMPTION: a reveal satisfies classify. Unproven, so RL03's reveal is held until test card 7.4 is answered |
 | RLO4 | 18 Nov | Not Under Your Command | optional, detachment | A fire aboard the northern element's transport | RLO4ElementEscorted → RL08 (`IsTrue`) | — |
 | RL08 | 22 Nov | Nineteen Days | core, whole force | Replenishment with two submarines in the picture | RL02GolfSunk (second writer) | Hulunhu's route must end inside the stage box (BP:4674-4680) |
 | RLC1 | 24 Nov | Pilot in the Water | contingency, detachment | Race an RAN OPV to a downed J-15 pilot | — | `hold_minutes` needs a `held` message (BP:4775-4778) |
@@ -361,7 +367,7 @@ About 13.5 sessions in all.
 
 | Step | Content | Sessions |
 |---|---|---|
-| RL-1 | RLO1, RLO2, RLC1, the RL02/RL03 readers and 4 pages (the fixes move to Batch 1). *Built with Batch 1, owner's Q1, 20 Oct 2026* | 2 |
+| RL-1 | RLO1, RLO2, RLC1, the RL02/RL03 readers (RL03's held on 21 Oct 2026) and 4 pages (the fixes move to Batch 1). *Built with Batch 1, owner's Q1, 20 Oct 2026* | 2 |
 | RL-2 | RL07, RL08, RLO3, RLO4, RLO5, economy restage | 4.5 |
 | RL-3 | Java extract, RL09, RLO6, RLO7 | 3 |
 | RL-4 | RL10, RLC2, RLO8 | 3 |
@@ -455,7 +461,7 @@ About 9 sessions in all.
 | B9 | SR-AB | 8 | B4, builder neutral fix | 9 spine side missions, 8 pages | **One** Southern Reach restart |
 | B10 | Red Line RL-4 and RL-5 | 6.5 | B8 | RL10–RL12 and the rest | Red Line restart |
 | B11 | Remaining dispatches (SR-D2, RL-6, SL-4) | 6.5 | coast extracts | 17 dispatches | None |
-| B12 | A3 and A4 | 1.5–2 | Reserve proven in one release | PLAN reserve, twins retired, optional names | Twin saves stranded; notice one release ahead |
+| B12 | A3 and A4 | 1.5–2 | Reserve proven in one release | PLAN reserve, ~~twins retired~~ (done with Batch 1, 21 Oct 2026), optional names | Twin saves stranded on 21 Oct, with no notice ahead |
 
 Total about 47 sessions.
 
@@ -477,7 +483,7 @@ Total about 47 sessions.
 2. **Southern Watch reserve.** (a) The 11 classes in §3.6, frigates from *Weapons Free* and destroyers from *Southern Lifeline*, window 12 keeping all, with no carriers, amphibious ships, tankers or aircraft (recommended). (b) MD's three escorts only. (c) Everything from window 05. (d) Also add the German, Italian, Spanish, Dutch, Norwegian and Danish classes.
 3. **Southern Reach reserve.** (a) The three classes (Type 23, Mogami, Daegu) from *Tasman Crossing* (recommended, realism). (b) At every window, as the current unreleased build does. (c) None (SRB:101).
 4. **Red Line and Sulu Line reserve.** (a) None this update (recommended: `RL/tables.py:64-68`; `SL/__init__.py:96`). (b) Red Line's 901 and 903A now, with a bible change.
-5. **The twins.** (a) Keep all four; fix Sulu's two defects (recommended). (b) Retire now. This strands `-open` saves, including `NEW TEST 1.sav` (`docs/packaging-and-recovery.md:752-757`).
+5. **The twins.** (a) Keep all four; fix Sulu's two defects (recommended). (b) Retire now. This strands `-open` saves, including `NEW TEST 1.sav` (`docs/packaging-and-recovery.md:752-757`). **Decided 21 Oct 2026: (b)**, in the pending 20 Oct update, with Sulu's fixes kept in the dormant code; the builder keeps the twins as an opt-in for a world-wide campaign.
 6. **Campaign names.** (a) Unchanged this update; the bracketed navy already says the side (recommended). (b) Later, a side tag before the bracket: "Western side" / "Eastern side". (c) "NATO" / "Warsaw", which is less realistic for the Banda Sea.
 7. **RAN Anzacs.** (a) Re-pick every 2028–29 Anzac, sold or placed, to its MH-60R variant, with a PC check (recommended, realism). (b) Leave as is until the PC shows which helicopter a bought Anzac embarks.
 8. **Sulu Service at Sea.** (a) Charter no longer fatal; remove the dead `SL04ServiceHeld`; the rearm stays the physical transfer (recommended). (b) Charter no longer fatal and `SL04ServiceHeld` wired to Celebes Gate's `rearm_if`, which makes the in-mission transfer redundant.
@@ -586,7 +592,7 @@ Total about 47 sessions.
 
 ### 8.3 Missions
 
-- **New missions:** none in the batch as planned. The owner's Q1 (20 Oct 2026) added Red Line's step RL-1 (§4.2): RLO1 *Datum*, RLO2 *The Ships from the North*, RLC1 *Pilot in the Water*, the RL02 and RL03 readers and four pages, built with it. Red Line's spine goes from 10 entries to 17, so a Red Line campaign under way restarts; no other spine changed. None of the three dates had to move under X3. GOLF moved to `usn_ssn_virginia_2027` Variant10 under the corrected RLB:28, because Variant1 is the hull *Fujian's Shadow* can lose on the 23rd. Campaign missions 66 → 69, the pack 77 → 80.
+- **New missions:** none in the batch as planned. The owner's Q1 (20 Oct 2026) added Red Line's step RL-1 (§4.2): RLO1 *Datum*, RLO2 *The Ships from the North*, RLC1 *Pilot in the Water*, the RL02 and RL03 readers and four pages, built with it (RL03's reader held on 21 Oct 2026 until it is proven). Red Line's spine goes from 10 entries to 17, so a Red Line campaign under way restarts; no other spine changed. None of the three dates had to move under X3. GOLF moved to `usn_ssn_virginia_2027` Variant10 under the corrected RLB:28, because Variant1 is the hull *Fujian's Shadow* can lose on the 23rd. Campaign missions 66 → 69, the pack 77 → 80.
 - **Changed:**
   - Southern Watch 04 *The Quiet Passenger* (reveal).
   - Red Line 01–06 (recognition, order of battle, flags, reports).
@@ -600,7 +606,7 @@ Total about 47 sessions.
   - Southern Watch's standard campaign sells all eleven allied escort classes, frigates and destroyers together, from *Weapons Free* (owner's decision Q2, option c, 20 Oct 2026).
   - Southern Reach sells three escort classes from *Tasman Crossing*.
   - Each is said in the window text and on the rules page.
-  - The four twins remain the "everything from the start" option. Sulu's twin now follows the story's supply-ship windows.
+  - ~~The four twins remain the "everything from the start" option. Sulu's twin now follows the story's supply-ship windows.~~ Superseded 21 Oct 2026: the twins are retired in this update, and each campaign is listed once.
 - **Side choice:** no new entry and no rename. Red Line, the Eastern side, stops giving away its puzzles in the briefing and the Situation window, and labels coalition units it must not fire on. That is the groundwork for the mirror dispatches in B5.
 
 ### 8.5 Acceptance checks
@@ -611,7 +617,7 @@ Total about 47 sessions.
 - The twelve gates (ASSUMPTION 2): `check_inventory` (red only on its four known CR-stripped mods), `check_alias_bases`, `check_vanilla_drift`, `check_game_version`, `check_load_order`, `check_dependencies`, `check_scenarios`, `check_stale_phrases` (retire "CAPTAIN LI", "POLITICAL OFFICER CHEN", "neither campaign places"), `check_station_clash 0.001`, `check_weapon_employment`, `check_pack_fidelity`, `check_campaign_coverage`.
 
 **Unit tests.**
-- `python3 -m unittest integration/campaign/test_build_pack.py integration/campaign/test_playtest_revision.py`: 222 tests plus the new ones (241 ran at `5076cd99`, the inherited opening-range classes counted twice; 270 with Batch 1's, 278 with RL-1's).
+- `python3 -m unittest integration/campaign/test_build_pack.py integration/campaign/test_playtest_revision.py`: 222 tests plus the new ones (241 ran at `5076cd99`, the inherited opening-range classes counted twice; 270 with Batch 1's, 278 with RL-1's, 284 with the 21 Oct 2026 changes: the twins retired, RL03's reveal held).
 - `python3 -m unittest discover -s tools/tests -p 'test_*.py'`: 133 tests.
 
 **Offline output checks.**
@@ -621,12 +627,12 @@ Total about 47 sessions.
 | Southern Watch [Mission17] (SW05) allowlist | All eleven reserve classes, frigates and destroyers alike (Q2, option c) |
 | Southern Watch [Mission30], [Mission36] and [Mission40] (SW09, SW11, SW12) allowlists | All eleven reserve classes |
 | SW01–SW03 allowlists ([Mission2], [Mission8], [Mission13]) | No allied hull |
-| Southern Watch and Southern Reach `campaign_rules_en.xml` | One "Allied escorts are on sale from the force allocation before …" line: *Weapons Free* and *Tasman Crossing*; none in Red Line, Sulu Line or any twin |
+| Southern Watch and Southern Reach `campaign_rules_en.xml` | One "Allied escorts are on sale from the force allocation before …" line: *Weapons Free* and *Tasman Crossing*; none in Red Line, Sulu Line ~~or any twin~~ (no twin ships since 21 Oct 2026) |
 | Southern Reach roster | No `js_ffg_mogami` Variant1 and no `ko_ffg-818` Variant1 |
 | Southern Reach windows before TS04 | No allied escort |
-| Sulu twin [Mission2] | No C8 |
-| Sulu twin [Mission5] | No supply ship |
-| Sulu twin Description | No allied sentence |
+| ~~Sulu twin [Mission2]~~ | ~~No C8~~ Superseded 21 Oct 2026: the twin is retired; TBP `SuluOpenAllocation` builds it in a temporary folder and checks this |
+| ~~Sulu twin [Mission5]~~ | ~~No supply ship~~ Superseded 21 Oct 2026, as above |
+| ~~Sulu twin Description~~ | ~~No allied sentence~~ Superseded 21 Oct 2026, as above |
 | Red Line RL02 briefing XML | No "Virginia" |
 | Tasman Shield 11A briefing XML | The 054A and Z-9C read "Opposition - do not fire first", not "Protected - do not engage": its Restraint lifts on hostile intent (`lift`) |
 | Red Line `enemy_theater_roster.ini` | No `SubmarinesPersistent_USN`, no Collins |
@@ -642,9 +648,9 @@ Total about 47 sessions.
 | R3 | *Southern Lifeline* window | All eleven still offered; a Type 45 or Burke bought here sails |
 | R4 | *The First Ship Through* window | Escorts still offered |
 | R5 | New Southern Reach | Mogami Variant1 never offered; allied escorts first appear at *Tasman Crossing* |
-| R6 | Sulu Line, standard and twin, *Fire Mission Jolo* window | No supply ship; the twin's *Island Road* window has no C8 |
+| R6 | Sulu Line, standard (the twin retired 21 Oct 2026), *Fire Mission Jolo* window | No supply ship |
 | R7 | A pre-update standard Southern Watch save, mid-campaign | It loads. Record whether the reserve appears (expected: maybe not) |
-| R8 | `NEW TEST 1.sav` | Opens the twin |
+| R8 | `NEW TEST 1.sav` | Since 21 Oct 2026: cannot be continued, the twin being retired; note what the game shows, and that the campaign menu lists four campaigns |
 | R9 | Red Line 01 and 02 briefings and the Situation window | No Collins or Virginia photo or entry; protected units labelled |
 | R10 | Sulu *Service at Sea*: let Sulu Provider be sunk and complete the rendezvous | Mission won; *The Aborlan Battery* starts without her |
 | R11 | Fly O5 and O2, then *The Quiet Passenger* | Both datums appear |
@@ -697,6 +703,6 @@ The last fix line applies only if Q7 is yes.
 4. **B5:** `mirror()` and the Chinese-side pilot dispatch; scoped threat display; pack-wide neutral flags.
 5. **B6:** Southern Reach's groundwork and four dispatches.
 6. **B7–B11:** the rest of the depth work.
-7. **B12:** PLAN reserve, retiring the twins, and names.
+7. **B12:** PLAN reserve and names (the twins retired with B1, 21 Oct 2026).
 
 Section 5 has the order and dependencies.

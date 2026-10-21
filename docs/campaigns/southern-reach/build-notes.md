@@ -311,7 +311,9 @@ Allocation", which offers the whole roster at every open force-allocation
 window (the P-8, Triton, Wedgetail, F-35A, Super Hornet and Growler are on
 sale at SR01) and is otherwise this campaign, line for line, loading these
 missions by path. Why a twin and what it changes: Southern Watch build notes,
-"Open Allocation"; test card 6G there.
+"Open Allocation"; test card 6G there. Retired from the pack on 21 October
+2026: Southern Watch build notes, "Open Allocation retired from the pack
+(21 October 2026)".
 
 ## Same-nation discount (28 September)
 

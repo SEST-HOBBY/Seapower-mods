@@ -131,10 +131,11 @@ CAMPAIGN = dict(
     INFO_DESC=INFO_DESC, DISPATCH_DESC="", TASKFORCE=TASKFORCE,
     DIFFICULTIES=DIFFICULTIES, ROSTER=ROSTER, COMMANDER=COMMANDER,
     EVENTS=EVENTS, MISSIONS=MISSIONS, EXCUSES={},
-    # The Open Allocation twin sells the supply ships only where the story
+    # An Open Allocation twin sells the supply ships only where the story
     # does (build_pack.open_allocation_ini): here they are the rearm, and a
     # twin that sold every one at every window was a different campaign, not
-    # an open one (20 Oct 2026).
+    # an open one (20 Oct 2026). Dormant since the twins left the pack (21
+    # Oct 2026); the tests still build Sulu Line's twin to hold it.
     OPEN_HOLD=SUPPLY,
     REARM_RULES=(
         "- Rearm: never free. Ships rearm only from a supply ship you own, alongside at "

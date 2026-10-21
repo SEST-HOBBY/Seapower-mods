@@ -36,6 +36,38 @@ except ImportError:          # Pillow missing: the art tests are skipped
     make_art = None
 
 _ABSENT = object()
+PACK = Path(bp.__file__).resolve().parent / "SEST_Campaign"
+
+
+def built_twin(slug, tmp):
+    """`slug`'s Open Allocation twin, built into tmp/campaigns/<slug>-open
+    from the built base campaign (copied beside it) the way main() builds
+    one for a spec with OPEN_ALLOCATION. No campaign in the pack opts in
+    since 21 Oct 2026, so this is what keeps open_allocation_twin(),
+    write_open_twin(), OPEN_HOLD and the gate's open_twin() checked against
+    the shipped campaigns. None when the pack is not built.
+
+    No placements are passed: usable_allied keeps an allied aircraft only
+    where a placed mission's row takes it, and the fleets of the two
+    campaigns built here - Red Line's PLAN support ships, Sulu Line's none -
+    hold no aircraft, so the spine, rules page, rosters and commander
+    settings are the ones main() would write. REQUIRED-MODS.txt is not: no
+    play credits or coverage rows are passed, so it lists only the mods the
+    twin's roster reaches, and no test reads it.
+    """
+    base = PACK / "campaigns" / slug
+    if not (base / "campaign.ini").is_file():
+        return None
+    spec = next(s for s in bp.campaign_specs() if s["SLUG"] == slug)
+    bp.set_campaign(spec)
+    shutil.copytree(base, tmp / "campaigns" / slug)
+    missions = spec["MISSIONS"]
+    rows = [r for m in missions for r in m.get("window", {}).get("flights", [])]
+    authored = {u["type"] for m in missions for u in m["units"] if u.get("slot")}
+    twin = bp.open_allocation_twin(spec, (base / "campaign.ini").read_text(encoding="utf-8"),
+                                   missions, {}, rows, authored)
+    bp.write_open_twin(tmp, spec, twin)
+    return twin
 
 
 class SailedLegs(unittest.TestCase):
@@ -1344,7 +1376,9 @@ class HomeBases(unittest.TestCase):
 
 class OpenAllocation(unittest.TestCase):
     """The Open Allocation twin sells the whole roster at every open window
-    and is otherwise its base campaign's spine, line for line."""
+    and is otherwise its base campaign's spine, line for line. Dormant since
+    21 Oct 2026 - no campaign in the pack opts in (spec OPEN_ALLOCATION) -
+    and kept for a world-wide campaign, so these call it directly."""
 
     ROSTER = [dict(unit="ran_ffh_anzac", picks=["Variant3", "Variant8"], points=240),
               dict(unit="usn_p8", picks=["Squadron3"], points=55)]
@@ -1494,16 +1528,24 @@ class SameNationDiscount(unittest.TestCase):
 
     def test_the_enemy_roster_is_what_the_missions_place(self):
         # The built pack: every Taskforce2 unit a campaign's missions place is
-        # in its roster, the twin carries the same file, and the spine names it.
-        root = Path(bp.__file__).resolve().parent / "SEST_Campaign" / "campaigns"
+        # in its roster, and the spine names it. Every folder under
+        # campaigns/ is a campaign the pack builds - since 21 Oct 2026 no
+        # Open Allocation twin, unless a spec opts in to one.
+        root = PACK / "campaigns"
+        if not root.is_dir():
+            self.skipTest("pack not built")
         # orbat=False leaves a unit out on purpose (Red Line's ALPHA, GOLF and
         # HOTEL), by mission file.
-        unlisted = {}
+        unlisted, known = {}, set()
         for spec in bp.campaign_specs():
             bp.set_campaign(spec)
+            known.add(spec["SLUG"])
+            if spec.get("OPEN_ALLOCATION"):
+                known.add(bp.open_slug(spec["SLUG"]))
             for m in spec["MISSIONS"]:
                 unlisted[bp.mission_name(m) + ".ini"] = {
                     u["type"] for u in m["units"] if u.get("orbat") is False}
+        self.assertEqual(sorted(p.name for p in root.iterdir() if p.name not in known), [])
         checked = 0
         for camp in sorted(root.iterdir()):
             missions = camp / "missions"
@@ -1512,7 +1554,8 @@ class SameNationDiscount(unittest.TestCase):
             spine = (camp / "campaign.ini").read_text(encoding="utf-8")
             self.assertIn("[DynamicUnitGeneration]\nTaskforce2RosterFile=enemy_theater_roster.ini", spine, camp.name)
             if not missions.exists():
-                twin_of = root / camp.name.replace("-open", "")
+                # An opted-in twin: its campaign's roster, byte for byte.
+                twin_of = root / camp.name.removesuffix(bp.OPEN_SUFFIX)
                 self.assertEqual(roster.read_bytes(), (twin_of / "enemy_theater_roster.ini").read_bytes(),
                                  f"{camp.name} must carry its campaign's roster")
                 continue
@@ -1661,7 +1704,9 @@ class SameNationDiscount(unittest.TestCase):
 
 class AlliedFleet(unittest.TestCase):
     """The Open Allocation twin sells the allied fleet beside the campaign's
-    roster: ships always, aircraft only where a row launches and recovers them."""
+    roster: ships always, aircraft only where a row launches and recovers them.
+    No campaign in the pack opts in to a twin since 21 Oct 2026; the allied
+    reserve still takes its entries from the fleet."""
 
     @staticmethod
     def _missions():
@@ -1706,8 +1751,9 @@ class AlliedFleet(unittest.TestCase):
 
     def test_the_reserve_is_sold_from_the_roster_not_the_allied_fleet(self):
         # mission_depth.apply_reserve moves each reserve class from the
-        # allied fleet to the roster, so a twin sells it once; a second
-        # campaign_specs() call adds nothing twice.
+        # allied fleet to the roster, so a twin, for a campaign that opts in
+        # to one, sells it once; a second campaign_specs() call adds nothing
+        # twice.
         for _ in range(2):
             for spec in bp.campaign_specs():
                 units = [e["unit"] for e in spec["ROSTER"]]
@@ -1725,6 +1771,19 @@ class AlliedFleet(unittest.TestCase):
             bp.roster_nations(fleet)                    # one declared nation each
             self.assertTrue(all(isinstance(e["points"], int) and e["points"] > 0
                                 for e in fleet))
+
+    def test_every_allied_pick_is_still_offered(self):
+        # Only roster_ini() checks a pick against the winning variants or
+        # squadrons file, and until 21 Oct 2026 only the twins' build ran it
+        # on the allied entries the reserve does not sell. Dormant since,
+        # the lists are kept for a world-wide campaign, so a mod update that
+        # drops a variant fails here rather than on the day one opts in.
+        import allied_fleet
+        bp.set_campaign(bp.campaign_specs()[0])
+        for nation, fleet in allied_fleet.FOR_NATION.items():
+            text, _credits = bp.roster_ini(list(fleet))
+            for e in fleet:
+                self.assertIn(f"\n{e['unit']}=", text, nation)
 
     def test_no_roster_sells_a_submarine(self):
         # In-game check, 13 Oct: a bought boat never showed in the formation
@@ -2166,7 +2225,8 @@ class DeploymentZones(unittest.TestCase):
 
 class AlliedFleetReview(unittest.TestCase):
     """The review of 2e845dc9: the flight rule on allied aircraft, the allied
-    sentence's grammar, and the gate on a twin that drifted."""
+    sentence's grammar, and the gate on a twin that drifted. The twins are
+    built into a temporary folder (built_twin): none ships since 21 Oct 2026."""
 
     def test_an_aircraft_whose_role_a_row_takes_without_its_fits_is_dropped(self):
         spec = bp.campaign_specs()[0]
@@ -2207,24 +2267,28 @@ class AlliedFleetReview(unittest.TestCase):
         self.assertTrue(bp.allied_line(spec["ROSTER"], spec["COMMANDER"]))
         self.assertEqual(spec["ALLIED_FLEET"], [])
         self.assertEqual(bp.allied_line(spec["ALLIED_FLEET"], spec["COMMANDER"]), "")
-        pack = bp.ROOT / "integration" / "campaign" / "SEST_Campaign" / "campaigns"
-        twin = pack / bp.open_slug(spec["SLUG"]) / "campaign.ini"
-        if not twin.is_file():
-            self.skipTest("pack not built")
-        description = re.search(r"^Description=(.*)$", twin.read_text(encoding="utf-8"),
-                                re.M).group(1)
-        self.assertNotIn("allied fleet", description)
-
-    def test_the_gate_refuses_a_twin_that_drifted(self):
-        pack = bp.ROOT / "integration" / "campaign" / "SEST_Campaign"
-        slug = "sest-red-line"
-        if not (pack / "campaigns" / bp.open_slug(slug)).is_dir():
-            self.skipTest("pack not built")
         tmp = Path(tempfile.mkdtemp())
         try:
-            for s in (slug, bp.open_slug(slug)):
-                shutil.copytree(pack / "campaigns" / s, tmp / "campaigns" / s)
-            self.assertEqual(coverage_check.open_twin(tmp, slug)[:1], [])
+            if built_twin(spec["SLUG"], tmp) is None:
+                self.skipTest("pack not built")
+            twin = tmp / "campaigns" / bp.open_slug(spec["SLUG"]) / "campaign.ini"
+            description = re.search(r"^Description=(.*)$", twin.read_text(encoding="utf-8"),
+                                    re.M).group(1)
+            self.assertNotIn("allied fleet", description)
+        finally:
+            shutil.rmtree(tmp, ignore_errors=True)
+
+    def test_the_gate_refuses_a_twin_that_drifted(self):
+        slug = "sest-red-line"
+        tmp = Path(tempfile.mkdtemp())
+        try:
+            twin = built_twin(slug, tmp)
+            if twin is None:
+                self.skipTest("pack not built")
+            # Red Line's twin adds its commander's PLAN support ships.
+            self.assertEqual([e["unit"] for e in twin["allied"]],
+                             ["plan_aor_type901", "plan_aor_type903a"])
+            self.assertEqual(coverage_check.open_twin(tmp, slug), [])
             ini = tmp / "campaigns" / bp.open_slug(slug) / "campaign.ini"
             good = ini.read_text(encoding="utf-8")
             for bad in (good.replace("Description=OPEN ALLOCATION - ",
@@ -2239,16 +2303,13 @@ class AlliedFleetReview(unittest.TestCase):
     def test_the_gate_refuses_a_twin_that_sells_a_held_unit(self):
         # Sulu Line's twin sells its supply ships only where the story does
         # (OPEN_HOLD). The C8 back at The Island Road is the shipped defect.
-        pack = bp.ROOT / "integration" / "campaign" / "SEST_Campaign"
         slug = "sest-sulu-line"
-        if not (pack / "campaigns" / bp.open_slug(slug)).is_dir():
-            self.skipTest("pack not built")
         hold = next(s for s in bp.campaign_specs() if s["SLUG"] == slug)["OPEN_HOLD"]
         tmp = Path(tempfile.mkdtemp())
         try:
-            for s in (slug, bp.open_slug(slug)):
-                shutil.copytree(pack / "campaigns" / s, tmp / "campaigns" / s)
-            self.assertEqual(coverage_check.open_twin(tmp, slug, hold)[:1], [])
+            if built_twin(slug, tmp) is None:
+                self.skipTest("pack not built")
+            self.assertEqual(coverage_check.open_twin(tmp, slug, hold), [])
             # Without the hold, the gate expects every window to sell all.
             self.assertTrue(coverage_check.open_twin(tmp, slug))
             ini = tmp / "campaigns" / bp.open_slug(slug) / "campaign.ini"
@@ -2384,16 +2445,25 @@ class AlliedReserve(unittest.TestCase):
 
 class SuluOpenAllocation(unittest.TestCase):
     """Sulu Line's Open Allocation twin, built: its supply ships only where
-    the story sells them, and no allied-fleet sentence (20 Oct 2026)."""
+    the story sells them, and no allied-fleet sentence (20 Oct 2026). Built
+    into a temporary folder from the shipped campaign (built_twin), as no
+    twin ships since 21 Oct 2026."""
 
-    PACK = bp.ROOT / "integration" / "campaign" / "SEST_Campaign" / "campaigns"
+    @classmethod
+    def setUpClass(cls):
+        cls.tmp = Path(tempfile.mkdtemp())
+        cls.built = built_twin("sest-sulu-line", cls.tmp) is not None
+
+    @classmethod
+    def tearDownClass(cls):
+        shutil.rmtree(cls.tmp, ignore_errors=True)
 
     def setUp(self):
-        if not (self.PACK / "sest-sulu-line-open" / "campaign.ini").is_file():
+        if not self.built:
             self.skipTest("pack not built")
 
     def sections(self, slug):
-        text = (self.PACK / slug / "campaign.ini").read_text(encoding="utf-8")
+        text = (self.tmp / "campaigns" / slug / "campaign.ini").read_text(encoding="utf-8")
         return {s.split("\n", 1)[0].split("]")[0] + "]": s for s in re.split(r"\n(?=\[)", text)}
 
     @staticmethod
@@ -2669,9 +2739,10 @@ class RedSidePresentation(unittest.TestCase):
 class RedLineSideOperations(unittest.TestCase):
     """Red Line's step RL-1 (campaign-upgrade-plan.md section 4.2, 20 Oct
     2026): two optionals flown by the enclave field's own aircraft and a
-    contingency for the screen's detachment, each read by the next core
-    mission or a race of its own, on days neither coalition campaign flies,
-    with no hull a coalition mission can own or lose first."""
+    contingency for the screen's detachment - Datum read by the next core
+    mission, The Ships from the North's read held (21 Oct 2026), the
+    contingency a race of its own - on days neither coalition campaign
+    flies, with no hull a coalition mission can own or lose first."""
 
     PACK = bp.ROOT / "integration" / "campaign" / "SEST_Campaign" / "campaigns"
 
@@ -2697,22 +2768,25 @@ class RedLineSideOperations(unittest.TestCase):
         self.assertTrue(self.missions["RLC1"]["window"]["detachment"])
         self.assertFalse(self.missions["RLC1"]["window"].get("rearm"))
 
-    def test_each_optional_is_read_by_the_next_core_mission(self):
+    def test_datum_is_read_and_the_ships_from_the_north_is_held(self):
         datum, names = self.missions["RLO1"], self.missions["RLO2"]
         self.assertEqual(datum["victory"]["after"]["sets"], "RLO1GolfDatum")
-        self.assertEqual(names["victory"]["after"]["sets"], "RLO2EscortsNamed")
-        self.assertEqual(names["victory"]["after"]["units"], ["jmsdf#1", "jmsdf#2"])
         # A datum on GOLF for fifteen minutes, as Southern Watch's O2 gives
         # SW04: classifying her is still RL02's own objective.
         golf = self.missions["RL02"]["reveal_if"]
         self.assertEqual([(r["variable"], r["units"], r["level"], r["time"]) for r in golf],
                          [("RLO1GolfDatum", ["red_sub"], "", 900)])
         self.assertIn(("classify", "red_sub", 1), self.missions["RL02"]["resolve"].values())
-        # The escorts classified for the whole of RL03.
-        escorts = self.missions["RL03"]["reveal_if"]
-        self.assertEqual([(r["variable"], r["units"], r["level"], r.get("time", -1))
-                          for r in escorts],
-                         [("RLO2EscortsNamed", ["jmsdf"], "Classify", -1)])
+        # Held (owner, 21 Oct 2026): O2 names both escorts and writes
+        # nothing, and RL03 reads nothing, until the Red Line test card's
+        # 7.4 shows a reveal at Classify satisfying a UnitClassified stage.
+        # RL03 started with both escorts classified (RLO2EscortsNamed) until
+        # then; the reveal is restorable from commit 9035f291.
+        self.assertEqual(names["victory"]["after"]["units"], ["jmsdf#1", "jmsdf#2"])
+        self.assertNotIn("sets", names["victory"]["after"])
+        self.assertNotIn("sets", names["victory"])
+        self.assertEqual(names["declares"], [])
+        self.assertNotIn("reveal_if", self.missions["RL03"])
 
     def test_red_line_flies_no_day_the_coalition_campaigns_fly(self):
         # Correction X3: no day Southern Watch or Southern Reach flies,
@@ -2753,15 +2827,17 @@ class RedLineSideOperations(unittest.TestCase):
                     if u["side"] == "blue" and key in last:
                         self.assertGreater(m["date"], last[key],
                                            f"{spec['TITLE']} {m['key']} places {key}")
-        # The Open Allocation twins are excepted: they sell their
-        # commander's whole allied fleet from the first window (plan section
-        # 3.2, item 4), and the reserve's named-hull filter is the reserve's
-        # alone. Pinned, so that a second Red Line hull on a twin is a
-        # decision and not an accident (review of 20 Oct 2026).
-        on_twins = sorted({(e["unit"], pick) for spec in self.specs if spec is not self.rl
+        # An Open Allocation twin sells its commander's whole allied fleet
+        # from the first window, and the reserve's named-hull filter is the
+        # reserve's alone, so a twin could sell a Red Line hull (JS Maya
+        # Variant1, while the twins shipped). None ships since 21 Oct 2026;
+        # pinned over the campaigns that opt in, so that a Red Line hull on a
+        # twin is a decision and not an accident (review of 20 Oct 2026).
+        on_twins = sorted({(e["unit"], pick) for spec in self.specs
+                           if spec is not self.rl and spec.get("OPEN_ALLOCATION")
                            for e in spec.get("ALLIED_FLEET", []) for pick in e["picks"]
                            if (e["unit"], pick) in last})
-        self.assertEqual(on_twins, [("jmsdf_ddg_maya", "Variant1")])
+        self.assertEqual(on_twins, [])
 
     def test_golf_is_one_boat(self):
         golf = {(code, u.get("variant")) for code, m in self.missions.items()
@@ -2832,6 +2908,117 @@ class RedLineSideOperations(unittest.TestCase):
             section = re.search(rf"^\[Mission{index[side]}\].*?(?=^\[Mission|\Z)", text,
                                 re.M | re.S).group(0)
             self.assertIn(f"ExpiresAfterMissionComplete={index[closer]}\n", section, side)
+
+
+class RevealBeforeClassify(unittest.TestCase):
+    """A campaign variable's reveal at Classify or Identify must not land on
+    a unit a classify stage of the reading mission names (21 Oct 2026).
+    Nothing has shown that the reveal counts for that stage's
+    UnitClassified, and if it does not, the unit is classified already and
+    can never be classified again: the mission cannot be won by a player who
+    won the one before. RL03's reveal on RLO2EscortsNamed had that shape and
+    is held (Red Line test card 7.4)."""
+
+    # The in-pack proof of the shape, on optional objectives only, so
+    # neither mission becomes unwinnable if the answer is no: TS03's Tender
+    # after TS01 (Southern Reach test card 3.10) and SL03A's Identify after
+    # Night Market (Sulu Line test card 7.1). Their answer decides whether
+    # RL03's reveal comes back. Any other overlap is a decision, made here.
+    PROOF = {("TS03", "tender"): "Southern Reach test card 3.10",
+             ("SL03A", "okean"): "Sulu Line test card 7.1"}
+
+    @staticmethod
+    def refs(units):
+        """A unit reference or a list of them, as (station, index) pairs:
+        index "" is every unit at the station, as build_pack.refs() reads it."""
+        return {tuple(u.partition("#")[::2])
+                for u in ([units] if isinstance(units, str) else units)}
+
+    @staticmethod
+    def same_unit(a, b):
+        return a[0] == b[0] and (not a[1] or not b[1] or a[1] == b[1])
+
+    def test_no_classify_level_reveal_lands_on_a_classify_target(self):
+        seen = set()
+        for spec in bp.campaign_specs():
+            for m in spec["MISSIONS"]:
+                code = bp.mission_code(m)
+                victory = m.get("victory", {})
+                staged = set()
+                for stage in (victory, victory.get("after") or {}):
+                    if stage.get("kind") == "classify":
+                        staged |= self.refs(stage["units"])
+                optional = set()
+                for how in m.get("resolve", {}).values():
+                    if isinstance(how, tuple) and how[0] == "classify":
+                        optional |= self.refs(how[1])
+                for r in m.get("reveal_if", []):
+                    # The builder's default level is Identify; "" is the bare
+                    # datum, which reveals a contact and no class.
+                    if r.get("level", "Identify") not in ("Classify", "Identify"):
+                        continue
+                    for ref in self.refs(r["units"]):
+                        where = (f"{spec['TITLE']} {code}: {r['variable']} reveals "
+                                 f"{'#'.join(filter(None, ref))}")
+                        self.assertFalse([s for s in staged if self.same_unit(ref, s)],
+                                         where + ", which a classify stage names")
+                        if [o for o in optional if self.same_unit(ref, o)]:
+                            self.assertIn((code, ref[0]), self.PROOF,
+                                          where + ", which a classify objective names")
+                            seen.add((code, ref[0]))
+        self.assertEqual(seen, set(self.PROOF))
+
+
+class OpenAllocationRetired(unittest.TestCase):
+    """The owner retired the Open Allocation twins from the pack on 21 Oct
+    2026, once the allied reserve put allied escorts in the standard
+    campaigns. No campaign opts in (spec OPEN_ALLOCATION), no twin folder
+    ships, and the pack's Mod Manager entry no longer offers one. The
+    machinery stays for a world-wide campaign: OpenAllocation,
+    AlliedFleetReview and SuluOpenAllocation build it."""
+
+    DIST = bp.ROOT / "integration" / "dist" / "SEST_Integration"
+
+    def test_no_campaign_opts_in(self):
+        self.assertEqual([s["SLUG"] for s in bp.campaign_specs()
+                          if s.get("OPEN_ALLOCATION")], [])
+
+    def test_no_twin_folder_ships(self):
+        roots = [r for r in (PACK, self.DIST) if (r / "campaigns").is_dir()]
+        if not roots:
+            self.skipTest("pack not built")
+        for root in roots:
+            self.assertEqual(sorted(f.name for f in (root / "campaigns").iterdir()
+                                    if f.name.endswith(bp.OPEN_SUFFIX)), [], root.name)
+
+    def test_the_mod_manager_entry_offers_no_twin(self):
+        infos = [r / "_info.ini" for r in (PACK, self.DIST) if (r / "_info.ini").is_file()]
+        if not infos:
+            self.skipTest("pack not built")
+        for info in infos:
+            self.assertNotIn("Open Allocation", info.read_text(encoding="utf-8"),
+                             info.parent.name)
+
+    def test_the_gate_refuses_a_twin_nothing_builds(self):
+        # A pack synced over an old one keeps its -open folders, and the
+        # game lists each as a campaign; check_campaign_coverage refuses
+        # one unless its campaign opts in.
+        specs = bp.campaign_specs()
+        with tempfile.TemporaryDirectory() as d:
+            pack = Path(d)
+            for spec in specs:
+                (pack / "campaigns" / spec["SLUG"]).mkdir(parents=True)
+            self.assertEqual(coverage_check.stray_campaigns(pack, specs), [])
+            twin = bp.open_slug(specs[0]["SLUG"])
+            (pack / "campaigns" / twin).mkdir()
+            (pack / "campaigns" / "sest-elsewhere").mkdir()
+            found = coverage_check.stray_campaigns(pack, specs)
+            self.assertEqual(len(found), 2, found)
+            self.assertIn(f"campaigns/{twin}: no campaign builds it - an Open Allocation "
+                          "twin, and its campaign does not opt in to one", " ".join(found))
+            opted = [dict(s, OPEN_ALLOCATION=True) if s is specs[0] else s for s in specs]
+            self.assertEqual(coverage_check.stray_campaigns(pack, opted),
+                             ["campaigns/sest-elsewhere: no campaign builds it"])
 
 
 class RulesPage(unittest.TestCase):

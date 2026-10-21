@@ -1360,7 +1360,9 @@ as an Open Allocation twin - "Southern Watch - Open Allocation (Royal
 Australian Navy)" and the same for Southern Reach and Red Line - and in the
 twin every window whose builder is open offers the whole roster: in Southern
 Watch, the Hobart, the P-8, the F-35A, the Super Hornet, the Growler, the
-Wedgetail and the Triton are all on sale before White Water.
+Wedgetail and the Triton are all on sale before White Water. Retired from
+the pack on 21 October 2026: below, "Open Allocation retired from the pack
+(21 October 2026)".
 
 Why a twin and not a switch inside the campaign. The game ties purchases to
 the roster and each window's `TaskForceModeAllowedRosterUnits`, and nothing
@@ -3471,3 +3473,83 @@ briefed or scored.
   `orbat=False`, its flags and reports) is in its build notes.
 
 Test card 2.9 to 2.12 and 6.6a; the play-test guide carries them.
+
+## Open Allocation retired from the pack (21 October 2026)
+
+The owner's decision of 21 October, for the pending 20 October update: "make
+open allocation redundant. will be used for other world wide campaign or
+dynamic sest world campaign." The four twins (*Open Allocation*, 27
+September, above) left the pack the day after the allied reserve put
+allied escorts on sale in the standard Southern Watch and Southern Reach,
+without the released update of proof and the notice one release ahead that
+`campaign-upgrade-plan.md` had set (its Q5, A4 and B12). Each campaign is
+listed once.
+
+- **Kept, not deleted.** A twin is now a spec's opt-in: `OPEN_ALLOCATION`,
+  absent or False for no twin. `build_pack.open_allocation_twin()` builds
+  one (the allied fleet through `usable_allied`, the flight check on the
+  twin's roster, `allied_line`, `campaign_rules(open_allocation=True)`,
+  `open_allocation_ini`, the twin's roster and coverage) and
+  `write_open_twin()` writes `campaigns/<slug>-open`; `main()` calls both
+  only for a spec that opts in, and the Mod Manager entry says "Each
+  campaign is also listed as an Open Allocation version" only while one
+  does. `OPEN_HOLD`, the `OPEN_*` notes and blurbs and `allied_fleet.py`
+  stay as they were; the allied fleet is still the reserve's source, and
+  the check that it repeats no roster unit runs for every campaign. Kept
+  for a world-wide Task Force Mode campaign, which would opt in as it is,
+  or for the SEST World Campaign (a Dynamic Campaign Mod campaign with its
+  own buy list), which could take `allied_fleet.ALLIED` as a priced,
+  in-service-in-2028 list.
+- **Still checked.** `check_campaign_coverage.py` runs `open_twin()` and the
+  twin's roster and loadout names only for a spec that opts in, and refuses
+  any folder under `campaigns/` that no campaign builds - a twin left
+  behind among them. The campaign tests build Red Line's and Sulu Line's
+  twins into a temporary folder from the built campaigns
+  (`test_build_pack.built_twin`), so `open_twin()`, `OPEN_HOLD` and the
+  allied sentence are held to the shipped data; `AlliedFleet` runs
+  `roster_ini()` over every `allied_fleet.FOR_NATION` list, which only the
+  twins' build did before, so a mod update that drops an allied variant
+  still fails; and `OpenAllocationRetired` pins that no campaign opts in,
+  no twin ships, and the gate's `stray_campaigns()` refuses a twin folder
+  nothing builds. No test builds a Southern Watch or Southern Reach twin:
+  `built_twin` passes no placements, and theirs are the fleets with
+  aircraft, which `usable_allied` keeps only where a placed row takes them
+  (63 and 62 allied units at `9035f291`). Before a campaign with allied
+  aircraft opts in, run `build_pack.py --dry-run --campaign <name>` with
+  `OPEN_ALLOCATION` set and read its "allied unit(s) on sale" line.
+- **Coverage is unchanged.** No mod was reached only through a twin's
+  roster: the pack still accounts for all 224 enabled mods and SEST packs,
+  and the coverage reports, REQUIRED-MODS and LOAD-ORDER came out
+  byte-identical. The pack is 2003 files (2027 with the twins), the
+  consolidated `SEST_Integration` 4304 (4328): the 24 files under
+  `campaigns/*-open` and nothing else.
+- **What no campaign sells now.** 65 classes the twins sold are on no
+  shipped roster (46 ships, the PLAN Type 901 and 903A among them, and 19
+  aircraft and helicopters), and 42 of those are placed by no mission file
+  either, dispatches included: the Ford and Nimitz carriers, Wasp and
+  Mistral, Atago, Mashuu, the T-AO, T-AOE and T-AKE, the US Navy's P-8 and
+  Super Hornet, the MQ-9 ER, the Rafale B and the Spanish, Italian, German,
+  Dutch, Norwegian and Korean escorts among them (counted from the built
+  rosters at `9035f291`). Their mods stay covered through other units.
+- **Saves.** A campaign under way in a twin cannot be continued: the save
+  names the twin's folder (`NEW TEST 1.sav` is `#!alias
+  campaigns/sest-southern-watch-open/campaign.ini`), and a standard
+  campaign's progress was always its own (test card G.4). What the game
+  shows for the orphaned save is not known yet: the play-test guide asks.
+  `tools/install-sest-packs.ps1` deletes the pack folder before copying,
+  so the next sync takes the `-open` folders off this PC, and the next
+  upload off the Workshop item.
+- **Text.** The setup script's closing line and the map-diagnostics path
+  that named a twin are gone; the README, FEATURES, the play-test guide,
+  this test card (6G retired, G.6 for the standard campaigns, I.5 and J.1
+  on the reserve), Sulu Line's card (2.6 retired), the Steam cards and the
+  Workshop listing say the versions are retired. The pending change log
+  says a twin campaign cannot be continued.
+- **Not done here.** The gallery's `in_rosters` field still lists the
+  `-open` slugs (`integration/gallery/source/catalogue.js`, the Gallery
+  packs' copies and the `*_191.csv` tables). `tools/align_gallery.py`
+  writes it, and `build_all` does not run it: run it by hand against the
+  release commit. `gallery.js` never reads the field, so no player sees it.
+
+Red Line's *The Other Picture* stopped reading *The Ships from the North*
+the same day (Red Line build notes, "RL03's reveal held").

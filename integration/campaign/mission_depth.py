@@ -271,7 +271,8 @@ def apply_reserve(specs):
     number, because Southern Reach's two chapters repeat window numbers.
 
     The entry, price and note are allied_fleet's, for the campaign's
-    commander; the unit leaves ALLIED_FLEET, so the Open Allocation twin
+    commander; the unit leaves ALLIED_FLEET, so an Open Allocation twin, for
+    a campaign that opts in to one (none in the pack since 21 Oct 2026),
     sells it once, from the roster.
     """
     # A placed variant is a named ship - JS Mogami in Common Sea and The

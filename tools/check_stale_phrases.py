@@ -82,6 +82,27 @@ RED_LINE_TEXT = [
 RED_LINE_B1 = ("retired by the campaign upgrade's first batch, 20 Oct 2026 "
                "(docs/campaigns/campaign-upgrade-plan.md, section 8)")
 
+# The player-facing text that describes the campaigns: what a player reads
+# before or while playing them.
+PLAYER_TEXT = [
+    "README.md",
+    "docs/FEATURES.md",
+    "docs/play-test-guide.md",
+    "docs/campaigns/side-operations.md",
+    "docs/campaigns/southern-watch/workshop-listing.md",
+    "integration/gallery/steam_art/cards.json",
+]
+# The owner's decisions of 21 Oct 2026, for the pending 20 Oct update. The
+# builder can still write an Open Allocation twin for a spec that opts in
+# (OPEN_ALLOCATION), so its own Mod Manager sentence is not held here: a
+# campaign that opts in again rewords these docs and this entry with it.
+TWINS_RETIRED = ("retired by the owner on 21 Oct 2026: no campaign in the pack ships an "
+                 "Open Allocation version (Southern Watch build notes, 'Open Allocation "
+                 "retired from the pack')")
+RL03_HELD = ("held by the owner on 21 Oct 2026: The Other Picture reads nothing from The "
+             "Ships from the North until a reveal at Classify is shown to satisfy a "
+             "UnitClassified stage (Red Line test card 7.4; restorable from 9035f291)")
+
 # (regex, globs, why[, WRAPPED])
 STALE = [
     (r"AARGM-ER airframe", AIM424_SOURCES + AIM424_OUTPUT,
@@ -118,6 +139,13 @@ STALE = [
     (r"neither (coalition )?campaign places", RED_LINE_TEXT,
      "ALPHA is Collins Variant3 (Waller), the one hull no other mission places; Variant6 is "
      "Southern Reach's Rankin attachment; " + RED_LINE_B1, WRAPPED),
+    (r"(each|every) campaign (is )?also (listed |comes |ships )?as an Open Allocation"
+     r"|also as an Open Allocation version|each (also )?(listed )?(as|with) an Open Allocation"
+     r"|Open Allocation sells everything|Open Allocation\"? versions? sells? ",
+     PLAYER_TEXT + ["integration/campaign/setup/sest-setup.ps1"], TWINS_RETIRED, WRAPPED),
+    (r"both (Japanese )?escorts (start|begin)s? (on (the|its|your) plot )?classified"
+     r"|starts \*?The Other Picture\*? with both",
+     RED_LINE_TEXT + PLAYER_TEXT, RL03_HELD, WRAPPED),
 ]
 
 

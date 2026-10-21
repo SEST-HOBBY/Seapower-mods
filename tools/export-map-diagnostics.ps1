@@ -118,8 +118,7 @@ $SESTDefinitions = @(
     'land_units\sest_uav_forward.ini','land_units\sest_uav_forward_variants.ini',
     'language_en\aircraft_names.ini','language_en\land_units_names.ini',
     'missions\Southern Watch\Southern Watch O10 - Ballistic Shield.ini',
-    'campaigns\sest-southern-watch\missions\Southern Watch O10 - Ballistic Shield.ini',
-    'campaigns\sest-southern-watch-open\missions\Southern Watch O10 - Ballistic Shield.ini'
+    'campaigns\sest-southern-watch\missions\Southern Watch O10 - Ballistic Shield.ini'
 )
 foreach ($SESTRel in $SESTDefinitions) { Copy-MapFile (Join-Path $SESTLocal $SESTRel) (Join-Path 'installed-SEST' $SESTRel) }
 $SESTGameAssemblies = New-Object System.Collections.Generic.List[string]

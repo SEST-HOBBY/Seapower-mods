@@ -96,8 +96,8 @@ test card section 8B.
 |---|---|---|---|---|
 | RLO1 · 11 Nov | **Datum** | North of Biak, the morning after the Russian auxiliary was torpedoed: put a class on the boat nobody has claimed (GOLF) with sonobuoys, at weapons Hold, under a RAAF Poseidon that is recording. | *Sea Ear 31*, the enclave detachment's Y-9, and the enclave field. GOLF is `usn_ssn_virginia_2027` Variant10, spared (she is needed in RL02 and RL04). | writes `RLO1GolfDatum` |
 | RL02 · 12 Nov (core) | Routes They Can See | As built. | As built. | reads `RLO1GolfDatum`: GOLF on the plot for fifteen minutes with no class, Southern Watch's O2 -> SW04 shape; classifying her is still the mission's own task |
-| RLO2 · 18 Nov | **The Ships from the North** | The Ceram Sea: name the two Japanese escorts coming south for the Kai convoy, JS Mogami and JS Maya, and bring the Y-9 home, with a JASDF F-2A pair up from Langgur at weapons Tight. | The Y-9 and two J-15s released to the enclave field. The F-2A (`jp_f-2a_late`, the Viper Zero mod) on the red side for the first time; Mogami and Maya on the hulls RL03 and Common Sea place, spared. | writes `RLO2EscortsNamed` |
-| RL03 · 19 Nov (core) | The Other Picture | As built. | As built. | reads `RLO2EscortsNamed`: both escorts start classified for the whole mission. That this counts for its classify stage is unproven and a release blocker (test card 7.4) |
+| RLO2 · 18 Nov | **The Ships from the North** | The Ceram Sea: name the two Japanese escorts coming south for the Kai convoy, JS Mogami and JS Maya, and bring the Y-9 home, with a JASDF F-2A pair up from Langgur at weapons Tight. | The Y-9 and two J-15s released to the enclave field. The F-2A (`jp_f-2a_late`, the Viper Zero mod) on the red side for the first time; Mogami and Maya on the hulls RL03 and Common Sea place, spared. | writes nothing for now: `RLO2EscortsNamed` is held (owner, 21 Oct 2026) until test card 7.4 is answered; the names go to headquarters and the operation pays its own points |
+| RL03 · 19 Nov (core) | The Other Picture | As built. | As built. | reads nothing. Until 21 Oct 2026 it read `RLO2EscortsNamed` and revealed both escorts at Classify for the whole mission; that this counts for its classify stage is unproven, so the reveal is held until test card 7.4 is answered (restorable from `9035f291`) |
 | RLC1 · 24 Nov | **Pilot in the Water** | The Banda Sea, the morning after *Fujian's Shadow*: a J-15 off Liaoning is down with a fire warning, and an Australian patrol vessel is racing the screen to the pilot. Stop the lead ship within three cables of his raft for four minutes, before she is within a mile of him. | A detachment of the screen and its flight. The stock one-man raft `all_life_raft_single` (first SEST use) on the player's side; `ran_opv_arafura` Variant4 (Gippsland), the Arafura hull no mission places and no roster sells; a RAAF P-8A. Both spared. | stand-alone |
 
 
@@ -138,9 +138,11 @@ variables. It cannot prove behaviour:
 - that the EC-2's jammer degrades the 054A's radars (Viper Zero);
 - that the Meridian escort classifying HMAS Eyre is what fails Paper Trail's
   `unseen` objective, as stock's Polar Fury trigger does for a submarine;
-- that a reveal at Classify counts for a `UnitClassified` stage on the same
-  unit (Red Line's RLO2 -> RL03, a release blocker; Southern Reach's TS01 ->
-  TS03 and Sulu Line's SL01A -> SL03A have the same shape);
+- that a reveal at Classify counts for a `UnitClassified` objective on the
+  same unit. Red Line's RLO2 -> RL03 had it on RL03's main stage and is held
+  (21 Oct 2026) until it is shown; Southern Reach's TS01 -> TS03 and Sulu
+  Line's SL01A -> SL03A keep it on optional objectives and are the proof
+  (Southern Reach card 3.10, Sulu Line card 7.1);
 - what a held stage does when the ship leaves before its minutes and comes
   back after them (Pilot in the Water), and whether a J-15 pair at Tight
   opens on identified F-2As (The Ships from the North).
