@@ -159,6 +159,8 @@ Mainline allocations total 2,800 points across 23 missions; the three optionals 
 
 Not for sale: Collins and Farncomb (detached operations, authored), Supply and Stalwart (theatre logistics), the RNZAF Poseidon (a national allocation), Choules and Canberra (no deck-support test south of the Convergence), any tanker (no tasking role exists for one).
 
+*(21 Oct 2026: from TS04 every force allocation offers this whole roster - a Hobart at TS12 too, which the story's list there leaves out - and the allied fleet with it, HMAS Adelaide (Canberra class) and allied replenishment ships among it, the owner's decision on retiring the Open Allocation version. Choules, Supply and Stalwart stay off sale: missions place every hull. No air tanker is sold. The windows before TS04 sell what the "On sale from" column says. Build notes, "21 October: the allied fleet in the standard campaigns".)*
+
 ### Campaign variables — consequences that are enforced
 
 | Written by | Variable | How | Read by | Effect |

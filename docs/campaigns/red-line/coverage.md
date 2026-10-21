@@ -87,6 +87,15 @@ What this campaign sells beside its own roster from a window its story names (`m
 |---|---|---|
 | RL01 Trailing Contact | 2 | 0 |
 
+From the force allocation before RL01 Trailing Contact, every force allocation offers the whole roster - the campaign's own units with the reserve - as the Open Allocation version did from the first (`mission_depth.open_offer`). Units each force allocation offers:
+
+| window before | units | whole roster |
+|---|---|---|
+| RL01 Trailing Contact | 11 | yes |
+| RL02 Routes They Can See | 11 | yes |
+| RL03 The Other Picture | 11 | yes |
+| RL06 The Quiet Side | 11 | yes |
+
 ## Enabled, and not reached by this campaign
 
 Left in the load order because removing one changes which file wins for the mods that are. See the campaign's own REQUIRED-MODS.txt for the four lists a subscriber needs.

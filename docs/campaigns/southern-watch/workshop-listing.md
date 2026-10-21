@@ -69,10 +69,10 @@ THE CAMPAIGNS
 
 HOW IT PLAYS
   • You buy the force. Losses and expenditure carry forward. Partners arrive
-    on their own terms; partway through Southern Watch and Southern Reach
-    the allied fleet can also be requisitioned at its own navies' prices,
-    and in Sulu Line the Thai detachment and one RAN frigate are bought into
-    the task group.
+    on their own terms. Partway through Southern Watch and Southern Reach,
+    and in Red Line from the start, every force allocation offers the whole
+    roster with the allied fleet, or the PLAN's supply ships. In Sulu Line
+    the Thai detachment and one RAN frigate are bought into the task group.
   • Finding things matters more often than fleet battles. Civilian traffic
     is everywhere, and neutral losses end operations.
   • Each mission has a planned time and is lost at 1.5 times it; the
@@ -119,8 +119,11 @@ left: add Combat Cost Tracker (3807187341) and Group Manager (3818251045) to
 the collection and to the item's Required Items, and remove the
 [DEPRECATED] Anzac Class Frigate (3440622312) from both, before Submit.
 The Open Allocation versions left the pack on 21 Oct (the owner's
-decision): paste the Description (above) and the Collection description
-(below) as well, since both stopped offering them.
+decision), and the standard campaigns now do what they did from Weapons
+Free, Tasman Crossing and Red Line's first force allocation: paste the
+Description (above) and the Collection description (below) as well, since
+both stopped offering the versions and the Description says when everything
+is on sale. Keep the log under 8,000 characters.
 
 ```
 [h2]20 October 2026[/h2]
@@ -157,18 +160,14 @@ decision): paste the Description (above) and the Collection description
 [*]Follows the 20 Oct mod updates: Ford, Mogami, Wasp, F-35C, the OHP long hull and Red Storm Arsenal's Chinese missiles.
 [/list]
 
-[b]The allied fleet[/b]
+[b]Open Allocation in the standard campaigns[/b]
 [list]
-[*]Southern Watch: from Weapons Free the standard campaign also sells the allied fleet, at its own navies' prices: 52 ship classes from eleven navies - carriers, amphibious ships, replenishment ships, destroyers and frigates - and the RAN's second Canberra-class LHD, with 19 allied aircraft types where a mission can launch and recover them. The windows before Weapons Free sell what they did.
-[*]Southern Reach: the same ships from Tasman Crossing, with the 10 allied aircraft types its missions can fly.
-[*]Red Line: the PLAN's own Type 901 and Type 903A supply ships, from the first force allocation, before Trailing Contact.
-[*]Carriers and amphibious ships come without aircraft, as every ship you buy does. No submarine is sold, and no ship a mission names.
-[*]A campaign already under way may not show them: start a new campaign to see them.
-[/list]
-
-[b]Every campaign[/b]
-[list]
-[*]The Open Allocation versions are retired: what they sold beyond each story's own list is in the standard campaigns now, from the windows above, so each campaign is listed once. A campaign under way in an Open Allocation version cannot be continued: start the standard campaign.
+[*]Southern Watch: from Weapons Free every force allocation offers the whole roster and the allied fleet, at its own navies' prices: 52 ship classes from eleven navies - carriers, amphibious ships, replenishment ships, destroyers and frigates - and the RAN's second Canberra-class LHD, with 19 allied aircraft types where a mission can launch and recover them. The windows before Weapons Free keep the story's own lists.
+[*]Southern Reach: the same from Tasman Crossing, with the 10 allied aircraft types its missions can fly. The windows before it keep the story's own lists.
+[*]Red Line: from the first force allocation, before Trailing Contact, every force allocation offers the whole roster and the PLAN's own Type 901 and Type 903A supply ships. The Quiet Side tasks only the ship's flight, so a fixed-wing aircraft bought for it will not fly.
+[*]Carriers and amphibious ships come without aircraft, as every ship you buy does. No submarine is sold, and no ship a mission names. Some operations still limit what sails.
+[*]The Open Allocation versions are retired, because the standard campaigns now do this: each campaign is listed once. Sulu Line's version is retired too: its story offers the whole roster from Service at Sea. A campaign under way in an Open Allocation version cannot be continued: start the standard one.
+[*]A standard campaign already under way may keep its old windows: start it again to get this.
 [/list]
 
 [b]Fixes[/b]

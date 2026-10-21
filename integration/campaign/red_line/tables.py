@@ -90,13 +90,15 @@ ROSTER = [
     dict(unit="plan_ddg_luda_typ_051dt", picks=["Variant1", "Variant2"], points=160,
          note="an older destroyer the northern screen still has"),
     dict(unit="plan_em_sovremenny", picks=["Variant1", "Variant2"], points=320,
-         note="on sale in the north only; one already owned still sails"),
+         note="the northern screen's; the story sold it in the north only until "
+              "21 Oct 2026, and one owned sails south"),
     dict(unit="plan_type_056a", picks=["Variant1", "Variant2", "Variant3"], points=120,
-         note="the protection group's corvette; on sale in the south only"),
+         note="the protection group's corvette; the story sold it in the south only "
+              "until 21 Oct 2026"),
     dict(unit="plan_z-9c", picks=["Squadron1"], points=20,
          note="the frigate's flight; the 054A deck lists the Z-9C, D and F"),
     dict(unit="plan_y-9fq", picks=["Squadron1"], points=50,
-         note="maritime patrol out of the enclave field; north only"),
+         note="maritime patrol out of the enclave field; its rows are in the north"),
     dict(unit="plaaf_kj-500", picks=["Squadron1"], points=70,
          note="land-based airborne early warning; matches the Recon row's AEW fit"),
     dict(unit="plan_j-15", picks=["Squadron1", "Squadron2"], points=40,
@@ -112,7 +114,14 @@ ROSTER = [
 # sell with the same-nation discount. The hulls a mission places are not
 # sold - The Order to Withdraw's 901 and Southern Reach's (Variant1 of
 # each) - so the 901 sells one hull and the 903A three
-# (mission_depth.apply_reserve).
+# (mission_depth.apply_reserve). The same day (step 2) the opening opened
+# the whole roster: every force allocation from Trailing Contact's offers
+# all of it with the two supply ships, as the version did, so the story's
+# northern and southern lists below (NORTH_HULLS, SOUTH_HULLS) no longer
+# bound what is sold. The owner accepted the version's behaviour: a
+# Sovremenny can be bought for the south and a 056A in the north, and the
+# J-15, J-15D, KJ-500 and Y-9 at the first window, before a row can fly
+# them (mission_depth.open_from).
 RESERVE_FLEET = dict(opens="RL01")
 
 # Air-tasking rows in the fit vocabulary of the aircraft this roster sells.
@@ -126,7 +135,9 @@ RECON = "Recon|Maritime Patrol|MPA/ASW/ESM/AEW|1|ASW/ASWKiller/ASWHunter/AEW"
 CAP = "CAP|Combat Air Patrol|Fighter|2|AirToAir/AirToAirIntercept"
 
 # The purchase windows, by stage. The variants come from ROSTER, never
-# restated.
+# restated. These are the story's lists: since 21 Oct 2026 every window
+# offers the whole roster (RESERVE_FLEET above), and they are what a build
+# without RESERVE_FLEET would sell.
 NORTH_HULLS = ["plan_type_054a_p5", "plan_ddg_luda_typ_051dt", "plan_em_sovremenny",
                "plan_z-9c"]
 NORTH_AIR = ["plan_y-9fq"]

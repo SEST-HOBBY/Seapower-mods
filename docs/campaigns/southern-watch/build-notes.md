@@ -3626,16 +3626,16 @@ comes back: the twin path stays dormant and tested (above).
   RAN's own ships always have; the twins sold them so (*The allied fleet*,
   above). Recovery is judged on the decks and fields a mission places, so a
   bought deck never makes an aircraft sellable.
-- **Words.** A window from the opening ends "Also on sale here, at their own
-  navies' prices: the allied fleet - 52 ship classes and 19 aircraft types
-  from the USA, France, ... - and the Royal Australian Navy's Canberra-class
-  LHD." (`mission_depth.reserve_phrase`: allied navies counted, the
-  commander's own classes named; sixty classes cannot be listed). The
-  rules page's line says every force allocation from the one before
-  *Weapons Free* sells it, that allied classes cost their own navies'
-  listed prices without the same-nation discount, that carriers and
-  amphibious ships come without aircraft, that an allied aircraft is sold
-  only where a mission can launch and recover it, and that no hull a
+- **Words.** Until step 2, below, a window from the opening ended "Also on
+  sale here, at their own navies' prices: the allied fleet - 52 ship
+  classes and 19 aircraft types from the USA, France, ... - and the Royal
+  Australian Navy's Canberra-class LHD." (`mission_depth.reserve_phrase`:
+  allied navies counted, the commander's own classes named; sixty classes
+  cannot be listed), and the rules page's line said every force allocation
+  from the one before *Weapons Free* sold it, that allied classes cost their
+  own navies' listed prices without the same-nation discount, that carriers
+  and amphibious ships come without aircraft, that an allied aircraft is
+  sold only where a mission can launch and recover it, and that no hull a
   mission names is sold. It no longer says no allied aircraft, carrier,
   amphibious ship or tanker is sold, and the reserve no longer refuses a
   unit that is not a ship; a held aircraft whose file is not one stops the
@@ -3671,3 +3671,102 @@ of 82 entries and allowlist lines of about 4,200 characters (stock's longest
 is about 1,900); that a bought carrier sails with an empty deck; that an
 allied aircraft bought at *Weapons Free* flies its rows and gets home
 (G.10-G.13, 2.9-2.12).
+
+### Step 2: the whole roster from the opening (21 October, later)
+
+Step 1 added the fleet after each window's story list, which left the
+story's own limits in place after the opening: the window before *Fujian's
+Shadow* still sold no Seahawk, Wedgetail or Triton, the one before *The
+First Ship Through* no Hobart or Growler, and Red Line's Y-9, KJ-500, J-15
+and J-15D went on sale only where its story released them. "Everything goes
+on sale" is what the twins did: every force allocation with a builder
+offers the campaign's whole roster, every priced variant, with the fleet.
+From the opening the standard campaigns now do that.
+
+- **How.** `mission_depth.open_from(spec)` is the mission `RESERVE_FLEET`
+  opens at, and `open_offer(spec, m)` what a window from it offers: every
+  unit on the roster, in roster order, as `open_allocation_ini` listed a
+  twin's, a reserve class from its own opening (a class `RESERVE` names may
+  open later than the fleet). `_open_windows` gives each buy window from
+  the opening that list - a new one, replacing the story's, set again after
+  the build admits the allied aircraft and only where it differs, so a
+  second `campaign_specs()` changes nothing - and `campaign_ini` writes it
+  with `allowed_roster_units`, every priced variant. The story's lists stay
+  in the data (`BUY_05` to `BUY_12` here, each mission's own in Southern
+  Reach, `NORTH_HULLS` and the rest in Red Line) as what those windows sold
+  until now and what a build without `RESERVE_FLEET` would sell.
+- **What each window offers** (built `campaign.ini`, units on the
+  allowlist, step 1 to step 2): Southern Watch SW05 81 to 82 (the Triton),
+  SW09 82 to 82, SW11 79 to 82 (the Seahawk, Wedgetail and Triton), SW12 80
+  to 82 (the Hobart and Growler); Southern Reach TS04, TS06, TS07, TS09 and
+  TS11 73 to 73, TS12 72 to 73 (the Hobart); Red Line RL01 6 to 11, RL02 7
+  to 11, RL03 10 to 11, RL06 5 to 11. Every window before the opening and
+  every window without a builder is byte for byte as step 1 built it
+  (`efc3c88f`, compared section by section), and so is all of Sulu Line.
+- **The twins' offer.** Every unit and variant the twins' rosters sold at
+  `9035f291` is on sale at every window from the opening, or is set aside
+  with its reason: HMAS Choules and the Supply-class AOR (every hull placed),
+  the aircraft no row here launches and recovers (`coverage.md`, "The
+  reserve"), and the hulls a mission places - here JS Maya, ROKS Sejong the
+  Great and HMAS Canberra (Variant1 of each), in Southern Reach those and
+  the Burke Flight III and La Fayette Variant2 and the Asahi Variant1, in
+  Red Line the 901 and 903A Variant1.
+- **Sulu Line** has no opening (its commander calls on no fleet and it
+  sets no `RESERVE_FLEET`) and is unchanged. Its twin's only difference was
+  its own roster from the first window, its supply ships held to the
+  story's windows (`OPEN_HOLD`), and the story already sells all of that:
+  every one of its 12 units, every priced variant, is on sale at *Service
+  at Sea* and *The Aborlan Battery* (checked on the built `campaign.ini`;
+  `OpenAllocationStandard` holds it).
+- **Gates.** None refused anything, and none was changed: `check_flights`
+  and `check_purchased_recovery` already held every roster aircraft to
+  every row whatever window sold it, and `check_roster_on_sale` is
+  satisfied by any window.
+- **Words.** A window from the opening ends "This force allocation offers
+  the campaign's whole roster and, at their own navies' prices, the allied
+  fleet - 52 ship classes and 19 aircraft types from the USA, ... - and the
+  Royal Australian Navy's Canberra-class LHD." in place of step 1's "Also
+  on sale here". Window 11's own text said only ships, fighters and strike
+  aircraft were offered and that the Seahawk, Wedgetail and Triton came
+  back at window 12; it now says what the carrier action tasks. Window 12's
+  no longer says "replacement aircraft and escorts". The rules page's
+  availability line says the force allocations before *Weapons Free* offer
+  what the story releases and every one from the one before it the whole
+  roster and the allied fleet, carriers and amphibious ships without
+  aircraft and allied aircraft only where a mission can launch and recover
+  them, and that some operations still limit what sails (`MaxUnits=1` at
+  *Weapons Free*); the line after it gives the Unit Catalog, the allied
+  prices and the named hulls. A campaign whose first window sells a
+  fixed-wing aircraft - Red Line now - says so in place of the stock "not
+  available at the start". The coverage report's "The reserve" section
+  counts what every force allocation offers. The descriptions say nothing
+  of availability and are unchanged.
+- **Saves.** As for step 1: only window allowlists and situations and the
+  rules page change. A standard campaign already under way may keep its
+  old windows: start it again (test card 2.12).
+- **Tests.** `OpenAllocationStandard` pins every window from the opening
+  to `allowed_roster_units` of the settled roster (the spec's, then the
+  admitted aircraft), the windows before it and every window without a
+  builder to the story's own lists and words - read in a fresh interpreter
+  with `apply_reserve` switched off - a named class that opens later
+  waiting for its window, two runs changing nothing, the twins' offer
+  covered pair by pair, and Sulu Line selling its whole roster at some
+  window. The step-1 tests that read the story's list first now read the
+  whole roster, and `RulesPage` holds the new lines. 299 campaign tests,
+  none skipped.
+- **Review (21 Oct).** Two reviews of the change found the offer right and
+  some words not. *The Quiet Side*, Red Line's last operation, now sells
+  the Y-9, KJ-500, J-15 and J-15D with only the ship's flight to task and
+  nothing after it, so its window says a fixed-wing aircraft allocated
+  there will not fly (the owner kept the version's offer; every other open
+  window in the pack has a row for each aircraft it sells, there or later,
+  checked on the built rows). The coverage report no longer speaks of
+  windows before Red Line's opening, which is its first. The Steam
+  Installing card's "the story releases your forces as it goes" became
+  false and is retired (`check_stale_phrases`). A spec that set both
+  `OPEN_ALLOCATION` and `RESERVE_FLEET` would build a twin that quoted the
+  open windows' sentence as the story's and left the fleet out of its
+  rules line; `apply_reserve` refuses the pair. The docs say a campaign
+  under way *may* keep its old windows, as the test cards ask, and that
+  Sulu Line's version is retired though its story opens the whole roster
+  only from *Service at Sea*.

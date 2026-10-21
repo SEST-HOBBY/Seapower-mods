@@ -61,15 +61,17 @@ experience carry forward from mission to mission.
   targets' sensors off and on (*The Far Picture*).
 - Campaign memory: lose HMAS Supply early and her replacement merchant is
   missing later; hold a service window and the next mission is rearmed.
-- **The allied fleet** *(20 and 21 October 2026)*: from *Weapons Free* the
-  standard campaign also sells the allied fleet at its own navies' prices -
-  52 ship classes from eleven navies (carriers, amphibious and replenishment
-  ships, destroyers and frigates) and the RAN's second Canberra-class LHD,
-  with 19 allied aircraft types where a mission can launch and recover them.
-  Escorts only on 20 October; the rest joined on 21 October, when the Open
-  Allocation version was retired. Carriers and amphibious ships come
-  without aircraft, and no submarine or hull a mission names is sold. The
-  windows before *Weapons Free* sell what they did.
+- **Open Allocation from *Weapons Free*** *(20 and 21 October 2026)*: from
+  that window every force allocation offers the whole roster and the allied
+  fleet at its own navies' prices - 52 ship classes from eleven navies
+  (carriers, amphibious and replenishment ships, destroyers and frigates)
+  and the RAN's second Canberra-class LHD, with 19 allied aircraft types
+  where a mission can launch and recover them. Allied escorts only on 20
+  October; the rest, and the whole roster at every window from *Weapons
+  Free*, on 21 October, when the Open Allocation version was retired.
+  Carriers and amphibious ships come without aircraft, and no submarine or
+  hull a mission names is sold. The windows before *Weapons Free* keep the
+  story's own lists.
 
 ### Southern Reach — Tasman Shield
 *Royal Australian Navy, December 2028–March 2029*
@@ -81,9 +83,11 @@ experience carry forward from mission to mission.
   Poseidons in support.
 - 20 campaign variables carry consequences forward: a submarine you sink is
   missing later; an approach you lose or skip reinforces the enemy.
-- The allied fleet on sale from *Tasman Crossing*: the same 52 ship classes
-  and the Canberra-class LHD, with the 10 allied aircraft types its missions
-  can fly *(20 and 21 October 2026; escorts only on the 20th)*.
+- Open Allocation from *Tasman Crossing*: every force allocation offers the
+  whole roster and the same 52 ship classes and the Canberra-class LHD, with
+  the 10 allied aircraft types its missions can fly; the windows before it
+  keep the story's own lists *(20 and 21 October 2026; allied escorts only
+  on the 20th)*.
 - An optional defector escort (*The Twelve-Mile Line*).
 - Every position checked against a real coastline, so ships start afloat in
   narrow water.
@@ -105,8 +109,12 @@ experience carry forward from mission to mission.
   class and navy for you to find, and label the coalition units you must not
   fire on *(20 October 2026)*.
 - Written to fit the other two campaigns' story whatever happens in it.
-- The PLAN's own Type 901 and Type 903A replenishment ships on sale from the
-  first force allocation *(21 October 2026)*.
+- Open Allocation from the first force allocation: every force allocation
+  offers the whole roster - the northern and southern hulls, the Y-9,
+  KJ-500, J-15 and J-15D - and the PLAN's own Type 901 and Type 903A
+  replenishment ships *(21 October 2026)*. An aircraft flies only where a
+  mission tasks it: a fixed-wing one bought in the window before *The Quiet
+  Side*, the last mission, never flies, and the window says so.
 - Its own PLAN navy emblem on the commander screen.
 
 ### Sulu Line — The Island Road *(new, October 2026)*
@@ -141,12 +149,14 @@ experience carry forward from mission to mission.
 
 ### In every campaign
 - **Open Allocation versions retired** *(21 October 2026)*: each campaign is
-  listed once. What the versions sold beyond the story's own list is in the
-  standard campaigns now - the allied fleet from *Weapons Free* and *Tasman
-  Crossing*, the PLAN's supply ships from Red Line's first force allocation;
-  Sulu Line's sold nothing more. A campaign under way in one cannot be
-  continued: start the standard campaign. The builder keeps them for a
-  world-wide campaign.
+  listed once, because the standard campaigns now do what the versions did -
+  from *Weapons Free*, *Tasman Crossing* and Red Line's first force
+  allocation every force allocation offers the whole roster with the allied
+  fleet or the PLAN's supply ships. Sulu Line's story already sells its
+  whole roster from *Service at Sea*, and its version sold nothing more. A
+  campaign under way in a version cannot be continued: start the standard
+  campaign. A standard campaign already under way may keep its old windows:
+  start it again. The builder keeps the versions for a world-wide campaign.
 - **Position your force before each mission:** a blue Deployment Zone round
   your ships, with Formation or Dispersed. It reaches up to 28 NM back and to
   the sides (a 3 NM margin round the ships, then up to 25 NM more), and only

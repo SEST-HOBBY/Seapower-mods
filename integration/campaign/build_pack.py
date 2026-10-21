@@ -283,13 +283,60 @@ def campaign_rules(spec, open_allocation=False, allied=0):
     t = t[:start] + indent.join(lines) + t[end:]
     held = (", except what the story sells only at its own windows"
             if spec.get("OPEN_HOLD") else "")
+    import mission_depth
+    nation = re.search(r"^CommanderNations=(.+)$", spec["COMMANDER"], re.M).group(1).strip()
+    priced = {e["unit"]: e for e in spec["ROSTER"]}
+    buying = sorted((m for m in spec.get("MISSIONS", []) if m.get("window", {}).get("buy")),
+                    key=mission_depth._when)
+    first = buying[0] if buying else None
+    # The campaign's own opening (mission_depth.open_from; 21 Oct 2026, step
+    # 2 of "Build open allocation into standard campaign"): from that window
+    # every force allocation offers the whole roster and the fleet the
+    # reserve admits, as the twin did from the first, and the availability
+    # line says so in place of "only what the window allows".
+    opening = None if open_allocation else mission_depth.open_from(spec)
+    reserve = (mission_depth.reserve_offer(spec)
+               if spec.get("RESERVE_OPENS") and not open_allocation else [])
+
+    def reserve_notes(units):
+        """What the availability and reserve lines say of `units`: their
+        prices, carriers' and amphibious ships' empty decks, and where an
+        allied aircraft is sold."""
+        notes = []
+        if any(mission_depth._navy(priced[u]) != nation for u in units):
+            notes.append("Allied classes cost their own navies' listed prices, without "
+                         "the same-nation discount.")
+        # A deck of more than four is a carrier's or an amphibious ship's
+        # (Galicia 6 to Ford 90); an escort's flight is one to three.
+        if any(unit_type(u) == "Vessel" and deck_size(u) > 4 for u in units):
+            notes.append("Carriers and amphibious ships come without aircraft, as "
+                         "every ship bought here does.")
+        if spec.get("RESERVE_AIR"):
+            notes.append("An allied aircraft is sold only where some mission here "
+                         "can launch and recover it.")
+        return notes
+
+    if open_allocation:
+        availability = (f'- Open Allocation: every force allocation offers the whole campaign '
+                        f'roster{", the allied fleet included," if allied else ","} from the '
+                        f'first{held}. Some operations still limit what sails.')
+    elif opening is not None:
+        units = next((u for m, u in reserve if m is opening), [])
+        whole = ("- Every force allocation offers the whole roster" if opening is first else
+                 f"- Force allocations before {opening['key']} offer what the story releases. "
+                 f"From the force allocation before {opening['key']}, every force allocation "
+                 "offers the whole roster")
+        said = [whole + (" and " + mission_depth.reserve_phrase(spec, units) if units else "")
+                + "."]
+        said += [n for n in reserve_notes(units) if not n.startswith("Allied classes")]
+        said.append("Some operations still limit what sails.")
+        availability = " ".join(said)
+    else:
+        availability = ("- Unit availability changes between missions: Task Force Builder "
+                        "offers only what the current force-allocation window allows.")
     swap('Text="- Unit availability can change between missions. Japanese units, for '
          'example, may not be available after leaving Japanese waters."',
-         (f'Text="- Open Allocation: every force allocation offers the whole campaign '
-          f'roster{", the allied fleet included," if allied else ","} from the first{held}. '
-          'Some operations still limit what sails."' if open_allocation else
-          'Text="- Unit availability changes between missions: Task Force Builder offers '
-          'only what the current force-allocation window allows."'), "availability line")
+         f'Text="{_xml_text(availability)}"', "availability line")
     # The allied reserve (mission_depth.apply_reserve), said once on the
     # story page: the Unit Catalog lists the whole roster file from the first
     # window, reserve classes included, and this is what says when they are
@@ -298,31 +345,24 @@ def campaign_rules(spec, open_allocation=False, allied=0):
     # carrier, amphibious ship or tanker was sold; the whole fleet is now,
     # counted by navy (mission_depth.reserve_phrase), and Red Line's line
     # names the PLAN's own two supply ships without calling them allied.
-    if spec.get("RESERVE_OPENS") and not open_allocation:
-        import mission_depth
-        nation = re.search(r"^CommanderNations=(.+)$", spec["COMMANDER"], re.M).group(1).strip()
-        buying = [m for m in spec["MISSIONS"] if m.get("window", {}).get("buy")]
-        first = min(buying, key=mission_depth._when) if buying else None
-        priced = {e["unit"]: e for e in spec["ROSTER"]}
-        at = t.index("/>", t.index('Text="- Unit availability changes between missions')) + 2
-        for m, units in reversed(mission_depth.reserve_offer(spec)):
-            allied = any(mission_depth._navy(priced[u]) != nation for u in units)
-            said = [("Every force allocation also sells " if m is first else
-                     f"Every force allocation from the one before {m['key']} also sells ")
-                    + mission_depth.reserve_phrase(spec, units) + "."]
-            if m is not first:
-                said.append("The Unit Catalog lists them from the start.")
-            if allied:
-                said.append("Allied classes cost their own navies' listed prices, without "
-                            "the same-nation discount.")
-            # A deck of more than four is a carrier's or an amphibious ship's
-            # (Galicia 6 to Ford 90); an escort's flight is one to three.
-            if any(unit_type(u) == "Vessel" and deck_size(u) > 4 for u in units):
-                said.append("Carriers and amphibious ships come without aircraft, as "
-                            "every ship bought here does.")
-            if spec.get("RESERVE_AIR"):
-                said.append("An allied aircraft is sold only where some mission here "
-                            "can launch and recover it.")
+    # The fleet the campaign's opening sells is said in the availability
+    # line above (step 2, the same day), and only its prices, the catalogue
+    # and the named hulls here; a class RESERVE opens elsewhere keeps the
+    # line of its own.
+    if reserve:
+        at = t.index("/>", t.index(f'Text="{_xml_text(availability)}"')) + 2
+        for m, units in reversed(reserve):
+            if m is opening:
+                said = (["The Unit Catalog lists all of it from the start."]
+                        if m is not first else [])
+                said += [n for n in reserve_notes(units) if n.startswith("Allied classes")]
+            else:
+                said = [("Every force allocation also sells " if m is first else
+                         f"Every force allocation from the one before {m['key']} also sells ")
+                        + mission_depth.reserve_phrase(spec, units) + "."]
+                if m is not first:
+                    said.append("The Unit Catalog lists them from the start.")
+                said += reserve_notes(units)
             said.append("No hull a mission names is sold.")
             t = t[:at] + indent + line.format(_xml_text("- " + " ".join(said)), 5) + t[at:]
     swap('Text="- Ships purchased in Task Force Builder include their airwing for free, and '
@@ -331,9 +371,14 @@ def campaign_rules(spec, open_allocation=False, allied=0):
          'Text="- Ships purchased in Task Force Builder come without aircraft. Helicopters '
          'and aircraft are bought separately, and replacements must be bought if aircraft '
          'are lost."', "airwing line")
-    # All four campaigns sell a helicopter in their first window and add
+    # All four campaigns sell a helicopter in their first window and added
     # fixed-wing types from the second (checked 27 Sep), so the stock
-    # helicopter and fixed-wing lines stand as written.
+    # helicopter and fixed-wing lines stood as written. Red Line's first
+    # window offers the whole roster since 21 Oct 2026, the Y-9, KJ-500,
+    # J-15 and J-15D with it, so the fixed-wing line is read off the first
+    # window's list now (a window with none sells the whole roster).
+    first_sale = ((first["window"].get("allow") or list(priced)) if first else [])
+    fixed_first = any(unit_type(u) in ("Aircraft", "VTOL") for u in first_sale)
     swap('Text="- Helicopters are available immediately at campaign start. Each ship will '
          'show its supported aircraft in Task Force Builder."',
          ('Text="- Helicopters and fixed-wing aircraft are on sale from the first force '
@@ -348,6 +393,12 @@ def campaign_rules(spec, open_allocation=False, allied=0):
              'before any mission can use them.'
              + (' Allied aircraft are sold only where some mission here can launch and '
                 'recover them.' if allied else '') + '"', "fixed-wing line")
+    elif fixed_first:
+        swap('Text="- Fixed-wing aircraft are not available for purchase at the start of '
+             'the campaign, but become available later on."',
+             'Text="- Fixed-wing aircraft are on sale from the first force allocation. Each '
+             'flies only in a mission whose air tasking takes it."',
+             "fixed-wing line")
     # No roster sells a submarine: the game's task force cannot take a bought
     # one (in-game check, 13 Oct - allied_fleet.py), and roster_ini() refuses
     # it. The Open Allocation twins sold thirteen until then, and this line
@@ -397,16 +448,19 @@ def campaign_rules(spec, open_allocation=False, allied=0):
 # Campaign (integration/world-sandbox, a Dynamic Campaign Mod campaign with
 # its own buy list) should it want allied_fleet.py's priced lists. Every
 # campaign shipped a twin from 27 Sep to 21 Oct 2026; the owner retired them
-# from the pack on 21 Oct and put what they sold beyond the roster in the
-# standard campaigns instead: the allied reserve (mission_depth.
-# apply_reserve) sells the whole allied fleet from Weapons Free and Tasman
-# Crossing, and Red Line's PLAN supply ships from its first window. Only
-# this twin path is dormant. A spec opts in with OPEN_ALLOCATION=True:
+# from the pack on 21 Oct and put what they sold in the standard campaigns
+# instead: from Weapons Free, Tasman Crossing and Red Line's first window
+# every force allocation offers the whole roster (mission_depth.open_from),
+# and the allied reserve (mission_depth.apply_reserve) adds the allied
+# fleet, or in Red Line the PLAN's supply ships. The windows before those
+# keep the story's lists. Only this twin path is dormant. A spec opts in with OPEN_ALLOCATION=True:
 # open_allocation_twin() and write_open_twin() then build and write
 # campaigns/<slug>-open, and tools/check_campaign_coverage.py holds it to
 # open_twin(). No spec in the pack sets it, and the tests build a twin into
 # a temporary folder so the code and OPEN_HOLD stay checked against the
-# shipped campaigns.
+# shipped campaigns. A spec that also sets RESERVE_FLEET is refused
+# (mission_depth.apply_reserve, review of 21 Oct 2026): its twin would be
+# built from windows already open and quote their sentence as the story's.
 OPEN_SUFFIX = "-open"
 # The window's own situation follows the note unchanged: it still says what
 # sails, what is rearmed and where the next window is, and what it says is on
@@ -6650,6 +6704,10 @@ def print_reserve(spec):
         print(f"{TITLE}: the reserve sells {len(units)} unit(s) from "
               f"{mission_depth.code_of(m)} {m['key']}: {len(units) - air} ship(s), "
               f"{air} aircraft")
+    opening = mission_depth.open_from(spec)
+    if opening is not None:
+        print(f"{TITLE}: every force allocation from {mission_depth.code_of(opening)} "
+              f"{opening['key']} offers the whole roster, {len(spec['ROSTER'])} unit(s)")
     left = spec.get("RESERVE_LEFT_OUT", [])
     if left:
         print(f"{TITLE}: {len(left)} reserve unit(s) left out:")
@@ -7238,6 +7296,29 @@ def reserve_report(spec):
     for m, units in mission_depth.reserve_offer(spec):
         planes = sum(1 for u in units if unit_type(u) in air)
         L.append(f"| {mission_code(m)} {m['key']} | {len(units) - planes} | {planes} |")
+    # Step 2 (21 Oct 2026): from the campaign's opening each force
+    # allocation offers the whole roster, not the story's list with the
+    # reserve after it. Every buy window is counted, so the record shows
+    # where the story's lists end.
+    opening = mission_depth.open_from(spec)
+    if opening is not None:
+        buying = [m for m in sorted(spec["MISSIONS"], key=mission_depth._when)
+                  if m.get("window", {}).get("buy")]
+        # Red Line opens at its first force allocation, so no window comes
+        # before it to keep the story's list (review of 21 Oct 2026; the
+        # rules page's availability line already said so).
+        before = ("" if buying and opening is buying[0] else
+                  "; the ones before it offer what the story releases")
+        L += ["", f"From the force allocation before {mission_code(opening)} "
+              f"{opening['key']}, every force allocation offers the whole roster - the "
+              "campaign's own units with the reserve - as the Open Allocation version "
+              f"did from the first (`mission_depth.open_offer`){before}. Units each "
+              "force allocation offers:", "",
+              "| window before | units | whole roster |", "|---|---|---|"]
+        for m in buying:
+            n = len(m["window"].get("allow") or spec["ROSTER"])
+            whole = "yes" if mission_depth.open_offer(spec, m) is not None else "no"
+            L.append(f"| {mission_code(m)} {m['key']} | {n} | {whole} |")
     left = spec.get("RESERVE_LEFT_OUT", [])
     if left:
         L += ["", f"Not sold ({len(left)}):", "", "| unit | why |", "|---|---|"]

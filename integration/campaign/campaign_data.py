@@ -479,7 +479,11 @@ ROSTER = [
 # launches and recovers it (build_pack.admit_reserve_aircraft).
 # mission_depth.apply_reserve() takes off any hull a mission places, here or
 # in another campaign, and leaves out a class with none left (HMAS Choules
-# and the Supply-class AOR).
+# and the Supply-class AOR). Later that day (step 2) the same window opened
+# the whole roster too: from Weapons Free every force allocation offers all
+# of the RAN's own units with the fleet, as the Open Allocation version did
+# from the first (mission_depth.open_from). BUY_05 to BUY_12 below are the
+# story's lists, which those windows sold until then.
 RESERVE_FLEET = dict(opens="SW05")
 
 # Australian commander, and Pacific Strike's own same-nation discount (0.2).
@@ -5247,6 +5251,11 @@ STRIKE_FORD = STRIKE + "/SEAD"
 # stages, so each purchase window names what is actually available then -
 # rendered into TaskForceModeAllowedRosterUnits, which Pacific Strike uses
 # eleven times for exactly this. The variants come from ROSTER, never restated.
+# Until Weapons Free (owner's decision, 21 Oct 2026): from that window every
+# force allocation offers the whole roster with the allied fleet
+# (RESERVE_FLEET above). BUY_05 to BUY_12 stay as the story wrote them - what
+# those windows sold until then, and what a build without RESERVE_FLEET
+# would sell - and the notes on them below are the story's reasons.
 ESCORTS = ["ran_ffh_anzac", "ran_opv_arafura", "ran_mh-60r"]
 AIR_EARLY = ["usn_p8", "raaf_f-35a"]
 AIR_LATE = ["usn_fa-18f_blk3", "E7A_Wedgetail", "usn_ea-18g",
@@ -5278,7 +5287,9 @@ BUY_09 = BUY_07
 BUY_11 = [u for u in BUY_09
           if u not in ("ran_mh-60r", "E7A_Wedgetail", "raaf_mq-4c_triton")]
 # SW12 replaces aircraft and repairs hulls; it does not sell new ones. That
-# was a comment above the window until the allowlist made it a rule.
+# was a comment above the window until the allowlist made it a rule, and the
+# rule until 21 Oct 2026, when the window was opened with the rest from
+# Weapons Free.
 # The finale sells what its rows can fly - a CAP row for the fighters, the
 # helicopter and patrol rows - and, after a fleet action that sails the whole
 # force, a replacement hull or two. No Growler: there is no Attack row.
@@ -5358,21 +5369,24 @@ WINDOWS = {
     # The Japanese ASW pair are the detachment's own; the player's Seahawks
     # arrive with the ships they are assigned to. One patrol slot.
     "10": dict(rearm_if=("SW09ServiceHeld", "IsTrue"), flights=[RECON]),
+    # Until 21 Oct 2026 this said only ships, fighters and strike aircraft
+    # were offered here, which was BUY_11; the window offers the whole
+    # roster now (RESERVE_FLEET), so it says what the carrier action tasks.
     "11": dict(buy=True, situation=(
-        "Assemble and service the whole force before the carrier action. Only ships, fighters "
-        "and strike aircraft are offered, the P-8 among them for its Harpoons: the carrier "
-        "action has no patrol or ship's-flight tasking. The Seahawk, the Wedgetail and the "
-        "Triton are offered again before The First Ship Through, with repairs and "
-        "replacement allocations."
+        "Assemble and service the whole force before the carrier action. It tasks only "
+        "ships, fighters and strike aircraft, the P-8 among them for its Harpoons: there is "
+        "no patrol or ship's-flight tasking. Repairs and replacement allocations follow "
+        "before The First Ship Through."
     ), allow=BUY_11, repair=True,
            rearm=True, flights=[CAP, STRIKE_FORD]),
     # Aircraft replacement and repair only: no new hulls, no general rearm.
     # The finale flies what it sells: a CAP row for the fighters (Darwin is
-    # the placed field), the helicopter and patrol rows.
+    # the placed field), the helicopter and patrol rows. Since 21 Oct 2026
+    # the window offers the whole roster (RESERVE_FLEET), new hulls among
+    # it, and no longer says "replacement aircraft and escorts".
     "12": dict(buy=True, situation=(
-        "Final force allocation: replacement aircraft and escorts, with repairs where required."
-        " No ammunition resupply is available; plan the passage around the magazines remaining "
-        "after the fleet action."
+        "Final force allocation, with repairs where required. No ammunition resupply is "
+        "available; plan the passage around the magazines remaining after the fleet action."
     ), allow=BUY_12, repair=True,
            flights=[HELO, RECON, CAP], airbase_prep=True),
 }

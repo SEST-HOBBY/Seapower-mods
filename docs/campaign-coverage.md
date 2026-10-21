@@ -252,6 +252,18 @@ What this campaign sells beside its own roster from a window its story names (`m
 |---|---|---|
 | 05 Weapons Free | 53 | 19 |
 
+From the force allocation before 05 Weapons Free, every force allocation offers the whole roster - the campaign's own units with the reserve - as the Open Allocation version did from the first (`mission_depth.open_offer`); the ones before it offer what the story releases. Units each force allocation offers:
+
+| window before | units | whole roster |
+|---|---|---|
+| 01 White Water | 3 | no |
+| 02 Steel Highway | 5 | no |
+| 03 Rig Seventeen | 5 | no |
+| 05 Weapons Free | 82 | yes |
+| 09 Southern Lifeline | 82 | yes |
+| 11 Fujian's Shadow | 82 | yes |
+| 12 The First Ship Through | 82 | yes |
+
 Not sold (21):
 
 | unit | why |

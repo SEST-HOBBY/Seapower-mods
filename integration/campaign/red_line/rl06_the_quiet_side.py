@@ -154,12 +154,18 @@ MISSION = dict(
              "Restraint": ("spare", "red_air"),
              "Frigate": ("protect", "decoy")},
     declares=[],
+    # Since 21 Oct 2026 this window offers the whole roster (RESERVE_FLEET
+    # in tables.py), the Y-9, KJ-500, J-15 and J-15D among it, and this is
+    # the last operation with only the ship's flight to task: the text says
+    # so, as the owner accepted the version's offer rather than narrowing it.
     window=dict(buy=True, repair=True, rearm=True, allow=list(SOUTH_HULLS),
                 flights=[HELO],
                 situation=(
                     "The protection group's screen is at sea in the Tasman. A frigate or a "
                     "corvette can be allocated for the decoy station; the tender and Hull 334"
-                    " are allocated to this operation."
+                    " are allocated to this operation. The ship's flight is the only air "
+                    "tasking, and no operation follows this one: a fixed-wing aircraft "
+                    "allocated here will not fly."
                 )),
     role="patrol",
 )

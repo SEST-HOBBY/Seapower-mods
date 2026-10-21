@@ -295,17 +295,62 @@ def _when(m):
     return (m["date"], m.get("time") or (0, 0))
 
 
+def open_from(spec):
+    """The mission from whose force allocation the standard campaign is open,
+    or None: RESERVE_FLEET's opening. Step 2 of the owner's "Build open
+    allocation into standard campaign" (21 Oct 2026): from that window every
+    force allocation offers the whole roster, as the Open Allocation version
+    did from the first, with the fleet the reserve admits (open_offer). The
+    windows before it keep the story's own lists."""
+    whole = spec.get("RESERVE_FLEET")
+    if not whole or "MISSIONS" not in spec:
+        return None
+    return next((m for m in spec["MISSIONS"] if code_of(m) == whole["opens"]), None)
+
+
+def open_offer(spec, m):
+    """What the force allocation before `m` offers from the opening
+    (open_from): every unit on the roster, in roster order, as an Open
+    Allocation twin's window listed them (build_pack.open_allocation_ini) -
+    but a reserve unit only from its own opening, which a class RESERVE
+    names may set later than the fleet's. None for a window before the
+    opening, or in a campaign with none. build_pack writes the line with
+    allowed_roster_units(), so every priced variant is on offer."""
+    start = open_from(spec)
+    if start is None or _when(m) < _when(start):
+        return None
+    by_code = {code_of(x): x for x in spec["MISSIONS"]}
+    opens = spec.get("RESERVE_OPENS", {})
+    return [e["unit"] for e in spec["ROSTER"]
+            if e["unit"] not in opens or _when(m) >= _when(by_code[opens[e["unit"]]])]
+
+
 def _open_windows(spec, units):
     """Put `units` (reserve units on the roster) on sale at every buy window
-    from each one's opening. A new list, never extended in place:
-    campaign_data's windows share theirs (BUY_03 is BUY_02, BUY_09 is
-    BUY_07), and one extended would open the reserve a window early. Adding
-    only what is missing makes a second call change nothing."""
+    from each one's opening, and from the campaign's opening (open_from)
+    open every buy window to the whole roster (open_offer). A new list,
+    never extended in place: campaign_data's windows share theirs (BUY_03
+    is BUY_02, BUY_09 is BUY_07), and one extended would open the reserve a
+    window early. Adding only what is missing, and setting an open window's
+    list only when it differs, makes a second call change nothing.
+
+    An open window's own list is replaced, not added to: until 21 Oct 2026
+    (step 1) the reserve was added after the story's list, so the window
+    before Fujian's Shadow sold no Seahawk, Wedgetail or Triton, and Red
+    Line's Y-9, KJ-500, J-15 and J-15D waited for the windows its story
+    released them at. The story's lists stay in the campaign's data as
+    what a build without RESERVE_FLEET sells, and the windows before the
+    opening still sell them."""
     by_code = {code_of(m): m for m in spec["MISSIONS"]}
     opens = spec["RESERVE_OPENS"]
     for m in spec["MISSIONS"]:
         w = m.get("window", {})
         if not w.get("buy"):
+            continue
+        offer = open_offer(spec, m)
+        if offer is not None:
+            if w.get("allow") != offer:
+                w["allow"] = offer
             continue
         selling = [u for u in units if _when(m) >= _when(by_code[opens[u]])]
         if w.get("allow") and any(u not in w["allow"] for u in selling):
@@ -334,7 +379,10 @@ def apply_reserve(specs):
     amphibious and replenishment ships and allied aircraft with the escorts
     - and in Red Line, whose commander calls on no allies, the PLAN's own
     Type 901 and 903A from the first force allocation. Earlier windows keep
-    the story's own lists.
+    the story's own lists. The same day (step 2) each window from the
+    RESERVE_FLEET opening was opened to the whole roster as well, the
+    campaign's own units with the fleet, which is what the twins sold at
+    every window (open_from, open_offer).
 
     Each entry, price and note is allied_fleet's. A hull any mission of any
     campaign places is never sold, and an entry left with none is set aside
@@ -367,9 +415,22 @@ def apply_reserve(specs):
             continue
         named = list(spec.get("RESERVE", []))
         whole = spec.get("RESERVE_FLEET")
+        # A twin built from a campaign already open from its opening would
+        # quote the open windows' sentence as "the story's allocation", and
+        # its rules line would leave out the fleet the reserve has moved onto
+        # the roster (review of 21 Oct 2026). The standard campaign does what
+        # the twin did from there, so a spec takes one or the other.
+        if whole and spec.get("OPEN_ALLOCATION"):
+            raise SystemExit(f"{spec['TITLE']}: OPEN_ALLOCATION and RESERVE_FLEET are both "
+                             f"set - the standard campaign is open from {whole['opens']}, "
+                             "and a twin built from it would repeat its words as the "
+                             "story's; set one")
         if not named and not whole:
             continue
         by_code = {code_of(m): m for m in spec["MISSIONS"]}
+        if whole and whole["opens"] not in by_code:
+            raise SystemExit(f"{spec['TITLE']}: RESERVE_FLEET opens at {whole['opens']}, "
+                             "which is not one of its missions")
         fleet = {e["unit"]: e for e in spec.get("ALLIED_FLEET", [])}
         on_roster = {e["unit"] for e in spec["ROSTER"]}
         reserve = named + ([dict(unit=e["unit"], opens=whole["opens"])
@@ -407,8 +468,10 @@ def apply_reserve(specs):
         for m in spec["MISSIONS"]:
             w = m.get("window", {})
             # An open builder with no allowlist sells the whole roster, and
-            # the reserve with it, whatever the story says.
-            if latest and w.get("buy") and not w.get("allow") and _when(m) < latest:
+            # the reserve with it, whatever the story says. From the
+            # campaign's opening every window is given its list here.
+            if (latest and w.get("buy") and not w.get("allow") and _when(m) < latest
+                    and open_offer(spec, m) is None):
                 raise SystemExit(f"{spec['TITLE']}: {code_of(m)}'s window has no allowlist, "
                                  "so it sells the allied reserve before the reserve opens")
         _open_windows(spec, [e["unit"] for e in spec["ROSTER"] if e["unit"] in opens])
@@ -418,7 +481,7 @@ def admit_aircraft(spec, kept, dropped):
     """The held reserve aircraft (RESERVE_AIR) after build_pack has judged
     them on the built missions: `kept` go on the roster and on sale from
     their opening, `dropped` [(entry, why)] join RESERVE_LEFT_OUT."""
-    if not spec.get("RESERVE_OPENS"):
+    if "RESERVE_OPENS" not in spec:
         return
     on_roster = {e["unit"] for e in spec["ROSTER"]}
     for e in kept:
@@ -433,8 +496,12 @@ def admit_aircraft(spec, kept, dropped):
 def say_reserve(spec):
     """Each window from an opening says what the reserve sells there, once,
     from what the roster sells: build_pack's main() calls it after
-    admit_aircraft(), before the spine is written."""
-    if not spec.get("RESERVE_OPENS"):
+    admit_aircraft(), before the spine is written. A window from the
+    campaign's opening (open_from) says it offers the whole roster with the
+    fleet (21 Oct 2026, step 2); until then each added "Also on sale here"
+    after the story's list, as a window before the opening still would for
+    a class RESERVE opens early."""
+    if "RESERVE_OPENS" not in spec:
         return
     by_code = {code_of(m): m for m in spec["MISSIONS"]}
     opens = spec["RESERVE_OPENS"]
@@ -445,9 +512,15 @@ def say_reserve(spec):
         if not w.get("buy") or w.get("_reserve_said"):
             continue
         selling = [e for e in units if _when(m) >= _when(by_code[opens[e["unit"]]])]
-        if selling:
-            prices = (", at their own navies' prices"
-                      if any(_navy(e) != nation for e in selling) else "")
+        allied = any(_navy(e) != nation for e in selling)
+        if open_offer(spec, m) is not None:
+            said = " This force allocation offers the campaign's whole roster"
+            if selling:
+                said += ((" and, at their own navies' prices, " if allied else " and ")
+                         + reserve_phrase(spec, [e["unit"] for e in selling]))
+            w["situation"] = w.get("situation", "") + said + "."
+        elif selling:
+            prices = ", at their own navies' prices" if allied else ""
             w["situation"] = (w.get("situation", "") + f" Also on sale here{prices}: "
                               + reserve_phrase(spec, [e["unit"] for e in selling]) + ".")
         w["_reserve_said"] = True

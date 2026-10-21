@@ -95,6 +95,25 @@ What this campaign sells beside its own roster from a window its story names (`m
 |---|---|---|
 | TS04 Tasman Crossing | 53 | 10 |
 
+From the force allocation before TS04 Tasman Crossing, every force allocation offers the whole roster - the campaign's own units with the reserve - as the Open Allocation version did from the first (`mission_depth.open_offer`); the ones before it offer what the story releases. Units each force allocation offers:
+
+| window before | units | whole roster |
+|---|---|---|
+| SR01 Southern Departure | 3 | no |
+| SR03 Search Datum | 5 | no |
+| SR04 Macquarie Passage | 6 | no |
+| SR07 Beneath the South | 6 | no |
+| SR08 The Gateway | 6 | no |
+| SR09 Cold Route | 6 | no |
+| SR12 Turning North | 7 | no |
+| TS01 Home Waters | 8 | no |
+| TS04 Tasman Crossing | 73 | yes |
+| TS06 Bass Strait | 73 | yes |
+| TS07 Southern Air Bridge | 73 | yes |
+| TS09 The Southern Convoy | 73 | yes |
+| TS11 Approaches | 73 | yes |
+| TS12 Southern Cross | 73 | yes |
+
 Not sold (30):
 
 | unit | why |

@@ -139,7 +139,12 @@ ROSTER = [
 # JS Mogami (Variant1) and Daegu (Variant1) sail in Southern Watch's Common
 # Sea and O3 and Red Line's The Other Picture, and HMAS Choules and every
 # Supply-class AOR in this campaign or Southern Watch, so those two classes
-# are left out (mission_depth.apply_reserve).
+# are left out (mission_depth.apply_reserve). Later that day (step 2) the
+# same window opened the whole roster too: from Tasman Crossing every force
+# allocation offers all of the RAN's own units with the fleet, as the
+# version did from the first (mission_depth.open_from). The missions' own
+# lists from TS04 are the story's, which those windows sold until then;
+# Southern Cross's sold no Hobart.
 RESERVE_FLEET = dict(opens="TS04")
 
 # The same RAN ladder Southern Watch uses (the base game's own, from Pacific

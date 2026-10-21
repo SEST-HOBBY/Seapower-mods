@@ -178,8 +178,14 @@ about 265.
   RL05 and RL06 are proved by the build; RL06's cray boat is the nearest,
   10.3 NM off.
 - *Rosters and rows.* `check_flights` passes, and every airframe on sale in a
-  window has a row in that window it can fly: the Z-9C everywhere, the Y-9 in
-  RL02 and RL03, the KJ-500 in RL03, the J-15 and J-15D in RL03.
+  window had a row in that window it could fly: the Z-9C everywhere, the Y-9 in
+  RL02 and RL03, the KJ-500 in RL03, the J-15 and J-15D in RL03. (21 Oct
+  2026, step 2 of "Build open allocation into standard campaign": no longer.
+  Every window offers the whole roster, so RL01 sells the Y-9, KJ-500, J-15
+  and J-15D with only the ship's flight to task, RL02 the J-15 and J-15D
+  with no CAP row, and RL06 all four with only the ship's flight and no
+  operation after it: one bought there never flies, and the window says so.
+  `check_flights` and `check_purchased_recovery` still pass, unchanged.)
 - *Art.* Every path `campaign.ini` and the page and briefing XML name exists;
   `check_campaign_coverage.py` reports nothing dangling.
 
@@ -645,18 +651,19 @@ window, the PLAN's own Type 901 and 903A replenishment ships
 (`allied_fleet.PLAN_SUPPORT`, which this commander calls on in place of an
 allied fleet), and the standard campaign now sells both from Trailing
 Contact's window, at every force allocation after it - RL02, RL03 and
-RL06 (`RESERVE_FLEET = dict(opens="RL01")` in `red_line/tables.py`). The
-story's own lists are as they were: the version's other gift, the Y-9,
-KJ-500, J-15 and J-15D at the first window, is not part of this (they
-were on the roster already and stay on sale where the story sells them).
+RL06 (`RESERVE_FLEET = dict(opens="RL01")` in `red_line/tables.py`). In
+this first step the story's own lists stayed as they were: the version's
+other gift, the Y-9, KJ-500, J-15 and J-15D at the first window, was not
+part of it (they were on the roster already, on sale where the story sold
+them). Step 2, below, gave that too.
 
 - **The PLAN's own, not allied.** Both are registered to China, so they
-  take the same-nation discount (901 at 160, 903A at 120). The window
-  text says "Also on sale here: the People's Liberation Army Navy's Type
-  901 Fuyu fast combat support ship and Type 903A Fuchi replenishment
-  oiler", and the rules page "Every force allocation also sells" the same,
-  with no "allied" anywhere (`mission_depth.reserve_phrase` names the
-  commander's own navy's classes; `RulesPage` holds it).
+  take the same-nation discount (901 at 160, 903A at 120). Until step 2,
+  below, the window text said "Also on sale here: the People's Liberation
+  Army Navy's Type 901 Fuyu fast combat support ship and Type 903A Fuchi
+  replenishment oiler", and the rules page "Every force allocation also
+  sells" the same, with no "allied" anywhere (`mission_depth.reserve_phrase`
+  names the commander's own navy's classes; `RulesPage` holds it).
 - **Named hulls.** Variant1 of each is a ship a mission places - *The
   Order to Withdraw*'s Hulunhu, Southern Reach's Taihu and Hulunhu - so the
   901 sells one hull (Variant2) and the 903A three (Variant2 to 4). The
@@ -673,3 +680,31 @@ were on the roster already and stay on sale where the story sells them).
 
 Southern Watch build notes, "21 October: the allied fleet in the standard
 campaigns", has the mechanism.
+
+### Step 2: the whole roster from the first window (21 October, later)
+
+The same window then opened the whole roster, as the Open Allocation
+version did, and Trailing Contact's window is Red Line's first: every
+force allocation - RL01, RL02, RL03 and RL06 - now offers all eleven
+units, every priced variant: the 054A, Luda, Sovremenny, 056A, Z-9C, Y-9,
+KJ-500, J-15, J-15D and the two supply ships (6, 7, 10 and 5 units
+before). The story split its hulls by theatre - `NORTH_HULLS` in the
+Banda, `SOUTH_HULLS` in the Tasman - and released the aircraft as their
+rows arrived; the version sold everything everywhere, and the owner
+accepted the version's behaviour, so the standard campaign follows it. A
+Sovremenny can be bought for the south and a 056A in the north, and a
+J-15 at RL01, two windows before RL03's CAP row can fly it. RL06, the last
+operation, tasks only the ship's flight, so a Y-9, KJ-500, J-15 or J-15D
+bought there never flies; its window text says so ("The ship's flight is
+the only air tasking, and no operation follows this one: a fixed-wing
+aircraft allocated here will not fly"), as the owner kept the version's
+offer rather than narrowing it. The lists stay in `red_line/tables.py` as
+the story's. Each window's text ends "This
+force allocation offers the campaign's whole roster and the People's
+Liberation Army Navy's Type 901 Fuyu fast combat support ship and Type
+903A Fuchi replenishment oiler", with nothing called allied; the rules
+page says every force allocation offers the whole roster and those two
+ships, and that fixed-wing aircraft are on sale from the first force
+allocation, in place of the stock "not available at the start". The
+roster notes no longer say "north only" or "south only". Test card 3.1 to
+3.6 and 3.10; Southern Watch build notes, "Step 2".

@@ -7,9 +7,11 @@ Line, whose commander calls on PLAN_SUPPORT below, from its first force
 allocation. The owner decided it on 21 Oct 2026, retiring the Open
 Allocation twins, which had sold all of it beside the roster from the first
 window; until then the reserve sold eleven escort classes in Southern Watch
-and three in Southern Reach, and the rest was the twins' alone. The
-reserve sells no hull a mission places, and an allied aircraft only where
-a row launches and recovers it (build_pack.admit_reserve_aircraft). Only
+and three in Southern Reach, and the rest was the twins' alone. From the
+same windows the standard campaigns offer the whole roster with it, as the
+twins did (mission_depth.open_from). The reserve sells no hull a mission
+places, and an allied aircraft only where a row launches and recovers it
+(build_pack.admit_reserve_aircraft). Only
 the twin path is dormant: a world-wide Task Force Mode campaign could opt
 in to OPEN_ALLOCATION, and the SEST World Campaign could draw on this as a
 curated, in-service-in-2028 list (build_pack.py, "open allocation").

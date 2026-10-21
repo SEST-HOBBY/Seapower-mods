@@ -110,6 +110,23 @@ FLEET_ON_SALE = ("retired by the owner on 21 Oct 2026: the standard campaigns se
                  "them, and Red Line's Type 901 and 903A from its first force allocation "
                  "(Southern Watch build notes, '21 October: the allied fleet in the standard "
                  "campaigns')")
+# Step 2 of the same decision, later that day: from those windows every force
+# allocation offers the whole roster, as the versions did, not the story's
+# list with the fleet after it. Held in the player's text, the rules pages,
+# the built spines and rosters (window words and roster notes), the test
+# cards and Red Line's tables, where step 1's words said the story still
+# released the campaign's own units after the opening.
+WHOLE_ROSTER = ("retired by the owner on 21 Oct 2026 (step 2): from Weapons Free, Tasman "
+                "Crossing and Red Line's first force allocation every force allocation offers "
+                "the whole roster with the fleet, as the Open Allocation versions did; only the "
+                "windows before keep the story's lists (Southern Watch build notes, 'Step 2: "
+                "the whole roster from the opening')")
+WHOLE_ROSTER_TEXT = PLAYER_TEXT + RULES_PAGES + [
+    "integration/*/SEST_*/campaigns/*/campaign.ini",
+    "integration/*/SEST_*/campaigns/*/player_task_force_roster.ini",
+    "docs/campaigns/*/test-card.md",
+    "integration/campaign/red_line/tables.py",
+]
 
 # (regex, globs, why[, WRAPPED])
 STALE = [
@@ -159,6 +176,18 @@ STALE = [
      r"|No carriers, amphibious ships, tankers or allied aircraft"
      r"|Allied escorts are on sale from the force allocation",
      PLAYER_TEXT + RULES_PAGES, FLEET_ON_SALE, WRAPPED),
+    (r"Only ships, fighters and strike aircraft are offered"
+     r"|the Wedgetail and the Triton are offered again"
+     r"|replacement aircraft and escorts, with repairs"
+     r"|there is \**no Seahawk, Wedgetail or Triton"
+     r"|the Sovremenny and Luda are not\b"
+     r"|on sale in the (north|south) only|; north only\b"
+     r"|stay on sale where the story sells them"
+     r"|Also on sale here|also sells the (allied fleet|People's Liberation)"
+     # The Steam Installing card's step 4, written 21 Oct 2026 when the
+     # versions were retired and true until step 2 (review of that day).
+     r"|the story releases your forces as it goes",
+     WHOLE_ROSTER_TEXT, WHOLE_ROSTER, WRAPPED),
 ]
 
 

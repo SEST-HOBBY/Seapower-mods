@@ -649,3 +649,13 @@ SEST packs from 12 to 13 (SEST F-35C JATM).
 
 How it is built, judged and worded: Southern Watch build notes, "21
 October: the allied fleet in the standard campaigns". Test card 2.11.
+
+Later the same day (step 2) the same window opened the whole roster: from
+the window before TS04 every force allocation offers all 73 units - the
+campaign's own ten with the fleet - as the version did from the first, so
+*Southern Cross*'s window, whose story list held back the Hobart, offers
+one (72 to 73; TS04 to TS11 were already 73). The windows before TS04 are
+as they were, and still sell nothing allied. Each window from TS04 ends
+"This force allocation offers the campaign's whole roster and, at their
+own navies' prices, the allied fleet - ...". Southern Watch build notes,
+"Step 2: the whole roster from the opening".
