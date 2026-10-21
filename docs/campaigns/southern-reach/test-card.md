@@ -135,6 +135,7 @@ are the signal, the log and the INTSUM tile (`bkg_tile_message.png`).
 | 2.8 | After TS09 | Both TS10A and TS10B offered; play one; after TS11 both are gone | Both still offered after TS11 = `ExpiresAfterMissionComplete=41` points at the wrong entry |
 | 2.9 | Before TS12 | Buy and repair, no rearm; after TS12 the campaign ends (`FinalMission`) | |
 | 2.10 | Any Recon row with a Poseidon bought | Kiwi 05's fields (Ohakea, Whenuapai, Invercargill, Christchurch) accept a RAAF Poseidon for recovery | A Poseidon that cannot recover in New Zealand = the range check accepted a field the game refuses |
+| 2.11 | A new campaign: every window to TS01, then before Tasman Crossing (TS04) | No allied hull until TS04; from TS04 to TS12 the Type 23, Mogami and Daegu at list price, and the window text names them. **No Mogami Variant1 (JS Mogami) or Daegu Variant1** at any window: other missions place both (20 Oct 2026) | An allied hull before TS04, or either named hull on offer = an old build |
 
 ## 3 — the consequences
 
@@ -205,6 +206,7 @@ browser copy is the same file.
 | 6.8 | Bring her into the box off Green Cape | Victory; the frigate turned away at wpC and never followed her in | The frigate follows her into the box = her route; report it |
 | 6.9 | Win it, then fly Southern Cross | The spoiler is identified at start with the Twofold Bay debrief intel | Not identified = `TS11ADefectorSafe` not set or not read |
 | 6.10 | Campaign map | The Twelve-Mile Line offered after the channel-sixteen page that follows Approaches, beside the Master's log page (MV Coral Pioneer, 28 February); gone once Southern Cross is complete; pays 60 once | Offered before Approaches, or still offered after Southern Cross = the expiry index |
+| 6.11 | The briefing, RECOGNITION | The 054A and Z-9C photos read "Opposition - do not fire first"; the corvette's reads "Your forces" | "Protected - do not engage" under either = an old build. Since 20 Oct 2026 a restraint that lifts reads so, because 6.7 allows what "do not engage" forbids |
 
 ## 7 — Sea Power 0.8.3
 

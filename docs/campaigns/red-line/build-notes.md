@@ -11,18 +11,20 @@ are theirs and are not repeated.
 
 | | |
 |---|---|
-| Campaign | `campaigns/sest-red-line/` — 6 missions, 4 story pages, 46 files |
-| Browser copies | every mission again under `missions/Red Line/` (31 files) |
-| Placed units | 69; RL05 and RL06's 12 positions proved against the coastline extract, RL01–RL04's 22 stations used as authored (below) |
-| Mods reached | 44 directly (`coverage.md`); the pack union with the other two campaigns reaches all 168 enabled mods and SEST packs (the 148 Workshop mods in the load order plus the 20 SEST source packs) |
-| Points | 560 across six missions; opening budget 1,000 (Supported 1,250 / Veteran 850), cap 1,500 (1,250 on Veteran) |
+| Campaign | `campaigns/sest-red-line/` — 9 missions (6 core, 2 optional, 1 contingency), 8 story pages, 122 files on 20 October 2026 (6 missions, 4 pages and 46 files when first built) |
+| Browser copies | every mission again under `missions/Red Line/` (99 files on 20 October; 31 at first) |
+| Placed units | 93 (69 before the side operations); 25 positions in RL05, RL06 and the three side operations proved against the coastline extracts, RL01–RL04's 22 stations used as authored (below) |
+| Mods reached | 58 directly on 20 October 2026 (`coverage.md`; 44 at first, 55 before the side operations); the pack union with the other two campaigns reaches all 168 enabled mods and SEST packs (the 148 Workshop mods in the load order plus the 20 SEST source packs) |
+| Points | 720: 560 across the six core missions and 160 for the side operations (60, 70, 30); opening budget 1,000 (Supported 1,250 / Veteran 850), cap 1,500 (1,250 on Veteran) |
 | The pack | `SEST_Campaign` now carries three campaigns and their Open Allocation twins, 676 files and 58 missions; the consolidated `SEST_Integration` was 766 files with Red Line (691 before), 1189 with the ported work (`../southern-reach/install-alignment.md`, §6), 1201 with The Twelve-Mile Line, 1203 on the 0.8.3 game files, 1265 with the combat systems (60 extend files, two systems files), 1257 once the PLAN Pack's own update took over its eight hulls, 1260 with the three campaigns' enemy rosters and their twins' copies, less the briefly retired Rafale F5 pack, 1264 with the Rafale F5 pack back (rebuilt on the French Air Force mod, 3758943352) and the four new mods, and 1266 with SETUP in the pack: the 4 October build, published as Workshop item 3812461539 |
 | The other campaigns | every mission file, story page and `campaign.ini` of Southern Watch and Southern Reach is byte-identical. Nine of their mission cards changed, on purpose (below) |
 
 The code is `integration/campaign/red_line/`: `__init__.py` (the spec, the
 calendar check, the variable audit), `tables.py` (modules, calendar, roster,
-Task Force settings, commander, air-tasking rows), `lore.py` (four pages) and
-`rl01_*.py` … `rl06_*.py`. The builder picks the package up by itself.
+Task Force settings, commander, air-tasking rows), `lore.py` (eight pages),
+`rl01_*.py` … `rl06_*.py`, and since 20 October 2026 the side operations
+`rlo1_datum.py`, `rlo2_the_ships_from_the_north.py` and
+`rlc1_pilot_in_the_water.py`. The builder picks the package up by itself.
 
 ## The builder features it uses
 
@@ -239,10 +241,16 @@ Nothing in this campaign has been run in the game. In the order to test
   RL02's "TYPE 054A P5 x4" for the frigate, the tanker and the flight.
 - **RL06's card** rings the decoy station, the first area the mission scores,
   as Southern Lifeline's and Cook Strait's cards ring their windows.
-- **Names the game will show.** ALPHA is `ran_ssg_collins` Variant6; a full
-  identification shows that hull's name, which no text uses. GOLF is
-  `usn_ssn_virginia_2027`; her class is what a classification shows, and no
-  page says whose she is. Meridian Harmony and Austral Compliance fly Panama.
+- **Names the game will show.** ALPHA is `ran_ssg_collins` Variant3 (Variant6
+  until 20 October); a full identification shows that hull's name, which no
+  text uses. GOLF is `usn_ssn_virginia_2027` Variant10 (Variant1 until 20
+  October); her class is what a classification shows, and no page says whose
+  she is - nor, since 20 October, any briefing photograph or Situation entry.
+  *Pilot in the Water*'s patrol vessel is `ran_opv_arafura` Variant4, whose
+  full identification is OPV 206 Gippsland; the text calls her an Australian
+  patrol vessel. Meridian Harmony,
+  Austral Compliance and the two cruise ships fly Panama; RL01's ferry and
+  trawler fly Indonesia's flag.
 - **Hai Yang 7 in RL04** is in company and scored by nothing: the group's
   orders are about the carrier, the coaster and the coalition.
 
@@ -372,7 +380,8 @@ it so. The game is 0.8.4; the pack declares it and is 1257 files. Test card
 *Evening* (Southern Watch build notes, *The first play test*): Red Line
 ships `enemy_theater_roster.ini`, so the Situation button shows the
 coalition the player faces - RAN, USN, JMSDF and RNZN blocks, the Maya as a
-flagship, the Collins and Virginias as persistent boats. 1260 files.
+flagship, the Collins and Virginias as persistent boats. 1260 files. (Since
+20 October the boats are left out of it: *The first upgrade batch*, below.)
 
 *Late evening* (Southern Watch build notes, *Four new mods, the Chinese
 loading tips, and the Rafale back*): nothing placed here from the four new
@@ -397,3 +406,171 @@ notes) missed her because her torpedoes sit only in `[TorpedoRoom]`; with
 that read, she was the one boat in all three campaigns inside 25 NM. She now
 starts 28 NM east of the frigate and still closes across Hai Yang 7's track.
 
+## The first upgrade batch (20 October)
+
+`docs/campaigns/campaign-upgrade-plan.md` section 8, with the owner's
+decisions of the day. Red Line's part is the presentation of the other side;
+no mission was added or moved, and the spine is as it was.
+
+- **ALPHA is Variant3 (Waller).** Variant6 stopped being a hull no coalition
+  mission placed when Southern Reach's Broken Supply Line and Cold Route
+  gained HMAS Rankin as an authored attachment (`mission_depth.SUB_SUPPORT`).
+  Waller is the one Collins hull no mission places and no roster sells. The
+  bible's rule is reworded to match: no hull a coalition mission can own or
+  lose before her last Red Line appearance.
+- **The briefing and the Situation window stop answering the puzzle.** RL02's
+  briefing showed GOLF's photograph as "Virginia-class (2027)" under "Expected
+  opposition", RL01's showed the Collins, and `enemy_theater_roster.ini` -
+  shown from the first mission - filed a Collins under the RAN and two
+  Virginias in a USN submarine section. Two builder keys, neither read by the
+  game: `recognise=False` keeps a unit's photograph out of the briefing and
+  `orbat=False` keeps it out of the Situation window. ALPHA and GOLF (RL01,
+  RL02, RL04) carry both; HOTEL (RL05), whom the briefing names, carries
+  `orbat=False` only, because a USN boat in a list the player sees in
+  November answered GOLF's question. The USN block is now the Rivet Joint.
+- **Protected units are labelled.** A red class every hull of which a
+  `spare` objective names reads "Protected - do not engage" under its photo,
+  not "Expected opposition": the Poseidons, the Triton, the Wedgetail, the
+  Rivet Joint, Mogami and Maya here, and the same rule labels the coalition
+  campaigns' spared units (Southern Reach's Fersman among them). A
+  restraint a `lift` ends reads "Opposition - do not fire first": Tasman
+  Shield 11A's, the one in the pack, lifts on hostile intent and then
+  clears the player to engage.
+- **Flags.** The ferry and trawler in RL01 and the cruise ships in RL05 and
+  RL06 register Soviet in their files, and the enemy-flag remap
+  (`integration/common/flags.py`) made them Russian. Each now names its own:
+  Indonesia for RL01's two, Panama for the cruise ships.
+- **The command-net reports speak as roles.** The six reports
+  (`mission_depth.REPORTS`) had named a carrier captain and a political
+  officer, put a ceasefire on 12 November and had a nuclear 093B snorkel.
+  They are signed FUJIAN / ASW, GROUP STAFF, AIR OPERATIONS, BOAT CONTROL
+  and TENDER CONTROL, and `check_stale_phrases.py` keeps the names out.
+
+Test card 8A.5 to 8A.7.
+
+## The side operations (20 October)
+
+Red Line's step RL-1 of `docs/campaigns/campaign-upgrade-plan.md` (section
+4.2), which the owner put into the first upgrade batch (decision Q1, 20
+October 2026; a Red Line restart is accepted): two optional operations, a
+contingency, the two readers and four pages. The spine is 17 entries (10
+before), so a Red Line campaign under way must be started again; no other
+campaign's spine changed.
+
+| Mission | Date | Flown by | Writes, and who reads it |
+|---|---|---|---|
+| RLO1 *Datum*, north of Biak | 11 Nov, 0640, 90 min | the enclave detachment's Y-9, *Sea Ear 31*, and the enclave field: blank generation, no window | `RLO1GolfDatum`, set when GOLF is classified (the stage). *Routes They Can See* reveals GOLF for 900 seconds with no class, the bare reveal Southern Watch's O2 gives SW04 |
+| RLO2 *The Ships from the North*, Ceram Sea | 18 Nov, 0920, 80 min | the Y-9 and two J-15s released to the field (*Flying Shark 81* and *82*) | `RLO2EscortsNamed`, set when both escorts are classified. *The Other Picture* reveals both at Classify for the whole mission, the shape Viper Zero gives Common Sea; whether that counts for its classify stage is not shown (*Not demonstrated*, below) |
+| RLC1 *Pilot in the Water*, Banda Sea | 24 Nov, 0610, 60 min | a detachment of the screen (Generated, `detachment=True`; no purchase, repair or rearm) | nothing |
+
+**Dates (correction X3).** Red Line flies no day Southern Watch or Southern
+Reach flies, optionals and dispatches included: Southern Watch flies the
+10th, 13th, 17th, 20th, 23rd and 25th round these three, and nothing on the
+11th, 18th or 24th, and Southern Reach starts on 6 December. The plan's
+dates stand; none had to move. Sulu Line is not in the rule: *Routes They
+Can See* already shares the 12th with its *Drone Yard*. `test_build_pack.RedLineSideOperations` now checks it for
+every Red Line mission.
+
+**Hulls (the corrected rule: no hull a coalition mission can own or lose
+before her last Red Line appearance).**
+
+- GOLF moved from `usn_ssn_virginia_2027` Variant1 to Variant10 in *Routes
+  They Can See*, *The Order to Withdraw* and *Datum*. Variant1 is the hull
+  `mission_depth.SUB_SUPPORT` places as "US submarine support" in *Fujian's
+  Shadow* (and *Approaches*), which can lose her on the 23rd, four days
+  before GOLF's last appearance. No mission places Variant10; Variant3 was
+  passed over because it carries HOTEL's name (Hawaii) in the other Virginia
+  file.
+- The patrol vessel is `ran_opv_arafura` Variant4 (Gippsland): Variant1 is on
+  Southern Watch's and Southern Reach's rosters, and Eyre and Pilbara sail
+  (and can be lost) in Southern Watch from October.
+- Mogami and Maya are *The Other Picture*'s and *Common Sea*'s hulls on their
+  default variants, so the reserve's pack-wide named-hull filter is
+  unchanged; Common Sea is on the 20th, after both Red Line appearances.
+- The same test checks every Red Line coalition warship against every other
+  standard campaign's roster, allied reserve included, and its player-side
+  placements. The Open Allocation twins are excepted: they sell their
+  commander's whole allied fleet (plan section 3.2, item 4), JS Maya's hull
+  among it, and the test pins that one exception.
+
+**Spared, and why.** GOLF is in *Datum*'s Restraint fatal, beside the
+Poseidon: she must be there for the next two northern missions, and the
+order is to fire nothing anyway. Mogami and Maya are spared with a fatal
+entry, as in *The Other Picture*. The JASDF F-2A pair (`jp_f-2a_late`,
+AirToAir, the Langgur detachment's type, unnamed) is not: it is weapons
+Tight, and the brief's rule is *The Other Picture*'s, reply against the
+aircraft that fired. The patrol vessel and the Poseidon over her are both
+in *Pilot in the Water*'s fatal.
+
+**The race.** The raft (`all_life_raft_single`, the one-man raft an
+ejection seat carries) is on the player's side, so the beacon is on the plot
+from the first second and the deployment box is kept off him. The lead ship
+must be within three cables (0.3 NM) of him for four minutes - the
+builder's held stage, with its `held` pop-up, which `hold_minutes` refuses
+to build without - and the win's two-mile box round the raft is already met
+when the hold arms it, so the pilot aboard is the win. The denied race (the
+patrol vessel within a mile of him) stays armed to the end, which is why the
+win cannot come after the hold. The detachment starts 13.5 NM from him and
+the patrol vessel 13.9 NM: she is at the mile at minute 39 at telegraph 4
+(20 knots, if the ladder is the assumed one); an 054A at 27 knots is in the
+three cables at about 30 and done at 34, and at the builder's conservative
+18 knots is there at 44. Short of about 23 knots the race is lost. The
+deployment box's nearest corner is 9.3 NM from the raft (the builder's
+3 NM pad, on the diagonal), a shorter run the player may take. The
+detachment was first drawn at 16.9 NM, and the builder's geometry gate
+refused it: 60 minutes at 18 knots buys 13.5.
+
+*Review of 20 Oct 2026.* The first build held the ship within a mile and
+started the patrol vessel 20.1 NM out. A mile's circle is crossed through
+its centre in four minutes at 30 knots, so an 054A could win without
+stopping; three cables' circle is 0.6 NM across, nine knots for four
+minutes at most. And 20.1 NM put her an hour from the raft, which left the
+race a second timeout. The held trigger's clock starts on the ship's first
+arrival, and nothing restarts it (the arrival enables it once): a ship that
+leaves before the four minutes and comes back after them gets the pop-up at
+once if a Time condition stays met after its minute, or never if it is met
+only at that minute. The test card's 8B.7 records which; SW03's lifters hold
+the same way.
+
+**Positions.** All three are proved against the Banda coastline extract
+(`geo/banda_theatre_coast.json`), as Southern Watch's side operations round
+Biak are; the four northern core missions keep the pool. The nearest are
+*The Ships from the North*'s fishing boat, 8 NM off Misool; everything in
+*Pilot in the Water* is 35 NM or more from land. The
+enclave field is Biak's, ashore, where RL02 and RL03 put it; the J-15s in
+RLO2 start 315 NM from it, nearer than RL03's cockpits (370 NM).
+
+**Pages.** Four, from this side of the table and signed by a role: the
+group's request of 6 November to the coalition escort force (OUTGOING), Fleet
+headquarters' intelligence summary of 11 November (marked SECRET // CARRIER
+TASK GROUP ONLY), its signal of 17 November on the Japanese escorts, and the
+air operations log of 24 November (`log_heading`, `master_label` KEPT BY,
+`note_label` COMMANDER'S NOTE: the first pages to use the labels make_art has
+carried since the first build). None says how a side operation ended,
+because the campaign shows each whether or not the player flew it. *Guidance
+requested* (22 November) now follows *Pilot in the Water* (24 November) on
+the map: it stays before *The Order to Withdraw* because its last line is
+the order of the 26th, and moving it before the 24th would show that order
+two days early.
+
+**Reports.** `mission_depth.REPORTS` has one for each, signed AIR
+OPERATIONS (twice) and SEA BOAT.
+
+**Not demonstrated.** Test card 8B.
+
+- That a reveal at Classify counts for *The Other Picture*'s
+  `UnitClassified` stage: the plan's ASSUMPTION, and a release blocker on
+  test card 7.4. If it does not, the escorts are classified and cannot be
+  classified again, and RL03 cannot be won after O2: its reveal comes out
+  before upload. Southern Watch's Common Sea is no precedent - its O9 reveal
+  is on a frigate no classify stage names. Southern Reach's *Chatham Watch*
+  (TS01 -> TS03) and Sulu Line's *The Okean* (SL01A -> SL03A) reveal the
+  very unit a classify stage then names, and neither has been flown.
+- That a Y-9 at weapons Hold can classify a dived Virginia with buoys inside
+  ninety minutes; and that JASDF F-2As at Tight shadow and do not fire.
+- The patrol vessel's speed at telegraph 4, and what the held stage does
+  with a ship that leaves the three cables and comes back (8B.7).
+- Who opens first in *The Ships from the North* when both fighter pairs are
+  at Tight (8B.3a): no objective scores it.
+- Whether the J-15 pair, 315 NM from its field, has the fuel for eighty
+  minutes on station.

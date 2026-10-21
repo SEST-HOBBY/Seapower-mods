@@ -3414,3 +3414,60 @@ surface approach. This is a candidate for measurement in the game, not a
 verified fixed-angle controller. Rig Seventeen also gains a north-western
 missile boat, an eastern gunboat and a Hind joining after fifteen minutes;
 the evacuation, platform-protection and amphibious-ship objectives remain.
+
+## The allied reserve, and the first upgrade batch (20 October)
+
+`docs/campaigns/campaign-upgrade-plan.md` section 8, with the owner's
+decisions of the day. No mission was added or moved in any campaign, so
+every `Parents` and expiry index is as it was; what changed is sold,
+briefed or scored.
+
+- **The allied reserve.** The standard campaign now sells eleven allied
+  escort classes from the window before *Weapons Free*, frigates and
+  destroyers together (Q2, option c): Type 23, River Batch 2 and Type 45
+  (UK), Mogami and Asahi (Japan), Daegu and Chungnam (South Korea), La
+  Fayette and Aquitaine (France), Arleigh Burke Flight IIA and III (USA).
+  Windows 09, 11 and 12 keep them. No carrier, amphibious or replenishment
+  ship and no allied aircraft: those stay the theatre's (`RESERVE` in
+  `campaign_data.py` says why). Southern Reach sells Type 23, Mogami and
+  Daegu from *Tasman Crossing* (Q3); Red Line and Sulu Line sell none (Q4).
+  `mission_depth.apply_reserve()` replaced `expand_roster`, which had sold
+  Type 23, Mogami and Daegu at every window but this campaign's first
+  three as a set written into the function. Entries and prices are
+  `allied_fleet.py`'s; each window's situation names the classes on sale,
+  and the rules page says from which window, because the Unit Catalog lists
+  them from the start. *Weapons Free* sails one ship, and a bought Burke
+  may be it: the owner chose that over a destroyer tier from window 09.
+- **No named hull on sale, pack-wide.** A reserve variant any campaign
+  mission places, on any side, is not sold: the filter used to read this
+  campaign's blue units only, and Southern Reach sold JS Mogami (Common
+  Sea; Red Line's *The Other Picture*) and Daegu (O3). Here that takes
+  Mogami and Asahi Variant1, Daegu Variant1, Burke Flight III Variant2
+  (*Fujian's Shadow*) and La Fayette Variant2 (Courbet, a neutral in
+  *Northern Priority*) off sale. Dispatches are not counted.
+- **The twin's allied sentence** is built from what the twin adds to the
+  base roster, not from the twin's whole roster: it had called Sulu Line's
+  own Thai, Australian and MSC units an allied fleet, and the reserve,
+  already on this roster, would have been counted twice. Southern Watch's
+  twin now says 60 classes beside the base roster's eleven (71 before, all
+  of them in the sentence).
+- **OPEN_HOLD.** A twin sells a unit in its spec's `OPEN_HOLD` only at the
+  windows where the story's own allowlist does, and says so in that
+  window's note and in its description. Sulu Line holds its three supply
+  ships: its twin sold the C8 at *The Island Road* and every supply ship at
+  *Fire Mission Jolo*, where the story, whose rearm they are, sells none.
+- ***The Quiet Passenger* reads O5 again.** The O2 reveal was assigned over
+  O5's from 18 October, so *Paper Trail*'s `O5ReceiverNamed` was written
+  and never read here. Both datums are in the mission (test card 6.6a), and
+  a pack-wide test now holds every campaign to "every variable read is
+  declared, every one declared is read".
+- **Protected units are labelled.** A red class every hull of which a
+  `spare` objective names reads "Protected - do not engage" under its
+  briefing photo instead of "Expected opposition" - here *Paper Trail*'s
+  escorted merchant. A restraint a `lift` ends reads "Opposition - do not
+  fire first" instead (Tasman Shield 11A's frigate and Z-9, whom the
+  mission clears the player to engage once the frigate locks the corvette).
+  Red Line's half of the same work (`recognise=False`,
+  `orbat=False`, its flags and reports) is in its build notes.
+
+Test card 2.9 to 2.12 and 6.6a; the play-test guide carries them.

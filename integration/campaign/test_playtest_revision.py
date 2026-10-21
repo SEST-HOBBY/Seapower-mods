@@ -242,7 +242,10 @@ class PlaytestRevision(unittest.TestCase):
         self.assertEqual(c["IRSignature"], "Meager")
 
     def test_all_missions_have_reports_and_pair_is_controlled(self):
-        self.assertEqual(len(self.missions), 77)
+        # Every mission of every campaign, each under its own code: the count
+        # comes from the specs, so a campaign that gains missions does not
+        # have to edit it, and two missions sharing a code still fail it.
+        self.assertEqual(len(self.missions), sum(len(s["MISSIONS"]) for s in self.specs))
         for code, m in self.missions.items():
             self.assertTrue(m.get("reports"), code)
             b.check_message_texts(m)

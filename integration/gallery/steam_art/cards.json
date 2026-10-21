@@ -4,7 +4,7 @@
   "bg": "../source/images/ships/ford.jpg",
   "pos": "center 60%",
   "kicker": "LATEST UPDATE  ·  20 OCTOBER 2026",
-  "head": "Ford F-35Cs, a deeper Broken Wake, two new mods.",
+  "head": "Allied escorts, Red Line side operations, Ford F-35Cs.",
   "cols": [
    {
     "label": "CAMPAIGNS",
@@ -18,12 +18,12 @@
       "an RQ-7 team on Yapen"
      ],
      [
-      "Three new dispatches",
-      "Joint Fires School, Far Picture"
+      "Allied escorts",
+      "Southern Watch 11 classes, Reach 3"
      ],
      [
-      "Linked operations",
-      "Open Door, Second Ring, Lifeline"
+      "Red Line side operations",
+      "Datum, Ships from the North, Pilot"
      ]
     ]
    },
@@ -71,7 +71,7 @@
    }
   ],
   "foot": [
-   "Two mods joined (Combat Cost Tracker, Group Manager); the old Anzac frigate left.",
+   "A Red Line campaign under way must be started again for its side operations.",
    "Subscribe to all again, then close the game and run SETUP."
   ],
   "credit": [
@@ -98,7 +98,7 @@
      ],
      [
       "Red Line",
-      "PLA Navy · 6 missions · Nov 2028 on"
+      "PLA Navy · 9 missions · Nov 2028 on"
      ],
      [
       "Sulu Line",
@@ -241,8 +241,8 @@
   "title": "RED LINE",
   "subtitle": "The Other Watch",
   "meta": "PLA Navy  ·  Nov 2028–Feb 2029",
-  "desc": "Six missions from the other side, as the carrier group commander the Australians only hear on the radio.",
-  "counts": "Won by restraint, deception, escort and evasion.",
+  "desc": "The other side of the war, as the carrier group commander the Australians only hear on the radio.",
+  "counts": "6 missions and 3 side operations.\nWon by restraint, deception, escort and evasion.",
   "mapLabel": "IN-GAME CAMPAIGN MAP",
   "map": "../../dist/SEST_Integration/campaigns/sest-red-line/art/00_campaign_background.png",
   "note": "Also as an Open Allocation version.",
@@ -279,7 +279,7 @@
   "title": "SEST",
   "title2": "INTEGRATION PACK",
   "sub": "MODERNISED CAMPAIGNS",
-  "line": "4 campaigns  ·  77 missions  ·  photo gallery  ·  one-click SETUP",
+  "line": "4 campaigns  ·  80 missions  ·  photo gallery  ·  one-click SETUP",
   "credit": [
    "Photo: U.S. Air Force, SrA J. Michael Peña · Public domain · adapted",
    "via Wikimedia Commons"
@@ -292,7 +292,7 @@
   "pos": "55% center",
   "title": "SEST",
   "sub": "MODERNISED CAMPAIGN COLLECTION",
-  "line": "4 campaigns  ·  77 missions  ·  2028–29",
+  "line": "4 campaigns  ·  80 missions  ·  2028–29",
   "credit": [
    "Photo: Japan Maritime Self-Defense Force · CC BY 4.0 · adapted",
    "creativecommons.org/licenses/by/4.0 · via Wikimedia Commons"
@@ -324,7 +324,7 @@
     "CAMPAIGNS"
    ],
    [
-    "77",
+    "80",
     "MISSIONS"
    ],
    [
@@ -351,7 +351,7 @@
     "photo": "../source/images/ships/type054a.jpg",
     "name": "RED LINE",
     "meta": "PLA Navy  ·  Nov 2028–Feb 2029",
-    "count": "6 missions"
+    "count": "9 missions"
    },
    {
     "photo": "../source/images/update_190/miguel_malvar_44a545c477.jpg",

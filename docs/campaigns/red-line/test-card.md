@@ -30,6 +30,10 @@ that column, not the whole card.
    fires on nothing and puts no jamming strobe on the KJ-500's or the
    frigate's radar. A strobe means its jammer runs with its emitters off, and
    it should move out to a stand-off orbit.
+5. **The side operations** (20 Oct 2026) — 8B below: *Datum*, *The Ships from
+   the North* and *Pilot in the Water*, and what each leaves the next mission.
+   A Red Line campaign started before them must be started again: the spine
+   is 17 entries, not 10.
 
 The rest of this round's checks (RAS, the ARRW profile, the Redback, MALICE
 mass, SM-3 terminal, Intercept Model A/B, the A-10C+, Mogami's Seahawk, the
@@ -46,9 +50,9 @@ for the mission browser.
 
 | # | Do | Expect | If not |
 |---|---|---|---|
-| 1.1 | Campaign list | A third entry, **Red Line - The Other Watch (People's Liberation Army Navy)**: 10 entries (6 missions, 4 pages), a dark chart from the equator to 50 South behind it | Missing = the third `campaigns/` folder is not read; the browser copies (1.3) are the way in |
+| 1.1 | Campaign list | A third entry, **Red Line - The Other Watch (People's Liberation Army Navy)**: 17 entries (9 missions - six core, O1, O2 and C1 - and 8 pages), a dark chart from the equator to 50 South behind it | Missing = the third `campaigns/` folder is not read; the browser copies (1.3) are the way in |
 | 1.2 | Start it | The commander screen: nation China, name *Cao Mingyuan* (editable), rank Rear Admiral | The rank insignia and navy emblem are **deliberately blank** (the game ships none for China). A broken-image icon, an error, or a screen that will not continue is the report |
-| 1.3 | Mission browser | A **Red Line** folder with six missions | |
+| 1.3 | Mission browser | A **Red Line** folder with nine missions: 01-06, O1 *Datum*, O2 *The Ships from the North* and C1 *Pilot in the Water* | |
 | 1.4 | Load RL01 and RL06 from the browser | The player's side flies the Chinese flag; Kiwi 05 (RL06) the New Zealand one; Meridian Harmony (RL04) and Austral Compliance (RL06) Panama's | A unit that fails to appear names its mod |
 
 ## 2 — the pages and the art
@@ -60,6 +64,7 @@ for the mission browser.
 | 2.3 | The page before RL05, and the epilogue | New orders, 22 December; the last signal, 25 February, OUTGOING, headed **FILE NOTE** at the foot | |
 | 2.4 | The campaign map | Every page stands on the dark message tile; there is no newspaper tile in this campaign | A blank tile = `bkg_tile_message.png` not read |
 | 2.5 | Any mission card | RED LINE and the date on the card, the title clear of the chart, own forces in blue, one objective ring. RL06's ring is the frigate's decoy station, not the rendezvous | |
+| 2.6 | The pages before O1, O2 and C1 (20 Oct 2026) | *The request* (OUTGOING, COMMANDER'S NOTE) and *The unclaimed boat*, an intelligence summary banded SECRET // CARRIER TASK GROUP ONLY, before O1; *Ships from the north* before O2; the *Air operations log*, KEPT BY: AIR OPERATIONS OFFICER with a COMMANDER'S NOTE, before C1. *Guidance requested* (22 November) comes after C1 (24 November) on the map, on purpose: it ends with the order of the 26th | RELEASABLE TO COALITION PARTNERS, MASTER or MASTER'S NOTE on any of them is a bug |
 
 ## 3 — Task Force Mode
 
@@ -71,6 +76,8 @@ for the mission browser.
 | 3.4 | RL04 | Repair only: no purchase, no rearm ("what the twenty-third spent stays spent") | Rearm offered = `TaskForceModeRearm=False` ignored |
 | 3.5 | RL05 | No builder and no deployment: Hull 419 alone, as authored | Any of the screen on the plot = blank generation not honoured |
 | 3.6 | RL06 | On sale: Type 054A, Type 056A (96), Z-9C; the Sovremenny and Luda are not. One already owned still sails with the screen (`TaskForceModeRequireEntireTaskForce`) | A northern hull left behind = the whole force is not required after all; say which |
+| 3.7 | O1 and O2 | No builder and no deployment of the screen: the enclave's Y-9 (and in O2 two J-15s) as authored, with a box to move them in | The screen on the plot = blank generation not honoured |
+| 3.8 | C1 | A detachment: pick the lead ship and its flight; no purchase, repair or rearm | The whole force required, or a purchase offered: say which |
 
 ## 4 — the rules of engagement (the biggest single risk)
 
@@ -116,6 +123,8 @@ boat: it fails when the coalition *classifies* her, not when it detects her.
 |---|---|---|---|
 | 7.1 | RL02: sink GOLF | RL04 | No submarine astern (`RL02GolfSunk`), and nothing fails at the first second: *Boat* stays open to the end. If *Boat* shows failed at T+0, the engine counts a unit that never spawned as destroyed - report it, because Southern Reach's *Last Ship South* tanker has the same shape. That is why GOLF is in no fatal |
 | 7.2 | RL02: leave her | RL04 | GOLF astern at weapons Hold; the SUBMARINE THREAT line on the briefing map either way |
+| 7.3 | O1: classify GOLF (`RLO1GolfDatum`) | RL02 | At the start, the AIR OPERATIONS line and GOLF on the plot as an unknown contact for fifteen minutes, then gone; the Boat objective still open until she is classified again. Skip O1: no line, no contact |
+| 7.4 | O2: classify both escorts (`RLO2EscortsNamed`) | RL03 | **Release blocker.** At the start, the AIR OPERATIONS line and Mogami and Maya on the plot classified for the whole mission. Classify Coral Pioneer: does the PICTURE REPORT come, so the frigate can go home? That is the plan's assumption that a reveal at Classify satisfies a `UnitClassified` stage, and nothing has shown it: Common Sea's O9 reveal is on a frigate no classify stage names, and the two that do have this shape (Southern Reach's *Chatham Watch*, Sulu Line's *The Okean*) have not been flown either. If PICTURE REPORT never comes after classifying Coral Pioneer with O2 won, RL03 is unwinnable for that save: the escorts are already classified, so the player's own sensors cannot do it again. Pull the RL03 reveal (`reveal_if` on `RLO2EscortsNamed`) before upload, and look at those two the same way |
 
 ## 8 — what the playability review could not settle
 
@@ -142,7 +151,25 @@ behaviour of the engine that no file states.
 | 8A.3 | RL01 or RL06, Shift+Y on the 054A, Engagement tab | ZKJ-5A: the PLAN Pack's own system since its 3 Oct update (the Fujian reads ZBJ-1B) | Anything else = the PLAN Pack's block is not read: say which |
 | 8A.3a | RL04 The Order to Withdraw, Shift+Y on the Type 071 | SEST PLAN Amphibious (Fast, 80 contacts): the pack's `#!extend` landed on another mod's hull | The game's default = the extend does not reach it; say so (Southern Reach card 7.3a) |
 | 8A.4 | RL01, let the coalition's first anti-ship salvo reach the 054A | Her Type 1130 fires long volleys (2800 rounds, 7 s pauses) and stops most of a small salvo: the PLAN Pack's own 3 Oct tune, anchor 90 | Fire without pause = the 0.8.3 keys are not read; count what a four-missile salvo loses |
-| 8A.5 | Campaign screen, the Situation button | The coalition by nation - RAN, USN, JMSDF, RNZN - with the Maya as a flagship and the Collins and Virginias as persistent boats | No button or an empty panel = `enemy_theater_roster.ini` was not read: say which |
+| 8A.5 | Campaign screen, the Situation button | The coalition by nation - RAN, JMSDF, USN, RNZN - with the Maya as a flagship. Since 20 Oct 2026 the RAN block also lists *Pilot in the Water*'s Arafura-class patrol vessel, and the JMSDF block *The Ships from the North*'s F-2A pair (the builder files a Japanese unit under the one Japanese block). **No submarine**: since 20 Oct 2026 ALPHA, GOLF and HOTEL are left out (`orbat=False`), because the list shows from the first mission and a Collins or a USN boat in it answered RL01's and RL02's question before the first contact. The USN block is the Rivet Joint alone | No button or an empty panel = `enemy_theater_roster.ini` was not read: say which. A Collins or a Virginia listed = an old build |
+| 8A.6 | RL01 and RL02 briefings, RECOGNITION | No Collins and no Virginia photograph; the Poseidon, Triton and Wedgetail photos read "Protected - do not engage" (20 Oct 2026: every red class all of whose hulls a restraint objective names; a restraint that lifts on hostile intent reads "Opposition - do not fire first", and Red Line has none), the 054A and the Y-9 "Your forces" | A Collins or a Virginia photo = an old build. "Expected opposition" under the Poseidon = the label did not build |
+| 8A.7 | RL01, the Ternate-Bitung ferry and the tuna trawler Bintang Laut; RL05 and RL06, the cruise ship | The Indonesian flag on the two RL01 hulls, Panama's on the cruise ships | A Russian flag = an old build (their files register Soviet, and the enemy-flag remap made them Russian until 20 Oct 2026) |
+
+## 8B — the side operations (20 Oct 2026)
+
+`build-notes.md`, *The side operations*. None of the three has been flown.
+
+| # | Mission | Do | Expect | If not |
+|---|---|---|---|---|
+| 8B.1 | O1 *Datum* | Lay buoys with *Sea Ear 31* (weapons **Hold**) north-east of where it starts | GOLF classified within the 90 minutes; "SONAR REPORT / SEA EAR 31..." and the win once the Y-9 is back over the water off the field | No class from buoys at Hold = say how far you got and whether the Y-9 dropped any; the mission then needs a nearer start |
+| 8B.2 | O1 | Set the Y-9 Free over GOLF | Note whether it torpedoes her unbidden; if it does, the mission ends with Restraint failed (she is spared: RL02 and RL04 need her) | The mission goes on with GOLF sunk = the fatal did not fire |
+| 8B.3 | O2 *The Ships from the North* | Fly the Y-9 west with the J-15s at **Tight**; let the F-2A pair come up | The F-2As shadow and do not fire first; both escorts classified, then the win in the box east | F-2As firing unprovoked = Tight not honoured on red; say at what range |
+| 8B.3a | O2 | Leave the J-15s at **Tight** and do not order them; watch who fires first when the F-2As are identified | Nobody fires: both pairs at Tight shadow each other. No objective scores the J-15s opening first, so this row is the only check on the brief's rule | The J-15s open on an identified F-2A = Tight lets a fighter fire first: start them at **Hold** and tell the player to go Tight when fired on (the same for RL03's CAP slots against the F-35As). Say who fired first and at what range |
+| 8B.4 | O2 | Watch the J-15s' fuel for the whole mission | They stay up the eighty minutes and turn for the enclave field, 315 NM east, with fuel to get there | Bingo before the end = say at what minute; they then need a nearer field or a shorter clock |
+| 8B.5 | C1 *Pilot in the Water* | From the authored start, take the lead ship straight at the raft at full speed and stop inside three cables (0.3 NM) | "SEA BOAT: The ship is alongside..." on arrival, at about minute 30; "Pilot aboard." four minutes later, and the win at once, before the patrol vessel reaches the mile (about minute 39). Note both minutes | Win before the four minutes = the hold not read; no win after "Pilot aboard." = the win box not re-checked; the patrol vessel at the mile first at full speed = the race is drawn too tight: say her minute |
+| 8B.5a | C1 | Run across the raft at full speed without slowing | "SEA BOAT..." as she passes, then nothing: three cables' circle is crossed in well under a minute at 27 knots | "Pilot aboard." anyway = the hold is not reading the area at its minute |
+| 8B.6 | C1 | Do nothing; note the minute the patrol vessel reaches the raft | The red circle fires and the mission is lost at about minute 39 (13.9 NM, the mile at 12.9, at telegraph 4, if that is 20 knots). Since 20 Oct 2026; she started 20.1 NM out, an hour away, and the race was no race | Much later than 39 = bring back her speed: the race is drawn on it |
+| 8B.7 | C1 | Arrive inside three cables, leave before the four minutes are up, and come back after them | Record which: "Pilot aboard." the moment she is back inside (a Time condition stays met once its minute has passed), or never (it is met only at its minute). The held trigger's clock starts on the first arrival and nothing restarts it, so "the four minutes start again" is not a result this build can give | Never = leaving early makes C1 unwinnable: say so, and the brief's "stopped" becomes a warning (Southern Watch's SW03 lifters hold the same way). The pop-up while she is still outside = the held trigger does not read the area |
 
 ## 9 — the numbers to bring back
 
@@ -151,4 +178,7 @@ ledger as shown, the points awarded, the minute RL04's coaster reached her box
 (6.1), whether 4.4's direct order worked and at what weapons state, the time
 the Poseidon took to classify each boat (5.2, 5.3, 5.5), the three telegraph
 speeds (8.2), whether a looped racetrack held (8.1), the range GOLF fired
-from (8.6), and any unit that was ashore, missing or misnamed.
+from (8.6), the minute the patrol vessel reached the raft in C1 (8B.6),
+what the held stage did when the ship left and came back (8B.7), who fired
+first in O2 (8B.3a), whether O2's reveal completed RL03's picture (7.4), and
+any unit that was ashore, missing or misnamed.

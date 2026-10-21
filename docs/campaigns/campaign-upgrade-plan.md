@@ -361,7 +361,7 @@ About 13.5 sessions in all.
 
 | Step | Content | Sessions |
 |---|---|---|
-| RL-1 | RLO1, RLO2, RLC1, the RL02/RL03 readers and 4 pages (the fixes move to Batch 1) | 2 |
+| RL-1 | RLO1, RLO2, RLC1, the RL02/RL03 readers and 4 pages (the fixes move to Batch 1). *Built with Batch 1, owner's Q1, 20 Oct 2026* | 2 |
 | RL-2 | RL07, RL08, RLO3, RLO4, RLO5, economy restage | 4.5 |
 | RL-3 | Java extract, RL09, RLO6, RLO7 | 3 |
 | RL-4 | RL10, RLC2, RLO8 | 3 |
@@ -446,7 +446,7 @@ About 9 sessions in all.
 |---|---|---|---|---|---|
 | **B1: next update** | Section 8 | 2 | — | The reserve, the fixes, the gates | None. The reserve may show only in a new campaign |
 | B2 | Sulu SL-1 | 3.5 | B1 (variable gate, charter fix) | Sulu at 12 core, 6 pages, bible | Sulu restart; nobody has played it |
-| B3 | Red Line RL-1 | 2 | B1 (`recognise`/`orbat` keys) | 3 side missions, 4 pages | Red Line restart notice |
+| B3 | Red Line RL-1 | 2 | B1 (`recognise`/`orbat` keys) | 3 side missions, 4 pages. *Built with B1, owner's Q1, 20 Oct 2026* | Red Line restart notice |
 | B4 | In-game proof run | 1 plus play | B1–B3 on the PC | Results: `IsTrue` (SWTC 6.7), `rearm_if`, `unseen`, timed datums, reserve purchase | — |
 | B5 | Side play A2 | 3 | B1, B4 | `mirror()`, the Chinese-side *Bomber Stream* pilot, scoped threat display, pack-wide neutral flags | None (dispatch) |
 | B6 | SR-0 and SR-D1 | 2.5 | B1 filter (dispatches excluded) | 4 Southern Reach dispatches | None |
@@ -553,7 +553,7 @@ Total about 47 sessions.
 
 - **Effort: about 2 sessions,** or 1.8 without the Anzac re-pick.
 - **Save safety:**
-  - No campaign gains or loses a spine entry, so every `Parents` and expiry index is unchanged.
+  - No campaign gains or loses a spine entry, so every `Parents` and expiry index is unchanged. *The exception is Red Line, whose RL-1 the owner added (Q1): its restart is accepted (8.3).*
   - Mission-file changes need nothing (`docs/packaging-and-recovery.md:774-776`).
   - Allowlist and roster changes may reach only new campaigns, which is said in the change log.
   - Twin folders and paths are unchanged.
@@ -586,7 +586,7 @@ Total about 47 sessions.
 
 ### 8.3 Missions
 
-- **New missions:** none.
+- **New missions:** none in the batch as planned. The owner's Q1 (20 Oct 2026) added Red Line's step RL-1 (§4.2): RLO1 *Datum*, RLO2 *The Ships from the North*, RLC1 *Pilot in the Water*, the RL02 and RL03 readers and four pages, built with it. Red Line's spine goes from 10 entries to 17, so a Red Line campaign under way restarts; no other spine changed. None of the three dates had to move under X3. GOLF moved to `usn_ssn_virginia_2027` Variant10 under the corrected RLB:28, because Variant1 is the hull *Fujian's Shadow* can lose on the 23rd. Campaign missions 66 → 69, the pack 77 → 80.
 - **Changed:**
   - Southern Watch 04 *The Quiet Passenger* (reveal).
   - Red Line 01–06 (recognition, order of battle, flags, reports).
@@ -597,7 +597,7 @@ Total about 47 sessions.
 ### 8.4 How Open Allocation and side choice appear in this update
 
 - **Open Allocation:**
-  - Southern Watch's standard campaign sells allied escorts from *Weapons Free* and allied destroyers from *Southern Lifeline*.
+  - Southern Watch's standard campaign sells all eleven allied escort classes, frigates and destroyers together, from *Weapons Free* (owner's decision Q2, option c, 20 Oct 2026).
   - Southern Reach sells three escort classes from *Tasman Crossing*.
   - Each is said in the window text and on the rules page.
   - The four twins remain the "everything from the start" option. Sulu's twin now follows the story's supply-ship windows.
@@ -611,22 +611,24 @@ Total about 47 sessions.
 - The twelve gates (ASSUMPTION 2): `check_inventory` (red only on its four known CR-stripped mods), `check_alias_bases`, `check_vanilla_drift`, `check_game_version`, `check_load_order`, `check_dependencies`, `check_scenarios`, `check_stale_phrases` (retire "CAPTAIN LI", "POLITICAL OFFICER CHEN", "neither campaign places"), `check_station_clash 0.001`, `check_weapon_employment`, `check_pack_fidelity`, `check_campaign_coverage`.
 
 **Unit tests.**
-- `python3 -m unittest integration/campaign/test_build_pack.py integration/campaign/test_playtest_revision.py`: 222 tests plus the new ones.
+- `python3 -m unittest integration/campaign/test_build_pack.py integration/campaign/test_playtest_revision.py`: 222 tests plus the new ones (241 ran at `5076cd99`, the inherited opening-range classes counted twice; 270 with Batch 1's, 278 with RL-1's).
 - `python3 -m unittest discover -s tools/tests -p 'test_*.py'`: 133 tests.
 
 **Offline output checks.**
 
 | Where | Expect |
 |---|---|
-| Southern Watch [Mission17] (SW05) allowlist | Frigate tier only |
-| Southern Watch SW09, SW11 and [Mission40] allowlists | Both tiers |
-| SW01–SW03 allowlists | No allied hull |
+| Southern Watch [Mission17] (SW05) allowlist | All eleven reserve classes, frigates and destroyers alike (Q2, option c) |
+| Southern Watch [Mission30], [Mission36] and [Mission40] (SW09, SW11, SW12) allowlists | All eleven reserve classes |
+| SW01–SW03 allowlists ([Mission2], [Mission8], [Mission13]) | No allied hull |
+| Southern Watch and Southern Reach `campaign_rules_en.xml` | One "Allied escorts are on sale from the force allocation before …" line: *Weapons Free* and *Tasman Crossing*; none in Red Line, Sulu Line or any twin |
 | Southern Reach roster | No `js_ffg_mogami` Variant1 and no `ko_ffg-818` Variant1 |
 | Southern Reach windows before TS04 | No allied escort |
 | Sulu twin [Mission2] | No C8 |
 | Sulu twin [Mission5] | No supply ship |
 | Sulu twin Description | No allied sentence |
 | Red Line RL02 briefing XML | No "Virginia" |
+| Tasman Shield 11A briefing XML | The 054A and Z-9C read "Opposition - do not fire first", not "Protected - do not engage": its Restraint lifts on hostile intent (`lift`) |
 | Red Line `enemy_theater_roster.ini` | No `SubmarinesPersistent_USN`, no Collins |
 | Red Line mission files | No `Nation=Russia` on neutrals |
 | Southern Watch 04 mission file | Both "Reveal from" triggers |
@@ -636,8 +638,8 @@ Total about 47 sessions.
 | # | Do | Expect |
 |---|---|---|
 | R1 | New standard Southern Watch, windows 01–03 | No allied hull offered |
-| R2 | *Weapons Free* window: buy a Mogami or Type 23 | Offered at list price; it sails; still only one ship sails (`MaxUnits=1`); no destroyer offered |
-| R3 | *Southern Lifeline* window | Type 45 and Burke offered; a bought one sails |
+| R2 | *Weapons Free* window: buy a Mogami or Type 23 | Offered at list price; it sails; still only one ship sails (`MaxUnits=1`); the Type 45 and both Burkes offered too (Q2, option c) |
+| R3 | *Southern Lifeline* window | All eleven still offered; a Type 45 or Burke bought here sails |
 | R4 | *The First Ship Through* window | Escorts still offered |
 | R5 | New Southern Reach | Mogami Variant1 never offered; allied escorts first appear at *Tasman Crossing* |
 | R6 | Sulu Line, standard and twin, *Fire Mission Jolo* window | No supply ship; the twin's *Island Road* window has no C8 |
@@ -646,7 +648,7 @@ Total about 47 sessions.
 | R9 | Red Line 01 and 02 briefings and the Situation window | No Collins or Virginia photo or entry; protected units labelled |
 | R10 | Sulu *Service at Sea*: let Sulu Provider be sunk and complete the rendezvous | Mission won; *The Aborlan Battery* starts without her |
 | R11 | Fly O5 and O2, then *The Quiet Passenger* | Both datums appear |
-| R12 (Q7) | Buy an Anzac | It embarks an MH-60R |
+| R12 (Q7) | Buy an Anzac | It embarks an MH-60R. *Not in this batch: Q7 was answered no (20 Oct 2026), and the Anzac re-pick (8.2 #18) was not built* |
 
 Also play the eight open items in `docs/playtest-20261020.md:236-249`. They cover changes already in this update.
 
@@ -660,6 +662,8 @@ Also play the eight open items in `docs/playtest-20261020.md:236-249`. They cove
 6. Paste the change log. Update the description lines in the same sitting (`docs/campaigns/southern-watch/publishing.md:348-353`).
 
 ### 8.7 Change-log lines
+
+*Superseded (20 Oct 2026). The lines as pasted are the pending "20 Oct 2026" block in `docs/campaigns/southern-watch/workshop-listing.md`, which follows the owner's decisions: every Southern Watch escort class from Weapons Free (Q2, option c), no Anzac line (Q7), and a* Red Line *block for RL-1's side operations with its restart notice (Q1). The block below is the plan as first written, kept for the record.*
 
 Append these inside the pending "20 Oct 2026" block at WL:110, which has not been uploaded:
 
@@ -688,7 +692,7 @@ The last fix line applies only if Q7 is yes.
 ### 8.8 Not in this batch, and when it comes
 
 1. **B2:** Sulu's renumbering and five new cores.
-2. **B3:** Red Line's three side missions.
+2. ~~**B3:** Red Line's three side missions.~~ Built with B1: the owner's Q1 (20 Oct 2026) added RL-1 to this batch (8.3).
 3. **B4:** an in-game proof run.
 4. **B5:** `mirror()` and the Chinese-side pilot dispatch; scoped threat display; pack-wide neutral flags.
 5. **B6:** Southern Reach's groundwork and four dispatches.

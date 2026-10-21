@@ -279,13 +279,34 @@ def campaign_rules(spec, open_allocation=False, allied=0):
         lines.append(line.format("- No national purchase discount applies: every unit "
                                  "costs its listed price.", 14))
     t = t[:start] + indent.join(lines) + t[end:]
+    held = (", except what the story sells only at its own windows"
+            if spec.get("OPEN_HOLD") else "")
     swap('Text="- Unit availability can change between missions. Japanese units, for '
          'example, may not be available after leaving Japanese waters."',
          (f'Text="- Open Allocation: every force allocation offers the whole campaign '
-          f'roster{", the allied fleet included," if allied else ","} from the first. '
+          f'roster{", the allied fleet included," if allied else ","} from the first{held}. '
           'Some operations still limit what sails."' if open_allocation else
           'Text="- Unit availability changes between missions: Task Force Builder offers '
           'only what the current force-allocation window allows."'), "availability line")
+    # The allied reserve (mission_depth.apply_reserve), said once on the
+    # story page: the Unit Catalog lists the whole roster file from the first
+    # window, reserve classes included, and this is what says when they are
+    # really on sale. The twin sells them from the first anyway.
+    if spec.get("RESERVE") and not open_allocation:
+        import mission_depth
+        not_ships = [r["unit"] for r in spec["RESERVE"] if unit_type(r["unit"]) != "Vessel"]
+        if not_ships:
+            raise SystemExit(f"{spec['TITLE']}: the allied reserve sells ships only, and "
+                             f"{', '.join(not_ships)} is not one")
+        offer = ", and from the one before ".join(
+            f"{m['key']}: {classes}" for m, classes in mission_depth.reserve_offer(spec))
+        if offer:
+            at = t.index("/>", t.index('Text="- Unit availability changes between missions')) + 2
+            t = t[:at] + indent + line.format(_xml_text(
+                f"- Allied escorts are on sale from the force allocation before {offer}. "
+                "They cost their own navies' listed prices, and the Unit Catalog lists "
+                "them from the start. No allied aircraft, carrier, amphibious ship or "
+                "tanker is sold, and no hull a mission names."), 5) + t[at:]
     swap('Text="- Ships purchased in Task Force Builder include their airwing for free, and '
          'those aircraft are assigned to the ship automatically. Replacement aircraft must '
          'be purchased separately if aircraft are lost."',
@@ -361,6 +382,18 @@ OPEN_NOTE = ("Open Allocation: the whole roster is on offer at this window. The 
 OPEN_BLURB = ("OPEN ALLOCATION - every unit this campaign sells is on offer from the "
               "first force allocation, whatever the story has released. Same missions, "
               "points and prices. ")
+# OPEN_HOLD (20 Oct 2026): units a twin sells only at the windows where the
+# story's own allowlist sells them. Sulu Line's twin sold its C8 charter at
+# The Island Road and every supply ship at Fire Mission Jolo, where the story
+# sells none: in a campaign with no free rearm, a supply ship on sale is the
+# rearm. A window that holds one back says so, and so does the description.
+OPEN_NOTE_HELD = ("Open Allocation: the whole roster is on offer at this window, except "
+                  "what the story sells only at its own windows. The story's allocation "
+                  "for it reads:")
+OPEN_BLURB_HELD = ("OPEN ALLOCATION - every unit this campaign sells is on offer from the "
+                   "first force allocation, whatever the story has released, except the "
+                   "few the story sells only at its own windows. Same missions, points "
+                   "and prices. ")
 
 
 def open_slug(slug):
@@ -382,19 +415,24 @@ def allied_line(roster, commander):
             f"class{'es' if count != 1 else ''} from {where}. ")
 
 
-def open_allocation_ini(text, slug, roster, allied=""):
+def open_allocation_ini(text, slug, roster, allied="", hold=()):
     """The Open Allocation twin's campaign.ini, from the base campaign's text.
 
     Changed: `[File] Base` (the file's own location, which stock says every
     system needs), the campaign's `[Language_en]` Name and Description, and in
     every window whose builder is open, the allowlist (the whole roster, every
-    priced variant) and the situation (OPEN_NOTE first). A repair-only stop
-    keeps its situation: nothing is on offer there. Everything else - every
-    MissionFile, every art path, every gate and reward - is the base
-    campaign's, byte for byte.
+    priced variant) and the situation (OPEN_NOTE first). A unit in `hold`
+    (spec OPEN_HOLD) is in a window's allowlist only where the base window's
+    has it, and a window that leaves one out opens with OPEN_NOTE_HELD. A
+    repair-only stop keeps its situation: nothing is on offer there.
+    Everything else - every MissionFile, every art path, every gate and
+    reward - is the base campaign's, byte for byte.
     """
-    full = allowed_roster_units([e["unit"] for e in roster], roster,
-                                f"{slug}: open allocation")
+    units = [e["unit"] for e in roster]
+    unknown = sorted(set(hold) - set(units))
+    if unknown:
+        raise SystemExit(f"{slug}: OPEN_HOLD names {', '.join(unknown)}, which the roster "
+                         "does not sell")
     counts = collections.Counter()
     out = []
     for sec in re.split(r"\n(?=\[)", text):
@@ -408,17 +446,25 @@ def open_allocation_ini(text, slug, roster, allied=""):
                              lambda m: f"Name={m.group(1)} - Open Allocation{m.group(2) or ''}",
                              sec, count=1, flags=re.M)
             counts["name"] += n
-            sec, n = re.subn(r"^Description=", lambda m: "Description=" + OPEN_BLURB + allied,
+            blurb = OPEN_BLURB_HELD if hold else OPEN_BLURB
+            sec, n = re.subn(r"^Description=", lambda m: "Description=" + blurb + allied,
                              sec, count=1, flags=re.M)
             counts["description"] += n
         elif re.search(r"^TaskForceModeEnableTaskForceBuilder=True$", sec, re.M):
             counts["windows"] += 1
+            # A window with no allowlist sells the whole roster in the base
+            # campaign too, held units included.
+            base = re.search(r"^TaskForceModeAllowedRosterUnits=(.*)$", sec, re.M)
+            sold = {e.split(",")[0] for e in base.group(1).split("|")} if base else set(units)
+            offered = [u for u in units if u not in hold or u in sold]
+            note = OPEN_NOTE if len(offered) == len(units) else OPEN_NOTE_HELD
+            full = allowed_roster_units(offered, roster, f"{slug}: open allocation")
             sec, n = re.subn(r"^TaskForceModeAllowedRosterUnits=.*$",
                              lambda m: "TaskForceModeAllowedRosterUnits=" + full,
                              sec, flags=re.M)
             counts["allow"] += n
             sec, n = re.subn(r"^TaskForceModeBuilderSituation_en=",
-                             lambda m: "TaskForceModeBuilderSituation_en=" + OPEN_NOTE + " ",
+                             lambda m: "TaskForceModeBuilderSituation_en=" + note + " ",
                              sec, flags=re.M)
             counts["situation"] += n
         out.append(sec)
@@ -451,8 +497,8 @@ def campaign_specs():
         ROSTER_SOURCE="campaign_data.py",
         INFO_DESC=sw.INFO_DESC, DISPATCH_DESC=sw.DISPATCH_DESC,
         TASKFORCE=sw.TASKFORCE, DIFFICULTIES=sw.DIFFICULTIES,
-        ROSTER=sw.ROSTER, COMMANDER=sw.COMMANDER, EVENTS=sw.EVENTS,
-        MISSIONS=sw.MISSIONS, EXCUSES=sw.EXCUSES)
+        ROSTER=sw.ROSTER, RESERVE=sw.RESERVE, COMMANDER=sw.COMMANDER,
+        EVENTS=sw.EVENTS, MISSIONS=sw.MISSIONS, EXCUSES=sw.EXCUSES)
     specs = [watch, sr.CAMPAIGN]
     import allied_fleet                              # noqa: E402
     # Red Line is optional: a tree without its package builds the two
@@ -1655,6 +1701,7 @@ def place(mission, snapper):
     worst = 0.0
     alone = set()                              # independent=True, by tag
     contact = set()                            # contact="why", by tag
+    unlisted = set()                           # orbat=False, by tag
     pending = []                               # AttackAtWaypoint targets
     disabled = []                              # (tag, systems) off at start
     entering = []                              # (tag, minute) held back
@@ -1989,6 +2036,16 @@ def place(mission, snapper):
                 sys.exit(f"{mission['key']}: independent=True is for the "
                          f"player's own hulls; {spec['type']} is {spec['side']}")
             alone.add(tag)
+        # orbat=False keeps an opposing unit out of the campaign's Situation
+        # window (enemy_roster_ini), and recognise=False keeps it out of the
+        # briefing's photographs (recognition): Red Line's ALPHA and GOLF,
+        # whose class and navy are the puzzle the player is there to solve.
+        # Neither is a key the game reads.
+        if spec.get("orbat") is False:
+            if spec["side"] != "red":
+                sys.exit(f"{mission['key']}: orbat=False is for an opposing unit - the "
+                         f"Situation window lists no other; {spec['type']} is {spec['side']}")
+            unlisted.add(tag)
         # Systems off from the first second: TS11A's corvette, whose plot
         # holds her bridge and engines but not her operations room. The
         # player's own hull at launch cannot be the one - in a Generated
@@ -2082,6 +2139,7 @@ def place(mission, snapper):
         raise SystemExit(f"{mission['key']}: " + "; ".join(stranded))
     mission["_independent"] = alone
     mission["_contact"] = contact
+    mission["_unlisted"] = unlisted
     mission["_disabled"] = disabled
     mission["_enter"] = dict(entering)
     return placed, members, credits, worst
@@ -5462,7 +5520,10 @@ def recognition(mission):
     units = sorted(mission["units"], key=lambda u: u["type"].lower().startswith("civ_"))
     for side in ("blue", "red"):
         for u in units:
-            if u["side"] != side or u.get("spawn_if"):
+            # recognise=False: a unit whose class is the puzzle (Red Line's
+            # ALPHA and GOLF). A photo of her under "Expected opposition"
+            # answered it before the first contact.
+            if u["side"] != side or u.get("spawn_if") or u.get("recognise") is False:
                 continue
             hit = cat.get(u["type"].lower()) or prof.get(u["type"].lower())
             if not hit or hit[1]["asset_id"] in seen:
@@ -5730,7 +5791,48 @@ def epigraph_xml(mission):
             '</StackPanel>')
 
 
-def recognition_xml(picked):
+# Under the photo of a red class the orders protect (protected_classes).
+PROTECTED_LABEL = "Protected - do not engage"
+NOT_FIRST_LABEL = "Opposition - do not fire first"
+
+
+def protected_classes(mission):
+    """{red class: label} for the red classes the player must not fire on:
+    every placed red unit of the type is named by a `spare` resolver. The
+    briefing labels their photos so (20 Oct 2026); "Expected opposition" on
+    a Poseidon the orders protect read as permission. A restraint that a
+    `lift` ends reads "do not fire first", not "do not engage": TS11A's
+    frigate and her Z-9 were first labelled protected, and the same
+    mission's BLUEFIN 31 then clears the player to engage them once the
+    frigate locks the corvette. A hull an unlifted restraint also names
+    stays protected. A class with one spared hull among others, or with
+    hulls under both rules, keeps the plain label - the photo cannot say
+    which one."""
+    by_station = collections.defaultdict(list)
+    for u in mission["units"]:
+        by_station[u["station"]].append(u)
+    lifted = {lift["objective"] for lift in mission.get("lift", [])}
+    rule = {}
+    for oid, how in mission.get("resolve", {}).items():
+        if isinstance(how, tuple) and how[0] == "spare":
+            label = NOT_FIRST_LABEL if oid in lifted else PROTECTED_LABEL
+            for ref in how[1:]:
+                station, _, idx = ref.partition("#")
+                group = by_station.get(station, [])
+                for u in (group[int(idx) - 1:int(idx)] if idx else group):
+                    if rule.get(id(u)) != PROTECTED_LABEL:
+                        rule[id(u)] = label
+    red = collections.defaultdict(list)
+    for u in mission["units"]:
+        if u["side"] == "red" and not u.get("spawn_if"):
+            red[u["type"].lower()].append(rule.get(id(u)))
+    return {uid: marks[0] for uid, marks in red.items()
+            if marks[0] and len(set(marks)) == 1}
+
+
+def recognition_xml(picked, protected=None):
+    """The RECOGNITION section. A red class in `protected` (protected_classes,
+    class -> label) carries its label there, not "Expected opposition"."""
     if not picked:
         return ""
     cells = []
@@ -5743,7 +5845,8 @@ def recognition_xml(picked):
         # full-width brackets and commas have no glyph in the game's font
         for fw, ascii_ in ((" （", " ("), ("（", " ("), ("）", ")"), ("，", ", ")):
             label = label.replace(fw, ascii_)
-        who = "Your forces" if side == "blue" else "Expected opposition"
+        who = ("Your forces" if side == "blue" else
+               (protected or {}).get(entry["unit_id"].lower(), "Expected opposition"))
         cells.append(
             '<StackPanel Width="420" Margin="0,0,16,16">'
             f'<Image Source="{{Binding Assets[{stem}]}}" Width="{REC_WIDTH}" HorizontalAlignment="Left"/>'
@@ -5799,7 +5902,7 @@ def briefing_page(mission):
         section("RULES OF ENGAGEMENT",
                 "All designated neutral contacts are protected. A protected "
                 "neutral loss cancels the operation. Identify before you shoot.")
-    parts.append(recognition_xml(recognition(mission)))
+    parts.append(recognition_xml(recognition(mission), protected_classes(mission)))
     # Installation and provider details remain in REQUIRED-MODS.txt and the
     # coverage report; the operational briefing contains only the orders.
     return BRIEF_XML.format(body="".join(parts))
@@ -5914,8 +6017,9 @@ def enemy_roster_ini(missions, placements):
             continue
         for family, rows in placements[m["key"]].items():
             if family == "Taskforce2Vessel":
-                for _tag, keys, _name, _flag in rows:
-                    placed_times[(keys["Type"], keys.get("VariantReference"))] += 1
+                for tag, keys, _name, _flag in rows:
+                    if tag not in m.get("_unlisted", ()):
+                        placed_times[(keys["Type"], keys.get("VariantReference"))] += 1
     for m in missions:
         if m["group"] == "dispatch":          # browser missions the campaign never loads
             continue
@@ -5923,7 +6027,13 @@ def enemy_roster_ini(missions, placements):
         for family, rows in placements[m["key"]].items():
             if not family.startswith("Taskforce2"):
                 continue
-            for _tag, keys, _name, _flag in rows:
+            for tag, keys, _name, _flag in rows:
+                # orbat=False (place()): the Situation window lists the
+                # campaign's whole order of battle from the first mission, so
+                # a boat whose navy is a mission's question is left out of it
+                # - Red Line's showed a Collins and a USN submarine section.
+                if tag in m.get("_unlisted", ()):
+                    continue
                 uid = keys["Type"]
                 utype = unit_type(uid)
                 if utype is None:
@@ -7655,11 +7765,17 @@ def main():
         # Everything that can stop the build is decided here, before the dry
         # run returns and before the pack folder is cleared: the rules pages
         # (roster nations, no submarine on sale) and the twin's spine.
-        foreign = allied_line(twin_roster, spec["COMMANDER"])
+        # The allied-fleet sentence names what the twin adds, not the twin's
+        # whole roster: called with twin_roster until 20 Oct 2026, it counted
+        # Sulu Line's own Thai, Australian and MSC units as an allied fleet
+        # ("5 classes from Thailand, Australia and USA"), and a campaign's
+        # allied reserve, on its base roster already, would count twice.
+        foreign = allied_line(allied, spec["COMMANDER"])
         rules_text = campaign_rules(spec)
         twin_rules_text = campaign_rules(dict(spec, ROSTER=twin_roster), open_allocation=True,
                                          allied=bool(foreign))
-        twin_campaign_text = open_allocation_ini(campaign_text, SLUG, twin_roster, foreign)
+        twin_campaign_text = open_allocation_ini(campaign_text, SLUG, twin_roster, foreign,
+                                                 spec.get("OPEN_HOLD", ()))
         twin_roster_text, twin_roster_credits = roster_ini(
             twin_roster, heading=f"; SEST {TITLE} - Open Allocation requisition roster: "
                                  "the campaign's own units, then the allied fleet.")

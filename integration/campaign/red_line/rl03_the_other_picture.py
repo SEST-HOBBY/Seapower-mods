@@ -13,6 +13,17 @@ fatal entry on every hull keeps it whole for the next day. The attackers
 Common Sea meets (a Type 039C, a 054A from the east, the enclave's
 fighters) are not this commander's, and the brief says the picture goes
 to people he does not command.
+
+The Ships from the North (RLO2, the day before) can have named the two
+escorts from the enclave's Y-9. If it did (RLO2EscortsNamed), they start on
+this plot classified, the way Viper Zero's recording gives Common Sea its
+frigate, and the picture asked for is down to the merchant. That a reveal
+at Classify satisfies the Picture stage's UnitClassified is an assumption
+nothing has shown yet: Common Sea's revealed frigate is in no classify
+stage, so it proves nothing here. If the reveal does not count, the two
+escorts are classified and can never be classified again, and this
+mission cannot be won after O2; the test card's 7.4 holds the upload on it
+(review of 20 Oct 2026).
 """
 from campaign_data import U, F, S
 from .tables import HELO, RECON, CAP, NORTH_HULLS, NORTH_AIR, CARRIER_AIR
@@ -89,6 +100,15 @@ MISSION = dict(
     # never "the aircraft that fired", and it is spared with the hulls.
     fatal=[F("Restraint", ["convoy", "jmsdf", "growler", "rivet"])],
     neutral_objective="Traffic",
+    # The Ships from the North's promise, kept: both escorts on the plot
+    # classified for the whole operation.
+    reveal_if=[dict(
+        variable="RLO2EscortsNamed", units=["jmsdf"], level="Classify",
+        intel=(
+            "AIR OPERATIONS: Sea Ear 31's recording from the Ceram Sea yesterday matches the "
+            "two escorts with the convoy: JS Mogami and JS Maya. Both are on your plot, "
+            "classified. The merchant that matters still needs a name."
+        ))],
     win=(
         "Coral Pioneer, Mogami and Maya are classified and the frigate is back on the group's "
         "line. The picture has gone to headquarters. The convoy sails tomorrow, and this group"

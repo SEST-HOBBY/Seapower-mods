@@ -374,12 +374,14 @@ def art_resolves(pack, slug):
     return out
 
 
-def open_twin(pack, slug):
+def open_twin(pack, slug, hold=()):
     """The campaign's Open Allocation twin differs from it only in what it sells.
 
     The twin (build_pack.open_allocation_ini) is a second entry in the
     campaign list that loads this campaign's missions and art by path and
-    sells the whole roster at every open window. Read from the built bytes:
+    sells the whole roster at every open window - except a unit in `hold`
+    (the spec's OPEN_HOLD), which it sells only where the base window's own
+    allowlist does, under OPEN_NOTE_HELD. Read from the built bytes:
     the three files the game reads from the campaign's own folder are this
     campaign's - commander settings byte for byte, the roster with every line
     of this campaign's roster in it (the allied fleet is added after them) -
@@ -430,7 +432,13 @@ def open_twin(pack, slug):
     picks = {uid: line.partition("=")[2].split("|")[0].split(",")
              for _section, uid, line in twin_rows}
     commander = (twin / "commander_settings.ini").read_text(encoding="utf-8")
-    allied = bp.allied_line([dict(unit=u, picks=p) for u, p in picks.items()], commander)
+    # The allied sentence names what the twin adds to the base roster, never
+    # the base's own units (20 Oct 2026: Sulu Line's twin called its Thai and
+    # Australian partners an allied fleet).
+    base_units = {uid for _section, uid, _line in base_rows}
+    allied = bp.allied_line([dict(unit=u, picks=p) for u, p in picks.items()
+                             if u not in base_units], commander)
+    blurb = bp.OPEN_BLURB_HELD if hold else bp.OPEN_BLURB
     # Section by section, with every expected change REQUIRED rather than
     # merely allowed: a twin still naming the base's Base, a Name that did
     # not change, or an open window without its note is as wrong as a gate
@@ -450,6 +458,11 @@ def open_twin(pack, slug):
             continue
         is_open = "TaskForceModeEnableTaskForceBuilder=True" in b_lines
         windows += is_open
+        sold = next((set(e.split(",")[0] for e in b.partition("=")[2].split("|"))
+                     for b in b_lines if b.startswith("TaskForceModeAllowedRosterUnits=")),
+                    set(picks))
+        offered = {u: p for u, p in picks.items() if u not in hold or u in sold}
+        note = bp.OPEN_NOTE if len(offered) == len(picks) else bp.OPEN_NOTE_HELD
         for b, w in zip(b_lines, t_lines):
             line_no += 1
             key, _, value = b.partition("=")
@@ -462,17 +475,18 @@ def open_twin(pack, slug):
                       and w.replace(" - Open Allocation", "", 1) == b)
             elif head == "[Language_en]" and key == "Description":
                 found["Description"] += 1
-                # the blurb, then the allied-fleet sentence its own roster
-                # calls for (build_pack.allied_line; "" with none), then the
+                # the blurb (the held one with an OPEN_HOLD), then the
+                # allied-fleet sentence for what the twin adds to the base
+                # roster (build_pack.allied_line; "" with none), then the
                 # base description - exactly
-                ok = w == f"Description={bp.OPEN_BLURB}{allied}{value}"
+                ok = w == f"Description={blurb}{allied}{value}"
             elif is_open and key == "TaskForceModeAllowedRosterUnits":
                 listed = [e.split(",") for e in w.partition("=")[2].split("|")]
                 got = {e[0]: e[1:] for e in listed}
                 ok = (w.startswith(key + "=") and len(listed) == len(got)
-                      and got == picks)
+                      and got == offered)
             elif is_open and key == "TaskForceModeBuilderSituation_en":
-                ok = w == f"{key}={bp.OPEN_NOTE} {value}"
+                ok = w == f"{key}={note} {value}"
             else:
                 ok = w == b
             if not ok:
@@ -538,7 +552,7 @@ def main():
     for spec in specs:
         problems += art_resolves(pack, spec["SLUG"])
         problems += loadout_names(pack, spec["SLUG"], spec["DISPATCHES"])
-        problems += open_twin(pack, spec["SLUG"])
+        problems += open_twin(pack, spec["SLUG"], spec.get("OPEN_HOLD", ()))
         problems += loadout_names(pack, bp.open_slug(spec["SLUG"]), spec["DISPATCHES"])
 
     for f in files:

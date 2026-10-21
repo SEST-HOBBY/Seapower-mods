@@ -46,7 +46,7 @@
             <TextBlock FontSize="15" Foreground="#D8DDE8" TextWrapping="Wrap" Margin="0,0,0,5">
               <Run Text="- Commanders receive a "/><Run Text="{Binding SameNationDiscountPercentText}"/><Run Text="% point discount when purchasing units from their own nation."/>
             </TextBlock>
-            <TextBlock Text="- The discount covers the 10 classes registered to Australia. The 3 classes registered to other nations - from Japan (1), South Korea (1), United Kingdom (1) - cost their listed price." FontSize="15" Foreground="#D8DDE8" TextWrapping="Wrap" Margin="0,0,0,14"/>
+            <TextBlock Text="- The discount covers the 10 classes registered to Australia. The 11 classes registered to other nations - from United Kingdom (3), France (2), Japan (2), South Korea (2), USA (2) - cost their listed price." FontSize="15" Foreground="#D8DDE8" TextWrapping="Wrap" Margin="0,0,0,14"/>
             <Border Height="1" Background="{StaticResource Brush.Glyph.Normal}" Opacity="0.45" Margin="0,0,0,14"/>
 
             <TextBlock Text="Awards and Promotions" FontSize="17" FontWeight="Bold" Foreground="White" TextWrapping="Wrap" Margin="0,0,0,6"/>
@@ -147,6 +147,7 @@
             </TextBlock>
             <TextBlock Text="- Selected units are not purchased until the task force is confirmed." FontSize="15" Foreground="#D8DDE8" TextWrapping="Wrap" Margin="0,0,0,5"/>
             <TextBlock Text="- Unit availability changes between missions: Task Force Builder offers only what the current force-allocation window allows." FontSize="15" Foreground="#D8DDE8" TextWrapping="Wrap" Margin="0,0,0,5"/>
+            <TextBlock Text="- Allied escorts are on sale from the force allocation before Weapons Free: Type 23, River Batch 2 and Type 45 (United Kingdom); Mogami and Asahi (Japan); Daegu and Chungnam (South Korea); La Fayette and Aquitaine (France); Arleigh Burke Flight IIA and Arleigh Burke Flight III (USA). They cost their own navies' listed prices, and the Unit Catalog lists them from the start. No allied aircraft, carrier, amphibious ship or tanker is sold, and no hull a mission names." FontSize="15" Foreground="#D8DDE8" TextWrapping="Wrap" Margin="0,0,0,5"/>
             <TextBlock FontSize="15" Foreground="#D8DDE8" TextWrapping="Wrap" Margin="0,0,0,5">
               <Run Text="- Use the task force bar to repair damage, inspect weapons, change loadouts, view proficiency, and manage aircraft assignments."/>
             </TextBlock>

@@ -7,7 +7,10 @@ group commander whose signal the coalition intercepted on 22 November, "a
 commander who would rather withdraw intact", and whose second signal it
 intercepted on 25 February. Five missions sail his screen, four in the
 Banda approaches and one off Fiordland; one is a detached submarine
-operation in the Southern Ocean.
+operation in the Southern Ocean. Three side operations in the north joined
+them on 20 Oct 2026 (campaign-upgrade-plan.md section 4.2, step RL-1): two
+optionals flown by the enclave field's own aircraft, whose results the next
+mission reads, and a contingency for the screen's own detachment.
 
 Built to docs/campaigns/red-line/campaign-bible.md. The rules that hold the
 data together are Southern Watch's and Southern Reach's (campaign_data.py's
@@ -30,7 +33,8 @@ docstring, southern_reach/AUTHORING.md) plus three of this campaign's own:
      use Southern Watch's proven-point geography; RL05 and RL06 are proved
      against the southern coastline, as Southern Reach is.
 
-Each mission is its own module (rl01_*.py ... rl06_*.py) exporting MISSION:
+Each mission is its own module (rl01_*.py ... rl06_*.py, and the side
+operations rlo1_*.py, rlo2_*.py and rlc1_*.py) exporting MISSION:
 
     python3 integration/campaign/build_pack.py --dry-run --campaign red-line --only RL01
 """
@@ -94,7 +98,10 @@ INFO_DESC = (
     " He puts a class on the Australian submarine trailing his carrier, gets fuel into the "
     "Biak enclave ahead of the coalition's relief window, builds the picture of a convoy that"
     " other people will attack, and in the first hours of the ceasefire stops the one ship in"
-    " his own company that wants the war back. In December he is sent south with Liaoning "
+    " his own company that wants the war back. On the side, the enclave's patrol aircraft "
+    "puts a class on a boat nobody has claimed and names the ships coming south to escort the "
+    "convoy, and the screen races an Australian patrol vessel to a pilot in the water."
+    " In December he is sent south with Liaoning "
     "to take over the fisheries protection group, and its submarines have to pass the "
     "coalition's patrol aircraft without being classified. Every operation is won by "
     "restraint, escort or evasion, and there is nearly always a coalition aircraft "

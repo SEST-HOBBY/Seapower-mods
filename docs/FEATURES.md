@@ -19,7 +19,7 @@ repository and checked by automated gates before each upload.
 | Workshop mods integrated | 199 (the download size has not been re-measured since 190) |
 | SEST source packs | 24, merged into one deployable folder |
 | Campaigns | 4, each also as an Open Allocation version, plus a world campaign (draft) for the Dynamic Campaign Mod |
-| Campaign missions | 66, plus 11 single missions (Southern Watch - Dispatches) |
+| Campaign missions | 69, plus 11 single missions (Southern Watch - Dispatches) |
 | Story pages | Press pages, signals, ship's logs and intelligence summaries between missions |
 | Units with a real encyclopedia photo | 729 |
 | Photos in the offline gallery | 555, every one credited |
@@ -61,6 +61,12 @@ experience carry forward from mission to mission.
   targets' sensors off and on (*The Far Picture*).
 - Campaign memory: lose HMAS Supply early and her replacement merchant is
   missing later; hold a service window and the next mission is rearmed.
+- **Allied escorts** *(20 October 2026)*: from *Weapons Free* the standard
+  campaign also sells eleven allied escort classes at their own navies'
+  prices - Type 23, River Batch 2 and Type 45 (UK), Arleigh Burke Flight IIA
+  and III (USA), Mogami and Asahi (Japan), Daegu and Chungnam (South Korea),
+  La Fayette and Aquitaine (France). No carriers, amphibious ships, tankers
+  or allied aircraft, and no hull a mission names.
 
 ### Southern Reach — Tasman Shield
 *Royal Australian Navy, December 2028–March 2029*
@@ -70,8 +76,10 @@ experience carry forward from mission to mission.
 - *Tasman Shield*: fight the same group from Fiordland through Cook Strait, the
   Tasman, Bass Strait and the Bight to a ceasefire, with New Zealand's
   Poseidons in support.
-- 19 campaign variables carry consequences forward: a submarine you sink is
+- 20 campaign variables carry consequences forward: a submarine you sink is
   missing later; an approach you lose or skip reinforces the enemy.
+- Type 23, Mogami and Daegu allied escorts on sale from *Tasman Crossing*
+  *(20 October 2026)*.
 - An optional defector escort (*The Twelve-Mile Line*).
 - Every position checked against a real coastline, so ships start afloat in
   narrow water.
@@ -79,11 +87,18 @@ experience carry forward from mission to mission.
 ### Red Line — The Other Watch
 *People's Liberation Army Navy, November 2028–February 2029*
 - 6 missions from the other side, as the Chinese carrier group commander the
-  Australians only hear on the radio.
+  Australians only hear on the radio, and three side operations
+  *(20 October 2026)*: put a class on a submarine nobody has claimed, name the
+  Japanese escorts coming south for the coalition's convoy, and race an
+  Australian patrol vessel to a J-15 pilot in the water. The first two change
+  what the next mission shows you.
 - Won by restraint, deception, escort and evasion: classify the submarine
   trailing your carrier without firing on it, get fuel into the Biak enclave,
   stop the one ship in your own company that wants the war back.
 - A submarine mission lost the moment the enemy classifies your boat.
+- The briefings and the Situation window leave the trailing submarines'
+  class and navy for you to find, and label the coalition units you must not
+  fire on *(20 October 2026)*.
 - Written to fit the other two campaigns' story whatever happens in it.
 - The Open Allocation version sells the PLAN Type 901 and 903A supply ships.
 - Its own PLAN navy emblem on the commander screen.
@@ -100,7 +115,8 @@ experience carry forward from mission to mission.
   from a supply ship you bought (BRP Tarlac or Davao del Sur, HTMS Chula, or an
   MSC C8 barge carrier) by going alongside at sea, or from the chartered
   ammunition ship in *Service at Sea*. Supply ships are sold at three points
-  only; lose one and its cargo is gone.
+  only; lose one and its cargo is gone. Losing the charter fails its
+  objective, not the mission, and she is missing later *(20 October 2026)*.
 - The missions:
   1. *The Island Road*: a convoy down the Palawan coast.
   2. *Fire Mission Jolo*: naval gunfire for the Marines.
@@ -121,7 +137,8 @@ experience carry forward from mission to mission.
 - **Open Allocation versions:** the whole roster on sale from the first
   mission. The two Australian campaigns also sell the US, UK, European,
   Japanese and Korean fleets: ships and aircraft, not submarines (the game's
-  task force cannot take a bought one).
+  task force cannot take a bought one). Sulu Line's still sells its supply
+  ships only at the story's three sales, because there they are the rearm.
 - **Position your force before each mission:** a blue Deployment Zone round
   your ships, with Formation or Dispersed. It reaches up to 28 NM back and to
   the sides (a 3 NM margin round the ships, then up to 25 NM more), and only
@@ -432,7 +449,9 @@ how to check each.
 - **The side operations** (`docs/campaigns/side-operations.md` lists what
   each depends on): land ballistic and drone launchers firing on a track
   another unit gives them, the EC-2's jamming, the Okean's mid-route weapons
-  order.
+  order, and a reveal at Classify counting for a later mission's classify
+  objective (Red Line's *The Other Picture* after *The Ships from the North*,
+  which the play-test guide makes a release blocker).
 - **Sulu Line's no-rearm rule:**
   - that the game keeps a ship's spent ammunition between missions;
   - that a supply ship's own stock stays used up between missions.

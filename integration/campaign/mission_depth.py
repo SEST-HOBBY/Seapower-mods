@@ -5,10 +5,16 @@ boats are authored for one operation, not sold into the unsupported submarine
 roster. Forward UAV sections use finite fuel and an explicit recovery strip.
 No enrichment replaces an existing main objective or civilian protection rule.
 """
+import collections
 from copy import deepcopy
 import math
 
 
+# Red Line's reports speak as roles, never names: its bible names no person
+# on the Chinese side, and until 20 Oct 2026 these gave the carrier's captain
+# and the group's political officer surnames, put a ceasefire on 12 November
+# (it is the 27th) and had a nuclear boat snorkel. Sulu Line's three are
+# signed MANALO: Southern Watch's Master Leila Santos had the name first.
 REPORTS = {
     "SWD9": "ELLIS: Confirm the UAV's own camera or sensor contact before correcting the guns. The two enemy models are different batteries; count their outgoing fire separately from your own impacts.",
     "SWD10": "RANGE CONTROL: Clear run. Target sensors are disabled. Record the offered launch solution before switching any test shooter to Free. Restart before comparing a different weapon against the same geometry.",
@@ -71,22 +77,25 @@ REPORTS = {
     "TS11": "KILA: The lift ships are not a spare missile magazine. Keep them behind the defensive screen and use the submarine's separate box to watch the flank your surface sensors cannot hold.",
     "TS11A": "LIAISON: The defector has made a choice; the pursuing group may not accept it. Keep her identified and covered. A blue-painted symbol does not erase the need for a safe weapons sector.",
     "TS12": "PRASETYO: Southern Cross is a passage, not a victory parade. Challenge the contacts in the convoy lane and keep a recovery ship ready. The old red-spider card is now pinned beside the departure board.",
-    "RL01": "CAPTAIN LI / ASW: Classify the trailing boat without turning the carrier towards it. The coalition aircraft are recording our search as carefully as we record theirs.",
-    "RL02": "POLITICAL OFFICER CHEN: Hai Yang 7 carries the orders and the fuel. A submarine report is not permission to attack the aircraft enforcing the same ceasefire. Keep the tanker moving.",
-    "RL03": "LI: A second look from another bearing is worth more than a closer pass by one aircraft. Record the convoy screen without giving the coalition the escalation it expects.",
-    "RL04": "CHEN: The withdrawal order applies to the impatient ship as well as the carrier. Interpose, challenge and protect the charter. Do not let one local captain write the next campaign.",
-    "RL05": "BOAT CONTROL: Silence is a resource. A snorkel or an avoidable turn near a buoy can spend the same concealment as a transmission. Keep the exit plan separate from the temptation to investigate.",
-    "RL06": "TENDER CONTROL: The decoy and the boat have different jobs. Keep the tender's approach credible while the submarine closes unseen; the patrol aircraft need only one useful pass.",
-    "SL01": "SANTOS: Keep a gun ship between the ferry lane and the fast craft. Your magazines will not refill at the debrief; leave enough for the next passage or bring the supply ship.",
+    "RL01": "FUJIAN / ASW: Classify the trailing boat without turning the carrier towards it. The coalition aircraft are recording our search as carefully as we record theirs.",
+    "RL02": "GROUP STAFF: Hai Yang 7 carries the detachment's fuel. A submarine report is not permission to attack the aircraft recording the route; it attacks nothing. Keep the tanker moving.",
+    "RL03": "AIR OPERATIONS: A second look from another bearing is worth more than a closer pass by one aircraft. Record the convoy screen without giving the coalition the escalation it expects.",
+    "RL04": "GROUP STAFF: The withdrawal order applies to the impatient ship as well as the carrier. Interpose, challenge and protect the charter. Do not let one ship's captain write the next campaign.",
+    "RL05": "BOAT CONTROL: Silence is a resource. A burst of speed or an avoidable turn near a buoy can spend the same concealment as a transmission. Keep the exit plan separate from the temptation to investigate.",
+    "RL06": "TENDER CONTROL: The screen and the boat have different jobs. Keep the decoy station loud and credible while the tender and the boat close quietly; Kiwi 05 needs only one useful pass.",
+    "RLO1": "AIR OPERATIONS: A class is a buoy pattern and patience. Lay the field ahead of her drift, keep the aircraft off the Poseidon's track, and log what the buoys hear for the escort tomorrow night.",
+    "RLO2": "AIR OPERATIONS: Classify from the edge of their radar, not the middle of it. The fighters from Langgur are there to be seen seeing us off; keep ours between them and the Y-9, and keep both at Tight.",
+    "RLC1": "SEA BOAT: The beacon is the datum. Run straight at it, put the flight overhead to mark him, and stop the ship upwind of the raft. Do not cross the patrol vessel's bow; she has the same right to be there that we do.",
+    "SL01": "MANALO: Keep a gun ship between the ferry lane and the fast craft. Your magazines will not refill at the debrief; leave enough for the next passage or bring the supply ship.",
     "SL01A": "MARKET WATCH: Follow the semi-submersible while the patrol craft cover its exits. The helicopter over the boats may be the lookout, not the cargo. Classify before crossing fire through local traffic.",
     "SL02": "MARINE LIAISON / VEGA: The forward UAV can distinguish the launchers from vehicles on the ridge. Give the gunline a current target report, then move it before answering every radio call.",
     "SL03": "AYUNGIN CONTROL: Our resupply boat needs room to pass, not a naval battle. Keep weapons held and watch the militia's courses. The cameras are part of this engagement.",
     "SL03A": "VEGA: Do not let the trawler's torpedo threat bring both patrol boats onto the same line. Keep a cross-bearing and enough separation to cover the speedboats.",
     "SL04": "SUPPLY CONTROL: Choose which magazines need the next transfer before closing the charter. A threat at the edge of the box does not make the ship alongside any less vulnerable.",
-    "SL05": "SANTOS: The gun-runner and its scouts are one network. Stop the cargo without shooting through the wrong merchant, and keep the flight watching the boat's intended escape route.",
+    "SL05": "MANALO: The gun-runner and its scouts are one network. Stop the cargo without shooting through the wrong merchant, and keep the flight watching the boat's intended escape route.",
     "SL05A": "VEGA / SHORE TEAM: Compare Tabak's first strike with a fresh observation pass. Mobile launchers do not owe you a second shot at yesterday's coordinate. Mapun has no friendly recovery strip; preserve the strike aircraft's fuel margin.",
     "SL06": "FIRE CONTROL: Silence the coastal battery without losing the convoy while you turn for a firing solution. The forward UAV's camera can check the radar and launchers separately.",
-    "SL07": "SANTOS: The patrol submarine is a coalition attachment for this battle only. Keep her clear of the convoy and your ASW weapons. The ships still have only the ammunition you brought or transferred at sea.",
+    "SL07": "MANALO: The patrol submarine is a coalition attachment for this battle only. Keep her clear of the convoy and your ASW weapons. The ships still have only the ammunition you brought or transferred at sea.",
 }
 
 # code: (friendly recovery location, target station). The forward sites are
@@ -203,35 +212,123 @@ def add_contact(m, code, U):
     m["forces"] += " " + detail
 
 
-def expand_roster(spec):
-    if spec["TITLE"] not in ("Southern Watch", "Southern Reach"):
-        return
-    selected = {"rn_ff_type23", "js_ffg_mogami", "ko_ffg-818"}
-    existing = {e["unit"] for e in spec["ROSTER"]}
-    borrowed = []
-    for entry in spec.get("ALLIED_FLEET", []):
-        if entry["unit"] not in selected or entry["unit"] in existing:
+def _navy(entry):
+    """The navy an allied entry belongs to, from allied_fleet's note
+    ("United Kingdom - Type 23 class (LIFEX)")."""
+    navy, sep, _cls = entry.get("note", "").partition(" - ")
+    if not sep:
+        raise SystemExit(f"{entry['unit']}: an allied entry's note must open with "
+                         "its navy (\"United Kingdom - Type 23 class\")")
+    return navy
+
+
+def _names(items):
+    return items[0] if len(items) == 1 else f"{', '.join(items[:-1])} and {items[-1]}"
+
+
+def reserve_classes(spec, units):
+    """The reserve classes among `units` by navy, in the order RESERVE lists
+    them: "Type 23 and River Batch 2 (United Kingdom); Mogami (Japan)"."""
+    priced = {e["unit"]: e for e in spec["ROSTER"]}
+    navies = {}
+    for r in spec["RESERVE"]:
+        if r["unit"] in units:
+            navies.setdefault(_navy(priced[r["unit"]]), []).append(r["name"])
+    return "; ".join(f"{_names(names)} ({navy})" for navy, names in navies.items())
+
+
+def reserve_offer(spec):
+    """[(mission, classes)] - each reserve opening, earliest first: the
+    mission whose force-allocation window first sells them, and the classes
+    reserve_classes() names. The rules page says it in these words. Only
+    what the roster sells: a reserve unit taken off it sells nothing."""
+    by_code = {code_of(m): m for m in spec["MISSIONS"]}
+    priced = {e["unit"] for e in spec["ROSTER"]}
+    opening = collections.defaultdict(list)
+    for r in spec.get("RESERVE", []):
+        if r["unit"] in priced:
+            opening[r["opens"]].append(r["unit"])
+    return [(by_code[code], reserve_classes(spec, units))
+            for code, units in sorted(opening.items(), key=lambda kv: _when(by_code[kv[0]]))]
+
+
+def _when(m):
+    return (m["date"], m.get("time") or (0, 0))
+
+
+def apply_reserve(specs):
+    """The allied reserve: the escort ships a standard campaign sells beside
+    its own navy, each from a window its story names (spec RESERVE, a list of
+    dict(unit, name, opens=<mission code>)).
+
+    It replaced expand_roster on 20 Oct 2026, which sold Type 23, Mogami and
+    Daegu at every window but Southern Watch's first three, as a set
+    hard-coded here. The owner's decisions of that day: Southern Watch sells
+    eleven escort classes from Weapons Free, frigates and destroyers alike,
+    and Southern Reach three from Tasman Crossing (Q2 and Q3). Ships only:
+    an allied aircraft stays under its own national command, and a bought
+    deck has no air group. Windows are keyed by mission code, not window
+    number, because Southern Reach's two chapters repeat window numbers.
+
+    The entry, price and note are allied_fleet's, for the campaign's
+    commander; the unit leaves ALLIED_FLEET, so the Open Allocation twin
+    sells it once, from the roster.
+    """
+    # A placed variant is a named ship - JS Mogami in Common Sea and The
+    # Other Picture, Daegu in O3 - and a hull the player could also buy
+    # would sail twice. Until 20 Oct only the campaign's own blue units were
+    # looked at, and Southern Reach sold both those hulls. Every campaign's,
+    # on any side; not dispatches, which no campaign loads.
+    placed = {(u["type"], u.get("variant", "Variant1"))
+              for spec in specs for m in spec.get("MISSIONS", [])
+              if m["group"] != "dispatch" for u in m["units"]}
+    for spec in specs:
+        reserve = spec.get("RESERVE")
+        if not reserve or "MISSIONS" not in spec:
             continue
-        e = deepcopy(entry)
-        used = {u.get("variant", "Variant1") for m in spec["MISSIONS"] for u in m["units"]
-                if u["side"] == "blue" and u["type"] == e["unit"]}
-        e["picks"] = [p for p in e["picks"] if p not in used]
-        if e["picks"]:
-            spec["ROSTER"].append(e)
-            borrowed.append(e["unit"])
-    # Already present after a repeated specs() call: still open the correct
-    # existing purchase windows, without duplicating any price entry.
-    borrowed = sorted(selected & {e["unit"] for e in spec["ROSTER"]})
-    spec["ALLIED_FLEET"] = [e for e in spec.get("ALLIED_FLEET", []) if e["unit"] not in borrowed]
-    for m in spec["MISSIONS"]:
-        w = m.get("window", {})
-        if w.get("buy") and (spec["TITLE"] != "Southern Watch" or m["num"] not in ("01", "02", "03")):
-            if w.get("_allied_escort_revision"):
+        by_code = {code_of(m): m for m in spec["MISSIONS"]}
+        fleet = {e["unit"]: e for e in spec.get("ALLIED_FLEET", [])}
+        on_roster = {e["unit"] for e in spec["ROSTER"]}
+        for r in reserve:
+            if r["opens"] not in by_code:
+                raise SystemExit(f"{spec['TITLE']}: the reserve's {r['unit']} opens at "
+                                 f"{r['opens']}, which is not one of its missions")
+            # Already on the roster after a repeated campaign_specs() call:
+            # the module's own ROSTER list carries it from the first.
+            if r["unit"] in on_roster:
                 continue
-            allow = w.setdefault("allow", [])
-            allow.extend(uid for uid in borrowed if uid not in allow)
-            w["situation"] = w.get("situation", "") + " Allied escort requisitions are also available: Type 23, Mogami and Daegu classes. Their national prices apply."
-            w["_allied_escort_revision"] = True
+            if r["unit"] not in fleet:
+                raise SystemExit(f"{spec['TITLE']}: the reserve's {r['unit']} is not in "
+                                 "the allied fleet its commander calls on (allied_fleet.py)")
+            e = deepcopy(fleet[r["unit"]])
+            e["picks"] = [p for p in e["picks"] if (e["unit"], p) not in placed]
+            if not e["picks"]:
+                raise SystemExit(f"{spec['TITLE']}: every {r['unit']} hull is placed by a "
+                                 "mission - the reserve has none to sell")
+            spec["ROSTER"].append(e)
+        units = {r["unit"] for r in reserve}
+        spec["ALLIED_FLEET"] = [e for e in spec.get("ALLIED_FLEET", [])
+                                if e["unit"] not in units]
+        for m in spec["MISSIONS"]:
+            w = m.get("window", {})
+            if not w.get("buy") or w.get("_reserve_revision"):
+                continue
+            selling = [r["unit"] for r in reserve if _when(m) >= _when(by_code[r["opens"]])]
+            # An open builder with no allowlist sells the whole roster, and
+            # now the reserve with it, whatever the story says.
+            if not w.get("allow") and len(selling) < len(reserve):
+                raise SystemExit(f"{spec['TITLE']}: {code_of(m)}'s window has no allowlist, "
+                                 "so it sells the allied reserve before the reserve opens")
+            if selling:
+                # A new list, never extended in place: campaign_data's
+                # windows share theirs (BUY_03 is BUY_02, BUY_09 is BUY_07),
+                # and one extended would open the reserve a window early.
+                if w.get("allow"):
+                    w["allow"] = w["allow"] + [u for u in selling if u not in w["allow"]]
+                w["situation"] = (w.get("situation", "") + " Allied escorts can also be "
+                                  "requisitioned here at their own navies' prices: "
+                                  + reserve_classes(spec, selling) + ".")
+            w["_reserve_revision"] = True
 
 
 def apply(specs):
@@ -241,7 +338,6 @@ def apply(specs):
         # is loaded. Enrich complete mission definitions at this stage.
         if "MISSIONS" not in spec:
             continue
-        expand_roster(spec)
         for m in spec["MISSIONS"]:
             if m.get("_depth_revision"):
                 continue
@@ -273,3 +369,6 @@ def apply(specs):
                         for i in range(len(slots), 4):
                             m["units"].append(deepcopy(slots[i % len(slots)]))
             m["_depth_revision"] = True
+    # After the enrichment, so a unit added above counts as placed when the
+    # reserve is filtered for named hulls.
+    apply_reserve(specs)

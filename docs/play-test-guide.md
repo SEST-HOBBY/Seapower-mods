@@ -64,6 +64,7 @@ rests on one rule: there is no free rearm.** Check that first.
 | Read Campaign Rules → Your Goal | "Rearm: never free…", and a paragraph naming the three supply-ship sales | Still says "for free" **(1.3)** |
 | Open the Task Force builder before mission 1 | 1,000 points. On sale: Jose Rizal class, Miguel Malvar class, Del Pilar class, Conrado Yap, BRP Tarlac / Davao del Sur, HTMS Chula, the H-76 helicopter. **Not** on sale yet: Thai frigate, RAN Anzac, FA-50, the C8 charter **(1.1)** | Anything else on sale, or a supply ship missing |
 | Check prices | Philippine units 20% cheaper than their list price; Thai, Australian and MSC units at full price. Note especially whether the **Jose Rizal** and **Miguel Malvar** get the discount (their files spell the nation in lower case) **(4.2)** | Note the prices you see |
+| Start *Sulu Line - Open Allocation* and look at the windows before missions 1 and 2 | Mission 1: Tarlac / Davao del Sur and Chula, **no** C8. Mission 2: **no** supply ship, and the note says the story keeps some units to its own windows. The campaign-list description names no allied fleet **(2.6)** | A supply ship before mission 2, or the C8 before mission 1 |
 
 **Buy:** at least one frigate, one Tarlac, and the H-76.
 
@@ -91,7 +92,7 @@ rests on one rule: there is no free rearm.** Check that first.
 | **1 The Island Road** | Convoy of two reaches the box 30 NM south-west; two Meridian fast attack craft come from the south-east. Win = both convoy ships in the box |
 | **2 Fire Mission Jolo** | Ship starts 25 NM north of Jolo. Steam in; the 76 mm reaches the ridge from about 8 NM. **Three of five** positions destroyed = victory **(3.1)**. Check the launch rails can attack your ship |
 | **3 Ayungin** | Nothing fires at the boat: the cutters carry machine guns only and shadow north of its track; the watcher is an unarmed intelligence ship **(5.1)**. Firing on any Chinese unit ends the mission. The boat entering the shoal's lagoon wins |
-| **4 Service at Sea** | Keep your lead ship within 3 miles of *Sulu Provider* for 30 minutes: a "Thirty minutes" message appears, then she steers north to the box. Use her to rearm: go alongside at 8 kn or less. Sink her in a second run and check she is **missing** from mission 6 **(2.5)** |
+| **4 Service at Sea** | Keep your lead ship within 3 miles of *Sulu Provider* for 30 minutes: a "Thirty minutes" message appears, then she steers north to the box. Use her to rearm: go alongside at 8 kn or less. In a second run let her be sunk after the message and take the lead ship into the box: the mission is **won** (Charter failed), and she is **missing** from mission 6 **(2.5)**. Losing her no longer ends the mission (20 Oct 2026) |
 | **5 Celebes Gate** | Four coasters, one is the gun-runner (armed, with an escort boat and, from about minute 5, a drone nearby). Sinking a wrong one ends the mission. Sinking the right one before the Basilan Strait wins |
 | **6 The Aborlan Battery** | Two Silkworm launchers ashore fire at ships inside about 25 NM, including the convoy at anchor, from about minute 5 (the battery is under cover and not on the map until then) **(3.2)**. Both launchers destroyed wins |
 | **7 Balabac Strait** | Chinese surface group of five from the west, two JH-7A strike aircraft, maybe a submarine. **Three of five** ships sunk wins. Note how much ammunition you had left |
@@ -123,6 +124,12 @@ Dispatches*. Full card: `docs/campaigns/southern-watch/test-card.md`.
 | Rearm earned **(6.9)** | Hold mission 9's service window, then look before mission 10 | A rearm is offered. Miss the window and it is not |
 | Rearm at sea **(6E)** | Mission 9, fire a missile, then go within half a mile of HMAS Stalwart at 12 kn or less | The missile comes back |
 | Optional ops **(6.7)** | Bring both Korean warships in at O3, then start mission 6 | ROKS Sejong the Great is in your screen |
+| Allied escorts **(2.9)** | A **new** campaign, windows before missions 1-3 | No allied hull offered; Campaign Rules has an "Allied escorts" line saying they are on sale from Weapons Free |
+| Allied escorts **(2.10)** | Window before mission 5, Weapons Free: buy a Mogami or a Type 23 | All eleven allied classes offered at list price (frigates and the Type 45 and Burke destroyers alike); the bought ship sails; still only one ship sails |
+| Allied escorts **(2.11)** | Windows before missions 9, 11 and 12 | The same eleven offered; a bought one sails in mission 9 |
+| Old save **(2.12)** | Load a Southern Watch save from before this update, mid-campaign | It loads. Note whether the allied escorts are offered (maybe not: a campaign under way may keep its old windows) |
+| Both datums **(6.6a)** | Do O2 and O5, then start mission 4, The Quiet Passenger | Two intel lines; the submarine **and** the passenger on the plot as fifteen-minute datums |
+| Open Allocation save | Open `NEW TEST 1.sav` | It opens the Open Allocation campaign as before |
 
 ---
 
@@ -144,14 +151,18 @@ is the thing to watch. Full card: `docs/campaigns/southern-reach/test-card.md`.
 | Consequences **(3.6, 3.11)** | Sink VICTOR in SR07 → check SR10; sink ROMEO in TS05 → check TS09 | The sunk boat is missing later |
 | Weapons Tight **(4.8)** | SR10, everything red starts Tight | Nothing fires until you do |
 | Defector **(6)** | TS11A The Twelve-Mile Line | See section 6 of the card |
+| Allied escorts **(2.11)** | A **new** campaign: every window, through Tasman Crossing | No allied hull until the window before TS04; from it, Type 23, Mogami and Daegu at list price. JS Mogami (Mogami Variant1) and Daegu Variant1 are **never** offered |
 
 ---
 
 ## 5. Red Line — The Other Watch
 
-People's Liberation Army Navy, November 2028–February 2029, six missions. Won
-by restraint: almost every mission is lost by firing on the wrong thing.
-Full card: `docs/campaigns/red-line/test-card.md`.
+People's Liberation Army Navy, November 2028–February 2029: six core missions
+and, since 20 Oct 2026, three side operations - O1 *Datum*, O2 *The Ships from
+the North* and C1 *Pilot in the Water*, with four new pages. Won by restraint:
+almost every mission is lost by firing on the wrong thing. A Red Line campaign
+started before the side operations must be **started again** (17 entries, not
+10). Full card: `docs/campaigns/red-line/test-card.md`.
 
 | Check | Do | Expect |
 |---|---|---|
@@ -164,6 +175,10 @@ Full card: `docs/campaigns/red-line/test-card.md`.
 | Racetracks **(8.1)** | RL05 at 8x, watch the Poseidon for the whole mission | It keeps flying back and forth; it does not circle one end |
 | Timing **(6.1)** | RL04, ignore the coaster | She clears the screen and the mission is lost around T+40 to T+60. Note the minute |
 | Supply ships (Open Allocation) | Start *Red Line - Open Allocation* | Type 901 and 903A supply ships on sale |
+| Briefings and Situation **(8A.5-8A.6)** | RL01 and RL02 briefings, and the Situation button | No Collins or Virginia photo, and no submarine in the Situation list; the Poseidon's, Triton's and Wedgetail's photos read "Protected - do not engage" |
+| Flags **(8A.7)** | RL01's ferry and tuna trawler; the cruise ships in RL05 and RL06 | Indonesian flags in RL01, Panama's on the cruise ships; no Russian flag |
+| Side operations **(8B.1, 8B.3, 8B.5)** | A **new** campaign: fly O1, O2 and C1 | O1: the Y-9 classifies GOLF with buoys and nothing fires. O2: both Japanese escorts classified, and neither fighter pair fires first (8B.3a). C1: the lead ship stopped within three cables of the raft, "Pilot aboard." four minutes later and the win at once, at about minute 34 at full speed, before the patrol vessel reaches him at about 39. Note the minute the patrol vessel reaches the raft if you lose the race |
+| What they leave **(7.3, 7.4)** | After O1, RL02; after O2, RL03 | RL02: GOLF on the plot for fifteen minutes as an unknown contact. RL03: Mogami and Maya classified from the start; say whether classifying Coral Pioneer alone then brings the PICTURE REPORT. **Release blocker:** if it never comes, RL03 cannot be won after O2, and its reveal comes out before upload |
 
 ---
 

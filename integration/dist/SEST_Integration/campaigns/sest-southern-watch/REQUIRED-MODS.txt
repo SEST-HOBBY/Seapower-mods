@@ -5,7 +5,7 @@ variants they name, the rounds their loadouts hang and the units its
 roster sells. The pack-level REQUIRED-MODS.txt two folders up, at the
 pack's root, is the union across every campaign in the pack.
 
-1. HARD REQUIRED (112): a mission names a file of theirs, or a mod above says it cannot run without them.
+1. HARD REQUIRED (113): a mission names a file of theirs, or a mod above says it cannot run without them.
 
   3438479626    a squadron a flight comes from   1143.5 Kuznetsov
   3781062859    a model a placed unit draws      <<E-3G>>
@@ -22,6 +22,7 @@ pack's root, is the union across every campaign in the pack.
   3600788156    a unit a mission places          Buildings and Targets for Missions
   3564792549    a hull variant in use            BUK-M3
   3801363152    a unit a mission places          CH-53E Standalone v0.1.0
+  3567256221    a unit the player can buy        Charles De Gaulle & Modern French Navy Pack (WIP)
   3481228992    a unit a mission places          ChengDu J-10C Vigorous Dragon
   3417801942    a unit a mission places          Chinese Navy (PLAN)
   3746453639    a unit a mission places          Civil Aircraft Mod (Airbus Family)
@@ -121,7 +122,7 @@ pack's root, is the union across every campaign in the pack.
   3380210757    required by another mod          Anchor Chain
                                                    asked for by: Anduril Maritime Drones, B-2 Spirit, EC-2 Stand Off Jammer, Saronic Corsair ASV, V-22 Osprey / SV-22 2024 ASW prototype
 
-1b. ONLY FOR THE DISPATCHES (49): the optional browser missions in missions/Southern Watch - Dispatches place these; the campaign
+1b. ONLY FOR THE DISPATCHES (48): the optional browser missions in missions/Southern Watch - Dispatches place these; the campaign
 itself never loads them. Keep them installed anyway: SETUP checks every
 mod in LOAD-ORDER.txt and stops if one is missing.
 
@@ -135,7 +136,6 @@ mod in LOAD-ORDER.txt and stops if one is missing.
   3416372890    a unit a mission places          Apex Predators MIG-29A & F-16A
   3502273861    a unit a mission places          ARRW (AGM-183)
   3774746803    a unit a mission places          AVIC HARBIN Z-21
-  3567256221    a unit a mission places          Charles De Gaulle & Modern French Navy Pack (WIP)
   3558173926    a unit a mission places          David's Sling
   3587877691    a unit a mission places          Eurofighter Typhoon
   3444379330    a hull variant in use            Euromod - Modern Dutch navy

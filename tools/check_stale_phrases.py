@@ -67,6 +67,21 @@ ONE_AIM424 = ("retired by the player's decision of 14 Oct 2026: every AIM-424 in
 # breaks over two lines. Both claims below were first written that way.
 WRAPPED = "wrapped"
 
+# Red Line's text, source and built: the reports mission_depth adds, the
+# missions, every copy of them the pack and the consolidated dist ship, and
+# the campaign's own documents.
+RED_LINE_TEXT = [
+    "integration/campaign/mission_depth.py",
+    "integration/campaign/red_line/*.py",
+    "integration/*/SEST_*/campaigns/sest-red-line*/missions/*.ini",
+    "integration/*/SEST_*/campaigns/sest-red-line*/missions/*_briefing/*.xml",
+    "integration/*/SEST_*/missions/Red Line/*.ini",
+    "integration/*/SEST_*/missions/Red Line/*_briefing/*.xml",
+    "docs/campaigns/red-line/*.md",
+]
+RED_LINE_B1 = ("retired by the campaign upgrade's first batch, 20 Oct 2026 "
+               "(docs/campaigns/campaign-upgrade-plan.md, section 8)")
+
 # (regex, globs, why[, WRAPPED])
 STALE = [
     (r"AARGM-ER airframe", AIM424_SOURCES + AIM424_OUTPUT,
@@ -97,6 +112,12 @@ STALE = [
      AIM424_SOURCES + AIM424_OUTPUT + AIM424_STUBS + AIM424_DOCS,
      "the YF-23's round flies SEST's figures on SEST's model block now; " + ONE_AIM424,
      WRAPPED),
+    (r"\bCAPTAIN LI\b|\bPOLITICAL OFFICER CHEN\b", RED_LINE_TEXT,
+     "Red Line names no person on the Chinese side - its bible's Names rule - and its "
+     "command-net reports speak as roles; " + RED_LINE_B1),
+    (r"neither (coalition )?campaign places", RED_LINE_TEXT,
+     "ALPHA is Collins Variant3 (Waller), the one hull no other mission places; Variant6 is "
+     "Southern Reach's Rankin attachment; " + RED_LINE_B1, WRAPPED),
 ]
 
 

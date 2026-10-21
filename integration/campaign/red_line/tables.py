@@ -7,7 +7,8 @@ build.
 # The mission modules, in campaign order. The builder sorts the spine by
 # date, so this order is also the date order.
 MODULES = [
-    "rl01_trailing_contact", "rl02_routes_they_can_see", "rl03_the_other_picture",
+    "rl01_trailing_contact", "rlo1_datum", "rl02_routes_they_can_see",
+    "rlo2_the_ships_from_the_north", "rl03_the_other_picture", "rlc1_pilot_in_the_water",
     "rl04_the_order_to_withdraw", "rl05_under_the_convergence", "rl06_the_quiet_side",
 ]
 
@@ -19,10 +20,24 @@ MODULES = [
 # Generation "Generated" hands placement of the owned screen to the campaign
 # at the anchor; None launches the file as authored - RL05 is a detached
 # submarine operation, the way Southern Reach's SR02 is.
+#
+# The side operations (20 Oct 2026, campaign-upgrade-plan.md section 4.2,
+# step RL-1) keep the same rule: Southern Watch flies the 10th and the 13th
+# either side of Datum, the 17th and the 20th either side of The Ships from
+# the North, and the 23rd and the 25th either side of Pilot in the Water, and
+# Southern Reach has not begun (checked against both campaigns' dates, every
+# optional and dispatch included). The two optionals are
+# flown by a fixed force the mission supplies - the enclave field's Y-9, and
+# on the 18th a J-15 pair with it - so nothing the player owns sails. The
+# contingency is the screen's own detachment, as Southern Watch's After the
+# Wake is, the day after a mission that can cost it hulls.
 CALENDAR = {
     "RL01": ((2028, 11, 5), 100, "Generated", "screen"),
+    "RLO1": ((2028, 11, 11), 60, None, None),
     "RL02": ((2028, 11, 12), 120, "Generated", "escort"),
+    "RLO2": ((2028, 11, 18), 70, None, None),
     "RL03": ((2028, 11, 19), 140, "Generated", "shadow"),
+    "RLC1": ((2028, 11, 24), 30, "Generated", "frigate"),
     "RL04": ((2028, 11, 27), 120, "Generated", "escort"),
     "RL05": ((2028, 12, 27), 80, None, None),
     "RL06": ((2029, 1, 19), 0, "Generated", "decoy"),

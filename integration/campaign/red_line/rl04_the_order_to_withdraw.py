@@ -165,11 +165,15 @@ MISSION = dict(
           route=[(-4.80, 128.40, 14000), (-4.00, 129.40, 14000)], loop=True,
           telegraph=3),
         # The boat from the Biak approaches, astern and listening - unless
-        # Routes They Can See put her on the bottom.
-        U("red", "us-navy-2027", "usn_ssn_virginia_2027", "red_sub", name="Contact GOLF",
-          depth="belowlayer", weapons="Hold", radars="False",
+        # Routes They Can See put her on the bottom. Still nobody's here, as
+        # there: no photograph, no Situation entry. Variant10, as in Datum
+        # and Routes They Can See (20 Oct 2026): Variant1 is the hull
+        # Fujian's Shadow can lose on the 23rd.
+        U("red", "us-navy-2027", "usn_ssn_virginia_2027", "red_sub", variant="Variant10",
+          name="Contact GOLF", depth="belowlayer", weapons="Hold", radars="False",
           spawn_if=("RL02GolfSunk", "IsFalse"),
-          route=[(-4.40, 128.30, "belowlayer")], telegraph=2),
+          route=[(-4.40, 128.30, "belowlayer")], telegraph=2,
+          recognise=False, orbat=False),
         U("neutral", "_vanilla", "civ_fv_fishingboat_a", "fishing",
           name="Banda fishing boat Lautaka", route=[(-4.60, 129.20, 0)], telegraph=2),
         U("neutral", "_vanilla", "civ_ms_roro_c", "ferry",

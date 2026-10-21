@@ -1,6 +1,6 @@
 Red Line - Workshop mods this campaign reaches (reference only)
 
-46 items, in canonical load order. NOT the Workshop item's
+49 items, in canonical load order. NOT the Workshop item's
 Required Items list. All four campaigns ship in one item, the SEST
 Integration Pack (3812461539), whose Required Items - like the
 collection 'SEST - Modernised Campaign Collection' (3812390790) -
@@ -33,6 +33,8 @@ https://steamcommunity.com/sharedfiles/filedetails/?id=3774859959    # PLAN Type
 https://steamcommunity.com/sharedfiles/filedetails/?id=3436170138    # Shenyang J-11
 https://steamcommunity.com/sharedfiles/filedetails/?id=3486502935    # Type 003 Fujian / Type 004 CVN Aircraft Carriers
 https://steamcommunity.com/sharedfiles/filedetails/?id=3417801942    # Chinese Navy (PLAN)
+https://steamcommunity.com/sharedfiles/filedetails/?id=3630495619    # Euromod - Cold War Spanish Navy
+https://steamcommunity.com/sharedfiles/filedetails/?id=3731208477    # Euromod - Modern Spanish Navy
 https://steamcommunity.com/sharedfiles/filedetails/?id=3737267013    # United States Naval Aviation
 https://steamcommunity.com/sharedfiles/filedetails/?id=3433957933    # Virginia-, Seawolf-, and Ohio-class Submarines
 https://steamcommunity.com/sharedfiles/filedetails/?id=3602046770    # Boeing P-8 Poseidon
@@ -41,6 +43,7 @@ https://steamcommunity.com/sharedfiles/filedetails/?id=3746453639    # Civil Air
 https://steamcommunity.com/sharedfiles/filedetails/?id=3595014060    # NATO E-3A Sentry
 https://steamcommunity.com/sharedfiles/filedetails/?id=3808882954    # RC-135V/W Rivet Joint
 https://steamcommunity.com/sharedfiles/filedetails/?id=3499239964    # [DEPRECATED] E-7A Wedgetail
+https://steamcommunity.com/sharedfiles/filedetails/?id=3755769170    # F-2A 'Viper Zero'
 https://steamcommunity.com/sharedfiles/filedetails/?id=3567228449    # French Helicopter Package
 https://steamcommunity.com/sharedfiles/filedetails/?id=3503670861    # General Atomics MQ-9 Reaper
 https://steamcommunity.com/sharedfiles/filedetails/?id=3506979898    # Shenyang J-16A (歼-16A 潜龙)

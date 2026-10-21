@@ -1390,6 +1390,24 @@ class OpenAllocation(unittest.TestCase):
             bp.open_allocation_ini(self.SPINE.replace("sest-test/campaign.ini", "x.ini"),
                                    "sest-test", self.ROSTER)
 
+    def test_a_held_unit_is_sold_only_where_the_story_sells_it(self):
+        # OPEN_HOLD: the P-8 is not in the first window's story allowlist, so
+        # the twin's first window leaves it out and says so. The second open
+        # window has no allowlist - the story sells everything there - and
+        # the twin sells it too.
+        twin = bp.open_allocation_ini(self.SPINE, "sest-test", self.ROSTER,
+                                      hold=["usn_p8"]).split("\n")
+        self.assertIn("TaskForceModeAllowedRosterUnits=ran_ffh_anzac,Variant3,Variant8", twin)
+        self.assertIn("TaskForceModeBuilderSituation_en=" + bp.OPEN_NOTE_HELD
+                      + " Frigates only.", twin)
+        self.assertIn("Description=" + bp.OPEN_BLURB_HELD + "Blurb.", twin)
+        held_too = self.SPINE.replace("Variant3,Variant8\n", "Variant3,Variant8|usn_p8,Squadron3\n")
+        twin = bp.open_allocation_ini(held_too, "sest-test", self.ROSTER, hold=["usn_p8"])
+        self.assertIn("TaskForceModeAllowedRosterUnits=" + self.FULL, twin)
+        self.assertIn(bp.OPEN_NOTE + " Frigates only.", twin)
+        with self.assertRaisesRegex(SystemExit, "OPEN_HOLD names civ_ms_c8"):
+            bp.open_allocation_ini(self.SPINE, "sest-test", self.ROSTER, hold=["civ_ms_c8"])
+
     def test_the_twins_rules_page_says_so(self):
         spec = bp.campaign_specs()[0]
         page = bp.campaign_rules(spec, open_allocation=True)
@@ -1478,6 +1496,14 @@ class SameNationDiscount(unittest.TestCase):
         # The built pack: every Taskforce2 unit a campaign's missions place is
         # in its roster, the twin carries the same file, and the spine names it.
         root = Path(bp.__file__).resolve().parent / "SEST_Campaign" / "campaigns"
+        # orbat=False leaves a unit out on purpose (Red Line's ALPHA, GOLF and
+        # HOTEL), by mission file.
+        unlisted = {}
+        for spec in bp.campaign_specs():
+            bp.set_campaign(spec)
+            for m in spec["MISSIONS"]:
+                unlisted[bp.mission_name(m) + ".ini"] = {
+                    u["type"] for u in m["units"] if u.get("orbat") is False}
         checked = 0
         for camp in sorted(root.iterdir()):
             missions = camp / "missions"
@@ -1496,7 +1522,8 @@ class SameNationDiscount(unittest.TestCase):
                 for m in re.finditer(r"^\[Taskforce2(Vessel|Submarine|Aircraft|Helicopter)\d+\][^\n]*\n(.*?)(?=^\[)",
                                      text, re.M | re.S):
                     uid = re.search(r"^Type=(\S+)", m.group(2), re.M).group(1)
-                    if m.group(1) == "Vessel" and not bp.armed(uid):
+                    if (m.group(1) == "Vessel" and not bp.armed(uid)) \
+                            or uid in unlisted.get(ini.name, ()):
                         continue
                     self.assertIn(uid, listed, f"{ini.name}: {uid} is placed but not in the roster")
                     checked += 1
@@ -1513,9 +1540,12 @@ class SameNationDiscount(unittest.TestCase):
 
     # Sulu Line is the one campaign whose roster is a coalition on purpose:
     # the Thai detachment, one RAN frigate and the MSC charter are sold at
-    # their listed price, and the rules page says so.
+    # their listed price, and the rules page says so. The two RAN campaigns
+    # sell an allied reserve beside their own navy (mission_depth.
+    # apply_reserve): eleven classes of five navies in Southern Watch since
+    # 20 Oct 2026, three in Southern Reach.
     PARTNER_NATIONS = {"sest-sulu-line": {"thailand", "australia", "us"},
-                       "sest-southern-watch": {"uk", "japan", "south_korea"},
+                       "sest-southern-watch": {"uk", "japan", "south_korea", "france", "us"},
                        "sest-southern-reach": {"uk", "japan", "south_korea"}}
 
     def test_every_shipped_roster_is_the_commanders_own(self):
@@ -1673,6 +1703,19 @@ class AlliedFleet(unittest.TestCase):
             self.assertEqual(kept, [])
         finally:
             bp.airframe_rows = saved
+
+    def test_the_reserve_is_sold_from_the_roster_not_the_allied_fleet(self):
+        # mission_depth.apply_reserve moves each reserve class from the
+        # allied fleet to the roster, so a twin sells it once; a second
+        # campaign_specs() call adds nothing twice.
+        for _ in range(2):
+            for spec in bp.campaign_specs():
+                units = [e["unit"] for e in spec["ROSTER"]]
+                self.assertEqual(len(units), len(set(units)), spec["SLUG"])
+                for r in spec.get("RESERVE", []):
+                    self.assertIn(r["unit"], units, spec["SLUG"])
+                    self.assertNotIn(r["unit"], {e["unit"] for e in spec["ALLIED_FLEET"]})
+                    self.assertEqual(bp.unit_type(r["unit"]), "Vessel", r["unit"])
 
     def test_every_allied_entry_resolves_and_is_one_nation(self):
         import allied_fleet
@@ -2154,6 +2197,24 @@ class AlliedFleetReview(unittest.TestCase):
         self.assertEqual(bp.allied_line([dict(unit="usn_p8", picks=["Squadron3"])],
                                         commander), "")
 
+    def test_the_allied_sentence_counts_the_allied_fleet_not_the_roster(self):
+        # Sulu Line's own roster sells Thai, Australian and MSC units, and
+        # the sentence built from the twin's whole roster called them "the
+        # allied fleet ... 5 classes from Thailand, Australia and USA" (until
+        # 20 Oct 2026). The builder passes the allied entries alone; Sulu's
+        # commander calls on none.
+        spec = next(s for s in bp.campaign_specs() if s["SLUG"] == "sest-sulu-line")
+        self.assertTrue(bp.allied_line(spec["ROSTER"], spec["COMMANDER"]))
+        self.assertEqual(spec["ALLIED_FLEET"], [])
+        self.assertEqual(bp.allied_line(spec["ALLIED_FLEET"], spec["COMMANDER"]), "")
+        pack = bp.ROOT / "integration" / "campaign" / "SEST_Campaign" / "campaigns"
+        twin = pack / bp.open_slug(spec["SLUG"]) / "campaign.ini"
+        if not twin.is_file():
+            self.skipTest("pack not built")
+        description = re.search(r"^Description=(.*)$", twin.read_text(encoding="utf-8"),
+                                re.M).group(1)
+        self.assertNotIn("allied fleet", description)
+
     def test_the_gate_refuses_a_twin_that_drifted(self):
         pack = bp.ROOT / "integration" / "campaign" / "SEST_Campaign"
         slug = "sest-red-line"
@@ -2175,6 +2236,603 @@ class AlliedFleetReview(unittest.TestCase):
         finally:
             shutil.rmtree(tmp, ignore_errors=True)
 
+    def test_the_gate_refuses_a_twin_that_sells_a_held_unit(self):
+        # Sulu Line's twin sells its supply ships only where the story does
+        # (OPEN_HOLD). The C8 back at The Island Road is the shipped defect.
+        pack = bp.ROOT / "integration" / "campaign" / "SEST_Campaign"
+        slug = "sest-sulu-line"
+        if not (pack / "campaigns" / bp.open_slug(slug)).is_dir():
+            self.skipTest("pack not built")
+        hold = next(s for s in bp.campaign_specs() if s["SLUG"] == slug)["OPEN_HOLD"]
+        tmp = Path(tempfile.mkdtemp())
+        try:
+            for s in (slug, bp.open_slug(slug)):
+                shutil.copytree(pack / "campaigns" / s, tmp / "campaigns" / s)
+            self.assertEqual(coverage_check.open_twin(tmp, slug, hold)[:1], [])
+            # Without the hold, the gate expects every window to sell all.
+            self.assertTrue(coverage_check.open_twin(tmp, slug))
+            ini = tmp / "campaigns" / bp.open_slug(slug) / "campaign.ini"
+            good = ini.read_text(encoding="utf-8")
+            first = good.index("TaskForceModeAllowedRosterUnits=")
+            end = good.index("\n", first)
+            bad = good[:end] + "|civ_ms_c8,Variant1,Variant2" + good[end:]
+            ini.write_text(bad, encoding="utf-8")
+            self.assertTrue(coverage_check.open_twin(tmp, slug, hold))
+        finally:
+            shutil.rmtree(tmp, ignore_errors=True)
+
+
+class AlliedReserve(unittest.TestCase):
+    """The allied reserve (spec RESERVE, mission_depth.apply_reserve): escort
+    ships a standard campaign sells beside its own navy from a window its
+    story names, never a hull a mission places. The owner's decisions of
+    20 Oct 2026: all eleven Southern Watch classes from Weapons Free (Q2),
+    Southern Reach's three from Tasman Crossing (Q3), none in Red Line or
+    Sulu Line (Q4)."""
+
+    PACK = bp.ROOT / "integration" / "campaign" / "SEST_Campaign" / "campaigns"
+
+    @classmethod
+    def setUpClass(cls):
+        import mission_depth
+        cls.md = mission_depth
+        cls.specs = {s["SLUG"]: s for s in bp.campaign_specs()}
+
+    def windows(self, slug):
+        """[(code, allowlist)] - every buy window of the campaign, in order."""
+        return [(self.md.code_of(m), m["window"].get("allow", []))
+                for m in self.specs[slug]["MISSIONS"] if m.get("window", {}).get("buy")]
+
+    def test_southern_watch_sells_every_class_from_weapons_free_and_none_before(self):
+        spec = self.specs["sest-southern-watch"]
+        reserve = [r["unit"] for r in spec["RESERVE"]]
+        self.assertEqual(len(reserve), 11)
+        self.assertEqual({r["opens"] for r in spec["RESERVE"]}, {"SW05"})
+        seen = []
+        for code, allow in self.windows("sest-southern-watch"):
+            seen.append(code)
+            if code in ("SW01", "SW02", "SW03"):
+                self.assertEqual([u for u in allow if u in reserve], [], code)
+            else:
+                self.assertEqual([u for u in allow if u in reserve], reserve, code)
+        # The window before The First Ship Through keeps them: it sold
+        # allied escorts before the reserve, and a replacement hull is what
+        # it is for.
+        self.assertEqual(seen, ["SW01", "SW02", "SW03", "SW05", "SW09", "SW11", "SW12"])
+
+    def test_southern_reach_sells_three_classes_from_tasman_crossing(self):
+        spec = self.specs["sest-southern-reach"]
+        reserve = [r["unit"] for r in spec["RESERVE"]]
+        self.assertEqual(reserve, ["rn_ff_type23", "js_ffg_mogami", "ko_ffg-818"])
+        opened = False
+        for code, allow in self.windows("sest-southern-reach"):
+            opened = opened or code == "TS04"
+            self.assertEqual([u for u in allow if u in reserve], reserve if opened else [], code)
+        self.assertTrue(opened)
+
+    def test_red_line_and_sulu_line_have_no_reserve(self):
+        for slug in ("sest-red-line", "sest-sulu-line"):
+            self.assertFalse(self.specs[slug].get("RESERVE"), slug)
+
+    def test_the_window_text_names_the_classes_on_sale(self):
+        m = next(m for m in self.specs["sest-southern-reach"]["MISSIONS"]
+                 if self.md.code_of(m) == "TS04")
+        self.assertTrue(m["window"]["situation"].endswith(
+            "Allied escorts can also be requisitioned here at their own navies' prices: "
+            "Type 23 (United Kingdom); Mogami (Japan); Daegu (South Korea)."))
+        before = next(m for m in self.specs["sest-southern-reach"]["MISSIONS"]
+                      if self.md.code_of(m) == "TS01")
+        self.assertNotIn("Allied escorts", before["window"]["situation"])
+
+    def test_no_reserve_hull_is_one_a_mission_places(self):
+        # Southern Reach sold JS Mogami (Variant1; Common Sea, The Other
+        # Picture) and Daegu (Variant1; O3) until 20 Oct 2026: the filter
+        # looked at its own campaign's blue units only.
+        placed = {(u["type"], u.get("variant", "Variant1"))
+                  for spec in self.specs.values() for m in spec["MISSIONS"]
+                  if m["group"] != "dispatch" for u in m["units"]}
+        for slug in ("sest-southern-watch", "sest-southern-reach"):
+            spec = self.specs[slug]
+            priced = {e["unit"]: e["picks"] for e in spec["ROSTER"]}
+            for r in spec["RESERVE"]:
+                self.assertTrue(priced[r["unit"]], (slug, r["unit"]))
+                for pick in priced[r["unit"]]:
+                    self.assertNotIn((r["unit"], pick), placed, slug)
+        sr = {e["unit"]: e["picks"] for e in self.specs["sest-southern-reach"]["ROSTER"]}
+        self.assertNotIn("Variant1", sr["js_ffg_mogami"])
+        self.assertNotIn("Variant1", sr["ko_ffg-818"])
+
+    def test_no_reserve_hull_on_sale_is_placed_in_a_built_mission(self):
+        # The same rule on the built bytes, where a variant left to the
+        # file's default is spelled out: every reserve pick on a standard
+        # roster against every VariantReference of every campaign mission.
+        if not (self.PACK / "sest-southern-watch" / "player_task_force_roster.ini").is_file():
+            self.skipTest("pack not built")
+        placed = set()
+        for ini in self.PACK.glob("*/missions/*.ini"):
+            for block in re.split(r"\n(?=\[)", ini.read_text(encoding="utf-8")):
+                kind = re.search(r"^Type=(\S+)", block, re.M)
+                variant = re.search(r"^VariantReference=(\S+)", block, re.M)
+                if kind and variant:
+                    placed.add((kind.group(1), variant.group(1)))
+        self.assertGreater(len(placed), 100)
+        for slug in ("sest-southern-watch", "sest-southern-reach"):
+            reserve = {r["unit"] for r in self.specs[slug]["RESERVE"]}
+            text = (self.PACK / slug / "player_task_force_roster.ini").read_text(encoding="utf-8")
+            for uid, picks in re.findall(r"^([^;\[\s=]+)=([^|\n]+)", text, re.M):
+                if uid in reserve:
+                    for pick in picks.split(","):
+                        self.assertNotIn((uid, pick), placed, slug)
+
+    def test_the_built_windows_follow_the_reserve(self):
+        if not (self.PACK / "sest-southern-watch" / "campaign.ini").is_file():
+            self.skipTest("pack not built")
+        for slug in ("sest-southern-watch", "sest-southern-reach"):
+            reserve = {r["unit"] for r in self.specs[slug]["RESERVE"]}
+            opens = {"sest-southern-watch": "#05 ", "sest-southern-reach": "#TS04 "}[slug]
+            opened = False
+            for sec in re.split(r"\n(?=\[)", (self.PACK / slug / "campaign.ini")
+                                .read_text(encoding="utf-8")):
+                head = sec.split("\n", 1)[0]
+                opened = opened or opens in head
+                allow = re.search(r"^TaskForceModeAllowedRosterUnits=(.*)$", sec, re.M)
+                if allow:
+                    sold = {e.split(",")[0] for e in allow.group(1).split("|")}
+                    self.assertEqual(sold & reserve, reserve if opened else set(), head)
+            self.assertTrue(opened, slug)
+
+
+class SuluOpenAllocation(unittest.TestCase):
+    """Sulu Line's Open Allocation twin, built: its supply ships only where
+    the story sells them, and no allied-fleet sentence (20 Oct 2026)."""
+
+    PACK = bp.ROOT / "integration" / "campaign" / "SEST_Campaign" / "campaigns"
+
+    def setUp(self):
+        if not (self.PACK / "sest-sulu-line-open" / "campaign.ini").is_file():
+            self.skipTest("pack not built")
+
+    def sections(self, slug):
+        text = (self.PACK / slug / "campaign.ini").read_text(encoding="utf-8")
+        return {s.split("\n", 1)[0].split("]")[0] + "]": s for s in re.split(r"\n(?=\[)", text)}
+
+    @staticmethod
+    def sold(sec):
+        allow = re.search(r"^TaskForceModeAllowedRosterUnits=(.*)$", sec, re.M)
+        return {e.split(",")[0] for e in allow.group(1).split("|")} if allow else None
+
+    def test_supply_ships_are_sold_only_where_the_story_sells_them(self):
+        spec = next(s for s in bp.campaign_specs() if s["SLUG"] == "sest-sulu-line")
+        hold = set(spec["OPEN_HOLD"])
+        self.assertEqual(hold, {"phl_lpd_tarlac", "tha_aor_chula", "civ_ms_c8"})
+        base, twin = self.sections("sest-sulu-line"), self.sections("sest-sulu-line-open")
+        windows = 0
+        for head, sec in base.items():
+            if self.sold(sec) is None:
+                continue
+            windows += 1
+            self.assertEqual(self.sold(twin[head]) & hold, self.sold(sec) & hold, head)
+        self.assertEqual(windows, 4)
+        # The two shipped leaks: the C8 at The Island Road, every supply ship
+        # at Fire Mission Jolo.
+        self.assertNotIn("civ_ms_c8", self.sold(twin["[Mission2]"]))
+        self.assertEqual(self.sold(twin["[Mission5]"]) & hold, set())
+        self.assertIn(bp.OPEN_NOTE_HELD, twin["[Mission5]"])
+
+    def test_the_description_names_no_allied_fleet(self):
+        description = re.search(r"^Description=(.*)$", self.sections("sest-sulu-line-open")
+                                ["[Language_en]"], re.M).group(1)
+        self.assertTrue(description.startswith(bp.OPEN_BLURB_HELD))
+        self.assertNotIn("allied fleet", description)
+
+
+class ServiceAtSea(unittest.TestCase):
+    """Sulu Line's charter (owner's decision Q8, 20 Oct 2026): her loss is a
+    failed objective, not the end of the mission, so a won Service at Sea
+    can leave The Aborlan Battery without her; the rearm is the transfer
+    alongside, and no variable is set for one."""
+
+    def setUp(self):
+        sl = next(s for s in bp.campaign_specs() if s["SLUG"] == "sest-sulu-line")
+        self.missions = {m["code"]: m for m in sl["MISSIONS"]}
+
+    def test_the_charter_is_scored_not_fatal(self):
+        m = self.missions["SL04"]
+        self.assertFalse([f for f in m.get("fatal", []) if f["objective"] == "Charter"])
+        self.assertEqual(m["resolve"]["Charter"], ("protect", "charter#1"))
+        self.assertEqual(m["victory"]["station"], "screen#1")
+        self.assertNotIn("sets", m["victory"]["after"])
+        self.assertEqual(m["declares"], ["SL04SupplierLost"])
+        reader = self.missions["SL06"]
+        self.assertIn(("SL04SupplierLost", "IsFalse"),
+                      [u.get("spawn_if") for u in reader["units"]])
+
+    def test_the_okean_says_what_loses_it(self):
+        m = self.missions["SL03A"]
+        self.assertFalse(m.get("fatal"))
+        self.assertIn("lost both its ships", m["lose"])
+
+
+class SouthernWatchReveals(unittest.TestCase):
+    """The Quiet Passenger reads both of its side operations: Paper Trail's
+    datum on the passenger and Southern Cross's on the submarine. From 18 to
+    20 Oct 2026 the second was assigned over the first."""
+
+    def test_both_reveals_are_in_the_mission(self):
+        sw = bp.campaign_specs()[0]
+        m = next(m for m in sw["MISSIONS"] if m["num"] == "04" and m["group"] == "core")
+        self.assertEqual([r["variable"] for r in m["reveal_if"]],
+                         ["O5ReceiverNamed", "O2KiwiPicture"])
+
+    def test_both_reveals_are_built(self):
+        ini = (bp.ROOT / "integration" / "campaign" / "SEST_Campaign" / "campaigns" /
+               "sest-southern-watch" / "missions" / "Southern Watch 04 - The Quiet Passenger.ini")
+        if not ini.is_file():
+            self.skipTest("pack not built")
+        text = ini.read_text(encoding="utf-8")
+        for var in ("O5ReceiverNamed", "O2KiwiPicture"):
+            self.assertIn(f"#Reveal from {var}\n", text)
+            self.assertIn(f"Condition_Condition1_Variable={var}\n", text)
+
+
+class CampaignVariables(unittest.TestCase):
+    """Pack-wide: every campaign variable a mission reads is declared by one
+    that writes it, and every one declared is read. Sulu Line declared
+    SL04ServiceHeld and nothing read it; Southern Watch wrote O5ReceiverNamed
+    for The Quiet Passenger, which had stopped reading it."""
+
+    @staticmethod
+    def audit(spec):
+        """(declared, written, read) - the variable names in the spec."""
+        declared, written, read = set(), set(), set()
+        for m in spec["MISSIONS"]:
+            declared |= set(m.get("declares", []))
+            victory = m.get("victory", {})
+            for stage in (victory, victory.get("after") or {}):
+                if stage.get("sets"):
+                    written.add(stage["sets"])
+            written |= {loss["sets"] for loss in m.get("support_loss", []) if loss.get("sets")}
+            written |= {flag["name"] for flag in m.get("flags", [])}
+            written |= {how[3] for how in m.get("resolve", {}).values()
+                        if isinstance(how, tuple) and how[0] == "classify"
+                        and len(how) > 3 and how[3]}
+            read |= {r["variable"] for r in m.get("reveal_if", [])}
+            read |= {u["spawn_if"][0] for u in m["units"] if u.get("spawn_if")}
+            if m.get("window", {}).get("rearm_if"):
+                read.add(m["window"]["rearm_if"][0])
+        return declared, written, read
+
+    def test_every_variable_read_is_declared_and_every_declared_variable_is_read(self):
+        for spec in bp.campaign_specs():
+            declared, written, read = self.audit(spec)
+            self.assertEqual(sorted(read - declared), [], f"{spec['SLUG']}: read, never declared")
+            self.assertEqual(sorted(declared - read), [], f"{spec['SLUG']}: declared, never read")
+            self.assertEqual(written, declared, spec["SLUG"])
+
+    def test_the_built_campaigns_agree(self):
+        # The same rule on the built bytes, every key that reads or writes
+        # one: SpawnByVariableAND, a VariableCheck condition and the window's
+        # TaskForceModeRearmByVariableAND read; [CampaignVariables] declares;
+        # Action_VariableSet writes.
+        pack = bp.ROOT / "integration" / "campaign" / "SEST_Campaign" / "campaigns"
+        if not pack.is_dir():
+            self.skipTest("pack not built")
+        checked = 0
+        for spec in bp.campaign_specs():
+            camp = pack / spec["SLUG"]
+            declared, written, read = set(), set(), set()
+            spine = (camp / "campaign.ini").read_text(encoding="utf-8")
+            read |= set(re.findall(r"^TaskForceModeRearmByVariableAND=([^,\n]+),", spine, re.M))
+            for ini in camp.glob("missions/*.ini"):
+                text = ini.read_text(encoding="utf-8")
+                block = re.search(r"^\[CampaignVariables\]\n(.*?)(?:\n\n|\Z)", text, re.M | re.S)
+                if block:
+                    declared |= set(re.findall(r"^([^=\n]+)=False$", block.group(1), re.M))
+                written |= set(re.findall(r"^Action_VariableSet=([^,\n]+),True$", text, re.M))
+                read |= set(re.findall(r"^SpawnByVariableAND=([^,\n]+),", text, re.M))
+                read |= set(re.findall(r"^Condition_Condition\d+_Variable=(\S+)$", text, re.M))
+            self.assertEqual(sorted(read - declared), [], spec["SLUG"])
+            self.assertEqual(sorted(declared - read), [], spec["SLUG"])
+            self.assertEqual(written, declared, spec["SLUG"])
+            checked += len(declared)
+        self.assertGreater(checked, 30)
+
+
+class RedSidePresentation(unittest.TestCase):
+    """What a briefing and the Situation window give away (20 Oct 2026).
+    recognise=False keeps a unit's photograph out of the briefing and
+    orbat=False keeps it out of the Situation window; a red class every
+    hull of which a `spare` resolver names is labelled as protected."""
+
+    PACK = bp.ROOT / "integration" / "campaign" / "SEST_Campaign" / "campaigns"
+
+    def test_recognise_false_leaves_the_photo_out(self):
+        cat = bp.gallery_catalogue()
+        if not cat:
+            self.skipTest("no gallery source in this checkout")
+        a, b = sorted(cat)[:2]
+        picked = bp.recognition({"units": [
+            {"side": "red", "type": a, "recognise": False},
+            {"side": "red", "type": b}]})
+        self.assertEqual([p[1]["unit_id"].lower() for p in picked], [b])
+
+    def test_a_class_is_protected_only_when_every_hull_of_it_is_spared(self):
+        mission = {"units": [
+            U("red", "m", "usn_p8", "patrol"),
+            U("red", "m", "plan_type_054a_p5", "group"),
+            U("red", "m", "plan_type_054a_p5", "group"),
+            U("red", "m", "plan_type_056a", "group"),
+            U("neutral", "m", "civ_ms_roro_b", "ferry")],
+            "resolve": {"Restraint": ("spare", "patrol", "group#2", "ferry"),
+                        "Corvette": ("spare", "group#3")}}
+        self.assertEqual(bp.protected_classes(mission),
+                         {"usn_p8": "Protected - do not engage",
+                          "plan_type_056a": "Protected - do not engage"})
+        entry = {"unit_id": "usn_p8", "label": "P-8A Poseidon", "mapping_status": "exact"}
+        asset = {"label": "P-8A", "asset_id": "p8a"}
+        saved = bp.photo_credit
+        bp.photo_credit = lambda asset: "Photo: test"
+        try:
+            xml = bp.recognition_xml([("s", entry, asset, "red")],
+                                     {"usn_p8": "Protected - do not engage"})
+            self.assertIn("Protected - do not engage. Photo: test", xml)
+            self.assertNotIn("Expected opposition", xml)
+            self.assertIn("Expected opposition", bp.recognition_xml([("s", entry, asset, "red")]))
+        finally:
+            bp.photo_credit = saved
+
+    def test_a_lifted_restraint_is_do_not_fire_first(self):
+        # TS11A's shape: Restraint lifts on the frigate's fire-control lock,
+        # after which the mission clears the player to engage her and her
+        # helicopter, so "do not engage" under their photos was false. A hull
+        # an unlifted restraint also names stays protected, and a class
+        # whose hulls are under different rules keeps the plain label.
+        mission = {"units": [
+            U("red", "m", "plan_type_054a_p5", "frigate"),
+            U("red", "m", "plan_z-9c", "helo"),
+            U("red", "m", "usn_p8", "patrol"),
+            U("red", "m", "plan_type_056a", "group"),
+            U("red", "m", "plan_type_056a", "group")],
+            "resolve": {"Restraint": ("spare", "frigate", "helo", "patrol", "group#1"),
+                        "Umpire": ("spare", "patrol", "group#2")},
+            "lift": [dict(objective="Restraint", units=["frigate"])]}
+        self.assertEqual(bp.protected_classes(mission),
+                         {"plan_type_054a_p5": "Opposition - do not fire first",
+                          "plan_z-9c": "Opposition - do not fire first",
+                          "usn_p8": "Protected - do not engage"})
+
+    def test_twelve_mile_line_says_do_not_fire_first(self):
+        brief = (self.PACK / "sest-southern-reach" / "missions" /
+                 "Tasman Shield 11A - The Twelve-Mile Line_briefing" / "BriefingText_en.xml")
+        if not brief.is_file():
+            self.skipTest("pack not built")
+        text = brief.read_text(encoding="utf-8")
+        # the 054A and the Z-9C; the corvette is under the player's protection, blue
+        self.assertEqual(text.count("Protected - do not engage"), 0)
+        self.assertEqual(text.count("Opposition - do not fire first. "), 2)
+
+    def test_an_unlisted_unit_is_not_in_the_order_of_battle(self):
+        missions = [dict(key="m", group="core", red_nation="Australia",
+                         _unlisted={"Taskforce2Submarine1"})]
+        placed = {"Taskforce2Submarine": [
+            ("Taskforce2Submarine1", {"Type": "ran_ssg_collins", "VariantReference": "Variant3"},
+             None, False)],
+            "Taskforce2Aircraft": [
+            ("Taskforce2Aircraft1", {"Type": "usn_p8", "SquadronReference": "Squadron3"},
+             None, False)]}
+        text = bp.enemy_roster_ini(missions, {"m": placed})
+        self.assertNotIn("ran_ssg_collins", text)
+        self.assertIn("usn_p8=Squadron3,1", text)
+
+    def test_red_lines_boats_are_puzzles_in_the_built_campaign(self):
+        rl = self.PACK / "sest-red-line"
+        if not (rl / "enemy_theater_roster.ini").is_file():
+            self.skipTest("pack not built")
+        roster = (rl / "enemy_theater_roster.ini").read_text(encoding="utf-8")
+        self.assertNotIn("SubmarinesPersistent_USN", roster)
+        self.assertNotIn("ran_ssg_collins", roster)
+        brief = (rl / "missions" / "Red Line 02 - Routes They Can See_briefing" /
+                 "BriefingText_en.xml").read_text(encoding="utf-8")
+        self.assertNotIn("Virginia", brief)
+        self.assertIn("Protected - do not engage", brief)
+        brief = (rl / "missions" / "Red Line 01 - Trailing Contact_briefing" /
+                 "BriefingText_en.xml").read_text(encoding="utf-8")
+        self.assertNotIn("Collins", brief)
+        # ALPHA is the one Collins hull no other mission places.
+        rl01 = (rl / "missions" / "Red Line 01 - Trailing Contact.ini").read_text(encoding="utf-8")
+        self.assertIn("Type=ran_ssg_collins\nVariantReference=Variant3\n", rl01)
+
+    def test_red_lines_civilians_fly_no_russian_flag(self):
+        rl = self.PACK / "sest-red-line" / "missions"
+        if not rl.is_dir():
+            self.skipTest("pack not built")
+        for ini in sorted(rl.glob("*.ini")):
+            for block in re.split(r"\n(?=\[)", ini.read_text(encoding="utf-8")):
+                if block.startswith("[Neutral"):
+                    self.assertNotIn("\nNation=Russia", block, ini.name)
+
+    def test_red_lines_reports_name_no_one(self):
+        import mission_depth
+        # Every Red Line report, the side operations' with the rest.
+        codes = sorted(c for c in mission_depth.REPORTS if c.startswith("RL"))
+        self.assertEqual(len(codes), 9)
+        for code in codes:
+            speaker = mission_depth.REPORTS[code].split(":", 1)[0]
+            for name in ("LI", "CHEN"):
+                self.assertNotIn(name, speaker.split(), code)
+        self.assertNotIn("ceasefire", mission_depth.REPORTS["RL02"])
+        self.assertNotIn("snorkel", mission_depth.REPORTS["RL05"])
+        for code in ("SL01", "SL05", "SL07"):
+            self.assertTrue(mission_depth.REPORTS[code].startswith("MANALO:"), code)
+
+
+class RedLineSideOperations(unittest.TestCase):
+    """Red Line's step RL-1 (campaign-upgrade-plan.md section 4.2, 20 Oct
+    2026): two optionals flown by the enclave field's own aircraft and a
+    contingency for the screen's detachment, each read by the next core
+    mission or a race of its own, on days neither coalition campaign flies,
+    with no hull a coalition mission can own or lose first."""
+
+    PACK = bp.ROOT / "integration" / "campaign" / "SEST_Campaign" / "campaigns"
+
+    def setUp(self):
+        self.specs = bp.campaign_specs()
+        self.rl = next(s for s in self.specs if s["SLUG"] == "sest-red-line")
+        self.missions = {m["code"]: m for m in self.rl["MISSIONS"]}
+
+    def test_the_shape(self):
+        groups = collections.Counter(m["group"] for m in self.rl["MISSIONS"])
+        self.assertEqual(groups, {"core": 6, "optional": 2, "contingency": 1})
+        self.assertEqual(len(self.rl["EVENTS"]), 8)
+        for code, closer in (("RLO1", "Routes They Can See"),
+                             ("RLO2", "The Other Picture"),
+                             ("RLC1", "The Order to Withdraw")):
+            self.assertEqual(self.missions[code]["expires_after"], closer, code)
+        # The optionals are somebody else's aircraft: nothing the player
+        # owns sails and no window opens. The contingency is a detachment.
+        for code in ("RLO1", "RLO2"):
+            self.assertIsNone(self.missions[code]["generation"], code)
+            self.assertEqual(self.missions[code]["window"], {}, code)
+        self.assertEqual(self.missions["RLC1"]["generation"], "Generated")
+        self.assertTrue(self.missions["RLC1"]["window"]["detachment"])
+        self.assertFalse(self.missions["RLC1"]["window"].get("rearm"))
+
+    def test_each_optional_is_read_by_the_next_core_mission(self):
+        datum, names = self.missions["RLO1"], self.missions["RLO2"]
+        self.assertEqual(datum["victory"]["after"]["sets"], "RLO1GolfDatum")
+        self.assertEqual(names["victory"]["after"]["sets"], "RLO2EscortsNamed")
+        self.assertEqual(names["victory"]["after"]["units"], ["jmsdf#1", "jmsdf#2"])
+        # A datum on GOLF for fifteen minutes, as Southern Watch's O2 gives
+        # SW04: classifying her is still RL02's own objective.
+        golf = self.missions["RL02"]["reveal_if"]
+        self.assertEqual([(r["variable"], r["units"], r["level"], r["time"]) for r in golf],
+                         [("RLO1GolfDatum", ["red_sub"], "", 900)])
+        self.assertIn(("classify", "red_sub", 1), self.missions["RL02"]["resolve"].values())
+        # The escorts classified for the whole of RL03.
+        escorts = self.missions["RL03"]["reveal_if"]
+        self.assertEqual([(r["variable"], r["units"], r["level"], r.get("time", -1))
+                          for r in escorts],
+                         [("RLO2EscortsNamed", ["jmsdf"], "Classify", -1)])
+
+    def test_red_line_flies_no_day_the_coalition_campaigns_fly(self):
+        # Correction X3: no day Southern Watch or Southern Reach flies,
+        # optionals and dispatches included. Sulu Line may share a day.
+        flown = {m["date"]: f"{s['TITLE']} {m['key']}" for s in self.specs
+                 if s["SLUG"] in ("sest-southern-watch", "sest-southern-reach")
+                 for m in s["MISSIONS"]}
+        for m in self.rl["MISSIONS"]:
+            self.assertNotIn(m["date"], flown, f"{m['code']} shares {m['date']} with "
+                             f"{flown.get(m['date'])}")
+
+    def test_no_hull_a_coalition_mission_can_own_or_lose_first(self):
+        # The bible's rule as corrected on 20 Oct 2026: a coalition warship
+        # Red Line places is no hull another standard campaign sells (its
+        # roster, the allied reserve included) or places on the player's
+        # side before her last Red Line appearance. GOLF was Variant1 until
+        # then, the hull Fujian's Shadow can lose on the 23rd.
+        last = {}
+        for m in self.rl["MISSIONS"]:
+            for u in m["units"]:
+                if u["side"] == "red" and bp.unit_type(u["type"]) in ("Vessel", "Submarine") \
+                        and bp.is_combat(u["type"]):
+                    key = (u["type"], u.get("variant", "Variant1"))
+                    last[key] = max(last.get(key, m["date"]), m["date"])
+        self.assertIn(("ran_opv_arafura", "Variant4"), last)
+        self.assertEqual(last[("usn_ssn_virginia_2027", "Variant10")], (2028, 11, 27))
+        for spec in self.specs:
+            if spec is self.rl:
+                continue
+            for e in spec["ROSTER"]:
+                for pick in e.get("picks", []):
+                    self.assertNotIn((e["unit"], pick), last, f"{spec['TITLE']} sells it")
+            for m in spec["MISSIONS"]:
+                if m["group"] == "dispatch":
+                    continue
+                for u in m["units"]:
+                    key = (u["type"], u.get("variant", "Variant1"))
+                    if u["side"] == "blue" and key in last:
+                        self.assertGreater(m["date"], last[key],
+                                           f"{spec['TITLE']} {m['key']} places {key}")
+        # The Open Allocation twins are excepted: they sell their
+        # commander's whole allied fleet from the first window (plan section
+        # 3.2, item 4), and the reserve's named-hull filter is the reserve's
+        # alone. Pinned, so that a second Red Line hull on a twin is a
+        # decision and not an accident (review of 20 Oct 2026).
+        on_twins = sorted({(e["unit"], pick) for spec in self.specs if spec is not self.rl
+                           for e in spec.get("ALLIED_FLEET", []) for pick in e["picks"]
+                           if (e["unit"], pick) in last})
+        self.assertEqual(on_twins, [("jmsdf_ddg_maya", "Variant1")])
+
+    def test_golf_is_one_boat(self):
+        golf = {(code, u.get("variant")) for code, m in self.missions.items()
+                for u in m["units"] if u.get("name") == "Contact GOLF"}
+        self.assertEqual(sorted(golf), [("RL02", "Variant10"), ("RL04", "Variant10"),
+                                        ("RLO1", "Variant10")])
+        # Spared in Datum: sunk there, she could not be in RL02 or RL04.
+        self.assertIn("red_sub", self.missions["RLO1"]["fatal"][0]["units"])
+
+    def test_the_pilot_race(self):
+        m = self.missions["RLC1"]
+        v, stage = m["victory"], m["victory"]["after"]
+        pilot = m["stations"]["pilot"]["at"]
+        # The held stage needs its pop-up (the builder refuses one without);
+        # the win's box is round the raft and wider than the stage's, so the
+        # pilot aboard is the win and the patrol vessel arriving after it
+        # changes nothing.
+        self.assertEqual((stage["kind"], stage["at_unit"]), ("area", "pilot"))
+        self.assertTrue(stage["hold_minutes"] and stage["held"])
+        self.assertEqual(v["at"], pilot)
+        self.assertGreater(v["radius"], stage["radius"])
+        self.assertEqual([(d["units"], d["at"]) for d in m["denied"]], [(["opv"], pilot)])
+        # The hold needs the ship stopped: crossing the stage's circle
+        # through its centre takes the four minutes only at ten knots or
+        # less. The first build's mile let an 054A at 30 knots win without
+        # slowing (review of 20 Oct 2026).
+        self.assertLessEqual(2 * stage["radius"] / (stage["hold_minutes"] / 60.0), 10)
+        # And it is a race: the patrol vessel (20 knots at telegraph 4) is
+        # at the mile after an 054A at 27 knots has the pilot aboard from
+        # the authored start, and before a ship at the builder's 18 has.
+        start = bp.nm_between(m["stations"]["frigate"]["at"], pilot) - stage["radius"]
+        hers = (bp.nm_between(m["stations"]["opv"]["at"], pilot) - m["denied"][0]["radius"]) / 20
+        self.assertLess(start / 27 + stage["hold_minutes"] / 60.0, hers)
+        self.assertGreater(start / 18 + stage["hold_minutes"] / 60.0, hers)
+        opv = next(u for u in m["units"] if u["station"] == "opv")
+        self.assertEqual((opv["type"], opv["variant"], opv["weapons"]),
+                         ("ran_opv_arafura", "Variant4", "Hold"))
+        self.assertEqual(m["fatal"][0]["units"], ["opv", "red_air"])
+
+    def test_the_pages_are_from_this_side(self):
+        for e in self.rl["EVENTS"]:
+            form = e.get("form", "press")
+            self.assertIn(form, ("signal", "log", "intsum"), e["file"])
+            if form in ("signal", "log") and e.get("note"):
+                # Never the coalition analyst's or a merchant master's box.
+                self.assertIn(e.get("note_label"), ("COMMANDER'S NOTE", "FILE NOTE"),
+                              e["file"])
+            if form == "log":
+                self.assertNotEqual(e.get("master_label", "MASTER"), "MASTER", e["file"])
+            if form == "intsum":
+                self.assertNotIn("COALITION", e["marking"], e["file"])
+        befores = [e.get("before") for e in self.rl["EVENTS"][1:-1]]
+        for key in ("Datum", "The Ships from the North", "Pilot in the Water"):
+            self.assertIn(key, befores)
+
+    def test_the_built_spine(self):
+        ini = self.PACK / "sest-red-line" / "campaign.ini"
+        if not ini.is_file():
+            self.skipTest("pack not built")
+        text = ini.read_text(encoding="utf-8")
+        self.assertIn("NumberOfMissions=17\n", text)
+        self.assertIn("Length=6\n", text)
+        index = {name: int(n) for n, name in
+                 re.findall(r"^\[Mission(\d+)\]  #RL\w+ (.+)$", text, re.M)}
+        for side, closer in (("Datum", "Routes They Can See"),
+                             ("The Ships from the North", "The Other Picture"),
+                             ("Pilot in the Water", "The Order to Withdraw")):
+            section = re.search(rf"^\[Mission{index[side]}\].*?(?=^\[Mission|\Z)", text,
+                                re.M | re.S).group(0)
+            self.assertIn(f"ExpiresAfterMissionComplete={index[closer]}\n", section, side)
+
 
 class RulesPage(unittest.TestCase):
     """The Campaign Rules button opens campaign_rules_en.xml; each campaign's
@@ -2189,6 +2847,30 @@ class RulesPage(unittest.TestCase):
             for stock in ("Pacific Strike", "Japanese units, for example", "optional side missions",
                           "include their airwing for free"):
                 self.assertNotIn(stock, page, f"{spec['SLUG']}: {stock}")
+
+    def test_the_story_page_says_when_the_allied_reserve_is_on_sale(self):
+        # One line, story mode only: the Unit Catalog lists the reserve from
+        # the first window, and the line says from when it is really sold.
+        opens = {"sest-southern-watch": "Weapons Free", "sest-southern-reach": "Tasman Crossing"}
+        for spec in bp.campaign_specs():
+            page = bp.campaign_rules(spec)
+            twin = bp.campaign_rules(spec, open_allocation=True)
+            self.assertNotIn("Allied escorts are on sale", twin, spec["SLUG"])
+            if spec["SLUG"] not in opens:
+                self.assertNotIn("Allied escorts are on sale", page, spec["SLUG"])
+                continue
+            self.assertEqual(page.count("Allied escorts are on sale from the force allocation "
+                                        f"before {opens[spec['SLUG']]}: "), 1, spec["SLUG"])
+            self.assertIn("No allied aircraft, carrier, amphibious ship or tanker is sold", page)
+        watch = bp.campaign_rules(bp.campaign_specs()[0])
+        self.assertIn("Arleigh Burke Flight III (USA)", watch)
+        self.assertIn("La Fayette and Aquitaine (France)", watch)
+
+    def test_the_allied_reserve_sells_ships_only(self):
+        spec = dict(bp.campaign_specs()[0])
+        spec["RESERVE"] = spec["RESERVE"] + [dict(unit="usn_p8", name="P-8A", opens="SW05")]
+        with self.assertRaisesRegex(SystemExit, "sells ships only, and usn_p8"):
+            bp.campaign_rules(spec)
 
     def test_the_survived_missions_column_is_the_campaigns_thresholds(self):
         spec = dict(bp.campaign_specs()[0])

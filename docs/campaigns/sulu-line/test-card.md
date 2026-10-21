@@ -52,8 +52,21 @@ at Sea's and The Aborlan Battery's windows do.
 
 2.5 **Service at Sea.** Sulu Provider (the MSC C8) is a working supplier. Hold
 the lead ship within three miles of her for thirty minutes: the "Thirty
-minutes" message appears and the charter steers north. Sink her in a second
-run: The Aborlan Battery then opens **without** her at the anchorage.
+minutes" message appears and the charter steers north. In a second run let
+her be sunk after the message, then take the lead ship into the withdrawal
+box: the mission is **won** with Charter failed, and The Aborlan Battery
+opens **without** her at the anchorage. (Until 20 Oct 2026 her loss ended
+the mission, so that branch could only follow a defeat.) *Wrong:* the
+mission ends when she sinks = an old build.
+
+2.6 **The Open Allocation version's supply ships.** Start *Sulu Line - Open
+Allocation*. Before The Island Road it offers Tarlac / Davao del Sur and
+Chula but **not** the C8; before Fire Mission Jolo **no** supply ship, with
+the window's note saying the story keeps some units to its own windows;
+before Service at Sea and The Aborlan Battery all three. Its description
+in the campaign list names **no** allied fleet. *Wrong:* a supply ship on
+sale before Fire Mission Jolo, or the C8 before The Island Road = an old
+build.
 
 ## 3. Fire missions
 

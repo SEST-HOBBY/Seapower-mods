@@ -15,7 +15,19 @@ the one that torpedoed the Russian detachment's auxiliary two nights before
 in either campaign says whose she is, and no text here does either: she is
 GOLF, and a classification shows her class, which is as far as the group
 gets. The player may classify her, and may sink her, which sets
-RL02GolfSunk and keeps her out of The Order to Withdraw.
+RL02GolfSunk and keeps her out of The Order to Withdraw. Until 20 Oct 2026
+the briefing showed her photograph as "Virginia-class (2027)" and the
+Situation window filed her under the USN; recognise=False and orbat=False
+keep both quiet.
+
+Datum (RLO1, the day before) can have put a class on her from the enclave's
+Y-9. If it did (RLO1GolfDatum), her position is on this plot for fifteen
+minutes at the start - a datum, not a classified track, as Southern Watch's
+Southern Cross gives The Quiet Passenger: classifying her is still this
+mission's Boat objective. From 20 Oct 2026 she is usn_ssn_virginia_2027
+Variant10 here, in Datum and in The Order to Withdraw: Variant1 is the
+hull Fujian's Shadow places as "US submarine support" and can lose on the
+23rd, four days before her last appearance.
 """
 from campaign_data import U, F, S
 from .tables import HELO, RECON, NORTH_HULLS, NORTH_AIR
@@ -80,6 +92,18 @@ MISSION = dict(
                     "SONAR REPORT: Contact GOLF destroyed. Log the time, the weapon and what she "
                     "was doing when it was used; the group will be asked."
                 ))],
+    # Datum's promise, kept: the Y-9's buoys put GOLF here for fifteen
+    # minutes. The same bare reveal Southern Watch's O2 gives SW04 - a
+    # position from a record, not a class, which is still the Boat
+    # objective's to earn.
+    reveal_if=[dict(
+        variable="RLO1GolfDatum", units=["red_sub"], level="", time=900,
+        intel=(
+            "AIR OPERATIONS: Sea Ear 31's buoy recordings of the eleventh, correlated with "
+            "tonight's picture, put GOLF here. That position is on your display as a datum "
+            "and will age off in fifteen minutes. It is a record, not a contact: find her "
+            "with your own sensors."
+        ))],
     win=(
         "HAI YANG 7 is in the northern roads and discharging, and the detachment flies "
         "tomorrow. The Poseidon has a night's recording of a frigate escorting a tanker, which "
@@ -129,9 +153,10 @@ MISSION = dict(
           name="Enclave field (PLAAF detachment)", weapons="Hold"),
         # Weapons free and routed across the tanker's track: the threat the
         # escort exists for.
-        U("red", "us-navy-2027", "usn_ssn_virginia_2027", "red_sub", name="Contact GOLF",
-          depth="belowlayer", weapons="Free", radars="False",
-          route=[(-0.55, 135.85, "belowlayer")], telegraph=2),
+        U("red", "us-navy-2027", "usn_ssn_virginia_2027", "red_sub", variant="Variant10",
+          name="Contact GOLF", depth="belowlayer", weapons="Free", radars="False",
+          route=[(-0.55, 135.85, "belowlayer")], telegraph=2,
+          recognise=False, orbat=False),
         U("red", "p-8-poseidon", "usn_p8", "red_air", squadron="Squadron3",
           loadout="ASW", weapons="Hold",
           route=[(-0.45, 135.40, 12000), (0.00, 136.20, 12000)], loop=True,

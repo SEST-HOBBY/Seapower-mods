@@ -14,9 +14,9 @@ docstring, southern_reach/AUTHORING.md) plus three of this campaign's own:
 
   1. There is no free rearm. No window rearms the force; what a ship fires
      stays fired until a supply ship the player bought comes alongside, or
-     an escorted convoy holds its service window (SL04). Supply ships are
-     sold only in three windows. This is the campaign, not a rule on top
-     of it.
+     the escorted charter does at the service window (SL04). Supply ships
+     are sold only in three windows. This is the campaign, not a rule on
+     top of it.
 
   2. Fire missions are real targets. Every naval gunfire mission (SL02,
      SL06) is won by destroying land units ashore, in reach of a 76 mm gun
@@ -42,7 +42,8 @@ HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE.parent))
 
 from .lore import EVENTS  # noqa: E402
-from .tables import CALENDAR, MODULES, ROSTER, TASKFORCE, DIFFICULTIES, COMMANDER  # noqa: E402
+from .tables import (CALENDAR, MODULES, ROSTER, SUPPLY, TASKFORCE,  # noqa: E402
+                     DIFFICULTIES, COMMANDER)
 
 # While a mission is being written the others may not exist yet. With
 # SR_ALLOW_MISSING set (the builder's own switch for a partial campaign) the
@@ -69,7 +70,8 @@ for _mod in MODULES:
     _w = _m.get("window", {})
     if _m["code"] != "SL01" and _w.get("rearm"):
         raise SystemExit(f"{_m['code']}: window rearms for free - Sulu Line's rearm "
-                         "is a supply ship or a held service window (rearm_if)")
+                         "is a supply ship alongside, the player's own or Service at "
+                         "Sea's charter")
     MISSIONS.append(_m)
 
 _codes = [m["code"] for m in MISSIONS]
@@ -129,6 +131,11 @@ CAMPAIGN = dict(
     INFO_DESC=INFO_DESC, DISPATCH_DESC="", TASKFORCE=TASKFORCE,
     DIFFICULTIES=DIFFICULTIES, ROSTER=ROSTER, COMMANDER=COMMANDER,
     EVENTS=EVENTS, MISSIONS=MISSIONS, EXCUSES={},
+    # The Open Allocation twin sells the supply ships only where the story
+    # does (build_pack.open_allocation_ini): here they are the rearm, and a
+    # twin that sold every one at every window was a different campaign, not
+    # an open one (20 Oct 2026).
+    OPEN_HOLD=SUPPLY,
     REARM_RULES=(
         "- Rearm: never free. Ships rearm only from a supply ship you own, alongside at "
         "sea, or from the escorted charter in Service at Sea.",

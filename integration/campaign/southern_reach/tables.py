@@ -124,6 +124,21 @@ ROSTER = [
               "is a different unit and is never substituted for it"),
 ]
 
+# The allied reserve (owner's decision Q3, 20 Oct 2026): three escort classes
+# on sale from Tasman Crossing, the first window after TANGO, the Tasman
+# chapter's first authorised kill (Chatham Watch) - allies arrive once there
+# is a war in these waters. Until then the unreleased build sold them at
+# every window. Ships only: the bible keeps every allied aircraft a theatre
+# asset that "never join[s] the owned roster". JS Mogami (Variant1) and
+# Daegu (Variant1) are not among the hulls on sale: Southern Watch's Common
+# Sea and O3 and Red Line's The Other Picture place them
+# (mission_depth.apply_reserve).
+RESERVE = [
+    dict(unit="rn_ff_type23", name="Type 23", opens="TS04"),
+    dict(unit="js_ffg_mogami", name="Mogami", opens="TS04"),
+    dict(unit="ko_ffg-818", name="Daegu", opens="TS04"),
+]
+
 # The same RAN ladder Southern Watch uses (the base game's own, from Pacific
 # Strike's commander_settings.ini). Level 6 is Captain: the commander who
 # brought the task group out of the north was promoted for it, and the

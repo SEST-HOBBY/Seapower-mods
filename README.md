@@ -36,7 +36,7 @@ shows — and `data/mod-catalog.json` is the table that joins them, including th
 | `integration/<pack>/` | One SEST pack per topic: a builder plus its generated `SEST_*` output |
 | `integration/dist/SEST_Integration/` | **The deployable** — all packs merged by `tools/consolidate_packs.py`; the only thing the installer copies into the game |
 | `integration/mission-seeds/` | The early scenarios, editor saves and sandboxes the side operations are refined from, and the scripts that refine them. Never installed: every mission SEST ships is in the campaign pack |
-| `integration/campaign/` | **Four native Task Force Mode campaigns in one pack.** *SEST Southern Watch* (twelve main missions, ten optional operations, two contingencies, eleven dispatches), *SEST Southern Reach* (two chapters, 26 missions, 20 story pages; its data lives in `southern_reach/`) *SEST Red Line* (six missions from the other side; `red_line/`) and *SEST Sulu Line* (seven Philippine Navy missions with no free rearm and three optional side operations; `sulu_line/`), built so that every enabled mod is reached by something one of them places or prices |
+| `integration/campaign/` | **Four native Task Force Mode campaigns in one pack.** *SEST Southern Watch* (twelve main missions, ten optional operations, two contingencies, eleven dispatches), *SEST Southern Reach* (two chapters, 26 missions, 20 story pages; its data lives in `southern_reach/`) *SEST Red Line* (six missions from the other side, two optional operations and a contingency; `red_line/`) and *SEST Sulu Line* (seven Philippine Navy missions with no free rearm and three optional side operations; `sulu_line/`), built so that every enabled mod is reached by something one of them places or prices |
 | `mods-source/` | Byte-faithful export of every subscribed mod's text configs, plus `_vanilla/` |
 | `tools/` | Builders, checkers, generators, and the PowerShell scripts that talk to the game |
 
@@ -50,7 +50,8 @@ aircraft), `SEST_Gallery`, `SEST_Name_Fixes`, `SEST_World_Campaign` (the Dynamic
 Mod's world campaign), `SEST_Combat_Costs` (documented USD catalog compatibility)
 and `SEST_Campaign` (the four campaigns, each also listed as an Open
 Allocation twin that sells its whole roster from the first window - and, for the two RAN
-campaigns, the allied fleet). Consolidated, they are 4266
+campaigns, the allied fleet; the two RAN campaigns' standard entries sell a reserve of
+allied escorts from a window their story names). Consolidated, they are 4328
 files in `integration/dist/SEST_Integration/`. `SEST_Zumwalt_CPS` was retired on 20 Sep 2026,
 when Modern US Navy fixed what it patched. `SEST_Rafale_F5` was retired for one build on
 3 Oct 2026, the Rafale mod it patched having left the collection, and rebuilt the same
@@ -154,7 +155,7 @@ Antarctic resupply season from Storm Bay to the ice edge at 60°S against a
 "fisheries protection" group and a Russian boat; *Tasman Shield* (TS01–TS12,
 with an optional pair and an optional defector escort, TS11A) fights the same
 group through Fiordland, Cook Strait, the Tasman, Bass Strait and the Bight to a
-ceasefire. Nineteen campaign variables carry the consequences forward — a boat
+ceasefire. Twenty campaign variables carry the consequences forward — a boat
 sunk under the Tasman is absent from the Southern Convoy, an approach not held
 reinforces the group off Sydney. Every position was proved against a Natural
 Earth coastline (`integration/campaign/geo/`), because nothing in this repo had
@@ -167,7 +168,10 @@ only hear on the radio. He puts a class on the submarine trailing his carrier,
 escorts fuel into the Biak enclave, builds the picture of a convoy, stops the
 one ship in his company that wants the war back in the first hours of the
 ceasefire, and in the south passes a Poseidon barrier and meets a tender off
-Fiordland without being classified. Every mission is won by restraint,
+Fiordland without being classified. Three side operations (20 Oct 2026) put a
+class on the boat nobody has claimed, name the Japanese escorts coming south
+and race an Australian patrol vessel to a J-15 pilot in the water; the first
+two change what the next mission shows. Every mission is won by restraint,
 escort or evasion, and each victory is written to fit the other two
 campaigns' story whatever happens in it. `docs/campaigns/red-line/` holds its
 bible (with the timeline against both), build notes and test card.

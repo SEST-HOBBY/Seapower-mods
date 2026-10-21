@@ -140,9 +140,10 @@ MISSION = dict(
           loadout="ASW", weapons="Hold",
           route=[(-46.50, 165.60, 12000), (-46.00, 166.20, 12000)], loop=True,
           telegraph=3),
+        # Panama, as in Under the Convergence: the file registers Soviet.
         U("neutral", "_vanilla", "civ_ms_ivan_franko", "cruise",
-          name="MV Southern Explorer (Milford cruise)", route=[(-45.30, 166.30, 0)],
-          telegraph=3),
+          name="MV Southern Explorer (Milford cruise)", nation="Panama",
+          route=[(-45.30, 166.30, 0)], telegraph=3),
         U("neutral", "_vanilla", "civ_fv_fishingboat_a", "cray",
           name="Cray boat Tawaki (Bluff)", route=[(-46.40, 166.70, 0)], telegraph=2),
         U("neutral", "_vanilla", "civ_fv_sterntrawler_c", "longliner",

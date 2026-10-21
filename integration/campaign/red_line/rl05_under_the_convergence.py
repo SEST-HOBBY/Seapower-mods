@@ -144,15 +144,22 @@ MISSION = dict(
         # heard coming and kept clear of, because a class from her fails
         # Unseen as surely as one from the Poseidon. Spared like the aircraft:
         # a torpedo on her is the group firing first.
+        # The briefing names her, so her photograph stays; the Situation
+        # window does not list her (orbat=False). It is the campaign's,
+        # shown from the first mission, and a USN submarine section there
+        # in November answered Routes They Can See's question about GOLF.
         U("red", "us-submarines", "usn_ssn_virginia", "hotel", variant="Variant3",
           name="Contact HOTEL", depth="belowlayer", weapons="Hold", radars="False",
           route=[(-47.271, 139.685, "belowlayer"), (-47.707, 139.432, "belowlayer")],
-          telegraph=4),
+          telegraph=4, orbat=False),
         U("neutral", "_vanilla", "civ_fv_sterntrawler_c", "longliner",
           name="Longliner Tasman Harvest", route=[(-47.90, 141.00, 0)], telegraph=2),
+        # Panama, the flag of convenience Sulu Line's charters fly: the cruise
+        # ship's file registers Soviet, and the enemy-flag remap made her
+        # Russian (integration/common/flags.py).
         U("neutral", "_vanilla", "civ_ms_ivan_franko", "cruise",
           name="MV Southern Light (expedition cruise, Adelaide for Commonwealth Bay)",
-          route=[(-49.00, 141.50, 0)], telegraph=3),
+          nation="Panama", route=[(-49.00, 141.50, 0)], telegraph=3),
         U("neutral", "auxilliary-merchant-pack", "anl_ms_bulk", "bulker",
           name="MV Leeuwin Trader (Fremantle for Hobart)",
           route=[(-46.50, 145.00, 0)], telegraph=3),

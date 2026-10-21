@@ -7,9 +7,12 @@ first: put a class on the boat, keep the ship's flight from putting a
 torpedo on her, and take the carrier to her station on time.
 
 The mirror of Southern Reach's Silent Track, from the other side: here the
-Chinese side names a Collins-class boat. Variant6 (Rankin) is a hull
-neither coalition campaign places; the text calls her Contact ALPHA and
-the class, never the name.
+Chinese side names a Collins-class boat. Variant3 (Waller) is the one
+Collins hull no other mission places; the text calls her Contact ALPHA and
+the class, never the name. She was Variant6 until 20 Oct 2026, when
+Southern Reach's Rankin attachment (mission_depth.SUB_SUPPORT) had taken
+that hull. Neither the briefing's photographs nor the Situation window
+shows her (recognise=False, orbat=False): her class is the task.
 """
 from campaign_data import U, F, S
 from .tables import HELO, NORTH_HULLS
@@ -134,9 +137,10 @@ MISSION = dict(
           loadout="ASW", weapons="Hold"),
         # The boat that has been following since the Talaud Islands, still
         # following: a route down the group's track at a trailing speed.
-        U("red", "SEST_RAN_Fleet", "ran_ssg_collins", "red_sub", variant="Variant6",
+        U("red", "SEST_RAN_Fleet", "ran_ssg_collins", "red_sub", variant="Variant3",
           name="Contact ALPHA", depth="belowlayer", weapons="Hold", radars="False",
-          route=[(1.20, 126.75, "belowlayer")], telegraph=2),
+          route=[(1.20, 126.75, "belowlayer")], telegraph=2,
+          recognise=False, orbat=False),
         U("red", "p-8-poseidon", "usn_p8", "red_air", squadron="Squadron3",
           loadout="ASW", weapons="Hold",
           route=[(1.90, 126.60, 15000), (0.90, 127.05, 15000)], loop=True,
@@ -149,13 +153,17 @@ MISSION = dict(
           weapons="Hold",
           route=[(-0.45, 126.55, 30000), (-0.10, 127.25, 30000)], loop=True,
           telegraph=3),
+        # Indonesian hulls in Indonesian water. The ferry and the trawler
+        # files register Soviet, and the enemy-flag remap made them Russian
+        # (integration/common/flags.py); an explicit nation= wins over it.
         U("neutral", "_vanilla", "civ_ms_roro_b", "ferry",
-          name="KM Tidore Express (Ternate-Bitung ferry)",
+          name="KM Tidore Express (Ternate-Bitung ferry)", nation="Indonesia",
           route=[(1.30, 125.60, 0)], telegraph=3),
         U("neutral", "_vanilla", "civ_fv_fishingboat_a", "fishing",
           name="Tuna boat Mina Sejahtera", route=[(1.40, 126.90, 0)], telegraph=2),
         U("neutral", "_vanilla", "civ_fv_sterntrawler_a", "fishing",
-          name="Tuna boat Bintang Laut", route=[(1.05, 126.45, 0)], telegraph=2),
+          name="Tuna boat Bintang Laut", nation="Indonesia",
+          route=[(1.05, 126.45, 0)], telegraph=2),
         U("neutral", "re-power-resupply", "civ_ms_freighter_a", "coaster",
           name="KM Sangihe Jaya", route=[(2.40, 126.70, 0)], telegraph=3),
         # Civil traffic over the Molucca Sea: a regional airliner out of

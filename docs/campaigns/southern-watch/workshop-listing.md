@@ -60,15 +60,19 @@ THE CAMPAIGNS
     enemy off Sydney.
   • Red Line (November 2028 – February 2029). Six missions and an epilogue
     as the Chinese carrier group commander, won by restraint, escort or
-    evasion.
+    evasion. Plus two optional operations and a contingency: a submarine
+    nobody has claimed, the Japanese escorts coming south, and a pilot in
+    the water.
   • Sulu Line (October–November 2028). Seven missions with a Philippine-led
     task group. No free rearm: ammunition comes from supply ships you bought
     or the convoy you escort. Three optional side operations change later
     missions.
 
 HOW IT PLAYS
-  • You buy the force. Losses and expenditure carry forward; partners arrive
-    on their own terms and are not yours to keep.
+  • You buy the force. Losses and expenditure carry forward. Partners arrive
+    on their own terms; in Southern Watch and Southern Reach allied escorts
+    can also be requisitioned at their own prices, and in Sulu Line the Thai
+    detachment and one RAN frigate are bought into the task group.
   • Finding things matters more often than fleet battles. Civilian traffic
     is everywhere, and neutral losses end operations.
   • Each mission has a planned time and is lost at 1.5 times it; the
@@ -127,6 +131,11 @@ the collection and to the item's Required Items, and remove the
 [*]Missions that start with a loaded deck start with aircraft being prepared.
 [/list]
 
+[b]Red Line[/b]
+[list]
+[*]Three side operations: in Datum and The Ships from the North the enclave's Y-9 puts a class on the submarine nobody has claimed and names the Japanese escorts coming south, and the next mission starts with what it found; in Pilot in the Water your screen races an Australian patrol vessel to a downed J-15 pilot. Four new pages. A Red Line campaign already under way must be started again.
+[/list]
+
 [b]Ships and weapons[/b]
 [list]
 [*]The Ford carries sixteen F-35Cs in a 70-aircraft US Navy wing, whichever hull you pick.
@@ -143,6 +152,22 @@ the collection and to the item's Required Items, and remove the
 [*]The task-force debrief lists ships lost in a mission again.
 [*]Briefings show recognition photos for 54 more classes, the P-8A among them.
 [*]Follows the 20 Oct mod updates: Ford, Mogami, Wasp, F-35C, the OHP long hull and Red Storm Arsenal's Chinese missiles.
+[/list]
+
+[b]Allied escorts[/b]
+[list]
+[*]Southern Watch: allied escorts can now be requisitioned in the standard campaign, at their own navies' prices. Every class is on sale from Weapons Free: Type 23, River-class and Type 45 (UK), Mogami and Asahi (Japan), Daegu and Chungnam (South Korea), La Fayette and Aquitaine (France), and Arleigh Burke Flight IIA and III (USA). No carriers, amphibious ships, tankers or allied aircraft, and no ship a mission names elsewhere.
+[*]Southern Reach: Type 23, Mogami and Daegu escorts from Tasman Crossing.
+[*]A campaign already under way may not show them: start a new campaign to see them. Their Open Allocation versions still offer everything from the first window; there, too, these escort classes come without the few named hulls a mission places.
+[/list]
+
+[b]Fixes[/b]
+[list]
+[*]Southern Watch, The Quiet Passenger: Paper Trail's lead on the passenger appears again, beside Southern Cross's datum on the submarine.
+[*]Red Line: briefings and the Situation window no longer show the trailing submarines' class or navy before you classify them. Civilian ships fly their own flags, and the command-net reports no longer name officers.
+[*]Every campaign: a ship or aircraft your orders protect is labelled "Protected - do not engage" under its briefing photo, not "Expected opposition". In The Twelve-Mile Line the frigate and her helicopter read "Opposition - do not fire first".
+[*]Sulu Line, Service at Sea: losing Sulu Provider no longer ends the mission. Complete the rendezvous without her and she is missing at The Aborlan Battery.
+[*]Sulu Line - Open Allocation: supply ships are on sale only where the story sells them, and the description no longer lists Sulu's own Thai and Australian units as an allied fleet.
 [/list]
 
 [b]Install[/b]

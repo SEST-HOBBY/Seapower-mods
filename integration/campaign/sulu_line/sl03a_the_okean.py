@@ -92,9 +92,11 @@ MISSION = dict(
         "The trawler is stopped short of the boats. The Agency will spend a month on what "
         "comes up from her hold. Meridian has lost the cargo and the money that bought it."
     ),
+    # Losing Mabini fails Patrol and ends nothing; the mission is lost with
+    # both patrol ships, or when the trawler makes the boats (its own text).
     lose=(
-        "The trawler made her rendezvous, or the patrol lost a ship finding her. The crates are"
-        " on their way north."
+        "The trawler made her rendezvous, or the patrol lost both its ships finding her. The"
+        " crates are on their way north."
     ),
     timeout="{deadline_clock}, and the trawler is still a trawler among trawlers. The boats will"
             " find her before dawn.",
