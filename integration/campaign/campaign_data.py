@@ -164,8 +164,8 @@ EXCUSES = {
         "library", "three Combat Cost Tracker catalog extensions: spelling corrections "
         "and reviewed airframe/hull/weapon-family estimates; no performance or mission changes"),
     "euromod-anchorchain-expansion": (
-        "library", "well-deck and effects framework: 182 effect files, six "
-        "`systems/` files and 66 ammunition overwrites that the EuroMod hulls "
+        "library", "well-deck and effects framework: the effects library, "
+        "`systems/` mappings and ammunition overwrites that the EuroMod hulls "
         "in WESTERN PASSAGE and THE RELIEF SHIP resolve through"),
     "SEST_Campaign": (
         "campaign", "this pack: it ships the campaign, its missions, its "
@@ -273,8 +273,8 @@ EXCUSES = {
         "SEST theatre; placed by no installed campaign"),
     "euromod-chile": (
         "external", "Chilean Navy and Air Force of 2005-2021 outside every SEST "
-        "theatre; it defines systems RADF and The Royal Navy name ([STIR], "
-        "[IPS CSU 3], [AR-700S5])"),
+        "theatre; the world campaign's Chilean bases field it, and its "
+        "Thomson-class boats stand in for four navies' Type 209s"),
     "euromod-india": (
         "external", "two Indian Navy destroyers (2006-2025) that no SEST mission or "
         "installed campaign places"),

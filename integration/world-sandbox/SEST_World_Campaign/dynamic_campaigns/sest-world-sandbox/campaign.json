@@ -3845,7 +3845,7 @@
       "base": "home_chl_talcahuano",
       "type": "Surface",
       "units": [
-        "ch_ff_type23_pida x2",
+        "ch_ffg_type23_pida x2",
         "ch_ffg_adelaide_longhull x2"
       ]
     },
@@ -3855,7 +3855,7 @@
       "base": "home_chl_punta_arenas",
       "type": "Surface",
       "units": [
-        "ch_ffg_karel"
+        "ch_ffg_karel_doorman"
       ]
     },
     {
@@ -4440,7 +4440,7 @@
       "type": "Surface",
       "units": [
         "ch_ss_scorpene",
-        "type_209 x2"
+        "ch_ss_thomson_mlu x2"
       ]
     },
     {
@@ -4786,50 +4786,6 @@
       ]
     },
     {
-      "name": "Salamis Naval Base submarines patrol",
-      "side": "blue",
-      "base": "home_grc_salamis",
-      "type": "Surface",
-      "at": [
-        37.587,
-        23.869
-      ],
-      "units": [
-        "type_209"
-      ]
-    },
-    {
-      "name": "Salamis Naval Base submarines",
-      "side": "blue",
-      "base": "home_grc_salamis",
-      "type": "Surface",
-      "units": [
-        "type_209 x3"
-      ]
-    },
-    {
-      "name": "Golcuk Naval Base submarines patrol",
-      "side": "blue",
-      "base": "home_tur_golcuk",
-      "type": "Surface",
-      "at": [
-        42.599,
-        28.969
-      ],
-      "units": [
-        "type_209"
-      ]
-    },
-    {
-      "name": "Golcuk Naval Base submarines",
-      "side": "blue",
-      "base": "home_tur_golcuk",
-      "type": "Surface",
-      "units": [
-        "type_209 x3"
-      ]
-    },
-    {
       "name": "Submarine Squadron 11 patrol",
       "side": "blue",
       "base": "usp_sandiego_naval_base_san_diego",
@@ -4975,7 +4931,7 @@
         129.877
       ],
       "units": [
-        "type_209 named ROKS Lee Sunsin SS-068"
+        "ch_ss_thomson_mlu named ROKS Lee Sunsin SS-068"
       ]
     },
     {
@@ -4984,7 +4940,7 @@
       "base": "home_kor_jinhae",
       "type": "Surface",
       "units": [
-        "type_209 x2 named ROKS Na Daeyong SS-069; ROKS Lee Eokgi SS-071"
+        "ch_ss_thomson_mlu x2 named ROKS Na Daeyong SS-069; ROKS Lee Eokgi SS-071"
       ]
     },
     {
@@ -5028,6 +4984,50 @@
       ]
     },
     {
+      "name": "Salamis Naval Base submarines patrol",
+      "side": "blue",
+      "base": "home_grc_salamis",
+      "type": "Surface",
+      "at": [
+        37.587,
+        23.869
+      ],
+      "units": [
+        "ch_ss_thomson_mlu named HS Papanikolis S-120"
+      ]
+    },
+    {
+      "name": "Salamis Naval Base submarines",
+      "side": "blue",
+      "base": "home_grc_salamis",
+      "type": "Surface",
+      "units": [
+        "ch_ss_thomson_mlu x3 named HS Pipinos S-121; HS Matrozos S-122; HS Katsonis S-123"
+      ]
+    },
+    {
+      "name": "Golcuk Naval Base submarines patrol",
+      "side": "blue",
+      "base": "home_tur_golcuk",
+      "type": "Surface",
+      "at": [
+        42.599,
+        28.969
+      ],
+      "units": [
+        "ch_ss_thomson_mlu named TCG Gur S-357"
+      ]
+    },
+    {
+      "name": "Golcuk Naval Base submarines",
+      "side": "blue",
+      "base": "home_tur_golcuk",
+      "type": "Surface",
+      "units": [
+        "ch_ss_thomson_mlu x3 named TCG Canakkale S-358; TCG Burakreis S-359; TCG Birinci Inonu S-360"
+      ]
+    },
+    {
       "name": "Alexandria Naval Base submarines patrol",
       "side": "blue",
       "base": "home_egy_alexandria",
@@ -5037,7 +5037,7 @@
         29.875
       ],
       "units": [
-        "type_209"
+        "ch_ss_thomson_mlu named S41 (861)"
       ]
     },
     {
@@ -5046,7 +5046,7 @@
       "base": "home_egy_alexandria",
       "type": "Surface",
       "units": [
-        "type_209 x3"
+        "ch_ss_thomson_mlu x3 named S42 (864); S43 (867); S44 (870)"
       ]
     },
     {
@@ -5881,48 +5881,6 @@
       ]
     },
     {
-      "force": "Salamis Naval Base submarines patrol",
-      "points": [
-        [
-          37.587,
-          23.869
-        ],
-        [
-          37.002,
-          24.599
-        ],
-        [
-          36.421,
-          23.869
-        ],
-        [
-          37.002,
-          23.139
-        ]
-      ]
-    },
-    {
-      "force": "Golcuk Naval Base submarines patrol",
-      "points": [
-        [
-          42.599,
-          28.969
-        ],
-        [
-          41.883,
-          29.52
-        ],
-        [
-          41.473,
-          28.563
-        ],
-        [
-          42.184,
-          28.004
-        ]
-      ]
-    },
-    {
       "force": "Submarine Squadron 11 patrol",
       "points": [
         [
@@ -6089,6 +6047,48 @@
         [
           32.997,
           33.978
+        ]
+      ]
+    },
+    {
+      "force": "Salamis Naval Base submarines patrol",
+      "points": [
+        [
+          37.587,
+          23.869
+        ],
+        [
+          37.002,
+          24.599
+        ],
+        [
+          36.421,
+          23.869
+        ],
+        [
+          37.002,
+          23.139
+        ]
+      ]
+    },
+    {
+      "force": "Golcuk Naval Base submarines patrol",
+      "points": [
+        [
+          42.599,
+          28.969
+        ],
+        [
+          41.883,
+          29.52
+        ],
+        [
+          41.473,
+          28.563
+        ],
+        [
+          42.184,
+          28.004
         ]
       ]
     },
@@ -6320,10 +6320,11 @@
     "bra_type22b12": 152,
     "ch_e3d": 242,
     "ch_f-5e": 46,
-    "ch_ff_type23_pida": 154,
     "ch_ffg_adelaide_longhull": 137,
-    "ch_ffg_karel": 118,
-    "ch_ss_scorpene": 74,
+    "ch_ffg_karel_doorman": 118,
+    "ch_ffg_type23_pida": 154,
+    "ch_ss_scorpene": 75,
+    "ch_ss_thomson_mlu": 67,
     "dk_mh-60r": 39,
     "dts_b-52h": 172,
     "dts_saab_ge": 242,
@@ -6475,7 +6476,6 @@
     "tha_pt_hua_hin": 39,
     "tuaf_f-16c": 46,
     "tw_m2k-5ei": 46,
-    "type_209": 67,
     "uae_m2k-9": 46,
     "uk_a330_mrtt": 242,
     "uk_a400m_airdroop-para": 242,
@@ -7227,8 +7227,9 @@
     "bra_ffg_niteroi": 567,
     "bra_lst_newport": 223,
     "bra_ss_tupi": 60,
-    "ch_ff_type23": 154,
-    "ch_type22b2_barak": 152,
+    "ch_ffg_jvh": 127,
+    "ch_ffg_type22b2_barak": 154,
+    "ch_ffg_type23": 154,
     "es_ffg_baleares": 137,
     "es_ss_galerna": 77,
     "es_ssk_delfin": 54,
@@ -14878,7 +14879,7 @@
       "aircraft": true
     },
     {
-      "unit": "ch_ffg_karel",
+      "unit": "ch_ffg_karel_doorman",
       "side": "blue",
       "nation": "Chile",
       "tier": 0
@@ -14890,22 +14891,10 @@
       "tier": 0
     },
     {
-      "unit": "type_209",
+      "unit": "ch_ss_thomson_mlu",
       "side": "blue",
       "nation": "Chile",
       "tier": 0
-    },
-    {
-      "unit": "ch_ff_type23",
-      "side": "blue",
-      "nation": "Chile",
-      "tier": 1
-    },
-    {
-      "unit": "ch_ff_type23_pida",
-      "side": "blue",
-      "nation": "Chile",
-      "tier": 1
     },
     {
       "unit": "ch_ffg_adelaide_longhull",
@@ -14914,7 +14903,25 @@
       "tier": 1
     },
     {
-      "unit": "ch_type22b2_barak",
+      "unit": "ch_ffg_jvh",
+      "side": "blue",
+      "nation": "Chile",
+      "tier": 1
+    },
+    {
+      "unit": "ch_ffg_type22b2_barak",
+      "side": "blue",
+      "nation": "Chile",
+      "tier": 1
+    },
+    {
+      "unit": "ch_ffg_type23",
+      "side": "blue",
+      "nation": "Chile",
+      "tier": 1
+    },
+    {
+      "unit": "ch_ffg_type23_pida",
       "side": "blue",
       "nation": "Chile",
       "tier": 1

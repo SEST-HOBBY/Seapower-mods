@@ -381,8 +381,12 @@ in `docs/campaigns/southern-watch/publishing.md`; the listing text is in
 A game update moves the one thing every pack and mission here is built on
 and nobody exports on purpose: the game's own files. Three things in this
 repo track them. `mods-source/_vanilla/original` is the vanilla export: since
-11 Oct 2026 (7739076c) 4,049 text files under 0.8.5 Build 261008 of 8 Oct 2026,
-whose drift needed no SEST change (the packs moved to 0.8.5 on 13 Oct); on 3
+22 Oct 2026 (1bda58a6) 4,049 text files under 0.8.7 Build 261021 of 21 Oct
+2026, and before it 0.8.6 Build 261014 (729c5e97, 15 Oct) and 0.8.5 Build
+261008 (7739076c, 11 Oct), none of whose drift needed a SEST change beyond
+the version bump (`docs/workshop-refresh-20261022-review.md`; on 0.8.7 SEST's
+runtime plugin, matched to one game build, switched itself off and waits for
+the steps in `integration/runtime-fixes/README.md`); on 3
 Oct 2026, 4,047 text files under 0.8.4 Build 261002 of 2 Oct 2026 (the 2 Oct
 export's 4,051, taken under 0.8.3, less the KC-135A and Tu-16N stubs the game
 no longer ships, deleted by hand on 3 Oct; the 3 Oct export changed none of
@@ -611,6 +615,16 @@ read by the next pass.
    `integration/b52-arrw/build_patch.py`) get their `[Compatibility]`
    section by hand. The builder-written `_info.ini` files stay stale until
    the rebuild.
+
+   Then read `data/install-snapshot/player.log` for `[SEST Runtime]`. SEST's
+   own runtime plugin is matched to one game assembly and fails closed on
+   any other: `inactive: uninspected native assembly <hash>` means the
+   update changed `Seapower-Scripts.dll` and both of its corrections are
+   off. No gate notices this. Do not add the new hash unverified: the
+   steps, from the PC export (`tools/export-map-diagnostics.ps1
+   -IncludeGameAssembly`) to `build_plugin.py`, are in
+   `integration/runtime-fixes/README.md`, and until they are done nothing
+   player-facing may claim either correction (0.8.7, 22 Oct 2026).
 
 4. **Rebuild everything.**
 

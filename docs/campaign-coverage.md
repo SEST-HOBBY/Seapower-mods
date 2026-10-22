@@ -64,10 +64,10 @@ Sea and land positions in 23 of the 35 missions are snapped to points already us
 | `emad-iran-bm` | EMAD | `unit` | wp_emad_tel | Ballistic Shield |
 | `etendard-family` | Etendard Family Jets | `external` | Etendard IV and Super Etendard, retired by France in 2016, which no 2028 mission fields; the Clemenceau's air groups embark them | - |
 | `eurofighter-typhoon` | Eurofighter Typhoon | `unit` | raf_ef2000_fgr4_late | Western Passage |
-| `euromod-anchorchain-expansion` | Euromod - Anchorchain Expansion Pack | `library` | well-deck and effects framework: 182 effect files, six `systems/` files and 66 ammunition overwrites that the EuroMod hulls in WESTERN PASSAGE and THE RELIEF SHIP resolve through | - |
+| `euromod-anchorchain-expansion` | Euromod - Anchorchain Expansion Pack | `library` | well-deck and effects framework: the effects library, `systems/` mappings and ammunition overwrites that the EuroMod hulls in WESTERN PASSAGE and THE RELIEF SHIP resolve through | - |
 | `euromod-brazil` | Euromod-Brazilian Armed Forces(2000) | `external` | Brazilian Navy and naval air arm (service 1976-2029) outside every SEST theatre; placed by no installed campaign | - |
 | `euromod-british` | Euromod - Modern British Navy | `unit` | rn_merlin_hm2 | Western Passage |
-| `euromod-chile` | EUROMOD-Armada de Chile | `external` | Chilean Navy and Air Force of 2005-2021 outside every SEST theatre; it defines systems RADF and The Royal Navy name ([STIR], [IPS CSU 3], [AR-700S5]) | - |
+| `euromod-chile` | EUROMOD-Armada de Chile | `external` | Chilean Navy and Air Force of 2005-2021 outside every SEST theatre; the world campaign's Chilean bases field it, and its Thomson-class boats stand in for four navies' Type 209s | - |
 | `euromod-dutch` | Euromod - Modern Dutch navy | `variant` | rnn_ffg_karel_mlu | Western Passage |
 | `euromod-german` | Euromod - Modern German Navy | `unit` | ger_sea_lynx_mk88 | Western Passage |
 | `euromod-india` | Euromod-India-Navy | `external` | two Indian Navy destroyers (2006-2025) that no SEST mission or installed campaign places | - |

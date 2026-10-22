@@ -24,7 +24,7 @@ def main():
         "[Language_en]\nName=SEST Combat Cost Compatibility\n"
         "Description=Catalog spelling and reviewed same-family cost mappings for Combat Cost Tracker. "
         "Author estimates retain their reference basis; unsupported prices stay unknown.\n\n"
-        "[Compatibility]\nApproximateVersion=0.8.6\n")
+        "[Compatibility]\nApproximateVersion=0.8.7\n")
     report = ROOT / "docs/combat-costs"
     report.mkdir(parents=True, exist_ok=True)
     (report / "coverage.json").write_text(json.dumps(result, indent=2) + "\n")

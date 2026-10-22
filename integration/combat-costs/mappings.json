@@ -172,6 +172,36 @@
       "category": "DDG"
     },
     {
+      "target": "ch_ffg_type23",
+      "source": "ch_ff_type23",
+      "basis": "Same Chilean Type 23 hull, renamed by its author on 22 Oct 2026; the tracker still prices it under the old id"
+    },
+    {
+      "target": "ch_ffg_type23_pida",
+      "source": "ch_ff_type23_pida",
+      "basis": "Same Chilean Type 23 PIDAA refit hull, renamed by its author on 22 Oct 2026; the tracker still prices it under the old id"
+    },
+    {
+      "target": "ch_ffg_karel_doorman",
+      "source": "ch_ffg_karel",
+      "basis": "Same Chilean Karel Doorman hull, renamed by its author on 22 Oct 2026; the tracker still prices it under the old id"
+    },
+    {
+      "target": "ch_ffg_type22b2_barak",
+      "source": "ch_type22b2_barak",
+      "basis": "Same Chilean Type 22 Barak refit hull, renamed by its author on 22 Oct 2026; the tracker still prices it under the old id"
+    },
+    {
+      "target": "ch_ss_thomson_mlu",
+      "source": "type_209",
+      "basis": "Same Chilean Type 209/1400 hull (Thomson class), renamed by its author on 22 Oct 2026; the tracker still prices it under the old id"
+    },
+    {
+      "target": "ch_ffg_jvh",
+      "source": "rnn_ffg_van_heemskerck",
+      "basis": "Same Jacob van Heemskerck class: Chile's L class is the two Dutch hulls it bought in 2005; retain the tracker's Dutch estimate and reference basis"
+    },
+    {
       "target": "ran_ffh_anzac",
       "basis": "Modern Anzac FFH is not the catalog Battle-class Anzac destroyer; no supported price. Map FFH to the supported FFG display category.",
       "category": "FFG"

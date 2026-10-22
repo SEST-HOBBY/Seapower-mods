@@ -61,7 +61,7 @@ Tier 0 is the SEST block and must stay unbroken at the top. Tiers 1–3 are orde
 36. Euromod - Modern Nordic Navy
 37. Euromod - Modern Royal Australian Navy Mod
 38. Euromod - Modern Spanish Navy
-39. EUROMOD-Armada de Chile — *canonical order puts it below RADF and far below <<E-3G>> ([AN/APY-2])*
+39. EUROMOD-Armada de Chile — *canonical order puts it below RADF and Euromod RAN, whose Type 277Q and Adelaide fire-control sections win*
 40. Euromod-Brazilian Armed Forces(2000)
 41. Euromod-India-Navy
 42. Euromod-Philippine-Navy

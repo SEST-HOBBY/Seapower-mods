@@ -68,7 +68,7 @@ Anchor Chain extend per deck; the hull's own list is kept and only existing \
 allied aircraft are added.
 
 [Compatibility]
-ApproximateVersion=0.8.6
+ApproximateVersion=0.8.7
 """
 
 # Navies whose decks and aircraft cross-deck with each other. The nation

@@ -3770,3 +3770,47 @@ From the opening the standard campaigns now do that.
   under way *may* keep its old windows, as the test cards ask, and that
   Sulu Line's version is retired though its story opens the whole roster
   only from *Service at Sea*.
+
+## Sea Power 0.8.7 and the 22 October mod updates (22 October)
+
+The 22 Oct capture (`1bda58a6`) brought the game's 0.8.7 Build 261021 and
+ten author updates; `docs/workshop-refresh-20261022-review.md` has the
+whole record. For this campaign:
+
+- **D3 The Relief Ship.** Spanish Navy Mod (Modern) v1.48 renamed the Juan
+  Carlos I's deck loadouts: `noDeck2`/`Deck2` became `Default`, `Empty_deck`
+  and `Empty`. D3 names no loadout for her, so `pick_loadout` takes the
+  first the hull lists: `Default`, which is also her variant's own. The
+  rebuild writes `LoadoutVariant=Default` where it wrote `noDeck2`, which
+  the hull no longer declares; she now shows the author's parked deck
+  (deck crew, equipment, a static AB 212, three AV-8B and two SH-3) where
+  `noDeck2` had hidden the static aircraft. Her own air group is aboard as
+  before. Not yet seen in game: test card, H.23.
+- **The rosters' comment lines** follow the mods' new names (Wasp-class
+  (Late), Juan Carlos I-class L61, Galicia L50-class L50, Meteoro-class
+  BAM) and the Juan Carlos's new loadouts. No price, pick or window moved.
+- **SEST's runtime plugin is off on 0.8.7.** It is matched to the 0.8.6
+  game assembly and fails closed on any other, so the Tomahawk MST's 500 ft
+  over land and the debrief's lost-ship rows (20 Oct) do nothing on 0.8.7;
+  the game's own behaviour applies. `integration/runtime-fixes/README.md`
+  has the steps to re-enable it once the 0.8.7 assembly is exported.
+- **SM-6 Block I.** SEST Collection Fixes now gives `usn_rim-174a` the
+  300 s flight time the Anchorchain overwrite carried from 19 to 21 Oct
+  (the preloader's TimeLimited=True made the base file's 240 s a hard
+  limit against its 260 NM); the Hobart and the Burkes fire it. Whether it
+  now reaches past 240 NM, slowing after its 50 s burn, has not been seen
+  in game.
+- **The Anchorchain Expansion's withdrawn overwrites.** Its 19 Oct flight
+  overwrites are gone, so the AIM-120C to D3, D10's Gunslinger AIM-174B,
+  SEST F-35C JATM's JSM and the RAN's NSM fly their base files' figures
+  again, the ones SEST's tools read (the NSM's MissileDefenceBonus is back
+  to 0.30); discard D10 comparisons flown 19-21 Oct.
+- **Noise jamming.** Euromod Main's ECM sections gained `NoiseJamPower`,
+  which shortens radar-guided fire-control range against the ship that
+  carries it: SW08's Roosevelt (`usn_cvn_nimitz_2025`, SLQ-32A(V)4, 0.4),
+  SW10's JS Maya (NOLQ-2, 0.4) and O9's Hyuga and Asahi (NOLQ-3D, 0.3). No
+  campaign file changed for it.
+- **Southern Watch 11's Growlers** (`usn_ea-18g_2020`, built on US Naval
+  Aviation's file) take that mod's new 70/-70 degree pitch limits.
+
+Every pack declares 0.8.7. No other campaign file changed.

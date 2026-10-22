@@ -8,6 +8,14 @@ usersettings.ini once at startup; restart after enabling/disabling the pack.
 An unknown game build, missing API or failed correction is logged and leaves
 native behavior in place. Player.log lines start [SEST Runtime].
 
+ON SEA POWER 0.8.7 BOTH CORRECTIONS ARE OFF
+Sea Power 0.8.7 (Build 261021, 21 Oct 2026) ships a new game assembly that
+has not been inspected yet, so the plugin installs neither correction and
+Player.log says "[SEST Runtime] inactive: uninspected native assembly ...".
+The game's own behaviour applies - Tomahawk MST cruise height and the
+debrief's section 3 - until a SEST update is matched to the new build.
+Nothing needs turning off, and the options below change nothing until then.
+
 MST TERRAIN CLEARANCE (TerrainClearance=1 in sest_runtime.ini)
 RGM-109E5a and UGM-109E5a only, with terrain-following enabled, in native cruise
 stages before TerminalApproach. The normal safe-altitude calculation still

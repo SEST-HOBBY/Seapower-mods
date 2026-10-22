@@ -144,7 +144,7 @@ NOTES = {
     "the-royal-navy": "canonical order puts it in the bottom block below RADF; SEST Collection Fixes restores the game files it ships stale",
     "alize-br1050": "canonical order puts it below The Royal Navy and RADF, above Aquilon",
     "sea-venom-aquilon": "canonical order puts it below The Royal Navy and RADF (shared rack ids)",
-    "euromod-chile": "canonical order puts it below RADF and far below <<E-3G>> ([AN/APY-2])",
+    "euromod-chile": "canonical order puts it below RADF and Euromod RAN, whose Type 277Q and Adelaide fire-control sections win",
     "philippines-luzon-line": "canonical order puts it below RADF and below KC-135 ([MK22])",
     "thailand-siam-shield": "canonical order puts it below the Luzon Line (same author), which keeps the 11 rounds and textures both ship",
     "s-350-vityaz": "below S-500; loses its 2 shared files to Euromod",

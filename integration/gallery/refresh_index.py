@@ -39,7 +39,13 @@ VANILLA = ROOT / "mods-source" / "_vanilla" / "original"
 KINDS = ("aircraft", "vessels", "submarines", "land_units", "ammunition")
 
 #   old entry id -> new unit id
-RENAMES = {"3390330875:vessels/usn_dd_spruance_eu_vls": "usn_dd_spruance_vls_lamps-3"}
+RENAMES = {"3390330875:vessels/usn_dd_spruance_eu_vls": "usn_dd_spruance_vls_lamps-3",
+           # Euromod - Modern Armada de Chile, 22 Oct 2026.
+           "3776730617:vessels/ch_ff_type23": "ch_ffg_type23",
+           "3776730617:vessels/ch_ff_type23_pida": "ch_ffg_type23_pida",
+           "3776730617:vessels/ch_ffg_karel": "ch_ffg_karel_doorman",
+           "3776730617:vessels/ch_type22b2_barak": "ch_ffg_type22b2_barak",
+           "3776730617:vessels/type_209": "ch_ss_thomson_mlu"}
 
 
 def load_catalogue():

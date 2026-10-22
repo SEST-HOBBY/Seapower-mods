@@ -77,7 +77,7 @@ fit on the Apaches, the A-10s, the MQ-9s, \
 the Seahawks and the RAAF Hornets.
 
 [Compatibility]
-ApproximateVersion=0.8.6
+ApproximateVersion=0.8.7
 """
 
 

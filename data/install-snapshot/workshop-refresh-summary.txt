@@ -3,43 +3,187 @@ WORKSHOP REFRESH SUMMARY
 Written by tools/workshop_refresh_summary.py from data/install-snapshot/ and the
 canonical lists. Facts only; compatibility is judged in a later review.
 
-capture date           : 2026-10-19T11:22:38
-repo commit captured at: 8b90a792 (chore/workshop-refresh-20261019-1121)
-previous capture       : f48d895c6622
-previous export        : f48d895c6622
-Sea Power              : 12-Oct-2026: 0.8.6 Build 261014 Public Release
-  Steam build id       : 25936448
+capture date           : 2026-10-22T22:06:33
+repo commit captured at: 4cd47865 (chore/workshop-refresh-20261022)
+previous capture       : 87b43e038598
+previous export        : 87b43e038598
+Sea Power              : 21-Oct-2026: 0.8.7 Build 261021 Public Release
+  Steam build id       : 26103404
   engine               : Unity 6000.0.84f1 (78ab6fc243d5)
 
 COUNTS
-  A Steam-tracked subscriptions : 198
-  B Workshop folders on disk    : 198
-  C canonical Workshop ids      : 198
-  D catalog installed entries   : 198
+  A Steam-tracked subscriptions : 199
+  B Workshop folders on disk    : 199
+  C canonical Workshop ids      : 199
+  D catalog installed entries   : 199
   SEST entries in the order     : 1 (SEST_Integration)
   SEST in the live order        : SEST_Integration at 1 (on)
   local SEST folders (StreamingAssets): 1
-  canonical Mod Manager entries : 199
-  live Mod Manager entries      : 200
+  canonical Mod Manager entries : 200
+  live Mod Manager entries      : 201
   pending (NeedsDownload / NeedsUpdate): 0 / 0
 
 SINCE THE PREVIOUS CAPTURE
   new folders:
   (none)
   removed folders:
-  3812461539  SEST Integration Pack [SEST's own Workshop item]
+  (none)
   updated on the Workshop (Steam's timeupdated for the item changed, from
   appworkshop_1286220.acf; the exported files below are the full record):
-  (none)
-  exported files changed since the previous export (f48d895c6622; A added, D removed, M modified, R renamed):
-  (none)
+  3390330875  Euromod - Modern US Navy  2026-10-20 08:22 -> 2026-10-22 13:07
+  3629144864  Euromod - Main Pack  2026-10-20 06:40 -> 2026-10-22 12:38
+  3630495619  Spanish Navy Mod (Cold War)  2026-10-18 04:08 -> 2026-10-22 07:27
+  3695809489  Euromod-(Japan)JMSDF Modern navy  2026-10-14 11:04 -> 2026-10-22 11:01
+  3731208477  Spanish Navy Mod (Modern)  2026-10-16 07:34 -> 2026-10-22 03:39
+  3732654992  THE REDFOR MOD  2026-10-19 05:43 -> 2026-10-21 07:16
+  3737267013  US Naval Aviation  2026-10-20 07:09 -> 2026-10-22 12:59
+  3776730617  Euromod - Modern Armada de Chile  2026-08-06 09:24 -> 2026-10-22 16:34
+  3784474738  Euromod - Anchorchain Expansion Pack  2026-10-19 06:38 -> 2026-10-21 02:59
+  3796349767  YF-23 Black Widow II  2026-10-19 02:02 -> 2026-10-21 14:07
+  exported files changed since the previous export (87b43e038598; A added, D removed, M modified, R renamed):
+  3390330875  Euromod - Modern US Navy  files 280 -> 280  (A 0, D 0, M 7, R 1)
+      R version_counter_621.txt
+      M aircraft/usn_mh-60r_p2.ini
+      M language_cn/vessel_names.ini
+      M language_en/vessel_names.ini
+      M vessels/usn_cvn_nimitz_2025_variants.ini
+      M vessels/usn_ffg_ohp_longhull_sh60b.ini
+      M vessels/usn_lhd_wasp.ini
+      M vessels/usn_lhd_wasp_variants.ini
+  3629144864  Euromod - Main Pack  files 761 -> 761  (A 0, D 0, M 13, R 1)
+      R version_counter_486.txt
+      M ammunition/mm_milas.ini
+      M ammunition/swe_rbs15_mk3.ini
+      M ammunition/wp_sa-21b.ini
+      M ammunition/wp_sa-n-12b.ini
+      M ammunition/wp_sa-n-20.ini
+      M ammunition/wp_sa-n-20c.ini
+      M ammunition/wp_sa-n-28a.ini
+      M ammunition/wp_sa-n-28b.ini
+      M ammunition/wp_sa-n-28c.ini
+      M ammunition/wp_sa-n-28d.ini
+      M language_en/systemgroups.ini
+      ... and 2 more
+  3630495619  Spanish Navy Mod (Cold War)  files 186 -> 196  (A 10, D 0, M 25, R 0)
+      A ammunition/spa_br-125.ini
+      A ammunition/spa_br-125/spa_br-125_mat.ini
+      A ammunition/spa_mIII_fueltank_1300.ini
+      A ammunition/spa_mIII_fueltank_500.ini
+      A ammunition/spa_mIII_fueltank_RPK10_l.ini
+      A ammunition/spa_mIII_fueltank_RPK10_r.ini
+      A ammunition/spa_miii_fueltank_1300/spa_mIII_fueltank_1300_mat.ini
+      A ammunition/spa_miii_fueltank_500/spa_mIII_fueltank_500_mat.ini
+      A ammunition/spa_miii_fueltank_rpk10/spa_miii_fueltank_RPK10_mat.ini
+      A animations/animations_spa_mirage_iii.ini
+      M Spanish cold war changes.txt
+      M _info.ini
+      ... and 23 more
+  3695809489  Euromod-(Japan)JMSDF Modern navy  files 41 -> 39  (A 0, D 2, M 2, R 1)
+      D assets/models/aircraft/jp_mh-60r/jp_mh-60r_2_mat.ini
+      D assets/models/aircraft/jp_mh-60r/jp_mh-60r_mat.ini
+      R version_counter_40.txt
+      M aircraft/jasdf_f-35b.ini
+      M aircraft/jmsdf_sh-60k.ini
+  3731208477  Spanish Navy Mod (Modern)  files 125 -> 125  (A 0, D 0, M 19, R 0)
+      M Changelog.txt
+      M _info.ini
+      M aircraft/spa_av-8b_plus_squadrons.ini
+      M aircraft/spa_av-8b_squadrons.ini
+      M aircraft/spa_ef2000_squadrons.ini
+      M aircraft/spa_f-18a_squadrons.ini
+      M aircraft/spa_f-18m_squadrons.ini
+      M aircraft/spa_sh-60b_block1_squadrons.ini
+      M aircraft/spa_sh-60b_squadrons.ini
+      M aircraft/spa_sh-60bv1_block1_squadrons.ini
+      M aircraft/spa_sh-60bv1_squadrons.ini
+      M ammunition/spa_av-8b_tank_left.ini
+      ... and 7 more
+  3732654992  THE REDFOR MOD  files 320 -> 320  (A 0, D 0, M 14, R 0)
+      M aircraft/wp_su-30m_squadrons.ini
+      M aircraft/wp_su-30mkk_squadrons.ini
+      M aircraft/wp_su-30sm_squadrons.ini
+      M aircraft/wp_su-35s.ini
+      M ammunition/wp_5v55r.ini
+      M vessels/wp_bpk_karaL.ini
+      M vessels/wp_mpk_grisha_mu.ini
+      M vessels/wp_projekt61m.ini
+      M vessels/wp_provorny.ini
+      M vessels/wp_ptg_tarantul_mr.ini
+      M vessels/wp_ptg_tarantul_r60.ini
+      M vessels/wp_ptg_tarantul_r71.ini
+      ... and 2 more
+  3737267013  US Naval Aviation  files 272 -> 272  (A 0, D 0, M 17, R 1)
+      R version_counter_104.txt
+      M aircraft/usmc_av-8b+.ini
+      M aircraft/usmc_f-35b.ini
+      M aircraft/usmc_mv-22b.ini
+      M aircraft/usmc_mv-22b_squadrons.ini
+      M aircraft/usn_e-2d.ini
+      M aircraft/usn_ea-18g.ini
+      M aircraft/usn_ea-18g_2020.ini
+      M aircraft/usn_es-3a.ini
+      M aircraft/usn_f-35c.ini
+      M aircraft/usn_fa-18c(n).ini
+      M aircraft/usn_fa-18d.ini
+      ... and 6 more
+  3776730617  Euromod - Modern Armada de Chile  files 117 -> 129  (A 12, D 0, M 23, R 10)
+      A aircraft/ch_e3d/CFM_mat.ini
+      A aircraft/ch_e3d/E3D_mat.ini
+      A animations/animations_torpedo_tubes.ini
+      A ships/ch_ffg_adelaide/mk41/ohp_longhull_mat.ini
+      A ships/ch_ffg_jvh/ch_ffg_jvh_mat.ini
+      A ships/ch_ffg_jvh/mast_mat.ini
+      A ships/ch_ffg_jvh/stir_1.8_mat.ini
+      A ships/ch_ffg_jvh/stir_2.4_mat.ini
+      A ships/ch_ffg_jvh/zw06_mat.ini
+      A version_counter_7.txt
+      A vessels/ch_ffg_jvh.ini
+      A vessels/ch_ffg_jvh_variants.ini
+      ... and 33 more
+  3784474738  Euromod - Anchorchain Expansion Pack  files 1041 -> 1042  (A 3, D 2, M 10, R 0)
+      D ammunition_overwrite/usn_aim-174b_OVWR.ini
+      D ammunition_overwrite/usn_jsm_OVWR.ini
+      A ExtendedGuidance_README.txt
+      A systems/ExtendedGuidance_OVWR.ini
+      A systems/ExtendedGuidance_Profiles.ini
+      M ammunition_overwrite/knm_nsm_1a_OVWR.ini
+      M ammunition_overwrite/usn_aim-120a_OVWR.ini
+      M ammunition_overwrite/usn_aim-120c7_OVWR.ini
+      M ammunition_overwrite/usn_aim-120c_OVWR.ini
+      M ammunition_overwrite/usn_aim-120d3_OVWR.ini
+      M ammunition_overwrite/usn_aim-120d_OVWR.ini
+      M ammunition_overwrite/usn_rim-174a_OVWR.ini
+      ... and 3 more
+  3796349767  YF-23 Black Widow II  files 63 -> 63  (A 0, D 0, M 1, R 0)
+      M aircraft/usaf_yf-23_black_widow_ii.ini
   plugin DLLs changed:
-  (none)
+  [workshop] 3784474738\CombatWorker.dll
+  [workshop] 3784474738\CustomAudioLoader.dll
+  [workshop] 3784474738\EnhancedDecoyMod.dll
+  [workshop] 3784474738\EnhancedUIMod.dll
+  [workshop] 3784474738\Euromod-Welldeck.dll
+  [workshop] 3784474738\HighAltitudeSkyFix.v1.2.0.dll
+  [workshop] 3784474738\HullDamage.dll
+  [workshop] 3784474738\MeshCutOut.dll
+  [workshop] 3784474738\MissileControlMod.dll
+  [workshop] 3784474738\MissileControlSurfaces.dll
+  [workshop] 3784474738\MultiStageMissiles.dll
+  [workshop] 3784474738\OptimalTargetDist.dll
+  [workshop] 3784474738\ParallelRangeProbe.dll
+  [workshop] 3784474738\ProfileImage1024.dll
+  [workshop] 3784474738\SATCOM.dll
+  [workshop] 3784474738\SmokeParticleLOD.dll
+  [workshop] 3784474738\SubModelStabilization.dll
+  [workshop] 3784474738\UiWorkerProbe.dll
+  [workshop] 3784474738\V22Tiltrotor.dll
+  [workshop] 3784474738\WeaponLauncherEffects.dll
   plugin DLLs new:
-  [SEST_Integration\plugins] SEST.MenuBackground.dll
+  [workshop] 3784474738\ACPackSettings.dll
+  [workshop] 3784474738\ExtendedGuidance.dll
+  [workshop] 3796349767\YF23Ejection.dll
 
 INVENTORY
-  subscribed + downloaded + canonical + catalogued: 198
+  subscribed + downloaded + canonical + catalogued: 199
   subscribed but unplaced (B not C):
   (none)
   canonical but not downloaded (C not B):
@@ -50,7 +194,7 @@ INVENTORY
   (none)
   new uncatalogued subscriptions (B not in any catalog entry):
   (none)
-  historical catalog entries (status not installed): 8
+  historical catalog entries (status not installed): 9
   Steam-tracked but not on disk: (none)
   on disk but not Steam-tracked: (none)
 
@@ -67,39 +211,16 @@ EXPORTER UPDATE CHECK (export-mod-configs.ps1 -CheckUpdates)
   Found Sea Power (app 1286220)
     game dir : c:\program files (x86)\steam\steamapps\common\Sea Power
     workshop : c:\program files (x86)\steam\steamapps\workshop\content\1286220
-  unchanged since the last export : 166
+  unchanged since the last export : 189
   UPDATED by their authors (re-export to pick the changes up):
     3390330875  Euromod - Modern US Navy
-    3413868677  Red Storm Arsenal
-    3455404959  Royal Australian Defence Forces [v0.7.5.0.3]
-    3488139470  Euromod - Modern Italian Navy
-    3505420313  Euromod - Cold War Italian Navy
-    3599752717  Euromod - Modern British Navy
-    3606774881  U.S. Navy 2027 Capabilities
-    3607989779  F-35C Lightning II Alt. Loadouts
     3629144864  Euromod - Main Pack
     3630495619  Spanish Navy Mod (Cold War)
-    3642656500  Euromod-Scandinavian Navy
+    3695809489  Euromod-(Japan)JMSDF Modern navy
     3731208477  Spanish Navy Mod (Modern)
     3732654992  THE REDFOR MOD
     3737267013  US Naval Aviation
-    3766210676  Saronic Corsair ASV
-    3768036424  BetterTacMap
-    3775128499  PLAN Pack
-    3776340577  Ka-27RLD - Ka-31 AEW Helicopter
-    3780118683  Tu-214R Family Pack
-    3781062859  E-3G AWAC
+    3776730617  Euromod - Modern Armada de Chile
     3784474738  Euromod - Anchorchain Expansion Pack
-    3789208859  Euromod-South Korea Navy
     3796349767  YF-23 Black Widow II
-    3804868806  Anduril FQ-44 Fury US Navy Carrier Wingmen
-    3807164392  Euromod-India-Navy
-    3810611344  MV-75 Cheyenne II
-    3812111085  PLAAF Aircraft Pack
-    3813033771  EC-2 Stand Off Jammer
-    3813157776  Dynamic Campaign Mod
-    3819522350  Anduril Maritime Drones
-  NEW subscriptions (not exported yet):
-    3820576916  Steelfin
-    3820759806  Euromod - Modern Royal Australian Navy Mod
   To capture: re-run this script without -CheckUpdates, then commit and push.

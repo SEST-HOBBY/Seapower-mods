@@ -129,7 +129,7 @@ listed whatever the percentage: they are still that author's.
       100%  ammunition/usn_rim-156a.ini
        91%  ammunition/usn_rim-161b.ini
        91%  ammunition/usn_rim-161c.ini
-       98%  ammunition/usn_rim-174a.ini
+       97%  ammunition/usn_rim-174a.ini
        95%  ammunition/usn_trident.ini
        98%  ammunition/usn_ugm-109b1.ini
        98%  ammunition/usn_ugm-109c3.ini

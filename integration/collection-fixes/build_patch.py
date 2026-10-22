@@ -107,7 +107,7 @@ crews, park slots, taxi speed - where the mods dropped or lowered them. Generate
 integration/collection-fixes/build_patch.py; must load above every workshop mod.
 
 [Compatibility]
-ApproximateVersion=0.8.6
+ApproximateVersion=0.8.7
 """
 
 
@@ -795,6 +795,29 @@ def main():
             #    longer depend on the preloader (sm3_fold_overwrite above).
             t, fold = sm3_fold_overwrite(t, name)
             extra += fold
+        if name == "usn_rim-174a":
+            # The SM-6 Block I's 240 s life against its 260 nm MaxLaunchRange
+            # (22 Oct 2026): even at its 3600 kt top speed throughout it
+            # covers 240 nm, so the declared range cannot be flown. The base
+            # file keeps TimeLimited commented out, but the Anchorchain
+            # overwrite sets TimeLimited=True on top whenever the preloader
+            # SETUP installs is present, which makes the 240 a hard limit.
+            # The overwrite carried MaxFlightTime=300 from 19 to 21 Oct and
+            # withdrew it on 22 Oct; 300 s is that author's own figure, kept
+            # here. It is not sized with the SM-3s' headroom above: the round
+            # slows after its 50 s burn (VelocityBleed=0.3), so whether 300 s
+            # reaches 260 nm is for the game to show, not this file to claim.
+            # The RIM-174B (SEST Replenishment's #!alias of this file)
+            # inherits it.
+            ovwr = ini_values(read(SM3_OVERWRITE, f"ammunition_overwrite/{name}_OVWR.ini"))
+            if ovwr.get("MaxFlightTime") is not None or ovwr.get("TimeLimited") != ["True"]:
+                sys.exit(f"{name}: the Anchorchain overwrite now has MaxFlightTime="
+                         f"{ovwr.get('MaxFlightTime')} and TimeLimited={ovwr.get('TimeLimited')} "
+                         "- re-check the SM-6 flight time")
+            t = edit(t, r"^MaxFlightTime=240\b", "MaxFlightTime=300", 1, name)
+            extra += ("\nMaxFlightTime 240 -> 300 s, the Anchorchain overwrite's own figure of "
+                      "19-21 Oct:\nat 3600 kt, 240 s cannot fly the declared 260 nm once the "
+                      "preloader\nmakes the limit hard (TimeLimited=True).")
         if name == "usn_rim-161d":
             # The D is the fastest and newest of the three and is penalised
             # 30x more than its older siblings for target speed, which is
@@ -1195,6 +1218,12 @@ MISSING_SENSORS = {
     "4th_Gen_FLIR": ("_vanilla/original", "AdvancedOptics",
                      "EO/IR turret on the Z-9D. Donor is vanilla's advanced "
                      "optical sight."),
+    "ZW06": ("3629144864", "eu_zw06",
+             "Signaal ZW06 surface-search radar on Euromod-Brazilian Armed "
+             "Forces' Niteroi and Niteroi 2005. EUROMOD-Armada de Chile "
+             "defined it until its 22 Oct 2026 update, which dropped its own "
+             "copy for Euromod's eu_zw06, the donor here. The world campaign "
+             "places two Niteroi 2005 at Rio."),
 }
 
 

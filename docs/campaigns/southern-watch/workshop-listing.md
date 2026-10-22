@@ -12,9 +12,10 @@ offers them all in one click, as the collection does; SETUP writes the order.
 
 Counts (20 Oct 2026, with GPT's fleet, terrain and debrief line, the two
 new mods and the old Anzac mod gone): 199 Workshop mods in
-`data/load-order.tokens.txt` (200 entries with the pack), 165 named by a mission (REQUIRED-MODS.txt), 526 borrowed
-files from 62 mods (CREDITS.txt). Redo them from those files when they
-change. The 19-tube pod
+`data/load-order.tokens.txt` (200 entries with the pack), 165 named by a mission (REQUIRED-MODS.txt), 527 borrowed
+files from 62 mods (CREDITS.txt; 527 since the 20 Oct evening rebuild, and
+the 22 Oct capture left all three counts as they were). Redo them from
+those files when they change. The 19-tube pod
 is credited to RADF's `adf_lau-3a`: the pod is the game's own `usn_lau-3a`,
 which CREDITS.txt never compares against, and RADF's is that file with one
 line changed. The MALD brought in the B-2 Spirit on 19 Oct; on 20 Oct the
@@ -79,7 +80,7 @@ HOW IT PLAYS
     briefing states both.
 
 WHAT IT NEEDS - READ THIS
-The campaigns name units from 166 Workshop mods. Subscribe to the collection
+The campaigns name units from 165 Workshop mods. Subscribe to the collection
 'SEST - Modernised Campaign Collection' (3812390790): all 199 of its mods in
 one press. Then Mod Manager → Open Folder on this pack, quit the game and
 double-click 'SETUP - double-click me.cmd'. It checks the subscriptions,
@@ -97,7 +98,7 @@ In the folder: SETUP, REQUIRED-MODS.txt (every mod the campaigns name),
 LOAD-ORDER.txt and CREDITS.txt.
 
 CREDIT
-A Sea Power unit file is a whole-file override, so 526 files here are other
+A Sea Power unit file is a whole-file override, so 527 files here are other
 authors' files with edits, each 90% or more unchanged, from 62 Workshop mods.
 CREDITS.txt lists every one, measured by diffing against the collection.
 Every photograph is real and credited. If you wrote one of those mods and
@@ -106,7 +107,7 @@ would rather this pack did not carry your file, say so and it will change.
 FICTION, LANGUAGE, STATUS
 Every nation, unit, ship name, incident and date is invented; the campaigns
 take no position on any real dispute. English only. Built for Sea Power
-0.8.6: every unit, squadron, loadout and weapon in every mission is checked
+0.8.7: every unit, squadron, loadout and weapon in every mission is checked
 to resolve on every build, but balance is not, and most missions have not
 been played to completion. Feedback on difficulty and pacing is wanted.
 ```
@@ -123,7 +124,19 @@ decision), and the standard campaigns now do what they did from Weapons
 Free, Tasman Crossing and Red Line's first force allocation: paste the
 Description (above) and the Collection description (below) as well, since
 both stopped offering the versions and the Description says when everything
-is on sale. Keep the log under 8,000 characters.
+is on sale. Keep the log under 8,000 characters (22 Oct: 7,866 with the
+19 Oct block below it).
+
+On 22 Oct the game moved to Sea Power 0.8.7 and ten mods updated; the log
+covers both. SEST's runtime plugin switches itself off on 0.8.7, so the two
+corrections it carries (the Tomahawk MST's 500 ft over land, the debrief's
+lost ships) are not claimed: put them back only once
+`integration/runtime-fixes/README.md` has been followed and Player.log shows
+both installed. The OHP long hull's Mk 13 is Modern US Navy's own fix since
+22 Oct, so the log credits the author, not SEST; and it says of the SM-6
+Block I only that it keeps 300 s: claim its 260 NM once a shot past 240 NM
+has been seen in game. The required mods are unchanged by the 22 Oct
+capture.
 
 ```
 [h2]20 October 2026[/h2]
@@ -145,19 +158,25 @@ is on sale. Keep the log under 8,000 characters.
 [b]Ships and weapons[/b]
 [list]
 [*]The Ford carries sixteen F-35Cs in a 70-aircraft US Navy wing, whichever hull you pick.
-[*]Tomahawk MST Block Va climbs to keep 500 ft over land ahead during cruise; sea-skimming and the terminal attack are unchanged.
 [*]J-20A: visual identification at 6 NM and a stronger infrared signature close in. Its radar stealth is unchanged.
 [*]The AIM-9L flies on the stock game's figures, like the AIM-9M it now shares the air with.
-[*]The new Oliver Hazard Perry long hull's Mk 13 launcher loads its Harpoons and SM-1s.
 [/list]
 
 [b]Also[/b]
 [list]
 [*]Two new mods: Combat Cost Tracker (SEST's units priced in its catalogues) and Group Manager.
 [*]The old Anzac Class Frigate mod is no longer needed: the Anzacs come from Euromod - Modern Royal Australian Navy. You can unsubscribe it.
-[*]The task-force debrief lists ships lost in a mission again.
 [*]Briefings show recognition photos for 54 more classes, the P-8A among them.
 [*]Follows the 20 Oct mod updates: Ford, Mogami, Wasp, F-35C, the OHP long hull and Red Storm Arsenal's Chinese missiles.
+[/list]
+
+[b]Sea Power 0.8.7 and the 22 October mod updates[/b]
+[list]
+[*]Built for Sea Power 0.8.7.
+[*]Two SEST corrections made for 0.8.6 - the Tomahawk MST Block Va holding 500 ft over land in cruise, and ships lost in a mission listed in the task-force debrief - switch themselves off on 0.8.7 until they have been checked against it. The game's own behaviour applies meanwhile.
+[*]The SM-6 Block I keeps the 300 s flight time Euromod's Anchorchain Expansion gave it on 19-21 Oct; with the preloader it would otherwise be held to 240 s.
+[*]Follows the 22 Oct mod updates: Chile's renamed ships in the world campaign, the Wasp's new recovery circuits, the Juan Carlos I's new deck loadouts in The Relief Ship, and the latest Modern US Navy (which now fixes the OHP long hull's Mk 13 itself; SEST's repair is retired), US Naval Aviation, Spanish, JMSDF and Euromod packs.
+[*]Sea Power 0.8.7 switched off parts of other mods' code until their authors update: the Fury's Drone Control, the EC-2's radio and data-link jamming, the K5 KRAKEN's one-way attack, the MV-75's systems hook and the YF-23 pack's runtime fixes; the Saronic Corsair falls back to its original order handling. The units themselves are unchanged, and SEST's missions still place them.
 [/list]
 
 [b]Open Allocation in the standard campaigns[/b]

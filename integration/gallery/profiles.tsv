@@ -41,7 +41,7 @@ ca_a330_mrtt	a330_mrtt	same_type	Grey A330 MRTT tanker head-on (RAAF KC-30A); sa
 canberra_bomber	canberra_bomber	same_type	Complete Canberra bomber on static display. / Complete RAAF Canberra B.20 bomber on static display.
 ch_apc_m113	m113	same_type	Museum M113 APC, front view with the engine access hatch open. / M113 APC in a museum with engine access hatch open and info board in front.
 ch_e3d	e3	same_family	USAF E-3 Sentry with TF33 engines; E-3D has larger CFM56 engines but looks broadly the same. / USAF E-3 Sentry with narrow TF33 engines, seen from above; same AWACS family, but the E-3D has larger CFM56 nacelles and RAF markings.
-ch_type22b2_barak	type22	same_family	HMS Cumberland (F85), a Type 22 Batch 3, not the Chilean Batch 2 Barak refit. / RN Type 22 Batch 3 HMS Cumberland, not the Chilean Batch 2 ship with its Barak refit.
+ch_ffg_type22b2_barak	type22	same_family	HMS Cumberland (F85), a Type 22 Batch 3, not the Chilean Batch 2 Barak refit. / RN Type 22 Batch 3 HMS Cumberland, not the Chilean Batch 2 ship with its Barak refit.
 civ_a320	a320	same_type	Lufthansa Airbus A320-200 climbing out, clear side-underside view. / Lufthansa Airbus A320-200 (D-AIQT) climbing out after takeoff.
 civ_a330	a330	same_type	bmi Airbus A330-200 taxiing, full side view. / bmi Airbus A330-200 airliner taxiing.
 civ_a380	a380	same_type	Emirates Airbus A380 taking off past an airport control tower. / Emirates Airbus A380 taking off, with an airport tower behind.

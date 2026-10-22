@@ -708,3 +708,14 @@ ships, and that fixed-wing aircraft are on sale from the first force
 allocation, in place of the stock "not available at the start". The
 roster notes no longer say "north only" or "south only". Test card 3.1 to
 3.6 and 3.10; Southern Watch build notes, "Step 2".
+
+## Sea Power 0.8.7 and the 22 October mod updates (22 October)
+
+Southern Watch build notes, "Sea Power 0.8.7 and the 22 October mod
+updates", has the record (and `docs/workshop-refresh-20261022-review.md`).
+No campaign file changed on the rebuild. In game, the Japanese Mayas of
+O2 The Ships from the North and 03 The Other Picture now noise-jam: Euromod
+Main gave their NOLQ-2 ECM `NoiseJamPower` 0.4, which shortens radar-guided
+fire-control range against them. SEST's runtime plugin is off on 0.8.7, so
+the debrief's lost-ship rows are the game's own again. Every pack declares
+0.8.7.

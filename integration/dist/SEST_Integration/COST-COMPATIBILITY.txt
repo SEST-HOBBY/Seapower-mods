@@ -9,7 +9,7 @@ No global price preference, category visibility, overlay scale or currency is ch
 Native tracking covers expended ammunition, vessels and aircraft; land-platform loss pricing is unsupported.
 
 weapon: 19 compatibility entries; SEST-priced historical/current 123/123 of 138 eligible references.
-vessel: 27 compatibility entries; SEST-priced historical/current 297/297 of 339 eligible references.
+vessel: 33 compatibility entries; SEST-priced historical/current 297/297 of 339 eligible references.
 aircraft: 17 compatibility entries; SEST-priced historical/current 35/35 of 37 eligible references.
 
 REVIEWED / NORMALIZED MAPPINGS
@@ -51,6 +51,18 @@ weapon wp_sa-n-12b <- wp_sa_n_12b: WeaponCosts=345000, CurrentYearCost=1110000, 
   Same catalog reference after path/punctuation normalization
 weapon wp_sa-n-28a <- wp_sa_n_28a: WeaponCosts=1600000, CurrentYearCost=2580000, Category=SAM
   Same catalog reference after path/punctuation normalization
+vessel ch_ffg_jvh <- rnn_ffg_van_heemskerck: VesselCosts=197000000, CurrentYearCost=800000000, Category=FFG
+  Same Jacob van Heemskerck class: Chile's L class is the two Dutch hulls it bought in 2005; retain the tracker's Dutch estimate and reference basis
+vessel ch_ffg_karel_doorman <- ch_ffg_karel: VesselCosts=197000000, CurrentYearCost=800000000, Category=FF
+  Same Chilean Karel Doorman hull, renamed by its author on 22 Oct 2026; the tracker still prices it under the old id
+vessel ch_ffg_type22b2_barak <- ch_type22b2_barak: VesselCosts=246000000, CurrentYearCost=1135000000, Category=FF
+  Same Chilean Type 22 Barak refit hull, renamed by its author on 22 Oct 2026; the tracker still prices it under the old id
+vessel ch_ffg_type23 <- ch_ff_type23: VesselCosts=206000000, CurrentYearCost=528000000, Category=FF
+  Same Chilean Type 23 hull, renamed by its author on 22 Oct 2026; the tracker still prices it under the old id
+vessel ch_ffg_type23_pida <- ch_ff_type23_pida: VesselCosts=206000000, CurrentYearCost=528000000, Category=FF
+  Same Chilean Type 23 PIDAA refit hull, renamed by its author on 22 Oct 2026; the tracker still prices it under the old id
+vessel ch_ss_thomson_mlu <- type_209: VesselCosts=49000000, CurrentYearCost=406000000, Category=SS
+  Same Chilean Type 209/1400 hull (Thomson class), renamed by its author on 22 Oct 2026; the tracker still prices it under the old id
 vessel ko_kddx <- non/ko_kddx: VesselCosts=1605000000, CurrentYearCost=2077000000, Category=DDG
   Exact KDDX reference stored under the author catalog non/ path; classify the missile destroyer as DDG
 vessel mor_ptm_lazaga <- ae_ptm_lazaga: VesselCosts=10000000, CurrentYearCost=35000000, Category=PTM

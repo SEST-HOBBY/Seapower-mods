@@ -659,3 +659,16 @@ as they were, and still sell nothing allied. Each window from TS04 ends
 "This force allocation offers the campaign's whole roster and, at their
 own navies' prices, the allied fleet - ...". Southern Watch build notes,
 "Step 2: the whole roster from the opening".
+
+## Sea Power 0.8.7 and the 22 October mod updates (22 October)
+
+Southern Watch build notes, "Sea Power 0.8.7 and the 22 October mod
+updates", has the record (and `docs/workshop-refresh-20261022-review.md`).
+For this campaign only the roster's comment lines moved: the allied
+classes carry the mods' new names (Wasp-class (Late), Juan Carlos I-class
+L61, Galicia L50-class L50, Meteoro-class BAM) and the Juan Carlos's new
+loadouts. In game, the Southern Watch notes' SM-6 and Anchorchain items
+apply here too: the Hobarts' SM-6 Block I keeps 300 s, and the Anzacs' and
+Hobarts' NSM and the AIM-120s fly their base files' figures again. SEST's
+runtime plugin is off on 0.8.7, so the debrief's lost-ship rows are the
+game's own again. Every pack declares 0.8.7.

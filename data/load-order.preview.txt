@@ -197,7 +197,7 @@
  193. 3491248180        The Royal Navy
  194. 3628203171        Bréguet Br.1050 Alizé
  195. 3628247436        Sea Venom - Aquilon
- 196. 3776730617        EUROMOD-Armada de Chile
+ 196. 3776730617        Euromod - Modern Armada de Chile
  197. 3752415457        Philippines: The Luzon Line [v0.8.3.03.10]
  198. 3711297532        Thailand: The Siam Shield [v0.8.3.03.10]
  199. 3605013271        RE-power: the resupply mod

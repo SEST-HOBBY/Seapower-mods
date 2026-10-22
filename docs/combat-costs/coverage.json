@@ -98,6 +98,36 @@
       }
     },
     "vessel": {
+      "ch_ffg_jvh": {
+        "VesselCosts": "197000000",
+        "CurrentYearCost": "800000000",
+        "Category": "FFG"
+      },
+      "ch_ffg_karel_doorman": {
+        "VesselCosts": "197000000",
+        "CurrentYearCost": "800000000",
+        "Category": "FF"
+      },
+      "ch_ffg_type22b2_barak": {
+        "VesselCosts": "246000000",
+        "CurrentYearCost": "1135000000",
+        "Category": "FF"
+      },
+      "ch_ffg_type23": {
+        "VesselCosts": "206000000",
+        "CurrentYearCost": "528000000",
+        "Category": "FF"
+      },
+      "ch_ffg_type23_pida": {
+        "VesselCosts": "206000000",
+        "CurrentYearCost": "528000000",
+        "Category": "FF"
+      },
+      "ch_ss_thomson_mlu": {
+        "VesselCosts": "49000000",
+        "CurrentYearCost": "406000000",
+        "Category": "SS"
+      },
       "ko_kddx": {
         "VesselCosts": "1605000000",
         "CurrentYearCost": "2077000000",
@@ -513,6 +543,72 @@
         "WeaponCosts": "1600000",
         "CurrentYearCost": "2580000",
         "Category": "SAM"
+      }
+    },
+    {
+      "kind": "vessel",
+      "target": "ch_ffg_jvh",
+      "source": "rnn_ffg_van_heemskerck",
+      "basis": "Same Jacob van Heemskerck class: Chile's L class is the two Dutch hulls it bought in 2005; retain the tracker's Dutch estimate and reference basis",
+      "fields": {
+        "VesselCosts": "197000000",
+        "CurrentYearCost": "800000000",
+        "Category": "FFG"
+      }
+    },
+    {
+      "kind": "vessel",
+      "target": "ch_ffg_karel_doorman",
+      "source": "ch_ffg_karel",
+      "basis": "Same Chilean Karel Doorman hull, renamed by its author on 22 Oct 2026; the tracker still prices it under the old id",
+      "fields": {
+        "VesselCosts": "197000000",
+        "CurrentYearCost": "800000000",
+        "Category": "FF"
+      }
+    },
+    {
+      "kind": "vessel",
+      "target": "ch_ffg_type22b2_barak",
+      "source": "ch_type22b2_barak",
+      "basis": "Same Chilean Type 22 Barak refit hull, renamed by its author on 22 Oct 2026; the tracker still prices it under the old id",
+      "fields": {
+        "VesselCosts": "246000000",
+        "CurrentYearCost": "1135000000",
+        "Category": "FF"
+      }
+    },
+    {
+      "kind": "vessel",
+      "target": "ch_ffg_type23",
+      "source": "ch_ff_type23",
+      "basis": "Same Chilean Type 23 hull, renamed by its author on 22 Oct 2026; the tracker still prices it under the old id",
+      "fields": {
+        "VesselCosts": "206000000",
+        "CurrentYearCost": "528000000",
+        "Category": "FF"
+      }
+    },
+    {
+      "kind": "vessel",
+      "target": "ch_ffg_type23_pida",
+      "source": "ch_ff_type23_pida",
+      "basis": "Same Chilean Type 23 PIDAA refit hull, renamed by its author on 22 Oct 2026; the tracker still prices it under the old id",
+      "fields": {
+        "VesselCosts": "206000000",
+        "CurrentYearCost": "528000000",
+        "Category": "FF"
+      }
+    },
+    {
+      "kind": "vessel",
+      "target": "ch_ss_thomson_mlu",
+      "source": "type_209",
+      "basis": "Same Chilean Type 209/1400 hull (Thomson class), renamed by its author on 22 Oct 2026; the tracker still prices it under the old id",
+      "fields": {
+        "VesselCosts": "49000000",
+        "CurrentYearCost": "406000000",
+        "Category": "SS"
       }
     },
     {
@@ -985,7 +1081,7 @@
   ],
   "coverage": {
     "weapon": {
-      "eligible": 2165,
+      "eligible": 2170,
       "historical_known": 1104,
       "current_known": 1104,
       "sest_eligible": 138,
@@ -4077,6 +4173,12 @@
           "current_unknown": true
         },
         {
+          "id": "spa_br-125",
+          "owner": "3630495619",
+          "historical_unknown": true,
+          "current_unknown": true
+        },
+        {
           "id": "spa_br-250",
           "owner": "3630495619",
           "historical_unknown": true,
@@ -4144,6 +4246,30 @@
         },
         {
           "id": "spa_mcc23_mine",
+          "owner": "3630495619",
+          "historical_unknown": true,
+          "current_unknown": true
+        },
+        {
+          "id": "spa_mIII_fueltank_1300",
+          "owner": "3630495619",
+          "historical_unknown": true,
+          "current_unknown": true
+        },
+        {
+          "id": "spa_mIII_fueltank_500",
+          "owner": "3630495619",
+          "historical_unknown": true,
+          "current_unknown": true
+        },
+        {
+          "id": "spa_mIII_fueltank_RPK10_l",
+          "owner": "3630495619",
+          "historical_unknown": true,
+          "current_unknown": true
+        },
+        {
+          "id": "spa_mIII_fueltank_RPK10_r",
           "owner": "3630495619",
           "historical_unknown": true,
           "current_unknown": true
@@ -7361,9 +7487,9 @@
       ]
     },
     "vessel": {
-      "eligible": 936,
-      "historical_known": 809,
-      "current_known": 809,
+      "eligible": 937,
+      "historical_known": 810,
+      "current_known": 810,
       "sest_eligible": 339,
       "sest_historical_known": 297,
       "sest_current_known": 297,

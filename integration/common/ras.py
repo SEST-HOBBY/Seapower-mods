@@ -1085,17 +1085,10 @@ HULL_REPAIRS = {
          "AnimationFile_3=animations_NSM_launcher  // SEST RAS: the hatch animations the NSM containers name",
          1, "NSM launcher animations listed"),
     ],
-    "usn_ffg_ohp_longhull_sh60b": [
-        # Modern US Navy v618 (20 Oct 2026) replaced its LAMPS-3 alias with
-        # this standalone long hull and folded the Late fit into the only
-        # one: [WeaponSystem1Late] became [WeaponSystem1] and
-        # [WeaponMagazineMK13Late] became [WeaponMagazineMK13], but the
-        # launcher still names the Late magazine, which the file no longer
-        # defines - the Mk 13 never loaded its Harpoons and SM-1s.
-        ("AssociatedMagazine=WeaponMagazineMK13Late",
-         "AssociatedMagazine=WeaponMagazineMK13  // SEST RAS: WeaponMagazineMK13Late is defined nowhere in this file",
-         1, "Mk 13 launcher pointed at its magazine"),
-    ],
+    # usn_ffg_ohp_longhull_sh60b's Mk 13 (its launcher named the
+    # WeaponMagazineMK13Late its file no longer defined, repaired here from
+    # 20 Oct 2026) left this table on 22 Oct 2026: Modern US Navy v621 names
+    # WeaponMagazineMK13 itself.
 }
 
 
