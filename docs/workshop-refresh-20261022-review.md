@@ -68,8 +68,9 @@ regenerated the 26 `_info.ini` files and the check passes. The hand-written
 (`cards.json`, pack 2) and the Workshop description now say 0.8.7. All 11
 Workshop version ranges admit 0.8.7; both Spanish mods already declare it.
 
-**SEST's runtime plugin is off on 0.8.7.** The 22 Oct `Player.log` reads
-`[SEST Runtime] inactive: uninspected native assembly
+**SEST's runtime plugin is off on 0.8.7.** (Superseded 23 Oct: the
+plugin is now matched to 0.8.7; see the addendum.) The 22 Oct `Player.log`
+reads `[SEST Runtime] inactive: uninspected native assembly
 eab2297ba92c6013958bdb2cf16d5794a4731330818ce353f89dc2241e16a3bd`.
 `SestRuntimeFixes.cs` installs nothing unless `Seapower-Scripts.dll`
 hashes to the inspected 0.8.6 build (`c913e31f...`), so it failed closed as
@@ -326,11 +327,10 @@ Line and Euromod Main record each.
 
 ## 6. What to check in game
 
-- `Player.log` after the menu: `[SEST Runtime] inactive: uninspected
-  native assembly` is expected on 0.8.7 (play-test guide, section 0;
-  H.24). Once the plugin is re-gated, both `correction installed` lines,
-  then a Tomahawk MST ridge crossing and a debrief on a save that lost a
-  ship.
+- `Player.log` after the menu: since the 23 Oct re-gate (addendum), both
+  `[SEST Runtime] ... correction installed` lines and no `inactive` line
+  on 0.8.7 (play-test guide, section 0; H.24); then a Tomahawk MST ridge
+  crossing and a debrief on a save that lost a ship.
 - **The world campaign:** start it once on 0.8.7 (Dynamic Campaign Mod
   logs nothing at start). Talcahuano's Type 23s and Thomson boats, Punta
   Arenas's Karel Doorman and the Type 209 stand-ins at Salamis, Golcuk,
@@ -381,3 +381,73 @@ Tests: tools 133 and campaign 299, none skipped (the tools suite's seven
 PowerShell tests ran under PowerShell 7.4.6; without `pwsh` on the path
 they skip). The campaign pack builds byte-identical under
 `PYTHONHASHSEED=4242`.
+
+## Addendum, 23 Oct 2026: the runtime plugin matched to 0.8.7
+
+The owner's export `SEST-map-review-complete-20261023-020525-bfb148.zip`
+(7,198,415 bytes, SHA-256 `d77f18e2...`; 142 manifest files verified;
+recorded in `data/map-capture-review-20261023.json`) carries
+`game-reference/Seapower-Scripts.dll` at SHA-256 `eab2297b...`, the hash
+the 22 Oct `Player.log` named. The DLL is not committed. The steps of
+section 1 (in full in `integration/runtime-fixes/README.md`) were followed,
+adapted where they could not be run as written:
+
+- **Steps 3 and 4, the verifier.** As it stood, `verify_native_api.py`
+  failed on 0.8.7 with the API unchanged: ten of its checks compared raw
+  signature blobs, whose TypeDef row numbers moved when 0.8.7 inserted
+  three types. It now compares decoded type names, and checks every member
+  the plugin binds that it never checked (the list in step 3), parameter
+  order, inheritance and the terrain sampler's reach: all pass on 0.8.7.
+  The 0.8.6 DLL was not to hand, so step 3's run against 0.8.6 could not be
+  done; the additions are checked on 0.8.7 only, as its docstring says.
+- **Step 5, behaviour.** No IL diff against 0.8.6 was possible; a review of
+  0.8.7's own IL replaced it. The terrain correction's assumptions hold:
+  the 0.405 nm weapon lookahead, samples through 1.08 nm, `minAltOverSea`
+  in place of the land clearance for weapons, all ten stage names. The
+  debrief: a Generated or Replaced mission (52 of the 69 in the four
+  campaigns) shows the rows saved from the post-mission snapshot, which
+  drops destroyed surface hulls, so `TaskForceDebrief` stays on rather than
+  retiring. A mission played as authored (the other 17) marks a player
+  unit Lost only from its `Mission_<i>_<tag>` `IsDestroyed` record, which
+  the game writes only for a unit with a `CampaignTag`; no SEST mission
+  file tags a player unit, so by 0.8.7's code a ship sunk there is listed
+  as Undamaged, and the plugin, which reads the same record, cannot add a
+  Lost row either. Tagging those units is separate work. The plugin skips
+  an id already shown, so no ship is listed twice.
+- **Steps 6 and 7.** `SestRuntimeFixes.cs` accepts `eab2297b...` only, not
+  0.8.6 as well: Steam has moved every player on. `sest_runtime.ini` and
+  `SEST_RUNTIME_README.txt` say 0.8.7, and the README's debrief paragraph
+  says which missions the correction fills in and why the ones played as
+  written show no loss. The mocked tests take the game's shapes (nested
+  `FlightStage` and `CrewSkill`, a read-only snapshot, the competing
+  `readValue` overloads) and pin the no-op over a loss the native rows
+  already list: 38 assertions. `build_plugin.py`,
+  under Ubuntu 24.04's mcs 6.8.0.105 unpacked into a prefix, rebuilt
+  `SEST.RuntimeFixes.dll` as `c844a759...` (was `9aa55df8...`), the same
+  bytes on a second run.
+- **Text.** The pending change log has its Tomahawk MST and debrief lines
+  back, the debrief's narrowed to missions you pick a force for, with a
+  note to check `Player.log` before Submit and to drop a correction's line
+  if it is not installed (7,901 characters with the 19 Oct block, 7,993
+  counting each line break as two). FEATURES, the play-test guide
+  (section 0), `packaging-and-recovery.md`, the Southern Watch, Red Line
+  and Southern Reach build notes and test card H.24 say the plugin is
+  matched to 0.8.7, and H.24 records what section 3 shows after O2;
+  section 6's first item above is now "both `correction installed`
+  lines". The Steam card is
+  unchanged: "Sea Power 0.8.7: every pack rebuilt for it" stays true, and
+  the README keeps the corrections off it until the PC has shown both lines.
+- **Still to do, on the PC:** sync; `Player.log` must show both
+  `[SEST Runtime] ... correction installed` lines and no `inactive` line;
+  then H.24 and the acceptance tests in
+  `docs/playtests/fleet-terrain-debrief-20261020.md` (a Tomahawk MST ridge
+  crossing, the debrief of a Generated mission that lost a ship, and an
+  older debrief reopened after a reload). Neither correction has yet been
+  watched working, on 0.8.6 or 0.8.7.
+
+After `python3 tools/build_all.py --from-scratch` (25 packs and the
+consolidated dist, 4,304 files, unchanged in number; the only built files
+that changed are the plugin's DLL, README and ini in `SEST_Campaign` and
+the dist) all twelve gates of section 7 pass with the same results, and the
+tests: tools 133 (`test_runtime_plugin` included; seven PowerShell tests
+skipped, `pwsh` not on the path) and campaign 299.

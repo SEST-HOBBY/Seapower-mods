@@ -713,9 +713,16 @@ roster notes no longer say "north only" or "south only". Test card 3.1 to
 
 Southern Watch build notes, "Sea Power 0.8.7 and the 22 October mod
 updates", has the record (and `docs/workshop-refresh-20261022-review.md`).
-No campaign file changed on the rebuild. In game, the Japanese Mayas of
-O2 The Ships from the North and 03 The Other Picture now noise-jam: Euromod
+No campaign file changed on the rebuild. In game, the Japanese Mayas of O2
+The Ships from the North and 03 The Other Picture now noise-jam: Euromod
 Main gave their NOLQ-2 ECM `NoiseJamPower` 0.4, which shortens radar-guided
-fire-control range against them. SEST's runtime plugin is off on 0.8.7, so
-the debrief's lost-ship rows are the game's own again. Every pack declares
-0.8.7.
+fire-control range against them. Until 23 Oct SEST's runtime plugin was off
+on 0.8.7, so the debrief's lost-ship rows were the game's own. Every pack
+declares 0.8.7. *23 Oct 2026:* the owner's export supplied the 0.8.7 game
+assembly, and the plugin is matched to 0.8.7 with both corrections on
+(`integration/runtime-fixes/README.md`, *Re-gated to Sea Power 0.8.7*). The
+debrief correction fills in the generated missions. The ones played as
+written (RLO1, RLO2 and RL05 here) give the player's ships no `CampaignTag`,
+so the game keeps no loss record for them: by 0.8.7's code a ship sunk there
+is listed without a Lost status (Undamaged), and the correction cannot add
+one either. Not yet seen in game.

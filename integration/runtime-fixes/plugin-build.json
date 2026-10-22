@@ -1,15 +1,15 @@
 {
   "format": 1,
   "binary": "SEST.RuntimeFixes.dll",
-  "sha256": "9aa55df8d9079e0ad35205e21b6730dc6483261b01b8dd2d1b23182aad4fa5b6",
+  "sha256": "c844a75976d17a3f0e4d22e6ed8936c81dee7d38a7cfe169bfb93da664c1f59f",
   "inputs": {
     "integration/runtime-fixes/Policy.cs": "9c2958f2f0feadf6dcf258e9003ec250c03aedb35f00f9290fdb078853379e28",
-    "integration/runtime-fixes/SestRuntimeFixes.cs": "a69be206668be6688f1ce4dcbd3718771905f09b0dc8433172629659b43b1b01",
-    "integration/runtime-fixes/TaskForceDebrief.cs": "54629b5b4a530b4e5fe34e4fc8cb9cc3ff42c7eb12294077bafd67ff7c90e949",
+    "integration/runtime-fixes/SestRuntimeFixes.cs": "2a3f801b44051decd279c289903d35d24c86a893e97ea92aa4e16b35d312b9c2",
+    "integration/runtime-fixes/TaskForceDebrief.cs": "d2902fc9b1186a94be31c0feb6a7f493a9d27ac2d886fbb70e128a9af9d50697",
     "integration/runtime-fixes/TerrainClearance.cs": "abb529c87fba9104ec3432f3be64f7c7ef1af7d0f7b0b8b6c8ad22c1a7244f7a",
     "integration/menu-background/stubs/AnchorChain.cs": "1769efe756d568c53bbf64753a09cc4c2da4f5a58904710145a6086fee71fb63",
-    "integration/runtime-fixes/build_plugin.py": "984248b6485f3fc131a305e4b9d85165dc6d9605fac0946713e74293109e3b24",
-    "integration/runtime-fixes/tests/RuntimeTests.cs": "8211db69a7f7bda3f0545f4e8ce120e32791cdd75e5bee1d8fcdbd6fc6619ce5"
+    "integration/runtime-fixes/build_plugin.py": "f6b2dd4af3714fb3302a1296e47bb74cfbed27491242a411840616aefd2f8b6c",
+    "integration/runtime-fixes/tests/RuntimeTests.cs": "fad505c4d3f061eae6307e7078a0accc3dce1cb03ba1b59a5d26026665204501"
   },
-  "validation": "37 assertions passed using mocked native APIs; no Unity gameplay claim"
+  "validation": "38 assertions passed using mocked native APIs; no Unity gameplay claim"
 }

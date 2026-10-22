@@ -22,12 +22,12 @@ loaded and partly played; their open questions are listed below.
    `%USERPROFILE%\AppData\LocalLow\Triassic Games\Sea Power\Player.log`
    and find the `[SEST Runtime]` lines. Two lines containing
    `correction installed` mean the Tomahawk MST terrain clearance and the
-   task-force debrief's lost-ship rows are on. `inactive: uninspected native
-   assembly` means the game has updated past the build SEST checked, and
-   both are off: the game's own behaviour applies. On Sea Power 0.8.7
-   (22 Oct 2026) that is expected until a SEST update is matched to it, so
-   do not report the MST over mountains or the debrief as SEST faults then.
-   Say which line you saw.
+   task-force debrief's lost-ship rows are on: on Sea Power 0.8.7 that is
+   expected since SEST was matched to it on 23 Oct 2026. `inactive:
+   uninspected native assembly` means the game has updated past the build
+   SEST checked, and both are off: the game's own behaviour applies, so do
+   not report the MST over mountains or the debrief as SEST faults then.
+   Say which line you saw, and the game's build.
 4. **Options:** note the two weapons settings under Left Shift+O —
    "Ships on Weapons Tight engage hostile aircraft" and "Ships use anti-ship
    missiles on Weapons Free". Leave them at their defaults and say what they

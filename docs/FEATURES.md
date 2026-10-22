@@ -506,11 +506,17 @@ how to check each.
   several returns to the map on 0.8.7, the guard can retire.
 - **SEST's runtime plugin** (`plugins/SEST.RuntimeFixes.dll`, 20 Oct 2026):
   a 500 ft floor over land ahead for the Tomahawk MST Block Va in cruise, and
-  the ships lost in a mission listed again in the task-force debrief. It is
-  matched to the game build it was checked against, 0.8.6, and switches
-  itself off on any other: on 0.8.7 (21 Oct 2026) both corrections are off
-  and the game's own behaviour applies until a SEST update is matched to the
-  new build (Player.log: `[SEST Runtime] inactive`). Neither has been watched
+  the ships lost in a mission you allocate the force for listed again in the
+  task-force debrief. It is matched to the game build it was checked against and switches itself off
+  on any other. Off from 0.8.7's release (21 Oct 2026; seen in the 22 Oct
+  capture), it was checked against 0.8.7's game assembly on 23 Oct 2026 and
+  matched to it: Player.log should show two `[SEST Runtime] ... correction
+  installed` lines. The debrief correction fills in the generated and
+  replaced missions, 52 of the 69 in the four campaigns. In the other 17,
+  played as written, SEST's mission files give the player's ships no
+  `CampaignTag`, so the game keeps no loss record for them: by 0.8.7's code
+  a ship sunk there is listed without a Lost status (Undamaged), and the
+  correction cannot add one either. Neither correction has been watched
   working in a mission yet.
 
 ---

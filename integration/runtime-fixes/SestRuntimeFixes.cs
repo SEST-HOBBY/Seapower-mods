@@ -17,8 +17,8 @@ namespace Sest.RuntimeFixes
             try
             {
                 Assembly game = Api.FindType("SeaPower.ObjectBase").Assembly;
-                // Sea Power 0.8.6, supplied by the player's 20 October capture.
-                const string inspected = "c913e31f2d73e526f2d28043f522f2be26f12534fd0421eedee3cd70eab9cdd8";
+                // Sea Power 0.8.7 Build 261021, from the player's 23 October 2026 export; verify_native_api.py checks it.
+                const string inspected = "eab2297ba92c6013958bdb2cf16d5794a4731330818ce353f89dc2241e16a3bd";
                 string digest;
                 using (var stream = File.OpenRead(game.Location))
                 using (var sha = SHA256.Create())

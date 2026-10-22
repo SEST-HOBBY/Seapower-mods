@@ -1,5 +1,8 @@
 // Test-only native API stand-ins. This file and AnchorChain.cs never ship
 // inside a game mod. Tests exercise the actual plugin's bind and callbacks.
+// The stand-ins take the shapes verify_native_api.py checks on Sea Power
+// 0.8.7: nested FlightStage and CrewSkill, a read-only snapshot, and the
+// readValue overloads that the exact (string, string, bool, bool) one beats.
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -12,19 +15,25 @@ namespace UnityEngine
     public struct Vector3 { public float x, y, z; }
     public class Transform { public Vector3 eulerAngles { get; set; } }
     public class Component { public Transform transform { get; set; } = new Transform(); }
+    public class Behaviour : Component { }
+    public class MonoBehaviour : Behaviour { }
     public static class Debug { public static void Log(object value) { Console.WriteLine(value); } }
 }
 
 namespace SeaPower
 {
-    public enum FlightStage { None, Launch, ToBearing, MaintainHeight, MoveToLoftAlt, MaintainLoftAlt,
-        MoveToSeaSkimming, MaintainSeaSkimming, MoveToFinalFlightAlt, MaintainFinalFlightAlt,
-        AlignSensorToTarget, TerminalApproach, SelfDestruct }
     public struct GeoPosition { public float Latitude; }
-    public class ObjectBase : UnityEngine.Component { public GeoPosition _geoPosition { get; set; } }
+    public class ObjectBase : UnityEngine.MonoBehaviour
+    {
+        public enum CrewSkill { Green, Regular, Veterans }
+        public GeoPosition _geoPosition { get; set; }
+    }
     public class AmmunitionParameters { public string _ammunitionFileName; public bool _terrainFollowFlight = true; }
     public class WeaponBase : ObjectBase
     {
+        public enum FlightStage { None, DropFromAircraft, Launch, SurfaceWaterEntry, GoToSurface, ToBearing,
+            MaintainHeight, MoveToLoftAlt, MaintainLoftAlt, MoveToSeaSkimming, MaintainSeaSkimming,
+            MoveToFinalFlightAlt, MaintainFinalFlightAlt, AlignSensorToTarget, TerminalApproach, SelfDestruct = 18 }
         public AmmunitionParameters _ap;
         public FlightStage _flightStage { get; set; } = FlightStage.MaintainLoftAlt;
     }
@@ -50,16 +59,18 @@ namespace SeaPower
         public HashSet<string> Sections = new HashSet<string>();
         public HashSet<string> Destroyed = new HashSet<string>();
         public bool doesSectionExist(string section) { return Sections.Contains(section); }
-        public bool readValue(string section, string key, bool defaultValue, bool performLogging)
+        public bool readValue(string sectionName, string key, bool defaultValue, bool performLogging)
         {
-            return key == "IsDestroyed" ? Destroyed.Contains(section) : defaultValue;
+            return key == "IsDestroyed" ? Destroyed.Contains(sectionName) : defaultValue;
         }
+        public T readValue<T>(string sectionName, string key, T defaultValue, bool performLogging) { throw new Exception("generic readValue bound"); }
+        public bool? readValue(string sectionName, string key, bool? defaultValue, bool performLogging) { throw new Exception("nullable readValue bound"); }
+        public string readValue(string sectionName, string key, string defaultValue, bool performLogging) { return defaultValue; }
     }
 }
 
 namespace SeapowerUI.ViewModels
 {
-    public enum CrewSkill { Green, Regular, Veterans }
     public class LinearCampaignTaskForceBuilderRosterItem
     {
         public string InstanceId { get; set; }
@@ -67,11 +78,12 @@ namespace SeapowerUI.ViewModels
         public string UnitType { get; set; }
         public string Category { get; set; } = "Frigate";
         public string VariantReference { get; set; } = "Variant1";
-        public CrewSkill CrewSkill { get; set; } = CrewSkill.Veterans;
+        public SeaPower.ObjectBase.CrewSkill CrewSkill { get; set; } = SeaPower.ObjectBase.CrewSkill.Veterans;
     }
     public class LinearCampaignTaskForceSnapshot
     {
-        public List<LinearCampaignTaskForceBuilderRosterItem> Items { get; set; } = new List<LinearCampaignTaskForceBuilderRosterItem>();
+        public readonly List<LinearCampaignTaskForceBuilderRosterItem> Source = new List<LinearCampaignTaskForceBuilderRosterItem>();
+        public ReadOnlyCollection<LinearCampaignTaskForceBuilderRosterItem> Items { get { return Source.AsReadOnly(); } }
     }
     public static class LinearCampaignTaskForceSaveManager
     {
@@ -93,11 +105,12 @@ namespace SeapowerUI.ViewModels
         public string IniFolder { get; private set; }
         public string VariantReference { get; private set; }
         public bool IsDestroyed { get; private set; }
-        public CrewSkill CrewSkill { get; private set; }
-        public LinearCampaignTaskForceDebriefUnitRow(string id, string uid, string folder, string category,
-            string variant, string damage, bool destroyed, bool flagship, CrewSkill crew, int count)
+        public SeaPower.ObjectBase.CrewSkill CrewSkill { get; private set; }
+        public LinearCampaignTaskForceDebriefUnitRow(string instanceId, string iniRef, string iniFolder, string category,
+            string variantReference, string damageState, bool isDestroyed, bool isFlagship, SeaPower.ObjectBase.CrewSkill crewSkill, int quantity)
         {
-            InstanceId = id; IniRef = uid; IniFolder = folder; VariantReference = variant; IsDestroyed = destroyed; CrewSkill = crew;
+            InstanceId = instanceId; IniRef = iniRef; IniFolder = iniFolder; VariantReference = variantReference;
+            IsDestroyed = isDestroyed; CrewSkill = crewSkill;
         }
     }
     public class LinearCampaignTaskForceDebriefViewModel
@@ -154,9 +167,9 @@ static class RuntimeTests
         SeaPower.TerrainUtils.Height = -3; result = .07f;
         TerrainClearance.Postfix(missile, true, ref result); Equal(result, .07f, "open sea profile retained");
         SeaPower.TerrainUtils.Height = 8; result = .1f;
-        missile._flightStage = SeaPower.FlightStage.TerminalApproach;
+        missile._flightStage = SeaPower.WeaponBase.FlightStage.TerminalApproach;
         TerrainClearance.Postfix(missile, true, ref result); Equal(result, .1f, "terminal descent retained");
-        missile._flightStage = SeaPower.FlightStage.MaintainHeight;
+        missile._flightStage = SeaPower.WeaponBase.FlightStage.MaintainHeight;
         missile._ap = new SeaPower.AmmunitionParameters { _ammunitionFileName = "usn_aim-260" };
         TerrainClearance.Postfix(missile, true, ref result); Equal(result, .1f, "other weapons retained");
         missile._ap = new SeaPower.AmmunitionParameters { _ammunitionFileName = "usn_ugm-109e5a", _terrainFollowFlight = false };
@@ -173,11 +186,11 @@ static class RuntimeTests
         var state = new SeaPower.IniHandler();
         state.Sections.Add("TaskForceMode_Mission11_Launch");
         var snapshot = SeapowerUI.ViewModels.LinearCampaignTaskForceSaveManager.Launch;
-        snapshot.Items.Add(new SeapowerUI.ViewModels.LinearCampaignTaskForceBuilderRosterItem { InstanceId = "arafura", UnitType = "ran_opv_arafura" });
-        snapshot.Items.Add(new SeapowerUI.ViewModels.LinearCampaignTaskForceBuilderRosterItem { InstanceId = "warramunga", UnitType = "ran_ffh_anzac", VariantReference = "Variant3" });
-        snapshot.Items.Add(new SeapowerUI.ViewModels.LinearCampaignTaskForceBuilderRosterItem { InstanceId = "survivor", UnitType = "ran_ddg_hobart" });
-        snapshot.Items.Add(new SeapowerUI.ViewModels.LinearCampaignTaskForceBuilderRosterItem { InstanceId = "air", UnitType = "ran_mh-60r", UnitFolder = "aircraft" });
-        snapshot.Items.Add(new SeapowerUI.ViewModels.LinearCampaignTaskForceBuilderRosterItem { InstanceId = "notdeployed", UnitType = "ran_ffh_anzac" });
+        snapshot.Source.Add(new SeapowerUI.ViewModels.LinearCampaignTaskForceBuilderRosterItem { InstanceId = "arafura", UnitType = "ran_opv_arafura" });
+        snapshot.Source.Add(new SeapowerUI.ViewModels.LinearCampaignTaskForceBuilderRosterItem { InstanceId = "warramunga", UnitType = "ran_ffh_anzac", VariantReference = "Variant3" });
+        snapshot.Source.Add(new SeapowerUI.ViewModels.LinearCampaignTaskForceBuilderRosterItem { InstanceId = "survivor", UnitType = "ran_ddg_hobart" });
+        snapshot.Source.Add(new SeapowerUI.ViewModels.LinearCampaignTaskForceBuilderRosterItem { InstanceId = "air", UnitType = "ran_mh-60r", UnitFolder = "aircraft" });
+        snapshot.Source.Add(new SeapowerUI.ViewModels.LinearCampaignTaskForceBuilderRosterItem { InstanceId = "notdeployed", UnitType = "ran_ffh_anzac" });
         foreach (string id in new[] { "arafura", "warramunga", "air" })
         { state.Sections.Add("Mission_11_" + id); state.Destroyed.Add("Mission_11_" + id); }
         state.Sections.Add("Mission_11_survivor");
@@ -187,13 +200,19 @@ static class RuntimeTests
         Check(model.UnitRows.Count == 2, "exactly two missing lost ships restored");
         Check(model.UnitRows.All(r => r.IsDestroyed), "restored rows are lost");
         Check(model.UnitRows.Single(r => r.InstanceId == "warramunga").VariantReference == "Variant3", "hull identity preserved");
-        Check(model.UnitRows.All(r => r.CrewSkill == SeapowerUI.ViewModels.CrewSkill.Veterans), "proficiency preserved");
+        Check(model.UnitRows.All(r => r.CrewSkill == SeaPower.ObjectBase.CrewSkill.Veterans), "proficiency preserved");
         TaskForceDebrief.Postfix(model, state, mission);
         Check(model.UnitRows.Count == 2, "no duplicate loss rows");
         Check(snapshot.Items.Count == 5 && state.Destroyed.Count == 3, "save and roster unmodified");
         var other = new SeapowerUI.ViewModels.LinearCampaignTaskForceDebriefViewModel();
         TaskForceDebrief.Postfix(other, state, new SeaPower.LinearCampaignMission { _index = 10 });
         Check(other.UnitRows.Count == 0, "no nearest mission fallback");
+        var listed = new SeapowerUI.ViewModels.LinearCampaignTaskForceDebriefViewModel();
+        listed.UnitRows.Add(new SeapowerUI.ViewModels.LinearCampaignTaskForceDebriefUnitRow("ARAFURA", "ran_opv_arafura", "vessels",
+            "Patrol", "Variant1", "Lost", true, false, SeaPower.ObjectBase.CrewSkill.Regular, 1));
+        TaskForceDebrief.Postfix(listed, state, mission);
+        Check(listed.UnitRows.Count == 2 && listed.UnitRows.Count(r => r.InstanceId.ToLowerInvariant() == "arafura") == 1,
+            "a loss the native rows already list is not repeated");
         Console.WriteLine("Runtime regressions passed: " + checks + " assertions (mocked native API; PC gameplay still required)");
     }
 }

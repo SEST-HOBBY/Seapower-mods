@@ -1,0 +1,66 @@
+{
+  "capture_file": "SEST-map-review-complete-20261023-020525-bfb148.zip",
+  "sha256": "d77f18e2636689a3d3274a1c65448c3d0fd6e987940a1b40142cf78158792e34",
+  "bytes": 7198415,
+  "captured_at": "2026-10-23T02:05:25.3787539+10:00",
+  "capture_version": 2,
+  "reproduction_mission": "Southern Watch O10 - Ballistic Shield",
+  "manifest_files_verified": 142,
+  "dll_files_captured_including_duplicates": 67,
+  "modified_game_or_settings": false,
+  "game_build_in_player_log": "0.8.7-261021",
+  "game_build_in_player_prev_log": "0.8.6-261014",
+  "unity_version_both_logs": "6000.0.84f1",
+  "native_game_assembly": "Seapower-Scripts.dll",
+  "native_game_sha256": "eab2297ba92c6013958bdb2cf16d5794a4731330818ce353f89dc2241e16a3bd",
+  "native_game_bytes": 8528384,
+  "native_game_sha256_is_the_hash_player_log_named": true,
+  "native_game_assembly_committed": false,
+  "sest_runtime_plugin_dll_in_export": false,
+  "player_log_sest_runtime_lines": [
+    "inactive: uninspected native assembly eab2297ba92c6013958bdb2cf16d5794a4731330818ce353f89dc2241e16a3bd"
+  ],
+  "player_prev_log_sest_runtime_lines": [
+    "MST terrain correction installed: RGM/UGM-109E5a cruise only, 500 ft over land ahead; native terminal profile retained",
+    "task-force debrief correction installed: append explicitly destroyed launch-snapshot hulls missing from section 3"
+  ],
+  "bepinex_log_loads_sest_runtime_fixes_without_warning": true,
+  "either_correction_exercised_in_a_captured_session": false,
+  "runtime_regate": {
+    "date": "2026-10-23",
+    "inspected_hash_before": "c913e31f2d73e526f2d28043f522f2be26f12534fd0421eedee3cd70eab9cdd8",
+    "inspected_hash_after": "eab2297ba92c6013958bdb2cf16d5794a4731330818ce353f89dc2241e16a3bd",
+    "hashes_accepted": 1,
+    "plugin_dll_sha256_before": "9aa55df8d9079e0ad35205e21b6730dc6483261b01b8dd2d1b23182aad4fa5b6",
+    "plugin_dll_sha256_after": "c844a75976d17a3f0e4d22e6ed8936c81dee7d38a7cfe169bfb93da664c1f59f",
+    "terrain_clearance_option": 1,
+    "task_force_debrief_option": 1,
+    "plugin_code_changed": "the inspected hash only; TaskForceDebrief's header comment reworded",
+    "mocked_regressions": "38 assertions passed (37 before; the mocks now take 0.8.7's shapes and one test pins the no-op over a loss the native rows already list)",
+    "compiler": "mcs 6.8.0.105, Ubuntu 24.04 mono-mcs 6.8.0.105+dfsg-3.6ubuntu2, unpacked prefix",
+    "rebuild_byte_identical_on_second_run": true
+  },
+  "verified": {
+    "verify_native_api_on_0_8_7": "passed: 22 method signatures as decoded type names, 4 parameter orders, 4 fields, 11 properties, 10 FlightStage names, inheritance, the 0.405 nm weapon lookahead and the sampler's 1.08 nm reach",
+    "previous_verifier_on_0_8_7": "10 of 27 checks failed, every one a raw signature blob whose TypeDef indexes moved: each 0.8.6 blob has the same element types in the same order as its 0.8.7 counterpart and differs only in TypeDef indexes, consistent with three inserted types (+1, +2, +3); what each 0.8.6 row named could not be checked without the 0.8.6 DLL",
+    "bound_types_defined_once": 13,
+    "readvalue_overloads": "30 named readValue; the exact (string, string, bool, bool) one is unique and the default binder prefers it over the generic and Nullable<bool> overloads",
+    "no_other_captured_assembly_defines_a_bound_type": true,
+    "harmony_patch_and_harmonymethod_api_in_captured_0harmony": true,
+    "terrain_behaviour_0_8_7": "GetSafeAltitudeOverSurface still samples 0.405 nm ahead for weapons and replaces the land clearance with minAltOverSea; CrudeGetHighestTerrainHeightAhead samples through 1.08 nm; WeaponBase.setHeight and maintainHeight call it with isWeapon true; TerrainClearance's assumptions hold",
+    "debrief_behaviour_0_8_7": "ReadUnitRows: a Generated or Replaced mission shows the rows saved from the post-mission snapshot, which drops destroyed surface hulls, so TaskForceDebrief is still needed there and stays on. An Authored mission lists the mission file's player units and marks one Lost only from a Mission_<i>_<tag> IsDestroyed record, which SavePersistentDataFromMission writes only for a unit with a non-empty _campaignTag (set from the mission file's CampaignTag); no SEST mission file gives a player unit a CampaignTag, so a ship sunk there is listed as Undamaged (ReadDamageSummary of a missing section gives 'No Damage') and the plugin, which needs the same record, adds nothing. The plugin skips an id the native rows already show, so it cannot list a ship twice",
+    "sest_campaign_missions_generated_or_replaced": 52,
+    "sest_campaign_missions_authored": 17,
+    "sest_mission_files_with_campaigntag": 0
+  },
+  "not_verified": [
+    "No IL diff against 0.8.6: the 0.8.6 Seapower-Scripts.dll was not available, so the 0.8.7 judgement rests on a review of 0.8.7's own IL against the plugin's assumptions",
+    "The members added to verify_native_api.py on 23 Oct were checked on 0.8.7 only",
+    "Whether 0.8.6 already had the Authored debrief path",
+    "Unity gameplay: Harmony installation on 0.8.7, a Tomahawk MST ridge crossing and the debrief of a Generated mission that lost a ship (never run on 0.8.6 either)",
+    "Section 3 after a ship is sunk in an Authored SEST mission: 0.8.7's code predicts it is listed as Undamaged (no loss record without a CampaignTag); tagging those player units would be separate work",
+    "Reopening an older debrief after a save and reload (whether the Mission_ sections persist)",
+    "The capture's map reports (F-15EX on the map, the forward UAV section, MapKnownUnits.Update NullReferenceException): not reviewed here; the exception appears in neither Player log"
+  ],
+  "next_step": "PC: sync, start the game and check Player.log for both [SEST Runtime] correction installed lines and no inactive line; then test card H.24 and the acceptance tests in docs/playtests/fleet-terrain-debrief-20261020.md."
+}

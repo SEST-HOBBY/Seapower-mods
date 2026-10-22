@@ -5,9 +5,16 @@ using System.Reflection;
 
 namespace Sest.RuntimeFixes
 {
-    // A post-mission roster intentionally excludes sunken hulls. Section 3
-    // nevertheless needs their loss rows. Reconstruct only missing hull rows
-    // from this mission's exact launch snapshot + explicit IsDestroyed state.
+    // On Sea Power 0.8.7 (read from its IL) a Generated or Replaced mission
+    // (52 of the 69 in SEST's campaigns) shows the rows saved from the
+    // post-mission snapshot, which drops destroyed surface hulls, so section 3
+    // still needs their loss rows. A mission played as authored lists the
+    // mission file's player units, marked Lost only from a Mission_<i>_<tag>
+    // IsDestroyed record, which the game writes only for a unit with a
+    // CampaignTag; SEST's authored missions tag none, so there neither the
+    // game nor this correction has a loss to show. Reconstruct only missing
+    // hull rows from this mission's exact launch snapshot + explicit
+    // IsDestroyed state; an id the native rows already show is skipped.
     // Nothing is written to the save, roster, campaign points or kill totals.
     internal static class TaskForceDebrief
     {

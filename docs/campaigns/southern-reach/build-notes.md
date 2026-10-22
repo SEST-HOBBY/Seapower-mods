@@ -664,11 +664,18 @@ own navies' prices, the allied fleet - ...". Southern Watch build notes,
 
 Southern Watch build notes, "Sea Power 0.8.7 and the 22 October mod
 updates", has the record (and `docs/workshop-refresh-20261022-review.md`).
-For this campaign only the roster's comment lines moved: the allied
-classes carry the mods' new names (Wasp-class (Late), Juan Carlos I-class
-L61, Galicia L50-class L50, Meteoro-class BAM) and the Juan Carlos's new
+For this campaign only the roster's comment lines moved: the allied classes
+carry the mods' new names (Wasp-class (Late), Juan Carlos I-class L61,
+Galicia L50-class L50, Meteoro-class BAM) and the Juan Carlos's new
 loadouts. In game, the Southern Watch notes' SM-6 and Anchorchain items
 apply here too: the Hobarts' SM-6 Block I keeps 300 s, and the Anzacs' and
-Hobarts' NSM and the AIM-120s fly their base files' figures again. SEST's
-runtime plugin is off on 0.8.7, so the debrief's lost-ship rows are the
-game's own again. Every pack declares 0.8.7.
+Hobarts' NSM and the AIM-120s fly their base files' figures again. Until 23
+Oct SEST's runtime plugin was off on 0.8.7, so the debrief's lost-ship rows
+were the game's own. Every pack declares 0.8.7. *23 Oct 2026:* the owner's
+export supplied the 0.8.7 game assembly, and the plugin is matched to 0.8.7
+with both corrections on (`integration/runtime-fixes/README.md`, *Re-gated
+to Sea Power 0.8.7*). The debrief correction fills in the generated
+missions. The ones played as written (SR02, SR05 and TS05 here) give the
+player's ships no `CampaignTag`, so the game keeps no loss record for them:
+by 0.8.7's code a ship sunk there is listed without a Lost status
+(Undamaged), and the correction cannot add one either. Not yet seen in game.

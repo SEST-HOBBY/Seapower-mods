@@ -3789,11 +3789,20 @@ whole record. For this campaign:
 - **The rosters' comment lines** follow the mods' new names (Wasp-class
   (Late), Juan Carlos I-class L61, Galicia L50-class L50, Meteoro-class
   BAM) and the Juan Carlos's new loadouts. No price, pick or window moved.
-- **SEST's runtime plugin is off on 0.8.7.** It is matched to the 0.8.6
-  game assembly and fails closed on any other, so the Tomahawk MST's 500 ft
-  over land and the debrief's lost-ship rows (20 Oct) do nothing on 0.8.7;
-  the game's own behaviour applies. `integration/runtime-fixes/README.md`
-  has the steps to re-enable it once the 0.8.7 assembly is exported.
+- **SEST's runtime plugin was off on 0.8.7 until 23 Oct.** It was matched
+  to the 0.8.6 game assembly and fails closed on any other, so the Tomahawk
+  MST's 500 ft over land and the debrief's lost-ship rows (20 Oct) did
+  nothing on 0.8.7; the game's own behaviour applied.
+  `integration/runtime-fixes/README.md` had the steps to re-enable it once
+  the 0.8.7 assembly was exported. *23 Oct 2026:* the owner's export
+  supplied it, and the plugin is matched to 0.8.7 with both corrections on
+  (`integration/runtime-fixes/README.md`, *Re-gated to Sea Power 0.8.7*).
+  The debrief correction fills in the generated and replaced missions. The
+  ones played as written (O5, O2, 07, 08, O7, O8, O9 and O10 here) give the
+  player's ships no `CampaignTag`, so the game keeps no loss record for
+  them: by 0.8.7's code a ship sunk there is listed without a Lost status
+  (Undamaged), and the correction cannot add one either. Not yet seen in
+  game: test card, H.24.
 - **SM-6 Block I.** SEST Collection Fixes now gives `usn_rim-174a` the
   300 s flight time the Anchorchain overwrite carried from 19 to 21 Oct
   (the preloader's TimeLimited=True made the base file's 240 s a hard

@@ -61,7 +61,7 @@ def main():
         "binary": "SEST.RuntimeFixes.dll",
         "sha256": hashlib.sha256((HERE / "SEST.RuntimeFixes.dll").read_bytes()).hexdigest(),
         "inputs": {p.relative_to(root).as_posix(): hashlib.sha256(p.read_bytes()).hexdigest() for p in inputs},
-        "validation": "37 assertions passed using mocked native APIs; no Unity gameplay claim",
+        "validation": "38 assertions passed using mocked native APIs; no Unity gameplay claim",
     }
     (HERE / "plugin-build.json").write_text(json.dumps(manifest, indent=2) + "\n")
     print("Built integration/runtime-fixes/SEST.RuntimeFixes.dll")

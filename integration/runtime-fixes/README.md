@@ -19,23 +19,73 @@ edited without running `build_plugin.py`, or if the DLL in the dist differs.
 `SEST_RUNTIME_README.txt` and `sest_runtime.ini` are not inputs: they can be
 edited and rebuilt into the pack without Mono.
 
-## Off on Sea Power 0.8.7 (22 Oct 2026)
+Reference compiler: Ubuntu 24.04's `mono-mcs` 6.8.0.105+dfsg-3.6ubuntu2
+(installed, or unpacked into a prefix named by `SEST_MONO_PREFIX`). Its
+output is deterministic (no timestamp, content-derived MVID), so the
+committed DLL rebuilds byte for byte from the sources; another Mono build
+may compile them to different bytes.
 
-Sea Power 0.8.7 Build 261021 (21 Oct 2026, Steam build 26103404) ships a new
-`Seapower-Scripts.dll`. The 22 Oct capture's `Player.log` reads
+## Re-gated to Sea Power 0.8.7 (23 Oct 2026)
+
+Sea Power 0.8.7 Build 261021 (21 Oct 2026) shipped a new
+`Seapower-Scripts.dll`, and the 22 Oct capture's `Player.log` read
 `[SEST Runtime] inactive: uninspected native assembly
-eab2297ba92c6013958bdb2cf16d5794a4731330818ce353f89dc2241e16a3bd`, so the
-plugin failed closed as designed: neither correction is installed, and every
-player on 0.8.7 has the game's own MST cruise height and debrief. The DLL
-itself (`9aa55df8...`) is unchanged and loads.
+eab2297ba92c6013958bdb2cf16d5794a4731330818ce353f89dc2241e16a3bd`: the
+plugin had failed closed as designed, and from 0.8.7's release on 21 Oct
+(seen in the 22 Oct capture) both corrections were off for every player.
+On 23 Oct 2026 the owner's export
+(`SEST-map-review-complete-20261023-020525-bfb148.zip`, recorded in
+`data/map-capture-review-20261023.json`) supplied that DLL, SHA-256
+`eab2297b...`, the build the log named; it is not in the repository.
 
-The new hash is not simply to be added. The assembly really changed (it grew
-by 13,312 bytes, and other mods' plugins report `ObjectBase.LoadStateFromFile`
-and `WeaponSystemLauncher.OnUpdate` changed), and `TaskForceDebrief` reads
-the saved mission state that `LoadStateFromFile` handles. The 0.8.7 DLL is
-not in this repository, so nothing here can be verified against it yet.
+- **Verifier.** `verify_native_api.py` as it stood failed on 0.8.7 although
+  the API had not changed: it compared raw signature blobs, which embed
+  TypeDef row numbers, and 0.8.7 inserted three types (rows shift +1, +2,
+  +3). It now compares decoded type names. Each of the twelve 0.8.6 blobs
+  has the same element types in the same order as its 0.8.7 counterpart
+  and differs only in TypeDef indexes, consistent with those inserted
+  types; what each 0.8.6 row named could not be checked without the 0.8.6
+  DLL. It also checks what the plugin binds but was never checked (step 3
+  below as first written): `IniHandler`'s
+  `doesSectionExist` and the one exact `readValue(string, string, bool,
+  bool)` among its 30 overloads, `LinearCampaignMission._index`, the roster
+  item's five string properties and `CrewSkill` (`ObjectBase+CrewSkill`,
+  the row constructor's ninth parameter), `UnitRow.InstanceId`,
+  `UnitRows`, the public row constructor, parameter order where neighbours
+  share a type, inheritance, case-insensitive lookups, the native sampler's
+  reach (1.08 nm, inside `Policy.LookAheadNm`) and the Harmony targets' IL
+  bodies. Those additions were checked on 0.8.7 only: the 0.8.6 DLL was not
+  to hand. On 0.8.7 every check passes.
+- **Behaviour.** With no 0.8.6 DLL, step 5's IL diff could not be run; a
+  review of the 0.8.7 IL replaced it. Terrain: `GetSafeAltitudeOverSurface`
+  still samples 0.405 nm ahead for weapons and replaces the land clearance
+  with `minAltOverSea`; the sampler reaches 1.08 nm; `WeaponBase` still
+  calls it with `isWeapon` true in cruise; all ten stage names exist. The
+  correction stands. Debrief: the native `ReadUnitRows` now has two paths.
+  A Generated or Replaced mission (52 of the 69 in SEST's four campaigns)
+  shows the rows saved at mission end from the post-mission snapshot, which
+  drops every destroyed surface hull: the lost ships are still missing, so
+  `TaskForceDebrief` stays on (option 1) rather than retiring. A mission
+  played as authored (the other 17) lists its player units from the mission
+  file and marks one Lost only from a `Mission_<i>_<tag>` `IsDestroyed`
+  record, the record the plugin reads too. The game writes that record only
+  for a unit with a `CampaignTag` (`SavePersistentDataFromMission` skips an
+  empty `_campaignTag`), and no SEST mission file gives one to a player
+  unit, so there a sunk ship is listed without a Lost status
+  (`ReadDamageSummary` of a missing section gives `Undamaged`) and the
+  plugin has nothing to add. Tagging the authored missions' player units
+  would be the fix; that is separate work, not done here. The plugin skips
+  an id the native rows already show, so it cannot list a ship twice.
+- **Re-gate.** `SestRuntimeFixes.cs` accepts `eab2297b...` only (0.8.6 is
+  no longer accepted: Steam has moved every player on). `sest_runtime.ini`
+  and `SEST_RUNTIME_README.txt` say 0.8.7. The mocked tests now take the
+  game's shapes (nested `FlightStage` and `CrewSkill`, a read-only snapshot,
+  the competing `readValue` overloads) and pin the no-op over a loss the
+  native rows already list: 38 assertions. The rebuilt DLL is `c844a759...`.
+- **Still open:** step 9 below, on the PC. Neither correction has yet been
+  watched working in a mission, on 0.8.6 or 0.8.7.
 
-### Re-enabling once the owner sends the 0.8.7 DLL
+### After the next game update
 
 1. **On the PC, game closed:**
    `powershell -ExecutionPolicy Bypass -File .\tools\export-map-diagnostics.ps1 -IncludeGameAssembly`.
@@ -43,37 +93,29 @@ not in this repository, so nothing here can be verified against it yet.
    `game-reference/Seapower-Scripts.dll` and `file-manifest.csv`. Send the
    ZIP; do not commit the DLL. Record the ZIP's name, size and SHA-256 and
    the DLL's SHA-256 in a dated `data/*-review-*.json`, as
-   `data/map-capture-review-20261020.json` does.
-2. **Check it is the build the log named:** the DLL's SHA-256 must be
-   `eab2297ba92c6013958bdb2cf16d5794a4731330818ce353f89dc2241e16a3bd`. Any
-   other hash means the game moved again; capture again.
-3. **Extend the verifier before trusting it.** `verify_native_api.py` checks
-   12 method signatures, 3 fields, the 10 `FlightStage` names and the 0.405
-   lookahead constant, but the plugin also binds members it never checks:
-   `SeaPower.IniHandler` (`doesSectionExist`, `readValue(string, string,
-   bool, bool)`), `SeaPower.LinearCampaignMission._index` (int),
-   `LinearCampaignTaskForceBuilderRosterItem.CrewSkill`, the debrief view
-   model's `UnitRows`, and the snapshot items' `InstanceId`, `UnitType`,
-   `UnitFolder`, `Category`, `VariantReference` and `CrewSkill`. Add them to
-   `SIGNATURES` (or field checks) from the 0.8.6 DLL first, in the owner's
-   `SEST-map-review-complete-20261020-103158-5173b0.zip`, so the 0.8.6 run
-   still passes.
-4. **Verify against 0.8.7:** `pip install dnfile dncil`, set `EXPECTED` in
-   `verify_native_api.py` to the new hash and run it on the 0.8.7 DLL. Every
+   `data/map-capture-review-20261023.json` does.
+2. **Check it is the build the log named:** the DLL's SHA-256 must be the
+   one `Player.log`'s `inactive: uninspected native assembly` line printed.
+   Any other hash means the game moved again; capture again.
+3. **Keep the verifier complete.** Every member the plugin binds must be in
+   `verify_native_api.py`; a binding added to the plugin is added there in
+   the same change.
+4. **Verify:** `pip install dnfile dncil`, set `EXPECTED` in
+   `verify_native_api.py` to the new hash and run it on the new DLL. Every
    check must pass; a changed signature means the binding code changes too.
-5. **Compare behaviour, not only signatures.** Diff the IL of
+5. **Compare behaviour, not only signatures.** Read the IL of
    `TerrainUtils.GetSafeAltitudeOverSurface`,
    `TerrainUtils.CrudeGetHighestTerrainHeightAhead`,
    `LinearCampaignTaskForceDebriefViewModel.ReadUnitRows` and
-   `LinearCampaignTaskForceSaveManager.ReadSnapshot` between 0.8.6 and 0.8.7.
-   If the native `ReadUnitRows` now lists lost hulls itself, retire
-   `TaskForceDebrief` (set its option to 0 and say so) rather than
-   re-enable it: two rows per lost ship would be worse than none.
+   `LinearCampaignTaskForceSaveManager.ReadSnapshot` (and, as on 23 Oct,
+   what feeds them) against the assumptions above; diff them against the
+   previous build when its DLL is to hand. If the native debrief lists lost
+   hulls for Generated and Replaced missions too, retire `TaskForceDebrief`
+   (set its option to 0 and say so).
 6. **Re-gate the plugin:** `SestRuntimeFixes.cs` (`inspected` and its
-   comment, one line each), the message at the end of
-   `verify_native_api.py` ("Native 0.8.7 ABI verified"), the first line of
-   `sest_runtime.ini`, and `SEST_RUNTIME_README.txt` (its 0.8.6 sentence and
-   the *On Sea Power 0.8.7* paragraph, which then goes).
+   comment, one line each), the build named in the message at the end of
+   `verify_native_api.py`, the first line of `sest_runtime.ini`, and
+   `SEST_RUNTIME_README.txt`.
 7. **Rebuild the DLL:** `python3 integration/runtime-fixes/build_plugin.py`
    (Mono). It runs the mocked regressions and rewrites the DLL and
    `plugin-build.json`; `test_runtime_plugin.py` fails until it has run.
@@ -83,7 +125,9 @@ not in this repository, so nothing here can be verified against it yet.
 9. **On the PC, after syncing:** `Player.log` must show both
    `[SEST Runtime] ... correction installed` lines and no `inactive` line.
    Then the acceptance tests in `docs/playtests/fleet-terrain-debrief-20261020.md`
-   (a Tomahawk MST ridge crossing; a debrief on a 0.8.7 save that lost a
-   ship), which were never run on 0.8.6 either.
-10. **Only then** put the two corrections back into the Workshop change log
-    and the Steam latest-update card.
+   (a Tomahawk MST ridge crossing; a debrief of a Generated mission that
+   lost a ship, and an older debrief reopened after a save and reload).
+10. **The Workshop change log and the Steam latest-update card** may say
+    the corrections are back on the new build once step 9's `Player.log`
+    check passes, and that they have been seen working only after its
+    acceptance tests.

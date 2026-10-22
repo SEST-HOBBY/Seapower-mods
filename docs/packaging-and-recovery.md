@@ -385,8 +385,9 @@ repo track them. `mods-source/_vanilla/original` is the vanilla export: since
 2026, and before it 0.8.6 Build 261014 (729c5e97, 15 Oct) and 0.8.5 Build
 261008 (7739076c, 11 Oct), none of whose drift needed a SEST change beyond
 the version bump (`docs/workshop-refresh-20261022-review.md`; on 0.8.7 SEST's
-runtime plugin, matched to one game build, switched itself off and waits for
-the steps in `integration/runtime-fixes/README.md`); on 3
+runtime plugin, matched to one game build, switched itself off until the
+steps in `integration/runtime-fixes/README.md` matched it to 0.8.7 on 23 Oct
+2026); on 3
 Oct 2026, 4,047 text files under 0.8.4 Build 261002 of 2 Oct 2026 (the 2 Oct
 export's 4,051, taken under 0.8.3, less the KC-135A and Tu-16N stubs the game
 no longer ships, deleted by hand on 3 Oct; the 3 Oct export changed none of
@@ -624,7 +625,8 @@ read by the next pass.
    steps, from the PC export (`tools/export-map-diagnostics.ps1
    -IncludeGameAssembly`) to `build_plugin.py`, are in
    `integration/runtime-fixes/README.md`, and until they are done nothing
-   player-facing may claim either correction (0.8.7, 22 Oct 2026).
+   player-facing may claim either correction (0.8.7: off from its release
+   on 21 Oct 2026, matched on 23 Oct).
 
 4. **Rebuild everything.**
 
