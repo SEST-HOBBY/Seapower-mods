@@ -1,3 +1,12 @@
+v1.48 - 20261021
+
+	- Service dates for aircraft and helicopters reviewed.
+	- Review of fuel tanks.
+	- Review of vessel names in english for adaptation to the new version of the encyclopedia.
+	- L61: Loadout changes.
+	- L61: Updated static vehicles and crew on the flight deck.
+	
+
 v1.47 - 20261015
 
 	- AV-8B: New cockpit textures for the static model.

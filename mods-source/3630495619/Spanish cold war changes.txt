@@ -1,6 +1,28 @@
 SPANISH MOD (#coldwar)  CHANGELOG
 
+v3.58 - 20261021
+
+	- Mirage IIIEE: Changed RP18R and RPK10 fuel tanks to non-droppable 
+
+v3.57 - 20261021
+
+	- Service dates for aircraft and helicopters reviewed.
+	- Review of drop fuel tanks.
+	- New bomb BR-125 (125kgs).
+	- Mirage IIIEE: Improved textrues
+	- Mirage IIIEE:New container: RPK10 500 lt fuel tank with 4 bomb fittings
+	- Mirage IIIEE:New external fuel tank: RP18R 500 lt supersonic non-droppable tank
+	- Mirage IIIEE: Issue with the main landing gear animation resolved.
+	- Mirage IIIEE: Loadouts for Spanish Air Force weaponry have been adjusted.
+	- Mirage IIIEE: Added profiles and plan images
+	- Mirage IIIEE: New droptanks added: RP62 1300 lt.
+	- Mirage F1: New loadouts: StrikeHeavy and StrikeHeavyLongRange
+	- Mirage F1: adjusted droptanks positions
+	- R01 Dedalo: A static AV-8A/S Matador has been added to the deck, thereby affecting flight operations.
+	- Added new custom Spanish Mod background images
+	
 v3.56 - 20261017
+
 	- Loadout changes on R01 and R11
 	- Added deck crew on R11
 	- Added Mirage IIIEE all tailcodes and numbers on 3 squadrons: 111,112 and 11
@@ -14,6 +36,7 @@ v3.55 - 20261015
 	- Enhanced textures for moroccan Lazaga vessels	
 
 v3.54 - 20261014
+
 	NEW:
 	- El Khattabi Moroccan Navy fast attack crafts based on Lazaga class, two versions, PTM armed with 4 MM30 Exocet missiles and PTG without missiles
 	FIXED:
