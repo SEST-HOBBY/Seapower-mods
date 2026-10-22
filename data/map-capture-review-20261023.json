@@ -62,5 +62,12 @@
     "Reopening an older debrief after a save and reload (whether the Mission_ sections persist)",
     "The capture's map reports (F-15EX on the map, the forward UAV section, MapKnownUnits.Update NullReferenceException): not reviewed here; the exception appears in neither Player log"
   ],
-  "next_step": "PC: sync, start the game and check Player.log for both [SEST Runtime] correction installed lines and no inactive line; then test card H.24 and the acceptance tests in docs/playtests/fleet-terrain-debrief-20261020.md."
+  "pc_install_check": {
+    "date": "2026-10-23",
+    "commit": "990dd7f9",
+    "sync_result": "IN LINE: all 4304 installed files match this commit (990dd7f9)",
+    "player_log_both_correction_installed_lines": true,
+    "reported_by": "owner"
+  },
+  "next_step": "Acceptance tests on the PC: test card H.24 and docs/playtests/fleet-terrain-debrief-20261020.md (a Tomahawk MST ridge crossing; the debrief of a generated mission that lost a ship; an older debrief reopened after a save and reload). Neither correction has yet been seen working in a mission."
 }

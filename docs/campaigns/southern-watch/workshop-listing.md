@@ -133,7 +133,7 @@ matched to it on 23 Oct (`integration/runtime-fixes/README.md`), so the log
 claims its two corrections again (the Tomahawk MST's 500 ft over land, the
 debrief's lost ships, in missions the player picks a force for). Before
 Submit, check that Player.log shows both `[SEST Runtime] ... correction
-installed` lines. If one is missing (`terrain correction not installed` or
+installed` lines (it did on 23 Oct, after syncing 990dd7f9). If one is missing (`terrain correction not installed` or
 `debrief correction not installed`), take out that correction's line; if
 both are (`inactive`, or two `not installed` lines), take out both lines and
 the second sentence after "Built for Sea Power 0.8.7.". The OHP long hull's

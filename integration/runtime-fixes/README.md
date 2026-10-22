@@ -82,7 +82,10 @@ On 23 Oct 2026 the owner's export
   game's shapes (nested `FlightStage` and `CrewSkill`, a read-only snapshot,
   the competing `readValue` overloads) and pin the no-op over a loss the
   native rows already list: 38 assertions. The rebuilt DLL is `c844a759...`.
-- **Still open:** step 9 below, on the PC. Neither correction has yet been
+- **On the PC (23 Oct 2026):** step 9's `Player.log` check passed. After
+  syncing 990dd7f9 (`IN LINE: all 4304 installed files`), the owner saw both
+  `[SEST Runtime] ... correction installed` lines.
+- **Still open:** step 9's acceptance tests. Neither correction has yet been
   watched working in a mission, on 0.8.6 or 0.8.7.
 
 ### After the next game update
