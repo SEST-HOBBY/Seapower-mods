@@ -145,6 +145,14 @@ for byte. The changes:
   the Fury or the YF-23 until today's notes. Whether the two extends need
   RSG's permission, or stay as a recorded exception, is for the owner.
   Nothing was changed.
+
+  **Decision (23 Oct 2026, the owner): a known exception.** The two extends
+  stay as they are, and RSG is not asked first. The record is here, in the
+  Fury and YF-23 catalog notes, in `docs/conflicts-and-load-order.md`
+  ("Four AIM-424s") and beside the AIM-424 build in
+  `integration/collection-fixes/build_patch.py`. If RSG asks, those two ids
+  come out of the AIM-424 build and the rounds fly as their author shipped
+  them; the Workshop description already offers any author that.
 - **The JMSDF textures.** `sh-60j.png`, the `modex_jmsdf` mesh and the
   serial-number textures are not in the export. Whether they exist on the
   PC is left to the next play test (section 5); if one is missing, only

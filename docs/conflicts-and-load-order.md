@@ -264,3 +264,13 @@ Where to look: Southern Watch D6 Long Reach and SEST Banda - Black Widow
 Debut field YF-23s on `AirToAirIntercept` (two `yf23_aim424_internal` each);
 the Super Hornets' MH CAP 424, MH Interceptor 424 and MH Penetrator 424 fits
 carry `usn_aim-424`.
+
+**Licence (23 Oct 2026): a known exception.** The YF-23's and the Fury's
+`LICENSE.txt` (RSG, maintainer AlpineStatic; in the export since 5 Oct) let
+a compatibility patch add content alongside the mod but not override its
+material. The `yf23_aim424_internal` and `fury_aim424` extends above do
+override it. The owner recorded them as a known exception on 23 Oct rather
+than ask RSG or drop them (`docs/workshop-refresh-20261023-review.md`,
+section 4). If RSG asks, those two ids come out of the AIM-424 build and the
+rounds fly as their author shipped them. `usn_aim-424` (U.S. Navy 2027, US
+Naval Aviation) is not covered by that licence.

@@ -2270,6 +2270,15 @@ def build_stale_overwrites():
 # cannot drift from SEST's own round. Each round keeps its warhead, kill
 # probability, mass, cost, signature, effects, sounds and name.
 #
+# A KNOWN LICENCE EXCEPTION (23 Oct 2026). The YF-23's and the Fury's
+# LICENSE.txt (RSG, maintainer AlpineStatic) let a compatibility patch add
+# content alongside the mod but not override its material, and the
+# yf23_aim424_internal and fury_aim424 extends do override it. The owner
+# recorded them as a known exception rather than ask RSG or drop them
+# (docs/workshop-refresh-20261023-review.md, section 4). They stay; if RSG
+# asks, delete those two ids from the AIM-424 build and the rounds fly as
+# their author shipped them.
+#
 # AN EXTEND CANNOT REMOVE A KEY. A key the round sets in a laid section that
 # SEST's block does not set survives under SEST's keys, and a stray key in a
 # model block is how SEST's own round once fell back to a RIM-7 (the
