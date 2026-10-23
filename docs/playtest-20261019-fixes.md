@@ -5,7 +5,9 @@ first patch are superseded by [the second playtest follow-up](playtest-20261019-
 The first patch's eastern Kai passage still beached vessels in the game. Its Seahawk
 mounts and the AGR-30's radio midcourse are superseded by
 [the 23 Oct Redback follow-up](playtest-20261023-redback.md): the MH-60R's pod sat in the
-bottom of the quad Hellfire launcher, and the round never left a Seahawk.
+bottom of the quad Hellfire launcher, and the round never left a Seahawk. Its phase speeds
+were set again there from the game's own rules, which read `MaxLoftVelocity` as the target
+for the climb and the whole cruise and `MaxVelocity` as the launch target (*Second report*).
 
 Base: `e7b32f11a906418b6e1343beff31b867d8dd7557`, the user's last Steam
 upload and PC install (4,084 deployed files). Changes are on

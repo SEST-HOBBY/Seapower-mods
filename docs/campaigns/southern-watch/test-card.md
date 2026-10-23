@@ -26,31 +26,36 @@ first; the detail lives where each line points:
 5. **The ARRW profile** — *SEST NF3 - SEAD over the Shelf*: the B-52Os'
    AGM-183As loft to about 99,000 ft, where they used to cruise level at
    90,000.
-6. **The Redback** — first, does it fire (23 Oct 2026: the RAN MH-60R
-   listed it against a boat and never launched it;
-   `docs/playtest-20261023-redback.md`). SW03 *Rig Seventeen*: ready one of
-   Canberra's MH-60Rs on SEST Redback Strike and order an attack on the
-   Peykaap or the Boghammar, inside 4 NM and again at 8-15 NM: a salvo of
-   two leaves the pods. *SEST NF3 - Coastal Ambush*: both A-10Cs fire it.
-   If either still holds fire, note any message line; that is the result
-   that decides the next change. Then the flight: the candidate 2 km loft,
-   ten-second visible motor, gradual slowdown toward 150 knots, an
-   approximately 45-degree surface dive and a 220-knot terminal speed
-   target at 1x, the seeker switching on 8 NM out. Record the observed
-   curve; these are candidate settings. Check the active seeker against a
-   crossing ship and a slow drone, and whether a salvo can be retargeted in
-   flight (it is fire and forget now). Then the pods, in the loadout
-   screen's SEST Redback Strike on the F-16CM, an F/A-18F, an Apache, an
-   MH-60R, an MQ-9 and an A-10: each pod hangs from its pylon, not inside a
-   rack or below it in the air, and the F/A-18F shows two pods side by side
-   on each mid pylon beside its wing tanks. The MH-60R's two 19-tube pods
-   hang on the inboard pylons where its tanks go, their tops meeting the
-   rack where the Mk 54's does in the ASW fit (not cutting in, no gap), and
-   the M299 launcher outboard keeps its eight Hellfires with no pod in it;
-   the S-70B-2 has one 7-tube pod where its Penguin hangs, clear of the
-   Hellfire rails (provisional: if the launcher is drawn around the pod,
-   its fit comes out before the next upload); each MQ-9 has one pod under
-   each outer pylon and no Hellfire launcher.
+6. **The Redback** — it fires from the Seahawk (23 Oct 2026: the RAN
+   MH-60R on `57375598`, from 19-tube pods); this build moves the MH-60R's
+   pods and reworks the flight, and neither has been seen yet
+   (`docs/playtest-20261023-redback.md`, *Second report* and *In the
+   game*). First the loadout screen's SEST Redback Strike on both MH-60Rs:
+   the tanks on the inner pylons as in the AntiShip fit; on each M299
+   launcher four 7-tube pods where the Hellfires hang, two on the upper
+   rails and two on the lower, each pod's top just under its rail (not
+   cutting in, no gap), the upper pods' bottoms clear of the lower rails, no
+   Hellfire left. If the upper pods clip the lower rails, the lower pair
+   comes out: four pods, 28 rounds. SW03 *Rig Seventeen*: order a Canberra
+   MH-60R's attack on the Peykaap or the Boghammar from about 4 NM, then
+   from 8-15 NM. A salvo of two leaves the 7-tube pods (not yet seen from a
+   Seahawk: if none does, note it and any message line); the flame burns
+   about ten seconds; the round climbs to about 2 km even on the 4 NM shot;
+   note its highest speed just after launch, which shows how long the
+   game's launch stages last, then a steady slow-down to about 150 knots
+   over roughly a minute; from 2 NM out it picks up to about 220 knots and
+   dives at roughly 45 degrees. *SEST NF3 - Coastal Ambush*: both A-10Cs
+   fire it. Record the observed curve; these are candidate settings. Check
+   the active seeker against a crossing ship and a slow drone, and whether
+   a salvo can be retargeted in flight (it is fire and forget now). Then the
+   other pods, in the loadout screen's SEST Redback Strike on the F-16CM, an
+   F/A-18F, an Apache, an MQ-9 and an A-10: each pod hangs from its pylon,
+   not inside a rack or below it in the air, and the F/A-18F shows two pods
+   side by side on each mid pylon beside its wing tanks; the S-70B-2 has
+   one 7-tube pod where its Penguin hangs, clear of the Hellfire rails
+   (provisional: if the launcher is drawn around the pod, its fit comes out
+   before the next upload); each MQ-9 has one pod under each outer pylon
+   and no Hellfire launcher.
 7. **MALICE mass** — an F-15EX on its Malice6 fit (six AIM-424s, 680 kg each
    now) gets airborne and reaches its station.
 8. **SM-3 terminal** — a Flight III Burke's SM-3 IIA at a DF-21D or DF-26B

@@ -209,8 +209,8 @@ def main():
     # asks for gentler slowdown, an approximately 45-degree final descent and
     # some terminal speed pickup. Legacy phase caps keep the fictional slow
     # cruise without modelling an unpowered 70mm rocket's real-world stall.
-    # AS-4 demonstrates TerminalVelocity and Deceleration; the latter's
-    # 0.8 factor is gentler than the documented legacy default of 3.0.
+    # AS-4 demonstrates TerminalVelocity and Deceleration (see the slow-down
+    # below for the value).
     # A 6562-ft loft over 1.1 horizontal NM gives about 44.5 degrees to a
     # sea-level target. IgnoreHeightDifferenceForTargetDist is essential to
     # that geometry. This is not a verified fixed-pitch control: terrain,
@@ -233,11 +233,35 @@ def main():
     # six of the collection's MidCourseCorrection=0 rounds (the ROK
     # Hyunmoo-4-2 and HGV are active radar too); whether the game retargets
     # one without a link, play shows.
-    # The seeker now switches on 8 NM out (TerminalApproachDist, SS-N-22B's
-    # figure for the same guidance), so a boat that moved during a long
-    # flight is still inside its 120-degree gimbal; the dive still starts at
-    # 1.1 NM. These settings require a new in-game test; they do not prove
-    # hits or terrain clearance.
+    # Seen firing (23 Oct 2026, second report, on 57375598): the RAN MH-60R
+    # fired it from its pods, so MidCourseCorrection=0 stays. The owner also
+    # saw a shorter boost than on the build they played before it (71bd3004,
+    # the 19 Oct follow-up's round; the last recorded Workshop upload,
+    # e7b32f11, is older) and asked for a realistic slow-down to the cruise
+    # speed.
+    # Game rules this profile rests on (Sea Power 0.8.7, read from the game's
+    # code on 23 Oct 2026; ApplyKinematics=False, the game's simpler speed
+    # model):
+    # - The flame is a timer: the SustainerEffect shows from launch for
+    #   SustainerAccelerationTime (10 s), whatever the round is doing.
+    # - Speed has a target per stage: MaxVelocity while the round launches
+    #   and turns onto its bearing, MaxLoftVelocity through the climb and
+    #   the whole cruise, TerminalVelocity from TerminalApproachDist in.
+    #   Above the target the speed falls in a straight line at Deceleration
+    #   x 19.05 kt/s; below it the motor pushes it up at Acceleration x
+    #   22.9 kt/s, never past the target.
+    # - Fired from an aircraft, the motor works only with AccelerationTime=6,
+    #   the game's own default (the 19 Oct 0.01 gave no thrust at all, so the
+    #   round kept roughly its launcher's speed).
+    # So: a hard run-up toward 450 kt as it leaves the pod, a straight-line
+    # bleed of about 4.8 kt/s to the 150 kt climb-and-cruise (450 to 150 kt
+    # in about a minute) while the flame burns its ten seconds, and a pick-up
+    # to 220 kt at TerminalApproachDist. How fast it is when the run-up ends
+    # depends on how long the game's launch stages last, which the play test
+    # shows. The 8 NM TerminalApproachDist of 57375598 put every shot inside
+    # 8 NM straight into terminal approach, which holds its height: no climb.
+    # 2 NM, 71bd3004's value, restores the 2 km climb on every shot from
+    # about 3.6 NM.
     for stale in ("sest_apkws_er.ini", "sest_agr-20er.ini"):
         if (OUT / "ammunition" / stale).exists():
             (OUT / "ammunition" / stale).unlink()
@@ -258,12 +282,12 @@ def main():
         (r"^SeekerPassiveRange=6\.0[^\n]*", "SeekerPassiveRange=0\nSeekerActiveRange=35\nSeekerGain=50\nFrequency=Ka-Band\nPeakPower=11.0\nMinAttackAltitude=0\nMaxAttackAltitude=20000\nSeekerReliability=0.99\nTargetMemory=True\nRetargetable=True\nSelfDestructAfterTargetGone=False"),
         (r"^MaxLaunchRange=6\b", "MaxLaunchRange=30"),
         (r"^MaxLoftAngle=5\.0[^\n]*", "MaxLoftAngle=35.0"),
-        (r"^MaxLoftAlt=1500[^\n]*", "MaxLoftAlt=6562  // feet: approximately 2 km\nMaxLoftVelocity=450"),
-        (r"^TerminalApproachDist=100[^\n]*", "TerminalApproachDist=8.0  // seeker on 8 NM out: no midcourse update"),
+        (r"^MaxLoftAlt=1500[^\n]*", "MaxLoftAlt=6562  // feet: approximately 2 km\nMaxLoftVelocity=150  // climb and cruise speed target, knots"),
+        (r"^TerminalApproachDist=100[^\n]*", "TerminalApproachDist=2.0  // seeker on 2 NM out, after the 2 km climb (23 Oct 2026)"),
         (r"^TerminalDiveDistance=2[^\n]*", "TerminalDiveDistance=1.1\nTerminalVelocity=220  // legacy terminal phase target, knots\nIgnoreHeightDifferenceForTargetDist=True"),
-        (r"^MaxVelocity=2000[^\n]*", "MaxVelocity=150  // legacy cruise phase cap, knots\nApplyKinematics=False\nMaxFlightTime=1500\nTimeLimited=True"),
-        (r"^AccelerationTime=1[^\n]*", "AccelerationTime=0.01"),
-        (r"^Acceleration=200[^\n]*", "Acceleration=2.0\nDeceleration=0.8\nSustainerAccelerationTime=10\nSustainerAcceleration=8"),
+        (r"^MaxVelocity=2000[^\n]*", "MaxVelocity=450  // launch run-up speed target, knots\nApplyKinematics=False\nMaxFlightTime=1500\nTimeLimited=True"),
+        (r"^AccelerationTime=1[^\n]*", "AccelerationTime=6  // the game's default: the motor also works when an aircraft fires it"),
+        (r"^Acceleration=200[^\n]*", "Acceleration=12  // about 275 kt/s run-up\nDeceleration=0.25  // about 4.8 kt/s bleed to the 150 kt cruise (23 Oct 2026)\nSustainerAccelerationTime=10  // the flame's ten seconds\nSustainerAcceleration=8"),
         (r"^MaxTurnRate=50\.0[^\n]*", "MaxTurnRate=20.0  // soften the nose-over while retaining target correction"),
         (r"^KillProbability=0\.6\b", "KillProbability=0.95"),
         (r"^SeekerFOV=15\b", "SeekerFOV=60"),
@@ -285,7 +309,7 @@ def main():
     (OUT / "ammunition").mkdir(parents=True, exist_ok=True)
     (OUT / "ammunition" / "sest_agr-30.ini").write_text(
         "# SEST AGR-30 Redback - fictional 30 nm guided rocket.\n"
-        "# Ten-second motor / 450 kt loft cap / 150 kt cruise / 220 kt terminal target.\n"
+        "# Ten-second flame / run-up toward 450 kt / straight-line bleed to a 150 kt climb and cruise / 220 kt terminal target.\n"
         "# 2 km loft and 1.1 horizontal NM dive start approximate a 45-degree surface attack.\n"
         "# Active radar seeker, fire and forget: no carrier guidance channel needed. Playtest required.\n"
         + rb, encoding="utf-8")
@@ -318,9 +342,9 @@ def main():
         "sest_agr-30=AGR-30,Redback,GFFAR,"
         "What-if evolution of the 70mm guided rocket family: the AGR-30 "
         "Redback adds fire-and-forget active radar homing out to 30 nautical "
-        "miles, its seeker searching from 8 nautical miles out. A ten-second "
-        "motor and loft to approximately "
-        "2 km precede a gradual slowdown toward 150 knots. The final descent "
+        "miles, its seeker searching from 2 nautical miles out. It leaves the "
+        "pod hard, climbs to approximately 2 km under a ten-second motor "
+        "flame and slows steadily to a 150-knot cruise. The final descent "
         "is tuned for roughly 45 degrees against surface targets, with a "
         "220-knot terminal speed target. This is an experimental game profile. "
         "Eligible against aircraft, drones, ships and land targets. Its slow "
@@ -339,8 +363,9 @@ def main():
     # packs' files and get the same fit from their own builders. The 19-tube
     # pod goes on a single pylon, on the airframe's own mount for a store its
     # size; the 7-tube stays where a rack hangs several (the A-10's TERs, the
-    # Hornets' twin mounts), on the MQ-9's light pylons and on the S-70B-2's
-    # Penguin arm, whose gap between the Hellfire rails a 19-tube overfills.
+    # Hornets' twin mounts, the MH-60R's M299 Hellfire rails), on the MQ-9's
+    # light pylons and on the S-70B-2's Penguin arm, whose gap between the
+    # Hellfire rails a 19-tube overfills.
     ROLLOUT = [
         # Apaches: four 19-tube pods on the mod's own LAU-3 mount, as its
         # Default fit hangs them.
@@ -375,38 +400,37 @@ def main():
          [("uav_agm-114k", "pod", 2, "RedbackMQ9"), ("uav_gbu-49", "pod", 2)],
          dict(hide=("agm-114_pyl_l", "agm-114_pyl_r"),
               positions={"RedbackMQ9": "0,-0.001655,0.000803"})),
-        # Seahawks (23 Oct 2026). On the MH-60R only the M299 Hellfire
-        # launcher's arm (H60_Pylon114) or the Penguin's (H60_Pylon119)
-        # reaches the outboard station points; the inboard pylon
-        # (H60_PylonA) is always drawn, and every SH-60 author in the
-        # collection hangs tanks and torpedoes there, whichever arm shows.
-        # The 19 Oct fit put the 19-tube pod on the launcher's lower rail
-        # point with H60_Pylon114 drawn, so it sat in the bottom of the quad
-        # rack (the owner's 23 Oct report); hiding the launcher, as on
-        # 19 Oct before that, left it floating. The pod now takes the
-        # inboard auxiliary tank's place on that rack - a real MH-60R hangs
-        # 70 mm pods from a BRU-14 rack, not an M299 - and the AntiShip fit's
-        # launcher keeps its eight Hellfires outboard. The tank is far fatter
-        # than a LAU-3 and its point (Station1/2) is 0.22 m below the
-        # torpedo's (Station3/4) on the same rack, so a pod hung bare on it
-        # would hang about 0.1 m clear of the rack. The SEST RedbackH60 mount
-        # raises it 0.13 m, to 0.09 m below the torpedo's point: about the
-        # LAU-3's radius less the Mk 54's (the stock AH-1T and F-5A and the
-        # Apache mod seat a LAU-3 0.10-0.13 m lower than a LAU-68 or a Mk 82
-        # on the same pylon), so its top meets the rack where the torpedo's
-        # does. No mesh is in the export: the loadout preview confirms it
-        # (docs/playtest-20261023-redback.md).
+        # Seahawks (23 Oct 2026). The MH-60R's M299 Hellfire launcher
+        # (H60_Pylon114) has two rail points a side, upper (Stations 10/11)
+        # and lower (12/13), each hanging two missiles on the TERAGM114 seat.
+        # The owner's second report of the day, on 57375598, whose 19-tube
+        # pods had taken the auxiliary tanks' Stations 1/2: tanks back, and
+        # the AGR on the launcher in the Hellfires' place, not clipping it.
+        # So the fit is the donor's - tanks on 1/2, the Penguin arm
+        # (H60_Pylon119) hidden, the launcher drawn - with a 7-tube pod for
+        # each of its eight Hellfires: 56 rounds. A side's four missile
+        # points form a box 0.49 m across and 0.39 m deep. A LAU-68 (about
+        # 0.24 m, and a Hellfire's length) fills it with room between pods;
+        # a LAU-3 (0.41 m) cannot, and fewer, larger pods sat in the bottom
+        # of the rack (27153767) or floated with the launcher hidden
+        # (d9755f4e). The pod is fatter than a Hellfire, so on the Hellfire's
+        # own seat its top would cut 3-7 cm into the rail. The SEST
+        # RedbackM299 seat is TERAGM114 lowered 0.04 m, which brings the
+        # pod's top to within about 3 cm of where the Hellfire's meets the
+        # rail. No mesh is in the export: the loadout preview confirms it
+        # (docs/playtest-20261023-redback.md), and the seat's height is the
+        # one number to move.
         # The S-70B-2's Penguin hangs between the four Hellfire rails, 0.35 m
         # apart: the 7-tube pod is the Penguin's size, the 19-tube pod was
         # wider than the gap. Provisional: the launcher stays drawn, as in
         # the author's Penguin fit, so if the preview shows the pod inside it
         # the two S-70B-2 rows come out before the next upload.
         ("3606774881", "usn_mh-60r.ini", "AntiShipLateLongRange",
-         [("usn_sh60_tank", "pod19", 2, "RedbackH60")],
-         dict(positions={"RedbackH60": "0,0.0013,0"})),
+         [("usa_agm-114l_mm", "pod", 2, "RedbackM299"), ("usa_agm-114k_hh", "pod", 2, "RedbackM299")],
+         dict(positions={"RedbackM299": "0.002461,-0.0004,0|-0.002405,-0.0004,0"})),
         ("3820759806", "ran_mh-60r.ini", "AntiShip",
-         [("usn_sh60_tank", "pod19", 2, "RedbackH60")],
-         dict(positions={"RedbackH60": "0,0.0013,0"})),
+         [("usa_agm-114l_mm", "pod", 2, "RedbackM299"), ("usa_agm-114k_hh", "pod", 2, "RedbackM299")],
+         dict(positions={"RedbackM299": "0.002461,-0.0004,0|-0.002405,-0.0004,0"})),
         ("3403661005", "S-70B-2_Seahawk.ini", "AntiShip", [("knm_penguin_mk2", "pod", 1)]),
         ("3820759806", "ran_S-70B-2_Seahawk.ini", "AntiShip", [("knm_penguin_mk2", "pod", 1)]),
         # RAAF Hornets. The F/A-18A's CAS fit already flies the layout: wing

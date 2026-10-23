@@ -3417,6 +3417,11 @@ verified fixed-angle controller. Rig Seventeen also gains a north-western
 missile boat, an eastern gunboat and a Hind joining after fifteen minutes;
 the evacuation, platform-protection and amphibious-ship objectives remain.
 
+*The Redback's speed keys were reworked on 23 Oct 2026* from the game's own
+rules, which read `MaxLoftVelocity` as the target for the climb and the
+whole cruise, not a loft ceiling (*The Redback fires, and goes where the
+Hellfires were*, below).
+
 ## The allied reserve, and the first upgrade batch (20 October)
 
 `docs/campaigns/campaign-upgrade-plan.md` section 8, with the owner's
@@ -3883,3 +3888,57 @@ NF3 scenarios' A-10Cs. Of the aircraft whose pods moved, the RAN MH-60R
 flies in most Southern Watch and Southern Reach missions; the US Navy
 MH-60R (SW08, SW11), the S-70B-2 (D7) and the MQ-9s (D2, and Southern
 Watch's roster) appear more rarely. Not yet seen in game.
+
+*Superseded later the same day* (next section): the round fired from this
+build (`57375598`); the MH-60R's pods moved again, the seeker's switch-on
+went back to 2 NM, and the speed keys were reworked.
+
+## The Redback fires, and goes where the Hellfires were (23 October, later)
+
+The owner, in the game on `57375598`: the RAN MH-60R fired the AGR-30, but
+"it has the agr where the fuel should be and the agm present and where the
+agr should be. swap agm for agr, no quad rack clipping issue"; the round
+"doesnt boost as long anymore"; and "would like realistic slow down to
+cruise spped". `docs/playtest-20261023-redback.md`, *Second report*, has the
+evidence and the checks.
+
+**The fit.** Both MH-60Rs fly their donor fit again (RAN AntiShip, US Navy
+AntiShipLateLongRange): tanks on Stations 1/2, the Penguin arm hidden, the
+M299 launcher drawn. Each of its four Hellfire lines (10-13) now hangs two
+7-tube pods in place of its two Hellfires, on a SEST seat, `RedbackM299`:
+the Hellfire's `TERAGM114` lowered 0.04 m, because the pod is fatter and its
+top would otherwise cut into the rail. Eight pods, 56 rounds. The 19-tube
+pod no longer flies on the MH-60R: the launcher's missile points are
+0.49 m apart side to side and 0.39 m top to bottom, room for a 0.24 m
+LAU-68 on each but not for a 0.41 m LAU-3. The `RedbackH60` mount is gone.
+The eight pods load 864 kg against the Hellfires' 379 kg; in the game that
+costs about 6% of the fit's range and adds a little to the noise sonar
+hears, but changes no speed or handling.
+
+**The flight.** `MidCourseCorrection=0` stays: it is what made the round
+fire. The rest was set from the game's own rules, read from Sea Power
+0.8.7's code on 23 Oct and summarised in the builder's comment above the
+round's swaps. With `ApplyKinematics=False` the flame is a timer, ten
+seconds from launch whatever the round does; it has not changed. Each stage
+of the flight has a speed target: `MaxVelocity` while the round launches
+and turns onto its bearing, `MaxLoftVelocity` through the climb and the
+whole cruise, `TerminalVelocity` from `TerminalApproachDist` in. Above its
+target the round slows in a straight line at `Deceleration` x 19.05 kt/s;
+below it the motor speeds it up at `Acceleration` x 22.9 kt/s. Fired from
+an aircraft, the motor works only with `AccelerationTime=6`, the game's
+default; the 19 Oct 0.01 gave no thrust. And terminal approach holds the
+height the round has, so `57375598`'s 8 NM `TerminalApproachDist` put every
+shot inside 8 NM into terminal approach from launch, with no climb: that
+was the shorter boost. Now `TerminalApproachDist` is 2.0 again (the 2 km
+climb on every shot from about 3.6 NM), `AccelerationTime` 6,
+`MaxVelocity` 450 (the run-up as it leaves the pod), `MaxLoftVelocity`
+150 (climb and cruise), `Acceleration` 12 and `Deceleration` 0.25: a hard
+run-up toward 450 kt, then a straight-line bleed of about 4.8 kt/s to the
+150-kt cruise, 450 to 150 kt in about a minute, and a pick-up to 220 kt
+from 2 NM. How fast the run-up gets depends on how long the game's launch
+stages last, which only the play test shows. The ten-second flame, the
+2 km loft, the 1.1 NM dive and the 220-knot terminal target are unchanged.
+
+The fit keeps its name, so no mission file changes. Not yet seen in game:
+the test card's first things, 6, checks the loadout preview, the firing
+from the 7-tube pods, the flame, the climb, the run-up and the slow-down.

@@ -103,56 +103,74 @@ class RedbackFit(unittest.TestCase):
 class SeahawkMounts(unittest.TestCase):
     """Each pod hangs from structure the model draws, and not inside a rack.
 
-    23 Oct 2026, the owner, in game: the RAN MH-60R's pod sat "at the bottom
-    of a quad Hellfire rack" - the 19 Oct fit hung it on the M299 launcher's
-    lower rail point (Stations 12/13) with the launcher (H60_Pylon114) drawn.
-    Only H60_Pylon114 or H60_Pylon119 reaches those outboard points; the
-    inboard pylon (H60_PylonA) is always drawn and carries the tanks and
-    torpedoes in every SH-60 file in the collection."""
+    23 Oct 2026, the owner, in game: the RAN MH-60R's 19-tube pod sat "at the
+    bottom of a quad Hellfire rack" (27153767, the M299 launcher's lower rail
+    point with the launcher, H60_Pylon114, drawn); hidden, the launcher left
+    the pods floating (d9755f4e). Then, on 57375598, which fired the round
+    from 19-tube pods on the auxiliary tanks' Stations 1/2: "swap agm for agr,
+    no quad rack clipping issue" - tanks back, and the rockets in the
+    Hellfires' place on the launcher. The launcher's rail points (upper
+    10/11, lower 12/13, two missiles each on TERAGM114) are 0.49 m apart side
+    to side and 0.39 m top to bottom: room for a LAU-68 at each, not a LAU-3.
+    So the fit is the donor's with a 7-tube pod for each Hellfire, on the
+    Hellfire's seat lowered 0.04 m (RedbackM299) for the pod's fatter body."""
 
-    OUTBOARD = (10, 11, 12, 13, 15)     # the M299's rail points and the Penguin's
+    DONORS = {"ran_mh-60r": "AntiShip", "usn_mh-60r": "AntiShipLateLongRange"}
+    RAILS = [10, 11, 12, 13]            # the M299's rail points
+    SEAT = "0.002461,-0.0004,0|-0.002405,-0.0004,0"
 
-    def test_mh60_pods_hang_on_the_inboard_pylon_in_the_tanks_place(self):
-        for uid in ("ran_mh-60r", "usn_mh-60r"):
+    @staticmethod
+    def seat(text, name):
+        """A seat's positions, each [x, y, z]."""
+        value = re.search(rf"(?m)^{re.escape(name)}Positions=(\S+)", text).group(1)
+        return [[float(v) for v in p.split(",")] for p in value.split("|")]
+
+    def test_mh60_fit_is_its_donor_with_a_pod_for_each_hellfire(self):
+        pod = (ALLIED / "ammunition" / f"{redback.POD}.ini").read_text(encoding="utf-8")
+        tubes = int(re.search(r"(?m)^NumberOfAttachments=(\d+)", pod).group(1))
+        for uid, donor in self.DONORS.items():
             with self.subTest(uid=uid):
                 text = built(uid)
-                body = fit(text)
-                self.assertEqual(stations(body, redback.POD19), [1, 2])
-                self.assertEqual(stations(body, redback.POD), [])
-                self.assertNotIn("usn_sh60_tank", body)
-                # Raised from the tank's point toward the torpedo's on the
-                # same rack: the tank is far fatter than the pod, and a bare
-                # pod there would hang about 0.1 m clear of the rack (the
-                # 19 Oct "pods float" report). Straight up, and not as high
-                # as the torpedo's point, since the LAU-3 is the fatter.
-                self.assertRegex(body, rf"(?m)^Station1={redback.POD19}\|RedbackH60$")
-                self.assertRegex(body, rf"(?m)^Station2={redback.POD19}\|RedbackH60$")
-                seat = [float(v) for v in re.search(
-                    r"(?m)^RedbackH60Positions=(\S+)", text).group(1).split(",")]
-                point = {n: float(re.search(rf"(?m)^Station{n}=[-0-9.]+,([-0-9.]+),", text).group(1))
-                         for n in (1, 3)}
-                self.assertEqual((seat[0], seat[2]), (0.0, 0.0))
-                self.assertGreater(seat[1], 0.0005)
-                self.assertLess(seat[1], point[3] - point[1])
-                for n in self.OUTBOARD:
-                    self.assertNotRegex(body, rf"(?m)^Station{n}=sest_agr-30")
-                # The point is the author's: a fit of this airframe already
-                # hangs its tanks on Stations 1/2 with these sub-models hidden.
-                self.assertNotIn("H60_PylonA", hidden(body))
-                donors = [b for name, b in employment.weapon_blocks(text)
-                          if name != "1SEST_REDBACK"
-                          and stations(b, "usn_sh60_tank") == [1, 2]
-                          and hidden(b) == hidden(body)]
-                self.assertTrue(donors, "no author fit proves this station and hide pair")
-
-    def test_mh60_hellfires_stay_on_the_drawn_launcher(self):
-        for uid in ("ran_mh-60r", "usn_mh-60r"):
-            with self.subTest(uid=uid):
-                body = fit(built(uid))
+                blocks = dict(employment.weapon_blocks(text))
+                body = blocks["1" + redback.LOADOUT]
+                # The donor's body, line for line, with only its four
+                # Hellfire lines changed: tanks on 1/2, its hide list and
+                # everything else as the author wrote them.
+                expected, n = re.subn(
+                    r"(?m)^(Station(?:10|11|12|13))=usa_agm-114\w+\|TERAGM114$",
+                    rf"\1={redback.POD}|RedbackM299", blocks["1" + donor])
+                self.assertEqual(n, len(self.RAILS))
+                self.assertEqual(body, expected)
+                self.assertEqual(stations(body, "usn_sh60_tank"), [1, 2])
+                self.assertEqual(stations(body, redback.POD), self.RAILS)
+                # The launcher drawn, the Penguin arm hidden.
                 self.assertNotIn("H60_Pylon114", hidden(body))
                 self.assertIn("H60_Pylon119", hidden(body))
-                self.assertEqual(stations(body, "usa_agm-114l_mm"), [10, 11])
-                self.assertEqual(stations(body, "usa_agm-114k_hh"), [12, 13])
+                # The seat: the Hellfire's, at the same points side to side
+                # and fore and aft, 0.04 m lower.
+                value = re.search(r"(?m)^RedbackM299Positions=(\S+)$", text).group(1)
+                self.assertEqual(value, self.SEAT)
+                seat, hellfire = self.seat(text, "RedbackM299"), self.seat(text, "TERAGM114")
+                self.assertEqual(len(seat), len(hellfire))
+                for mine, its in zip(seat, hellfire):
+                    self.assertEqual((mine[0], mine[2]), (its[0], its[2]))
+                    self.assertAlmostEqual(its[1] - mine[1], 0.0004)
+                # Eight pods, 56 rounds: each station line hangs a pod at
+                # each of the seat's positions, seven rounds a pod.
+                pods = len(stations(body, redback.POD)) * len(seat)
+                self.assertEqual(pods, 8)
+                self.assertEqual(pods * tubes, 56)
+
+    def test_no_redbackh60_seat_is_left(self):
+        # 57375598's raised tank-point seat for the 19-tube pod, gone on the
+        # owner's second report of 23 Oct 2026.
+        paths = [ROOT / "integration/allied-fixes/build_patch.py",
+                 ROOT / "integration/common/redback.py",
+                 *sorted(ROOT.glob("integration/*/SEST_*/aircraft/*.ini"))]
+        for path in paths:
+            with self.subTest(path=str(path.relative_to(ROOT))):
+                text = path.read_text(encoding="utf-8", errors="replace")
+                self.assertEqual([x for x in text.splitlines() if "RedbackH60" in x], [])
 
     def test_s70_pod_is_the_penguin_sized_7_tube_on_its_station(self):
         # The Penguin hangs between the four Hellfire rails, 0.345 m apart.
@@ -242,7 +260,20 @@ class RedbackCarriers(unittest.TestCase):
 
 
 class RedbackProfile(unittest.TestCase):
-    """Requirement invariants for the generated game profile, not flight proof."""
+    """Invariants of the generated game profile, not flight proof.
+
+    The game rules they rest on are summarised in the comment above the
+    round's swaps in integration/allied-fixes/build_patch.py (Sea Power 0.8.7,
+    ApplyKinematics=False): the flame is a timer, SustainerAccelerationTime
+    from launch; each stage has a speed target - MaxVelocity while the round
+    launches and turns onto its bearing, MaxLoftVelocity through the climb
+    and the whole cruise, TerminalVelocity from TerminalApproachDist in;
+    above its target the speed falls in a straight line at Deceleration x
+    19.05 kt/s; and fired from an aircraft the motor works only with
+    AccelerationTime=6, the game's default. Nothing about this flight has
+    been seen in the game yet (23 Oct 2026)."""
+
+    KT_PER_S = 19.05                    # one unit of Deceleration, kt/s
 
     def setUp(self):
         self.paths = [ROOT / p / 'ammunition/sest_agr-30.ini' for p in (
@@ -253,15 +284,52 @@ class RedbackProfile(unittest.TestCase):
     def number(self, name):
         return float(re.search(rf'^{name}=([0-9.]+)', self.text, re.M).group(1))
 
-    def test_burn_and_phase_targets_match_the_requested_shape(self):
-        self.assertAlmostEqual(self.number('SustainerAccelerationTime'), 10)
+    def test_fire_and_forget_needs_no_guidance_channel(self):
+        # 23 Oct 2026: radio command (MidCourseCorrection=1) was listed but
+        # never launched from a Seahawk, whose hardpoint links no channel;
+        # at 0 the RAN MH-60R fired it the same day (57375598).
+        self.assertEqual(self.number('MidCourseCorrection'), 0)
+        # Kept, as six of the collection's MidCourseCorrection=0 rounds have it.
+        self.assertIn('Retargetable=True', self.text)
+
+    def test_the_motor_works_when_an_aircraft_fires_it(self):
+        # The simpler speed model, and the game's own AccelerationTime: the
+        # 19 Oct 0.01 gave an aircraft-launched round no thrust at all.
+        self.assertRegex(self.text, r'(?m)^ApplyKinematics=False\b')
+        self.assertEqual(self.number('AccelerationTime'), 6)
+
+    def test_run_up_then_a_steady_slow_down_to_the_cruise(self):
+        """23 Oct 2026, the owner: "would like realistic slow down to cruise
+        speed". A run-up target above the 150 kt climb-and-cruise target,
+        and a straight-line bleed from one to the other that lasts between
+        half a minute and two minutes (about a minute as built)."""
+        self.assertEqual(self.number('MaxLoftVelocity'), 150)
+        self.assertGreater(self.number('MaxVelocity'), self.number('MaxLoftVelocity'))
+        bleed = ((self.number('MaxVelocity') - self.number('MaxLoftVelocity'))
+                 / (self.number('Deceleration') * self.KT_PER_S))
+        self.assertGreaterEqual(bleed, 30)
+        self.assertLessEqual(bleed, 120)
+        # The pick-up for the terminal approach.
+        self.assertGreater(self.number('TerminalVelocity'), self.number('MaxLoftVelocity'))
+
+    def test_the_flame_is_ten_seconds(self):
+        self.assertEqual(self.number('SustainerAccelerationTime'), 10)
         self.assertGreater(self.number('SustainerAcceleration'), 0)
-        self.assertLessEqual(140, self.number('MaxVelocity'))
-        self.assertLessEqual(self.number('MaxVelocity'), 160)
-        self.assertLess(self.number('MaxVelocity'), self.number('TerminalVelocity'))
-        self.assertLess(self.number('TerminalVelocity'), self.number('MaxLoftVelocity'))
-        self.assertGreater(self.number('Deceleration'), 0)
-        self.assertLess(self.number('Deceleration'), 3)  # native legacy default
+
+    def test_terminal_approach_waits_for_the_climb(self):
+        # 23 Oct 2026, the owner, on 57375598: "agr doesnt boost as long
+        # anymore". Its TerminalApproachDist=8 put every shot inside 8 NM
+        # into terminal approach from launch, which holds the height: no
+        # climb. 2 NM, the 19 Oct follow-up's value, leaves the 2 km climb to
+        # shots from about 4 NM, and the approach still starts before the
+        # dive and inside the seeker's reach.
+        self.assertEqual(self.number('TerminalApproachDist'), 2.0)
+        self.assertGreater(self.number('TerminalApproachDist'),
+                           self.number('TerminalDiveDistance'))
+        self.assertLess(self.number('TerminalApproachDist'), self.number('SeekerActiveRange'))
+        climb = (self.number('MaxLoftAlt') / 6076.11549
+                 / math.tan(math.radians(self.number('MaxLoftAngle'))))
+        self.assertLessEqual(self.number('TerminalApproachDist') + climb, 4.0)
 
     def test_dive_geometry_uses_horizontal_distance_and_is_near_45_degrees(self):
         drop_nm = self.number('MaxLoftAlt') / 6076.11549
@@ -269,8 +337,6 @@ class RedbackProfile(unittest.TestCase):
         self.assertGreater(slope, 40)
         self.assertLess(slope, 50)
         self.assertIn('IgnoreHeightDifferenceForTargetDist=True', self.text)
-        self.assertGreater(self.number('TerminalApproachDist'),
-                           self.number('TerminalDiveDistance'))
         self.assertNotRegex(self.text, r'(?m)^TerminalDiveAngle=', 'unverified game key')
 
     def test_profile_retains_guidance_target_classes_and_one_timed_flame(self):
@@ -278,23 +344,11 @@ class RedbackProfile(unittest.TestCase):
                          'LandAttackCapability=All',
                          'TargetMemory=True', 'GuidanceType=3',
                          'TerminalAlt=Maintain',
-                         'ApplyKinematics=False', 'MinAttackAltitude=0',
+                         'MinAttackAltitude=0',
                          'Frequency=Ka-Band', 'PeakPower=11.0'):
             self.assertIn(required, self.text)
         self.assertEqual(len(re.findall(r'^SustainerEffect=', self.text, re.M)), 1)
         self.assertNotRegex(self.text, r'(?m)^InFlightEffect(?:Class)?=')
-
-    def test_fire_and_forget_needs_no_guidance_channel(self):
-        # 23 Oct 2026: radio command (MidCourseCorrection=1) was listed but
-        # never launched from a Seahawk, whose hardpoint links no channel.
-        self.assertEqual(self.number('MidCourseCorrection'), 0)
-        # Kept, as six of the collection's MidCourseCorrection=0 rounds have it.
-        self.assertIn('Retargetable=True', self.text)
-        # With nothing updating it in flight, the seeker must switch on early
-        # enough to find a target that moved, inside its own reach, and
-        # before the dive.
-        self.assertGreaterEqual(self.number('TerminalApproachDist'), 5)
-        self.assertLess(self.number('TerminalApproachDist'), self.number('SeekerActiveRange'))
 
     def test_installed_profile_is_the_generated_source_profile(self):
         self.assertEqual(self.paths[0].read_bytes(), self.paths[1].read_bytes())

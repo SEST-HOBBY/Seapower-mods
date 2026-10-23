@@ -94,9 +94,9 @@ decision), and the standard campaigns now do what they did from Weapons
 Free, Tasman Crossing and Red Line's first force allocation: paste the
 Description (above) and the Collection description (below) as well, since
 both stopped offering the versions and the Description says when everything
-is on sale. Keep the log under 8,000 characters (23 Oct, after the 23 Oct
-capture: 7,854 with the 19 Oct block below it, 7,946 if each line break
-counts as two).
+is on sale. Keep the log under 8,000 characters (23 Oct, with the Redback
+line under Fixes as it now reads: 7,874 with the 19 Oct block below it,
+7,966 if each line break counts as two).
 
 On 22 Oct the game moved to Sea Power 0.8.7 and ten mods updated; the log
 covers both. On 23 Oct seven mods updated their files and the YF-23 its code
@@ -119,22 +119,29 @@ author, not SEST; and it says of the SM-6 Block I only that it keeps 300 s:
 claim its 260 NM once a shot past 240 NM has been seen in game. The required
 mods are unchanged by the 22 and 23 Oct captures.
 
-The AGR-30 Redback changed on 23 Oct (`docs/playtest-20261023-redback.md`):
-in the game the RAN MH-60R listed it against a boat and never fired it, and
-its pod sat in the bottom of the quad Hellfire launcher. The log does not
-claim the fix. Once a Seahawk has been seen firing it (the test card's
-first things, 6), add the line below under Fixes. With the 19 Oct block
-below it the two logs then come to 7,995 characters, but 8,088 if each line
-break counts as two, which is over. So when the 19 Oct block goes too, drop
-its first AGR-30 item ("One upgraded 70 mm guided rocket...", 275
-characters): it describes the round of the morning of 19 Oct (infrared,
-600 knots, aircraft first) and is wrong now anyway. That leaves 7,719
-(7,811 counting line breaks as two). Before Submit, look at the S-70B-2's
-SEST Redback Strike in the loadout preview as well (the same test card
-item): if its pod sits inside the Hellfire launcher, take the two S-70B-2
-rows out of ROLLOUT in `integration/allied-fixes/build_patch.py` and
-rebuild.
-`[*]AGR-30 Redback: fire and forget again, so the Seahawks fire it; the MH-60R's pods hang on the inner pylons, not in the Hellfire launcher.`
+The AGR-30 Redback changed twice on 23 Oct
+(`docs/playtest-20261023-redback.md`). In the game the RAN MH-60R first
+listed it against a boat and never fired it, its pod in the bottom of the
+quad Hellfire launcher; on the next build (`57375598`) it fired. So the
+Redback line is under Fixes, and the 19 Oct block's first AGR-30 item ("One
+upgraded 70 mm guided rocket...", 275 characters) is gone: it described the
+round of the morning of 19 Oct (infrared, 600 knots, aircraft first) and was
+wrong anyway, and without it the two logs stay under 8,000 with each line
+break counted as two. Only the firing has been seen. The rest of the line is
+the build after `57375598`, made from the owner's second report that day:
+the MH-60R's eight 7-tube pods on its Hellfire launcher with its tanks
+kept, `TerminalApproachDist` back to 2 NM so that short shots climb, a
+motor that works when an aircraft fires it, and a straight-line slow-down
+to the 150-knot cruise. Nobody has seen those yet. Before Submit, check them
+(the test card's first things, 6): a salvo leaving the 7-tube pods, the
+pods on the launcher clear of its rails, the 2 km climb on a shot from about
+4 NM, and the steady slow-down to about 150 knots over roughly a minute. If
+the upper pods clip the lower rails and the lower pair comes out, the line
+says four pods, not eight; for anything else that is wrong, take out its
+words or fix it first. Look at the S-70B-2's SEST Redback Strike in the
+loadout preview as well (the same test card item): if its pod sits inside
+the Hellfire launcher, take the two S-70B-2 rows out of ROLLOUT in
+`integration/allied-fixes/build_patch.py` and rebuild.
 
 ```
 [h2]20 October 2026[/h2]
@@ -194,6 +201,7 @@ rebuild.
 [*]Red Line: briefings and the Situation window no longer show the trailing submarines' class or navy before you classify them. Civilian ships fly their own flags, and the command-net reports no longer name officers.
 [*]Every campaign: a ship or aircraft your orders protect is labelled "Protected - do not engage" under its briefing photo, not "Expected opposition". In The Twelve-Mile Line the frigate and her helicopter read "Opposition - do not fire first".
 [*]Sulu Line, Service at Sea: losing Sulu Provider no longer ends the mission. Complete the rendezvous without her and she is missing at The Aborlan Battery.
+[*]AGR-30 Redback: the Seahawks fire it (seen 23 Oct). The MH-60R carries eight Redback pods on its Hellfire launcher in place of the Hellfires, keeping its fuel tanks. Short shots climb to 2 km, the motor now works when fired from aircraft, and the rocket slows steadily to its 150-knot cruise.
 [/list]
 
 [b]Install[/b]
@@ -213,7 +221,6 @@ collection stay as they are.
 
 [b]AGR-30 Redback[/b]
 [list]
-[*]One upgraded 70 mm guided rocket replaces SEST's two (the 8 NM laser APKWS II-ER is retired): infrared fire and forget to 30 NM, a boost then a cruise at about 600 knots, a shallow climb and a dive onto the target. Aircraft and drones first, ships and land targets second.
 [*]A new "SEST Redback Strike" loadout on the A-10s, Apaches, MQ-9s, Seahawks, the F-16CM, the RAAF F/A-18A and the Super Hornets. Every original loadout is still there; the Ocean Apache's "SEST APKWS-ER Strike" goes with its rocket.
 [*]19-round LAU-3 pods on single pylons, 7-round LAU-68s on racks and the MQ-9s, each on its own mount. The Super Hornets fly the F/A-18A's layout: wing tanks, two pods side by side outboard of them, a 19-round pod on the outer pylon.
 [/list]
