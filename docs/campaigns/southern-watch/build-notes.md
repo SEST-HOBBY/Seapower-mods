@@ -3848,3 +3848,38 @@ name still resolves. What differs in play, all of it the authors' work:
   SH-60K (all Squadron1) show modex numbers, and the SH-60J the plain
   `sh-60j.png` livery; the textures are not in the export, so whether they
   are all present is for the next play test.
+
+## The Redback leaves the Seahawk, and its pod leaves the Hellfire rack (23 October)
+
+The owner, in the game on 23 Oct: the RAN MH-60R's AGR-30 pod sat "at the
+bottom of a quad hellfire rack", and ordered against a boat, the Seahawk
+listed the AGR-30 and never fired it. `docs/playtest-20261023-redback.md`
+has the evidence, the per-carrier table and the checks.
+
+**Why it held fire, on the evidence.** The 19 Oct follow-up made the round
+radio command (`MidCourseCorrection=1`) so it could be retargeted. A
+radio-command round needs a guidance channel from a sensor the hardpoint
+links. The four Seahawks link none, nor do five other carriers (the
+A-10A, A-10C, A-10C+, AH-64A and Sea Apache). The round is fire and forget
+again (`MidCourseCorrection=0`, the donor's own), like the Hellfire L the
+MH-60R already fires, so no carrier needs a channel to launch it. Its seeker now
+switches on 8 NM out rather than 2, so a boat that has moved since launch is
+still in view; `Retargetable` stays, for the game to show whether it still
+works without a link.
+
+**Where the pods hang.** The MH-60R's 19-tube pods move from the M299
+launcher's lower rail points to the inboard pylons, in the tanks' place,
+raised 0.13 m on a SEST mount so that the top meets the rack where the
+torpedo's does, and the launcher keeps its eight Hellfires, as the
+AntiShip fit hangs them. The S-70B-2 carries a 7-tube pod, the Penguin's
+size, where the Penguin hangs, because the 19-tube was wider than the gap
+between the Hellfire rails; it is provisional, and comes out if the
+loadout preview shows the launcher drawn around it. The
+MQ-9s hang one 7-tube pod under each outer pylon with the twin Hellfire
+launchers hidden, rather than two on each launcher's rails. Every fit keeps
+its name, so no mission file changes: the tasking rows offer SEST Redback
+Strike where they did, and the only missions that place the fit are the
+NF3 scenarios' A-10Cs. Of the aircraft whose pods moved, the RAN MH-60R
+flies in most Southern Watch and Southern Reach missions; the US Navy
+MH-60R (SW08, SW11), the S-70B-2 (D7) and the MQ-9s (D2, and Southern
+Watch's roster) appear more rarely. Not yet seen in game.

@@ -442,6 +442,12 @@ and adds a structural backstop for stale exports. Negative-tested both ways.
   (a proven in-pod, lofting rocket) with five changed lines fixed it on the
   first try. Survey precedent before combining features: no container in the
   collection holds a GuidanceType=3 round, and the engine apparently agrees.
+  (23 Oct 2026: one does in the configs - US Naval Aviation's BRU-61 quad
+  holds the GBU-53, active radar as SEST Collection Fixes ships it - though
+  no play test has seen it fire from there. What the evidence says kept the
+  Redback in its pod on the Seahawk was radio command with no guidance
+  channel to draw on: survey what a feature needs from the CARRIER too, not
+  only from the round; `docs/playtest-20261023-redback.md`.)
 - **Everything is generated.** Packs rebuild from `build_*.py` with loud
   guards (`exit` on count mismatches, donors changing, keys already present).
   Mission edits that must survive editor round-trips are idempotent passes in

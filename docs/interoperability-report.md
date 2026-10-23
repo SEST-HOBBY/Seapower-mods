@@ -1260,6 +1260,8 @@ Repairs two allied units that were broken by cross-mod data defects (the P-8's a
   
   If the donor changes: n/a — a literal in the builder.
 
+**Update, 2026-10-23** — the Redback entries below describe the round as it was up to 26 Sep. Since 19 Oct (`27153767`) it is GuidanceType=3, active radar on Ka-band, to 30 nm; that build also made it radio command (MidCourseCorrection=1), and on 23 Oct it went back to MidCourseCorrection=0, fire and forget, after a RAN MH-60R listed it against a boat and never fired it (`docs/playtest-20261023-redback.md`). The *Known limits* line that no container holds a GuidanceType=3 round no longer holds for the configs: US Naval Aviation's BRU-61 quad holds the GBU-53, which SEST Collection Fixes ships as GuidanceType=3. No play test has yet seen either fire from its container.
+
 - **Rebase the AGR-30 Redback onto dts_apkws-ii (Dingtools Weapon Pack) with five changed lines, abandoning the M282-derived build.**  
   *In-game observation* — Builder comment: 'rebased onto dts_apkws-ii after two freezes. The M282-based build differed from every working pod round in dozens of keys; dts_apkws-ii is a PROVEN in-pod rocket WITH loft keys from the collection's own weapon pack, so the Redback is now that file with the minimum deltas'. Commit 8630630: 'The M282-based build froze the…
   

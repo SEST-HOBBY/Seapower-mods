@@ -119,6 +119,23 @@ author, not SEST; and it says of the SM-6 Block I only that it keeps 300 s:
 claim its 260 NM once a shot past 240 NM has been seen in game. The required
 mods are unchanged by the 22 and 23 Oct captures.
 
+The AGR-30 Redback changed on 23 Oct (`docs/playtest-20261023-redback.md`):
+in the game the RAN MH-60R listed it against a boat and never fired it, and
+its pod sat in the bottom of the quad Hellfire launcher. The log does not
+claim the fix. Once a Seahawk has been seen firing it (the test card's
+first things, 6), add the line below under Fixes. With the 19 Oct block
+below it the two logs then come to 7,995 characters, but 8,088 if each line
+break counts as two, which is over. So when the 19 Oct block goes too, drop
+its first AGR-30 item ("One upgraded 70 mm guided rocket...", 275
+characters): it describes the round of the morning of 19 Oct (infrared,
+600 knots, aircraft first) and is wrong now anyway. That leaves 7,719
+(7,811 counting line breaks as two). Before Submit, look at the S-70B-2's
+SEST Redback Strike in the loadout preview as well (the same test card
+item): if its pod sits inside the Hellfire launcher, take the two S-70B-2
+rows out of ROLLOUT in `integration/allied-fixes/build_patch.py` and
+rebuild.
+`[*]AGR-30 Redback: fire and forget again, so the Seahawks fire it; the MH-60R's pods hang on the inner pylons, not in the Hellfire launcher.`
+
 ```
 [h2]20 October 2026[/h2]
 

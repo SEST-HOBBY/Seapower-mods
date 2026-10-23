@@ -297,7 +297,7 @@ listed whatever the percentage: they are still that author's.
        98%  ammunition/usa_agm-114k.ini
 
   General Atomics MQ-9 Reaper  (workshop 3503670861)
-       99%  aircraft/usaf_mq-9_er.ini
+       98%  aircraft/usaf_mq-9_er.ini
        99%  aircraft/usaf_mq-9a.ini
 
   Gerald R. Ford-class CVN Aircraft Carrier (Updated Dependencies)  (workshop 3461044389)

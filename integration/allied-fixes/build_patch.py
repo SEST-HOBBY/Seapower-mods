@@ -71,8 +71,8 @@ Apache AH1 her sister hulls already support, the RNZAF and ROKN P-8 \
 squadrons named nations the game has no flag for, and the A-10C's infrared \
 head was never registered as a sensor module while its squadron file \
 declared seven squadrons against two defined liveries. Also SEST's AGR-30 \
-Redback - a fictional active-homing 70mm guided rocket, 30 nm, a ten-second \
-boost, slow cruise and diving approach, with radio retargeting - as a SEST_REDBACK \
+Redback - a fictional fire-and-forget active-homing 70mm guided rocket, \
+30 nm, a ten-second boost, slow cruise and diving approach - as a SEST_REDBACK \
 fit on the Apaches, the A-10s, the MQ-9s, \
 the Seahawks and the RAAF Hornets.
 
@@ -217,9 +217,27 @@ def main():
     # target height, short shots and target motion change the approach.
     # AIM-54A's timed SustainerEffect supplies the ten-second visible motor,
     # without an everlasting InFlightEffect or a new flame in terminal.
-    # The active seeker and command link use stock missile keys; Walleye II
-    # demonstrates Retargetable with MidCourseCorrection=1. These settings
-    # require a new in-game test; they do not prove hits or terrain clearance.
+    # Fire and forget (23 Oct 2026). The 19 Oct follow-up made the round radio
+    # command (MidCourseCorrection=1) for retargeting, and radio command needs
+    # a guidance channel: a radar or command link the launching hardpoint
+    # names in AssociatedSensors=. The Seahawks name none (the RAN MH-60R's
+    # only radar, APS-147, has no weapon channels), nor do the A-10A/C - on
+    # the evidence, why the game listed the AGR-30 and never launched it in
+    # the owner's 23 Oct report, an attack ordered on a boat. The stock
+    # game's radio-command stores come with their channel (the AS-2's Rubin
+    # radar, the AGM-12B's ARW-77), as does the MQ-9's GBU-49 (the author's
+    # guidance pod). So the round is the donor's MidCourseCorrection=0
+    # again, like the Hellfire L the MH-60R already fires (active radar,
+    # Ka-band, 11 kW), and the GBU-53 that US Naval Aviation's BRU-61
+    # container holds: no channel, on any carrier. Retargetable stays, as on
+    # six of the collection's MidCourseCorrection=0 rounds (the ROK
+    # Hyunmoo-4-2 and HGV are active radar too); whether the game retargets
+    # one without a link, play shows.
+    # The seeker now switches on 8 NM out (TerminalApproachDist, SS-N-22B's
+    # figure for the same guidance), so a boat that moved during a long
+    # flight is still inside its 120-degree gimbal; the dive still starts at
+    # 1.1 NM. These settings require a new in-game test; they do not prove
+    # hits or terrain clearance.
     for stale in ("sest_apkws_er.ini", "sest_agr-20er.ini"):
         if (OUT / "ammunition" / stale).exists():
             (OUT / "ammunition" / stale).unlink()
@@ -236,12 +254,12 @@ def main():
         (r"^TargetType=AAW[^\n]*", "TargetType=ASuW"),
         (r"^SecondaryTargetType=ASuW[^\n]*", "SecondaryTargetType=AAW"),
         (r"^GuidanceType=5\b", "GuidanceType=3"),
-        (r"^MidCourseCorrection=0[^\n]*", "MidCourseCorrection=1  // radio command; autonomous seeker in terminal"),
+        (r"^MidCourseCorrection=0[^\n]*", "MidCourseCorrection=0  // fire and forget: needs no guidance channel on the carrier (23 Oct 2026)"),
         (r"^SeekerPassiveRange=6\.0[^\n]*", "SeekerPassiveRange=0\nSeekerActiveRange=35\nSeekerGain=50\nFrequency=Ka-Band\nPeakPower=11.0\nMinAttackAltitude=0\nMaxAttackAltitude=20000\nSeekerReliability=0.99\nTargetMemory=True\nRetargetable=True\nSelfDestructAfterTargetGone=False"),
         (r"^MaxLaunchRange=6\b", "MaxLaunchRange=30"),
         (r"^MaxLoftAngle=5\.0[^\n]*", "MaxLoftAngle=35.0"),
         (r"^MaxLoftAlt=1500[^\n]*", "MaxLoftAlt=6562  // feet: approximately 2 km\nMaxLoftVelocity=450"),
-        (r"^TerminalApproachDist=100[^\n]*", "TerminalApproachDist=2.0"),
+        (r"^TerminalApproachDist=100[^\n]*", "TerminalApproachDist=8.0  // seeker on 8 NM out: no midcourse update"),
         (r"^TerminalDiveDistance=2[^\n]*", "TerminalDiveDistance=1.1\nTerminalVelocity=220  // legacy terminal phase target, knots\nIgnoreHeightDifferenceForTargetDist=True"),
         (r"^MaxVelocity=2000[^\n]*", "MaxVelocity=150  // legacy cruise phase cap, knots\nApplyKinematics=False\nMaxFlightTime=1500\nTimeLimited=True"),
         (r"^AccelerationTime=1[^\n]*", "AccelerationTime=0.01"),
@@ -269,7 +287,7 @@ def main():
         "# SEST AGR-30 Redback - fictional 30 nm guided rocket.\n"
         "# Ten-second motor / 450 kt loft cap / 150 kt cruise / 220 kt terminal target.\n"
         "# 2 km loft and 1.1 horizontal NM dive start approximate a 45-degree surface attack.\n"
-        "# Active terminal seeker, radio midcourse and retargeting. Playtest required.\n"
+        "# Active radar seeker, fire and forget: no carrier guidance channel needed. Playtest required.\n"
         + rb, encoding="utf-8")
     rbpod, k = re.subn(r"^Ammunition=usa_apkws_2_m282\s*$", "Ammunition=sest_agr-30",
                        pod_src.read_text(encoding="utf-8-sig", errors="replace"), flags=re.M)
@@ -299,8 +317,9 @@ def main():
         "[AmmunitionNames]\n"
         "sest_agr-30=AGR-30,Redback,GFFAR,"
         "What-if evolution of the 70mm guided rocket family: the AGR-30 "
-        "Redback adds active terminal homing and radio midcourse retargeting "
-        "out to 30 nautical miles. A ten-second motor and loft to approximately "
+        "Redback adds fire-and-forget active radar homing out to 30 nautical "
+        "miles, its seeker searching from 8 nautical miles out. A ten-second "
+        "motor and loft to approximately "
         "2 km precede a gradual slowdown toward 150 knots. The final descent "
         "is tuned for roughly 45 degrees against surface targets, with a "
         "220-knot terminal speed target. This is an experimental game profile. "
@@ -320,7 +339,8 @@ def main():
     # packs' files and get the same fit from their own builders. The 19-tube
     # pod goes on a single pylon, on the airframe's own mount for a store its
     # size; the 7-tube stays where a rack hangs several (the A-10's TERs, the
-    # Hornets' twin mounts) and on the MQ-9's light pylons.
+    # Hornets' twin mounts), on the MQ-9's light pylons and on the S-70B-2's
+    # Penguin arm, whose gap between the Hellfire rails a 19-tube overfills.
     ROLLOUT = [
         # Apaches: four 19-tube pods on the mod's own LAU-3 mount, as its
         # Default fit hangs them.
@@ -339,21 +359,56 @@ def main():
          [("usn_agr-20b", "pod19", 1, "MK-84", (3,)), ("usn_agr-20b", "pod", 4)]),
         ("3414146266", "usa_a-10a.ini", "CAS",
          [("usn_lau-68", "pod19", 2, "MK-84", (3, 4)), ("usn_lau-68", "pod", 2)]),
+        # MQ-9s (23 Oct 2026): one 7-tube pod under each outer pylon, its
+        # twin Hellfire launcher (agm-114_pyl_l/r) hidden. Hung on the
+        # launcher's AGM-114 seat, two pods a side sat on the launcher's rail
+        # points - the "pods on the Hellfire rails" the Seahawk had. The SEST
+        # RedbackMQ9 mount is the centre of that seat: the author's Hellfire
+        # height, which the ER's own AirToAir fit also uses for the AIM-9X it
+        # hangs on that pylon with the launcher hidden. The inner pair keep
+        # their 7-tube pods on the GBU-49's mount.
         ("3503670861", "usaf_mq-9a.ini", "Strike",
-         [("uav_agm-114k", "pod", 2), ("uav_gbu-49", "pod", 2)]),
+         [("uav_agm-114k", "pod", 2, "RedbackMQ9"), ("uav_gbu-49", "pod", 2)],
+         dict(hide=("agm-114_pyl_l", "agm-114_pyl_r"),
+              positions={"RedbackMQ9": "0,-0.001655,0.000803"})),
         ("3503670861", "usaf_mq-9_er.ini", "Strike",
-         [("uav_agm-114k", "pod", 2), ("uav_gbu-49", "pod", 2)]),
-        # Keep the Seahawk's actual supporting geometry visible. The MH-60R
-        # pods use the lower Hellfire seats and retain H60_Pylon114; hiding
-        # that submodel removed their support. The S-70B-2 has one modelled
-        # missile arm: use its Penguin seat, not a floating pod each side on
-        # the torpedo-specific MK46 offsets. Its AntiShip fit keeps the arm.
-        ("3606774881", "usn_mh-60r.ini", "AntiShipLate",
-         [("usa_agm-114l_mm", None, 2), ("usa_agm-114k_hh", "pod19", 2, "")]),
+         [("uav_agm-114k", "pod", 2, "RedbackMQ9"), ("uav_gbu-49", "pod", 2)],
+         dict(hide=("agm-114_pyl_l", "agm-114_pyl_r"),
+              positions={"RedbackMQ9": "0,-0.001655,0.000803"})),
+        # Seahawks (23 Oct 2026). On the MH-60R only the M299 Hellfire
+        # launcher's arm (H60_Pylon114) or the Penguin's (H60_Pylon119)
+        # reaches the outboard station points; the inboard pylon
+        # (H60_PylonA) is always drawn, and every SH-60 author in the
+        # collection hangs tanks and torpedoes there, whichever arm shows.
+        # The 19 Oct fit put the 19-tube pod on the launcher's lower rail
+        # point with H60_Pylon114 drawn, so it sat in the bottom of the quad
+        # rack (the owner's 23 Oct report); hiding the launcher, as on
+        # 19 Oct before that, left it floating. The pod now takes the
+        # inboard auxiliary tank's place on that rack - a real MH-60R hangs
+        # 70 mm pods from a BRU-14 rack, not an M299 - and the AntiShip fit's
+        # launcher keeps its eight Hellfires outboard. The tank is far fatter
+        # than a LAU-3 and its point (Station1/2) is 0.22 m below the
+        # torpedo's (Station3/4) on the same rack, so a pod hung bare on it
+        # would hang about 0.1 m clear of the rack. The SEST RedbackH60 mount
+        # raises it 0.13 m, to 0.09 m below the torpedo's point: about the
+        # LAU-3's radius less the Mk 54's (the stock AH-1T and F-5A and the
+        # Apache mod seat a LAU-3 0.10-0.13 m lower than a LAU-68 or a Mk 82
+        # on the same pylon), so its top meets the rack where the torpedo's
+        # does. No mesh is in the export: the loadout preview confirms it
+        # (docs/playtest-20261023-redback.md).
+        # The S-70B-2's Penguin hangs between the four Hellfire rails, 0.35 m
+        # apart: the 7-tube pod is the Penguin's size, the 19-tube pod was
+        # wider than the gap. Provisional: the launcher stays drawn, as in
+        # the author's Penguin fit, so if the preview shows the pod inside it
+        # the two S-70B-2 rows come out before the next upload.
+        ("3606774881", "usn_mh-60r.ini", "AntiShipLateLongRange",
+         [("usn_sh60_tank", "pod19", 2, "RedbackH60")],
+         dict(positions={"RedbackH60": "0,0.0013,0"})),
         ("3820759806", "ran_mh-60r.ini", "AntiShip",
-         [("usa_agm-114l_mm", None, 2), ("usa_agm-114k_hh", "pod19", 2, "")]),
-        ("3403661005", "S-70B-2_Seahawk.ini", "AntiShip", [("knm_penguin_mk2", "pod19", 1)]),
-        ("3820759806", "ran_S-70B-2_Seahawk.ini", "AntiShip", [("knm_penguin_mk2", "pod19", 1)]),
+         [("usn_sh60_tank", "pod19", 2, "RedbackH60")],
+         dict(positions={"RedbackH60": "0,0.0013,0"})),
+        ("3403661005", "S-70B-2_Seahawk.ini", "AntiShip", [("knm_penguin_mk2", "pod", 1)]),
+        ("3820759806", "ran_S-70B-2_Seahawk.ini", "AntiShip", [("knm_penguin_mk2", "pod", 1)]),
         # RAAF Hornets. The F/A-18A's CAS fit already flies the layout: wing
         # tanks, and two 7-tube pods on the pylon outboard of them (the twin
         # Zuni mount). The F/A-18F takes it from its long-range anti-ship

@@ -127,6 +127,23 @@ WHOLE_ROSTER = ("retired by the owner on 21 Oct 2026 (step 2): from Weapons Free
 OTHER_MODS_BACK = ("retired by the authors' 23 Oct 2026 updates: the Fury's, EC-2's, K5 "
                    "KRAKEN's, Saronic Corsair's, MV-75's and YF-23's plugins stay on under "
                    "Sea Power 0.8.7 (docs/workshop-refresh-20261023-review.md)")
+# The AGR-30 Redback's descriptions: its builder, the shared fit recipe, the
+# pack READMEs and every emitted copy of the round, its pods, its name and
+# the packs' Mod Manager blurbs.
+REDBACK_TEXT = [
+    "integration/allied-fixes/build_patch.py",
+    "integration/common/redback.py",
+    "integration/*/README.md",
+    "integration/*/SEST_*/_info.ini",
+    "integration/*/SEST_*/ammunition/sest_agr-30*.ini",
+    "integration/*/SEST_*/language_en/ammunition_names.ini",
+]
+REDBACK_FF = ("retired on 23 Oct 2026: the AGR-30 is fire and forget (MidCourseCorrection=0) - "
+              "radio command needed a guidance channel the Seahawks and A-10s do not link, and "
+              "the RAN MH-60R never fired it (docs/playtest-20261023-redback.md)")
+REDBACK_SEAHAWK = ("retired on 23 Oct 2026: the MH-60R's pods hang on the inboard pylons in the "
+                   "tanks' place; on the Hellfire launcher's lower rail points they sat in the "
+                   "bottom of the quad rack (docs/playtest-20261023-redback.md)")
 WHOLE_ROSTER_TEXT = PLAYER_TEXT + RULES_PAGES + [
     "integration/*/SEST_*/campaigns/*/campaign.ini",
     "integration/*/SEST_*/campaigns/*/player_task_force_roster.ini",
@@ -197,6 +214,10 @@ STALE = [
     (r"switched off parts of other mods' code|until their authors update"
      r"|falls back to its original order handling",
      PLAYER_TEXT, OTHER_MODS_BACK, WRAPPED),
+    (r"radio (midcourse |command )?retargeting|radio midcourse",
+     REDBACK_TEXT + PLAYER_TEXT, REDBACK_FF, WRAPPED),
+    (r"MH-60R supports remain visible|use the lower (Hellfire|missile) seats",
+     REDBACK_TEXT + PLAYER_TEXT + ["docs/campaigns/*/test-card.md"], REDBACK_SEAHAWK, WRAPPED),
 ]
 
 

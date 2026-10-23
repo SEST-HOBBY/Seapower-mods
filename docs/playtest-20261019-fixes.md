@@ -2,7 +2,10 @@
 
 The Redback profile, SW08 carrier, Langgur wing, Texaco support and O4 routing changes in this
 first patch are superseded by [the second playtest follow-up](playtest-20261019-r2.md).
-The first patch's eastern Kai passage still beached vessels in the game.
+The first patch's eastern Kai passage still beached vessels in the game. Its Seahawk
+mounts and the AGR-30's radio midcourse are superseded by
+[the 23 Oct Redback follow-up](playtest-20261023-redback.md): the MH-60R's pod sat in the
+bottom of the quad Hellfire launcher, and the round never left a Seahawk.
 
 Base: `e7b32f11a906418b6e1343beff31b867d8dd7557`, the user's last Steam
 upload and PC install (4,084 deployed files). Changes are on
