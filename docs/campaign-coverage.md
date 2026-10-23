@@ -224,7 +224,7 @@ Sea and land positions in 23 of the 35 missions are snapped to points already us
 | `SEST_B52_ARRW` | SEST B-52 ARRW | `unit` | dts_b-52h | The Open Door |
 | `SEST_Campaign` | SEST Southern Watch Campaign | `campaign` | this pack: it ships the campaign, its missions, its requisition roster and their briefings. It is what the coverage below is measured on, so it cannot place a unit to reach itself | - |
 | `SEST_Collection_Fixes` | SEST Collection Fixes | `unit` | plaaf_jh7a | Weapons Free |
-| `SEST_Combat_Costs` | SEST Combat Cost Compatibility | `library` | three Combat Cost Tracker catalog extensions: spelling corrections and reviewed airframe/hull/weapon-family estimates; no performance or mission changes | - |
+| `SEST_Combat_Costs` | SEST Combat Cost Compatibility | `library` | three Combat Cost Tracker catalog extensions: spelling corrections, reviewed airframe/hull/weapon-family estimates and SEST researched estimates with their sources; no performance or mission changes | - |
 | `SEST_Cross_Deck` | SEST Cross-Deck | `library` | one Anchor Chain `#!extend` stub per allied flight deck, widening `AircraftSupported` to the allied members of the airframe families the deck already lists; it ships no unit, and the campaign reaches it through the decks it places (build_pack's deck_types reads the same stubs) | - |
 | `SEST_F-15EX_Revamp` | SEST F-15EX Revamp | `unit` | airbase_raaf_darwin deck / usaf_f-15ex_SEII | White Water |
 | `SEST_F-35C_JATM` | SEST F-35C JATM | `unit` | usn_cvn_nimitz_2025 deck / usn_f-35c | The Open Door |

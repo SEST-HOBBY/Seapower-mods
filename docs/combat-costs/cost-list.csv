@@ -1,0 +1,1183 @@
+list,kind,id,owner,category_or_type,historical_usd,current_usd,price_from,fielded_in_or_carried_by
+sest,weapon,b-2_jsow_ecm,SEST_Collection_Fixes,ASM,240000,480000,tracker catalog,
+sest,weapon,dts_agm-183a,SEST_B52_ARRW,ASM,6720000,8700000,tracker catalog,
+sest,weapon,dts_agm-183a(w62),SEST_B52_ARRW,ASM,6720000,8700000,tracker catalog,
+sest,weapon,fr__mdcn,SEST_Replenishment,Land Attack,3800000,4000000,tracker catalog,
+sest,weapon,fr__mdcn_sub,SEST_Replenishment,Land Attack,3800000,4000000,tracker catalog,
+sest,weapon,ger_IRIS-T_SLM,SEST_Replenishment,SAM,970000,1290000,tracker catalog,
+sest,weapon,ger_IRIS-T_SLX,SEST_Replenishment,SAM,970000,1290000,tracker catalog,
+sest,weapon,idf_stunner,SEST_Intercept_Model,SAM,875000,2820000,tracker catalog,
+sest,weapon,knm_3sm_tyrfing,SEST_Replenishment,ASM,6720000,8700000,tracker catalog,
+sest,weapon,knm_nsm_1a,SEST_Replenishment,ASM,1860000,2710000,tracker catalog,
+sest,weapon,knm_terne_shell,SEST_Collection_Fixes,,,,unknown: no tracker entry,
+sest,weapon,ko_Antiship_2,SEST_Replenishment,ASM,305000,1060000,tracker catalog,
+sest,weapon,ko_Antiship_2_ship,SEST_Replenishment,ASM,305000,1060000,tracker catalog,
+sest,weapon,mbda_aquila,SEST_Replenishment,SAM,6110000,9510000,tracker catalog,
+sest,weapon,mbda_aster_30,SEST_Replenishment,SAM,1540000,2370000,tracker catalog,
+sest,weapon,mbda_aster_30_blk1,SEST_Replenishment,SAM,1540000,2370000,tracker catalog,
+sest,weapon,mm_alfa,SEST_Replenishment,Ballistic,8000000,25000000,tracker catalog,
+sest,weapon,plaaf_kd-88,SEST_Collection_Fixes,ASM,915000,2070000,tracker catalog,
+sest,weapon,plan_48n6e1,SEST_Replenishment,SAM,345000,1110000,tracker catalog,
+sest,weapon,plan_cj-10,SEST_Replenishment,Land Attack,1930000,3650000,tracker catalog,
+sest,weapon,plan_cj_10a,SEST_Replenishment,Land Attack,1000000,2000000,tracker catalog,
+sest,weapon,plan_cm-302,SEST_Replenishment,ASM,1930000,3650000,SEST mapping from plan_yj12_ship,
+sest,weapon,plan_hhq-9b,SEST_Replenishment,SAM,345000,1110000,tracker catalog,
+sest,weapon,plan_hy-1a,SEST_Replenishment,ASM,155000,1650000,tracker catalog,
+sest,weapon,plan_sy-1,SEST_Replenishment,ASM,155000,1650000,tracker catalog,
+sest,weapon,plan_yj-12a,SEST_Replenishment,ASM,1930000,3650000,tracker catalog,
+sest,weapon,plan_yj-18c,SEST_Replenishment,Land Attack,1930000,3650000,tracker catalog,
+sest,weapon,plan_yj-19,SEST_Replenishment,ASM,1930000,3650000,tracker catalog,
+sest,weapon,plan_yj-62,SEST_Replenishment,ASM,155000,1650000,tracker catalog,
+sest,weapon,plan_yj12_ship,SEST_Replenishment,ASM,1930000,3650000,tracker catalog,
+sest,weapon,plan_yj18,SEST_Replenishment,ASM,1930000,3650000,tracker catalog,
+sest,weapon,plan_yj18_sub,SEST_Replenishment,ASM,1930000,3650000,tracker catalog,
+sest,weapon,plan_yj_20,SEST_Replenishment,Ballistic,3000000,5000000,tracker catalog,
+sest,weapon,plan_yj_62,SEST_Replenishment,Land Attack,1000000,2000000,tracker catalog,
+sest,weapon,raaf_f-35_gun_pod,SEST_RAAF_F-35A_JATM,,,,unknown: no tracker entry,
+sest,weapon,rfn_3m14,SEST_Replenishment,Land Attack,1200000,2000000,tracker catalog,
+sest,weapon,rfn_3m22,SEST_Replenishment,ASM,6720000,8700000,tracker catalog,
+sest,weapon,rfn_3m54,SEST_Replenishment,ASM,915000,2070000,tracker catalog,
+sest,weapon,rfn_40n6,SEST_Replenishment,SAM,1600000,2580000,tracker catalog,
+sest,weapon,rfn_48n6m,SEST_Replenishment,SAM,345000,1110000,tracker catalog,
+sest,weapon,rn_cal_113mm,SEST_Collection_Fixes,Gun,320,2700,tracker catalog,
+sest,weapon,rn_squid_shell,SEST_Collection_Fixes,,,,unknown: no tracker entry,
+sest,weapon,rok_hgv,SEST_Replenishment,Land Attack,2500000,3000000,SEST researched estimate,
+sest,weapon,rok_hyunmoo_4_2,SEST_Replenishment,Land Attack,2500000,3000000,tracker catalog,
+sest,weapon,rok_k-sam-II,SEST_Intercept_Model,SAM,530000,1040000,tracker catalog,
+sest,weapon,rok_L-sam,SEST_Replenishment,SAM,10300000,14600000,SEST researched estimate,
+sest,weapon,sest_agr-30,SEST_Allied_Fixes,ATGM,70000,150000,SEST researched estimate,
+sest,weapon,sest_agr-30_pod,SEST_Allied_Fixes,,,,unknown: no tracker entry,
+sest,weapon,sest_agr-30_pod19,SEST_Allied_Fixes,,,,unknown: no tracker entry,
+sest,weapon,sest_aim-424,SEST_F-15EX_Revamp,AAM,,,unknown: SEST mapping keeps usn_aim-424's blank,
+sest,weapon,usa_agm-114k,SEST_Collection_Fixes,ATGM,24000,56000,tracker catalog,
+sest,weapon,usa_bgm-71a,SEST_Collection_Fixes,ATGM,12000,65000,tracker catalog,
+sest,weapon,usaf_aim-120c7,SEST_RAAF_F-35A_JATM,AAM,835000,1380000,tracker catalog,
+sest,weapon,usaf_gbu-31_v1,SEST_RAAF_F-35A_JATM,Bomb,28000,45000,SEST mapping from usn_gbu-31v1,
+sest,weapon,usaf_gbu-53,SEST_RAAF_F-35A_JATM,Bomb,185000,240000,tracker catalog,
+sest,weapon,usaf_jsm,SEST_RAAF_F-35A_JATM,ASM,1860000,2710000,tracker catalog,
+sest,weapon,usaf_jsm_land,SEST_RAAF_F-35A_JATM,Land Attack,1900000,2700000,tracker catalog,
+sest,weapon,usn_agm-12b,SEST_Collection_Fixes,ASM,2500,28000,tracker catalog,
+sest,weapon,usn_agm-84d,SEST_Replenishment,ASM,760000,2370000,tracker catalog,
+sest,weapon,usn_agm-88,SEST_Collection_Fixes,ARM,245000,790000,tracker catalog,
+sest,weapon,usn_aim-9l,SEST_Collection_Fixes,AAM,36000,200000,tracker catalog,
+sest,weapon,usn_aim-9x,SEST_Collection_Fixes,AAM,295000,535000,tracker catalog,
+sest,weapon,usn_arrw,SEST_B52_ARRW,Land Attack,6720000,8700000,SEST mapping from dts_agm-183a,
+sest,weapon,usn_cal_105mm,SEST_Collection_Fixes,Gun,200,2300,tracker catalog,
+sest,weapon,usn_cal_25mm_m2,SEST_Collection_Fixes,Gun,5.4,46,tracker catalog,
+sest,weapon,usn_cal_30mm,SEST_Collection_Fixes,Gun,7.2,62,tracker catalog,
+sest,weapon,usn_cal_40mm,SEST_Collection_Fixes,Gun,18,150,tracker catalog,
+sest,weapon,usn_cps,SEST_Replenishment,Land Attack,4100000,4100000,tracker catalog,
+sest,weapon,usn_gbu-12d,SEST_Collection_Fixes,Bomb,3800,22000,SEST researched estimate,
+sest,weapon,usn_gbu-24,SEST_Collection_Fixes,Bomb,48000,160000,SEST researched estimate,
+sest,weapon,usn_gbu-39,SEST_Collection_Fixes,Bomb,29000,48000,tracker catalog,
+sest,weapon,usn_gbu-53,SEST_Collection_Fixes,Bomb,185000,240000,tracker catalog,
+sest,weapon,usn_ircps,SEST_Replenishment,Ballistic,4100000,4100000,tracker catalog,
+sest,weapon,usn_pac3_mse,SEST_Collection_Fixes,SAM,3320000,4690000,tracker catalog,
+sest,weapon,usn_rgm-109b1,SEST_Replenishment,ASM,770000,2590000,tracker catalog,
+sest,weapon,usn_rgm-109c,SEST_Replenishment,Land Attack,1000000,2200000,tracker catalog,
+sest,weapon,usn_rgm-109c3,SEST_Replenishment,Land Attack,770000,2590000,tracker catalog,
+sest,weapon,usn_rgm-109e,SEST_Replenishment,Land Attack,1460000,2590000,tracker catalog,
+sest,weapon,usn_rgm-109e5,SEST_Replenishment,Land Attack,1540000,1900000,tracker catalog,
+sest,weapon,usn_rgm-109e5a,SEST_Replenishment,ASM,2430000,3000000,tracker catalog,
+sest,weapon,usn_rgm-109j,SEST_Replenishment,ASM,2430000,3000000,SEST mapping from usn_rgm-109e5a,
+sest,weapon,usn_rgm-109m,SEST_Replenishment,ASM,2430000,3000000,tracker catalog,
+sest,weapon,usn_rgm-184a,SEST_Replenishment,ASM,1860000,2710000,tracker catalog,
+sest,weapon,usn_rgm-84d,SEST_Replenishment,ASM,760000,2370000,tracker catalog,
+sest,weapon,usn_rgm-8h,SEST_Replenishment,ARM,700000,3000000,tracker catalog,
+sest,weapon,usn_rgm_109b3,SEST_Replenishment,ASM,770000,2590000,tracker catalog,
+sest,weapon,usn_rgm_109c,SEST_Replenishment,Land Attack,1000000,2200000,tracker catalog,
+sest,weapon,usn_rgm_109c3,SEST_Replenishment,Land Attack,1000000,2200000,tracker catalog,
+sest,weapon,usn_rgm_109e,SEST_Replenishment,Land Attack,2430000,3000000,tracker catalog,
+sest,weapon,usn_rgm_109e5,SEST_Replenishment,Land Attack,1540000,1900000,tracker catalog,
+sest,weapon,usn_rgm_109e_tactical,SEST_Replenishment,Land Attack,1460000,2590000,tracker catalog,
+sest,weapon,usn_rgm_184a,SEST_Collection_Fixes,ASM,1860000,2710000,tracker catalog,
+sest,weapon,usn_rim-156a,SEST_Replenishment,SAM,415000,855000,tracker catalog,
+sest,weapon,usn_rim-161b,SEST_Collection_Fixes,SAM,6600000,11700000,tracker catalog,
+sest,weapon,usn_rim-161c,SEST_Collection_Fixes,SAM,10300000,14600000,tracker catalog,
+sest,weapon,usn_rim-161d,SEST_Collection_Fixes,SAM,33700000,45000000,tracker catalog,
+sest,weapon,usn_rim-174a,SEST_Collection_Fixes,SAM,3710000,5330000,tracker catalog,
+sest,weapon,usn_rim-174b,SEST_Replenishment,SAM,3910000,5340000,tracker catalog,
+sest,weapon,usn_rim-174c,SEST_Replenishment,SAM,4690000,6410000,tracker catalog,
+sest,weapon,usn_rim-2f,SEST_Replenishment,SAM,62000,685000,tracker catalog,
+sest,weapon,usn_rim-66p,SEST_Replenishment,SAM,555000,1140000,tracker catalog,
+sest,weapon,usn_rim-67a,SEST_Replenishment,SAM,57000,570000,tracker catalog,
+sest,weapon,usn_rim-67b,SEST_Replenishment,SAM,210000,855000,tracker catalog,
+sest,weapon,usn_rim-67c,SEST_Replenishment,SAM,280000,855000,tracker catalog,
+sest,weapon,usn_rim-8,SEST_Replenishment,SAM,110000,1280000,tracker catalog,
+sest,weapon,usn_rim_156a,SEST_Replenishment,SAM,415000,855000,tracker catalog,
+sest,weapon,usn_rim_174a,SEST_Intercept_Model,SAM,3710000,5330000,tracker catalog,
+sest,weapon,usn_rim_174b,SEST_Intercept_Model,SAM,3910000,5340000,tracker catalog,
+sest,weapon,usn_rim_174c,SEST_Intercept_Model,SAM,4690000,6410000,tracker catalog,
+sest,weapon,usn_ssq-47,SEST_Collection_Fixes,,,,unknown: no tracker entry,
+sest,weapon,usn_tank_1200_f-18,SEST_Growler_NGJ_MALICE,,,,unknown: no tracker entry,
+sest,weapon,usn_tank_610_f-18,SEST_Growler_NGJ_MALICE,,,,unknown: no tracker entry,
+sest,weapon,usn_trident,SEST_Replenishment,ICBM,24400000,62500000,tracker catalog,
+sest,weapon,usn_ugm-109b,SEST_Replenishment,ASM,770000,2590000,tracker catalog,
+sest,weapon,usn_ugm-109b1,SEST_Replenishment,ASM,770000,2590000,tracker catalog,
+sest,weapon,usn_ugm-109c,SEST_Replenishment,Land Attack,1000000,2200000,tracker catalog,
+sest,weapon,usn_ugm-109c3,SEST_Replenishment,Land Attack,770000,2590000,tracker catalog,
+sest,weapon,usn_ugm-109e,SEST_Replenishment,Land Attack,1460000,2590000,tracker catalog,
+sest,weapon,usn_ugm-109e5,SEST_Replenishment,Land Attack,1540000,1900000,tracker catalog,
+sest,weapon,usn_ugm-109e5a,SEST_Replenishment,ASM,2430000,3000000,tracker catalog,
+sest,weapon,usn_ugm-109e5b,SEST_Replenishment,Land Attack,2430000,3000000,tracker catalog,
+sest,weapon,usn_ugm-109j,SEST_Replenishment,ASM,2430000,3000000,SEST mapping from usn_ugm-109e5a,
+sest,weapon,usn_ugm-96a,SEST_Replenishment,ICBM,13000000,13000000,tracker catalog,
+sest,weapon,usn_ugm_109c3,SEST_Replenishment,Land Attack,1000000,2200000,tracker catalog,
+sest,weapon,usn_ugm_109e,SEST_Replenishment,ASM,2430000,3000000,tracker catalog,
+sest,weapon,usn_ugm_109e_tactical,SEST_Replenishment,Land Attack,1460000,2590000,tracker catalog,
+sest,weapon,wp_cal_100mm_d10,SEST_Collection_Fixes,Gun,200,2300,tracker catalog,
+sest,weapon,wp_cal_125mm,SEST_Collection_Fixes,Gun,320,2700,tracker catalog,
+sest,weapon,wp_sa-n-1,SEST_Replenishment,SAM,32000,345000,tracker catalog,
+sest,weapon,wp_sa-n-1c,SEST_Replenishment,SAM,32000,345000,tracker catalog,
+sest,weapon,wp_sa-n-3,SEST_Replenishment,SAM,32000,345000,tracker catalog,
+sest,weapon,wp_sa_n_20,SEST_Replenishment,SAM,345000,1110000,tracker catalog,
+sest,weapon,wp_sa_n_20b,SEST_Replenishment,SAM,345000,1110000,tracker catalog,
+sest,weapon,wp_ss-n-12,SEST_Replenishment,ASM,1930000,3650000,tracker catalog,
+sest,weapon,wp_ss-n-14b,SEST_Replenishment,ASW,250000,1500000,tracker catalog,
+sest,weapon,wp_ss-n-19,SEST_Replenishment,ASM,1930000,3650000,tracker catalog,
+sest,weapon,wp_ss-n-2,SEST_Replenishment,ASM,155000,1650000,tracker catalog,
+sest,weapon,wp_ss_n_14c,SEST_Replenishment,ASW,250000,1500000,tracker catalog,
+sest,vessel,ae_ao_teide,SEST_Replenishment,AO,36000000,379000000,tracker catalog,
+sest,vessel,ae_cvl_dedalo,SEST_Replenishment,CVL,71000000,806000000,tracker catalog,
+sest,vessel,ae_cvl_principe_asturias,SEST_Replenishment,CVL,460000000,1433000000,tracker catalog,
+sest,vessel,ae_ffg_alvaro_bazan,SEST_Replenishment,FFG,1022000000,1904000000,tracker catalog,
+sest,vessel,ae_ffg_baleares_late,SEST_Replenishment,FFG,78000000,713000000,tracker catalog,
+sest,vessel,ae_ffg_bonifaz,SEST_Replenishment,FFG,479000000,689000000,tracker catalog,
+sest,vessel,ae_ffg_cristobal_colon,SEST_Replenishment,FFG,1022000000,1904000000,tracker catalog,
+sest,vessel,ae_ffg_descubierta,SEST_Replenishment,FS,85000000,218000000,tracker catalog,
+sest,vessel,ae_ffg_descubierta_late,SEST_Replenishment,FS,85000000,218000000,tracker catalog,
+sest,vessel,ae_lhd_juan_carlos,SEST_Replenishment,LHD,704000000,1169000000,tracker catalog,
+sest,vessel,ae_lpd_galicia,SEST_Replenishment,LPD,57000000,610000000,tracker catalog,
+sest,vessel,ae_opv_meteoro,SEST_Replenishment,OPV,60000000,103000000,tracker catalog,
+sest,vessel,ae_ptm_lazaga,SEST_Replenishment,PTM,10000000,35000000,tracker catalog,
+sest,vessel,civ_ms_c8,SEST_Replenishment,Merchant,30000000,263000000,tracker catalog,
+sest,vessel,civ_ms_mercur,SEST_Replenishment,Merchant,14000000,117000000,tracker catalog,
+sest,vessel,civ_ms_roro_a,SEST_Replenishment,Merchant,30000000,263000000,tracker catalog,
+sest,vessel,civ_ms_roro_b,SEST_Replenishment,Merchant,14000000,117000000,tracker catalog,
+sest,vessel,civ_ms_seabee,SEST_Replenishment,Merchant,30000000,263000000,tracker catalog,
+sest,vessel,civ_ms_sealift_pacific,SEST_Replenishment,Merchant,14000000,117000000,tracker catalog,
+sest,vessel,ger_ffg_f123_1994,SEST_Replenishment,FFG,416000000,940000000,tracker catalog,
+sest,vessel,ger_ffg_f123_2007,SEST_Replenishment,FFG,416000000,940000000,tracker catalog,
+sest,vessel,ger_ffg_f123_2012_MVP,SEST_Replenishment,FFG,416000000,940000000,tracker catalog,
+sest,vessel,ger_ffg_f123_2015_essm,SEST_Replenishment,FFG,416000000,940000000,tracker catalog,
+sest,vessel,ger_ffg_f123_2025_mlu,SEST_Replenishment,FFG,416000000,940000000,tracker catalog,
+sest,vessel,ger_ffg_f123_2030_mlu_high,SEST_Replenishment,FFG,197000000,800000000,tracker catalog,
+sest,vessel,ger_ffg_f124,SEST_Replenishment,FFG,871000000,1545000000,tracker catalog,
+sest,vessel,ger_ffg_f124_ASMD,SEST_Replenishment,FFG,871000000,1545000000,tracker catalog,
+sest,vessel,ger_ffg_f124_MLU,SEST_Replenishment,FFG,871000000,1545000000,tracker catalog,
+sest,vessel,ger_ffg_f125,SEST_Replenishment,FFG,923000000,1209000000,tracker catalog,
+sest,vessel,ger_ffg_f125_MLU,SEST_Replenishment,FFG,923000000,1209000000,tracker catalog,
+sest,vessel,ger_ffg_f127,SEST_Replenishment,FFG,3464000000,3808000000,tracker catalog,
+sest,vessel,ger_ffg_f127_batch2,SEST_Replenishment,FFG,3464000000,3808000000,tracker catalog,
+sest,vessel,ger_fsg_k130_batch1_early,SEST_Replenishment,FSG,85000000,218000000,tracker catalog,
+sest,vessel,ger_fsg_k130_batch1_late,SEST_Replenishment,FSG,85000000,218000000,tracker catalog,
+sest,vessel,ger_fsg_k130_batch2,SEST_Replenishment,FSG,85000000,218000000,tracker catalog,
+sest,vessel,ger_fsg_k130_batch2_late,SEST_Replenishment,FSG,85000000,218000000,tracker catalog,
+sest,vessel,hdms_iver_huitfeldt,SEST_Replenishment,FFG,479000000,689000000,tracker catalog,
+sest,vessel,hdms_iver_huitfeldt_mlu,SEST_Replenishment,FFG,479000000,689000000,tracker catalog,
+sest,vessel,ir_aor_delvar,SEST_Replenishment,AKL,36000000,379000000,tracker catalog,
+sest,vessel,ir_ffg_alvand_95,SEST_Replenishment,FFG,155000000,856000000,tracker catalog,
+sest,vessel,ir_ptg_peykaap_2,SEST_Replenishment,FAC,500000,3000000,tracker catalog,
+sest,vessel,ir_ptg_peykaap_3,SEST_Replenishment,FAC,500000,3000000,tracker catalog,
+sest,vessel,ir_ptg_peykaap_3_export,SEST_Replenishment,FAC,500000,3000000,tracker catalog,
+sest,vessel,ita_ddg_ddx,SEST_Replenishment,DDG,3464000000,3808000000,tracker catalog,
+sest,vessel,ita_ddg_orizzonte,SEST_Replenishment,DDG,839000000,1355000000,tracker catalog,
+sest,vessel,ita_ddg_orizzonte_18,SEST_Replenishment,DDG,839000000,1355000000,tracker catalog,
+sest,vessel,ita_ffg_fremm,SEST_Replenishment,FFG,417000000,600000000,tracker catalog,
+sest,vessel,ita_ffg_fremm_asw,SEST_Replenishment,FFG,417000000,600000000,tracker catalog,
+sest,vessel,ita_ffg_ppa,SEST_Replenishment,FFG,479000000,689000000,tracker catalog,
+sest,vessel,ita_ffg_ppa_evo,SEST_Replenishment,FFG,479000000,689000000,tracker catalog,
+sest,vessel,jmsdf_aoe_mashuu,SEST_Replenishment,AOE,399000000,481000000,SEST researched estimate,
+sest,vessel,jmsdf_cv_shokaku_late,SEST_Replenishment,CV,300000000,2589000000,tracker catalog,
+sest,vessel,jmsdf_cvn_yamato,SEST_Replenishment,CVN,1592000000,6472000000,tracker catalog,
+sest,vessel,jmsdf_dd_asahi,SEST_Replenishment,DD,81000000,608000000,tracker catalog,
+sest,vessel,jmsdf_ddg_atago,SEST_Replenishment,DDG,1022000000,1904000000,tracker catalog,
+sest,vessel,jmsdf_ddg_maya,SEST_Replenishment,DDG,2519000000,2769000000,tracker catalog,
+sest,vessel,jmsdf_ddh_fuso,SEST_Replenishment,DDH,214000000,868000000,tracker catalog,
+sest,vessel,js_ffg_mogami,SEST_JMSDF_Mogami,FFG,479000000,689000000,tracker catalog,
+sest,vessel,knm_cor_skjold,SEST_Replenishment,FS,85000000,218000000,tracker catalog,
+sest,vessel,ko_ddg-991,SEST_Replenishment,DDG,2519000000,2769000000,tracker catalog,
+sest,vessel,ko_ddg-995,SEST_Replenishment,DDG,2519000000,2769000000,tracker catalog,
+sest,vessel,ko_ddh-971,SEST_Replenishment,DDH,380000000,781000000,tracker catalog,
+sest,vessel,ko_ddh-975_kvls,SEST_Replenishment,DDH,380000000,781000000,tracker catalog,
+sest,vessel,ko_ff-951,SEST_Replenishment,FFG,587000000,1141000000,tracker catalog,
+sest,vessel,ko_ffg-811,SEST_Replenishment,FFG,587000000,1141000000,tracker catalog,
+sest,vessel,ko_ffg-818,SEST_Replenishment,FFG,587000000,1141000000,tracker catalog,
+sest,vessel,ko_ffg-828,SEST_Replenishment,FFG,587000000,1141000000,tracker catalog,
+sest,vessel,ko_kddx,SEST_Replenishment,DDG,1605000000,2077000000,SEST mapping from non/ko_kddx,
+sest,vessel,ko_lph-6111,SEST_Replenishment,LHD,704000000,1169000000,tracker catalog,
+sest,vessel,ko_lph-6112,SEST_Replenishment,LHD,704000000,1169000000,SEST mapping from ko_lph-6111,
+sest,vessel,ko_pcc-756,SEST_Replenishment,FFG,41000000,131000000,tracker catalog,
+sest,vessel,ko_pkg-711,SEST_Replenishment,FAC,35000000,60000000,tracker catalog,
+sest,vessel,ko_pkg-711_scl,SEST_Replenishment,FAC,35000000,60000000,SEST mapping from ko_pkg-711,
+sest,vessel,mor_ptm_lazaga,SEST_Replenishment,PTM,10000000,35000000,SEST mapping from ae_ptm_lazaga,
+sest,vessel,phl_ff_hamilton,SEST_Replenishment,,,,unknown: no tracker entry,
+sest,vessel,phl_fs_pohang,SEST_Replenishment,FS,41000000,131000000,SEST mapping from ko_pcc-756,
+sest,vessel,phl_lpd_tarlac,SEST_Replenishment,,,,unknown: no tracker entry,
+sest,vessel,phl_pt_jacinto,SEST_Replenishment,,,,unknown: no tracker entry,
+sest,vessel,plan_aor_type901,SEST_Replenishment,,,,unknown: no tracker entry,
+sest,vessel,plan_aor_type903a,SEST_Replenishment,,,,unknown: no tracker entry,
+sest,vessel,plan_cg_type045_early,SEST_Replenishment,CG,422000000,1419000000,tracker catalog,
+sest,vessel,plan_cg_type045_late,SEST_Replenishment,CG,422000000,1419000000,tracker catalog,
+sest,vessel,plan_cg_type1164e,SEST_Replenishment,CG,422000000,1419000000,tracker catalog,
+sest,vessel,plan_cv_fujian,SEST_Replenishment,CV,5887000000,6472000000,tracker catalog,
+sest,vessel,plan_cv_fujian_rsa,SEST_Replenishment,CV,5887000000,6472000000,tracker catalog,
+sest,vessel,plan_cv_liaoning,SEST_Replenishment,CV,2957000000,4315000000,tracker catalog,
+sest,vessel,plan_cvn_004,SEST_Replenishment,CV,9000000000,9000000000,tracker catalog,
+sest,vessel,plan_ddg_luda_typ_051,SEST_Replenishment,DDG,24000000,197000000,SEST mapping from plan_dd_luda1,
+sest,vessel,plan_ddg_luda_typ_051d,SEST_Replenishment,DDG,24000000,197000000,SEST mapping from plan_dd_luda1,
+sest,vessel,plan_ddg_luda_typ_051dt,SEST_Replenishment,DDG,24000000,197000000,SEST mapping from plan_dd_luda1,
+sest,vessel,plan_ddg_type051m,SEST_Replenishment,DDG,24000000,197000000,tracker catalog,
+sest,vessel,plan_ddg_type956e,SEST_Replenishment,DDG,205000000,835000000,tracker catalog,
+sest,vessel,plan_ddg_type956e_early,SEST_Replenishment,DDG,205000000,835000000,tracker catalog,
+sest,vessel,plan_ddg_type_052C_rsa,SEST_Replenishment,DDG,477000000,817000000,tracker catalog,
+sest,vessel,plan_ddg_type_052D_rsa,SEST_Replenishment,DDG,680000000,962000000,tracker catalog,
+sest,vessel,plan_ddg_type_055_late_rsa,SEST_Replenishment,DDG,863000000,1116000000,tracker catalog,
+sest,vessel,plan_ddg_type_055_rsa,SEST_Replenishment,DDG,863000000,1116000000,tracker catalog,
+sest,vessel,plan_em_sovremenny,SEST_Replenishment,DDG,205000000,835000000,SEST mapping from wp_em_sovremenny_98,
+sest,vessel,plan_ffg_type_054_late_rsa,SEST_Replenishment,FFG,201000000,344000000,tracker catalog,
+sest,vessel,plan_ffg_type_054_rsa,SEST_Replenishment,FFG,201000000,344000000,tracker catalog,
+sest,vessel,plan_ffg_type_054a_late_rsa,SEST_Replenishment,FFG,316000000,492000000,tracker catalog,
+sest,vessel,plan_ffg_type_054a_rsa,SEST_Replenishment,FFG,316000000,492000000,tracker catalog,
+sest,vessel,plan_ffg_type_054b,SEST_Replenishment,FFG,604000000,664000000,tracker catalog,
+sest,vessel,plan_lha_type1143e,SEST_Replenishment,LHA,450000000,2805000000,tracker catalog,
+sest,vessel,plan_lpd_type_071,SEST_Replenishment,LPD,162000000,262000000,SEST researched estimate,
+sest,vessel,plan_ptg_type037IIE,SEST_Replenishment,FAC,30000000,67000000,tracker catalog,
+sest,vessel,plan_sshn_type_100,SEST_Replenishment,SSHN,1507000000,6125000000,tracker catalog,
+sest,vessel,plan_ssn_type_093b_rsa,SEST_Replenishment,SSN,763000000,1268000000,tracker catalog,
+sest,vessel,plan_ssn_type_095_rsa,SEST_Replenishment,SSN,992000000,1649000000,tracker catalog,
+sest,vessel,plan_type_051b_1997,SEST_Replenishment,DDG,287000000,577000000,tracker catalog,
+sest,vessel,plan_type_051b_2017,SEST_Replenishment,DDG,287000000,577000000,tracker catalog,
+sest,vessel,plan_type_051c,SEST_Replenishment,DDG,405000000,673000000,tracker catalog,
+sest,vessel,plan_type_052_2004,SEST_Replenishment,DDG,213000000,481000000,tracker catalog,
+sest,vessel,plan_type_052_2011,SEST_Replenishment,DDG,213000000,481000000,tracker catalog,
+sest,vessel,plan_type_052b_2004,SEST_Replenishment,DDG,352000000,625000000,tracker catalog,
+sest,vessel,plan_type_052b_2019,SEST_Replenishment,DDG,352000000,625000000,tracker catalog,
+sest,vessel,plan_type_052c,SEST_Replenishment,DDG,477000000,817000000,tracker catalog,
+sest,vessel,plan_type_052d_p1,SEST_Replenishment,DDG,680000000,962000000,tracker catalog,
+sest,vessel,plan_type_052d_p2_1,SEST_Replenishment,DDG,680000000,962000000,tracker catalog,
+sest,vessel,plan_type_052d_p2_2,SEST_Replenishment,DDG,680000000,962000000,tracker catalog,
+sest,vessel,plan_type_052d_p3,SEST_Replenishment,DDG,680000000,962000000,tracker catalog,
+sest,vessel,plan_type_052d_p4,SEST_Replenishment,DDG,680000000,962000000,tracker catalog,
+sest,vessel,plan_type_053h3_p1,SEST_Replenishment,FFG,110000000,221000000,tracker catalog,
+sest,vessel,plan_type_053h3_p2,SEST_Replenishment,FFG,110000000,221000000,tracker catalog,
+sest,vessel,plan_type_054_p1,SEST_Replenishment,FFG,201000000,344000000,tracker catalog,
+sest,vessel,plan_type_054_p2,SEST_Replenishment,FFG,201000000,344000000,tracker catalog,
+sest,vessel,plan_type_054a_p1,SEST_Replenishment,FFG,316000000,492000000,tracker catalog,
+sest,vessel,plan_type_054a_p2,SEST_Replenishment,FFG,316000000,492000000,tracker catalog,
+sest,vessel,plan_type_054a_p3,SEST_Replenishment,FFG,316000000,492000000,tracker catalog,
+sest,vessel,plan_type_054a_p4,SEST_Replenishment,FFG,316000000,492000000,tracker catalog,
+sest,vessel,plan_type_054a_p5,SEST_Replenishment,FFG,316000000,492000000,tracker catalog,
+sest,vessel,plan_type_055_2020,SEST_Replenishment,DDG,863000000,1116000000,tracker catalog,
+sest,vessel,plan_type_055_2026,SEST_Replenishment,DDG,863000000,1116000000,tracker catalog,
+sest,vessel,plan_type_056a,SEST_Replenishment,FFG,122000000,172000000,tracker catalog,
+sest,vessel,pn_ffg-06,SEST_Replenishment,FFG,250000000,297000000,SEST researched estimate,
+sest,vessel,pn_ffg-150,SEST_Replenishment,FFG,168000000,235000000,SEST researched estimate,
+sest,vessel,pn_ffg-150_2,SEST_Replenishment,FFG,168000000,235000000,SEST researched estimate,
+sest,vessel,ran_aor_supply,SEST_RAN_Fleet,AO,,,unknown: SEST records no supported price,
+sest,vessel,ran_ddg_hobart,SEST_RAN_Fleet,DDG,1022000000,1904000000,SEST mapping from ran_ddg_hobart_alt_late,
+sest,vessel,ran_ddg_hobart_alt_early,SEST_Replenishment,DDG,1022000000,1904000000,tracker catalog,
+sest,vessel,ran_ddg_hobart_alt_late,SEST_Replenishment,DDG,1022000000,1904000000,tracker catalog,
+sest,vessel,ran_ffg_adelaide_ffg_upgrade,SEST_Replenishment,FFG,172000000,951000000,tracker catalog,
+sest,vessel,ran_ffh_anzac,SEST_RAN_Fleet,FFG,,,unknown: SEST records no supported price,
+sest,vessel,ran_lhd_canberra,SEST_RAN_Fleet,LHD,704000000,1169000000,SEST mapping from ae_lhd_juan_carlos,
+sest,vessel,ran_lsd_choules,SEST_RAN_Fleet,LSD,,,unknown: SEST records no supported price,
+sest,vessel,ran_opv_arafura,SEST_RAN_Fleet,OPV,,,unknown: SEST records no supported price,
+sest,vessel,ran_ssg_collins,SEST_RAN_Fleet,SSG,,,unknown: SEST records no supported price,
+sest,vessel,rfn_aor_pashin,SEST_Replenishment,AO,93000000,134000000,SEST researched estimate,
+sest,vessel,rfn_cvt_20380_3-6,SEST_Replenishment,FS,135000000,218000000,tracker catalog,
+sest,vessel,rfn_cvt_20380_531,SEST_Replenishment,FS,135000000,218000000,tracker catalog,
+sest,vessel,rfn_cvt_20380_550,SEST_Replenishment,FS,135000000,218000000,tracker catalog,
+sest,vessel,rfn_cvt_20380_7-12,SEST_Replenishment,FS,135000000,218000000,tracker catalog,
+sest,vessel,rfn_cvt_20385,SEST_Replenishment,FS,228000000,295000000,tracker catalog,
+sest,vessel,rfn_cvt_21631,SEST_Replenishment,FS,100000000,142000000,tracker catalog,
+sest,vessel,rfn_ddg_21956_early,SEST_Replenishment,DDG,680000000,962000000,tracker catalog,
+sest,vessel,rfn_ddg_21956_late,SEST_Replenishment,DDG,680000000,962000000,tracker catalog,
+sest,vessel,rfn_ddg_21956m,SEST_Replenishment,DDG,680000000,962000000,tracker catalog,
+sest,vessel,rfn_ffg_11356,SEST_Replenishment,FFG,463000000,646000000,tracker catalog,
+sest,vessel,rfn_ffg_22350_1-4,SEST_Replenishment,FFG,557000000,743000000,tracker catalog,
+sest,vessel,rfn_ffg_22350_5-8,SEST_Replenishment,FFG,557000000,743000000,tracker catalog,
+sest,vessel,rn_aor_tide,SEST_Replenishment,AO,179000000,261000000,SEST researched estimate,
+sest,vessel,rn_ddg_type45,SEST_Replenishment,DDG,1441000000,2250000000,tracker catalog,
+sest,vessel,rn_ddg_type45_22,SEST_Replenishment,DDG,1441000000,2250000000,tracker catalog,
+sest,vessel,rn_ddg_type45_26,SEST_Replenishment,DDG,1441000000,2250000000,tracker catalog,
+sest,vessel,rn_ff_type23,SEST_Replenishment,FFG,206000000,528000000,tracker catalog,
+sest,vessel,rn_ff_type23_early,SEST_Replenishment,FFG,206000000,528000000,tracker catalog,
+sest,vessel,rn_ff_type23_mlu,SEST_Replenishment,FFG,206000000,528000000,tracker catalog,
+sest,vessel,rn_lph_ocean,SEST_Allied_Fixes,LPH,455000000,935000000,tracker catalog,
+sest,vessel,rn_lph_ocean_09,SEST_Replenishment,LPH,455000000,935000000,SEST mapping from rn_lph_ocean,
+sest,vessel,rn_lph_ocean_asw,SEST_Replenishment,LPH,455000000,935000000,tracker catalog,
+sest,vessel,rn_lph_ocean_asw_00,SEST_Replenishment,LPH,455000000,935000000,tracker catalog,
+sest,vessel,rn_lph_ocean_asw_13,SEST_Replenishment,LPH,455000000,935000000,tracker catalog,
+sest,vessel,rn_opv_river_batch2,SEST_Replenishment,OPV,60000000,103000000,tracker catalog,
+sest,vessel,rn_type23,SEST_Replenishment,FFG,206000000,528000000,tracker catalog,
+sest,vessel,rn_type23_refit,SEST_Replenishment,FFG,206000000,528000000,tracker catalog,
+sest,vessel,rnn_ddg_zeven,SEST_Replenishment,DD,148000000,1634000000,tracker catalog,
+sest,vessel,rnn_ddg_zeven_mlu,SEST_Replenishment,DD,148000000,1634000000,tracker catalog,
+sest,vessel,rnn_ffg_karel,SEST_Replenishment,FFG,197000000,800000000,tracker catalog,
+sest,vessel,rnn_ffg_karel_eol,SEST_Replenishment,FFG,197000000,800000000,tracker catalog,
+sest,vessel,rnn_ffg_karel_mlu,SEST_Replenishment,FFG,197000000,800000000,tracker catalog,
+sest,vessel,rnn_ffg_Van_Galen,SEST_Replenishment,FFG,197000000,800000000,tracker catalog,
+sest,vessel,rnn_usv_12m,SEST_Replenishment,USV,1000000,2000000,tracker catalog,
+sest,vessel,ru_cv_kuznetsov,SEST_Replenishment,CV,1754000000,4315000000,tracker catalog,
+sest,vessel,ru_cv_varyag,SEST_Replenishment,CV,1754000000,4315000000,tracker catalog,
+sest,vessel,swe_fsg_visby_v5,SEST_Replenishment,FSG,85000000,218000000,tracker catalog,
+sest,vessel,swe_fsg_visby_v6,SEST_Replenishment,FSG,85000000,218000000,tracker catalog,
+sest,vessel,tha_aor_chula,SEST_Replenishment,AO,,,unknown: SEST records no supported price,
+sest,vessel,tha_cvl_chakri_naruebet,SEST_Replenishment,CVL,285000000,660000000,SEST researched estimate,
+sest,vessel,tha_ff_053HT,SEST_Replenishment,FF,20000000,123000000,SEST mapping from plan_ff_jianghu3,
+sest,vessel,tha_ff_053HT_H,SEST_Replenishment,FF,20000000,123000000,SEST mapping from plan_ff_jianghu3,
+sest,vessel,tha_ff_knox_84,SEST_Replenishment,FF,78000000,713000000,SEST mapping from usn_ff_knox_84,
+sest,vessel,tha_ff_makut_rajakumarn,SEST_Replenishment,,,,unknown: no tracker entry,
+sest,vessel,tha_ff_makut_rajakumarn_88,SEST_Replenishment,,,,unknown: no tracker entry,
+sest,vessel,tha_ffg_naresuan,SEST_Replenishment,FFG,78000000,200000000,SEST researched estimate,
+sest,vessel,tha_fs_khamronsin,SEST_Replenishment,,,,unknown: no tracker entry,
+sest,vessel,tha_fs_ratanakosin,SEST_Replenishment,FS,72000000,240000000,SEST researched estimate,
+sest,vessel,tha_fs_tapi,SEST_Replenishment,FS,26000000,285000000,SEST mapping from ir_pf_bayandor,
+sest,vessel,tha_pt_chonburi,SEST_Replenishment,,,,unknown: no tracker entry,
+sest,vessel,tha_pt_hua_hin,SEST_Replenishment,,,,unknown: no tracker entry,
+sest,vessel,tha_ptg_prabrarapak,SEST_Replenishment,FAC,10000000,35000000,SEST mapping from ara_tnc54,
+sest,vessel,tha_ptg_ratcharit,SEST_Replenishment,,,,unknown: no tracker entry,
+sest,vessel,usn_ae_kilauea,SEST_Replenishment,AE,49000000,467000000,tracker catalog,
+sest,vessel,usn_aem_james_madison,SEST_Replenishment,AEM,257000000,2732000000,tracker catalog,
+sest,vessel,usn_aem_nathan_hale,SEST_Replenishment,AEM,257000000,2732000000,tracker catalog,
+sest,vessel,usn_ao_t2,SEST_Replenishment,AO,36000000,379000000,tracker catalog,
+sest,vessel,usn_aoe_sacramento,SEST_Replenishment,AOE,92000000,993000000,tracker catalog,
+sest,vessel,usn_avp_barnegat_mod,SEST_Collection_Fixes,FF,4200000,58000000,tracker catalog,
+sest,vessel,usn_bb_iowa_vls_refit,SEST_Replenishment,BB,202000000,2805000000,tracker catalog,
+sest,vessel,usn_bbg_trump,SEST_Replenishment,BBG,1608000000,6538000000,tracker catalog,
+sest,vessel,usn_cg_bunker_hill_vls_2004,SEST_Replenishment,CG,972000000,3269000000,SEST mapping from usn_cg_ticonderoga_vls_2004,
+sest,vessel,usn_cg_kansas_late,SEST_Replenishment,CG,265000000,2288000000,tracker catalog,
+sest,vessel,usn_cg_ticonderoga_vls_2027,SEST_Replenishment,CG,972000000,3269000000,SEST mapping from usn_cg_ticonderoga_vls_2025,
+sest,vessel,usn_cg_ticonderogaABL,SEST_Replenishment,CG,972000000,3269000000,tracker catalog,
+sest,vessel,usn_cg_ticonderogaVLS,SEST_Replenishment,CG,972000000,3269000000,tracker catalog,
+sest,vessel,usn_cg_ticonderogaVLS_early,SEST_Replenishment,CG,972000000,3269000000,tracker catalog,
+sest,vessel,usn_cgn_alaska_vls,SEST_Replenishment,CGN,601000000,4086000000,tracker catalog,
+sest,vessel,usn_cgn_california_alt,SEST_Replenishment,CGN,601000000,4086000000,tracker catalog,
+sest,vessel,usn_cgn_virginia_vls_refit,SEST_Replenishment,CGN,601000000,4086000000,tracker catalog,
+sest,vessel,usn_cvn_ford,SEST_Replenishment,CVN,13320000000,13320000000,tracker catalog,
+sest,vessel,usn_cvn_ford_jsf,SEST_Replenishment,CVN,13320000000,13320000000,tracker catalog,
+sest,vessel,usn_cvn_ford_legacy,SEST_Replenishment,CVN,13320000000,13320000000,tracker catalog,
+sest,vessel,usn_cvn_gerald_r_ford,SEST_Replenishment,CVN,13320000000,13320000000,tracker catalog,
+sest,vessel,usn_cvn_nimitz_2025,SEST_Replenishment,CVN,2500000000,4315000000,tracker catalog,
+sest,vessel,usn_cvn_nimitz_alt,SEST_Replenishment,CVN,700000000,4315000000,tracker catalog,
+sest,vessel,usn_cvn_united_states,SEST_Replenishment,CVN,1592000000,6472000000,tracker catalog,
+sest,vessel,usn_cvn_united_states_early,SEST_Replenishment,CVN,1592000000,6472000000,tracker catalog,
+sest,vessel,usn_cvn_united_states_late,SEST_Replenishment,CVN,1592000000,6472000000,tracker catalog,
+sest,vessel,usn_dd_spruance_1994,SEST_Replenishment,DD,139000000,865000000,tracker catalog,
+sest,vessel,usn_dd_spruance_2003,SEST_Replenishment,DD,139000000,865000000,tracker catalog,
+sest,vessel,usn_dd_spruance_mk71,SEST_Replenishment,DD,139000000,865000000,tracker catalog,
+sest,vessel,usn_ddg_arleigh_burke_flight1_1991,SEST_Replenishment,DDG,704000000,1731000000,tracker catalog,
+sest,vessel,usn_ddg_arleigh_burke_flight1_1997,SEST_Replenishment,DDG,704000000,1731000000,tracker catalog,
+sest,vessel,usn_ddg_arleigh_burke_flight1_2003,SEST_Replenishment,DDG,704000000,1731000000,tracker catalog,
+sest,vessel,usn_ddg_arleigh_burke_flight1_2013,SEST_Replenishment,DDG,704000000,1731000000,tracker catalog,
+sest,vessel,usn_ddg_arleigh_burke_flight1_2016,SEST_Replenishment,DDG,704000000,1731000000,tracker catalog,
+sest,vessel,usn_ddg_arleigh_burke_flight1_2025,SEST_Replenishment,DDG,704000000,1731000000,tracker catalog,
+sest,vessel,usn_ddg_arleigh_burke_flight2_1998,SEST_Replenishment,DDG,900000000,1731000000,tracker catalog,
+sest,vessel,usn_ddg_arleigh_burke_flight2_2003,SEST_Replenishment,DDG,900000000,1731000000,tracker catalog,
+sest,vessel,usn_ddg_arleigh_burke_flight2_2013,SEST_Replenishment,DDG,900000000,1731000000,tracker catalog,
+sest,vessel,usn_ddg_arleigh_burke_flight2_2016,SEST_Replenishment,DDG,900000000,1731000000,tracker catalog,
+sest,vessel,usn_ddg_arleigh_burke_flight2_2025,SEST_Replenishment,DDG,900000000,1731000000,tracker catalog,
+sest,vessel,usn_ddg_arleigh_burke_flight2a_2000,SEST_Replenishment,DDG,1000000000,2200000000,tracker catalog,
+sest,vessel,usn_ddg_arleigh_burke_flight2a_2003,SEST_Replenishment,DDG,1000000000,2200000000,tracker catalog,
+sest,vessel,usn_ddg_arleigh_burke_flight2a_2013,SEST_Replenishment,DDG,1200000000,2200000000,tracker catalog,
+sest,vessel,usn_ddg_arleigh_burke_flight2a_2019,SEST_Replenishment,DDG,1300000000,2200000000,tracker catalog,
+sest,vessel,usn_ddg_arleigh_burke_flight2a_2026,SEST_Replenishment,DDG,1400000000,2200000000,tracker catalog,
+sest,vessel,usn_ddg_arleigh_burke_flight2a_2030,SEST_Replenishment,DDG,1400000000,2200000000,tracker catalog,
+sest,vessel,usn_ddg_arleigh_burke_flight2a_HELIOS,SEST_Replenishment,DDG,1000000000,2200000000,tracker catalog,
+sest,vessel,usn_ddg_arleigh_burke_flight3_2023,SEST_Replenishment,DDG,2519000000,2700000000,tracker catalog,
+sest,vessel,usn_ddg_arleigh_burke_flight3_2027,SEST_Replenishment,DDG,2519000000,2700000000,tracker catalog,
+sest,vessel,usn_ddg_arleigh_burke_flight3_2030,SEST_Replenishment,DDG,2519000000,2700000000,tracker catalog,
+sest,vessel,usn_ddg_arleigh_burke_flight3_HELIOS,SEST_Replenishment,DDG,2519000000,2700000000,tracker catalog,
+sest,vessel,usn_ddg_arleigh_concept,SEST_Replenishment,DDG,3464000000,3808000000,tracker catalog,
+sest,vessel,usn_ddg_arleigh_flt1_051_2027,SEST_Replenishment,DDG,704000000,1731000000,SEST mapping from usn_ddg_burke_f1_051_late,
+sest,vessel,usn_ddg_arleigh_flt1_052_2027,SEST_Replenishment,DDG,704000000,1731000000,SEST mapping from usn_ddg_burke_f1_052_late,
+sest,vessel,usn_ddg_arleigh_flt1_054_2027,SEST_Replenishment,DDG,704000000,1731000000,SEST mapping from usn_ddg_burke_f1_054_late,
+sest,vessel,usn_ddg_arleigh_flt1_064_2027,SEST_Replenishment,DDG,704000000,1731000000,SEST mapping from usn_ddg_burke_f1_064_late,
+sest,vessel,usn_ddg_arleigh_flt2_072_2027,SEST_Replenishment,DDG,900000000,1731000000,SEST mapping from usn_ddg_burke_f2_072_late,
+sest,vessel,usn_ddg_arleigh_flt2_075_2027,SEST_Replenishment,DDG,900000000,1731000000,SEST mapping from usn_ddg_burke_f2_075_late,
+sest,vessel,usn_ddg_burke_f1_051,SEST_Replenishment,DDG,704000000,1731000000,tracker catalog,
+sest,vessel,usn_ddg_burke_f1_051_early,SEST_Replenishment,DDG,704000000,1731000000,tracker catalog,
+sest,vessel,usn_ddg_burke_f1_051_late,SEST_Replenishment,DDG,704000000,1731000000,tracker catalog,
+sest,vessel,usn_ddg_burke_f1_052,SEST_Replenishment,DDG,704000000,1731000000,tracker catalog,
+sest,vessel,usn_ddg_burke_f1_052_early,SEST_Replenishment,DDG,704000000,1731000000,tracker catalog,
+sest,vessel,usn_ddg_burke_f1_052_late,SEST_Replenishment,DDG,704000000,1731000000,tracker catalog,
+sest,vessel,usn_ddg_burke_f1_054,SEST_Replenishment,DDG,704000000,1731000000,tracker catalog,
+sest,vessel,usn_ddg_burke_f1_054_early,SEST_Replenishment,DDG,704000000,1731000000,tracker catalog,
+sest,vessel,usn_ddg_burke_f1_054_late,SEST_Replenishment,DDG,704000000,1731000000,tracker catalog,
+sest,vessel,usn_ddg_burke_f1_062_late,SEST_Replenishment,DDG,704000000,1731000000,tracker catalog,
+sest,vessel,usn_ddg_burke_f1_064_late,SEST_Replenishment,DDG,704000000,1731000000,tracker catalog,
+sest,vessel,usn_ddg_burke_f2_072_early,SEST_Replenishment,DDG,900000000,1731000000,tracker catalog,
+sest,vessel,usn_ddg_ddgx,SEST_Replenishment,DDG,3464000000,3808000000,tracker catalog,
+sest,vessel,usn_ddg_oldendorf,SEST_Replenishment,DDG,256000000,1042000000,tracker catalog,
+sest,vessel,usn_ddg_richard_morris,SEST_Replenishment,DDG,256000000,1042000000,tracker catalog,
+sest,vessel,usn_ffg_constellation,SEST_Replenishment,FFG,1600000000,2071000000,tracker catalog,
+sest,vessel,usn_ffg_ohp_longhull_sh60b,SEST_Replenishment,FFG,172000000,951000000,SEST mapping from usn_ffg_oliver_hazard_perry_longhull,
+sest,vessel,usn_ffg_oliver_hazard_perry_mlu,SEST_Replenishment,FFG,172000000,951000000,tracker catalog,
+sest,vessel,usn_ffg_oliver_hazard_perry_vls_refit,SEST_Replenishment,FFG,172000000,951000000,tracker catalog,
+sest,vessel,usn_lcs_freedom_suw_early,SEST_Replenishment,LCS,847000000,1318000000,tracker catalog,
+sest,vessel,usn_lcs_freedom_suw_late,SEST_Replenishment,LCS,847000000,1318000000,tracker catalog,
+sest,vessel,usn_lha_tarawa_refit,SEST_Replenishment,LHA,318000000,1871000000,tracker catalog,
+sest,vessel,usn_lha_tripoli,SEST_Replenishment,LHA,1983000000,2806000000,tracker catalog,
+sest,vessel,usn_lhd_wasp,SEST_Replenishment,LHD,318000000,1871000000,tracker catalog,
+sest,vessel,usn_lhd_wasp_early,SEST_Replenishment,LHD,318000000,1871000000,SEST mapping from pending/usn_lhd_wasp_early,
+sest,vessel,usn_phm_pegasus_rsa,SEST_Replenishment,FAC,45000000,100000000,tracker catalog,
+sest,vessel,usn_phm_pegasus_rsa_early,SEST_Replenishment,FAC,45000000,100000000,tracker catalog,
+sest,vessel,usn_ssgn_virginia_blk5_vpm,SEST_Replenishment,SSGN,3400000000,4401000000,tracker catalog,
+sest,vessel,usn_ssn_los_angeles_flight2,SEST_Replenishment,SSN,245000000,1442000000,tracker catalog,
+sest,vessel,usn_ssn_los_angeles_flight3,SEST_Replenishment,SSN,611000000,1729000000,tracker catalog,
+sest,vessel,usn_ssn_los_angeles_flt2_90,SEST_Replenishment,SSN,245000000,1442000000,tracker catalog,
+sest,vessel,usn_ssn_los_angeles_flt3_2026,SEST_Replenishment,SSN,245000000,1442000000,tracker catalog,
+sest,vessel,usn_ssn_los_angeles_flt3_2027,SEST_Replenishment,SSN,245000000,1442000000,SEST mapping from usn_ssn_los_angeles_flt3_2026,
+sest,vessel,usn_ssn_los_angeles_flt3_90,SEST_Replenishment,SSN,245000000,1442000000,tracker catalog,
+sest,vessel,usn_ssn_seawolf_late_rsa,SEST_Replenishment,SSN,2333000000,4870000000,tracker catalog,
+sest,vessel,usn_ssn_virginia,SEST_Replenishment,SSN,2225000000,3945000000,tracker catalog,
+sest,vessel,usn_ssn_virginia_2027,SEST_Replenishment,SSN,2225000000,3945000000,SEST mapping from usn_ssn_virginia,
+sest,vessel,usn_ssn_virginia_block1,SEST_Replenishment,SSN,2225000000,3945000000,tracker catalog,
+sest,vessel,usn_ssn_virginia_block1_2015,SEST_Replenishment,SSN,2225000000,3945000000,tracker catalog,
+sest,vessel,usn_ssn_virginia_block1_2026,SEST_Replenishment,SSN,2225000000,3945000000,tracker catalog,
+sest,vessel,usn_ssn_virginia_block2,SEST_Replenishment,SSN,2225000000,3945000000,tracker catalog,
+sest,vessel,usn_ssn_virginia_block2_2015,SEST_Replenishment,SSN,2225000000,3945000000,tracker catalog,
+sest,vessel,usn_ssn_virginia_block2_2026,SEST_Replenishment,SSN,2225000000,3945000000,tracker catalog,
+sest,vessel,usn_ssn_virginia_block3,SEST_Replenishment,SSN,2225000000,3945000000,tracker catalog,
+sest,vessel,usn_ssn_virginia_block3_2026,SEST_Replenishment,SSN,2225000000,3945000000,tracker catalog,
+sest,vessel,usn_ssn_virginia_block4,SEST_Replenishment,SSN,2225000000,3945000000,tracker catalog,
+sest,vessel,usn_ssn_virginia_block5,SEST_Replenishment,SSN,3400000000,4401000000,tracker catalog,
+sest,vessel,usn_ssn_virginia_seal,SEST_Replenishment,SSN,2225000000,3945000000,tracker catalog,
+sest,vessel,usn_ssn_virginia_seal_2027,SEST_Replenishment,SSN,2225000000,3945000000,SEST mapping from usn_ssn_virginia,
+sest,vessel,usn_take_lewis_clark,SEST_Replenishment,,,,unknown: no tracker entry,
+sest,vessel,usn_takr_algol,SEST_Replenishment,T-AKR,116000000,876000000,tracker catalog,
+sest,vessel,usn_tao_kaiser,SEST_Replenishment,AO,120000000,931000000,SEST researched estimate,
+sest,vessel,usn_taoe_supply,SEST_Replenishment,,,,unknown: no tracker entry,
+sest,vessel,wp_bdk_ivan_rogov_90,SEST_Replenishment,LST,126000000,648000000,tracker catalog,
+sest,vessel,wp_bpk_udaloy3,SEST_Replenishment,DDG,205000000,835000000,tracker catalog,
+sest,vessel,wp_bpk_udaloy_98,SEST_Replenishment,DDG,205000000,835000000,tracker catalog,
+sest,vessel,wp_em_sovremenny_98,SEST_Replenishment,DDG,205000000,835000000,tracker catalog,
+sest,vessel,wp_em_sovremenny_vls,SEST_Replenishment,DDG,205000000,835000000,tracker catalog,
+sest,vessel,wp_mrk_nanuchka3_rsa,SEST_Replenishment,FAC,17000000,150000000,tracker catalog,
+sest,vessel,wp_pb_don,SEST_Replenishment,PB,700000,10000000,tracker catalog,
+sest,vessel,wp_rkr_admiral_nakhimov_refit,SEST_Replenishment,CGN,743000000,3020000000,tracker catalog,
+sest,vessel,wp_rkr_kirov_improved,SEST_Replenishment,CGN,743000000,3020000000,SEST mapping from wp_rkr_kirov,
+sest,vessel,wp_rkr_slava_16,SEST_Replenishment,CG,422000000,1419000000,tracker catalog,
+sest,vessel,wp_rkr_slava_98,SEST_Replenishment,CG,422000000,1419000000,tracker catalog,
+sest,vessel,wp_rkr_varyag_08,SEST_Replenishment,CGN,743000000,3020000000,tracker catalog,
+sest,vessel,wp_rkr_varyag_12,SEST_Replenishment,CGN,743000000,3020000000,tracker catalog,
+sest,vessel,wp_rkr_varyag_95,SEST_Replenishment,CGN,743000000,3020000000,tracker catalog,
+sest,vessel,wp_skr_admiral_gorshkov_alt_rsa,SEST_Replenishment,FFG,557000000,743000000,tracker catalog,
+sest,vessel,wp_skr_admiral_gorshkov_m_rsa,SEST_Replenishment,FFG,836000000,1115000000,tracker catalog,
+sest,vessel,wp_skr_admiral_gorshkov_rsa,SEST_Replenishment,FFG,557000000,743000000,tracker catalog,
+sest,vessel,wp_skr_admiral_grigorovich_rsa,SEST_Replenishment,FFG,463000000,646000000,tracker catalog,
+sest,vessel,wp_ssbn_redoctober,SEST_Replenishment,SSBN,560000000,2064000000,tracker catalog,
+sest,vessel,wp_ssbn_typhoon,SEST_Replenishment,SSBN,560000000,2064000000,tracker catalog,
+sest,vessel,wp_ssgn_oscar2,SEST_Replenishment,SSGN,603000000,2450000000,tracker catalog,
+sest,vessel,wp_ssgn_yasen,SEST_Replenishment,SSGN,1524000000,2157000000,tracker catalog,
+sest,vessel,wp_tavkr_leningrad_98,SEST_Replenishment,CV,693000000,4315000000,tracker catalog,
+sest,vessel,wp_tavkr_ulyanovsk,SEST_Replenishment,CV,693000000,4315000000,tracker catalog,
+sest,vessel,wp_vt_boris_chilikin,SEST_Replenishment,AO,47000000,409000000,tracker catalog,
+sest,vessel,wp_vt_kazbek,SEST_Replenishment,AO,16000000,204000000,tracker catalog,
+sest,vessel,yns_cv_kuznetsov,SEST_Replenishment,CV,1754000000,4315000000,tracker catalog,
+sest,aircraft,adf_ah-64e,SEST_Allied_Fixes,,12000000,36500000,SEST mapping from usa_ah-64e,
+sest,aircraft,dts_b-52h,SEST_B52_ARRW,,6700000,120000000,SEST mapping from usaf_b-52g,
+sest,aircraft,fr_rafale_b_l,SEST_Rafale_F5,,55100000,104200000,tracker catalog,
+sest,aircraft,fr_rafale_c_l,SEST_Rafale_F5,,55100000,104200000,tracker catalog,
+sest,aircraft,fr_rafale_m_l,SEST_Rafale_F5,,55100000,104200000,tracker catalog,
+sest,aircraft,plaaf_j-20a,SEST_Collection_Fixes,,90000000,120000000,tracker catalog,
+sest,aircraft,plaaf_jh7a,SEST_Collection_Fixes,,,,unknown: no tracker entry,
+sest,aircraft,raaf_f-35a,SEST_RAAF_F-35A_JATM,,121200000,158800000,tracker catalog,
+sest,aircraft,raaf_fa-18a_2011,SEST_Allied_Fixes,,16100000,54200000,SEST mapping from usn_fa-18a,
+sest,aircraft,raaf_fa-18f,SEST_Allied_Fixes,,44100000,83300000,SEST mapping from usn_fa-18f,
+sest,aircraft,raaf_mq-4c_triton,SEST_ADF_Persistent_ISR,,,,unknown: no tracker entry,
+sest,aircraft,ran_mh-60r,SEST_Allied_Fixes,,33800000,56200000,SEST mapping from usn_mh-60r,
+sest,aircraft,ran_S-70B-2_Seahawk,SEST_Allied_Fixes,,11300000,36500000,tracker catalog,
+sest,aircraft,S-70B-2_Seahawk,SEST_Allied_Fixes,,11300000,36500000,SEST mapping from ran_s-70b-2_seahawk,
+sest,aircraft,uk_ah_mk_1,SEST_Allied_Fixes,,12000000,36500000,tracker catalog,
+sest,aircraft,usa_a-10a,SEST_Allied_Fixes,,10000000,25000000,tracker catalog,
+sest,aircraft,usa_a-10c,SEST_Allied_Fixes,,10000000,25000000,tracker catalog,
+sest,aircraft,usa_ah-64a,SEST_Allied_Fixes,,12000000,36500000,tracker catalog,
+sest,aircraft,usa_ah-64d,SEST_Allied_Fixes,,12000000,36500000,tracker catalog,
+sest,aircraft,usa_ah-64e,SEST_Allied_Fixes,,12000000,36500000,tracker catalog,
+sest,aircraft,usaf_a-10c_plus,SEST_A10C_Plus,,10000000,25000000,SEST mapping from usa_a-10c,
+sest,aircraft,usaf_b-1b_dts,SEST_B52_ARRW,,200000000,350000000,tracker catalog,
+sest,aircraft,usaf_b-52h_419_flts,SEST_B52_ARRW,,6700000,120000000,SEST mapping from usaf_b-52g,
+sest,aircraft,usaf_b-52o,SEST_B52_ARRW,,6700000,120000000,tracker catalog,
+sest,aircraft,usaf_f-15ex_SEII,SEST_F-15EX_Revamp,,94000000,100000000,tracker catalog,
+sest,aircraft,usaf_f-16cm-bl52d,SEST_F16CM_JATM,,18800000,60000000,tracker catalog,
+sest,aircraft,usaf_mq-9_er,SEST_Allied_Fixes,,12000000,25000000,tracker catalog,
+sest,aircraft,usaf_mq-9a,SEST_Allied_Fixes,,12000000,25000000,tracker catalog,
+sest,aircraft,usn_ah-64na,SEST_Allied_Fixes,,12000000,36500000,tracker catalog,
+sest,aircraft,usn_ea-18g,SEST_Growler_NGJ_MALICE,,69400000,108300000,tracker catalog,
+sest,aircraft,usn_ea-18g_2020,SEST_Growler_NGJ_MALICE,,69400000,108300000,tracker catalog,
+sest,aircraft,usn_f-35c,SEST_F-35C_JATM,,121200000,158800000,tracker catalog,
+sest,aircraft,usn_fa-18e,SEST_Growler_NGJ_MALICE,,44100000,83300000,tracker catalog,
+sest,aircraft,usn_fa-18f,SEST_Growler_NGJ_MALICE,,44100000,83300000,tracker catalog,
+sest,aircraft,usn_fa-18f_blk3,SEST_Growler_NGJ_MALICE,,44100000,83300000,tracker catalog,
+sest,aircraft,usn_mh-60r,SEST_Allied_Fixes,,33800000,56200000,tracker catalog,
+sest,aircraft,usn_p8,SEST_Allied_Fixes,,148000000,170000000,tracker catalog,
+missions,vessel,_narco_narcosub_adv,3413868677,SS,5000000000,5000000000,tracker catalog,Southern Watch; Sulu Line; sest-southern-watch; sest-sulu-line
+missions,vessel,_narco_speedboat,3413868677,Fishing,75000000,75000000,tracker catalog,Sulu Line; sest-sulu-line
+missions,vessel,ae_ffg_alvaro_bazan,SEST_Replenishment,FFG,1022000000,1904000000,tracker catalog,sest-southern-reach; sest-southern-watch
+missions,vessel,ae_ffg_bonifaz,SEST_Replenishment,FFG,479000000,689000000,tracker catalog,sest-southern-reach; sest-southern-watch
+missions,vessel,ae_ffg_santa_maria_late,3630495619,FFG,172000000,951000000,tracker catalog,sest-southern-reach; sest-southern-watch
+missions,vessel,ae_lhd_juan_carlos,SEST_Replenishment,LHD,704000000,1169000000,tracker catalog,Southern Watch - Dispatches; sest-southern-reach; sest-southern-watch
+missions,vessel,ae_lpd_galicia,SEST_Replenishment,LPD,57000000,610000000,tracker catalog,sest-southern-reach; sest-southern-watch
+missions,vessel,ae_opv_meteoro,SEST_Replenishment,OPV,60000000,103000000,tracker catalog,sest-southern-reach; sest-southern-watch
+missions,vessel,all_life_raft,vanilla,RAFT,3000,10000,tracker catalog,Southern Watch; sest-southern-watch
+missions,vessel,all_life_raft_single,vanilla,RAFT,500,1500,tracker catalog,Red Line; sest-red-line
+missions,vessel,anl_ms_bulk,3432668460,Merchant,30000000,263000000,tracker catalog,Red Line; Southern Reach; Southern Watch; Tasman Shield; sest-red-line; sest-southern-reach; sest-southern-watch
+missions,vessel,civ_fv_crabboat,vanilla,Fishing,1800000,15400000,tracker catalog,Southern Reach; Tasman Shield; sest-southern-reach
+missions,vessel,civ_fv_fishingboat_a,vanilla,Fishing,140000,1200000,tracker catalog,Red Line; Southern Reach; Southern Watch; Sulu Line; Tasman Shield; sest-red-line; sest-southern-reach; sest-southern-watch; sest-sulu-line
+missions,vessel,civ_fv_fishingboat_b,vanilla,Fishing,180000,1500000,tracker catalog,Red Line; Southern Watch; Sulu Line; Tasman Shield; sest-red-line; sest-southern-reach; sest-southern-watch; sest-sulu-line
+missions,vessel,civ_fv_fishingboat_c,vanilla,Fishing,67000,580000,tracker catalog,Sulu Line; sest-sulu-line
+missions,vessel,civ_fv_okean,vanilla,Fishing,1800000,15400000,tracker catalog,Southern Reach; Sulu Line; sest-southern-reach; sest-sulu-line
+missions,vessel,civ_fv_okean_armed,3485917612,Fishing,2200000,19300000,tracker catalog,Southern Watch; Sulu Line; sest-southern-watch; sest-sulu-line
+missions,vessel,civ_fv_okean_surprise,3399699218,AGI,1700000,15000000,tracker catalog,Southern Watch; Sulu Line; sest-southern-watch; sest-sulu-line
+missions,vessel,civ_fv_sidetrawler,vanilla,Fishing,1800000,15400000,tracker catalog,Southern Reach; sest-southern-reach
+missions,vessel,civ_fv_sterntrawler_a,vanilla,Fishing,1800000,15400000,tracker catalog,Red Line; Southern Reach; Southern Watch; Southern Watch - Dispatches; Sulu Line; Tasman Shield; sest-red-line; sest-southern-reach; sest-southern-watch; sest-sulu-line
+missions,vessel,civ_fv_sterntrawler_b,vanilla,Fishing,1800000,15400000,tracker catalog,Red Line; Southern Reach; Southern Watch - Dispatches; Sulu Line; Tasman Shield; sest-red-line; sest-southern-reach; sest-sulu-line
+missions,vessel,civ_fv_sterntrawler_c,vanilla,Fishing,1800000,15400000,tracker catalog,Red Line; Southern Reach; Southern Watch; Sulu Line; Tasman Shield; sest-red-line; sest-southern-reach; sest-southern-watch; sest-sulu-line
+missions,vessel,civ_fv_sterntrawler_d,vanilla,Fishing,1800000,15400000,tracker catalog,Southern Reach; Sulu Line; Tasman Shield; sest-southern-reach; sest-sulu-line
+missions,vessel,civ_humpback,3384079999,,,,unknown: no tracker entry,Red Line; Southern Reach; Southern Watch; Tasman Shield; sest-red-line; sest-southern-reach; sest-southern-watch
+missions,vessel,civ_ms_act_1,vanilla,Merchant,30000000,263000000,tracker catalog,Sulu Line; Tasman Shield; sest-southern-reach; sest-sulu-line
+missions,vessel,civ_ms_amra,3605013271,Merchant,14000000,117000000,tracker catalog,Southern Reach; Southern Watch; sest-southern-reach; sest-southern-watch
+missions,vessel,civ_ms_andizhan,3605013271,Merchant,14000000,117000000,tracker catalog,Southern Reach; Southern Watch; Southern Watch - Dispatches; sest-southern-reach; sest-southern-watch
+missions,vessel,civ_ms_bulk,vanilla,Merchant,30000000,263000000,tracker catalog,Southern Reach; Tasman Shield; sest-southern-reach
+missions,vessel,civ_ms_c8,SEST_Replenishment,Merchant,30000000,263000000,tracker catalog,Sulu Line; sest-sulu-line
+missions,vessel,civ_ms_car_carrier_a,vanilla,Merchant,30000000,263000000,tracker catalog,Southern Watch; Tasman Shield; sest-southern-reach; sest-southern-watch
+missions,vessel,civ_ms_encounter,vanilla,Merchant,30000000,263000000,tracker catalog,Southern Reach; Southern Watch; Southern Watch - Dispatches; Tasman Shield; sest-southern-reach; sest-southern-watch
+missions,vessel,civ_ms_freighter_a,3605013271,Merchant,14000000,117000000,tracker catalog,Red Line; Southern Reach; Southern Watch; Sulu Line; Tasman Shield; sest-red-line; sest-southern-reach; sest-southern-watch; sest-sulu-line
+missions,vessel,civ_ms_freighter_b,3605013271,Merchant,30000000,263000000,tracker catalog,Southern Watch; Sulu Line; Tasman Shield; sest-southern-reach; sest-southern-watch; sest-sulu-line
+missions,vessel,civ_ms_freighter_d,3605013271,Merchant,14000000,117000000,tracker catalog,Southern Reach; Southern Watch; Sulu Line; Tasman Shield; sest-southern-reach; sest-southern-watch; sest-sulu-line
+missions,vessel,civ_ms_irkutsk,3605013271,Merchant,14000000,117000000,tracker catalog,Southern Reach; sest-southern-reach
+missions,vessel,civ_ms_ivan_franko,vanilla,Merchant,14000000,117000000,tracker catalog,Red Line; Southern Reach; Tasman Shield; sest-red-line; sest-southern-reach
+missions,vessel,civ_ms_kommunist,3605013271,Merchant,14000000,117000000,tracker catalog,Red Line; Southern Reach; Southern Watch - Dispatches; Tasman Shield; sest-red-line; sest-southern-reach
+missions,vessel,civ_ms_mairangi_bay,3430106996,Merchant,30000000,263000000,tracker catalog,Red Line; Southern Reach; Southern Watch; Southern Watch - Dispatches; Tasman Shield; sest-red-line; sest-southern-reach; sest-southern-watch
+missions,vessel,civ_ms_ritina,vanilla,Merchant,30000000,263000000,tracker catalog,Red Line; Southern Reach; Southern Watch; Southern Watch - Dispatches; Sulu Line; Tasman Shield; sest-red-line; sest-southern-reach; sest-southern-watch; sest-sulu-line
+missions,vessel,civ_ms_roro_a,SEST_Replenishment,Merchant,30000000,263000000,tracker catalog,Red Line; Tasman Shield; sest-red-line; sest-southern-reach
+missions,vessel,civ_ms_roro_b,SEST_Replenishment,Merchant,14000000,117000000,tracker catalog,Red Line; Southern Watch; Southern Watch - Dispatches; Sulu Line; Tasman Shield; sest-red-line; sest-southern-reach; sest-southern-watch; sest-sulu-line
+missions,vessel,civ_ms_roro_c,vanilla,Merchant,30000000,263000000,tracker catalog,Red Line; Southern Watch - Dispatches; Sulu Line; Tasman Shield; sest-red-line; sest-southern-reach; sest-sulu-line
+missions,vessel,civ_ms_sealift_pacific,SEST_Replenishment,Merchant,14000000,117000000,tracker catalog,Southern Reach; Southern Watch; Southern Watch - Dispatches; Tasman Shield; sest-southern-reach; sest-southern-watch
+missions,vessel,civ_ms_slavyansk,3605013271,Merchant,14000000,117000000,tracker catalog,Tasman Shield; sest-southern-reach
+missions,vessel,civ_ms_super_p,3605013271,Merchant,14000000,117000000,tracker catalog,Sulu Line; sest-sulu-line
+missions,vessel,fr_cvn_charles-de-gaulle,3567256221,CVN,1800000000,4520000000,tracker catalog,Southern Watch - Dispatches; sest-southern-reach; sest-southern-watch
+missions,vessel,fr_ddg_horizon,3567256221,DDG,839000000,1355000000,tracker catalog,Southern Watch - Dispatches; sest-southern-reach; sest-southern-watch
+missions,vessel,fr_ffg_aquitaine_asw,3567256221,FFG,864000000,1261000000,tracker catalog,sest-southern-reach; sest-southern-watch
+missions,vessel,fr_ffg_lafayette_modernized,3567256221,FFG,397000000,847000000,tracker catalog,Tasman Shield; sest-southern-reach; sest-southern-watch
+missions,vessel,fr_lhd_mistral,3567256221,LHD,704000000,1169000000,tracker catalog,sest-southern-reach; sest-southern-watch
+missions,vessel,ger_ffg_f123_2025_mlu,SEST_Replenishment,FFG,416000000,940000000,tracker catalog,sest-southern-reach; sest-southern-watch
+missions,vessel,ger_ffg_f124,SEST_Replenishment,FFG,871000000,1545000000,tracker catalog,Southern Watch - Dispatches
+missions,vessel,ger_ffg_f124_MLU,SEST_Replenishment,FFG,871000000,1545000000,tracker catalog,sest-southern-reach; sest-southern-watch
+missions,vessel,ger_ffg_f125_MLU,SEST_Replenishment,FFG,923000000,1209000000,tracker catalog,sest-southern-reach; sest-southern-watch
+missions,vessel,hdms_iver_huitfeldt,SEST_Replenishment,FFG,479000000,689000000,tracker catalog,Southern Watch - Dispatches; sest-southern-reach; sest-southern-watch
+missions,vessel,ir_aor_delvar,SEST_Replenishment,AKL,36000000,379000000,tracker catalog,Southern Watch; sest-southern-watch
+missions,vessel,ir_fab_boghammar,vanilla,FAB,500000,3000000,tracker catalog,Southern Watch; sest-southern-watch
+missions,vessel,ir_ptg_peykaap_3,SEST_Replenishment,FAC,500000,3000000,tracker catalog,Southern Watch; Sulu Line; sest-southern-watch; sest-sulu-line
+missions,vessel,ita_ddg_orizzonte_18,SEST_Replenishment,DDG,839000000,1355000000,tracker catalog,sest-southern-reach; sest-southern-watch
+missions,vessel,ita_ffg_fremm,SEST_Replenishment,FFG,417000000,600000000,tracker catalog,sest-southern-reach; sest-southern-watch
+missions,vessel,ita_ffg_fremm_asw,SEST_Replenishment,FFG,417000000,600000000,tracker catalog,Southern Watch - Dispatches
+missions,vessel,ita_ffg_ppa,SEST_Replenishment,FFG,479000000,689000000,tracker catalog,sest-southern-reach; sest-southern-watch
+missions,vessel,ita_fs_ppx,3488139470,OPV,60000000,103000000,tracker catalog,sest-southern-reach; sest-southern-watch
+missions,vessel,jmsdf_aoe_mashuu,SEST_Replenishment,AOE,399000000,481000000,SEST researched estimate,sest-southern-reach; sest-southern-watch
+missions,vessel,jmsdf_dd_asahi,SEST_Replenishment,DD,81000000,608000000,tracker catalog,Southern Watch; sest-southern-reach; sest-southern-watch
+missions,vessel,jmsdf_ddg_atago,SEST_Replenishment,DDG,1022000000,1904000000,tracker catalog,sest-southern-reach; sest-southern-watch
+missions,vessel,jmsdf_ddg_maya,SEST_Replenishment,DDG,2519000000,2769000000,tracker catalog,Red Line; Southern Watch; sest-red-line; sest-southern-reach; sest-southern-watch
+missions,vessel,jmsdf_ddh_hyuga,3802216383,DDH,920000000,1629000000,SEST researched estimate,Southern Watch; sest-southern-watch
+missions,vessel,js_ffg_mogami,SEST_JMSDF_Mogami,FFG,479000000,689000000,tracker catalog,Red Line; Southern Watch; sest-red-line; sest-southern-reach; sest-southern-watch
+missions,vessel,knm_cor_skjold,SEST_Replenishment,FS,85000000,218000000,tracker catalog,sest-southern-reach; sest-southern-watch
+missions,vessel,ko_ddg-991,SEST_Replenishment,DDG,2519000000,2769000000,tracker catalog,Southern Watch; sest-southern-reach; sest-southern-watch
+missions,vessel,ko_ddg-995,SEST_Replenishment,DDG,2519000000,2769000000,tracker catalog,sest-southern-reach; sest-southern-watch
+missions,vessel,ko_ddh-971,SEST_Replenishment,DDH,380000000,781000000,tracker catalog,sest-southern-reach; sest-southern-watch
+missions,vessel,ko_ddh-975_kvls,SEST_Replenishment,DDH,380000000,781000000,tracker catalog,sest-southern-reach; sest-southern-watch
+missions,vessel,ko_ffg-811,SEST_Replenishment,FFG,587000000,1141000000,tracker catalog,sest-southern-reach; sest-southern-watch
+missions,vessel,ko_ffg-818,SEST_Replenishment,FFG,587000000,1141000000,tracker catalog,Southern Watch; sest-southern-reach; sest-southern-watch
+missions,vessel,ko_ffg-828,SEST_Replenishment,FFG,587000000,1141000000,tracker catalog,sest-southern-reach; sest-southern-watch
+missions,vessel,mm_ddgh_durand_de_la_penne_02,3505420313,DDG,82000000,656000000,tracker catalog,sest-southern-reach; sest-southern-watch
+missions,vessel,phl_ff_hamilton,SEST_Replenishment,,,,unknown: no tracker entry,sest-sulu-line
+missions,vessel,phl_fs_pohang,SEST_Replenishment,FS,41000000,131000000,SEST mapping from ko_pcc-756,sest-sulu-line
+missions,vessel,phl_lpd_tarlac,SEST_Replenishment,,,,unknown: no tracker entry,sest-sulu-line
+missions,vessel,phl_pb_jose_andrada,3752415457,,,,unknown: no tracker entry,Sulu Line; sest-sulu-line
+missions,vessel,phl_pt_jacinto,SEST_Replenishment,,,,unknown: no tracker entry,Sulu Line; sest-sulu-line
+missions,vessel,plan_aor_type901,SEST_Replenishment,,,,unknown: no tracker entry,Red Line; Southern Reach; Tasman Shield; sest-red-line; sest-southern-reach
+missions,vessel,plan_aor_type903a,SEST_Replenishment,,,,unknown: no tracker entry,Southern Reach; sest-red-line; sest-southern-reach
+missions,vessel,plan_ap_qiongsha,vanilla,APA,26000000,107000000,tracker catalog,Sulu Line; sest-sulu-line
+missions,vessel,plan_cv_type_003,3775128499,CV,5887000000,6472000000,tracker catalog,Red Line; Southern Watch; sest-red-line; sest-southern-watch
+missions,vessel,plan_cvn_004,SEST_Replenishment,CV,9000000000,9000000000,tracker catalog,Southern Watch - Dispatches
+missions,vessel,plan_ddg_luda_typ_051d,SEST_Replenishment,DDG,24000000,197000000,SEST mapping from plan_dd_luda1,Southern Watch; sest-southern-watch
+missions,vessel,plan_ddg_luda_typ_051dt,SEST_Replenishment,DDG,24000000,197000000,SEST mapping from plan_dd_luda1,Southern Watch; sest-red-line; sest-southern-watch
+missions,vessel,plan_em_sovremenny,SEST_Replenishment,DDG,205000000,835000000,SEST mapping from wp_em_sovremenny_98,Southern Watch; sest-red-line; sest-southern-watch
+missions,vessel,plan_lpd_type_071,SEST_Replenishment,LPD,162000000,262000000,SEST researched estimate,Southern Watch; sest-southern-watch
+missions,vessel,plan_ss_kilo,3417801942,SS,100000000,406000000,SEST mapping from wp_ss_kilo,Southern Watch; Tasman Shield; sest-southern-reach; sest-southern-watch
+missions,vessel,plan_ss_type_039,3594891803,SS,186000000,373000000,tracker catalog,Southern Watch; sest-southern-watch
+missions,vessel,plan_ss_type_039b,3775128499,SS,321000000,533000000,tracker catalog,Southern Watch; sest-southern-watch
+missions,vessel,plan_ss_type_039c,3594891803,SS,321000000,533000000,tracker catalog,Red Line; Southern Watch; Sulu Line; Tasman Shield; sest-red-line; sest-southern-reach; sest-southern-watch; sest-sulu-line
+missions,vessel,plan_ssn_type_093b,3594891803,SSN,763000000,1268000000,tracker catalog,Red Line; Southern Reach; Southern Watch; Tasman Shield; sest-red-line; sest-southern-reach; sest-southern-watch
+missions,vessel,plan_type_001,3774859959,CV,1754000000,4315000000,SEST mapping from ru_cv_varyag,Red Line; Southern Reach; Southern Watch; Tasman Shield; sest-red-line; sest-southern-reach; sest-southern-watch
+missions,vessel,plan_type_052d_p3,SEST_Replenishment,DDG,680000000,962000000,tracker catalog,Sulu Line; Tasman Shield; sest-southern-reach; sest-sulu-line
+missions,vessel,plan_type_054a_p5,SEST_Replenishment,FFG,316000000,492000000,tracker catalog,Red Line; Southern Reach; Southern Watch; Sulu Line; Tasman Shield; sest-red-line; sest-southern-reach; sest-southern-watch; sest-sulu-line
+missions,vessel,plan_type_056a,SEST_Replenishment,FFG,122000000,172000000,tracker catalog,Southern Reach; Southern Watch; Sulu Line; Tasman Shield; sest-red-line; sest-southern-reach; sest-southern-watch; sest-sulu-line
+missions,vessel,pn_ffg-06,SEST_Replenishment,FFG,250000000,297000000,SEST researched estimate,sest-sulu-line
+missions,vessel,pn_ffg-150,SEST_Replenishment,FFG,168000000,235000000,SEST researched estimate,Sulu Line; sest-sulu-line
+missions,vessel,ran_aor_supply,SEST_RAN_Fleet,AO,,,unknown: SEST records no supported price,Southern Reach; Southern Watch; sest-southern-reach; sest-southern-watch
+missions,vessel,ran_ddg_hobart,SEST_RAN_Fleet,DDG,1022000000,1904000000,SEST mapping from ran_ddg_hobart_alt_late,Southern Reach; Southern Watch; Southern Watch - Dispatches; Tasman Shield; sest-southern-reach; sest-southern-watch
+missions,vessel,ran_ffg_adelaide_shorthull,vanilla,FFG,172000000,951000000,tracker catalog,Southern Watch - Dispatches
+missions,vessel,ran_ffh_anzac,SEST_RAN_Fleet,FFG,,,unknown: SEST records no supported price,Southern Reach; Southern Watch; Southern Watch - Dispatches; Tasman Shield; sest-southern-reach; sest-southern-watch; sest-sulu-line
+missions,vessel,ran_lhd_canberra,SEST_RAN_Fleet,LHD,704000000,1169000000,SEST mapping from ae_lhd_juan_carlos,Southern Watch; sest-southern-reach; sest-southern-watch
+missions,vessel,ran_lsd_choules,SEST_RAN_Fleet,LSD,,,unknown: SEST records no supported price,Southern Watch; sest-southern-watch
+missions,vessel,ran_ms_antares,3432668460,Merchant,14000000,117000000,tracker catalog,Red Line; Southern Watch; sest-red-line; sest-southern-watch
+missions,vessel,ran_ms_bulk,3432668460,Merchant,30000000,263000000,tracker catalog,Southern Watch; sest-southern-watch
+missions,vessel,ran_ms_jeparit,3432668460,Merchant,14000000,117000000,tracker catalog,Southern Watch; Tasman Shield; sest-southern-reach; sest-southern-watch
+missions,vessel,ran_ms_roro_a,3432668460,Merchant,30000000,263000000,tracker catalog,Southern Watch; Tasman Shield; sest-southern-reach; sest-southern-watch
+missions,vessel,ran_ms_super_p,3432668460,Merchant,14000000,117000000,tracker catalog,Red Line; Southern Watch; Sulu Line; sest-red-line; sest-southern-watch; sest-sulu-line
+missions,vessel,ran_opv_arafura,SEST_RAN_Fleet,OPV,,,unknown: SEST records no supported price,Red Line; Southern Watch; sest-red-line; sest-southern-reach; sest-southern-watch
+missions,vessel,ran_ssg_collins,SEST_RAN_Fleet,SSG,,,unknown: SEST records no supported price,Red Line; Southern Reach; Southern Watch; Sulu Line; Tasman Shield; sest-red-line; sest-southern-reach; sest-southern-watch; sest-sulu-line
+missions,vessel,rfn_cvt_20380_7-12,SEST_Replenishment,FS,135000000,218000000,tracker catalog,Southern Reach; Southern Watch; Tasman Shield; sest-southern-reach; sest-southern-watch
+missions,vessel,rfn_ffg_11356,SEST_Replenishment,FFG,463000000,646000000,tracker catalog,Southern Watch - Dispatches
+missions,vessel,rn_aor_tide,SEST_Replenishment,AO,179000000,261000000,SEST researched estimate,Southern Watch - Dispatches; sest-southern-reach; sest-southern-watch
+missions,vessel,rn_ddg_type45,SEST_Replenishment,DDG,1441000000,2250000000,tracker catalog,Southern Watch - Dispatches
+missions,vessel,rn_ddg_type45_26,SEST_Replenishment,DDG,1441000000,2250000000,tracker catalog,sest-southern-reach; sest-southern-watch
+missions,vessel,rn_ff_type23,SEST_Replenishment,FFG,206000000,528000000,tracker catalog,sest-southern-reach; sest-southern-watch
+missions,vessel,rn_opv_river_batch2,SEST_Replenishment,OPV,60000000,103000000,tracker catalog,sest-southern-reach; sest-southern-watch
+missions,vessel,rn_type23_refit,SEST_Replenishment,FFG,206000000,528000000,tracker catalog,Southern Watch - Dispatches
+missions,vessel,rnn_ddg_zeven_mlu,SEST_Replenishment,DD,148000000,1634000000,tracker catalog,sest-southern-reach; sest-southern-watch
+missions,vessel,rnn_ffg_hol,3444379330,OPV,38000000,153000000,tracker catalog,sest-southern-reach; sest-southern-watch
+missions,vessel,rnn_ffg_karel_eol,SEST_Replenishment,FFG,197000000,800000000,tracker catalog,sest-southern-reach; sest-southern-watch
+missions,vessel,rnn_ffg_karel_mlu,SEST_Replenishment,FFG,197000000,800000000,tracker catalog,Southern Watch - Dispatches
+missions,vessel,ru_cv_kuznetsov,SEST_Replenishment,CV,1754000000,4315000000,tracker catalog,Southern Watch - Dispatches
+missions,vessel,tha_aor_chula,SEST_Replenishment,AO,,,unknown: SEST records no supported price,sest-sulu-line
+missions,vessel,tha_ffg_naresuan,SEST_Replenishment,FFG,78000000,200000000,SEST researched estimate,sest-sulu-line
+missions,vessel,usn_asv_saronic_corsair_scout,3766210676,USV,1000000,1000000,SEST researched estimate,Southern Watch; sest-southern-watch
+missions,vessel,usn_cv_kitty_hawk,3373960386,CV,270000000,3020000000,tracker catalog,Southern Watch - Dispatches
+missions,vessel,usn_cvn_ford,SEST_Replenishment,CVN,13320000000,13320000000,tracker catalog,Southern Watch; sest-southern-watch
+missions,vessel,usn_cvn_ford_jsf,SEST_Replenishment,CVN,13320000000,13320000000,tracker catalog,Southern Watch - Dispatches
+missions,vessel,usn_cvn_gerald_r_ford,SEST_Replenishment,CVN,13320000000,13320000000,tracker catalog,sest-southern-reach; sest-southern-watch
+missions,vessel,usn_cvn_nimitz,3373960386,CVN,700000000,4315000000,tracker catalog,Southern Watch - Dispatches
+missions,vessel,usn_cvn_nimitz_2000s,3430135740,CVN,700000000,4315000000,tracker catalog,Southern Watch - Dispatches
+missions,vessel,usn_cvn_nimitz_2000s_adou,3461091581,CVN,700000000,4315000000,SEST mapping from usn_cvn_nimitz_2000s,Southern Watch - Dispatches
+missions,vessel,usn_cvn_nimitz_2025,SEST_Replenishment,CVN,2500000000,4315000000,tracker catalog,Southern Watch; sest-southern-watch
+missions,vessel,usn_cvn_nimitz_2027s_adou,3606774881,,,,unknown: no tracker entry,sest-southern-reach; sest-southern-watch
+missions,vessel,usn_ddg-1000_cps,3390330875,DDG,4260000000,4700000000,tracker catalog,sest-southern-reach; sest-southern-watch
+missions,vessel,usn_ddg_arleigh_flt1_054_2027,SEST_Replenishment,DDG,704000000,1731000000,SEST mapping from usn_ddg_burke_f1_054_late,sest-southern-reach; sest-southern-watch
+missions,vessel,usn_ddg_arleigh_flt2_072_2027,SEST_Replenishment,DDG,900000000,1731000000,SEST mapping from usn_ddg_burke_f2_072_late,sest-southern-reach; sest-southern-watch
+missions,vessel,usn_ddg_arleigh_flt2A_119_2027,3606774881,,,,unknown: no tracker entry,sest-southern-reach; sest-southern-watch
+missions,vessel,usn_ddg_arleigh_flt3_2027,3606774881,DDG,2519000000,2700000000,SEST mapping from usn_ddg_burke_f3_125,Southern Watch; sest-southern-reach; sest-southern-watch
+missions,vessel,usn_ddg_burke_f3_125,3390330875,DDG,2519000000,2700000000,tracker catalog,Southern Watch; sest-southern-watch
+missions,vessel,usn_lhd_wasp,SEST_Replenishment,LHD,318000000,1871000000,tracker catalog,sest-southern-reach; sest-southern-watch
+missions,vessel,usn_ssn_seawolf,3433957933,SSN,2333000000,4870000000,tracker catalog,Southern Watch - Dispatches
+missions,vessel,usn_ssn_virginia,SEST_Replenishment,SSN,2225000000,3945000000,tracker catalog,Red Line; sest-red-line
+missions,vessel,usn_ssn_virginia_2027,SEST_Replenishment,SSN,2225000000,3945000000,SEST mapping from usn_ssn_virginia,Red Line; Southern Watch; Tasman Shield; sest-red-line; sest-southern-reach; sest-southern-watch
+missions,vessel,usn_take_lewis_clark,SEST_Replenishment,,,,unknown: no tracker entry,sest-southern-reach; sest-southern-watch
+missions,vessel,usn_tao_kaiser,SEST_Replenishment,AO,120000000,931000000,SEST researched estimate,sest-southern-reach; sest-southern-watch
+missions,vessel,usn_taoe_supply,SEST_Replenishment,,,,unknown: no tracker entry,sest-southern-reach; sest-southern-watch
+missions,vessel,usn_usv_k5_kraken,3819522350,USV,830000,830000,SEST researched estimate,Southern Watch; sest-southern-watch
+missions,vessel,wp_agi_okean,vanilla,AGI,5300000,58000000,tracker catalog,Southern Reach; Tasman Shield; sest-southern-reach
+missions,vessel,wp_bpk_udaloy,vanilla,DDG,205000000,835000000,tracker catalog,Tasman Shield; sest-southern-reach
+missions,vessel,wp_ms_andizhan_armed,3605013271,Merchant,10000000,88000000,tracker catalog,Southern Watch; sest-southern-watch
+missions,vessel,wp_ms_mercur_decoy,vanilla,Merchant,10000000,88000000,tracker catalog,Southern Watch; Tasman Shield; sest-southern-reach; sest-southern-watch
+missions,vessel,wp_rkr_kirov_improved,SEST_Replenishment,CGN,743000000,3020000000,SEST mapping from wp_rkr_kirov,Southern Watch - Dispatches
+missions,vessel,wp_ssgn_yasen,SEST_Replenishment,SSGN,1524000000,2157000000,tracker catalog,Tasman Shield; sest-southern-reach
+missions,vessel,wp_ssn_akula,3468260539,SSN,492000000,1585000000,tracker catalog,Southern Reach; Southern Watch; sest-southern-reach; sest-southern-watch
+missions,vessel,wp_vt_boris_chilikin,SEST_Replenishment,AO,47000000,409000000,tracker catalog,Tasman Shield; sest-southern-reach
+missions,aircraft,adf_ah-64e,SEST_Allied_Fixes,,12000000,36500000,SEST mapping from usa_ah-64e,Southern Watch; sest-southern-watch
+missions,aircraft,am_tornado_ids,3505420313,,18000000,55000000,tracker catalog,Southern Watch - Dispatches
+missions,aircraft,aus_a330_mrtt,3758943352,,180000000,230000000,tracker catalog,Southern Watch; sest-southern-watch
+missions,aircraft,boeing_rc135,3808882954,,150000000,220000000,SEST mapping from usaf_rc_135,Red Line; Tasman Shield; sest-red-line; sest-southern-reach
+missions,aircraft,civ_a320,3746453639,,,55000000,SEST researched estimate,Southern Reach; Southern Watch; Tasman Shield; sest-southern-reach; sest-southern-watch
+missions,aircraft,civ_a330,3746453639,,,107000000,SEST researched estimate,Red Line; Southern Reach; Southern Watch; Southern Watch - Dispatches; Sulu Line; Tasman Shield; sest-red-line; sest-southern-reach; sest-southern-watch; sest-sulu-line
+missions,aircraft,civ_as-350,3806197116,,210000,2200000,SEST mapping from fr_as-350,Sulu Line; sest-sulu-line
+missions,aircraft,dts_b-52h,SEST_B52_ARRW,,6700000,120000000,SEST mapping from usaf_b-52g,Southern Watch; Southern Watch - Dispatches; sest-southern-watch
+missions,aircraft,dts_saab_ge,3673250557,,250000000,270000000,tracker catalog,Southern Watch; Southern Watch - Dispatches; sest-southern-watch
+missions,aircraft,E7A_Wedgetail,3499239964,,250000000,350000000,tracker catalog,Red Line; Southern Reach; Southern Watch; Tasman Shield; sest-red-line; sest-southern-reach; sest-southern-watch
+missions,aircraft,eu_ef2000_fgr4_late,3587877691,,65000000,100000000,tracker catalog,sest-southern-reach; sest-southern-watch
+missions,aircraft,fr_as-565_sa,3567228449,,5500000,16900000,tracker catalog,Southern Watch - Dispatches; Tasman Shield; sest-southern-reach
+missions,aircraft,fr_as_332M,3567228449,,8400000,30900000,tracker catalog,Southern Watch - Dispatches
+missions,aircraft,fr_atl2,3567256221,,30000000,65000000,tracker catalog,sest-southern-reach; sest-southern-watch
+missions,aircraft,fr_rafale_b_l,SEST_Rafale_F5,,55100000,104200000,tracker catalog,sest-southern-watch
+missions,aircraft,fr_rafale_m,3758943352,,55100000,104200000,tracker catalog,Southern Watch - Dispatches
+missions,aircraft,fr_rafale_m_l,SEST_Rafale_F5,,55100000,104200000,tracker catalog,Southern Watch - Dispatches; sest-southern-watch
+missions,aircraft,fr_sea_lynx,3455931957,,4100000,22500000,tracker catalog,Southern Watch - Dispatches
+missions,aircraft,ger_sea_lynx_mk88,3575847216,,4100000,22500000,tracker catalog,Southern Watch - Dispatches
+missions,aircraft,irinavy_bell-212,3549377308,,1900000,11200000,SEST mapping from spa_ab212,Sulu Line; sest-sulu-line
+missions,aircraft,jasdf_ec-2,3813033771,,,,unknown: no tracker entry,Southern Watch; sest-southern-watch
+missions,aircraft,jmsdf_sh-60j,3695809489,,11300000,36500000,tracker catalog,Southern Watch; sest-southern-reach; sest-southern-watch
+missions,aircraft,jmsdf_sh-60k,3695809489,,11300000,36500000,tracker catalog,Southern Watch; sest-southern-reach; sest-southern-watch
+missions,aircraft,jp_f-2a_late,3755769170,,80000000,171000000,SEST researched estimate,Red Line; Southern Watch; sest-red-line; sest-southern-watch
+missions,aircraft,mm_av-8b_plus,3505420313,,,,unknown: no tracker entry,sest-southern-watch
+missions,aircraft,msdvd_tu-214r,3780118683,,,,unknown: no tracker entry,Southern Watch; sest-southern-watch
+missions,aircraft,mv22b_osprey,3806466625,,62300000,72300000,SEST researched estimate,Southern Watch; Southern Watch - Dispatches; sest-southern-watch
+missions,aircraft,nl_nh90,3567228449,,33800000,56200000,tracker catalog,Southern Watch - Dispatches
+missions,aircraft,phl_h-76,3752415457,,,,unknown: no tracker entry,Sulu Line; sest-sulu-line
+missions,aircraft,pla_kj-600,3486502935,,123700000,175000000,tracker catalog,Southern Watch; sest-southern-watch
+missions,aircraft,pla_z21,3774746803,,,,unknown: no tracker entry,Southern Watch - Dispatches
+missions,aircraft,plaaf_h-6k_late,3812111085,,40000000,70000000,SEST mapping from plaaf_h6k,Southern Watch; sest-southern-watch
+missions,aircraft,plaaf_j-11bg,3436170138,,20000000,50000000,tracker catalog,Southern Watch; sest-southern-watch
+missions,aircraft,plaaf_j-11bs,3729578404,,20000000,50000000,SEST mapping from plaaf_j-11b,Southern Watch; sest-southern-watch
+missions,aircraft,plaaf_j-20a,SEST_Collection_Fixes,,90000000,120000000,tracker catalog,Southern Watch; Southern Watch - Dispatches; sest-southern-watch
+missions,aircraft,plaaf_j-8f,3433577445,,12000000,25000000,SEST mapping from plaaf_j8j,Southern Watch - Dispatches
+missions,aircraft,plaaf_j10c,3481228992,,35000000,55000000,tracker catalog,Southern Watch; sest-southern-watch
+missions,aircraft,plaaf_j16,3769142422,,35000000,70000000,tracker catalog,Southern Watch; sest-southern-watch
+missions,aircraft,plaaf_j36,3801549552,,,,unknown: SEST mapping keeps plaaf_j-36's blank,Southern Watch - Dispatches
+missions,aircraft,plaaf_jh7a,SEST_Collection_Fixes,,,,unknown: no tracker entry,Southern Watch; Sulu Line; sest-southern-watch; sest-sulu-line
+missions,aircraft,plaaf_kj-500,3775128499,,400000,8000000,tracker catalog,Red Line; Southern Watch; Southern Watch - Dispatches; Sulu Line; sest-red-line; sest-southern-watch; sest-sulu-line
+missions,aircraft,plaaf_su-27ubk,3729579342,,20000000,50000000,SEST mapping from plaaf_j-11,Southern Watch; sest-southern-watch
+missions,aircraft,plaaf_y-20a,3782020901,,,,unknown: no tracker entry,Southern Watch; sest-southern-watch
+missions,aircraft,plaf_j16a,3506979898,,35000000,70000000,tracker catalog,Southern Watch - Dispatches
+missions,aircraft,plaf_j16d,3506979898,,35000000,70000000,tracker catalog,Southern Watch - Dispatches
+missions,aircraft,plan_j-15,3486502935,,32400000,66700000,tracker catalog,Red Line; Southern Reach; Tasman Shield; sest-red-line; sest-southern-reach
+missions,aircraft,plan_j-15d,3486502935,,32400000,66700000,tracker catalog,Southern Reach; Southern Watch; Southern Watch - Dispatches; Tasman Shield; sest-red-line; sest-southern-reach; sest-southern-watch
+missions,aircraft,plan_j-35,3775128499,,98500000,108300000,tracker catalog,Southern Watch; sest-southern-watch
+missions,aircraft,plan_j-50,3670643788,,,,unknown: no tracker entry,Southern Watch - Dispatches
+missions,aircraft,plan_ka-28,3775128499,,4600000,16900000,tracker catalog,Southern Watch; sest-southern-watch
+missions,aircraft,plan_ka-31,3775128499,,12800000,28100000,tracker catalog,Southern Reach; Tasman Shield; sest-southern-reach
+missions,aircraft,plan_y-9fq,3775128499,,40000000,65000000,tracker catalog,Red Line; sest-red-line
+missions,aircraft,plan_z-18f,3417801942,,19900000,28100000,SEST mapping from plan_z-18fa,Red Line; Southern Reach; Tasman Shield; sest-red-line; sest-southern-reach
+missions,aircraft,plan_z-20f,3775128499,,27900000,36500000,tracker catalog,Tasman Shield; sest-southern-reach
+missions,aircraft,plan_z-9c,3775128499,,6200000,14100000,tracker catalog,Red Line; Southern Reach; Tasman Shield; sest-red-line; sest-southern-reach
+missions,aircraft,pol_f-16c-bl52plus,3758320372,,18800000,60000000,tracker catalog,Southern Watch - Dispatches
+missions,aircraft,raaf_f-35a,SEST_RAAF_F-35A_JATM,,121200000,158800000,tracker catalog,Red Line; Southern Reach; Southern Watch; Southern Watch - Dispatches; Tasman Shield; sest-red-line; sest-southern-reach; sest-southern-watch
+missions,aircraft,raaf_mq-4c_triton,SEST_ADF_Persistent_ISR,,,,unknown: no tracker entry,Red Line; Southern Reach; Southern Watch; Tasman Shield; sest-red-line; sest-southern-reach; sest-southern-watch
+missions,aircraft,raf_ef2000_fgr4_late,3587877691,,65000000,100000000,tracker catalog,Southern Watch - Dispatches; sest-southern-reach; sest-southern-watch
+missions,aircraft,ran_mh-60r,SEST_Allied_Fixes,,33800000,56200000,SEST mapping from usn_mh-60r,Southern Reach; Southern Watch; Southern Watch - Dispatches; Tasman Shield; sest-southern-reach; sest-southern-watch
+missions,aircraft,rn_merlin_hm2,3599752717,,33500000,67500000,tracker catalog,Southern Watch - Dispatches
+missions,aircraft,rn_wildcat,3373356293,,31800000,45000000,tracker catalog,Southern Watch - Dispatches
+missions,aircraft,rok_f-50_ph,3752415457,,35200000,57100000,SEST researched estimate,Sulu Line; sest-sulu-line
+missions,aircraft,rok_mk99_a,3789208859,,4100000,22500000,tracker catalog,Southern Watch; sest-southern-watch
+missions,aircraft,S-70B-2_Seahawk,SEST_Allied_Fixes,,11300000,36500000,SEST mapping from ran_s-70b-2_seahawk,Southern Watch - Dispatches
+missions,aircraft,spa_ab212,3630495619,,1900000,11200000,tracker catalog,Southern Watch - Dispatches
+missions,aircraft,spa_av-8b_plus,3731208477,,22400000,55000000,SEST researched estimate,Southern Watch - Dispatches; sest-southern-watch
+missions,aircraft,spa_ef2000,3731208477,,65000000,100000000,tracker catalog,sest-southern-watch
+missions,aircraft,tha_S-70B-7_Seahawk,3711297532,,,,unknown: no tracker entry,sest-sulu-line
+missions,aircraft,usa_a-10c,SEST_Allied_Fixes,,10000000,25000000,tracker catalog,Southern Watch - Dispatches
+missions,aircraft,usa_ah-64d,SEST_Allied_Fixes,,12000000,36500000,tracker catalog,Southern Watch - Dispatches
+missions,aircraft,usa_ah-64e,SEST_Allied_Fixes,,12000000,36500000,tracker catalog,Southern Watch - Dispatches
+missions,aircraft,usa_mv75_army,3810611344,,,,unknown: no tracker entry,Southern Watch - Dispatches
+missions,aircraft,usaf_a-10c_plus,SEST_A10C_Plus,,10000000,25000000,SEST mapping from usa_a-10c,Southern Watch - Dispatches
+missions,aircraft,usaf_ac-130j,3559495372,,110000000,130000000,tracker catalog,Southern Watch - Dispatches
+missions,aircraft,usaf_b-1b_dts,SEST_B52_ARRW,,200000000,350000000,tracker catalog,Southern Watch - Dispatches
+missions,aircraft,usaf_b-2_spirit,3480965706,,750000000,1200000000,tracker catalog,Southern Watch - Dispatches
+missions,aircraft,usaf_b-52g,3394781441,,6700000,120000000,tracker catalog,Southern Watch - Dispatches
+missions,aircraft,usaf_b-52o,SEST_B52_ARRW,,6700000,120000000,tracker catalog,Southern Watch - Dispatches
+missions,aircraft,usaf_e-3g,3781062859,,270000000,300000000,SEST mapping from usaf_e-3a,Southern Watch - Dispatches
+missions,aircraft,usaf_f-117,3448845252,,42600000,90000000,tracker catalog,Southern Watch - Dispatches
+missions,aircraft,usaf_f-15e_SE,3553116604,,31000000,85000000,tracker catalog,Southern Watch - Dispatches; sest-southern-reach; sest-southern-watch
+missions,aircraft,usaf_f-15ex_SEII,SEST_F-15EX_Revamp,,94000000,100000000,tracker catalog,Southern Watch; Southern Watch - Dispatches; sest-southern-watch
+missions,aircraft,usaf_f-16a,3416372890,,14600000,40000000,tracker catalog,Southern Watch - Dispatches
+missions,aircraft,usaf_f-16cm-bl52d,SEST_F16CM_JATM,,18800000,60000000,tracker catalog,Southern Watch; Southern Watch - Dispatches; sest-southern-watch
+missions,aircraft,usaf_f-22_s6,3418252667,,143000000,200000000,tracker catalog,Southern Watch; sest-southern-reach; sest-southern-watch
+missions,aircraft,usaf_kc-10a_extender,3740293822,,,,unknown: no tracker entry,Southern Watch - Dispatches
+missions,aircraft,usaf_kc-46a_boom,3744475027,,,,unknown: no tracker entry,Southern Watch; Southern Watch - Dispatches; Tasman Shield; sest-southern-reach; sest-southern-watch
+missions,aircraft,usaf_mq-9_er,SEST_Allied_Fixes,,12000000,25000000,tracker catalog,sest-southern-watch
+missions,aircraft,usaf_mq-9a,SEST_Allied_Fixes,,12000000,25000000,tracker catalog,Southern Watch - Dispatches
+missions,aircraft,usaf_rq-180,3796113927,,,,unknown: no tracker entry,Southern Watch - Dispatches
+missions,aircraft,usaf_stratotanker,3722749887,,39600000,90000000,SEST mapping from usaf_kc-135a,Southern Watch; sest-southern-watch
+missions,aircraft,usaf_u-2_1960,3468959181,,1000000,20000000,tracker catalog,Southern Watch - Dispatches
+missions,aircraft,usaf_yf-23_black_widow_ii,3796349767,,,,unknown: no tracker entry,Southern Watch - Dispatches
+missions,aircraft,usmc_ch53_standalone,3801363152,,,,unknown: no tracker entry,Southern Watch; sest-southern-watch
+missions,aircraft,usmc_kc-130j,3737267013,,70000000,90000000,tracker catalog,Southern Reach; Southern Watch; sest-southern-reach; sest-southern-watch
+missions,aircraft,usmc_vh-3d,3478767194,,1800000,19700000,tracker catalog,Southern Watch - Dispatches
+missions,aircraft,usn_e-2d,3737267013,,123700000,175000000,tracker catalog,Southern Watch; sest-southern-watch
+missions,aircraft,usn_ea-18g,SEST_Growler_NGJ_MALICE,,69400000,108300000,tracker catalog,Red Line; Southern Watch; Southern Watch - Dispatches; Tasman Shield; sest-red-line; sest-southern-reach; sest-southern-watch
+missions,aircraft,usn_ea-18g_2020,SEST_Growler_NGJ_MALICE,,69400000,108300000,tracker catalog,Southern Watch; sest-southern-watch
+missions,aircraft,usn_f-14a,vanilla,,12300000,83300000,tracker catalog,Southern Watch - Dispatches
+missions,aircraft,usn_f-35c,SEST_F-35C_JATM,,121200000,158800000,tracker catalog,Southern Watch; sest-southern-reach; sest-southern-watch
+missions,aircraft,usn_fa-18e,SEST_Growler_NGJ_MALICE,,44100000,83300000,tracker catalog,Southern Watch; sest-southern-reach; sest-southern-watch
+missions,aircraft,usn_fa-18f,SEST_Growler_NGJ_MALICE,,44100000,83300000,tracker catalog,Southern Watch; Southern Watch - Dispatches; sest-southern-watch
+missions,aircraft,usn_fa-18f_blk3,SEST_Growler_NGJ_MALICE,,44100000,83300000,tracker catalog,Southern Watch; Tasman Shield; sest-southern-reach; sest-southern-watch
+missions,aircraft,usn_ForpostR705,3601891050,,1000000,2000000,tracker catalog,Southern Watch; Sulu Line; sest-southern-watch; sest-sulu-line
+missions,aircraft,usn_fury_escort,3804868806,,,,unknown: no tracker entry,Southern Watch - Dispatches
+missions,aircraft,usn_fury_ew,3804868806,,,,unknown: no tracker entry,Southern Watch - Dispatches
+missions,aircraft,usn_mh-60r,SEST_Allied_Fixes,,33800000,56200000,tracker catalog,Southern Watch; sest-southern-watch
+missions,aircraft,usn_Mugin5705,3601891050,,10000,15000,tracker catalog,Southern Watch; sest-southern-watch
+missions,aircraft,usn_p8,SEST_Allied_Fixes,,148000000,170000000,tracker catalog,Red Line; Southern Reach; Southern Watch; Southern Watch - Dispatches; Tasman Shield; sest-red-line; sest-southern-reach; sest-southern-watch
+missions,aircraft,usn_p8_2027,3606774881,,,,unknown: no tracker entry,sest-southern-reach; sest-southern-watch
+missions,aircraft,usn_p_8a,3413868677,,148000000,170000000,tracker catalog,Southern Watch; sest-southern-watch
+missions,aircraft,usn_rq7705,3601891050,,1000000,2000000,tracker catalog,Southern Watch; Southern Watch - Dispatches; Sulu Line; sest-southern-watch; sest-sulu-line
+missions,aircraft,wp_a-50u,3524112296,,120000000,280000000,tracker catalog,Southern Watch; sest-southern-watch
+missions,aircraft,wp_il-78,3717610332,,20000000,70000000,SEST mapping from wp_il-76md,Southern Reach; Southern Watch; sest-southern-reach; sest-southern-watch
+missions,aircraft,wp_ka-27,vanilla,,4600000,16900000,tracker catalog,Tasman Shield; sest-southern-reach
+missions,aircraft,wp_ka-27rdl,3776340577,,12800000,28100000,SEST mapping from plan_ka-31,Southern Watch; sest-southern-watch
+missions,aircraft,wp_mi-24p,3513571010,,1800000,14100000,tracker catalog,Southern Watch; sest-southern-watch
+missions,aircraft,wp_mi-8ew,3458148344,,840000,8400000,tracker catalog,Southern Watch; sest-southern-watch
+missions,aircraft,wp_mi-8tv,3465256032,,840000,8400000,tracker catalog,Southern Watch; sest-southern-watch
+missions,aircraft,wp_mig-23a,vanilla,,8200000,33300000,tracker catalog,Southern Watch - Dispatches
+missions,aircraft,wp_mig-29k,3417446309,,35300000,54200000,tracker catalog,Southern Watch - Dispatches
+missions,aircraft,wp_mig-31bm,3799742828,,,,unknown: no tracker entry,Southern Watch; sest-southern-watch
+missions,aircraft,wp_mig-35,3659742367,,20000000,45000000,SEST mapping from wp_mig-29m2_967,Southern Watch - Dispatches
+missions,aircraft,wp_su-24mp,3716049886,,20000000,50000000,SEST mapping from wp_su-24m,Southern Watch - Dispatches
+missions,aircraft,wp_su-25sm3,3451166840,,20000000,50000000,tracker catalog,Southern Watch; sest-southern-watch
+missions,aircraft,wp_su-30m,3434072450,,35000000,70000000,tracker catalog,Southern Watch; sest-southern-watch
+missions,aircraft,wp_su-30sm2,3762023575,,35000000,70000000,tracker catalog,Southern Watch - Dispatches
+missions,aircraft,wp_su-33,3438479626,,32400000,66700000,tracker catalog,Southern Watch - Dispatches
+missions,aircraft,wp_su-57,3503594612,,70000000,100000000,tracker catalog,Southern Watch - Dispatches
+missions,aircraft,wp_tu-142m,vanilla,,25000000,85000000,tracker catalog,Southern Reach; sest-southern-reach
+missions,aircraft,wp_tu-160,3509329205,,5000000,40000000,tracker catalog,Southern Watch - Dispatches
+missions,aircraft,wp_tu-16n,3673908868,,5000000,40000000,tracker catalog,Southern Watch - Dispatches
+missions,aircraft,wp_tu-95_bearg,3411341227,,15000000,100000000,tracker catalog,Southern Watch - Dispatches
+missions,aircraft,wp_tu-95ma,3587091564,,15000000,100000000,tracker catalog,Southern Watch - Dispatches
+missions,aircraft,wp_tu-95ms,3395022688,,15000000,100000000,tracker catalog,Southern Watch - Dispatches
+missions,aircraft,wp_tu-95rt,vanilla,,15000000,100000000,tracker catalog,Southern Reach; sest-southern-reach
+missions,aircraft,wp_tu95ms,3715323261,,15000000,100000000,SEST mapping from wp_tu-95ms,Southern Watch - Dispatches
+land,land,airbase_raaf_amberley,SEST_RAAF_Bases,,,,not priced: the tracker does not price land platforms,
+land,land,airbase_raaf_butterworth,SEST_RAAF_Bases,,,,not priced: the tracker does not price land platforms,
+land,land,airbase_raaf_curtin,SEST_RAAF_Bases,,,,not priced: the tracker does not price land platforms,
+land,land,airbase_raaf_darwin,SEST_RAAF_Bases,,,,not priced: the tracker does not price land platforms,
+land,land,airbase_raaf_east_sale,SEST_RAAF_Bases,,,,not priced: the tracker does not price land platforms,
+land,land,airbase_raaf_edinburgh,SEST_RAAF_Bases,,,,not priced: the tracker does not price land platforms,
+land,land,airbase_raaf_gingin,SEST_RAAF_Bases,,,,not priced: the tracker does not price land platforms,
+land,land,airbase_raaf_learmonth,SEST_RAAF_Bases,,,,not priced: the tracker does not price land platforms,
+land,land,airbase_raaf_pearce,SEST_RAAF_Bases,,,,not priced: the tracker does not price land platforms,
+land,land,airbase_raaf_richmond,SEST_RAAF_Bases,,,,not priced: the tracker does not price land platforms,
+land,land,airbase_raaf_scherger,SEST_RAAF_Bases,,,,not priced: the tracker does not price land platforms,
+land,land,airbase_raaf_tindal,SEST_RAAF_Bases,,,,not priced: the tracker does not price land platforms,
+land,land,airbase_raaf_townsville,SEST_RAAF_Bases,,,,not priced: the tracker does not price land platforms,
+land,land,airbase_raaf_williamtown,SEST_RAAF_Bases,,,,not priced: the tracker does not price land platforms,
+land,land,airbase_raaf_woomera,SEST_RAAF_Bases,,,,not priced: the tracker does not price land platforms,
+land,land,airbase_rnzaf_auckland,SEST_RAAF_Bases,,,,not priced: the tracker does not price land platforms,
+land,land,airbase_rnzaf_ohakea,SEST_RAAF_Bases,,,,not priced: the tracker does not price land platforms,
+land,land,china_large_airbase,SEST_Collection_Fixes,,,,not priced: the tracker does not price land platforms,
+land,land,pla_airbase_modern,SEST_Collection_Fixes,,,,not priced: the tracker does not price land platforms,
+land,land,pla_df-41_tel,SEST_Collection_Fixes,,,,not priced: the tracker does not price land platforms,
+land,land,plaaf_airlift_airbase,SEST_Collection_Fixes,,,,not priced: the tracker does not price land platforms,
+land,land,sest_uav_forward,SEST_Allied_Fixes,,,,not priced: the tracker does not price land platforms,
+land,land,usa_airbase,SEST_Collection_Fixes,,,,not priced: the tracker does not price land platforms,
+land,land,wp_airbase_modern,SEST_Collection_Fixes,,,,not priced: the tracker does not price land platforms,
+land,land,wp_buk-m3,SEST_Collection_Fixes,,,,not priced: the tracker does not price land platforms,
+land,land,wp_bukslave,SEST_Collection_Fixes,,,,not priced: the tracker does not price land platforms,
+land,land,wp_ss-27_tel,SEST_Collection_Fixes,,,,not priced: the tracker does not price land platforms,
+next-batch,weapon,agm-114,3403661005,Missile,,,unknown: no tracker entry,S-70B-2_Seahawk
+next-batch,weapon,ch53sa_nsm_air,3801363152,Missile,,,unknown: no tracker entry,usmc_ch53_standalone
+next-batch,weapon,fr_mistral_f3,3567256221,Missile,,,unknown: no tracker entry,fr_cvn_charles-de-gaulle; fr_ffg_lafayette_modernized
+next-batch,weapon,fury_aim120d,3804868806,Missile,,,unknown: no tracker entry,usn_fury_escort
+next-batch,weapon,fury_aim9x,3804868806,Missile,,,unknown: no tracker entry,usn_fury_escort
+next-batch,weapon,j16_hq19,3769142422,Missile,,,unknown: no tracker entry,plaaf_j16
+next-batch,weapon,j16_ls-6_250,3769142422,Missile,,,unknown: no tracker entry,plaaf_j16
+next-batch,weapon,jp_aam-3,3755769170,Missile,,,unknown: no tracker entry,jp_f-2a_late
+next-batch,weapon,jp_aam-4,3755769170,Missile,,,unknown: no tracker entry,jp_f-2a_late
+next-batch,weapon,jp_asm-3,3755769170,Missile,,,unknown: no tracker entry,jp_f-2a_late
+next-batch,weapon,pla_akd-10-z21,3774746803,Missile,,,unknown: no tracker entry,pla_z21
+next-batch,weapon,pla_akk-90a-z21,3774746803,Missile,,,unknown: no tracker entry,pla_z21
+next-batch,weapon,pla_hj-10a_air_z21,3774746803,Missile,,,unknown: no tracker entry,pla_z21
+next-batch,weapon,plaaf_cj-20,3812111085,Missile,,,unknown: no tracker entry,plaaf_h-6k_late
+next-batch,weapon,plaaf_j16_ld-8a,3769142422,Missile,,,unknown: no tracker entry,plaaf_j16
+next-batch,weapon,plaaf_j16_pl-10,3769142422,Missile,,,unknown: no tracker entry,plaaf_j16
+next-batch,weapon,plaaf_j16_pl-15,3769142422,Missile,,,unknown: no tracker entry,plaaf_j16
+next-batch,weapon,plaaf_j16_pl-17,3769142422,Missile,,,unknown: no tracker entry,plaaf_j16
+next-batch,weapon,plaaf_j16_yj-80,3769142422,Missile,,,unknown: no tracker entry,plaaf_j16
+next-batch,weapon,plaaf_j16_yj-91,3769142422,Missile,,,unknown: no tracker entry,plaaf_j16
+next-batch,weapon,plaaf_j36_pl15,3801549552,Missile,,,unknown: no tracker entry,plaaf_j36
+next-batch,weapon,plaaf_j36_pl17,3801549552,Missile,,,unknown: no tracker entry,plaaf_j36
+next-batch,weapon,plaaf_kd-63,3812111085,Missile,,,unknown: no tracker entry,plaaf_h-6k_late
+next-batch,weapon,plaaf_kd-63b,3812111085,Missile,,,unknown: no tracker entry,plaaf_h-6k_late
+next-batch,weapon,plaaf_kd-63c,3812111085,Missile,,,unknown: no tracker entry,plaaf_h-6k_late
+next-batch,weapon,plaaf_kd-88a,3812111085,Missile,,,unknown: no tracker entry,plaaf_h-6k_late
+next-batch,weapon,plaaf_pl-15_S_LQS,3670643788,Missile,,,unknown: no tracker entry,plan_j-50
+next-batch,weapon,plaaf_yj-12,3812111085,Missile,,,unknown: no tracker entry,plaaf_h-6k_late
+next-batch,weapon,plaaf_yj-21,3812111085,Missile,,,unknown: no tracker entry,plaaf_h-6k_late
+next-batch,weapon,plaaf_yj-21_LQS,3670643788,Missile,,,unknown: no tracker entry,plan_j-50
+next-batch,weapon,plaaf_yj-83,3526982088,Missile,,,unknown: no tracker entry,plaaf_jh7a
+next-batch,weapon,plan_hy-1ja,3417801942,Missile,,,unknown: no tracker entry,plan_ddg_luda_typ_051d; plan_ddg_luda_typ_051dt
+next-batch,weapon,PN_fr_mica_em,3812454152,Missile,,,unknown: no tracker entry,pn_ffg-06
+next-batch,weapon,PN_fr_mica_ir,3812454152,Missile,,,unknown: no tracker entry,pn_ffg-06
+next-batch,weapon,sest_aim-424,SEST_F-15EX_Revamp,Missile,,,unknown: SEST mapping keeps usn_aim-424's blank,fr_rafale_b_l; fr_rafale_m_l; usaf_f-15ex_SEII; usaf_f-16cm-bl52d; usn_ea-18g; usn_ea-18g_2020; usn_f-35c; usn_fa-18e; usn_fa-18f; usn_fa-18f_blk3
+next-batch,weapon,su_as-17a_LQS,3659742367,Missile,,,unknown: no tracker entry,wp_mig-35
+next-batch,weapon,su_kh-38_LQS,3659742367,Missile,,,unknown: no tracker entry,wp_mig-35
+next-batch,weapon,usa_agm-114r2_hob,3820759806,Missile,,,unknown: no tracker entry,adf_ah-64e
+next-batch,weapon,usa_v280_agm-114l,3810611344,Missile,,,unknown: no tracker entry,usa_mv75_army
+next-batch,weapon,usn_aim-424,3606774881,Missile,,,unknown: the tracker entry is blank,usn_f-35c; usn_fa-18e; usn_fa-18f; usn_fa-18f_blk3
+next-batch,weapon,usn_rim-162e,3606774881,Missile,,,unknown: no tracker entry,usn_cvn_nimitz_2027s_adou; usn_ddg_arleigh_flt1_054_2027; usn_ddg_arleigh_flt2_072_2027; usn_ddg_arleigh_flt2A_119_2027; usn_ddg_arleigh_flt3_2027
+next-batch,weapon,usn_steelfin_air,3820576916,Missile,,,unknown: no tracker entry,usa_mv75_army; usaf_yf-23_black_widow_ii; usn_fury_escort
+next-batch,weapon,wp_r-33,3799742828,Missile,,,unknown: no tracker entry,wp_mig-31bm
+next-batch,weapon,wp_r-37,3799742828,Missile,,,unknown: no tracker entry,wp_mig-31bm
+next-batch,weapon,wp_r-77-1,3799742828,Missile,,,unknown: no tracker entry,wp_mig-31bm
+next-batch,weapon,wp_r-77m,3799742828,Missile,,,unknown: no tracker entry,wp_mig-31bm
+next-batch,weapon,wp_sa-n-10,vanilla,Missile,,,unknown: no tracker entry,wp_bpk_udaloy
+next-batch,weapon,yf23_agm88a_internal,3796349767,Missile,,,unknown: no tracker entry,usaf_yf-23_black_widow_ii
+next-batch,weapon,yf23_aim120d_internal,3796349767,Missile,,,unknown: no tracker entry,usaf_yf-23_black_widow_ii
+next-batch,weapon,yf23_aim424_internal,3796349767,Missile,,,unknown: no tracker entry,usaf_yf-23_black_widow_ii
+next-batch,weapon,yf23_aim9x2_internal,3796349767,Missile,,,unknown: no tracker entry,usaf_yf-23_black_widow_ii
+next-batch,weapon,am_kb44,3629144864,Bomb,,,unknown: no tracker entry,am_tornado_ids
+next-batch,weapon,am_stabo,3629144864,Bomb,,,unknown: no tracker entry,am_tornado_ids
+next-batch,weapon,b-2_gbu-57,3480965706,Bomb,,,unknown: no tracker entry,usaf_b-2_spirit
+next-batch,weapon,dts_b-61,3760871384,Bomb,,,unknown: no tracker entry,dts_b-52h
+next-batch,weapon,dts_gbu-31,3760871384,Bomb,,,unknown: no tracker entry,dts_b-52h; usaf_b-1b_dts; usaf_f-15e_SE; usaf_f-15ex_SEII
+next-batch,weapon,dts_gbu-32,3760871384,Bomb,,,unknown: no tracker entry,usaf_f-15e_SE; usaf_f-15ex_SEII
+next-batch,weapon,eu_mk_18,3587877691,Bomb,,,unknown: no tracker entry,eu_ef2000_fgr4_late; raf_ef2000_fgr4_late
+next-batch,weapon,f16_gbu-31,3758320372,Bomb,,,unknown: no tracker entry,pol_f-16c-bl52plus; usaf_f-16cm-bl52d
+next-batch,weapon,f16_gbu-32,3758320372,Bomb,,,unknown: no tracker entry,pol_f-16c-bl52plus; usaf_f-16cm-bl52d
+next-batch,weapon,f16_gbu-39,3758320372,Bomb,,,unknown: no tracker entry,pol_f-16c-bl52plus; usaf_f-16cm-bl52d
+next-batch,weapon,f16_gbu-53,3758320372,Bomb,,,unknown: no tracker entry,pol_f-16c-bl52plus; usaf_f-16cm-bl52d
+next-batch,weapon,fr_gbu-12,3567256221,Bomb,,,unknown: no tracker entry,fr_atl2; fr_rafale_b_l; fr_rafale_m_l
+next-batch,weapon,fr_gbu-24,3758943352,Bomb,,,unknown: no tracker entry,fr_rafale_b_l; fr_rafale_m_l
+next-batch,weapon,fr_samp_t25,vanilla,Bomb,,,unknown: no tracker entry,fr_rafale_m
+next-batch,weapon,pla_type-3-250,vanilla,Bomb,,,unknown: no tracker entry,plaaf_h-6k_late
+next-batch,weapon,plaaf_250-Ⅲ,3436170138,Bomb,,,unknown: no tracker entry,plaaf_j-8f; plaaf_jh7a
+next-batch,weapon,plaaf_500-Ⅱ,3812111085,Bomb,,,unknown: no tracker entry,plaaf_h-6k_late
+next-batch,weapon,plaaf_500-Ⅲ,3436170138,Bomb,,,unknown: no tracker entry,plaaf_j-11bg; plaaf_j-8f
+next-batch,weapon,plaaf_gb-1000,3812111085,Bomb,,,unknown: no tracker entry,plaaf_j16
+next-batch,weapon,plaaf_ls-500,3481228992,Bomb,,,unknown: no tracker entry,plaaf_j10c; plaaf_jh7a
+next-batch,weapon,plan_ksb-2_dc,3775128499,AirDepthCharge,,,unknown: no tracker entry,plan_y-9fq
+next-batch,weapon,su_kab-1500kr,3434072450,Bomb,,,unknown: no tracker entry,wp_su-30sm2; wp_tu-160
+next-batch,weapon,uav_gbu-49,3503670861,Bomb,,,unknown: no tracker entry,usaf_mq-9_er; usaf_mq-9a
+next-batch,weapon,us_gbu-31v3,3758320372,Bomb,,,unknown: no tracker entry,pol_f-16c-bl52plus; usaf_f-16cm-bl52d
+next-batch,weapon,usaf_cbu-24,vanilla,Bomb,,,unknown: no tracker entry,rok_f-50_ph; usaf_b-2_spirit
+next-batch,weapon,usaf_gbu-24,3606774881,Bomb,,,unknown: no tracker entry,usn_fa-18e; usn_fa-18f; usn_fa-18f_blk3
+next-batch,weapon,usaf_gbu-54,3758320372,Bomb,,,unknown: no tracker entry,pol_f-16c-bl52plus; usaf_f-16cm-bl52d
+next-batch,weapon,usaf_m117,vanilla,Bomb,,,unknown: no tracker entry,usaf_b-52g
+next-batch,weapon,usn_gbu-10,vanilla,Bomb,,,unknown: no tracker entry,usa_a-10c; usaf_a-10c_plus; usaf_b-2_spirit; usaf_f-117; usaf_f-15e_SE; usaf_f-15ex_SEII
+next-batch,weapon,usn_gbu-12,vanilla,Bomb,,,unknown: no tracker entry,mm_av-8b_plus; rok_f-50_ph; spa_av-8b_plus; usa_a-10c; usaf_a-10c_plus; usaf_b-2_spirit; usaf_f-15e_SE; usaf_yf-23_black_widow_ii
+next-batch,weapon,usn_gbu-16,vanilla,Bomb,,,unknown: no tracker entry,jp_f-2a_late; mm_av-8b_plus
+next-batch,weapon,usn_gbu-27_117,3448845252,Bomb,,,unknown: no tracker entry,usaf_f-117
+next-batch,weapon,usn_gbu-31_qcsk,3607989779,Bomb,,,unknown: no tracker entry,usn_f-35c; usn_fa-18e; usn_fa-18f; usn_fa-18f_blk3
+next-batch,weapon,usn_gbu-31v4,3607989779,Bomb,,,unknown: no tracker entry,usn_f-35c; usn_fa-18e; usn_fa-18f; usn_fa-18f_blk3
+next-batch,weapon,usn_gbu-38_qcsk,3607989779,Bomb,,,unknown: no tracker entry,usn_f-35c; usn_fa-18e; usn_fa-18f; usn_fa-18f_blk3
+next-batch,weapon,usn_mk-82,3737267013,Bomb,,,unknown: no tracker entry,dts_b-52h; jp_f-2a_late; mm_av-8b_plus; rok_f-50_ph; spa_av-8b_plus; usaf_b-1b_dts; usaf_b-2_spirit; usaf_b-52o; usaf_f-15e_SE; usaf_f-16a
+next-batch,weapon,usn_mk-82_snakeye,vanilla,Bomb,,,unknown: no tracker entry,spa_av-8b_plus; usaf_b-1b_dts
+next-batch,weapon,usn_mk-83,3737267013,Bomb,,,unknown: no tracker entry,am_tornado_ids; jp_f-2a_late; mm_av-8b_plus; rok_f-50_ph; spa_av-8b_plus
+next-batch,weapon,usn_mk-84,3737267013,Bomb,,,unknown: no tracker entry,dts_b-52h; jp_f-2a_late; usaf_b-1b_dts; usaf_b-2_spirit; usaf_b-52o; usaf_f-15e_SE; usaf_f-16a
+next-batch,weapon,usn_rockeye,3395022688,Bomb,,,unknown: no tracker entry,dts_b-52h; jp_f-2a_late; mm_av-8b_plus; spa_av-8b_plus; usaf_f-15e_SE
+next-batch,weapon,wp_fab-1500_m54,vanilla,Bomb,,,unknown: no tracker entry,plaaf_h-6k_late
+next-batch,weapon,wp_fab-250,vanilla,Bomb,,,unknown: no tracker entry,plan_ka-28; wp_ka-27; wp_mi-8tv; wp_mig-29k
+next-batch,weapon,wp_fab-3000_m54,vanilla,Bomb,,,unknown: no tracker entry,plaaf_h-6k_late
+next-batch,weapon,wp_fab-500,vanilla,Bomb,,,unknown: no tracker entry,wp_mi-8tv; wp_mig-23a; wp_mig-29k; wp_su-25sm3; wp_su-33; wp_tu-160; wp_tu-95ms
+next-batch,weapon,wp_kab-500l,vanilla,Bomb,,,unknown: no tracker entry,wp_su-30sm2
+next-batch,weapon,wp_plab-100,vanilla,AirDepthCharge,,,unknown: no tracker entry,plan_ka-28; wp_ka-27
+next-batch,weapon,wp_rbk-250,3395022688,Bomb,,,unknown: no tracker entry,plan_ka-28; wp_ka-27
+next-batch,weapon,wp_rn-40,3762023575,Bomb,,,unknown: no tracker entry,wp_su-30sm2
+next-batch,weapon,ch53sa_mk48_air,3801363152,Torpedo,,,unknown: no tracker entry,usmc_ch53_standalone
+next-batch,weapon,eu_mu_90_ship,3629144864,Torpedo,,,unknown: no tracker entry,ger_ffg_f123_2025_mlu; ger_ffg_f124; ger_ffg_f124_MLU; ran_ddg_hobart; ran_ffh_anzac
+next-batch,weapon,fr_a244s_mod1,3567228449,Torpedo,,,unknown: no tracker entry,fr_as-565_sa
+next-batch,weapon,fr_canto,3629144864,Torpedo,,,unknown: no tracker entry,fr_ddg_horizon; fr_ffg_aquitaine_asw
+next-batch,weapon,fr_e15,vanilla,Torpedo,,,unknown: no tracker entry,plan_z-18f
+next-batch,weapon,fr_mu_90_air,3629144864,Torpedo,,,unknown: no tracker entry,fr_atl2; nl_nh90
+next-batch,weapon,fr_mu_90_ship,3567256221,Torpedo,,,unknown: no tracker entry,fr_ddg_horizon; fr_ffg_aquitaine_asw
+next-batch,weapon,ger_mu_90_ship,3629144864,Torpedo,,,unknown: no tracker entry,hdms_iver_huitfeldt
+next-batch,weapon,it_canto,3629144864,Torpedo,,,unknown: no tracker entry,ita_ffg_ppa; ita_fs_ppx
+next-batch,weapon,mm_mu_90_ship,3629144864,Torpedo,,,unknown: no tracker entry,ita_ddg_orizzonte_18; ita_ffg_fremm; ita_ffg_fremm_asw; ita_ffg_ppa; mm_ddgh_durand_de_la_penne_02
+next-batch,weapon,pla_yu-6,3594891803,Torpedo,,,unknown: no tracker entry,plan_ss_type_039; plan_ss_type_039c; plan_ssn_type_093b
+next-batch,weapon,plan_yu-10,3775128499,Torpedo,,,unknown: no tracker entry,plan_ss_type_039b
+next-batch,weapon,plan_yu-12_air,3775128499,Torpedo,,,unknown: no tracker entry,plan_y-9fq; plan_z-20f
+next-batch,weapon,plan_yu-12_ship,3775128499,Torpedo,,,unknown: no tracker entry,plan_type_052d_p3
+next-batch,weapon,plan_yu-12a,3775128499,Torpedo,,,unknown: no tracker entry,plan_cv_type_003
+next-batch,weapon,plan_yu-5,3417801942,Torpedo,,,unknown: no tracker entry,plan_ss_kilo
+next-batch,weapon,plan_yu-6,3775128499,Torpedo,,,unknown: no tracker entry,plan_ss_kilo; plan_ss_type_039b
+next-batch,weapon,plan_yu-6a,3775128499,Torpedo,,,unknown: no tracker entry,plan_ss_type_039b
+next-batch,weapon,plan_yu-7_air,3775128499,Torpedo,,,unknown: no tracker entry,plan_z-18f; plan_z-9c
+next-batch,weapon,plan_yu-7_ship,3775128499,Torpedo,,,unknown: no tracker entry,plan_ddg_luda_typ_051d; plan_ddg_luda_typ_051dt
+next-batch,weapon,plan_yu-7c_ship,3775128499,Torpedo,,,unknown: no tracker entry,plan_type_054a_p5; plan_type_056a
+next-batch,weapon,plan_yu-9,3775128499,Torpedo,,,unknown: no tracker entry,plan_ss_type_039b
+next-batch,weapon,rfn_m15at,3597650470,Torpedo,,,unknown: no tracker entry,rfn_cvt_20380_7-12
+next-batch,weapon,rfn_mtt,3597650470,Torpedo,,,unknown: no tracker entry,rfn_cvt_20380_7-12
+next-batch,weapon,rn_stingray_air,3629144864,Torpedo,,,unknown: no tracker entry,rn_wildcat
+next-batch,weapon,rn_stingray_mod1_air,3629144864,Torpedo,,,unknown: no tracker entry,rn_merlin_hm2
+next-batch,weapon,rn_stingray_mod1_ship,3629144864,Torpedo,,,unknown: no tracker entry,rn_ff_type23
+next-batch,weapon,rn_stingray_ship,3378409795,Torpedo,,,unknown: no tracker entry,rn_type23_refit
+next-batch,weapon,usa_v280_copperhead_100m,3810611344,Torpedo,,,unknown: no tracker entry,usa_mv75_army
+next-batch,weapon,usn_mk44_air,vanilla,Torpedo,,,unknown: no tracker entry,rok_mk99_a; spa_ab212
+next-batch,weapon,usn_mk46_5_ship,3629144864,Torpedo,,,unknown: no tracker entry,jmsdf_ddg_atago; ko_ddh-971; ko_ddh-975_kvls; ko_ffg-811; ko_ffg-818; ko_ffg-828; pn_ffg-06; pn_ffg-150; ran_ffh_anzac; rnn_ddg_zeven_mlu; rnn_ffg_karel_mlu
+next-batch,weapon,usn_mk46_air,vanilla,Torpedo,,,unknown: no tracker entry,fr_sea_lynx; ger_sea_lynx_mk88; jmsdf_sh-60j; jmsdf_sh-60k; rok_mk99_a; S-70B-2_Seahawk; spa_ab212; tha_S-70B-7_Seahawk
+next-batch,weapon,usn_mk46_mod5_air,vanilla,Torpedo,,,unknown: no tracker entry,jmsdf_sh-60j; jmsdf_sh-60k; rok_mk99_a; usa_mv75_army
+next-batch,weapon,usn_mk46_mod5_ship,vanilla,Torpedo,,,unknown: no tracker entry,ae_ffg_alvaro_bazan; ae_ffg_bonifaz; ae_ffg_santa_maria_late; phl_ff_hamilton; tha_ffg_naresuan
+next-batch,weapon,usn_mk46_ship,vanilla,Torpedo,,,unknown: no tracker entry,js_ffg_mogami; phl_fs_pohang; ran_ffg_adelaide_shorthull
+next-batch,weapon,usn_mk48_6,3629144864,Torpedo,,,unknown: no tracker entry,ran_ssg_collins
+next-batch,weapon,usn_mk48_7,3629144864,Torpedo,,,unknown: no tracker entry,ran_ssg_collins; usn_ssn_seawolf; usn_ssn_virginia; usn_ssn_virginia_2027
+next-batch,weapon,usn_mk48_mod4_adcap,vanilla,Torpedo,,,unknown: no tracker entry,ran_ssg_collins
+next-batch,weapon,usn_mk50_air,3629144864,Torpedo,,,unknown: no tracker entry,jmsdf_sh-60j; jmsdf_sh-60k; usaf_rq-180
+next-batch,weapon,usn_mk54_1_ship,3629144864,Torpedo,,,unknown: no tracker entry,rnn_ffg_karel_eol; usn_ddg_arleigh_flt2A_119_2027
+next-batch,weapon,usn_mk54_2_air,3629144864,Torpedo,,,unknown: no tracker entry,usmc_ch53_standalone
+next-batch,weapon,usn_mk54_2_ship,3629144864,Torpedo,,,unknown: no tracker entry,usn_ddg_arleigh_flt1_054_2027; usn_ddg_arleigh_flt2_072_2027; usn_ddg_arleigh_flt3_2027; usn_ddg_burke_f3_125
+next-batch,weapon,usn_mk54_air,3629144864,Torpedo,,,unknown: no tracker entry,jmsdf_sh-60j; jmsdf_sh-60k; ran_mh-60r; usn_mh-60r; usn_p_8a
+next-batch,weapon,usn_mk54_ship,3629144864,Torpedo,,,unknown: no tracker entry,jmsdf_dd_asahi; jmsdf_ddg_maya; jmsdf_ddh_hyuga
+next-batch,weapon,wp_53-65K,vanilla,Torpedo,,,unknown: no tracker entry,civ_fv_okean_surprise; plan_ss_kilo
+next-batch,weapon,wp_65-76,3395022688,Torpedo,,,unknown: no tracker entry,wp_ssn_akula
+next-batch,weapon,wp_at-2,vanilla,Torpedo,,,unknown: no tracker entry,wp_tu-142m
+next-batch,weapon,wp_fizik-2,3468260539,Torpedo,,,unknown: no tracker entry,wp_ssgn_yasen; wp_ssn_akula
+next-batch,weapon,wp_set-65,vanilla,Torpedo,,,unknown: no tracker entry,plan_em_sovremenny; rfn_ffg_11356; wp_bpk_udaloy; wp_rkr_kirov_improved
+next-batch,weapon,wp_umgt-1,vanilla,Torpedo,,,unknown: no tracker entry,plan_ka-28; wp_ka-27
+next-batch,weapon,ger_27mm_fapds,3629144864,Projectile,,,unknown: no tracker entry,ger_ffg_f124
+next-batch,weapon,j16_cal_30mm,3769142422,Projectile,,,unknown: no tracker entry,plaaf_j16
+next-batch,weapon,usa_v280_762,3810611344,Projectile,,,unknown: no tracker entry,usa_mv75_army
+next-batch,weapon,usn_cal_20mm_apds,vanilla,Projectile,,,unknown: no tracker entry,ae_ffg_santa_maria_late; jmsdf_aoe_mashuu; jmsdf_dd_asahi; jmsdf_ddg_atago; jmsdf_ddg_maya; ran_ddg_hobart; ran_ffg_adelaide_shorthull; rn_aor_tide; rn_ddg_type45; rn_ddg_type45_26; usn_cvn_ford; usn_cvn_ford_jsf; usn_cvn_nimitz; usn_cvn_nimitz_2025; usn_cvn_nimitz_2027s_adou; usn_ddg_arleigh_flt1_054_2027; usn_ddg_arleigh_flt2_072_2027; usn_ddg_arleigh_flt2A_119_2027; usn_ddg_arleigh_flt3_2027; usn_ddg_burke_f3_125; usn_lhd_wasp; usn_take_lewis_clark; usn_taoe_supply
+next-batch,weapon,usn_cal_25mm_stabilized,3820759806,Projectile,,,unknown: no tracker entry,ran_ddg_hobart; ran_lhd_canberra
+next-batch,weapon,usn_cal_30mm_abm,3629144864,Projectile,,,unknown: no tracker entry,ger_ffg_f123_2025_mlu; ger_ffg_f124_MLU; ger_ffg_f125_MLU
+next-batch,weapon,wp_cal_30mm_ak230,vanilla,Projectile,,,unknown: no tracker entry,wp_rkr_kirov_improved
+next-batch,weapon,ir_107mm_rocket,vanilla,MLRS,,,unknown: no tracker entry,ir_fab_boghammar; ir_ptg_peykaap_3
+next-batch,weapon,plaaf_90-Ⅰ_rocket,3436170138,AerialRocket,,,unknown: no tracker entry,plaaf_j-8f; plaaf_jh7a
+next-batch,weapon,plan_fqf-2500,3417801942,RBU,,,unknown: no tracker entry,plan_ddg_luda_typ_051d; plan_ddg_luda_typ_051dt
+next-batch,weapon,plan_rbu2000,3775128499,RBU,,,unknown: no tracker entry,plan_type_056a
+next-batch,weapon,plan_rgb-81,3775128499,RBU,,,unknown: no tracker entry,plan_type_054a_p5
+next-batch,weapon,su_rgb-12,3438479626,RBU,,,unknown: no tracker entry,plan_type_001; ru_cv_kuznetsov
+next-batch,weapon,usn_hydra,vanilla,AerialRocket,,,unknown: no tracker entry,adf_ah-64e; jp_f-2a_late; phl_h-76; usa_ah-64d; usa_ah-64e; usaf_f-15e_SE; usaf_f-16a
+next-batch,weapon,usn_zuni,vanilla,AerialRocket,,,unknown: no tracker entry,mm_av-8b_plus
+next-batch,weapon,wp_dc_shell,vanilla,RBU,,,unknown: no tracker entry,plan_ddg_luda_typ_051d; plan_ddg_luda_typ_051dt
+next-batch,weapon,wp_grad,vanilla,MLRS,,,unknown: no tracker entry,ran_ms_super_p
+next-batch,weapon,wp_rgb-10,vanilla,RBU,,,unknown: no tracker entry,plan_em_sovremenny; wp_rkr_kirov_improved
+next-batch,weapon,wp_rgb-60,vanilla,RBU,,,unknown: no tracker entry,rfn_ffg_11356; wp_bpk_udaloy; wp_rkr_kirov_improved
+next-batch,weapon,wp_s-24,vanilla,AerialRocket,,,unknown: no tracker entry,wp_mig-23a
+next-batch,weapon,wp_s-25,vanilla,AerialRocket,,,unknown: no tracker entry,wp_su-25sm3
+next-batch,weapon,wp_s-5,vanilla,AerialRocket,,,unknown: no tracker entry,plan_ka-28; wp_ka-27; wp_mi-8tv
+next-batch,weapon,wp_s-8,vanilla,AerialRocket,,,unknown: no tracker entry,plaaf_j-11bg; plan_j-15; wp_mi-24p; wp_mig-23a; wp_mig-29k; wp_su-25sm3; wp_su-33
+next-batch,weapon,z21_type-70_rocket,3774746803,AerialRocket,,,unknown: no tracker entry,pla_z21
+next-batch,weapon,am_tornado_ids_tank,3505420313,Fueltank,,,unknown: no tracker entry,am_tornado_ids
+next-batch,weapon,eu_tank_1000,3587877691,Fueltank,,,unknown: no tracker entry,eu_ef2000_fgr4_late; raf_ef2000_fgr4_late
+next-batch,weapon,fr_tank_1200,3758943352,Fueltank,,,unknown: no tracker entry,fr_rafale_b_l; fr_rafale_m; fr_rafale_m_l
+next-batch,weapon,jp_tank_300_f-2a,3755769170,Fueltank,,,unknown: no tracker entry,jp_f-2a_late
+next-batch,weapon,jp_tank_610_f-2a,3755769170,Fueltank,,,unknown: no tracker entry,jp_f-2a_late
+next-batch,weapon,nl_tank_685,3789208859,Fueltank,,,unknown: no tracker entry,rok_mk99_a
+next-batch,weapon,plaaf_1400l_fueltank_new,3433577445,Fueltank,,,unknown: no tracker entry,plaaf_j-8f
+next-batch,weapon,plaaf_800l_fueltank_new,3433577445,Fueltank,,,unknown: no tracker entry,plaaf_j-8f
+next-batch,weapon,plaaf_J10_fueltank_new,3481228992,Fueltank,,,unknown: no tracker entry,plaaf_j10c
+next-batch,weapon,plaaf_J10_fueltank_under,3481228992,Fueltank,,,unknown: no tracker entry,plaaf_j10c
+next-batch,weapon,plaaf_JH7A_fueltank_new,3526982088,Fueltank,,,unknown: no tracker entry,plaaf_jh7a
+next-batch,weapon,plaaf_JH7A_fueltank_under,3526982088,Fueltank,,,unknown: no tracker entry,plaaf_jh7a
+next-batch,weapon,spa_av-8b_tank_left,3731208477,Fueltank,,,unknown: no tracker entry,spa_av-8b_plus
+next-batch,weapon,spa_av-8b_tank_right,3731208477,Fueltank,,,unknown: no tracker entry,spa_av-8b_plus
+next-batch,weapon,spa_ef2000_fueltank,3731208477,Fueltank,,,unknown: no tracker entry,spa_ef2000
+next-batch,weapon,uav_tank_mq-9,3503670861,Fueltank,,,unknown: no tracker entry,usaf_mq-9_er
+next-batch,weapon,usaf_tank_150_f-5,vanilla,Fueltank,,,unknown: no tracker entry,rok_f-50_ph
+next-batch,weapon,usaf_tank_300_f16,3758320372,Fueltank,,,unknown: no tracker entry,pol_f-16c-bl52plus; usaf_f-16cm-bl52d
+next-batch,weapon,usaf_tank_370_f-16,3416372890,Fueltank,,,unknown: no tracker entry,usaf_f-16a
+next-batch,weapon,usaf_tank_370_f16,3758320372,Fueltank,,,unknown: no tracker entry,pol_f-16c-bl52plus; usaf_f-16cm-bl52d
+next-batch,weapon,usaf_tank_600_f16,3758320372,Fueltank,,,unknown: no tracker entry,pol_f-16c-bl52plus; usaf_f-16cm-bl52d
+next-batch,weapon,usaf_tank_610_f-15,vanilla,Fueltank,,,unknown: no tracker entry,usaf_f-15e_SE; usaf_f-15ex_SEII
+next-batch,weapon,usmc_tank_230_av-8b,3505420313,Fueltank,,,unknown: no tracker entry,mm_av-8b_plus
+next-batch,weapon,usn_ft600_10,3459682829,Fueltank,,,unknown: no tracker entry,usa_a-10c; usaf_a-10c_plus
+next-batch,weapon,usn_sh60_tank,3737267013,Fueltank,,,unknown: no tracker entry,jmsdf_sh-60j; jmsdf_sh-60k; ran_mh-60r; usn_mh-60r
+next-batch,weapon,usn_tank_267_f-14,vanilla,Fueltank,,,unknown: no tracker entry,usn_f-14a
+next-batch,weapon,usn_tank_60gal_sh-2,vanilla,Fueltank,,,unknown: no tracker entry,phl_h-76
+next-batch,weapon,usn_tank_610_f-18,SEST_Growler_NGJ_MALICE,Fueltank,,,unknown: no tracker entry,usn_ea-18g; usn_ea-18g_2020; usn_fa-18e; usn_fa-18f; usn_fa-18f_blk3
+next-batch,weapon,wp_fueltank3000_w,vanilla,Fueltank,,,unknown: no tracker entry,msdvd_tu-214r; wp_su-24mp
+next-batch,weapon,wp_fueltank400_w,vanilla,Fueltank,,,unknown: no tracker entry,tha_S-70B-7_Seahawk
+next-batch,weapon,wp_fueltank800_f,vanilla,Fueltank,,,unknown: no tracker entry,wp_mig-23a
+next-batch,weapon,wp_fueltank800_w,vanilla,Fueltank,,,unknown: no tracker entry,wp_mig-23a
+next-batch,weapon,wp_tank_1150_mig-29,3417446309,Fueltank,,,unknown: no tracker entry,wp_mig-29k
+next-batch,weapon,wp_tank_1200mig-35,3659742367,Fueltank,,,unknown: no tracker entry,wp_mig-35
+next-batch,weapon,wp_tank_1500_mig-29,3417446309,Fueltank,,,unknown: no tracker entry,wp_mig-29k
+next-batch,weapon,am_boz,3505420313,Container,,,unknown: no tracker entry,am_tornado_ids
+next-batch,weapon,bel_hmp-250,vanilla,Container,,,unknown: no tracker entry,phl_h-76
+next-batch,weapon,cft_f-16,3758320372,Container,,,unknown: no tracker entry,pol_f-16c-bl52plus
+next-batch,weapon,dts_anaaq-13,3636386513,Container,,,unknown: no tracker entry,usaf_f-15e_SE; usaf_f-15ex_SEII
+next-batch,weapon,dts_anaaq-14,3553116604,Container,,,unknown: no tracker entry,usaf_f-15e_SE
+next-batch,weapon,dts_anaaq-33,3652097318,Container,,,unknown: no tracker entry,usaf_b-1b_dts; usaf_f-15ex_SEII
+next-batch,weapon,dts_gbu-39_quad,3760871384,Container,,,unknown: no tracker entry,usaf_f-15e_SE
+next-batch,weapon,dts_gbu-53_quad,3760871384,Container,,,unknown: no tracker entry,usaf_b-1b_dts; usaf_f-15ex_SEII
+next-batch,weapon,eu_litening,3587877691,Container,,,unknown: no tracker entry,eu_ef2000_fgr4_late; raf_ef2000_fgr4_late
+next-batch,weapon,f16_anaaq-33,3758320372,Container,,,unknown: no tracker entry,pol_f-16c-bl52plus; usaf_f-16cm-bl52d
+next-batch,weapon,f16_gbu-39_quad,3758320372,Container,,,unknown: no tracker entry,pol_f-16c-bl52plus; usaf_f-16cm-bl52d
+next-batch,weapon,f16_gbu-53_quad,3758320372,Container,,,unknown: no tracker entry,pol_f-16c-bl52plus; usaf_f-16cm-bl52d
+next-batch,weapon,fr_damoncles,3758943352,Container,,,unknown: no tracker entry,fr_rafale_m
+next-batch,weapon,fr_talios,3758943352,Container,,,unknown: no tracker entry,fr_rafale_b_l; fr_rafale_m_l
+next-batch,weapon,jp_jaaq-2,3755769170,Container,,,unknown: no tracker entry,jp_f-2a_late
+next-batch,weapon,jp_ter_rockeye_3,3755769170,Container,,,unknown: no tracker entry,jp_f-2a_late
+next-batch,weapon,pla_gun_pod_qjk-99_left,3775128499,Container,,,unknown: no tracker entry,plan_z-9c
+next-batch,weapon,pla_gun_pod_qjk-99_right,3775128499,Container,,,unknown: no tracker entry,plan_z-9c
+next-batch,weapon,pla_pod_kg-800,3486502935,Container,,,unknown: no tracker entry,plaf_j16d; plan_j-15d
+next-batch,weapon,plaaf_4xgj,3801549552,Container,,,unknown: no tracker entry,plaaf_j36; plan_j-35; plan_j-50
+next-batch,weapon,plaaf_hf-6,3436170138,Container,,,unknown: no tracker entry,plaaf_j-8f; plaaf_jh7a
+next-batch,weapon,plaaf_j16_yings-iii,3769142422,Container,,,unknown: no tracker entry,plaaf_j16
+next-batch,weapon,plaaf_kd-88_pod,3812111085,Container,,,unknown: no tracker entry,plaaf_h-6k_late
+next-batch,weapon,plaaf_mer_ls-6_250_6,3812111085,Container,,,unknown: no tracker entry,plaaf_h-6k_late
+next-batch,weapon,plaaf_mer_ls-6_500_4l,3812111085,Container,,,unknown: no tracker entry,plaaf_h-6k_late
+next-batch,weapon,plaaf_mer_ls-6_500_4r,3812111085,Container,,,unknown: no tracker entry,plaaf_h-6k_late
+next-batch,weapon,plaaf_mer_type-3-250_6,3812111085,Container,,,unknown: no tracker entry,plaaf_h-6k_late
+next-batch,weapon,sest_agr-30_pod,SEST_Allied_Fixes,Container,,,unknown: no tracker entry,ran_mh-60r; S-70B-2_Seahawk; usa_a-10c; usaf_a-10c_plus; usaf_mq-9_er; usaf_mq-9a; usn_fa-18e; usn_fa-18f; usn_fa-18f_blk3; usn_mh-60r
+next-batch,weapon,sest_agr-30_pod19,SEST_Allied_Fixes,Container,,,unknown: no tracker entry,adf_ah-64e; usa_a-10c; usa_ah-64d; usa_ah-64e; usaf_a-10c_plus; usaf_f-16cm-bl52d; usn_fa-18e; usn_fa-18f; usn_fa-18f_blk3
+next-batch,weapon,spa_av-8b_gau12,3731208477,Container,,,unknown: no tracker entry,spa_av-8b_plus
+next-batch,weapon,spa_litening,3731208477,Container,,,unknown: no tracker entry,spa_av-8b_plus
+next-batch,weapon,su_l004,3434072450,Container,,,unknown: no tracker entry,plaaf_su-27ubk; plaf_j16a; plaf_j16d; wp_su-30sm2
+next-batch,weapon,uav_mq-9_pod,3503670861,Container,,,unknown: no tracker entry,usaf_mq-9_er
+next-batch,weapon,usa_lau-3a_apache,3820759806,Container,,,unknown: no tracker entry,adf_ah-64e; usa_ah-64d; usa_ah-64e
+next-batch,weapon,usaf_aaq-28_litening,3505420313,Container,,,unknown: no tracker entry,mm_av-8b_plus
+next-batch,weapon,usaf_alq-184,3758320372,Container,,,unknown: no tracker entry,pol_f-16c-bl52plus; usaf_f-16cm-bl52d
+next-batch,weapon,usaf_alq-184_2,3459682829,Container,,,unknown: no tracker entry,usa_a-10c; usaf_a-10c_plus
+next-batch,weapon,usaf_anasq-213,3758320372,Container,,,unknown: no tracker entry,pol_f-16c-bl52plus; usaf_f-16cm-bl52d
+next-batch,weapon,usaf_gbu-54_double,3758320372,Container,,,unknown: no tracker entry,pol_f-16c-bl52plus; usaf_f-16cm-bl52d
+next-batch,weapon,usaf_litening,3459682829,Container,,,unknown: no tracker entry,usa_a-10c; usaf_a-10c_plus
+next-batch,weapon,usaf_pave_spike,vanilla,Container,,,unknown: no tracker entry,rok_f-50_ph; wp_su-30sm2
+next-batch,weapon,usmc_25mm_gunpod,3505420313,Container,,,unknown: no tracker entry,mm_av-8b_plus
+next-batch,weapon,usmc_alq-164,3505420313,Container,,,unknown: no tracker entry,mm_av-8b_plus
+next-batch,weapon,usn_agr-20b,3459682829,Container,,,unknown: no tracker entry,usa_a-10c; usaf_a-10c_plus
+next-batch,weapon,usn_agr-20b_apache,3820759806,Container,,,unknown: no tracker entry,adf_ah-64e; usa_ah-64d; usa_ah-64e
+next-batch,weapon,usn_bru-61a,3418252667,Container,,,unknown: no tracker entry,usaf_f-22_s6
+next-batch,weapon,usn_bru-61a_10,3459682829,Container,,,unknown: no tracker entry,usa_a-10c; usaf_a-10c_plus
+next-batch,weapon,usn_d-704,3606134711,Container,,,unknown: no tracker entry,usn_fa-18e
+next-batch,weapon,usn_f-35_gun_pod,3737267013,Container,,,unknown: no tracker entry,usn_f-35c
+next-batch,weapon,usn_lau-10a,vanilla,Container,,,unknown: no tracker entry,mm_av-8b_plus
+next-batch,weapon,usn_lau-3a,vanilla,Container,,,unknown: no tracker entry,jp_f-2a_late; usaf_f-15e_SE; usaf_f-16a
+next-batch,weapon,usn_lau-3a_APKWS,3820759806,Container,,,unknown: no tracker entry,adf_ah-64e
+next-batch,weapon,usn_lau-68,vanilla,Container,,,unknown: no tracker entry,phl_h-76
+next-batch,weapon,usn_ter_mk82_3,vanilla,Container,,,unknown: no tracker entry,jp_f-2a_late
+next-batch,weapon,wp_apk-9,vanilla,Container,,,unknown: no tracker entry,wp_su-30m; wp_su-30sm2
+next-batch,weapon,wp_b8m-1,vanilla,Container,,,unknown: no tracker entry,plaaf_j-11bg; plan_j-15; wp_mi-24p; wp_mig-23a; wp_mig-29k; wp_su-25sm3; wp_su-33
+next-batch,weapon,wp_fantasmagoria,vanilla,Container,,,unknown: no tracker entry,wp_su-24mp
+next-batch,weapon,wp_pod_delta_fcr,vanilla,Container,,,unknown: no tracker entry,wp_mig-23a
+next-batch,weapon,wp_pod_rfk-t_vrecon,vanilla,Container,,,unknown: no tracker entry,wp_mig-23a
+next-batch,weapon,wp_pod_tangazh_elint,vanilla,Container,,,unknown: no tracker entry,wp_su-24mp
+next-batch,weapon,wp_s-25_pod,vanilla,Container,,,unknown: no tracker entry,wp_su-25sm3
+next-batch,weapon,wp_ua,3606134711,Container,,,unknown: no tracker entry,wp_mig-23a
+next-batch,weapon,wp_ub-16-57KV,vanilla,Container,,,unknown: no tracker entry,plan_ka-28; wp_ka-27
+next-batch,weapon,wp_ub-16-57UM,vanilla,Container,,,unknown: no tracker entry,plan_ka-28; wp_ka-27
+next-batch,weapon,wp_ub-32,3465256032,Container,,,unknown: no tracker entry,wp_mi-8tv
+next-batch,weapon,wp_upk_23-250,vanilla,Container,,,unknown: no tracker entry,plan_ka-28; wp_ka-27; wp_mi-24p
+next-batch,weapon,z21_type-70_launcher,3774746803,Container,,,unknown: no tracker entry,pla_z21
+next-batch,weapon,071_726_4_chaff,3774572038,Chaff,,,unknown: no tracker entry,plan_lpd_type_071
+next-batch,weapon,all_air_chaff_heavy,vanilla,Chaff,,,unknown: no tracker entry,pla_kj-600; plaaf_h-6k_late; plaaf_kj-500; plaaf_y-20a; plan_j-15; plan_j-15d; plan_y-9fq; wp_mig-23a; wp_mig-31bm; wp_tu-142m; wp_tu-95rt
+next-batch,weapon,all_air_chaff_standard,vanilla,Chaff,,,unknown: no tracker entry,jasdf_ec-2; plaaf_j16; plan_j-35; plan_ka-28; plan_ka-31; plan_z-20f; plan_z-9c; usaf_u-2_1960; usn_f-14a; wp_ka-27
+next-batch,weapon,all_ship_chaff_late,vanilla,Chaff,,,unknown: no tracker entry,ae_ffg_santa_maria_late; js_ffg_mogami; plan_cvn_004; ran_ffg_adelaide_shorthull; usn_cv_kitty_hawk; usn_cvn_ford; usn_cvn_ford_jsf; usn_cvn_nimitz; wp_bpk_udaloy; wp_rkr_kirov_improved
+next-batch,weapon,chaff_dircm,3820759806,Chaff,,,unknown: no tracker entry,adf_ah-64e; usa_ah-64e
+next-batch,weapon,fr_ngds_sealem_chaff,3567256221,Chaff,,,unknown: no tracker entry,fr_ddg_horizon; fr_ffg_aquitaine_asw
+next-batch,weapon,fr_sylena_chaff,3567256221,Chaff,,,unknown: no tracker entry,fr_ffg_lafayette_modernized; fr_lhd_mistral
+next-batch,weapon,ger_MASS_omnitrap,3629144864,Chaff,,,unknown: no tracker entry,ger_ffg_f123_2025_mlu; ger_ffg_f124_MLU; ger_ffg_f125_MLU; knm_cor_skjold; rnn_ffg_karel_eol
+next-batch,weapon,plan_726_4_chaff,3774859959,Chaff,,,unknown: no tracker entry,plan_type_001
+next-batch,weapon,plan_726_chaff,3775128499,Chaff,,,unknown: no tracker entry,plan_cv_type_003; plan_type_052d_p3; plan_type_054a_p5; plan_type_056a
+next-batch,weapon,rfn_pk10_chaff,3597650470,Chaff,,,unknown: no tracker entry,rfn_cvt_20380_7-12; rfn_ffg_11356
+next-batch,weapon,usn_mk182_chaff,3629144864,Chaff,,,unknown: no tracker entry,ae_ffg_alvaro_bazan; ae_opv_meteoro; ko_ddg-991; ko_ddg-995; ko_ddh-971; ko_ddh-975_kvls; ko_ffg-811; ko_ffg-818; ko_ffg-828; pn_ffg-06; pn_ffg-150; ran_opv_arafura; rnn_ddg_zeven_mlu
+next-batch,weapon,usn_mk214_chaff,3629144864,Chaff,,,unknown: no tracker entry,ae_ffg_bonifaz; ger_ffg_f124; hdms_iver_huitfeldt; jmsdf_dd_asahi; jmsdf_ddg_atago; jmsdf_ddg_maya; jmsdf_ddh_hyuga; ko_ddg-991; ko_ddg-995; ko_ddh-971; ko_ddh-975_kvls; ko_ffg-811; ko_ffg-818; ko_ffg-828; pn_ffg-06; pn_ffg-150; ran_ddg_hobart; ran_ffh_anzac; rn_ff_type23; rnn_ddg_zeven_mlu; rnn_ffg_karel_mlu; usn_ddg_arleigh_flt1_054_2027; usn_ddg_arleigh_flt2_072_2027; usn_ddg_arleigh_flt2A_119_2027; usn_ddg_arleigh_flt3_2027; usn_ddg_burke_f3_125; usn_lhd_wasp
+next-batch,weapon,usn_mk216_chaff,3629144864,Chaff,,,unknown: no tracker entry,usn_ddg_arleigh_flt2A_119_2027; usn_ddg_arleigh_flt3_2027; usn_ddg_burke_f3_125
+next-batch,weapon,usn_mk234_nulka,3629144864,Chaff,,,unknown: no tracker entry,ran_ddg_hobart; ran_ffh_anzac; ran_lhd_canberra; usn_ddg_arleigh_flt2A_119_2027; usn_ddg_arleigh_flt3_2027; usn_ddg_burke_f3_125
+next-batch,weapon,usn_mk234_nulka_adap,3629144864,Chaff,,,unknown: no tracker entry,ran_ddg_hobart; ran_ffh_anzac; ran_lhd_canberra; usn_ddg_arleigh_flt2A_119_2027; usn_ddg_arleigh_flt3_2027; usn_ddg_burke_f3_125
+next-batch,weapon,usn_rr144_chaff,vanilla,Chaff,,,unknown: no tracker entry,ae_lhd_juan_carlos; ae_lpd_galicia; fr_cvn_charles-de-gaulle; ita_ddg_orizzonte_18; ita_ffg_fremm; ita_ffg_fremm_asw; ita_ffg_ppa; mm_ddgh_durand_de_la_penne_02; phl_ff_hamilton; phl_fs_pohang; phl_pt_jacinto; plan_ddg_luda_typ_051d; plan_ddg_luda_typ_051dt; plan_em_sovremenny; plan_type_056a; ran_lhd_canberra; ran_lsd_choules; rn_ddg_type45; rn_ddg_type45_26; rn_opv_river_batch2; rn_type23_refit; ru_cv_kuznetsov; tha_ffg_naresuan; usn_cvn_gerald_r_ford; usn_cvn_nimitz_2000s; usn_cvn_nimitz_2000s_adou; usn_cvn_nimitz_2025; usn_cvn_nimitz_2027s_adou
+next-batch,weapon,wp_aircraft_chaff,vanilla,Chaff,,,unknown: no tracker entry,adf_ah-64e; aus_a330_mrtt; dts_b-52h; dts_saab_ge; eu_ef2000_fgr4_late; fr_as-565_sa; fr_atl2; fr_rafale_b_l; fr_rafale_m; fr_rafale_m_l; fr_sea_lynx; ger_sea_lynx_mk88; jmsdf_sh-60j; jmsdf_sh-60k; jp_f-2a_late; mm_av-8b_plus; msdvd_tu-214r; nl_nh90; pla_z21; plaaf_j-11bg; plaaf_j-11bs; plaaf_j-20a; plaaf_j-8f; plaaf_j10c; plaaf_j36; plaaf_jh7a; plaaf_su-27ubk; plaf_j16a; plaf_j16d; plan_j-50; plan_z-18f; pol_f-16c-bl52plus; raaf_f-35a; raf_ef2000_fgr4_late; ran_mh-60r; rn_merlin_hm2; rok_f-50_ph; S-70B-2_Seahawk; spa_av-8b_plus; spa_ef2000; tha_S-70B-7_Seahawk; usa_a-10c; usa_ah-64d; usa_ah-64e; usa_mv75_army; usaf_a-10c_plus; usaf_ac-130j; usaf_b-1b_dts; usaf_b-2_spirit; usaf_b-52g; usaf_b-52o; usaf_f-15e_SE; usaf_f-15ex_SEII; usaf_f-16a; usaf_f-16cm-bl52d; usaf_f-22_s6; usaf_yf-23_black_widow_ii; usmc_ch53_standalone; usmc_kc-130j; usmc_vh-3d; usn_e-2d; usn_ea-18g; usn_ea-18g_2020; usn_f-35c; usn_fa-18e; usn_fa-18f; usn_fa-18f_blk3; usn_fury_escort; usn_fury_ew; usn_mh-60r; usn_p8; usn_p8_2027; usn_p_8a; wp_a-50u; wp_il-78; wp_ka-27rdl; wp_mi-24p; wp_mi-8ew; wp_mi-8tv; wp_mig-29k; wp_mig-35; wp_su-24mp; wp_su-25sm3; wp_su-30m; wp_su-30sm2; wp_su-33; wp_su-57; wp_tu-160; wp_tu-16n; wp_tu-95_bearg; wp_tu-95ma; wp_tu-95ms; wp_tu95ms
+next-batch,weapon,ger_MASS_ATD_noisemaker,3629144864,Noisemaker,,,unknown: no tracker entry,ger_ffg_f123_2025_mlu; ger_ffg_f124_MLU; ger_ffg_f125_MLU
+next-batch,weapon,ita_canto-v,3629144864,Noisemaker,,,unknown: no tracker entry,ita_ddg_orizzonte_18; ita_ffg_fremm; ita_ffg_fremm_asw
+next-batch,weapon,plan_mss-01,3775128499,MOSS,,,unknown: no tracker entry,plan_ss_type_039b
+next-batch,weapon,plan_mss-02,3775128499,MOSS,,,unknown: no tracker entry,plan_cv_type_003
+next-batch,weapon,usn_adc_mk1_noisemaker,vanilla,Noisemaker,,,unknown: no tracker entry,ae_ffg_santa_maria_late; fr_cvn_charles-de-gaulle; fr_ffg_lafayette_modernized; fr_lhd_mistral; hdms_iver_huitfeldt; js_ffg_mogami; knm_cor_skjold; mm_ddgh_durand_de_la_penne_02; phl_ff_hamilton; phl_fs_pohang; phl_pt_jacinto; plan_cv_type_003; plan_cvn_004; plan_ddg_luda_typ_051d; plan_ddg_luda_typ_051dt; plan_em_sovremenny; plan_type_001; plan_type_052d_p3; plan_type_054a_p5; plan_type_056a; ran_ffg_adelaide_shorthull; rn_type23_refit; rnn_ffg_hol; ru_cv_kuznetsov; tha_ffg_naresuan; usn_cv_kitty_hawk; usn_cvn_ford; usn_cvn_ford_jsf; usn_cvn_nimitz; usn_cvn_nimitz_2000s; usn_cvn_nimitz_2000s_adou; usn_ssn_seawolf; usn_ssn_virginia; usn_ssn_virginia_2027; wp_bpk_udaloy; wp_rkr_kirov_improved
+next-batch,weapon,usn_adc_mk2_mod3_noisemaker,3629144864,Noisemaker,,,unknown: no tracker entry,ran_ssg_collins
+next-batch,weapon,usn_adc_mk2_mod4_noisemaker,3629144864,Noisemaker,,,unknown: no tracker entry,ae_ffg_alvaro_bazan
+next-batch,weapon,usn_adc_mk2_mod5_noisemaker,3629144864,Noisemaker,,,unknown: no tracker entry,ran_ssg_collins
+next-batch,weapon,usn_adc_mk2_mod7_noisemaker,3629144864,Noisemaker,,,unknown: no tracker entry,ae_ffg_bonifaz; ran_ddg_hobart; ran_ffh_anzac; usn_cvn_nimitz_2025; usn_cvn_nimitz_2027s_adou
+next-batch,weapon,usn_adc_mk2_noisemaker,3629144864,Noisemaker,,,unknown: no tracker entry,jmsdf_dd_asahi; jmsdf_ddg_atago; jmsdf_ddg_maya; jmsdf_ddh_hyuga; ko_ddg-991; ko_ddg-995; ko_ddh-971; ko_ddh-975_kvls; ko_ffg-811; ko_ffg-818; ko_ffg-828; pn_ffg-06; pn_ffg-150; rn_ddg_type45; rn_ddg_type45_26; rn_ff_type23; rnn_ddg_zeven_mlu; rnn_ffg_karel_eol; rnn_ffg_karel_mlu; usn_lhd_wasp
+next-batch,weapon,usn_adc_mk2_noisemaker_rsa,3413868677,Noisemaker,,,unknown: no tracker entry,usn_cvn_gerald_r_ford
+next-batch,weapon,usn_LEAD_noisemaker,3629144864,Noisemaker,,,unknown: no tracker entry,usn_ddg_arleigh_flt1_054_2027; usn_ddg_arleigh_flt2_072_2027; usn_ddg_arleigh_flt2A_119_2027; usn_ddg_arleigh_flt3_2027; usn_ddg_burke_f3_125
+next-batch,weapon,usn_moss,vanilla,MOSS,,,unknown: no tracker entry,usn_ssn_seawolf; usn_ssn_virginia; usn_ssn_virginia_2027
+next-batch,weapon,wp_mg-44,vanilla,MOSS,,,unknown: no tracker entry,wp_ssgn_yasen; wp_ssn_akula
+next-batch,weapon,wp_noisemaker,vanilla,Noisemaker,,,unknown: no tracker entry,plan_ss_kilo; plan_ss_type_039; plan_ss_type_039b; plan_ss_type_039c; plan_ssn_type_093b; wp_ssgn_yasen; wp_ssn_akula
+next-batch,weapon,fr_sonoflash,3567256221,Sonobuoy,,,unknown: no tracker entry,fr_atl2
+next-batch,weapon,plan_skf-16,3775128499,Sonobuoy,,,unknown: no tracker entry,plan_y-9fq; plan_z-20f
+next-batch,weapon,plan_skf-18,3775128499,Sonobuoy,,,unknown: no tracker entry,plan_y-9fq; plan_z-20f
+next-batch,weapon,plan_skf-20,3775128499,Sonobuoy,,,unknown: no tracker entry,plan_y-9fq; plan_z-20f
+next-batch,weapon,plan_sq-4,3417801942,Sonobuoy,,,unknown: no tracker entry,plan_z-18f
+next-batch,weapon,rn_jezebel,3373356293,Sonobuoy,,,unknown: no tracker entry,ger_sea_lynx_mk88
+next-batch,weapon,rn_ssq-906g,3629144864,Sonobuoy,,,unknown: no tracker entry,rn_merlin_hm2
+next-batch,weapon,rn_ssq-926,3629144864,Sonobuoy,,,unknown: no tracker entry,rn_merlin_hm2
+next-batch,weapon,rn_ssq-955b,3629144864,Sonobuoy,,,unknown: no tracker entry,rn_merlin_hm2
+next-batch,weapon,rn_ssq-963d,3629144864,Sonobuoy,,,unknown: no tracker entry,rn_merlin_hm2
+next-batch,weapon,usn_ssq-101,3629144864,Sonobuoy,,,unknown: no tracker entry,usn_p8; usn_p8_2027
+next-batch,weapon,usn_ssq-53,vanilla,Sonobuoy,,,unknown: no tracker entry,S-70B-2_Seahawk; tha_S-70B-7_Seahawk; usa_mv75_army
+next-batch,weapon,usn_ssq-53d,3629144864,Sonobuoy,,,unknown: no tracker entry,jmsdf_sh-60j
+next-batch,weapon,usn_ssq-53f,3629144864,Sonobuoy,,,unknown: no tracker entry,jmsdf_sh-60k; ran_mh-60r; usmc_ch53_standalone; usn_p8
+next-batch,weapon,usn_ssq-53h,3629144864,Sonobuoy,,,unknown: no tracker entry,nl_nh90; usn_mh-60r; usn_p8_2027
+next-batch,weapon,usn_ssq-62,3390330875,Sonobuoy,,,unknown: no tracker entry,S-70B-2_Seahawk; tha_S-70B-7_Seahawk; usa_mv75_army
+next-batch,weapon,usn_ssq-62c,3629144864,Sonobuoy,,,unknown: no tracker entry,jmsdf_sh-60j
+next-batch,weapon,usn_ssq-62e,3629144864,Sonobuoy,,,unknown: no tracker entry,jmsdf_sh-60k; ran_mh-60r; usmc_ch53_standalone; usn_p8
+next-batch,weapon,usn_ssq-62g,3629144864,Sonobuoy,,,unknown: no tracker entry,nl_nh90; usn_mh-60r; usn_p8_2027
+next-batch,weapon,usn_ssq-77,vanilla,Sonobuoy,,,unknown: no tracker entry,ran_mh-60r
+next-batch,weapon,usn_ssq-77b,3629144864,Sonobuoy,,,unknown: no tracker entry,jmsdf_sh-60j
+next-batch,weapon,usn_ssq-77c,3629144864,Sonobuoy,,,unknown: no tracker entry,jmsdf_sh-60k; usn_mh-60r; usn_p8; usn_p8_2027
+next-batch,weapon,usn_ssq_101,3413868677,Sonobuoy,,,unknown: no tracker entry,usn_p_8a
+next-batch,weapon,usn_ssq_53f,3413868677,Sonobuoy,,,unknown: no tracker entry,usn_p_8a
+next-batch,weapon,usn_ssq_62e,3413868677,Sonobuoy,,,unknown: no tracker entry,usn_p_8a
+next-batch,weapon,usn_ssq_77c,3413868677,Sonobuoy,,,unknown: no tracker entry,usn_p_8a
+next-batch,weapon,wp_rgb-1,vanilla,Sonobuoy,,,unknown: no tracker entry,wp_tu-142m
+next-batch,weapon,wp_rgb-3,vanilla,Sonobuoy,,,unknown: no tracker entry,wp_tu-142m
+next-batch,weapon,wp_rgb-nm1,vanilla,Sonobuoy,,,unknown: no tracker entry,plan_ka-28; wp_ka-27
+next-batch,weapon,pla_airdrop_type63,3782020901,Paratrooper,,,unknown: no tracker entry,plaaf_y-20a
+next-batch,weapon,pla_paratrooper,3782020901,Paratrooper,,,unknown: no tracker entry,plaaf_y-20a

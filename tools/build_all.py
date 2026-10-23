@@ -7,7 +7,8 @@ integration/*/SEST_*/aircraft/), so on a clean tree it must build after the
 packs it reads. That edge is declared in data/mod-catalog.json's local_packs
 registry as "build_after" — this script topologically sorts on it, so the
 ordering can never again be satisfied only by accident of alphabetical
-iteration.
+iteration. Once every pack is built it writes the combat cost list, which
+reads SEST_Campaign's missions, and then consolidates the dist.
 
     python3 tools/build_all.py               # rebuild every pack in order
     python3 tools/build_all.py --from-scratch  # delete pack output first, then
@@ -119,6 +120,17 @@ def main():
 
     if failed:
         sys.exit(f"{len(failed)} builder(s) failed: {', '.join(failed)}")
+
+    # The combat cost list (docs/combat-costs/cost-list.md and .csv) reads
+    # SEST_Campaign's built missions, and SEST_Campaign builds after
+    # SEST_Combat_Costs (its build_after names the cost pack), so the list is
+    # written here, once every pack is built, rather than by the cost pack's
+    # own turn above - which on --from-scratch runs before any mission exists.
+    run = subprocess.run([sys.executable, str(ROOT / "integration" / "combat-costs" / "build_pack.py"),
+                          "--list"], cwd=ROOT, capture_output=True, text=True)
+    print(("  ok      " if run.returncode == 0 else "  FAILED  ") + "combat cost list (docs/combat-costs)")
+    if run.returncode != 0:
+        sys.exit("    " + (run.stdout + run.stderr).strip().replace("\n", "\n    "))
 
     # Final stage: merge the per-pack outputs into the one deployable pack.
     run = subprocess.run([sys.executable, str(ROOT / "tools" / "consolidate_packs.py")],

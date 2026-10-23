@@ -161,8 +161,9 @@ EXCUSES = {
         "library", "USD expenditure and equipment-loss overlay through Anchor Chain; "
         "its cost catalogs apply to all missions and do not alter purchase points"),
     "SEST_Combat_Costs": (
-        "library", "three Combat Cost Tracker catalog extensions: spelling corrections "
-        "and reviewed airframe/hull/weapon-family estimates; no performance or mission changes"),
+        "library", "three Combat Cost Tracker catalog extensions: spelling corrections, "
+        "reviewed airframe/hull/weapon-family estimates and SEST researched estimates "
+        "with their sources; no performance or mission changes"),
     "euromod-anchorchain-expansion": (
         "library", "well-deck and effects framework: the effects library, "
         "`systems/` mappings and ammunition overwrites that the EuroMod hulls "

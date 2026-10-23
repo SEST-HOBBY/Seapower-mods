@@ -2,29 +2,32 @@ SEST COMBAT COST COMPATIBILITY
 
 Requires enabled Combat Cost Tracker and Anchor Chain, then a full game restart.
 Only cost catalogs are extended; no weapon, aircraft or ship performance changes.
-Values are the tracker's existing USD estimates, not new procurement quotes.
+Mapped values copy the tracker's existing USD estimates exactly; they are not new procurement quotes.
+SEST researched estimates are SEST's own figures, not the author's: each names its method,
+reference/source year and sources below and in the catalog comment above its section.
 Source reference years remain the source's years; CurrentYearCost is independent.
 Task Force purchase points and ammo_prices.csv scores are never treated as USD.
 No global price preference, category visibility, overlay scale or currency is changed.
 Native tracking covers expended ammunition, vessels and aircraft; land-platform loss pricing is unsupported.
+The full list of SEST's units and their prices is docs/combat-costs/cost-list.md in the SEST repository.
 
-weapon: 19 compatibility entries; SEST-priced historical/current 123/123 of 138 eligible references.
-vessel: 33 compatibility entries; SEST-priced historical/current 297/297 of 339 eligible references.
-aircraft: 17 compatibility entries; SEST-priced historical/current 35/35 of 37 eligible references.
+weapon: 24 compatibility entries (5 SEST researched estimates); SEST-priced historical/current 129/129 of 138 eligible references.
+vessel: 61 compatibility entries (14 SEST researched estimates); SEST-priced historical/current 320/320 of 339 eligible references.
+aircraft: 37 compatibility entries (6 SEST researched estimates); SEST-priced historical/current 35/35 of 37 eligible references.
 
 REVIEWED / NORMALIZED MAPPINGS
 weapon fr_sm-40 <- fr__sm40: WeaponCosts=380000, CurrentYearCost=2360000, Category=ASM
   Same catalog reference after path/punctuation normalization
 weapon plaaf_ld-10 <- plaaf_ld10: WeaponCosts=350000, CurrentYearCost=1000000, Category=ARM
   Same catalog reference after path/punctuation normalization
+weapon plan_cm-302 <- plan_yj12_ship: WeaponCosts=1930000, CurrentYearCost=3650000, Category=ASM
+  CM-302 is the export YJ-12, same missile family as plan_yj12_ship (author model estimate, reference year 2001)
 weapon plan_pl-15 <- plan_pl15: WeaponCosts=800000, CurrentYearCost=1200000, Category=AAM
   Same catalog reference after path/punctuation normalization
 weapon plan_yj-82 <- plan_yj_82: WeaponCosts=730000, CurrentYearCost=1650000, Category=ASM
   Same catalog reference after path/punctuation normalization
 weapon plan_yj-83k <- plan_yj83k: WeaponCosts=730000, CurrentYearCost=1650000, Category=ASM
   Same catalog reference after path/punctuation normalization
-weapon sest_agr-30 <- unknown: WeaponCosts=unknown, CurrentYearCost=unknown, Category=ATGM
-  Redback is a bespoke fictional upgrade; no supported USD unit price
 weapon sest_aim-424 <- usn_aim-424: WeaponCosts=unknown, CurrentYearCost=unknown, Category=AAM
   SEST MALICE: retain the author's explicitly unknown AIM-424 prices
 weapon su_kh35 <- su_kh-35: WeaponCosts=730000, CurrentYearCost=1650000, Category=ASM
@@ -65,10 +68,26 @@ vessel ch_ss_thomson_mlu <- type_209: VesselCosts=49000000, CurrentYearCost=4060
   Same Chilean Type 209/1400 hull (Thomson class), renamed by its author on 22 Oct 2026; the tracker still prices it under the old id
 vessel ko_kddx <- non/ko_kddx: VesselCosts=1605000000, CurrentYearCost=2077000000, Category=DDG
   Exact KDDX reference stored under the author catalog non/ path; classify the missile destroyer as DDG
+vessel ko_lph-6112 <- ko_lph-6111: VesselCosts=704000000, CurrentYearCost=1169000000, Category=LHD
+  Marado, second Dokdo-class ship: same class as ko_lph-6111 (author model estimate, reference year 2006)
+vessel ko_pkg-711_scl <- ko_pkg-711: VesselCosts=35000000, CurrentYearCost=60000000, Category=FAC
+  Yoon Youngha PKG with a KVLS what-if fit: same class as ko_pkg-711; the KVLS fit is not priced
 vessel mor_ptm_lazaga <- ae_ptm_lazaga: VesselCosts=10000000, CurrentYearCost=35000000, Category=PTM
   Authored alias of the same Lazaga hull; Spanish catalog family proxy
+vessel phl_fs_pohang <- ko_pcc-756: VesselCosts=41000000, CurrentYearCost=131000000, Category=FS
+  Same Pohang class: the ko_pcc-756 entry covers all 24 ROKN hulls and both configs give 1,220 t; keep the author's 1984 class estimate, the 2019 donation is not a new build
+vessel plan_ddg_luda_typ_051 <- plan_dd_luda1: VesselCosts=24000000, CurrentYearCost=197000000, Category=DDG
+  Luda I (Type 051): same class as plan_dd_luda1 (author model estimate, price year 1971); classify the missile destroyer as DDG
+vessel plan_ddg_luda_typ_051d <- plan_dd_luda1: VesselCosts=24000000, CurrentYearCost=197000000, Category=DDG
+  Luda Type 051D: same family as plan_dd_luda1 (author model estimate, price year 1971); classify the missile destroyer as DDG
+vessel plan_ddg_luda_typ_051dt <- plan_dd_luda1: VesselCosts=24000000, CurrentYearCost=197000000, Category=DDG
+  Luda Type 051DT refit: same family as plan_dd_luda1; the refit is not priced; classify the missile destroyer as DDG
 vessel plan_em_sovremenny <- wp_em_sovremenny_98: VesselCosts=205000000, CurrentYearCost=835000000, Category=DDG
   Sovremenny export-hull family proxy; no invented modernization surcharge
+vessel plan_ss_kilo <- wp_ss_kilo: VesselCosts=100000000, CurrentYearCost=406000000, Category=SS
+  PLAN Kilo 877EKM (364/365): same class as wp_ss_kilo (author model estimate, price year 1980)
+vessel plan_type_001 <- ru_cv_varyag: VesselCosts=1754000000, CurrentYearCost=4315000000, Category=CV
+  Liaoning (ex-Varyag, Project 1143.6): same hull as ru_cv_varyag (author model estimate, price year 1991)
 vessel ran_aor_supply <- unknown: VesselCosts=unknown, CurrentYearCost=unknown, Category=AO
   Modern Supply-class AOR is not the catalog old HMAS Supply; retain unknown USD values and classify as AO
 vessel ran_ddg_hobart <- ran_ddg_hobart_alt_late: VesselCosts=1022000000, CurrentYearCost=1904000000, Category=DDG
@@ -83,18 +102,26 @@ vessel ran_opv_arafura <- unknown: VesselCosts=unknown, CurrentYearCost=unknown,
   No Arafura-class price in the captured catalog; no unsupported foreign OPV price substitution
 vessel ran_ssg_collins <- unknown: VesselCosts=unknown, CurrentYearCost=unknown, Category=SSG
   No Collins-class price in the captured catalog; do not substitute an Oberon or another submarine class
-vessel rfn_aor_pashin <- unknown: VesselCosts=unknown, CurrentYearCost=unknown, Category=AO
-  No Pashin-class price in the captured catalog; map the unsupported AOR prefix to AO without assigning a price
-vessel rn_aor_tide <- unknown: VesselCosts=unknown, CurrentYearCost=unknown, Category=AO
-  No Tide-class price in the captured catalog; map the unsupported AOR prefix to AO without assigning a price
 vessel rn_lph_ocean_09 <- rn_lph_ocean: VesselCosts=455000000, CurrentYearCost=935000000, Category=LPH
   Same HMS Ocean hull family with a scenario-year suffix
 vessel tha_aor_chula <- unknown: VesselCosts=unknown, CurrentYearCost=unknown, Category=AO
   No Chula-class price in the captured catalog; map the unsupported AOR prefix to AO without assigning a price
+vessel tha_ff_053HT <- plan_ff_jianghu3: VesselCosts=20000000, CurrentYearCost=123000000, Category=FF
+  Type 053HT is an export build of the Type 053H2 (Jianghu III); same family as plan_ff_jianghu3, the catalog's 1975 model estimate
+vessel tha_ff_053HT_H <- plan_ff_jianghu3: VesselCosts=20000000, CurrentYearCost=123000000, Category=FF
+  Type 053HT(H) is the helideck sub-variant of the Type 053H2 (Jianghu III) export build; same family as plan_ff_jianghu3
+vessel tha_ff_knox_84 <- usn_ff_knox_84: VesselCosts=78000000, CurrentYearCost=713000000, Category=FF
+  Same class: ex-USN Knox-class frigates (Truett, Ouellet) in RTN service
+vessel tha_fs_tapi <- ir_pf_bayandor: VesselCosts=26000000, CurrentYearCost=285000000, Category=FS
+  Same design: PF 103-class patrol frigate built for Thailand, as Iran's Bayandor class; retain the donor's 1964 reference year
+vessel tha_ptg_prabrarapak <- ara_tnc54: VesselCosts=10000000, CurrentYearCost=35000000, Category=FAC
+  Same design: Luerssen TNC-45, as the Argentine Intrepida class; the catalog's 1975 missile-FAC estimate
 vessel usn_cg_bunker_hill_vls_2004 <- usn_cg_ticonderoga_vls_2004: VesselCosts=972000000, CurrentYearCost=3269000000, Category=CG
   Same Ticonderoga VLS class and 2004 fit; fitted-hull family estimate
 vessel usn_cg_ticonderoga_vls_2027 <- usn_cg_ticonderoga_vls_2025: VesselCosts=972000000, CurrentYearCost=3269000000, Category=CG
   Ticonderoga VLS fitted-hull family estimate; no invented premium for the 2027 fit
+vessel usn_cvn_nimitz_2000s_adou <- usn_cvn_nimitz_2000s: VesselCosts=700000000, CurrentYearCost=4315000000, Category=CVN
+  Same Nimitz (2000s) hull as usn_cvn_nimitz_2000s; the author's early Nimitz proxy; air wing excluded
 vessel usn_ddg_arleigh_flt1_051_2027 <- usn_ddg_burke_f1_051_late: VesselCosts=704000000, CurrentYearCost=1731000000, Category=DDG
   Same DDG-51 hull family; no invented premium for the 2027 fit
 vessel usn_ddg_arleigh_flt1_052_2027 <- usn_ddg_burke_f1_052_late: VesselCosts=704000000, CurrentYearCost=1731000000, Category=DDG
@@ -107,6 +134,10 @@ vessel usn_ddg_arleigh_flt2_072_2027 <- usn_ddg_burke_f2_072_late: VesselCosts=9
   Same DDG-72 hull family; no invented premium for the 2027 fit
 vessel usn_ddg_arleigh_flt2_075_2027 <- usn_ddg_burke_f2_075_late: VesselCosts=900000000, CurrentYearCost=1731000000, Category=DDG
   Same DDG-75 hull family; no invented premium for the 2027 fit
+vessel usn_ddg_arleigh_flt3_2027 <- usn_ddg_burke_f3_125: VesselCosts=2519000000, CurrentYearCost=2700000000, Category=DDG
+  Alias of usn_ddg_burke_f3_125: same Flight III class; no premium added for the 2027 fit
+vessel usn_ffg_ohp_longhull_sh60b <- usn_ffg_oliver_hazard_perry_longhull: VesselCosts=172000000, CurrentYearCost=951000000, Category=FFG
+  Same Oliver Hazard Perry long-hull class as usn_ffg_oliver_hazard_perry_longhull (1977 price year); embarked SH-60B excluded
 vessel usn_lhd_wasp_early <- pending/usn_lhd_wasp_early: VesselCosts=318000000, CurrentYearCost=1871000000, Category=LHD
   Same catalog reference after path/punctuation normalization
 vessel usn_ssn_los_angeles_flt3_2027 <- usn_ssn_los_angeles_flt3_2026: VesselCosts=245000000, CurrentYearCost=1442000000, Category=SSN
@@ -119,12 +150,28 @@ vessel wp_rkr_kirov_improved <- wp_rkr_kirov: VesselCosts=743000000, CurrentYear
   Author's Kirov fitted-hull family/refit proxy; no invented upgrade surcharge
 aircraft adf_ah-64e <- usa_ah-64e: AircraftCosts=12000000, CurrentYearCost=36500000
   AH-64E airframe-family proxy; not an Australian package or sustainment quote
+aircraft boeing_rc135 <- usaf_rc_135: AircraftCosts=150000000, CurrentYearCost=220000000
+  RC-135V/W Rivet Joint (re-engined): same class as the author's usaf_rc_135 model estimate; retain its 1998 reference year
+aircraft civ_as-350 <- fr_as-350: AircraftCosts=210000, CurrentYearCost=2200000
+  Civil AS350 Ecureuil/AStar: same AS.350 type as the author's fr_as-350; retain its 1963 family reference year
 aircraft dts_b-52h <- usaf_b-52g: AircraftCosts=6700000, CurrentYearCost=120000000
   Author's B-52 D/G family proxy for a B-52H; retain its 1956 reference basis
+aircraft irinavy_bell-212 <- spa_ab212: AircraftCosts=1900000, CurrentYearCost=11200000
+  Bell 212 utility helicopter: same Bell/Agusta-Bell 212 airframe family as the author's AB-212; the donor is ASW-fitted, so it may run slightly high
+aircraft plaaf_h-6k_late <- plaaf_h6k: AircraftCosts=40000000, CurrentYearCost=70000000
+  Same H-6K type (late production); author's H-6K model estimate, retain its 2011 reference basis
+aircraft plaaf_j-11bs <- plaaf_j-11b: AircraftCosts=20000000, CurrentYearCost=50000000
+  Two-seat J-11B; author's Su-27/J-11 family estimate, retain its 1990 reference basis
 aircraft plaaf_j-16 <- plaaf_j16: AircraftCosts=35000000, CurrentYearCost=70000000
   Same catalog reference after path/punctuation normalization
+aircraft plaaf_j-8f <- plaaf_j8j: AircraftCosts=12000000, CurrentYearCost=25000000
+  J-8II-family J-8F; author's J-8 family estimate (J-8J entry), retain its 1990 reference basis
 aircraft plaaf_j36 <- plaaf_j-36: AircraftCosts=unknown, CurrentYearCost=unknown
   Same catalog reference after path/punctuation normalization
+aircraft plaaf_su-27ubk <- plaaf_j-11: AircraftCosts=20000000, CurrentYearCost=50000000
+  Two-seat Su-27 in PLAAF service; author's Su-27/J-11 family estimate, retain its 1990 reference basis
+aircraft plan_z-18f <- plan_z-18fa: AircraftCosts=19900000, CurrentYearCost=28100000
+  Z-18F ASW Z-18; author's Z-18 family estimate (Z-18FA), retain its 2014 reference basis
 aircraft raaf_fa-18a_2011 <- usn_fa-18a: AircraftCosts=16100000, CurrentYearCost=54200000
   F/A-18A airframe-family proxy; source Hornet reference basis, not a 2011 purchase quote
 aircraft raaf_fa-18f <- usn_fa-18f: AircraftCosts=44100000, CurrentYearCost=83300000
@@ -137,8 +184,20 @@ aircraft usaf_a-10c_plus <- usa_a-10c: AircraftCosts=10000000, CurrentYearCost=2
   A-10C airframe-family proxy; no invented premium for SEST's upgrade
 aircraft usaf_b-52h_419_flts <- usaf_b-52g: AircraftCosts=6700000, CurrentYearCost=120000000
   Author's B-52 D/G family proxy for the 419 FLTS H model; retain its 1956 reference basis
+aircraft usaf_e-3g <- usaf_e-3a: AircraftCosts=270000000, CurrentYearCost=300000000
+  E-3G Sentry (Block 40/45 upgraded E-3): same airframe class as the author's usaf_e-3a; retain its 1998 reference year
+aircraft usaf_stratotanker <- usaf_kc-135a: AircraftCosts=39600000, CurrentYearCost=90000000
+  KC-135A Stratotanker: same type as the author's usaf_kc-135a model estimate (reference 1998)
 aircraft usn_p-8a <- usn_p_8a: AircraftCosts=148000000, CurrentYearCost=170000000
   Same catalog reference after path/punctuation normalization
+aircraft wp_il-78 <- wp_il-76md: AircraftCosts=20000000, CurrentYearCost=70000000
+  Il-78 tanker variant of the Il-76; author's Il-76 family estimate, retain its 1980 reference basis; no tanker-kit premium
+aircraft wp_ka-27rdl <- plan_ka-31: AircraftCosts=12800000, CurrentYearCost=28100000
+  Ka-27RLD AEW helicopter, titled by its mod as the Ka-31; author's Ka-31 estimate, retain its 1995 reference basis
+aircraft wp_mig-35 <- wp_mig-29m2_967: AircraftCosts=20000000, CurrentYearCost=45000000
+  MiG-35D, the final MiG-29 development; author's MiG-29 family estimate (MiG-29M2 entry), retain its 1990 reference basis
+aircraft wp_su-24mp <- wp_su-24m: AircraftCosts=20000000, CurrentYearCost=50000000
+  Su-24MP EW version of the Su-24M; author's Su-24M estimate, retain its 1980 reference basis
 aircraft wp_su_27sm <- wp_su-27sm: AircraftCosts=20000000, CurrentYearCost=50000000
   Same catalog reference after path/punctuation normalization
 aircraft wp_su_30m <- wp_su-30m: AircraftCosts=35000000, CurrentYearCost=70000000
@@ -152,63 +211,193 @@ aircraft wp_su_35s <- wp_su-35s: AircraftCosts=55000000, CurrentYearCost=8500000
 aircraft wp_tu95ms <- wp_tu-95ms: AircraftCosts=15000000, CurrentYearCost=100000000
   Same catalog reference after path/punctuation normalization
 
+SEST RESEARCHED ESTIMATES
+weapon rok_hgv: WeaponCosts=2500000, CurrentYearCost=3000000, Category=Land Attack
+  ROK KVLS-II HGV (concept): forks rok_hyunmoo_4_2's config, whose catalog pair (reference 2021) is copied; a glide body likely costs more; not a published price; low confidence
+  historical: model estimate, reference year 2021; current: model estimate, source year 2026
+  Source: Euromod-South Korea language_en/ammunition_names.ini (lines 31, 33) - file:mods-source/3789208859/language_en/ammunition_names.ini
+  Source: Tracker catalog weaponcosts.ini [rok_hyunmoo_4_2], lines 456-461 - file:mods-source/3807187341/systems/weaponcosts.ini
+  Source: rok_hgv.ini vs rok_hyunmoo_4_2.ini (diff) - file:mods-source/3789208859/ammunition/rok_hgv.ini
+weapon rok_L-sam: WeaponCosts=10300000, CurrentYearCost=14600000, Category=SAM
+  Naval L-SAM (concept, IOC 2030): a ship-launched hit-to-kill ABM compared with the SM-3 Block IB, whose catalog pair (usn_rim-161c, estimated IOC 2014) is copied; only programme totals are public; low confidence
+  historical: model estimate, reference year 2014; current: model estimate, source year 2026
+  Source: Euromod-South Korea language_en/ammunition_names.ini (line 13) - file:mods-source/3789208859/language_en/ammunition_names.ini
+  Source: rok_L-sam.ini - file:mods-source/3789208859/ammunition/rok_L-sam.ini
+  Source: Tracker catalog weaponcosts.ini [usn_rim-161c], lines 731-735 - file:mods-source/3807187341/systems/weaponcosts.ini
+weapon sest_agr-30: WeaponCosts=70000, CurrentYearCost=150000, Category=ATGM
+  AGR-30 Redback is fictional: a seeker and role comparison with the AGM-114L Longbow Hellfire, whose catalog pair (usa_agm-114l, reference 1998) is copied; not a published price; low confidence
+  historical: model estimate, reference year 1998; current: model estimate, source year 2026
+  Source: SEST Allied Fixes builder, committed HEAD (Redback seeker rationale) - file:integration/allied-fixes/build_patch.py (git HEAD 57375598, lines 229-231)
+  Source: Tracker catalog weaponcosts.ini [usa_agm-114l], lines 5302-5307 - file:mods-source/3807187341/systems/weaponcosts.ini
+  Source: Tracker catalog weaponcosts.ini [usa_apkws_2_m282] (same-airframe lower bound) - file:mods-source/3807187341/systems/weaponcosts.ini
+weapon usn_gbu-12d: WeaponCosts=3800, CurrentYearCost=22000, Category=Bomb
+  GBU-12D/B Paveway II (in service 1976): Gulf War Air Power Survey vol. 5 unit cost USD 9,000 in 1991 dollars, carried back to 1976 and forward to 2026 by CPI; medium confidence (FAS gives an undated USD 19,000)
+  historical: CPI conversion, reference year 1976; current: CPI conversion, source year 1991
+  Source: Air-Delivered Munitions in Desert Storm (R.J. Lee, reproducing Gulf War Air Power Survey vol. 5) - https://rjlee.org/air/ds-munit/
+  Source: Wikipedia, GBU-12 Paveway II - https://en.wikipedia.org/wiki/GBU-12_Paveway_II
+  Source: FAS DOD-101 GBU-12 Paveway II - https://man.fas.org/dod-101/sys/smart/gbu-12.htm
+  Source: Minneapolis Fed, Consumer Price Index 1913- - https://www.minneapolisfed.org/about-us/monetary-policy/inflation-calculator/consumer-price-index-1913-
+weapon usn_gbu-24: WeaponCosts=48000, CurrentYearCost=160000, Category=Bomb
+  GBU-24 Paveway III (Mk 84; in service 1983): Gulf War Air Power Survey vol. 5 unit cost USD 65,000 in 1991 dollars, carried back to 1983 and forward to 2026 by CPI
+  historical: CPI conversion, reference year 1983; current: CPI conversion, source year 1991
+  Source: Air-Delivered Munitions in Desert Storm (R.J. Lee, reproducing Gulf War Air Power Survey vol. 5) - https://rjlee.org/air/ds-munit/
+  Source: Wikipedia, GBU-24 Paveway III - https://en.wikipedia.org/wiki/GBU-24_Paveway_III
+  Source: Vanilla usn_gbu-24.ini - file:mods-source/_vanilla/original/ammunition/usn_gbu-24.ini
+  Source: Minneapolis Fed, Consumer Price Index 1913- - https://www.minneapolisfed.org/about-us/monetary-policy/inflation-calculator/consumer-price-index-1913-
+vessel jmsdf_aoe_mashuu: VesselCosts=399000000, CurrentYearCost=481000000, Category=AOE
+  Mashu-class AOE (FY2000 plan): published build cost JPY 43.0bn (ja.wikipedia) at the tracker's JPY Rate2000; current is ATLA's 2025 contract for the larger 14,500 t successor AOE, an upper-side proxy
+  historical: published price, reference year 2000; current: comparable recent purchase, source year 2025
+  Source: ましゅう型補給艦 (Japanese Wikipedia) - https://ja.wikipedia.org/wiki/%E3%81%BE%E3%81%97%E3%82%85%E3%81%86%E5%9E%8B%E8%A3%9C%E7%B5%A6%E8%89%A6
+  Source: ましゅう (補給艦) (Japanese Wikipedia) - https://ja.wikipedia.org/wiki/%E3%81%BE%E3%81%97%E3%82%85%E3%81%86_(%E8%A3%9C%E7%B5%A6%E8%89%A6)
+  Source: Japan's MHI wins contract to build new replenishment ship and two Upgraded FFM (Naval News, 16 May 2025) - https://www.navalnews.com/?p=72592
+  Source: 海自が巨大な「新型補給艦」導入へ (trafficnews.jp) - budget alternative, not used - https://trafficnews.jp/post/546291
+vessel jmsdf_ddh_hyuga: VesselCosts=920000000, CurrentYearCost=1629000000, Category=DDH
+  Hyuga-class DDH: published USD 920m in 2004 dollars (USNI Proceedings, Oct 2007); 2004 is the budget year, the class entered service in 2009
+  historical: published price, reference year 2004; current: CPI conversion, source year 2004
+  Source: Combat Fleets, Proceedings October 2007 (Eric Wertheim, USNI) - https://www.usni.org/magazines/proceedings/2007/october/combat-fleets
+  Source: Consumer Price Index, 1913- (Federal Reserve Bank of Minneapolis) - https://www.minneapolisfed.org/about-us/monetary-policy/inflation-calculator/consumer-price-index-1913-
+vessel plan_lpd_type_071: VesselCosts=162000000, CurrentYearCost=262000000, Category=LPD
+  Type 071 LPD (first service 2007): export-family anchor, the 2019 Type 071E for Thailand at Bt6.1bn (about USD 200m, Naval News), carried back to 2007 and forward to 2026 by CPI; low confidence
+  historical: CPI conversion, reference year 2007; current: CPI conversion, source year 2019
+  Source: Royal Thai Navy Procures Type 071E LPD from China's CSSC (Naval News, 16 Sep 2019) - https://www.navalnews.com/naval-news/2019/09/royal-thai-navy-procures-type-071e-lpd-from-chinas-cssc/
+  Source: Consumer Price Index, 1913- (Federal Reserve Bank of Minneapolis) - https://www.minneapolisfed.org/about-us/monetary-policy/inflation-calculator/consumer-price-index-1913-
+vessel pn_ffg-06: VesselCosts=250000000, CurrentYearCost=297000000, Category=FFG
+  Miguel Malvar class: published contract PHP 12.5bn (about USD 250m) per ship-platform, excluding munitions (2021); current is the Dec 2025 HD HHI contract for two frigates built to the same specification
+  historical: published price, reference year 2021; current: comparable recent purchase, source year 2025
+  Source: Miguel Malvar-class frigate (English Wikipedia) - https://en.wikipedia.org/wiki/Miguel_Malvar-class_frigate
+  Source: HD Hyundai Heavy Industries wins 844.7 billion won order to build two Philippine frigates (Chosun Biz, 26 Dec 2025) - https://biz.chosun.com/en/en-industry/2025/12/26/YQ64R6RXBJDX7AM4Y2BD6NR6AU/
+vessel pn_ffg-150: VesselCosts=168000000, CurrentYearCost=235000000, Category=FFG
+  Jose Rizal class: published Notice of Award PHP 15.745bn for two (USD 336.9m), excluding munitions (Aug 2016); the larger Miguel Malvar follow-on is not used as a current comparison
+  historical: published price, reference year 2016; current: CPI conversion, source year 2016
+  Source: Jose Rizal-class frigate (English Wikipedia) - https://en.wikipedia.org/wiki/Jose_Rizal-class_frigate
+  Source: Jose Rizal-class frigate (English Wikipedia), lot split - https://en.wikipedia.org/wiki/Jose_Rizal-class_frigate
+  Source: HHI Launched the 'Jose Rizal' Frigate for the Philippines Navy (Naval News, 24 May 2019) - https://www.navalnews.com/?p=4306
+  Source: Consumer Price Index, 1913- (Federal Reserve Bank of Minneapolis) - https://www.minneapolisfed.org/about-us/monetary-policy/inflation-calculator/consumer-price-index-1913-
+vessel pn_ffg-150_2: VesselCosts=168000000, CurrentYearCost=235000000, Category=FFG
+  Jose Rizal class with a VLS what-if fit: same hull and values as pn_ffg-150; the VLS fit is not priced
+  historical: published price, reference year 2016; current: CPI conversion, source year 2016
+  Source: Jose Rizal-class frigate (English Wikipedia) - https://en.wikipedia.org/wiki/Jose_Rizal-class_frigate
+vessel rfn_aor_pashin: VesselCosts=93000000, CurrentYearCost=134000000, Category=AO
+  Project 23130 Akademik Pashin (in service 2020): RUB 2.978bn lead-ship contract (bmpd) at the 2013 average 31.8614 RUB/USD
+  historical: published price, reference year 2013; current: CPI conversion, source year 2013
+  Source: bmpd (CAST) LiveJournal, 22 Jan 2020 - https://bmpd.livejournal.com/3911104.html
+  Source: ExchangeRates.org.uk, US Dollar to Russian Rouble History: 2013 - https://www.exchangerates.org.uk/USD-RUB-spot-exchange-rates-history-2013.html
+  Source: US Inflation Calculator, CPI-U data 1913-2026 (BLS series) - https://www.usinflationcalculator.com/inflation/consumer-price-index-and-annual-percent-changes-from-1913-to-2008/
+vessel rn_aor_tide: VesselCosts=179000000, CurrentYearCost=261000000, Category=AO
+  Tide-class MARS tanker (in service from 2017): GBP 452m four-ship DSME contract (Hansard, 22 Feb 2012) at the 2012 average 1.5849 USD/GBP; probably understates the fitted ship (UK customisation excluded)
+  historical: published price, reference year 2012; current: CPI conversion, source year 2012
+  Source: Hansard, Commons Written Statement 'Royal Fleet Auxiliary', 22 Feb 2012 (Peter Luff) - https://hansard.parliament.uk/Commons/2012-02-22/debates/12022245000007/RoyalFleetAuxiliary
+  Source: ExchangeRates.org.uk, British Pound to US Dollar History: 2012 - https://www.exchangerates.org.uk/GBP-USD-spot-exchange-rates-history-2012.html
+  Source: US Inflation Calculator, CPI-U data 1913-2026 (BLS series) - https://www.usinflationcalculator.com/inflation/consumer-price-index-and-annual-percent-changes-from-1913-to-2008/
+vessel tha_cvl_chakri_naruebet: VesselCosts=285000000, CurrentYearCost=660000000, Category=CVL
+  HTMS Chakri Naruebet: published ship cost US$285M (1993; Forecast International via Wikipedia); the 7,100M THB 1992 contract (about US$277.5M) is a cross-check
+  historical: published price, reference year 1993; current: CPI conversion, source year 1993
+  Source: HTMS Chakri Naruebet - Wikipedia (raw wikitext, infobox citing Forecast International 'Principe de Asturias Class - Archived 3/99', March 1998) - https://en.wikipedia.org/w/index.php?title=HTMS_Chakri_Naruebet&action=raw
+  Source: HTMS Chakri Naruebet - Wikipedia (body, citing Carpenter & Wiencek, Asian Security Handbook 2000, p. 302) - https://en.wikipedia.org/w/index.php?title=HTMS_Chakri_Naruebet&action=raw
+  Source: เรือหลวงจักรีนฤเบศร - Thai Wikipedia (raw wikitext) - https://th.wikipedia.org/w/index.php?title=เรือหลวงจักรีนฤเบศร&action=raw
+  Source: Minneapolis Fed - Consumer Price Index, 1913- - https://www.minneapolisfed.org/about-us/monetary-policy/inflation-calculator/consumer-price-index-1913-
+vessel tha_ffg_naresuan: VesselCosts=78000000, CurrentYearCost=200000000, Category=FFG
+  Naresuan class: published 2,000M THB per ship (Wikipedia, from GlobalSecurity) at the tracker's THB Rate1990. Chinese build price: the ships were delivered incomplete and the US gun, Harpoon, Mk 32 and LW-08/STIR fitted in Thailand are probably excluded, so this understates the fitted ship; low confidence
+  historical: published price, reference year 1990; current: CPI conversion, source year 1990
+  Source: Naresuan-class frigate - Wikipedia - https://en.wikipedia.org/w/index.php?title=Naresuan-class_frigate&action=raw
+  Source: เรือหลวงตากสิน - Thai Wikipedia (raw wikitext, citing GlobalSecurity 'NARESUAN (TYPE 25T) (FFG)') - https://th.wikipedia.org/w/index.php?title=เรือหลวงตากสิน&action=raw
+  Source: Thai navy frigate damaged during exercise - Thai PBS World, 1 Aug 2023 - https://www.thaipbsworld.com/around-thailand/thai-navy-frigate-damaged-during-exercise
+  Source: Thajské fregaty - Made in China (valka.cz) - contract date - https://www.valka.cz/14742-Thajske-fregaty-Made-in-China
+  Source: Thajské fregaty - Made in China (valka.cz) - delivered incomplete - https://www.valka.cz/14742-Thajske-fregaty-Made-in-China
+  Source: Combat Cost Tracker currencies.ini (mods-source/3807187341/systems/combatcosts/currencies.ini) - file:mods-source/3807187341/systems/combatcosts/currencies.ini
+  Source: Minneapolis Fed - Consumer Price Index, 1913- - https://www.minneapolisfed.org/about-us/monetary-policy/inflation-calculator/consumer-price-index-1913-
+vessel tha_fs_ratanakosin: VesselCosts=72000000, CurrentYearCost=240000000, Category=FS
+  Ratanakosin class: published US$143M Tacoma Boatbuilding contract for two ships including design (Maritime Reporter, Oct 1983), halved; the design share slightly overstates the hull
+  historical: published price, reference year 1983; current: CPI conversion, source year 1983
+  Source: Maritime Reporter, October 1983, p. 5: 'Tacoma Boat Completes $143-Million Financing To Build Two Thai Corvettes' - https://magazines.marinelink.com/Magazines/MaritimeReporter/198310/page/5
+  Source: Minneapolis Fed - Consumer Price Index, 1913- - https://www.minneapolisfed.org/about-us/monetary-policy/inflation-calculator/consumer-price-index-1913-
+vessel usn_asv_saronic_corsair_scout: VesselCosts=1000000, CurrentYearCost=1000000, Category=USV
+  Saronic Corsair ASV: press-reported cost of about USD 1m per boat (San Antonio Express-News, 13 Jul 2026); no official unit price; the USD 392m Dec 2025 production contract covers an undisclosed quantity; low confidence
+  historical: published price, reference year 2025; current: published price, source year 2026
+  Source: San Antonio Express-News, Texas-built drone boats strike Iran in first such U.S. mission (13 Jul 2026) - https://www.expressnews.com/business/article/austin-company-s-drone-boats-used-u-s-attack-iran-22343584.php
+  Source: San Antonio Express-News (same article) - https://www.expressnews.com/business/article/austin-company-s-drone-boats-used-u-s-attack-iran-22343584.php
+  Source: ThePricer, How Much Does a Military Sea Drone Cost? (13 Jul 2026) - https://www.thepricer.org/how-much-does-a-military-sea-drone-cost/
+vessel usn_tao_kaiser: VesselCosts=120000000, CurrentYearCost=931000000, Category=AO
+  Henry J. Kaiser T-AO (in service from 1986): published November 1983 contract for the first two ships, USD 239.1m / 2; current is the FY2026 John Lewis (TAO-205) replacement class, USD 1,861.7m for two (CRS R43546)
+  historical: published price, reference year 1983; current: comparable recent purchase, source year 2026
+  Source: USNS Henry J. Kaiser (Wikipedia) - https://en.wikipedia.org/wiki/USNS_Henry_J._Kaiser
+  Source: CRS R43546, Navy John Lewis (TAO-205) Class Oiler Shipbuilding Program, updated August 1, 2025 (EveryCRSReport mirror) - https://www.everycrsreport.com/files/2025-08-01_R43546_cf25c2dbfed48e0cdcc7cf4f202015c5e5035a08.html
+  Source: CRS R43546 (same revision) - https://www.everycrsreport.com/files/2025-08-01_R43546_cf25c2dbfed48e0cdcc7cf4f202015c5e5035a08.html
+  Source: CRS R43546, updated January 12, 2026 (congress.gov) - https://www.congress.gov/crs-product/R43546
+vessel usn_usv_k5_kraken: VesselCosts=830000, CurrentYearCost=830000, Category=USV
+  Kraken K5 (concept): same-maker family anchor, the Royal Navy's K3 Scout contract of GBP 12.3m (USD 16.5m) for 20 boats including training and experimentation support; no K5 price published
+  historical: model estimate, reference year 2026; current: model estimate, source year 2026
+  Source: Royal Navy news, Navy to buy 20 uncrewed boats as testbeds for future operations (11 Mar 2026) - https://www.royalnavy.mod.uk/news/2026/march/11/20260311-kraken-usv-procurement-announcement
+  Source: Tectonic Defense, Kraken Secures £12.3M USV Contract with the Royal Navy (12 Mar 2026) - https://www.tectonicdefense.com/kraken-secures-12-3m-usv-contract-with-the-royal-navy/
+  Source: Tectonic Defense (same article) - https://www.tectonicdefense.com/kraken-secures-12-3m-usv-contract-with-the-royal-navy/
+aircraft civ_a320: AircraftCosts=unknown, CurrentYearCost=55000000
+  Airbus A320ceo airliner: no 1988 price could be read, so the historical price stays unknown; current is the successor A320neo's new-aircraft market value of USD 50-60M (Cirium/IBA via Boersen-Zeitung, 16 Oct 2026), midpoint
+  historical: unknown; current: documented replacement estimate, source year 2026
+  Source: Flugzeugfinanzierer ACG bestellt bei Airbus 75 A320neo (Borsen-Zeitung, 16 Oct 2026) - https://www.boersen-zeitung.de/unternehmen-branchen/acg-will-75-maschinen-aus-der-airbus-modellfamilie-a320neo-kaufen
+  Source: Borsen-Zeitung (16 Oct 2026), list vs discount - https://www.boersen-zeitung.de/unternehmen-branchen/acg-will-75-maschinen-aus-der-airbus-modellfamilie-a320neo-kaufen
+  Source: Airbus publishes 2018 average aircraft list prices (CAPA, 16 Jan 2018), context only - https://centreforaviation.com/news/airbus-publishes-2018-average-aircraft-list-prices-757058
+aircraft civ_a330: AircraftCosts=unknown, CurrentYearCost=107000000
+  Airbus A330-300 airliner: no 1994 price could be read, so the historical price stays unknown; current is the successor A330-900neo's full-life market value of about USD 107M (Cirium Ascend, June 2024)
+  historical: unknown; current: documented replacement estimate, source year 2024
+  Source: Is A330neo Coming to China? - A Suitability Analysis (Cirium, 17 Jun 2024) - https://www.cirium.com/thoughtcloud/ascend-consultancy-weekly-team-perspective-is-a330neo-coming-to-china-suitability-analysis/
+  Source: Airbus publishes 2018 average aircraft list prices (CAPA, 16 Jan 2018), context only - https://centreforaviation.com/news/airbus-publishes-2018-average-aircraft-list-prices-757058
+aircraft jp_f-2a_late: AircraftCosts=80000000, CurrentYearCost=171000000
+  Mitsubishi F-2A: GAO's figure for the approved production programme, about USD 80M per aircraft in constant 1996 dollars at 110 yen/$ (GAO/NSIAD-97-76); a conservative lower anchor
+  historical: published price, reference year 1996; current: CPI conversion, source year 1996
+  Source: GAO/NSIAD-97-76, U.S.-Japan Fighter Aircraft: Agreement on F-2 Production (govinfo) - https://www.govinfo.gov/content/pkg/GAOREPORTS-NSIAD-97-76/html/GAOREPORTS-NSIAD-97-76.htm
+  Source: GAO/NSIAD-97-76 footnote 6 - https://www.govinfo.gov/content/pkg/GAOREPORTS-NSIAD-97-76/html/GAOREPORTS-NSIAD-97-76.htm
+  Source: F-2 (航空機), Japanese Wikipedia (cross-check only) - https://ja.wikipedia.org/wiki/F-2_(航空機)
+  Source: Minneapolis Fed, Consumer Price Index 1913- - https://www.minneapolisfed.org/about-us/monetary-policy/inflation-calculator/consumer-price-index-1913-
+aircraft mv22b_osprey: AircraftCosts=62300000, CurrentYearCost=72300000
+  MV-22B (IOC June 2007): FY2008-FY2012 multiyear contract, USD 10.4B for 167 V-22s (CRS RL31384); current is the 2018 multiyear contract, prime airframe only (engines government-furnished), so a lower bound
+  historical: published price, reference year 2008; current: comparable recent purchase, source year 2018
+  Source: CRS RL31384, V-22 Osprey Tilt-Rotor Aircraft Program (Apr 2012), EveryCRSReport - https://www.everycrsreport.com/reports/RL31384.html
+  Source: CRS RL31384 (Apr 2012), multiyear quantity - https://www.everycrsreport.com/reports/RL31384.html
+  Source: CRS RL31384 (Apr 2012), IOC and SAR cross-check - https://www.everycrsreport.com/reports/RL31384.html
+  Source: CRS RL31384 quoting GAO-09-482 (cross-check only) - https://www.everycrsreport.com/reports/RL31384.html
+  Source: Bell Boeing to begin U.S. Navy CMV-22B production work under $4 billion contract (Airframer, 2018) - https://www.airframer.com/news/release/41903
+aircraft rok_f-50_ph: AircraftCosts=35200000, CurrentYearCost=57100000
+  KAI FA-50PH (Philippine Air Force): 2014 contract of USD 422M for 12 (defensa.com); current is the June 2025 follow-on for 12 more, which includes logistics support, so an upper bound
+  historical: published price, reference year 2014; current: comparable recent purchase, source year 2025
+  Source: Corea del Sur cierra un contrato de 422 millones de dolares con Filipinas para la venta de 12 aviones FA-50 (defensa.com, 24 Feb 2014) - https://www.defensa.com/africa-asia-pacifico/corea-sur-cierra-contrato-422-millones-dolares-filipinas-para-12
+  Source: Philippines Signs $700 Million Deal for 12 More FA-50PH Jets from South Korea (Overt Defense, 11 Jun 2025) - https://www.overtdefense.com/2025/06/11/philippines-signs-700-million-deal-for-12-more-fa-50ph-jets-from-south-korea
+  Source: Overt Defense (11 Jun 2025), 2014 order - https://www.overtdefense.com/2025/06/11/philippines-signs-700-million-deal-for-12-more-fa-50ph-jets-from-south-korea
+aircraft spa_av-8b_plus: AircraftCosts=22400000, CurrentYearCost=55000000
+  Spanish EAV-8B Harrier II Plus: same radar-model Harrier II Plus as the USMC's, FY1991 average unit flyaway cost USD 22.4M (GAO/NSIAD-96-49); not a Spanish contract price
+  historical: published price, reference year 1991; current: CPI conversion, source year 1991
+  Source: GAO/NSIAD-96-49, Navy Aviation: AV-8B Harrier Remanufacture Strategy Is Not the Most Cost-Effective Option (govinfo) - https://www.govinfo.gov/content/pkg/GAOREPORTS-NSIAD-96-49/html/GAOREPORTS-NSIAD-96-49.htm
+  Source: GAO/NSIAD-96-49, variant introduction - https://www.govinfo.gov/content/pkg/GAOREPORTS-NSIAD-96-49/html/GAOREPORTS-NSIAD-96-49.htm
+  Source: McDonnell Douglas AV-8B Harrier II (Wikipedia), Spanish Navy section - https://en.wikipedia.org/wiki/McDonnell_Douglas_AV-8B_Harrier_II
+  Source: Minneapolis Fed, Consumer Price Index 1913- - https://www.minneapolisfed.org/about-us/monetary-policy/inflation-calculator/consumer-price-index-1913-
+
 SEST REFERENCES STILL INCOMPLETE
 weapon knm_terne_shell: historical/current
-weapon plan_cm-302: historical/current
 weapon raaf_f-35_gun_pod: historical/current
 weapon rn_squid_shell: historical/current
-weapon rok_hgv: historical/current
-weapon rok_L-sam: historical/current
-weapon sest_agr-30: historical/current
 weapon sest_agr-30_pod: historical/current
 weapon sest_agr-30_pod19: historical/current
 weapon sest_aim-424: historical/current
-weapon usn_gbu-12d: historical/current
-weapon usn_gbu-24: historical/current
 weapon usn_ssq-47: historical/current
 weapon usn_tank_1200_f-18: historical/current
 weapon usn_tank_610_f-18: historical/current
-vessel jmsdf_aoe_mashuu: historical/current
-vessel ko_lph-6112: historical/current
-vessel ko_pkg-711_scl: historical/current
 vessel phl_ff_hamilton: historical/current
-vessel phl_fs_pohang: historical/current
 vessel phl_lpd_tarlac: historical/current
 vessel phl_pt_jacinto: historical/current
 vessel plan_aor_type901: historical/current
 vessel plan_aor_type903a: historical/current
-vessel plan_ddg_luda_typ_051: historical/current
-vessel plan_ddg_luda_typ_051d: historical/current
-vessel plan_ddg_luda_typ_051dt: historical/current
-vessel plan_lpd_type_071: historical/current
-vessel pn_ffg-06: historical/current
-vessel pn_ffg-150: historical/current
-vessel pn_ffg-150_2: historical/current
 vessel ran_aor_supply: historical/current
 vessel ran_ffh_anzac: historical/current
 vessel ran_lsd_choules: historical/current
 vessel ran_opv_arafura: historical/current
 vessel ran_ssg_collins: historical/current
-vessel rfn_aor_pashin: historical/current
-vessel rn_aor_tide: historical/current
 vessel tha_aor_chula: historical/current
-vessel tha_cvl_chakri_naruebet: historical/current
-vessel tha_ff_053HT: historical/current
-vessel tha_ff_053HT_H: historical/current
-vessel tha_ff_knox_84: historical/current
 vessel tha_ff_makut_rajakumarn: historical/current
 vessel tha_ff_makut_rajakumarn_88: historical/current
-vessel tha_ffg_naresuan: historical/current
 vessel tha_fs_khamronsin: historical/current
-vessel tha_fs_ratanakosin: historical/current
-vessel tha_fs_tapi: historical/current
 vessel tha_pt_chonburi: historical/current
 vessel tha_pt_hua_hin: historical/current
-vessel tha_ptg_prabrarapak: historical/current
 vessel tha_ptg_ratcharit: historical/current
-vessel usn_ffg_ohp_longhull_sh60b: historical/current
 vessel usn_take_lewis_clark: historical/current
-vessel usn_tao_kaiser: historical/current
 vessel usn_taoe_supply: historical/current
 aircraft plaaf_jh7a: historical/current
 aircraft raaf_mq-4c_triton: historical/current
