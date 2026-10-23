@@ -94,23 +94,30 @@ decision), and the standard campaigns now do what they did from Weapons
 Free, Tasman Crossing and Red Line's first force allocation: paste the
 Description (above) and the Collection description (below) as well, since
 both stopped offering the versions and the Description says when everything
-is on sale. Keep the log under 8,000 characters (23 Oct: 7,901 with the
-19 Oct block below it, 7,993 if each line break counts as two).
+is on sale. Keep the log under 8,000 characters (23 Oct, after the 23 Oct
+capture: 7,854 with the 19 Oct block below it, 7,946 if each line break
+counts as two).
 
 On 22 Oct the game moved to Sea Power 0.8.7 and ten mods updated; the log
-covers both. SEST's runtime plugin switched itself off on 0.8.7 and was
-matched to it on 23 Oct (`integration/runtime-fixes/README.md`), so the log
-claims its two corrections again (the Tomahawk MST's 500 ft over land, the
-debrief's lost ships, in missions the player picks a force for). Before
-Submit, check that Player.log shows both `[SEST Runtime] ... correction
-installed` lines (it did on 23 Oct, after syncing 990dd7f9). If one is missing (`terrain correction not installed` or
+covers both. On 23 Oct seven mods updated their files and the YF-23 its code
+alone (`docs/workshop-refresh-20261023-review.md`): the code 0.8.7 had
+switched off in six of them (the Fury's, the EC-2's, the K5 KRAKEN's, the
+MV-75's, the YF-23's and the Saronic Corsair's) loads again, so the log says
+it is on again where it had said it was off. SEST needed no change. SEST's
+runtime plugin switched itself off on 0.8.7 and was matched to it on 23 Oct
+(`integration/runtime-fixes/README.md`), so the log claims its two
+corrections again (the Tomahawk MST's 500 ft over land, the debrief's lost
+ships, in missions the player picks a force for). Before Submit, check that
+Player.log shows both `[SEST Runtime] ... correction installed` lines (it
+did on 23 Oct, after syncing 990dd7f9, and in the 23 Oct capture, 87c0feb5,
+taken at 28f62cd3). If one is missing (`terrain correction not installed` or
 `debrief correction not installed`), take out that correction's line; if
 both are (`inactive`, or two `not installed` lines), take out both lines and
 the second sentence after "Built for Sea Power 0.8.7.". The OHP long hull's
 Mk 13 is Modern US Navy's own fix since 22 Oct, so the log credits the
 author, not SEST; and it says of the SM-6 Block I only that it keeps 300 s:
 claim its 260 NM once a shot past 240 NM has been seen in game. The required
-mods are unchanged by the 22 Oct capture.
+mods are unchanged by the 22 and 23 Oct captures.
 
 ```
 [h2]20 October 2026[/h2]
@@ -146,12 +153,12 @@ mods are unchanged by the 22 Oct capture.
 [*]Follows the 20 Oct mod updates: Ford, Mogami, Wasp, F-35C, the OHP long hull and Red Storm Arsenal's Chinese missiles.
 [/list]
 
-[b]Sea Power 0.8.7 and the 22 October mod updates[/b]
+[b]Sea Power 0.8.7 and the 22-23 October mod updates[/b]
 [list]
 [*]Built for Sea Power 0.8.7. The Tomahawk MST and debrief corrections are checked against it and switch themselves off on any other build.
 [*]The SM-6 Block I keeps the 300 s flight time Euromod's Anchorchain Expansion gave it on 19-21 Oct; with the preloader it would otherwise be held to 240 s.
 [*]Follows the 22 Oct mod updates: Chile's renamed ships in the world campaign, the Wasp's new recovery circuits, the Juan Carlos I's new deck loadouts in The Relief Ship, and the latest Modern US Navy (which now fixes the OHP long hull's Mk 13 itself; SEST's repair is retired), US Naval Aviation, Spanish, JMSDF and Euromod packs.
-[*]Sea Power 0.8.7 switched off parts of other mods' code until their authors update: the Fury's Drone Control, the EC-2's radio and data-link jamming, the K5 KRAKEN's one-way attack, the MV-75's systems hook and the YF-23 pack's runtime fixes; the Saronic Corsair falls back to its original order handling. The units themselves are unchanged, and SEST's missions still place them.
+[*]With their authors' 23 Oct updates, the parts of other mods that Sea Power 0.8.7 had switched off are on again: the Fury's Drone Control, the EC-2's radio and data-link jamming, the K5 KRAKEN's one-way attack, the Saronic Corsair's order hooks, the MV-75's systems hook and the YF-23 pack's runtime fixes. SEST needed no change.
 [/list]
 
 [b]Open Allocation in the standard campaigns[/b]

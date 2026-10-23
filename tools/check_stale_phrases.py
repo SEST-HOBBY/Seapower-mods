@@ -121,6 +121,12 @@ WHOLE_ROSTER = ("retired by the owner on 21 Oct 2026 (step 2): from Weapons Free
                 "the whole roster with the fleet, as the Open Allocation versions did; only the "
                 "windows before keep the story's lists (Southern Watch build notes, 'Step 2: "
                 "the whole roster from the opening')")
+# The pending 20 Oct change log said, from 22 to 23 Oct 2026, that Sea Power
+# 0.8.7 had switched off parts of other mods' code until their authors
+# updated. The authors did on 23 Oct, before the log was uploaded.
+OTHER_MODS_BACK = ("retired by the authors' 23 Oct 2026 updates: the Fury's, EC-2's, K5 "
+                   "KRAKEN's, Saronic Corsair's, MV-75's and YF-23's plugins stay on under "
+                   "Sea Power 0.8.7 (docs/workshop-refresh-20261023-review.md)")
 WHOLE_ROSTER_TEXT = PLAYER_TEXT + RULES_PAGES + [
     "integration/*/SEST_*/campaigns/*/campaign.ini",
     "integration/*/SEST_*/campaigns/*/player_task_force_roster.ini",
@@ -188,6 +194,9 @@ STALE = [
      # versions were retired and true until step 2 (review of that day).
      r"|the story releases your forces as it goes",
      WHOLE_ROSTER_TEXT, WHOLE_ROSTER, WRAPPED),
+    (r"switched off parts of other mods' code|until their authors update"
+     r"|falls back to its original order handling",
+     PLAYER_TEXT, OTHER_MODS_BACK, WRAPPED),
 ]
 
 

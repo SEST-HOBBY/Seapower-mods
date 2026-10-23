@@ -3823,3 +3823,28 @@ whole record. For this campaign:
   Aviation's file) take that mod's new 70/-70 degree pitch limits.
 
 Every pack declares 0.8.7. No other campaign file changed.
+
+## The 23 October mod updates (23 October)
+
+The 23 Oct capture (`87c0feb5`) brought eight author updates and no game
+update; `docs/workshop-refresh-20261023-review.md` has the record. No
+campaign file changed, and every unit, squadron and loadout the missions
+name still resolves. What differs in play, all of it the authors' work:
+
+- **Other mods' code is on again.** The updates put back what Sea Power
+  0.8.7 had switched off on 22 Oct: O9 Viper Zero's Jammer 71 jams radio
+  and data links again as well as the frigate's search radar its briefing
+  names; D6 Long Reach's Furys have Drone Control again (the mission flies
+  them on loadouts and orders) and its Black Widows their runtime fixes;
+  D8's Valor 73 has its systems hook. Not yet seen in game on 0.8.7.
+  O5 Paper Trail's Corsair scout and reconnaissance K5 play as before: the
+  two mods' contact controllers act only on the strike and one-way-attack
+  variants.
+- **Crews that eject.** D8's Valor 73 (MV-75) and O9's Jammer 71 (EC-2) now
+  carry two pilots each, with the authors' new ejection plugins. Not yet
+  seen in game.
+- **Paint.** D6's Furys fly a new grey finish without the separate marking
+  and insignia meshes. Common Sea's SH-60K and SH-60J and Viper Zero's
+  SH-60K (all Squadron1) show modex numbers, and the SH-60J the plain
+  `sh-60j.png` livery; the textures are not in the export, so whether they
+  are all present is for the next play test.

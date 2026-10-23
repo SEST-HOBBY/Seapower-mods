@@ -84,7 +84,10 @@ On 23 Oct 2026 the owner's export
   native rows already list: 38 assertions. The rebuilt DLL is `c844a759...`.
 - **On the PC (23 Oct 2026):** step 9's `Player.log` check passed. After
   syncing 990dd7f9 (`IN LINE: all 4304 installed files`), the owner saw both
-  `[SEST Runtime] ... correction installed` lines.
+  `[SEST Runtime] ... correction installed` lines. The 23 Oct capture
+  (87c0feb5, taken with 28f62cd3 installed) shows them too, in
+  `data/install-snapshot/player.log`, with no `inactive` line; the installed
+  `SEST.RuntimeFixes.dll` is `c844a759...`, the dist's.
 - **Still open:** step 9's acceptance tests. Neither correction has yet been
   watched working in a mission, on 0.8.6 or 0.8.7.
 

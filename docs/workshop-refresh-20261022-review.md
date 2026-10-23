@@ -134,10 +134,11 @@ What was made truthful instead:
 fire. FEATURES now asks the tester to report any `map tile skipped` line;
 none over several returns to the map on 0.8.7 means it can retire.
 
-**Other mods' code on 0.8.7.** Six components switched themselves off
-against the new assembly; their DLLs are byte-identical to the 20 Oct
-capture, so the game update alone did it (report only - SEST forks none of
-them):
+**Other mods' code on 0.8.7.** (Superseded 23 Oct: the authors' 23 Oct
+updates put all six back on; see `docs/workshop-refresh-20261023-review.md`,
+section 1.) Six components switched themselves off against the new assembly;
+their DLLs are byte-identical to the 20 Oct capture, so the game update
+alone did it (report only - SEST forks none of them):
 
 | Mod | On 0.8.7 | SEST's use |
 |---|---|---|
@@ -159,7 +160,7 @@ on 0.8.7 is not shown.
 |---|---|---|
 | Euromod - Modern US Navy (3390330875), v621 | The OHP long hull's Mk 13 names `WeaponMagazineMK13` - the author's own fix of the 20 Oct defect. The MH-60R Phase II is reworked (ASW, ASWLongRange, ASWPatrol, Strike, AntiShipEarly/Late/LateLongRange, Transport; drop tanks, TransportCapacity 3, EO views) and its sonobuoys and torpedo move to `usn_ssq-53h`, `usn_ssq-62g` and `usn_mk54_2_air`, which only Euromod - Main Pack ships. The 2025 Nimitz's variant wings embark it instead of `usn_mh-60r` (Truman 18 -> 13). The Wasp is 'Wasp-class (Late)' with new VTOL and STOVL recovery circuits (landing interval 30 s, was 60 and 50); its variants' MV-22Bs take US Naval Aviation's new squadrons. The Spruance LAMPS-3 hulls are '(VLS SH-60B)' and '(RAM SH-60B)'. | `ras.py`'s HULL_REPAIRS entry stopped SEST_Replenishment and `check_pack_fidelity`, as it is meant to ("the author now ships ... drop this repair"); dropped, with a dated note in its place. The Replenishment fork now carries the author's line; its Wasp fork carries the new circuits (it outranks the author's file, so until this rebuild it masked them). No SEST mission, air-tasking row or allied pick flies the Phase II; the world campaign's 2025 Nimitzes now embark it, and every squadron their variants name exists. SW08's Roosevelt keeps the wing SEST writes. |
 | US Naval Aviation (3737267013), v104 | No round changed. MV-22B squadrons 5 -> 21; P-8A adds VP-9 as Squadron5; the F-35B's CAS hangs six GBU-12D and a new CASHeavy takes the GBU-32s; 70/-70 pitch limits on the F-35C, Super Hornets and EA-18Gs, others on the ES-3A and AV-8B+; E-2D silhouette areas. | Collection Fixes' AIM-9L, AIM-9M guard and the GBU-39, GBU-12D and MH-60R donors rebuild byte-identical. SEST Growler's `usn_ea-18g_2020` (Southern Watch 11) takes the pitch keys; SEST's F-35C and Super Hornets are built on other bases, which outrank this mod, and do not. Every loadout a built mission names still exists. |
-| YF-23 Black Widow II (3796349767) | YF23Ejection.dll 1.1.0; canopy and pilot parts hide with the damage model. | Unchanged for SEST: the AIM-424 extend and D6's fit rebuild identical. Its AlpineSeaPower copy is off on 0.8.7 (section 1). |
+| YF-23 Black Widow II (3796349767) | YF23Ejection.dll 1.1.0; canopy and pilot parts hide with the damage model. | Unchanged for SEST: the AIM-424 extend and D6's fit rebuild identical. Its AlpineSeaPower copy is off on 0.8.7 (section 1; on again from its 23 Oct 0.3.2). |
 | Euromod - Main Pack (3629144864), v486 | 35 ECM sections gain `NoiseJamPower` (21 non-zero, 0.025 to 4; vanilla's SLQ-32 is 10); `eu_EW-1017` ESM; `bra_Grifo-F` displays as EL/M-2032; DS30B/M become OpenMount guns; RBS-15 Mk3 seeker re-gained; eight Russian SAMs lose an orientation flag. | Reaches SEST's JMSDF, Burke, Wasp, Karel Doorman, Zeven Provincien and F123 forks as noise jamming; Allied Fixes' Ocean's DS30M are plain guns now (not in the CIWS retune). No build change. The Brazilian F-5EM also shows "EL/M-2032" (one key for both; upstream). |
 | Euromod - Anchorchain Expansion Pack (3784474738) | Withdraws the 19 Oct flight-model overwrites, each file back byte for byte to 18 Oct: AIM-120A/C/C7/D/D3 cosmetic again, `usn_aim-174b_OVWR` and `usn_jsm_OVWR` deleted, the NSM loses MissileDefenceBonus 0.75 and RCS 0.0001, the SM-6 Block I/IAU lose MaxFlightTime=300. New ExtendedGuidance 0.5.0 and ACPackSettings 1.0.0; every DLL rebuilt; MultiStageMissiles 1.7.16. | No SEST builder or gate applies the withdrawn files. In game the rounds again match the files SEST's tools read: U.S. Navy 2027's AIM-174B (2650 kt, 325 NM), the round SEST's AIM-424 is aligned to and D10's Gunslinger fit carries, so D10 runs flown 19-21 Oct do not compare; the F-35C JATM's JSM; the RAN NSM at 0.30/0.001. SEST keeps the SM-6 Block I at the overwrite's 300 s (section 4). ExtendedGuidance is off by default and must stay off for SEST play (section 5). |
 | Euromod - Modern JMSDF (3695809489), v40 | The JASDF F-35B's stations and fits are rebuilt (bay racks, StormBreaker, JSM, AirToAirLongRange, CASHeavy, StrikeStandoff; 70/-70 pitch). The SH-60K's ASW Long Range (Late) fit hangs `usn_ssq-53f`/`-62e`: the undefined `usn_ssq-53e` of 14 Oct is gone. Two unreferenced `jp_mh-60r` materials deleted. | Every new store resolves. SEST names the F-35B only in the world campaign's buy list and Cross-Deck's STOVL list; no change. |
@@ -352,8 +353,10 @@ Line and Euromod Main record each.
   the RAN NSM, back to the base file's 0.30 defence bonus, intercepted more
   often than in 19-22 Oct play; D10's Gunslinger AIM-174B on U.S. Navy
   2027's figures (discard D10 comparisons flown 19-21 Oct).
-- **Other mods on 0.8.7:** D8's Valor 73 (H.14) and D6's Black Widows,
-  whose runtime hooks are off; the YF-23's new ejection is the author's.
+- **Other mods on 0.8.7:** (23 Oct: their hooks load again after the
+  authors' updates; see the 23 Oct review, section 5.) D8's Valor 73 (H.14)
+  and D6's Black Widows, whose runtime hooks are off; the YF-23's new
+  ejection is the author's.
 - **The Wasp** (allied reserve): F-35B and MV-22B recovery on the new
   circuits.
 
