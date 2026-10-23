@@ -2,7 +2,7 @@ Drone Control
 
 Requires Anchor Chain. Supports the XQ-58A and Fury Escort, Interceptor, Strike, SEAD, Recon and EW.
 
-Launch a supported aircraft. Open Drone Control from its right-click menu or the small Drone Control button. Choose an aircraft and a current surface contact.
+Start a mission and launch a supported player-owned aircraft. Controls appear while the drone is airborne. The scenario editor and encyclopedia do not provide these flight controls. Open Drone Control from its right-click menu or the small Drone Control button. Choose an aircraft and a current surface contact.
 
 Watch aims the sensor without changing flight orders. Shadow orders an orbit around the contact. Detach the aircraft from a multi-aircraft formation before shadowing; Watch works in formation.
 
