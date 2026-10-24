@@ -10,8 +10,14 @@ before the patch does.
   **3812461539**, Public. It is the `SEST_Integration` folder: one Mod Manager
   entry (*SEST Integration Pack*) carrying the 19 SEST fix packs and all three
   campaigns, Southern Watch, Southern Reach / Tasman Shield and Red Line. It
-  carries the 4 Oct 2026 build (`d4fd1668` and `fa692245`), with SETUP in the
-  pack. Every upload is an update to this item; there is no second item.
+  carries the 24 Oct 2026 build, uploaded from `8e72f353` on
+  `feature/world-sandbox-regional-expansion-20261024` (PR #44, a draft, not
+  yet merged into `sest-dev/jolly-ride-rptj4t`), with SETUP in the pack and
+  both World Sandbox campaigns. Until PR #44 merges, publish from that branch
+  or a later one: a sync from `sest-dev/jolly-ride-rptj4t` would remove the
+  Regional Expansion from subscribers. The first upload was the 4 Oct 2026
+  build (`d4fd1668` and `fa692245`). Every upload is an update to this item;
+  there is no second item.
 - **The collection.** *SEST - Modernised Campaign Collection*, Workshop id
   **3812390790**. Published with 149 items: the 148 Workshop mods the load
   order then held, plus the pack. It is one of the two ways a subscriber gets

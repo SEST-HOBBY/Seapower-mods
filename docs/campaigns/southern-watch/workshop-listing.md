@@ -95,13 +95,18 @@ Every nation, unit, ship name, incident and date is invented; the campaigns take
 ## Change log: 24 Oct 2026
 
 Everything after `c1bd1f4b` (the Seahawk), through `dc46eba2`, plus the World
-Sandbox regional expansion (PR #44) once it is merged. Paste it above
-the 20 Oct block if that has not been uploaded. The required mods are
-unchanged by the 24 Oct capture. The costs lines rest on mocked tests and
+Sandbox regional expansion (PR #44). **Uploaded 24 Oct 2026** from `8e72f353`
+on `feature/world-sandbox-regional-expansion-20261024`, the install IN LINE at
+4,297 files; PR #44 is still a draft and not merged. That upload's Steam change
+log has the Regional Expansion entry only. Everything else in the block below
+(combat costs, Red Line, Steel Highway, the SEST menu, the mod updates) is in
+that build but not yet in a Steam change log: paste it with the next update,
+above the 20 Oct block if that has not been uploaded either. The required mods
+are unchanged by the 24 Oct capture. The costs lines rest on mocked tests and
 one PC session (`docs/workshop-refresh-20261024-review.md`, section 1):
-before Submit, run `docs/playtests/campaign-costs-panel-20261024.md` steps
-3, 4 and 7. If the Task Force panel or the carry-over fails, take out its
-line.
+before pasting them, run `docs/playtests/campaign-costs-panel-20261024.md`
+steps 3, 4 and 7. If the Task Force panel or the carry-over fails, take out
+its line.
 
 ```
 [h2]24 October 2026[/h2]
