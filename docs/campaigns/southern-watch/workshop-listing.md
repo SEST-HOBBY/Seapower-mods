@@ -87,10 +87,9 @@ Every nation, unit, ship name, incident and date is invented; the campaigns take
 Everything after `c1bd1f4b` (the Seahawk), through `dc46eba2`. Paste it above
 the 20 Oct block if that has not been uploaded. The required mods are
 unchanged by the 24 Oct capture. The costs lines rest on mocked tests and
-one PC session (`docs/workshop-refresh-20261024-review.md`, section 1):
-before Submit, run `docs/playtests/campaign-costs-panel-20261024.md` steps
-3, 4 and 7. If the Task Force panel or the carry-over fails, take out its
-line.
+the owner's report from the uploaded build: the Task Force panel at the left
+and the stores carry-over work (`docs/playtests/campaign-costs-panel-20261024.md`,
+steps 4, 6 and 7). Step 3, the in-mission panel, was not reported.
 
 ```
 [h2]24 October 2026[/h2]

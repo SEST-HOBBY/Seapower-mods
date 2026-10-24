@@ -42,7 +42,7 @@ keys were gone. That is the cause fixed in `88bde742`:
 - `SaveDebriefSnapshot` copies the debrief into the campaign `.sav` before SEST's keys are written.
 - `LinearCampaign.Initialise` rebuilds the temporary state from that `.sav` when the next mission launches.
 
-On this campaign, mission 2's stores come back from the local history record if exactly one completed record matches. The PC check is `docs/playtests/campaign-costs-panel-20261024.md`, step 9.
+On this campaign, mission 2's stores come back from the local history record if exactly one completed record matches. The PC check is `docs/playtests/campaign-costs-panel-20261024.md`, step 9. Later on 24 Oct the owner reported the carry-over working on the uploaded build (steps 6 and 7); step 9's outcome was not reported.
 
 `player-prev.problems.txt` has the usual hits: SEST's "missing from section 3"
 false positive, CombatWorker's SecondThrust fallback and IDX's missing
