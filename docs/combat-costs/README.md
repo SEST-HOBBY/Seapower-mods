@@ -1,263 +1,56 @@
-# Combat Cost Tracker compatibility — 20 October 2026
+# Complete SEST combat costs — private playtest, 24 October 2026
 
-Updated 23 October 2026: SEST researched estimates, 31 more reviewed mappings
-and the generated cost list (see "Researched estimates and the cost list").
+The owner's request is complete pricing coverage, including estimates. The final catalog prices every resolved collection and vanilla weapon, vessel, aircraft and land-platform reference in both price modes. It preserves Claude's checked prices through commit `374634bc`; the remaining fields use explicit SEST comparisons or replacement models. Coverage is not a claim that every figure has an independently verified procurement source.
 
-Updated 24 October 2026: a second checked batch ships 66 more reviewed
-mappings and 34 more researched estimates, and the research record now covers
-every item that batch left unknown, including land units (see "Second batch").
+| Kind | References | Historical known | Current known |
+|---|---:|---:|---:|
+| Weapons, expendables, pods and tanks | 2,170 | 2,170 | 2,170 |
+| Surface vessels and submarines | 937 | 937 | 937 |
+| Aircraft and helicopters | 756 | 756 | 756 |
+| Land vehicles and installations | 502 | 502 | 502 |
+| Total | 4,365 | 4,365 | 4,365 |
 
-This private revision starts from the PC-verified `71bd3004` playtest. It adds
-the two newly installed plugins to the canonical order and builds
-`SEST_Combat_Costs` into the existing consolidated pack. Equipment performance,
-loadouts, mission forces and campaign purchase-point prices are unchanged.
+This is the resolved reference inventory, including vanilla, collection content and explicitly non-procured helpers. It is not a count of unique real-world designs or physical objects in a mission. New Workshop or game exports require another rebuild and coverage check.
 
-## Captured evidence
+## Where to inspect prices
 
-The supplied `SEST-cost-review-20261020-030948.zip` passed its ZIP CRC and all
-19,971 recorded file hashes. It contains CombatCosts **0.7.1.0** and Formation
-Manager's SeaPowerSquadPanel **0.2.16.0**. Their assembly hashes and the capture
-commit are recorded in `data/combat-cost-capture.json`. DLLs are reviewed from
-the private capture, not redistributed or modified by this compatibility pack.
+- `cost-list.csv` and `cost-list.md`: all references, both USD values, categories, field methods and provenance.
+- `coverage.json`: machine-readable coverage, extensions, model choices and receipts.
+- `backlog-resolution.md`: installed prices for all 377 unique references in the original 381-row attachment. Four references appeared twice in that attachment.
+- `integration/combat-costs/coverage-policy.json`: versioned models, sources, CPI assumptions and sensitivity bands.
+- `integration/combat-costs/mappings.json`: Claude's checked mappings and researched estimates, retained as the conservative first stage.
+- `not-yet-confirmed.md` and `integration/combat-costs/research.json`: original research decisions. Filling a gap with a model does not confirm a rejected or unchecked candidate.
 
-Both Workshop IDs are selected in the saved load order. The captured process
-logged that Weapon Costs was not enabled at startup; later selection does not
-prove that its mission accounting was active. The formation plugin logged its
-successful load and map-threshold attachment. Its in-game name is **Group Manager**. A full restart and new mission
-are required for the next cost test. No gameplay success is inferred from
-these initialization messages.
+## Pricing rules
 
-Four existing Workshop exports also differ from the repository baseline. Their
-IDs and changed-file counts are recorded for separate review. This pricing
-revision imports only the two new plugin text exports. Static coverage refers
-to those exports plus the repository's existing equipment baseline and SEST
-outputs, rather than a claim that every upstream update has been rebased.
+Every previously usable selected price, including an explicit zero, is preserved. Existing author blanks and invalid values receive a labelled SEST estimate under the owner's later request. A per-field override is emitted only where an inline blank would otherwise mask the new price. There is no global switch forcing every author value to SEST's value.
 
-## What the extension does
+Tracker 0.7.1 precedence is reproduced: `Override<Field>`, then the entry's `OverrideInline`, then `[Costs] OverrideInline`, then false. A missing preferred key falls back; a present blank or invalid value does not. Current prices never silently borrow historical values. Original reference years are retained for copied or checked prices. A model's historical value is a rounded CPI backcast to its configured service year where available; absent a year, it is explicitly a 2026 replacement proxy. The CPI 334.4 used for 2026 is a Q2-based estimate, not a completed annual observation. Sparse historical CPI anchors are interpolated.
 
-Three uniquely named files under `systems/` use the documented native
-`#!extend` mechanism to add sections to `weaponcosts.ini`, `vesselcosts.ini`
-and `aircraftcosts.ini`. The existing author catalogs remain the base. No
-existing section, including an explicitly unpriced section, is replaced.
+The 92 models are broad gameplay material-replacement estimates. Typical sensitivity is half to twice the central estimate, and a quarter to four times for designated future/fictional designs. These bands are not statistical confidence intervals. Models are rounded to three significant digits and should not be read as invoice precision. Sonobuoy and launcher hardware models use indexed primary Navy/DoD budget excerpts as comparators; those figures are not item-specific contract confirmations for every exported variant. All model sources and limitations are in the policy.
 
-New entries use one of three methods:
+A fitted platform excludes separately charged ammunition, embarked aircraft, removable pods, carried fuel and cargo. A pod estimate covers hardware; its rounds are separate. Drop tanks price the tank hardware, not fuel consumption. Visual/control effects, ejected people and transfer/spawn processes have explicit included/non-procured dispositions; personnel are never monetized. Physical equipment such as land-based infantry hardware has its own material estimate. No campaign acquisition points, flight-deck ammunition points or `ammo_prices.csv` scores are treated as USD.
 
-- An unambiguous existing catalog reference with the same basename and
-  punctuation-normalized spelling. Variant letters, numbers and suffixes are
-  retained; conflicting candidates are left unknown.
-- An explicitly reviewed family/reference mapping in
-  `integration/combat-costs/mappings.json`. Each output section names its
-  source and explains the comparison. The source's two USD values are copied
-  exactly, including blanks. A family comparison is an estimate, not a new
-  class-specific contract price.
-- A SEST researched estimate, also in `mappings.json`, for a unit the author
-  catalog cannot price. It is SEST's own figure, not the author's, and its
-  catalog section is preceded by comments naming the method, the year and
-  every source (see below).
+## In the game
 
-Examples include the actual RAN MH-60R, Australian Super Hornet, S-70B-2,
-Apache, A-10C+, B-52H variants, conventional ARRW, selected Tomahawks,
-Ticonderoga/Burke/Virginia fits and the Canberra/Juan Carlos design family.
-No invented modernization surcharge is added. Historical reference years
-remain the donor estimate's years, even when a scenario variant is newer.
+**F11: original Combat Cost Tracker.** SEST extends the author's weapon, ship and aircraft catalogs without modifying or redistributing its DLL. Chaff, flares, noisemakers, sonobuoys, tanks and pods receive explicit valid categories, so they are no longer silently discarded by the default `Ignore` category. The category list exposes Gun, Decoy, Sonobuoy, Fuel tank, Pod and Other rows; the existing currency, overlay position, hotkey and price-mode settings are retained. A device contributes when the game's expenditure or loss records report it; its mere presence on a unit is not an expenditure.
 
-The compiled `COST-COMPATIBILITY.txt` lists every emitted mapping, every
-researched estimate with its method, year and sources, and the remaining SEST
-gaps. `coverage.json` records static reference coverage for
-historical and current modes separately. Carried stores are included in that
-reference audit; it is not a count of objects the native expenditure report
-will actually charge during a mission.
+**F10: SEST material-loss summary.** The independent SEST plugin shows the current mission's weapon expenditure, lost ships, aircraft, land platforms and remaining itemized stores. It uses native task-force registers, including recorded aircraft losses on the ground/deck, and works for standalone missions too. Native player, enemy and neutral task forces appear when present. Closing the popup restores the prior pause and time-compression state. Change `CombatCostsKey` in `plugins/sest_runtime.ini` and restart to choose another key.
 
-## Researched estimates and the cost list (23 October 2026)
+**Task-force campaign debrief:** additional Combat Cost rows show Player and Enemy weapons, ships, aircraft, land and lost stores, this mission, and completed-campaign totals. It reads the saved native debrief records and reprices their quantities with the currently selected price mode/catalogs. Completed missions count once. Reopening a debrief does not write a save, and replaying a completed mission retains its prior supplemental record. This is a completed-mission material-loss account, not a sum of every failed/retried attempt or a running operating budget. The campaign map's Situation tab is unchanged.
 
-The owner asked for a combat cost list covering everything in SEST. 104
-unpriced items were researched and each figure was then checked
-adversarially. Only rows the check confirmed or corrected are shipped: 31
-become reviewed mappings and 25 become researched estimates. Refuted rows and
-rows the check left unknown are not shipped. Neither is a mapping onto a
-blank author entry (the J-36), because it would add nothing. Some sources
-could not be read, because this environment's network policy blocked them
-(proxy 403, DNS failures). No shipped price rests on such a page.
+The new SEST inventory module captures remaining itemized ammunition before a registered platform loss. It independently retains raw expenditure counters, including types omitted by the native saved weapon report. Mid-mission save/load and campaign completion write versioned SEST quantity keys alongside native data; no USD totals are stored. The native loss/weapon records remain authoritative and are not rewritten. Native tracker display failure does not uninstall this separate capture.
 
-**The estimate form.** An entry in `mappings.json` with an `estimate` object
-instead of a `source`:
+`+ ?` means a price or quantity is unavailable. Old saves can be repriced for their existing native records, but missing magazines cannot be reconstructed. Virtual flight-deck stock pools remain unknown because they are points rather than item counts. Stores represented only by such pools, cargo, operating fuel burn, crew, repair costs and damage-short-of-loss are outside the account. These are material limitations, not zero-cost claims. Land costs and parked-aircraft corrections appear in SEST's F10/debrief views; the original F11 overlay retains the tracker's own scope.
 
-```json
-{
-  "target": "tha_cvl_chakri_naruebet",
-  "category": "CVL",
-  "basis": "HTMS Chakri Naruebet: published ship cost US$285M (1993; ...)",
-  "estimate": {
-    "historical": "285000000", "historical_year": "1993",
-    "historical_method": "published price",
-    "current": "660000000", "current_year": "1993",
-    "current_method": "CPI conversion",
-    "note": "Current: 285,000,000 x 334.4 / 144.5 = 659,543,253, rounded"
-  },
-  "sources": [{"title": "HTMS Chakri Naruebet - Wikipedia", "url": "https://..."}]
-}
-```
+## Runtime and validation
 
-`costs.estimate_fields` rejects an estimate unless all of the following hold:
+The new module accepts only the previously inspected Sea Power 0.8.7 Build 261021 native assembly hash `eab2297ba92c6013958bdb2cf16d5794a4731330818ce353f89dc2241e16a3bd`. Anchor Chain, Combat Cost Tracker and SEST must be enabled before a full game restart. An unrecognized game build leaves the runtime plugin inactive with a log message; cost data remains installed.
 
-- Every price it gives parses as positive USD, with no separators or
-  exponents.
-- Each given price has a four-digit year and a method. The methods are
-  `published price`, `comparable recent purchase`, `documented replacement
-  estimate`, `CPI conversion` and `model estimate`.
-- It has a basis and at least one source with a title and a URL.
-- It names no `source` catalog section. A figure copied from the catalog is a
-  reviewed mapping and must stay one.
-- A weapon or vessel estimate has a category of at most 20 characters.
-- Every text field is one line, because it is rendered into INI comments.
+The current workspace has the older 0.8.6 DLL plus the repository's 0.8.7 review. The expanded verifier passes a structural comparison of 62 signatures, 18 argument orders, 23 fields and 25 properties on that known 0.8.6 DLL. This is not a fresh 0.8.7 verification. New native inventory/modal hooks, external Unity/Noesis bindings and Harmony interaction still require the PC test card in `docs/playtests/complete-combat-costs-20261024.md`. The existing terrain/lost-hull fixes were previously seen loading on 0.8.7; that earlier observation does not prove these new features work in game.
 
-One price may be left out, and it then stays unknown. The A320 and A330 ship
-only a current price, because no service-entry price could be read. The
-historical value follows the tracker's convention: rounded service-entry-era
-USD, with the reference year recorded. The current value is explicit 2026
-USD. The order of preference is a comparable recent purchase, then a
-documented replacement estimate, then a CPI conversion; the source year and
-method are recorded either way. Ships are priced fitted, without ammunition
-or embarked aircraft.
+Build with `SEST_MONO_PREFIX=<mono-prefix> python3 integration/runtime-fixes/build_plugin.py`, then `python3 tools/build_all.py --from-scratch`. The runtime builder runs 134 mocked assertions, including shared Python/C# price-precedence fixtures, actual loss acceptance, save/load, duplicate callbacks, replay preservation, repricing, unknown records and popup pause/close behavior. Python coverage checks preserve all known fields and validate all resolved references. See the dated review receipt for the full pack checks. PC acceptance remains pending.
 
-**Provenance rules.**
+## Earlier review
 
-- An author entry still wins. An estimate whose target later gains an
-  author section is not emitted, even if that section is blank.
-- A model estimate is a comparison, never a published price. The Redback,
-  the KVLS-II HGV, the naval L-SAM and the Kraken K5 are model estimates.
-- Purchase points and `ammo_prices.csv` scores are never USD.
-- Each catalog section is preceded by `; SEST researched estimate, not a
-  tracker author price: <basis>`, one line each for the historical and
-  current method and year, a `; Note:` line with the working, and one
-  `; Source:` line per page.
-
-Researched items that are not shipped are kept in
-`integration/combat-costs/research.json`, with the candidate figure, the
-decision and why it was not shipped, and their sources.
-
-**The list.** `docs/combat-costs/cost-list.md`, and `cost-list.csv` beside
-it, are generated from the cost builder. Do not edit them. They cover:
-
-- every weapon, vessel and aircraft SEST ships (winning owner `SEST_*`);
-- every vessel and aircraft SEST_Campaign's missions and rosters field, read
-  from the campaign pack's own output, not the dist;
-- for each of these, the historical and current USD, the category, and
-  where the price comes from: tracker catalog, inline in the unit file, SEST
-  mapping, SEST researched estimate, or unknown with the reason;
-- the land units SEST ships, marked "not priced: the tracker does not price
-  land platforms";
-- the gaps: what is still unknown and whether it was researched, then each
-  researched but unshipped item with its candidate figures, why it was not
-  shipped, and its sources;
-- the next batch: every weapon that a fielded unit's file can load, in any
-  of its offered fits, and every round inside a carried pod, that lacks a
-  price. These are grouped as missiles, bombs, torpedoes, guns and
-  projectiles, and rockets, then fuel tanks, containers, chaff, noisemakers
-  and sonobuoys, with counts first.
-
-SEST_Campaign builds after this pack, so `tools/build_all.py` writes the list
-once every pack is built (`build_pack.py --list`). Run alone, `build_pack.py`
-also writes it when the campaign's output exists. On 23 October 2026 the list
-held 138 SEST weapons (129 priced), 339 SEST vessels (320), 37 SEST aircraft
-(35), 163 fielded vessels (146), 139 fielded aircraft (116 with both prices,
-2 more with a current price only), 27 land units, and 339 carried weapons
-without a price.
-
-### Second batch (24 October 2026)
-
-A second batch of 102 weapons, ships and aircraft that SEST's campaigns carry
-or field was researched and checked the same way. 100 rows ship:
-
-- 66 reviewed mappings: 62 weapons, 2 vessels and 2 aircraft. One sets its own
-  category: `plaaf_ls-500` is a guided bomb, so it takes `Bomb`, not its
-  source's `Land Attack`.
-- 34 researched estimates: 33 weapons (mostly torpedoes and Paveway bombs)
-  and the Italian AV-8B Plus. The Mk 44 and Mk 46 family, the Sting Ray Mod 0
-  and the Yu-6, Yu-9 and Yu-10 family ship a current price only.
-
-The A320 and A330 rows are left out. They repeat the 23 October estimates and
-add no historical price. No row's source entry was blank, and no row replaces
-an author entry.
-
-`research.json` now holds 377 items: every item the second check left
-unknown, each with its candidate figure and the reason. 323 of them carry a
-`rerun` note, because their research stopped when this session's web search
-allowance ran out or a source host was blocked. They can be re-run. 89 items
-are land units (kind `land`). They are kept for reference only, because the
-tracker does not price land platforms; the cost list shows them under Gaps.
-
-On 24 October 2026 the list held 138 SEST weapons (129 priced), 339 SEST
-vessels (320), 37 SEST aircraft (35), 163 fielded vessels (148), 139 fielded
-aircraft (119 with both prices, 2 more with a current price only), 27 land
-units, and 256 carried weapons with a missing price (12 of them have a
-current price only).
-
-## Price precedence and unknowns
-
-The installed README and the DLL's `CostRules.ResolveField` agree on the
-current precedence, which differs from the earlier Workshop description:
-
-1. A per-field switch, such as `OverrideCurrentYearCost`, takes priority.
-2. Next comes the entry's `OverrideInline` switch.
-3. Next comes the catalog's `[Costs] OverrideInline` switch.
-4. The default is **False**, so an inline equipment value is preferred.
-
-A missing preferred key falls back to the other source for that field only.
-An explicitly blank or invalid preferred price remains unknown. Zero means
-explicitly free. `CurrentYearCost` never falls back to the historical price.
-The extension changes none of these switches. The regression tests exercise
-these differences, including blank values, zero and conflicting spellings.
-
-SEST MALICE retains the author's unknown AIM-424 prices. The fictional
-Redback (`sest_agr-30`) carries a labelled model estimate since 23 October
-2026: the AGM-114L Longbow Hellfire's catalog pair, 70,000 / 150,000, as a
-seeker and role comparison, not a published price. Modern Supply and Anzac
-are not priced from the old HMAS Supply and Battle-class Anzac entries.
-Collins, Arafura and the Bay-class Choules also remain unpriced where no
-defensible catalog match exists. A borrowed visual model alone is
-insufficient evidence for a ship's cost.
-
-Useful display categories are still supplied for these gaps: Anzac's `FFH`
-prefix becomes the supported `FFG` cost category, and unrecognized `AOR`
-prefixes become `AO`. Unknown subtotals should retain their counts and `?`.
-No missing equipment is silently made free.
-
-The local `cache/ammo_prices.csv` is not used as a USD source. Native Task
-Force requisition points are also unrelated to these dollar estimates.
-Ship and airframe source estimates exclude separately counted ammunition
-and embarked aircraft; those remain the tracker's own loss-accounting work.
-Ground-platform loss pricing is outside this plugin's documented scope.
-
-## Preserved settings
-
-The capture uses historical prices (`UseCurrentYearCosts=False`) and labels
-the independent current-price series `2026-08`. This extension changes
-neither setting, and the builder performs no inflation calculation: a
-researched estimate's CPI conversion was done once, in the research, and is
-recorded in its note. Currency/economy selection, overlay scale, position,
-category order and visibility are retained.
-The captured weapon row order omits `Gun`, `Decoy` and `Other`; hidden categories
-still contribute to totals under the author's rules.
-
-## PC acceptance
-
-1. Install with Sea Power closed and confirm the new `IN LINE` result. Both
-   plugins should be enabled, with SEST first and Anchor Chain above the plugins.
-2. Fully restart the game. Start a fresh mission; use F11 to show the tracker.
-   Confirm the startup-disabled message is absent from the new session log.
-3. Fire one known priced round at a time. AIM-260 uses its existing author
-   section; test an ARRW and a mapped JDAM separately. Check per-unit amounts
-   against `COST-COMPATIBILITY.txt` and the selected historical/current mode.
-4. In a disposable mission, check a mapped aircraft loss and a ship loss.
-   Remaining ammunition and embarked aircraft must be counted once, under
-   the plugin's existing rules. Then save/load and check retained totals.
-5. Test MALICE: its unknown price should show as incomplete, rather than
-   zero. Check the RAN frigate's FFG category if it is lost. A Redback shot
-   should now add USD 70,000 (historical mode), its model estimate.
-6. Change price mode only for a separate fresh comparison. A missing current
-   value must remain unknown rather than borrow the historical estimate.
-
-The Linux build can validate mappings, precedence, catalog syntax and source
-fidelity. It cannot run Sea Power or establish the plugin's in-mission loss,
-save/load or native `#!extend` behavior. Those acceptance checks remain on PC.
+`tracker-review-20261024.md` records the original DLL review. The initial suspected decoy crash was refuted: missing categories defaulted to `Ignore`. The tracker still has a session-wide display-failure shutdown path; the new SEST capture and viewer are separate. `campaign-costs-design.md` retains the original read-only proposal, with an implementation update explaining the additional quantity capture.

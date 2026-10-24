@@ -1,8 +1,9 @@
 # SEST Runtime Fixes - developer notes
 
 SEST's own Anchor Chain plugin (`SEST.RuntimeFixes.dll`): the Tomahawk MST
-terrain clearance (`TerrainClearance.cs`) and the task-force debrief's lost
-hulls (`TaskForceDebrief.cs`). What it does for a player is in
+terrain clearance (`TerrainClearance.cs`), the task-force debrief's lost
+hulls (`TaskForceDebrief.cs`), and complete material-cost accounting
+(`CombatPrices.cs`, `CampaignCosts.cs`, `CampaignInventory.cs`, `LiveCombatCosts.cs`). What it does for a player is in
 `SEST_RUNTIME_README.txt`, which the campaign builder
 (`build_pack.write_runtime_fixes`) copies into the pack's `plugins/` with
 `sest_runtime.ini` and the DLL. The plugin installs nothing unless the game's
@@ -24,6 +25,20 @@ Reference compiler: Ubuntu 24.04's `mono-mcs` 6.8.0.105+dfsg-3.6ubuntu2
 output is deterministic (no timestamp, content-derived MVID), so the
 committed DLL rebuilds byte for byte from the sources; another Mono build
 may compile them to different bytes.
+
+## Complete material-cost accounting (24 October 2026; PC acceptance pending)
+
+`CombatPrices.cs` independently reproduces the captured tracker's field precedence, explicit-zero and category rules, reads enabled virtual catalogs and uses decimal USD arithmetic. It never calls CombatCosts.dll. Shared TSV cases are run by both the Python and C# suites.
+
+`CampaignCosts.cs` adds native summary rows on the task-force debrief's `Load`, reads completed native mission snapshots, and prices expenditure and destroyed platform rows. Ground/deck aircraft are included if recorded; damaged-only rows are excluded. Current and completed-campaign totals are recomputed from quantities, without a USD save cache. Per-reference failures stay unknown; a global display error removes any partially added rows and disables only this display.
+
+`CampaignInventory.cs` separately hooks `Taskforce.RegisterUnitStatus`, `SaveLoadManager.WriteTaskforceAarData` / `LoadTaskforceAarData`, and native `SaveDebriefSnapshot`. Its prefix snapshots remaining item counts; its postfix commits only an accepted destroyed-platform registration. Temporary registers and duplicate callbacks do not become losses. It writes `SestCombatInventoryV1` per native mission task force, and `SestCombatInventoryPlayerV1`, `SestCombatInventoryEnemyV1`, `SestCombatExpenditurePlayerV1`, `SestCombatExpenditureEnemyV1` into completed campaign debrief sections. Those are versioned base64 raw-quantity records, not USD. Native save data is retained; `saveFile(false)` merges. Existing completed records are preserved on replay. Missing older captures are never replaced by guessed fits. Virtual deck stock points are flagged incomplete, never priced as money. Opening the debrief writes nothing, but this explicitly separate capture module does write its own keys during native save/completion.
+
+`LiveCombatCosts.cs` hooks initialized `GameMain.Update` to open an ordinary native text modal on F10 (configurable `CombatCostsKey`). It displays native live expenditure/loss registers plus captured remaining stores, including land and recorded parked aircraft. The native close command runs and the prior pause/compression is restored. The viewer does not depend on F11 visibility or the tracker's capture. Viewer failure leaves the capture and native commands intact.
+
+Runtime options are separate in `sest_runtime.ini`. All remain gated to the previously reviewed 0.8.7 assembly. New campaign bindings match the repository's 0.8.7 design review; the expanded verifier has additionally passed **only an older 0.8.6 structural comparison** in this workspace. Use `verify_native_api.py <old-dll> --comparison-086` for that comparison. It does not change the runtime allowlist, and its output explicitly rejects a 0.8.7 verification claim. On a newly supplied 0.8.7 DLL, run the default strict verifier. External Unity input and inherited Noesis UI APIs are also checked during runtime binding. PC acceptance of these new hooks remains outstanding. Captured proprietary assemblies are not shipped.
+
+The runtime builder now runs 134 mocked assertions, and records every C# source/test and the shared TSV fixture. All module installation must be checked in Player.log, followed by `docs/playtests/complete-combat-costs-20261024.md`; the older two correction-install lines alone do not establish new cost-accounting success.
 
 ## Re-gated to Sea Power 0.8.7 (23 Oct 2026)
 

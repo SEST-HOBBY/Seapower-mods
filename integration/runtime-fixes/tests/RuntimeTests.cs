@@ -23,7 +23,7 @@ namespace UnityEngine
 namespace SeaPower
 {
     public struct GeoPosition { public float Latitude; }
-    public class ObjectBase : UnityEngine.MonoBehaviour
+    public partial class ObjectBase : UnityEngine.MonoBehaviour
     {
         public enum CrewSkill { Green, Regular, Veterans }
         public GeoPosition _geoPosition { get; set; }
@@ -38,7 +38,7 @@ namespace SeaPower
         public FlightStage _flightStage { get; set; } = FlightStage.MaintainLoftAlt;
     }
     public class Missile : WeaponBase { }
-    public static class Utils { public static float heightInFeetToUnity(float feet) { return feet * .00453571f; } }
+    public static partial class Utils { public static float heightInFeetToUnity(float feet) { return feet * .00453571f; } }
     public static class TerrainUtils
     {
         public static float Height, LastDistance, LastHeading, LastLatitude;
@@ -54,18 +54,19 @@ namespace SeaPower
         }
     }
     public class LinearCampaignMission { public int _index; }
-    public class IniHandler
+    public partial class IniHandler
     {
         public HashSet<string> Sections = new HashSet<string>();
         public HashSet<string> Destroyed = new HashSet<string>();
-        public bool doesSectionExist(string section) { return Sections.Contains(section); }
+        public bool doesSectionExist(string section) { return Sections.Contains(section) || Data.ContainsKey(section); }
         public bool readValue(string sectionName, string key, bool defaultValue, bool performLogging)
         {
             return key == "IsDestroyed" ? Destroyed.Contains(sectionName) : defaultValue;
         }
         public T readValue<T>(string sectionName, string key, T defaultValue, bool performLogging) { throw new Exception("generic readValue bound"); }
         public bool? readValue(string sectionName, string key, bool? defaultValue, bool performLogging) { throw new Exception("nullable readValue bound"); }
-        public string readValue(string sectionName, string key, string defaultValue, bool performLogging) { return defaultValue; }
+        public string readValue(string sectionName, string key, string defaultValue, bool performLogging)
+        { return Data.ContainsKey(sectionName) && Data[sectionName].ContainsKey(key) ? Data[sectionName][key] : defaultValue; }
     }
 }
 
@@ -113,7 +114,7 @@ namespace SeapowerUI.ViewModels
             IsDestroyed = isDestroyed; CrewSkill = crewSkill;
         }
     }
-    public class LinearCampaignTaskForceDebriefViewModel
+    public partial class LinearCampaignTaskForceDebriefViewModel
     {
         public ObservableCollection<LinearCampaignTaskForceDebriefUnitRow> UnitRows { get; private set; } =
             new ObservableCollection<LinearCampaignTaskForceDebriefUnitRow>();
@@ -131,7 +132,7 @@ static class RuntimeTests
     static void Check(bool value, string name) { checks++; if (!value) throw new Exception(name); }
     static void Equal(float a, float b, string name) { Check(Math.Abs(a-b) < .0001f, name); }
 
-    static void Main()
+    static void Main(string[] args)
     {
         Check(Policy.PackEnabled(new[] { "[LoadOrder]", "Mod1Directory=SEST_Integration,True" }, "SEST_Integration"), "enabled pack");
         Check(!Policy.PackEnabled(new[] { "[LoadOrder]", "Mod1Directory=SEST_Integration,False" }, "SEST_Integration"), "disabled pack");
@@ -213,6 +214,8 @@ static class RuntimeTests
         TaskForceDebrief.Postfix(listed, state, mission);
         Check(listed.UnitRows.Count == 2 && listed.UnitRows.Count(r => r.InstanceId.ToLowerInvariant() == "arafura") == 1,
             "a loss the native rows already list is not repeated");
+        checks += CostTests.Run(args);
+        checks += LiveCostTests.Run();
         Console.WriteLine("Runtime regressions passed: " + checks + " assertions (mocked native API; PC gameplay still required)");
     }
 }

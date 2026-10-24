@@ -23,6 +23,7 @@ visibility, unique overloads, the property/field lookups, the sampler's
 reach and the Harmony targets' bodies - was added on 23 Oct 2026 and checked
 on 0.8.7 only, because the 0.8.6 DLL was not to hand.
 """
+import argparse
 import hashlib
 from pathlib import Path
 import sys
@@ -31,6 +32,7 @@ from dncil.cil.body import CilMethodBody
 from dncil.cil.body.reader import CilMethodBodyReaderBytes
 
 EXPECTED = "eab2297ba92c6013958bdb2cf16d5794a4731330818ce353f89dc2241e16a3bd"
+COMPARISON_086 = "c913e31f2d73e526f2d28043f522f2be26f12534fd0421eedee3cd70eab9cdd8"
 OBJ, WPN, AP = "SeaPower.ObjectBase", "SeaPower.WeaponBase", "SeaPower.AmmunitionParameters"
 TER, INI, MISSION = "SeaPower.TerrainUtils", "SeaPower.IniHandler", "SeaPower.LinearCampaignMission"
 VM = "SeapowerUI.ViewModels.LinearCampaignTaskForceDebriefViewModel"
@@ -66,6 +68,54 @@ METHODS = {
     (ROW, "get_InstanceId"): "instance string()",
     (VM, "get_UnitRows"): "instance class System.Collections.ObjectModel.ObservableCollection`1<class %s>()" % ROW,
 }
+# Added 24 October. Campaign debrief bindings also match the repository's
+# 0.8.7 review. New inventory/modal bindings are compared against the available
+# 0.8.6 capture; a fresh 0.8.7 run and PC acceptance remain required. Comparison
+# mode never changes the DLL's runtime hash allowlist.
+SUMROW = "SeapowerUI.ViewModels.LinearCampaignTaskForceDebriefSummaryRow"
+SNAPROW = "SeapowerUI.ViewModels.LinearCampaignTaskForceDebriefRegisterSnapshotRow"
+RULES = "SeapowerUI.ViewModels.LinearCampaignTaskForceModeRules"
+REPORT, AMMO = "SeaPower.TaskforceWeaponReport", "SeaPower.WeaponReportAmmoData"
+TF, REG, OBP, DECK = "SeaPower.Taskforce", "SeaPower.UnitRegister", "SeaPower.ObjectBaseParameters", "SeaPower.FlightDeck"
+METHODS.update({
+    (VM,"Load"): "instance void(class SeaPower.LinearCampaignMission)",
+    (VM,"HasDebriefSnapshot"): "static bool(class SeaPower.IniHandler, int)",
+    (VM,"GetDebriefSectionName"): "static string(int)",
+    (VM,"TryParseRegisterRows"): "static bool(string, ref class System.Collections.Generic.List`1<valuetype %s>)" % SNAPROW,
+    (VM,"TryReadWeaponReports"): "static bool(class SeaPower.IniHandler, int, ref class %s, ref class %s, ref class %s)" % (REPORT,REPORT,REPORT),
+    (VM,"SaveDebriefSnapshot"): "static void(class SeaPower.LinearCampaignMission, class SeapowerUI.ViewModels.MissionDebriefViewModel)",
+    (VM,"get_SummaryRows"): "instance class System.Collections.ObjectModel.ObservableCollection`1<class %s>()" % SUMROW,
+    (SUMROW,".ctor"): "instance void(string, string, bool, bool)",
+    (RULES,"OpenCampaignStateIni"): "static class SeaPower.IniHandler()",
+    (INI,"get_Data"): "instance class System.Collections.Generic.Dictionary`2<string, class System.Collections.Generic.Dictionary`2<string, string>>()",
+    (INI,"writeValue"): "instance void(string, string, string)",
+    (INI,"saveFile"): "instance void(bool)",
+    (REPORT,"BuildTaskforceTotals"): "instance class System.Collections.Generic.Dictionary`2<string, class %s>()" % AMMO,
+    (AMMO,"get_AmmoRef"): "instance string()",
+    (AMMO,"get_AmmoType"): "instance valuetype SeaPower.Ammunition+Type()",
+    (AMMO,"get_Launched"): "instance int()",
+    (AMMO,"get_ProjectileFired"): "instance int()",
+    ("SeaPower.Utils","openVirtualIniFile"): "static class SeaPower.IniHandler(string, string, string, bool)",
+    ("SeaPower.Utils","openIniFile"): "static class SeaPower.IniHandler(string, string, bool, bool)",
+    (TF,"RegisterUnitStatus"): "instance void(bool, class SeaPower.ObjectBase, bool, bool)",
+    ("SeaPower.SaveLoadManager","WriteTaskforceAarData"): "static void(class SeaPower.IniHandler, class SeaPower.Taskforce, string)",
+    ("SeaPower.SaveLoadManager","LoadTaskforceAarData"): "static void(class SeaPower.IniHandler, class SeaPower.Taskforce, string)",
+    (OBJ,"get_AmmunitionAmountDictionary"): "instance class UniRx.ReactiveDictionary`2<string, int>()",
+    (REG,"get_IniRef"): "instance string()", (REG,"get_IniFolder"): "instance string()",
+    (REG,"get_ObjectType"): "instance valuetype SeaPower.ObjectBase+ObjectType()",
+    (REG,"get_Count"): "instance int()", (REG,"get_IsDestroyed"): "instance bool()",
+    ("SeaPower.RichMissionMessages","FormatPopupMessageText"): "static class SeaPower.MissionPopupData(string, class SeaPower.ObjectBase)",
+    ("SeaPower.RichMissionMessages","CreateMissionPopupModal"): "static class SeapowerUI.Modal(class SeaPower.MissionPopupData, class Noesis.UIElement, bool, bool, valuetype System.Nullable`1<valuetype System.DateTime>, class System.Collections.Generic.IList`1<class SeapowerUI.RichMissionMessageObjectiveRow>)",
+    ("SeapowerUI.CustomRoutedCommand","Execute"): "instance void(object, class Noesis.UIElement)",
+    ("SeapowerUI.WindowHostCommands","get_OpenWindowCommand"): "static class SeapowerUI.CustomRoutedCommand()",
+    ("SeaPower.DelegateCommand",".ctor"): "instance void(class System.Action`1<object>)",
+    ("SeaPower.DelegateCommand","Execute"): "instance void(object)",
+    ("SeaPower.GameTime","get_TimeCompression"): "static float()",
+    ("SeaPower.GameTime","set_TimeCompression"): "static void(float)",
+    ("SeaPower.GameTime","Pause"): "static void(bool)", ("SeaPower.GameTime","UnPause"): "static void()",
+    ("SeaPower.GameMain","Update"): "instance void()",
+})
+OVERLOADS = [(INI,"readValue","instance string(string, string, string, bool)")]
 # Instance members read through GetField/GetProperty (exact name) or, for the names in
 # IGNORE_CASE, Expression.PropertyOrField: each must be the only member of that name.
 FIELDS = {(AP, "_ammunitionFileName"): "string", (AP, "_terrainFollowFlight"): "bool",
@@ -76,6 +126,28 @@ PROPERTIES = {(OBJ, "_geoPosition"): "valuetype SeaPower.GeoPosition",
               (VM, "UnitRows"): METHODS[VM, "get_UnitRows"][len("instance "):-2],
               (ROSTER, "CrewSkill"): "valuetype SeaPower.ObjectBase+CrewSkill", (ROW, "InstanceId"): "string"}
 PROPERTIES.update({(ROSTER, n): "string" for n in ("InstanceId", "UnitType", "UnitFolder", "Category", "VariantReference")})
+FIELDS.update({
+    (OBJ,"_type"): "valuetype SeaPower.ObjectBase+ObjectType", (OBJ,"_obp"): "class " + OBP,
+    (OBP,"_objectIniName"): "string", (OBP,"_flightDeck"): "class " + DECK,
+    (DECK,"_currentAmmo"): "float", (DECK,"_accountableAmmunition"): "class System.Collections.Generic.Dictionary`2<string, int>",
+    (TF,"_unitStatusRegister"): "class System.Collections.Generic.List`1<class SeaPower.UnitRegister>",
+    (TF,"_weaponsSpent"): "class System.Collections.Generic.Dictionary`2<string, class SeaPower.WeaponsSpent>",
+    ("SeaPower.WeaponsSpent","_number"): "int", ("SeaPower.GameMain","_initialized"): "bool",
+    **{(SNAPROW,n): t for n,t in (("IniRef","string"),("Folder","string"),("ObjectType","string"),("Count","int"),("IsDestroyed","bool"))},
+})
+STATIC_FIELDS = {("SeaPower.Globals",n): "class " + TF for n in ("_playerTaskforce","_enemyTaskforce","_neutralTaskforce")}
+STATIC_FIELDS["SeapowerUI.MainGameView","Instance"] = "class SeapowerUI.MainGameView"
+PROPERTIES.update({
+    (VM,"SummaryRows"): METHODS[VM,"get_SummaryRows"][len("instance "):-2],
+    (INI,"Data"): METHODS[INI,"get_Data"][len("instance "):-2],
+    (OBJ,"AmmunitionAmountDictionary"): "class UniRx.ReactiveDictionary`2<string, int>",
+    (REG,"IniRef"): "string",(REG,"IniFolder"): "string",(REG,"Count"): "int",(REG,"IsDestroyed"): "bool",
+    (REG,"ObjectType"): "valuetype SeaPower.ObjectBase+ObjectType",
+    (AMMO,"AmmoRef"): "string",(AMMO,"AmmoType"): "valuetype SeaPower.Ammunition+Type",
+    (AMMO,"Launched"): "int",(AMMO,"ProjectileFired"): "int",
+    ("SeapowerUI.Modal","ActionCommand"): "class System.Windows.Input.ICommand",
+    ("SeapowerUI.WindowHostCommands","OpenWindowCommand"): "class SeapowerUI.CustomRoutedCommand",
+})
 IGNORE_CASE = {"_ammunitionFileName", "_terrainFollowFlight", "_ap", "_geoPosition", "_flightStage"}
 # Harmony's __N and the row constructor's arguments are positional: same-typed neighbours must not swap.
 PARAMETERS = {
@@ -84,6 +156,20 @@ PARAMETERS = {
     (INI, "readValue"): "sectionName key defaultValue performLogging",
     (ROW, ".ctor"): "instanceId iniRef iniFolder category variantReference damageState isDestroyed isFlagship crewSkill quantity",
 }
+PARAMETERS.update({
+    (VM,"TryReadWeaponReports"): "campaignStateIni missionIndex playerReport enemyReport neutralReport",
+    (VM,"TryParseRegisterRows"): "rawValue rows", (VM,"SaveDebriefSnapshot"): "mission debrief",
+    (SUMROW,".ctor"): "label value isPositive isNegative",
+    (INI,"writeValue"): "sectionName key value", (INI,"saveFile"): "overwrite",
+    ("SeaPower.Utils","openVirtualIniFile"): "basePath fileName folderName checkCached",
+    ("SeaPower.Utils","openIniFile"): "rootPath name logErrors useCaching",
+    (TF,"RegisterUnitStatus"): "useTmpList tfObject destroyed damaged",
+    ("SeaPower.SaveLoadManager","WriteTaskforceAarData"): "ini taskforce sectionName",
+    ("SeaPower.SaveLoadManager","LoadTaskforceAarData"): "missionIni taskforce sectionName",
+    ("SeaPower.RichMissionMessages","CreateMissionPopupModal"): "messageData context pauseOnLoad stopTimeOnClose navalMessageDateTime previewObjectives",
+    ("SeapowerUI.CustomRoutedCommand","Execute"): "parameter target",
+    ("SeaPower.GameTime","Pause"): "muteSounds",
+})
 STAGES = ("ToBearing", "MaintainHeight", "MoveToLoftAlt", "MaintainLoftAlt", "MoveToSeaSkimming",
           "MaintainSeaSkimming", "MoveToFinalFlightAlt", "MaintainFinalFlightAlt", "AlignSensorToTarget", "TerminalApproach")
 LOOKAHEAD_NM = 1.10  # Policy.LookAheadNm
@@ -213,17 +299,23 @@ class Assembly:
 def main():
     if sys.flags.optimize:
         sys.exit("verify_native_api.py checks with assert: run it without -O or PYTHONOPTIMIZE")
-    path = Path(sys.argv[1])
-    assert hashlib.sha256(path.read_bytes()).hexdigest() == EXPECTED, "uninspected native build"
+    parser=argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("assembly",type=Path)
+    parser.add_argument("--comparison-086",action="store_true",help="structural comparison only on the known 0.8.6 capture; does not authorize runtime loading")
+    args=parser.parse_args()
+    path=args.assembly
+    digest=hashlib.sha256(path.read_bytes()).hexdigest()
+    assert digest == (COMPARISON_086 if args.comparison_086 else EXPECTED), "uninspected native build"
     game = Assembly(path)
     bound = {}
-    for (owner, name), expected in METHODS.items():
+    for owner,name,expected in [(o,n,s) for (o,n),s in METHODS.items()] + OVERLOADS:
         rows = [m.row for m in game.typedef(owner).MethodList if str(m.row.Name) == name]
         params = expected[expected.index("(") + 1:-1].split(", ") if not expected.endswith("()") else []
         exact = [row for row in rows if game.method(row)[1] == params]
         assert len(exact) == 1 and game.method(exact[0])[0] == expected, (owner, name, [game.method(r)[0] for r in rows])
         bound[owner, name] = exact[0]
     assert bound[ROW, ".ctor"].Flags.mdPublic, "row constructor must be public (GetConstructor)"
+    assert bound[SUMROW,".ctor"].Flags.mdPublic and bound["SeaPower.DelegateCommand",".ctor"].Flags.mdPublic, "GetConstructor requires public constructors"
     for (owner, name), names in PARAMETERS.items():
         got = " ".join(str(p.row.Name) for p in bound[owner, name].ParamList if p.row.Sequence > 0)
         assert got == names, (owner, name, got)
@@ -231,6 +323,13 @@ def main():
         for (owner, name), expected in table.items():
             found = game.members(owner, name, name in IGNORE_CASE)
             assert found == [(kind, owner, name, expected)], (owner, name, found)
+    for (owner,name),expected in STATIC_FIELDS.items():
+        rows=[f.row for f in game.typedef(owner).FieldList if str(f.row.Name)==name]
+        assert len(rows)==1 and rows[0].Flags.fdStatic and game.type(rows[0].Signature.value,1)[0]==expected,(owner,name)
+    assert game.chain("SeapowerUI.Modal")[-1].startswith("Noesis."), "Modal must inherit the external Noesis UI; IsLoaded is checked at runtime"
+    for owner,names in {"SeaPower.Ammunition+Type": "Missile ASROC RBU AirDepthCharge Torpedo Bomb Projectile AerialRocket MLRS", "SeaPower.ObjectBase+ObjectType": "Vessel Submarine Aircraft Helicopter LandUnit"}.items():
+        actual={str(f.row.Name) for f in game.typedef(owner).FieldList if f.row.Flags.fdStatic}
+        assert set(names.split()) <= actual,(owner,actual)
     assert WPN in game.chain("SeaPower.Missile") and OBJ in game.chain(WPN), "Missile : WeaponBase : ObjectBase"
     assert "UnityEngine.MonoBehaviour" in game.chain(OBJ) and not game.members(OBJ, "transform"), "ObjectBase.transform"
     stage = game.typedef("SeaPower.WeaponBase+FlightStage")
@@ -249,10 +348,12 @@ def main():
     reach = max(literals((TER, "CrudeGetHighestTerrainHeightAhead")))
     assert 1.0 < reach <= LOOKAHEAD_NM, ("native sampler reach no longer inside Policy.LookAheadNm", reach)
     literals((VM, "ReadUnitRows"))
-    print("Native 0.8.7 ABI verified: captured hash, %d method signatures with %d parameter orders, %d fields, "
+    label="0.8.6 structural comparison only" if args.comparison_086 else "0.8.7 ABI"
+    print("Native %s verified: captured hash, %d method signatures with %d parameter orders, %d fields, "
           "%d properties, 10 cruise/terminal enum names, inheritance, native lookahead and sampler reach (%.2f nm)"
-          % (len(METHODS), len(PARAMETERS), len(FIELDS), len(PROPERTIES), reach))
-    print("No game code executed. Unity gameplay and Harmony installation still require the PC acceptance test.")
+          % (label,len(METHODS)+len(OVERLOADS), len(PARAMETERS), len(FIELDS)+len(STATIC_FIELDS), len(PROPERTIES), reach))
+    print("No game code executed. External Unity/Noesis members and Harmony installation still require PC acceptance.")
+    if args.comparison_086: print("This is NOT a 0.8.7 verification. The plugin remains restricted to the previously reviewed 0.8.7 hash.")
 
 
 if __name__ == "__main__":

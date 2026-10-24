@@ -1,14 +1,14 @@
-SEST RUNTIME FIXES 1.0.0
+SEST RUNTIME FIXES 1.1.0
 
 Requires the existing Anchor Chain and HarmonyX installation. Only SEST's own
 code ships here. Source and build/test instructions: integration/runtime-fixes/.
 The plugin checks its owning pack is enabled and matches the captured native
-Sea Power 0.8.7 (Build 261021) assembly SHA256 before installing either
-correction. It reads usersettings.ini once at startup; restart after
+Sea Power 0.8.7 (Build 261021) assembly SHA256 before installing its
+features. It reads usersettings.ini once at startup; restart after
 enabling/disabling the pack. An unknown game build, missing API or failed
 correction is logged and leaves native behavior in place. Player.log lines
-start [SEST Runtime]: on 0.8.7 two lines contain "correction installed". After
-a game update, "inactive: uninspected native assembly ..." means both are
+start [SEST Runtime]: the existing terrain/debrief fixes log "correction installed"; cost modules log their own installed lines. After
+a game update, "inactive: uninspected native assembly ..." means all runtime features are
 off and the game's own behaviour applies until SEST is matched to the new
 build; nothing needs turning off.
 
@@ -45,3 +45,31 @@ add one either.
 
 Set an individual option to 0 and restart to use native behavior for that
 feature. Linux tests cover mocked native APIs and policy, not Unity gameplay.
+
+COMPLETE COMBAT COSTS (private playtest; native PC acceptance pending)
+Requires enabled Combat Cost Tracker catalogs and a full game restart.
+F11 retains the author's overlay. F10 opens SEST's separate live material-loss
+summary, including land, recorded ground/deck aircraft and remaining itemized
+stores. CombatCostsKey changes that key. Closing restores prior pause/speed.
+
+The task-force campaign debrief gains Combat Cost rows for Player and Enemy,
+this mission and completed campaign totals. Prices use the selected historical
+or current mode. Existing checked prices are preserved; gaps use labelled SEST
+estimates. All resolved weapon, ship, aircraft and land references are covered.
+
+CampaignCombatCosts controls the saved-debrief display. LiveCombatCosts controls
+the F10 viewer. CombatCostInventories independently captures remaining itemized
+stores and raw expenditure. It writes only versioned SEST quantity keys alongside
+native mission/campaign save records, never USD totals or purchase points.
+Completed mission captures survive replays; old missing captures stay unknown.
+
++ ? means missing quantities/prices, including unitemized flight-deck point pools.
+Cargo, crew, operating fuel burn, repairs and damaged-only platforms are outside
+this material-loss account. Land and parked-aircraft additions appear in SEST's
+views; F11 retains the original tracker's scope. Changing catalogs or price mode
+reprices the saved counts. Crew and game acquisition points are never USD.
+
+Player.log must show: campaign combat costs installed; combat inventory capture
+installed; live combat cost summary installed. Check the new private playtest
+card for actual fire/loss/save/load tests. Linux mocks and a structural comparison
+on an older native DLL do not establish gameplay success on 0.8.7.

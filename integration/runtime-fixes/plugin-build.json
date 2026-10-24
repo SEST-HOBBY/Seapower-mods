@@ -1,15 +1,23 @@
 {
   "format": 1,
   "binary": "SEST.RuntimeFixes.dll",
-  "sha256": "c844a75976d17a3f0e4d22e6ed8936c81dee7d38a7cfe169bfb93da664c1f59f",
+  "sha256": "55c2609548af16cfdcd0e0f6c4a3228446b31d23a6edcfc9e23f944e43e847e7",
   "inputs": {
-    "integration/runtime-fixes/Policy.cs": "9c2958f2f0feadf6dcf258e9003ec250c03aedb35f00f9290fdb078853379e28",
-    "integration/runtime-fixes/SestRuntimeFixes.cs": "2a3f801b44051decd279c289903d35d24c86a893e97ea92aa4e16b35d312b9c2",
+    "integration/runtime-fixes/CampaignCosts.cs": "5105f4010c500c2a52ca6b65d8a0e63c7f5b933173c8597c6c0cc2430bb7ab9a",
+    "integration/runtime-fixes/CampaignInventory.cs": "bf5baea073369bc513069c8889dae49d189c26b0fa07c105756b2df35c5aa417",
+    "integration/runtime-fixes/CombatPrices.cs": "9bfbf7770a2ed4c66fbfb3c5bff1667149592ced70614ac9bcb66e6c24b130b1",
+    "integration/runtime-fixes/LiveCombatCosts.cs": "a7062a1e07e23c165a1a512215c579fa24b69e4c0960600a2bfb201f5eef3d60",
+    "integration/runtime-fixes/Policy.cs": "44ad57fb0c7671acd358148a78b6188ceb5a2805f3fe68b6b2891e7b23df219f",
+    "integration/runtime-fixes/SestRuntimeFixes.cs": "62f495993929dd352fbf1e790a19b1f25dde97efab7705df2dd4d83a639f9d3c",
     "integration/runtime-fixes/TaskForceDebrief.cs": "d2902fc9b1186a94be31c0feb6a7f493a9d27ac2d886fbb70e128a9af9d50697",
     "integration/runtime-fixes/TerrainClearance.cs": "abb529c87fba9104ec3432f3be64f7c7ef1af7d0f7b0b8b6c8ad22c1a7244f7a",
     "integration/menu-background/stubs/AnchorChain.cs": "1769efe756d568c53bbf64753a09cc4c2da4f5a58904710145a6086fee71fb63",
-    "integration/runtime-fixes/build_plugin.py": "f6b2dd4af3714fb3302a1296e47bb74cfbed27491242a411840616aefd2f8b6c",
-    "integration/runtime-fixes/tests/RuntimeTests.cs": "fad505c4d3f061eae6307e7078a0accc3dce1cb03ba1b59a5d26026665204501"
+    "integration/runtime-fixes/build_plugin.py": "9dd0861c0dfa399a882d4f623c806e52aaaa02b3968ee51003ea37ae739c6def",
+    "integration/runtime-fixes/tests/CostTests.cs": "0350f82c45522c78b1bf5e77e406acbf78ead561f47a3b6dfc7a569b6c93df68",
+    "integration/runtime-fixes/tests/InventoryTests.cs": "0dd637e973c431380ba48c22fb73330303a044cd9356ef2a1bf2dc85736e5a36",
+    "integration/runtime-fixes/tests/LiveCostTests.cs": "9c6b8714787ea241eda203f3314683ae112e8230d49c3304ca5194bbc946fb15",
+    "integration/runtime-fixes/tests/RuntimeTests.cs": "6daa6fa39d548ef2a9b505a2203d511dc58bb93197cb660d217e43bee70c68cc",
+    "integration/runtime-fixes/tests/cost_precedence.tsv": "8afb57f07ed2717e5949c808e76cf24334e8b6d9e8d4c5035c90087920bb2dbf"
   },
-  "validation": "38 assertions passed using mocked native APIs; no Unity gameplay claim"
+  "validation": "134 assertions passed using mocked native APIs; no Unity gameplay claim"
 }

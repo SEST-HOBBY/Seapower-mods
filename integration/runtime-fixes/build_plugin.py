@@ -9,6 +9,7 @@ required to compile. The committed output is rebuilt only on source changes.
 import os
 import hashlib
 import json
+import re
 from pathlib import Path
 import shutil
 import subprocess
@@ -17,6 +18,8 @@ import tempfile
 HERE = Path(__file__).resolve().parent
 STUB = HERE.parent / "menu-background/stubs/AnchorChain.cs"
 SOURCES = sorted(HERE.glob("*.cs"))
+TEST_SOURCES = sorted((HERE / "tests").glob("*.cs"))
+FIXTURE = HERE / "tests/cost_precedence.tsv"
 
 
 def toolchain():
@@ -49,19 +52,26 @@ def main():
         candidate = tmp / "SEST.RuntimeFixes.dll"
         compile_cs(["-target:library", f"-out:{candidate}", f"-r:{stub}"] + [str(s) for s in SOURCES])
         tests = tmp / "RuntimeTests.exe"
-        compile_cs(["-target:exe", f"-out:{tests}", str(STUB)] + [str(s) for s in SOURCES] +
-                   [str(HERE / "tests/RuntimeTests.cs")])
-        subprocess.run([mono, str(tests)], check=True, env=env)
+        compile_cs(["-target:exe", f"-out:{tests}", str(STUB)] + [str(s) for s in SOURCES + TEST_SOURCES])
+        run = subprocess.run([mono, str(tests), str(FIXTURE)], env=env, capture_output=True, text=True)
+        print(run.stdout, end="")
+        if run.returncode:
+            print(run.stderr, end="", file=__import__("sys").stderr)
+            run.check_returncode()
+        match = re.search(r"Runtime regressions passed: (\d+) assertions", run.stdout)
+        if not match:
+            raise SystemExit("Runtime test receipt missing")
+        assertions = int(match[1])
         # Preserve the previous committed DLL if compilation or tests fail.
         (HERE / candidate.name).write_bytes(candidate.read_bytes())
     root = HERE.parents[1]
-    inputs = SOURCES + [STUB, Path(__file__).resolve(), HERE / "tests/RuntimeTests.cs"]
+    inputs = SOURCES + [STUB, Path(__file__).resolve()] + TEST_SOURCES + [FIXTURE]
     manifest = {
         "format": 1,
         "binary": "SEST.RuntimeFixes.dll",
         "sha256": hashlib.sha256((HERE / "SEST.RuntimeFixes.dll").read_bytes()).hexdigest(),
         "inputs": {p.relative_to(root).as_posix(): hashlib.sha256(p.read_bytes()).hexdigest() for p in inputs},
-        "validation": "38 assertions passed using mocked native APIs; no Unity gameplay claim",
+        "validation": f"{assertions} assertions passed using mocked native APIs; no Unity gameplay claim",
     }
     (HERE / "plugin-build.json").write_text(json.dumps(manifest, indent=2) + "\n")
     print("Built integration/runtime-fixes/SEST.RuntimeFixes.dll")

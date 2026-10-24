@@ -1,5 +1,7 @@
 # SEST cumulative campaign combat costs: design
 
+Implementation update, 24 October 2026: this is the original proposal, retained as a design record. Current behavior is documented in `README.md` and `integration/runtime-fixes/README.md`. The owner's later request for full integration adds land prices, a live F10 summary, and independent inventory/expenditure capture. The debrief reader still writes nothing, but the capture module writes versioned SEST raw-quantity keys alongside native mission/campaign records. Older uncaptured stores remain unknown. The new code is built and mock-tested; native PC acceptance is pending. Statements below about unimplemented work or never writing saves describe the earlier proposal.
+
 ## Summary
 
 - **Approach: price the campaign's own records, store nothing, and never call the tracker's code.** Sea Power 0.8.7 already saves a `[Mission_<i>_TaskForceDebrief]` section for every completed mission. It holds that mission's weapon reports for each side and its kill and loss rows. SEST's runtime plugin reads those sections when the debrief is shown and prices them with the tracker's own price lists, using the tracker's 0.7.1 rules ported into SEST's code. This is a hybrid only in its data: the price lists are the tracker's, and the code is SEST's.

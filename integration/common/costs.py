@@ -211,8 +211,8 @@ def estimate_fields(kind, item):
         raise ValueError(where + ": an estimate needs at least one price")
     if KINDS[kind][3]:
         category = item.get("category")
-        if not _one_line(category) or len(category) > 20:
-            raise ValueError(where + ": an estimate needs a category of at most 20 characters")
+        if not _one_line(category) or not re.fullmatch(r"[A-Za-z0-9 _-]{1,20}", category, re.ASCII):
+            raise ValueError(where + ": an estimate needs a category of at most 20 characters, using ASCII letters, digits, spaces, underscore or hyphen")
         fields["Category"] = category
     return fields
 

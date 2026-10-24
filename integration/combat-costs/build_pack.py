@@ -12,6 +12,7 @@ runs --list once every pack is built.
 """
 import argparse
 import json
+import re
 from pathlib import Path
 import shutil
 import sys
@@ -19,6 +20,7 @@ import sys
 ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT / "integration"))
 from common.costs import (_build, cost_list, render_catalog, CAMPAIGN, KINDS)  # noqa: E402
+from common.cost_completion import build_complete, render_complete, render_config, reports  # noqa: E402
 
 HERE = Path(__file__).resolve().parent
 OUT = HERE / "SEST_Combat_Costs"
@@ -36,14 +38,45 @@ def inputs():
 
 
 def write_list(mappings, research, built=None):
-    md, table = cost_list(ROOT, mappings, research, built)
+    built = built or build_complete(ROOT, mappings)
+    md, table = reports(built[0])
     REPORT.mkdir(parents=True, exist_ok=True)
     write(REPORT / "cost-list.md", md)
     write(REPORT / "cost-list.csv", table)
+    backlog=REPORT / "not-yet-confirmed.md"
+    if backlog.exists():
+        ids=re.findall(r'^\| `([^`]+)`',backlog.read_text(encoding="utf-8"),re.M)
+        rows={r["id"].casefold():r for r in built[0]["completion"]["rows"]}
+        lines=["# Original research backlog: installed price crosswalk","",
+               f"{len(ids)} original rows; {len(set(ids))} unique references. Original research decisions are retained in not-yet-confirmed.md and research.json. Coverage does not confirm a candidate price: preserved checked values and model estimates are distinguished below.","",
+               "| Reference | Kind | Historical USD | Current USD | Historical method | Current method |","|---|---|---:|---:|---|---|"]
+        for uid in sorted(set(ids)):
+            row=rows[uid.casefold()]
+            lines.append(f"| `{uid}` | {row['kind']} | {row['historical']} | {row['current']} | {row['field_methods']['historical']} | {row['field_methods']['current']} |")
+        write(REPORT / "backlog-resolution.md","\n".join(lines)+"\n")
     print("cost list:", md.count("\n"), "lines,", table.count("\n") - 1, "CSV rows")
 
 
 def compatibility_text(result):
+    if "completion" in result:
+        lines = ["SEST COMPLETE COMBAT COST COVERAGE", "",
+                 "All resolved collection/vanilla weapons, ships, aircraft and land references have explicit prices.",
+                 "Existing usable prices are preserved. Missing values, including author blanks, receive labelled SEST estimates.",
+                 "These are gameplay replacement-cost estimates, not independently confirmed contract quotations.",
+                 "No Task Force acquisition points or ammo_prices.csv score is treated as USD.",
+                 "Historical model values use a configured service-year CPI backcast when a year exists; otherwise",
+                 "the catalog explicitly uses a 2026 replacement proxy. The 2026 CPI is a Q2-based estimate.",
+                 "Ranges are sensitivity bands, not statistical confidence intervals.",
+                 "Pods/tanks price hardware; their rounds, fuel and host platform are separate.",
+                 "Personnel, visual helpers, transfers and simulated processes have explicit included/non-procured dispositions.",
+                 "Land prices are for SEST's own debrief accounting; Combat Cost Tracker itself does not capture land losses.",
+                 "Ammunition, aircraft, ground losses and remaining inventories have separate accounting boundaries.",
+                 "See docs/combat-costs/README.md for runtime support and PC acceptance; a data audit is not a gameplay test.", ""]
+        for kind,data in result["coverage"].items():
+            lines.append(f"{kind}: {data['eligible']} references, {data['historical_known']} historical and {data['current_known']} current prices")
+        lines += ["", "The generated cost-list.md, cost-list.csv and coverage.json give every reference, price and provenance.",
+                  "Source policy: integration/combat-costs/coverage-policy.json. Rebuild after new Workshop/vanilla exports."]
+        return "\n".join(lines)+"\n"
     lines = ["SEST COMBAT COST COMPATIBILITY", "", "Requires enabled Combat Cost Tracker and Anchor Chain, then a full game restart.",
              "Only cost catalogs are extended; no weapon, aircraft or ship performance changes.",
              "Mapped values copy the tracker's existing USD estimates exactly; they are not new procurement quotes.",
@@ -96,18 +129,19 @@ def main():
     if args.list:
         write_list(mappings, research)
         return
-    built = _build(ROOT, mappings)
+    built = build_complete(ROOT, mappings)
     result = built[0]
     if OUT.exists():
         shutil.rmtree(OUT)
     (OUT / "systems").mkdir(parents=True)
-    for kind in KINDS:
-        write(OUT / "systems" / f"sest_{kind}_costs.ini", render_catalog(kind, result))
+    for kind in result["extensions"]:
+        write(OUT / "systems" / f"sest_{kind}_costs.ini", render_complete(kind, result))
+    write(OUT / "systems" / "sest_cost_visibility.ini", render_config(ROOT, result))
     write(OUT / "_info.ini",
           "[Language_en]\nName=SEST Combat Cost Compatibility\n"
-          "Description=Catalog spelling, reviewed same-family cost mappings and SEST researched estimates "
-          "for Combat Cost Tracker. Author estimates retain their reference basis; SEST estimates name "
-          "their method, year and sources; unsupported prices stay unknown.\n\n"
+          "Description=Complete cost coverage for resolved collection weapons, expendables, pods, tanks, "
+          "ships, aircraft and land platforms. Existing prices are preserved; missing prices use labelled "
+          "SEST family comparisons and rough replacement estimates.\n\n"
           "[Compatibility]\nApproximateVersion=0.8.7\n")
     REPORT.mkdir(parents=True, exist_ok=True)
     write(REPORT / "coverage.json", json.dumps(result, indent=2) + "\n")
