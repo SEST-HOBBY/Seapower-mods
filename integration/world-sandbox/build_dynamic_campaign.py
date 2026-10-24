@@ -1365,6 +1365,13 @@ def main():
     if check.returncode:
         sys.exit(check.stdout + check.stderr + "\ncheck_dynamic_campaign.py failed - the world "
                  "campaign is not shipped like this")
+    # Independent regional variant; never overwrite the original save identity.
+    regional = subprocess.run([sys.executable, str(Path(__file__).resolve().parent /
+                                                       "build_regions.py")],
+                            capture_output=True, text=True)
+    if regional.returncode:
+        sys.exit(regional.stdout + regional.stderr + "\\nRegional campaign build failed")
+    print(regional.stdout.strip())
     if globe is None:
         print("  WARNING: global_land_mask not installed - water checks skipped "
               "(pip install global-land-mask numpy)")
