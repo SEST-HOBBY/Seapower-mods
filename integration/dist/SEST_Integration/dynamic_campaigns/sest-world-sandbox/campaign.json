@@ -7227,7 +7227,7 @@
     "bra_ffg_niteroi": 567,
     "bra_lst_newport": 223,
     "bra_ss_tupi": 60,
-    "ch_ffg_jvh": 127,
+    "ch_ffg_jacob_van_heemskerck": 127,
     "ch_ffg_type22b2_barak": 154,
     "ch_ffg_type23": 154,
     "es_ffg_baleares": 137,
@@ -14903,7 +14903,7 @@
       "tier": 1
     },
     {
-      "unit": "ch_ffg_jvh",
+      "unit": "ch_ffg_jacob_van_heemskerck",
       "side": "blue",
       "nation": "Chile",
       "tier": 1

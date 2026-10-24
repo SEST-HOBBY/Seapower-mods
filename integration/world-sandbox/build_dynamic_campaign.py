@@ -61,6 +61,53 @@ except ImportError:                            # pragma: no cover
     globe = None
 
 CAMPAIGN_ID = "sest.world_sandbox_2028"
+
+# The Chilean Workshop update on 24 October 2026 renamed this class. Old
+# Dynamic Campaign Mod saves can still refer to its earlier unit id.
+# Keep the legacy definition loadable, but never sell both ids as two ships.
+LEGACY_HULL_ALIASES = {"ch_ffg_jvh": "ch_ffg_jacob_van_heemskerck"}
+
+
+def write_legacy_hull_compatibility():
+    """Restore pre-rename save ids from current Workshop assets, without a fork."""
+    for legacy, current in LEGACY_HULL_ALIASES.items():
+        hull_out = PACK / "vessels" / f"{legacy}.ini"
+        variants_out = PACK / "vessels" / f"{legacy}_variants.ini"
+        names_out = PACK / "language_en" / "vessel_names.ini"
+        kind, source = bp.unit_file(current)
+        if kind != "vessels" or source is None:
+            # Old captures still provide the original definition themselves.
+            for old in (hull_out, variants_out, names_out):
+                old.unlink(missing_ok=True)
+            continue
+
+        variant_source = bp.winning(f"vessels/{current}_variants.ini")
+        if variant_source is None:
+            sys.exit(f"legacy save compatibility: missing variants for {current}")
+        name_section = None
+        candidates = [source.parent.parent / "language_en" / "vessel_names.ini"]
+        candidates += sorted(ROOT.glob("mods-source/*/language_en/vessel_names.ini"))
+        for f in candidates:
+            if not f.is_file():
+                continue
+            names = bp.read(f).replace("\r\n", "\n")
+            match = re.search(rf"(?ms)^\[{re.escape(current)}\]\n(.*?)(?=^\[|\Z)", names)
+            if match:
+                name_section = match.group(1)
+                break
+        if name_section is None:
+            sys.exit(f"legacy save compatibility: missing named hulls for {current}")
+
+        hull_out.parent.mkdir(parents=True, exist_ok=True)
+        names_out.parent.mkdir(parents=True, exist_ok=True)
+        hull_out.write_text(f"#!alias {current}.ini\n", encoding="utf-8")
+        # Copy the two named variants: variant files are not guaranteed to
+        # follow #!alias in every engine path, unlike vessel definitions.
+        variants_out.write_text(bp.read(variant_source).replace("\r\n", "\n").rstrip() + "\n",
+                                encoding="utf-8")
+        names_out.write_text(f"[{legacy}]\n{name_section.rstrip()}\n", encoding="utf-8")
+
+
 START = "2028-10-01T00:00:00Z"
 
 # The world spans Jacksonville (81.7W) east-about to San Diego (117.2W), so one
@@ -1073,6 +1120,8 @@ def arsenal():
         if kind not in ARSENAL_DIRS or "/" in name or not name.endswith(".ini"):
             continue
         uid = path.stem
+        if uid in LEGACY_HULL_ALIASES and bp.unit_file(LEGACY_HULL_ALIASES[uid])[1] is not None:
+            continue  # compatibility for old saves, not a second purchasable ship
         if re.search(r"_(variants|squadrons|loadouts)$", uid, re.I) or uid in found:
             continue
         if bp.unit_type(uid) not in ARSENAL_TYPES:
@@ -1277,6 +1326,7 @@ def main():
                                 for n, w, pts, al in AIRWAYS]},
     }
 
+    write_legacy_hull_compatibility()
     CAMPAIGN_DIR.mkdir(parents=True, exist_ok=True)
     (CAMPAIGN_DIR / "campaign.json").write_text(json.dumps(campaign, indent=2, ensure_ascii=True) + "\n",
                                                 encoding="utf-8")

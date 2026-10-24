@@ -262,6 +262,10 @@ def main():
     def resolves(uid):
         return bp.unit_file(uid)[1] is not None
 
+    for old, new in adapter.LEGACY_HULL_ALIASES.items():
+        if resolves(new) and (old in cat_units or old in values):
+            sest.append(f"retired {old} appears in a new campaign; use {new} (retain an alias for saves)")
+
     for f in forces.values():
         want = {"Surface": ("Vessel", "Submarine"), "Air": ("Aircraft", "Helicopter", "VTOL")}[f["type"]]
         for s in f["units"]:
