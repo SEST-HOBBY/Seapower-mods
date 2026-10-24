@@ -5419,6 +5419,11 @@
         "CurrentYearCost": "800000000",
         "Category": "FFG"
       },
+      "ch_ffg_jvh": {
+        "VesselCosts": "197000000",
+        "CurrentYearCost": "800000000",
+        "Category": "FFG"
+      },
       "ch_ffg_karel_doorman": {
         "VesselCosts": "197000000",
         "CurrentYearCost": "800000000",
@@ -36934,6 +36939,18 @@
     {
       "kind": "vessel",
       "target": "ch_ffg_jacob_van_heemskerck",
+      "source": "rnn_ffg_van_heemskerck",
+      "origin": "mapping",
+      "basis": "Renamed Chilean Jacob van Heemskerck L-class hull (24 Oct 2026); retain the same Dutch tracker estimate and reference basis",
+      "fields": {
+        "VesselCosts": "197000000",
+        "CurrentYearCost": "800000000",
+        "Category": "FFG"
+      }
+    },
+    {
+      "kind": "vessel",
+      "target": "ch_ffg_jvh",
       "source": "rnn_ffg_van_heemskerck",
       "origin": "mapping",
       "basis": "Same Jacob van Heemskerck class: Chile's L class is the two Dutch hulls it bought in 2005; retain the tracker's Dutch estimate and reference basis",
@@ -84533,12 +84550,12 @@
       "unknown": []
     },
     "vessel": {
-      "eligible": 937,
-      "historical_known": 937,
-      "current_known": 937,
-      "sest_eligible": 339,
-      "sest_historical_known": 339,
-      "sest_current_known": 339,
+      "eligible": 938,
+      "historical_known": 938,
+      "current_known": 938,
+      "sest_eligible": 340,
+      "sest_historical_known": 340,
+      "sest_current_known": 340,
       "unknown": []
     },
     "aircraft": {
@@ -150903,6 +150920,30 @@
       },
       {
         "kind": "vessel",
+        "id": "ch_ffg_jvh",
+        "owner": "SEST_World_Campaign",
+        "path": "integration/world-sandbox/SEST_World_Campaign/vessels/ch_ffg_jvh.ini",
+        "category": "FFG",
+        "type": "Vessel",
+        "historical": "197000000",
+        "current": "800000000",
+        "field_methods": {
+          "historical": "existing usable value preserved",
+          "current": "existing usable value preserved"
+        },
+        "field_sources": {
+          "historical": "reviewed catalog mapping: rnn_ffg_van_heemskerck",
+          "current": "reviewed catalog mapping: rnn_ffg_van_heemskerck"
+        },
+        "completion": null,
+        "disposition": "counted",
+        "historical_basis": "reviewed catalog mapping: rnn_ffg_van_heemskerck; original reference-year basis retained",
+        "historical_reference_year": null,
+        "current_low": null,
+        "current_high": null
+      },
+      {
+        "kind": "vessel",
         "id": "ch_ffg_karel_doorman",
         "owner": "3776730617",
         "path": "mods-source/3776730617/vessels/ch_ffg_karel_doorman.ini",
@@ -212460,7 +212501,7 @@
       "aircraft": 286,
       "land": 977
     },
-    "known_fields_preserved": 5445,
+    "known_fields_preserved": 5447,
     "category_counts": {
       "Ballistic": 25,
       "Decoy": 54,
@@ -212485,7 +212526,7 @@
       "AO": 13,
       "CVL": 21,
       "DD": 24,
-      "FFG": 106,
+      "FFG": 107,
       "FS": 16,
       "LHD": 7,
       "LPA": 1,

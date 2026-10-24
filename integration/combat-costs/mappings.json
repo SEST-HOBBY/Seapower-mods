@@ -3329,9 +3329,14 @@
       "basis": "Same Chilean Type 209/1400 hull (Thomson class), renamed by its author on 22 Oct 2026; the tracker still prices it under the old id"
     },
     {
-      "target": "ch_ffg_jacob_van_heemskerck",
+      "target": "ch_ffg_jvh",
       "source": "rnn_ffg_van_heemskerck",
       "basis": "Same Jacob van Heemskerck class: Chile's L class is the two Dutch hulls it bought in 2005; retain the tracker's Dutch estimate and reference basis"
+    },
+    {
+      "target": "ch_ffg_jacob_van_heemskerck",
+      "source": "rnn_ffg_van_heemskerck",
+      "basis": "Renamed Chilean Jacob van Heemskerck L-class hull (24 Oct 2026); retain the same Dutch tracker estimate and reference basis"
     },
     {
       "target": "ran_ffh_anzac",

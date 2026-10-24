@@ -18,6 +18,7 @@ PROFILES={
     'complete-combat-costs': ('fix/complete-combat-costs-20261024','complete-combat-costs-20261024','COMPLETE COMBAT COSTS'),
     'red-line-f11': ('fix/red-line-pacing-20261024','red-line-f11-20261024','RED LINE AND F11 CUMULATIVE COMBAT COSTS'),
     'campaign-costs-panel': ('sest-dev/jolly-ride-rptj4t','campaign-costs-panel-20261024','F11 CAMPAIGN COMBAT COSTS'),
+    'world-regions': ('feature/world-sandbox-regional-expansion-20261024','world-regions-20261024','WORLD SANDBOX 2028 REGIONAL EXPANSION'),
 }
 
 

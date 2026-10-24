@@ -22,6 +22,7 @@ The earlier gameplay-first draft overcorrected. Its proposed three-mission convo
 4. `gameplay-and-tests.md` - supporting gameplay and validation requirements, not a replacement for the population plan.
 5. `WORLD_POPULATION_REGISTER.md` and `register/` - the population register, first complete pass.
 6. `engine-review/` and `DYNAMIC_CAMPAIGN_ADAPTER.md` - the static review of Bungalow's Dynamic Campaign Mod, the engine capability matrix, and the draft data pack generated from the register.
+7. `regional-expansion-20261024.md` - the optional second campaign, *Regional Expansion (preview)* (`sest.world_sandbox_2028.regional`), generated from this one by `integration/world-sandbox/build_regions.py`: its forces, replenishment, playtest steps and runtime uncertainties. `repair-20261024.md` covers the Chilean frigate rename.
 
 The original three research reports are committed under `research/`. They are byte-identical to the original attachments and companion handoff archive; `research/README.md` contains the integrity check. Read the originals as well as the outline. No sandbox link or further upload is required.
 

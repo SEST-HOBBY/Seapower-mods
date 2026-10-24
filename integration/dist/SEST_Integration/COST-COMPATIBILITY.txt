@@ -14,7 +14,7 @@ Ammunition, aircraft, ground losses and remaining inventories have separate acco
 See docs/combat-costs/README.md for runtime support and PC acceptance; a data audit is not a gameplay test.
 
 weapon: 2170 references, 2170 historical and 2170 current prices
-vessel: 937 references, 937 historical and 937 current prices
+vessel: 938 references, 938 historical and 938 current prices
 aircraft: 756 references, 756 historical and 756 current prices
 land: 502 references, 502 historical and 502 current prices
 

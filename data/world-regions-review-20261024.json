@@ -1,0 +1,145 @@
+{
+ "date": "2026-10-24",
+ "scope": "World Sandbox 2028 Regional Expansion (PR #44) finalised on top of sest-dev/jolly-ride-rptj4t: replenishment, Tobruk waypoint at sea, deterministic generation, save-alias path fix",
+ "branch": "feature/world-sandbox-regional-expansion-20261024",
+ "dcm": "Dynamic Campaign Mod 0.25.0 (3813157776), as installed in the 24 Oct capture",
+ "campaigns": {
+  "sest.world_sandbox_2028": {
+   "bases": 141,
+   "forces": 267,
+   "red_forces": 97,
+   "patrols": 49,
+   "catalogue": 1559,
+   "replenishment_types": 7
+  },
+  "sest.world_sandbox_2028.regional": {
+   "bases": 156,
+   "forces": 293,
+   "red_forces": 123,
+   "patrols": 54,
+   "catalogue": 1559,
+   "replenishment_types": 9
+  }
+ },
+ "validator": {
+  "check_dynamic_campaign.py": "pass on both (engine rules, audit references, SEST collection and water checks with global_land_mask)"
+ },
+ "deterministic": "build_regions.py rebuilt twice to the same bytes; test_shipped_variant_is_exactly_the_spec_rebuilt",
+ "build": {
+  "from_scratch": "pass",
+  "packs": 25,
+  "installed_files": 4297
+ },
+ "gates": [
+  {
+   "command": "check_dynamic_campaign sest-world-sandbox",
+   "returncode": 0
+  },
+  {
+   "command": "check_dynamic_campaign sest-world-regions-2028",
+   "returncode": 0
+  },
+  {
+   "command": "world tests",
+   "returncode": 0
+  },
+  {
+   "command": "check_pack_fidelity.py",
+   "returncode": 0
+  },
+  {
+   "command": "check_campaign_coverage.py",
+   "returncode": 0
+  },
+  {
+   "command": "check_dependencies.py",
+   "returncode": 0
+  },
+  {
+   "command": "check_load_order.py",
+   "returncode": 0
+  },
+  {
+   "command": "preflight.py --all",
+   "returncode": 0
+  },
+  {
+   "command": "check_weapon_employment.py",
+   "returncode": 0
+  },
+  {
+   "command": "check_alias_bases.py",
+   "returncode": 0
+  },
+  {
+   "command": "check_scenarios.py",
+   "returncode": 0
+  },
+  {
+   "command": "check_stale_phrases.py",
+   "returncode": 0
+  },
+  {
+   "command": "check_inventory.py",
+   "returncode": 0
+  },
+  {
+   "command": "check_game_version.py",
+   "returncode": 0
+  },
+  {
+   "command": "check_vanilla_drift.py --since 1bda58a6",
+   "returncode": 0
+  },
+  {
+   "command": "check_combat_costs.py",
+   "returncode": 0
+  },
+  {
+   "command": "tools tests",
+   "returncode": 0
+  },
+  {
+   "command": "campaign tests",
+   "returncode": 0
+  },
+  {
+   "command": "git diff --check",
+   "returncode": 0
+  }
+ ],
+ "python_suites": [
+  {
+   "suite": "world sandbox",
+   "tests": 9,
+   "skipped": 0,
+   "result": "pass"
+  },
+  {
+   "suite": "tools",
+   "tests": 188,
+   "skipped": 7,
+   "result": "pass"
+  },
+  {
+   "suite": "campaign",
+   "tests": 300,
+   "skipped": 0,
+   "result": "pass"
+  }
+ ],
+ "pc_acceptance": {
+  "card": "docs/playtests/world-regions-20261024.md",
+  "date": "2026-10-24",
+  "build": "8e72f353 (live Workshop upload, 4,297 files)",
+  "source": "owner's report, no log or screenshot",
+  "passed": [
+   "step 4: Regional Expansion starts as a new campaign"
+  ],
+  "not_reported": [
+   "step 4 as RED",
+   "step 3 original listed",
+   "steps 5-10: original start, new bases, patrols, replenishment, battle, persistence"
+  ]
+ }
+}

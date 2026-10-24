@@ -9,11 +9,11 @@ Ammunition, embarked aircraft, removable pods and tank contents are excluded fro
 | Kind | References | Historical prices | Current prices |
 |---|---:|---:|---:|
 | weapon | 2170 | 2170 | 2170 |
-| vessel | 937 | 937 | 937 |
+| vessel | 938 | 938 | 938 |
 | aircraft | 756 | 756 | 756 |
 | land | 502 | 502 | 502 |
 
-Preserved 5445 pre-existing usable price fields. Filled 3285 missing fields. No acquisition-point field was used as USD.
+Preserved 5447 pre-existing usable price fields. Filled 3285 missing fields. No acquisition-point field was used as USD.
 
 ## Weapon
 
@@ -2249,6 +2249,7 @@ Preserved 5445 pre-existing usable price fields. Filled 3285 missing fields. No 
 | `bra_type22b12` | FF | 246000000 | 1135000000 | historical: existing usable value preserved (tracker author catalog); current: existing usable value preserved (tracker author catalog) | counted |
 | `ch_ffg_adelaide_longhull` | FFG | 172000000 | 951000000 | historical: existing usable value preserved (tracker author catalog); current: existing usable value preserved (tracker author catalog) | counted |
 | `ch_ffg_jacob_van_heemskerck` | FFG | 197000000 | 800000000 | historical: existing usable value preserved (reviewed catalog mapping: rnn_ffg_van_heemskerck); current: existing usable value preserved (reviewed catalog mapping: rnn_ffg_van_heemskerck) | counted |
+| `ch_ffg_jvh` | FFG | 197000000 | 800000000 | historical: existing usable value preserved (reviewed catalog mapping: rnn_ffg_van_heemskerck); current: existing usable value preserved (reviewed catalog mapping: rnn_ffg_van_heemskerck) | counted |
 | `ch_ffg_karel_doorman` | FF | 197000000 | 800000000 | historical: existing usable value preserved (reviewed catalog mapping: ch_ffg_karel); current: existing usable value preserved (reviewed catalog mapping: ch_ffg_karel) | counted |
 | `ch_ffg_type22b2_barak` | FF | 246000000 | 1135000000 | historical: existing usable value preserved (reviewed catalog mapping: ch_type22b2_barak); current: existing usable value preserved (reviewed catalog mapping: ch_type22b2_barak) | counted |
 | `ch_ffg_type23` | FF | 206000000 | 528000000 | historical: existing usable value preserved (reviewed catalog mapping: ch_ff_type23); current: existing usable value preserved (reviewed catalog mapping: ch_ff_type23) | counted |
