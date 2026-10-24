@@ -2,6 +2,11 @@
 
 Put stage keys in the ammunition INI's `[Models]` section. No ammunition is enabled automatically.
 
+Stage flight effects automatically replace native Booster/InFlight/Sustainer effects
+and Classes when at least one stage flight-effect asset or Class is configured.
+This visual rule does not change thrust. Keep normal effect and thrust keys in the
+same ammunition INI for native operation with MultiStage disabled.
+
 ## Motors
 
 `StageNAcceleration` enables physical stage motors. Values use the same acceleration convention as native `Acceleration` (G). `StageNBurnTime` is the motor duration in seconds and remains the shared default for stage effects/audio. `StageNBurnTimeDelay` delays ignition, stage effects and stage audio from entry into that stage; default `0`.

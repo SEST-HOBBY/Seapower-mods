@@ -161,7 +161,9 @@ ADD = {
     "MaxLoftAlt": "99000.0",
     # No AccelerationTime at all upstream, so the boost had no defined
     # duration. 35 s of powered climb, then the vehicle is on its own.
-    "AccelerationTime": "35.0",
+    "AccelerationTime": "0.01",
+    "SustainerAccelerationTime": "35.0",
+    "SustainerAcceleration": "16.0",
     # 0.6 = keep most of the speed through the glide instead of bleeding to
     # subsonic. The ARRW mod's value; nothing in Dingtools' copy retained speed.
     "VelocityBleed": "0.6",
@@ -175,7 +177,9 @@ SET = {
     # The whole defect. False hands the trajectory back to the loft keys.
     "SeaSkimming": ("True", "False"),
     # 6.0 leaves it wallowing off the wing; both CPS and the ARRW mod use 16.
-    "Acceleration": ("6.0", "16.0"),
+    "Acceleration": ("6.0", "2.0"),
+    "InitialFlightPhaseDuration": ("20.0", "0.5"),
+    "DropDuration": ("5", "1.5"),
 }
 
 # The mesh swap is ALREADY in Dingtools' file: ResourcesMeshForLaunch=launch
@@ -272,7 +276,7 @@ def add_loft(text: str, name: str) -> str:
         if want and m.group(1) != want:
             sys.exit(f"{name}: {key} is {m.group(1)!r} upstream, expected {want!r} - "
                      "the author changed it, re-check whether this override is still right")
-        text = text[:m.start()] + f"{key}={new}{m.group(2)}" + text[m.end():]
+        text = text[:m.start()] + f"{key}={new}{m.group(2).rstrip()}" + text[m.end():]
 
     m = re.search(r"^ResourcesMeshSwitchTime=([^\s/]*)([^\n]*)$", text, re.M)
     if not m:
@@ -290,12 +294,37 @@ def add_loft(text: str, name: str) -> str:
     return text[:m.end()] + block + text[m.end():]
 
 
+def flight_presentation(text, name):
+    """Use the ARRW author's separate stack/glider, with one finite motor.
+
+    Dingtools' AGM mesh stays a complete missile after its launch mesh swap.
+    The ARRW donor explicitly names Glider and agm-183 in its own model. Both
+    supported ARRW families use that same model block, not an invented mesh.
+    The actual OBJ is Workshop content, absent from this text-only export;
+    mesh resolution and the observed trajectory still require a PC test.
+    """
+    donor = (ARRW_MOD / "ammunition/usn_arrw.ini").read_text(encoding="utf-8-sig")
+    model = re.search(r"^\[Models\].*?(?=^\[)", donor, re.M | re.S)
+    if not model or "ResourcesMesh=Glider\n" not in model[0]:
+        sys.exit("ARRW model donor changed: re-check stack/glider names")
+    block = re.sub(r"^ResourcesMeshSwitchTime=[^\n]*", "ResourcesMeshSwitchTime=35.0", model[0], flags=re.M)
+    text, count = re.subn(r"^\[Models\].*?(?=^\[)", lambda _: block, text, count=1, flags=re.M | re.S)
+    if count != 1:
+        sys.exit(f"{name}: no model block")
+    text = re.sub(r"^(?:BoosterEffect|BoosterEffectPosition|InFlightEffectClass|InFlightEffectPosition|InFlightEffectStartTime)=[^\n]*\n", "", text, flags=re.M)
+    text = text.replace("[Particles]\n", "[Particles]\n"
+                        "SustainerEffect=effects/weapons/emitters/sam_medium_effect\n"
+                        "SustainerEffectPosition=0,0,-0.072\n"
+                        "SustainerEffectStartTime=0\n", 1)
+    return text
+
+
 def build_ammunition():
     for a in AGM183:
         src = DINGTOOLS / "ammunition" / f"{a}.ini"
         if not src.exists():
             sys.exit(f"missing upstream: {src}")
-        out = add_loft(src.read_text(encoding="utf-8-sig"), a)
+        out = flight_presentation(add_loft(src.read_text(encoding="utf-8-sig"), a), a)
         dst = OUT / "ammunition" / f"{a}.ini"
         dst.parent.mkdir(parents=True, exist_ok=True)
         dst.write_text(out, encoding="utf-8")
@@ -519,6 +548,13 @@ def build_419_flts():
     fixed = re.sub(r"^(MaxVelocity=)([0-9]{1,3}),([0-9]{3})\b", r"\1\2\3", at, flags=re.M)
     if fixed == at:
         sys.exit("usn_arrw.ini: the MaxVelocity thousands separator is gone - re-check")
+    for key, value in {"InitialFlightPhaseDuration": "0.5", "DropDuration": "1.5",
+                       "AccelerationTime": "0.01", "Acceleration": "2.0"}.items():
+        fixed, n = re.subn(rf"^{key}=[^\n]*", f"{key}={value}", fixed, count=1, flags=re.M)
+        if n != 1:
+            sys.exit(f"usn_arrw: missing {key}")
+    fixed = fixed.replace("[Guidance]\n", "[Guidance]\nSustainerAccelerationTime=35.0\nSustainerAcceleration=16.0\n", 1)
+    fixed = flight_presentation(fixed, "usn_arrw")
     (OUT / "ammunition").mkdir(parents=True, exist_ok=True)
     (OUT / "ammunition" / "usn_arrw.ini").write_text(fixed, encoding="utf-8")
     print("  ammunition/usn_arrw.ini  (MaxVelocity 10,648 -> 10648)")
@@ -630,7 +666,7 @@ def main():
         "on the B-52O (replacing a 16-round one) and on the 419th FLTS testbed, "
         "and the testbed's own usn_arrw fit flies on both B-52s and on the "
         "B-1B.\n"
-        "\n[Compatibility]\nApproximateVersion=0.8.6\n",
+        "\n[Compatibility]\nApproximateVersion=0.8.7\n",
         encoding="utf-8")
     print("SEST_B52_ARRW")
 

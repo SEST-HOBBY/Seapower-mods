@@ -67,6 +67,110 @@ ONE_AIM424 = ("retired by the player's decision of 14 Oct 2026: every AIM-424 in
 # breaks over two lines. Both claims below were first written that way.
 WRAPPED = "wrapped"
 
+# Red Line's text, source and built: the reports mission_depth adds, the
+# missions, every copy of them the pack and the consolidated dist ship, and
+# the campaign's own documents.
+RED_LINE_TEXT = [
+    "integration/campaign/mission_depth.py",
+    "integration/campaign/red_line/*.py",
+    "integration/*/SEST_*/campaigns/sest-red-line*/missions/*.ini",
+    "integration/*/SEST_*/campaigns/sest-red-line*/missions/*_briefing/*.xml",
+    "integration/*/SEST_*/missions/Red Line/*.ini",
+    "integration/*/SEST_*/missions/Red Line/*_briefing/*.xml",
+    "docs/campaigns/red-line/*.md",
+]
+RED_LINE_B1 = ("retired by the campaign upgrade's first batch, 20 Oct 2026 "
+               "(docs/campaigns/campaign-upgrade-plan.md, section 8)")
+
+# The player-facing text that describes the campaigns: what a player reads
+# before or while playing them.
+PLAYER_TEXT = [
+    "README.md",
+    "docs/FEATURES.md",
+    "docs/play-test-guide.md",
+    "docs/campaigns/side-operations.md",
+    "docs/campaigns/southern-watch/workshop-listing.md",
+    "integration/gallery/steam_art/cards.json",
+]
+# The owner's decisions of 21 Oct 2026, for the pending 20 Oct update. The
+# builder can still write an Open Allocation twin for a spec that opts in
+# (OPEN_ALLOCATION), so its own Mod Manager sentence is not held here: a
+# campaign that opts in again rewords these docs and this entry with it.
+TWINS_RETIRED = ("retired by the owner on 21 Oct 2026: no campaign in the pack ships an "
+                 "Open Allocation version (Southern Watch build notes, 'Open Allocation "
+                 "retired from the pack')")
+RL03_HELD = ("held by the owner on 21 Oct 2026: The Other Picture reads nothing from The "
+             "Ships from the North until a reveal at Classify is shown to satisfy a "
+             "UnitClassified stage (Red Line test card 7.4; restorable from 9035f291)")
+# The rules page every campaign ships, built and consolidated.
+RULES_PAGES = ["integration/*/SEST_*/campaigns/*/campaign_rules_en.xml"]
+FLEET_ON_SALE = ("retired by the owner on 21 Oct 2026: the standard campaigns sell what the "
+                 "Open Allocation versions sold beyond the story's lists - the allied fleet "
+                 "from Weapons Free and Tasman Crossing, its aircraft where a row can fly "
+                 "them, and Red Line's Type 901 and 903A from its first force allocation "
+                 "(Southern Watch build notes, '21 October: the allied fleet in the standard "
+                 "campaigns')")
+# Step 2 of the same decision, later that day: from those windows every force
+# allocation offers the whole roster, as the versions did, not the story's
+# list with the fleet after it. Held in the player's text, the rules pages,
+# the built spines and rosters (window words and roster notes), the test
+# cards and Red Line's tables, where step 1's words said the story still
+# released the campaign's own units after the opening.
+WHOLE_ROSTER = ("retired by the owner on 21 Oct 2026 (step 2): from Weapons Free, Tasman "
+                "Crossing and Red Line's first force allocation every force allocation offers "
+                "the whole roster with the fleet, as the Open Allocation versions did; only the "
+                "windows before keep the story's lists (Southern Watch build notes, 'Step 2: "
+                "the whole roster from the opening')")
+# The pending 20 Oct change log said, from 22 to 23 Oct 2026, that Sea Power
+# 0.8.7 had switched off parts of other mods' code until their authors
+# updated. The authors did on 23 Oct, before the log was uploaded.
+OTHER_MODS_BACK = ("retired by the authors' 23 Oct 2026 updates: the Fury's, EC-2's, K5 "
+                   "KRAKEN's, Saronic Corsair's, MV-75's and YF-23's plugins stay on under "
+                   "Sea Power 0.8.7 (docs/workshop-refresh-20261023-review.md)")
+# The AGR-30 Redback's descriptions: its builder, the shared fit recipe, the
+# pack READMEs and every emitted copy of the round, its pods, its name and
+# the packs' Mod Manager blurbs.
+REDBACK_TEXT = [
+    "integration/allied-fixes/build_patch.py",
+    "integration/common/redback.py",
+    "integration/*/README.md",
+    "integration/*/SEST_*/_info.ini",
+    "integration/*/SEST_*/ammunition/sest_agr-30*.ini",
+    "integration/*/SEST_*/language_en/ammunition_names.ini",
+]
+REDBACK_FF = ("retired on 23 Oct 2026: the AGR-30 is fire and forget (MidCourseCorrection=0) - "
+              "radio command needed a guidance channel the Seahawks and A-10s do not link, and "
+              "the RAN MH-60R never fired it (docs/playtest-20261023-redback.md)")
+REDBACK_SEAHAWK = ("retired on 23 Oct 2026: on the Hellfire launcher's lower rail points the "
+                   "MH-60R's 19-tube pods sat in the bottom of the quad rack; its fit now hangs a "
+                   "7-tube pod in each Hellfire's place on the drawn launcher "
+                   "(docs/playtest-20261023-redback.md)")
+# The same day's second report, on 57375598: the AGR-30 fired from the
+# MH-60R, whose 19-tube pods had taken its auxiliary tanks' Stations 1/2 on a
+# SEST seat (RedbackH60). Its climb was gone because the 8 NM
+# TerminalApproachDist put every shot inside 8 NM into terminal approach, which
+# holds the height. The speed keys were then set from the game's own rules, as
+# the builder's comment above the round's swaps records. History docs (the
+# build notes, the play-test reports) keep the old figures as history; these
+# entries hold the text that describes the round and the fit as they are.
+REDBACK_LAUNCHER = ("retired by the owner's second report of 23 Oct 2026: tanks back on the "
+                    "MH-60R's Stations 1/2, and a 7-tube pod in each Hellfire's place on the M299 "
+                    "launcher, on the RedbackM299 seat (docs/playtest-20261023-redback.md)")
+REDBACK_SWITCH_ON = ("retired by the owner's second report of 23 Oct 2026: TerminalApproachDist is "
+                     "2 NM again - at 8 NM every shot from inside 8 NM began in terminal approach, "
+                     "which holds the height, and never climbed (docs/playtest-20261023-redback.md)")
+REDBACK_SPEEDS = ("retired by the owner's second report of 23 Oct 2026: read from the game's code, "
+                  "MaxLoftVelocity (150 kt) is the target for the climb and the whole cruise and "
+                  "MaxVelocity (450 kt) the launch run-up's, and Deceleration=0.25 is a straight-line "
+                  "bleed of Deceleration x 19.05 kt/s, neither g nor a fraction per second "
+                  "(docs/playtest-20261023-redback.md)")
+WHOLE_ROSTER_TEXT = PLAYER_TEXT + RULES_PAGES + [
+    "integration/*/SEST_*/campaigns/*/campaign.ini",
+    "integration/*/SEST_*/campaigns/*/player_task_force_roster.ini",
+    "docs/campaigns/*/test-card.md",
+    "integration/campaign/red_line/tables.py",
+]
+
 # (regex, globs, why[, WRAPPED])
 STALE = [
     (r"AARGM-ER airframe", AIM424_SOURCES + AIM424_OUTPUT,
@@ -97,6 +201,54 @@ STALE = [
      AIM424_SOURCES + AIM424_OUTPUT + AIM424_STUBS + AIM424_DOCS,
      "the YF-23's round flies SEST's figures on SEST's model block now; " + ONE_AIM424,
      WRAPPED),
+    (r"\bCAPTAIN LI\b|\bPOLITICAL OFFICER CHEN\b", RED_LINE_TEXT,
+     "Red Line names no person on the Chinese side - its bible's Names rule - and its "
+     "command-net reports speak as roles; " + RED_LINE_B1),
+    (r"neither (coalition )?campaign places", RED_LINE_TEXT,
+     "ALPHA is Collins Variant3 (Waller), the one hull no other mission places; Variant6 is "
+     "Southern Reach's Rankin attachment; " + RED_LINE_B1, WRAPPED),
+    (r"(each|every) campaign (is )?also (listed |comes |ships )?as an Open Allocation"
+     r"|also as an Open Allocation version|each (also )?(listed )?(as|with) an Open Allocation"
+     r"|Open Allocation sells everything|Open Allocation\"? versions? sells? ",
+     PLAYER_TEXT + ["integration/campaign/setup/sest-setup.ps1"], TWINS_RETIRED, WRAPPED),
+    (r"both (Japanese )?escorts (start|begin)s? (on (the|its|your) plot )?classified"
+     r"|starts \*?The Other Picture\*? with both",
+     RED_LINE_TEXT + PLAYER_TEXT, RL03_HELD, WRAPPED),
+    (r"(carriers|allied aircraft|Type 901 and 903A)[^.\n]*\bno longer on sale"
+     r"|No allied aircraft, carrier, amphibious ship or tanker is sold"
+     r"|No carriers, amphibious ships, tankers or allied aircraft"
+     r"|Allied escorts are on sale from the force allocation",
+     PLAYER_TEXT + RULES_PAGES, FLEET_ON_SALE, WRAPPED),
+    (r"Only ships, fighters and strike aircraft are offered"
+     r"|the Wedgetail and the Triton are offered again"
+     r"|replacement aircraft and escorts, with repairs"
+     r"|there is \**no Seahawk, Wedgetail or Triton"
+     r"|the Sovremenny and Luda are not\b"
+     r"|on sale in the (north|south) only|; north only\b"
+     r"|stay on sale where the story sells them"
+     r"|Also on sale here|also sells the (allied fleet|People's Liberation)"
+     # The Steam Installing card's step 4, written 21 Oct 2026 when the
+     # versions were retired and true until step 2 (review of that day).
+     r"|the story releases your forces as it goes",
+     WHOLE_ROSTER_TEXT, WHOLE_ROSTER, WRAPPED),
+    (r"switched off parts of other mods' code|until their authors update"
+     r"|falls back to its original order handling",
+     PLAYER_TEXT, OTHER_MODS_BACK, WRAPPED),
+    (r"radio (midcourse |command )?retargeting|radio midcourse",
+     REDBACK_TEXT + PLAYER_TEXT, REDBACK_FF, WRAPPED),
+    (r"MH-60R supports remain visible|use the lower (Hellfire|missile) seats",
+     REDBACK_TEXT + PLAYER_TEXT + ["docs/campaigns/*/test-card.md"], REDBACK_SEAHAWK, WRAPPED),
+    (r"RedbackH60|\btank points?\b|\bin the tanks' place\b"
+     r"|MH-60R[^.\n]*\b(pods?|LAU-3s?|19-tubes?)\b(, which)?[^.,;:\n]{0,30}\b(on|from|in) "
+     r"(the|each|its) (inboard|inner) pylons?\b",
+     REDBACK_TEXT + PLAYER_TEXT + ["docs/campaigns/*/test-card.md"], REDBACK_LAUNCHER, WRAPPED),
+    (r"seeker[^.\n]{0,30}\b(switch\w*|turns?|turning|searching)\b[^.\n]{0,12}\b[38] (NM|nautical miles?)\b"
+     r"|TerminalApproachDist=[38]\b",
+     REDBACK_TEXT + PLAYER_TEXT + ["docs/campaigns/*/test-card.md"], REDBACK_SWITCH_ON, WRAPPED),
+    (r"Deceleration\W{0,2}[^.\n]{0,12}?\b0\.[28]\b|\bg per second\b|\bfraction per second\b"
+     r"|450[ -](kt|knots?)\b[^.\n/]{0,12}\b(climb|loft)|\b(climb\w*|loft\w*)[^.\n]{0,12}\bat 450[ -](kt|knots?)"
+     r"|450-knot phase ceiling|\bloft cap\b|MaxLoftVelocity=450\b",
+     REDBACK_TEXT + PLAYER_TEXT + ["docs/campaigns/*/test-card.md"], REDBACK_SPEEDS, WRAPPED),
 ]
 
 

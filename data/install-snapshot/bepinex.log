@@ -1,4 +1,4 @@
-# BepInEx\LogOutput.log - whole file, 1193 line(s), 0.1 MB, last written 2026-10-18T10:15:28. 
+# BepInEx\LogOutput.log - whole file, 1220 line(s), 0.1 MB, last written 2026-10-24T14:48:30. 
 [Error  :   BepInEx] Unable to start Unity log writer
 [Message:   BepInEx] BepInEx 5.4.23.2 - Sea Power (15/10/2026 4:59:12 PM)
 [Info   :   BepInEx] Running under Unity v6000.0.84.7908207
@@ -17,18 +17,21 @@
 [Info   :AnchorChain Preloader] AnchorChain Preloader started!
 [Info   :AnchorChain Preloader] Loaded assembly AnchorChain, Version=1.1.0.0, Culture=neutral, PublicKeyToken=null
 [Info   :AnchorChain] Loaded assembly SEST.MenuBackground, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+[Info   :AnchorChain] Loaded assembly SEST.RuntimeFixes, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
 [Info   :AnchorChain] Loaded assembly AnchorChain, Version=1.1.0.0, Culture=neutral, PublicKeyToken=null
+[Info   :AnchorChain] Loaded assembly ACPackSettings, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 [Info   :AnchorChain] Loaded assembly CombatWorker, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null
 [Info   :AnchorChain] Loaded assembly CustomAudioLoader, Version=2.5.6.0, Culture=neutral, PublicKeyToken=null
 [Info   :AnchorChain] Loaded assembly EnhancedDecoyMod, Version=0.5.3.0, Culture=neutral, PublicKeyToken=null
 [Info   :AnchorChain] Loaded assembly EnhancedUIMod, Version=0.1.1.0, Culture=neutral, PublicKeyToken=null
 [Info   :AnchorChain] Loaded assembly Euromod-Welldeck, Version=1.0.3.0, Culture=neutral, PublicKeyToken=null
+[Info   :AnchorChain] Loaded assembly ExtendedGuidance, Version=0.5.0.0, Culture=neutral, PublicKeyToken=null
 [Info   :AnchorChain] Loaded assembly HighAltitudeSkyFix, Version=1.2.2.0, Culture=neutral, PublicKeyToken=null
-[Info   :AnchorChain] Loaded assembly HullDamage, Version=0.5.7.0, Culture=neutral, PublicKeyToken=null
+[Info   :AnchorChain] Loaded assembly HullDamage, Version=0.5.9.0, Culture=neutral, PublicKeyToken=null
 [Info   :AnchorChain] Loaded assembly MeshCutOut.ACPack, Version=0.5.1.0, Culture=neutral, PublicKeyToken=null
 [Info   :AnchorChain] Loaded assembly MissileControlMod, Version=0.1.16.0, Culture=neutral, PublicKeyToken=null
 [Info   :AnchorChain] Loaded assembly MissileControlSurfaces, Version=1.1.3.0, Culture=neutral, PublicKeyToken=null
-[Info   :AnchorChain] Loaded assembly MultiStageMissiles, Version=1.7.14.0, Culture=neutral, PublicKeyToken=null
+[Info   :AnchorChain] Loaded assembly MultiStageMissiles, Version=1.7.16.0, Culture=neutral, PublicKeyToken=null
 [Info   :AnchorChain] Loaded assembly OptimalTargetDist, Version=1.2.0.0, Culture=neutral, PublicKeyToken=null
 [Info   :AnchorChain] Loaded assembly ParallelRangeProbe, Version=0.12.0.0, Culture=neutral, PublicKeyToken=null
 [Info   :AnchorChain] Loaded assembly ProfileImage1024, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
@@ -44,18 +47,23 @@
 [Warning:AnchorChain] Attempted to load a duplicate plugin: Sub Ammunition (io.github.yourname.sub-ammunition)
 [Info   :AnchorChain] Loaded assembly LoadoutManager, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 [Info   :AnchorChain] Loaded assembly BetterTacMap, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+[Info   :AnchorChain] Loaded assembly SeaPowerSquadPanel, Version=0.2.16.0, Culture=neutral, PublicKeyToken=null
+[Info   :AnchorChain] Loaded assembly CombatCosts, Version=0.7.1.0, Culture=neutral, PublicKeyToken=null
 [Info   :AnchorChain] Loaded assembly CoordinatedStrikeTool, Version=1.3.1.0, Culture=neutral, PublicKeyToken=null
 [Info   :AnchorChain] Loaded assembly AutomaticSAR, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 [Info   :AnchorChain] Loaded assembly IdentifyExpanded, Version=3.420.6967.0, Culture=neutral, PublicKeyToken=null
 [Info   :AnchorChain] Loaded assembly DynamicCampaignMod, Version=0.25.0.0, Culture=neutral, PublicKeyToken=null
 [Info   :AnchorChain] Loaded assembly ACC.CV16.SkiJumpFix, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 [Info   :AnchorChain] Loaded assembly Z20RotorVisualSync, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-[Info   :AnchorChain] Loaded assembly SaronicCorsairStrikeUSV, Version=4.12.1.0, Culture=neutral, PublicKeyToken=null
-[Info   :AnchorChain] Loaded assembly AlpineSeaPower, Version=0.3.1.0, Culture=neutral, PublicKeyToken=null
+[Info   :AnchorChain] Loaded assembly SaronicCorsairStrikeUSV, Version=4.12.2.0, Culture=neutral, PublicKeyToken=null
+[Info   :AnchorChain] Loaded assembly K5KrakenContactStrike, Version=1.0.1.0, Culture=neutral, PublicKeyToken=null
+[Info   :AnchorChain] Loaded assembly AlpineSeaPower, Version=0.3.2.0, Culture=neutral, PublicKeyToken=null
 [Info   :AnchorChain] Loaded assembly FuryFormation, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 [Info   :AnchorChain] Loaded assembly FuryLights, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 [Info   :AnchorChain] Loaded assembly FuryVoice.Harmony, Version=1.5.0.0, Culture=neutral, PublicKeyToken=null
-[Info   :AnchorChain] Loaded assembly EC2CommsJamming, Version=1.0.1.0, Culture=neutral, PublicKeyToken=null
+[Info   :AnchorChain] Loaded assembly XQ58Shadow, Version=1.2.5.0, Culture=neutral, PublicKeyToken=null
+[Info   :AnchorChain] Loaded assembly EC2CommsJamming, Version=1.1.1.0, Culture=neutral, PublicKeyToken=null
+[Info   :AnchorChain] Loaded assembly EC2Ejection, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 [Info   :AnchorChain] Loaded assembly EC2Formation, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 [Info   :AnchorChain] Loaded assembly EC2Lights, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 [Info   :AnchorChain] Loaded assembly EC2Tooltip, Version=1.0.2.0, Culture=neutral, PublicKeyToken=null
@@ -63,20 +71,27 @@
 [Info   :AnchorChain] Loaded assembly J36AfterburnerNozzle, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
 [Info   :AnchorChain] Loaded assembly OspreyDeckOps, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
 [Info   :AnchorChain] Loaded assembly OspreyMechanics, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-[Info   :AnchorChain] Loaded assembly BellSystemsFixtureTilt, Version=0.5.1.0, Culture=neutral, PublicKeyToken=null
+[Info   :AnchorChain] Loaded assembly BellSystemsFixtureTilt, Version=0.5.2.0, Culture=neutral, PublicKeyToken=null
+[Info   :AnchorChain] Loaded assembly CheyenneCabinJoints, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+[Info   :AnchorChain] Loaded assembly CheyenneDoorLining, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+[Info   :AnchorChain] Loaded assembly MV75CrewEscape, Version=1.0.1.0, Culture=neutral, PublicKeyToken=null
 [Info   :AnchorChain] Loaded assembly MV75Formation, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 [Info   :AnchorChain] Loaded assembly Z21GunMoveFire, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
 [Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.WeaponSystem and name _containerBaseObject
-[Info   :AnchorChain] Loaded assembly AlpineSeaPower, Version=0.3.1.0, Culture=neutral, PublicKeyToken=null
+[Info   :AnchorChain] Loaded assembly AlpineSeaPower, Version=0.3.2.0, Culture=neutral, PublicKeyToken=null
 [Warning:AnchorChain] Attempted to load a duplicate plugin: Sea Power scoped runtime fixes (alpine.seapower.runtime)
+[Info   :AnchorChain] Loaded assembly YF23Ejection, Version=1.1.0.0, Culture=neutral, PublicKeyToken=null
 [Info   :AnchorChain] Loaded assembly YF23Formation, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 [Info   :AnchorChain] Loaded assembly YF23Lights, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 [Info   :AnchorChain] Loaded plugin SEST Menu Background (io.github.sest-hobby.menu-background)
+[Info   :AnchorChain] Loaded plugin SEST Runtime Fixes (io.github.sest-hobby.runtime-fixes)
+[Info   :AnchorChain] Loaded plugin AC Pack Settings (io.github.euromod.acpack-settings)
 [Info   :AnchorChain] Loaded plugin Combat Batch Worker (experimental) (local.seapower.combatworker)
 [Info   :AnchorChain] Loaded plugin Sonar Audio Loader (io.github.euromod.sonar-audio-loader)
 [Info   :AnchorChain] Loaded plugin EnhancedDecoyMod (io.github.euromod.enhanceddecoymod)
 [Info   :AnchorChain] Loaded plugin EnhancedUIMod (local.seapower.enhanceduimod)
 [Info   :AnchorChain] Loaded plugin Euromod Well Deck (euromod.welldeck)
+[Info   :AnchorChain] Loaded plugin ExtendedGuidance (euromod.extended-guidance)
 [Warning:  HarmonyX] AccessTools.Method: Could not find method for type SeaPower.DynamicSky and name UpdateSky and parameters 
 [Info   :AnchorChain] Loaded plugin High Altitude Sky Fix (io.github.euromod.high-altitude-sky-fix)
 [Info   :AnchorChain] Loaded plugin Hull Damage (euromod.hull-damage)
@@ -363,11 +378,16 @@
 [Warning:  HarmonyX] AccessTools.Method: name is null
 [Warning:  HarmonyX] AccessTools.Method: name is null
 [Warning:  HarmonyX] AccessTools.Method: name is null
-[Warning:  HarmonyX] AccessTools.Method: name is null
 [Warning:  HarmonyX] AccessTools.Method: Could not find method for type SeaPower.WeaponBase and name activateGuidingSystem and parameters 
 [Warning:  HarmonyX] AccessTools.Method: Could not find method for type SeaPower.WeaponBase and name ActivateRadarGuidanceSystem and parameters 
 [Info   :AnchorChain] Loaded plugin CustomLoadoutManager (l963.seapower.loadoutmanager)
 [Info   :AnchorChain] Loaded plugin BetterTacMap (toemel.bettertacmap)
+[Info   :Sea Power Squad Panel] Mod configuration: C:/Users/<USER>/AppData/LocalLow/Triassic Games/Sea Power\SeaPowerSquadPanel\settings.cfg
+[Info   :Sea Power Squad Panel] Scoped squad UI camera LMB guard attached.
+[Info   :Sea Power Squad Panel] Native squad window shortcut persistence attached.
+[Info   :Sea Power Squad Panel] Sea Power Squad Panel 0.2.16 loaded through Anchor Chain.
+[Info   :AnchorChain] Loaded plugin Sea Power Squad Panel (seapower.squad-panel)
+[Info   :AnchorChain] Loaded plugin Weapon Costs (local.seapower.weaponcosts)
 [Info   :Coordinated Strike Tool] Coordinated Strike Tool 1.3.1 loaded. Press the panel hotkey (default F8) in a mission to open the planner.
 [Info   :AnchorChain] Loaded plugin Coordinated Strike Tool (coordinatedstriketool)
 [Info   :AnchorChain] Loaded plugin Automatic SAR (local.automatic-sar)
@@ -379,12 +399,15 @@
 [Info   :AnchorChain] Loaded plugin ACC CV16 Ski-Jump Fix (meltemi.acc.cv16.skijumpfix)
 [Info   :AnchorChain] Loaded plugin Z-20 Rotor Visual Sync (meltemi.seapower.z20.rotor-visual-sync)
 [Info   :AnchorChain] Loaded plugin Saronic Corsair contact strike (alpine.seapower.corsair)
+[Info   :AnchorChain] Loaded plugin K5 KRAKEN contact strike (alpine.seapower.k5.contact)
 [Info   :AnchorChain] Loaded plugin Sea Power scoped runtime fixes (alpine.seapower.runtime)
 [Info   :AnchorChain] Loaded plugin FuryFormation spacing (alpine.formation.fury)
 [Info   :AnchorChain] Loaded plugin Fury Lights (alpine.fury.lights)
 [Info   :AnchorChain] Loaded plugin Fury voice routing (alpine.seapower.furyvoice)
 [Info   :AnchorChain] Loaded plugin Fury Friendly Loss Voice (fury.voice.friendlyloss)
+[Info   :AnchorChain] Loaded plugin Drone Control (alpine.xq58.shadow)
 [Info   :AnchorChain] Loaded plugin EC-2 Communications Jamming (jasdf.ec2.comms)
+[Info   :AnchorChain] Loaded plugin EC-2 Ejection (seapower.ec2.ejection)
 [Info   :AnchorChain] Loaded plugin EC2Formation spacing (alpine.formation.ec2)
 [Info   :AnchorChain] Loaded plugin EC-2 Lights (alpine.ec2.lights)
 [Info   :AnchorChain] Loaded plugin EC-2 Tooltip (jasdf.ec2.tooltip)
@@ -398,8 +421,12 @@
 [Info   :OspreyMechanics] V-22 rig 1.1.45 ready; SV-22 sonar deployment checks actual hover attitude instead of stale cruise pitch; sea-safe target and bounded hover-wait diagnostics enabled; native limits, continuous-task control and shared climb preserved.
 [Info   :AnchorChain] Loaded plugin MV-22 Source Mechanics (local.mv22.source.mechanics)
 [Info   :AnchorChain] Loaded plugin MV-75 Cheyenne II (local.bell.systems.fixture)
+[Info   :AnchorChain] Loaded plugin Cheyenne cabin joints (rsg.cheyenne.cabin.joints)
+[Info   :AnchorChain] Loaded plugin Cheyenne cabin lining (seapower.cheyenne.doorlining)
+[Info   :AnchorChain] Loaded plugin MV-75 Crew Escape (seapower.mv75.crewescape)
 [Info   :AnchorChain] Loaded plugin MV75Formation spacing (alpine.formation.mv75)
 [Info   :AnchorChain] Loaded plugin Z-21 Gun and EOTS Synchronization (meltemi.seapower.z21.gun-move-fire)
+[Info   :AnchorChain] Loaded plugin YF-23 Ejection (seapower.yf23.ejection)
 [Info   :AnchorChain] Loaded plugin YF23Formation spacing (alpine.formation.yf23)
 [Info   :AnchorChain] Loaded plugin YF-23 Lights (alpine.yf23.lights)
 [Info   :AnchorChain] Loaded plugin MV-22 Deck Operations (local.mv22.deckops)

@@ -46,7 +46,7 @@
             <TextBlock FontSize="15" Foreground="#D8DDE8" TextWrapping="Wrap" Margin="0,0,0,5">
               <Run Text="- Commanders receive a "/><Run Text="{Binding SameNationDiscountPercentText}"/><Run Text="% point discount when purchasing units from their own nation."/>
             </TextBlock>
-            <TextBlock Text="- Every unit on this campaign's roster is registered to Australia by its squadron or hull variant, so the discount applies to all of it." FontSize="15" Foreground="#D8DDE8" TextWrapping="Wrap" Margin="0,0,0,14"/>
+            <TextBlock Text="- The discount covers the 11 classes registered to Australia. The 71 classes registered to other nations - from USA (19), France (9), Japan (8), Spain (8), South Korea (7), Italy (6), United Kingdom (5), Germany (4), Netherlands (3), Denmark (1), Norway (1) - cost their listed price." FontSize="15" Foreground="#D8DDE8" TextWrapping="Wrap" Margin="0,0,0,14"/>
             <Border Height="1" Background="{StaticResource Brush.Glyph.Normal}" Opacity="0.45" Margin="0,0,0,14"/>
 
             <TextBlock Text="Awards and Promotions" FontSize="17" FontWeight="Bold" Foreground="White" TextWrapping="Wrap" Margin="0,0,0,6"/>
@@ -146,7 +146,8 @@
               <Run Text="- Open "/><Hyperlink Command="{Binding OpenTaskForceBuilderCommand}">Task Force Builder</Hyperlink><Run Text=" from the task force bar to add ships, submarines, helicopters, and aircraft to your task force."/>
             </TextBlock>
             <TextBlock Text="- Selected units are not purchased until the task force is confirmed." FontSize="15" Foreground="#D8DDE8" TextWrapping="Wrap" Margin="0,0,0,5"/>
-            <TextBlock Text="- Unit availability changes between missions: Task Force Builder offers only what the current force-allocation window allows." FontSize="15" Foreground="#D8DDE8" TextWrapping="Wrap" Margin="0,0,0,5"/>
+            <TextBlock Text="- Force allocations before Weapons Free offer what the story releases. From the force allocation before Weapons Free, every force allocation offers the whole roster and the allied fleet - 52 ship classes and 19 aircraft types from the USA, France, Japan, Spain, South Korea, Italy, the United Kingdom, Germany, the Netherlands, Denmark and Norway - and the Royal Australian Navy's Canberra-class LHD. Carriers and amphibious ships come without aircraft, as every ship bought here does. An allied aircraft is sold only where some mission here can launch and recover it. Some operations still limit what sails." FontSize="15" Foreground="#D8DDE8" TextWrapping="Wrap" Margin="0,0,0,5"/>
+            <TextBlock Text="- The Unit Catalog lists all of it from the start. Allied classes cost their own navies' listed prices, without the same-nation discount. No hull a mission names is sold." FontSize="15" Foreground="#D8DDE8" TextWrapping="Wrap" Margin="0,0,0,5"/>
             <TextBlock FontSize="15" Foreground="#D8DDE8" TextWrapping="Wrap" Margin="0,0,0,5">
               <Run Text="- Use the task force bar to repair damage, inspect weapons, change loadouts, view proficiency, and manage aircraft assignments."/>
             </TextBlock>

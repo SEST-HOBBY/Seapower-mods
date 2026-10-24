@@ -1,0 +1,4263 @@
+{
+  "weapon": [
+    {
+      "target": "sest_aim-424",
+      "source": "usn_aim-424",
+      "basis": "SEST MALICE: retain the author's explicitly unknown AIM-424 prices",
+      "category": "AAM"
+    },
+    {
+      "target": "sest_agr-30",
+      "basis": "AGR-30 Redback is fictional: a seeker and role comparison with the AGM-114L Longbow Hellfire, whose catalog pair (usa_agm-114l, reference 1998) is copied; not a published price; low confidence",
+      "category": "ATGM",
+      "estimate": {
+        "historical": "70000",
+        "historical_year": "1998",
+        "historical_method": "model estimate",
+        "current": "150000",
+        "current_year": "2026",
+        "current_method": "model estimate",
+        "note": "The airframe family is APKWS (usa_apkws_2_m282, 16,000 / 34,000), a lower bound"
+      },
+      "sources": [
+        {
+          "title": "SEST Allied Fixes builder, committed HEAD (Redback seeker rationale)",
+          "url": "file:integration/allied-fixes/build_patch.py (git HEAD 57375598, lines 229-231)"
+        },
+        {
+          "title": "Tracker catalog weaponcosts.ini [usa_agm-114l], lines 5302-5307",
+          "url": "file:mods-source/3807187341/systems/weaponcosts.ini"
+        },
+        {
+          "title": "Tracker catalog weaponcosts.ini [usa_apkws_2_m282] (same-airframe lower bound)",
+          "url": "file:mods-source/3807187341/systems/weaponcosts.ini"
+        }
+      ]
+    },
+    {
+      "target": "usn_arrw",
+      "source": "dts_agm-183a",
+      "basis": "AGM-183A conventional ARRW family estimate; retain the source's 2020 reference basis",
+      "category": "Land Attack"
+    },
+    {
+      "target": "usaf_gbu-31_v1",
+      "source": "usn_gbu-31v1",
+      "basis": "Same GBU-31(V)1 JDAM complete-round estimate"
+    },
+    {
+      "target": "usn_rgm-109j",
+      "source": "usn_rgm-109e5a",
+      "basis": "Maritime-strike Tomahawk family proxy; retain the source estimate and 2021 reference basis"
+    },
+    {
+      "target": "usn_ugm-109j",
+      "source": "usn_ugm-109e5a",
+      "basis": "Submarine maritime-strike Tomahawk family proxy; retain the source estimate and 2021 reference basis"
+    },
+    {
+      "target": "plan_cm-302",
+      "source": "plan_yj12_ship",
+      "basis": "CM-302 is the export YJ-12, same missile family as plan_yj12_ship (author model estimate, reference year 2001)"
+    },
+    {
+      "target": "usn_gbu-12d",
+      "basis": "GBU-12D/B Paveway II (in service 1976): Gulf War Air Power Survey vol. 5 unit cost USD 9,000 in 1991 dollars, carried back to 1976 and forward to 2026 by CPI; medium confidence (FAS gives an undated USD 19,000)",
+      "category": "Bomb",
+      "estimate": {
+        "historical": "3800",
+        "historical_year": "1976",
+        "historical_method": "CPI conversion",
+        "current": "22000",
+        "current_year": "1991",
+        "current_method": "CPI conversion",
+        "note": "Historical: 9,000 x 56.9 / 136.2 = 3,759.9. Current: 9,000 x 334.4 / 136.2 = 22,096.9, rounded"
+      },
+      "sources": [
+        {
+          "title": "Air-Delivered Munitions in Desert Storm (R.J. Lee, reproducing Gulf War Air Power Survey vol. 5)",
+          "url": "https://rjlee.org/air/ds-munit/"
+        },
+        {
+          "title": "Wikipedia, GBU-12 Paveway II",
+          "url": "https://en.wikipedia.org/wiki/GBU-12_Paveway_II"
+        },
+        {
+          "title": "FAS DOD-101 GBU-12 Paveway II",
+          "url": "https://man.fas.org/dod-101/sys/smart/gbu-12.htm"
+        },
+        {
+          "title": "Minneapolis Fed, Consumer Price Index 1913-",
+          "url": "https://www.minneapolisfed.org/about-us/monetary-policy/inflation-calculator/consumer-price-index-1913-"
+        }
+      ]
+    },
+    {
+      "target": "usn_gbu-24",
+      "basis": "GBU-24 Paveway III (Mk 84; in service 1983): Gulf War Air Power Survey vol. 5 unit cost USD 65,000 in 1991 dollars, carried back to 1983 and forward to 2026 by CPI",
+      "category": "Bomb",
+      "estimate": {
+        "historical": "48000",
+        "historical_year": "1983",
+        "historical_method": "CPI conversion",
+        "current": "160000",
+        "current_year": "1991",
+        "current_method": "CPI conversion",
+        "note": "Historical: 65,000 x 99.6 / 136.2 = 47,533. Current: 65,000 x 334.4 / 136.2 = 159,589, rounded"
+      },
+      "sources": [
+        {
+          "title": "Air-Delivered Munitions in Desert Storm (R.J. Lee, reproducing Gulf War Air Power Survey vol. 5)",
+          "url": "https://rjlee.org/air/ds-munit/"
+        },
+        {
+          "title": "Wikipedia, GBU-24 Paveway III",
+          "url": "https://en.wikipedia.org/wiki/GBU-24_Paveway_III"
+        },
+        {
+          "title": "Vanilla usn_gbu-24.ini",
+          "url": "file:mods-source/_vanilla/original/ammunition/usn_gbu-24.ini"
+        },
+        {
+          "title": "Minneapolis Fed, Consumer Price Index 1913-",
+          "url": "https://www.minneapolisfed.org/about-us/monetary-policy/inflation-calculator/consumer-price-index-1913-"
+        }
+      ]
+    },
+    {
+      "target": "rok_hgv",
+      "basis": "ROK KVLS-II HGV (concept): forks rok_hyunmoo_4_2's config, whose catalog pair (reference 2021) is copied; a glide body likely costs more; not a published price; low confidence",
+      "category": "Land Attack",
+      "estimate": {
+        "historical": "2500000",
+        "historical_year": "2021",
+        "historical_method": "model estimate",
+        "current": "3000000",
+        "current_year": "2026",
+        "current_method": "model estimate",
+        "note": "Higher alternatives: ko_hycore 5,000,000 / 6,000,000; usn_arrw 6,720,000 / 8,700,000"
+      },
+      "sources": [
+        {
+          "title": "Euromod-South Korea language_en/ammunition_names.ini (lines 31, 33)",
+          "url": "file:mods-source/3789208859/language_en/ammunition_names.ini"
+        },
+        {
+          "title": "Tracker catalog weaponcosts.ini [rok_hyunmoo_4_2], lines 456-461",
+          "url": "file:mods-source/3807187341/systems/weaponcosts.ini"
+        },
+        {
+          "title": "rok_hgv.ini vs rok_hyunmoo_4_2.ini (diff)",
+          "url": "file:mods-source/3789208859/ammunition/rok_hgv.ini"
+        }
+      ]
+    },
+    {
+      "target": "rok_L-sam",
+      "basis": "Naval L-SAM (concept, IOC 2030): a ship-launched hit-to-kill ABM compared with the SM-3 Block IB, whose catalog pair (usn_rim-161c, estimated IOC 2014) is copied; only programme totals are public; low confidence",
+      "category": "SAM",
+      "estimate": {
+        "historical": "10300000",
+        "historical_year": "2014",
+        "historical_method": "model estimate",
+        "current": "14600000",
+        "current_year": "2026",
+        "current_method": "model estimate",
+        "note": "Cheaper alternatives: usn_rim-161b 6,600,000 / 11,700,000; usn_pac3_mse 3,320,000 / 4,690,000"
+      },
+      "sources": [
+        {
+          "title": "Euromod-South Korea language_en/ammunition_names.ini (line 13)",
+          "url": "file:mods-source/3789208859/language_en/ammunition_names.ini"
+        },
+        {
+          "title": "rok_L-sam.ini",
+          "url": "file:mods-source/3789208859/ammunition/rok_L-sam.ini"
+        },
+        {
+          "title": "Tracker catalog weaponcosts.ini [usn_rim-161c], lines 731-735",
+          "url": "file:mods-source/3807187341/systems/weaponcosts.ini"
+        }
+      ]
+    },
+    {
+      "target": "dts_gbu-31",
+      "source": "b-2_gbu_31",
+      "basis": "GBU-31 JDAM 2000 lb: same class as b-2_gbu_31; author JDAM complete-round model estimate, reference 2007"
+    },
+    {
+      "target": "dts_gbu-32",
+      "source": "b-2_gbu_32",
+      "basis": "GBU-32 JDAM 1000 lb: same class as b-2_gbu_32; author JDAM complete-round model estimate, reference 2007"
+    },
+    {
+      "target": "eu_mk_18",
+      "source": "b-2_gbu_32",
+      "basis": "RAF 1000 lb laser-guided bomb ('Mk 18', inferred Paveway II / Enhanced Paveway II): class proxy b-2_gbu_32 (1000 lb guided bomb, same era); no UK unit price found"
+    },
+    {
+      "target": "f16_gbu-31",
+      "source": "b-2_gbu_31",
+      "basis": "GBU-31 JDAM 2000 lb: same class as b-2_gbu_31; author JDAM complete-round model estimate, reference 2007"
+    },
+    {
+      "target": "f16_gbu-32",
+      "source": "b-2_gbu_32",
+      "basis": "GBU-32 JDAM 1000 lb: same class as b-2_gbu_32; author JDAM complete-round model estimate, reference 2007"
+    },
+    {
+      "target": "f16_gbu-39",
+      "source": "dts_gbu-39",
+      "basis": "GBU-39 SDB: same weapon as dts_gbu-39; author entry, estimated IOC 2006, AIR21"
+    },
+    {
+      "target": "f16_gbu-53",
+      "source": "dts_gbu-53",
+      "basis": "GBU-53/B StormBreaker: same weapon as dts_gbu-53; author entry, estimated IOC 2020, AIR21"
+    },
+    {
+      "target": "fr_gbu-12",
+      "basis": "GBU-12 Paveway II (in service 1977): the same weapon as SEST's usn_gbu-12d estimate; Gulf War Air Power Survey vol. 5 unit cost USD 9,000 in 1991 dollars, carried back to 1976 and forward to 2026 by CPI",
+      "category": "Bomb",
+      "estimate": {
+        "historical": "3800",
+        "historical_year": "1976",
+        "historical_method": "CPI conversion",
+        "current": "22000",
+        "current_year": "1991",
+        "current_method": "CPI conversion",
+        "note": "Historical: 9,000 x 56.9 / 136.2 = 3,759.9. Current: 9,000 x 334.4 / 136.2 = 22,096.9, rounded"
+      },
+      "sources": [
+        {
+          "title": "Air-Delivered Munitions in Desert Storm (R.J. Lee, reproducing Gulf War Air Power Survey vol. 5), as read for SEST's usn_gbu-12d estimate; not re-read in the 24 Oct 2026 check",
+          "url": "https://rjlee.org/air/ds-munit/"
+        },
+        {
+          "title": "Minneapolis Fed, Consumer Price Index 1913-, as read for SEST's usn_gbu-12d estimate",
+          "url": "https://www.minneapolisfed.org/about-us/monetary-policy/inflation-calculator/consumer-price-index-1913-"
+        },
+        {
+          "title": "SEST researched estimate usn_gbu-12d (shipped)",
+          "url": "file:integration/combat-costs/mappings.json"
+        },
+        {
+          "title": "fr_gbu-12 config",
+          "url": "file:mods-source/3567256221/ammunition/fr_gbu-12.ini"
+        }
+      ]
+    },
+    {
+      "target": "fr_gbu-24",
+      "basis": "GBU-24 Paveway III (Mk 84 body, adopted 1983): the same class as SEST's usn_gbu-24 estimate; Gulf War Air Power Survey vol. 5 unit cost USD 65,000 in 1991 dollars, carried back to 1983 and forward to 2026 by CPI",
+      "category": "Bomb",
+      "estimate": {
+        "historical": "48000",
+        "historical_year": "1983",
+        "historical_method": "CPI conversion",
+        "current": "160000",
+        "current_year": "1991",
+        "current_method": "CPI conversion",
+        "note": "Historical: 65,000 x 99.6 / 136.2 = 47,533. Current: 65,000 x 334.4 / 136.2 = 159,589, rounded"
+      },
+      "sources": [
+        {
+          "title": "Air-Delivered Munitions in Desert Storm (R.J. Lee, reproducing GWAPS vol. 5), as read for SEST's usn_gbu-24 estimate; not re-read in the 24 Oct 2026 check",
+          "url": "https://rjlee.org/air/ds-munit/"
+        },
+        {
+          "title": "Minneapolis Fed, Consumer Price Index 1913-, as read for SEST's usn_gbu-24 estimate",
+          "url": "https://www.minneapolisfed.org/about-us/monetary-policy/inflation-calculator/consumer-price-index-1913-"
+        },
+        {
+          "title": "SEST researched estimate usn_gbu-24 (shipped)",
+          "url": "file:integration/combat-costs/mappings.json"
+        },
+        {
+          "title": "fr_gbu-24 English name",
+          "url": "file:mods-source/3758943352/language_en/ammunition_names.ini#L54"
+        }
+      ]
+    },
+    {
+      "target": "plaaf_ls-500",
+      "source": "plaaf_ls-6_500",
+      "basis": "Chinese LT-2 500 kg LGB: class proxy plaaf_ls-6_500 (Chinese 500 kg guided bomb); author JDAM complete-round model estimate, reference 2007",
+      "category": "Bomb"
+    },
+    {
+      "target": "su_kab-1500kr",
+      "source": "wp_kab-500kr",
+      "basis": "KAB-1500Kr TV-guided bomb: family proxy wp_kab-500kr (same KAB Kr TV-correlation family and 1985 era; the heavier body makes this a lower bound); author model estimate, reference 1985"
+    },
+    {
+      "target": "uav_gbu-49",
+      "source": "b-2_gbu_38",
+      "basis": "GBU-49 Enhanced Paveway II 500 lb: class proxy b-2_gbu_38 (500 lb GPS-aided guided bomb, same era); no GBU-49 unit price found"
+    },
+    {
+      "target": "us_gbu-31v3",
+      "source": "usn_gbu-31v1",
+      "basis": "GBU-31(V)3/B JDAM (BLU-109): same GBU-31 family as usn_gbu-31v1; the author prices every GBU-31 variant at one JDAM complete-round estimate, reference 2007 (the BLU-109 body makes this a lower bound)"
+    },
+    {
+      "target": "usaf_gbu-24",
+      "basis": "GBU-24G/B Paveway III (penetrator body, GPS-aided): model estimate using the SEST researched GBU-24 Paveway III (Mk 84) pair, 48,000 / 160,000, as a family comparison; the penetrator body and GPS are not priced, so this is a floor",
+      "category": "Bomb",
+      "estimate": {
+        "historical": "48000",
+        "historical_year": "1983",
+        "historical_method": "model estimate",
+        "current": "160000",
+        "current_year": "1991",
+        "current_method": "model estimate",
+        "note": "Copies SEST's usn_gbu-24 pair (65,000 x 99.6 / 136.2 = 47,533; 65,000 x 334.4 / 136.2 = 159,589, rounded); an earlier SEST note records a GWAPS GBU-24 (BLU-109) at USD 85,000 (1991), not re-read, so this pair is probably low"
+      },
+      "sources": [
+        {
+          "title": "SEST researched estimate usn_gbu-24 (shipped)",
+          "url": "file:integration/combat-costs/mappings.json"
+        }
+      ]
+    },
+    {
+      "target": "usaf_gbu-54",
+      "source": "usn_gbu-38_10",
+      "basis": "GBU-54 Laser JDAM: a GBU-38 500-lb JDAM plus a laser sensor kit, same JDAM family as catalog usn_gbu-38_10 (JDAM complete round); the laser sensor is not priced separately"
+    },
+    {
+      "target": "usn_gbu-12",
+      "basis": "GBU-12 Paveway II (Mk 82 + Paveway II kit; in service 1976): same weapon as SEST's shipped usn_gbu-12d estimate, Gulf War Air Power Survey vol. 5 unit cost USD 9,000 in 1991 dollars, carried back to 1976 and forward to 2026 by CPI",
+      "category": "Bomb",
+      "estimate": {
+        "historical": "3800",
+        "historical_year": "1976",
+        "historical_method": "CPI conversion",
+        "current": "22000",
+        "current_year": "1991",
+        "current_method": "CPI conversion",
+        "note": "Historical: 9,000 x 56.9 / 136.2 = 3,759.9. Current: 9,000 x 334.4 / 136.2 = 22,096.9, rounded"
+      },
+      "sources": [
+        {
+          "title": "SEST researched estimate usn_gbu-12d (shipped)",
+          "url": "file:integration/combat-costs/mappings.json"
+        },
+        {
+          "title": "Air-Delivered Munitions in Desert Storm (R.J. Lee, reproducing Gulf War Air Power Survey vol. 5), as cited by the shipped usn_gbu-12d estimate (not re-read in the 24 Oct 2026 check)",
+          "url": "https://rjlee.org/air/ds-munit/"
+        },
+        {
+          "title": "Minneapolis Fed, Consumer Price Index 1913-, as cited by the shipped usn_gbu-12d estimate",
+          "url": "https://www.minneapolisfed.org/about-us/monetary-policy/inflation-calculator/consumer-price-index-1913-"
+        }
+      ]
+    },
+    {
+      "target": "usn_gbu-27_117",
+      "basis": "GBU-27 Paveway III (BLU-109 penetrator, F-117): model estimate using the SEST researched GBU-24 Paveway III (Mk 84) pair, 48,000 / 160,000, as a family comparison; the penetrator body is not priced, so this is a floor",
+      "category": "Bomb",
+      "estimate": {
+        "historical": "48000",
+        "historical_year": "1983",
+        "historical_method": "model estimate",
+        "current": "160000",
+        "current_year": "1991",
+        "current_method": "model estimate",
+        "note": "Copies SEST's usn_gbu-24 pair (65,000 x 99.6 / 136.2 = 47,533; 65,000 x 334.4 / 136.2 = 159,589, rounded)"
+      },
+      "sources": [
+        {
+          "title": "SEST researched estimate usn_gbu-24 (shipped)",
+          "url": "file:integration/combat-costs/mappings.json"
+        }
+      ]
+    },
+    {
+      "target": "usn_gbu-31_qcsk",
+      "source": "usn_gbu-31v1",
+      "basis": "GBU-31(V)1/B JDAM QUICKSINK (AFRL experimental anti-ship seeker kit): the same GBU-31(V)1/B JDAM as catalog usn_gbu-31v1; the added seeker is not priced, so this is a floor"
+    },
+    {
+      "target": "usn_gbu-31v4",
+      "source": "usn_gbu-31v1",
+      "basis": "GBU-31(V)4/B JDAM (BLU-109 penetrator): same GBU-31 JDAM family as catalog usn_gbu-31v1 (JDAM complete round)"
+    },
+    {
+      "target": "usn_gbu-38_qcsk",
+      "source": "usn_gbu-38_10",
+      "basis": "GBU-38(V)1/B JDAM QUICKSINK (AFRL experimental anti-ship seeker kit): the same GBU-38 500-lb JDAM as catalog usn_gbu-38_10; the added seeker is not priced, so this is a floor"
+    },
+    {
+      "target": "wp_kab-500l",
+      "source": "wp_kab-500kr",
+      "basis": "KAB-500L laser-guided bomb: same KAB-500 guided-bomb family as catalog wp_kab-500kr (TV-guided); the seeker type differs"
+    },
+    {
+      "target": "agm-114",
+      "source": "usaf_agm-114_hellfire",
+      "basis": "Generic AGM-114 Hellfire (variant not stated): copies the catalog's generic 'AGM 114' entry usaf_agm-114_hellfire (author model estimate 'Hellfire early', reference 1986)"
+    },
+    {
+      "target": "ch53sa_nsm_air",
+      "source": "knm_nsm_1a",
+      "basis": "Same NSM Block 1A missile in an air-launch adaptation; copies the author's knm_nsm_1a entry (estimated IOC 2012)"
+    },
+    {
+      "target": "fr_mistral_f3",
+      "source": "fr_mistral",
+      "basis": "Mistral 3 (FOCDate 2013) is a Mistral family member; copies the author's Mistral entry fr_mistral (manpads model, nominal reference 1981), the pair the catalog gives every Mistral id"
+    },
+    {
+      "target": "fury_aim120d",
+      "source": "usn_aim-120d",
+      "basis": "Same AIM-120D; copies the author's usn_aim-120d entry (estimated IOC 2015)"
+    },
+    {
+      "target": "fury_aim9x",
+      "source": "usa_aim-9x_blk2_air",
+      "basis": "Same AIM-9X Block II; copies the author's usa_aim-9x_blk2_air entry (estimated IOC 2015)"
+    },
+    {
+      "target": "j16_hq19",
+      "basis": "Concept air-launched HQ-19 ASAT: model estimate using the ground HQ-19 catalog pair (pla_hq-19, author s400 model, reference 2007) as a comparison, not a published price",
+      "category": "SAM",
+      "estimate": {
+        "historical": "1600000",
+        "historical_year": "2007",
+        "historical_method": "model estimate",
+        "current": "2580000",
+        "current_year": "2026",
+        "current_method": "model estimate",
+        "note": "No air-launched HQ-19 is documented; low confidence"
+      },
+      "sources": [
+        {
+          "title": "Tracker catalog weaponcosts.ini [pla_hq-19]",
+          "url": "file:mods-source/3807187341/systems/weaponcosts.ini#L3820-L3825"
+        },
+        {
+          "title": "j16_hq19 config and English name",
+          "url": "file:mods-source/3769142422/ammunition/j16_hq19.ini"
+        }
+      ]
+    },
+    {
+      "target": "j16_ls-6_250",
+      "source": "plaaf_ls-6_250",
+      "basis": "Same LS-6 250 kg glide bomb (same name, same 32 nm range); copies the author's LS-6(250kg) entry plaaf_ls-6_250 (JDAM complete-round model, reference 2007)"
+    },
+    {
+      "target": "pla_hj-10a_air_z21",
+      "basis": "Concept 'AKD-XX' that forks the HJ-10A config: model estimate using the HJ-10A catalog pair (pla_hj-10a, author 'Modern antitank missile' model, reference 2015) as a comparison, not a published price",
+      "category": "ATGM",
+      "estimate": {
+        "historical": "100000",
+        "historical_year": "2015",
+        "historical_method": "model estimate",
+        "current": "180000",
+        "current_year": "2026",
+        "current_method": "model estimate",
+        "note": "The file forks pla_hj-10a's config: same mass, warhead and launch range"
+      },
+      "sources": [
+        {
+          "title": "Tracker catalog weaponcosts.ini [pla_hj-10a]",
+          "url": "file:mods-source/3807187341/systems/weaponcosts.ini#L3764-L3769"
+        },
+        {
+          "title": "pla_hj-10a_air_z21 config and English name",
+          "url": "file:mods-source/3774746803/ammunition/pla_hj-10a_air_z21.ini"
+        }
+      ]
+    },
+    {
+      "target": "plaaf_cj-20",
+      "source": "plan_cj-20",
+      "basis": "Same CJ-20 missile (identical 2500 kg mass and 1600 nm range to the PLAN Pack file); copies the author's plan_cj-20 values exactly, including its blank reference year"
+    },
+    {
+      "target": "plaaf_j16_ld-8a",
+      "source": "plaaf_ld-8a",
+      "basis": "Same LD-8A anti-radiation missile; copies the author's plaaf_ld-8a entry (Kh-31P / YJ-91 / LD ARM model, reference 1988)"
+    },
+    {
+      "target": "plaaf_j16_pl-10",
+      "source": "plaaf_pl-10",
+      "basis": "Same PL-10; copies the author's plaaf_pl-10 entry (WPROXY model, reference 2016)"
+    },
+    {
+      "target": "plaaf_j16_pl-15",
+      "source": "plaaf_pl-15",
+      "basis": "Same PL-15; copies the author's plaaf_pl-15 entry (PL-15 / PL-16 WPROXY model, reference 2016)"
+    },
+    {
+      "target": "plaaf_j16_pl-17",
+      "source": "plaaf_pl-17",
+      "basis": "Same PL-17; copies the author's plaaf_pl-17 entry (PL-17 / PL-21 WPROXY model, reference 2024)"
+    },
+    {
+      "target": "plaaf_j16_yj-80",
+      "basis": "Undocumented Kh-29-derived 'AKF-80': model estimate using the Kh-29-family catalog pair wp_as-14 ('Kh-38 / Kh-29 / KD-88' model, reference 2000) as a comparison, not a published price",
+      "category": "ASM",
+      "estimate": {
+        "historical": "150000",
+        "historical_year": "2000",
+        "historical_method": "model estimate",
+        "current": "350000",
+        "current_year": "2026",
+        "current_method": "model estimate",
+        "note": "The other Kh-29 entries, including wp_as-14b (the AS-14B the file forks), carry 33,000 / 110,000; low confidence"
+      },
+      "sources": [
+        {
+          "title": "Tracker catalog weaponcosts.ini [wp_as-14]",
+          "url": "file:mods-source/3807187341/systems/weaponcosts.ini#L6657-L6662"
+        },
+        {
+          "title": "Alternative catalog entry [wp_as-14b]",
+          "url": "file:mods-source/3807187341/systems/weaponcosts.ini#L2256-L2261"
+        },
+        {
+          "title": "plaaf_j16_yj-80 English name",
+          "url": "file:mods-source/3769142422/language_en/ammunition_names.ini#L2"
+        }
+      ]
+    },
+    {
+      "target": "plaaf_j16_yj-91",
+      "source": "plaaf_yj-91",
+      "basis": "Same YJ-91 (Chinese Kh-31P derivative); copies the author's plaaf_yj-91 entry (Kh-31P / YJ-91 / LD ARM model, reference 1988)"
+    },
+    {
+      "target": "plaaf_j36_pl15",
+      "source": "plaaf_pl-15",
+      "basis": "Same PL-15; copies the author's plaaf_pl-15 entry (reference 2016); the concept J-36 carrier does not change the missile"
+    },
+    {
+      "target": "plaaf_j36_pl17",
+      "source": "plaaf_pl-17",
+      "basis": "Same PL-17; copies the author's plaaf_pl-17 entry (reference 2024)"
+    },
+    {
+      "target": "plaaf_kd-63",
+      "source": "pla_yj-6",
+      "basis": "KD-63, the land-attack derivative of the YJ-6 / Silkworm airframe family; copies the author's YJ-6 entry (oldasm model, nominal reference 1965), the same pair the catalog gives the turbojet HY-4"
+    },
+    {
+      "target": "plaaf_kd-63b",
+      "source": "pla_yj-6",
+      "basis": "Active-radar KD-63 variant (same 2050 kg airframe) of the YJ-6/Silkworm family; copies the author's YJ-6 entry (nominal reference 1965)"
+    },
+    {
+      "target": "plaaf_kd-63c",
+      "source": "pla_yj-6",
+      "basis": "Imaging-IR KD-63 variant (same 2050 kg airframe) of the YJ-6/Silkworm family; copies the author's YJ-6 entry (nominal reference 1965)"
+    },
+    {
+      "target": "plaaf_kd-88a",
+      "source": "plaaf_kd-88",
+      "basis": "IIR KD-88A, the same mod's plaaf_kd-88 file with only the seeker changed; copies the author's plaaf_kd-88 entry (kalibr model, nominal reference 1994)"
+    },
+    {
+      "target": "plaaf_pl-15_S_LQS",
+      "source": "plaaf_pl-15_s",
+      "basis": "Same PL-15 short/folding-fin store as plaaf_pl-15_s (same name, Mass=230, GuidanceType=3); copy its pair (PL-15 / PL-16 model estimate, reference 2016)"
+    },
+    {
+      "target": "plaaf_yj-12",
+      "source": "plan_yj12_air",
+      "basis": "Same air-launched YJ-12 as plan_yj12_air (both Mass=2500, GuidanceType=3); copy its pair (heavyasm model estimate, nominal reference 2001)"
+    },
+    {
+      "target": "plaaf_yj-21",
+      "source": "plan_yj21",
+      "basis": "YJ-21 family: copy plan_yj21 (the catalog's only YJ-21 entry, hypersonicasm model estimate, nominal reference 2020); the air-launched round of the same designation"
+    },
+    {
+      "target": "plaaf_yj-21_LQS",
+      "source": "plan_yj21",
+      "basis": "YJ-21 family: copy plan_yj21 (hypersonicasm model estimate, nominal reference 2020); LQS copy of the air-launched YJ-21"
+    },
+    {
+      "target": "plaaf_yj-83",
+      "source": "plan_yj83k",
+      "basis": "YJ-83 air-launched (carried by JH-7A): copy plan_yj83k (modernasm model estimate, nominal reference 1994); every YJ-83 entry in the catalog carries the same pair"
+    },
+    {
+      "target": "plan_hy-1ja",
+      "source": "plan_hy-1j",
+      "basis": "HY-1J family: copy plan_hy-1j from the same mod (oldasm model estimate, nominal reference 1965); HY-1JA is its improved, longer-range ship variant"
+    },
+    {
+      "target": "PN_fr_mica_em",
+      "source": "fr_mica-em_vls",
+      "basis": "Same VL MICA-EM as fr_mica-em_vls; copy its pair (estimated IOC 1996, MICA02)"
+    },
+    {
+      "target": "PN_fr_mica_ir",
+      "source": "fr_mica-ir_vls",
+      "basis": "Same VL MICA-IR as fr_mica-ir_vls; copy its pair (estimated IOC 2000, MICA02)"
+    },
+    {
+      "target": "su_as-17a_LQS",
+      "source": "su_as-17a",
+      "basis": "Same Kh-31P as su_as-17a (identical name text); copy its pair (Kh-31P / YJ-91 / LD ARM model estimate, reference 1988)"
+    },
+    {
+      "target": "su_kh-38_LQS",
+      "source": "su_kh-38",
+      "basis": "Same Kh-38ME (active radar) as su_kh-38 (identical name text); copy its pair (maverick model estimate, nominal 1983). Note that the catalog's ru_kh-38mt prices the Kh-38MT at 150,000 / 350,000"
+    },
+    {
+      "target": "usa_agm-114r2_hob",
+      "source": "usa_agm_114r",
+      "basis": "AGM-114R family: copy usa_agm_114r (AGM-114R, estimated IOC 2012, AIR21); R2 is the improved Romeo with a height-of-burst sensor"
+    },
+    {
+      "target": "usa_v280_agm-114l",
+      "source": "usa_agm-114l",
+      "basis": "Same AGM-114L Longbow Hellfire as usa_agm-114l; copy its pair (Hellfire Longbow model estimate, reference 1998)"
+    },
+    {
+      "target": "usn_rim-162e",
+      "source": "usn_rim-162h",
+      "basis": "Same ESSM Block II (Mk 41, Aegis) as usn_rim-162h; copy its pair (estimated IOC 2021, NAV21)"
+    },
+    {
+      "target": "wp_r-33",
+      "source": "wp_aa_9",
+      "basis": "Same R-33 / AA-9 Amos as wp_aa_9; copy its pair (Soviet early AAM model estimate, reference 1975)"
+    },
+    {
+      "target": "wp_r-37",
+      "source": "su_aa-13",
+      "basis": "Same R-37M as su_aa-13; copy its pair (R-37M model estimate, reference 2018)"
+    },
+    {
+      "target": "wp_r-77-1",
+      "source": "su_aa-12_1",
+      "basis": "Same R-77-1 as su_aa-12_1; copy its pair (R-77 enhanced model estimate, reference 2015)"
+    },
+    {
+      "target": "wp_r-77m",
+      "source": "su_aa-12_m",
+      "basis": "Same R-77M as su_aa-12_m; copy its pair (R-77 enhanced model estimate, reference 2015)"
+    },
+    {
+      "target": "wp_sa-n-10",
+      "source": "wp_9m39",
+      "basis": "Same 9M39 Igla round as wp_9m39; copy its pair (manpads model estimate, reference 1981)"
+    },
+    {
+      "target": "yf23_agm88a_internal",
+      "source": "usn_agm-88a",
+      "basis": "Alias of usn_agm-88a (same AGM-88A HARM, internal-bay copy); copy its pair (estimated IOC 1984, HARM86)"
+    },
+    {
+      "target": "yf23_aim120d_internal",
+      "source": "usaf_aim-120d",
+      "basis": "Same AIM-120D round (internal-bay copy) as usaf_aim-120d; copy its pair (estimated IOC 2015, AIR21)"
+    },
+    {
+      "target": "yf23_aim9x2_internal",
+      "source": "usa_aim-9x_blk2_air",
+      "basis": "Same AIM-9X Block II (internal-bay copy) as usa_aim-9x_blk2_air; copy its pair (estimated IOC 2015, AIR21)"
+    },
+    {
+      "target": "ger_27mm_fapds",
+      "source": "ger_27mm",
+      "basis": "27mm FAPDS for MLG 27: same gun and 27x145mm cartridge as ger_27mm; the author's gun25 model prices rounds by calibre (cf. uk_cal_30x170_apds-t at the plain gun30 rate); family proxy, not a published FAPDS price"
+    },
+    {
+      "target": "j16_cal_30mm",
+      "source": "wp_cal_30mm",
+      "basis": "J-16 30x165mm cannon round: same GSh-30-1-family round that another J-16 mod (3812111085 plaaf_j-16, WeaponMagazineGsh-301) and the J-11B/J-15 load as wp_cal_30mm; author gun30 model estimate"
+    },
+    {
+      "target": "usa_v280_762",
+      "source": "usa_cal_03in",
+      "basis": "7.62mm NATO for M134 minigun: same 7.62mm minigun round as usa_cal_03in (AC-130A minigun magazines); author gun762 model estimate"
+    },
+    {
+      "target": "usn_cal_20mm_apds",
+      "source": "usn_cal_20mm",
+      "basis": "Phalanx 20mm APDS: same M61 20mm gun and cartridge as usn_cal_20mm (Mass 0.263 vs 0.272 kg); family proxy at the author's gun20 rate; the author priced one CIWS sabot round, pla_cal_apfsds_30mm, at 10x its calibre rate, so a Phalanx-specific price is likely higher"
+    },
+    {
+      "target": "usn_cal_25mm_stabilized",
+      "source": "usn_cal_25mm_m2",
+      "basis": "25mm M242 (Mk 38/Typhoon) round: same M242 25mm round as usn_cal_25mm_m2 (Burke Mk 38 magazines); author gun25 model estimate"
+    },
+    {
+      "target": "usn_cal_30mm_abm",
+      "source": "30mm_seasnake_abm",
+      "basis": "30x173mm programmable airburst (Mk44 family): same calibre and ammunition type as Euromod's SeaSnake 30 ABM (30mm_seasnake_abm; Lionfish 30 AB identical); author gunabm model estimate"
+    },
+    {
+      "target": "wp_cal_30mm_ak230",
+      "source": "wp_cal_30mm",
+      "basis": "AK-230 30mm naval round: heavier Soviet 30mm cartridge than wp_cal_30mm (Mass 1.06 vs 0.83 kg); the author prices every conventional 30mm round at the gun30 rate (30x113, 30x165, 30x170 APDS-T, 30x173 AP); calibre-model proxy, not a published AK-230 price"
+    },
+    {
+      "target": "ch53sa_mk48_air",
+      "basis": "Fictional air-drop Mk 48 Mod 8: model estimate = USN FY2025 MK-48 gross weapon system unit cost $4,217K (PB2025 P-40 LI 3117; FY2025 buys 79 MOD 7 G&C/afterbody sets); air-drop kit not priced",
+      "category": "Torpedo",
+      "estimate": {
+        "historical": "4220000",
+        "historical_year": "2025",
+        "historical_method": "model estimate",
+        "current": "4220000",
+        "current_year": "2025",
+        "current_method": "model estimate",
+        "note": "333,147,000 / 79 = 4,217,051, rounded; the FY2025 buy is MOD 7 hardware, and the gross unit cost is a line average that includes installation and support; the air-drop kit is not priced"
+      },
+      "sources": [
+        {
+          "title": "Exhibit P-40/P-5, PB 2025 Navy, LI 3117 MK-48 Torpedo (March 2024); S3-hosted copy of the justification-book pages, re-fetched and read 2026-10-23",
+          "url": "https://gemini-custom-report.s3.amazonaws.com/2025/PROC_NAVY_3117.pdf"
+        },
+        {
+          "title": "Same P-5 (read): the FY2025 quantity is MOD 7 hardware",
+          "url": "https://gemini-custom-report.s3.amazonaws.com/2025/PROC_NAVY_3117.pdf"
+        },
+        {
+          "title": "Identity: 3801363152 language_en/ammunition_names.ini",
+          "url": "file:mods-source/3801363152/language_en/ammunition_names.ini"
+        }
+      ]
+    },
+    {
+      "target": "pla_yu-6",
+      "basis": "Yu-6: model estimate, modern heavyweight-torpedo class = USN Mk 48 Mod 7 FY2025 gross weapon system unit cost $4,217K (PB2025 P-40 LI 3117); current only, historical unknown",
+      "category": "Torpedo",
+      "estimate": {
+        "historical": "",
+        "current": "4220000",
+        "current_year": "2025",
+        "current_method": "model estimate",
+        "note": "Current: 333,147,000 / 79 = 4,217,051, rounded; the historical price stays unknown because the GAO FY1990 figure could not be re-verified; low confidence"
+      },
+      "sources": [
+        {
+          "title": "Exhibit P-40, PB 2025 Navy, LI 3117 MK-48 Torpedo (re-fetched and read 2026-10-23)",
+          "url": "https://gemini-custom-report.s3.amazonaws.com/2025/PROC_NAVY_3117.pdf"
+        },
+        {
+          "title": "Comparison basis only, not a price: 3417801942 language_en/ammunition_names.ini",
+          "url": "file:mods-source/3417801942/language_en/ammunition_names.ini"
+        }
+      ]
+    },
+    {
+      "target": "plan_yu-10",
+      "basis": "Yu-10: model estimate, modern heavyweight-torpedo class = USN Mk 48 Mod 7 FY2025 gross weapon system unit cost $4,217K (PB2025 P-40 LI 3117); current only, historical unknown; role comparison",
+      "category": "Torpedo",
+      "estimate": {
+        "historical": "",
+        "current": "4220000",
+        "current_year": "2025",
+        "current_method": "model estimate",
+        "note": "Current: 333,147,000 / 79 = 4,217,051, rounded; the historical price stays unknown because the GAO FY1990 figure could not be re-verified; low confidence"
+      },
+      "sources": [
+        {
+          "title": "Exhibit P-40, PB 2025 Navy, LI 3117 MK-48 Torpedo (re-fetched and read)",
+          "url": "https://gemini-custom-report.s3.amazonaws.com/2025/PROC_NAVY_3117.pdf"
+        }
+      ]
+    },
+    {
+      "target": "plan_yu-6",
+      "basis": "Yu-6: model estimate, modern heavyweight-torpedo class = USN Mk 48 Mod 7 FY2025 gross weapon system unit cost $4,217K (PB2025 P-40 LI 3117); current only, historical unknown",
+      "category": "Torpedo",
+      "estimate": {
+        "historical": "",
+        "current": "4220000",
+        "current_year": "2025",
+        "current_method": "model estimate",
+        "note": "Current: 333,147,000 / 79 = 4,217,051, rounded; the historical price stays unknown because the GAO FY1990 figure could not be re-verified; low confidence"
+      },
+      "sources": [
+        {
+          "title": "Exhibit P-40, PB 2025 Navy, LI 3117 MK-48 Torpedo (re-fetched and read)",
+          "url": "https://gemini-custom-report.s3.amazonaws.com/2025/PROC_NAVY_3117.pdf"
+        },
+        {
+          "title": "Comparison basis only, not a price: 3775128499 language_en/ammunition_names.ini",
+          "url": "file:mods-source/3775128499/language_en/ammunition_names.ini"
+        }
+      ]
+    },
+    {
+      "target": "plan_yu-6a",
+      "basis": "Yu-6A (Yu-6 variant): model estimate, modern heavyweight-torpedo class = USN Mk 48 Mod 7 FY2025 gross weapon system unit cost $4,217K (PB2025 P-40 LI 3117); current only, historical unknown",
+      "category": "Torpedo",
+      "estimate": {
+        "historical": "",
+        "current": "4220000",
+        "current_year": "2025",
+        "current_method": "model estimate",
+        "note": "Current: 333,147,000 / 79 = 4,217,051, rounded; the historical price stays unknown because the GAO FY1990 figure could not be re-verified; low confidence"
+      },
+      "sources": [
+        {
+          "title": "Exhibit P-40, PB 2025 Navy, LI 3117 MK-48 Torpedo (re-fetched and read)",
+          "url": "https://gemini-custom-report.s3.amazonaws.com/2025/PROC_NAVY_3117.pdf"
+        }
+      ]
+    },
+    {
+      "target": "plan_yu-9",
+      "basis": "Yu-9: model estimate, modern heavyweight-torpedo class = USN Mk 48 Mod 7 FY2025 gross weapon system unit cost $4,217K (PB2025 P-40 LI 3117); current only, historical unknown; role comparison",
+      "category": "Torpedo",
+      "estimate": {
+        "historical": "",
+        "current": "4220000",
+        "current_year": "2025",
+        "current_method": "model estimate",
+        "note": "Current: 333,147,000 / 79 = 4,217,051, rounded; the historical price stays unknown because the GAO FY1990 figure could not be re-verified; low confidence"
+      },
+      "sources": [
+        {
+          "title": "Exhibit P-40, PB 2025 Navy, LI 3117 MK-48 Torpedo (re-fetched and read)",
+          "url": "https://gemini-custom-report.s3.amazonaws.com/2025/PROC_NAVY_3117.pdf"
+        }
+      ]
+    },
+    {
+      "target": "usn_mk54_air",
+      "basis": "Mk 54 Mod 0: about $1.0M each at the 2004 production start (NavWeaps, StrategyPage); current is the FY2014 Senate NDAA unit cost $839,320 CPI-converted to 2026",
+      "category": "Torpedo",
+      "estimate": {
+        "historical": "1000000",
+        "historical_year": "2004",
+        "historical_method": "published price",
+        "current": "1190000",
+        "current_year": "2014",
+        "current_method": "CPI conversion",
+        "note": "Current: 125,898,000 / 150 = 839,320 (FY2014); 839,320 x 334.4 / 236.7 (CPI-U 2014) = 1,185,757, rounded"
+      },
+      "sources": [
+        {
+          "title": "NavWeaps: Post-World War II Torpedoes of the United States (Mark 54 section)",
+          "url": "https://www.navweaps.com/Weapons/WTUS_PostWWII.htm"
+        },
+        {
+          "title": "StrategyPage: Air Weapons, November 7, 2004 (page read)",
+          "url": "https://www.strategypage.com/htmw/htairw/articles/20041107.aspx"
+        },
+        {
+          "title": "Mark 54 lightweight torpedo - Wikipedia (infobox; ref 1 Senate Report 113-44, NDAA FY2014)",
+          "url": "https://en.wikipedia.org/wiki/Mark_54_lightweight_torpedo"
+        },
+        {
+          "title": "Federal Reserve Bank of Minneapolis: Consumer Price Index, 1913-",
+          "url": "https://www.minneapolisfed.org/about-us/monetary-policy/inflation-calculator/consumer-price-index-1913-"
+        }
+      ]
+    },
+    {
+      "target": "usn_mk54_ship",
+      "basis": "Mk 54 Mod 0: about $1.0M each at the 2004 production start (NavWeaps, StrategyPage); current is the FY2014 Senate NDAA unit cost $839,320 CPI-converted to 2026",
+      "category": "Torpedo",
+      "estimate": {
+        "historical": "1000000",
+        "historical_year": "2004",
+        "historical_method": "published price",
+        "current": "1190000",
+        "current_year": "2014",
+        "current_method": "CPI conversion",
+        "note": "Current: 125,898,000 / 150 = 839,320 (FY2014); 839,320 x 334.4 / 236.7 (CPI-U 2014) = 1,185,757, rounded"
+      },
+      "sources": [
+        {
+          "title": "NavWeaps: Post-World War II Torpedoes of the United States (Mark 54 section)",
+          "url": "https://www.navweaps.com/Weapons/WTUS_PostWWII.htm"
+        },
+        {
+          "title": "StrategyPage: Air Weapons, November 7, 2004 (page read)",
+          "url": "https://www.strategypage.com/htmw/htairw/articles/20041107.aspx"
+        },
+        {
+          "title": "Mark 54 lightweight torpedo - Wikipedia (infobox; ref 1 Senate Report 113-44)",
+          "url": "https://en.wikipedia.org/wiki/Mark_54_lightweight_torpedo"
+        },
+        {
+          "title": "Federal Reserve Bank of Minneapolis: Consumer Price Index, 1913-",
+          "url": "https://www.minneapolisfed.org/about-us/monetary-policy/inflation-calculator/consumer-price-index-1913-"
+        }
+      ]
+    },
+    {
+      "target": "usn_mk54_1_ship",
+      "basis": "Model estimate: Mk 54 Mod 1 priced as its own family's Mod 0 (same body and propulsion; sonar/processor update); no Mod 1 all-up-round price was found",
+      "category": "Torpedo",
+      "estimate": {
+        "historical": "1000000",
+        "historical_year": "2004",
+        "historical_method": "model estimate",
+        "current": "1190000",
+        "current_year": "2014",
+        "current_method": "model estimate",
+        "note": "Mk 54 Mod 0 figures (839,320 x 334.4 / 236.7 (CPI-U 2014) = 1,185,757, rounded); the FY2025 Mod 1 hardware kit alone is budgeted at about 1,152,000, so this is likely a floor"
+      },
+      "sources": [
+        {
+          "title": "Mark 54 lightweight torpedo - Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Mark_54_lightweight_torpedo"
+        },
+        {
+          "title": "NavWeaps: Post-World War II Torpedoes of the United States (Mark 54 section)",
+          "url": "https://www.navweaps.com/Weapons/WTUS_PostWWII.htm"
+        },
+        {
+          "title": "Mark 54 lightweight torpedo - Wikipedia (infobox; Senate Report 113-44)",
+          "url": "https://en.wikipedia.org/wiki/Mark_54_lightweight_torpedo"
+        },
+        {
+          "title": "Federal Reserve Bank of Minneapolis: Consumer Price Index, 1913-",
+          "url": "https://www.minneapolisfed.org/about-us/monetary-policy/inflation-calculator/consumer-price-index-1913-"
+        }
+      ]
+    },
+    {
+      "target": "usn_mk54_2_air",
+      "basis": "Model estimate: planned Mk 54 Mod 2 priced as its own family's Mod 0; no Mod 2 price exists (operational test planned 2027)",
+      "category": "Torpedo",
+      "estimate": {
+        "historical": "1000000",
+        "historical_year": "2004",
+        "historical_method": "model estimate",
+        "current": "1190000",
+        "current_year": "2014",
+        "current_method": "model estimate",
+        "note": "Mk 54 Mod 0 figures (839,320 x 334.4 / 236.7 (CPI-U 2014) = 1,185,757, rounded); Mod 2 has a new warhead and propulsion and will likely cost more; low confidence"
+      },
+      "sources": [
+        {
+          "title": "Mark 54 lightweight torpedo - Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Mark_54_lightweight_torpedo"
+        },
+        {
+          "title": "NavWeaps: Post-World War II Torpedoes of the United States (Mark 54 section)",
+          "url": "https://www.navweaps.com/Weapons/WTUS_PostWWII.htm"
+        },
+        {
+          "title": "Mark 54 lightweight torpedo - Wikipedia (infobox; Senate Report 113-44)",
+          "url": "https://en.wikipedia.org/wiki/Mark_54_lightweight_torpedo"
+        },
+        {
+          "title": "Federal Reserve Bank of Minneapolis: Consumer Price Index, 1913-",
+          "url": "https://www.minneapolisfed.org/about-us/monetary-policy/inflation-calculator/consumer-price-index-1913-"
+        }
+      ]
+    },
+    {
+      "target": "usn_mk54_2_ship",
+      "basis": "Model estimate: planned Mk 54 Mod 2 priced as its own family's Mod 0; no Mod 2 price exists (operational test planned 2027)",
+      "category": "Torpedo",
+      "estimate": {
+        "historical": "1000000",
+        "historical_year": "2004",
+        "historical_method": "model estimate",
+        "current": "1190000",
+        "current_year": "2014",
+        "current_method": "model estimate",
+        "note": "Mk 54 Mod 0 figures (839,320 x 334.4 / 236.7 (CPI-U 2014) = 1,185,757, rounded); Mod 2 has a new warhead and propulsion and will likely cost more; low confidence"
+      },
+      "sources": [
+        {
+          "title": "Mark 54 lightweight torpedo - Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Mark_54_lightweight_torpedo"
+        },
+        {
+          "title": "NavWeaps: Post-World War II Torpedoes of the United States (Mark 54 section)",
+          "url": "https://www.navweaps.com/Weapons/WTUS_PostWWII.htm"
+        },
+        {
+          "title": "Mark 54 lightweight torpedo - Wikipedia (infobox; Senate Report 113-44)",
+          "url": "https://en.wikipedia.org/wiki/Mark_54_lightweight_torpedo"
+        },
+        {
+          "title": "Federal Reserve Bank of Minneapolis: Consumer Price Index, 1913-",
+          "url": "https://www.minneapolisfed.org/about-us/monetary-policy/inflation-calculator/consumer-price-index-1913-"
+        }
+      ]
+    },
+    {
+      "target": "usn_mk48_7",
+      "basis": "Mk 48 Mod 7 CBASS: $3.8M (2005 USD) per Wikipedia (citing Deagel); current is the FY2025 budget new-production unit cost of about $4.2M (TWZ, Army Recognition)",
+      "category": "Torpedo",
+      "estimate": {
+        "historical": "3800000",
+        "historical_year": "2005",
+        "historical_method": "published price",
+        "current": "4200000",
+        "current_year": "2025",
+        "current_method": "comparable recent purchase",
+        "note": "Historical: Wikipedia citing Deagel, medium-low confidence. Current: the FY2025 budget's about USD 4.2M (PB2025 P-40 gross weapon system unit cost 4,217K)"
+      },
+      "sources": [
+        {
+          "title": "Mark 48 torpedo - Wikipedia (infobox; ref 4 'Mark 48 CBASS', deagel.com)",
+          "url": "https://en.wikipedia.org/wiki/Mark_48_torpedo"
+        },
+        {
+          "title": "TWZ: Navy Wants A Cheap Heavy Torpedo That Can Be Stockpiled Fast (10 Apr 2024)",
+          "url": "https://www.twz.com/sea/navy-wants-a-cheap-heavy-torpedo-that-can-be-stockpiled-fast"
+        },
+        {
+          "title": "Army Recognition: US Navy awards $257 million MK 48 MOD 7 torpedo contract for Australia and AUKUS submarines (10 Sep 2026)",
+          "url": "https://www.armyrecognition.com/news/navy-news/2026/lockheed-martin-mk48-torpedo-257m-contract-us-navy"
+        }
+      ]
+    },
+    {
+      "target": "usn_mk48_mod4_adcap",
+      "basis": "Model estimate: Mk 48 Mod 4 refitted with the FY85 ADCAP kit, priced as the Mk 48 ADCAP unit cost $3.5M (FAS, flagged '(?)'; ADCAP operational 1988); current is the FY2025 Mk 48 Mod 7 unit cost of about $4.2M",
+      "category": "Torpedo",
+      "estimate": {
+        "historical": "3500000",
+        "historical_year": "1988",
+        "historical_method": "model estimate",
+        "current": "4200000",
+        "current_year": "2025",
+        "current_method": "comparable recent purchase",
+        "note": "FAS flags the USD 3.5M ADCAP figure '(?)' and gives no year; 1988 is ADCAP's service entry; low confidence"
+      },
+      "sources": [
+        {
+          "title": "FAS Military Analysis Network: MK-48 Torpedo",
+          "url": "https://man.fas.org/dod-101/sys/ship/weaps/mk-48.htm"
+        },
+        {
+          "title": "Mark 48 torpedo - Wikipedia (infobox; ref 3 FAS)",
+          "url": "https://en.wikipedia.org/wiki/Mark_48_torpedo"
+        },
+        {
+          "title": "TWZ: Navy Wants A Cheap Heavy Torpedo That Can Be Stockpiled Fast (10 Apr 2024)",
+          "url": "https://www.twz.com/sea/navy-wants-a-cheap-heavy-torpedo-that-can-be-stockpiled-fast"
+        },
+        {
+          "title": "Army Recognition: US Navy awards $257 million MK 48 MOD 7 torpedo contract (10 Sep 2026)",
+          "url": "https://www.armyrecognition.com/news/navy-news/2026/lockheed-martin-mk48-torpedo-257m-contract-us-navy"
+        }
+      ]
+    },
+    {
+      "target": "usn_mk48_6",
+      "basis": "Model estimate: Mk 48 Mod 6 is an upgraded ADCAP, priced as the ADCAP family figure $3.5M (1988 donor year); current is the FY2025 Mk 48 Mod 7 unit cost of about $4.2M",
+      "category": "Torpedo",
+      "estimate": {
+        "historical": "3500000",
+        "historical_year": "1988",
+        "historical_method": "model estimate",
+        "current": "4200000",
+        "current_year": "2025",
+        "current_method": "comparable recent purchase",
+        "note": "Mod 6 is a kit upgrade of Mod 5 ADCAPs and the kits are not priced; FAS flags the ADCAP figure '(?)'"
+      },
+      "sources": [
+        {
+          "title": "NavWeaps: Post-World War II Torpedoes of the United States (Mark 48 section)",
+          "url": "https://www.navweaps.com/Weapons/WTUS_PostWWII.htm"
+        },
+        {
+          "title": "GAO/NSIAD-95-104 Navy Torpedo Programs: MK-48 ADCAP Upgrades Not Adequately Justified",
+          "url": "https://www.govinfo.gov/content/pkg/GAOREPORTS-NSIAD-95-104/html/GAOREPORTS-NSIAD-95-104.htm"
+        },
+        {
+          "title": "FAS Military Analysis Network: MK-48 Torpedo",
+          "url": "https://man.fas.org/dod-101/sys/ship/weaps/mk-48.htm"
+        },
+        {
+          "title": "TWZ: Navy Wants A Cheap Heavy Torpedo That Can Be Stockpiled Fast (10 Apr 2024)",
+          "url": "https://www.twz.com/sea/navy-wants-a-cheap-heavy-torpedo-that-can-be-stockpiled-fast"
+        }
+      ]
+    },
+    {
+      "target": "usn_mk50_air",
+      "basis": "Mk 50: average unit cost $2.9M (then-year, 1,000-round objective) as published by FAS; current is the Mk 54, its documented cheaper replacement (FY2014 $839,320, CPI to 2026)",
+      "category": "Torpedo",
+      "estimate": {
+        "historical": "2900000",
+        "historical_year": "1992",
+        "historical_method": "published price",
+        "current": "1190000",
+        "current_year": "2014",
+        "current_method": "documented replacement estimate",
+        "note": "Current: the Mk 54's FY2014 839,320 x 334.4 / 236.7 (CPI-U 2014) = 1,185,757, rounded; a CPI conversion of the Mk 50 figure (6,912,046) is not used, because a documented replacement ranks first"
+      },
+      "sources": [
+        {
+          "title": "FAS Military Analysis Network: MK-50 Advanced Lightweight Torpedo",
+          "url": "https://man.fas.org/dod-101/sys/ship/weaps/mk-50.htm"
+        },
+        {
+          "title": "StrategyPage: Air Weapons, November 7, 2004 (page read)",
+          "url": "https://www.strategypage.com/htmw/htairw/articles/20041107.aspx"
+        },
+        {
+          "title": "Mark 54 lightweight torpedo - Wikipedia (infobox; Senate Report 113-44)",
+          "url": "https://en.wikipedia.org/wiki/Mark_54_lightweight_torpedo"
+        },
+        {
+          "title": "Federal Reserve Bank of Minneapolis: Consumer Price Index, 1913-",
+          "url": "https://www.minneapolisfed.org/about-us/monetary-policy/inflation-calculator/consumer-price-index-1913-"
+        }
+      ]
+    },
+    {
+      "target": "usn_mk46_air",
+      "basis": "Current only: no Mk 46 unit price found; current value is its documented replacement, the Mk 54 (built from Mk 46 propulsion; Mk 46 Mod 5A converted by Mk 54 kits), FY2014 $839,320 CPI to 2026. Historical left unknown",
+      "category": "Torpedo",
+      "estimate": {
+        "historical": "",
+        "current": "1190000",
+        "current_year": "2014",
+        "current_method": "documented replacement estimate",
+        "note": "Current: the Mk 54's FY2014 839,320 x 334.4 / 236.7 (CPI-U 2014) = 1,185,757, rounded; low confidence"
+      },
+      "sources": [
+        {
+          "title": "StrategyPage: Air Weapons, November 7, 2004 (page read)",
+          "url": "https://www.strategypage.com/htmw/htairw/articles/20041107.aspx"
+        },
+        {
+          "title": "NavWeaps: Post-World War II Torpedoes of the United States (Mark 54 section)",
+          "url": "https://www.navweaps.com/Weapons/WTUS_PostWWII.htm"
+        },
+        {
+          "title": "Mark 54 lightweight torpedo - Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Mark_54_lightweight_torpedo"
+        },
+        {
+          "title": "Mark 54 lightweight torpedo - Wikipedia (infobox; Senate Report 113-44)",
+          "url": "https://en.wikipedia.org/wiki/Mark_54_lightweight_torpedo"
+        },
+        {
+          "title": "Federal Reserve Bank of Minneapolis: Consumer Price Index, 1913-",
+          "url": "https://www.minneapolisfed.org/about-us/monetary-policy/inflation-calculator/consumer-price-index-1913-"
+        }
+      ]
+    },
+    {
+      "target": "usn_mk46_ship",
+      "basis": "Current only: no Mk 46 unit price found; current value is its documented replacement, the Mk 54 (FY2014 $839,320, CPI to 2026). Historical left unknown",
+      "category": "Torpedo",
+      "estimate": {
+        "historical": "",
+        "current": "1190000",
+        "current_year": "2014",
+        "current_method": "documented replacement estimate",
+        "note": "Current: the Mk 54's FY2014 839,320 x 334.4 / 236.7 (CPI-U 2014) = 1,185,757, rounded; low confidence"
+      },
+      "sources": [
+        {
+          "title": "StrategyPage: Air Weapons, November 7, 2004 (page read)",
+          "url": "https://www.strategypage.com/htmw/htairw/articles/20041107.aspx"
+        },
+        {
+          "title": "NavWeaps: Post-World War II Torpedoes of the United States (Mark 54 section)",
+          "url": "https://www.navweaps.com/Weapons/WTUS_PostWWII.htm"
+        },
+        {
+          "title": "Mark 54 lightweight torpedo - Wikipedia (infobox; Senate Report 113-44)",
+          "url": "https://en.wikipedia.org/wiki/Mark_54_lightweight_torpedo"
+        },
+        {
+          "title": "Federal Reserve Bank of Minneapolis: Consumer Price Index, 1913-",
+          "url": "https://www.minneapolisfed.org/about-us/monetary-policy/inflation-calculator/consumer-price-index-1913-"
+        }
+      ]
+    },
+    {
+      "target": "usn_mk46_mod5_air",
+      "basis": "Current only: no Mk 46 Mod 5 unit price found; current value is its documented replacement, the Mk 54 (Mk 46 Mod 5A converted by Mk 54 kits), FY2014 $839,320 CPI to 2026. Historical left unknown",
+      "category": "Torpedo",
+      "estimate": {
+        "historical": "",
+        "current": "1190000",
+        "current_year": "2014",
+        "current_method": "documented replacement estimate",
+        "note": "Current: the Mk 54's FY2014 839,320 x 334.4 / 236.7 (CPI-U 2014) = 1,185,757, rounded; low confidence"
+      },
+      "sources": [
+        {
+          "title": "StrategyPage: Air Weapons, November 7, 2004 (page read)",
+          "url": "https://www.strategypage.com/htmw/htairw/articles/20041107.aspx"
+        },
+        {
+          "title": "Mark 54 lightweight torpedo - Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Mark_54_lightweight_torpedo"
+        },
+        {
+          "title": "Mark 54 lightweight torpedo - Wikipedia (infobox; Senate Report 113-44)",
+          "url": "https://en.wikipedia.org/wiki/Mark_54_lightweight_torpedo"
+        },
+        {
+          "title": "Federal Reserve Bank of Minneapolis: Consumer Price Index, 1913-",
+          "url": "https://www.minneapolisfed.org/about-us/monetary-policy/inflation-calculator/consumer-price-index-1913-"
+        }
+      ]
+    },
+    {
+      "target": "usn_mk46_mod5_ship",
+      "basis": "Current only: no Mk 46 Mod 5 unit price found; current value is its documented replacement, the Mk 54, FY2014 $839,320 CPI to 2026. Historical left unknown",
+      "category": "Torpedo",
+      "estimate": {
+        "historical": "",
+        "current": "1190000",
+        "current_year": "2014",
+        "current_method": "documented replacement estimate",
+        "note": "Current: the Mk 54's FY2014 839,320 x 334.4 / 236.7 (CPI-U 2014) = 1,185,757, rounded; low confidence"
+      },
+      "sources": [
+        {
+          "title": "StrategyPage: Air Weapons, November 7, 2004 (page read)",
+          "url": "https://www.strategypage.com/htmw/htairw/articles/20041107.aspx"
+        },
+        {
+          "title": "Mark 54 lightweight torpedo - Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Mark_54_lightweight_torpedo"
+        },
+        {
+          "title": "Mark 54 lightweight torpedo - Wikipedia (infobox; Senate Report 113-44)",
+          "url": "https://en.wikipedia.org/wiki/Mark_54_lightweight_torpedo"
+        },
+        {
+          "title": "Federal Reserve Bank of Minneapolis: Consumer Price Index, 1913-",
+          "url": "https://www.minneapolisfed.org/about-us/monetary-policy/inflation-calculator/consumer-price-index-1913-"
+        }
+      ]
+    },
+    {
+      "target": "usn_mk46_5_ship",
+      "basis": "Current only: no Mk 46 Mod 5 unit price found; current value is its documented replacement, the Mk 54, FY2014 $839,320 CPI to 2026. Historical left unknown",
+      "category": "Torpedo",
+      "estimate": {
+        "historical": "",
+        "current": "1190000",
+        "current_year": "2014",
+        "current_method": "documented replacement estimate",
+        "note": "Current: the Mk 54's FY2014 839,320 x 334.4 / 236.7 (CPI-U 2014) = 1,185,757, rounded; low confidence"
+      },
+      "sources": [
+        {
+          "title": "StrategyPage: Air Weapons, November 7, 2004 (page read)",
+          "url": "https://www.strategypage.com/htmw/htairw/articles/20041107.aspx"
+        },
+        {
+          "title": "Mark 54 lightweight torpedo - Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Mark_54_lightweight_torpedo"
+        },
+        {
+          "title": "Mark 54 lightweight torpedo - Wikipedia (infobox; Senate Report 113-44)",
+          "url": "https://en.wikipedia.org/wiki/Mark_54_lightweight_torpedo"
+        },
+        {
+          "title": "Federal Reserve Bank of Minneapolis: Consumer Price Index, 1913-",
+          "url": "https://www.minneapolisfed.org/about-us/monetary-policy/inflation-calculator/consumer-price-index-1913-"
+        }
+      ]
+    },
+    {
+      "target": "usn_mk44_air",
+      "basis": "Current only: no Mk 44 price found; replaced by the Mk 46, itself replaced by the Mk 54; current is the Mk 54 FY2014 $839,320 CPI to 2026. Historical left unknown",
+      "category": "Torpedo",
+      "estimate": {
+        "historical": "",
+        "current": "1190000",
+        "current_year": "2014",
+        "current_method": "documented replacement estimate",
+        "note": "Current: the Mk 54's FY2014 839,320 x 334.4 / 236.7 (CPI-U 2014) = 1,185,757, rounded; two replacement steps (Mk 44 to Mk 46 to Mk 54), low confidence"
+      },
+      "sources": [
+        {
+          "title": "NavWeaps: Post-World War II Torpedoes of the United States (Mark 44 section)",
+          "url": "https://www.navweaps.com/Weapons/WTUS_PostWWII.htm"
+        },
+        {
+          "title": "StrategyPage: Air Weapons, November 7, 2004 (page read)",
+          "url": "https://www.strategypage.com/htmw/htairw/articles/20041107.aspx"
+        },
+        {
+          "title": "Mark 54 lightweight torpedo - Wikipedia (infobox; Senate Report 113-44)",
+          "url": "https://en.wikipedia.org/wiki/Mark_54_lightweight_torpedo"
+        },
+        {
+          "title": "Federal Reserve Bank of Minneapolis: Consumer Price Index, 1913-",
+          "url": "https://www.minneapolisfed.org/about-us/monetary-policy/inflation-calculator/consumer-price-index-1913-"
+        }
+      ]
+    },
+    {
+      "target": "rn_stingray_mod1_air",
+      "basis": "Model estimate: no Sting Ray unit price is published; priced as the contemporary US equivalent Mk 54 Mod 0 (Wikipedia lists the Mk 54 as the US Navy's equivalent)",
+      "category": "Torpedo",
+      "estimate": {
+        "historical": "1000000",
+        "historical_year": "2004",
+        "historical_method": "model estimate",
+        "current": "1190000",
+        "current_year": "2014",
+        "current_method": "model estimate",
+        "note": "Mk 54 Mod 0 figures (839,320 x 334.4 / 236.7 (CPI-U 2014) = 1,185,757, rounded); the MU90, the other listed equivalent, would give a higher value; low confidence"
+      },
+      "sources": [
+        {
+          "title": "Sting Ray (torpedo) - Wikipedia (See also)",
+          "url": "https://en.wikipedia.org/wiki/Sting_Ray_(torpedo)"
+        },
+        {
+          "title": "The Engineer: Sting Ray export success (25 Feb 2009)",
+          "url": "https://www.theengineer.co.uk/content/news/sting-ray-export-success/"
+        },
+        {
+          "title": "NavWeaps: Post-World War II Torpedoes of the United States (Mark 54 section)",
+          "url": "https://www.navweaps.com/Weapons/WTUS_PostWWII.htm"
+        },
+        {
+          "title": "Mark 54 lightweight torpedo - Wikipedia (infobox; Senate Report 113-44)",
+          "url": "https://en.wikipedia.org/wiki/Mark_54_lightweight_torpedo"
+        },
+        {
+          "title": "Federal Reserve Bank of Minneapolis: Consumer Price Index, 1913-",
+          "url": "https://www.minneapolisfed.org/about-us/monetary-policy/inflation-calculator/consumer-price-index-1913-"
+        }
+      ]
+    },
+    {
+      "target": "rn_stingray_mod1_ship",
+      "basis": "Model estimate: no Sting Ray unit price is published; priced as the contemporary US equivalent Mk 54 Mod 0 (Wikipedia lists the Mk 54 as the US Navy's equivalent)",
+      "category": "Torpedo",
+      "estimate": {
+        "historical": "1000000",
+        "historical_year": "2004",
+        "historical_method": "model estimate",
+        "current": "1190000",
+        "current_year": "2014",
+        "current_method": "model estimate",
+        "note": "Mk 54 Mod 0 figures (839,320 x 334.4 / 236.7 (CPI-U 2014) = 1,185,757, rounded); the MU90, the other listed equivalent, would give a higher value; low confidence"
+      },
+      "sources": [
+        {
+          "title": "Sting Ray (torpedo) - Wikipedia (See also)",
+          "url": "https://en.wikipedia.org/wiki/Sting_Ray_(torpedo)"
+        },
+        {
+          "title": "NavWeaps: Post-World War II Torpedoes of the United States (Mark 54 section)",
+          "url": "https://www.navweaps.com/Weapons/WTUS_PostWWII.htm"
+        },
+        {
+          "title": "Mark 54 lightweight torpedo - Wikipedia (infobox; Senate Report 113-44)",
+          "url": "https://en.wikipedia.org/wiki/Mark_54_lightweight_torpedo"
+        },
+        {
+          "title": "Federal Reserve Bank of Minneapolis: Consumer Price Index, 1913-",
+          "url": "https://www.minneapolisfed.org/about-us/monetary-policy/inflation-calculator/consumer-price-index-1913-"
+        }
+      ]
+    },
+    {
+      "target": "rn_stingray_ship",
+      "basis": "Current only: no Sting Ray price is published; Mod 0 stock was succeeded by Sting Ray Mod 1, modelled on the Mk 54 (FY2014 $839,320, CPI to 2026). Historical left unknown",
+      "category": "Torpedo",
+      "estimate": {
+        "historical": "",
+        "current": "1190000",
+        "current_year": "2014",
+        "current_method": "model estimate",
+        "note": "The Sting Ray Mod 1 value, itself modelled on the Mk 54 (839,320 x 334.4 / 236.7 (CPI-U 2014) = 1,185,757, rounded); low confidence"
+      },
+      "sources": [
+        {
+          "title": "Sting Ray (torpedo) - Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Sting_Ray_(torpedo)"
+        },
+        {
+          "title": "Sting Ray (torpedo) - Wikipedia (See also)",
+          "url": "https://en.wikipedia.org/wiki/Sting_Ray_(torpedo)"
+        },
+        {
+          "title": "Mark 54 lightweight torpedo - Wikipedia (infobox; Senate Report 113-44)",
+          "url": "https://en.wikipedia.org/wiki/Mark_54_lightweight_torpedo"
+        },
+        {
+          "title": "Federal Reserve Bank of Minneapolis: Consumer Price Index, 1913-",
+          "url": "https://www.minneapolisfed.org/about-us/monetary-policy/inflation-calculator/consumer-price-index-1913-"
+        }
+      ]
+    },
+    {
+      "target": "wp_fizik-2",
+      "basis": "Model estimate: no Futlyar price is published; priced as the contemporary Russian 533 mm UET-1, whose 2018 contract was 73 torpedoes for 7.2 billion roubles (about $110M)",
+      "category": "Torpedo",
+      "estimate": {
+        "historical": "1510000",
+        "historical_year": "2018",
+        "historical_method": "model estimate",
+        "current": "2010000",
+        "current_year": "2018",
+        "current_method": "model estimate",
+        "note": "Historical: 110,000,000 / 73 = 1,506,849, rounded. Current: 1,506,849 x 334.4 / 251.1 (CPI-U 2018) = 2,006,732, rounded; the Futlyar is a higher-end thermal torpedo, low confidence"
+      },
+      "sources": [
+        {
+          "title": "TWZ: The Russian Navy Has Gotten Its First New Electrically-Powered Torpedo Since The Cold War (29 Jan 2021)",
+          "url": "https://www.twz.com/39008/the-russian-navy-has-gotten-its-first-new-electrically-powered-torpedo-since-the-cold-war"
+        },
+        {
+          "title": "Federal Reserve Bank of Minneapolis: Consumer Price Index, 1913-",
+          "url": "https://www.minneapolisfed.org/about-us/monetary-policy/inflation-calculator/consumer-price-index-1913-"
+        }
+      ]
+    },
+    {
+      "target": "b-2_gbu-57",
+      "basis": "GBU-57 MOP: April 2011 Boeing order, USD 28.3M for eight bombs plus minor items and an aft-closure redesign (~USD 3.5M each, upper bound); CPI to 2026",
+      "category": "Bomb",
+      "estimate": {
+        "historical": "3500000",
+        "historical_year": "2011",
+        "historical_method": "published price",
+        "current": "5200000",
+        "current_year": "2011",
+        "current_method": "CPI conversion",
+        "note": "CPI conversion (fallback), source year 2011: 3,500,000 x 334.4 / 224.939; the 2026 replenishment award has no quantity"
+      },
+      "sources": [
+        {
+          "title": "Military & Aerospace Electronics, 'Boeing gets order for eight Massive Ordnance Penetrator ... in $28.3 million contract' - search excerpt",
+          "url": "https://www.militaryaerospace.com/test/article/16717179/boeing-gets-order-for-eight-massive-ordnance-penetrator-bunker-busting-super-bombs-in-283-million-contract"
+        },
+        {
+          "title": "Military.com DoD Buzz, 'USAF Getting More Penetrating Power' (Apr 2011) - search excerpt",
+          "url": "https://www.military.com/dodbuzz/2011/04/08/usaf-getting-more-penetrating-power"
+        },
+        {
+          "title": "Minneapolis Fed, Consumer Price Index 1913- - search excerpt",
+          "url": "https://www.minneapolisfed.org/about-us/monetary-policy/inflation-calculator/consumer-price-index-1913-"
+        }
+      ]
+    },
+    {
+      "target": "dts_b-61",
+      "basis": "B61 priced as the B61-12 with tail kit: (USD 8.25bn NNSA LEP + USD 1.3bn DoD tail kits) / ~400 bombs (FAS estimate; count classified) = ~USD 24M",
+      "category": "Bomb",
+      "estimate": {
+        "historical": "24000000",
+        "historical_year": "2021",
+        "historical_method": "documented replacement estimate",
+        "current": "24000000",
+        "current_year": "2021",
+        "current_method": "documented replacement estimate",
+        "note": "documented replacement estimate: B61-12 programme cost per bomb (then-year dollars; 2016 cost baseline), no CPI applied; quantity classified (FAS ~400)"
+      },
+      "sources": [
+        {
+          "title": "Defense News, 'Updated B61 Nuclear Bomb to Cost $8.25 Billion' (Oct 2016) - search excerpt",
+          "url": "https://www.defensenews.com/space/2016/10/19/updated-b61-nuclear-bomb-to-cost-8-25-billion/"
+        },
+        {
+          "title": "Nextgov (Aug 2012) / FAS, B61-12 unit count - search excerpt",
+          "url": "https://fas.org/publication/b61-12tail/"
+        },
+        {
+          "title": "SEST F-15EX loadout",
+          "url": "mods-source/_vanilla/SEST_F-15EX_Revamp/aircraft/usaf_f-15ex_SEII.ini#L507"
+        }
+      ]
+    },
+    {
+      "target": "eu_mu_90_ship",
+      "basis": "MU90 Impact: French Senate PLF 2011 avis, unit cost EUR 1.5M excluding development (2010 prices, 300-round buy) at tracker EUR Rate2010; CPI to 2026",
+      "category": "Torpedo",
+      "estimate": {
+        "historical": "1990000",
+        "historical_year": "2010",
+        "historical_method": "published price",
+        "current": "3050000",
+        "current_year": "2010",
+        "current_method": "CPI conversion",
+        "note": "CPI conversion (fallback), source year 2010: 1,988,575 x 334.4 / 218.1. No recent purchase with a quantity (2026 Saudi order is 'more than EUR 200 million', count undisclosed)."
+      },
+      "sources": [
+        {
+          "title": "Senat, Avis PLF 2011 Defense - Equipement des forces, MU 90 section - search excerpt",
+          "url": "https://www.senat.fr/rap/a10-112-5/a10-112-519.html"
+        },
+        {
+          "title": "Senat, Avis PLF 2010 and PLF 2014 (same search) - search excerpt",
+          "url": "https://www.senat.fr/rap/a09-102-5/a09-102-518.html"
+        },
+        {
+          "title": "Combat Cost Tracker currencies.ini [Currency_EUR]",
+          "url": "mods-source/3807187341/systems/combatcosts/currencies.ini"
+        },
+        {
+          "title": "Minneapolis Fed, Consumer Price Index 1913- - search excerpt",
+          "url": "https://www.minneapolisfed.org/about-us/monetary-policy/inflation-calculator/consumer-price-index-1913-"
+        }
+      ]
+    },
+    {
+      "target": "fr_mu_90_air",
+      "basis": "MU90 Impact: French Senate PLF 2011 avis, unit cost EUR 1.5M excluding development (2010 prices, 300-round buy) at tracker EUR Rate2010; CPI to 2026",
+      "category": "Torpedo",
+      "estimate": {
+        "historical": "1990000",
+        "historical_year": "2010",
+        "historical_method": "published price",
+        "current": "3050000",
+        "current_year": "2010",
+        "current_method": "CPI conversion",
+        "note": "CPI conversion (fallback), source year 2010: 1,988,575 x 334.4 / 218.1. No recent purchase with a quantity (2026 Saudi order is 'more than EUR 200 million', count undisclosed)."
+      },
+      "sources": [
+        {
+          "title": "Senat, Avis PLF 2011 Defense - Equipement des forces, MU 90 section - search excerpt",
+          "url": "https://www.senat.fr/rap/a10-112-5/a10-112-519.html"
+        },
+        {
+          "title": "Combat Cost Tracker currencies.ini [Currency_EUR]",
+          "url": "mods-source/3807187341/systems/combatcosts/currencies.ini"
+        },
+        {
+          "title": "Minneapolis Fed, Consumer Price Index 1913- - search excerpt",
+          "url": "https://www.minneapolisfed.org/about-us/monetary-policy/inflation-calculator/consumer-price-index-1913-"
+        }
+      ]
+    },
+    {
+      "target": "fr_mu_90_ship",
+      "basis": "MU90 Impact: French Senate PLF 2011 avis, unit cost EUR 1.5M excluding development (2010 prices, 300-round buy) at tracker EUR Rate2010; CPI to 2026",
+      "category": "Torpedo",
+      "estimate": {
+        "historical": "1990000",
+        "historical_year": "2010",
+        "historical_method": "published price",
+        "current": "3050000",
+        "current_year": "2010",
+        "current_method": "CPI conversion",
+        "note": "CPI conversion (fallback), source year 2010: 1,988,575 x 334.4 / 218.1. No recent purchase with a quantity (2026 Saudi order is 'more than EUR 200 million', count undisclosed)."
+      },
+      "sources": [
+        {
+          "title": "Senat, Avis PLF 2011 Defense - Equipement des forces, MU 90 section - search excerpt",
+          "url": "https://www.senat.fr/rap/a10-112-5/a10-112-519.html"
+        },
+        {
+          "title": "Combat Cost Tracker currencies.ini [Currency_EUR]",
+          "url": "mods-source/3807187341/systems/combatcosts/currencies.ini"
+        },
+        {
+          "title": "Minneapolis Fed, Consumer Price Index 1913- - search excerpt",
+          "url": "https://www.minneapolisfed.org/about-us/monetary-policy/inflation-calculator/consumer-price-index-1913-"
+        }
+      ]
+    },
+    {
+      "target": "fr_samp_t25",
+      "basis": "SAMP Type 25 250 kg GP bomb: model estimate from the US Mk-82 low-drag; historical GWAPS 1991 USD 498; current the Mk 82's FY2021 USAF unit price USD 4,000",
+      "category": "Bomb",
+      "estimate": {
+        "historical": "500",
+        "historical_year": "1991",
+        "historical_method": "model estimate",
+        "current": "4000",
+        "current_year": "2021",
+        "current_method": "model estimate",
+        "note": "model estimate; comparable recent purchase of the comparison bomb: USAF FY2021 Mk 82 unit price USD 4,000 (TWZ, budget documents), no CPI applied"
+      },
+      "sources": [
+        {
+          "title": "Air-Delivered Munitions in Desert Storm (R.J. Lee transcription of GWAPS vol. 5) - search excerpt",
+          "url": "https://rjlee.org/air/ds-munit/"
+        },
+        {
+          "title": "USMC University archive (John Boyd collection), 'Table I Air-To-Ground Munitions expended in Desert Storm' - search excerpt",
+          "url": "https://www.usmcu.edu/Portals/218/HD/Digitized Collections/COLL_2062 John Boyd/COLL 2062_John Boyd_Box 16/110670-Table I Air-To-Ground Munitions expended in Desert Storm.PDF"
+        },
+        {
+          "title": "The War Zone, 'Here Is What Each Of The Pentagon's Air-Launched Missiles And Bombs Actually Cost' (FY2021) - search excerpt",
+          "url": "https://www.twz.com/32277/here-is-what-each-of-the-pentagons-air-launched-missiles-and-bombs-actually-cost"
+        }
+      ]
+    },
+    {
+      "target": "ger_mu_90_ship",
+      "basis": "MU90 Impact: French Senate PLF 2011 avis, unit cost EUR 1.5M excluding development (2010 prices, 300-round buy) at tracker EUR Rate2010; CPI to 2026",
+      "category": "Torpedo",
+      "estimate": {
+        "historical": "1990000",
+        "historical_year": "2010",
+        "historical_method": "published price",
+        "current": "3050000",
+        "current_year": "2010",
+        "current_method": "CPI conversion",
+        "note": "CPI conversion (fallback), source year 2010: 1,988,575 x 334.4 / 218.1. No recent purchase with a quantity (2026 Saudi order is 'more than EUR 200 million', count undisclosed)."
+      },
+      "sources": [
+        {
+          "title": "Senat, Avis PLF 2011 Defense - Equipement des forces, MU 90 section - search excerpt",
+          "url": "https://www.senat.fr/rap/a10-112-5/a10-112-519.html"
+        },
+        {
+          "title": "Combat Cost Tracker currencies.ini [Currency_EUR]",
+          "url": "mods-source/3807187341/systems/combatcosts/currencies.ini"
+        },
+        {
+          "title": "Minneapolis Fed, Consumer Price Index 1913- - search excerpt",
+          "url": "https://www.minneapolisfed.org/about-us/monetary-policy/inflation-calculator/consumer-price-index-1913-"
+        }
+      ]
+    },
+    {
+      "target": "mm_mu_90_ship",
+      "basis": "MU90 Impact: French Senate PLF 2011 avis, unit cost EUR 1.5M excluding development (2010 prices, 300-round buy) at tracker EUR Rate2010; CPI to 2026",
+      "category": "Torpedo",
+      "estimate": {
+        "historical": "1990000",
+        "historical_year": "2010",
+        "historical_method": "published price",
+        "current": "3050000",
+        "current_year": "2010",
+        "current_method": "CPI conversion",
+        "note": "CPI conversion (fallback), source year 2010: 1,988,575 x 334.4 / 218.1. No recent purchase with a quantity (2026 Saudi order is 'more than EUR 200 million', count undisclosed)."
+      },
+      "sources": [
+        {
+          "title": "Senat, Avis PLF 2011 Defense - Equipement des forces, MU 90 section - search excerpt",
+          "url": "https://www.senat.fr/rap/a10-112-5/a10-112-519.html"
+        },
+        {
+          "title": "Combat Cost Tracker currencies.ini [Currency_EUR]",
+          "url": "mods-source/3807187341/systems/combatcosts/currencies.ini"
+        },
+        {
+          "title": "Minneapolis Fed, Consumer Price Index 1913- - search excerpt",
+          "url": "https://www.minneapolisfed.org/about-us/monetary-policy/inflation-calculator/consumer-price-index-1913-"
+        }
+      ]
+    },
+    {
+      "target": "pla_type-3-250",
+      "basis": "Chinese Type-250-3 250 kg GP bomb: model estimate from the US Mk-82 low-drag (same weight class); historical GWAPS 1991 USD 498; current the Mk 82's FY2021 USAF unit price",
+      "category": "Bomb",
+      "estimate": {
+        "historical": "500",
+        "historical_year": "1991",
+        "historical_method": "model estimate",
+        "current": "4000",
+        "current_year": "2021",
+        "current_method": "model estimate",
+        "note": "model estimate; comparable recent purchase of the comparison bomb: USAF FY2021 Mk 82 unit price USD 4,000 (TWZ, budget documents), no CPI applied"
+      },
+      "sources": [
+        {
+          "title": "Air-Delivered Munitions in Desert Storm (R.J. Lee transcription of GWAPS vol. 5) - search excerpt",
+          "url": "https://rjlee.org/air/ds-munit/"
+        },
+        {
+          "title": "USMC University archive (John Boyd collection), 'Table I Air-To-Ground Munitions expended in Desert Storm' - search excerpt",
+          "url": "https://www.usmcu.edu/Portals/218/HD/Digitized Collections/COLL_2062 John Boyd/COLL 2062_John Boyd_Box 16/110670-Table I Air-To-Ground Munitions expended in Desert Storm.PDF"
+        },
+        {
+          "title": "The War Zone, 'Here Is What Each Of The Pentagon's Air-Launched Missiles And Bombs Actually Cost' (FY2021) - search excerpt",
+          "url": "https://www.twz.com/32277/here-is-what-each-of-the-pentagons-air-launched-missiles-and-bombs-actually-cost"
+        }
+      ]
+    },
+    {
+      "target": "plaaf_250-Ⅲ",
+      "basis": "Chinese 250-III 250 kg low-drag bomb: model estimate from the US Mk-82 low-drag; historical GWAPS 1991 USD 498; current the Mk 82's FY2021 USAF unit price",
+      "category": "Bomb",
+      "estimate": {
+        "historical": "500",
+        "historical_year": "1991",
+        "historical_method": "model estimate",
+        "current": "4000",
+        "current_year": "2021",
+        "current_method": "model estimate",
+        "note": "model estimate; comparable recent purchase of the comparison bomb: USAF FY2021 Mk 82 unit price USD 4,000 (TWZ, budget documents), no CPI applied"
+      },
+      "sources": [
+        {
+          "title": "Air-Delivered Munitions in Desert Storm (R.J. Lee transcription of GWAPS vol. 5) - search excerpt",
+          "url": "https://rjlee.org/air/ds-munit/"
+        },
+        {
+          "title": "USMC University archive (John Boyd collection), 'Table I Air-To-Ground Munitions expended in Desert Storm' - search excerpt",
+          "url": "https://www.usmcu.edu/Portals/218/HD/Digitized Collections/COLL_2062 John Boyd/COLL 2062_John Boyd_Box 16/110670-Table I Air-To-Ground Munitions expended in Desert Storm.PDF"
+        },
+        {
+          "title": "The War Zone, 'Here Is What Each Of The Pentagon's Air-Launched Missiles And Bombs Actually Cost' (FY2021) - search excerpt",
+          "url": "https://www.twz.com/32277/here-is-what-each-of-the-pentagons-air-launched-missiles-and-bombs-actually-cost"
+        }
+      ]
+    },
+    {
+      "target": "plaaf_500-Ⅱ",
+      "basis": "Chinese 500-II 500 kg high-drag bomb: model estimate from the US Mk-83 1,000 lb GP bomb; historical GWAPS 1991 USD 1,000; current the Mk 83 class's FY2025 Navy purchase price",
+      "category": "Bomb",
+      "estimate": {
+        "historical": "1000",
+        "historical_year": "1991",
+        "historical_method": "model estimate",
+        "current": "11000",
+        "current_year": "2025",
+        "current_method": "model estimate",
+        "note": "model estimate; comparable recent purchase of the comparison bomb: Navy BLU-110 (Mk 83 class) FY2025 lot of 20 at USD 10,692.93 (PANMC FY2027 P-5a), as used for usn_mk-83"
+      },
+      "sources": [
+        {
+          "title": "Air-Delivered Munitions in Desert Storm (R.J. Lee transcription of GWAPS vol. 5) - search excerpt",
+          "url": "https://rjlee.org/air/ds-munit/"
+        },
+        {
+          "title": "USMC University archive (John Boyd collection), 'Table I Air-To-Ground Munitions expended in Desert Storm' - search excerpt",
+          "url": "https://www.usmcu.edu/Portals/218/HD/Digitized Collections/COLL_2062 John Boyd/COLL 2062_John Boyd_Box 16/110670-Table I Air-To-Ground Munitions expended in Desert Storm.PDF"
+        },
+        {
+          "title": "Department of the Navy FY2027 PANMC justification book, General Purpose Bombs P-5a, BLU-110 (Q2192) - search excerpt",
+          "url": "https://www.secnav.navy.mil/fmc/fmb/Documents/27pres/PANMC_Book.pdf"
+        }
+      ]
+    },
+    {
+      "target": "plaaf_500-Ⅲ",
+      "basis": "Chinese 500-III 500 kg low-drag bomb: model estimate from the US Mk-83 low-drag; historical GWAPS 1991 USD 1,000; current the Mk 83 class's FY2025 Navy purchase price",
+      "category": "Bomb",
+      "estimate": {
+        "historical": "1000",
+        "historical_year": "1991",
+        "historical_method": "model estimate",
+        "current": "11000",
+        "current_year": "2025",
+        "current_method": "model estimate",
+        "note": "model estimate; comparable recent purchase of the comparison bomb: Navy BLU-110 (Mk 83 class) FY2025 lot of 20 at USD 10,692.93 (PANMC FY2027 P-5a), as used for usn_mk-83"
+      },
+      "sources": [
+        {
+          "title": "Air-Delivered Munitions in Desert Storm (R.J. Lee transcription of GWAPS vol. 5) - search excerpt",
+          "url": "https://rjlee.org/air/ds-munit/"
+        },
+        {
+          "title": "USMC University archive (John Boyd collection), 'Table I Air-To-Ground Munitions expended in Desert Storm' - search excerpt",
+          "url": "https://www.usmcu.edu/Portals/218/HD/Digitized Collections/COLL_2062 John Boyd/COLL 2062_John Boyd_Box 16/110670-Table I Air-To-Ground Munitions expended in Desert Storm.PDF"
+        },
+        {
+          "title": "Department of the Navy FY2027 PANMC justification book, General Purpose Bombs P-5a, BLU-110 (Q2192) - search excerpt",
+          "url": "https://www.secnav.navy.mil/fmc/fmb/Documents/27pres/PANMC_Book.pdf"
+        }
+      ]
+    },
+    {
+      "target": "plaaf_gb-1000",
+      "basis": "Chinese GB-1000 1,000 kg LGB: model estimate from the US GBU-10 Paveway II (laser kit on the 2,000 lb Mk 84), GWAPS 1991 USD 22,000; CPI to 2026",
+      "category": "Bomb",
+      "estimate": {
+        "historical": "22000",
+        "historical_year": "1991",
+        "historical_method": "model estimate",
+        "current": "54000",
+        "current_year": "1991",
+        "current_method": "model estimate",
+        "note": "model estimate; CPI conversion (fallback) of the comparison GBU-10's 1991 GWAPS unit cost: 22,000 x 334.4 / 136.2 = 54,015 (no recent GBU-10 purchase price found)"
+      },
+      "sources": [
+        {
+          "title": "Air-Delivered Munitions in Desert Storm (R.J. Lee transcription of GWAPS vol. 5) - search excerpt",
+          "url": "https://rjlee.org/air/ds-munit/"
+        },
+        {
+          "title": "USMC University archive (John Boyd collection), 'Table I Air-To-Ground Munitions expended in Desert Storm' - search excerpt",
+          "url": "https://www.usmcu.edu/Portals/218/HD/Digitized Collections/COLL_2062 John Boyd/COLL 2062_John Boyd_Box 16/110670-Table I Air-To-Ground Munitions expended in Desert Storm.PDF"
+        },
+        {
+          "title": "Minneapolis Fed, Consumer Price Index 1913- - search excerpt",
+          "url": "https://www.minneapolisfed.org/about-us/monetary-policy/inflation-calculator/consumer-price-index-1913-"
+        }
+      ]
+    },
+    {
+      "target": "rfn_mtt",
+      "basis": "MTT (Paket-NK 324 mm lightweight): model estimate, contemporary lightweight torpedo = MU90 Impact pair (Senate PLF 2011, EUR 1.5M, 2010); role comparison only",
+      "category": "Torpedo",
+      "estimate": {
+        "historical": "1990000",
+        "historical_year": "2010",
+        "historical_method": "model estimate",
+        "current": "3050000",
+        "current_year": "2010",
+        "current_method": "model estimate",
+        "note": "model estimate (donor MU90 pair; current is a CPI conversion from 2010)"
+      },
+      "sources": [
+        {
+          "title": "Senat, Avis PLF 2011 Defense - Equipement des forces, MU 90 section - search excerpt",
+          "url": "https://www.senat.fr/rap/a10-112-5/a10-112-519.html"
+        },
+        {
+          "title": "Combat Cost Tracker currencies.ini [Currency_EUR]",
+          "url": "mods-source/3807187341/systems/combatcosts/currencies.ini"
+        }
+      ]
+    },
+    {
+      "target": "usaf_m117",
+      "basis": "M117 750-lb GP bomb: model estimate, USAF FY2021 Mk 82 unit price (USD 4,000) scaled by game mass (340/241); historical CPI-backcast to the 1960 donor year",
+      "category": "Bomb",
+      "estimate": {
+        "historical": "620",
+        "historical_year": "1960",
+        "historical_method": "model estimate",
+        "current": "5600",
+        "current_year": "2021",
+        "current_method": "model estimate",
+        "note": "model estimate: USAF FY2021 Mk 82 unit price scaled by mass (340/241)"
+      },
+      "sources": [
+        {
+          "title": "The War Zone, 'Here Is What Each Of The Pentagon's Air-Launched Missiles And Bombs Actually Cost' (FY2021) - search excerpt",
+          "url": "https://www.twz.com/32277/here-is-what-each-of-the-pentagons-air-launched-missiles-and-bombs-actually-cost"
+        },
+        {
+          "title": "Air-Delivered Munitions in Desert Storm (R.J. Lee transcription of GWAPS vol. 5) - search excerpt",
+          "url": "https://rjlee.org/air/ds-munit/"
+        }
+      ]
+    },
+    {
+      "target": "usn_gbu-10",
+      "basis": "GBU-10 Paveway II: GWAPS vol. 5 unit cost USD 22,000 (1991 dollars), CPI back to the 1977 FOC and forward to 2026, as SEST did for usn_gbu-12d and usn_gbu-24",
+      "category": "Bomb",
+      "estimate": {
+        "historical": "9800",
+        "historical_year": "1977",
+        "historical_method": "CPI conversion",
+        "current": "54000",
+        "current_year": "1991",
+        "current_method": "CPI conversion",
+        "note": "CPI conversion (fallback), source year 1991: GWAPS GBU-10 unit cost 22,000 x 334.4 / 136.2 = 54,015; no recent GBU-10 purchase price found"
+      },
+      "sources": [
+        {
+          "title": "Air-Delivered Munitions in Desert Storm (R.J. Lee transcription of GWAPS vol. 5) - search excerpt",
+          "url": "https://rjlee.org/air/ds-munit/"
+        },
+        {
+          "title": "USMC University archive (John Boyd collection), 'Table I Air-To-Ground Munitions expended in Desert Storm' - search excerpt",
+          "url": "https://www.usmcu.edu/Portals/218/HD/Digitized Collections/COLL_2062 John Boyd/COLL 2062_John Boyd_Box 16/110670-Table I Air-To-Ground Munitions expended in Desert Storm.PDF"
+        },
+        {
+          "title": "Minneapolis Fed, Consumer Price Index 1913- - search excerpt",
+          "url": "https://www.minneapolisfed.org/about-us/monetary-policy/inflation-calculator/consumer-price-index-1913-"
+        },
+        {
+          "title": "SEST docs/combat-costs/cost-list.md, usn_gbu-24 (shipped precedent)",
+          "url": "docs/combat-costs/cost-list.md#L928"
+        }
+      ]
+    },
+    {
+      "target": "usn_mk-82",
+      "basis": "Mk 82 500-lb GP bomb: USAF FY2021 budget unit price USD 4,000 (The War Zone); historical by CPI back to the 1960 service year",
+      "category": "Bomb",
+      "estimate": {
+        "historical": "440",
+        "historical_year": "1960",
+        "historical_method": "CPI conversion",
+        "current": "4000",
+        "current_year": "2021",
+        "current_method": "comparable recent purchase",
+        "note": "comparable recent purchase (USAF FY2021 budget unit price, source year 2021; no inflation applied)"
+      },
+      "sources": [
+        {
+          "title": "The War Zone, 'Here Is What Each Of The Pentagon's Air-Launched Missiles And Bombs Actually Cost' (FY2021) - search excerpt",
+          "url": "https://www.twz.com/32277/here-is-what-each-of-the-pentagons-air-launched-missiles-and-bombs-actually-cost"
+        },
+        {
+          "title": "Air-Delivered Munitions in Desert Storm (R.J. Lee transcription of GWAPS vol. 5) - search excerpt",
+          "url": "https://rjlee.org/air/ds-munit/"
+        }
+      ]
+    },
+    {
+      "target": "usn_mk-83",
+      "basis": "Mk 83 1,000-lb GP bomb: Navy FY2025 BLU-110 (thermally protected Mk 83 body) lot of 20 at USD 10,692.93; historical by CPI back to 1960",
+      "category": "Bomb",
+      "estimate": {
+        "historical": "980",
+        "historical_year": "1960",
+        "historical_method": "CPI conversion",
+        "current": "11000",
+        "current_year": "2025",
+        "current_method": "comparable recent purchase",
+        "note": "comparable recent purchase (Navy BLU-110 FY2025 lot of 20 at USD 10,692.93; source year 2025)"
+      },
+      "sources": [
+        {
+          "title": "Department of the Navy FY2027 PANMC justification book, General Purpose Bombs P-5a, BLU-110 (Q2192) - search excerpt",
+          "url": "https://www.secnav.navy.mil/fmc/fmb/Documents/27pres/PANMC_Book.pdf"
+        },
+        {
+          "title": "Air-Delivered Munitions in Desert Storm (R.J. Lee transcription of GWAPS vol. 5) - search excerpt",
+          "url": "https://rjlee.org/air/ds-munit/"
+        },
+        {
+          "title": "Minneapolis Fed, Consumer Price Index 1913- - search excerpt",
+          "url": "https://www.minneapolisfed.org/about-us/monetary-policy/inflation-calculator/consumer-price-index-1913-"
+        }
+      ]
+    },
+    {
+      "target": "usn_mk-84",
+      "basis": "Mk 84 2,000-lb GP bomb: USAF FY2021 budget unit price USD 16,000 (The War Zone); historical by CPI back to 1960; Navy small lots cost USD 27,202 (FY2024)",
+      "category": "Bomb",
+      "estimate": {
+        "historical": "1700",
+        "historical_year": "1960",
+        "historical_method": "CPI conversion",
+        "current": "16000",
+        "current_year": "2021",
+        "current_method": "comparable recent purchase",
+        "note": "comparable recent purchase (USAF FY2021 budget unit price, source year 2021; no inflation applied)"
+      },
+      "sources": [
+        {
+          "title": "The War Zone, 'Here Is What Each Of The Pentagon's Air-Launched Missiles And Bombs Actually Cost' (FY2021) - search excerpt",
+          "url": "https://www.twz.com/32277/here-is-what-each-of-the-pentagons-air-launched-missiles-and-bombs-actually-cost"
+        },
+        {
+          "title": "Globes (Israel), Mk 84 shipment - search excerpt",
+          "url": "https://en.globes.co.il/en/article-1001502193"
+        },
+        {
+          "title": "Air-Delivered Munitions in Desert Storm (rjlee, GWAPS) - search excerpt",
+          "url": "https://rjlee.org/air/ds-munit/"
+        }
+      ]
+    },
+    {
+      "target": "usn_steelfin_air",
+      "basis": "Prototype: Anduril's stated target of under half a PAC-3 MSE's cost, applied to the catalog's usn_pac3_mse current price (4,690,000); a ceiling; the air-launched store is the mod's invention",
+      "category": "AAM",
+      "estimate": {
+        "historical": "2340000",
+        "historical_year": "2026",
+        "historical_method": "model estimate",
+        "current": "2340000",
+        "current_year": "2026",
+        "current_method": "model estimate",
+        "note": "model estimate: manufacturer cost target (< half a PAC-3 MSE) applied to the catalog's usn_pac3_mse current price (4,690,000); a ceiling, not a price"
+      },
+      "sources": [
+        {
+          "title": "Army Recognition, 'Anduril unveils Steelfin missile to slash US air defense costs and challenge Patriot PAC-3 and THAAD' (Oct 2026) - search excerpt",
+          "url": "https://www.armyrecognition.com/news/army-news/2026/anduril-unveils-steelfin-missile-to-slash-us-air-defense-costs-and-challenge-patriot-pac-3-and-thaad"
+        },
+        {
+          "title": "Tracker catalog weaponcosts.ini [usn_pac3_mse]",
+          "url": "mods-source/3807187341/systems/weaponcosts.ini#L606"
+        },
+        {
+          "title": "Steelfin mod Readme (3820576916)",
+          "url": "mods-source/3820576916/Readme.txt"
+        }
+      ]
+    },
+    {
+      "target": "wp_53-65K",
+      "basis": "Current only, model estimate: a modern Russian 533 mm torpedo, the UET-1 (2018 contract, 73 rounds for about USD 110M), CPI to 2026; historical unknown",
+      "category": "Torpedo",
+      "estimate": {
+        "historical": "",
+        "current": "2010000",
+        "current_year": "2018",
+        "current_method": "model estimate",
+        "note": "model estimate (UET-1 2018 per-round, CPI-converted): 1,506,849 x 334.4 / 251.1"
+      },
+      "sources": [
+        {
+          "title": "TWZ, 'The Russian Navy Has Gotten Its First New Electrically-Powered Torpedo Since The Cold War' / Army Recognition (TASS) - search excerpt",
+          "url": "https://www.twz.com/39008/the-russian-navy-has-gotten-its-first-new-electrically-powered-torpedo-since-the-cold-war"
+        },
+        {
+          "title": "Minneapolis Fed, Consumer Price Index 1913- - search excerpt",
+          "url": "https://www.minneapolisfed.org/about-us/monetary-policy/inflation-calculator/consumer-price-index-1913-"
+        }
+      ]
+    },
+    {
+      "target": "wp_set-65",
+      "basis": "Current only, model estimate: the UET-1 modern Russian 533 mm electric torpedo (2018 contract, 73 rounds for about USD 110M), CPI to 2026; historical unknown",
+      "category": "Torpedo",
+      "estimate": {
+        "historical": "",
+        "current": "2010000",
+        "current_year": "2018",
+        "current_method": "model estimate",
+        "note": "model estimate (UET-1 2018 per-round, CPI-converted): 1,506,849 x 334.4 / 251.1"
+      },
+      "sources": [
+        {
+          "title": "TWZ, 'The Russian Navy Has Gotten Its First New Electrically-Powered Torpedo Since The Cold War' / Army Recognition (TASS) - search excerpt",
+          "url": "https://www.twz.com/39008/the-russian-navy-has-gotten-its-first-new-electrically-powered-torpedo-since-the-cold-war"
+        },
+        {
+          "title": "Minneapolis Fed, Consumer Price Index 1913- - search excerpt",
+          "url": "https://www.minneapolisfed.org/about-us/monetary-policy/inflation-calculator/consumer-price-index-1913-"
+        }
+      ]
+    },
+    {
+      "target": "all_air_chaff_heavy",
+      "basis": "Model estimate: one game round (RCS+IR, 30 s) priced as one MJU-7/B flare, $57 (TWZ, Pentagon budget data c.2018), CPI-U 2018->2026.",
+      "category": "Decoy",
+      "estimate": {
+        "historical": "57",
+        "historical_year": "2018",
+        "historical_method": "model estimate",
+        "current": "76",
+        "current_year": "2018",
+        "current_method": "model estimate",
+        "note": "model estimate: one game round priced as one MJU-7/B flare (Pentagon FY2018 budget figure, via TWZ), CPI-U 2018->2026"
+      },
+      "sources": [
+        {
+          "title": "TWZ, decoy flare costs (Dec 2019)",
+          "url": "https://www.twz.com/31556/here-is-how-much-those-decoy-flares-cost-that-military-aircraft-fire-off-all-the-time"
+        },
+        {
+          "title": "Aviation Week, Navy brief (Tracor, undated)",
+          "url": "https://aviationweek.com/navy-47"
+        }
+      ]
+    },
+    {
+      "target": "all_air_chaff_standard",
+      "basis": "Model estimate: one game round (RCS+IR, 10 s) priced as one M206 flare, $35 (2018 Pentagon budget via TWZ), CPI-U 2018->2026.",
+      "category": "Decoy",
+      "estimate": {
+        "historical": "35",
+        "historical_year": "2018",
+        "historical_method": "model estimate",
+        "current": "47",
+        "current_year": "2018",
+        "current_method": "model estimate",
+        "note": "model estimate: one game round priced as one M206 flare (Pentagon FY2018 budget figure, via TWZ), CPI-U 2018->2026"
+      },
+      "sources": [
+        {
+          "title": "TWZ, decoy flare costs (Dec 2019)",
+          "url": "https://www.twz.com/31556/here-is-how-much-those-decoy-flares-cost-that-military-aircraft-fire-off-all-the-time"
+        }
+      ]
+    },
+    {
+      "target": "wp_aircraft_chaff",
+      "basis": "Model estimate: one game round priced as one M206 flare, $35 (2018 Pentagon budget via TWZ), CPI-U 2018->2026.",
+      "category": "Decoy",
+      "estimate": {
+        "historical": "35",
+        "historical_year": "2018",
+        "historical_method": "model estimate",
+        "current": "47",
+        "current_year": "2018",
+        "current_method": "model estimate",
+        "note": "model estimate: one game round priced as one M206 flare (Pentagon FY2018 budget figure, via TWZ), CPI-U 2018->2026"
+      },
+      "sources": [
+        {
+          "title": "TWZ, decoy flare costs (Dec 2019)",
+          "url": "https://www.twz.com/31556/here-is-how-much-those-decoy-flares-cost-that-military-aircraft-fire-off-all-the-time"
+        }
+      ]
+    },
+    {
+      "target": "usn_mk234_nulka",
+      "basis": "Model estimate: AUD 40M 12th annual Nulka order / (940 rounds produced / 12 orders) = AUD 510,638, /1.09016 (currencies.ini AUD Rate2010) = USD 468,407 -> 470,000 (2010), CPI-U 2010->2026 = 718,181 -> 720,000.",
+      "category": "Decoy",
+      "estimate": {
+        "historical": "470000",
+        "historical_year": "2010",
+        "historical_method": "model estimate",
+        "current": "720000",
+        "current_year": "2010",
+        "current_method": "model estimate",
+        "note": "model estimate: average 2010 round price derived from BAE production-order data, AUD->USD at currencies.ini Rate2010 = 1.0902, then CPI-U 2010->2026"
+      },
+      "sources": [
+        {
+          "title": "BAE Systems, $40 Million Production Order For Nulka (Jun 2010)",
+          "url": "https://www.baesystems.com/en/article/40-million-production-order-for-nulka"
+        },
+        {
+          "title": "Australian Minister for Defence, 16 May 2017",
+          "url": "https://www.minister.defence.gov.au/media-releases/2017-05-16/locally-designed-nulka-missile-decoy-program-hits-special-milestone"
+        }
+      ]
+    },
+    {
+      "target": "usn_mk234_nulka_adap",
+      "basis": "Model estimate (floor): FY2016 ADAP payload unit cost $538,000 (35 payloads, Teal Group), CPI-U 2016->2026; payload only, so it understates a complete round.",
+      "category": "Decoy",
+      "estimate": {
+        "historical": "540000",
+        "historical_year": "2016",
+        "historical_method": "model estimate",
+        "current": "750000",
+        "current_year": "2016",
+        "current_method": "model estimate",
+        "note": "model estimate (floor): FY2016 ADAP payload-only unit cost $538,000 (35 units, Teal Group), CPI-U 2016->2026; the vehicle is not included, so a complete round costs more"
+      },
+      "sources": [
+        {
+          "title": "Teal Group brief, Nulka ECM (1 Apr 2017)",
+          "url": "https://tealgroup.com/index.php/teal-group-media-news-briefs-2/teal-group-news-media/item/nulka-anti-ship-missile-asm-electronic-countermeasures-ecm-systems"
+        },
+        {
+          "title": "BAE Systems, $40 Million Production Order For Nulka (Jun 2010)",
+          "url": "https://www.baesystems.com/en/article/40-million-production-order-for-nulka"
+        }
+      ]
+    },
+    {
+      "target": "fr_sonoflash",
+      "basis": "Model estimate: Thales SonoFlash active/passive buoy priced as the US AN/SSQ-62 DICASS FY2022 unit cost $1,741.54, CPI-U 2022->2026.",
+      "category": "Sonobuoy",
+      "estimate": {
+        "historical": "1740",
+        "historical_year": "2022",
+        "historical_method": "model estimate",
+        "current": "1990",
+        "current_year": "2022",
+        "current_method": "model estimate",
+        "note": "model estimate: priced as the US AN/SSQ-62 DICASS (FY2022 P-5a $1,741.54), CPI-U 2022->2026; no French price found"
+      },
+      "sources": [
+        {
+          "title": "DoN FY2022 OPN BA3 book, QZ004 AN/SSQ-62",
+          "url": "https://www.secnav.navy.mil/fmc/fmb/Documents/22pres/OPN_BA3_Book.pdf"
+        },
+        {
+          "title": "Shephard, French Navy orders SonoFlash",
+          "url": "https://www.shephardmedia.com/news/digital-battlespace/french-navy-orders-sonoflash"
+        }
+      ]
+    },
+    {
+      "target": "plan_skf-16",
+      "basis": "Model estimate: SKF-16 passive directional buoy priced as the US AN/SSQ-53 DIFAR FY2021 unit cost $823.03, CPI-U 2021->2026.",
+      "category": "Sonobuoy",
+      "estimate": {
+        "historical": "820",
+        "historical_year": "2021",
+        "historical_method": "model estimate",
+        "current": "1020",
+        "current_year": "2021",
+        "current_method": "model estimate",
+        "note": "model estimate: priced as the US AN/SSQ-53 (FY2021 P-5a $823.03), CPI-U 2021->2026"
+      },
+      "sources": [
+        {
+          "title": "DoN FY2022 OPN BA3 book, QZ002 AN/SSQ-53",
+          "url": "https://www.secnav.navy.mil/fmc/fmb/Documents/22pres/OPN_BA3_Book.pdf"
+        }
+      ]
+    },
+    {
+      "target": "plan_skf-18",
+      "basis": "Model estimate: SKF-18 (config header 'SSQ-77 VLAD', 20 kg) priced at the US AN/SSQ-62 DICASS FY2022 unit cost $1,741.54, CPI-U 2022->2026.",
+      "category": "Sonobuoy",
+      "estimate": {
+        "historical": "1740",
+        "historical_year": "2022",
+        "historical_method": "model estimate",
+        "current": "1990",
+        "current_year": "2022",
+        "current_method": "model estimate",
+        "note": "model estimate: VLAD-class buoy priced at the US AN/SSQ-62 DICASS level (FY2022 P-5a $1,741.54), CPI-U 2022->2026"
+      },
+      "sources": [
+        {
+          "title": "DoN FY2022 OPN BA3 book, QZ004 AN/SSQ-62",
+          "url": "https://www.secnav.navy.mil/fmc/fmb/Documents/22pres/OPN_BA3_Book.pdf"
+        },
+        {
+          "title": "FAS, AN/SSQ-77B VLAD",
+          "url": "https://man.fas.org/dod-101/sys/ship/weaps/an-ssq-77.htm"
+        }
+      ]
+    },
+    {
+      "target": "plan_skf-20",
+      "basis": "Model estimate: SKF-20 active buoy priced as the US AN/SSQ-62 DICASS FY2022 unit cost $1,741.54, CPI-U 2022->2026.",
+      "category": "Sonobuoy",
+      "estimate": {
+        "historical": "1740",
+        "historical_year": "2022",
+        "historical_method": "model estimate",
+        "current": "1990",
+        "current_year": "2022",
+        "current_method": "model estimate",
+        "note": "model estimate: priced as the US AN/SSQ-62 DICASS (FY2022 P-5a $1,741.54), CPI-U 2022->2026"
+      },
+      "sources": [
+        {
+          "title": "DoN FY2022 OPN BA3 book, QZ004 AN/SSQ-62",
+          "url": "https://www.secnav.navy.mil/fmc/fmb/Documents/22pres/OPN_BA3_Book.pdf"
+        }
+      ]
+    },
+    {
+      "target": "plan_sq-4",
+      "basis": "Model estimate: SQ-4 (config 'based on USN SSQ-53 DIFAR') priced from US SSQ-53: 2012 SSQ-53F order $38.4M/50,430 = $761 -> 760 (2012); current FY2021 $823.03, CPI-U 2021->2026.",
+      "category": "Sonobuoy",
+      "estimate": {
+        "historical": "760",
+        "historical_year": "2012",
+        "historical_method": "model estimate",
+        "current": "1020",
+        "current_year": "2021",
+        "current_method": "model estimate",
+        "note": "model estimate: priced as the US AN/SSQ-53 (FY2021 P-5a $823.03), CPI-U 2021->2026"
+      },
+      "sources": [
+        {
+          "title": "Military & Aerospace Electronics (Jan 2012)",
+          "url": "https://www.militaryaerospace.com/rf-analog/article/16719696/navy-bulks-up-on-submarine-hunting-sonobuoys-for-us-and-taiwan-maritime-security-forces"
+        },
+        {
+          "title": "DoN FY2022 OPN BA3 book, QZ002 AN/SSQ-53",
+          "url": "https://www.secnav.navy.mil/fmc/fmb/Documents/22pres/OPN_BA3_Book.pdf"
+        }
+      ]
+    },
+    {
+      "target": "rn_jezebel",
+      "basis": "Model estimate: Mini-Jezebel DIFAR priced from US SSQ-53: FY98 SSQ-53 w/SLC $353.47 backcast by CPI to 1981 (= 197 -> 200); current FY2021 $823.03, CPI-U 2021->2026.",
+      "category": "Sonobuoy",
+      "estimate": {
+        "historical": "200",
+        "historical_year": "1981",
+        "historical_method": "model estimate",
+        "current": "1020",
+        "current_year": "2021",
+        "current_method": "model estimate",
+        "note": "model estimate: priced as the US AN/SSQ-53 DIFAR (FY2021 P-5a $823.03), CPI-U 2021->2026"
+      },
+      "sources": [
+        {
+          "title": "DoN FY2000/01 OPN BA3 book, AN/SSQ-53",
+          "url": "https://www.secnav.navy.mil/fmc/fmb/Documents/00pres/proc/opn_ba_3_BOOK.pdf"
+        },
+        {
+          "title": "DoN FY2022 OPN BA3 book, QZ002 AN/SSQ-53",
+          "url": "https://www.secnav.navy.mil/fmc/fmb/Documents/22pres/OPN_BA3_Book.pdf"
+        }
+      ]
+    },
+    {
+      "target": "rn_ssq-906g",
+      "basis": "Model estimate: SSQ-906G F-size passive buoy priced from US SSQ-53: 2012 SSQ-53F order $761 -> 760 (2012); current FY2021 $823.03, CPI-U 2021->2026 (upper bound).",
+      "category": "Sonobuoy",
+      "estimate": {
+        "historical": "760",
+        "historical_year": "2012",
+        "historical_method": "model estimate",
+        "current": "1020",
+        "current_year": "2021",
+        "current_method": "model estimate",
+        "note": "model estimate: priced as the US AN/SSQ-53 DIFAR (FY2021 P-5a $823.03), CPI-U 2021->2026; probably an upper bound for an omnidirectional LOFAR buoy"
+      },
+      "sources": [
+        {
+          "title": "Military & Aerospace Electronics (Jan 2012)",
+          "url": "https://www.militaryaerospace.com/rf-analog/article/16719696/navy-bulks-up-on-submarine-hunting-sonobuoys-for-us-and-taiwan-maritime-security-forces"
+        },
+        {
+          "title": "DoN FY2022 OPN BA3 book, QZ002 AN/SSQ-53",
+          "url": "https://www.secnav.navy.mil/fmc/fmb/Documents/22pres/OPN_BA3_Book.pdf"
+        }
+      ]
+    },
+    {
+      "target": "rn_ssq-926",
+      "basis": "Model estimate: ALFEA (mod text 'equivalent to the AN/SSQ-101 ADAR') priced as the SSQ-101: historical = documented FY00 SSQ-101 unit cost $3,516.87 -> 3,500 (2000); current = derived FY2022 SSQ-101 $5,032 x 334.4/292.7 = 5,749 -> 5,750.",
+      "category": "Sonobuoy",
+      "estimate": {
+        "historical": "3500",
+        "historical_year": "2000",
+        "historical_method": "model estimate",
+        "current": "5750",
+        "current_year": "2022",
+        "current_method": "model estimate",
+        "note": "model estimate: priced as the US AN/SSQ-101 (derived FY2022 $5,032), CPI-U 2022->2026"
+      },
+      "sources": [
+        {
+          "title": "DoN FY2000/01 OPN BA3 book, AN/SSQ-101",
+          "url": "https://www.secnav.navy.mil/fmc/fmb/Documents/00pres/proc/opn_ba_3_BOOK.pdf"
+        },
+        {
+          "title": "Shephard, US Navy orders more sonobuoys from ERAPSCO (Sep 2022)",
+          "url": "https://shephardmedia.com/news/defence-notes/us-navy-orders-more-sonobuoys-from-erapsco"
+        },
+        {
+          "title": "DoD contracts Sep 2022 (GlobalSecurity mirror)",
+          "url": "https://www.globalsecurity.org/military/library/news/2022/09/dod-contracts_3172203.htm"
+        },
+        {
+          "title": "DoN FY2022 OPN BA3 book, QZ002 AN/SSQ-53",
+          "url": "https://www.secnav.navy.mil/fmc/fmb/Documents/22pres/OPN_BA3_Book.pdf"
+        },
+        {
+          "title": "DoN FY2022 OPN BA3 book, QZ004 AN/SSQ-62",
+          "url": "https://www.secnav.navy.mil/fmc/fmb/Documents/22pres/OPN_BA3_Book.pdf"
+        }
+      ]
+    },
+    {
+      "target": "rn_ssq-955b",
+      "basis": "Model estimate: SSQ-955B HIDAR (mod text 'roughly equivalent to the AN/SSQ-53G') priced from US SSQ-53: 2012 SSQ-53F order $761 -> 760 (2012); current FY2021 $823.03, CPI-U 2021->2026.",
+      "category": "Sonobuoy",
+      "estimate": {
+        "historical": "760",
+        "historical_year": "2012",
+        "historical_method": "model estimate",
+        "current": "1020",
+        "current_year": "2021",
+        "current_method": "model estimate",
+        "note": "model estimate: priced as the US AN/SSQ-53 (FY2021 P-5a $823.03), CPI-U 2021->2026"
+      },
+      "sources": [
+        {
+          "title": "Military & Aerospace Electronics (Jan 2012)",
+          "url": "https://www.militaryaerospace.com/rf-analog/article/16719696/navy-bulks-up-on-submarine-hunting-sonobuoys-for-us-and-taiwan-maritime-security-forces"
+        },
+        {
+          "title": "DoN FY2022 OPN BA3 book, QZ002 AN/SSQ-53",
+          "url": "https://www.secnav.navy.mil/fmc/fmb/Documents/22pres/OPN_BA3_Book.pdf"
+        }
+      ]
+    },
+    {
+      "target": "rn_ssq-963d",
+      "basis": "Model estimate: CAMBS VI (mod text 'equivalent to the AN/SSQ-62E') priced from US DICASS: FY2000/01 P-5 SSQ-62 w/SLC $1,288.89 -> 1,290 (2001); current FY2022 $1,741.54, CPI-U 2022->2026.",
+      "category": "Sonobuoy",
+      "estimate": {
+        "historical": "1290",
+        "historical_year": "2001",
+        "historical_method": "model estimate",
+        "current": "1990",
+        "current_year": "2022",
+        "current_method": "model estimate",
+        "note": "model estimate: priced as the US AN/SSQ-62 DICASS (FY2022 P-5a $1,741.54), CPI-U 2022->2026"
+      },
+      "sources": [
+        {
+          "title": "DoN FY2000/01 OPN BA3 book, P-5 AN/SSQ-62",
+          "url": "https://www.secnav.navy.mil/fmc/fmb/Documents/00pres/proc/opn_ba_3_BOOK.pdf"
+        },
+        {
+          "title": "DoN FY2022 OPN BA3 book, QZ004 AN/SSQ-62",
+          "url": "https://www.secnav.navy.mil/fmc/fmb/Documents/22pres/OPN_BA3_Book.pdf"
+        }
+      ]
+    },
+    {
+      "target": "usn_ssq-101",
+      "basis": "Model estimate: residual of the Sep 2022 ERAPSCO ceiling increase ($181,878,811 for 100,000 SSQ-53 + 16,000 SSQ-101 + 10,000 SSQ-62) after FY2022 P-5 unit costs 839.49 and 1,741.54 = $5,032 -> 5,000 (2022); x 334.4/292.7 = 5,749 -> 5,750.",
+      "category": "Sonobuoy",
+      "estimate": {
+        "historical": "5000",
+        "historical_year": "2022",
+        "historical_method": "model estimate",
+        "current": "5750",
+        "current_year": "2022",
+        "current_method": "model estimate",
+        "note": "model estimate: FY2022 unit price derived from the Sep 2022 three-type ERAPSCO modification, minus FY2022 SSQ-53/SSQ-62 P-5a unit costs, then CPI-U 2022->2026"
+      },
+      "sources": [
+        {
+          "title": "Shephard, US Navy orders more sonobuoys from ERAPSCO (Sep 2022)",
+          "url": "https://shephardmedia.com/news/defence-notes/us-navy-orders-more-sonobuoys-from-erapsco"
+        },
+        {
+          "title": "DoD contracts Sep 2022 (GlobalSecurity mirror)",
+          "url": "https://www.globalsecurity.org/military/library/news/2022/09/dod-contracts_3172203.htm"
+        },
+        {
+          "title": "DoN FY2022 OPN BA3 book, QZ002 AN/SSQ-53",
+          "url": "https://www.secnav.navy.mil/fmc/fmb/Documents/22pres/OPN_BA3_Book.pdf"
+        },
+        {
+          "title": "DoN FY2022 OPN BA3 book, QZ004 AN/SSQ-62",
+          "url": "https://www.secnav.navy.mil/fmc/fmb/Documents/22pres/OPN_BA3_Book.pdf"
+        },
+        {
+          "title": "DoN FY2022 OPN BA3 book, SSQ-101B note",
+          "url": "https://www.secnav.navy.mil/fmc/fmb/Documents/22pres/OPN_BA3_Book.pdf"
+        },
+        {
+          "title": "DoD contracts 18 Jul 2019",
+          "url": "https://www.defense.gov/News/Contracts/Contract/Article/1909668/"
+        }
+      ]
+    },
+    {
+      "target": "usn_ssq-53",
+      "basis": "Comparable purchase: FY98 AN/SSQ-53(E) w/SLC unit cost $353.47 (113,714 units) as historical (1998); current FY2021 AN/SSQ-53 unit cost $823.03, CPI-U 2021->2026.",
+      "category": "Sonobuoy",
+      "estimate": {
+        "historical": "350",
+        "historical_year": "1998",
+        "historical_method": "published price",
+        "current": "1020",
+        "current_year": "2021",
+        "current_method": "comparable recent purchase",
+        "note": "comparable recent purchase: FY2021 AN/SSQ-53 P-5a unit cost $823.03, CPI-U 2021->2026"
+      },
+      "sources": [
+        {
+          "title": "DoN FY2000/01 OPN BA3 book, AN/SSQ-53",
+          "url": "https://www.secnav.navy.mil/fmc/fmb/Documents/00pres/proc/opn_ba_3_BOOK.pdf"
+        },
+        {
+          "title": "DoN FY2022 OPN BA3 book, QZ002 AN/SSQ-53",
+          "url": "https://www.secnav.navy.mil/fmc/fmb/Documents/22pres/OPN_BA3_Book.pdf"
+        }
+      ]
+    },
+    {
+      "target": "usn_ssq-53d",
+      "basis": "Comparable purchase: FY98 AN/SSQ-53E w/SLC $353.47 -> 350 (1998) nearest documented to the 1992 entry; current FY2021 $823.03, CPI-U 2021->2026.",
+      "category": "Sonobuoy",
+      "estimate": {
+        "historical": "350",
+        "historical_year": "1998",
+        "historical_method": "published price",
+        "current": "1020",
+        "current_year": "2021",
+        "current_method": "comparable recent purchase",
+        "note": "comparable recent purchase: FY2021 AN/SSQ-53 P-5a $823.03, CPI-U 2021->2026"
+      },
+      "sources": [
+        {
+          "title": "DoN FY2000/01 OPN BA3 book, AN/SSQ-53",
+          "url": "https://www.secnav.navy.mil/fmc/fmb/Documents/00pres/proc/opn_ba_3_BOOK.pdf"
+        },
+        {
+          "title": "DoN FY2022 OPN BA3 book, QZ002 AN/SSQ-53",
+          "url": "https://www.secnav.navy.mil/fmc/fmb/Documents/22pres/OPN_BA3_Book.pdf"
+        }
+      ]
+    },
+    {
+      "target": "usn_ssq-53f",
+      "basis": "Comparable purchase: FY00 AN/SSQ-53 unit cost $535.46 (24,481 units) -> 540 (2000); current FY2021 $823.03, CPI-U 2021->2026.",
+      "category": "Sonobuoy",
+      "estimate": {
+        "historical": "540",
+        "historical_year": "2000",
+        "historical_method": "published price",
+        "current": "1020",
+        "current_year": "2021",
+        "current_method": "comparable recent purchase",
+        "note": "comparable recent purchase: FY2021 AN/SSQ-53 P-5a $823.03, CPI-U 2021->2026"
+      },
+      "sources": [
+        {
+          "title": "DoN FY2000/01 OPN BA3 book, FY00 passive buoys",
+          "url": "https://www.secnav.navy.mil/fmc/fmb/Documents/00pres/proc/opn_ba_3_BOOK.pdf"
+        },
+        {
+          "title": "Military & Aerospace Electronics (Jan 2012)",
+          "url": "https://www.militaryaerospace.com/rf-analog/article/16719696/navy-bulks-up-on-submarine-hunting-sonobuoys-for-us-and-taiwan-maritime-security-forces"
+        },
+        {
+          "title": "Military & Aerospace Electronics (Aug 2013)",
+          "url": "https://www.militaryaerospace.com/uncrewed/article/16715282/navy-makes-order-of-submarine-hunting-sonobuoys-for-helicopters-and-patrol-aircraft"
+        },
+        {
+          "title": "DoN FY2022 OPN BA3 book, QZ002 AN/SSQ-53",
+          "url": "https://www.secnav.navy.mil/fmc/fmb/Documents/22pres/OPN_BA3_Book.pdf"
+        }
+      ]
+    },
+    {
+      "target": "usn_ssq-53h",
+      "basis": "Comparable purchase: latest documented SSQ-53 unit cost (FY2021 $823.03) converted by CPI: 2024 = 952.7 -> 950; 2026 = 1,015.6 -> 1,020.",
+      "category": "Sonobuoy",
+      "estimate": {
+        "historical": "950",
+        "historical_year": "2024",
+        "historical_method": "published price",
+        "current": "1020",
+        "current_year": "2021",
+        "current_method": "comparable recent purchase",
+        "note": "comparable recent purchase: FY2021 AN/SSQ-53 P-5a $823.03, CPI-U 2021->2026"
+      },
+      "sources": [
+        {
+          "title": "DoN FY2022 OPN BA3 book, QZ002 AN/SSQ-53",
+          "url": "https://www.secnav.navy.mil/fmc/fmb/Documents/22pres/OPN_BA3_Book.pdf"
+        }
+      ]
+    },
+    {
+      "target": "usn_ssq-62",
+      "basis": "Historical: FY2000/01 P-5 SSQ-62 w/SLC $983.06 (taken as FY98) CPI-backcast to 1980 = 497 -> 500; current: FY2022 DICASS unit cost $1,741.54, CPI-U 2022->2026 = 1,990.",
+      "category": "Sonobuoy",
+      "estimate": {
+        "historical": "500",
+        "historical_year": "1980",
+        "historical_method": "published price",
+        "current": "1990",
+        "current_year": "2022",
+        "current_method": "comparable recent purchase",
+        "note": "comparable recent purchase: FY2022 AN/SSQ-62 P-5a $1,741.54, CPI-U 2022->2026"
+      },
+      "sources": [
+        {
+          "title": "DoN FY2000/01 OPN BA3 book, P-5 AN/SSQ-62",
+          "url": "https://www.secnav.navy.mil/fmc/fmb/Documents/00pres/proc/opn_ba_3_BOOK.pdf"
+        },
+        {
+          "title": "FAS, AN/SSQ-62 DICASS",
+          "url": "https://man.fas.org/dod-101/sys/ship/weaps/an-ssq-62.htm"
+        },
+        {
+          "title": "DoN FY2022 OPN BA3 book, QZ004 AN/SSQ-62",
+          "url": "https://www.secnav.navy.mil/fmc/fmb/Documents/22pres/OPN_BA3_Book.pdf"
+        },
+        {
+          "title": "Military & Aerospace Electronics (Sep 2021)",
+          "url": "https://www.militaryaerospace.com/sensors/article/14210969/anti-submarine-warfare-sonobuoys-sonar"
+        }
+      ]
+    },
+    {
+      "target": "usn_ssq-62c",
+      "basis": "Comparable purchase: FY2000/01 P-5 SSQ-62 w/SLC $983.06 -> 980 (1998) nearest the 1997 entry; current FY2022 $1,741.54, CPI-U 2022->2026.",
+      "category": "Sonobuoy",
+      "estimate": {
+        "historical": "980",
+        "historical_year": "1998",
+        "historical_method": "published price",
+        "current": "1990",
+        "current_year": "2022",
+        "current_method": "comparable recent purchase",
+        "note": "comparable recent purchase: FY2022 AN/SSQ-62 P-5a $1,741.54, CPI-U 2022->2026"
+      },
+      "sources": [
+        {
+          "title": "DoN FY2000/01 OPN BA3 book, P-5 AN/SSQ-62",
+          "url": "https://www.secnav.navy.mil/fmc/fmb/Documents/00pres/proc/opn_ba_3_BOOK.pdf"
+        },
+        {
+          "title": "DoN FY2022 OPN BA3 book, QZ004 AN/SSQ-62",
+          "url": "https://www.secnav.navy.mil/fmc/fmb/Documents/22pres/OPN_BA3_Book.pdf"
+        }
+      ]
+    },
+    {
+      "target": "usn_ssq-62e",
+      "basis": "Comparable purchase: FY2000/01 P-5 SSQ-62 w/SLC $1,288.89 -> 1,290 (2001) nearest the 2004 entry; current FY2022 $1,741.54, CPI-U 2022->2026.",
+      "category": "Sonobuoy",
+      "estimate": {
+        "historical": "1290",
+        "historical_year": "2001",
+        "historical_method": "published price",
+        "current": "1990",
+        "current_year": "2022",
+        "current_method": "comparable recent purchase",
+        "note": "comparable recent purchase: FY2022 AN/SSQ-62 P-5a $1,741.54, CPI-U 2022->2026"
+      },
+      "sources": [
+        {
+          "title": "DoN FY2000/01 OPN BA3 book, P-5 AN/SSQ-62",
+          "url": "https://www.secnav.navy.mil/fmc/fmb/Documents/00pres/proc/opn_ba_3_BOOK.pdf"
+        },
+        {
+          "title": "DoD contracts Dec 2012 (GlobalSecurity mirror)",
+          "url": "https://www.globalsecurity.org/military/library/news/2012/12/dod-contracts_4929.htm"
+        },
+        {
+          "title": "DoN FY2022 OPN BA3 book, QZ004 AN/SSQ-62",
+          "url": "https://www.secnav.navy.mil/fmc/fmb/Documents/22pres/OPN_BA3_Book.pdf"
+        }
+      ]
+    },
+    {
+      "target": "usn_ssq-62g",
+      "basis": "Comparable purchase: FY2022 AN/SSQ-62 unit cost $1,741.54 (20,000 units) -> 1,740 (2022); CPI-U 2022->2026 = 1,990.",
+      "category": "Sonobuoy",
+      "estimate": {
+        "historical": "1740",
+        "historical_year": "2022",
+        "historical_method": "published price",
+        "current": "1990",
+        "current_year": "2022",
+        "current_method": "comparable recent purchase",
+        "note": "comparable recent purchase: FY2022 AN/SSQ-62 P-5a $1,741.54 (20,000 units), CPI-U 2022->2026"
+      },
+      "sources": [
+        {
+          "title": "DoN FY2022 OPN BA3 book, QZ004 AN/SSQ-62",
+          "url": "https://www.secnav.navy.mil/fmc/fmb/Documents/22pres/OPN_BA3_Book.pdf"
+        },
+        {
+          "title": "Military & Aerospace Electronics (Sep 2021)",
+          "url": "https://www.militaryaerospace.com/sensors/article/14210969/anti-submarine-warfare-sonobuoys-sonar"
+        }
+      ]
+    },
+    {
+      "target": "usn_ssq-77",
+      "basis": "Model estimate: VLAD priced as its 1980 sibling DICASS: $983.06 backcast to 1980 = 497 -> 500; current FY2022 DICASS $1,741.54, CPI-U 2022->2026 = 1,990.",
+      "category": "Sonobuoy",
+      "estimate": {
+        "historical": "500",
+        "historical_year": "1980",
+        "historical_method": "model estimate",
+        "current": "1990",
+        "current_year": "2022",
+        "current_method": "model estimate",
+        "note": "model estimate: VLAD priced as its sibling in the same budget line, the AN/SSQ-62 DICASS (FY2022 P-5a $1,741.54), CPI-U 2022->2026; no VLAD unit cost found"
+      },
+      "sources": [
+        {
+          "title": "FAS, AN/SSQ-77B VLAD",
+          "url": "https://man.fas.org/dod-101/sys/ship/weaps/an-ssq-77.htm"
+        },
+        {
+          "title": "DoN FY2000/01 OPN BA3 book, P-5 AN/SSQ-62",
+          "url": "https://www.secnav.navy.mil/fmc/fmb/Documents/00pres/proc/opn_ba_3_BOOK.pdf"
+        },
+        {
+          "title": "DoN FY2022 OPN BA3 book, QZ004 AN/SSQ-62",
+          "url": "https://www.secnav.navy.mil/fmc/fmb/Documents/22pres/OPN_BA3_Book.pdf"
+        }
+      ]
+    },
+    {
+      "target": "usn_ssq-77b",
+      "basis": "Model estimate: VLAD priced as the DICASS sibling: $983.06 -> 980 (1998); current FY2022 $1,741.54, CPI-U 2022->2026.",
+      "category": "Sonobuoy",
+      "estimate": {
+        "historical": "980",
+        "historical_year": "1998",
+        "historical_method": "model estimate",
+        "current": "1990",
+        "current_year": "2022",
+        "current_method": "model estimate",
+        "note": "model estimate: priced as the AN/SSQ-62 DICASS sibling (FY2022 P-5a $1,741.54), CPI-U 2022->2026"
+      },
+      "sources": [
+        {
+          "title": "FAS, AN/SSQ-77B VLAD",
+          "url": "https://man.fas.org/dod-101/sys/ship/weaps/an-ssq-77.htm"
+        },
+        {
+          "title": "DoN FY2000/01 OPN BA3 book, P-5 AN/SSQ-62",
+          "url": "https://www.secnav.navy.mil/fmc/fmb/Documents/00pres/proc/opn_ba_3_BOOK.pdf"
+        },
+        {
+          "title": "DoN FY2022 OPN BA3 book, QZ004 AN/SSQ-62",
+          "url": "https://www.secnav.navy.mil/fmc/fmb/Documents/22pres/OPN_BA3_Book.pdf"
+        }
+      ]
+    },
+    {
+      "target": "usn_ssq-77c",
+      "basis": "Model estimate: VLAD priced as the DICASS sibling: $983.06 -> 980 (1998); current FY2022 $1,741.54, CPI-U 2022->2026.",
+      "category": "Sonobuoy",
+      "estimate": {
+        "historical": "980",
+        "historical_year": "1998",
+        "historical_method": "model estimate",
+        "current": "1990",
+        "current_year": "2022",
+        "current_method": "model estimate",
+        "note": "model estimate: priced as the AN/SSQ-62 DICASS sibling (FY2022 P-5a $1,741.54), CPI-U 2022->2026"
+      },
+      "sources": [
+        {
+          "title": "FAS, AN/SSQ-77B VLAD",
+          "url": "https://man.fas.org/dod-101/sys/ship/weaps/an-ssq-77.htm"
+        },
+        {
+          "title": "DoN FY2000/01 OPN BA3 book, P-5 AN/SSQ-62",
+          "url": "https://www.secnav.navy.mil/fmc/fmb/Documents/00pres/proc/opn_ba_3_BOOK.pdf"
+        },
+        {
+          "title": "DoN FY2022 OPN BA3 book, QZ004 AN/SSQ-62",
+          "url": "https://www.secnav.navy.mil/fmc/fmb/Documents/22pres/OPN_BA3_Book.pdf"
+        }
+      ]
+    },
+    {
+      "target": "usn_ssq_101",
+      "basis": "Model estimate: duplicate of usn_ssq-101 (derived FY2022 $5,032 -> 5,000; CPI-U 2022->2026 = 5,750).",
+      "category": "Sonobuoy",
+      "estimate": {
+        "historical": "5000",
+        "historical_year": "2022",
+        "historical_method": "model estimate",
+        "current": "5750",
+        "current_year": "2022",
+        "current_method": "model estimate",
+        "note": "model estimate: same as usn_ssq-101 (derived FY2022 $5,032, CPI-U 2022->2026)"
+      },
+      "sources": [
+        {
+          "title": "Shephard, US Navy orders more sonobuoys from ERAPSCO (Sep 2022)",
+          "url": "https://shephardmedia.com/news/defence-notes/us-navy-orders-more-sonobuoys-from-erapsco"
+        },
+        {
+          "title": "DoD contracts Sep 2022 (GlobalSecurity mirror)",
+          "url": "https://www.globalsecurity.org/military/library/news/2022/09/dod-contracts_3172203.htm"
+        },
+        {
+          "title": "DoN FY2022 OPN BA3 book, QZ002 AN/SSQ-53",
+          "url": "https://www.secnav.navy.mil/fmc/fmb/Documents/22pres/OPN_BA3_Book.pdf"
+        },
+        {
+          "title": "DoN FY2022 OPN BA3 book, QZ004 AN/SSQ-62",
+          "url": "https://www.secnav.navy.mil/fmc/fmb/Documents/22pres/OPN_BA3_Book.pdf"
+        },
+        {
+          "title": "DoN FY2022 OPN BA3 book, SSQ-101B note",
+          "url": "https://www.secnav.navy.mil/fmc/fmb/Documents/22pres/OPN_BA3_Book.pdf"
+        }
+      ]
+    },
+    {
+      "target": "usn_ssq_53f",
+      "basis": "Comparable purchase: duplicate of usn_ssq-53f (FY00 $535.46 -> 540 (2000); current FY2021 $823.03 -> 1,020).",
+      "category": "Sonobuoy",
+      "estimate": {
+        "historical": "540",
+        "historical_year": "2000",
+        "historical_method": "published price",
+        "current": "1020",
+        "current_year": "2021",
+        "current_method": "comparable recent purchase",
+        "note": "comparable recent purchase: FY2021 AN/SSQ-53 P-5a $823.03, CPI-U 2021->2026"
+      },
+      "sources": [
+        {
+          "title": "DoN FY2000/01 OPN BA3 book, FY00 passive buoys",
+          "url": "https://www.secnav.navy.mil/fmc/fmb/Documents/00pres/proc/opn_ba_3_BOOK.pdf"
+        },
+        {
+          "title": "DoN FY2022 OPN BA3 book, QZ002 AN/SSQ-53",
+          "url": "https://www.secnav.navy.mil/fmc/fmb/Documents/22pres/OPN_BA3_Book.pdf"
+        }
+      ]
+    },
+    {
+      "target": "usn_ssq_62e",
+      "basis": "Comparable purchase: duplicate of usn_ssq-62e ($1,288.89 -> 1,290 (2001); current FY2022 $1,741.54 -> 1,990).",
+      "category": "Sonobuoy",
+      "estimate": {
+        "historical": "1290",
+        "historical_year": "2001",
+        "historical_method": "published price",
+        "current": "1990",
+        "current_year": "2022",
+        "current_method": "comparable recent purchase",
+        "note": "comparable recent purchase: FY2022 AN/SSQ-62 P-5a $1,741.54, CPI-U 2022->2026"
+      },
+      "sources": [
+        {
+          "title": "DoN FY2000/01 OPN BA3 book, P-5 AN/SSQ-62",
+          "url": "https://www.secnav.navy.mil/fmc/fmb/Documents/00pres/proc/opn_ba_3_BOOK.pdf"
+        },
+        {
+          "title": "DoN FY2022 OPN BA3 book, QZ004 AN/SSQ-62",
+          "url": "https://www.secnav.navy.mil/fmc/fmb/Documents/22pres/OPN_BA3_Book.pdf"
+        }
+      ]
+    },
+    {
+      "target": "usn_ssq_77c",
+      "basis": "Model estimate: duplicate of usn_ssq-77c (DICASS sibling $983.06 -> 980 (1998); current 1,990).",
+      "category": "Sonobuoy",
+      "estimate": {
+        "historical": "980",
+        "historical_year": "1998",
+        "historical_method": "model estimate",
+        "current": "1990",
+        "current_year": "2022",
+        "current_method": "model estimate",
+        "note": "model estimate: priced as the AN/SSQ-62 DICASS sibling (FY2022 P-5a $1,741.54), CPI-U 2022->2026"
+      },
+      "sources": [
+        {
+          "title": "FAS, AN/SSQ-77B VLAD",
+          "url": "https://man.fas.org/dod-101/sys/ship/weaps/an-ssq-77.htm"
+        },
+        {
+          "title": "DoN FY2000/01 OPN BA3 book, P-5 AN/SSQ-62",
+          "url": "https://www.secnav.navy.mil/fmc/fmb/Documents/00pres/proc/opn_ba_3_BOOK.pdf"
+        },
+        {
+          "title": "DoN FY2022 OPN BA3 book, QZ004 AN/SSQ-62",
+          "url": "https://www.secnav.navy.mil/fmc/fmb/Documents/22pres/OPN_BA3_Book.pdf"
+        }
+      ]
+    },
+    {
+      "target": "wp_rgb-1",
+      "basis": "Model estimate: Soviet RGB-1 passive omni buoy priced from US SSQ-53: $353.47 backcast to 1980 = 179 -> 180; current FY2021 $823.03 -> 1,020 (likely high for an omni buoy).",
+      "category": "Sonobuoy",
+      "estimate": {
+        "historical": "180",
+        "historical_year": "1980",
+        "historical_method": "model estimate",
+        "current": "1020",
+        "current_year": "2021",
+        "current_method": "model estimate",
+        "note": "model estimate: priced as the US AN/SSQ-53 passive buoy (FY2021 P-5a $823.03), CPI-U 2021->2026; no Soviet price exists in open sources"
+      },
+      "sources": [
+        {
+          "title": "DoN FY2000/01 OPN BA3 book, AN/SSQ-53",
+          "url": "https://www.secnav.navy.mil/fmc/fmb/Documents/00pres/proc/opn_ba_3_BOOK.pdf"
+        },
+        {
+          "title": "DoN FY2022 OPN BA3 book, QZ002 AN/SSQ-53",
+          "url": "https://www.secnav.navy.mil/fmc/fmb/Documents/22pres/OPN_BA3_Book.pdf"
+        }
+      ]
+    },
+    {
+      "target": "wp_rgb-3",
+      "basis": "Model estimate: Soviet RGB-3 active buoy priced from US DICASS: $983.06 backcast to 1980 = 497 -> 500; current FY2022 $1,741.54 -> 1,990.",
+      "category": "Sonobuoy",
+      "estimate": {
+        "historical": "500",
+        "historical_year": "1980",
+        "historical_method": "model estimate",
+        "current": "1990",
+        "current_year": "2022",
+        "current_method": "model estimate",
+        "note": "model estimate: priced as the US AN/SSQ-62 active buoy (FY2022 P-5a $1,741.54), CPI-U 2022->2026"
+      },
+      "sources": [
+        {
+          "title": "DoN FY2000/01 OPN BA3 book, P-5 AN/SSQ-62",
+          "url": "https://www.secnav.navy.mil/fmc/fmb/Documents/00pres/proc/opn_ba_3_BOOK.pdf"
+        },
+        {
+          "title": "DoN FY2022 OPN BA3 book, QZ004 AN/SSQ-62",
+          "url": "https://www.secnav.navy.mil/fmc/fmb/Documents/22pres/OPN_BA3_Book.pdf"
+        }
+      ]
+    },
+    {
+      "target": "wp_rgb-nm1",
+      "basis": "Model estimate: Soviet RGB-NM-1 passive omni buoy priced from US SSQ-53: $353.47 backcast to 1982 = 209 -> 210; current FY2021 $823.03 -> 1,020.",
+      "category": "Sonobuoy",
+      "estimate": {
+        "historical": "210",
+        "historical_year": "1982",
+        "historical_method": "model estimate",
+        "current": "1020",
+        "current_year": "2021",
+        "current_method": "model estimate",
+        "note": "model estimate: priced as the US AN/SSQ-53 passive buoy (FY2021 P-5a $823.03), CPI-U 2021->2026"
+      },
+      "sources": [
+        {
+          "title": "DoN FY2000/01 OPN BA3 book, AN/SSQ-53",
+          "url": "https://www.secnav.navy.mil/fmc/fmb/Documents/00pres/proc/opn_ba_3_BOOK.pdf"
+        },
+        {
+          "title": "DoN FY2022 OPN BA3 book, QZ002 AN/SSQ-53",
+          "url": "https://www.secnav.navy.mil/fmc/fmb/Documents/22pres/OPN_BA3_Book.pdf"
+        }
+      ]
+    }
+  ],
+  "aircraft": [
+    {
+      "target": "S-70B-2_Seahawk",
+      "source": "ran_s-70b-2_seahawk",
+      "basis": "Same RAN S-70B-2 airframe; author's SH-60-family estimate"
+    },
+    {
+      "target": "adf_ah-64e",
+      "source": "usa_ah-64e",
+      "basis": "AH-64E airframe-family proxy; not an Australian package or sustainment quote"
+    },
+    {
+      "target": "dts_b-52h",
+      "source": "usaf_b-52g",
+      "basis": "Author's B-52 D/G family proxy for a B-52H; retain its 1956 reference basis"
+    },
+    {
+      "target": "usaf_b-52h_419_flts",
+      "source": "usaf_b-52g",
+      "basis": "Author's B-52 D/G family proxy for the 419 FLTS H model; retain its 1956 reference basis"
+    },
+    {
+      "target": "raaf_fa-18a_2011",
+      "source": "usn_fa-18a",
+      "basis": "F/A-18A airframe-family proxy; source Hornet reference basis, not a 2011 purchase quote"
+    },
+    {
+      "target": "raaf_fa-18f",
+      "source": "usn_fa-18f",
+      "basis": "F/A-18F airframe-family proxy; excludes loaded weapons and Australian support packages"
+    },
+    {
+      "target": "ran_mh-60r",
+      "source": "usn_mh-60r",
+      "basis": "MH-60R airframe-family proxy; not a complete Australian procurement package"
+    },
+    {
+      "target": "usaf_a-10c_plus",
+      "source": "usa_a-10c",
+      "basis": "A-10C airframe-family proxy; no invented premium for SEST's upgrade"
+    },
+    {
+      "target": "plaaf_h-6k_late",
+      "source": "plaaf_h6k",
+      "basis": "Same H-6K type (late production); author's H-6K model estimate, retain its 2011 reference basis"
+    },
+    {
+      "target": "plaaf_j-11bs",
+      "source": "plaaf_j-11b",
+      "basis": "Two-seat J-11B; author's Su-27/J-11 family estimate, retain its 1990 reference basis"
+    },
+    {
+      "target": "plaaf_j-8f",
+      "source": "plaaf_j8j",
+      "basis": "J-8II-family J-8F; author's J-8 family estimate (J-8J entry), retain its 1990 reference basis"
+    },
+    {
+      "target": "plaaf_su-27ubk",
+      "source": "plaaf_j-11",
+      "basis": "Two-seat Su-27 in PLAAF service; author's Su-27/J-11 family estimate, retain its 1990 reference basis"
+    },
+    {
+      "target": "plan_z-18f",
+      "source": "plan_z-18fa",
+      "basis": "Z-18F ASW Z-18; author's Z-18 family estimate (Z-18FA), retain its 2014 reference basis"
+    },
+    {
+      "target": "wp_il-78",
+      "source": "wp_il-76md",
+      "basis": "Il-78 tanker variant of the Il-76; author's Il-76 family estimate, retain its 1980 reference basis; no tanker-kit premium"
+    },
+    {
+      "target": "wp_ka-27rdl",
+      "source": "plan_ka-31",
+      "basis": "Ka-27RLD AEW helicopter, titled by its mod as the Ka-31; author's Ka-31 estimate, retain its 1995 reference basis"
+    },
+    {
+      "target": "wp_mig-35",
+      "source": "wp_mig-29m2_967",
+      "basis": "MiG-35D, the final MiG-29 development; author's MiG-29 family estimate (MiG-29M2 entry), retain its 1990 reference basis"
+    },
+    {
+      "target": "wp_su-24mp",
+      "source": "wp_su-24m",
+      "basis": "Su-24MP EW version of the Su-24M; author's Su-24M estimate, retain its 1980 reference basis"
+    },
+    {
+      "target": "boeing_rc135",
+      "source": "usaf_rc_135",
+      "basis": "RC-135V/W Rivet Joint (re-engined): same class as the author's usaf_rc_135 model estimate; retain its 1998 reference year"
+    },
+    {
+      "target": "usaf_e-3g",
+      "source": "usaf_e-3a",
+      "basis": "E-3G Sentry (Block 40/45 upgraded E-3): same airframe class as the author's usaf_e-3a; retain its 1998 reference year"
+    },
+    {
+      "target": "usaf_stratotanker",
+      "source": "usaf_kc-135a",
+      "basis": "KC-135A Stratotanker: same type as the author's usaf_kc-135a model estimate (reference 1998)"
+    },
+    {
+      "target": "irinavy_bell-212",
+      "source": "spa_ab212",
+      "basis": "Bell 212 utility helicopter: same Bell/Agusta-Bell 212 airframe family as the author's AB-212; the donor is ASW-fitted, so it may run slightly high"
+    },
+    {
+      "target": "civ_as-350",
+      "source": "fr_as-350",
+      "basis": "Civil AS350 Ecureuil/AStar: same AS.350 type as the author's fr_as-350; retain its 1963 family reference year"
+    },
+    {
+      "target": "mv22b_osprey",
+      "basis": "MV-22B (IOC June 2007): FY2008-FY2012 multiyear contract, USD 10.4B for 167 V-22s (CRS RL31384); current is the 2018 multiyear contract, prime airframe only (engines government-furnished), so a lower bound",
+      "estimate": {
+        "historical": "62300000",
+        "historical_year": "2008",
+        "historical_method": "published price",
+        "current": "72300000",
+        "current_year": "2018",
+        "current_method": "comparable recent purchase",
+        "note": "Historical: 10.4B / 167 = 62.28M. Current: 4,191,533,822 / 58 = 72.27M"
+      },
+      "sources": [
+        {
+          "title": "CRS RL31384, V-22 Osprey Tilt-Rotor Aircraft Program (Apr 2012), EveryCRSReport",
+          "url": "https://www.everycrsreport.com/reports/RL31384.html"
+        },
+        {
+          "title": "CRS RL31384 (Apr 2012), multiyear quantity",
+          "url": "https://www.everycrsreport.com/reports/RL31384.html"
+        },
+        {
+          "title": "CRS RL31384 (Apr 2012), IOC and SAR cross-check",
+          "url": "https://www.everycrsreport.com/reports/RL31384.html"
+        },
+        {
+          "title": "CRS RL31384 quoting GAO-09-482 (cross-check only)",
+          "url": "https://www.everycrsreport.com/reports/RL31384.html"
+        },
+        {
+          "title": "Bell Boeing to begin U.S. Navy CMV-22B production work under $4 billion contract (Airframer, 2018)",
+          "url": "https://www.airframer.com/news/release/41903"
+        }
+      ]
+    },
+    {
+      "target": "spa_av-8b_plus",
+      "basis": "Spanish EAV-8B Harrier II Plus: same radar-model Harrier II Plus as the USMC's, FY1991 average unit flyaway cost USD 22.4M (GAO/NSIAD-96-49); not a Spanish contract price",
+      "estimate": {
+        "historical": "22400000",
+        "historical_year": "1991",
+        "historical_method": "published price",
+        "current": "55000000",
+        "current_year": "1991",
+        "current_method": "CPI conversion",
+        "note": "Current: 22.4M x 334.4 / 136.2 (CPI-U 1991) = 54.997M, rounded"
+      },
+      "sources": [
+        {
+          "title": "GAO/NSIAD-96-49, Navy Aviation: AV-8B Harrier Remanufacture Strategy Is Not the Most Cost-Effective Option (govinfo)",
+          "url": "https://www.govinfo.gov/content/pkg/GAOREPORTS-NSIAD-96-49/html/GAOREPORTS-NSIAD-96-49.htm"
+        },
+        {
+          "title": "GAO/NSIAD-96-49, variant introduction",
+          "url": "https://www.govinfo.gov/content/pkg/GAOREPORTS-NSIAD-96-49/html/GAOREPORTS-NSIAD-96-49.htm"
+        },
+        {
+          "title": "McDonnell Douglas AV-8B Harrier II (Wikipedia), Spanish Navy section",
+          "url": "https://en.wikipedia.org/wiki/McDonnell_Douglas_AV-8B_Harrier_II"
+        },
+        {
+          "title": "Minneapolis Fed, Consumer Price Index 1913-",
+          "url": "https://www.minneapolisfed.org/about-us/monetary-policy/inflation-calculator/consumer-price-index-1913-"
+        }
+      ]
+    },
+    {
+      "target": "jp_f-2a_late",
+      "basis": "Mitsubishi F-2A: GAO's figure for the approved production programme, about USD 80M per aircraft in constant 1996 dollars at 110 yen/$ (GAO/NSIAD-97-76); a conservative lower anchor",
+      "estimate": {
+        "historical": "80000000",
+        "historical_year": "1996",
+        "historical_method": "published price",
+        "current": "171000000",
+        "current_year": "1996",
+        "current_method": "CPI conversion",
+        "note": "Current: 80M x 334.4 / 156.9 (CPI-U 1996) = 170.50M, rounded"
+      },
+      "sources": [
+        {
+          "title": "GAO/NSIAD-97-76, U.S.-Japan Fighter Aircraft: Agreement on F-2 Production (govinfo)",
+          "url": "https://www.govinfo.gov/content/pkg/GAOREPORTS-NSIAD-97-76/html/GAOREPORTS-NSIAD-97-76.htm"
+        },
+        {
+          "title": "GAO/NSIAD-97-76 footnote 6",
+          "url": "https://www.govinfo.gov/content/pkg/GAOREPORTS-NSIAD-97-76/html/GAOREPORTS-NSIAD-97-76.htm"
+        },
+        {
+          "title": "F-2 (航空機), Japanese Wikipedia (cross-check only)",
+          "url": "https://ja.wikipedia.org/wiki/F-2_(航空機)"
+        },
+        {
+          "title": "Minneapolis Fed, Consumer Price Index 1913-",
+          "url": "https://www.minneapolisfed.org/about-us/monetary-policy/inflation-calculator/consumer-price-index-1913-"
+        }
+      ]
+    },
+    {
+      "target": "rok_f-50_ph",
+      "basis": "KAI FA-50PH (Philippine Air Force): 2014 contract of USD 422M for 12 (defensa.com); current is the June 2025 follow-on for 12 more, which includes logistics support, so an upper bound",
+      "estimate": {
+        "historical": "35200000",
+        "historical_year": "2014",
+        "historical_method": "published price",
+        "current": "57100000",
+        "current_year": "2025",
+        "current_method": "comparable recent purchase",
+        "note": "Historical: 422M / 12 = 35.17M. Current: KRW 975.3B / 1422.44083333 (tracker KRW Rate2025) / 12 = 57.14M"
+      },
+      "sources": [
+        {
+          "title": "Corea del Sur cierra un contrato de 422 millones de dolares con Filipinas para la venta de 12 aviones FA-50 (defensa.com, 24 Feb 2014)",
+          "url": "https://www.defensa.com/africa-asia-pacifico/corea-sur-cierra-contrato-422-millones-dolares-filipinas-para-12"
+        },
+        {
+          "title": "Philippines Signs $700 Million Deal for 12 More FA-50PH Jets from South Korea (Overt Defense, 11 Jun 2025)",
+          "url": "https://www.overtdefense.com/2025/06/11/philippines-signs-700-million-deal-for-12-more-fa-50ph-jets-from-south-korea"
+        },
+        {
+          "title": "Overt Defense (11 Jun 2025), 2014 order",
+          "url": "https://www.overtdefense.com/2025/06/11/philippines-signs-700-million-deal-for-12-more-fa-50ph-jets-from-south-korea"
+        }
+      ]
+    },
+    {
+      "target": "civ_a320",
+      "basis": "Airbus A320ceo airliner: no 1988 price could be read, so the historical price stays unknown; current is the successor A320neo's new-aircraft market value of USD 50-60M (Cirium/IBA via Boersen-Zeitung, 16 Oct 2026), midpoint",
+      "estimate": {
+        "historical": "",
+        "current": "55000000",
+        "current_year": "2026",
+        "current_method": "documented replacement estimate",
+        "note": "List prices are not used: discounts of 20-50% are usual"
+      },
+      "sources": [
+        {
+          "title": "Flugzeugfinanzierer ACG bestellt bei Airbus 75 A320neo (Borsen-Zeitung, 16 Oct 2026)",
+          "url": "https://www.boersen-zeitung.de/unternehmen-branchen/acg-will-75-maschinen-aus-der-airbus-modellfamilie-a320neo-kaufen"
+        },
+        {
+          "title": "Borsen-Zeitung (16 Oct 2026), list vs discount",
+          "url": "https://www.boersen-zeitung.de/unternehmen-branchen/acg-will-75-maschinen-aus-der-airbus-modellfamilie-a320neo-kaufen"
+        },
+        {
+          "title": "Airbus publishes 2018 average aircraft list prices (CAPA, 16 Jan 2018), context only",
+          "url": "https://centreforaviation.com/news/airbus-publishes-2018-average-aircraft-list-prices-757058"
+        }
+      ]
+    },
+    {
+      "target": "civ_a330",
+      "basis": "Airbus A330-300 airliner: no 1994 price could be read, so the historical price stays unknown; current is the successor A330-900neo's full-life market value of about USD 107M (Cirium Ascend, June 2024)",
+      "estimate": {
+        "historical": "",
+        "current": "107000000",
+        "current_year": "2024",
+        "current_method": "documented replacement estimate",
+        "note": "List prices are not used"
+      },
+      "sources": [
+        {
+          "title": "Is A330neo Coming to China? - A Suitability Analysis (Cirium, 17 Jun 2024)",
+          "url": "https://www.cirium.com/thoughtcloud/ascend-consultancy-weekly-team-perspective-is-a330neo-coming-to-china-suitability-analysis/"
+        },
+        {
+          "title": "Airbus publishes 2018 average aircraft list prices (CAPA, 16 Jan 2018), context only",
+          "url": "https://centreforaviation.com/news/airbus-publishes-2018-average-aircraft-list-prices-757058"
+        }
+      ]
+    },
+    {
+      "target": "mm_av-8b_plus",
+      "basis": "Italian AV-8B Harrier II Plus: same radar Harrier II Plus as spa_av-8b_plus; FY1991 average unit flyaway cost USD 22.4M (GAO/NSIAD-96-49), as in SEST's reviewed Spanish estimate; not an Italian contract price",
+      "estimate": {
+        "historical": "22400000",
+        "historical_year": "1991",
+        "historical_method": "published price",
+        "current": "55000000",
+        "current_year": "1991",
+        "current_method": "CPI conversion",
+        "note": "Current: 22.4M x 334.4 / 136.2 (CPI-U 1991) = 54.997M, rounded"
+      },
+      "sources": [
+        {
+          "title": "SEST researched estimate spa_av-8b_plus (shipped)",
+          "url": "file:integration/combat-costs/mappings.json"
+        },
+        {
+          "title": "GAO/NSIAD-96-49, Navy Aviation: AV-8B Harrier Remanufacture Strategy Is Not the Most Cost-Effective Option (govinfo)",
+          "url": "https://www.govinfo.gov/content/pkg/GAOREPORTS-NSIAD-96-49/html/GAOREPORTS-NSIAD-96-49.htm"
+        },
+        {
+          "title": "mm_av-8b_plus English description (mod 3505420313)",
+          "url": "file:mods-source/3505420313/language_en/aircraft_names.ini"
+        }
+      ]
+    },
+    {
+      "target": "tha_S-70B-7_Seahawk",
+      "source": "ran_s-70b-2_seahawk",
+      "basis": "Same S-70B export Seahawk family as the RAN S-70B-2; copies the author's SH-60-family estimate (reference 1984)"
+    },
+    {
+      "target": "usn_p8_2027",
+      "source": "usn_p8",
+      "basis": "Same P-8A Poseidon type; copies the author's P-8 estimate (reference 2021)"
+    }
+  ],
+  "vessel": [
+    {
+      "target": "ran_ddg_hobart",
+      "source": "ran_ddg_hobart_alt_late",
+      "basis": "Author's Hobart/Aegis-export family estimate; retain its 2002 reference basis",
+      "category": "DDG"
+    },
+    {
+      "target": "mor_ptm_lazaga",
+      "source": "ae_ptm_lazaga",
+      "basis": "Authored alias of the same Lazaga hull; Spanish catalog family proxy"
+    },
+    {
+      "target": "usn_cg_ticonderoga_vls_2027",
+      "source": "usn_cg_ticonderoga_vls_2025",
+      "basis": "Ticonderoga VLS fitted-hull family estimate; no invented premium for the 2027 fit"
+    },
+    {
+      "target": "usn_ddg_arleigh_flt1_051_2027",
+      "source": "usn_ddg_burke_f1_051_late",
+      "basis": "Same DDG-51 hull family; no invented premium for the 2027 fit"
+    },
+    {
+      "target": "usn_ddg_arleigh_flt1_052_2027",
+      "source": "usn_ddg_burke_f1_052_late",
+      "basis": "Same DDG-52 hull family; no invented premium for the 2027 fit"
+    },
+    {
+      "target": "usn_ddg_arleigh_flt1_054_2027",
+      "source": "usn_ddg_burke_f1_054_late",
+      "basis": "Same DDG-54 hull family; no invented premium for the 2027 fit"
+    },
+    {
+      "target": "usn_ddg_arleigh_flt1_064_2027",
+      "source": "usn_ddg_burke_f1_064_late",
+      "basis": "Same DDG-64 hull family; no invented premium for the 2027 fit"
+    },
+    {
+      "target": "usn_ddg_arleigh_flt2_072_2027",
+      "source": "usn_ddg_burke_f2_072_late",
+      "basis": "Same DDG-72 hull family; no invented premium for the 2027 fit"
+    },
+    {
+      "target": "usn_ddg_arleigh_flt2_075_2027",
+      "source": "usn_ddg_burke_f2_075_late",
+      "basis": "Same DDG-75 hull family; no invented premium for the 2027 fit"
+    },
+    {
+      "target": "usn_ssn_virginia_2027",
+      "source": "usn_ssn_virginia",
+      "basis": "Virginia-class fitted-hull family estimate; ammunition remains separately counted"
+    },
+    {
+      "target": "usn_ssn_virginia_seal_2027",
+      "source": "usn_ssn_virginia",
+      "basis": "Virginia-class family proxy; no unsupported price for the SEAL fit"
+    },
+    {
+      "target": "usn_ssn_los_angeles_flt3_2027",
+      "source": "usn_ssn_los_angeles_flt3_2026",
+      "basis": "Same Flight III Los Angeles-class family across adjacent scenario years"
+    },
+    {
+      "target": "wp_rkr_kirov_improved",
+      "source": "wp_rkr_kirov",
+      "basis": "Author's Kirov fitted-hull family/refit proxy; no invented upgrade surcharge",
+      "category": "CGN"
+    },
+    {
+      "target": "usn_cg_bunker_hill_vls_2004",
+      "source": "usn_cg_ticonderoga_vls_2004",
+      "basis": "Same Ticonderoga VLS class and 2004 fit; fitted-hull family estimate"
+    },
+    {
+      "target": "ran_lhd_canberra",
+      "source": "ae_lhd_juan_carlos",
+      "basis": "Canberra/Juan Carlos I design-family proxy; retain the Spanish catalog estimate, not an Australian contract price",
+      "category": "LHD"
+    },
+    {
+      "target": "rn_lph_ocean_09",
+      "source": "rn_lph_ocean",
+      "basis": "Same HMS Ocean hull family with a scenario-year suffix"
+    },
+    {
+      "target": "plan_em_sovremenny",
+      "source": "wp_em_sovremenny_98",
+      "basis": "Sovremenny export-hull family proxy; no invented modernization surcharge",
+      "category": "DDG"
+    },
+    {
+      "target": "ko_kddx",
+      "source": "non/ko_kddx",
+      "basis": "Exact KDDX reference stored under the author catalog non/ path; classify the missile destroyer as DDG",
+      "category": "DDG"
+    },
+    {
+      "target": "ch_ffg_type23",
+      "source": "ch_ff_type23",
+      "basis": "Same Chilean Type 23 hull, renamed by its author on 22 Oct 2026; the tracker still prices it under the old id"
+    },
+    {
+      "target": "ch_ffg_type23_pida",
+      "source": "ch_ff_type23_pida",
+      "basis": "Same Chilean Type 23 PIDAA refit hull, renamed by its author on 22 Oct 2026; the tracker still prices it under the old id"
+    },
+    {
+      "target": "ch_ffg_karel_doorman",
+      "source": "ch_ffg_karel",
+      "basis": "Same Chilean Karel Doorman hull, renamed by its author on 22 Oct 2026; the tracker still prices it under the old id"
+    },
+    {
+      "target": "ch_ffg_type22b2_barak",
+      "source": "ch_type22b2_barak",
+      "basis": "Same Chilean Type 22 Barak refit hull, renamed by its author on 22 Oct 2026; the tracker still prices it under the old id"
+    },
+    {
+      "target": "ch_ss_thomson_mlu",
+      "source": "type_209",
+      "basis": "Same Chilean Type 209/1400 hull (Thomson class), renamed by its author on 22 Oct 2026; the tracker still prices it under the old id"
+    },
+    {
+      "target": "ch_ffg_jvh",
+      "source": "rnn_ffg_van_heemskerck",
+      "basis": "Same Jacob van Heemskerck class: Chile's L class is the two Dutch hulls it bought in 2005; retain the tracker's Dutch estimate and reference basis"
+    },
+    {
+      "target": "ch_ffg_jacob_van_heemskerck",
+      "source": "rnn_ffg_van_heemskerck",
+      "basis": "Renamed Chilean Jacob van Heemskerck L-class hull (24 Oct 2026); retain the same Dutch tracker estimate and reference basis"
+    },
+    {
+      "target": "ran_ffh_anzac",
+      "basis": "Modern Anzac FFH is not the catalog Battle-class Anzac destroyer; no supported price. Map FFH to the supported FFG display category.",
+      "category": "FFG"
+    },
+    {
+      "target": "ran_ssg_collins",
+      "basis": "No Collins-class price in the captured catalog; do not substitute an Oberon or another submarine class",
+      "category": "SSG"
+    },
+    {
+      "target": "ran_aor_supply",
+      "basis": "Modern Supply-class AOR is not the catalog old HMAS Supply; retain unknown USD values and classify as AO",
+      "category": "AO"
+    },
+    {
+      "target": "ran_lsd_choules",
+      "basis": "Bay-class Choules has a Galicia model stand-in; a model donor alone does not establish an appropriate USD price",
+      "category": "LSD"
+    },
+    {
+      "target": "ran_opv_arafura",
+      "basis": "No Arafura-class price in the captured catalog; no unsupported foreign OPV price substitution",
+      "category": "OPV"
+    },
+    {
+      "target": "rfn_aor_pashin",
+      "basis": "Project 23130 Akademik Pashin (in service 2020): RUB 2.978bn lead-ship contract (bmpd) at the 2013 average 31.8614 RUB/USD",
+      "category": "AO",
+      "estimate": {
+        "historical": "93000000",
+        "historical_year": "2013",
+        "historical_method": "published price",
+        "current": "134000000",
+        "current_year": "2013",
+        "current_method": "CPI conversion",
+        "note": "Historical: 2,978M / 31.8614 = 93.47M. Current: 93.47M x 334.980 / 232.957 (CPI-U Aug 2026 / 2013) = 134.4M, rounded"
+      },
+      "sources": [
+        {
+          "title": "bmpd (CAST) LiveJournal, 22 Jan 2020",
+          "url": "https://bmpd.livejournal.com/3911104.html"
+        },
+        {
+          "title": "ExchangeRates.org.uk, US Dollar to Russian Rouble History: 2013",
+          "url": "https://www.exchangerates.org.uk/USD-RUB-spot-exchange-rates-history-2013.html"
+        },
+        {
+          "title": "US Inflation Calculator, CPI-U data 1913-2026 (BLS series)",
+          "url": "https://www.usinflationcalculator.com/inflation/consumer-price-index-and-annual-percent-changes-from-1913-to-2008/"
+        }
+      ]
+    },
+    {
+      "target": "rn_aor_tide",
+      "basis": "Tide-class MARS tanker (in service from 2017): GBP 452m four-ship DSME contract (Hansard, 22 Feb 2012) at the 2012 average 1.5849 USD/GBP; probably understates the fitted ship (UK customisation excluded)",
+      "category": "AO",
+      "estimate": {
+        "historical": "179000000",
+        "historical_year": "2012",
+        "historical_method": "published price",
+        "current": "261000000",
+        "current_year": "2012",
+        "current_method": "CPI conversion",
+        "note": "Historical: 452M x 1.5849 / 4 = 179.09M. Current: 179.09M x 334.980 / 229.594 (CPI-U Aug 2026 / 2012) = 261.3M, rounded"
+      },
+      "sources": [
+        {
+          "title": "Hansard, Commons Written Statement 'Royal Fleet Auxiliary', 22 Feb 2012 (Peter Luff)",
+          "url": "https://hansard.parliament.uk/Commons/2012-02-22/debates/12022245000007/RoyalFleetAuxiliary"
+        },
+        {
+          "title": "ExchangeRates.org.uk, British Pound to US Dollar History: 2012",
+          "url": "https://www.exchangerates.org.uk/GBP-USD-spot-exchange-rates-history-2012.html"
+        },
+        {
+          "title": "US Inflation Calculator, CPI-U data 1913-2026 (BLS series)",
+          "url": "https://www.usinflationcalculator.com/inflation/consumer-price-index-and-annual-percent-changes-from-1913-to-2008/"
+        }
+      ]
+    },
+    {
+      "target": "tha_aor_chula",
+      "basis": "No Chula-class price in the captured catalog; map the unsupported AOR prefix to AO without assigning a price",
+      "category": "AO"
+    },
+    {
+      "target": "phl_fs_pohang",
+      "source": "ko_pcc-756",
+      "basis": "Same Pohang class: the ko_pcc-756 entry covers all 24 ROKN hulls and both configs give 1,220 t; keep the author's 1984 class estimate, the 2019 donation is not a new build",
+      "category": "FS"
+    },
+    {
+      "target": "tha_ff_053HT",
+      "source": "plan_ff_jianghu3",
+      "basis": "Type 053HT is an export build of the Type 053H2 (Jianghu III); same family as plan_ff_jianghu3, the catalog's 1975 model estimate"
+    },
+    {
+      "target": "tha_ff_053HT_H",
+      "source": "plan_ff_jianghu3",
+      "basis": "Type 053HT(H) is the helideck sub-variant of the Type 053H2 (Jianghu III) export build; same family as plan_ff_jianghu3"
+    },
+    {
+      "target": "tha_ff_knox_84",
+      "source": "usn_ff_knox_84",
+      "basis": "Same class: ex-USN Knox-class frigates (Truett, Ouellet) in RTN service"
+    },
+    {
+      "target": "tha_fs_tapi",
+      "source": "ir_pf_bayandor",
+      "basis": "Same design: PF 103-class patrol frigate built for Thailand, as Iran's Bayandor class; retain the donor's 1964 reference year",
+      "category": "FS"
+    },
+    {
+      "target": "tha_ptg_prabrarapak",
+      "source": "ara_tnc54",
+      "basis": "Same design: Luerssen TNC-45, as the Argentine Intrepida class; the catalog's 1975 missile-FAC estimate"
+    },
+    {
+      "target": "ko_lph-6112",
+      "source": "ko_lph-6111",
+      "basis": "Marado, second Dokdo-class ship: same class as ko_lph-6111 (author model estimate, reference year 2006)"
+    },
+    {
+      "target": "ko_pkg-711_scl",
+      "source": "ko_pkg-711",
+      "basis": "Yoon Youngha PKG with a KVLS what-if fit: same class as ko_pkg-711; the KVLS fit is not priced"
+    },
+    {
+      "target": "plan_ddg_luda_typ_051",
+      "source": "plan_dd_luda1",
+      "basis": "Luda I (Type 051): same class as plan_dd_luda1 (author model estimate, price year 1971); classify the missile destroyer as DDG",
+      "category": "DDG"
+    },
+    {
+      "target": "plan_ddg_luda_typ_051d",
+      "source": "plan_dd_luda1",
+      "basis": "Luda Type 051D: same family as plan_dd_luda1 (author model estimate, price year 1971); classify the missile destroyer as DDG",
+      "category": "DDG"
+    },
+    {
+      "target": "plan_ddg_luda_typ_051dt",
+      "source": "plan_dd_luda1",
+      "basis": "Luda Type 051DT refit: same family as plan_dd_luda1; the refit is not priced; classify the missile destroyer as DDG",
+      "category": "DDG"
+    },
+    {
+      "target": "plan_ss_kilo",
+      "source": "wp_ss_kilo",
+      "basis": "PLAN Kilo 877EKM (364/365): same class as wp_ss_kilo (author model estimate, price year 1980)"
+    },
+    {
+      "target": "plan_type_001",
+      "source": "ru_cv_varyag",
+      "basis": "Liaoning (ex-Varyag, Project 1143.6): same hull as ru_cv_varyag (author model estimate, price year 1991)"
+    },
+    {
+      "target": "usn_ddg_arleigh_flt3_2027",
+      "source": "usn_ddg_burke_f3_125",
+      "basis": "Alias of usn_ddg_burke_f3_125: same Flight III class; no premium added for the 2027 fit"
+    },
+    {
+      "target": "usn_cvn_nimitz_2000s_adou",
+      "source": "usn_cvn_nimitz_2000s",
+      "basis": "Same Nimitz (2000s) hull as usn_cvn_nimitz_2000s; the author's early Nimitz proxy; air wing excluded"
+    },
+    {
+      "target": "usn_ffg_ohp_longhull_sh60b",
+      "source": "usn_ffg_oliver_hazard_perry_longhull",
+      "basis": "Same Oliver Hazard Perry long-hull class as usn_ffg_oliver_hazard_perry_longhull (1977 price year); embarked SH-60B excluded"
+    },
+    {
+      "target": "tha_cvl_chakri_naruebet",
+      "basis": "HTMS Chakri Naruebet: published ship cost US$285M (1993; Forecast International via Wikipedia); the 7,100M THB 1992 contract (about US$277.5M) is a cross-check",
+      "category": "CVL",
+      "estimate": {
+        "historical": "285000000",
+        "historical_year": "1993",
+        "historical_method": "published price",
+        "current": "660000000",
+        "current_year": "1993",
+        "current_method": "CPI conversion",
+        "note": "Current: 285,000,000 x 334.4 (Minneapolis Fed CPI-U, 2026 estimate) / 144.5 (1993) = 659,543,253, rounded"
+      },
+      "sources": [
+        {
+          "title": "HTMS Chakri Naruebet - Wikipedia (raw wikitext, infobox citing Forecast International 'Principe de Asturias Class - Archived 3/99', March 1998)",
+          "url": "https://en.wikipedia.org/w/index.php?title=HTMS_Chakri_Naruebet&action=raw"
+        },
+        {
+          "title": "HTMS Chakri Naruebet - Wikipedia (body, citing Carpenter & Wiencek, Asian Security Handbook 2000, p. 302)",
+          "url": "https://en.wikipedia.org/w/index.php?title=HTMS_Chakri_Naruebet&action=raw"
+        },
+        {
+          "title": "เรือหลวงจักรีนฤเบศร - Thai Wikipedia (raw wikitext)",
+          "url": "https://th.wikipedia.org/w/index.php?title=เรือหลวงจักรีนฤเบศร&action=raw"
+        },
+        {
+          "title": "Minneapolis Fed - Consumer Price Index, 1913-",
+          "url": "https://www.minneapolisfed.org/about-us/monetary-policy/inflation-calculator/consumer-price-index-1913-"
+        }
+      ]
+    },
+    {
+      "target": "tha_ffg_naresuan",
+      "basis": "Naresuan class: published 2,000M THB per ship (Wikipedia, from GlobalSecurity) at the tracker's THB Rate1990. Chinese build price: the ships were delivered incomplete and the US gun, Harpoon, Mk 32 and LW-08/STIR fitted in Thailand are probably excluded, so this understates the fitted ship; low confidence",
+      "category": "FFG",
+      "estimate": {
+        "historical": "78000000",
+        "historical_year": "1990",
+        "historical_method": "published price",
+        "current": "200000000",
+        "current_year": "1990",
+        "current_method": "CPI conversion",
+        "note": "Historical: 2e9 / 25.5854624192 = 78,169,390. Current: 78,169,390 x 334.4 / 130.7 (CPI-U 1990) = 199,998,808, rounded"
+      },
+      "sources": [
+        {
+          "title": "Naresuan-class frigate - Wikipedia",
+          "url": "https://en.wikipedia.org/w/index.php?title=Naresuan-class_frigate&action=raw"
+        },
+        {
+          "title": "เรือหลวงตากสิน - Thai Wikipedia (raw wikitext, citing GlobalSecurity 'NARESUAN (TYPE 25T) (FFG)')",
+          "url": "https://th.wikipedia.org/w/index.php?title=เรือหลวงตากสิน&action=raw"
+        },
+        {
+          "title": "Thai navy frigate damaged during exercise - Thai PBS World, 1 Aug 2023",
+          "url": "https://www.thaipbsworld.com/around-thailand/thai-navy-frigate-damaged-during-exercise"
+        },
+        {
+          "title": "Thajské fregaty - Made in China (valka.cz) - contract date",
+          "url": "https://www.valka.cz/14742-Thajske-fregaty-Made-in-China"
+        },
+        {
+          "title": "Thajské fregaty - Made in China (valka.cz) - delivered incomplete",
+          "url": "https://www.valka.cz/14742-Thajske-fregaty-Made-in-China"
+        },
+        {
+          "title": "Combat Cost Tracker currencies.ini (mods-source/3807187341/systems/combatcosts/currencies.ini)",
+          "url": "file:mods-source/3807187341/systems/combatcosts/currencies.ini"
+        },
+        {
+          "title": "Minneapolis Fed - Consumer Price Index, 1913-",
+          "url": "https://www.minneapolisfed.org/about-us/monetary-policy/inflation-calculator/consumer-price-index-1913-"
+        }
+      ]
+    },
+    {
+      "target": "tha_fs_ratanakosin",
+      "basis": "Ratanakosin class: published US$143M Tacoma Boatbuilding contract for two ships including design (Maritime Reporter, Oct 1983), halved; the design share slightly overstates the hull",
+      "category": "FS",
+      "estimate": {
+        "historical": "72000000",
+        "historical_year": "1983",
+        "historical_method": "published price",
+        "current": "240000000",
+        "current_year": "1983",
+        "current_method": "CPI conversion",
+        "note": "Historical: 143M / 2 = 71.5M. Current: 71,500,000 x 334.4 / 99.6 (CPI-U 1983) = 240,056,225, rounded"
+      },
+      "sources": [
+        {
+          "title": "Maritime Reporter, October 1983, p. 5: 'Tacoma Boat Completes $143-Million Financing To Build Two Thai Corvettes'",
+          "url": "https://magazines.marinelink.com/Magazines/MaritimeReporter/198310/page/5"
+        },
+        {
+          "title": "Minneapolis Fed - Consumer Price Index, 1913-",
+          "url": "https://www.minneapolisfed.org/about-us/monetary-policy/inflation-calculator/consumer-price-index-1913-"
+        }
+      ]
+    },
+    {
+      "target": "jmsdf_aoe_mashuu",
+      "basis": "Mashu-class AOE (FY2000 plan): published build cost JPY 43.0bn (ja.wikipedia) at the tracker's JPY Rate2000; current is ATLA's 2025 contract for the larger 14,500 t successor AOE, an upper-side proxy",
+      "category": "AOE",
+      "estimate": {
+        "historical": "399000000",
+        "historical_year": "2000",
+        "historical_method": "published price",
+        "current": "481000000",
+        "current_year": "2025",
+        "current_method": "comparable recent purchase",
+        "note": "Historical: 43e9 / 107.765498333 = 399.0M. Current: 72e9 / 149.657926891 (tracker JPY Rate2025) = 481.1M"
+      },
+      "sources": [
+        {
+          "title": "ましゅう型補給艦 (Japanese Wikipedia)",
+          "url": "https://ja.wikipedia.org/wiki/%E3%81%BE%E3%81%97%E3%82%85%E3%81%86%E5%9E%8B%E8%A3%9C%E7%B5%A6%E8%89%A6"
+        },
+        {
+          "title": "ましゅう (補給艦) (Japanese Wikipedia)",
+          "url": "https://ja.wikipedia.org/wiki/%E3%81%BE%E3%81%97%E3%82%85%E3%81%86_(%E8%A3%9C%E7%B5%A6%E8%89%A6)"
+        },
+        {
+          "title": "Japan's MHI wins contract to build new replenishment ship and two Upgraded FFM (Naval News, 16 May 2025)",
+          "url": "https://www.navalnews.com/?p=72592"
+        },
+        {
+          "title": "海自が巨大な「新型補給艦」導入へ (trafficnews.jp) - budget alternative, not used",
+          "url": "https://trafficnews.jp/post/546291"
+        }
+      ]
+    },
+    {
+      "target": "jmsdf_ddh_hyuga",
+      "basis": "Hyuga-class DDH: published USD 920m in 2004 dollars (USNI Proceedings, Oct 2007); 2004 is the budget year, the class entered service in 2009",
+      "category": "DDH",
+      "estimate": {
+        "historical": "920000000",
+        "historical_year": "2004",
+        "historical_method": "published price",
+        "current": "1629000000",
+        "current_year": "2004",
+        "current_method": "CPI conversion",
+        "note": "Current: 920M x 334.4 / 188.9 (CPI-U 2004) = 1,628.6M, rounded"
+      },
+      "sources": [
+        {
+          "title": "Combat Fleets, Proceedings October 2007 (Eric Wertheim, USNI)",
+          "url": "https://www.usni.org/magazines/proceedings/2007/october/combat-fleets"
+        },
+        {
+          "title": "Consumer Price Index, 1913- (Federal Reserve Bank of Minneapolis)",
+          "url": "https://www.minneapolisfed.org/about-us/monetary-policy/inflation-calculator/consumer-price-index-1913-"
+        }
+      ]
+    },
+    {
+      "target": "pn_ffg-06",
+      "basis": "Miguel Malvar class: published contract PHP 12.5bn (about USD 250m) per ship-platform, excluding munitions (2021); current is the Dec 2025 HD HHI contract for two frigates built to the same specification",
+      "category": "FFG",
+      "estimate": {
+        "historical": "250000000",
+        "historical_year": "2021",
+        "historical_method": "published price",
+        "current": "297000000",
+        "current_year": "2025",
+        "current_method": "comparable recent purchase",
+        "note": "Current: KRW 844.7bn / 2 / 1422.44083333 (tracker KRW Rate2025) = 296.9M, rounded"
+      },
+      "sources": [
+        {
+          "title": "Miguel Malvar-class frigate (English Wikipedia)",
+          "url": "https://en.wikipedia.org/wiki/Miguel_Malvar-class_frigate"
+        },
+        {
+          "title": "HD Hyundai Heavy Industries wins 844.7 billion won order to build two Philippine frigates (Chosun Biz, 26 Dec 2025)",
+          "url": "https://biz.chosun.com/en/en-industry/2025/12/26/YQ64R6RXBJDX7AM4Y2BD6NR6AU/"
+        }
+      ]
+    },
+    {
+      "target": "pn_ffg-150",
+      "basis": "Jose Rizal class: published Notice of Award PHP 15.745bn for two (USD 336.9m), excluding munitions (Aug 2016); the larger Miguel Malvar follow-on is not used as a current comparison",
+      "category": "FFG",
+      "estimate": {
+        "historical": "168000000",
+        "historical_year": "2016",
+        "historical_method": "published price",
+        "current": "235000000",
+        "current_year": "2016",
+        "current_method": "CPI conversion",
+        "note": "Historical: 336.912M / 2 = 168.456M. Current: 168.456M x 334.4 / 240.0 (CPI-U 2016) = 234.7M, rounded"
+      },
+      "sources": [
+        {
+          "title": "Jose Rizal-class frigate (English Wikipedia)",
+          "url": "https://en.wikipedia.org/wiki/Jose_Rizal-class_frigate"
+        },
+        {
+          "title": "Jose Rizal-class frigate (English Wikipedia), lot split",
+          "url": "https://en.wikipedia.org/wiki/Jose_Rizal-class_frigate"
+        },
+        {
+          "title": "HHI Launched the 'Jose Rizal' Frigate for the Philippines Navy (Naval News, 24 May 2019)",
+          "url": "https://www.navalnews.com/?p=4306"
+        },
+        {
+          "title": "Consumer Price Index, 1913- (Federal Reserve Bank of Minneapolis)",
+          "url": "https://www.minneapolisfed.org/about-us/monetary-policy/inflation-calculator/consumer-price-index-1913-"
+        }
+      ]
+    },
+    {
+      "target": "pn_ffg-150_2",
+      "basis": "Jose Rizal class with a VLS what-if fit: same hull and values as pn_ffg-150; the VLS fit is not priced",
+      "category": "FFG",
+      "estimate": {
+        "historical": "168000000",
+        "historical_year": "2016",
+        "historical_method": "published price",
+        "current": "235000000",
+        "current_year": "2016",
+        "current_method": "CPI conversion",
+        "note": "Same figures as pn_ffg-150"
+      },
+      "sources": [
+        {
+          "title": "Jose Rizal-class frigate (English Wikipedia)",
+          "url": "https://en.wikipedia.org/wiki/Jose_Rizal-class_frigate"
+        }
+      ]
+    },
+    {
+      "target": "plan_lpd_type_071",
+      "basis": "Type 071 LPD (first service 2007): export-family anchor, the 2019 Type 071E for Thailand at Bt6.1bn (about USD 200m, Naval News), carried back to 2007 and forward to 2026 by CPI; low confidence",
+      "category": "LPD",
+      "estimate": {
+        "historical": "162000000",
+        "historical_year": "2007",
+        "historical_method": "CPI conversion",
+        "current": "262000000",
+        "current_year": "2019",
+        "current_method": "CPI conversion",
+        "note": "Historical: 200M x 207.3 / 255.7 (CPI-U 2007 / 2019) = 162.1M. Current: 200M x 334.4 / 255.7 = 261.6M, rounded"
+      },
+      "sources": [
+        {
+          "title": "Royal Thai Navy Procures Type 071E LPD from China's CSSC (Naval News, 16 Sep 2019)",
+          "url": "https://www.navalnews.com/naval-news/2019/09/royal-thai-navy-procures-type-071e-lpd-from-chinas-cssc/"
+        },
+        {
+          "title": "Consumer Price Index, 1913- (Federal Reserve Bank of Minneapolis)",
+          "url": "https://www.minneapolisfed.org/about-us/monetary-policy/inflation-calculator/consumer-price-index-1913-"
+        }
+      ]
+    },
+    {
+      "target": "usn_tao_kaiser",
+      "basis": "Henry J. Kaiser T-AO (in service from 1986): published November 1983 contract for the first two ships, USD 239.1m / 2; current is the FY2026 John Lewis (TAO-205) replacement class, USD 1,861.7m for two (CRS R43546)",
+      "category": "AO",
+      "estimate": {
+        "historical": "120000000",
+        "historical_year": "1983",
+        "historical_method": "published price",
+        "current": "931000000",
+        "current_year": "2026",
+        "current_method": "comparable recent purchase",
+        "note": "Historical: 239.1M / 2 = 119.55M. Current: 1,861.7M / 2 = 930.85M, rounded"
+      },
+      "sources": [
+        {
+          "title": "USNS Henry J. Kaiser (Wikipedia)",
+          "url": "https://en.wikipedia.org/wiki/USNS_Henry_J._Kaiser"
+        },
+        {
+          "title": "CRS R43546, Navy John Lewis (TAO-205) Class Oiler Shipbuilding Program, updated August 1, 2025 (EveryCRSReport mirror)",
+          "url": "https://www.everycrsreport.com/files/2025-08-01_R43546_cf25c2dbfed48e0cdcc7cf4f202015c5e5035a08.html"
+        },
+        {
+          "title": "CRS R43546 (same revision)",
+          "url": "https://www.everycrsreport.com/files/2025-08-01_R43546_cf25c2dbfed48e0cdcc7cf4f202015c5e5035a08.html"
+        },
+        {
+          "title": "CRS R43546, updated January 12, 2026 (congress.gov)",
+          "url": "https://www.congress.gov/crs-product/R43546"
+        }
+      ]
+    },
+    {
+      "target": "usn_asv_saronic_corsair_scout",
+      "basis": "Saronic Corsair ASV: press-reported cost of about USD 1m per boat (San Antonio Express-News, 13 Jul 2026); no official unit price; the USD 392m Dec 2025 production contract covers an undisclosed quantity; low confidence",
+      "category": "USV",
+      "estimate": {
+        "historical": "1000000",
+        "historical_year": "2025",
+        "historical_method": "published price",
+        "current": "1000000",
+        "current_year": "2026",
+        "current_method": "published price",
+        "note": "No premium for the scout sensor fit"
+      },
+      "sources": [
+        {
+          "title": "San Antonio Express-News, Texas-built drone boats strike Iran in first such U.S. mission (13 Jul 2026)",
+          "url": "https://www.expressnews.com/business/article/austin-company-s-drone-boats-used-u-s-attack-iran-22343584.php"
+        },
+        {
+          "title": "San Antonio Express-News (same article)",
+          "url": "https://www.expressnews.com/business/article/austin-company-s-drone-boats-used-u-s-attack-iran-22343584.php"
+        },
+        {
+          "title": "ThePricer, How Much Does a Military Sea Drone Cost? (13 Jul 2026)",
+          "url": "https://www.thepricer.org/how-much-does-a-military-sea-drone-cost/"
+        }
+      ]
+    },
+    {
+      "target": "usn_usv_k5_kraken",
+      "basis": "Kraken K5 (concept): same-maker family anchor, the Royal Navy's K3 Scout contract of GBP 12.3m (USD 16.5m) for 20 boats including training and experimentation support; no K5 price published",
+      "category": "USV",
+      "estimate": {
+        "historical": "830000",
+        "historical_year": "2026",
+        "historical_method": "model estimate",
+        "current": "830000",
+        "current_year": "2026",
+        "current_method": "model estimate",
+        "note": "16.5M / 20 = 825,000, rounded"
+      },
+      "sources": [
+        {
+          "title": "Royal Navy news, Navy to buy 20 uncrewed boats as testbeds for future operations (11 Mar 2026)",
+          "url": "https://www.royalnavy.mod.uk/news/2026/march/11/20260311-kraken-usv-procurement-announcement"
+        },
+        {
+          "title": "Tectonic Defense, Kraken Secures £12.3M USV Contract with the Royal Navy (12 Mar 2026)",
+          "url": "https://www.tectonicdefense.com/kraken-secures-12-3m-usv-contract-with-the-royal-navy/"
+        },
+        {
+          "title": "Tectonic Defense (same article)",
+          "url": "https://www.tectonicdefense.com/kraken-secures-12-3m-usv-contract-with-the-royal-navy/"
+        }
+      ]
+    },
+    {
+      "target": "usn_cvn_nimitz_2027s_adou",
+      "source": "usn_cvn_nimitz_2025",
+      "basis": "Alias of usn_cvn_nimitz_2025 (same Nimitz-class model file): copies the author's mixed-Nimitz estimate exactly, with no 2027-fit premium and the air wing excluded."
+    },
+    {
+      "target": "usn_ddg_arleigh_flt2A_119_2027",
+      "source": "usn_ddg_burke_f2a_119",
+      "basis": "Alias of usn_ddg_burke_f2a_119, the same seven Flight IIA hulls (DDG-119 to 124 and 127): copies the author's Flight IIA construction-cohort estimate exactly, with no premium for the 2027 fit."
+    }
+  ],
+  "land": [
+    {
+      "target": "4tentgroup",
+      "basis": "Four GP tents at the 2003 US Army MGPTS urgent order price, USD 42.9M / 6,500 = 6,600 each x 4; barrels unpriced; CPI to Aug 2026",
+      "category": "Installation",
+      "estimate": {
+        "historical": "26400",
+        "historical_year": "2003",
+        "historical_method": "comparable recent purchase",
+        "current": "48000",
+        "current_year": "2003",
+        "current_method": "CPI conversion",
+        "note": "CPI conversion, source year 2003: 26,400 x 334.980 (CPI-U Aug 2026) / 184.0 (2003) = 48,062"
+      },
+      "sources": [
+        {
+          "title": "Johnson Outdoors Form 8-K press release, 29 Dec 2003 (SEC EDGAR) - search excerpt",
+          "url": "https://www.sec.gov/Archives/edgar/data/788329/000089706903001741/sdc598a.htm"
+        },
+        {
+          "title": "BLS CPI news release, 11 Sep 2026 (August 2026) - search excerpt",
+          "url": "https://www.bls.gov/news.release/archives/cpi_09112026.htm"
+        }
+      ]
+    },
+    {
+      "target": "airbase_raaf_curtin",
+      "basis": "RAAF Base Curtin bare base: A$64M build cost (Australian Aviation, 1988; built 1983-87) at 0.784 USD/AUD (1988 FRED average); CPI to Aug 2026",
+      "category": "Installation",
+      "estimate": {
+        "historical": "50000000",
+        "historical_year": "1988",
+        "historical_method": "published price",
+        "current": "142000000",
+        "current_year": "1988",
+        "current_method": "CPI conversion",
+        "note": "CPI conversion, source year 1988: 50,176,000 x 334.980 / 118.3"
+      },
+      "sources": [
+        {
+          "title": "Australian Aviation newsdesk item on RAAF Base Curtin (1988) - search excerpt",
+          "url": "https://australianaviation.com.au/?p=1403894"
+        },
+        {
+          "title": "RAAF, 'Opening of RAAF Base Curtin' (11 Jun 1988) - search excerpt",
+          "url": "https://www.airforce.gov.au/about-us/history/our-journey/opening-raaf-base-curtin"
+        },
+        {
+          "title": "FRED EXUSAL, U.S. Dollars to Australian Dollar Spot Exchange Rate (monthly) - search excerpt",
+          "url": "https://fred.stlouisfed.org/data/EXUSAL"
+        },
+        {
+          "title": "BLS CPI news release, 11 Sep 2026 (August 2026) - search excerpt",
+          "url": "https://www.bls.gov/news.release/archives/cpi_09112026.htm"
+        }
+      ]
+    },
+    {
+      "target": "airbase_raaf_tindal",
+      "basis": "RAAF Base Tindal: Stage 1 redevelopment for No 75 Sqn F/A-18s, A$167M at Dec 1983 prices (PWC 1984) at 0.879 USD/AUD; later stages excluded, so a lower bound; CPI to Aug 2026",
+      "category": "Installation",
+      "estimate": {
+        "historical": "147000000",
+        "historical_year": "1984",
+        "historical_method": "published price",
+        "current": "473000000",
+        "current_year": "1984",
+        "current_method": "CPI conversion",
+        "note": "CPI conversion, source year 1984: 146,793,000 x 334.980 / 103.9 (lower bound: Stage 1 only)"
+      },
+      "sources": [
+        {
+          "title": "Department of Defence submission to the PWC, RAAF Base Tindal Stage 5 (sub001) - search excerpt",
+          "url": "https://aphref.aph.gov.au/house/committee/pwc/tindalstage5/subs/sub001.pdf"
+        },
+        {
+          "title": "Parliament of Australia, PWC Tindal document (same search) - search excerpt",
+          "url": "https://aphref.aph.gov.au/house/committee/pwc/tindal/report/chapter5.htm"
+        },
+        {
+          "title": "FRED EXUSAL (monthly) - search excerpt",
+          "url": "https://fred.stlouisfed.org/data/EXUSAL"
+        },
+        {
+          "title": "BLS CPI news release, 11 Sep 2026 (August 2026) - search excerpt",
+          "url": "https://www.bls.gov/news.release/archives/cpi_09112026.htm"
+        }
+      ]
+    },
+    {
+      "target": "Coal_PowerPlant",
+      "basis": "Generic coal power plant priced as EIA's AEO2023 reference 650 MW ultra-supercritical unit, USD 4,507/kW overnight (2022 USD) = USD 2.93bn; capacity assumed",
+      "category": "Installation",
+      "estimate": {
+        "historical": "",
+        "current": "2930000000",
+        "current_year": "2022",
+        "current_method": "documented replacement estimate",
+        "note": "documented replacement estimate, source year 2022 (EIA overnight cost, 2022 USD, no inflation applied per README)"
+      },
+      "sources": [
+        {
+          "title": "EIA, AEO2023 cost and performance characteristics of new generating technologies (Table 8.2 / Table 1) - search excerpt",
+          "url": "https://www.eia.gov/outlooks/aeo/assumptions/pdf/table_8.2.pdf"
+        }
+      ]
+    },
+    {
+      "target": "de_pzh2000",
+      "basis": "PzH 2000: March 2023 Bundeswehr call-off of 10 new guns for about EUR 184M (BMVg/ESuT) at IRS 2023 0.924 EUR/USD; historical is a CPI backcast to the 1998 IOC",
+      "category": "Artillery",
+      "estimate": {
+        "historical": "10700000",
+        "historical_year": "1998",
+        "historical_method": "CPI conversion",
+        "current": "19900000",
+        "current_year": "2023",
+        "current_method": "comparable recent purchase",
+        "note": "comparable recent purchase, source year 2023 (Bundeswehr call-off of 10 new guns; 2023 USD, no inflation applied)"
+      },
+      "sources": [
+        {
+          "title": "ESuT / BMVg, March 2023 PzH 2000 call-off - search excerpt",
+          "url": "https://esut.de/2023/03/meldungen/41081/nur-zehn-panzerhaubitzen-2000-werden-nachbeschafft/"
+        },
+        {
+          "title": "IRS, Yearly average currency exchange rates - search excerpt",
+          "url": "https://www.irs.gov/individuals/international-taxpayers/yearly-average-currency-exchange-rates"
+        },
+        {
+          "title": "Minneapolis Fed, Consumer Price Index 1913- - search excerpt",
+          "url": "https://www.minneapolisfed.org/about-us/monetary-policy/inflation-calculator/consumer-price-index-1913-"
+        }
+      ]
+    },
+    {
+      "target": "fr_afv_jaguar",
+      "basis": "EBRC Jaguar: EUR 6M programme unit cost (Assemblee nationale avis, PLF 2018, repeated in PLF 2020) at tracker EUR Rate2020; CPI to 2026",
+      "category": "Vehicle",
+      "estimate": {
+        "historical": "6850000",
+        "historical_year": "2020",
+        "historical_method": "published price",
+        "current": "8860000",
+        "current_year": "2020",
+        "current_method": "CPI conversion",
+        "note": "CPI conversion (fallback), source year 2020: EUR 6.0M / 0.875506396988 (tracker EUR Rate2020) = 6,853,177 x 334.4 / 258.8 = 8,855,109; no later unit price found"
+      },
+      "sources": [
+        {
+          "title": "Assemblee nationale, avis n° 277 tome IV (PLF 2018) and avis n° 1954 (PLF 2020) - search excerpt",
+          "url": "https://www.assemblee-nationale.fr/dyn/docs/AVISANR5L15B0277-tIV.raw"
+        },
+        {
+          "title": "Combat Cost Tracker currencies.ini [Currency_EUR]",
+          "url": "mods-source/3807187341/systems/combatcosts/currencies.ini"
+        },
+        {
+          "title": "Minneapolis Fed, Consumer Price Index 1913- - search excerpt",
+          "url": "https://www.minneapolisfed.org/about-us/monetary-policy/inflation-calculator/consumer-price-index-1913-"
+        }
+      ]
+    },
+    {
+      "target": "fr_apc_griffon",
+      "basis": "VBMR Griffon: EUR 1.5M forecast average unit price (Senat and Assemblee nationale PLF 2018 avis, 2017) at tracker EUR Rate2020; current by CPI because no recent purchase price exists",
+      "category": "Vehicle",
+      "estimate": {
+        "historical": "1710000",
+        "historical_year": "2020",
+        "historical_method": "published price",
+        "current": "2210000",
+        "current_year": "2020",
+        "current_method": "CPI conversion",
+        "note": "CPI conversion (fallback), source year 2020: 1,713,294 x 334.4 / 258.8 = 2,213,777; no recent Griffon purchase price found"
+      },
+      "sources": [
+        {
+          "title": "Senat, Avis PLF 2018 Defense: Equipement des forces / commission compte rendu Nov 2017 - search excerpt",
+          "url": "https://www.senat.fr/rap/a17-110-8/a17-110-818.html"
+        },
+        {
+          "title": "Assemblee nationale avis n° 277 tome IV (PLF 2018) - search excerpt",
+          "url": "https://www.assemblee-nationale.fr/dyn/opendata/AVISANR5L15B0277-tIV.html"
+        },
+        {
+          "title": "Combat Cost Tracker currencies.ini [Currency_EUR]",
+          "url": "mods-source/3807187341/systems/combatcosts/currencies.ini"
+        },
+        {
+          "title": "Minneapolis Fed, Consumer Price Index 1913- - search excerpt",
+          "url": "https://www.minneapolisfed.org/about-us/monetary-policy/inflation-calculator/consumer-price-index-1913-"
+        }
+      ]
+    },
+    {
+      "target": "idf_dsws_radar",
+      "basis": "EL/M-2084 MMR: Czech Dec 2019 government contract for 8 ELM-2084 MADR radars, USD 125M (IAI); CPI to 2026",
+      "category": "Radar",
+      "estimate": {
+        "historical": "15600000",
+        "historical_year": "2019",
+        "historical_method": "published price",
+        "current": "20400000",
+        "current_year": "2019",
+        "current_method": "CPI conversion",
+        "note": "CPI conversion (fallback), source year 2019: 15,625,000 x 334.4 / 255.7"
+      },
+      "sources": [
+        {
+          "title": "IAI press release / EDR Magazine / Janes (Dec 2019), Czech MADR - search excerpt",
+          "url": "https://www.iai.co.il/press/iais-elta-awarded-125-million-dollar-contract-for-czech-mobile-air-defence-radar-madr-program/"
+        },
+        {
+          "title": "Minneapolis Fed, Consumer Price Index 1913- - search excerpt",
+          "url": "https://www.minneapolisfed.org/about-us/monetary-policy/inflation-calculator/consumer-price-index-1913-"
+        }
+      ]
+    },
+    {
+      "target": "kr_k9",
+      "basis": "K9: current from India's Dec 2024 contract for 100 licence-built K9 Vajra-T (INR 7,628.70 crore); historical a CPI backcast to the 1999 IOC of the ROK Army's own reported unit price, about KRW 4bn (2020)",
+      "category": "Artillery",
+      "estimate": {
+        "historical": "2180000",
+        "historical_year": "1999",
+        "historical_method": "CPI conversion",
+        "current": "9120000",
+        "current_year": "2024",
+        "current_method": "comparable recent purchase",
+        "note": "comparable recent purchase, source year 2024 (India, 100 K9 Vajra-T, INR 7,628.70 crore at IRS 2024 83.677 INR/USD; 2024 USD)"
+      },
+      "sources": [
+        {
+          "title": "PIB release 20 Dec 2024 as reproduced by DRDO news compilation / SP's Land Forces - search excerpt",
+          "url": "https://drdo.gov.in/drdo/sites/default/files/drdo-news-documents/NPC21to23Dec2024.pdf"
+        },
+        {
+          "title": "IRS, Yearly average currency exchange rates - search excerpt",
+          "url": "https://www.irs.gov/individuals/international-taxpayers/yearly-average-currency-exchange-rates"
+        },
+        {
+          "title": "Korea JoongAng Daily, 'Korea defense exports: more bang for the buck' - search excerpt",
+          "url": "https://www.koreajoongangdaily.com/business/korea-defense-exports-more-bang-for-the-buck/11882332"
+        },
+        {
+          "title": "Asia Business Daily (asiae), Apr 2020 - search excerpt",
+          "url": "https://view.asiae.co.kr/article/2020040310454451002"
+        },
+        {
+          "title": "Combat Cost Tracker currencies.ini [Currency_KRW]",
+          "url": "mods-source/3807187341/systems/combatcosts/currencies.ini"
+        },
+        {
+          "title": "Minneapolis Fed, Consumer Price Index 1913- - search excerpt",
+          "url": "https://www.minneapolisfed.org/about-us/monetary-policy/inflation-calculator/consumer-price-index-1913-"
+        }
+      ]
+    },
+    {
+      "target": "nato_large_pvo_airbase1",
+      "basis": "Barksdale AFB (the unit's names-file identity): FY24 Air Force economic impact statement, total plant replacement value USD 3,954,865,072",
+      "category": "Installation",
+      "estimate": {
+        "historical": "",
+        "current": "3950000000",
+        "current_year": "2024",
+        "current_method": "documented replacement estimate",
+        "note": "documented replacement estimate, source year 2024 (Barksdale AFB total plant replacement value, data as of 10 Mar 2025)"
+      },
+      "sources": [
+        {
+          "title": "AFGSC, Barksdale Economic Impact FY 24 - search excerpt",
+          "url": "https://www.afgsc.af.mil/Portals/51/Base%20Econ%20Impact%20Homepage/Base%20EIS%20PDFs%20FY24/Barksdale%20Economic%20Impact%20FY%2024.pdf"
+        }
+      ]
+    },
+    {
+      "target": "pla_9k331",
+      "basis": "Tor-M1: Iran's Dec 2005 deal, USD 700M for 29 Tor-M1 (plus two Pechora-2A, missiles and support; RFE/RL citing Russian media), an upper bound per system; CPI to 2026",
+      "category": "SAM",
+      "estimate": {
+        "historical": "24100000",
+        "historical_year": "2005",
+        "historical_method": "published price",
+        "current": "41300000",
+        "current_year": "2005",
+        "current_method": "CPI conversion",
+        "note": "CPI conversion (fallback), source year 2005: 24,137,931 x 334.4 / 195.3 = 41,329,873 (upper bound)"
+      },
+      "sources": [
+        {
+          "title": "RFE/RL, 'Russia: Moscow Confirms Missile-Systems Deal With Iran' (10 Feb 2006) - search excerpt",
+          "url": "https://www.rferl.org/a/1065656.html"
+        },
+        {
+          "title": "Minneapolis Fed, Consumer Price Index 1913- - search excerpt",
+          "url": "https://www.minneapolisfed.org/about-us/monetary-policy/inflation-calculator/consumer-price-index-1913-"
+        }
+      ]
+    },
+    {
+      "target": "thaad_tel",
+      "basis": "THAAD launcher: Lockheed Martin Aug 2012 MDA award, USD 150M for 12 launchers plus 2 fire control units and support equipment; upper bound per launcher; CPI to Aug 2026",
+      "category": "SAM",
+      "estimate": {
+        "historical": "12500000",
+        "historical_year": "2012",
+        "historical_method": "published price",
+        "current": "18200000",
+        "current_year": "2012",
+        "current_method": "CPI conversion",
+        "note": "CPI conversion (fallback), source year 2012: 12,500,000 x 334.980 / 229.594 (upper bound per launcher)"
+      },
+      "sources": [
+        {
+          "title": "Lockheed Martin, 'Lockheed Martin Receives $150 Million Contract To Produce THAAD Weapon System Equipment For The U.S. Army' (15 Aug 2012) - search excerpt",
+          "url": "https://news.lockheedmartin.com/2012-08-15-Lockheed-Martin-Receives-150-Million-Contract-To-Produce-THAAD-Weapon-System-Equipment-For-The-U-S-Army"
+        },
+        {
+          "title": "BLS CPI news release, 11 Sep 2026 (August 2026) - search excerpt",
+          "url": "https://www.bls.gov/news.release/archives/cpi_09112026.htm"
+        }
+      ]
+    },
+    {
+      "target": "usa_an_mpq-65_radar",
+      "basis": "AN/MPQ-65: Army PEO Missiles and Space (Maj. Gen. Lozano, Mar 2025) says the legacy Patriot radar is built for USD 110-115M a copy; midpoint",
+      "category": "Radar",
+      "estimate": {
+        "historical": "",
+        "current": "112500000",
+        "current_year": "2025",
+        "current_method": "documented replacement estimate",
+        "note": "comparable recent purchase, source year 2025 (Army PEO's stated current build cost of the legacy radar, midpoint of USD 110-115M)"
+      },
+      "sources": [
+        {
+          "title": "Defense News / Military Times, 'Army to make new missile defense radars after year of troubleshooting' (28 Mar 2025) - search excerpt",
+          "url": "https://www.defensenews.com/land/2025/03/28/army-to-make-new-missile-defense-radars-after-year-of-troubleshooting/"
+        }
+      ]
+    },
+    {
+      "target": "usa_car_hemtt",
+      "basis": "HEMTT A4: Oshkosh June 2008 release, A4 production totalling 1,978 vehicles at USD 658M (mixed-variant average); CPI to 2026",
+      "category": "Vehicle",
+      "estimate": {
+        "historical": "333000",
+        "historical_year": "2008",
+        "historical_method": "published price",
+        "current": "517000",
+        "current_year": "2008",
+        "current_method": "CPI conversion",
+        "note": "CPI conversion (fallback), source year 2008: 332,659 x 334.4 / 215.3"
+      },
+      "sources": [
+        {
+          "title": "Oshkosh Defense release, 4 Jun 2008 (HEMTT A4 modification) - search excerpt",
+          "url": "https://oshkoshdefense.com/?p=5611"
+        },
+        {
+          "title": "Minneapolis Fed, Consumer Price Index 1913- - search excerpt",
+          "url": "https://www.minneapolisfed.org/about-us/monetary-policy/inflation-calculator/consumer-price-index-1913-"
+        }
+      ]
+    },
+    {
+      "target": "wp_an_tpy_2",
+      "basis": "AN/TPY-2: Raytheon Dec 2011 award, USD 363.9M for two THAAD radars; current is a CPI conversion of the Dec 2012 USD 207.9M single-radar modification",
+      "category": "Radar",
+      "estimate": {
+        "historical": "182000000",
+        "historical_year": "2011",
+        "historical_method": "published price",
+        "current": "303000000",
+        "current_year": "2012",
+        "current_method": "CPI conversion",
+        "note": "CPI conversion (fallback), source year 2012: 207,922,395 (Dec 2012 single-radar modification) x 334.980 / 229.594"
+      },
+      "sources": [
+        {
+          "title": "Raytheon release, 'Raytheon Awarded Contract for $363.9 Million for two Radars' (30 Dec 2011, via GlobalSecurity) - search excerpt",
+          "url": "https://www.globalsecurity.org/space/library/news/2011/space-111230-raytheon02.htm"
+        },
+        {
+          "title": "Raytheon, 'Missile Defense Agency awards Raytheon $208 million contract modification for AN/TPY-2 radar' (14 Dec 2012) - search excerpt",
+          "url": "https://raytheon.mediaroom.com/2012-12-14-Missile-Defense-Agency-awards-Raytheon-208-million-contract-modification-for-AN-TPY-2-radar"
+        },
+        {
+          "title": "BLS CPI news release, 11 Sep 2026 (August 2026) - search excerpt",
+          "url": "https://www.bls.gov/news.release/archives/cpi_09112026.htm"
+        }
+      ]
+    }
+  ]
+}

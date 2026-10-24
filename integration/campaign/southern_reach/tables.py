@@ -119,10 +119,33 @@ ROSTER = [
     dict(unit="raaf_mq-4c_triton", picks=["Squadron1"], points=40,
          note="unarmed in this implementation, so priced under the P-8 and "
               "the F-35A"),
-    dict(unit="usn_mh-60r", picks=[RAN_SEAHAWK], points=20,
+    dict(unit="ran_mh-60r", picks=[RAN_SEAHAWK], points=20,
          note="816 Squadron RAN; one family chosen explicitly - usn_mh-60r_26 "
               "is a different unit and is never substituted for it"),
 ]
+
+# The allied reserve. The owner's decision Q3 of 20 Oct 2026 put three
+# escort classes - Type 23, Mogami and Daegu - on sale from Tasman Crossing,
+# the first window after TANGO, the Tasman chapter's first authorised kill
+# (Chatham Watch): allies arrive once there is a war in these waters. Until
+# then the unreleased build sold them at every window. On 21 Oct, retiring
+# the Open Allocation version, the owner put everything it sold here from
+# the same window: the whole allied fleet (allied_fleet.ALLIED), at its own
+# navies' prices. Earlier windows keep the story's own lists. The bible's
+# rule that an allied aircraft is a theatre asset that "never join[s] the
+# owned roster" holds until Tasman Crossing; from there an allied aircraft
+# is sold where a row here launches and recovers it
+# (build_pack.admit_reserve_aircraft). No hull a mission places is sold:
+# JS Mogami (Variant1) and Daegu (Variant1) sail in Southern Watch's Common
+# Sea and O3 and Red Line's The Other Picture, and HMAS Choules and every
+# Supply-class AOR in this campaign or Southern Watch, so those two classes
+# are left out (mission_depth.apply_reserve). Later that day (step 2) the
+# same window opened the whole roster too: from Tasman Crossing every force
+# allocation offers all of the RAN's own units with the fleet, as the
+# version did from the first (mission_depth.open_from). The missions' own
+# lists from TS04 are the story's, which those windows sold until then;
+# Southern Cross's sold no Hobart.
+RESERVE_FLEET = dict(opens="TS04")
 
 # The same RAN ladder Southern Watch uses (the base game's own, from Pacific
 # Strike's commander_settings.ini). Level 6 is Captain: the commander who

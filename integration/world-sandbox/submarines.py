@@ -57,10 +57,8 @@ SUB_BASES = [
         ("ger_ssk_type_212a_batch1", 4)], yard=False, depot=False),
     naval("Spain", "home_esp_cartagena", "Cartagena Naval Base", 37.59, -0.98, [],
           yard=False, depot=False),
-    naval("Greece", "home_grc_salamis", "Salamis Naval Base", 37.97, 23.545, [
-        ("type_209", 4)], yard=False),
-    naval("Turkey", "home_tur_golcuk", "Golcuk Naval Base", 40.72, 29.81, [
-        ("type_209", 4)]),
+    naval("Greece", "home_grc_salamis", "Salamis Naval Base", 37.97, 23.545, [], yard=False),
+    naval("Turkey", "home_tur_golcuk", "Golcuk Naval Base", 40.72, 29.81, []),
     naval("Russia", "home_rus_zaozersk", "Zaozersk (Zapadnaya Litsa)", 69.438, 32.38, [],
           yard=False, depot=False),
 ]
@@ -91,8 +89,9 @@ SUB_ADD = {
     "home_fra_toulon": [("fr_ssn_suffren", 2, None)],
     "home_jpn_kure": [("jmsdf_ssn_unryu", 4, None)],
     # KSS-I (Type 209/1200) boats still in service in 2028, the youngest three.
-    "home_kor_jinhae": [("type_209", 3, ["ROKS Lee Sunsin SS-068", "ROKS Na Daeyong SS-069",
-                                         "ROKS Lee Eokgi SS-071"])],
+    "home_kor_jinhae": [("ch_ss_thomson_mlu", 3, ["ROKS Lee Sunsin SS-068",
+                                                  "ROKS Na Daeyong SS-069",
+                                                  "ROKS Lee Eokgi SS-071"])],
     "home_ind_mumbai": [("ch_ss_scorpene", 4, ["INS Kalvari", "INS Khanderi", "INS Karanj",
                                                "INS Vela"])],
     "home_isr_haifa": [("ger_ssk_type_212a_batch1", 3, ["INS Dolphin", "INS Tanin", "INS Rahav"])],
@@ -100,7 +99,19 @@ SUB_ADD = {
     # The 2028 boats are the baseline S-80s; the S-80 Plus refits come later.
     "home_esp_cartagena": [("ae_ssk_s80", 2, ["S81 Isaac Peral (Early)",
                                               "S82 Narciso Monturiol (Early)"])],
-    "home_egy_alexandria": [("type_209", 4, None)],
+    # The Type 209 stand-ins sail under their real boats' names (22 Oct 2026):
+    # unnamed, each would show the stand-in hull's default name, which since
+    # Chile's update that day is its own lead boat, "Thomson". Greece's four
+    # are the Type 214s (Papanikolis class), the boats sure to be in service
+    # in 2028 while the older 209s are being replaced; Turkey's the Gur class
+    # (Type 209/1400); Egypt's boats have numbers, not names.
+    "home_grc_salamis": [("ch_ss_thomson_mlu", 4, ["HS Papanikolis S-120", "HS Pipinos S-121",
+                                                   "HS Matrozos S-122", "HS Katsonis S-123"])],
+    "home_tur_golcuk": [("ch_ss_thomson_mlu", 4, ["TCG Gur S-357", "TCG Canakkale S-358",
+                                                  "TCG Burakreis S-359",
+                                                  "TCG Birinci Inonu S-360"])],
+    "home_egy_alexandria": [("ch_ss_thomson_mlu", 4, ["S41 (861)", "S42 (864)", "S43 (867)",
+                                                      "S44 (870)"])],
     # PLA Navy: about 60 boats in 2028 - six Jin-class SSBNs at Longpo, the
     # Shang SSNs at Qingdao (Jianggezhuang) and Yulin, Yuan, Song and Kilo
     # boats with the three theater fleets.
@@ -187,12 +198,19 @@ MAPPINGS = {
                                              "Dolphin II is a 212 derivative"),
     ("Norway", "ger_ssk_type_212a_batch1"): ("representative", "Ula class (Type 210)", "Germany", ""),
     ("Spain", "ae_ssk_s80"): ("exact", "S-80 class (baseline, before the AIP refit)", "Spain", ""),
-    ("Greece", "type_209"): ("same family", "Type 209 (Poseidon, Glavkos) and Type 214 (Papanikolis)",
-                             "Chile", ""),
-    ("Turkey", "type_209"): ("same class", "Preveze and Gur classes (Type 209/1400)", "Chile", ""),
-    ("Egypt", "type_209"): ("same class", "Type 209/1400mod", "Chile", ""),
-    ("South_Korea", "type_209"): ("same class", "Jang Bogo class, KSS-I (Type 209/1200)", "Chile",
-                                  "Euromod's own KSS boats are unusable (UNUSABLE)"),
+    # The Type 209 stand-in is Chile's Thomson class (renamed from type_209
+    # on 22 Oct 2026): the same 209/1400 hull and model, now in Chile's
+    # refit fit (SUBTICS, Black Shark, SM-39 Block 2). Every boat is named
+    # (SUB_ADD), so none shows the hull's default name, Chile's "Thomson".
+    ("Greece", "ch_ss_thomson_mlu"): ("same family", "Type 214 (Papanikolis class)", "Chile",
+                                      "the 214 is HDW's development of the 209; Greece's "
+                                      "remaining Type 209s (Poseidon, Glavkos) are not placed"),
+    ("Turkey", "ch_ss_thomson_mlu"): ("same class", "Preveze and Gur classes (Type 209/1400)",
+                                      "Chile", ""),
+    ("Egypt", "ch_ss_thomson_mlu"): ("same class", "Type 209/1400mod", "Chile", ""),
+    ("South_Korea", "ch_ss_thomson_mlu"): ("same class", "Jang Bogo class, KSS-I (Type 209/1200)",
+                                           "Chile",
+                                           "Euromod's own KSS boats are unusable (UNUSABLE)"),
     ("Australia", "ran_ssg_collins"): ("representative", "Collins class", "Australia",
                                        "SEST_RAN_Fleet's Collins stand-in hull, under the real names"),
     ("France", "fr_ssbn_triomphant"): ("exact", "Triomphant class", "France", ""),

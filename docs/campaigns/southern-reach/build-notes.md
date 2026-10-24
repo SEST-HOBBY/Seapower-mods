@@ -311,7 +311,9 @@ Allocation", which offers the whole roster at every open force-allocation
 window (the P-8, Triton, Wedgetail, F-35A, Super Hornet and Growler are on
 sale at SR01) and is otherwise this campaign, line for line, loading these
 missions by path. Why a twin and what it changes: Southern Watch build notes,
-"Open Allocation"; test card 6G there.
+"Open Allocation"; test card 6G there. Retired from the pack on 21 October
+2026: Southern Watch build notes, "Open Allocation retired from the pack
+(21 October 2026)".
 
 ## Same-nation discount (28 September)
 
@@ -612,3 +614,68 @@ Every brief says when to expect what is held back; the briefing chart does
 not draw it. Whether a unit the game switches on at its minute then flies
 its route, and whether this AI's Tight holds against an identified
 aircraft, are for the test card (4.13 to 4.16).
+
+## 21 October: the allied fleet in the standard campaigns
+
+The allied reserve sold Type 23, Mogami and Daegu from *Tasman Crossing*
+from 20 October (the owner's Q3). On 21 October, retiring the Open
+Allocation version, the owner put everything it sold beyond the story's
+lists in this campaign from the same window: `RESERVE_FLEET =
+dict(opens="TS04")` in `southern_reach/tables.py`. From the window before
+TS04, at every force allocation to TS12, the builder now also offers 52
+allied ship classes of eleven navies - carriers, amphibious and
+replenishment ships, destroyers and frigates - HMAS Adelaide (Canberra
+class, Variant2), and the 10 allied aircraft types a row here launches and
+recovers: F-22, P-8A (2027), F-35C, F-15E, F/A-18E, the RAF and German
+Typhoons, Atlantique 2, SH-60K and SH-60J. The roster goes from 13
+entries to 73; the windows before TS04 are unchanged, and from TS04 they
+sell 73 units (72 at TS12). The bible's line that every allied aircraft is
+a theatre asset that never joins the owned roster holds until *Tasman
+Crossing* (`campaign-bible.md`, dated note).
+
+Left out, and why (the build log, and `coverage.md`, "The reserve"):
+HMAS Choules and the Supply-class AOR, whose every hull a mission places,
+and 28 aircraft. Eight are fighters with no field in reach of *Southern
+Cross*'s and *Tasman Crossing*'s Combat Air Patrol cockpits (the F-15EX,
+F-16CM, both Rafales, both AV-8B+, the Spanish Typhoon and the F-2A); the
+MQ-9ER and eight helicopters have no deck or field in reach of a Recon or
+Ship's Flight row; the bombers, the tanker, the UH-1Y, Tigre and AH-64E
+are taken by no row; the E-3G, both E-2Ds and the AC-130J are taken by a
+row that offers none of their fits. Seven mods the campaign did not use
+are its hard requirements now (the Eurofighter Typhoon, F-15E Strike
+Eagle, F-22 Raptor, Italian Navy Mod and the Modern Dutch, Italian and
+JMSDF Euromods): REQUIRED-MODS goes from 45 hard-required to 52, and the
+SEST packs from 12 to 13 (SEST F-35C JATM).
+
+How it is built, judged and worded: Southern Watch build notes, "21
+October: the allied fleet in the standard campaigns". Test card 2.11.
+
+Later the same day (step 2) the same window opened the whole roster: from
+the window before TS04 every force allocation offers all 73 units - the
+campaign's own ten with the fleet - as the version did from the first, so
+*Southern Cross*'s window, whose story list held back the Hobart, offers
+one (72 to 73; TS04 to TS11 were already 73). The windows before TS04 are
+as they were, and still sell nothing allied. Each window from TS04 ends
+"This force allocation offers the campaign's whole roster and, at their
+own navies' prices, the allied fleet - ...". Southern Watch build notes,
+"Step 2: the whole roster from the opening".
+
+## Sea Power 0.8.7 and the 22 October mod updates (22 October)
+
+Southern Watch build notes, "Sea Power 0.8.7 and the 22 October mod
+updates", has the record (and `docs/workshop-refresh-20261022-review.md`).
+For this campaign only the roster's comment lines moved: the allied classes
+carry the mods' new names (Wasp-class (Late), Juan Carlos I-class L61,
+Galicia L50-class L50, Meteoro-class BAM) and the Juan Carlos's new
+loadouts. In game, the Southern Watch notes' SM-6 and Anchorchain items
+apply here too: the Hobarts' SM-6 Block I keeps 300 s, and the Anzacs' and
+Hobarts' NSM and the AIM-120s fly their base files' figures again. Until 23
+Oct SEST's runtime plugin was off on 0.8.7, so the debrief's lost-ship rows
+were the game's own. Every pack declares 0.8.7. *23 Oct 2026:* the owner's
+export supplied the 0.8.7 game assembly, and the plugin is matched to 0.8.7
+with both corrections on (`integration/runtime-fixes/README.md`, *Re-gated
+to Sea Power 0.8.7*). The debrief correction fills in the generated
+missions. The ones played as written (SR02, SR05 and TS05 here) give the
+player's ships no `CampaignTag`, so the game keeps no loss record for them:
+by 0.8.7's code a ship sunk there is listed without a Lost status
+(Undamaged), and the correction cannot add one either. Not yet seen in game.

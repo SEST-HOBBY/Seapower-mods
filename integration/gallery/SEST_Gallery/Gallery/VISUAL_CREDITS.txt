@@ -770,7 +770,21 @@ File:SM-3 launch-USS Decatur.jpg
 Creator: United States Navy photo
 Source: https://commons.wikimedia.org/wiki/File:SM-3_launch-USS_Decatur.jpg
 Licence: Public domain
-Used in: Latest update (13 and 14 Oct 2026). The same photograph is loading screen 27 (LOADING-SCREEN-CREDITS.txt).
+Used in: Latest update until 19 Oct 2026 (the 13 and 14 Oct cards). The same photograph is loading screen 27 (LOADING-SCREEN-CREDITS.txt).
+
+A-10C Thunderbolt II
+File:A-10C arrives in Davis-Monthan.jpg
+Creator: U.S. Air Force photo/Airman 1st Class Alesia Goosic
+Source: https://commons.wikimedia.org/wiki/File:A-10C_arrives_in_Davis-Monthan.jpg
+Licence: Public domain
+Used in: Latest update on 19 Oct 2026
+
+Gerald R. Ford class
+File:USS Gerald R. Ford (CVN-78) underway on 8 April 2017.JPG
+Creator: U.S. Navy photo by Mass Communication Specialist 2nd Class Ridge Leoni
+Source: https://commons.wikimedia.org/wiki/File:USS_Gerald_R._Ford_(CVN-78)_underway_on_8_April_2017.JPG
+Licence: Public domain
+Used in: Latest update (20 Oct 2026)
 
 MH-60R Seahawk
 File:MH-60R Seahawk from HSM-37 during counterdrug operations (200713-N-FA490-1857).jpg
@@ -785,6 +799,13 @@ Creator: China News Service
 Source: https://commons.wikimedia.org/wiki/File:Chinese_aircraft_carrier_Fujian_flight_deck.jpg
 Licence: CC BY 4.0 https://creativecommons.org/licenses/by/4.0
 Used in: Red Line (the in-game campaign map inset; the campaign screen's backdrop in game)
+
+Canberra class LHD
+File:HMAS Canberra at HMAS Kuttabul December 2021.jpg
+Creator: Nick-D
+Source: https://commons.wikimedia.org/wiki/File:HMAS_Canberra_at_HMAS_Kuttabul_December_2021.jpg
+Licence: CC BY-SA 4.0 https://creativecommons.org/licenses/by-sa/4.0
+Used in: Southern Reach (the in-game campaign map inset; the campaign screen's backdrop in game). The adapted image is shared under the same licence.
 
 Miguel Malvar class frigate
 File:BRP Miguel Malvar in Subic.jpg

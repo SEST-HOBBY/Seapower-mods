@@ -63,7 +63,7 @@ own fixed force, as Southern Cross does.
 | ID · date | Operation | Task | Forces and mods put to work | Link |
 |---|---|---|---|---|
 | O5 · 21 Oct | **Paper Trail** | North of Tanimbar, a week before anyone may shoot: shadow a Meridian-escorted merchant to her handover and identify the receiver among three waiting ships, with two uncrewed boats doing the close work and the patrol ship kept out of the escort's sight (an `unseen` objective). | HMAS Eyre; **Anduril K5 KRAKEN** under the RAN flag and a **Saronic Corsair Scout** lent by the US Navy (both first use). A Peykaap escort, a Meridian-chartered coaster. | writes `O5ReceiverNamed` |
-| SW04 · 30 Oct (core) | The Quiet Passenger | As built. | As built. | reads `O5ReceiverNamed`: the passenger starts as a fifteen-minute datum (the bible's "likely patrol lane") |
+| SW04 · 30 Oct (core) | The Quiet Passenger | As built. | As built. | reads `O5ReceiverNamed`: the passenger starts as a fifteen-minute datum (the bible's "likely patrol lane"), beside O2's datum on the submarine. From 18 to 20 Oct 2026 the builder dropped this read (O2's replaced it); the test card's 6.6a checks both |
 | O6 · 3 Nov | **The Second Convoy** | The day after Weapons Free, between Tanimbar and Kai: stop two cargo ships running dark for Biak before they reach the Banda Sea, past an armed merchant, two boats, a radar decoy that radiates like a frigate and a trawler with a hidden torpedo tube. | The player's detachment and Seahawk. The armed `wp_ms_andizhan_armed` (first use), the radar decoy `wp_ms_mercur_decoy`, Peykaaps, Project 2498's armed Okean. | reads `O5ReceiverNamed`: both cargo ships start classified |
 
 ### Major assault (chained)
@@ -81,7 +81,25 @@ own fixed force, as Southern Cross does.
 | O8 · 15 Nov | **Bomber Stream** | Four H-6K with YJ-12 and two J-16 for the ships forming at Darwin: shoot down three bombers before any is inside two hundred miles, with a Darwin-Denpasar airliner crossing the intercept. | Four RAAF F-35A with AIM-260, two F-22, a Wedgetail, an RAAF KC-30A (the French Air Force mod's, first use in a campaign). | stand-alone |
 | O10 · 21 Nov | **Ballistic Shield** | Hold the Langgur strip in the Kai Islands against the enclave's ballistic missiles while two F-15EX with ARRW and a Triton hunt the five launchers on Biak. | **THAAD**, Patriot PAC-3, the **Steelfin** battery (first use); **Fattah-1**, **Fattah-2**, **Emad** (all first use), a Shahed 238 battery, a Tu-214R spotter. | reads `O7RingDown`: if Second Ring was won, the S-350 over the pads is not there |
 
-## Mods put to work
+## Red Line
+
+Built 20 Oct 2026, the plan's step RL-1 (`campaign-upgrade-plan.md`
+section 4.2), on days neither coalition campaign flies. Two optionals are
+the enclave field's own aircraft, a fixed force as Southern Watch's are;
+the contingency sails a detachment of the player's screen, with no
+purchase, repair or rearm. Each fires on nothing: the restraint is the
+task. The spine went from 10 entries to 17, so a Red Line campaign under
+way must be started again. Bible: `docs/campaigns/red-line/campaign-bible.md`;
+test card section 8B.
+
+| ID · date | Operation | Task | Forces and mods put to work | Link |
+|---|---|---|---|---|
+| RLO1 · 11 Nov | **Datum** | North of Biak, the morning after the Russian auxiliary was torpedoed: put a class on the boat nobody has claimed (GOLF) with sonobuoys, at weapons Hold, under a RAAF Poseidon that is recording. | *Sea Ear 31*, the enclave detachment's Y-9, and the enclave field. GOLF is `usn_ssn_virginia_2027` Variant10, spared (she is needed in RL02 and RL04). | writes `RLO1GolfDatum` |
+| RL02 · 12 Nov (core) | Routes They Can See | As built. | As built. | reads `RLO1GolfDatum`: GOLF on the plot for fifteen minutes with no class, Southern Watch's O2 -> SW04 shape; classifying her is still the mission's own task |
+| RLO2 · 18 Nov | **The Ships from the North** | The Ceram Sea: name the two Japanese escorts coming south for the Kai convoy, JS Mogami and JS Maya, and bring the Y-9 home, with a JASDF F-2A pair up from Langgur at weapons Tight. | The Y-9 and two J-15s released to the enclave field. The F-2A (`jp_f-2a_late`, the Viper Zero mod) on the red side for the first time; Mogami and Maya on the hulls RL03 and Common Sea place, spared. | writes nothing for now: `RLO2EscortsNamed` is held (owner, 21 Oct 2026) until test card 7.4 is answered; the names go to headquarters and the operation pays its own points |
+| RL03 · 19 Nov (core) | The Other Picture | As built. | As built. | reads nothing. Until 21 Oct 2026 it read `RLO2EscortsNamed` and revealed both escorts at Classify for the whole mission; that this counts for its classify stage is unproven, so the reveal is held until test card 7.4 is answered (restorable from `9035f291`) |
+| RLC1 · 24 Nov | **Pilot in the Water** | The Banda Sea, the morning after *Fujian's Shadow*: a J-15 off Liaoning is down with a fire warning, and an Australian patrol vessel is racing the screen to the pilot. Stop the lead ship within three cables of his raft for four minutes, before she is within a mile of him. | A detachment of the screen and its flight. The stock one-man raft `all_life_raft_single` (first SEST use) on the player's side; `ran_opv_arafura` Variant4 (Gippsland), the Arafura hull no mission places and no roster sells; a RAAF P-8A. Both spared. | stand-alone |
+
 
 Seventeen mods no SEST mission used before: civilian AS350, Project 2498
 Zyetseth, Iran Bell-212, Shahed 238, Anduril Maritime Drones, Saronic
@@ -119,4 +137,12 @@ variables. It cannot prove behaviour:
   what they fire (Ballistic Shield);
 - that the EC-2's jammer degrades the 054A's radars (Viper Zero);
 - that the Meridian escort classifying HMAS Eyre is what fails Paper Trail's
-  `unseen` objective, as stock's Polar Fury trigger does for a submarine.
+  `unseen` objective, as stock's Polar Fury trigger does for a submarine;
+- that a reveal at Classify counts for a `UnitClassified` objective on the
+  same unit. Red Line's RLO2 -> RL03 had it on RL03's main stage and is held
+  (21 Oct 2026) until it is shown; Southern Reach's TS01 -> TS03 and Sulu
+  Line's SL01A -> SL03A keep it on optional objectives and are the proof
+  (Southern Reach card 3.10, Sulu Line card 7.1);
+- what a held stage does when the ship leaves before its minutes and comes
+  back after them (Pilot in the Water), and whether a J-15 pair at Tight
+  opens on identified F-2As (The Ships from the North).

@@ -1,0 +1,222 @@
+{
+  "date": "2026-10-24",
+  "scope": "Red Line combat/pacing and original F11 cumulative/history integration; private PC playtest",
+  "source_base": "74878a801da6fb8fac7e09d15d60d6e44ba2c06e",
+  "full_cost_research_base": "374634bcd1542b6d62ea5c82df044d795e21f388",
+  "feature_branch": "fix/red-line-pacing-20261024",
+  "deployment_and_Steam_unchanged": true,
+  "coverage": {
+    "weapon": {
+      "eligible": 2170,
+      "historical_known": 2170,
+      "current_known": 2170
+    },
+    "vessel": {
+      "eligible": 937,
+      "historical_known": 937,
+      "current_known": 937
+    },
+    "aircraft": {
+      "eligible": 756,
+      "historical_known": 756,
+      "current_known": 756
+    },
+    "land": {
+      "eligible": 502,
+      "historical_known": 502,
+      "current_known": 502
+    }
+  },
+  "known_fields_preserved": 5308,
+  "missing_fields_filled": 3422,
+  "explicit_nonprocured_helpers": 35,
+  "installed_files": 4294,
+  "file_count_change": "New briefing choices add 8 files and remove 20 obsolete recognition/banner images; no equipment-price references are removed.",
+  "build": {
+    "all_packs": 25,
+    "from_scratch": "pass",
+    "final_campaign_and_consolidation": "pass",
+    "final_runtime_copy": "official campaign writer refreshed source/dist after last history-only safeguard",
+    "runtime_mock_assertions": 183,
+    "runtime_binary_sha256": "a4fc5b16b211e9623d4586b5c6f4b9b6db74276029b293aee5db6c5097d6034d",
+    "runtime_version": "1.2.0"
+  },
+  "python_suites": [
+    {
+      "suite": "campaign",
+      "tests": 316,
+      "skipped": 0,
+      "result": "pass"
+    },
+    {
+      "suite": "tools",
+      "tests": 175,
+      "skipped": 7,
+      "result": "pass",
+      "skip_reason": "native PowerShell is unavailable"
+    },
+    {
+      "suite": "post-safeguard runtime artifact check",
+      "tests": 1,
+      "result": "pass"
+    }
+  ],
+  "gates": [
+    {
+      "command": "python3 tools/check_pack_fidelity.py",
+      "result": "pass",
+      "returncode": 0,
+      "seconds": 2.87
+    },
+    {
+      "command": "python3 tools/check_campaign_coverage.py",
+      "result": "pass",
+      "returncode": 0,
+      "seconds": 7.75
+    },
+    {
+      "command": "python3 tools/check_dependencies.py",
+      "result": "pass",
+      "returncode": 0,
+      "seconds": 14.33
+    },
+    {
+      "command": "python3 tools/check_load_order.py",
+      "result": "pass",
+      "returncode": 0,
+      "seconds": 0.35
+    },
+    {
+      "command": "python3 tools/preflight.py --all",
+      "result": "pass",
+      "returncode": 0,
+      "seconds": 119.26
+    },
+    {
+      "command": "python3 tools/check_weapon_employment.py",
+      "result": "pass",
+      "returncode": 0,
+      "seconds": 12.07
+    },
+    {
+      "command": "python3 tools/check_alias_bases.py",
+      "result": "pass",
+      "returncode": 0,
+      "seconds": 14.42
+    },
+    {
+      "command": "python3 tools/check_scenarios.py",
+      "result": "pass",
+      "returncode": 0,
+      "seconds": 0.03
+    },
+    {
+      "command": "python3 tools/check_stale_phrases.py",
+      "result": "pass",
+      "returncode": 0,
+      "seconds": 1.15
+    },
+    {
+      "command": "python3 tools/check_inventory.py",
+      "result": "pass",
+      "returncode": 0,
+      "seconds": 0.68
+    },
+    {
+      "command": "python3 tools/check_game_version.py",
+      "result": "pass",
+      "returncode": 0,
+      "seconds": 0.12
+    },
+    {
+      "command": "python3 tools/check_vanilla_drift.py --since 374634bc",
+      "result": "pass",
+      "returncode": 0,
+      "seconds": 2.16
+    },
+    {
+      "command": "python3 tools/check_combat_costs.py",
+      "result": "pass",
+      "returncode": 0,
+      "seconds": 8.02
+    }
+  ],
+  "powershell_installer": {
+    "tree_sitter_grammar": "pass",
+    "native_execution": "pending PC"
+  },
+  "native_api": {
+    "runtime_gate": "Sea Power 0.8.7 Build 261021",
+    "runtime_sha256": "eab2297ba92c6013958bdb2cf16d5794a4731330818ce353f89dc2241e16a3bd",
+    "available_capture": "0.8.6 structural comparison only",
+    "available_sha256": "c913e31f2d73e526f2d28043f522f2be26f12534fd0421eedee3cd70eab9cdd8",
+    "methods": 56,
+    "parameter_orders": 15,
+    "fields": 22,
+    "properties": 23,
+    "fresh_087_verification": "pending; old comparison never broadens runtime allowlist"
+  },
+  "tracker_api": {
+    "version": "0.7.1",
+    "sha256": "74afa9028fc0c52b93f415263504f51ecf8d056a624feaebcc8053ba5a1c0ac3",
+    "hook_style_methods": 9,
+    "fields": 15,
+    "result": "pass; read-only metadata check, no third-party DLL shipped"
+  },
+  "red_line": {
+    "spine_entries": 17,
+    "playable_missions": 9,
+    "planned_minutes": {
+      "RL01": 40,
+      "RL02": 55,
+      "RL03": 45,
+      "RL04": 50,
+      "RL05": 60,
+      "RL06": 45,
+      "RLO1": 45,
+      "RLO2": 45,
+      "RLC1": 35
+    },
+    "native_scripted_attacks": "loaded real ammunition, exact opposing targets, seconds from start, preparation/entry validation",
+    "preserved": "dates, reserved coalition hull variants, RL02GolfSunk, RLO1GolfDatum, held RLO2 reveal",
+    "incoming_gate": "detected incoming weapons only; always conjunct earned objective/time"
+  },
+  "f11": {
+    "enabled_by_default": true,
+    "tabs": [
+      "This mission",
+      "Cumulative Combat Costs",
+      "Last games"
+    ],
+    "task_force_menu": "cumulative/history access through original tracker component and toggle",
+    "scopes": [
+      "completed current campaign",
+      "recorded ended sessions",
+      "current mission detail while playing"
+    ],
+    "history": "local raw-quantity archive; mid-save continuation replaces its own session, replay/new attempts separate",
+    "old_results": "completed debriefs in current campaign; no invented earlier standalone records",
+    "teardown_guard": "reject changed task-force identity and shrinking known counters",
+    "retired": "separate F10 viewer"
+  },
+  "pc_acceptance": "pending: docs/playtests/red-line-f11-20261024.md",
+  "material_limits": [
+    "unreported native losses",
+    "old missing magazines",
+    "virtual deck point pools",
+    "crew, damage-only, repairs, operating fuel and unrepresented cargo",
+    "unflushed history after forced termination"
+  ],
+  "logs_sha256": {
+    "red-line-full-build.log": "ffce8da049b458d01567c39826ee87166a91d8c07d497321498d4f8dc09f544a",
+    "red-line-campaign-build-final.log": "90a71a85ae030f7084560c6ec92b6d9a944ebca1c7cab89a6487b80f18d1a024",
+    "red-line-consolidate-final.log": "fc787aeac7e05bb59eaee4e92919a3b278ea19ba7afa09128b077637a58e9b55",
+    "red-line-campaign-tests.log": "5fac4da08cbc5cd55eb1c16ecb8b97df640f7ed6fbc811a07e9b10c68236c4bb",
+    "red-line-tools-tests.log": "843cf712ff7c111da787bb010864cec00d34d6ef3a31c9bcf08a80ae35e989aa",
+    "red-line-runtime-artifact-tests.log": "c346f1228fe88f4ab3cb336ffa610dc3a34ec7c7bb7d05df7a1c222f2d928881",
+    "runtime-build.log": "6242215cda136ed7e365d9bd521fc285958a549ab6c57e33190b4adf10c63b18",
+    "red-line-gates.log": "c2d521a1acfbe828a93f0705dbcda1934ce7758b13bb518df68925f9dda43e75",
+    "red-line-native-abi.log": "9f276340cdc57e7e38b38adf361f049abb0f4be321ce769b90ad36d93c4b02fb",
+    "red-line-tracker-abi.log": "fd462eba9ea931c178c3fd3d8f25c3ae30718a4ddbdca66377bc8fc13f76e721"
+  }
+}

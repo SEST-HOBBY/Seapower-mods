@@ -1,4 +1,20 @@
-"""The allied fleet an Open Allocation campaign sells beside its own roster.
+"""The allied fleet a campaign's commander can call on.
+
+The allied reserve (mission_depth.apply_reserve, spec RESERVE_FLEET) sells
+all of it in the standard campaigns, from a window each names: Southern
+Watch from Weapons Free and Southern Reach from Tasman Crossing, and Red
+Line, whose commander calls on PLAN_SUPPORT below, from its first force
+allocation. The owner decided it on 21 Oct 2026, retiring the Open
+Allocation twins, which had sold all of it beside the roster from the first
+window; until then the reserve sold eleven escort classes in Southern Watch
+and three in Southern Reach, and the rest was the twins' alone. From the
+same windows the standard campaigns offer the whole roster with it, as the
+twins did (mission_depth.open_from). The reserve sells no hull a mission
+places, and an allied aircraft only where a row launches and recovers it
+(build_pack.admit_reserve_aircraft). Only
+the twin path is dormant: a world-wide Task Force Mode campaign could opt
+in to OPEN_ALLOCATION, and the SEST World Campaign could draw on this as a
+curated, in-service-in-2028 list (build_pack.py, "open allocation").
 
 Review of 2e845dc9 (28 Sep): carriers priced as hulls, like the amphibians -
 ships come without aircraft and no row launches from a bought deck (Ford 650,
@@ -46,7 +62,7 @@ ALLIED = [
     _e('usn_ddg-1000_cps', ['Variant1', 'Variant3'], 480,
        'USA - Zumwalt-class (CPS)'),
     _e('usn_lhd_wasp', ['Variant1', 'Variant2', 'Variant3', 'Variant4', 'Variant5', 'Variant7', 'Variant8'], 550,
-       'USA - Wasp-class'),
+       'USA - Wasp-class (Late)'),
     _e('usn_ddg_arleigh_flt3_2027', ['Variant1', 'Variant2', 'Variant3'], 520,
        'USA - Arleigh Burke Flt.3'),
     _e('usn_ddg_arleigh_flt2A_119_2027', ['Variant1', 'Variant2', 'Variant3', 'Variant4', 'Variant5', 'Variant6', 'Variant7'], 480,
@@ -165,17 +181,17 @@ ALLIED = [
        'Italy - SH-90 IT'),
     # --- Spain -------------------------------------------------------
     _e('ae_lhd_juan_carlos', ['Variant1'], 500,
-       'Spain - Juan Carlos I_L61-class L61'),
+       'Spain - Juan Carlos I-class L61'),
     _e('ae_ffg_alvaro_bazan', ['Variant1', 'Variant2', 'Variant3', 'Variant4'], 420,
        'Spain - Alvaro de Bazan-class (Early)'),
     _e('ae_ffg_bonifaz', ['Variant1'], 360,
        'Spain - Bonifaz-class'),
     _e('ae_lpd_galicia', ['Variant1', 'Variant2'], 250,
-       'Spain - Galicia_L50-class L50'),
+       'Spain - Galicia L50-class L50'),
     _e('ae_ffg_santa_maria_late', ['Variant1', 'Variant2', 'Variant3', 'Variant4', 'Variant5', 'Variant6'], 220,
        'Spain - Santa Maria-class Late'),
     _e('ae_opv_meteoro', ['Variant1', 'Variant2', 'Variant3', 'Variant4', 'Variant5', 'Variant6'], 100,
-       'Spain - Meteoro-class Meteoro'),
+       'Spain - Meteoro-class BAM'),
     _e('spa_ef2000', ['Squadron2', 'Squadron3', 'Squadron4'], 45,
        'Spain - C.16 Typhoon'),
     _e('spa_av-8b_plus', ['Squadron1'], 28,
@@ -243,11 +259,13 @@ ALLIED = [
 # Allocation twin sold no replenishment ship at all until October 2026,
 # although the pack builds two modern PLAN ones (SEST Replenishment's Type
 # 901 Fuyu and Type 903A Fuchi clones, every variant registered to China)
-# and the carrier group sails with a 901 in The Order to Withdraw. Story
-# Red Line still sells none: it rearms at its windows, and a bought hull
-# needs a row to sail in. Prices on Red Line's own scale - 054A 280, Luda
-# 160, 056A 120: the 901 is the carrier group's 48,000-tonne station ship,
-# the 903A a 23,000-tonne replenishment oiler.
+# and the carrier group sails with a 901 in The Order to Withdraw. Prices
+# on Red Line's own scale - 054A 280, Luda 160, 056A 120: the 901 is the
+# carrier group's 48,000-tonne station ship, the 903A a 23,000-tonne
+# replenishment oiler. Story Red Line sold none until 21 Oct 2026 (it
+# rearms at its windows); since the twins left the pack its reserve sells
+# both from the first force allocation, as the PLAN's own ships with the
+# same-nation discount, less the hulls a mission places.
 PLAN_SUPPORT = [
     _e('plan_aor_type901', ['Variant1', 'Variant2'], 200,
        'China - Type 901 Fuyu fast combat support ship'),

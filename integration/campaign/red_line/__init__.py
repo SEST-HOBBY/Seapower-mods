@@ -7,7 +7,12 @@ group commander whose signal the coalition intercepted on 22 November, "a
 commander who would rather withdraw intact", and whose second signal it
 intercepted on 25 February. Five missions sail his screen, four in the
 Banda approaches and one off Fiordland; one is a detached submarine
-operation in the Southern Ocean.
+operation in the Southern Ocean. Three side operations in the north joined
+them on 20 Oct 2026 (campaign-upgrade-plan.md section 4.2, step RL-1): two
+optionals flown by the enclave field's own aircraft, of which Datum's result
+the next mission reads (The Ships from the North's is held until the test
+card's 7.4 is answered, 21 Oct 2026), and a contingency for the screen's
+own detachment.
 
 Built to docs/campaigns/red-line/campaign-bible.md. The rules that hold the
 data together are Southern Watch's and Southern Reach's (campaign_data.py's
@@ -20,17 +25,17 @@ docstring, southern_reach/AUTHORING.md) plus three of this campaign's own:
      objective with a fatal entry: the player cannot sink it and keep the
      result. Nothing after 23 November relies on Fujian.
 
-  2. Winning is restraint, deception, escort or evasion. Nothing here is won
-     by a kill the coalition's story would have to account for; the one ship
-     the player must sink (RL04) is a Meridian coaster that no coalition page
-     names, on the night the ceasefire began.
+  2. Defence, escort, interception and evasion vary the pace. Declared hostile
+     shooters can be engaged; named coalition assets remain protected so the
+     coalition's story and reserved hull identities still hold.
 
   3. "Blue" is the player whatever the flag: Taskforce1 is China, and the
      coalition is Taskforce2. The north has no coastline extract, so RL01-RL04
      use Southern Watch's proven-point geography; RL05 and RL06 are proved
      against the southern coastline, as Southern Reach is.
 
-Each mission is its own module (rl01_*.py ... rl06_*.py) exporting MISSION:
+Each mission is its own module (rl01_*.py ... rl06_*.py, and the side
+operations rlo1_*.py, rlo2_*.py and rlc1_*.py) exporting MISSION:
 
     python3 integration/campaign/build_pack.py --dry-run --campaign red-line --only RL01
 """
@@ -43,7 +48,8 @@ HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE.parent))
 
 from .lore import EVENTS  # noqa: E402
-from .tables import CALENDAR, MODULES, ROSTER, TASKFORCE, DIFFICULTIES, COMMANDER  # noqa: E402
+from .tables import (CALENDAR, MODULES, ROSTER, RESERVE_FLEET, TASKFORCE,  # noqa: E402
+                     DIFFICULTIES, COMMANDER)
 
 # While a mission is being written the others may not exist yet. With
 # SR_ALLOW_MISSING set (the builder's own switch for a partial campaign) the
@@ -88,27 +94,17 @@ if MISSING:
           + ", ".join(MISSING))
 
 INFO_DESC = (
-    "RED LINE - The Other Watch. November 2028 to February 2029, from the other bridge. "
-    "A Chinese carrier group commander is sent into the Banda approaches under a "
-    "protection-and-evacuation mandate and an order that says the group will not fire first."
-    " He puts a class on the Australian submarine trailing his carrier, gets fuel into the "
-    "Biak enclave ahead of the coalition's relief window, builds the picture of a convoy that"
-    " other people will attack, and in the first hours of the ceasefire stops the one ship in"
-    " his own company that wants the war back. In December he is sent south with Liaoning "
-    "to take over the fisheries protection group, and its submarines have to pass the "
-    "coalition's patrol aircraft without being classified. Every operation is won by "
-    "restraint, escort or evasion, and there is nearly always a coalition aircraft "
-    "overhead, recording."
+    "RED LINE - The Other Watch. A PLAN commander's campaign across the northern crisis "
+    "and southern summer. Defend Fujian against missile craft, escort the Biak fuel run "
+    "through torpedo and missile attacks, fight for the reconnaissance aircraft, and stop "
+    "a ceasefire spoiler while protecting the withdrawal. A compact submarine passage and "
+    "a contested tender rendezvous vary the pace. Two optional air operations and a short "
+    "pilot-recovery race sit between the six core missions. Coalition non-belligerents and "
+    "civil traffic remain protected; declared hostile shooters can be engaged."
 )
-
 BROWSE = {"Red Line": "Red Line"}
-BROWSE_DESC = {
-    "Red Line": (
-        "The carrier group commander's side of the northern crisis and the southern summer, "
-        "November 2028 to February 2029. Escort, identification and evasion under orders "
-        "that say the group does not fire first."
-    ),
-}
+BROWSE_DESC = {"Red Line": "Carrier defence, convoy escort, fighter interception, withdrawal, "
+               "submarine evasion and a contested rendezvous from the PLAN side of the crisis."}
 
 ROOT = HERE.parents[2]
 CAMPAIGN = dict(
@@ -124,5 +120,5 @@ CAMPAIGN = dict(
     CAMPAIGN_DIFFICULTY="3", MAP_FOCUS_NM=350, MAP_INSET=(100, -50, 172, 8),
     ROSTER_SOURCE="red_line/tables.py",
     INFO_DESC=INFO_DESC, DISPATCH_DESC="", TASKFORCE=TASKFORCE,
-    DIFFICULTIES=DIFFICULTIES, ROSTER=ROSTER, COMMANDER=COMMANDER,
-    EVENTS=EVENTS, MISSIONS=MISSIONS, EXCUSES={})
+    DIFFICULTIES=DIFFICULTIES, ROSTER=ROSTER, RESERVE_FLEET=RESERVE_FLEET,
+    COMMANDER=COMMANDER, EVENTS=EVENTS, MISSIONS=MISSIONS, EXCUSES={})

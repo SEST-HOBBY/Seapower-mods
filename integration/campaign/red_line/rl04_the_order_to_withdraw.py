@@ -1,37 +1,8 @@
-"""RL04 - The Order to Withdraw. Banda Sea, 27 November 2028.
+"""RL04 — stop a ceasefire spoiler while defending the withdrawing supplier.
 
-The first hours of the ceasefire. It took effect at 0000 on the 27th; the
-group acknowledged its withdrawal order at 2304 the night before and is
-carrying it out. The one ship that wants the war back is in the group's own
-company: a Meridian armed coaster that has turned south for the Arafura
-lane, where the coalition's first convoy sails for The First Ship Through
-on the 28th. Stop her before she clears the screen, take the carrier across
-the line, and touch nothing else: not the coalition's aircraft, and not the
-boat that may be astern, whose nobody has said.
-
-Southern Watch's 27 November report says not every Chinese group had
-acknowledged the ceasefire; this one had. Its closing page has two groups
-two hundred miles behind the convoy, one complying and one deciding, and
-The First Ship Through places them in its Arafura box: a Luda and a Type 071
-withdrawing (the northern element's kind of ship, which the tasking says is
-not this commander's) and an unacknowledged 054A. This group is neither of
-them and goes nowhere near that box; it withdraws north-west from the Banda
-Sea, 370 NM from it. Fujian is not placed: Fujian's Shadow may have sunk
-her, so the carrier is Liaoning, whom Southern Reach keeps afloat until
-February.
-
-The coaster is ran_ms_super_p, Role=Spy, at weapons Hold: a passive red
-unit may start in company, inside the escort role's standoff. The win
-requires her destroyed (an also-term of kind "destroyed"), and a denied race
-ends the mission if she reaches the edge of the screen first.
-
-GOLF is only there if Routes They Can See left her afloat, so she is kept
-out of every trigger that ends the mission: whether the engine counts a
-unit that never spawned as destroyed is unproven, and if it does, a fatal
-on her would lose this mission at its first second, every replay, for
-every player who sank her in November. She has her own objective, scored
-and never fatal - the shape Southern Reach's Last Ship South gives its
-tanker "if she sailed".
+24 Oct 2026: a separate Meridian Q-ship attacks Hulunhu during the chase.
+The Poseidon and any surviving GOLF are non-belligerents; the ceasefire
+still protects them. GOLF remains conditional and is never a fatal target.
 """
 from campaign_data import U, F, S
 from .tables import HELO
@@ -51,10 +22,15 @@ MISSION = dict(
         "astern is. Under a ceasefire neither is a target."
     )),
     date=(2028, 11, 27), time=(3, 10), sea=2, clouds="Clear", wind="E",
-    difficulty=4, minutes=80, centre=(-4.6, 128.9),
+    difficulty=4, minutes=50, centre=(-4.6, 128.9),
     blue_nation="China", red_nation="Australia",
     brief=(
         (
+            "TACTICAL UPDATE: A second Meridian vessel, the Q-ship FV MERIDIAN WARDEN, "
+            "has turned on HULUNHU. Expect a torpedo attack around minute nine. Your screen "
+            "must split its attention between the escaping coaster and the supplier; both "
+            "Meridian vessels are declared hostile. The grey Poseidon and any surviving GOLF "
+            "are protected non-belligerents. Do not attack them.\n\n"
             "BANDA SEA, 0310, 27 NOVEMBER. The ceasefire took effect at 0000. The group "
             "acknowledged the order to withdraw at 2304 last night and is carrying it out: "
             "LIAONING, the replenishment ship HULUNHU and HAI YANG 7, chartered, north-west "
@@ -71,13 +47,13 @@ MISSION = dict(
             "whatever she does there she will have done from this group's company.\\n\\nA "
             "coalition Poseidon is overhead, recording the withdrawal, and a submarine may be "
             "astern. Neither is to be touched. Your frigate and its flight start at "
-            "weapons Hold: engage the coaster by direct order, because a ship left free may "
-            "find the Poseidon on its own. Stop her before she clears the screen, then take "
+            "defensive settings: engage only the two Meridian vessels. The protected observers "
+            "are non-belligerents. Stop the coaster before she clears the screen, then take "
             "LIAONING and the replenishment ship across the line north-west.\\n\\nA Banda "
             "fishing boat and the Banda Neira ferry are on the water."
         )),
     forces=(
-        "Your screen, with its flight. Allocated: Liaoning, the replenishment ship and MT Hai"
+        "Your screen, with its flight. A hostile Q-ship is closing Hulunhu. Allocated: Liaoning, the replenishment ship and MT Hai"
         " Yang 7. In company and turning away: MV Meridian Harmony, armed. Watching: a "
         "coalition P-8A, and possibly a submarine astern. Neutral: a fishing boat and a ferry."
     ),
@@ -85,28 +61,23 @@ MISSION = dict(
         ("Withdrawal", "Take Liaoning and the replenishment ship north-west across the line",
          "35,-35,Fail,Main"),
         ("Spoiler", "Stop Meridian Harmony before she clears the screen", "20,-40,Fail"),
-        ("Restraint", "Fire on nothing but Meridian Harmony", "15,-40,Complete"),
+        ("Restraint", "Engage only the two declared hostile Meridian vessels", "15,-40,Complete"),
         ("Boat", "Leave the boat astern alone, if she is there", "0,-40,None"),
         ("Carrier", "Bring Liaoning through intact", "10,-30,Complete"),
-        ("Traffic", "Harm no fishing boat or ferry", "0,-30,Complete"),
+        ("Supply", "Keep Hulunhu afloat during the withdrawal", "10,-30,Complete"),
+        ("Qship", "Stop the Q-ship attacking the replenishment ship", "15,0,None"),
+        ("Traffic", "Harm no protected contact or civil traffic", "0,-30,Complete"),
     ],
-    # Both hulls across the line, 21 NM up the withdrawal course, at a
-    # replenishment ship's speed - AND the coaster gone. The win cannot come
-    # while she is still running for the lane. The box is authored so that
-    # the group's route ends inside it: the hulls wait there for the kill
-    # instead of sailing on out of it.
-    victory=dict(kind="arrive", units=["group#1", "group#2"], at=(-4.32, 128.40),
-                 radius=12, min_units=2, objective="Withdrawal", transit=12,
-                 also=[dict(kind="destroyed", units=["spoiler"], min_units=1)]),
-    # The race, lost: the coaster at the edge of the screen, 15 NM down her
-    # track, where the frigate cannot follow her and keep the withdrawal.
+    victory=dict(kind="arrive", units=["group#1", "group#2"], at=(-4.40, 128.50),
+                 radius=5, min_units=2, objective="Withdrawal", transit=12,
+                 also=[dict(kind="destroyed", units=["spoiler"], min_units=1),dict(kind="no_incoming")]),
     denied=[dict(units=["spoiler"], at=(-4.84, 128.92), radius=4, objective="Spoiler",
                  message=(
                      "MERIDIAN HARMONY has cleared the screen and is running south for the "
                      "lane at full speed. The group cannot follow her and keep its withdrawal "
                      "order. Whatever she does tomorrow, she sailed from this group's company."
                  ))],
-    fatal=[F("Restraint", ["red_air"]), F("Carrier")],
+    fatal=[F("Restraint", ["red_air"]), F("Carrier"), F("Supply")],
     neutral_objective="Traffic",
     win=(
         "LIAONING and the replenishment ship are north-west of the line, and MERIDIAN HARMONY "
@@ -114,62 +85,49 @@ MISSION = dict(
         "group's report will say what was done and why; the Poseidon has the same account."
     ),
     lose=(
-        "The withdrawal has become an incident: LIAONING is lost, or the Poseidon is down. "
+        "The withdrawal has failed: LIAONING or HULUNHU is lost, or the Poseidon is down. "
         "The ceasefire is hours old, and the group is in its first violation report."
     ),
     timeout="{deadline_clock}, and the group is still south of the line. The withdrawal order had a "
             "time on it, and the coalition's aircraft has recorded the group missing it.",
     stations={
-        # The group on its withdrawal course, 300, for the Manipa approaches;
-        # the frigate on the carrier's starboard quarter, 9 NM east-north-east
-        # of her and north-east of the coaster; the coaster five miles astern of
-        # the carrier, in company, with her route turned south-south-east.
         "escort": S(-4.45, 128.85, "Escort", heading=300),
         "flight": S(-4.47, 128.83, "Ship's flight", heading=300, alt=500),
         "group": S(-4.50, 128.70, "Liaoning", heading=300),
         "charter": S(-4.40, 128.60, "Hai Yang 7", heading=300),
         "spoiler": S(-4.56, 128.76, "Meridian Harmony", heading=150),
+        "qship": S(-4.63,128.62,"Hostile Q-ship",heading=330),
         "red_air": S(-4.00, 129.40, "Patrol aircraft", heading=240, alt=14000),
         "red_sub": S(-4.90, 128.60, "Contact GOLF", heading=330),
         "fishing": S(-4.30, 129.10, "Banda fishing boat", heading=180),
         "ferry": S(-4.75, 129.40, "Banda Neira ferry", heading=250),
     },
     units=[
+        U("red","project-2498-zyetseth","civ_fv_okean_surprise","qship",name="FV Meridian Warden",nation="Panama",weapons="Hold",
+          route=[(-4.43,128.51,0)],telegraph=3,attacks=[(9,"wp_53-65K","group#2",1)]),
         U("blue", "modern-plan-systems", "plan_type_054a_p5", "escort", variant="Variant1",
-          weapons="Hold"),
+          weapons="Tight"),
         U("blue", "modern-plan-systems", "plan_z-9c", "flight", alt=500, weapons="Hold",
           loadout="ASWHunter", slot="HeloRecon"),
-        # Liaoning first: the Carrier objective and the win name group#1.
         U("blue", "liaoning-type-001", "plan_type_001", "group", name="Liaoning",
-          weapons="Hold", route=[(-4.31, 128.38, 0)], telegraph=3),
-        # Liaoning's Type 901, Hulunhu (SEST Replenishment, Variant1): the
-        # ship that goes south with her in December and that Southern Reach
-        # names in Turning North and Southern Cross. It was a vanilla
-        # Qiongsha standing in. She is a working supplier, so the screen can
-        # take stores from her at sea at thirteen knots or less - time the
-        # withdrawal order does not have to spare; the window's "no rearming"
-        # is the service between operations, which stays shut, and the next
-        # one the screen sails (The Quiet Side) rearms anyway.
+          weapons="Hold", route=[(-4.40, 128.50, 0)], telegraph=3),
         U("blue", "SEST_Replenishment", "plan_aor_type901", "group", variant="Variant1",
           name="Replenishment ship Hulunhu", weapons="Hold",
-          route=[(-4.34, 128.41, 0)], telegraph=3),
+          route=[(-4.42, 128.52, 0)], telegraph=3),
         U("blue", "_vanilla", "civ_ms_ritina", "charter", name="MT Hai Yang 7 (chartered)",
-          weapons="Hold", route=[(-4.26, 128.33, 0)], telegraph=3),
-        # A flag of convenience: Meridian's coasters are nobody's navy. Hold,
-        # and her role is Spy - she will not open the fight, she will run.
+          weapons="Hold", route=[(-4.39, 128.48, 0)], telegraph=3),
         U("red", "auxilliary-merchant-pack", "ran_ms_super_p", "spoiler",
           name="MV Meridian Harmony", nation="Panama", weapons="Hold",
           route=[(-4.84, 128.92, 0), (-5.40, 129.25, 0)], telegraph=4),
-        U("red", "p-8-poseidon", "usn_p8", "red_air", squadron="Squadron3",
+        U("neutral", "p-8-poseidon", "usn_p8", "red_air", squadron="Squadron3", nation="Australia",
           loadout="ASW", weapons="Hold",
           route=[(-4.80, 128.40, 14000), (-4.00, 129.40, 14000)], loop=True,
           telegraph=3),
-        # The boat from the Biak approaches, astern and listening - unless
-        # Routes They Can See put her on the bottom.
-        U("red", "us-navy-2027", "usn_ssn_virginia_2027", "red_sub", name="Contact GOLF",
-          depth="belowlayer", weapons="Hold", radars="False",
+        U("neutral", "us-navy-2027", "usn_ssn_virginia_2027", "red_sub", variant="Variant10",
+          name="Contact GOLF", depth="belowlayer", weapons="Hold", radars="False",
           spawn_if=("RL02GolfSunk", "IsFalse"),
-          route=[(-4.40, 128.30, "belowlayer")], telegraph=2),
+          route=[(-4.40, 128.30, "belowlayer")], telegraph=2,
+          recognise=False),
         U("neutral", "_vanilla", "civ_fv_fishingboat_a", "fishing",
           name="Banda fishing boat Lautaka", route=[(-4.60, 129.20, 0)], telegraph=2),
         U("neutral", "_vanilla", "civ_ms_roro_c", "ferry",
@@ -180,15 +138,15 @@ MISSION = dict(
              "Spoiler": ("destroy", "spoiler", 1),
              "Restraint": ("spare", "red_air"),
              "Boat": ("spare", "red_sub"),
-             "Carrier": ("protect", "group#1")},
+             "Carrier": ("protect", "group#1"), "Supply": ("protect", "group#2"),
+             "Qship": ("destroy", "qship", 1)},
     declares=[],
-    # Repair only. What the twenty-third spent stays spent: there is no
-    # rearm and no purchase between the ceasefire and the withdrawal.
     window=dict(buy=False, repair=True, rearm=False, flights=[HELO],
                 situation=(
                     "The ceasefire allows repairs alongside the replenishment ship and "
                     "nothing else. There is no rearming and no reinforcement before the "
                     "withdrawal."
                 )),
+    reports=[dict(minute=2,intel="GROUP STAFF: The coaster is the escape problem; the Q-ship is the immediate threat to Hulunhu. Use separate assignments, and do not send the whole screen away from the replenishment ship.")],
     role="escort",
 )

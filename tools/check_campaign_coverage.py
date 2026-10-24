@@ -49,7 +49,7 @@ def missions():
     # mission browser - and the two copies must stay byte-identical, or the
     # campaign and the browser quietly diverge. The browser folder is the
     # campaign's own rule (Southern Reach files its two chapters apart), so
-    # each campaign's spec says where its twin is.
+    # each campaign's spec says where its browser copy is.
     by_name = {}
     for spec in bp.campaign_specs():
         bp.set_campaign(spec)
@@ -374,12 +374,14 @@ def art_resolves(pack, slug):
     return out
 
 
-def open_twin(pack, slug):
+def open_twin(pack, slug, hold=()):
     """The campaign's Open Allocation twin differs from it only in what it sells.
 
     The twin (build_pack.open_allocation_ini) is a second entry in the
     campaign list that loads this campaign's missions and art by path and
-    sells the whole roster at every open window. Read from the built bytes:
+    sells the whole roster at every open window - except a unit in `hold`
+    (the spec's OPEN_HOLD), which it sells only where the base window's own
+    allowlist does, under OPEN_NOTE_HELD. Read from the built bytes:
     the three files the game reads from the campaign's own folder are this
     campaign's - commander settings byte for byte, the roster with every line
     of this campaign's roster in it (the allied fleet is added after them) -
@@ -389,6 +391,10 @@ def open_twin(pack, slug):
     situation (the note first, then the base text unchanged). A twin that
     drifted - a gate, a reward, a MissionFile - would be a different campaign
     under the same missions, and nothing in game would say so.
+
+    main() runs it only for a campaign that opts in (spec OPEN_ALLOCATION).
+    None in the pack has since 21 Oct 2026; test_build_pack builds a twin
+    into a temporary folder and holds it to this gate.
     """
     name = bp.open_slug(slug)
     base, twin = pack / "campaigns" / slug, pack / "campaigns" / name
@@ -430,7 +436,13 @@ def open_twin(pack, slug):
     picks = {uid: line.partition("=")[2].split("|")[0].split(",")
              for _section, uid, line in twin_rows}
     commander = (twin / "commander_settings.ini").read_text(encoding="utf-8")
-    allied = bp.allied_line([dict(unit=u, picks=p) for u, p in picks.items()], commander)
+    # The allied sentence names what the twin adds to the base roster, never
+    # the base's own units (20 Oct 2026: Sulu Line's twin called its Thai and
+    # Australian partners an allied fleet).
+    base_units = {uid for _section, uid, _line in base_rows}
+    allied = bp.allied_line([dict(unit=u, picks=p) for u, p in picks.items()
+                             if u not in base_units], commander)
+    blurb = bp.OPEN_BLURB_HELD if hold else bp.OPEN_BLURB
     # Section by section, with every expected change REQUIRED rather than
     # merely allowed: a twin still naming the base's Base, a Name that did
     # not change, or an open window without its note is as wrong as a gate
@@ -450,6 +462,11 @@ def open_twin(pack, slug):
             continue
         is_open = "TaskForceModeEnableTaskForceBuilder=True" in b_lines
         windows += is_open
+        sold = next((set(e.split(",")[0] for e in b.partition("=")[2].split("|"))
+                     for b in b_lines if b.startswith("TaskForceModeAllowedRosterUnits=")),
+                    set(picks))
+        offered = {u: p for u, p in picks.items() if u not in hold or u in sold}
+        note = bp.OPEN_NOTE if len(offered) == len(picks) else bp.OPEN_NOTE_HELD
         for b, w in zip(b_lines, t_lines):
             line_no += 1
             key, _, value = b.partition("=")
@@ -462,17 +479,18 @@ def open_twin(pack, slug):
                       and w.replace(" - Open Allocation", "", 1) == b)
             elif head == "[Language_en]" and key == "Description":
                 found["Description"] += 1
-                # the blurb, then the allied-fleet sentence its own roster
-                # calls for (build_pack.allied_line; "" with none), then the
+                # the blurb (the held one with an OPEN_HOLD), then the
+                # allied-fleet sentence for what the twin adds to the base
+                # roster (build_pack.allied_line; "" with none), then the
                 # base description - exactly
-                ok = w == f"Description={bp.OPEN_BLURB}{allied}{value}"
+                ok = w == f"Description={blurb}{allied}{value}"
             elif is_open and key == "TaskForceModeAllowedRosterUnits":
                 listed = [e.split(",") for e in w.partition("=")[2].split("|")]
                 got = {e[0]: e[1:] for e in listed}
                 ok = (w.startswith(key + "=") and len(listed) == len(got)
-                      and got == picks)
+                      and got == offered)
             elif is_open and key == "TaskForceModeBuilderSituation_en":
-                ok = w == f"{key}={bp.OPEN_NOTE} {value}"
+                ok = w == f"{key}={note} {value}"
             else:
                 ok = w == b
             if not ok:
@@ -482,6 +500,25 @@ def open_twin(pack, slug):
         out.append(f"{where}: expected one Base, Name and Description and at least one "
                    f"open window, found {found} and {windows} window(s)")
     return out + art_resolves(pack, name)
+
+
+def stray_campaigns(pack, specs):
+    """Every folder under the pack's campaigns/ is a campaign or an opted-in twin.
+
+    An Open Allocation twin is built only for a campaign that opts in to one
+    (spec OPEN_ALLOCATION). None in the pack does since the owner retired the
+    twins on 21 Oct 2026, and a folder under campaigns/ that is neither a
+    campaign nor an opted-in twin is a campaign-list entry nothing builds or
+    checks - a twin left behind by a stale pack, for one.
+    """
+    known = ([spec["SLUG"] for spec in specs]
+             + [bp.open_slug(spec["SLUG"]) for spec in specs if spec.get("OPEN_ALLOCATION")])
+    return [f"campaigns/{folder.name}: no campaign builds it"
+            + (" - an Open Allocation twin, and its campaign does not "
+               "opt in to one (OPEN_ALLOCATION)"
+               if folder.name.endswith(bp.OPEN_SUFFIX) else "")
+            for folder in sorted((pack / "campaigns").iterdir())
+            if folder.name not in known]
 
 
 def loadout_names(pack, slug, dispatches):
@@ -535,11 +572,19 @@ def main():
     pack = CAMPAIGN / "SEST_Campaign"
     specs = bp.campaign_specs()
     slugs = [spec["SLUG"] for spec in specs]
+    # An Open Allocation twin only for a campaign that opts in to one (spec
+    # OPEN_ALLOCATION); none in the pack does since 21 Oct 2026, and
+    # stray_campaigns() refuses a twin folder that nothing builds.
+    twins = [bp.open_slug(spec["SLUG"]) for spec in specs if spec.get("OPEN_ALLOCATION")]
     for spec in specs:
         problems += art_resolves(pack, spec["SLUG"])
         problems += loadout_names(pack, spec["SLUG"], spec["DISPATCHES"])
-        problems += open_twin(pack, spec["SLUG"])
-        problems += loadout_names(pack, bp.open_slug(spec["SLUG"]), spec["DISPATCHES"])
+        if spec.get("OPEN_ALLOCATION"):
+            twin = bp.open_slug(spec["SLUG"])
+            problems += open_twin(pack, spec["SLUG"], spec.get("OPEN_HOLD", ()))
+            if (pack / "campaigns" / twin / "player_task_force_roster.ini").is_file():
+                problems += loadout_names(pack, twin, spec["DISPATCHES"])
+    problems += stray_campaigns(pack, specs)
 
     for f in files:
         rel = f.relative_to(ROOT)
@@ -608,8 +653,8 @@ def main():
     # The requisition roster is read from the BUILT file too: a unit the player
     # can buy is reached by the campaign, and a price naming a variant the hull
     # no longer offers is a purchase the game would refuse. One roster per
-    # campaign.
-    for slug in slugs + [bp.open_slug(s) for s in slugs]:
+    # campaign, and one per opted-in twin.
+    for slug in slugs + twins:
         roster = pack / "campaigns" / slug / "player_task_force_roster.ini"
         if not roster.exists():
             problems.append(f"no player_task_force_roster.ini under campaigns/{slug}")

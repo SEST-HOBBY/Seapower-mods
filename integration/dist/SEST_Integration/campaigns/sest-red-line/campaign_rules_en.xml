@@ -146,7 +146,8 @@
               <Run Text="- Open "/><Hyperlink Command="{Binding OpenTaskForceBuilderCommand}">Task Force Builder</Hyperlink><Run Text=" from the task force bar to add ships, submarines, helicopters, and aircraft to your task force."/>
             </TextBlock>
             <TextBlock Text="- Selected units are not purchased until the task force is confirmed." FontSize="15" Foreground="#D8DDE8" TextWrapping="Wrap" Margin="0,0,0,5"/>
-            <TextBlock Text="- Unit availability changes between missions: Task Force Builder offers only what the current force-allocation window allows." FontSize="15" Foreground="#D8DDE8" TextWrapping="Wrap" Margin="0,0,0,5"/>
+            <TextBlock Text="- Every force allocation offers the whole roster and the People's Liberation Army Navy's Type 901 Fuyu fast combat support ship and Type 903A Fuchi replenishment oiler. Some operations still limit what sails." FontSize="15" Foreground="#D8DDE8" TextWrapping="Wrap" Margin="0,0,0,5"/>
+            <TextBlock Text="- No hull a mission names is sold." FontSize="15" Foreground="#D8DDE8" TextWrapping="Wrap" Margin="0,0,0,5"/>
             <TextBlock FontSize="15" Foreground="#D8DDE8" TextWrapping="Wrap" Margin="0,0,0,5">
               <Run Text="- Use the task force bar to repair damage, inspect weapons, change loadouts, view proficiency, and manage aircraft assignments."/>
             </TextBlock>
@@ -308,7 +309,7 @@
             <TextBlock Text="Aircraft and Submarines" FontSize="17" FontWeight="Bold" Foreground="White" TextWrapping="Wrap" Margin="0,0,0,6"/>
             <TextBlock Text="- Ships purchased in Task Force Builder come without aircraft. Helicopters and aircraft are bought separately, and replacements must be bought if aircraft are lost." FontSize="15" Foreground="#D8DDE8" TextWrapping="Wrap" Margin="0,0,0,5"/>
             <TextBlock Text="- Helicopters are available from the first force allocation. Each ship shows its supported aircraft in Task Force Builder." FontSize="15" Foreground="#D8DDE8" TextWrapping="Wrap" Margin="0,0,0,5"/>
-            <TextBlock Text="- Fixed-wing aircraft are not available for purchase at the start of the campaign, but become available later on." FontSize="15" Foreground="#D8DDE8" TextWrapping="Wrap" Margin="0,0,0,5"/>
+            <TextBlock Text="- Fixed-wing aircraft are on sale from the first force allocation. Each flies only in a mission whose air tasking takes it." FontSize="15" Foreground="#D8DDE8" TextWrapping="Wrap" Margin="0,0,0,5"/>
             <TextBlock Text="- Purchased fixed-wing aircraft operate from airbases in missions that support them. If no airbase is available, fixed-wing aircraft do not deploy and are held in reserve." FontSize="15" Foreground="#D8DDE8" TextWrapping="Wrap" Margin="0,0,0,5"/>
             <TextBlock Text="- Some missions include Air Tasking slots for aircraft that can begin the mission already airborne. Open Prepare Airbase from the selected mission and use the Air Tasking tab to assign eligible unassigned aircraft before launch." FontSize="15" Foreground="#D8DDE8" TextWrapping="Wrap" Margin="0,0,0,5"/>
             <TextBlock Text="- Each Air Tasking row represents one mission flight. Larger flights must use the same aircraft type, but may launch partially filled if too few aircraft are available." FontSize="15" Foreground="#D8DDE8" TextWrapping="Wrap" Margin="0,0,0,5"/>

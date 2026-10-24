@@ -26,8 +26,36 @@ first; the detail lives where each line points:
 5. **The ARRW profile** — *SEST NF3 - SEAD over the Shelf*: the B-52Os'
    AGM-183As loft to about 99,000 ft, where they used to cruise level at
    90,000.
-6. **The Redback** — *SEST NF3 - Coastal Ambush*: the A-10Cs' AGR-30s guide
-   out to 25 NM; before, a shot past 8 NM fell unguided.
+6. **The Redback** — it fires from the Seahawk (23 Oct 2026: the RAN
+   MH-60R on `57375598`, from 19-tube pods); this build moves the MH-60R's
+   pods and reworks the flight, and neither has been seen yet
+   (`docs/playtest-20261023-redback.md`, *Second report* and *In the
+   game*). First the loadout screen's SEST Redback Strike on both MH-60Rs:
+   the tanks on the inner pylons as in the AntiShip fit; on each M299
+   launcher four 7-tube pods where the Hellfires hang, two on the upper
+   rails and two on the lower, each pod's top just under its rail (not
+   cutting in, no gap), the upper pods' bottoms clear of the lower rails, no
+   Hellfire left. If the upper pods clip the lower rails, the lower pair
+   comes out: four pods, 28 rounds. SW03 *Rig Seventeen*: order a Canberra
+   MH-60R's attack on the Peykaap or the Boghammar from about 4 NM, then
+   from 8-15 NM. A salvo of two leaves the 7-tube pods (not yet seen from a
+   Seahawk: if none does, note it and any message line); the flame burns
+   about ten seconds; the round climbs to about 2 km even on the 4 NM shot;
+   note its highest speed just after launch, which shows how long the
+   game's launch stages last, then a steady slow-down to about 150 knots
+   over roughly a minute; from 2 NM out it picks up to about 220 knots and
+   dives at roughly 45 degrees. *SEST NF3 - Coastal Ambush*: both A-10Cs
+   fire it. Record the observed curve; these are candidate settings. Check
+   the active seeker against a crossing ship and a slow drone, and whether
+   a salvo can be retargeted in flight (it is fire and forget now). Then the
+   other pods, in the loadout screen's SEST Redback Strike on the F-16CM, an
+   F/A-18F, an Apache, an MQ-9 and an A-10: each pod hangs from its pylon,
+   not inside a rack or below it in the air, and the F/A-18F shows two pods
+   side by side on each mid pylon beside its wing tanks; the S-70B-2 has
+   one 7-tube pod where its Penguin hangs, clear of the Hellfire rails
+   (provisional: if the launcher is drawn around the pod, its fit comes out
+   before the next upload); each MQ-9 has one pod under each outer pylon
+   and no Hellfire launcher.
 7. **MALICE mass** — an F-15EX on its Malice6 fit (six AIM-424s, 680 kg each
    now) gets airborne and reaches its station.
 8. **SM-3 terminal** — a Flight III Burke's SM-3 IIA at a DF-21D or DF-26B
@@ -40,6 +68,10 @@ first; the detail lives where each line points:
     a supply ship (`integration/mission-seeds/scenarios/README.md`).
 11. **Red Line's Hold/Tight and unseen triggers** — `../red-line/test-card.md`,
     4 and 5.
+12. **The B-2's MALD** — in the mission editor, a B-2 Spirit on *SEAD (JSOW &
+    MALD)* releasing high at a distant target: the MALD holds near its release
+    height and dives only in the last 15 NM, rather than dropping to skim the
+    sea (`build-notes.md`, *The B-2's MALD glides*).
 
 ## Install
 
@@ -129,8 +161,12 @@ Pacific Strike campaign and has never been run.
 | 2.6 | Before SW05 | The builder says one ship sails it; the deployment screen accepts **exactly one vessel** (`Replaced`, `MaxUnits=1`). Send an Arafura and the magazine objective must still read her NSM cells |
 | 2.7 | Before SW07, SW08, O2 | **No task force deployment panel.** The note says nothing of your force sails; the mission launches with its own units, which sit in a blue Deployment Zone you may move them within (6I) |
 | 2.7a | Before O1 and C1 | A **deployment screen** (a detachment of your choosing) and a Ship's Flight row; no builder, no repair |
-| 2.7b | Before SW03, then before SW05, then before SW11 | SW03's list is SW02's: **no F-35A** until the window before SW05, where the strike row can take it. Before SW11 there is **no Seahawk, Wedgetail or Triton** (no row in the carrier action); the P-8 is offered and fits the Attack row |
-| 2.8 | Before SW12 | Aircraft plus **Arafura and Anzac** as replacement hulls; no Hobart. Buy an F-35A and assign it to Combat Air Patrol: it must appear, fly and recover at Darwin |
+| 2.7b | Before SW03, then before SW05, then before SW11 | SW03's list is SW02's: **no F-35A** until the window before SW05, where the strike row can take it. Before SW11 the whole roster is offered since 21 Oct 2026 (2.11), the Seahawk, Wedgetail and Triton among it, though none has a row in the carrier action (until then they were not offered); the P-8 fits the Attack row |
+| 2.8 | Before SW12 | The whole roster and the allied fleet (2.11), a **Hobart and a Growler** among them; until 21 Oct 2026 aircraft plus Arafura and Anzac only. Buy an F-35A and assign it to Combat Air Patrol: it must appear, fly and recover at Darwin |
+| 2.9 | Before SW01, SW02 and SW03 | The story's own lists (2.2, 2.5, 2.7b) and **nothing of the allied fleet**, ship or aircraft. The Unit Catalog still lists all of it, and the rules page's availability line says the force allocations before Weapons Free offer what the story releases and every one from the one before Weapons Free the whole roster and the allied fleet (allied escorts from 20 Oct 2026; the whole fleet and the whole roster from 21 Oct) |
+| 2.10 | Before SW05: buy a Mogami or a Type 23, then fly Weapons Free with it | The **whole roster**, 82 units in all - the campaign's own ten, the Triton among them (the story held it to SW09 until 21 Oct 2026) - and the allied fleet at list price: 52 ship classes of eleven navies - Ford and Nimitz, Wasp, Mistral, Juan Carlos and Galicia, the T-AOE, T-AKE, T-AO, Tide and Mashuu, and every destroyer and frigate - HMAS Adelaide (Canberra class, at the discounted price), and 19 allied aircraft types; the window text ends "This force allocation offers the campaign's whole roster and, at their own navies' prices, the allied fleet - ..." and counts them by navy. The bought ship sails, and still only one ship sails (`MaxUnits=1`). No hull a mission names (JS Mogami, Daegu and JS Maya are Variant1 of their classes), no HMAS Choules, no Supply-class AOR and no submarine |
+| 2.11 | Before SW09, SW11 and SW12 | The same 82 at each: before SW11 a Seahawk, a Wedgetail and a Triton too, and before SW12 a Hobart and a Growler, none of which the story's windows offered there until 21 Oct 2026. A Type 45 or a Burke bought before SW09 sails in Southern Lifeline |
+| 2.12 | A Southern Watch save from before 21 Oct 2026, mid-campaign | It loads. Note what its windows offer: the whole roster with the fleet, the story's list with the fleet or the eleven escorts of 20 Oct, or the story's list alone. A campaign under way may keep its old `campaign.ini` (expected: maybe not): start a new one to get the whole roster |
 
 2.4 is the one to watch. If the bought ship is missing, misplaced, or the
 authored ship is still there beside it, the anchor model is wrong and the
@@ -191,10 +227,11 @@ shipped missions imply.
 | 6.3 | Classify the group in SW06, reach SW11 | The three escorts are identified from the start, with an intel line |
 | 6.4 | Save mid-campaign, quit to desktop, reload | The flags above still hold |
 
-| 6.5 | Get alongside Torres Light first in O1, then start SW02 | An intel line and the submarine on the route shown as a **classified** contact from the start; skip O1, or let Meridian's ship get there first, and it is not |
-| 6.6 | Identify the coaster in O2, then start SW04 | The same shape: Kiwi 01's picture as intel, the submarine classified |
+| 6.5 | Get alongside Torres Light first in O1, then start SW02 | An intel line and, for **one minute**, a bare (unclassified) submarine contact at the **reported datum**, 30 NM up the route. Since 23 Oct 2026 that is a record, not the boat: Contact BRAVO starts at random up to 35 NM from it (H.20a). Skip O1, or let Meridian's ship get there first, and there is no line and no contact |
+| 6.6 | Identify the coaster in O2, then start SW04 | Kiwi 01's picture as intel, and the submarine on the plot as a fifteen-minute datum (a detection, not a class) |
+| 6.6a | Name the receiver in O5 Paper Trail, then start SW04; then again with O2 done as well | Paper Trail's intel line, and **the passenger** on the plot as a fifteen-minute datum. With both done, both lines and both datums. Until 20 Oct 2026 O2's reveal replaced O5's in the build and the passenger's never came |
 | 6.7 | Bring both Korean warships in at O3, then start SW06 | **ROKS Sejong the Great** is in the screen. Lose either, or skip O3, and she is not (`SpawnByVariableAND=O3ShieldJoined,IsTrue` — the first `IsTrue` spawn in the pack) |
-| 6.8 | Put both coasters in at O4, then start SW08 | A **KC-46** on the track south of the box; skip or fail O4 and there is none |
+| 6.8 | Start SW08 fresh, then compare a campaign with O4 completed | **Texaco 52 is always present** on its south-western refuelling track. Completing O4 adds **Texaco 53** on a separate track; skipping or failing O4 leaves Texaco 52 available. Langgur has its modern resident wing in both cases. |
 | 6.9 | Hold the SW09 service window, then open the SW10 pre-mission screen | A **rearm** is offered. Miss the window (leave the box before 35:00 and lose it) and it is not (`TaskForceModeRearmByVariableAND`) |
 
 6.4 is the real test. Declaration, write and read are all present in the files
@@ -224,7 +261,7 @@ picket is a hull you cannot buy.
 | # | Do | Expect |
 |---|---|---|
 | 6B.1 | Take damage and lose a ship in SW01, then open O1 | The lost ship is **not offered**; the damaged one deploys **with its damage** |
-| 6B.2 | O1, go straight for Torres Light at speed | Classify her (intel line), get the **lead ship** within 1.5 NM: **victory**, and SW02 reveals the submarine (6.5) |
+| 6B.2 | O1, go straight for Torres Light at speed | Classify her (intel line), get the **lead ship** within 1.5 NM: **victory**, and SW02 shows the reported datum for one minute (6.5) |
 | 6B.3 | O1, stay on the lane and let Meridian Salvor run (about 70 minutes) | She reaches Torres Light first: **defeat** with the Meridian message, and no SW02 reveal. With a frigate lead, 30 minutes on the lane is still recoverable; with an Arafura it is not |
 | 6B.4 | O1, sink Meridian Salvor, then get the lead ship alongside | **Victory**, and **Restraint fails** (-20) at the debrief. Sink her and never get alongside: the clock runs out with the timeout text, not the Meridian one |
 | 6B.5 | O1 or C1, lose the lead ship while another survives | The mission **ends at once** in a defeat, not at the deadline |
@@ -310,22 +347,36 @@ Compare with Range Week (D5): its Shahed line flies at 300 ft, under the
 David's Sling Stunner's 500-ft floor and THAAD's, so a live ceiling holds both
 batteries to 5% there too.
 
-## 6G — Open Allocation (new)
+## 6G — Open Allocation (retired 21 October 2026), and the allied fleet
 
-Three new entries in the campaign list, one per campaign, that sell the whole
-roster from the first window. Build notes, "Open Allocation".
+The Open Allocation versions - a second entry in the campaign list per
+campaign, selling the whole roster from the first window - left the pack on
+21 October 2026, at the owner's request, once the allied reserve put allied
+escorts on sale in the standard campaigns (build notes, "Open Allocation
+retired from the pack"). The same day the owner put what they sold in the
+standard campaigns, from the same windows: the allied fleet, and then the
+whole roster at every force allocation from Weapons Free (build notes, "21
+October: the allied fleet in the standard campaigns"). Rows
+G.1-G.5 and G.7-G.9 are retired and kept as the record of what was asked;
+G.6, the discount, stands for the standard campaigns, and G.10-G.13 ask
+G.7-G.9's questions of the standard campaign. The builder keeps the twins
+for a world-wide campaign: if one opts in, these rows come back for it.
 
 | # | Do | Expect | If not |
 |---|---|---|---|
-| G.1 | Open the campaign list | Three more entries: Southern Watch, Southern Reach - Tasman Shield and Red Line - The Other Watch, each with "- Open Allocation" before the navy in brackets, with the same background art | An entry missing = the game does not list a campaign folder with no missions of its own. Bring back the Player.log lines from opening the list |
-| G.2 | Start Southern Watch - Open Allocation and open Task Force Builder at the first window | Anzac, Hobart, Arafura, F-35A, Super Hornet, Growler, P-8, Wedgetail, Triton and MH-60R on sale at their usual prices; the situation opens with the Open Allocation line; the Campaign Rules button shows "Southern Watch - Open Allocation - Task Force Mode" | Only the three first-window units = the twin's allowlist was not read |
-| G.3 | Buy an F-35A there, then fly White Water | White Water loads and plays as in the standard campaign; the F-35A does not appear (no row for it) and is still in the force afterwards | A load failure = missions are not loaded from another campaign's folder: capture with `-IncludeSaves` and push |
-| G.4 | Continue the standard Southern Watch save | Unchanged: its own windows, its own progress | The twin sharing the standard save = the campaigns are keyed by something other than their folder |
-| G.5 | Red Line - Open Allocation, first window | Every Red Line roster entry on sale, the J-15, J-15D, KJ-500 and Y-9 among them | As G.2 |
-| G.6 | Any campaign, standard or Open Allocation: open the Service Record, then Campaign Rules > Unit Catalog, then Task Force Builder; later, damage a Hobart to Moderate before a repair window | The Service Record reads "Same-nation discount: 20%". In the Unit Catalog the campaign's own units show the commander's nation: Australia in Southern Watch and Southern Reach, the Super Hornet, Growler, P-8 and MH-60R included; China in Red Line. In the standard campaigns and both Red Line versions that is every row; in the Southern Watch and Southern Reach Open Allocation versions Canberra, Choules and Supply show Australia too, and every allied class shows its own nation at list price (see G.7). Builder prices a fifth under the roster's: Anzac 240 to 192, Hobart 480 to 384, MH-60R 20 to 16; 054A 280 to 224, Z-9C 20 to 16. Record the Moderate repair: 120 = charged on the listed price, 96 = on the discounted one. Note whether your Rig Seventeen save shows the discount or only a new campaign does | One of the campaign's own US-built airframes (the Super Hornet, Growler, P-8 or MH-60R) at full price = the game takes the discount nation from the unit file, not the squadron: say which, and it goes back to a per-unit decision. The allied US aircraft at full price in those two Open Allocation versions (F-22, F-35C, F-15E, F/A-18E, the US Navy's P-8, and in Southern Watch the F-15EX) are correct |
-| G.7 | Southern Watch - Open Allocation: Campaign Rules > Unit Catalog | The allied classes are listed with their nations and prices - e.g. Arleigh Burke Flt III 520 (USA), Type 45 460 (United Kingdom), Maya 500 (Japan), E-2D 70 (France) - beside the campaign's own at their discounted prices; the Commander tab says the discount covers 13 Australian classes and 67 of other nations pay full price; no submarine is listed | A short catalogue = the game did not read the long roster; bring back which entries appear |
-| G.8 | Same campaign, first force allocation: buy a Burke Flight III and fly White Water | The builder offers the allied fleet at the first window and the Burke sails with the escort; nothing else in White Water changes | The Burke missing from the builder = the long allowlist line was not read |
-| G.9 | Buy a Typhoon (United Kingdom); fly Steel Highway, Blind Horizon, then Southern Lifeline | Steel Highway and Southern Lifeline offer the Typhoon no row: their Ship's Flight (SAR) and Maritime Patrol (MPA/ASW/ESM/AEW) rows do not take its Fighter and Bomber roles. Blind Horizon offers it in Combat Air Patrol | A Typhoon offered in a Ship's Flight or Maritime Patrol row, or missing from Blind Horizon's Combat Air Patrol: note the mission and the row. (This row also bought a Collins until 13 October; submarines are no longer sold - 6I) |
+| G.1 | *Retired 21 Oct 2026.* Open the campaign list | Three more entries: Southern Watch, Southern Reach - Tasman Shield and Red Line - The Other Watch, each with "- Open Allocation" before the navy in brackets, with the same background art | An entry missing = the game does not list a campaign folder with no missions of its own. Bring back the Player.log lines from opening the list |
+| G.2 | *Retired 21 Oct 2026.* Start Southern Watch - Open Allocation and open Task Force Builder at the first window | Anzac, Hobart, Arafura, F-35A, Super Hornet, Growler, P-8, Wedgetail, Triton and MH-60R on sale at their usual prices; the situation opens with the Open Allocation line; the Campaign Rules button shows "Southern Watch - Open Allocation - Task Force Mode" | Only the three first-window units = the twin's allowlist was not read |
+| G.3 | *Retired 21 Oct 2026.* Buy an F-35A there, then fly White Water | White Water loads and plays as in the standard campaign; the F-35A does not appear (no row for it) and is still in the force afterwards | A load failure = missions are not loaded from another campaign's folder: capture with `-IncludeSaves` and push |
+| G.4 | *Retired 21 Oct 2026.* Continue the standard Southern Watch save | Unchanged: its own windows, its own progress | The twin sharing the standard save = the campaigns are keyed by something other than their folder |
+| G.5 | *Retired 21 Oct 2026.* Red Line - Open Allocation, first window | Every Red Line roster entry on sale, the J-15, J-15D, KJ-500 and Y-9 among them | As G.2 |
+| G.6 | Any campaign: open the Service Record, then Campaign Rules > Unit Catalog, then Task Force Builder; later, damage a Hobart to Moderate before a repair window | The Service Record reads "Same-nation discount: 20%". In the Unit Catalog the campaign's own units show the commander's nation: Australia in Southern Watch and Southern Reach, the Super Hornet, Growler, P-8 and MH-60R included; China in Red Line. In Red Line and Sulu Line that is every row of the commander's own navy. In Southern Watch and Southern Reach the allied fleet is listed from the start too (72 and 63 classes since 21 Oct 2026; on sale only from Weapons Free and Tasman Crossing, as the rules page says), each allied class with its own nation at list price. Builder prices a fifth under the roster's: Anzac 240 to 192, Hobart 480 to 384, MH-60R 20 to 16; 054A 280 to 224, Z-9C 20 to 16. Record the Moderate repair: 120 = charged on the listed price, 96 = on the discounted one. Note whether your Rig Seventeen save shows the discount or only a new campaign does | One of the campaign's own US-built airframes (the Super Hornet, Growler, P-8 or MH-60R) at full price = the game takes the discount nation from the unit file, not the squadron: say which, and it goes back to a per-unit decision. An allied reserve class at full price is correct |
+| G.7 | *Retired 21 Oct 2026.* Southern Watch - Open Allocation: Campaign Rules > Unit Catalog | The allied classes are listed with their nations and prices - e.g. Arleigh Burke Flt III 520 (USA), Type 45 460 (United Kingdom), Maya 500 (Japan), E-2D 70 (France) - beside the campaign's own at their discounted prices; the Commander tab says the discount covers 13 Australian classes and 67 of other nations pay full price; no submarine is listed | A short catalogue = the game did not read the long roster; bring back which entries appear |
+| G.8 | *Retired 21 Oct 2026.* Same campaign, first force allocation: buy a Burke Flight III and fly White Water | The builder offers the allied fleet at the first window and the Burke sails with the escort; nothing else in White Water changes | The Burke missing from the builder = the long allowlist line was not read |
+| G.9 | *Retired 21 Oct 2026.* Buy a Typhoon (United Kingdom); fly Steel Highway, Blind Horizon, then Southern Lifeline | Steel Highway and Southern Lifeline offer the Typhoon no row: their Ship's Flight (SAR) and Maritime Patrol (MPA/ASW/ESM/AEW) rows do not take its Fighter and Bomber roles. Blind Horizon offers it in Combat Air Patrol | A Typhoon offered in a Ship's Flight or Maritime Patrol row, or missing from Blind Horizon's Combat Air Patrol: note the mission and the row. (This row also bought a Collins until 13 October; submarines are no longer sold - 6I) |
+| G.10 | A **new** Southern Watch: Campaign Rules > Unit Catalog | The allied fleet listed from the start with its nations and prices - e.g. Gerald R. Ford 650 (USA), Arleigh Burke Flt III 520 (USA), Type 45 460 (United Kingdom), Maya 500 (Japan), Typhoon FGR.4 45 (United Kingdom) - beside the campaign's own at their discounted prices; the Commander tab says the discount covers 11 Australian classes and that 71 of other nations pay full price; no submarine is listed | A short catalogue = the game did not read the long roster (82 entries); bring back which entries appear |
+| G.11 | Same campaign, the windows before SW01, SW02 and SW03, then before SW05 | Nothing of the allied fleet on sale until the window before SW05, where all of it is, with the whole roster (2.10): the allowlist line runs to about 4,200 characters, where stock's longest is about 1,900 | The fleet missing at SW05 = the long allowlist line was not read; on sale earlier = an old `campaign.ini` |
+| G.12 | Before SW05: buy a Gerald R. Ford or a Wasp beside the one ship for Weapons Free; then sail the carrier in Southern Lifeline | The carrier comes with an empty deck (`ShipIncludesAirwing=False`, as for every ship here) and sails with the force in Southern Lifeline; nothing in Weapons Free changes | Aircraft on the bought deck = the game gives a bought ship its air group anyway: say which, and whether they could be tasked |
+| G.13 | Before SW05: buy a Typhoon FGR.4 (United Kingdom) and an SH-60K (Japan); fly Weapons Free, Blind Horizon, then Southern Lifeline | The Typhoon is offered Weapons Free's strike row and Blind Horizon's Combat Air Patrol, launches and recovers at the row's field; Southern Lifeline offers it no row. The SH-60K takes Ship's Flight in Weapons Free and Southern Lifeline. No B-2, E-2D, Merlin, Wildcat or NH90 is on sale (`docs/campaign-coverage.md`, "The reserve", says why each is not) | An allied aircraft offered a row it cannot fly, or one that cannot get back: note the mission and the row |
 
 ## 6I — moving the force before a mission, and no submarines on sale (13 October)
 
@@ -334,7 +385,8 @@ start of any mission, a bought submarine never showed in the formation
 editor, and one dismissed from the force still sailed and stayed. Every
 mission now has a blue **Deployment Zone** round the force (the stock
 campaign's own key; build notes, *Deployment zones, and no submarines on
-sale*), and the Open Allocation versions sell no submarine. Since 14 October
+sale*), and the Open Allocation versions (retired 21 October) sold no
+submarine. Since 14 October
 every other unit of the mission's own that can be moved has a box of its
 own as well - an **Air Station** round aircraft and helicopters on station,
 a **Submarine Patrol Box** round a boat on her own, a **Detachment Zone**
@@ -348,7 +400,7 @@ a save made before this build keeps the submarine it bought.
 | I.2 | Drag the force round the box, then launch | It moves anywhere inside the box and not past its edge; it starts where you left it | The force snaps back = say whether it moved in the briefing and lost it at launch |
 | I.3 | In White Water, look at the box against the enemy | The box reaches about 31 NM west and south of where the force starts, and about 3 NM east and north (towards the threat): you can pull back, not close in | A box that reaches towards the enemy: note the mission and the direction |
 | I.4 | Before SW05 Weapons Free | The panel says Dispersed (the one-ship Replaced mission), and the box still holds the ship | |
-| I.5 | Southern Watch - Open Allocation and Southern Reach - Open Allocation, first window | No submarine on sale (no Seawolf, Virginia, Los Angeles, Suffren, Type 212A, Todaro, S-80, Kilo or Collins); the rules page says "Submarines cannot be bought in this campaign" | A submarine on sale = the old twin roster is still installed: run SETUP again |
+| I.5 | Southern Watch, the window before SW05 Weapons Free, the allied reserve's first | No submarine on sale: no Collins among the RAN's own units and none in the allied fleet; the rules page says "Submarines cannot be bought in this campaign". (Until 21 October this row checked the Open Allocation versions, now retired.) | A submarine on sale = an old roster is still installed: run SETUP again |
 | I.6 | SW09 Southern Lifeline | The mission's own Collins sails with Stalwart inside the box and can be moved with the force | |
 | I.7 | Red Line 05, Southern Reach 02, Tasman Shield 05 (submarine operations) | The boat sits in a blue Submarine-only box labelled Deployment Zone and can be moved within it. In Southern Reach 02 the P-8 to the south-east sits in a second box labelled Air Station | |
 | I.8 | Before Tasman Shield 07 Southern Air Bridge, then Southern Reach 05 Empty Horizon | Tasman Shield 07: besides Hobart's small Deployment Zone, four blue boxes labelled Air Station 1 to 4 - round the P-8, the F-35A pair, the Wedgetail with the Triton and the A330, and the KC-46 far to the north; each aircraft can be dragged within its box and starts where you left it; Williamtown has no box. Southern Reach 05 (no ship): two boxes, Air Station 1 round the Triton and Air Station 2 round the P-8 | An aircraft that cannot be picked up = the game does not place aircraft in a Deployment zone: note whether the box is drawn at all. An aircraft that snaps back at launch = say whether it moved in the briefing |
@@ -369,7 +421,7 @@ sections the same way and are live.
 
 | # | Do | Expect | If not |
 |---|---|---|---|
-| J.1 | Southern Watch - Open Allocation: buy an Iver Huitfeldt (Denmark) and an MH-60R, assign the Seahawk to the Iver Huitfeldt in the Task Force Manager | The assignment is accepted and the Seahawk launches from and recovers to the Iver Huitfeldt in the next mission | Refused = the game ignores AircraftSupported set through #!extend: bring back Player.log and the CROSS-DECK.txt line for hdms_iver_huitfeldt |
+| J.1 | Southern Watch, the window before SW05 Weapons Free: buy a Mogami from the allied reserve and an MH-60R, assign the Seahawk to the Mogami in the Task Force Manager, and choose the Mogami as the one ship that sails Weapons Free. (Until 21 October this row used the Open Allocation version's Iver Huitfeldt; since that day it is on sale from Weapons Free with the rest of the allied fleet, and either ship will do.) | The assignment is accepted and the Seahawk launches from and recovers to the Mogami in the next mission | Refused = the game ignores AircraftSupported set through #!extend: bring back Player.log and the CROSS-DECK.txt line for js_ffg_mogami |
 | J.2 | Mission editor: place a Maya (jmsdf_ddg_maya) and give it an Australian S-70B-2 Seahawk; a Horizon (fr_ddg_horizon) with a German NH90; a Nimitz (usn_cvn_nimitz_2027s_adou) with a Rafale M | Each embarks, launches and recovers | Note which pairing fails |
 | J.3 | Mission editor: a Type 23 with an MH-60R | Refused: the Type 23 lists no Seahawk family, so it gains none (Lynx/Wildcat, Merlin, Cougar only) | Accepted = the deck takes everything, not the families: report it |
 
@@ -435,5 +487,8 @@ will change the model rather than patch the symptom.
 | H.18 | SR04 Macquarie Passage, sea state 5: Supply and Coral Pioneer at flank north from the 30-minute check | Both inside the withdrawal line (16 NM north of Buckles Bay, radius 12) before 75:00, the planned window; note Supply's speed over ground | Not inside by 75:00 = the SEA_SPEED row for state 5 (0.45) is still optimistic: bring back her speed and the minute she crossed, and the table moves |
 | H.19 | SW01 White Water, first five minutes: note where Warramunga, the merchants and the two Meridian contacts start, and when the first missile alert comes | Warramunga about 3 NM ahead of the merchants on the threat side, the Meridian pair about 29 NM out to the east-north-east, beyond its own radar; no launch before you have had time to classify it | A launch inside the first few minutes, or Warramunga still astern of the merchants: bring back the minute of the first launch and the range to the shooter |
 | H.20 | SW02 Steel Highway, opening: buy a P-8 and note where it spawns; then prosecute Contact BRAVO | The escorts 2 NM ahead of the merchants; the P-8 at 6,000 ft about 10 NM from the datum, 30 NM up the track; no torpedo or YJ-18 in the water in the first ten minutes | The P-8 far from the datum or high, or the boat firing before the screen is formed: bring back its spawn, the minute of the first launch and the range |
+| H.20a | SW02 Steel Highway, three starts (23 Oct 2026): note where Contact BRAVO is first detected | A different place each time, up to 35 NM from the datum 30 NM up the track, never in the quarter facing your ships (bearings 200-290 from the datum, south-south-west to west-north-west), so never closer than about 17 NM to them at the start; submerged and under way toward the track. With the Torres Light record (6.5) the one-minute contact sits at the datum, not on the boat, and is gone after it | A boat surfaced, stopped or aground in shallows, or a start inside that quarter: note its position. The game picks the spot at random and no coastline or depth data for this sea is in the build to check it |
 | H.21 | O2 Southern Cross: fly Kiwi 01 to the coaster, classify it, and bring her to Darwin; keep Pilbara on the lane | Win. The Meridian boat shadows the coaster and does not fire on Pilbara unprovoked; no missile in the first ten minutes | Pilbara under missile attack without having fired: bring back the minute and the range to the boat - Tight may not hold her for this AI |
 | H.22 | Any mission from the opening-gate table (build notes): the first five minutes | No enemy weapon in the air before you have a contact on your plot and time to classify it | A launch in the first minutes: bring back the mission, the shooter and the range |
+| H.23 | D3 The Relief Ship: SPS Juan Carlos I's deck, then order one of her own Harriers or Sea Kings off and back (22 Oct 2026: her deck loadout is now the author's `Default`) | Deck crew, equipment, a static AB 212, three static AV-8Bs and two static SH-3s parked; her own aircraft launch and recover through them | A static model in the way of a launch or landing, or a real aircraft drawn through a parked one: say which spot, and the mission moves her to `Empty_deck` |
+| H.24 | Any mission, then `Player.log` (play-test guide, section 0, step 3); then the debrief of a generated mission (02 Steel Highway, say) in which a ship of yours was sunk, and of one played as written (O2 Southern Cross) if a ship is lost there | On Sea Power 0.8.7 (SEST matched to it on 23 Oct 2026): two `[SEST Runtime] ... correction installed` lines and no `inactive` line. After 02, each sunk ship listed once in section 3, as Lost, with a `debrief mission N: restored` line. After O2, by 0.8.7's code (not yet seen) the sunk ship is listed without a Lost status (Undamaged): O2 gives your ships no `CampaignTag`, so the game keeps no loss record for them and the correction has none to add | `inactive: uninspected native assembly ...` = the game has updated past 0.8.7: bring back the line and the game's build. After 02, a sunk ship missing from section 3, or listed twice: bring back the mission, the ship and the `[SEST Runtime]` lines. After O2, say what section 3 showed for her (Lost, Undamaged, listed twice or missing) |

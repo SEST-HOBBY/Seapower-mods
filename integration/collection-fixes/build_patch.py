@@ -78,7 +78,9 @@ its own, points the Topol-M and DF-41 trucks at the launcher section their mod \
 defines so they can fire, \
 restores the vanilla-fidelity AGM-88 HARM the F-16 fleet was authored against, \
 opens the GBU-53/B StormBreaker's 200-ft release window to 500-45000 ft, \
-returns the GBU-12D and GBU-24 to conventional Paveway behaviour, gives the \
+returns the GBU-12D and GBU-24 to conventional Paveway behaviour, makes the \
+B-2's ADM-160 MALD decoy glide at its release height instead of skimming the \
+sea, gives the \
 ESSM its only ECCM bonuses, re-unites the AC-130's 30mm definition with \
 Euromod's ballistics, lifts the Hellfire's 2000-ft launch ceiling for the \
 gunship, fixes AIM-9L/M impact size and speed-penalty keys, raises the \
@@ -105,7 +107,7 @@ crews, park slots, taxi speed - where the mods dropped or lowered them. Generate
 integration/collection-fixes/build_patch.py; must load above every workshop mod.
 
 [Compatibility]
-ApproximateVersion=0.8.6
+ApproximateVersion=0.8.7
 """
 
 
@@ -345,25 +347,36 @@ def main():
     # 350x Large / 167x VerySmall repo-wide, zero numeric) - and drops
     # InterceptSpeedPenaltyMultiplier that vanilla carries. Everything else kept.
     #
-    # DONOR REBASED TWICE. 2026-09-20: the original donor was the deprecated
-    # Super Hornet (3426791311), unsubscribed and pruned, so it moved to US
-    # Naval Aviation (3737267013). 2026-10-09: USNA deleted its copy in the
-    # 9 Oct export, which failed this build outright - "donor missing
-    # (re-export 3737267013?)". The F-16 pack (3758320372) is now the SOLE
-    # provider and carries the IDENTICAL defect at the identical lines:
-    # ImpactSize=5, no InterceptSpeedPenaltyMultiplier, KillProbability=0.80.
-    # Vanilla has VerySmall and 0.75, so the fix still earns its place - only
-    # the donor changes. A third rebase means re-measuring again, not assuming.
+    # DONOR REBASED THREE TIMES. 2026-09-20: the original donor was the
+    # deprecated Super Hornet (3426791311), unsubscribed and pruned, so it
+    # moved to US Naval Aviation (3737267013). 2026-10-09: USNA deleted its
+    # copy in the 9 Oct export, which failed this build outright, and the
+    # F-16 pack (3758320372) became the sole provider. 2026-10-20: USNA v99
+    # re-ships its copy and outranks the F-16 pack again, so the donor is
+    # USNA's once more. Re-measured, not assumed: USNA's 9L carries the same
+    # two defects (ImpactSize=5, no InterceptSpeedPenaltyMultiplier,
+    # KillProbability=0.80), and its flight model is vanilla's - 1450 kt,
+    # 24 deg/s capped at 40 g, ACM 0.1 - where the F-16 pack's turned at
+    # 90 deg/s, out-turning the R-73 (60) and SEST's AIM-9X (70) and, with
+    # USNA's vanilla-model AIM-9M now winning, its own successor almost four
+    # times over. The player's call (20 Oct 2026): whichever is realistic,
+    # which is vanilla's scale for both.
     #
-    # usn_aim-9m is RETIRED from this pack: the winning copy is already
+    # usn_aim-9m is RETIRED from this pack: the winning copy (USNA's since
+    # 20 Oct, vanilla's flight model, ACM 0.25 above the 9L's 0.1) is already
     # ImpactSize=VerySmall with InterceptSpeedPenaltyMultiplier present, so
-    # there is nothing left to correct. Shipping it would be an override that
-    # changes nothing.
+    # there is nothing left to correct. The check below keeps that true: a
+    # new winner carrying either defect stops the build instead of shipping.
+    nine_m = read(top_provider("ammunition/usn_aim-9m.ini"), "ammunition/usn_aim-9m.ini")
+    if (not re.search(r"^ImpactSize=VerySmall\b", nine_m, re.M)
+            or "InterceptSpeedPenaltyMultiplier" not in nine_m):
+        sys.exit("usn_aim-9m: the winning copy now carries ImpactSize/ISPM defects - "
+                 "bring it back into this pack")
     ispm = ("InterceptSpeedPenaltyMultiplier=0.75                  "
             "// multiplier to the severity of the speed penalty, 0.75 for good, "
             "1.0 for average, 1.25 for poor")
     for name, kp in (("usn_aim-9l", "0.80"),):
-        t = read("3758320372", f"ammunition/{name}.ini")
+        t = read("3737267013", f"ammunition/{name}.ini")
         t = edit(t, r"^ImpactSize=5(\s)", r"ImpactSize=VerySmall\1", 1, name)
         if "InterceptSpeedPenaltyMultiplier" in t:
             sys.exit(f"{name}: donor now defines InterceptSpeedPenaltyMultiplier - rebase")
@@ -438,9 +451,13 @@ def main():
     built.append("usn_gbu-12d")
 
     # usn_gbu-24 [audit: usn_gbu-24 cohort]. The winning copy is a 363 kg
-    # GBU-27 substituted under the GBU-24's id; the only consumer anywhere is
-    # the vanilla A-6E. Vanilla body verbatim: guaranteed assets, and exactly
-    # what that consumer was authored against.
+    # GBU-27 substituted under the GBU-24's id (Murder Hornet, 3430135740).
+    # Live consumers: the vanilla A-6E (DateBased_GBU from 1983) and the
+    # Italian Cold War Tornado IDS '95 (3505420313 am_tornado_ids_95). Since
+    # 20 Oct 2026 US Naval Aviation re-ships a 907 kg copy that it says needs
+    # a stats revision; it ranks below Murder Hornet and this pack, so it
+    # never loads. Vanilla body verbatim: guaranteed assets, and what those
+    # consumers were authored against.
     t = read("_vanilla/original", "ammunition/usn_gbu-24.ini")
     if "Mass=1050" not in t:
         sys.exit("usn_gbu-24: vanilla export changed - re-verify")
@@ -449,6 +466,32 @@ def main():
           "prior winner shipped a 363 kg GBU-27 under this id; the only consumer\n"
           "(vanilla A-6E) expects this file.")
     built.append("usn_gbu-24")
+
+    # b-2_jsow_ecm, the B-2 Spirit's ADM-160 MALD decoy (play test, 19 Oct
+    # 2026: "does not glide, it sea skims at 6 feet"). The mod builds it as
+    # an unpowered JSOW with no flight profile at all - no kinematics, no
+    # terminal dive - and GravityFactor=4, so it falls at four times gravity
+    # to the game's default wave-top height and skims there. The fix is the
+    # glide the Dingtools JSOW (dts_agm-154a) flies: full kinematics, its
+    # 680 kt ceiling (a glider's stall is a quarter of it), at release height
+    # until 15 nm out and then down. Its decoy jammer, range and seekerless
+    # guidance stay the author's. The B-2's three JSOWs share the profile and
+    # are not changed here.
+    t = read("3480965706", "ammunition/b-2_jsow_ecm.ini")
+    t = edit(t, r"^GravityFactor=4[^\n]*\n", "", 1, "b-2_jsow_ecm")
+    t = edit(t, r"^VelocityBleed=2[^\n]*\n", "", 1, "b-2_jsow_ecm")
+    t = edit(t, r"^MaxVelocity=1000\b", "MaxVelocity=680", 1, "b-2_jsow_ecm")
+    if re.search(r"^(ApplyKinematics|TerminalDiveDistance)=", t, re.M):
+        sys.exit("b-2_jsow_ecm: donor now defines its own glide - rebase")
+    t = edit(t, r"^(TerminalApproachDist=1000.*)$",
+             "\\1\nApplyKinematics=True\nTerminalDiveDistance=15                 // in N. miles.",
+             1, "b-2_jsow_ecm")
+    write("ammunition/b-2_jsow_ecm.ini", t,
+          "SEST Collection Fixes - base: 3480965706's ADM-160 MALD (the B-2 Spirit).\n"
+          "It glides instead of skimming the sea: ApplyKinematics=True and a 15 nm\n"
+          "terminal dive, as the Dingtools JSOW flies; GravityFactor=4 and\n"
+          "VelocityBleed=2 removed; MaxVelocity 1000 -> 680 kt.")
+    built.append("b-2_jsow_ecm")
 
     # usa_agm-114k [audit: usa_agm-114k cohort]. The French Helicopter
     # Package's winning Hellfire has the better kinematics (13 deg/s, 5.94 nm,
@@ -752,6 +795,29 @@ def main():
             #    longer depend on the preloader (sm3_fold_overwrite above).
             t, fold = sm3_fold_overwrite(t, name)
             extra += fold
+        if name == "usn_rim-174a":
+            # The SM-6 Block I's 240 s life against its 260 nm MaxLaunchRange
+            # (22 Oct 2026): even at its 3600 kt top speed throughout it
+            # covers 240 nm, so the declared range cannot be flown. The base
+            # file keeps TimeLimited commented out, but the Anchorchain
+            # overwrite sets TimeLimited=True on top whenever the preloader
+            # SETUP installs is present, which makes the 240 a hard limit.
+            # The overwrite carried MaxFlightTime=300 from 19 to 21 Oct and
+            # withdrew it on 22 Oct; 300 s is that author's own figure, kept
+            # here. It is not sized with the SM-3s' headroom above: the round
+            # slows after its 50 s burn (VelocityBleed=0.3), so whether 300 s
+            # reaches 260 nm is for the game to show, not this file to claim.
+            # The RIM-174B (SEST Replenishment's #!alias of this file)
+            # inherits it.
+            ovwr = ini_values(read(SM3_OVERWRITE, f"ammunition_overwrite/{name}_OVWR.ini"))
+            if ovwr.get("MaxFlightTime") is not None or ovwr.get("TimeLimited") != ["True"]:
+                sys.exit(f"{name}: the Anchorchain overwrite now has MaxFlightTime="
+                         f"{ovwr.get('MaxFlightTime')} and TimeLimited={ovwr.get('TimeLimited')} "
+                         "- re-check the SM-6 flight time")
+            t = edit(t, r"^MaxFlightTime=240\b", "MaxFlightTime=300", 1, name)
+            extra += ("\nMaxFlightTime 240 -> 300 s, the Anchorchain overwrite's own figure of "
+                      "19-21 Oct:\nat 3600 kt, 240 s cannot fly the declared 260 nm once the "
+                      "preloader\nmakes the limit hard (TimeLimited=True).")
         if name == "usn_rim-161d":
             # The D is the fastest and newest of the three and is penalised
             # 30x more than its older siblings for target speed, which is
@@ -886,6 +952,65 @@ def main():
           "and defines none), NumberOfSquadrons=1 to match.")
     built.append("plaaf_jh7a_squadrons")
 
+    # ran_seakingmk50ab_squadrons - Euromod RAN's Sea King Mk.50A/B is
+    # aircraft/ran_seakingmk50ab.ini, but its squadron table is spelled
+    # ran_seakingmk50bab_squadrons.ini, so the game finds none: the Unit
+    # Reference showed it under Missing Type and Missing Class, 0 m long
+    # (19 Oct 2026). The table is copied verbatim under the name the game
+    # reads, while no mod ships one under that name.
+    if (MODS / "3820759806" / "aircraft" / "ran_seakingmk50ab_squadrons.ini").exists():
+        sys.exit("ran_seakingmk50ab_squadrons: upstream now ships the right name - retire this fix")
+    t = read("3820759806", "aircraft/ran_seakingmk50bab_squadrons.ini").replace("\r\n", "\n")
+    write("aircraft/ran_seakingmk50ab_squadrons.ini", t,
+          "SEST Collection Fixes - base: 3820759806's ran_seakingmk50bab_squadrons.ini,\n"
+          "verbatim, under the name its aircraft (ran_seakingmk50ab) is read with.")
+    built.append("ran_seakingmk50ab_squadrons")
+
+    # usaf_f-16c_blk40_squadrons - Euromod South Korea Navy's USAF F-16C
+    # Block 40 has no squadron table at all (and no name: SEST Name Fixes
+    # gives it one). Cloned from the same mod's KF-16 table, which carries
+    # no livery fields either, with the US flag and one squadron.
+    if (MODS / "3789208859" / "aircraft" / "usaf_f-16c_blk40_squadrons.ini").exists():
+        sys.exit("usaf_f-16c_blk40_squadrons: upstream now ships one - retire this fix")
+    t = read("3789208859", "aircraft/rok_kf16_squadrons.ini").replace("\r\n", "\n")
+    t = edit(t, r"^NumberOfSquadrons=0$", "NumberOfSquadrons=1", 1, "usaf_f-16c_blk40_squadrons")
+    t = edit(t, r"^FlagTexture=South Korea$", "FlagTexture=flag_usn", 1, "usaf_f-16c_blk40_squadrons")
+    t = edit(t, r"^Nation=South_Korea$", "Nation=US", 1, "usaf_f-16c_blk40_squadrons")
+    t = t.rstrip("\n") + "\n\n[Squadron1]\nNation=US\n"
+    write("aircraft/usaf_f-16c_blk40_squadrons.ini", t,
+          "SEST Collection Fixes - base: 3789208859's rok_kf16_squadrons.ini, for the\n"
+          "same mod's usaf_f-16c_blk40, which ships no table: the US flag and one squadron.")
+    built.append("usaf_f-16c_blk40_squadrons")
+
+    # plaaf_jh7a - the JH-7A flies two AN/ALQ-99s. 3526982088 mounts them as
+    # SensorSystem9 and 10 on every fit (no *_SensorsToRemove takes them off):
+    # the EA-6B's tactical jamming suite, Universal type, 1,000 km, a 0.45
+    # jam chance per pod against every round fired at it. The play test of
+    # 18 Oct 2026 asked whether that is right, having found the strike pair
+    # in Weapons Free all but impossible to engage. It is not: the ALQ-99 is
+    # an American system on American electronic-attack aircraft, and the
+    # JH-7A carries a Chinese self-protection pod (the KG-300G class) for
+    # itself, not a stand-off jammer for a package. One delta: one pod, the
+    # game's own late self-protection jammer (AircraftDECM_Late: Defensive,
+    # 0.40, no stand-off reach). The second pod's header in the donor has no
+    # closing bracket ("[SensorSystem10 #ECM Pod Right"), so the count drops
+    # to the nine sections that are well formed.
+    t = read("3526982088", "aircraft/plaaf_jh7a.ini").replace("\r\n", "\n")
+    t = edit(t, r"^NumberOfSensorSystems=10$", "NumberOfSensorSystems=9", 1, "plaaf_jh7a")
+    t = edit(t, r"^(\[SensorSystem9\] #ECM Pod Left\nType=ECM\n)SystemName=AN/ALQ-99$",
+             r"\1SystemName=AircraftDECM_Late  // SEST Collection Fixes: was AN/ALQ-99",
+             1, "plaaf_jh7a")
+    t = edit(t, r"^\[SensorSystem10 #ECM Pod Right\nType=ECM\nSystemName=AN/ALQ-99\nModuleType=Sensor\n",
+             "", 1, "plaaf_jh7a")
+    if re.search(r"^SystemName=AN/ALQ-99", t, re.M):
+        sys.exit("plaaf_jh7a: donor mounts another AN/ALQ-99 - rebase this fix")
+    write("aircraft/plaaf_jh7a.ini", t,
+          "SEST Collection Fixes - base: 3526982088's JH-7A.\n"
+          "One delta: the two AN/ALQ-99 tactical jamming pods become one\n"
+          "self-protection jammer (AircraftDECM_Late), and the malformed second\n"
+          "pod section goes with them. Everything else is the author's file.")
+    built.append("plaaf_jh7a")
+
     build_mh60r_names()
     added = build_missing_sensors()
     named = build_missing_loadout_names()
@@ -899,6 +1024,8 @@ def main():
     malice = build_aim424()
     flags = build_nation_flags()
     returned = build_stale_vanilla_files()
+    built.extend(build_ford_wing_variants())
+    built.extend(build_j20_close_range())
     fields = build_airbases()
     repaired_land = build_land_repairs()
     returned += restore_vanilla_sensor_sections()
@@ -1091,6 +1218,12 @@ MISSING_SENSORS = {
     "4th_Gen_FLIR": ("_vanilla/original", "AdvancedOptics",
                      "EO/IR turret on the Z-9D. Donor is vanilla's advanced "
                      "optical sight."),
+    "ZW06": ("3629144864", "eu_zw06",
+             "Signaal ZW06 surface-search radar on Euromod-Brazilian Armed "
+             "Forces' Niteroi and Niteroi 2005. EUROMOD-Armada de Chile "
+             "defined it until its 22 Oct 2026 update, which dropped its own "
+             "copy for Euromod's eu_zw06, the donor here. The world campaign "
+             "places two Niteroi 2005 at Rio."),
 }
 
 
@@ -1655,6 +1788,14 @@ def load_rank():
     return {t: i for i, t in enumerate(toks)}
 
 
+def top_provider(rel):
+    """The highest-ranked Workshop mod in the load order that ships rel, for
+    read(); vanilla when none does."""
+    rank = load_rank()
+    mods = [m for m in rank if (MODS / m / rel).is_file()]
+    return min(mods, key=rank.get) if mods else "_vanilla/original"
+
+
 def ini_sections(text):
     """[(name, header line, body)] in file order; a header may carry a comment."""
     out = []
@@ -1910,6 +2051,42 @@ AIRBASE_RETUNE = {
 }
 
 
+def build_ford_wing_variants():
+    # Native CustomAirGroup in a variant outranks the base [AirGroup]. Patch
+    # both modern Ford families so a hull-number selection cannot drop JSFs.
+    from common.carrier_wings import modern_ford_group
+    built = []
+    for mod, uid in (("3461044389", "usn_cvn_ford"),
+                     ("3413868677", "usn_cvn_gerald_r_ford")):
+        rel = f"vessels/{uid}_variants.ini"
+        text = modern_ford_group(read(mod, rel), uid, variants=True)
+        write(rel, text, "SEST 2028 Ford air wing: 16 F-35Cs, US squadrons, 70 total.\n"
+              "Hull-number, livery and nation metadata remain the donor's.\n"
+              "This authored wing is not a claim about an actual deployed CVW.")
+        built.append(uid + "_variants")
+    return built
+
+
+def build_j20_close_range():
+    """An explicit SEST playability choice, independent of radar stealth."""
+    rel = "aircraft/plaaf_j-20a.ini"
+    text = read("3591563716", rel)
+    for key, before, after in (("VisualIdentificationRange", "5", "6"),
+                               ("IRSignature", "SemiSmall", "Meager")):
+        text = edit(text, rf"^{key}={before}(?=\s|$)[^\n]*", f"{key}={after}", 1, "J-20 close-range profile")
+    # RCS is a nonzero numeric value. The encyclopedia rounds it to 0 m².
+    if not re.search(r"^RCS=0\.0014\s*$", text, re.M):
+        sys.exit("J-20: donor radar signature changed; review before retaining this balance override")
+    write(rel, text,
+          "SEST playtest choice, 20 October 2026; base: J-20A, Workshop 3591563716.\n"
+          "Visual identification 5 -> 6 nm, matching ordinary SEST fighter VID caps.\n"
+          "IRSignature SemiSmall (10) -> Meager (50), an authored close-range IR\n"
+          "balance adjustment, not a measured real-world signature. This changes\n"
+          "no radar RCS (0.0014), radar seeker, flight model or weapon parameters.\n"
+          "Cloud, aspect, sensor field of view and seeker requirements still apply.")
+    return ["plaaf_j-20a"]
+
+
 def build_airbases():
     rank = load_rank()
     (OUT / "land_units").mkdir(parents=True, exist_ok=True)
@@ -2092,6 +2269,15 @@ def build_stale_overwrites():
 # Every value is read from common/aim424.py at build time, so the stubs
 # cannot drift from SEST's own round. Each round keeps its warhead, kill
 # probability, mass, cost, signature, effects, sounds and name.
+#
+# A KNOWN LICENCE EXCEPTION (23 Oct 2026). The YF-23's and the Fury's
+# LICENSE.txt (RSG, maintainer AlpineStatic) let a compatibility patch add
+# content alongside the mod but not override its material, and the
+# yf23_aim424_internal and fury_aim424 extends do override it. The owner
+# recorded them as a known exception rather than ask RSG or drop them
+# (docs/workshop-refresh-20261023-review.md, section 4). They stay; if RSG
+# asks, delete those two ids from the AIM-424 build and the rounds fly as
+# their author shipped them.
 #
 # AN EXTEND CANNOT REMOVE A KEY. A key the round sets in a laid section that
 # SEST's block does not set survives under SEST's keys, and a stray key in a

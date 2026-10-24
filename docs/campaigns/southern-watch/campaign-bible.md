@@ -315,7 +315,7 @@ The identifiers below were resolved from the pinned snapshot. Re-resolve them af
 | Tanker support | `usaf_kc-46a_boom` / `usaf_kc-46a_warp`, `Tanker` | Use as US support. No dedicated KC-30A unit was found by the reviewed filename searches; confirm broader inventory before proposing a new asset |
 | Helicopters | `usn_mh-60r` and `usn_mh-60r_26` | Different IDs. Australian ship support lists often name the former; do not substitute the latter without a deck check. RAN livery is not verified by the unit name |
 | Allied fighter | `usaf_f-15ex_SEII` | USAF detachment, not a real RAAF F-15 fleet. Keep speculative fits in the explicit fiction tier |
-| Allied attack aircraft | `usa_a-10c`, `usaf_a-10c_plus` | Both come from SEST packs. The standard aircraft (SEST Allied Fixes) carries the Redback fit and the infrared-head and squadron repairs; the A-10C+ is a separate unit with a Litening pod, a laser designator and AIM-9X, and no Redback fit |
+| Allied attack aircraft | `usa_a-10c`, `usaf_a-10c_plus` | Both come from SEST packs. The standard aircraft (SEST Allied Fixes) carries the Redback fit and the infrared-head and squadron repairs; the A-10C+ is a separate unit with a Litening pod, a laser designator and AIM-9X, and since 19 Oct 2026 the same Redback fit |
 | Japanese escort | `js_ffg_mogami` | JMSDF in the 2028 core; current supported helicopter IDs include `jmsdf_sh-60k` and `jmsdf_sh-60j` (Euromod JMSDF's `jp_` ids until 19 Sep 2026) |
 | US carrier | `usn_cvn_ford` | Winner is Workshop `3461044389`; declared capacity 90 is a game ceiling, not the desired mission allocation |
 | Opposing carrier | `plan_cv_type_003` | Actual winner here is Workshop `3663564190`, capacity 85. Do not pick a Fujian owner from old catalog prose; several mods contain carrier alternatives |
@@ -530,8 +530,8 @@ above are future concepts and keep their design numbers until they are built.
 
 | ID · date | Operation | What it is | Consequence it writes / reads |
 |---|---|---|---|
-| O1 · 19 Oct | The Missing Beacon | The player's own detachment, as White Water left it, races MV Meridian Salvor to MV Torres Light adrift with her bridge recorder aboard: classify her and get the lead ship alongside first. Sinking the Meridian ship removes the competitor and costs Restraint; losing the lead ship ends it. 50 points. | writes `O1BeaconFound` on the win → SW02 reveals the submarine on the route as a classified contact, with the recorder's intel |
-| C1 · 23 Oct | After the Wake | The player's own detachment, as Steel Highway left it, takes its lead ship through a drift box for MV Kerema Trader's people to its northern edge, with a routed Type 039C under it (classifying her is optional). Pays 0. Offered whatever SW02 did, and says so. | none |
+| O1 · 19 Oct | The Missing Beacon | The player's own detachment, as White Water left it, races MV Meridian Salvor to MV Torres Light adrift with her bridge recorder aboard: classify her and get the lead ship alongside first. Sinking the Meridian ship removes the competitor and costs Restraint; losing the lead ship ends it. 50 points. | writes `O1BeaconFound` on the win → SW02 shows the reported datum on the route for one minute as a bare contact, with the recorder's intel; the boat itself starts at random up to 35 NM from it (23 Oct 2026) |
+| C1 · 23 Oct | After the Wake | The player's own detachment, as Steel Highway left it, takes its lead ship through a drift box for MV Kerema Trader's people to its northern edge, looking for her three life rafts on the way (finding two is optional), with a different boat from Steel Highway's: a Type 039C snorkelling at periscope depth, a radar contact where Steel Highway's Type 039B is a sonar one (classifying her is optional). Pays 0. Offered whatever SW02 did, and says so. | none |
 | O2 · 24 Oct | Southern Cross | A New Zealand P-8A (No. 5 Squadron, Squadron Leader Rewi) on one sortie: identify the coaster pacing the lane, then land at Darwin. Launched as authored - nothing of the player's sails. 50 points. | writes `O2KiwiPicture` → SW04 reveals the submarine on the route with the picture as intel |
 | O3 · 4 Nov | Borrowed Shield | The player's detachment meets ROKS Sejong the Great, ROKS Daegu and the stores ship Busan Pioneer under a Kilo and a JH-7A pair; both warships must arrive alive. 60 points. | writes `O3ShieldJoined` → SW06 spawns Sejong the Great in the screen |
 | O4 · 10 Nov | Weather Alternate | Two fuel coasters into the Langgur anchorage past a Peykaap pair and a launcher on Kai Besar, with the town as the neutral objective. 50 points. | writes `O4LanggurStocked` → SW08 spawns a KC-46 on the track south of the box |
@@ -547,7 +547,11 @@ The Korean contribution is the Euromod addon **Euromod-South Korea Navy**
 (Workshop 3789208859): Sejong the Great (`ko_ddg-991`: SM-2, RAM, Hyunmoo,
 Haeseong), Daegu (`ko_ffg-818`: K-SAAM, 127 mm, ASROC, Mk46) and the
 `rok_mk99_a` Lynx. It is a temporary allied attachment, never sold: its hulls
-carry no `TaskForceCost`.
+carry no `TaskForceCost`. *(The attachment's own hulls are still never sold.
+Other Daegu hulls have been on sale from Weapons Free since 20 Oct 2026, and
+other Sejong hulls since 21 Oct, with the rest of the allied fleet; the
+build takes every hull a mission places off sale. Build notes, "21 October:
+the allied fleet in the standard campaigns".)*
 
 ## 13. Money: requisition, maintenance and replacements
 
@@ -710,6 +714,8 @@ A requisition budget only matters when availability and time matter too. Money p
 | Before SW11 · 22–23 Nov | Builder, repair and rearm | Final planned coalition support point; SW09 success or C05 recovery adds the temporary ASW sortie, without granting ownership |
 | Before SW12 · 27–28 Nov | Eligible repairs and aircraft purchases only; **no general ship rearm or new hull purchases** | Remaining spares and air reinforcements arrive, but the escorts sail with their remaining ship magazines |
 | All other transitions | No scheduled paid repair, builder or general rearm | Persistent wear and expenditure make the extra sorties a decision; limited native between-mission damage recovery may still occur |
+
+*(21 Oct 2026: from the window before SW05 every force allocation offers the whole roster and the allied fleet - the owner's decision on retiring the Open Allocation version, which offered them from the first - so the windows before SW11 and SW12 no longer hold back the Seahawk, Wedgetail and Triton, or new hulls. The services above are unchanged: SW12 still gives repair and no general rearm. Build notes, "21 October: the allied fleet in the standard campaigns".)*
 
 The SW10 conditional rearm needs a proved outcome/variable gate. If that cannot be demonstrated, ship the mainline with a plainly scheduled SW10 service rule and defer the conditional version; do not ask the player to edit a save or INI. The final air-only purchase window similarly requires a tested mission roster allowlist. Fixed allied-perspective episodes must not accidentally rearm or heal the Australian force when returning to the main story.
 

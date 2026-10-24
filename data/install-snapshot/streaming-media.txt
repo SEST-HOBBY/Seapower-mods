@@ -634,7 +634,7 @@ original\: 558 picture/film file(s)
   ... and 58 more
 
 --- Workshop pictures named for loading screens, backgrounds or menus ---
-99 file(s) in 12 mod(s): 3491248180 (30), 3629144864 (10), 3711297532 (2), 3732654992 (24), 3752415457 (2), 3758943352 (1), 3766210676 (3), 3775128499 (15), 3784474738 (1), 3789208859 (8), 3807164392 (1), 3812454152 (2)
+102 file(s) in 13 mod(s): 3491248180 (30), 3629144864 (10), 3630495619 (3), 3711297532 (2), 3732654992 (24), 3752415457 (2), 3758943352 (1), 3766210676 (3), 3775128499 (15), 3784474738 (1), 3789208859 (8), 3807164392 (1), 3812454152 (2)
   3491248180\ui\backgrounds\loading_screen_1.png                                                1,057
   3491248180\ui\backgrounds\loading_screen_10.png                                               2,341
   3491248180\ui\backgrounds\loading_screen_11.png                                               1,038
@@ -675,6 +675,9 @@ original\: 558 picture/film file(s)
   3629144864\ui\backgrounds\eu_zeran_Sea_Power.exe_Screenshot_2026.09.23_-_18.26.05.55.png      1,950
   3629144864\ui\backgrounds\eu_zeran_Sea_Power.exe_Screenshot_2026.10.09_-_19.17.11.04.png      3,159
   3629144864\ui\backgrounds\eu_zeran_Sea_Power.exe_Screenshot_2026.10.09_-_20.00.37.98.png      2,076
+  3630495619\ui\backgrounds\ae_cvl_dedalo.png                                                   2,806
+  3630495619\ui\backgrounds\ae_cvl_principe_asturias.png                                        3,049
+  3630495619\ui\backgrounds\ae_ffl_descubierta.png                                              3,472
   3711297532\Screenshots\Thailand The Siam Shield splash.jpg                                      393
   3711297532\Thailand The Siam Shield splash1.jpg                                                 397
   3732654992\ui\backgrounds\loading_screen_1.png                                                2,947

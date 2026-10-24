@@ -1,6 +1,6 @@
 Southern Watch - Workshop mods this campaign reaches (reference only)
 
-158 items, in canonical load order. NOT the Workshop item's
+161 items, in canonical load order. NOT the Workshop item's
 Required Items list. All four campaigns ship in one item, the SEST
 Integration Pack (3812461539), whose Required Items - like the
 collection 'SEST - Modernised Campaign Collection' (3812390790) -
@@ -30,7 +30,6 @@ https://steamcommunity.com/sharedfiles/filedetails/?id=3461091581    # Air Deck 
 https://steamcommunity.com/sharedfiles/filedetails/?id=3508275114    # Ground Upgrade: SPAA
 https://steamcommunity.com/sharedfiles/filedetails/?id=3438479626    # 1143.5 Kuznetsov
 https://steamcommunity.com/sharedfiles/filedetails/?id=3820759806    # Euromod - Modern Royal Australian Navy Mod
-https://steamcommunity.com/sharedfiles/filedetails/?id=3440622312    # [DEPRECATED] Anzac Class Frigate
 https://steamcommunity.com/sharedfiles/filedetails/?id=3432668460    # Auxilliary Merchant Pack
 https://steamcommunity.com/sharedfiles/filedetails/?id=3567256221    # Charles De Gaulle & Modern French Navy Pack (WIP)
 https://steamcommunity.com/sharedfiles/filedetails/?id=3695809489    # Euromod - Modern Japanese Maritime Self Defence Force
@@ -161,6 +160,8 @@ https://steamcommunity.com/sharedfiles/filedetails/?id=3408662804    # Iskander 
 https://steamcommunity.com/sharedfiles/filedetails/?id=3681748718    # ISKANDER-M
 https://steamcommunity.com/sharedfiles/filedetails/?id=3470643173    # Type 12 SSM-ER Anti-Ship Missile System
 https://steamcommunity.com/sharedfiles/filedetails/?id=3571718093    # Road Mobile ICBMs (Topol-M, DF-41)
+https://steamcommunity.com/sharedfiles/filedetails/?id=3603306548    # Russian Ground Enhancement Series 1: Artillery
+https://steamcommunity.com/sharedfiles/filedetails/?id=3603367264    # NATO Ground Enhancement Series 2: Artillery
 https://steamcommunity.com/sharedfiles/filedetails/?id=3631042692    # Modern Chinese Airbase (Large)
 https://steamcommunity.com/sharedfiles/filedetails/?id=3629269283    # Modern Russian Airbase (Large)
 https://steamcommunity.com/sharedfiles/filedetails/?id=3592460366    # Modern US Airbase
@@ -169,9 +170,7 @@ https://steamcommunity.com/sharedfiles/filedetails/?id=3758943352    # French Ai
 https://steamcommunity.com/sharedfiles/filedetails/?id=3812111085    # PLAAF Aircraft Pack
 https://steamcommunity.com/sharedfiles/filedetails/?id=3413868677    # Red Storm Arsenal
 https://steamcommunity.com/sharedfiles/filedetails/?id=3812140001    # Pakistani Pack
+https://steamcommunity.com/sharedfiles/filedetails/?id=3752415457    # Philippines: The Luzon Line
+https://steamcommunity.com/sharedfiles/filedetails/?id=3711297532    # Thailand: The Siam Shield
 https://steamcommunity.com/sharedfiles/filedetails/?id=3605013271    # RE-power: the resupply mod
-
-NOT IN THE COLLECTION - players install these by hand, as the
-pack-level REQUIRED-MODS.txt tells them; not in the Required Items:
-  SeaLifter  (required by B-2 Spirit)
 

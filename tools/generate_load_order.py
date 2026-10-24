@@ -39,10 +39,12 @@ TIER0 = [
 ]
 
 # Explicit sequences (order within these lists is the recommendation)
-TIER1 = [("anchor-chain", "loader — SeaLifter loads via its preloader alongside")]
+TIER1 = [("anchor-chain", "loader, with its preloader (SeaLifter is not needed)")]
 TIER1B = [
     ("custom-loadout-editor", "code mod — position not order-sensitive"),
     ("better-tacmap", "code mod — UI"),
+    ("formation-manager-replacement", "compact formation UI and aircraft map grouping; Anchor Chain"),
+    ("combat-cost-tracker", "USD expenditure and loss overlay; SEST cost catalog extensions load above it"),
     ("coordinated-strike-tool", "code mod — time-on-target planner (F8); no game data, one _info.ini"),
     ("automatic-sar", "code mod — right-click SAR; the campaign pays for survivors"),
     ("identify-expanded", "code mod — identification and challenge orders; reads its own ini"),
@@ -120,7 +122,6 @@ NOTES = {
     "rn-type23-old": "verified additive — position free",
     "rn-lynx-has3-old": "verified additive — position free",
     "e-7a-wedgetail": "KEEP — the only source of E7A_Wedgetail, which the campaigns place; SEST RAAF Wedgetail and SEST RAAF Bases depend on it",
-    "anzac-class-frigate": "KEEP — the only source of the RAN Anzac hull the campaigns use; since 20 Sep 2026 SEST RAN Fleet patches this mod's own vessels/ran_ffh_anzac.ini, so its real ASMD hull is what loads",
     "pla-plan-plaaf-aep": "Anchorchain expansion — below the loader, with the Euromod one",
     "j-16-multirole": "duplicate platform with Shenyang J-16A — different unit ids, both load",
     "s-70b-2-seahawk": "KEEP — the only source of S-70B-2_Seahawk, which the campaigns place; SEST RAN Fleet and SEST RAAF Bases depend on it",
@@ -143,7 +144,7 @@ NOTES = {
     "the-royal-navy": "canonical order puts it in the bottom block below RADF; SEST Collection Fixes restores the game files it ships stale",
     "alize-br1050": "canonical order puts it below The Royal Navy and RADF, above Aquilon",
     "sea-venom-aquilon": "canonical order puts it below The Royal Navy and RADF (shared rack ids)",
-    "euromod-chile": "canonical order puts it below RADF and far below <<E-3G>> ([AN/APY-2])",
+    "euromod-chile": "canonical order puts it below RADF and Euromod RAN, whose Type 277Q and Adelaide fire-control sections win",
     "philippines-luzon-line": "canonical order puts it below RADF and below KC-135 ([MK22])",
     "thailand-siam-shield": "canonical order puts it below the Luzon Line (same author), which keeps the 11 rounds and textures both ship",
     "s-350-vityaz": "below S-500; loses its 2 shared files to Euromod",

@@ -1,288 +1,336 @@
 # Workshop listing — paste-ready copy
 
-**Check the live page before pasting any of this.** The description, change
-log and images of the published item, SEST Integration Pack - Modernised
-Campaigns (Workshop id 3812461539), were rewritten for the 4 Oct 2026
-update, along with the collection's description and a pinned 'Read first'
-discussion. That was done on Steam, outside this repository, and the live
-text is not in it. This file is the reference copy, not a record of what
-the page says. The live description also explains the 1.5x mission clock
-and tells subscribers to say no if the Mod Manager offers to move
-dependencies above the pack, which this copy does not; keep those parts when
-pasting.
+The reference copy for the Steam page of SEST Integration Pack - Modernised
+Campaigns (3812461539) and its collection (3812390790). The live page was
+last rewritten on Steam on 4 Oct 2026 and is not in this repository: check it
+before pasting. Nothing here is generated; when the campaigns change, edit it
+by hand.
 
-Everything below is for the Steam Workshop page. The mod's own
-`_info.ini` is the Mod Manager blurb and is generated; this is the longer
-page a subscriber reads before they click. Nothing here is generated, so if
-the campaigns change, this changes by hand.
+Every block below is ready to paste: Steam BBCode (`[h1]`-`[h3]`, `[b]`,
+`[list]`/`[olist]` with `[*]`, `[url=...]`), one line per paragraph or list
+item. Steam keeps every line break, so never re-wrap a block: until 23 Oct
+2026 the description and the collection description were plain text wrapped
+at 76 columns, and Steam broke their sentences across lines.
+`tools/tests/test_workshop_listing.py` checks the blocks stay that way and
+under Steam's 8,000 characters.
 
-A note before the copy: this pack **depends on 198 other Workshop mods** (the
-collection 'SEST - Modernised Campaign Collection', 3812390790). That
-is not a footnote, it is the headline risk of publishing it. A subscriber who
-skims the description, subscribes, and starts a campaign with forty of them
-will get missions that are not the missions that were built. Say the number
-early and say it plainly — the copy below does.
+The item's Required Items are the load order's Workshop mods, so Subscribe
+offers them all in one click, as the collection does; SETUP writes the order.
+`publishing.md` (*Dependencies*) has the detail.
 
-The item's Required Items are the load order's Workshop mods (set in
-October 2026), so Subscribe on the item offers them all in one click; the
-collection does the same job. SETUP writes the order. The description must
-tell subscribers to answer no if the Mod Manager offers to move dependencies
-above the pack ("Move dependencies above this mod"): that undoes every fix in it, and
-SETUP run again repairs it. `publishing.md` (*Dependencies*) has the detail.
-
-The counts below are the 18 Oct 2026 build (`8732b75f`): 198 Workshop mods in
-`data/load-order.tokens.txt` (199 entries with the pack), 164 of them named
-directly by a mission (the pack's REQUIRED-MODS.txt), and 516 borrowed files
-from 60 mods (its CREDITS.txt). Redo them from those files when they change.
+Counts (24 Oct 2026, the World Sandbox branch `8e72f353` with the 24 Oct
+capture): 199 Workshop mods in `data/load-order.tokens.txt` (200 entries
+with the pack), 165 named by a mission (REQUIRED-MODS.txt), 528 borrowed
+files from 64 mods (CREDITS.txt; `sest-dev/jolly-ride-rptj4t` without the
+World Sandbox branch has 527 from 63: the extra file is the Chilean
+frigate's save alias variants). Redo them from
+those files when they change. The 19-tube pod
+is credited to RADF's `adf_lau-3a`: the pod is the game's own `usn_lau-3a`,
+which CREDITS.txt never compares against, and RADF's is that file with one
+line changed. The MALD brought in the B-2 Spirit on 19 Oct; on 20 Oct the
+J-20 balance file brought in the J-20 mod, and the reworked Redback no
+longer derives from the Dingtools Weapon Pack's APKWS.
 
 ---
 
 ## Title
 
-The published item's name (Workshop id 3812461539). Keep it as it is when
-updating.
-
 ```
 SEST Integration Pack - Modernised Campaigns
 ```
 
-## Short description (the card blurb)
+## Short description
 
 ```
-Four Task Force Mode campaigns (Southern Watch, Southern Reach / Tasman
-Shield, Red Line, Sulu Line) and every SEST fix in one Mod Manager entry.
-Needs the 198 Workshop mods in the 'SEST - Modernised Campaign Collection'
-(3812390790): subscribe to it, then run SETUP.
+Four Task Force Mode campaigns (Southern Watch, Southern Reach / Tasman Shield, Red Line, Sulu Line) and every SEST fix in one Mod Manager entry. Needs the 199 Workshop mods in the 'SEST - Modernised Campaign Collection' (3812390790): subscribe to it, then run SETUP.
 ```
 
 ## Description
 
 ```
-SEST INTEGRATION PACK - MODERNISED CAMPAIGNS
+[h1]SEST Integration Pack - Modernised Campaigns[/h1]
+Four Task Force Mode campaigns, two world campaigns for the Dynamic Campaign Mod, combat costs for every unit and every SEST fix in one Mod Manager entry.
 
-Four Task Force Mode campaigns and every SEST fix in one Mod Manager entry:
-Southern Watch (October–November 2028), Southern Reach / Tasman Shield
-(December 2028 to March 2029), Red Line (November 2028 to February 2029,
-from the other bridge) and Sulu Line (October–November 2028, the Philippine
-Navy's side). Each also comes as an Open Allocation version. A draft world
-campaign for the Dynamic Campaign Mod is included.
+[h2]The campaigns[/h2]
+[list]
+[*][b]Southern Watch[/b] (October–November 2028). Twelve connected missions keeping Australia's northern sea routes open as a coercion campaign becomes a limited regional war. It opens small - one frigate, a Seahawk, a lane full of traffic, weapons tight - and does not stay small. Plus ten optional operations (six flown by somebody else's force), two contingencies and eleven standalone dispatches.
+[*][b]Southern Reach / Tasman Shield[/b] (December 2028 – March 2029). Twenty-six missions, from the Antarctic resupply at 60°S to a ceasefire. A boat sunk in the Tasman is missing later; an approach not held reinforces the enemy off Sydney.
+[*][b]Red Line[/b] (November 2028 – February 2029). Six missions and an epilogue as the Chinese carrier group commander, against missile craft, Q-ships and intercepting fighters on short clocks, where restraint still wins as often as firepower. Plus two optional operations and a contingency: a submarine nobody has claimed, the Japanese escorts coming south, and a pilot in the water.
+[*][b]Sulu Line[/b] (October–November 2028). Seven missions with a Philippine-led task group. No free rearm: ammunition comes from supply ships you bought or the convoy you escort. Three optional side operations change later missions.
+[*][b]World Sandbox 2028[/b] (draft, Dynamic Campaign Mod). One persistent 2028 world on the strategic map: real bases, finite fleets, patrols, purchases and replenishment, and every contact becomes a battle. The [b]Regional Expansion[/b] (preview) adds 15 bases and 26 RED forces from the Baltic to Iran, with their own supply ships. Start either as a new campaign; neither has been played through yet.
+[/list]
 
-SOUTHERN WATCH — THE NORTHERN LIFELINE
+[h2]How it plays[/h2]
+[list]
+[*]You buy the force. Losses and expenditure carry forward. Partners arrive on their own terms. Partway through Southern Watch and Southern Reach, and in Red Line from the start, every force allocation offers the whole roster with the allied fleet, or the PLAN's supply ships. In Sulu Line the Thai detachment and one RAN frigate are bought into the task group.
+[*]Finding things matters more often than fleet battles. Civilian traffic is everywhere, and neutral losses end operations.
+[*]Each mission has a planned time and is lost at 1.5 times it; the briefing states both.
+[/list]
 
-Twelve connected missions, 18 October to 28 November 2028. Australia and its
-regional partners keep the northern sea routes open through a maritime
-coercion campaign that escalates into a limited regional war.
+[h2]Combat costs[/h2]
+With the Combat Cost Tracker from the collection, every weapon, ship, aircraft and land unit has a price, historical and current. Estimates are labelled, and chaff, flares, sonobuoys, drop tanks and pods count.
+[list]
+[*]F11 in a mission shows what the mission has cost so far.
+[*]F11 in the Task Force menu shows the campaign's totals and one line per mission; the task-force debrief adds the same rows.
+[*]Weapons fired, units lost and the stores lost with them carry through the campaign.
+[/list]
 
-It opens small. A merchant misses a rendezvous and you have one frigate, a
-Seahawk on the deck and a lane full of working traffic — a bulker, a chartered
-coaster, trawlers, the 0600 Denpasar service overhead. One contact in that
-picture is armed and one is a decoy that has squawked as a merchant since it
-sailed. Your weapons are tight. Identify before you shoot.
+[h2]What it needs - read this[/h2]
+The campaigns name units from 165 Workshop mods. Subscribe to the collection [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3812390790]SEST - Modernised Campaign Collection[/url]: all 199 of its mods in one press. Then Mod Manager → Open Folder on this pack, quit the game and double-click [b]SETUP - double-click me.cmd[/b]. It checks the subscriptions, installs the Anchor Chain preloader and writes the 200-entry load order with this pack at the top. It is safe to run again.
+[list]
+[*]If the Mod Manager offers to move this pack's dependencies above it, answer no: that undoes every fix in it. SETUP puts the order back.
+[*]Some mods still name SeaLifter as a requirement. It is not needed; they run without it.
+[*]A missing mod means a missing unit at best and a mission that will not load at worst. Without the collection and SETUP, this is not the download for you.
+[*]Mods marked as made for an older game version load and play.
+[/list]
+In the folder: SETUP, REQUIRED-MODS.txt (every mod the campaigns name), LOAD-ORDER.txt and CREDITS.txt.
 
-It does not stay small.
+[h2]Credit[/h2]
+A Sea Power unit file is a whole-file override, so 528 files here are other authors' files with edits, each 90% or more unchanged, from 64 Workshop mods. CREDITS.txt lists every one, measured by diffing against the collection. Every photograph is real and credited. If you wrote one of those mods and would rather this pack did not carry your file, say so and it will change.
 
-WHAT IT IS
-  • Task Force Mode. You buy the force, and losses and expenditure carry
-    forward. Losing a support ship costs you what that ship was doing.
-  • Twelve core missions, plus ten optional operations and two
-    contingencies. What you do in an optional operation is read later: a
-    contact briefing with a picture in it, a Korean destroyer in your screen,
-    a tanker on the track, a frigate already identified when you meet her.
-  • Six of the optional operations are side operations flown by somebody
-    else's force: uncrewed boats shadowing a handover, a dark convoy the day
-    after Weapons Free, a bomber strike on an air-defence belt, a fighter
-    intercept of a bomber raid on Darwin, a Japanese strike to protect a
-    helicopter destroyer, and missile defence of a forward airstrip.
-  • Partners arrive on their own terms - a New Zealand Poseidon for one
-    sortie, a Korean detachment for a fortnight, a Japanese pair, an American
-    carrier under a bounded arrangement - and none of them is yours to keep.
-  • Eight standalone dispatches in the mission browser: allied rotations, the
-    opposing side's logistics problem, a weapons range, an openly speculative
-    2034 branch, and a 1988 Cold War exercise.
-  • Reconnaissance decisions that matter more often than fleet battles do.
-    Several missions are about finding something, and the campaign map will
-    not tell you where it is.
-  • Civilian traffic in almost every mission. Neutral losses end operations.
-  • Every mission has a planned time; it is lost at one and a half times the
-    plan, and the briefing states both.
-
-SOUTHERN REACH — TASMAN SHIELD
-
-Twenty-six missions in two chapters, December 2028 to March 2029. Southern
-Reach escorts the Antarctic resupply season from Storm Bay to the ice edge
-at 60°S against a "fisheries protection" group and a Russian boat. Tasman
-Shield fights the same group through Fiordland, Cook Strait, the Tasman,
-Bass Strait and the Bight to a ceasefire. The consequences carry forward: a
-boat sunk under the Tasman is absent from the Southern Convoy, and an
-approach not held reinforces the group off Sydney.
-
-RED LINE — THE OTHER WATCH
-
-Six missions and an epilogue, November 2028 to February 2029, played as the
-Chinese carrier group commander the other two campaigns only hear on the
-radio. Every mission is won by restraint, escort or evasion, and each
-victory is written to fit the other two campaigns' story whatever happens
-in it.
-
-SULU LINE — THE ISLAND ROAD
-
-Seven missions in the Sulu Sea and the West Philippine Sea, the same weeks as
-Southern Watch at the other end of the archipelago, with a Philippine-led
-task group, a Royal Thai Navy detachment and one Australian frigate. There is
-no free rearm: after the first mission a ship gets ammunition back only from
-a supply ship you bought, alongside at sea, or from the convoy you escort in
-Service at Sea. Three optional side operations are flown by the Navy's
-Tawi-Tawi patrol group or the Air Force: a drug-running semi-submersible, an
-armed trawler with a hidden torpedo tube, and a strike on a drone yard. Each
-changes a later mission.
-
-WHAT IT NEEDS — READ THIS PART
-
-These campaigns are built on a large mod collection. They name units from
-164 Steam Workshop mods; the collection built for them,
-'SEST - Modernised Campaign Collection', holds 198 Workshop mods (those 164,
-the mods they or the load order depend on, and the third-party campaigns and
-other content added in October 2026) plus this pack. That is the point of
-it — the campaigns exist to give a very large collection somewhere
-purposeful to be used — but it means subscribing to this alone is not
-enough.
-
-You should not have to subscribe to them one at a time. Subscribe to the
-collection 'SEST - Modernised Campaign Collection' (3812390790); it
-subscribes you to all of them in one press. Then open this mod's folder
-(Mod Manager → Open Folder), quit the game and double-click
-'SETUP - double-click me.cmd'. It checks the subscriptions, installs the
-Anchor Chain preloader and sets the whole load order. It is safe to run
-again.
-
-If the Mod Manager offers to move this pack's dependencies above it, answer
-no: that undoes every fix in it. Running SETUP again puts the order back.
-
-The files in this mod's folder (run SETUP first; the rest are there to
-check against):
-
-  SETUP - double-click me.cmd — the installer above; run it with the game closed
-  REQUIRED-MODS.txt — every Workshop mod the campaigns name, with its ID
-  LOAD-ORDER.txt    — the 199-entry Mod Manager order it was built against
-  CREDITS.txt       — whose work this is built on
-
-Put this pack at the TOP of your load order. It contains whole-file
-replacements, and anything above it wins instead. The collection handles
-subscribing and SETUP writes the order; subscribing is not ordering, and
-ordering is what decides which copy of a shared file the game reads.
-
-What the game does with a mission that names a unit you do not have has not
-been tested. At best the unit is simply absent and the mission is an easier,
-different one; at worst the mission does not load. Neither is the mission that
-was built. If you are not going to subscribe to the collection and run SETUP,
-this is probably not the download for you, and that is a fair thing to know
-in advance.
-
-A few of those mods need a further download of their own and say so in their
-own descriptions. SeaLifter is the one that catches people: several mods in
-the collection need it (B-2 Spirit, A-10A, Su-25, Mi-8 T/TV and the Type
-003/004 carriers name it), the collection does not carry it, and subscribing
-to it is not enough - it needs a manual install.
-
-The Mod Manager may list some collection mods as made for an older game
-version. That is the authors' own version line; they load and play.
-
-CREDIT WHERE IT IS DUE
-
-This pack is a set of patches, and a Sea Power unit file is a whole-file
-override - there is no way to change one line of somebody's aircraft without
-shipping the whole aircraft. So 516 of the files here are another author's
-file with edits in it, each 90% or more unchanged, drawn from 60 different
-Workshop mods. HMAS Hobart is Euromod - Modern Royal Australian Navy's; the
-Super Hornets are US Navy 2027's.
-
-CREDITS.txt inside the folder lists every one of them, which mod it came from
-and how much of the file is unchanged. It is generated by diffing the shipped
-files against the collection, not typed, so nothing can fall off it. Every
-encyclopedia picture and gallery photo is a real photograph, credited to its
-photographer.
-
-If you wrote one of those mods and would rather this pack did not carry a copy
-of your file, say so and it will be changed.
-
-FICTION
-
-Every nation, unit, ship name, incident and date in these campaigns is invented.
-They are set in a near-future that does not exist and take no position on any
-real dispute, government or armed force. The "Meridian" escorts are not a real
-navy. Where real countries appear, their conduct here is fiction.
-
-ENGLISH ONLY
-
-The text is English. The campaign map art is shared across every language the
-game supports, so the mission cards and story pages appear whatever your
-locale is set to, but the writing in them is not translated.
-
-STATUS
-
-Built for Sea Power 0.8.6. The build is checked automatically — every unit,
-squadron, loadout variant and weapon in every mission of all four campaigns
-is verified to resolve against the mod that wins the load order, on every
-build. What that does NOT check is balance. Most missions have not been
-played to completion by their author, and none of the October 2026 side
-operations has been. Feedback on difficulty, pacing and anything that turns
-out to be impossible is genuinely wanted.
+[h2]Fiction, language, status[/h2]
+Every nation, unit, ship name, incident and date is invented; the campaigns take no position on any real dispute. English only. Built for Sea Power 0.8.7: every unit, squadron, loadout and weapon in every mission is checked to resolve on every build, but balance is not, and most missions have not been played to completion. SEST's code (the Tomahawk terrain fix, the debrief and the combat cost panels) runs only on Sea Power 0.8.7 Build 261021 and switches itself off on any other. Feedback on difficulty and pacing is wanted.
 ```
 
-## Collection description (SEST - Modernised Campaign Collection, 3812390790)
+## Change log: 24 Oct 2026
 
-Short; the pack's page carries the detail. Keep the pinned "Read first"
-discussion's install steps in step with it.
+Everything after `c1bd1f4b` (the Seahawk), through `dc46eba2`, plus the World
+Sandbox regional expansion (PR #44). **Uploaded 24 Oct 2026** from `8e72f353`
+on `feature/world-sandbox-regional-expansion-20261024`, the install IN LINE at
+4,297 files; PR #44 merged into `sest-dev/jolly-ride-rptj4t` the same day.
+That upload's Steam change log has the Regional Expansion entry only.
+Everything else in the block below
+(combat costs, Red Line, Steel Highway, the SEST menu, the mod updates) is in
+that build but not yet in a Steam change log: paste it with the next update,
+above the 20 Oct block if that has not been uploaded either. The required mods
+are unchanged by the 24 Oct capture. The costs lines rest on mocked tests and
+the owner's report from the uploaded build: the Task Force panel at the left
+and the stores carry-over work (`docs/playtests/campaign-costs-panel-20261024.md`,
+steps 4, 6 and 7). Step 3, the in-mission panel, was not reported. The same
+report has the Regional Expansion starting as a new campaign
+(`docs/playtests/world-regions-20261024.md`, step 4); its line keeps
+"(preview)" until its patrols, supply and saves have been seen.
 
 ```
-Everything the SEST Integration Pack's four campaigns need: 198 Workshop mods
-plus the pack itself (3812461539).
+[h2]24 October 2026[/h2]
 
-1. Subscribe to all.
-2. In the game's Mod Manager, open the SEST Integration Pack's folder, quit
-   the game and double-click 'SETUP - double-click me.cmd'. It checks the
-   subscriptions, installs the Anchor Chain preloader and writes the load
-   order, with the pack at the top.
-3. If the Mod Manager offers to move the pack's dependencies above it, say
-   no. Running SETUP again puts the order back.
+[b]Combat costs[/b]
+[list]
+[*]Every weapon, ship, aircraft and land unit in the collection now has a price, current and historical (land units priced by SEST, which the tracker does not cover). Estimates are labelled as estimates, and chaff, flares, sonobuoys, drop tanks and pods now count.
+[*]227 prices checked against published sources, from the Mk 82 to the GBU-57 and the AN/TPY-2 radar.
+[*]F11 in a mission shows this mission's costs. F11 in the Task Force menu shows the campaign's totals, with one line per mission, at the left of the screen.
+[*]The task-force debrief adds Combat Cost rows: weapons, ships, aircraft, land, stores lost, mission and campaign.
+[*]Stores lost with a sunk ship or downed aircraft now stay in the campaign total; the next mission used to erase them.
+[/list]
 
-SeaLifter is not in the collection and needs a manual install; several mods
-here name it.
+[b]Campaigns[/b]
+[list]
+[*]Red Line: shorter, harder missions. Missile craft attack Fujian in Trailing Contact; torpedo and missile attacks hit the tanker leg; fighters intercept in The Other Picture and The Ships from the North; a Q-ship presses in The Order to Withdraw and The Quiet Side. A Red Line campaign already under way keeps its old missions until started again.
+[*]Southern Watch, Steel Highway: the submarine starts anywhere within 35 NM of its reported position, which shows on the plot for one minute.
+[*]World Sandbox 2028 - Regional Expansion (preview): a second Dynamic Campaign Mod world, 15 more bases and 26 more RED forces from the Baltic to Iran, with their own supply ships. Start it as a new campaign.
+[*]World Sandbox: starts again after Euromod Chile's frigate rename.
+[/list]
 
-Campaigns: Southern Watch, Southern Reach / Tasman Shield, Red Line and Sulu
-Line, each with an Open Allocation version, plus a draft world campaign for
-the Dynamic Campaign Mod. All fiction, set in 2028-29.
+[b]Also[/b]
+[list]
+[*]The SEST menu no longer covers scenario pictures, briefing images and maps.
+[*]Follows the 24 Oct mod updates: Modern US Navy, U.S. Navy 2027 (MH-60R, Hornets), F-35C, Modern US Airbase, the Scandinavian, JMSDF and Chilean Euromod packs, and THE REDFOR MOD.
+[/list]
 ```
 
-## Tags
+## Change log: 20 Oct 2026
 
-`Campaign`, `Missions`, `English`
+For the update after the 19 Oct one. If the 19 Oct update was never
+uploaded, paste its log below this one as well. Two mods joined and one
+left: add Combat Cost Tracker (3807187341) and Group Manager (3818251045) to
+the collection and to the item's Required Items, and remove the
+[DEPRECATED] Anzac Class Frigate (3440622312) from both, before Submit.
+The Open Allocation versions left the pack on 21 Oct (the owner's
+decision), and the standard campaigns now do what they did from Weapons
+Free, Tasman Crossing and Red Line's first force allocation: paste the
+Description (above) and the Collection description (below) as well, since
+both stopped offering the versions and the Description says when everything
+is on sale. Keep the log under 8,000 characters (23 Oct, with the Redback
+line under Fixes as it now reads: 7,874 with the 19 Oct block below it,
+7,966 if each line break counts as two).
 
-## Preview image and screenshots
+On 22 Oct the game moved to Sea Power 0.8.7 and ten mods updated; the log
+covers both. On 23 Oct seven mods updated their files and the YF-23 its code
+alone (`docs/workshop-refresh-20261023-review.md`): the code 0.8.7 had
+switched off in six of them (the Fury's, the EC-2's, the K5 KRAKEN's, the
+MV-75's, the YF-23's and the Saronic Corsair's) loads again, so the log says
+it is on again where it had said it was off. SEST needed no change. SEST's
+runtime plugin switched itself off on 0.8.7 and was matched to it on 23 Oct
+(`integration/runtime-fixes/README.md`), so the log claims its two
+corrections again (the Tomahawk MST's 500 ft over land, the debrief's lost
+ships, in missions the player picks a force for). Before Submit, check that
+Player.log shows both `[SEST Runtime] ... correction installed` lines (it
+did on 23 Oct, after syncing 990dd7f9, and in the 23 Oct capture, 87c0feb5,
+taken at 28f62cd3). If one is missing (`terrain correction not installed` or
+`debrief correction not installed`), take out that correction's line; if
+both are (`inactive`, or two `not installed` lines), take out both lines and
+the second sentence after "Built for Sea Power 0.8.7.". The OHP long hull's
+Mk 13 is Modern US Navy's own fix since 22 Oct, so the log credits the
+author, not SEST; and it says of the SM-6 Block I only that it keeps 300 s:
+claim its 260 NM once a shot past 240 NM has been seen in game. The required
+mods are unchanged by the 22 and 23 Oct captures.
 
-Preview image: `StreamingAssets\SEST-preview.jpg` (124 KB), outside the
-pack folder; the Create Mod image picker only browses StreamingAssets.
+The AGR-30 Redback changed twice on 23 Oct
+(`docs/playtest-20261023-redback.md`). In the game the RAN MH-60R first
+listed it against a boat and never fired it, its pod in the bottom of the
+quad Hellfire launcher; on the next build (`57375598`) it fired. So the
+Redback line is under Fixes, and the 19 Oct block's first AGR-30 item ("One
+upgraded 70 mm guided rocket...", 275 characters) is gone: it described the
+round of the morning of 19 Oct (infrared, 600 knots, aircraft first) and was
+wrong anyway, and without it the two logs stay under 8,000 with each line
+break counted as two. Only the firing has been seen. The rest of the line is
+the build after `57375598`, made from the owner's second report that day:
+the MH-60R's eight 7-tube pods on its Hellfire launcher with its tanks
+kept, `TerminalApproachDist` back to 2 NM so that short shots climb, a
+motor that works when an aircraft fires it, and a straight-line slow-down
+to the 150-knot cruise. Nobody has seen those yet. Before Submit, check them
+(the test card's first things, 6): a salvo leaving the 7-tube pods, the
+pods on the launcher clear of its rails, the 2 km climb on a shot from about
+4 NM, and the steady slow-down to about 150 knots over roughly a minute. If
+the upper pods clip the lower rails and the lower pair comes out, the line
+says four pods, not eight; for anything else that is wrong, take out its
+words or fix it first. Look at the S-70B-2's SEST Redback Strike in the
+loadout preview as well (the same test card item): if its pod sits inside
+the Hellfire launcher, take the two S-70B-2 rows out of ROLLOUT in
+`integration/allied-fixes/build_patch.py` and rebuild.
 
-The pack generates its own art. The mission sheets are the stock 1184×640 and the backdrop and story images 1920×1080; the screenshot slots take those as they are
-and are in `campaigns/sest-southern-watch/art/` inside the mod (Southern
-Reach's, Red Line's and Sulu Line's are in `campaigns/sest-southern-reach/art/`,
-`campaigns/sest-red-line/art/` and `campaigns/sest-sulu-line/art/`). Screenshots, in this order:
+```
+[h2]20 October 2026[/h2]
 
-1. `00_campaign_background.png` — the theatre chart. Sets the scale of the
-   thing before anything else does.
-2. `southern_watch_01_sheet.png` — a mission card. Shows the format.
-3. `00_opening_image.png` — the opening dispatch sheet. Shows there is a
-   story layer.
-4. `southern_watch_08_sheet.png` — the carrier mission's card, for the plot
-   at its busiest.
-5. An in-game screenshot of the campaign map with the backdrop behind it.
-   **Take this one yourself** — there is no way to fake it, and it is the one
-   a subscriber most wants to see.
+[b]Southern Watch[/b]
+[list]
+[*]Broken Wake is deeper: HMAS Sheean joins the underwater screen, and sinking the armed relay trawler before minute 25 calls off a later missile-boat attack. Stuart's six-knot recovery and the civilians stay at its heart.
+[*]O10 Ballistic Shield adds a small RQ-7 field team on Yapen and dispersed ammunition, fuel and command targets.
+[*]Three new dispatches: Joint Fires School (2030 artillery training) and The Far Picture, a 2034 air-to-air range flown twice, with the targets' sensors off and then on.
+[*]The Open Door, Second Ring and Southern Lifeline revised: B-52Hs with ARRW, RAAF F-35As with JSM, Collins surfacing at the rendezvous.
+[*]Missions that start with a loaded deck start with aircraft being prepared.
+[/list]
 
-## What NOT to put on the page
+[b]Red Line[/b]
+[list]
+[*]Three side operations: in Datum the enclave's Y-9 puts a class on the submarine nobody has claimed, and the next mission starts with her position on the plot for fifteen minutes; in The Ships from the North it names the Japanese escorts coming south; in Pilot in the Water your screen races an Australian patrol vessel to a downed J-15 pilot. Four new pages. A Red Line campaign already under way must be started again.
+[/list]
 
-- The repository, the build tooling, or anything about how it was made. A
-  subscriber cannot act on any of it.
-- A claim that it is balanced or tested in play. It is not yet.
-- A promise of translations, or of support for a specific mod list other than
-  the one that ships.
+[b]Ships and weapons[/b]
+[list]
+[*]The Ford carries sixteen F-35Cs in a 70-aircraft US Navy wing, whichever hull you pick.
+[*]Tomahawk MST Block Va climbs to keep 500 ft over land ahead during cruise; sea-skimming and the terminal attack are unchanged.
+[*]J-20A: visual identification at 6 NM and a stronger infrared signature close in. Its radar stealth is unchanged.
+[*]The AIM-9L flies on the stock game's figures, like the AIM-9M it now shares the air with.
+[/list]
+
+[b]Also[/b]
+[list]
+[*]Two new mods: Combat Cost Tracker (SEST's units priced in its catalogues) and Group Manager.
+[*]The old Anzac Class Frigate mod is no longer needed: the Anzacs come from Euromod - Modern Royal Australian Navy. You can unsubscribe it.
+[*]The task-force debrief lists ships lost in missions you pick a force for.
+[*]Briefings show recognition photos for 54 more classes, the P-8A among them.
+[*]Follows the 20 Oct mod updates: Ford, Mogami, Wasp, F-35C, the OHP long hull and Red Storm Arsenal's Chinese missiles.
+[/list]
+
+[b]Sea Power 0.8.7 and the 22-23 October mod updates[/b]
+[list]
+[*]Built for Sea Power 0.8.7. The Tomahawk MST and debrief corrections are checked against it and switch themselves off on any other build.
+[*]The SM-6 Block I keeps the 300 s flight time Euromod's Anchorchain Expansion gave it on 19-21 Oct; with the preloader it would otherwise be held to 240 s.
+[*]Follows the 22 Oct mod updates: Chile's renamed ships in the world campaign, the Wasp's new recovery circuits, the Juan Carlos I's new deck loadouts in The Relief Ship, and the latest Modern US Navy (which now fixes the OHP long hull's Mk 13 itself; SEST's repair is retired), US Naval Aviation, Spanish, JMSDF and Euromod packs.
+[*]With their authors' 23 Oct updates, the parts of other mods that Sea Power 0.8.7 had switched off are on again: the Fury's Drone Control, the EC-2's radio and data-link jamming, the K5 KRAKEN's one-way attack, the Saronic Corsair's order hooks, the MV-75's systems hook and the YF-23 pack's runtime fixes. SEST needed no change.
+[/list]
+
+[b]Open Allocation in the standard campaigns[/b]
+[list]
+[*]Southern Watch: from Weapons Free every force allocation offers the whole roster and the allied fleet, at its own navies' prices: 52 ship classes from eleven navies - carriers, amphibious ships, replenishment ships, destroyers and frigates - and the RAN's second Canberra-class LHD, with 19 allied aircraft types where a mission can launch and recover them. The windows before Weapons Free keep the story's own lists.
+[*]Southern Reach: the same from Tasman Crossing, with the 10 allied aircraft types its missions can fly. The windows before it keep the story's own lists.
+[*]Red Line: from the first force allocation, before Trailing Contact, every force allocation offers the whole roster and the PLAN's own Type 901 and Type 903A supply ships. The Quiet Side tasks only the ship's flight, so a fixed-wing aircraft bought for it will not fly.
+[*]Carriers and amphibious ships come without aircraft, as every ship you buy does. No submarine is sold, and no ship a mission names. Some operations still limit what sails.
+[*]The Open Allocation versions are retired, because the standard campaigns now do this: each campaign is listed once. Sulu Line's version is retired too: its story offers the whole roster from Service at Sea. A campaign under way in an Open Allocation version cannot be continued: start the standard one.
+[*]A standard campaign already under way may keep its old windows: start it again to get this.
+[/list]
+
+[b]Fixes[/b]
+[list]
+[*]Southern Watch, The Quiet Passenger: Paper Trail's lead on the passenger appears again, beside Southern Cross's datum on the submarine.
+[*]Red Line: briefings and the Situation window no longer show the trailing submarines' class or navy before you classify them. Civilian ships fly their own flags, and the command-net reports no longer name officers.
+[*]Every campaign: a ship or aircraft your orders protect is labelled "Protected - do not engage" under its briefing photo, not "Expected opposition". In The Twelve-Mile Line the frigate and her helicopter read "Opposition - do not fire first".
+[*]Sulu Line, Service at Sea: losing Sulu Provider no longer ends the mission. Complete the rendezvous without her and she is missing at The Aborlan Battery.
+[*]AGR-30 Redback: the Seahawks fire it (seen 23 Oct). The MH-60R carries eight Redback pods on its Hellfire launcher in place of the Hellfires, keeping its fuel tanks. Short shots climb to 2 km, the motor now works when fired from aircraft, and the rocket slows steadily to its 150-knot cruise.
+[/list]
+
+[b]Install[/b]
+[list]
+[*]Subscribe to all again for the two new mods, then close the game and run SETUP. SETUP leaves the old Anzac mod out of the order.
+[/list]
+```
+
+## Change log: 19 Oct 2026
+
+For the update after the 18 Oct one (`8732b75f`). Steam renders the BBCode.
+The 198 required mods are unchanged, so the Required Items and the
+collection stay as they are.
+
+```
+[h2]19 October 2026[/h2]
+
+[b]AGR-30 Redback[/b]
+[list]
+[*]A new "SEST Redback Strike" loadout on the A-10s, Apaches, MQ-9s, Seahawks, the F-16CM, the RAAF F/A-18A and the Super Hornets. Every original loadout is still there; the Ocean Apache's "SEST APKWS-ER Strike" goes with its rocket.
+[*]19-round LAU-3 pods on single pylons, 7-round LAU-68s on racks and the MQ-9s, each on its own mount. The Super Hornets fly the F/A-18A's layout: wing tanks, two pods side by side outboard of them, a 19-round pod on the outer pylon.
+[/list]
+
+[b]Southern Watch (the 18 October play test)[/b]
+[list]
+[*]Air Tasking rows offer every loadout an aircraft can fly for the job (the strike row: 8 to 31). Flight deck and airbase preparation is allowed from the start.
+[*]Steel Highway's beacon datum is a one-minute record, not a contact. After the Wake is a life-raft search with a new, snorkelling boat. Southern Cross adds two F-35As and an optional drone kill.
+[*]Rig Seventeen needs a three-minute hover over the rig, and HMAS Canberra carries her own Apaches and Seahawks. The Quiet Passenger: search, classify, stop her. Weapons Free recovers to Darwin.
+[/list]
+
+[b]Fixes[/b]
+[list]
+[*]The B-2's ADM-160 MALD decoy glides at its release height and dives at the end, instead of dropping to skim the sea at 6 ft.
+[*]The JH-7A carries one self-protection jammer instead of two AN/ALQ-99s.
+[*]Names for the Italian Skyguard SAM and the F-16C Block 40 in the South Korean navy mod; the RAN Sea King Mk.50A/B's squadrons load.
+[*]Follows the latest mod updates: the PAC-3 MSE's ceiling, HMAS Hobart's damage model, the EA-18G's EO views.
+[/list]
+
+[b]Install[/b]
+[list]
+[*]SeaLifter is no longer listed as a requirement. The mods that name it run without it, so nothing needs a manual install.
+[*]Nothing new to subscribe to: the same 198 Workshop mods.
+[/list]
+```
+
+## Collection description (3812390790)
+
+Keep the pinned "Read first" discussion's install steps in step with it.
+
+```
+Everything the SEST Integration Pack's campaigns need: 199 Workshop mods plus the pack itself, [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3812461539]SEST Integration Pack - Modernised Campaigns[/url].
+
+[olist]
+[*]Subscribe to all.
+[*]In the Mod Manager, open the SEST Integration Pack's folder, quit the game and double-click [b]SETUP - double-click me.cmd[/b]. It checks the subscriptions, installs the Anchor Chain preloader and writes the load order, with the pack at the top.
+[*]If the Mod Manager offers to move the pack's dependencies above it, say no. Running SETUP again puts the order back.
+[/olist]
+
+Nothing needs a manual install: some mods still name SeaLifter, but they run without it.
+
+Campaigns: Southern Watch, Southern Reach / Tasman Shield, Red Line and Sulu Line, plus two draft world campaigns for the Dynamic Campaign Mod. All fiction, set in 2028-29.
+```
+
+## Tags, images, and what to leave off
+
+Tags: `Campaign`, `Missions`, `English`.
+
+Preview: `StreamingAssets\SEST-preview.jpg` (124 KB; the image picker only
+browses StreamingAssets). Screenshots, from `campaigns/sest-southern-watch/art/`
+inside the pack: `00_campaign_background.png`, `southern_watch_01_sheet.png`,
+`00_opening_image.png`, `southern_watch_08_sheet.png`, then an in-game shot of
+the campaign map that you take yourself.
+
+Leave off the page: the repository and how the pack is built, any claim that
+it is balanced or play-tested, and any promise of translations or of support
+for another mod list.

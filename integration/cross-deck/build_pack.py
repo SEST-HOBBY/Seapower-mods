@@ -7,13 +7,13 @@ names the aircraft its deck will launch and recover; a hull with no list takes
 anything carrier-capable (and any helicopter), a hull listing the game's own
 `Helicopters` token takes every helicopter, and a hull with an explicit list
 takes those types and nothing else. The mods write those lists for their own
-navy: a Type 45 names the Royal Navy's Lynx, Merlin and Wildcat, an Iver
-Huitfeldt the Danish MH-60R, an Italian FREMM its own SH-101A, AB 212 and
-SH-90, a Maya the JMSDF's SH-60J/K and, as it happens, the US MH-60R. So the
-campaigns' MH-60R could not land on a bought Iver Huitfeldt, a Royal Navy
-Merlin on an Italian FREMM, a German Sea Lynx on a Type 45 or an Australian
-S-70B-2 on a Maya, although allied navies cross-deck helicopters of one
-family.
+navy: a Type 45 or a Type 23 names the Royal Navy's Lynx, Merlin and
+Wildcat, a Mogami the JMSDF's SH-60J/K, an Italian FREMM its own SH-101A,
+AB 212 and SH-90, a Maya the JMSDF's SH-60J/K and, as it happens, the US
+MH-60R. So the campaigns' MH-60R could not land on a Mogami bought from the
+allied reserve, a German Sea Lynx on a Type 45 or Type 23, a Royal Navy
+Merlin on an Italian FREMM or an Australian S-70B-2 on a Maya, although
+allied navies cross-deck helicopters of one family.
 
 The rule here is the one the real navies use: a deck that already operates one
 member of a family operates the allied members of that family. The families
@@ -68,7 +68,7 @@ Anchor Chain extend per deck; the hull's own list is kept and only existing \
 allied aircraft are added.
 
 [Compatibility]
-ApproximateVersion=0.8.6
+ApproximateVersion=0.8.7
 """
 
 # Navies whose decks and aircraft cross-deck with each other. The nation
@@ -86,7 +86,7 @@ ALLIES = {
 # a member no enabled mod ships is simply not added.
 FAMILIES = {
     "Seahawk (S-70B / SH-60 / MH-60)": [
-        "usn_mh-60r", "usn_mh-60r_26", "usn_mh-60r_p2", "usn_sh-60b", "usn_sh-60f", "usn_hh-60",
+        "usn_mh-60r", "ran_mh-60r", "usn_mh-60r_26", "usn_mh-60r_p2", "usn_sh-60b", "usn_sh-60f", "usn_hh-60",
         "S-70B-2_Seahawk", "ran_S-70B-2_Seahawk", "ran_S-70B-2_Seahawk_late",
         "jmsdf_sh-60j", "jmsdf_sh-60k", "spa_sh-60b", "spa_sh-60b_block1",
         "spa_sh-60bv1", "spa_sh-60bv1_block1", "dk_mh-60r", "tha_S-70B-7_Seahawk",

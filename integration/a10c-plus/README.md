@@ -10,7 +10,8 @@ standard one rather than replacing it. Built from the A-10C mod (Workshop `34596
 | Maverick IR head | declared, **not registered** | registered and working |
 | Litening targeting pod | — | `SensorSystem4` |
 | AN/AAQ-28 laser designator | — | `SensorSystem5` |
-| self-defence rails | AIM-9M | **AIM-9X**, all 10 loadouts |
+| self-defence rails | AIM-9M | **AIM-9X**, all 11 loadouts |
+| SEST Redback Strike (AGR-30) | — | `SEST_REDBACK`, since 19 Oct 2026 |
 | squadrons declared / defined | 7 / 2 | 2 / 2 |
 
 The first and last rows are bugs, so SEST Allied Fixes repairs them on the standard A-10C as
@@ -98,10 +99,6 @@ which is the likeliest reason the aircraft only ever appears in one scheme.
 configs only, so no texture is in this repo. The two liveries the mod does ship,
 `a-10_81st_tfw.png` and `a-10_91st_tfw.png`, are in your game install and should both become
 reachable now that the squadron count matches.
-
-**Carry the Redback.** SEST Allied Fixes adds its AGR-30 Redback fit to the standard A-10C.
-The A-10C+ is cloned from the A-10C mod's own file, not from that output, so it flies the
-mod's ten loadouts and not the eleventh.
 
 ## Where it flies
 

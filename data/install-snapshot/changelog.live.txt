@@ -3,11 +3,44 @@ Change log
 
 ===============================================================================
 
+21-Oct-2026: 0.8.7 Build 261021 Public Release
+----------------------------------------------
+[FIX] Null ref when spawning a unit whose CIWS magazine has no ammunition (e.g. when swapping units in the museum)
+[FIX] Null ref when respawning a unit in dev mode failed to load it, which could also move and select another unit
+[FIX] Null ref spam and failed loading of (modded) helicopters with a missing rotor or rotor disc model
+
+===============================================================================
+
+19-Oct-2026: 0.8.6 Build 261019
+-------------------------------
+[FIX] Null ref when returning to the campaign map after a mission
+[FIX] Reduced memory usage of the terrain textures by about 360 MB, which could cause out of memory crashes on systems with less RAM
+[FIX] Null ref when a unit's AI was shut down after the unit had been removed
+[FIX] Null ref spam from autogen cities when they were reloaded before the terrain biome was known
+[FIX] Null ref when destroying units without materials
+[FIX] Null ref when rotating launchers with a missing mount or container object
+
+[UPD] Translations
+
+===============================================================================
+
+16-Oct-2026: 0.8.6 Build 261016
+-------------------------------
+[FIX] Added missing bits for Mirage III
+[FIX] Memory leaks in mission load/unload
+[FIX] Terrain material and texture memory leaks
+[FIX] Fix bugs with aircraft guns not firing early enough, fix picture in picture disappearing, add picture in picture supersampling
+[FIX] Fix the missile seeker cone overlay to match the actual seeker, instead of the terminal distance
+[FIX] Fix missiles getting recycled ARH tracks and going for random targets
+
+===============================================================================
+
 12-Oct-2026: 0.8.6 Build 261014 Public Release
 ----------------------------------------------
 [UPD] New patch release, see below for changes
 
 ===============================================================================
+
 12-Oct-2026: 0.8.5 Build 261012
 -------------------------------
 [FIX] Fixed crash on some machines on scene change

@@ -18,11 +18,21 @@ loaded and partly played; their open questions are listed below.
    commit number.
 2. Start Sea Power → **Mod Manager**: *SEST Integration Pack* is at the top
    and ticked. If it offers to move or fix dependencies, say **no**.
-3. **Options:** note the two weapons settings under Left Shift+O —
+3. **SEST's runtime plugin.** After the main menu has shown, open
+   `%USERPROFILE%\AppData\LocalLow\Triassic Games\Sea Power\Player.log`
+   and find the `[SEST Runtime]` lines. Two lines containing
+   `correction installed` mean the Tomahawk MST terrain clearance and the
+   task-force debrief's lost-ship rows are on: on Sea Power 0.8.7 that is
+   expected since SEST was matched to it on 23 Oct 2026. `inactive:
+   uninspected native assembly` means the game has updated past the build
+   SEST checked, and both are off: the game's own behaviour applies, so do
+   not report the MST over mountains or the debrief as SEST faults then.
+   Say which line you saw, and the game's build.
+4. **Options:** note the two weapons settings under Left Shift+O —
    "Ships on Weapons Tight engage hostile aircraft" and "Ships use anti-ship
    missiles on Weapons Free". Leave them at their defaults and say what they
    were in your report.
-4. Keep a note open. For every mission you play, write down:
+5. Keep a note open. For every mission you play, write down:
    - the mission name and result (won / lost / ran out of time);
    - the objective list as it shows at the end, and the points awarded;
    - anything ashore, missing, unnamed or showing MISSING TEXT;
@@ -39,7 +49,7 @@ depend on it.
 
 | Do | Expect | If not |
 |---|---|---|
-| Open **Campaigns** | Eight entries: Southern Watch, Southern Reach - Tasman Shield, Red Line - The Other Watch, Sulu Line - The Island Road, and an *Open Allocation* version of each | Name the ones missing |
+| Open **Campaigns** | Four entries: Southern Watch, Southern Reach - Tasman Shield, Red Line - The Other Watch, Sulu Line - The Island Road. No *Open Allocation* version: they were retired on 21 Oct 2026 | Name the ones missing, or any Open Allocation entry still listed |
 | Look at each campaign's background | A dark chart with numbered mission marks, the campaign name bottom-left | Blank or a stock picture: say which campaign |
 | Mission browser (single missions) | Folders: Southern Watch, Southern Watch - Dispatches, Southern Reach, Tasman Shield, Red Line, Sulu Line | A missing folder |
 | Load one mission from each folder from the browser: **Southern Watch 01 - White Water**, **Southern Reach 04 - Macquarie Passage**, **Red Line 01 - Trailing Contact**, **Sulu Line 01 - The Island Road** | Every ship and aircraft appears, flags shown, no ship on land | A missing or grounded unit: its name and the mission |
@@ -91,7 +101,7 @@ rests on one rule: there is no free rearm.** Check that first.
 | **1 The Island Road** | Convoy of two reaches the box 30 NM south-west; two Meridian fast attack craft come from the south-east. Win = both convoy ships in the box |
 | **2 Fire Mission Jolo** | Ship starts 25 NM north of Jolo. Steam in; the 76 mm reaches the ridge from about 8 NM. **Three of five** positions destroyed = victory **(3.1)**. Check the launch rails can attack your ship |
 | **3 Ayungin** | Nothing fires at the boat: the cutters carry machine guns only and shadow north of its track; the watcher is an unarmed intelligence ship **(5.1)**. Firing on any Chinese unit ends the mission. The boat entering the shoal's lagoon wins |
-| **4 Service at Sea** | Keep your lead ship within 3 miles of *Sulu Provider* for 30 minutes: a "Thirty minutes" message appears, then she steers north to the box. Use her to rearm: go alongside at 8 kn or less. Sink her in a second run and check she is **missing** from mission 6 **(2.5)** |
+| **4 Service at Sea** | Keep your lead ship within 3 miles of *Sulu Provider* for 30 minutes: a "Thirty minutes" message appears, then she steers north to the box. Use her to rearm: go alongside at 8 kn or less. In a second run let her be sunk after the message and take the lead ship into the box: the mission is **won** (Charter failed), and she is **missing** from mission 6 **(2.5)**. Losing her no longer ends the mission (20 Oct 2026) |
 | **5 Celebes Gate** | Four coasters, one is the gun-runner (armed, with an escort boat and, from about minute 5, a drone nearby). Sinking a wrong one ends the mission. Sinking the right one before the Basilan Strait wins |
 | **6 The Aborlan Battery** | Two Silkworm launchers ashore fire at ships inside about 25 NM, including the convoy at anchor, from about minute 5 (the battery is under cover and not on the map until then) **(3.2)**. Both launchers destroyed wins |
 | **7 Balabac Strait** | Chinese surface group of five from the west, two JH-7A strike aircraft, maybe a submarine. **Three of five** ships sunk wins. Note how much ammunition you had left |
@@ -122,7 +132,16 @@ Dispatches*. Full card: `docs/campaigns/southern-watch/test-card.md`.
 | Memory **(6.1–6.4)** | Lose HMAS Supply in mission 2, then reach mission 9; also save, quit and reload in between | MV Coral Provider is **missing** from mission 9. Keep Supply alive and she is there |
 | Rearm earned **(6.9)** | Hold mission 9's service window, then look before mission 10 | A rearm is offered. Miss the window and it is not |
 | Rearm at sea **(6E)** | Mission 9, fire a missile, then go within half a mile of HMAS Stalwart at 12 kn or less | The missile comes back |
+| Redback from the Seahawk **(first things, 6)** | Mission 3, Rig Seventeen: ready one of HMAS Canberra's MH-60Rs on **SEST Redback Strike** and look at it in the loadout preview, then launch it and order an attack on the Peykaap or the Boghammar from about 4 NM | Its tanks hang on their pylons and four 7-tube pods a side on the Hellfire launcher where the Hellfires do, with no Hellfire and the upper pods clear of the lower rails. Two AGR-30s leave the pods (it fired from 19-tube pods on 23 Oct 2026, not yet from these), the flame burns about ten seconds, the round climbs to about 2 km, slows steadily to about 150 knots over roughly a minute, picks up to about 220 knots 2 NM out and dives. If no salvo leaves, or it never climbs, note the range and any message (`docs/playtest-20261023-redback.md`) |
 | Optional ops **(6.7)** | Bring both Korean warships in at O3, then start mission 6 | ROKS Sejong the Great is in your screen |
+| Open Allocation **(2.9)** | A **new** campaign, windows before missions 1-3 | The story's own short lists and nothing allied, ship or aircraft; Campaign Rules' availability line says the windows before Weapons Free offer what the story releases, and every one from the one before it the whole roster and the allied fleet |
+| Open Allocation **(2.10)** | Window before mission 5, Weapons Free: buy a Mogami or a Type 23 | The whole roster, 82 units in all: the campaign's own ten (the Triton among them), the Canberra-class LHD and the allied fleet at its own navies' prices - carriers, amphibious and supply ships, destroyers and frigates (52 classes) and 19 aircraft types; the bought ship sails; still only one ship sails |
+| Open Allocation **(2.11)** | Windows before missions 9, 11 and 12 | The same 82 at each - a Seahawk, Wedgetail and Triton before mission 11, a Hobart and a Growler before mission 12; a bought ship sails in mission 9 |
+| Allied carrier **(G.12)** | Before mission 5, buy a Ford or a Wasp; sail it in mission 9 | It comes with an empty deck and sails with the force |
+| Allied aircraft **(G.13)** | Before mission 5, buy a Typhoon FGR.4; fly missions 5 and 6 | Offered the strike row in mission 5 and Combat Air Patrol in mission 6; it gets back to its field |
+| Old save **(2.12)** | Load a Southern Watch save from before this update, mid-campaign | It loads. Note what its windows offer: the whole roster and fleet, the story's list with the fleet or the escorts, or the story's list alone (a campaign under way may keep its old windows: start again to get this) |
+| Both datums **(6.6a)** | Do O2 and O5, then start mission 4, The Quiet Passenger | Two intel lines; the submarine **and** the passenger on the plot as fifteen-minute datums |
+| Orphaned save | Open `NEW TEST 1.sav`, a *Southern Watch - Open Allocation* save from before 21 Oct 2026 | It cannot be continued: the version it belongs to is retired. Note what the game does with it (hidden, an error, a broken menu). The campaign menu still opens and lists the four campaigns |
 
 ---
 
@@ -144,14 +163,18 @@ is the thing to watch. Full card: `docs/campaigns/southern-reach/test-card.md`.
 | Consequences **(3.6, 3.11)** | Sink VICTOR in SR07 → check SR10; sink ROMEO in TS05 → check TS09 | The sunk boat is missing later |
 | Weapons Tight **(4.8)** | SR10, everything red starts Tight | Nothing fires until you do |
 | Defector **(6)** | TS11A The Twelve-Mile Line | See section 6 of the card |
+| Open Allocation **(2.11)** | A **new** campaign: every window, through Tasman Crossing | The story's own lists and nothing allied until the window before TS04; from it every force allocation (every window with a builder) offers the whole roster, 73 units in all: the campaign's own ten (a Hobart before TS12 too), the Canberra-class LHD and the allied fleet at its own navies' prices - 52 ship classes and 10 aircraft types. JS Mogami (Mogami Variant1), Daegu Variant1, HMAS Choules and the Supply-class AOR are **never** offered |
 
 ---
 
 ## 5. Red Line — The Other Watch
 
-People's Liberation Army Navy, November 2028–February 2029, six missions. Won
-by restraint: almost every mission is lost by firing on the wrong thing.
-Full card: `docs/campaigns/red-line/test-card.md`.
+People's Liberation Army Navy, November 2028–February 2029: six core missions
+and, since 20 Oct 2026, three side operations - O1 *Datum*, O2 *The Ships from
+the North* and C1 *Pilot in the Water*, with four new pages. Won by restraint:
+almost every mission is lost by firing on the wrong thing. A Red Line campaign
+started before the side operations must be **started again** (17 entries, not
+10). Full card: `docs/campaigns/red-line/test-card.md`.
 
 | Check | Do | Expect |
 |---|---|---|
@@ -160,10 +183,15 @@ Full card: `docs/campaigns/red-line/test-card.md`.
 | Weapons Tight **(4.3)** | RL02, frigate at Tight with the Poseidon passing overhead | It does not shoot the Poseidon |
 | Direct order **(4.4)** | RL04, frigate at Hold, order it to fire on *Meridian Harmony* | The order is obeyed. Note what weapons state it switches to |
 | No rearm **(3.4)** | Before RL04 | Repair only, no rearm offered |
+| Open Allocation **(3.9, 3.10)** | A **new** campaign, before RL01, RL02, RL03 and RL06 | Every window offers the whole roster - 054A, Luda, Sovremenny, 056A, Z-9C, Y-9, KJ-500, J-15 and J-15D - and the Type 901 and Type 903A at 160 and 120, the PLAN's own: nothing calls them allied. RL06's text says a fixed-wing aircraft allocated there will not fly |
 | Unseen **(5.1–5.2)** | RL05: wait deep and slow for a minute, then come to periscope depth under the Poseidon | Nothing at first; once the Poseidon classifies the boat, the mission is lost |
 | Racetracks **(8.1)** | RL05 at 8x, watch the Poseidon for the whole mission | It keeps flying back and forth; it does not circle one end |
 | Timing **(6.1)** | RL04, ignore the coaster | She clears the screen and the mission is lost around T+40 to T+60. Note the minute |
-| Supply ships (Open Allocation) | Start *Red Line - Open Allocation* | Type 901 and 903A supply ships on sale |
+| Briefings and Situation **(8A.5-8A.6)** | RL01 and RL02 briefings, and the Situation button | No Collins or Virginia photo, and no submarine in the Situation list; the Poseidon's, Triton's and Wedgetail's photos read "Protected - do not engage" |
+| Flags **(8A.7)** | RL01's ferry and tuna trawler; the cruise ships in RL05 and RL06 | Indonesian flags in RL01, Panama's on the cruise ships; no Russian flag |
+| Side operations **(8B.1, 8B.3, 8B.5)** | A **new** campaign: fly O1, O2 and C1 | O1: the Y-9 classifies GOLF with buoys and nothing fires. O2: both Japanese escorts classified, and neither fighter pair fires first (8B.3a). C1: the lead ship stopped within three cables of the raft, "Pilot aboard." four minutes later and the win at once, at about minute 34 at full speed, before the patrol vessel reaches him at about 39. Note the minute the patrol vessel reaches the raft if you lose the race |
+| What they leave **(7.3, 7.4)** | After O1, RL02; after O2, RL03 | RL02: GOLF on the plot for fifteen minutes as an unknown contact. RL03 (7.4, held since 21 Oct 2026): no AIR OPERATIONS line at the start naming Mogami and Maya, and both unclassified until you classify them, whether O2 was won or not. The AIR OPERATIONS report at minute 8 ("A second look from another bearing") is RL03's own and comes in every run |
+| Reveal proof **(Southern Reach 3.10, Sulu Line 7.1)** | Southern Reach: win TS01, then fly TS03 *Chatham Watch*. Or Sulu Line: win *Night Market*, then fly *The Okean* | The tender (TS03) or the armed trawler (The Okean) starts on the plot classified. Say whether its classify objective - *Tender* in TS03, *Identify* in The Okean - completes at once, only after you classify her again, or never. This decides whether RL03's reveal after O2 comes back (7.4) |
 
 ---
 

@@ -23,9 +23,11 @@ don't misdiagnose breakage later.
    preloader install must be done. Quick test: if the **B-2 Spirit** shows up and flies in-game,
    both loaders are fine. The preloader steps, and the Coordinated Strike Tool check that proves
    them, are in `docs/campaigns/southern-reach/install-alignment.md`, *Code mods do not load*.
-2. **SeaLifter** — not in your subscription list, but required by A-10A/A-10C, Su-25, Mi-8 T/TV,
-   B-2, and the Type 003/004 carriers. If any of those is missing from the unit list, install
-   SeaLifter (subscribe + its preloader) before proceeding.
+2. **SeaLifter** — not needed. The A-10A/A-10C, Su-25, Mi-8 T/TV, B-2 and Type 003/004 mods
+   still name it, from their early-game descriptions (the B-2's `_info.ini` declares 0.4.0), but
+   on 19 Oct 2026 the PC, which has never had SeaLifter, showed all five in the encyclopedia with
+   their models. The manual part of its old install was Anchor Chain's preloader, which SETUP
+   installs.
 
 ## Phase 2 — unsubscribe list (done — read the KEEPs)
 
@@ -197,7 +199,7 @@ by hand in the Mod Manager (top of the list wins when two mods ship the same fil
 ── Tier 0: SEST ─────────────────────────────────────────────
 SEST Integration Pack            (every SEST pack, one entry; above everything)
 ── Tier 1: loaders ──────────────────────────────────────────
-Anchor Chain                     (SeaLifter loads via its preloader)
+Anchor Chain                     (with its preloader; SeaLifter is not needed)
 Anchor Chain expansions          (Euromod Anchorchain Expansion,
                                   PLA & PLAN & PLAAF AEP)
 Anchor Chain code mods           (Custom Loadout Editor, Better TacMap, Coordinated

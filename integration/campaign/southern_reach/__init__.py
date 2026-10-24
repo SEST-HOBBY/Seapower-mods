@@ -49,7 +49,8 @@ sys.path.insert(0, str(HERE.parent))
 from campaign_data import U, F, S, CAP, RECON, HELO, STRIKE  # noqa: E402,F401
 
 from .lore import EVENTS  # noqa: E402
-from .tables import CALENDAR, MODULES, ROSTER, TASKFORCE, DIFFICULTIES, COMMANDER  # noqa: E402
+from .tables import (CALENDAR, MODULES, ROSTER, RESERVE_FLEET, TASKFORCE,  # noqa: E402
+                     DIFFICULTIES, COMMANDER)
 
 # While the campaign is being authored a module may not exist yet. With
 # SR_ALLOW_MISSING set the package skips it (and the cross-mission checks
@@ -152,5 +153,6 @@ CAMPAIGN = dict(
     CAMPAIGN_DIFFICULTY="3", MAP_FOCUS_NM=350, MAP_INSET=(100, -70, 180, -25),
     ROSTER_SOURCE="southern_reach/tables.py",
     INFO_DESC=INFO_DESC, DISPATCH_DESC="", TASKFORCE=TASKFORCE,
-    DIFFICULTIES=DIFFICULTIES, ROSTER=ROSTER, COMMANDER=COMMANDER,
+    DIFFICULTIES=DIFFICULTIES, ROSTER=ROSTER, RESERVE_FLEET=RESERVE_FLEET,
+    COMMANDER=COMMANDER,
     EVENTS=EVENTS, MISSIONS=MISSIONS, EXCUSES={})

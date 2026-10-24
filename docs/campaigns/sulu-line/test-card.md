@@ -52,8 +52,23 @@ at Sea's and The Aborlan Battery's windows do.
 
 2.5 **Service at Sea.** Sulu Provider (the MSC C8) is a working supplier. Hold
 the lead ship within three miles of her for thirty minutes: the "Thirty
-minutes" message appears and the charter steers north. Sink her in a second
-run: The Aborlan Battery then opens **without** her at the anchorage.
+minutes" message appears and the charter steers north. In a second run let
+her be sunk after the message, then take the lead ship into the withdrawal
+box: the mission is **won** with Charter failed, and The Aborlan Battery
+opens **without** her at the anchorage. (Until 20 Oct 2026 her loss ended
+the mission, so that branch could only follow a defeat.) *Wrong:* the
+mission ends when she sinks = an old build.
+
+2.6 **Retired (21 Oct 2026).** The Open Allocation versions left the pack,
+so there is no *Sulu Line - Open Allocation* to start; the row is kept as
+the record of what was asked. *The Open Allocation version's supply ships:*
+start *Sulu Line - Open Allocation*. Before The Island Road it offers
+Tarlac / Davao del Sur and Chula but **not** the C8; before Fire Mission
+Jolo **no** supply ship, with the window's note saying the story keeps some
+units to its own windows; before Service at Sea and The Aborlan Battery all
+three. Its description in the campaign list names **no** allied fleet.
+*Wrong:* a supply ship on sale before Fire Mission Jolo, or the C8 before
+The Island Road = an old build.
 
 ## 3. Fire missions
 
@@ -109,3 +124,16 @@ minute 5, or the drone never appears.
 from the frigate; Meridian Escort 18 (36 NM out) does not fire before
 then. *Wrong:* rounds at the frigate before minute 5, or the drone never
 appears.
+
+## 7. A reveal at Classify and the Identify objective (21 October)
+
+7.1 **Night Market, then The Okean.** Win Night Market (take the
+semi-submersible), then fly The Okean. The PDEA intel line comes up and
+the armed trawler Hai Xing 7 is on the plot classified from the start
+(`SLNarcoTaken`). Say exactly what the **Identify** objective ("Classify
+the armed trawler") does with a ship that starts classified: completes at
+once, completes only after you classify her again, or never. The mission
+is won by stopping her either way. This is one of the two in-pack proofs
+(with Southern Reach card 3.10) that decide whether Red Line's RL03 reveal
+after The Ships from the North comes back (Red Line card 7.4, held since
+21 Oct 2026).

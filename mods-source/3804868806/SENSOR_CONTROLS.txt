@@ -1,0 +1,19 @@
+Drone Control
+
+Requires Anchor Chain. Supports the XQ-58A and Fury Escort, Interceptor, Strike, SEAD, Recon and EW.
+
+Start a mission and launch a supported player-owned aircraft. Controls appear while the drone is airborne. The scenario editor and encyclopedia do not provide these flight controls. Open Drone Control from its right-click menu or the small Drone Control button. Choose an aircraft and a current surface contact.
+
+Watch aims the sensor without changing flight orders. Shadow orders an orbit around the contact. Detach the aircraft from a multi-aircraft formation before shadowing; Watch works in formation.
+
+Open feed shows the selected drone through the native camera. With the map fullscreen, native picture-in-picture shows that feed. DAY, NIGHT, WHITE HOT and BLACK HOT select the image mode directly. Wide, Medium and Narrow select zoom. The marked button shows the active choice.
+
+Manual look releases automatic tracking. Resume tracking points at the assigned contact again. The status shows tracking, a lost contact or a target outside the camera's viewing arc. Camera tracking uses the player's reported contact position.
+
+Orbit settings starts with the SAM standoff switch, then controls distance, altitude, direction and what happens after losing contact. Resume route ends the orbit and keeps the sensor assignment. Return home uses the normal return order. Native fuel and emergency behavior takes priority.
+
+Shadow keeps the orbit outside surface-to-air missile range. Every ship and land contact that is not known to be friendly or neutral counts, including escorts near the contact you are watching. A ship far from that contact only matters when your orbit would cross its missile range. An identified ship counts with its own air defenses; an unknown or unidentified contact counts as carrying the longest-ranged air defense of any ship or land unit in the mission. When this pushes the orbit beyond your chosen distance, the panel shows SAM standoff and the distance flown. If no safe orbit fits within 150 nautical miles, the drone flies at 150 and the panel warns INSIDE SAM RANGE. If the drone is already inside missile range when you press Shadow, it first flies straight out. Watch, normal routes and enemy aircraft are not covered, and the orbit ends if the drone has to evade a missile. To fly your chosen distance anyway, open Orbit settings and set SAM standoff to off; the panel then warns INSIDE SAM RANGE. This choice is per drone and returns to on after loading a save.
+
+Close feed closes only the camera. Click the Drone Control heading to collapse the panel without canceling an order. Move panel switches between screen sides. One native feed is shown at a time; choosing another aircraft in the panel does not change the camera until Open feed or Watch is pressed.
+
+Shadow orders and tracking targets survive mission saves. After loading, reopen the feed. Image mode and panel layout are session controls.

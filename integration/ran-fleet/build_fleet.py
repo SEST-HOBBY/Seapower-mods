@@ -12,11 +12,12 @@ pennants), and MH-60R / S-70B-2 air groups.
 Clones are NEW unit ids — nothing overrides the donors, so both fleets coexist.
 
 The Anzac is the exception, and the reason there are two modes here. It was a
-Type 23 MLU clone only because the collection had no Anzac; since 2026-09-20 it
-has the real ASMD hull (Workshop 3440622312), so that entry is a PATCH of the
-mod's own ran_ffh_anzac rather than a clone of somebody else's frigate. Patch
-mode keeps the mod's identity - its hull-number and emblem textures, its eight
-HMAS names - and changes only what is wrong or missing: see the entry in FLEET.
+Type 23 MLU clone only because the collection had no Anzac; from 2026-09-20 it
+patched the real ASMD hull of the Anzac Class Frigate mod (Workshop
+3440622312), and since 17 Oct 2026 it patches Euromod - Modern Royal Australian
+Navy's ran_ffh_anzac (the old mod was unsubscribed on 20 Oct). Patch mode keeps
+the mod's identity - its hull-number and emblem textures, its eight HMAS names
+- and changes only what is wrong or missing: see the entry in FLEET.
 
 Replenishment At Sea is applied here rather than by the SEST Replenishment
 pack, because these seven hulls belong to THIS pack and two packs shipping
@@ -50,7 +51,6 @@ SPA_COLDWAR = "3630495619"  # Spanish Navy Mod (Cold War)
 # Modern British Navy (3599752717) is no longer a donor here - the Anzac was
 # its only customer and now patches the real hull instead. The mod stays
 # subscribed: SEST_Allied_Fixes patches HMS Ocean out of it.
-ANZAC = "3440622312"        # Anzac Class Frigate - the REAL hull, subscribed 2026-09-20
 # Euromod - Modern Royal Australian Navy (subscribed 17 Oct 2026) models the
 # Hobart, Anzac, Canberra and Collins under the very ids the campaigns use,
 # with the RAN's own fits: NSM, Tomahawk, SM-6, date-based ESSM and Nulka,
@@ -62,7 +62,7 @@ ANZAC = "3440622312"        # Anzac Class Frigate - the REAL hull, subscribed 20
 EUROMOD_RAN = "3820759806"
 EUROMOD_RAN_HELOS = "ran_mh-60r,ran_S-70B-2_Seahawk"   # its own, kept on the decks
 
-HELOS = "usn_mh-60r,S-70B-2_Seahawk"
+HELOS = "ran_mh-60r,usn_mh-60r,S-70B-2_Seahawk"
 
 # --- 2027 armament refresh ---------------------------------------------------
 # The clones inherited their donors' placeholder fits. Two real RAN programs
@@ -390,7 +390,7 @@ FLEET = {
         "hulls": [("DDG 39 HMAS Hobart", "Hobart"),
                   ("DDG 41 HMAS Brisbane", "Brisbane"),
                   ("DDG 42 HMAS Sydney", "Sydney")],
-        "airgroup": ["usn_mh-60r=Squadron20,1"],
+        "airgroup": ["ran_mh-60r=Squadron1,1"],
     },
     # REBASED 2026-09-20 from a clone to a PATCH. The Type 23 MLU stood in for
     # the MEKO 200 only because the collection had no Anzac; it now has the
@@ -430,7 +430,7 @@ FLEET = {
                   ("FFH 155 HMAS Ballarat", "Ballarat"),
                   ("FFH 156 HMAS Toowoomba", "Toowoomba"),
                   ("FFH 157 HMAS Perth", "Perth")],
-        "airgroup": ["usn_mh-60r=Squadron20,1"],
+        "airgroup": ["ran_mh-60r=Squadron1,1"],
     },
     "ran_lhd_canberra": {
         "donor": (EUROMOD_RAN, "ran_lhd_canberra"),
@@ -445,7 +445,7 @@ FLEET = {
         "service": "2014|2060",
         "hulls": [("L02 HMAS Canberra", "Canberra"),
                   ("L01 HMAS Adelaide", "Adelaide")],
-        "airgroup": ["usn_mh-60r=Squadron20,4", "S-70B-2_Seahawk=Squadron1,4"],
+        "airgroup": ["ran_mh-60r=Squadron1,4", "S-70B-2_Seahawk=Squadron1,4"],
         # The LHD deck is rated for the CH-53E the campaign lifts with (the
         # Juan Carlos design was sized for it); the campaign builder refuses
         # to home an aircraft on a deck whose list leaves it out.
@@ -462,7 +462,7 @@ FLEET = {
                  "LPD stands in for the Bay-class."),
         "service": "2011|2050",
         "hulls": [("L100 HMAS Choules", "Choules")],
-        "airgroup": ["usn_mh-60r=Squadron20,2"],
+        "airgroup": ["ran_mh-60r=Squadron1,2"],
     },
     "ran_aor_supply": {
         "donor": (SPA_COLDWAR, "ae_ao_teide"),
@@ -512,7 +512,7 @@ FLEET = {
         # report). The deck's embarked flight is the RAN's MH-60R, the one
         # the Anzacs and Hobarts already fly; the air-group path also adds
         # both RAN Seahawks to AircraftSupported.
-        "airgroup": ["usn_mh-60r=Squadron20,1"],
+        "airgroup": ["ran_mh-60r=Squadron1,1"],
     },
 }
 
@@ -555,7 +555,7 @@ Name=SEST RAN Fleet
 Description=Royal Australian Navy fleet for the SEST campaigns. The Hobart, Anzac, Canberra and Collins are Euromod - Modern Royal Australian Navy's own ships (their models, fits, hull numbers and combat systems), patched only to embark the RAN MH-60R the campaigns sell, to let their decks take both RAN Seahawks (and the Canberra the USMC CH-53E and MV-22B) and to name every hull. HMAS Choules (Galicia), the Supply class (Teide) and the Arafura OPV (Meteoro) are stand-ins cloned from Spanish designs - new unit ids, donors untouched. HMAS Supply and Stalwart carry a working Replenishment At Sea system and every hull's magazine-less launchers are flagged reloadable, in step with SEST Replenishment At Sea. The Euromod ships keep the mod's own combat systems (Aegis Baseline 9, Saab 9LV, AN/BYG-1); the Arafura and Supply name Saab 9LV, from profiles in SEST Collection Fixes. Requires Euromod - Modern Royal Australian Navy, Euromod Main, the Modern + Cold War Spanish Navy packs and an MH-60R / S-70B-2 source. Place ABOVE every ship mod.
 
 [Compatibility]
-ApproximateVersion=0.8.6
+ApproximateVersion=0.8.7
 """
 
 DEFAULT_VARIANT = """ResourcesHullnumberFolder=textures/Misc/
@@ -623,7 +623,7 @@ def main():
                               count=1, flags=re.S)
             if n == 0:
                 sys.exit(f"{ship_id}: donor {donor} has no [AirGroup] block to replace")
-            text, n = re.subn(r"^(AircraftSupported=.*)$", rf"\1,{HELOS}", text,
+            text, n = re.subn(r"^(AircraftSupported=[^\n/]*)", rf"\1,{HELOS}", text,
                               count=1, flags=re.M)
             if n == 0:
                 # The Anzac mod declares a flight deck and an air group but no
@@ -679,6 +679,23 @@ def main():
             text, n = swap_systems(text, CIWS[ship_id], ship_id)
             systems.append(f"{ship['short']} CIWS {' '.join(CIWS[ship_id].values())} x{n}")
 
+        # Upstream's modern RAN decks already name ran_mh-60r. Keep a single
+        # entry when composing the legacy and current compatible types.
+        text = re.sub(r"^AircraftSupported=([^\n/]*)([^\n]*)$",
+                      lambda m: "AircraftSupported=" + ",".join(dict.fromkeys(
+                          p.strip() for p in m[1].split(",") if p.strip()))
+                      + ((" " + m[2]) if m[2] else ""), text, flags=re.M)
+
+        # A common four-knot service setting for the actual Collins and her
+        # tender. Telegraph 2 selects the third forward entry (0,2,4...).
+        # Other speed settings and both models remain the donors'.
+        if ship_id in ("ran_ssg_collins", "ran_aor_supply"):
+            speeds = ("TelegraphVelocities=-7,0,2,4,10,15,20" if ship_id == "ran_ssg_collins"
+                      else "TelegraphVelocities=-5,0,2,4,8,10,12")
+            if re.search(r"^TelegraphVelocities=", text, re.M):
+                text = re.sub(r"^TelegraphVelocities=[^\n]*", speeds, text, count=1, flags=re.M)
+            else:
+                text = text.replace("[Physics]\n", "[Physics]\n" + speeds + "\n", 1)
         (OUT / "vessels" / f"{ship_id}.ini").write_text(text, encoding="utf-8")
 
         if ship.get("patch"):

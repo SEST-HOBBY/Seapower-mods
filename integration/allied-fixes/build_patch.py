@@ -44,6 +44,7 @@ OUT = Path(__file__).resolve().parent / "SEST_Allied_Fixes"
 sys.path.insert(0, str(ROOT / "integration"))
 from common.a10c import fix_squadron_count, register_ir_head  # noqa: E402
 from common.ras import make_reloadable  # noqa: E402
+from common.redback import add_fit as add_redback  # noqa: E402
 
 MISSING = "usn_agm-84g"      # defined by nothing, anywhere
 REPLACE = "usn_agm-84n"      # U.S. Navy 2027's own Harpoon Block II+ ER
@@ -69,10 +70,14 @@ Harpoon no mod defines (loaded empty), HMS Ocean could not operate the \
 Apache AH1 her sister hulls already support, the RNZAF and ROKN P-8 \
 squadrons named nations the game has no flag for, and the A-10C's infrared \
 head was never registered as a sensor module while its squadron file \
-declared seven squadrons against two defined liveries.
+declared seven squadrons against two defined liveries. Also SEST's AGR-30 \
+Redback - a fictional fire-and-forget active-homing 70mm guided rocket, \
+30 nm, a ten-second boost, slow cruise and diving approach - as a SEST_REDBACK \
+fit on the Apaches, the A-10s, the MQ-9s, \
+the Seahawks and the RAAF Hornets.
 
 [Compatibility]
-ApproximateVersion=0.8.6
+ApproximateVersion=0.8.7
 """
 
 
@@ -194,243 +199,361 @@ def main():
         print(f"  vessels/rn_lph_ocean.ini  (+uk_ah_mk_1 Apache AH1 supported, "
               f"{reloadable} launcher(s) made reloadable for RAS)")
 
-    # APKWS II-ER: the medium-range strike guided rocket (user ask). The
-    # Apache mod's M282 APKWS with its launch envelope extended 3.5 -> 8 nm -
-    # in this engine range is the MaxLaunchRange key, there is no separate
-    # flight-time knob. No new art: rocket, pod, meshes and effects are the
-    # Apache mod's own, byte-identical but for the range line and the pod's
-    # payload reference. Carried by the Ocean-capable Apache AH1 as a new
-    # fit cloned from its all-rockets Strike loadout.
-    apache = ROOT / "mods-source" / "3425450153"
-    rocket_src = apache / "ammunition" / "usa_apkws_2_m282.ini"
-    pod_src = apache / "ammunition" / "usn_agr-20b_apache.ini"
-    heli_src = apache / "aircraft" / "uk_ah_mk_1.ini"
-    if not (rocket_src.exists() and pod_src.exists() and heli_src.exists()):
-        print("  APKWS-ER  SKIPPED - Apache mod 3425450153 not exported")
-    else:
-        rocket = rocket_src.read_text(encoding="utf-8-sig", errors="replace")
-        rocket, n = re.subn(r"^MaxLaunchRange=3\.5\b", "MaxLaunchRange=8", rocket, flags=re.M)
-        if n != 1:
-            sys.exit(f"usa_apkws_2_m282: MaxLaunchRange line changed upstream ({n} matches)")
-        (OUT / "ammunition").mkdir(parents=True, exist_ok=True)
-        (OUT / "ammunition" / "sest_apkws_er.ini").write_text(
-            "# SEST APKWS II-ER - the Apache mod's M282 APKWS with the launch\n"
-            "# envelope extended 3.5 -> 8 nm. Everything else is upstream's.\n"
-            + rocket, encoding="utf-8")
-
-        pod = pod_src.read_text(encoding="utf-8-sig", errors="replace")
-        pod, n = re.subn(r"^Ammunition=usa_apkws_2_m282\s*$",
-                         "Ammunition=sest_apkws_er", pod, flags=re.M)
-        if n != 1:
-            sys.exit(f"usn_agr-20b_apache: Ammunition line changed upstream ({n} matches)")
-        (OUT / "ammunition" / "sest_agr-20er.ini").write_text(
-            "# SEST LAU-68 pod loaded with the extended-range APKWS II-ER.\n" + pod,
-            encoding="utf-8")
-
-        heli = heli_src.read_text(encoding="utf-8-sig", errors="replace")
-        # Upstream's Default fit names Station3 and Station4 twice - a LAU-3
-        # rocket pod AND a Brimstone on each inner pylon - so the encyclopedia
-        # and the default loadout draw the pod and the missiles on top of each
-        # other. Every other fit puts the rocket pods on the outer pylons
-        # (Stations 1/2), and this one already hides the outer missile rails
-        # for them, so the pods move there.
-        heli, n = re.subn(r"(\[WeaponSystem1Default\][^\[]*?)"
-                          r"^Station3=usa_lau-3a_apache\|LAU-3\n^Station4=usa_lau-3a_apache\|LAU-3\n",
-                          r"\1Station1=usa_lau-3a_apache|LAU-3\nStation2=usa_lau-3a_apache|LAU-3\n",
-                          heli, count=1, flags=re.M | re.S)
-        if n != 1:
-            sys.exit("uk_ah_mk_1: Default fit's doubled inner-pylon rocket pods not found - "
-                     "upstream changed, re-check the overlap fix")
-        if "SEST_APKWS_ER" in heli:
-            sys.exit("uk_ah_mk_1: upstream already defines SEST_APKWS_ER - re-check")
-        heli, n = re.subn(r"^(AvailableLoadouts=[^\n]*)$", r"\1,SEST_APKWS_ER",
-                          heli, count=1, flags=re.M)
-        if n != 1:
-            sys.exit("uk_ah_mk_1: AvailableLoadouts line not found")
-        # search AFTER the AvailableLoadouts edit - held offsets go stale
-        # (the SEAD260 lesson).
-        m = re.search(r"^\[WeaponSystem1Strike\][^\n]*\n(.*?)(?=^\[)", heli, re.M | re.S)
-        if not m:
-            sys.exit("uk_ah_mk_1: Strike donor block not found")
-        body = m.group(1)
-        body2 = body.replace("usn_agr-20b_apache|LAU-68", "sest_agr-20er|LAU-68")
-        if body2.count("sest_agr-20er") != 4:
-            sys.exit("uk_ah_mk_1: expected 4 rocket pods in the Strike donor")
-        heli = (heli[:m.end()] + "[WeaponSystem1SEST_APKWS_ER]\n" + body2 + heli[m.end():])
-        (OUT / "aircraft").mkdir(parents=True, exist_ok=True)
-        (OUT / "aircraft" / "uk_ah_mk_1.ini").write_text(heli, encoding="utf-8")
-
-        lang = OUT / "language_en"
-        lang.mkdir(parents=True, exist_ok=True)
-        (lang / "ammunition_names.ini").write_text(
-            "[AmmunitionNames]\n"
-            "sest_apkws_er=M282ER,APKWS II-ER,GFFAR,"
-            "Extended-range development of the AGR-20 APKWS II laser-guided "
-            "70mm rocket. An uprated motor stretches the launch envelope from "
-            "3.5 to 8 nautical miles - a medium-range precision strike round "
-            "at rocket cost. Same guidance kit and warhead as the M282.\n"
-            "sest_agr-30=AGR-30,Redback,GFFAR,"
-            "What-if evolution of the 70mm guided rocket family: the AGR-30 "
-            "Redback replaces the APKWS II laser kit with an imaging-infrared "
-            "seeker - true fire and forget out to 25 nautical miles with a "
-            "lofted profile and terminal dive. Same airframe and warhead as "
-            "the APKWS II; missile performance at rocket cost.\n",
-            encoding="utf-8")
-        (lang / "loadout_names.ini").write_text(
-            "[LoadoutNames]\n"
-            "SEST_APKWS_ER=SEST APKWS-ER Strike (28x guided rockets)\n"
-            "SEST_REDBACK=SEST Redback Strike (28x AGR-30 F&F)\n",
-            encoding="utf-8")
-        print("  APKWS-ER: ammunition x2, uk_ah_mk_1 fit SEST_APKWS_ER (4 pods + Starstreak)")
-
-        # AGR-30 Redback: rebased onto dts_apkws-ii after two freezes. The
-        # M282-based build differed from every working pod round in dozens
-        # of keys; dts_apkws-ii is a PROVEN in-pod rocket WITH loft keys from
-        # the collection's own weapon pack, so the Redback is now that file
-        # with the minimum deltas: IR seeker instead of laser (GuidanceType
-        # 1, MidCourseCorrection stays 0 - pure fire and forget, five
-        # in-container precedents), range 6 -> 25 nm with the seeker matched to
-        # it, loft raised 5/1500 -> 12/4000 for the higher profile. Motor,
-        # fuze, effects, terminal logic all stay the working weapon's.
-        rb_src = ROOT / "mods-source" / "3760871384" / "ammunition" / "dts_apkws-ii.ini"
-        if not rb_src.exists():
-            sys.exit("dts_apkws-ii.ini missing - Dingtools Weapon Pack must be exported")
-        rb = rb_src.read_text(encoding="utf-8-sig", errors="replace")
-        swaps = [
-            (r"^GuidanceType=5\b", "GuidanceType=1"),
-            # The seeker must reach as far as the weapon may be shot. This is
-            # GuidanceType=1 with MidCourseCorrection=0 - pure fire and forget,
-            # nothing corrects it after release - so a shot taken beyond the
-            # seeker's reach has nothing to home on. It was an 8 nm seeker on a
-            # 15 nm weapon, leaving every shot past 8 nm unguided. Both are 25.
-            (r"^SeekerPassiveRange=6\.0\b", "SeekerPassiveRange=25"),
-            (r"^MaxLaunchRange=6\b", "MaxLaunchRange=25"),
-            (r"^MaxLoftAngle=5\.0\b", "MaxLoftAngle=12.0"),
-            (r"^MaxLoftAlt=1500\b", "MaxLoftAlt=4000"),
-        ]
-        for pat, rep in swaps:
-            rb, k = re.subn(pat, rep, rb, flags=re.M)
-            if k != 1:
-                sys.exit(f"dts_apkws-ii: {pat} matched {k} times - upstream changed")
-        (OUT / "ammunition" / "sest_agr-30.ini").write_text(
-            "# SEST AGR-30 Redback - dts_apkws-ii (proven in-pod, lofting) with an\n"
-            "# IR seeker, 25 nm reach matched by a 25 nm seeker, and a raised loft.\n"
-            "# Minimum-delta rebase after the M282-based build froze the game twice.\n"
-            + rb, encoding="utf-8")
-
-        rbpod, k = re.subn(r"^Ammunition=usa_apkws_2_m282\s*$",
-                           "Ammunition=sest_agr-30",
-                           pod_src.read_text(encoding="utf-8-sig", errors="replace"), flags=re.M)
+    # AGR-30 Redback: SEST's one upgraded 70mm guided rocket. The decision of
+    # 19 Oct 2026 retired the 8 nm laser APKWS II-ER (its rocket, its pod and
+    # the Ocean Apache's SEST_APKWS_ER fit) and asked for this one round,
+    # everywhere: 30 nm and a rocket's boost then a slower cruise. It stays
+    # dts_apkws-ii - the proven in-pod rocket it was rebased onto after two
+    # freezes, the weapon pack's counter-drone APKWS - with the minimum deltas:
+    # The second 19 Oct request extends the visible motor to ten seconds and
+    # asks for gentler slowdown, an approximately 45-degree final descent and
+    # some terminal speed pickup. Legacy phase caps keep the fictional slow
+    # cruise without modelling an unpowered 70mm rocket's real-world stall.
+    # AS-4 demonstrates TerminalVelocity and Deceleration (see the slow-down
+    # below for the value).
+    # A 6562-ft loft over 1.1 horizontal NM gives about 44.5 degrees to a
+    # sea-level target. IgnoreHeightDifferenceForTargetDist is essential to
+    # that geometry. This is not a verified fixed-pitch control: terrain,
+    # target height, short shots and target motion change the approach.
+    # AIM-54A's timed SustainerEffect supplies the ten-second visible motor,
+    # without an everlasting InFlightEffect or a new flame in terminal.
+    # Fire and forget (23 Oct 2026). The 19 Oct follow-up made the round radio
+    # command (MidCourseCorrection=1) for retargeting, and radio command needs
+    # a guidance channel: a radar or command link the launching hardpoint
+    # names in AssociatedSensors=. The Seahawks name none (the RAN MH-60R's
+    # only radar, APS-147, has no weapon channels), nor do the A-10A/C - on
+    # the evidence, why the game listed the AGR-30 and never launched it in
+    # the owner's 23 Oct report, an attack ordered on a boat. The stock
+    # game's radio-command stores come with their channel (the AS-2's Rubin
+    # radar, the AGM-12B's ARW-77), as does the MQ-9's GBU-49 (the author's
+    # guidance pod). So the round is the donor's MidCourseCorrection=0
+    # again, like the Hellfire L the MH-60R already fires (active radar,
+    # Ka-band, 11 kW), and the GBU-53 that US Naval Aviation's BRU-61
+    # container holds: no channel, on any carrier. Retargetable stays, as on
+    # six of the collection's MidCourseCorrection=0 rounds (the ROK
+    # Hyunmoo-4-2 and HGV are active radar too); whether the game retargets
+    # one without a link, play shows.
+    # Seen firing (23 Oct 2026, second report, on 57375598): the RAN MH-60R
+    # fired it from its pods, so MidCourseCorrection=0 stays. The owner also
+    # saw a shorter boost than on the build they played before it (71bd3004,
+    # the 19 Oct follow-up's round; the last recorded Workshop upload,
+    # e7b32f11, is older) and asked for a realistic slow-down to the cruise
+    # speed.
+    # Game rules this profile rests on (Sea Power 0.8.7, read from the game's
+    # code on 23 Oct 2026; ApplyKinematics=False, the game's simpler speed
+    # model):
+    # - The flame is a timer: the SustainerEffect shows from launch for
+    #   SustainerAccelerationTime (10 s), whatever the round is doing.
+    # - Speed has a target per stage: MaxVelocity while the round launches
+    #   and turns onto its bearing, MaxLoftVelocity through the climb and
+    #   the whole cruise, TerminalVelocity from TerminalApproachDist in.
+    #   Above the target the speed falls in a straight line at Deceleration
+    #   x 19.05 kt/s; below it the motor pushes it up at Acceleration x
+    #   22.9 kt/s, never past the target.
+    # - Fired from an aircraft, the motor works only with AccelerationTime=6,
+    #   the game's own default (the 19 Oct 0.01 gave no thrust at all, so the
+    #   round kept roughly its launcher's speed).
+    # So: a hard run-up toward 450 kt as it leaves the pod, a straight-line
+    # bleed of about 4.8 kt/s to the 150 kt climb-and-cruise (450 to 150 kt
+    # in about a minute) while the flame burns its ten seconds, and a pick-up
+    # to 220 kt at TerminalApproachDist. How fast it is when the run-up ends
+    # depends on how long the game's launch stages last, which the play test
+    # shows. The 8 NM TerminalApproachDist of 57375598 put every shot inside
+    # 8 NM straight into terminal approach, which holds its height: no climb.
+    # 2 NM, 71bd3004's value, restores the 2 km climb on every shot from
+    # about 3.6 NM.
+    for stale in ("sest_apkws_er.ini", "sest_agr-20er.ini"):
+        if (OUT / "ammunition" / stale).exists():
+            (OUT / "ammunition" / stale).unlink()
+            print(f"    removed ammunition/{stale} - the APKWS II-ER is retired")
+    rb_src = ROOT / "mods-source" / "3760871384" / "ammunition" / "dts_apkws-ii.ini"
+    pod_src = ROOT / "mods-source" / "3425450153" / "ammunition" / "usn_agr-20b_apache.ini"
+    for need in (rb_src, pod_src):
+        if not need.exists():
+            sys.exit(f"{need.relative_to(ROOT)} missing - export it first")
+    rb = rb_src.read_text(encoding="utf-8-sig", errors="replace")
+    swaps = [
+        # Surface attack is the primary AI job; retain counter-drone eligibility.
+        # The laser donor had no active-radar transmitter or target-height band.
+        (r"^TargetType=AAW[^\n]*", "TargetType=ASuW"),
+        (r"^SecondaryTargetType=ASuW[^\n]*", "SecondaryTargetType=AAW"),
+        (r"^GuidanceType=5\b", "GuidanceType=3"),
+        (r"^MidCourseCorrection=0[^\n]*", "MidCourseCorrection=0  // fire and forget: needs no guidance channel on the carrier (23 Oct 2026)"),
+        (r"^SeekerPassiveRange=6\.0[^\n]*", "SeekerPassiveRange=0\nSeekerActiveRange=35\nSeekerGain=50\nFrequency=Ka-Band\nPeakPower=11.0\nMinAttackAltitude=0\nMaxAttackAltitude=20000\nSeekerReliability=0.99\nTargetMemory=True\nRetargetable=True\nSelfDestructAfterTargetGone=False"),
+        (r"^MaxLaunchRange=6\b", "MaxLaunchRange=30"),
+        (r"^MaxLoftAngle=5\.0[^\n]*", "MaxLoftAngle=35.0"),
+        (r"^MaxLoftAlt=1500[^\n]*", "MaxLoftAlt=6562  // feet: approximately 2 km\nMaxLoftVelocity=150  // climb and cruise speed target, knots"),
+        (r"^TerminalApproachDist=100[^\n]*", "TerminalApproachDist=2.0  // seeker on 2 NM out, after the 2 km climb (23 Oct 2026)"),
+        (r"^TerminalDiveDistance=2[^\n]*", "TerminalDiveDistance=1.1\nTerminalVelocity=220  // legacy terminal phase target, knots\nIgnoreHeightDifferenceForTargetDist=True"),
+        (r"^MaxVelocity=2000[^\n]*", "MaxVelocity=450  // launch run-up speed target, knots\nApplyKinematics=False\nMaxFlightTime=1500\nTimeLimited=True"),
+        (r"^AccelerationTime=1[^\n]*", "AccelerationTime=6  // the game's default: the motor also works when an aircraft fires it"),
+        (r"^Acceleration=200[^\n]*", "Acceleration=12  // about 275 kt/s run-up\nDeceleration=0.25  // about 4.8 kt/s bleed to the 150 kt cruise (23 Oct 2026)\nSustainerAccelerationTime=10  // the flame's ten seconds\nSustainerAcceleration=8"),
+        (r"^MaxTurnRate=50\.0[^\n]*", "MaxTurnRate=20.0  // soften the nose-over while retaining target correction"),
+        (r"^KillProbability=0\.6\b", "KillProbability=0.95"),
+        (r"^SeekerFOV=15\b", "SeekerFOV=60"),
+        (r"^SeekerGimbalFOV=90\b", "SeekerGimbalFOV=120"),
+        (r"^BoosterEffect=[^\n]*\nBoosterEffectPosition=[^\n]*\n", ""),
+        (r"^InFlightEffectClass=[^\n]*\nInFlightEffectPosition=[^\n]*\nInFlightEffectStartTime=[^\n]*",
+         "SustainerEffect=effects/weapons/emitters/missile_sustainer_small_effect\n"
+         "SustainerEffectPosition=0,0,-0.02\nSustainerEffectStartTime=0"),
+    ]
+    for pat, rep in swaps:
+        rb, k = re.subn(pat, rep, rb, count=1, flags=re.M)
         if k != 1:
-            sys.exit("usn_agr-20b_apache: Ammunition line changed upstream (Redback pod)")
-        (OUT / "ammunition" / "sest_agr-30_pod.ini").write_text(
-            "# SEST LAU-68 pod loaded with the AGR-30 Redback.\n" + rbpod, encoding="utf-8")
-
-        heli = (OUT / "aircraft" / "uk_ah_mk_1.ini").read_text(encoding="utf-8-sig")
-        if "SEST_REDBACK" in heli:
-            sys.exit("uk_ah_mk_1: SEST_REDBACK already present - re-check")
-        heli, k = re.subn(r"^(AvailableLoadouts=[^\n]*)$", r"\1,SEST_REDBACK",
-                          heli, count=1, flags=re.M)
+            sys.exit(f"dts_apkws-ii: {pat} matched {k} times - upstream changed")
+    # Preserve the donor's target classes, including mobile land targets.
+    for key in (r"TargetType=ASuW", r"SecondaryTargetType=AAW",
+                r"LandAttackCapability=All", r"TerminalAlt=Maintain"):
+        if not re.search(rf"^{key}\b", rb, re.M):
+            sys.exit(f"dts_apkws-ii: {key} changed upstream - re-check the Redback profile")
+    (OUT / "ammunition").mkdir(parents=True, exist_ok=True)
+    (OUT / "ammunition" / "sest_agr-30.ini").write_text(
+        "# SEST AGR-30 Redback - fictional 30 nm guided rocket.\n"
+        "# Ten-second flame / run-up toward 450 kt / straight-line bleed to a 150 kt climb and cruise / 220 kt terminal target.\n"
+        "# 2 km loft and 1.1 horizontal NM dive start approximate a 45-degree surface attack.\n"
+        "# Active radar seeker, fire and forget: no carrier guidance channel needed. Playtest required.\n"
+        + rb, encoding="utf-8")
+    rbpod, k = re.subn(r"^Ammunition=usa_apkws_2_m282\s*$", "Ammunition=sest_agr-30",
+                       pod_src.read_text(encoding="utf-8-sig", errors="replace"), flags=re.M)
+    if k != 1:
+        sys.exit("usn_agr-20b_apache: Ammunition line changed upstream (Redback pod)")
+    (OUT / "ammunition" / "sest_agr-30_pod.ini").write_text(
+        "# SEST LAU-68 pod loaded with the AGR-30 Redback.\n" + rbpod, encoding="utf-8")
+    # The 19-tube pod, for a single pylon: the game's own LAU-3/A (its model
+    # ships with the game, so the pod needs no mod) with the Redback in place
+    # of the Hydra, and a salvo of two like the 7-tube pod's - eight was for
+    # unguided rockets spread over an area. The Euromod RAN mod's
+    # usn_lau-3a_APKWS already flies 19 guided rockets from this pod.
+    lau3 = (ROOT / "mods-source" / "_vanilla" / "original" / "ammunition"
+            / "usn_lau-3a.ini").read_text(encoding="utf-8-sig", errors="replace")
+    for pat, rep in ((r"^Ammunition=usn_hydra\b", "Ammunition=sest_agr-30"),
+                     (r"^SalvoFireAmount=8\b", "SalvoFireAmount=2")):
+        lau3, k = re.subn(pat, rep, lau3, count=1, flags=re.M)
         if k != 1:
-            sys.exit("uk_ah_mk_1: AvailableLoadouts not found (Redback)")
-        m = re.search(r"^\[WeaponSystem1SEST_APKWS_ER\][^\n]*\n(.*?)(?=^\[)", heli, re.M | re.S)
-        if not m:
-            sys.exit("uk_ah_mk_1: SEST_APKWS_ER donor block not found")
-        body = m.group(1).replace("sest_agr-20er|LAU-68", "sest_agr-30_pod|LAU-68")
-        if body.count("sest_agr-30_pod") != 4:
-            sys.exit("uk_ah_mk_1: expected 4 pods in the Redback donor")
-        heli = heli[:m.end()] + "[WeaponSystem1SEST_REDBACK]\n" + body + heli[m.end():]
-        (OUT / "aircraft" / "uk_ah_mk_1.ini").write_text(heli, encoding="utf-8")
-        print("  Redback: ammunition x2, uk_ah_mk_1 fit SEST_REDBACK (28x AGR-30 active)")
+            sys.exit(f"usn_lau-3a: {pat} matched {k} times - the game changed the pod")
+    (OUT / "ammunition" / "sest_agr-30_pod19.ini").write_text(
+        "# SEST LAU-3/A pod loaded with 19 AGR-30 Redbacks, a salvo of two.\n" + lau3,
+        encoding="utf-8")
 
-        # Redback rollout (user ask): the other Apaches, the A-10C, and the
-        # MQ-9s. Only the Redback travels - the laser APKWS-ER stays on the
-        # Ocean Apache. Each carrier clones its own densest rocket (or
-        # strike) fit with the pods swapped in, seats preserved.
-        ROLLOUT = [
-            ("3425450153", "usa_ah-64a.ini", "Strike",
-             [(r"^(Station\d+=)usn_agr-20b_apache\|", r"\1sest_agr-30_pod|", 4)]),
-            ("3425450153", "usa_ah-64d.ini", "Strike",
-             [(r"^(Station\d+=)usn_agr-20b_apache\|", r"\1sest_agr-30_pod|", 4)]),
-            ("3425450153", "usa_ah-64e.ini", "Strike",
-             [(r"^(Station\d+=)usn_agr-20b_apache\|", r"\1sest_agr-30_pod|", 4)]),
-            # Its 2 Oct 2026 update put the Sea Apache on usn_agr-20b_apache
-            # like the Army airframes above; it hung usn_agr-20b before.
-            ("3425450153", "usn_ah-64na.ini", None,
-             [(r"^(Station\d+=)usn_agr-20b_apache\|", r"\1sest_agr-30_pod|", 3)]),
-            ("3459682829", "usa_a-10c.ini", "CAS1",
-             [(r"^(Station\d+=)usn_agr-20b\|", r"\1sest_agr-30_pod|", 5)]),
-            ("3503670861", "usaf_mq-9a.ini", "Strike",
-             [(r"^(Station\d+=)uav_agm-114k\|AGM-114$", r"\1sest_agr-30_pod|AGM-114", 2),
-              (r"^(Station\d+=)uav_gbu-49$", r"\1sest_agr-30_pod", 2)]),
-            ("3503670861", "usaf_mq-9_er.ini", "Strike",
-             [(r"^(Station\d+=)uav_agm-114k\|AGM-114$", r"\1sest_agr-30_pod|AGM-114", 2),
-              (r"^(Station\d+=)uav_gbu-49$", r"\1sest_agr-30_pod", 2)]),
-        ]
-        for mod, fname, donor, swaps in ROLLOUT:
-            csrc = ROOT / "mods-source" / mod / "aircraft" / fname
-            cdst = OUT / "aircraft" / fname
-            if not csrc.exists():
-                if cdst.exists():
-                    cdst.unlink()
-                if fname == "usa_a-10c.ini":
-                    stale_sq = cdst.parent / "usa_a-10c_squadrons.ini"
-                    if stale_sq.exists():
-                        stale_sq.unlink()
-                print(f"  {fname}  SKIPPED - {mod} not exported")
-                continue
-            ct = csrc.read_text(encoding="utf-8-sig", errors="replace")
-            if "SEST_REDBACK" in ct:
-                sys.exit(f"{fname}: upstream already defines SEST_REDBACK - re-check")
-            ct, k = re.subn(r"^(AvailableLoadouts=[^\n]*)$", r"\1,SEST_REDBACK",
-                            ct, count=1, flags=re.M)
-            if k != 1:
-                sys.exit(f"{fname}: AvailableLoadouts not found")
-            if donor is None:
-                # densest fit by the first swap pattern
-                best = None
-                for bm in re.finditer(r"^\[WeaponSystem1(\w+)\][^\n]*\n(.*?)(?=^\[)",
-                                      ct, re.M | re.S):
-                    c = len(re.findall(swaps[0][0], bm.group(2), re.M))
-                    if c and (best is None or c > best[1]):
-                        best = (bm.group(1), c)
-                if not best:
-                    sys.exit(f"{fname}: no donor fit carries the base rockets")
-                donor = best[0]
-            bm = re.search(r"^\[WeaponSystem1" + donor + r"\][^\n]*\n(.*?)(?=^\[)",
-                           ct, re.M | re.S)
-            if not bm:
-                sys.exit(f"{fname}: donor fit {donor} not found")
-            body = bm.group(1)
-            for pat, rep, need in swaps:
-                body, k = re.subn(pat, rep, body, flags=re.M)
-                if k < need:
-                    sys.exit(f"{fname}: {donor} swapped {k} lines for {pat}, expected {need}")
-            ct = ct[:bm.end()] + "[WeaponSystem1SEST_REDBACK]\n" + body + ct[bm.end():]
-            cdst.parent.mkdir(parents=True, exist_ok=True)
-            extra = ""
+    lang = OUT / "language_en"
+    lang.mkdir(parents=True, exist_ok=True)
+    (lang / "ammunition_names.ini").write_text(
+        "[AmmunitionNames]\n"
+        "sest_agr-30=AGR-30,Redback,GFFAR,"
+        "What-if evolution of the 70mm guided rocket family: the AGR-30 "
+        "Redback adds fire-and-forget active radar homing out to 30 nautical "
+        "miles, its seeker searching from 2 nautical miles out. It leaves the "
+        "pod hard, climbs to approximately 2 km under a ten-second motor "
+        "flame and slows steadily to a 150-knot cruise. The final descent "
+        "is tuned for roughly 45 degrees against surface targets, with a "
+        "220-knot terminal speed target. This is an experimental game profile. "
+        "Eligible against aircraft, drones, ships and land targets. Its slow "
+        "cruise is intended for surface targets and slow aircraft. Same "
+        "airframe and warhead as the APKWS II.\n",
+        encoding="utf-8")
+    (lang / "loadout_names.ini").write_text(
+        "[LoadoutNames]\nSEST_REDBACK=SEST Redback Strike (AGR-30 guided rockets)\n",
+        encoding="utf-8")
+    print("  Redback: sest_agr-30 (30 nm, boost + cruise, loft and dive, surface first), "
+          "its LAU-68 and LAU-3 pods")
+
+    # The fit, on every carrier whose file this pack ships. Each clones a fit
+    # it already flies and puts Redback pods on the pylons named (common/
+    # redback.py). The A-10C+, F-16CM and US Super Hornets are other SEST
+    # packs' files and get the same fit from their own builders. The 19-tube
+    # pod goes on a single pylon, on the airframe's own mount for a store its
+    # size; the 7-tube stays where a rack hangs several (the A-10's TERs, the
+    # Hornets' twin mounts, the MH-60R's M299 Hellfire rails), on the MQ-9's
+    # light pylons and on the S-70B-2's Penguin arm, whose gap between the
+    # Hellfire rails a 19-tube overfills.
+    ROLLOUT = [
+        # Apaches: four 19-tube pods on the mod's own LAU-3 mount, as its
+        # Default fit hangs them.
+        ("3425450153", "uk_ah_mk_1.ini", "Strike", [("usn_agr-20b_apache", "pod19", 4, "LAU-3")]),
+        ("3425450153", "usa_ah-64a.ini", "Strike", [("usn_agr-20b_apache", "pod19", 4, "LAU-3")]),
+        ("3425450153", "usa_ah-64d.ini", "Strike", [("usn_agr-20b_apache", "pod19", 4, "LAU-3")]),
+        ("3425450153", "usa_ah-64e.ini", "Strike", [("usn_agr-20b_apache", "pod19", 4, "LAU-3")]),
+        ("3425450153", "usn_ah-64na.ini", "Strike", [("usn_agr-20b_apache", "pod19", 4, "LAU-3")]),
+        ("3820759806", "adf_ah-64e.ini", "StrikePrecision",
+         [("usn_agr-20b_apache", "pod19", 2, "LAU-3"), ("usn_lau-3a_APKWS", "pod19", 2)]),
+        # A-10s: a 19-tube pod on each single outer pylon, on the 2,000 lb
+        # bomb's mount (the files write MK-82's twice, the second about 20 m
+        # below the wing); the TERs keep three or two 7-tube pods on their
+        # own points.
+        ("3459682829", "usa_a-10c.ini", "CAS1",
+         [("usn_agr-20b", "pod19", 1, "MK-84", (3,)), ("usn_agr-20b", "pod", 4)]),
+        ("3414146266", "usa_a-10a.ini", "CAS",
+         [("usn_lau-68", "pod19", 2, "MK-84", (3, 4)), ("usn_lau-68", "pod", 2)]),
+        # MQ-9s (23 Oct 2026): one 7-tube pod under each outer pylon, its
+        # twin Hellfire launcher (agm-114_pyl_l/r) hidden. Hung on the
+        # launcher's AGM-114 seat, two pods a side sat on the launcher's rail
+        # points - the "pods on the Hellfire rails" the Seahawk had. The SEST
+        # RedbackMQ9 mount is the centre of that seat: the author's Hellfire
+        # height, which the ER's own AirToAir fit also uses for the AIM-9X it
+        # hangs on that pylon with the launcher hidden. The inner pair keep
+        # their 7-tube pods on the GBU-49's mount.
+        ("3503670861", "usaf_mq-9a.ini", "Strike",
+         [("uav_agm-114k", "pod", 2, "RedbackMQ9"), ("uav_gbu-49", "pod", 2)],
+         dict(hide=("agm-114_pyl_l", "agm-114_pyl_r"),
+              positions={"RedbackMQ9": "0,-0.001655,0.000803"})),
+        ("3503670861", "usaf_mq-9_er.ini", "Strike",
+         [("uav_agm-114k", "pod", 2, "RedbackMQ9"), ("uav_gbu-49", "pod", 2)],
+         dict(hide=("agm-114_pyl_l", "agm-114_pyl_r"),
+              positions={"RedbackMQ9": "0,-0.001655,0.000803"})),
+        # Seahawks (23 Oct 2026). The MH-60R's M299 Hellfire launcher
+        # (H60_Pylon114) has two rail points a side, upper (Stations 10/11)
+        # and lower (12/13), each hanging two missiles on the TERAGM114 seat.
+        # The owner's second report of the day, on 57375598, whose 19-tube
+        # pods had taken the auxiliary tanks' Stations 1/2: tanks back, and
+        # the AGR on the launcher in the Hellfires' place, not clipping it.
+        # So the fit is the donor's - tanks on 1/2, the Penguin arm
+        # (H60_Pylon119) hidden, the launcher drawn - with a 7-tube pod for
+        # each of its eight Hellfires: 56 rounds. A side's four missile
+        # points form a box 0.49 m across and 0.39 m deep. A LAU-68 (about
+        # 0.24 m, and a Hellfire's length) fills it with room between pods;
+        # a LAU-3 (0.41 m) cannot, and fewer, larger pods sat in the bottom
+        # of the rack (27153767) or floated with the launcher hidden
+        # (d9755f4e). The pod is fatter than a Hellfire, so on the Hellfire's
+        # own seat its top would cut 3-7 cm into the rail. The SEST
+        # RedbackM299 seat is TERAGM114 lowered 0.04 m, which brings the
+        # pod's top to within about 3 cm of where the Hellfire's meets the
+        # rail. No mesh is in the export: the loadout preview confirms it
+        # (docs/playtest-20261023-redback.md), and the seat's height is the
+        # one number to move.
+        # The S-70B-2's Penguin hangs between the four Hellfire rails, 0.35 m
+        # apart: the 7-tube pod is the Penguin's size, the 19-tube pod was
+        # wider than the gap. Provisional: the launcher stays drawn, as in
+        # the author's Penguin fit, so if the preview shows the pod inside it
+        # the two S-70B-2 rows come out before the next upload.
+        ("3606774881", "usn_mh-60r.ini", "AntiShipLateLongRange",
+         [("usa_agm-114l_mm", "pod", 2, "RedbackM299"), ("usa_agm-114k_hh", "pod", 2, "RedbackM299")],
+         dict(positions={"RedbackM299": "0.002461,-0.0004,0|-0.002405,-0.0004,0"})),
+        ("3820759806", "ran_mh-60r.ini", "AntiShip",
+         [("usa_agm-114l_mm", "pod", 2, "RedbackM299"), ("usa_agm-114k_hh", "pod", 2, "RedbackM299")],
+         dict(positions={"RedbackM299": "0.002461,-0.0004,0|-0.002405,-0.0004,0"})),
+        ("3403661005", "S-70B-2_Seahawk.ini", "AntiShip", [("knm_penguin_mk2", "pod", 1)]),
+        ("3820759806", "ran_S-70B-2_Seahawk.ini", "AntiShip", [("knm_penguin_mk2", "pod", 1)]),
+        # RAAF Hornets. The F/A-18A's CAS fit already flies the layout: wing
+        # tanks, and two 7-tube pods on the pylon outboard of them (the twin
+        # Zuni mount). The F/A-18F takes it from its long-range anti-ship
+        # fit, whose wing and centreline tanks stay: two 7-tube pods on the
+        # mid pylon (a twin mount at the A's spacing, which SEST adds), and a
+        # 19-tube pod on the outboard pylon, on the bombs' outer mount.
+        ("3820759806", "raaf_fa-18f.ini", "AntishipLongRange",
+         [("usn_aim-9x", "pod19", 2, "GBU24A", (3, 4)), ("DateBased_AShM", "pod", 2, "RedbackTwin")],
+         dict(positions={"RedbackTwin": "-0.004146,-0.001,0|0.004146,-0.001,0"})),
+        ("3820759806", "raaf_fa-18a_2011.ini", "CAS", [("usn_lau-10a", "pod", 2)]),
+    ]
+    for mod, fname, donor, pylons, *opts in ROLLOUT:
+        csrc = ROOT / "mods-source" / mod / "aircraft" / fname
+        cdst = OUT / "aircraft" / fname
+        if not csrc.exists():
+            if cdst.exists():
+                cdst.unlink()
             if fname == "usa_a-10c.ini":
-                # Two defects in the standard aircraft, repaired here because
-                # this pack already ships the file. They are bugs, not the
-                # upgrade: SEST A-10C+ carries the added sensors and AIM-9X on
-                # a separate unit id, and applies these same two repairs from
-                # integration/common/a10c.py so the pair cannot drift.
-                ct = register_ir_head(ct, fname)
-                sqsrc = ROOT / "mods-source" / mod / "aircraft" / "usa_a-10c_squadrons.ini"
-                sq, was, defined = fix_squadron_count(
-                    sqsrc.read_text(encoding="utf-8-sig", errors="replace"), sqsrc.name)
-                (cdst.parent / sqsrc.name).write_text(sq, encoding="utf-8")
-                extra = f", IR head registered, squadrons {was}->{defined}"
-            cdst.write_text(ct, encoding="utf-8")
-            pods = body.count("sest_agr-30_pod")
-            print(f"  aircraft/{fname}  SEST_REDBACK ({pods} pods, donor {donor}){extra}")
-
-
-
+                stale_sq = cdst.parent / "usa_a-10c_squadrons.ini"
+                if stale_sq.exists():
+                    stale_sq.unlink()
+            print(f"  {fname}  SKIPPED - {mod} not exported")
+            continue
+        ct = csrc.read_text(encoding="utf-8-sig", errors="replace")
+        extra = ""
+        if fname == "uk_ah_mk_1.ini":
+            # Upstream's Default fit names Station3 and Station4 twice - a
+            # LAU-3 rocket pod AND a Brimstone on each inner pylon - so the
+            # encyclopedia and the default loadout draw the pod and the
+            # missiles on top of each other. Every other fit puts the rocket
+            # pods on the outer pylons (Stations 1/2), and this one already
+            # hides the outer missile rails for them, so the pods move there.
+            ct, k = re.subn(r"(\[WeaponSystem1Default\][^\[]*?)"
+                            r"^Station3=usa_lau-3a_apache\|LAU-3\n^Station4=usa_lau-3a_apache\|LAU-3\n",
+                            r"\1Station1=usa_lau-3a_apache|LAU-3\nStation2=usa_lau-3a_apache|LAU-3\n",
+                            ct, count=1, flags=re.M | re.S)
+            if k != 1:
+                sys.exit("uk_ah_mk_1: Default fit's doubled inner-pylon rocket pods not found - "
+                         "upstream changed, re-check the overlap fix")
+            extra = ", Default fit's doubled pods moved outboard"
+        ct = add_redback(ct, fname, donor, pylons, **(opts[0] if opts else {}))
+        if fname == "usa_a-10c.ini":
+            # Two defects in the standard aircraft, repaired here because
+            # this pack already ships the file. They are bugs, not the
+            # upgrade: SEST A-10C+ carries the added sensors and AIM-9X on
+            # a separate unit id, and applies these same two repairs from
+            # integration/common/a10c.py so the pair cannot drift.
+            ct = register_ir_head(ct, fname)
+            sqsrc = ROOT / "mods-source" / mod / "aircraft" / "usa_a-10c_squadrons.ini"
+            sq, was, defined = fix_squadron_count(
+                sqsrc.read_text(encoding="utf-8-sig", errors="replace"), sqsrc.name)
+            (cdst.parent / sqsrc.name).parent.mkdir(parents=True, exist_ok=True)
+            (cdst.parent / sqsrc.name).write_text(sq, encoding="utf-8")
+            extra = f", IR head registered, squadrons {was}->{defined}"
+        cdst.parent.mkdir(parents=True, exist_ok=True)
+        cdst.write_text(ct, encoding="utf-8")
+        print(f"  aircraft/{fname}  SEST_REDBACK (donor {donor}){extra}")
         built += 1
 
     if not built:
         sys.exit("nothing built - no target mod is exported")
+    # Use the collection's actual field-drone squad geometry and its tested
+    # catapult/recovery positions, not a runway and hangars on hostile ground.
+    # Keep only one fixed-wing lane and RQ-7 inventory. The donor also carries
+    # unrelated one-way attack drones, a GPS sensor 3.5 km above its model and
+    # an orphan third hit zone; none belongs in this reconnaissance section.
+    drone_source = ROOT / "mods-source/3601891050/land_units/dronesquad705_1.ini"
+    team = drone_source.read_text(encoding="utf-8-sig")
+    edits = {
+        "General": {"DisplayClassName": "RQ-7 field detachment", "DefaultCameraDistance": "0.15",
+                    "MinCameraDistanceForeAft": "0.08", "MinCameraDistanceBroadside": "0.08"},
+        "AirGroup": {"usn_rq7705": "Squadron1,2"},
+        "FlightDeck": {"AircraftCapacity": "3", "NumberOfElevators": "1",
+                       "NumberOfLaunchPoints": "1", "NumberOfRecoveryPoints": "1",
+                       "NumberOfTaxiPaths": "2", "AircraftSupported": "usn_rq7705"},
+        "SensorSystems": {"NumberOfSensorSystems": "1"},
+        "SensorSystem1": {"MountPosition": "0,0.02,0"},
+        "WeaponSystems": {"NumberOfWeaponSystems": "0"},
+        "TargetingData": {"NumberOfTargetPoints": "2",
+                          "TargetPointPosition1": "0,0.017,-0.0023",
+                          "TargetPointPosition2": "0,0.003,-0.0023"},
+    }
+    drop = {"SensorSystem2", "WeaponSystem1", "WeaponMagazineMissile",
+            "Elevator2", "LaunchPoint2", "RecoveryPoint2", "TaxiPath3", "TaxiPath4"}
+    chunks = []
+    for chunk in re.split(r"(?=^\[)", team, flags=re.M):
+        match = re.match(r"^\[([^]\n]+)\]", chunk)
+        section = match[1] if match else ""
+        if section in drop:
+            continue
+        if section == "AirGroup":
+            chunk = "[AirGroup]\n"
+        if section == "Submodels":
+            chunk = "[Submodels]\nSubModel1=net\n\n"
+        for key, value in edits.get(section, {}).items():
+            pattern = rf"^{re.escape(key)}=[^\n]*$"
+            if re.search(pattern, chunk, re.M):
+                chunk = re.sub(pattern, f"{key}={value}", chunk, flags=re.M)
+            else:
+                chunk = chunk.rstrip() + f"\n{key}={value}\n"
+        if section == "TargetingData":
+            chunk = re.sub(r"^TargetPoint(?:Position|AssociatedSystems|Priority)3=[^\n]*\n?", "", chunk, flags=re.M)
+        chunks.append(chunk)
+    (OUT / "land_units").mkdir(parents=True, exist_ok=True)
+    team = ("# SEST RQ-7 field team. Model and launch/recovery layout from\n"
+            "# FallschimJager705, Small and Medium-Sized UAV Series (3601891050).\n"
+            "# Uses the subscribed mod's dronesquad assets; no mesh is redistributed.\n"
+            + "".join(chunks))
+    (OUT / "land_units/sest_uav_forward.ini").write_text(team, encoding="utf-8")
+    # The new unit id needs its own companion variants file for the native
+    # class/variant lookup. Do not inherit the donor's national air groups.
+    # Missions supply their nation and two-aircraft custom air group.
+    (OUT / "land_units/sest_uav_forward_variants.ini").write_text(
+        "[General]\nAllVariantsAreOfSameNation=True\nNumberOfVariants=1\n\n"
+        "[Default]\nNation=Australia\n\n[Variant1]\nNation=Australia\n",
+        encoding="utf-8")
+    (OUT / "language_en/land_units_names.ini").write_text(
+        "[sest_uav_forward]\nType=RQ-7 field detachment\n"
+        "Default=Forward UAV team,UAV team\n"
+        "Variant1=Forward UAV team,UAV team\n",
+        encoding="utf-8")
 
 
 if __name__ == "__main__":

@@ -111,7 +111,7 @@ MISSION = dict(
           weapons="Tight"),
         # Air-tasking placeholder: the cockpit a purchased Seahawk takes. No
         # name, no objective - slot-tagged aircraft keep the player's own.
-        U("blue", "us-navy-2027", "usn_mh-60r", "flight", alt=500, weapons="Tight",
+        U("blue", "SEST_Allied_Fixes", "ran_mh-60r", "flight", alt=500, weapons="Tight",
           slot="HeloRecon"),
         U("blue", "p-8-poseidon", "usn_p8", "mpa", squadron="Squadron3",
           name="Bluefin 31", alt=15000, weapons="Tight"),
@@ -156,7 +156,7 @@ MISSION = dict(
              "Flagship": ("protect", "escort"),
              "Identify": ("classify", "shadow", 1, "SR01ShadowNamed")},
     declares=["SR01ShadowNamed"],
-    window=dict(buy=True, repair=True, rearm=True, allow=["ran_ffh_anzac", "ran_ddg_hobart", "usn_mh-60r"],
+    window=dict(buy=True, repair=True, rearm=True, allow=["ran_ffh_anzac", "ran_ddg_hobart", "ran_mh-60r"],
                 flights=[HELO],
                 situation=(
                     "Sydney and Hobart have released the first southern force allocation. "

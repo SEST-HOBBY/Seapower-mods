@@ -310,3 +310,42 @@ loading-screen watcher working. It found the loading screen's picture
 (`LoadScreen.BackgroundImage`), watched it every frame, and painted SEST
 photographs over the stock and other mods' loading pictures (lines 118, 126,
 1012 and 1147). The PC has not yet synced plugin 1.3.0 (the tile guard).
+
+## 9. 19 Oct, 11:21 capture: nothing new, and the update check's baseline
+
+Capture `1d09c93c` on `chore/workshop-refresh-20261019-1121`, taken from the
+deploy branch at `8b90a792`. It changes no exported file: every mod folder,
+vanilla included, is byte-identical to the 08:01 capture (`f48d895c`), and no
+plugin DLL moved. What the PC changed is SEST's own: the Workshop copy of the
+pack (3812461539) is unsubscribed, and the game loads the local
+`SEST_Integration` at position 1 (4,074 files, the build before this
+session's).
+
+**MV-75 Cheyenne II (3810611344), 251 files, 564,510 bytes.** The same in
+both captures. Its 19 Oct update (Steam `timeupdated` 07:54) was taken by the
+08:01 capture and built in `8b90a792`. It rewrote both description texts,
+raised both airframes on deck (`OnDeckPositionOffset` z -0.098 -> -0.036),
+pointed their paint at new `painted_surfaces`/`painted_frames` materials,
+widened the weapon camera on its copy of `usn_steelfin_air` (camera keys
+only; the YF-23's, the Fury's and Steelfin's copies are byte-identical, and
+Steelfin's wins), and removed its eight *Bell Systems Test* missions.
+Nothing SEST builds changed with it. *The Long Perimeter*'s Valor 73 still
+flies its Transport fit, from land. Collection Fixes' name for its unnamed
+`Steelfin` fit still applies. The campaign's proven-position pool reads only
+the repo's and the game's missions, never a Workshop mod's. The world
+sandbox register's note that the nearest proven sea point to San Diego lay
+in those missions is now history; it only makes that point farther.
+
+**The update check was reporting the past.** `-CheckUpdates` listed 30 mods
+as updated and Steelfin and the RAN mod as new, all of them already
+exported. Its baseline, `data/mod-fingerprints.json`, was last written on
+15 Oct, and none of the exports since refreshed it. Rewritten from the
+export, it re-fingerprints exactly those 30 and adds those 2, so the next
+check reports only what is really new.
+`docs/packaging-and-recovery.md` step 7 now regenerates it with the other
+derived files.
+
+The two Player.log hits are the same two as the 08:01 capture (CombatWorker
+standing down on the PLA AEP's SecondThrust hook; Identify Expanded's missing
+localization file). The previous session's extra six are Windows audio-device
+errors.

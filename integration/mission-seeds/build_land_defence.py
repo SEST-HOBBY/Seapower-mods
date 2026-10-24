@@ -562,7 +562,7 @@ def ammo_aaw(ammo):
 @functools.lru_cache(maxsize=None)
 def _sensor_files():
     """Every systems/sensors.ini the game merges, highest priority first."""
-    from refine_civ_traffic import load_order, MODS
+    from refine_civ_traffic import load_order, sest_sources, MODS
     seen, out = set(), []
 
     def add(path):
@@ -571,7 +571,7 @@ def _sensor_files():
             out.append(path)
     for token in load_order():
         if token.startswith("SEST_"):
-            for pack in (ROOT / "integration").glob(f"*/{token}"):
+            for pack in sest_sources():
                 add(pack / "systems" / "sensors.ini")
         else:
             add(MODS / token / "systems" / "sensors.ini")

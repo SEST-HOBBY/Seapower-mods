@@ -30,6 +30,7 @@ AIRFRAME = "usaf_f-16cm-bl52d"
 
 sys.path.insert(0, str(ROOT / "integration"))
 from common.aim424 import AIM424_ID, write_aim424  # noqa: E402
+from common.redback import add_fit as add_redback  # noqa: E402
 
 NEW_KEYS = ["SEST_F16_Intercept260", "SEST_F16_MALICE"]
 
@@ -58,7 +59,7 @@ Name=SEST F-16CM JATM
 Description=AIM-260 JATM and AIM-424 MALICE fits for the USAF F-16CM Block 52: a very-long-range intercept with four AIM-260 on the AMRAAM stations, and a MALICE fit with two AIM-424 on the HARM stations (at 4.11 m the 424 matches the HARM for length, so the HARM stations are its natural seat) plus AIM-260 self-escort, keeping the Sniper and HTS pods. Requires the F-16C Fighting Falcon mod and the Dingtools Weapon Pack; US Naval Aviation provides the model the MALICE borrows as a rendering stand-in. Deploys inside the SEST Integration Pack.
 
 [Compatibility]
-ApproximateVersion=0.8.6
+ApproximateVersion=0.8.7
 """
 
 
@@ -105,6 +106,14 @@ def main():
     missing = sorted(refs - known)
     if missing:
         sys.exit(f"unresolved ammunition ids: {missing}")
+
+    # The Redback fit SEST's strike aircraft share (common/redback.py): the
+    # SDB fit's two quad racks become 19-tube Redback pods, on the 2,000 lb
+    # JDAM's mount for those stations, with the racks' bru-61_outer model
+    # hidden - the pods sat inside it. Its pod is SEST Allied Fixes'
+    # (sest_agr-30_pod19), so it is added after the check above.
+    text = add_redback(text, AIRFRAME, "StrikeSDB",
+                       [("f16_gbu-39_quad", "pod19", 2, "GBU-31-outer")], hide=("bru-61_outer",))
 
     (OUT / "aircraft").mkdir(parents=True, exist_ok=True)
     (OUT / "aircraft" / f"{AIRFRAME}.ini").write_text(text, encoding="utf-8")

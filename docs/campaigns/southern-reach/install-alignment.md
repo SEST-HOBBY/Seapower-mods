@@ -79,10 +79,8 @@ Then check what landed (game closed or open):
   }
   $rig = Join-Path $c 'sest-southern-watch\missions\Southern Watch 03 - Rig Seventeen.ini'
   'Rig Seventeen ship home bases: {0} (want 0)' -f @(Select-String -LiteralPath $rig -Pattern '^HomeBase=Taskforce1Vessel').Count
-  $open = Join-Path $c 'sest-southern-watch-open\campaign.ini'
-  if (-not (Test-Path -LiteralPath $open)) { throw 'No Open Allocation campaigns installed - the sync did not take this build' }
-  $line = Select-String -LiteralPath $open -Pattern '^TaskForceModeAllowedRosterUnits=(.*)$' | Select-Object -First 1
-  'Southern Watch Open Allocation, first window: {0} units on sale (want 93: its 10 and the 83-unit allied fleet)' -f ($line.Matches[0].Groups[1].Value -split '\|').Count
+  $open = @(Get-ChildItem -LiteralPath $c -Directory -Filter '*-open')
+  if ($open.Count) { throw ('Open Allocation folders still installed (' + ($open.Name -join ', ') + ') - the sync did not take this build') }
   $ts11a = Join-Path $c 'sest-southern-reach\missions\Tasman Shield 11A - The Twelve-Mile Line.ini'
   if (-not (Test-Path -LiteralPath $ts11a)) { throw 'The Twelve-Mile Line is not installed - the sync did not take this build' }
   'The Twelve-Mile Line: scripted salvo lines {0} (want 1)' -f @(Select-String -LiteralPath $ts11a -SimpleMatch -Pattern 'AttackAtWaypoint,plan_yj-83a,Taskforce1Vessel2').Count
@@ -91,14 +89,18 @@ Then check what landed (game closed or open):
 }
 ```
 
-It should print six campaign folders, each `own file: True  rules page:
-True`, then `Rig Seventeen ship home bases: 0`, `93 units on sale`,
-`scripted salvo lines 1` and `Southern Cross reads its result: True`. The 93
-is Southern Watch's own 10 units plus the 83-unit allied fleet; 10 means an
-install from before the allied fleet. A
-folder missing, a `False`, a count of 2, "No Open Allocation campaigns
-installed" or "The Twelve-Mile Line is not installed" means the sync did not
-install this build: read its output before playing.
+It should print one line per campaign folder - `sest-red-line`,
+`sest-southern-reach`, `sest-southern-watch` and, since October,
+`sest-sulu-line` - each `own file: True  rules page: True`, then `Rig
+Seventeen ship home bases: 0`, `scripted salvo lines 1` and `Southern Cross
+reads its result: True`. Until 21 Oct 2026 there was also an `-open` folder
+per campaign, and this check counted the Southern Watch twin's first
+window; the Open Allocation versions were retired from the pack that day
+(`../southern-watch/build-notes.md`, "Open Allocation retired from the
+pack"), and the sync's mirror copy removes their folders. A folder missing,
+a `False`, a count of 2, "Open Allocation folders still installed" or "The
+Twelve-Mile Line is not installed" means the sync did not install this
+build: read its output before playing.
 
 ### This round (3 Oct, late evening): four new mods, the Chinese loading tips, the Rafale back
 
@@ -633,7 +635,7 @@ the game's `loading_tips.ini` Collection Fixes restores over the PLAAF Aircraft 
 
 ```powershell
 $sa = "<…>\Sea Power_Data\StreamingAssets\SEST_Integration"
-Get-ChildItem "$sa\campaigns" -Directory | Select-Object Name        # sest-red-line, sest-southern-reach, sest-southern-watch, each also with -open
+Get-ChildItem "$sa\campaigns" -Directory | Select-Object Name        # sest-red-line, sest-southern-reach, sest-southern-watch, sest-sulu-line; no -open folder since 21 Oct 2026
 (Get-ChildItem "$sa\campaigns\sest-southern-reach\art\*.png").Count   # 49
 (Get-ChildItem "$sa\campaigns\sest-southern-reach\missions\*.ini").Count   # 26
 (Get-ChildItem "$sa\campaigns\sest-red-line\art\*.png").Count         # 12
@@ -649,12 +651,14 @@ Then in game, in this order:
    description lists SEST A-10C+, SEST Intercept Model and SEST
    Replenishment At Sea among the packs and ends "Southern Watch - Southern
    Reach - Red Line".
-2. **Campaign list** — six entries: `Southern Watch (Royal Australian
-   Navy)`, `Southern Reach - Tasman Shield (Royal Australian Navy)` (46
-   entries, a dark chart 29–66°S behind it) and `Red Line - The Other Watch
-   (People's Liberation Army Navy)` (10 entries), and each again with
-   `- Open Allocation` before the navy in brackets. The Campaign Rules button
-   at the bottom right of each opens its rules page.
+2. **Campaign list** — one entry per campaign: `Southern Watch (Royal
+   Australian Navy)`, `Southern Reach - Tasman Shield (Royal Australian
+   Navy)` (46 entries, a dark chart 29–66°S behind it) and `Red Line - The
+   Other Watch (People's Liberation Army Navy)` (10 entries), and Sulu
+   Line's since October. Each was listed again with `- Open Allocation`
+   before the navy in brackets until 21 Oct 2026, when those versions were
+   retired; an entry like that still listed is a stale install. The
+   Campaign Rules button at the bottom right of each opens its rules page.
 3. **Mission browser** — folders `Southern Reach` (12), `Tasman Shield`
    (14) and `Red Line` (6) beside the Southern Watch ones. If the campaign
    list is short but the browser has every folder, the Mod Manager is not
@@ -776,7 +780,7 @@ Line's (`../red-line/test-card.md`) with its rules of engagement.
 |---|---|
 | `git merge --ff-only` refuses | expected for `claude/campaign-missions-lore-td653z`, which lacks `10b6b48b`, `7d670392`, `d4fd1668` and `fa692245` (skip step 2's merge); for a branch a round hands you, `git log --oneline origin/sest-dev/loving-bell-3cnvvw -5` — whatever is there and not on that branch was pushed after it was cut; report it |
 | sync refuses on the branch guard | you are not on `sest-dev/loving-bell-3cnvvw`; go back to step 1 rather than passing `-AnyBranch` |
-| an Open Allocation entry is missing from the campaign list, or will not load its first mission | the twin loads its missions from the standard campaign's folder, which stock never does: Southern Watch test card 6G, G.1 and G.3 say what to bring back. The standard entries are unaffected either way |
+| an Open Allocation entry is still in the campaign list | those versions were retired on 21 Oct 2026, so the install is older than this build: `Get-ChildItem "$sa\campaigns" -Directory -Filter '*-open'` should list nothing, and the sync's mirror copy removes them. A save from one cannot be continued; start the standard campaign |
 | the game stops responding in the middle of a mission, above all one with sonobuoys in the water | a mod's debug logging: `powershell -ExecutionPolicy Bypass -File .\tools\quiet-mod-debug.ps1` (the sync runs it too), then capture with `-IncludeSaves` if it happens again - the capture now includes BepInEx's log, where code mods write |
 | Rig Seventeen dies loading again | `powershell -ExecutionPolicy Bypass -File .\tools\capture-context.ps1 -Redact -IncludeSaves` with the game closed, then commit `data\install-snapshot` and push the deploy branch: the log names the step and the save shows the force |
 | a campaign is missing in game but present on disk | `Get-ChildItem "$sa\campaigns\sest-southern-reach"` (or `sest-red-line`) shows the files; the browser copies are your route in, and the difference is the report |

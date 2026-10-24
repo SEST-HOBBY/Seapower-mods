@@ -31,6 +31,7 @@ OUT = Path(__file__).resolve().parent / "SEST_Growler_NGJ_MALICE"
 
 sys.path.insert(0, str(ROOT / "integration"))
 from common.aim424 import AIM424_ID, write_aim424  # noqa: E402
+from common.redback import add_fit as add_redback  # noqa: E402
 
 
 # TANK MESH HISTORY - the coupling theory below was superseded, keep both.
@@ -161,7 +162,7 @@ BLOCK_III_LOADOUT = """\
 [WeaponSystem1SEST_MaliceBlockIII]
 ReadyUpTime=30               // minutes to refuel and rearm before takeoff
 CoolDownTime=60              // minutes of maintenance after landing
-SubModelsToHide=aam_point2,aam_pointCRIR,aam_pointCRIL,agm_inner_point,agm_point,gbu_point,Targeting_Pod,fule_tank_point,BRU_55_Left,BRU_55_Right,BRU_55_Left_Inner,BRU_55_Right_Inner,gbu_outer,gbu_inner
+SubModelsToHide=aam_point2,aam_pointCRIR,aam_pointCRIL,agm_inner_point,agm_point,gbu_point,Targeting_Pod,fule_tank_point,BRU_55_Left,BRU_55_Right,BRU_55_Left_Inner,BRU_55_Right_Inner,gbu_outer,gbu_inner,bru-61a_left,bru-61a_right,bru-61a_left_inner,bru-61a_right_inner
 Station1=usn_aim-9x
 Station2=usn_aim-9x
 Station3=usn_aim-120d3
@@ -218,7 +219,7 @@ Name=SEST Growler NGJ + MALICE
 Description=Adds functional AN/ALQ-249 Next Generation Jammer equipment and an AIM-424 MALICE fit to the modern EA-18G Growlers, a conventional SEAD fit (AGM-88G with AIM-120D, no AIM-260 or AIM-424) to the U.S. Navy 2027 Growler, plus a four-MALICE counter-air fit for every AN/APG-79 Super Hornet (F/A-18F Block III, F/A-18F and F/A-18E), whose anti-ship fits now carry LRASM in place of the AGM-84N Harpoon. Requires U.S. Navy 2027 Capabilities, F/A-18E/F, and US Naval Aviation. US Naval Aviation supplies the AGM-88G model used by MALICE. Place this patch ABOVE all three required mods.
 
 [Compatibility]
-ApproximateVersion=0.8.6
+ApproximateVersion=0.8.7
 """
 
 
@@ -940,6 +941,16 @@ def build_super_hornet(file_name: str) -> None:
     text = derive_hornet_escorts(text, wing_tank, source.name)
     if file_name == "usn_fa-18e.ini":
         text = port_tanker_fit(text, source.name)
+    # The Redback fit SEST's strike aircraft share (common/redback.py), in
+    # the F/A-18A's layout: from the Maverick CAS fit with its three tanks,
+    # two 7-tube pods on each mid pylon (a twin mount at the A's spacing,
+    # which SEST adds) and a 19-tube pod on each outboard pylon, a little
+    # lower than the Maverick it replaces for the pod's wider body.
+    text = add_redback(text, source.name, "MH_CASAGMEF",
+                       [("usn_agm-65d", "pod19", 2, "RedbackLAU3", (63, 64)),
+                        ("usn_agm-65d", "pod", 2, "RedbackTwin")],
+                       positions={"RedbackTwin": "-0.004146,0,0|0.004146,0,0",
+                                  "RedbackLAU3": "0,-0.0008,0"})
     report_tank_clearance(text, source.name)
     if text.count("[WeaponSystem1SEST_MaliceBlockIII]") != 1:
         sys.exit(f"{source.name}: invalid generated MALICE section count")

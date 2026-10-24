@@ -1,0 +1,53 @@
+{
+  "capture_file": "SEST-map-review-20261020-101247-b00f38.zip",
+  "sha256": "53824683d9aca039cd3409f112774f125d16ef6a04b5b70f4a5da966bb0b79ec",
+  "captured_at": "2026-10-20T10:12:47.5626116+10:00",
+  "manifest_files_verified": 74,
+  "map_update_stack_entries": 18090,
+  "captured_o10_matches_71bd3004": true,
+  "captured_o10_matches_44cde6d0": false,
+  "captured_before_confirmed_44_install": true,
+  "game_assembly_was_actually_included": false,
+  "native_game_assembly_reference_name": "Seapower-Scripts",
+  "cost_tracker_ready_in_startup_log": true,
+  "cost_tracker_accounting_or_extension_loading_validated": false,
+  "group_manager_version": "0.2.16.0",
+  "combat_costs_version": "0.7.1.0",
+  "captured_new_plugin_dlls_unchanged_since_prior_cost_capture": true,
+  "reviewed_mapknown_update_direct_hooks_in_group_manager_bettermap_costs_identify": false,
+  "root_cause_of_map_exception_confirmed": false,
+  "next_step": "Fresh O10 on installed 44cde6d0. If failure returns, run session-only test-map-worker.ps1 -Mode Off and compare before/after windows plus aircraft/UI observations.",
+  "supplied_update_zip_matches_delivered_zip": true,
+  "complete_capture": {
+    "capture_file": "SEST-map-review-complete-20261020-103158-5173b0.zip",
+    "sha256": "6647b8a32374508085c729c53e62d17d46ccfd01d0e7ceff8ba1ab729db25092",
+    "bytes": 7226112,
+    "manifest_files_verified": 138,
+    "dll_files_captured_including_duplicates": 63,
+    "native_game_assembly": "Seapower-Scripts.dll",
+    "native_game_sha256": "c913e31f2d73e526f2d28043f522f2be26f12534fd0421eedee3cd70eab9cdd8",
+    "installed_o10_and_uav_definitions_match_44cde6d0": true,
+    "all_three_logs_identical_to_101247_capture": true,
+    "post_44_install_reproduction_available": false,
+    "collector_executed_on_windows_with_requested_assembly": true,
+    "ui_worker_version": "0.2.0.0",
+    "ui_worker_sha256": "23233c20194a8aa99631878b6ffa5d9eb9238007196474df0d3fe908d6c86c77",
+    "direct_map_update_hook_owner": "local.seapower.uiworkerprobe",
+    "direct_hook_methods": [
+      "UiWorker.UiRuntime.BeforeMap",
+      "UiWorker.UiRuntime.AfterMap"
+    ],
+    "ui_worker_status_is_startup_snapshot": true,
+    "off_bypasses_processing_but_leaves_hooks_installed": true,
+    "native_gameplay_or_root_cause_confirmed": false
+  },
+  "worker_test_tool": {
+    "script": "tools/test-map-worker.ps1",
+    "mode": "Off by default; On and Status also available",
+    "fresh_pid_and_utc_ack_required": true,
+    "before_after_seconds": 15,
+    "game_files_changed": false,
+    "static_powershell_grammar": "passed",
+    "native_powershell_and_game_execution": "pending PC run"
+  }
+}

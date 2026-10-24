@@ -55,6 +55,7 @@ OUT = Path(__file__).resolve().parent / "SEST_A10C_Plus"
 
 sys.path.insert(0, str(ROOT / "integration"))
 from common.a10c import fix_squadron_count, register_ir_head  # noqa: E402
+from common.redback import add_fit as add_redback  # noqa: E402
 
 UNIT = "usaf_a-10c_plus"
 BASE = "usa_a-10c"
@@ -174,6 +175,13 @@ def main():
     if not (ROOT / "mods-source" / "3606774881" / "ammunition" / "usn_aim-9x.ini").exists():
         sys.exit(f"{UNIT}: usn_aim-9x is not defined by U.S. Navy 2027 - re-check the provider")
 
+    # 3b. the Redback fit, as every SEST A-10 carries it (common/redback.py):
+    #     CAS1's five rocket pods become Redback pods - a 19-tube on the
+    #     single outer pylon, on the 2,000 lb bomb's mount, and 7-tube pods
+    #     on the TERs' own points.
+    text = add_redback(text, UNIT, "CAS1",
+                       [("usn_agr-20b", "pod19", 1, "MK-84", (3,)), ("usn_agr-20b", "pod", 4)])
+
     # 4. sanity: every AssociatedSensors entry now resolves
     have = {int(x) for x in re.findall(r"^\[SensorSystem(\d+)\]", text, re.M)}
     for a in re.findall(r"^AssociatedSensors=(\S+)", text, re.M):
@@ -231,7 +239,7 @@ def main():
         "and upgrades every self-defence rail from AIM-9M to AIM-9X across all ten loadouts. No radar is added: the "
         "real A-10C has none and the Litening pod is the ground sensor. Requires the A-10C "
         "mod. Deploys inside the SEST Integration Pack.\n"
-        "\n[Compatibility]\nApproximateVersion=0.8.6\n", encoding="utf-8")
+        "\n[Compatibility]\nApproximateVersion=0.8.7\n", encoding="utf-8")
 
     print(f"built {OUT.relative_to(ROOT)}: {UNIT} - IR head registered, "
           f"{FLIR} + {LASER} at slots 4/5 (hardpoint ref now resolves), AIM-9X x{n}, squadrons {was}->{defined}")

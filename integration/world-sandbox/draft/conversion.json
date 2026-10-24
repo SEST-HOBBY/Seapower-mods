@@ -7439,30 +7439,6 @@
    }
   },
   {
-   "force": "Salamis Naval Base submarines",
-   "base": "home_grc_salamis",
-   "submarines": 4,
-   "named": "base name",
-   "patrol": {
-    "force": "Salamis Naval Base submarines patrol",
-    "boat": "type_209",
-    "ring": "35 NM ring centred 60 NM off the base - SCENARIO CHOICE",
-    "hold": null
-   }
-  },
-  {
-   "force": "Golcuk Naval Base submarines",
-   "base": "home_tur_golcuk",
-   "submarines": 4,
-   "named": "base name",
-   "patrol": {
-    "force": "Golcuk Naval Base submarines patrol",
-    "boat": "type_209",
-    "ring": "35 NM ring centred 80 NM off the Sea of Marmara (submarines.py PATROL_CENTRE) - SCENARIO CHOICE",
-    "hold": null
-   }
-  },
-  {
    "force": "Submarine Squadron 11",
    "base": "usp_sandiego_naval_base_san_diego",
    "submarines": 3,
@@ -7541,7 +7517,7 @@
    "named": "base name",
    "patrol": {
     "force": "Jinhae Naval Base submarines patrol",
-    "boat": "type_209 named ROKS Lee Sunsin SS-068",
+    "boat": "ch_ss_thomson_mlu named ROKS Lee Sunsin SS-068",
     "ring": "35 NM ring centred 60 NM off the base - SCENARIO CHOICE",
     "hold": null
    }
@@ -7571,13 +7547,37 @@
    "named": "base name"
   },
   {
+   "force": "Salamis Naval Base submarines",
+   "base": "home_grc_salamis",
+   "submarines": 4,
+   "named": "base name",
+   "patrol": {
+    "force": "Salamis Naval Base submarines patrol",
+    "boat": "ch_ss_thomson_mlu named HS Papanikolis S-120",
+    "ring": "35 NM ring centred 60 NM off the base - SCENARIO CHOICE",
+    "hold": null
+   }
+  },
+  {
+   "force": "Golcuk Naval Base submarines",
+   "base": "home_tur_golcuk",
+   "submarines": 4,
+   "named": "base name",
+   "patrol": {
+    "force": "Golcuk Naval Base submarines patrol",
+    "boat": "ch_ss_thomson_mlu named TCG Gur S-357",
+    "ring": "35 NM ring centred 80 NM off the Sea of Marmara (submarines.py PATROL_CENTRE) - SCENARIO CHOICE",
+    "hold": null
+   }
+  },
+  {
    "force": "Alexandria Naval Base submarines",
    "base": "home_egy_alexandria",
    "submarines": 4,
    "named": "base name",
    "patrol": {
     "force": "Alexandria Naval Base submarines patrol",
-    "boat": "type_209",
+    "boat": "ch_ss_thomson_mlu named S41 (861)",
     "ring": "35 NM ring centred 40 NM off the base - SCENARIO CHOICE",
     "hold": null
    }
@@ -7652,7 +7652,7 @@
   },
   {
    "nation": "Chile",
-   "unit": "type_209",
+   "unit": "ch_ss_thomson_mlu",
    "boats": 2,
    "quality": "register",
    "stands_for": "as the register names it"
@@ -7745,7 +7745,7 @@
   },
   {
    "nation": "Egypt",
-   "unit": "type_209",
+   "unit": "ch_ss_thomson_mlu",
    "boats": 4,
    "quality": "same class",
    "stands_for": "Type 209/1400mod",
@@ -7781,12 +7781,12 @@
   },
   {
    "nation": "Greece",
-   "unit": "type_209",
+   "unit": "ch_ss_thomson_mlu",
    "boats": 4,
    "quality": "same family",
-   "stands_for": "Type 209 (Poseidon, Glavkos) and Type 214 (Papanikolis)",
+   "stands_for": "Type 214 (Papanikolis class)",
    "flag": "Chile",
-   "note": ""
+   "note": "the 214 is HDW's development of the 209; Greece's remaining Type 209s (Poseidon, Glavkos) are not placed"
   },
   {
    "nation": "India",
@@ -7942,7 +7942,7 @@
   },
   {
    "nation": "South_Korea",
-   "unit": "type_209",
+   "unit": "ch_ss_thomson_mlu",
    "boats": 3,
    "quality": "same class",
    "stands_for": "Jang Bogo class, KSS-I (Type 209/1200)",
@@ -7960,7 +7960,7 @@
   },
   {
    "nation": "Turkey",
-   "unit": "type_209",
+   "unit": "ch_ss_thomson_mlu",
    "boats": 4,
    "quality": "same class",
    "stands_for": "Preveze and Gur classes (Type 209/1400)",
@@ -8336,11 +8336,11 @@
   "catalogue_by_side_nation": {
    "blue US": {
     "ships": 248,
-    "aircraft": 167
+    "aircraft": 168
    },
    "blue Australia": {
     "ships": 44,
-    "aircraft": 48
+    "aircraft": 49
    },
    "blue Japan": {
     "ships": 23,
@@ -8443,7 +8443,7 @@
     "aircraft": 14
    },
    "blue India": {
-    "ships": 5,
+    "ships": 6,
     "aircraft": 11
    },
    "blue Egypt": {
@@ -8451,7 +8451,7 @@
     "aircraft": 2
    },
    "blue Chile": {
-    "ships": 7,
+    "ships": 8,
     "aircraft": 3
    },
    "red China": {
@@ -8514,10 +8514,11 @@
   "bra_type22b12": "Displacement 4800 t",
   "ch_e3d": "Role AEW",
   "ch_f-5e": "Role Fighter",
-  "ch_ff_type23_pida": "Displacement 4900 t",
   "ch_ffg_adelaide_longhull": "Displacement 4100 t",
-  "ch_ffg_karel": "Displacement 3320 t",
-  "ch_ss_scorpene": "Displacement 1668 t",
+  "ch_ffg_karel_doorman": "Displacement 3320 t",
+  "ch_ffg_type23_pida": "Displacement 4900 t",
+  "ch_ss_scorpene": "Displacement 1695 t",
+  "ch_ss_thomson_mlu": "Displacement 1440 t",
   "dk_mh-60r": "Role ASW",
   "dts_b-52h": "Role HeavyBomber",
   "dts_saab_ge": "Role AEW",
@@ -8669,7 +8670,6 @@
   "tha_pt_hua_hin": "Displacement 645 t",
   "tuaf_f-16c": "Role Fighter",
   "tw_m2k-5ei": "Role Fighter",
-  "type_209": "Displacement 1440 t",
   "uae_m2k-9": "Role Fighter",
   "uk_a330_mrtt": "Role AEW",
   "uk_a400m_airdroop-para": "Role AEW",
@@ -9060,6 +9060,7 @@
   "ran_sea_king_aew2": "Role AEW",
   "ran_sea_lynx_3": "Role ASW",
   "ran_sea_venom": "Role Fighter",
+  "ran_seakingmk50ab": "Role Transport",
   "ran_uh-60m": "Role ASW",
   "ran_westlandseaking": "Role ASW",
   "rn_buccaneer_s1": "Role Fighter",
@@ -9179,6 +9180,7 @@
   "usaf_f-15e_SE": "Role Fighter",
   "usaf_f-15ex_SEII": "Role Fighter",
   "usaf_f-16a": "Role Fighter",
+  "usaf_f-16c_blk40": "Role Fighter",
   "usaf_f-16cm-bl52d": "Role Fighter",
   "usaf_f-22": "Role Fighter",
   "usaf_f-22_s5": "Role Fighter",
@@ -9419,8 +9421,9 @@
   "bra_ffg_niteroi": "Displacement 33550 t",
   "bra_lst_newport": "Displacement 8470 t",
   "bra_ss_tupi": "Displacement 1207 t",
-  "ch_ff_type23": "Displacement 4900 t",
-  "ch_type22b2_barak": "Displacement 4800 t",
+  "ch_ffg_jacob_van_heemskerck": "Displacement 3690 t",
+  "ch_ffg_type22b2_barak": "Displacement 4900 t",
+  "ch_ffg_type23": "Displacement 4900 t",
   "es_ffg_baleares": "Displacement 4130 t",
   "es_ss_galerna": "Displacement 1760 t",
   "es_ssk_delfin": "Displacement 1038 t",
@@ -9478,8 +9481,9 @@
   "idn_kr_sverdlov": "Displacement 16640 t",
   "idn_ss_tjakra_71": "Displacement 1342 t",
   "idn_vt_uda": "Displacement 16250 t",
+  "ins_F-33": "Displacement 6670 t",
+  "ins_F-47": "Displacement 6200 t",
   "ins_ff_blackwood": "Displacement 1456 t",
-  "ins_p-17a": "Displacement 6200 t",
   "ins_pt_saar": "Displacement 206 t",
   "ins_ptg_aliya": "Displacement 498 t",
   "ins_ptg_saar_2": "Displacement 250 t",
@@ -9905,9 +9909,9 @@
   "usn_ff_knox_84": "Displacement 4130 t",
   "usn_ffg_brooke": "Displacement 3400 t",
   "usn_ffg_constellation": "Displacement 7291 t",
+  "usn_ffg_ohp_longhull_sh60b": "Displacement 4100 t",
   "usn_ffg_oliver_hazard_perry": "Displacement 4100 t",
   "usn_ffg_oliver_hazard_perry_longhull": "Displacement 4100 t",
-  "usn_ffg_oliver_hazard_perry_longhull_lamps-3": "Displacement 4100 t",
   "usn_ffg_oliver_hazard_perry_mlu": "Displacement 4500 t",
   "usn_ffg_oliver_hazard_perry_vls_refit": "Displacement 4100 t",
   "usn_lcs_freedom_suw_early": "Displacement 3500 t",
@@ -10069,8 +10073,8 @@
    "Air": 107
   },
   "patrols": 49,
-  "catalogue": 1555,
-  "values": 1555,
+  "catalogue": 1559,
+  "values": 1559,
   "lanes_kept": 11,
   "lanes_authored": 11,
   "skipped_nodes": 34

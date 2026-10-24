@@ -113,7 +113,7 @@ MISSION = dict(
     units=[
         U("blue", "SEST_RAN_Fleet", "ran_ffh_anzac", "escort", variant="Variant7",
           weapons="Tight"),
-        U("blue", "us-navy-2027", "usn_mh-60r", "flight", alt=500, weapons="Tight",
+        U("blue", "SEST_Allied_Fixes", "ran_mh-60r", "flight", alt=500, weapons="Tight",
           slot="HeloRecon"),
         U("blue", "p-8-poseidon", "usn_p8", "mpa", squadron="Squadron3", alt=12000,
           weapons="Tight", loadout="ASW", slot="Recon"),
@@ -132,7 +132,9 @@ MISSION = dict(
           route=[(-44.60, 167.60, 0)], telegraph=3),
         U("neutral", "_vanilla", "civ_ms_roro_c", "exped",
           name="MV Tutoko Explorer (expedition ship)",
-          route=[(-44.60, 167.60, 0)], telegraph=3),
+          # First stand west of Puysegur. The direct Milford leg clipped
+          # the Fiordland coast despite both endpoints being at sea.
+          route=[(-45.70, 166.10, 0), (-44.60, 167.60, 0)], telegraph=3),
         U("neutral", "_vanilla", "civ_fv_crabboat", "cray1", name="Cray boat Kotare",
           route=[(-46.55, 167.50, 0)], telegraph=2),
         U("neutral", "_vanilla", "civ_fv_fishingboat_a", "cray2", name="Cray boat Ranui",
@@ -163,7 +165,7 @@ MISSION = dict(
                     ))],
     window=dict(buy=True, repair=True, rearm=True,
                 allow=["ran_ffh_anzac", "ran_ddg_hobart", "ran_opv_arafura",
-                       "usn_mh-60r", "usn_p8", "raaf_mq-4c_triton", "E7A_Wedgetail",
+                       "ran_mh-60r", "usn_p8", "raaf_mq-4c_triton", "E7A_Wedgetail",
                        "raaf_f-35a"],
                 flights=[HELO, RECON],
                 situation=(

@@ -1,29 +1,29 @@
 [
  {
   "out": "../source/visuals/steam/pack-1-latest-update.jpg",
-  "bg": "../../media-pack/source/images/naval/sm3_decatur.jpg",
+  "bg": "../source/images/ships/ford.jpg",
   "pos": "center 60%",
-  "kicker": "LATEST UPDATE  ·  14 OCTOBER 2026",
-  "head": "One AIM-424, a box for every flight, one new mod.",
+  "kicker": "LATEST UPDATE  ·  OCTOBER 2026",
+  "head": "The allied fleet, Red Line side operations, Ford F-35Cs.",
   "cols": [
    {
     "label": "CAMPAIGNS",
     "items": [
      [
-      "A box for every flight",
-      "air stations, patrol boxes"
+      "Broken Wake, deeper",
+      "Sheean; sink the relay by min 25"
      ],
      [
-      "No box into an objective",
-      "5 NM clear of every circle"
+      "O10 field team",
+      "an RQ-7 team on Yapen"
      ],
      [
-      "Briefs say when raids join",
-      "Southern Watch 09, 10, C2"
+      "Open Allocation built in",
+      "the whole roster, the allied fleet"
      ],
      [
-      "Rivet Joint photo back",
-      "Red Line 03, Tasman Shield 11"
+      "Red Line side operations",
+      "Datum, Ships from the North, Pilot"
      ]
     ]
    },
@@ -31,20 +31,20 @@
     "label": "SHIPS AND WEAPONS",
     "items": [
      [
-      "One AIM-424",
-      "SEST's model on every round"
+      "Ford's F-35Cs",
+      "16 in a 70-aircraft US wing"
      ],
      [
-      "Buk-M3 reloads in 120 s",
-      "its own launcher section"
+      "SM-6 flight time",
+      "300 s kept, Euromod's own figure"
      ],
      [
-      "Richard Morris sonar",
-      "named after its definition"
+      "J-20A close in",
+      "6 NM visual, stronger IR"
      ],
      [
-      "Topol-M and DF-41 fire",
-      "launcher name corrected"
+      "AIM-9L fixed",
+      "on the stock game's figures"
      ]
     ]
    },
@@ -52,30 +52,30 @@
     "label": "ALSO IN THIS UPDATE",
     "items": [
      [
-      "Anduril Maritime Drones",
-      "new mod; 196 in the order"
+      "Two mods in, one out",
+      "Combat Cost Tracker, Group Manager"
      ],
      [
-      "MH-60R Phase II",
-      "on every Wasp and allied deck"
+      "Sea Power 0.8.7",
+      "packs and runtime fixes matched"
      ],
      [
-      "14 Oct mod updates followed",
-      "JMSDF, REDFOR, US Navy"
+      "More briefing photos",
+      "54 more classes pictured"
      ],
      [
-      "Pictures log",
-      "menu plugin 1.1.0; not yet seen"
+      "Latest mod updates",
+      "Chile, Wasp, MH-60R, Spain, JMSDF"
      ]
     ]
    }
   ],
   "foot": [
-   "One mod joined: Anduril Maritime Drones. Subscribe to all again.",
-   "After updating: close the game and run SETUP again."
+   "Open Allocation built into the campaigns. Start a new campaign to get it.",
+   "Subscribe to all again, then close the game and run SETUP."
   ],
   "credit": [
-   "Photo: U.S. Navy · Public domain · adapted",
+   "Photo: U.S. Navy, MC2 Ridge Leoni · Public domain · adapted",
    "via Wikimedia Commons"
   ]
  },
@@ -90,7 +90,7 @@
     "items": [
      [
       "Southern Watch",
-      "RAN · 18 missions · Oct–Nov 2028"
+      "RAN · 24 missions · 11 dispatches"
      ],
      [
       "Southern Reach",
@@ -98,11 +98,11 @@
      ],
      [
       "Red Line",
-      "PLA Navy · 6 missions · Nov 2028 on"
+      "PLA Navy · 9 missions · Nov 2028 on"
      ],
      [
       "Sulu Line",
-      "Philippine Navy · 7 missions"
+      "Philippine Navy · 10 missions"
      ]
     ]
    },
@@ -122,8 +122,8 @@
       "NGJ pods, AIM-424 fits"
      ],
      [
-      "F-15EX, Rafale F5, ARRW",
-      "plus A-10C+, Raptors, Mogami"
+      "AGR-30 Redback",
+      "plus F-15EX, Rafale F5, ARRW"
      ]
     ]
    },
@@ -144,14 +144,14 @@
      ],
      [
       "Photos, flags, names",
-      "636 photos · 11 more flags"
+      "729 unit photos · 11 more flags"
      ]
     ]
    }
   ],
   "foot": [
-   "Every campaign also as Open Allocation: whole roster from mission one.",
-   "Needs the 196 mods in the collection. Built for Sea Power 0.8.5."
+   "Open Allocation from Weapons Free, Tasman Crossing and Red Line's first mission.",
+   "Needs the 199 mods in the collection. Built for Sea Power 0.8.7."
   ],
   "credit": [
    "Photo: U.S. Navy, JO2 Patrick Reilly · Public domain · adapted",
@@ -179,7 +179,7 @@
    ],
    [
     "Pick a campaign",
-    "Southern Watch, Southern Reach, Red Line or Sulu Line for the story. Open Allocation sells everything up front."
+    "Southern Watch, Southern Reach, Red Line or Sulu Line. Red Line sells its whole roster at once, the rest part-way in."
    ]
   ],
   "footTop": 930,
@@ -191,6 +191,181 @@
   "credit": [
    "Photo: U.S. Air Force, Lawrence Crespo · Public domain · adapted",
    "via Wikimedia Commons"
+  ]
+ },
+ {
+  "layout": "campaign",
+  "out": "../source/visuals/steam/pack-4-southern-watch.jpg",
+  "bg": "../source/images/ships/hobart.jpg",
+  "photoX": 444,
+  "kicker": "CAMPAIGN",
+  "title": "SOUTHERN WATCH",
+  "subtitle": "The Northern Lifeline",
+  "meta": "Royal Australian Navy  ·  Oct–Nov 2028",
+  "desc": "Keep the northern sea routes open as a coercion campaign escalates into a limited regional war. Identify before you shoot.",
+  "counts": "12 missions, 10 optional operations,\n2 contingencies; 11 dispatches.",
+  "mapLabel": "IN-GAME CAMPAIGN MAP",
+  "map": "../../dist/SEST_Integration/campaigns/sest-southern-watch/art/00_campaign_background.png",
+  "note": "Open Allocation from Weapons Free.",
+  "credit": [
+   "Photo: Japan Maritime Self-Defense Force · CC BY 4.0 · adapted",
+   "creativecommons.org/licenses/by/4.0 · via Wikimedia Commons"
+  ]
+ },
+ {
+  "layout": "campaign",
+  "out": "../source/visuals/steam/pack-5-southern-reach.jpg",
+  "bg": "../source/images/submarines/collins.jpg",
+  "photoX": 480,
+  "kicker": "CAMPAIGN",
+  "title": "SOUTHERN REACH",
+  "subtitle": "Tasman Shield",
+  "meta": "Royal Australian Navy  ·  Dec 2028–Mar 2029",
+  "desc": "Escort the Antarctic resupply season to the ice edge, then fight the same group from Fiordland through Cook Strait, the Tasman, Bass Strait and the Bight.",
+  "counts": "26 missions in two chapters, three of them optional.",
+  "mapLabel": "IN-GAME CAMPAIGN MAP",
+  "map": "../../dist/SEST_Integration/campaigns/sest-southern-reach/art/00_campaign_background.png",
+  "note": "Open Allocation from Tasman Crossing.",
+  "credit": [
+   "Photo: U.S. Navy, MC1 Leonard Adams · Public domain · adapted",
+   "Map: Canberra class LHD, Nick-D · CC BY-SA 4.0 · adapted",
+   "creativecommons.org/licenses/by-sa/4.0 · via Wikimedia Commons"
+  ]
+ },
+ {
+  "layout": "campaign",
+  "out": "../source/visuals/steam/pack-6-red-line.jpg",
+  "bg": "../source/images/ships/type054a.jpg",
+  "photoX": 336,
+  "kicker": "CAMPAIGN",
+  "title": "RED LINE",
+  "subtitle": "The Other Watch",
+  "meta": "PLA Navy  ·  Nov 2028–Feb 2029",
+  "desc": "The other side of the war, as the carrier group commander the Australians only hear on the radio.",
+  "counts": "6 missions and 3 side operations.\nWon by restraint, deception, escort and evasion.",
+  "mapLabel": "IN-GAME CAMPAIGN MAP",
+  "map": "../../dist/SEST_Integration/campaigns/sest-red-line/art/00_campaign_background.png",
+  "note": "Open Allocation from the first mission.",
+  "credit": [
+   "Photo: U.S. Navy, MC1 Scott Taylor · Public domain · adapted",
+   "Map: Type 003 Fujian, China News Service · CC BY 4.0 · adapted",
+   "creativecommons.org/licenses/by/4.0 · via Wikimedia Commons"
+  ]
+ },
+ {
+  "layout": "campaign",
+  "out": "../source/visuals/steam/pack-7-sulu-line.jpg",
+  "bg": "../source/images/update_190/miguel_malvar_44a545c477.jpg",
+  "photoX": 462,
+  "kicker": "CAMPAIGN",
+  "title": "SULU LINE",
+  "subtitle": "The Island Road",
+  "meta": "Philippine Navy  ·  Oct–Nov 2028",
+  "desc": "Convoys, naval gunfire and the Balabac Strait. No free rearm: ships reload only from supply ships you buy and keep afloat.",
+  "counts": "7 missions and 3 side operations.\nSupply ships are sold three times.",
+  "mapLabel": "IN-GAME CAMPAIGN MAP",
+  "map": "../../dist/SEST_Integration/campaigns/sest-sulu-line/art/00_campaign_background.png",
+  "note": "",
+  "credit": [
+   "Photo: Philippine Navy Public Affairs Office · Public domain · adapted",
+   "Map: BRP Tarlac, U.S. Navy, MC1 Daniel Barker · CC BY-SA 4.0 · adapted",
+   "creativecommons.org/licenses/by-sa/4.0 · via Wikimedia Commons"
+  ]
+ },
+ {
+  "layout": "cover",
+  "out": "../source/visuals/steam/pack-preview.jpg",
+  "bg": "../source/images/aircraft/f35a_raaf.jpg",
+  "title": "SEST",
+  "title2": "INTEGRATION PACK",
+  "sub": "MODERNISED CAMPAIGNS",
+  "line": "4 campaigns  ·  80 missions  ·  photo gallery  ·  one-click SETUP",
+  "credit": [
+   "Photo: U.S. Air Force, SrA J. Michael Peña · Public domain · adapted",
+   "via Wikimedia Commons"
+  ]
+ },
+ {
+  "layout": "cover",
+  "out": "../source/visuals/steam/collection-cover.jpg",
+  "bg": "../source/images/ships/hobart.jpg",
+  "pos": "55% center",
+  "title": "SEST",
+  "sub": "MODERNISED CAMPAIGN COLLECTION",
+  "line": "4 campaigns  ·  80 missions  ·  2028–29",
+  "credit": [
+   "Photo: Japan Maritime Self-Defense Force · CC BY 4.0 · adapted",
+   "creativecommons.org/licenses/by/4.0 · via Wikimedia Commons"
+  ],
+  "vars": {
+   "--title-size": "220px",
+   "--title-top": "609px",
+   "--title-x": "72px",
+   "--bar-top": "835px",
+   "--bar-w": "230px",
+   "--bar-h": "7px",
+   "--sub-size": "46px",
+   "--sub-top": "865px",
+   "--line-size": "31px",
+   "--line-top": "933px"
+  }
+ },
+ {
+  "layout": "collection",
+  "out": "../source/visuals/steam/collection-background.jpg",
+  "bg": "../source/images/ships/arleigh_burke.jpg",
+  "pos": "center 55%",
+  "title": "SEST",
+  "kicker": "MODERNISED CAMPAIGN COLLECTION",
+  "sub": "Four Task Force campaigns  ·  2028–29",
+  "stats": [
+   [
+    "4",
+    "CAMPAIGNS"
+   ],
+   [
+    "80",
+    "MISSIONS"
+   ],
+   [
+    "729",
+    "UNIT PHOTOS"
+   ]
+  ],
+  "tiles": [
+   {
+    "photo": "../source/images/ships/hobart.jpg",
+    "name": "SOUTHERN WATCH",
+    "meta": "RAN  ·  Oct–Nov 2028",
+    "count": "24 missions  ·  11 dispatches"
+   },
+   {
+    "photo": "../source/images/submarines/collins.jpg",
+    "size": "658px auto",
+    "pos": "-120px -90px",
+    "name": "SOUTHERN REACH",
+    "meta": "RAN  ·  Dec 2028–Mar 2029",
+    "count": "26 missions"
+   },
+   {
+    "photo": "../source/images/ships/type054a.jpg",
+    "name": "RED LINE",
+    "meta": "PLA Navy  ·  Nov 2028–Feb 2029",
+    "count": "9 missions"
+   },
+   {
+    "photo": "../source/images/update_190/miguel_malvar_44a545c477.jpg",
+    "size": "499px auto",
+    "pos": "2px -26px",
+    "name": "SULU LINE",
+    "meta": "Philippine Navy  ·  Oct–Nov 2028",
+    "count": "10 missions  ·  no free rearm"
+   }
+  ],
+  "install": "Subscribe to all (about 24 GB)  ·  open the SEST Integration Pack's folder  ·  double-click SETUP  ·  play",
+  "credit": [
+   "Photos via Wikimedia Commons, adapted (cropped, darkened, text added). Hobart class: Japan Maritime Self-Defense Force, CC BY 4.0 (creativecommons.org/licenses/by/4.0).",
+   "Background, Collins class and Type 054A: U.S. Navy, public domain. Miguel Malvar class: Philippine Navy, public domain."
   ]
  }
 ]

@@ -1360,7 +1360,9 @@ as an Open Allocation twin - "Southern Watch - Open Allocation (Royal
 Australian Navy)" and the same for Southern Reach and Red Line - and in the
 twin every window whose builder is open offers the whole roster: in Southern
 Watch, the Hobart, the P-8, the F-35A, the Super Hornet, the Growler, the
-Wedgetail and the Triton are all on sale before White Water.
+Wedgetail and the Triton are all on sale before White Water. Retired from
+the pack on 21 October 2026: below, "Open Allocation retired from the pack
+(21 October 2026)".
 
 Why a twin and not a switch inside the campaign. The game ties purchases to
 the roster and each window's `TaskForceModeAllowedRosterUnits`, and nothing
@@ -3171,3 +3173,818 @@ The rule is read from stock, not from the game's code, and is not yet seen
 in game. The box layout of the section above stays: it does no harm, and
 the supplied units outside the boxes begin where the mission puts them. Its
 claim that a box drops a supplied unit is withdrawn.
+
+## The play test of 18 October
+
+Eight points from a play of the campaign, each fixed in the builder or the
+mission it names. None is yet seen in game.
+
+**Air tasking showed only a few loadouts.** A row's fit field is the whole
+menu the Air Tasking screen offers, and each aircraft flies the intersection.
+The hand-written rows named two or three fits per airframe; the Super
+Hornet's strike row offered two of its thirty. `widen_flights()` now adds to
+each row every fit a roster aircraft matching its roles defines, chosen by
+what the fit hangs, not by its name: a CAP fit carries air-to-air missiles
+and nothing for the surface, an Attack or SuCAP fit carries something for the
+surface, a patrol fit carries torpedoes, sonobuoys or anti-ship rounds. The
+authored fits stay first. Left out: any fit with an AIM-260 or AIM-424
+(`TASKING_BARRED`, the conventional-fit rule the rows already followed),
+nuclear fits, fits carrying nothing for the job (Ferry, Empty, Transport) and
+names a campaign file cannot write. Southern Watch's strike row goes from 8
+fits to 31, its CAP row from 5 to 6, the helicopter and patrol rows from 4
+and 2 to 6 and 7.
+
+**No deck or airfield could be planned before the start.** Two stock
+mechanisms, both now written. Every mission with a player deck (the task
+force sails, or a placed player ship or airfield has one) carries stock's
+"Allow initial flight deck prep" trigger (`Action_PrepareFlightDeck`, 01
+Wolves of the South Atlantic Trigger6): the game holds at the start with its
+AIRCRAFT PREPARATION notice, and what the player assigns on a deck or a field
+is ready when the game is unpaused. And every mission whose airwing sails and
+that has a player airfield offers Prepare Airbase in the briefing
+(`TaskForceModeAirbasePrep*`, four ready flights and two half-prepared; stock
+uses 1-4 of each), where only three missions asked for it before.
+
+**Steel Highway's submarine was on the plot from the first second.** The
+Missing Beacon reward revealed it for fifteen minutes as an unknown
+submerged contact, and nothing of the player's seemed to hold it. One minute
+now, stock Sub Duel's initial contact, with an intel line that says it is a
+recorded position and not a sensor contact. The brief no longer says a
+sonobuoy field is still live over it: there is none in the mission.
+
+**Steel Highway and After the Wake played as one mission.** Same sea, same
+Type 039C, both called Contact BRAVO, ten miles apart. Steel Highway's boat
+is a Type 039B now (Modern PLAN Systems: its own sensors and magazine),
+waiting deep on air-independent power, a sonar problem. After the Wake's is
+Contact CHARLIE, the 039C, snorkelling at periscope depth after a night at
+speed, a radar problem; and the mission is a search: three of Kerema
+Trader's life rafts (vanilla `all_life_raft`) in the drift box, with finding
+two an optional objective (classify, 15). The raft is a unit the game spawns
+for itself: the play-test log has `[AutomaticSAR] usn_mh-60r assigned to life
+raft`. No stock mission places one.
+
+**Southern Cross: nothing could take the drone.** The Forpost's RCS and IR
+signature are 0.01 (the smallest stock aircraft, the QH-50, is 5), and it sat
+at 10,000 ft beside the escort boat 35 NM from Pilbara. It flies at 3,000 ft
+now on a loop back across the lane; two RAAF F-35As (Taipan 21, 22, AirToAir)
+are up over the lane; shooting it down is an optional objective.
+
+**Rig Seventeen: the crew-loaded message, and Canberra's helicopters.** The
+win now takes both lifters over the rig, held there three minutes, then both
+back to the amphibious group. A Time condition counts from when its trigger
+is enabled: 04 Chagos Gambit's rain loop (Trigger3 and Trigger4, each Time=
+and each re-enabling the other) only works that way. So the arrival at the
+rig enables a held trigger (`hold_minutes`) whose clock starts then; it shows
+"Rig crew loaded." as a pop-up and arms the win. Losing either lifter ends
+the mission. Canberra had no aircraft of her own in the mission: every stock
+Task Force Mode mission writes `CustomAirGroup=True` and a
+`type=SquadronN,count` line on each player ship with a flight, and this
+builder never had. A unit's `air_group` now writes them, checked against the
+deck's AircraftSupported and the squadrons file and credited to the mod;
+`ready` writes FlightDeck_ReadyUpTask lines (Molniya 01). Canberra carries
+two Army AH-64E (Euromod RAN, Squadron1, Australia), ready at the start with
+Hellfire for the patrol boat, and two MH-60R.
+
+**The Quiet Passenger: what to do with the craft.** The brief, intent,
+objective and stage message now say it in order: search, classify, stop her.
+Two ends: be in the handover box with her when she arrives and she heaves to
+for the boarding party (the win's `also` term, plus the bonus "Seized", 15);
+or sink her once she is classified (`or_destroyed`, a second win trigger the
+stage arms, without the bonus). Sunk before she is classified, nothing can
+complete the task. Her sinking is no longer fatal.
+
+**Weapons Free: Darwin, and the JH-7A's jammer.** The strike cockpits recover
+to RAAF Base Darwin, 140 NM away, instead of Tindal at 250. The JH-7A mod
+mounts two AN/ALQ-99s on every fit: the EA-6B's tactical jamming suite, a
+Universal jammer with 1,000 km reach and a 0.45 chance per pod of jamming each
+round fired at it. That is not the aircraft's: the ALQ-99 is American, on
+American electronic-attack aircraft, and the JH-7A carries a Chinese
+self-protection pod for itself. SEST Collection Fixes ships the author's file
+with one delta: one pod, the game's own `AircraftDECM_Late` (Defensive,
+0.40, no stand-off reach). The second pod's header in the mod has no closing
+bracket, and that section goes too. This changes the JH-7A everywhere it
+flies, in SEST's missions and anyone else's.
+
+## One Redback for every strike aircraft, and three unnamed units (19 October)
+
+**Historical build `e7b32f11`.** Its rocket profile and Seahawk mount choices
+below are superseded by [the follow-up playtest fixes](../../playtest-20261019-fixes.md).
+The automatic initial preparation pause described in the 18 October notes
+is also superseded: it is opt-in after the player could not select a deck.
+
+**The AGR-30 Redback is SEST's one upgraded APKWS.** The 8 nm laser APKWS
+II-ER (`sest_apkws_er`, its pod `sest_agr-20er` and the Ocean Apache's
+`SEST_APKWS_ER` fit) is gone. The Redback stays `dts_apkws-ii`, the weapon
+pack's counter-drone APKWS, with the minimum deltas: an infrared
+fire-and-forget seeker reaching as far as it may be shot (30 nm), and the
+APKWS's own boost, then a sustainer (`SustainerAccelerationTime=170`,
+`SustainerAcceleration=0.5`) while `VelocityBleed=0.4` brings it down from
+1,500 kt to about 600 kt for the cruise. Everything else is the APKWS's own:
+air first, ships and land second (`TargetType=AAW`,
+`SecondaryTargetType=ASuW`), and its shallow climb (`MaxLoftAngle=5.0` to
+`MaxLoftAlt=1500`) with the terminal dive (`TerminalApproachDist=100`,
+`TerminalAlt=Maintain`, `TerminalDiveDistance=2`) - the profile already
+proven to fire from a pod without freezing the game. The sustainer is the
+one addition the APKWS did not already fly (the AGM-65B and AGM-88A have
+them). If a Redback launch ever freezes the game, the sustainer comes out
+first.
+
+*Revised the same day.* The first cut flew the NSM's terrain following and
+sea skimming, copied key for key from `knm_nsm_1a`, in place of the loft and
+dive, under an anti-surface primary. No stock round pairs that low flight
+with an anti-air target, so against a drone it would most likely have
+stayed at 12 ft and passed underneath. The tasking rows read a fit's job
+off its rounds' primary target type, so the air-first Redback would have
+moved from the strike rows to the CAP rows; `fit_jobs` in `build_pack.py`
+now also counts an ASuW secondary as anti-surface for the rounds named in
+`SURFACE_SECONDARY` (only `sest_agr-30`). The AIM-174B, AIM-54C, MICA and
+Mistral also carry an ASuW secondary and are not named, so their fits stay
+in the CAP rows. Small drones give off very little heat, so the infrared
+seeker may only lock on at short range against them; the build cannot show
+that, only play can.
+
+**The fit, everywhere.** `integration/common/redback.py` is the one recipe:
+clone a fit the aircraft already flies and put Redback pods on the pylons
+named, the count checked. Allied Fixes ships it on the US and UK Apaches,
+the Sea Apache, the RAAF AH-64E, both A-10s (C and A), both MQ-9s, the
+US Navy and RAN MH-60R, both S-70B-2s, and the RAAF F/A-18F and F/A-18A.
+The A-10C+, the F-16CM and the three US Super Hornets are other SEST packs'
+files and get the same fit from their own builders. The tasking rows offer
+`SEST_REDBACK` wherever a sold aircraft carries it. Where each pod hangs is
+the next section's.
+
+**The pods, each on its own mount (19 October, later).** Seen in game: the
+F-16CM's Redback pods sat inside the quad SDB racks they had replaced. A
+station's seat - the name after `|` - picks the airframe's `<seat>Positions=`
+offsets, and the recipe kept the replaced store's seat, so every pod hung
+where that store had: the F-16CM's on no offset at all with the SDB racks'
+`bru-61_outer` model still drawn, the MH-60Rs' two to a side on the Hellfire
+rails (`TERAGM114`), the S-70B-2's four stacked two by two on one Hellfire
+launcher's rail points, the Super Hornets' on no offset. The recipe now names
+each pod's seat, can hide a rack, and can add a mount the airframe lacks.
+There are two pods: the 7-tube LAU-68 (`sest_agr-30_pod`) and a 19-tube
+LAU-3/A (`sest_agr-30_pod19`), the game's own pod with the Redback in place
+of the Hydra and a salvo of two rather than eight. The Euromod RAN mod's
+`usn_lau-3a_APKWS` already flies 19 guided rockets from it. The 19-tube goes
+on a single pylon; the 7-tube stays where a rack hangs several, and on the
+MQ-9s.
+
+| Carrier | Redback fit now |
+|---|---|
+| Apaches (US A/D/E, UK AH1, Sea Apache, RAAF AH-64E) | four 19-tube pods on the mod's own `LAU-3` mount |
+| A-10C, A-10C+ | a 19-tube on the outer pylon (`MK-84` mount), two 7-tube on each of four TERs |
+| A-10A | 19-tube on both outer pylons (`MK-84`; the file writes `MK-82` twice, the second about 20 m below the wing), three 7-tube on each inner TER |
+| F-16CM | two 19-tube on the SDB stations, on the 2,000 lb JDAM's `GBU-31-outer` mount, `bru-61_outer` hidden |
+| F/A-18A | unchanged: wing tanks, two 7-tube on each outer pylon (the twin Zuni mount) |
+| F/A-18F (RAAF), F/A-18E/F and Block III (US) | the F/A-18A's layout: wing and centreline tanks, two 7-tube on each mid pylon (a SEST `RedbackTwin` mount at the A's spacing), a 19-tube on each outboard pylon, AIM-9X on the tips |
+| MH-60R (US Navy, RAN) | one 19-tube a side in the Hellfire launcher's place (`H60_Pylon114` hidden); torpedoes or tanks stay |
+| S-70B-2 (both) | one 19-tube on each torpedo pylon (`MK46`), from the ASW fit |
+| MQ-9A, MQ-9 ER | unchanged: 7-tube |
+
+The F/A-18Fs start from a fit that already hangs their tanks: the RAAF one
+from its long-range anti-ship fit, the US ones from their own Maverick CAS fit
+with extended fuel (`MH_CASAGMEF`), whose wing-tank attachment stays drawn.
+`RedbackTwin` is the F/A-18A's `TwinMk83` spacing (the two models share a
+scale) on the mid pylon's store point. On the US airframes the outboard
+19-tube sits 0.0008 below the Maverick it replaces (`RedbackLAU3`), for the
+pod's wider body. These mounts are worked out from the files' own station
+coordinates; whether each pod sits cleanly on its pylon, not in it or
+floating below it, the loadout screen shows and the build cannot. If the
+19-tube pod on a launch ever freezes the game where the 7-tube does not, the
+pod goes back.
+
+**Unit Reference: three units with no name.** Found by scanning every unit
+in the collection for a name: `mm_skyguard_sam` (Euromod Cold War Italian
+Navy) and `usaf_f-16c_blk40` (Euromod South Korea Navy, which also ships no
+squadron table) now have names in Name Fixes; the RAN Sea King Mk.50A/B
+(`ran_seakingmk50ab`) had its squadron table spelled
+`ran_seakingmk50bab_squadrons.ini`, so Collection Fixes ships it under the
+name the game reads, and gives the F-16C Block 40 a table cloned from the
+same mod's KF-16. Both retire themselves when the authors fix them.
+
+## The B-2's MALD glides, and SeaLifter is not needed (19 October, later)
+
+**The ADM-160 MALD.** Seen in game: the B-2 Spirit's MALD decoy
+(`b-2_jsow_ecm`, on the mod's "SEAD (JSOW & MALD)" fit) did not glide; it
+skimmed the sea at about 6 ft. The mod builds it as an unpowered JSOW with no
+flight profile - no kinematics, no terminal dive - and `GravityFactor=4`, so
+it falls at four times gravity to the game's default wave-top height and stays
+there. SEST Collection Fixes now ships it with the glide the Dingtools JSOW
+(`dts_agm-154a`) flies: `ApplyKinematics=True` (the game's full flight model,
+in 760 of the collection's rounds), its 680 kt ceiling (a glider stalls at a
+quarter of it), at release height until `TerminalDiveDistance=15` nm out, then
+down. `GravityFactor=4` and `VelocityBleed=2` are gone. The decoy jammer
+(`LRASM_ECM`), the 70 nm range and the seekerless guidance stay the author's.
+The B-2's three JSOWs (`b-2_jsow`, `_clus`, `_sead`) share the old profile and
+are unchanged. No SEST mission flies the MALD fit (The Long Perimeter's B-2
+takes Strike), so nothing placed changes; how far it now glides from a given
+height the game shows, not the build. US Naval Aviation's own MALD
+(`usn_adm-160b`) is carried only by that mod's Super Hornets, which SEST's
+copies replace, so it is not in the build.
+
+**SeaLifter, settled.** Six mods - B-2 Spirit, A-10A, A-10C, Su-25, Mi-8 T/TV
+and the Type 003/004 carriers - name SeaLifter as a requirement, and
+`REQUIRED-MODS.txt` told players to find it and install it by hand. It is not
+needed. The B-2's "Requires AnchorChain and SeaLifter" is in an `_info.ini`
+that declares game 0.4.0; the old install was subscribe to SeaLifter,
+subscribe to Anchor Chain, install the preloader by hand, and SETUP installs
+the preloader. The PC has never had SeaLifter (no DLL, no log line, no
+subscription), and on 19 Oct 2026 it showed the B-2, A-10A, Su-25, Mi-8 and
+Type 003 in the encyclopedia with their models. `OUTSIDE` in `build_pack.py`
+is empty, with the reason, so `REQUIRED-MODS.txt`, each campaign's
+requirement list and `required-mods-urls.txt` no longer name it; the
+description, the collection description and `publishing.md` follow.
+
+## 19 October 2026: second SW08 and O4 playtest correction
+
+The first playtest correction put the carrier afloat in Cenderawasih Bay,
+but the requested deployment is south of Papua. It now uses an Arafura
+station. Langgur has a shared modern resident detachment rather than an
+empty wing. Texaco 52 always spawns; O4 success adds Texaco 53.
+
+The eastern Kai passage still beached coasters in the game despite passing
+the source map check. O4 now uses a broad western approach to an offshore
+transfer anchorage, with a four-NM route-clearance requirement. The coaster
+tracks are over 8.9 NM off the committed coastline. See
+[the second playtest follow-up](../../playtest-20261019-r2.md) for aircraft
+counts, exact positions, the tanker rule and the remaining game checks.
+
+The same playtest follow-up extends Redback's motor to ten seconds, softens
+the legacy deceleration factor, sets a higher terminal speed target, and
+uses the 2 km loft/1.1 horizontal NM dive geometry to approximate a 45-degree
+surface approach. This is a candidate for measurement in the game, not a
+verified fixed-angle controller. Rig Seventeen also gains a north-western
+missile boat, an eastern gunboat and a Hind joining after fifteen minutes;
+the evacuation, platform-protection and amphibious-ship objectives remain.
+
+*The Redback's speed keys were reworked on 23 Oct 2026* from the game's own
+rules, which read `MaxLoftVelocity` as the target for the climb and the
+whole cruise, not a loft ceiling (*The Redback fires, and goes where the
+Hellfires were*, below).
+
+## The allied reserve, and the first upgrade batch (20 October)
+
+`docs/campaigns/campaign-upgrade-plan.md` section 8, with the owner's
+decisions of the day. No mission was added or moved in any campaign, so
+every `Parents` and expiry index is as it was; what changed is sold,
+briefed or scored.
+
+- **The allied reserve.** The standard campaign now sells eleven allied
+  escort classes from the window before *Weapons Free*, frigates and
+  destroyers together (Q2, option c): Type 23, River Batch 2 and Type 45
+  (UK), Mogami and Asahi (Japan), Daegu and Chungnam (South Korea), La
+  Fayette and Aquitaine (France), Arleigh Burke Flight IIA and III (USA).
+  Windows 09, 11 and 12 keep them. No carrier, amphibious or replenishment
+  ship and no allied aircraft: those stayed the theatre's until the next
+  day, when the whole fleet went on sale from the same window ("21
+  October: the allied fleet in the standard campaigns", below). Southern Reach sells Type 23, Mogami and
+  Daegu from *Tasman Crossing* (Q3); Red Line and Sulu Line sell none (Q4).
+  `mission_depth.apply_reserve()` replaced `expand_roster`, which had sold
+  Type 23, Mogami and Daegu at every window but this campaign's first
+  three as a set written into the function. Entries and prices are
+  `allied_fleet.py`'s; each window's situation names the classes on sale,
+  and the rules page says from which window, because the Unit Catalog lists
+  them from the start. *Weapons Free* sails one ship, and a bought Burke
+  may be it: the owner chose that over a destroyer tier from window 09.
+- **No named hull on sale, pack-wide.** A reserve variant any campaign
+  mission places, on any side, is not sold: the filter used to read this
+  campaign's blue units only, and Southern Reach sold JS Mogami (Common
+  Sea; Red Line's *The Other Picture*) and Daegu (O3). Here that takes
+  Mogami and Asahi Variant1, Daegu Variant1, Burke Flight III Variant2
+  (*Fujian's Shadow*) and La Fayette Variant2 (Courbet, a neutral in
+  *Northern Priority*) off sale. Dispatches are not counted.
+- **The twin's allied sentence** is built from what the twin adds to the
+  base roster, not from the twin's whole roster: it had called Sulu Line's
+  own Thai, Australian and MSC units an allied fleet, and the reserve,
+  already on this roster, would have been counted twice. Southern Watch's
+  twin now says 60 classes beside the base roster's eleven (71 before, all
+  of them in the sentence).
+- **OPEN_HOLD.** A twin sells a unit in its spec's `OPEN_HOLD` only at the
+  windows where the story's own allowlist does, and says so in that
+  window's note and in its description. Sulu Line holds its three supply
+  ships: its twin sold the C8 at *The Island Road* and every supply ship at
+  *Fire Mission Jolo*, where the story, whose rearm they are, sells none.
+- ***The Quiet Passenger* reads O5 again.** The O2 reveal was assigned over
+  O5's from 18 October, so *Paper Trail*'s `O5ReceiverNamed` was written
+  and never read here. Both datums are in the mission (test card 6.6a), and
+  a pack-wide test now holds every campaign to "every variable read is
+  declared, every one declared is read".
+- **Protected units are labelled.** A red class every hull of which a
+  `spare` objective names reads "Protected - do not engage" under its
+  briefing photo instead of "Expected opposition" - here *Paper Trail*'s
+  escorted merchant. A restraint a `lift` ends reads "Opposition - do not
+  fire first" instead (Tasman Shield 11A's frigate and Z-9, whom the
+  mission clears the player to engage once the frigate locks the corvette).
+  Red Line's half of the same work (`recognise=False`,
+  `orbat=False`, its flags and reports) is in its build notes.
+
+Test card 2.9 to 2.12 and 6.6a; the play-test guide carries them.
+
+## Open Allocation retired from the pack (21 October 2026)
+
+The owner's decision of 21 October, for the pending 20 October update: "make
+open allocation redundant. will be used for other world wide campaign or
+dynamic sest world campaign." The four twins (*Open Allocation*, 27
+September, above) left the pack the day after the allied reserve put
+allied escorts on sale in the standard Southern Watch and Southern Reach,
+without the released update of proof and the notice one release ahead that
+`campaign-upgrade-plan.md` had set (its Q5, A4 and B12). Each campaign is
+listed once.
+
+- **Kept, not deleted.** A twin is now a spec's opt-in: `OPEN_ALLOCATION`,
+  absent or False for no twin. `build_pack.open_allocation_twin()` builds
+  one (the allied fleet through `usable_allied`, the flight check on the
+  twin's roster, `allied_line`, `campaign_rules(open_allocation=True)`,
+  `open_allocation_ini`, the twin's roster and coverage) and
+  `write_open_twin()` writes `campaigns/<slug>-open`; `main()` calls both
+  only for a spec that opts in, and the Mod Manager entry says "Each
+  campaign is also listed as an Open Allocation version" only while one
+  does. `OPEN_HOLD`, the `OPEN_*` notes and blurbs and `allied_fleet.py`
+  stay as they were; the allied fleet is still the reserve's source, and
+  the check that it repeats no roster unit runs for every campaign. Kept
+  for a world-wide Task Force Mode campaign, which would opt in as it is,
+  or for the SEST World Campaign (a Dynamic Campaign Mod campaign with its
+  own buy list), which could take `allied_fleet.ALLIED` as a priced,
+  in-service-in-2028 list.
+- **Still checked.** `check_campaign_coverage.py` runs `open_twin()` and the
+  twin's roster and loadout names only for a spec that opts in, and refuses
+  any folder under `campaigns/` that no campaign builds - a twin left
+  behind among them. The campaign tests build Red Line's and Sulu Line's
+  twins into a temporary folder from the built campaigns
+  (`test_build_pack.built_twin`), so `open_twin()`, `OPEN_HOLD` and the
+  allied sentence are held to the shipped data; `AlliedFleet` runs
+  `roster_ini()` over every `allied_fleet.FOR_NATION` list, which only the
+  twins' build did before, so a mod update that drops an allied variant
+  still fails; and `OpenAllocationRetired` pins that no campaign opts in,
+  no twin ships, and the gate's `stray_campaigns()` refuses a twin folder
+  nothing builds. No test builds a Southern Watch or Southern Reach twin:
+  `built_twin` passes no placements, and theirs are the fleets with
+  aircraft, which `usable_allied` keeps only where a placed row takes them
+  (63 and 62 allied units at `9035f291`). Before a campaign with allied
+  aircraft opts in, run `build_pack.py --dry-run --campaign <name>` with
+  `OPEN_ALLOCATION` set and read its "allied unit(s) on sale" line.
+- **Coverage is unchanged.** No mod was reached only through a twin's
+  roster: the pack still accounts for all 224 enabled mods and SEST packs,
+  and the coverage reports, REQUIRED-MODS and LOAD-ORDER came out
+  byte-identical. The pack is 2003 files (2027 with the twins), the
+  consolidated `SEST_Integration` 4304 (4328): the 24 files under
+  `campaigns/*-open` and nothing else.
+- **What no campaign sells now.** 65 classes the twins sold are on no
+  shipped roster (46 ships, the PLAN Type 901 and 903A among them, and 19
+  aircraft and helicopters), and 42 of those are placed by no mission file
+  either, dispatches included: the Ford and Nimitz carriers, Wasp and
+  Mistral, Atago, Mashuu, the T-AO, T-AOE and T-AKE, the US Navy's P-8 and
+  Super Hornet, the MQ-9 ER, the Rafale B and the Spanish, Italian, German,
+  Dutch, Norwegian and Korean escorts among them (counted from the built
+  rosters at `9035f291`). Their mods stay covered through other units.
+  *Superseded later the same day: every one of the 65 but HMAS Choules and
+  the Supply-class AOR, whose hulls missions place, is on sale in a
+  standard campaign again ("21 October: the allied fleet in the standard
+  campaigns", below).*
+- **Saves.** A campaign under way in a twin cannot be continued: the save
+  names the twin's folder (`NEW TEST 1.sav` is `#!alias
+  campaigns/sest-southern-watch-open/campaign.ini`), and a standard
+  campaign's progress was always its own (test card G.4). What the game
+  shows for the orphaned save is not known yet: the play-test guide asks.
+  `tools/install-sest-packs.ps1` deletes the pack folder before copying,
+  so the next sync takes the `-open` folders off this PC, and the next
+  upload off the Workshop item.
+- **Text.** The setup script's closing line and the map-diagnostics path
+  that named a twin are gone; the README, FEATURES, the play-test guide,
+  this test card (6G retired, G.6 for the standard campaigns, I.5 and J.1
+  on the reserve), Sulu Line's card (2.6 retired), the Steam cards and the
+  Workshop listing say the versions are retired. The pending change log
+  says a twin campaign cannot be continued.
+- **Not done here.** The gallery's `in_rosters` field still lists the
+  `-open` slugs (`integration/gallery/source/catalogue.js`, the Gallery
+  packs' copies and the `*_191.csv` tables). `tools/align_gallery.py`
+  writes it, and `build_all` does not run it: run it by hand against the
+  release commit. `gallery.js` never reads the field, so no player sees it.
+
+Red Line's *The Other Picture* stopped reading *The Ships from the North*
+the same day (Red Line build notes, "RL03's reveal held").
+
+## 21 October: the allied fleet in the standard campaigns
+
+The owner's request of 21 October, the same day as the twins' retirement:
+"Build open allocation into standard campaign." Asked from which window,
+the owner chose the reserve's own: everything the Open Allocation versions
+sold beyond the story's lists goes on sale from the window where the allied
+escorts already opened - *Weapons Free* here, *Tasman Crossing* in Southern
+Reach, Red Line's first force allocation - and earlier windows keep the
+story's own lists, "so the opening stays small and nothing the versions
+sold is lost. Bought aircraft still need a usable base or deck." No twin
+comes back: the twin path stays dormant and tested (above).
+
+- **The reserve names the whole fleet.** A spec's `RESERVE_FLEET =
+  dict(opens=<mission code>)` puts every class of the fleet its commander
+  calls on (`ALLIED_FLEET`, `allied_fleet.FOR_NATION`) on sale from that
+  mission's window; `RESERVE`, a list of `dict(unit, opens)`, still names
+  chosen classes, and a spec may use both, a named class opening earlier
+  than the rest. Southern Watch's eleven-class `RESERVE` became
+  `RESERVE_FLEET = dict(opens="SW05")`, Southern Reach's three
+  `dict(opens="TS04")`, and Red Line has `dict(opens="RL01")` over
+  `PLAN_SUPPORT`. A world-wide campaign would take the same path. Sulu
+  Line's commander calls on no fleet, and its twin sold nothing beyond its
+  roster, so it is unchanged.
+- **What is sold here.** From the window before *Weapons Free*, at every
+  force allocation after it: 52 allied ship classes of eleven navies -
+  the Ford and Nimitz carriers, Wasp, Mistral, Juan Carlos and Galicia,
+  the T-AOE, T-AKE, T-AO, Tide and Mashuu, Zumwalt and every destroyer and
+  frigate on the list - the RAN's own Canberra-class LHD (HMAS Adelaide,
+  Variant2; HMAS Canberra sails in *Rig Seventeen*), and 19 allied aircraft
+  types. The roster goes from 21 entries to 82, and windows 05, 09, 11 and
+  12 from 20, 21, 18 and 19 units to 81, 82, 79 and 80; windows 01 to 03
+  are unchanged. Southern Reach's roster goes from 13 to 73 (52 ships, the
+  LHD, 10 aircraft; TS04 to TS12), Red Line's from 9 to 11.
+- **Named hulls, pack-wide, and none fatal.** No hull any campaign's
+  mission places is sold, as on 20 October; a class left with no hull is
+  now set aside with the reason (spec `RESERVE_LEFT_OUT`) instead of
+  stopping the build. HMAS Choules and both Supply-class AORs sail in this
+  campaign or Southern Reach, so the twins' Choules and Supply are not
+  sold. JS Maya Variant1, *The Other Picture*'s, is off sale with the rest
+  (the twins sold it: Red Line build notes); Maya Variant2 is on.
+- **Aircraft where they can fly, judged after placement.** A reserve
+  aircraft is held (`RESERVE_AIR`) at spec time, because only the built
+  missions say whether a row launches and recovers it. `main()` judges the
+  held aircraft after placement with `usable_allied` - the twins' own test,
+  on every mission of the campaign, against the rows as the campaign's own
+  roster widens them - and `admit_reserve_aircraft` puts what passes on the
+  roster and on sale from its opening. The roster, `check_roster_on_sale`
+  and `check_flights` run again on the settled roster, and the roster's
+  credits are merged before each mission's, as they were before. The build
+  log lists what each opening sells and what is left out and why, and so
+  does the coverage report's new "The reserve" section. Here 19 of 38 are
+  kept: F-22, F-15EX, P-8A (2027), F-35C, F-15E, F/A-18E, F-16CM, MQ-9ER,
+  the RAF, German and Spanish Typhoons, Atlantique 2, Rafale M and B, both
+  AV-8B+, F-2A, SH-60K and SH-60J. Left out: the B-2, B-1B, B-52H, KC-46,
+  UH-1Y, Tigre and AH-64E (no row takes them), the E-3G, both E-2Ds and the
+  AC-130J (a row takes the role but offers none of their fits), and the
+  Merlin HM2 and Italy's SH-101A, the Wildcat, the Panther and four NH90
+  types (no field or deck in reach).
+  Southern Reach keeps 10 and leaves out 28. Judging only the missions from
+  the opening, which a bought aircraft can fly, kept the same lists in both
+  campaigns; the whole campaign is judged because `check_flights` and
+  `check_purchased_recovery` hold every roster aircraft to every row.
+- **Decks without aircraft.** `ShipIncludesAirwing=False` is every
+  campaign's, so a bought carrier or LHD comes with an empty deck, as the
+  RAN's own ships always have; the twins sold them so (*The allied fleet*,
+  above). Recovery is judged on the decks and fields a mission places, so a
+  bought deck never makes an aircraft sellable.
+- **Words.** Until step 2, below, a window from the opening ended "Also on
+  sale here, at their own navies' prices: the allied fleet - 52 ship
+  classes and 19 aircraft types from the USA, France, ... - and the Royal
+  Australian Navy's Canberra-class LHD." (`mission_depth.reserve_phrase`:
+  allied navies counted, the commander's own classes named; sixty classes
+  cannot be listed), and the rules page's line said every force allocation
+  from the one before *Weapons Free* sold it, that allied classes cost their
+  own navies' listed prices without the same-nation discount, that carriers
+  and amphibious ships come without aircraft, that an allied aircraft is
+  sold only where a mission can launch and recover it, and that no hull a
+  mission names is sold. It no longer says no allied aircraft, carrier,
+  amphibious ship or tanker is sold, and the reserve no longer refuses a
+  unit that is not a ship; a held aircraft whose file is not one stops the
+  build. Red Line's wording names the PLAN's ships and never calls them
+  allied.
+- **Coverage and requirements.** Still all 224 accounted for, and no
+  excuse went stale. What the roster now sells makes more mods hard
+  requirements of the campaign itself: this campaign's REQUIRED-MODS goes
+  from 113 hard-required to 118 (the Eurofighter Typhoon, F-15E Strike
+  Eagle, Italian Navy Mod and the Modern Dutch and Italian Euromods, all
+  dispatch-only until now) and its SEST packs from 16 to 17 (SEST Rafale
+  F5). Southern Reach's goes from 45 to 52 (those five, the Modern JMSDF
+  Euromod and F-22 Raptor) and 12 to 13 (SEST F-35C JATM), and its
+  `required-mods-urls.txt` with it. The pack-level REQUIRED-MODS and
+  LOAD-ORDER are unchanged.
+- **Saves.** Only window allowlists and situations change, and the rules
+  page; no `MissionFile`, gate or spine entry moved. A campaign under way
+  may keep the `campaign.ini` it started with, so it may offer only the
+  eleven escorts of 20 October, or none: start a new campaign to see the
+  fleet (test card 2.12).
+- **Tests.** `AlliedReserve` pins the fleet from each opening (counts
+  derived from `allied_fleet`), the story's own lists before it and first
+  after it, copies not extensions, a second `campaign_specs()` changing
+  nothing, admission and the window sentence once, a class with no hull
+  set aside, the pack-wide filter on the spec and on the built missions,
+  no submarine, every class the twins sold either on the built roster or
+  in the coverage report's record, and the aircraft judgment re-run with
+  `usable_allied` on the built missions matching the build's, reason for
+  reason. `RulesPage` holds the new line.
+
+Not demonstrated, and asked on the test card: that the game reads a roster
+of 82 entries and allowlist lines of about 4,200 characters (stock's longest
+is about 1,900); that a bought carrier sails with an empty deck; that an
+allied aircraft bought at *Weapons Free* flies its rows and gets home
+(G.10-G.13, 2.9-2.12).
+
+### Step 2: the whole roster from the opening (21 October, later)
+
+Step 1 added the fleet after each window's story list, which left the
+story's own limits in place after the opening: the window before *Fujian's
+Shadow* still sold no Seahawk, Wedgetail or Triton, the one before *The
+First Ship Through* no Hobart or Growler, and Red Line's Y-9, KJ-500, J-15
+and J-15D went on sale only where its story released them. "Everything goes
+on sale" is what the twins did: every force allocation with a builder
+offers the campaign's whole roster, every priced variant, with the fleet.
+From the opening the standard campaigns now do that.
+
+- **How.** `mission_depth.open_from(spec)` is the mission `RESERVE_FLEET`
+  opens at, and `open_offer(spec, m)` what a window from it offers: every
+  unit on the roster, in roster order, as `open_allocation_ini` listed a
+  twin's, a reserve class from its own opening (a class `RESERVE` names may
+  open later than the fleet). `_open_windows` gives each buy window from
+  the opening that list - a new one, replacing the story's, set again after
+  the build admits the allied aircraft and only where it differs, so a
+  second `campaign_specs()` changes nothing - and `campaign_ini` writes it
+  with `allowed_roster_units`, every priced variant. The story's lists stay
+  in the data (`BUY_05` to `BUY_12` here, each mission's own in Southern
+  Reach, `NORTH_HULLS` and the rest in Red Line) as what those windows sold
+  until now and what a build without `RESERVE_FLEET` would sell.
+- **What each window offers** (built `campaign.ini`, units on the
+  allowlist, step 1 to step 2): Southern Watch SW05 81 to 82 (the Triton),
+  SW09 82 to 82, SW11 79 to 82 (the Seahawk, Wedgetail and Triton), SW12 80
+  to 82 (the Hobart and Growler); Southern Reach TS04, TS06, TS07, TS09 and
+  TS11 73 to 73, TS12 72 to 73 (the Hobart); Red Line RL01 6 to 11, RL02 7
+  to 11, RL03 10 to 11, RL06 5 to 11. Every window before the opening and
+  every window without a builder is byte for byte as step 1 built it
+  (`efc3c88f`, compared section by section), and so is all of Sulu Line.
+- **The twins' offer.** Every unit and variant the twins' rosters sold at
+  `9035f291` is on sale at every window from the opening, or is set aside
+  with its reason: HMAS Choules and the Supply-class AOR (every hull placed),
+  the aircraft no row here launches and recovers (`coverage.md`, "The
+  reserve"), and the hulls a mission places - here JS Maya, ROKS Sejong the
+  Great and HMAS Canberra (Variant1 of each), in Southern Reach those and
+  the Burke Flight III and La Fayette Variant2 and the Asahi Variant1, in
+  Red Line the 901 and 903A Variant1.
+- **Sulu Line** has no opening (its commander calls on no fleet and it
+  sets no `RESERVE_FLEET`) and is unchanged. Its twin's only difference was
+  its own roster from the first window, its supply ships held to the
+  story's windows (`OPEN_HOLD`), and the story already sells all of that:
+  every one of its 12 units, every priced variant, is on sale at *Service
+  at Sea* and *The Aborlan Battery* (checked on the built `campaign.ini`;
+  `OpenAllocationStandard` holds it).
+- **Gates.** None refused anything, and none was changed: `check_flights`
+  and `check_purchased_recovery` already held every roster aircraft to
+  every row whatever window sold it, and `check_roster_on_sale` is
+  satisfied by any window.
+- **Words.** A window from the opening ends "This force allocation offers
+  the campaign's whole roster and, at their own navies' prices, the allied
+  fleet - 52 ship classes and 19 aircraft types from the USA, ... - and the
+  Royal Australian Navy's Canberra-class LHD." in place of step 1's "Also
+  on sale here". Window 11's own text said only ships, fighters and strike
+  aircraft were offered and that the Seahawk, Wedgetail and Triton came
+  back at window 12; it now says what the carrier action tasks. Window 12's
+  no longer says "replacement aircraft and escorts". The rules page's
+  availability line says the force allocations before *Weapons Free* offer
+  what the story releases and every one from the one before it the whole
+  roster and the allied fleet, carriers and amphibious ships without
+  aircraft and allied aircraft only where a mission can launch and recover
+  them, and that some operations still limit what sails (`MaxUnits=1` at
+  *Weapons Free*); the line after it gives the Unit Catalog, the allied
+  prices and the named hulls. A campaign whose first window sells a
+  fixed-wing aircraft - Red Line now - says so in place of the stock "not
+  available at the start". The coverage report's "The reserve" section
+  counts what every force allocation offers. The descriptions say nothing
+  of availability and are unchanged.
+- **Saves.** As for step 1: only window allowlists and situations and the
+  rules page change. A standard campaign already under way may keep its
+  old windows: start it again (test card 2.12).
+- **Tests.** `OpenAllocationStandard` pins every window from the opening
+  to `allowed_roster_units` of the settled roster (the spec's, then the
+  admitted aircraft), the windows before it and every window without a
+  builder to the story's own lists and words - read in a fresh interpreter
+  with `apply_reserve` switched off - a named class that opens later
+  waiting for its window, two runs changing nothing, the twins' offer
+  covered pair by pair, and Sulu Line selling its whole roster at some
+  window. The step-1 tests that read the story's list first now read the
+  whole roster, and `RulesPage` holds the new lines. 299 campaign tests,
+  none skipped.
+- **Review (21 Oct).** Two reviews of the change found the offer right and
+  some words not. *The Quiet Side*, Red Line's last operation, now sells
+  the Y-9, KJ-500, J-15 and J-15D with only the ship's flight to task and
+  nothing after it, so its window says a fixed-wing aircraft allocated
+  there will not fly (the owner kept the version's offer; every other open
+  window in the pack has a row for each aircraft it sells, there or later,
+  checked on the built rows). The coverage report no longer speaks of
+  windows before Red Line's opening, which is its first. The Steam
+  Installing card's "the story releases your forces as it goes" became
+  false and is retired (`check_stale_phrases`). A spec that set both
+  `OPEN_ALLOCATION` and `RESERVE_FLEET` would build a twin that quoted the
+  open windows' sentence as the story's and left the fleet out of its
+  rules line; `apply_reserve` refuses the pair. The docs say a campaign
+  under way *may* keep its old windows, as the test cards ask, and that
+  Sulu Line's version is retired though its story opens the whole roster
+  only from *Service at Sea*.
+
+## Sea Power 0.8.7 and the 22 October mod updates (22 October)
+
+The 22 Oct capture (`1bda58a6`) brought the game's 0.8.7 Build 261021 and
+ten author updates; `docs/workshop-refresh-20261022-review.md` has the
+whole record. For this campaign:
+
+- **D3 The Relief Ship.** Spanish Navy Mod (Modern) v1.48 renamed the Juan
+  Carlos I's deck loadouts: `noDeck2`/`Deck2` became `Default`, `Empty_deck`
+  and `Empty`. D3 names no loadout for her, so `pick_loadout` takes the
+  first the hull lists: `Default`, which is also her variant's own. The
+  rebuild writes `LoadoutVariant=Default` where it wrote `noDeck2`, which
+  the hull no longer declares; she now shows the author's parked deck
+  (deck crew, equipment, a static AB 212, three AV-8B and two SH-3) where
+  `noDeck2` had hidden the static aircraft. Her own air group is aboard as
+  before. Not yet seen in game: test card, H.23.
+- **The rosters' comment lines** follow the mods' new names (Wasp-class
+  (Late), Juan Carlos I-class L61, Galicia L50-class L50, Meteoro-class
+  BAM) and the Juan Carlos's new loadouts. No price, pick or window moved.
+- **SEST's runtime plugin was off on 0.8.7 until 23 Oct.** It was matched
+  to the 0.8.6 game assembly and fails closed on any other, so the Tomahawk
+  MST's 500 ft over land and the debrief's lost-ship rows (20 Oct) did
+  nothing on 0.8.7; the game's own behaviour applied.
+  `integration/runtime-fixes/README.md` had the steps to re-enable it once
+  the 0.8.7 assembly was exported. *23 Oct 2026:* the owner's export
+  supplied it, and the plugin is matched to 0.8.7 with both corrections on
+  (`integration/runtime-fixes/README.md`, *Re-gated to Sea Power 0.8.7*).
+  The debrief correction fills in the generated and replaced missions. The
+  ones played as written (O5, O2, 07, 08, O7, O8, O9 and O10 here) give the
+  player's ships no `CampaignTag`, so the game keeps no loss record for
+  them: by 0.8.7's code a ship sunk there is listed without a Lost status
+  (Undamaged), and the correction cannot add one either. Not yet seen in
+  game: test card, H.24.
+- **SM-6 Block I.** SEST Collection Fixes now gives `usn_rim-174a` the
+  300 s flight time the Anchorchain overwrite carried from 19 to 21 Oct
+  (the preloader's TimeLimited=True made the base file's 240 s a hard
+  limit against its 260 NM); the Hobart and the Burkes fire it. Whether it
+  now reaches past 240 NM, slowing after its 50 s burn, has not been seen
+  in game.
+- **The Anchorchain Expansion's withdrawn overwrites.** Its 19 Oct flight
+  overwrites are gone, so the AIM-120C to D3, D10's Gunslinger AIM-174B,
+  SEST F-35C JATM's JSM and the RAN's NSM fly their base files' figures
+  again, the ones SEST's tools read (the NSM's MissileDefenceBonus is back
+  to 0.30); discard D10 comparisons flown 19-21 Oct.
+- **Noise jamming.** Euromod Main's ECM sections gained `NoiseJamPower`,
+  which shortens radar-guided fire-control range against the ship that
+  carries it: SW08's Roosevelt (`usn_cvn_nimitz_2025`, SLQ-32A(V)4, 0.4),
+  SW10's JS Maya (NOLQ-2, 0.4) and O9's Hyuga and Asahi (NOLQ-3D, 0.3). No
+  campaign file changed for it.
+- **Southern Watch 11's Growlers** (`usn_ea-18g_2020`, built on US Naval
+  Aviation's file) take that mod's new 70/-70 degree pitch limits.
+
+Every pack declares 0.8.7. No other campaign file changed.
+
+## The 23 October mod updates (23 October)
+
+The 23 Oct capture (`87c0feb5`) brought eight author updates and no game
+update; `docs/workshop-refresh-20261023-review.md` has the record. No
+campaign file changed, and every unit, squadron and loadout the missions
+name still resolves. What differs in play, all of it the authors' work:
+
+- **Other mods' code is on again.** The updates put back what Sea Power
+  0.8.7 had switched off on 22 Oct: O9 Viper Zero's Jammer 71 jams radio
+  and data links again as well as the frigate's search radar its briefing
+  names; D6 Long Reach's Furys have Drone Control again (the mission flies
+  them on loadouts and orders) and its Black Widows their runtime fixes;
+  D8's Valor 73 has its systems hook. Not yet seen in game on 0.8.7.
+  O5 Paper Trail's Corsair scout and reconnaissance K5 play as before: the
+  two mods' contact controllers act only on the strike and one-way-attack
+  variants.
+- **Crews that eject.** D8's Valor 73 (MV-75) and O9's Jammer 71 (EC-2) now
+  carry two pilots each, with the authors' new ejection plugins. Not yet
+  seen in game.
+- **Paint.** D6's Furys fly a new grey finish without the separate marking
+  and insignia meshes. Common Sea's SH-60K and SH-60J and Viper Zero's
+  SH-60K (all Squadron1) show modex numbers, and the SH-60J the plain
+  `sh-60j.png` livery; the textures are not in the export, so whether they
+  are all present is for the next play test.
+
+## The Redback leaves the Seahawk, and its pod leaves the Hellfire rack (23 October)
+
+The owner, in the game on 23 Oct: the RAN MH-60R's AGR-30 pod sat "at the
+bottom of a quad hellfire rack", and ordered against a boat, the Seahawk
+listed the AGR-30 and never fired it. `docs/playtest-20261023-redback.md`
+has the evidence, the per-carrier table and the checks.
+
+**Why it held fire, on the evidence.** The 19 Oct follow-up made the round
+radio command (`MidCourseCorrection=1`) so it could be retargeted. A
+radio-command round needs a guidance channel from a sensor the hardpoint
+links. The four Seahawks link none, nor do five other carriers (the
+A-10A, A-10C, A-10C+, AH-64A and Sea Apache). The round is fire and forget
+again (`MidCourseCorrection=0`, the donor's own), like the Hellfire L the
+MH-60R already fires, so no carrier needs a channel to launch it. Its seeker now
+switches on 8 NM out rather than 2, so a boat that has moved since launch is
+still in view; `Retargetable` stays, for the game to show whether it still
+works without a link.
+
+**Where the pods hang.** The MH-60R's 19-tube pods move from the M299
+launcher's lower rail points to the inboard pylons, in the tanks' place,
+raised 0.13 m on a SEST mount so that the top meets the rack where the
+torpedo's does, and the launcher keeps its eight Hellfires, as the
+AntiShip fit hangs them. The S-70B-2 carries a 7-tube pod, the Penguin's
+size, where the Penguin hangs, because the 19-tube was wider than the gap
+between the Hellfire rails; it is provisional, and comes out if the
+loadout preview shows the launcher drawn around it. The
+MQ-9s hang one 7-tube pod under each outer pylon with the twin Hellfire
+launchers hidden, rather than two on each launcher's rails. Every fit keeps
+its name, so no mission file changes: the tasking rows offer SEST Redback
+Strike where they did, and the only missions that place the fit are the
+NF3 scenarios' A-10Cs. Of the aircraft whose pods moved, the RAN MH-60R
+flies in most Southern Watch and Southern Reach missions; the US Navy
+MH-60R (SW08, SW11), the S-70B-2 (D7) and the MQ-9s (D2, and Southern
+Watch's roster) appear more rarely. Not yet seen in game.
+
+*Superseded later the same day* (next section): the round fired from this
+build (`57375598`); the MH-60R's pods moved again, the seeker's switch-on
+went back to 2 NM, and the speed keys were reworked.
+
+## The Redback fires, and goes where the Hellfires were (23 October, later)
+
+The owner, in the game on `57375598`: the RAN MH-60R fired the AGR-30, but
+"it has the agr where the fuel should be and the agm present and where the
+agr should be. swap agm for agr, no quad rack clipping issue"; the round
+"doesnt boost as long anymore"; and "would like realistic slow down to
+cruise spped". `docs/playtest-20261023-redback.md`, *Second report*, has the
+evidence and the checks.
+
+**The fit.** Both MH-60Rs fly their donor fit again (RAN AntiShip, US Navy
+AntiShipLateLongRange): tanks on Stations 1/2, the Penguin arm hidden, the
+M299 launcher drawn. Each of its four Hellfire lines (10-13) now hangs two
+7-tube pods in place of its two Hellfires, on a SEST seat, `RedbackM299`:
+the Hellfire's `TERAGM114` lowered 0.04 m, because the pod is fatter and its
+top would otherwise cut into the rail. Eight pods, 56 rounds. The 19-tube
+pod no longer flies on the MH-60R: the launcher's missile points are
+0.49 m apart side to side and 0.39 m top to bottom, room for a 0.24 m
+LAU-68 on each but not for a 0.41 m LAU-3. The `RedbackH60` mount is gone.
+The eight pods load 864 kg against the Hellfires' 379 kg; in the game that
+costs about 6% of the fit's range and adds a little to the noise sonar
+hears, but changes no speed or handling.
+
+**The flight.** `MidCourseCorrection=0` stays: it is what made the round
+fire. The rest was set from the game's own rules, read from Sea Power
+0.8.7's code on 23 Oct and summarised in the builder's comment above the
+round's swaps. With `ApplyKinematics=False` the flame is a timer, ten
+seconds from launch whatever the round does; it has not changed. Each stage
+of the flight has a speed target: `MaxVelocity` while the round launches
+and turns onto its bearing, `MaxLoftVelocity` through the climb and the
+whole cruise, `TerminalVelocity` from `TerminalApproachDist` in. Above its
+target the round slows in a straight line at `Deceleration` x 19.05 kt/s;
+below it the motor speeds it up at `Acceleration` x 22.9 kt/s. Fired from
+an aircraft, the motor works only with `AccelerationTime=6`, the game's
+default; the 19 Oct 0.01 gave no thrust. And terminal approach holds the
+height the round has, so `57375598`'s 8 NM `TerminalApproachDist` put every
+shot inside 8 NM into terminal approach from launch, with no climb: that
+was the shorter boost. Now `TerminalApproachDist` is 2.0 again (the 2 km
+climb on every shot from about 3.6 NM), `AccelerationTime` 6,
+`MaxVelocity` 450 (the run-up as it leaves the pod), `MaxLoftVelocity`
+150 (climb and cruise), `Acceleration` 12 and `Deceleration` 0.25: a hard
+run-up toward 450 kt, then a straight-line bleed of about 4.8 kt/s to the
+150-kt cruise, 450 to 150 kt in about a minute, and a pick-up to 220 kt
+from 2 NM. How fast the run-up gets depends on how long the game's launch
+stages last, which only the play test shows. The ten-second flame, the
+2 km loft, the 1.1 NM dive and the 220-knot terminal target are unchanged.
+
+The fit keeps its name, so no mission file changes. Not yet seen in game:
+the test card's first things, 6, checks the loadout preview, the firing
+from the 7-tube pods, the flame, the climb, the run-up and the slow-down.
+
+## Steel Highway's boat spawns at random around the report (23 October, later)
+
+The owner asked that in SW02 Steel Highway the submarine "spawn in random
+area of about 35NM from the reported contact that stays for 1 min".
+
+- **The boat.** Contact BRAVO, the Type 039B, now uses the game's own random
+  spawn (`RandomSpawnCenter`, `RandomSpawnRange`, `RandomSpawnDirection`, as
+  the stock *Sub Duel JMSDF 1985* uses them): from the reported datum 30 NM
+  up the track, 0 to 35 NM out, on any bearing from 290 degrees through north
+  to 200 degrees. The 90 degrees left out face the escorts and convoy, which
+  start 30-33 NM from the datum on 238-245 degrees, so every possible start
+  is at least 17 NM from a ship or the Poseidon. She still creeps toward the
+  same point on the track. The builder takes `random_spawn` on any unit and
+  writes the three keys in place of its fixed position.
+- **The reported contact.** The Torres Light record (O1's win,
+  `O1BeaconFound`) still puts one minute of a bare contact on the plot, but
+  now on a stand-in left at the datum (weapons held, stopped) rather than on
+  the boat, so the record shows where she was reported and not where she is.
+  A new `despawn_at` trigger removes the stand-in at 61 s, with no score.
+- **The briefing** adds that by now the boat could be anywhere within
+  thirty-five miles of the report.
+- **Unchecked:** no coastline or depth extract covers this sea (the
+  Southern Watch builder proves positions from loading missions instead), and
+  the game picks the point at random, so a start on a reef or in shallows is
+  possible. Test card H.20a asks for three starts.
+
+## The menu plugin leaves scenario pictures alone (24 October)
+
+The owner reported that scenario-menu pictures and maps were showing SEST
+photographs. Codex traced it to `integration/menu-background/SestMenuBackground.cs`:
+with `CampaignArt=1` (the generated `sest_menu.ini` default) `PictureSwap.Wanted`
+accepted every PNG or JPG under any `campaigns` or `missions` folder outside
+the pack, so stock and other mods' scenario pictures, briefing images and maps
+were painted over along with title art, although the ini said maps were never
+touched.
+
+- `CampaignArt` is retired. The plugin now paints only `ui/backgrounds`
+  pictures (menu backdrops and loading screens) and refuses anything in a
+  campaigns or missions folder; an old ini that still sets `CampaignArt=1`
+  is ignored, with one line in Player.log saying so.
+- The generated `sest_menu.ini` and `README.txt` no longer offer it.
+- Textures the old build already repainted stay repainted until the game is
+  restarted.
+- Not yet seen in game. The briefing fonts and colours in the same report are a
+  separate question, not yet confirmed.

@@ -1,8 +1,8 @@
 # Mod tiers — every active mod by tier
 
-Generated from `data/mod-catalog.json` by `tools/generate_load_order.py` — 196 active subscriptions plus the SEST Integration Pack (24 packs consolidated). Top of the Mod Manager = highest priority: the higher-listed mod wins file conflicts.
+Generated from `data/mod-catalog.json` by `tools/generate_load_order.py` — 199 active subscriptions plus the SEST Integration Pack (25 packs consolidated). Top of the Mod Manager = highest priority: the higher-listed mod wins file conflicts.
 
-This is a tier grouping, NOT the load order. The canonical Mod Manager order is `data/load-order.tokens.txt` (197 entries: SEST_Integration plus the 196 Workshop mods); the pack ships it as LOAD-ORDER.txt and SETUP writes it. Where the numbering below differs, the canonical order wins (for example, its last four are **Philippines: The Luzon Line**, **Thailand: The Siam Shield**, **RE-power: the resupply mod** and **Real photos of airplanes and helicopters**).
+This is a tier grouping, NOT the load order. The canonical Mod Manager order is `data/load-order.tokens.txt` (200 entries: SEST_Integration plus the 199 Workshop mods); the pack ships it as LOAD-ORDER.txt and SETUP writes it. Where the numbering below differs, the canonical order wins (for example, its last four are **Philippines: The Luzon Line**, **Thailand: The Siam Shield**, **RE-power: the resupply mod** and **Real photos of airplanes and helicopters**).
 
 Tier 0 is the SEST block and must stay unbroken at the top. Tiers 1–3 are ordered deliberately (position changes behavior). Tiers 4–6 are listed alphabetically here — within them, order only matters between mods flagged in the conflict watchlist (`docs/conflicts-and-load-order.md`).
 
@@ -12,221 +12,224 @@ Tier 0 is the SEST block and must stay unbroken at the top. Tiers 1–3 are orde
 
 ## Tier 1 — loader
 
-2. **Anchor Chain** — loader — SeaLifter loads via its preloader alongside
+2. **Anchor Chain** — loader, with its preloader (SeaLifter is not needed)
 
 ## Tier 1b — code mods (Anchor Chain family; position among themselves is free)
 
 3. **Custom Loadout Editor** — code mod — position not order-sensitive
 4. **Better TacMap** — code mod — UI
-5. **Coordinated Strike Tool** — code mod — time-on-target planner (F8); no game data, one _info.ini
-6. **Automatic SAR** — code mod — right-click SAR; the campaign pays for survivors
-7. **Identify Expanded** — code mod — identification and challenge orders; reads its own ini
-8. **Operation STEADFAST LANTERN** — third-party campaign; its nation-flag table (ui/Default/Settings_UI_General.ini) must outrank every other copy, and it is a strict superset of the previous winner's
+5. **Formation Manager Replacement** — compact formation UI and aircraft map grouping; Anchor Chain
+6. **Combat Cost Tracker** — USD expenditure and loss overlay; SEST cost catalog extensions load above it
+7. **Coordinated Strike Tool** — code mod — time-on-target planner (F8); no game data, one _info.ini
+8. **Automatic SAR** — code mod — right-click SAR; the campaign pays for survivors
+9. **Identify Expanded** — code mod — identification and challenge orders; reads its own ini
+10. **Operation STEADFAST LANTERN** — third-party campaign; its nation-flag table (ui/Default/Settings_UI_General.ini) must outrank every other copy, and it is a strict superset of the previous winner's
 
 ## Tier 2 — weapon/system databases (this exact order)
 
-9. **SAM Pack** — author: "top of TOE"
-10. **PLA Land Unit Pack** — author: "above any other PLA-related mods"
-11. **Dingtools Weapon Pack** — author: "above any of my mods"
-12. **U.S. Navy 2027 Capabilities mod** — above Euromod - it ships better RIM-116/RIM-66/RIM-174 than Euromod's
-13. **Euromod - Main Pack** — above all Euromod addons
-14. **Modern PLAN Systems** — above PLAN ships
+11. **SAM Pack** — author: "top of TOE"
+12. **PLA Land Unit Pack** — author: "above any other PLA-related mods"
+13. **Dingtools Weapon Pack** — author: "above any of my mods"
+14. **U.S. Navy 2027 Capabilities mod** — above Euromod - it ships better RIM-116/RIM-66/RIM-174 than Euromod's
+15. **Euromod - Main Pack** — above all Euromod addons
+16. **Modern PLAN Systems** — above PLAN ships
 
 ## Tier 3 — patches, each above what it modifies (this exact order)
 
-15. **F-35C Lightning II Alt. Loadouts** — KEEP — SEST F-35C JATM is built from it and loadouts hang a round it ships; must stay below the SEST pack
-16. **F/A-18 Murder Hornet with AIM-174B** — above other F/A-18E/F sources
-17. **B-52G with AGM-86 (realistic nuke)** — patches the vanilla B-52G
-18. **Tu-95 With AS-15 (Kh-55) ALCM (more realistic nuke)** — global munition edits — treat as a patch, not an aircraft
-19. **Flight Deck Ops** — above carriers
-20. **Air Deck Operations Upgrade - Nimitz (2000s)** — KEEP — the campaigns place its carrier (Flight Deck Day)
-21. **Ground Upgrade: SPAA** — edits ground-unit values
+17. **F-35C Lightning II Alt. Loadouts** — KEEP — SEST F-35C JATM is built from it and loadouts hang a round it ships; must stay below the SEST pack
+18. **F/A-18 Murder Hornet with AIM-174B** — above other F/A-18E/F sources
+19. **B-52G with AGM-86 (realistic nuke)** — patches the vanilla B-52G
+20. **Tu-95 With AS-15 (Kh-55) ALCM (more realistic nuke)** — global munition edits — treat as a patch, not an aircraft
+21. **Flight Deck Ops** — above carriers
+22. **Air Deck Operations Upgrade - Nimitz (2000s)** — KEEP — the campaigns place its carrier (Flight Deck Day)
+23. **Ground Upgrade: SPAA** — edits ground-unit values
 
 ## Tier 4 — fleets, ships, submarines
 
-22. 1143.5 Kuznetsov
-23. [DEPRECATED] Anzac Class Frigate — *KEEP — the only source of the RAN Anzac hull the campaigns use; since 20 Sep 2026 SEST RAN Fleet patches this mod's own vessels/ran_ffh_anzac.ini, so its real ASMD hull is what loads*
-24. Anduril Maritime Drones
-25. Auxilliary Merchant Pack
-26. Charles De Gaulle & Modern French Navy Pack (WIP)
-27. Chinese Navy (PLAN)
-28. Clemenceau-class Aircraft Carrier
-29. Euromod - Cold War Spanish Navy
-30. Euromod - Modern British Navy
-31. Euromod - Modern Dutch navy
-32. Euromod - Modern German Navy
-33. Euromod - Modern Italian Navy
-34. Euromod - Modern Japanese Maritime Self Defence Force
-35. Euromod - Modern Nordic Navy
-36. Euromod - Modern Spanish Navy
-37. EUROMOD-Armada de Chile — *canonical order puts it below RADF and far below <<E-3G>> ([AN/APY-2])*
-38. Euromod-Brazilian Armed Forces(2000)
-39. Euromod-India-Navy
-40. Euromod-Philippine-Navy
-41. Euromod-South Korea Navy
-42. Gerald R. Ford-class CVN Aircraft Carrier (Updated Dependencies)
-43. Italian Navy Mod
-44. JMSDF Hyūga Class — Hyūga & Ise
-45. Kirov-class (Pyotr Velikiy Upgrade)
-46. Merchants Expanded
-47. Modern US Navy
-48. Mogami-class Frigate
-49. Moloti's Armed Merchantmen — *beside Merchants Expanded; no collision with anything, position free*
-50. Nimitz Expanded
-51. Philippines: The Luzon Line — *canonical order puts it below RADF and below KC-135 ([MK22])*
-52. PLAN Submarines
-53. PLAN Type 001 Aircraft Carrier Liaoning
-54. PLAN Type 071 Amphibious Transport Dock
-55. Project 2498 Zyetseth Class Assault Vessel
-56. RE-power: the resupply mod — *canonical order puts it last, below the Luzon Line and the Siam Shield, with which it shares no files*
-57. Royal Australian Defence Forces — *canonical order puts it in the bottom block above The Royal Navy: it loses every duplicate*
-58. Royal Navy Type 23 'Duke Class' Frigate [OLD] — *verified additive — position free*
-59. Russian Navy 21
-60. Russian Submarines (Yasen, Akula, Sierra I/II, Oscar II, Belgorod, Typhoon, Delta IV classes)
-61. Saronic Corsair ASV
-62. Thailand: The Siam Shield — *canonical order puts it below the Luzon Line (same author), which keeps the 11 rounds and textures both ship*
-63. The Royal Navy — *canonical order puts it in the bottom block below RADF; SEST Collection Fixes restores the game files it ships stale*
-64. Type 003 Fujian / Type 004 CVN Aircraft Carriers
-65. United States Naval Aviation
-66. Virginia-, Seawolf-, and Ohio-class Submarines
+24. 1143.5 Kuznetsov
+25. Anduril Maritime Drones
+26. Auxilliary Merchant Pack
+27. Charles De Gaulle & Modern French Navy Pack (WIP)
+28. Chinese Navy (PLAN)
+29. Clemenceau-class Aircraft Carrier
+30. Euromod - Cold War Spanish Navy
+31. Euromod - Modern British Navy
+32. Euromod - Modern Dutch navy
+33. Euromod - Modern German Navy
+34. Euromod - Modern Italian Navy
+35. Euromod - Modern Japanese Maritime Self Defence Force
+36. Euromod - Modern Nordic Navy
+37. Euromod - Modern Royal Australian Navy Mod
+38. Euromod - Modern Spanish Navy
+39. EUROMOD-Armada de Chile — *canonical order puts it below RADF and Euromod RAN, whose Type 277Q and Adelaide fire-control sections win*
+40. Euromod-Brazilian Armed Forces(2000)
+41. Euromod-India-Navy
+42. Euromod-Philippine-Navy
+43. Euromod-South Korea Navy
+44. Gerald R. Ford-class CVN Aircraft Carrier (Updated Dependencies)
+45. Italian Navy Mod
+46. JMSDF Hyūga Class — Hyūga & Ise
+47. Kirov-class (Pyotr Velikiy Upgrade)
+48. Merchants Expanded
+49. Modern US Navy
+50. Mogami-class Frigate
+51. Moloti's Armed Merchantmen — *beside Merchants Expanded; no collision with anything, position free*
+52. Nimitz Expanded
+53. Philippines: The Luzon Line — *canonical order puts it below RADF and below KC-135 ([MK22])*
+54. PLAN Submarines
+55. PLAN Type 001 Aircraft Carrier Liaoning
+56. PLAN Type 071 Amphibious Transport Dock
+57. Project 2498 Zyetseth Class Assault Vessel
+58. RE-power: the resupply mod — *canonical order puts it last, below the Luzon Line and the Siam Shield, with which it shares no files*
+59. Royal Australian Defence Forces — *canonical order puts it in the bottom block above The Royal Navy: it loses every duplicate*
+60. Royal Navy Type 23 'Duke Class' Frigate [OLD] — *verified additive — position free*
+61. Russian Navy 21
+62. Russian Submarines (Yasen, Akula, Sierra I/II, Oscar II, Belgorod, Typhoon, Delta IV classes)
+63. Saronic Corsair ASV
+64. Thailand: The Siam Shield — *canonical order puts it below the Luzon Line (same author), which keeps the 11 rounds and textures both ship*
+65. The Royal Navy — *canonical order puts it in the bottom block below RADF; SEST Collection Fixes restores the game files it ships stale*
+66. Type 003 Fujian / Type 004 CVN Aircraft Carriers
+67. United States Naval Aviation
+68. Virginia-, Seawolf-, and Ohio-class Submarines
 
 ## Tier 5 — aircraft, helicopters, UAVs, land units, weapons, civilian
 
-67. 3M25 <<МЕТЕОРИТ>> (AS-X-19 Koala)
-68. <<E-3G>>
-69. <<Tu-16N>>
-70. [DEPRECATED] E-7A Wedgetail — *KEEP — the only source of E7A_Wedgetail, which the campaigns place; SEST RAAF Wedgetail and SEST RAAF Bases depend on it*
-71. [DEPRECATED] S-70B-2 Seahawk with AGM-114 'Hellfire' Missiles — *KEEP — the only source of S-70B-2_Seahawk, which the campaigns place; SEST RAN Fleet and SEST RAAF Bases depend on it*
-72. A-10A Thunderbolt II
-73. A-10C
-74. AH-64 Apache
-75. Anduril FQ-44 Fury US Navy Carrier Wingmen
-76. Apex Predators MIG-29A & F-16A
-77. Armed Oil Rig with Helo MOD
-78. ARRW (AGM-183)
-79. AVIC HARBIN Z-21
-80. B-1B Lancer
-81. B-2 Spirit
-82. B-52H Stratofortress
-83. Boeing P-8 Poseidon
-84. Bréguet Br.1050 Alizé — *canonical order puts it below The Royal Navy and RADF, above Aquilon*
-85. Buildings and Targets for Missions
-86. BUK-M3
-87. CH-53E Standalone v0.1.0
-88. ChengDu J-10C Vigorous Dragon
-89. Civil Aircraft Mod (Airbus Family)
-90. Civilian AS350 Ecureuil/AStar MOD
-91. David's Sling
-92. Dynamic Campaign Mod
-93. EC-2 Stand Off Jammer
-94. EMAD
-95. Etendard Family Jets — *canonical order puts it below French Air Force, whose Magic 2 the Mirage 2000s keep*
-96. Eurofighter Typhoon
-97. Euromod - Anchorchain Expansion Pack
-98. F-117 Nighthawk
-99. F-15 EX Eagle II
-100. F-15E StrikeEagle
-101. F-15J Peace Eagle
-102. F-16C Fighting Falcon (modern)
-103. F-22 Raptor
-104. F-2A 'Viper Zero'
-105. F-8 Crusader — *canonical order puts it below French Air Force and the Etendards: its Magic 2 is an outlier*
-106. Fattah-1
-107. Fattah-2
-108. French Air Force — *canonical order puts it in the bottom block, below THE REDFOR MOD and above the Etendard, F-8 and Gripen packs: its 12 shared rounds are identical or older copies of the MQ-9 Reaper's, the French Navy pack's and the Soviet AEW&C pack's, and it loses every one; the Rafale and Mirage 2000 families load from it alone*
-109. French Army Vehicles
-110. French Helicopter Package
-111. General Atomics MQ-9 Reaper
-112. Ground Upgrade: IFV — *below KC-135 so the game's [TOW_M2] holds*
-113. Ground Upgrade: MBT
-114. Humpback Whale
-115. ICBM silos
-116. IL-78 TANKER
-117. Iran Bell-212
-118. Iran UAV Shahed 238
-119. Iskander TBM
-120. ISKANDER-M — *above THE REDFOR MOD (ss-26 mesh)*
-121. J-20 (歼-20 威龙)
-122. J-36 Tailless Fighter
-123. JAS-39 Gripen — *canonical order puts it below French Air Force ([Damoncles]) and above Ultimate Missile Workshop (its AIM-120C-7)*
-124. Ka-27RLD
-125. KC-135 STRATOTANKER
-126. KC-46A Pegasus - Strategic Tanker
-127. Lockheed AC-130 Pack
-128. Mare Nostrum '28
-129. McDonnell Douglas KC-10A Extender - Strategic Tanker
-130. MH-60R Seahawk — *keep subscribed: ADO Nimitz 2000s draws its deck Seahawks from this mod's usn_sh-60b model folder. The MH-60R squadron table is SEST Collection Fixes' now (United States Naval Aviation's, written for the model that loads, plus 816 Squadron RAN), so its position above US Naval Aviation no longer decides it; unit file stays with U.S. Navy 2027*
-131. Mi-8 T/TV
-132. Mi-8EW
-133. MIG-29 Family — *watchlist: MiG-29/R-series overlap*
-134. MiG-31 Foxhound
-135. MiG-35 Fulcrum-F (米格-35 支点-F)
-136. Mil Mi-24 Hind
-137. MORE SU-24M VARIANTS
-138. MV-75 Cheyenne II — *beside the MV-22B; no collision with anything, position free*
-139. NATO E-3A Sentry
-140. NATO Ground Enhancement Series 2: Artillery
-141. NEBO-U
-142. Pakistani Pack — *canonical order puts it below Red Storm Arsenal, whose [KLC-7] the SEST-fielded KJ-600 uses*
-143. Pickup truck extension
-144. PLA & PLAN & PLAAF AEP — *Anchorchain expansion — below the loader, with the Euromod one*
-145. PLA Shenyang J-11BS
-146. PLA Sukhoi Su-27UBK
-147. PLAAF Aircraft Pack — *canonical order puts it in the bottom block, below the Gripen and above Ultimate Missile Workshop and Red Storm Arsenal: 56 shared files all lost to the specialist PLAAF mods above it, so only its H-6 family, J-7s, J-10A and 39 rounds load; SEST Collection Fixes restores the English loading tips its language_en folder overwrites*
-148. Prithvi TBM (大地弹道导弹)
-149. RC-135V/W Rivet Joint — *above Red Storm Arsenal, whose RC-135W is a different file (usaf_rc_135) — no collision; its sensors.ini merges*
-150. Real photos of airplanes and helicopters
-151. Rebuilt J-16 / J-16D — *duplicate platform with Shenyang J-16A — different unit ids, both load*
-152. Road Mobile ICBMs (Topol-M, DF-41)
-153. Royal Navy Westland Lynx HAS.3 Kitbash [OLD] — *verified additive — position free*
-154. RQ-180 White Bat Airframe
-155. Russian Ground Enhancement Series 1: Artillery
-156. S-300PMU2 — *above S-400, S-500 and THE REDFOR MOD*
-157. S-350 Vityaz — *below S-500; loses its 2 shared files to Euromod*
-158. S-500 — *below S-400 SAM (the Flap Lid SEST places)*
-159. SA-21/S-400 SAM — *watchlist: land air-defense overlap*
-160. SAAB AEW&C PACK
-161. SCUD-B
-162. Sea Lynx
-163. Sea Venom - Aquilon — *canonical order puts it below The Royal Navy and RADF (shared rack ids)*
-164. SEJJIL (Iran Ballistic Missiles)
-165. Shahed-136 Kamikaze Drone (Geran-2)
-166. Shenyang J-11
-167. Shenyang J-16A (歼-16A 潜龙)
-168. Shenyang J-50 (沈阳航空工业 歼-50)
-169. Shenyang J-8
-170. Small and Medium-Sized UAV Series [WIP] (中小型无人机系列)
-171. Soviet AEW&C + Transport Aircraft (A-50 / Il-76)
-172. Su-25 Frogfoot
-173. Su-30SM2
-174. SU-57 Felon (重刑犯)
-175. Sukhoi Flanker Family (苏霍伊侧卫家族)
-176. Terminal High Altitude Area Defense (T.H.A.A.D) System (AN/TPY-2 Radar System included)
-177. The Second Northern War
-178. TU-160 Blackjack
-179. Tu-214R Family (图-214R家族)
-180. Tu-95K-22 Bear G MOD — *watchlist: see Tu-95 row*
-181. Tu-95MS (X-101) — *watchlist: order vs the other Tu-95 mods decides shared files*
-182. Type 12 SSM-ER Anti-Ship Missile System
-183. U-2 "Dragon Lady"
-184. V-22 Osprey / SV-22 2024 ASW prototype
-185. VH-3D Marine One MOD
-186. XIAN JH-7A (歼轰-7A 飞豹)
-187. Y-20 / KJ-3000
-188. Y-8/Y-9 Special Mission Aircraft Family
-189. YF-23 Black Widow II
+69. 3M25 <<МЕТЕОРИТ>> (AS-X-19 Koala)
+70. <<E-3G>>
+71. <<Tu-16N>>
+72. [DEPRECATED] E-7A Wedgetail — *KEEP — the only source of E7A_Wedgetail, which the campaigns place; SEST RAAF Wedgetail and SEST RAAF Bases depend on it*
+73. [DEPRECATED] S-70B-2 Seahawk with AGM-114 'Hellfire' Missiles — *KEEP — the only source of S-70B-2_Seahawk, which the campaigns place; SEST RAN Fleet and SEST RAAF Bases depend on it*
+74. A-10A Thunderbolt II
+75. A-10C
+76. AH-64 Apache
+77. Anduril FQ-44 Fury US Navy Carrier Wingmen
+78. Apex Predators MIG-29A & F-16A
+79. Armed Oil Rig with Helo MOD
+80. ARRW (AGM-183)
+81. AVIC HARBIN Z-21
+82. B-1B Lancer
+83. B-2 Spirit
+84. B-52H Stratofortress
+85. Boeing P-8 Poseidon
+86. Bréguet Br.1050 Alizé — *canonical order puts it below The Royal Navy and RADF, above Aquilon*
+87. Buildings and Targets for Missions
+88. BUK-M3
+89. CH-53E Standalone v0.1.0
+90. ChengDu J-10C Vigorous Dragon
+91. Civil Aircraft Mod (Airbus Family)
+92. Civilian AS350 Ecureuil/AStar MOD
+93. David's Sling
+94. Dynamic Campaign Mod
+95. EC-2 Stand Off Jammer
+96. EMAD
+97. Etendard Family Jets — *canonical order puts it below French Air Force, whose Magic 2 the Mirage 2000s keep*
+98. Eurofighter Typhoon
+99. Euromod - Anchorchain Expansion Pack
+100. F-117 Nighthawk
+101. F-15 EX Eagle II
+102. F-15E StrikeEagle
+103. F-15J Peace Eagle
+104. F-16C Fighting Falcon (modern)
+105. F-22 Raptor
+106. F-2A 'Viper Zero'
+107. F-8 Crusader — *canonical order puts it below French Air Force and the Etendards: its Magic 2 is an outlier*
+108. Fattah-1
+109. Fattah-2
+110. French Air Force — *canonical order puts it in the bottom block, below THE REDFOR MOD and above the Etendard, F-8 and Gripen packs: its 12 shared rounds are identical or older copies of the MQ-9 Reaper's, the French Navy pack's and the Soviet AEW&C pack's, and it loses every one; the Rafale and Mirage 2000 families load from it alone*
+111. French Army Vehicles
+112. French Helicopter Package
+113. General Atomics MQ-9 Reaper
+114. Ground Upgrade: IFV — *below KC-135 so the game's [TOW_M2] holds*
+115. Ground Upgrade: MBT
+116. Humpback Whale
+117. ICBM silos
+118. IL-78 TANKER
+119. Iran Bell-212
+120. Iran UAV Shahed 238
+121. Iskander TBM
+122. ISKANDER-M — *above THE REDFOR MOD (ss-26 mesh)*
+123. J-20 (歼-20 威龙)
+124. J-36 Tailless Fighter
+125. JAS-39 Gripen — *canonical order puts it below French Air Force ([Damoncles]) and above Ultimate Missile Workshop (its AIM-120C-7)*
+126. Ka-27RLD
+127. KC-135 STRATOTANKER
+128. KC-46A Pegasus - Strategic Tanker
+129. Lockheed AC-130 Pack
+130. Mare Nostrum '28
+131. McDonnell Douglas KC-10A Extender - Strategic Tanker
+132. MH-60R Seahawk — *keep subscribed: ADO Nimitz 2000s draws its deck Seahawks from this mod's usn_sh-60b model folder. The MH-60R squadron table is SEST Collection Fixes' now (United States Naval Aviation's, written for the model that loads, plus 816 Squadron RAN), so its position above US Naval Aviation no longer decides it; unit file stays with U.S. Navy 2027*
+133. Mi-8 T/TV
+134. Mi-8EW
+135. MIG-29 Family — *watchlist: MiG-29/R-series overlap*
+136. MiG-31 Foxhound
+137. MiG-35 Fulcrum-F (米格-35 支点-F)
+138. Mil Mi-24 Hind
+139. MORE SU-24M VARIANTS
+140. MV-75 Cheyenne II — *beside the MV-22B; no collision with anything, position free*
+141. NATO E-3A Sentry
+142. NATO Ground Enhancement Series 2: Artillery
+143. NEBO-U
+144. Pakistani Pack — *canonical order puts it below Red Storm Arsenal, whose [KLC-7] the SEST-fielded KJ-600 uses*
+145. Pickup truck extension
+146. PLA & PLAN & PLAAF AEP — *Anchorchain expansion — below the loader, with the Euromod one*
+147. PLA Shenyang J-11BS
+148. PLA Sukhoi Su-27UBK
+149. PLAAF Aircraft Pack — *canonical order puts it in the bottom block, below the Gripen and above Ultimate Missile Workshop and Red Storm Arsenal: 56 shared files all lost to the specialist PLAAF mods above it, so only its H-6 family, J-7s, J-10A and 39 rounds load; SEST Collection Fixes restores the English loading tips its language_en folder overwrites*
+150. Prithvi TBM (大地弹道导弹)
+151. RC-135V/W Rivet Joint — *above Red Storm Arsenal, whose RC-135W is a different file (usaf_rc_135) — no collision; its sensors.ini merges*
+152. Real photos of airplanes and helicopters
+153. Rebuilt J-16 / J-16D — *duplicate platform with Shenyang J-16A — different unit ids, both load*
+154. Road Mobile ICBMs (Topol-M, DF-41)
+155. Royal Navy Westland Lynx HAS.3 Kitbash [OLD] — *verified additive — position free*
+156. RQ-180 White Bat Airframe
+157. Russian Ground Enhancement Series 1: Artillery
+158. S-300PMU2 — *above S-400, S-500 and THE REDFOR MOD*
+159. S-350 Vityaz — *below S-500; loses its 2 shared files to Euromod*
+160. S-500 — *below S-400 SAM (the Flap Lid SEST places)*
+161. SA-21/S-400 SAM — *watchlist: land air-defense overlap*
+162. SAAB AEW&C PACK
+163. SCUD-B
+164. Sea Lynx
+165. Sea Venom - Aquilon — *canonical order puts it below The Royal Navy and RADF (shared rack ids)*
+166. SEJJIL (Iran Ballistic Missiles)
+167. Shahed-136 Kamikaze Drone (Geran-2)
+168. Shenyang J-11
+169. Shenyang J-16A (歼-16A 潜龙)
+170. Shenyang J-50 (沈阳航空工业 歼-50)
+171. Shenyang J-8
+172. Small and Medium-Sized UAV Series [WIP] (中小型无人机系列)
+173. Soviet AEW&C + Transport Aircraft (A-50 / Il-76)
+174. Steelfin
+175. Su-25 Frogfoot
+176. Su-30SM2
+177. SU-57 Felon (重刑犯)
+178. Sukhoi Flanker Family (苏霍伊侧卫家族)
+179. Terminal High Altitude Area Defense (T.H.A.A.D) System (AN/TPY-2 Radar System included)
+180. The Second Northern War
+181. TU-160 Blackjack
+182. Tu-214R Family (图-214R家族)
+183. Tu-95K-22 Bear G MOD — *watchlist: see Tu-95 row*
+184. Tu-95MS (X-101) — *watchlist: order vs the other Tu-95 mods decides shared files*
+185. Type 12 SSM-ER Anti-Ship Missile System
+186. U-2 "Dragon Lady"
+187. V-22 Osprey / SV-22 2024 ASW prototype
+188. VH-3D Marine One MOD
+189. XIAN JH-7A (歼轰-7A 飞豹)
+190. Y-20 / KJ-3000
+191. Y-8/Y-9 Special Mission Aircraft Family
+192. YF-23 Black Widow II
 
 ## Tier 6 — airbases last
 
-190. Modern Chinese Airbase (Large)
-191. Modern Russian Airbase (Large)
-192. Modern US Airbase
+193. Modern Chinese Airbase (Large)
+194. Modern Russian Airbase (Large)
+195. Modern US Airbase
 
 ## Tier 7 — bulk arsenals, below everything they duplicate
 
-193. **THE REDFOR MOD** — consolidation pack below the specialists it copied (S-300PMU2, ISKANDER-M, Su-27, TU-16N, P-750, Russian Navy 21, Euromod): loses every shared file
-194. **ISKANDER-K** — below THE REDFOR MOD, whose fuller wp_iskander and wp_r-500 win
-195. **wp_sattelite_center** — below THE REDFOR MOD, whose byte-identical copies win
-196. **Ultimate Missile Workshop** — below everything it duplicates, on the player's call: its author's 'above all' would take 91 rounds and break the Gripen's AIM-120C-7
-197. **Red Storm Arsenal** — near the bottom - 638 unique files kept, 13 duplicated ones all lose; only the Pakistani Pack, the two Commonwealth packs, the Cold War rocket carriers, Chile, the Luzon Line, the Siam Shield and RE-power sit below it
+196. **THE REDFOR MOD** — consolidation pack below the specialists it copied (S-300PMU2, ISKANDER-M, Su-27, TU-16N, P-750, Russian Navy 21, Euromod): loses every shared file
+197. **ISKANDER-K** — below THE REDFOR MOD, whose fuller wp_iskander and wp_r-500 win
+198. **wp_sattelite_center** — below THE REDFOR MOD, whose byte-identical copies win
+199. **Ultimate Missile Workshop** — below everything it duplicates, on the player's call: its author's 'above all' would take 91 rounds and break the Gripen's AIM-120C-7
+200. **Red Storm Arsenal** — near the bottom - 638 unique files kept, 13 duplicated ones all lose; only the Pakistani Pack, the two Commonwealth packs, the Cold War rocket carriers, Chile, the Luzon Line, the Siam Shield and RE-power sit below it
 

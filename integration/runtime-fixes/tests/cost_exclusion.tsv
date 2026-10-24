@@ -1,0 +1,38 @@
+# Which rounds CombatCosts 0.7.1 counts at all (CostRules.Resolve and ValidCategory, read from the IL of
+# CombatCosts.dll 74afa902...). Price starts as Category "Ignore", which the tracker skips without a
+# "+ ?"; only a valid category of its own, or Missile and the fallback types, replace it. Checked by
+# tools/tests/test_combat_costs.py against costs.weapon_excluded.
+#
+# Columns, tab-separated: case, category (the resolved value: "-" none, "(blank)" empty), ammo_type
+# (the game's Ammunition.Type name), result (counted or excluded).
+case	category	ammo_type	result
+missile without a category	-	Missile	counted
+torpedo without a category	-	Torpedo	counted
+gun round without a category	-	Projectile	counted
+blank category with MLRS	(blank)	MLRS	counted
+ASROC	-	ASROC	counted
+RBU	-	RBU	counted
+air-dropped depth charge	-	AirDepthCharge	counted
+bomb	-	Bomb	counted
+aerial rocket	-	AerialRocket	counted
+the Missile test ignores letter case	-	missile	counted
+the fallback table ignores letter case	-	TORPEDO	counted
+chaff without a category	-	Chaff	excluded
+noisemaker	-	Noisemaker	excluded
+sonobuoy	-	Sonobuoy	excluded
+cluster	-	Cluster	excluded
+MOSS	-	MOSS	excluded
+paratrooper	-	Paratrooper	excluded
+fuel tank	-	Fueltank	excluded
+Unknown	-	Unknown	excluded
+None	-	None	excluded
+Ignore	Ignore	Missile	excluded
+ignore in lower case	ignore	Torpedo	excluded
+IGNORE in capitals	IGNORE	Chaff	excluded
+an invalid character	SAM!	Missile	excluded
+21 characters	ABCDEFGHIJKLMNOPQRSTU	Missile	excluded
+20 characters	ABCDEFGHIJKLMNOPQRST	Chaff	counted
+a category rescues a decoy	Decoy	Chaff	counted
+space, dash, underscore and digit	Fuel tank-2_b	Fueltank	counted
+a letter outside A-Z	Café	Missile	excluded
+a non-ASCII decimal digit	SAM٣	Chaff	counted

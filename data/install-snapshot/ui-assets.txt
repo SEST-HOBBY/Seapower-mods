@@ -1,6 +1,6 @@
 # Names in Sea Power's Unity data and code that read like background, loading, splash
 # or menu pictures (tools\scan-ui-assets.ps1) - what a plugin must find to swap one.
-# files: globalgamemanagers=11177780;globalgamemanagers.assets=1242476;level0=3388;level1=1736;level2=77624;level3=3360;level4=1608;level5=1640;level6=1828;resources.assets=2521250592;sharedassets0.assets=55184;sharedassets1.assets=2623108;sharedassets2.assets=1532200;sharedassets3.assets=793;sharedassets4.assets=7976;sharedassets5.assets=158640;sharedassets6.assets=755260;AmplifyBloom.dll=3584;AmplifyColor.dll=3584;andywiecko.BurstTriangulator.dll=66048;Assets.dll=865280;AstarPathfindingProject.dll=1204736;Clipper2Lib.dll=87040;com.bartofzo.nativetrees.dll=32768;com.bartofzo.nativetrees.samples.dll=18944;com.rlabrecque.steamworks.net.dll=399360;CommunityToolkit.Mvvm.dll=113960;Drawing.dll=123904;GUPS.EasyPerformanceMonitor.Demo.dll=20480;GUPS.EasyPerformanceMonitor.dll=57856;Humanizer.dll=718000;io.sentry.unity.runtime.dll=7680;Libraries.dll=728576;MathNet.Numerics.dll=1590272;MessagePack.Annotations.dll=11776;MessagePack.dll=338432;Nerdbank.Streams.dll=218808;Nito.AsyncEx.Context.dll=13824;Nito.AsyncEx.Tasks.dll=35840;Nito.Disposables.dll=22528;Noesis.NoesisGUI.dll=1502720;PackageTools.dll=7168;ParadoxNotion.dll=453120;Pathfinding.ClipperLib.dll=58880;Pathfinding.Ionic.Zip.Reduced.dll=240640;Pathfinding.Poly2Tri.dll=36352;Plugins.dll=437760;Seapower-Scripts.dll=8515072;Sentry.dll=796160;Sentry.Microsoft.Bcl.AsyncInterfaces.dll=16384;Sentry.System.Collections.Immutable.dll=178688;Sentry.System.Reflection.Metadata.dll=451584;Sentry.System.Runtime.CompilerServices.Unsafe.dll=8704;Sentry.System.Text.Encodings.Web.dll=68608;Sentry.System.Text.Json.dll=595456;Sentry.Unity.dll=165888;Sentry.Unity.Native.dll=28160;ShapesRuntime.dll=369664;ShapesSamples.dll=22528;SingularityGroup.HotReload.Runtime.Public.dll=5120;SQLitePCLRaw.batteries_v2.dll=11776;SQLitePCLRaw.core.dll=51200;SQLitePCLRaw.provider.dynamic_cdecl.dll=68096;StreamJsonRpc.dll=355880;StreamJsonShim.dll=5120;UniRx.dll=424448;Vectrosity.dll=122368;Vuplex.WebView.dll=848384;Vuplex.WebViewDemos.dll=43008;websocket-sharp.dll=250368
+# files: globalgamemanagers=11191812;globalgamemanagers.assets=1243564;level0=3052;level1=1736;level2=77288;level3=3360;level4=1608;level5=1640;level6=1828;resources.assets=2521660768;sharedassets0.assets=55168;sharedassets1.assets=2624628;sharedassets2.assets=1532184;sharedassets3.assets=793;sharedassets4.assets=7976;sharedassets5.assets=158640;sharedassets6.assets=755260;AmplifyBloom.dll=3584;AmplifyColor.dll=3584;andywiecko.BurstTriangulator.dll=66048;Assets.dll=865280;AstarPathfindingProject.dll=1204736;Clipper2Lib.dll=87040;com.bartofzo.nativetrees.dll=32768;com.bartofzo.nativetrees.samples.dll=18944;com.rlabrecque.steamworks.net.dll=399360;CommunityToolkit.Mvvm.dll=113960;Drawing.dll=123904;GUPS.EasyPerformanceMonitor.Demo.dll=20480;GUPS.EasyPerformanceMonitor.dll=57856;Humanizer.dll=718000;io.sentry.unity.runtime.dll=7680;Libraries.dll=728576;MathNet.Numerics.dll=1590272;MCPForUnity.Runtime.dll=30208;MessagePack.Annotations.dll=11776;MessagePack.dll=338432;Nerdbank.Streams.dll=218808;Nito.AsyncEx.Context.dll=13824;Nito.AsyncEx.Tasks.dll=35840;Nito.Disposables.dll=22528;Noesis.NoesisGUI.dll=1502720;PackageTools.dll=7168;ParadoxNotion.dll=453120;Pathfinding.ClipperLib.dll=58880;Pathfinding.Ionic.Zip.Reduced.dll=240640;Pathfinding.Poly2Tri.dll=36352;Plugins.dll=437760;Seapower-Scripts.dll=8528384;Sentry.dll=796160;Sentry.Microsoft.Bcl.AsyncInterfaces.dll=16384;Sentry.System.Collections.Immutable.dll=178688;Sentry.System.Reflection.Metadata.dll=451584;Sentry.System.Runtime.CompilerServices.Unsafe.dll=8704;Sentry.System.Text.Encodings.Web.dll=68608;Sentry.System.Text.Json.dll=595456;Sentry.Unity.dll=165888;Sentry.Unity.Native.dll=28160;ShapesRuntime.dll=369664;ShapesSamples.dll=22528;SingularityGroup.HotReload.Runtime.Public.dll=5120;SQLitePCLRaw.batteries_v2.dll=11776;SQLitePCLRaw.core.dll=51200;SQLitePCLRaw.provider.dynamic_cdecl.dll=68096;StreamJsonRpc.dll=355880;StreamJsonShim.dll=5120;UniRx.dll=424448;Vectrosity.dll=122368;Vuplex.WebView.dll=848384;Vuplex.WebViewDemos.dll=43520;websocket-sharp.dll=250368
 
 Data folder: C:\program files (x86)\steam\steamapps\common\Sea Power\Sea Power_Data
 
@@ -254,7 +254,7 @@ Data folder: C:\program files (x86)\steam\steamapps\common\Sea Power\Sea Power_D
 == level2  (0 MB)  1 name(s)
   Background - Image
 
-== resources.assets  (2,404 MB)  109 name(s)
+== resources.assets  (2,405 MB)  109 name(s)
   background
   background1
   CameraFilterPack/Retro_Loading
@@ -1422,7 +1422,7 @@ Data folder: C:\program files (x86)\steam\steamapps\common\Sea Power\Sea Power_D
   ui/hud/binoculars
   ui/minimap/map_gradient
   ui/minimap/map_gradient_night
-  ui/minimap/world_map_albedo
+  ui/minimap/World_map_albedo
   ui/minimap/World_map_night
   ui/plans
   ui/pointers/pointer_select_object,6,1

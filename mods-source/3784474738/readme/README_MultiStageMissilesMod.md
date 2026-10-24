@@ -215,13 +215,20 @@ Stage effects are parsed with Sea Power's existing `Effect` class and pre-resolv
 - A separation effect is spawned once at
   `missile.position + missile.rotation * StageNSeparationEffectPosition`, with no missile parent.
   No transform scale, hidden resource transform, or other position offset is added.
-- Every vanilla booster, `InFlightEffect`, and sustainer instance remains completely untouched and
-  visible. The plug-in does not stop, free, hide, disable, or clear references to those effects and
-  does not start, stop, loop, or replace their audio. Its separate stage-audio children are additive
-  and are the only audio sources controlled by the plug-in. Users can remove unwanted vanilla effects
-  in their ammunition definitions. Custom stage effects and sounds can therefore run alongside any
-  retained vanilla content. Physical stage motors are enabled separately as described in the propulsion README.
-
+- If any stage defines a nonempty `StageNFlightEffect` or `StageNFlightEffectClass`
+  (including numbered slots), the mod replaces native `BoosterEffect`, `InFlightEffect`
+  and `SustainerEffect`, including their Classes, for the entire flight. Their instances
+  and attached audio are not spawned. Stage delays and unpowered stages can therefore
+  have no exhaust. Empty/None effects, mesh/glow-only stages, separation effects and
+  jettison effects alone do not enable replacement. Configured missing stage assets
+  do not automatically restore native exhaust.
+- Keep the native effect definitions in the normal ammunition file for operation without
+  this mod. Replacement is in memory only; cached ammunition copies retain it without
+  modifying shared effect assets or the INI. With the mod disabled, the base game uses
+  the original definitions. The native models/assets must also be available without AC Pack.
+- Ignition timing and thrust are independent of visual replacement. Native thrust is
+  retained for visual-only stages; stage motors still use `UseBaseGameThrust` as documented
+  in the propulsion README. No extra effect toggle is required.
 ## Jettison debris
 
 Each configured jettison visual is instantiated only when its separation occurs. It is positioned
@@ -292,7 +299,7 @@ The build compiles against the currently installed DLLs, then checks:
 - up to eight concurrent effects per stage with unconditional private instances, deterministic transforms, and inherited/overridden
   missing, zero, positive, and invalid visual burn times, including the base-game dynamic
   effect-manager duration path;
-- fully visible, untouched vanilla flight effects and untouched vanilla effect audio;
+- automatic native flight-effect replacement, cached copies and shared asset isolation;
 - exactly one engine-spatialized audio loop per stage, base-game `Sfx` routing and inherited source
   properties, shared-burn-time stopping, and save restoration;
 - render-aligned zero/configured separation and jettison positions without transform-scale or

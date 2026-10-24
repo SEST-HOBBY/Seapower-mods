@@ -80,6 +80,23 @@ VAR = lambda n, name: [f"Variant{i}={name}" for i in range(1, n + 1)]
 NOTE = "SEST: this unit ships with no English name; named by SEST Name Fixes."
 # id: (file, [lines of its section])
 MISSING_NAMES = {
+    # Reported in the Unit Reference, 19 Oct 2026 ("MISSING: mm_skyguard_sam
+    # name or squadron reference"). Euromod - Cold War Italian Navy places the
+    # Skyguard-Aspide launcher for Italy, Spain and Greece and names none.
+    "mm_skyguard_sam": ("land_units_names.ini", [
+        "Type=SAM,Surface-to-Air Missile Launcher", "Default=Skyguard-Aspide launcher,Skyguard",
+        "DefaultDescription=Towed Skyguard-Aspide launcher: four Aspide semi-active radar "
+        "homing missiles cued by the Skyguard fire-control radar. " + NOTE,
+        "Variant1=Skyguard-Aspide (Italy),Skyguard", "Variant2=Skyguard-Aspide (Spain),Skyguard",
+        "Variant3=Skyguard-Aspide (Greece),Skyguard"]),
+    # Reported the same day as "Missing Type / Missing Class": Euromod - South
+    # Korea Navy ships a USAF F-16C Block 40 with no name and no squadron
+    # table (SEST Collection Fixes supplies the table); nothing places it.
+    "usaf_f-16c_blk40": ("aircraft_names.ini", [
+        "Type=Fighter,Multirole Fighter", "Default=F-16C Block 40,F-16C",
+        "DefaultDescription=General Dynamics F-16C Block 40 Fighting Falcon, the USAF's "
+        "night and precision-attack Viper. " + NOTE,
+        "Squadron1=F-16C Block 40 USAF,F-16C"]),
     "jmsdf_ddh_ise": ("vessel_names.ini", [
         "Type=DDH,Helicopter Destroyer", "Default=Ise (Hyūga class),Ise",
         "DefaultDescription=JS Ise (DDH-182), the second Hyūga-class helicopter destroyer, "
@@ -189,7 +206,7 @@ Name=SEST Name Fixes
 Description=Corrects unit and squadron display names one key at a time: typos (Rocketeers, Mikuma, Desert, David's Sling), the Anzac's short name, full-width brackets and commas the game's font cannot show, and Russian names written in Cyrillic in English text (transliterated).
 
 [Compatibility]
-ApproximateVersion=0.8.6
+ApproximateVersion=0.8.7
 """
 
 

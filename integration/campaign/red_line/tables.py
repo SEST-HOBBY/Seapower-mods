@@ -7,7 +7,8 @@ build.
 # The mission modules, in campaign order. The builder sorts the spine by
 # date, so this order is also the date order.
 MODULES = [
-    "rl01_trailing_contact", "rl02_routes_they_can_see", "rl03_the_other_picture",
+    "rl01_trailing_contact", "rlo1_datum", "rl02_routes_they_can_see",
+    "rlo2_the_ships_from_the_north", "rl03_the_other_picture", "rlc1_pilot_in_the_water",
     "rl04_the_order_to_withdraw", "rl05_under_the_convergence", "rl06_the_quiet_side",
 ]
 
@@ -19,10 +20,24 @@ MODULES = [
 # Generation "Generated" hands placement of the owned screen to the campaign
 # at the anchor; None launches the file as authored - RL05 is a detached
 # submarine operation, the way Southern Reach's SR02 is.
+#
+# The side operations (20 Oct 2026, campaign-upgrade-plan.md section 4.2,
+# step RL-1) keep the same rule: Southern Watch flies the 10th and the 13th
+# either side of Datum, the 17th and the 20th either side of The Ships from
+# the North, and the 23rd and the 25th either side of Pilot in the Water, and
+# Southern Reach has not begun (checked against both campaigns' dates, every
+# optional and dispatch included). The two optionals are
+# flown by a fixed force the mission supplies - the enclave field's Y-9, and
+# on the 18th a J-15 pair with it - so nothing the player owns sails. The
+# contingency is the screen's own detachment, as Southern Watch's After the
+# Wake is, the day after a mission that can cost it hulls.
 CALENDAR = {
     "RL01": ((2028, 11, 5), 100, "Generated", "screen"),
+    "RLO1": ((2028, 11, 11), 60, None, None),
     "RL02": ((2028, 11, 12), 120, "Generated", "escort"),
+    "RLO2": ((2028, 11, 18), 70, None, None),
     "RL03": ((2028, 11, 19), 140, "Generated", "shadow"),
+    "RLC1": ((2028, 11, 24), 30, "Generated", "frigate"),
     "RL04": ((2028, 11, 27), 120, "Generated", "escort"),
     "RL05": ((2028, 12, 27), 80, None, None),
     "RL06": ((2029, 1, 19), 0, "Generated", "decoy"),
@@ -63,9 +78,11 @@ DIFFICULTIES = [
 #
 # Not for sale, on purpose: Fujian and Liaoning (the group's carriers are the
 # thing the screen protects, placed and named where a mission needs one), the
-# submarines (every boat operation is authored and named), the Z-18F and the
-# replenishment ship (allocated where the story puts them), and the Type 052D
-# (its thousand-mile hypersonic has no place in a campaign won by restraint).
+# submarines (every boat operation is authored and named), the Z-18F
+# (allocated where the story puts it), and the Type 052D (its thousand-mile
+# hypersonic has no place in a campaign won by restraint). The replenishment
+# ships were on that list until 21 Oct 2026; they are on sale now, from
+# RESERVE_FLEET below, and The Order to Withdraw's own Type 901 is not.
 ROSTER = [
     dict(unit="plan_type_054a_p5", picks=["Variant1", "Variant2", "Variant3", "Variant4"],
          points=280,
@@ -73,19 +90,39 @@ ROSTER = [
     dict(unit="plan_ddg_luda_typ_051dt", picks=["Variant1", "Variant2"], points=160,
          note="an older destroyer the northern screen still has"),
     dict(unit="plan_em_sovremenny", picks=["Variant1", "Variant2"], points=320,
-         note="on sale in the north only; one already owned still sails"),
+         note="the northern screen's; the story sold it in the north only until "
+              "21 Oct 2026, and one owned sails south"),
     dict(unit="plan_type_056a", picks=["Variant1", "Variant2", "Variant3"], points=120,
-         note="the protection group's corvette; on sale in the south only"),
+         note="the protection group's corvette; the story sold it in the south only "
+              "until 21 Oct 2026"),
     dict(unit="plan_z-9c", picks=["Squadron1"], points=20,
          note="the frigate's flight; the 054A deck lists the Z-9C, D and F"),
     dict(unit="plan_y-9fq", picks=["Squadron1"], points=50,
-         note="maritime patrol out of the enclave field; north only"),
+         note="maritime patrol out of the enclave field; its rows are in the north"),
     dict(unit="plaaf_kj-500", picks=["Squadron1"], points=70,
          note="land-based airborne early warning; matches the Recon row's AEW fit"),
     dict(unit="plan_j-15", picks=["Squadron1", "Squadron2"], points=40,
          note="carrier-capable; recovers on the enclave field when no deck is placed"),
     dict(unit="plan_j-15d", picks=["Squadron1"], points=45),
 ]
+
+# The PLAN's own Type 901 and 903A replenishment ships (allied_fleet.
+# PLAN_SUPPORT, which this commander calls on in place of an allied fleet),
+# on sale from the first force allocation, Trailing Contact's: the owner's
+# decision of 21 Oct 2026, retiring the Open Allocation version, which sold
+# them from there. They are the group's own supply ships, not allies, and
+# sell with the same-nation discount. The hulls a mission places are not
+# sold - The Order to Withdraw's 901 and Southern Reach's (Variant1 of
+# each) - so the 901 sells one hull and the 903A three
+# (mission_depth.apply_reserve). The same day (step 2) the opening opened
+# the whole roster: every force allocation from Trailing Contact's offers
+# all of it with the two supply ships, as the version did, so the story's
+# northern and southern lists below (NORTH_HULLS, SOUTH_HULLS) no longer
+# bound what is sold. The owner accepted the version's behaviour: a
+# Sovremenny can be bought for the south and a 056A in the north, and the
+# J-15, J-15D, KJ-500 and Y-9 at the first window, before a row can fly
+# them (mission_depth.open_from).
+RESERVE_FLEET = dict(opens="RL01")
 
 # Air-tasking rows in the fit vocabulary of the aircraft this roster sells.
 # Southern Watch's rows name RAAF and US Navy fits (MurderHornetCAP,
@@ -98,7 +135,9 @@ RECON = "Recon|Maritime Patrol|MPA/ASW/ESM/AEW|1|ASW/ASWKiller/ASWHunter/AEW"
 CAP = "CAP|Combat Air Patrol|Fighter|2|AirToAir/AirToAirIntercept"
 
 # The purchase windows, by stage. The variants come from ROSTER, never
-# restated.
+# restated. These are the story's lists: since 21 Oct 2026 every window
+# offers the whole roster (RESERVE_FLEET above), and they are what a build
+# without RESERVE_FLEET would sell.
 NORTH_HULLS = ["plan_type_054a_p5", "plan_ddg_luda_typ_051dt", "plan_em_sovremenny",
                "plan_z-9c"]
 NORTH_AIR = ["plan_y-9fq"]

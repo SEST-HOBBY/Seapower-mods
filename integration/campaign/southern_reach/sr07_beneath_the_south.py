@@ -88,7 +88,7 @@ MISSION = dict(
     },
     units=[
         U("blue", "SEST_RAN_Fleet", "ran_ffh_anzac", "escort", variant="Variant7"),
-        U("blue", "us-navy-2027", "usn_mh-60r", "flight", alt=500,
+        U("blue", "SEST_Allied_Fixes", "ran_mh-60r", "flight", alt=500,
           slot="HeloRecon"),
         U("blue", "p-8-poseidon", "usn_p8", "mpa", squadron="Squadron3", alt=8000,
           loadout="ASW", slot="Recon"),
@@ -134,7 +134,7 @@ MISSION = dict(
                         "VICTOR. She is classified on the plot and held there for the operation."
                     ))],
     window=dict(buy=True, repair=True, rearm=True,
-                allow=["ran_ffh_anzac", "ran_ddg_hobart", "usn_mh-60r", "usn_p8",
+                allow=["ran_ffh_anzac", "ran_ddg_hobart", "ran_mh-60r", "usn_p8",
                        "raaf_mq-4c_triton", "E7A_Wedgetail"],
                 flights=[HELO, RECON],
                 situation=(

@@ -6,14 +6,18 @@ the group has to go and get it. Her supply system is real (SEST Replenishment
 At Sea: half a mile, eight knots, a 300,000-point pool), so a ship that
 comes alongside and slows down takes back what it fired at Jolo. The window
 is scored as Southern Reach's Macquarie Passage scores its own: the lead ship
-inside three miles of her when thirty minutes have run, then the charter
-north to the withdrawal box. Meridian knows she is coming.
+inside three miles of her when thirty minutes have run, then the lead ship
+north to the withdrawal box with her. Meridian knows she is coming.
 
 If she is sunk she is gone for the rest of the campaign: SL04SupplierLost
 keeps her out of The Aborlan Battery, where she would otherwise be waiting
-at the anchorage with whatever is left in her.
+at the anchorage with whatever is left in her. Until 20 Oct 2026 her loss
+also ended the mission, so that branch was reachable only in a lost run;
+the charter is a scored objective now and the win is the lead ship's
+(owner's decision Q8). The rearm is still the transfer alongside: the
+service window sets no variable, and no later window rearms on it.
 """
-from campaign_data import U, F, S
+from campaign_data import U, S
 from .tables import HELO, ATTACK, HULLS, PARTNERS, RAN, SUPPLY
 
 MISSION = dict(
@@ -27,9 +31,9 @@ MISSION = dict(
     intent=((
         "This is the group's rearm, and it is not free. Bring the lead ship within three "
         "miles of the charter and hold her there for thirty minutes, while every ship that "
-        "needs it goes alongside at eight knots or less. Then take the charter north to the "
-        "withdrawal box. She carries the group's next month. Lose her and she is not "
-        "replaced."
+        "needs it goes alongside at eight knots or less. Then take the lead ship and the "
+        "charter north to the withdrawal box. She carries the group's next month. Lose her "
+        "and she is not replaced."
     )),
     date=(2028, 11, 2), time=(7, 0), sea=2, clouds="Scattered_1", wind="NE",
     difficulty=3, minutes=120, centre=(8.8, 119.1),
@@ -42,9 +46,10 @@ MISSION = dict(
             "Seventh Fleet left at Subic.\\n\\nShe is the group's rearm. Her supply system "
             "is live: a ship that comes within half a mile of her at eight knots or less "
             "takes stores across, one ship at a time. Keep your lead ship within three miles "
-            "of her for thirty minutes while the others go alongside, then bring her north "
-            "to the withdrawal box, twenty miles up.\\n\\nMeridian has her movement. Three "
-            "fast attack craft sailed from Cagayancillo at 0500, and the drone that found "
+            "of her for thirty minutes while the others go alongside, then bring the lead "
+            "ship north with her to the withdrawal box, twenty miles up.\\n\\nMeridian has "
+            "her movement. Three fast attack craft sailed from Cagayancillo at 0500, and the "
+            "drone that found "
             "her at first light is due back on station within about five minutes. A ship "
             "alongside and slowed down is the easiest "
             "target in the Sulu Sea; keep a screen out while the others replenish."
@@ -61,24 +66,26 @@ MISSION = dict(
     ),
     objectives=[
         ("Service", (
-            "Hold the lead ship by SULU PROVIDER for thirty minutes, then bring her to the "
-            "withdrawal box"
+            "Hold the lead ship by SULU PROVIDER for thirty minutes, then take the lead ship "
+            "north to the withdrawal box"
         ), "35,-35,Fail,Main"),
         ("Charter", "Keep MV Sulu Provider afloat", "20,-30,Complete"),
         ("Raiders", "Sink the Meridian boats", "15,0,None"),
         ("Traffic", "Harm no freighter or banca", "0,-30,Complete"),
     ],
-    victory=dict(kind="arrive", station="charter", min_units=1, at=(9.02, 119.12),
+    # The lead ship's arrival, not the charter's: a win with Sulu Provider
+    # lost on the way north is a win, and The Aborlan Battery opens without
+    # her. The stage's area is where she was placed, so it holds whether or
+    # not she is still afloat at the half hour.
+    victory=dict(kind="arrive", station="screen#1", min_units=1, at=(9.02, 119.12),
                  radius=6, objective="Service",
                  after=dict(kind="area", units=["screen#1"], at_unit="charter#1",
                             radius=3, min_units=1, after_minutes=30,
-                            sets="SL04ServiceHeld",
                             intel=(
                                 "SULU PROVIDER: Thirty minutes. The rendezvous is complete. "
                                 "Ships still needing stores may continue alongside; the "
                                 "charter is to proceed north to the withdrawal box."
                             ))),
-    fatal=[F("Charter", ["charter#1"])],
     support_loss=[dict(asset="Sulu Provider", units=["charter#1"], objective="Charter",
                        sets="SL04SupplierLost",
                        intel=(
@@ -88,13 +95,13 @@ MISSION = dict(
                        ))],
     neutral_objective="Traffic",
     win=(
-        "SULU PROVIDER is north of the box with what is left in her barges. The ships that "
-        "went alongside have their magazines back. Naval Forces West will hold her at Puerto"
-        " Princesa for the next time the group needs her."
+        "The group is north at the withdrawal box and the ships that went alongside have "
+        "their magazines back. If SULU PROVIDER came through, Naval Forces West will hold "
+        "her at Puerto Princesa for the next time the group needs her."
     ),
     lose=(
-        "The rendezvous is broken. SULU PROVIDER is gone, or the group never held its "
-        "window, and the ammunition is still in her barges or at the bottom."
+        "The rendezvous is broken, and the ammunition is still in Sulu Provider's barges or"
+        " at the bottom. The group goes on with what is in its magazines."
     ),
     timeout="{deadline_clock}, and SULU PROVIDER is still south of the box. Meridian has her "
             "position for another night.",
@@ -144,7 +151,7 @@ MISSION = dict(
     resolve={"Service": "victory", "Traffic": "neutral",
              "Charter": ("protect", "charter#1"),
              "Raiders": ("destroy", "raiders", 3)},
-    declares=["SL04ServiceHeld", "SL04SupplierLost"],
+    declares=["SL04SupplierLost"],
     window=dict(buy=True, repair=True, allow=SUPPLY + HULLS + PARTNERS + RAN,
                 flights=[HELO, ATTACK],
                 situation=(

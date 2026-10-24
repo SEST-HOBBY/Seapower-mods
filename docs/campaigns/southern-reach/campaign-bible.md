@@ -99,7 +99,7 @@ The best ending is a supplied Antarctic winter, a working trans-Tasman route, tw
 | The Tasman | The crossing | Mid-ocean, carrier air, cable corridors as abstract boxes |
 | Bass Strait, the Bight, Gulf St Vincent | The homeland approaches, Australian side | Rigs as unarmed neutral land units in water, ferries and tankers on routes, Edinburgh and East Sale as fields |
 
-**Opening allocation (a design assumption, not a free fleet):** the player's task group requisitions from 1,000 points; RSV Southern Endeavour, Coral Pioneer, Derwent Spirit, HMAS Supply / Stalwart, HMAS Collins / Farncomb, the RNZAF Poseidon and every allied aircraft are allocated theatre assets that appear where the story puts them and never join the owned roster.
+**Opening allocation (a design assumption, not a free fleet):** the player's task group requisitions from 1,000 points; RSV Southern Endeavour, Coral Pioneer, Derwent Spirit, HMAS Supply / Stalwart, HMAS Collins / Farncomb, the RNZAF Poseidon and every allied aircraft are allocated theatre assets that appear where the story puts them and never join the owned roster. *(21 Oct 2026: from Tasman Crossing the standard campaign also sells the allied fleet - its ships, and the allied aircraft a row in the campaign can launch and recover - at their own navies' prices, the owner's decision on retiring the Open Allocation version. The allocated aircraft above stay theatre assets; a bought allied aircraft is a different airframe of the player's own. Build notes, "21 October: the allied fleet in the standard campaigns".)*
 
 **Ownership states.** Every unit in every mission is one of: *owned persistent force* (bought, generated on the anchor), *allocated theatre support* (authored, named, never sold), or *civilian/partner objective* (blue merchants the mission protects, or neutrals the ROE protects).
 
@@ -158,6 +158,8 @@ Mainline allocations total 2,800 points across 23 missions; the three optionals 
 | EA-18G | `usn_ea-18g` | Squadron6 | 55 | TS04 |
 
 Not for sale: Collins and Farncomb (detached operations, authored), Supply and Stalwart (theatre logistics), the RNZAF Poseidon (a national allocation), Choules and Canberra (no deck-support test south of the Convergence), any tanker (no tasking role exists for one).
+
+*(21 Oct 2026: from TS04 every force allocation offers this whole roster - a Hobart at TS12 too, which the story's list there leaves out - and the allied fleet with it, HMAS Adelaide (Canberra class) and allied replenishment ships among it, the owner's decision on retiring the Open Allocation version. Choules, Supply and Stalwart stay off sale: missions place every hull. No air tanker is sold. The windows before TS04 sell what the "On sale from" column says. Build notes, "21 October: the allied fleet in the standard campaigns".)*
 
 ### Campaign variables — consequences that are enforced
 

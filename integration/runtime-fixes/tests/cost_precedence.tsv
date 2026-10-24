@@ -1,0 +1,15 @@
+name	inline	catalog	global	entry	field_override	expected
+inline_default	10	20	~	~	~	10
+missing_inline	~	20	~	~	~	20
+missing_catalog	10	~	true	~	~	10
+blank_inline	EMPTY	20	~	~	~	EMPTY
+blank_catalog	10	EMPTY	true	~	~	EMPTY
+global_list	10	20	true	~	~	20
+entry_inline	10	20	true	false	~	10
+field_list	10	20	false	false	true	20
+field_inline	10	20	true	true	false	10
+invalid_global	10	20	invalid	~	~	10
+invalid_entry	10	20	true	invalid	~	20
+invalid_field	10	20	true	false	invalid	10
+explicit_free	0	20	~	~	~	0
+missing_both	~	~	true	true	true	~

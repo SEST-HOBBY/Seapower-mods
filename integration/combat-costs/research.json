@@ -1,0 +1,3592 @@
+{
+  "about": "Researched items that are NOT shipped: the check refuted the proposal, decided to leave the price unknown, or the mapping would copy a blank author entry. build_pack.py lists them, with their candidate figures, under Gaps in docs/combat-costs/cost-list.md. Shipped prices live in mappings.json. An item with a 'rerun' field stopped because the session's web search allowance ran out or the source host was blocked, and can be re-run. Land items (kind 'land') still open are kept here; checked land estimates ship in mappings.json under 'land', priced by SEST's own land catalog (the tracker does not price land platforms).",
+  "reviewed": "23-24 October 2026",
+  "items": [
+    {
+      "target": "jasdf_ec-2",
+      "kind": "aircraft",
+      "decision": "left unknown",
+      "candidate": "A FY2020-FY2023 programme budget covering development plus one aircraft (Janes, 13 Mar 2026)",
+      "why": "A programme total including development, not a unit or flyaway price. Re-checked: EC-2: the only figure seen earlier (JPY 52.3B FY2020-FY2023) is a programme budget including development, not a unit price, and no page could be read this run; the catalog has no C-2 family. Re-run: this session's web search allowance ran out and the source hosts were blocked.",
+      "rerun": "this session's web search allowance ran out and the source hosts were blocked",
+      "sources": [
+        {
+          "title": "Janes, Japan prepares new electronic warfare aircraft for testing (13 Mar 2026)",
+          "url": "https://www.janes.com/defence-intelligence-insights/defence-news/defence/japan-prepares-new-electronic-warfare-aircraft-for-testing"
+        },
+        {
+          "title": "jasdf_ec-2 config header (mod 3813033771)",
+          "url": "file:mods-source/3813033771/aircraft/jasdf_ec-2.ini"
+        }
+      ]
+    },
+    {
+      "target": "msdvd_tu-214r",
+      "kind": "aircraft",
+      "decision": "left unknown",
+      "candidate": "A Tu-214SUS price (globalsecurity.org, unread)",
+      "why": "A different variant, and the page was not read; the catalog has no Tu-204/214 family. Re-checked: Tu-214R: no unit price could be read this run (the earlier candidate was an unread Tu-214SUS figure for a different variant); the catalog has no Tu-204/214 family, and civ_tu-154 is a different design. Re-run: the source hosts were blocked.",
+      "rerun": "the source hosts were blocked",
+      "sources": [
+        {
+          "title": "msdvd_tu-214r English description",
+          "url": "mods-source/3780118683/language_en/aircraft_names.ini#L7"
+        },
+        {
+          "title": "msdvd_tu-214r English description (mod 3780118683)",
+          "url": "file:mods-source/3780118683/language_en/aircraft_names.ini"
+        }
+      ]
+    },
+    {
+      "target": "phl_h-76",
+      "kind": "aircraft",
+      "decision": "left unknown",
+      "candidate": "USD 11.6M civil list price of a 2011 S-76C++ (Aviation Week)",
+      "why": "A later civil variant with different engines, not the 1983 armed AUH-76; the same file's second squadron is a different type that would share the price. Re-checked: AUH-76: no 1983 contract price could be read this run; the only earlier figure is a 2011 civil S-76C++ list price for a later variant; the catalog has no S-76. Re-run: this session's web search allowance ran out and the source hosts were blocked.",
+      "rerun": "this session's web search allowance ran out and the source hosts were blocked",
+      "sources": [
+        {
+          "title": "20/Twenty: S-76 Moves Executives And Saves Lives (Aviation Week, 22 Feb 2022)",
+          "url": "https://ngstage.aviationweek.com/business-aviation/aircraft-propulsion/20twenty-s-76-moves-executives-saves-lives"
+        },
+        {
+          "title": "phl_h-76 English description (mod 3752415457)",
+          "url": "file:mods-source/3752415457/language_en/aircraft_names.ini"
+        }
+      ]
+    },
+    {
+      "target": "pla_z21",
+      "kind": "aircraft",
+      "decision": "refuted",
+      "candidate": "Proposed: AH-64E family proxy (usa_ah-64e)",
+      "why": "Refuted: a cross-nation weight-class analogy, not a documented family proxy; a Z-20-family proxy would need a readable source, and the network is blocked. Re-checked: Z-21: no published price, and no documented lineage that would support a family proxy (an AH-64E weight-class analogy was refuted earlier; no Z-20 link is documented); no web access this run. Re-run: the source hosts were blocked.",
+      "rerun": "the source hosts were blocked",
+      "sources": [
+        {
+          "title": "pla_z21 config and squadrons",
+          "url": "mods-source/3774746803/aircraft/pla_z21.ini#L37"
+        },
+        {
+          "title": "Combat Cost Tracker aircraftcosts.ini [usa_ah-64e] (L2910-2913)",
+          "url": "mods-source/3807187341/systems/aircraftcosts.ini#L2910"
+        },
+        {
+          "title": "pla_z21 squadrons (mod 3774746803)",
+          "url": "file:mods-source/3774746803/aircraft/pla_z21_squadrons.ini"
+        }
+      ]
+    },
+    {
+      "target": "plaaf_j36",
+      "kind": "aircraft",
+      "decision": "mapping adds nothing",
+      "candidate": "none: maps to the author's plaaf_j-36, whose prices are blank",
+      "why": "The mapping would add nothing: the author leaves the J-36 explicitly unknown. Re-checked: J-36 prototype: the tracker author leaves plaaf_j-36 explicitly unknown, and no price exists for a prototype.",
+      "sources": [
+        {
+          "title": "Combat Cost Tracker aircraftcosts.ini [plaaf_j-36] (L2005-2008)",
+          "url": "mods-source/3807187341/systems/aircraftcosts.ini#L2005"
+        },
+        {
+          "title": "plaaf_j36 English description",
+          "url": "mods-source/3801549552/language_en/aircraft_names.ini#L4"
+        },
+        {
+          "title": "Tracker catalog aircraftcosts.ini [plaaf_j-36], lines 2005-2008",
+          "url": "file:mods-source/3807187341/systems/aircraftcosts.ini#L2005"
+        }
+      ]
+    },
+    {
+      "target": "plaaf_jh7a",
+      "kind": "aircraft",
+      "decision": "left unknown",
+      "candidate": "none",
+      "why": "No JH-7 catalog entry and no traceable unit price; Wikipedia was blocked by the network policy. Re-checked: JH-7A: no traceable unit price could be read (no web access this run); the catalog has no JH-7 family, and its JH-6 (Tu-16) entries are a different design. Re-run: the source hosts were blocked.",
+      "rerun": "the source hosts were blocked",
+      "sources": [
+        {
+          "title": "plaaf_jh7a English description",
+          "url": "mods-source/3526982088/language_en/aircraft_names.ini#L44"
+        },
+        {
+          "title": "plaaf_jh7a English description (mod 3526982088)",
+          "url": "file:mods-source/3526982088/language_en/aircraft_names.ini"
+        }
+      ]
+    },
+    {
+      "target": "plaaf_y-20a",
+      "kind": "aircraft",
+      "decision": "left unknown",
+      "candidate": "USD 160M (projectairframe.com, never read)",
+      "why": "The page was not read and the network is blocked; Il-76 entries are a different design. Re-checked: Y-20A: no unit price could be read this run (the earlier USD 160M candidate was never read); the catalog's Il-76 entries are a different design. Re-run: the source hosts were blocked.",
+      "rerun": "the source hosts were blocked",
+      "sources": [
+        {
+          "title": "plaaf_y-20a English description",
+          "url": "mods-source/3782020901/language_en/aircraft_names.ini#L7"
+        },
+        {
+          "title": "plaaf_y-20a English description (mod 3782020901)",
+          "url": "file:mods-source/3782020901/language_en/aircraft_names.ini"
+        }
+      ]
+    },
+    {
+      "target": "plan_j-50",
+      "kind": "aircraft",
+      "decision": "left unknown",
+      "candidate": "none",
+      "why": "A concept sixth-generation carrier fighter; the author leaves the J-36 sixth-generation prototype unknown too. Re-checked: Concept sixth-generation carrier fighter: no price or defensible proxy; the tracker author leaves the J-36, F-47 and Su-47 prototypes unknown.",
+      "sources": [
+        {
+          "title": "plan_j-50 English description",
+          "url": "mods-source/3670643788/language_en/aircraft_names.ini#L7"
+        },
+        {
+          "title": "Combat Cost Tracker aircraftcosts.ini [plaaf_j-36]",
+          "url": "mods-source/3807187341/systems/aircraftcosts.ini#L2005"
+        },
+        {
+          "title": "plan_j-50 English description (mod 3670643788)",
+          "url": "file:mods-source/3670643788/language_en/aircraft_names.ini"
+        },
+        {
+          "title": "Tracker catalog aircraftcosts.ini [usaf_f_47]",
+          "url": "file:mods-source/3807187341/systems/aircraftcosts.ini#L3055"
+        }
+      ]
+    },
+    {
+      "target": "raaf_mq-4c_triton",
+      "kind": "aircraft",
+      "decision": "left unknown",
+      "candidate": "USD 182.7m flyaway (secondary site); a Shephard excerpt gives USD 141.8m (FY2022 request)",
+      "why": "The only source for USD 182.7m is a secondary site that was blocked, and the Navy procurement exhibit was not read; the figure also depends on the lot. The MQ-9 ER mesh donor is not cost evidence. Re-checked: MQ-4C Triton: no page or excerpt with a unit or flyaway price could be read this run; the earlier USD 141.8m and USD 182.7m candidates remain unverified; the catalog has no RQ-4/MQ-4C family. Re-run: this session's web search allowance ran out and the source hosts were blocked.",
+      "rerun": "this session's web search allowance ran out and the source hosts were blocked",
+      "sources": [
+        {
+          "title": "SEST interoperability report - ADF Persistent ISR",
+          "url": "docs/interoperability-report.md (line 768)"
+        },
+        {
+          "title": "SEST interoperability report - ADF Persistent ISR",
+          "url": "file:docs/interoperability-report.md#L768"
+        }
+      ]
+    },
+    {
+      "target": "usa_mv75_army",
+      "kind": "aircraft",
+      "decision": "left unknown",
+      "candidate": "none",
+      "why": "A prototype or pre-production aircraft with no published unit flyaway price; the V-22 is a different, larger airframe. Re-checked: MV-75 Cheyenne II: no unit flyaway price is available (programme-level figures only), and none could be read this run; the V-22 is a different, larger airframe and is not in the catalog. Re-run: the source hosts were blocked.",
+      "rerun": "the source hosts were blocked",
+      "sources": [
+        {
+          "title": "usa_mv75_army English description (mod 3810611344)",
+          "url": "file:mods-source/3810611344/language_en/aircraft_names.ini"
+        }
+      ]
+    },
+    {
+      "target": "usaf_kc-10a_extender",
+      "kind": "aircraft",
+      "decision": "refuted",
+      "candidate": "USD 88.4m (fiscal 1998 constant dollars, USAF fact sheet) / USD 165m (KC-46A Lot 12 replacement: USD 2.47bn for 15)",
+      "why": "Refuted: no cited page could be read (403 policy denial). With both pages read, these values would be acceptable. Re-checked: KC-10A: the USD 88.4m (FY1998 constant dollars) fact-sheet figure could not be read this run; the catalog's civ_dc-10 (USD 20M/15M, a used-airliner model estimate) excludes the tanker conversion and is not used. Re-run: the source hosts were blocked.",
+      "rerun": "the source hosts were blocked",
+      "sources": [
+        {
+          "title": "usaf_kc-10a_extender English description (mod 3740293822)",
+          "url": "file:mods-source/3740293822/language_en/aircraft_names.ini"
+        }
+      ]
+    },
+    {
+      "target": "usaf_kc-46a_boom",
+      "kind": "aircraft",
+      "decision": "refuted",
+      "candidate": "USD 147m (2016 Lots 1-2: USD 2.8bn for 19, including spares) / USD 164.7m (Lot 12)",
+      "why": "Refuted: no cited page could be read (403 policy denial), and the 2016 figure includes spare parts, which the catalog excludes. Re-checked: KC-46A: no lot contract or budget exhibit could be read this run (earlier candidates were refuted as unread, and the 2016 figure includes spares); the catalog has no 767 family. Re-run: the source hosts were blocked.",
+      "rerun": "the source hosts were blocked",
+      "sources": [
+        {
+          "title": "usaf_kc-46a_boom English description (mod 3744475027)",
+          "url": "file:mods-source/3744475027/language_en/aircraft_names.ini"
+        }
+      ]
+    },
+    {
+      "target": "usaf_rq-180",
+      "kind": "aircraft",
+      "decision": "refuted",
+      "candidate": "USD 100m (a 2013 analyst's guess for the classified aircraft) / USD 143.8m (CPI)",
+      "why": "Refuted: none of the sources could be read (403). A guess about a classified aircraft is not a price, and the mod's item is a fictional carrier UCAV derivative. Re-checked: Fictional derivative of a classified aircraft: no published price, and no defensible family proxy in the catalog.",
+      "sources": [
+        {
+          "title": "usaf_rq-180 English description (mod 3796113927)",
+          "url": "file:mods-source/3796113927/language_en/aircraft_names.ini"
+        }
+      ]
+    },
+    {
+      "target": "usaf_yf-23_black_widow_ii",
+      "kind": "aircraft",
+      "decision": "refuted",
+      "candidate": "Proposed: map to usaf_f-22 (143,000,000 / 200,000,000)",
+      "why": "Refuted: the F-22 is the competing ATF design, not the same family; the catalog leaves prototypes and concept fighters unknown. Re-checked: YF-23: a prototype in a fictional carrier version; the F-22 is the rival ATF design, not its family, and the catalog leaves prototypes unknown (Su-47, F-47).",
+      "sources": [
+        {
+          "title": "Combat Cost Tracker aircraftcosts.ini, [wp_su_47] prototype precedent (read in repo)",
+          "url": "mods-source/3807187341/systems/aircraftcosts.ini (lines 3792-3795)"
+        },
+        {
+          "title": "Combat Cost Tracker aircraftcosts.ini, [plaaf_j-20a] (read in repo; values differ from F-22)",
+          "url": "mods-source/3807187341/systems/aircraftcosts.ini (lines 1999-2003)"
+        },
+        {
+          "title": "usaf_yf-23_black_widow_ii English description (mod 3796349767)",
+          "url": "file:mods-source/3796349767/language_en/aircraft_names.ini"
+        },
+        {
+          "title": "Tracker catalog aircraftcosts.ini [wp_su_47]",
+          "url": "file:mods-source/3807187341/systems/aircraftcosts.ini#L3792"
+        }
+      ]
+    },
+    {
+      "target": "usmc_ch53_standalone",
+      "kind": "aircraft",
+      "decision": "refuted",
+      "candidate": "CH-53E USD 25m (1993 dollars) / CH-53K USD 109.6m (a ceiling for up to 99 aircraft)",
+      "why": "Refuted: no cited page could be read (403 policy denial). The USD 25m sits under a family-wide H-53 heading, and the fictional ASW/MPA mission fit is not priced. Re-checked: CH-53E: no unit price or CH-53K replacement figure could be read this run (earlier candidates were refuted as unread); the catalog has no H-53 family. Re-run: the source hosts were blocked.",
+      "rerun": "the source hosts were blocked",
+      "sources": [
+        {
+          "title": "usmc_ch53_standalone English description (mod 3801363152)",
+          "url": "file:mods-source/3801363152/language_en/aircraft_names.ini"
+        }
+      ]
+    },
+    {
+      "target": "usn_fury_escort",
+      "kind": "aircraft",
+      "decision": "refuted",
+      "candidate": "USD 27.5m (upper end of a USD 20.5-27.5m USAF CCA goal)",
+      "why": "Refuted: the pages could not be read (403). The range is the USAF's Increment 1 goal; a Navy article reportedly sets USD 15m or less. No contract unit price is published. Re-checked: FQ-44 Fury (fictional Navy CCA): no contract unit price has been published; the USAF CCA cost goals could not be read this run, and the catalog has no CCA family. Re-run: the source hosts were blocked.",
+      "rerun": "the source hosts were blocked",
+      "sources": [
+        {
+          "title": "usn_fury_escort English description (mod 3804868806)",
+          "url": "file:mods-source/3804868806/language_en/aircraft_names.ini"
+        }
+      ]
+    },
+    {
+      "target": "usn_fury_ew",
+      "kind": "aircraft",
+      "decision": "refuted",
+      "candidate": "USD 27.5m (same as usn_fury_escort)",
+      "why": "Refuted for the same reasons as usn_fury_escort; the two rows stay identical. Re-checked: FQ-44 Fury EW (fictional Navy CCA): same as usn_fury_escort; no published unit price and no catalog CCA family; keep the two rows identical. Re-run: the source hosts were blocked (priced with usn_fury_escort).",
+      "sources": [
+        {
+          "title": "usn_fury_ew English description (mod 3804868806)",
+          "url": "file:mods-source/3804868806/language_en/aircraft_names.ini"
+        }
+      ],
+      "rerun": "the source hosts were blocked"
+    },
+    {
+      "target": "wp_mig-31bm",
+      "kind": "aircraft",
+      "decision": "left unknown",
+      "candidate": "RUB 30bn and RUB 46bn upgrade-programme figures (unread)",
+      "why": "A modernisation of existing airframes: programme costs are not new-build airframe prices, and the pages were not read. Re-checked: MiG-31BM: the only figures seen are unread upgrade-programme totals, not airframe prices; the catalog's MiG-25 entries (USD 5M/25M, a 1970 model estimate) belong to an earlier design and are not used. Re-run: the source hosts were blocked.",
+      "rerun": "the source hosts were blocked",
+      "sources": [
+        {
+          "title": "wp_mig-31bm English description",
+          "url": "mods-source/3799742828/language_en/aircraft_names.ini#L15"
+        },
+        {
+          "title": "wp_mig-31bm squadrons",
+          "url": "mods-source/3799742828/aircraft/wp_mig-31bm_squadrons.ini#L9"
+        },
+        {
+          "title": "wp_mig-31bm squadrons (mod 3799742828)",
+          "url": "file:mods-source/3799742828/aircraft/wp_mig-31bm_squadrons.ini"
+        }
+      ]
+    },
+    {
+      "target": "civ_humpback",
+      "kind": "vessel",
+      "decision": "left unknown",
+      "candidate": "none",
+      "why": "A whale, not equipment. A zero price would be a policy choice, not a researched price. Re-checked: A humpback whale: a biological contact, not equipment. There is no procurement or replacement price, and an explicit 0 would be an owner policy choice.",
+      "sources": [
+        {
+          "title": "Humpback names file (Workshop 3384079999)",
+          "url": "mods-source/3384079999/language_en/vessel_names.ini"
+        },
+        {
+          "title": "Humpback names file (Workshop 3384079999)",
+          "url": "file:mods-source/3384079999/language_en/vessel_names.ini (lines 6-9)"
+        },
+        {
+          "title": "Tracker README",
+          "url": "file:mods-source/3807187341/README.md (line 22)"
+        }
+      ]
+    },
+    {
+      "target": "phl_ff_hamilton",
+      "kind": "vessel",
+      "decision": "left unknown",
+      "candidate": "USD 16-20m then-year build cost (1960s), from a GlobalSecurity search excerpt",
+      "why": "The page was blocked by the network policy. The hulls came as Excess Defense Articles with no purchase price, and a midpoint would be SEST's choice, not a sourced figure. Re-checked: Ex-USCG Hamilton-class cutters transferred to the Philippines 2011-2016. The catalog has no Hamilton, USCG or WHEC section, and no build or transfer price could be read. Re-run: this session's web search allowance ran out and the source hosts were blocked.",
+      "rerun": "this session's web search allowance ran out and the source hosts were blocked",
+      "sources": [
+        {
+          "title": "PHL names (Workshop 3752415457)",
+          "url": "mods-source/3752415457/language_en/vessel_names.ini"
+        },
+        {
+          "title": "PHL names (Workshop 3752415457)",
+          "url": "file:mods-source/3752415457/language_en/vessel_names.ini (line 98)"
+        }
+      ]
+    },
+    {
+      "target": "phl_lpd_tarlac",
+      "kind": "vessel",
+      "decision": "left unknown",
+      "candidate": "USD 92m or USD 86.98m for two (USD 43-46m each) in the 2014 deal; USD 100.9m for two in the 2022 follow-on",
+      "why": "navalnews.com was blocked by the network policy, and search excerpts disagree on the 2014 contract value. Re-checked: PT PAL Tarlac-class LPD. There is no Makassar or Tarlac catalog entry, and the 2014 and 2022 contract values could not be read. Re-run: the source hosts were blocked.",
+      "rerun": "the source hosts were blocked",
+      "sources": [
+        {
+          "title": "PHL names (Workshop 3752415457)",
+          "url": "mods-source/3752415457/language_en/vessel_names.ini"
+        },
+        {
+          "title": "PHL names (Workshop 3752415457)",
+          "url": "file:mods-source/3752415457/language_en/vessel_names.ini (line 106)"
+        }
+      ]
+    },
+    {
+      "target": "phl_pb_jose_andrada",
+      "kind": "vessel",
+      "decision": "left unknown",
+      "candidate": "USD 9.4m for the first 4 of 22 boats in 1989 (USD 2.35m each)",
+      "why": "The Wikipedia page was blocked by the network policy, and the figure covers only the first batch of a 22-boat series. Re-checked: Philippine Navy Jose Andrada-class coastal patrol boats (Halter Marine, 22 boats). There is no catalog entry, and the 1989 first-batch figure could not be read. Re-run: the source hosts were blocked.",
+      "rerun": "the source hosts were blocked",
+      "sources": [
+        {
+          "title": "PHL names (Workshop 3752415457)",
+          "url": "mods-source/3752415457/language_en/vessel_names.ini"
+        },
+        {
+          "title": "PHL names (Workshop 3752415457)",
+          "url": "file:mods-source/3752415457/language_en/vessel_names.ini (line 8)"
+        }
+      ]
+    },
+    {
+      "target": "phl_pt_jacinto",
+      "kind": "vessel",
+      "decision": "left unknown",
+      "candidate": "GBP 6.5m for three used ships (1997 sale)",
+      "why": "A sale of three used ships is not a build-era price, and its page was blocked. Re-checked: Ex-Royal Navy Peacock-class Hong Kong patrol vessels, sold second-hand in 1997. There is no Peacock catalog entry, and the only candidate figure is a used-sale price, not a build price. Re-run: the source hosts were blocked.",
+      "rerun": "the source hosts were blocked",
+      "sources": [
+        {
+          "title": "PHL names (Workshop 3752415457)",
+          "url": "mods-source/3752415457/language_en/vessel_names.ini"
+        },
+        {
+          "title": "PHL names (Workshop 3752415457)",
+          "url": "file:mods-source/3752415457/language_en/vessel_names.ini (line 58)"
+        }
+      ]
+    },
+    {
+      "target": "plan_aor_type901",
+      "kind": "vessel",
+      "decision": "left unknown",
+      "candidate": "none",
+      "why": "No published unit price and no same-family catalog entry; the GlobalSecurity page was blocked. Re-checked: PLAN Type 901 Fuyu AOE, a SEST_Replenishment new unit. No published unit price was found, and no same-family catalog entry exists. The Sacramento hull is a model donor only. Re-run: the source hosts were blocked.",
+      "rerun": "the source hosts were blocked",
+      "sources": [
+        {
+          "title": "SEST FEATURES.md, replenishment new units",
+          "url": "file:docs/FEATURES.md (lines 227-231)"
+        },
+        {
+          "title": "SEST cost list row",
+          "url": "file:docs/combat-costs/cost-list.csv (line 218)"
+        }
+      ]
+    },
+    {
+      "target": "plan_aor_type903a",
+      "kind": "vessel",
+      "decision": "left unknown",
+      "candidate": "none",
+      "why": "No published unit price (English and Chinese searches) and no same-family catalog entry. Re-checked: PLAN Type 903A Fuchi replenishment ship, a SEST_Replenishment new unit. No published unit price was found, and the catalog has no Type 903 or 903A section. The Boris Chilikin hull is a model donor only. Re-run: the source hosts were blocked.",
+      "rerun": "the source hosts were blocked",
+      "sources": [
+        {
+          "title": "SEST FEATURES.md, replenishment new units",
+          "url": "file:docs/FEATURES.md (line 231)"
+        },
+        {
+          "title": "SEST cost list row",
+          "url": "file:docs/combat-costs/cost-list.csv (line 219)"
+        }
+      ]
+    },
+    {
+      "target": "ran_aor_supply",
+      "kind": "vessel",
+      "decision": "left unknown",
+      "candidate": "A$640m for two (A$320m each, 2016 then-year AUD); Janes gives USD 432m for two (USD 216m each)",
+      "why": "Both pages were blocked by the network policy (CONNECT 403), so neither figure was read. The 2016 AUD price also needs a named 2016 exchange rate, and the ships entered service in 2021. No catalog entry: the catalog's Supply is the old HMAS Supply. Re-checked: The modern Cantabria-derived HMAS Supply and Stalwart (2021). The catalog's ran_oa_supply is the old Tide-class HMAS Supply, and the Teide oiler is a model stand-in only. The 2016 contract figures could not be read. Re-run: the source hosts were blocked.",
+      "rerun": "the source hosts were blocked",
+      "sources": [
+        {
+          "title": "Combat Cost Tracker vesselcosts.ini [ran_oa_supply]",
+          "url": "mods-source/3807187341/systems/vesselcosts.ini (lines 4486-4488)"
+        },
+        {
+          "title": "SEST RAN Fleet names",
+          "url": "mods-source/_vanilla/SEST_RAN_Fleet/language_en (vessel names)"
+        },
+        {
+          "title": "SEST RAN Fleet names",
+          "url": "file:mods-source/_vanilla/SEST_RAN_Fleet/language_en/vessel_names.ini (line 40)"
+        },
+        {
+          "title": "Tracker catalog vesselcosts.ini [ran_oa_supply] (not the same ship)",
+          "url": "file:mods-source/3807187341/systems/vesselcosts.ini (lines 4486-4491)"
+        }
+      ]
+    },
+    {
+      "target": "ran_ffh_anzac",
+      "kind": "vessel",
+      "decision": "left unknown",
+      "candidate": "A$3.807bn for ten ships at 1988 prices (A$380.7m each)",
+      "why": "The page was blocked by the network policy (CONNECT 403). No MEKO 200ANZ catalog entry: ran_dd_anzac is the 1950s Battle-class destroyer, and the Type 23 hull is only a model stand-in. Re-checked: RAN Anzac-class (MEKO 200ANZ) frigates. There is no MEKO 200ANZ catalog entry: ran_dd_anzac is the Battle-class destroyer, and the Type 23 is a model stand-in. The 1988 contract figure could not be read. Re-run: the source hosts were blocked.",
+      "rerun": "the source hosts were blocked",
+      "sources": [
+        {
+          "title": "Combat Cost Tracker vesselcosts.ini [ran_dd_anzac]",
+          "url": "mods-source/3807187341/systems/vesselcosts.ini (lines 4267-4272)"
+        },
+        {
+          "title": "SEST RAN Fleet names",
+          "url": "file:mods-source/_vanilla/SEST_RAN_Fleet/language_en/vessel_names.ini (line 14)"
+        },
+        {
+          "title": "Tracker catalog vesselcosts.ini [ran_dd_anzac] (not the same ship)",
+          "url": "file:mods-source/3807187341/systems/vesselcosts.ini (lines 4267-4272)"
+        }
+      ]
+    },
+    {
+      "target": "ran_lsd_choules",
+      "kind": "vessel",
+      "decision": "left unknown",
+      "candidate": "A$100m (GBP 65m) paid for the second-hand ship in 2011; GBP 596m for four Bay-class ships (GBP 149m each)",
+      "why": "Both pages were blocked by the network policy. The consistent figure is a second-hand sale, not a build or replacement price. The Galicia model donor is not cost evidence. Re-checked: HMAS Choules, ex-RFA Largs Bay (Bay-class LSD(A)), bought second-hand in 2011. There is no Bay-class catalog entry, and the Galicia is a model donor only. The build and sale figures could not be read. Re-run: the source hosts were blocked.",
+      "rerun": "the source hosts were blocked",
+      "sources": [
+        {
+          "title": "SEST RAN Fleet names",
+          "url": "mods-source/_vanilla/SEST_RAN_Fleet/language_en (vessel names)"
+        },
+        {
+          "title": "SEST RAN Fleet names",
+          "url": "file:mods-source/_vanilla/SEST_RAN_Fleet/language_en/vessel_names.ini (line 34)"
+        }
+      ]
+    },
+    {
+      "target": "ran_opv_arafura",
+      "kind": "vessel",
+      "decision": "left unknown",
+      "candidate": "A$3.58bn programme for 12 hulls (A$298.3m per hull, a ceiling)",
+      "why": "The ANAO page was blocked by the network policy. The figure is a programme cost including support systems, and later Defence data gives other totals. SEST does not substitute a foreign OPV price. Re-checked: RAN Arafura-class (Luerssen OPV 80). There is no Arafura or OPV 80 catalog entry, and the Meteoro BAM is a model stand-in only. The ANAO programme figure could not be read and includes support costs. Re-run: the source hosts were blocked.",
+      "rerun": "the source hosts were blocked",
+      "sources": [
+        {
+          "title": "SEST RAN Fleet names",
+          "url": "mods-source/_vanilla/SEST_RAN_Fleet/language_en (vessel names)"
+        },
+        {
+          "title": "SEST RAN Fleet names",
+          "url": "file:mods-source/_vanilla/SEST_RAN_Fleet/language_en/vessel_names.ini (line 58)"
+        }
+      ]
+    },
+    {
+      "target": "ran_ssg_collins",
+      "kind": "vessel",
+      "decision": "left unknown",
+      "candidate": "A$3.9bn for six boats (A$650m each)",
+      "why": "The navy.gov.au page was blocked by the network policy, so the figure is unverified. SEST does not substitute an Oberon or the S-80 model donor. Re-checked: RAN Collins-class submarines (six boats, ASC). There is no Collins catalog entry, and the S-80 is a model stand-in only. The contract figure could not be read. Re-run: the source hosts were blocked.",
+      "rerun": "the source hosts were blocked",
+      "sources": [
+        {
+          "title": "SEST RAN Fleet names",
+          "url": "mods-source/_vanilla/SEST_RAN_Fleet/language_en (vessel names)"
+        },
+        {
+          "title": "SEST RAN Fleet names",
+          "url": "file:mods-source/_vanilla/SEST_RAN_Fleet/language_en/vessel_names.ini (line 47)"
+        }
+      ]
+    },
+    {
+      "target": "tha_aor_chula",
+      "kind": "vessel",
+      "decision": "left unknown",
+      "candidate": "none",
+      "why": "No Chula-class price was found. ir_aor_delvar shares only the borrowed 3D model. Re-checked: Royal Thai Navy Chula-class small coastal tankers (1981-82). No price was found, and no catalog entry exists. ir_aor_delvar shares only the model.",
+      "sources": [
+        {
+          "title": "Thai navy names (Workshop 3711297532)",
+          "url": "file:mods-source/3711297532/language_en/vessel_names.ini (lines 165-170)"
+        }
+      ]
+    },
+    {
+      "target": "tha_ff_makut_rajakumarn",
+      "kind": "vessel",
+      "decision": "left unknown",
+      "candidate": "none",
+      "why": "No published contract value was found (order date 1969 only), and the catalog has no Yarrow design. Re-checked: HTMS Makut Rajakumarn, a Yarrow-built frigate in its original 1973 fit. No contract value could be read, and the catalog has no Yarrow design. Re-run: this session's web search allowance ran out and the source hosts were blocked.",
+      "rerun": "this session's web search allowance ran out and the source hosts were blocked",
+      "sources": [
+        {
+          "title": "Thai navy names (Workshop 3711297532)",
+          "url": "file:mods-source/3711297532/language_en/vessel_names.ini (line 116)"
+        }
+      ]
+    },
+    {
+      "target": "tha_ff_makut_rajakumarn_88",
+      "kind": "vessel",
+      "decision": "left unknown",
+      "candidate": "none",
+      "why": "The same hull after its 1985-88 modernisation; a refit is not a new build, and no published price exists. Re-checked: The same HTMS Makut Rajakumarn after its 1988 modernisation. A refit is not a new build, and the base hull is itself unpriced.",
+      "sources": [
+        {
+          "title": "Thai navy names (Workshop 3711297532)",
+          "url": "file:mods-source/3711297532/language_en/vessel_names.ini (line 123)"
+        }
+      ]
+    },
+    {
+      "target": "tha_fs_khamronsin",
+      "kind": "vessel",
+      "decision": "left unknown",
+      "candidate": "none",
+      "why": "No published contract value was found, and the catalog has no same-design entry. Re-checked: Royal Thai Navy Khamronsin-class corvettes (a Vosper design built in Thailand, 1992). No contract value could be read, and the catalog has no same-design entry. Re-run: this session's web search allowance ran out and the source hosts were blocked.",
+      "rerun": "this session's web search allowance ran out and the source hosts were blocked",
+      "sources": [
+        {
+          "title": "Thai navy names (Workshop 3711297532)",
+          "url": "file:mods-source/3711297532/language_en/vessel_names.ini (line 91)"
+        }
+      ]
+    },
+    {
+      "target": "tha_pt_chonburi",
+      "kind": "vessel",
+      "decision": "left unknown",
+      "candidate": "none",
+      "why": "No published contract value was found (order date Nov 1979 only), and the catalog has no Breda MV 400 entry. Re-checked: Royal Thai Navy Chonburi-class gun patrol craft (Breda, 1983). No contract value could be read, and the catalog has no Breda MV 400 entry. Re-run: this session's web search allowance ran out and the source hosts were blocked.",
+      "rerun": "this session's web search allowance ran out and the source hosts were blocked",
+      "sources": [
+        {
+          "title": "Thai navy names (Workshop 3711297532)",
+          "url": "file:mods-source/3711297532/language_en/vessel_names.ini (line 56)"
+        }
+      ]
+    },
+    {
+      "target": "tha_pt_hua_hin",
+      "kind": "vessel",
+      "decision": "left unknown",
+      "candidate": "none",
+      "why": "No published contract value was found; the catalog's OPV entries cover much larger hulls. Re-checked: Royal Thai Navy Hua Hin-class patrol gunboats (2002-2004). No contract value could be read, and no same-design catalog entry exists. Re-run: this session's web search allowance ran out and the source hosts were blocked.",
+      "rerun": "this session's web search allowance ran out and the source hosts were blocked",
+      "sources": [
+        {
+          "title": "Thai navy names (Workshop 3711297532)",
+          "url": "file:mods-source/3711297532/language_en/vessel_names.ini (line 47)"
+        }
+      ]
+    },
+    {
+      "target": "tha_ptg_ratcharit",
+      "kind": "vessel",
+      "decision": "left unknown",
+      "candidate": "none",
+      "why": "No published contract value was found (order date 1976 only); the 1975 missile-FAC entries are a type comparison only. Re-checked: Royal Thai Navy Ratcharit-class missile FAC (Breda, 270 t, MM38). No contract value could be read, and the catalog's missile-FAC entries are type comparisons, not this design. Re-run: this session's web search allowance ran out and the source hosts were blocked.",
+      "rerun": "this session's web search allowance ran out and the source hosts were blocked",
+      "sources": [
+        {
+          "title": "Thai navy names (Workshop 3711297532)",
+          "url": "file:mods-source/3711297532/language_en/vessel_names.ini (line 73)"
+        }
+      ]
+    },
+    {
+      "target": "usn_take_lewis_clark",
+      "kind": "vessel",
+      "decision": "refuted",
+      "candidate": "USD 456m (Navy FY2008 estimate for one T-AKE, CRS RL32513) / USD 710m (CPI to Aug 2026)",
+      "why": "Refuted: the proposal's SAR PDF was empty and the GlobalSecurity page was blocked. The checker's replacement from CRS is an estimate that CRS says may run USD 122-145m low, and has not had its own check, so it is not shipped. Re-checked: MSC Lewis and Clark-class T-AKE, a SEST_Replenishment new unit. There is no same-class catalog entry: usn_ae_kilauea is the model donor and predecessor. No per-ship cost could be read. Re-run: this session's web search allowance ran out and the source hosts were blocked.",
+      "rerun": "this session's web search allowance ran out and the source hosts were blocked",
+      "sources": [
+        {
+          "title": "CRS RL32513, Navy-Marine Corps Amphibious and Maritime Prepositioning Ship Programs, updated July 10, 2007 (EveryCRSReport)",
+          "url": "https://www.everycrsreport.com/files/20070710_RL32513_222e0a018884916fac55764100bac61813a4288f.html"
+        },
+        {
+          "title": "US Inflation Calculator, CPI-U data 1913-2026 (BLS series)",
+          "url": "https://www.usinflationcalculator.com/inflation/consumer-price-index-and-annual-percent-changes-from-1913-to-2008/"
+        },
+        {
+          "title": "SEST FEATURES.md, replenishment new units",
+          "url": "file:docs/FEATURES.md (line 229)"
+        },
+        {
+          "title": "SEST cost list row",
+          "url": "file:docs/combat-costs/cost-list.csv (line 448)"
+        }
+      ]
+    },
+    {
+      "target": "usn_taoe_supply",
+      "kind": "vessel",
+      "decision": "refuted",
+      "candidate": "USD 500m (FY1992-93 funding for AOE-10 Bridge, the fourth ship) / USD 1,160m (CPI to Aug 2026)",
+      "why": "Refuted: the proposal's source (DoD IG 92-030, USD 540.1m) returned Access Denied. The checker's replacement from GAO/NSIAD-93-298 is the funding Congress provided, GAO calls the final cost uncertain, and the replacement has not had its own check, so it is not shipped. Re-checked: MSC Supply-class T-AOE (AOE-6 class), a SEST_Replenishment new unit. Sacramento is a predecessor class and model donor, not the same class. No end cost per ship could be read. Re-run: the source hosts were blocked.",
+      "rerun": "the source hosts were blocked",
+      "sources": [
+        {
+          "title": "GAO/NSIAD-93-298, Navy Contract: AOE 6 Shipbuilding Claims Settled But More Delays and Cost Growth Likely (30 Sep 1993)",
+          "url": "https://www.govinfo.gov/content/pkg/GAOREPORTS-NSIAD-93-298/html/GAOREPORTS-NSIAD-93-298.htm"
+        },
+        {
+          "title": "FAS Military Analysis Network, AOE 6 Supply Fast Combat Support Ship",
+          "url": "https://man.fas.org/dod-101/sys/ship/aoe-6.htm"
+        },
+        {
+          "title": "US Inflation Calculator, CPI-U data 1913-2026 (BLS series)",
+          "url": "https://www.usinflationcalculator.com/inflation/consumer-price-index-and-annual-percent-changes-from-1913-to-2008/"
+        },
+        {
+          "title": "SEST FEATURES.md, replenishment new units",
+          "url": "file:docs/FEATURES.md (line 229)"
+        },
+        {
+          "title": "Tracker catalog vesselcosts.ini [usn_aoe_sacramento] (predecessor class, not the same)",
+          "url": "file:mods-source/3807187341/systems/vesselcosts.ini (lines 1831-1836)"
+        }
+      ]
+    },
+    {
+      "target": "071_726_4_chaff",
+      "kind": "weapon",
+      "decision": "left unknown",
+      "candidate": "none",
+      "why": "Type 726-4 ship chaff round (PLAN); no published unit price reachable; no tracker chaff entry to map. Re-run: this session's web search allowance ran out and the source hosts were blocked.",
+      "rerun": "this session's web search allowance ran out and the source hosts were blocked",
+      "sources": []
+    },
+    {
+      "target": "all_ship_chaff_late",
+      "kind": "weapon",
+      "decision": "left unknown",
+      "candidate": "none",
+      "why": "Stock generic late-era ship chaff round; no per-round price reachable this run. Re-run: this session's web search allowance ran out and the source hosts were blocked.",
+      "rerun": "this session's web search allowance ran out and the source hosts were blocked",
+      "sources": []
+    },
+    {
+      "target": "am_boz",
+      "kind": "weapon",
+      "decision": "left unknown",
+      "candidate": "none",
+      "why": "Not priced: BOZ-101 chaff/flare dispenser pod for Tornado; no tracker entry for it or its family, and no unit price could be read on 2026-10-23 (web search budget spent, fetch hosts blocked); empty-pod price; the chaff cartridges are a separate Decoy item. Re-run: this session's web search allowance ran out and the source hosts were blocked.",
+      "rerun": "this session's web search allowance ran out and the source hosts were blocked",
+      "sources": []
+    },
+    {
+      "target": "am_kb44",
+      "kind": "weapon",
+      "decision": "left unknown",
+      "candidate": "none",
+      "why": "KB 44 MW-1 submunition (56 game rounds per dispenser load): no published MW-1 or KB 44 unit price was found, and a game round is an arbitrary slice of a dispenser load, so no per-round proxy holds up. Re-run: this session's web search allowance ran out and the source hosts were blocked.",
+      "rerun": "this session's web search allowance ran out and the source hosts were blocked",
+      "sources": [
+        {
+          "title": "Euromod English ammunition names",
+          "url": "file:mods-source/3629144864/language_en/ammunition_names.ini#L357"
+        },
+        {
+          "title": "Tornado IDS anti-armour loadout (56 KB 44 stations)",
+          "url": "file:mods-source/3505420313/aircraft/am_tornado_ids.ini#L671-L737"
+        }
+      ]
+    },
+    {
+      "target": "am_stabo",
+      "kind": "weapon",
+      "decision": "left unknown",
+      "candidate": "none",
+      "why": "STABO MW-1 runway submunition (dispenser load split into game rounds): no published MW-1 or STABO unit price was found; a game round is a slice of a dispenser load, so no per-round proxy holds up. Re-run: this session's web search allowance ran out and the source hosts were blocked.",
+      "rerun": "this session's web search allowance ran out and the source hosts were blocked",
+      "sources": [
+        {
+          "title": "Euromod English ammunition names",
+          "url": "file:mods-source/3629144864/language_en/ammunition_names.ini#L358"
+        },
+        {
+          "title": "Tornado IDS anti-runway loadout (56 STABO stations)",
+          "url": "file:mods-source/3505420313/aircraft/am_tornado_ids.ini#L739-L805"
+        }
+      ]
+    },
+    {
+      "target": "am_tornado_ids_tank",
+      "kind": "weapon",
+      "decision": "left unknown",
+      "candidate": "none",
+      "why": "Not priced: Tornado IDS external drop tank; no tracker entry for it or its family, and no unit price could be read on 2026-10-23 (web search budget spent, fetch hosts blocked). Re-run: this session's web search allowance ran out and the source hosts were blocked.",
+      "rerun": "this session's web search allowance ran out and the source hosts were blocked",
+      "sources": []
+    },
+    {
+      "target": "bel_hmp-250",
+      "kind": "weapon",
+      "decision": "left unknown",
+      "candidate": "none",
+      "why": "Not priced: FN Herstal HMP-250 12.7 mm gun pod; no tracker entry for it or its family, and no unit price could be read on 2026-10-23 (web search budget spent, fetch hosts blocked); empty-pod price; rounds priced per usn_cal_05in. Re-run: this session's web search allowance ran out and the source hosts were blocked.",
+      "rerun": "this session's web search allowance ran out and the source hosts were blocked",
+      "sources": []
+    },
+    {
+      "target": "cft_f-16",
+      "kind": "weapon",
+      "decision": "left unknown",
+      "candidate": "none",
+      "why": "Not priced: F-16 Block 52+ conformal fuel tanks; no tracker entry for it or its family, and no unit price could be read on 2026-10-23 (web search budget spent, fetch hosts blocked). Re-run: this session's web search allowance ran out and the source hosts were blocked.",
+      "rerun": "this session's web search allowance ran out and the source hosts were blocked",
+      "sources": []
+    },
+    {
+      "target": "chaff_dircm",
+      "kind": "weapon",
+      "decision": "left unknown",
+      "candidate": "none: proposes Category=Ignore with blank prices",
+      "why": "DIRCM laser jammer emulated as a 9999-round chaff magazine on the AH-64E; not an expendable store, so Category=Ignore with blank prices.",
+      "sources": []
+    },
+    {
+      "target": "dts_anaaq-13",
+      "kind": "weapon",
+      "decision": "left unknown",
+      "candidate": "none",
+      "why": "Not priced: AN/AAQ-13 LANTIRN navigation pod; no tracker entry for it or its family, and no unit price could be read on 2026-10-23 (web search budget spent, fetch hosts blocked); LANTIRN pair with dts_anaaq-14. Re-run: this session's web search allowance ran out and the source hosts were blocked.",
+      "rerun": "this session's web search allowance ran out and the source hosts were blocked",
+      "sources": []
+    },
+    {
+      "target": "dts_anaaq-14",
+      "kind": "weapon",
+      "decision": "left unknown",
+      "candidate": "none",
+      "why": "Not priced: AN/AAQ-14 LANTIRN targeting pod; no tracker entry for it or its family, and no unit price could be read on 2026-10-23 (web search budget spent, fetch hosts blocked); LANTIRN pair with dts_anaaq-13. Re-run: this session's web search allowance ran out and the source hosts were blocked.",
+      "rerun": "this session's web search allowance ran out and the source hosts were blocked",
+      "sources": []
+    },
+    {
+      "target": "dts_anaaq-33",
+      "kind": "weapon",
+      "decision": "left unknown",
+      "candidate": "none",
+      "why": "Not priced: AN/AAQ-33 Sniper Advanced Targeting Pod; no tracker entry for it or its family, and no unit price could be read on 2026-10-23 (web search budget spent, fetch hosts blocked); same pod as f16_anaaq-33. Re-run: this session's web search allowance ran out and the source hosts were blocked.",
+      "rerun": "this session's web search allowance ran out and the source hosts were blocked",
+      "sources": []
+    },
+    {
+      "target": "dts_gbu-39_quad",
+      "kind": "weapon",
+      "decision": "left unknown",
+      "candidate": "none",
+      "why": "Not priced: BRU-61/A-type four-place carriage loaded with 4 x dts_gbu-39 SDB; no tracker entry for it or its family, and no unit price could be read on 2026-10-23 (web search budget spent, fetch hosts blocked); BRU-61/A family (usn_bru-61a, usn_bru-61a_10, f16_gbu-39_quad, *_gbu-53_quad); empty-rack price. Re-run: this session's web search allowance ran out and the source hosts were blocked.",
+      "rerun": "this session's web search allowance ran out and the source hosts were blocked",
+      "sources": []
+    },
+    {
+      "target": "dts_gbu-53_quad",
+      "kind": "weapon",
+      "decision": "left unknown",
+      "candidate": "none",
+      "why": "Not priced: Four-place carriage loaded with 4 x GBU-53/B StormBreaker; no tracker entry for it or its family, and no unit price could be read on 2026-10-23 (web search budget spent, fetch hosts blocked); BRU-61/A family; empty-rack price. Re-run: this session's web search allowance ran out and the source hosts were blocked.",
+      "rerun": "this session's web search allowance ran out and the source hosts were blocked",
+      "sources": []
+    },
+    {
+      "target": "eu_litening",
+      "kind": "weapon",
+      "decision": "left unknown",
+      "candidate": "none",
+      "why": "Not priced: Litening targeting pod; no tracker entry for it or its family, and no unit price could be read on 2026-10-23 (web search budget spent, fetch hosts blocked); Litening family (spa_litening, usaf_aaq-28_litening, usaf_litening). Re-run: this session's web search allowance ran out and the source hosts were blocked.",
+      "rerun": "this session's web search allowance ran out and the source hosts were blocked",
+      "sources": []
+    },
+    {
+      "target": "eu_tank_1000",
+      "kind": "weapon",
+      "decision": "left unknown",
+      "candidate": "none",
+      "why": "Not priced: Eurofighter Typhoon 1,000 l external fuel tank; no tracker entry for it or its family, and no unit price could be read on 2026-10-23 (web search budget spent, fetch hosts blocked); same tank as spa_ef2000_fueltank. Re-run: this session's web search allowance ran out and the source hosts were blocked.",
+      "rerun": "this session's web search allowance ran out and the source hosts were blocked",
+      "sources": []
+    },
+    {
+      "target": "f16_anaaq-33",
+      "kind": "weapon",
+      "decision": "left unknown",
+      "candidate": "none",
+      "why": "Not priced: AN/AAQ-33 Sniper Advanced Targeting Pod; no tracker entry for it or its family, and no unit price could be read on 2026-10-23 (web search budget spent, fetch hosts blocked); same pod as dts_anaaq-33. Re-run: this session's web search allowance ran out and the source hosts were blocked.",
+      "rerun": "this session's web search allowance ran out and the source hosts were blocked",
+      "sources": []
+    },
+    {
+      "target": "f16_gbu-39_quad",
+      "kind": "weapon",
+      "decision": "left unknown",
+      "candidate": "none",
+      "why": "Not priced: Four-place carriage with 4 x f16_gbu-39 SDB; no tracker entry for it or its family, and no unit price could be read on 2026-10-23 (web search budget spent, fetch hosts blocked); BRU-61/A family; empty-rack price. Re-run: this session's web search allowance ran out and the source hosts were blocked.",
+      "rerun": "this session's web search allowance ran out and the source hosts were blocked",
+      "sources": []
+    },
+    {
+      "target": "f16_gbu-53_quad",
+      "kind": "weapon",
+      "decision": "left unknown",
+      "candidate": "none",
+      "why": "Not priced: Four-place carriage with 4 x f16_gbu-53 StormBreaker; no tracker entry for it or its family, and no unit price could be read on 2026-10-23 (web search budget spent, fetch hosts blocked); BRU-61/A family; empty-rack price. Re-run: this session's web search allowance ran out and the source hosts were blocked.",
+      "rerun": "this session's web search allowance ran out and the source hosts were blocked",
+      "sources": []
+    },
+    {
+      "target": "fr_a244s_mod1",
+      "kind": "weapon",
+      "decision": "left unknown",
+      "candidate": "none",
+      "why": "A244/S Mod 1: no published unit or contract price found; no era-matched priced comparator. Re-run: this session's web search allowance ran out.",
+      "rerun": "this session's web search allowance ran out",
+      "sources": []
+    },
+    {
+      "target": "fr_canto",
+      "kind": "weapon",
+      "decision": "left unknown",
+      "candidate": "UAE AED 407M for MU90 and CANTO together, no split or quantities",
+      "why": "CANTO anti-torpedo decoy: no unit price published; the only figure found (UAE, AED 407M) combines MU90 and CANTO with no split or quantities. Re-run: this session's web search allowance ran out and the source hosts were blocked.",
+      "rerun": "this session's web search allowance ran out and the source hosts were blocked",
+      "sources": []
+    },
+    {
+      "target": "fr_damoncles",
+      "kind": "weapon",
+      "decision": "left unknown",
+      "candidate": "none",
+      "why": "Not priced: Damocles targeting pod; no tracker entry for it or its family, and no unit price could be read on 2026-10-23 (web search budget spent, fetch hosts blocked). Re-run: this session's web search allowance ran out and the source hosts were blocked.",
+      "rerun": "this session's web search allowance ran out and the source hosts were blocked",
+      "sources": []
+    },
+    {
+      "target": "fr_e15",
+      "kind": "weapon",
+      "decision": "left unknown",
+      "candidate": "none",
+      "why": "E15 (1960 French 550 mm heavyweight): no documented unit price; no era-matched priced comparator.",
+      "sources": []
+    },
+    {
+      "target": "fr_ngds_sealem_chaff",
+      "kind": "weapon",
+      "decision": "left unknown",
+      "candidate": "none",
+      "why": "NGDS launcher SEALEM/SEALIR decoy round (France); no per-round price reachable this run. Re-run: this session's web search allowance ran out and the source hosts were blocked.",
+      "rerun": "this session's web search allowance ran out and the source hosts were blocked",
+      "sources": []
+    },
+    {
+      "target": "fr_sylena_chaff",
+      "kind": "weapon",
+      "decision": "left unknown",
+      "candidate": "none",
+      "why": "SYLENA launcher SEALEM/SEALIR decoy round (France); no per-round price reachable this run. Re-run: this session's web search allowance ran out and the source hosts were blocked.",
+      "rerun": "this session's web search allowance ran out and the source hosts were blocked",
+      "sources": []
+    },
+    {
+      "target": "fr_talios",
+      "kind": "weapon",
+      "decision": "left unknown",
+      "candidate": "none",
+      "why": "Not priced: TALIOS targeting pod; no tracker entry for it or its family, and no unit price could be read on 2026-10-23 (web search budget spent, fetch hosts blocked). Re-run: this session's web search allowance ran out and the source hosts were blocked.",
+      "rerun": "this session's web search allowance ran out and the source hosts were blocked",
+      "sources": []
+    },
+    {
+      "target": "fr_tank_1200",
+      "kind": "weapon",
+      "decision": "left unknown",
+      "candidate": "none",
+      "why": "Not priced: Rafale 1,200 l class external fuel tank; no tracker entry for it or its family, and no unit price could be read on 2026-10-23 (web search budget spent, fetch hosts blocked). Re-run: this session's web search allowance ran out and the source hosts were blocked.",
+      "rerun": "this session's web search allowance ran out and the source hosts were blocked",
+      "sources": []
+    },
+    {
+      "target": "ger_MASS_ATD_noisemaker",
+      "kind": "weapon",
+      "decision": "left unknown",
+      "candidate": "none",
+      "why": "MASS ATD expendable acoustic torpedo decoy; no unit price reachable this run. Re-run: this session's web search allowance ran out and the source hosts were blocked.",
+      "rerun": "this session's web search allowance ran out and the source hosts were blocked",
+      "sources": []
+    },
+    {
+      "target": "ger_MASS_omnitrap",
+      "kind": "weapon",
+      "decision": "left unknown",
+      "candidate": "none",
+      "why": "Rheinmetall MASS OmniTrap multispectral 81 mm decoy round; no per-round price reachable this run. Re-run: this session's web search allowance ran out and the source hosts were blocked.",
+      "rerun": "this session's web search allowance ran out and the source hosts were blocked",
+      "sources": []
+    },
+    {
+      "target": "ir_107mm_rocket",
+      "kind": "weapon",
+      "decision": "left unknown",
+      "candidate": "none",
+      "why": "Haseb-1 107mm rocket: no rocket entry in the catalog to map, and no public price could be read this run (web search budget exhausted, all fetches blocked). Re-run: this session's web search allowance ran out and the source hosts were blocked.",
+      "rerun": "this session's web search allowance ran out and the source hosts were blocked",
+      "sources": [
+        {
+          "title": "Vanilla ammunition_names.ini line 381 (identity)",
+          "url": "file:mods-source/_vanilla/original/language_en/ammunition_names.ini"
+        },
+        {
+          "title": "Tracker config.ini [WeaponCategories]",
+          "url": "file:mods-source/3807187341/systems/combatcosts/config.ini"
+        }
+      ]
+    },
+    {
+      "target": "it_canto",
+      "kind": "weapon",
+      "decision": "left unknown",
+      "candidate": "UAE AED 407M for MU90 and CANTO together, no split or quantities",
+      "why": "CANTO anti-torpedo decoy (same as fr_canto): no unit price published; UAE AED 407M figure combines MU90 and CANTO. Re-run: this session's web search allowance ran out and the source hosts were blocked (priced with fr_canto).",
+      "sources": [],
+      "rerun": "this session's web search allowance ran out and the source hosts were blocked"
+    },
+    {
+      "target": "ita_canto-v",
+      "kind": "weapon",
+      "decision": "left unknown",
+      "candidate": "UAE AED 407M for MU90 and CANTO together, no split or quantities",
+      "why": "CANTO-V torpedo decoy (CONTRALTO-V); no unit price; the only known figure (UAE MU90+CANTO total) has no split. Re-run: this session's web search allowance ran out and the source hosts were blocked.",
+      "rerun": "this session's web search allowance ran out and the source hosts were blocked",
+      "sources": []
+    },
+    {
+      "target": "jp_aam-3",
+      "kind": "weapon",
+      "decision": "left unknown",
+      "candidate": "US$90,000-150,000 (Wikipedia infobox, not re-checked)",
+      "why": "No authoritative unit price for the Mitsubishi AAM-3 (Type 90) could be read; the catalog has no Japanese AAM family. Re-run: this session's web search allowance ran out and the source hosts were blocked.",
+      "rerun": "this session's web search allowance ran out and the source hosts were blocked",
+      "sources": [
+        {
+          "title": "jp_aam-3 config and English name",
+          "url": "file:mods-source/3755769170/ammunition/jp_aam-3.ini"
+        }
+      ]
+    },
+    {
+      "target": "jp_aam-4",
+      "kind": "weapon",
+      "decision": "left unknown",
+      "candidate": "US$450,000 (Wikipedia only); MOD AAM-4B budget lines of JPY 16.3bn and 14.3bn with no quantity",
+      "why": "No authoritative unit price for the Mitsubishi AAM-4: the reported MOD AAM-4B budget lines give no quantity, the US$450,000 figure is Wikipedia only, and the catalog has no Japanese AAM family. Re-run: this session's web search allowance ran out and the source hosts were blocked.",
+      "rerun": "this session's web search allowance ran out and the source hosts were blocked",
+      "sources": [
+        {
+          "title": "jp_aam-4 config and English name",
+          "url": "file:mods-source/3755769170/ammunition/jp_aam-4.ini"
+        }
+      ]
+    },
+    {
+      "target": "jp_asm-3",
+      "kind": "weapon",
+      "decision": "left unknown",
+      "candidate": "A FY2024 JPY 11.8bn budget total with no quantity (Janes excerpt)",
+      "why": "Only programme and budget totals without quantities are reported for the ASM-3/ASM-3A; no unit price; the catalog's subsonic ASM-1 is not a family proxy. Re-run: this session's web search allowance ran out and the source hosts were blocked.",
+      "rerun": "this session's web search allowance ran out and the source hosts were blocked",
+      "sources": [
+        {
+          "title": "jp_asm-3 config and English name",
+          "url": "file:mods-source/3755769170/ammunition/jp_asm-3.ini"
+        }
+      ]
+    },
+    {
+      "target": "jp_jaaq-2",
+      "kind": "weapon",
+      "decision": "left unknown",
+      "candidate": "none",
+      "why": "Not priced: J/AAQ-2 targeting pod for the F-2; no tracker entry for it or its family, and no unit price could be read on 2026-10-23 (web search budget spent, fetch hosts blocked). Re-run: this session's web search allowance ran out and the source hosts were blocked.",
+      "rerun": "this session's web search allowance ran out and the source hosts were blocked",
+      "sources": []
+    },
+    {
+      "target": "jp_tank_300_f-2a",
+      "kind": "weapon",
+      "decision": "left unknown",
+      "candidate": "none",
+      "why": "Not priced: Mitsubishi F-2A ~300 US gal external tank; no tracker entry for it or its family, and no unit price could be read on 2026-10-23 (web search budget spent, fetch hosts blocked); F-2 tank family with jp_tank_610_f-2a. Re-run: this session's web search allowance ran out and the source hosts were blocked.",
+      "rerun": "this session's web search allowance ran out and the source hosts were blocked",
+      "sources": []
+    },
+    {
+      "target": "jp_tank_610_f-2a",
+      "kind": "weapon",
+      "decision": "left unknown",
+      "candidate": "none",
+      "why": "Not priced: Mitsubishi F-2A 2,310 l external drop tank; no tracker entry for it or its family, and no unit price could be read on 2026-10-23 (web search budget spent, fetch hosts blocked); F-2 tank family with jp_tank_300_f-2a. Re-run: this session's web search allowance ran out and the source hosts were blocked.",
+      "rerun": "this session's web search allowance ran out and the source hosts were blocked",
+      "sources": []
+    },
+    {
+      "target": "jp_ter_rockeye_3",
+      "kind": "weapon",
+      "decision": "left unknown",
+      "candidate": "none",
+      "why": "Not priced: Triple ejector rack with 3 x Mk 20 Rockeye; no tracker entry for it or its family, and no unit price could be read on 2026-10-23 (web search budget spent, fetch hosts blocked); TER family with usn_ter_mk82_3; empty-rack price. Re-run: this session's web search allowance ran out and the source hosts were blocked.",
+      "rerun": "this session's web search allowance ran out and the source hosts were blocked",
+      "sources": []
+    },
+    {
+      "target": "knm_terne_shell",
+      "kind": "weapon",
+      "decision": "left unknown",
+      "candidate": "none",
+      "why": "An unguided ASW rocket (RBU): the catalog prices none of its 26 RBU ids, and no public per-round price was found. Re-checked: Terne III unguided ASW round: no per-round price could be read (no web access this run), and the catalog prices no RBU round. Re-run: this session's web search allowance ran out and the source hosts were blocked.",
+      "rerun": "this session's web search allowance ran out and the source hosts were blocked",
+      "sources": [
+        {
+          "title": "knm_terne_shell.ini (mod 3491248180)",
+          "url": "file:mods-source/3491248180/ammunition/knm_terne_shell.ini"
+        }
+      ]
+    },
+    {
+      "target": "nl_tank_685",
+      "kind": "weapon",
+      "decision": "left unknown",
+      "candidate": "none",
+      "why": "Not priced: Lynx-type helicopter auxiliary tank; no tracker entry for it or its family, and no unit price could be read on 2026-10-23 (web search budget spent, fetch hosts blocked). Re-run: this session's web search allowance ran out and the source hosts were blocked.",
+      "rerun": "this session's web search allowance ran out and the source hosts were blocked",
+      "sources": []
+    },
+    {
+      "target": "pla_airdrop_type63",
+      "kind": "weapon",
+      "decision": "left unknown",
+      "candidate": "none: proposes Category=Ignore with no price",
+      "why": "Cosmetic airdrop load (Type 63 hull mesh): a Paratrooper-type visual load, not a store; it despawns and is not delivered or lost as a vehicle; propose Category=Ignore with no price.",
+      "sources": [
+        {
+          "title": "pla_airdrop_type63.ini",
+          "url": "file:mods-source/3782020901/ammunition/pla_airdrop_type63.ini"
+        },
+        {
+          "title": "3782020901 ammunition_names.ini line 4",
+          "url": "file:mods-source/3782020901/language_en/ammunition_names.ini"
+        }
+      ]
+    },
+    {
+      "target": "pla_akd-10-z21",
+      "kind": "weapon",
+      "decision": "left unknown",
+      "candidate": "none",
+      "why": "Real but unpriced Chinese helicopter ATGM: no published unit or contract price, no AKD-10/Blue Arrow entry in the catalog, and a cross-nation Hellfire analogy is not a family proxy. Re-run: this session's web search allowance ran out and the source hosts were blocked.",
+      "rerun": "this session's web search allowance ran out and the source hosts were blocked",
+      "sources": [
+        {
+          "title": "pla_akd-10-z21 config and English name",
+          "url": "file:mods-source/3774746803/ammunition/pla_akd-10-z21.ini"
+        }
+      ]
+    },
+    {
+      "target": "pla_akk-90a-z21",
+      "kind": "weapon",
+      "decision": "left unknown",
+      "candidate": "none",
+      "why": "No published unit or contract price for the TY-90 family and no TY-90 entry in the catalog; a Stinger comparison would be a cross-nation analogy. Re-run: the source hosts were blocked.",
+      "rerun": "the source hosts were blocked",
+      "sources": [
+        {
+          "title": "pla_akk-90a-z21 config and English name",
+          "url": "file:mods-source/3774746803/ammunition/pla_akk-90a-z21.ini"
+        }
+      ]
+    },
+    {
+      "target": "pla_gun_pod_qjk-99_left",
+      "kind": "weapon",
+      "decision": "left unknown",
+      "candidate": "none",
+      "why": "Not priced: QJK-99 12.7 mm gun pod; no tracker entry for it or its family, and no unit price could be read on 2026-10-23 (web search budget spent, fetch hosts blocked); same pod as pla_gun_pod_qjk-99_right; empty-pod price. Re-run: this session's web search allowance ran out and the source hosts were blocked.",
+      "rerun": "this session's web search allowance ran out and the source hosts were blocked",
+      "sources": []
+    },
+    {
+      "target": "pla_gun_pod_qjk-99_right",
+      "kind": "weapon",
+      "decision": "left unknown",
+      "candidate": "none",
+      "why": "Not priced: QJK-99 12.7 mm gun pod; no tracker entry for it or its family, and no unit price could be read on 2026-10-23 (web search budget spent, fetch hosts blocked); same pod as pla_gun_pod_qjk-99_left; empty-pod price. Re-run: this session's web search allowance ran out and the source hosts were blocked.",
+      "rerun": "this session's web search allowance ran out and the source hosts were blocked",
+      "sources": []
+    },
+    {
+      "target": "pla_paratrooper",
+      "kind": "weapon",
+      "decision": "left unknown",
+      "candidate": "none: proposes Category=Ignore with no price",
+      "why": "Cosmetic paratrooper load: a Paratrooper-type visual load, not a store; propose Category=Ignore with no price.",
+      "sources": [
+        {
+          "title": "pla_paratrooper.ini",
+          "url": "file:mods-source/3782020901/ammunition/pla_paratrooper.ini"
+        },
+        {
+          "title": "3782020901 ammunition_names.ini line 3",
+          "url": "file:mods-source/3782020901/language_en/ammunition_names.ini"
+        }
+      ]
+    },
+    {
+      "target": "pla_pod_kg-800",
+      "kind": "weapon",
+      "decision": "left unknown",
+      "candidate": "none",
+      "why": "Not priced: KG-800 airborne ECM jamming pod; no tracker entry for it or its family, and no unit price could be read on 2026-10-23 (web search budget spent, fetch hosts blocked). Re-run: this session's web search allowance ran out and the source hosts were blocked.",
+      "rerun": "this session's web search allowance ran out and the source hosts were blocked",
+      "sources": []
+    },
+    {
+      "target": "plaaf_1400l_fueltank_new",
+      "kind": "weapon",
+      "decision": "left unknown",
+      "candidate": "none",
+      "why": "Not priced: Shenyang J-8F 1,400 l external fuel tank; no tracker entry for it or its family, and no unit price could be read on 2026-10-23 (web search budget spent, fetch hosts blocked); J-8F tank family with plaaf_800l_fueltank_new. Re-run: this session's web search allowance ran out and the source hosts were blocked.",
+      "rerun": "this session's web search allowance ran out and the source hosts were blocked",
+      "sources": []
+    },
+    {
+      "target": "plaaf_4xgj",
+      "kind": "weapon",
+      "decision": "left unknown",
+      "candidate": "none",
+      "why": "Not priced: Internal-bay four-round composite launcher for BBM-2 glide bombs; no tracker entry for it or its family, and no unit price could be read on 2026-10-23 (web search budget spent, fetch hosts blocked); concept carriage; no real-world analogue price. Re-run: this session's web search allowance ran out and the source hosts were blocked.",
+      "rerun": "this session's web search allowance ran out and the source hosts were blocked",
+      "sources": []
+    },
+    {
+      "target": "plaaf_800l_fueltank_new",
+      "kind": "weapon",
+      "decision": "left unknown",
+      "candidate": "none",
+      "why": "Not priced: Shenyang J-8F 800 l external fuel tank; no tracker entry for it or its family, and no unit price could be read on 2026-10-23 (web search budget spent, fetch hosts blocked); J-8F tank family with plaaf_1400l_fueltank_new. Re-run: this session's web search allowance ran out and the source hosts were blocked.",
+      "rerun": "this session's web search allowance ran out and the source hosts were blocked",
+      "sources": []
+    },
+    {
+      "target": "plaaf_90-Ⅰ_rocket",
+      "kind": "weapon",
+      "decision": "left unknown",
+      "candidate": "none",
+      "why": "90-I 90mm HEAT FFAR (NORINCO): no rocket entry in the catalog to map, and no public price could be read this run (web search budget exhausted, all fetches blocked). Re-run: this session's web search allowance ran out and the source hosts were blocked.",
+      "rerun": "this session's web search allowance ran out and the source hosts were blocked",
+      "sources": [
+        {
+          "title": "3436170138 ammunition_names.ini line 57 (identity, corrected quote)",
+          "url": "file:mods-source/3436170138/language_en/ammunition_names.ini"
+        },
+        {
+          "title": "3436170138 plaaf_90-Ⅰ_rocket.ini",
+          "url": "file:mods-source/3436170138/ammunition/plaaf_90-Ⅰ_rocket.ini"
+        }
+      ]
+    },
+    {
+      "target": "plaaf_hf-6",
+      "kind": "weapon",
+      "decision": "left unknown",
+      "candidate": "none",
+      "why": "Not priced: HF-6 7-tube 90 mm rocket pod; no tracker entry for it or its family, and no unit price could be read on 2026-10-23 (web search budget spent, fetch hosts blocked); empty-pod price. Re-run: this session's web search allowance ran out and the source hosts were blocked.",
+      "rerun": "this session's web search allowance ran out and the source hosts were blocked",
+      "sources": []
+    },
+    {
+      "target": "plaaf_J10_fueltank_new",
+      "kind": "weapon",
+      "decision": "left unknown",
+      "candidate": "none",
+      "why": "Not priced: Chengdu J-10C wing external fuel tank; no tracker entry for it or its family, and no unit price could be read on 2026-10-23 (web search budget spent, fetch hosts blocked); same tank family as plaaf_J10_fueltank_under. Re-run: this session's web search allowance ran out and the source hosts were blocked.",
+      "rerun": "this session's web search allowance ran out and the source hosts were blocked",
+      "sources": []
+    },
+    {
+      "target": "plaaf_J10_fueltank_under",
+      "kind": "weapon",
+      "decision": "left unknown",
+      "candidate": "none",
+      "why": "Not priced: Chengdu J-10C centreline external fuel tank; no tracker entry for it or its family, and no unit price could be read on 2026-10-23 (web search budget spent, fetch hosts blocked); same tank family as plaaf_J10_fueltank_new. Re-run: this session's web search allowance ran out and the source hosts were blocked.",
+      "rerun": "this session's web search allowance ran out and the source hosts were blocked",
+      "sources": []
+    },
+    {
+      "target": "plaaf_j16_yings-iii",
+      "kind": "weapon",
+      "decision": "left unknown",
+      "candidate": "none",
+      "why": "Not priced: YINGS-III electro-optical targeting / laser designation pod; no tracker entry for it or its family, and no unit price could be read on 2026-10-23 (web search budget spent, fetch hosts blocked). Re-run: this session's web search allowance ran out and the source hosts were blocked.",
+      "rerun": "this session's web search allowance ran out and the source hosts were blocked",
+      "sources": []
+    },
+    {
+      "target": "plaaf_JH7A_fueltank_new",
+      "kind": "weapon",
+      "decision": "left unknown",
+      "candidate": "none",
+      "why": "Not priced: Xian JH-7A external fuel tank; no tracker entry for it or its family, and no unit price could be read on 2026-10-23 (web search budget spent, fetch hosts blocked); same tank family as plaaf_JH7A_fueltank_under. Re-run: this session's web search allowance ran out and the source hosts were blocked.",
+      "rerun": "this session's web search allowance ran out and the source hosts were blocked",
+      "sources": []
+    },
+    {
+      "target": "plaaf_JH7A_fueltank_under",
+      "kind": "weapon",
+      "decision": "left unknown",
+      "candidate": "none",
+      "why": "Not priced: Xian JH-7A underwing/centreline external fuel tank; no tracker entry for it or its family, and no unit price could be read on 2026-10-23 (web search budget spent, fetch hosts blocked); same tank family as plaaf_JH7A_fueltank_new. Re-run: this session's web search allowance ran out and the source hosts were blocked.",
+      "rerun": "this session's web search allowance ran out and the source hosts were blocked",
+      "sources": []
+    },
+    {
+      "target": "plaaf_kd-88_pod",
+      "kind": "weapon",
+      "decision": "left unknown",
+      "candidate": "none",
+      "why": "Not priced: KD-88 missile data-link pod; no tracker entry for it or its family, and no unit price could be read on 2026-10-23 (web search budget spent, fetch hosts blocked). Re-run: this session's web search allowance ran out and the source hosts were blocked.",
+      "rerun": "this session's web search allowance ran out and the source hosts were blocked",
+      "sources": []
+    },
+    {
+      "target": "plaaf_mer_ls-6_250_6",
+      "kind": "weapon",
+      "decision": "left unknown",
+      "candidate": "none",
+      "why": "Not priced: H-6K six-place multiple ejector rack with 6 x LS-6 250 kg glide bombs; no tracker entry for it or its family, and no unit price could be read on 2026-10-23 (web search budget spent, fetch hosts blocked); H-6K MER family; empty-rack price. Re-run: this session's web search allowance ran out and the source hosts were blocked.",
+      "rerun": "this session's web search allowance ran out and the source hosts were blocked",
+      "sources": []
+    },
+    {
+      "target": "plaaf_mer_ls-6_500_4l",
+      "kind": "weapon",
+      "decision": "left unknown",
+      "candidate": "none",
+      "why": "Not priced: H-6K four-place multiple ejector rack with 4 x LS-6 500 kg; no tracker entry for it or its family, and no unit price could be read on 2026-10-23 (web search budget spent, fetch hosts blocked); same rack as plaaf_mer_ls-6_500_4r. Re-run: this session's web search allowance ran out and the source hosts were blocked.",
+      "rerun": "this session's web search allowance ran out and the source hosts were blocked",
+      "sources": []
+    },
+    {
+      "target": "plaaf_mer_ls-6_500_4r",
+      "kind": "weapon",
+      "decision": "left unknown",
+      "candidate": "none",
+      "why": "Not priced: H-6K four-place multiple ejector rack with 4 x LS-6 500 kg; no tracker entry for it or its family, and no unit price could be read on 2026-10-23 (web search budget spent, fetch hosts blocked); same rack as plaaf_mer_ls-6_500_4l. Re-run: this session's web search allowance ran out and the source hosts were blocked.",
+      "rerun": "this session's web search allowance ran out and the source hosts were blocked",
+      "sources": []
+    },
+    {
+      "target": "plaaf_mer_type-3-250_6",
+      "kind": "weapon",
+      "decision": "left unknown",
+      "candidate": "none",
+      "why": "Not priced: H-6K six-place multiple ejector rack with 6 x Type-3 250 kg bombs; no tracker entry for it or its family, and no unit price could be read on 2026-10-23 (web search budget spent, fetch hosts blocked); H-6K MER family; empty-rack price. Re-run: this session's web search allowance ran out and the source hosts were blocked.",
+      "rerun": "this session's web search allowance ran out and the source hosts were blocked",
+      "sources": []
+    },
+    {
+      "target": "plan_726_4_chaff",
+      "kind": "weapon",
+      "decision": "left unknown",
+      "candidate": "none",
+      "why": "Type 726-4 ship chaff round (PLAN), same item as 071_726_4_chaff; no unit price reachable. Re-run: this session's web search allowance ran out and the source hosts were blocked.",
+      "rerun": "this session's web search allowance ran out and the source hosts were blocked",
+      "sources": []
+    },
+    {
+      "target": "plan_726_chaff",
+      "kind": "weapon",
+      "decision": "left unknown",
+      "candidate": "none",
+      "why": "PLAN Type 726 launcher chaff round; no unit price reachable this run. Re-run: this session's web search allowance ran out and the source hosts were blocked.",
+      "rerun": "this session's web search allowance ran out and the source hosts were blocked",
+      "sources": []
+    },
+    {
+      "target": "plan_fqf-2500",
+      "kind": "weapon",
+      "decision": "left unknown",
+      "candidate": "none",
+      "why": "FQF-2500 ASW rocket: the catalog prices no unguided RBU round (its Modern ASW rocket entries model guided rocket-torpedoes), and no public per-round price could be read this run. Re-run: the source hosts were blocked.",
+      "rerun": "the source hosts were blocked",
+      "sources": [
+        {
+          "title": "3417801942 ammunition_names.ini line 25 (identity)",
+          "url": "file:mods-source/3417801942/language_en/ammunition_names.ini"
+        },
+        {
+          "title": "Tracker catalog weaponcosts.ini line 1434 (Modern ASW rocket, on [plan_yu-11])",
+          "url": "file:mods-source/3807187341/systems/weaponcosts.ini"
+        }
+      ]
+    },
+    {
+      "target": "plan_ksb-2_dc",
+      "kind": "weapon",
+      "decision": "left unknown",
+      "candidate": "none",
+      "why": "Fictional KSB-2 115 kg aerial depth charge: no published price for the Mk 54 depth bomb or any Chinese depth charge was found, and the catalog prices no depth charge; a GP-bomb comparison would not be the same family.",
+      "sources": [
+        {
+          "title": "3775128499 English ammunition names",
+          "url": "file:mods-source/3775128499/language_en/ammunition_names.ini#L95"
+        },
+        {
+          "title": "plan_ksb-2_dc config",
+          "url": "file:mods-source/3775128499/ammunition/plan_ksb-2_dc.ini"
+        }
+      ]
+    },
+    {
+      "target": "plan_mss-01",
+      "kind": "weapon",
+      "decision": "left unknown",
+      "candidate": "none",
+      "why": "MSS-01 submarine acoustic decoy: the catalog prices no MOSS or submarine decoy, and no public unit price could be read this run. Re-run: the source hosts were blocked.",
+      "rerun": "the source hosts were blocked",
+      "sources": [
+        {
+          "title": "3775128499 ammunition_names.ini line 133 (identity)",
+          "url": "file:mods-source/3775128499/language_en/ammunition_names.ini"
+        }
+      ]
+    },
+    {
+      "target": "plan_mss-02",
+      "kind": "weapon",
+      "decision": "left unknown",
+      "candidate": "none",
+      "why": "MSS-02 324mm mobile acoustic decoy: the catalog prices no MOSS or acoustic decoy, and no public unit price could be read this run. Re-run: the source hosts were blocked.",
+      "rerun": "the source hosts were blocked",
+      "sources": [
+        {
+          "title": "3775128499 ammunition_names.ini line 135 (identity)",
+          "url": "file:mods-source/3775128499/language_en/ammunition_names.ini"
+        }
+      ]
+    },
+    {
+      "target": "plan_rbu2000",
+      "kind": "weapon",
+      "decision": "left unknown",
+      "candidate": "none",
+      "why": "FQF-2000 173mm rocket depth charge: the catalog prices no unguided RBU round, and no public per-round price could be read this run. Re-run: the source hosts were blocked.",
+      "rerun": "the source hosts were blocked",
+      "sources": [
+        {
+          "title": "3775128499 ammunition_names.ini line 63 (identity)",
+          "url": "file:mods-source/3775128499/language_en/ammunition_names.ini"
+        }
+      ]
+    },
+    {
+      "target": "plan_rgb-81",
+      "kind": "weapon",
+      "decision": "left unknown",
+      "candidate": "none",
+      "why": "FQF-3200 Type 81 rocket depth charge: the catalog prices no unguided RBU round, and no public per-round price could be read this run. Re-run: the source hosts were blocked.",
+      "rerun": "the source hosts were blocked",
+      "sources": [
+        {
+          "title": "3775128499 ammunition_names.ini line 62 (identity)",
+          "url": "file:mods-source/3775128499/language_en/ammunition_names.ini"
+        }
+      ]
+    },
+    {
+      "target": "plan_yu-12_air",
+      "kind": "weapon",
+      "decision": "refuted",
+      "candidate": "The MU90 pair as a model donor: about 1,990,000 historical (2010) / 3,050,000 current",
+      "why": "Yu-12 (324 mm lightweight, air-dropped): donor MU90 price could not be verified; no other verified lightweight-torpedo price. Re-run: this session's web search allowance ran out and the source hosts were blocked.",
+      "rerun": "this session's web search allowance ran out and the source hosts were blocked",
+      "sources": []
+    },
+    {
+      "target": "plan_yu-12_ship",
+      "kind": "weapon",
+      "decision": "refuted",
+      "candidate": "The MU90 pair as a model donor: about 1,990,000 historical (2010) / 3,050,000 current",
+      "why": "Yu-12 (324 mm lightweight, ship-launched): donor MU90 price could not be verified. Re-run: this session's web search allowance ran out and the source hosts were blocked.",
+      "rerun": "this session's web search allowance ran out and the source hosts were blocked",
+      "sources": []
+    },
+    {
+      "target": "plan_yu-12a",
+      "kind": "weapon",
+      "decision": "refuted",
+      "candidate": "The MU90 pair as a model donor: about 1,990,000 historical (2010) / 3,050,000 current",
+      "why": "Yu-12A (Yu-12 ASW/ATT variant): donor MU90 price could not be verified. Re-run: this session's web search allowance ran out and the source hosts were blocked.",
+      "rerun": "this session's web search allowance ran out and the source hosts were blocked",
+      "sources": []
+    },
+    {
+      "target": "plan_yu-5",
+      "kind": "weapon",
+      "decision": "refuted",
+      "candidate": "Proposed: 1,680,000 historical (1990, GAO ADCAP search excerpt) / 4,220,000 current (Mk 48 Mod 7 FY2025) as a heavyweight-class model",
+      "why": "Yu-5 (older Chinese wire-guided ASW heavyweight, improved Yu-3): no published price and no defensible priced comparator of its generation.",
+      "sources": []
+    },
+    {
+      "target": "plan_yu-7_air",
+      "kind": "weapon",
+      "decision": "left unknown",
+      "candidate": "none",
+      "why": "Yu-7 (Mk 46 Mod 2 licence derivative): no published price; Mk 46 comparator unpriced in this batch.",
+      "sources": []
+    },
+    {
+      "target": "plan_yu-7_ship",
+      "kind": "weapon",
+      "decision": "left unknown",
+      "candidate": "none",
+      "why": "Yu-7 (Mk 46 Mod 2 licence derivative): no published price; Mk 46 comparator unpriced in this batch.",
+      "sources": []
+    },
+    {
+      "target": "plan_yu-7c_ship",
+      "kind": "weapon",
+      "decision": "left unknown",
+      "candidate": "none",
+      "why": "Yu-7C (improved Yu-7, ~Mk 46 Mod 5): no published price; Mk 46 comparator unpriced in this batch.",
+      "sources": []
+    },
+    {
+      "target": "raaf_f-35_gun_pod",
+      "kind": "weapon",
+      "decision": "left unknown",
+      "candidate": "none",
+      "why": "A gun pod (Container): the catalog prices no Container; its 25 mm rounds are priced per round. Re-checked: Empty F-35 GAU-22/A gun pod, not carried (the SEST RAAF F-35A's Station7 line is commented out; the real F-35A gun is internal): no unit price could be read; its 25 mm rounds are priced as usn_cal_25mm_m2. Re-run: this session's web search allowance ran out and the source hosts were blocked.",
+      "rerun": "this session's web search allowance ran out and the source hosts were blocked",
+      "sources": [
+        {
+          "title": "Tracker catalog weaponcosts.ini [usn_cal_25mm_m2], lines 2621-2625",
+          "url": "file:mods-source/3807187341/systems/weaponcosts.ini"
+        },
+        {
+          "title": "raaf_f-35_gun_pod.ini",
+          "url": "file:mods-source/_retired/3514484654/ammunition/raaf_f-35_gun_pod.ini"
+        },
+        {
+          "title": "SEST RAAF F-35A loadout (station commented out)",
+          "url": "file:mods-source/_vanilla/SEST_RAAF_F-35A_JATM/aircraft/raaf_f-35a.ini#L317"
+        }
+      ]
+    },
+    {
+      "target": "rfn_m15at",
+      "kind": "weapon",
+      "decision": "left unknown",
+      "candidate": "none",
+      "why": "Paket-NK M15 anti-torpedo: no published price; no in-service Western equivalent. Re-run: this session's web search allowance ran out and the source hosts were blocked.",
+      "rerun": "this session's web search allowance ran out and the source hosts were blocked",
+      "sources": []
+    },
+    {
+      "target": "rfn_pk10_chaff",
+      "kind": "weapon",
+      "decision": "left unknown",
+      "candidate": "none",
+      "why": "PK-10 120 mm ship decoy round (Russia); no unit price reachable this run. Re-run: this session's web search allowance ran out and the source hosts were blocked.",
+      "rerun": "this session's web search allowance ran out and the source hosts were blocked",
+      "sources": []
+    },
+    {
+      "target": "rn_squid_shell",
+      "kind": "weapon",
+      "decision": "left unknown",
+      "candidate": "none",
+      "why": "A Squid mortar bomb (RBU): the catalog prices no RBU or depth-charge round, and no per-round price was found. Re-checked: Squid mortar bomb: no per-round price could be read (no web access this run), and the catalog prices no RBU or depth-charge round. Re-run: this session's web search allowance ran out and the source hosts were blocked.",
+      "rerun": "this session's web search allowance ran out and the source hosts were blocked",
+      "sources": [
+        {
+          "title": "rn_squid_shell.ini (mod 3491248180)",
+          "url": "file:mods-source/3491248180/ammunition/rn_squid_shell.ini"
+        }
+      ]
+    },
+    {
+      "target": "rn_stingray_air",
+      "kind": "weapon",
+      "decision": "left unknown",
+      "candidate": "Norway's GBP 99M Sting Ray Mod 1 contract (no quantity); a GBP 1,000m programme total",
+      "why": "Sting Ray Mod 0: no unit price published; Norway's GBP 99M Mod 1 contract gives no quantity and the GBP 1,000m figure is a programme total. Re-run: this session's web search allowance ran out and the source hosts were blocked.",
+      "rerun": "this session's web search allowance ran out and the source hosts were blocked",
+      "sources": []
+    },
+    {
+      "target": "sest_agr-30_pod",
+      "kind": "weapon",
+      "decision": "left unknown",
+      "candidate": "none",
+      "why": "A rocket pod (Container): the catalog prices no Container (0 of 203); the rounds inside are priced individually. Re-checked: Not priced: SEST fictional AGR-30 Redback 7-tube launcher; no tracker entry for it or its family, and no unit price could be read on 2026-10-23 (web search budget spent, fetch hosts blocked); a real 7-tube 2.75 in launcher price (LAU-68/LAU-131 class) would be the model-estimate donor. Empty LAU-68-class 7-tube rocket pod: no launcher unit price could be read (no web access this run); each AGR-30 inside is priced as sest_agr-30. Re-run: this session's web search allowance ran out and the source hosts were blocked.",
+      "rerun": "this session's web search allowance ran out and the source hosts were blocked",
+      "sources": [
+        {
+          "title": "usn_agr-20b_apache.ini (pod donor)",
+          "url": "file:mods-source/3425450153/ammunition/usn_agr-20b_apache.ini"
+        },
+        {
+          "title": "Southern Watch build notes (Redback pods)",
+          "url": "file:docs/campaigns/southern-watch/build-notes.md#L3325"
+        }
+      ]
+    },
+    {
+      "target": "sest_agr-30_pod19",
+      "kind": "weapon",
+      "decision": "left unknown",
+      "candidate": "none",
+      "why": "A rocket pod (Container): the catalog prices no Container; the rounds are charged per AGR-30. Re-checked: Not priced: SEST fictional AGR-30 Redback 19-tube launcher; no tracker entry for it or its family, and no unit price could be read on 2026-10-23 (web search budget spent, fetch hosts blocked); a real 19-tube 2.75 in launcher price (LAU-61/M261 class) would be the model-estimate donor. Empty 19-tube LAU-61/M261-class rocket pod: no launcher unit price could be read (no web access this run); its rounds are charged per AGR-30. Re-run: this session's web search allowance ran out and the source hosts were blocked.",
+      "rerun": "this session's web search allowance ran out and the source hosts were blocked",
+      "sources": [
+        {
+          "title": "Vanilla usn_lau-3a.ini",
+          "url": "file:mods-source/_vanilla/original/ammunition/usn_lau-3a.ini"
+        }
+      ]
+    },
+    {
+      "target": "sest_aim-424",
+      "kind": "weapon",
+      "decision": "left unknown",
+      "candidate": "none: keeps the mapping to the author's blank usn_aim-424",
+      "why": "The Navy has disclosed no price; the author's entry is explicitly unknown. Re-checked: AIM-424 MALICE: keeps the tracker author's explicitly unknown usn_aim-424 prices; no unit price has been disclosed or could be read; matching the AIM-174B's flight model is not cost evidence. Keep the mapping to the tracker author's explicitly blank usn_aim-424 ('price unknown'); no unit cost could be traced to a source read in this check.",
+      "sources": [
+        {
+          "title": "Tracker catalog weaponcosts.ini [usn_aim-424], lines 5825-5829",
+          "url": "file:mods-source/3807187341/systems/weaponcosts.ini"
+        },
+        {
+          "title": "Daily Caller, 'Is The Navy's New Malice Missile Another Example Of The Pentagon Buying Too Many Expensive Toys?' (25 Aug 2026)",
+          "url": "https://dailycaller.com/2026/08/25/malice-missile-us-navy"
+        },
+        {
+          "title": "SEST combat-costs mappings.json, committed HEAD",
+          "url": "file:integration/combat-costs/mappings.json"
+        },
+        {
+          "title": "Tracker catalog weaponcosts.ini [usn_aim-424], lines 5825-5829",
+          "url": "file:mods-source/3807187341/systems/weaponcosts.ini#L5825"
+        },
+        {
+          "title": "SEST combat-costs README",
+          "url": "file:docs/combat-costs/README.md"
+        },
+        {
+          "title": "Tracker catalog weaponcosts.ini [usn_aim-424], line 5826",
+          "url": "file:mods-source/3807187341/systems/weaponcosts.ini#L5826"
+        },
+        {
+          "title": "SEST sest_aim-424.ini at git HEAD",
+          "url": "file:integration/f-15ex-revamp/SEST_F-15EX_Revamp/ammunition/sest_aim-424.ini (git HEAD)"
+        }
+      ]
+    },
+    {
+      "target": "spa_av-8b_gau12",
+      "kind": "weapon",
+      "decision": "left unknown",
+      "candidate": "none",
+      "why": "Not priced: AV-8B GAU-12/U 25 mm gun pack; no tracker entry for it or its family, and no unit price could be read on 2026-10-23 (web search budget spent, fetch hosts blocked); same gun pack as usmc_25mm_gunpod; empty-pod price. Re-run: this session's web search allowance ran out and the source hosts were blocked.",
+      "rerun": "this session's web search allowance ran out and the source hosts were blocked",
+      "sources": []
+    },
+    {
+      "target": "spa_av-8b_tank_left",
+      "kind": "weapon",
+      "decision": "left unknown",
+      "candidate": "none",
+      "why": "Not priced: AV-8B Harrier II 1,135 l drop tank; no tracker entry for it or its family, and no unit price could be read on 2026-10-23 (web search budget spent, fetch hosts blocked); same tank as spa_av-8b_tank_right. Re-run: this session's web search allowance ran out and the source hosts were blocked.",
+      "rerun": "this session's web search allowance ran out and the source hosts were blocked",
+      "sources": []
+    },
+    {
+      "target": "spa_av-8b_tank_right",
+      "kind": "weapon",
+      "decision": "left unknown",
+      "candidate": "none",
+      "why": "Not priced: AV-8B Harrier II 1,135 l drop tank; no tracker entry for it or its family, and no unit price could be read on 2026-10-23 (web search budget spent, fetch hosts blocked); same tank as spa_av-8b_tank_left. Re-run: this session's web search allowance ran out and the source hosts were blocked.",
+      "rerun": "this session's web search allowance ran out and the source hosts were blocked",
+      "sources": []
+    },
+    {
+      "target": "spa_ef2000_fueltank",
+      "kind": "weapon",
+      "decision": "left unknown",
+      "candidate": "none",
+      "why": "Not priced: Eurofighter Typhoon 1,000 l drop tank; no tracker entry for it or its family, and no unit price could be read on 2026-10-23 (web search budget spent, fetch hosts blocked); same tank as eu_tank_1000. Re-run: this session's web search allowance ran out and the source hosts were blocked.",
+      "rerun": "this session's web search allowance ran out and the source hosts were blocked",
+      "sources": []
+    },
+    {
+      "target": "spa_litening",
+      "kind": "weapon",
+      "decision": "left unknown",
+      "candidate": "none",
+      "why": "Not priced: Litening targeting pod; no tracker entry for it or its family, and no unit price could be read on 2026-10-23 (web search budget spent, fetch hosts blocked); Litening family. Re-run: this session's web search allowance ran out and the source hosts were blocked.",
+      "rerun": "this session's web search allowance ran out and the source hosts were blocked",
+      "sources": []
+    },
+    {
+      "target": "su_l004",
+      "kind": "weapon",
+      "decision": "left unknown",
+      "candidate": "none",
+      "why": "Not priced: Russian ECM jamming pod named 'L-004'; no tracker entry for it or its family, and no unit price could be read on 2026-10-23 (web search budget spent, fetch hosts blocked). Re-run: this session's web search allowance ran out and the source hosts were blocked.",
+      "rerun": "this session's web search allowance ran out and the source hosts were blocked",
+      "sources": []
+    },
+    {
+      "target": "su_rgb-12",
+      "kind": "weapon",
+      "decision": "left unknown",
+      "candidate": "none",
+      "why": "RBU-12000 rocket (mod text: 'RBU-12000 Smerch-2', 300mm; RBU-6000 template): the catalog prices no unguided RBU round, and no public per-round price could be read this run. Re-run: the source hosts were blocked.",
+      "rerun": "the source hosts were blocked",
+      "sources": [
+        {
+          "title": "3438479626 ammunition_names.ini line 21 (identity, corrected quote)",
+          "url": "file:mods-source/3438479626/language_en/ammunition_names.ini"
+        },
+        {
+          "title": "Vanilla ammunition_names.ini line 240 (Smerch-2 naming)",
+          "url": "file:mods-source/_vanilla/original/language_en/ammunition_names.ini"
+        }
+      ]
+    },
+    {
+      "target": "uav_mq-9_pod",
+      "kind": "weapon",
+      "decision": "left unknown",
+      "candidate": "none",
+      "why": "Not priced: MQ-9 self-protection pod: ECM plus a chaff dispenser with 15 x wp_aircraft_chaff; no tracker entry for it or its family, and no unit price could be read on 2026-10-23 (web search budget spent, fetch hosts blocked); game composite; no single real pod identified. Re-run: this session's web search allowance ran out and the source hosts were blocked.",
+      "rerun": "this session's web search allowance ran out and the source hosts were blocked",
+      "sources": []
+    },
+    {
+      "target": "uav_tank_mq-9",
+      "kind": "weapon",
+      "decision": "left unknown",
+      "candidate": "none",
+      "why": "Not priced: MQ-9 Reaper underwing external fuel tank; no tracker entry for it or its family, and no unit price could be read on 2026-10-23 (web search budget spent, fetch hosts blocked). Re-run: this session's web search allowance ran out and the source hosts were blocked.",
+      "rerun": "this session's web search allowance ran out and the source hosts were blocked",
+      "sources": []
+    },
+    {
+      "target": "usa_lau-3a_apache",
+      "kind": "weapon",
+      "decision": "left unknown",
+      "candidate": "none",
+      "why": "Not priced: 19-tube 2.75 in Hydra launcher on Apache; no tracker entry for it or its family, and no unit price could be read on 2026-10-23 (web search budget spent, fetch hosts blocked); 19-tube 2.75 in family (usn_lau-3a, usn_lau-3a_APKWS). Re-run: this session's web search allowance ran out and the source hosts were blocked.",
+      "rerun": "this session's web search allowance ran out and the source hosts were blocked",
+      "sources": []
+    },
+    {
+      "target": "usa_v280_copperhead_100m",
+      "kind": "weapon",
+      "decision": "left unknown",
+      "candidate": "none: Anduril says only that it costs a fraction of a traditional torpedo",
+      "why": "No Copperhead price is published: Anduril says only that it costs 'a fraction of the cost of existing traditional torpedoes', so a Mk 54 proxy would overstate it.",
+      "sources": [
+        {
+          "title": "TWZ: Copperhead Torpedo-Like Underwater Kamikaze Drones Rolled Out By Anduril (7 Apr 2025)",
+          "url": "https://www.twz.com/sea/copperhead-torpedo-like-underwater-kamikaze-drones-rolled-out-by-anduril"
+        }
+      ]
+    },
+    {
+      "target": "usaf_aaq-28_litening",
+      "kind": "weapon",
+      "decision": "left unknown",
+      "candidate": "none",
+      "why": "Not priced: AN/AAQ-28 Litening targeting pod; no tracker entry for it or its family, and no unit price could be read on 2026-10-23 (web search budget spent, fetch hosts blocked); Litening family. Re-run: this session's web search allowance ran out and the source hosts were blocked.",
+      "rerun": "this session's web search allowance ran out and the source hosts were blocked",
+      "sources": []
+    },
+    {
+      "target": "usaf_alq-184",
+      "kind": "weapon",
+      "decision": "left unknown",
+      "candidate": "none",
+      "why": "Not priced: AN/ALQ-184 ECM pod; no tracker entry for it or its family, and no unit price could be read on 2026-10-23 (web search budget spent, fetch hosts blocked); same pod family as usaf_alq-184_2. Re-run: this session's web search allowance ran out and the source hosts were blocked.",
+      "rerun": "this session's web search allowance ran out and the source hosts were blocked",
+      "sources": []
+    },
+    {
+      "target": "usaf_alq-184_2",
+      "kind": "weapon",
+      "decision": "left unknown",
+      "candidate": "none",
+      "why": "Not priced: AN/ALQ-184 ECM pod; no tracker entry for it or its family, and no unit price could be read on 2026-10-23 (web search budget spent, fetch hosts blocked); same pod family as usaf_alq-184. Re-run: this session's web search allowance ran out and the source hosts were blocked.",
+      "rerun": "this session's web search allowance ran out and the source hosts were blocked",
+      "sources": []
+    },
+    {
+      "target": "usaf_anasq-213",
+      "kind": "weapon",
+      "decision": "left unknown",
+      "candidate": "none",
+      "why": "Not priced: AN/ASQ-213 HARM Targeting System pod; no tracker entry for it or its family, and no unit price could be read on 2026-10-23 (web search budget spent, fetch hosts blocked). Re-run: this session's web search allowance ran out and the source hosts were blocked.",
+      "rerun": "this session's web search allowance ran out and the source hosts were blocked",
+      "sources": []
+    },
+    {
+      "target": "usaf_cbu-24",
+      "kind": "weapon",
+      "decision": "left unknown",
+      "candidate": "none",
+      "why": "CBU-24 cluster bomb (SUU-30 dispenser, BLU-26 bomblets; vanilla FOCDate 1965): no unit price from an authoritative publisher, and the tracker catalog has no cluster-bomb entry. Re-run: this session's web search allowance ran out and the source hosts were blocked.",
+      "rerun": "this session's web search allowance ran out and the source hosts were blocked",
+      "sources": []
+    },
+    {
+      "target": "usaf_gbu-54_double",
+      "kind": "weapon",
+      "decision": "left unknown",
+      "candidate": "none",
+      "why": "Not priced: Two-place smart rack with 2 x usaf_gbu-54 Laser JDAM; no tracker entry for it or its family, and no unit price could be read on 2026-10-23 (web search budget spent, fetch hosts blocked); empty-rack price. Re-run: this session's web search allowance ran out and the source hosts were blocked.",
+      "rerun": "this session's web search allowance ran out and the source hosts were blocked",
+      "sources": []
+    },
+    {
+      "target": "usaf_litening",
+      "kind": "weapon",
+      "decision": "left unknown",
+      "candidate": "none",
+      "why": "Not priced: AN/AAQ-28 Litening targeting pod; no tracker entry for it or its family, and no unit price could be read on 2026-10-23 (web search budget spent, fetch hosts blocked); Litening family. Re-run: this session's web search allowance ran out and the source hosts were blocked.",
+      "rerun": "this session's web search allowance ran out and the source hosts were blocked",
+      "sources": []
+    },
+    {
+      "target": "usaf_pave_spike",
+      "kind": "weapon",
+      "decision": "left unknown",
+      "candidate": "none",
+      "why": "Not priced: AN/AVQ-23 Pave Spike laser designator pod; no tracker entry for it or its family, and no unit price could be read on 2026-10-23 (web search budget spent, fetch hosts blocked). Re-run: this session's web search allowance ran out and the source hosts were blocked.",
+      "rerun": "this session's web search allowance ran out and the source hosts were blocked",
+      "sources": []
+    },
+    {
+      "target": "usaf_tank_150_f-5",
+      "kind": "weapon",
+      "decision": "left unknown",
+      "candidate": "none",
+      "why": "Not priced: F-5 150 US gal drop tank; no tracker entry for it or its family, and no unit price could be read on 2026-10-23 (web search budget spent, fetch hosts blocked). Re-run: this session's web search allowance ran out and the source hosts were blocked.",
+      "rerun": "this session's web search allowance ran out and the source hosts were blocked",
+      "sources": []
+    },
+    {
+      "target": "usaf_tank_300_f16",
+      "kind": "weapon",
+      "decision": "left unknown",
+      "candidate": "none",
+      "why": "Not priced: F-16 300 US gal centreline drop tank; no tracker entry for it or its family, and no unit price could be read on 2026-10-23 (web search budget spent, fetch hosts blocked); F-16 tank family with the 370/600 gal ids. Re-run: this session's web search allowance ran out and the source hosts were blocked.",
+      "rerun": "this session's web search allowance ran out and the source hosts were blocked",
+      "sources": []
+    },
+    {
+      "target": "usaf_tank_370_f-16",
+      "kind": "weapon",
+      "decision": "left unknown",
+      "candidate": "none",
+      "why": "Not priced: F-16 370 US gal wing drop tank; no tracker entry for it or its family, and no unit price could be read on 2026-10-23 (web search budget spent, fetch hosts blocked); same tank as usaf_tank_370_f16. Re-run: this session's web search allowance ran out and the source hosts were blocked.",
+      "rerun": "this session's web search allowance ran out and the source hosts were blocked",
+      "sources": []
+    },
+    {
+      "target": "usaf_tank_370_f16",
+      "kind": "weapon",
+      "decision": "left unknown",
+      "candidate": "none",
+      "why": "Not priced: F-16 370 US gal wing drop tank; no tracker entry for it or its family, and no unit price could be read on 2026-10-23 (web search budget spent, fetch hosts blocked); same tank as usaf_tank_370_f-16. Re-run: this session's web search allowance ran out and the source hosts were blocked.",
+      "rerun": "this session's web search allowance ran out and the source hosts were blocked",
+      "sources": []
+    },
+    {
+      "target": "usaf_tank_600_f16",
+      "kind": "weapon",
+      "decision": "left unknown",
+      "candidate": "none",
+      "why": "Not priced: F-16 600 US gal wing drop tank; no tracker entry for it or its family, and no unit price could be read on 2026-10-23 (web search budget spent, fetch hosts blocked); F-16 tank family. Re-run: this session's web search allowance ran out and the source hosts were blocked.",
+      "rerun": "this session's web search allowance ran out and the source hosts were blocked",
+      "sources": []
+    },
+    {
+      "target": "usaf_tank_610_f-15",
+      "kind": "weapon",
+      "decision": "left unknown",
+      "candidate": "none",
+      "why": "Not priced: F-15 610 US gal external tank; no tracker entry for it or its family, and no unit price could be read on 2026-10-23 (web search budget spent, fetch hosts blocked). Re-run: this session's web search allowance ran out and the source hosts were blocked.",
+      "rerun": "this session's web search allowance ran out and the source hosts were blocked",
+      "sources": []
+    },
+    {
+      "target": "usmc_25mm_gunpod",
+      "kind": "weapon",
+      "decision": "left unknown",
+      "candidate": "none",
+      "why": "Not priced: AV-8B GAU-12/U 25 mm gun pack; no tracker entry for it or its family, and no unit price could be read on 2026-10-23 (web search budget spent, fetch hosts blocked); same gun pack as spa_av-8b_gau12; empty-pod price. Re-run: this session's web search allowance ran out and the source hosts were blocked.",
+      "rerun": "this session's web search allowance ran out and the source hosts were blocked",
+      "sources": []
+    },
+    {
+      "target": "usmc_alq-164",
+      "kind": "weapon",
+      "decision": "left unknown",
+      "candidate": "none",
+      "why": "Not priced: AN/ALQ-164 defensive ECM pod; no tracker entry for it or its family, and no unit price could be read on 2026-10-23 (web search budget spent, fetch hosts blocked). Re-run: this session's web search allowance ran out and the source hosts were blocked.",
+      "rerun": "this session's web search allowance ran out and the source hosts were blocked",
+      "sources": []
+    },
+    {
+      "target": "usmc_tank_230_av-8b",
+      "kind": "weapon",
+      "decision": "left unknown",
+      "candidate": "none",
+      "why": "Not priced: AV-8B 871 l drop tank; no tracker entry for it or its family, and no unit price could be read on 2026-10-23 (web search budget spent, fetch hosts blocked); AV-8B tank family. Re-run: this session's web search allowance ran out and the source hosts were blocked.",
+      "rerun": "this session's web search allowance ran out and the source hosts were blocked",
+      "sources": []
+    },
+    {
+      "target": "usn_adc_mk1_noisemaker",
+      "kind": "weapon",
+      "decision": "left unknown",
+      "candidate": "none",
+      "why": "ADC Mk 1 acoustic torpedo decoy (stock); no unit price reachable this run. Re-run: this session's web search allowance ran out and the source hosts were blocked.",
+      "rerun": "this session's web search allowance ran out and the source hosts were blocked",
+      "sources": []
+    },
+    {
+      "target": "usn_adc_mk2_mod3_noisemaker",
+      "kind": "weapon",
+      "decision": "left unknown",
+      "candidate": "none",
+      "why": "ADC Mk 2 Mod 3 3-inch submarine torpedo decoy (2007); no unit price reachable this run. Re-run: the source hosts were blocked.",
+      "rerun": "the source hosts were blocked",
+      "sources": []
+    },
+    {
+      "target": "usn_adc_mk2_mod4_noisemaker",
+      "kind": "weapon",
+      "decision": "left unknown",
+      "candidate": "none",
+      "why": "ADC Mk 2 Mod 4 3-inch surface-ship hand-launched torpedo decoy; no unit price reachable this run. Re-run: this session's web search allowance ran out and the source hosts were blocked.",
+      "rerun": "this session's web search allowance ran out and the source hosts were blocked",
+      "sources": []
+    },
+    {
+      "target": "usn_adc_mk2_mod5_noisemaker",
+      "kind": "weapon",
+      "decision": "left unknown",
+      "candidate": "none",
+      "why": "ADC Mk 2 Mod 5 3-inch submarine torpedo decoy (ICL-launched); no unit price reachable this run. Re-run: this session's web search allowance ran out and the source hosts were blocked.",
+      "rerun": "this session's web search allowance ran out and the source hosts were blocked",
+      "sources": []
+    },
+    {
+      "target": "usn_adc_mk2_mod7_noisemaker",
+      "kind": "weapon",
+      "decision": "left unknown",
+      "candidate": "none",
+      "why": "ADC Mk 2 Mod 7 3-inch torpedo decoy (thermal lithium battery); no unit price reachable this run. Re-run: this session's web search allowance ran out and the source hosts were blocked.",
+      "rerun": "this session's web search allowance ran out and the source hosts were blocked",
+      "sources": []
+    },
+    {
+      "target": "usn_adc_mk2_noisemaker",
+      "kind": "weapon",
+      "decision": "left unknown",
+      "candidate": "none",
+      "why": "ADC Mk 2 Mod 0 acoustic torpedo decoy; no unit price reachable this run. Re-run: this session's web search allowance ran out and the source hosts were blocked.",
+      "rerun": "this session's web search allowance ran out and the source hosts were blocked",
+      "sources": []
+    },
+    {
+      "target": "usn_adc_mk2_noisemaker_rsa",
+      "kind": "weapon",
+      "decision": "left unknown",
+      "candidate": "none",
+      "why": "ADC Mk 2 Mod 0 torpedo decoy, same item as usn_adc_mk2_noisemaker (map once priced); no unit price reachable. Re-run: this session's web search allowance ran out and the source hosts were blocked.",
+      "rerun": "this session's web search allowance ran out and the source hosts were blocked",
+      "sources": []
+    },
+    {
+      "target": "usn_agr-20b",
+      "kind": "weapon",
+      "decision": "left unknown",
+      "candidate": "none",
+      "why": "Not priced: 7-tube 2.75 in APKWS launcher; no tracker entry for it or its family, and no unit price could be read on 2026-10-23 (web search budget spent, fetch hosts blocked); 7-tube 2.75 in family (usn_lau-68, usn_agr-20b_apache). Re-run: this session's web search allowance ran out and the source hosts were blocked.",
+      "rerun": "this session's web search allowance ran out and the source hosts were blocked",
+      "sources": []
+    },
+    {
+      "target": "usn_agr-20b_apache",
+      "kind": "weapon",
+      "decision": "left unknown",
+      "candidate": "none",
+      "why": "Not priced: 7-tube 2.75 in APKWS launcher on Apache; no tracker entry for it or its family, and no unit price could be read on 2026-10-23 (web search budget spent, fetch hosts blocked); 7-tube 2.75 in family. Re-run: this session's web search allowance ran out and the source hosts were blocked.",
+      "rerun": "this session's web search allowance ran out and the source hosts were blocked",
+      "sources": []
+    },
+    {
+      "target": "usn_aim-424",
+      "kind": "weapon",
+      "decision": "left unknown",
+      "candidate": "none",
+      "why": "The tracker author's own catalog entry is explicitly blank ('; AIM-424 | price unknown'); no unit cost could be traced to a source read in this check.",
+      "sources": [
+        {
+          "title": "Tracker catalog weaponcosts.ini [usn_aim-424], line 5826",
+          "url": "file:mods-source/3807187341/systems/weaponcosts.ini#L5826"
+        },
+        {
+          "title": "usn_aim-424 name (mod 3606774881)",
+          "url": "file:mods-source/3606774881/language_en/ammunition_names.ini"
+        }
+      ]
+    },
+    {
+      "target": "usn_bru-61a",
+      "kind": "weapon",
+      "decision": "left unknown",
+      "candidate": "none",
+      "why": "Not priced: BRU-61/A four-place carriage with 4 x usn_gbu-39 SDB; no tracker entry for it or its family, and no unit price could be read on 2026-10-23 (web search budget spent, fetch hosts blocked); BRU-61/A family; empty-rack price. Re-run: this session's web search allowance ran out and the source hosts were blocked.",
+      "rerun": "this session's web search allowance ran out and the source hosts were blocked",
+      "sources": []
+    },
+    {
+      "target": "usn_bru-61a_10",
+      "kind": "weapon",
+      "decision": "left unknown",
+      "candidate": "none",
+      "why": "Not priced: BRU-61/A four-place carriage with 4 x usn_gbu-39_10 SDB; no tracker entry for it or its family, and no unit price could be read on 2026-10-23 (web search budget spent, fetch hosts blocked); BRU-61/A family; empty-rack price. Re-run: this session's web search allowance ran out and the source hosts were blocked.",
+      "rerun": "this session's web search allowance ran out and the source hosts were blocked",
+      "sources": []
+    },
+    {
+      "target": "usn_d-704",
+      "kind": "weapon",
+      "decision": "left unknown",
+      "candidate": "none",
+      "why": "Not priced: D-704 300 US gal buddy aerial-refuelling store; no tracker entry for it or its family, and no unit price could be read on 2026-10-23 (web search budget spent, fetch hosts blocked). Re-run: this session's web search allowance ran out and the source hosts were blocked.",
+      "rerun": "this session's web search allowance ran out and the source hosts were blocked",
+      "sources": []
+    },
+    {
+      "target": "usn_f-35_gun_pod",
+      "kind": "weapon",
+      "decision": "left unknown",
+      "candidate": "none",
+      "why": "Not priced: F-35B/C GAU-22/A 25 mm missionized gun pod; no tracker entry for it or its family, and no unit price could be read on 2026-10-23 (web search budget spent, fetch hosts blocked); empty-pod price; rounds priced per usn_cal_25mm_m2. Re-run: this session's web search allowance ran out and the source hosts were blocked.",
+      "rerun": "this session's web search allowance ran out and the source hosts were blocked",
+      "sources": []
+    },
+    {
+      "target": "usn_ft600_10",
+      "kind": "weapon",
+      "decision": "left unknown",
+      "candidate": "none",
+      "why": "Not priced: A-10C external fuel tank; no tracker entry for it or its family, and no unit price could be read on 2026-10-23 (web search budget spent, fetch hosts blocked). Re-run: this session's web search allowance ran out and the source hosts were blocked.",
+      "rerun": "this session's web search allowance ran out and the source hosts were blocked",
+      "sources": []
+    },
+    {
+      "target": "usn_gbu-16",
+      "kind": "weapon",
+      "decision": "refuted",
+      "candidate": "4,225 historical / 24,830 current: the midpoint of the shipped GBU-12D pair and the refuted GBU-10 model",
+      "why": "GBU-16 Paveway II (Mk 83 + Paveway II kit, vanilla FOCDate 1977): no GBU-16 price found; the proposed midpoint rests on the refuted GBU-10 model.",
+      "sources": []
+    },
+    {
+      "target": "usn_hydra",
+      "kind": "weapon",
+      "decision": "left unknown",
+      "candidate": "none",
+      "why": "Hydra 70 2.75in rocket: no unguided rocket in the catalog (APKWS guidedrocket is a guided round, not a proxy), and the US Army budget unit price could not be read this run (web search budget exhausted, fetches blocked). Re-run: this session's web search allowance ran out and the source hosts were blocked.",
+      "rerun": "this session's web search allowance ran out and the source hosts were blocked",
+      "sources": [
+        {
+          "title": "Vanilla ammunition_names.ini line 373 (identity)",
+          "url": "file:mods-source/_vanilla/original/language_en/ammunition_names.ini"
+        },
+        {
+          "title": "WebFetch result in this check (network evidence)",
+          "url": "https://www.asafm.army.mil/Budget-Materials/"
+        }
+      ]
+    },
+    {
+      "target": "usn_lau-10a",
+      "kind": "weapon",
+      "decision": "left unknown",
+      "candidate": "none",
+      "why": "Not priced: LAU-10/A 4-tube 5 in Zuni rocket launcher; no tracker entry for it or its family, and no unit price could be read on 2026-10-23 (web search budget spent, fetch hosts blocked); empty-launcher price. Re-run: this session's web search allowance ran out and the source hosts were blocked.",
+      "rerun": "this session's web search allowance ran out and the source hosts were blocked",
+      "sources": []
+    },
+    {
+      "target": "usn_lau-3a",
+      "kind": "weapon",
+      "decision": "left unknown",
+      "candidate": "none",
+      "why": "Not priced: LAU-3/A 19-tube 2.75 in rocket launcher; no tracker entry for it or its family, and no unit price could be read on 2026-10-23 (web search budget spent, fetch hosts blocked); 19-tube 2.75 in family (LAU-61 class). Re-run: this session's web search allowance ran out and the source hosts were blocked.",
+      "rerun": "this session's web search allowance ran out and the source hosts were blocked",
+      "sources": []
+    },
+    {
+      "target": "usn_lau-3a_APKWS",
+      "kind": "weapon",
+      "decision": "left unknown",
+      "candidate": "none",
+      "why": "Not priced: 19-tube 2.75 in launcher loaded with APKWS; no tracker entry for it or its family, and no unit price could be read on 2026-10-23 (web search budget spent, fetch hosts blocked); 19-tube 2.75 in family. Re-run: this session's web search allowance ran out and the source hosts were blocked.",
+      "rerun": "this session's web search allowance ran out and the source hosts were blocked",
+      "sources": []
+    },
+    {
+      "target": "usn_lau-68",
+      "kind": "weapon",
+      "decision": "left unknown",
+      "candidate": "none",
+      "why": "Not priced: LAU-68 7-tube 2.75 in rocket launcher; no tracker entry for it or its family, and no unit price could be read on 2026-10-23 (web search budget spent, fetch hosts blocked); 7-tube 2.75 in family. Re-run: this session's web search allowance ran out and the source hosts were blocked.",
+      "rerun": "this session's web search allowance ran out and the source hosts were blocked",
+      "sources": []
+    },
+    {
+      "target": "usn_LEAD_noisemaker",
+      "kind": "weapon",
+      "decision": "left unknown",
+      "candidate": "none",
+      "why": "LEAD Mk 36-launched expendable acoustic torpedo decoy (1997); no unit price reachable this run. Re-run: this session's web search allowance ran out and the source hosts were blocked.",
+      "rerun": "this session's web search allowance ran out and the source hosts were blocked",
+      "sources": []
+    },
+    {
+      "target": "usn_mk-82_snakeye",
+      "kind": "weapon",
+      "decision": "refuted",
+      "candidate": "The usn_mk-82 pair: 440 historical (1960) / 4,000 current",
+      "why": "Mk 82 Snakeye (Mk 82 with Mk 15 retarding fins, vanilla FOCDate 1960): depends entirely on the unverifiable Mk 82 donor price. Re-run: this session's web search allowance ran out and the source hosts were blocked.",
+      "rerun": "this session's web search allowance ran out and the source hosts were blocked",
+      "sources": []
+    },
+    {
+      "target": "usn_mk182_chaff",
+      "kind": "weapon",
+      "decision": "left unknown",
+      "candidate": "none",
+      "why": "SRBOC Mk 182 chaff / Mk 186 TORCH IR round (combined); no per-round price reachable this run. Re-run: this session's web search allowance ran out and the source hosts were blocked.",
+      "rerun": "this session's web search allowance ran out and the source hosts were blocked",
+      "sources": []
+    },
+    {
+      "target": "usn_mk214_chaff",
+      "kind": "weapon",
+      "decision": "left unknown",
+      "candidate": "none",
+      "why": "Sea Gnat Mk 214 chaff / Mk 245 GIANT IR round (combined); no per-round price reachable this run. Re-run: this session's web search allowance ran out and the source hosts were blocked.",
+      "rerun": "this session's web search allowance ran out and the source hosts were blocked",
+      "sources": []
+    },
+    {
+      "target": "usn_mk216_chaff",
+      "kind": "weapon",
+      "decision": "left unknown",
+      "candidate": "none",
+      "why": "Sea Gnat Mk 216 distraction chaff round; no per-round price reachable this run. Re-run: this session's web search allowance ran out and the source hosts were blocked.",
+      "rerun": "this session's web search allowance ran out and the source hosts were blocked",
+      "sources": []
+    },
+    {
+      "target": "usn_moss",
+      "kind": "weapon",
+      "decision": "left unknown",
+      "candidate": "none",
+      "why": "Mk 57 MOSS submarine simulator: the catalog prices no MOSS, and no Navy budget unit price could be read this run (web search budget exhausted, fetches blocked). Re-run: this session's web search allowance ran out and the source hosts were blocked.",
+      "rerun": "this session's web search allowance ran out and the source hosts were blocked",
+      "sources": [
+        {
+          "title": "Vanilla ammunition_names.ini line 466 (identity)",
+          "url": "file:mods-source/_vanilla/original/language_en/ammunition_names.ini"
+        },
+        {
+          "title": "Vanilla usn_moss.ini",
+          "url": "file:mods-source/_vanilla/original/ammunition/usn_moss.ini"
+        }
+      ]
+    },
+    {
+      "target": "usn_rockeye",
+      "kind": "weapon",
+      "decision": "left unknown",
+      "candidate": "none",
+      "why": "Mk 20 Rockeye II anti-armour cluster bomb (mod 3395022688 file; vanilla FOCDate 1968): no authoritative unit price found; no cluster-bomb entry in the tracker catalog. Re-run: this session's web search allowance ran out.",
+      "rerun": "this session's web search allowance ran out",
+      "sources": []
+    },
+    {
+      "target": "usn_rr144_chaff",
+      "kind": "weapon",
+      "decision": "left unknown",
+      "candidate": "none",
+      "why": "Stock generic chaff round (id usn_rr144, ship-carried in SEST); no per-round price reachable this run. Re-run: this session's web search allowance ran out and the source hosts were blocked.",
+      "rerun": "this session's web search allowance ran out and the source hosts were blocked",
+      "sources": []
+    },
+    {
+      "target": "usn_sh60_tank",
+      "kind": "weapon",
+      "decision": "left unknown",
+      "candidate": "none",
+      "why": "Not priced: SH-60/MH-60 auxiliary external fuel tank; no tracker entry for it or its family, and no unit price could be read on 2026-10-23 (web search budget spent, fetch hosts blocked). Re-run: this session's web search allowance ran out and the source hosts were blocked.",
+      "rerun": "this session's web search allowance ran out and the source hosts were blocked",
+      "sources": []
+    },
+    {
+      "target": "usn_ssq-47",
+      "kind": "weapon",
+      "decision": "left unknown",
+      "candidate": "none",
+      "why": "A sonobuoy: the catalog prices none of its 64 Sonobuoy ids. Re-checked: AN/SSQ-47 sonobuoy: no per-unit price could be read (no web access this run); the catalog prices no sonobuoy. Re-run: this session's web search allowance ran out and the source hosts were blocked.",
+      "rerun": "this session's web search allowance ran out and the source hosts were blocked",
+      "sources": [
+        {
+          "title": "usn_ssq-47.ini (mod 3628203171)",
+          "url": "file:mods-source/3628203171/ammunition/usn_ssq-47.ini"
+        }
+      ]
+    },
+    {
+      "target": "usn_tank_1200_f-18",
+      "kind": "weapon",
+      "decision": "left unknown",
+      "candidate": "none",
+      "why": "An external fuel tank: the catalog prices none of its 88 Fueltank ids. Re-checked: Notional 1,200 gal F/A-18E/F centreline tank: no drop-tank price could be read (no web access this run), and the catalog prices no fuel tank. Re-run: the source hosts were blocked.",
+      "rerun": "the source hosts were blocked",
+      "sources": [
+        {
+          "title": "SEST Growler NGJ+MALICE builder, committed HEAD",
+          "url": "file:integration/growler-ngj-malice/build_patch.py"
+        },
+        {
+          "title": "usn_tank_1200_f-18.ini (US Naval Aviation 3737267013)",
+          "url": "file:mods-source/3737267013/ammunition/usn_tank_1200_f-18.ini"
+        }
+      ]
+    },
+    {
+      "target": "usn_tank_267_f-14",
+      "kind": "weapon",
+      "decision": "left unknown",
+      "candidate": "none",
+      "why": "Not priced: F-14 267 US gal (1,010 l) external tanks; this stock store is a PAIR of tanks drawn as one model (Fuel=1636, file comment 'model consists of 2 fueltanks, so fuel is doubled'), so any future price must be for two tanks; no tracker entry for it or its family, and no unit price could be read on 2026-10-23 (web search budget spent, fetch hosts blocked). Re-run: this session's web search allowance ran out and the source hosts were blocked.",
+      "rerun": "this session's web search allowance ran out and the source hosts were blocked",
+      "sources": []
+    },
+    {
+      "target": "usn_tank_60gal_sh-2",
+      "kind": "weapon",
+      "decision": "left unknown",
+      "candidate": "none",
+      "why": "Not priced: SH-2 60 US gal-class auxiliary tank; no tracker entry for it or its family, and no unit price could be read on 2026-10-23 (web search budget spent, fetch hosts blocked). Re-run: this session's web search allowance ran out and the source hosts were blocked.",
+      "rerun": "this session's web search allowance ran out and the source hosts were blocked",
+      "sources": []
+    },
+    {
+      "target": "usn_tank_610_f-18",
+      "kind": "weapon",
+      "decision": "left unknown",
+      "candidate": "none",
+      "why": "An external fuel tank: the catalog prices none of its 88 Fueltank ids. Re-checked: Not priced: F/A-18 external drop tank as shipped by SEST_Growler_NGJ_MALICE; no tracker entry for it or its family, and no unit price could be read on 2026-10-23 (web search budget spent, fetch hosts blocked). F/A-18E/F external drop tank: no unit price could be read (no web access this run), and the catalog prices no fuel tank. Re-run: this session's web search allowance ran out and the source hosts were blocked.",
+      "rerun": "this session's web search allowance ran out and the source hosts were blocked",
+      "sources": [
+        {
+          "title": "usn_tank_610_f-18.ini (US Naval Aviation 3737267013)",
+          "url": "file:mods-source/3737267013/ammunition/usn_tank_610_f-18.ini"
+        }
+      ]
+    },
+    {
+      "target": "usn_ter_mk82_3",
+      "kind": "weapon",
+      "decision": "left unknown",
+      "candidate": "none",
+      "why": "Not priced: TER-9/A-type triple ejector rack with 3 x Mk 82; no tracker entry for it or its family, and no unit price could be read on 2026-10-23 (web search budget spent, fetch hosts blocked); TER family with jp_ter_rockeye_3; empty-rack price. Re-run: this session's web search allowance ran out and the source hosts were blocked.",
+      "rerun": "this session's web search allowance ran out and the source hosts were blocked",
+      "sources": []
+    },
+    {
+      "target": "usn_zuni",
+      "kind": "weapon",
+      "decision": "left unknown",
+      "candidate": "none",
+      "why": "Zuni 5in rocket: no unguided rocket in the catalog to map, and no public unit price could be read this run (web search budget exhausted, fetches blocked). Re-run: this session's web search allowance ran out and the source hosts were blocked.",
+      "rerun": "this session's web search allowance ran out and the source hosts were blocked",
+      "sources": [
+        {
+          "title": "Vanilla usn_zuni.ini",
+          "url": "file:mods-source/_vanilla/original/ammunition/usn_zuni.ini"
+        },
+        {
+          "title": "Vanilla ammunition_names.ini line 372 (identity)",
+          "url": "file:mods-source/_vanilla/original/language_en/ammunition_names.ini"
+        }
+      ]
+    },
+    {
+      "target": "wp_65-76",
+      "kind": "weapon",
+      "decision": "left unknown",
+      "candidate": "none",
+      "why": "No published unit or contract price found for the 65-76 or for any current 650 mm successor; the 533 mm UET-1 contract is not a defensible proxy for a 650 mm weapon. Re-run: this session's web search allowance ran out and the source hosts were blocked.",
+      "rerun": "this session's web search allowance ran out and the source hosts were blocked",
+      "sources": []
+    },
+    {
+      "target": "wp_apk-9",
+      "kind": "weapon",
+      "decision": "left unknown",
+      "candidate": "none",
+      "why": "Not priced: APK-9 data-link pod for the Kh-59M; no tracker entry for it or its family, and no unit price could be read on 2026-10-23 (web search budget spent, fetch hosts blocked). Re-run: this session's web search allowance ran out and the source hosts were blocked.",
+      "rerun": "this session's web search allowance ran out and the source hosts were blocked",
+      "sources": []
+    },
+    {
+      "target": "wp_at-2",
+      "kind": "weapon",
+      "decision": "left unknown",
+      "candidate": "none",
+      "why": "No published unit or contract price found for the AT-2 or a current Russian air-dropped successor; the submarine-launched UET-1 is not a defensible proxy. Re-run: this session's web search allowance ran out and the source hosts were blocked.",
+      "rerun": "this session's web search allowance ran out and the source hosts were blocked",
+      "sources": []
+    },
+    {
+      "target": "wp_b8m-1",
+      "kind": "weapon",
+      "decision": "left unknown",
+      "candidate": "none",
+      "why": "Not priced: B-8M1 20-tube 80 mm S-8 rocket pod; no tracker entry for it or its family, and no unit price could be read on 2026-10-23 (web search budget spent, fetch hosts blocked); empty-pod price. Re-run: this session's web search allowance ran out and the source hosts were blocked.",
+      "rerun": "this session's web search allowance ran out and the source hosts were blocked",
+      "sources": []
+    },
+    {
+      "target": "wp_dc_shell",
+      "kind": "weapon",
+      "decision": "left unknown",
+      "candidate": "none",
+      "why": "BB-1 depth charge: the catalog prices no depth charge or RBU round, and no public per-unit price could be read this run. Re-run: the source hosts were blocked.",
+      "rerun": "the source hosts were blocked",
+      "sources": [
+        {
+          "title": "Vanilla wp_dc_shell.ini",
+          "url": "file:mods-source/_vanilla/original/ammunition/wp_dc_shell.ini"
+        },
+        {
+          "title": "Vanilla ammunition_names.ini line 490",
+          "url": "file:mods-source/_vanilla/original/language_en/ammunition_names.ini"
+        }
+      ]
+    },
+    {
+      "target": "wp_fab-1500_m54",
+      "kind": "weapon",
+      "decision": "refuted",
+      "candidate": "2,834 historical / 25,946 current: the usn_mk-84 pair scaled by mass",
+      "why": "FAB-1500 M-54 Soviet 1,500 kg HE bomb: the mass-scaled Mk 84 model rests on an unverifiable donor price. Re-run: this session's web search allowance ran out and the source hosts were blocked.",
+      "rerun": "this session's web search allowance ran out and the source hosts were blocked",
+      "sources": []
+    },
+    {
+      "target": "wp_fab-250",
+      "kind": "weapon",
+      "decision": "refuted",
+      "candidate": "411.6 historical / 3,768 current: the usn_mk-82 pair scaled by mass",
+      "why": "FAB-250 M-62 Soviet 250 kg HE bomb (game mass 227 kg): the mass-scaled Mk 82 model rests on an unverifiable donor price. Re-run: this session's web search allowance ran out and the source hosts were blocked.",
+      "rerun": "this session's web search allowance ran out and the source hosts were blocked",
+      "sources": []
+    },
+    {
+      "target": "wp_fab-3000_m54",
+      "kind": "weapon",
+      "decision": "refuted",
+      "candidate": "5,668.5 historical / 51,892 current: the usn_mk-84 pair scaled by mass",
+      "why": "FAB-3000 M-54 Soviet 3,000 kg HE bomb: the mass-scaled Mk 84 model rests on an unverifiable donor price. Re-run: this session's web search allowance ran out and the source hosts were blocked.",
+      "rerun": "this session's web search allowance ran out and the source hosts were blocked",
+      "sources": []
+    },
+    {
+      "target": "wp_fab-500",
+      "kind": "weapon",
+      "decision": "refuted",
+      "candidate": "906.5 historical / 8,299 current: the usn_mk-82 pair scaled by mass",
+      "why": "FAB-500 M-62 Soviet 500 kg HE bomb: the mass-scaled Mk 82 model rests on an unverifiable donor price. Re-run: this session's web search allowance ran out and the source hosts were blocked.",
+      "rerun": "this session's web search allowance ran out and the source hosts were blocked",
+      "sources": []
+    },
+    {
+      "target": "wp_fantasmagoria",
+      "kind": "weapon",
+      "decision": "left unknown",
+      "candidate": "none",
+      "why": "Not priced: L-080 Fantasmagoria ARM targeting / ESM pod; no tracker entry for it or its family, and no unit price could be read on 2026-10-23 (web search budget spent, fetch hosts blocked). Re-run: this session's web search allowance ran out and the source hosts were blocked.",
+      "rerun": "this session's web search allowance ran out and the source hosts were blocked",
+      "sources": []
+    },
+    {
+      "target": "wp_fueltank3000_w",
+      "kind": "weapon",
+      "decision": "left unknown",
+      "candidate": "none",
+      "why": "Not priced: Soviet PTB-3000 wing drop tank; no tracker entry for it or its family, and no unit price could be read on 2026-10-23 (web search budget spent, fetch hosts blocked). Re-run: this session's web search allowance ran out and the source hosts were blocked.",
+      "rerun": "this session's web search allowance ran out and the source hosts were blocked",
+      "sources": []
+    },
+    {
+      "target": "wp_fueltank400_w",
+      "kind": "weapon",
+      "decision": "left unknown",
+      "candidate": "none",
+      "why": "Not priced: Soviet PTB-400 wing drop tank; no tracker entry for it or its family, and no unit price could be read on 2026-10-23 (web search budget spent, fetch hosts blocked). Re-run: this session's web search allowance ran out and the source hosts were blocked.",
+      "rerun": "this session's web search allowance ran out and the source hosts were blocked",
+      "sources": []
+    },
+    {
+      "target": "wp_fueltank800_f",
+      "kind": "weapon",
+      "decision": "left unknown",
+      "candidate": "none",
+      "why": "Not priced: Soviet PTB-800 fuselage drop tank; no tracker entry for it or its family, and no unit price could be read on 2026-10-23 (web search budget spent, fetch hosts blocked); same family as wp_fueltank800_w. Re-run: this session's web search allowance ran out and the source hosts were blocked.",
+      "rerun": "this session's web search allowance ran out and the source hosts were blocked",
+      "sources": []
+    },
+    {
+      "target": "wp_fueltank800_w",
+      "kind": "weapon",
+      "decision": "left unknown",
+      "candidate": "none",
+      "why": "Not priced: Soviet PTB-800 wing drop tank; no tracker entry for it or its family, and no unit price could be read on 2026-10-23 (web search budget spent, fetch hosts blocked); same family as wp_fueltank800_f. Re-run: this session's web search allowance ran out and the source hosts were blocked.",
+      "rerun": "this session's web search allowance ran out and the source hosts were blocked",
+      "sources": []
+    },
+    {
+      "target": "wp_grad",
+      "kind": "weapon",
+      "decision": "left unknown",
+      "candidate": "none",
+      "why": "122mm M-21OF Grad rocket: no rocket entry in the catalog to map, and no public unit price could be read this run (web search budget exhausted, fetches blocked). Re-run: this session's web search allowance ran out and the source hosts were blocked.",
+      "rerun": "this session's web search allowance ran out and the source hosts were blocked",
+      "sources": [
+        {
+          "title": "Vanilla ammunition_names.ini line 385 (identity)",
+          "url": "file:mods-source/_vanilla/original/language_en/ammunition_names.ini"
+        }
+      ]
+    },
+    {
+      "target": "wp_mg-44",
+      "kind": "weapon",
+      "decision": "left unknown",
+      "candidate": "none",
+      "why": "MG-44 Korund submarine simulator: the catalog prices no MOSS (usn_moss also unpriced), and no public unit price could be read this run. Re-run: the source hosts were blocked.",
+      "rerun": "the source hosts were blocked",
+      "sources": [
+        {
+          "title": "Vanilla ammunition_names.ini line 468 (identity)",
+          "url": "file:mods-source/_vanilla/original/language_en/ammunition_names.ini"
+        }
+      ]
+    },
+    {
+      "target": "wp_noisemaker",
+      "kind": "weapon",
+      "decision": "left unknown",
+      "candidate": "none",
+      "why": "Stock Soviet-type submarine acoustic noisemaker; no unit price reachable this run. Re-run: this session's web search allowance ran out and the source hosts were blocked.",
+      "rerun": "this session's web search allowance ran out and the source hosts were blocked",
+      "sources": []
+    },
+    {
+      "target": "wp_plab-100",
+      "kind": "weapon",
+      "decision": "refuted",
+      "candidate": "181.3 historical / 1,660 current: the usn_mk-82 pair scaled by mass",
+      "why": "PLAB-100 Soviet 100 kg anti-submarine depth bomb (Type=AirDepthCharge): the mass-scaled Mk 82 model rests on an unverifiable donor price. Re-run: this session's web search allowance ran out and the source hosts were blocked.",
+      "rerun": "this session's web search allowance ran out and the source hosts were blocked",
+      "sources": []
+    },
+    {
+      "target": "wp_pod_delta_fcr",
+      "kind": "weapon",
+      "decision": "left unknown",
+      "candidate": "none",
+      "why": "Not priced: Delta-NG radio-command guidance pod for Kh-23; no tracker entry for it or its family, and no unit price could be read on 2026-10-23 (web search budget spent, fetch hosts blocked). Re-run: this session's web search allowance ran out and the source hosts were blocked.",
+      "rerun": "this session's web search allowance ran out and the source hosts were blocked",
+      "sources": []
+    },
+    {
+      "target": "wp_pod_rfk-t_vrecon",
+      "kind": "weapon",
+      "decision": "left unknown",
+      "candidate": "none",
+      "why": "Not priced: RFK-T visual reconnaissance camera pod; no tracker entry for it or its family, and no unit price could be read on 2026-10-23 (web search budget spent, fetch hosts blocked). Re-run: this session's web search allowance ran out and the source hosts were blocked.",
+      "rerun": "this session's web search allowance ran out and the source hosts were blocked",
+      "sources": []
+    },
+    {
+      "target": "wp_pod_tangazh_elint",
+      "kind": "weapon",
+      "decision": "left unknown",
+      "candidate": "none",
+      "why": "Not priced: Tangazh ELINT pod; no tracker entry for it or its family, and no unit price could be read on 2026-10-23 (web search budget spent, fetch hosts blocked). Re-run: this session's web search allowance ran out and the source hosts were blocked.",
+      "rerun": "this session's web search allowance ran out and the source hosts were blocked",
+      "sources": []
+    },
+    {
+      "target": "wp_rbk-250",
+      "kind": "weapon",
+      "decision": "left unknown",
+      "candidate": "none",
+      "why": "RBK-250 Soviet cluster bomb (game mass 273 kg): no Soviet/Russian or comparable cluster-bomb unit price from an authoritative publisher; no cluster entry in the tracker catalog. Re-run: this session's web search allowance ran out.",
+      "rerun": "this session's web search allowance ran out",
+      "sources": []
+    },
+    {
+      "target": "wp_rgb-10",
+      "kind": "weapon",
+      "decision": "left unknown",
+      "candidate": "none",
+      "why": "RGB-10 for RBU-1000: the catalog prices no unguided RBU round, and no public per-round price could be read this run. Re-run: the source hosts were blocked.",
+      "rerun": "the source hosts were blocked",
+      "sources": [
+        {
+          "title": "Vanilla ammunition_names.ini line 237 (identity)",
+          "url": "file:mods-source/_vanilla/original/language_en/ammunition_names.ini"
+        }
+      ]
+    },
+    {
+      "target": "wp_rgb-60",
+      "kind": "weapon",
+      "decision": "left unknown",
+      "candidate": "none",
+      "why": "RGB-60 for RBU-6000: the catalog prices no unguided RBU round, and no public per-round price could be read this run. Re-run: the source hosts were blocked.",
+      "rerun": "the source hosts were blocked",
+      "sources": [
+        {
+          "title": "Vanilla ammunition_names.ini line 240 (identity)",
+          "url": "file:mods-source/_vanilla/original/language_en/ammunition_names.ini"
+        }
+      ]
+    },
+    {
+      "target": "wp_rn-40",
+      "kind": "weapon",
+      "decision": "left unknown",
+      "candidate": "none",
+      "why": "RN-40 nuclear gravity bomb (Su-30SM2 mod 3762023575; file comment 'PLA KB-1 Nuke Bomb'): warhead cost unpublished; the tracker catalog has no nuclear gravity-bomb entry.",
+      "sources": []
+    },
+    {
+      "target": "wp_s-24",
+      "kind": "weapon",
+      "decision": "left unknown",
+      "candidate": "none",
+      "why": "S-24 240mm rocket: no rocket entry in the catalog to map, and no public unit price could be read this run (web search budget exhausted, fetches blocked). Re-run: this session's web search allowance ran out and the source hosts were blocked.",
+      "rerun": "this session's web search allowance ran out and the source hosts were blocked",
+      "sources": [
+        {
+          "title": "Vanilla ammunition_names.ini line 377 (identity)",
+          "url": "file:mods-source/_vanilla/original/language_en/ammunition_names.ini"
+        }
+      ]
+    },
+    {
+      "target": "wp_s-25",
+      "kind": "weapon",
+      "decision": "left unknown",
+      "candidate": "none",
+      "why": "S-25-O heavy rocket: no rocket entry in the catalog to map, and no public unit price could be read this run (web search budget exhausted, fetches blocked). Re-run: this session's web search allowance ran out and the source hosts were blocked.",
+      "rerun": "this session's web search allowance ran out and the source hosts were blocked",
+      "sources": [
+        {
+          "title": "Vanilla wp_s-25.ini",
+          "url": "file:mods-source/_vanilla/original/ammunition/wp_s-25.ini"
+        },
+        {
+          "title": "Vanilla ammunition_names.ini line 378",
+          "url": "file:mods-source/_vanilla/original/language_en/ammunition_names.ini"
+        }
+      ]
+    },
+    {
+      "target": "wp_s-25_pod",
+      "kind": "weapon",
+      "decision": "left unknown",
+      "candidate": "none",
+      "why": "Not priced: O-25 single launch tube for the S-25 240 mm rocket; no tracker entry for it or its family, and no unit price could be read on 2026-10-23 (web search budget spent, fetch hosts blocked); the tube is expended with the round in service; consider pricing with wp_s-25. Re-run: this session's web search allowance ran out and the source hosts were blocked.",
+      "rerun": "this session's web search allowance ran out and the source hosts were blocked",
+      "sources": []
+    },
+    {
+      "target": "wp_s-5",
+      "kind": "weapon",
+      "decision": "left unknown",
+      "candidate": "none",
+      "why": "S-5KO 57mm rocket: no rocket entry in the catalog to map, and no public unit price could be read this run (web search budget exhausted, fetches blocked). Re-run: this session's web search allowance ran out and the source hosts were blocked.",
+      "rerun": "this session's web search allowance ran out and the source hosts were blocked",
+      "sources": [
+        {
+          "title": "Vanilla wp_s-5.ini",
+          "url": "file:mods-source/_vanilla/original/ammunition/wp_s-5.ini"
+        }
+      ]
+    },
+    {
+      "target": "wp_s-8",
+      "kind": "weapon",
+      "decision": "left unknown",
+      "candidate": "none",
+      "why": "S-8KOM 80mm rocket: no rocket entry in the catalog to map, and no public unit price could be read this run (web search budget exhausted, fetches blocked). Re-run: this session's web search allowance ran out and the source hosts were blocked.",
+      "rerun": "this session's web search allowance ran out and the source hosts were blocked",
+      "sources": [
+        {
+          "title": "Vanilla wp_s-8.ini",
+          "url": "file:mods-source/_vanilla/original/ammunition/wp_s-8.ini"
+        }
+      ]
+    },
+    {
+      "target": "wp_tank_1150_mig-29",
+      "kind": "weapon",
+      "decision": "left unknown",
+      "candidate": "none",
+      "why": "Not priced: MiG-29 1,150 l wing drop tank; no tracker entry for it or its family, and no unit price could be read on 2026-10-23 (web search budget spent, fetch hosts blocked); MiG-29 tank family. Re-run: this session's web search allowance ran out and the source hosts were blocked.",
+      "rerun": "this session's web search allowance ran out and the source hosts were blocked",
+      "sources": []
+    },
+    {
+      "target": "wp_tank_1200mig-35",
+      "kind": "weapon",
+      "decision": "left unknown",
+      "candidate": "none",
+      "why": "Not priced: MiG-35 1,200 l drop tank; no tracker entry for it or its family, and no unit price could be read on 2026-10-23 (web search budget spent, fetch hosts blocked); MiG-29 tank family. Re-run: this session's web search allowance ran out and the source hosts were blocked.",
+      "rerun": "this session's web search allowance ran out and the source hosts were blocked",
+      "sources": []
+    },
+    {
+      "target": "wp_tank_1500_mig-29",
+      "kind": "weapon",
+      "decision": "left unknown",
+      "candidate": "none",
+      "why": "Not priced: MiG-29 1,500 l centreline drop tank; no tracker entry for it or its family, and no unit price could be read on 2026-10-23 (web search budget spent, fetch hosts blocked); MiG-29 tank family. Re-run: this session's web search allowance ran out and the source hosts were blocked.",
+      "rerun": "this session's web search allowance ran out and the source hosts were blocked",
+      "sources": []
+    },
+    {
+      "target": "wp_ua",
+      "kind": "weapon",
+      "decision": "left unknown",
+      "candidate": "none: proposes Category=Ignore with no price",
+      "why": "Not a store: an empty BDZ-UMK2-B pylon adaptor used only to add station mass on the MiG-23; propose Category=Ignore with no price.",
+      "sources": []
+    },
+    {
+      "target": "wp_ub-16-57KV",
+      "kind": "weapon",
+      "decision": "left unknown",
+      "candidate": "none",
+      "why": "Not priced: UB-16-57KV 16-tube 57 mm S-5 rocket pod; no tracker entry for it or its family, and no unit price could be read on 2026-10-23 (web search budget spent, fetch hosts blocked); same pod family as wp_ub-16-57UM. Re-run: this session's web search allowance ran out and the source hosts were blocked.",
+      "rerun": "this session's web search allowance ran out and the source hosts were blocked",
+      "sources": []
+    },
+    {
+      "target": "wp_ub-16-57UM",
+      "kind": "weapon",
+      "decision": "left unknown",
+      "candidate": "none",
+      "why": "Not priced: UB-16-57UM 16-tube 57 mm S-5 rocket pod; no tracker entry for it or its family, and no unit price could be read on 2026-10-23 (web search budget spent, fetch hosts blocked); same pod family as wp_ub-16-57KV. Re-run: this session's web search allowance ran out and the source hosts were blocked.",
+      "rerun": "this session's web search allowance ran out and the source hosts were blocked",
+      "sources": []
+    },
+    {
+      "target": "wp_ub-32",
+      "kind": "weapon",
+      "decision": "left unknown",
+      "candidate": "none",
+      "why": "Not priced: UB-32 32-tube 57 mm S-5 rocket pod; no tracker entry for it or its family, and no unit price could be read on 2026-10-23 (web search budget spent, fetch hosts blocked); empty-pod price. Re-run: this session's web search allowance ran out and the source hosts were blocked.",
+      "rerun": "this session's web search allowance ran out and the source hosts were blocked",
+      "sources": []
+    },
+    {
+      "target": "wp_umgt-1",
+      "kind": "weapon",
+      "decision": "left unknown",
+      "candidate": "none",
+      "why": "No published unit or export price found for the UMGT-1 or a comparable 400 mm air-dropped torpedo.",
+      "sources": []
+    },
+    {
+      "target": "wp_upk_23-250",
+      "kind": "weapon",
+      "decision": "left unknown",
+      "candidate": "none",
+      "why": "Not priced: UPK-23-250 23 mm GSh-23L gun pod; no tracker entry for it or its family, and no unit price could be read on 2026-10-23 (web search budget spent, fetch hosts blocked); empty-pod price. Re-run: this session's web search allowance ran out and the source hosts were blocked.",
+      "rerun": "this session's web search allowance ran out and the source hosts were blocked",
+      "sources": []
+    },
+    {
+      "target": "yf23_aim424_internal",
+      "kind": "weapon",
+      "decision": "left unknown",
+      "candidate": "none",
+      "why": "AIM-424 with no traceable unit cost; the only same-type catalog entry (usn_aim-424) is explicitly blank ('price unknown').",
+      "sources": [
+        {
+          "title": "Tracker catalog weaponcosts.ini [usn_aim-424], line 5826",
+          "url": "file:mods-source/3807187341/systems/weaponcosts.ini#L5826"
+        },
+        {
+          "title": "yf23_aim424_internal name",
+          "url": "file:mods-source/3796349767/language_en/ammunition_names.ini"
+        }
+      ]
+    },
+    {
+      "target": "z21_type-70_launcher",
+      "kind": "weapon",
+      "decision": "left unknown",
+      "candidate": "none",
+      "why": "Not priced: Seven-tube 70 mm rocket pod for the Z-21; no tracker entry for it or its family, and no unit price could be read on 2026-10-23 (web search budget spent, fetch hosts blocked); empty-pod price. Re-run: this session's web search allowance ran out and the source hosts were blocked.",
+      "rerun": "this session's web search allowance ran out and the source hosts were blocked",
+      "sources": []
+    },
+    {
+      "target": "z21_type-70_rocket",
+      "kind": "weapon",
+      "decision": "left unknown",
+      "candidate": "none",
+      "why": "Chinese 70mm unguided rocket: no priced 70mm rocket to compare with (usn_hydra itself is unpriced), and no public price could be read this run. Re-run: the source hosts were blocked.",
+      "rerun": "the source hosts were blocked",
+      "sources": [
+        {
+          "title": "3774746803 ammunition_names.ini line 6 (identity)",
+          "url": "file:mods-source/3774746803/language_en/ammunition_names.ini"
+        }
+      ]
+    },
+    {
+      "target": "airbase_raaf_amberley",
+      "kind": "land",
+      "decision": "left unknown",
+      "candidate": "none",
+      "why": "No documented construction or replacement figure for RAAF Base Amberley as a whole; published figures are project spending or estate-wide totals. Re-run: this session's web search allowance ran out and the source hosts were blocked.",
+      "rerun": "this session's web search allowance ran out and the source hosts were blocked",
+      "sources": [
+        {
+          "title": "Minister for Materiel and Science, doorstop at RAAF Base Amberley, 14 Dec 2015 - search excerpt cited by the researcher (context only, spending not a base value); not re-verified",
+          "url": "https://www.minister.defence.gov.au/transcripts/2015-12-14/minister-materiel-science-doorstop-raaf-base-amberley"
+        }
+      ]
+    },
+    {
+      "target": "airbase_raaf_butterworth",
+      "kind": "land",
+      "decision": "left unknown",
+      "candidate": "none",
+      "why": "Malaysian-owned base dating from 1941; no documented construction or replacement figure found.",
+      "sources": []
+    },
+    {
+      "target": "airbase_raaf_darwin",
+      "kind": "land",
+      "decision": "left unknown",
+      "candidate": "Only a share of the A$707.9M multi-base P-8A facilities project",
+      "why": "No documented construction or replacement figure for RAAF Base Darwin; only multi-base project figures (part of the A$707.9M P-8A facilities project). Re-run: this session's web search allowance ran out and the source hosts were blocked.",
+      "rerun": "this session's web search allowance ran out and the source hosts were blocked",
+      "sources": []
+    },
+    {
+      "target": "airbase_raaf_east_sale",
+      "kind": "land",
+      "decision": "left unknown",
+      "candidate": "none",
+      "why": "Established base (1943); no documented construction or replacement figure for the base.",
+      "sources": []
+    },
+    {
+      "target": "airbase_raaf_edinburgh",
+      "kind": "land",
+      "decision": "left unknown",
+      "candidate": "Only a share of the A$707.9M P-8A facilities project, which spans five bases",
+      "why": "No documented replacement figure for RAAF Base Edinburgh; the A$707.9M P-8A project spans five bases and is not a base value. Re-run: this session's web search allowance ran out and the source hosts were blocked.",
+      "rerun": "this session's web search allowance ran out and the source hosts were blocked",
+      "sources": []
+    },
+    {
+      "target": "airbase_raaf_gingin",
+      "kind": "land",
+      "decision": "left unknown",
+      "candidate": "none",
+      "why": "No documented construction or replacement figure for Gingin airfield.",
+      "sources": []
+    },
+    {
+      "target": "airbase_raaf_learmonth",
+      "kind": "land",
+      "decision": "left unknown",
+      "candidate": "A$69M (a 1997 PWC figure in one excerpt); the A$662.2M KC-30A project covers pavements and aprons only",
+      "why": "A 1997 PWC figure (A$69M) appeared in one excerpt and could not be confirmed; the A$662.2M KC-30A project covers pavements and aprons only. Re-run: this session's web search allowance ran out and the source hosts were blocked.",
+      "rerun": "this session's web search allowance ran out and the source hosts were blocked",
+      "sources": []
+    },
+    {
+      "target": "airbase_raaf_pearce",
+      "kind": "land",
+      "decision": "left unknown",
+      "candidate": "none",
+      "why": "Established base (1938); no documented construction or replacement figure for the base.",
+      "sources": []
+    },
+    {
+      "target": "airbase_raaf_richmond",
+      "kind": "land",
+      "decision": "left unknown",
+      "candidate": "none",
+      "why": "Established base (1925); no documented construction or replacement figure for the base.",
+      "sources": []
+    },
+    {
+      "target": "airbase_raaf_scherger",
+      "kind": "land",
+      "decision": "left unknown",
+      "candidate": "none",
+      "why": "Opened 1998 and built largely by Army engineers; no construction cost found. Re-run: this session's web search allowance ran out and the source hosts were blocked.",
+      "rerun": "this session's web search allowance ran out and the source hosts were blocked",
+      "sources": []
+    },
+    {
+      "target": "airbase_raaf_townsville",
+      "kind": "land",
+      "decision": "left unknown",
+      "candidate": "none",
+      "why": "Established base (1939); no documented construction or replacement figure for the base.",
+      "sources": []
+    },
+    {
+      "target": "airbase_raaf_williamtown",
+      "kind": "land",
+      "decision": "left unknown",
+      "candidate": "none",
+      "why": "Established base (1941); no per-base replacement figure, only estate-wide totals. Re-run: this session's web search allowance ran out and the source hosts were blocked.",
+      "rerun": "this session's web search allowance ran out and the source hosts were blocked",
+      "sources": []
+    },
+    {
+      "target": "airbase_raaf_woomera",
+      "kind": "land",
+      "decision": "left unknown",
+      "candidate": "none",
+      "why": "No documented construction or replacement figure for Woomera airfield.",
+      "sources": []
+    },
+    {
+      "target": "airbase_rnzaf_auckland",
+      "kind": "land",
+      "decision": "left unknown",
+      "candidate": "none",
+      "why": "No per-base replacement value; NZDF publishes only an estate-wide replacement cost. Re-run: this session's web search allowance ran out and the source hosts were blocked.",
+      "rerun": "this session's web search allowance ran out and the source hosts were blocked",
+      "sources": []
+    },
+    {
+      "target": "airbase_rnzaf_ohakea",
+      "kind": "land",
+      "decision": "left unknown",
+      "candidate": "NZ$206.2M Ohakea Infrastructure Programme (2020), remediation and P-8A works",
+      "why": "The Ohakea Infrastructure Programme (NZ$206.2M, 2020) is remediation and P-8A works, not a base replacement figure. Re-run: this session's web search allowance ran out and the source hosts were blocked.",
+      "rerun": "this session's web search allowance ran out and the source hosts were blocked",
+      "sources": []
+    },
+    {
+      "target": "airbase_us",
+      "kind": "land",
+      "decision": "left unknown",
+      "candidate": "none",
+      "why": "Generic template whose variants name two different real bases (Eglin, Ramstein); no single documented figure covers the id.",
+      "sources": []
+    },
+    {
+      "target": "airfield_a-10",
+      "kind": "land",
+      "decision": "left unknown",
+      "candidate": "none",
+      "why": "Generic airfield stand-in (the Dispatches D7 exercise field); no documented figure for a facility of this kind and size.",
+      "sources": []
+    },
+    {
+      "target": "airfield_small_1",
+      "kind": "land",
+      "decision": "left unknown",
+      "candidate": "none",
+      "why": "Generic small-airfield stand-in for several real civil airports; no documented figure for that kind of facility.",
+      "sources": []
+    },
+    {
+      "target": "airfield_us",
+      "kind": "land",
+      "decision": "left unknown",
+      "candidate": "none",
+      "why": "Generic airfield template; no documented construction or replacement figure for it.",
+      "sources": []
+    },
+    {
+      "target": "china_large_airbase",
+      "kind": "land",
+      "decision": "left unknown",
+      "candidate": "none",
+      "why": "Generic PLA airbase; no published construction or replacement figure for such bases.",
+      "sources": []
+    },
+    {
+      "target": "civ_car_pickup_1983",
+      "kind": "land",
+      "decision": "left unknown",
+      "candidate": "none",
+      "why": "No 1983 pickup price or current replacement price has been read; retry with a fresh search budget. Re-run: this session's web search allowance ran out.",
+      "rerun": "this session's web search allowance ran out",
+      "sources": []
+    },
+    {
+      "target": "civ_car_pickup_1983_assault_civ",
+      "kind": "land",
+      "decision": "left unknown",
+      "candidate": "none",
+      "why": "Same vehicle as civ_car_pickup_1983 and the same missing price; when that pickup is priced, give this one the same value. Re-run: this session's web search allowance ran out and the source hosts were blocked.",
+      "rerun": "this session's web search allowance ran out and the source hosts were blocked",
+      "sources": []
+    },
+    {
+      "target": "civ_radiostation",
+      "kind": "land",
+      "decision": "left unknown",
+      "candidate": "none",
+      "why": "Generic civilian radio station; no documented figure for one; it is not priced as the Macquarie Island station it stands in for.",
+      "sources": []
+    },
+    {
+      "target": "civ_spar_rig",
+      "kind": "land",
+      "decision": "left unknown",
+      "candidate": "none",
+      "why": "Generic platform; offshore platform costs vary widely with field and depth, and no figure for this kind was traced. Re-run: this session's web search allowance ran out.",
+      "rerun": "this session's web search allowance ran out",
+      "sources": []
+    },
+    {
+      "target": "civ_spar_rig_helo",
+      "kind": "land",
+      "decision": "left unknown",
+      "candidate": "none",
+      "why": "Generic armed oil platform; no documented construction or replacement figure (its guns would be priced separately).",
+      "sources": []
+    },
+    {
+      "target": "FOB",
+      "kind": "land",
+      "decision": "left unknown",
+      "candidate": "none",
+      "why": "No documented construction figure for a squad-sized FOB has been traced; retry with a fresh search budget. Re-run: this session's web search allowance ran out.",
+      "rerun": "this session's web search allowance ran out",
+      "sources": []
+    },
+    {
+      "target": "fr_apc_vab_top",
+      "kind": "land",
+      "decision": "left unknown",
+      "candidate": "EUR 1.4M (Senat 2017), the cost of a full VAB renovation, not a vehicle price",
+      "why": "VAB TOP: no verified VAB purchase price. The only figure the researcher saw (Senat 2017, EUR 1.4M) is the cost of a full VAB renovation, not a vehicle price.",
+      "sources": [
+        {
+          "title": "VAB TOP names (Workshop 3736147136)",
+          "url": "mods-source/3736147136/language_en/land_units_names.ini"
+        }
+      ]
+    },
+    {
+      "target": "fr_vl-mica_tel",
+      "kind": "land",
+      "decision": "left unknown",
+      "candidate": "none",
+      "why": "VL MICA TEL: not researched. The web-search budget was exhausted in both the research and check passes, and no figure was seen. Re-run: this session's web search allowance ran out.",
+      "rerun": "this session's web search allowance ran out",
+      "sources": [
+        {
+          "title": "VL-MICA names (Workshop 3437105712)",
+          "url": "mods-source/3437105712/language_en/land_units_names.ini"
+        }
+      ]
+    },
+    {
+      "target": "idf_dsws",
+      "kind": "land",
+      "decision": "left unknown",
+      "candidate": "Finland's buy of about EUR 316M, number of systems undisclosed (search excerpt)",
+      "why": "David's Sling launcher: no verified per-launcher price. Published buys are whole-system packages.",
+      "sources": [
+        {
+          "title": "David's Sling names (Workshop 3558173926)",
+          "url": "mods-source/3558173926/language_en/land_units_names.ini"
+        }
+      ]
+    },
+    {
+      "target": "jp_12ssmht",
+      "kind": "land",
+      "decision": "left unknown",
+      "candidate": "JPY 175.3bn and 179.8bn programme totals (search excerpts), not per-launcher prices",
+      "why": "Type 12 SSM (improved) launcher truck: Japanese MOD budgets give programme totals, not a per-launcher price.",
+      "sources": [
+        {
+          "title": "Type 12 names (Workshop 3470643173)",
+          "url": "mods-source/3470643173/language_en/land_units_names.ini"
+        }
+      ]
+    },
+    {
+      "target": "Oil_pump",
+      "kind": "land",
+      "decision": "left unknown",
+      "candidate": "none",
+      "why": "No published pumpjack unit price has been traced; retry with a fresh search budget. Re-run: this session's web search allowance ran out.",
+      "rerun": "this session's web search allowance ran out",
+      "sources": []
+    },
+    {
+      "target": "pla_aaa_type55",
+      "kind": "land",
+      "decision": "left unknown",
+      "candidate": "none",
+      "why": "Type 55 37 mm AA gun: not researched (web-search budget exhausted). No price seen for this 1950s gun. Re-run: this session's web search allowance ran out.",
+      "rerun": "this session's web search allowance ran out",
+      "sources": [
+        {
+          "title": "Vanilla land unit names",
+          "url": "mods-source/_vanilla/original/language_en/land_units_names.ini"
+        }
+      ]
+    },
+    {
+      "target": "pla_airbase_modern",
+      "kind": "land",
+      "decision": "left unknown",
+      "candidate": "none",
+      "why": "Generic PLA airbase template; no published construction or replacement figure for PLA airbases.",
+      "sources": []
+    },
+    {
+      "target": "pla_apc_zbl-08",
+      "kind": "land",
+      "decision": "left unknown",
+      "candidate": "none",
+      "why": "ZBL-08 IFV: not researched (web-search budget exhausted). No price seen. Re-run: this session's web search allowance ran out.",
+      "rerun": "this session's web search allowance ran out",
+      "sources": [
+        {
+          "title": "PLA names (Workshop 3733719765)",
+          "url": "mods-source/3733719765/language_en/land_units_names.ini"
+        }
+      ]
+    },
+    {
+      "target": "pla_df-21c_tel",
+      "kind": "land",
+      "decision": "left unknown",
+      "candidate": "none",
+      "why": "DF-21C TEL: not researched (web-search budget exhausted). No price seen. Re-run: this session's web search allowance ran out.",
+      "rerun": "this session's web search allowance ran out",
+      "sources": [
+        {
+          "title": "PLA names (Workshop 3733719765)",
+          "url": "mods-source/3733719765/language_en/land_units_names.ini"
+        }
+      ]
+    },
+    {
+      "target": "pla_df-26b_tel",
+      "kind": "land",
+      "decision": "left unknown",
+      "candidate": "none",
+      "why": "DF-26B TEL: not researched (web-search budget exhausted). No price seen. Re-run: this session's web search allowance ran out.",
+      "rerun": "this session's web search allowance ran out",
+      "sources": [
+        {
+          "title": "PLA names (Workshop 3733719765)",
+          "url": "mods-source/3733719765/language_en/land_units_names.ini"
+        }
+      ]
+    },
+    {
+      "target": "pla_df-41_tel",
+      "kind": "land",
+      "decision": "left unknown",
+      "candidate": "none",
+      "why": "DF-41 road-mobile ICBM TEL: not researched (web-search budget exhausted). No price seen. Re-run: this session's web search allowance ran out.",
+      "rerun": "this session's web search allowance ran out",
+      "sources": [
+        {
+          "title": "ICBM names (Workshop 3571718093)",
+          "url": "mods-source/3571718093/language_en/land_units_names.ini"
+        }
+      ]
+    },
+    {
+      "target": "pla_h-200a_radar",
+      "kind": "land",
+      "decision": "left unknown",
+      "candidate": "none",
+      "why": "H-200A fire-control radar: not researched (web-search budget exhausted). No price seen. Re-run: this session's web search allowance ran out.",
+      "rerun": "this session's web search allowance ran out",
+      "sources": [
+        {
+          "title": "PLA names (Workshop 3733719765)",
+          "url": "mods-source/3733719765/language_en/land_units_names.ini"
+        }
+      ]
+    },
+    {
+      "target": "pla_spaag_type63",
+      "kind": "land",
+      "decision": "left unknown",
+      "candidate": "none",
+      "why": "Type 63 SPAAG (T-34 hull, twin 37 mm): not researched (web-search budget exhausted). No price seen. Re-run: this session's web search allowance ran out.",
+      "rerun": "this session's web search allowance ran out",
+      "sources": [
+        {
+          "title": "Vanilla land unit names",
+          "url": "mods-source/_vanilla/original/language_en/land_units_names.ini"
+        }
+      ]
+    },
+    {
+      "target": "plaaf_airlift_airbase",
+      "kind": "land",
+      "decision": "left unknown",
+      "candidate": "none",
+      "why": "Generic PLAAF airlift base; no published construction or replacement figure.",
+      "sources": []
+    },
+    {
+      "target": "ru_50n6",
+      "kind": "land",
+      "decision": "left unknown",
+      "candidate": "none",
+      "why": "50N6 (S-350) multifunction radar: not researched (web-search budget exhausted). No price seen. Re-run: this session's web search allowance ran out.",
+      "rerun": "this session's web search allowance ran out",
+      "sources": [
+        {
+          "title": "S-350 names (Workshop 3524446392)",
+          "url": "mods-source/3524446392/language_en/land_units_names.ini"
+        }
+      ]
+    },
+    {
+      "target": "ru_spaa_mt-lb_sosna",
+      "kind": "land",
+      "decision": "left unknown",
+      "candidate": "none",
+      "why": "Sosna on MT-LB: not researched (web-search budget exhausted). No price seen. Re-run: this session's web search allowance ran out.",
+      "rerun": "this session's web search allowance ran out",
+      "sources": [
+        {
+          "title": "Sosna names (Workshop 3508275114)",
+          "url": "mods-source/3508275114/language_en/land_units_names.ini"
+        }
+      ]
+    },
+    {
+      "target": "ru_vityaz-lr_tel",
+      "kind": "land",
+      "decision": "left unknown",
+      "candidate": "none",
+      "why": "S-350 Vityaz TEL: not researched (web-search budget exhausted). No price seen. Re-run: this session's web search allowance ran out.",
+      "rerun": "this session's web search allowance ran out",
+      "sources": [
+        {
+          "title": "S-350 names (Workshop 3524446392)",
+          "url": "mods-source/3524446392/language_en/land_units_names.ini"
+        }
+      ]
+    },
+    {
+      "target": "sest_uav_forward",
+      "kind": "land",
+      "decision": "left unknown",
+      "candidate": "none",
+      "why": "A squad-level UAV launch and recovery site; no documented figure for one, and its UAVs are priced as aircraft.",
+      "sources": []
+    },
+    {
+      "target": "shahed_tel_black",
+      "kind": "land",
+      "decision": "left unknown",
+      "candidate": "none",
+      "why": "Shahed-136 launch truck: not researched (web-search budget exhausted). No launcher-truck price seen; would share a price with shahed_tel_white. Re-run: this session's web search allowance ran out.",
+      "rerun": "this session's web search allowance ran out",
+      "sources": [
+        {
+          "title": "Shahed TEL names (Workshop 3497601759)",
+          "url": "mods-source/3497601759/language_en/land_units_names.ini"
+        }
+      ]
+    },
+    {
+      "target": "shahed_tel_white",
+      "kind": "land",
+      "decision": "left unknown",
+      "candidate": "none",
+      "why": "Shahed-136 launch truck (white): not researched (web-search budget exhausted). Would share shahed_tel_black's price. Re-run: this session's web search allowance ran out.",
+      "rerun": "this session's web search allowance ran out",
+      "sources": [
+        {
+          "title": "Shahed TEL names (Workshop 3497601759)",
+          "url": "mods-source/3497601759/language_en/land_units_names.ini"
+        }
+      ]
+    },
+    {
+      "target": "tgt_ammo_depot_small",
+      "kind": "land",
+      "decision": "left unknown",
+      "candidate": "none",
+      "why": "Generic small field ammunition depot; no documented figure for that kind of facility; its stock is not part of the facility.",
+      "sources": []
+    },
+    {
+      "target": "tgt_fueltanks_medium",
+      "kind": "land",
+      "decision": "left unknown",
+      "candidate": "none",
+      "why": "Generic medium fuel tank farm with unstated capacity; no documented figure for a facility of that size.",
+      "sources": []
+    },
+    {
+      "target": "usa_airbase",
+      "kind": "land",
+      "decision": "left unknown",
+      "candidate": "none",
+      "why": "Generic US NAS/AFB template; no single documented figure for the id.",
+      "sources": []
+    },
+    {
+      "target": "usa_pac-3_launcher",
+      "kind": "land",
+      "decision": "left unknown",
+      "candidate": "Bundled packages only (Netherlands USD 224M; CRS IF12297)",
+      "why": "Patriot M903 launching station: no verified launcher unit price. Recent buys are bundled packages.",
+      "sources": [
+        {
+          "title": "PAC-3 launcher names (Workshop 3437105712)",
+          "url": "mods-source/3437105712/language_en/land_units_names.ini"
+        }
+      ]
+    },
+    {
+      "target": "usa_steelfin_launcher",
+      "kind": "land",
+      "decision": "left unknown",
+      "candidate": "none",
+      "why": "Steelfin container launcher: a concept system under development, with no published price and no defensible family proxy.",
+      "sources": [
+        {
+          "title": "Steelfin Readme (Workshop 3820576916)",
+          "url": "mods-source/3820576916/Readme.txt"
+        }
+      ]
+    },
+    {
+      "target": "wp_2s19",
+      "kind": "land",
+      "decision": "left unknown",
+      "candidate": "none",
+      "why": "2S19 Msta-S: not researched (web-search budget exhausted). No figure seen. Re-run: this session's web search allowance ran out.",
+      "rerun": "this session's web search allowance ran out",
+      "sources": [
+        {
+          "title": "Artillery names (Workshop 3603306548)",
+          "url": "mods-source/3603306548/language_en/land_units_names.ini"
+        }
+      ]
+    },
+    {
+      "target": "wp_2s43",
+      "kind": "land",
+      "decision": "left unknown",
+      "candidate": "none",
+      "why": "2S43 Malva: not researched (web-search budget exhausted). No figure seen. Re-run: this session's web search allowance ran out.",
+      "rerun": "this session's web search allowance ran out",
+      "sources": [
+        {
+          "title": "Artillery names (Workshop 3603306548)",
+          "url": "mods-source/3603306548/language_en/land_units_names.ini"
+        }
+      ]
+    },
+    {
+      "target": "wp_airbase_modern",
+      "kind": "land",
+      "decision": "left unknown",
+      "candidate": "none",
+      "why": "Generic Russian airbase template used as a stand-in; no published construction or replacement figure for it.",
+      "sources": []
+    },
+    {
+      "target": "wp_buk-m3",
+      "kind": "land",
+      "decision": "left unknown",
+      "candidate": "none",
+      "why": "Buk-M3 self-propelled launcher with radar: not researched (web-search budget exhausted). No figure seen. Re-run: this session's web search allowance ran out.",
+      "rerun": "this session's web search allowance ran out",
+      "sources": [
+        {
+          "title": "Buk-M3 names (Workshop 3564792549)",
+          "url": "mods-source/3564792549/language_en/land_units_names.ini"
+        }
+      ]
+    },
+    {
+      "target": "wp_bukslave",
+      "kind": "land",
+      "decision": "left unknown",
+      "candidate": "none",
+      "why": "Buk-M3 9A316M TEL: not researched (web-search budget exhausted). No figure seen. Re-run: this session's web search allowance ran out.",
+      "rerun": "this session's web search allowance ran out",
+      "sources": [
+        {
+          "title": "Buk-M3 names (Workshop 3564792549)",
+          "url": "mods-source/3564792549/language_en/land_units_names.ini"
+        }
+      ]
+    },
+    {
+      "target": "wp_car_ural_command",
+      "kind": "land",
+      "decision": "left unknown",
+      "candidate": "none",
+      "why": "Ural mobile command truck: not researched (web-search budget exhausted). No figure seen. Re-run: this session's web search allowance ran out.",
+      "rerun": "this session's web search allowance ran out",
+      "sources": [
+        {
+          "title": "Vanilla land unit names",
+          "url": "mods-source/_vanilla/original/language_en/land_units_names.ini"
+        }
+      ]
+    },
+    {
+      "target": "wp_emad_tel",
+      "kind": "land",
+      "decision": "left unknown",
+      "candidate": "none",
+      "why": "Emad MRBM TEL: not researched (web-search budget exhausted). No figure seen. Re-run: this session's web search allowance ran out.",
+      "rerun": "this session's web search allowance ran out",
+      "sources": [
+        {
+          "title": "Emad names (Workshop 3493115616)",
+          "url": "mods-source/3493115616/language_en/land_units_names.ini"
+        }
+      ]
+    },
+    {
+      "target": "wp_fattah1_tel",
+      "kind": "land",
+      "decision": "left unknown",
+      "candidate": "none",
+      "why": "Fattah-1 TEL: not researched (web-search budget exhausted). No figure seen. Re-run: this session's web search allowance ran out.",
+      "rerun": "this session's web search allowance ran out",
+      "sources": [
+        {
+          "title": "Fattah-1 names (Workshop 3673703427)",
+          "url": "mods-source/3673703427/language_en/land_units_names.ini"
+        }
+      ]
+    },
+    {
+      "target": "wp_fattah2_tel",
+      "kind": "land",
+      "decision": "left unknown",
+      "candidate": "none",
+      "why": "Fattah-2 TEL: not researched (web-search budget exhausted). No figure seen. Re-run: this session's web search allowance ran out.",
+      "rerun": "this session's web search allowance ran out",
+      "sources": [
+        {
+          "title": "Fattah-2 names (Workshop 3672497668)",
+          "url": "mods-source/3672497668/language_en/land_units_names.ini"
+        }
+      ]
+    },
+    {
+      "target": "wp_iskander_m",
+      "kind": "land",
+      "decision": "left unknown",
+      "candidate": "none",
+      "why": "Iskander-M TEL: not researched (web-search budget exhausted). One price would serve both wp_iskander_m and wp_ss-26_tel. Re-run: this session's web search allowance ran out.",
+      "rerun": "this session's web search allowance ran out",
+      "sources": [
+        {
+          "title": "Iskander names (Workshop 3681748718)",
+          "url": "mods-source/3681748718/language_en/land_units_names.ini"
+        }
+      ]
+    },
+    {
+      "target": "wp_kraz_tel",
+      "kind": "land",
+      "decision": "left unknown",
+      "candidate": "none",
+      "why": "S-300PMU2 5P85TE TEL on KrAZ: not researched (web-search budget exhausted). No per-vehicle figure seen. Re-run: this session's web search allowance ran out.",
+      "rerun": "this session's web search allowance ran out",
+      "sources": [
+        {
+          "title": "S-300PMU2 names (Workshop 3732654992)",
+          "url": "mods-source/3732654992/language_en/land_units_names.ini"
+        }
+      ]
+    },
+    {
+      "target": "wp_nebou",
+      "kind": "land",
+      "decision": "left unknown",
+      "candidate": "none",
+      "why": "Nebo-U radar: not researched (web-search budget exhausted). No figure seen. Re-run: this session's web search allowance ran out.",
+      "rerun": "this session's web search allowance ran out",
+      "sources": [
+        {
+          "title": "Nebo-U names (Workshop 3551621846)",
+          "url": "mods-source/3551621846/language_en/land_units_names.ini"
+        }
+      ]
+    },
+    {
+      "target": "wp_sa-21_40n6_tel",
+      "kind": "land",
+      "decision": "left unknown",
+      "candidate": "none",
+      "why": "S-400 long-range TEL: not researched (web-search budget exhausted). Published S-400 deals are regiment packages that include missiles. Re-run: this session's web search allowance ran out.",
+      "rerun": "this session's web search allowance ran out",
+      "sources": [
+        {
+          "title": "SA-21 names (Workshop 3392434750)",
+          "url": "mods-source/3392434750/language_en/land_units_names.ini"
+        }
+      ]
+    },
+    {
+      "target": "wp_sa-21_flaplid",
+      "kind": "land",
+      "decision": "left unknown",
+      "candidate": "none",
+      "why": "Flap Lid engagement radar (SA-21 set): not researched (web-search budget exhausted). No figure seen. Re-run: this session's web search allowance ran out.",
+      "rerun": "this session's web search allowance ran out",
+      "sources": [
+        {
+          "title": "Flaplid names (Workshop 3496055699)",
+          "url": "mods-source/3496055699/language_en/land_units_names.ini"
+        }
+      ]
+    },
+    {
+      "target": "wp_sam_site_sa-21",
+      "kind": "land",
+      "decision": "left unknown",
+      "candidate": "none",
+      "why": "SA-21 SAM site (one unit bundling radars and 12 launcher groups with missiles): no site-level price excluding missiles.",
+      "sources": [
+        {
+          "title": "wp_sam_site_sa-21 config",
+          "url": "mods-source/3392434750/land_units/wp_sam_site_sa-21.ini"
+        }
+      ]
+    },
+    {
+      "target": "wp_scud_9k72",
+      "kind": "land",
+      "decision": "left unknown",
+      "candidate": "none",
+      "why": "SCUD-B (9K72) MAZ-543 TEL: not researched (web-search budget exhausted). No figure seen. Re-run: this session's web search allowance ran out.",
+      "rerun": "this session's web search allowance ran out",
+      "sources": [
+        {
+          "title": "SCUD names (Workshop 3461519690)",
+          "url": "mods-source/3461519690/language_en/land_units_names.ini"
+        }
+      ]
+    },
+    {
+      "target": "wp_sejjil_tel",
+      "kind": "land",
+      "decision": "left unknown",
+      "candidate": "none",
+      "why": "Sejjil TEL: not researched (web-search budget exhausted). No figure seen. Re-run: this session's web search allowance ran out.",
+      "rerun": "this session's web search allowance ran out",
+      "sources": [
+        {
+          "title": "Sejjil names (Workshop 3551676319)",
+          "url": "mods-source/3551676319/language_en/land_units_names.ini"
+        }
+      ]
+    },
+    {
+      "target": "wp_shahed238_launcher",
+      "kind": "land",
+      "decision": "left unknown",
+      "candidate": "none",
+      "why": "Shahed-238 launcher: not researched (web-search budget exhausted). No figure seen. Re-run: this session's web search allowance ran out.",
+      "rerun": "this session's web search allowance ran out",
+      "sources": [
+        {
+          "title": "Shahed 238 names (Workshop 3686449681)",
+          "url": "mods-source/3686449681/language_en/land_units_names.ini"
+        }
+      ]
+    },
+    {
+      "target": "wp_silkworm_launcher",
+      "kind": "land",
+      "decision": "left unknown",
+      "candidate": "none",
+      "why": "SY-1 (CSSC-1 Scrubbrush) coastal AShM site: not researched (web-search budget exhausted). No figure seen. Re-run: this session's web search allowance ran out.",
+      "rerun": "this session's web search allowance ran out",
+      "sources": [
+        {
+          "title": "Vanilla land unit names",
+          "url": "mods-source/_vanilla/original/language_en/land_units_names.ini"
+        }
+      ]
+    },
+    {
+      "target": "wp_son-9",
+      "kind": "land",
+      "decision": "left unknown",
+      "candidate": "none",
+      "why": "SON-9 (Fire Can) gun fire-control radar site: not researched (web-search budget exhausted). No figure seen. Re-run: this session's web search allowance ran out.",
+      "rerun": "this session's web search allowance ran out",
+      "sources": [
+        {
+          "title": "Vanilla land unit names",
+          "url": "mods-source/_vanilla/original/language_en/land_units_names.ini"
+        }
+      ]
+    },
+    {
+      "target": "wp_ss-26_tel",
+      "kind": "land",
+      "decision": "left unknown",
+      "candidate": "none",
+      "why": "SS-26 Iskander TEL: not researched (web-search budget exhausted). Would share wp_iskander_m's price. Re-run: this session's web search allowance ran out.",
+      "rerun": "this session's web search allowance ran out",
+      "sources": [
+        {
+          "title": "SS-26 names (Workshop 3408662804)",
+          "url": "mods-source/3408662804/language_en/land_units_names.ini"
+        }
+      ]
+    },
+    {
+      "target": "wp_ss-27_tel",
+      "kind": "land",
+      "decision": "left unknown",
+      "candidate": "none",
+      "why": "SS-27 Topol-M TEL: not researched (web-search budget exhausted). No figure seen. Re-run: this session's web search allowance ran out.",
+      "rerun": "this session's web search allowance ran out",
+      "sources": [
+        {
+          "title": "ICBM names (Workshop 3571718093)",
+          "url": "mods-source/3571718093/language_en/land_units_names.ini"
+        }
+      ]
+    },
+    {
+      "target": "wp_tombstone",
+      "kind": "land",
+      "decision": "left unknown",
+      "candidate": "none",
+      "why": "30N6E2 Tomb Stone (S-300PMU2 fire-control radar): not researched (web-search budget exhausted). No figure seen. Re-run: this session's web search allowance ran out.",
+      "rerun": "this session's web search allowance ran out",
+      "sources": [
+        {
+          "title": "S-300PMU2 names (Workshop 3732654992)",
+          "url": "mods-source/3732654992/language_en/land_units_names.ini"
+        }
+      ]
+    }
+  ]
+}

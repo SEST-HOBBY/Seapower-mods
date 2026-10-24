@@ -23,7 +23,7 @@ Done 20 Sep 2026: both MyGo mods were unsubscribed and pruned (`data/mod-catalog
 
 ### Missing / manual dependencies — verify installed
 
-- **SeaLifter** is named as required by: A-10A, Su-25, Mi-8 T/TV, B-2 Spirit, and Type 003/004 CVN (A-10C presumed via A-10A) — **and it is not in the subscription list.** It also needs a manual preloader install ("Subscribing isn't enough"). If those mods currently load fine in-game, it's installed; otherwise this is the first thing to fix.
+- **SeaLifter** is named as required by: A-10A, Su-25, Mi-8 T/TV, B-2 Spirit, and Type 003/004 CVN (A-10C presumed via A-10A), and it is not in the subscription list. **It is not needed:** on 19 Oct 2026 the PC, with no SeaLifter at all, showed the B-2, A-10A, Su-25, Mi-8 and Type 003 in the encyclopedia with their models. The requirement dates from those mods' early-game descriptions; the manual part of the old install was Anchor Chain's preloader, which SETUP installs.
 - **Anchor Chain** is subscribed ✔ but is a chainloader that "will not function on its own" — its documented install steps must have been completed. Required by B-2 Spirit, Type 003/004 CVN, and any code-level mod.
 - **Euromod – Main Pack** is subscribed ✔ — its addons depend on it: explicitly stated by 5 of the 8 in this list (Nordic, Dutch, German, British, Cold War Spanish), inferred for the other 3 (Italian, JMSDF, Modern Spanish).
 - **Modern US Navy** is subscribed ✔ — required by the Ford-class CVN (as of its 2026-08-11 update) for its F-35/F-18/MH-60 air wing.
@@ -48,7 +48,7 @@ Done 20 Sep 2026: both MyGo mods were unsubscribed and pruned (`data/mod-catalog
 ## 3. Recommended mod order (top = highest priority; entries listed in intended top-to-bottom order)
 
 0. **SEST Integration Pack** — above everything, Anchor Chain included (`data/load-order.tokens.txt` is the canonical order; run `set-mod-order.ps1` or the pack's SETUP rather than ordering by hand).
-1. **Loaders** — Anchor Chain (+ SeaLifter via its preloader). These change no unit data, so they can't lose a file conflict; top placement is convention (repo recommendation, not an author instruction).
+1. **Loaders** — Anchor Chain and its preloader. These change no unit data, so they can't lose a file conflict; top placement is convention (repo recommendation, not an author instruction).
 2. **Weapon/system databases and land-unit frameworks** — SAM Pack (author: "top of TOE") · PLA Land Unit Pack (author: "above any other PLA-related mods" — so it precedes Modern PLAN Systems, which is PLA-related) · Dingtools Weapon Pack (author: "above any of my mods") · U.S. Navy 2027 Capabilities (directly above Euromod; see *U.S. Navy 2027 above Euromod* below) · Euromod Main Pack (recommendation) · Modern PLAN Systems (recommendation).
 3. **Patch/override mods** — F-35C Alt. Loadouts · Murder Hornet · B-52G AGM-86 loadouts · **Tu-95 AS-15** (here, not with the aircraft: its global munition edits make it a value patch) · Flight Deck Ops · ADO-Nimitz · Ground Upgrade: SPAA — each above the mods it modifies. **Caveat:** a patch that edits weapons a tier-2 database also defines must be promoted *above* that database to take effect — U.S. Navy 2027 against Dingtools Weapon Pack, which sits directly above it in tier 2, is the concrete case to test.
 4. **Core faction packs** — Modern US Navy · United States Naval Aviation · all Euromod addons · Chinese Navy · Russian Navy 21 · the three submarine packs · carriers and amphibs (Ford, Nimitz Expanded, Kuznetsov, Liaoning, the chosen Fujian, Type 071, CDG pack).
@@ -264,3 +264,13 @@ Where to look: Southern Watch D6 Long Reach and SEST Banda - Black Widow
 Debut field YF-23s on `AirToAirIntercept` (two `yf23_aim424_internal` each);
 the Super Hornets' MH CAP 424, MH Interceptor 424 and MH Penetrator 424 fits
 carry `usn_aim-424`.
+
+**Licence (23 Oct 2026): a known exception.** The YF-23's and the Fury's
+`LICENSE.txt` (RSG, maintainer AlpineStatic; in the export since 5 Oct) let
+a compatibility patch add content alongside the mod but not override its
+material. The `yf23_aim424_internal` and `fury_aim424` extends above do
+override it. The owner recorded them as a known exception on 23 Oct rather
+than ask RSG or drop them (`docs/workshop-refresh-20261023-review.md`,
+section 4). If RSG asks, those two ids come out of the AIM-424 build and the
+rounds fly as their author shipped them. `usn_aim-424` (U.S. Navy 2027, US
+Naval Aviation) is not covered by that licence.

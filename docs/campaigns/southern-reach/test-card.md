@@ -133,8 +133,9 @@ are the signal, the log and the INTSUM tile (`bkg_tile_message.png`).
 | 2.6 | Before TS07 Southern Air Bridge | Airbase preparation at Williamtown: two ready slots, one in progress | Absent = `TaskForceModeAirbasePrep*` unread |
 | 2.7 | Before TS08 | Repair only; no purchase, no rearm | |
 | 2.8 | After TS09 | Both TS10A and TS10B offered; play one; after TS11 both are gone | Both still offered after TS11 = `ExpiresAfterMissionComplete=41` points at the wrong entry |
-| 2.9 | Before TS12 | Buy and repair, no rearm; after TS12 the campaign ends (`FinalMission`) | |
+| 2.9 | Before TS12 | Buy and repair, no rearm (the whole roster on offer, 2.11); after TS12 the campaign ends (`FinalMission`) | |
 | 2.10 | Any Recon row with a Poseidon bought | Kiwi 05's fields (Ohakea, Whenuapai, Invercargill, Christchurch) accept a RAAF Poseidon for recovery | A Poseidon that cannot recover in New Zealand = the range check accepted a field the game refuses |
+| 2.11 | A new campaign: every window to TS01, then before Tasman Crossing (TS04) | The story's own lists and nothing allied until TS04; from TS04 to TS12 every force allocation (every window with a builder: not TS08, TS10A, TS10B or TS11A) offers the **whole roster**, 73 units in all - the campaign's own ten, a Hobart at TS12 among them (until 21 Oct 2026 Southern Cross offered none) - and the allied fleet at list price - 52 ship classes, carriers and amphibious ships among them, HMAS Adelaide (Canberra class) and 10 allied aircraft types - and the window text ends "This force allocation offers the campaign's whole roster and, at their own navies' prices, the allied fleet - ..." with them counted by navy (allied escorts only on 20 Oct 2026; the whole fleet and the whole roster from 21 Oct). **No Mogami Variant1 (JS Mogami), Daegu Variant1, HMAS Choules or Supply-class AOR** at any window: missions place every one of those hulls. A Typhoon FGR.4 bought at TS04 is offered Tasman Crossing's Combat Air Patrol and gets back to Williamtown; no Rafale, F-15EX or F-16CM is on sale (no field in reach of Tasman Crossing's CAP: `coverage.md`, "The reserve") | Anything allied before TS04, or a named hull on offer = an old build |
 
 ## 3 — the consequences
 
@@ -152,7 +153,7 @@ writer both ways where the card says so.
 | 3.7 | SR08: classify the corvette | TS02 | The 056A from Cape Campbell is classified at start |
 | 3.8 | SR09: lose Derwent Spirit / keep her; win / lose | SR11 | No tanker in the convoy / a tanker; rearm offered only after a win |
 | 3.9 | SR12: name the network | TS01, TS04 | The collector (TS01) and the 054A (TS04) classified at start |
-| 3.10 | TS01, TS02, TS03: classify the tender, TANGO, the tender again | TS03, TS05 | Both revealed at the rendezvous; the survey ship revealed under the Tasman |
+| 3.10 | TS01, TS02, TS03: classify the tender, TANGO, the tender again | TS03, TS05 | Both revealed at the rendezvous; the survey ship revealed under the Tasman. **After a TS01 win, say exactly what TS03's *Tender* objective does** with a tender that starts classified: completes at once (at T+0), completes only after you classify her again, or never. Then say whether TS05 starts with the survey ship classified (it reads TS03's Tender). This is the proof that decides whether Red Line's RL03 reveal after O2 comes back (Red Line card 7.4, held since 21 Oct 2026) |
 | 3.11 | TS05: sink ROMEO / miss her | TS09, TS12 | No 093B under either convoy / a 093B under both |
 | 3.12 | TS08: sink SIERRA-TWO / miss her | TS09 | No Yasen in the convoy action / a Yasen |
 | 3.13 | TS10A won / TS10B won / neither played | TS11 | No corvette-and-collector from the north / no second frigate from the south / both present |
@@ -205,6 +206,7 @@ browser copy is the same file.
 | 6.8 | Bring her into the box off Green Cape | Victory; the frigate turned away at wpC and never followed her in | The frigate follows her into the box = her route; report it |
 | 6.9 | Win it, then fly Southern Cross | The spoiler is identified at start with the Twofold Bay debrief intel | Not identified = `TS11ADefectorSafe` not set or not read |
 | 6.10 | Campaign map | The Twelve-Mile Line offered after the channel-sixteen page that follows Approaches, beside the Master's log page (MV Coral Pioneer, 28 February); gone once Southern Cross is complete; pays 60 once | Offered before Approaches, or still offered after Southern Cross = the expiry index |
+| 6.11 | The briefing, RECOGNITION | The 054A and Z-9C photos read "Opposition - do not fire first"; the corvette's reads "Your forces" | "Protected - do not engage" under either = an old build. Since 20 Oct 2026 a restraint that lifts reads so, because 6.7 allows what "do not engage" forbids |
 
 ## 7 — Sea Power 0.8.3
 

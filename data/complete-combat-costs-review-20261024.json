@@ -1,0 +1,155 @@
+{
+  "date": "2026-10-24",
+  "scope": "private complete-costs playtest; PC acceptance pending",
+  "source_base": "374634bcd1542b6d62ea5c82df044d795e21f388",
+  "feature_branch": "fix/complete-combat-costs-20261024",
+  "upstream_deployment_ref_unchanged": "sest-dev/loving-bell-3cnvvw",
+  "coverage": {
+    "weapon": {
+      "eligible": 2170,
+      "historical_known": 2170,
+      "current_known": 2170
+    },
+    "vessel": {
+      "eligible": 937,
+      "historical_known": 937,
+      "current_known": 937
+    },
+    "aircraft": {
+      "eligible": 756,
+      "historical_known": 756,
+      "current_known": 756
+    },
+    "land": {
+      "eligible": 502,
+      "historical_known": 502,
+      "current_known": 502
+    }
+  },
+  "known_fields_preserved": 5308,
+  "missing_fields_filled": {
+    "weapon": 1942,
+    "vessel": 190,
+    "aircraft": 286,
+    "land": 1004
+  },
+  "explicit_nonprocured_helpers": 35,
+  "backlog": {
+    "rows": 381,
+    "unique_references": 377,
+    "all_priced": true,
+    "original_research_decisions_preserved": true
+  },
+  "installed_files": 4306,
+  "build": {
+    "all_packs": 25,
+    "from_scratch": "passed",
+    "final_cost_catalog_rebuild": "passed",
+    "runtime_mock_assertions": 134,
+    "runtime_binary_sha256": "55c2609548af16cfdcd0e0f6c4a3228446b31d23a6edcfc9e23f944e43e847e7"
+  },
+  "python_suites": [
+    {
+      "suite": "campaign",
+      "tests": 300,
+      "skipped": 0,
+      "result": "pass"
+    },
+    {
+      "suite": "tools",
+      "tests": 175,
+      "skipped": 7,
+      "result": "pass",
+      "skip_reason": "PowerShell/pwsh not installed"
+    }
+  ],
+  "gates": [
+    {
+      "command": "python3 tools/check_pack_fidelity.py",
+      "result": "pass"
+    },
+    {
+      "command": "python3 tools/check_campaign_coverage.py",
+      "result": "pass"
+    },
+    {
+      "command": "python3 tools/check_dependencies.py",
+      "result": "pass"
+    },
+    {
+      "command": "python3 tools/check_load_order.py",
+      "result": "pass"
+    },
+    {
+      "command": "python3 tools/preflight.py --all",
+      "result": "pass"
+    },
+    {
+      "command": "python3 tools/check_weapon_employment.py",
+      "result": "pass"
+    },
+    {
+      "command": "python3 tools/check_alias_bases.py",
+      "result": "pass"
+    },
+    {
+      "command": "python3 tools/check_scenarios.py",
+      "result": "pass"
+    },
+    {
+      "command": "python3 tools/check_stale_phrases.py",
+      "result": "pass"
+    },
+    {
+      "command": "python3 tools/check_inventory.py",
+      "result": "pass"
+    },
+    {
+      "command": "python3 tools/check_game_version.py",
+      "result": "pass"
+    },
+    {
+      "command": "python3 tools/check_vanilla_drift.py --since 374634bc",
+      "result": "pass"
+    },
+    {
+      "command": "python3 tools/check_combat_costs.py",
+      "result": "pass"
+    }
+  ],
+  "powershell_installer": {
+    "tree_sitter_grammar": "pass",
+    "native_PowerShell_execution": "not available; PC test required"
+  },
+  "native_api": {
+    "accepted_runtime_build": "Sea Power 0.8.7 Build 261021",
+    "runtime_sha256": "eab2297ba92c6013958bdb2cf16d5794a4731330818ce353f89dc2241e16a3bd",
+    "previous_review": "data/map-capture-review-20261023.json; docs/combat-costs/campaign-costs-design.md",
+    "fresh_expanded_verifier_087": "not run; exact 0.8.7 DLL absent from current workspace",
+    "older_comparison": {
+      "version": "0.8.6",
+      "sha256": "c913e31f2d73e526f2d28043f522f2be26f12534fd0421eedee3cd70eab9cdd8",
+      "methods": 62,
+      "parameter_orders": 18,
+      "fields": 23,
+      "properties": 25,
+      "result": "pass; structural comparison only, not authorization for runtime loading"
+    },
+    "external_Unity_Noesis_and_Harmony": "runtime binding/PC acceptance pending"
+  },
+  "pc_acceptance": "pending: docs/playtests/complete-combat-costs-20261024.md",
+  "limits": [
+    "Estimates are labelled models, not independent confirmation of original candidates.",
+    "Old missing magazines and virtual flight-deck stock pools remain unknown.",
+    "Crew, repairs, damaged-only platforms, operating fuel consumption and unrepresented cargo are outside the material-loss account.",
+    "Native losses not recorded by the game cannot be synthesized."
+  ],
+  "policy_sha256": "d7c9707b887c76942691e3dfe25343577ad56ec6f13a7543d7d1a63ada8b6918",
+  "validation_log_hashes": {
+    "complete-costs-build.log": "ffce8da049b458d01567c39826ee87166a91d8c07d497321498d4f8dc09f544a",
+    "complete-costs-final-catalog-build.log": "ada017e4f8769bd6c5d0723f61e4cf6418c91eb68171516292124c607d00e265",
+    "complete-costs-tools-tests.log": "2590a71d90e971915a60fbbbbb6b8c9b3334dfbd3c55e446f83fe228c4c908dc",
+    "complete-costs-campaign-tests.log": "2ce2d7c9a4563c7fa5e33f43efc8757a1f7d2efbef6f760988bae318d5aa920d",
+    "complete-costs-gates.log": "489b4a39a9b70d6d9cf3c7bccfc0d4e80424624a1285b9a9da5805730892ccff"
+  }
+}

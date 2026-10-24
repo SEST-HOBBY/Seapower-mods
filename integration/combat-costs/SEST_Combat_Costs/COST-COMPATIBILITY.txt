@@ -1,0 +1,22 @@
+SEST COMPLETE COMBAT COST COVERAGE
+
+All resolved collection/vanilla weapons, ships, aircraft and land references have explicit prices.
+Existing usable prices are preserved. Missing values, including author blanks, receive labelled SEST estimates.
+These are gameplay replacement-cost estimates, not independently confirmed contract quotations.
+No Task Force acquisition points or ammo_prices.csv score is treated as USD.
+Historical model values use a configured service-year CPI backcast when a year exists; otherwise
+the catalog explicitly uses a 2026 replacement proxy. The 2026 CPI is a Q2-based estimate.
+Ranges are sensitivity bands, not statistical confidence intervals.
+Pods/tanks price hardware; their rounds, fuel and host platform are separate.
+Personnel, visual helpers, transfers and simulated processes have explicit included/non-procured dispositions.
+Land prices are for SEST's own debrief accounting; Combat Cost Tracker itself does not capture land losses.
+Ammunition, aircraft, ground losses and remaining inventories have separate accounting boundaries.
+See docs/combat-costs/README.md for runtime support and PC acceptance; a data audit is not a gameplay test.
+
+weapon: 2170 references, 2170 historical and 2170 current prices
+vessel: 938 references, 938 historical and 938 current prices
+aircraft: 756 references, 756 historical and 756 current prices
+land: 502 references, 502 historical and 502 current prices
+
+The generated cost-list.md, cost-list.csv and coverage.json give every reference, price and provenance.
+Source policy: integration/combat-costs/coverage-policy.json. Rebuild after new Workshop/vanilla exports.
