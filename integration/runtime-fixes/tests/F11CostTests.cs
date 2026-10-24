@@ -31,10 +31,10 @@ namespace UnityEngine
         public static Matrix4x4 matrix{get;set;}=new Matrix4x4{Scale=1};public static Color color{get;set;}=Color.white;
         public static int depth{get;set;}=8;public static GUISkin skin{get;}=new GUISkin();
         public static readonly List<string> Labels=new List<string>(),Buttons=new List<string>();
-        public static string Click;public static bool Throw;public static int Backgrounds;
+        public static string Click;public static bool Throw;public static int Backgrounds;public static Rect LastPanel;
         public static void Label(Rect r,string text,GUIStyle s){if(Throw)throw new Exception("mock GUI error");Labels.Add(text);}
         public static bool Button(Rect r,string text,GUIStyle s){Buttons.Add(text);if(Click==text){Click=null;return true;}return false;}
-        public static void DrawTexture(Rect r,Texture t){Backgrounds++;}
+        public static void DrawTexture(Rect r,Texture t){Backgrounds++;LastPanel=r;}
         public static void Reset(){Labels.Clear();Buttons.Clear();Click=null;Throw=false;Backgrounds=0;Input.Press=false;Input.Modifier=false;}
     }
 }
@@ -89,6 +89,8 @@ static class F11CostTests
             Check(UnityEngine.GUI.Labels.Any(x=>x.StartsWith("Player total"))&&UnityEngine.GUI.Labels.Any(x=>x.Contains("Land $600K")),"campaign totals with land losses shown");
             Check(UnityEngine.GUI.Labels.Any(x=>x.StartsWith("1. Old mission"))&&UnityEngine.GUI.Labels.Any(x=>x.StartsWith("2. ")),"one line per completed mission");
             Check(UnityEngine.GUI.Buttons.Count==0&&UnityEngine.GUI.Backgrounds==1,"information only: one panel, no buttons or tabs");
+            var panel=UnityEngine.GUI.LastPanel;
+            Check(panel.x==10&&Math.Abs(panel.y+panel.height/2-540)<1&&panel.y>0,"panel at the middle of the left edge, clear of the mission information on the right");
             Check(UnityEngine.GUI.matrix.Scale==1&&UnityEngine.GUI.depth==8&&UnityEngine.GUI.color.a==1,"GUI state restored after drawing");
             Press(owner,true);Draw(owner);
             Check(UnityEngine.GUI.Labels.Count>0,"modified F11 ignored, as the tracker does");
@@ -101,7 +103,7 @@ static class F11CostTests
             Check(UnityEngine.GUI.Labels.Count==0,"no panel outside a Task Force campaign");
             SeapowerUI.ViewModels.LinearCampaignTaskForceModeRules.TaskForce=true;
             UnityEngine.GUI.Throw=true;bool failed=false;
-            try{CostGUI.Panel(14,10,1,.8f,200,(x,y)=>CostGUI.Label(x,y,10,10,"fail",owner.label));}catch(TargetInvocationException){failed=true;}
+            try{CostGUI.Panel(1,.8f,200,(x,y)=>CostGUI.Label(x,y,10,10,"fail",owner.label));}catch(TargetInvocationException){failed=true;}
             Check(failed&&UnityEngine.GUI.matrix.Scale==1&&UnityEngine.GUI.depth==8&&UnityEngine.GUI.color.a==1,"GUI state restored even on drawing failure");
             UnityEngine.GUI.Throw=false;F11CombatCosts.BeforeDestroy();Check(File.Exists(path),"teardown persists final observed session");
         }

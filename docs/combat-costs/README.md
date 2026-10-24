@@ -18,7 +18,7 @@ This is the resolved reference inventory, including vanilla, collection content 
 - `coverage.json`: machine-readable coverage, extensions, model choices and receipts.
 - `backlog-resolution.md`: installed prices for all 377 unique references in the original 381-row attachment. Four references appeared twice in that attachment.
 - `integration/combat-costs/coverage-policy.json`: versioned models, sources, CPI assumptions and sensitivity bands.
-- `integration/combat-costs/mappings.json`: Claude's checked mappings and researched estimates, retained as the conservative first stage.
+- `integration/combat-costs/mappings.json`: Claude's checked mappings and researched estimates, retained as the conservative first stage. Its `land` list (24 Oct 2026, 15 checked land prices) is the land catalog's first stage too; the models only fill a field it leaves blank, and a checked current-only price gets a CPI backcast rather than an unrelated model figure.
 - `not-yet-confirmed.md` and `integration/combat-costs/research.json`: original research decisions. Filling a gap with a model does not confirm a rejected or unchecked candidate.
 
 ## Pricing rules
@@ -37,7 +37,7 @@ A fitted platform excludes separately charged ammunition, embarked aircraft, rem
 
 **F11 in a mission: this mission's costs.** The tracker's own panel, unchanged by SEST's plugin.
 
-**F11 in the Task Force menu: the campaign's costs.** Between missions, F11 opens SEST's campaign panel in the tracker's position and style, and F11 closes it. It shows the completed missions' Player and Enemy totals (weapons, ships, aircraft, land, and stores lost with destroyed units) and one line per completed mission, the latest ten listed. It is information only, with no tabs or buttons, at the owner's request (24 Oct 2026). Tabs, Last games and F10 are retired.
+**F11 in the Task Force menu: the campaign's costs.** Between missions, F11 opens SEST's campaign panel at the middle of the screen's left edge, in the tracker's style, clear of the mission information on the right; F11 closes it. It shows the completed missions' Player and Enemy totals (weapons, ships, aircraft, land, and stores lost with destroyed units) and one line per completed mission, the latest ten listed. It is information only, with no tabs or buttons, at the owner's request (24 Oct 2026). Tabs, Last games and F10 are retired.
 
 **Stores lost carry through the campaign.** Each completed mission's lost stores and full expenditure are written into the campaign `.sav`. Until 24 Oct 2026 they reached only the game's temporary campaign state, which the game rebuilds from the `.sav` whenever the campaign loads, including when the next mission launches, so the first mission's stores disappeared. A mission completed before the fix takes its stores from SEST's local record of that game (`AppData/LocalLow/Triassic Games/Sea Power/SEST/combat-history-v1.txt`), but only when exactly one completed record of that campaign and mission matches its losses; otherwise they stay `+ ?`. The record is local to this PC and holds raw quantities only; a crash can lose the latest unflushed game.
 
@@ -53,7 +53,7 @@ The new module accepts only the previously inspected Sea Power 0.8.7 Build 26102
 
 The F11 campaign panel additionally accepts only the captured Combat Cost Tracker **0.7.1** DLL hash `74afa9028fc0c52b93f415263504f51ecf8d056a624feaebcc8053ba5a1c0ac3`. With an unfamiliar tracker the tracker works as before and the panel stays off. No tracker/game DLL is redistributed or edited on disk. Enable `CumulativeCombatCosts=1` in `plugins/sest_runtime.ini` (the default), along with the inventory/debrief options, and restart.
 
-On 24 Oct 2026 the verifier was run on the exact 0.8.7 game DLL (`eab2297b…`), not in comparison mode: 58 method signatures, 15 positional argument orders, 22 fields and 23 properties. The exact tracker contract check passes the 3 methods and 11 fields the panel binds. External Unity GUI bindings and actual Harmony/UI behaviour still need the PC card in `docs/playtests/campaign-costs-panel-20261024.md`.
+On 24 Oct 2026 the verifier was run on the exact 0.8.7 game DLL (`eab2297b…`), not in comparison mode: 58 method signatures, 15 positional argument orders, 22 fields and 23 properties. The exact tracker contract check passes the 3 methods and 9 fields the panel binds. External Unity GUI bindings and actual Harmony/UI behaviour still need the PC card in `docs/playtests/campaign-costs-panel-20261024.md`.
 
 Build with `SEST_MONO_PREFIX=<mono-prefix> python3 integration/runtime-fixes/build_plugin.py`, then `python3 tools/build_all.py --from-scratch`. Mocked regressions cover the original corrections and pricing, accepted losses, save/load, replay preservation, the copy into the campaign `.sav`, recovery from the local record, raw-history persistence/repricing, the F11 panel lifecycle and GUI cleanup. See `data/campaign-costs-panel-review-20261024.json` for final checks. PC acceptance remains pending.
 

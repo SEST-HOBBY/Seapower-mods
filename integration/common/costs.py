@@ -195,7 +195,7 @@ def _one_line(text):
     return isinstance(text, str) and bool(text.strip()) and not set(text) & {"\n", "\r"}
 
 
-def estimate_fields(kind, item):
+def estimate_fields(kind, item, kind_info=None):
     """Catalog fields of a SEST researched estimate, or ValueError.
 
     An estimate is SEST's own figure, so it has to say how it was reached:
@@ -207,6 +207,7 @@ def estimate_fields(kind, item):
     would turn the rest of the text into a key.
     """
     where = f"{kind} {item.get('target')}"
+    kind_info = kind_info or KINDS[kind]
     if "source" in item:
         raise ValueError(where + ": an estimate must not name a source catalog section; "
                          "a copied catalog price is a reviewed mapping")
@@ -225,7 +226,7 @@ def estimate_fields(kind, item):
     if "note" in est and not _one_line(est["note"]):
         raise ValueError(where + ": the note must be one line")
     fields = {}
-    for label, key in (("historical", KINDS[kind][2]), ("current", "CurrentYearCost")):
+    for label, key in (("historical", kind_info[2]), ("current", "CurrentYearCost")):
         value = est.get(label, "")
         if value != "":
             amount = price(value) if isinstance(value, str) else None
@@ -240,7 +241,7 @@ def estimate_fields(kind, item):
         fields[key] = value
     if not any(fields.values()):
         raise ValueError(where + ": an estimate needs at least one price")
-    if KINDS[kind][3]:
+    if kind_info[3]:
         category = item.get("category")
         if not _one_line(category) or not re.fullmatch(r"[A-Za-z0-9 _-]{1,20}", category, re.ASCII):
             raise ValueError(where + ": an estimate needs a category of at most 20 characters, using ASCII letters, digits, spaces, underscore or hyphen")
@@ -341,11 +342,11 @@ def build(root, mappings):
     return _build(root, mappings)[0]
 
 
-def estimate_comments(kind, entry):
+def estimate_comments(kind, entry, kind_info=None):
     """Comment lines naming an estimate's methods, years and sources."""
     est = entry["estimate"]
     lines = []
-    for label, key in (("Historical", KINDS[kind][2]), ("Current", "CurrentYearCost")):
+    for label, key in (("Historical", (kind_info or KINDS[kind])[2]), ("Current", "CurrentYearCost")):
         part = label.casefold()
         if est.get(part):
             year = "reference year" if part == "historical" else "source year"
