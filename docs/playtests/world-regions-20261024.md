@@ -1,6 +1,6 @@
 # World Sandbox 2028 Regional Expansion: PC check, 24 October 2026
 
-This build is the World Sandbox branch, `feature/world-sandbox-regional-expansion-20261024` (draft PR #44), with all of `sest-dev/jolly-ride-rptj4t` merged in. It includes everything in `campaign-costs-panel-20261024.md`, whose steps still apply. Only its start has been seen (Result, below); static checks are not a game test. Never overwrite an existing save.
+This build is the World Sandbox branch, `feature/world-sandbox-regional-expansion-20261024` (PR #44, merged into `sest-dev/jolly-ride-rptj4t` on 24 Oct as `8fd13774`), with all of `sest-dev/jolly-ride-rptj4t` merged in. It includes everything in `campaign-costs-panel-20261024.md`, whose steps still apply. Only its start has been seen (Result, below); static checks are not a game test. Never overwrite an existing save.
 
 ## Install
 

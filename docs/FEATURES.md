@@ -17,8 +17,8 @@ repository and checked by automated gates before each upload.
 | | |
 |---|---|
 | Workshop mods integrated | 199 (the download size has not been re-measured since 190) |
-| SEST source packs | 24, merged into one deployable folder |
-| Campaigns | 4, plus a world campaign (draft) for the Dynamic Campaign Mod |
+| SEST source packs | 25, merged into one deployable folder |
+| Campaigns | 4, plus two world campaigns for the Dynamic Campaign Mod (a draft and a preview) |
 | Campaign missions | 69, plus 11 single missions (Southern Watch - Dispatches) |
 | Story pages | Press pages, signals, ship's logs and intelligence summaries between missions |
 | Units with a real encyclopedia photo | 729 |
@@ -196,7 +196,7 @@ experience carry forward from mission to mission.
 - **Checks on every unit:** each unit a mission uses, with its loadout and
   weapon, is checked against the mod that actually wins the load order.
 
-### The world campaign *(draft, 13 October 2026)*
+### The world campaigns *(draft, 13 October 2026; Regional Expansion preview, 24 October 2026)*
 
 - **SEST World Sandbox 2028:** a persistent 2028 world for the Dynamic
   Campaign Mod (Workshop 3813157776, an alpha by Bungalow), listed in the
@@ -204,9 +204,15 @@ experience carry forward from mission to mission.
   fleets and air groups, supply ships and patrols, built from the SEST
   research; submarines at their real bases, with a boat from each squadron
   at sea.
-- **Built and checked with the pack:** every unit it names is checked against
+- **SEST World Sandbox 2028 - Regional Expansion (preview):** an optional
+  second world generated from the first: 15 more bases and 26 more RED
+  forces from the Baltic to Iran, a PLA escort group in the Gulf of Aden,
+  and Russian and Iranian supply ships for the regional groups. It is a new
+  campaign with its own id; the original and its saves are unchanged
+  (`docs/world-sandbox/regional-expansion-20261024.md`).
+- **Built and checked with the pack:** every unit they name is checked against
   this load order on every build, and the build stops if one is missing.
-- **Not yet played:** see section 8.
+- **Not yet played** beyond the Regional Expansion's start: see section 8.
 
 ---
 
@@ -494,8 +500,10 @@ how to check each.
   Submarine Patrol Box and Detachment Zone boxes round the mission's other
   units - and that a ship may be dragged into a second box that admits
   ships, which stock's empty boxes imply and the objective rule assumes.
-- **The world campaign:** that the Dynamic Campaign Mod lists and starts it,
-  and how it plays (battles, supply, submarine patrols, save and reload).
+- **The world campaigns:** that the Dynamic Campaign Mod lists and starts the
+  original (the Regional Expansion started as a new campaign on 24 Oct 2026,
+  the owner's report), and how both play (battles, supply and replenishment,
+  submarine patrols, save and reload).
 - **The campaign map's tile guard** (menu plugin 1.3.0, 17 Oct 2026): that
   returning to a linear campaign's map after a mission no longer brings up the
   error box (`NullReferenceException` in `SeapowerTileMap.LoadTile`), that the

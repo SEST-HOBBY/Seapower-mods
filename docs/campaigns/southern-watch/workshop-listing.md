@@ -97,8 +97,9 @@ Every nation, unit, ship name, incident and date is invented; the campaigns take
 Everything after `c1bd1f4b` (the Seahawk), through `dc46eba2`, plus the World
 Sandbox regional expansion (PR #44). **Uploaded 24 Oct 2026** from `8e72f353`
 on `feature/world-sandbox-regional-expansion-20261024`, the install IN LINE at
-4,297 files; PR #44 is still a draft and not merged. That upload's Steam change
-log has the Regional Expansion entry only. Everything else in the block below
+4,297 files; PR #44 merged into `sest-dev/jolly-ride-rptj4t` the same day.
+That upload's Steam change log has the Regional Expansion entry only.
+Everything else in the block below
 (combat costs, Red Line, Steel Highway, the SEST menu, the mod updates) is in
 that build but not yet in a Steam change log: paste it with the next update,
 above the 20 Oct block if that has not been uploaded either. The required mods
