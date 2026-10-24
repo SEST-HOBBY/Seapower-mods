@@ -2,15 +2,17 @@ Found Sea Power (app 1286220)
   game dir : c:\program files (x86)\steam\steamapps\common\Sea Power
   workshop : c:\program files (x86)\steam\steamapps\workshop\content\1286220
 
-unchanged since the last export : 192
+unchanged since the last export : 190
 
 UPDATED by their authors (re-export to pick the changes up):
+  3390330875  Euromod - Modern US Navy
+  3592460366  Modern US Airbase
+  3606774881  U.S. Navy 2027 Capabilities
+  3607989779  F-35C Lightning II Alt. Loadouts
+  3629144864  Euromod - Main Pack
+  3642656500  Euromod-Scandinavian Navy
   3695809489  Euromod-(Japan)JMSDF Modern navy
-  3766210676  Saronic Corsair ASV
-  3804868806  Anduril FQ-44 Fury US Navy Carrier Wingmen
-  3810611344  MV-75 Cheyenne II
-  3813033771  EC-2 Stand Off Jammer
-  3819522350  Anduril Maritime Drones
-  3820576916  Steelfin
+  3732654992  THE REDFOR MOD
+  3776730617  Euromod - Modern Armada de Chile
 
 To capture: re-run this script without -CheckUpdates, then commit and push.

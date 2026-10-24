@@ -89,6 +89,6 @@
   winhttp.dll       26112  d3b62f4c9c3e2196ef82603c52d6b98c043a0d6c125c081fd33d7ca3798b41b8  4.3.0.0 / 4.3.0  2024-06-11 12:39
 
 [SEST_Integration\plugins]  2 DLL(s)
-  SEST.MenuBackground.dll       37888  a100367450cd75d0201c7ad2dc0c0ec664242a5acdfa5692d3ae2967d0dbfe45  0.0.0.0 /    2026-10-18 10:46
-  SEST.RuntimeFixes.dll       20480  c844a75976d17a3f0e4d22e6ed8936c81dee7d38a7cfe169bfb93da664c1f59f  0.0.0.0 /    2026-10-23 04:10
+  SEST.MenuBackground.dll       37888  a100367450cd75d0201c7ad2dc0c0ec664242a5acdfa5692d3ae2967d0dbfe45  0.0.0.0 /    2026-10-24 13:47
+  SEST.RuntimeFixes.dll       84992  a4fc5b16b211e9623d4586b5c6f4b9b6db74276029b293aee5db6c5097d6034d  0.0.0.0 /    2026-10-24 13:47
 
