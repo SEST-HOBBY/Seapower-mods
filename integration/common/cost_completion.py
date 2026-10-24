@@ -389,6 +389,7 @@ def _model(kind, uid, sections, policy, donor_catalog):
 def build_complete(root, mappings, policy=None):
     """(installed result, provenance context), preserving all known fields."""
     result, context = costs._build(root, mappings)
+    context["land_estimates"] = mappings.get("land", [])
     return complete(root, result, context, policy)
 
 
@@ -403,6 +404,21 @@ def complete(root, result, context, policy=None):
     # just generated earlier in alphabetical order.
     donors = copy.deepcopy(context["merged"])
     receipts = {(e["kind"],e["target"].casefold()): e for e in result["entries"]}
+    # Checked land research is the land's conservative stage: the models
+    # only fill a field it leaves blank, as for the tracker's own kinds.
+    land_units = context["units"]["land"]
+    for item in context.get("land_estimates", []):
+        uid = item["target"].casefold()
+        if uid not in land_units:
+            raise ValueError("land: reviewed target no longer exists: " + item["target"])
+        if ("land", uid) in receipts:
+            raise ValueError("land: duplicate reviewed estimate: " + item["target"])
+        fields = costs.estimate_fields("land", item, LAND)
+        result["extensions"]["land"][uid] = fields
+        context["merged"]["land"][uid] = {k.casefold(): v for k, v in fields.items()}
+        receipts["land", uid] = {"kind": "land", "target": land_units[uid]["id"], "source": None, "origin": "estimate",
+                                 "basis": item["basis"], "fields": fields, "estimate": item["estimate"],
+                                 "sources": item["sources"]}
     rows, before, filled = [], {}, Counter()
     for kind, units in context["units"].items():
         hist, cat_key = info(kind)[2:]
@@ -416,6 +432,15 @@ def complete(root, result, context, policy=None):
             extra = result["extensions"][kind].get(uid,{}).copy()
             methods, field_sources = {}, {}
             prior = receipts.get((kind,uid))
+            checked_current = before[kind][uid]["CurrentYearCost"]
+            if prior and prior["origin"] == "estimate" and before[kind][uid][hist] is None and checked_current is not None:
+                # A checked current-only price: backcast it, so the pair
+                # stays one estimate rather than an unrelated model figure.
+                year = service_year(sections)
+                proposed = dict(proposed, basis=prior["basis"], historical_year=year or 2026,
+                    historical=rounded(checked_current * cpi(year or 2026, policy) / Decimal(str(policy["cpi_current_estimate"]))),
+                    historical_basis="CPI backcast of SEST's checked current price"+(" to the service year" if year else "; IOC unknown, 2026 proxy"),
+                    confidence="CPI backcast of checked current price")
             for label,field in (("historical",hist),("current","CurrentYearCost")):
                 if before[kind][uid][field] is None:
                     extra[field] = proposed[label]
@@ -448,7 +473,7 @@ def complete(root, result, context, policy=None):
                     "source":proposed["source"],"basis":proposed["basis"],"fields":extra,
                     "completion":proposed,"field_methods":methods,
                     "prior_origin":old.get("origin") if old else None,
-                    "sources":[policy["sources"][proposed["source_id"]],policy["sources"]["policy"]]}
+                    "sources":(old["sources"] if old and old["origin"]=="estimate" else [])+[policy["sources"][proposed["source_id"]],policy["sources"]["policy"]]}
                 result["extensions"][kind][uid] = extra
                 merged[uid] = dict(merged.get(uid,{}),**{k.casefold():v for k,v in extra.items()})
             values = {label:costs.price(costs.resolve_field(own,merged,uid,field))
@@ -508,7 +533,7 @@ def render_complete(kind,result):
             lines += ["; Accounting: "+c["disposition"],"; Field provenance: "+json.dumps(entry["field_methods"],sort_keys=True)]
             lines += ["; Source: "+s["title"]+" - "+s["url"] for s in entry["sources"]]
         elif entry.get("estimate"):
-            lines += costs.estimate_comments(kind,entry)
+            lines += costs.estimate_comments(kind,entry,info(kind))
         else:
             lines += ["; Source catalog section: "+(entry["source"] or "none")]
         lines += ["["+entry["target"]+"]"]+[f"{k}={v}" for k,v in entry["fields"].items()]

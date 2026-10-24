@@ -5,10 +5,10 @@
 | Reference | Kind | Historical USD | Current USD | Historical method | Current method |
 |---|---|---:|---:|---|---|
 | `071_726_4_chaff` | weapon | 1500 | 1500 | rough model | rough model |
-| `4tentgroup` | land | 5000000 | 5000000 | rough model | rough model |
+| `4tentgroup` | land | 26400 | 48000 | existing usable value preserved | existing usable value preserved |
 | `airbase_raaf_amberley` | land | 250000000 | 250000000 | rough model | rough model |
 | `airbase_raaf_butterworth` | land | 250000000 | 250000000 | rough model | rough model |
-| `airbase_raaf_curtin` | land | 250000000 | 250000000 | rough model | rough model |
+| `airbase_raaf_curtin` | land | 50000000 | 142000000 | existing usable value preserved | existing usable value preserved |
 | `airbase_raaf_darwin` | land | 250000000 | 250000000 | rough model | rough model |
 | `airbase_raaf_east_sale` | land | 250000000 | 250000000 | rough model | rough model |
 | `airbase_raaf_edinburgh` | land | 250000000 | 250000000 | rough model | rough model |
@@ -17,7 +17,7 @@
 | `airbase_raaf_pearce` | land | 250000000 | 250000000 | rough model | rough model |
 | `airbase_raaf_richmond` | land | 250000000 | 250000000 | rough model | rough model |
 | `airbase_raaf_scherger` | land | 250000000 | 250000000 | rough model | rough model |
-| `airbase_raaf_tindal` | land | 250000000 | 250000000 | rough model | rough model |
+| `airbase_raaf_tindal` | land | 147000000 | 473000000 | existing usable value preserved | existing usable value preserved |
 | `airbase_raaf_townsville` | land | 250000000 | 250000000 | rough model | rough model |
 | `airbase_raaf_williamtown` | land | 250000000 | 250000000 | rough model | rough model |
 | `airbase_raaf_woomera` | land | 250000000 | 250000000 | rough model | rough model |
@@ -27,14 +27,14 @@
 | `airfield_a-10` | land | 250000000 | 250000000 | rough model | rough model |
 | `airfield_small_1` | land | 50000000 | 50000000 | rough model | rough model |
 | `airfield_us` | land | 250000000 | 250000000 | rough model | rough model |
-| `all_air_chaff_heavy` | weapon | 100 | 100 | rough model | rough model |
-| `all_air_chaff_standard` | weapon | 100 | 100 | rough model | rough model |
+| `all_air_chaff_heavy` | weapon | 57 | 76 | existing usable value preserved | existing usable value preserved |
+| `all_air_chaff_standard` | weapon | 35 | 47 | existing usable value preserved | existing usable value preserved |
 | `all_ship_chaff_late` | weapon | 1500 | 1500 | rough model | rough model |
 | `am_boz` | weapon | 5000 | 5000 | rough model | rough model |
 | `am_kb44` | weapon | 1000 | 1000 | rough model | rough model |
 | `am_stabo` | weapon | 1000 | 1000 | rough model | rough model |
 | `am_tornado_ids_tank` | weapon | 25000 | 25000 | rough model | rough model |
-| `b-2_gbu-57` | weapon | 50000 | 50000 | rough model | rough model |
+| `b-2_gbu-57` | weapon | 3500000 | 5200000 | existing usable value preserved | existing usable value preserved |
 | `bel_hmp-250` | weapon | 5000 | 5000 | rough model | rough model |
 | `cft_f-16` | weapon | 5000 | 5000 | rough model | rough model |
 | `chaff_dircm` | weapon | 0 | 0 | rough model | rough model |
@@ -45,42 +45,42 @@
 | `civ_radiostation` | land | 25000000 | 25000000 | rough model | rough model |
 | `civ_spar_rig` | land | 500000000 | 500000000 | rough model | rough model |
 | `civ_spar_rig_helo` | land | 500000000 | 500000000 | rough model | rough model |
-| `coal_powerplant` | land | 5000000 | 5000000 | rough model | rough model |
-| `de_pzh2000` | land | 8000000 | 8000000 | rough model | rough model |
+| `coal_powerplant` | land | 2930000000 | 2930000000 | CPI backcast of checked current price | existing usable value preserved |
+| `de_pzh2000` | land | 10700000 | 19900000 | existing usable value preserved | existing usable value preserved |
 | `dts_anaaq-13` | weapon | 3000000 | 3000000 | rough model | rough model |
 | `dts_anaaq-14` | weapon | 3000000 | 3000000 | rough model | rough model |
 | `dts_anaaq-33` | weapon | 3000000 | 3000000 | rough model | rough model |
-| `dts_b-61` | weapon | 24000000 | 24000000 | rough model | rough model |
+| `dts_b-61` | weapon | 24000000 | 24000000 | existing usable value preserved | existing usable value preserved |
 | `dts_gbu-39_quad` | weapon | 5000 | 5000 | rough model | rough model |
 | `dts_gbu-53_quad` | weapon | 5000 | 5000 | rough model | rough model |
 | `eu_litening` | weapon | 3000000 | 3000000 | rough model | rough model |
-| `eu_mu_90_ship` | weapon | 1507626 | 3000000 | rough model | rough model |
+| `eu_mu_90_ship` | weapon | 1990000 | 3050000 | existing usable value preserved | existing usable value preserved |
 | `eu_tank_1000` | weapon | 25000 | 25000 | rough model | rough model |
 | `f16_anaaq-33` | weapon | 3000000 | 3000000 | rough model | rough model |
 | `f16_gbu-39_quad` | weapon | 5000 | 5000 | rough model | rough model |
 | `f16_gbu-53_quad` | weapon | 5000 | 5000 | rough model | rough model |
 | `fob` | land | 5000000 | 5000000 | rough model | rough model |
 | `fr_a244s_mod1` | weapon | 1500000 | 1500000 | rough model | rough model |
-| `fr_afv_jaguar` | land | 1000000 | 1000000 | rough model | rough model |
-| `fr_apc_griffon` | land | 3000000 | 3000000 | rough model | rough model |
+| `fr_afv_jaguar` | land | 6850000 | 8860000 | existing usable value preserved | existing usable value preserved |
+| `fr_apc_griffon` | land | 1710000 | 2210000 | existing usable value preserved | existing usable value preserved |
 | `fr_apc_vab_top` | land | 3000000 | 3000000 | rough model | rough model |
 | `fr_canto` | weapon | 25000 | 25000 | rough model | rough model |
 | `fr_damoncles` | weapon | 5000 | 5000 | rough model | rough model |
 | `fr_e15` | weapon | 159330 | 1800000 | rough model | rough model |
-| `fr_mu_90_air` | weapon | 1507626 | 3000000 | rough model | rough model |
-| `fr_mu_90_ship` | weapon | 1709569 | 3000000 | rough model | rough model |
+| `fr_mu_90_air` | weapon | 1990000 | 3050000 | existing usable value preserved | existing usable value preserved |
+| `fr_mu_90_ship` | weapon | 1990000 | 3050000 | existing usable value preserved | existing usable value preserved |
 | `fr_ngds_sealem_chaff` | weapon | 10000 | 10000 | rough model | rough model |
-| `fr_samp_t25` | weapon | 2760 | 2760 | rough model | rough model |
-| `fr_sonoflash` | weapon | 13000 | 13000 | rough model | rough model |
+| `fr_samp_t25` | weapon | 500 | 4000 | existing usable value preserved | existing usable value preserved |
+| `fr_sonoflash` | weapon | 1740 | 1990 | existing usable value preserved | existing usable value preserved |
 | `fr_sylena_chaff` | weapon | 10000 | 10000 | rough model | rough model |
 | `fr_talios` | weapon | 5000 | 5000 | rough model | rough model |
 | `fr_tank_1200` | weapon | 25000 | 25000 | rough model | rough model |
 | `fr_vl-mica_tel` | land | 5000000 | 5000000 | rough model | rough model |
 | `ger_MASS_ATD_noisemaker` | weapon | 8000 | 8000 | rough model | rough model |
 | `ger_MASS_omnitrap` | weapon | 10000 | 10000 | rough model | rough model |
-| `ger_mu_90_ship` | weapon | 1507626 | 3000000 | rough model | rough model |
+| `ger_mu_90_ship` | weapon | 1990000 | 3050000 | existing usable value preserved | existing usable value preserved |
 | `idf_dsws` | land | 12000000 | 12000000 | rough model | rough model |
-| `idf_dsws_radar` | land | 25000000 | 25000000 | rough model | rough model |
+| `idf_dsws_radar` | land | 15600000 | 20400000 | existing usable value preserved | existing usable value preserved |
 | `ir_107mm_rocket` | weapon | 5000 | 5000 | rough model | rough model |
 | `it_canto` | weapon | 25000 | 25000 | rough model | rough model |
 | `ita_canto-v` | weapon | 25000 | 25000 | rough model | rough model |
@@ -94,10 +94,10 @@
 | `jp_tank_610_f-2a` | weapon | 25000 | 25000 | rough model | rough model |
 | `jp_ter_rockeye_3` | weapon | 5000 | 5000 | rough model | rough model |
 | `knm_terne_shell` | weapon | 20000 | 20000 | rough model | rough model |
-| `kr_k9` | land | 8000000 | 8000000 | rough model | rough model |
-| `mm_mu_90_ship` | weapon | 1507626 | 3000000 | rough model | rough model |
+| `kr_k9` | land | 2180000 | 9120000 | existing usable value preserved | existing usable value preserved |
+| `mm_mu_90_ship` | weapon | 1990000 | 3050000 | existing usable value preserved | existing usable value preserved |
 | `msdvd_tu-214r` | aircraft | 350000000 | 350000000 | rough model | rough model |
-| `nato_large_pvo_airbase1` | land | 250000000 | 250000000 | rough model | rough model |
+| `nato_large_pvo_airbase1` | land | 3950000000 | 3950000000 | CPI backcast of checked current price | existing usable value preserved |
 | `nl_tank_685` | weapon | 25000 | 25000 | rough model | rough model |
 | `oil_pump` | land | 5000000 | 5000000 | rough model | rough model |
 | `phl_ff_hamilton` | vessel | 700000000 | 700000000 | rough model | rough model |
@@ -105,7 +105,7 @@
 | `phl_lpd_tarlac` | vessel | 1200000000 | 1200000000 | rough model | rough model |
 | `phl_pb_jose_andrada` | vessel | 50000000 | 50000000 | rough model | rough model |
 | `phl_pt_jacinto` | vessel | 50000000 | 50000000 | rough model | rough model |
-| `pla_9k331` | land | 1000000 | 1000000 | rough model | rough model |
+| `pla_9k331` | land | 24100000 | 41300000 | existing usable value preserved | existing usable value preserved |
 | `pla_aaa_type55` | land | 2500000 | 2500000 | rough model | rough model |
 | `pla_airbase_modern` | land | 250000000 | 250000000 | rough model | rough model |
 | `pla_airdrop_type63` | weapon | 0 | 0 | rough model | rough model |
@@ -121,13 +121,13 @@
 | `pla_paratrooper` | weapon | 0 | 0 | rough model | rough model |
 | `pla_pod_kg-800` | weapon | 5000 | 5000 | rough model | rough model |
 | `pla_spaag_type63` | land | 2500000 | 2500000 | rough model | rough model |
-| `pla_type-3-250` | weapon | 2724 | 2724 | rough model | rough model |
+| `pla_type-3-250` | weapon | 500 | 4000 | existing usable value preserved | existing usable value preserved |
 | `pla_z21` | aircraft | 30000000 | 30000000 | rough model | rough model |
 | `plaaf_1400l_fueltank_new` | weapon | 25000 | 25000 | rough model | rough model |
-| `plaaf_250-Ⅲ` | weapon | 3000 | 3000 | rough model | rough model |
+| `plaaf_250-Ⅲ` | weapon | 500 | 4000 | existing usable value preserved | existing usable value preserved |
 | `plaaf_4xgj` | weapon | 5000 | 5000 | rough model | rough model |
-| `plaaf_500-Ⅱ` | weapon | 6000 | 6000 | rough model | rough model |
-| `plaaf_500-Ⅲ` | weapon | 6000 | 6000 | rough model | rough model |
+| `plaaf_500-Ⅱ` | weapon | 1000 | 11000 | existing usable value preserved | existing usable value preserved |
+| `plaaf_500-Ⅲ` | weapon | 1000 | 11000 | existing usable value preserved | existing usable value preserved |
 | `plaaf_800l_fueltank_new` | weapon | 25000 | 25000 | rough model | rough model |
 | `plaaf_90-Ⅰ_rocket` | weapon | 3000 | 3000 | rough model | rough model |
 | `plaaf_J10_fueltank_new` | weapon | 25000 | 25000 | rough model | rough model |
@@ -135,7 +135,7 @@
 | `plaaf_JH7A_fueltank_new` | weapon | 25000 | 25000 | rough model | rough model |
 | `plaaf_JH7A_fueltank_under` | weapon | 25000 | 25000 | rough model | rough model |
 | `plaaf_airlift_airbase` | land | 250000000 | 250000000 | rough model | rough model |
-| `plaaf_gb-1000` | weapon | 50000 | 50000 | rough model | rough model |
+| `plaaf_gb-1000` | weapon | 22000 | 54000 | existing usable value preserved | existing usable value preserved |
 | `plaaf_hf-6` | weapon | 5000 | 5000 | rough model | rough model |
 | `plaaf_j16_yings-iii` | weapon | 5000 | 5000 | rough model | rough model |
 | `plaaf_j36` | aircraft | 250000000 | 250000000 | rough model | rough model |
@@ -157,10 +157,10 @@
 | `plan_mss-02` | weapon | 60000 | 60000 | rough model | rough model |
 | `plan_rbu2000` | weapon | 20000 | 20000 | rough model | rough model |
 | `plan_rgb-81` | weapon | 20000 | 20000 | rough model | rough model |
-| `plan_skf-16` | weapon | 1800 | 1800 | rough model | rough model |
-| `plan_skf-18` | weapon | 1800 | 1800 | rough model | rough model |
-| `plan_skf-20` | weapon | 5000 | 5000 | rough model | rough model |
-| `plan_sq-4` | weapon | 1800 | 1800 | rough model | rough model |
+| `plan_skf-16` | weapon | 820 | 1020 | existing usable value preserved | existing usable value preserved |
+| `plan_skf-18` | weapon | 1740 | 1990 | existing usable value preserved | existing usable value preserved |
+| `plan_skf-20` | weapon | 1740 | 1990 | existing usable value preserved | existing usable value preserved |
+| `plan_sq-4` | weapon | 760 | 1020 | existing usable value preserved | existing usable value preserved |
 | `plan_yu-12_air` | weapon | 3000000 | 3000000 | rough model | rough model |
 | `plan_yu-12_ship` | weapon | 3000000 | 3000000 | rough model | rough model |
 | `plan_yu-12a` | weapon | 1000000 | 1000000 | rough model | rough model |
@@ -176,14 +176,14 @@
 | `ran_opv_arafura` | vessel | 150000000 | 150000000 | rough model | rough model |
 | `ran_ssg_collins` | vessel | 900000000 | 900000000 | rough model | rough model |
 | `rfn_m15at` | weapon | 1000000 | 1000000 | rough model | rough model |
-| `rfn_mtt` | weapon | 1500000 | 1500000 | rough model | rough model |
+| `rfn_mtt` | weapon | 1990000 | 3050000 | existing usable value preserved | existing usable value preserved |
 | `rfn_pk10_chaff` | weapon | 1500 | 1500 | rough model | rough model |
-| `rn_jezebel` | weapon | 1800 | 1800 | rough model | rough model |
+| `rn_jezebel` | weapon | 200 | 1020 | existing usable value preserved | existing usable value preserved |
 | `rn_squid_shell` | weapon | 20000 | 20000 | rough model | rough model |
-| `rn_ssq-906g` | weapon | 1174 | 1800 | rough model | rough model |
-| `rn_ssq-926` | weapon | 7051 | 13000 | rough model | rough model |
-| `rn_ssq-955b` | weapon | 1215 | 1800 | rough model | rough model |
-| `rn_ssq-963d` | weapon | 2849 | 5000 | rough model | rough model |
+| `rn_ssq-906g` | weapon | 760 | 1020 | existing usable value preserved | existing usable value preserved |
+| `rn_ssq-926` | weapon | 3500 | 5750 | existing usable value preserved | existing usable value preserved |
+| `rn_ssq-955b` | weapon | 760 | 1020 | existing usable value preserved | existing usable value preserved |
+| `rn_ssq-963d` | weapon | 1290 | 1990 | existing usable value preserved | existing usable value preserved |
 | `rn_stingray_air` | weapon | 3000000 | 3000000 | rough model | rough model |
 | `ru_50n6` | land | 25000000 | 25000000 | rough model | rough model |
 | `ru_spaa_mt-lb_sosna` | land | 12000000 | 12000000 | rough model | rough model |
@@ -210,12 +210,12 @@
 | `tha_pt_chonburi` | vessel | 50000000 | 50000000 | rough model | rough model |
 | `tha_pt_hua_hin` | vessel | 50000000 | 50000000 | rough model | rough model |
 | `tha_ptg_ratcharit` | vessel | 50000000 | 50000000 | rough model | rough model |
-| `thaad_tel` | land | 5000000 | 5000000 | rough model | rough model |
+| `thaad_tel` | land | 12500000 | 18200000 | existing usable value preserved | existing usable value preserved |
 | `uav_mq-9_pod` | weapon | 5000 | 5000 | rough model | rough model |
 | `uav_tank_mq-9` | weapon | 25000 | 25000 | rough model | rough model |
 | `usa_airbase` | land | 250000000 | 250000000 | rough model | rough model |
-| `usa_an_mpq-65_radar` | land | 25000000 | 25000000 | rough model | rough model |
-| `usa_car_hemtt` | land | 250000 | 250000 | rough model | rough model |
+| `usa_an_mpq-65_radar` | land | 112500000 | 112500000 | CPI backcast of checked current price | existing usable value preserved |
+| `usa_car_hemtt` | land | 333000 | 517000 | existing usable value preserved | existing usable value preserved |
 | `usa_lau-3a_apache` | weapon | 70000 | 70000 | rough model | rough model |
 | `usa_mv75_army` | aircraft | 85000000 | 85000000 | rough model | rough model |
 | `usa_pac-3_launcher` | land | 5000000 | 5000000 | rough model | rough model |
@@ -230,7 +230,7 @@
 | `usaf_kc-10a_extender` | aircraft | 150000000 | 150000000 | rough model | rough model |
 | `usaf_kc-46a_boom` | aircraft | 150000000 | 150000000 | rough model | rough model |
 | `usaf_litening` | weapon | 3000000 | 3000000 | rough model | rough model |
-| `usaf_m117` | weapon | 294 | 4080 | rough model | rough model |
+| `usaf_m117` | weapon | 620 | 5600 | existing usable value preserved | existing usable value preserved |
 | `usaf_pave_spike` | weapon | 3000000 | 3000000 | rough model | rough model |
 | `usaf_rq-180` | aircraft | 150000000 | 150000000 | rough model | rough model |
 | `usaf_tank_150_f-5` | weapon | 25000 | 25000 | rough model | rough model |
@@ -262,44 +262,44 @@
 | `usn_ft600_10` | weapon | 25000 | 25000 | rough model | rough model |
 | `usn_fury_escort` | aircraft | 15000000 | 15000000 | rough model | rough model |
 | `usn_fury_ew` | aircraft | 15000000 | 15000000 | rough model | rough model |
-| `usn_gbu-10` | weapon | 10365 | 50000 | rough model | rough model |
+| `usn_gbu-10` | weapon | 9800 | 54000 | existing usable value preserved | existing usable value preserved |
 | `usn_gbu-16` | weapon | 10365 | 50000 | rough model | rough model |
 | `usn_hydra` | weapon | 3000 | 3000 | rough model | rough model |
 | `usn_lau-10a` | weapon | 25000 | 25000 | rough model | rough model |
 | `usn_lau-3a` | weapon | 70000 | 70000 | rough model | rough model |
 | `usn_lau-3a_APKWS` | weapon | 16000 | 34000 | catalog comparator estimate | catalog comparator estimate |
 | `usn_lau-68` | weapon | 25000 | 25000 | rough model | rough model |
-| `usn_mk-82` | weapon | 2892 | 2892 | rough model | rough model |
+| `usn_mk-82` | weapon | 440 | 4000 | existing usable value preserved | existing usable value preserved |
 | `usn_mk-82_snakeye` | weapon | 244 | 2760 | rough model | rough model |
-| `usn_mk-83` | weapon | 5508 | 5508 | rough model | rough model |
-| `usn_mk-84` | weapon | 11100 | 11100 | rough model | rough model |
+| `usn_mk-83` | weapon | 980 | 11000 | existing usable value preserved | existing usable value preserved |
+| `usn_mk-84` | weapon | 1700 | 16000 | existing usable value preserved | existing usable value preserved |
 | `usn_mk182_chaff` | weapon | 1500 | 1500 | rough model | rough model |
 | `usn_mk214_chaff` | weapon | 1500 | 1500 | rough model | rough model |
 | `usn_mk216_chaff` | weapon | 1500 | 1500 | rough model | rough model |
-| `usn_mk234_nulka` | weapon | 1000000 | 1000000 | rough model | rough model |
-| `usn_mk234_nulka_adap` | weapon | 1000000 | 1000000 | rough model | rough model |
+| `usn_mk234_nulka` | weapon | 470000 | 720000 | existing usable value preserved | existing usable value preserved |
+| `usn_mk234_nulka_adap` | weapon | 540000 | 750000 | existing usable value preserved | existing usable value preserved |
 | `usn_moss` | weapon | 14785 | 60000 | rough model | rough model |
 | `usn_rockeye` | weapon | 2664 | 2664 | rough model | rough model |
 | `usn_rr144_chaff` | weapon | 1500 | 1500 | rough model | rough model |
 | `usn_sh60_tank` | weapon | 25000 | 25000 | rough model | rough model |
-| `usn_ssq-101` | weapon | 13000 | 13000 | rough model | rough model |
+| `usn_ssq-101` | weapon | 5000 | 5750 | existing usable value preserved | existing usable value preserved |
 | `usn_ssq-47` | weapon | 553 | 5000 | rough model | rough model |
-| `usn_ssq-53` | weapon | 444 | 1800 | rough model | rough model |
-| `usn_ssq-53d` | weapon | 1800 | 1800 | rough model | rough model |
-| `usn_ssq-53f` | weapon | 1800 | 1800 | rough model | rough model |
-| `usn_ssq-53h` | weapon | 1800 | 1800 | rough model | rough model |
-| `usn_ssq-62` | weapon | 5000 | 5000 | rough model | rough model |
-| `usn_ssq-62c` | weapon | 5000 | 5000 | rough model | rough model |
-| `usn_ssq-62e` | weapon | 5000 | 5000 | rough model | rough model |
-| `usn_ssq-62g` | weapon | 5000 | 5000 | rough model | rough model |
-| `usn_ssq-77` | weapon | 600 | 1800 | rough model | rough model |
-| `usn_ssq-77b` | weapon | 1800 | 1800 | rough model | rough model |
-| `usn_ssq-77c` | weapon | 1800 | 1800 | rough model | rough model |
-| `usn_ssq_101` | weapon | 13000 | 13000 | rough model | rough model |
-| `usn_ssq_53f` | weapon | 1800 | 1800 | rough model | rough model |
-| `usn_ssq_62e` | weapon | 5000 | 5000 | rough model | rough model |
-| `usn_ssq_77c` | weapon | 1800 | 1800 | rough model | rough model |
-| `usn_steelfin_air` | weapon | 1500000 | 1500000 | rough model | rough model |
+| `usn_ssq-53` | weapon | 350 | 1020 | existing usable value preserved | existing usable value preserved |
+| `usn_ssq-53d` | weapon | 350 | 1020 | existing usable value preserved | existing usable value preserved |
+| `usn_ssq-53f` | weapon | 540 | 1020 | existing usable value preserved | existing usable value preserved |
+| `usn_ssq-53h` | weapon | 950 | 1020 | existing usable value preserved | existing usable value preserved |
+| `usn_ssq-62` | weapon | 500 | 1990 | existing usable value preserved | existing usable value preserved |
+| `usn_ssq-62c` | weapon | 980 | 1990 | existing usable value preserved | existing usable value preserved |
+| `usn_ssq-62e` | weapon | 1290 | 1990 | existing usable value preserved | existing usable value preserved |
+| `usn_ssq-62g` | weapon | 1740 | 1990 | existing usable value preserved | existing usable value preserved |
+| `usn_ssq-77` | weapon | 500 | 1990 | existing usable value preserved | existing usable value preserved |
+| `usn_ssq-77b` | weapon | 980 | 1990 | existing usable value preserved | existing usable value preserved |
+| `usn_ssq-77c` | weapon | 980 | 1990 | existing usable value preserved | existing usable value preserved |
+| `usn_ssq_101` | weapon | 5000 | 5750 | existing usable value preserved | existing usable value preserved |
+| `usn_ssq_53f` | weapon | 540 | 1020 | existing usable value preserved | existing usable value preserved |
+| `usn_ssq_62e` | weapon | 1290 | 1990 | existing usable value preserved | existing usable value preserved |
+| `usn_ssq_77c` | weapon | 980 | 1990 | existing usable value preserved | existing usable value preserved |
+| `usn_steelfin_air` | weapon | 2340000 | 2340000 | existing usable value preserved | existing usable value preserved |
 | `usn_take_lewis_clark` | vessel | 1200000000 | 1200000000 | rough model | rough model |
 | `usn_tank_1200_f-18` | weapon | 25000 | 25000 | rough model | rough model |
 | `usn_tank_267_f-14` | weapon | 25000 | 25000 | rough model | rough model |
@@ -310,11 +310,11 @@
 | `usn_zuni` | weapon | 251 | 3000 | rough model | rough model |
 | `wp_2s19` | land | 8000000 | 8000000 | rough model | rough model |
 | `wp_2s43` | land | 1000000 | 1000000 | rough model | rough model |
-| `wp_53-65K` | weapon | 255789 | 1800000 | rough model | rough model |
+| `wp_53-65K` | weapon | 285632 | 2010000 | CPI backcast of checked current price | existing usable value preserved |
 | `wp_65-76` | weapon | 1500000 | 1500000 | rough model | rough model |
 | `wp_airbase_modern` | land | 250000000 | 250000000 | rough model | rough model |
-| `wp_aircraft_chaff` | weapon | 100 | 100 | rough model | rough model |
-| `wp_an_tpy_2` | land | 25000000 | 25000000 | rough model | rough model |
+| `wp_aircraft_chaff` | weapon | 35 | 47 | existing usable value preserved | existing usable value preserved |
+| `wp_an_tpy_2` | land | 182000000 | 303000000 | existing usable value preserved | existing usable value preserved |
 | `wp_apk-9` | weapon | 5000 | 5000 | rough model | rough model |
 | `wp_at-2` | weapon | 1800000 | 1800000 | rough model | rough model |
 | `wp_b8m-1` | weapon | 70000 | 70000 | rough model | rough model |
@@ -346,11 +346,11 @@
 | `wp_pod_rfk-t_vrecon` | weapon | 3000000 | 3000000 | rough model | rough model |
 | `wp_pod_tangazh_elint` | weapon | 5000 | 5000 | rough model | rough model |
 | `wp_rbk-250` | weapon | 3276 | 3276 | rough model | rough model |
-| `wp_rgb-1` | weapon | 1800 | 1800 | rough model | rough model |
+| `wp_rgb-1` | weapon | 180 | 1020 | existing usable value preserved | existing usable value preserved |
 | `wp_rgb-10` | weapon | 20000 | 20000 | rough model | rough model |
-| `wp_rgb-3` | weapon | 1800 | 1800 | rough model | rough model |
+| `wp_rgb-3` | weapon | 500 | 1990 | existing usable value preserved | existing usable value preserved |
 | `wp_rgb-60` | weapon | 20000 | 20000 | rough model | rough model |
-| `wp_rgb-nm1` | weapon | 1800 | 1800 | rough model | rough model |
+| `wp_rgb-nm1` | weapon | 210 | 1020 | existing usable value preserved | existing usable value preserved |
 | `wp_rn-40` | weapon | 24000000 | 24000000 | rough model | rough model |
 | `wp_s-24` | weapon | 15000 | 15000 | rough model | rough model |
 | `wp_s-25` | weapon | 15000 | 15000 | rough model | rough model |
@@ -362,7 +362,7 @@
 | `wp_sam_site_sa-21` | land | 12000000 | 12000000 | rough model | rough model |
 | `wp_scud_9k72` | land | 1000000 | 1000000 | rough model | rough model |
 | `wp_sejjil_tel` | land | 1000000 | 1000000 | rough model | rough model |
-| `wp_set-65` | weapon | 1800000 | 1800000 | rough model | rough model |
+| `wp_set-65` | weapon | 2010000 | 2010000 | CPI backcast of checked current price | existing usable value preserved |
 | `wp_shahed238_launcher` | land | 20000000 | 20000000 | rough model | rough model |
 | `wp_silkworm_launcher` | land | 20000000 | 20000000 | rough model | rough model |
 | `wp_son-9` | land | 25000000 | 25000000 | rough model | rough model |

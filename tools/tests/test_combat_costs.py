@@ -161,8 +161,8 @@ class CompatibilityBuild(unittest.TestCase):
     def test_shipped_estimates_are_the_reviewed_figures_with_sources(self):
         entries = {(e["kind"], e["target"].casefold()): e for e in self.result["entries"]}
         count = 0
-        for kind, items in self.mappings.items():
-            for item in items:
+        for kind in KINDS:    # land estimates: tools/tests/test_cost_completion.py
+            for item in self.mappings.get(kind, []):
                 if "estimate" not in item:
                     continue
                 count += 1
@@ -171,7 +171,7 @@ class CompatibilityBuild(unittest.TestCase):
                 fields = entries[(kind, item["target"].casefold())]["fields"]
                 self.assertEqual(fields[KINDS[kind][2]], item["estimate"].get("historical", ""))
                 self.assertEqual(fields["CurrentYearCost"], item["estimate"]["current"])
-        self.assertEqual(count, 59)
+        self.assertEqual(count, 115)
 
     def test_refuted_and_unshipped_research_carries_no_price(self):
         for item in self.research["items"]:

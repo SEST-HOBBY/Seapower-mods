@@ -42,6 +42,22 @@ class CompleteCatalog(unittest.TestCase):
                     if value is not None:
                         self.assertEqual(costs.price(self.rows[kind,uid][label]),value,(kind,uid,field))
 
+    def test_checked_land_estimates_precede_the_models(self):
+        land=self.maps['land']
+        self.assertEqual(len(land),15)
+        for item in land:
+            row=self.rows['land',item['target'].casefold()]
+            with self.subTest(item=item['target']):
+                self.assertEqual(row['current'],item['estimate']['current'])
+                self.assertEqual(row['category'],item['category'])
+                if item['estimate']['historical']:
+                    self.assertEqual(row['historical'],item['estimate']['historical'])
+                else:   # a checked current-only price is backcast, never paired with a model figure
+                    self.assertEqual(row['field_methods']['historical'],'CPI backcast of checked current price')
+                    self.assertLessEqual(costs.price(row['historical']),costs.price(row['current']))
+        with self.assertRaises(ValueError):
+            build_complete(ROOT,dict(self.maps,land=[dict(land[0],target='no_such_land_unit')]))
+
     def test_all_backlog_ids_are_accounted_for_without_calling_estimates_confirmed(self):
         text=(ROOT/'docs/combat-costs/not-yet-confirmed.md').read_text()
         backlog=re.findall(r'^\| `([^`]+)`',text,re.M)

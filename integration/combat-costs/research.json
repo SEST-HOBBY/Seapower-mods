@@ -1,5 +1,5 @@
 {
-  "about": "Researched items that are NOT shipped: the check refuted the proposal, decided to leave the price unknown, or the mapping would copy a blank author entry. build_pack.py lists them, with their candidate figures, under Gaps in docs/combat-costs/cost-list.md. Shipped prices live in mappings.json. An item with a 'rerun' field stopped because the session's web search allowance ran out or the source host was blocked, and can be re-run. Land items (kind 'land') are kept for reference only: the tracker does not price land platforms.",
+  "about": "Researched items that are NOT shipped: the check refuted the proposal, decided to leave the price unknown, or the mapping would copy a blank author entry. build_pack.py lists them, with their candidate figures, under Gaps in docs/combat-costs/cost-list.md. Shipped prices live in mappings.json. An item with a 'rerun' field stopped because the session's web search allowance ran out or the source host was blocked, and can be re-run. Land items (kind 'land') still open are kept here; checked land estimates ship in mappings.json under 'land', priced by SEST's own land catalog (the tracker does not price land platforms).",
   "reviewed": "23-24 October 2026",
   "items": [
     {
@@ -715,24 +715,6 @@
       "sources": []
     },
     {
-      "target": "all_air_chaff_heavy",
-      "kind": "weapon",
-      "decision": "left unknown",
-      "candidate": "none",
-      "why": "Stock generic aircraft chaff cartridge (heavy); no per-cartridge price reachable this run. Re-run: this session's web search allowance ran out and the source hosts were blocked.",
-      "rerun": "this session's web search allowance ran out and the source hosts were blocked",
-      "sources": []
-    },
-    {
-      "target": "all_air_chaff_standard",
-      "kind": "weapon",
-      "decision": "left unknown",
-      "candidate": "none",
-      "why": "Stock generic aircraft chaff cartridge; no per-cartridge price reachable this run. Re-run: this session's web search allowance ran out and the source hosts were blocked.",
-      "rerun": "this session's web search allowance ran out and the source hosts were blocked",
-      "sources": []
-    },
-    {
       "target": "all_ship_chaff_late",
       "kind": "weapon",
       "decision": "left unknown",
@@ -796,20 +778,6 @@
       "sources": []
     },
     {
-      "target": "b-2_gbu-57",
-      "kind": "weapon",
-      "decision": "refuted",
-      "candidate": "USD 3,500,000 (2011) / 5,200,000 current by CPI: a 2011 Boeing order of USD 28.3M for eight MOPs plus support items (search excerpts)",
-      "why": "GBU-57 MOP: the candidate (2011 Boeing order of $28.3M for eight MOPs plus support items, about $3.5M each) rests only on search excerpts that could not be re-checked. Re-run: this session's web search allowance ran out and the source hosts were blocked.",
-      "rerun": "this session's web search allowance ran out and the source hosts were blocked",
-      "sources": [
-        {
-          "title": "b-2_gbu-57 config (identity only)",
-          "url": "file:mods-source/3480965706/ammunition/b-2_gbu-57.ini"
-        }
-      ]
-    },
-    {
       "target": "bel_hmp-250",
       "kind": "weapon",
       "decision": "left unknown",
@@ -863,27 +831,6 @@
       "sources": []
     },
     {
-      "target": "dts_b-61",
-      "kind": "weapon",
-      "decision": "refuted",
-      "candidate": "USD 24M per bomb: B61-12 programme cost (NNSA life extension plus tail kits) over a guessed ~400 bombs, no CPI applied (search excerpts)",
-      "why": "B61 nuclear gravity bomb (variant not stated by the file): no verifiable per-unit price; B61-12 programme cost per bomb depends on a classified quantity.",
-      "sources": [
-        {
-          "title": "dts English ammunition names (identity)",
-          "url": "file:mods-source/3760871384/language_en/ammunition_names.ini#L28"
-        },
-        {
-          "title": "dts_b-61 config (copied GBU-32 file)",
-          "url": "file:mods-source/3760871384/ammunition/dts_b-61.ini"
-        },
-        {
-          "title": "SEST F-15EX loadout",
-          "url": "file:mods-source/_vanilla/SEST_F-15EX_Revamp/aircraft/usaf_f-15ex_SEII.ini#L507"
-        }
-      ]
-    },
-    {
       "target": "dts_gbu-39_quad",
       "kind": "weapon",
       "decision": "left unknown",
@@ -907,15 +854,6 @@
       "decision": "left unknown",
       "candidate": "none",
       "why": "Not priced: Litening targeting pod; no tracker entry for it or its family, and no unit price could be read on 2026-10-23 (web search budget spent, fetch hosts blocked); Litening family (spa_litening, usaf_aaq-28_litening, usaf_litening). Re-run: this session's web search allowance ran out and the source hosts were blocked.",
-      "rerun": "this session's web search allowance ran out and the source hosts were blocked",
-      "sources": []
-    },
-    {
-      "target": "eu_mu_90_ship",
-      "kind": "weapon",
-      "decision": "refuted",
-      "candidate": "EUR 1.5M unit cost excluding development (French Senate PLF 2010 avis, search excerpts): 1,988,575 historical (2010, tracker EUR Rate2010) / 3,048,966 current",
-      "why": "MU90 Impact: Senate unit-cost excerpts could not be re-verified in this check; left unknown pending re-verification. Re-run: this session's web search allowance ran out and the source hosts were blocked.",
       "rerun": "this session's web search allowance ran out and the source hosts were blocked",
       "sources": []
     },
@@ -991,52 +929,11 @@
       "sources": []
     },
     {
-      "target": "fr_mu_90_air",
-      "kind": "weapon",
-      "decision": "refuted",
-      "candidate": "The MU90 pair: EUR 1.5M (Senate PLF 2010 avis, search excerpts), 1,988,575 historical (2010) / 3,048,966 current",
-      "why": "MU90 Impact (alias of eu_mu_90_air): Senate unit-cost excerpts could not be re-verified; left unknown pending re-verification. Re-run: this session's web search allowance ran out and the source hosts were blocked.",
-      "rerun": "this session's web search allowance ran out and the source hosts were blocked",
-      "sources": []
-    },
-    {
-      "target": "fr_mu_90_ship",
-      "kind": "weapon",
-      "decision": "refuted",
-      "candidate": "The MU90 pair: EUR 1.5M (Senate PLF 2010 avis, search excerpts), 1,988,575 historical (2010) / 3,048,966 current",
-      "why": "MU90 Impact (French ship-launched): Senate unit-cost excerpts could not be re-verified; left unknown pending re-verification. Re-run: this session's web search allowance ran out and the source hosts were blocked.",
-      "rerun": "this session's web search allowance ran out and the source hosts were blocked",
-      "sources": []
-    },
-    {
       "target": "fr_ngds_sealem_chaff",
       "kind": "weapon",
       "decision": "left unknown",
       "candidate": "none",
       "why": "NGDS launcher SEALEM/SEALIR decoy round (France); no per-round price reachable this run. Re-run: this session's web search allowance ran out and the source hosts were blocked.",
-      "rerun": "this session's web search allowance ran out and the source hosts were blocked",
-      "sources": []
-    },
-    {
-      "target": "fr_samp_t25",
-      "kind": "weapon",
-      "decision": "refuted",
-      "candidate": "A Mk 82 low-drag comparison of USD 498 (1991, rjlee.org search excerpt), about 1,200 current by CPI",
-      "why": "SAMP Type 25 250 kg GP bomb: no verifiable price for it or for a comparison GP bomb, and no catalog GP-bomb entry to map. Re-run: this session's web search allowance ran out.",
-      "rerun": "this session's web search allowance ran out",
-      "sources": [
-        {
-          "title": "Vanilla English ammunition names (identity)",
-          "url": "file:mods-source/_vanilla/original/language_en/ammunition_names.ini#L309"
-        }
-      ]
-    },
-    {
-      "target": "fr_sonoflash",
-      "kind": "weapon",
-      "decision": "left unknown",
-      "candidate": "none",
-      "why": "Thales SonoFlash passive/active sonobuoy; no per-buoy price reachable this run. Re-run: this session's web search allowance ran out and the source hosts were blocked.",
       "rerun": "this session's web search allowance ran out and the source hosts were blocked",
       "sources": []
     },
@@ -1082,15 +979,6 @@
       "decision": "left unknown",
       "candidate": "none",
       "why": "Rheinmetall MASS OmniTrap multispectral 81 mm decoy round; no per-round price reachable this run. Re-run: this session's web search allowance ran out and the source hosts were blocked.",
-      "rerun": "this session's web search allowance ran out and the source hosts were blocked",
-      "sources": []
-    },
-    {
-      "target": "ger_mu_90_ship",
-      "kind": "weapon",
-      "decision": "refuted",
-      "candidate": "The MU90 pair: EUR 1.5M (Senate PLF 2010 avis, search excerpts), 1,988,575 historical (2010) / 3,048,966 current",
-      "why": "MU90 Impact (alias of eu_mu_90_ship): Senate unit-cost excerpt could not be re-verified; left unknown pending re-verification. Re-run: this session's web search allowance ran out and the source hosts were blocked.",
       "rerun": "this session's web search allowance ran out and the source hosts were blocked",
       "sources": []
     },
@@ -1223,15 +1111,6 @@
       ]
     },
     {
-      "target": "mm_mu_90_ship",
-      "kind": "weapon",
-      "decision": "refuted",
-      "candidate": "The MU90 pair: EUR 1.5M (Senate PLF 2010 avis, search excerpts), 1,988,575 historical (2010) / 3,048,966 current",
-      "why": "MU90 Impact (alias of eu_mu_90_ship): Senate unit-cost excerpt could not be re-verified; left unknown pending re-verification. Re-run: this session's web search allowance ran out and the source hosts were blocked.",
-      "rerun": "this session's web search allowance ran out and the source hosts were blocked",
-      "sources": []
-    },
-    {
       "target": "nl_tank_685",
       "kind": "weapon",
       "decision": "left unknown",
@@ -1330,20 +1209,6 @@
       "sources": []
     },
     {
-      "target": "pla_type-3-250",
-      "kind": "weapon",
-      "decision": "refuted",
-      "candidate": "A Mk 82 low-drag comparison of USD 498 (1991, rjlee.org search excerpt), about 1,200 current by CPI",
-      "why": "Chinese Type-250-3 GP bomb: no verifiable price for it or for a comparison GP bomb, and no catalog GP-bomb entry to map. Re-run: this session's web search allowance ran out and the source hosts were blocked.",
-      "rerun": "this session's web search allowance ran out and the source hosts were blocked",
-      "sources": [
-        {
-          "title": "Vanilla English ammunition names (identity)",
-          "url": "file:mods-source/_vanilla/original/language_en/ammunition_names.ini#L313"
-        }
-      ]
-    },
-    {
       "target": "plaaf_1400l_fueltank_new",
       "kind": "weapon",
       "decision": "left unknown",
@@ -1353,20 +1218,6 @@
       "sources": []
     },
     {
-      "target": "plaaf_250-Ⅲ",
-      "kind": "weapon",
-      "decision": "refuted",
-      "candidate": "A Mk 82 low-drag comparison of USD 498 (1991, rjlee.org search excerpt), about 1,200 current by CPI",
-      "why": "Chinese 250-III low-drag bomb: no verifiable price for it or for a comparison GP bomb, and no catalog GP-bomb entry to map. Re-run: this session's web search allowance ran out and the source hosts were blocked.",
-      "rerun": "this session's web search allowance ran out and the source hosts were blocked",
-      "sources": [
-        {
-          "title": "3812111085 English ammunition names (identity)",
-          "url": "file:mods-source/3812111085/language_en/ammunition_names.ini#L92"
-        }
-      ]
-    },
-    {
       "target": "plaaf_4xgj",
       "kind": "weapon",
       "decision": "left unknown",
@@ -1374,34 +1225,6 @@
       "why": "Not priced: Internal-bay four-round composite launcher for BBM-2 glide bombs; no tracker entry for it or its family, and no unit price could be read on 2026-10-23 (web search budget spent, fetch hosts blocked); concept carriage; no real-world analogue price. Re-run: this session's web search allowance ran out and the source hosts were blocked.",
       "rerun": "this session's web search allowance ran out and the source hosts were blocked",
       "sources": []
-    },
-    {
-      "target": "plaaf_500-Ⅱ",
-      "kind": "weapon",
-      "decision": "refuted",
-      "candidate": "A Mk 83 comparison of USD 1,000 (1991, rjlee.org search excerpt), 2,500 current by CPI",
-      "why": "Chinese 500-II 500 kg high-drag bomb: no verifiable price for it or for a comparison GP bomb, and no catalog GP-bomb entry to map. Re-run: this session's web search allowance ran out and the source hosts were blocked.",
-      "rerun": "this session's web search allowance ran out and the source hosts were blocked",
-      "sources": [
-        {
-          "title": "3486502935 English ammunition names (identity)",
-          "url": "file:mods-source/3486502935/language_en/ammunition_names.ini#L21"
-        }
-      ]
-    },
-    {
-      "target": "plaaf_500-Ⅲ",
-      "kind": "weapon",
-      "decision": "refuted",
-      "candidate": "A Mk 83 comparison of USD 1,000 (1991, rjlee.org search excerpt), 2,500 current by CPI",
-      "why": "Chinese 500-III low-drag bomb: no verifiable price for it or for a comparison GP bomb, and no catalog GP-bomb entry to map. Re-run: this session's web search allowance ran out and the source hosts were blocked.",
-      "rerun": "this session's web search allowance ran out and the source hosts were blocked",
-      "sources": [
-        {
-          "title": "3436170138 English ammunition names (identity)",
-          "url": "file:mods-source/3436170138/language_en/ammunition_names.ini#L43"
-        }
-      ]
     },
     {
       "target": "plaaf_800l_fueltank_new",
@@ -1427,32 +1250,6 @@
         {
           "title": "3436170138 plaaf_90-Ⅰ_rocket.ini",
           "url": "file:mods-source/3436170138/ammunition/plaaf_90-Ⅰ_rocket.ini"
-        }
-      ]
-    },
-    {
-      "target": "plaaf_gb-1000",
-      "kind": "weapon",
-      "decision": "refuted",
-      "candidate": "Proposed: GBU-10 USD 22,000 (1991, rjlee.org search excerpt), giving 22,000 / 54,000 (refuted). The checker's replacement, not itself checked: map to b-2_gbu_31 (28,000 / 45,000, the author's JDAM complete-round class estimate, reference 2007)",
-      "why": "The proposed estimate rests on a GBU-10 row seen only as an rjlee.org search excerpt (a private site) that could not be re-checked; the checker's replacement class mapping to b-2_gbu_31 (as for plaaf_ls-500) has not had its own check. Re-run: this session's web search allowance ran out and the source hosts were blocked.",
-      "rerun": "this session's web search allowance ran out and the source hosts were blocked",
-      "sources": [
-        {
-          "title": "Tracker catalog [b-2_gbu_31]",
-          "url": "file:mods-source/3807187341/systems/weaponcosts.ini#L2837-L2842"
-        },
-        {
-          "title": "Tracker catalog [plaaf_ls-6_500] (author's treatment of a Chinese guided bomb)",
-          "url": "file:mods-source/3807187341/systems/weaponcosts.ini#L4037-L4042"
-        },
-        {
-          "title": "3812111085 English ammunition names (identity)",
-          "url": "file:mods-source/3812111085/language_en/ammunition_names.ini#L106"
-        },
-        {
-          "title": "plaaf_gb-1000 config",
-          "url": "file:mods-source/3812111085/ammunition/plaaf_gb-1000.ini"
         }
       ]
     },
@@ -1665,42 +1462,6 @@
       ]
     },
     {
-      "target": "plan_skf-16",
-      "kind": "weapon",
-      "decision": "left unknown",
-      "candidate": "none",
-      "why": "SKF-16 PLAN DIFAR-type sonobuoy (designation flagged fictional by another mod); no priced proxy exists. Re-run: the source hosts were blocked.",
-      "rerun": "the source hosts were blocked",
-      "sources": []
-    },
-    {
-      "target": "plan_skf-18",
-      "kind": "weapon",
-      "decision": "left unknown",
-      "candidate": "none",
-      "why": "SKF-18 PLAN passive (VLAD-type) sonobuoy; no priced proxy exists. Re-run: the source hosts were blocked.",
-      "rerun": "the source hosts were blocked",
-      "sources": []
-    },
-    {
-      "target": "plan_skf-20",
-      "kind": "weapon",
-      "decision": "left unknown",
-      "candidate": "none",
-      "why": "SKF-20 PLAN DICASS-type active sonobuoy (designation flagged fictional); no priced proxy exists. Re-run: the source hosts were blocked.",
-      "rerun": "the source hosts were blocked",
-      "sources": []
-    },
-    {
-      "target": "plan_sq-4",
-      "kind": "weapon",
-      "decision": "left unknown",
-      "candidate": "none",
-      "why": "SQ-4 Chinese DIFAR sonobuoy; no unit price reachable and no priced proxy. Re-run: the source hosts were blocked.",
-      "rerun": "the source hosts were blocked",
-      "sources": []
-    },
-    {
       "target": "plan_yu-12_air",
       "kind": "weapon",
       "decision": "refuted",
@@ -1791,29 +1552,11 @@
       "sources": []
     },
     {
-      "target": "rfn_mtt",
-      "kind": "weapon",
-      "decision": "refuted",
-      "candidate": "The MU90 pair as a model donor: about 1,990,000 historical (2010) / 3,050,000 current",
-      "why": "MTT (Paket-NK 324 mm lightweight): donor MU90 price could not be verified. Re-run: this session's web search allowance ran out and the source hosts were blocked.",
-      "rerun": "this session's web search allowance ran out and the source hosts were blocked",
-      "sources": []
-    },
-    {
       "target": "rfn_pk10_chaff",
       "kind": "weapon",
       "decision": "left unknown",
       "candidate": "none",
       "why": "PK-10 120 mm ship decoy round (Russia); no unit price reachable this run. Re-run: this session's web search allowance ran out and the source hosts were blocked.",
-      "rerun": "this session's web search allowance ran out and the source hosts were blocked",
-      "sources": []
-    },
-    {
-      "target": "rn_jezebel",
-      "kind": "weapon",
-      "decision": "left unknown",
-      "candidate": "none",
-      "why": "Dowty Mini-Jezebel passive sonobuoy (UK); no unit price reachable this run. Re-run: this session's web search allowance ran out and the source hosts were blocked.",
       "rerun": "this session's web search allowance ran out and the source hosts were blocked",
       "sources": []
     },
@@ -1830,42 +1573,6 @@
           "url": "file:mods-source/3491248180/ammunition/rn_squid_shell.ini"
         }
       ]
-    },
-    {
-      "target": "rn_ssq-906g",
-      "kind": "weapon",
-      "decision": "left unknown",
-      "candidate": "none",
-      "why": "UK SSQ-906G F-size LOFAR sonobuoy (FOC 2010); no unit price reachable this run. Re-run: the source hosts were blocked.",
-      "rerun": "the source hosts were blocked",
-      "sources": []
-    },
-    {
-      "target": "rn_ssq-926",
-      "kind": "weapon",
-      "decision": "left unknown",
-      "candidate": "none",
-      "why": "UK SSQ-926 high-power active sonobuoy (FOC 2002); no unit price reachable this run. Re-run: this session's web search allowance ran out and the source hosts were blocked.",
-      "rerun": "this session's web search allowance ran out and the source hosts were blocked",
-      "sources": []
-    },
-    {
-      "target": "rn_ssq-955b",
-      "kind": "weapon",
-      "decision": "left unknown",
-      "candidate": "none",
-      "why": "UK SSQ-955B HIDAR F-size DIFAR sonobuoy (FOC 2012); no unit price reachable this run. Re-run: this session's web search allowance ran out and the source hosts were blocked.",
-      "rerun": "this session's web search allowance ran out and the source hosts were blocked",
-      "sources": []
-    },
-    {
-      "target": "rn_ssq-963d",
-      "kind": "weapon",
-      "decision": "left unknown",
-      "candidate": "none",
-      "why": "UK SSQ-963D CAMBS VI active sonobuoy (FOC 2004); no unit price reachable this run. Re-run: this session's web search allowance ran out and the source hosts were blocked.",
-      "rerun": "this session's web search allowance ran out and the source hosts were blocked",
-      "sources": []
     },
     {
       "target": "rn_stingray_air",
@@ -2121,15 +1828,6 @@
       "sources": []
     },
     {
-      "target": "usaf_m117",
-      "kind": "weapon",
-      "decision": "refuted",
-      "candidate": "About 620 historical (1960) / 5,600 current: the usn_mk-82 pair scaled to the M117 (TWZ search excerpt for the Mk 82)",
-      "why": "M117 750-lb GP bomb (vanilla FOCDate 1950): no verifiable unit price; the Mk 82 donor price and the 2021 CPI could not be re-verified. Re-run: this session's web search allowance ran out and the source hosts were blocked.",
-      "rerun": "this session's web search allowance ran out and the source hosts were blocked",
-      "sources": []
-    },
-    {
       "target": "usaf_pave_spike",
       "kind": "weapon",
       "decision": "left unknown",
@@ -2363,15 +2061,6 @@
       "sources": []
     },
     {
-      "target": "usn_gbu-10",
-      "kind": "weapon",
-      "decision": "refuted",
-      "candidate": "4,690 historical / 27,563 current: the GWAPS GBU-12 price scaled by an undated GlobalSecurity GBU-10/GBU-12 ratio (23,700 / 19,000); a GWAPS summary gives GBU-10 USD 22,000 (1991)",
-      "why": "GBU-10 Paveway II (Mk 84 + Paveway II kit, vanilla FOCDate 1977): the GBU-10/GBU-12 ratio rests on unverifiable, undated GlobalSecurity excerpts. Re-run: this session's web search allowance ran out and the source hosts were blocked.",
-      "rerun": "this session's web search allowance ran out and the source hosts were blocked",
-      "sources": []
-    },
-    {
       "target": "usn_gbu-16",
       "kind": "weapon",
       "decision": "refuted",
@@ -2443,38 +2132,11 @@
       "sources": []
     },
     {
-      "target": "usn_mk-82",
-      "kind": "weapon",
-      "decision": "refuted",
-      "candidate": "440 historical (1960, CPI conversion) / 4,000 current (USAF FY2021 unit price, TWZ search excerpt)",
-      "why": "Mk 82 500-lb GP bomb: the USAF FY2021 USD 4,000 figure and the 2021 CPI could not be re-verified. Re-run: this session's web search allowance ran out and the source hosts were blocked.",
-      "rerun": "this session's web search allowance ran out and the source hosts were blocked",
-      "sources": []
-    },
-    {
       "target": "usn_mk-82_snakeye",
       "kind": "weapon",
       "decision": "refuted",
       "candidate": "The usn_mk-82 pair: 440 historical (1960) / 4,000 current",
       "why": "Mk 82 Snakeye (Mk 82 with Mk 15 retarding fins, vanilla FOCDate 1960): depends entirely on the unverifiable Mk 82 donor price. Re-run: this session's web search allowance ran out and the source hosts were blocked.",
-      "rerun": "this session's web search allowance ran out and the source hosts were blocked",
-      "sources": []
-    },
-    {
-      "target": "usn_mk-83",
-      "kind": "weapon",
-      "decision": "refuted",
-      "candidate": "980 historical (1960) / 11,000 current: a Navy FY2025 BLU-110 lot price of 10,692.93 (PANMC FY2027 book, search excerpt)",
-      "why": "Mk 83 1,000-lb GP bomb: the Navy FY2025 BLU-110 lot price (PANMC FY2027 book) could not be re-verified. Re-run: this session's web search allowance ran out and the source hosts were blocked.",
-      "rerun": "this session's web search allowance ran out and the source hosts were blocked",
-      "sources": []
-    },
-    {
-      "target": "usn_mk-84",
-      "kind": "weapon",
-      "decision": "refuted",
-      "candidate": "1,700 historical (1960) / 16,000 current (USAF FY2021 unit price, TWZ search excerpt)",
-      "why": "Mk 84 2,000-lb GP bomb: the USAF FY2021 USD 16,000 figure and the 2021 CPI could not be re-verified. Re-run: this session's web search allowance ran out and the source hosts were blocked.",
       "rerun": "this session's web search allowance ran out and the source hosts were blocked",
       "sources": []
     },
@@ -2503,24 +2165,6 @@
       "candidate": "none",
       "why": "Sea Gnat Mk 216 distraction chaff round; no per-round price reachable this run. Re-run: this session's web search allowance ran out and the source hosts were blocked.",
       "rerun": "this session's web search allowance ran out and the source hosts were blocked",
-      "sources": []
-    },
-    {
-      "target": "usn_mk234_nulka",
-      "kind": "weapon",
-      "decision": "left unknown",
-      "candidate": "none",
-      "why": "Mk 234 Nulka active expendable decoy round (Mk 53 DLS); no per-round price reachable this run; tracker MALD entry is not the same family. Re-run: the source hosts were blocked.",
-      "rerun": "the source hosts were blocked",
-      "sources": []
-    },
-    {
-      "target": "usn_mk234_nulka_adap",
-      "kind": "weapon",
-      "decision": "left unknown",
-      "candidate": "none",
-      "why": "Mk 234 Nulka with ADAP payload; no per-round price reachable this run. Re-run: the source hosts were blocked.",
-      "rerun": "the source hosts were blocked",
       "sources": []
     },
     {
@@ -2569,15 +2213,6 @@
       "sources": []
     },
     {
-      "target": "usn_ssq-101",
-      "kind": "weapon",
-      "decision": "left unknown",
-      "candidate": "none",
-      "why": "AN/SSQ-101A ADAR sonobuoy; no per-buoy price reachable this run. Re-run: this session's web search allowance ran out and the source hosts were blocked.",
-      "rerun": "this session's web search allowance ran out and the source hosts were blocked",
-      "sources": []
-    },
-    {
       "target": "usn_ssq-47",
       "kind": "weapon",
       "decision": "left unknown",
@@ -2588,158 +2223,6 @@
         {
           "title": "usn_ssq-47.ini (mod 3628203171)",
           "url": "file:mods-source/3628203171/ammunition/usn_ssq-47.ini"
-        }
-      ]
-    },
-    {
-      "target": "usn_ssq-53",
-      "kind": "weapon",
-      "decision": "left unknown",
-      "candidate": "none",
-      "why": "AN/SSQ-53 DIFAR passive sonobuoy (IOC 1972, FOC 1980); no per-buoy price reachable this run. Re-run: this session's web search allowance ran out and the source hosts were blocked.",
-      "rerun": "this session's web search allowance ran out and the source hosts were blocked",
-      "sources": []
-    },
-    {
-      "target": "usn_ssq-53d",
-      "kind": "weapon",
-      "decision": "left unknown",
-      "candidate": "none",
-      "why": "AN/SSQ-53D DIFAR sonobuoy (1992); no per-buoy price reachable this run. Re-run: this session's web search allowance ran out and the source hosts were blocked.",
-      "rerun": "this session's web search allowance ran out and the source hosts were blocked",
-      "sources": []
-    },
-    {
-      "target": "usn_ssq-53f",
-      "kind": "weapon",
-      "decision": "left unknown",
-      "candidate": "none",
-      "why": "AN/SSQ-53F DIFAR sonobuoy (2002); no per-buoy price reachable this run. Re-run: this session's web search allowance ran out and the source hosts were blocked.",
-      "rerun": "this session's web search allowance ran out and the source hosts were blocked",
-      "sources": []
-    },
-    {
-      "target": "usn_ssq-53h",
-      "kind": "weapon",
-      "decision": "left unknown",
-      "candidate": "none",
-      "why": "AN/SSQ-53H DIFAR sonobuoy (2024); no per-buoy price reachable this run. Re-run: this session's web search allowance ran out and the source hosts were blocked.",
-      "rerun": "this session's web search allowance ran out and the source hosts were blocked",
-      "sources": []
-    },
-    {
-      "target": "usn_ssq-62",
-      "kind": "weapon",
-      "decision": "left unknown",
-      "candidate": "none",
-      "why": "AN/SSQ-62(A) DICASS active sonobuoy (1980); no per-buoy price reachable this run. Re-run: this session's web search allowance ran out and the source hosts were blocked.",
-      "rerun": "this session's web search allowance ran out and the source hosts were blocked",
-      "sources": []
-    },
-    {
-      "target": "usn_ssq-62c",
-      "kind": "weapon",
-      "decision": "left unknown",
-      "candidate": "none",
-      "why": "AN/SSQ-62C DICASS sonobuoy (1997); no per-buoy price reachable this run. Re-run: this session's web search allowance ran out and the source hosts were blocked.",
-      "rerun": "this session's web search allowance ran out and the source hosts were blocked",
-      "sources": []
-    },
-    {
-      "target": "usn_ssq-62e",
-      "kind": "weapon",
-      "decision": "left unknown",
-      "candidate": "none",
-      "why": "AN/SSQ-62E DICASS sonobuoy (2004); no per-buoy price reachable this run. Re-run: this session's web search allowance ran out and the source hosts were blocked.",
-      "rerun": "this session's web search allowance ran out and the source hosts were blocked",
-      "sources": []
-    },
-    {
-      "target": "usn_ssq-62g",
-      "kind": "weapon",
-      "decision": "left unknown",
-      "candidate": "none",
-      "why": "AN/SSQ-62G DICASS sonobuoy (current production); no per-buoy price reachable this run. Re-run: this session's web search allowance ran out and the source hosts were blocked.",
-      "rerun": "this session's web search allowance ran out and the source hosts were blocked",
-      "sources": []
-    },
-    {
-      "target": "usn_ssq-77",
-      "kind": "weapon",
-      "decision": "left unknown",
-      "candidate": "none",
-      "why": "AN/SSQ-77 VLAD passive sonobuoy (IOC 1980, FOC 1986); no per-buoy price reachable this run. Re-run: this session's web search allowance ran out and the source hosts were blocked.",
-      "rerun": "this session's web search allowance ran out and the source hosts were blocked",
-      "sources": []
-    },
-    {
-      "target": "usn_ssq-77b",
-      "kind": "weapon",
-      "decision": "left unknown",
-      "candidate": "none",
-      "why": "AN/SSQ-77B VLAD sonobuoy (1994); no per-buoy price reachable this run. Re-run: this session's web search allowance ran out and the source hosts were blocked.",
-      "rerun": "this session's web search allowance ran out and the source hosts were blocked",
-      "sources": []
-    },
-    {
-      "target": "usn_ssq-77c",
-      "kind": "weapon",
-      "decision": "left unknown",
-      "candidate": "none",
-      "why": "AN/SSQ-77C VLAD sonobuoy (1999); no per-buoy price reachable this run. Re-run: this session's web search allowance ran out and the source hosts were blocked.",
-      "rerun": "this session's web search allowance ran out and the source hosts were blocked",
-      "sources": []
-    },
-    {
-      "target": "usn_ssq_101",
-      "kind": "weapon",
-      "decision": "left unknown",
-      "candidate": "none",
-      "why": "AN/SSQ-101A ADAR, same item as usn_ssq-101 (map once priced); no per-buoy price reachable. Re-run: this session's web search allowance ran out and the source hosts were blocked.",
-      "rerun": "this session's web search allowance ran out and the source hosts were blocked",
-      "sources": []
-    },
-    {
-      "target": "usn_ssq_53f",
-      "kind": "weapon",
-      "decision": "left unknown",
-      "candidate": "none",
-      "why": "AN/SSQ-53F DIFAR, same item as usn_ssq-53f (map once priced); no per-buoy price reachable. Re-run: this session's web search allowance ran out and the source hosts were blocked.",
-      "rerun": "this session's web search allowance ran out and the source hosts were blocked",
-      "sources": []
-    },
-    {
-      "target": "usn_ssq_62e",
-      "kind": "weapon",
-      "decision": "left unknown",
-      "candidate": "none",
-      "why": "AN/SSQ-62E DICASS, same item as usn_ssq-62e (map once priced); no per-buoy price reachable. Re-run: this session's web search allowance ran out and the source hosts were blocked.",
-      "rerun": "this session's web search allowance ran out and the source hosts were blocked",
-      "sources": []
-    },
-    {
-      "target": "usn_ssq_77c",
-      "kind": "weapon",
-      "decision": "left unknown",
-      "candidate": "none",
-      "why": "AN/SSQ-77C VLAD, same item as usn_ssq-77c (map once priced); no per-buoy price reachable. Re-run: this session's web search allowance ran out and the source hosts were blocked.",
-      "rerun": "this session's web search allowance ran out and the source hosts were blocked",
-      "sources": []
-    },
-    {
-      "target": "usn_steelfin_air",
-      "kind": "weapon",
-      "decision": "refuted",
-      "candidate": "Anduril's target of less than half a PAC-3 MSE (itself contested at USD 5.3M or about 4.4M), for the surface-launched round",
-      "why": "Prototype with no published unit price; the 225 kg air-launched store is the mod's invention. The only cost evidence offered (Anduril's 'less than half a PAC-3 MSE' target) could not be re-verified, and it is a ceiling for the surface-launched PAC-3-class round, not a price for this store.",
-      "sources": [
-        {
-          "title": "Steelfin mod Readme",
-          "url": "file:mods-source/3820576916/Readme.txt"
-        },
-        {
-          "title": "usn_steelfin_air name",
-          "url": "file:mods-source/3820576916/language_en/ammunition_names.ini"
         }
       ]
     },
@@ -2821,34 +2304,11 @@
       ]
     },
     {
-      "target": "wp_53-65K",
-      "kind": "weapon",
-      "decision": "refuted",
-      "candidate": "Proposed: the UET-1 per-round price from its 2018 contract (73 for RUB 7.2bn, about USD 110M) as a proxy",
-      "why": "No 53-65K price found; the electric multipurpose UET-1 is neither a documented replacement nor the same family as this 1969 thermal wake-homing anti-ship torpedo. Re-run: this session's web search allowance ran out.",
-      "rerun": "this session's web search allowance ran out",
-      "sources": [
-        {
-          "title": "TWZ: The Russian Navy Has Gotten Its First New Electrically-Powered Torpedo Since The Cold War (29 Jan 2021)",
-          "url": "https://www.twz.com/39008/the-russian-navy-has-gotten-its-first-new-electrically-powered-torpedo-since-the-cold-war"
-        }
-      ]
-    },
-    {
       "target": "wp_65-76",
       "kind": "weapon",
       "decision": "left unknown",
       "candidate": "none",
       "why": "No published unit or contract price found for the 65-76 or for any current 650 mm successor; the 533 mm UET-1 contract is not a defensible proxy for a 650 mm weapon. Re-run: this session's web search allowance ran out and the source hosts were blocked.",
-      "rerun": "this session's web search allowance ran out and the source hosts were blocked",
-      "sources": []
-    },
-    {
-      "target": "wp_aircraft_chaff",
-      "kind": "weapon",
-      "decision": "left unknown",
-      "candidate": "none",
-      "why": "Stock generic aircraft chaff cartridge; no per-cartridge price reachable this run. Re-run: this session's web search allowance ran out and the source hosts were blocked.",
       "rerun": "this session's web search allowance ran out and the source hosts were blocked",
       "sources": []
     },
@@ -3061,15 +2521,6 @@
       "sources": []
     },
     {
-      "target": "wp_rgb-1",
-      "kind": "weapon",
-      "decision": "left unknown",
-      "candidate": "none",
-      "why": "Soviet RGB-1 passive omni sonobuoy; no published unit price known or reachable. Re-run: the source hosts were blocked.",
-      "rerun": "the source hosts were blocked",
-      "sources": []
-    },
-    {
       "target": "wp_rgb-10",
       "kind": "weapon",
       "decision": "left unknown",
@@ -3084,15 +2535,6 @@
       ]
     },
     {
-      "target": "wp_rgb-3",
-      "kind": "weapon",
-      "decision": "left unknown",
-      "candidate": "none",
-      "why": "Soviet RGB-3 active sonobuoy; no published unit price known or reachable. Re-run: the source hosts were blocked.",
-      "rerun": "the source hosts were blocked",
-      "sources": []
-    },
-    {
       "target": "wp_rgb-60",
       "kind": "weapon",
       "decision": "left unknown",
@@ -3105,15 +2547,6 @@
           "url": "file:mods-source/_vanilla/original/language_en/ammunition_names.ini"
         }
       ]
-    },
-    {
-      "target": "wp_rgb-nm1",
-      "kind": "weapon",
-      "decision": "left unknown",
-      "candidate": "none",
-      "why": "Soviet RGB-NM-1 passive omni sonobuoy (Baku suite); no published unit price known or reachable. Re-run: the source hosts were blocked.",
-      "rerun": "the source hosts were blocked",
-      "sources": []
     },
     {
       "target": "wp_rn-40",
@@ -3189,20 +2622,6 @@
         {
           "title": "Vanilla wp_s-8.ini",
           "url": "file:mods-source/_vanilla/original/ammunition/wp_s-8.ini"
-        }
-      ]
-    },
-    {
-      "target": "wp_set-65",
-      "kind": "weapon",
-      "decision": "refuted",
-      "candidate": "Proposed: the UET-1 per-round price from its 2018 contract (73 for RUB 7.2bn, about USD 110M) as a replacement proxy",
-      "why": "No SET-65 price found; the UET-1 is documented only as the USET-80's replacement, so it is not a documented replacement or family proxy for the 1960s SET-65. Re-run: this session's web search allowance ran out and the source hosts were blocked.",
-      "rerun": "this session's web search allowance ran out and the source hosts were blocked",
-      "sources": [
-        {
-          "title": "TWZ: The Russian Navy Has Gotten Its First New Electrically-Powered Torpedo Since The Cold War (29 Jan 2021)",
-          "url": "https://www.twz.com/39008/the-russian-navy-has-gotten-its-first-new-electrically-powered-torpedo-since-the-cold-war"
         }
       ]
     },
@@ -3326,24 +2745,6 @@
       ]
     },
     {
-      "target": "4tentgroup",
-      "kind": "land",
-      "decision": "refuted",
-      "candidate": "USD 6,600 per MGPTS tent (2003 Army order) x 4 = 26,400 historical (2003) / about 48,000 current",
-      "why": "The candidate (USD 6,600 per MGPTS tent from a 2003 Army order, x4) could not be re-verified; its sources were unreadable and no re-check search could be run. Re-run: this session's web search allowance ran out and the source hosts were blocked.",
-      "rerun": "this session's web search allowance ran out and the source hosts were blocked",
-      "sources": [
-        {
-          "title": "Johnson Outdoors Form 8-K press release, 29 Dec 2003 (SEC EDGAR) - search excerpt cited by the researcher; NOT re-verified by the checker (host DNS-blocked, search budget exhausted)",
-          "url": "https://www.sec.gov/Archives/edgar/data/788329/000089706903001741/sdc598a.htm"
-        },
-        {
-          "title": "Defense Industry Daily, '$15.9M Contract Keeps US Military in Tents' - search excerpt cited by the researcher; NOT re-verified",
-          "url": "https://www.defenseindustrydaily.com/159m-contract-keeps-us-military-in-tents-0608/"
-        }
-      ]
-    },
-    {
       "target": "airbase_raaf_amberley",
       "kind": "land",
       "decision": "left unknown",
@@ -3364,20 +2765,6 @@
       "candidate": "none",
       "why": "Malaysian-owned base dating from 1941; no documented construction or replacement figure found.",
       "sources": []
-    },
-    {
-      "target": "airbase_raaf_curtin",
-      "kind": "land",
-      "decision": "refuted",
-      "candidate": "A$64M build cost (undated Australian Aviation search excerpt): 50,176,000 historical (taken as 1988) / 142,079,091 current",
-      "why": "The A$64M build cost rests on one Australian Aviation excerpt that the researcher could not reproduce and the checker could not re-check. Re-run: this session's web search allowance ran out and the source hosts were blocked.",
-      "rerun": "this session's web search allowance ran out and the source hosts were blocked",
-      "sources": [
-        {
-          "title": "Australian Aviation newsdesk item on RAAF Base Curtin - search excerpt cited by the researcher; NOT re-verified (host DNS-blocked, search budget exhausted, researcher could not reproduce it)",
-          "url": "https://australianaviation.com.au/?p=1403894"
-        }
-      ]
     },
     {
       "target": "airbase_raaf_darwin",
@@ -3446,24 +2833,6 @@
       "why": "Opened 1998 and built largely by Army engineers; no construction cost found. Re-run: this session's web search allowance ran out and the source hosts were blocked.",
       "rerun": "this session's web search allowance ran out and the source hosts were blocked",
       "sources": []
-    },
-    {
-      "target": "airbase_raaf_tindal",
-      "kind": "land",
-      "decision": "refuted",
-      "candidate": "A$167M 1984 Stage 1 redevelopment approval, a lower bound: 147,000,000 historical (1984) / 473,000,000 current",
-      "why": "The candidate (1984 Stage 1 redevelopment approved at A$167M, a lower bound) could not be re-verified; retry it first. Re-run: this session's web search allowance ran out and the source hosts were blocked.",
-      "rerun": "this session's web search allowance ran out and the source hosts were blocked",
-      "sources": [
-        {
-          "title": "Department of Defence submission to the PWC inquiry into RAAF Base Tindal Stage 5 (sub001) - search excerpt cited by the researcher; NOT re-verified (host DNS-blocked, search budget exhausted)",
-          "url": "https://aphref.aph.gov.au/house/committee/pwc/tindalstage5/subs/sub001.pdf"
-        },
-        {
-          "title": "Department of Defence submission to the PWC, RAAF Base Tindal (2008, sub1) - search excerpt cited by the researcher; NOT re-verified",
-          "url": "https://aphref.aph.gov.au/house/committee/pwc/tindal/subs/sub1.pdf"
-        }
-      ]
     },
     {
       "target": "airbase_raaf_townsville",
@@ -3592,38 +2961,6 @@
       "sources": []
     },
     {
-      "target": "Coal_PowerPlant",
-      "kind": "land",
-      "decision": "refuted",
-      "candidate": "An EIA reference plant: 650 MW (assumed) x USD 4,507/kW (2022 dollars) = 2,929,550,000",
-      "why": "The EIA reference-plant figure (650 MW at USD 4,507/kW, 2022 dollars) could not be re-verified, and the 650 MW size is an assumption, not a property of the game plant. Re-run: this session's web search allowance ran out and the source hosts were blocked.",
-      "rerun": "this session's web search allowance ran out and the source hosts were blocked",
-      "sources": [
-        {
-          "title": "EIA, AEO Assumptions Table 8.2 - search excerpt cited by the researcher (paraphrase, not an exact sentence); NOT re-verified (host DNS-blocked, search budget exhausted)",
-          "url": "https://www.eia.gov/outlooks/aeo/assumptions/pdf/table_8.2.pdf"
-        }
-      ]
-    },
-    {
-      "target": "de_pzh2000",
-      "kind": "land",
-      "decision": "refuted",
-      "candidate": "EUR 184.2M for a 10-gun call-off (2023; BMVg and ESuT search excerpts): 10,664,311 historical (CPI backcast) / 19,935,065 current",
-      "why": "PzH 2000: no verified price. The proposed EUR 184.2M for a 10-gun call-off in 2023 (BMVg, ESuT search excerpts) could not be re-checked in this pass. Re-run: this session's web search allowance ran out and the source hosts were blocked.",
-      "rerun": "this session's web search allowance ran out and the source hosts were blocked",
-      "sources": [
-        {
-          "title": "de_pzh2000 config (Workshop 3603367264)",
-          "url": "mods-source/3603367264/land_units/de_pzh2000.ini"
-        },
-        {
-          "title": "de_pzh2000 names (Workshop 3603367264)",
-          "url": "mods-source/3603367264/language_en/land_units_names.ini"
-        }
-      ]
-    },
-    {
       "target": "FOB",
       "kind": "land",
       "decision": "left unknown",
@@ -3631,42 +2968,6 @@
       "why": "No documented construction figure for a squad-sized FOB has been traced; retry with a fresh search budget. Re-run: this session's web search allowance ran out.",
       "rerun": "this session's web search allowance ran out",
       "sources": []
-    },
-    {
-      "target": "fr_afv_jaguar",
-      "kind": "land",
-      "decision": "refuted",
-      "candidate": "EUR 6M unit cost (2017; PLF 2018 Assemblee nationale avis, search excerpt): 6,309,148 / 7,207,992 as proposed, with the year handled wrongly",
-      "why": "EBRC Jaguar: no verified price. The EUR 6M unit cost from the PLF 2018 Assemblee nationale avis (search excerpt) could not be re-checked, and the proposal's year handling is wrong. Re-run: this session's web search allowance ran out and the source hosts were blocked.",
-      "rerun": "this session's web search allowance ran out and the source hosts were blocked",
-      "sources": [
-        {
-          "title": "fr_afv_jaguar names (Workshop 3736147136)",
-          "url": "mods-source/3736147136/language_en/land_units_names.ini"
-        },
-        {
-          "title": "fr_afv_jaguar config (Workshop 3736147136)",
-          "url": "mods-source/3736147136/land_units/fr_afv_jaguar.ini"
-        }
-      ]
-    },
-    {
-      "target": "fr_apc_griffon",
-      "kind": "land",
-      "decision": "refuted",
-      "candidate": "EUR 1.5M average unit price (2017; Senat PLF 2018 avis, search excerpt): 1,713,294 historical at the tracker's EUR Rate2020",
-      "why": "VBMR Griffon: no verified price. The EUR 1.5M average unit price (Senat PLF 2018 avis, search excerpt) could not be re-checked, and the current-price method is mislabelled. Re-run: this session's web search allowance ran out and the source hosts were blocked.",
-      "rerun": "this session's web search allowance ran out and the source hosts were blocked",
-      "sources": [
-        {
-          "title": "fr_apc_griffon names (Workshop 3736147136)",
-          "url": "mods-source/3736147136/language_en/land_units_names.ini"
-        },
-        {
-          "title": "Combat Cost Tracker currencies.ini [Currency_EUR]",
-          "url": "mods-source/3807187341/systems/combatcosts/currencies.ini"
-        }
-      ]
     },
     {
       "target": "fr_apc_vab_top",
@@ -3709,24 +3010,6 @@
       ]
     },
     {
-      "target": "idf_dsws_radar",
-      "kind": "land",
-      "decision": "refuted",
-      "candidate": "USD 125M for 8 radars (Czech MADR, Dec 2019; search excerpts): 15,625,000 historical (2019) / 20,434,102 current",
-      "why": "EL/M-2084 (David's Sling radar): no verified price. The Czech Dec 2019 MADR buy (8 radars, USD 125M per IAI; CZK 3.5bn including VAT per Janes; search excerpts) could not be re-checked. Re-run: this session's web search allowance ran out and the source hosts were blocked.",
-      "rerun": "this session's web search allowance ran out and the source hosts were blocked",
-      "sources": [
-        {
-          "title": "idf_dsws_radar config (Workshop 3558173926)",
-          "url": "mods-source/3558173926/land_units/idf_dsws_radar.ini"
-        },
-        {
-          "title": "SEST cost list, plan_lpd_type_071 working (CPI values already used in shipped estimates)",
-          "url": "docs/combat-costs/cost-list.md"
-        }
-      ]
-    },
-    {
       "target": "jp_12ssmht",
       "kind": "land",
       "decision": "left unknown",
@@ -3740,33 +3023,6 @@
       ]
     },
     {
-      "target": "kr_k9",
-      "kind": "land",
-      "decision": "refuted",
-      "candidate": "INR 7,628.70 crore for 100 K9 Vajra-T (India, Dec 2024; Deccan Herald and ThePrint search excerpts): 4,841,778 historical (CPI backcast to 1999) / 9,116,842 current",
-      "why": "K9 Thunder: no verified price. India's Dec 2024 K9 Vajra-T contract (INR 7,628.70 crore, Deccan Herald and ThePrint search excerpts) could not be re-checked in this pass. Re-run: this session's web search allowance ran out and the source hosts were blocked.",
-      "rerun": "this session's web search allowance ran out and the source hosts were blocked",
-      "sources": [
-        {
-          "title": "kr_k9 config (Workshop 3603367264)",
-          "url": "mods-source/3603367264/land_units/kr_k9.ini"
-        },
-        {
-          "title": "kr_k9 names (Workshop 3603367264)",
-          "url": "mods-source/3603367264/language_en/land_units_names.ini"
-        }
-      ]
-    },
-    {
-      "target": "nato_large_pvo_airbase1",
-      "kind": "land",
-      "decision": "refuted",
-      "candidate": "Barksdale AFB FY24 plant replacement value, 3,954,865,072 (3,611,174,298 + 343,690,774)",
-      "why": "Generic stand-in (Olenegorsk/Olenya layout labelled Barksdale AFB) that SEST places as other airfields; Barksdale's plant replacement value would misprice it, and the PRV source could not be re-verified. Re-run: this session's web search allowance ran out and the source hosts were blocked.",
-      "rerun": "this session's web search allowance ran out and the source hosts were blocked",
-      "sources": []
-    },
-    {
       "target": "Oil_pump",
       "kind": "land",
       "decision": "left unknown",
@@ -3774,23 +3030,6 @@
       "why": "No published pumpjack unit price has been traced; retry with a fresh search budget. Re-run: this session's web search allowance ran out.",
       "rerun": "this session's web search allowance ran out",
       "sources": []
-    },
-    {
-      "target": "pla_9k331",
-      "kind": "land",
-      "decision": "refuted",
-      "candidate": "Iran's 2005 deal, USD 700M or 750M for 29 systems including missiles and support",
-      "why": "Tor-M1 (PLA): no per-vehicle price. Iran's 2005 deal (USD 700M or 750M for 29 systems) is a package that includes missiles and support and reportedly two Pechora-2A systems.",
-      "sources": [
-        {
-          "title": "pla_9k331 config (Workshop 3733719765)",
-          "url": "mods-source/3733719765/land_units/pla_9k331.ini"
-        },
-        {
-          "title": "PLA names (Workshop 3733719765)",
-          "url": "mods-source/3733719765/language_en/land_units_names.ini"
-        }
-      ]
     },
     {
       "target": "pla_aaa_type55",
@@ -4001,66 +3240,12 @@
       "sources": []
     },
     {
-      "target": "thaad_tel",
-      "kind": "land",
-      "decision": "refuted",
-      "candidate": "USD 150M Lockheed award (Aug 2012) over 12 launchers: 12,500,000 (2012) / 18,237,628 current; the award also bought two fire control units and support equipment",
-      "why": "THAAD launcher: no verified launcher price. The Aug 2012 USD 150M Lockheed award (search excerpt) also bought two fire control units and support equipment, so it is not a per-launcher price. Re-run: this session's web search allowance ran out and the source hosts were blocked.",
-      "rerun": "this session's web search allowance ran out and the source hosts were blocked",
-      "sources": [
-        {
-          "title": "thaad_tel config and names (Workshop 3683253079)",
-          "url": "mods-source/3683253079/land_units/thaad_tel.ini"
-        },
-        {
-          "title": "SEST cost list, rn_aor_tide working",
-          "url": "docs/combat-costs/cost-list.md"
-        }
-      ]
-    },
-    {
       "target": "usa_airbase",
       "kind": "land",
       "decision": "left unknown",
       "candidate": "none",
       "why": "Generic US NAS/AFB template; no single documented figure for the id.",
       "sources": []
-    },
-    {
-      "target": "usa_an_mpq-65_radar",
-      "kind": "land",
-      "decision": "refuted",
-      "candidate": "USD 110-115M per radar (Mar 2025 PEO statement; Defense News and Military Times search excerpts), midpoint 112,500,000 current",
-      "why": "AN/MPQ-65: no verified price. The Mar 2025 PEO statement that the legacy Patriot radar costs USD 110-115M a copy (Defense News and Military Times search excerpts) could not be re-checked. Re-run: this session's web search allowance ran out and the source hosts were blocked.",
-      "rerun": "this session's web search allowance ran out and the source hosts were blocked",
-      "sources": [
-        {
-          "title": "usa_an_mpq-65_radar config (Workshop 3437105712)",
-          "url": "mods-source/3437105712/land_units/usa_an_mpq-65_radar.ini"
-        },
-        {
-          "title": "AN/MPQ-65 names (Workshop 3437105712)",
-          "url": "mods-source/3437105712/language_en/land_units_names.ini"
-        }
-      ]
-    },
-    {
-      "target": "usa_car_hemtt",
-      "kind": "land",
-      "decision": "refuted",
-      "candidate": "1,978 HEMTT A4 for USD 658M (Oshkosh release, 2008, search excerpt): 332,659 historical / 516,680 current",
-      "why": "HEMTT: no verified price. The Oshkosh release giving 1,978 HEMTT A4 for USD 658M (search excerpt) could not be re-checked. Re-run: this session's web search allowance ran out and the source hosts were blocked.",
-      "rerun": "this session's web search allowance ran out and the source hosts were blocked",
-      "sources": [
-        {
-          "title": "usa_car_hemtt config (Workshop 3605013271)",
-          "url": "mods-source/3605013271/land_units/usa_car_hemtt.ini"
-        },
-        {
-          "title": "Vanilla land unit names",
-          "url": "mods-source/_vanilla/original/language_en/land_units_names.ini"
-        }
-      ]
     },
     {
       "target": "usa_pac-3_launcher",
@@ -4123,24 +3308,6 @@
       "candidate": "none",
       "why": "Generic Russian airbase template used as a stand-in; no published construction or replacement figure for it.",
       "sources": []
-    },
-    {
-      "target": "wp_an_tpy_2",
-      "kind": "land",
-      "decision": "refuted",
-      "candidate": "USD 363.9M for two radars (Dec 2011): 181,950,000 historical; USD 207.9M for radar #11 (Dec 2012): 303,360,906 current (search excerpts)",
-      "why": "AN/TPY-2: no verified price. The Dec 2011 USD 363.9M award for two radars and the Dec 2012 USD 207.9M radar #11 award (search excerpts) could not be re-checked. Re-run: this session's web search allowance ran out and the source hosts were blocked.",
-      "rerun": "this session's web search allowance ran out and the source hosts were blocked",
-      "sources": [
-        {
-          "title": "wp_an_tpy_2 config (Workshop 3683253079)",
-          "url": "mods-source/3683253079/land_units/wp_an_tpy_2.ini"
-        },
-        {
-          "title": "SEST cost list, rn_aor_tide working",
-          "url": "docs/combat-costs/cost-list.md"
-        }
-      ]
     },
     {
       "target": "wp_buk-m3",

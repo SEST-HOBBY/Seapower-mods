@@ -18,7 +18,7 @@ This is the resolved reference inventory, including vanilla, collection content 
 - `coverage.json`: machine-readable coverage, extensions, model choices and receipts.
 - `backlog-resolution.md`: installed prices for all 377 unique references in the original 381-row attachment. Four references appeared twice in that attachment.
 - `integration/combat-costs/coverage-policy.json`: versioned models, sources, CPI assumptions and sensitivity bands.
-- `integration/combat-costs/mappings.json`: Claude's checked mappings and researched estimates, retained as the conservative first stage.
+- `integration/combat-costs/mappings.json`: Claude's checked mappings and researched estimates, retained as the conservative first stage. Its `land` list (24 Oct 2026, 15 checked land prices) is the land catalog's first stage too; the models only fill a field it leaves blank, and a checked current-only price gets a CPI backcast rather than an unrelated model figure.
 - `not-yet-confirmed.md` and `integration/combat-costs/research.json`: original research decisions. Filling a gap with a model does not confirm a rejected or unchecked candidate.
 
 ## Pricing rules
