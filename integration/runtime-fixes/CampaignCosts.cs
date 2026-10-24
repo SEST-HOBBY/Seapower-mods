@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Linq;
 using System.Reflection;
 using System.Text.RegularExpressions;
 using System.Security.Cryptography;
@@ -14,12 +15,12 @@ namespace Sest.RuntimeFixes
     internal static class CampaignCosts
     {
         static MethodInfo openState, hasSnapshot, sectionName, parseRows, reports, totals, data, openVirtual, openUnit;
-        static MethodInfo filePath,openCampaign,taskforceEnabled;
+        static MethodInfo filePath,openCampaign,taskforceEnabled,campaignSave;
         static PropertyInfo summaryRows, ammoRef, ammoType, launched, fired;
         static FieldInfo missionIndex, rowRef, rowFolder, rowType, rowCount, rowDestroyed;
         static ConstructorInfo summaryConstructor;
-        static FieldInfo liveRegisters,liveSpent,spentCount;
-        static PropertyInfo liveRef,liveFolder,liveType,liveCount,liveDestroyed;
+        static FieldInfo liveRegisters;
+        static PropertyInfo liveRef,liveType,liveCount,liveDestroyed;
         static readonly List<FieldInfo> liveSides=new List<FieldInfo>();
         static bool active, missingListsReported;
         static readonly HashSet<string> warned = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
@@ -61,10 +62,7 @@ namespace Sest.RuntimeFixes
             Bind(game);
             Type tf=Api.Type(game,"SeaPower.Taskforce"),reg=Api.Type(game,"SeaPower.UnitRegister");
             liveRegisters=Field(tf,"_unitStatusRegister",typeof(List<>).MakeGenericType(reg));
-            Type spent=Api.Type(game,"SeaPower.WeaponsSpent");
-            liveSpent=Field(tf,"_weaponsSpent",typeof(Dictionary<,>).MakeGenericType(typeof(string),spent));
-            spentCount=Field(spent,"_number",typeof(int));
-            liveRef=Property(reg,"IniRef",typeof(string));liveFolder=Property(reg,"IniFolder",typeof(string));
+            liveRef=Property(reg,"IniRef",typeof(string));
             liveType=reg.GetProperty("ObjectType",Api.All);liveCount=Property(reg,"Count",typeof(int));
             liveDestroyed=Property(reg,"IsDestroyed",typeof(bool));
             if(liveType==null || !liveType.PropertyType.IsEnum)throw new MissingMemberException("live unit-register type");
@@ -85,6 +83,7 @@ namespace Sest.RuntimeFixes
             filePath=Api.Method(ini,"getFilePath",typeof(string));
             openCampaign=Api.Method(rules,"OpenCampaignIni",ini);
             taskforceEnabled=Api.Method(rules,"IsTaskForceModeEnabled",typeof(bool),ini);
+            campaignSave=Api.Method(Api.Type(game,"SeaPower.SaveLoadManager"),"GetGlobalCampaignSaveFilePath",typeof(string));
         }
 
         internal static bool TaskForceMenuAvailable()
@@ -93,11 +92,20 @@ namespace Sest.RuntimeFixes
             catch{return false;}
         }
 
-        internal static string StateSource(object ini)
+        static string Hash(string text)
         {
-            string path=(string)filePath.Invoke(ini,null);
-            using(var hash=SHA256.Create())return BitConverter.ToString(hash.ComputeHash(Encoding.UTF8.GetBytes(path ?? ""))).Replace("-","").ToLowerInvariant();
+            using(var hash=SHA256.Create())return BitConverter.ToString(hash.ComputeHash(Encoding.UTF8.GetBytes(text))).Replace("-","").ToLowerInvariant();
         }
+        // The campaign's own .sav names the campaign. Every campaign shares
+        // one temporary state file, which 24 Oct history records hashed.
+        internal static string CampaignSource(object ini)
+        {
+            string path=campaignSave==null?null:(string)campaignSave.Invoke(null,null);
+            if(String.IsNullOrWhiteSpace(path))return LegacySource(ini);
+            return Hash("campaign:"+path.Trim().Replace('\\','/').ToLowerInvariant());
+        }
+        static string LegacySource(object ini)
+        {return filePath==null||ini==null?null:Hash((string)filePath.Invoke(ini,null) ?? "");}
 
         static string SideName(string field)
         {string name=field.Replace("_","").Replace("Taskforce","");return Char.ToUpperInvariant(name[0])+name.Substring(1);}
@@ -161,20 +169,52 @@ namespace Sest.RuntimeFixes
             }
             RawStores(side,InventoryLedger.Parse(stores));return side;
         }
+        static readonly string[,] SavedKeys={
+            {"Player","PlayerWeaponReport","LossRows",CampaignInventory.PlayerKey,CampaignInventory.PlayerSpentKey},
+            {"Enemy","EnemyWeaponReport","KillRows",CampaignInventory.EnemyKey,CampaignInventory.EnemySpentKey}};
+        // Until 24 Oct 2026 the stores keys never reached the campaign .sav, so a
+        // reloaded campaign lost them. The local history kept the same raw
+        // counts: use them only for one completed record whose losses match
+        // exactly and whose expenditure covers the native weapon report.
+        static Dictionary<string,string> Recovered(Dictionary<string,string> values,int index,object[] reportsArgs,string source,string legacy)
+        {
+            var result=values;
+            for(int i=0;i<2;i++)
+            {
+                if(CombatPrices.Get(values,SavedKeys[i,3])!=null)continue;
+                var saved=CaptureSavedSide(reportsArgs[2+i],CombatPrices.Get(values,SavedKeys[i,1]),CombatPrices.Get(values,SavedKeys[i,2]),null,CombatPrices.Get(values,SavedKeys[i,4]),SavedKeys[i,0]);
+                if(saved.Platforms.Ammo.Count==0||saved.Platforms.Unknown>0||saved.Spent.Unknown>0)continue;
+                CombatSideRecord match=null;int found=0;
+                foreach(var game in CombatHistory.Games)
+                {
+                    if(game.MissionIndex!=index||game.Status!="Completed"||game.Source==null||(game.Source!=source&&game.Source!=legacy))continue;
+                    foreach(var side in game.Sides)
+                        if(side.Name==SavedKeys[i,0]&&Same(side.Platforms,saved.Platforms)&&saved.Spent.Ammo.All(p=>InventoryLedger.Get(side.Spent.Ammo,p.Key)>=p.Value)){match=side;found++;}
+                }
+                if(found!=1)continue;
+                if(result==values)result=new Dictionary<string,string>(values,StringComparer.OrdinalIgnoreCase);
+                result[SavedKeys[i,3]]=match.Stores.Serialize();
+                if(CombatPrices.Get(values,SavedKeys[i,4])==null)result[SavedKeys[i,4]]=match.Spent.Serialize();
+            }
+            return result;
+        }
+        static bool Same(InventoryLedger a,InventoryLedger b)
+        {return a.Unknown==0&&b.Unknown==0&&a.Ammo.Count==b.Ammo.Count&&a.Ammo.All(p=>InventoryLedger.Get(b.Ammo,p.Key)==p.Value);}
         internal static List<CombatGameRecord> SavedGames()
         {
             var games=new List<CombatGameRecord>();if(!TaskForceMenuAvailable())return games;
             object ini=openState.Invoke(null,null);if(ini==null)return games;
-            string source=StateSource(ini);
+            string source=CampaignSource(ini),legacy=LegacySource(ini);
             foreach(var section in Data(ini))
             {
                 Match match=Regex.Match(section.Key,"\\AMission_([0-9]+)_TaskForceDebrief\\z");int index;
                 if(!match.Success||!Int32.TryParse(match.Groups[1].Value,out index)||index<1||!(bool)hasSnapshot.Invoke(null,new object[]{ini,index}))continue;
                 object[] reportsArgs={ini,index,null,null,null};try{reports.Invoke(null,reportsArgs);}catch{ }
-                string name=CombatPrices.Get(section.Value,"MissionName") ?? "Campaign mission "+index;
-                var r=new CombatGameRecord{Id="saved:"+source+":"+index,Name=name,Source=source,MissionIndex=index,Status="Saved debrief"};
-                r.Sides.Add(CaptureSavedSide(reportsArgs[2],CombatPrices.Get(section.Value,"PlayerWeaponReport"),CombatPrices.Get(section.Value,"LossRows"),CombatPrices.Get(section.Value,CampaignInventory.PlayerKey),CombatPrices.Get(section.Value,CampaignInventory.PlayerSpentKey),"Player"));
-                r.Sides.Add(CaptureSavedSide(reportsArgs[3],CombatPrices.Get(section.Value,"EnemyWeaponReport"),CombatPrices.Get(section.Value,"KillRows"),CombatPrices.Get(section.Value,CampaignInventory.EnemyKey),CombatPrices.Get(section.Value,CampaignInventory.EnemySpentKey),"Enemy"));
+                var values=Recovered(section.Value,index,reportsArgs,source,legacy);
+                string name=CombatPrices.Get(values,"MissionName") ?? "Campaign mission "+index;
+                var r=new CombatGameRecord{Id="saved:"+source+":"+index,Name=name,Source=source,MissionIndex=index,Status=values==section.Value?"Saved debrief":"Saved debrief + local record"};
+                for(int i=0;i<2;i++)
+                    r.Sides.Add(CaptureSavedSide(reportsArgs[2+i],CombatPrices.Get(values,SavedKeys[i,1]),CombatPrices.Get(values,SavedKeys[i,2]),CombatPrices.Get(values,SavedKeys[i,3]),CombatPrices.Get(values,SavedKeys[i,4]),SavedKeys[i,0]));
                 games.Add(r);
             }
             games.Sort((a,b)=>b.MissionIndex.CompareTo(a.MissionIndex));return games;
@@ -196,26 +236,40 @@ namespace Sest.RuntimeFixes
             foreach(var pair in raw.Stores.Ammo)side.Stores.Add(Price(prices,"weapon",pair.Key,"ammunition"),pair.Value);
             side.Stores.MissingRecords=raw.Stores.Unknown;return side;
         }
-        internal static string[] GameLines(IEnumerable<CombatGameRecord> records,bool detail)
+        // The Task Force menu panel: completed-campaign totals, then one line
+        // per completed mission. Information only; no controls.
+        internal static string[] CampaignLines(List<CombatGameRecord> games,int listed)
         {
             var prices=Prices();if(prices==null)return new[]{"Enable Combat Cost Tracker and restart to load prices."};
-            var sides=new Dictionary<string,Side>();int count=0;
-            foreach(var r in records)
-            {count++;foreach(var raw in r.Sides){Side side;if(!sides.TryGetValue(raw.Name,out side))sides[raw.Name]=side=new Side();side.Merge(PriceRaw(raw,prices));}}
-            var lines=new List<string>{"USD estimates / "+prices.Basis+" / "+count+" recorded game"+(count==1?"":"s")};
-            foreach(string name in new[]{"Player","Enemy","Ally","Neutral"})
+            if(games.Count==0)return new[]{"No completed missions in this campaign yet.","Totals appear here after the first mission debrief."};
+            var totals=new Dictionary<string,Side>();var each=new List<string>();
+            foreach(var r in games.OrderByDescending(g=>g.MissionIndex))
             {
-                Side side;if(!sides.TryGetValue(name,out side))continue;
-                lines.Add(name+" total: "+side.Total.Text);
-                if(detail)
+                var parts=new List<string>();
+                foreach(var raw in r.Sides)
                 {
-                    lines.Add("  Weapons "+side.Weapons.Text+" | Ships "+side.Ships.Text+" | Aircraft "+side.Air.Text);
-                    lines.Add("  Land "+side.Land.Text+" | Stores lost "+side.Stores.Text);
+                    var priced=PriceRaw(raw,prices);Side side;
+                    if(!totals.TryGetValue(raw.Name,out side))totals[raw.Name]=side=new Side();
+                    side.Merge(priced);parts.Add(raw.Name+" "+priced.Total.Text);
                 }
+                if(each.Count<listed)each.Add(r.MissionIndex+". "+Clip(r.Name,34)+"   "+String.Join(" | ",parts));
             }
-            lines.Add("+ ? = missing prices or quantities, including virtual deck pools.");
+            var lines=new List<string>{"USD estimates, "+prices.Basis+". "+games.Count+" completed mission"+(games.Count==1?"":"s")+"."};
+            foreach(string name in new[]{"Player","Enemy"})
+            {
+                Side side;if(!totals.TryGetValue(name,out side))continue;
+                lines.Add(name+" total  "+side.Total.Text);
+                lines.Add("   Weapons "+side.Weapons.Text+"  Ships "+side.Ships.Text+"  Aircraft "+side.Air.Text);
+                lines.Add("   Land "+side.Land.Text+"  Stores lost with units "+side.Stores.Text);
+            }
+            lines.Add("");lines.Add("Missions, latest first");lines.AddRange(each);
+            if(games.Count>each.Count)lines.Add("+ "+(games.Count-each.Count)+" earlier missions, included in the totals");
+            lines.Add("");lines.Add("+ ? = unpriced, or not captured (deck point pools, older saves).");
+            lines.Add("Crew, repairs, fuel burn and cargo are outside this account.");
             return lines.ToArray();
         }
+        static string Clip(string text,int length)
+        {text=(text ?? "Mission").Replace('\n',' ').Replace('\r',' ').Trim();return text.Length>length?text.Substring(0,length-1)+"…":text;}
 
         static FieldInfo Field(Type type,string name,Type expected)
         {
@@ -375,40 +429,6 @@ namespace Sest.RuntimeFixes
         static string Pair(CombatAmount player,CombatAmount enemy)
         { return "Player "+player.Text+" | Enemy "+enemy.Text; }
 
-        internal static string LiveSummary()
-        {
-            var prices=Prices();if(prices==null)return "Enable Combat Cost Tracker and SEST, then restart the game to load the price catalogs.";
-            var lines=new List<string>();
-            foreach(var field in liveSides)
-            {
-                object tf=field.GetValue(null);if(tf==null)continue;
-                var side=new Side();
-                foreach(DictionaryEntry pair in (IDictionary)liveSpent.GetValue(tf))
-                {
-                    int count=(int)spentCount.GetValue(pair.Value);
-                    if(count<0){side.Weapons.MissingRecords++;continue;}
-                    side.Weapons.Add(Price(prices,"weapon",(string)pair.Key,"ammunition"),count);
-                }
-                foreach(object row in (IEnumerable)liveRegisters.GetValue(tf))
-                    if((bool)liveDestroyed.GetValue(row,null))
-                    {
-                        int count=(int)liveCount.GetValue(row,null);
-                        if(count<=0){side.Ships.MissingRecords++;continue;}
-                        AddPlatform(side,prices,(string)liveRef.GetValue(row,null),(string)liveFolder.GetValue(row,null),liveType.GetValue(row,null).ToString(),count);
-                    }
-                var ledger=CampaignInventory.Current(tf);
-                Inventories(side,prices,ledger==null?null:ledger.Serialize());
-                string name=field.Name.Replace("_","").Replace("Taskforce","");
-                name=Char.ToUpperInvariant(name[0])+name.Substring(1);
-                lines.Add(name+": "+side.Total.Text);
-                lines.Add("  Expended "+side.Weapons.Text+"; ships "+side.Ships.Text+"; aircraft "+side.Air.Text);
-                lines.Add("  Land "+side.Land.Text+"; remaining stores lost "+side.Stores.Text);
-            }
-            lines.Add("");lines.Add("USD estimates, "+prices.Basis+". + ? = unpriced items or quantities not captured, including virtual deck stock pools.");
-            lines.Add("Aircraft include recorded deck/ground losses. Crew, damage, repairs and fuel consumption are outside this material-loss account.");
-            return String.Join("\n",lines);
-        }
-
         internal static void Postfix(object __instance,object __0)
         {
             if (!active || __instance==null || __0==null) return;
@@ -425,6 +445,7 @@ namespace Sest.RuntimeFixes
                     return;
                 }
                 var state=Data(ini); var campaign=new Mission(); Mission current=null; int completed=0;
+                string source=CampaignSource(ini),legacy=LegacySource(ini);
                 foreach (var section in state)
                 {
                     Match match=Regex.Match(section.Key,"\\AMission_([0-9]+)_TaskForceDebrief\\z",RegexOptions.CultureInvariant);
@@ -432,7 +453,8 @@ namespace Sest.RuntimeFixes
                     if (!match.Success || !Int32.TryParse(match.Groups[1].Value,out i) || i<1) continue;
                     if (!String.Equals((string)sectionName.Invoke(null,new object[]{i}),section.Key,StringComparison.OrdinalIgnoreCase) ||
                         !(bool)hasSnapshot.Invoke(null,new object[]{ini,i})) continue;
-                    var mission=Read(ini,section.Value,i,prices); completed++;
+                    object[] reportsArgs={ini,i,null,null,null};try{reports.Invoke(null,reportsArgs);}catch{ }
+                    var mission=Read(ini,Recovered(section.Value,i,reportsArgs,source,legacy),i,prices); completed++;
                     campaign.Player.Merge(mission.Player); campaign.Enemy.Merge(mission.Enemy);
                     if (i==index) current=mission;
                 }

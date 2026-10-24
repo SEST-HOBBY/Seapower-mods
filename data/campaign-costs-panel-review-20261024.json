@@ -1,0 +1,96 @@
+{
+ "date": "2026-10-24",
+ "scope": "F11 split (mission = tracker's own panel; Task Force menu = campaign totals, no buttons), stores carried into the campaign .sav, recovery from the local record",
+ "branch": "sest-dev/jolly-ride-rptj4t",
+ "merged": "fix/red-line-pacing-20261024 at 91edca7e",
+ "native_verification": {
+  "game_dll_sha256": "eab2297ba92c6013958bdb2cf16d5794a4731330818ce353f89dc2241e16a3bd",
+  "mode": "exact 0.8.7 DLL, not comparison mode",
+  "method_signatures": 58,
+  "parameter_orders": 15,
+  "fields": 22,
+  "properties": 23,
+  "tracker_sha256": "74afa9028fc0c52b93f415263504f51ecf8d056a624feaebcc8053ba5a1c0ac3",
+  "tracker_methods": 3,
+  "tracker_fields": 11
+ },
+ "runtime": {
+  "sha256": "f52601673ac4cf9b7a3d3ea5b22b6c0a8c292eca1d17f85193cffcecfff626c8",
+  "validation": "177 assertions passed using mocked native APIs; no Unity gameplay claim",
+  "deterministic_rebuild": true
+ },
+ "build": {
+  "from_scratch": "pass",
+  "packs": 25,
+  "installed_files": 4294
+ },
+ "gates": [
+  {
+   "command": "python3 tools/check_pack_fidelity.py",
+   "returncode": 0
+  },
+  {
+   "command": "python3 tools/check_campaign_coverage.py",
+   "returncode": 0
+  },
+  {
+   "command": "python3 tools/check_dependencies.py",
+   "returncode": 0
+  },
+  {
+   "command": "python3 tools/check_load_order.py",
+   "returncode": 0
+  },
+  {
+   "command": "python3 tools/preflight.py --all",
+   "returncode": 0
+  },
+  {
+   "command": "python3 tools/check_weapon_employment.py",
+   "returncode": 0
+  },
+  {
+   "command": "python3 tools/check_alias_bases.py",
+   "returncode": 0
+  },
+  {
+   "command": "python3 tools/check_scenarios.py",
+   "returncode": 0
+  },
+  {
+   "command": "python3 tools/check_stale_phrases.py",
+   "returncode": 0
+  },
+  {
+   "command": "python3 tools/check_inventory.py",
+   "returncode": 0
+  },
+  {
+   "command": "python3 tools/check_game_version.py",
+   "returncode": 0
+  },
+  {
+   "command": "python3 tools/check_vanilla_drift.py --since 1bda58a6",
+   "returncode": 0
+  },
+  {
+   "command": "python3 tools/check_combat_costs.py",
+   "returncode": 0
+  }
+ ],
+ "python_suites": [
+  {
+   "suite": "tools",
+   "tests": 178,
+   "skipped": 7,
+   "result": "pass"
+  },
+  {
+   "suite": "campaign",
+   "tests": 300,
+   "skipped": 0,
+   "result": "pass"
+  }
+ ],
+ "pc_acceptance": "pending: docs/playtests/campaign-costs-panel-20261024.md"
+}

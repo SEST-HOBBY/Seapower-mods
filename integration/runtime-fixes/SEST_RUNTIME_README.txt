@@ -48,39 +48,41 @@ feature. Linux tests cover mocked native APIs and policy, not Unity gameplay.
 
 COMPLETE COMBAT COSTS (private playtest; native PC acceptance pending)
 Requires enabled Combat Cost Tracker catalogs and a full game restart.
-F11 contains This mission, Cumulative Combat Costs and Last games.
-The first tab retains the author's live tracker. Cumulative offers this campaign,
-recorded ended sessions and a current-mission detailed view including land,
-registered parked aircraft and remaining itemized stores. In the Task Force menu,
-F11 opens the cumulative and history views between missions. F10 is retired.
-Requires the inspected Combat Cost Tracker 0.7.1; an unknown version retains its
-original UI without the SEST extension. No game/tracker DLL is redistributed.
+In a mission, F11 is the Combat Cost Tracker's own panel: this mission's costs.
+In the Task Force menu between missions, F11 opens SEST's campaign panel and F11
+closes it. It shows the completed missions' Player and Enemy totals (weapons,
+ships, aircraft, land, stores lost with destroyed units) and one line per
+completed mission, the latest ten listed. Information only: no tabs or buttons.
+Requires the inspected Combat Cost Tracker 0.7.1; with an unknown version the
+tracker works as before and the campaign panel stays off. No game or tracker
+DLL is redistributed.
 
-Last games retains newly recorded sessions and reads earlier debriefs in the
-current campaign. Raw quantities, never USD totals, are archived locally under
-SEST/combat-history-v1.txt in the game's LocalLow settings directory. Loading a
-mid-mission save updates its own session; retries/replays are separate recorded
-games. Completed campaign totals still count each completed native mission once.
-Older standalone games and uncaptured quantities cannot be reconstructed.
+Stores lost carry through the campaign. Each completed mission's lost stores and
+full expenditure are written into the campaign save itself, so the next mission
+no longer erases them. A mission completed before this fix gets its stores back
+from SEST's local record of that game, but only when exactly one record matches
+its losses; otherwise they show + ?. Raw quantities, never USD totals, are kept
+under SEST/combat-history-v1.txt in the game's LocalLow settings directory.
 
 The task-force campaign debrief gains Combat Cost rows for Player and Enemy,
 this mission and completed campaign totals. Prices use the selected historical
 or current mode. Existing checked prices are preserved; gaps use labelled SEST
 estimates. All resolved weapon, ship, aircraft and land references are covered.
 
-CampaignCombatCosts controls the saved-debrief display. CumulativeCombatCosts
-controls the F11 extension/history. CombatCostInventories captures remaining itemized
-stores and raw expenditure. It writes only versioned SEST quantity keys alongside
-native mission/campaign save records, never USD totals or purchase points.
-Completed mission captures survive replays; old missing captures stay unknown.
+CampaignCombatCosts controls the debrief rows. CumulativeCombatCosts controls the
+F11 campaign panel and the local record. CombatCostInventories captures remaining
+itemized stores and raw expenditure. It writes only versioned SEST quantity keys
+alongside native mission/campaign save records, never USD totals or purchase
+points. Completed mission captures survive replays.
 
 + ? means missing quantities/prices, including unitemized flight-deck point pools.
 Cargo, crew, operating fuel burn, repairs and damaged-only platforms are outside
-this material-loss account. Land and parked-aircraft additions appear in SEST's
-detailed views; the first F11 tab retains the author's scope. Changing catalogs or price mode
-reprices the saved counts. Crew and game acquisition points are never USD.
+this material-loss account. Land and parked-aircraft losses appear in SEST's
+campaign panel and debrief rows; the in-mission panel keeps the tracker's scope.
+Changing catalogs or price mode reprices the saved counts. Crew and game
+acquisition points are never USD.
 
 Player.log must show: campaign combat costs installed; combat inventory capture
-installed; Cumulative Combat Costs and Last games embedded in original F11. Check the new private playtest
-card for actual fire/loss/save/load tests. Linux mocks and a structural comparison
-on an older native DLL do not establish gameplay success on 0.8.7.
+installed; F11 campaign combat costs installed. Check the private playtest card
+for the fire/loss/save tests. Linux mocks do not establish gameplay success on
+0.8.7.

@@ -47,6 +47,8 @@ namespace SeaPower
     {
         public static void WriteTaskforceAarData(IniHandler ini,Taskforce taskforce,string sectionName) { }
         public static void LoadTaskforceAarData(IniHandler missionIni,Taskforce taskforce,string sectionName) { }
+        public static string CampaignSave="saves/Test campaign.sav";
+        public static string GetGlobalCampaignSaveFilePath() { return CampaignSave; }
     }
     public static partial class Globals { public static Taskforce _playerTaskforce,_enemyTaskforce; }
     public partial class IniHandler
@@ -65,6 +67,16 @@ namespace SeapowerUI.ViewModels
     public partial class LinearCampaignTaskForceDebriefViewModel
     {
         static void SaveDebriefSnapshot(SeaPower.LinearCampaignMission mission,MissionDebriefViewModel debrief) { }
+        // The native copy of this mission's debrief sections into the campaign .sav.
+        public static readonly SeaPower.IniHandler Save=new SeaPower.IniHandler();
+        public static int Persisted;public static bool PersistFails;
+        static void PersistDebriefSectionsToCurrentCampaignSave(SeaPower.IniHandler state,int index)
+        {
+            if(PersistFails)throw new InvalidOperationException("test .sav failure");
+            Persisted++;string name=GetDebriefSectionName(index);
+            foreach(var pair in state.Data)
+                if(pair.Key==name||pair.Key.StartsWith(name+"_"))Save.Data[pair.Key]=new Dictionary<string,string>(pair.Value,StringComparer.OrdinalIgnoreCase);
+        }
     }
 }
 
@@ -148,15 +160,26 @@ static class InventoryTests
         Check(section["Native"]=="preserved" && section.ContainsKey(CampaignInventory.PlayerKey),"completed mission gets own capture keys only");
         Check(state.Saves==1 && InventoryLedger.Parse(section[CampaignInventory.PlayerKey]).Ammo["round"]==26,"native merge save persists campaign quantities");
         Check(InventoryLedger.Parse(section[CampaignInventory.PlayerSpentKey]).Ammo["tank"]==1,"native spent counter retained including types absent from saved weapon report");
+        var sav=SeapowerUI.ViewModels.LinearCampaignTaskForceDebriefViewModel.Save.Data["Mission_4_TaskForceDebrief"];
+        Check(SeapowerUI.ViewModels.LinearCampaignTaskForceDebriefViewModel.Persisted==1 && sav[CampaignInventory.PlayerKey]==section[CampaignInventory.PlayerKey] &&
+            sav[CampaignInventory.PlayerSpentKey]==section[CampaignInventory.PlayerSpentKey],"own keys copied into the campaign .sav that the next campaign load rebuilds from");
         string original=section[CampaignInventory.PlayerKey];
         CampaignInventory.BeforeCampaignSave(mission,out prior);
         section.Remove(CampaignInventory.PlayerKey);section.Remove(CampaignInventory.EnemyKey); // emulate native snapshot replacement
         Lose(tf,Unit("replay-extra",SeaPower.ObjectBase.ObjectType.Vessel,"round","100"));
         CampaignInventory.AfterCampaignSave(mission,prior);
         Check(section[CampaignInventory.PlayerKey]==original,"replay preserves completed mission capture rather than adding a second attempt");
+        Check(SeapowerUI.ViewModels.LinearCampaignTaskForceDebriefViewModel.Save.Data["Mission_4_TaskForceDebrief"][CampaignInventory.PlayerKey]==original,"replay restores the capture in the campaign .sav too");
         var old=new SeaPower.LinearCampaignMission{_index=1};state.Data["Mission_1_TaskForceDebrief"]=new Dictionary<string,string>{{"Complete","True"}};
         CampaignInventory.BeforeCampaignSave(old,out prior);int writes=state.Writes;CampaignInventory.AfterCampaignSave(old,prior);
         Check(state.Writes==writes && !state.Data["Mission_1_TaskForceDebrief"].ContainsKey(CampaignInventory.PlayerKey),"older campaign without capture is never backfilled with current losses");
+        Check(!SeapowerUI.ViewModels.LinearCampaignTaskForceDebriefViewModel.Save.Data.ContainsKey("Mission_1_TaskForceDebrief"),"nothing copied to the .sav when nothing was written");
+        var lostSav=new SeaPower.LinearCampaignMission{_index=6};CampaignInventory.BeforeCampaignSave(lostSav,out prior);
+        state.Data["Mission_6_TaskForceDebrief"]=new Dictionary<string,string>{{"Complete","True"}};
+        SeapowerUI.ViewModels.LinearCampaignTaskForceDebriefViewModel.PersistFails=true;CampaignInventory.AfterCampaignSave(lostSav,prior);
+        SeapowerUI.ViewModels.LinearCampaignTaskForceDebriefViewModel.PersistFails=false;
+        Check(state.Data["Mission_6_TaskForceDebrief"].ContainsKey(CampaignInventory.PlayerKey),"a failed .sav copy keeps the keys in the campaign state");
+        state.Data.Remove("Mission_6_TaskForceDebrief");
         var failed=new SeaPower.LinearCampaignMission{_index=5};CampaignInventory.BeforeCampaignSave(failed,out prior);writes=state.Writes;
         CampaignInventory.AfterCampaignSave(failed,prior);Check(state.Writes==writes,"failed or unfinished mission adds no campaign ledger");
 

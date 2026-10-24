@@ -109,6 +109,10 @@ METHODS.update({
     (RULES,"IsTaskForceModeEnabled"): "static bool(class SeaPower.IniHandler)",
     ("SeaPower.GameMain","OnDestroy"): "instance void()",
     ("SeaPower.GameMain","Update"): "instance void()",
+    # Added 24 Oct 2026, checked on 0.8.7: copying the debrief section into the .sav
+    # again once SEST's keys are in it, and naming the campaign by its .sav.
+    (VM,"PersistDebriefSectionsToCurrentCampaignSave"): "static void(class SeaPower.IniHandler, int)",
+    ("SeaPower.SaveLoadManager","GetGlobalCampaignSaveFilePath"): "static string()",
 })
 OVERLOADS = [(INI,"readValue","instance string(string, string, string, bool)")]
 # Instance members read through GetField/GetProperty (exact name) or, for the names in

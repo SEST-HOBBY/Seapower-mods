@@ -66,63 +66,42 @@ static class F11CostTests
 {
     static int checks;
     static void Check(bool value,string label){checks++;if(!value)throw new Exception("F11: "+label);}
-    static void Set(string field,object value){typeof(F11CombatCosts).GetField(field,BindingFlags.Static|BindingFlags.NonPublic).SetValue(null,value);}
-    static F11CombatCosts.Frame Start(WeaponCostsMod.Overlay owner)
-    {F11CombatCosts.Frame state;Check(F11CombatCosts.BeforeGUI(owner,out state),"live original OnGUI retained");return state;}
-    static void End(F11CombatCosts.Frame state){F11CombatCosts.AfterGUI(state);F11CombatCosts.FinallyGUI(null,state);}
+    static bool Draw(WeaponCostsMod.Overlay owner){UnityEngine.GUI.Reset();return F11CombatCosts.BeforeGUI(owner);}
+    static void Press(WeaponCostsMod.Overlay owner,bool modifier=false)
+    {UnityEngine.Input.Press=true;UnityEngine.Input.Modifier=modifier;F11CombatCosts.AfterUpdate(owner);UnityEngine.Input.Press=false;UnityEngine.Input.Modifier=false;}
     internal static int Run()
     {
         string path=Path.Combine(Path.GetTempPath(),"sest-f11-test-"+Guid.NewGuid().ToString("N")+".txt");
         try
         {
             CampaignCosts.BindMenu(Assembly.GetExecutingAssembly());CombatHistory.Open(path);
-            F11CombatCosts.Bind(Assembly.GetExecutingAssembly());var owner=new WeaponCostsMod.Overlay();UnityEngine.GUI.Reset();
-            F11CombatCosts.AfterUpdate(owner);var frame=Start(owner);
-            Check(F11CombatCosts.BeforeToolbar(),"native controls retained on mission tab");
-            string description="Original";F11CombatCosts.Description(ref description);
-            Check(description=="Original\n\n","header reserves tab space only inside overlay");
-            float height=20;F11CombatCosts.LineHeight(ref height);Check(height==20,"mission row sizes unchanged");
-            Check(F11CombatCosts.Comparison(owner,0,0,0,100)&&F11CombatCosts.Faction(),"original mission cost rows retained");
-            float nativeSide=80;F11CombatCosts.SideHeight(ref nativeSide);Check(nativeSide==80,"native side height retained on mission tab");
-            F11CombatCosts.AfterToolbar(owner,0,0,640);
-            Check(UnityEngine.GUI.Buttons.Contains("Cumulative Combat Costs")&&UnityEngine.GUI.Buttons.Contains("Last games"),"both requested tabs inside original panel");
-            End(frame);description="Original";F11CombatCosts.Description(ref description);Check(description=="Original","no sticky description change outside panel");
-            frame=Start(owner);UnityEngine.GUI.Click="Cumulative Combat Costs";F11CombatCosts.AfterToolbar(owner,0,0,640);End(frame);
-            frame=Start(owner);Check(!F11CombatCosts.BeforeToolbar(),"currency conversion toolbar not misapplied to own USD values");
-            height=20;F11CombatCosts.LineHeight(ref height);Check(height==450,"custom body uses fixed readable height");
-            F11CombatCosts.LineHeight(ref height);Check(height==0,"native extra rows do not shrink the custom view");
-            float sideHeight=900;F11CombatCosts.SideHeight(ref sideHeight);Check(sideHeight==0,"hidden ally/neutral native rows do not shrink custom view");
-            Check(!F11CombatCosts.Comparison(owner,12,378,278,100)&&!F11CombatCosts.Faction(),"custom totals replace native rows only on selected tab");
-            Check(UnityEngine.GUI.Labels.Contains("Cumulative Combat Costs")&&UnityEngine.GUI.Labels.Any(x=>x.Contains("Land $600K")),"saved full material totals displayed in F11");
-            Check(UnityEngine.GUI.Buttons.Contains("Current mission detail"),"complete live breakdown remains accessible in same F11");
-            End(frame);
-            Set("selected",2);frame=Start(owner);F11CombatCosts.Comparison(owner,12,378,278,100);End(frame);
-            Check(UnityEngine.GUI.Labels.Contains("Last games")&&UnityEngine.GUI.Buttons.Any(x=>x.Contains("Old mission")),"earlier native debriefs available as last games");
-            string pick=UnityEngine.GUI.Buttons.Last(x=>x.Contains("Old mission"));UnityEngine.GUI.Click=pick;
-            frame=Start(owner);F11CombatCosts.Comparison(owner,12,378,278,100);End(frame);
-            frame=Start(owner);F11CombatCosts.Comparison(owner,12,378,278,100);End(frame);
-            Check(UnityEngine.GUI.Buttons.Contains("Back to games"),"history record opens drill-down");
+            F11CombatCosts.Bind(Assembly.GetExecutingAssembly());var owner=new WeaponCostsMod.Overlay();
+            F11CombatCosts.AfterUpdate(owner);
+            Check(Draw(owner)&&UnityEngine.GUI.Labels.Count==0&&UnityEngine.GUI.Buttons.Count==0,"in a mission F11 is the tracker's own panel, untouched");
+            Press(owner);
+            Check(Draw(owner)&&UnityEngine.GUI.Labels.Count==0,"F11 in a mission never opens SEST's panel");
+            Check(owner.popup=="old"&&owner.visible,"tracker state untouched in a mission");
 
-            owner.missionActive=false;owner.mission=null;UnityEngine.Input.Press=false;F11CombatCosts.AfterUpdate(owner);UnityEngine.GUI.Reset();
-            F11CombatCosts.Frame menuState;
-            Check(!F11CombatCosts.BeforeGUI(owner,out menuState)&&UnityEngine.GUI.Labels.Count==0,"menu starts closed without altering original visibility");
-            UnityEngine.Input.Press=true;F11CombatCosts.AfterUpdate(owner);UnityEngine.Input.Press=false;
-            Check(!F11CombatCosts.BeforeGUI(owner,out menuState),"F11 draws inside original component between missions");
-            Check(UnityEngine.GUI.Labels.Contains("Task Force menu")&&UnityEngine.GUI.Labels.Contains("Cumulative Combat Costs"),"Task Force menu opens cumulative view");
-            Check(UnityEngine.GUI.matrix.Scale==1 && UnityEngine.GUI.depth==8 && UnityEngine.GUI.color.a==1,"GUI state restored after menu rendering");
-            UnityEngine.Input.Press=true;UnityEngine.Input.Modifier=true;F11CombatCosts.AfterUpdate(owner);UnityEngine.GUI.Reset();F11CombatCosts.BeforeGUI(owner,out menuState);
-            Check(UnityEngine.GUI.Labels.Count>0,"modified F11 ignored consistently with tracker");
-            UnityEngine.Input.Press=true;F11CombatCosts.AfterUpdate(owner);UnityEngine.GUI.Reset();F11CombatCosts.BeforeGUI(owner,out menuState);
-            Check(UnityEngine.GUI.Labels.Count==0,"second F11 hides menu view");
+            owner.missionActive=false;owner.mission=null;F11CombatCosts.AfterUpdate(owner);
+            Check(!Draw(owner)&&UnityEngine.GUI.Labels.Count==0,"Task Force menu panel starts closed");
+            Press(owner);
+            Check(!Draw(owner)&&UnityEngine.GUI.Labels.Contains("COMBAT COSTS / CAMPAIGN"),"F11 in the Task Force menu opens the campaign panel");
+            Check(UnityEngine.GUI.Labels.Any(x=>x.StartsWith("Player total"))&&UnityEngine.GUI.Labels.Any(x=>x.Contains("Land $600K")),"campaign totals with land losses shown");
+            Check(UnityEngine.GUI.Labels.Any(x=>x.StartsWith("1. Old mission"))&&UnityEngine.GUI.Labels.Any(x=>x.StartsWith("2. ")),"one line per completed mission");
+            Check(UnityEngine.GUI.Buttons.Count==0&&UnityEngine.GUI.Backgrounds==1,"information only: one panel, no buttons or tabs");
+            Check(UnityEngine.GUI.matrix.Scale==1&&UnityEngine.GUI.depth==8&&UnityEngine.GUI.color.a==1,"GUI state restored after drawing");
+            Press(owner,true);Draw(owner);
+            Check(UnityEngine.GUI.Labels.Count>0,"modified F11 ignored, as the tracker does");
+            Press(owner);Draw(owner);
+            Check(UnityEngine.GUI.Labels.Count==0,"second F11 closes the panel");
+            Press(owner);owner.missionActive=true;F11CombatCosts.AfterUpdate(owner);owner.missionActive=false;F11CombatCosts.AfterUpdate(owner);Draw(owner);
+            Check(UnityEngine.GUI.Labels.Count==0,"starting a mission closes the panel");
             SeapowerUI.ViewModels.LinearCampaignTaskForceModeRules.TaskForce=false;
-            UnityEngine.Input.Press=true;F11CombatCosts.AfterUpdate(owner);UnityEngine.GUI.Reset();F11CombatCosts.BeforeGUI(owner,out menuState);
-            Check(UnityEngine.GUI.Labels.Count==0,"no unrelated main-menu popups");SeapowerUI.ViewModels.LinearCampaignTaskForceModeRules.TaskForce=true;
-            owner.missionActive=true;owner.visible=false;UnityEngine.GUI.Reset();F11CombatCosts.BeforeGUI(owner,out menuState);
-            Check(menuState==null&&UnityEngine.GUI.Labels.Count==0,"hidden native overlay stays hidden in mission");
-            owner.visible=true;frame=Start(owner);var original=new Exception("native error");
-            Check(Object.ReferenceEquals(F11CombatCosts.FinallyGUI(original,frame),original),"finalizer preserves original exception");
-            description="Original";F11CombatCosts.Description(ref description);Check(description=="Original","exception clears extension frame");
-            UnityEngine.GUI.Throw=true;bool failed=false;try{CostGUI.Panel(14,10,1,.8f,(x,y)=>CostGUI.Label(x,y,10,10,"fail",owner.label));}catch(TargetInvocationException){failed=true;}
+            Press(owner);Draw(owner);
+            Check(UnityEngine.GUI.Labels.Count==0,"no panel outside a Task Force campaign");
+            SeapowerUI.ViewModels.LinearCampaignTaskForceModeRules.TaskForce=true;
+            UnityEngine.GUI.Throw=true;bool failed=false;
+            try{CostGUI.Panel(14,10,1,.8f,200,(x,y)=>CostGUI.Label(x,y,10,10,"fail",owner.label));}catch(TargetInvocationException){failed=true;}
             Check(failed&&UnityEngine.GUI.matrix.Scale==1&&UnityEngine.GUI.depth==8&&UnityEngine.GUI.color.a==1,"GUI state restored even on drawing failure");
             UnityEngine.GUI.Throw=false;F11CombatCosts.BeforeDestroy();Check(File.Exists(path),"teardown persists final observed session");
         }

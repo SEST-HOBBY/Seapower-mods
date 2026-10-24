@@ -65,7 +65,7 @@ namespace Sest.RuntimeFixes
         static ConditionalWeakTable<object,InventoryLedger> ledgers=new ConditionalWeakTable<object,InventoryLedger>();
         static FieldInfo objectType,parameters,objectRef,registers,deck,deckAmmo,deckAccountable,player,enemy,index;
         static PropertyInfo amounts,registerRef,registerType,registerDestroyed,registerCount;
-        static MethodInfo write,read,saveFile,openState,sectionName,hasSnapshot;
+        static MethodInfo write,read,saveFile,openState,sectionName,hasSnapshot,persist;
         static MethodInfo registerTarget,saveTarget,loadTarget,campaignTarget;
         static FieldInfo weaponsSpent,spentNumber;
         static bool active;
@@ -116,6 +116,7 @@ namespace Sest.RuntimeFixes
             openState=Api.Method(rules,"OpenCampaignStateIni",ini);
             sectionName=Api.Method(vm,"GetDebriefSectionName",typeof(string),typeof(int));
             hasSnapshot=Api.Method(vm,"HasDebriefSnapshot",typeof(bool),ini,typeof(int));
+            persist=Api.Method(vm,"PersistDebriefSectionsToCurrentCampaignSave",typeof(void),ini,typeof(int));
             index=Field(mission,"_index",typeof(int));player=Field(globals,"_playerTaskforce",tf);enemy=Field(globals,"_enemyTaskforce",tf);
             registerTarget=Api.Method(tf,"RegisterUnitStatus",typeof(void),typeof(bool),obj,typeof(bool),typeof(bool));
             weaponsSpent=Field(tf,"_weaponsSpent");spentNumber=Field(Api.Type(game,"SeaPower.WeaponsSpent"),"_number",typeof(int));
@@ -266,9 +267,17 @@ namespace Sest.RuntimeFixes
                 if(!String.IsNullOrEmpty(e))Write(ini,section,EnemyKey,e);
                 if(!String.IsNullOrEmpty(ps))Write(ini,section,PlayerSpentKey,ps);
                 if(!String.IsNullOrEmpty(es))Write(ini,section,EnemySpentKey,es);
-                if(!String.IsNullOrEmpty(p) || !String.IsNullOrEmpty(e) || !String.IsNullOrEmpty(ps) || !String.IsNullOrEmpty(es))saveFile.Invoke(ini,new object[]{false});
+                if(!String.IsNullOrEmpty(p) || !String.IsNullOrEmpty(e) || !String.IsNullOrEmpty(ps) || !String.IsNullOrEmpty(es))
+                {
+                    saveFile.Invoke(ini,new object[]{false});
+                    // SaveDebriefSnapshot has already copied this section into
+                    // the campaign .sav, and the next campaign load rebuilds the
+                    // temporary state from that file. Copy it again with our keys.
+                    try{persist.Invoke(null,new object[]{ini,i});}
+                    catch(Exception x){Api.LogFailure("combat inventory not copied to the campaign save; it lasts until the campaign reloads",x);}
+                }
                 if(CombatHistory.CurrentId!=null)
-                    CombatHistory.CompleteCampaign(CampaignCosts.StateSource(ini),i,__state.Snapshot,CampaignCosts.CaptureLive("Campaign mission "+i));
+                    CombatHistory.CompleteCampaign(CampaignCosts.CampaignSource(ini),i,__state.Snapshot,CampaignCosts.CaptureLive("Campaign mission "+i));
             }
             catch(Exception e){Api.LogFailure("combat inventory campaign supplement unavailable; native records retained",e);}
         }

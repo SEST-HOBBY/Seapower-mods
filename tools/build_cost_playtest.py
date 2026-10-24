@@ -17,6 +17,7 @@ ROOT=Path(__file__).resolve().parents[1]
 PROFILES={
     'complete-combat-costs': ('fix/complete-combat-costs-20261024','complete-combat-costs-20261024','COMPLETE COMBAT COSTS'),
     'red-line-f11': ('fix/red-line-pacing-20261024','red-line-f11-20261024','RED LINE AND F11 CUMULATIVE COMBAT COSTS'),
+    'campaign-costs-panel': ('sest-dev/jolly-ride-rptj4t','campaign-costs-panel-20261024','F11 CAMPAIGN COMBAT COSTS'),
 }
 
 
@@ -65,7 +66,7 @@ def main():
             'Close Sea Power. Extract the ZIP, then run Install-SEST-Playtest.ps1 with -Repository pointing to your existing Seapower-mods clone.\n'
             'The installer verifies the bundle, imports the exact commit, and syncs from a temporary detached worktree. It leaves your main checkout and branch in place.\n'
             'The bundle requires the existing '+baseline[:8]+' history or a descendant. No remote pull/push or Steam upload occurs.\n'
-            'After successful install, fully restart the game and follow PC-TEST-CARD.md. F11 contains This mission, Cumulative Combat Costs and Last games; cumulative/history also open from the Task Force menu.\n'
+            'After successful install, fully restart the game and follow PC-TEST-CARD.md. In a mission F11 is the tracker\'s own panel; in the Task Force menu F11 shows the campaign totals.\n'
             'All 4365 resolved equipment references have prices in both modes. Estimates are labelled; gameplay acceptance remains pending.\n')
         with zipfile.ZipFile(output,'w',compression=zipfile.ZIP_DEFLATED,compresslevel=6) as z:
             for p in sorted(stage.iterdir()):z.write(p,p.name)

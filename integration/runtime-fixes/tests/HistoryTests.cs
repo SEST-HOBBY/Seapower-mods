@@ -44,10 +44,10 @@ static class HistoryTests
             var live=CampaignCosts.CaptureLive("Current mission");
             Check(live.Sides[0].Platforms.Ammo["land:radar"]==1,"live native land register retained");
             Check(live.Sides[0].Stores.Unknown>0,"uncaptured past inventory incomplete");
-            var lines=CampaignCosts.GameLines(new[]{live},true);
+            var lines=CampaignCosts.CampaignLines(new List<CombatGameRecord>{live},10);
             Check(lines.Any(s=>s.Contains("Land $600K")) && lines.Any(s=>s.Contains("Weapons $80")),"raw live quantities use selected catalogs");
             SeaPower.Utils.Catalogs["config"].Data["Costs"]["UseCurrentYearCosts"]="False";
-            Check(CampaignCosts.GameLines(new[]{live},true).Any(s=>s.Contains("Weapons $40")),"same raw game repriced when basis changes");
+            Check(CampaignCosts.CampaignLines(new List<CombatGameRecord>{live},10).Any(s=>s.Contains("Weapons $40")),"same raw game repriced when basis changes");
             SeaPower.Utils.Catalogs["config"].Data["Costs"]["UseCurrentYearCosts"]="True";
 
             CombatHistory.Open(Path.Combine(dir,"sessions.txt"));object context=new object();live.Context=tf;
@@ -82,8 +82,39 @@ static class HistoryTests
             Check(saved.Count==2 && saved[0].MissionIndex==2,"history imports only completed exact native debriefs");
             Check(saved[1].Name=="Old mission" && saved[1].EndedUtc==0,"old debrief name retained without inventing date");
             Check(saved[0].Sides[0].Stores.Unknown>0,"old lost magazines remain unknown");
-            Check(CampaignCosts.GameLines(saved,true).Any(x=>x.Contains("Land $600K")),"campaign totals include saved land losses");
+            lines=CampaignCosts.CampaignLines(saved,10);
+            Check(lines.Any(x=>x.Contains("Land $600K")),"campaign totals include saved land losses");
+            Check(lines[0].EndsWith("2 completed missions.") && lines.Any(x=>x.StartsWith("1. Old mission")) && lines.Any(x=>x.StartsWith("2. Campaign mission 2")),"one line per completed mission under the totals");
+            Check(CampaignCosts.CampaignLines(saved,1).Any(x=>x=="+ 1 earlier missions, included in the totals"),"long campaigns list the latest missions and keep all in the totals");
             Check(state.Writes==0 && state.Saves==0,"viewing history and totals never writes campaign saves");
+            CombatHistory.Observe(null,null);
+
+            // Stores lost before the .sav fix: recover them from the one local
+            // record of that completed mission whose losses match exactly.
+            string legacy;using(var sha=System.Security.Cryptography.SHA256.Create())
+                legacy=BitConverter.ToString(sha.ComputeHash(System.Text.Encoding.UTF8.GetBytes(state.FilePath))).Replace("-","").ToLowerInvariant();
+            Func<string,string,long,CombatGameRecord> completed=(key,origin,decoys)=>{
+                var g=Record(key);g.Status="Completed";g.MissionIndex=2;g.Source=origin;g.Sides[0].Stores.Ammo["decoy"]=decoys;return g;};
+            Action<CombatGameRecord[]> archive=games=>{
+                string file=Path.Combine(dir,"recover-"+Guid.NewGuid().ToString("N")+".txt");
+                File.WriteAllLines(file,new[]{"SEST-COMBAT-HISTORY-1"}.Concat(games.Select(g=>g.Encode())));CombatHistory.Open(file);};
+            archive(new[]{completed("one",legacy,2)});saved=CampaignCosts.SavedGames();
+            Check(saved[0].Sides[0].Stores.Ammo["decoy"]==2 && saved[0].Sides[0].Stores.Unknown==0 && saved[0].Status=="Saved debrief + local record","stores lost in a mission completed before the fix recovered from its local record");
+            Check(saved[0].Sides[0].Spent.Ammo["round"]==4,"the same record supplies the full expenditure");
+            Check(state.Writes==0 && state.Saves==0,"recovery reads only; the campaign save is not rewritten");
+            archive(new[]{completed("one",legacy,2),completed("two",legacy,5)});
+            Check(CampaignCosts.SavedGames()[0].Sides[0].Stores.Unknown>0,"two candidate records: nothing guessed");
+            var other2=completed("three",legacy,2);other2.Sides[0].Platforms.Ammo["land:radar"]=2;archive(new[]{other2});
+            Check(CampaignCosts.SavedGames()[0].Sides[0].Stores.Unknown>0,"a record with different losses is not used");
+            archive(new[]{completed("four","another-campaign",2)});
+            Check(CampaignCosts.SavedGames()[0].Sides[0].Stores.Unknown>0,"a record from another campaign is not used");
+            SeaPower.SaveLoadManager.CampaignSave="saves/Red Line.sav";string a=CampaignCosts.CampaignSource(state);
+            SeaPower.SaveLoadManager.CampaignSave="saves/Steel Highway.sav";string b=CampaignCosts.CampaignSource(state);
+            SeaPower.SaveLoadManager.CampaignSave="";
+            Check(a!=b && CampaignCosts.CampaignSource(state)==legacy,"each campaign .sav names its own campaign");
+            archive(new[]{completed("five",b,2)});SeaPower.SaveLoadManager.CampaignSave="saves/Steel Highway.sav";
+            Check(CampaignCosts.SavedGames()[0].Sides[0].Stores.Ammo["decoy"]==2,"records written with the campaign identity also recover");
+            SeaPower.SaveLoadManager.CampaignSave="saves/Test campaign.sav";
             CombatHistory.Observe(null,null);
         }
         finally{Directory.Delete(dir,true);}

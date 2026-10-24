@@ -27,7 +27,7 @@ try {
     & powershell -NoProfile -ExecutionPolicy Bypass -File $SESTSync -SkipPull -AnyBranch
     if ($LASTEXITCODE) { throw 'Sync failed; read its last lines before starting the game.' }
     Write-Host ('Playtest {0} installed. Expected: IN LINE: all {1} installed files match this commit ({0}).' -f $SESTManifest.commit.Substring(0,8),$SESTManifest.installed_files) -ForegroundColor Green
-    Write-Host 'Fully restart Sea Power. F11 = This mission, Cumulative Combat Costs and Last games; also available in the Task Force menu. Follow PC-TEST-CARD.md; native acceptance is pending.'
+    Write-Host 'Fully restart Sea Power. F11 in a mission = this mission; F11 in the Task Force menu = campaign totals. Follow PC-TEST-CARD.md; native acceptance is pending.'
 } finally {
     if ($SESTCreated) {
         & git -C $Repository worktree remove $SESTWorktree

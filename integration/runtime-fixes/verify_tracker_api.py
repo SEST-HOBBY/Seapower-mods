@@ -1,8 +1,10 @@
 #!/usr/bin/env python3
 """Read-only contract check for the exact Combat Cost Tracker 0.7.1 capture.
 
-No third-party code is copied, executed, modified or shipped. The F11 extension
-accepts this same SHA256 at runtime. A changed tracker requires another review.
+No third-party code is copied, executed, modified or shipped. The F11 campaign panel
+accepts this same SHA256 at runtime and binds only these members: the Update and
+OnGUI hooks for the Task Force menu panel, Styles and the panel settings.
+A changed tracker requires another review.
 """
 import argparse
 import hashlib
@@ -15,19 +17,12 @@ OVERLAY = 'WeaponCostsMod.Overlay'
 METHODS = {
     (OVERLAY, 'Update'): 'instance void()',
     (OVERLAY, 'OnGUI'): 'instance void()',
-    (OVERLAY, 'ContentHeight'): 'instance float(class System.Collections.Generic.List`1<class WeaponCostsMod.OverlayLine>)',
     (OVERLAY, 'Styles'): 'instance void()',
-    (OVERLAY, 'Toolbar'): 'instance void(float, float, float)',
-    (OVERLAY, '<OnGUI>b__24'): 'instance float(class WeaponCostsMod.ComparisonLine)',
-    (OVERLAY, 'DrawComparison'): 'instance void(float, float, float, float, class System.Collections.Generic.List`1<class WeaponCostsMod.ComparisonLine>)',
-    (OVERLAY, 'DrawFaction'): 'instance void(float, float, string, class System.Collections.Generic.List`1<class WeaponCostsMod.OverlayLine>, float)',
-    ('WeaponCostsMod.DisplayValues', 'get_Description'): 'instance string()',
 }
-FIELDS = {**{n: 'bool' for n in ('ready', 'visible', 'missionActive')},
+FIELDS = {**{n: 'bool' for n in ('ready', 'missionActive')},
           **{n: 'float' for n in ('top', 'right', 'scale', 'opacity')},
-          **{n: 'class UnityEngine.GUIStyle' for n in ('label', 'title', 'muted', 'buttonStyle')},
-          'mission': 'object', 'popup': 'string', 'toggle': 'valuetype UnityEngine.KeyCode',
-          'display': 'class WeaponCostsMod.DisplayValues'}
+          **{n: 'class UnityEngine.GUIStyle' for n in ('label', 'title', 'muted')},
+          'mission': 'object', 'toggle': 'valuetype UnityEngine.KeyCode'}
 
 
 def main():
