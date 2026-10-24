@@ -21,14 +21,14 @@ photographs from the SEST gallery. Each carries its photographer
 and licence on the picture; the full credits, with sources, are
 in Gallery/PHOTO_CREDITS.txt.
 
-527 of the unit files here are another author's file with
+528 of the unit files here are another author's file with
 changes made to it. A Sea Power unit file is a whole-file
 override - there is no way to alter one line of somebody's
 aircraft without shipping the whole aircraft - so this is how a
 patch has to work, and this list is what it patches.
 
 Measured, not declared: every shipped unit file is diffed against
-every file of its kind in the collection, and the 527 below
+every file of its kind in the collection, and the 528 below
 came back 90% or more alike. The percentage is how much of the
 file is unchanged.
 Files carried for a mod that was removed from the Workshop are
@@ -223,6 +223,9 @@ listed whatever the percentage: they are still that author's.
       100%  vessels/ae_opv_meteoro.ini
       100%  vessels/ran_lsd_choules.ini from ae_lpd_galicia.ini
       100%  vessels/ran_opv_arafura.ini from ae_opv_meteoro.ini
+
+  EUROMOD-Armada de Chile  (workshop 3776730617)
+       99%  vessels/ch_ffg_jvh_variants.ini from ch_ffg_jacob_van_heemskerck_variants.ini
 
   Euromod-Philippine-Navy  (workshop 3812454152)
       100%  vessels/pn_ffg-06.ini

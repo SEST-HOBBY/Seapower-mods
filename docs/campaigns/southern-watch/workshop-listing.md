@@ -48,7 +48,7 @@ Four Task Force Mode campaigns (Southern Watch, Southern Reach / Tasman Shield, 
 
 ```
 [h1]SEST Integration Pack - Modernised Campaigns[/h1]
-Four Task Force Mode campaigns and every SEST fix in one Mod Manager entry. A draft world campaign for the Dynamic Campaign Mod is included.
+Four Task Force Mode campaigns and every SEST fix in one Mod Manager entry. Two draft world campaigns for the Dynamic Campaign Mod are included: the World Sandbox 2028 and its Regional Expansion.
 
 [h2]The campaigns[/h2]
 [list]
@@ -84,7 +84,8 @@ Every nation, unit, ship name, incident and date is invented; the campaigns take
 
 ## Change log: 24 Oct 2026
 
-Everything after `c1bd1f4b` (the Seahawk), through `dc46eba2`. Paste it above
+Everything after `c1bd1f4b` (the Seahawk), through `dc46eba2`, plus the World
+Sandbox regional expansion (PR #44) once it is merged. Paste it above
 the 20 Oct block if that has not been uploaded. The required mods are
 unchanged by the 24 Oct capture. The costs lines rest on mocked tests and
 one PC session (`docs/workshop-refresh-20261024-review.md`, section 1):
@@ -108,6 +109,8 @@ line.
 [list]
 [*]Red Line: shorter, harder missions. Missile craft attack Fujian in Trailing Contact; torpedo and missile attacks hit the tanker leg; fighters intercept in The Other Picture and The Ships from the North; a Q-ship presses in The Order to Withdraw and The Quiet Side. A Red Line campaign already under way keeps its old missions until started again.
 [*]Southern Watch, Steel Highway: the submarine starts anywhere within 35 NM of its reported position, which shows on the plot for one minute.
+[*]World Sandbox 2028 - Regional Expansion (preview): a second Dynamic Campaign Mod world, 15 more bases and 26 more RED forces from the Baltic to Iran, with their own supply ships. Start it as a new campaign.
+[*]World Sandbox: starts again after Euromod Chile's frigate rename.
 [/list]
 
 [b]Also[/b]
@@ -297,7 +300,7 @@ Everything the SEST Integration Pack's four campaigns need: 199 Workshop mods pl
 
 Nothing needs a manual install: some mods still name SeaLifter, but they run without it.
 
-Campaigns: Southern Watch, Southern Reach / Tasman Shield, Red Line and Sulu Line, plus a draft world campaign for the Dynamic Campaign Mod. All fiction, set in 2028-29.
+Campaigns: Southern Watch, Southern Reach / Tasman Shield, Red Line and Sulu Line, plus two draft world campaigns for the Dynamic Campaign Mod. All fiction, set in 2028-29.
 ```
 
 ## Tags, images, and what to leave off

@@ -30,7 +30,7 @@ class WorldHullCompatibilityTests(unittest.TestCase):
             vessel = (ROOT / pack / "vessels" / f"{LEGACY}.ini").read_text(encoding="utf-8")
             variant = (ROOT / pack / "vessels" / f"{LEGACY}_variants.ini").read_text(encoding="utf-8")
             names = (ROOT / pack / "language_en/vessel_names.ini").read_text(encoding="utf-8")
-            self.assertIn(f"#!alias {CURRENT}.ini", vessel)
+            self.assertEqual(vessel.strip(), f"#!alias vessels/{CURRENT}.ini")  # resolved from the mod root
             self.assertIn("NumberOfVariants=2", variant)
             self.assertIn("[Variant1]", variant)
             self.assertIn("[Variant2]", variant)

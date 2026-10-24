@@ -100,7 +100,8 @@ def write_legacy_hull_compatibility():
 
         hull_out.parent.mkdir(parents=True, exist_ok=True)
         names_out.parent.mkdir(parents=True, exist_ok=True)
-        hull_out.write_text(f"#!alias {current}.ini\n", encoding="utf-8")
+        # The game resolves an alias from the mod root, so it names the folder.
+        hull_out.write_text(f"#!alias vessels/{current}.ini\n", encoding="utf-8")
         # Copy the two named variants: variant files are not guaranteed to
         # follow #!alias in every engine path, unlike vessel definitions.
         variants_out.write_text(bp.read(variant_source).replace("\r\n", "\n").rstrip() + "\n",
@@ -1370,7 +1371,7 @@ def main():
                                                        "build_regions.py")],
                             capture_output=True, text=True)
     if regional.returncode:
-        sys.exit(regional.stdout + regional.stderr + "\\nRegional campaign build failed")
+        sys.exit(regional.stdout + regional.stderr + "\nRegional campaign build failed")
     print(regional.stdout.strip())
     if globe is None:
         print("  WARNING: global_land_mask not installed - water checks skipped "

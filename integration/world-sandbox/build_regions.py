@@ -19,14 +19,12 @@ OLD = "ch_ffg_jvh"
 NEW = "ch_ffg_jacob_van_heemskerck"
 
 
-def main():
-    base = json.loads(ORIGINAL.read_text(encoding="utf-8"))
-    cfg = json.loads(SPEC.read_text(encoding="utf-8"))
+def build(base, cfg):
+    """The variant as a dict: the original plus the spec, nothing else."""
     c = cfg["campaign"]
     new = json.loads(json.dumps(base))
     if base["id"] == c["id"]:
         raise ValueError("A region variant may not reuse the original campaign id")
-    output = PACK / c["folder"] / "campaign.json"
     new["id"], new["name"], new["description"] = c["id"], c["name"], c["description"]
     used_bases = {b["id"] for b in new["bases"]}
     used_forces = {f["name"] for f in new["forces"]}
@@ -55,6 +53,15 @@ def main():
         if patrol["force"] not in used_forces:
             raise ValueError("patrol without force: " + patrol["force"])
         new["patrols"].append(patrol)
+    # Regional supply ships join the replenishment table; the original's own
+    # figures are never changed, and a cargo force must carry one of them.
+    for unit, load in sorted(cfg.get("replenishment", {}).items()):
+        if unit in new["replenishment"] and new["replenishment"][unit] != load:
+            raise ValueError("regional replenishment would change the original's " + unit)
+        new["replenishment"][unit] = load
+    for f in new["forces"]:
+        if f.get("cargo") and not any(u.split()[0] in new["replenishment"] for u in f["units"]):
+            raise ValueError("cargo force without a replenishment ship: " + f["name"])
     # The base campaign was repaired on the same source branch; retain this
     # guard so an older Workshop capture cannot silently reintroduce a blocker.
     if OLD in new["values"]:
@@ -69,8 +76,20 @@ def main():
         raise ValueError("incorrect base count")
     if len(new["forces"]) != original_forces + sum(len(s["forces"]) for s in cfg["sites"]) + len(cfg.get("otherForces", [])):
         raise ValueError("incorrect force count")
+    return new
+
+
+def render(campaign):
+    """build_dynamic_campaign.py's serialisation, so both campaigns rebuild byte for byte."""
+    return json.dumps(campaign, indent=2, ensure_ascii=True) + "\n"
+
+
+def main():
+    cfg = json.loads(SPEC.read_text(encoding="utf-8"))
+    new = build(json.loads(ORIGINAL.read_text(encoding="utf-8")), cfg)
+    output = PACK / cfg["campaign"]["folder"] / "campaign.json"
     output.parent.mkdir(parents=True, exist_ok=True)
-    output.write_text(json.dumps(new, indent=2, ensure_ascii=True) + "\n", encoding="utf-8")
+    output.write_text(render(new), encoding="utf-8")
     # The same validator used by the base campaign must also accept the variant.
     result = subprocess.run([sys.executable, str(VALIDATOR), str(output)],
                             capture_output=True, text=True)

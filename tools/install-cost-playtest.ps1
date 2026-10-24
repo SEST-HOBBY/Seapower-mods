@@ -6,7 +6,7 @@ if (-not (Get-Command git -ErrorAction SilentlyContinue)) { throw 'Git is requir
 $Repository = (Resolve-Path -LiteralPath $Repository).Path
 $SESTManifest = Get-Content -LiteralPath (Join-Path $PSScriptRoot 'playtest-manifest.json') -Raw | ConvertFrom-Json
 if ($SESTManifest.commit -notmatch '^[0-9a-f]{40}$' -or $SESTManifest.bundle_sha256 -notmatch '^[0-9a-f]{64}$') { throw 'Invalid playtest manifest.' }
-if ([IO.Path]::GetFileName($SESTManifest.bundle) -cne $SESTManifest.bundle -or $SESTManifest.branch -notmatch '^refs/heads/(fix|sest-dev)/[a-z0-9-]+$') { throw 'Invalid bundle name/ref.' }
+if ([IO.Path]::GetFileName($SESTManifest.bundle) -cne $SESTManifest.bundle -or $SESTManifest.branch -notmatch '^refs/heads/(fix|sest-dev|feature)/[a-z0-9-]+$') { throw 'Invalid bundle name/ref.' }
 $SESTBundle = Join-Path $PSScriptRoot $SESTManifest.bundle
 if ((Get-FileHash -LiteralPath $SESTBundle -Algorithm SHA256).Hash.ToLowerInvariant() -cne $SESTManifest.bundle_sha256) { throw 'Bundle hash mismatch; download/extract the ZIP again.' }
 & git -C $Repository rev-parse --show-toplevel

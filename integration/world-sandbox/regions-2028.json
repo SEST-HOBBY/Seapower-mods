@@ -4,9 +4,9 @@
     "id": "sest.world_sandbox_2028.regional",
     "folder": "sest-world-regions-2028",
     "name": "SEST World Sandbox 2028 - Regional Expansion (preview)",
-    "description": "Optional 2028 world-sandbox expansion with stronger RED forces in European waters, Africa and the Middle East. The same starting world and rules, with new theatre detachments and regional patrols. Host-base access, numbers and assignments are fictional scenario choices. New campaign slot; not tested in game."
+    "description": "Optional 2028 world-sandbox expansion with stronger RED forces in European waters, Africa and the Middle East: 15 more bases and 26 more RED forces, with Russian and Iranian supply ships that replenish their regional groups. The same starting world and rules. Host-base access, numbers and assignments are fictional scenario choices. New campaign slot; not yet tested in game."
   },
-  "policy": "Additional RED presence is fictional 2028 scenario activity, not an assertion of 2026 ownership, confirmed deployment or host-state alignment. Syria and Libya host access is abstracted as RED-controlled because this DCM release has no neutral/host-basing model. Countries' original BLUE/RED memberships are unchanged. No free shipyard or new production depot is added.",
+  "policy": "Additional RED presence is fictional 2028 scenario activity, not an assertion of 2026 ownership, confirmed deployment or host-state alignment. Syria and Libya host access is abstracted as RED-controlled because this DCM release has no neutral/host-basing model. Countries' original BLUE/RED memberships are unchanged. No free shipyard or new production depot is added. Regional Pashin and Delvar replenishment capacities are hypothetical game-balance values, not certified ship stores: the Pashin's about 40% of its 16,250 t game displacement, the Delvar's sized to its 904 t hull.",
   "sites": [
     {
       "region": "Europe",
@@ -175,7 +175,8 @@
           "type": "Surface",
           "units": [
             "rfn_aor_pashin"
-          ]
+          ],
+          "cargo": "full"
         }
       ]
     },
@@ -394,7 +395,8 @@
           "type": "Surface",
           "units": [
             "rfn_aor_pashin"
-          ]
+          ],
+          "cargo": "full"
         }
       ]
     },
@@ -464,6 +466,14 @@
             24.35,
             60.1
           ]
+        },
+        {
+          "name": "Iranian Chabahar replenishment group",
+          "type": "Surface",
+          "units": [
+            "ir_aor_delvar"
+          ],
+          "cargo": "full"
         }
       ]
     },
@@ -586,7 +596,7 @@
           22.8
         ],
         [
-          32.8,
+          33.1,
           22.3
         ]
       ]
@@ -642,5 +652,15 @@
         ]
       ]
     }
-  ]
+  ],
+  "replenishment": {
+    "rfn_aor_pashin": {
+      "fuelT": 6500,
+      "ammoT": 250
+    },
+    "ir_aor_delvar": {
+      "fuelT": 350,
+      "ammoT": 50
+    }
+  }
 }

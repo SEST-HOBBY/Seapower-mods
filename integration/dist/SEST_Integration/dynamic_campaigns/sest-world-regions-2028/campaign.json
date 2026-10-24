@@ -1,18 +1,18 @@
 {
   "id": "sest.world_sandbox_2028.regional",
   "name": "SEST World Sandbox 2028 - Regional Expansion (preview)",
-  "description": "Optional 2028 world-sandbox expansion with stronger RED forces in European waters, Africa and the Middle East. The same starting world and rules, with new theatre detachments and regional patrols. Host-base access, numbers and assignments are fictional scenario choices. New campaign slot; not tested in game.",
+  "description": "Optional 2028 world-sandbox expansion with stronger RED forces in European waters, Africa and the Middle East: 15 more bases and 26 more RED forces, with Russian and Iranian supply ships that replenish their regional groups. The same starting world and rules. Host-base access, numbers and assignments are fictional scenario choices. New campaign slot; not yet tested in game.",
   "start": "2028-10-01T00:00:00Z",
   "bounds": {
-    "latMin": -62,
-    "latMax": 74,
-    "lonMin": -100,
-    "lonMax": 258
+    "latMin": -62.0,
+    "latMax": 74.0,
+    "lonMin": -100.0,
+    "lonMax": 258.0
   },
   "view": {
-    "lat": 25,
-    "lon": 80,
-    "pixelsPerDegree": 6
+    "lat": 25.0,
+    "lon": 80.0,
+    "pixelsPerDegree": 6.0
   },
   "sides": [
     {
@@ -327,7 +327,7 @@
     },
     {
       "id": "hoa_djibouti_fr_ba188_heron",
-      "name": "Base Aérienne 188 / Héron naval base (Djibouti) - report naming",
+      "name": "Base A\u00e9rienne 188 / H\u00e9ron naval base (Djibouti) - report naming",
       "side": "blue",
       "nation": "France",
       "kind": "NavalBase",
@@ -338,7 +338,7 @@
     },
     {
       "id": "hoa_djibouti_fr_ba188_heron_air",
-      "name": "Base Aérienne 188 / Héron naval base (Djibouti) - report naming airfield",
+      "name": "Base A\u00e9rienne 188 / H\u00e9ron naval base (Djibouti) - report naming airfield",
       "side": "blue",
       "nation": "France",
       "kind": "AirBase",
@@ -448,13 +448,13 @@
       "nation": "UK",
       "kind": "AirBase",
       "lat": 34.6,
-      "lon": 33,
+      "lon": 33.0,
       "income": 1,
       "field": {
         "unit": "nato_small_airbase",
         "heading": 0,
         "lat": 34.6,
-        "lon": 33
+        "lon": 33.0
       },
       "supplyFrom": "home_uk_portsmouth"
     },
@@ -491,14 +491,14 @@
       "nation": "China",
       "kind": "AirBase",
       "lat": 18.5,
-      "lon": 110,
+      "lon": 110.0,
       "income": 1,
       "homeland": true,
       "field": {
         "unit": "wp_airbase_2",
         "heading": 0,
         "lat": 18.5,
-        "lon": 110
+        "lon": 110.0
       },
       "supplyFrom": "chn_hainan_yulin_naval_base"
     },
@@ -2536,53 +2536,53 @@
   "labels": [
     {
       "text": "North Pacific",
-      "lat": 40,
-      "lon": 175
+      "lat": 40.0,
+      "lon": 175.0
     },
     {
       "text": "Philippine Sea",
-      "lat": 20,
-      "lon": 130
+      "lat": 20.0,
+      "lon": 130.0
     },
     {
       "text": "South China Sea",
-      "lat": 13,
-      "lon": 113
+      "lat": 13.0,
+      "lon": 113.0
     },
     {
       "text": "Indian Ocean",
-      "lat": -10,
-      "lon": 80
+      "lat": -10.0,
+      "lon": 80.0
     },
     {
       "text": "Arabian Sea",
-      "lat": 15,
-      "lon": 64
+      "lat": 15.0,
+      "lon": 64.0
     },
     {
       "text": "Mediterranean Sea",
-      "lat": 35,
-      "lon": 18
+      "lat": 35.0,
+      "lon": 18.0
     },
     {
       "text": "North Atlantic",
-      "lat": 40,
-      "lon": -40
+      "lat": 40.0,
+      "lon": -40.0
     },
     {
       "text": "South Atlantic",
-      "lat": -35,
-      "lon": -20
+      "lat": -35.0,
+      "lon": -20.0
     },
     {
       "text": "Norwegian Sea",
-      "lat": 68,
-      "lon": 5
+      "lat": 68.0,
+      "lon": 5.0
     },
     {
       "text": "Tasman Sea",
-      "lat": -38,
-      "lon": 160
+      "lat": -38.0,
+      "lon": 160.0
     }
   ],
   "forces": [
@@ -2607,8 +2607,8 @@
       "base": "usp_sandiego_naval_base_san_diego",
       "type": "Surface",
       "at": [
-        18,
-        168
+        18.0,
+        168.0
       ],
       "units": [
         "usn_cvn_nimitz_2025 named CVN-71 Theodore Roosevelt",
@@ -2622,8 +2622,8 @@
       "base": "usp_sandiego_naval_base_san_diego",
       "type": "Surface",
       "at": [
-        20,
-        133
+        20.0,
+        133.0
       ],
       "units": [
         "usn_cvn_nimitz_2025 named CVN-72 Abraham Lincoln",
@@ -2683,8 +2683,8 @@
       "base": "usa_norfolk_naval_station_norfolk",
       "type": "Surface",
       "at": [
-        28,
-        -70
+        28.0,
+        -70.0
       ],
       "units": [
         "usn_cvn_nimitz_2025 named CVN-75 Harry S. Truman",
@@ -2722,8 +2722,8 @@
       "base": "wpac_yokosuka_naval_base",
       "type": "Surface",
       "at": [
-        22,
-        128
+        22.0,
+        128.0
       ],
       "units": [
         "usn_cvn_nimitz_2025 named CVN-73 George Washington",
@@ -2890,7 +2890,7 @@
       "cargo": "full"
     },
     {
-      "name": "Base Aérienne 188 / Héron naval base (Djibouti) - report naming patrol",
+      "name": "Base A\u00e9rienne 188 / H\u00e9ron naval base (Djibouti) - report naming patrol",
       "side": "blue",
       "base": "hoa_djibouti_fr_ba188_heron",
       "type": "Surface",
@@ -3001,8 +3001,8 @@
       "base": "chn_hainan_longpo_naval_base",
       "type": "Surface",
       "at": [
-        16,
-        114
+        16.0,
+        114.0
       ],
       "units": [
         "plan_cv_type_003 named PLANS Fujian CV18",
@@ -3260,7 +3260,7 @@
       ]
     },
     {
-      "name": "Base Aérienne 188 / Héron naval base (Djibouti) - report naming Mirage 2000-5F",
+      "name": "Base A\u00e9rienne 188 / H\u00e9ron naval base (Djibouti) - report naming Mirage 2000-5F",
       "side": "blue",
       "base": "hoa_djibouti_fr_ba188_heron_air",
       "type": "Air",
@@ -3269,7 +3269,7 @@
       ]
     },
     {
-      "name": "Base Aérienne 188 / Héron naval base (Djibouti) - report naming AS332M Super Puma",
+      "name": "Base A\u00e9rienne 188 / H\u00e9ron naval base (Djibouti) - report naming AS332M Super Puma",
       "side": "blue",
       "base": "hoa_djibouti_fr_ba188_heron_air",
       "type": "Air",
@@ -3278,7 +3278,7 @@
       ]
     },
     {
-      "name": "Base Aérienne 188 / Héron naval base (Djibouti) - report naming SA-342 Gazelle",
+      "name": "Base A\u00e9rienne 188 / H\u00e9ron naval base (Djibouti) - report naming SA-342 Gazelle",
       "side": "blue",
       "base": "hoa_djibouti_fr_ba188_heron_air",
       "type": "Air",
@@ -4952,7 +4952,7 @@
       "base": "home_usa_groton",
       "type": "Surface",
       "at": [
-        41,
+        41.0,
         -70.2
       ],
       "units": [
@@ -5427,6 +5427,7 @@
       "units": [
         "rfn_aor_pashin"
       ],
+      "cargo": "full",
       "base": "reg_rus_tobruk",
       "side": "red"
     },
@@ -5530,6 +5531,7 @@
       "units": [
         "rfn_aor_pashin"
       ],
+      "cargo": "full",
       "base": "reg_rus_tartus",
       "side": "red"
     },
@@ -5562,6 +5564,16 @@
         24.35,
         60.1
       ],
+      "base": "reg_irn_chabahar",
+      "side": "red"
+    },
+    {
+      "name": "Iranian Chabahar replenishment group",
+      "type": "Surface",
+      "units": [
+        "ir_aor_delvar"
+      ],
+      "cargo": "full",
       "base": "reg_irn_chabahar",
       "side": "red"
     },
@@ -5799,7 +5811,7 @@
       ]
     },
     {
-      "force": "Base Aérienne 188 / Héron naval base (Djibouti) - report naming patrol",
+      "force": "Base A\u00e9rienne 188 / H\u00e9ron naval base (Djibouti) - report naming patrol",
       "points": [
         [
           12.305,
@@ -6309,7 +6321,7 @@
       "force": "Submarine Squadrons 4 and 12 patrol",
       "points": [
         [
-          41,
+          41.0,
           -70.2
         ],
         [
@@ -6694,7 +6706,7 @@
           22.8
         ],
         [
-          32.8,
+          33.1,
           22.3
         ]
       ]
@@ -6852,6 +6864,14 @@
     "rn_aor_tide": {
       "fuelT": 16000,
       "ammoT": 0
+    },
+    "ir_aor_delvar": {
+      "fuelT": 350,
+      "ammoT": 50
+    },
+    "rfn_aor_pashin": {
+      "fuelT": 6500,
+      "ammoT": 250
     }
   },
   "tankers": {
@@ -7800,6 +7820,7 @@
     "bra_ffg_niteroi": 567,
     "bra_lst_newport": 223,
     "bra_ss_tupi": 60,
+    "ch_ffg_jacob_van_heemskerck": 127,
     "ch_ffg_type22b2_barak": 154,
     "ch_ffg_type23": 154,
     "es_ffg_baleares": 137,
@@ -8430,8 +8451,7 @@
     "wp_tavkr_leningrad_98": 1021,
     "wp_tavkr_ulyanovsk": 977,
     "wp_vt_boris_chilikin": 458,
-    "wp_vt_kazbek": 347,
-    "ch_ffg_jacob_van_heemskerck": 127
+    "wp_vt_kazbek": 347
   },
   "catalogue": [
     {
@@ -19288,7 +19308,7 @@
           ],
           [
             3.6,
-            100
+            100.0
           ],
           [
             2.3,
@@ -19337,19 +19357,19 @@
             105.869
           ],
           [
-            5,
-            107
+            5.0,
+            107.0
           ],
           [
-            10,
+            10.0,
             111.5
           ],
           [
-            16,
+            16.0,
             115.5
           ],
           [
-            21,
+            21.0,
             117.5
           ]
         ]
@@ -19364,18 +19384,18 @@
           ],
           [
             23.6,
-            119
+            119.0
           ],
           [
             25.5,
             120.6
           ],
           [
-            28,
+            28.0,
             122.6
           ],
           [
-            31,
+            31.0,
             123.4
           ]
         ]
@@ -19385,12 +19405,12 @@
         "weight": 3,
         "points": [
           [
-            31,
+            31.0,
             123.6
           ],
           [
             30.5,
-            128
+            128.0
           ],
           [
             30.627,
@@ -19402,7 +19422,7 @@
           ],
           [
             31.5,
-            133
+            133.0
           ],
           [
             33.6,
@@ -19427,15 +19447,15 @@
             140.3
           ],
           [
-            30,
-            160
+            30.0,
+            160.0
           ],
           [
-            24,
-            190
+            24.0,
+            190.0
           ],
           [
-            21,
+            21.0,
             202.2
           ],
           [
@@ -19455,8 +19475,8 @@
             213.623
           ],
           [
-            27,
-            225
+            27.0,
+            225.0
           ],
           [
             32.6,
@@ -19469,12 +19489,12 @@
         "weight": 4,
         "points": [
           [
-            12,
-            52
+            12.0,
+            52.0
           ],
           [
             12.3,
-            46
+            46.0
           ],
           [
             12.55,
@@ -19493,15 +19513,15 @@
             42.2
           ],
           [
-            20,
+            20.0,
             38.6
           ],
           [
-            24,
-            36
+            24.0,
+            36.0
           ],
           [
-            27,
+            27.0,
             34.2
           ],
           [
@@ -19581,7 +19601,7 @@
             24.859
           ],
           [
-            35,
+            35.0,
             24.6
           ],
           [
@@ -19602,10 +19622,10 @@
           ],
           [
             36.3,
-            20
+            20.0
           ],
           [
-            37,
+            37.0,
             15.5
           ],
           [
@@ -19630,11 +19650,11 @@
           ],
           [
             37.5,
-            6
+            6.0
           ],
           [
             36.4,
-            -1
+            -1.0
           ],
           [
             35.95,
@@ -19655,8 +19675,8 @@
             -7.8
           ],
           [
-            38,
-            -20
+            38.0,
+            -20.0
           ],
           [
             38.624,
@@ -19667,12 +19687,12 @@
             -29.989
           ],
           [
-            40,
-            -40
+            40.0,
+            -40.0
           ],
           [
             38.5,
-            -60
+            -60.0
           ],
           [
             36.9,
@@ -19686,23 +19706,23 @@
         "points": [
           [
             5.8,
-            95
+            95.0
           ],
           [
-            2,
-            85
+            2.0,
+            85.0
           ],
           [
-            -7,
+            -7.0,
             72.6
           ],
           [
-            5,
-            66
+            5.0,
+            66.0
           ],
           [
-            12,
-            55
+            12.0,
+            55.0
           ]
         ]
       },
@@ -19715,12 +19735,12 @@
             115.4
           ],
           [
-            -25,
-            108
+            -25.0,
+            108.0
           ],
           [
-            -15,
-            104
+            -15.0,
+            104.0
           ],
           [
             -6.9,
