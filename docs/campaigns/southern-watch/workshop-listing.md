@@ -18,11 +18,12 @@ The item's Required Items are the load order's Workshop mods, so Subscribe
 offers them all in one click, as the collection does; SETUP writes the order.
 `publishing.md` (*Dependencies*) has the detail.
 
-Counts (20 Oct 2026, with GPT's fleet, terrain and debrief line, the two
-new mods and the old Anzac mod gone): 199 Workshop mods in
-`data/load-order.tokens.txt` (200 entries with the pack), 165 named by a mission (REQUIRED-MODS.txt), 527 borrowed
-files from 62 mods (CREDITS.txt; 527 since the 20 Oct evening rebuild, and
-the 22 Oct capture left all three counts as they were). Redo them from
+Counts (24 Oct 2026, the World Sandbox branch `8e72f353` with the 24 Oct
+capture): 199 Workshop mods in `data/load-order.tokens.txt` (200 entries
+with the pack), 165 named by a mission (REQUIRED-MODS.txt), 528 borrowed
+files from 64 mods (CREDITS.txt; `sest-dev/jolly-ride-rptj4t` without the
+World Sandbox branch has 527 from 63: the extra file is the Chilean
+frigate's save alias variants). Redo them from
 those files when they change. The 19-tube pod
 is credited to RADF's `adf_lau-3a`: the pod is the game's own `usn_lau-3a`,
 which CREDITS.txt never compares against, and RADF's is that file with one
@@ -48,14 +49,15 @@ Four Task Force Mode campaigns (Southern Watch, Southern Reach / Tasman Shield, 
 
 ```
 [h1]SEST Integration Pack - Modernised Campaigns[/h1]
-Four Task Force Mode campaigns and every SEST fix in one Mod Manager entry. Two draft world campaigns for the Dynamic Campaign Mod are included: the World Sandbox 2028 and its Regional Expansion.
+Four Task Force Mode campaigns, two world campaigns for the Dynamic Campaign Mod, combat costs for every unit and every SEST fix in one Mod Manager entry.
 
 [h2]The campaigns[/h2]
 [list]
 [*][b]Southern Watch[/b] (October–November 2028). Twelve connected missions keeping Australia's northern sea routes open as a coercion campaign becomes a limited regional war. It opens small - one frigate, a Seahawk, a lane full of traffic, weapons tight - and does not stay small. Plus ten optional operations (six flown by somebody else's force), two contingencies and eleven standalone dispatches.
 [*][b]Southern Reach / Tasman Shield[/b] (December 2028 – March 2029). Twenty-six missions, from the Antarctic resupply at 60°S to a ceasefire. A boat sunk in the Tasman is missing later; an approach not held reinforces the enemy off Sydney.
-[*][b]Red Line[/b] (November 2028 – February 2029). Six missions and an epilogue as the Chinese carrier group commander, won by restraint, escort or evasion. Plus two optional operations and a contingency: a submarine nobody has claimed, the Japanese escorts coming south, and a pilot in the water.
+[*][b]Red Line[/b] (November 2028 – February 2029). Six missions and an epilogue as the Chinese carrier group commander, against missile craft, Q-ships and intercepting fighters on short clocks, where restraint still wins as often as firepower. Plus two optional operations and a contingency: a submarine nobody has claimed, the Japanese escorts coming south, and a pilot in the water.
 [*][b]Sulu Line[/b] (October–November 2028). Seven missions with a Philippine-led task group. No free rearm: ammunition comes from supply ships you bought or the convoy you escort. Three optional side operations change later missions.
+[*][b]World Sandbox 2028[/b] (draft, Dynamic Campaign Mod). One persistent 2028 world on the strategic map: real bases, finite fleets, patrols, purchases and replenishment, and every contact becomes a battle. The [b]Regional Expansion[/b] (preview) adds 15 bases and 26 RED forces from the Baltic to Iran, with their own supply ships. Start either as a new campaign; neither has been played through yet.
 [/list]
 
 [h2]How it plays[/h2]
@@ -63,6 +65,14 @@ Four Task Force Mode campaigns and every SEST fix in one Mod Manager entry. Two 
 [*]You buy the force. Losses and expenditure carry forward. Partners arrive on their own terms. Partway through Southern Watch and Southern Reach, and in Red Line from the start, every force allocation offers the whole roster with the allied fleet, or the PLAN's supply ships. In Sulu Line the Thai detachment and one RAN frigate are bought into the task group.
 [*]Finding things matters more often than fleet battles. Civilian traffic is everywhere, and neutral losses end operations.
 [*]Each mission has a planned time and is lost at 1.5 times it; the briefing states both.
+[/list]
+
+[h2]Combat costs[/h2]
+With the Combat Cost Tracker from the collection, every weapon, ship, aircraft and land unit has a price, historical and current. Estimates are labelled, and chaff, flares, sonobuoys, drop tanks and pods count.
+[list]
+[*]F11 in a mission shows what the mission has cost so far.
+[*]F11 in the Task Force menu shows the campaign's totals and one line per mission; the task-force debrief adds the same rows.
+[*]Weapons fired, units lost and the stores lost with them carry through the campaign.
 [/list]
 
 [h2]What it needs - read this[/h2]
@@ -76,10 +86,10 @@ The campaigns name units from 165 Workshop mods. Subscribe to the collection [ur
 In the folder: SETUP, REQUIRED-MODS.txt (every mod the campaigns name), LOAD-ORDER.txt and CREDITS.txt.
 
 [h2]Credit[/h2]
-A Sea Power unit file is a whole-file override, so 527 files here are other authors' files with edits, each 90% or more unchanged, from 62 Workshop mods. CREDITS.txt lists every one, measured by diffing against the collection. Every photograph is real and credited. If you wrote one of those mods and would rather this pack did not carry your file, say so and it will change.
+A Sea Power unit file is a whole-file override, so 528 files here are other authors' files with edits, each 90% or more unchanged, from 64 Workshop mods. CREDITS.txt lists every one, measured by diffing against the collection. Every photograph is real and credited. If you wrote one of those mods and would rather this pack did not carry your file, say so and it will change.
 
 [h2]Fiction, language, status[/h2]
-Every nation, unit, ship name, incident and date is invented; the campaigns take no position on any real dispute. English only. Built for Sea Power 0.8.7: every unit, squadron, loadout and weapon in every mission is checked to resolve on every build, but balance is not, and most missions have not been played to completion. Feedback on difficulty and pacing is wanted.
+Every nation, unit, ship name, incident and date is invented; the campaigns take no position on any real dispute. English only. Built for Sea Power 0.8.7: every unit, squadron, loadout and weapon in every mission is checked to resolve on every build, but balance is not, and most missions have not been played to completion. SEST's code (the Tomahawk terrain fix, the debrief and the combat cost panels) runs only on Sea Power 0.8.7 Build 261021 and switches itself off on any other. Feedback on difficulty and pacing is wanted.
 ```
 
 ## Change log: 24 Oct 2026
@@ -290,7 +300,7 @@ collection stay as they are.
 Keep the pinned "Read first" discussion's install steps in step with it.
 
 ```
-Everything the SEST Integration Pack's four campaigns need: 199 Workshop mods plus the pack itself, [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3812461539]SEST Integration Pack - Modernised Campaigns[/url].
+Everything the SEST Integration Pack's campaigns need: 199 Workshop mods plus the pack itself, [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3812461539]SEST Integration Pack - Modernised Campaigns[/url].
 
 [olist]
 [*]Subscribe to all.
