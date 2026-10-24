@@ -82,6 +82,41 @@ A Sea Power unit file is a whole-file override, so 527 files here are other auth
 Every nation, unit, ship name, incident and date is invented; the campaigns take no position on any real dispute. English only. Built for Sea Power 0.8.7: every unit, squadron, loadout and weapon in every mission is checked to resolve on every build, but balance is not, and most missions have not been played to completion. Feedback on difficulty and pacing is wanted.
 ```
 
+## Change log: 24 Oct 2026
+
+Everything after `c1bd1f4b` (the Seahawk), through `dc46eba2`. Paste it above
+the 20 Oct block if that has not been uploaded. The required mods are
+unchanged by the 24 Oct capture. The costs lines rest on mocked tests and
+one PC session (`docs/workshop-refresh-20261024-review.md`, section 1):
+before Submit, run `docs/playtests/campaign-costs-panel-20261024.md` steps
+3, 4 and 7. If the Task Force panel or the carry-over fails, take out its
+line.
+
+```
+[h2]24 October 2026[/h2]
+
+[b]Combat costs[/b]
+[list]
+[*]Every weapon, ship, aircraft and land unit in the collection now has a price, current and historical (land units priced by SEST, which the tracker does not cover). Estimates are labelled as estimates, and chaff, flares, sonobuoys, drop tanks and pods now count.
+[*]227 prices checked against published sources, from the Mk 82 to the GBU-57 and the AN/TPY-2 radar.
+[*]F11 in a mission shows this mission's costs. F11 in the Task Force menu shows the campaign's totals, with one line per mission, at the left of the screen.
+[*]The task-force debrief adds Combat Cost rows: weapons, ships, aircraft, land, stores lost, mission and campaign.
+[*]Stores lost with a sunk ship or downed aircraft now stay in the campaign total; the next mission used to erase them.
+[/list]
+
+[b]Campaigns[/b]
+[list]
+[*]Red Line: shorter, harder missions. Missile craft attack Fujian in Trailing Contact; torpedo and missile attacks hit the tanker leg; fighters intercept in The Other Picture and The Ships from the North; a Q-ship presses in The Order to Withdraw and The Quiet Side. A Red Line campaign already under way keeps its old missions until started again.
+[*]Southern Watch, Steel Highway: the submarine starts anywhere within 35 NM of its reported position, which shows on the plot for one minute.
+[/list]
+
+[b]Also[/b]
+[list]
+[*]The SEST menu no longer covers scenario pictures, briefing images and maps.
+[*]Follows the 24 Oct mod updates: Modern US Navy, U.S. Navy 2027 (MH-60R, Hornets), F-35C, Modern US Airbase, the Scandinavian, JMSDF and Chilean Euromod packs, and THE REDFOR MOD.
+[/list]
+```
+
 ## Change log: 20 Oct 2026
 
 For the update after the 19 Oct one. If the 19 Oct update was never
