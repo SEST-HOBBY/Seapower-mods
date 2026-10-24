@@ -6,6 +6,9 @@ researched estimate (23 Oct 2026): an explicit figure with its method, year
 and sources, labelled as SEST's in the shipped catalog. Missing values stay
 unknown. The field precedence below was checked against CostRules.ResolveField
 in the captured DLL. It deliberately distinguishes a missing key from a blank key.
+SEST's runtime plugin ports the same rules (integration/runtime-fixes/
+CampaignCosts.cs, CostPolicy); both are checked against the shared tables
+integration/runtime-fixes/tests/cost_precedence.tsv and cost_exclusion.tsv.
 
 cost_list() renders docs/combat-costs/cost-list.md and cost-list.csv: every
 unit SEST ships or its missions field, with its price and where the price
@@ -80,13 +83,40 @@ def resolve_field(inline, catalog, reference, field, inline_field=None):
 
 
 def price(value):
-    if value is None or not re.fullmatch(r"(?:\d+(?:\.\d*)?|\.\d+)", value):
+    """CostRules.ParsePrice: ASCII digits and one point (decimal.TryParse, AllowDecimalPoint), 0 to 1e15."""
+    if value is None or not re.fullmatch(r"(?:[0-9]+(?:\.[0-9]*)?|\.[0-9]+)", value):
         return None
     try:
         amount = Decimal(value)
     except InvalidOperation:
         return None
     return amount if amount.is_finite() and 0 <= amount <= MAX_PRICE else None
+
+
+# CostRules.Resolve's fallback table: with no category of their own, only these
+# types (and Missile, which always gets one) leave the tracker's default, Ignore.
+FALLBACK_TYPES = ("asroc", "rbu", "airdepthcharge", "torpedo", "bomb", "projectile", "aerialrocket", "mlrs")
+
+
+def valid_category(category):
+    """CostRules.ValidCategory: 1 to 20 UTF-16 units of A-Z, a-z, decimal digits, space, '-' or '_'."""
+    return (bool(category) and not category.isspace() and len(category) <= 20
+            and all("A" <= c <= "Z" or "a" <= c <= "z" or c in " -_" or (ord(c) <= 0xFFFF and c.isdecimal())
+                    for c in category))
+
+
+def weapon_excluded(category, ammo_type):
+    """True when CombatCosts 0.7.1 leaves a round at its default category, Ignore.
+
+    Such a round is not counted at all: no price and no "+ ?". `category` is
+    the resolved Category/WeaponCostCategory value (None or blank for none);
+    `ammo_type` is the game's Ammunition.Type name.
+    """
+    if category:
+        return not valid_category(category) or category.casefold() == "ignore"
+    if ammo_type.casefold() == "missile":
+        return False
+    return ammo_type.lower() not in FALLBACK_TYPES
 
 
 def normal_reference(reference):

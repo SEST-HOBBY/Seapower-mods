@@ -47,6 +47,11 @@ namespace Sest.RuntimeFixes
                     try { TaskForceDebrief.Install(game); }
                     catch (Exception e) { Api.LogFailure("debrief correction not installed", e); }
                 }
+                if (Policy.OptionEnabled(config, "CampaignCombatCosts"))
+                {
+                    try { CampaignCosts.Install(game); }
+                    catch (Exception e) { Api.LogFailure("campaign combat costs not installed", e); }
+                }
             }
             catch (Exception e) { Api.LogFailure("inactive", e); }
         }

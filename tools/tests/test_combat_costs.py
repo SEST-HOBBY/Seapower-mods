@@ -1,4 +1,5 @@
 """Price precedence and compatibility against captured CombatCosts 0.7.1 rules."""
+from decimal import Decimal
 from pathlib import Path
 import copy
 import hashlib
@@ -12,11 +13,12 @@ import unittest
 ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT / "integration"))
 from common.costs import (_build, build, carried_stores, cost_list, estimate_fields,  # noqa: E402
-                          fielded_units, inventory, parse_ini, price, read_ini,
-                          render_catalog, resolve_field, KINDS, LAND_NOTE)
+                          field_origin, fielded_units, inventory, parse_ini, price, read_ini,
+                          render_catalog, resolve_field, weapon_excluded, KINDS, LAND_NOTE)
 
 MAPPINGS = ROOT / "integration/combat-costs/mappings.json"
 RESEARCH = ROOT / "integration/combat-costs/research.json"
+RUNTIME_TESTS = ROOT / "integration/runtime-fixes/tests"
 
 
 def load(path):
@@ -88,6 +90,49 @@ class PricePrecedence(unittest.TestCase):
         own = {"weaponcostcategory": "Other", "weaponcosts": "100"}
         self.assertEqual(resolve_field(own, catalog, "round", "Category", "WeaponCostCategory"), "AAM")
         self.assertEqual(resolve_field(own, catalog, "round", "WeaponCosts"), "100")
+
+
+def shared_table(name, columns):
+    """Rows of a price-rule table the runtime plugin's mocked tests read too (build_plugin.py)."""
+    lines = [line for line in (RUNTIME_TESTS / name).read_text(encoding="utf-8").splitlines()
+             if line and not line.startswith("#")]
+    rows = [line.split("\t") for line in lines]
+    assert all(len(row) == columns for row in rows), name
+    return rows[1:]
+
+
+def cell(value):
+    return None if value == "-" else "" if value == "(blank)" else value
+
+
+class RuntimePluginParity(unittest.TestCase):
+    """costs.py and the plugin's CostPolicy (CampaignCosts.cs) on the same rows, so the
+    campaign totals and SEST's cost list apply one rule set."""
+
+    def test_precedence_and_parse_match_the_plugin_table(self):
+        def section(name, pairs):
+            return "" if pairs == "-" else f"[{name}]\n" + "".join(p + "\n" for p in pairs.split(";"))
+        rows = shared_table("cost_precedence.tsv", 8)
+        self.assertGreaterEqual(len(rows), 40)
+        for case, costs, entry, inline, field, inline_field, selected, expected in rows:
+            with self.subTest(case=case):
+                catalog = parse_ini(section("Costs", costs) + section("round", entry))
+                unit = parse_ini(section("General", inline)).get("general", {})
+                value = field_origin(unit, catalog, "Round", field, inline_field)[0]
+                self.assertEqual(value, cell(selected))
+                if expected != "-":
+                    self.assertEqual(price(value), None if expected == "unknown" else Decimal(expected))
+
+    def test_exclusion_matches_the_plugin_table(self):
+        rows = shared_table("cost_exclusion.tsv", 4)
+        self.assertGreaterEqual(len(rows), 30)
+        for case, category, ammo_type, result in rows:
+            with self.subTest(case=case):
+                self.assertEqual(weapon_excluded(cell(category), ammo_type), result == "excluded")
+
+    def test_only_ascii_digits_are_a_price(self):
+        self.assertIsNone(price("٣"))    # an Arabic-Indic three: decimal.TryParse rejects it
+        self.assertIsNone(price("1 000"))
 
 
 class CompatibilityBuild(unittest.TestCase):
