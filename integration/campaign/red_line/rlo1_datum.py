@@ -53,7 +53,7 @@ MISSION = dict(
         "nothing to record but an aircraft laying buoys."
     )),
     date=(2028, 11, 11), time=(6, 40), sea=3, clouds="Scattered_2", wind="SE",
-    difficulty=2, minutes=90, centre=(-0.4, 136.4),
+    difficulty=2, minutes=45, centre=(-0.4, 136.4),
     blue_nation="China", red_nation="Australia",
     brief=(
         (

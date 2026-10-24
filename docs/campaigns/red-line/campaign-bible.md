@@ -7,6 +7,28 @@
 
 This is a campaign that has been **statically built and never played**. Every character, company, incident and deployment is fiction. Equipment behaviour is whatever the winning mod file says.
 
+
+## 24 October 2026 pacing revision — current playtest
+
+Owner feedback: the missions were too timid and the opening two could be tedious. The earlier restraint-first design below is retained as a historical account; this section supersedes its mission goals, timings and blanket no-combat wording. Other campaigns' dates, named ships and outcomes remain intact. This revision has static validation; native gameplay acceptance is pending.
+
+| Mission | Earlier window | Revised window | Current task |
+|---|---:|---:|---|
+| RL01 Trailing Contact | 70 min | 40 min | Carrier defence against two declared hostile missile craft, with attacks scheduled at minutes 8 and 12. ALPHA classification becomes an optional bonus; Fujian has a short station leg. |
+| RL02 Routes They Can See | 95 min | 55 min | Final tanker approach with allocated airborne ASW support, GOLF's torpedo orders at minutes 10 and 18, and a separate missile flank at 14. No mandatory submarine kill/classification gate. |
+| RL03 The Other Picture | 75 min | 45 min | Protect the KJ-500 with two allocated J-15s and any purchased CAP. A weapons-free F-35 pair enters at 8. Break the intercept and recover the radar aircraft; naval classification is a bonus. |
+| RL04 The Order to Withdraw | 80 min | 50 min | Stop the escaping coaster while a Q-ship attacks Hulunhu. The supplier now has an explicit fatal protection objective. |
+| RL05 Under the Convergence | 120 min | 60 min | One deliberately retained stealth mission: a shorter barrier crossing with HOTEL approaching during the playable window. |
+| RL06 The Quiet Side | 95 min | 45 min | Protect the tender from a contractor Q-ship, cover the decoy station at minute 8, then rendezvous. Classification loses the stealth bonus; it no longer instantly ends the mission. |
+| RLO1 Datum | 90 min | 45 min | Focused optional ASW search and return; its GOLF datum still benefits RL02. |
+| RLO2 The Ships from the North | 80 min | 45 min | Reconnaissance under a real minute-8 F-2 interception. The protected ships and held cross-mission reveal remain unchanged. |
+| RLC1 Pilot in the Water | 60 min | 35 min | The same four-minute pickup race, starting about 7 NM from the raft instead of 13. |
+
+**Engagement rule:** declared hostile craft, the active intercepting fighters and the Q-ships may be engaged. Non-belligerent coalition observers in RL01/RL02/RL03/RL04 are on the neutral task force, so ordinary defensive settings do not automatically target them or feed their sensor picture to the unrelated attackers. Their protected-loss conditions remain. ALPHA is still the reserved Collins hull, GOLF remains Variant10 with the original loss flag, and no protected named coalition ship can be sunk by a successful mission. Kiwi 05 and HOTEL retain their original roles in the southern missions.
+
+The revised combat exits also check the native `NoIncomingWeapons` condition alongside actual objectives or an elapsed-attack gate. This means **detected** incoming weapons, not proof that no undetected weapon exists. Timed attack orders are native `Attack=target,seconds,ammunition,shots`, documented in the exported official `MissionFileInformation.ini`; no performance or damage values are changed. Launches still require a surviving platform and usable weapons, and require PC observation. The supporting condition reference is the author's first-hand mission tests: https://steamcommunity.com/sharedfiles/filedetails/?id=3756786658 .
+
+
 ---
 
 ## 1. Premise

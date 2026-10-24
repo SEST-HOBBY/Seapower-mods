@@ -1,17 +1,16 @@
-SEST RUNTIME FIXES 1.0.0
+SEST RUNTIME FIXES 1.2.0
 
 Requires the existing Anchor Chain and HarmonyX installation. Only SEST's own
 code ships here. Source and build/test instructions: integration/runtime-fixes/.
 The plugin checks its owning pack is enabled and matches the captured native
-Sea Power 0.8.7 (Build 261021) assembly SHA256 before installing any of its
-three parts. It reads usersettings.ini once at startup; restart after
+Sea Power 0.8.7 (Build 261021) assembly SHA256 before installing its
+features. It reads usersettings.ini once at startup; restart after
 enabling/disabling the pack. An unknown game build, missing API or failed
-part is logged and leaves native behavior in place. Player.log lines start
-[SEST Runtime]: on 0.8.7 two lines contain "correction installed" and one
-"campaign combat costs installed". After a game update, "inactive:
-uninspected native assembly ..." means all three are off and the game's own
-behaviour applies until SEST is matched to the new build; nothing needs
-turning off.
+correction is logged and leaves native behavior in place. Player.log lines
+start [SEST Runtime]: the existing terrain/debrief fixes log "correction installed"; cost modules log their own installed lines. After
+a game update, "inactive: uninspected native assembly ..." means all runtime features are
+off and the game's own behaviour applies until SEST is matched to the new
+build; nothing needs turning off.
 
 MST TERRAIN CLEARANCE (TerrainClearance=1 in sest_runtime.ini)
 RGM-109E5a and UGM-109E5a only, with terrain-following enabled, in native cruise
@@ -44,41 +43,44 @@ on 0.8.7 a ship sunk there is listed in section 3 without a Lost status (the
 game's code says Undamaged; not yet seen in game), and the correction cannot
 add one either.
 
-CAMPAIGN COMBAT COSTS (CampaignCombatCosts=1)
-Adds rows to the task-force debrief's Mission Summary: what this mission and
-the campaign so far cost each side, in USD, priced from the Combat Cost
-Tracker's price lists (Workshop 3807187341, with SEST_Combat_Costs'
-additions) by the tracker's own rules. The tracker must be enabled; without
-its price lists no rows are shown. For example:
-
-  Combat Cost: Weapons    Player $1.21M + ? | Enemy $0
-  Combat Cost: Losses     Player $520M + ? | Enemy $770M
-  Combat Cost: Mission    Player $521M + ? | Enemy $770M
-  Combat Cost: Campaign   Player $522M + ? | Enemy $1.08B + ? (3 missions)
-  Combat Cost: Basis      USD, IOC prices; stores aboard and land units excluded
-  Combat Cost: Unpriced   Mission: 3 rounds, 1 ship | Campaign: 3 rounds,
-                          1 ship, weapons not recorded for 1 mission
-
-Counted: weapons expended (rounds launched plus rounds fired, as the tracker
-counts them; a round the tracker leaves out, such as chaff, a sonobuoy or a
-decoy with no cost category, is left out here too) and ships, submarines,
-aircraft and helicopters destroyed, including aircraft lost aboard a sunk
-ship or on deck. Not counted: stores aboard lost ships and aircraft, land
-units, damage and repairs, and the Neutral side. Allied ships that sail in
-your task force count as yours.
-Prices are the tracker's historical (IOC) prices, or its current-year prices
-when its config.ini says UseCurrentYearCosts=True; the Basis row says which.
-Changing that setting or SEST's price lists re-prices past missions too.
-"+ ?" means at least one item has no price: the Unpriced row counts them,
-and an unknown price is never shown as $0. "not recorded" means the game
-kept no readable weapon report for that side (expected for a mission
-finished before 0.8.7; not yet seen); a side that fired nothing shows $0.
-The campaign total adds each completed mission once, from the records the
-game itself saves with the campaign: a failed attempt or a replay adds
-nothing, a new campaign starts at zero, and a campaign already under way is
-priced back to its first mission. Nothing is written to the save. Player.log
-names each unpriced item once ("combat costs: no IOC price for ..."). Not
-yet seen in game.
-
 Set an individual option to 0 and restart to use native behavior for that
 feature. Linux tests cover mocked native APIs and policy, not Unity gameplay.
+
+COMPLETE COMBAT COSTS (private playtest; native PC acceptance pending)
+Requires enabled Combat Cost Tracker catalogs and a full game restart.
+F11 contains This mission, Cumulative Combat Costs and Last games.
+The first tab retains the author's live tracker. Cumulative offers this campaign,
+recorded ended sessions and a current-mission detailed view including land,
+registered parked aircraft and remaining itemized stores. In the Task Force menu,
+F11 opens the cumulative and history views between missions. F10 is retired.
+Requires the inspected Combat Cost Tracker 0.7.1; an unknown version retains its
+original UI without the SEST extension. No game/tracker DLL is redistributed.
+
+Last games retains newly recorded sessions and reads earlier debriefs in the
+current campaign. Raw quantities, never USD totals, are archived locally under
+SEST/combat-history-v1.txt in the game's LocalLow settings directory. Loading a
+mid-mission save updates its own session; retries/replays are separate recorded
+games. Completed campaign totals still count each completed native mission once.
+Older standalone games and uncaptured quantities cannot be reconstructed.
+
+The task-force campaign debrief gains Combat Cost rows for Player and Enemy,
+this mission and completed campaign totals. Prices use the selected historical
+or current mode. Existing checked prices are preserved; gaps use labelled SEST
+estimates. All resolved weapon, ship, aircraft and land references are covered.
+
+CampaignCombatCosts controls the saved-debrief display. CumulativeCombatCosts
+controls the F11 extension/history. CombatCostInventories captures remaining itemized
+stores and raw expenditure. It writes only versioned SEST quantity keys alongside
+native mission/campaign save records, never USD totals or purchase points.
+Completed mission captures survive replays; old missing captures stay unknown.
+
++ ? means missing quantities/prices, including unitemized flight-deck point pools.
+Cargo, crew, operating fuel burn, repairs and damaged-only platforms are outside
+this material-loss account. Land and parked-aircraft additions appear in SEST's
+detailed views; the first F11 tab retains the author's scope. Changing catalogs or price mode
+reprices the saved counts. Crew and game acquisition points are never USD.
+
+Player.log must show: campaign combat costs installed; combat inventory capture
+installed; Cumulative Combat Costs and Last games embedded in original F11. Check the new private playtest
+card for actual fire/loss/save/load tests. Linux mocks and a structural comparison
+on an older native DLL do not establish gameplay success on 0.8.7.

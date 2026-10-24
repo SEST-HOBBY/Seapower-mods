@@ -1,8 +1,7 @@
 # Which rounds CombatCosts 0.7.1 counts at all (CostRules.Resolve and ValidCategory, read from the IL of
 # CombatCosts.dll 74afa902...). Price starts as Category "Ignore", which the tracker skips without a
-# "+ ?"; only a valid category of its own, or Missile and the fallback types, replace it. Shared by
-# tests/RuntimeTests.cs (CostPolicy.WeaponExcluded) and tools/tests/test_combat_costs.py
-# (costs.weapon_excluded): change both and this table together.
+# "+ ?"; only a valid category of its own, or Missile and the fallback types, replace it. Checked by
+# tools/tests/test_combat_costs.py against costs.weapon_excluded.
 #
 # Columns, tab-separated: case, category (the resolved value: "-" none, "(blank)" empty), ammo_type
 # (the game's Ammunition.Type name), result (counted or excluded).

@@ -141,7 +141,7 @@ Workshop id   supplies                         mod
 3769142422    a unit a mission places          Rebuilt J-16 / J-16D
 3413868677    a unit a mission places          Red Storm Arsenal
 3571718093    a model a placed unit draws      Road Mobile ICBMs (Topol-M, DF-41)
-3455404959    a model a placed unit draws      Royal Australian Defence Forces
+3455404959    a hull variant in use            Royal Australian Defence Forces
 3378409795    a hull variant in use            Royal Navy Type 23 'Duke Class' Frigate [OLD]
 3373356293    a unit a mission places          Royal Navy Westland Lynx HAS.3 Kitbash [OLD]
 3796113927    a unit a mission places          RQ-180 White Bat Airframe

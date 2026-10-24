@@ -71,5 +71,18 @@ namespace Sest.RuntimeFixes
             }
             return false;
         }
+
+        internal static string TextOption(string[] lines,string option,string fallback)
+        {
+            string section="";
+            foreach(string raw in lines)
+            {
+                string line=raw.Trim();if(line.StartsWith("[")){section=line;continue;}
+                int eq=line.IndexOf('=');
+                if(String.Equals(section,"[Runtime]",StringComparison.OrdinalIgnoreCase) && eq>=0 &&
+                    String.Equals(line.Substring(0,eq).Trim(),option,StringComparison.OrdinalIgnoreCase))return line.Substring(eq+1).Trim();
+            }
+            return fallback;
+        }
     }
 }

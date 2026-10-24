@@ -93,7 +93,7 @@ class PricePrecedence(unittest.TestCase):
 
 
 def shared_table(name, columns):
-    """Rows of a price-rule table the runtime plugin's mocked tests read too (build_plugin.py)."""
+    """Rows of a price-rule table read from the IL of CombatCosts 0.7.1."""
     lines = [line for line in (RUNTIME_TESTS / name).read_text(encoding="utf-8").splitlines()
              if line and not line.startswith("#")]
     rows = [line.split("\t") for line in lines]
@@ -105,14 +105,13 @@ def cell(value):
     return None if value == "-" else "" if value == "(blank)" else value
 
 
-class RuntimePluginParity(unittest.TestCase):
-    """costs.py and the plugin's CostPolicy (CampaignCosts.cs) on the same rows, so the
-    campaign totals and SEST's cost list apply one rule set."""
+class TrackerRuleTables(unittest.TestCase):
+    """costs.py against the tracker's selection and exclusion rules, row by row."""
 
     def test_precedence_and_parse_match_the_plugin_table(self):
         def section(name, pairs):
             return "" if pairs == "-" else f"[{name}]\n" + "".join(p + "\n" for p in pairs.split(";"))
-        rows = shared_table("cost_precedence.tsv", 8)
+        rows = shared_table("cost_field_origin.tsv", 8)
         self.assertGreaterEqual(len(rows), 40)
         for case, costs, entry, inline, field, inline_field, selected, expected in rows:
             with self.subTest(case=case):

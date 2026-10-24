@@ -22,17 +22,8 @@ and row's properties, UnitRows), inheritance, parameter order, constructor
 visibility, unique overloads, the property/field lookups, the sampler's
 reach and the Harmony targets' bodies - was added on 23 Oct 2026 and checked
 on 0.8.7 only, because the 0.8.6 DLL was not to hand.
-
-The campaign combat costs (CampaignCosts.cs, 24 Oct 2026, checked on 0.8.7
-only) add the debrief's Load target, its snapshot, row-parser and
-weapon-report members, the summary-row constructor, the weapon-report
-totals, IniHandler's Data, doesKeyExist and string readValue, the two Utils
-INI openers, the snapshot row's fields and the enum names the plugin
-requires; INSPECTED holds members it only relies on, whose bodies are read:
-the section names, Clear before the summary rows, the blank "fired nothing"
-report, ignored fuel tanks, CIWS bursts counted as projectiles and the
-case-insensitive weapon totals.
 """
+import argparse
 import hashlib
 from pathlib import Path
 import sys
@@ -41,6 +32,7 @@ from dncil.cil.body import CilMethodBody
 from dncil.cil.body.reader import CilMethodBodyReaderBytes
 
 EXPECTED = "eab2297ba92c6013958bdb2cf16d5794a4731330818ce353f89dc2241e16a3bd"
+COMPARISON_086 = "c913e31f2d73e526f2d28043f522f2be26f12534fd0421eedee3cd70eab9cdd8"
 OBJ, WPN, AP = "SeaPower.ObjectBase", "SeaPower.WeaponBase", "SeaPower.AmmunitionParameters"
 TER, INI, MISSION = "SeaPower.TerrainUtils", "SeaPower.IniHandler", "SeaPower.LinearCampaignMission"
 VM = "SeapowerUI.ViewModels.LinearCampaignTaskForceDebriefViewModel"
@@ -50,13 +42,6 @@ ROW = "SeapowerUI.ViewModels.LinearCampaignTaskForceDebriefUnitRow"
 ROSTER = "SeapowerUI.ViewModels.LinearCampaignTaskForceBuilderRosterItem"
 ROWS = "class System.Collections.Generic.IEnumerable`1<class %s>" % ROW
 CTOR = "instance void(%s, bool, bool, valuetype SeaPower.ObjectBase+CrewSkill, int)" % ", ".join(["string"] * 6)
-SUMROW = "SeapowerUI.ViewModels.LinearCampaignTaskForceDebriefSummaryRow"
-SNAPROW = "SeapowerUI.ViewModels.LinearCampaignTaskForceDebriefRegisterSnapshotRow"
-RULES = "SeapowerUI.ViewModels.LinearCampaignTaskForceModeRules"
-TWR, AMMO, UTILS = "SeaPower.TaskforceWeaponReport", "SeaPower.WeaponReportAmmoData", "SeaPower.Utils"
-EXT = "SeaPower.TaskforceWeaponReportExtensions"
-DATA = "class System.Collections.Generic.Dictionary`2<string, class System.Collections.Generic.Dictionary`2<string, string>>"
-SUMROWS = "class System.Collections.ObjectModel.ObservableCollection`1<class %s>" % SUMROW
 # (type, method) -> decoded signature; each must exist exactly once with these parameter types.
 METHODS = {
     (OBJ, "get__geoPosition"): "instance valuetype SeaPower.GeoPosition()",
@@ -82,55 +67,80 @@ METHODS = {
     (ROSTER, "get_CrewSkill"): "instance valuetype SeaPower.ObjectBase+CrewSkill()",
     (ROW, "get_InstanceId"): "instance string()",
     (VM, "get_UnitRows"): "instance class System.Collections.ObjectModel.ObservableCollection`1<class %s>()" % ROW,
-    # Campaign combat costs (CampaignCosts.cs), added 24 Oct 2026, checked on 0.8.7 only.
-    (VM, "Load"): "instance void(class %s)" % MISSION,
-    (VM, "get_SummaryRows"): "instance %s()" % SUMROWS,
-    (VM, "HasDebriefSnapshot"): "static bool(class %s, int)" % INI,
-    (VM, "GetDebriefSectionName"): "static string(int)",
-    (VM, "TryParseRegisterRows"): "static bool(string, ref class System.Collections.Generic.List`1<valuetype %s>)" % SNAPROW,
-    (VM, "TryReadWeaponReports"): "static bool(class %s, int, %s)" % (INI, ", ".join(["ref class " + TWR] * 3)),
-    (SUMROW, ".ctor"): "instance void(string, string, bool, bool)",
-    (RULES, "OpenCampaignStateIni"): "static class %s()" % INI,
-    (TWR, "BuildTaskforceTotals"): "instance class System.Collections.Generic.Dictionary`2<string, class %s>()" % AMMO,
-    (AMMO, "get_AmmoRef"): "instance string()",
-    (AMMO, "get_AmmoType"): "instance valuetype SeaPower.Ammunition+Type()",
-    (AMMO, "get_Launched"): "instance int()",
-    (AMMO, "get_ProjectileFired"): "instance int()",
-    (INI, "get_Data"): "instance %s()" % DATA,
-    (INI, "doesKeyExist"): "instance bool(string, string)",
-    (UTILS, "openVirtualIniFile"): "static class %s(string, string, string, bool)" % INI,
-    (UTILS, "openIniFile"): "static class %s(string, string, bool, bool)" % INI,
 }
-# METHODS is keyed by (type, name): a second overload of a bound name is checked here the same way.
-OVERLOADS = [(INI, "readValue", "instance string(string, string, string, bool)", "sectionName key defaultValue performLogging")]
-# Not bound, but CampaignCosts.cs relies on what their bodies do (checked below): exact signatures.
-INSPECTED = {
-    (VM, "Clear"): "instance void()",
-    (VM, "ReadRegisterRows"): "instance void(class %s, int, string, class System.Collections.ObjectModel."
-                              "ObservableCollection`1<class SeapowerUI.ViewModels.LinearCampaignTaskForceDebriefRegisterRow>)" % INI,
-    (VM, "WriteRegisterRows"): "static void(class %s, int, string, class System.Collections.Generic.IEnumerable`1<class "
-                               "SeaPower.UnitRegister>)" % INI,
-    (VM, "SaveDebriefSnapshot"): "static void(class %s, class SeapowerUI.ViewModels.MissionDebriefViewModel)" % MISSION,
-    (VM, "WriteWeaponReport"): "static void(class %s, int, string, class %s)" % (INI, TWR),
-    (VM, "ReadWeaponReport"): "static class %s(class %s, string, string)" % (TWR, INI),
-    (EXT, "IsIgnoredAmmo"): "static bool(valuetype SeaPower.Ammunition+Type, valuetype SeaPower.Ammunition+Type)",
-    (EXT, "RecordCiwsRoundsFired"): "static void(class SeaPower.Taskforce, class SeaPower.WeaponSystemCIWS, int)",
-}
+# Added 24 October. Campaign debrief bindings also match the repository's
+# 0.8.7 review. New inventory/F11 bindings are compared against the available
+# 0.8.6 capture; a fresh 0.8.7 run and PC acceptance remain required. Comparison
+# mode never changes the DLL's runtime hash allowlist.
+SUMROW = "SeapowerUI.ViewModels.LinearCampaignTaskForceDebriefSummaryRow"
+SNAPROW = "SeapowerUI.ViewModels.LinearCampaignTaskForceDebriefRegisterSnapshotRow"
+RULES = "SeapowerUI.ViewModels.LinearCampaignTaskForceModeRules"
+REPORT, AMMO = "SeaPower.TaskforceWeaponReport", "SeaPower.WeaponReportAmmoData"
+TF, REG, OBP, DECK = "SeaPower.Taskforce", "SeaPower.UnitRegister", "SeaPower.ObjectBaseParameters", "SeaPower.FlightDeck"
+METHODS.update({
+    (VM,"Load"): "instance void(class SeaPower.LinearCampaignMission)",
+    (VM,"HasDebriefSnapshot"): "static bool(class SeaPower.IniHandler, int)",
+    (VM,"GetDebriefSectionName"): "static string(int)",
+    (VM,"TryParseRegisterRows"): "static bool(string, ref class System.Collections.Generic.List`1<valuetype %s>)" % SNAPROW,
+    (VM,"TryReadWeaponReports"): "static bool(class SeaPower.IniHandler, int, ref class %s, ref class %s, ref class %s)" % (REPORT,REPORT,REPORT),
+    (VM,"SaveDebriefSnapshot"): "static void(class SeaPower.LinearCampaignMission, class SeapowerUI.ViewModels.MissionDebriefViewModel)",
+    (VM,"get_SummaryRows"): "instance class System.Collections.ObjectModel.ObservableCollection`1<class %s>()" % SUMROW,
+    (SUMROW,".ctor"): "instance void(string, string, bool, bool)",
+    (RULES,"OpenCampaignStateIni"): "static class SeaPower.IniHandler()",
+    (INI,"get_Data"): "instance class System.Collections.Generic.Dictionary`2<string, class System.Collections.Generic.Dictionary`2<string, string>>()",
+    (INI,"writeValue"): "instance void(string, string, string)",
+    (INI,"saveFile"): "instance void(bool)",
+    (REPORT,"BuildTaskforceTotals"): "instance class System.Collections.Generic.Dictionary`2<string, class %s>()" % AMMO,
+    (AMMO,"get_AmmoRef"): "instance string()",
+    (AMMO,"get_AmmoType"): "instance valuetype SeaPower.Ammunition+Type()",
+    (AMMO,"get_Launched"): "instance int()",
+    (AMMO,"get_ProjectileFired"): "instance int()",
+    ("SeaPower.Utils","openVirtualIniFile"): "static class SeaPower.IniHandler(string, string, string, bool)",
+    ("SeaPower.Utils","openIniFile"): "static class SeaPower.IniHandler(string, string, bool, bool)",
+    (TF,"RegisterUnitStatus"): "instance void(bool, class SeaPower.ObjectBase, bool, bool)",
+    ("SeaPower.SaveLoadManager","WriteTaskforceAarData"): "static void(class SeaPower.IniHandler, class SeaPower.Taskforce, string)",
+    ("SeaPower.SaveLoadManager","LoadTaskforceAarData"): "static void(class SeaPower.IniHandler, class SeaPower.Taskforce, string)",
+    (OBJ,"get_AmmunitionAmountDictionary"): "instance class UniRx.ReactiveDictionary`2<string, int>()",
+    (REG,"get_IniRef"): "instance string()", (REG,"get_IniFolder"): "instance string()",
+    (REG,"get_ObjectType"): "instance valuetype SeaPower.ObjectBase+ObjectType()",
+    (REG,"get_Count"): "instance int()", (REG,"get_IsDestroyed"): "instance bool()",
+    (INI,"getFilePath"): "instance string()",
+    (RULES,"OpenCampaignIni"): "static class SeaPower.IniHandler()",
+    (RULES,"IsTaskForceModeEnabled"): "static bool(class SeaPower.IniHandler)",
+    ("SeaPower.GameMain","OnDestroy"): "instance void()",
+    ("SeaPower.GameMain","Update"): "instance void()",
+})
+OVERLOADS = [(INI,"readValue","instance string(string, string, string, bool)")]
 # Instance members read through GetField/GetProperty (exact name) or, for the names in
 # IGNORE_CASE, Expression.PropertyOrField: each must be the only member of that name.
 FIELDS = {(AP, "_ammunitionFileName"): "string", (AP, "_terrainFollowFlight"): "bool",
-          (WPN, "_ap"): "class " + AP, (MISSION, "_index"): "int",
-          (SNAPROW, "IniRef"): "string", (SNAPROW, "Folder"): "string", (SNAPROW, "ObjectType"): "string",
-          (SNAPROW, "Count"): "int", (SNAPROW, "IsDestroyed"): "bool"}
+          (WPN, "_ap"): "class " + AP, (MISSION, "_index"): "int"}
 PROPERTIES = {(OBJ, "_geoPosition"): "valuetype SeaPower.GeoPosition",
               (WPN, "_flightStage"): "valuetype SeaPower.WeaponBase+FlightStage",
               (SNAP, "Items"): METHODS[SNAP, "get_Items"][len("instance "):-2],
               (VM, "UnitRows"): METHODS[VM, "get_UnitRows"][len("instance "):-2],
               (ROSTER, "CrewSkill"): "valuetype SeaPower.ObjectBase+CrewSkill", (ROW, "InstanceId"): "string"}
 PROPERTIES.update({(ROSTER, n): "string" for n in ("InstanceId", "UnitType", "UnitFolder", "Category", "VariantReference")})
-PROPERTIES.update({(VM, "SummaryRows"): SUMROWS, (AMMO, "AmmoRef"): "string",
-                   (AMMO, "AmmoType"): "valuetype SeaPower.Ammunition+Type", (AMMO, "Launched"): "int",
-                   (AMMO, "ProjectileFired"): "int"})
+FIELDS.update({
+    (OBJ,"_type"): "valuetype SeaPower.ObjectBase+ObjectType", (OBJ,"_obp"): "class " + OBP,
+    (OBP,"_objectIniName"): "string", (OBP,"_flightDeck"): "class " + DECK,
+    (DECK,"_currentAmmo"): "float", (DECK,"_accountableAmmunition"): "class System.Collections.Generic.Dictionary`2<string, int>",
+    (TF,"_unitStatusRegister"): "class System.Collections.Generic.List`1<class SeaPower.UnitRegister>",
+    (TF,"_weaponsSpent"): "class System.Collections.Generic.Dictionary`2<string, class SeaPower.WeaponsSpent>",
+    ("SeaPower.WeaponsSpent","_number"): "int",
+    **{(SNAPROW,n): t for n,t in (("IniRef","string"),("Folder","string"),("ObjectType","string"),("Count","int"),("IsDestroyed","bool"))},
+})
+STATIC_FIELDS = {("SeaPower.Globals",n): "class " + TF for n in ("_playerTaskforce","_enemyTaskforce","_neutralTaskforce")}
+STATIC_FIELDS["SeaPower.Globals","currentMissionFilePath"] = "string"
+PROPERTIES.update({
+    (VM,"SummaryRows"): METHODS[VM,"get_SummaryRows"][len("instance "):-2],
+    (INI,"Data"): METHODS[INI,"get_Data"][len("instance "):-2],
+    (OBJ,"AmmunitionAmountDictionary"): "class UniRx.ReactiveDictionary`2<string, int>",
+    (REG,"IniRef"): "string",(REG,"IniFolder"): "string",(REG,"Count"): "int",(REG,"IsDestroyed"): "bool",
+    (REG,"ObjectType"): "valuetype SeaPower.ObjectBase+ObjectType",
+    (AMMO,"AmmoRef"): "string",(AMMO,"AmmoType"): "valuetype SeaPower.Ammunition+Type",
+    (AMMO,"Launched"): "int",(AMMO,"ProjectileFired"): "int",
+})
 IGNORE_CASE = {"_ammunitionFileName", "_terrainFollowFlight", "_ap", "_geoPosition", "_flightStage"}
 # Harmony's __N and the row constructor's arguments are positional: same-typed neighbours must not swap.
 PARAMETERS = {
@@ -138,19 +148,21 @@ PARAMETERS = {
     (TER, "CrudeGetHighestTerrainHeightAhead"): "geoPosition heading distanceLimit isCalledFromJob",
     (INI, "readValue"): "sectionName key defaultValue performLogging",
     (ROW, ".ctor"): "instanceId iniRef iniFolder category variantReference damageState isDestroyed isFlagship crewSkill quantity",
-    (VM, "HasDebriefSnapshot"): "campaignStateIni missionIndex",
-    (VM, "TryReadWeaponReports"): "campaignStateIni missionIndex playerReport enemyReport neutralReport",
-    (SUMROW, ".ctor"): "label value isPositive isNegative",
-    (INI, "doesKeyExist"): "sectionName key",
-    (UTILS, "openVirtualIniFile"): "basePath fileName folderName checkCached",
-    (UTILS, "openIniFile"): "rootPath name logErrors useCaching",
 }
+PARAMETERS.update({
+    (VM,"TryReadWeaponReports"): "campaignStateIni missionIndex playerReport enemyReport neutralReport",
+    (VM,"TryParseRegisterRows"): "rawValue rows", (VM,"SaveDebriefSnapshot"): "mission debrief",
+    (SUMROW,".ctor"): "label value isPositive isNegative",
+    (INI,"writeValue"): "sectionName key value", (INI,"saveFile"): "overwrite",
+    ("SeaPower.Utils","openVirtualIniFile"): "basePath fileName folderName checkCached",
+    ("SeaPower.Utils","openIniFile"): "rootPath name logErrors useCaching",
+    (TF,"RegisterUnitStatus"): "useTmpList tfObject destroyed damaged",
+    ("SeaPower.SaveLoadManager","WriteTaskforceAarData"): "ini taskforce sectionName",
+    ("SeaPower.SaveLoadManager","LoadTaskforceAarData"): "missionIni taskforce sectionName",
+})
 STAGES = ("ToBearing", "MaintainHeight", "MoveToLoftAlt", "MaintainLoftAlt", "MoveToSeaSkimming",
           "MaintainSeaSkimming", "MoveToFinalFlightAlt", "MaintainFinalFlightAlt", "AlignSensorToTarget", "TerminalApproach")
 LOOKAHEAD_NM = 1.10  # Policy.LookAheadNm
-# CostPolicy.CountedTypes and PricedObjects: Bind throws unless the game defines them.
-AMMO_TYPES = ("Missile", "ASROC", "RBU", "AirDepthCharge", "Torpedo", "Bomb", "Projectile", "AerialRocket", "MLRS")
-OBJECT_TYPES = ("Vessel", "Submarine", "Aircraft", "Helicopter")
 PRIMITIVES = {0x01: "void", 0x02: "bool", 0x03: "char", 0x04: "sbyte", 0x05: "byte", 0x06: "short", 0x07: "ushort",
               0x08: "int", 0x09: "uint", 0x0a: "long", 0x0b: "ulong", 0x0c: "float", 0x0d: "double", 0x0e: "string",
               0x16: "TypedReference", 0x18: "IntPtr", 0x19: "UIntPtr", 0x1c: "object"}
@@ -247,37 +259,6 @@ class Assembly:
         generic = "<generic> " if blob[0] & 0x10 else ""
         return generic + ("instance " if blob[0] & 0x20 else "static ") + returns + "(" + ", ".join(params) + ")", params
 
-    def member(self, token):
-        """'Owner::Name' for a MethodDef, Field, MemberRef or MethodSpec token (call, ldftn, ldsfld operands)."""
-        table, rid = token >> 24, token & 0xFFFFFF
-        if not hasattr(self, "owners"):
-            self.owners = {}
-            for i in range(1, len(self.tables.TypeDef) + 1):
-                td = self.tables.TypeDef[i - 1]
-                self.owners.update({("MethodDef", m.row_index): i for m in td.MethodList})
-                self.owners.update({("Field", f.row_index): i for f in td.FieldList})
-        if table in (0x06, 0x04):
-            kind = "MethodDef" if table == 0x06 else "Field"
-            return self.names[self.owners[kind, rid]] + "::" + str(getattr(self.tables, kind)[rid - 1].Name)
-        if table == 0x0A:
-            row = self.tables.MemberRef[rid - 1]
-            parent = row.Class
-            owner = self.token(parent.table.name, parent.row_index) if parent.table.name in ("TypeDef", "TypeRef", "TypeSpec") \
-                else parent.table.name
-            return owner + "::" + str(row.Name)
-        if table == 0x2B:
-            method = self.tables.MethodSpec[rid - 1].Method
-            return self.member((0x06 if method.table.name == "MethodDef" else 0x0A) << 24 | method.row_index)
-        return "token %08x" % token
-
-    def enum(self, name):
-        """{member: value} of an enum's literal fields."""
-        values = {}
-        for c in self.tables.Constant or []:
-            if c.Parent.table is not None and c.Parent.table.name == "Field":
-                values[c.Parent.row_index] = int.from_bytes(c.Value.value, "little", signed=True)
-        return {str(f.row.Name): values.get(f.row_index) for f in self.typedef(name).FieldList if f.row.Flags.fdStatic}
-
     def chain(self, name):
         names = [name]
         while len(self.types.get(names[-1], [])) == 1:
@@ -308,31 +289,23 @@ class Assembly:
 def main():
     if sys.flags.optimize:
         sys.exit("verify_native_api.py checks with assert: run it without -O or PYTHONOPTIMIZE")
-    path = Path(sys.argv[1])
-    assert hashlib.sha256(path.read_bytes()).hexdigest() == EXPECTED, "uninspected native build"
+    parser=argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("assembly",type=Path)
+    parser.add_argument("--comparison-086",action="store_true",help="structural comparison only on the known 0.8.6 capture; does not authorize runtime loading")
+    args=parser.parse_args()
+    path=args.assembly
+    digest=hashlib.sha256(path.read_bytes()).hexdigest()
+    assert digest == (COMPARISON_086 if args.comparison_086 else EXPECTED), "uninspected native build"
     game = Assembly(path)
     bound = {}
-    for (owner, name), expected in METHODS.items():
+    for owner,name,expected in [(o,n,s) for (o,n),s in METHODS.items()] + OVERLOADS:
         rows = [m.row for m in game.typedef(owner).MethodList if str(m.row.Name) == name]
         params = expected[expected.index("(") + 1:-1].split(", ") if not expected.endswith("()") else []
         exact = [row for row in rows if game.method(row)[1] == params]
         assert len(exact) == 1 and game.method(exact[0])[0] == expected, (owner, name, [game.method(r)[0] for r in rows])
         bound[owner, name] = exact[0]
-    for owner, name, expected, names in OVERLOADS:
-        rows = [m.row for m in game.typedef(owner).MethodList if str(m.row.Name) == name]
-        exact = [row for row in rows if game.method(row)[0] == expected]
-        assert len(exact) == 1, (owner, name, expected)
-        got = " ".join(str(p.row.Name) for p in exact[0].ParamList if p.row.Sequence > 0)
-        assert got == names, (owner, name, got)
-    inspected = {}
-    for (owner, name), expected in INSPECTED.items():
-        rows = [m.row for m in game.typedef(owner).MethodList if str(m.row.Name) == name]
-        assert len(rows) == 1 and game.method(rows[0])[0] == expected, (owner, name, [game.method(r)[0] for r in rows])
-        inspected[owner, name] = rows[0]
     assert bound[ROW, ".ctor"].Flags.mdPublic, "row constructor must be public (GetConstructor)"
-    assert bound[SUMROW, ".ctor"].Flags.mdPublic, "summary-row constructor must be public (GetConstructor)"
-    assert game.token(game.typedef(SNAPROW).Extends.table.name, game.typedef(SNAPROW).Extends.row_index) == "System.ValueType", \
-        "the snapshot row is a struct (List<row> by ref)"
+    assert bound[SUMROW,".ctor"].Flags.mdPublic, "GetConstructor requires a public summary constructor"
     for (owner, name), names in PARAMETERS.items():
         got = " ".join(str(p.row.Name) for p in bound[owner, name].ParamList if p.row.Sequence > 0)
         assert got == names, (owner, name, got)
@@ -340,6 +313,12 @@ def main():
         for (owner, name), expected in table.items():
             found = game.members(owner, name, name in IGNORE_CASE)
             assert found == [(kind, owner, name, expected)], (owner, name, found)
+    for (owner,name),expected in STATIC_FIELDS.items():
+        rows=[f.row for f in game.typedef(owner).FieldList if str(f.row.Name)==name]
+        assert len(rows)==1 and rows[0].Flags.fdStatic and game.type(rows[0].Signature.value,1)[0]==expected,(owner,name)
+    for owner,names in {"SeaPower.Ammunition+Type": "Missile ASROC RBU AirDepthCharge Torpedo Bomb Projectile AerialRocket MLRS", "SeaPower.ObjectBase+ObjectType": "Vessel Submarine Aircraft Helicopter LandUnit"}.items():
+        actual={str(f.row.Name) for f in game.typedef(owner).FieldList if f.row.Flags.fdStatic}
+        assert set(names.split()) <= actual,(owner,actual)
     assert WPN in game.chain("SeaPower.Missile") and OBJ in game.chain(WPN), "Missile : WeaponBase : ObjectBase"
     assert "UnityEngine.MonoBehaviour" in game.chain(OBJ) and not game.members(OBJ, "transform"), "ObjectBase.transform"
     stage = game.typedef("SeaPower.WeaponBase+FlightStage")
@@ -358,78 +337,12 @@ def main():
     reach = max(literals((TER, "CrudeGetHighestTerrainHeightAhead")))
     assert 1.0 < reach <= LOOKAHEAD_NM, ("native sampler reach no longer inside Policy.LookAheadNm", reach)
     literals((VM, "ReadUnitRows"))
-
-    # Campaign combat costs: what CampaignCosts.cs relies on in these bodies.
-    for type_name, names in (("SeaPower.Ammunition+Type", AMMO_TYPES), ("SeaPower.ObjectBase+ObjectType", OBJECT_TYPES)):
-        enum = game.typedef(type_name)
-        assert game.token(enum.Extends.table.name, enum.Extends.row_index) == "System.Enum", type_name
-        values = game.enum(type_name)
-        for name in names:
-            assert name in values, (type_name, name)
-    assert game.enum("SeaPower.Ammunition+Type")["Fueltank"] == 16, "Fueltank is 16 (IsIgnoredAmmo)"
-
-    def code(key):
-        row = bound[key] if key in bound else inspected[key]
-        assert row.Rva and row.ImplFlags.miIL, (key, "no IL body")
-        out = []
-        for i in CilMethodBody(CilMethodBodyReaderBytes(game.pe.get_data(row.Rva))).instructions:
-            op, operand = str(i.opcode), i.operand
-            if op == "ldstr":
-                operand = game.pe.net.user_strings.get(operand.value & 0xFFFFFF).value
-            elif op in ("call", "callvirt", "newobj", "ldftn", "ldsfld", "ldfld", "stfld"):
-                operand = game.member(operand.value)
-            out.append((op, operand))
-        return out
-
-    def strings(key):
-        return [operand for op, operand in code(key) if op == "ldstr"]
-
-    def calls(key):
-        return [operand for op, operand in code(key) if op in ("call", "callvirt", "newobj", "ldftn")]
-
-    for key, wanted in (((VM, "GetDebriefSectionName"), ("Mission_", "_TaskForceDebrief")),
-                        ((VM, "ReadRegisterRows"), ("Rows",)), ((VM, "WriteRegisterRows"), ("Rows",)),
-                        ((VM, "Load"), ("Kill", "Loss")), ((VM, "SaveDebriefSnapshot"), ("Kill", "Loss")),
-                        ((VM, "TryReadWeaponReports"), ("PlayerWeaponReport", "EnemyWeaponReport"))):
-        for text in wanted:
-            assert text in strings(key), (key, text)
-    load = calls((VM, "Load"))
-    first_rows = next(i for i, c in enumerate(load) if c == VM + "::get_SummaryRows")
-    assert VM + "::Clear" in load[:first_rows], "Load clears the summary rows before adding any"
-    assert load.count(SUMROW + "::.ctor") == 4, "Load adds the 4 native summary rows"
-    clear = calls((VM, "Clear"))
-    at = clear.index(VM + "::get_SummaryRows")
-    assert clear[at + 1] == "class System.Collections.ObjectModel.Collection`1<class %s>::Clear" % SUMROW, clear[at + 1]
-    assert VM + "::TryParseRegisterRows" in calls((VM, "ReadRegisterRows")), "ReadRegisterRows parses through TryParseRegisterRows"
-    assert VM + "::WriteWeaponReports" in calls((VM, "SaveDebriefSnapshot")), "the snapshot saves the weapon reports"
-    write = code((VM, "WriteWeaponReport"))
-    blank = [i for i, (op, operand) in enumerate(write) if op == "ldsfld" and operand == "System.String::Empty"]
-    assert len(blank) == 1 and write[blank[0] + 1] == ("call", VM + "::WriteDebriefSectionValue"), \
-        "a side with no report rows is saved blank"
-    assert VM + "::HasWeaponReportRows" in calls((VM, "WriteWeaponReport"))
-    assert "System.String::IsNullOrWhiteSpace" in calls((VM, "ReadWeaponReport")), "ReadWeaponReport: blank gives null"
-    ignored = [operand for op, operand in code((EXT, "IsIgnoredAmmo")) if op.startswith("ldc.i4.s") or op == "ldc.i4"]
-    assert ignored and set(ignored) == {16}, ("IsIgnoredAmmo compares with Fueltank only", ignored)
-    lambdas = [c for c in calls((EXT, "RecordCiwsRoundsFired")) if "<RecordCiwsRoundsFired>" in c]
-    owner_rows = {game.names[game.owners["MethodDef", m.row_index]] + "::" + str(m.row.Name): m.row
-                  for i in game.types.get(EXT + "+<>c__DisplayClass13_0", []) for m in game.tables.TypeDef[i - 1].MethodList}
-    ciws = [name for name in lambdas if name in owner_rows]
-    assert ciws, ("CIWS lambda not found", lambdas)
-    bodies = []
-    for name in ciws:
-        bound[name] = owner_rows[name]
-        bodies += calls(name)
-    assert AMMO + "::set_CiwsRoundsFired" in bodies and AMMO + "::set_ProjectileFired" in bodies, \
-        "CIWS bursts are counted in ProjectileFired, so count = Launched + ProjectileFired"
-    assert "System.StringComparer::get_OrdinalIgnoreCase" in calls((TWR, "BuildTaskforceTotals")), \
-        "weapon totals are keyed by AmmoRef ignoring case"
-
-    print("Native 0.8.7 ABI verified: captured hash, %d method signatures and %d overload with %d parameter orders, "
-          "%d inspected bodies, %d fields, %d properties, 10 cruise/terminal enum names, %d ammunition and %d object "
-          "type names, inheritance, native lookahead and sampler reach (%.2f nm), and the campaign-cost behaviour checks"
-          % (len(METHODS), len(OVERLOADS), len(PARAMETERS) + len(OVERLOADS), len(INSPECTED), len(FIELDS),
-             len(PROPERTIES), len(AMMO_TYPES), len(OBJECT_TYPES), reach))
-    print("No game code executed. Unity gameplay and Harmony installation still require the PC acceptance test.")
+    label="0.8.6 structural comparison only" if args.comparison_086 else "0.8.7 ABI"
+    print("Native %s verified: captured hash, %d method signatures with %d parameter orders, %d fields, "
+          "%d properties, 10 cruise/terminal enum names, inheritance, native lookahead and sampler reach (%.2f nm)"
+          % (label,len(METHODS)+len(OVERLOADS), len(PARAMETERS), len(FIELDS)+len(STATIC_FIELDS), len(PROPERTIES), reach))
+    print("No game code executed. External Unity members and Harmony installation still require PC acceptance.")
+    if args.comparison_086: print("This is NOT a 0.8.7 verification. The plugin remains restricted to the previously reviewed 0.8.7 hash.")
 
 
 if __name__ == "__main__":

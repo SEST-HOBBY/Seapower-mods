@@ -1804,6 +1804,50 @@ DISABLE_ACTIONS = {"weapons": "WeaponSystems", "sensors": "SensorSystems",
                    "propulsion": "PropulsionSystems"}
 
 
+def scripted_stores(uid, keys):
+    """Loaded rounds, including a tube's associated magazine such as TorpedoRoom."""
+    kind, path = unit_file(uid)
+    held = set(stores(uid, kind, path, keys.get("LoadoutVariant")))
+    body = read(path)
+    for magazine in set(re.findall(r"^AssociatedMagazine=\s*([\w-]+)", body, re.M)):
+        section = re.search(r"^\[" + re.escape(magazine) + r"\]\s*$(.*?)(?=^\[|\Z)", body, re.M | re.S)
+        if section:
+            held.update(re.findall(r"^Ammunition\d*=([^\s#/|]+)", section.group(1), re.M))
+    return held
+
+
+def timed_attacks(mission, spec, keys, pending, tag):
+    """Native Attack=target,seconds,ammunition,shots; no runtime plugin.
+
+    Attacks are deliberately limited to named opposing units, with real loaded
+    stores and a preparation period. MissionFileInformation.ini documents this
+    as an unconditional attack, including the seconds-from-mission-start clock.
+    Actual launch/target handling is still a PC acceptance check.
+    """
+    out = []
+    for number, attack in enumerate(spec.get("attacks", []), 1):
+        where = f"{mission['key']}: {spec['type']} at {spec['station']}, attack {number}"
+        if not isinstance(attack, (tuple, list)) or len(attack) != 4:
+            raise SystemExit(f"{where}: attacks takes (minute, ammunition, target station ref, shots)")
+        minute, ammo, target, shots = attack
+        if (isinstance(minute, bool) or not isinstance(minute, (int, float)) or
+                not math.isfinite(minute) or not OPENING_QUIET_MIN <= minute < mission["minutes"]):
+            raise SystemExit(f"{where}: attack must follow the {OPENING_QUIET_MIN}-minute preparation period and precede the window")
+        if spec.get("enter") is not None and minute <= spec["enter"]:
+            raise SystemExit(f"{where}: attack must be after the shooter's join time")
+        if not isinstance(shots, int) or isinstance(shots, bool) or shots < 1:
+            raise SystemExit(f"{where}: shots must be a positive integer")
+        if not isinstance(target, str) or not target:
+            raise SystemExit(f"{where}: target must name one station ref")
+        if ammo not in scripted_stores(spec["type"], keys):
+            raise SystemExit(f"{where}: {ammo!r} is not carried in this fit")
+        pending.append((tag, target, spec["side"], where))
+        out.append(f"{TARGET_MARK.format(target)},{round(minute * 60)},{ammo},{shots}")
+    if out:
+        keys["Attack"] = "|".join(out)
+        keys["OverrideWeaponStatus"] = keys["WeaponStatus"]
+
+
 def waypoint_orders(mission, spec, kind, keys, orders, pending, tag, n):
     """The "/Order,..." suffix of one waypoint, validated against the files.
 
@@ -1837,8 +1881,7 @@ def waypoint_orders(mission, spec, kind, keys, orders, pending, tag, n):
             _v, ammo, target, rounds = order
             if not isinstance(rounds, int) or isinstance(rounds, bool) or rounds < 1:
                 raise SystemExit(f"{where}: AttackAtWaypoint rounds must be 1 or more")
-            kind_dir, path = unit_file(spec["type"])
-            carried = stores(spec["type"], kind_dir, path, keys.get("LoadoutVariant"))
+            carried = scripted_stores(spec["type"], keys)
             if ammo not in carried:
                 raise SystemExit(f"{where}: AttackAtWaypoint fires {ammo!r}, which "
                                  f"{spec['type']} does not carry in this fit "
@@ -2199,6 +2242,8 @@ def place(mission, snapper):
                          "flies an airway; it does not loop")
             keys["Waypoints"] += "|Loop"
 
+        timed_attacks(mission, spec, keys, pending, tag)
+
         placed[family].append((tag, keys, spec.get("name"),
                                spec.get("no_neutral_penalty", False)))
         members[spec["station"]].append(tag)
@@ -2317,7 +2362,9 @@ def place(mission, snapper):
                 raise SystemExit(f"{where}: AttackAtWaypoint target {ref!r} is an "
                                  "air-tasking placeholder")
             keys = sections[tag]
-            keys["Waypoints"] = keys["Waypoints"].replace(TARGET_MARK.format(ref), target)
+            for field in ("Waypoints", "Attack"):
+                if field in keys:
+                    keys[field] = keys[field].replace(TARGET_MARK.format(ref), target)
     stranded = assign_home_bases(placed, generated=bool(mission.get("generation")))
     if stranded:
         raise SystemExit(f"{mission['key']}: " + "; ".join(stranded))
@@ -2570,6 +2617,7 @@ ALSO_TERMS = {
     "time": ({"after_minutes"}, {"kind", "after_minutes"}),
     "area": ({"units"}, {"kind", "units", "at", "radius", "min_units"}),
     "destroyed": ({"units"}, {"kind", "units", "min_units"}),
+    "no_incoming": (set(), {"kind"}),
 }
 
 
@@ -2616,6 +2664,11 @@ def also_condition(mission, n, extra, members):
                 "the window")
         return [f"Condition_Condition{n}_Type=Time",
                 f"Condition_Condition{n}_Time={after * 60}"]
+    if kind == "no_incoming":
+        # Task-force-wide, as native NoIncomingWeapons reads it. This is
+        # combined with an earned win/elapsed-attack gate, never used alone.
+        return [f"Condition_Condition{n}_Type=NoIncomingWeapons",
+                f"Condition_Condition{n}_Taskforce=Taskforce1"]
     wanted = [extra["units"]] if isinstance(extra["units"], str) else extra["units"]
     units = [tag for r in wanted for tag in refs(members, r)]
     least = extra.get("min_units", len(units))
@@ -5099,7 +5152,10 @@ def render(mission, placed, members):
                     + ["ConditionsCompleted=<Condition1>",
                        f"Action_ObjectivesFailed={oid}"])
         elif kind == "destroy":
-            units = [tag for tag in refs(members, how[1])]
+            wanted = [how[1]] if isinstance(how[1], str) else how[1]
+            units = [tag for ref in wanted for tag in refs(members, ref)]
+            if not units or not 1 <= how[2] <= len(units):
+                raise SystemExit(f"{mission['key']}: objective {oid} has an impossible destroyed-unit count")
             trigger(f"{oid} met", destroyed_condition(1, units, how[2])
                     + ["ConditionsCompleted=<Condition1>",
                        f"Action_ObjectivesCompleted={oid}"])

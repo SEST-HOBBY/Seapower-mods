@@ -7,8 +7,9 @@ and sources, labelled as SEST's in the shipped catalog. Missing values stay
 unknown. The field precedence below was checked against CostRules.ResolveField
 in the captured DLL. It deliberately distinguishes a missing key from a blank key.
 SEST's runtime plugin ports the same rules (integration/runtime-fixes/
-CampaignCosts.cs, CostPolicy); both are checked against the shared tables
-integration/runtime-fixes/tests/cost_precedence.tsv and cost_exclusion.tsv.
+CombatPrices.cs); both are checked against integration/runtime-fixes/tests/
+cost_precedence.tsv, and costs.py also against cost_field_origin.tsv and
+cost_exclusion.tsv.
 
 cost_list() renders docs/combat-costs/cost-list.md and cost-list.csv: every
 unit SEST ships or its missions field, with its price and where the price
@@ -241,8 +242,8 @@ def estimate_fields(kind, item):
         raise ValueError(where + ": an estimate needs at least one price")
     if KINDS[kind][3]:
         category = item.get("category")
-        if not _one_line(category) or len(category) > 20:
-            raise ValueError(where + ": an estimate needs a category of at most 20 characters")
+        if not _one_line(category) or not re.fullmatch(r"[A-Za-z0-9 _-]{1,20}", category, re.ASCII):
+            raise ValueError(where + ": an estimate needs a category of at most 20 characters, using ASCII letters, digits, spaces, underscore or hyphen")
         fields["Category"] = category
     return fields
 

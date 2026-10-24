@@ -5,15 +5,12 @@ Needs mono-mcs. For an extracted local toolchain, set SEST_MONO_PREFIX to
 the prefix containing usr/bin/mono and usr/lib/mono/4.5/mcs.exe. The temporary
 Anchor Chain API stand-in is never shipped. No game/Unity/Harmony DLL is
 required to compile. The committed output is rebuilt only on source changes.
-The two price-rule tables in tests/ are passed to the tests and are shared
-with tools/tests/test_combat_costs.py, which checks integration/common/costs.py
-against the same rows.
 """
 import os
 import hashlib
 import json
-from pathlib import Path
 import re
+from pathlib import Path
 import shutil
 import subprocess
 import tempfile
@@ -21,7 +18,8 @@ import tempfile
 HERE = Path(__file__).resolve().parent
 STUB = HERE.parent / "menu-background/stubs/AnchorChain.cs"
 SOURCES = sorted(HERE.glob("*.cs"))
-FIXTURES = [HERE / "tests/cost_precedence.tsv", HERE / "tests/cost_exclusion.tsv"]
+TEST_SOURCES = sorted((HERE / "tests").glob("*.cs"))
+FIXTURE = HERE / "tests/cost_precedence.tsv"
 
 
 def toolchain():
@@ -54,25 +52,26 @@ def main():
         candidate = tmp / "SEST.RuntimeFixes.dll"
         compile_cs(["-target:library", f"-out:{candidate}", f"-r:{stub}"] + [str(s) for s in SOURCES])
         tests = tmp / "RuntimeTests.exe"
-        compile_cs(["-target:exe", f"-out:{tests}", str(STUB)] + [str(s) for s in SOURCES] +
-                   [str(HERE / "tests/RuntimeTests.cs")])
-        run = subprocess.run([mono, str(tests)] + [str(f) for f in FIXTURES], env=env,
-                             stdout=subprocess.PIPE, universal_newlines=True)
+        compile_cs(["-target:exe", f"-out:{tests}", str(STUB)] + [str(s) for s in SOURCES + TEST_SOURCES])
+        run = subprocess.run([mono, str(tests), str(FIXTURE)], env=env, capture_output=True, text=True)
         print(run.stdout, end="")
-        run.check_returncode()
-        passed = re.search(r"^Runtime regressions passed: (\d+) assertions", run.stdout, re.M)
-        if not passed:
-            raise SystemExit("mocked regressions did not report their assertion count")
+        if run.returncode:
+            print(run.stderr, end="", file=__import__("sys").stderr)
+            run.check_returncode()
+        match = re.search(r"Runtime regressions passed: (\d+) assertions", run.stdout)
+        if not match:
+            raise SystemExit("Runtime test receipt missing")
+        assertions = int(match[1])
         # Preserve the previous committed DLL if compilation or tests fail.
         (HERE / candidate.name).write_bytes(candidate.read_bytes())
     root = HERE.parents[1]
-    inputs = SOURCES + [STUB, Path(__file__).resolve(), HERE / "tests/RuntimeTests.cs"] + FIXTURES
+    inputs = SOURCES + [STUB, Path(__file__).resolve()] + TEST_SOURCES + [FIXTURE]
     manifest = {
         "format": 1,
         "binary": "SEST.RuntimeFixes.dll",
         "sha256": hashlib.sha256((HERE / "SEST.RuntimeFixes.dll").read_bytes()).hexdigest(),
         "inputs": {p.relative_to(root).as_posix(): hashlib.sha256(p.read_bytes()).hexdigest() for p in inputs},
-        "validation": passed[1] + " assertions passed using mocked native APIs; no Unity gameplay claim",
+        "validation": f"{assertions} assertions passed using mocked native APIs; no Unity gameplay claim",
     }
     (HERE / "plugin-build.json").write_text(json.dumps(manifest, indent=2) + "\n")
     print("Built integration/runtime-fixes/SEST.RuntimeFixes.dll")

@@ -1,5 +1,7 @@
 # Combat costs: not yet confirmed (24 Oct 2026)
 
+Historical research snapshot. The owner's subsequent request authorizes estimates for complete coverage. All 381 rows (377 unique references) now have prices in `cost-list.csv`, from preserved checked research or labelled SEST models. That does not confirm the original candidate figures. The research decisions below remain unchanged; see `backlog-resolution.md` for the installed-price crosswalk.
+
 381 weapons, land units, ships and aircraft that SEST's campaigns field or carry, with no checked price yet. "Candidate" is the researcher's figure in USD (service-entry price / 2026 price) where one was found. It ships only once a second agent confirms the source. "Not researched" and "not confirmed" mean the session's web-search allowance (200 per turn, shared by all agents) ran out or the source sites were blocked by the environment's network policy - not that the item cannot be priced.
 
 | Group | Items | With a candidate figure |

@@ -1,54 +1,15 @@
-# Which price CombatCosts 0.7.1 selects (CostRules.ResolveField, Preference, Value and ParsePrice,
-# read from the IL of CombatCosts.dll 74afa902...). Shared by tests/RuntimeTests.cs (CostPolicy, run by
-# build_plugin.py) and tools/tests/test_combat_costs.py (integration/common/costs.py): change both
-# rule sets and this table together.
-#
-# Columns, tab-separated: case, costs, entry, inline, field, inline_field, selected, price.
-#   costs   the catalog's [Costs] section; entry: the catalog's [round] section; inline: the unit file's
-#           [General] section. "-" means the section is absent, otherwise Key=Value pairs joined by ";"
-#           (Key= is a blank value). The reference looked up is "Round", so sections match ignoring case.
-#   selected  the raw value chosen: "-" none, "(blank)" an empty value, otherwise the value.
-#   price     ParsePrice of it: "unknown", a decimal, or "-" for a category (not a price).
-case	costs	entry	inline	field	inline_field	selected	price
-inline wins by default	-	WeaponCosts=20	WeaponCosts=1	WeaponCosts	WeaponCosts	1	1
-no unit section falls back to the list	-	WeaponCosts=20	-	WeaponCosts	WeaponCosts	20	20
-missing inline key falls back to the list	-	WeaponCosts=20	Other=5	WeaponCosts	WeaponCosts	20	20
-blank inline value wins and stays unknown	-	WeaponCosts=20	WeaponCosts=	WeaponCosts	WeaponCosts	(blank)	unknown
-no list entry keeps the inline value	-	-	WeaponCosts=1	WeaponCosts	WeaponCosts	1	1
-neither side has the key	-	-	-	WeaponCosts	WeaponCosts	-	unknown
-list-wide OverrideInline prefers the list	OverrideInline=True	WeaponCosts=20	WeaponCosts=1	WeaponCosts	WeaponCosts	20	20
-list-wide: a blank list value wins	OverrideInline=True	WeaponCosts=	WeaponCosts=1	WeaponCosts	WeaponCosts	(blank)	unknown
-list-wide: a missing list key falls back to inline	OverrideInline=True	Other=1	WeaponCosts=1	WeaponCosts	WeaponCosts	1	1
-entry OverrideInline=False beats list-wide True	OverrideInline=True	OverrideInline=False;WeaponCosts=20	WeaponCosts=1	WeaponCosts	WeaponCosts	1	1
-entry OverrideInline=True	-	OverrideInline=True;WeaponCosts=20	WeaponCosts=1	WeaponCosts	WeaponCosts	20	20
-Override<field> beats the entry setting	-	OverrideInline=True;OverrideWeaponCosts=False;WeaponCosts=20	WeaponCosts=1	WeaponCosts	WeaponCosts	1	1
-Override<field> leaves other fields inline	-	OverrideCurrentYearCost=True;WeaponCosts=20;CurrentYearCost=30	WeaponCosts=1;CurrentYearCost=2	WeaponCosts	WeaponCosts	1	1
-Override<field> prefers the list for its field	-	OverrideCurrentYearCost=True;WeaponCosts=20;CurrentYearCost=30	WeaponCosts=1;CurrentYearCost=2	CurrentYearCost	CurrentYearCost	30	30
-invalid entry bool keeps the list-wide setting	OverrideInline=True	OverrideInline=yes;WeaponCosts=20	WeaponCosts=1	WeaponCosts	WeaponCosts	20	20
-invalid list-wide bool means inline first	OverrideInline=maybe	WeaponCosts=20	WeaponCosts=1	WeaponCosts	WeaponCosts	1	1
-blank list-wide bool means inline first	OverrideInline=	WeaponCosts=20	WeaponCosts=1	WeaponCosts	WeaponCosts	1	1
-1 is not a bool and keeps the entry setting	-	OverrideInline=True;OverrideWeaponCosts=1;WeaponCosts=20	WeaponCosts=1	WeaponCosts	WeaponCosts	20	20
-bools ignore letter case	-	OverrideInline=TRUE;WeaponCosts=20	WeaponCosts=1	WeaponCosts	WeaponCosts	20	20
-keys ignore letter case	-	weaponcosts=20	WEAPONCOSTS=1	WeaponCosts	WeaponCosts	1	1
-CurrentYearCost never falls back to the historical price	-	WeaponCosts=20	WeaponCosts=1	CurrentYearCost	CurrentYearCost	-	unknown
-a missing inline CurrentYearCost falls back to the list's	-	CurrentYearCost=30	WeaponCosts=1	CurrentYearCost	CurrentYearCost	30	30
-the category has its own inline key	-	Category=AAM	WeaponCostCategory=SAM	Category	WeaponCostCategory	SAM	-
-OverrideCategory prefers the list category	-	Category=AAM;OverrideCategory=True	WeaponCostCategory=Other;WeaponCosts=100	Category	WeaponCostCategory	AAM	-
-OverrideCategory leaves the price inline	-	Category=AAM;OverrideCategory=True;WeaponCosts=200	WeaponCostCategory=Other;WeaponCosts=100	WeaponCosts	WeaponCosts	100	100
-vessel price, inline first	OverrideInline=False	VesselCosts=900	VesselCosts=800	VesselCosts	VesselCosts	800	800
-aircraft price, field override	-	OverrideAircraftCosts=True;AircraftCosts=7	AircraftCosts=6	AircraftCosts	AircraftCosts	7	7
-price with a decimal point	-	-	WeaponCosts=70000.5	WeaponCosts	WeaponCosts	70000.5	70000.5
-price with a leading point	-	-	WeaponCosts=.5	WeaponCosts	WeaponCosts	.5	0.5
-price with a trailing point	-	-	WeaponCosts=70000.	WeaponCosts	WeaponCosts	70000.	70000
-zero is free, not unknown	-	-	WeaponCosts=0	WeaponCosts	WeaponCosts	0	0
-the maximum price	-	-	WeaponCosts=1000000000000000	WeaponCosts	WeaponCosts	1000000000000000	1000000000000000
-above the maximum	-	-	WeaponCosts=1000000000000001	WeaponCosts	WeaponCosts	1000000000000001	unknown
-an exponent	-	-	WeaponCosts=7e4	WeaponCosts	WeaponCosts	7e4	unknown
-a negative price	-	-	WeaponCosts=-1	WeaponCosts	WeaponCosts	-1	unknown
-a plus sign	-	-	WeaponCosts=+5	WeaponCosts	WeaponCosts	+5	unknown
-a thousands separator	-	-	WeaponCosts=1,000	WeaponCosts	WeaponCosts	1,000	unknown
-an inner space	-	-	WeaponCosts=1 000	WeaponCosts	WeaponCosts	1 000	unknown
-a currency sign	-	-	WeaponCosts=$500	WeaponCosts	WeaponCosts	$500	unknown
-a word	-	-	WeaponCosts=unknown	WeaponCosts	WeaponCosts	unknown	unknown
-NaN	-	-	WeaponCosts=NaN	WeaponCosts	WeaponCosts	NaN	unknown
-a lone point	-	-	WeaponCosts=.	WeaponCosts	WeaponCosts	.	unknown
+name	inline	catalog	global	entry	field_override	expected
+inline_default	10	20	~	~	~	10
+missing_inline	~	20	~	~	~	20
+missing_catalog	10	~	true	~	~	10
+blank_inline	EMPTY	20	~	~	~	EMPTY
+blank_catalog	10	EMPTY	true	~	~	EMPTY
+global_list	10	20	true	~	~	20
+entry_inline	10	20	true	false	~	10
+field_list	10	20	false	false	true	20
+field_inline	10	20	true	true	false	10
+invalid_global	10	20	invalid	~	~	10
+invalid_entry	10	20	true	invalid	~	20
+invalid_field	10	20	true	false	invalid	10
+explicit_free	0	20	~	~	~	0
+missing_both	~	~	true	true	true	~
