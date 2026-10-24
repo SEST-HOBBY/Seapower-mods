@@ -17,6 +17,7 @@ import copy
 import importlib.abc
 import io
 import json
+import math
 import re
 import shutil
 import subprocess
@@ -1612,6 +1613,28 @@ class SameNationDiscount(unittest.TestCase):
         # on the plot with nothing seeming to hold it (play test, 18 Oct 2026).
         self.assertIn("Action_UnitRevealToTaskforce=Taskforce1\nAction_UnitRevealTime=60\n", text)
         self.assertNotIn("Taskforce1|Classify", text)
+
+    def test_steel_highway_boat_spawns_at_random_around_the_report(self):
+        # The owner's request of 23 Oct 2026: the boat spawns up to 35 NM
+        # from the reported contact, outside the quarter facing the convoy;
+        # the one-minute record shows a stand-in at the datum, removed at 61 s.
+        ini = (Path(bp.__file__).resolve().parent / "SEST_Campaign" / "campaigns" /
+               "sest-southern-watch" / "missions" / "Southern Watch 02 - Steel Highway.ini")
+        text = ini.read_text(encoding="utf-8")
+        boat = re.search(r"^\[Taskforce2Submarine1\]\n(.*?)(?=^\[)", text, re.M | re.S).group(1)
+        self.assertIn("Type=plan_ss_type_039b", boat)
+        self.assertIn("RandomSpawnRange=0,35\n", boat)
+        self.assertIn("RandomSpawnDirection=-70,200\n", boat)
+        self.assertNotIn("RelativePositionInNM=", boat)
+        stand_in = re.search(r"^\[Taskforce2Submarine2\]\n(.*?)(?=^\[)", text, re.M | re.S).group(1)
+        self.assertIn("WeaponStatus=Hold", stand_in)
+        self.assertNotIn("Waypoints=", stand_in)
+        centre = re.search(r"^RandomSpawnCenter=(-?[\d.]+),[^,]*,(-?[\d.]+)$", boat, re.M)
+        at = re.search(r"^RelativePositionInNM=(-?[\d.]+),[^,]*,(-?[\d.]+)$", stand_in, re.M)
+        self.assertLess(math.hypot(float(centre[1]) - float(at[1]), float(centre[2]) - float(at[2])), 1.0)
+        self.assertIn("Action_UnitRevealTime=60\nAction_Units=Taskforce2Submarine2\n", text)
+        self.assertIn("Condition_Condition1_Time=61\nConditionsCompleted=<Condition1>\n"
+                      "Action_DespawnUnits=True\nAction_Units=Taskforce2Submarine2\n", text)
 
     # Sulu Line is the one campaign whose roster is a coalition on purpose:
     # the Thai detachment, one RAN frigate and the MSC charter are sold at

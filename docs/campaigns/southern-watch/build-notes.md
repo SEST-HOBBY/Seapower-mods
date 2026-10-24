@@ -3942,3 +3942,29 @@ stages last, which only the play test shows. The ten-second flame, the
 The fit keeps its name, so no mission file changes. Not yet seen in game:
 the test card's first things, 6, checks the loadout preview, the firing
 from the 7-tube pods, the flame, the climb, the run-up and the slow-down.
+
+## Steel Highway's boat spawns at random around the report (23 October, later)
+
+The owner asked that in SW02 Steel Highway the submarine "spawn in random
+area of about 35NM from the reported contact that stays for 1 min".
+
+- **The boat.** Contact BRAVO, the Type 039B, now uses the game's own random
+  spawn (`RandomSpawnCenter`, `RandomSpawnRange`, `RandomSpawnDirection`, as
+  the stock *Sub Duel JMSDF 1985* uses them): from the reported datum 30 NM
+  up the track, 0 to 35 NM out, on any bearing from 290 degrees through north
+  to 200 degrees. The 90 degrees left out face the escorts and convoy, which
+  start 30-33 NM from the datum on 238-245 degrees, so every possible start
+  is at least 17 NM from a ship or the Poseidon. She still creeps toward the
+  same point on the track. The builder takes `random_spawn` on any unit and
+  writes the three keys in place of its fixed position.
+- **The reported contact.** The Torres Light record (O1's win,
+  `O1BeaconFound`) still puts one minute of a bare contact on the plot, but
+  now on a stand-in left at the datum (weapons held, stopped) rather than on
+  the boat, so the record shows where she was reported and not where she is.
+  A new `despawn_at` trigger removes the stand-in at 61 s, with no score.
+- **The briefing** adds that by now the boat could be anywhere within
+  thirty-five miles of the report.
+- **Unchecked:** no coastline or depth extract covers this sea (the
+  Southern Watch builder proves positions from loading missions instead), and
+  the game picks the point at random, so a start on a reef or in shallows is
+  possible. Test card H.20a asks for three starts.

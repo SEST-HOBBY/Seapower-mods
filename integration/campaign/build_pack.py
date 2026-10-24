@@ -1691,7 +1691,8 @@ BLOCK_ORDER = ("Type", "VariantReference", "SpawnByVariableAND",
                "TaskForceModeAnchor", "TaskForceModeReplacedUnitIndex",
                "TaskForceModeIgnoreUnit", "Nation", "UnlimitedFuel", "WeaponStatus",
                "RadarsActive", "CrewSkill", "Morale", "CampaignTag",
-               "RelativePositionInNM", "Heading", "Telegraph",
+               "RelativePositionInNM", "RandomSpawnCenter", "RandomSpawnRange",
+               "RandomSpawnDirection", "Heading", "Telegraph",
                # last, after Waypoints, where the native blocks put it
                "HomeBase")
 
@@ -1699,6 +1700,11 @@ BLOCK_ORDER = ("Type", "VariantReference", "SpawnByVariableAND",
 def block(tag, keys):
     lines = [f"[{tag}]"]
     for k in BLOCK_ORDER:
+        # A random spawn replaces the fixed position, as in the stock Sub
+        # Duel JMSDF 1985; the builder's own checks still read the centre
+        # as RelativePositionInNM.
+        if k == "RelativePositionInNM" and "RandomSpawnCenter" in keys:
+            continue
         if k in keys:
             lines.append(f"{k}={keys[k]}")
     for k, v in keys.items():
@@ -1992,6 +1998,20 @@ def place(mission, snapper):
                     CrewSkill=spec.get("skill", "Trained"), Morale="3")
         keys["RelativePositionInNM"] = (
             f"{(lon - centre[1]) * 60:.2f},{alt},{(lat - centre[0]) * 60:.2f}")
+        # `random_spawn=dict(range=(min, max), bearing=(a, b))`: the game
+        # places the unit at a random range (NM) and absolute bearing
+        # (degrees, a to b clockwise, a may be negative) from this point -
+        # the stock keys RandomSpawnCenter, RandomSpawnRange and
+        # RandomSpawnDirection (Sub Duel JMSDF 1985).
+        rs = spec.get("random_spawn")
+        if rs:
+            lo, hi = rs["range"]
+            a, b = rs.get("bearing", (0, 360))
+            if not (0 <= lo < hi) or not (-360 <= a < b <= 360) or b - a > 360:
+                raise SystemExit(f"{mission['key']}: {spec['type']} has an invalid random_spawn {rs}")
+            keys["RandomSpawnCenter"] = keys["RelativePositionInNM"]
+            keys["RandomSpawnRange"] = f"{lo},{hi}"
+            keys["RandomSpawnDirection"] = f"{a},{b}"
         keys["Heading"] = spec.get("heading", st.get("heading", 90))
         # A civil aircraft flies an airway, never an orbit. With no Waypoints
         # the game holds an aircraft in a circle over its spawn, and one that
@@ -5435,6 +5455,19 @@ def render(mission, placed, members):
             "Action_UnitRevealToTaskforce=Taskforce1" + (f"|{level}" if level else ""),
             f"Action_UnitRevealTime={reveal.get('time', -1)}",
             f"Action_Units={','.join(revealed)}"])
+
+    # Units taken out at a mission time, with no score: the stock
+    # Action_DespawnUnits (05A Operation Blockbuster's "Bomber cleanup").
+    # SW02 parks a stand-in at the reported datum for the one-minute record
+    # and removes it here once the reveal has run.
+    for gone in mission.get("despawn_at", []):
+        units = [t for r in gone["units"] for t in refs(members, r)]
+        trigger(gone["name"], [
+            "Condition_Condition1_Type=Time",
+            f"Condition_Condition1_Time={int(gone['time'])}",
+            "ConditionsCompleted=<Condition1>",
+            "Action_DespawnUnits=True",
+            f"Action_Units={','.join(units)}"])
 
     # A unit sitting in an air-tasking slot is a placeholder the player fills
     # from the aircraft they own, so binding a trigger to it is binding an

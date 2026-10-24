@@ -696,7 +696,8 @@ MISSIONS.append(dict(
         "the planned track, thirty miles ahead at the far edge of the "
         "approach box, and lost it when the buoys ran down. Nothing holds it "
         "now: it is a report, not a track, and it will not be on your plot "
-        "until your own sensors put it there. The Poseidon assigned to you "
+        "until your own sensors put it there. By now the boat could be "
+        "anywhere within thirty-five miles of that report. The Poseidon assigned to you "
         "starts over the convoy. The masters want to press on at twelve "
         "knots. We want time to find it. You will not get both.\\n\\n"
         "Three of four must reach the Moresby approach box, and two of the "
@@ -728,6 +729,9 @@ MISSIONS.append(dict(
     # mission is over whatever the other three do.
     fatal=[F("Medical", ["convoy#1"]), F("Cargo", ["convoy#4"])],
     neutral_objective="Neutrals",
+    # The datum stand-in goes once the one-minute record has run (or at once
+    # in effect, when there is no record to show).
+    despawn_at=[dict(name="Reported datum ages off", units=["sub#2"], time=61)],
     win=(
         "At least three ships, including Kokoda Star and Coral Pioneer, have reached the Gulf "
         "handover. Moresby's pilots can take over the arrival. Report which additional cargoes "
@@ -810,9 +814,24 @@ MISSIONS.append(dict(
         # the play test of 18 Oct 2026 found SW02 and C1 the same mission
         # with the same boat in the same sea. This one waits on the track
         # on air-independent power, slow and quiet.
+        # The owner's request of 23 Oct 2026: the boat spawns at random up
+        # to 35 NM from the reported contact, not on it. The bearing band
+        # leaves out the 90 degrees facing the escorts and convoy (244-243
+        # degrees and 30-33 NM from the datum), so she never starts on top of
+        # them: every possible start is at least 17 NM from a ship or the
+        # Poseidon. No coast extract covers this sea, so the spot the game
+        # picks is unchecked for reef and shallows: the test card asks.
         U("red", "modern-plan-systems", "plan_ss_type_039b", "sub",
           name="Contact BRAVO", depth="belowlayer", radars="False",
-          route=[(-10.24, 144.85, "belowlayer")], telegraph=1),
+          route=[(-10.24, 144.85, "belowlayer")], telegraph=1,
+          random_spawn=dict(range=(0, 35), bearing=(-70, 200))),
+        # The reported contact itself: a stand-in at the datum, weapons held
+        # and stopped, that the Torres Light record reveals for one minute
+        # (reveal_if below) and despawn_at removes at 61 s. The record now
+        # shows where she was reported, not where she is.
+        U("red", "modern-plan-systems", "plan_ss_type_039b", "sub",
+          name="Reported datum", depth="belowlayer", radars="False",
+          weapons="Hold", telegraph=0),
         # Air-tasking placeholder: no name, no objective, no line in the
         # briefing. Its only job is to be a cockpit a purchased aircraft can
         # take, the way every slot-tagged section in the shipped campaign is.
@@ -5888,8 +5907,10 @@ for _m in MISSIONS:
         # second and nothing on the player's side seemed to hold it. One
         # minute now, the stock Sub Duel's "Initial contact", and the intel
         # line says what it is: a position from a record, not a sensor.
+        # sub#2 is the stand-in at the datum, not the boat: she spawns at
+        # random up to 35 NM away (23 Oct 2026).
         _m["reveal_if"] = [dict(
-            variable="O1BeaconFound", units=["sub"], level="", time=60,
+            variable="O1BeaconFound", units=["sub#2"], level="", time=60,
             intel=(
                 "ASW CELL: Torres Light's recovered bridge record puts the reported submarine "
                 "here an hour ago. That position is on your display for one minute only. It "
