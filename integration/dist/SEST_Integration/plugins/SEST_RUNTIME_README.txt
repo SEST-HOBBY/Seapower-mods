@@ -49,8 +49,8 @@ feature. Linux tests cover mocked native APIs and policy, not Unity gameplay.
 COMPLETE COMBAT COSTS (private playtest; native PC acceptance pending)
 Requires enabled Combat Cost Tracker catalogs and a full game restart.
 In a mission, F11 is the Combat Cost Tracker's own panel: this mission's costs.
-In the Task Force menu between missions, F11 opens SEST's campaign panel and F11
-closes it. It shows the completed missions' Player and Enemy totals (weapons,
+In the Task Force menu between missions, F11 opens SEST's campaign panel at the
+middle of the left edge, clear of the mission information, and F11 closes it. It shows the completed missions' Player and Enemy totals (weapons,
 ships, aircraft, land, stores lost with destroyed units) and one line per
 completed mission, the latest ten listed. Information only: no tabs or buttons.
 Requires the inspected Combat Cost Tracker 0.7.1; with an unknown version the

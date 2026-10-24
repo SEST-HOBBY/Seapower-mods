@@ -12,11 +12,11 @@
   "properties": 23,
   "tracker_sha256": "74afa9028fc0c52b93f415263504f51ecf8d056a624feaebcc8053ba5a1c0ac3",
   "tracker_methods": 3,
-  "tracker_fields": 11
+  "tracker_fields": 9
  },
  "runtime": {
-  "sha256": "f52601673ac4cf9b7a3d3ea5b22b6c0a8c292eca1d17f85193cffcecfff626c8",
-  "validation": "177 assertions passed using mocked native APIs; no Unity gameplay claim",
+  "sha256": "41ff20d968c8a4caa8bd674b803f0532ddae55f984fd4a6ccd77873b56129e7b",
+  "validation": "178 assertions passed using mocked native APIs; no Unity gameplay claim",
   "deterministic_rebuild": true
  },
  "build": {

@@ -24,13 +24,13 @@ What changed, at the owner's request:
 
 ## F11 in the Task Force menu
 
-4. Return to the Task Force menu and press F11. One panel titled `COMBAT COSTS / CAMPAIGN` should open:
+4. Return to the Task Force menu and press F11. One panel titled `COMBAT COSTS / CAMPAIGN` should open at the middle of the left edge, not covering the mission information on the right:
    - a header line with the price basis and the number of completed missions;
    - `Player total` and `Enemy total`, each with Weapons, Ships, Aircraft, Land and `Stores lost with units`;
    - `Missions, latest first`, one line per completed mission.
 
    There must be no buttons or tabs. Press F11 again: it closes. Open it, then launch a mission: it must not stay on screen in the mission.
-5. Hold Ctrl, Alt or Shift and press F11: nothing should change. Try a small window, and the tracker's own scale/position settings: the panel and its last line should fit on screen.
+5. Hold Ctrl, Alt or Shift and press F11: nothing should change. Try a small window, and the tracker's own scale setting: the panel and its last line should fit on screen.
 
 ## Stores carry over (the reported bug)
 

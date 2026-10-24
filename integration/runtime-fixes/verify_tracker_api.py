@@ -20,7 +20,7 @@ METHODS = {
     (OVERLAY, 'Styles'): 'instance void()',
 }
 FIELDS = {**{n: 'bool' for n in ('ready', 'missionActive')},
-          **{n: 'float' for n in ('top', 'right', 'scale', 'opacity')},
+          **{n: 'float' for n in ('scale', 'opacity')},
           **{n: 'class UnityEngine.GUIStyle' for n in ('label', 'title', 'muted')},
           'mission': 'object', 'toggle': 'valuetype UnityEngine.KeyCode'}
 

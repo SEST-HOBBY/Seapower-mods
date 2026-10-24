@@ -16,7 +16,7 @@ namespace Sest.RuntimeFixes
         const int Listed=10;
         static bool attached,stopped,menuShown,wasLive;
         static double nextAttach,nextCapture,nextLines;
-        static FieldInfo ready,missionActive,mission,top,right,scale,opacity,label,title,muted,toggle,missionPath;
+        static FieldInfo ready,missionActive,mission,scale,opacity,label,title,muted,toggle,missionPath;
         static MethodInfo styles,keyDown,getKey;
         static string[] lines=new string[0];
         static double Now { get { return (double)Stopwatch.GetTimestamp()/Stopwatch.Frequency; } }
@@ -90,7 +90,7 @@ namespace Sest.RuntimeFixes
         {
             var type=Api.Type(tracker,"WeaponCostsMod.Overlay");
             ready=Field(type,"ready",typeof(bool));missionActive=Field(type,"missionActive",typeof(bool));mission=Field(type,"mission");
-            top=Field(type,"top",typeof(float));right=Field(type,"right",typeof(float));scale=Field(type,"scale",typeof(float));opacity=Field(type,"opacity",typeof(float));
+            scale=Field(type,"scale",typeof(float));opacity=Field(type,"opacity",typeof(float));
             label=Field(type,"label");title=Field(type,"title");muted=Field(type,"muted");toggle=Field(type,"toggle");
             styles=Api.Method(type,"Styles",typeof(void));
             var input=Api.FindType("UnityEngine.Input");var code=Api.FindType("UnityEngine.KeyCode");
@@ -139,7 +139,7 @@ namespace Sest.RuntimeFixes
             styles.Invoke(owner,null);
             if(Now>=nextLines){lines=CampaignCosts.CampaignLines(CampaignCosts.SavedGames(),Listed);nextLines=Now+2;}
             object face=label.GetValue(owner),note=muted.GetValue(owner) ?? face;
-            CostGUI.Panel((float)top.GetValue(owner),(float)right.GetValue(owner),(float)scale.GetValue(owner),(float)opacity.GetValue(owner),62+lines.Length*21,(x,y)=>{
+            CostGUI.Panel((float)scale.GetValue(owner),(float)opacity.GetValue(owner),62+lines.Length*21,(x,y)=>{
                 CostGUI.Label(x+12,y+6,616,24,"COMBAT COSTS / CAMPAIGN",title.GetValue(owner));
                 CostGUI.Label(x+12,y+30,616,22,"Completed missions in this campaign. F11 closes.",note);
                 y+=56;
@@ -169,7 +169,9 @@ namespace Sest.RuntimeFixes
         }
         static object Rect(float x,float y,float w,float h){return rectangle.Invoke(new object[]{x,y,w,h});}
         internal static void Label(float x,float y,float w,float h,string text,object face){label.Invoke(null,new[]{Rect(x,y,w,h),text,face});}
-        internal static void Panel(float top,float right,float requestedScale,float alpha,float requestedHeight,Action<float,float> draw)
+        // Middle of the left edge: the Task Force menu's mission information
+        // fills the right side, where the tracker's own panel sits.
+        internal static void Panel(float requestedScale,float alpha,float requestedHeight,Action<float,float> draw)
         {
             object oldMatrix=matrix.GetValue(null,null),oldColor=color.GetValue(null,null),oldDepth=depth.GetValue(null,null);
             try
@@ -177,7 +179,7 @@ namespace Sest.RuntimeFixes
                 float width=(int)screenWidth.GetValue(null,null),height=(int)screenHeight.GetValue(null,null),tall=Math.Min(640,requestedHeight);
                 float zoom=Math.Max(0.25f,Math.Min(requestedScale,Math.Min((width-12)/652f,(height-12)/(tall+12))));
                 matrix.SetValue(null,trs.Invoke(null,new[]{vector.Invoke(new object[]{0f,0f,0f}),identity.GetValue(null,null),vector.Invoke(new object[]{zoom,zoom,1f})}),null);
-                depth.SetValue(null,-50,null);float x=Math.Max(0,width/zoom-640-right),y=Math.Max(0,Math.Min(top,height/zoom-tall-10));
+                depth.SetValue(null,-50,null);float x=10,y=Math.Max(0,(height/zoom-tall)/2);
                 color.SetValue(null,colour.Invoke(new object[]{0.035f,0.055f,0.075f,alpha}),null);
                 drawTexture.Invoke(null,new[]{Rect(x,y,640,tall),whiteTexture.GetValue(null,null)});color.SetValue(null,white.GetValue(null,null),null);
                 draw(x,y);
