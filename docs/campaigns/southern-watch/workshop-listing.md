@@ -103,10 +103,12 @@ log has the Regional Expansion entry only. Everything else in the block below
 that build but not yet in a Steam change log: paste it with the next update,
 above the 20 Oct block if that has not been uploaded either. The required mods
 are unchanged by the 24 Oct capture. The costs lines rest on mocked tests and
-one PC session (`docs/workshop-refresh-20261024-review.md`, section 1):
-before pasting them, run `docs/playtests/campaign-costs-panel-20261024.md`
-steps 3, 4 and 7. If the Task Force panel or the carry-over fails, take out
-its line.
+the owner's report from the uploaded build: the Task Force panel at the left
+and the stores carry-over work (`docs/playtests/campaign-costs-panel-20261024.md`,
+steps 4, 6 and 7). Step 3, the in-mission panel, was not reported. The same
+report has the Regional Expansion starting as a new campaign
+(`docs/playtests/world-regions-20261024.md`, step 4); its line keeps
+"(preview)" until its patrols, supply and saves have been seen.
 
 ```
 [h2]24 October 2026[/h2]

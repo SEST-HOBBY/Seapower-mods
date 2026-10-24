@@ -76,7 +76,7 @@ Send `Player.log`, `BepInEx/LogOutput.log` and screenshots of any error.
 
 ## Remaining runtime uncertainties
 
-None of this has been played. Static validation (`check_dynamic_campaign.py`: engine rules, audit references, SEST collection and water checks) is not an in-game test.
+Only the start has been seen. On 24 Oct 2026 the owner started it as a new campaign on the uploaded build (`8e72f353`). Patrols, replenishment, battles and saves have not been reported. Static validation (`check_dynamic_campaign.py`: engine rules, audit references, SEST collection and water checks) is not an in-game test.
 
 - **Replenishment accounting** between the mod's strategic transfer and SEST Replenishment's in-battle rules is untested; `DYNAMIC_CAMPAIGN_ADAPTER.md` already flags it.
 - **Long supply lines.** Supply from the Novorossiysk depot to Bamako, Niamey and Bangui (2,600 to 3,000 NM) may rarely arrive.

@@ -1,6 +1,6 @@
 # World Sandbox 2028 Regional Expansion: PC check, 24 October 2026
 
-This build is the World Sandbox branch, `feature/world-sandbox-regional-expansion-20261024` (draft PR #44), with all of `sest-dev/jolly-ride-rptj4t` merged in. It includes everything in `campaign-costs-panel-20261024.md`, whose steps still apply. Nothing here has been played; static checks are not a game test. Never overwrite an existing save.
+This build is the World Sandbox branch, `feature/world-sandbox-regional-expansion-20261024` (draft PR #44), with all of `sest-dev/jolly-ride-rptj4t` merged in. It includes everything in `campaign-costs-panel-20261024.md`, whose steps still apply. Only its start has been seen (Result, below); static checks are not a game test. Never overwrite an existing save.
 
 ## Install
 
@@ -27,6 +27,14 @@ This build is the World Sandbox branch, `feature/world-sandbox-regional-expansio
 8. **Replenishment.** Bring a regional surface group within 5 NM of the Pashin (Tobruk or Tartous) or the Delvar (Chabahar). Its fuel and ammunition rise, the supply ship's cargo falls, and nothing restocks for free.
 9. **A battle.** Let a contact become a battle. The forces match the map, and survivors, losses and ammunition expended come back to it.
 10. **Persistence.** Save, quit to the menu, reload. Positions, damage, purchases, fuel, stocks and losses survive. Run more than one combat and supply cycle.
+
+## Result, 24 October 2026
+
+The owner's report on the live Workshop build (`8e72f353`, 4,297 files). It was a yes, with no log or screenshot:
+
+- **Step 4: pass.** Regional Expansion starts as a new campaign.
+
+Not reported: playing it as RED, step 3's listing of the original, and steps 5 to 10 (the original's start, the new bases, patrols, replenishment, a battle, saves).
 
 ## What to send
 

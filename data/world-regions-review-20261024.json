@@ -128,5 +128,18 @@
    "result": "pass"
   }
  ],
- "pc_acceptance": "pending: docs/playtests/world-regions-20261024.md; no in-game test of either world campaign"
+ "pc_acceptance": {
+  "card": "docs/playtests/world-regions-20261024.md",
+  "date": "2026-10-24",
+  "build": "8e72f353 (live Workshop upload, 4,297 files)",
+  "source": "owner's report, no log or screenshot",
+  "passed": [
+   "step 4: Regional Expansion starts as a new campaign"
+  ],
+  "not_reported": [
+   "step 4 as RED",
+   "step 3 original listed",
+   "steps 5-10: original start, new bases, patrols, replenishment, battle, persistence"
+  ]
+ }
 }

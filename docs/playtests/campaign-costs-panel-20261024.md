@@ -42,6 +42,15 @@ What changed, at the owner's request:
 
 9. In the campaign where the first mission "didn't save", open the panel. If SEST's local record of that game matches its losses exactly, the stores come back. That mission is then counted once, never twice. If no record matches, or several do, the stores stay `+ ?`. Report which happened, and the mission name.
 
+## Result, 24 October 2026
+
+The owner's report on the live Workshop build (`8e72f353`, 4,297 files, which carries everything above). It was a yes to each question, with no log or screenshot:
+
+- **Step 4: pass.** The Task Force menu panel opens at the middle of the left edge.
+- **Steps 6 and 7: pass.** Stores lost stay in the campaign total after the next mission.
+
+Not reported: steps 3, 5 and 8, step 7's check after a full restart, and step 9's outcome (stores recovered from the record, or `+ ?`).
+
 ## What to send
 
 Exact `IN LINE` commit and count, the step number, the panel's lines (a screenshot is easiest), the price mode, and a fresh Player.log.
