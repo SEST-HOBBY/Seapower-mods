@@ -2,15 +2,16 @@ SEST MENU BACKGROUND
 
 What this folder does: it plays the SEST film behind Sea Power's main menu
 in place of the game's own, and shows SEST photographs in place of every
-other backdrop picture: loading screens, the scenario, campaign and Mod
-Manager pages, and campaign and mission title pictures.
+other backdrop picture: loading screens and the backdrops behind the
+scenario, campaign and Mod Manager pages. Scenario, campaign and briefing
+pictures and maps stay as their authors made them.
 
   SEST.MenuBackground.dll  the plugin. Anchor Chain (installed by SETUP)
                            starts it when the game starts.
   sest_menu.mp4            the film: eleven SEST Gallery photographs,
                            no text, darkened, looping, no sound.
-  sest_menu.ini            Enabled=0 turns it all off; Backdrops=0 and
-                           CampaignArt=0 put the game's pictures back;
+  sest_menu.ini            Enabled=0 turns it all off; Backdrops=0 puts
+                           the game's backdrops back;
                            Pictures=0 turns off the [SEST Pictures] lines
                            it writes to Player.log; TileGuard=0 turns off
                            the campaign map's tile guard (below).

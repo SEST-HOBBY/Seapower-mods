@@ -7795,10 +7795,10 @@ Pictures=1
 ; Lines starting [SEST Backdrops] in Player.log say which. Backdrops=0 puts
 ; the game's own pictures back.
 Backdrops=1
-; CampaignArt=1 (on unless 0) does the same for campaign and mission title
-; pictures that are not SEST's (the base game's campaigns, other mods'
-; scenarios). Unit photos, flags, maps and the game's logos are never touched.
-CampaignArt=1
+; Scenario, campaign and briefing pictures, maps, unit photos, flags and the
+; game's logos are never touched. (CampaignArt, which also painted over
+; pictures in other campaigns' and missions' folders, is retired: from
+; 24 Oct 2026 the plugin ignores it.)
 ; TileGuard=1 (on unless 0) stops the error box that can come up on the
 ; campaign map after a mission: drawing a map tile while the mission is still
 ; unloading fails, and the plugin skips that tile instead. Lines starting
@@ -7810,15 +7810,16 @@ MENU_README = """SEST MENU BACKGROUND
 
 What this folder does: it plays the SEST film behind Sea Power's main menu
 in place of the game's own, and shows SEST photographs in place of every
-other backdrop picture: loading screens, the scenario, campaign and Mod
-Manager pages, and campaign and mission title pictures.
+other backdrop picture: loading screens and the backdrops behind the
+scenario, campaign and Mod Manager pages. Scenario, campaign and briefing
+pictures and maps stay as their authors made them.
 
   SEST.MenuBackground.dll  the plugin. Anchor Chain (installed by SETUP)
                            starts it when the game starts.
   sest_menu.mp4            the film: eleven SEST Gallery photographs,
                            no text, darkened, looping, no sound.
-  sest_menu.ini            Enabled=0 turns it all off; Backdrops=0 and
-                           CampaignArt=0 put the game's pictures back;
+  sest_menu.ini            Enabled=0 turns it all off; Backdrops=0 puts
+                           the game's backdrops back;
                            Pictures=0 turns off the [SEST Pictures] lines
                            it writes to Player.log; TileGuard=0 turns off
                            the campaign map's tile guard (below).

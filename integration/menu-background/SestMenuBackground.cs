@@ -46,9 +46,11 @@
 // has loaded it - a Unity texture named by its file's path - and paints a
 // SEST photograph into it, the same texture, so the loading screen, the menu
 // backdrop behind the scenario and campaign pages and the Mod Manager show
-// SEST's. Campaign and mission title pictures from outside the pack
-// (CampaignArt=1) are treated the same way. Unit photos, flags, maps and the
-// game's logos are not touched.
+// SEST's. Unit photos, flags, maps, briefing pictures, scenario and campaign
+// pictures and the game's logos are not touched. (Until 24 Oct 2026,
+// CampaignArt=1 also painted over every picture in any campaigns or missions
+// folder outside the pack, which took stock scenario pictures, briefing
+// images and maps with the title art; it is retired and the ini key ignored.)
 //
 // Since 17 Oct 2026 (1.3.0) it also guards the campaign map against the
 // error box after a mission (TileGuard, TileGuard=1 in the ini, on unless
@@ -323,8 +325,11 @@ namespace Sest.MenuBackground
             // own photographs, not the film.
             if (!(ini.TryGetValue("Backdrops", out v) && v.Trim() == "0"))
             {
-                bool art = !(ini.TryGetValue("CampaignArt", out v) && v.Trim() == "0");
-                try { backdrops = PictureSwap.Create(dir, art); }
+                // CampaignArt is retired (24 Oct 2026): scenario, campaign and
+                // briefing pictures and maps stay the game's and their mods'.
+                if (ini.TryGetValue("CampaignArt", out v) && v.Trim() != "0")
+                    Debug.Log(PictureSwap.Tag + "CampaignArt is retired and ignored; scenario pictures are left as they are");
+                try { backdrops = PictureSwap.Create(dir); }
                 catch (Exception e) { backdrops = null; Debug.LogWarning(PictureSwap.Tag + "not started: " + e.Message); }
             }
             else Debug.Log(PictureSwap.Tag + "off (Backdrops=0 in " + IniName + ")");
@@ -988,8 +993,8 @@ namespace Sest.MenuBackground
 
     // SEST photographs in place of every other backdrop picture. The game
     // names a texture it loads from a file by the file's full path; one whose
-    // path runs through a ui/backgrounds folder (or, with CampaignArt, a
-    // campaigns or missions folder) and not through the SEST pack is a
+    // path runs through a ui/backgrounds folder and not through the SEST
+    // pack is a
     // backdrop from the base game or another mod. Each is painted over once
     // with one of the pack's own photographs (its ui/backgrounds pictures),
     // picked by the texture's name so the same picture always gets the same
@@ -1009,14 +1014,13 @@ namespace Sest.MenuBackground
 
         readonly List<string> photos = new List<string>();
         readonly HashSet<int> done = new HashSet<int>();
-        readonly bool campaignArt;
         float next;
         int swappedCount, logged;
 
-        PictureSwap(List<string> files, bool art) { photos = files; campaignArt = art; }
+        PictureSwap(List<string> files) { photos = files; }
 
         // The pack's photographs: ui/backgrounds beside the plugins folder.
-        public static PictureSwap Create(string pluginDir, bool art)
+        public static PictureSwap Create(string pluginDir)
         {
             string pack = Directory.GetParent(pluginDir).FullName;
             string dir = Path.Combine(Path.Combine(pack, "ui"), "backgrounds");
@@ -1030,8 +1034,8 @@ namespace Sest.MenuBackground
             files.Sort(StringComparer.OrdinalIgnoreCase);
             if (files.Count == 0) throw new Exception("no SEST photographs in " + dir);
             Debug.Log(Tag + "ready: " + files.Count + " SEST photographs from " + dir
-                      + (art ? "; campaign and mission pictures included" : "; campaign and mission pictures left alone"));
-            return new PictureSwap(files, art);
+                      + "; backdrops only, campaign and mission pictures left alone");
+            return new PictureSwap(files);
         }
 
         public void Tick(float now)
@@ -1191,9 +1195,11 @@ namespace Sest.MenuBackground
             if (n.IndexOf(":/", StringComparison.Ordinal) < 0 && !n.StartsWith("/")) return false;   // not a file
             if (!(n.EndsWith(".png") || n.EndsWith(".jpg") || n.EndsWith(".jpeg"))) return false;
             if (n.Contains("/sest_integration/") || n.Contains("/3812461539/")) return false;
-            if (n.Contains("/ui/backgrounds/")) return true;
-            if (!campaignArt || n.Contains("/user/")) return false;
-            return n.Contains("/campaigns/") || n.Contains("/missions/");
+            // Menu backdrops and loading screens only. Anything in a campaigns
+            // or missions folder (title art, briefing pictures, maps) is the
+            // scenario's own and is never painted over.
+            if (n.Contains("/campaigns/") || n.Contains("/missions/")) return false;
+            return n.Contains("/ui/backgrounds/");
         }
 
         void Paint(Texture2D target)

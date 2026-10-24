@@ -3968,3 +3968,23 @@ area of about 35NM from the reported contact that stays for 1 min".
   Southern Watch builder proves positions from loading missions instead), and
   the game picks the point at random, so a start on a reef or in shallows is
   possible. Test card H.20a asks for three starts.
+
+## The menu plugin leaves scenario pictures alone (24 October)
+
+The owner reported that scenario-menu pictures and maps were showing SEST
+photographs. Codex traced it to `integration/menu-background/SestMenuBackground.cs`:
+with `CampaignArt=1` (the generated `sest_menu.ini` default) `PictureSwap.Wanted`
+accepted every PNG or JPG under any `campaigns` or `missions` folder outside
+the pack, so stock and other mods' scenario pictures, briefing images and maps
+were painted over along with title art, although the ini said maps were never
+touched.
+
+- `CampaignArt` is retired. The plugin now paints only `ui/backgrounds`
+  pictures (menu backdrops and loading screens) and refuses anything in a
+  campaigns or missions folder; an old ini that still sets `CampaignArt=1`
+  is ignored, with one line in Player.log saying so.
+- The generated `sest_menu.ini` and `README.txt` no longer offer it.
+- Textures the old build already repainted stay repainted until the game is
+  restarted.
+- Not yet seen in game. The briefing fonts and colours in the same report are a
+  separate question, not yet confirmed.
