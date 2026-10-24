@@ -1,5 +1,16 @@
 # Red Line — build notes
 
+## 24 October 2026 — current combat/pacing revision
+
+The owner asked for less timid play, especially RL01/RL02. The current source now schedules native, targeted missile/torpedo attacks rather than relying on passive hostile AI. `timed_attacks()` validates real loaded ammunition (including associated torpedo rooms), positive shot counts, opposing exact targets and preparation/entry timing, then emits documented native `Attack=target,seconds,ammo,shots` orders. These orders still need observed PC launches. Main combat exits conjunct `NoIncomingWeapons` with earned tasks/time gates; the native condition only covers detected incoming weapons.
+
+RL01 is 40-minute carrier defence against two hostile missile craft; ALPHA classification is optional. RL02 is a 55-minute final tanker approach with allocated airborne ASW, GOLF attacks at 10/18 and a missile flank at 14. RL03/RLO2 use delayed active fighter interceptions; RL03 has a fixed J-15 pair. RL04/RL06 add Q-ships threatening the supplier/tender. RL05 retains one compact stealth passage; RL06's concealment is now graded rather than fatal. Optional/SAR windows are reduced. See the current bible table and `test-card.md`.
+
+Protected coalition observers in RL01–04 are neutral non-belligerents, so defensive player units and unrelated hostile raiders do not share them as combatants. Protected-loss rules, reserved hull variants, the 17-entry spine, calendar, `RL02GolfSunk`, `RLO1GolfDatum` and the held RLO2 reveal remain. No missile/weapon performance changes are part of this revision.
+
+The notes below describe earlier authoring decisions. Their blanket restraint-only wording and earlier mission windows are historical where superseded by this dated revision.
+
+
 What was built from `campaign-bible.md`, which builder features it relies
 on, and what has **not** been demonstrated. Read this with the Southern
 Watch and Southern Reach notes (`../southern-watch/build-notes.md`,

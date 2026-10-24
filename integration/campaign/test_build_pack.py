@@ -3357,7 +3357,7 @@ class RedSidePresentation(unittest.TestCase):
         brief = (rl / "missions" / "Red Line 02 - Routes They Can See_briefing" /
                  "BriefingText_en.xml").read_text(encoding="utf-8")
         self.assertNotIn("Virginia", brief)
-        self.assertIn("Protected - do not engage", brief)
+        self.assertIn("protected non-belligerent", brief)
         brief = (rl / "missions" / "Red Line 01 - Trailing Contact_briefing" /
                  "BriefingText_en.xml").read_text(encoding="utf-8")
         self.assertNotIn("Collins", brief)
@@ -3460,7 +3460,7 @@ class RedLineSideOperations(unittest.TestCase):
         last = {}
         for m in self.rl["MISSIONS"]:
             for u in m["units"]:
-                if u["side"] == "red" and bp.unit_type(u["type"]) in ("Vessel", "Submarine") \
+                if u["side"] != "blue" and bp.unit_type(u["type"]) in ("Vessel", "Submarine") \
                         and bp.is_combat(u["type"]):
                     key = (u["type"], u.get("variant", "Variant1"))
                     last[key] = max(last.get(key, m["date"]), m["date"])

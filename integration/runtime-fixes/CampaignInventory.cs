@@ -219,7 +219,11 @@ namespace Sest.RuntimeFixes
         internal static void AfterSave(object __0,object __1,string __2)
         {
             if(!active || __0==null || __1==null)return;
-            try{Write(__0,__2,MissionSaveKey,Ledger(__1).Serialize());}
+            try
+            {
+                Write(__0,__2,MissionSaveKey,Ledger(__1).Serialize());
+                if(CombatHistory.CurrentId!=null)Write(__0,__2,CombatHistory.SessionKey,CombatHistory.CurrentId);
+            }
             catch(Exception e){Api.LogFailure("combat inventory save supplement unavailable",e);}
         }
         internal static void AfterLoad(object __0,object __1,string __2)
@@ -229,6 +233,7 @@ namespace Sest.RuntimeFixes
             {
                 InventoryLedger value=InventoryLedger.Parse(Read(__0,__2,MissionSaveKey)) ?? new InventoryLedger();
                 ledgers.Remove(__1);ledgers.Add(__1,value);
+                CombatHistory.RestoreSession(Read(__0,__2,CombatHistory.SessionKey),__1);
             }
             catch(Exception e){Api.LogFailure("combat inventory load supplement unavailable",e);}
         }
@@ -262,6 +267,8 @@ namespace Sest.RuntimeFixes
                 if(!String.IsNullOrEmpty(ps))Write(ini,section,PlayerSpentKey,ps);
                 if(!String.IsNullOrEmpty(es))Write(ini,section,EnemySpentKey,es);
                 if(!String.IsNullOrEmpty(p) || !String.IsNullOrEmpty(e) || !String.IsNullOrEmpty(ps) || !String.IsNullOrEmpty(es))saveFile.Invoke(ini,new object[]{false});
+                if(CombatHistory.CurrentId!=null)
+                    CombatHistory.CompleteCampaign(CampaignCosts.StateSource(ini),i,__state.Snapshot,CampaignCosts.CaptureLive("Campaign mission "+i));
             }
             catch(Exception e){Api.LogFailure("combat inventory campaign supplement unavailable; native records retained",e);}
         }

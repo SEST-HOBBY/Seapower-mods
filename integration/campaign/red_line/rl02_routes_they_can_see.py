@@ -1,33 +1,9 @@
-"""RL02 - Routes They Can See. Biak approaches, 12 November 2028.
+"""RL02 — compact final approach, an active torpedo threat and a missile flank.
 
-An escort in the dark. The enclave field's jet fuel goes into Biak's
-northern roads the night before the coalition's relief window opens (The
-Open Door, 0450 on the 13th), with a submarine nobody has claimed on the
-route and a Poseidon over it that must not be touched.
-
-The coalition's intelligence summary of 12 November says the Russian
-detachment's supply routes into the enclave show up in imagery, patrol
-reports and intercepted logistics traffic. The Chinese detachment on the
-same field is supplied the same way, and this is its fuel run, seen from
-the tanker's escort. The boat is
-the one that torpedoed the Russian detachment's auxiliary two nights before
-(Return Passage: "a torpedo forward eleven days ago" on the 21st). Nobody
-in either campaign says whose she is, and no text here does either: she is
-GOLF, and a classification shows her class, which is as far as the group
-gets. The player may classify her, and may sink her, which sets
-RL02GolfSunk and keeps her out of The Order to Withdraw. Until 20 Oct 2026
-the briefing showed her photograph as "Virginia-class (2027)" and the
-Situation window filed her under the USN; recognise=False and orbat=False
-keep both quiet.
-
-Datum (RLO1, the day before) can have put a class on her from the enclave's
-Y-9. If it did (RLO1GolfDatum), her position is on this plot for fifteen
-minutes at the start - a datum, not a classified track, as Southern Watch's
-Southern Cross gives The Quiet Passenger: classifying her is still this
-mission's Boat objective. From 20 Oct 2026 she is usn_ssn_virginia_2027
-Variant10 here, in Datum and in The Order to Withdraw: Variant1 is the
-hull Fujian's Shadow places as "US submarine support" and can lose on the
-23rd, four days before her last appearance.
+24 Oct 2026: GOLF uses explicit ten/eighteen-minute torpedo orders instead
+of relying on a passive/free AI search. Her identity, Variant10, the loss
+flag read by RL04 and Datum's fifteen-minute position record are retained.
+The observer is neutral, not a fire-control aircraft for the attackers.
 """
 from campaign_data import U, F, S
 from .tables import HELO, RECON, NORTH_HULLS, NORTH_AIR
@@ -35,67 +11,49 @@ from .tables import HELO, RECON, NORTH_HULLS, NORTH_AIR
 MISSION = dict(
     code="RL02", series="Red Line", seq="RED LINE  ·  MISSION 2",
     group="core", num="02", key="Routes They Can See", place="Biak approaches",
-    intro=(
-        "Take the enclave field's jet fuel into Biak's northern roads tonight, ahead of the "
-        "coalition's relief window. A submarine is on the route; a patrol aircraft is over it."
-    ),
+    intro="A shorter final escort into Biak: hunt the torpedo shooter and stop the missile craft while the tanker keeps moving.",
     sender="Fleet headquarters",
-    intent=((
-        "The detachment on the enclave field flies on fuel that comes by sea, and it is down to"
-        " two days. Hai Yang 7 goes in tonight by the northern roads, away from the southern "
-        "approach the coalition's relief aircraft will be over. Defend her against anything that "
-        "attacks her. The patrol aircraft attacks nothing: it records. Shooting it down is "
-        "the incident Beijing does not want this week."
-    )),
+    intent="Deliver the fuel. GOLF and the declared hostile missile craft may be engaged; the Australian observer and civil traffic may not. Dipper 23 is allocated so the screen always has an airborne ASW search.",
     date=(2028, 11, 12), time=(23, 10), sea=2, clouds="Broken_2", wind="NW",
-    difficulty=3, minutes=95, centre=(-0.5, 135.8),
+    difficulty=3, minutes=55, centre=(-0.5, 135.8),
     blue_nation="China", red_nation="Australia",
-    brief=(
-        (
-            "BIAK APPROACHES, 2310. The detachment on the enclave field flies on fuel that "
-            "comes by sea, and it is down to two days. MT HAI YANG 7, chartered, is in company "
-            "with a full load of aviation fuel. Before dawn the coalition's relief window opens "
-            "over the enclave and its aircraft will be over the southern approach. A tanker "
-            "there at first light is a target and an incident, so she goes into the northern "
-            "roads tonight.\\n\\nTwo nights ago a submarine put a torpedo into the Russian "
-            "detachment's auxiliary in the approaches. Nobody has said whose boat it was, or "
-            "whether she tells a Russian hull from a chartered one. Assume she does not. She is"
-            " designated GOLF.\\n\\nA RAAF Poseidon has been over the route since dusk. It is "
-            "recording, not attacking. Leave it alone.\\n\\nYour frigate and its flight, a Y-9 "
-            "out of the enclave field if one is allocated, and HAI YANG 7 at twelve knots. "
-            "Numfor's fishing boats and a coaster bound east for Jayapura are on the same "
-            "water."
-        )),
-    forces=(
-        "Your screen, a Z-9C if embarked and a Y-9 if allocated. Allocated: MT Hai Yang 7, "
-        "chartered, and the enclave field. Opposing: one submarine, GOLF. Watching: a RAAF "
-        "P-8A. Neutral: two Numfor fishing boats and a coaster."
-    ),
+    brief=("BIAK APPROACHES, 2310. HAI YANG 7 is already on the final leg into the northern roads, "
+           "about eleven miles from the holding point. She makes twelve knots: keep her moving "
+           "while the escort clears the approaches. There is no need to sail the earlier open-water leg.\n\n"
+           "Contact GOLF is east of the route and closing across it. Expect her first torpedo "
+           "attack at about minute ten if she is not stopped, with a second attack window at "
+           "eighteen. The allocated Z-18F, DIPPER 23, is already ahead of the tanker; use it for "
+           "the search rather than waiting for an optional purchased aircraft. A ship's flight "
+           "and a Y-9 can add coverage if allocated.\n\n"
+           "A Meridian missile craft has also been identified north of the lane. Its launcher "
+           "can reach the tanker and an attack is expected around minute fourteen. It is a "
+           "declared hostile, separate from the submarine: screen both bearings. You may engage "
+           "either shooter before it fires. GOLF's loss is remembered in the withdrawal mission.\n\n"
+           "If Sea Ear 31 completed Datum, its fifteen-minute position record remains available. "
+           "It is a datum, not a fresh sonar contact. Classification earns a bonus; protecting "
+           "the tanker and delivering her are the task.\n\n"
+           "The RAAF Poseidon records the run and is a protected non-belligerent with a neutral "
+           "symbol. It is not providing the hostile craft's orders. Numfor's fishing boats and "
+           "the coaster are protected too."),
+    forces="Your screen, Dipper 23, Hai Yang 7 and the enclave field; a ship's flight and Y-9 if allocated. Hostile: GOLF and one missile craft. Protected: the Australian Poseidon and civil traffic.",
     objectives=[
         ("Fuel", "Bring Hai Yang 7 into Biak's northern roads", "40,-40,Fail,Main"),
         ("Tanker", "Keep Hai Yang 7 afloat", "0,-40,Complete"),
         ("Restraint", "Do not fire on the patrol aircraft", "10,-40,Complete"),
         ("Boat", "Classify the submarine on the route", "15,0,None"),
+        ("Raider", "Stop the missile craft on the northern flank", "15,0,None"),
         ("Traffic", "Harm no fishing boat or coaster", "0,-30,Complete"),
     ],
-    # The northern roads, authored: Biak's south harbour approach has no
-    # proven water within 42 NM, which is also the story's reason for the
-    # north. Twelve knots, laden.
-    victory=dict(kind="arrive", station="tanker", at=(-0.62, 136.00), radius=6,
-                 transit=12, min_units=1, objective="Fuel"),
+    victory=dict(kind="arrive", station="tanker", at=(-0.62, 136.00), radius=2,
+                 transit=12, min_units=1, objective="Fuel",
+                 also=[dict(kind="time",after_minutes=20),dict(kind="no_incoming")]),
     fatal=[F("Tanker"), F("Restraint", ["red_air"])],
     neutral_objective="Traffic",
-    # GOLF sunk is allowed - she is an unclaimed boat no coalition mission
-    # tracks - and remembered: The Order to Withdraw reads it.
     flags=[dict(name="RL02GolfSunk", units=["red_sub"],
                 intel=(
                     "SONAR REPORT: Contact GOLF destroyed. Log the time, the weapon and what she "
                     "was doing when it was used; the group will be asked."
                 ))],
-    # Datum's promise, kept: the Y-9's buoys put GOLF here for fifteen
-    # minutes. The same bare reveal Southern Watch's O2 gives SW04 - a
-    # position from a record, not a class, which is still the Boat
-    # objective's to earn.
     reveal_if=[dict(
         variable="RLO1GolfDatum", units=["red_sub"], level="", time=900,
         intel=(
@@ -117,47 +75,38 @@ MISSION = dict(
             "discharge before the relief window opens. She turns back; the detachment "
             "flies on what it has.",
     stations={
-        # Out of the west, north of Supiori and Numfor, for the roads off
-        # Biak's north coast: the frigate in company, three and a half miles
-        # on the tanker's port bow and between her and GOLF, who closes from
-        # the east across the track; the Poseidon's racetrack runs over the
-        # route and is flown until the clock runs out. (The frigate used to
-        # start 13 NM astern, and a tanker at cruise running at the boat
-        # opens that gap faster than a frigate at 30 knots closes it.)
-        "escort": S(-0.48, 135.755, "Escort", heading=110),
-        "flight": S(-0.46, 135.74, "Ship's flight", heading=110, alt=500),
-        "tanker": S(-0.50, 135.70, "Hai Yang 7", heading=110),
+        "escort": S(-0.48,135.915, "Escort", heading=110),
+        "flight": S(-0.46,135.90, "Ship's flight", heading=110, alt=500),
+        "tanker": S(-0.50,135.86, "Hai Yang 7", heading=110),
         "mpa": S(-0.20, 135.60, "Maritime patrol", heading=110, alt=8000),
-        # The enclave field, on the airfield The Open Door strikes the next
-        # morning; it snaps to proven land.
         "field": S(-1.10, 136.20, "Enclave field"),
-        # GOLF 28 NM east of the frigate, closing across the track. She
-        # started 21 NM out with Mk 48s free (27 NM): the opening gate missed
-        # her because her torpedoes are listed only in her [TorpedoRoom].
+        "raider": S(-0.22, 135.97, "Hostile missile craft", heading=195),
+        "asw_support": S(-0.43, 136.03, "Dipper 23", heading=70, alt=500),
         "red_sub": S(-0.38, 136.22, "Contact GOLF", heading=250),
         "red_air": S(0.00, 136.20, "Patrol aircraft", heading=240, alt=12000),
         "fishing": S(-0.30, 135.45, "Numfor fishing boats", heading=90),
         "coaster": S(-0.30, 136.40, "Coaster", heading=80),
     },
     units=[
+        U("red","_vanilla","wp_ptg_komar","raider",name="Meridian missile craft 43",nation="Panama",weapons="Hold",
+          route=[(-0.48,135.93,0)],telegraph=2,attacks=[(14,"wp_ss-n-2","tanker",2)]),
+        U("blue","chinese-navy-plan","plan_z-18f","asw_support",name="Dipper 23",loadout="ASW",weapons="Tight"),
         U("blue", "modern-plan-systems", "plan_type_054a_p5", "escort", variant="Variant2",
           weapons="Tight"),
         U("blue", "modern-plan-systems", "plan_z-9c", "flight", alt=500, weapons="Tight",
           loadout="ASWKiller", slot="HeloRecon"),
         U("blue", "_vanilla", "civ_ms_ritina", "tanker", name="MT Hai Yang 7 (chartered)",
           weapons="Hold", route=[(-0.62, 136.00, 0)], telegraph=3),
-        # Air-tasking placeholder for a purchased Y-9: no name, no objective.
         U("blue", "modern-plan-systems", "plan_y-9fq", "mpa", alt=8000, weapons="Tight",
           loadout="ASW", slot="Recon"),
         U("blue", "modern-chinese-airbase", "pla_airbase_modern", "field",
           name="Enclave field (PLAAF detachment)", weapons="Hold"),
-        # Weapons free and routed across the tanker's track: the threat the
-        # escort exists for.
         U("red", "us-navy-2027", "usn_ssn_virginia_2027", "red_sub", variant="Variant10",
-          name="Contact GOLF", depth="belowlayer", weapons="Free", radars="False",
+          name="Contact GOLF", depth="belowlayer", weapons="Hold", radars="False",
+          attacks=[(10,"usn_mk48_7","tanker",1),(18,"usn_mk48_7","tanker",1)],
           route=[(-0.55, 135.85, "belowlayer")], telegraph=2,
           recognise=False, orbat=False),
-        U("red", "p-8-poseidon", "usn_p8", "red_air", squadron="Squadron3",
+        U("neutral", "p-8-poseidon", "usn_p8", "red_air", squadron="Squadron3", nation="Australia",
           loadout="ASW", weapons="Hold",
           route=[(-0.45, 135.40, 12000), (0.00, 136.20, 12000)], loop=True,
           telegraph=3),
@@ -171,7 +120,7 @@ MISSION = dict(
     resolve={"Fuel": "victory", "Traffic": "neutral",
              "Tanker": ("protect", "tanker"),
              "Restraint": ("spare", "red_air"),
-             "Boat": ("classify", "red_sub", 1)},
+             "Boat": ("classify", "red_sub", 1), "Raider": ("destroy", "raider", 1)},
     declares=["RL02GolfSunk"],
     window=dict(buy=True, repair=True, rearm=True, allow=NORTH_HULLS + NORTH_AIR,
                 flights=[HELO, RECON],
@@ -180,5 +129,6 @@ MISSION = dict(
                     " aircraft can be allocated from the enclave field's detachment for the "
                     "night's escort. Hai Yang 7 is chartered and allocated to this operation."
                 )),
+    reports=[dict(minute=2,intel="ASW CONTROL: Dipper 23 is already ahead of the tanker. GOLF is east of the route; start the search before her ten-minute attack window. The missile craft north of the lane is a separate threat. The grey Poseidon is protected, not its spotter.")],
     role="escort",
 )

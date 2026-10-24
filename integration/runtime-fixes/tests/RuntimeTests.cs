@@ -12,7 +12,7 @@ using Sest.RuntimeFixes;
 
 namespace UnityEngine
 {
-    public struct Vector3 { public float x, y, z; }
+    public struct Vector3 { public float x, y, z; public Vector3(float a,float b,float c){x=a;y=b;z=c;} }
     public class Transform { public Vector3 eulerAngles { get; set; } }
     public class Component { public Transform transform { get; set; } = new Transform(); }
     public class Behaviour : Component { }
@@ -215,7 +215,8 @@ static class RuntimeTests
         Check(listed.UnitRows.Count == 2 && listed.UnitRows.Count(r => r.InstanceId.ToLowerInvariant() == "arafura") == 1,
             "a loss the native rows already list is not repeated");
         checks += CostTests.Run(args);
-        checks += LiveCostTests.Run();
+        checks += HistoryTests.Run();
+        checks += F11CostTests.Run();
         Console.WriteLine("Runtime regressions passed: " + checks + " assertions (mocked native API; PC gameplay still required)");
     }
 }

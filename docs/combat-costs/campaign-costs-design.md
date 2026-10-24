@@ -1,6 +1,6 @@
 # SEST cumulative campaign combat costs: design
 
-Implementation update, 24 October 2026: this is the original proposal, retained as a design record. Current behavior is documented in `README.md` and `integration/runtime-fixes/README.md`. The owner's later request for full integration adds land prices, a live F10 summary, and independent inventory/expenditure capture. The debrief reader still writes nothing, but the capture module writes versioned SEST raw-quantity keys alongside native mission/campaign records. Older uncaptured stores remain unknown. The new code is built and mock-tested; native PC acceptance is pending. Statements below about unimplemented work or never writing saves describe the earlier proposal.
+Implementation update, 24 October 2026: this is the original proposal, retained as a design record. Current behavior is documented in `README.md` and `integration/runtime-fixes/README.md`. The owner's later request for full integration adds land prices, F11 cumulative/history views and a live material breakdown, and independent inventory/expenditure capture. The debrief reader still writes nothing, but the capture module writes versioned SEST raw-quantity keys alongside native mission/campaign records. Older uncaptured stores remain unknown. The new code is built and mock-tested; native PC acceptance is pending. Statements below about unimplemented work or never writing saves describe the earlier proposal.
 
 ## Summary
 

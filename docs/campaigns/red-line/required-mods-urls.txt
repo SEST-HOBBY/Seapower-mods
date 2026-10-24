@@ -1,6 +1,6 @@
 Red Line - Workshop mods this campaign reaches (reference only)
 
-49 items, in canonical load order. NOT the Workshop item's
+51 items, in canonical load order. NOT the Workshop item's
 Required Items list. All four campaigns ship in one item, the SEST
 Integration Pack (3812461539), whose Required Items - like the
 collection 'SEST - Modernised Campaign Collection' (3812390790) -
@@ -33,6 +33,7 @@ https://steamcommunity.com/sharedfiles/filedetails/?id=3774859959    # PLAN Type
 https://steamcommunity.com/sharedfiles/filedetails/?id=3436170138    # Shenyang J-11
 https://steamcommunity.com/sharedfiles/filedetails/?id=3486502935    # Type 003 Fujian / Type 004 CVN Aircraft Carriers
 https://steamcommunity.com/sharedfiles/filedetails/?id=3417801942    # Chinese Navy (PLAN)
+https://steamcommunity.com/sharedfiles/filedetails/?id=3399699218    # Project 2498 Zyetseth Class Assault Vessel
 https://steamcommunity.com/sharedfiles/filedetails/?id=3630495619    # Euromod - Cold War Spanish Navy
 https://steamcommunity.com/sharedfiles/filedetails/?id=3731208477    # Euromod - Modern Spanish Navy
 https://steamcommunity.com/sharedfiles/filedetails/?id=3737267013    # United States Naval Aviation
@@ -60,5 +61,6 @@ https://steamcommunity.com/sharedfiles/filedetails/?id=3631042692    # Modern Ch
 https://steamcommunity.com/sharedfiles/filedetails/?id=3758943352    # French Air Force
 https://steamcommunity.com/sharedfiles/filedetails/?id=3812111085    # PLAAF Aircraft Pack
 https://steamcommunity.com/sharedfiles/filedetails/?id=3413868677    # Red Storm Arsenal
+https://steamcommunity.com/sharedfiles/filedetails/?id=3455404959    # Royal Australian Defence Forces
 https://steamcommunity.com/sharedfiles/filedetails/?id=3605013271    # RE-power: the resupply mod
 

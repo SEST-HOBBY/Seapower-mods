@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Reflection;
 using System.Text.RegularExpressions;
+using System.Security.Cryptography;
+using System.Text;
 
 namespace Sest.RuntimeFixes
 {
@@ -12,6 +14,7 @@ namespace Sest.RuntimeFixes
     internal static class CampaignCosts
     {
         static MethodInfo openState, hasSnapshot, sectionName, parseRows, reports, totals, data, openVirtual, openUnit;
+        static MethodInfo filePath,openCampaign,taskforceEnabled;
         static PropertyInfo summaryRows, ammoRef, ammoType, launched, fired;
         static FieldInfo missionIndex, rowRef, rowFolder, rowType, rowCount, rowDestroyed;
         static ConstructorInfo summaryConstructor;
@@ -72,6 +75,146 @@ namespace Sest.RuntimeFixes
                 if(field!=null && field.FieldType==tf)liveSides.Add(field);
             }
             if(liveSides.Count<2)throw new MissingMemberException("live player/enemy task forces");
+        }
+
+        internal static void BindMenu(Assembly game)
+        {
+            BindLive(game);
+            var ini=Api.Type(game,"SeaPower.IniHandler");
+            var rules=Api.Type(game,"SeapowerUI.ViewModels.LinearCampaignTaskForceModeRules");
+            filePath=Api.Method(ini,"getFilePath",typeof(string));
+            openCampaign=Api.Method(rules,"OpenCampaignIni",ini);
+            taskforceEnabled=Api.Method(rules,"IsTaskForceModeEnabled",typeof(bool),ini);
+        }
+
+        internal static bool TaskForceMenuAvailable()
+        {
+            try {object ini=openCampaign.Invoke(null,null);return ini!=null&&(bool)taskforceEnabled.Invoke(null,new[]{ini});}
+            catch{return false;}
+        }
+
+        internal static string StateSource(object ini)
+        {
+            string path=(string)filePath.Invoke(ini,null);
+            using(var hash=SHA256.Create())return BitConverter.ToString(hash.ComputeHash(Encoding.UTF8.GetBytes(path ?? ""))).Replace("-","").ToLowerInvariant();
+        }
+
+        static string SideName(string field)
+        {string name=field.Replace("_","").Replace("Taskforce","");return Char.ToUpperInvariant(name[0])+name.Substring(1);}
+
+        static string PlatformKind(string type)
+        {
+            switch((type ?? "").ToLowerInvariant())
+            {case "vessel":case "submarine":return "vessel";case "aircraft":case "helicopter":return "aircraft";case "landunit":return "land";default:return null;}
+        }
+        static void RawPlatform(CombatSideRecord side,string reference,string type,long count)
+        {
+            string kind=PlatformKind(type);
+            if(kind==null||String.IsNullOrWhiteSpace(reference)||count<=0){side.Platforms.Unknown++;return;}
+            string key=kind+":"+reference;
+            side.Platforms.Ammo[key]=checked(InventoryLedger.Get(side.Platforms.Ammo,key)+count);
+            side.Platforms.Captured[kind]=checked(InventoryLedger.Get(side.Platforms.Captured,kind)+count);
+        }
+        static void RawStores(CombatSideRecord side,InventoryLedger ledger)
+        {
+            side.Stores=ledger==null?new InventoryLedger():InventoryLedger.Parse(ledger.Serialize());
+            if(ledger==null && side.Platforms.Ammo.Count>0)side.Stores.Unknown++;
+            if(ledger!=null)
+                foreach(string kind in new[]{"vessel","aircraft","land"})
+                    if(InventoryLedger.Get(ledger.Captured,kind)!=InventoryLedger.Get(side.Platforms.Captured,kind))side.Stores.Unknown++;
+        }
+        internal static CombatGameRecord CaptureLive(string name)
+        {
+            var record=new CombatGameRecord{Name=name};
+            foreach(var field in liveSides)
+            {
+                object tf=field.GetValue(null);if(tf==null)continue;
+                if(field.Name=="_playerTaskforce")record.Context=tf;
+                var side=new CombatSideRecord{Name=SideName(field.Name),Spent=CampaignInventory.Spent(tf) ?? new InventoryLedger{Unknown=1}};
+                foreach(object row in (IEnumerable)liveRegisters.GetValue(tf))
+                    if((bool)liveDestroyed.GetValue(row,null))RawPlatform(side,(string)liveRef.GetValue(row,null),liveType.GetValue(row,null).ToString(),(int)liveCount.GetValue(row,null));
+                RawStores(side,CampaignInventory.Current(tf));record.Sides.Add(side);
+            }
+            return record;
+        }
+        static CombatSideRecord CaptureSavedSide(object report,string weapons,string losses,string stores,string captured,string name)
+        {
+            var side=new CombatSideRecord{Name=name};
+            var spent=InventoryLedger.Parse(captured);
+            if(spent!=null)side.Spent=spent;
+            else if(weapons==null || (weapons.Length>0&&report==null))side.Spent.Unknown++;
+            else if(weapons.Length>0)
+                foreach(DictionaryEntry pair in (IDictionary)totals.Invoke(report,null))
+                {
+                    object ammo=pair.Value;long count=(long)(int)launched.GetValue(ammo,null)+(int)fired.GetValue(ammo,null);
+                    if(count<0){side.Spent.Unknown++;continue;}
+                    string reference=(string)ammoRef.GetValue(ammo,null);
+                    side.Spent.Ammo[reference]=checked(InventoryLedger.Get(side.Spent.Ammo,reference)+count);
+                }
+            if(losses==null)side.Platforms.Unknown++;
+            else if(losses.Length>0)
+            {
+                object[] args={losses,null};
+                if(!(bool)parseRows.Invoke(null,args)||args[1]==null)side.Platforms.Unknown++;
+                else foreach(object row in (IEnumerable)args[1])
+                    if((bool)rowDestroyed.GetValue(row))RawPlatform(side,(string)rowRef.GetValue(row),(string)rowType.GetValue(row),(int)rowCount.GetValue(row));
+            }
+            RawStores(side,InventoryLedger.Parse(stores));return side;
+        }
+        internal static List<CombatGameRecord> SavedGames()
+        {
+            var games=new List<CombatGameRecord>();if(!TaskForceMenuAvailable())return games;
+            object ini=openState.Invoke(null,null);if(ini==null)return games;
+            string source=StateSource(ini);
+            foreach(var section in Data(ini))
+            {
+                Match match=Regex.Match(section.Key,"\\AMission_([0-9]+)_TaskForceDebrief\\z");int index;
+                if(!match.Success||!Int32.TryParse(match.Groups[1].Value,out index)||index<1||!(bool)hasSnapshot.Invoke(null,new object[]{ini,index}))continue;
+                object[] reportsArgs={ini,index,null,null,null};try{reports.Invoke(null,reportsArgs);}catch{ }
+                string name=CombatPrices.Get(section.Value,"MissionName") ?? "Campaign mission "+index;
+                var r=new CombatGameRecord{Id="saved:"+source+":"+index,Name=name,Source=source,MissionIndex=index,Status="Saved debrief"};
+                r.Sides.Add(CaptureSavedSide(reportsArgs[2],CombatPrices.Get(section.Value,"PlayerWeaponReport"),CombatPrices.Get(section.Value,"LossRows"),CombatPrices.Get(section.Value,CampaignInventory.PlayerKey),CombatPrices.Get(section.Value,CampaignInventory.PlayerSpentKey),"Player"));
+                r.Sides.Add(CaptureSavedSide(reportsArgs[3],CombatPrices.Get(section.Value,"EnemyWeaponReport"),CombatPrices.Get(section.Value,"KillRows"),CombatPrices.Get(section.Value,CampaignInventory.EnemyKey),CombatPrices.Get(section.Value,CampaignInventory.EnemySpentKey),"Enemy"));
+                games.Add(r);
+            }
+            games.Sort((a,b)=>b.MissionIndex.CompareTo(a.MissionIndex));return games;
+        }
+        static Side PriceRaw(CombatSideRecord raw,CombatPrices prices)
+        {
+            var side=new Side();
+            foreach(var pair in raw.Spent.Ammo)side.Weapons.Add(Price(prices,"weapon",pair.Key,"ammunition"),pair.Value);
+            side.Weapons.MissingRecords=raw.Spent.Unknown;
+            foreach(var pair in raw.Platforms.Ammo)
+            {
+                int colon=pair.Key.IndexOf(':');if(colon<1){side.Ships.MissingRecords++;continue;}
+                string kind=pair.Key.Substring(0,colon),reference=pair.Key.Substring(colon+1);
+                if(kind!="vessel"&&kind!="aircraft"&&kind!="land"){side.Ships.MissingRecords++;continue;}
+                var bucket=kind=="vessel"?side.Ships:kind=="aircraft"?side.Air:side.Land;
+                bucket.Add(Price(prices,kind,reference,kind=="vessel"?"vessels":kind=="aircraft"?"aircraft":"land_units"),pair.Value);
+            }
+            side.Ships.MissingRecords+=raw.Platforms.Unknown;
+            foreach(var pair in raw.Stores.Ammo)side.Stores.Add(Price(prices,"weapon",pair.Key,"ammunition"),pair.Value);
+            side.Stores.MissingRecords=raw.Stores.Unknown;return side;
+        }
+        internal static string[] GameLines(IEnumerable<CombatGameRecord> records,bool detail)
+        {
+            var prices=Prices();if(prices==null)return new[]{"Enable Combat Cost Tracker and restart to load prices."};
+            var sides=new Dictionary<string,Side>();int count=0;
+            foreach(var r in records)
+            {count++;foreach(var raw in r.Sides){Side side;if(!sides.TryGetValue(raw.Name,out side))sides[raw.Name]=side=new Side();side.Merge(PriceRaw(raw,prices));}}
+            var lines=new List<string>{"USD estimates / "+prices.Basis+" / "+count+" recorded game"+(count==1?"":"s")};
+            foreach(string name in new[]{"Player","Enemy","Ally","Neutral"})
+            {
+                Side side;if(!sides.TryGetValue(name,out side))continue;
+                lines.Add(name+" total: "+side.Total.Text);
+                if(detail)
+                {
+                    lines.Add("  Weapons "+side.Weapons.Text+" | Ships "+side.Ships.Text+" | Aircraft "+side.Air.Text);
+                    lines.Add("  Land "+side.Land.Text+" | Stores lost "+side.Stores.Text);
+                }
+            }
+            lines.Add("+ ? = missing prices or quantities, including virtual deck pools.");
+            return lines.ToArray();
         }
 
         static FieldInfo Field(Type type,string name,Type expected)

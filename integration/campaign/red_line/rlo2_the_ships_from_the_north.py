@@ -1,45 +1,9 @@
-"""RLO2 - The Ships from the North. Ceram Sea, 18 November 2028.
+"""RLO2 — reconnaissance escorted through a timed fighter interception.
 
-The second side operation (campaign-upgrade-plan.md section 4.2, step RL-1,
-20 Oct 2026). The Japanese escort detachment Common Sea sails with on the
-20th is crossing the Ceram Sea for the Kai Islands, and The Other Picture's
-convoy is forming there for it the next day. Fleet headquarters wants the
-two escorts' names before they join it: the enclave detachment's Y-9 has
-the look, and a J-15 pair the carrier air wing has released to the field -
-The Other Picture's own words the next day - keeps it company.
-
-A fixed force flies it, as Datum is: nothing the player owns sails. It
-writes nothing for now, as Pilot in the Water writes nothing: the names go
-to headquarters, and the operation pays its own completion points
-(tables.py), which The Other Picture's window can spend. Until 21 Oct 2026
-naming both escorts wrote RLO2EscortsNamed, and The Other Picture started
-with the two ships on its plot classified. The owner pulled that before
-upload (21 Oct 2026): nothing has shown that a reveal at Classify counts
-for The Other Picture's UnitClassified stage, and if it does not, a player
-who won this could not win that mission. It comes back, restorable from
-commit 9035f291, once the Red Line test card's 7.4 is answered: Southern
-Reach's TS01 -> TS03 and Sulu Line's SL01A -> SL03A have the same shape on
-optional objectives, and flying either settles it (Southern Reach card
-3.10, Sulu Line card 7.1).
-
-The ships are the ones The Other Picture and Common Sea place, JS Mogami
-and JS Maya on the same variants, so this adds no hull to the reserve's
-pack-wide filter; no standard coalition campaign owns either before the
-20th, after both their Red Line appearances. They are weapons Hold and
-spared with a fatal entry, as in The Other Picture. The Japanese fighters
-are not: they are a JASDF F-2A pair out of Langgur - the detachment Viper
-Zero and Common Sea fly from, here unnamed - at weapons Tight, and if one
-fires the brief's rule is The Other Picture's, reply against the aircraft
-that fired. The J-15s are Tight too, and no objective scores which pair
-opens first: if Tight lets a fighter fire on an identified F-2A, test card
-8B.3a starts them at Hold.
-
-The day before is Viper Zero's: the same Langgur detachment's F-2As went
-for a PLAN 054A and 056A south of Seram. That is said as its premise - the
-northern element's ships, not this group's - and never how it ended,
-because Southern Watch flies it as an optional.
-
-Geography: proved against the coastline (geo/banda_theatre_coast.json).
+24 Oct 2026: a weapons-free F-2 pair joins at minute eight and has native
+scripted AAM orders against the Y-9. The two protected Japanese ships still
+need classifying. The old RLO2EscortsNamed reveal remains held; no new
+cross-mission classification assumption is introduced.
 """
 from campaign_data import U, F, S
 
@@ -67,7 +31,7 @@ MISSION = dict(
         "so that seeing it off is all they do."
     )),
     date=(2028, 11, 18), time=(9, 20), sea=3, clouds="Scattered_1", wind="E",
-    difficulty=3, minutes=80, centre=(-2.4, 130.4),
+    difficulty=3, minutes=45, centre=(-2.4, 130.4),
     blue_nation="China", red_nation="Japan",
     brief=(
         (
@@ -80,8 +44,8 @@ MISSION = dict(
             "company. The two ships are eighty-five miles west of the aircraft, steaming "
             "south-east for the passage east of Seram.\\n\\nExpect a JASDF F-2A pair up from "
             "Langgur, the detachment that flew against the northern element's ships yesterday, "
-            "to see the Y-9 off. They will be at weapons Tight, and so are yours. If "
-            "they fire, you may reply against the aircraft that fired and nothing else - by "
+            "to see the Y-9 off. They enter at minute eight with weapons Free and can fire on the Y-9. Your escorts remain at Tight. If "
+            "the intercept develops, keep the Y-9 covered and engage the fighters, not the ships - by "
             "direct order: fighters left free will go for the ships, and that ends the "
             "operation. Nothing afloat is a target.\\n\\nClassify both escorts, then take SEA "
             "EAR 31 back east towards the field. A Misool fishing boat and a coaster bound "
@@ -90,7 +54,7 @@ MISSION = dict(
     forces=(
         "Sea Ear 31, a Y-9, and two J-15s, Flying Shark 81 and 82, out of the enclave field. "
         "Opposing: two Japanese escorts at weapons Hold, and a JASDF F-2A pair from Langgur "
-        "at weapons Tight. Neutral: a fishing boat and a coaster."
+        "entering at minute eight with weapons Free. Neutral: a fishing boat and a coaster."
     ),
     objectives=[
         ("Names", "Classify both Japanese escorts, then take Sea Ear 31 back east",
@@ -100,12 +64,9 @@ MISSION = dict(
         ("Fighters", "Classify the Japanese fighters", "10,0,None"),
         ("Traffic", "Harm no fishing boat or coaster", "0,-30,Complete"),
     ],
-    # Both escorts by name, then the Y-9 back in the box on the way home,
-    # 46 NM east of where she starts, so the win cannot be met at spawn.
-    # The stage set RLO2EscortsNamed for The Other Picture until 21 Oct
-    # 2026; it sets nothing while that reveal is held (see above).
     victory=dict(kind="arrive", station="mpa", at=(-1.85, 131.75), radius=10,
                  min_units=1, objective="Names",
+                 also=[dict(kind="time",after_minutes=14),dict(kind="no_incoming")],
                  after=dict(kind="classify", units=["jmsdf#1", "jmsdf#2"], min_units=2,
                             intel=(
                                 "PICTURE REPORT / SEA EAR 31: Both escorts classified: JS "
@@ -113,10 +74,6 @@ MISSION = dict(
                                 "destroyer with her own air defence. The recording goes to "
                                 "headquarters. Take the aircraft home."
                             ))),
-    # The ships are the next two days' convoy escort in Southern Watch:
-    # lose one and the coalition's own campaign has a hole in it. The
-    # fighters are not spared - The Other Picture's rule, a reply to the
-    # aircraft that fired - and the Y-9 lost ends it, the names being hers.
     fatal=[F("Restraint", ["jmsdf"]), F("Eye")],
     neutral_objective="Traffic",
     win=(
@@ -131,11 +88,6 @@ MISSION = dict(
     timeout="{deadline_clock}, and the escorts are through the Ceram Sea with no names this "
             "group confirmed. They join the convoy tonight as two contacts.",
     stations={
-        # The Japanese pair in the middle of the Ceram Sea, 23 NM off Obi
-        # and Seram, on the route south-east for the passage east of Seram
-        # and the Kai Islands; the Y-9 and the J-15s 88 NM east of them,
-        # inbound from the enclave; the F-2As coming north out of the Banda
-        # Sea, 91 NM from the Y-9; the field on Biak, 315 NM east.
         "jmsdf": S(-2.40, 129.60, "Japanese escorts", heading=115),
         "mpa": S(-2.00, 131.00, "Sea Ear 31", heading=250, alt=24000),
         "cap": S(-1.95, 131.05, "Flying Shark 81", heading=250, alt=28000),
@@ -153,20 +105,20 @@ MISSION = dict(
           loadout="AirToAir", alt=28000, weapons="Tight"),
         U("blue", "modern-chinese-airbase", "pla_airbase_modern", "field",
           name="Enclave field (PLAAF detachment)", weapons="Hold"),
-        # Mogami first: the stage names jmsdf#1 and #2. The Other Picture's
-        # and Common Sea's hulls, on their default variants.
         U("red", "SEST_JMSDF_Mogami", "js_ffg_mogami", "jmsdf", name="JS Mogami",
           weapons="Hold", route=[(-2.85, 130.90, 0), (-3.60, 131.40, 0)], telegraph=3),
         U("red", "euromod-jmsdf", "jmsdf_ddg_maya", "jmsdf", name="JS Maya",
           weapons="Hold", route=[(-2.85, 130.90, 0), (-3.60, 131.40, 0)], telegraph=3),
-        # Up from Langgur to see the Y-9 off, and round the ships' track
-        # until the clock runs out. Tight: they defend; they do not open.
         U("red", "f-2a-viper-zero", "jp_f-2a_late", "red_air", loadout="AirToAir",
-          alt=25000, weapons="Tight",
+          alt=25000, weapons="Free", enter=8,
+          contact="Announced minute-eight intercept after escort preparation.",
+          attacks=[(12,"jp_aam-4","mpa",1)],
           route=[(-2.45, 130.80, 25000), (-3.00, 130.55, 25000)], loop=True,
           telegraph=3),
         U("red", "f-2a-viper-zero", "jp_f-2a_late", "red_air", loadout="AirToAir",
-          alt=25000, weapons="Tight",
+          alt=25000, weapons="Free", enter=8,
+          contact="Announced minute-eight intercept after escort preparation.",
+          attacks=[(12,"jp_aam-4","mpa",1)],
           route=[(-2.45, 130.80, 25000), (-3.00, 130.55, 25000)], loop=True,
           telegraph=3),
         U("neutral", "_vanilla", "civ_fv_fishingboat_a", "fishing",

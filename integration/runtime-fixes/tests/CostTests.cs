@@ -70,7 +70,7 @@ namespace SeapowerUI.ViewModels
         public LinearCampaignTaskForceDebriefSummaryRow(string label,string value,bool isPositive,bool isNegative)
         { Label=label;Value=value; }
     }
-    public static class LinearCampaignTaskForceModeRules
+    public static partial class LinearCampaignTaskForceModeRules
     {
         public static SeaPower.IniHandler State;
         public static SeaPower.IniHandler OpenCampaignStateIni() { return State; }

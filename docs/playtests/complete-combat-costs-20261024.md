@@ -1,5 +1,7 @@
 # Complete combat costs — PC acceptance card, 24 October 2026
 
+Historical acceptance card for build 74878a80. The later combined revision replaces the F10 viewer with F11 tabs; use [the current card](red-line-f11-20261024.md) when installing that newer bundle.
+
 Private playtest. The new features have passed Linux source/data checks and mocked runtime tests. They have not yet been accepted in the native game. Keep disposable test saves separate from a valued campaign; the capture adds its own raw-quantity keys during ordinary saves.
 
 ## Startup

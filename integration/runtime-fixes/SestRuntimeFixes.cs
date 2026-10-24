@@ -9,7 +9,7 @@ using AnchorChain;
 
 namespace Sest.RuntimeFixes
 {
-    [ACPlugin("io.github.sest-hobby.runtime-fixes", "SEST Runtime Fixes", "1.1.0")]
+    [ACPlugin("io.github.sest-hobby.runtime-fixes", "SEST Runtime Fixes", "1.2.0")]
     public sealed class RuntimeFixesMod : IAnchorChainMod
     {
         public void TriggerEntryPoint()
@@ -57,10 +57,10 @@ namespace Sest.RuntimeFixes
                     try { CampaignInventory.Install(game); }
                     catch (Exception e) { Api.LogFailure("combat cost inventory capture not installed", e); }
                 }
-                if (Policy.OptionEnabled(config, "LiveCombatCosts"))
+                if (Policy.OptionEnabled(config, "CumulativeCombatCosts"))
                 {
-                    try { LiveCombatCosts.Install(game,Policy.TextOption(config,"CombatCostsKey","F10")); }
-                    catch (Exception e) { Api.LogFailure("live combat cost summary not installed", e); }
+                    try { F11CombatCosts.Install(game,Path.Combine(Path.GetDirectoryName(settings),"SEST","combat-history-v1.txt")); }
+                    catch (Exception e) { Api.LogFailure("F11 cumulative combat costs not installed", e); }
                 }
             }
             catch (Exception e) { Api.LogFailure("inactive", e); }
@@ -112,7 +112,7 @@ namespace Sest.RuntimeFixes
         internal static void Postfix(MethodInfo target, Type owner, string callback, string harmonyId)
         { Hooks(target, owner, null, callback, harmonyId); }
 
-        internal static void Hooks(MethodInfo target, Type owner, string before, string after, string harmonyId)
+        internal static void Hooks(MethodInfo target, Type owner, string before, string after, string harmonyId, string finalizer=null)
         {
             Type harmony = FindType("HarmonyLib.Harmony"), hm = FindType("HarmonyLib.HarmonyMethod");
             MethodInfo patch = null;
@@ -129,6 +129,7 @@ namespace Sest.RuntimeFixes
             if (patch == null || constructor == null) throw new MissingMethodException("Harmony.Patch(..., postfix)");
             object prefix = before == null ? null : constructor.Invoke(new object[] { owner.GetMethod(before, All) });
             object postfix = after == null ? null : constructor.Invoke(new object[] { owner.GetMethod(after, All) });
+            object finish = finalizer == null ? null : constructor.Invoke(new object[] { owner.GetMethod(finalizer, All) });
             ParameterInfo[] parameters = patch.GetParameters();
             object[] args = new object[parameters.Length];
             args[0] = target;
@@ -136,7 +137,9 @@ namespace Sest.RuntimeFixes
             {
                 if (parameters[i].Name == "postfix") args[i] = postfix;
                 if (parameters[i].Name == "prefix") args[i] = prefix;
+                if (parameters[i].Name == "finalizer") args[i] = finish;
             }
+            if (finish!=null && !Array.Exists(parameters,p=>p.Name=="finalizer"))throw new MissingMethodException("Harmony.Patch(..., finalizer)");
             patch.Invoke(Activator.CreateInstance(harmony, harmonyId), args);
         }
     }

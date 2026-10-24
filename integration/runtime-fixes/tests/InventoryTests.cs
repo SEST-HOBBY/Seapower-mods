@@ -48,7 +48,7 @@ namespace SeaPower
         public static void WriteTaskforceAarData(IniHandler ini,Taskforce taskforce,string sectionName) { }
         public static void LoadTaskforceAarData(IniHandler missionIni,Taskforce taskforce,string sectionName) { }
     }
-    public static class Globals { public static Taskforce _playerTaskforce,_enemyTaskforce; }
+    public static partial class Globals { public static Taskforce _playerTaskforce,_enemyTaskforce; }
     public partial class IniHandler
     {
         public int Writes,Saves;

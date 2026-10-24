@@ -25,10 +25,9 @@ docstring, southern_reach/AUTHORING.md) plus three of this campaign's own:
      objective with a fatal entry: the player cannot sink it and keep the
      result. Nothing after 23 November relies on Fujian.
 
-  2. Winning is restraint, deception, escort or evasion. Nothing here is won
-     by a kill the coalition's story would have to account for; the one ship
-     the player must sink (RL04) is a Meridian coaster that no coalition page
-     names, on the night the ceasefire began.
+  2. Defence, escort, interception and evasion vary the pace. Declared hostile
+     shooters can be engaged; named coalition assets remain protected so the
+     coalition's story and reserved hull identities still hold.
 
   3. "Blue" is the player whatever the flag: Taskforce1 is China, and the
      coalition is Taskforce2. The north has no coastline extract, so RL01-RL04
@@ -95,30 +94,17 @@ if MISSING:
           + ", ".join(MISSING))
 
 INFO_DESC = (
-    "RED LINE - The Other Watch. November 2028 to February 2029, from the other bridge. "
-    "A Chinese carrier group commander is sent into the Banda approaches under a "
-    "protection-and-evacuation mandate and an order that says the group will not fire first."
-    " He puts a class on the Australian submarine trailing his carrier, gets fuel into the "
-    "Biak enclave ahead of the coalition's relief window, builds the picture of a convoy that"
-    " other people will attack, and in the first hours of the ceasefire stops the one ship in"
-    " his own company that wants the war back. On the side, the enclave's patrol aircraft "
-    "puts a class on a boat nobody has claimed and names the ships coming south to escort the "
-    "convoy, and the screen races an Australian patrol vessel to a pilot in the water."
-    " In December he is sent south with Liaoning "
-    "to take over the fisheries protection group, and its submarines have to pass the "
-    "coalition's patrol aircraft without being classified. Every operation is won by "
-    "restraint, escort or evasion, and there is nearly always a coalition aircraft "
-    "overhead, recording."
+    "RED LINE - The Other Watch. A PLAN commander's campaign across the northern crisis "
+    "and southern summer. Defend Fujian against missile craft, escort the Biak fuel run "
+    "through torpedo and missile attacks, fight for the reconnaissance aircraft, and stop "
+    "a ceasefire spoiler while protecting the withdrawal. A compact submarine passage and "
+    "a contested tender rendezvous vary the pace. Two optional air operations and a short "
+    "pilot-recovery race sit between the six core missions. Coalition non-belligerents and "
+    "civil traffic remain protected; declared hostile shooters can be engaged."
 )
-
 BROWSE = {"Red Line": "Red Line"}
-BROWSE_DESC = {
-    "Red Line": (
-        "The carrier group commander's side of the northern crisis and the southern summer, "
-        "November 2028 to February 2029. Escort, identification and evasion under orders "
-        "that say the group does not fire first."
-    ),
-}
+BROWSE_DESC = {"Red Line": "Carrier defence, convoy escort, fighter interception, withdrawal, "
+               "submarine evasion and a contested rendezvous from the PLAN side of the crisis."}
 
 ROOT = HERE.parents[2]
 CAMPAIGN = dict(
