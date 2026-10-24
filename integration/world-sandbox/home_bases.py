@@ -171,8 +171,9 @@ HOME_BASES = [
     # a frigate on the Antarctic station at Punta Arenas, the F-5 group at
     # Chabunco beside it, the E-3D at Santiago. The mod's 22 Oct 2026 update
     # renamed the hulls (ch_ff_type23_pida, ch_ffg_karel and type_209 until
-    # then); its new L class (ch_ffg_jvh) left service in 2020 and is not
-    # placed - the two Adelaides here carry its names.
+    # then); its new L class (ch_ffg_jvh, renamed ch_ffg_jacob_van_heemskerck
+    # on 24 Oct) left service in 2020 and is not placed - the two Adelaides
+    # here carry its names.
     naval("Chile", "home_chl_talcahuano", "Talcahuano Naval Base", -36.7, -73.1, [
         ("ch_ffg_type23_pida", 2), ("ch_ffg_adelaide_longhull", 2), ("ch_ss_scorpene", 2),
         ("ch_ss_thomson_mlu", 2)]),

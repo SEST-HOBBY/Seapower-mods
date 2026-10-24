@@ -2734,6 +2734,11 @@
         "CurrentYearCost": "2500000",
         "Category": "SAM"
       },
+      "red_x-59mk": {
+        "WeaponCosts": "2000000",
+        "CurrentYearCost": "2000000",
+        "Category": "ASM"
+      },
       "rfn_m15_at": {
         "WeaponCosts": "1500000",
         "CurrentYearCost": "1500000",
@@ -2991,11 +2996,6 @@
       },
       "scn_nasams_aim9x": {
         "WeaponCosts": "2500000",
-        "CurrentYearCost": "2500000",
-        "Category": "SAM"
-      },
-      "scn_nasams_essm_ii": {
-        "WeaponCosts": "2026017",
         "CurrentYearCost": "2500000",
         "Category": "SAM"
       },
@@ -5414,7 +5414,7 @@
       }
     },
     "vessel": {
-      "ch_ffg_jvh": {
+      "ch_ffg_jacob_van_heemskerck": {
         "VesselCosts": "197000000",
         "CurrentYearCost": "800000000",
         "Category": "FFG"
@@ -36933,7 +36933,7 @@
     },
     {
       "kind": "vessel",
-      "target": "ch_ffg_jvh",
+      "target": "ch_ffg_jacob_van_heemskerck",
       "source": "rnn_ffg_van_heemskerck",
       "origin": "mapping",
       "basis": "Same Jacob van Heemskerck class: Chile's L class is the two Dutch hulls it bought in 2005; retain the tracker's Dutch estimate and reference basis",
@@ -59131,6 +59131,48 @@
     },
     {
       "kind": "weapon",
+      "target": "red_x-59mk",
+      "origin": "completion",
+      "source": null,
+      "basis": "anti-ship missile complete-round proxy",
+      "fields": {
+        "WeaponCosts": "2000000",
+        "CurrentYearCost": "2000000",
+        "Category": "ASM"
+      },
+      "completion": {
+        "model": "asm",
+        "historical": "2000000",
+        "current": "2000000",
+        "category": "ASM",
+        "source": null,
+        "basis": "anti-ship missile complete-round proxy",
+        "source_id": "policy",
+        "historical_year": 2026,
+        "historical_basis": "2026 replacement proxy; IOC unknown",
+        "confidence": "rough model",
+        "current_low": "1000000",
+        "current_high": "4000000",
+        "disposition": "counted"
+      },
+      "field_methods": {
+        "historical": "rough model",
+        "current": "rough model"
+      },
+      "prior_origin": null,
+      "sources": [
+        {
+          "title": "SEST owner-authorized replacement-cost model, 24 October 2026",
+          "url": "https://github.com/SEST-HOBBY/Seapower-mods/blob/fix/complete-combat-costs-20261024/integration/combat-costs/coverage-policy.json"
+        },
+        {
+          "title": "SEST owner-authorized replacement-cost model, 24 October 2026",
+          "url": "https://github.com/SEST-HOBBY/Seapower-mods/blob/fix/complete-combat-costs-20261024/integration/combat-costs/coverage-policy.json"
+        }
+      ]
+    },
+    {
+      "kind": "weapon",
       "target": "rfn_m15_at",
       "origin": "completion",
       "source": null,
@@ -61700,48 +61742,6 @@
         "source_id": "policy",
         "historical_year": 2026,
         "historical_basis": "2026 replacement proxy; IOC unknown",
-        "confidence": "rough model",
-        "current_low": "1250000",
-        "current_high": "5000000",
-        "disposition": "counted"
-      },
-      "field_methods": {
-        "historical": "rough model",
-        "current": "rough model"
-      },
-      "prior_origin": null,
-      "sources": [
-        {
-          "title": "SEST owner-authorized replacement-cost model, 24 October 2026",
-          "url": "https://github.com/SEST-HOBBY/Seapower-mods/blob/fix/complete-combat-costs-20261024/integration/combat-costs/coverage-policy.json"
-        },
-        {
-          "title": "SEST owner-authorized replacement-cost model, 24 October 2026",
-          "url": "https://github.com/SEST-HOBBY/Seapower-mods/blob/fix/complete-combat-costs-20261024/integration/combat-costs/coverage-policy.json"
-        }
-      ]
-    },
-    {
-      "kind": "weapon",
-      "target": "scn_nasams_essm_ii",
-      "origin": "completion",
-      "source": null,
-      "basis": "surface-to-air missile complete-round proxy",
-      "fields": {
-        "WeaponCosts": "2026017",
-        "CurrentYearCost": "2500000",
-        "Category": "SAM"
-      },
-      "completion": {
-        "model": "sam",
-        "historical": "2026017",
-        "current": "2500000",
-        "category": "SAM",
-        "source": null,
-        "basis": "surface-to-air missile complete-round proxy",
-        "source_id": "policy",
-        "historical_year": 2021,
-        "historical_basis": "configured service-year CPI model",
         "confidence": "rough model",
         "current_low": "1250000",
         "current_high": "5000000",
@@ -110749,6 +110749,44 @@
       },
       {
         "kind": "weapon",
+        "id": "red_x-59mk",
+        "owner": "3732654992",
+        "path": "mods-source/3732654992/ammunition/red_x-59mk.ini",
+        "category": "ASM",
+        "type": "Missile",
+        "historical": "2000000",
+        "current": "2000000",
+        "field_methods": {
+          "historical": "rough model",
+          "current": "rough model"
+        },
+        "field_sources": {
+          "historical": "anti-ship missile complete-round proxy",
+          "current": "anti-ship missile complete-round proxy"
+        },
+        "completion": {
+          "model": "asm",
+          "historical": "2000000",
+          "current": "2000000",
+          "category": "ASM",
+          "source": null,
+          "basis": "anti-ship missile complete-round proxy",
+          "source_id": "policy",
+          "historical_year": 2026,
+          "historical_basis": "2026 replacement proxy; IOC unknown",
+          "confidence": "rough model",
+          "current_low": "1000000",
+          "current_high": "4000000",
+          "disposition": "counted"
+        },
+        "disposition": "counted",
+        "historical_basis": "2026 replacement proxy; IOC unknown",
+        "historical_reference_year": 2026,
+        "current_low": "1000000",
+        "current_high": "4000000"
+      },
+      {
+        "kind": "weapon",
         "id": "rfn_3m14",
         "owner": "SEST_Replenishment",
         "path": "integration/replenishment/SEST_Replenishment/ammunition/rfn_3m14.ini",
@@ -114750,44 +114788,6 @@
         "disposition": "counted",
         "historical_basis": "2026 replacement proxy; IOC unknown",
         "historical_reference_year": 2026,
-        "current_low": "1250000",
-        "current_high": "5000000"
-      },
-      {
-        "kind": "weapon",
-        "id": "scn_nasams_essm_ii",
-        "owner": "3642656500",
-        "path": "mods-source/3642656500/ammunition/scn_nasams_essm_ii.ini",
-        "category": "SAM",
-        "type": "Missile",
-        "historical": "2026017",
-        "current": "2500000",
-        "field_methods": {
-          "historical": "rough model",
-          "current": "rough model"
-        },
-        "field_sources": {
-          "historical": "surface-to-air missile complete-round proxy",
-          "current": "surface-to-air missile complete-round proxy"
-        },
-        "completion": {
-          "model": "sam",
-          "historical": "2026017",
-          "current": "2500000",
-          "category": "SAM",
-          "source": null,
-          "basis": "surface-to-air missile complete-round proxy",
-          "source_id": "policy",
-          "historical_year": 2021,
-          "historical_basis": "configured service-year CPI model",
-          "confidence": "rough model",
-          "current_low": "1250000",
-          "current_high": "5000000",
-          "disposition": "counted"
-        },
-        "disposition": "counted",
-        "historical_basis": "configured service-year CPI model",
-        "historical_reference_year": 2021,
         "current_low": "1250000",
         "current_high": "5000000"
       },
@@ -150879,9 +150879,9 @@
       },
       {
         "kind": "vessel",
-        "id": "ch_ffg_jvh",
+        "id": "ch_ffg_jacob_van_heemskerck",
         "owner": "3776730617",
-        "path": "mods-source/3776730617/vessels/ch_ffg_jvh.ini",
+        "path": "mods-source/3776730617/vessels/ch_ffg_jacob_van_heemskerck.ini",
         "category": "FFG",
         "type": "Vessel",
         "historical": "197000000",
@@ -212465,7 +212465,7 @@
       "Ballistic": 25,
       "Decoy": 54,
       "Gun": 207,
-      "ASM": 359,
+      "ASM": 360,
       "AAM": 244,
       "Rocket": 29,
       "Pod": 204,
@@ -212477,7 +212477,7 @@
       "Bomb": 116,
       "ARM": 42,
       "ASW": 62,
-      "SAM": 299,
+      "SAM": 298,
       "Sonobuoy": 67,
       "ICBM": 5,
       "SS": 49,

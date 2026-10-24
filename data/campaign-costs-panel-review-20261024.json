@@ -1,6 +1,6 @@
 {
  "date": "2026-10-24",
- "scope": "F11 split (mission = tracker's own panel; Task Force menu = campaign totals, no buttons), stores carried into the campaign .sav, recovery from the local record",
+ "scope": "F11 split (mission = tracker panel; Task Force menu = campaign totals, no buttons), stores carried into the campaign .sav, recovery from the local record, 71 checked prices, 24 Oct Workshop capture 970a3578",
  "branch": "sest-dev/jolly-ride-rptj4t",
  "merged": "fix/red-line-pacing-20261024 at 91edca7e",
  "native_verification": {
@@ -81,7 +81,7 @@
  "python_suites": [
   {
    "suite": "tools",
-   "tests": 178,
+   "tests": 179,
    "skipped": 7,
    "result": "pass"
   },
