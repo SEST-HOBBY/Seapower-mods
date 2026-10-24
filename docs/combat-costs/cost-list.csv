@@ -653,11 +653,11 @@ missions,vessel,usn_cvn_nimitz,3373960386,CVN,700000000,4315000000,tracker catal
 missions,vessel,usn_cvn_nimitz_2000s,3430135740,CVN,700000000,4315000000,tracker catalog,Southern Watch - Dispatches
 missions,vessel,usn_cvn_nimitz_2000s_adou,3461091581,CVN,700000000,4315000000,SEST mapping from usn_cvn_nimitz_2000s,Southern Watch - Dispatches
 missions,vessel,usn_cvn_nimitz_2025,SEST_Replenishment,CVN,2500000000,4315000000,tracker catalog,Southern Watch; sest-southern-watch
-missions,vessel,usn_cvn_nimitz_2027s_adou,3606774881,,,,unknown: no tracker entry,sest-southern-reach; sest-southern-watch
+missions,vessel,usn_cvn_nimitz_2027s_adou,3606774881,CVN,2500000000,4315000000,SEST mapping from usn_cvn_nimitz_2025,sest-southern-reach; sest-southern-watch
 missions,vessel,usn_ddg-1000_cps,3390330875,DDG,4260000000,4700000000,tracker catalog,sest-southern-reach; sest-southern-watch
 missions,vessel,usn_ddg_arleigh_flt1_054_2027,SEST_Replenishment,DDG,704000000,1731000000,SEST mapping from usn_ddg_burke_f1_054_late,sest-southern-reach; sest-southern-watch
 missions,vessel,usn_ddg_arleigh_flt2_072_2027,SEST_Replenishment,DDG,900000000,1731000000,SEST mapping from usn_ddg_burke_f2_072_late,sest-southern-reach; sest-southern-watch
-missions,vessel,usn_ddg_arleigh_flt2A_119_2027,3606774881,,,,unknown: no tracker entry,sest-southern-reach; sest-southern-watch
+missions,vessel,usn_ddg_arleigh_flt2A_119_2027,3606774881,DDG,1800000000,2200000000,SEST mapping from usn_ddg_burke_f2a_119,sest-southern-reach; sest-southern-watch
 missions,vessel,usn_ddg_arleigh_flt3_2027,3606774881,DDG,2519000000,2700000000,SEST mapping from usn_ddg_burke_f3_125,Southern Watch; sest-southern-reach; sest-southern-watch
 missions,vessel,usn_ddg_burke_f3_125,3390330875,DDG,2519000000,2700000000,tracker catalog,Southern Watch; sest-southern-watch
 missions,vessel,usn_lhd_wasp,SEST_Replenishment,LHD,318000000,1871000000,tracker catalog,sest-southern-reach; sest-southern-watch
@@ -700,7 +700,7 @@ missions,aircraft,jasdf_ec-2,3813033771,,,,unknown: no tracker entry,Southern Wa
 missions,aircraft,jmsdf_sh-60j,3695809489,,11300000,36500000,tracker catalog,Southern Watch; sest-southern-reach; sest-southern-watch
 missions,aircraft,jmsdf_sh-60k,3695809489,,11300000,36500000,tracker catalog,Southern Watch; sest-southern-reach; sest-southern-watch
 missions,aircraft,jp_f-2a_late,3755769170,,80000000,171000000,SEST researched estimate,Red Line; Southern Watch; sest-red-line; sest-southern-watch
-missions,aircraft,mm_av-8b_plus,3505420313,,,,unknown: no tracker entry,sest-southern-watch
+missions,aircraft,mm_av-8b_plus,3505420313,,22400000,55000000,SEST researched estimate,sest-southern-watch
 missions,aircraft,msdvd_tu-214r,3780118683,,,,unknown: no tracker entry,Southern Watch; sest-southern-watch
 missions,aircraft,mv22b_osprey,3806466625,,62300000,72300000,SEST researched estimate,Southern Watch; Southern Watch - Dispatches; sest-southern-watch
 missions,aircraft,nl_nh90,3567228449,,33800000,56200000,tracker catalog,Southern Watch - Dispatches
@@ -744,7 +744,7 @@ missions,aircraft,S-70B-2_Seahawk,SEST_Allied_Fixes,,11300000,36500000,SEST mapp
 missions,aircraft,spa_ab212,3630495619,,1900000,11200000,tracker catalog,Southern Watch - Dispatches
 missions,aircraft,spa_av-8b_plus,3731208477,,22400000,55000000,SEST researched estimate,Southern Watch - Dispatches; sest-southern-watch
 missions,aircraft,spa_ef2000,3731208477,,65000000,100000000,tracker catalog,sest-southern-watch
-missions,aircraft,tha_S-70B-7_Seahawk,3711297532,,,,unknown: no tracker entry,sest-sulu-line
+missions,aircraft,tha_S-70B-7_Seahawk,3711297532,,11300000,36500000,SEST mapping from ran_s-70b-2_seahawk,sest-sulu-line
 missions,aircraft,usa_a-10c,SEST_Allied_Fixes,,10000000,25000000,tracker catalog,Southern Watch - Dispatches
 missions,aircraft,usa_ah-64d,SEST_Allied_Fixes,,12000000,36500000,tracker catalog,Southern Watch - Dispatches
 missions,aircraft,usa_ah-64e,SEST_Allied_Fixes,,12000000,36500000,tracker catalog,Southern Watch - Dispatches
@@ -787,7 +787,7 @@ missions,aircraft,usn_fury_ew,3804868806,,,,unknown: no tracker entry,Southern W
 missions,aircraft,usn_mh-60r,SEST_Allied_Fixes,,33800000,56200000,tracker catalog,Southern Watch; sest-southern-watch
 missions,aircraft,usn_Mugin5705,3601891050,,10000,15000,tracker catalog,Southern Watch; sest-southern-watch
 missions,aircraft,usn_p8,SEST_Allied_Fixes,,148000000,170000000,tracker catalog,Red Line; Southern Reach; Southern Watch; Southern Watch - Dispatches; Tasman Shield; sest-red-line; sest-southern-reach; sest-southern-watch
-missions,aircraft,usn_p8_2027,3606774881,,,,unknown: no tracker entry,sest-southern-reach; sest-southern-watch
+missions,aircraft,usn_p8_2027,3606774881,,148000000,170000000,SEST mapping from usn_p8,sest-southern-reach; sest-southern-watch
 missions,aircraft,usn_p_8a,3413868677,,148000000,170000000,tracker catalog,Southern Watch; sest-southern-watch
 missions,aircraft,usn_rq7705,3601891050,,1000000,2000000,tracker catalog,Southern Watch; Southern Watch - Dispatches; Sulu Line; sest-southern-watch; sest-sulu-line
 missions,aircraft,wp_a-50u,3524112296,,120000000,280000000,tracker catalog,Southern Watch; sest-southern-watch
@@ -842,92 +842,30 @@ land,land,wp_airbase_modern,SEST_Collection_Fixes,,,,not priced: the tracker doe
 land,land,wp_buk-m3,SEST_Collection_Fixes,,,,not priced: the tracker does not price land platforms,
 land,land,wp_bukslave,SEST_Collection_Fixes,,,,not priced: the tracker does not price land platforms,
 land,land,wp_ss-27_tel,SEST_Collection_Fixes,,,,not priced: the tracker does not price land platforms,
-next-batch,weapon,agm-114,3403661005,Missile,,,unknown: no tracker entry,S-70B-2_Seahawk
-next-batch,weapon,ch53sa_nsm_air,3801363152,Missile,,,unknown: no tracker entry,usmc_ch53_standalone
-next-batch,weapon,fr_mistral_f3,3567256221,Missile,,,unknown: no tracker entry,fr_cvn_charles-de-gaulle; fr_ffg_lafayette_modernized
-next-batch,weapon,fury_aim120d,3804868806,Missile,,,unknown: no tracker entry,usn_fury_escort
-next-batch,weapon,fury_aim9x,3804868806,Missile,,,unknown: no tracker entry,usn_fury_escort
-next-batch,weapon,j16_hq19,3769142422,Missile,,,unknown: no tracker entry,plaaf_j16
-next-batch,weapon,j16_ls-6_250,3769142422,Missile,,,unknown: no tracker entry,plaaf_j16
 next-batch,weapon,jp_aam-3,3755769170,Missile,,,unknown: no tracker entry,jp_f-2a_late
 next-batch,weapon,jp_aam-4,3755769170,Missile,,,unknown: no tracker entry,jp_f-2a_late
 next-batch,weapon,jp_asm-3,3755769170,Missile,,,unknown: no tracker entry,jp_f-2a_late
 next-batch,weapon,pla_akd-10-z21,3774746803,Missile,,,unknown: no tracker entry,pla_z21
 next-batch,weapon,pla_akk-90a-z21,3774746803,Missile,,,unknown: no tracker entry,pla_z21
-next-batch,weapon,pla_hj-10a_air_z21,3774746803,Missile,,,unknown: no tracker entry,pla_z21
-next-batch,weapon,plaaf_cj-20,3812111085,Missile,,,unknown: no tracker entry,plaaf_h-6k_late
-next-batch,weapon,plaaf_j16_ld-8a,3769142422,Missile,,,unknown: no tracker entry,plaaf_j16
-next-batch,weapon,plaaf_j16_pl-10,3769142422,Missile,,,unknown: no tracker entry,plaaf_j16
-next-batch,weapon,plaaf_j16_pl-15,3769142422,Missile,,,unknown: no tracker entry,plaaf_j16
-next-batch,weapon,plaaf_j16_pl-17,3769142422,Missile,,,unknown: no tracker entry,plaaf_j16
-next-batch,weapon,plaaf_j16_yj-80,3769142422,Missile,,,unknown: no tracker entry,plaaf_j16
-next-batch,weapon,plaaf_j16_yj-91,3769142422,Missile,,,unknown: no tracker entry,plaaf_j16
-next-batch,weapon,plaaf_j36_pl15,3801549552,Missile,,,unknown: no tracker entry,plaaf_j36
-next-batch,weapon,plaaf_j36_pl17,3801549552,Missile,,,unknown: no tracker entry,plaaf_j36
-next-batch,weapon,plaaf_kd-63,3812111085,Missile,,,unknown: no tracker entry,plaaf_h-6k_late
-next-batch,weapon,plaaf_kd-63b,3812111085,Missile,,,unknown: no tracker entry,plaaf_h-6k_late
-next-batch,weapon,plaaf_kd-63c,3812111085,Missile,,,unknown: no tracker entry,plaaf_h-6k_late
-next-batch,weapon,plaaf_kd-88a,3812111085,Missile,,,unknown: no tracker entry,plaaf_h-6k_late
-next-batch,weapon,plaaf_pl-15_S_LQS,3670643788,Missile,,,unknown: no tracker entry,plan_j-50
-next-batch,weapon,plaaf_yj-12,3812111085,Missile,,,unknown: no tracker entry,plaaf_h-6k_late
-next-batch,weapon,plaaf_yj-21,3812111085,Missile,,,unknown: no tracker entry,plaaf_h-6k_late
-next-batch,weapon,plaaf_yj-21_LQS,3670643788,Missile,,,unknown: no tracker entry,plan_j-50
-next-batch,weapon,plaaf_yj-83,3526982088,Missile,,,unknown: no tracker entry,plaaf_jh7a
-next-batch,weapon,plan_hy-1ja,3417801942,Missile,,,unknown: no tracker entry,plan_ddg_luda_typ_051d; plan_ddg_luda_typ_051dt
-next-batch,weapon,PN_fr_mica_em,3812454152,Missile,,,unknown: no tracker entry,pn_ffg-06
-next-batch,weapon,PN_fr_mica_ir,3812454152,Missile,,,unknown: no tracker entry,pn_ffg-06
 next-batch,weapon,sest_aim-424,SEST_F-15EX_Revamp,Missile,,,unknown: SEST mapping keeps usn_aim-424's blank,fr_rafale_b_l; fr_rafale_m_l; usaf_f-15ex_SEII; usaf_f-16cm-bl52d; usn_ea-18g; usn_ea-18g_2020; usn_f-35c; usn_fa-18e; usn_fa-18f; usn_fa-18f_blk3
-next-batch,weapon,su_as-17a_LQS,3659742367,Missile,,,unknown: no tracker entry,wp_mig-35
-next-batch,weapon,su_kh-38_LQS,3659742367,Missile,,,unknown: no tracker entry,wp_mig-35
-next-batch,weapon,usa_agm-114r2_hob,3820759806,Missile,,,unknown: no tracker entry,adf_ah-64e
-next-batch,weapon,usa_v280_agm-114l,3810611344,Missile,,,unknown: no tracker entry,usa_mv75_army
 next-batch,weapon,usn_aim-424,3606774881,Missile,,,unknown: the tracker entry is blank,usn_f-35c; usn_fa-18e; usn_fa-18f; usn_fa-18f_blk3
-next-batch,weapon,usn_rim-162e,3606774881,Missile,,,unknown: no tracker entry,usn_cvn_nimitz_2027s_adou; usn_ddg_arleigh_flt1_054_2027; usn_ddg_arleigh_flt2_072_2027; usn_ddg_arleigh_flt2A_119_2027; usn_ddg_arleigh_flt3_2027
 next-batch,weapon,usn_steelfin_air,3820576916,Missile,,,unknown: no tracker entry,usa_mv75_army; usaf_yf-23_black_widow_ii; usn_fury_escort
-next-batch,weapon,wp_r-33,3799742828,Missile,,,unknown: no tracker entry,wp_mig-31bm
-next-batch,weapon,wp_r-37,3799742828,Missile,,,unknown: no tracker entry,wp_mig-31bm
-next-batch,weapon,wp_r-77-1,3799742828,Missile,,,unknown: no tracker entry,wp_mig-31bm
-next-batch,weapon,wp_r-77m,3799742828,Missile,,,unknown: no tracker entry,wp_mig-31bm
-next-batch,weapon,wp_sa-n-10,vanilla,Missile,,,unknown: no tracker entry,wp_bpk_udaloy
-next-batch,weapon,yf23_agm88a_internal,3796349767,Missile,,,unknown: no tracker entry,usaf_yf-23_black_widow_ii
-next-batch,weapon,yf23_aim120d_internal,3796349767,Missile,,,unknown: no tracker entry,usaf_yf-23_black_widow_ii
 next-batch,weapon,yf23_aim424_internal,3796349767,Missile,,,unknown: no tracker entry,usaf_yf-23_black_widow_ii
-next-batch,weapon,yf23_aim9x2_internal,3796349767,Missile,,,unknown: no tracker entry,usaf_yf-23_black_widow_ii
 next-batch,weapon,am_kb44,3629144864,Bomb,,,unknown: no tracker entry,am_tornado_ids
 next-batch,weapon,am_stabo,3629144864,Bomb,,,unknown: no tracker entry,am_tornado_ids
 next-batch,weapon,b-2_gbu-57,3480965706,Bomb,,,unknown: no tracker entry,usaf_b-2_spirit
 next-batch,weapon,dts_b-61,3760871384,Bomb,,,unknown: no tracker entry,dts_b-52h
-next-batch,weapon,dts_gbu-31,3760871384,Bomb,,,unknown: no tracker entry,dts_b-52h; usaf_b-1b_dts; usaf_f-15e_SE; usaf_f-15ex_SEII
-next-batch,weapon,dts_gbu-32,3760871384,Bomb,,,unknown: no tracker entry,usaf_f-15e_SE; usaf_f-15ex_SEII
-next-batch,weapon,eu_mk_18,3587877691,Bomb,,,unknown: no tracker entry,eu_ef2000_fgr4_late; raf_ef2000_fgr4_late
-next-batch,weapon,f16_gbu-31,3758320372,Bomb,,,unknown: no tracker entry,pol_f-16c-bl52plus; usaf_f-16cm-bl52d
-next-batch,weapon,f16_gbu-32,3758320372,Bomb,,,unknown: no tracker entry,pol_f-16c-bl52plus; usaf_f-16cm-bl52d
-next-batch,weapon,f16_gbu-39,3758320372,Bomb,,,unknown: no tracker entry,pol_f-16c-bl52plus; usaf_f-16cm-bl52d
-next-batch,weapon,f16_gbu-53,3758320372,Bomb,,,unknown: no tracker entry,pol_f-16c-bl52plus; usaf_f-16cm-bl52d
-next-batch,weapon,fr_gbu-12,3567256221,Bomb,,,unknown: no tracker entry,fr_atl2; fr_rafale_b_l; fr_rafale_m_l
-next-batch,weapon,fr_gbu-24,3758943352,Bomb,,,unknown: no tracker entry,fr_rafale_b_l; fr_rafale_m_l
 next-batch,weapon,fr_samp_t25,vanilla,Bomb,,,unknown: no tracker entry,fr_rafale_m
 next-batch,weapon,pla_type-3-250,vanilla,Bomb,,,unknown: no tracker entry,plaaf_h-6k_late
 next-batch,weapon,plaaf_250-Ⅲ,3436170138,Bomb,,,unknown: no tracker entry,plaaf_j-8f; plaaf_jh7a
 next-batch,weapon,plaaf_500-Ⅱ,3812111085,Bomb,,,unknown: no tracker entry,plaaf_h-6k_late
 next-batch,weapon,plaaf_500-Ⅲ,3436170138,Bomb,,,unknown: no tracker entry,plaaf_j-11bg; plaaf_j-8f
 next-batch,weapon,plaaf_gb-1000,3812111085,Bomb,,,unknown: no tracker entry,plaaf_j16
-next-batch,weapon,plaaf_ls-500,3481228992,Bomb,,,unknown: no tracker entry,plaaf_j10c; plaaf_jh7a
 next-batch,weapon,plan_ksb-2_dc,3775128499,AirDepthCharge,,,unknown: no tracker entry,plan_y-9fq
-next-batch,weapon,su_kab-1500kr,3434072450,Bomb,,,unknown: no tracker entry,wp_su-30sm2; wp_tu-160
-next-batch,weapon,uav_gbu-49,3503670861,Bomb,,,unknown: no tracker entry,usaf_mq-9_er; usaf_mq-9a
-next-batch,weapon,us_gbu-31v3,3758320372,Bomb,,,unknown: no tracker entry,pol_f-16c-bl52plus; usaf_f-16cm-bl52d
 next-batch,weapon,usaf_cbu-24,vanilla,Bomb,,,unknown: no tracker entry,rok_f-50_ph; usaf_b-2_spirit
-next-batch,weapon,usaf_gbu-24,3606774881,Bomb,,,unknown: no tracker entry,usn_fa-18e; usn_fa-18f; usn_fa-18f_blk3
-next-batch,weapon,usaf_gbu-54,3758320372,Bomb,,,unknown: no tracker entry,pol_f-16c-bl52plus; usaf_f-16cm-bl52d
 next-batch,weapon,usaf_m117,vanilla,Bomb,,,unknown: no tracker entry,usaf_b-52g
 next-batch,weapon,usn_gbu-10,vanilla,Bomb,,,unknown: no tracker entry,usa_a-10c; usaf_a-10c_plus; usaf_b-2_spirit; usaf_f-117; usaf_f-15e_SE; usaf_f-15ex_SEII
-next-batch,weapon,usn_gbu-12,vanilla,Bomb,,,unknown: no tracker entry,mm_av-8b_plus; rok_f-50_ph; spa_av-8b_plus; usa_a-10c; usaf_a-10c_plus; usaf_b-2_spirit; usaf_f-15e_SE; usaf_yf-23_black_widow_ii
 next-batch,weapon,usn_gbu-16,vanilla,Bomb,,,unknown: no tracker entry,jp_f-2a_late; mm_av-8b_plus
-next-batch,weapon,usn_gbu-27_117,3448845252,Bomb,,,unknown: no tracker entry,usaf_f-117
-next-batch,weapon,usn_gbu-31_qcsk,3607989779,Bomb,,,unknown: no tracker entry,usn_f-35c; usn_fa-18e; usn_fa-18f; usn_fa-18f_blk3
-next-batch,weapon,usn_gbu-31v4,3607989779,Bomb,,,unknown: no tracker entry,usn_f-35c; usn_fa-18e; usn_fa-18f; usn_fa-18f_blk3
-next-batch,weapon,usn_gbu-38_qcsk,3607989779,Bomb,,,unknown: no tracker entry,usn_f-35c; usn_fa-18e; usn_fa-18f; usn_fa-18f_blk3
 next-batch,weapon,usn_mk-82,3737267013,Bomb,,,unknown: no tracker entry,dts_b-52h; jp_f-2a_late; mm_av-8b_plus; rok_f-50_ph; spa_av-8b_plus; usaf_b-1b_dts; usaf_b-2_spirit; usaf_b-52o; usaf_f-15e_SE; usaf_f-16a
 next-batch,weapon,usn_mk-82_snakeye,vanilla,Bomb,,,unknown: no tracker entry,spa_av-8b_plus; usaf_b-1b_dts
 next-batch,weapon,usn_mk-83,3737267013,Bomb,,,unknown: no tracker entry,am_tornado_ids; jp_f-2a_late; mm_av-8b_plus; rok_f-50_ph; spa_av-8b_plus
@@ -937,11 +875,9 @@ next-batch,weapon,wp_fab-1500_m54,vanilla,Bomb,,,unknown: no tracker entry,plaaf
 next-batch,weapon,wp_fab-250,vanilla,Bomb,,,unknown: no tracker entry,plan_ka-28; wp_ka-27; wp_mi-8tv; wp_mig-29k
 next-batch,weapon,wp_fab-3000_m54,vanilla,Bomb,,,unknown: no tracker entry,plaaf_h-6k_late
 next-batch,weapon,wp_fab-500,vanilla,Bomb,,,unknown: no tracker entry,wp_mi-8tv; wp_mig-23a; wp_mig-29k; wp_su-25sm3; wp_su-33; wp_tu-160; wp_tu-95ms
-next-batch,weapon,wp_kab-500l,vanilla,Bomb,,,unknown: no tracker entry,wp_su-30sm2
 next-batch,weapon,wp_plab-100,vanilla,AirDepthCharge,,,unknown: no tracker entry,plan_ka-28; wp_ka-27
 next-batch,weapon,wp_rbk-250,3395022688,Bomb,,,unknown: no tracker entry,plan_ka-28; wp_ka-27
 next-batch,weapon,wp_rn-40,3762023575,Bomb,,,unknown: no tracker entry,wp_su-30sm2
-next-batch,weapon,ch53sa_mk48_air,3801363152,Torpedo,,,unknown: no tracker entry,usmc_ch53_standalone
 next-batch,weapon,eu_mu_90_ship,3629144864,Torpedo,,,unknown: no tracker entry,ger_ffg_f123_2025_mlu; ger_ffg_f124; ger_ffg_f124_MLU; ran_ddg_hobart; ran_ffh_anzac
 next-batch,weapon,fr_a244s_mod1,3567228449,Torpedo,,,unknown: no tracker entry,fr_as-565_sa
 next-batch,weapon,fr_canto,3629144864,Torpedo,,,unknown: no tracker entry,fr_ddg_horizon; fr_ffg_aquitaine_asw
@@ -951,53 +887,34 @@ next-batch,weapon,fr_mu_90_ship,3567256221,Torpedo,,,unknown: no tracker entry,f
 next-batch,weapon,ger_mu_90_ship,3629144864,Torpedo,,,unknown: no tracker entry,hdms_iver_huitfeldt
 next-batch,weapon,it_canto,3629144864,Torpedo,,,unknown: no tracker entry,ita_ffg_ppa; ita_fs_ppx
 next-batch,weapon,mm_mu_90_ship,3629144864,Torpedo,,,unknown: no tracker entry,ita_ddg_orizzonte_18; ita_ffg_fremm; ita_ffg_fremm_asw; ita_ffg_ppa; mm_ddgh_durand_de_la_penne_02
-next-batch,weapon,pla_yu-6,3594891803,Torpedo,,,unknown: no tracker entry,plan_ss_type_039; plan_ss_type_039c; plan_ssn_type_093b
-next-batch,weapon,plan_yu-10,3775128499,Torpedo,,,unknown: no tracker entry,plan_ss_type_039b
+next-batch,weapon,pla_yu-6,3594891803,Torpedo,,4220000,SEST researched estimate,plan_ss_type_039; plan_ss_type_039c; plan_ssn_type_093b
+next-batch,weapon,plan_yu-10,3775128499,Torpedo,,4220000,SEST researched estimate,plan_ss_type_039b
 next-batch,weapon,plan_yu-12_air,3775128499,Torpedo,,,unknown: no tracker entry,plan_y-9fq; plan_z-20f
 next-batch,weapon,plan_yu-12_ship,3775128499,Torpedo,,,unknown: no tracker entry,plan_type_052d_p3
 next-batch,weapon,plan_yu-12a,3775128499,Torpedo,,,unknown: no tracker entry,plan_cv_type_003
 next-batch,weapon,plan_yu-5,3417801942,Torpedo,,,unknown: no tracker entry,plan_ss_kilo
-next-batch,weapon,plan_yu-6,3775128499,Torpedo,,,unknown: no tracker entry,plan_ss_kilo; plan_ss_type_039b
-next-batch,weapon,plan_yu-6a,3775128499,Torpedo,,,unknown: no tracker entry,plan_ss_type_039b
+next-batch,weapon,plan_yu-6,3775128499,Torpedo,,4220000,SEST researched estimate,plan_ss_kilo; plan_ss_type_039b
+next-batch,weapon,plan_yu-6a,3775128499,Torpedo,,4220000,SEST researched estimate,plan_ss_type_039b
 next-batch,weapon,plan_yu-7_air,3775128499,Torpedo,,,unknown: no tracker entry,plan_z-18f; plan_z-9c
 next-batch,weapon,plan_yu-7_ship,3775128499,Torpedo,,,unknown: no tracker entry,plan_ddg_luda_typ_051d; plan_ddg_luda_typ_051dt
 next-batch,weapon,plan_yu-7c_ship,3775128499,Torpedo,,,unknown: no tracker entry,plan_type_054a_p5; plan_type_056a
-next-batch,weapon,plan_yu-9,3775128499,Torpedo,,,unknown: no tracker entry,plan_ss_type_039b
+next-batch,weapon,plan_yu-9,3775128499,Torpedo,,4220000,SEST researched estimate,plan_ss_type_039b
 next-batch,weapon,rfn_m15at,3597650470,Torpedo,,,unknown: no tracker entry,rfn_cvt_20380_7-12
 next-batch,weapon,rfn_mtt,3597650470,Torpedo,,,unknown: no tracker entry,rfn_cvt_20380_7-12
 next-batch,weapon,rn_stingray_air,3629144864,Torpedo,,,unknown: no tracker entry,rn_wildcat
-next-batch,weapon,rn_stingray_mod1_air,3629144864,Torpedo,,,unknown: no tracker entry,rn_merlin_hm2
-next-batch,weapon,rn_stingray_mod1_ship,3629144864,Torpedo,,,unknown: no tracker entry,rn_ff_type23
-next-batch,weapon,rn_stingray_ship,3378409795,Torpedo,,,unknown: no tracker entry,rn_type23_refit
+next-batch,weapon,rn_stingray_ship,3378409795,Torpedo,,1190000,SEST researched estimate,rn_type23_refit
 next-batch,weapon,usa_v280_copperhead_100m,3810611344,Torpedo,,,unknown: no tracker entry,usa_mv75_army
-next-batch,weapon,usn_mk44_air,vanilla,Torpedo,,,unknown: no tracker entry,rok_mk99_a; spa_ab212
-next-batch,weapon,usn_mk46_5_ship,3629144864,Torpedo,,,unknown: no tracker entry,jmsdf_ddg_atago; ko_ddh-971; ko_ddh-975_kvls; ko_ffg-811; ko_ffg-818; ko_ffg-828; pn_ffg-06; pn_ffg-150; ran_ffh_anzac; rnn_ddg_zeven_mlu; rnn_ffg_karel_mlu
-next-batch,weapon,usn_mk46_air,vanilla,Torpedo,,,unknown: no tracker entry,fr_sea_lynx; ger_sea_lynx_mk88; jmsdf_sh-60j; jmsdf_sh-60k; rok_mk99_a; S-70B-2_Seahawk; spa_ab212; tha_S-70B-7_Seahawk
-next-batch,weapon,usn_mk46_mod5_air,vanilla,Torpedo,,,unknown: no tracker entry,jmsdf_sh-60j; jmsdf_sh-60k; rok_mk99_a; usa_mv75_army
-next-batch,weapon,usn_mk46_mod5_ship,vanilla,Torpedo,,,unknown: no tracker entry,ae_ffg_alvaro_bazan; ae_ffg_bonifaz; ae_ffg_santa_maria_late; phl_ff_hamilton; tha_ffg_naresuan
-next-batch,weapon,usn_mk46_ship,vanilla,Torpedo,,,unknown: no tracker entry,js_ffg_mogami; phl_fs_pohang; ran_ffg_adelaide_shorthull
-next-batch,weapon,usn_mk48_6,3629144864,Torpedo,,,unknown: no tracker entry,ran_ssg_collins
-next-batch,weapon,usn_mk48_7,3629144864,Torpedo,,,unknown: no tracker entry,ran_ssg_collins; usn_ssn_seawolf; usn_ssn_virginia; usn_ssn_virginia_2027
-next-batch,weapon,usn_mk48_mod4_adcap,vanilla,Torpedo,,,unknown: no tracker entry,ran_ssg_collins
-next-batch,weapon,usn_mk50_air,3629144864,Torpedo,,,unknown: no tracker entry,jmsdf_sh-60j; jmsdf_sh-60k; usaf_rq-180
-next-batch,weapon,usn_mk54_1_ship,3629144864,Torpedo,,,unknown: no tracker entry,rnn_ffg_karel_eol; usn_ddg_arleigh_flt2A_119_2027
-next-batch,weapon,usn_mk54_2_air,3629144864,Torpedo,,,unknown: no tracker entry,usmc_ch53_standalone
-next-batch,weapon,usn_mk54_2_ship,3629144864,Torpedo,,,unknown: no tracker entry,usn_ddg_arleigh_flt1_054_2027; usn_ddg_arleigh_flt2_072_2027; usn_ddg_arleigh_flt3_2027; usn_ddg_burke_f3_125
-next-batch,weapon,usn_mk54_air,3629144864,Torpedo,,,unknown: no tracker entry,jmsdf_sh-60j; jmsdf_sh-60k; ran_mh-60r; usn_mh-60r; usn_p_8a
-next-batch,weapon,usn_mk54_ship,3629144864,Torpedo,,,unknown: no tracker entry,jmsdf_dd_asahi; jmsdf_ddg_maya; jmsdf_ddh_hyuga
+next-batch,weapon,usn_mk44_air,vanilla,Torpedo,,1190000,SEST researched estimate,rok_mk99_a; spa_ab212
+next-batch,weapon,usn_mk46_5_ship,3629144864,Torpedo,,1190000,SEST researched estimate,jmsdf_ddg_atago; ko_ddh-971; ko_ddh-975_kvls; ko_ffg-811; ko_ffg-818; ko_ffg-828; pn_ffg-06; pn_ffg-150; ran_ffh_anzac; rnn_ddg_zeven_mlu; rnn_ffg_karel_mlu
+next-batch,weapon,usn_mk46_air,vanilla,Torpedo,,1190000,SEST researched estimate,fr_sea_lynx; ger_sea_lynx_mk88; jmsdf_sh-60j; jmsdf_sh-60k; rok_mk99_a; S-70B-2_Seahawk; spa_ab212; tha_S-70B-7_Seahawk
+next-batch,weapon,usn_mk46_mod5_air,vanilla,Torpedo,,1190000,SEST researched estimate,jmsdf_sh-60j; jmsdf_sh-60k; rok_mk99_a; usa_mv75_army
+next-batch,weapon,usn_mk46_mod5_ship,vanilla,Torpedo,,1190000,SEST researched estimate,ae_ffg_alvaro_bazan; ae_ffg_bonifaz; ae_ffg_santa_maria_late; phl_ff_hamilton; tha_ffg_naresuan
+next-batch,weapon,usn_mk46_ship,vanilla,Torpedo,,1190000,SEST researched estimate,js_ffg_mogami; phl_fs_pohang; ran_ffg_adelaide_shorthull
 next-batch,weapon,wp_53-65K,vanilla,Torpedo,,,unknown: no tracker entry,civ_fv_okean_surprise; plan_ss_kilo
 next-batch,weapon,wp_65-76,3395022688,Torpedo,,,unknown: no tracker entry,wp_ssn_akula
 next-batch,weapon,wp_at-2,vanilla,Torpedo,,,unknown: no tracker entry,wp_tu-142m
-next-batch,weapon,wp_fizik-2,3468260539,Torpedo,,,unknown: no tracker entry,wp_ssgn_yasen; wp_ssn_akula
 next-batch,weapon,wp_set-65,vanilla,Torpedo,,,unknown: no tracker entry,plan_em_sovremenny; rfn_ffg_11356; wp_bpk_udaloy; wp_rkr_kirov_improved
 next-batch,weapon,wp_umgt-1,vanilla,Torpedo,,,unknown: no tracker entry,plan_ka-28; wp_ka-27
-next-batch,weapon,ger_27mm_fapds,3629144864,Projectile,,,unknown: no tracker entry,ger_ffg_f124
-next-batch,weapon,j16_cal_30mm,3769142422,Projectile,,,unknown: no tracker entry,plaaf_j16
-next-batch,weapon,usa_v280_762,3810611344,Projectile,,,unknown: no tracker entry,usa_mv75_army
-next-batch,weapon,usn_cal_20mm_apds,vanilla,Projectile,,,unknown: no tracker entry,ae_ffg_santa_maria_late; jmsdf_aoe_mashuu; jmsdf_dd_asahi; jmsdf_ddg_atago; jmsdf_ddg_maya; ran_ddg_hobart; ran_ffg_adelaide_shorthull; rn_aor_tide; rn_ddg_type45; rn_ddg_type45_26; usn_cvn_ford; usn_cvn_ford_jsf; usn_cvn_nimitz; usn_cvn_nimitz_2025; usn_cvn_nimitz_2027s_adou; usn_ddg_arleigh_flt1_054_2027; usn_ddg_arleigh_flt2_072_2027; usn_ddg_arleigh_flt2A_119_2027; usn_ddg_arleigh_flt3_2027; usn_ddg_burke_f3_125; usn_lhd_wasp; usn_take_lewis_clark; usn_taoe_supply
-next-batch,weapon,usn_cal_25mm_stabilized,3820759806,Projectile,,,unknown: no tracker entry,ran_ddg_hobart; ran_lhd_canberra
-next-batch,weapon,usn_cal_30mm_abm,3629144864,Projectile,,,unknown: no tracker entry,ger_ffg_f123_2025_mlu; ger_ffg_f124_MLU; ger_ffg_f125_MLU
-next-batch,weapon,wp_cal_30mm_ak230,vanilla,Projectile,,,unknown: no tracker entry,wp_rkr_kirov_improved
 next-batch,weapon,ir_107mm_rocket,vanilla,MLRS,,,unknown: no tracker entry,ir_fab_boghammar; ir_ptg_peykaap_3
 next-batch,weapon,plaaf_90-Ⅰ_rocket,3436170138,AerialRocket,,,unknown: no tracker entry,plaaf_j-8f; plaaf_jh7a
 next-batch,weapon,plan_fqf-2500,3417801942,RBU,,,unknown: no tracker entry,plan_ddg_luda_typ_051d; plan_ddg_luda_typ_051dt

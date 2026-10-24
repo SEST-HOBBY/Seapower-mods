@@ -127,10 +127,12 @@ class CompatibilityBuild(unittest.TestCase):
                 fields = entries[(kind, item["target"].casefold())]["fields"]
                 self.assertEqual(fields[KINDS[kind][2]], item["estimate"].get("historical", ""))
                 self.assertEqual(fields["CurrentYearCost"], item["estimate"]["current"])
-        self.assertEqual(count, 25)
+        self.assertEqual(count, 59)
 
     def test_refuted_and_unshipped_research_carries_no_price(self):
         for item in self.research["items"]:
+            if item["kind"] == "land":
+                continue    # kept for reference: the tracker prices no land platform
             fields = self.result["extensions"][item["kind"]].get(item["target"].casefold(), {})
             for key in (KINDS[item["kind"]][2], "CurrentYearCost"):
                 self.assertFalse(fields.get(key), item["target"])
@@ -139,6 +141,39 @@ class CompatibilityBuild(unittest.TestCase):
         self.assertFalse([m for m in self.mappings["aircraft"] if m["target"] == "plaaf_j36"])
         self.assertEqual(self.result["extensions"]["aircraft"]["plaaf_j36"],
                          {"AircraftCosts": "", "CurrentYearCost": ""})
+
+    def test_second_batch_mappings_and_estimates_24_oct(self):
+        weapons = self.result["extensions"]["weapon"]
+        # A reviewed mapping copies the author's pair; Category only where the source's is wrong.
+        self.assertEqual(weapons["plaaf_ls-500"], {"WeaponCosts": "28000", "CurrentYearCost": "45000",
+                                                   "Category": "Bomb"})
+        self.assertEqual(weapons["wp_r-37"]["Category"], "AAM")
+        mk54 = {e["target"]: e for e in self.result["entries"] if e.get("estimate")}["usn_mk54_air"]
+        self.assertEqual((mk54["estimate"]["historical_method"], mk54["estimate"]["current_method"]),
+                         ("published price", "CPI conversion"))
+        self.assertEqual((weapons["usn_mk54_air"]["WeaponCosts"], weapons["usn_mk54_air"]["CurrentYearCost"]),
+                         ("1000000", "1190000"))
+        # A current-only estimate leaves the historical price unknown.
+        self.assertEqual((weapons["usn_mk46_air"]["WeaponCosts"], weapons["usn_mk46_air"]["CurrentYearCost"]),
+                         ("", "1190000"))
+        # civ_a320 and civ_a330 keep their 23 Oct estimates: the new rows add no historical price.
+        a320 = self.result["extensions"]["aircraft"]["civ_a320"]
+        self.assertEqual((a320["AircraftCosts"], a320["CurrentYearCost"]), ("", "55000000"))
+        for kind, items in self.mappings.items():
+            for item in items:
+                for source in item.get("sources", []):
+                    self.assertNotIn("checked.json", source["title"], item["target"])
+                    self.assertFalse(source["url"].startswith("file:docs/combat-costs/cost-list.md"),
+                                     item["target"])
+
+    def test_research_rerun_notes_and_land_items(self):
+        kinds = {item["kind"] for item in self.research["items"]}
+        self.assertEqual(kinds, {"aircraft", "vessel", "weapon", "land"})
+        for item in self.research["items"]:
+            if "rerun" in item:
+                self.assertIn("Re-run: " + item["rerun"], item["why"], item["target"])
+        keys = [(i["kind"], i["target"].casefold()) for i in self.research["items"]]
+        self.assertEqual(len(keys), len(set(keys)))
 
     def test_custom_rounds_and_wrong_ran_names_stay_unknown(self):
         for kind, uid in (("weapon", "sest_aim-424"),
@@ -346,6 +381,23 @@ class CostList(unittest.TestCase):
         for line in self.csv.splitlines():
             if line.startswith("next-batch,"):
                 self.assertNotIn(",tracker catalog,", line)
+
+    def test_land_research_is_listed_and_duplicates_rejected_on_a_synthetic_tree(self):
+        with tempfile.TemporaryDirectory() as temp:
+            root = tree(temp, {
+                "mods-source/1/land_units/test_tel.ini": "[General]\nLength=1\n",
+                "integration/campaign/SEST_Campaign/missions/Op/Op 01.ini": "[Zone1]\nType=Deployment\n",
+                "integration/campaign/SEST_Campaign/campaigns/c1/c1.ini": "",
+            })
+            item = {"target": "test_tel", "kind": "land", "decision": "left unknown",
+                    "candidate": "none", "why": "No figure.", "sources": []}
+            md, _ = cost_list(root, {}, {"reviewed": "today", "items": [item]})
+            self.assertIn("- **test_tel** (land, 1) - left unknown. Candidate: none. Why not shipped: "
+                          "No figure. Never shipped: the tracker does not price land platforms.", md)
+            with self.assertRaisesRegex(ValueError, "listed twice"):
+                cost_list(root, {}, {"reviewed": "today", "items": [item, item]})
+            with self.assertRaisesRegex(ValueError, "no longer exists"):
+                cost_list(root, {}, {"reviewed": "today", "items": [dict(item, target="gone")]})
 
     def test_fielded_units_and_carried_stores_on_a_synthetic_tree(self):
         with tempfile.TemporaryDirectory() as temp:

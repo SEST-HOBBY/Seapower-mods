@@ -95,18 +95,36 @@ def normal_reference(reference):
     return re.sub(r"[^a-z0-9]", "", stem.casefold())
 
 
-def inventory(root):
-    """Winning unit configs: SEST source packs, ordered Workshop mods, vanilla."""
+def providers(root):
+    """[(owner, folder)] in winning order: SEST source packs, ordered Workshop mods, vanilla."""
     root = Path(root)
     registry = json.loads((root / "data/mod-catalog.json").read_text(encoding="utf-8"))
-    providers = [(p["folder"], root / p["source"] / p["folder"])
-                 for p in registry["local_packs"] if p["folder"] != "SEST_Combat_Costs"]
+    found = [(p["folder"], root / p["source"] / p["folder"])
+             for p in registry["local_packs"] if p["folder"] != "SEST_Combat_Costs"]
     tokens = (root / "data/load-order.tokens.txt").read_text(encoding="utf-8").splitlines()
-    providers += [(t.strip(), root / "mods-source" / t.strip()) for t in tokens
-                  if t.strip().isdigit()]
-    providers.append(("vanilla", root / "mods-source/_vanilla/original"))
+    found += [(t.strip(), root / "mods-source" / t.strip()) for t in tokens if t.strip().isdigit()]
+    found.append(("vanilla", root / "mods-source/_vanilla/original"))
+    return found
+
+
+def land_inventory(root):
+    """{uid: {"id", "owner"}}: the winning land unit files, in the same order as inventory().
+
+    The tracker prices no land platform. This only names the land units a
+    research.json record may describe (24 Oct 2026).
+    """
+    found = {}
+    for owner, base in providers(root):
+        for path in sorted((base / "land_units").glob("*.ini")):
+            if not path.stem.casefold().endswith(("_variants", "_squadrons", "_loadouts")):
+                found.setdefault(path.stem.casefold(), {"id": path.stem, "owner": owner})
+    return found
+
+
+def inventory(root):
+    """Winning unit configs: SEST source packs, ordered Workshop mods, vanilla."""
     units = {kind: {} for kind in KINDS}
-    for owner, base in providers:
+    for owner, base in providers(root):
         for kind, (folder, _, _, _) in KINDS.items():
             for path in sorted((base / folder).glob("*.ini")):
                 uid = path.stem
@@ -541,17 +559,23 @@ def cost_list(root, mappings, research, built=None):
             return "Sea Power (stock)"
         return f"{titles[name]} ({name})" if name in titles else name
 
+    # A land research record is kept for reference only: the tracker prices
+    # no land platform, so nothing for it is ever shipped.
+    land_known = land_inventory(root) if any(i["kind"] == "land" for i in research["items"]) else {}
     researched = {}
     for item in research["items"]:
         kind, uid = item["kind"], item["target"].casefold()
-        if kind not in KINDS or uid not in units[kind]:
+        if not (uid in land_known if kind == "land" else kind in KINDS and uid in units[kind]):
             raise ValueError(f"research.json: {kind} {item['target']} no longer exists")
         if not (_one_line(item.get("why")) and _one_line(item.get("candidate"))
                 and _one_line(item.get("decision"))):
             raise ValueError(f"research.json: {item['target']} needs one-line decision, candidate and why")
-        fields = result["extensions"][kind].get(uid, {})
-        if any(fields.get(k) for k in (KINDS[kind][2], "CurrentYearCost")):
-            raise ValueError(f"research.json: {item['target']} is shipped with a price")
+        if (kind, uid) in researched:
+            raise ValueError(f"research.json: {kind} {item['target']} is listed twice")
+        if kind in KINDS:
+            fields = result["extensions"][kind].get(uid, {})
+            if any(fields.get(k) for k in (KINDS[kind][2], "CurrentYearCost")):
+                raise ValueError(f"research.json: {item['target']} is shipped with a price")
         researched[(kind, uid)] = item
 
     owned = {kind: [price_status(context, kind, uid) for uid, u in sorted(units[kind].items())
@@ -682,11 +706,17 @@ def cost_list(root, mappings, research, built=None):
     md += ["", "### Researched, not shipped", "",
            f"{len(researched)} items from the {research['reviewed']} research. A refuted row "
            "failed the adversarial check; `left unknown` means the check agreed that no "
-           "defensible figure exists yet.", ""]
+           "defensible figure exists yet. `Re-run` marks an item whose research stopped because "
+           "the session's web search allowance ran out or the source host was blocked. Land "
+           "items are kept for reference only: the tracker does not price land platforms.", ""]
     for (kind, uid), item in sorted(researched.items()):
-        status = price_status(context, kind, uid)
-        now = "" if _gap(status) else f" Now priced: {status['from']}."
-        md += [f"- **{item['target']}** ({kind}, {owner(status['owner'])}) - {item['decision']}. "
+        if kind == "land":
+            who, now = land_known[uid]["owner"], " Never shipped: the tracker does not price land platforms."
+        else:
+            status = price_status(context, kind, uid)
+            who = status["owner"]
+            now = "" if _gap(status) else f" Now priced: {status['from']}."
+        md += [f"- **{item['target']}** ({kind}, {owner(who)}) - {item['decision']}. "
                f"Candidate: {item['candidate']}. Why not shipped: {item['why']}{now}"
                + (f" Sources: {_sources(item['sources'])}." if item["sources"] else "")]
 

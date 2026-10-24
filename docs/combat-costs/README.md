@@ -3,6 +3,10 @@
 Updated 23 October 2026: SEST researched estimates, 31 more reviewed mappings
 and the generated cost list (see "Researched estimates and the cost list").
 
+Updated 24 October 2026: a second checked batch ships 66 more reviewed
+mappings and 34 more researched estimates, and the research record now covers
+every item that batch left unknown, including land units (see "Second batch").
+
 This private revision starts from the PC-verified `71bd3004` playtest. It adds
 the two newly installed plugins to the canonical order and builds
 `SEST_Combat_Costs` into the existing consolidated pack. Equipment performance,
@@ -159,6 +163,35 @@ held 138 SEST weapons (129 priced), 339 SEST vessels (320), 37 SEST aircraft
 (35), 163 fielded vessels (146), 139 fielded aircraft (116 with both prices,
 2 more with a current price only), 27 land units, and 339 carried weapons
 without a price.
+
+### Second batch (24 October 2026)
+
+A second batch of 102 weapons, ships and aircraft that SEST's campaigns carry
+or field was researched and checked the same way. 100 rows ship:
+
+- 66 reviewed mappings: 62 weapons, 2 vessels and 2 aircraft. One sets its own
+  category: `plaaf_ls-500` is a guided bomb, so it takes `Bomb`, not its
+  source's `Land Attack`.
+- 34 researched estimates: 33 weapons (mostly torpedoes and Paveway bombs)
+  and the Italian AV-8B Plus. The Mk 44 and Mk 46 family, the Sting Ray Mod 0
+  and the Yu-6, Yu-9 and Yu-10 family ship a current price only.
+
+The A320 and A330 rows are left out. They repeat the 23 October estimates and
+add no historical price. No row's source entry was blank, and no row replaces
+an author entry.
+
+`research.json` now holds 377 items: every item the second check left
+unknown, each with its candidate figure and the reason. 323 of them carry a
+`rerun` note, because their research stopped when this session's web search
+allowance ran out or a source host was blocked. They can be re-run. 89 items
+are land units (kind `land`). They are kept for reference only, because the
+tracker does not price land platforms; the cost list shows them under Gaps.
+
+On 24 October 2026 the list held 138 SEST weapons (129 priced), 339 SEST
+vessels (320), 37 SEST aircraft (35), 163 fielded vessels (148), 139 fielded
+aircraft (119 with both prices, 2 more with a current price only), 27 land
+units, and 256 carried weapons with a missing price (12 of them have a
+current price only).
 
 ## Price precedence and unknowns
 
