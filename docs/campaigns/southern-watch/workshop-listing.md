@@ -103,7 +103,7 @@ Everything else in the block below
 (combat costs, Red Line, Steel Highway, the SEST menu, the mod updates) is in
 that build but not yet in a Steam change log: paste it with the next update,
 above the 20 Oct block if that has not been uploaded either. The required mods
-are unchanged by the 24 Oct capture. The costs lines rest on mocked tests and
+are unchanged by the 24 and 25 Oct captures. The costs lines rest on mocked tests and
 the owner's report from the uploaded build: the Task Force panel at the left
 and the stores carry-over work (`docs/playtests/campaign-costs-panel-20261024.md`,
 steps 4, 6 and 7). Step 3, the in-mission panel, was not reported. The same
@@ -128,13 +128,13 @@ report has the Regional Expansion starting as a new campaign
 [*]Red Line: shorter, harder missions. Missile craft attack Fujian in Trailing Contact; torpedo and missile attacks hit the tanker leg; fighters intercept in The Other Picture and The Ships from the North; a Q-ship presses in The Order to Withdraw and The Quiet Side. A Red Line campaign already under way keeps its old missions until started again.
 [*]Southern Watch, Steel Highway: the submarine starts anywhere within 35 NM of its reported position, which shows on the plot for one minute.
 [*]World Sandbox 2028 - Regional Expansion (preview): a second Dynamic Campaign Mod world, 15 more bases and 26 more RED forces from the Baltic to Iran, with their own supply ships. Start it as a new campaign.
-[*]World Sandbox: starts again after Euromod Chile's frigate rename.
+[*]World Sandbox: starts again after the Chilean frigate and HH-60H renames.
 [/list]
 
 [b]Also[/b]
 [list]
 [*]The SEST menu no longer covers scenario pictures, briefing images and maps.
-[*]Follows the 24 Oct mod updates: Modern US Navy, U.S. Navy 2027 (MH-60R, Hornets), F-35C, Modern US Airbase, the Scandinavian, JMSDF and Chilean Euromod packs, and THE REDFOR MOD.
+[*]Follows the 24 and 25 Oct mod updates: Modern US Navy, U.S. Navy 2027, US Naval Aviation, F-35C, Modern US Airbase, THE REDFOR MOD and the Anchorchain, RAN, Chilean, Scandinavian and JMSDF Euromod packs.
 [/list]
 ```
 

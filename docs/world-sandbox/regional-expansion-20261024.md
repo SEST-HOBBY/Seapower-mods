@@ -2,6 +2,8 @@
 
 An **optional new-game world** for Dynamic Campaign Mod 0.25.0 (3813157776, the version installed in the 24 Oct capture).
 
+On 25 Oct 2026 the purchase list grew from 1,559 to 1,561 entries (Euromod RAN's F-35A Block 4 and late F-35B), and US Naval Aviation's HH-60H rename (`usn_hh-60` to `usn_hh-60h`) went into both worlds, with an alias that keeps older saves' helicopters. The same day the mod updated to 0.25.0.1: a rebuilt DLL, with its own campaigns' data unchanged (`docs/workshop-refresh-20261025-review.md`). This world's start was seen on 0.25.0 and has not yet been seen on 0.25.0.1.
+
 - **Separate campaigns.** The original `sest.world_sandbox_2028` campaign and its saves are unchanged. The variant has its own id, `sest.world_sandbox_2028.regional`, and folder, `dynamic_campaigns/sest-world-regions-2028/`, and both are listed in the Campaign menu.
 - **How it is built.** It is generated from the original by `integration/world-sandbox/build_regions.py` and the spec `integration/world-sandbox/regions-2028.json`. `build_dynamic_campaign.py` runs it after the original, so `tools/build_all.py` builds both.
 - **Same inputs, same bytes.** A test rebuilds the variant from the spec and compares the bytes with the shipped file.
@@ -11,7 +13,7 @@ An **optional new-game world** for Dynamic Campaign Mod 0.25.0 (3813157776, the 
 | Bases | 141 | 156 |
 | Forces (BLUE / RED) | 267 (170 / 97) | 293 (170 / 123) |
 | Patrols | 49 | 54 |
-| Purchase entries | 1,559 | 1,559 |
+| Purchase entries | 1,561 | 1,561 |
 | Replenishment ship types | 7 | 9 |
 
 ## What it adds

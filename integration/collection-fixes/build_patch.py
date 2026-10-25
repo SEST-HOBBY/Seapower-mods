@@ -190,13 +190,15 @@ def sm3_value(key, name):
     return SM3_OVWR_PER_ROUND.get(key, {}).get(name, SM3_OVWR_VALUES[key])
 # Keys the overwrite sets that this pack knowingly does not copy, with the
 # overwrite's value per round (a round not listed must not set the key).
-# MaxFlightTime: the overwrite gives the D 3000 s. This pack sizes the
-# flight times to each block's declared range (600/600/900, main() below)
-# rather than a figure that would let the round fly for fifty minutes on
-# every install. With the preloader the overwrite still applies on top,
-# and the D then flies 3000 s whatever this pack ships.
+# MaxFlightTime: the overwrite gives the D 3000 s, and since the 25 Oct 2026
+# export the B and C as well. This pack sizes the flight times to each
+# block's declared range (600/600/900, main() below) rather than a figure
+# that would let the round fly for fifty minutes on every install. With the
+# preloader the overwrite still applies on top, and the rounds then fly
+# 3000 s whatever this pack ships.
 SM3_OVWR_DECLINED = {
-    "MaxFlightTime": {"usn_rim-161d": "3000"},
+    "MaxFlightTime": {"usn_rim-161b": "3000", "usn_rim-161c": "3000",
+                      "usn_rim-161d": "3000"},
 }
 # Keys the overwrite sets for some rounds only, copied for those rounds (a
 # round not listed must not set the key). 18 Oct 2026 export: the author gave
@@ -204,9 +206,18 @@ SM3_OVWR_DECLINED = {
 # Both are engine keys (vanilla's wp_ss-1c declares OptimizeLoftAlt; the D's
 # own base file carries TerminalLoft=True commented out), so they are folded
 # like the others and the D flies the same with or without the preloader.
+# 25 Oct 2026 export: the B and C take both as well.
 SM3_OVWR_ROUND_ONLY = {
-    "TerminalLoft": {"usn_rim-161d": "True"},
-    "OptimizeLoftAlt": {"usn_rim-161d": "True"},
+    "TerminalLoft": {"usn_rim-161b": "True", "usn_rim-161c": "True",
+                     "usn_rim-161d": "True"},
+    "OptimizeLoftAlt": {"usn_rim-161b": "True", "usn_rim-161c": "True",
+                        "usn_rim-161d": "True"},
+}
+# Keys the overwrite moves off a live donor value for some rounds only. 25 Oct
+# 2026 export: the D's mid-course guidance goes from 1 (radio command) to 3,
+# the value vanilla's SM-2s (usn_rim-66c/d/h, usn_rim-67b) fly.
+SM3_OVWR_ROUND_LIVE = {
+    "MidCourseCorrection": {"usn_rim-161d": "3"},
 }
 # Keys the overwrite sets to the base file's own value. They are checked,
 # not copied: if the overwrite moves off the base value (the 2026-09-20
@@ -272,8 +283,14 @@ def sm3_check_overwrite(t, name):
             sys.exit(f"{name}: the Anchorchain overwrite now has {key}="
                      f"{shown(ovwr.get(key))} where {shown(want)} was recorded - "
                      f"{rebase}")
+    for key, per_round in SM3_OVWR_ROUND_LIVE.items():
+        want = [per_round[name]] if name in per_round else None
+        if ovwr.get(key) != want:
+            sys.exit(f"{name}: the Anchorchain overwrite now has {key}="
+                     f"{shown(ovwr.get(key))} where {shown(want)} was recorded - "
+                     f"{rebase}")
     known = (set(SM3_OVWR_VALUES) | set(SM3_OVWR_DECLINED) | set(SM3_OVWR_SAME)
-             | set(SM3_OVWR_ROUND_ONLY))
+             | set(SM3_OVWR_ROUND_ONLY) | set(SM3_OVWR_ROUND_LIVE))
     new = sorted(k for k in ovwr if k not in known and not SM3_OVWR_IGNORABLE.search(k))
     if new:
         sys.exit(f"{name}: the Anchorchain overwrite now also sets {', '.join(new)}. "
@@ -311,8 +328,16 @@ def sm3_fold_overwrite(t, name):
         elif key == "OptimizeLoftAlt":
             # Not in the donor even commented out; beside the loft ceiling.
             t = edit(t, r"^(MaxLoftAlt=[^\n]*)$", rf"\1\n{key}={value}", 1, name)
+        elif key == "TerminalLoft":
+            # The B has no line even commented out; where its siblings keep
+            # theirs, beside the flight time.
+            t = edit(t, r"^(MaxFlightTime=[^\n]*)$", rf"\1\n{key}={value}", 1, name)
         else:
             sys.exit(f"{name}: no {key} line in the donor - rebase this fix")
+    for key, per_round in SM3_OVWR_ROUND_LIVE.items():
+        if name in per_round:
+            t = edit(t, rf"^{key}=\d+(?!\d)", f"{key}={per_round[name]}", 1, name)
+            own[key] = per_round[name]
     # Kept to three lines: the header counts against the file's similarity
     # to its donor, and below 90% the file drops out of dist CREDITS.txt.
     # "These", not "the round": the D's declined MaxFlightTime still differs

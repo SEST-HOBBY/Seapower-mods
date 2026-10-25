@@ -43,8 +43,8 @@
    ],
    "outcome": "converted",
    "why": "air force at the node's air base",
-   "unit": "usn_hh-60",
-   "resolved": "as registered",
+   "unit": "usn_hh-60h",
+   "resolved": "retargeted from usn_hh-60 (integration/mission-seeds/retarget_units.py)",
    "base": "usp_coronado_nas_north_island"
   },
   {
@@ -1796,8 +1796,8 @@
    ],
    "outcome": "converted",
    "why": "air force at the node's air base",
-   "unit": "usn_hh-60",
-   "resolved": "as registered",
+   "unit": "usn_hh-60h",
+   "resolved": "retargeted from usn_hh-60 (integration/mission-seeds/retarget_units.py)",
    "base": "hoa_djibouti_camp_lemonnier"
   },
   {
@@ -1809,8 +1809,8 @@
    ],
    "outcome": "converted",
    "why": "air force at the node's air base",
-   "unit": "usn_hh-60",
-   "resolved": "as registered",
+   "unit": "usn_hh-60h",
+   "resolved": "retargeted from usn_hh-60 (integration/mission-seeds/retarget_units.py)",
    "base": "hoa_djibouti_camp_lemonnier"
   },
   {
@@ -6862,7 +6862,7 @@
   {
    "force": "Naval Air Station North Island HH-60H",
    "node": "usp_coronado_nas_north_island",
-   "aircraft": "usn_hh-60",
+   "aircraft": "usn_hh-60h",
    "count": 4
   },
   {
@@ -6964,7 +6964,7 @@
   {
    "force": "Camp Lemonnier HH-60H",
    "node": "hoa_djibouti_camp_lemonnier",
-   "aircraft": "usn_hh-60",
+   "aircraft": "usn_hh-60h",
    "count": 2
   },
   {
@@ -8340,7 +8340,7 @@
    },
    "blue Australia": {
     "ships": 44,
-    "aircraft": 49
+    "aircraft": 51
    },
    "blue Japan": {
     "ships": 23,
@@ -8693,7 +8693,7 @@
   "usn_ddg_burke_f3_125": "Displacement 9700 t",
   "usn_e-2d": "Role AEW",
   "usn_fa-18a": "Role Fighter",
-  "usn_hh-60": "Role ASW",
+  "usn_hh-60h": "Role ASW",
   "usn_lcs_freedom_suw_late": "Displacement 3500 t",
   "usn_lhd_wasp": "Displacement 40500 t",
   "usn_mh-60r": "Role ASW",
@@ -9028,6 +9028,7 @@
   "raaf_ea-18g_2026": "Role Fighter",
   "raaf_f-111c": "Role Bomber",
   "raaf_f-111c_aup": "Role Bomber",
+  "raaf_f-35a_blk4": "Role Fighter",
   "raaf_f-4e": "Role Fighter",
   "raaf_f-4e_79": "Role Fighter",
   "raaf_fa-18a": "Role Fighter",
@@ -9047,6 +9048,7 @@
   "ran_as350_recon": "Role Recon",
   "ran_C1A": "Role Transport",
   "ran_f-35b": "Role Fighter",
+  "ran_f-35b_late": "Role Fighter",
   "ran_h34": "Role ASW",
   "ran_h34_sar": "Role SAR",
   "ran_mh-60r": "Role ASW",
@@ -10073,8 +10075,8 @@
    "Air": 107
   },
   "patrols": 49,
-  "catalogue": 1559,
-  "values": 1559,
+  "catalogue": 1561,
+  "values": 1561,
   "lanes_kept": 11,
   "lanes_authored": 11,
   "skipped_nodes": 34

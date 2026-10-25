@@ -56,7 +56,7 @@ ships, escorts, and the allied aircraft a mission can fly - or in Red Line the P
 901 and 903A supply ships; the windows before it keep the story's own lists. The Open
 Allocation twins that sold each campaign's whole roster from the first window were retired
 from the pack on 21 Oct 2026, the standard campaigns took on what they did, and the
-builder keeps them as an opt-in for a world-wide campaign). Consolidated, they are 4297 files in `integration/dist/SEST_Integration/`.
+builder keeps them as an opt-in for a world-wide campaign). Consolidated, they are 4299 files in `integration/dist/SEST_Integration/`.
 `SEST_Zumwalt_CPS` was retired on 20 Sep 2026, when Modern US Navy fixed what it patched. `SEST_Rafale_F5` was retired for one build on
 3 Oct 2026, the Rafale mod it patched having left the collection, and rebuilt the same
 evening on the French Air Force mod, which ships the same Rafales (`docs/packaging-and-recovery.md`).

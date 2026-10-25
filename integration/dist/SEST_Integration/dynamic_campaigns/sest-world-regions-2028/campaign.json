@@ -3103,7 +3103,7 @@
       "base": "usp_coronado_nas_north_island",
       "type": "Air",
       "units": [
-        "usn_hh-60 x4"
+        "usn_hh-60h x4"
       ]
     },
     {
@@ -3256,7 +3256,7 @@
       "base": "hoa_djibouti_camp_lemonnier",
       "type": "Air",
       "units": [
-        "usn_hh-60 x2"
+        "usn_hh-60h x2"
       ]
     },
     {
@@ -7092,7 +7092,7 @@
     "usn_ddg_burke_f3_125": 245,
     "usn_e-2d": 242,
     "usn_fa-18a": 46,
-    "usn_hh-60": 39,
+    "usn_hh-60h": 39,
     "usn_lcs_freedom_suw_late": 123,
     "usn_lhd_wasp": 644,
     "usn_mh-60r": 39,
@@ -7427,6 +7427,7 @@
     "raaf_ea-18g_2026": 46,
     "raaf_f-111c": 78,
     "raaf_f-111c_aup": 78,
+    "raaf_f-35a_blk4": 46,
     "raaf_f-4e": 46,
     "raaf_f-4e_79": 46,
     "raaf_fa-18a": 46,
@@ -7446,6 +7447,7 @@
     "ran_as350_recon": 28,
     "ran_C1A": 23,
     "ran_f-35b": 46,
+    "ran_f-35b_late": 46,
     "ran_h34": 39,
     "ran_h34_sar": 40,
     "ran_mh-60r": 39,
@@ -10831,7 +10833,7 @@
       "aircraft": true
     },
     {
-      "unit": "usn_hh-60",
+      "unit": "usn_hh-60h",
       "side": "blue",
       "nation": "US",
       "tier": 0,
@@ -11494,6 +11496,13 @@
       "aircraft": true
     },
     {
+      "unit": "raaf_f-35a_blk4",
+      "side": "blue",
+      "nation": "Australia",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
       "unit": "raaf_f-4e",
       "side": "blue",
       "nation": "Australia",
@@ -11607,6 +11616,13 @@
     },
     {
       "unit": "ran_f-35b",
+      "side": "blue",
+      "nation": "Australia",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "ran_f-35b_late",
       "side": "blue",
       "nation": "Australia",
       "tier": 0,

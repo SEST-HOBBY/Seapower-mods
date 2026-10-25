@@ -3,10 +3,10 @@ WORKSHOP REFRESH SUMMARY
 Written by tools/workshop_refresh_summary.py from data/install-snapshot/ and the
 canonical lists. Facts only; compatibility is judged in a later review.
 
-capture date           : 2026-10-24T15:04:05
-repo commit captured at: 88bde742 (chore/workshop-refresh-20261024)
-previous capture       : 87c0feb5
-previous export        : 87c0feb51d59
+capture date           : 2026-10-25T13:25:14
+repo commit captured at: c350b2cab (chore/workshop-refresh-20261025)
+previous capture       : c350b2ca
+previous export        : 970a35783e24
 Sea Power              : 21-Oct-2026: 0.8.7 Build 261021 Public Release
   Steam build id       : 26103404
   engine               : Unity 6000.0.84f1 (78ab6fc243d5)
@@ -30,88 +30,98 @@ SINCE THE PREVIOUS CAPTURE
   (none)
   updated on the Workshop (Steam's timeupdated for the item changed, from
   appworkshop_1286220.acf; the exported files below are the full record):
-  3390330875  Euromod - Modern US Navy  2026-10-22 13:07 -> 2026-10-24 13:50
-  3592460366  Modern US Airbase  2026-01-29 08:58 -> 2026-10-24 14:15
-  3606774881  U.S. Navy 2027 Capabilities  2026-10-17 15:19 -> 2026-10-24 00:42
-  3607989779  F-35C Lightning II Alt. Loadouts  2026-10-17 15:16 -> 2026-10-24 00:41
-  3629144864  Euromod - Main Pack  2026-10-22 12:38 -> 2026-10-24 06:54
-  3642656500  Euromod-Scandinavian Navy  2026-10-17 06:30 -> 2026-10-23 22:32
-  3695809489  Euromod-(Japan)JMSDF Modern navy  2026-10-23 09:06 -> 2026-10-24 10:19
-  3732654992  THE REDFOR MOD  2026-10-21 07:16 -> 2026-10-23 21:50
-  3776730617  Euromod - Modern Armada de Chile  2026-10-22 16:34 -> 2026-10-24 06:55
-  exported files changed since the previous export (87c0feb51d59; A added, D removed, M modified, R renamed):
-  3390330875  Euromod - Modern US Navy  files 280 -> 280  (A 0, D 0, M 3, R 1)
-      R version_counter_622.txt
-      M aircraft/usn_mh-60r_p2.ini
-      M vessels/usn_lhd_wasp.ini
-      M vessels/usn_lhd_wasp_early.ini
-  3592460366  Modern US Airbase  files 4 -> 4  (A 0, D 0, M 2, R 0)
-      M _info.ini
-      M land_units/airbase_us.ini
-  3606774881  U.S. Navy 2027 Capabilities  files 140 -> 140  (A 0, D 0, M 8, R 0)
-      M _info.ini
-      M aircraft/usn_ea-18g.ini
-      M aircraft/usn_fa-18e.ini
-      M aircraft/usn_fa-18f.ini
-      M aircraft/usn_fa-18f_blk3.ini
+  3629144864  Euromod - Main Pack  2026-10-24 06:54 -> 2026-10-25 04:30
+  3737267013  US Naval Aviation  2026-10-22 12:59 -> 2026-10-25 08:05
+  3784474738  Euromod - Anchorchain Expansion Pack  2026-10-21 02:59 -> 2026-10-25 07:49
+  3802216383  JMSDF Hyūga-class — Hyūga & Ise  2026-10-09 07:57 -> 2026-10-25 11:22
+  3813157776  Dynamic Campaign Mod  2026-10-16 08:32 -> 2026-10-25 07:17
+  3820759806  Euromod - Modern Royal Australian Navy Mod  2026-10-20 20:49 -> 2026-10-25 11:23
+  exported files changed since the previous export (970a35783e24; A added, D removed, M modified, R renamed):
+  3629144864  Euromod - Main Pack  files 761 -> 768  (A 7, D 0, M 0, R 0)
+      A assets/europack/materials/eu_da05/da05_mat.ini
+      A assets/europack/materials/eu_da08/da08_mat.ini
+      A assets/europack/materials/eu_lirod/lirod_mat.ini
+      A assets/europack/materials/eu_lw03/lw03_mat.ini
+      A assets/europack/materials/eu_lw08/lw08_mat.ini
+      A assets/europack/materials/eu_stir1.8/stir_1.8_mat.ini
+      A assets/europack/materials/eu_zw06/zw06_mat.ini
+  3737267013  US Naval Aviation  files 272 -> 272  (A 0, D 0, M 6, R 3)
+      R aircraft/usn_hh-60h.ini
+      R aircraft/usn_hh-60h_squadrons.ini
+      R version_counter_107.txt
       M aircraft/usn_mh-60r.ini
-      M vessels/Backup/261017/usn_cg_ticonderoga_vls_2027.ini
-      M vessels/usn_cg_ticonderoga_vls_2027.ini
-  3607989779  F-35C Lightning II Alt. Loadouts  files 28 -> 28  (A 0, D 0, M 2, R 0)
-      M _info.ini
-      M aircraft/usn_f-35c.ini
-  3629144864  Euromod - Main Pack  files 761 -> 761  (A 0, D 0, M 2, R 1)
-      R version_counter_487.txt
-      M language_en/systemgroups.ini
-      M systems/sensors.ini
-  3642656500  Euromod-Scandinavian Navy  files 60 -> 60  (A 1, D 1, M 9, R 0)
-      D ammunition/scn_nasams_essm_ii.ini
-      A systems/weapons.ini
-      M ammunition/scn_nasams_aim120c7.ini
-      M ammunition/scn_nasams_aim9x.ini
-      M land_units/nor_mpq64f1_sentinel.ini
-      M land_units/nor_nasams_launcher.ini
-      M language_en/ammunition_names.ini
-      M language_en/land_units_names.ini
-      M language_en/systemgroups.ini
-      M systems/sensors.ini
-      M vessels/hdms_iver_huitfeldt.ini
-  3695809489  Euromod-(Japan)JMSDF Modern navy  files 39 -> 39  (A 0, D 0, M 8, R 1)
-      R version_counter_42.txt
-      M aircraft/jmsdf_sh-60j.ini
-      M aircraft/jmsdf_sh-60j_squadrons.ini
-      M aircraft/jmsdf_sh-60k.ini
-      M aircraft/jmsdf_sh-60k_squadrons.ini
+      M aircraft/usn_sh-60b.ini
+      M aircraft/usn_sh-60f.ini
+      M aircraft/usn_sh-60f_squadrons.ini
+      M language_cn/aircraft_names.ini
       M language_en/aircraft_names.ini
-      M vessels/jmsdf_dd_asahi_variants.ini
-      M vessels/jmsdf_ddg_atago_variants.ini
-      M vessels/jmsdf_ddg_maya_variants.ini
-  3732654992  THE REDFOR MOD  files 320 -> 329  (A 9, D 0, M 6, R 0)
-      A ammunition/red_x-59mk.ini
-      A land_units/wp_buk-m3.ini
-      A land_units/wp_buk-m3_variants.ini
-      A land_units/wp_bukslave.ini
-      A land_units/wp_bukslave_variants.ini
-      A land_units/wp_m3-radar.ini
-      A land_units/wp_m3-radar_variants.ini
-      A weapons/wp_as-13/wp_as-18_mat.ini
-      A weapons/wp_as-13/wp_as-18mk_mat.ini
-      M REDFOR.txt
-      M aircraft/wp_su-30sm2.ini
-      M language_en/ammunition_names.ini
-      ... and 3 more
-  3776730617  Euromod - Modern Armada de Chile  files 129 -> 129  (A 0, D 0, M 5, R 3)
-      R version_counter_9.txt
-      R vessels/ch_ffg_jacob_van_heemskerck.ini
-      R vessels/ch_ffg_jacob_van_heemskerck_variants.ini
-      M language_en/vessel_names.ini
-      M systems/sensors.ini
-      M vessels/ch_ffg_karel_doorman.ini
-      M vessels/ch_ffg_type23.ini
-      M vessels/ch_ffg_type23_pida.ini
+  3784474738  Euromod - Anchorchain Expansion Pack  files 1042 -> 1166  (A 124, D 0, M 7, R 0)
+      A TestRange_README.txt
+      A effects/explosions/emitters/nuclear_500kt_surface_v3/crown_00_00.ini
+      A effects/explosions/emitters/nuclear_500kt_surface_v3/crown_00_01.ini
+      A effects/explosions/emitters/nuclear_500kt_surface_v3/crown_00_02.ini
+      A effects/explosions/emitters/nuclear_500kt_surface_v3/crown_00_03.ini
+      A effects/explosions/emitters/nuclear_500kt_surface_v3/crown_00_04.ini
+      A effects/explosions/emitters/nuclear_500kt_surface_v3/crown_00_05.ini
+      A effects/explosions/emitters/nuclear_500kt_surface_v3/crown_00_06.ini
+      A effects/explosions/emitters/nuclear_500kt_surface_v3/crown_00_07.ini
+      A effects/explosions/emitters/nuclear_500kt_surface_v3/crown_00_08.ini
+      A effects/explosions/emitters/nuclear_500kt_surface_v3/crown_00_09.ini
+      A effects/explosions/emitters/nuclear_500kt_surface_v3/crown_00_10.ini
+      ... and 119 more
+  3802216383  JMSDF Hyūga-class — Hyūga & Ise  files 203 -> 203  (A 0, D 0, M 4, R 0)
+      M SHA256SUMS.json
+      M WORKSHOP_CHANGELOG.txt
+      M _info.ini
+      M vessels/jmsdf_ddh_hyuga.ini
+  3813157776  Dynamic Campaign Mod  files 5 -> 5  (A 0, D 0, M 4, R 0)
+      M _info.ini
+      M dynamic_campaigns/atlantic_1972_hold_the_gap/campaign.json
+      M dynamic_campaigns/atlantic_1972_red_storm_rising/campaign.json
+      M dynamic_campaigns/east_asia_1985/campaign.json
+  3820759806  Euromod - Modern Royal Australian Navy Mod  files 217 -> 238  (A 21, D 0, M 12, R 0)
+      A aircraft/Testing/usaf_f-35a.ini
+      A aircraft/Testing/usaf_f-35a_1.ini
+      A aircraft/Testing/usaf_f-35a_2.ini
+      A aircraft/raaf_f-35a.ini
+      A aircraft/raaf_f-35a_blk4.ini
+      A aircraft/raaf_f-35a_blk4_squadrons.ini
+      A aircraft/raaf_f-35a_squadrons.ini
+      A aircraft/ran_f-35b_late.ini
+      A aircraft/ran_f-35b_late_squadrons.ini
+      A ammunition/WIP/scn_nasams_aim120c7.ini
+      A ammunition/WIP/scn_nasams_aim9x.ini
+      A ammunition/usn_cal_25mm_apex.ini
+      ... and 21 more
   plugin DLLs changed:
+  [SEST_Integration\plugins] SEST.MenuBackground.dll
   [SEST_Integration\plugins] SEST.RuntimeFixes.dll
+  [workshop] 3784474738\ACPackSettings.dll
+  [workshop] 3784474738\CombatWorker.dll
+  [workshop] 3784474738\CustomAudioLoader.dll
+  [workshop] 3784474738\EnhancedDecoyMod.dll
+  [workshop] 3784474738\EnhancedUIMod.dll
+  [workshop] 3784474738\Euromod-Welldeck.dll
+  [workshop] 3784474738\ExtendedGuidance.dll
+  [workshop] 3784474738\HighAltitudeSkyFix.v1.2.0.dll
+  [workshop] 3784474738\HullDamage.dll
+  [workshop] 3784474738\MeshCutOut.dll
+  [workshop] 3784474738\MissileControlMod.dll
+  [workshop] 3784474738\MissileControlSurfaces.dll
+  [workshop] 3784474738\MultiStageMissiles.dll
+  [workshop] 3784474738\OptimalTargetDist.dll
+  [workshop] 3784474738\ParallelRangeProbe.dll
+  [workshop] 3784474738\ProfileImage1024.dll
+  [workshop] 3784474738\SATCOM.dll
+  [workshop] 3784474738\SmokeParticleLOD.dll
+  [workshop] 3784474738\SubModelStabilization.dll
+  [workshop] 3784474738\UiWorkerProbe.dll
+  [workshop] 3784474738\V22Tiltrotor.dll
+  [workshop] 3784474738\WeaponLauncherEffects.dll
+  [workshop] 3813157776\DynamicCampaignMod.dll
   plugin DLLs new:
+  [workshop] 3784474738\SeaPowerDLSS.dll_
+  [workshop] 3784474738\TestRange.dll
 
 INVENTORY
   subscribed + downloaded + canonical + catalogued: 199
@@ -142,7 +152,7 @@ EXPORTER UPDATE CHECK (export-mod-configs.ps1 -CheckUpdates)
   Found Sea Power (app 1286220)
     game dir : c:\program files (x86)\steam\steamapps\common\Sea Power
     workshop : c:\program files (x86)\steam\steamapps\workshop\content\1286220
-  unchanged since the last export : 190
+  unchanged since the last export : 185
   UPDATED by their authors (re-export to pick the changes up):
     3390330875  Euromod - Modern US Navy
     3592460366  Modern US Airbase
@@ -152,5 +162,10 @@ EXPORTER UPDATE CHECK (export-mod-configs.ps1 -CheckUpdates)
     3642656500  Euromod-Scandinavian Navy
     3695809489  Euromod-(Japan)JMSDF Modern navy
     3732654992  THE REDFOR MOD
+    3737267013  US Naval Aviation
     3776730617  Euromod - Modern Armada de Chile
+    3784474738  Euromod - Anchorchain Expansion Pack
+    3802216383  JMSDF Hyūga-class — Hyūga & Ise
+    3813157776  Dynamic Campaign Mod
+    3820759806  Euromod - Modern Royal Australian Navy Mod
   To capture: re-run this script without -CheckUpdates, then commit and push.

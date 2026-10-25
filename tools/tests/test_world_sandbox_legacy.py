@@ -1,4 +1,5 @@
-"""Regression checks for the 24 Oct 2026 World Sandbox hull rename."""
+"""Regression checks for the World Sandbox renames: the Chilean hull (24 Oct
+2026) and US Naval Aviation's HH-60H (25 Oct 2026)."""
 import json
 import re
 import unittest
@@ -47,6 +48,24 @@ class WorldHullCompatibilityTests(unittest.TestCase):
                 self.assertIsNotNone(block, uid)
                 self.assertIn(f"VesselCosts={HISTORICAL}", block.group(1))
                 self.assertIn(f"CurrentYearCost={PRESENT}", block.group(1))
+
+    def test_renamed_hh60_in_new_campaigns_and_saves(self):
+        # US Naval Aviation, 25 Oct 2026: usn_hh-60 -> usn_hh-60h.
+        regional = Path("dynamic_campaigns/sest-world-regions-2028/campaign.json")
+        for pack in (WORLD, DIST):
+            for campaign in (CAMPAIGN, regional):
+                data = json.loads((ROOT / pack / campaign).read_text(encoding="utf-8"))
+                placed = [u for f in data["forces"] for u in f["units"]]
+                self.assertFalse([u for u in placed if u.split(" x")[0] == "usn_hh-60"], campaign)
+                self.assertTrue([u for u in placed if u.split(" x")[0] == "usn_hh-60h"], campaign)
+                self.assertNotIn("usn_hh-60", data["values"])
+                self.assertNotIn("usn_hh-60", [e["unit"] for e in data["catalogue"]])
+            unit = (ROOT / pack / "aircraft/usn_hh-60.ini").read_text(encoding="utf-8")
+            self.assertEqual(unit.strip(), "#!alias aircraft/usn_hh-60h.ini")
+            squadrons = (ROOT / pack / "aircraft/usn_hh-60_squadrons.ini").read_text(encoding="utf-8")
+            self.assertIn("[Squadron1]", squadrons)
+            names = (ROOT / pack / "language_en/aircraft_names.ini").read_text(encoding="utf-8")
+            self.assertRegex(names, r"(?m)^\[usn_hh-60\]$")
 
     def test_build_order_declared(self):
         entries = json.loads((ROOT / "data/mod-catalog.json").read_text(encoding="utf-8"))["local_packs"]
