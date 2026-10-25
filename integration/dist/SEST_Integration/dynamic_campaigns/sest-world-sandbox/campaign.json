@@ -2892,7 +2892,7 @@
       "base": "usa_jacksonville_nas_jacksonville",
       "type": "Air",
       "units": [
-        "usn_p_8a x4"
+        "usn_p8_2027 x4"
       ]
     },
     {
@@ -2982,7 +2982,7 @@
       "base": "me_bahrain_muharraq_airfield",
       "type": "Air",
       "units": [
-        "usn_p_8a x2"
+        "usn_p8_2027 x2"
       ]
     },
     {
@@ -3000,7 +3000,7 @@
       "base": "hoa_djibouti_camp_lemonnier",
       "type": "Air",
       "units": [
-        "usn_p_8a"
+        "usn_p8_2027"
       ]
     },
     {
@@ -3063,7 +3063,7 @@
       "base": "med_sigonella_nas_sigonella",
       "type": "Air",
       "units": [
-        "usn_p_8a x3"
+        "usn_p8_2027 x3"
       ]
     },
     {
@@ -3072,7 +3072,7 @@
       "base": "med_souda_bay_nsa_air",
       "type": "Air",
       "units": [
-        "usn_p_8a"
+        "usn_p8_2027"
       ]
     },
     {
@@ -3243,7 +3243,7 @@
       "base": "hn_evenes_air_station",
       "type": "Air",
       "units": [
-        "usn_p_8a"
+        "usn_p8_2027"
       ]
     },
     {
@@ -6505,7 +6505,6 @@
     "usn_mh-60r": 39,
     "usn_p-3c": 89,
     "usn_p8": 89,
-    "usn_p_8a": 89,
     "usn_ssbn_ohio": 382,
     "usn_ssgn_ohio_2027": 382,
     "usn_ssn_los_angeles_flt3_2026": 195,
@@ -10304,13 +10303,6 @@
     },
     {
       "unit": "usn_p8_2027",
-      "side": "blue",
-      "nation": "US",
-      "tier": 0,
-      "aircraft": true
-    },
-    {
-      "unit": "usn_p_8a",
       "side": "blue",
       "nation": "US",
       "tier": 0,

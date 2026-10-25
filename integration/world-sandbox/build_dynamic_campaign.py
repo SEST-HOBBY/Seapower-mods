@@ -404,11 +404,24 @@ def water_point(lat, lon, radii=(25, 40, 60, 90, 130, 180)):
     return None
 
 
+
+# World Sandbox only: Red Storm Arsenal's usn_p_8a uses P-3C Orion geometry,
+# despite being described as a Poseidon. US Navy 2027's modern P-8A has an
+# actual P8_Poseidon.obj model and a USN squadron. Preserve register source
+# text and every other campaign: only the built World Sandbox uses this unit.
+WORLD_UNIT_SUBSTITUTIONS = {"usn_p_8a": "usn_p8_2027"}
+
+
 # --- the collection ----------------------------------------------------------
 
 def resolve(uid):
     """(unit id the collection still defines, how) - RETARGET from the missions
     tooling is the one table of ids the collection retired."""
+    replacement = WORLD_UNIT_SUBSTITUTIONS.get(uid)
+    if replacement:
+        if bp.unit_file(replacement)[1] is None:
+            sys.exit(f"World Sandbox P-8A requires {replacement}: no installed mod defines it")
+        return replacement, f"2028 Poseidon model corrected from {uid} (P-3 geometry)"
     if bp.unit_file(uid)[1] is not None:
         return uid, "as registered"
     new = RETARGET.get(uid)
@@ -1157,6 +1170,12 @@ def arsenal():
         if kind not in ARSENAL_DIRS or "/" in name or not name.endswith(".ini"):
             continue
         uid = path.stem
+        if uid in WORLD_UNIT_SUBSTITUTIONS:
+            # Never offer the P-3-bodied imitation in the World Sandbox buy list.
+            # The replacement already belongs to the US arsenal independently.
+            if bp.unit_file(WORLD_UNIT_SUBSTITUTIONS[uid])[1] is None:
+                sys.exit(f"World Sandbox P-8A replacement missing: {uid}")
+            continue
         legacy = LEGACY_HULL_ALIASES.get(uid) or LEGACY_AIRCRAFT_ALIASES.get(uid)
         if legacy and bp.unit_file(legacy)[1] is not None:
             continue  # compatibility for old saves, not a second purchasable unit
