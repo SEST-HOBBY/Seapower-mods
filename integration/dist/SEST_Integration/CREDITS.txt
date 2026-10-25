@@ -127,8 +127,7 @@ listed whatever the percentage: they are still that author's.
       100%  ammunition/usn_rgm-109m.ini
        94%  ammunition/usn_rgm-184a.ini
       100%  ammunition/usn_rim-156a.ini
-       91%  ammunition/usn_rim-161b.ini
-       91%  ammunition/usn_rim-161c.ini
+       90%  ammunition/usn_rim-161b.ini
        97%  ammunition/usn_rim-174a.ini
        95%  ammunition/usn_trident.ini
        98%  ammunition/usn_ugm-109b1.ini
@@ -677,6 +676,7 @@ listed whatever the percentage: they are still that author's.
        92%  aircraft/usn_ea-18g.ini
        97%  aircraft/usn_ea-18g_2020.ini
        96%  aircraft/usn_f-35c_squadrons.ini
+      100%  aircraft/usn_hh-60_squadrons.ini from usn_hh-60h_squadrons.ini
        97%  aircraft/usn_mh-60r_squadrons.ini
        98%  ammunition/usn_aim-9l.ini
        98%  ammunition/usn_gbu-12d.ini

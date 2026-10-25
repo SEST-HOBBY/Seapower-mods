@@ -2,7 +2,7 @@ Found Sea Power (app 1286220)
   game dir : c:\program files (x86)\steam\steamapps\common\Sea Power
   workshop : c:\program files (x86)\steam\steamapps\workshop\content\1286220
 
-unchanged since the last export : 190
+unchanged since the last export : 185
 
 UPDATED by their authors (re-export to pick the changes up):
   3390330875  Euromod - Modern US Navy
@@ -13,6 +13,11 @@ UPDATED by their authors (re-export to pick the changes up):
   3642656500  Euromod-Scandinavian Navy
   3695809489  Euromod-(Japan)JMSDF Modern navy
   3732654992  THE REDFOR MOD
+  3737267013  US Naval Aviation
   3776730617  Euromod - Modern Armada de Chile
+  3784474738  Euromod - Anchorchain Expansion Pack
+  3802216383  JMSDF Hyūga-class — Hyūga & Ise
+  3813157776  Dynamic Campaign Mod
+  3820759806  Euromod - Modern Royal Australian Navy Mod
 
 To capture: re-run this script without -CheckUpdates, then commit and push.

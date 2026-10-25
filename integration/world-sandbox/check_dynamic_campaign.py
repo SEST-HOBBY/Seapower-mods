@@ -262,7 +262,7 @@ def main():
     def resolves(uid):
         return bp.unit_file(uid)[1] is not None
 
-    for old, new in adapter.LEGACY_HULL_ALIASES.items():
+    for old, new in (adapter.LEGACY_HULL_ALIASES | adapter.LEGACY_AIRCRAFT_ALIASES).items():
         if resolves(new) and (old in cat_units or old in values):
             sest.append(f"retired {old} appears in a new campaign; use {new} (retain an alias for saves)")
 

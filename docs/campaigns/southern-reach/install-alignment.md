@@ -10,7 +10,9 @@ failure story there still hold and are not repeated.
 Two facts shape it:
 
 - **The PC deploys from one branch**, the one `data\deploy-branch.txt` names:
-  `sest-dev/loving-bell-3cnvvw`. `sync-sest.ps1` refuses to run from any
+  `sest-dev/jolly-ride-rptj4t` since 25 Oct 2026 (it carries the live 24 Oct
+  Workshop build and every earlier branch, `sest-dev/loving-bell-3cnvvw`
+  included). `sync-sest.ps1` refuses to run from any
   other branch, on purpose — the last time it ran on the wrong one it reported
   `IN LINE` against a build with none of the campaign in it.
 - **Sessions work on their own branches.** This session's work was on
@@ -27,9 +29,9 @@ throws away a load-order change made while it is running.
 
 ## Already aligned once? The short version for later rounds
 
-`sest-dev/loving-bell-3cnvvw` is at `fa692245` (4 Oct) or later; `fa692245`
-is the build published as Workshop item 3812461539.
-`feature/northern-front-iii-export` is behind it at `3b040cc0` (3 Oct). A
+`sest-dev/jolly-ride-rptj4t` is the deploy branch; the default branch
+`feature/northern-front-iii-export` was brought level with it on 24 Oct 2026
+(PR #45), after the owner uploaded the 24 Oct build (`8e72f353`). A
 later round lands on the deploy branch itself, so an update is: check out the
 deploy branch, then sync (`sync-sest.ps1` pulls it). The block no longer
 merges or pushes anything. Close Sea Power, then paste this into PowerShell
@@ -42,7 +44,7 @@ line by line, and an empty line would end the block early. If it stops at a
   if (Get-Process -Name 'Sea Power', 'SeaPower' -ErrorAction SilentlyContinue) { throw 'Sea Power is running - exit it first' }
   Set-Location -LiteralPath 'C:\Users\rolyl\Seapower-mods'
   if (git status --short) { throw 'The clone has uncommitted changes - stop and report them' }
-  git checkout sest-dev/loving-bell-3cnvvw
+  git checkout sest-dev/jolly-ride-rptj4t
   if ($LASTEXITCODE) { throw 'checkout failed' }
   powershell -ExecutionPolicy Bypass -File .\tools\sync-sest.ps1
   if ($LASTEXITCODE) { throw 'sync failed - read its last lines' }

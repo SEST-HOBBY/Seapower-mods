@@ -3917,6 +3917,11 @@
         "CurrentYearCost": "2892",
         "Category": "Bomb"
       },
+      "usn_cal_25mm_apex": {
+        "WeaponCosts": "65",
+        "CurrentYearCost": "65",
+        "Category": "Gun"
+      },
       "usn_cal_5in25": {
         "WeaponCosts": "4000",
         "CurrentYearCost": "4000",
@@ -6610,6 +6615,10 @@
         "AircraftCosts": "10000000",
         "CurrentYearCost": "65000000"
       },
+      "raaf_f-35a_blk4": {
+        "AircraftCosts": "121200000",
+        "CurrentYearCost": "158800000"
+      },
       "raaf_fa-18a": {
         "AircraftCosts": "16100000",
         "CurrentYearCost": "54200000"
@@ -6635,6 +6644,10 @@
         "CurrentYearCost": "2500000"
       },
       "ran_f-35b": {
+        "AircraftCosts": "150000000",
+        "CurrentYearCost": "150000000"
+      },
+      "ran_f-35b_late": {
         "AircraftCosts": "150000000",
         "CurrentYearCost": "150000000"
       },
@@ -6853,6 +6866,10 @@
       "usn_fury_strike": {
         "AircraftCosts": "15000000",
         "CurrentYearCost": "15000000"
+      },
+      "usn_hh-60h": {
+        "AircraftCosts": "5000000",
+        "CurrentYearCost": "40000000"
       },
       "usn_mh-60r_p2": {
         "AircraftCosts": "33800000",
@@ -12585,6 +12602,47 @@
     },
     {
       "kind": "aircraft",
+      "target": "raaf_f-35a_blk4",
+      "origin": "completion",
+      "source": "raaf_f-35a",
+      "basis": "design/family/role catalog comparator raaf_f-35a; donor reference-year series retained; not a class-specific quote",
+      "fields": {
+        "AircraftCosts": "121200000",
+        "CurrentYearCost": "158800000"
+      },
+      "completion": {
+        "model": "stealth_fighter",
+        "historical": "121200000",
+        "current": "158800000",
+        "category": "Aircraft",
+        "source": "raaf_f-35a",
+        "basis": "design/family/role catalog comparator raaf_f-35a; donor reference-year series retained; not a class-specific quote",
+        "source_id": "tracker",
+        "historical_year": null,
+        "historical_basis": "donor reference year",
+        "confidence": "catalog comparator estimate",
+        "current_low": "79400000",
+        "current_high": "317600000",
+        "disposition": "counted"
+      },
+      "field_methods": {
+        "historical": "catalog comparator estimate",
+        "current": "catalog comparator estimate"
+      },
+      "prior_origin": null,
+      "sources": [
+        {
+          "title": "Combat Cost Tracker 0.7.1 captured catalog estimates; retain original reference-year basis",
+          "url": "https://steamcommunity.com/sharedfiles/filedetails/?id=3807187341"
+        },
+        {
+          "title": "SEST owner-authorized replacement-cost model, 24 October 2026",
+          "url": "https://github.com/SEST-HOBBY/Seapower-mods/blob/fix/complete-combat-costs-20261024/integration/combat-costs/coverage-policy.json"
+        }
+      ]
+    },
+    {
+      "kind": "aircraft",
       "target": "raaf_fa-18a",
       "origin": "completion",
       "source": "spa_f-18a",
@@ -12854,6 +12912,47 @@
     {
       "kind": "aircraft",
       "target": "ran_f-35b",
+      "origin": "completion",
+      "source": null,
+      "basis": "stealth combat-aircraft replacement proxy, excluding ammunition",
+      "fields": {
+        "AircraftCosts": "150000000",
+        "CurrentYearCost": "150000000"
+      },
+      "completion": {
+        "model": "stealth_fighter",
+        "historical": "150000000",
+        "current": "150000000",
+        "category": "Aircraft",
+        "source": null,
+        "basis": "stealth combat-aircraft replacement proxy, excluding ammunition",
+        "source_id": "policy",
+        "historical_year": 2026,
+        "historical_basis": "2026 replacement proxy; IOC unknown",
+        "confidence": "rough model",
+        "current_low": "75000000",
+        "current_high": "300000000",
+        "disposition": "counted"
+      },
+      "field_methods": {
+        "historical": "rough model",
+        "current": "rough model"
+      },
+      "prior_origin": null,
+      "sources": [
+        {
+          "title": "SEST owner-authorized replacement-cost model, 24 October 2026",
+          "url": "https://github.com/SEST-HOBBY/Seapower-mods/blob/fix/complete-combat-costs-20261024/integration/combat-costs/coverage-policy.json"
+        },
+        {
+          "title": "SEST owner-authorized replacement-cost model, 24 October 2026",
+          "url": "https://github.com/SEST-HOBBY/Seapower-mods/blob/fix/complete-combat-costs-20261024/integration/combat-costs/coverage-policy.json"
+        }
+      ]
+    },
+    {
+      "kind": "aircraft",
+      "target": "ran_f-35b_late",
       "origin": "completion",
       "source": null,
       "basis": "stealth combat-aircraft replacement proxy, excluding ammunition",
@@ -15248,6 +15347,47 @@
         {
           "title": "SEST owner-authorized replacement-cost model, 24 October 2026",
           "url": "https://github.com/SEST-HOBBY/Seapower-mods/blob/fix/complete-combat-costs-20261024/integration/combat-costs/coverage-policy.json"
+        },
+        {
+          "title": "SEST owner-authorized replacement-cost model, 24 October 2026",
+          "url": "https://github.com/SEST-HOBBY/Seapower-mods/blob/fix/complete-combat-costs-20261024/integration/combat-costs/coverage-policy.json"
+        }
+      ]
+    },
+    {
+      "kind": "aircraft",
+      "target": "usn_hh-60h",
+      "origin": "completion",
+      "source": "pla_h-6a",
+      "basis": "design/family/role catalog comparator pla_h-6a; donor reference-year series retained; not a class-specific quote",
+      "fields": {
+        "AircraftCosts": "5000000",
+        "CurrentYearCost": "40000000"
+      },
+      "completion": {
+        "model": "helo",
+        "historical": "5000000",
+        "current": "40000000",
+        "category": "Aircraft",
+        "source": "pla_h-6a",
+        "basis": "design/family/role catalog comparator pla_h-6a; donor reference-year series retained; not a class-specific quote",
+        "source_id": "tracker",
+        "historical_year": null,
+        "historical_basis": "donor reference year",
+        "confidence": "catalog comparator estimate",
+        "current_low": "20000000",
+        "current_high": "80000000",
+        "disposition": "counted"
+      },
+      "field_methods": {
+        "historical": "catalog comparator estimate",
+        "current": "catalog comparator estimate"
+      },
+      "prior_origin": null,
+      "sources": [
+        {
+          "title": "Combat Cost Tracker 0.7.1 captured catalog estimates; retain original reference-year basis",
+          "url": "https://steamcommunity.com/sharedfiles/filedetails/?id=3807187341"
         },
         {
           "title": "SEST owner-authorized replacement-cost model, 24 October 2026",
@@ -69823,6 +69963,48 @@
     },
     {
       "kind": "weapon",
+      "target": "usn_cal_25mm_apex",
+      "origin": "completion",
+      "source": null,
+      "basis": "per-projectile calibre-band replacement estimate, not cost per burst",
+      "fields": {
+        "WeaponCosts": "65",
+        "CurrentYearCost": "65",
+        "Category": "Gun"
+      },
+      "completion": {
+        "model": "projectile",
+        "historical": "65",
+        "current": "65",
+        "category": "Gun",
+        "source": null,
+        "basis": "per-projectile calibre-band replacement estimate, not cost per burst",
+        "source_id": "policy",
+        "historical_year": 2026,
+        "historical_basis": "2026 replacement proxy; IOC unknown",
+        "confidence": "rough model",
+        "current_low": "33",
+        "current_high": "130",
+        "disposition": "counted"
+      },
+      "field_methods": {
+        "historical": "rough model",
+        "current": "rough model"
+      },
+      "prior_origin": null,
+      "sources": [
+        {
+          "title": "SEST owner-authorized replacement-cost model, 24 October 2026",
+          "url": "https://github.com/SEST-HOBBY/Seapower-mods/blob/fix/complete-combat-costs-20261024/integration/combat-costs/coverage-policy.json"
+        },
+        {
+          "title": "SEST owner-authorized replacement-cost model, 24 October 2026",
+          "url": "https://github.com/SEST-HOBBY/Seapower-mods/blob/fix/complete-combat-costs-20261024/integration/combat-costs/coverage-policy.json"
+        }
+      ]
+    },
+    {
+      "kind": "weapon",
       "target": "usn_cal_25mm_stabilized",
       "source": "usn_cal_25mm_m2",
       "origin": "mapping",
@@ -84541,9 +84723,9 @@
   ],
   "coverage": {
     "weapon": {
-      "eligible": 2170,
-      "historical_known": 2170,
-      "current_known": 2170,
+      "eligible": 2171,
+      "historical_known": 2171,
+      "current_known": 2171,
       "sest_eligible": 138,
       "sest_historical_known": 138,
       "sest_current_known": 138,
@@ -84559,12 +84741,12 @@
       "unknown": []
     },
     "aircraft": {
-      "eligible": 756,
-      "historical_known": 756,
-      "current_known": 756,
-      "sest_eligible": 37,
-      "sest_historical_known": 37,
-      "sest_current_known": 37,
+      "eligible": 759,
+      "historical_known": 759,
+      "current_known": 759,
+      "sest_eligible": 38,
+      "sest_historical_known": 38,
+      "sest_current_known": 38,
       "unknown": []
     },
     "land": {
@@ -127765,6 +127947,44 @@
         "historical_reference_year": null,
         "current_low": null,
         "current_high": null
+      },
+      {
+        "kind": "weapon",
+        "id": "usn_cal_25mm_apex",
+        "owner": "3820759806",
+        "path": "mods-source/3820759806/ammunition/usn_cal_25mm_apex.ini",
+        "category": "Gun",
+        "type": "Projectile",
+        "historical": "65",
+        "current": "65",
+        "field_methods": {
+          "historical": "rough model",
+          "current": "rough model"
+        },
+        "field_sources": {
+          "historical": "per-projectile calibre-band replacement estimate, not cost per burst",
+          "current": "per-projectile calibre-band replacement estimate, not cost per burst"
+        },
+        "completion": {
+          "model": "projectile",
+          "historical": "65",
+          "current": "65",
+          "category": "Gun",
+          "source": null,
+          "basis": "per-projectile calibre-band replacement estimate, not cost per burst",
+          "source_id": "policy",
+          "historical_year": 2026,
+          "historical_basis": "2026 replacement proxy; IOC unknown",
+          "confidence": "rough model",
+          "current_low": "33",
+          "current_high": "130",
+          "disposition": "counted"
+        },
+        "disposition": "counted",
+        "historical_basis": "2026 replacement proxy; IOC unknown",
+        "historical_reference_year": 2026,
+        "current_low": "33",
+        "current_high": "130"
       },
       {
         "kind": "weapon",
@@ -182846,6 +183066,44 @@
       },
       {
         "kind": "aircraft",
+        "id": "raaf_f-35a_blk4",
+        "owner": "3820759806",
+        "path": "mods-source/3820759806/aircraft/raaf_f-35a_blk4.ini",
+        "category": "Aircraft",
+        "type": "Aircraft",
+        "historical": "121200000",
+        "current": "158800000",
+        "field_methods": {
+          "historical": "catalog comparator estimate",
+          "current": "catalog comparator estimate"
+        },
+        "field_sources": {
+          "historical": "design/family/role catalog comparator raaf_f-35a; donor reference-year series retained; not a class-specific quote",
+          "current": "design/family/role catalog comparator raaf_f-35a; donor reference-year series retained; not a class-specific quote"
+        },
+        "completion": {
+          "model": "stealth_fighter",
+          "historical": "121200000",
+          "current": "158800000",
+          "category": "Aircraft",
+          "source": "raaf_f-35a",
+          "basis": "design/family/role catalog comparator raaf_f-35a; donor reference-year series retained; not a class-specific quote",
+          "source_id": "tracker",
+          "historical_year": null,
+          "historical_basis": "donor reference year",
+          "confidence": "catalog comparator estimate",
+          "current_low": "79400000",
+          "current_high": "317600000",
+          "disposition": "counted"
+        },
+        "disposition": "counted",
+        "historical_basis": "donor reference year",
+        "historical_reference_year": null,
+        "current_low": "79400000",
+        "current_high": "317600000"
+      },
+      {
+        "kind": "aircraft",
         "id": "raaf_f-4e",
         "owner": "3455404959",
         "path": "mods-source/3455404959/aircraft/raaf_f-4e.ini",
@@ -183413,6 +183671,44 @@
         "id": "ran_f-35b",
         "owner": "3820759806",
         "path": "mods-source/3820759806/aircraft/ran_f-35b.ini",
+        "category": "Aircraft",
+        "type": "VTOL",
+        "historical": "150000000",
+        "current": "150000000",
+        "field_methods": {
+          "historical": "rough model",
+          "current": "rough model"
+        },
+        "field_sources": {
+          "historical": "stealth combat-aircraft replacement proxy, excluding ammunition",
+          "current": "stealth combat-aircraft replacement proxy, excluding ammunition"
+        },
+        "completion": {
+          "model": "stealth_fighter",
+          "historical": "150000000",
+          "current": "150000000",
+          "category": "Aircraft",
+          "source": null,
+          "basis": "stealth combat-aircraft replacement proxy, excluding ammunition",
+          "source_id": "policy",
+          "historical_year": 2026,
+          "historical_basis": "2026 replacement proxy; IOC unknown",
+          "confidence": "rough model",
+          "current_low": "75000000",
+          "current_high": "300000000",
+          "disposition": "counted"
+        },
+        "disposition": "counted",
+        "historical_basis": "2026 replacement proxy; IOC unknown",
+        "historical_reference_year": 2026,
+        "current_low": "75000000",
+        "current_high": "300000000"
+      },
+      {
+        "kind": "aircraft",
+        "id": "ran_f-35b_late",
+        "owner": "3820759806",
+        "path": "mods-source/3820759806/aircraft/ran_f-35b_late.ini",
         "category": "Aircraft",
         "type": "VTOL",
         "historical": "150000000",
@@ -190229,8 +190525,8 @@
       {
         "kind": "aircraft",
         "id": "usn_hh-60",
-        "owner": "3737267013",
-        "path": "mods-source/3737267013/aircraft/usn_hh-60.ini",
+        "owner": "SEST_World_Campaign",
+        "path": "integration/world-sandbox/SEST_World_Campaign/aircraft/usn_hh-60.ini",
         "category": "Aircraft",
         "type": "Helicopter",
         "historical": "11300000",
@@ -190249,6 +190545,44 @@
         "historical_reference_year": null,
         "current_low": null,
         "current_high": null
+      },
+      {
+        "kind": "aircraft",
+        "id": "usn_hh-60h",
+        "owner": "3737267013",
+        "path": "mods-source/3737267013/aircraft/usn_hh-60h.ini",
+        "category": "Aircraft",
+        "type": "Helicopter",
+        "historical": "5000000",
+        "current": "40000000",
+        "field_methods": {
+          "historical": "catalog comparator estimate",
+          "current": "catalog comparator estimate"
+        },
+        "field_sources": {
+          "historical": "design/family/role catalog comparator pla_h-6a; donor reference-year series retained; not a class-specific quote",
+          "current": "design/family/role catalog comparator pla_h-6a; donor reference-year series retained; not a class-specific quote"
+        },
+        "completion": {
+          "model": "helo",
+          "historical": "5000000",
+          "current": "40000000",
+          "category": "Aircraft",
+          "source": "pla_h-6a",
+          "basis": "design/family/role catalog comparator pla_h-6a; donor reference-year series retained; not a class-specific quote",
+          "source_id": "tracker",
+          "historical_year": null,
+          "historical_basis": "donor reference year",
+          "confidence": "catalog comparator estimate",
+          "current_low": "20000000",
+          "current_high": "80000000",
+          "disposition": "counted"
+        },
+        "disposition": "counted",
+        "historical_basis": "donor reference year",
+        "historical_reference_year": null,
+        "current_low": "20000000",
+        "current_high": "80000000"
       },
       {
         "kind": "aircraft",
@@ -212496,16 +212830,16 @@
       }
     ],
     "filled_fields": {
-      "weapon": 1832,
+      "weapon": 1834,
       "vessel": 190,
-      "aircraft": 286,
+      "aircraft": 292,
       "land": 977
     },
     "known_fields_preserved": 5447,
     "category_counts": {
       "Ballistic": 25,
       "Decoy": 54,
-      "Gun": 207,
+      "Gun": 208,
       "ASM": 360,
       "AAM": 244,
       "Rocket": 29,
@@ -212591,7 +212925,7 @@
       "T-AKR": 1,
       "UUV": 4,
       "CVH": 1,
-      "Aircraft": 754,
+      "Aircraft": 757,
       "Installation": 41,
       "AAA": 16,
       "Armour": 37,

@@ -66,6 +66,10 @@ CAMPAIGN_ID = "sest.world_sandbox_2028"
 # Dynamic Campaign Mod saves can still refer to its earlier unit id.
 # Keep the legacy definition loadable, but never sell both ids as two ships.
 LEGACY_HULL_ALIASES = {"ch_ffg_jvh": "ch_ffg_jacob_van_heemskerck"}
+# US Naval Aviation renamed its HH-60H on 25 October 2026. The same
+# treatment: new campaigns name the current id (RETARGET), and saves made
+# before the rename keep their helicopters through an alias.
+LEGACY_AIRCRAFT_ALIASES = {"usn_hh-60": "usn_hh-60h"}
 
 
 def write_legacy_hull_compatibility():
@@ -107,6 +111,38 @@ def write_legacy_hull_compatibility():
         variants_out.write_text(bp.read(variant_source).replace("\r\n", "\n").rstrip() + "\n",
                                 encoding="utf-8")
         names_out.write_text(f"[{legacy}]\n{name_section.rstrip()}\n", encoding="utf-8")
+
+
+def write_legacy_aircraft_compatibility():
+    """The aircraft counterpart: an alias for the airframe, and a copy of the
+    squadrons and the name, which are read by file name like hull variants."""
+    names_out = PACK / "language_en" / "aircraft_names.ini"
+    sections = []
+    for legacy, current in LEGACY_AIRCRAFT_ALIASES.items():
+        unit_out = PACK / "aircraft" / f"{legacy}.ini"
+        squadrons_out = PACK / "aircraft" / f"{legacy}_squadrons.ini"
+        kind, source = bp.unit_file(current)
+        if kind != "aircraft" or source is None:
+            for old in (unit_out, squadrons_out):
+                old.unlink(missing_ok=True)
+            continue
+        squadron_source = bp.winning(f"aircraft/{current}_squadrons.ini")
+        if squadron_source is None:
+            sys.exit(f"legacy save compatibility: missing squadrons for {current}")
+        names = bp.read(source.parent.parent / "language_en" / "aircraft_names.ini").replace("\r\n", "\n")
+        match = re.search(rf"(?ms)^\[{re.escape(current)}\]\n(.*?)(?=^\[|\Z)", names)
+        if match is None:
+            sys.exit(f"legacy save compatibility: missing name for {current}")
+        unit_out.parent.mkdir(parents=True, exist_ok=True)
+        unit_out.write_text(f"#!alias aircraft/{current}.ini\n", encoding="utf-8")
+        squadrons_out.write_text(bp.read(squadron_source).replace("\r\n", "\n").rstrip() + "\n",
+                                 encoding="utf-8")
+        sections.append(f"[{legacy}]\n{match.group(1).rstrip()}\n")
+    if sections:
+        names_out.parent.mkdir(parents=True, exist_ok=True)
+        names_out.write_text("\n".join(sections), encoding="utf-8")
+    else:
+        names_out.unlink(missing_ok=True)
 
 
 START = "2028-10-01T00:00:00Z"
@@ -1121,8 +1157,9 @@ def arsenal():
         if kind not in ARSENAL_DIRS or "/" in name or not name.endswith(".ini"):
             continue
         uid = path.stem
-        if uid in LEGACY_HULL_ALIASES and bp.unit_file(LEGACY_HULL_ALIASES[uid])[1] is not None:
-            continue  # compatibility for old saves, not a second purchasable ship
+        legacy = LEGACY_HULL_ALIASES.get(uid) or LEGACY_AIRCRAFT_ALIASES.get(uid)
+        if legacy and bp.unit_file(legacy)[1] is not None:
+            continue  # compatibility for old saves, not a second purchasable unit
         if re.search(r"_(variants|squadrons|loadouts)$", uid, re.I) or uid in found:
             continue
         if bp.unit_type(uid) not in ARSENAL_TYPES:
@@ -1328,6 +1365,7 @@ def main():
     }
 
     write_legacy_hull_compatibility()
+    write_legacy_aircraft_compatibility()
     CAMPAIGN_DIR.mkdir(parents=True, exist_ok=True)
     (CAMPAIGN_DIR / "campaign.json").write_text(json.dumps(campaign, indent=2, ensure_ascii=True) + "\n",
                                                 encoding="utf-8")

@@ -8,12 +8,12 @@ Ammunition, embarked aircraft, removable pods and tank contents are excluded fro
 
 | Kind | References | Historical prices | Current prices |
 |---|---:|---:|---:|
-| weapon | 2170 | 2170 | 2170 |
+| weapon | 2171 | 2171 | 2171 |
 | vessel | 938 | 938 | 938 |
-| aircraft | 756 | 756 | 756 |
+| aircraft | 759 | 759 | 759 |
 | land | 502 | 502 | 502 |
 
-Preserved 5447 pre-existing usable price fields. Filled 3285 missing fields. No acquisition-point field was used as USD.
+Preserved 5447 pre-existing usable price fields. Filled 3293 missing fields. No acquisition-point field was used as USD.
 
 ## Weapon
 
@@ -1459,6 +1459,7 @@ Preserved 5447 pre-existing usable price fields. Filled 3285 missing fields. No 
 | `usn_cal_20mm` | Gun | 3.6 | 31 | historical: existing usable value preserved (tracker author catalog); current: existing usable value preserved (tracker author catalog) | counted |
 | `usn_cal_20mm_apds` | Gun | 3.6 | 31 | historical: existing usable value preserved (reviewed catalog mapping: usn_cal_20mm); current: existing usable value preserved (reviewed catalog mapping: usn_cal_20mm) | counted |
 | `usn_cal_25mm_adats` | Gun | 5.4 | 46 | historical: existing usable value preserved (tracker author catalog); current: existing usable value preserved (tracker author catalog) | counted |
+| `usn_cal_25mm_apex` | Gun | 65 | 65 | historical: rough model (per-projectile calibre-band replacement estimate, not cost per burst); current: rough model (per-projectile calibre-band replacement estimate, not cost per burst) | counted |
 | `usn_cal_25mm_gau12` | Gun | 5.4 | 46 | historical: existing usable value preserved (tracker author catalog); current: existing usable value preserved (tracker author catalog) | counted |
 | `usn_cal_25mm_m2` | Gun | 5.4 | 46 | historical: existing usable value preserved (tracker author catalog); current: existing usable value preserved (tracker author catalog) | counted |
 | `usn_cal_25mm_stabilized` | Gun | 5.4 | 46 | historical: existing usable value preserved (reviewed catalog mapping: usn_cal_25mm_m2); current: existing usable value preserved (reviewed catalog mapping: usn_cal_25mm_m2) | counted |
@@ -3488,6 +3489,7 @@ Preserved 5447 pre-existing usable price fields. Filled 3285 missing fields. No 
 | `raaf_f-111c` | Aircraft | 10000000 | 65000000 | historical: existing usable value preserved (tracker author catalog); current: existing usable value preserved (tracker author catalog) | counted |
 | `raaf_f-111c_aup` | Aircraft | 10000000 | 65000000 | historical: catalog comparator estimate (design/family/role catalog comparator raaf_f-111c; donor reference-year series retained; not a class-specific quote); current: catalog comparator estimate (design/family/role catalog comparator raaf_f-111c; donor reference-year series retained; not a class-specific quote) | counted |
 | `raaf_f-35a` | Aircraft | 121200000 | 158800000 | historical: existing usable value preserved (tracker author catalog); current: existing usable value preserved (tracker author catalog) | counted |
+| `raaf_f-35a_blk4` | Aircraft | 121200000 | 158800000 | historical: catalog comparator estimate (design/family/role catalog comparator raaf_f-35a; donor reference-year series retained; not a class-specific quote); current: catalog comparator estimate (design/family/role catalog comparator raaf_f-35a; donor reference-year series retained; not a class-specific quote) | counted |
 | `raaf_f-4e` | Aircraft | 3300000 | 37500000 | historical: existing usable value preserved (tracker author catalog); current: existing usable value preserved (tracker author catalog) | counted |
 | `raaf_f-4e_79` | Aircraft | 3300000 | 37500000 | historical: existing usable value preserved (tracker author catalog); current: existing usable value preserved (tracker author catalog) | counted |
 | `raaf_fa-18a` | Aircraft | 16100000 | 54200000 | historical: catalog comparator estimate (design/family/role catalog comparator spa_f-18a; donor reference-year series retained; not a class-specific quote); current: catalog comparator estimate (design/family/role catalog comparator spa_f-18a; donor reference-year series retained; not a class-specific quote) | counted |
@@ -3509,6 +3511,7 @@ Preserved 5447 pre-existing usable price fields. Filled 3285 missing fields. No 
 | `ran_as350_recon` | Aircraft | 210000 | 2200000 | historical: existing usable value preserved (tracker author catalog); current: existing usable value preserved (tracker author catalog) | counted |
 | `ran_C1A` | Aircraft | 800000 | 10000000 | historical: existing usable value preserved (tracker author catalog); current: existing usable value preserved (tracker author catalog) | counted |
 | `ran_f-35b` | Aircraft | 150000000 | 150000000 | historical: rough model (stealth combat-aircraft replacement proxy, excluding ammunition); current: rough model (stealth combat-aircraft replacement proxy, excluding ammunition) | counted |
+| `ran_f-35b_late` | Aircraft | 150000000 | 150000000 | historical: rough model (stealth combat-aircraft replacement proxy, excluding ammunition); current: rough model (stealth combat-aircraft replacement proxy, excluding ammunition) | counted |
 | `ran_h34` | Aircraft | 600000 | 6700000 | historical: existing usable value preserved (tracker author catalog); current: existing usable value preserved (tracker author catalog) | counted |
 | `ran_h34_sar` | Aircraft | 600000 | 6700000 | historical: existing usable value preserved (tracker author catalog); current: existing usable value preserved (tracker author catalog) | counted |
 | `ran_mh-60r` | Aircraft | 33800000 | 56200000 | historical: existing usable value preserved (reviewed catalog mapping: usn_mh-60r); current: existing usable value preserved (reviewed catalog mapping: usn_mh-60r) | counted |
@@ -3761,6 +3764,7 @@ Preserved 5447 pre-existing usable price fields. Filled 3285 missing fields. No 
 | `usn_fury_sead` | Aircraft | 15000000 | 15000000 | historical: rough model (combat collaborative aircraft rough air-vehicle model); current: rough model (combat collaborative aircraft rough air-vehicle model) | counted |
 | `usn_fury_strike` | Aircraft | 15000000 | 15000000 | historical: rough model (combat collaborative aircraft rough air-vehicle model); current: rough model (combat collaborative aircraft rough air-vehicle model) | counted |
 | `usn_hh-60` | Aircraft | 11300000 | 36500000 | historical: existing usable value preserved (tracker author catalog); current: existing usable value preserved (tracker author catalog) | counted |
+| `usn_hh-60h` | Aircraft | 5000000 | 40000000 | historical: catalog comparator estimate (design/family/role catalog comparator pla_h-6a; donor reference-year series retained; not a class-specific quote); current: catalog comparator estimate (design/family/role catalog comparator pla_h-6a; donor reference-year series retained; not a class-specific quote) | counted |
 | `usn_ka-3b` | Aircraft | 3400000 | 41700000 | historical: existing usable value preserved (tracker author catalog); current: existing usable value preserved (tracker author catalog) | counted |
 | `usn_mh-60r` | Aircraft | 33800000 | 56200000 | historical: existing usable value preserved (tracker author catalog); current: existing usable value preserved (tracker author catalog) | counted |
 | `usn_mh-60r_p2` | Aircraft | 33800000 | 56200000 | historical: catalog comparator estimate (design/family/role catalog comparator dk_mh-60r; donor reference-year series retained; not a class-specific quote); current: catalog comparator estimate (design/family/role catalog comparator dk_mh-60r; donor reference-year series retained; not a class-specific quote) | counted |

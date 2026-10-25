@@ -208,7 +208,7 @@ install you can re-download.
 The repo is the source of truth for everything except Steam's own downloads.
 
 **After a session pushes work** (on the PC, game closed, on the deploy branch
-`data/deploy-branch.txt` names, `sest-dev/loving-bell-3cnvvw`):
+`data/deploy-branch.txt` names, `sest-dev/jolly-ride-rptj4t` since 25 Oct 2026):
 ```powershell
 powershell -ExecutionPolicy Bypass -File .\tools\sync-sest.ps1
 ```

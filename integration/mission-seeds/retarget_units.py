@@ -74,6 +74,12 @@ RETARGET = {
     # plus ASWKiller) and its squadrons file has [Default], so SULU SEA
     # OFFENSIVE's `usn_qh_50e=Default,2` on the Nimitz resolves unchanged.
     "usn_qh_50e": "usn_qh-50d",
+    # US Naval Aviation (3737267013), 25 Oct 2026 export: the HH-60H is
+    # renamed usn_hh-60 -> usn_hh-60h, squadrons with it (the same twelve).
+    # Its loadouts are a superset (Transport, CSAR, plus SAR and AntiShip).
+    # The World Sandbox register names the old id; build_dynamic_campaign.py
+    # resolves through this table.
+    "usn_hh-60": "usn_hh-60h",
 }
 
 # (retired unit id, its variant) -> the variant of the RETARGET replacement
