@@ -37,7 +37,7 @@ pack's root, is the union across every campaign in the pack.
   3444379330    a unit the player can buy        Euromod - Modern Dutch navy
   3488139470    a unit the player can buy        Euromod - Modern Italian Navy
   3695809489    a unit a mission places          Euromod - Modern Japanese Maritime Self Defence Force
-  3820759806    a hull variant in use            Euromod - Modern Royal Australian Navy Mod
+  3820759806    a unit a mission places          Euromod - Modern Royal Australian Navy Mod
   3731208477    a unit the player can buy        Euromod - Modern Spanish Navy
   3789208859    a unit a mission places          Euromod-South Korea Navy
   3636386513    a weapon a loadout hangs         F-15 EX Eagle II

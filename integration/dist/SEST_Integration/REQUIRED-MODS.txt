@@ -67,7 +67,7 @@ Workshop id   supplies                         mod
 3488139470    a hull variant in use            Euromod - Modern Italian Navy
 3695809489    a unit a mission places          Euromod - Modern Japanese Maritime Self Defence Force
 3642656500    a hull variant in use            Euromod - Modern Nordic Navy
-3820759806    a hull variant in use            Euromod - Modern Royal Australian Navy Mod
+3820759806    a unit a mission places          Euromod - Modern Royal Australian Navy Mod
 3731208477    a unit a mission places          Euromod - Modern Spanish Navy
 3812454152    a hull variant in use            Euromod-Philippine-Navy
 3789208859    a unit a mission places          Euromod-South Korea Navy

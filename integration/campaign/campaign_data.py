@@ -766,6 +766,11 @@ MISSIONS.append(dict(
         "moresby": S(-9.5, 147.0, "Port Moresby", heading=0),
         "sub": S(-10.15, 145.0, "Submarine datum", heading=230),
         "air": S(-10.45, 144.45, "Air support", heading=70, alt=30000),
+        # Texaco 51's own track, behind the convoy. It flew in the Wedgetail's
+        # formation with no waypoints, and in the 25 Oct playtest it ignored
+        # orders and flew off on its spawn heading. A looping track in its own
+        # formation is how TS11's Texaco 71 and SW08's Texaco 52 hold station.
+        "tanker": S(-10.75, 144.15, "Tanker track", heading=250, alt=26000),
         "mpa": S(-10.40, 144.60, "Maritime patrol", heading=70, alt=6000),
         # The ship's helicopter spawned at 30,000 ft 86 NM from the ship it
         # is homed on, in a mission the submarine can decide in twenty
@@ -784,8 +789,10 @@ MISSIONS.append(dict(
           name="HMAS Supply"),
         U("blue", "e-7a-wedgetail", "E7A_Wedgetail", "air",
           name="Wedgetail 01", alt=32000, weapons="Hold"),
-        U("blue", "kc-46a", "usaf_kc-46a_boom", "air", name="Texaco 51",
-          alt=26000, weapons="Hold"),
+        U("blue", "kc-46a", "usaf_kc-46a_boom", "tanker", name="Texaco 51",
+          alt=26000, weapons="Hold",
+          route=[(-10.65, 144.35, 26000), (-10.85, 143.95, 26000)], loop=True,
+          telegraph=3),
         # An unarmed 24-kn freighter. The hull it replaced was an armed
         # auxiliary with eleven weapon systems, Styx among them, sailing as
         # the "medical and engineering ship" with weapons free - which the
@@ -2421,10 +2428,12 @@ MISSIONS.append(dict(
     units=[
         U("blue", "SEST_RAN_Fleet", "ran_opv_arafura", "patrol",
           variant="Variant3", name="HMAS Pilbara", weapons="Tight"),
-        # No. 5 Squadron's own aircraft: Squadron23 in the winning squadrons
-        # file is New Zealand. No JoinTaskForce - the guide says that is a
-        # grant, and this is a loan.
-        U("blue", "red-storm-arsenal", "usn_p_8a", "kiwi", squadron="Squadron23",
+        # No. 5 Squadron's own aircraft: Euromod RAN's RNZAF P-8A (its one
+        # squadron is New Zealand's), on a P-8 model. Red Storm Arsenal's
+        # usn_p_8a, flown here until 25 Oct 2026, draws the P-3C's model,
+        # and the owner's playtest found it very poor. No JoinTaskForce -
+        # the guide says that is a grant, and this is a loan.
+        U("blue", "euromod-ran", "rnzaf_p8", "kiwi", squadron="Squadron1",
           name="Kiwi 01", alt=12000, weapons="Tight", loadout="ASW"),
         U("red", "_vanilla", "civ_ms_encounter", "coaster", name="MV Harbour Light",
           weapons="Hold", route=[(-10.35, 131.95, 0)], telegraph=2),
@@ -2909,6 +2918,10 @@ MISSIONS.append(dict(
         "screen": S(-16.5, 149.8, "Screen", heading=140),
         "visit": S(-15.2, 149.4, "VIP lift", heading=180, alt=2000),
         "air": S(-15.0, 149.4, "Support aircraft", heading=90, alt=28000),
+        # Texaco 60's own track. It shared the Sentry's formation with no
+        # waypoints, the arrangement that sent Steel Highway's tanker off on
+        # its spawn heading in the 25 Oct playtest.
+        "tanker": S(-15.3, 149.1, "Tanker track", heading=270, alt=26000),
         "sub": S(-16.6, 150.2, "Seawolf station", heading=140),
         "track": S(-13.5, 148.6, "Southern track", heading=200, alt=22000),
         # The Sentry and the Pegasus are land-based; a carrier with no
@@ -2928,9 +2941,11 @@ MISSIONS.append(dict(
         U("blue", "e-3g", "usaf_e-3g", "air", name="Sentry 40", weapons="Hold"),
         # A KC-46, not the KC-10A this used to be: the USAF retired the
         # Extender in 2024. It flies in COLD SEA's exercise now, where 1988
-        # is its own year. Still air#2, so the Tanker objective reads it.
-        U("blue", "kc-46a", "usaf_kc-46a_boom", "air", name="Texaco 60",
-          weapons="Hold"),
+        # is its own year. The Tanker objective reads its own station.
+        U("blue", "kc-46a", "usaf_kc-46a_boom", "tanker", name="Texaco 60",
+          alt=26000, weapons="Hold",
+          route=[(-15.2, 149.3, 26000), (-15.4, 148.9, 26000)], loop=True,
+          telegraph=3),
         U("blue", "mq-9-reaper", "usaf_mq-9a", "track", name="Reaper 12",
           weapons="Tight"),
         U("blue", "vh-3d-marine-one", "usmc_vh-3d", "visit", name="Nighthawk 1",
@@ -5578,7 +5593,7 @@ RESOLVERS = {
     "D1": {"Oiler": "victory", "Escorts": ("protect", "escort"),
            "Shadow": ("destroy", "red_air", 2)},
     "D2": {"Visit": "victory", "Cycle": ("protect", "carriers"),
-           "Tanker": ("protect", "air#2"), "Neutrals": "neutral"},
+           "Tanker": ("protect", "tanker"), "Neutrals": "neutral"},
     "D3": {"Relief": "victory", "Town": "neutral",
            "Group": ("protect", "group"),
            "Lift": ("arrive", "lift", (-0.5, 128.0), 5, 1)},
@@ -5789,7 +5804,7 @@ SUPPORT_LOSS = {
                     "available. The next logistics plan must use the surviving ships and any "
                     "replacement command can release. - Mercer"
                 )),
-           dict(asset="Texaco 51", units=["air#2"],
+           dict(asset="Texaco 51", units=["tanker"],
                 # Says what is true. It used to promise that sortie lengths
                 # would shorten "from today", and nothing in the campaign
                 # recorded the loss to make that happen.
