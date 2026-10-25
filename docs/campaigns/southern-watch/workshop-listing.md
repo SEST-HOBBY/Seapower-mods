@@ -81,7 +81,7 @@ The campaigns name units from 165 Workshop mods. Subscribe to the collection [ur
 [*]If the Mod Manager offers to move this pack's dependencies above it, answer no: that undoes every fix in it. SETUP puts the order back.
 [*]Some mods still name SeaLifter as a requirement. It is not needed; they run without it.
 [*]A missing mod means a missing unit at best and a mission that will not load at worst. Without the collection and SETUP, this is not the download for you.
-[*]Mods marked as made for an older game version load and play.
+[*]Mods made for an older game version load and play; SETUP marks them compatible, so the Mod Manager stops warning about them.
 [/list]
 In the folder: SETUP, REQUIRED-MODS.txt (every mod the campaigns name), LOAD-ORDER.txt and CREDITS.txt.
 
@@ -92,7 +92,26 @@ A Sea Power unit file is a whole-file override, so 528 files here are other auth
 Every nation, unit, ship name, incident and date is invented; the campaigns take no position on any real dispute. English only. Built for Sea Power 0.8.7: every unit, squadron, loadout and weapon in every mission is checked to resolve on every build, but balance is not, and most missions have not been played to completion. SEST's code (the Tomahawk terrain fix, the debrief and the combat cost panels) runs only on Sea Power 0.8.7 Build 261021 and switches itself off on any other. Feedback on difficulty and pacing is wanted.
 ```
 
+## Change log: SETUP update, after 25 Oct 2026
+
+For the upload after `b1449201`. One change a player sees: SETUP marks the
+collection's mods made for an older game version compatible (66 of them on
+0.8.7), so the Mod Manager stops listing them at start-up. Before Submit, run
+SETUP from the Workshop copy on the PC and check that the warning is gone.
+
+```
+[h2]SETUP update[/h2]
+[list]
+[*]SETUP now marks the mods made for an older game version compatible, so the Mod Manager stops listing them as not compatible at start-up. They loaded and played before; only the warning goes. Close the game and run SETUP again to get it, and again after Steam updates your mods.
+[*]To put those mods' own files back, run sest-setup.ps1 -RestoreModFiles from a console in the pack folder.
+[/list]
+```
+
 ## Change log: 24 Oct 2026
+
+The 25 Oct upload (`b1449201`, 4,299 files) carried the rest of this build
+and the HH-60H fix; if its change log did not have this block, paste it with
+the next update.
 
 Everything after `c1bd1f4b` (the Seahawk), through `dc46eba2`, plus the World
 Sandbox regional expansion (PR #44). **Uploaded 24 Oct 2026** from `8e72f353`

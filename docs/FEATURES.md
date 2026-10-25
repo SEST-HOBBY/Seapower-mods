@@ -457,6 +457,9 @@ checked automatically.
   - installs the Anchor Chain preloader if it is missing, asking Windows for
     permission once if the game folder needs it;
   - turns off a mod's debug logging that can freeze missions;
+  - marks the mods made for an older game version compatible, so the Mod
+    Manager stops listing them as not compatible (they load and play either
+    way; `-RestoreModFiles` puts their own files back);
   - sets the whole Mod Manager order: the pack first, then the mods in the
     tested order, your other mods at the bottom;
   - safe to run again: run it after every pack or mod update.

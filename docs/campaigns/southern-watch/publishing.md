@@ -10,11 +10,12 @@ before the patch does.
   **3812461539**, Public. It is the `SEST_Integration` folder: one Mod Manager
   entry (*SEST Integration Pack*) carrying the 19 SEST fix packs and all three
   campaigns, Southern Watch, Southern Reach / Tasman Shield and Red Line. It
-  carries the 24 Oct 2026 build, uploaded from `8e72f353` on
-  `feature/world-sandbox-regional-expansion-20261024`, with SETUP in the pack
-  and both World Sandbox campaigns. That branch (PR #44) merged into
-  `sest-dev/jolly-ride-rptj4t` the same day (`8fd13774`), and the default
-  branch followed, so publish from `sest-dev/jolly-ride-rptj4t` again. The
+  carries the 25 Oct 2026 build, uploaded from `b1449201` on
+  `sest-dev/jolly-ride-rptj4t` (4,299 files, the World Sandbox HH-60H fix),
+  with SETUP in the pack and both World Sandbox campaigns. The 24 Oct build
+  before it went up from `8e72f353` on
+  `feature/world-sandbox-regional-expansion-20261024` (PR #44, merged the same
+  day). The default branch follows each upload (PR #46 for this one). The
   first upload was the 4 Oct 2026 build (`d4fd1668` and `fa692245`). Every
   upload is an update to this item; there is no second item.
 - **The collection.** *SEST - Modernised Campaign Collection*, Workshop id
@@ -178,7 +179,11 @@ decides which copy of a shared file the game reads. `SETUP - double-click me.cmd
 is downloaded and names any that are not, with links; installs the Anchor
 Chain preloader if it is missing (a UAC prompt only when neither `winhttp.dll`
 nor BepInEx is in the game folder); turns off one mod's debug logging that can
-freeze a mission; and writes the Mod Manager order: the pack first, the 180 in
+freeze a mission; marks the listed mods made for an older game version
+compatible, so the Mod Manager stops warning about them (since 25 Oct 2026:
+only the `ApproximateVersion` line changes, the author's file is kept under
+`%LOCALAPPDATA%\SEST\compat-originals`, and `sest-setup.ps1 -RestoreModFiles`
+puts it back); and writes the Mod Manager order: the pack first, the mods in
 `LOAD-ORDER.txt` order, the player's other mods at the bottom as they were. It
 backs up the game's settings first and is safe to run again.
 

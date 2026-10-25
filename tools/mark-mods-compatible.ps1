@@ -23,9 +23,11 @@
     mods with no [Compatibility] section; SEST's own Workshop item.
 
     Steam puts a mod's own _info.ini back whenever the mod updates, so
-    tools\sync-sest.ps1 runs this every time. It only touches this PC; a
-    player who subscribes to the collection still sees the game's warning
-    for the same mods, because their files are their authors'.
+    tools\sync-sest.ps1 runs this every time. It only touches this PC. Since
+    25 Oct 2026 the pack's own SETUP does the same for a player, for the
+    mods its LOAD-ORDER.txt lists, with the same marker and the same kept
+    copies (sest-setup.ps1 -RestoreModFiles puts them back), so either
+    tool's -Restore undoes the other's marks.
 
     Run with the game closed; the Mod Manager reads the files at start-up.
 
