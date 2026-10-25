@@ -1,167 +1,264 @@
-﻿ExtendedGuidance 0.4.0 -- AC Pack
+ExtendedGuidance 0.8.7 -- AC Pack
 
-Restart Sea Power after installing or changing configuration. This DLL follows
-AC Pack's Mod Manager checkbox AND its ExtendedGuidance submod switch.
-ExtendedGuidance defaults to off in the AC Pack submod menu. Enable it there,
-then restart Sea Power. Existing saved choices are preserved. Normal startup:
-[ExtendedGuidance] bereit.
+Activation
+Restart Sea Power after installation or configuration changes. Both AC Pack's
+Mod Manager checkbox and the ExtendedGuidance submod switch must be enabled.
+The submod defaults to off; existing preferences are preserved. Normal startup:
+[ExtendedGuidance] loaded successfully.
 
 Scope
-AAW active-radar, semi-active-radar and pure infrared missiles against airborne
-targets, including SAMs defending against incoming missiles. ASMs, surface
-engagements, group-capable/grouped missiles and combined passive-RF/IR seekers
-(such as the Euromod RAM family) retain native guidance. Propulsion, steering,
-fuzes, damage and native reliability remain in use. No multipath.
+EG evaluates platform-radar returns (RCS, geometry, clutter, Doppler and ECM).
+Radar observations include bounded, time-correlated signal fluctuations. Native
+radar contacts receive measurement-dependent range/bearing errors; expected range
+previews stay stable. Each receiver has separate observations.
+Native search sweeps, confirmation, echo clustering, contacts, FCR movement and
+gun solutions remain native. Missiles read existing native contact estimates.
+EG provides ARH, SARH, IR, passive-RF and radio-command missile tracking,
+including ASMs, groups and IR/RF hybrids. Each missile has its own seeker geometry.
+Native contact cues are advanced from their observation time. Surface seeker
+measurements retain a separate hull aim offset; lost tracks coast on the last
+estimate. Unresolved seeker echoes produce a weighted measurement with ambiguity.
+Track changes require persistent evidence; AntiCountermeasuresBonus affects this
+association for radar and IR seekers, not a permanent bonus for captured chaff.
+No additional keys are required. Diagnostics show echo contributors, ambiguity,
+mean SNR and fluctuations; two rolling 32 MiB logs retain longer test flights.
+Transport-only DL1 proxies use a real radar for required own-missile tracking.
+Command-updated IR seekers use the configured handover while supported. Without
+fresh support they may search autonomously after launch/drop, including while
+lofting; failed seekers remain unavailable. IR observations obey SeekerPassiveRange.
+Fresh, matching external range/velocity estimates continue to support IR tracking.
+Measured ship echoes constrain the aim height to the native hull convention;
+this does not grant an IR range measurement. High-altitude thermal scaling cannot
+subtract the target's baseline emission. Native channel limits still apply.
+IR target switches, IR decoys and passive RF capture have distinct event messages.
+IR uses a bounded terrain/water background trace in the current flat game geometry.
+A clear-air path approximation attenuates long low-altitude paths more strongly
+than high-to-high paths. Launch feasibility and seeker observations share the model.
+No temperature, Earth-curvature or two-band simulation is included. Existing
+IRBackgroundRejection still controls profile rejection of the sampled background.
+Missile diagnostics include IR intensity, background kind/distance, atmospheric
+transmission, surface constraint and range cue. No additional keys are required.
 
-Configuration priority, independently for each key
+The map Pk percentage formula remains native. EG-controlled missiles bypass the
+native random interception, decoy/ECM rolls and forced-miss terminal deviation.
+Fuze encounters, damage and equipment failures still determine actual outcomes.
+Propulsion, loft, sea-skimming, waypoints, pop-up and native group flight remain
+native. ESM, visual/sonar contact discovery, TV/laser guidance, guns and unguided
+weapons retain their own models. Existing information/point-value estimates are
+not combat outcome simulations. Multipath is not implemented.
+
+Missile configuration: per-key priority
 1. Effective ammunition INI: [ExtendedGuidance], immediately after [Guidance].
 2. systems/ExtendedGuidance_OVWR.ini: [ammunition_filename_without_ini].
-3. Fixed profile in systems/ExtendedGuidance_Profiles.ini.
+3. Selected fixed profile in systems/ExtendedGuidance_Profiles.ini.
 
-Enabled=True/False controls one missile type. SeekerProfile=Auto can override
-an explicit mapped profile while retaining numeric per-key overrides.
-Aliases and extend files use the game's effective INI resolution.
-
-Example missile section:
 [ExtendedGuidance]
-SeekerProfile=IIR_Imaging
+SeekerProfile=Auto
 SeekerCoastTime=0.8
-SeekerUpdateInterval=0.05
+SeekerUpdateInterval=0.1
 
-The same keys work in an OVWR section, for example:
-[example_ir_missile]
-SeekerProfile=IR_AllAspect_IRCCM
-SeekerAngularResolution=0.08
+Equivalent mapping example:
+[example_missile]
+SeekerProfile=ARH_Surface
+SeekerRangeResolution=75
 
-IR profiles: IR_RearAspect, IR_AllAspect, IR_AllAspect_IRCCM, IIR_Imaging.
-Rear-aspect restrictions take precedence in automatic classification.
-Explicit AntiCountermeasuresBonus selects a fixed conventional IR/IRCCM profile;
-otherwise TargetMemory with IOCDate (FOCDate fallback) can select IRCCM.
-Dates and native penalties do not scale physical model parameters. Auto never
-infers imaging. Explicit AIM-9X, PL-10 and IRIS-T mappings select IIR_Imaging.
-KillProbability and SpoofChance are not inputs to the new seeker decisions.
+Enabled=False restores native guidance for that missile type. It does not disable
+EG platform radars. SeekerProfile=Auto overrides a mapped profile choice while
+retaining numeric per-key overrides. Effective aliases and extensions apply.
 
-IR keys
-SeekerAngularResolution: angular resolution, degrees, >0..10.
-SeekerAngularGate: angular association width, degrees, >0..90.
-IRReferenceSignature: reference effective IR intensity in native signature
-  units, >0; default 100. SeekerPassiveRange supplies its reference range.
-  A positive SeekerReferenceRange overrides that reference, in nautical miles.
-IRBackgroundRejection: background rejection fraction, 0..1.
-IRBrightnessRejection: rejection of sudden bright-source changes, 0..1.
-IRShapeRejection: resolved angular-size consistency weight, 0..1.
-SeekerTrackRate, SeekerAcquireTime, SeekerReacquireTime, SeekerCoastTime and
-SeekerUpdateInterval also apply to IR. Default IR sample interval is 0.05 s.
-Native SeekerFOV, SeekerGimbalFOV, IsRearAspectOnly and TargetRearCone apply.
-
-Radar profiles: ARH_Generic, ARH_PD_Early, ARH_PD_Standard, ARH_PD_Advanced,
-ARH_AESA, SARH_Generic, SARH_Generic_Early, SARH_Generic_Advanced, SARH_Pulse,
+Profile families
+Air radar: ARH_Generic, ARH_PD_Early, ARH_PD_Standard, ARH_PD_Advanced, ARH_AESA;
+SARH_Generic_Early, SARH_Generic, SARH_Generic_Advanced, SARH_Pulse,
 SARH_CW_Early, SARH_CW_Advanced, SARH_PD_Early, SARH_PD_Advanced.
-Legacy AMRAAM_Active, AMRAAM_Advanced and Sparrow_M names remain accepted aliases.
-Missile-specific calibration belongs in missile or mapping overrides.
-Radar Auto uses authored altitude/speed/size penalties and IOC/FOC to choose
-one fixed profile. It never infers AESA or a particular SARH waveform.
+Surface radar: ARH_Surface_Early, ARH_Surface, ARH_Surface_Advanced,
+SARH_Surface_Early, SARH_Surface.
+IR: IR_RearAspect, IR_AllAspect, IR_AllAspect_IRCCM, IIR_Imaging.
+Other: RF_Passive, Command_Radar.
+Legacy AMRAAM_Active, AMRAAM_Advanced and Sparrow_M remain accepted aliases.
 
-Numerical keys and units
-SeekerBeamWidth: full antenna beam width, degrees, 0.2..90.
+Auto uses guidance type, primary target domain, IOCDate (FOCDate fallback) and
+available native penalty/CM metadata to select fixed profiles. Dates and penalties
+do not scale profile values. Surface defaults use pre-1980 / 1980-1999 / 2000+
+ARH families; SARH uses pre-1980 / later. Missing dates use the middle surface
+family. These defaults do not impose an airborne-target Doppler notch on ships.
+Auto never infers a particular SARH waveform, imaging IR or an AESA missile seeker.
+Explicit rear-aspect restrictions take priority for IR classification.
+
+Common keys and units
+SeekerAntenna: Mechanical or AESA for radar missile seekers.
+SeekerBeamWidth: full one-way half-power beam width, degrees, 0.2..90.
 SeekerSidelobeSuppression: dB, 0..80.
-SeekerRangeResolution: echo resolution width, metres, 0..10000; zero disables
-  range separation of clutter. It does not set the tracking association gate.
-SeekerRangeGate: tracking association width, metres, 0..20000; zero disables it.
-SeekerDopplerGate: tracking association width, m/s, 0..2000; zero disables it.
-SeekerManeuverAllowance: process acceleration uncertainty, m/s^2, 0..300.
-SeekerDopplerResolution: equivalent radial speed width, m/s, 0..500;
+SeekerRangeResolution: metres, 0..10000; zero disables range discrimination.
+SeekerRangeGate: association width, metres, 0..20000; zero disables the gate.
+SeekerDopplerResolution: equivalent radial-speed width, m/s, 0..500;
   zero disables Doppler discrimination.
-SeekerClutterRejection: residual rejection outside the clutter notch, dB, 0..80.
-SeekerTrackRate: angular tracking rate, degrees/second, >0..2000.
-SeekerCoastTime: seconds without measurement before track loss, 0..30.
-SeekerAcquireTime, SeekerReacquireTime: continuous detection dwell, seconds, 0..10.
-SeekerUpdateInterval: simulation seconds between measurements, 0.02..2;
-  default 0.1. Steering continues each native update using the track prediction.
-SeekerReferenceRange: nautical miles for SeekerReferenceRCS, 0..300;
-  zero uses native ARH gain/power/wavelength, with the reference-target detection
-  range bounded by native SeekerActiveRange. Positive values set an explicit
-  reference sensitivity. Neither mode changes the native maximum seeker range.
-SeekerReferenceRCS: reference cross section, square metres, >0.
-SeekerReceiverSensitivity: SARH receiver threshold, watts, >0.
+SeekerDopplerGate: association width, m/s, 0..2000; zero disables the gate.
+SeekerManeuverAllowance: process acceleration uncertainty, m/s^2, 0..300.
+SeekerClutterRejection: rejection outside the clutter notch, dB, 0..80.
+SeekerTrackRate: degrees/second, >0..2000.
+SeekerCoastTime: seconds without measurement before loss, 0..30.
+SeekerAcquireTime, SeekerReacquireTime: detection dwell, seconds, 0..10.
+SeekerUpdateInterval: missile measurement interval in simulation seconds,
+  0.02..2; default 0.1, IR default 0.05. Native steering continues between samples.
+SeekerReferenceRange: nm for SeekerReferenceRCS, 0..300; zero derives sensitivity
+  from native ARH power/gain/wavelength, bounded by native SeekerActiveRange.
+SeekerReferenceRCS: reference cross section, m2, >0.
+SeekerReceiverSensitivity: SARH/passive receiver threshold, watts, >0.
+SeekerAngularResolution: angular error/resolution, degrees, >0..10.
+SeekerAngularGate: angular association width, degrees, >0..90.
 GroundClutterSigma0: land backscatter coefficient, dB, -80..0.
 SeaClutterSigma0: sea backscatter coefficient at sea state 3, dB, -100..0.
 
-Behavior and limits
-Owned shots bypass native Pk, probabilistic decoy/ECM decisions and forced-miss
-terminal deviations. Actual fuze encounters and native damage still decide hits.
-Native prelaunch hit-chance estimates/UI percentages are not replaced.
+IR keys
+IRReferenceSignature: reference native IR intensity, >0; default 100.
+IRBackgroundRejection, IRBrightnessRejection, IRShapeRejection: fractions, 0..1.
+Native SeekerPassiveRange sets reference sensitivity; a positive
+SeekerReferenceRange overrides it in nm. Signal uses inverse-square falloff.
+Native engine/aspect scaling, SeekerFOV, SeekerGimbalFOV, IsRearAspectOnly and
+TargetRearCone apply. IR launch acquisition uses the same sensitivity/background
+model. Target memory alone does not bypass launch acquisition.
 
-Radar ground/sea clutter works with LowAltitudeClutter=Off. FCR channel,
-operating-state and native arc/alignment constraints remain. Numerical FCR
-tracking handles LOS, signal, clutter and combined decoys; the old Chaff
-collider-blocking decision is bypassed for owned shots.
+Radar configuration
+Profiles: Radar_Search, Radar_Tracking, Radar_PhasedArray, Radar_PESA, Radar_AESA.
+FCR families: Radar_FCR_Pulse, Radar_FCR_MTI, Radar_FCR_PD,
+Radar_FCR_PD_Advanced, Radar_CW_Illuminator. No OVWR is required for these defaults.
+Per-key priority: Seeker* keys in the named sensors.ini section >
+[Radar:SystemName] mapping > native sensor values > family fallback.
 
-IR uses existing target signature, native engine/aspect scaling and relative
-bearing measurements. It does not observe true target range or velocity.
-Range starts with launch/support information and is propagated. Imaging uses
-an angular-size/temporal approximation, not rendered thermal imagery. Background
-contrast uses bounded sky/land/water categories, not detailed clouds or terrain
-temperatures. Combined decoys share native positions and lifetimes. Their IR
-intensity has a simple rise/decay envelope; individual flare trajectories are
-not simulated. Profile values are empirical game parameters, not measured
-hardware specifications. RF jamming does not affect pure IR measurements.
+[Radar:example_radar]
+GuidanceRole=Radar
+SeekerProfile=Radar_AESA
+SeekerAngularResolution=0.05
 
-Event log
-TRACK LOST, REACQUIRED, SPOOF and final MISS/ENGAGEMENT ENDED use native event
-numbering, time, weapon/launcher/target IDs. Loss is debounced; normal updates
-produce no log spam. Reacquisition clears old loss causes. Decoy capture requires
-an actual tracked-source change. Native hit/damage logs are retained. A failed
-shot with an uncertain cause is labelled accordingly, not automatically evaded.
-Available native outcome hooks distinguish hits, interceptions and operator
-self-destruct. Older builds without an exposed warhead-failure flag cannot
-provide that specific diagnostic. No global game/foreign-mod log filtering.
+Type=DirectedSearch selects Radar_PhasedArray. For Type=Targeting, existing
+SubClutterVisibility selects Pulse at 0, MTI above 0 and below 40, PD at 40..46,
+and PD_Advanced at 47 or above. Missing metadata retains Radar_Tracking.
+These are fixed simulation families, not continuous date-based bonuses.
+Other types select Radar_Search. DirectedSearch alone does not prove AESA.
+Exact hardware mappings or SeekerAntenna=AESA/PESA/Electronic select those families.
+Native BeamWidth, RangeResolution and SubClutterVisibility override fallbacks.
+Explicit Seeker* values override them; explicit zero remains zero.
+Platform overrides accept beam, sidelobe, range/Doppler resolution and gates,
+maneuver, clutter rejection, track rate, coast/acquire/reacquire, angular resolution
+and ground/sea sigma. Missile reference sensitivity and IR-only keys do not apply.
+Platform returns are evaluated within the native scan schedule. SPG-62, CEROS
+and other FCRs use the same adapter and automatic profile selection; no special
+platform tracker or required OVWR is added. Radar_CW_Illuminator is retained as a
+legacy profile name with common PD defaults, without a separate transmitter path.
+Platform contact age, uncertainty and acquisition timing now follow the native
+contact system. Legacy platform tracking-time/association keys remain readable
+but do not replace that system. Physical clutter, beam and Doppler values apply.
+FCSolutionGainRate, FCMinSolution and FCTracksRounds keep their native behavior.
 
-One numerical worker evaluates immutable snapshots; Unity reads and event-log
-writes stay on the main thread. Track histories reset on reload/time reset and
-are not serialized. Offline model/API tests are not in-game acceptance evidence.
+EG replaces old radar echo/LookDownMultiplier detection gates. Land and sea clutter
+are evaluated even with LowAltitudeClutter=Off. Native instrument ranges, radar
+altitude coverage, roles, arc/alignment, LOS, horizon, mast availability, readiness
+and channel constraints remain. Native ammunition launch/target envelope keys,
+including minimum target altitude where enforced by the game, are not removed.
 
-Datalink and radar mapping
-Add radar sections to systems/ExtendedGuidance_OVWR.ini:
+Datalinks
 [Radar:example_datalink]
 GuidanceRole=Datalink
 TrackSource=Auto
 
-GuidanceRole accepts Auto, Datalink or Radar. An explicit mapping takes priority
-over native DatalinkGuidance and the raw INI Gain > 200 dB fallback. TrackSource
-accepts Auto or an exact sensor SystemName on the launching platform. Explicit
-sources are restrictive: an unavailable named source is not silently replaced.
-Auto prefers associated sensors with usable tracks and retains similar-quality
-sources to avoid switching repeatedly. No off-platform cooperative engagement
-or satellite relay is inferred. Known real radars above 100 dB are explicitly
-mapped as Radar; their nonphysical gain is bounded by authored MaxRange at 2 m2.
+GuidanceRole: Auto, Datalink or Radar. Explicit mappings override the raw Gain >200
+fallback. Native DatalinkGuidance alone does not make a real radar transport-only.
+TrackSource: Auto uses the native contact estimate. An exact on-platform sensor
+SystemName restricts acceptance to an estimate reported by that sensor; a different
+native source is not silently accepted. The key also restricts DL launch-range
+evaluation. Fake DL gain cannot create detections. Native contact sharing remains;
+submerged launchers use their local table. Bearing-only reports cannot supply a
+new missile range measurement.
+DL MaxRange bounds sender-to-missile communication, with LOS/horizon and native
+weapon-channel constraints. Mode 1 also checks the assigned missile's radar return;
+mode 3 does not. SARH still needs a compatible real illuminator.
 
-One native radar paint can feed several missiles, but only for the same radar
-instance and target. Each missile retains its own received update, radio path,
-local seeker geometry, clutter, chaff candidates and acquisition history.
-Search-radar paints keep their native cadence; prediction never refreshes the
-measurement timestamp. Native detection is a prerequisite for platform reports;
-ExtendedGuidance adds its own signal/clutter/decoy checks to those reports.
+SARH with MidCourseCorrection=3 prefers an available native or mapped DL carrier.
+A separate illuminator is reserved near the lesser of TerminalApproachDist and
+SeekerPassiveRange, with existing acquisition/update settings and native antenna
+slew rates providing prepointing time. Native movement performs the alignment.
+Without a compatible DL carrier, native continuous FCR guidance remains available.
+WeaponChannels and TargetChannels remain separate: 2 weapons / 1 target permits
+two missiles at the same target, not two distinct targets. Original 1 / 1 entries
+stay 1 / 1. This does not model time-shared ICWI against separate targets.
+A fresh local seeker solution takes priority, including a captured decoy. Permitted
+external information can cue reacquisition but cannot create a local lock.
+LocalTerminalOnly cuts new external updates in TerminalApproach; previous
+information can still be predicted. Group flight uses measured leader handovers.
 
-DL systems retain native weapon channels and compatibility. Their MaxRange is
-used as the sender-to-missile radio limit, with terrain/horizon checks. No extra
-unverified radio latency or packet-loss model is imposed. Existing timestamps
-and simulation scheduling remain effective. MidCourseCorrection=1 additionally
-checks physical radar coverage/signal for its own assigned missile (the generic
-CanDetectAirToAirMissiles search exclusion does not apply); mode 3 does not require
-that missile radar return. SARH separately needs a real compatible illuminator.
+Passive RF / Home-on-Jam: existing [Guidance] keys
+SecondaryPassiveRadarGuidanceType=None / HomeOnJam / Full
+PassiveRadarGuidanceFrequencies=All or the native frequency list
+SeekerPassiveRange, AntiCountermeasuresBonus
 
-Seeker activation starts local acquisition without removing DL support. A
-confirmed local track takes precedence, including a locally captured decoy.
-After local loss, a permitted external track can cue reacquisition. External
-updates never create local lock or automatically identify chaff. LocalTerminalOnly
-cuts further external updates on entry into TerminalApproach, while allowing
-prediction from information already received. Otherwise support may continue.
+Pure anti-radiation missiles use RF_Passive automatically. HOJ accepts jammer
+emissions; Full also accepts radar emissions. Frequency, source operation,
+coverage, LOS/horizon and authored passive range apply. Passive RF and IR supply
+bearing information; they cannot measure true range or radial velocity. Associated
+fresh radar/DL information may refine range only through an allowed link.
+AntiCountermeasuresBonus has a bounded association effect, not a range or Pk bonus.
+Native automatic self-screen noise can remain active without an offensive Jams
+command. Turning that command off does not necessarily stop automatic emission.
 
-Radar seeker antenna behaviour (0.5.0)
-Uses existing keys only. SeekerAntenna chooses Mechanical or AESA.
-Mechanical steering consumes time at SeekerTrackRate degrees/second. AESA steering settles within one model update; SeekerTrackRate still bounds the existing tracked line-of-sight acceptance.
-SeekerAcquireTime/SeekerReacquireTime require detectable measurement time after steering. SeekerCoastTime retains the existing track-memory behaviour.
-SeekerBeamWidth is full one-way half-power width. The simplified fixed-panel AESA model applies projected-aperture gain loss and beam broadening off axis, bounded by native SeekerGimbalFOV. Native SeekerFOV limits acquisition/search.
-Search follows the supplied cue/estimated uncertainty, using one shared beam for all candidate echoes. No antenna type bypasses clutter, jamming, line of sight or measurement requirements.
-This antenna model applies to radar missile seekers only. Platform radars retain their separate native-observation-based model. No detailed waveforms, adaptive nulling or mechanically repositioned AESA panels are modelled.
+Displays and diagnostics
+F10 Radar shows the EG profile and instantaneous return margin/rejection with
+native contact management. The local range estimate uses current geometry and
+ECM; it is not a fixed specification or proof of an acquired track.
+Missile diagnostics retain local/support/navigation estimates and identify native
+platform tracking in the supportSensor entry.
+The sensor-information Radar graph uses the EG kernel for air and surface
+previews, with flat sea, an inbound target and no ECM. It is not a terrain-aware
+combat prediction. Other sensor graphs remain native.
+
+F10 > Missile Test > Missile diagnostics: OFF/ON records ordinary scenarios.
+The recording button is below Start Missile Test. During a native test, the
+compact Recording button is in the right column. F10 may be closed while recording.
+Do not start the native Missile Test for a normal battle: it creates extra units.
+Native test start also enables recording for that test. The Log/Missile Test tabs
+belong to the game. EG adds diagnostic controls and numbered tracking/outcome events.
+TRACK LOST, REACQUIRED, SPOOF, HOJ and MISS retain native event numbering and IDs.
+Native hit/damage reports remain; an unknown miss cause is not labelled a notch.
+
+Log: %USERPROFILE%/AppData/LocalLow/Triassic Games/Sea Power/Mods/ExtendedGuidance/Diagnostics/missile-test.log
+Two rotating files, each at most 8 MiB; missiles at most 2 Hz, launchers at most 1 Hz
+of simulation time. Bounded background file writer, 300 lines/wall-second cap;
+dropped records are reported. Logged truth positions are comparison data only.
+
+Limits
+Profile values are empirical simulation settings, not measured weapon performance.
+Surface defaults, IR contrast/shape discrimination and RF association need gameplay
+calibration. No multipath, detailed waveforms, thermal imagery, adaptive nulling,
+individual flare trajectories or detailed range-deception jamming are modelled.
+Existing combined chaff/IR decoys retain native positions and lifetimes.
+One bounded numerical worker handles immutable snapshots; Unity reads, ECS writes
+and event publication stay on the main thread, with equivalent synchronous fallback.
+Saved EG contacts recover serialized measured positions conservatively. Detailed
+missile acquisition history resets on reload and uses the saved native flight cue.
+Final-binary offline model/API tests cover installed public build 26103404 and the
+available beta assembly. Actual gameplay acceptance in both remains pending.
+
+SARH recovery (0.8.1)
+- EG SARH missiles against air targets retain a bounded recovery period after
+  loss of terminal guidance. A valid local echo does not require a datalink.
+- Recovery uses existing seeker coast/acquisition settings and SelfDestructDelay;
+  datalink missiles may continue toward their estimated intercept, capped at
+  30 seconds without reacquisition. No new configuration keys are required.
+- Existing FCR reservations survive temporary loss of visibility; actual RF
+  measurements still require coverage and native antenna alignment. Native
+  channel limits, manual disable, geometric misses and lifetime limits remain.
+- These recovery limits are simulation assumptions, not published SM-2 timers.
+
+The selected missile bottom status row shows current EG guidance, including
+SARH/ARH/IR, HOJ/passive RF, datalink, memory and recovery time. It refreshes
+at most four times per simulated second. Target numbers remain native map
+track numbers. Illumination loss is not labelled as proven FCR track loss.
+
+Chaff
+Passive RF chaff now has an age envelope and spatial extent, using its existing
+DefensiveEffectTime and RCS. SpoofChance is a bounded strength hint (0.5 + value),
+not a success roll. IsAirDecoy=True excludes powered decoys from cloud aging.
+RF measurements account for resolution-cell coverage and centroid uncertainty.
+Missile test logs include selectedDecoy, rfDecoy extent/RCS and clean-track age.
+When ASM service dates are absent, explicit AntiCountermeasuresBonus selects an
+early (<0.15), standard (<0.6), or advanced surface profile. Explicit EG profile
+and mapping choices still take precedence. No new INI keys are required.

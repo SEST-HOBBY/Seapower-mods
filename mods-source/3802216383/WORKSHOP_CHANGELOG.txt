@@ -1,5 +1,10 @@
-R10.55
+R10.56 - V-22 compatibility update
 
-- Changed the ship category from Helicopter Destroyer to Destroyer, matching the base-game DDH convention.
-- Renamed Hyūga Class to Hyūga-class.
-- Retained Hyūga and Ise under one class, with no separate Ise unit-type entry.
+- Adds Euromod JMSDF V-22 identifiers to aircraft recovery and both elevator support lists.
+- Revises both elevator ride positions for the folded V-22.
+- Includes launcher-bay hatch recess backing repair.
+- Retains one Hyuga-class with Hyuga and Ise variants, Destroyer category and existing SH-60 default air groups.
+- MCH-101 is deferred and is not included or referenced.
+
+Requires Euromod JMSDF aircraft and its folding/conversion support separately. No aircraft assets or plugins bundled. Add the V-22 using a custom air group in a suitable-date scenario.
+Uses native elevator/hangar operations. Experimental permanent deck parking is not included.
