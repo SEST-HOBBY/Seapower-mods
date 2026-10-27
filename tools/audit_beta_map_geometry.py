@@ -39,14 +39,30 @@ def lon_normalize(lon):
     return (lon + 180.0) % 360.0 - 180.0
 
 
-def longitude_span(lons):
-    """Smallest circular longitude interval that includes all points."""
+def longitude_arc(lons):
+    """Smallest continuous arc, and whether it crosses +/-180 degrees.
+
+    Do not infer date-line crossing from endpoints near 170 degrees: an arc
+    160 E -> 160 W also crosses it, while 350 E -> 10 E crosses *zero*.
+    Ties are screening heuristics; this is not game map-projection logic.
+    """
     if len(lons) < 2:
-        return 0.0
+        return 0.0, False
     values = sorted(v % 360.0 for v in lons)
     gaps = [b - a for a, b in zip(values, values[1:])]
-    gaps.append(values[0] + 360 - values[-1])
-    return 360 - max(gaps)
+    gaps.append(values[0] + 360.0 - values[-1])
+    cut = max(range(len(gaps)), key=lambda i: gaps[i])
+    span = 360.0 - gaps[cut]
+    start = values[(cut + 1) % len(values)]
+    end = start + span
+    crosses_date_line = span > 0 and any(
+        start <= 180.0 + 360.0 * k <= end for k in (-1, 0, 1, 2))
+    return span, crosses_date_line
+
+
+def longitude_span(lons):
+    """Smallest circular longitude interval that includes all points."""
+    return longitude_arc(lons)[0]
 
 
 def parse_sections(text):
@@ -134,12 +150,11 @@ def analyze(path):
         return None
     lats, lons = [p[0] for p in points], [p[1] for p in points]
     lat_span = max(lats) - min(lats)
-    lon_span = longitude_span(lons)
+    lon_span, dateline = longitude_arc(lons)
     mid_lat = (max(lats) + min(lats)) / 2
     legacy_ew = lon_span * 60.0
     globe_ew = legacy_ew * abs(math.cos(math.radians(mid_lat)))
     north_south = lat_span * 60.0
-    dateline = min(lons) < -170 and max(lons) > 170
     max_abs_lat = max(abs(x) for x in lats + [lat])
     # A candidate play-area edge is not derivable from this approximation:
     # editor centre, orientation, triggers, land use and nonnumeric routes matter.
