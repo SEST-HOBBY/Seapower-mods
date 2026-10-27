@@ -219,6 +219,7 @@ their side's lead nation's (US or China) garrisons, escorts and convoys.
 | Supply ships | `replenishment` with fuel and ammunition tonnes; their forces start with `cargo: full` |
 | Unit ids the collection retired | Retargeted through `integration/mission-seeds/retarget_units.py`'s table |
 | Unit ids a mod renamed (`LEGACY_HULL_ALIASES`, `LEGACY_AIRCRAFT_ALIASES`) | New campaigns name the current id. The old id ships only as a `#!alias` in `SEST_World_Campaign`, so older saves still load. The builder never reads that alias back as a unit, so a build over its own previous output gives the same bytes as `--from-scratch` (`tools/tests/test_world_sandbox_rebuild.py`) |
+| A unit that draws the wrong model (`WORLD_UNIT_SUBSTITUTIONS`) | Placed and sold as its replacement in the World Sandbox only; the register keeps the id its research named. Since 26 Oct 2026 Red Storm Arsenal's `usn_p_8a`, a P-8A that draws the P-3C, is U.S. Navy 2027's `usn_p8_2027` (`docs/playtests/world-p8-20261026.md`) |
 
 ### Scenario choices the adapter makes
 

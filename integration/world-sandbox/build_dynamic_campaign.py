@@ -406,6 +406,24 @@ def water_point(lat, lon, radii=(25, 40, 60, 90, 130, 180)):
 
 # --- the collection ----------------------------------------------------------
 
+# World Sandbox only (PR #47, 26 Oct 2026): Red Storm Arsenal's usn_p_8a is
+# named a P-8A Poseidon but draws the P-3C Orion (ResourcesFolder=aircraft/
+# usn_p-3c/). US Navy 2027's usn_p8_2027 draws P8_Poseidon.obj and has a US
+# Navy squadron. The register keeps the id its research named and every other
+# campaign keeps its own units: only this builder swaps, in resolve() and in
+# the buy list.
+WORLD_UNIT_SUBSTITUTIONS = {"usn_p_8a": "usn_p8_2027"}
+
+
+def substitute(uid):
+    """The World Sandbox's replacement for uid, or None. The build stops if
+    the replacement is not installed rather than fall back to the old model."""
+    replacement = WORLD_UNIT_SUBSTITUTIONS.get(uid)
+    if replacement and bp.unit_file(replacement)[1] is None:
+        sys.exit(f"World Sandbox: {uid} is replaced by {replacement}, which no installed mod defines")
+    return replacement
+
+
 def renamed(uid):
     """The current id when uid is a renamed unit whose new definition is
     installed, else None. New campaigns never name the old id.
@@ -428,6 +446,9 @@ def resolve(uid):
     """(unit id the collection still defines, how) - RETARGET from the missions
     tooling is the one table of ids the collection retired. A renamed id is
     never kept as registered, whatever file answers to it (renamed())."""
+    replacement = substitute(uid)
+    if replacement:
+        return replacement, f"2028 Poseidon model corrected from {uid} (P-3 geometry)"
     current = renamed(uid)
     if current is None and bp.unit_file(uid)[1] is not None:
         return uid, "as registered"
@@ -1179,6 +1200,8 @@ def arsenal():
         if kind not in ARSENAL_DIRS or "/" in name or not name.endswith(".ini"):
             continue
         uid = path.stem
+        if substitute(uid):
+            continue  # never sell the model the World Sandbox replaces (its replacement is listed)
         if renamed(uid):
             continue  # compatibility for old saves, not a second purchasable unit
         if re.search(r"_(variants|squadrons|loadouts)$", uid, re.I) or uid in found:

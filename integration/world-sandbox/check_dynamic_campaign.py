@@ -265,6 +265,10 @@ def main():
     for old, new in (adapter.LEGACY_HULL_ALIASES | adapter.LEGACY_AIRCRAFT_ALIASES).items():
         if resolves(new) and (old in cat_units or old in values):
             sest.append(f"retired {old} appears in a new campaign; use {new} (retain an alias for saves)")
+    for old, new in adapter.WORLD_UNIT_SUBSTITUTIONS.items():
+        if old in force_units or old in cat_units or old in values:
+            sest.append(f"{old} appears in the World Sandbox, which uses {new} in its place "
+                        "(WORLD_UNIT_SUBSTITUTIONS: the model it draws is wrong)")
 
     for f in forces.values():
         want = {"Surface": ("Vessel", "Submarine"), "Air": ("Aircraft", "Helicopter", "VTOL")}[f["type"]]
