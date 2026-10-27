@@ -406,14 +406,36 @@ def water_point(lat, lon, radii=(25, 40, 60, 90, 130, 180)):
 
 # --- the collection ----------------------------------------------------------
 
+def renamed(uid):
+    """The current id when uid is a renamed unit whose new definition is
+    installed, else None. New campaigns never name the old id.
+
+    A file can still answer to the old id: the old-save alias that
+    write_legacy_*_compatibility() puts in this builder's own pack.
+    bp.providers() reads every integration/*/SEST_* folder on disk, this pack
+    included, so once one build has run, the collection the next build sees
+    contains SEST_World_Campaign/aircraft/usn_hh-60.ini (#!alias of
+    usn_hh-60h). Until 27 Oct 2026 resolve() took that alias for the unit,
+    kept usn_hh-60 "as registered", and every build after the first failed
+    check_dynamic_campaign.py's retired-id check; only --from-scratch, which
+    deletes the pack first, passed.
+    """
+    current = LEGACY_HULL_ALIASES.get(uid) or LEGACY_AIRCRAFT_ALIASES.get(uid)
+    return current if current and bp.unit_file(current)[1] is not None else None
+
+
 def resolve(uid):
     """(unit id the collection still defines, how) - RETARGET from the missions
-    tooling is the one table of ids the collection retired."""
-    if bp.unit_file(uid)[1] is not None:
+    tooling is the one table of ids the collection retired. A renamed id is
+    never kept as registered, whatever file answers to it (renamed())."""
+    current = renamed(uid)
+    if current is None and bp.unit_file(uid)[1] is not None:
         return uid, "as registered"
     new = RETARGET.get(uid)
     if new and bp.unit_file(new)[1] is not None:
         return new, f"retargeted from {uid} (integration/mission-seeds/retarget_units.py)"
+    if current:
+        return current, f"renamed from {uid}; the old id is kept only as an alias for saves"
     return None, "no enabled mod defines it"
 
 
@@ -1157,8 +1179,7 @@ def arsenal():
         if kind not in ARSENAL_DIRS or "/" in name or not name.endswith(".ini"):
             continue
         uid = path.stem
-        legacy = LEGACY_HULL_ALIASES.get(uid) or LEGACY_AIRCRAFT_ALIASES.get(uid)
-        if legacy and bp.unit_file(legacy)[1] is not None:
+        if renamed(uid):
             continue  # compatibility for old saves, not a second purchasable unit
         if re.search(r"_(variants|squadrons|loadouts)$", uid, re.I) or uid in found:
             continue
@@ -1191,9 +1212,18 @@ def check_ids(ids, where):
     missing = sorted({u for u in ids if bp.unit_file(u.split("/")[0])[1] is None})
     if missing:
         sys.exit(f"{where}: no enabled mod defines {', '.join(missing)}")
+    # This pack is output, not collection: an id only it defines is an
+    # old-save alias from the previous build (renamed()).
+    own = sorted({u for u in ids if PACK in bp.unit_file(u.split("/")[0])[1].parents})
+    if own:
+        sys.exit(f"{where}: only this builder's own old-save aliases define {', '.join(own)}")
 
 
-def main():
+def compose():
+    """(campaign, report): the World Sandbox and its conversion report as data.
+
+    Writes nothing, so a test can rebuild over the committed pack and compare
+    (tools/tests/test_world_sandbox_rebuild.py)."""
     reg, report, bases, forces, patrols, used = build()
     report["lanes"] = []
     nations = sorted({b["nation"] for b in bases}, key=lambda n: (SIDE_OF[n], n))
@@ -1364,20 +1394,6 @@ def main():
                                 for n, w, pts, al in AIRWAYS]},
     }
 
-    write_legacy_hull_compatibility()
-    write_legacy_aircraft_compatibility()
-    CAMPAIGN_DIR.mkdir(parents=True, exist_ok=True)
-    (CAMPAIGN_DIR / "campaign.json").write_text(json.dumps(campaign, indent=2, ensure_ascii=True) + "\n",
-                                                encoding="utf-8")
-    (PACK / "_info.ini").write_text(
-        "[Language_en]\n"
-        "Name=SEST World Campaign\n"
-        "Description=DRAFT, not tested in game. A campaign for Bungalow's Dynamic Campaign Mod "
-        "(Workshop 3813157776): the SEST 2028 world - bases, fleets, air groups, supply ships and "
-        "patrols from the SEST research - as a persistent campaign, listed in the Campaign menu "
-        "marked [Dynamic]. Ships inside the SEST Integration Pack.\n\n"
-        "[Compatibility]\nApproximateVersion=0.8.7\n",
-        encoding="utf-8")
     report["values_basis"] = value_basis
     report["counts"] = {
         "register_rows": len(report["rows"]),
@@ -1387,8 +1403,33 @@ def main():
         "patrols": len(patrols), "catalogue": len(catalogue), "values": len(values),
         "lanes_kept": len(campaign["traffic"]["lanes"]), "lanes_authored": len(LANES),
         "skipped_nodes": len(report["skipped_nodes"])}
-    (OUT / "conversion.json").write_text(json.dumps(report, indent=1, ensure_ascii=True) + "\n",
-                                         encoding="utf-8")
+    return campaign, report
+
+
+def campaign_text(campaign):
+    return json.dumps(campaign, indent=2, ensure_ascii=True) + "\n"
+
+
+def report_text(report):
+    return json.dumps(report, indent=1, ensure_ascii=True) + "\n"
+
+
+def main():
+    campaign, report = compose()
+    write_legacy_hull_compatibility()
+    write_legacy_aircraft_compatibility()
+    CAMPAIGN_DIR.mkdir(parents=True, exist_ok=True)
+    (CAMPAIGN_DIR / "campaign.json").write_text(campaign_text(campaign), encoding="utf-8")
+    (PACK / "_info.ini").write_text(
+        "[Language_en]\n"
+        "Name=SEST World Campaign\n"
+        "Description=DRAFT, not tested in game. A campaign for Bungalow's Dynamic Campaign Mod "
+        "(Workshop 3813157776): the SEST 2028 world - bases, fleets, air groups, supply ships and "
+        "patrols from the SEST research - as a persistent campaign, listed in the Campaign menu "
+        "marked [Dynamic]. Ships inside the SEST Integration Pack.\n\n"
+        "[Compatibility]\nApproximateVersion=0.8.7\n",
+        encoding="utf-8")
+    (OUT / "conversion.json").write_text(report_text(report), encoding="utf-8")
     c = report["counts"]
     print(f"wrote {CAMPAIGN_DIR.relative_to(ROOT)}/campaign.json")
     print(f"  {c['bases']} bases {c['bases_by_kind']}, {c['forces']} forces {c['forces_by_type']}, "
