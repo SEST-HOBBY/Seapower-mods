@@ -130,6 +130,10 @@ FAMILIES = {
         "usn_e_2c_group2_plus", "fr_rafale_m", "fr_rafale_m_l", "fr_e2c", "fr_e2d"],
 }
 
+# Specific campaign deck fits that family matching cannot infer from a
+# foreign or older default air group. Capacities and deck geometry are retained.
+CAMPAIGN_DECK_TYPES = {'pn_ffg-150': ['phl_h-76'], 'pn_ffg-06': ['phl_h-76'], 'tha_ffg_naresuan': ['phl_h-76', 'tha_S-70B-7_Seahawk', 'ran_mh-60r'], 'phl_lpd_tarlac': ['tha_S-70B-7_Seahawk', 'ran_mh-60r'], 'ran_ffh_anzac': ['phl_h-76', 'tha_S-70B-7_Seahawk']}
+
 CATEGORY_TOKENS = {"Helicopters"}       # the game's own wildcard
 
 
@@ -283,6 +287,11 @@ def plan():
                 new = [a for a in ids if a not in have]
                 if new:
                     adds[fam] = new
+        have_after_families = have | {a for values in adds.values() for a in values}
+        campaign_adds = [a for a in CAMPAIGN_DECK_TYPES.get(uid, [])
+                         if a not in have_after_families and aircraft_exists(a)]
+        if campaign_adds:
+            adds["Campaign deck fits"] = campaign_adds
         if adds:
             out.append((uid, owner_of(f), n, sec, current, adds))
     return out
@@ -341,3 +350,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+

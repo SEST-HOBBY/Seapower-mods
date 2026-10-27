@@ -72,6 +72,15 @@ for _mod in MODULES:
         raise SystemExit(f"{_m['code']}: window rearms for free - Sulu Line's rearm "
                          "is a supply ship alongside, the player's own or Service at "
                          "Sea's charter")
+    # Airfields host the purchased wing or placed mission flights. Do not
+    # inherit the generic Cold War air group, or provide a fresh free wing.
+    for _unit in _m["units"]:
+        if _unit.get("side") != "blue":
+            continue
+        if _unit.get("type", "").startswith("airfield"):
+            _unit["air_group"] = []
+        if _unit.get("type") == "phl_h-76" and _unit.get("squadron") == "Squadron1":
+            _unit["squadron"] = "Squadron2"  # The mod's existing Philippine AW109.
     MISSIONS.append(_m)
 
 _codes = [m["code"] for m in MISSIONS]
@@ -145,3 +154,4 @@ CAMPAIGN = dict(
         " Sur, HTMS Chula, or a chartered C8 barge carrier. Their stocks are finite and are "
         "not refilled. Supply ships are on sale before The Island Road, Service at Sea and "
         "The Aborlan Battery only; one that is sunk is gone until the next sale."))
+

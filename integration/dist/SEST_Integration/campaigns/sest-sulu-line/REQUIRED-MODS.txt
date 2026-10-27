@@ -52,7 +52,7 @@ LOAD-ORDER.txt is missing. (Anchor Chain is one a mod in list 1 asks
 for; the map, salvo and rescue tools are conveniences.)
 
 
-4. NOT USED BY THIS CAMPAIGN (189): enabled while it was built, and left in the order because removing one changes which copy of a
+4. NOT USED BY THIS CAMPAIGN (192): enabled while it was built, and left in the order because removing one changes which copy of a
 shared file wins for the mods above.
 
   3438479626    1143.5 Kuznetsov
@@ -88,6 +88,7 @@ shared file wins for the mods above.
   3417801942    Chinese Navy (PLAN)
   3628201887    Clemenceau-class Aircraft Carrier
   3807187341    Combat Cost Tracker
+  3819427362    Contact Log
   3806686336    Coordinated Strike Tool
   3606134711    Custom Loadout Editor
   3558173926    David's Sling
@@ -122,7 +123,6 @@ shared file wins for the mods above.
   3673703427    Fattah-1
   3672497668    Fattah-2
   3373960386    Flight Deck Ops
-  3818251045    Formation Manager Replacement
   3758943352    French Air Force
   3736147136    French Army Vehicles
   3567228449    French Helicopter Package
@@ -130,6 +130,7 @@ shared file wins for the mods above.
   3461044389    Gerald R. Ford-class CVN Aircraft Carrier (Updated Dependencies)
   3412480633    Ground Upgrade: IFV
   3410473695    Ground Upgrade: MBT
+  3818251045    Group Manager
   3384079999    Humpback Whale
   3556629790    ICBM silos
   3790594162    Identify Expanded
@@ -193,6 +194,8 @@ shared file wins for the mods above.
   3766210676    Saronic Corsair ASV
   3461519690    SCUD-B
   3455931957    Sea Lynx
+  3826396311    Sea Power Pop-Out Windows
+  3826122523    Sea Power Topographic Map
   3628247436    Sea Venom - Aquilon
   3551676319    SEJJIL (Iran Ballistic Missiles)
   (local)       SEST A-10C+

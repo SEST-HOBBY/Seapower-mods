@@ -95,7 +95,7 @@ ROSTER = [
          note="BRP Conrado Yap; guns and nothing else"),
     dict(unit="phl_lpd_tarlac", picks=["Variant1", "Variant2"], points=140,
          note="SUPPLY: Tarlac and Davao del Sur; 60,000-point pool, 2000-point ceiling"),
-    dict(unit="phl_h-76", picks=["Squadron1"], points=25,
+    dict(unit="phl_h-76", picks=["Squadron2", "Squadron1"], points=25,
          note="the Navy's AW109/AUH-76 flight; CAS and transport"),
     dict(unit="rok_f-50_ph", picks=["Squadron1"], points=60,
          note="Air Force FA-50PH, out of Puerto Princesa or Zamboanga"),
@@ -107,6 +107,8 @@ ROSTER = [
          note="the Thai frigates' Seahawk; ASW"),
     dict(unit="ran_ffh_anzac", picks=["Variant3", "Variant8"], points=280,
          note="one RAN frigate released from the Arafura in the second week"),
+    dict(unit="ran_mh-60r", picks=["Squadron1", "Squadron2"], points=35,
+         note="RAN MH-60R flight, released with the Anzac from Service at Sea"),
     dict(unit="civ_ms_c8", picks=["Variant1", "Variant2"], points=150,
          note="SUPPLY: MSC prepositioning charter; 300,000 points, slow"),
 ]
@@ -127,7 +129,7 @@ OPENING = ["pn_ffg-150", "pn_ffg-06", "phl_ff_hamilton", "phl_fs_pohang", "phl_h
 # The Thai detachment and the Air Force's FA-50s are released from the
 # second window; the one RAN frigate from Service at Sea.
 PARTNERS = ["tha_ffg_naresuan", "tha_S-70B-7_Seahawk", "rok_f-50_ph"]
-RAN = ["ran_ffh_anzac"]
+RAN = ["ran_ffh_anzac", "ran_mh-60r"]
 HULLS = ["pn_ffg-150", "pn_ffg-06", "phl_ff_hamilton", "phl_fs_pohang", "phl_h-76"]
 
 # The commander. CommanderNations is the game's own key (nations.ini
@@ -154,3 +156,4 @@ NavyEmblemPhilippines=ui/campaign/navy_emblems/sest_pn_emblem.png
 [OfficerRanks]
 Philippines=Ensign,ENS,OF-1,1,|Lieutenant Junior Grade,LTJG,OF-1,2,|Lieutenant Senior Grade,LTSG,OF-2,3,|Lieutenant Commander,LCDR,OF-3,4,|Commander,CDR,OF-4,5,|Captain,CAPT,OF-5,6,|Commodore,COMMO,OF-6,7,|Rear Admiral,RADM,OF-7,8,|Vice Admiral,VADM,OF-8,9,|Admiral,ADM,OF-9,10,
 """
+
