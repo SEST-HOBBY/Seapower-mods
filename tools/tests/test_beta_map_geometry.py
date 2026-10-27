@@ -45,6 +45,27 @@ RelativePositionInNM=120,0,0
         self.assertEqual(row['priority'], 'P1')
         self.assertAlmostEqual(row['longitude_span_deg'], 2.0)
 
+    def test_crosses_dateline_without_near_170_endpoints(self):
+        # 160 E -> 160 W crosses the 180-degree seam even though neither
+        # point passes the old +/-170 threshold.
+        p = self.make_file("""[Environment]
+MapCenterLatitude=0
+MapCenterLongitude=160
+[A]
+RelativePositionInNM=0,0,0
+[B]
+RelativePositionInNM=2400,0,0
+""")
+        row = geo.analyze(p)
+        self.assertTrue(row['dateline'])
+        self.assertEqual(row['priority'], 'P1')
+        self.assertAlmostEqual(row['longitude_span_deg'], 40.0)
+
+    def test_zero_meridian_not_mistaken_for_dateline(self):
+        self.assertEqual(geo.longitude_arc([350, 10]), (20, False))
+        self.assertEqual(geo.longitude_arc([179, -179]), (2, True))
+        self.assertEqual(geo.longitude_arc([179, 175]), (4, False))
+
     def test_parent_relative_is_not_georeferenced(self):
         p = self.make_file("""[Environment]
 MapCenterLatitude=0
