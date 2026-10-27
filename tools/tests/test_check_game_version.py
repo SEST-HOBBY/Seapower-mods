@@ -8,7 +8,8 @@ import tempfile
 import unittest
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
-from check_game_version import audit, bump, classify, main, parse_version, read_game_version
+from check_game_version import (audit, bump, classify, judge, main, parse_semver, parse_version,
+                                read_compat, read_game_version)
 
 CHANGELOG = """Change log
 ----------
@@ -113,9 +114,11 @@ class GameVersionTests(unittest.TestCase):
         self.assertEqual(found, {})
         self.assertIn("Static _info.ini (edited by hand, not generated): integration/beta/SEST_Beta/_info.ini", lines)
         self.assertIn("  ApproximateVersion vs 0.8.2: 1 match, 1 more than one minor behind, 1 range only", lines)
-        self.assertIn("  Version ranges: 1 declared, 1 admit 0.8.2", lines)
-        self.assertIn("INFO: 1 mod(s) declare a minor version below 0.8, which the Mod Manager shows as "
-                      "out of date (MAJOR and MINOR must match); the 1 more than one minor behind:", lines)
+        self.assertIn("  Version ranges (read only without ExactVersion and ApproximateVersion): "
+                      "1 declared, 1 admit 0.8.2", lines)
+        self.assertIn("INFO: 1 mod(s) declare a minor version below 0.8, which the Mod Manager lists as not "
+                      "compatible (it needs the game's MAJOR and MINOR and a PATCH no higher than the game's) "
+                      "and SETUP marks compatible; the 1 more than one minor behind:", lines)
         self.assertIn("  0.6.0   300  Old", lines)
 
     def test_game_update_fails_packs_builders_and_the_ranged_mod(self):
@@ -158,6 +161,99 @@ class GameVersionTests(unittest.TestCase):
         self.assertEqual(classify(parse_version("0.8.10"), parse_version("0.9.0")), "one minor behind")
         self.assertEqual(classify(parse_version("0.8.5"), parse_version("0.8.2")), "newer than the game")
         self.assertEqual(classify(parse_version("0.7.0"), parse_version("0.9.0")), "more than one minor behind")
+
+    def test_the_game_rejects_a_newer_patch_and_a_value_that_is_not_semver(self):
+        # Sea Power 0.8.7's own SemanticVersion and ModCompatibility.Matches, run by
+        # reflection: on 0.8.7, 0.8.8 and 0.9.0 are rejected as well as 0.7.9, and so
+        # is anything that is not SemVer 2.0 (0.8, 0.8.7.1, 0.8.07, v0.8.7).
+        game = (0, 8, 7)
+        for value, kind, accepted in [("0.8.7", "match", True), ("0.8.0", "behind in patch only", True),
+                                      ("0.8.6", "behind in patch only", True),
+                                      ("0.8.7-rc.1", "match", True), ("0.8.7+b", "match", True),
+                                      ("0.8.8", "newer than the game", False),
+                                      ("0.9.0", "newer than the game", False), ("1.8.7", "newer than the game", False),
+                                      ("0.7.9", "one minor behind", False), ("0.4.0", "more than one minor behind", False),
+                                      ("0.8", "not MAJOR.MINOR.PATCH", False), ("0.8.7.1", "not MAJOR.MINOR.PATCH", False),
+                                      ("0.8.07", "not MAJOR.MINOR.PATCH", False), ("v0.8.7", "not MAJOR.MINOR.PATCH", False),
+                                      ("0.8.99999999999", "not MAJOR.MINOR.PATCH", False)]:
+            compat = dict.fromkeys(["ExactVersion", "GreaterThanVersion", "GreaterThanEqualToVersion",
+                                    "LessThanVersion", "LessThanEqualToVersion", "ExcludeVersions"], "")
+            compat["ApproximateVersion"] = value
+            self.assertEqual(judge(compat, game, "0.8.7"), (kind, accepted, None), value)
+        self.assertEqual(parse_semver("0.8.7-261021"), (0, 8, 7))
+        self.assertIsNone(parse_semver("0.8"))
+        self.assertIsNone(parse_semver("00.8.7"))
+
+    def test_newer_and_non_semver_mods_are_listed_not_failed(self):
+        self.mod(100, "[Language_en]\nName=Ahead\n\n[Compatibility]\nApproximateVersion=0.8.3\n")
+        self.mod(300, "[Language_en]\nName=Short\n\n[Compatibility]\nApproximateVersion=0.8\n")
+        lines, problems, found = audit(self.root, "0.8.2")
+        self.assertEqual(problems, [])
+        self.assertIn("  ApproximateVersion vs 0.8.2: 1 newer than the game, 1 not MAJOR.MINOR.PATCH, 1 range only", lines)
+        self.assertIn("INFO: 1 mod(s) declare a newer game version than 0.8.2, which the Mod Manager lists as not "
+                      "compatible too; SETUP names them and leaves them alone unless they are on its reviewed list:",
+                      lines)
+        self.assertIn("  0.8.3   100  Ahead", lines)
+        self.assertIn("  '0.8'     300  Short", lines)
+
+    def test_exact_version_comes_first_and_an_excluding_one_fails(self):
+        self.mod(100, "[Language_en]\nName=Pinned\n\n[Compatibility]\nExactVersion=0.8.2\nApproximateVersion=0.6.0\n")
+        lines, problems, found = audit(self.root, "0.8.2")
+        self.assertEqual(problems, [])
+        self.assertIn("  ApproximateVersion vs 0.8.2: 1 more than one minor behind, 1 ExactVersion, 1 range only", lines)
+        problems = audit(self.root, "0.8.3")[1]
+        self.assertEqual(problems, ["integration/alpha/SEST_Alpha/_info.ini declares 0.8.2, game is 0.8.3",
+                                    "integration/beta/SEST_Beta/_info.ini declares 0.8.2, game is 0.8.3 "
+                                    "(static: no builder writes it)",
+                                    f"integration/alpha/build_patch.py:{ALPHA_LINE} writes ApproximateVersion=0.8.2, "
+                                    "game is 0.8.3",
+                                    "100 Pinned declares ExactVersion=0.8.2, which excludes 0.8.3"])
+
+    def test_a_range_is_read_only_without_exact_or_approximate_version(self):
+        # The game never reaches the range when ApproximateVersion is set.
+        self.mod(200, RANGED_MOD.replace("[Compatibility]\r\n", "[Compatibility]\r\nApproximateVersion=0.9.0\r\n"))
+        lines, problems, found = audit(self.root, "0.9.0")
+        self.assertNotIn("200 Strike Tool declares 0.8.2 <= v < 0.9.0, which excludes 0.9.0", problems)
+        self.assertEqual(found["workshop"], 0)
+        self.assertIn("  Version ranges (read only without ExactVersion and ApproximateVersion): "
+                      "0 declared, 0 admit 0.9.0", lines)
+
+    def test_every_range_key_is_read_as_the_game_does(self):
+        game, cases = (0, 8, 2), [
+            ({"GreaterThanVersion": "0.8.2"}, False, "0.8.2 < v, which excludes 0.8.2"),
+            ({"GreaterThanVersion": "0.8.1", "GreaterThanEqualToVersion": "0.9.0"}, True, None),
+            ({"LessThanEqualToVersion": "0.8.2"}, True, None),
+            ({"LessThanVersion": "0.8.2", "LessThanEqualToVersion": "0.9.0"}, False, "v < 0.8.2, which excludes 0.8.2"),
+            ({"ExcludeVersions": "0.8.1, 0.8.2 ,x"}, False, "ExcludeVersions=0.8.1, 0.8.2, x, which excludes 0.8.2"),
+            ({"ExcludeVersions": "0.8.1,x"}, True, None),
+            ({"ExcludeVersions": " , "}, True, None),
+            ({"GreaterThanEqualToVersion": "0.8"}, False, "an unreadable range: 0.8 <= v"),
+        ]
+        for keys, accepted, finding in cases:
+            compat = dict.fromkeys(["ExactVersion", "ApproximateVersion", "GreaterThanVersion",
+                                    "GreaterThanEqualToVersion", "LessThanVersion", "LessThanEqualToVersion",
+                                    "ExcludeVersions"], "")
+            compat.update(keys)
+            kind, ok, found = judge(compat, game, "0.8.2")
+            self.assertEqual((ok, found), (accepted, finding), keys)
+            self.assertEqual(kind, "undeclared" if keys == {"ExcludeVersions": " , "} else "range only")
+
+    def test_the_ini_is_read_as_the_game_reads_it(self):
+        path = self.root / "mods-source" / "900" / "_info.ini"
+        self.write(path, "\ufeff[Language_en]\r\nApproximateVersion=0.1.0\r\n"
+                         " [Compatibility] ; the first one counts\r\n"
+                         "// ExactVersion=0.8.2\r\n# ExactVersion=0.8.2\r\n; ExactVersion=0.8.2\r\n"
+                         "  approximateVERSION =  0.8.1  // inline\r\n"
+                         "ApproximateVersion=0.6.0\r\n"
+                         "LessThanVersion = 0.9.0 # x\r\n"
+                         "[Other]\r\nExactVersion=0.8.0\r\n"
+                         "[Compatibility]\r\nExactVersion=0.7.0\r\n")
+        compat = read_compat(path)
+        self.assertEqual(compat["ApproximateVersion"], "0.8.1")
+        self.assertEqual(compat["ExactVersion"], "")
+        self.assertEqual(compat["LessThanVersion"], "0.9.0")
+        self.write(path, "[compatibility]\nApproximateVersion=0.1.0\n")
+        self.assertEqual(read_compat(path)["ApproximateVersion"], "")
 
     def test_bump_rewrites_builders_and_static_files_only(self):
         alpha_info_before = self.alpha_info.read_bytes()

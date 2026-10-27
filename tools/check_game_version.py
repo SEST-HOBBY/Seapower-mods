@@ -2,16 +2,29 @@
 """Prove every SEST pack declares the installed game's version, and list the
 Workshop mods the game will mark incompatible.
 
-The Mod Manager reads [Compatibility] from each mod's _info.ini. Its
-ApproximateVersion check needs MAJOR and MINOR to match the game's and accepts
-a higher PATCH (the stock comment on that key in the Workshop files, and
-commit 673e50b as quoted in docs/interoperability-report.md), so a pack one
-minor version behind is shown to the player as out of date; a mod whose
-GreaterThanEqualToVersion / LessThanVersion range leaves the game out is
-flagged incompatible. Every SEST pack's version is a literal in its builder,
-so correcting the built _info.ini alone is undone by the next build; this
-reads both, and it exists because nothing else noticed the literals going
-stale when the game moved on.
+The Mod Manager reads [Compatibility] from each mod's _info.ini and lists
+every mod the game does not accept as not compatible at each start-up. The
+rule, read from the game's code (ModCompatibility.Matches and
+SemanticVersion in Seapower-Scripts.dll, Sea Power 0.8.7), with the game's
+version MAJOR.MINOR.PATCH (its pre-release part ignored):
+  - an ExactVersion, if there is one, must equal it;
+  - if not, an ApproximateVersion, if there is one, must be written
+    MAJOR.MINOR.PATCH (SemVer 2.0; a -pre-release or +build part is ignored)
+    with the game's MAJOR and MINOR and a PATCH no higher than the game's, so
+    on 0.8.7 0.8.0 to 0.8.7 pass and 0.8.8, 0.9.0, 0.7.9, 0.8 and 0.8.7.1 do
+    not (the stock comment on that key in the Workshop files says "checks
+    MAJOR and MINOR match but will accept higher PATCH": the game's PATCH);
+  - if neither, GreaterThan(EqualTo)Version, LessThan(EqualTo)Version and
+    ExcludeVersions must admit it; a mod with none of these keys passes.
+The ini is read as the game reads it: the first [Compatibility] section
+only (the name is case-sensitive), key names in any case with the first of
+a repeated key winning, lines starting with //, # or ; skipped and a value
+cut off at the first ;, // or #. The pack's SETUP (step 3) marks the mods
+made for an older game version compatible on the player's PC; see
+integration/campaign/setup/sest-setup.ps1. Every SEST pack's version is a
+literal in its builder, so correcting the built _info.ini alone is undone by
+the next build; this reads both, and it exists because nothing else noticed
+the literals going stale when the game moved on.
 
 The game's version is the first "dd-Mon-yyyy: X.Y.Z Build #N" line of
 data/install-snapshot/changelog.live.txt (written by tools/capture-context.ps1).
@@ -21,21 +34,25 @@ Without that snapshot it reads mods-source/_vanilla/changelog.txt and says so.
 Four checks; each finding is a FAIL line and the run exits 1:
   1. every integration/*/SEST_*/_info.ini (dist excluded) and
      integration/dist/SEST_Integration/_info.ini declares ApproximateVersion
-     equal to the game's X.Y.Z, and every builder that writes _info.ini has a
-     built SEST_* folder to check (build_all.py --from-scratch deletes them
-     before it builds, so a failed build leaves none);
+     equal to the game's X.Y.Z (stricter than the game, which would take any
+     lower PATCH of the same MAJOR.MINOR), and every builder that writes
+     _info.ini has a built SEST_* folder to check (build_all.py --from-scratch
+     deletes them before it builds, so a failed build leaves none);
   2. every ApproximateVersion= literal in the pack builders
      (integration/*/build_*.py, found by what they write rather than by
      whether their output exists) and tools/consolidate_packs.py equals it,
      and every builder that writes _info.ini carries one;
-  3. no Workshop mod in data/load-order.tokens.txt declares a version range
-     that excludes the game;
+  3. no Workshop mod in data/load-order.tokens.txt declares an ExactVersion,
+     or (having no ExactVersion or ApproximateVersion) a version range, that
+     excludes the game: SETUP never rewrites those;
   4. mods-source/_vanilla/changelog.txt is not from a newer game than the
      snapshot's changelog, which would mean the export landed and the
      snapshot did not.
 Workshop ApproximateVersion values are counted by how far they sit from the
-game's, numerically per component, and the mods more than one minor version
-behind are listed as information.
+game's, numerically per component. Listed as information: the mods more
+than one minor version behind, and the ones the game rejects that SETUP
+leaves alone (made for a newer game version, or not written
+MAJOR.MINOR.PATCH).
 
     python3 tools/check_game_version.py                  # read-only
     python3 tools/check_game_version.py --version 0.9.0  # a game update, rehearsed
@@ -75,8 +92,18 @@ TEMPLATE = re.compile(r"ApproximateVersion=\{")
 WRITES_INFO = re.compile(r"""["']_info\.ini["']\s*\)\s*\.write_(?:text|bytes)\(|\bwrite\w*\(\s*["']_info\.ini["']""")
 
 FAR_BEHIND = "more than one minor behind"
+NEWER = "newer than the game"
+NOT_SEMVER = "not MAJOR.MINOR.PATCH"
 KINDS = ["match", "behind in patch only", "one minor behind", FAR_BEHIND,
-         "newer than the game", "range only", "undeclared", "unreadable"]
+         NEWER, NOT_SEMVER, "ExactVersion", "range only", "undeclared"]
+# The game's SemanticVersion pattern (SemVer 2.0); its \d is written [0-9].
+SEMVER = re.compile(r"(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)"
+                    r"(?:-(?:0|[1-9][0-9]*|[0-9]*[a-zA-Z-][0-9a-zA-Z-]*)"
+                    r"(?:\.(?:0|[1-9][0-9]*|[0-9]*[a-zA-Z-][0-9a-zA-Z-]*))*)?"
+                    r"(?:\+[0-9a-zA-Z-]+(?:\.[0-9a-zA-Z-]+)*)?")
+INT32_MAX = 2147483647
+COMPAT_KEYS = ("ExactVersion", "ApproximateVersion", "GreaterThanVersion", "GreaterThanEqualToVersion",
+               "LessThanVersion", "LessThanEqualToVersion", "ExcludeVersions")
 
 
 def parse_version(text):
@@ -85,6 +112,88 @@ def parse_version(text):
     if not all(p.isascii() and p.isdigit() for p in parts):
         return None
     return tuple(int(p) for p in parts)
+
+
+def parse_semver(text):
+    """The game's reading of a version: (MAJOR, MINOR, PATCH), or None when it is not
+    SemVer 2.0 or a number is above Int32 (the game then throws instead of answering)."""
+    match = SEMVER.fullmatch(text)
+    if not match:
+        return None
+    parts = tuple(int(match.group(i)) for i in (1, 2, 3))
+    return parts if max(parts) <= INT32_MAX else None
+
+
+def read_compat(path):
+    """-> {key: value} for COMPAT_KEYS, as the game's ini reader sees [Compatibility].
+
+    Each line stripped; one starting with //, # or ; skipped; the rest cut off at the
+    first ;, // or # and stripped; only the first [Compatibility] section (case-sensitive;
+    the game ignores a repeat in the same file); key names in any case, the first of a
+    repeated key wins; a missing key reads "". Lines end at \r\n, \n or \r only.
+    """
+    found, inside = {}, False
+    text = path.read_text(encoding="utf-8-sig", errors="replace")
+    for raw in re.split(r"\r\n|\n|\r", text):
+        line = raw.strip()
+        if re.match(r"(//|#|;)", line):
+            continue
+        line = re.split(r";|//|#", line, maxsplit=1)[0].strip()
+        header = re.match(r"\[(.+)\]", line, re.S)
+        if header:
+            if inside:
+                break
+            inside = header.group(1) == "Compatibility"
+            continue
+        if not inside or "=" not in line:
+            continue
+        key, *rest = line.split("=")
+        name = next((k for k in COMPAT_KEYS if k.lower() == key.strip().lower()), None)
+        if name and name not in found:
+            found[name] = "=".join(part.strip() for part in rest)
+    return {key: found.get(key, "") for key in COMPAT_KEYS}
+
+
+def judge(compat, game, version):
+    """-> (kind, accepted, finding): how the game judges what read_compat found.
+
+    kind is one of KINDS. finding completes "<mod> declares ..." for a declaration
+    SETUP never rewrites (an ExactVersion, or a version range read because there is
+    no ExactVersion or ApproximateVersion) when it excludes the game; otherwise None.
+    """
+    exact, approx = compat["ExactVersion"], compat["ApproximateVersion"]
+    if exact:
+        ok = parse_semver(exact) == game
+        return "ExactVersion", ok, None if ok else f"ExactVersion={exact}, which excludes {version}"
+    if approx:
+        declared = parse_semver(approx)
+        if declared is None:
+            return NOT_SEMVER, False, None
+        kind = classify(declared, game)
+        return kind, kind in ("match", "behind in patch only"), None
+    # Only now does the game read the range: GreaterThan before GreaterThanEqualTo,
+    # LessThan before LessThanEqualTo, and any ExcludeVersions entry it can read.
+    low_key = "GreaterThanVersion" if compat["GreaterThanVersion"] else "GreaterThanEqualToVersion"
+    high_key = "LessThanVersion" if compat["LessThanVersion"] else "LessThanEqualToVersion"
+    low, high = compat[low_key], compat[high_key]
+    excluded = [v.strip() for v in compat["ExcludeVersions"].split(",") if v.strip()]
+    if not (low or high or excluded):
+        return "undeclared", True, None
+    parts = []
+    if low or high:
+        parts.append((f"{low} {'<' if low_key == 'GreaterThanVersion' else '<='} " if low else "") + "v"
+                     + (f" {'<' if high_key == 'LessThanVersion' else '<='} {high}" if high else ""))
+    if excluded:
+        parts.append("ExcludeVersions=" + ", ".join(excluded))
+    text = "; ".join(parts)
+    bounds = [parse_semver(value) for value in (low, high) if value]
+    if None in bounds or any(parse_semver(v) is None and SEMVER.fullmatch(v) for v in excluded):
+        return "range only", False, f"an unreadable range: {text}"
+    low_v, high_v = (parse_semver(low) if low else None), (parse_semver(high) if high else None)
+    ok = (game not in [parse_semver(v) for v in excluded]
+          and (low_v is None or (game > low_v if low_key == "GreaterThanVersion" else game >= low_v))
+          and (high_v is None or (game < high_v if high_key == "LessThanVersion" else game <= high_v)))
+    return "range only", ok, None if ok else f"{text}, which excludes {version}"
 
 
 def classify(declared, game):
@@ -278,54 +387,51 @@ def audit(root, version):
 
     # 3. The Workshop mods, as the Mod Manager will judge them against this game.
     ids = load_order_ids(root)
-    counts, far_behind, unread, ranges, admitted = Counter(), [], [], 0, 0
+    counts, unread, ranges, admitted = Counter(), [], 0, 0
+    listed = {FAR_BEHIND: [], NEWER: [], NOT_SEMVER: []}
     for wid in ids:
         info = root / "mods-source" / wid / "_info.ini"
         if not info.exists():
             unread.append(wid)
             continue
-        sections = read_ini(info)
-        compat = sections.get("compatibility", {})
-        name = mod_name(sections, wid)
-        low, high = compat.get("greaterthanequaltoversion"), compat.get("lessthanversion")
-        if low or high:
-            ranges += 1
-            text = (f"{low} <= v < {high}" if low and high
-                    else f"{low} <= v" if low else f"v < {high}")
-            low_v = parse_version(low) if low else None
-            high_v = parse_version(high) if high else None
-            if (low and low_v is None) or (high and high_v is None):
-                fail("workshop", f"{wid} {name} declares an unreadable range: {text}")
-            elif (low_v is not None and game < low_v) or (high_v is not None and game >= high_v):
-                fail("workshop", f"{wid} {name} declares {text}, which excludes {version}")
-            else:
-                admitted += 1
-        approx = compat.get("approximateversion")
-        if approx is None:
-            counts["range only" if (low or high) else "undeclared"] += 1
-            continue
-        declared = parse_version(approx)
-        if declared is None:
-            counts["unreadable"] += 1
-            lines.append(f"  {wid} {name} declares ApproximateVersion={approx!r}, which is not numeric")
-            continue
-        kind = classify(declared, game)
+        compat = read_compat(info)
+        name = mod_name(read_ini(info), wid)
+        kind, accepted, finding = judge(compat, game, version)
         counts[kind] += 1
-        if kind == FAR_BEHIND:
-            far_behind.append((declared, wid, name, approx))
+        if kind == "range only":
+            ranges += 1
+            admitted += accepted
+        if finding:
+            fail("workshop", f"{wid} {name} declares {finding}")
+        if kind in listed:
+            approx = compat["ApproximateVersion"]
+            listed[kind].append((parse_version(approx) or (), wid, name, approx))
     lines.append(f"Workshop mods in load order: {len(ids)}; {len(ids) - len(unread)} _info.ini read"
                  + (f"; {len(unread)} unreadable (not exported or no _info.ini): {', '.join(unread)}"
                     if unread else ""))
     lines.append(f"  ApproximateVersion vs {version}: "
                  + ", ".join(f"{counts[k]} {k}" for k in KINDS if counts[k]))
-    lines.append(f"  Version ranges: {ranges} declared, {admitted} admit {version}")
+    lines.append(f"  Version ranges (read only without ExactVersion and ApproximateVersion): "
+                 f"{ranges} declared, {admitted} admit {version}")
     below_minor = counts["one minor behind"] + counts[FAR_BEHIND]
     game_minor = ".".join(str(c) for c in game[:2])
     lines.append(f"INFO: {below_minor} mod(s) declare a minor version below {game_minor}, which the Mod Manager "
-                 f"shows as out of date (MAJOR and MINOR must match); the {len(far_behind)} more than one minor "
-                 "behind:")
-    for declared, wid, name, approx in sorted(far_behind):
+                 "lists as not compatible (it needs the game's MAJOR and MINOR and a PATCH no higher than the "
+                 f"game's) and SETUP marks compatible; the {len(listed[FAR_BEHIND])} more than one minor behind:")
+    for _, wid, name, approx in sorted(listed[FAR_BEHIND]):
         lines.append(f"  {approx:<8}{wid}  {name}")
+    if listed[NEWER]:
+        lines.append(f"INFO: {len(listed[NEWER])} mod(s) declare a newer game version than {version}, which the "
+                     "Mod Manager lists as not compatible too; SETUP names them and leaves them alone unless "
+                     "they are on its reviewed list:")
+        for _, wid, name, approx in sorted(listed[NEWER]):
+            lines.append(f"  {approx:<8}{wid}  {name}")
+    if listed[NOT_SEMVER]:
+        lines.append(f"INFO: {len(listed[NOT_SEMVER])} mod(s) declare an ApproximateVersion the game cannot read "
+                     "(not MAJOR.MINOR.PATCH, or a number above 2147483647), which the Mod Manager lists as not "
+                     f"compatible; SETUP marks the ones whose leading numbers are no higher than {version}:")
+        for _, wid, name, approx in sorted(listed[NOT_SEMVER]):
+            lines.append(f"  {approx!r:<10}{wid}  {name}")
 
     # 4. The export and the snapshot come from the same game, or the game version above is stale.
     live, export = build_line(root / LIVE_CHANGELOG), build_line(root / VANILLA_CHANGELOG)
