@@ -7888,6 +7888,27 @@ The plugin skips that one tile instead.
 Without Anchor Chain the plugin never runs and the menu is the game's own.
 If the film cannot be played, the plugin puts the game's own film back.
 Source: integration/menu-background/ in github.com/SEST-HOBBY/Seapower-mods
+
+SEST's two other plugins share this folder:
+
+  SEST.RuntimeFixes.dll    SEST Runtime Fixes 1.5.0. SEST_RUNTIME_README.txt
+  SEST_RUNTIME_README.txt  says what it does; sest_runtime.ini turns its
+  sest_runtime.ini         corrections off one at a time.
+  SEST.ContactsFix.dll     SEST UI Follow-up 1.4.2, for players of Contact
+                           Log: its window no longer opens or closes on the
+                           time-control keys; its pop-out to a second
+                           screen (with Pop-Out Windows) is corrected;
+                           Group Manager gets a Stock UI / Enhanced UI
+                           switch; the live F11 cost report reuses each
+                           mission's price lists instead of rereading them
+                           twice a second. A quick-load bound to F9 alone
+                           becomes Ctrl+F9. It writes timing lines to
+                           Player.log every 30 seconds. It works only beside
+                           this exact SEST.RuntimeFixes.dll, Contact Log
+                           1.0.1 and Sea Power 0.8.7 (Build 261021); with
+                           anything else it writes one "inactive" line to
+                           Player.log and changes nothing.
+Source: integration/runtime-fixes/ and integration/ui-followup/
 """
 
 
@@ -7908,17 +7929,46 @@ def write_menu_background(out):
           f"{film.name} ({film.stat().st_size // 1024} KB) in plugins/")
 
 
+# SEST Runtime Fixes. Since 27 Oct 2026 the committed DLL is Runtime 1.5.0
+# captured byte for byte from the owner's PC; its source is not in the
+# repository and build_plugin.py refuses to overwrite it
+# (integration/runtime-fixes/README.md, plugin-build.json).
 def write_runtime_fixes(out):
     source = ROOT / "integration/runtime-fixes"
     dll = source / "SEST.RuntimeFixes.dll"
     if not dll.is_file():
-        raise SystemExit("SEST runtime plugin missing: run integration/runtime-fixes/build_plugin.py")
+        raise SystemExit("SEST runtime plugin missing: integration/runtime-fixes/SEST.RuntimeFixes.dll "
+                         "(see integration/runtime-fixes/README.md)")
     folder = out / "plugins"
     folder.mkdir(parents=True, exist_ok=True)
     (folder / dll.name).write_bytes(dll.read_bytes())
     for name in ("sest_runtime.ini", "SEST_RUNTIME_README.txt"):
         (folder / name).write_bytes((source / name).read_bytes())
     print(f"  runtime fixes: {dll.name} ({dll.stat().st_size} bytes); own code only")
+
+
+# SEST UI Follow-up 1.4.2 (SEST.ContactsFix.dll), SEST's third plugin: built
+# outside the repository from integration/ui-followup/source/ (it compiles
+# against the game's own NoesisGUI, which cannot be committed) and committed
+# as built. It patches Runtime 1.5.0's own Contacts and cost code, so it
+# accepts only that exact SEST.RuntimeFixes.dll, Contact Log 1.0.1, the
+# game's 0.8.7 Seapower-Scripts.dll and NoesisGUI, each by SHA-256; with any
+# other it logs "inactive; original behavior retained" and patches nothing.
+# Only the DLL ships: source/, including AnchorChain.Reference.cs, never does
+# (a second AnchorChain assembly in a mod folder would be loaded beside the
+# real one).
+UI_FOLLOWUP = ROOT / "integration" / "ui-followup"
+
+
+def write_contacts_fix(out):
+    dll = UI_FOLLOWUP / "SEST.ContactsFix.dll"
+    if not dll.is_file():
+        raise SystemExit("SEST UI follow-up plugin missing: integration/ui-followup/SEST.ContactsFix.dll "
+                         "(see integration/ui-followup/README.md)")
+    folder = out / "plugins"
+    folder.mkdir(parents=True, exist_ok=True)
+    (folder / dll.name).write_bytes(dll.read_bytes())
+    print(f"  UI follow-up: {dll.name} ({dll.stat().st_size} bytes); own code only")
 
 
 # The game's loading-screen backgrounds: ui/backgrounds/loading_screen_1.png ..
@@ -8448,6 +8498,7 @@ def main():
             (OUT / src.name).write_bytes(src.read_bytes())
     write_menu_background(OUT)
     write_runtime_fixes(OUT)
+    write_contacts_fix(OUT)
     write_loading_screens(OUT)
 
     files = sum(1 for f in OUT.rglob("*") if f.is_file())

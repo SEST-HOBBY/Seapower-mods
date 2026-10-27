@@ -4173,6 +4173,62 @@ class MenuBackground(unittest.TestCase):
         self.assertFalse((self.tmp / "plugins").exists())
 
 
+class PluginsFolder(unittest.TestCase):
+    """All three SEST plugins share plugins/: the menu background, SEST
+    Runtime Fixes and SEST UI Follow-up. Each ships byte for byte as
+    committed; their sources and the compile-time AnchorChain stand-ins
+    never do, and the folder README names every file in the folder."""
+
+    def setUp(self):
+        self.tmp = Path(tempfile.mkdtemp(prefix="sest-plugins-test-"))
+
+    def tearDown(self):
+        shutil.rmtree(self.tmp, ignore_errors=True)
+
+    def write_all(self):
+        with contextlib.redirect_stdout(io.StringIO()):
+            bp.write_menu_background(self.tmp)
+            bp.write_runtime_fixes(self.tmp)
+            bp.write_contacts_fix(self.tmp)
+        return self.tmp / "plugins"
+
+    def test_the_folder_holds_three_plugins_and_nothing_to_compile(self):
+        folder = self.write_all()
+        self.assertEqual(sorted(f.name for f in folder.iterdir()),
+                         ["MENU_CREDITS.txt", "README.txt", "SEST.ContactsFix.dll",
+                          "SEST.MenuBackground.dll", "SEST.RuntimeFixes.dll", "SEST_RUNTIME_README.txt",
+                          "sest_menu.ini", "sest_menu.mp4", "sest_runtime.ini"])
+        self.assertEqual(sorted(f.name for f in self.tmp.rglob("*.dll")),
+                         ["SEST.ContactsFix.dll", "SEST.MenuBackground.dll", "SEST.RuntimeFixes.dll"])
+        self.assertEqual([f for f in self.tmp.rglob("*") if f.suffix in (".cs", ".py")], [])
+
+    def test_each_plugin_ships_as_committed(self):
+        folder = self.write_all()
+        for src in (bp.UI_FOLLOWUP / "SEST.ContactsFix.dll",
+                    bp.ROOT / "integration/runtime-fixes/SEST.RuntimeFixes.dll",
+                    bp.ROOT / "integration/runtime-fixes/sest_runtime.ini",
+                    bp.ROOT / "integration/runtime-fixes/SEST_RUNTIME_README.txt"):
+            with self.subTest(file=src.name):
+                self.assertEqual((folder / src.name).read_bytes(), src.read_bytes())
+
+    def test_the_readme_names_every_file_in_the_folder(self):
+        folder = self.write_all()
+        readme = (folder / "README.txt").read_text(encoding="utf-8")
+        for f in folder.iterdir():
+            if f.name != "README.txt":
+                with self.subTest(file=f.name):
+                    self.assertIn(f.name, readme)
+
+    def test_no_contacts_fix_stops_the_build(self):
+        saved = bp.UI_FOLLOWUP
+        bp.UI_FOLLOWUP = self.tmp / "nothing-here"
+        try:
+            with self.assertRaises(SystemExit), contextlib.redirect_stdout(io.StringIO()):
+                bp.write_contacts_fix(self.tmp)
+        finally:
+            bp.UI_FOLLOWUP = saved
+
+
 class LoadingScreens(unittest.TestCase):
     """Every one of the game's 80 loading-screen slots gets a SEST photograph,
     in turn, under the game's own file name."""

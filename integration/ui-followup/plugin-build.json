@@ -1,0 +1,147 @@
+{
+  "format": 1,
+  "binary": "SEST.ContactsFix.dll",
+  "status": "built-off-repo",
+  "status_meaning": "The DLL was compiled outside this repository from source/ below and is committed as built. It cannot be compiled here: it needs the game's own Noesis.NoesisGUI.dll and other game assemblies, which are never committed. tools/tests/test_contacts_fix.py holds the DLL, the sources and the pinned hashes to this record.",
+  "plugin": {
+    "id": "io.github.sest-hobby.contacts-input-fix",
+    "name": "SEST UI Follow-up",
+    "version": "1.4.2"
+  },
+  "sha256": "51b56f5efb4c32dcd7f9d71633564613707e6484c3cffdea1adc891b589588f7",
+  "bytes": 79360,
+  "provenance": {
+    "origin": "The owner's gaming PC: plugins/ of its Steam Workshop copy of the SEST Integration Pack (item 3812461539), where the 27 Oct 2026 UI follow-up 1.4.2 update installed it beside SEST Runtime Fixes 1.5.0",
+    "captured": "27 Oct 2026, 13:18 Brisbane",
+    "same_bytes_in": [
+      "handoff-20261027b: review/pc-playtest-20261027/pc-baseline/pack/plugins/SEST.ContactsFix.dll",
+      "PR #50 head 0776fa50: integration/dist/SEST_Integration/plugins/SEST.ContactsFix.dll (git blob 83af10bc)"
+    ],
+    "sources_from": "PR #50 head 0776fa50: integration/ui-followup/source/ (32 files, byte-identical to handoff-20261027b's integration/ui-followup/source/)",
+    "not_carried": "The handoff's installer (Apply-SEST-142.ps1), capture scripts, release ZIP, payload/ folder, validation.json and its decompiled Runtime 1.5.0 reference are not in this repository."
+  },
+  "sources": {
+    "integration/ui-followup/source/AnchorChain.Reference.cs": "e5a75ceda2bf9f2cad2a184cc7d0a52576c9642820292b51c5a4045c7e08b872",
+    "integration/ui-followup/source/CameraCompass.cs": "46910a18f9bccef94082e35e03006c73fba337eb5098c3d7f3ec628af3729ad5",
+    "integration/ui-followup/source/CatalogueRuntimeTests.cs": "fdbf1dbebe147355b839a8127e05c159f88d2a4f4ec85ae77173aefae0a4adad",
+    "integration/ui-followup/source/CleanupBatchGate.cs": "d4211e6642d35813c93b84a70f2e6f6db0f4d6f11b9f9d1ea8d7c65c81af13d4",
+    "integration/ui-followup/source/CompassRouting.cs": "ccdafe679606f218c1a90018efbb8525438979277aef752029d4ff5cf45d744e",
+    "integration/ui-followup/source/ContactsFix.cs": "29b9347a6e52cf3530930f6ae615869797816d2283ef66cf764c088e6efd1610",
+    "integration/ui-followup/source/ContactsSurfaceFix.cs": "ab2eb092d7883ab09f8e682a2f8856d4e7f8070111d1a937f58a7c9022f51e44",
+    "integration/ui-followup/source/CostCatalogueCache.cs": "8afa2e555dc66e8d6ee2009e5c59bbaed1a0dcd9840a451ce74ca3a09439b4a2",
+    "integration/ui-followup/source/DiagnosticModules.cs": "300d7ffefd6435a3bbdf91ad77d95908b9a2a763008262e1bb464b3edfb7c737",
+    "integration/ui-followup/source/FlightFlagReader.cs": "576a7e2790487e3121bc0d1a755d8850f98c916523ff7f3e4c02727c39aeaf7e",
+    "integration/ui-followup/source/FormationBoundsGate.cs": "951536df7b9019ae4c0822e5b489d03ea4c8a4b24ca627b5404404166c751486",
+    "integration/ui-followup/source/FormationModeState.cs": "b6b683a75d78c093683a46f19000963c634a64d8980ca43a26c589158d4fe7bf",
+    "integration/ui-followup/source/FormationModeTests.cs": "2f0c848e9194d4fc8f5a14ba996171bfca52b226e5efc4b242058e18aab08452",
+    "integration/ui-followup/source/FormationPerformance.cs": "428e344eb23f390c9c0660261e5855fffad98b6deb4c1beca2109badcbc67cbb",
+    "integration/ui-followup/source/FormationUiMode.cs": "4aad2d46c09ae20084f5e91fbed04c7ed9458574b0dc4add3d12960fef4edf65",
+    "integration/ui-followup/source/FramePacing.cs": "fcf2f026e22c5fe479ad31058e28025cebfe9553777bf974aa19ab1f6e71dd70",
+    "integration/ui-followup/source/FrameWindow.cs": "d4d3c84f89889db943935afc4f0cc51dd345b3197105acd883dd472a2914d166",
+    "integration/ui-followup/source/InputPolicy.cs": "c8dc05f5c7dd9800e61e894003172deb5d8685c39eaac737df68bd1bfdee1fdb",
+    "integration/ui-followup/source/InputPolicyTests.cs": "c2c79d9fd84f39300d9ee27ca4cf7d5c980803b8b30966a1b421f04933a3720c",
+    "integration/ui-followup/source/LookupCache.cs": "2e245a82cb12530f901020d23d00686ee75b0dacfe388d2e4fcb6fadd78d9e73",
+    "integration/ui-followup/source/PerformancePolicyTests.cs": "9db829f50f2de2a928b72bf996666fe3d0307636d82c1cb5db8b82f45d28f63f",
+    "integration/ui-followup/source/PerformanceReview.cs": "10d1969de015e663e00df0bbcdbece4bbd3fc7208de030ea915f983239412b0c",
+    "integration/ui-followup/source/ScopeValueCache.cs": "0674cde78328213b771c0a82365938073dacb53eb38494591270b76953d839e5",
+    "integration/ui-followup/source/StutterDiagnostics.cs": "e3435629b01e167253f399f649f653f15cd23c2f01f7bc3b801bc140dee7a3bf",
+    "integration/ui-followup/source/StutterPolicyTests.cs": "5be39729ed665d63602926d92f431e42642efa55257032890ac1cea00023f41b",
+    "integration/ui-followup/source/TerrainCleanup.cs": "e561745477ecbaf82d76eb3ead60ca0efd89ebd73162fb7e829380da03e4ce9c",
+    "integration/ui-followup/source/UiRefinementTests.cs": "b1edb0bb33da96b684b9335a9ccaccb803ffe13e6ec4a6ea8b4e591e20b49439",
+    "integration/ui-followup/source/UiRefinements.cs": "d6ac47e7e39a365d60287c4229730773192c8f22f2bc55d67e0c26d3330531f1",
+    "integration/ui-followup/source/UiRefreshGate.cs": "284115159f831abe47e17c5e3a8e927d06e5eda1bbe69bbdfdba8847c26f4a3e",
+    "integration/ui-followup/source/UiText.cs": "0c43d188822643daff113df1fb4aa2ee1bde789697f515ae5f509238f784e4e4",
+    "integration/ui-followup/source/build.py": "6719a80a6267fae3168e2683f694906c8aa66229cf648a88867c51fb8e94f5a7",
+    "integration/ui-followup/source/verify_capture.py": "0b026b9832347d668dcca5f62ce2887e9cbc671f77ad4e80f094ec8af7c32fcf"
+  },
+  "pins": {
+    "note": "Read from source/. If any of these four does not match exactly, ContactsFix.TriggerEntryPoint logs 'inactive; original behavior retained' and patches nothing (with the owning pack disabled it logs 'inactive: owning pack is disabled'); none of the modules below installs.",
+    "runtime": {
+      "assembly": "SEST.RuntimeFixes",
+      "sha256": "7ba6d6d9c58b6c3db31d731e951ed7ea3979925bdff054c9b92482dbe69c9986",
+      "where": [
+        "source/ContactsFix.cs RuntimeHash",
+        "source/CostCatalogueCache.cs",
+        "source/DiagnosticModules.cs"
+      ],
+      "is": "SEST Runtime Fixes 1.5.0, integration/runtime-fixes/SEST.RuntimeFixes.dll"
+    },
+    "contact_log": {
+      "assembly": "ContactLog",
+      "sha256": "a1b8b450df0933df61984651fe2b19138acd605aa4b526bbfc23565d8295015e",
+      "where": [
+        "source/ContactsFix.cs ContactHash",
+        "source/DiagnosticModules.cs"
+      ],
+      "is": "Contact Log 1.0.1, Workshop 3819427362/ContactLog.dll"
+    },
+    "game_scripts": {
+      "assembly": "Seapower-Scripts",
+      "sha256": "eab2297ba92c6013958bdb2cf16d5794a4731330818ce353f89dc2241e16a3bd",
+      "where": [
+        "source/ContactsFix.cs NativeHashes[0]"
+      ],
+      "is": "Sea Power 0.8.7 Build 261021"
+    },
+    "noesis": {
+      "assembly": "Noesis.NoesisGUI",
+      "sha256": "c4e2c37cd9162fe9e4d6426b646cdaa9a16ccbcd80e69261cc900a4386920d65",
+      "where": [
+        "source/ContactsFix.cs NativeHashes[1]"
+      ],
+      "is": "the NoesisGUI DLL of Sea Power 0.8.7 Build 261021"
+    }
+  },
+  "module_pins": {
+    "note": "A module whose own pin does not match logs its own 'inactive' line and leaves the rest running.",
+    "combat_cost_tracker": {
+      "assembly": "CombatCosts",
+      "sha256": "74afa9028fc0c52b93f415263504f51ecf8d056a624feaebcc8053ba5a1c0ac3",
+      "where": [
+        "source/CostCatalogueCache.cs"
+      ],
+      "module": "cost catalogue cache",
+      "is": "Combat Cost Tracker 0.7.1, Workshop 3807187341"
+    },
+    "pop_out_windows": {
+      "assembly": "SeaPowerPopOut",
+      "sha256": "d0027215eb78e95e4cb45f5e132a4ad50acd03606c681ba0996ece1f92434a63",
+      "where": [
+        "source/ContactsSurfaceFix.cs PopOutHash"
+      ],
+      "module": "Contacts pop-out surface fix",
+      "is": "Pop-Out Windows 1.0.1, Workshop 3826396311/SeaPowerPopOut.dll"
+    },
+    "group_manager": {
+      "assembly": "SeaPowerSquadPanel",
+      "sha256": "6230e8e78e2ba7ba222241d0c3dcc881d2507ebeeb4eab24b6401cc9144283dd",
+      "where": [
+        "source/FormationUiMode.cs FormationHash",
+        "source/FormationPerformance.cs"
+      ],
+      "module": "Formation UI mode, Formation performance",
+      "is": "Group Manager 0.2.17, Workshop 3818251045/SeaPowerSquadPanel.dll"
+    },
+    "menu_background": {
+      "assembly": "SEST.MenuBackground",
+      "sha256": "9dfd561db256aaa2455ff0039783b46cfbaf113b641c97f0815121d3a4502515",
+      "where": [
+        "source/PerformanceReview.cs MenuHash"
+      ],
+      "module": "picture diagnostics off and backdrop discovery paused in missions",
+      "is": "integration/menu-background/SEST.MenuBackground.dll as committed on 27 Oct 2026"
+    },
+    "cv16": {
+      "assembly": "CV16",
+      "sha256": "c592e4c118643e04a2a62314066dacfd1662fbd4ba8a64dfdcd4583082cd2940",
+      "where": [
+        "source/PerformanceReview.cs Cv16Hash"
+      ],
+      "module": "CV16 helicopter clearance correction",
+      "is": "Workshop 3774859959/CV16.dll (PLAN Type 001 Aircraft Carrier)"
+    },
+    "timing_only": "source/DiagnosticModules.cs also lists ten assemblies' hashes for its timing hooks only; a mismatch skips that assembly's timing."
+  },
+  "toolchain": "Compiled outside the repository with source/build.py: Roslyn csc run by dotnet with -langversion:9 -deterministic+ -optimize+ -nostdlib+, against NETStandard.Library.Ref 2.1.0 ref/netstandard2.1, AnchorChain.Reference.cs compiled as AnchorChain.dll, and the game's own 0Harmony, BepInEx, Noesis.NoesisGUI, Seapower-Scripts, UnityEngine.CoreModule, UnityEngine.IMGUIModule and UnityEngine.InputLegacyModule. The Roslyn and .NET SDK versions were not recorded, so a rebuild may not reproduce these bytes; with the same compiler and references it should (-deterministic+). Mono mcs cannot compile the plugin here: it stops on the missing Noesis types.",
+  "validation": "In this repository (27 Oct 2026) the five pure-logic suites compile with Mono mcs 6.8.0.105 and pass 45 / 112 / 3768 / 41 / 12 checks (InputPolicy, FormationMode, PerformancePolicy, UiRefinement, StutterPolicy); tools/tests/test_contacts_fix.py reruns them when Mono is available. Not runnable here: CatalogueRuntimeTests (needs 0Harmony and dotnet) and verify_capture.py's capture checks. On the owner's PC, per the 27 Oct 2026 handoff (not reproduced here): Space and plus/minus change time without toggling Contacts, Contacts pop-out and return work, Formation Manager has its Stock UI / Enhanced UI controls, and the 1.4.2 capture shows the cost cache reused; a crash that day is unresolved, its cause unknown."
+}
