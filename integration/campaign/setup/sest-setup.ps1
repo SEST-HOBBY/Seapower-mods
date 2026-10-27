@@ -4,13 +4,16 @@
 # Open Folder on the pack gets you here). It checks that every Workshop mod
 # the campaigns were built against is downloaded, installs the Anchor Chain
 # preloader if it is missing, turns off one mod's debug logging that can
-# freeze a mission, and writes the Mod Manager order: this pack first, then
-# the mods in the order they were tested in, your other mods at the bottom
-# as you had them. Safe to run again: it checks everything before it
-# changes anything, and it backs up the game's settings first.
+# freeze a mission, marks the mods made for an older game version compatible
+# so the Mod Manager stops warning about them at start-up, and writes the Mod
+# Manager order: this pack first, then the mods in the order they were tested
+# in, your other mods at the bottom as you had them. Safe to run again: it
+# checks everything before it changes anything, and it backs up the game's
+# settings and every mod file it changes first.
 #
 # From a console:  powershell -ExecutionPolicy Bypass -File .\sest-setup.ps1
-param([switch]$Pause, [switch]$FromCmd, [switch]$Elevated, [string]$SteamRoot, [string]$Settings)
+# Put the marked mods' own files back:  ... -File .\sest-setup.ps1 -RestoreModFiles
+param([switch]$Pause, [switch]$FromCmd, [switch]$Elevated, [string]$SteamRoot, [string]$Settings, [switch]$RestoreModFiles)
 # -FromCmd: the launcher passes it; the window stays open at the end (the
 #   launcher itself pauses after a failure, so Fail does not pause twice).
 # -Elevated, -SteamRoot, -Settings: the administrator relaunch passes its own
@@ -43,6 +46,15 @@ function ReadText([string]$path) {
 }
 function WriteText([string]$path, [string]$text, [bool]$bom) {
     [IO.File]::WriteAllText($path, $text, (New-Object Text.UTF8Encoding($bom)))
+}
+# Where the authors' own _info.ini files are kept when a mod is marked
+# compatible (the same folder the SEST tools use on the author's PC).
+$CompatMarker = '; SEST marked this mod compatible'
+function KeepDir {
+    $base = $env:LOCALAPPDATA
+    if (-not $base) { $base = [Environment]::GetFolderPath('LocalApplicationData') }
+    if (-not $base) { $base = [IO.Path]::GetTempPath() }
+    J $base 'SEST' 'compat-originals'
 }
 function IsPack([string]$dir) {
     return $dir -and (Test-Path -LiteralPath (J $dir 'LOAD-ORDER.txt')) -and (Test-Path -LiteralPath (J $dir 'campaigns' 'sest-southern-watch' 'campaign.ini'))
@@ -95,6 +107,20 @@ try {
     $sa = J $game 'Sea Power_Data' 'StreamingAssets'
     Say ('  game      : ' + $game)
     Say ('  workshop  : ' + $content)
+
+    if ($RestoreModFiles) {
+        $put = 0; $gone = 0
+        foreach ($kept in @(Get-ChildItem -LiteralPath (KeepDir) -Filter '*._info.ini' -File -ErrorAction SilentlyContinue)) {
+            $id = $kept.Name.Substring(0, $kept.Name.Length - '._info.ini'.Length)
+            $live = J $content $id '_info.ini'
+            if ((Test-Path -LiteralPath $live) -and (ReadText $live).Text.IndexOf($CompatMarker, [StringComparison]::Ordinal) -ge 0) {
+                [IO.File]::WriteAllBytes($live, [IO.File]::ReadAllBytes($kept.FullName)); $put++
+            } else { $gone++ }
+            Remove-Item -LiteralPath $kept.FullName -Force
+        }
+        Say ('  [done] ' + $put + ' mod file(s) put back as their authors shipped them; ' + $gone + ' already replaced by Steam') 'Green'
+        Hold; return
+    }
 
     # --- the SEST pack: the folder this script sits in, or a Workshop copy --
     # Run from inside the pack (the normal way) it knows which folder it is:
@@ -246,6 +272,9 @@ try {
         Say '         If Coordinated Strike Tool''s F8 planner does not open in a mission, reinstall the preloader from Anchor Chain''s page.' 'Yellow'
     }
 
+    # Default UI bindings: Contacts button, Topography F7 toggle/F6 look, strike planner F8.
+    & (J $PSScriptRoot 'sest-ui-keys.ps1') -GameDir $game
+
     # 2. debug switch that can freeze missions
     $dbg = J $content '3789188689' 'debug.ini'
     if (Test-Path -LiteralPath $dbg) {
@@ -263,7 +292,57 @@ try {
         }
     }
 
-    # 3. mod order: the SEST pack first, then every mod in the tested order
+    # 3. mods made for an older game version. The Mod Manager compares the
+    # MAJOR.MINOR of each mod's ApproximateVersion with the game's and lists
+    # every mismatch as not compatible at each start-up, although they load
+    # and play. Only that line changes, with a comment above it; the author's
+    # file is kept first. Only the mods the pack lists; Steam puts a mod's own
+    # file back when the mod updates.
+    try {
+        $gameVer = $null
+        foreach ($chg in @((J $game 'changelog.txt'), (J $game 'Sea Power_Data' 'changelog.txt'))) {
+            if ($gameVer -or -not (Test-Path -LiteralPath $chg)) { continue }
+            $vm = [regex]::Match((ReadText $chg).Text, '(?m)^\d{1,2}-[A-Za-z]{3}-\d{4}:\s+(\d+\.\d+\.\d+)\s+Build')
+            if ($vm.Success) { $gameVer = $vm.Groups[1].Value }
+        }
+        if (-not $gameVer) { throw 'the game''s version was not found in its changelog.txt' }
+        $gameMinor = ($gameVer -split '\.')[0..1] -join '.'
+        $keep = KeepDir
+        $marked = 0; $already = 0
+        foreach ($i in $ids) {
+            $inf = J $content $i '_info.ini'
+            if (-not (Test-Path -LiteralPath $inf)) { continue }
+            $r = ReadText $inf
+            if ($r.Text.IndexOf($CompatMarker, [StringComparison]::Ordinal) -ge 0) { $already++; continue }
+            $sec = [regex]::Match($r.Text, '(?ms)^[ \t]*\[Compatibility\][^\r\n]*\r?\n(.*?)(?=^[ \t]*\[|\z)')
+            if (-not $sec.Success) { continue }
+            $line = [regex]::Match($sec.Groups[1].Value, '(?m)^([ \t]*ApproximateVersion[ \t]*=[ \t]*)(\d+(?:\.\d+)*)([^\r\n]*?)(\r?)$')
+            if (-not $line.Success) { continue }
+            $declared = $line.Groups[2].Value
+            if ((($declared -split '\.')[0..1] -join '.') -eq $gameMinor) { continue }
+            New-Item -ItemType Directory -Force -Path $keep | Out-Null
+            [IO.File]::WriteAllBytes((J $keep ($i + '._info.ini')), [IO.File]::ReadAllBytes($inf))
+            $eol = "`n"; if ($line.Groups[4].Value -eq "`r") { $eol = "`r`n" }
+            $at = $sec.Groups[1].Index + $line.Index
+            $rep = $CompatMarker + ' (its author''s ApproximateVersion was ' + $declared + '); SETUP -RestoreModFiles puts it back' + $eol +
+                   $line.Groups[1].Value + $gameVer + $line.Groups[3].Value + $line.Groups[4].Value
+            WriteText $inf ($r.Text.Substring(0, $at) + $rep + $r.Text.Substring($at + $line.Length)) $r.Bom
+            $marked++
+        }
+        if ($marked) { Say ('  [done] ' + $marked + ' mod(s) made for an older game version marked compatible for ' + $gameVer + ' (the start-up warning about them stops)') 'Green' }
+        elseif ($already) { Say ('  [ok]   the ' + $already + ' mod(s) made for an older game version are already marked compatible') 'Green' }
+        else { Say '  [ok]   no mod is made for an older game version' 'Green' }
+        if ($ids.Contains('3732654992')) {
+            & (J $PSScriptRoot 'sest-reviewed-compat.ps1') -GameDirectory $game -WorkshopContentDir $content -BackupDirectory $keep
+        }
+    }
+    catch {
+        $warnings++
+        Say ('  [!!]   Could not mark the older mods compatible: ' + $_.Exception.Message) 'Yellow'
+        Say '         The Mod Manager will list them as not compatible at start-up. They load and play anyway.' 'Yellow'
+    }
+
+    # 4. mod order: the SEST pack first, then every mod in the tested order
     $count = [int]$num.Groups[1].Value
     $current = [ordered]@{}
     foreach ($e in [regex]::Matches($bodyText, '(?m)^\s*Mod(\d+)Directory=([^,\r\n]+),(True|False)')) {
@@ -307,7 +386,7 @@ try {
     Say '  - Mod Manager: the SEST Integration Pack is at the top and ticked. If it offers to move or fix dependencies, say no.'
     Say '  - Campaigns: Southern Watch, Southern Reach - Tasman Shield, Red Line - The Other Watch, or Sulu Line - The Island Road.'
     Say '  - Dynamic campaigns (Dynamic Campaign Mod): in the Campaign menu, marked [Dynamic].'
-    Say 'Run SETUP again (game closed) whenever the pack updates, or if a mission freezes after Steam updates your mods.'
+    Say 'Run SETUP again (game closed) whenever the pack updates, or after Steam updates your mods (if a mission freezes, or the not-compatible warning is back).'
     Hold
 }
 catch { Fail ('Unexpected error: ' + $_.Exception.Message) }
