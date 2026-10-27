@@ -16,19 +16,19 @@ RAAF F-35A Lighting II by Greene (workshop 3514484654):
       assets/models/vehicle/aircraft/f-35/textures/f-35a_tex.png
       assets/textures/f-35/raaf_f-35a.png
 
-The 731 encyclopedia pictures in ui/profiles/ are real
+The 732 encyclopedia pictures in ui/profiles/ are real
 photographs from the SEST gallery. Each carries its photographer
 and licence on the picture; the full credits, with sources, are
 in Gallery/PHOTO_CREDITS.txt.
 
-528 of the unit files here are another author's file with
+529 of the unit files here are another author's file with
 changes made to it. A Sea Power unit file is a whole-file
 override - there is no way to alter one line of somebody's
 aircraft without shipping the whole aircraft - so this is how a
 patch has to work, and this list is what it patches.
 
 Measured, not declared: every shipped unit file is diffed against
-every file of its kind in the collection, and the 528 below
+every file of its kind in the collection, and the 529 below
 came back 90% or more alike. The percentage is how much of the
 file is unchanged.
 Files carried for a mod that was removed from the Workshop are
@@ -73,7 +73,7 @@ listed whatever the percentage: they are still that author's.
        98%  aircraft/dts_b-52h.ini
 
   Boeing P-8 Poseidon  (workshop 3602046770)
-       99%  aircraft/usn_p8.ini
+       98%  aircraft/usn_p8.ini
        97%  aircraft/usn_p8_squadrons.ini
 
   Bréguet Br.1050 Alizé  (workshop 3628203171)
@@ -651,10 +651,12 @@ listed whatever the percentage: they are still that author's.
       100%  vessels/plan_cvn_004.ini
 
   U.S. Navy 2027 Capabilities mod  (workshop 3606774881)
+       92%  aircraft/usn_ea-18g.ini
        97%  aircraft/usn_fa-18e.ini
        96%  aircraft/usn_fa-18f.ini
        96%  aircraft/usn_fa-18f_blk3.ini
        99%  aircraft/usn_mh-60r.ini
+      100%  aircraft/usn_p8_2027.ini
        99%  ammunition/usn_aim-9x.ini
       100%  ammunition/usn_rgm-109j.ini
        96%  ammunition/usn_rim-174b.ini
@@ -673,7 +675,6 @@ listed whatever the percentage: they are still that author's.
       100%  vessels/usn_ssn_virginia_seal_2027.ini
 
   United States Naval Aviation  (workshop 3737267013)
-       92%  aircraft/usn_ea-18g.ini
        97%  aircraft/usn_ea-18g_2020.ini
        96%  aircraft/usn_f-35c_squadrons.ini
       100%  aircraft/usn_hh-60_squadrons.ini from usn_hh-60h_squadrons.ini
