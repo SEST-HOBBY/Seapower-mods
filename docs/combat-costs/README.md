@@ -33,6 +33,8 @@ A fitted platform excludes separately charged ammunition, embarked aircraft, rem
 
 ## In the game
 
+**Since 27 Oct 2026 the pack ships SEST Runtime Fixes 1.5.0**, captured from the owner's PC; its source is not in the repository (`integration/runtime-fixes/README.md`). Its pricing, inventory capture, history and stores carry-over are the code described below, IL-identical, but it replaces the displays. F11 opens SEST's own game-styled windows: in a mission, read-only category totals, quantities and cost details, drawn instead of the tracker's own panel; between Task Force missions, the cumulative totals and every completed mission. They move by the title bar, resize at the edges, remember their placement and, with Pop-Out Windows 1.0.1 and a second monitor, pop out. The task-force debrief shows three rows, `Cost: Mission`, `Cost: Campaign` and `Details (USD)`, with the detail in F11. The paragraphs below on F11 in a mission, F11 in the Task Force menu and the debrief's Combat Cost rows describe 1.2.0, the build before it.
+
 **F11: original Combat Cost Tracker.** SEST extends the author's weapon, ship and aircraft catalogs without modifying or redistributing its DLL. Chaff, flares, noisemakers, sonobuoys, tanks and pods receive explicit valid categories, so they are no longer silently discarded by the default `Ignore` category. The category list exposes Gun, Decoy, Sonobuoy, Fuel tank, Pod and Other rows; the existing currency, overlay position, hotkey and price-mode settings are retained. A device contributes when the game's expenditure or loss records report it; its mere presence on a unit is not an expenditure.
 
 **F11 in a mission: this mission's costs.** The tracker's own panel, unchanged by SEST's plugin.
@@ -55,7 +57,7 @@ The F11 campaign panel additionally accepts only the captured Combat Cost Tracke
 
 On 24 Oct 2026 the verifier was run on the exact 0.8.7 game DLL (`eab2297b…`), not in comparison mode: 58 method signatures, 15 positional argument orders, 22 fields and 23 properties. The exact tracker contract check passes the 3 methods and 9 fields the panel binds. On the PC on 24 Oct 2026 the owner reported the Task Force panel at the middle of the left edge and the stores carry-over working (card steps 4, 6 and 7, `docs/playtests/campaign-costs-panel-20261024.md`); its other steps were not reported.
 
-Build with `SEST_MONO_PREFIX=<mono-prefix> python3 integration/runtime-fixes/build_plugin.py`, then `python3 tools/build_all.py --from-scratch`. Mocked regressions cover the original corrections and pricing, accepted losses, save/load, replay preservation, the copy into the campaign `.sav`, recovery from the local record, raw-history persistence/repricing, the F11 panel lifecycle and GUI cleanup. See `data/campaign-costs-panel-review-20261024.json` for final checks and the PC result.
+1.2.0 was built with `SEST_MONO_PREFIX=<mono-prefix> python3 integration/runtime-fixes/build_plugin.py`, then `python3 tools/build_all.py --from-scratch`; while the shipped DLL is the captured 1.5.0, `build_plugin.py` refuses to replace it. Mocked regressions cover the original corrections and pricing, accepted losses, save/load, replay preservation, the copy into the campaign `.sav`, recovery from the local record, raw-history persistence/repricing, the F11 panel lifecycle and GUI cleanup. See `data/campaign-costs-panel-review-20261024.json` for final checks and the PC result.
 
 ## Earlier review
 
