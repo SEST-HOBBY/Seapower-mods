@@ -5,11 +5,13 @@
 # the campaigns were built against is downloaded, installs the Anchor Chain
 # preloader if it is missing, turns off one mod's debug logging that can
 # freeze a mission, marks the mods made for an older game version compatible
-# so the Mod Manager stops warning about them at start-up, and writes the Mod
-# Manager order: this pack first, then the mods in the order they were tested
-# in, your other mods at the bottom as you had them. Safe to run again: it
-# checks everything before it changes anything, and it backs up the game's
-# settings and every mod file it changes first.
+# so the Mod Manager stops warning about them at start-up, unbinds Contact
+# Log's default F6 and F8 keys if you have that mod (they clash with the
+# game's own), and writes the Mod Manager order: this pack first, then the
+# mods in the order they were tested in, your other mods at the bottom as you
+# had them. Safe to run again: it checks everything before it changes
+# anything, and it backs up the game's settings and every mod file it changes
+# first.
 #
 # From a console:  powershell -ExecutionPolicy Bypass -File .\sest-setup.ps1
 # Put the marked mods' own files back:  ... -File .\sest-setup.ps1 -RestoreModFiles
@@ -534,7 +536,24 @@ try {
         Say '         The Mod Manager will list them as not compatible at start-up. They load and play anyway.' 'Yellow'
     }
 
-    # 4. mod order: the SEST pack first, then every mod in the tested order
+    # 4. Contact Log's default keys, if that mod is installed: its window key
+    # F6 and its diagnostic-probe key F8 are also the game's own F6 and F8,
+    # Topographic Map's F6 and Coordinated Strike Tool's F8 (and the probe can
+    # stall the game). sest-ui-keys.ps1, beside this file, sets just those two
+    # to None while they still hold those defaults; a key the player chose is
+    # kept. Only when Contact Log's settings file exists: nothing is created.
+    $uiKeys = J $PSScriptRoot 'sest-ui-keys.ps1'
+    $clCfg = J $game 'BepInEx' 'config' 'com.seapower.contactlog.cfg'
+    if ((Test-Path -LiteralPath $uiKeys) -and (Test-Path -LiteralPath $clCfg)) {
+        try { & $uiKeys -GameDir $game | Out-Null }
+        catch {
+            $warnings++
+            Say ('  [!!]   Contact Log''s keys were not changed: ' + $_.Exception.Message) 'Yellow'
+            Say ('         If its F6 or F8 clash with the game''s, set ToggleWindow or RunProbe to None in ' + $clCfg) 'Yellow'
+        }
+    }
+
+    # 5. mod order: the SEST pack first, then every mod in the tested order
     $count = [int]$num.Groups[1].Value
     $current = [ordered]@{}
     foreach ($e in [regex]::Matches($bodyText, '(?m)^\s*Mod(\d+)Directory=([^,\r\n]+),(True|False)')) {
