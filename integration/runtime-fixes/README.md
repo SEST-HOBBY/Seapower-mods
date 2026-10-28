@@ -122,9 +122,9 @@ On 28 Oct 2026 three parts of it were rewritten:
 - The closing *Settings* paragraph: its "runtime updater" and "performed on
   the gaming PC" sentences described the handoff's updater and its
   acceptance tests on the PC, neither of which ships.
-  It now says the plugin changes no key bindings (1.5.0 references no
-  key-binding API) and points to `plugins/README.txt` for UI Follow-up's
-  Quick Load move.
+  It now says the plugin changes no key bindings (1.5.0 only reads keys,
+  through `UnityEngine.Input`, and names no `controls.ini`) and points to
+  `plugins/README.txt` for UI Follow-up's Quick Load move.
 
 The rest of the file is as captured. Keep the first two in step with
 `integration/campaign/setup/` whenever SETUP changes.

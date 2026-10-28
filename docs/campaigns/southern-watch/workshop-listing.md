@@ -136,7 +136,7 @@ SETUP update). Before Submit:
 [b]SETUP[/b]
 [list]
 [*]SETUP now checks mod versions the way the game does. Run SETUP again after a game update, or after going back to an earlier version, and it renews the marks it made, so the not-compatible warning does not come back. Mods made for a newer game version are named and left alone, except THE REDFOR MOD, reviewed and data only, which SETUP marks while its folder holds no code.
-[*]If you use Contact Log, SETUP frees its default F6 and F8 keys, which clash with Topographic Map's F6 and Coordinated Strike Tool's F8 planner. It can once Contact Log has written its settings file: start the game with it once, then run SETUP again. Keys you changed yourself are kept.
+[*]If you use Contact Log, SETUP frees its default F6 and F8 keys, which clash with Topographic Map's F6 and Coordinated Strike Tool's F8 planner. It does so once Contact Log has written its settings file: start the game with Contact Log once, then run SETUP again. Keys you changed yourself are kept.
 [/list]
 ```
 

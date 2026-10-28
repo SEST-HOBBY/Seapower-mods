@@ -551,9 +551,9 @@ how to check each.
   source is not in the repository yet (`integration/runtime-fixes/README.md`).
   1.5.0 adds movable, game-styled F11 cost windows in a mission and in the
   Task Force menu, a 3-row debrief (mission cost, campaign cost, details in
-  F11), pop-out buttons for Contact Log 1.0.1 and Group Manager 0.2.17 (the
-  pop-outs, the F11 windows' included, need Pop-Out Windows 1.0.1, which is
-  not in the collection, and a second monitor), own units plotted while
+  F11), pop-out buttons for Contact Log 1.0.1 and Group Manager 0.2.17
+  (these pop-outs, like the F11 windows', need Pop-Out Windows 1.0.1, which
+  is not in the collection, and a second monitor), own units plotted while
   paused in preparation, and a guard for towed sonars with an incomplete
   link. Player.log should show three `[SEST Runtime] ... correction
   installed` lines (terrain, debrief, towed sensor). The debrief
