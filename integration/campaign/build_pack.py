@@ -1733,8 +1733,8 @@ def stronger_credit(why, best):
     """Whether credit `why` (how, detail, mission) replaces `best` as the
     one a coverage row shows: a stronger kind, or one as strong from a
     mission where `best` came from the roster. The roster's credits are
-    merged first, and since 28 Oct 2026 they credit the rounds and decks of
-    the units on sale as well; with only a stronger kind replacing them,
+    merged first, and since 28 Oct 2026 they credit the variants and rounds
+    of the units on sale as well; with only a stronger kind replacing them,
     about a dozen rows went from a unit a mission places to a roster
     example (Sulu Line's Euromod Main Pack: ran_mh-60r / usn_mk54_air
     instead of pn_ffg-150 / fr_cal_76mm in The Island Road). The kind is
@@ -6444,21 +6444,32 @@ def roster_ini(roster, heading=None):
     if problems:
         raise SystemExit("roster failed:\n  " + "\n  ".join(problems))
     # A unit on sale makes the game read more than its own file. A bought
-    # aircraft arms from every fit it offers, and a bought hull sails with
-    # the air group its variant embarks, as resolve() credits a placed one.
-    # Until 28 Oct 2026 only the unit file's owner was credited, and Sulu
-    # Line's REQUIRED-MODS listed Modern US Navy and United States Naval
+    # aircraft arms from every fit it offers, as resolve() credits a placed
+    # one. Until 28 Oct 2026 only the unit file's owner was credited, and
+    # Sulu Line's REQUIRED-MODS listed Modern US Navy and United States Naval
     # Aviation as not used while the Thai Seahawk's ASW fit hangs their
-    # usn_ssq-62, the RAN MH-60R's fits hang USNA's Hellfires and tanks, and
-    # the Del Pilar's and Naresuan's decks carry an SH-2F whose sonobuoys
-    # are theirs. Added after the units' own credits, and only for a mod
-    # not already credited, so a mod that sells a unit stays a `roster` one.
+    # usn_ssq-62 and the RAN MH-60R's fits hang USNA's Hellfires and tanks.
+    # Added after the units' own credits, and only for a mod not already
+    # credited, so a mod that sells a unit stays a `roster` one.
+    #
+    # A bought hull's deck is not credited: it carries only the roster
+    # aircraft the player puts aboard, which are credited as sold airframes.
+    # LinearCampaignTaskForceMissionGenerator.WriteVesselSection calls
+    # WriteCustomAirGroup for every ship (IL_0131-IL_014a), which clears the
+    # authored group and writes CustomAirGroup=True with only the aircraft
+    # assigned to that hull, and SceneCreator.SetAdditionalParameters
+    # (IL_098c-IL_09b2) then loads that list in place of the variant's or the
+    # unit's [AirGroup]. A free air wing comes only with ShipIncludesAirwing,
+    # which every SEST campaign turns off, and even then from the roster's own
+    # aircraft. Crediting the default group, as this did for a few hours on
+    # 28 Oct 2026, put a Rafale pack, French Air Force and a Tu-95 mod on
+    # hard-required lists for aircraft no player could fly.
     #
     # A bought hull also reads its own variants file and sails armed, and
     # neither was credited until later the same day. resolve() credits a
     # placed hull with the owner of <unit>_variants.ini and the rounds of its
-    # fit; this does the same for every hull on sale, before its deck, in
-    # resolve()'s order. The fit is pick_loadout()'s with no mission: Default
+    # fit; this does the same for every hull on sale, in resolve()'s order.
+    # The fit is pick_loadout()'s with no mission: Default
     # where the file offers one, which is what the builder writes when the
     # player picks none (LinearCampaignTaskForceMissionGenerator.
     # WriteVesselSection IL_003c; a LoadoutVariant written, the variant's own
@@ -6469,24 +6480,17 @@ def roster_ini(roster, heading=None):
         uid = entry["unit"]
         kind_dir, path = unit_file(uid)
         if ROSTER_SECTION.get(unit_type(uid)) in ("AllowedAircraft", "AllowedHelicopters"):
-            hull, embarked = [], [(uid, "")]
+            # The airframe itself is bought, not placed by a mission.
+            found = [(token, "roster" if how == "unit" else how, detail)
+                     for token, how, detail in aircraft_credit(uid)]
         else:
             fit, _why = pick_loadout(uid, path, None)
-            hull = [(owner(f"{kind_dir}/{uid}_variants.ini"), "variant", f"{uid} {pick}")
-                    for pick in entry["picks"]]
-            hull += store_credit(uid, kind_dir, path, fit)
-            embarked = [(atype, f"{uid} {pick} deck / ")
-                        for pick in entry["picks"]
-                        for atype in deck_aircraft(uid, kind_dir, path, pick, {})]
-        for token, how, detail in hull:
+            found = [(owner(f"{kind_dir}/{uid}_variants.ini"), "variant", f"{uid} {pick}")
+                     for pick in entry["picks"]]
+            found += store_credit(uid, kind_dir, path, fit)
+        for token, how, detail in found:
             if token and token not in credits:
                 credits[token] = (how, detail)
-        for atype, where in embarked:
-            for token, how, detail in aircraft_credit(atype):
-                # The airframe itself is bought, not placed by a mission.
-                how = "roster" if how == "unit" else how
-                if token and token not in credits:
-                    credits[token] = (how, where + detail)
 
     L = [heading or f"; SEST {TITLE} requisition roster.",
          f"; Generated by integration/campaign/build_pack.py - edit {ROSTER_SOURCE}.",
@@ -7388,11 +7392,10 @@ def _spine(missions, events):
 
 # Since 28 Oct 2026 the roster credits what a unit on sale makes the game
 # read, as resolve() credits a placed one: a variant, squadron or store row
-# may be a sold unit's, and a roster row an aircraft aboard a sold ship.
+# may be a sold unit's.
 HOW_TEXT = {
     "unit": "places the unit; this mod wins its file",
-    "roster": ("the player can buy the unit from the requisition roster, or it "
-               "comes aboard a ship they can buy"),
+    "roster": "the requisition roster prices it, so the player can buy it",
     "variant": "supplies the hull variant a placed or sold unit uses",
     "squadron": "supplies the squadron a placed or sold airframe flies from",
     "store": "supplies a round a placed or sold unit's loadout hangs",
@@ -7593,9 +7596,9 @@ def campaign_requirements(rows, missing, title, dispatches=(), dispatch_folder=N
     L = [f"{title.upper()} - what this campaign needs", "",
          "Derived from the units its missions place, the squadrons and hull",
          "variants they name and the rounds their loadouts hang, and from the",
-         "units its roster sells with their variants, rounds and air groups.",
-         "The pack-level REQUIRED-MODS.txt two folders up, at the pack's root,",
-         "is the union across every campaign in the pack.", "",
+         "units its roster sells with their variants and rounds. The pack-level",
+         "REQUIRED-MODS.txt two folders up, at the pack's root, is the union",
+         "across every campaign in the pack.", "",
          f"1. HARD REQUIRED ({len(need) + len(promoted)}): a mission or the roster "
          "names a file of theirs, or a mod above says it cannot run without them.", ""]
     for _mid, t, how, _d, _m, token in sorted(need, key=key):
@@ -7661,7 +7664,7 @@ def campaign_requirements(rows, missing, title, dispatches=(), dispatch_folder=N
 NEEDED = {"unit": "a unit a mission places",
           "variant": "a hull variant in use",
           "squadron": "a squadron a flight comes from",
-          "roster": "a buyable unit or its aircraft",
+          "roster": "a unit the player can buy",
           "store": "a weapon a loadout hangs",
           "asset": "a model a placed unit draws"}
 

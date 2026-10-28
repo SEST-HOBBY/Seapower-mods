@@ -1185,34 +1185,47 @@ class RosterAndSeahawk(unittest.TestCase):
         seller = bp.owner("aircraft/tha_S-70B-7_Seahawk.ini")
         self.assertEqual(credits[seller][0], "roster")
 
-    def test_a_sold_hull_credits_the_air_group_its_variant_embarks(self):
+    @staticmethod
+    def names(credits, atype):
+        """The credits whose detail is about aircraft `atype`."""
+        return {t: why for t, why in credits.items()
+                if atype in why[1].replace(" / ", " ").split()}
+
+    def test_a_sold_hulls_default_air_group_is_not_credited(self):
+        # The builder writes CustomAirGroup=True on every bought ship, with
+        # only the roster aircraft the player puts aboard
+        # (WriteCustomAirGroup), so the Del Pilar's own SH-2F never flies and
+        # its usn_ssq-62 sonobuoys earn their mod nothing. Crediting it put
+        # SEST Rafale F5, French Air Force and Tu-95 With AS-15 on hard-
+        # required lists on 28 Oct 2026.
         kind, path = bp.unit_file("phl_ff_hamilton")
-        deck = bp.deck_aircraft("phl_ff_hamilton", kind, path, "Variant1", {})
-        self.assertIn("usn_sh-2f", deck)
+        self.assertIn("usn_sh-2f",
+                      bp.deck_aircraft("phl_ff_hamilton", kind, path, "Variant1", {}))
         credits = self.sulu_credits(("phl_ff_hamilton", ["Variant1"]))
-        sonobuoy = bp.chain_owners("ammunition/usn_ssq-62.ini")[0]
-        self.assertIn(sonobuoy, credits)
-        self.assertTrue(credits[sonobuoy][1].startswith("phl_ff_hamilton Variant1 deck / "),
-                        credits[sonobuoy])
+        self.assertEqual(self.names(credits, "usn_sh-2f"), {})
+        self.assertNotIn(bp.chain_owners("ammunition/usn_ssq-62.ini")[0], credits)
+        self.assertFalse([why for why in credits.values() if " deck" in why[1]], credits)
 
     def test_every_campaigns_roster_credits_all_it_makes_the_game_read(self):
-        # The rule, not one campaign's case: everything aircraft_credit
-        # finds for a sold airframe, or for the air group a sold variant
-        # embarks, is credited by the roster.
+        # The rule, not one campaign's case: everything aircraft_credit finds
+        # for a sold airframe is credited by the roster, and nothing an
+        # aircraft that is not on sale would read, though a sold hull's
+        # default air group names it.
         for spec in bp.campaign_specs():
             bp.set_campaign(spec)
             _text, credits = bp.roster_ini(spec["ROSTER"])
+            sold = {e["unit"] for e in spec["ROSTER"]}
             for e in spec["ROSTER"]:
                 kind, path = bp.unit_file(e["unit"])
                 if bp.unit_type(e["unit"]) in ("Aircraft", "Helicopter", "VTOL"):
-                    air = [e["unit"]]
-                else:
-                    air = [a for p in e["picks"]
-                           for a in bp.deck_aircraft(e["unit"], kind, path, p, {})]
-                for atype in air:
-                    for token, _how, detail in bp.aircraft_credit(atype):
+                    for token, _how, detail in bp.aircraft_credit(e["unit"]):
                         if token:
                             self.assertIn(token, credits, f"{spec['SLUG']}: {detail}")
+                    continue
+                for atype in {a for p in e["picks"]
+                              for a in bp.deck_aircraft(e["unit"], kind, path, p, {})} - sold:
+                    self.assertEqual(self.names(credits, atype), {},
+                                     f"{spec['SLUG']}: {e['unit']} deck / {atype}")
 
     def test_a_sold_hull_credits_its_variants_file(self):
         # Until 28 Oct 2026 a sold hull's own variants file was credited only
@@ -1235,14 +1248,18 @@ class RosterAndSeahawk(unittest.TestCase):
         self.assertNotEqual(ram, bp.owner(f"vessels/{uid}.ini"))
         self.assertEqual(credits[ram], ("store", f"{uid} / usn_rim_116c"))
 
-    def test_a_sold_hulls_variants_file_comes_before_its_deck(self):
-        # In resolve()'s order: Modern German Navy writes the F124's variants
-        # file and the NH90 on its deck, and is credited for the variant.
+    def test_a_sold_hull_credits_its_variants_file_and_not_its_deck(self):
+        # Modern German Navy writes the F124's variants file and the NH90 on
+        # its default deck: it is credited for the variant, and the NH90,
+        # which no roster sells, is credited nothing.
         uid = "ger_ffg_f124_MLU"
         holder = bp.owner(f"vessels/{uid}_variants.ini")
         self.assertEqual(holder, bp.owner("aircraft/ger_nh90.ini"))
+        kind, path = bp.unit_file(uid)
+        self.assertIn("ger_nh90", bp.deck_aircraft(uid, kind, path, "Variant1", {}))
         credits = self.sulu_credits((uid, ["Variant1"]))
         self.assertEqual(credits[holder], ("variant", f"{uid} Variant1"))
+        self.assertEqual(self.names(credits, "ger_nh90"), {})
 
     def test_every_campaigns_roster_credits_its_hulls_own_files(self):
         # The rule: every hull on sale credits its variants file's holder
