@@ -92,8 +92,10 @@ RETIRED = []
 #   IL_0033), so that Harpoon does launch - but a FLIR is not a radar, and
 #   WeaponBase.ActivateNonLaserGuidanceSystem, finding no radar to guide it,
 #   marks the link lost for good at launch (IL_0332-IL_034a): the round gets
-#   no midcourse updates. Both APY-10s have WeaponChannels=0 and are not
-#   linked anyway.
+#   no midcourse updates. Neither pylon links the APY-10 either. (Under
+#   SEST's load order the APY-10 that wins is US Naval Aviation's, 3737267013:
+#   Type=Search, WeaponChannels=12. Only the Boeing P-8 mod's own copy says
+#   WeaponChannels=0, so the missing link, not the radar, is the fault.)
 # - U.S. Navy 2027's [GPS_Receiver] is Kind=Radar, Type=Targeting,
 #   Mode=RadioCommand with 5000 weapon channels - the author's "GPS receiver
 #   to allow for target updating for GPS weapons", which its own F/A-18E/F
