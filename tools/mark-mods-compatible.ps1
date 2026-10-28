@@ -38,9 +38,10 @@
     that game), unless SETUP's reviewed list (CompatReviewed) names it and
     its folder holds no .dll; an ExactVersion or a range the game rejects;
     a file that is not UTF-8 text. A reviewed mod marked earlier whose
-    folder now holds a .dll gets its author's kept file back (named, and
-    left as it is when no author's file is kept). Left alone silently: mods
-    the game accepts; mods with no [Compatibility] section; SEST's own
+    folder now holds a .dll gets its author's kept file back, named, if
+    this would leave that file alone (the mark stays if not); with no
+    author's file kept it is named and left marked. Left alone silently:
+    mods the game accepts; mods with no [Compatibility] section; SEST's own
     Workshop item.
 
     Steam puts a mod's own _info.ini back whenever the mod updates, so

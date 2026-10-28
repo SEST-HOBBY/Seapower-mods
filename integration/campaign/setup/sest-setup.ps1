@@ -53,7 +53,7 @@ function WriteText([string]$path, [string]$text, [bool]$bom) {
 }
 # Where the authors' own _info.ini files are kept when a mod is marked
 # compatible (the same folder the SEST tools use on the author's PC), or
-# the folder -KeepDir names.
+# the folder -KeepDir names (a full path by then: see the start of the run).
 $CompatMarker = '; SEST marked this mod compatible'
 function KeepDir {
     if ($KeepDir) { return $KeepDir }
@@ -211,9 +211,11 @@ function CompatVerdict($c, $game) {
 # Reviewed exceptions. A mod that declares a NEWER game version than the
 # installed one is left alone: it may need that game. A Workshop id listed
 # here is marked like an older mod instead, but only while its folder holds
-# no .dll (data only); once it holds one, an earlier mark goes and the
-# author's file comes back (CompatCode). Add an id only after reviewing
-# that mod's files on the installed game.
+# no .dll (data only). Once it holds one, an earlier mark is judged by the
+# author's kept file (CompatCode): that file comes back if SETUP would leave
+# it alone, and the mark stays if not; with no author's file kept the mod
+# is named and left marked. Add an id only after reviewing that mod's files
+# on the installed game.
 #   3732654992  THE REDFOR MOD: data only; reviewed 27 Oct 2026 on game 0.8.7.
 function CompatReviewed { return @('3732654992') }
 function CompatHasCode([string]$dir) {
@@ -304,6 +306,14 @@ function CompatIsUtf8([byte[]]$b) {
 $AppId = '1286220'
 try {
     Say 'SEST setup - checking your PC...' 'Cyan'
+
+    # -KeepDir as a full path, once, read against the folder PowerShell is in
+    # (.NET's current folder can be another): the administrator relaunch
+    # starts in another folder, so it is passed this full path.
+    if ($KeepDir) {
+        try { $KeepDir = $ExecutionContext.SessionState.Path.GetUnresolvedProviderPathFromPSPath($KeepDir) }
+        catch { Fail ('-KeepDir ' + $KeepDir + ' is not a folder SETUP can use: ' + $_.Exception.Message); return }
+    }
 
     if (Get-Process -Name 'Sea Power', 'SeaPower' -ErrorAction SilentlyContinue) {
         Fail 'Sea Power is running. Quit the game completely first.'; return
@@ -548,8 +558,10 @@ try {
     # so that a mark is now ahead of it, the author's kept file decides
     # (CompatBack): marked again, or put back if SETUP would leave it alone.
     # One made for a NEWER game version is named and left alone, unless it is
-    # a reviewed one (CompatReviewed) with no .dll; a reviewed one marked
-    # before that now holds a .dll gets its author's file back (CompatCode).
+    # a reviewed one (CompatReviewed) with no .dll. A reviewed one marked
+    # before that now holds a .dll gets its author's kept file back if SETUP
+    # would leave that file alone; with no author's file kept it is named and
+    # left marked (CompatCode).
     # An ExactVersion or a range is named and left alone too. Only the mods
     # the pack lists; Steam puts a mod's own file back when the mod updates.
     # A mod whose file cannot be read or written is one [!!] warning, and the
@@ -629,7 +641,9 @@ try {
         if ($back) { Say ('  [done] ' + $back + ' mod file(s) SETUP had marked for a later game version than ' + $gameVer + ' put back as their authors shipped them') 'Green' }
         if ($codeBack.Count) { Say ('  [done] reviewed mod(s) whose folder now holds a .dll put back as their authors shipped them: ' + ($codeBack -join ', ')) 'Green' }
         if (-not $older -and -not $reviewed.Count) {
-            $other = 'mod'; if ($leftOlder) { $other = 'mod that SETUP can change' }
+            # Of the mods it could read: one it could not is a warning below.
+            $can = @(); if ($broken.Count) { $can += 'could read' }; if ($leftOlder) { $can += 'can change' }
+            $other = 'mod'; if ($can.Count) { $other = 'mod that SETUP ' + ($can -join ' and ') }
             if ($already) { Say ('  [ok]   ' + $already + ' mod(s) already marked compatible with ' + $gameVer + '; no other ' + $other + ' is made for an older game version') 'Green' }
             else { Say ('  [ok]   no ' + $other + ' is made for an older game version') 'Green' }
         }

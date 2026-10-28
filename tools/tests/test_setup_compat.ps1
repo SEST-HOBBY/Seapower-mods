@@ -6,9 +6,12 @@
     the two or three numbers it starts with) and the reviewed REDFOR, names
     and leaves the rest, judges its own marks again after a game update (up
     a version, and back down again), gives REDFOR's own file back once it
-    holds a .dll, and turns a mod file it cannot read into one warning;
+    holds a .dll, and turns a mod file it cannot read into one warning (its
+    [ok] line then speaks only for the mods it could read);
     -RestoreModFiles puts every file back byte for byte, and one that stops
-    part-way says changes were made; -KeepDir moves the kept files; step 4
+    part-way says changes were made; -KeepDir moves the kept files, a
+    relative one read against the folder PowerShell is in and passed to the
+    administrator relaunch as that full path; step 4
     runs sest-ui-keys.ps1 only when it and Contact Log's settings exist, a
     failure there is a warning, not a stop, and Contact Log downloaded with
     no settings yet is one note.
@@ -143,6 +146,16 @@ function Setup([string[]]$more) {
     $a = @('-NoProfile', '-NonInteractive', '-ExecutionPolicy', 'Bypass', '-File', (J $pack 'sest-setup.ps1')) + $more
     $o = (& $exe @a 2>&1 | Out-String) -replace ([string][char]27 + '\[[0-9;]*m'), ''
     return @{ Out = $o; Code = $LASTEXITCODE }
+}
+function SetupAt([string]$dir, [string]$more, [string]$first) {
+    # SETUP run from a PowerShell prompt in $dir, after the PowerShell text
+    # $first, with the PowerShell text $more after it. .NET's current folder
+    # stays the temp root, so a path read against it lands in another folder.
+    $cmd = $first + "Set-Location -LiteralPath '" + $dir + "'; & '" + (J $pack 'sest-setup.ps1') + "' " + $more + "; exit `$LASTEXITCODE"
+    Push-Location -LiteralPath $root
+    try { $o = (& $exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -Command $cmd 2>&1 | Out-String) -replace ([string][char]27 + '\[[0-9;]*m'), ''; $code = $LASTEXITCODE }
+    finally { Pop-Location }
+    return @{ Out = $o; Code = $code }
 }
 function AllAsShipped {
     foreach ($m in $mods) { if ((Hex (Live $m.Id)) -ne (Hex $m.Info)) { return $m.Id } }
@@ -296,6 +309,10 @@ try {
     $r = Setup @()
     Check ($r.Code -eq 0 -and $r.Out -match '\[!!\]   Could not check or mark Huge Patch: ' -and $r.Out -match 'read the 1 \[!!\] warning' -and $r.Out -match '\[done\] 6 mod\(s\) made for an older game version marked compatible' -and $r.Out -match 'but reviewed, so marked compatible with 0\.8\.7: THE REDFOR MOD') "a mod file that cannot be read is one warning; the other older mods and REDFOR are still marked"
     Check ((Text ([IO.File]::ReadAllBytes($settings))) -match 'Mod1Directory=3812461539,True') "and the mod order is still written"
+    # 10b. Run again with that file still unreadable: nothing is left to
+    # mark, and the [ok] line speaks only for the mods SETUP could read.
+    $r = Setup @()
+    Check ($r.Code -eq 0 -and $r.Out -match '\[ok\]   7 mod\(s\) already marked compatible with 0\.8\.7; no other mod that SETUP could read and can change is made for an older game version' -and $r.Out -match '\[!!\]   Could not check or mark Huge Patch: ' -and $r.Out -match 'read the 1 \[!!\] warning') "run again with that file unreadable: the [ok] line speaks only for the mods SETUP could read, and it is still one warning"
 
     # 11. -RestoreModFiles stopped part-way, after putting files back, does
     # not say that nothing was changed.
@@ -318,6 +335,31 @@ try {
     $wrong = AllAsShipped
     Check ($r.Code -eq 0 -and -not $wrong -and @(Get-ChildItem -LiteralPath $alt -File).Count -eq 0 -and $r.Out -match '\[done\] 8 mod file\(s\) put back') "-RestoreModFiles -KeepDir puts them back from that folder ($wrong)"
     Check ([IO.File]::ReadAllText((J $src 'sest-setup.ps1')).Contains("'-KeepDir', ('" + '"' + "' + `$kd + '" + '"' + "')")) "the administrator relaunch passes -KeepDir"
+    # 12b. A relative -KeepDir is read once, against the folder PowerShell
+    # is in (here not .NET's current folder), and the administrator relaunch,
+    # which starts in another folder, is passed it as that full path.
+    $prompt = J $root 'prompt'
+    New-Item -ItemType Directory -Force -Path $prompt | Out-Null
+    $rel = J 'kept' 'compat-originals'
+    $full = J $prompt $rel
+    $r = SetupAt $prompt ("-KeepDir '" + $rel + "'") ''
+    Check ($r.Code -eq 0 -and $r.Out -match 'All done' -and @(Get-ChildItem -LiteralPath $full -File -ErrorAction SilentlyContinue).Count -eq 8 -and -not (Test-Path -LiteralPath (J $root 'kept')) -and @(Get-ChildItem -LiteralPath $keep -File -ErrorAction SilentlyContinue).Count -eq 0) "a relative -KeepDir keeps the authors' files under the folder PowerShell is in, not .NET's current folder"
+    $r = SetupAt $prompt ("-RestoreModFiles -KeepDir '" + $rel + "'") ''
+    $wrong = AllAsShipped
+    Check ($r.Code -eq 0 -and -not $wrong -and @(Get-ChildItem -LiteralPath $full -File).Count -eq 0 -and $r.Out -match '\[done\] 8 mod file\(s\) put back') "-RestoreModFiles with the same relative -KeepDir puts them back from there ($wrong)"
+    # The relaunch: no preloader, a game folder SETUP may not write, and
+    # Start-Process stood in for by one that records what it is passed.
+    $argFile = J $root 'relaunch-args.txt'
+    $stub = "`$env:SEST_FORCE_NOADMIN = '1'; function global:Start-Process { param([string]`$FilePath, [string[]]`$ArgumentList, [string]`$Verb, [switch]`$Wait, [switch]`$PassThru) [IO.File]::WriteAllText('" + $argFile + "', (`$ArgumentList -join ' ')); [pscustomobject]@{ ExitCode = 0 } }; "
+    Rename-Item -LiteralPath (J $game 'winhttp.dll') -NewName 'winhttp.dll.off'
+    Rename-Item -LiteralPath (J $game 'BepInEx') -NewName 'BepInEx.off'
+    try { $r = SetupAt $prompt ("-KeepDir '" + $rel + "'") $stub }
+    finally {
+        Rename-Item -LiteralPath (J $game 'winhttp.dll.off') -NewName 'winhttp.dll'
+        Rename-Item -LiteralPath (J $game 'BepInEx.off') -NewName 'BepInEx'
+    }
+    $passed = ''; if (Test-Path -LiteralPath $argFile) { $passed = [IO.File]::ReadAllText($argFile) }
+    Check ($r.Code -eq 0 -and $r.Out -match 'Finished in the administrator window' -and $passed.Contains('-KeepDir "' + $full + '"') -and @(Get-ChildItem -LiteralPath $full -File).Count -eq 0) "the administrator relaunch is passed a relative -KeepDir as that full path ($passed)"
 
     # 13. Contact Log downloaded but no settings file yet: one note, not a
     # warning, and nothing created.
