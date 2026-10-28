@@ -196,8 +196,57 @@ class GameVersionTests(unittest.TestCase):
         self.assertIn("  0.8.3   100  Ahead", lines)
         self.assertIn("INFO: 1 mod(s) declare an ApproximateVersion the game cannot read (not MAJOR.MINOR.PATCH, "
                       "or a number above 2147483647), which the Mod Manager lists as not compatible on any game "
-                      "version; SETUP marks the ones whose MAJOR.MINOR is no higher than 0.8:", lines)
+                      "version; SETUP marks the ones with a number above 2147483647 and the ones whose first "
+                      "two or three numbers (PATCH 0 when there are two) are no higher than 0.8.2:", lines)
         self.assertIn("  '0.8'     300  Short", lines)
+
+    def test_a_pack_or_builder_value_the_game_cannot_read_fails(self):
+        # 0.8.07 is 0.8.7 by its numbers, but the game's SemVer pattern rejects the
+        # leading zero, so the Mod Manager would list the pack as not compatible.
+        bump(self.root, "0.8.7")
+        self.write(self.alpha_info, "[Language_en]\nName=SEST Alpha\n\n[Compatibility]\nApproximateVersion=0.8.7\n")
+        self.assertEqual([p for p in audit(self.root, "0.8.7")[1] if "SEST_" in p or "build_" in p], [])
+        self.write(self.alpha_info, "[Language_en]\nName=SEST Alpha\n\n[Compatibility]\nApproximateVersion=0.8.07\n")
+        self.beta_info.write_bytes(BETA_INFO.replace(b"0.8.2", b"0.8"))
+        self.write(self.alpha_builder, ALPHA_BUILDER.replace("0.8.2", "0.8.07"))
+        problems = audit(self.root, "0.8.7")[1]
+        self.assertIn("integration/alpha/SEST_Alpha/_info.ini declares 0.8.07, game is 0.8.7", problems)
+        self.assertIn("integration/beta/SEST_Beta/_info.ini declares 0.8, game is 0.8.7 "
+                      "(static: no builder writes it)", problems)
+        self.assertIn(f"integration/alpha/build_patch.py:{ALPHA_LINE} writes ApproximateVersion=0.8.07, "
+                      "game is 0.8.7", problems)
+
+    def test_a_pack_declaration_is_read_as_the_game_reads_it(self):
+        # The first [Compatibility] section and the first ApproximateVersion in it
+        # count; a later repeat is ignored, and so is [compatibility] in another case.
+        self.write(self.alpha_info, "[Language_en]\nName=SEST Alpha\n\n[Compatibility]\n"
+                                    "ApproximateVersion=0.8.2\nApproximateVersion=0.9.0\n")
+        self.assertEqual(audit(self.root, "0.8.2")[1], [])
+        self.write(self.alpha_info, "[Language_en]\nName=SEST Alpha\n\n[Compatibility]\n"
+                                    "ApproximateVersion=0.9.0 ; old\nApproximateVersion=0.8.2\n")
+        self.assertEqual(audit(self.root, "0.8.2")[1],
+                         ["integration/alpha/SEST_Alpha/_info.ini declares 0.9.0, game is 0.8.2"])
+        self.write(self.alpha_info, "[Language_en]\nName=SEST Alpha\n\n[compatibility]\nApproximateVersion=0.8.2\n")
+        self.assertEqual(audit(self.root, "0.8.2")[1],
+                         ["integration/alpha/SEST_Alpha/_info.ini declares no [Compatibility] ApproximateVersion"])
+
+    def test_version_and_bump_take_only_what_the_game_reads(self):
+        before = {p: p.read_bytes() for p in self.root.rglob("*") if p.is_file()}
+        for value in ("0.8.07", "0.8", "0.8.2.1", "0.9.0-rc.1", "v0.9.0"):
+            with self.assertRaises(ValueError, msg=value):
+                bump(self.root, value)
+            with contextlib.redirect_stdout(io.StringIO()), self.assertRaises(SystemExit, msg=value) as stop:
+                main(["--root", str(self.root), "--bump", value])
+            self.assertIn("is not MAJOR.MINOR.PATCH as the game reads it", str(stop.exception))
+        self.assertEqual({p: p.read_bytes() for p in self.root.rglob("*") if p.is_file()}, before)
+        for value in ("0.8", "0.8.07", "0.8.2.1"):
+            with self.assertRaises(ValueError, msg=value):
+                read_game_version(self.root, value)
+            with contextlib.redirect_stdout(io.StringIO()), self.assertRaises(SystemExit, msg=value) as stop:
+                main(["--root", str(self.root), "--version", value])
+            self.assertIn(f"--version {value!r} is not MAJOR.MINOR.PATCH as the game reads it", str(stop.exception))
+        self.assertEqual(read_game_version(self.root, "0.9.0-rc.1"),
+                         ("0.9.0-rc.1", "from --version (changelog says 0.8.2)"))
 
     def test_exact_version_comes_first_and_an_excluding_one_fails(self):
         self.mod(100, "[Language_en]\nName=Pinned\n\n[Compatibility]\nExactVersion=0.8.2\nApproximateVersion=0.6.0\n")

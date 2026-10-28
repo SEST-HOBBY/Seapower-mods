@@ -35,13 +35,15 @@ Four checks; each finding is a FAIL line and the run exits 1:
   1. every integration/*/SEST_*/_info.ini (dist excluded) and
      integration/dist/SEST_Integration/_info.ini declares ApproximateVersion
      equal to the game's X.Y.Z (stricter than the game, which would take any
-     lower PATCH of the same MAJOR.MINOR), and every builder that writes
+     lower PATCH of the same MAJOR.MINOR), read and parsed as the game reads
+     it (so 0.8.07 or 0.8 is not 0.8.7), and every builder that writes
      _info.ini has a built SEST_* folder to check (build_all.py --from-scratch
      deletes them before it builds, so a failed build leaves none);
   2. every ApproximateVersion= literal in the pack builders
      (integration/*/build_*.py, found by what they write rather than by
      whether their output exists) and tools/consolidate_packs.py equals it,
-     and every builder that writes _info.ini carries one;
+     parsed as the game parses it, and every builder that writes _info.ini
+     carries one;
   3. no Workshop mod in data/load-order.tokens.txt declares an ExactVersion,
      or (having no ExactVersion or ApproximateVersion) a version range, that
      excludes the game: SETUP never rewrites those;
@@ -52,8 +54,15 @@ Workshop ApproximateVersion values are counted by how far they sit from the
 game's, numerically per component. Listed as information: the mods more
 than one minor version behind; the ones made for a newer game version,
 which SETUP leaves alone unless they are on its reviewed list; and the ones
-not written MAJOR.MINOR.PATCH, which no game version accepts and SETUP
-marks when their MAJOR.MINOR is no higher than the game's.
+the game cannot read (not MAJOR.MINOR.PATCH, or a number above 2147483647),
+which no game version accepts. SETUP marks those with a number too big and
+those whose first two or three numbers (PATCH 0 when there are two) are no
+higher than the game's version: on 0.8.7 it marks 0.8, 0.8.07 and 0.8.7.1
+and leaves 0.8.08 and 0.8.8.1 alone.
+
+--version and --bump take a version the game itself reads as
+MAJOR.MINOR.PATCH (no leading zeros; --bump also no -pre-release or +build
+part, since the literals it rewrites are plain X.Y.Z).
 
     python3 tools/check_game_version.py                  # read-only
     python3 tools/check_game_version.py --version 0.9.0  # a game update, rehearsed
@@ -103,6 +112,8 @@ SEMVER = re.compile(r"(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)"
                     r"(?:\.(?:0|[1-9][0-9]*|[0-9]*[a-zA-Z-][0-9a-zA-Z-]*))*)?"
                     r"(?:\+[0-9a-zA-Z-]+(?:\.[0-9a-zA-Z-]+)*)?")
 INT32_MAX = 2147483647
+# What --bump writes: the literals are read back by LITERAL, digits and dots only.
+PLAIN = re.compile(r"[0-9]+\.[0-9]+\.[0-9]+")
 COMPAT_KEYS = ("ExactVersion", "ApproximateVersion", "GreaterThanVersion", "GreaterThanEqualToVersion",
                "LessThanVersion", "LessThanEqualToVersion", "ExcludeVersions")
 
@@ -235,8 +246,8 @@ def read_game_version(root, override=None):
             break
     if override:
         override = override.strip()
-        if parse_version(override) is None:
-            raise ValueError(f"--version {override!r} is not numeric X.Y.Z")
+        if parse_semver(override) is None:
+            raise ValueError(f"--version {override!r} is not MAJOR.MINOR.PATCH as the game reads it")
         note = f" (changelog says {found[0]})" if found and found[0] != override else ""
         return override, "from --version" + note
     if found is None:
@@ -328,9 +339,9 @@ def load_order_ids(root):
 
 def audit(root, version):
     """-> (lines, problems, found): the report body, the FAIL findings, and how many per check."""
-    game = parse_version(version)
+    game = parse_semver(version)
     if game is None:
-        raise ValueError(f"game version {version!r} is not numeric X.Y.Z")
+        raise ValueError(f"game version {version!r} is not MAJOR.MINOR.PATCH as the game reads it")
     lines, problems, found = [], [], Counter()
 
     def rel(path):
@@ -352,11 +363,12 @@ def audit(root, version):
         if not info.exists():
             fail("packs", f"{rel(pack)} has no _info.ini")
             continue
-        declared = read_ini(info).get("compatibility", {}).get("approximateversion")
+        # As the game reads it: the first [Compatibility] section, the first key.
+        declared = read_compat(info)["ApproximateVersion"]
         tag = " (static: no builder writes it)" if info in static else ""
-        if declared is None:
+        if not declared:
             fail("packs", f"{rel(info)} declares no [Compatibility] ApproximateVersion{tag}")
-        elif parse_version(declared) != game:
+        elif parse_semver(declared) != game:
             fail("packs", f"{rel(info)} declares {declared}, game is {version}{tag}")
         else:
             lines.append(f"  {rel(info)}  {declared}{tag}")
@@ -373,7 +385,7 @@ def audit(root, version):
     for builder in builders:
         hits = literals(builder)
         for line_no, value in hits:
-            if parse_version(value) != game:
+            if parse_semver(value) != game:
                 fail("builders", f"{rel(builder)}:{line_no} writes ApproximateVersion={value}, game is {version}")
             else:
                 lines.append(f"  {rel(builder)}:{line_no}  ApproximateVersion={value}")
@@ -430,8 +442,9 @@ def audit(root, version):
     if listed[NOT_SEMVER]:
         lines.append(f"INFO: {len(listed[NOT_SEMVER])} mod(s) declare an ApproximateVersion the game cannot read "
                      "(not MAJOR.MINOR.PATCH, or a number above 2147483647), which the Mod Manager lists as not "
-                     f"compatible on any game version; SETUP marks the ones whose MAJOR.MINOR is no higher than "
-                     f"{game_minor}:")
+                     "compatible on any game version; SETUP marks the ones with a number above 2147483647 and the "
+                     "ones whose first two or three numbers (PATCH 0 when there are two) are no higher than "
+                     f"{version}:")
         for _, wid, name, approx in sorted(listed[NOT_SEMVER]):
             lines.append(f"  {approx!r:<10}{wid}  {name}")
 
@@ -452,8 +465,9 @@ def bump(root, version):
     second run with the same version changes nothing.
     """
     version = version.strip()
-    if parse_version(version) is None:
-        raise ValueError(f"--bump {version!r} is not numeric X.Y.Z")
+    if parse_semver(version) is None or not PLAIN.fullmatch(version):
+        raise ValueError(f"--bump {version!r} is not MAJOR.MINOR.PATCH as the game reads it, "
+                         "with no -pre-release or +build part")
     targets = all_builders(root)
     for pack in sest_packs(root):
         if is_static(root, pack) and (pack / "_info.ini").exists():
