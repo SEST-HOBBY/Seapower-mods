@@ -292,7 +292,11 @@ real, it goes into the load order and the collection like any other mod.
    installed` lines, no `[SEST Runtime] inactive: uninspected native
    assembly` line and, with Contact Log 1.0.1, `[SEST UI Follow-up] 1.4.2
    input fix installed`; and the owner has decided whether to wait on the
-   unexplained 27 Oct crash. The change log's Quick Load line (UI Follow-up
+   unexplained 27 Oct crash. A `[SEST Runtime] F11 campaign totals inactive:
+   uninspected Combat Cost Tracker` line means SEST's F11 windows are off
+   with the installed tracker: hold the change log's F11 sentences, or the
+   upload. The listing's pre-submit check says what the other `inactive`
+   lines mean. The change log's Quick Load line (UI Follow-up
    moves plain F9 to Ctrl+F9 for every Contact Log 1.0.1 player) stays while
    `SEST.ContactsFix.dll` makes the move; it can go only if the plugin is
    held back or rebuilt without it. The change log is in

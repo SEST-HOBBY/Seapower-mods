@@ -27,11 +27,14 @@ loaded and partly played; their open questions are listed below.
    uninspected native assembly` means the game has updated past the build
    SEST checked, and all of them are off: the game's own behaviour applies,
    so do not report the MST over mountains or the debrief as SEST faults
-   then. With Contact Log subscribed, a `[SEST UI Follow-up] 1.4.2 input
-   fix installed` line means the UI follow-up is on too; `[SEST UI
-   Follow-up] inactive; original behavior retained` means it is off. With
-   UI Follow-up on, Quick Load is Ctrl+F9. Say which lines you saw, and the
-   game's build.
+   then. `inactive: owning pack is not enabled` means the pack is not
+   ticked (step 2). `F11 campaign totals inactive: uninspected Combat Cost
+   Tracker` means SEST's F11 cost windows are off with the tracker you
+   have: say so, with the tracker's version. With Contact Log subscribed,
+   a `[SEST UI Follow-up] 1.4.2 input fix installed` line means the UI
+   follow-up is on too; `[SEST UI Follow-up] inactive; original behavior
+   retained` means it is off. With UI Follow-up on, Quick Load is Ctrl+F9.
+   Say which lines you saw, and the game's build.
 4. **Options:** note the two weapons settings under Left Shift+O —
    "Ships on Weapons Tight engage hostile aircraft" and "Ships use anti-ship
    missiles on Weapons Free". Leave them at their defaults and say what they

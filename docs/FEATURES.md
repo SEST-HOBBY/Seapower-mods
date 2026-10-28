@@ -562,8 +562,8 @@ how to check each.
   played as written, SEST's mission files give the player's ships no
   `CampaignTag`, so the game keeps no loss record for them: by 0.8.7's code
   a ship sunk there is listed without a Lost status (Undamaged), and the
-  correction cannot add one either. Neither correction has been watched
-  working in a mission yet.
+  correction cannot add one either. None of the three corrections has been
+  watched working in a mission yet.
 - **SEST UI Follow-up** (`plugins/SEST.ContactsFix.dll`, 1.4.2, 28 Oct
   2026): for players of Contact Log 1.0.1. Space and +/- no longer open or
   close Contacts; its pop-out is fixed and Group Manager gets a Stock UI /

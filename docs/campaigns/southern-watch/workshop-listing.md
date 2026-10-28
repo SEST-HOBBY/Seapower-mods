@@ -106,10 +106,17 @@ SETUP update). Before Submit:
 - Player.log must show three `[SEST Runtime] ... correction installed` lines
   (terrain, debrief, towed sensor), no `[SEST Runtime] inactive: uninspected
   native assembly` line and, with Contact Log 1.0.1, `[SEST UI Follow-up]
-  1.4.2 input fix installed`. Other `[SEST Runtime] ... inactive` lines are
-  not SEST's to prevent: a pop-out bridge logs one when the installed Contact
-  Log, Group Manager or Pop-Out Windows is not the version SEST inspected.
-  Take out any line below whose plugin did not install.
+  1.4.2 input fix installed`. `inactive: owning pack is not enabled in
+  usersettings.ini` means the pack is not ticked in the Mod Manager, and the
+  whole plugin is off: tick it, restart and look again. `F11 campaign totals
+  inactive: uninspected Combat Cost Tracker` means the installed tracker is
+  not the 0.7.1 build SEST inspected, so SEST's F11 windows (in a mission and
+  in the Task Force menu) are off and the tracker's own F11 panel is left as
+  it is: hold the upload, or take out the F11 sentences of the change log's
+  first bullet and the Description's Task Force F11 item. A pop-out bridge's
+  `... inactive` line is not SEST's to prevent: it means the installed
+  Contact Log, Group Manager or Pop-Out Windows is not the version SEST
+  inspected. Take out any line below whose plugin did not install.
 - The Quick Load line stays while `SEST.ContactsFix.dll` makes the move (UI
   Follow-up moves plain F9 to Ctrl+F9); it can go only if the plugin is held
   back or rebuilt without it. The owner decides whether to mention the
