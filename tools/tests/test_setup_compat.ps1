@@ -5,10 +5,10 @@
     made for an older game version (a value the game cannot read judged by
     the two or three numbers it starts with) and the reviewed REDFOR, names
     and leaves the rest, judges its own marks again after a game update (up
-    a version, and back down again), gives REDFOR's own file back once it
-    holds a .dll, and turns a mod file it cannot read, or cannot keep, into
-    one warning (its [ok] line then does not speak for the mods it warns
-    about);
+    a version, and back down again), gives REDFOR's kept file back once it
+    holds a .dll (with none kept, names it and leaves it marked), and turns
+    a mod file it cannot read, or cannot keep, into one warning (its [ok]
+    line then does not speak for the mods it warns about);
     -RestoreModFiles puts every file back byte for byte, and one that stops
     part-way says changes were made; -KeepDir moves the kept files, a
     relative one read against the folder PowerShell is in (also when

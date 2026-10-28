@@ -7,7 +7,8 @@
     update (up a version, and back down again), and -Restore puts every file
     back byte for byte. A value the game cannot read is judged by the two
     or three numbers it starts with, and a reviewed mod marked earlier that
-    now holds a .dll gets its author's file back.
+    now holds a .dll gets its author's kept file back (with none kept, it is
+    named and left marked).
 
 .DESCRIPTION
     A synthetic Workshop folder, game folder and backup folder stand in for
