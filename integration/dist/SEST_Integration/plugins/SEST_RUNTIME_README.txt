@@ -1,88 +1,51 @@
-SEST RUNTIME FIXES 1.2.0
+SEST Runtime Fixes 1.5.0
 
-Requires the existing Anchor Chain and HarmonyX installation. Only SEST's own
-code ships here. Source and build/test instructions: integration/runtime-fixes/.
-The plugin checks its owning pack is enabled and matches the captured native
-Sea Power 0.8.7 (Build 261021) assembly SHA256 before installing its
-features. It reads usersettings.ini once at startup; restart after
-enabling/disabling the pack. An unknown game build, missing API or failed
-correction is logged and leaves native behavior in place. Player.log lines
-start [SEST Runtime]: the existing terrain/debrief fixes log "correction installed"; cost modules log their own installed lines. After
-a game update, "inactive: uninspected native assembly ..." means all runtime features are
-off and the game's own behaviour applies until SEST is matched to the new
-build; nothing needs turning off.
+Own code for the inspected Sea Power 0.8.7 Build 261021. The plugin stays inactive on an unknown game build. Enable the SEST pack and restart after an update. No game or third-party DLL is distributed in this pack.
 
-MST TERRAIN CLEARANCE (TerrainClearance=1 in sest_runtime.ini)
-RGM-109E5a and UGM-109E5a only, with terrain-following enabled, in native cruise
-stages before TerminalApproach. The normal safe-altitude calculation still
-runs. The correction asks the game's own terrain sampler for its available
-samples through 1.08 nautical miles ahead, along the missile's actual heading.
-When those samples contain positive-height land, it requests at least 500 feet
-above the highest sampled terrain, retaining any higher native altitude.
-Over open water the native sea-skimming result is retained. Near a coastline
-the missile may begin climbing over water in anticipation of terrain ahead.
-Boost, terminal attack, seeker, range, damage and native pitch/turn limits are
-unchanged. Terrain remains collidable; there is no teleport or guaranteed-hit
-logic. This does not implement route planning around mountains or guarantee
-clearance in the terminal phase. PC terrain-crossing tests remain required.
+Startup correction: native cost-window templates, input hooks and the pop-out bridge wait until the game's Noesis UI is initialized and a loaded game view is attached. No native UI setup runs from the early mod-assembly loading callback. The original tracker remains available until the replacement is ready.
 
-TASK-FORCE DEBRIEF (TaskForceDebrief=1)
-Section 3 can omit sunken ships: for a generated or replaced mission (52 of
-the 69 missions in SEST's four campaigns) the game lists the surviving
-post-mission roster. The correction adds a missing hull's Lost row only when
-this exact mission's launch snapshot includes its unique id AND its mission
-state explicitly says IsDestroyed=True. It preserves hull/variant and
-proficiency, avoids duplicate ids, and uses native row construction and
-sorting. It does not change the owned roster, campaign points, save data or
-section 2 totals. This can also repair the displayed older debrief when its
-exact launch and destruction records remain saved. If those records are
-missing, no loss is invented and no nearest-mission roster is substituted.
-In a mission played as written (the other 17), SEST's mission files give
-your ships no CampaignTag, so the game keeps no IsDestroyed record for them:
-on 0.8.7 a ship sunk there is listed in section 3 without a Lost status (the
-game's code says Undamaged; not yet seen in game), and the correction cannot
-add one either.
+F11: CUMULATIVE COMBAT COSTS
+- Mission headings are bold with separators; side totals are larger with subtle colour accents. Pricing information, breakdowns and native completion dates have smaller secondary styles. Labels accompany every colour cue.
+- In a mission: read-only USD category totals, quantities and cost details.
+- Between missions in a Task Force campaign: cumulative totals and every completed mission, with authored mission labels and native completion dates.
+- The campaign window fits between the native upper unit bar and lower timeline.
+- Scroll inside the report. Its wheel input is consumed; the map does not zoom.
+- Drag the native title bar to move the window; use its edges to resize. Placement is saved outside the game/mod files, separately for the mission and campaign.
+- F11 or the window's close control closes it. The old currency/economy/year selector buttons are removed.
+- With enabled Pop-Out Windows 1.0.1 and a second monitor, use the native title-bar pop-out control. Use the return control on that monitor to bring it back. The existing pop-out configuration and remembered windows are retained.
 
-Set an individual option to 0 and restart to use native behavior for that
-feature. Linux tests cover mocked native APIs and policy, not Unity gameplay.
+Group Manager 0.2.17
+- Its compact toolbar gains a pop-out/return arrow beside the category controls and move handle. Hover over the panel to show the toolbar.
+- The original group selection, filter, tree, drag/drop and resize controls remain.
+- SEST scopes the panel's host lookup to the detached screen while it updates, then restores the normal root lookup. Main-screen placement remains separate from Pop-Out's placement. The third-party DLL is not edited or included.
+- The bridge declines unknown versions rather than modifying an unreviewed UI.
 
-COMPLETE COMBAT COSTS (private playtest; native PC acceptance pending)
-Requires enabled Combat Cost Tracker catalogs and a full game restart.
-In a mission, F11 is the Combat Cost Tracker's own panel: this mission's costs.
-In the Task Force menu between missions, F11 opens SEST's campaign panel at the
-middle of the left edge, clear of the mission information, and F11 closes it. It shows the completed missions' Player and Enemy totals (weapons,
-ships, aircraft, land, stores lost with destroyed units) and one line per
-completed mission, the latest ten listed. Information only: no tabs or buttons.
-Requires the inspected Combat Cost Tracker 0.7.1; with an unknown version the
-tracker works as before and the campaign panel stays off. No game or tracker
-DLL is redistributed.
+SEST default UI keys
+- Contacts: open it with its existing on-screen button. Where Contact Log is installed, SETUP unbinds its default F6 shortcut, which the game itself uses. A key you set yourself is kept.
+- SETUP also unbinds Contact Log's default F8 diagnostic probe, so the strike planner keeps F8.
+- Topographic Map keeps its own keys; SETUP does not change them.
+- Where SEST UI Follow-up is active, the game's Quick Load moves from F9 alone to Ctrl+F9; see plugins/README.txt.
 
-Stores lost carry through the campaign. Each completed mission's lost stores and
-full expenditure are written into the campaign save itself, so the next mission
-no longer erases them. A mission completed before this fix gets its stores back
-from SEST's local record of that game, but only when exactly one record matches
-its losses; otherwise they show + ?. Raw quantities, never USD totals, are kept
-under SEST/combat-history-v1.txt in the game's LocalLow settings directory.
+Contact Log 1.0.1
+- The Contacts launcher and its window choose the main tactical view instead of the first view found across both monitors.
+- Open Contacts with its existing on-screen button. A Pop out / Return to game button beside the Contacts and Classification Rules tabs moves their existing window between screens.
+- Contact lists, filtering, classification editing, reference links and the original close controls remain the author's UI. The original DLL and configuration are not replaced.
+- Main-screen placement remains in Contact Log's WindowRect setting. Detached placement and remembered screen choice are stored separately under the user's SEST folder. Existing Pop-Out layouts are retained.
+- The bridge requires the inspected Contact Log 1.0.1 and Pop-Out Windows 1.0.1 DLLs and an available second monitor. Unknown DLLs are left alone.
 
-The task-force campaign debrief gains Combat Cost rows for Player and Enemy,
-this mission and completed campaign totals. Prices use the selected historical
-or current mode. Existing checked prices are preserved; gaps use labelled SEST
-estimates. All resolved weapon, ship, aircraft and land references are covered.
+Preparation and native sensor correction
+- Own-unit plotting records initialize while paused at mission start or while the game's flight-preparation queue is active. No simulation step, sensor scan, pause toggle or enemy detection is run.
+- Mission reset/unload clears the preparation cache. Replaced native plotting records can be initialized again.
+- The native towed-system active-sonar retraction uses a checked sonar link. An incomplete sonar link waits locally and retries, rather than aborting the global fixed update. Mechanical retraction and valid sonar behavior remain native. A diagnostic names any affected unit.
 
-CampaignCombatCosts controls the debrief rows. CumulativeCombatCosts controls the
-F11 campaign panel and the local record. CombatCostInventories captures remaining
-itemized stores and raw expenditure. It writes only versioned SEST quantity keys
-alongside native mission/campaign save records, never USD totals or purchase
-points. Completed mission captures survive replays.
+Other retained corrections
+- Compact debrief: mission and campaign cost totals; complete detail through F11.
+- Destroyed launch-snapshot hull rows missing from the native debrief.
+- Raw ammunition/inventory accounting, including ships, submarines, aircraft and land units; unknown quantities/prices remain marked. No crew, fuel burn, repair or survivor-damage estimates.
+- RGM/UGM-109E5a land-clearance correction, with the native terminal profile.
+- Native debrief times are unchanged.
 
-+ ? means missing quantities/prices, including unitemized flight-deck point pools.
-Cargo, crew, operating fuel burn, repairs and damaged-only platforms are outside
-this material-loss account. Land and parked-aircraft losses appear in SEST's
-campaign panel and debrief rows; the in-mission panel keeps the tracker's scope.
-Changing catalogs or price mode reprices the saved counts. Crew and game
-acquisition points are never USD.
+Mods made for a newer game version
+SETUP names them and leaves them alone, with one reviewed exception: THE REDFOR MOD, data only, which declares 0.8.8. While its folder holds no code, SETUP marks it compatible like a mod made for an older version and keeps the author's _info.ini. SETUP -RestoreModFiles puts the author's file back. This does not claim every REDFOR unit has been playtested.
 
-Player.log must show: campaign combat costs installed; combat inventory capture
-installed; F11 campaign combat costs installed. Check the private playtest card
-for the fire/loss/save tests. Linux mocks do not establish gameplay success on
-0.8.7.
+Settings: plugins/sest_runtime.ini. Set an individual option to 0 and restart to disable that SEST correction. Game, mod and custom keybinding settings are not overwritten by the runtime updater. Native gameplay, layout, monitor focus and repeat-start acceptance are performed on the gaming PC.

@@ -84744,9 +84744,9 @@
       "eligible": 759,
       "historical_known": 759,
       "current_known": 759,
-      "sest_eligible": 38,
-      "sest_historical_known": 38,
-      "sest_current_known": 38,
+      "sest_eligible": 39,
+      "sest_historical_known": 39,
+      "sest_current_known": 39,
       "unknown": []
     },
     "land": {
@@ -190841,8 +190841,8 @@
       {
         "kind": "aircraft",
         "id": "usn_p8_2027",
-        "owner": "3606774881",
-        "path": "mods-source/3606774881/aircraft/usn_p8_2027.ini",
+        "owner": "SEST_Allied_Fixes",
+        "path": "integration/allied-fixes/SEST_Allied_Fixes/aircraft/usn_p8_2027.ini",
         "category": "Aircraft",
         "type": "Aircraft",
         "historical": "148000000",

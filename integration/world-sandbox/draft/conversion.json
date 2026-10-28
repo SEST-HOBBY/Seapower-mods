@@ -728,8 +728,8 @@
    ],
    "outcome": "converted",
    "why": "air force at the node's air base",
-   "unit": "usn_p_8a",
-   "resolved": "as registered",
+   "unit": "usn_p8_2027",
+   "resolved": "2028 Poseidon model corrected from usn_p_8a (P-3 geometry)",
    "base": "usa_jacksonville_nas_jacksonville"
   },
   {
@@ -741,8 +741,8 @@
    ],
    "outcome": "converted",
    "why": "air force at the node's air base",
-   "unit": "usn_p_8a",
-   "resolved": "as registered",
+   "unit": "usn_p8_2027",
+   "resolved": "2028 Poseidon model corrected from usn_p_8a (P-3 geometry)",
    "base": "usa_jacksonville_nas_jacksonville"
   },
   {
@@ -754,8 +754,8 @@
    ],
    "outcome": "converted",
    "why": "air force at the node's air base",
-   "unit": "usn_p_8a",
-   "resolved": "as registered",
+   "unit": "usn_p8_2027",
+   "resolved": "2028 Poseidon model corrected from usn_p_8a (P-3 geometry)",
    "base": "usa_jacksonville_nas_jacksonville"
   },
   {
@@ -1639,8 +1639,8 @@
    ],
    "outcome": "converted",
    "why": "air force at the node's air base",
-   "unit": "usn_p_8a",
-   "resolved": "as registered",
+   "unit": "usn_p8_2027",
+   "resolved": "2028 Poseidon model corrected from usn_p_8a (P-3 geometry)",
    "base": "me_bahrain_muharraq_airfield"
   },
   {
@@ -1652,8 +1652,8 @@
    ],
    "outcome": "converted",
    "why": "air force at the node's air base",
-   "unit": "usn_p_8a",
-   "resolved": "as registered",
+   "unit": "usn_p8_2027",
+   "resolved": "2028 Poseidon model corrected from usn_p_8a (P-3 geometry)",
    "base": "me_bahrain_muharraq_airfield"
   },
   {
@@ -1770,8 +1770,8 @@
    ],
    "outcome": "converted",
    "why": "air force at the node's air base",
-   "unit": "usn_p_8a",
-   "resolved": "as registered",
+   "unit": "usn_p8_2027",
+   "resolved": "2028 Poseidon model corrected from usn_p_8a (P-3 geometry)",
    "base": "hoa_djibouti_camp_lemonnier"
   },
   {
@@ -2188,8 +2188,8 @@
    ],
    "outcome": "converted",
    "why": "air force at the node's air base",
-   "unit": "usn_p_8a",
-   "resolved": "as registered",
+   "unit": "usn_p8_2027",
+   "resolved": "2028 Poseidon model corrected from usn_p_8a (P-3 geometry)",
    "base": "med_sigonella_nas_sigonella"
   },
   {
@@ -2201,8 +2201,8 @@
    ],
    "outcome": "converted",
    "why": "air force at the node's air base",
-   "unit": "usn_p_8a",
-   "resolved": "as registered",
+   "unit": "usn_p8_2027",
+   "resolved": "2028 Poseidon model corrected from usn_p_8a (P-3 geometry)",
    "base": "med_sigonella_nas_sigonella"
   },
   {
@@ -2214,8 +2214,8 @@
    ],
    "outcome": "converted",
    "why": "air force at the node's air base",
-   "unit": "usn_p_8a",
-   "resolved": "as registered",
+   "unit": "usn_p8_2027",
+   "resolved": "2028 Poseidon model corrected from usn_p_8a (P-3 geometry)",
    "base": "med_sigonella_nas_sigonella"
   },
   {
@@ -2261,8 +2261,8 @@
    ],
    "outcome": "converted",
    "why": "air force at the node's air base",
-   "unit": "usn_p_8a",
-   "resolved": "as registered",
+   "unit": "usn_p8_2027",
+   "resolved": "2028 Poseidon model corrected from usn_p_8a (P-3 geometry)",
    "base": "med_souda_bay_nsa_air"
   },
   {
@@ -3317,8 +3317,8 @@
    ],
    "outcome": "converted",
    "why": "air force at the node's air base",
-   "unit": "usn_p_8a",
-   "resolved": "as registered",
+   "unit": "usn_p8_2027",
+   "resolved": "2028 Poseidon model corrected from usn_p_8a (P-3 geometry)",
    "base": "hn_evenes_air_station"
   },
   {
@@ -6878,9 +6878,9 @@
    "count": 2
   },
   {
-   "force": "Naval Air Station Jacksonville P-8A Poseidon",
+   "force": "Naval Air Station Jacksonville P-8A Poseidon (2027)",
    "node": "usa_jacksonville_nas_jacksonville",
-   "aircraft": "usn_p_8a",
+   "aircraft": "usn_p8_2027",
    "count": 4
   },
   {
@@ -6938,9 +6938,9 @@
    "count": 2
   },
   {
-   "force": "Muharraq Airfield P-8A Poseidon",
+   "force": "Muharraq Airfield P-8A Poseidon (2027)",
    "node": "me_bahrain_muharraq_airfield",
-   "aircraft": "usn_p_8a",
+   "aircraft": "usn_p8_2027",
    "count": 2
   },
   {
@@ -6950,9 +6950,9 @@
    "count": 2
   },
   {
-   "force": "Camp Lemonnier P-8A Poseidon",
+   "force": "Camp Lemonnier P-8A Poseidon (2027)",
    "node": "hoa_djibouti_camp_lemonnier",
-   "aircraft": "usn_p_8a",
+   "aircraft": "usn_p8_2027",
    "count": 1
   },
   {
@@ -6992,15 +6992,15 @@
    "count": 2
   },
   {
-   "force": "Naval Air Station Sigonella P-8A Poseidon",
+   "force": "Naval Air Station Sigonella P-8A Poseidon (2027)",
    "node": "med_sigonella_nas_sigonella",
-   "aircraft": "usn_p_8a",
+   "aircraft": "usn_p8_2027",
    "count": 3
   },
   {
-   "force": "Naval Support Activity Souda Bay P-8A Poseidon",
+   "force": "Naval Support Activity Souda Bay P-8A Poseidon (2027)",
    "node": "med_souda_bay_nsa",
-   "aircraft": "usn_p_8a",
+   "aircraft": "usn_p8_2027",
    "count": 1
   },
   {
@@ -7112,9 +7112,9 @@
    "count": 6
   },
   {
-   "force": "Evenes Air Station P-8A Poseidon 2",
+   "force": "Evenes Air Station P-8A Poseidon (2027)",
    "node": "hn_evenes_air_station",
-   "aircraft": "usn_p_8a",
+   "aircraft": "usn_p8_2027",
    "count": 1
   },
   {
@@ -8336,7 +8336,7 @@
   "catalogue_by_side_nation": {
    "blue US": {
     "ships": 248,
-    "aircraft": 168
+    "aircraft": 167
    },
    "blue Australia": {
     "ships": 44,
@@ -8699,7 +8699,7 @@
   "usn_mh-60r": "Role ASW",
   "usn_p-3c": "Role MPA",
   "usn_p8": "Role MPA",
-  "usn_p_8a": "Role MPA",
+  "usn_p8_2027": "Role MPA",
   "usn_ssbn_ohio": "Displacement 18750 t",
   "usn_ssgn_ohio_2027": "Displacement 18750 t",
   "usn_ssn_los_angeles_flt3_2026": "Displacement 6920 t",
@@ -9285,7 +9285,6 @@
   "usn_p-2h": "Role MPA",
   "usn_p-3d": "Role MPA",
   "usn_p-8a": "Role MPA",
-  "usn_p8_2027": "Role MPA",
   "usn_qh-50c": "Role ASW",
   "usn_qh-50d": "Role ASW",
   "usn_ra-3b": "Role Recon",
@@ -10075,8 +10074,8 @@
    "Air": 107
   },
   "patrols": 49,
-  "catalogue": 1561,
-  "values": 1561,
+  "catalogue": 1560,
+  "values": 1560,
   "lanes_kept": 11,
   "lanes_authored": 11,
   "skipped_nodes": 34
