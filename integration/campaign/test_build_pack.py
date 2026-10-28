@@ -1238,8 +1238,8 @@ class RosterAndSeahawk(unittest.TestCase):
         self.assertEqual(credits[holder], ("variant", f"{uid} Variant1"))
 
     def test_a_sold_hull_credits_the_rounds_its_fit_hangs(self):
-        # The Ford sails with Default, the fit the builder writes when the
-        # player picks none; Red Storm Arsenal ships its RAM and ESSM.
+        # The Ford's Default fit is read first; Red Storm Arsenal ships its
+        # RAM and ESSM.
         uid = "usn_cvn_gerald_r_ford"
         kind, path = bp.unit_file(uid)
         self.assertEqual(bp.pick_loadout(uid, path, None)[0], "Default")
@@ -1261,9 +1261,24 @@ class RosterAndSeahawk(unittest.TestCase):
         self.assertEqual(credits[holder], ("variant", f"{uid} Variant1"))
         self.assertEqual(self.names(credits, "ger_nh90"), {})
 
+    def test_a_sold_hull_credits_every_fit_it_offers(self):
+        # The buyer may pick any unlocked fit, and SEST locks none: three of
+        # the Hobart's Late fits hang an SM-6 whose full file SEST Collection
+        # Fixes ships (under SEST Replenishment's stub), and its Default does
+        # not carry one.
+        uid = "ran_ddg_hobart"
+        kind, path = bp.unit_file(uid)
+        self.assertEqual(bp.pick_loadout(uid, path, None)[0], "Default")
+        self.assertNotIn("usn_rim-174b", bp.stores(uid, kind, path, "Default"))
+        self.assertIn("usn_rim-174b", bp.stores(uid, kind, path, "Late BMD"))
+        self.assertIn("SEST_Collection_Fixes", bp.chain_owners("ammunition/usn_rim-174b.ini"))
+        bp.set_campaign(bp.campaign_specs()[0])
+        credits = bp.roster_ini([dict(unit=uid, picks=["Variant1"], points=100)])[1]
+        self.assertEqual(credits["SEST_Collection_Fixes"], ("store", f"{uid} / usn_rim-174b"))
+
     def test_every_campaigns_roster_credits_its_hulls_own_files(self):
         # The rule: every hull on sale credits its variants file's holder
-        # and every round of the fit it sails with, as a placed one does.
+        # and every round of every fit it offers.
         for spec in bp.campaign_specs():
             bp.set_campaign(spec)
             _text, credits = bp.roster_ini(spec["ROSTER"])
@@ -1273,9 +1288,9 @@ class RosterAndSeahawk(unittest.TestCase):
                 kind, path = bp.unit_file(e["unit"])
                 holder = bp.owner(f"{kind}/{e['unit']}_variants.ini")
                 self.assertIn(holder, credits, f"{spec['SLUG']}: {e['unit']}")
-                fit = bp.pick_loadout(e["unit"], path, None)[0]
-                for token, _how, detail in bp.store_credit(e["unit"], kind, path, fit):
-                    self.assertIn(token, credits, f"{spec['SLUG']}: {detail}")
+                for fit in bp.loadouts(path) or [None]:
+                    for token, _how, detail in bp.store_credit(e["unit"], kind, path, fit):
+                        self.assertIn(token, credits, f"{spec['SLUG']}: {detail}")
 
 
     def test_a_sold_unit_credits_the_model_folders_its_file_loads(self):

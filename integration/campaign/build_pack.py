@@ -1570,8 +1570,8 @@ def store_credit(uid, kind_dir, path, fit):
     """(token, "store", detail) for every round a unit hangs with one fit:
     each mod whose copy of that ammunition file the game reads
     (chain_owners). resolve() credits a placed unit's fit with it,
-    aircraft_credit() every fit of an embarked airframe, and roster_ini()
-    the fit a sold hull sails with."""
+    aircraft_credit() every fit of an embarked or sold airframe, and
+    roster_ini() every fit of a sold hull."""
     return [(token, "store", f"{uid} / {store}")
             for store in stores(uid, kind_dir, path, fit)
             for token in chain_owners(f"ammunition/{store}.ini")]
@@ -1579,8 +1579,8 @@ def store_credit(uid, kind_dir, path, fit):
 
 @functools.lru_cache(maxsize=None)
 def aircraft_credit(atype):
-    """(token, how, detail) for one embarked aircraft type: its unit and
-    squadron files, and every round any of its fits hangs."""
+    """(token, how, detail) for one embarked or sold aircraft type: its
+    unit and squadron files, and every round any of its fits hangs."""
     akind, apath = unit_file(atype)
     if apath is None:
         return ()
@@ -6476,14 +6476,20 @@ def roster_ini(roster, heading=None):
     # A bought hull also reads its own variants file and sails armed, and
     # neither was credited until later the same day. resolve() credits a
     # placed hull with the owner of <unit>_variants.ini and the rounds of its
-    # fit; this does the same for every hull on sale, in resolve()'s order.
-    # The fit is pick_loadout()'s with no mission: Default
-    # where the file offers one, which is what the builder writes when the
-    # player picks none (LinearCampaignTaskForceMissionGenerator.
-    # WriteVesselSection IL_003c; a LoadoutVariant written, the variant's own
-    # is never read, ObjectBaseLoader.loadObjectFromInternalResources
-    # IL_05bc), else the first fit it offers, a superset of the bare
-    # sections a missing Default leaves. The roster prices no other fit.
+    # fit; this does the same for every hull on sale, in resolve()'s order,
+    # and for every fit the hull offers, as aircraft_credit() does for an
+    # airframe. The buyer may pick any of them: IsShipLoadoutTypeRewardUnlocked
+    # unlocks every fit LockedShipLoadoutVariants does not name, and no SEST
+    # campaign names one; with PurchaseLoadouts=True a fit [LoadoutPrices]
+    # leaves out costs what the unit file says (ReadLoadoutBasePurchaseCost).
+    # EnsureSelectedLoadoutOption only sets the starting choice. The fit
+    # pick_loadout() gives with no mission (Default where the file offers
+    # one) is read first, so a round it hangs is the example shown. Until
+    # later on 28 Oct 2026 only that fit was credited, and the SM-6 that
+    # three of the Hobart's Late fits hang (SEST Collection Fixes) went
+    # unseen. A fit dated after the campaign's loadout year is refused in
+    # game (ResolveDateLockedLoadouts) and is credited here all the same: a
+    # superset, as for an airframe.
     #
     # Last, as resolve() orders them, the model folders a sold unit's file
     # loads from another mod (asset_credit). The Mistral, on sale in Southern
@@ -6498,10 +6504,11 @@ def roster_ini(roster, heading=None):
             found = [(token, "roster" if how == "unit" else how, detail)
                      for token, how, detail in aircraft_credit(uid)]
         else:
-            fit, _why = pick_loadout(uid, path, None)
+            first, _why = pick_loadout(uid, path, None)
             found = [(owner(f"{kind_dir}/{uid}_variants.ini"), "variant", f"{uid} {pick}")
                      for pick in entry["picks"]]
-            found += store_credit(uid, kind_dir, path, fit)
+            for fit in [first] + [f for f in loadouts(path) if f != first]:
+                found += store_credit(uid, kind_dir, path, fit)
         found += asset_credit(uid, path)
         for token, how, detail in found:
             if token and token not in credits:
