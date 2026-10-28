@@ -18,6 +18,10 @@ DEFAULT_ROOTS = [ROOT / 'integration/campaign/SEST_Campaign/campaigns',
                  ROOT / 'integration/mission-seeds']
 KEY = re.compile(r'^\s*([^=\s]+)\s*=\s*(.*?)\s*$')
 SECTION = re.compile(r'^\s*\[([^]]+)\]\s*$')
+# A waypoint token is 'x,height,z' optionally followed by orders, e.g.
+# '12,0,-30/SetTelegraph,2'. The 0.8.7 reader (SceneCreator.ReadWaypoints)
+# splits on '/' or, failing that, the broken bar.
+ORDERS = re.compile('[/\u00a6]')
 FIELDS = ('priority', 'mission', 'map_lat', 'map_lon', 'points', 'waypoints',
           'dynamic_waypoints', 'relative_sections', 'lat_max_abs',
           'longitude_span_deg', 'legacy_east_west_nm', 'globe_east_west_nm_est',
@@ -91,6 +95,32 @@ def geo_point(value):
     return lat, lon_normalize(lon)
 
 
+def waypoint_points(value, center):
+    """Map positions in one Waypoints value, and how many tokens have none.
+
+    'x,height,z' (height may be a word such as Periscope or BelowLayer) is an
+    offset from the map centre; anything after '/' is an order (SetTelegraph,
+    SetSensors, SetWeaponStatus, AttackAtWaypoint...) and moves nothing.
+    Empty tokens are skipped. 'Loop' closes the route: the 0.8.7 reader
+    returns there, so nothing after it is read. Keyword legs such as
+    Course/Turn are placed relative to the unit at run time and are counted,
+    not mapped.
+    """
+    points, unplaced = [], 0
+    for token in value.split('|'):
+        if not token.strip():
+            continue
+        head = ORDERS.split(token, 1)[0]
+        if head.split(',', 1)[0].strip().casefold() == 'loop':
+            break
+        p = relative_point(head, center)
+        if p:
+            points.append(p)
+        else:
+            unplaced += 1
+    return points, unplaced
+
+
 def analyze(path):
     sections = parse_sections(path.read_text(encoding='utf-8-sig', errors='replace'))
     env = next((v for k, v in sections.items() if k.casefold() == 'environment'), {})
@@ -123,13 +153,10 @@ def analyze(path):
             if p:
                 points.append(p)
         if 'waypoints' in keys:
-            for token in keys['waypoints'].split('|'):
-                p = relative_point(token, center)
-                if p:
-                    points.append(p)
-                    wp_count += 1
-                elif token.strip():
-                    dyn_count += 1
+            route, unplaced = waypoint_points(keys['waypoints'], center)
+            points.extend(route)
+            wp_count += len(route)
+            dyn_count += unplaced
     if not points:
         return None
     lats, lons = [p[0] for p in points], [p[1] for p in points]
@@ -154,11 +181,10 @@ def analyze(path):
     if largest_est >= 4500:
         notes.append('large span; review editor play area')
     if dyn_count:
-        notes.append('dynamic routes not georeferenced')
+        notes.append(f'{dyn_count} waypoint{"s" if dyn_count > 1 else ""} placed at run time '
+                     '(Course/Turn etc.), not mapped')
     if rel_count:
         notes.append('parent-relative positions skipped')
-    if not has_play_area:
-        notes.append('editor auto play area unverified')
     return dict(priority=priority, mission=str(path), map_lat=round(lat, 4),
                 map_lon=round(lon, 4), points=len(points), waypoints=wp_count,
                 dynamic_waypoints=dyn_count, relative_sections=rel_count,
@@ -190,6 +216,22 @@ def scan(roots):
     return sorted(rows, key=lambda r: (r['priority'], -r['lat_max_abs'], r['mission']))
 
 
+def print_report(rows):
+    for r in rows:
+        print(f"{r['priority']} {r['lat_max_abs']:>5.1f}deg  "
+              f"EW {r['globe_east_west_nm_est']:>7.1f} / old {r['legacy_east_west_nm']:>7.1f} nm  "
+              f"NS {r['north_south_nm_est']:>7.1f} nm  "
+              f"{r['mission']}" + (f" | {r['notes']}" if r['notes'] else ''))
+    print(f'{len(rows)} authored missions; ' +
+          ', '.join(f'{p}: {sum(r["priority"] == p for r in rows)}'
+                    for p in ('P1', 'P2', 'P3')))
+    # Shown once here rather than as a note on every row.
+    no_area = sum(not r['play_area_field'] for r in rows)
+    if no_area:
+        print(f'{no_area} of {len(rows)} missions set no play-area key; the beta '
+              "editor's auto-generated play area is unverified for them.")
+
+
 def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--root', type=Path, action='append', dest='roots',
@@ -206,14 +248,7 @@ def main(argv=None):
         writer.writeheader()
         writer.writerows(rows)
     else:
-        for r in rows:
-            print(f"{r['priority']} {r['lat_max_abs']:>5.1f}deg  "
-                  f"EW {r['globe_east_west_nm_est']:>7.1f} / old {r['legacy_east_west_nm']:>7.1f} nm  "
-                  f"NS {r['north_south_nm_est']:>7.1f} nm  "
-                  f"{r['mission']} | {r['notes']}")
-        print(f'{len(rows)} authored missions; ' +
-              ', '.join(f'{p}: {sum(r["priority"] == p for r in rows)}'
-                        for p in ('P1', 'P2', 'P3')))
+        print_report(rows)
     return 0
 
 
