@@ -132,7 +132,7 @@ try {
     Check ((Same (Now "3732654992") $redforMarked) -and (Same (Kept "3732654992") $redfor) -and $out -match "marked       3732654992.*reviewed") "THE REDFOR MOD's reviewed 0.8.8 is marked 0.8.0"
     Check ((Same (Now "2301") $files["2301"]) -and $out -match "2301.*ExactVersion=0\.8\.6") "an ExactVersion the game rejects is named and left alone, ApproximateVersion and all"
     Check ((Same (Now "2302") $files["2302"]) -and $out -match "2302.*ApproximateVersion=abc") "an unreadable value is named and left alone"
-    Check ((Same (Now "2303") (Bytes ("[Compatibility]`n" + (Note "0.8.99999999999" "`n") + "ApproximateVersion=0.8.0`n"))) -and (Same (Kept "2303") $files["2303"])) "a 20-digit patch does not crash it; not readable by the game, with MAJOR.MINOR 0.8, it is marked"
+    Check ((Same (Now "2303") (Bytes ("[Compatibility]`n" + (Note "0.8.99999999999" "`n") + "ApproximateVersion=0.8.0`n"))) -and (Same (Kept "2303") $files["2303"])) "an 11-digit patch does not crash it; the game's pattern takes it but cannot hold the number, so it is marked"
     Check (Same (Now "2304") $files["2304"]) "an empty value is what the game ignores: left alone"
     Check (Same (Now "2305") (Bytes ("[Compatibility]`n" + (Note "0.7.0" "`n") + "  approximateversion  =  0.8.0   ; old`n"))) "spaces, key case and an inline comment are kept around the new value"
     Check ((Same (Now "2306") $files["2306"]) -and $out -match "2306.*not UTF-8 text") "a file that is not UTF-8 is named and left alone"
