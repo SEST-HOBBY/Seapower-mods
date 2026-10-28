@@ -1214,6 +1214,52 @@ class RosterAndSeahawk(unittest.TestCase):
                         if token:
                             self.assertIn(token, credits, f"{spec['SLUG']}: {detail}")
 
+    def test_a_sold_hull_credits_its_variants_file(self):
+        # Until 28 Oct 2026 a sold hull's own variants file was credited only
+        # where a mission placed the hull: Euromod-Philippine-Navy writes the
+        # BRP Antonio Luna's, under SEST Replenishment's hull file.
+        uid = "pn_ffg-150"
+        holder = bp.owner(f"vessels/{uid}_variants.ini")
+        self.assertNotEqual(holder, bp.owner(f"vessels/{uid}.ini"))
+        credits = self.sulu_credits((uid, ["Variant1"]))
+        self.assertEqual(credits[holder], ("variant", f"{uid} Variant1"))
+
+    def test_a_sold_hull_credits_the_rounds_its_fit_hangs(self):
+        # The Ford sails with Default, the fit the builder writes when the
+        # player picks none; Red Storm Arsenal ships its RAM and ESSM.
+        uid = "usn_cvn_gerald_r_ford"
+        kind, path = bp.unit_file(uid)
+        self.assertEqual(bp.pick_loadout(uid, path, None)[0], "Default")
+        credits = self.sulu_credits((uid, ["Variant1"]))
+        ram = bp.chain_owners("ammunition/usn_rim_116c.ini")[0]
+        self.assertNotEqual(ram, bp.owner(f"vessels/{uid}.ini"))
+        self.assertEqual(credits[ram], ("store", f"{uid} / usn_rim_116c"))
+
+    def test_a_sold_hulls_variants_file_comes_before_its_deck(self):
+        # In resolve()'s order: Modern German Navy writes the F124's variants
+        # file and the NH90 on its deck, and is credited for the variant.
+        uid = "ger_ffg_f124_MLU"
+        holder = bp.owner(f"vessels/{uid}_variants.ini")
+        self.assertEqual(holder, bp.owner("aircraft/ger_nh90.ini"))
+        credits = self.sulu_credits((uid, ["Variant1"]))
+        self.assertEqual(credits[holder], ("variant", f"{uid} Variant1"))
+
+    def test_every_campaigns_roster_credits_its_hulls_own_files(self):
+        # The rule: every hull on sale credits its variants file's holder
+        # and every round of the fit it sails with, as a placed one does.
+        for spec in bp.campaign_specs():
+            bp.set_campaign(spec)
+            _text, credits = bp.roster_ini(spec["ROSTER"])
+            for e in spec["ROSTER"]:
+                if bp.unit_type(e["unit"]) != "Vessel":
+                    continue
+                kind, path = bp.unit_file(e["unit"])
+                holder = bp.owner(f"{kind}/{e['unit']}_variants.ini")
+                self.assertIn(holder, credits, f"{spec['SLUG']}: {e['unit']}")
+                fit = bp.pick_loadout(e["unit"], path, None)[0]
+                for token, _how, detail in bp.store_credit(e["unit"], kind, path, fit):
+                    self.assertIn(token, credits, f"{spec['SLUG']}: {detail}")
+
 
 class CreditMerge(unittest.TestCase):
     """Which credit a coverage row shows. The roster's are merged first; a

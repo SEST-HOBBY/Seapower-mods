@@ -1566,6 +1566,17 @@ def chain_owners(relpath, depth=0):
     return tuple(out)
 
 
+def store_credit(uid, kind_dir, path, fit):
+    """(token, "store", detail) for every round a unit hangs with one fit:
+    each mod whose copy of that ammunition file the game reads
+    (chain_owners). resolve() credits a placed unit's fit with it,
+    aircraft_credit() every fit of an embarked airframe, and roster_ini()
+    the fit a sold hull sails with."""
+    return [(token, "store", f"{uid} / {store}")
+            for store in stores(uid, kind_dir, path, fit)
+            for token in chain_owners(f"ammunition/{store}.ini")]
+
+
 @functools.lru_cache(maxsize=None)
 def aircraft_credit(atype):
     """(token, how, detail) for one embarked aircraft type: its unit and
@@ -1576,9 +1587,7 @@ def aircraft_credit(atype):
     out = [(owner(f"{akind}/{atype}.ini"), "unit", atype),
            (owner(f"{akind}/{atype}_squadrons.ini"), "squadron", atype)]
     for afit in loadouts(apath) or [None]:
-        for store in stores(atype, akind, apath, afit):
-            out += [(token, "store", f"{atype} / {store}")
-                    for token in chain_owners(f"ammunition/{store}.ini")]
+        out += store_credit(atype, akind, apath, afit)
     return tuple(out)
 
 
@@ -1655,9 +1664,8 @@ def resolve(spec, year=None):
     fit, _why = pick_loadout(uid, path, spec.get("loadout"), year)
     if fit:
         keys["LoadoutVariant"] = fit
-    for store in stores(uid, kind_dir, path, fit):
-        for token in chain_owners(f"ammunition/{store}.ini"):
-            note(token, "store", f"{uid} / {store}")
+    for token, how, detail in store_credit(uid, kind_dir, path, fit):
+        note(token, how, detail)
     # A deck's aircraft fly from it whether or not the mission names them,
     # and every fit they offer can be armed on deck. Until 20 Oct 2026 none
     # of it was credited: Red Line and Southern Reach listed the PLAAF
@@ -6445,15 +6453,34 @@ def roster_ini(roster, heading=None):
     # the Del Pilar's and Naresuan's decks carry an SH-2F whose sonobuoys
     # are theirs. Added after the units' own credits, and only for a mod
     # not already credited, so a mod that sells a unit stays a `roster` one.
+    #
+    # A bought hull also reads its own variants file and sails armed, and
+    # neither was credited until later the same day. resolve() credits a
+    # placed hull with the owner of <unit>_variants.ini and the rounds of its
+    # fit; this does the same for every hull on sale, before its deck, in
+    # resolve()'s order. The fit is pick_loadout()'s with no mission: Default
+    # where the file offers one, which is what the builder writes when the
+    # player picks none (LinearCampaignTaskForceMissionGenerator.
+    # WriteVesselSection IL_003c; a LoadoutVariant written, the variant's own
+    # is never read, ObjectBaseLoader.loadObjectFromInternalResources
+    # IL_05bc), else the first fit it offers, a superset of the bare
+    # sections a missing Default leaves. The roster prices no other fit.
     for entry in roster:
         uid = entry["unit"]
         kind_dir, path = unit_file(uid)
         if ROSTER_SECTION.get(unit_type(uid)) in ("AllowedAircraft", "AllowedHelicopters"):
-            embarked = [(uid, "")]
+            hull, embarked = [], [(uid, "")]
         else:
+            fit, _why = pick_loadout(uid, path, None)
+            hull = [(owner(f"{kind_dir}/{uid}_variants.ini"), "variant", f"{uid} {pick}")
+                    for pick in entry["picks"]]
+            hull += store_credit(uid, kind_dir, path, fit)
             embarked = [(atype, f"{uid} {pick} deck / ")
                         for pick in entry["picks"]
                         for atype in deck_aircraft(uid, kind_dir, path, pick, {})]
+        for token, how, detail in hull:
+            if token and token not in credits:
+                credits[token] = (how, detail)
         for atype, where in embarked:
             for token, how, detail in aircraft_credit(atype):
                 # The airframe itself is bought, not placed by a mission.
