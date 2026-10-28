@@ -31,10 +31,13 @@ SECTION = re.compile(r'^\s*\[([^]]+)\]\s*$')
 # splits on '/' or, failing that, the broken bar.
 ORDERS = re.compile('[/\u00a6]')
 HIGH_LAT = 50.0
+FAR_CENTRE_NM = 1000.0
+EARTH_RADIUS_NM = 3440.065
 FIELDS = ('kind', 'priority', 'file', 'map_lat', 'map_lon', 'points', 'waypoints',
           'dynamic_waypoints', 'relative_sections', 'lat_max_abs',
           'longitude_span_deg', 'legacy_east_west_nm', 'globe_east_west_nm_est',
-          'north_south_nm_est', 'dateline', 'geo_positions', 'play_area_field',
+          'north_south_nm_est', 'centre_nearest_nm', 'dateline', 'geo_positions',
+          'play_area_field',
           'lat_min', 'lat_max', 'lon_min', 'lon_max', 'lon_past_180',
           'dateline_legs', 'high_lat_positions', 'outside_bounds', 'notes')
 
@@ -61,6 +64,13 @@ def longitude_span(lons):
     gaps = [b - a for a, b in zip(values, values[1:])]
     gaps.append(values[0] + 360 - values[-1])
     return 360 - max(gaps)
+
+
+def great_circle_nm(a, b):
+    lat1, lon1, lat2, lon2 = map(math.radians, (a[0], a[1], b[0], b[1]))
+    h = (math.sin((lat2 - lat1) / 2) ** 2 +
+         math.cos(lat1) * math.cos(lat2) * math.sin((lon2 - lon1) / 2) ** 2)
+    return 2 * EARTH_RADIUS_NM * math.asin(math.sqrt(min(1.0, h)))
 
 
 def priority_for(dateline, max_abs_lat, largest_est=0.0):
@@ -183,14 +193,22 @@ def analyze(path):
     globe_ew = legacy_ew * abs(math.cos(math.radians(mid_lat)))
     north_south = lat_span * 60.0
     dateline = min(lons) < -170 and max(lons) > 170
+    # The map centre counts towards priority (the beta's map is built round
+    # it), but the notes say whether the positions or only the centre are high.
     max_abs_lat = max(abs(x) for x in lats + [lat])
+    points_max_lat = max(abs(x) for x in lats)
+    centre_nearest = min(great_circle_nm(center, p) for p in points)
     # A candidate play-area edge is not derivable from this approximation:
     # editor centre, orientation, triggers, land use and nonnumeric routes matter.
     largest_est = max(globe_ew, north_south)
     priority = priority_for(dateline, max_abs_lat, largest_est)
     notes = []
-    if max_abs_lat >= HIGH_LAT:
+    if points_max_lat >= HIGH_LAT:
         notes.append('high latitude')
+    elif abs(lat) >= HIGH_LAT:
+        notes.append(f'map centre at {abs(lat):.1f} deg, positions below {HIGH_LAT:g}')
+    if centre_nearest > FAR_CENTRE_NM:
+        notes.append(f'map centre {centre_nearest:,.0f} NM from the nearest position')
     if dateline:
         notes.append('dateline')
     if largest_est >= 4500:
@@ -208,6 +226,7 @@ def analyze(path):
                 legacy_east_west_nm=round(legacy_ew, 1),
                 globe_east_west_nm_est=round(globe_ew, 1),
                 north_south_nm_est=round(north_south, 1),
+                centre_nearest_nm=round(centre_nearest, 1),
                 dateline=dateline, geo_positions=geo_count,
                 play_area_field=has_play_area, notes='; '.join(notes))
 

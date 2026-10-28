@@ -97,6 +97,24 @@ Waypoints=12,0,9
         self.assertIsNone(geo.relative_point('0,0,9999', (0, 0)))
         self.assertEqual(geo.longitude_span([-179, 179]), 2)
 
+    def test_far_high_centre_is_not_a_high_latitude_mission(self):
+        # The Northern Front datum: centre in the North Atlantic, units at Darwin.
+        p = self.make_file("""[Environment]
+MapCenterLatitude=54.27
+MapCenterLongitude=-26.28
+[Darwin]
+RelativePositionInNM=9429.85,low,-4001.8
+Waypoints=9440,0,-4000|Loop
+""")
+        row = geo.analyze(p)
+        self.assertEqual(row['priority'], 'P1')        # the centre still counts
+        self.assertNotIn('high latitude', row['notes'])
+        self.assertIn('map centre at 54.3 deg, positions below 50', row['notes'])
+        self.assertGreater(row['centre_nearest_nm'], 6000)
+        self.assertIn(f"map centre {row['centre_nearest_nm']:,.0f} NM from the nearest",
+                      row['notes'])
+        self.assertAlmostEqual(geo.great_circle_nm((0, 0), (1, 0)), 60.04, places=2)
+
     def test_play_area_caveat_is_printed_once(self):
         p = self.make_file("""[Environment]
 MapCenterLatitude=0
