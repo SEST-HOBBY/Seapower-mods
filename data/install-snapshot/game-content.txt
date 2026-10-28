@@ -7,10 +7,10 @@ changelog copied to changelog.live.txt; head:
     
     ===============================================================================
     
-    21-Oct-2026: 0.8.7 Build 261021 Public Release
-    ----------------------------------------------
-    [FIX] Null ref when spawning a unit whose CIWS magazine has no ammunition (e.g. when swapping units in the museum)
-    [FIX] Null ref when respawning a unit in dev mode failed to load it, which could also move and select another unit
-    [FIX] Null ref spam and failed loading of (modded) helicopters with a missing rotor or rotor disc model
-    
-    ===============================================================================
+    26-Oct-2026: 0.8.7 Build 261026
+    -------------------------------
+    [FIX] Initial camera at mission start always faced north, so it could look at the first unit straight from behind or ahead; it now looks at it from behind and to the side
+    [FIX] Vessels could get a strong push and roll heavily right at the mission start
+    [FIX] Torpedoes could hit the ship that launched them
+    [FIX] Aircraft turn rate physics
+    [FIX] CIWS used flat hit rolls instead of its ballistics

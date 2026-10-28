@@ -3,6 +3,77 @@ Change log
 
 ===============================================================================
 
+26-Oct-2026: 0.8.7 Build 261026
+-------------------------------
+[FIX] Initial camera at mission start always faced north, so it could look at the first unit straight from behind or ahead; it now looks at it from behind and to the side
+[FIX] Vessels could get a strong push and roll heavily right at the mission start
+[FIX] Torpedoes could hit the ship that launched them
+[FIX] Aircraft turn rate physics
+[FIX] CIWS used flat hit rolls instead of its ballistics
+[FIX] Radar lookdown could ignore targets at long range or count ships as being in lookdown
+[FIX] Helicopters: helicopter code ran at twice the intended speed
+[FIX] Helicopters: terrain checks and vertical angle limits for engagements
+[FIX] Dive attacks could be impossible in certain cases
+[FIX] Leader attack cancelled the attack of a wingman in MoveToEngage state (aircraft)
+[FIX] VTOL and STOL leaders did not wait for their wingmen
+[FIX] Certain weapons could not be used for attack waypoint generation and Engage from the context menu
+[FIX] Aircraft could get stuck in the DisembarkElevator state
+[FIX] Aircraft groups without an explicit control mode now default to Follow Leader
+[FIX] Propellers were shown after an aircraft was destroyed
+[FIX] Unit icons in formations could disappear; possible fix for units that could not be selected or controlled after a formation was disbanded
+[FIX] Shell and CIWS spherecast data piled up when raycast commands were off
+[FIX] Exception when quitting the game
+[FIX] Mission Editor: wrong number of ready aircraft in the flight deck
+[FIX] Mission Editor: Disabled aircraft reverted to the nearest base on load instead of their assigned home base
+[FIX] Mission Editor: aircraft formations fell back to Individual, so followers did not pick up attack waypoints
+[FIX] Campaign: damaged units from dynamic generation were sometimes reported as kills
+[FIX] Campaign: destroyed task forces remained in the campaign roster
+[FIX] Campaign: player task force could be reset by the mission briefing
+[FIX] Campaign: moving a CAP on the campaign map only moved its leader in the mission
+[FIX] Voiceovers: removed unnecessary "track" from "Birds Away" for uk_male_1
+[FIX] Weapons: R-40RD/TD seeker type mix-up in localization
+[FIX] Units: Soviet sonar frequencies
+[FIX] Units: LOD and damage model fixes for several aircraft and large caliber guns, Mirage III pivots, S-2 depth bomb pylon placement
+
+[UPD] Weapon report now lists weapon failures
+[UPD] EXPERIMENTAL: Weapons: terminal loft for non-kinematic missiles
+[UPD] AI: populated Soviet OODA systems; SA-N-4 and Sea Sparrow now work independently of the OODA systems
+[UPD] Weapons: reworked launch, seeker and warhead reliability, pitch rates, armor and bombing values for many missiles and bombs
+[UPD] Weapons: rebalanced CIWS, one Phalanx is now roughly equal to two AK-630
+[UPD] Weapons: HE rounds now ignore half of the target's armor
+[UPD] Sensors: improved sonar and narrowband handling
+[UPD] Units: revised damage points and fire control of AAA, coastal artillery and Rapier
+[UPD] Units: AH-1J (IRIAF) received an anti-ship loadout with AGM-65B
+[UPD] Mission Editor: Load and Save As now open in the current mission folder
+[UPD] Mission Editor: despawned units (e.g. leaving the battle area) are no longer counted as destroyed
+[UPD] Event Log: clicking track numbers snaps the map view to them
+[UPD] Performance: batched missile simulations for aircraft, cheaper sensor and seeker raycasts and several AI optimizations
+[UPD] Updated NoesisGUI to 4.0.1
+[UPD] Translations
+
+[NEW] Map: new Lambert Conformal Conic (LCC) projection for map and terrain, with play area display, new vector map rendering, automatic label placement and day/night terminator; existing missions are migrated automatically
+[NEW] Multiple configurable sides are now possible, with side relations and sensor sharing options (Allied NPC, or multiple hostile sides with varied relations to each other, etc)
+[NEW] Spatial sounds: sounds now play based on distance from camera to sound emitter
+[NEW] Modding: file layers allow mods and user files to selectively overwrite game files, also per mission
+[NEW] Mission Editor: multiple configurable sides with relations, optional sensor picture sharing, localized side names and map colors
+[NEW] Mission Editor: "Set Relation" trigger action and scripting API to change side relations at runtime; allied victory, score and AAR section
+[NEW] Mission Editor: automatic attack waypoints with specific-target and area attacks, filterable by category, type, class, role and variant
+[NEW] Mission Editor: "Attack Target" trigger action to attack a unit with a selected weapon and salvo count
+[NEW] Mission Editor: Trigger action to edit unit waypoints with a map-based editing tool
+[NEW] Mission Editor: Condition for exact unit types, variants and squadrons in areas
+[NEW] Mission Editor: "Repeatable" checkbox for triggers and "Units matching condition" for action units
+[NEW] Mission Editor: New initial ROE setting in the Air Operations tab
+[NEW] Mission Editor: Save, save as and load buttons on every tab
+[NEW] Campaign: Task Force Air Ops window to manage aircraft preparation across all ships of a task force, with configurable Ready/Partial Ready aircraft and deck utilization info
+[NEW] Campaign: WIP campaign airbases can be provisioned with persistent air groups, installation status, supplies, runways and fuel
+[NEW] Campaign: WIP campaign settings menu, "Attach To" for task forces, info on what is missing when the play button is disabled, and single attempt missions
+[NEW] Campaign: Situation panel now includes player forces, reserves, embarked aircraft, airbase inventories and enemy aircraft losses
+[NEW] Weapons can now fail at launch; launchers eject failed rounds overboard
+[NEW] Patrol zones: CAP and SAR zones (work in progress)
+[NEW] D3D12 renderer can be selected via the -force-d3d12 command line option
+
+===============================================================================
+
 21-Oct-2026: 0.8.7 Build 261021 Public Release
 ----------------------------------------------
 [FIX] Null ref when spawning a unit whose CIWS magazine has no ammunition (e.g. when swapping units in the museum)
@@ -19,6 +90,7 @@ Change log
 [FIX] Null ref spam from autogen cities when they were reloaded before the terrain biome was known
 [FIX] Null ref when destroying units without materials
 [FIX] Null ref when rotating launchers with a missing mount or container object
+[FIX] Missing terrain water masks and potential loading or saving problems on macOS with CrossOver, caused by file existence checks that reported missing files as existing
 
 [UPD] Translations
 
