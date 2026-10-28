@@ -9,9 +9,12 @@ must refuse to overwrite it, and the .cs files are only its fork base.
 """
 import hashlib
 import json
+import os
 from pathlib import Path
+import shutil
 import subprocess
 import sys
+import tempfile
 import unittest
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -26,6 +29,28 @@ PACKS = (ROOT / "integration/campaign/SEST_Campaign/plugins",
 
 def sha256(path):
     return hashlib.sha256(path.read_bytes()).hexdigest()
+
+
+def builder_copy(tmp):
+    """A copy of integration/runtime-fixes (and the stub it compiles with)
+    under tmp, laid out as in the checkout. The builder is only ever run on
+    such a copy: if its refusal ever broke, it would overwrite the copy's DLL
+    and record, never the committed ones."""
+    plugin = tmp / "integration/runtime-fixes"
+    shutil.copytree(PLUGIN, plugin, ignore=shutil.ignore_patterns("__pycache__"))
+    stubs = tmp / "integration/menu-background/stubs"
+    stubs.mkdir(parents=True)
+    shutil.copy2(ROOT / "integration/menu-background/stubs/AnchorChain.cs", stubs)
+    return plugin
+
+
+def run_builder(plugin, *args):
+    # No SEST_MONO_PREFIX and an empty PATH: if the refusal broke, the build
+    # would stop at "Install mono-mcs" instead of compiling.
+    env = {k: v for k, v in os.environ.items() if k not in ("SEST_MONO_PREFIX", "PATH")}
+    env["PATH"] = ""
+    return subprocess.run([sys.executable, str(plugin / "build_plugin.py"), *args], cwd=plugin, env=env,
+                          capture_output=True, text=True, timeout=60)
 
 
 class RuntimePluginBuild(unittest.TestCase):
@@ -85,14 +110,62 @@ class CapturedRuntime(unittest.TestCase):
                                  "build it. Recover its source first (integration/runtime-fixes/README.md)")
 
     def test_the_builder_refuses_to_overwrite_it(self):
-        dll = PLUGIN / self.manifest["binary"]
-        before = dll.read_bytes()
-        run = subprocess.run([sys.executable, str(PLUGIN / "build_plugin.py")],
-                             capture_output=True, text=True, timeout=60)
-        self.assertNotEqual(run.returncode, 0)
-        self.assertIn("refusing to overwrite", run.stderr)
-        self.assertIn("--replace-captured-binary", run.stderr)
-        self.assertEqual(dll.read_bytes(), before)
+        with tempfile.TemporaryDirectory(prefix="sest-runtime-guard-") as tmp:
+            plugin = builder_copy(Path(tmp))
+            dll, record = plugin / self.manifest["binary"], plugin / "plugin-build.json"
+            before = dll.read_bytes(), record.read_bytes()
+            run = run_builder(plugin)
+            self.assertNotEqual(run.returncode, 0)
+            self.assertIn("refusing to overwrite", run.stderr)
+            self.assertIn("captured SEST Runtime " + self.manifest["plugin"]["version"], run.stderr)
+            self.assertIn("--replace-captured-binary", run.stderr)
+            self.assertEqual((dll.read_bytes(), record.read_bytes()), before)
+
+    def test_the_builder_refuses_when_the_captured_dll_is_missing(self):
+        # Building then would write the fork base and a format-1 record over
+        # the capture's provenance.
+        with tempfile.TemporaryDirectory(prefix="sest-runtime-guard-") as tmp:
+            plugin = builder_copy(Path(tmp))
+            (plugin / self.manifest["binary"]).unlink()
+            record = (plugin / "plugin-build.json").read_bytes()
+            run = run_builder(plugin)
+            self.assertNotEqual(run.returncode, 0)
+            self.assertIn("refusing to overwrite", run.stderr)
+            self.assertIn("itself is missing", run.stderr)
+            self.assertFalse((plugin / self.manifest["binary"]).exists())
+            self.assertEqual((plugin / "plugin-build.json").read_bytes(), record)
+
+
+class BuilderFailsClosed(unittest.TestCase):
+    """build_plugin.py treats a DLL its record does not account for as a capture."""
+
+    def check_refusal(self, record_text, expect):
+        with tempfile.TemporaryDirectory(prefix="sest-runtime-guard-") as tmp:
+            plugin = builder_copy(Path(tmp))
+            dll, record = plugin / "SEST.RuntimeFixes.dll", plugin / "plugin-build.json"
+            record.write_text(record_text)
+            before = dll.read_bytes()
+            run = run_builder(plugin)
+            self.assertNotEqual(run.returncode, 0)
+            self.assertIn("refusing to overwrite", run.stderr)
+            self.assertIn(expect, run.stderr)
+            self.assertIn("--replace-captured-binary", run.stderr)
+            self.assertEqual(dll.read_bytes(), before)
+            self.assertEqual(record.read_text(), record_text)
+
+    def test_an_unreadable_record(self):
+        self.check_refusal('{"status": "captured-binary-source-not', "cannot be read")
+
+    def test_a_record_that_is_not_an_object(self):
+        self.check_refusal("[]\n", "not a JSON object")
+
+    def test_a_built_record_of_another_dll(self):
+        # As if a merge brought back the fork base's format-1 record beside
+        # the captured DLL.
+        base = json.loads((PLUGIN / "plugin-build.json").read_text()).get("fork_base", {})
+        other = base.get("sha256", "0" * 64)
+        old = {"format": 1, "binary": "SEST.RuntimeFixes.dll", "sha256": other, "inputs": base.get("inputs", {})}
+        self.check_refusal(json.dumps(old, indent=2) + "\n", "records sha256 " + other)
 
 
 if __name__ == "__main__":

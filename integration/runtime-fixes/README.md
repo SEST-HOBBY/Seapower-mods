@@ -53,11 +53,15 @@ a player):
   it accepts only the game build `eab2297b...` (0.8.7 Build 261021).
 
 **Nothing here builds it.** `build_plugin.py` refuses to overwrite a
-captured binary and says why; `build_plugin.py --replace-captured-binary`
-builds the fork base anyway (on 27 Oct 2026 that still gave `41ff20d9...`
-byte for byte) and rewrites `plugin-build.json` for it. That is a
-downgrade: the pack would lose everything listed above, and SEST UI
-Follow-up would go inactive (below).
+captured binary and says why. It fails closed: it also refuses when the
+captured DLL is missing, and whenever a DLL is present that
+`plugin-build.json` does not account for (the record cannot be read, is not
+a JSON object, or records another SHA-256, as after a merge that brought
+back a format-1 record beside the capture).
+`build_plugin.py --replace-captured-binary` builds the fork base anyway (on
+27 Oct 2026 that still gave `41ff20d9...` byte for byte) and rewrites
+`plugin-build.json` for it. That is a downgrade: the pack would lose
+everything listed above, and SEST UI Follow-up would go inactive (below).
 
 **To reproduce the exact file, recover its source.** Ask whoever built 1.5.0
 for the original project folder and its build script; then rebuild it with
@@ -90,9 +94,13 @@ of the DLL, `sest_runtime.ini` and `SEST_RUNTIME_README.txt` in
 `SEST_Campaign/plugins` and the dist must equal the committed files, the
 fork base's sources must be unchanged (editing them changes nothing that
 ships), and `build_plugin.py` must refuse. With a normal status it checks
-the source hashes as before. `SEST_RUNTIME_README.txt` and
+the source hashes as before. The builder tests run `build_plugin.py` on a
+temporary copy of this folder with no Mono on the path, so a broken refusal
+fails the test without touching the committed DLL or record; they also
+cover the fail-closed cases above. `SEST_RUNTIME_README.txt` and
 `sest_runtime.ini` are not inputs: they can be edited and rebuilt into the
-pack without Mono.
+pack without Mono (`plugin-build.json` keeps the capture's hashes as
+provenance; the test holds the pack copies to the committed files only).
 
 **Open on 27 Oct 2026.** The owner's PC ran 1.5.0 with SEST UI Follow-up
 1.4.2 that day and reported a crash whose cause is unknown (the last logged

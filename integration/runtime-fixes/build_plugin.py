@@ -9,7 +9,9 @@ required to compile. The committed output is rebuilt only on source changes.
 While plugin-build.json's status is "captured-binary-source-not-recovered"
 the committed DLL is a capture whose source is not in this folder (the .cs
 files are its fork base), so this refuses to run unless given
---replace-captured-binary.
+--replace-captured-binary. It refuses too, failing closed, when a committed
+DLL is there but plugin-build.json cannot be read or does not record that
+DLL's hash: then nothing says what the DLL is.
 """
 import argparse
 import os
@@ -33,24 +35,51 @@ REPLACE_FLAG = "--replace-captured-binary"
 
 
 def refuse_captured_binary():
-    """Stop before the toolchain is touched if the committed DLL is a capture."""
+    """Stop before the toolchain is touched if the committed DLL may be a capture.
+
+    Fails closed: a committed DLL that plugin-build.json does not account for
+    (unreadable, not a JSON object, or another sha256) is treated as one, and
+    a captured status refuses even when the DLL itself has gone missing.
+    """
+    dll = HERE / "SEST.RuntimeFixes.dll"
+    where = f"integration/runtime-fixes/{dll.name}"
+    actual = hashlib.sha256(dll.read_bytes()).hexdigest() if dll.is_file() else None
     try:
         manifest = json.loads(MANIFEST.read_text())
-    except (OSError, ValueError):
-        return
+        if not isinstance(manifest, dict):
+            raise ValueError("not a JSON object")
+    except (OSError, ValueError) as error:
+        if actual is None:
+            return
+        sys.exit(
+            f"build_plugin.py: refusing to overwrite {where} (sha256 {actual}).\n"
+            f"  integration/runtime-fixes/plugin-build.json cannot be read ({error}), so nothing says\n"
+            f"  whether that DLL is the captured SEST Runtime 1.5.0, whose source is not here. Restore\n"
+            f"  plugin-build.json from git first (integration/runtime-fixes/README.md).\n"
+            f"  To replace the DLL anyway, run again with {REPLACE_FLAG}.")
     if manifest.get("status") != CAPTURED:
-        return
+        if actual is None or manifest.get("sha256") == actual:
+            return
+        sys.exit(
+            f"build_plugin.py: refusing to overwrite {where} (sha256 {actual}).\n"
+            f"  plugin-build.json records sha256 {manifest.get('sha256')} for it, so it is not the DLL\n"
+            f"  this builder last wrote: it may be the captured SEST Runtime 1.5.0, whose source is not\n"
+            f"  here. Put back the matching plugin-build.json, or the DLL, from git first\n"
+            f"  (integration/runtime-fixes/README.md).\n"
+            f"  To replace the DLL anyway, run again with {REPLACE_FLAG}.")
     plugin = manifest.get("plugin", {})
     version = plugin.get("version", "?")
     base = manifest.get("fork_base", {}).get("version", "?")
+    missing = "" if actual else f"  ({dll.name} itself is missing: restore it from git.)\n"
     sys.exit(
-        f"build_plugin.py: refusing to overwrite integration/runtime-fixes/{manifest['binary']}.\n"
-        f"  It is the captured SEST Runtime {version} (sha256 {manifest['sha256']}), and its source has\n"
+        f"build_plugin.py: refusing to overwrite {where}.\n"
+        f"  It is the captured SEST Runtime {version} (sha256 {manifest.get('sha256')}), and its source has\n"
         f"  not been recovered. The .cs files in this folder are its {base} fork base, not its source:\n"
         f"  building them would ship a {base} DLL in place of {version}, without {version}'s native F11\n"
         f"  windows, 3-row debrief, Contacts/Group Manager pop-out bridges, preparation map and\n"
         f"  towed-sonar guard, and SEST.ContactsFix.dll (which accepts only this exact hash) would go\n"
         f"  inactive. Recover the {version} source first (integration/runtime-fixes/README.md).\n"
+        f"{missing}"
         f"  To replace the captured DLL anyway, run again with {REPLACE_FLAG}.")
 
 
