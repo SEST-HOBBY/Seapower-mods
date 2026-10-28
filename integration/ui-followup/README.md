@@ -36,9 +36,22 @@ it did.
   logical tree, which Contact Log builds them in; moving Contacts to the
   Pop-Out Windows screen moves the scaled panel that holds the contact list;
   the pop out / return button is sized to its text.
-- **Quick-load key** (`UiRefinements.cs`). A quick-load bound to F9 alone
-  is rebound to Ctrl+F9 in memory, leaving F9 to Contacts. Any other
-  quick-load binding is left alone.
+- **Quick-load key** (`UiRefinements.cs`, a postfix on
+  `InputHandler.LoadKeybindings`, also run once at install). Where the
+  game's Quick Load is bound to F9 alone, the game's default, it becomes
+  Ctrl+F9 (`LeftControl+F9`); any other Quick Load binding is left alone.
+  The log line says "F9 reserved for Contacts", but that is the owner's PC,
+  where GPT's 1.3.0 installer had set Contact Log's `ToggleWindow` to F9
+  (the handoff's `history/1.3.0/manifest.json`). Nothing in this repository
+  binds F9 to Contacts, so for any other Contact Log player plain F9 simply
+  stops quick-loading. The change is not only in memory: the game's
+  Options > Accept (`OptionsMenuView.ButtonAccept_Click` calls
+  `InputHandler.SaveKeybindings`, which writes every binding's display
+  string) saves `LeftControl+F9` into the game's `controls.ini`, where it
+  stays after the pack, Contact Log or this plugin is removed. While the
+  plugin is on, a Quick Load set back to plain F9 is moved again the next
+  time the bindings load. (Read from 0.8.7's IL, `eab2297b...`; not
+  watched on a PC.)
 - **Preparation instructions** (`UiText.cs`). The game's aircraft and unit
   preparation popup gets the full four steps and a Start preparation
   button.
@@ -124,7 +137,8 @@ files in `source/` are exactly the recorded ones with the recorded hashes;
 every runtime pin in the source, and the hash in the DLL itself, equal the
 committed runtime's `plugin-build.json`; the other pins equal the record;
 the copies in `SEST_Campaign/plugins` and the dist equal the committed DLL;
-and, when Mono is available (`mcs` and `mono` on the PATH, or
+while the DLL carries the quick-load move, the pack's `plugins/README.txt`
+tells players about it; and, when Mono is available (`mcs` and `mono` on the PATH, or
 `SEST_MONO_PREFIX`), the five pure-logic suites compile with mcs and pass
 (45 / 112 / 3768 / 41 / 12 checks on 27 Oct 2026). `CatalogueRuntimeTests`
 and `verify_capture.py` need dotnet, 0Harmony or a PC capture and do not run
@@ -137,3 +151,11 @@ is unknown; the last logged action was moving Contacts to the second screen,
 a move that happens inside the pop-out button's own click handler. The
 handoff reports the input fix, Contacts pop-out and return and the
 Formation Manager controls working on the PC; that was not reproduced here.
+
+The quick-load move needs a decision before the pack is published with
+this plugin, since it then reaches every Contact Log 1.0.1 player on 0.8.7:
+have SETUP bind Contact Log's `ToggleWindow` to F9 where this plugin ships
+(the premise it was built on), or keep the move and say so in the change
+log (the pack's `plugins/README.txt` already does), or hold the plugin back
+until it is rebuilt without the move. The plugin has no option that turns
+the move off on its own.

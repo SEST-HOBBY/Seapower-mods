@@ -151,6 +151,20 @@ class PackCopies(unittest.TestCase):
                 self.assertEqual((folder / dll.name).read_bytes(), dll.read_bytes(),
                                  "Rebuild: python3 tools/build_all.py --from-scratch")
 
+    def test_the_pack_readme_says_quick_load_moves(self):
+        # UiRefinements.AfterBindings rebinds the game's Quick Load from F9
+        # alone to Ctrl+F9, and the game's Options > Accept saves that into
+        # controls.ini, where it outlives the plugin. The README beside the
+        # DLL must say so while the DLL does it.
+        if "LeftControl+F9".encode("utf-16-le") not in (PLUGIN / manifest()["binary"]).read_bytes():
+            self.skipTest("this DLL does not move Quick Load")
+        for folder in PACKS:
+            with self.subTest(readme=f"{folder.relative_to(ROOT)}/README.txt"):
+                text = " ".join((folder / "README.txt").read_text(encoding="utf-8").split())
+                for phrase in ("Quick Load moves to Ctrl+F9", "F9 alone then no longer quick-loads",
+                               "controls.ini", "set Quick Load back to F9"):
+                    self.assertIn(phrase, text, "Rebuild: python3 tools/build_all.py --from-scratch")
+
     def test_no_source_or_stand_in_ships(self):
         for folder in PACKS:
             with self.subTest(pack=folder.relative_to(ROOT).as_posix()):

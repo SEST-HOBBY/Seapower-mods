@@ -7901,13 +7901,23 @@ SEST's two other plugins share this folder:
                            Group Manager gets a Stock UI / Enhanced UI
                            switch; the live F11 cost report reuses each
                            mission's price lists instead of rereading them
-                           twice a second. A quick-load bound to F9 alone
-                           becomes Ctrl+F9. It writes timing lines to
-                           Player.log every 30 seconds. It works only beside
-                           this exact SEST.RuntimeFixes.dll, Contact Log
-                           1.0.1 and Sea Power 0.8.7 (Build 261021); with
-                           anything else it writes one "inactive" line to
-                           Player.log and changes nothing.
+                           twice a second; Quick Load moves (below). It
+                           writes timing lines to Player.log every 30
+                           seconds. It works only beside this exact
+                           SEST.RuntimeFixes.dll, Contact Log 1.0.1 and Sea
+                           Power 0.8.7 (Build 261021); with anything else it
+                           writes one "inactive" line to Player.log and
+                           changes nothing.
+
+Quick Load moves to Ctrl+F9 where SEST UI Follow-up is on. Each time the
+game loads its key bindings, a Quick Load key of F9 alone (the game's
+default) becomes Ctrl+F9; any other Quick Load key is kept. F9 alone then
+no longer quick-loads. It opens Contacts only if you set Contact Log's key
+to F9 yourself (ToggleWindow under [Input] in
+BepInEx\\config\\com.seapower.contactlog.cfg); SETUP does not. Pressing
+Accept in the game's Options saves Ctrl+F9 in the game's controls.ini, and
+it stays there after the pack or Contact Log is removed: then set Quick Load
+back to F9 in Options if you want it.
 Source: integration/runtime-fixes/ and integration/ui-followup/
 """
 
