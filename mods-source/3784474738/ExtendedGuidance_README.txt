@@ -1,4 +1,88 @@
-ExtendedGuidance 0.8.7 -- AC Pack
+ExtendedGuidance 0.9.4 -- AC Pack
+
+Native radar gates and target memory (0.9.4)
+-------------------------------------------
+Use existing ammunition [Guidance] keys. No new configuration keys are needed.
+Example:
+[Guidance]
+RangeGate=2
+SizeGate=1.1
+TargetMemory=True
+
+For active radar homing, RangeGate is the initial search-region radius in nautical
+miles around the predicted launch/contact cue, enlarged by its uncertainty.
+It does not replace ExtendedGuidance SeekerRangeGate, the tracking gate in metres.
+SizeGate is an RCS ratio tolerance, applied as a soft plausibility weight. The
+initial native maximum-RCS prior has a wider tolerance than local measured echo
+history. Aspect/noise tolerance remains; a mismatched echo is not forbidden.
+Unresolved mixtures cannot be separated by this size check. Zero, negative or
+missing native gates disable the respective additional filter. Existing profile
+resolution and tracking gates still apply. These RCS keys do not filter IR/HOJ.
+
+All owned seekers retain short profile-defined track coasting. After that,
+TargetMemory=False releases the old association and resumes normal search.
+True permits bounded prediction-based reacquisition: an additional three coast
+intervals, clamped to 2-8 seconds, after the normal coast interval. A retained
+association is not an acquired track. Expiration preserves the INS solution.
+Fresh authorized datalink observations can still cue acquisition; stale updates
+cannot extend local memory. TargetMemory does not reveal the live target position
+or guarantee rejection of countermeasures. Native map Pk estimates are unchanged.
+
+Launch navigation (0.9.2)
+------------------------
+A new launch takes one fresh ranged contact from the launcher's permitted native
+plotting table. Position, motion and observation age initialize INS navigation;
+the original game calculates interception lead from that current-position cue.
+This does not create a seeker lock or enable a post-launch datalink. Without a
+valid ranged contact, the assigned point remains the fallback and pooled motion
+is discarded. Submunitions retain the assigned-point fallback.
+
+New permitted datalink observations can update navigation. Re-reading the same
+observation does not replace its accepted motion or refresh its timestamp.
+LocalTerminalOnly, native missile profiles, loft and seeker activation remain.
+With missile diagnostics enabled, launchObservation records the launch source.
+Test newly launched missiles after restarting. Previously saved in-flight missiles
+retain their stored navigation data; the original launch contact is not recreated.
+No new INI keys are required.
+Statcards (0.9.1)
+----------------
+Open a missile or radar's normal information card. Effective seeker labels also
+appear in armament lists. Missile descriptions start with Extended guidance:
+seeker type, support, target memory, HOJ where available, seeker range limit,
+gimbal half-angle, tracking rate, angular resolution and track coast time.
+Track coast is a measurement retention interval, not total INS flight endurance.
+SARH terminal handover requires a compatible launcher and datalink carrier.
+
+Radar cards and unit sensor tables show the resolved antenna model, fire-control
+processing family, range limit and applicable weapon support. Native channel,
+altitude and frequency entries remain. Radar descriptions start with Extended
+radar details, including beamwidth, resolution, clutter rejection and the native
+mechanical search scan period when configured. FCRs do not show mount coverage.
+No new tooltips or countermeasure success percentages are introduced. Displayed
+range limits and model parameters are not guaranteed detection performance.
+ICWI is not claimed or enabled. TV guidance remains native; IIR labels apply to
+IR missiles whose effective EG profile is an imaging profile.
+
+Values use the existing missile/sensor keys and mapping precedence. No new keys
+are required. EG must be enabled in AC Pack settings before starting the game.
+This update changes presentation; legacy map Pk estimates remain unchanged.
+Sea environment (0.9.0)
+----------------------
+Radar and RF missile observations sample the native Ceto CPU wave surface when
+available. Wave heights determine intermittent masking and local reflection
+height; nearby samples provide surface slopes for a bounded clutter correction.
+Samples are captured on the main thread and passed to workers as immutable data.
+No new keys are required. Native missile altitude control remains unchanged.
+The mod checks ocean/spectrum availability and readable displacement buffers.
+Missing data or unsupported ocean APIs use the statistical sea model. A genuine
+adapter error produces one warning; diagnostic measurements include nativeWavePoints
+and waveSampler. A positive point count means native geometry reached that evaluation.
+Range previews remain statistical and stable. IR has no new RF wave penalties.
+Queries follow the CPU ocean surface, not every shader detail. Cosmetic overlays
+are excluded. Fine-scale scattering remains statistical; reflection height is
+sampled locally, not a full ray trace of moving reflective facets. Native wave
+sampling cost and visual agreement still require in-game acceptance.
+MultipathStrength=0 disables multipath, not sea clutter or wave masking.
 
 Activation
 Restart Sea Power after installation or configuration changes. Both AC Pack's
@@ -45,7 +129,7 @@ Fuze encounters, damage and equipment failures still determine actual outcomes.
 Propulsion, loft, sea-skimming, waypoints, pop-up and native group flight remain
 native. ESM, visual/sonar contact discovery, TV/laser guidance, guns and unguided
 weapons retain their own models. Existing information/point-value estimates are
-not combat outcome simulations. Multipath is not implemented.
+not combat outcome simulations. RF sea multipath is described below.
 
 Missile configuration: per-key priority
 1. Effective ammunition INI: [ExtendedGuidance], immediately after [Guidance].
@@ -262,3 +346,38 @@ Missile test logs include selectedDecoy, rfDecoy extent/RCS and clean-track age.
 When ASM service dates are absent, explicit AntiCountermeasuresBonus selects an
 early (<0.15), standard (<0.6), or advanced surface profile. Explicit EG profile
 and mapping choices still take precedence. No new INI keys are required.
+
+Sea multipath (0.8.8)
+--------------------
+Applies to radar measurements over water: platform radars, ARH and SARH.
+No land multipath or IR/passive-RF multipath is modeled. Existing clutter remains separate.
+The flat-water model uses antenna/target geometry, wavelength, sea state and antenna patterns.
+SARH evaluates illumination and receive paths separately. No FCR rotation or missile flight
+controller is replaced. A missed measurement may coast; it does not directly self-destruct.
+
+Optional keys in [ExtendedGuidance] missile sections, missile mapping sections,
+[Radar:SystemName] mappings or the existing radar sensor section; also accepted in profiles:
+MultipathStrength=0.65         // 0..1; 0 disables, effective reflected field strength
+MultipathRejection=0.35        // 0..1; residual elevation-error rejection, not fading immunity
+MultipathDiversityMHz=20       // 0..2000 MHz RMS effective frequency diversity
+MultipathPolarization=Average // Average, Horizontal, Vertical
+Direct keys override mapping keys, which override profile defaults. Existing files need no changes.
+Advanced PD processing families default to rejection 0.55 and diversity 40 MHz.
+AESA alone does not imply stronger multipath rejection. All these defaults are simulation
+assumptions, not measured device specifications. Sea state describes statistical roughness;
+individual waves and precise RF pulses are not simulated. Both enhancement and fading occur.
+The field model uses a fixed 40 ms averaging window and unresolved phase uncertainty;
+angle errors are bounded and uncertainty is carried into seeker filtering.
+
+F10 radar: MP reports signal change in dB and elevation bias in degrees.
+Missile diagnosis: multipath power, elevation bias/sigma and receive/transmit path differences;
+supportObservation explains missing DL measurements. A valid DL transport stays connected
+when the target observation is temporarily missing or stale. Own-platform contacts are tried
+when the taskforce's selected contact cannot provide a usable ranged estimate.
+
+
+
+0.9.3: IR/IIR map sectors follow the simulated seeker look direction; body-heading fallback before a look estimate. Search/guidance behavior is unchanged.
+
+0.9.3: Radar and IR/IIR seekers expand a bounded search raster around their last cue. The instantaneous cone remains narrow; every fourth look revisits the cue. Slew and acquisition dwell apply. No new INI keys.
+Map layers: Missile Datalinks (after Weapon Seekers). Light-blue dashed lines show active, fresh command/datalink support for own-side missiles, from their assigned emitter. Hidden on INS-only/coasting, lost connections, or destruction. The toggle is saved in Mods/ExtendedGuidance/map-datalinks.txt. Lines use native geographic map projection and do not affect guidance.

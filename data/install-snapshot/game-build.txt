@@ -4,6 +4,6 @@ exe            : C:\program files (x86)\steam\steamapps\common\Sea Power\Sea Pow
 product version: 6000.0.84f1 (78ab6fc243d5)
 file version   : 6000.0.84.7908207
 modified       : 2026-10-15 16:59
-steam buildid     : 26103404
-steam LastUpdated : 1792584881
-steam SizeOnDisk  : 18990041386
+steam buildid     : 26223125
+steam LastUpdated : 1793191116
+steam SizeOnDisk  : 19007428554

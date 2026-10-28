@@ -36,6 +36,7 @@
     [*]Flanker family (Su-27P,Su-27SM,Su-30,Su-30SM/2,Su-35)
     [*]Tu-95K-22
     [*]Buk-M3 Viking  
+    [*]Fencer Family (Su-24m2,Su-24MP)
 [/list] 
 [h3]S-400[/h3]
 [img]https://i.imgur.com/ALjyWzq.jpeg[/img]
@@ -55,3 +56,4 @@
 [b]UPDATE 0.1 "TOP PLATING"[/b]
 [b]UPDATE 0.2 "COASTLINE SENTINEL"[/b]
 [b]UPDATE 0.3 "APEX PREDATOR"[/b]
+[b]UPDATE 0.4 "SHTURMOVIK"[/b]

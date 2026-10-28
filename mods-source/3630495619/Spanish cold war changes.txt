@@ -1,5 +1,43 @@
 SPANISH MOD (#coldwar)  CHANGELOG
 
+v3.63 - 20261027
+	- S-55: added ASW Hunter loadout, equipped with new AQS-4 dipping sonar
+	- S-55 corrected some textures, added pylon for torpedoes
+	- R01 and R11: corrected take-off inmediate direction for helicopters to front of ship.
+	- R01: new deck texture for Early Dédalo, old style with helipads only.
+	- R01: changed Early Dédalo air group to 4 S-55, 2 MD500, 4 AH-1G and 6 SH-3D
+
+v3.62 - 20261027
+	- S-55: Added profiles and plan images
+v3.61 - 20261026
+	
+	NEW UNIT: SIKORSKY S-55B /H-19 /HRS-3 CHICKASAW Helicopter (no weapons or sensors atm)
+	- Mirage IIIEE: Corrected all textures.
+	- Mirage IIIEE: Corrected numbers textures
+	- Mirage IIIEE: Changed late versión available year to 1981
+	- Mirage IIIEE: Fixed tail number flickering
+	- R01 Dedalo (Early): added S-55 as squadrons
+
+v3.60 - 20261026
+
+	- Mirage IIIEE: Correct the aircraft's position and angle on the ground.
+	- Mirage IIIEE: Landing angle corrected to 14º.
+	- Mirage IIIEE: Corrected EngineIntakeArea value.
+	- Mirage IIIEE: Added EngineWarmUp value.
+	- Mirage IIIEE: Corrected StallSpeed value.
+	- Mirage IIIEE: Added a contrail effect at the wingtips.
+	- Mirage IIIEE: Added values ​​for the CombatSystems section.
+
+v3.59 - 20261025
+
+	- Added missing Spanish translations for weapons.
+	- Mirage IIIEE: Performance and FlightControls values ​​updated
+	- Mirage IIIEE: Radar upgraded to Cyrano II and RWR sensor added
+	- Mirage IIIEE: Added adjusted LAU-7 support for Sidewinders
+	- Mirage IIIEE: Complete reorganization of the bomb-release sequence for RPK10 racks, as specified in the flight manual for the actual aircraft
+	- Mirage IIIEE: Fuel tank positions adjusted
+	- Mirage IIIEE: New pylons for 1300 lt. RP62 fuel tanks
+
 v3.58 - 20261021
 
 	- Mirage IIIEE: Changed RP18R and RPK10 fuel tanks to non-droppable 
@@ -10,8 +48,8 @@ v3.57 - 20261021
 	- Review of drop fuel tanks.
 	- New bomb BR-125 (125kgs).
 	- Mirage IIIEE: Improved textrues
-	- Mirage IIIEE:New container: RPK10 500 lt fuel tank with 4 bomb fittings
-	- Mirage IIIEE:New external fuel tank: RP18R 500 lt supersonic non-droppable tank
+	- Mirage IIIEE: New container: RPK10 500 lt fuel tank with 4 bomb fittings
+	- Mirage IIIEE: New external fuel tank: RP18R 500 lt supersonic non-droppable tank
 	- Mirage IIIEE: Issue with the main landing gear animation resolved.
 	- Mirage IIIEE: Loadouts for Spanish Air Force weaponry have been adjusted.
 	- Mirage IIIEE: Added profiles and plan images
