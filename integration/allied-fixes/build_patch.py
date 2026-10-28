@@ -192,25 +192,34 @@ def _ini_values(text, key, section=None):
 
 
 def _directive_paths(text, directive):
-    """The paths a file's `#!extend` or `#!alias` lines name, lower case,
-    with '/' and a `.ini`, for check_gps_receiver().
+    """The paths a file's `#!extend`, `#!prepend`, `#!alias` or `#!copy`
+    lines name, lower case, with '/' and a `.ini`, for check_gps_receiver().
 
-    The game reads both more narrowly. IniHandler.ScanForModifierFiles
-    (IL_00da-IL_0298) reads #!extend from every .ini in an enabled folder and
-    its subfolders: each line trimmed, up to the first line opening '['; one
-    opening '#!extend' (with case) loses every '#!extend', is trimmed and
-    split on ','; each piece is trimmed, '\\' becomes '/', and the result is
-    matched without case against the extended file's path in its folder
+    The game reads all four more narrowly. IniHandler.ScanForModifierFiles
+    (IL_00da-IL_0298) reads #!extend and #!prepend from every .ini in an
+    enabled folder and its subfolders: each line trimmed, up to the first
+    line opening '['; from one opening '#!prepend' or '#!extend' (with case)
+    that word is taken out wherever it stands, the rest trimmed and split on
+    ','; each piece is trimmed, '\\' becomes '/', and the result is matched
+    without case against the stubbed file's path in its folder
     (GetModifierFiles). ReadFileToIni (IL_0042-IL_0093) takes the rest of an
-    '#!alias' line the same way, as one name, from any line, and open() reads
-    that file after the file's own keys and its stubs' (IL_039d-IL_03d0).
-    Neither cuts a comment off, so "#!extend ammunition/usn_agm-84n.ini ; fix"
-    names a file no folder has, and the game extends nothing with it.
+    '#!alias' line the same way, as one name, from any line. ReadCopyDirectives
+    reads '#!copy' (without case, then a space or the line's end) from the
+    lines before the first section, split on ',' and trimmed, '\\' to '/';
+    CollectCopyFiles finds each through the load order (FileManager.GetFile)
+    and adds that file's own #!copy sources in turn. open() reads the
+    #!extend stubs, the file's own keys, its #!copy sources (IL_0311-IL_0353),
+    its #!prepend stubs (IL_035b-IL_039c) and its #!alias base
+    (IL_039d-IL_03d0), in that order, and a key already read is never
+    replaced. None of them cuts a comment off, so
+    "#!extend ammunition/usn_agm-84n.ini ; fix" names a file no folder has,
+    and the game extends nothing with it.
 
-    This reads every line, either directive in any case, splits both on ','
-    and cuts each name at the first ';', '//' or '#', as a key line is cut.
-    A stub the game reads cannot slip past it, and one that a stray comment
-    keeps from loading is held to the same rule: one edit makes it live.
+    This reads every line, each directive in any case, splits every one on
+    ',' and cuts each name at the first ';', '//' or '#', as a key line is
+    cut. A file the game reads cannot slip past it, and one that a stray
+    comment keeps from loading is held to the same rule: one edit makes it
+    live.
     """
     out = []
     if directive.lower() not in text.lower():
@@ -243,14 +252,18 @@ def check_gps_receiver(root=ROOT):
     (IL_0528-IL_0582) reads that key from [Guidance], splits it on commas
     without trimming, and empties it only when the value itself is empty. So
     every copy of ammunition/usn_agm-84n.ini in the export or a SEST pack,
-    every file in them whose #!extend names it (in any folder: U.S. Navy 2027
-    keeps its stubs in ammunition_overwrite/), and every file one of those
-    names by #!alias, must write no such value or one whose comma-separated
-    names include GPS_Receiver exactly. The key is checked in any section of
-    the file, not only [Guidance]. An #!alias base is checked unless the file
-    that names it writes the key under [Guidance] itself, where its own value
-    wins; the bases are followed four deep, as build_pack.chain_owners does,
-    and every copy of one is read, not only the copy the load order picks."""
+    every file in them whose #!extend or #!prepend names it (in any folder:
+    U.S. Navy 2027 keeps its stubs in ammunition_overwrite/), and every file
+    one of those names by #!alias or #!copy, must write no such value or one
+    whose comma-separated names include GPS_Receiver exactly. The key is
+    checked in any section of the file, not only [Guidance]. An #!alias base
+    or #!copy source is checked unless the file that names it writes the key
+    under [Guidance] itself, where its own value wins. #!alias bases are
+    followed four deep, as build_pack.chain_owners does; #!copy sources as
+    far as they go, as CollectCopyFiles does. Every copy of a named file is
+    read, not only the copy the load order picks, and the bases and sources
+    of stubs and bases are followed too, though the game follows only the
+    file's own: a superset, so a list cannot reach the Harpoon unread."""
     owners = []
     for f in sorted([*(root / "mods-source").glob("*/systems/sensors.ini"),
                      *(root / "integration").glob("*/SEST_*/systems/sensors.ini")]):
@@ -289,8 +302,9 @@ def check_gps_receiver(root=ROOT):
         return f.read_text(encoding="utf-8-sig", errors="replace")
 
     def extends_it(f):
+        text = text_of(f)
         return any(p in (harpoon, f"{REPLACE}.ini")
-                   for p in _directive_paths(text_of(f), "#!extend"))
+                   for d in ("#!extend", "#!prepend") for p in _directive_paths(text, d))
 
     queue = [(f, 0, "") for f in files[harpoon]]
     queue += [(f, 0, "") for rel in sorted(files) if rel != harpoon
@@ -307,13 +321,17 @@ def check_gps_receiver(root=ROOT):
                 sys.exit(f"{f.relative_to(root)}{via}: CompatibleGuidanceSystems={value} "
                          f"does not name {GPS_SENSOR}, so the game will not let it guide "
                          f"{REPLACE} - re-check the P-8 Harpoon guidance link")
-        if depth >= 4 or _ini_values(text, "CompatibleGuidanceSystems", "Guidance"):
+        if _ini_values(text, "CompatibleGuidanceSystems", "Guidance"):
             continue
-        for name in _directive_paths(text, "#!alias"):
-            if "/" not in name:
-                name = f"{f.parent.name.lower()}/{name}"
-            queue += [(base, depth + 1, f" (the #!alias base of {f.relative_to(root)})")
-                      for base in files.get(name, [])]
+        for directive, what, deeper in (("#!alias", "#!alias base", 1),
+                                        ("#!copy", "#!copy source", 0)):
+            if depth + deeper > 4:
+                continue
+            for name in _directive_paths(text, directive):
+                if "/" not in name:
+                    name = f"{f.parent.name.lower()}/{name}"
+                queue += [(base, depth + deeper, f" (the {what} of {f.relative_to(root)})")
+                          for base in files.get(name, [])]
 
 
 def link_gps(text, name):

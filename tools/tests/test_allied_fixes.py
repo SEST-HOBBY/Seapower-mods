@@ -352,6 +352,32 @@ class GpsReceiverGuards(unittest.TestCase):
                    "[Guidance]\nCompatibleGuidanceSystems=GuidancePod\n")
         self.stops("pods.ini")
 
+    def test_a_copy_source_that_leaves_the_receiver_out_stops(self):
+        # IniHandler.open reads a file's #!copy sources after its own keys, and
+        # a key already read is kept: a copy with no list takes its source's.
+        self.write("mods-source/3606774881/ammunition/usn_agm-84n.ini",
+                   "#!copy ammunition/usn_agm-84d.ini\n" + self.HARPOON)
+        self.write("mods-source/999/ammunition/usn_agm-84d.ini",
+                   "[Guidance]\nCompatibleGuidanceSystems=GuidancePod\n")
+        self.stops("#!copy source of mods-source/3606774881/ammunition/usn_agm-84n.ini")
+
+    def test_a_copy_sources_own_copy_is_followed(self):
+        # CollectCopyFiles adds each source's own #!copy lines, read without case.
+        self.write("mods-source/3606774881/ammunition/usn_agm-84n.ini",
+                   "#!COPY ammunition/harpoon_mid.ini\n" + self.HARPOON)
+        self.write("mods-source/999/ammunition/harpoon_mid.ini",
+                   "#!copy ammunition\\harpoon_base.ini   ; pods\n[General]\nType=Missile\n")
+        self.write("mods-source/999/ammunition/harpoon_base.ini",
+                   "[Guidance]\nCompatibleGuidanceSystems=GuidancePod\n")
+        self.stops("harpoon_base.ini")
+
+    def test_a_prepend_stub_stops(self):
+        # ScanForModifierFiles reads #!prepend as it reads #!extend, and open()
+        # reads the stub's keys before the Harpoon's #!alias base.
+        self.harpoon("GuidancePod", rel="mods-source/123/ammunition/harpoon_pre.ini",
+                     head="#!prepend ammunition/usn_agm-84n.ini\n")
+        self.stops("harpoon_pre.ini")
+
     def test_a_copy_that_writes_its_own_list_is_not_held_to_its_base(self):
         # Its own [Guidance] value wins over the base's.
         self.write("mods-source/3606774881/ammunition/usn_agm-84n.ini",
