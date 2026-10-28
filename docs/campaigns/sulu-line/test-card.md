@@ -180,19 +180,20 @@ through `#!extend`; bring back Player.log and the `pn_ffg-150` and
 `pn_ffg-06` lines of the pack's `CROSS-DECK.txt`.
 
 8.3 **The coalition's decks.** At the window before Service at Sea, which
-sells the Thai detachment, the Anzac and their helicopters, check four
-pairings in the Task Force Manager: a Thai Seahawk and an MH-60R on HTMS
-Naresuan; a Thai Seahawk and an MH-60R on BRP Tarlac; an H-76 on the Anzac.
-(In the mission editor: *Sulu Line 04 - Service at Sea* from the browser,
-with the ships placed by hand.) *Expect:* each is accepted, launches and
+sells the Thai detachment, the Anzac and their helicopters, check six
+pairings in the Task Force Manager: the H-76, a Thai Seahawk and an MH-60R
+on HTMS Naresuan; a Thai Seahawk and an MH-60R on BRP Tarlac; an H-76 on the
+Anzac. (In the mission editor: *Sulu Line 04 - Service at Sea* from the
+browser, with the ships placed by hand.) *Expect:* each is accepted, launches and
 recovers. *Wrong:* note which pairing is refused, and bring the
 `CROSS-DECK.txt` line for that ship.
 
 8.4 **The placed H-76 and its home.** In the seven core missions the H-76
 flight that starts in the air (Ship's Flight) has had no `HomeBase` in its
-mission file since 27 Oct: the frigate's deck now takes it, and in a
-Generated mission the builder never names a player ship as home (Southern
-Watch's Rig Seventeen died loading when it did). It is still charged fuel.
+mission file since 28 Oct (on the owner's PC since 27 Oct): the frigate's
+deck now takes it, and in a Generated mission the builder never names a
+player ship as home (Southern Watch's Rig Seventeen died loading when it
+did). It is still charged fuel.
 In The Island Road fly it until it is low. *Expect:* it recovers and
 refuels on the frigate or at Puerto Princesa, and its search-and-rescue
 tasking does not report "no home base". *Wrong:* it will not land anywhere,
