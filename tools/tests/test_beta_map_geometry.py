@@ -139,6 +139,28 @@ Waypoints=9440,0,-4000|Loop
                       row['notes'])
         self.assertAlmostEqual(geo.great_circle_nm((0, 0), (1, 0)), 60.04, places=2)
 
+    def test_csv_out_is_utf8_with_one_line_end_per_row(self):
+        p = self.make_file("""[Environment]
+MapCenterLatitude=-54.3
+MapCenterLongitude=158.3
+[A]
+RelativePositionInNM=0,0,0
+""", name='Macquarie \u2013 test.ini')
+        out = p.parent / 'out.csv'
+        with contextlib.redirect_stdout(io.StringIO()):
+            self.assertEqual(geo.main(['--root', str(p), '--out', str(out)]), 0)
+        data = out.read_bytes()
+        self.assertTrue(data.startswith(b'kind,priority,file,'))
+        self.assertEqual(data.count(b'\r\n'), 2)                  # header and one row
+        self.assertNotIn(b'\r\r', data)
+        self.assertIn('Macquarie \u2013 test.ini', data.decode('utf-8'))
+        # Standard output gets bare '\n'; the text stream adds '\r' on Windows.
+        stdout = io.StringIO()
+        with contextlib.redirect_stdout(stdout):
+            geo.main(['--root', str(p), '--csv'])
+        self.assertNotIn('\r', stdout.getvalue())
+        self.assertEqual(stdout.getvalue().count('\n'), 2)
+
     def test_play_area_caveat_is_printed_once(self):
         p = self.make_file("""[Environment]
 MapCenterLatitude=0

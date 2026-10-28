@@ -466,22 +466,36 @@ def print_report(rows):
     print(f'{len(campaigns)} dynamic campaigns (geographic lat/lon); {tally(campaigns)}')
 
 
+def write_csv(rows, handle, **options):
+    writer = csv.DictWriter(handle, fieldnames=FIELDS, restval='',
+                            extrasaction='ignore', **options)
+    writer.writeheader()
+    writer.writerows(rows)
+
+
 def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--root', type=Path, action='append', dest='roots',
                         help='INI or campaign.json file, or directory to scan; repeatable')
     parser.add_argument('--csv', action='store_true', help='CSV to standard output')
+    parser.add_argument('--out', type=Path, metavar='PATH',
+                        help='write the CSV to PATH (UTF-8); use this rather than '
+                             "'>' in Windows PowerShell")
     args = parser.parse_args(argv)
     roots = args.roots or DEFAULT_ROOTS
     absent = [str(p) for p in roots if not p.exists()]
     if absent:
         parser.error('missing input: ' + ', '.join(absent))
     rows = scan(roots)
-    if args.csv:
-        writer = csv.DictWriter(sys.stdout, fieldnames=FIELDS, restval='',
-                                extrasaction='ignore')
-        writer.writeheader()
-        writer.writerows(rows)
+    if args.out:
+        with args.out.open('w', encoding='utf-8', newline='') as handle:
+            write_csv(rows, handle)
+        print(f'{len(rows)} rows written to {args.out}')
+    elif args.csv:
+        # Standard output is a text stream that already turns '\n' into the
+        # platform's line end; csv's default '\r\n' would double the '\r' on
+        # Windows.
+        write_csv(rows, sys.stdout, lineterminator='\n')
     else:
         print_report(rows)
     return 0
