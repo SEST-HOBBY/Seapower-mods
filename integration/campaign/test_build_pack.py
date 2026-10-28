@@ -1215,6 +1215,36 @@ class RosterAndSeahawk(unittest.TestCase):
                             self.assertIn(token, credits, f"{spec['SLUG']}: {detail}")
 
 
+class CreditMerge(unittest.TestCase):
+    """Which credit a coverage row shows. The roster's are merged first; a
+    mission's replaces one when it is a stronger kind, or as strong and the
+    one held came from the roster, so a placed unit stays the example. Until
+    28 Oct 2026 only a stronger kind did, and Sulu Line's Euromod Main Pack
+    row read ran_mh-60r / usn_mk54_air, requisition roster, instead of
+    pn_ffg-150 / fr_cal_76mm in The Island Road."""
+
+    ROSTER = ("store", "ran_mh-60r / usn_mk54_air", bp.ROSTER_ORIGIN)
+    PLACED = ("store", "pn_ffg-150 / fr_cal_76mm", "sulu-island-road")
+
+    def test_a_placed_unit_replaces_the_rosters_example_of_the_same_kind(self):
+        self.assertTrue(bp.stronger_credit(self.PLACED, self.ROSTER))
+        # ... and the roster never takes the row back from it.
+        self.assertFalse(bp.stronger_credit(self.ROSTER, self.PLACED))
+
+    def test_the_first_mission_keeps_a_row_of_the_same_kind(self):
+        later = ("store", "ran_ffh_anzac / eu_mu_90_ship", "white-water")
+        self.assertFalse(bp.stronger_credit(later, self.PLACED))
+
+    def test_the_kind_still_decides_first(self):
+        # A weaker kind from a mission leaves the roster's credit, and with
+        # it the mod's list, where it was.
+        self.assertFalse(bp.stronger_credit(("asset", "x / assets/y", "m"), self.ROSTER))
+        self.assertFalse(bp.stronger_credit(("store", "x / y", "m"),
+                                            ("roster", "x at 100 points", bp.ROSTER_ORIGIN)))
+        self.assertTrue(bp.stronger_credit(("unit", "pn_ffg-150", "m"), self.ROSTER))
+        self.assertTrue(bp.stronger_credit(self.ROSTER, None))
+
+
 class RosterOnSale(unittest.TestCase):
     """A roster entry no purchase window sells is a price nobody can pay -
     Southern Watch's KC-46 was one until the builder refused it."""

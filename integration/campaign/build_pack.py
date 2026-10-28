@@ -601,7 +601,7 @@ def open_allocation_twin(spec, campaign_text, missions, placements, flight_rows,
                              "the campaign's own units, then the allied fleet.")
     credits = dict(play_credits or {})
     for token, why in roster_credits.items():
-        credits.setdefault(token, (why[0], why[1], "requisition roster"))
+        credits.setdefault(token, (why[0], why[1], ROSTER_ORIGIN))
     rows, missing = coverage(credits, spec.get("EXCUSES", {}))
     return dict(roster=twin_roster, roster_text=roster_text, rules_text=rules_text,
                 campaign_text=spine, rows=rows, missing=missing,
@@ -1717,6 +1717,24 @@ def block(tag, keys):
 # reported by that hull, not by a round the hull happens to carry.
 STRENGTH = {"unit": 0, "variant": 1, "squadron": 2, "roster": 3, "store": 4,
             "asset": 5}
+# Where a credit the requisition roster gives is said to come from.
+ROSTER_ORIGIN = "requisition roster"
+
+
+def stronger_credit(why, best):
+    """Whether credit `why` (how, detail, mission) replaces `best` as the
+    one a coverage row shows: a stronger kind, or one as strong from a
+    mission where `best` came from the roster. The roster's credits are
+    merged first, and since 28 Oct 2026 they credit the rounds and decks of
+    the units on sale as well; with only a stronger kind replacing them,
+    about a dozen rows went from a unit a mission places to a roster
+    example (Sulu Line's Euromod Main Pack: ran_mh-60r / usn_mk54_air
+    instead of pn_ffg-150 / fr_cal_76mm in The Island Road). The kind is
+    the same either way, so no mod changes list."""
+    if best is None or STRENGTH[why[0]] < STRENGTH[best[0]]:
+        return True
+    return (STRENGTH[why[0]] == STRENGTH[best[0]] and best[2] == ROSTER_ORIGIN
+            and why[2] != ROSTER_ORIGIN)
 
 
 # Model folders a unit file loads from another mod's `assets/` tree. The game
@@ -8201,17 +8219,15 @@ def main():
         # (they are the pack's coverage), and a REQUIRED-MODS built from both
         # told a player of the campaign to install 137 mods it does not use
         # (user report, 28 Sep).
-        credits = {token: (why[0], why[1], "requisition roster")
+        credits = {token: (why[0], why[1], ROSTER_ORIGIN)
                    for token, why in roster_credits.items()}
         play_credits = dict(credits)
         for mission, mission_credits in reached:
             for token, why in mission_credits.items():
-                best = credits.get(token)
-                if best is None or STRENGTH[why[0]] < STRENGTH[best[0]]:
+                if stronger_credit(why, credits.get(token)):
                     credits[token] = why
                 if mission["group"] != "dispatch":
-                    best = play_credits.get(token)
-                    if best is None or STRENGTH[why[0]] < STRENGTH[best[0]]:
+                    if stronger_credit(why, play_credits.get(token)):
                         play_credits[token] = why
 
         # Built BEFORE the dry-run exit, because every air-tasking gate lives
@@ -8260,8 +8276,7 @@ def main():
                               pooled=sum((m.get("geography") or GEOGRAPHY) != "coast"
                                          for m in missions)))
         for token, why in credits.items():
-            best = pack_credits.get(token)
-            if best is None or STRENGTH[why[0]] < STRENGTH[best[0]]:
+            if stronger_credit(why, pack_credits.get(token)):
                 pack_credits[token] = why
 
     # The pack's coverage rule: every enabled mod is placed by SOME campaign
