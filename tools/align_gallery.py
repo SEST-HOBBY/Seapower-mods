@@ -39,9 +39,10 @@ and writes the photo priorities for every unit the campaigns field.
 
 Read-only against git: everything comes from `git ls-tree`/`git cat-file` at
 --ref, so the working tree does not have to be on that build. Writes only
-inside --gallery.
+inside --gallery. --ref is usually the deploy branch, the one
+data/deploy-branch.txt names (sest-dev/jolly-ride-rptj4t since 25 Oct 2026):
 
-    python3 tools/align_gallery.py --gallery <extracted gallery> --ref origin/sest-dev/loving-bell-3cnvvw
+    python3 tools/align_gallery.py --gallery <extracted gallery> --ref "origin/$(cat data/deploy-branch.txt)"
 """
 import argparse
 import csv
