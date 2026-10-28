@@ -102,6 +102,31 @@ cover the fail-closed cases above. `SEST_RUNTIME_README.txt` and
 pack without Mono (`plugin-build.json` keeps the capture's hashes as
 provenance; the test holds the pack copies to the committed files only).
 
+**Before publishing: what the player README says about SETUP.**
+`SEST_RUNTIME_README.txt` ships as captured, and two of its sections
+describe what GPT's installer did on the owner's PC, not what this
+repository's SETUP does (checked on 27 Oct 2026 against `a3c42251` and
+`integ/u1-setup` at `47648bb0`):
+
+- *SEST default UI keys.* "Contacts ... its default F6 shortcut is
+  unbound" and "The default F8 Contacts diagnostic probe remains unbound"
+  hold only where SETUP sets Contact Log's `ToggleWindow` and `RunProbe`
+  defaults to None: nothing at `a3c42251` does; `integ/u1-setup`'s
+  `sest-ui-keys.ps1` does. "Topography: F7 toggles the layer; F6 cycles its
+  look without Shift" and "SETUP migrates the previous Shift+F7 look
+  binding" hold nowhere: no SETUP here or on `integ/u1-setup` touches
+  Topographic Map's keys, and the 27 Oct review advised against that remap.
+- *REDFOR startup declaration.* At `a3c42251` SETUP leaves THE REDFOR MOD
+  (it declares 0.8.8, newer than the game) alone. `integ/u1-setup` marks it
+  compatible while its folder holds no `.dll`, keeping the author's
+  `_info.ini` for `-RestoreModFiles`; it does not refuse "changed
+  definitions or changed metadata" as the README says.
+
+Once SETUP's final behaviour is settled, edit those two sections to match
+and rebuild. Until then this README overstates SETUP and should not go to
+the Workshop as it stands. (SEST UI Follow-up's quick-load move to Ctrl+F9
+is described in the pack's `plugins/README.txt`, not here.)
+
 **Open on 27 Oct 2026.** The owner's PC ran 1.5.0 with SEST UI Follow-up
 1.4.2 that day and reported a crash whose cause is unknown (the last logged
 action was moving Contacts to the second screen). In a mission 1.5.0's F11
