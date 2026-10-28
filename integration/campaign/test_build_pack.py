@@ -1167,6 +1167,53 @@ class RosterAndSeahawk(unittest.TestCase):
         self.assertEqual(self.squadron("red", "China", "Australia", squadron="Squadron2"),
                          "Squadron2")
 
+    def sulu_credits(self, *entries):
+        bp.set_campaign(next(s for s in bp.campaign_specs()
+                             if s["SLUG"] == "sest-sulu-line"))
+        return bp.roster_ini([dict(unit=u, picks=list(p), points=100)
+                              for u, p in entries])[1]
+
+    def test_a_sold_aircraft_credits_the_rounds_its_fits_hang(self):
+        # Until 28 Oct 2026 a roster credited only the owner of each unit
+        # file, and Sulu Line's REQUIRED-MODS put Modern US Navy under "not
+        # used" while the Thai Seahawk it sells hangs that mod's usn_ssq-62.
+        credits = self.sulu_credits(("tha_S-70B-7_Seahawk", ["Squadron1"]))
+        sonobuoy = bp.chain_owners("ammunition/usn_ssq-62.ini")[0]
+        self.assertEqual(credits[sonobuoy][0], "store")
+        self.assertIn("usn_ssq-62", credits[sonobuoy][1])
+        # The mod that sells the airframe stays credited for that.
+        seller = bp.owner("aircraft/tha_S-70B-7_Seahawk.ini")
+        self.assertEqual(credits[seller][0], "roster")
+
+    def test_a_sold_hull_credits_the_air_group_its_variant_embarks(self):
+        kind, path = bp.unit_file("phl_ff_hamilton")
+        deck = bp.deck_aircraft("phl_ff_hamilton", kind, path, "Variant1", {})
+        self.assertIn("usn_sh-2f", deck)
+        credits = self.sulu_credits(("phl_ff_hamilton", ["Variant1"]))
+        sonobuoy = bp.chain_owners("ammunition/usn_ssq-62.ini")[0]
+        self.assertIn(sonobuoy, credits)
+        self.assertTrue(credits[sonobuoy][1].startswith("phl_ff_hamilton Variant1 deck / "),
+                        credits[sonobuoy])
+
+    def test_every_campaigns_roster_credits_all_it_makes_the_game_read(self):
+        # The rule, not one campaign's case: everything aircraft_credit
+        # finds for a sold airframe, or for the air group a sold variant
+        # embarks, is credited by the roster.
+        for spec in bp.campaign_specs():
+            bp.set_campaign(spec)
+            _text, credits = bp.roster_ini(spec["ROSTER"])
+            for e in spec["ROSTER"]:
+                kind, path = bp.unit_file(e["unit"])
+                if bp.unit_type(e["unit"]) in ("Aircraft", "Helicopter", "VTOL"):
+                    air = [e["unit"]]
+                else:
+                    air = [a for p in e["picks"]
+                           for a in bp.deck_aircraft(e["unit"], kind, path, p, {})]
+                for atype in air:
+                    for token, _how, detail in bp.aircraft_credit(atype):
+                        if token:
+                            self.assertIn(token, credits, f"{spec['SLUG']}: {detail}")
+
 
 class RosterOnSale(unittest.TestCase):
     """A roster entry no purchase window sells is a price nobody can pay -
