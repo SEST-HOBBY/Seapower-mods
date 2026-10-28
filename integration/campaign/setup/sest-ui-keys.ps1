@@ -1,11 +1,11 @@
 # SEST Integration Pack - unbind Contact Log's two default keys that clash
-# with Sea Power's own. SETUP runs this when Contact Log's settings file
+# with other mods' keys. SETUP runs this when Contact Log's settings file
 # exists; run it by hand with the game closed:
 #   powershell -ExecutionPolicy Bypass -File .\sest-ui-keys.ps1 -GameDir "<...>\common\Sea Power"
 #
 # Contact Log (BepInEx\config\com.seapower.contactlog.cfg, section [Input])
-# ships ToggleWindow = F6 and RunProbe = F8. The game binds F6 (next vessel)
-# and F8 itself, Topographic Map uses F6 and Coordinated Strike Tool F8, and
+# ships ToggleWindow = F6 and RunProbe = F8. Its F6 clashes with Topographic
+# Map's F6 and its F8 probe with Coordinated Strike Tool's F8 planner, and
 # the diagnostic probe can stall the game. This sets each of those two keys
 # to None only while it still holds exactly that default; any other value
 # (F9, say, or a combination) is the player's choice and is kept. Contact
@@ -75,7 +75,7 @@ if ($edits.Count) {
     $bak = $cfg + '.sest-ui-keys.bak'
     if (-not (Test-Path -LiteralPath $bak)) { [IO.File]::WriteAllBytes($bak, $bytes) }
     [IO.File]::WriteAllBytes($cfg, $latin.GetBytes($new))
-    Write-Host ('  [done] Contact Log''s default keys unbound (they clash with the game''s own): ' + ($done -join ', ') + ' -> None') -ForegroundColor Green
+    Write-Host ('  [done] Contact Log''s default keys unbound (F6 clashes with Topographic Map''s F6, the F8 probe with Coordinated Strike Tool''s F8 planner): ' + ($done -join ', ') + ' -> None') -ForegroundColor Green
 } else {
     Write-Host '  [ok]   Contact Log''s keys: neither holds its clashing default' -ForegroundColor Green
 }

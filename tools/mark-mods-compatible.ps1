@@ -17,8 +17,9 @@
     This uses the players' SETUP's own code for it: the Compat* functions in
     integration\campaign\setup\sest-setup.ps1, loaded from that file, so
     the two cannot drift apart. For each Workshop mod whose ApproximateVersion
-    was made for an OLDER game version (also one like 0.7 or 0.8 that is not
-    written MAJOR.MINOR.PATCH), it rewrites that one value to the game's
+    was made for an OLDER game version (also one like 0.8 or 0.8.7.1 that is
+    not written MAJOR.MINOR.PATCH, judged by the two or three numbers it
+    starts with), it rewrites that one value to the game's
     MAJOR.MINOR.0, which every patch of that game version accepts, and puts
     one comment line above it saying so. Nothing else in the file changes:
     its encoding, byte-order mark and line endings stay as they were. The
@@ -36,8 +37,11 @@
     Left alone and named: a mod made for a NEWER game version (it may need
     that game), unless SETUP's reviewed list (CompatReviewed) names it and
     its folder holds no .dll; an ExactVersion or a range the game rejects;
-    a file that is not UTF-8 text. Left alone silently: mods the game
-    accepts; mods with no [Compatibility] section; SEST's own Workshop item.
+    a file that is not UTF-8 text. A reviewed mod marked earlier whose
+    folder now holds a .dll gets its author's kept file back (named, and
+    left as it is when no author's file is kept). Left alone silently: mods
+    the game accepts; mods with no [Compatibility] section; SEST's own
+    Workshop item.
 
     Steam puts a mod's own _info.ini back whenever the mod updates, so
     tools\sync-sest.ps1 runs this every time. It only touches this PC. Since
@@ -119,7 +123,7 @@ if ($parseErrors -and $parseErrors.Count) { throw "$setupScript does not parse: 
 foreach ($fn in @($setupAst.FindAll({ param($n) $n -is [System.Management.Automation.Language.FunctionDefinitionAst] -and $n.Name -like 'Compat*' }, $false))) {
     . ([scriptblock]::Create($fn.Extent.Text))
 }
-foreach ($need in 'CompatVer', 'CompatPlan', 'CompatBack', 'CompatMark', 'CompatIsUtf8') {
+foreach ($need in 'CompatVer', 'CompatPlan', 'CompatBack', 'CompatCode', 'CompatMark', 'CompatIsUtf8') {
     if (-not (Get-Command -Name $need -CommandType Function -ErrorAction SilentlyContinue)) { throw "$setupScript has no $need function" }
 }
 
@@ -155,7 +159,7 @@ $newVer = "{0}.{1}.0" -f $gameV[0], $gameV[1]
 Write-Host ("Game version {0}: marking the mods made for an older game version (their ApproximateVersion becomes {1})" -f $GameVersion, $newVer)
 
 # --- Mark ---------------------------------------------------------------------
-$marked = 0; $again = 0; $already = 0; $fine = 0; $range = 0; $none = 0; $left = 0; $back = 0
+$marked = 0; $again = 0; $already = 0; $fine = 0; $range = 0; $none = 0; $left = 0; $back = 0; $codeBack = 0
 foreach ($mod in $mods) {
     $path = Join-Path $mod.FullName "_info.ini"
     if (-not (Test-Path -LiteralPath $path)) { $none++; continue }
@@ -165,6 +169,27 @@ foreach ($mod in $mods) {
     $was = $text.IndexOf($SestCompatMarker, [StringComparison]::Ordinal) -ge 0
     $plan = CompatPlan $text $gameV $mod.Name $mod.FullName
     $c = $plan.C
+    if ($was -and $plan.Why -ne "newer") {
+        # A reviewed mod marked before (by this tool, SETUP or GPT's script)
+        # that now holds a .dll: judged by the author's kept copy (CompatCode).
+        $kp = Join-Path $BackupDir ("{0}._info.ini" -f $mod.Name); $kb = $null
+        if (Test-Path -LiteralPath $kp) { $kb = [IO.File]::ReadAllBytes($kp) }
+        $code = CompatCode $plan $kb $SestCompatMarker $gameV $mod.Name $mod.FullName
+        if ($code -eq "back") {
+            $how = "reviewed, but its folder now holds a .dll: as its author shipped it ({0}); the earlier mark was {1}" -f $plan.What, $c.ApproximateVersion
+            if ($WhatIfOnly) { Write-Host ("  would put back {0}  {1}" -f $mod.Name, $how); $codeBack++; continue }
+            [IO.File]::WriteAllBytes($path, $kb)
+            Remove-Item -LiteralPath $kp -Force
+            Write-Host ("  put back     {0}  {1}" -f $mod.Name, $how) -ForegroundColor Yellow
+            $codeBack++
+            continue
+        }
+        if ($code -eq "gone") {
+            Write-Host ("  left alone   {0}  marked before ({1}), reviewed, but its folder now holds a .dll and its author's file is not kept" -f $mod.Name, $c.ApproximateVersion)
+            $left++
+            continue
+        }
+    }
     if ($plan.Why -eq 'ok') {
         if ($was) { $already++ }
         elseif ($c.ExactVersion -or $c.ApproximateVersion) { $fine++ }
@@ -222,4 +247,9 @@ if ($back) {
     $verb = "put back"
     if ($WhatIfOnly) { $verb = "would be put back" }
     Write-Host ("{0} author's _info.ini {1}: an earlier mark was ahead of game version {2}, and this does not mark the author's file (listed above)." -f $back, $verb, $GameVersion)
+}
+if ($codeBack) {
+    $verb = "put back"
+    if ($WhatIfOnly) { $verb = "would be put back" }
+    Write-Host ("{0} reviewed mod(s) {1} as their authors shipped them: their folders now hold a .dll (listed above)." -f $codeBack, $verb)
 }

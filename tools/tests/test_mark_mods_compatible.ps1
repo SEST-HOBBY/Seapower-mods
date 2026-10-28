@@ -5,7 +5,9 @@
     reviewed newer ones), names and leaves the rest, keeps the authors'
     files, hands them back to the exporter, follows a Steam update and a game
     update (up a version, and back down again), and -Restore puts every file
-    back byte for byte.
+    back byte for byte. A value the game cannot read is judged by the two
+    or three numbers it starts with, and a reviewed mod marked earlier that
+    now holds a .dll gets its author's file back.
 
 .DESCRIPTION
     A synthetic Workshop folder, game folder and backup folder stand in for
@@ -112,6 +114,7 @@ try {
     $files["2307"] = Bytes "[Compatibility]`nLessThanVersion=0.8.7`n"
     $files["2308"] = Bytes "[Compatibility]`nApproximateVersion=0.9`n"
     $files["2309"] = Bytes "[Compatibility]`r`nApproximateVersion=0.8.8.1`r`n"
+    $files["2310"] = Bytes "[Compatibility]`r`nApproximateVersion=0.8.07`r`n"
     foreach ($k in $files.Keys) { Put (Join-Path $ws "$k\_info.ini") $files[$k] }
     Put (Join-Path $ws "3732654992\units\x.ini") (Bytes "[General]`n")
     Put (Join-Path $game "changelog.txt") (Bytes "21-Oct-2026: 0.8.7 Build 261021 Public Release`n")
@@ -135,7 +138,8 @@ try {
     Check ((Same (Now "2306") $files["2306"]) -and $out -match "2306.*not UTF-8 text") "a file that is not UTF-8 is named and left alone"
     Check ((Same (Now "2307") $files["2307"]) -and $out -match "2307.*LessThanVersion=0\.8\.7") "a range that excludes the game is named and left alone"
     Check ((Same (Now "2308") $files["2308"]) -and $null -eq (Kept "2308") -and $out -match "left alone   2308  made for a newer game version \(0\.9\)") "a partial '0.9' is made for a newer game version: named and left alone"
-    Check ((Same (Now "2309") (Bytes ("[Compatibility]`r`n" + (Note "0.8.8.1" "`r`n") + "ApproximateVersion=0.8.0`r`n"))) -and (Same (Kept "2309") $files["2309"])) "'0.8.8.1', which no game version accepts, is judged by its MAJOR.MINOR and marked"
+    Check ((Same (Now "2309") $files["2309"]) -and $null -eq (Kept "2309") -and $out -match "left alone   2309  made for a newer game version \(0\.8\.8\.1\)") "'0.8.8.1', which no game version accepts, reads as 0.8.8 by its first three numbers: made for a newer game version, named and left alone"
+    Check ((Same (Now "2310") (Bytes ("[Compatibility]`r`n" + (Note "0.8.07" "`r`n") + "ApproximateVersion=0.8.0`r`n"))) -and (Same (Kept "2310") $files["2310"])) "'0.8.07', which the game cannot read either, reads as 0.8.7: made for an older game version, marked"
 
     $snap = @{}; foreach ($k in $files.Keys) { $snap[$k] = Now $k }
     $again = (& $mark -WorkshopContentDir $ws -GameDir $game -BackupDir $bak *>&1 | Out-String)
@@ -156,7 +160,7 @@ try {
     Check ((Same (Now "2001") (Bytes ("[Language_en]`nName=Older`n`n[Compatibility]`n" + (Note "0.7.3" "`n") + "ApproximateVersion=0.9.0`n"))) -and (Same (Kept "2001") $files["2001"])) "on 0.9.0: a marked mod gets only its value rewritten; its kept file stays the author's"
     Check ((Same (Now "3732654992") (Bytes ([Text.Encoding]::UTF8.GetString($gpt).Replace("ApproximateVersion=0.8.7", "ApproximateVersion=0.9.0")))) -and (Same (Kept "3732654992") $redfor)) "on 0.9.0: GPT's REDFOR mark is re-marked, the author's 0.8.8 still kept"
     Check ((Same (Now "217") (Bytes ("[Compatibility]`n" + (Note "0.8.7" "`n") + "ApproximateVersion=0.9.0`n"))) -and (Same (Kept "217") $files["217"])) "on 0.9.0: a 0.8.7 mod is now older and marked"
-    Check ($o4 -match "16 mod\(s\) marked compatible \(6 of them marked before, for another game version\)") "on 0.9.0: 16 marked, 6 of them again ($(($o4 -split "`n" | Select-Object -Last 3) -join ' '))"
+    Check ($o4 -match "17 mod\(s\) marked compatible \(6 of them marked before, for another game version\)") "on 0.9.0: 17 marked, 6 of them again ($(($o4 -split "`n" | Select-Object -Last 3) -join ' '))"
 
     # The game goes back to 0.8.7 (a player leaving a beta, say): every mark
     # is now ahead of it, so the author's kept copy decides. An older one is
@@ -167,20 +171,20 @@ try {
     $snap = @{}; foreach ($k in $files.Keys) { $snap[$k] = Now $k }
     $w = (& $mark -WorkshopContentDir $ws -GameDir $game -BackupDir $bak -WhatIfOnly *>&1 | Out-String)
     $same = $true; foreach ($k in $files.Keys) { if (-not (Same (Now $k) $snap[$k])) { $same = $false } }
-    Check ($same -and $w -match "would put back 217  accepted, as its author shipped it \(0\.8\.7\); the earlier mark \(0\.9\.0\) was ahead of the game" -and $w -match "10 author's _info.ini would be put back") "-WhatIfOnly on the way back says what would go back and changes nothing"
+    Check ($same -and $w -match "would put back 217  accepted, as its author shipped it \(0\.8\.7\); the earlier mark \(0\.9\.0\) was ahead of the game" -and $w -match "11 author's _info.ini would be put back") "-WhatIfOnly on the way back says what would go back and changes nothing"
     $o6 = (& $mark -WorkshopContentDir $ws -GameDir $game -BackupDir $bak *>&1 | Out-String)
-    Check ($o6 -match "6 mod\(s\) marked compatible \(6 of them marked before, for another game version\); 0 already marked" -and $o6 -match "10 author's _info.ini put back: an earlier mark was ahead of game version 0\.8\.7") "back on 0.8.7: 6 marked again, 10 put back ($(($o6 -split "`n" | Select-Object -Last 3) -join ' '))"
+    Check ($o6 -match "6 mod\(s\) marked compatible \(6 of them marked before, for another game version\); 0 already marked" -and $o6 -match "11 author's _info.ini put back: an earlier mark was ahead of game version 0\.8\.7") "back on 0.8.7: 6 marked again, 11 put back ($(($o6 -split "`n" | Select-Object -Last 3) -join ' '))"
     $bad = @()
-    foreach ($k in "2001", "2002", "2303", "2305", "2309") {
+    foreach ($k in "2001", "2002", "2303", "2305", "2310") {
         $want = $snap[$k]; $t = [Text.Encoding]::UTF8.GetString($want).Replace("ApproximateVersion=0.9.0", "ApproximateVersion=0.8.0").Replace("approximateversion  =  0.9.0", "approximateversion  =  0.8.0")
         if (-not (Same (Now $k) (Bytes $t)) -or -not (Same (Kept $k) $files[$k])) { $bad += $k }
     }
     Check ($bad.Count -eq 0) "back on 0.8.7: the older mods are marked 0.8.0 again, value only, authors' files still kept ($($bad -join ', '))"
     Check ((Same (Now "3732654992") (Bytes ([Text.Encoding]::UTF8.GetString($gpt).Replace("ApproximateVersion=0.8.7", "ApproximateVersion=0.8.0")))) -and (Same (Kept "3732654992") $redfor) -and $o6 -match "re-marked    3732654992.*reviewed") "back on 0.8.7: the reviewed REDFOR is marked 0.8.0 again, its author's file still kept"
     $bad = @()
-    foreach ($k in "210", "211", "212", "213", "214", "215", "216", "217", "2201", "2308") { if (-not (Same (Now $k) $files[$k]) -or $null -ne (Kept $k)) { $bad += $k } }
-    Check ($bad.Count -eq 0 -and $o6 -match "put back     2201  made for a newer game version, as its author shipped it \(0\.8\.8\)" -and $o6 -match "put back     2308  made for a newer game version, as its author shipped it \(0\.9\)") "back on 0.8.7: the 0.8.x mods and the newer ones are their authors' files again, kept copies dropped ($($bad -join ', '))"
-    Check ($o6 -notmatch "left alone   (2001|2002|2303|2305|2309|3732654992) ") "back on 0.8.7: no earlier mark is named as made for a newer game version"
+    foreach ($k in "210", "211", "212", "213", "214", "215", "216", "217", "2201", "2308", "2309") { if (-not (Same (Now $k) $files[$k]) -or $null -ne (Kept $k)) { $bad += $k } }
+    Check ($bad.Count -eq 0 -and $o6 -match "put back     2201  made for a newer game version, as its author shipped it \(0\.8\.8\)" -and $o6 -match "put back     2308  made for a newer game version, as its author shipped it \(0\.9\)" -and $o6 -match "put back     2309  made for a newer game version, as its author shipped it \(0\.8\.8\.1\)") "back on 0.8.7: the 0.8.x mods and the newer ones are their authors' files again, kept copies dropped ($($bad -join ', '))"
+    Check ($o6 -notmatch "left alone   (2001|2002|2303|2305|2310|3732654992) ") "back on 0.8.7: no earlier mark is named as made for a newer game version"
     $snap = @{}; foreach ($k in $files.Keys) { $snap[$k] = Now $k }
     $o7 = (& $mark -WorkshopContentDir $ws -GameDir $game -BackupDir $bak *>&1 | Out-String)
     $same = $true; foreach ($k in $files.Keys) { if (-not (Same (Now $k) $snap[$k])) { $same = $false } }
@@ -193,6 +197,22 @@ try {
     Put (Join-Path $ws "3732654992\plugins\Code.DLL") (Bytes "MZ")
     $o5 = (& $mark -WorkshopContentDir $ws -GameDir $game -BackupDir $bak *>&1 | Out-String)
     Check ((Same (Now "3732654992") $redfor) -and $o5 -match "3732654992  made for a newer game version \(0\.8\.8, now holds a \.dll\)") "a reviewed mod that now holds a .dll is left alone and named"
+
+    # A reviewed mod marked before its .dll came: the author's file goes back,
+    # and it no longer counts as already marked.
+    Remove-Item -LiteralPath (Join-Path $ws "3732654992\plugins") -Recurse -Force
+    & $mark -WorkshopContentDir $ws -GameDir $game -BackupDir $bak *>&1 | Out-Null
+    Check ((Same (Now "3732654992") $redforMarked) -and (Same (Kept "3732654992") $redfor)) "without the .dll REDFOR is marked again"
+    Put (Join-Path $ws "3732654992\plugins\Code.DLL") (Bytes "MZ")
+    $w8 = (& $mark -WorkshopContentDir $ws -GameDir $game -BackupDir $bak -WhatIfOnly *>&1 | Out-String)
+    Check ((Same (Now "3732654992") $redforMarked) -and (Same (Kept "3732654992") $redfor) -and $w8 -match "would put back 3732654992  reviewed, but its folder now holds a \.dll" -and $w8 -match "1 reviewed mod\(s\) would be put back") "-WhatIfOnly says the reviewed mod's file would go back and changes nothing"
+    $o8 = (& $mark -WorkshopContentDir $ws -GameDir $game -BackupDir $bak *>&1 | Out-String)
+    Check ((Same (Now "3732654992") $redfor) -and $null -eq (Kept "3732654992") -and $o8 -match "put back     3732654992  reviewed, but its folder now holds a \.dll: as its author shipped it \(0\.8\.8, now holds a \.dll\); the earlier mark was 0\.8\.0" -and $o8 -match "0 mod\(s\) marked compatible; 5 already marked" -and $o8 -match "1 reviewed mod\(s\) put back as their authors shipped them") "a reviewed mod marked before that now holds a .dll gets its author's file back, named, not counted as already marked ($(($o8 -split "`n" | Select-Object -Last 3) -join ' '))"
+    # GPT's mark with no kept copy: named and left as it is.
+    Put (Join-Path $ws "3732654992\_info.ini") $gpt
+    $o9 = (& $mark -WorkshopContentDir $ws -GameDir $game -BackupDir $bak *>&1 | Out-String)
+    Check ((Same (Now "3732654992") $gpt) -and $o9 -match "left alone   3732654992  marked before \(0\.8\.7\), reviewed, but its folder now holds a \.dll and its author's file is not kept" -and $o9 -match "5 already marked") "a reviewed mod marked by GPT's script with no kept copy and a .dll is named and left as it is"
+    Put (Join-Path $ws "3732654992\_info.ini") $redfor
     & $mark -WorkshopContentDir $ws -BackupDir $bak -Restore *>&1 | Out-Null
 } finally {
     if (Test-Path -LiteralPath $root) { Remove-Item -LiteralPath $root -Recurse -Force }

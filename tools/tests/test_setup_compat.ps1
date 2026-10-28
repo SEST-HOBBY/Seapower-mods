@@ -2,12 +2,16 @@
 .SYNOPSIS
     The pack's SETUP (integration\campaign\setup\sest-setup.ps1), run end to
     end on a stand-in PC: step 3 marks exactly the mods the game rejects as
-    made for an older game version and the reviewed REDFOR, names and leaves
-    the rest, judges its own marks again after a game update (up a version,
-    and back down again), and -RestoreModFiles puts every file back byte for
-    byte; step 4 runs
-    sest-ui-keys.ps1 only when it and Contact Log's settings exist, and a
-    failure there is a warning, not a stop.
+    made for an older game version (a value the game cannot read judged by
+    the two or three numbers it starts with) and the reviewed REDFOR, names
+    and leaves the rest, judges its own marks again after a game update (up
+    a version, and back down again), gives REDFOR's own file back once it
+    holds a .dll, and turns a mod file it cannot read into one warning;
+    -RestoreModFiles puts every file back byte for byte, and one that stops
+    part-way says changes were made; -KeepDir moves the kept files; step 4
+    runs sest-ui-keys.ps1 only when it and Contact Log's settings exist, a
+    failure there is a warning, not a stop, and Contact Log downloaded with
+    no settings yet is one note.
 
 .DESCRIPTION
     Builds a synthetic Steam folder (game, Workshop items, the pack with
@@ -94,12 +98,16 @@ Mod '9000001' 'Old LF' (Bytes "[Language_en]`nName=Old LF`n`n[Compatibility]`nAp
 Mod '9000002' 'Partial CRLF' (Bytes "[Language_en]`r`nName=Partial CRLF`r`n`r`n[Compatibility]`r`nApproximateVersion=0.4`r`n") "ApproximateVersion=0.4`r`n" "ApproximateVersion=0.8.0`r`n" '0.4'
 Mod '9000003' 'Old BOM' ([byte[]](@(0xEF, 0xBB, 0xBF) + (Bytes "[Compatibility]`nApproximateVersion=0.6.1`n[Other]`nX=1`n"))) "ApproximateVersion=0.6.1`n" "ApproximateVersion=0.8.0`n" '0.6.1'
 Mod '9000004' 'Old Spaced' (Bytes "[Compatibility] ; c`r`n`tapproximateversion =  0.7.10  // old`r`n") "`tapproximateversion =  0.7.10  // old`r`n" "`tapproximateversion =  0.8.0  // old`r`n" '0.7.10'
+Mod '9000005' 'Odd Older' (Bytes "[Compatibility]`r`nApproximateVersion=0.8.07`r`n") "ApproximateVersion=0.8.07`r`n" "ApproximateVersion=0.8.0`r`n" '0.8.07'
+Mod '9000006' 'Four Part Older' (Bytes "[Compatibility]`nApproximateVersion=0.8.7.1`n") "ApproximateVersion=0.8.7.1`n" "ApproximateVersion=0.8.0`n" '0.8.7.1'
 $p = 0
 foreach ($v in '0.8.0', '0.8.1', '0.8.2', '0.8.3 // fine', '0.8.4', '0.8.5', '0.8.6', '0.8.7') { Mod ('900010' + $p) ('Current ' + $v) (Bytes "[Compatibility]`nApproximateVersion=$v`n") $null $null $null; $p++ }
 Mod '9000201' 'Newer Patch' (Bytes "[Compatibility]`nApproximateVersion=0.8.8`n") $null $null $null
 Mod '9000202' 'Newer Minor' (Bytes "[Compatibility]`r`nApproximateVersion=0.9.0`r`n") $null $null $null
 Mod '9000203' 'Huge Patch' (Bytes "[Compatibility]`nApproximateVersion=0.8.99999999999`n") "ApproximateVersion=0.8.99999999999`n" "ApproximateVersion=0.8.0`n" '0.8.99999999999'
 Mod '9000204' 'Partial Newer' (Bytes "[Compatibility]`nApproximateVersion=0.9`n") $null $null $null
+Mod '9000205' 'Odd Newer' (Bytes "[Compatibility]`nApproximateVersion=0.8.08`n") $null $null $null
+Mod '9000206' 'Four Part Newer' (Bytes "[Compatibility]`r`nApproximateVersion=0.8.8.1`r`n") $null $null $null
 Mod '9000301' 'Exact' (Bytes "[Compatibility]`nExactVersion=0.8.6`nApproximateVersion=0.7.0`n") $null $null $null
 Mod '9000302' 'Unreadable' (Bytes "[Compatibility]`nApproximateVersion=v-next`n") $null $null $null
 Mod '9000303' 'Not UTF8' ([byte[]]((Bytes "[Language_en]`r`nName=Caf") + [byte[]](0xE9) + (Bytes "`r`n[Compatibility]`r`nApproximateVersion=0.6.0`r`n"))) $null $null $null
@@ -148,9 +156,9 @@ try {
     # 1. First run on 0.8.7.
     $r = Setup @()
     Check ($r.Code -eq 0 -and $r.Out -match 'All done') "run 1 on 0.8.7 finishes with no warning (exit $($r.Code))"
-    Check ($r.Out -match '\[done\] 5 mod\(s\) made for an older game version marked compatible with 0\.8\.7 \(the start-up warning about them stops\)') "run 1 marks the five older mods (one of them a 20-digit patch the game cannot read)"
+    Check ($r.Out -match '\[done\] 7 mod\(s\) made for an older game version marked compatible with 0\.8\.7 \(the start-up warning about them stops\)') "run 1 marks the seven older mods (0.8.07 and 0.8.7.1, which the game cannot read, and an 11-digit patch its pattern takes but cannot hold, among them)"
     Check ($r.Out -match '\[done\] made for a newer game version but reviewed, so marked compatible with 0\.8\.7: THE REDFOR MOD') "run 1 marks the reviewed REDFOR"
-    Check ($r.Out -match 'Not marked, made for a newer game version than 0\.8\.7 \(listed as not compatible until the game catches up\): Newer Patch \(0\.8\.8\), Newer Minor \(0\.9\.0\), Partial Newer \(0\.9\)\r?\n') "run 1 names the newer mods in one line"
+    Check ($r.Out -match 'Not marked, made for a newer game version than 0\.8\.7 \(listed as not compatible until the game catches up\): Newer Patch \(0\.8\.8\), Newer Minor \(0\.9\.0\), Partial Newer \(0\.9\), Odd Newer \(0\.8\.08\), Four Part Newer \(0\.8\.8\.1\)\r?\n') "run 1 names the newer mods in one line, 0.8.08 and 0.8.8.1 among them"
     Check ($r.Out -match 'Not marked, declared in a way SETUP does not change \(listed as not compatible\): Exact \(ExactVersion=0\.8\.6\), Unreadable \(ApproximateVersion=v-next\), Not UTF8 \(0\.6\.0, not UTF-8 text\), Range Out \(GreaterThanEqualToVersion=0\.9\.0\)') "run 1 names the ExactVersion, unreadable, non-UTF-8 and range mods"
     $bad = @()
     foreach ($m in $mods) {
@@ -171,14 +179,14 @@ try {
     $r = Setup @()
     $same = $true; foreach ($m in $mods) { if ((Hex (Live $m.Id)) -ne $snap[$m.Id]) { $same = $false } }
     Check ($r.Code -eq 0 -and $same -and (Hex ([IO.File]::ReadAllBytes($cl))) -eq $clSnap) "run 2 changes no mod file and no key"
-    Check ($r.Out -match '\[ok\]   6 mod\(s\) already marked compatible with 0\.8\.7; no other mod that SETUP can change is made for an older game version') "run 2 counts the six as already marked (the one not UTF-8 is named below, not counted)"
+    Check ($r.Out -match '\[ok\]   8 mod\(s\) already marked compatible with 0\.8\.7; no other mod that SETUP can change is made for an older game version') "run 2 counts the eight as already marked (the one not UTF-8 is named below, not counted)"
     Check ($r.Out -match "\[ok\]   Contact Log's keys: neither holds its clashing default") "run 2 finds Contact Log's keys done"
 
     # 3. -RestoreModFiles puts every author's file back.
     $r = Setup @('-RestoreModFiles')
     $wrong = AllAsShipped
     Check ($r.Code -eq 0 -and -not $wrong -and @(Get-ChildItem -LiteralPath $keep -File).Count -eq 0) "-RestoreModFiles puts every file back byte for byte and empties the kept folder ($wrong)"
-    Check ($r.Out -match '\[done\] 6 mod file\(s\) put back') "-RestoreModFiles counts six"
+    Check ($r.Out -match '\[done\] 8 mod file\(s\) put back') "-RestoreModFiles counts eight"
 
     # 4. REDFOR as GPT's reviewed-compat script left it on the owner's PC.
     $redforMod = $mods | Where-Object { $_.Id -eq '3732654992' }
@@ -187,13 +195,13 @@ try {
     Put (J $keep '3732654992._info.ini') $redforMod.Info
     $r = Setup @()
     Check ($r.Code -eq 0 -and (Hex (Live '3732654992')) -eq (Hex $gpt) -and (Hex (Kept '3732654992')) -eq (Hex $redforMod.Info)) "GPT's REDFOR mark is accepted as it is, its kept file untouched"
-    Check ($r.Out -match '\[done\] 5 mod\(s\) made for an older game version' -and $r.Out -notmatch 'but reviewed') "the five older mods are marked; REDFOR counts as already marked"
+    Check ($r.Out -match '\[done\] 7 mod\(s\) made for an older game version' -and $r.Out -notmatch 'but reviewed') "the seven older mods are marked; REDFOR counts as already marked"
 
     # 5. The game moves to 0.9.0: SETUP's marks and GPT's are judged again.
     GameVersion "01-Jan-2027: 0.9.0 Build 270101 Public Release"
     $r = Setup @()
     Check ($r.Code -eq 0) "run on 0.9.0 finishes (exit $($r.Code))"
-    Check ($r.Out -match '\[done\] 16 mod\(s\) made for an older game version marked compatible with 0\.9\.0 \(the start-up warning about them stops; 6 of them marked before, for another game version\)') "on 0.9.0: 16 marked, the 6 marked before among them"
+    Check ($r.Out -match '\[done\] 20 mod\(s\) made for an older game version marked compatible with 0\.9\.0 \(the start-up warning about them stops; 8 of them marked before, for another game version\)') "on 0.9.0: 20 marked, the 8 marked before among them"
     $bad = @()
     foreach ($m in $mods | Where-Object { $_.Old -and $_.Id -ne '3732654992' }) {
         if ((Hex (Live $m.Id)) -ne (Hex (Expected $m '0.9.0')) -or (Hex (Kept $m.Id)) -ne (Hex $m.Info)) { $bad += $m.Id }
@@ -212,10 +220,10 @@ try {
     GameVersion "21-Oct-2026: 0.8.7 Build 261021 Public Release"
     $r = Setup @()
     Check ($r.Code -eq 0 -and $r.Out -match 'All done') "back on 0.8.7: finishes with no warning (exit $($r.Code))"
-    Check ($r.Out -match '\[done\] 5 mod\(s\) made for an older game version marked compatible with 0\.8\.7 \(the start-up warning about them stops; 5 of them marked before, for another game version\)') "back on 0.8.7: the five older mods are marked again"
+    Check ($r.Out -match '\[done\] 7 mod\(s\) made for an older game version marked compatible with 0\.8\.7 \(the start-up warning about them stops; 7 of them marked before, for another game version\)') "back on 0.8.7: the seven older mods are marked again"
     Check ($r.Out -match '\[done\] made for a newer game version but reviewed, so marked compatible with 0\.8\.7: THE REDFOR MOD') "back on 0.8.7: REDFOR is marked again as a reviewed one"
-    Check ($r.Out -match '\[done\] 10 mod file\(s\) SETUP had marked for a later game version than 0\.8\.7 put back as their authors shipped them') "back on 0.8.7: ten put back (the eight 0.8.x, Newer Patch and Partial Newer)"
-    Check ($r.Out -match 'Not marked, made for a newer game version than 0\.8\.7 \(listed as not compatible until the game catches up\): Newer Patch \(0\.8\.8\), Newer Minor \(0\.9\.0\), Partial Newer \(0\.9\)\r?\n') "back on 0.8.7: only the mods whose authors declared a newer version are named as newer"
+    Check ($r.Out -match '\[done\] 12 mod file\(s\) SETUP had marked for a later game version than 0\.8\.7 put back as their authors shipped them') "back on 0.8.7: twelve put back (the eight 0.8.x, Newer Patch, Partial Newer, Odd Newer and Four Part Newer)"
+    Check ($r.Out -match 'Not marked, made for a newer game version than 0\.8\.7 \(listed as not compatible until the game catches up\): Newer Patch \(0\.8\.8\), Newer Minor \(0\.9\.0\), Partial Newer \(0\.9\), Odd Newer \(0\.8\.08\), Four Part Newer \(0\.8\.8\.1\)\r?\n') "back on 0.8.7: only the mods whose authors declared a newer version are named as newer"
     $bad = @()
     foreach ($m in $mods) {
         if ($m.Old -and $m.Id -ne '3732654992') {
@@ -227,7 +235,7 @@ try {
     $snap = @{}; foreach ($m in $mods) { $snap[$m.Id] = Hex (Live $m.Id) }
     $r = Setup @()
     $same = $true; foreach ($m in $mods) { if ((Hex (Live $m.Id)) -ne $snap[$m.Id]) { $same = $false } }
-    Check ($r.Code -eq 0 -and $same -and $r.Out -match '\[ok\]   6 mod\(s\) already marked compatible with 0\.8\.7' -and $r.Out -notmatch 'put back') "back on 0.8.7, run again: nothing changes, six already marked"
+    Check ($r.Code -eq 0 -and $same -and $r.Out -match '\[ok\]   8 mod\(s\) already marked compatible with 0\.8\.7' -and $r.Out -notmatch 'put back') "back on 0.8.7, run again: nothing changes, eight already marked"
     $r = Setup @('-RestoreModFiles')
     $wrong = AllAsShipped
     Check ($r.Code -eq 0 -and -not $wrong -and @(Get-ChildItem -LiteralPath $keep -File).Count -eq 0) "-RestoreModFiles after the game moved up and back puts every file back byte for byte, REDFOR's as its author shipped it ($wrong)"
@@ -235,16 +243,29 @@ try {
     # 6b. -RestoreModFiles straight after a game update.
     GameVersion "01-Jan-2027: 0.9.0 Build 270101 Public Release"
     $r = Setup @()
-    Check ($r.Out -match '\[done\] 16 mod\(s\) made for an older game version marked compatible with 0\.9\.0 \(the start-up warning about them stops\)') "fresh on 0.9.0: 16 marked, REDFOR's 0.8.8 among them as an older one"
+    Check ($r.Out -match '\[done\] 20 mod\(s\) made for an older game version marked compatible with 0\.9\.0 \(the start-up warning about them stops\)') "fresh on 0.9.0: 20 marked, REDFOR's 0.8.8 among them as an older one"
     $r = Setup @('-RestoreModFiles')
     $wrong = AllAsShipped
-    Check ($r.Code -eq 0 -and -not $wrong -and $r.Out -match '\[done\] 16 mod file\(s\) put back') "-RestoreModFiles on 0.9.0 puts every file back byte for byte ($wrong)"
+    Check ($r.Code -eq 0 -and -not $wrong -and $r.Out -match '\[done\] 20 mod file\(s\) put back') "-RestoreModFiles on 0.9.0 puts every file back byte for byte ($wrong)"
 
     # 7. A reviewed mod that now holds a .dll is not marked.
     GameVersion "21-Oct-2026: 0.8.7 Build 261021 Public Release"
     Put (J $content '3732654992' 'plugins' 'Code.dll') (Bytes 'MZ')
     $r = Setup @()
     Check ((Hex (Live '3732654992')) -eq (Hex $redforMod.Info) -and $r.Out -match 'THE REDFOR MOD \(0\.8\.8, now holds a \.dll\)') "REDFOR with a .dll is named and left alone"
+    # 7b. Marked as a reviewed mod before the .dll came: the author's file
+    # goes back and is named; REDFOR is not counted as already marked.
+    Remove-Item -LiteralPath (J $content '3732654992' 'plugins') -Recurse -Force
+    $r = Setup @()
+    Check ($r.Out -match '\[done\] made for a newer game version but reviewed, so marked compatible with 0\.8\.7: THE REDFOR MOD' -and (Hex (Kept '3732654992')) -eq (Hex $redforMod.Info)) "without the .dll REDFOR is marked again"
+    Put (J $content '3732654992' 'plugins' 'Code.dll') (Bytes 'MZ')
+    $r = Setup @()
+    Check ($r.Code -eq 0 -and (Hex (Live '3732654992')) -eq (Hex $redforMod.Info) -and $null -eq (Kept '3732654992') -and $r.Out -match '\[done\] reviewed mod\(s\) whose folder now holds a \.dll put back as their authors shipped them: THE REDFOR MOD \(0\.8\.8, now holds a \.dll\)' -and $r.Out -match '\[ok\]   7 mod\(s\) already marked compatible') "REDFOR marked before its .dll came: its author's file is back and named, not counted as already marked"
+    # 7c. GPT's mark and no kept file: named and left as it is.
+    Put (J $content '3732654992' '_info.ini') $gpt
+    $r = Setup @()
+    Check ($r.Code -eq 0 -and (Hex (Live '3732654992')) -eq (Hex $gpt) -and $r.Out -match "Left as marked before, reviewed mod\(s\) whose folder now holds a \.dll, with no author's file kept to put back: THE REDFOR MOD" -and $r.Out -match '\[ok\]   7 mod\(s\) already marked compatible') "GPT's REDFOR mark with a .dll and no kept file: named and left, not counted as already marked"
+    Put (J $content '3732654992' '_info.ini') $redforMod.Info
     Remove-Item -LiteralPath (J $content '3732654992' 'plugins') -Recurse -Force
     Setup @('-RestoreModFiles') | Out-Null
 
@@ -263,6 +284,47 @@ try {
     Remove-Item -LiteralPath (J $game 'BepInEx' 'config') -Recurse -Force
     $r = Setup @()
     Check ($r.Code -eq 0 -and $r.Out -notmatch 'Contact Log' -and -not (Test-Path -LiteralPath (J $game 'BepInEx' 'config'))) "no Contact Log settings: nothing said, nothing created"
+    Setup @('-RestoreModFiles') | Out-Null
+
+    # 10. A mod file SETUP cannot read: one warning for that mod; the other
+    # mods are still checked and the mod order is still written.
+    $hp = J $content '9000203' '_info.ini'
+    $hpInfo = ($mods | Where-Object { $_.Id -eq '9000203' }).Info
+    Remove-Item -LiteralPath $hp -Force
+    New-Item -ItemType Directory -Path $hp | Out-Null
+    Put $settings (Bytes "[General]`r`nX=1`r`n[LoadOrder]`r`nNumberOfModFiles=1`r`nMod1Directory=9000001,True`r`n")
+    $r = Setup @()
+    Check ($r.Code -eq 0 -and $r.Out -match '\[!!\]   Could not check or mark Huge Patch: ' -and $r.Out -match 'read the 1 \[!!\] warning' -and $r.Out -match '\[done\] 6 mod\(s\) made for an older game version marked compatible' -and $r.Out -match 'but reviewed, so marked compatible with 0\.8\.7: THE REDFOR MOD') "a mod file that cannot be read is one warning; the other older mods and REDFOR are still marked"
+    Check ((Text ([IO.File]::ReadAllBytes($settings))) -match 'Mod1Directory=3812461539,True') "and the mod order is still written"
+
+    # 11. -RestoreModFiles stopped part-way, after putting files back, does
+    # not say that nothing was changed.
+    Put (J $keep '9000203._info.ini') $hpInfo
+    $order = @(Get-ChildItem -LiteralPath $keep -Filter '*._info.ini' -File | ForEach-Object { $_.Name })
+    $r = Setup @('-RestoreModFiles')
+    Check ($order[-1] -eq '9000203._info.ini' -and $r.Code -ne 0 -and $r.Out -match 'Some changes above were already made' -and $r.Out -notmatch 'Nothing was changed' -and (Hex (Live '9000001')) -eq (Hex ($mods | Where-Object { $_.Id -eq '9000001' }).Info)) "-RestoreModFiles stopped by a file it cannot read, after putting others back, says changes were made"
+    Remove-Item -LiteralPath $hp -Recurse -Force
+    Put $hp $hpInfo
+    $r = Setup @('-RestoreModFiles')
+    $wrong = AllAsShipped
+    Check ($r.Code -eq 0 -and -not $wrong -and @(Get-ChildItem -LiteralPath $keep -File).Count -eq 0) "run again, it finishes: every file as shipped, nothing kept ($wrong)"
+
+    # 12. -KeepDir (the administrator relaunch passes the player's own): the
+    # authors' files are kept there, and -RestoreModFiles takes them back.
+    $alt = J $root 'player' 'compat-originals'
+    $r = Setup @('-KeepDir', $alt)
+    Check ($r.Code -eq 0 -and @(Get-ChildItem -LiteralPath $alt -File).Count -eq 8 -and @(Get-ChildItem -LiteralPath $keep -File -ErrorAction SilentlyContinue).Count -eq 0 -and (Hex ([IO.File]::ReadAllBytes((J $alt '9000001._info.ini')))) -eq (Hex ($mods | Where-Object { $_.Id -eq '9000001' }).Info)) "-KeepDir: the authors' files are kept in that folder, none in the default one"
+    $r = Setup @('-RestoreModFiles', '-KeepDir', $alt)
+    $wrong = AllAsShipped
+    Check ($r.Code -eq 0 -and -not $wrong -and @(Get-ChildItem -LiteralPath $alt -File).Count -eq 0 -and $r.Out -match '\[done\] 8 mod file\(s\) put back') "-RestoreModFiles -KeepDir puts them back from that folder ($wrong)"
+    Check ([IO.File]::ReadAllText((J $src 'sest-setup.ps1')).Contains("'-KeepDir', ('" + '"' + "' + `$kd + '" + '"' + "')")) "the administrator relaunch passes -KeepDir"
+
+    # 13. Contact Log downloaded but no settings file yet: one note, not a
+    # warning, and nothing created.
+    Put (J $content '3819427362' 'ContactLog.dll') (Bytes 'MZ')
+    $r = Setup @()
+    Check ($r.Code -eq 0 -and $r.Out -match "\[note\] Contact Log has no settings file yet\. Start Sea Power once with it, quit, then run SETUP again to free its default F6 \(Topographic Map's F6\) and F8 \(Coordinated Strike Tool's F8 planner\)\." -and $r.Out -match 'All done' -and -not (Test-Path -LiteralPath (J $game 'BepInEx' 'config'))) "Contact Log downloaded with no settings file: one note, no warning, nothing created"
+    Remove-Item -LiteralPath (J $content '3819427362') -Recurse -Force
     Setup @('-RestoreModFiles') | Out-Null
 } finally {
     foreach ($k in $saved.Keys) { Set-Item -Path ("env:" + $k) -Value $saved[$k] -ErrorAction SilentlyContinue; if ($null -eq $saved[$k]) { Remove-Item -Path ("env:" + $k) -ErrorAction SilentlyContinue } }
