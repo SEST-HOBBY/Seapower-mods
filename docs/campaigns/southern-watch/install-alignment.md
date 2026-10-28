@@ -43,17 +43,17 @@ Then use the path it prints:
 
 ```powershell
 cd C:\Users\<you>\Seapower-mods      # the real path, no angle brackets
-git fetch origin sest-dev/loving-bell-3cnvvw
-git checkout sest-dev/loving-bell-3cnvvw
-git pull origin sest-dev/loving-bell-3cnvvw
+git fetch origin sest-dev/jolly-ride-rptj4t
+git checkout sest-dev/jolly-ride-rptj4t
+git pull origin sest-dev/jolly-ride-rptj4t
 ```
 
 Check, and do not skip this:
 
 ```powershell
-git branch --show-current          # sest-dev/loving-bell-3cnvvw
+git branch --show-current          # sest-dev/jolly-ride-rptj4t
 git log --oneline -1               # note the short hash
-Get-Content data\deploy-branch.txt # sest-dev/loving-bell-3cnvvw
+Get-Content data\deploy-branch.txt # sest-dev/jolly-ride-rptj4t
 ```
 
 `data\deploy-branch.txt` is what `sync-sest.ps1` refuses to run against a

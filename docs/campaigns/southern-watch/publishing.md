@@ -180,10 +180,16 @@ is downloaded and names any that are not, with links; installs the Anchor
 Chain preloader if it is missing (a UAC prompt only when neither `winhttp.dll`
 nor BepInEx is in the game folder); turns off one mod's debug logging that can
 freeze a mission; marks the listed mods made for an older game version
-compatible, so the Mod Manager stops warning about them (since 25 Oct 2026:
-only the `ApproximateVersion` line changes, the author's file is kept under
-`%LOCALAPPDATA%\SEST\compat-originals`, and `sest-setup.ps1 -RestoreModFiles`
-puts it back); and writes the Mod Manager order: the pack first, the mods in
+compatible, so the Mod Manager stops warning about them (since 25 Oct 2026;
+since 28 Oct by the game's own rule, read from Sea Power 0.8.7's code: only
+the `ApproximateVersion` value changes, to the game's MAJOR.MINOR.0; the
+author's file is kept under `%LOCALAPPDATA%\SEST\compat-originals`; a mark is
+renewed after a game update, or put back from the kept file when the game
+goes back a version and the author's file needs none; mods made for a newer
+game version are named and left alone unless reviewed, which so far only THE
+REDFOR MOD is; `sest-setup.ps1 -RestoreModFiles` puts them back); unbinds
+Contact Log's default F6 and F8 keys when that mod's settings file exists
+(`sest-ui-keys.ps1`, beside SETUP); and writes the Mod Manager order: the pack first, the mods in
 `LOAD-ORDER.txt` order, the player's other mods at the bottom as they were. It
 backs up the game's settings first and is safe to run again.
 
@@ -249,7 +255,7 @@ real, it goes into the load order and the collection like any other mod.
 ## Before you press Submit
 
 1. **The build is the one you mean.** The PC syncs from the deploy branch
-   named in `data\deploy-branch.txt` (`sest-dev/loving-bell-3cnvvw`).
+   named in `data\deploy-branch.txt` (`sest-dev/jolly-ride-rptj4t`).
    `git status` is clean and `sync-sest.ps1` reports IN LINE with the commit
    you mean to publish. The folder you are about to upload is build output; if
    the tree is dirty it is not the reviewed build.
@@ -276,6 +282,17 @@ real, it goes into the load order and the collection like any other mod.
    went Public on 4-5 Oct 2026. On an update, do not change visibility. The
    Required Items should still be the load order's Workshop mods; change
    them only when the load order changed (above).
+7. **The plugins (since 28 Oct 2026).** The pack ships Runtime 1.5.0, a
+   binary captured from the owner's PC with no source in the repository, and
+   SEST UI Follow-up 1.4.2 beside it. Before the first upload of that build:
+   the Workshop refresh capture of 27 Oct is integrated (until then the pack
+   still carries the old Modern US Navy and FREMM files the PC had merged by
+   hand); Player.log on the PC shows the three `[SEST Runtime] ... correction
+   installed` lines and, with Contact Log 1.0.1, `[SEST UI Follow-up] 1.4.2
+   input fix installed`; and the owner has decided the Quick Load line (UI
+   Follow-up moves plain F9 to Ctrl+F9 for every Contact Log 1.0.1 player)
+   and whether to wait on the unexplained 27 Oct crash. The change log is in
+   `workshop-listing.md` (28 Oct block).
 
 ## The upload
 

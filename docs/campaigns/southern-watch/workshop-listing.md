@@ -71,7 +71,7 @@ Four Task Force Mode campaigns, two world campaigns for the Dynamic Campaign Mod
 With the Combat Cost Tracker from the collection, every weapon, ship, aircraft and land unit has a price, historical and current. Estimates are labelled, and chaff, flares, sonobuoys, drop tanks and pods count.
 [list]
 [*]F11 in a mission shows what the mission has cost so far.
-[*]F11 in the Task Force menu shows the campaign's totals and one line per mission; the task-force debrief adds the same rows.
+[*]F11 in the Task Force menu shows the campaign's totals and every completed mission, in a window you can move and resize; the task-force debrief adds the mission's and the campaign's cost.
 [*]Weapons fired, units lost and the stores lost with them carry through the campaign.
 [/list]
 
@@ -89,7 +89,51 @@ In the folder: SETUP, REQUIRED-MODS.txt (every mod the campaigns name), LOAD-ORD
 A Sea Power unit file is a whole-file override, so 528 files here are other authors' files with edits, each 90% or more unchanged, from 64 Workshop mods. CREDITS.txt lists every one, measured by diffing against the collection. Every photograph is real and credited. If you wrote one of those mods and would rather this pack did not carry your file, say so and it will change.
 
 [h2]Fiction, language, status[/h2]
-Every nation, unit, ship name, incident and date is invented; the campaigns take no position on any real dispute. English only. Built for Sea Power 0.8.7: every unit, squadron, loadout and weapon in every mission is checked to resolve on every build, but balance is not, and most missions have not been played to completion. SEST's code (the Tomahawk terrain fix, the debrief and the combat cost panels) runs only on Sea Power 0.8.7 Build 261021 and switches itself off on any other. Feedback on difficulty and pacing is wanted.
+Every nation, unit, ship name, incident and date is invented; the campaigns take no position on any real dispute. English only. Built for Sea Power 0.8.7: every unit, squadron, loadout and weapon in every mission is checked to resolve on every build, but balance is not, and most missions have not been played to completion. SEST's code (the Tomahawk terrain fix, the debrief, the combat cost windows, the towed-sonar guard and, with Contact Log, the UI follow-up) runs only on Sea Power 0.8.7 Build 261021 and switches itself off on any other. Feedback on difficulty and pacing is wanted.
+```
+
+## Change log: integration of the owner's PC state, 28 Oct 2026
+
+For the next upload, which also carries the SETUP update below and, if not
+yet pasted, the 24 Oct block. Not to be uploaded before the Workshop refresh
+capture (`chore/workshop-refresh-20261027`) is integrated and the release
+gate passes: until then the pack would still carry the old Modern US Navy
+and Italian FREMM files. Before Submit:
+
+- Run SETUP from the Workshop copy on the PC. Expect THE REDFOR MOD to count
+  as already marked, and Contact Log's RunProbe to become None if it is still
+  F8 (a ToggleWindow of F9 is kept).
+- Player.log must show three `[SEST Runtime] ... correction installed` lines
+  (terrain, debrief, towed sonar) and, with Contact Log 1.0.1,
+  `[SEST UI Follow-up] 1.4.2 input fix installed`. Take out any line below
+  whose plugin did not install.
+- The owner decides whether to keep the Quick Load line (UI Follow-up moves
+  plain F9 to Ctrl+F9) and whether to mention the unexplained 27 Oct crash
+  with both plugins on.
+
+```
+[h2]28 October 2026[/h2]
+
+[b]Interface and costs[/b]
+[list]
+[*]SEST's runtime plugin is now 1.5.0. F11 opens game-styled cost windows in a mission and in the Task Force menu; move them by the title bar and resize them at the edges, and with Pop-Out Windows they go to a second screen. The debrief shows mission and campaign cost, with the details in F11.
+[*]With Contact Log 1.0.1 and Group Manager 0.2.17, Contacts and Group Manager can pop out to a second screen. Own units are plotted while paused during preparation, and a towed sonar with an incomplete link no longer stops the game's update.
+[*]New: SEST UI Follow-up, for players of Contact Log 1.0.1. Space and +/- no longer open or close Contacts, Group Manager gets a Stock UI / Enhanced UI switch, and the live F11 window stops rebuilding its price lists twice a second. Without Contact Log, or on another game build, it does nothing.
+[*]With UI Follow-up active, Quick Load moves from F9 to Ctrl+F9; any other Quick Load key is kept. Once you press Accept in Options, Ctrl+F9 stays after you unsubscribe; set Quick Load back in Options.
+[/list]
+
+[b]Campaigns[/b]
+[list]
+[*]Sulu Line: Philippine airfields no longer come with a free 1970s U.S. air wing; a field holds what you buy for it and the mission's own flights. The Navy helicopter is offered as the AW109E LAH, then the AUH-76. The RAN MH-60R is on sale with the Anzac before Service at Sea and The Aborlan Battery. Deck fits for the H-76, the Thai Seahawk and the MH-60R on the Jose Rizal, Miguel Malvar, Naresuan, Anzac and BRP Tarlac (not yet confirmed in game). Start a new campaign or load a mission fresh to see these.
+[*]World Sandbox and Regional Expansion: the US Navy's twelve P-8As are a real P-8A Poseidon (U.S. Navy 2027's) instead of a P-3 Orion body. Bases, numbers and price are unchanged. Start a new campaign to see it.
+[*]Both P-8s' Harpoons now get a guidance channel: one P-8 could not fire its AntiShip Harpoons at all, the other fired them with no midcourse updates.
+[/list]
+
+[b]SETUP[/b]
+[list]
+[*]SETUP now checks mod versions the way the game does. After a game update, or a step back to an earlier version, it renews the marks it made, so the not-compatible warning does not come back. Mods made for a newer game version are named and left alone.
+[*]If you use Contact Log, SETUP frees its default F6 and F8 keys, which the game also uses. Keys you changed yourself are kept.
+[/list]
 ```
 
 ## Change log: SETUP update, after 25 Oct 2026
@@ -137,8 +181,8 @@ report has the Regional Expansion starting as a new campaign
 [list]
 [*]Every weapon, ship, aircraft and land unit in the collection now has a price, current and historical (land units priced by SEST, which the tracker does not cover). Estimates are labelled as estimates, and chaff, flares, sonobuoys, drop tanks and pods now count.
 [*]227 prices checked against published sources, from the Mk 82 to the GBU-57 and the AN/TPY-2 radar.
-[*]F11 in a mission shows this mission's costs. F11 in the Task Force menu shows the campaign's totals, with one line per mission, at the left of the screen.
-[*]The task-force debrief adds Combat Cost rows: weapons, ships, aircraft, land, stores lost, mission and campaign.
+[*]F11 in a mission shows this mission's costs. F11 in the Task Force menu shows the campaign's totals, with one line per mission.
+[*]The task-force debrief adds the mission's and the campaign's cost; the detail is in F11.
 [*]Stores lost with a sunk ship or downed aircraft now stay in the campaign total; the next mission used to erase them.
 [/list]
 

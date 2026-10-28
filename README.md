@@ -87,6 +87,7 @@ python3 tools/check_dependencies.py         # every pack's upstreams exported an
 python3 tools/check_scenarios.py            # the carved NF3 scenarios' counts, formations and section numbers
 python3 tools/check_stale_phrases.py        # retired claims (the pre-reveal AIM-424) stay out of builders and packs
 python3 tools/check_mod_conflicts.py <id>   # what a newly added mod would collide with
+python3 tools/audit_beta_map_geometry.py    # read-only globe-beta screen: positions by latitude, 180 crossings, map-centre distance (docs/beta-globe-readiness-20261027.md)
 python3 tools/check_system_names.py         # pack-added SystemName refs a rival mod's definition could win (report)
 python3 tools/check_weapon_employment.py    # every mount can fire what it carries (inherited upstream defects reported)
 python3 tools/check_pack_fidelity.py        # every SEST_Replenishment file is its upstream plus only the intended lines
@@ -131,13 +132,18 @@ Steel Highway once BepInEx was installed. A mod update puts the author's file ba
 `LogOutput.log`, where the code mods write, whole (head and tail with a marker line over 50 MB).
 
 `tools\mark-mods-compatible.ps1` stops the Mod Manager's start-up warning that mods are not
-compatible with this game version: every mod whose `_info.ini` declares an `ApproximateVersion`
-with a different MAJOR.MINOR from the game's (68 on 18 Oct 2026, last set for 0.4 to 0.7) has that
-one line set to the game's version, on this PC only. The authors' own files are kept under
-`%LOCALAPPDATA%\SEST\compat-originals`, `export-mod-configs.ps1` exports those, so `mods-source/`
-and the update check still see the authors' files, and `-Restore` puts them all back.
-`sync-sest.ps1` runs it on every sync, since a mod update puts the author's file back. A player
-who subscribes still sees the warning for the same mods: their files are their authors'.
+compatible with this game version, on this PC only. It applies the players' SETUP's own rule,
+the `Compat*` functions in `integration/campaign/setup/sest-setup.ps1`, which follow Sea Power
+0.8.7's `ModCompatibility.Matches`: an `ExactVersion` must equal the game's version; otherwise an
+`ApproximateVersion` must be MAJOR.MINOR.PATCH with the game's MAJOR and MINOR and a PATCH no
+higher than the game's. A mod made for an older game version (68 on 18 Oct 2026, last set for 0.4
+to 0.7) has that one value set to the game's MAJOR.MINOR.0. Marks are renewed after a game update;
+if the game goes back a version, the author's kept file decides. A mod made for a newer game
+version is named and left alone, unless SETUP's reviewed list names it (THE REDFOR MOD, data
+only). The authors' own files are kept under `%LOCALAPPDATA%\SEST\compat-originals`,
+`export-mod-configs.ps1` exports those, so `mods-source/` and the update check still see the
+authors' files, and `-Restore` puts them all back. `sync-sest.ps1` runs it on every sync, since a
+mod update puts the author's file back. Players get the same from the pack's SETUP.
 
 `docs/setup-runbook.md` is the full walkthrough.
 
