@@ -6,8 +6,9 @@
 # preloader if it is missing, turns off one mod's debug logging that can
 # freeze a mission, marks the mods made for an older game version compatible
 # so the Mod Manager stops warning about them at start-up, unbinds Contact
-# Log's default F6 and F8 keys if you have that mod (they clash with the
-# game's own), and writes the Mod Manager order: this pack first, then the
+# Log's default F6 and F8 keys if you have that mod (its F6 clashes with
+# Topographic Map's F6, its F8 probe with Coordinated Strike Tool's F8
+# planner), and writes the Mod Manager order: this pack first, then the
 # mods in the order they were tested in, your other mods at the bottom as you
 # had them. Safe to run again: it checks everything before it changes
 # anything, and it backs up the game's settings and every mod file it changes
@@ -15,12 +16,13 @@
 #
 # From a console:  powershell -ExecutionPolicy Bypass -File .\sest-setup.ps1
 # Put the marked mods' own files back:  ... -File .\sest-setup.ps1 -RestoreModFiles
-param([switch]$Pause, [switch]$FromCmd, [switch]$Elevated, [string]$SteamRoot, [string]$Settings, [switch]$RestoreModFiles)
+param([switch]$Pause, [switch]$FromCmd, [switch]$Elevated, [string]$SteamRoot, [string]$Settings, [switch]$RestoreModFiles, [string]$KeepDir)
 # -FromCmd: the launcher passes it; the window stays open at the end (the
 #   launcher itself pauses after a failure, so Fail does not pause twice).
-# -Elevated, -SteamRoot, -Settings: the administrator relaunch passes its own
-#   paths down, so a UAC prompt answered with another account's password
-#   still works on the player's Steam and the player's settings file.
+# -Elevated, -SteamRoot, -Settings, -KeepDir: the administrator relaunch
+#   passes its own paths down, so a UAC prompt answered with another
+#   account's password still works on the player's Steam, the player's
+#   settings file and the player's kept mod files (KeepDir below).
 $ErrorActionPreference = 'Stop'
 $ProgressPreference = 'SilentlyContinue'
 function J { $p = [string]$args[0]; for ($k = 1; $k -lt $args.Count; $k++) { $p = [IO.Path]::Combine($p, [string]$args[$k]) }; $p }
@@ -50,9 +52,11 @@ function WriteText([string]$path, [string]$text, [bool]$bom) {
     [IO.File]::WriteAllText($path, $text, (New-Object Text.UTF8Encoding($bom)))
 }
 # Where the authors' own _info.ini files are kept when a mod is marked
-# compatible (the same folder the SEST tools use on the author's PC).
+# compatible (the same folder the SEST tools use on the author's PC), or
+# the folder -KeepDir names (a full path by then: see the start of the run).
 $CompatMarker = '; SEST marked this mod compatible'
 function KeepDir {
+    if ($KeepDir) { return $KeepDir }
     $base = $env:LOCALAPPDATA
     if (-not $base) { $base = [Environment]::GetFolderPath('LocalApplicationData') }
     if (-not $base) { $base = [IO.Path]::GetTempPath() }
@@ -154,11 +158,15 @@ function CompatRead([string]$text) {
 function CompatVerdict($c, $game) {
     # 'ok' when the game (@(MAJOR, MINOR, PATCH)) accepts what CompatRead
     # found; otherwise why not: 'older' or 'newer', an ApproximateVersion
-    # made for an older or a newer game version (one not written
-    # MAJOR.MINOR.PATCH, which no game version accepts, is judged by the
-    # MAJOR.MINOR it starts with: 0.8, 0.8.7.1 and 0.8.8.1 count as older on
-    # 0.8.7, 0.9 and 0.9.0.1 as newer); 'odd', an ApproximateVersion with no
-    # MAJOR.MINOR to read; 'exact', an ExactVersion; 'range', the range keys.
+    # made for an older or a newer game version; 'odd', an ApproximateVersion
+    # with no MAJOR.MINOR to read; 'exact', an ExactVersion; 'range', the
+    # range keys. A value not written MAJOR.MINOR.PATCH, which no game
+    # version accepts, is judged by the two or three numbers it starts with
+    # (PATCH 0 when there are two): 'newer' when they come above the game's
+    # version, 'older' otherwise. So on 0.8.7, 0.8.08 and 0.8.8.1 are newer
+    # (left alone), and 0.8, 0.8.07 and 0.8.7.1 older (marked). A value the
+    # game's pattern takes but with a number above 2147483647, which the
+    # game throws on, is 'older' whatever its numbers.
     if ($c.ExactVersion) {
         $v = CompatVer $c.ExactVersion
         if ($null -ne $v -and (CompatCmp $v $game) -eq 0) { return 'ok' }
@@ -168,11 +176,13 @@ function CompatVerdict($c, $game) {
         $v = CompatVer $c.ApproximateVersion
         if ($null -ne $v) {
             if ((CompatNum $v[0] $game[0]) -eq 0 -and (CompatNum $v[1] $game[1]) -eq 0 -and (CompatNum $v[2] $game[2]) -le 0) { return 'ok' }
+        } elseif ((CompatMatch $c.ApproximateVersion).Success) {
+            return 'older'
         } else {
-            $m = [regex]::Match($c.ApproximateVersion, '^([0-9]+)\.([0-9]+)')
+            $m = [regex]::Match($c.ApproximateVersion, '^([0-9]+)\.([0-9]+)(?:\.([0-9]+))?')
             if (-not $m.Success) { return 'odd' }
-            # PATCH 0, so only MAJOR.MINOR counts below.
-            $v = @($m.Groups[1].Value, $m.Groups[2].Value, '0')
+            $patch = $m.Groups[3].Value; if (-not $patch) { $patch = '0' }
+            $v = @($m.Groups[1].Value, $m.Groups[2].Value, $patch)
         }
         if ((CompatCmp $v $game) -le 0) { return 'older' }
         return 'newer'
@@ -201,8 +211,11 @@ function CompatVerdict($c, $game) {
 # Reviewed exceptions. A mod that declares a NEWER game version than the
 # installed one is left alone: it may need that game. A Workshop id listed
 # here is marked like an older mod instead, but only while its folder holds
-# no .dll (data only). Add an id only after reviewing that mod's files on
-# the installed game.
+# no .dll (data only). Once it holds one, an earlier mark is judged by the
+# author's kept file (CompatCode): that file comes back if SETUP would leave
+# it alone, and the mark stays if not; with no author's file kept the mod
+# is named and left marked. Add an id only after reviewing that mod's files
+# on the installed game.
 #   3732654992  THE REDFOR MOD: data only; reviewed 27 Oct 2026 on game 0.8.7.
 function CompatReviewed { return @('3732654992') }
 function CompatHasCode([string]$dir) {
@@ -241,15 +254,41 @@ function CompatBack($p, [byte[]]$kept, [string]$marker, $game, [string]$id, [str
     # that file goes back as it is. With no kept file (or one that carries
     # the marker itself) the value is rewritten again as an older one.
     $p.Mark = $true; $p.Why = 'older'
-    if ($null -eq $kept) { return $false }
-    $o = 0; if ($kept.Length -ge 3 -and $kept[0] -eq 0xEF -and $kept[1] -eq 0xBB -and $kept[2] -eq 0xBF) { $o = 3 }
-    $t = (New-Object Text.UTF8Encoding($false)).GetString($kept, $o, $kept.Length - $o)
-    if ($t.IndexOf($marker, [StringComparison]::Ordinal) -ge 0) { return $false }
+    $t = CompatKept $kept $marker
+    if ($null -eq $t) { return $false }
     $a = CompatPlan $t $game $id $dir
     $p.Why = $a.Why
     if ($a.Mark) { return $false }
     $p.Mark = $false; $p.What = $a.What
     return $true
+}
+function CompatKept([byte[]]$kept, [string]$marker) {
+    # The author's kept file ($kept, its bytes) as text, or $null when there
+    # is none or it carries $marker itself (so it is not the author's).
+    if ($null -eq $kept) { return $null }
+    $o = 0; if ($kept.Length -ge 3 -and $kept[0] -eq 0xEF -and $kept[1] -eq 0xBB -and $kept[2] -eq 0xBF) { $o = 3 }
+    $t = (New-Object Text.UTF8Encoding($false)).GetString($kept, $o, $kept.Length - $o)
+    if ($t.IndexOf($marker, [StringComparison]::Ordinal) -ge 0) { return $null }
+    return $t
+}
+function CompatCode($p, [byte[]]$kept, [string]$marker, $game, [string]$id, [string]$dir) {
+    # $p: the CompatPlan of a file marked before (it carries $marker, SETUP's
+    # or GPT's) that the game does not take for one made for a newer game
+    # version (CompatBack judges those). A reviewed mod (CompatReviewed) is
+    # marked only while its folder holds no .dll; once it holds one, its
+    # author's file ($kept, as for CompatBack) decides. 'back': SETUP would
+    # leave the author's file alone, so it goes back as it is ($p.What
+    # becomes its declaration). 'gone': there is no author's file to judge
+    # by, so the mod is named and left as it is. '' for any other mod, and
+    # when SETUP would mark the author's file anyway (made for an older game
+    # version): the mark stands.
+    if (@(CompatReviewed) -notcontains $id -or -not (CompatHasCode $dir)) { return '' }
+    $t = CompatKept $kept $marker
+    if ($null -eq $t) { return 'gone' }
+    $a = CompatPlan $t $game $id $dir
+    if ($a.Mark) { return '' }
+    $p.What = $a.What
+    return 'back'
 }
 function CompatMark([string]$text, $c, [string]$value, [string]$note) {
     # $text with its ApproximateVersion value replaced by $value and, unless
@@ -267,6 +306,14 @@ function CompatIsUtf8([byte[]]$b) {
 $AppId = '1286220'
 try {
     Say 'SEST setup - checking your PC...' 'Cyan'
+
+    # -KeepDir as a full path, once, read against the folder PowerShell is in
+    # (.NET's current folder can be another): the administrator relaunch
+    # starts in another folder, so it is passed this full path.
+    if ($KeepDir) {
+        try { $KeepDir = $ExecutionContext.SessionState.Path.GetUnresolvedProviderPathFromPSPath($KeepDir) }
+        catch { Fail ('-KeepDir ' + $KeepDir + ' is not a folder SETUP can use: ' + $_.Exception.Message); return }
+    }
 
     if (Get-Process -Name 'Sea Power', 'SeaPower' -ErrorAction SilentlyContinue) {
         Fail 'Sea Power is running. Quit the game completely first.'; return
@@ -318,9 +365,9 @@ try {
         foreach ($kept in @(Get-ChildItem -LiteralPath (KeepDir) -Filter '*._info.ini' -File -ErrorAction SilentlyContinue)) {
             $id = $kept.Name.Substring(0, $kept.Name.Length - '._info.ini'.Length)
             $live = J $content $id '_info.ini'
-            if ((Test-Path -LiteralPath $live) -and (ReadText $live).Text.IndexOf($CompatMarker, [StringComparison]::Ordinal) -ge 0) {
-                [IO.File]::WriteAllBytes($live, [IO.File]::ReadAllBytes($kept.FullName)); $put++
-            } else { $gone++ }
+            $marked = (Test-Path -LiteralPath $live) -and (ReadText $live).Text.IndexOf($CompatMarker, [StringComparison]::Ordinal) -ge 0
+            $changed = $true
+            if ($marked) { [IO.File]::WriteAllBytes($live, [IO.File]::ReadAllBytes($kept.FullName)); $put++ } else { $gone++ }
             Remove-Item -LiteralPath $kept.FullName -Force
         }
         Say ('  [done] ' + $put + ' mod file(s) put back as their authors shipped them; ' + $gone + ' already replaced by Steam') 'Green'
@@ -417,8 +464,13 @@ try {
             # powershell_ise.exe -File only opens the file in the editor.
             $exe = Join-Path $PSHOME $(if ($PSVersionTable.PSEdition -eq 'Core') { 'pwsh.exe' } else { 'powershell.exe' })
             if (-not (Test-Path -LiteralPath $exe)) { $exe = (Get-Process -Id $PID).Path }
+            # A backslash just before the closing quote would escape it, so
+            # a folder written with one at the end is passed with \. instead
+            # (the same folder).
+            $kd = KeepDir; if ($kd.EndsWith('\')) { $kd += '.' }
             $argv = @('-NoProfile', '-ExecutionPolicy', 'Bypass', '-File', ('"' + $PSCommandPath + '"'),
-                      '-Elevated', '-Pause', '-SteamRoot', ('"' + $steam + '"'), '-Settings', ('"' + $settings + '"'))
+                      '-Elevated', '-Pause', '-SteamRoot', ('"' + $steam + '"'), '-Settings', ('"' + $settings + '"'),
+                      '-KeepDir', ('"' + $kd + '"'))
             try { $child = Start-Process -FilePath $exe -ArgumentList $argv -Verb RunAs -Wait -PassThru }
             catch { Fail 'Administrator permission was not given, so the preloader was not installed and nothing else was changed. Run SETUP again and click Yes, or install the preloader by hand from Anchor Chain''s Workshop page and run SETUP again.'; return }
             if ($child -and $child.ExitCode -ne 0) { Fail 'The administrator window stopped with a problem; its last lines say what. Sort that out and run SETUP again.'; return }
@@ -435,8 +487,8 @@ try {
     # 1. Anchor Chain preloader
     if ($needPreloader) {
         $tmp = J ([IO.Path]::GetTempPath()) ('sest-acp-' + [guid]::NewGuid().ToString('N'))
-        New-Item -ItemType Directory -Path $tmp | Out-Null
         try {
+            New-Item -ItemType Directory -Path $tmp | Out-Null
             $zip = $env:SEST_PRELOADER_ZIP
             if (-not $zip) {
                 $zip = J $tmp 'ACPreloader.zip'
@@ -496,18 +548,24 @@ try {
 
     # 3. mods the Mod Manager lists as not compatible (the rule is above the
     # Compat* functions), although they load and play. SETUP rewrites only an
-    # ApproximateVersion made for an OLDER game version (also one like 0.7 or
-    # 0.8 that is not written MAJOR.MINOR.PATCH), to the game's MAJOR.MINOR.0,
-    # which every patch of this game version accepts, with a comment above it;
-    # the author's file is kept first. A file it marked before is judged again,
+    # ApproximateVersion made for an OLDER game version (also one like 0.8 or
+    # 0.8.7.1 that is not written MAJOR.MINOR.PATCH, judged by the numbers it
+    # starts with: CompatVerdict), to the game's MAJOR.MINOR.0, which every
+    # patch of this game version accepts, with a comment above it; the
+    # author's file is kept first. A file it marked before is judged again,
     # so after a game update that lists it again only its value is rewritten
     # (the kept file stays the author's). If the game went back a version,
     # so that a mark is now ahead of it, the author's kept file decides
     # (CompatBack): marked again, or put back if SETUP would leave it alone.
     # One made for a NEWER game version is named and left alone, unless it is
-    # a reviewed one (CompatReviewed); so is an ExactVersion or a range. Only
-    # the mods the pack lists; Steam puts a mod's own file back when the mod
-    # updates.
+    # a reviewed one (CompatReviewed) with no .dll. A reviewed one marked
+    # before that now holds a .dll gets its author's kept file back if SETUP
+    # would leave that file alone; with no author's file kept it is named and
+    # left marked (CompatCode).
+    # An ExactVersion or a range is named and left alone too. Only the mods
+    # the pack lists; Steam puts a mod's own file back when the mod updates.
+    # A mod whose file cannot be read or written is one [!!] warning, and the
+    # next mod is checked.
     try {
         $gameVer = $null
         foreach ($chg in @((J $game 'changelog.txt'), (J $game 'Sea Power_Data' 'changelog.txt'))) {
@@ -521,40 +579,58 @@ try {
         $newVer = $gameV[0] + '.' + $gameV[1] + '.0'
         $keep = KeepDir
         $older = 0; $again = 0; $already = 0; $back = 0; $leftOlder = $false; $reviewed = @(); $newer = @(); $left = @()
+        $codeBack = @(); $codeLeft = @(); $broken = @()
         foreach ($i in $ids) {
-            $inf = J $content $i '_info.ini'
-            if (-not (Test-Path -LiteralPath $inf)) { continue }
-            $r = ReadText $inf
-            $was = $r.Text.IndexOf($CompatMarker, [StringComparison]::Ordinal) -ge 0
-            $plan = CompatPlan $r.Text $gameV $i (J $content $i)
-            if ($plan.Why -eq 'ok') { if ($was) { $already++ }; continue }
-            if ($was -and $plan.Why -eq 'newer') {
-                # SETUP's own mark is ahead of the game: judged by the author's file.
-                $kp = J $keep ($i + '._info.ini'); $kb = $null
-                if (Test-Path -LiteralPath $kp) { $kb = [IO.File]::ReadAllBytes($kp) }
-                if (CompatBack $plan $kb $CompatMarker $gameV $i (J $content $i)) {
-                    [IO.File]::WriteAllBytes($inf, $kb)
-                    Remove-Item -LiteralPath $kp -Force
-                    $back++
-                    if ($plan.Why -eq 'ok') { continue }
+            try {
+                $inf = J $content $i '_info.ini'
+                if (-not (Test-Path -LiteralPath $inf)) { continue }
+                $r = ReadText $inf
+                $was = $r.Text.IndexOf($CompatMarker, [StringComparison]::Ordinal) -ge 0
+                $plan = CompatPlan $r.Text $gameV $i (J $content $i)
+                if ($was -and $plan.Why -ne 'newer') {
+                    # A reviewed mod marked before (by SETUP or GPT's script)
+                    # that now holds a .dll: judged by the author's file.
+                    $kp = J $keep ($i + '._info.ini'); $kb = $null
+                    if (Test-Path -LiteralPath $kp) { $kb = [IO.File]::ReadAllBytes($kp) }
+                    $code = CompatCode $plan $kb $CompatMarker $gameV $i (J $content $i)
+                    if ($code -eq 'back') {
+                        [IO.File]::WriteAllBytes($inf, $kb)
+                        Remove-Item -LiteralPath $kp -Force
+                        $codeBack += ($names[$i] + ' (' + $plan.What + ')')
+                        continue
+                    }
+                    if ($code -eq 'gone') { $codeLeft += $names[$i]; continue }
                 }
+                if ($plan.Why -eq 'ok') { if ($was) { $already++ }; continue }
+                if ($was -and $plan.Why -eq 'newer') {
+                    # SETUP's own mark is ahead of the game: judged by the author's file.
+                    $kp = J $keep ($i + '._info.ini'); $kb = $null
+                    if (Test-Path -LiteralPath $kp) { $kb = [IO.File]::ReadAllBytes($kp) }
+                    if (CompatBack $plan $kb $CompatMarker $gameV $i (J $content $i)) {
+                        [IO.File]::WriteAllBytes($inf, $kb)
+                        Remove-Item -LiteralPath $kp -Force
+                        $back++
+                        if ($plan.Why -eq 'ok') { continue }
+                    }
+                }
+                if ($plan.Mark -and -not (CompatIsUtf8 ([IO.File]::ReadAllBytes($inf)))) { $plan.Mark = $false; $plan.What += ', not UTF-8 text' }
+                if (-not $plan.Mark) {
+                    if ($plan.Why -eq 'newer') { $newer += ($names[$i] + ' (' + $plan.What + ')') } else { $left += ($names[$i] + ' (' + $plan.What + ')') }
+                    if ($plan.Why -eq 'older') { $leftOlder = $true }
+                    continue
+                }
+                if ($was) {
+                    WriteText $inf (CompatMark $r.Text $plan.C $newVer '') $r.Bom
+                    if ($plan.Why -eq 'older') { $again++ }
+                } else {
+                    New-Item -ItemType Directory -Force -Path $keep | Out-Null
+                    [IO.File]::WriteAllBytes((J $keep ($i + '._info.ini')), [IO.File]::ReadAllBytes($inf))
+                    $note = $CompatMarker + ' (its author''s ApproximateVersion was ' + $plan.C.ApproximateVersion + '); SETUP -RestoreModFiles puts it back'
+                    WriteText $inf (CompatMark $r.Text $plan.C $newVer $note) $r.Bom
+                }
+                if ($plan.Why -eq 'older') { $older++ } else { $reviewed += $names[$i] }
             }
-            if ($plan.Mark -and -not (CompatIsUtf8 ([IO.File]::ReadAllBytes($inf)))) { $plan.Mark = $false; $plan.What += ', not UTF-8 text' }
-            if (-not $plan.Mark) {
-                if ($plan.Why -eq 'newer') { $newer += ($names[$i] + ' (' + $plan.What + ')') } else { $left += ($names[$i] + ' (' + $plan.What + ')') }
-                if ($plan.Why -eq 'older') { $leftOlder = $true }
-                continue
-            }
-            if ($was) {
-                WriteText $inf (CompatMark $r.Text $plan.C $newVer '') $r.Bom
-                if ($plan.Why -eq 'older') { $again++ }
-            } else {
-                New-Item -ItemType Directory -Force -Path $keep | Out-Null
-                [IO.File]::WriteAllBytes((J $keep ($i + '._info.ini')), [IO.File]::ReadAllBytes($inf))
-                $note = $CompatMarker + ' (its author''s ApproximateVersion was ' + $plan.C.ApproximateVersion + '); SETUP -RestoreModFiles puts it back'
-                WriteText $inf (CompatMark $r.Text $plan.C $newVer $note) $r.Bom
-            }
-            if ($plan.Why -eq 'older') { $older++ } else { $reviewed += $names[$i] }
+            catch { $broken += ($names[$i] + ': ' + $_.Exception.Message) }
         }
         if ($older) {
             $t = '  [done] ' + $older + ' mod(s) made for an older game version marked compatible with ' + $gameVer + ' (the start-up warning about them stops'
@@ -563,13 +639,22 @@ try {
         }
         if ($reviewed.Count) { Say ('  [done] made for a newer game version but reviewed, so marked compatible with ' + $gameVer + ': ' + ($reviewed -join ', ')) 'Green' }
         if ($back) { Say ('  [done] ' + $back + ' mod file(s) SETUP had marked for a later game version than ' + $gameVer + ' put back as their authors shipped them') 'Green' }
+        if ($codeBack.Count) { Say ('  [done] reviewed mod(s) whose folder now holds a .dll put back as their authors shipped them: ' + ($codeBack -join ', ')) 'Green' }
         if (-not $older -and -not $reviewed.Count) {
-            $other = 'mod'; if ($leftOlder) { $other = 'mod that SETUP can change' }
+            # Of the mods it could read: one it could not is a warning below.
+            $can = @(); if ($broken.Count) { $can += 'could read' }; if ($leftOlder) { $can += 'can change' }
+            $other = 'mod'; if ($can.Count) { $other = 'mod that SETUP ' + ($can -join ' and ') }
             if ($already) { Say ('  [ok]   ' + $already + ' mod(s) already marked compatible with ' + $gameVer + '; no other ' + $other + ' is made for an older game version') 'Green' }
             else { Say ('  [ok]   no ' + $other + ' is made for an older game version') 'Green' }
         }
         if ($newer.Count) { Say ('         Not marked, made for a newer game version than ' + $gameVer + ' (listed as not compatible until the game catches up): ' + ($newer -join ', ')) }
         if ($left.Count) { Say ('         Not marked, declared in a way SETUP does not change (listed as not compatible): ' + ($left -join ', ')) }
+        if ($codeLeft.Count) { Say ('         Left as marked before, reviewed mod(s) whose folder now holds a .dll, with no author''s file kept to put back: ' + ($codeLeft -join ', ')) }
+        foreach ($f in $broken) {
+            $warnings++
+            Say ('  [!!]   Could not check or mark ' + $f) 'Yellow'
+        }
+        if ($broken.Count) { Say '         Run SETUP again with the game closed. Until then the Mod Manager may list them as not compatible at start-up; they load and play anyway.' 'Yellow' }
     }
     catch {
         $warnings++
@@ -578,11 +663,14 @@ try {
     }
 
     # 4. Contact Log's default keys, if that mod is installed: its window key
-    # F6 and its diagnostic-probe key F8 are also the game's own F6 and F8,
-    # Topographic Map's F6 and Coordinated Strike Tool's F8 (and the probe can
-    # stall the game). sest-ui-keys.ps1, beside this file, sets just those two
-    # to None while they still hold those defaults; a key the player chose is
-    # kept. Only when Contact Log's settings file exists: nothing is created.
+    # F6 clashes with Topographic Map's F6 and its diagnostic-probe key F8
+    # with Coordinated Strike Tool's F8 planner (and the probe can stall the
+    # game). sest-ui-keys.ps1, beside this file, sets just those two to None
+    # while they still hold those defaults; a key the player chose is kept.
+    # Only when Contact Log's settings file exists: nothing is created. With
+    # Contact Log downloaded (Workshop 3819427362) but no settings file yet
+    # (it is written when the game first starts with the mod), one note says
+    # to start the game once and run SETUP again.
     $uiKeys = J $PSScriptRoot 'sest-ui-keys.ps1'
     $clCfg = J $game 'BepInEx' 'config' 'com.seapower.contactlog.cfg'
     if ((Test-Path -LiteralPath $uiKeys) -and (Test-Path -LiteralPath $clCfg)) {
@@ -590,8 +678,10 @@ try {
         catch {
             $warnings++
             Say ('  [!!]   Contact Log''s keys were not changed: ' + $_.Exception.Message) 'Yellow'
-            Say ('         If its F6 or F8 clash with the game''s, set ToggleWindow or RunProbe to None in ' + $clCfg) 'Yellow'
+            Say ('         Its F6 clashes with Topographic Map''s F6 and its F8 probe with Coordinated Strike Tool''s F8 planner: set ToggleWindow and RunProbe to None in ' + $clCfg) 'Yellow'
         }
+    } elseif ((Test-Path -LiteralPath $uiKeys) -and (Test-Path -LiteralPath (J $content '3819427362'))) {
+        Say '  [note] Contact Log has no settings file yet. Start Sea Power once with it, quit, then run SETUP again to free its default F6 (Topographic Map''s F6) and F8 (Coordinated Strike Tool''s F8 planner).'
     }
 
     # 5. mod order: the SEST pack first, then every mod in the tested order

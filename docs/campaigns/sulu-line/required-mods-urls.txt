@@ -1,6 +1,6 @@
 Sulu Line - Workshop mods this campaign reaches (reference only)
 
-28 items, in canonical load order. NOT the Workshop item's
+30 items, in canonical load order. NOT the Workshop item's
 Required Items list. All four campaigns ship in one item, the SEST
 Integration Pack (3812461539), whose Required Items - like the
 collection 'SEST - Modernised Campaign Collection' (3812390790) -
@@ -22,11 +22,13 @@ https://steamcommunity.com/sharedfiles/filedetails/?id=3432668460    # Auxilliar
 https://steamcommunity.com/sharedfiles/filedetails/?id=3789208859    # Euromod-South Korea Navy
 https://steamcommunity.com/sharedfiles/filedetails/?id=3430106996    # Merchants Expanded
 https://steamcommunity.com/sharedfiles/filedetails/?id=3485917612    # Moloti's Armed Merchantmen
+https://steamcommunity.com/sharedfiles/filedetails/?id=3390330875    # Modern US Navy
 https://steamcommunity.com/sharedfiles/filedetails/?id=3594891803    # PLAN Submarines
 https://steamcommunity.com/sharedfiles/filedetails/?id=3436170138    # Shenyang J-11
 https://steamcommunity.com/sharedfiles/filedetails/?id=3486502935    # Type 003 Fujian / Type 004 CVN Aircraft Carriers
 https://steamcommunity.com/sharedfiles/filedetails/?id=3399699218    # Project 2498 Zyetseth Class Assault Vessel
 https://steamcommunity.com/sharedfiles/filedetails/?id=3812454152    # Euromod-Philippine-Navy
+https://steamcommunity.com/sharedfiles/filedetails/?id=3737267013    # United States Naval Aviation
 https://steamcommunity.com/sharedfiles/filedetails/?id=3746453639    # Civil Aircraft Mod (Airbus Family)
 https://steamcommunity.com/sharedfiles/filedetails/?id=3806197116    # Civilian AS350 Ecureuil/AStar MOD
 https://steamcommunity.com/sharedfiles/filedetails/?id=3526982088    # XIAN JH-7A (歼轰-7A 飞豹)

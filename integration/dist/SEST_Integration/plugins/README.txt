@@ -13,8 +13,9 @@ pictures and maps stay as their authors made them.
   sest_menu.ini            Enabled=0 turns it all off; Backdrops=0 puts
                            the game's backdrops back;
                            Pictures=0 turns off the [SEST Pictures] lines
-                           it writes to Player.log; TileGuard=0 turns off
-                           the campaign map's tile guard (below).
+                           it writes to Player.log (SEST UI Follow-up,
+                           below, turns them off anyway); TileGuard=0
+                           turns off the campaign map's tile guard (below).
   MENU_CREDITS.txt         who took each photograph, and the licence.
 
 It also guards the campaign map: after a mission, drawing a map tile while
@@ -32,18 +33,28 @@ SEST's two other plugins share this folder:
   sest_runtime.ini         corrections off one at a time.
   SEST.ContactsFix.dll     SEST UI Follow-up 1.4.2, for players of Contact
                            Log: its window no longer opens or closes on the
-                           time-control keys; its pop-out to a second
-                           screen (with Pop-Out Windows) is corrected;
-                           Group Manager gets a Stock UI / Enhanced UI
-                           switch; the live F11 cost report reuses each
-                           mission's price lists instead of rereading them
-                           twice a second; Quick Load moves (below). It
-                           writes timing lines to Player.log every 30
-                           seconds. It works only beside this exact
-                           SEST.RuntimeFixes.dll, Contact Log 1.0.1 and Sea
-                           Power 0.8.7 (Build 261021); with anything else it
-                           writes one "inactive" line to Player.log and
-                           changes nothing.
+                           time-control keys; the live F11 cost report
+                           reuses each mission's price lists instead of
+                           rereading them twice a second; Quick Load moves
+                           (below). It turns off the [SEST Pictures] log
+                           whatever sest_menu.ini says. It rewrites the
+                           AIRCRAFT AND UNIT PREPARATION popup as four
+                           numbered steps with a Start preparation button.
+                           Three parts need Pop-Out Windows 1.0.1 and stay
+                           off without it: the corrected Contacts pop-out;
+                           Group Manager 0.2.17's Stock UI / Enhanced UI
+                           switch; and the camera compass, which it moves
+                           with the 3D view - to the unit camera on another
+                           monitor when that view is detached, or into the
+                           3D picture-in-picture over the full-screen map.
+                           Popping Contacts or Group Manager out to a
+                           second screen needs Pop-Out Windows 1.0.1 and a
+                           second monitor. It writes timing lines to
+                           Player.log every 30 seconds. It works only
+                           beside this exact SEST.RuntimeFixes.dll, Contact
+                           Log 1.0.1 and Sea Power 0.8.7 (Build 261021);
+                           with anything else it writes one "inactive" line
+                           to Player.log and changes nothing.
 
 Quick Load moves to Ctrl+F9 where SEST UI Follow-up is on. Each time the
 game loads its key bindings, a Quick Load key of F9 alone (the game's

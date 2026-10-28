@@ -11,10 +11,10 @@ This campaign reaches 60 of the enabled mods and packs; the 164 it does not are 
 | class | meaning | mods |
 |---|---|---|
 | `unit` | places the unit; this mod wins its file | 27 |
-| `variant` | supplies the hull variant the placed unit uses | 6 |
-| `squadron` | supplies the squadron the placed airframe flies from | 2 |
-| `store` | supplies a round the placed unit's loadout hangs | 16 |
-| `asset` | supplies a model folder the placed unit's file draws from | 9 |
+| `variant` | supplies the hull variant a placed or sold unit uses | 6 |
+| `squadron` | supplies the squadron a placed or sold airframe flies from | 2 |
+| `store` | supplies a round a placed or sold unit's loadout hangs | 16 |
+| `asset` | supplies a model folder a placed or sold unit's file draws from | 9 |
 
 Sea and land positions in 4 of the 9 missions are snapped to points already used by a loading mission (the furthest any anchor had to move is 6.7 NM); the other 5 use them as authored, checked against the coastline extract.
 

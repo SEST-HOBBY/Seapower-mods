@@ -1,11 +1,12 @@
 SULU LINE - what this campaign needs
 
 Derived from the units its missions place, the squadrons and hull
-variants they name, the rounds their loadouts hang and the units its
-roster sells. The pack-level REQUIRED-MODS.txt two folders up, at the
-pack's root, is the union across every campaign in the pack.
+variants they name and the rounds their loadouts hang, and from the
+units its roster sells with their variants and rounds. The pack-level
+REQUIRED-MODS.txt two folders up, at the pack's root, is the union
+across every campaign in the pack.
 
-1. HARD REQUIRED (28): a mission names a file of theirs, or a mod above says it cannot run without them.
+1. HARD REQUIRED (30): a mission or the roster names a file of theirs, or a mod above says it cannot run without them.
 
   3432668460    a unit a mission places          Auxilliary Merchant Pack
   3746453639    a unit a mission places          Civil Aircraft Mod (Airbus Family)
@@ -19,6 +20,7 @@ pack's root, is the union across every campaign in the pack.
   3686449681    a unit a mission places          Iran UAV Shahed 238
   3430106996    a hull variant in use            Merchants Expanded
   3775128499    a unit a mission places          Modern PLAN Systems
+  3390330875    a weapon a loadout hangs         Modern US Navy
   3485917612    a unit a mission places          Moloti's Armed Merchantmen
   3752415457    a unit a mission places          Philippines: The Luzon Line
   3681873198    a unit a mission places          Pickup truck extension
@@ -28,12 +30,13 @@ pack's root, is the union across every campaign in the pack.
   3399699218    a unit a mission places          Project 2498 Zyetseth Class Assault Vessel
   3605013271    a unit a mission places          RE-power: the resupply mod
   3413868677    a unit a mission places          Red Storm Arsenal
-  3455404959    a model a placed unit draws      Royal Australian Defence Forces
+  3455404959    a model a unit draws             Royal Australian Defence Forces
   3497601759    a unit a mission places          Shahed-136 Kamikaze Drone (Geran-2)
   3436170138    a weapon a loadout hangs         Shenyang J-11
   3601891050    a unit a mission places          Small and Medium-Sized UAV Series [WIP] (中小型无人机系列)
   3711297532    a unit the player can buy        Thailand: The Siam Shield
   3486502935    a weapon a loadout hangs         Type 003 Fujian / Type 004 CVN Aircraft Carriers
+  3737267013    a weapon a loadout hangs         United States Naval Aviation
   3526982088    a weapon a loadout hangs         XIAN JH-7A (歼轰-7A 飞豹)
 
 2. SEST INTEGRATION PACKS (4): this project's own patches, already inside this pack (SEST Integration Pack, Workshop 3812461539);
@@ -49,7 +52,7 @@ LOAD-ORDER.txt is missing. (Anchor Chain is one a mod in list 1 asks
 for; the map, salvo and rescue tools are conveniences.)
 
 
-4. NOT USED BY THIS CAMPAIGN (192): enabled while it was built, and left in the order because removing one changes which copy of a
+4. NOT USED BY THIS CAMPAIGN (190): enabled while it was built, and left in the order because removing one changes which copy of a
 shared file wins for the mods above.
 
   3438479626    1143.5 Kuznetsov
@@ -156,7 +159,6 @@ shared file wins for the mods above.
   3631042692    Modern Chinese Airbase (Large)
   3629269283    Modern Russian Airbase (Large)
   3592460366    Modern US Airbase
-  3390330875    Modern US Navy
   3456859157    Mogami-class Frigate
   3716049886    MORE SU-24M VARIANTS
   3810611344    MV-75 Cheyenne II
@@ -236,7 +238,6 @@ shared file wins for the mods above.
   3468959181    U-2 "Dragon Lady"
   3606774881    U.S. Navy 2027 Capabilities mod
   3672072359    Ultimate Missile Workshop
-  3737267013    United States Naval Aviation
   3806466625    V-22 Osprey / SV-22 2024 ASW prototype
   3478767194    VH-3D Marine One MOD
   3433957933    Virginia-, Seawolf-, and Ohio-class Submarines

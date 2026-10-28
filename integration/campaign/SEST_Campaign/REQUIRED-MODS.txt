@@ -28,7 +28,7 @@ Workshop id   supplies                         mod
 3781062859    a unit a mission places          <<E-3G>>
 3673908868    a unit a mission places          <<Tu-16N>>
 3499239964    a unit a mission places          [DEPRECATED] E-7A Wedgetail
-3403661005    a model a placed unit draws      [DEPRECATED] S-70B-2 Seahawk with AGM-114 'Hellfire' Missiles
+3403661005    a model a unit draws             [DEPRECATED] S-70B-2 Seahawk with AGM-114 'Hellfire' Missiles
 3414146266    a unit a mission places          A-10A Thunderbolt II
 3459682829    a weapon a loadout hangs         A-10C
 3425450153    a squadron a flight comes from   AH-64 Apache
@@ -44,7 +44,7 @@ Workshop id   supplies                         mod
 3480965706    a unit a mission places          B-2 Spirit
 3394781441    a unit a mission places          B-52G with AGM-86 (realistic nuke)
 3741944366    a squadron a flight comes from   B-52H Stratofortress
-3602046770    a model a placed unit draws      Boeing P-8 Poseidon
+3602046770    a model a unit draws             Boeing P-8 Poseidon
 3600788156    a unit a mission places          Buildings and Targets for Missions
 3564792549    a hull variant in use            BUK-M3
 3801363152    a unit a mission places          CH-53E Standalone v0.1.0
@@ -105,7 +105,7 @@ Workshop id   supplies                         mod
 3559495372    a unit a mission places          Lockheed AC-130 Pack
 3740293822    a unit a mission places          McDonnell Douglas KC-10A Extender - Strategic Tanker
 3430106996    a unit a mission places          Merchants Expanded
-3590477166    a model a placed unit draws      MH-60R Seahawk
+3590477166    a model a unit draws             MH-60R Seahawk
 3465256032    a unit a mission places          Mi-8 T/TV
 3458148344    a unit a mission places          Mi-8EW
 3417446309    a unit a mission places          MIG-29 Family
@@ -121,10 +121,10 @@ Workshop id   supplies                         mod
 3485917612    a unit a mission places          Moloti's Armed Merchantmen
 3716049886    a unit a mission places          MORE SU-24M VARIANTS
 3810611344    a unit a mission places          MV-75 Cheyenne II
-3595014060    a model a placed unit draws      NATO E-3A Sentry
+3595014060    a model a unit draws             NATO E-3A Sentry
 3603367264    a unit a mission places          NATO Ground Enhancement Series 2: Artillery
 3551621846    a unit a mission places          NEBO-U
-3812140001    a model a placed unit draws      Pakistani Pack
+3812140001    a model a unit draws             Pakistani Pack
 3752415457    a unit a mission places          Philippines: The Luzon Line
 3681873198    a unit a mission places          Pickup truck extension
 3789188689    a weapon a loadout hangs         PLA & PLAN & PLAAF AEP
@@ -140,7 +140,7 @@ Workshop id   supplies                         mod
 3605013271    a unit a mission places          RE-power: the resupply mod
 3769142422    a unit a mission places          Rebuilt J-16 / J-16D
 3413868677    a unit a mission places          Red Storm Arsenal
-3571718093    a model a placed unit draws      Road Mobile ICBMs (Topol-M, DF-41)
+3571718093    a model a unit draws             Road Mobile ICBMs (Topol-M, DF-41)
 3455404959    a hull variant in use            Royal Australian Defence Forces
 3378409795    a hull variant in use            Royal Navy Type 23 'Duke Class' Frigate [OLD]
 3373356293    a unit a mission places          Royal Navy Westland Lynx HAS.3 Kitbash [OLD]
@@ -171,7 +171,7 @@ Workshop id   supplies                         mod
 3434072450    a unit a mission places          Sukhoi Flanker Family (苏霍伊侧卫家族)
 3683253079    a unit a mission places          Terminal High Altitude Area Defense (T.H.A.A.D) System (AN/TPY-2 Radar System included)
 3711297532    a squadron a flight comes from   Thailand: The Siam Shield
-3732654992    a model a placed unit draws      THE REDFOR MOD
+3732654992    a model a unit draws             THE REDFOR MOD
 3509329205    a unit a mission places          TU-160 Blackjack
 3780118683    a unit a mission places          Tu-214R Family (图-214R家族)
 3395022688    a unit a mission places          Tu-95 With AS-15 (Kh-55) ALCM (more realistic nuke)
