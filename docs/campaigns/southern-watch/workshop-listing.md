@@ -138,6 +138,7 @@ SETUP update). Before Submit:
 [*]Sulu Line: Philippine airfields no longer come with a free 1970s U.S. air wing; a field holds what you buy for it and the mission's own flights (not yet confirmed in game). The Navy helicopter is offered as the AW109E LAH, then the AUH-76. The RAN MH-60R is on sale with the Anzac before Service at Sea and The Aborlan Battery. Deck fits for the H-76, the Thai Seahawk and the MH-60R on the Jose Rizal, Miguel Malvar, Naresuan, Anzac and BRP Tarlac (not yet confirmed in game). Start a new campaign or load a mission fresh to see these.
 [*]World Sandbox and Regional Expansion: the US Navy's twelve P-8As are a real P-8A Poseidon (U.S. Navy 2027's) instead of a P-3 Orion body. Bases, numbers and price are unchanged. Start a new campaign to see it.
 [*]Both P-8s' Harpoons now get a guidance channel: one P-8 could not fire its AntiShip Harpoons at all, the other fired them with no midcourse updates (not yet confirmed in game).
+[*]Each campaign's REQUIRED-MODS.txt now also counts what the units you can buy need: their hull variants, the rounds of every fit they offer and their models. Sulu Line now lists Modern US Navy and United States Naval Aviation, Southern Reach twelve more mods and packs, and Southern Watch three more as hard required. All of them are already in the collection.
 [/list]
 
 [b]SETUP[/b]

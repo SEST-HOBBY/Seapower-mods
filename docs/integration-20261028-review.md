@@ -51,6 +51,32 @@ commits were not carried, and c32c485e rebuilds everything).
   shipped `controls.ini` binds no plain F6, F7 or F8 (the F6, F7 and F8 in
   its code are only fallbacks for a missing key).
 
+## Final review fixes, 28 Oct
+
+A review of the pushed integration (`c32c485e`) found no blocker. Its
+findings were fixed on four scratch branches, each checked by a second
+reviewer, then combined and rebuilt:
+
+- **SETUP:** a version the game cannot read is judged by its numbers
+  (0.8.08 and 0.8.8.1 are newer and left alone on 0.8.7), the elevated
+  relaunch keeps `-KeepDir`, one unreadable `_info.ini` is a warning instead
+  of a stop, THE REDFOR MOD's original comes back if its folder gains a
+  `.dll`, and SETUP says when Contact Log has not yet written its settings
+  file. `tools/check_game_version.py` reads versions as the game does.
+- **Requirement lists:** a roster now credits the rounds of every fit, the
+  variants file and the models of each unit it sells. A ship's default air
+  group is not credited: the game puts aboard a bought ship only the roster
+  aircraft the player assigns (`WriteCustomAirGroup`; every campaign sets
+  `ShipIncludesAirwing=False`). Against `c32c485e`: Sulu Line's hard list
+  28 to 30 (Modern US Navy, United States Naval Aviation), Southern Reach's
+  52 to 62 and its SEST packs 13 to 15, Southern Watch's 118 to 121 (from
+  Dispatches only); Red Line unchanged.
+- **Allied Fixes:** the P-8 guidance guard also stops on a Harpoon copy,
+  stub, `#!alias`, `#!copy` or `#!prepend` source that would refuse the GPS
+  receiver.
+- **Player text:** `plugins/README.txt` says what UI Follow-up needs Pop-Out
+  Windows for; no file says the game binds F6, F7 or F8.
+
 ## Decisions taken by default (the owner's to change)
 
 - Debrief: Runtime 1.5.0's 3 rows; PR #48 is superseded.
@@ -96,3 +122,11 @@ commits were not carried, and c32c485e rebuilds everything).
 7. **GitHub:** PRs #47 and #49 are carried here in reworked form, #48 is
    superseded by 1.5.0, and #50 and #51 stay as a record of the PC; the owner
    closes them.
+8. **SETUP on Windows itself.** The PowerShell tests ran under PowerShell
+   7.4.6 on Linux; Windows PowerShell 5.1 and a real UAC relaunch have not
+   run the new code. The first run on the PC is that test.
+9. **`#!extend` without Anchor Chain.** The game's 0.8.7 code applies
+   `#!extend` files itself (`IniHandler.ScanForModifierFiles`), and the
+   Cross-Deck notes now say so. Older catalog notes and builder comments
+   still call it Anchor Chain's and say an extend needs the preloader; that
+   needs checking before those notes are rewritten.
