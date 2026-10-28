@@ -81,7 +81,7 @@ rests on one rule: there is no free rearm.** Check that first.
 | Read Campaign Rules → Your Goal | "Rearm: never free…", and a paragraph naming the three supply-ship sales | Still says "for free" **(1.3)** |
 | Open the Task Force builder before mission 1 | 1,000 points. On sale: Jose Rizal class, Miguel Malvar class, Del Pilar class, Conrado Yap, BRP Tarlac / Davao del Sur, HTMS Chula, the H-76 helicopter (offered first as the **AW109E LAH**, then as the AUH-76). **Not** on sale yet: Thai frigate and Seahawk, RAN Anzac and MH-60R, FA-50, the C8 charter **(1.1, 8.5)** | Anything else on sale, or a supply ship missing |
 | Check prices | Philippine units 20% cheaper than their list price; Thai, Australian and MSC units at full price. Note especially whether the **Jose Rizal** and **Miguel Malvar** get the discount (their files spell the nation in lower case) **(4.2)** | Note the prices you see |
-| Assign the H-76 to your Jose Rizal or Miguel Malvar in the Task Force Manager | Accepted **(8.2)** | Refused: the game ignores deck lists set by SEST Cross-Deck. Bring back Player.log |
+| Assign the H-76 to your Jose Rizal or Miguel Malvar in the Task Force Manager | Accepted **(8.2)** | Refused: SEST Cross-Deck's deck fit did not take effect. Bring back Player.log and the `pn_ffg-150` and `pn_ffg-06` lines of the pack's `CROSS-DECK.txt` |
 
 **Buy:** at least one frigate, one Tarlac, and the H-76. Start from a new
 campaign: a mid-mission save from an older build keeps the aircraft it

@@ -24,9 +24,9 @@ come after the family additions, a type already listed or added is not
 repeated, and the stub and `CROSS-DECK.txt` show them under "Campaign deck
 fits".
 
-Mechanism: one `#!extend` stub per hull in `vessels_overwrite/` (Anchor
-Chain's own patch mechanic, as Euromod assigns combat systems), setting
-`AircraftSupported` to the winning file's list plus the additions. The list is
+Mechanism: one `#!extend` stub per hull in `vessels_overwrite/` (the game's
+own patch mechanic, below, which Euromod uses to assign combat systems),
+setting `AircraftSupported` to the winning file's list plus the additions. The list is
 read at build time, so rebuild after every export. `CROSS-DECK.txt` in the pack
 lists every deck and what it gained. The campaign builder reads the same stubs
 (`deck_types` in `integration/campaign/build_pack.py`), so a bought allied

@@ -26,10 +26,10 @@ Harrier carrier does not get an F-35B unless it lists an AV-8B already
 (Juan Carlos and Canberra do; the Thai Chakri Naruebet, with AV-8S Matadors,
 gets the Sea Harriers and nothing newer).
 
-One `#!extend` stub per deck, in vessels_overwrite/ (Anchor Chain's own
-mechanic, the way Euromod assigns combat systems and SEST Collection Fixes
-does the same): the stub names the hull and sets `AircraftSupported` to the
-winning file's own list plus the additions. The winning file is read at
+One `#!extend` stub per deck, in vessels_overwrite/ (the game's own
+mechanic, below, which Euromod and SEST Collection Fixes use too): the stub
+names the hull and sets `AircraftSupported` to the winning file's own list
+plus the additions. The winning file is read at
 build time, so an upstream list change is carried through on the next build,
 and a type the mod lists that no mod ships (dk_mh-60r on the Iver Huitfeldt
 was one until the Danish pack arrived; rn_aw159 on the Type 45 still is) is

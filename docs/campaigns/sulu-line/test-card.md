@@ -158,9 +158,10 @@ The decks. The coalition's helicopters could not use the decks they are
 sold with: the Jose Rizal and Miguel Malvar files list only a Korean Super
 Lynx, the Naresuan's no Seahawk and no H-76, Tarlac's no Seahawk, and the
 Anzac's no H-76. SEST Cross-Deck now adds these as campaign fits, through
-the same Anchor Chain `#!extend` stubs as Southern Watch card 6J, which
-nobody has yet shown the game reads. Steps 8.2 and 8.3 are that proof for
-this campaign, and their result answers 6J too.
+the same `#!extend` stubs as Southern Watch card 6J. Sea Power 0.8.7's own
+code applies them (`integration/cross-deck/README.md`), but no fit has yet
+been seen working in game. Steps 8.2 and 8.3 are that proof for this
+campaign, and their result answers 6J too.
 
 8.1 **Empty fields.** Fly The Island Road and look at Puerto Princesa
 (Antonio Bautista Air Base): it holds the aircraft you bought for it and the
@@ -175,9 +176,9 @@ assign the H-76 to the frigate in the Task Force Manager. (Or, in the
 mission editor, load *Sulu Line 01 - The Island Road* from the browser and
 give the Jose Rizal-class frigate already there an H-76.) *Expect:* the
 assignment is accepted, and the helicopter launches from and recovers to
-the frigate. *Wrong:* refused - the game ignores an `AircraftSupported` set
-through `#!extend`; bring back Player.log and the `pn_ffg-150` and
-`pn_ffg-06` lines of the pack's `CROSS-DECK.txt`.
+the frigate. *Wrong:* refused - the deck fit did not take effect; bring
+back Player.log and the `pn_ffg-150` and `pn_ffg-06` lines of the pack's
+`CROSS-DECK.txt`.
 
 8.3 **The coalition's decks.** At the window before Service at Sea, which
 sells the Thai detachment, the Anzac and their helicopters, check six

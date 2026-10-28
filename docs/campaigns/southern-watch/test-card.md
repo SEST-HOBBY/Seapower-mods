@@ -417,7 +417,7 @@ a save made before this build keeps the submarine it bought.
 
 SEST Cross-Deck (integration/cross-deck) extends 122 allied flight decks
 with the allied members of the airframe families they already list, through
-an Anchor Chain `#!extend` stub per hull. Sea Power 0.8.7's own code
+a `#!extend` stub per hull. Sea Power 0.8.7's own code
 applies `#!extend` files whatever section they set
 (`integration/cross-deck/README.md`), so a deck list set that way should
 take effect, as the CombatSystems stubs do; it has not yet been seen in
@@ -425,7 +425,7 @@ game.
 
 | # | Do | Expect | If not |
 |---|---|---|---|
-| J.1 | Southern Watch, the window before SW05 Weapons Free: buy a Mogami from the allied reserve and an MH-60R, assign the Seahawk to the Mogami in the Task Force Manager, and choose the Mogami as the one ship that sails Weapons Free. (Until 21 October this row used the Open Allocation version's Iver Huitfeldt; since that day it is on sale from Weapons Free with the rest of the allied fleet, and either ship will do.) | The assignment is accepted and the Seahawk launches from and recovers to the Mogami in the next mission | Refused = the game ignores AircraftSupported set through #!extend: bring back Player.log and the CROSS-DECK.txt line for js_ffg_mogami |
+| J.1 | Southern Watch, the window before SW05 Weapons Free: buy a Mogami from the allied reserve and an MH-60R, assign the Seahawk to the Mogami in the Task Force Manager, and choose the Mogami as the one ship that sails Weapons Free. (Until 21 October this row used the Open Allocation version's Iver Huitfeldt; since that day it is on sale from Weapons Free with the rest of the allied fleet, and either ship will do.) | The assignment is accepted and the Seahawk launches from and recovers to the Mogami in the next mission | Refused = the deck fit did not take effect: bring back Player.log and the CROSS-DECK.txt line for js_ffg_mogami |
 | J.2 | Mission editor: place a Maya (jmsdf_ddg_maya) and give it an Australian S-70B-2 Seahawk; a Horizon (fr_ddg_horizon) with a German NH90; a Nimitz (usn_cvn_nimitz_2027s_adou) with a Rafale M | Each embarks, launches and recovers | Note which pairing fails |
 | J.3 | Mission editor: a Type 23 with an MH-60R | Refused: the Type 23 lists no Seahawk family, so it gains none (Lynx/Wildcat, Merlin, Cougar only) | Accepted = the deck takes everything, not the families: report it |
 
