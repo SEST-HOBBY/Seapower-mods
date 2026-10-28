@@ -1,7 +1,8 @@
 <#
 .SYNOPSIS
     integration\campaign\setup\sest-ui-keys.ps1 unbinds only Contact Log's
-    two clashing defaults (ToggleWindow = F6, RunProbe = F8), changes no
+    two clashing defaults (ToggleWindow = F6, against Topographic Map's F6;
+    RunProbe = F8, against Coordinated Strike Tool's F8 planner), changes no
     other byte, creates nothing, keeps one backup and leaves a file with a
     repeated key alone.
 
@@ -41,7 +42,7 @@ $bom = [byte[]](0xEF, 0xBB, 0xBF)
 $cases = @(
     @('01 no cfg file', $null, $null, $null, ''),
     @('02 no [Input] section', (Crlf "## Plugin GUID: com.seapower.contactlog`n`n[Window]`nRect = [1, 2]`n"), $null, $null, 'neither holds'),
-    @('03 defaults, CRLF', (Crlf $defaults), (Crlf $unbound), $null, 'ToggleWindow F6, RunProbe F8 -> None'),
+    @('03 defaults, CRLF', (Crlf $defaults), (Crlf $unbound), $null, "unbound (F6 clashes with Topographic Map's F6, the F8 probe with Coordinated Strike Tool's F8 planner): ToggleWindow F6, RunProbe F8 -> None"),
     @('04 defaults, LF', $defaults, $unbound, $null, 'ToggleWindow F6, RunProbe F8 -> None'),
     @('05 defaults, CRLF, BOM', ('BOM' + (Crlf $defaults)), ('BOM' + (Crlf $unbound)), $null, '-> None'),
     @('06 defaults, LF, BOM', ('BOM' + $defaults), ('BOM' + $unbound), $null, '-> None'),
