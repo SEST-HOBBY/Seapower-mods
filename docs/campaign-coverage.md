@@ -10,11 +10,11 @@ This campaign reaches 219 of the enabled mods and packs; the 5 it does not are l
 
 | class | meaning | mods |
 |---|---|---|
-| `unit` | places the unit; this mod wins its file | 140 |
-| `variant` | supplies the hull variant the placed unit uses | 13 |
-| `squadron` | supplies the squadron the placed airframe flies from | 9 |
-| `store` | supplies a round the placed unit's loadout hangs | 9 |
-| `asset` | supplies a model folder the placed unit's file draws from | 7 |
+| `unit` | places the unit; this mod wins its file | 141 |
+| `variant` | supplies the hull variant a placed or sold unit uses | 12 |
+| `squadron` | supplies the squadron a placed or sold airframe flies from | 9 |
+| `store` | supplies a round a placed or sold unit's loadout hangs | 9 |
+| `asset` | supplies a model folder a placed or sold unit's file draws from | 7 |
 | `library` | ships no file a mission can name — systems, effects, UI or a bare dependency marker — and applies install-wide | 16 |
 | `shadowed` | every file it ships is outranked by something above it; nothing it contains can load | 4 |
 | `external` | in the collection for a third-party campaign or scenario, or as content none of these campaigns places; required all the same (SETUP checks every mod in the order) | 20 |
@@ -75,7 +75,7 @@ Sea and land positions in 23 of the 35 missions are snapped to points already us
 | `euromod-jmsdf` | Euromod - Modern Japanese Maritime Self Defence Force | `unit` | js_ffg_mogami deck / jmsdf_sh-60k | Common Sea |
 | `euromod-main` | Euromod - Main Pack | `store` | ran_ffh_anzac / eu_mu_90_ship | White Water |
 | `euromod-nordic` | Euromod - Modern Nordic Navy | `variant` | hdms_iver_huitfeldt | Western Passage |
-| `euromod-ran` | Euromod - Modern Royal Australian Navy Mod | `variant` | ran_ffh_anzac | White Water |
+| `euromod-ran` | Euromod - Modern Royal Australian Navy Mod | `unit` | rnzaf_p8 | Southern Cross |
 | `euromod-south-korea` | Euromod-South Korea Navy | `unit` | rok_mk99_a | Borrowed Shield |
 | `euromod-spanish-cold-war` | Euromod - Cold War Spanish Navy | `unit` | ae_lhd_juan_carlos deck / spa_ab212 | The Relief Ship |
 | `euromod-spanish-modern` | Euromod - Modern Spanish Navy | `unit` | spa_av-8b_plus | The Relief Ship |

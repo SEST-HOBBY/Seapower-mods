@@ -15,6 +15,7 @@ import collections
 import contextlib
 import copy
 import importlib.abc
+import importlib.util
 import io
 import json
 import math
@@ -1166,6 +1167,232 @@ class RosterAndSeahawk(unittest.TestCase):
         self.assertEqual(self.squadron("red", "China", "Australia", squadron="Squadron2"),
                          "Squadron2")
 
+    def sulu_credits(self, *entries):
+        bp.set_campaign(next(s for s in bp.campaign_specs()
+                             if s["SLUG"] == "sest-sulu-line"))
+        return bp.roster_ini([dict(unit=u, picks=list(p), points=100)
+                              for u, p in entries])[1]
+
+    def test_a_sold_aircraft_credits_the_rounds_its_fits_hang(self):
+        # Until 28 Oct 2026 a roster credited only the owner of each unit
+        # file, and Sulu Line's REQUIRED-MODS put Modern US Navy under "not
+        # used" while the Thai Seahawk it sells hangs that mod's usn_ssq-62.
+        credits = self.sulu_credits(("tha_S-70B-7_Seahawk", ["Squadron1"]))
+        sonobuoy = bp.chain_owners("ammunition/usn_ssq-62.ini")[0]
+        self.assertEqual(credits[sonobuoy][0], "store")
+        self.assertIn("usn_ssq-62", credits[sonobuoy][1])
+        # The mod that sells the airframe stays credited for that.
+        seller = bp.owner("aircraft/tha_S-70B-7_Seahawk.ini")
+        self.assertEqual(credits[seller][0], "roster")
+
+    @staticmethod
+    def names(credits, atype):
+        """The credits whose detail is about aircraft `atype`."""
+        return {t: why for t, why in credits.items()
+                if atype in why[1].replace(" / ", " ").split()}
+
+    def test_a_sold_hulls_default_air_group_is_not_credited(self):
+        # The builder writes CustomAirGroup=True on every bought ship, with
+        # only the roster aircraft the player puts aboard
+        # (WriteCustomAirGroup), so the Del Pilar's own SH-2F never flies and
+        # its usn_ssq-62 sonobuoys earn their mod nothing. Crediting it put
+        # SEST Rafale F5, French Air Force and Tu-95 With AS-15 on hard-
+        # required lists on 28 Oct 2026.
+        kind, path = bp.unit_file("phl_ff_hamilton")
+        self.assertIn("usn_sh-2f",
+                      bp.deck_aircraft("phl_ff_hamilton", kind, path, "Variant1", {}))
+        credits = self.sulu_credits(("phl_ff_hamilton", ["Variant1"]))
+        self.assertEqual(self.names(credits, "usn_sh-2f"), {})
+        self.assertNotIn(bp.chain_owners("ammunition/usn_ssq-62.ini")[0], credits)
+        self.assertFalse([why for why in credits.values() if " deck" in why[1]], credits)
+
+    def test_every_campaigns_roster_credits_all_it_makes_the_game_read(self):
+        # The rule, not one campaign's case: everything aircraft_credit finds
+        # for a sold airframe is credited by the roster, and nothing an
+        # aircraft that is not on sale would read, though a sold hull's
+        # default air group names it.
+        for spec in bp.campaign_specs():
+            bp.set_campaign(spec)
+            _text, credits = bp.roster_ini(spec["ROSTER"])
+            sold = {e["unit"] for e in spec["ROSTER"]}
+            for e in spec["ROSTER"]:
+                kind, path = bp.unit_file(e["unit"])
+                if bp.unit_type(e["unit"]) in ("Aircraft", "Helicopter", "VTOL"):
+                    for token, _how, detail in bp.aircraft_credit(e["unit"]):
+                        if token:
+                            self.assertIn(token, credits, f"{spec['SLUG']}: {detail}")
+                    continue
+                for atype in {a for p in e["picks"]
+                              for a in bp.deck_aircraft(e["unit"], kind, path, p, {})} - sold:
+                    self.assertEqual(self.names(credits, atype), {},
+                                     f"{spec['SLUG']}: {e['unit']} deck / {atype}")
+
+    def test_a_sold_hull_credits_its_variants_file(self):
+        # Until 28 Oct 2026 a sold hull's own variants file was credited only
+        # where a mission placed the hull: Euromod-Philippine-Navy writes the
+        # BRP Antonio Luna's, under SEST Replenishment's hull file.
+        uid = "pn_ffg-150"
+        holder = bp.owner(f"vessels/{uid}_variants.ini")
+        self.assertNotEqual(holder, bp.owner(f"vessels/{uid}.ini"))
+        credits = self.sulu_credits((uid, ["Variant1"]))
+        self.assertEqual(credits[holder], ("variant", f"{uid} Variant1"))
+
+    def test_a_sold_hull_credits_the_rounds_its_fit_hangs(self):
+        # The Ford's Default fit is read first; Red Storm Arsenal ships its
+        # RAM and ESSM.
+        uid = "usn_cvn_gerald_r_ford"
+        kind, path = bp.unit_file(uid)
+        self.assertEqual(bp.pick_loadout(uid, path, None)[0], "Default")
+        credits = self.sulu_credits((uid, ["Variant1"]))
+        ram = bp.chain_owners("ammunition/usn_rim_116c.ini")[0]
+        self.assertNotEqual(ram, bp.owner(f"vessels/{uid}.ini"))
+        self.assertEqual(credits[ram], ("store", f"{uid} / usn_rim_116c"))
+
+    def test_a_sold_hull_credits_its_variants_file_and_not_its_deck(self):
+        # Modern German Navy writes the F124's variants file and the NH90 on
+        # its default deck: it is credited for the variant, and the NH90,
+        # which no roster sells, is credited nothing.
+        uid = "ger_ffg_f124_MLU"
+        holder = bp.owner(f"vessels/{uid}_variants.ini")
+        self.assertEqual(holder, bp.owner("aircraft/ger_nh90.ini"))
+        kind, path = bp.unit_file(uid)
+        self.assertIn("ger_nh90", bp.deck_aircraft(uid, kind, path, "Variant1", {}))
+        credits = self.sulu_credits((uid, ["Variant1"]))
+        self.assertEqual(credits[holder], ("variant", f"{uid} Variant1"))
+        self.assertEqual(self.names(credits, "ger_nh90"), {})
+
+    def test_a_sold_hull_credits_every_fit_it_offers(self):
+        # The buyer may pick any unlocked fit, and SEST locks none: three of
+        # the Hobart's Late fits hang an SM-6 whose full file SEST Collection
+        # Fixes ships (under SEST Replenishment's stub), and its Default does
+        # not carry one.
+        uid = "ran_ddg_hobart"
+        kind, path = bp.unit_file(uid)
+        self.assertEqual(bp.pick_loadout(uid, path, None)[0], "Default")
+        self.assertNotIn("usn_rim-174b", bp.stores(uid, kind, path, "Default"))
+        self.assertIn("usn_rim-174b", bp.stores(uid, kind, path, "Late BMD"))
+        self.assertIn("SEST_Collection_Fixes", bp.chain_owners("ammunition/usn_rim-174b.ini"))
+        bp.set_campaign(bp.campaign_specs()[0])
+        credits = bp.roster_ini([dict(unit=uid, picks=["Variant1"], points=100)])[1]
+        self.assertEqual(credits["SEST_Collection_Fixes"], ("store", f"{uid} / usn_rim-174b"))
+
+    def test_every_campaigns_roster_credits_its_hulls_own_files(self):
+        # The rule: every hull on sale credits its variants file's holder
+        # and every round of every fit it offers.
+        for spec in bp.campaign_specs():
+            bp.set_campaign(spec)
+            _text, credits = bp.roster_ini(spec["ROSTER"])
+            for e in spec["ROSTER"]:
+                if bp.unit_type(e["unit"]) != "Vessel":
+                    continue
+                kind, path = bp.unit_file(e["unit"])
+                holder = bp.owner(f"{kind}/{e['unit']}_variants.ini")
+                self.assertIn(holder, credits, f"{spec['SLUG']}: {e['unit']}")
+                for fit in bp.loadouts(path) or [None]:
+                    for token, _how, detail in bp.store_credit(e["unit"], kind, path, fit):
+                        self.assertIn(token, credits, f"{spec['SLUG']}: {detail}")
+
+
+    def test_a_sold_unit_credits_the_model_folders_its_file_loads(self):
+        # The Mistral, sold in Southern Watch and Southern Reach, loads eight
+        # vehicle models from French Army Vehicles (3736147136), which Southern
+        # Reach listed as not used until 28 Oct 2026. Credited as resolve()
+        # credits a placed unit's model folders.
+        uid = "fr_lhd_mistral"
+        kind, path = bp.unit_file(uid)
+        folder = "assets/models/land_units/caesar"
+        self.assertIn(folder, [f.rstrip("/") for f in bp.ASSET_FOLDER.findall(bp.read(path))])
+        self.assertEqual(bp.asset_owners(folder), {"3736147136"})
+        bp.set_campaign(next(s for s in bp.campaign_specs()
+                             if s["SLUG"] == "sest-southern-reach"))
+        credits = bp.roster_ini([dict(unit=uid, picks=["Variant1"], points=100)])[1]
+        self.assertEqual(credits["3736147136"], ("asset", f"{uid} / {folder}"))
+
+    def test_the_strongest_reason_wins_whatever_the_rosters_order(self):
+        # The Hobart, sold first, loads a shared materials folder that Modern
+        # British Navy also ships; the Type 45, sold later, reads that mod's
+        # variants file. The row says the variant, as place() would.
+        spec = next(s for s in bp.campaign_specs() if s["SLUG"] == "sest-southern-reach")
+        bp.set_campaign(spec)
+        entries = [e for e in spec["ROSTER"] if e["unit"] in ("ran_ddg_hobart", "rn_ddg_type45_26")]
+        self.assertEqual([e["unit"] for e in entries], ["ran_ddg_hobart", "rn_ddg_type45_26"])
+        holder = bp.owner("vessels/rn_ddg_type45_26_variants.ini")
+        self.assertIn(holder, {t for t, _h, _d in bp.asset_credit(
+            "ran_ddg_hobart", bp.unit_file("ran_ddg_hobart")[1])})
+        credits = bp.roster_ini(entries)[1]
+        self.assertEqual(credits[holder], ("variant", f"rn_ddg_type45_26 {entries[1]['picks'][0]}"))
+
+    def test_every_campaigns_roster_credits_its_units_model_folders(self):
+        for spec in bp.campaign_specs():
+            bp.set_campaign(spec)
+            _text, credits = bp.roster_ini(spec["ROSTER"])
+            for e in spec["ROSTER"]:
+                for token, _how, detail in bp.asset_credit(e["unit"], bp.unit_file(e["unit"])[1]):
+                    self.assertIn(token, credits, f"{spec['SLUG']}: {detail}")
+
+class CreditMerge(unittest.TestCase):
+    """Which credit a coverage row shows. The roster's are merged first; a
+    mission's replaces one when it is a stronger kind, or as strong and the
+    one held came from the roster, so a placed unit stays the example. Until
+    28 Oct 2026 only a stronger kind did, and Sulu Line's Euromod Main Pack
+    row read ran_mh-60r / usn_mk54_air, requisition roster, instead of
+    pn_ffg-150 / fr_cal_76mm in The Island Road."""
+
+    ROSTER = ("store", "ran_mh-60r / usn_mk54_air", bp.ROSTER_ORIGIN)
+    PLACED = ("store", "pn_ffg-150 / fr_cal_76mm", "sulu-island-road")
+
+    def test_a_placed_unit_replaces_the_rosters_example_of_the_same_kind(self):
+        self.assertTrue(bp.stronger_credit(self.PLACED, self.ROSTER))
+        # ... and the roster never takes the row back from it.
+        self.assertFalse(bp.stronger_credit(self.ROSTER, self.PLACED))
+
+    def test_the_first_mission_keeps_a_row_of_the_same_kind(self):
+        later = ("store", "ran_ffh_anzac / eu_mu_90_ship", "white-water")
+        self.assertFalse(bp.stronger_credit(later, self.PLACED))
+
+    def test_the_kind_still_decides_first(self):
+        # A weaker kind from a mission leaves the roster's credit, and with
+        # it the mod's list, where it was.
+        self.assertFalse(bp.stronger_credit(("asset", "x / assets/y", "m"), self.ROSTER))
+        self.assertFalse(bp.stronger_credit(("store", "x / y", "m"),
+                                            ("roster", "x at 100 points", bp.ROSTER_ORIGIN)))
+        self.assertTrue(bp.stronger_credit(("unit", "pn_ffg-150", "m"), self.ROSTER))
+        self.assertTrue(bp.stronger_credit(self.ROSTER, None))
+
+    # main() merges with these two, so the rule is tested where it is used.
+
+    def test_a_campaigns_merge_keeps_the_placed_example(self):
+        roster = {"euromod-main": self.ROSTER[:2]}
+        reached = [(dict(group="core"), {"euromod-main": self.PLACED}),
+                   (dict(group="core"), {"euromod-main": ("store", "x / y", "later")})]
+        credits, play = bp.merge_credits(roster, reached)
+        self.assertEqual(credits["euromod-main"], self.PLACED)
+        self.assertEqual(play["euromod-main"], self.PLACED)
+
+    def test_a_dispatch_counts_for_the_pack_but_not_for_play(self):
+        reached = [(dict(group="dispatch"), {"euromod-main": self.PLACED})]
+        credits, play = bp.merge_credits({"euromod-main": self.ROSTER[:2]}, reached)
+        self.assertEqual(credits["euromod-main"], self.PLACED)
+        self.assertEqual(play["euromod-main"], self.ROSTER)
+
+    def test_the_pack_merge_takes_a_later_campaigns_placed_unit(self):
+        # Campaigns merge in pack order; a later campaign's placed unit
+        # replaces an earlier campaign's roster example of the same kind.
+        pack = {}
+        bp.merge_into(pack, {"euromod-main": self.ROSTER})
+        bp.merge_into(pack, {"euromod-main": self.PLACED})
+        bp.merge_into(pack, {"euromod-main": ("store", "x / y", bp.ROSTER_ORIGIN)})
+        self.assertEqual(pack["euromod-main"], self.PLACED)
+
+    def test_the_built_report_shows_the_placed_unit(self):
+        # End to end: Sulu Line's report, as the last build wrote it.
+        doc = bp.ROOT / "docs" / "campaigns" / "sulu-line" / "coverage.md"
+        if not doc.is_file():
+            self.skipTest("pack not built")
+        row = next(l for l in doc.read_text(encoding="utf-8").splitlines()
+                   if l.startswith("| `euromod-main` |"))
+        self.assertIn("| pn_ffg-150 / fr_cal_76mm | The Island Road |", row)
+
 
 class RosterOnSale(unittest.TestCase):
     """A roster entry no purchase window sells is a price nobody can pay -
@@ -1405,6 +1632,245 @@ class HomeBases(unittest.TestCase):
                 text = (camp / path.group(1).strip()).read_text(encoding="utf-8")
                 self.assertNotRegex(text, r"(?m)^HomeBase=Taskforce1Vessel",
                                     path.group(1))
+
+
+_CROSS_DECK = []
+
+
+def cross_deck():
+    """integration/cross-deck/build_pack.py, loaded once under its own name:
+    it shares build_pack's file name, so a plain import would return this
+    one. The sys.path entry it adds for its own import is taken back, so no
+    later import here resolves against integration/mission-seeds."""
+    if not _CROSS_DECK:
+        path = HERE.parent / "cross-deck" / "build_pack.py"
+        spec = importlib.util.spec_from_file_location("sest_cross_deck", path)
+        mod = importlib.util.module_from_spec(spec)
+        saved = list(sys.path)
+        try:
+            spec.loader.exec_module(mod)
+        finally:
+            sys.path[:] = saved
+        _CROSS_DECK.append(mod)
+    return _CROSS_DECK[0]
+
+
+class SuluLineCoalition(unittest.TestCase):
+    """Sulu Line's fields and helicopters, ported into the builders on 27 Oct
+    2026 from the corrections made by hand on the owner's PC that day
+    (docs/campaigns/sulu-line/test-card.md, section 8). A Philippine field
+    written without a CustomAirGroup came with the stock airfield_small_1's
+    1970s U.S. wing; the H-76 is sold and placed as the mod's AW109E LAH
+    (Squadron2); the RAN MH-60R is sold with the Anzac; and SEST Cross-Deck
+    gives the Rizal, Malvar, Naresuan, Tarlac and Anzac decks the coalition
+    helicopters their own lists leave out (CAMPAIGN_DECK_TYPES)."""
+
+    SLUG = "sest-sulu-line"
+    BROWSE = PACK / "missions" / "Sulu Line"
+    AIRFRAMES = ("Aircraft", "Helicopter", "VTOL")
+
+    @classmethod
+    def setUpClass(cls):
+        cls.spec = next(s for s in bp.campaign_specs() if s["SLUG"] == cls.SLUG)
+        cls.roster = {e["unit"]: e for e in cls.spec["ROSTER"]}
+
+    def tearDown(self):
+        bp.set_campaign(bp.campaign_specs()[0])
+
+    def built(self):
+        camp = PACK / "campaigns" / self.SLUG
+        if not (camp / "campaign.ini").is_file():
+            self.skipTest("pack not built")
+        return camp
+
+    def mission_files(self):
+        """Every built Sulu mission, the campaign's copy and the browser's."""
+        camp = self.built()
+        return (sorted((camp / "missions").glob("*.ini"))
+                + sorted(self.BROWSE.glob("Sulu Line *.ini")))
+
+    @staticmethod
+    def blocks(text, family):
+        return re.finditer(rf"^\[({family}\d+)\][^\n]*\n(.*?)(?=^\[|\Z)", text,
+                           re.M | re.S)
+
+    def test_every_blue_field_says_what_it_holds(self):
+        # By the unit files, not by name: any player-side land unit whose
+        # file carries an [AirGroup] would hand that group out free.
+        stocked, fields = [], []
+        for m in self.spec["MISSIONS"]:
+            for u in m["units"]:
+                kind, path = bp.unit_file(u["type"])
+                if u["side"] != "blue" or kind != "land_units":
+                    continue
+                if not bp.deck_aircraft(u["type"], kind, path, None, {}):
+                    continue
+                stocked.append((m["code"], u["type"]))
+                self.assertIsNotNone(u.get("air_group"), (m["code"], u["type"]))
+                if "airfield" in u["type"] or "airbase" in u["type"]:
+                    fields.append(m["code"])
+                    self.assertEqual(u["air_group"], [], m["code"])
+        # One field in each of the ten missions. The others found here are
+        # Fire Mission Jolo's and The Aborlan Battery's drone sites, which
+        # carry their own RQ-7s.
+        self.assertEqual(sorted(fields), sorted(m["code"] for m in self.spec["MISSIONS"]))
+        self.assertGreater(len(stocked), len(fields))
+
+    def test_a_field_left_to_its_stock_air_group_stops_the_build(self):
+        sl = importlib.import_module("sulu_line")
+        field = U("blue", "_vanilla", "airfield_small_1", "home", name="Field")
+        with self.assertRaisesRegex(SystemExit, "SLX: airfield_small_1 inherits"):
+            sl.check_fields(dict(code="SLX", units=[field]))
+        with self.assertRaisesRegex(SystemExit, "SLX: nato_small_airbase inherits"):
+            sl.check_fields(dict(code="SLX", units=[dict(field, type="nato_small_airbase")]))
+        sl.check_fields(dict(code="SLX", units=[dict(field, air_group=[])]))
+        sl.check_fields(dict(code="SLX", units=[dict(field, side="red")]))
+
+    def test_every_built_field_carries_an_empty_custom_air_group(self):
+        fields = 0
+        for ini in self.mission_files():
+            text = ini.read_text(encoding="utf-8")
+            for m in self.blocks(text, "Taskforce1LandUnit"):
+                body = m.group(2)
+                if not re.search(r"^Type=\S*(airfield|airbase)", body, re.M):
+                    continue
+                fields += 1
+                where = f"{ini.parent.name}/{ini.name} {m.group(1)}"
+                self.assertRegex(body, r"(?m)^CustomAirGroup=True$", where)
+                keys = re.findall(r"^([^=\n]+)=", body, re.M)
+                self.assertEqual([k for k in keys if bp.unit_type(k) in self.AIRFRAMES],
+                                 [], where)
+        self.assertEqual(fields, 2 * len(self.spec["MISSIONS"]))   # both copies
+
+    def test_the_mh60r_is_sold_only_where_the_anzac_is(self):
+        both = []
+        for m in self.spec["MISSIONS"]:
+            window = m.get("window", {})
+            if not window.get("buy"):
+                continue
+            sold = set(window.get("allow") or self.roster)
+            self.assertEqual("ran_mh-60r" in sold, "ran_ffh_anzac" in sold, m["code"])
+            if "ran_mh-60r" in sold:
+                both.append(m["code"])
+        self.assertEqual(both, ["SL04", "SL06"])
+        # And as written: each open builder's allowlist (or, without one,
+        # the whole roster) names both or neither.
+        camp = self.built()
+        rostered = set(re.findall(r"^([^;\[=\n]+)=", (camp / "player_task_force_roster.ini")
+                                  .read_text(encoding="utf-8"), re.M))
+        self.assertIn("ran_mh-60r", rostered)
+        spine = (camp / "campaign.ini").read_text(encoding="utf-8")
+        windows = []
+        for block in re.split(r"\n(?=\[)", spine):
+            if not re.search(r"^TaskForceModeEnableTaskForceBuilder=True$", block, re.M):
+                continue
+            allow = re.search(r"^TaskForceModeAllowedRosterUnits=(.*)$", block, re.M)
+            units = ({e.split(",")[0] for e in allow.group(1).split("|")} if allow
+                     else rostered)
+            self.assertEqual("ran_mh-60r" in units, "ran_ffh_anzac" in units,
+                             block.splitlines()[0])
+            if "ran_mh-60r" in units:
+                windows.append(block.splitlines()[0])
+        self.assertEqual(len(windows), 2, windows)
+
+    def test_the_h76_is_sold_and_placed_as_the_aw109e(self):
+        self.assertEqual(self.roster["phl_h-76"]["picks"][0], "Squadron2")
+        self.assertEqual(self.roster["phl_h-76"]["picks"], ["Squadron2", "Squadron1"])
+        placed = [(m["code"], u.get("squadron")) for m in self.spec["MISSIONS"]
+                  for u in m["units"] if u["type"] == "phl_h-76"]
+        self.assertEqual(len(placed), 9)              # every mission but The Drone Yard
+        self.assertEqual({sq for _code, sq in placed}, {"Squadron2"}, placed)
+        # The roster note quotes the mod's own name for Squadron2.
+        names = [f for f in bp.all_copies("language_en/aircraft_names.ini")
+                 if re.search(r"^\[phl_h-76\]", bp.read(f), re.M)]
+        self.assertTrue(names)
+        section = re.search(r"^\[phl_h-76\][^\n]*\n(.*?)(?=^\[|\Z)", bp.read(names[0]),
+                            re.M | re.S)
+        self.assertRegex(section.group(1), r"(?m)^Squadron2=AW109E LAH\b")
+        self.assertIn("AW109E LAH", self.roster["phl_h-76"]["note"])
+        camp = self.built()
+        self.assertIn("\nphl_h-76=Squadron2,Squadron1|25\n",
+                      (camp / "player_task_force_roster.ini").read_text(encoding="utf-8"))
+        flown = 0
+        for ini in self.mission_files():
+            for m in self.blocks(ini.read_text(encoding="utf-8"), "Taskforce1Helicopter"):
+                if re.search(r"^Type=phl_h-76$", m.group(2), re.M):
+                    flown += 1
+                    self.assertRegex(m.group(2), r"(?m)^SquadronReference=Squadron2$",
+                                     ini.name)
+        self.assertEqual(flown, 2 * len(placed))       # both copies
+
+    def test_the_generated_missions_h76_names_no_home(self):
+        # Accepted on 27 Oct 2026 (review D2): with the frigates' decks taking
+        # the H-76, the placed flight in a Generated mission is nearest a
+        # player ship, so assign_home_bases writes it no HomeBase, as every
+        # other campaign's player helicopter is written. It is still charged
+        # fuel. The side operations, launched as authored, keep the field.
+        # Test card: Sulu Line 8.4.
+        camp = self.built()
+        bp.set_campaign(self.spec)
+        seen = collections.Counter()
+        for m in self.spec["MISSIONS"]:
+            ini = camp / "missions" / f"{bp.mission_name(m)}.ini"
+            for b in self.blocks(ini.read_text(encoding="utf-8"), "Taskforce1Helicopter"):
+                if not re.search(r"^Type=phl_h-76$", b.group(2), re.M):
+                    continue
+                self.assertRegex(b.group(2), r"(?m)^UnlimitedFuel=False$", ini.name)
+                if m.get("generation") == "Generated":
+                    seen["generated"] += 1
+                    self.assertNotRegex(b.group(2), r"(?m)^HomeBase=", ini.name)
+                else:
+                    seen["authored"] += 1
+                    self.assertRegex(b.group(2), r"(?m)^HomeBase=Taskforce1LandUnit\d+$",
+                                     ini.name)
+        self.assertEqual(seen, {"generated": 7, "authored": 2})
+
+    def test_deck_fit_takes_each_campaign_deck_type(self):
+        cd = cross_deck()
+        pairs = [(deck, a) for deck, types in cd.CAMPAIGN_DECK_TYPES.items() for a in types]
+        self.assertEqual(len(pairs), 8)
+        rosters = [{e["unit"] for e in s["ROSTER"]} for s in bp.campaign_specs()]
+        for deck, a in pairs:
+            # Each is a deck and an aircraft one campaign sells together.
+            self.assertTrue(any({deck, a} <= units for units in rosters), (deck, a))
+        if not any(bp.CROSS_DECK.glob("*_CrossDeck_SEST.ini")):
+            self.skipTest("SEST Cross-Deck not built")
+        for deck, a in pairs:
+            self.assertEqual(bp.deck_fit(a, bp.unit_type(a), deck, True), 0, f"{a} on {deck}")
+
+    def test_a_campaign_fit_is_called_one_in_the_stub(self):
+        cd = cross_deck()
+        only = cd.stub("pn_ffg-150", "SEST_Replenishment", "philippines", ["rok_mk99_a"],
+                       {cd.CAMPAIGN_FITS: ["phl_h-76"]})
+        self.assertIn("# takes the campaign fit below, which no family reaches", only)
+        self.assertNotIn("one of each family", only)
+        self.assertIn(f"#   {cd.CAMPAIGN_FITS}: phl_h-76\n", only)
+        self.assertTrue(only.endswith("[FlightDeck]\nAircraftSupported=rok_mk99_a,phl_h-76\n"))
+        two = cd.stub("pn_ffg-150", "SEST_Replenishment", "philippines", ["rok_mk99_a"],
+                      {cd.CAMPAIGN_FITS: ["phl_h-76", "ran_mh-60r"]})
+        self.assertIn("# takes the campaign fits below", two)
+        mixed = cd.stub("ran_ffh_anzac", "SEST_RAN_Fleet", "australia", ["ran_mh-60r"],
+                        {"Seahawk (S-70B / SH-60 / MH-60)": ["usn_mh-60r"],
+                         cd.CAMPAIGN_FITS: ["phl_h-76"]})
+        self.assertIn("one of each family", mixed)
+        self.assertIn("the campaign fit listed last", mixed)
+        plain = cd.stub("ran_ffh_anzac", "SEST_RAN_Fleet", "australia", ["ran_mh-60r"],
+                        {"Seahawk (S-70B / SH-60 / MH-60)": ["usn_mh-60r"]})
+        self.assertNotIn("campaign", plain.lower())
+
+    def test_the_campaign_and_browser_copies_are_the_same_bytes(self):
+        camp = self.built()
+        names = sorted(p.name for p in (camp / "missions").glob("*.ini"))
+        self.assertEqual(len(names), len(self.spec["MISSIONS"]))
+        for name in names:
+            self.assertEqual((camp / "missions" / name).read_bytes(),
+                             (self.BROWSE / name).read_bytes(), name)
+            brief = camp / "missions" / f"{name[:-4]}_briefing"
+            files = [f for f in sorted(brief.rglob("*")) if f.is_file()]
+            self.assertTrue(files, brief.name)
+            for f in files:
+                twin = self.BROWSE / f.relative_to(camp / "missions")
+                self.assertEqual(f.read_bytes(), twin.read_bytes(), str(twin))
 
 
 class OpenAllocation(unittest.TestCase):
@@ -4171,6 +4637,62 @@ class MenuBackground(unittest.TestCase):
         finally:
             bp.MENU_BACKGROUND = saved
         self.assertFalse((self.tmp / "plugins").exists())
+
+
+class PluginsFolder(unittest.TestCase):
+    """All three SEST plugins share plugins/: the menu background, SEST
+    Runtime Fixes and SEST UI Follow-up. Each ships byte for byte as
+    committed; their sources and the compile-time AnchorChain stand-ins
+    never do, and the folder README names every file in the folder."""
+
+    def setUp(self):
+        self.tmp = Path(tempfile.mkdtemp(prefix="sest-plugins-test-"))
+
+    def tearDown(self):
+        shutil.rmtree(self.tmp, ignore_errors=True)
+
+    def write_all(self):
+        with contextlib.redirect_stdout(io.StringIO()):
+            bp.write_menu_background(self.tmp)
+            bp.write_runtime_fixes(self.tmp)
+            bp.write_contacts_fix(self.tmp)
+        return self.tmp / "plugins"
+
+    def test_the_folder_holds_three_plugins_and_nothing_to_compile(self):
+        folder = self.write_all()
+        self.assertEqual(sorted(f.name for f in folder.iterdir()),
+                         ["MENU_CREDITS.txt", "README.txt", "SEST.ContactsFix.dll",
+                          "SEST.MenuBackground.dll", "SEST.RuntimeFixes.dll", "SEST_RUNTIME_README.txt",
+                          "sest_menu.ini", "sest_menu.mp4", "sest_runtime.ini"])
+        self.assertEqual(sorted(f.name for f in self.tmp.rglob("*.dll")),
+                         ["SEST.ContactsFix.dll", "SEST.MenuBackground.dll", "SEST.RuntimeFixes.dll"])
+        self.assertEqual([f for f in self.tmp.rglob("*") if f.suffix in (".cs", ".py")], [])
+
+    def test_each_plugin_ships_as_committed(self):
+        folder = self.write_all()
+        for src in (bp.UI_FOLLOWUP / "SEST.ContactsFix.dll",
+                    bp.ROOT / "integration/runtime-fixes/SEST.RuntimeFixes.dll",
+                    bp.ROOT / "integration/runtime-fixes/sest_runtime.ini",
+                    bp.ROOT / "integration/runtime-fixes/SEST_RUNTIME_README.txt"):
+            with self.subTest(file=src.name):
+                self.assertEqual((folder / src.name).read_bytes(), src.read_bytes())
+
+    def test_the_readme_names_every_file_in_the_folder(self):
+        folder = self.write_all()
+        readme = (folder / "README.txt").read_text(encoding="utf-8")
+        for f in folder.iterdir():
+            if f.name != "README.txt":
+                with self.subTest(file=f.name):
+                    self.assertIn(f.name, readme)
+
+    def test_no_contacts_fix_stops_the_build(self):
+        saved = bp.UI_FOLLOWUP
+        bp.UI_FOLLOWUP = self.tmp / "nothing-here"
+        try:
+            with self.assertRaises(SystemExit), contextlib.redirect_stdout(io.StringIO()):
+                bp.write_contacts_fix(self.tmp)
+        finally:
+            bp.UI_FOLLOWUP = saved
 
 
 class LoadingScreens(unittest.TestCase):

@@ -137,3 +137,81 @@ is won by stopping her either way. This is one of the two in-pack proofs
 (with Southern Reach card 3.10) that decide whether Red Line's RL03 reveal
 after The Ships from the North comes back (Red Line card 7.4, held since
 21 Oct 2026).
+
+## 8. The fields and the coalition's helicopters (27 October)
+
+Two corrections made by hand on the owner's PC on 27 Oct 2026, now made by
+the builders (`sulu_line/`, and `CAMPAIGN_DECK_TYPES` in
+`integration/cross-deck/build_pack.py`). Nothing in this section has been
+seen in the game from a built pack. Test each step from a fresh load: a new
+campaign, a campaign save taken at a Task Force window, or a mission loaded
+from the browser. A mid-mission save keeps the aircraft it stored and shows
+the old state.
+
+The fields. Every Philippine field (Puerto Princesa, Zamboanga, Sanga-Sanga)
+was written without a `CustomAirGroup`, and a field without one gets its
+unit file's air group: the stock `airfield_small_1`'s F-4D/Es, RA-5Cs,
+EA-6Bs, an E-3A, P-3Cs, SH-3Hs and CH-46s, free. Each now carries
+`CustomAirGroup=True` and nothing else.
+
+The decks. The coalition's helicopters could not use the decks they are
+sold with: the Jose Rizal and Miguel Malvar files list only a Korean Super
+Lynx, the Naresuan's no Seahawk and no H-76, Tarlac's no Seahawk, and the
+Anzac's no H-76. SEST Cross-Deck now adds these as campaign fits, through
+the same `#!extend` stubs as Southern Watch card 6J. Sea Power 0.8.7's own
+code applies them (`integration/cross-deck/README.md`), but no fit has yet
+been seen working in game. Steps 8.2 and 8.3 are that proof for this
+campaign, and their result answers 6J too.
+
+8.1 **Empty fields.** Fly The Island Road and look at Puerto Princesa
+(Antonio Bautista Air Base): it holds the aircraft you bought for it and the
+mission's own flights, and nothing else. Do the same at Zamboanga in Fire
+Mission Jolo and at Sanga-Sanga in Night Market. *Wrong:* any F-4, RA-5C,
+EA-6B, E-3A, P-3C, SH-3H or CH-46 on a Philippine field - the field's
+`CustomAirGroup=True` was not honoured; note the field and the mission.
+
+8.2 **The H-76 on the frigates.** Start a new *Sulu Line*. In the window
+before The Island Road buy a Jose Rizal or a Miguel Malvar and the H-76, and
+assign the H-76 to the frigate in the Task Force Manager. (Or, in the
+mission editor, load *Sulu Line 01 - The Island Road* from the browser and
+give the Jose Rizal-class frigate already there an H-76.) *Expect:* the
+assignment is accepted, and the helicopter launches from and recovers to
+the frigate. *Wrong:* refused - the deck fit did not take effect; bring
+back Player.log and the `pn_ffg-150` and `pn_ffg-06` lines of the pack's
+`CROSS-DECK.txt`.
+
+8.3 **The coalition's decks.** At the window before Service at Sea, which
+sells the Thai detachment, the Anzac and their helicopters, check six
+pairings in the Task Force Manager: the H-76, a Thai Seahawk and an MH-60R
+on HTMS Naresuan; a Thai Seahawk and an MH-60R on BRP Tarlac; an H-76 on the
+Anzac. (In the mission editor: *Sulu Line 04 - Service at Sea* from the
+browser, with the ships placed by hand.) *Expect:* each is accepted, launches and
+recovers. *Wrong:* note which pairing is refused, and bring the
+`CROSS-DECK.txt` line for that ship.
+
+8.4 **The placed H-76 and its home.** In the seven core missions the H-76
+flight that starts in the air (Ship's Flight) has had no `HomeBase` in its
+mission file since 28 Oct (on the owner's PC since 27 Oct): the frigate's
+deck now takes it, and in a Generated mission the builder never names a
+player ship as home (Southern Watch's Rig Seventeen died loading when it
+did). It is still charged fuel.
+In The Island Road fly it until it is low. *Expect:* it recovers and
+refuels on the frigate or at Puerto Princesa, and its search-and-rescue
+tasking does not report "no home base". *Wrong:* it will not land anywhere,
+or SAR reports no home base - report it; the fallback is a builder option
+that homes it on the field. (Night Market and The Okean are launched as
+authored and still home it on Sanga-Sanga.)
+
+8.5 **The AW109E.** The H-76 is offered first as the mod's Squadron2,
+*AW109E LAH* (its AW109 livery on the H-76 model), then as the AUH-76
+(Squadron1), and every mission that places an H-76 places the AW109E.
+*Expect:* the AW109E livery. *Wrong:* a white or missing texture - the
+Luzon Line's `aircraft/helo/phl_sh-2f_tx.png` is not reaching the game (the
+repo's copy of the mod has no textures to check it against).
+
+8.6 **The RAN MH-60R on sale.** It is sold with the Anzac and nowhere else:
+before Service at Sea and before The Aborlan Battery, not before The Island
+Road or Fire Mission Jolo, at 35 points with either RAN squadron (816 or
+808). The Ship's Flight row in Air Tasking now also offers its
+`ASWLongRange`, `ASWHunter` and `SEST_REDBACK` fits. *Wrong:* the MH-60R on
+sale before Service at Sea, or a row with no loadout it can fly.

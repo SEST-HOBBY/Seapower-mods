@@ -1,46 +1,57 @@
 SOUTHERN REACH - what this campaign needs
 
 Derived from the units its missions place, the squadrons and hull
-variants they name, the rounds their loadouts hang and the units its
-roster sells. The pack-level REQUIRED-MODS.txt two folders up, at the
-pack's root, is the union across every campaign in the pack.
+variants they name and the rounds their loadouts hang, and from the
+units its roster sells with their variants and rounds. The pack-level
+REQUIRED-MODS.txt two folders up, at the pack's root, is the union
+across every campaign in the pack.
 
-1. HARD REQUIRED (52): a mission names a file of theirs, or a mod above says it cannot run without them.
+1. HARD REQUIRED (62): a mission or the roster names a file of theirs, or a mod above says it cannot run without them.
 
   3438479626    a squadron a flight comes from   1143.5 Kuznetsov
-  3781062859    a model a placed unit draws      <<E-3G>>
+  3781062859    a model a unit draws             <<E-3G>>
   3499239964    a unit a mission places          [DEPRECATED] E-7A Wedgetail
-  3459682829    a model a placed unit draws      A-10C
+  3459682829    a model a unit draws             A-10C
   3432668460    a unit a mission places          Auxilliary Merchant Pack
   3652097318    a weapon a loadout hangs         B-1B Lancer
-  3602046770    a model a placed unit draws      Boeing P-8 Poseidon
+  3602046770    a model a unit draws             Boeing P-8 Poseidon
   3567256221    a unit a mission places          Charles De Gaulle & Modern French Navy Pack (WIP)
   3417801942    a unit a mission places          Chinese Navy (PLAN)
   3746453639    a unit a mission places          Civil Aircraft Mod (Airbus Family)
+  3606134711    a weapon a loadout hangs         Custom Loadout Editor
   3760871384    a weapon a loadout hangs         Dingtools Weapon Pack
   3587877691    a unit the player can buy        Eurofighter Typhoon
   3630495619    a unit the player can buy        Euromod - Cold War Spanish Navy
   3629144864    a weapon a loadout hangs         Euromod - Main Pack
-  3599752717    a model a placed unit draws      Euromod - Modern British Navy
+  3599752717    a hull variant in use            Euromod - Modern British Navy
   3444379330    a unit the player can buy        Euromod - Modern Dutch navy
+  3575847216    a hull variant in use            Euromod - Modern German Navy
   3488139470    a unit the player can buy        Euromod - Modern Italian Navy
   3695809489    a unit the player can buy        Euromod - Modern Japanese Maritime Self Defence Force
+  3642656500    a hull variant in use            Euromod - Modern Nordic Navy
   3820759806    a hull variant in use            Euromod - Modern Royal Australian Navy Mod
+  3731208477    a hull variant in use            Euromod - Modern Spanish Navy
+  3789208859    a hull variant in use            Euromod-South Korea Navy
   3636386513    a weapon a loadout hangs         F-15 EX Eagle II
   3553116604    a unit the player can buy        F-15E StrikeEagle
+  3758320372    a weapon a loadout hangs         F-16C Fighting Falcon (modern)
   3418252667    a unit the player can buy        F-22 Raptor
   3607989779    a weapon a loadout hangs         F-35C Lightning II Alt. Loadouts
+  3430135740    a squadron a flight comes from   F/A-18 Murder Hornet with AIM-174B
+  3736147136    a model a unit draws             French Army Vehicles
   3567228449    a unit a mission places          French Helicopter Package
   3503670861    a squadron a flight comes from   General Atomics MQ-9 Reaper
+  3461044389    a weapon a loadout hangs         Gerald R. Ford-class CVN Aircraft Carrier (Updated Dependencies)
   3384079999    a unit a mission places          Humpback Whale
   3717610332    a unit a mission places          IL-78 TANKER
   3505420313    a unit the player can buy        Italian Navy Mod
-  3722749887    a model a placed unit draws      KC-135 STRATOTANKER
+  3722749887    a model a unit draws             KC-135 STRATOTANKER
   3744475027    a unit a mission places          KC-46A Pegasus - Strategic Tanker
   3430106996    a unit a mission places          Merchants Expanded
   3775128499    a unit a mission places          Modern PLAN Systems
   3390330875    a unit the player can buy        Modern US Navy
-  3595014060    a model a placed unit draws      NATO E-3A Sentry
+  3456859157    a hull variant in use            Mogami-class Frigate
+  3595014060    a model a unit draws             NATO E-3A Sentry
   3752415457    a squadron a flight comes from   Philippines: The Luzon Line
   3789188689    a weapon a loadout hangs         PLA & PLAN & PLAAF AEP
   3733719765    a weapon a loadout hangs         PLA Land Unit Pack
@@ -48,33 +59,35 @@ pack's root, is the union across every campaign in the pack.
   3774859959    a unit a mission places          PLAN Type 001 Aircraft Carrier Liaoning
   3808882954    a unit a mission places          RC-135V/W Rivet Joint
   3605013271    a unit a mission places          RE-power: the resupply mod
-  3413868677    a model a placed unit draws      Red Storm Arsenal
-  3571718093    a model a placed unit draws      Road Mobile ICBMs (Topol-M, DF-41)
+  3413868677    a weapon a loadout hangs         Red Storm Arsenal
+  3571718093    a model a unit draws             Road Mobile ICBMs (Topol-M, DF-41)
   3597650470    a hull variant in use            Russian Navy 21
   3468260539    a unit a mission places          Russian Submarines (Yasen, Akula, Sierra I/II, Oscar II, Belgorod, Typhoon, Delta IV classes)
   3436170138    a weapon a loadout hangs         Shenyang J-11
-  3524112296    a model a placed unit draws      Soviet AEW&C + Transport Aircraft (A-50 / Il-76)
-  3732654992    a model a placed unit draws      THE REDFOR MOD
+  3524112296    a model a unit draws             Soviet AEW&C + Transport Aircraft (A-50 / Il-76)
+  3732654992    a model a unit draws             THE REDFOR MOD
   3395022688    a weapon a loadout hangs         Tu-95 With AS-15 (Kh-55) ALCM (more realistic nuke)
   3486502935    a unit a mission places          Type 003 Fujian / Type 004 CVN Aircraft Carriers
   3606774881    a hull variant in use            U.S. Navy 2027 Capabilities mod
   3737267013    a unit a mission places          United States Naval Aviation
 
-2. SEST INTEGRATION PACKS (13): this project's own patches, already inside this pack (SEST Integration Pack, Workshop 3812461539);
+2. SEST INTEGRATION PACKS (15): this project's own patches, already inside this pack (SEST Integration Pack, Workshop 3812461539);
 there is nothing more to subscribe to.
 
   (local)       a unit a mission places          SEST ADF Persistent ISR
   (local)       a unit a mission places          SEST Allied Fixes
   (local)       a weapon a loadout hangs         SEST B-52 ARRW
-  (local)       a weapon a loadout hangs         SEST Collection Fixes
+  (local)       a hull variant in use            SEST Collection Fixes
   (local)       a unit a mission places          SEST F-15EX Revamp
   (local)       a unit the player can buy        SEST F-35C JATM
   (local)       a unit a mission places          SEST Growler NGJ + MALICE
+  (local)       a weapon a loadout hangs         SEST Intercept Model
   (local)       a unit the player can buy        SEST JMSDF Mogami
   (local)       a unit a mission places          SEST RAAF Bases
   (local)       a unit a mission places          SEST RAAF F-35A JATM
   (local)       a squadron a flight comes from   SEST RAAF Wedgetail
   (local)       a unit a mission places          SEST RAN Fleet
+  (local)       a squadron a flight comes from   SEST Raptor Squadrons
   (local)       a unit a mission places          SEST Replenishment At Sea
 
 3. INSTALL-WIDE LIBRARIES AND UI (0): ship no file a mission names. Keep them installed anyway: SETUP stops if any mod in
@@ -82,7 +95,7 @@ LOAD-ORDER.txt is missing. (Anchor Chain is one a mod in list 1 asks
 for; the map, salvo and rescue tools are conveniences.)
 
 
-4. NOT USED BY THIS CAMPAIGN (159): enabled while it was built, and left in the order because removing one changes which copy of a
+4. NOT USED BY THIS CAMPAIGN (147): enabled while it was built, and left in the order because removing one changes which copy of a
 shared file wins for the mods above.
 
   3587091564    3M25 <<МЕТЕОРИТ>> (AS-X-19 Koala)
@@ -112,34 +125,25 @@ shared file wins for the mods above.
   3628201887    Clemenceau-class Aircraft Carrier
   3807187341    Combat Cost Tracker
   3806686336    Coordinated Strike Tool
-  3606134711    Custom Loadout Editor
   3558173926    David's Sling
   3813157776    Dynamic Campaign Mod
   3813033771    EC-2 Stand Off Jammer
   3493115616    EMAD
   3555361900    Etendard Family Jets
   3784474738    Euromod - Anchorchain Expansion Pack
-  3575847216    Euromod - Modern German Navy
-  3642656500    Euromod - Modern Nordic Navy
-  3731208477    Euromod - Modern Spanish Navy
   3776730617    EUROMOD-Armada de Chile
   3678767059    Euromod-Brazilian Armed Forces(2000)
   3807164392    Euromod-India-Navy
   3812454152    Euromod-Philippine-Navy
-  3789208859    Euromod-South Korea Navy
   3448845252    F-117 Nighthawk
   3434693420    F-15J Peace Eagle
-  3758320372    F-16C Fighting Falcon (modern)
   3755769170    F-2A 'Viper Zero'
   3591820675    F-8 Crusader
-  3430135740    F/A-18 Murder Hornet with AIM-174B
   3673703427    Fattah-1
   3672497668    Fattah-2
   3373960386    Flight Deck Ops
   3818251045    Formation Manager Replacement
   3758943352    French Air Force
-  3736147136    French Army Vehicles
-  3461044389    Gerald R. Ford-class CVN Aircraft Carrier (Updated Dependencies)
   3412480633    Ground Upgrade: IFV
   3410473695    Ground Upgrade: MBT
   3508275114    Ground Upgrade: SPAA
@@ -169,7 +173,6 @@ shared file wins for the mods above.
   3631042692    Modern Chinese Airbase (Large)
   3629269283    Modern Russian Airbase (Large)
   3592460366    Modern US Airbase
-  3456859157    Mogami-class Frigate
   3485917612    Moloti's Armed Merchantmen
   3716049886    MORE SU-24M VARIANTS
   3810611344    MV-75 Cheyenne II
@@ -208,10 +211,8 @@ shared file wins for the mods above.
   (local)       SEST Cross-Deck
   (local)       SEST F-16CM JATM
   (local)       SEST Gallery
-  (local)       SEST Intercept Model
   (local)       SEST Name Fixes
   (local)       SEST Rafale F5
-  (local)       SEST Raptor Squadrons
   (local)       SEST Southern Watch Campaign
   (local)       SEST TacMap Colors
   (local)       SEST World Campaign (Dynamic Campaign Mod)

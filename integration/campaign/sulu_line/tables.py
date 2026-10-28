@@ -95,8 +95,12 @@ ROSTER = [
          note="BRP Conrado Yap; guns and nothing else"),
     dict(unit="phl_lpd_tarlac", picks=["Variant1", "Variant2"], points=140,
          note="SUPPLY: Tarlac and Davao del Sur; 60,000-point pool, 2000-point ceiling"),
-    dict(unit="phl_h-76", picks=["Squadron1"], points=25,
-         note="the Navy's AW109/AUH-76 flight; CAS and transport"),
+    # Squadron2 first: the mod's AW109E LAH, its AW109 livery on the H-76
+    # model (Luzon Line's language_en/aircraft_names.ini); Squadron1 is the
+    # 1983 AUH-76. The missions place the AW109E too.
+    dict(unit="phl_h-76", picks=["Squadron2", "Squadron1"], points=25,
+         note="the Navy's flight: AW109E LAH (the mod's AW109 livery on the H-76 "
+              "model) or AUH-76; CAS and transport"),
     dict(unit="rok_f-50_ph", picks=["Squadron1"], points=60,
          note="Air Force FA-50PH, out of Puerto Princesa or Zamboanga"),
     dict(unit="tha_ffg_naresuan", picks=["Variant1", "Variant2"], points=260,
@@ -107,14 +111,18 @@ ROSTER = [
          note="the Thai frigates' Seahawk; ASW"),
     dict(unit="ran_ffh_anzac", picks=["Variant3", "Variant8"], points=280,
          note="one RAN frigate released from the Arafura in the second week"),
+    # The Anzac's own helicopter (816 or 808 Squadron), sold where she is.
+    dict(unit="ran_mh-60r", picks=["Squadron1", "Squadron2"], points=35,
+         note="RAN MH-60R flight, released with the Anzac from Service at Sea"),
     dict(unit="civ_ms_c8", picks=["Variant1", "Variant2"], points=150,
          note="SUPPLY: MSC prepositioning charter; 300,000 points, slow"),
 ]
 
 # Air-tasking rows in the fit vocabulary of the aircraft this roster sells.
-# The Philippine H-76 declares ASuW and flies CAS; the Thai Seahawk declares
-# ASW and flies ASW. Neither is a Bomber, so the Attack row takes only the
-# FA-50.
+# The Philippine H-76 declares ASuW and flies CAS; the Thai Seahawk and the
+# RAN MH-60R declare ASW and fly ASW (the builder's widen_flights adds the
+# MH-60R's ASWLongRange, ASWHunter and SEST_REDBACK fits to the row). None
+# is a Bomber, so the Attack row takes only the FA-50.
 HELO = "HeloRecon|Ship's Flight|ASuW/ASW|1|CAS/ASW"
 ATTACK = "Attack|Close Air Support|Bomber|2|CAS/StrikePrecision"
 
@@ -125,9 +133,13 @@ SUPPLY = ["phl_lpd_tarlac", "tha_aor_chula", "civ_ms_c8"]
 OPENING = ["pn_ffg-150", "pn_ffg-06", "phl_ff_hamilton", "phl_fs_pohang", "phl_h-76",
            "phl_lpd_tarlac", "tha_aor_chula"]
 # The Thai detachment and the Air Force's FA-50s are released from the
-# second window; the one RAN frigate from Service at Sea.
+# second window; the one RAN frigate and her MH-60R from Service at Sea.
+# The H-76 lands on every deck the roster sells, and the Thai Seahawk and the
+# MH-60R on the Naresuan, the Anzac and BRP Tarlac: SEST Cross-Deck adds the
+# fits their own lists leave out (CAMPAIGN_DECK_TYPES in
+# integration/cross-deck/build_pack.py).
 PARTNERS = ["tha_ffg_naresuan", "tha_S-70B-7_Seahawk", "rok_f-50_ph"]
-RAN = ["ran_ffh_anzac"]
+RAN = ["ran_ffh_anzac", "ran_mh-60r"]
 HULLS = ["pn_ffg-150", "pn_ffg-06", "phl_ff_hamilton", "phl_fs_pohang", "phl_h-76"]
 
 # The commander. CommanderNations is the game's own key (nations.ini

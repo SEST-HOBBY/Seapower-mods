@@ -10,11 +10,12 @@ before the patch does.
   **3812461539**, Public. It is the `SEST_Integration` folder: one Mod Manager
   entry (*SEST Integration Pack*) carrying the 19 SEST fix packs and all three
   campaigns, Southern Watch, Southern Reach / Tasman Shield and Red Line. It
-  carries the 24 Oct 2026 build, uploaded from `8e72f353` on
-  `feature/world-sandbox-regional-expansion-20261024`, with SETUP in the pack
-  and both World Sandbox campaigns. That branch (PR #44) merged into
-  `sest-dev/jolly-ride-rptj4t` the same day (`8fd13774`), and the default
-  branch followed, so publish from `sest-dev/jolly-ride-rptj4t` again. The
+  carries the 25 Oct 2026 build, uploaded from `b1449201` on
+  `sest-dev/jolly-ride-rptj4t` (4,299 files, the World Sandbox HH-60H fix),
+  with SETUP in the pack and both World Sandbox campaigns. The 24 Oct build
+  before it went up from `8e72f353` on
+  `feature/world-sandbox-regional-expansion-20261024` (PR #44, merged the same
+  day). The default branch follows each upload (PR #46 for this one). The
   first upload was the 4 Oct 2026 build (`d4fd1668` and `fa692245`). Every
   upload is an update to this item; there is no second item.
 - **The collection.** *SEST - Modernised Campaign Collection*, Workshop id
@@ -178,7 +179,18 @@ decides which copy of a shared file the game reads. `SETUP - double-click me.cmd
 is downloaded and names any that are not, with links; installs the Anchor
 Chain preloader if it is missing (a UAC prompt only when neither `winhttp.dll`
 nor BepInEx is in the game folder); turns off one mod's debug logging that can
-freeze a mission; and writes the Mod Manager order: the pack first, the 180 in
+freeze a mission; marks the listed mods made for an older game version
+compatible, so the Mod Manager stops warning about them (since 25 Oct 2026;
+since 28 Oct by the game's own rule, read from Sea Power 0.8.7's code: only
+the `ApproximateVersion` value changes, to the game's MAJOR.MINOR.0; the
+author's file is kept under `%LOCALAPPDATA%\SEST\compat-originals`; a mark is
+renewed after a game update, or put back from the kept file when the game
+goes back a version and the author's file needs none; mods made for a newer
+game version are named and left alone unless reviewed, which so far only THE
+REDFOR MOD is; `sest-setup.ps1 -RestoreModFiles` puts them back); unbinds
+Contact Log's default F6 and F8 keys, which clash with Topographic Map's F6
+and Coordinated Strike Tool's F8 planner, when that mod's settings file
+exists (`sest-ui-keys.ps1`, beside SETUP); and writes the Mod Manager order: the pack first, the mods in
 `LOAD-ORDER.txt` order, the player's other mods at the bottom as they were. It
 backs up the game's settings first and is safe to run again.
 
@@ -244,7 +256,7 @@ real, it goes into the load order and the collection like any other mod.
 ## Before you press Submit
 
 1. **The build is the one you mean.** The PC syncs from the deploy branch
-   named in `data\deploy-branch.txt` (`sest-dev/loving-bell-3cnvvw`).
+   named in `data\deploy-branch.txt` (`sest-dev/jolly-ride-rptj4t`).
    `git status` is clean and `sync-sest.ps1` reports IN LINE with the commit
    you mean to publish. The folder you are about to upload is build output; if
    the tree is dirty it is not the reviewed build.
@@ -271,6 +283,24 @@ real, it goes into the load order and the collection like any other mod.
    went Public on 4-5 Oct 2026. On an update, do not change visibility. The
    Required Items should still be the load order's Workshop mods; change
    them only when the load order changed (above).
+7. **The plugins (since 28 Oct 2026).** The pack ships Runtime 1.5.0, a
+   binary captured from the owner's PC with no source in the repository, and
+   SEST UI Follow-up 1.4.2 beside it. Before the first upload of that build:
+   the Workshop refresh capture of 27 Oct is integrated (until then the pack
+   still carries the old Modern US Navy and FREMM files the PC had merged by
+   hand); Player.log on the PC shows the three `[SEST Runtime] ... correction
+   installed` lines, no `[SEST Runtime] inactive: uninspected native
+   assembly` line and, with Contact Log 1.0.1, `[SEST UI Follow-up] 1.4.2
+   input fix installed`; and the owner has decided whether to wait on the
+   unexplained 27 Oct crash. A `[SEST Runtime] F11 campaign totals inactive:
+   uninspected Combat Cost Tracker` line means SEST's F11 windows are off
+   with the installed tracker: hold the change log's F11 sentences, or the
+   upload. The listing's pre-submit check says what the other `inactive`
+   lines mean. The change log's Quick Load line (UI Follow-up
+   moves plain F9 to Ctrl+F9 for every Contact Log 1.0.1 player) stays while
+   `SEST.ContactsFix.dll` makes the move; it can go only if the plugin is
+   held back or rebuilt without it. The change log is in
+   `workshop-listing.md` (28 Oct block).
 
 ## The upload
 

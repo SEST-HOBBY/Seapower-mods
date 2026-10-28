@@ -122,9 +122,12 @@ experience carry forward from mission to mission.
 - 7 missions in the Sulu Sea and the West Philippine Sea, the same weeks as
   Southern Watch at the other end of the archipelago.
 - A Philippine-led task group: Jose Rizal and Miguel Malvar class frigates,
-  the Del Pilar class, BRP Conrado Yap, the H-76 helicopter and the Air Force's
-  FA-50s. Partners at full price: a Royal Thai Navy frigate with its Seahawk,
-  and one RAN Anzac.
+  the Del Pilar class, BRP Conrado Yap, the H-76 helicopter (offered as the
+  AW109E LAH or the AUH-76) and the Air Force's FA-50s. Partners at full
+  price: a Royal Thai Navy frigate with its Seahawk, and one RAN Anzac with
+  its MH-60R, from Service at Sea.
+- Philippine airfields hold only what you buy and the missions' own flights:
+  no free 1970s U.S. air wing *(28 October 2026)*. Not yet confirmed in game.
 - **No free rearm.** After the first mission, ships get ammunition back only
   from a supply ship you bought (BRP Tarlac or Davao del Sur, HTMS Chula, or an
   MSC C8 barge carrier) by going alongside at sea, or from the chartered
@@ -210,6 +213,10 @@ experience carry forward from mission to mission.
   and Russian and Iranian supply ships for the regional groups. It is a new
   campaign with its own id; the original and its saves are unchanged
   (`docs/world-sandbox/regional-expansion-20261024.md`).
+- **Real Poseidons** *(28 October 2026)*: the US Navy's twelve P-8As in both
+  worlds (Jacksonville, Bahrain, Djibouti, Sigonella, Souda Bay, Evenes) are
+  U.S. Navy 2027's P-8A, not Red Storm Arsenal's P-3-bodied copy, which left
+  the buy list (1,560 types on sale). A new campaign is needed to see it.
 - **Built and checked with the pack:** every unit they name is checked against
   this load order on every build, and the build stops if one is missing.
 - **Not yet played** beyond the Regional Expansion's start: see section 8.
@@ -306,7 +313,7 @@ When two mods change the same unit, weapon or text, the result is usually
 broken. These are the fixes.
 
 **Allied decks for allied aircraft** *(SEST Cross-Deck, 13 October 2026)*
-- 122 flight decks of 13 allied navies operate the similar allied aircraft
+- 130 flight decks of 13 allied navies operate the similar allied aircraft
   their mod did not list: a deck that already flies one Seahawk, NH90, Lynx
   or Wildcat, Merlin, Sea King, AB 212, Panther, Seasprite, Cougar, Wasp,
   Alouette, CH-53, Osprey, Harrier, AV-8B/F-35B or catapult type takes the
@@ -315,6 +322,10 @@ broken. These are the fixes.
   Australian S-70B-2 on a Maya; a Rafale M on the Nimitz. Each hull's own
   list is kept, a deck that already accepts everything is left alone, and
   only aircraft in this collection are added. Not yet confirmed in game.
+- Five Sulu Line decks also take the coalition helicopters their own lists
+  leave out *(28 October 2026)*: the H-76 on the Jose Rizal, Miguel Malvar,
+  Naresuan and Anzac, and the Thai Seahawk and MH-60R on Naresuan and BRP
+  Tarlac. Not yet confirmed in game.
 
 **Air-to-ground weapons**
 - HARM back to its stock values.
@@ -389,6 +400,12 @@ game's own values back. *Not yet confirmed in game.*
 
 **Smaller allied fixes**
 - P-8 anti-ship fit pointed at a Harpoon nobody defines.
+- Both P-8s' Harpoons get a guidance channel *(28 October 2026)*. The
+  radio-command AGM-84N needs a linked sensor: the Boeing P-8 mod's Poseidon
+  could not launch it, and U.S. Navy 2027's launched it with no midcourse
+  updates. Both wing pylons now link U.S. Navy 2027's GPS receiver. Not yet
+  seen in game (Southern Watch 05's P-8 on AntiShip is the test, test card
+  H.25).
 - HMS Ocean can now operate the Apache.
 - RNZAF and ROKN P-8 squadrons named nations with no flag.
 
@@ -457,6 +474,17 @@ checked automatically.
   - installs the Anchor Chain preloader if it is missing, asking Windows for
     permission once if the game folder needs it;
   - turns off a mod's debug logging that can freeze missions;
+  - marks the mods made for an older game version compatible, so the Mod
+    Manager stops listing them as not compatible (they load and play either
+    way; `-RestoreModFiles` puts their own files back). It follows the game's
+    own version rule and renews its marks after a game update, including one
+    that goes back a version. Mods made for a newer game version are named,
+    not changed, except THE REDFOR MOD, reviewed and data only, which SETUP
+    marks while its folder holds no code;
+  - if Contact Log is installed and has written its settings file (start the
+    game with it once), unbinds its default F6 and F8 keys, which clash with
+    Topographic Map's F6 and Coordinated Strike Tool's F8 planner; a key you
+    set yourself is kept;
   - sets the whole Mod Manager order: the pack first, then the mods in the
     tested order, your other mods at the bottom;
   - safe to run again: run it after every pack or mod update.
@@ -518,14 +546,36 @@ how to check each.
   task-force debrief. It is matched to the game build it was checked against and switches itself off
   on any other. Off from 0.8.7's release (21 Oct 2026; seen in the 22 Oct
   capture), it was checked against 0.8.7's game assembly on 23 Oct 2026 and
-  matched to it: Player.log should show two `[SEST Runtime] ... correction
-  installed` lines. The debrief correction fills in the generated and
+  matched to it. Since 28 Oct 2026 the pack ships Runtime 1.5.0, captured
+  byte for byte from the owner's PC, where it has run since 27 Oct; its
+  source is not in the repository yet (`integration/runtime-fixes/README.md`).
+  1.5.0 adds movable, game-styled F11 cost windows in a mission and in the
+  Task Force menu, a 3-row debrief (mission cost, campaign cost, details in
+  F11), pop-out buttons for Contact Log 1.0.1 and Group Manager 0.2.17
+  (these pop-outs, like the F11 windows', need Pop-Out Windows 1.0.1, which
+  is not in the collection, and a second monitor), own units plotted while
+  paused in preparation, and a guard for towed sonars with an incomplete
+  link. Player.log should show three `[SEST Runtime] ... correction
+  installed` lines (terrain, debrief, towed sensor). The debrief
+  correction fills in the generated and
   replaced missions, 52 of the 69 in the four campaigns. In the other 17,
   played as written, SEST's mission files give the player's ships no
   `CampaignTag`, so the game keeps no loss record for them: by 0.8.7's code
   a ship sunk there is listed without a Lost status (Undamaged), and the
-  correction cannot add one either. Neither correction has been watched
-  working in a mission yet.
+  correction cannot add one either. None of the three corrections has been
+  watched working in a mission yet.
+- **SEST UI Follow-up** (`plugins/SEST.ContactsFix.dll`, 1.4.2, 28 Oct
+  2026): for players of Contact Log 1.0.1. Space and +/- no longer open or
+  close Contacts; its pop-out is fixed and Group Manager gets a Stock UI /
+  Enhanced UI switch (both need Pop-Out Windows 1.0.1, the pop-out a second
+  monitor too); and the live F11 window reuses its price lists per
+  mission instead of rebuilding them twice a second (stalls of 253-494 ms on
+  the owner's PC). It also moves the game's Quick Load from F9 alone to
+  Ctrl+F9, which Options > Accept saves into controls.ini; nothing in the
+  pack binds F9 to Contacts. It runs only beside Runtime 1.5.0, Contact Log
+  1.0.1 and Sea Power 0.8.7 Build 261021; anywhere else it logs `inactive;
+  original behavior retained` and does nothing. The owner's PC crashed once
+  on 27 Oct with both plugins on; the cause is not known yet.
 
 ---
 

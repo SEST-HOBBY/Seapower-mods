@@ -90,14 +90,14 @@ MISSION = dict(
     },
     units=[
         U("blue", "euromod-philippines", "pn_ffg-150", "patrol", variant="Variant1"),
-        U("blue", "philippines-luzon-line", "phl_h-76", "flight", squadron="Squadron1",
+        U("blue", "philippines-luzon-line", "phl_h-76", "flight", squadron="Squadron2",
           alt=500, loadout="CAS", slot="HeloRecon"),
         U("blue", "philippines-luzon-line", "rok_f-50_ph", "strike", squadron="Squadron1",
           alt=3000, loadout="CAS", slot="Attack"),
         U("blue", "philippines-luzon-line", "rok_f-50_ph", "strike", squadron="Squadron1",
           alt=3000, loadout="CAS", slot="Attack"),
         U("blue", "_vanilla", "airfield_small_1", "home",
-          name="Zamboanga (Edwin Andrews Air Base)", nation="Philippines", weapons="Hold"),
+          name="Zamboanga (Edwin Andrews Air Base)", nation="Philippines", weapons="Hold", air_group=[]),
         # Hold, and her role is Spy: she runs, she does not open the fight.
         U("red", "auxilliary-merchant-pack", "ran_ms_super_p", "runner",
           name="MV Ocean Grace", nation="Panama", weapons="Hold",

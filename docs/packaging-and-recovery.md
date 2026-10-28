@@ -11,7 +11,8 @@ texture or asset bundle among them — with one exception: SEST RAAF F-35A JATM
 carries the RAAF F-35A's own model, textures and livery, because its Workshop
 mod was removed and the campaigns fly it (see `mods-source/_retired/README.md`). Only the campaign pack adds anything else:
 its campaign pages, briefing maps, art, mod lists and the player's SETUP
-(`SETUP - double-click me.cmd` and `sest-setup.ps1`). Check it yourself (the
+(`SETUP - double-click me.cmd`, `sest-setup.ps1` and its key helper
+`sest-ui-keys.ps1`). Check it yourself (the
 filter leaves out the campaign pack and the built `dist` copy):
 
 ```powershell
@@ -79,7 +80,11 @@ The packs install as **one folder**, `SEST_Integration`, under
 `StreamingAssets`, exactly like a workshop mod, and never write into the game's
 own files; only the player's SETUP the pack carries adds anything beside them,
 the Anchor Chain preloader next to `Sea Power.exe` when it is missing. SETUP
-also switches off one mod's debug logging and, like `set-mod-order.ps1`,
+also switches off one mod's debug logging, marks the listed mods made for an
+older game version compatible (one `_info.ini` value each, the author's
+file kept), unbinds Contact Log's default F6/F8 keys (they clash with
+Topographic Map's F6 and Coordinated Strike Tool's F8 planner) when that
+mod's settings file exists, and, like `set-mod-order.ps1`,
 rewrites `[LoadOrder]` after a backup. `tools/consolidate_packs.py` builds it from
 every source pack; Sea Power's Mod Manager lists it as one entry, SEST
 Integration Pack, beside the workshop entries, and it takes part in the same
@@ -424,9 +429,9 @@ press Enter once more.
   if (Get-Process -Name 'Sea Power', 'SeaPower' -ErrorAction SilentlyContinue) { throw 'Sea Power is running - exit it first' }
   Set-Location -LiteralPath 'C:\Users\rolyl\Seapower-mods'
   if (git status --short) { throw 'The clone has uncommitted changes - stop and report them' }
-  git checkout sest-dev/loving-bell-3cnvvw
+  git checkout sest-dev/jolly-ride-rptj4t
   if ($LASTEXITCODE) { throw 'checkout failed' }
-  git pull --ff-only origin sest-dev/loving-bell-3cnvvw
+  git pull --ff-only origin sest-dev/jolly-ride-rptj4t
   if ($LASTEXITCODE) { throw 'pull refused - stop and report it' }
   powershell -ExecutionPolicy Bypass -File .\tools\export-mod-configs.ps1 -IncludeVanilla
   if ($LASTEXITCODE) { throw 'export failed - read its last lines; nothing has been committed' }
@@ -438,7 +443,7 @@ press Enter once more.
   git add -A data\install-snapshot
   git commit -m 'Install snapshot after the Sea Power update'
   if ($LASTEXITCODE) { throw 'nothing to commit - the capture wrote nothing new' }
-  git push origin sest-dev/loving-bell-3cnvvw
+  git push origin sest-dev/jolly-ride-rptj4t
   if ($LASTEXITCODE) { throw 'push failed' }
   Get-Content -LiteralPath data\install-snapshot\changelog.live.txt -TotalCount 8
   Get-Content -LiteralPath data\install-snapshot\game-build.txt
@@ -526,7 +531,7 @@ quit it, then:
   git commit -m "chore: capture workshop refresh $(Get-Date -Format yyyy-MM-dd)"
   git push -u origin $b
   if ($LASTEXITCODE) { throw 'push failed' }
-  git checkout sest-dev/loving-bell-3cnvvw                 # back to the deploy branch for play
+  git checkout sest-dev/jolly-ride-rptj4t                 # back to the deploy branch for play
 }
 ```
 
@@ -562,7 +567,7 @@ read by the next pass.
    ```bash
    git log -1 --format=%h -- mods-source/_vanilla/original   # the drift baseline: a4d3c1c1 on 2 Oct 2026
    git fetch origin
-   git merge origin/sest-dev/loving-bell-3cnvvw
+   git merge origin/sest-dev/jolly-ride-rptj4t
    ```
 
    The PC's two commits touch `mods-source/` and `data/install-snapshot/`,
@@ -620,13 +625,20 @@ read by the next pass.
    Then read `data/install-snapshot/player.log` for `[SEST Runtime]`. SEST's
    own runtime plugin is matched to one game assembly and fails closed on
    any other: `inactive: uninspected native assembly <hash>` means the
-   update changed `Seapower-Scripts.dll` and both of its corrections are
-   off. No gate notices this. Do not add the new hash unverified: the
-   steps, from the PC export (`tools/export-map-diagnostics.ps1
-   -IncludeGameAssembly`) to `build_plugin.py`, are in
-   `integration/runtime-fixes/README.md`, and until they are done nothing
-   player-facing may claim either correction (0.8.7: off from its release
-   on 21 Oct 2026, matched on 23 Oct).
+   update changed `Seapower-Scripts.dll` and its corrections are off, and
+   SEST UI Follow-up (`plugins/SEST.ContactsFix.dll`) logs `inactive;
+   original behavior retained` with it. No gate notices this. Do not add
+   the new hash unverified: the steps, from the PC export
+   (`tools/export-map-diagnostics.ps1 -IncludeGameAssembly`) to
+   `build_plugin.py`, are in `integration/runtime-fixes/README.md`, and
+   until they are done nothing player-facing may claim the corrections
+   (0.8.7: off from its release on 21 Oct 2026, matched on 23 Oct). Since
+   28 Oct 2026 the shipped runtime is 1.5.0, a binary captured from the
+   owner's PC whose source is not in the repository: it cannot be re-gated
+   until that source is recovered, and `build_plugin.py` refuses to replace
+   it with the 1.2.0 fork base (`--replace-captured-binary` would). Any new
+   runtime file also needs UI Follow-up rebuilt against its hash
+   (`integration/ui-followup/README.md`).
 
 4. **Rebuild everything.**
 

@@ -4,28 +4,52 @@
     this game version, by marking each such mod compatible on this PC.
 
 .DESCRIPTION
-    The Mod Manager reads [Compatibility] from every mod's _info.ini. Its
-    ApproximateVersion check needs MAJOR and MINOR to match the game's
-    (tools/check_game_version.py), so a mod whose author last set that line
-    for 0.4 to 0.7 is listed as not compatible at every start-up although it
-    loads and plays. On 18 Oct 2026 that was 68 of the collection's mods.
+    The Mod Manager reads [Compatibility] from every mod's _info.ini and
+    lists each mod the game does not accept as not compatible at every
+    start-up, although it loads and plays. The rule, read from the game's
+    code (ModCompatibility.Matches, Sea Power 0.8.7): an ExactVersion must
+    equal the game's MAJOR.MINOR.PATCH; failing that, an ApproximateVersion
+    must be written MAJOR.MINOR.PATCH with the game's MAJOR and MINOR and a
+    PATCH no higher than the game's; failing both, the range keys must admit
+    the game. On 18 Oct 2026 68 of the collection's mods failed it, last set
+    for 0.4 to 0.7.
 
-    For each Workshop mod whose ApproximateVersion has a different MAJOR.MINOR
-    from the installed game's, this rewrites that one line to the game's
-    version and puts one comment line above it saying so. Nothing else in the
-    file changes: its encoding, byte-order mark and line endings stay as they
-    were. The author's own file is kept under
-    %LOCALAPPDATA%\SEST\compat-originals, and tools\export-mod-configs.ps1
-    exports that kept copy, so mods-source stays the authors' files.
+    This uses the players' SETUP's own code for it: the Compat* functions in
+    integration\campaign\setup\sest-setup.ps1, loaded from that file, so
+    the two cannot drift apart. For each Workshop mod whose ApproximateVersion
+    was made for an OLDER game version (also one like 0.8 or 0.8.7.1 that is
+    not written MAJOR.MINOR.PATCH, judged by the two or three numbers it
+    starts with), it rewrites that one value to the game's
+    MAJOR.MINOR.0, which every patch of that game version accepts, and puts
+    one comment line above it saying so. Nothing else in the file changes:
+    its encoding, byte-order mark and line endings stay as they were. The
+    author's own file is kept under %LOCALAPPDATA%\SEST\compat-originals,
+    and tools\export-mod-configs.ps1 exports that kept copy, so mods-source
+    stays the authors' files. A file marked earlier is judged again: after a
+    game update that lists it again, only its value is rewritten and the kept
+    copy stays the author's. If the game went back a version (a player
+    leaving a public beta, say), so that an earlier mark is now ahead of it,
+    the author's kept copy decides: the value is rewritten again if this
+    would mark the author's file, and the author's file goes back if this
+    would leave it alone (the game accepts it, or it was made for a newer
+    game version too).
 
-    Left alone: mods whose ApproximateVersion already matches; mods that
-    declare only a version range (GreaterThanEqualToVersion/LessThanVersion);
-    mods with no [Compatibility] section; SEST's own Workshop item.
+    Left alone and named: a mod made for a NEWER game version (it may need
+    that game), unless SETUP's reviewed list (CompatReviewed) names it and
+    its folder holds no .dll; an ExactVersion or a range the game rejects;
+    a file that is not UTF-8 text. A reviewed mod marked earlier whose
+    folder now holds a .dll gets its author's kept file back, named, if
+    this would leave that file alone (the mark stays if not); with no
+    author's file kept it is named and left marked. Left alone silently:
+    mods the game accepts; mods with no [Compatibility] section; SEST's own
+    Workshop item.
 
     Steam puts a mod's own _info.ini back whenever the mod updates, so
-    tools\sync-sest.ps1 runs this every time. It only touches this PC; a
-    player who subscribes to the collection still sees the game's warning
-    for the same mods, because their files are their authors'.
+    tools\sync-sest.ps1 runs this every time. It only touches this PC. Since
+    25 Oct 2026 the pack's own SETUP does the same for a player, for the
+    mods its LOAD-ORDER.txt lists, with the same marker and the same kept
+    copies (sest-setup.ps1 -RestoreModFiles puts them back), so either
+    tool's -Restore undoes the other's marks.
 
     Run with the game closed; the Mod Manager reads the files at start-up.
 
@@ -90,6 +114,20 @@ if ($Restore) {
     return
 }
 
+# --- The game's rule ---------------------------------------------------------
+# The rule, SETUP's reviewed list and the edit itself: SETUP's own Compat*
+# functions, loaded from its file so the two tools cannot drift apart.
+$setupScript = Join-Path (Join-Path (Join-Path (Join-Path (Split-Path -Parent $scriptDir) "integration") "campaign") "setup") "sest-setup.ps1"
+$parseTokens = $null; $parseErrors = $null
+$setupAst = [System.Management.Automation.Language.Parser]::ParseFile($setupScript, [ref]$parseTokens, [ref]$parseErrors)
+if ($parseErrors -and $parseErrors.Count) { throw "$setupScript does not parse: $($parseErrors[0].Message)" }
+foreach ($fn in @($setupAst.FindAll({ param($n) $n -is [System.Management.Automation.Language.FunctionDefinitionAst] -and $n.Name -like 'Compat*' }, $false))) {
+    . ([scriptblock]::Create($fn.Extent.Text))
+}
+foreach ($need in 'CompatVer', 'CompatPlan', 'CompatBack', 'CompatCode', 'CompatMark', 'CompatIsUtf8') {
+    if (-not (Get-Command -Name $need -CommandType Function -ErrorAction SilentlyContinue)) { throw "$setupScript has no $need function" }
+}
+
 # --- The game's version -----------------------------------------------------
 # The first "dd-Mon-yyyy: X.Y.Z Build #N" line of the game's changelog.txt,
 # as tools/check_game_version.py reads it.
@@ -113,42 +151,106 @@ if (-not $GameVersion) {
         if ($m.Success) { $GameVersion = $m.Groups[1].Value; break }
     }
 }
-if (-not $GameVersion -or $GameVersion -notmatch '^\d+\.\d+\.\d+$') {
-    throw "The game's version was not found in its changelog.txt. Re-run with -GameVersion X.Y.Z"
+$gameV = $null
+if ($GameVersion) { $gameV = CompatVer $GameVersion }
+if ($null -eq $gameV) {
+    throw "The game's version was not found in its changelog.txt, or is not X.Y.Z. Re-run with -GameVersion X.Y.Z"
 }
-$gameMinor = ($GameVersion -split '\.')[0..1] -join '.'
-Write-Host ("Game version {0}: marking mods whose ApproximateVersion is not {1}.x" -f $GameVersion, $gameMinor)
+$newVer = "{0}.{1}.0" -f $gameV[0], $gameV[1]
+Write-Host ("Game version {0}: marking the mods made for an older game version (their ApproximateVersion becomes {1})" -f $GameVersion, $newVer)
 
 # --- Mark ---------------------------------------------------------------------
-$marked = 0; $already = 0; $fine = 0; $range = 0; $none = 0
+$marked = 0; $again = 0; $already = 0; $fine = 0; $range = 0; $none = 0; $left = 0; $back = 0; $codeBack = 0
 foreach ($mod in $mods) {
     $path = Join-Path $mod.FullName "_info.ini"
     if (-not (Test-Path -LiteralPath $path)) { $none++; continue }
     $bytes = [IO.File]::ReadAllBytes($path)
     $r = Read-Text $bytes
     $text = $r.Text
-    if ($text.IndexOf($SestCompatMarker, [StringComparison]::Ordinal) -ge 0) { $already++; continue }
-    $sec = [regex]::Match($text, '(?ms)^[ \t]*\[Compatibility\][^\r\n]*\r?\n(.*?)(?=^[ \t]*\[|\z)')
-    if (-not $sec.Success) { $none++; continue }
-    $line = [regex]::Match($sec.Groups[1].Value, '(?m)^([ \t]*ApproximateVersion[ \t]*=[ \t]*)(\d+(?:\.\d+)*)([^\r\n]*?)(\r?)$')
-    if (-not $line.Success) { $range++; continue }
-    $declared = $line.Groups[2].Value
-    if ((($declared -split '\.')[0..1] -join '.') -eq $gameMinor) { $fine++; continue }
-    if ($WhatIfOnly) { Write-Host ("  would mark   {0}  ApproximateVersion {1} -> {2}" -f $mod.Name, $declared, $GameVersion); $marked++; continue }
+    $was = $text.IndexOf($SestCompatMarker, [StringComparison]::Ordinal) -ge 0
+    $plan = CompatPlan $text $gameV $mod.Name $mod.FullName
+    $c = $plan.C
+    if ($was -and $plan.Why -ne "newer") {
+        # A reviewed mod marked before (by this tool, SETUP or GPT's script)
+        # that now holds a .dll: judged by the author's kept copy (CompatCode).
+        $kp = Join-Path $BackupDir ("{0}._info.ini" -f $mod.Name); $kb = $null
+        if (Test-Path -LiteralPath $kp) { $kb = [IO.File]::ReadAllBytes($kp) }
+        $code = CompatCode $plan $kb $SestCompatMarker $gameV $mod.Name $mod.FullName
+        if ($code -eq "back") {
+            $how = "reviewed, but its folder now holds a .dll: as its author shipped it ({0}); the earlier mark was {1}" -f $plan.What, $c.ApproximateVersion
+            if ($WhatIfOnly) { Write-Host ("  would put back {0}  {1}" -f $mod.Name, $how); $codeBack++; continue }
+            [IO.File]::WriteAllBytes($path, $kb)
+            Remove-Item -LiteralPath $kp -Force
+            Write-Host ("  put back     {0}  {1}" -f $mod.Name, $how) -ForegroundColor Yellow
+            $codeBack++
+            continue
+        }
+        if ($code -eq "gone") {
+            Write-Host ("  left alone   {0}  marked before ({1}), reviewed, but its folder now holds a .dll and its author's file is not kept" -f $mod.Name, $c.ApproximateVersion)
+            $left++
+            continue
+        }
+    }
+    if ($plan.Why -eq 'ok') {
+        if ($was) { $already++ }
+        elseif ($c.ExactVersion -or $c.ApproximateVersion) { $fine++ }
+        elseif ($c.GreaterThanVersion -or $c.GreaterThanEqualToVersion -or $c.LessThanVersion -or $c.LessThanEqualToVersion -or $c.ExcludeVersions.Trim(', ')) { $range++ }
+        else { $none++ }
+        continue
+    }
+    if ($was -and $plan.Why -eq "newer") {
+        # This tool's (or SETUP's) own mark is ahead of the game: judged by the
+        # author's kept copy (CompatBack).
+        $kp = Join-Path $BackupDir ("{0}._info.ini" -f $mod.Name); $kb = $null
+        if (Test-Path -LiteralPath $kp) { $kb = [IO.File]::ReadAllBytes($kp) }
+        if (CompatBack $plan $kb $SestCompatMarker $gameV $mod.Name $mod.FullName) {
+            $how = "{0}, as its author shipped it ({1}); the earlier mark ({2}) was ahead of the game" -f $(if ($plan.Why -eq "ok") { "accepted" } else { "made for a newer game version" }), $plan.What, $c.ApproximateVersion
+            if ($WhatIfOnly) { Write-Host ("  would put back {0}  {1}" -f $mod.Name, $how); $back++; continue }
+            [IO.File]::WriteAllBytes($path, $kb)
+            Remove-Item -LiteralPath $kp -Force
+            Write-Host ("  put back     {0}  {1}" -f $mod.Name, $how) -ForegroundColor Yellow
+            $back++
+            continue
+        }
+    }
+    if ($plan.Mark -and -not (CompatIsUtf8 $bytes)) { $plan.Mark = $false; $plan.What += ", not UTF-8 text" }
+    if (-not $plan.Mark) {
+        $why = "declared in a way this does not change"
+        if ($plan.Why -eq "newer") { $why = "made for a newer game version" }
+        Write-Host ("  left alone   {0}  {1} ({2})" -f $mod.Name, $why, $plan.What)
+        $left++
+        continue
+    }
+    $how = "ApproximateVersion {0} -> {1}" -f $c.ApproximateVersion, $newVer
+    if ($plan.Why -eq "newer") { $how += " (made for a newer game version; reviewed)" }
+    if ($WhatIfOnly) { Write-Host ("  would mark   {0}  {1}" -f $mod.Name, $how); $marked++; continue }
 
-    New-Item -ItemType Directory -Force -Path $BackupDir | Out-Null
-    [IO.File]::WriteAllBytes((Join-Path $BackupDir ("{0}._info.ini" -f $mod.Name)), $bytes)
-    $eol = "`n"
-    if ($line.Groups[4].Value -eq "`r") { $eol = "`r`n" }
-    $at = $sec.Groups[1].Index + $line.Index
-    $replacement = "{0} (its author's ApproximateVersion was {1}); tools\mark-mods-compatible.ps1 -Restore puts it back{2}{3}{4}{5}{6}" -f
-        $SestCompatMarker, $declared, $eol, $line.Groups[1].Value, $GameVersion, $line.Groups[3].Value, $line.Groups[4].Value
-    $new = $text.Substring(0, $at) + $replacement + $text.Substring($at + $line.Length)
-    Write-Text $path $new $r.Bom
-    Write-Host ("  marked       {0}  ApproximateVersion {1} -> {2}" -f $mod.Name, $declared, $GameVersion) -ForegroundColor Yellow
+    if ($was) {
+        # Marked before: only the value changes; the kept copy stays the author's.
+        Write-Text $path (CompatMark $text $c $newVer "") $r.Bom
+        Write-Host ("  re-marked    {0}  {1}" -f $mod.Name, $how) -ForegroundColor Yellow
+        $again++
+    } else {
+        New-Item -ItemType Directory -Force -Path $BackupDir | Out-Null
+        [IO.File]::WriteAllBytes((Join-Path $BackupDir ("{0}._info.ini" -f $mod.Name)), $bytes)
+        $note = "{0} (its author's ApproximateVersion was {1}); tools\mark-mods-compatible.ps1 -Restore puts it back" -f $SestCompatMarker, $c.ApproximateVersion
+        Write-Text $path (CompatMark $text $c $newVer $note) $r.Bom
+        Write-Host ("  marked       {0}  {1}" -f $mod.Name, $how) -ForegroundColor Yellow
+    }
     $marked++
 }
 $verb = "marked compatible"
 if ($WhatIfOnly) { $verb = "would be marked compatible" }
-Write-Host ("{0} mod(s) {1}; {2} already marked; {3} already matching {4}.x; {5} declare only a range; {6} with no version line (left alone)." -f
-    $marked, $verb, $already, $fine, $gameMinor, $range, $none)
+if ($again) { $verb += " ($again of them marked before, for another game version)" }
+Write-Host ("{0} mod(s) {1}; {2} already marked; {3} accepted as their authors declared them; {4} declare only a range the game accepts; {5} with no version line; {6} left alone (listed above)." -f
+    $marked, $verb, $already, $fine, $range, $none, $left)
+if ($back) {
+    $verb = "put back"
+    if ($WhatIfOnly) { $verb = "would be put back" }
+    Write-Host ("{0} author's _info.ini {1}: an earlier mark was ahead of game version {2}, and this does not mark the author's file (listed above)." -f $back, $verb, $GameVersion)
+}
+if ($codeBack) {
+    $verb = "put back"
+    if ($WhatIfOnly) { $verb = "would be put back" }
+    Write-Host ("{0} reviewed mod(s) {1} as their authors shipped them: their folders now hold a .dll (listed above)." -f $codeBack, $verb)
+}

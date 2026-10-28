@@ -601,7 +601,7 @@ def open_allocation_twin(spec, campaign_text, missions, placements, flight_rows,
                              "the campaign's own units, then the allied fleet.")
     credits = dict(play_credits or {})
     for token, why in roster_credits.items():
-        credits.setdefault(token, (why[0], why[1], "requisition roster"))
+        credits.setdefault(token, (why[0], why[1], ROSTER_ORIGIN))
     rows, missing = coverage(credits, spec.get("EXCUSES", {}))
     return dict(roster=twin_roster, roster_text=roster_text, rules_text=rules_text,
                 campaign_text=spine, rows=rows, missing=missing,
@@ -1566,19 +1566,28 @@ def chain_owners(relpath, depth=0):
     return tuple(out)
 
 
+def store_credit(uid, kind_dir, path, fit):
+    """(token, "store", detail) for every round a unit hangs with one fit:
+    each mod whose copy of that ammunition file the game reads
+    (chain_owners). resolve() credits a placed unit's fit with it,
+    aircraft_credit() every fit of an embarked or sold airframe, and
+    roster_ini() every fit of a sold hull."""
+    return [(token, "store", f"{uid} / {store}")
+            for store in stores(uid, kind_dir, path, fit)
+            for token in chain_owners(f"ammunition/{store}.ini")]
+
+
 @functools.lru_cache(maxsize=None)
 def aircraft_credit(atype):
-    """(token, how, detail) for one embarked aircraft type: its unit and
-    squadron files, and every round any of its fits hangs."""
+    """(token, how, detail) for one embarked or sold aircraft type: its
+    unit and squadron files, and every round any of its fits hangs."""
     akind, apath = unit_file(atype)
     if apath is None:
         return ()
     out = [(owner(f"{akind}/{atype}.ini"), "unit", atype),
            (owner(f"{akind}/{atype}_squadrons.ini"), "squadron", atype)]
     for afit in loadouts(apath) or [None]:
-        for store in stores(atype, akind, apath, afit):
-            out += [(token, "store", f"{atype} / {store}")
-                    for token in chain_owners(f"ammunition/{store}.ini")]
+        out += store_credit(atype, akind, apath, afit)
     return tuple(out)
 
 
@@ -1655,9 +1664,8 @@ def resolve(spec, year=None):
     fit, _why = pick_loadout(uid, path, spec.get("loadout"), year)
     if fit:
         keys["LoadoutVariant"] = fit
-    for store in stores(uid, kind_dir, path, fit):
-        for token in chain_owners(f"ammunition/{store}.ini"):
-            note(token, "store", f"{uid} / {store}")
+    for token, how, detail in store_credit(uid, kind_dir, path, fit):
+        note(token, how, detail)
     # A deck's aircraft fly from it whether or not the mission names them,
     # and every fit they offer can be armed on deck. Until 20 Oct 2026 none
     # of it was credited: Red Line and Southern Reach listed the PLAAF
@@ -1666,9 +1674,8 @@ def resolve(spec, year=None):
     for atype in deck_aircraft(uid, kind_dir, path, keys.get("VariantReference"), spec):
         for token, how, detail in aircraft_credit(atype):
             note(token, how, f"{uid} deck / {detail}")
-    for folder in sorted(set(ASSET_FOLDER.findall(read(path)))):
-        for token in sorted(asset_owners(folder)):
-            note(token, "asset", f"{uid} / {folder.rstrip('/')}")
+    for token, how, detail in asset_credit(uid, path):
+        note(token, how, detail)
 
     # The roster says which mod each unit is there to exercise. If the game
     # would read nothing of that mod's, the roster is wrong - either something
@@ -1717,6 +1724,53 @@ def block(tag, keys):
 # reported by that hull, not by a round the hull happens to carry.
 STRENGTH = {"unit": 0, "variant": 1, "squadron": 2, "roster": 3, "store": 4,
             "asset": 5}
+# Where a credit the requisition roster gives is said to come from.
+ROSTER_ORIGIN = "requisition roster"
+
+
+def stronger_credit(why, best):
+    """Whether credit `why` (how, detail, mission) replaces `best` as the
+    one a coverage row shows: a stronger kind, or one as strong from a
+    mission where `best` came from the roster. The roster's credits are
+    merged first, and since 28 Oct 2026 they credit the variants and rounds
+    of the units on sale as well; with only a stronger kind replacing them,
+    about a dozen rows went from a unit a mission places to a roster
+    example (Sulu Line's Euromod Main Pack: ran_mh-60r / usn_mk54_air
+    instead of pn_ffg-150 / fr_cal_76mm in The Island Road). The kind is
+    the same either way, so no mod changes list."""
+    if best is None or STRENGTH[why[0]] < STRENGTH[best[0]]:
+        return True
+    return (STRENGTH[why[0]] == STRENGTH[best[0]] and best[2] == ROSTER_ORIGIN
+            and why[2] != ROSTER_ORIGIN)
+
+
+def merge_into(held, credits):
+    """Take each credit of `credits` into `held` where stronger_credit()
+    says it replaces the one held there."""
+    for token, why in credits.items():
+        if stronger_credit(why, held.get(token)):
+            held[token] = why
+
+
+def merge_credits(roster_credits, reached):
+    """A campaign's credits, and its play credits without the Dispatches, as
+    its coverage rows show them: the roster's first, each from ROSTER_ORIGIN,
+    then each mission's of `reached` ([(mission, {token: (how, detail,
+    mission key)})]) in build order, by merge_into(). What the campaign
+    itself loads - its own missions and its roster - is apart from the
+    Dispatches, which are browser missions the campaign never loads.
+    Southern Watch's Dispatches place a unit from nearly every mod in the
+    collection (they are the pack's coverage), and a REQUIRED-MODS built
+    from both told a player of the campaign to install 137 mods it does not
+    use (user report, 28 Sep)."""
+    credits = {token: (why[0], why[1], ROSTER_ORIGIN)
+               for token, why in roster_credits.items()}
+    play_credits = dict(credits)
+    for mission, mission_credits in reached:
+        merge_into(credits, mission_credits)
+        if mission["group"] != "dispatch":
+            merge_into(play_credits, mission_credits)
+    return credits, play_credits
 
 
 # Model folders a unit file loads from another mod's `assets/` tree. The game
@@ -1732,6 +1786,15 @@ STRENGTH = {"unit": 0, "variant": 1, "squadron": 2, "roster": 3, "store": 4,
 ASSET_FOLDER = re.compile(r"^\s*Resources\w*Folder\s*=\s*([A-Za-z0-9_][^\s#/]*(?:/[^\s#/]+)*)/?",
                           re.M | re.I)
 _ASSET_OWNERS = None
+
+
+def asset_credit(uid, path):
+    """(token, "asset", detail) for every model folder a unit's winning file
+    loads (ASSET_FOLDER): each mod that wins a file under it (asset_owners).
+    resolve() credits a placed unit with it, and roster_ini() a sold one."""
+    return [(token, "asset", f"{uid} / {folder.rstrip('/')}")
+            for folder in sorted(set(ASSET_FOLDER.findall(read(path))))
+            for token in sorted(asset_owners(folder))]
 
 
 def asset_owners(folder):
@@ -6417,6 +6480,75 @@ def roster_ini(roster, heading=None):
             credits[token] = ("roster", f"{uid} at {entry['points']} points")
     if problems:
         raise SystemExit("roster failed:\n  " + "\n  ".join(problems))
+    # A unit on sale makes the game read more than its own file. A bought
+    # aircraft arms from every fit it offers, as resolve() credits a placed
+    # one. Until 28 Oct 2026 only the unit file's owner was credited, and
+    # Sulu Line's REQUIRED-MODS listed Modern US Navy and United States Naval
+    # Aviation as not used while the Thai Seahawk's ASW fit hangs their
+    # usn_ssq-62 and the RAN MH-60R's fits hang USNA's Hellfires and tanks.
+    # Added after the units' own credits, so a mod that sells a unit stays a
+    # `roster` one. Among the rest the most direct kind (STRENGTH) wins
+    # whatever the order of the roster, as place() takes the strongest across
+    # a mission's units. Keeping the first one found instead, Southern Reach
+    # reported
+    # Euromod - Modern British Navy by the shared materials folder of the
+    # Hobart, sold earlier, though it writes the Type 45's variants file.
+    #
+    # A bought hull's deck is not credited: it carries only the roster
+    # aircraft the player puts aboard, which are credited as sold airframes.
+    # LinearCampaignTaskForceMissionGenerator.WriteVesselSection calls
+    # WriteCustomAirGroup for every ship (IL_0131-IL_014a), which clears the
+    # authored group and writes CustomAirGroup=True with only the aircraft
+    # assigned to that hull, and SceneCreator.SetAdditionalParameters
+    # (IL_098c-IL_09b2) then loads that list in place of the variant's or the
+    # unit's [AirGroup]. A free air wing comes only with ShipIncludesAirwing,
+    # which every SEST campaign turns off, and even then from the roster's own
+    # aircraft. Crediting the default group, as this did for a few hours on
+    # 28 Oct 2026, put a Rafale pack, French Air Force and a Tu-95 mod on
+    # hard-required lists for aircraft no player could fly.
+    #
+    # A bought hull also reads its own variants file and sails armed, and
+    # neither was credited until later the same day. resolve() credits a
+    # placed hull with the owner of <unit>_variants.ini and the rounds of its
+    # fit; this does the same for every hull on sale, in resolve()'s order,
+    # and for every fit the hull offers, as aircraft_credit() does for an
+    # airframe. The buyer may pick any of them: IsShipLoadoutTypeRewardUnlocked
+    # unlocks every fit LockedShipLoadoutVariants does not name, and no SEST
+    # campaign names one; with PurchaseLoadouts=True a fit [LoadoutPrices]
+    # leaves out costs what the unit file says (ReadLoadoutBasePurchaseCost).
+    # EnsureSelectedLoadoutOption only sets the starting choice. The fit
+    # pick_loadout() gives with no mission (Default where the file offers
+    # one) is read first, so a round it hangs is the example shown. Until
+    # later on 28 Oct 2026 only that fit was credited, and the SM-6 that
+    # three of the Hobart's Late fits hang (SEST Collection Fixes) went
+    # unseen. A fit dated after the campaign's loadout year is refused in
+    # game (ResolveDateLockedLoadouts) and is credited here all the same: a
+    # superset, as for an airframe.
+    #
+    # Last, as resolve() orders them, the model folders a sold unit's file
+    # loads from another mod (asset_credit). The Mistral, on sale in Southern
+    # Watch and Southern Reach, draws eight vehicle models from French Army
+    # Vehicles. Until later on 28 Oct 2026 Southern Reach listed that mod as
+    # not used, and Southern Watch as needed only for the Dispatches.
+    for entry in roster:
+        uid = entry["unit"]
+        kind_dir, path = unit_file(uid)
+        if ROSTER_SECTION.get(unit_type(uid)) in ("AllowedAircraft", "AllowedHelicopters"):
+            # The airframe itself is bought, not placed by a mission.
+            found = [(token, "roster" if how == "unit" else how, detail)
+                     for token, how, detail in aircraft_credit(uid)]
+        else:
+            first, _why = pick_loadout(uid, path, None)
+            found = [(owner(f"{kind_dir}/{uid}_variants.ini"), "variant", f"{uid} {pick}")
+                     for pick in entry["picks"]]
+            for fit in [first] + [f for f in loadouts(path) if f != first]:
+                found += store_credit(uid, kind_dir, path, fit)
+        found += asset_credit(uid, path)
+        for token, how, detail in found:
+            held = credits.get(token)
+            if token and (held is None or (held[0] != "roster"
+                                           and STRENGTH[how] < STRENGTH[held[0]])):
+                credits[token] = (how, detail)
 
     L = [heading or f"; SEST {TITLE} requisition roster.",
          f"; Generated by integration/campaign/build_pack.py - edit {ROSTER_SOURCE}.",
@@ -7316,13 +7448,16 @@ def _spine(missions, events):
 
 # --- coverage ----------------------------------------------------------------
 
+# Since 28 Oct 2026 the roster credits what a unit on sale makes the game
+# read, as resolve() credits a placed one: a variant, squadron, store or
+# asset row may be a sold unit's.
 HOW_TEXT = {
     "unit": "places the unit; this mod wins its file",
     "roster": "the requisition roster prices it, so the player can buy it",
-    "variant": "supplies the hull variant the placed unit uses",
-    "squadron": "supplies the squadron the placed airframe flies from",
-    "store": "supplies a round the placed unit's loadout hangs",
-    "asset": "supplies a model folder the placed unit's file draws from",
+    "variant": "supplies the hull variant a placed or sold unit uses",
+    "squadron": "supplies the squadron a placed or sold airframe flies from",
+    "store": "supplies a round a placed or sold unit's loadout hangs",
+    "asset": "supplies a model folder a placed or sold unit's file draws from",
 }
 
 
@@ -7518,11 +7653,12 @@ def campaign_requirements(rows, missing, title, dispatches=(), dispatch_folder=N
     key = lambda r: r[1].lower()
     L = [f"{title.upper()} - what this campaign needs", "",
          "Derived from the units its missions place, the squadrons and hull",
-         "variants they name, the rounds their loadouts hang and the units its",
-         "roster sells. The pack-level REQUIRED-MODS.txt two folders up, at the",
-         "pack's root, is the union across every campaign in the pack.", "",
-         f"1. HARD REQUIRED ({len(need) + len(promoted)}): a mission names a file of "
-         "theirs, or a mod above says it cannot run without them.", ""]
+         "variants they name and the rounds their loadouts hang, and from the",
+         "units its roster sells with their variants and rounds. The pack-level",
+         "REQUIRED-MODS.txt two folders up, at the pack's root, is the union",
+         "across every campaign in the pack.", "",
+         f"1. HARD REQUIRED ({len(need) + len(promoted)}): a mission or the roster "
+         "names a file of theirs, or a mod above says it cannot run without them.", ""]
     for _mid, t, how, _d, _m, token in sorted(need, key=key):
         L.append(f"  {token:<13} {NEEDED[how]:<32} {t}")
     for row, askers in sorted(promoted.items(), key=lambda kv: kv[0][1].lower()):
@@ -7588,7 +7724,7 @@ NEEDED = {"unit": "a unit a mission places",
           "squadron": "a squadron a flight comes from",
           "roster": "a unit the player can buy",
           "store": "a weapon a loadout hangs",
-          "asset": "a model a placed unit draws"}
+          "asset": "a model a unit draws"}
 
 
 def _squash(s):
@@ -7841,7 +7977,9 @@ ClipName=main_menu
 ; and every UI element showing one, on lines starting [SEST Pictures] - at
 ; start, after each scene load, every two minutes for ten, and when the Mod
 ; Manager is on screen. Pictures=0 turns the log off. Nothing on screen
-; changes either way; the film plays the same.
+; changes either way; the film plays the same. Where SEST UI Follow-up
+; (SEST.ContactsFix.dll, README.txt) is active, the log is off whatever
+; this says.
 Pictures=1
 ; Backdrops=1 (on unless 0) puts SEST photographs in place of every other
 ; backdrop the game draws: the loading screens, the picture behind the
@@ -7877,8 +8015,9 @@ pictures and maps stay as their authors made them.
   sest_menu.ini            Enabled=0 turns it all off; Backdrops=0 puts
                            the game's backdrops back;
                            Pictures=0 turns off the [SEST Pictures] lines
-                           it writes to Player.log; TileGuard=0 turns off
-                           the campaign map's tile guard (below).
+                           it writes to Player.log (SEST UI Follow-up,
+                           below, turns them off anyway); TileGuard=0
+                           turns off the campaign map's tile guard (below).
   MENU_CREDITS.txt         who took each photograph, and the licence.
 
 It also guards the campaign map: after a mission, drawing a map tile while
@@ -7888,6 +8027,47 @@ The plugin skips that one tile instead.
 Without Anchor Chain the plugin never runs and the menu is the game's own.
 If the film cannot be played, the plugin puts the game's own film back.
 Source: integration/menu-background/ in github.com/SEST-HOBBY/Seapower-mods
+
+SEST's two other plugins share this folder:
+
+  SEST.RuntimeFixes.dll    SEST Runtime Fixes 1.5.0. SEST_RUNTIME_README.txt
+  SEST_RUNTIME_README.txt  says what it does; sest_runtime.ini turns its
+  sest_runtime.ini         corrections off one at a time.
+  SEST.ContactsFix.dll     SEST UI Follow-up 1.4.2, for players of Contact
+                           Log: its window no longer opens or closes on the
+                           time-control keys; the live F11 cost report
+                           reuses each mission's price lists instead of
+                           rereading them twice a second; Quick Load moves
+                           (below). It turns off the [SEST Pictures] log
+                           whatever sest_menu.ini says. It rewrites the
+                           AIRCRAFT AND UNIT PREPARATION popup as four
+                           numbered steps with a Start preparation button.
+                           Three parts need Pop-Out Windows 1.0.1 and stay
+                           off without it: the corrected Contacts pop-out;
+                           Group Manager 0.2.17's Stock UI / Enhanced UI
+                           switch; and the camera compass, which it moves
+                           with the 3D view - to the unit camera on another
+                           monitor when that view is detached, or into the
+                           3D picture-in-picture over the full-screen map.
+                           Popping Contacts or Group Manager out to a
+                           second screen needs Pop-Out Windows 1.0.1 and a
+                           second monitor. It writes timing lines to
+                           Player.log every 30 seconds. It works only
+                           beside this exact SEST.RuntimeFixes.dll, Contact
+                           Log 1.0.1 and Sea Power 0.8.7 (Build 261021);
+                           with anything else it writes one "inactive" line
+                           to Player.log and changes nothing.
+
+Quick Load moves to Ctrl+F9 where SEST UI Follow-up is on. Each time the
+game loads its key bindings, a Quick Load key of F9 alone (the game's
+default) becomes Ctrl+F9; any other Quick Load key is kept. F9 alone then
+no longer quick-loads. It opens Contacts only if you set Contact Log's key
+to F9 yourself (ToggleWindow under [Input] in
+BepInEx\\config\\com.seapower.contactlog.cfg); SETUP does not. Pressing
+Accept in the game's Options saves Ctrl+F9 in the game's controls.ini, and
+it stays there after the pack or Contact Log is removed: then set Quick Load
+back to F9 in Options if you want it.
+Source: integration/runtime-fixes/ and integration/ui-followup/
 """
 
 
@@ -7908,17 +8088,46 @@ def write_menu_background(out):
           f"{film.name} ({film.stat().st_size // 1024} KB) in plugins/")
 
 
+# SEST Runtime Fixes. Since 28 Oct 2026 the committed DLL is Runtime 1.5.0,
+# captured byte for byte from the owner's PC (installed there on 27 Oct); its
+# source is not in the repository and build_plugin.py refuses to overwrite it
+# (integration/runtime-fixes/README.md, plugin-build.json).
 def write_runtime_fixes(out):
     source = ROOT / "integration/runtime-fixes"
     dll = source / "SEST.RuntimeFixes.dll"
     if not dll.is_file():
-        raise SystemExit("SEST runtime plugin missing: run integration/runtime-fixes/build_plugin.py")
+        raise SystemExit("SEST runtime plugin missing: integration/runtime-fixes/SEST.RuntimeFixes.dll "
+                         "(see integration/runtime-fixes/README.md)")
     folder = out / "plugins"
     folder.mkdir(parents=True, exist_ok=True)
     (folder / dll.name).write_bytes(dll.read_bytes())
     for name in ("sest_runtime.ini", "SEST_RUNTIME_README.txt"):
         (folder / name).write_bytes((source / name).read_bytes())
     print(f"  runtime fixes: {dll.name} ({dll.stat().st_size} bytes); own code only")
+
+
+# SEST UI Follow-up 1.4.2 (SEST.ContactsFix.dll), SEST's third plugin: built
+# outside the repository from integration/ui-followup/source/ (it compiles
+# against the game's own NoesisGUI, which cannot be committed) and committed
+# as built. It patches Runtime 1.5.0's own Contacts and cost code, so it
+# accepts only that exact SEST.RuntimeFixes.dll, Contact Log 1.0.1, the
+# game's 0.8.7 Seapower-Scripts.dll and NoesisGUI, each by SHA-256; with any
+# other it logs "inactive; original behavior retained" and patches nothing.
+# Only the DLL ships: source/, including AnchorChain.Reference.cs, never does
+# (a second AnchorChain assembly in a mod folder would be loaded beside the
+# real one).
+UI_FOLLOWUP = ROOT / "integration" / "ui-followup"
+
+
+def write_contacts_fix(out):
+    dll = UI_FOLLOWUP / "SEST.ContactsFix.dll"
+    if not dll.is_file():
+        raise SystemExit("SEST UI follow-up plugin missing: integration/ui-followup/SEST.ContactsFix.dll "
+                         "(see integration/ui-followup/README.md)")
+    folder = out / "plugins"
+    folder.mkdir(parents=True, exist_ok=True)
+    (folder / dll.name).write_bytes(dll.read_bytes())
+    print(f"  UI follow-up: {dll.name} ({dll.stat().st_size} bytes); own code only")
 
 
 # The game's loading-screen backgrounds: ui/backgrounds/loading_screen_1.png ..
@@ -8093,28 +8302,10 @@ def main():
             check_flights(flight_rows, ROSTER, authored=authored)
         if spec.get("RESERVE_OPENS"):
             print_reserve(spec)
-        # The roster's credits first, then each mission's in build order, a
-        # stronger kind replacing a weaker one: merged here rather than as
-        # each mission was built, so that the roster is the one the reserve
-        # has settled (21 Oct 2026). What the campaign itself loads - its own
-        # missions and its roster - is apart from the Dispatches, which are
-        # browser missions the campaign never loads. Southern Watch's
-        # Dispatches place a unit from nearly every mod in the collection
-        # (they are the pack's coverage), and a REQUIRED-MODS built from both
-        # told a player of the campaign to install 137 mods it does not use
-        # (user report, 28 Sep).
-        credits = {token: (why[0], why[1], "requisition roster")
-                   for token, why in roster_credits.items()}
-        play_credits = dict(credits)
-        for mission, mission_credits in reached:
-            for token, why in mission_credits.items():
-                best = credits.get(token)
-                if best is None or STRENGTH[why[0]] < STRENGTH[best[0]]:
-                    credits[token] = why
-                if mission["group"] != "dispatch":
-                    best = play_credits.get(token)
-                    if best is None or STRENGTH[why[0]] < STRENGTH[best[0]]:
-                        play_credits[token] = why
+        # The roster's credits first, then each mission's in build order
+        # (merge_credits): merged here rather than as each mission was built,
+        # so that the roster is the one the reserve has settled (21 Oct 2026).
+        credits, play_credits = merge_credits(roster_credits, reached)
 
         # Built BEFORE the dry-run exit, because every air-tasking gate lives
         # in here - the row/section pairing, the role and fit checks, the
@@ -8161,10 +8352,7 @@ def main():
                               coast=list(COAST_CHECKED),
                               pooled=sum((m.get("geography") or GEOGRAPHY) != "coast"
                                          for m in missions)))
-        for token, why in credits.items():
-            best = pack_credits.get(token)
-            if best is None or STRENGTH[why[0]] < STRENGTH[best[0]]:
-                pack_credits[token] = why
+        merge_into(pack_credits, credits)
 
     # The pack's coverage rule: every enabled mod is placed by SOME campaign
     # in the pack, or excused in writing. A second campaign does not have to
@@ -8448,6 +8636,7 @@ def main():
             (OUT / src.name).write_bytes(src.read_bytes())
     write_menu_background(OUT)
     write_runtime_fixes(OUT)
+    write_contacts_fix(OUT)
     write_loading_screens(OUT)
 
     files = sum(1 for f in OUT.rglob("*") if f.is_file())

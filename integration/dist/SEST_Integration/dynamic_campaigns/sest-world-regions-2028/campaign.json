@@ -3125,12 +3125,12 @@
       ]
     },
     {
-      "name": "Naval Air Station Jacksonville P-8A Poseidon",
+      "name": "Naval Air Station Jacksonville P-8A Poseidon (2027)",
       "side": "blue",
       "base": "usa_jacksonville_nas_jacksonville",
       "type": "Air",
       "units": [
-        "usn_p_8a x4"
+        "usn_p8_2027 x4"
       ]
     },
     {
@@ -3215,12 +3215,12 @@
       ]
     },
     {
-      "name": "Muharraq Airfield P-8A Poseidon",
+      "name": "Muharraq Airfield P-8A Poseidon (2027)",
       "side": "blue",
       "base": "me_bahrain_muharraq_airfield",
       "type": "Air",
       "units": [
-        "usn_p_8a x2"
+        "usn_p8_2027 x2"
       ]
     },
     {
@@ -3233,12 +3233,12 @@
       ]
     },
     {
-      "name": "Camp Lemonnier P-8A Poseidon",
+      "name": "Camp Lemonnier P-8A Poseidon (2027)",
       "side": "blue",
       "base": "hoa_djibouti_camp_lemonnier",
       "type": "Air",
       "units": [
-        "usn_p_8a"
+        "usn_p8_2027"
       ]
     },
     {
@@ -3296,21 +3296,21 @@
       ]
     },
     {
-      "name": "Naval Air Station Sigonella P-8A Poseidon",
+      "name": "Naval Air Station Sigonella P-8A Poseidon (2027)",
       "side": "blue",
       "base": "med_sigonella_nas_sigonella",
       "type": "Air",
       "units": [
-        "usn_p_8a x3"
+        "usn_p8_2027 x3"
       ]
     },
     {
-      "name": "Naval Support Activity Souda Bay P-8A Poseidon",
+      "name": "Naval Support Activity Souda Bay P-8A Poseidon (2027)",
       "side": "blue",
       "base": "med_souda_bay_nsa_air",
       "type": "Air",
       "units": [
-        "usn_p_8a"
+        "usn_p8_2027"
       ]
     },
     {
@@ -3476,12 +3476,12 @@
       ]
     },
     {
-      "name": "Evenes Air Station P-8A Poseidon 2",
+      "name": "Evenes Air Station P-8A Poseidon (2027)",
       "side": "blue",
       "base": "hn_evenes_air_station",
       "type": "Air",
       "units": [
-        "usn_p_8a"
+        "usn_p8_2027"
       ]
     },
     {
@@ -7098,7 +7098,7 @@
     "usn_mh-60r": 39,
     "usn_p-3c": 89,
     "usn_p8": 89,
-    "usn_p_8a": 89,
+    "usn_p8_2027": 89,
     "usn_ssbn_ohio": 382,
     "usn_ssgn_ohio_2027": 382,
     "usn_ssn_los_angeles_flt3_2026": 195,
@@ -7684,7 +7684,6 @@
     "usn_p-2h": 89,
     "usn_p-3d": 89,
     "usn_p-8a": 89,
-    "usn_p8_2027": 89,
     "usn_qh-50c": 39,
     "usn_qh-50d": 39,
     "usn_ra-3b": 28,
@@ -10897,13 +10896,6 @@
     },
     {
       "unit": "usn_p8_2027",
-      "side": "blue",
-      "nation": "US",
-      "tier": 0,
-      "aircraft": true
-    },
-    {
-      "unit": "usn_p_8a",
       "side": "blue",
       "nation": "US",
       "tier": 0,

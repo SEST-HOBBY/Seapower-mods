@@ -18,8 +18,19 @@ ASW,AntiShip pair, so it gets the same substitution.
 
 UPDATE, 2026-09-20 export: U.S. Navy 2027 fixed its own copy - usn_p8_2027
 now writes Station1..4=usn_agm-84n, which is precisely what this patch was
-substituting. That target is retired (see RETIRED); 3602046770's usn_p8 still
+substituting. That target was retired then; 3602046770's usn_p8 still
 carries the typo four times and is still patched.
+
+UPDATE, 28 Oct 2026: with the right Harpoon on the wings, neither P-8 could
+guide it. usn_agm-84n is MidCourseCorrection=1, radio command. The game will
+not fire such a round from a hardpoint that links no sensor, which is
+usn_p8's case; usn_p8_2027 links only a FLIR, so its Harpoons fly with the
+link lost from launch, no midcourse updates (P8_GUIDANCE below has the game
+code). The owner's SW05 play test: "a player-allocated P-8 with AntiShip
+Harpoons does not reliably fire". Both P-8s now link U.S. Navy 2027's
+GPS_Receiver to their wing pylons - usn_p8 gains the sensor, which
+usn_p8_2027 already carries - so usn_p8_2027 is shipped again, for that one
+line. This is the fix the owner's PC already ran (GPT's PR #50 dist).
 
 Not included, having checked each one:
   - usn_e-2d, fr_e2c, fr_e2d, usn_ch-46d, usaf_ac-130a_83, jmsdf_kv_107*
@@ -54,19 +65,83 @@ TARGETS = [
     ("3602046770", "usn_p8.ini"),        # still carries the typo, 4x
 ]
 
-# Targets retired because upstream adopted the fix. Checked in the 2026-09-20
-# export: U.S. Navy 2027's usn_p8_2027 AntiShip block now reads
-# Station1..4=usn_agm-84n - the exact substitution this patch was making - so
-# shipping a copy of that file would add an override that changes nothing and
-# a dependency for no reason. The file is unlinked below so a pack folder
-# built before the retirement does not keep serving a stale copy.
-RETIRED = [("3606774881", "usn_p8_2027.ini", "upstream now writes usn_agm-84n itself")]
+# Targets retired because upstream adopted the fix: (workshop id, aircraft
+# file, why). Each is unlinked below so a pack folder built before the
+# retirement does not keep serving a stale copy. Empty since 28 Oct 2026:
+# U.S. Navy 2027's usn_p8_2027 was retired on the 2026-09-20 export, when its
+# AntiShip block began writing Station1..4=usn_agm-84n itself, and is shipped
+# again for its guidance channel (P8_GUIDANCE) - its stations stay upstream's.
+RETIRED = []
+
+# The P-8 Harpoon's guidance channel (28 Oct 2026). usn_agm-84n is
+# MidCourseCorrection=1, radio command. What Sea Power 0.8.7 does with that,
+# read from Seapower-Scripts.dll on 28 Oct 2026:
+# - AmmunitionParameters.loadWeaponParameters (IL_0497-IL_0523): 1 maps to
+#   MidCourseCorrection.RadioCommand, whose AllowsLauncherGuidance makes the
+#   round _requiresGuidance.
+# - WeaponSystemHardpoint.UpdateEngageInterruptors (IL_0029-IL_00b3): a
+#   _requiresGuidance round from a hardpoint with no AssociatedSensors ends
+#   the engage task and logs "can not be launched without associated
+#   sensor"; with some, it waits until WeaponSystem.hasFreeWeaponChannel
+#   finds one that is on and has a free weapon channel. The weapon selector
+#   (WeaponSystem.HasFreeGuidingSensors) passes an empty list, so the
+#   Harpoons are offered all the same.
+# - usn_p8 (3602046770) links nothing to its wing pylons: the engage ends.
+#   usn_p8_2027 links only its MX-20HD FLIR. A sensors.ini entry with no
+#   WeaponChannels key gets one channel (SensorRecord's constructor,
+#   IL_0033), so that Harpoon does launch - but a FLIR is not a radar, and
+#   WeaponBase.ActivateNonLaserGuidanceSystem, finding no radar to guide it,
+#   marks the link lost for good at launch (IL_0332-IL_034a): the round gets
+#   no midcourse updates. Neither pylon links the APY-10 either. (Under
+#   SEST's load order the APY-10 that wins is US Naval Aviation's, 3737267013:
+#   Type=Search, WeaponChannels=12. Only the Boeing P-8 mod's own copy says
+#   WeaponChannels=0, so the missing link, not the radar, is the fault.)
+# - U.S. Navy 2027's [GPS_Receiver] is Kind=Radar, Type=Targeting,
+#   Mode=RadioCommand with 5000 weapon channels - the author's "GPS receiver
+#   to allow for target updating for GPS weapons", which its own F/A-18E/F
+#   link to their hardpoints the same way. A Targeting radar stays on from
+#   spawn (BaseSystem.init sets IsOn; SensorSystemRadar.init switches off
+#   only search radars), and EMCON switches off search radars, jammers and
+#   towed systems, never it.
+# - At launch, WeaponBase.ActivateNonLaserGuidanceSystem (IL_004d-IL_0162)
+#   takes the first linked SensorSystemRadar that can guide the round as its
+#   guiding radar. In flight Missile.CheckRadioConnection holds the link while
+#   the missile stays inside the launcher's sensor range, control range and
+#   line of sight, and for radio command ends in RadioCommandTargetIllumination
+#   (IL_077f). If the link drops, the Harpoon flies on and finishes on its own
+#   active seeker (AmmunitionParameters.CanFinishOnOwnSeeker,
+#   Missile.OnUpdateEveryFrame IL_0155-IL_01b0).
+# - ObjectBaseLoader.initWeaponParameters (IL_01a9-IL_036b) splits
+#   AssociatedSensors= on commas with no trimming, looks each name up as a
+#   section of the unit file, and logs an error for one it cannot find. When
+#   that key is present, NumberOfAssociatedSensors is not read; the line is
+#   kept because the owner's tested files and the author's Super Hornets
+#   write it.
+# The rest of each pylon's fits (sonobuoys; usn_p8_2027's LRASM, itself radio
+# command, which the link also lets fly) is untouched. Every edit below
+# checks the shape it expects and stops the build if upstream changed it.
+GPS_SENSOR = "GPS_Receiver"
+GPS_BLOCK = ("[SensorSystem6] # Harpoon midcourse provider\n"
+             "Type=Radar\n"
+             f"SystemName={GPS_SENSOR}\n"
+             "Mount=Dummy\n"
+             "MountPosition=0,0,0\n"
+             "ModuleType=Sensor\n"
+             "\n")
+# aircraft file -> (workshop id, links the wing pylons have upstream, links SEST writes)
+P8_GUIDANCE = {
+    "usn_p8.ini": ("3602046770", [], ["SensorSystem6"]),
+    "usn_p8_2027.ini": ("3606774881", ["SensorSystem5"], ["SensorSystem5", "SensorSystem6"]),
+}
 
 INFO_INI = """\
 [Language_en]
 Name=SEST Allied Fixes
 Description=Small allied corrections: the P-8's anti-ship fit pointed at a \
-Harpoon no mod defines (loaded empty), HMS Ocean could not operate the \
+Harpoon no mod defines (loaded empty), neither P-8 linked a guidance \
+channel for its radio-command Harpoons, so one could not launch them and the \
+other launched them with no midcourse updates (both now link U.S. Navy \
+2027's GPS receiver to the wing pylons), HMS Ocean could not operate the \
 Apache AH1 her sister hulls already support, the RNZAF and ROKN P-8 \
 squadrons named nations the game has no flag for, and the A-10C's infrared \
 head was never registered as a sensor module while its squadron file \
@@ -81,9 +156,232 @@ ApproximateVersion=0.8.7
 """
 
 
+def _section(text, name):
+    """(header start, body start, body end) of [name], or None. A body runs to
+    the next line opening with '[', the files' '[---- ... ----]' banners
+    included, as the game reads them."""
+    m = re.search(rf"^\[{re.escape(name)}\][^\n]*\n", text, re.M)
+    if not m:
+        return None
+    nxt = re.compile(r"^\[", re.M).search(text, m.end())
+    return m.start(), m.end(), nxt.start() if nxt else len(text)
+
+
+_COMMENT = re.compile(r";|//|#")
+
+
+def _ini_values(text, key, section=None):
+    """Every value of `key` in an ini text, as the game's IniHandler reads a
+    line (ReadFileToIni IL_0093-IL_01a2, separators from its .cctor): cut at
+    the first ';', '//' or '#', trimmed, split on '=', the key and each later
+    piece trimmed and the pieces joined again with '='. In any section, or
+    only under [section] when one is named, matched with case as the game's
+    section table is (IniHandler.open IL_0247 builds it with no comparer)."""
+    out, current = [], None
+    for raw in text.splitlines():
+        line = _COMMENT.split(raw, maxsplit=1)[0].strip()
+        head = re.match(r"\[(.+)\]", line)
+        if head:
+            current = head.group(1)
+            continue
+        parts = line.split("=")
+        if (len(parts) >= 2 and parts[0].strip().lower() == key.lower()
+                and section in (None, current)):
+            out.append("=".join(p.strip() for p in parts[1:]))
+    return out
+
+
+def _directive_paths(text, directive):
+    """The paths a file's `#!extend`, `#!prepend`, `#!alias` or `#!copy`
+    lines name, lower case, with '/' and a `.ini`, for check_gps_receiver().
+
+    The game reads all four more narrowly. IniHandler.ScanForModifierFiles
+    (IL_00da-IL_0298) reads #!extend and #!prepend from every .ini in an
+    enabled folder and its subfolders: each line trimmed, up to the first
+    line opening '['; from one opening '#!prepend' or '#!extend' (with case)
+    that word is taken out wherever it stands, the rest trimmed and split on
+    ','; each piece is trimmed, '\\' becomes '/', and the result is matched
+    without case against the stubbed file's path in its folder
+    (GetModifierFiles). ReadFileToIni (IL_0042-IL_0093) takes the rest of an
+    '#!alias' line the same way, as one name, from any line. ReadCopyDirectives
+    reads '#!copy' (without case, then a space or the line's end) from the
+    lines before the first section, split on ',' and trimmed, '\\' to '/';
+    CollectCopyFiles finds each through the load order (FileManager.GetFile)
+    and adds that file's own #!copy sources in turn. open() reads the
+    #!extend stubs, the file's own keys, its #!copy sources (IL_0311-IL_0353),
+    its #!prepend stubs (IL_035b-IL_039c) and its #!alias base
+    (IL_039d-IL_03d0), in that order, and a key already read is never
+    replaced. None of them cuts a comment off, so
+    "#!extend ammunition/usn_agm-84n.ini ; fix" names a file no folder has,
+    and the game extends nothing with it.
+
+    This reads every line, each directive in any case, splits every one on
+    ',' and cuts each name at the first ';', '//' or '#', as a key line is
+    cut. A file the game reads cannot slip past it, and one that a stray
+    comment keeps from loading is held to the same rule: one edit makes it
+    live.
+    """
+    out = []
+    if directive.lower() not in text.lower():
+        return out
+    for line in text.splitlines():
+        m = re.match(rf"\s*{re.escape(directive)}(.*)", line.lstrip("\ufeff"), re.I)
+        if not m:
+            continue
+        for name in re.sub(re.escape(directive), "", m.group(1), flags=re.I).split(","):
+            name = _COMMENT.split(name, maxsplit=1)[0].strip().replace("\\", "/").lower()
+            if name:
+                out.append(name if name.endswith(".ini") else name + ".ini")
+    return out
+
+
+def check_gps_receiver(root=ROOT):
+    """Stop unless every [GPS_Receiver] in the export can guide a radio-command
+    round. U.S. Navy 2027 (which this pack already needs for usn_agm-84n)
+    defines it, and so do three other mods; the game merges systems/sensors.ini
+    key by key, so each copy must hold: Kind=Radar, Type=Targeting (stays on,
+    see P8_GUIDANCE), Mode=RadioCommand, WeaponChannels above 0, and not
+    DatalinkGuidance=True, which would refuse a round that is not datalink
+    (SensorSystem.CanGuideAmmo). The SEST packs' sensors.ini copies are held
+    to the same.
+
+    And stop unless every copy of the Harpoon lets that sensor guide it.
+    SensorSystem.CanGuideAmmo (IL_001c-IL_003e) also returns false when the
+    round's CompatibleGuidanceSystems list is not empty and does not hold the
+    sensor's SystemName. AmmunitionParameters.loadWeaponParameters
+    (IL_0528-IL_0582) reads that key from [Guidance], splits it on commas
+    without trimming, and empties it only when the value itself is empty. So
+    every copy of ammunition/usn_agm-84n.ini in the export or a SEST pack,
+    every file in them whose #!extend or #!prepend names it (in any folder:
+    U.S. Navy 2027 keeps its stubs in ammunition_overwrite/), and every file
+    one of those names by #!alias or #!copy, must write no such value or one
+    whose comma-separated names include GPS_Receiver exactly. The key is
+    checked in any section of the file, not only [Guidance]. An #!alias base
+    or #!copy source is checked unless the file that names it writes the key
+    under [Guidance] itself, where its own value wins. #!alias bases are
+    followed four deep, as build_pack.chain_owners does; #!copy sources as
+    far as they go, as CollectCopyFiles does. Every copy of a named file is
+    read, not only the copy the load order picks, and the bases and sources
+    of stubs and bases are followed too, though the game follows only the
+    file's own: a superset, so a list cannot reach the Harpoon unread."""
+    owners = []
+    for f in sorted([*(root / "mods-source").glob("*/systems/sensors.ini"),
+                     *(root / "integration").glob("*/SEST_*/systems/sensors.ini")]):
+        text = f.read_text(encoding="utf-8-sig", errors="replace")
+        span = _section(text, GPS_SENSOR)
+        if not span:
+            continue
+        body = text[span[1]:span[2]]
+
+        def key(k):
+            m = re.search(rf"^{k}=([^/\s]+)", body, re.M)
+            return m.group(1) if m else ""
+
+        if ((key("Kind"), key("Type"), key("Mode")) != ("Radar", "Targeting", "RadioCommand")
+                or not key("WeaponChannels").isdigit() or int(key("WeaponChannels")) < 1
+                or key("DatalinkGuidance").lower() == "true"):
+            sys.exit(f"{f.relative_to(root)}: [{GPS_SENSOR}] is no longer a radio-command "
+                     "channel - re-check the P-8 Harpoon guidance link")
+        owners.append(f.parts[-3])
+    if P8_GUIDANCE["usn_p8_2027.ini"][0] not in owners:
+        sys.exit(f"U.S. Navy 2027 no longer defines [{GPS_SENSOR}] - the P-8 Harpoon "
+                 "guidance link has no channel")
+
+    harpoon = f"ammunition/{REPLACE}.ini"
+    files = {}   # path in its folder, lower case -> every copy, mods then SEST packs
+    bases = [d for d in sorted((root / "mods-source").glob("*")) if not d.name.startswith("_")]
+    bases += [*sorted((root / "integration").glob("*/SEST_*")),
+              root / "mods-source" / "_vanilla" / "original"]
+    for base in (b for b in bases if b.is_dir()):
+        for f in sorted(base.rglob("*.ini")):
+            files.setdefault(f.relative_to(base).as_posix().lower(), []).append(f)
+    if harpoon not in files:
+        sys.exit(f"nothing defines {harpoon} - the P-8 Harpoon has no round")
+
+    def text_of(f):
+        return f.read_text(encoding="utf-8-sig", errors="replace")
+
+    def extends_it(f):
+        text = text_of(f)
+        return any(p in (harpoon, f"{REPLACE}.ini")
+                   for d in ("#!extend", "#!prepend") for p in _directive_paths(text, d))
+
+    queue = [(f, 0, "") for f in files[harpoon]]
+    queue += [(f, 0, "") for rel in sorted(files) if rel != harpoon
+              for f in files[rel] if extends_it(f)]
+    seen = set()
+    while queue:
+        f, depth, via = queue.pop(0)
+        if f in seen:
+            continue
+        seen.add(f)
+        text = text_of(f)
+        for value in _ini_values(text, "CompatibleGuidanceSystems"):
+            if value and GPS_SENSOR not in value.split(","):
+                sys.exit(f"{f.relative_to(root)}{via}: CompatibleGuidanceSystems={value} "
+                         f"does not name {GPS_SENSOR}, so the game will not let it guide "
+                         f"{REPLACE} - re-check the P-8 Harpoon guidance link")
+        if _ini_values(text, "CompatibleGuidanceSystems", "Guidance"):
+            continue
+        for directive, what, deeper in (("#!alias", "#!alias base", 1),
+                                        ("#!copy", "#!copy source", 0)):
+            if depth + deeper > 4:
+                continue
+            for name in _directive_paths(text, directive):
+                if "/" not in name:
+                    name = f"{f.parent.name.lower()}/{name}"
+                queue += [(base, depth + deeper, f" (the {what} of {f.relative_to(root)})")
+                          for base in files.get(name, [])]
+
+
+def link_gps(text, name):
+    """The P-8's wing pylons (WeaponSystem2, the WingHardpoint that hangs the
+    AntiShip Harpoons) link a GPS_Receiver as the radio-command channel;
+    usn_p8 gets the sensor first, as [SensorSystem6] after its FLIR. The link
+    goes at the top of [WeaponSystem2], replacing any it had, exactly as on
+    the owner's PC (GPT's PR #50 dist). Stops if the file is not the shape
+    expected."""
+    _mod, had, links = P8_GUIDANCE[name]
+
+    def stop(why):
+        sys.exit(f"{name}: {why} - upstream changed, re-check the Harpoon guidance link")
+
+    fit = _section(text, "WeaponSystem2AntiShip")
+    if not fit or len(re.findall(rf"^Station[1-4]={re.escape(REPLACE)}\s*$",
+                                 text[fit[1]:fit[2]], re.M)) != 4:
+        stop(f"[WeaponSystem2AntiShip] no longer hangs four {REPLACE}")
+    if not had:
+        # usn_p8 has five sensors and no GPS: add U.S. Navy 2027's as the sixth.
+        if re.search(rf"^SystemName={GPS_SENSOR}\s*$", text, re.M):
+            stop(f"it carries a {GPS_SENSOR} of its own now; link that, do not add one")
+        text, k = re.subn(r"^NumberOfSensorSystems=5([ \t]*)$", r"NumberOfSensorSystems=6\1",
+                          text, count=1, flags=re.M)
+        flir = _section(text, "SensorSystem5")
+        if k != 1 or not flir or _section(text, "SensorSystem6"):
+            stop("expected NumberOfSensorSystems=5 and [SensorSystem1-5]")
+        text = text[:flir[2]] + GPS_BLOCK + text[flir[2]:]
+    gps = _section(text, "SensorSystem6")
+    if not gps or not re.search(rf"^Type=Radar\s*\n(?:[^\[\n][^\n]*\n)*?SystemName={GPS_SENSOR}\s*$",
+                                text[gps[1]:gps[2]], re.M):
+        stop(f"[SensorSystem6] is not a Type=Radar {GPS_SENSOR}")
+    pylons = _section(text, "WeaponSystem2")
+    body = text[pylons[1]:pylons[2]] if pylons else ""
+    if not re.search(r"^SystemName=WingHardpoint\s*$", body, re.M):
+        stop("[WeaponSystem2] is not the WingHardpoint")
+    linked = [v.strip() for v in re.findall(r"^AssociatedSensors=([^\n]*)$", body, re.M)]
+    if (re.search(r"^(?:NumberOfAssociatedSensors|AssociatedSensor\d+)=", body, re.M)
+            or linked != ([",".join(had)] if had else [])):
+        stop(f"its wing pylons link {linked or 'nothing'}, expected {had or 'nothing'}")
+    body = re.sub(r"^AssociatedSensors=[^\n]*\n", "", body, flags=re.M)
+    body = (f"NumberOfAssociatedSensors={len(links)}\n"
+            f"AssociatedSensors={','.join(links)}\n" + body)
+    return text[:pylons[1]] + body + text[pylons[2]:]
+
+
 def main():
     if not (ROOT / "mods-source" / "3606774881" / "ammunition" / f"{REPLACE}.ini").exists():
         sys.exit(f"{REPLACE} not found - U.S. Navy 2027 must be exported first")
+    check_gps_receiver()
     OUT.mkdir(parents=True, exist_ok=True)
     (OUT / "_info.ini").write_text(INFO_INI, encoding="utf-8")
     print("SEST_Allied_Fixes")
@@ -113,9 +411,35 @@ def main():
                      text, flags=re.M)
         if MISSING in out:
             sys.exit(f"{name}: {MISSING} still present after substitution")
+        extra = ""
+        if name in P8_GUIDANCE:
+            out = link_gps(out, name)
+            extra = f", wing pylons linked to a {GPS_SENSOR} for the Harpoon"
         dst.parent.mkdir(parents=True, exist_ok=True)
         dst.write_text(out, encoding="utf-8")
-        print(f"  aircraft/{name}  ({n}x {MISSING} -> {REPLACE})")
+        print(f"  aircraft/{name}  ({n}x {MISSING} -> {REPLACE}{extra})")
+        built += 1
+
+    # The P-8s whose stations are already right upstream - usn_p8_2027 since
+    # the 2026-09-20 export - ship for the Harpoon guidance link alone; every
+    # other line is upstream's.
+    for name, (mod, _had, _links) in P8_GUIDANCE.items():
+        if any(name == target for _m, target in TARGETS):
+            continue                        # linked above, after its station fix
+        src = ROOT / "mods-source" / mod / "aircraft" / name
+        dst = OUT / "aircraft" / name
+        if not src.exists():
+            if dst.exists():
+                dst.unlink()
+                print(f"    removed stale aircraft/{name} (upstream no longer exported)")
+            print(f"  {name}  SKIPPED - {mod} no longer ships it")
+            continue
+        text = src.read_text(encoding="utf-8-sig")
+        if MISSING in text:
+            sys.exit(f"{name}: {MISSING} is back upstream - add it to TARGETS again")
+        dst.parent.mkdir(parents=True, exist_ok=True)
+        dst.write_text(link_gps(text, name), encoding="utf-8")
+        print(f"  aircraft/{name}  (wing pylons linked to its {GPS_SENSOR} for the Harpoon)")
         built += 1
 
     # The P-8's squadron flags. 3602046770 writes Nation=New Zealand for its

@@ -1,25 +1,67 @@
 {
-  "format": 1,
+  "format": 2,
   "binary": "SEST.RuntimeFixes.dll",
-  "sha256": "41ff20d968c8a4caa8bd674b803f0532ddae55f984fd4a6ccd77873b56129e7b",
-  "inputs": {
-    "integration/runtime-fixes/CampaignCosts.cs": "92ba8ef6410dfce43384093760720cf60c047c32a0ec6a8076c2f866fc96d8e5",
-    "integration/runtime-fixes/CampaignInventory.cs": "c741735485ff313f2a85abbf2572758a4bd043b662ddd3909592bd07d11db4e0",
-    "integration/runtime-fixes/CombatHistory.cs": "b0484ea59dd5b1460d86ff8367fed0a527b326ba4c065333b43e0036f23f499b",
-    "integration/runtime-fixes/CombatPrices.cs": "9bfbf7770a2ed4c66fbfb3c5bff1667149592ced70614ac9bcb66e6c24b130b1",
-    "integration/runtime-fixes/F11CombatCosts.cs": "088b1db78340982f7f3f17212d1fccb2ebf5fc2c72f1c6191aa145a7d598f73d",
-    "integration/runtime-fixes/Policy.cs": "44ad57fb0c7671acd358148a78b6188ceb5a2805f3fe68b6b2891e7b23df219f",
-    "integration/runtime-fixes/SestRuntimeFixes.cs": "e98bebcc17a6833d9de44ad70bbe3ebaf55658f388d5fa554e6a43e7715efc8b",
-    "integration/runtime-fixes/TaskForceDebrief.cs": "d2902fc9b1186a94be31c0feb6a7f493a9d27ac2d886fbb70e128a9af9d50697",
-    "integration/runtime-fixes/TerrainClearance.cs": "abb529c87fba9104ec3432f3be64f7c7ef1af7d0f7b0b8b6c8ad22c1a7244f7a",
-    "integration/menu-background/stubs/AnchorChain.cs": "1769efe756d568c53bbf64753a09cc4c2da4f5a58904710145a6086fee71fb63",
-    "integration/runtime-fixes/build_plugin.py": "9dd0861c0dfa399a882d4f623c806e52aaaa02b3968ee51003ea37ae739c6def",
-    "integration/runtime-fixes/tests/CostTests.cs": "d441e45825c88b7425ffde53494584bc4a18bedc2940e29eb63316599f885353",
-    "integration/runtime-fixes/tests/F11CostTests.cs": "bf737f3531da64f1d7263c02fe22eea71f538f0d9a711466fa350d2e4d065781",
-    "integration/runtime-fixes/tests/HistoryTests.cs": "0a80b9ab00aa4e6bc974c8a6262cd718198ce9bbd461559b33346f881c0598f1",
-    "integration/runtime-fixes/tests/InventoryTests.cs": "3f5a835fc22c469dd6dff5db4cd587ca1c24828dd49db3b269faacb675a8e7ca",
-    "integration/runtime-fixes/tests/RuntimeTests.cs": "1e67120f4b0a89a2039f74acde78356248a2d70726b2225399d553df8084fabf",
-    "integration/runtime-fixes/tests/cost_precedence.tsv": "8afb57f07ed2717e5949c808e76cf24334e8b6d9e8d4c5035c90087920bb2dbf"
+  "status": "captured-binary-source-not-recovered",
+  "status_meaning": "The DLL is a byte-for-byte capture of the build the owner's gaming PC runs. Its source is in no branch, pull request, tag or commit, so nothing in this repository builds it: build_plugin.py refuses to overwrite it (unless run with --replace-captured-binary), and tools/tests/test_runtime_plugin.py holds the DLL and every pack copy to sha256 below instead of checking sources.",
+  "plugin": {
+    "id": "io.github.sest-hobby.runtime-fixes",
+    "name": "SEST Runtime Fixes",
+    "version": "1.5.0"
   },
-  "validation": "178 assertions passed using mocked native APIs; no Unity gameplay claim"
+  "sha256": "7ba6d6d9c58b6c3db31d731e951ed7ea3979925bdff054c9b92482dbe69c9986",
+  "bytes": 128000,
+  "provenance": {
+    "origin": "The owner's gaming PC: plugins/ of its Steam Workshop copy of the SEST Integration Pack (item 3812461539), on Sea Power 0.8.7 Build 261021",
+    "captured": "27 Oct 2026, 13:18 Brisbane",
+    "same_bytes_in": [
+      "handoff-20261027b: review/pc-playtest-20261027/pc-baseline/pack/plugins/ (SEST.RuntimeFixes.dll, sest_runtime.ini, SEST_RUNTIME_README.txt)",
+      "PR #50 head 0776fa50: integration/dist/SEST_Integration/plugins/ (git blobs a11b465c, 5be1ec16, 93375e6f)"
+    ],
+    "files": {
+      "SEST.RuntimeFixes.dll": {
+        "sha256": "7ba6d6d9c58b6c3db31d731e951ed7ea3979925bdff054c9b92482dbe69c9986",
+        "bytes": 128000
+      },
+      "sest_runtime.ini": {
+        "sha256": "968ad3f4fe7de0a969f46a35cb0a6571c8cb0551789761fd64ed3b5feb7e3c09",
+        "bytes": 398
+      },
+      "SEST_RUNTIME_README.txt": {
+        "sha256": "934965500c9f69a1c8cc31e063c4a3858982db7a5d9701c0cb272f9e0e4af19e",
+        "bytes": 5297
+      }
+    },
+    "note": "sest_runtime.ini and SEST_RUNTIME_README.txt were captured with the DLL. They are not build inputs and may be edited like any pack text; the hashes here record the capture only."
+  },
+  "references": "netstandard 2.1, Seapower-Scripts, Noesis.NoesisGUI, UnityEngine.CoreModule, AnchorChain 1.1, 0Harmony 2.9 (the DLL's AssemblyRef table); its <X>c__AnonStorey and c__Iterator names are Mono mcs's. The fork base below compiles against Mono 4.5 mscorlib and the AnchorChain stand-in only.",
+  "source_note": "The .cs files, tests/ and build_plugin.py in this folder are this DLL's fork base, not its source: SEST Runtime Fixes 1.2.0 (its ACPlugin version) as committed since dc46eba2 (24 Oct 2026), which builds 41ff20d9 (fork_base below). An IL comparison of the two DLLs finds 147 of 1.5.0's 317 methods identical to 1.2.0's, 11 changed and 159 new, with 11 of 1.2.0's methods gone: 1.2.0's IMGUI Task Force panel (CostGUI) and its debrief rows were replaced.",
+  "fork_base": {
+    "version": "1.2.0",
+    "sha256": "41ff20d968c8a4caa8bd674b803f0532ddae55f984fd4a6ccd77873b56129e7b",
+    "bytes": 76288,
+    "inputs": {
+      "integration/runtime-fixes/CampaignCosts.cs": "92ba8ef6410dfce43384093760720cf60c047c32a0ec6a8076c2f866fc96d8e5",
+      "integration/runtime-fixes/CampaignInventory.cs": "c741735485ff313f2a85abbf2572758a4bd043b662ddd3909592bd07d11db4e0",
+      "integration/runtime-fixes/CombatHistory.cs": "b0484ea59dd5b1460d86ff8367fed0a527b326ba4c065333b43e0036f23f499b",
+      "integration/runtime-fixes/CombatPrices.cs": "9bfbf7770a2ed4c66fbfb3c5bff1667149592ced70614ac9bcb66e6c24b130b1",
+      "integration/runtime-fixes/F11CombatCosts.cs": "088b1db78340982f7f3f17212d1fccb2ebf5fc2c72f1c6191aa145a7d598f73d",
+      "integration/runtime-fixes/Policy.cs": "44ad57fb0c7671acd358148a78b6188ceb5a2805f3fe68b6b2891e7b23df219f",
+      "integration/runtime-fixes/SestRuntimeFixes.cs": "e98bebcc17a6833d9de44ad70bbe3ebaf55658f388d5fa554e6a43e7715efc8b",
+      "integration/runtime-fixes/TaskForceDebrief.cs": "d2902fc9b1186a94be31c0feb6a7f493a9d27ac2d886fbb70e128a9af9d50697",
+      "integration/runtime-fixes/TerrainClearance.cs": "abb529c87fba9104ec3432f3be64f7c7ef1af7d0f7b0b8b6c8ad22c1a7244f7a",
+      "integration/menu-background/stubs/AnchorChain.cs": "1769efe756d568c53bbf64753a09cc4c2da4f5a58904710145a6086fee71fb63",
+      "integration/runtime-fixes/build_plugin.py": "9dd0861c0dfa399a882d4f623c806e52aaaa02b3968ee51003ea37ae739c6def",
+      "integration/runtime-fixes/tests/CostTests.cs": "d441e45825c88b7425ffde53494584bc4a18bedc2940e29eb63316599f885353",
+      "integration/runtime-fixes/tests/F11CostTests.cs": "bf737f3531da64f1d7263c02fe22eea71f538f0d9a711466fa350d2e4d065781",
+      "integration/runtime-fixes/tests/HistoryTests.cs": "0a80b9ab00aa4e6bc974c8a6262cd718198ce9bbd461559b33346f881c0598f1",
+      "integration/runtime-fixes/tests/InventoryTests.cs": "3f5a835fc22c469dd6dff5db4cd587ca1c24828dd49db3b269faacb675a8e7ca",
+      "integration/runtime-fixes/tests/RuntimeTests.cs": "1e67120f4b0a89a2039f74acde78356248a2d70726b2225399d553df8084fabf",
+      "integration/runtime-fixes/tests/cost_precedence.tsv": "8afb57f07ed2717e5949c808e76cf24334e8b6d9e8d4c5035c90087920bb2dbf"
+    },
+    "validation": "178 assertions passed using mocked native APIs; no Unity gameplay claim"
+  },
+  "dependents": {
+    "integration/ui-followup/SEST.ContactsFix.dll": "pins this sha256 in source/ContactsFix.cs (RuntimeHash), source/CostCatalogueCache.cs and source/DiagnosticModules.cs; beside any other runtime DLL the whole plugin stays inactive"
+  },
+  "validation": "No build and no mocked tests exist for this binary in this repository. The owner's PC ran it with UI Follow-up 1.4.2 on 27 Oct 2026; a crash reported that day is unresolved, its cause unknown."
 }
