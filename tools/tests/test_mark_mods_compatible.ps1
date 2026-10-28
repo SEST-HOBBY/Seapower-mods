@@ -4,7 +4,8 @@
     values the game rejects as made for an older game version (and SETUP's
     reviewed newer ones), names and leaves the rest, keeps the authors'
     files, hands them back to the exporter, follows a Steam update and a game
-    update, and -Restore puts every file back byte for byte.
+    update (up a version, and back down again), and -Restore puts every file
+    back byte for byte.
 
 .DESCRIPTION
     A synthetic Workshop folder, game folder and backup folder stand in for
@@ -109,6 +110,8 @@ try {
     $files["2305"] = Bytes "[Compatibility]`n  approximateversion  =  0.7.0   ; old`n"
     $files["2306"] = [byte[]]((Bytes "[Language_en]`r`nName=Caf") + [byte[]](0xE9) + (Bytes "`r`n[Compatibility]`r`nApproximateVersion=0.6.0`r`n"))
     $files["2307"] = Bytes "[Compatibility]`nLessThanVersion=0.8.7`n"
+    $files["2308"] = Bytes "[Compatibility]`nApproximateVersion=0.9`n"
+    $files["2309"] = Bytes "[Compatibility]`r`nApproximateVersion=0.8.8.1`r`n"
     foreach ($k in $files.Keys) { Put (Join-Path $ws "$k\_info.ini") $files[$k] }
     Put (Join-Path $ws "3732654992\units\x.ini") (Bytes "[General]`n")
     Put (Join-Path $game "changelog.txt") (Bytes "21-Oct-2026: 0.8.7 Build 261021 Public Release`n")
@@ -116,7 +119,7 @@ try {
     function Kept([string]$id) { $k = Join-Path $bak "$id._info.ini"; if (Test-Path -LiteralPath $k) { return ,[IO.File]::ReadAllBytes($k) }; return $null }
 
     $out = (& $mark -WorkshopContentDir $ws -GameDir $game -BackupDir $bak *>&1 | Out-String)
-    Check ($out -match "4 mod\(s\) marked compatible") "on 0.8.7: four mods marked ($(($out -split "`n" | Select-Object -Last 2) -join ' '))"
+    Check ($out -match "6 mod\(s\) marked compatible") "on 0.8.7: six mods marked ($(($out -split "`n" | Select-Object -Last 2) -join ' '))"
     Check ((Same (Now "2001") (Bytes ("[Language_en]`nName=Older`n`n[Compatibility]`n" + (Note "0.7.3" "`n") + "ApproximateVersion=0.8.0`n"))) -and (Same (Kept "2001") $files["2001"])) "an older 0.7.x mod is marked 0.8.0 and its file kept"
     Check ((Same (Now "2002") (Bytes ("[Language_en]`r`nName=Partial`r`n[Compatibility]`r`n" + (Note "0.4" "`r`n") + "ApproximateVersion=0.8.0`r`n"))) -and (Same (Kept "2002") $files["2002"])) "a partial '0.4' is marked, CRLF kept"
     $same = $true; foreach ($k in "210", "211", "212", "213", "214", "215", "216", "217") { if (-not (Same (Now $k) $files[$k]) -or $null -ne (Kept $k)) { $same = $false } }
@@ -126,23 +129,25 @@ try {
     Check ((Same (Now "3732654992") $redforMarked) -and (Same (Kept "3732654992") $redfor) -and $out -match "marked       3732654992.*reviewed") "THE REDFOR MOD's reviewed 0.8.8 is marked 0.8.0"
     Check ((Same (Now "2301") $files["2301"]) -and $out -match "2301.*ExactVersion=0\.8\.6") "an ExactVersion the game rejects is named and left alone, ApproximateVersion and all"
     Check ((Same (Now "2302") $files["2302"]) -and $out -match "2302.*ApproximateVersion=abc") "an unreadable value is named and left alone"
-    Check ((Same (Now "2303") $files["2303"]) -and $out -match "2303  made for a newer game version") "a 20-digit patch does not crash it; it counts as newer"
+    Check ((Same (Now "2303") (Bytes ("[Compatibility]`n" + (Note "0.8.99999999999" "`n") + "ApproximateVersion=0.8.0`n"))) -and (Same (Kept "2303") $files["2303"])) "a 20-digit patch does not crash it; not readable by the game, with MAJOR.MINOR 0.8, it is marked"
     Check (Same (Now "2304") $files["2304"]) "an empty value is what the game ignores: left alone"
     Check (Same (Now "2305") (Bytes ("[Compatibility]`n" + (Note "0.7.0" "`n") + "  approximateversion  =  0.8.0   ; old`n"))) "spaces, key case and an inline comment are kept around the new value"
     Check ((Same (Now "2306") $files["2306"]) -and $out -match "2306.*not UTF-8 text") "a file that is not UTF-8 is named and left alone"
     Check ((Same (Now "2307") $files["2307"]) -and $out -match "2307.*LessThanVersion=0\.8\.7") "a range that excludes the game is named and left alone"
+    Check ((Same (Now "2308") $files["2308"]) -and $null -eq (Kept "2308") -and $out -match "left alone   2308  made for a newer game version \(0\.9\)") "a partial '0.9' is made for a newer game version: named and left alone"
+    Check ((Same (Now "2309") (Bytes ("[Compatibility]`r`n" + (Note "0.8.8.1" "`r`n") + "ApproximateVersion=0.8.0`r`n"))) -and (Same (Kept "2309") $files["2309"])) "'0.8.8.1', which no game version accepts, is judged by its MAJOR.MINOR and marked"
 
     $snap = @{}; foreach ($k in $files.Keys) { $snap[$k] = Now $k }
     $again = (& $mark -WorkshopContentDir $ws -GameDir $game -BackupDir $bak *>&1 | Out-String)
     $same = $true; foreach ($k in $files.Keys) { if (-not (Same (Now $k) $snap[$k])) { $same = $false } }
-    Check ($same -and $again -match "0 mod\(s\) marked compatible; 4 already marked") "a second run on 0.8.7 changes nothing"
+    Check ($same -and $again -match "0 mod\(s\) marked compatible; 6 already marked") "a second run on 0.8.7 changes nothing"
 
     # REDFOR as GPT's reviewed-compat script left it on the owner's PC: its own
     # marker (same prefix) over ApproximateVersion=0.8.7, the author's file kept.
     $gpt = Bytes ([Text.Encoding]::UTF8.GetString($redfor).Replace("ApproximateVersion=0.8.8", "$marker (reviewed REDFOR 0.8.8 declaration on native 0.8.7); SETUP -RestoreModFiles puts it back`r`nApproximateVersion=0.8.7"))
     Put (Join-Path $ws "3732654992\_info.ini") $gpt
     $o3 = (& $mark -WorkshopContentDir $ws -GameDir $game -BackupDir $bak *>&1 | Out-String)
-    Check ((Same (Now "3732654992") $gpt) -and (Same (Kept "3732654992") $redfor) -and $o3 -match "0 mod\(s\) marked compatible; 4 already marked") "REDFOR marked by GPT's script counts as already marked"
+    Check ((Same (Now "3732654992") $gpt) -and (Same (Kept "3732654992") $redfor) -and $o3 -match "0 mod\(s\) marked compatible; 6 already marked") "REDFOR marked by GPT's script counts as already marked"
 
     # The game moves to 0.9.0: every marked file is listed again and re-marked
     # (value only, kept copies untouched); the 0.8.x mods are now older too.
@@ -151,10 +156,37 @@ try {
     Check ((Same (Now "2001") (Bytes ("[Language_en]`nName=Older`n`n[Compatibility]`n" + (Note "0.7.3" "`n") + "ApproximateVersion=0.9.0`n"))) -and (Same (Kept "2001") $files["2001"])) "on 0.9.0: a marked mod gets only its value rewritten; its kept file stays the author's"
     Check ((Same (Now "3732654992") (Bytes ([Text.Encoding]::UTF8.GetString($gpt).Replace("ApproximateVersion=0.8.7", "ApproximateVersion=0.9.0")))) -and (Same (Kept "3732654992") $redfor)) "on 0.9.0: GPT's REDFOR mark is re-marked, the author's 0.8.8 still kept"
     Check ((Same (Now "217") (Bytes ("[Compatibility]`n" + (Note "0.8.7" "`n") + "ApproximateVersion=0.9.0`n"))) -and (Same (Kept "217") $files["217"])) "on 0.9.0: a 0.8.7 mod is now older and marked"
-    Check ($o4 -match "14 mod\(s\) marked compatible \(4 of them marked before") "on 0.9.0: 14 marked, 4 of them again ($(($o4 -split "`n" | Select-Object -Last 2) -join ' '))"
+    Check ($o4 -match "16 mod\(s\) marked compatible \(6 of them marked before, for another game version\)") "on 0.9.0: 16 marked, 6 of them again ($(($o4 -split "`n" | Select-Object -Last 3) -join ' '))"
+
+    # The game goes back to 0.8.7 (a player leaving a beta, say): every mark
+    # is now ahead of it, so the author's kept copy decides. An older one is
+    # marked again 0.8.0 and REDFOR too (value only, kept copies untouched);
+    # one the game accepts as shipped, or made for a newer game version, goes
+    # back as its author shipped it.
+    Put (Join-Path $game "changelog.txt") (Bytes "21-Oct-2026: 0.8.7 Build 261021 Public Release`n")
+    $snap = @{}; foreach ($k in $files.Keys) { $snap[$k] = Now $k }
+    $w = (& $mark -WorkshopContentDir $ws -GameDir $game -BackupDir $bak -WhatIfOnly *>&1 | Out-String)
+    $same = $true; foreach ($k in $files.Keys) { if (-not (Same (Now $k) $snap[$k])) { $same = $false } }
+    Check ($same -and $w -match "would put back 217  accepted, as its author shipped it \(0\.8\.7\); the earlier mark \(0\.9\.0\) was ahead of the game" -and $w -match "10 author's _info.ini would be put back") "-WhatIfOnly on the way back says what would go back and changes nothing"
+    $o6 = (& $mark -WorkshopContentDir $ws -GameDir $game -BackupDir $bak *>&1 | Out-String)
+    Check ($o6 -match "6 mod\(s\) marked compatible \(6 of them marked before, for another game version\); 0 already marked" -and $o6 -match "10 author's _info.ini put back: an earlier mark was ahead of game version 0\.8\.7") "back on 0.8.7: 6 marked again, 10 put back ($(($o6 -split "`n" | Select-Object -Last 3) -join ' '))"
+    $bad = @()
+    foreach ($k in "2001", "2002", "2303", "2305", "2309") {
+        $want = $snap[$k]; $t = [Text.Encoding]::UTF8.GetString($want).Replace("ApproximateVersion=0.9.0", "ApproximateVersion=0.8.0").Replace("approximateversion  =  0.9.0", "approximateversion  =  0.8.0")
+        if (-not (Same (Now $k) (Bytes $t)) -or -not (Same (Kept $k) $files[$k])) { $bad += $k }
+    }
+    Check ($bad.Count -eq 0) "back on 0.8.7: the older mods are marked 0.8.0 again, value only, authors' files still kept ($($bad -join ', '))"
+    Check ((Same (Now "3732654992") (Bytes ([Text.Encoding]::UTF8.GetString($gpt).Replace("ApproximateVersion=0.8.7", "ApproximateVersion=0.8.0")))) -and (Same (Kept "3732654992") $redfor) -and $o6 -match "re-marked    3732654992.*reviewed") "back on 0.8.7: the reviewed REDFOR is marked 0.8.0 again, its author's file still kept"
+    $bad = @()
+    foreach ($k in "210", "211", "212", "213", "214", "215", "216", "217", "2201", "2308") { if (-not (Same (Now $k) $files[$k]) -or $null -ne (Kept $k)) { $bad += $k } }
+    Check ($bad.Count -eq 0 -and $o6 -match "put back     2201  made for a newer game version, as its author shipped it \(0\.8\.8\)" -and $o6 -match "put back     2308  made for a newer game version, as its author shipped it \(0\.9\)") "back on 0.8.7: the 0.8.x mods and the newer ones are their authors' files again, kept copies dropped ($($bad -join ', '))"
+    Check ($o6 -notmatch "left alone   (2001|2002|2303|2305|2309|3732654992) ") "back on 0.8.7: no earlier mark is named as made for a newer game version"
+    $snap = @{}; foreach ($k in $files.Keys) { $snap[$k] = Now $k }
+    $o7 = (& $mark -WorkshopContentDir $ws -GameDir $game -BackupDir $bak *>&1 | Out-String)
+    $same = $true; foreach ($k in $files.Keys) { if (-not (Same (Now $k) $snap[$k])) { $same = $false } }
+    Check ($same -and $o7 -match "0 mod\(s\) marked compatible; 6 already marked" -and $o7 -notmatch "put back") "a second run back on 0.8.7 changes nothing"
 
     # And with a .dll in it, a reviewed mod is no longer marked.
-    Put (Join-Path $game "changelog.txt") (Bytes "21-Oct-2026: 0.8.7 Build 261021 Public Release`n")
     & $mark -WorkshopContentDir $ws -BackupDir $bak -Restore *>&1 | Out-Null
     $same = $true; foreach ($k in $files.Keys) { if ($k -ne "3732654992" -and -not (Same (Now $k) $files[$k])) { $same = $false } }
     Check ($same -and (Same (Now "3732654992") $redfor) -and @(Get-ChildItem -LiteralPath $bak -File).Count -eq 0) "-Restore puts every file back byte for byte, REDFOR's as its author shipped it"

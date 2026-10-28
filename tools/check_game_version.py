@@ -50,9 +50,10 @@ Four checks; each finding is a FAIL line and the run exits 1:
      snapshot did not.
 Workshop ApproximateVersion values are counted by how far they sit from the
 game's, numerically per component. Listed as information: the mods more
-than one minor version behind, and the ones the game rejects that SETUP
-leaves alone (made for a newer game version, or not written
-MAJOR.MINOR.PATCH).
+than one minor version behind; the ones made for a newer game version,
+which SETUP leaves alone unless they are on its reviewed list; and the ones
+not written MAJOR.MINOR.PATCH, which no game version accepts and SETUP
+marks when their MAJOR.MINOR is no higher than the game's.
 
     python3 tools/check_game_version.py                  # read-only
     python3 tools/check_game_version.py --version 0.9.0  # a game update, rehearsed
@@ -429,7 +430,8 @@ def audit(root, version):
     if listed[NOT_SEMVER]:
         lines.append(f"INFO: {len(listed[NOT_SEMVER])} mod(s) declare an ApproximateVersion the game cannot read "
                      "(not MAJOR.MINOR.PATCH, or a number above 2147483647), which the Mod Manager lists as not "
-                     f"compatible; SETUP marks the ones whose leading numbers are no higher than {version}:")
+                     f"compatible on any game version; SETUP marks the ones whose MAJOR.MINOR is no higher than "
+                     f"{game_minor}:")
         for _, wid, name, approx in sorted(listed[NOT_SEMVER]):
             lines.append(f"  {approx!r:<10}{wid}  {name}")
 

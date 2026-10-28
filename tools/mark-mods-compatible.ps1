@@ -26,7 +26,12 @@
     and tools\export-mod-configs.ps1 exports that kept copy, so mods-source
     stays the authors' files. A file marked earlier is judged again: after a
     game update that lists it again, only its value is rewritten and the kept
-    copy stays the author's.
+    copy stays the author's. If the game went back a version (a player
+    leaving a public beta, say), so that an earlier mark is now ahead of it,
+    the author's kept copy decides: the value is rewritten again if this
+    would mark the author's file, and the author's file goes back if this
+    would leave it alone (the game accepts it, or it was made for a newer
+    game version too).
 
     Left alone and named: a mod made for a NEWER game version (it may need
     that game), unless SETUP's reviewed list (CompatReviewed) names it and
@@ -114,7 +119,7 @@ if ($parseErrors -and $parseErrors.Count) { throw "$setupScript does not parse: 
 foreach ($fn in @($setupAst.FindAll({ param($n) $n -is [System.Management.Automation.Language.FunctionDefinitionAst] -and $n.Name -like 'Compat*' }, $false))) {
     . ([scriptblock]::Create($fn.Extent.Text))
 }
-foreach ($need in 'CompatVer', 'CompatPlan', 'CompatMark', 'CompatIsUtf8') {
+foreach ($need in 'CompatVer', 'CompatPlan', 'CompatBack', 'CompatMark', 'CompatIsUtf8') {
     if (-not (Get-Command -Name $need -CommandType Function -ErrorAction SilentlyContinue)) { throw "$setupScript has no $need function" }
 }
 
@@ -150,7 +155,7 @@ $newVer = "{0}.{1}.0" -f $gameV[0], $gameV[1]
 Write-Host ("Game version {0}: marking the mods made for an older game version (their ApproximateVersion becomes {1})" -f $GameVersion, $newVer)
 
 # --- Mark ---------------------------------------------------------------------
-$marked = 0; $again = 0; $already = 0; $fine = 0; $range = 0; $none = 0; $left = 0
+$marked = 0; $again = 0; $already = 0; $fine = 0; $range = 0; $none = 0; $left = 0; $back = 0
 foreach ($mod in $mods) {
     $path = Join-Path $mod.FullName "_info.ini"
     if (-not (Test-Path -LiteralPath $path)) { $none++; continue }
@@ -166,6 +171,21 @@ foreach ($mod in $mods) {
         elseif ($c.GreaterThanVersion -or $c.GreaterThanEqualToVersion -or $c.LessThanVersion -or $c.LessThanEqualToVersion -or $c.ExcludeVersions.Trim(', ')) { $range++ }
         else { $none++ }
         continue
+    }
+    if ($was -and $plan.Why -eq "newer") {
+        # This tool's (or SETUP's) own mark is ahead of the game: judged by the
+        # author's kept copy (CompatBack).
+        $kp = Join-Path $BackupDir ("{0}._info.ini" -f $mod.Name); $kb = $null
+        if (Test-Path -LiteralPath $kp) { $kb = [IO.File]::ReadAllBytes($kp) }
+        if (CompatBack $plan $kb $SestCompatMarker $gameV $mod.Name $mod.FullName) {
+            $how = "{0}, as its author shipped it ({1}); the earlier mark ({2}) was ahead of the game" -f $(if ($plan.Why -eq "ok") { "accepted" } else { "made for a newer game version" }), $plan.What, $c.ApproximateVersion
+            if ($WhatIfOnly) { Write-Host ("  would put back {0}  {1}" -f $mod.Name, $how); $back++; continue }
+            [IO.File]::WriteAllBytes($path, $kb)
+            Remove-Item -LiteralPath $kp -Force
+            Write-Host ("  put back     {0}  {1}" -f $mod.Name, $how) -ForegroundColor Yellow
+            $back++
+            continue
+        }
     }
     if ($plan.Mark -and -not (CompatIsUtf8 $bytes)) { $plan.Mark = $false; $plan.What += ", not UTF-8 text" }
     if (-not $plan.Mark) {
@@ -195,6 +215,11 @@ foreach ($mod in $mods) {
 }
 $verb = "marked compatible"
 if ($WhatIfOnly) { $verb = "would be marked compatible" }
-if ($again) { $verb += " ($again of them marked before, for an older game version)" }
+if ($again) { $verb += " ($again of them marked before, for another game version)" }
 Write-Host ("{0} mod(s) {1}; {2} already marked; {3} accepted as their authors declared them; {4} declare only a range the game accepts; {5} with no version line; {6} left alone (listed above)." -f
     $marked, $verb, $already, $fine, $range, $none, $left)
+if ($back) {
+    $verb = "put back"
+    if ($WhatIfOnly) { $verb = "would be put back" }
+    Write-Host ("{0} author's _info.ini {1}: an earlier mark was ahead of game version {2}, and this does not mark the author's file (listed above)." -f $back, $verb, $GameVersion)
+}

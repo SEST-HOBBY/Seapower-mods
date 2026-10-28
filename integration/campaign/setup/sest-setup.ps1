@@ -155,10 +155,10 @@ function CompatVerdict($c, $game) {
     # 'ok' when the game (@(MAJOR, MINOR, PATCH)) accepts what CompatRead
     # found; otherwise why not: 'older' or 'newer', an ApproximateVersion
     # made for an older or a newer game version (one not written
-    # MAJOR.MINOR.PATCH is judged by the numbers it starts with: 0.8 and
-    # 0.8.7.1 count as older on 0.8.7, 0.8.8.1 as newer); 'odd', an
-    # ApproximateVersion with no MAJOR.MINOR to read; 'exact', an
-    # ExactVersion; 'range', the range keys.
+    # MAJOR.MINOR.PATCH, which no game version accepts, is judged by the
+    # MAJOR.MINOR it starts with: 0.8, 0.8.7.1 and 0.8.8.1 count as older on
+    # 0.8.7, 0.9 and 0.9.0.1 as newer); 'odd', an ApproximateVersion with no
+    # MAJOR.MINOR to read; 'exact', an ExactVersion; 'range', the range keys.
     if ($c.ExactVersion) {
         $v = CompatVer $c.ExactVersion
         if ($null -ne $v -and (CompatCmp $v $game) -eq 0) { return 'ok' }
@@ -169,10 +169,10 @@ function CompatVerdict($c, $game) {
         if ($null -ne $v) {
             if ((CompatNum $v[0] $game[0]) -eq 0 -and (CompatNum $v[1] $game[1]) -eq 0 -and (CompatNum $v[2] $game[2]) -le 0) { return 'ok' }
         } else {
-            $m = [regex]::Match($c.ApproximateVersion, '^([0-9]+)\.([0-9]+)(?:\.([0-9]+))?')
+            $m = [regex]::Match($c.ApproximateVersion, '^([0-9]+)\.([0-9]+)')
             if (-not $m.Success) { return 'odd' }
-            $v = @($m.Groups[1].Value, $m.Groups[2].Value, $m.Groups[3].Value)
-            if (-not $v[2]) { $v[2] = '0' }
+            # PATCH 0, so only MAJOR.MINOR counts below.
+            $v = @($m.Groups[1].Value, $m.Groups[2].Value, '0')
         }
         if ((CompatCmp $v $game) -le 0) { return 'older' }
         return 'newer'
@@ -226,6 +226,30 @@ function CompatPlan([string]$text, $game, [string]$id, [string]$dir) {
         if (CompatHasCode $dir) { $p.What += ', now holds a .dll' } else { $p.Mark = $true }
     }
     return $p
+}
+function CompatBack($p, [byte[]]$kept, [string]$marker, $game, [string]$id, [string]$dir) {
+    # $p: the CompatPlan of a file marked before (it carries $marker) whose
+    # value the game now takes for one made for a NEWER game version, so
+    # that mark is ahead of the game: the game went back a version (a player
+    # leaving a public beta, say). Such a file is judged by its author's
+    # file instead, the one kept when it was first marked ($kept; $null when
+    # it is gone). If SETUP would mark the author's file, $p.Mark is set and
+    # $p.Why becomes the author's ('older', or 'newer' for a reviewed mod):
+    # only the value is rewritten again. If SETUP would leave the author's
+    # file alone (the game accepts it, or it is made for a newer game version
+    # too), $p.Why and $p.What become the author's and the answer is $true:
+    # that file goes back as it is. With no kept file (or one that carries
+    # the marker itself) the value is rewritten again as an older one.
+    $p.Mark = $true; $p.Why = 'older'
+    if ($null -eq $kept) { return $false }
+    $o = 0; if ($kept.Length -ge 3 -and $kept[0] -eq 0xEF -and $kept[1] -eq 0xBB -and $kept[2] -eq 0xBF) { $o = 3 }
+    $t = (New-Object Text.UTF8Encoding($false)).GetString($kept, $o, $kept.Length - $o)
+    if ($t.IndexOf($marker, [StringComparison]::Ordinal) -ge 0) { return $false }
+    $a = CompatPlan $t $game $id $dir
+    $p.Why = $a.Why
+    if ($a.Mark) { return $false }
+    $p.Mark = $false; $p.What = $a.What
+    return $true
 }
 function CompatMark([string]$text, $c, [string]$value, [string]$note) {
     # $text with its ApproximateVersion value replaced by $value and, unless
@@ -477,10 +501,13 @@ try {
     # which every patch of this game version accepts, with a comment above it;
     # the author's file is kept first. A file it marked before is judged again,
     # so after a game update that lists it again only its value is rewritten
-    # (the kept file stays the author's). One made for a NEWER game version
-    # is named and left alone, unless it is a reviewed one (CompatReviewed);
-    # so is an ExactVersion or a range. Only the mods the pack lists; Steam
-    # puts a mod's own file back when the mod updates.
+    # (the kept file stays the author's). If the game went back a version,
+    # so that a mark is now ahead of it, the author's kept file decides
+    # (CompatBack): marked again, or put back if SETUP would leave it alone.
+    # One made for a NEWER game version is named and left alone, unless it is
+    # a reviewed one (CompatReviewed); so is an ExactVersion or a range. Only
+    # the mods the pack lists; Steam puts a mod's own file back when the mod
+    # updates.
     try {
         $gameVer = $null
         foreach ($chg in @((J $game 'changelog.txt'), (J $game 'Sea Power_Data' 'changelog.txt'))) {
@@ -493,7 +520,7 @@ try {
         if ($null -eq $gameV) { throw ('the game''s version ' + $gameVer + ' in its changelog.txt is not MAJOR.MINOR.PATCH') }
         $newVer = $gameV[0] + '.' + $gameV[1] + '.0'
         $keep = KeepDir
-        $older = 0; $again = 0; $already = 0; $reviewed = @(); $newer = @(); $left = @()
+        $older = 0; $again = 0; $already = 0; $back = 0; $leftOlder = $false; $reviewed = @(); $newer = @(); $left = @()
         foreach ($i in $ids) {
             $inf = J $content $i '_info.ini'
             if (-not (Test-Path -LiteralPath $inf)) { continue }
@@ -501,9 +528,21 @@ try {
             $was = $r.Text.IndexOf($CompatMarker, [StringComparison]::Ordinal) -ge 0
             $plan = CompatPlan $r.Text $gameV $i (J $content $i)
             if ($plan.Why -eq 'ok') { if ($was) { $already++ }; continue }
+            if ($was -and $plan.Why -eq 'newer') {
+                # SETUP's own mark is ahead of the game: judged by the author's file.
+                $kp = J $keep ($i + '._info.ini'); $kb = $null
+                if (Test-Path -LiteralPath $kp) { $kb = [IO.File]::ReadAllBytes($kp) }
+                if (CompatBack $plan $kb $CompatMarker $gameV $i (J $content $i)) {
+                    [IO.File]::WriteAllBytes($inf, $kb)
+                    Remove-Item -LiteralPath $kp -Force
+                    $back++
+                    if ($plan.Why -eq 'ok') { continue }
+                }
+            }
             if ($plan.Mark -and -not (CompatIsUtf8 ([IO.File]::ReadAllBytes($inf)))) { $plan.Mark = $false; $plan.What += ', not UTF-8 text' }
             if (-not $plan.Mark) {
                 if ($plan.Why -eq 'newer') { $newer += ($names[$i] + ' (' + $plan.What + ')') } else { $left += ($names[$i] + ' (' + $plan.What + ')') }
+                if ($plan.Why -eq 'older') { $leftOlder = $true }
                 continue
             }
             if ($was) {
@@ -519,16 +558,18 @@ try {
         }
         if ($older) {
             $t = '  [done] ' + $older + ' mod(s) made for an older game version marked compatible with ' + $gameVer + ' (the start-up warning about them stops'
-            if ($again) { $t += '; ' + $again + ' of them marked before, for an older game version' }
+            if ($again) { $t += '; ' + $again + ' of them marked before, for another game version' }
             Say ($t + ')') 'Green'
         }
         if ($reviewed.Count) { Say ('  [done] made for a newer game version but reviewed, so marked compatible with ' + $gameVer + ': ' + ($reviewed -join ', ')) 'Green' }
+        if ($back) { Say ('  [done] ' + $back + ' mod file(s) SETUP had marked for a later game version than ' + $gameVer + ' put back as their authors shipped them') 'Green' }
         if (-not $older -and -not $reviewed.Count) {
-            if ($already) { Say ('  [ok]   ' + $already + ' mod(s) already marked compatible with ' + $gameVer + '; no other mod is made for an older game version') 'Green' }
-            else { Say '  [ok]   no mod is made for an older game version' 'Green' }
+            $other = 'mod'; if ($leftOlder) { $other = 'mod that SETUP can change' }
+            if ($already) { Say ('  [ok]   ' + $already + ' mod(s) already marked compatible with ' + $gameVer + '; no other ' + $other + ' is made for an older game version') 'Green' }
+            else { Say ('  [ok]   no ' + $other + ' is made for an older game version') 'Green' }
         }
-        if ($newer.Count) { Say ('         Left alone, made for a newer game version than ' + $gameVer + ' (listed as not compatible until the game catches up): ' + ($newer -join ', ')) }
-        if ($left.Count) { Say ('         Left alone, declared in a way SETUP does not change (listed as not compatible): ' + ($left -join ', ')) }
+        if ($newer.Count) { Say ('         Not marked, made for a newer game version than ' + $gameVer + ' (listed as not compatible until the game catches up): ' + ($newer -join ', ')) }
+        if ($left.Count) { Say ('         Not marked, declared in a way SETUP does not change (listed as not compatible): ' + ($left -join ', ')) }
     }
     catch {
         $warnings++

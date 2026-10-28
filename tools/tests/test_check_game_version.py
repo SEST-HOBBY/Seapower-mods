@@ -194,6 +194,9 @@ class GameVersionTests(unittest.TestCase):
                       "compatible too; SETUP names them and leaves them alone unless they are on its reviewed list:",
                       lines)
         self.assertIn("  0.8.3   100  Ahead", lines)
+        self.assertIn("INFO: 1 mod(s) declare an ApproximateVersion the game cannot read (not MAJOR.MINOR.PATCH, "
+                      "or a number above 2147483647), which the Mod Manager lists as not compatible on any game "
+                      "version; SETUP marks the ones whose MAJOR.MINOR is no higher than 0.8:", lines)
         self.assertIn("  '0.8'     300  Short", lines)
 
     def test_exact_version_comes_first_and_an_excluding_one_fails(self):
