@@ -35,11 +35,16 @@ and a type the mod lists that no mod ships (dk_mh-60r on the Iver Huitfeldt
 was one until the Danish pack arrived; rn_aw159 on the Type 45 still is) is
 left exactly as the author wrote it. Only aircraft that exist in the enabled
 collection are added, only to decks registered to an allied navy, and never
-to a deck that takes everything already.
+to a deck that takes everything already. A few decks also take a type no
+family reaches, because one campaign sells the deck and that aircraft
+together and the hull's own list was written for another navy or an older
+air group (CAMPAIGN_DECK_TYPES: Sulu Line's Philippine, Thai and Australian
+decks).
 
 Not demonstrated in game: whether the engine reads an `AircraftSupported`
 set through `#!extend` (the CombatSystems stubs set other sections the same
-way, and those are live). Test card: Southern Watch 6J.
+way, and those are live). Test cards: Southern Watch 6J; Sulu Line 8.2-8.3
+for the campaign fits.
 
 Usage (repo root):  python3 integration/cross-deck/build_pack.py
 """
@@ -128,6 +133,36 @@ FAMILIES = {
         "usn_f-35c", "usn_f_35c", "usn_fa-18e", "usn_fa-18f", "usn_fa-18f_blk3",
         "usn_ea-18g", "usn_ea-18g_2020", "usn_e-2d", "usn_e-2c",
         "usn_e_2c_group2_plus", "fr_rafale_m", "fr_rafale_m_l", "fr_e2c", "fr_e2d"],
+}
+
+# Fits a campaign needs that no family rule can infer: the hull's own list
+# was written for another navy or an older air group, so it names nothing of
+# the family the campaign flies from it. Each entry is a deck and an aircraft
+# one campaign sells together (Sulu Line's roster, sulu_line/tables.py, for
+# every entry today). Family additions come first; a type the hull lists or
+# a family already adds is not repeated, and, as above, only aircraft the
+# enabled collection ships are added. Capacities and deck geometry are the
+# hull's own. The stub and CROSS-DECK.txt list them under CAMPAIGN_FITS.
+CAMPAIGN_FITS = "Campaign deck fits"
+CAMPAIGN_DECK_TYPES = {
+    # Sulu Line: the Philippine Navy's helicopter on its two frigate classes.
+    # Jose Rizal and Miguel Malvar are Korean-built, and their files list
+    # only the Korean Super Lynx (rok_mk99_a), which nothing in Sulu Line
+    # flies; no family holds both.
+    "pn_ffg-150": ["phl_h-76"],
+    "pn_ffg-06": ["phl_h-76"],
+    # Sulu Line: the Thai frigates' own Seahawk, the RAN MH-60R released with
+    # the Anzac, and the Philippine H-76 - the coalition's three helicopters.
+    # The Naresuan's file lists Ka-25s and Ka-27s, a Seasprite, an AB 212 and
+    # light helicopters - no Seahawk and no S-76 - so neither family reaches
+    # her.
+    "tha_ffg_naresuan": ["phl_h-76", "tha_S-70B-7_Seahawk", "ran_mh-60r"],
+    # Sulu Line: BRP Tarlac lists the H-76 already; she takes the Thai
+    # Seahawk and the RAN MH-60R as well.
+    "phl_lpd_tarlac": ["tha_S-70B-7_Seahawk", "ran_mh-60r"],
+    # Sulu Line: the H-76 on the Anzac. The Thai Seahawk reaches her through
+    # the Seahawk family, since her own list names the MH-60R.
+    "ran_ffh_anzac": ["phl_h-76"],
 }
 
 CATEGORY_TOKENS = {"Helicopters"}       # the game's own wildcard
@@ -283,6 +318,11 @@ def plan():
                 new = [a for a in ids if a not in have]
                 if new:
                     adds[fam] = new
+        have_after_families = have | {a for ids in adds.values() for a in ids}
+        campaign_adds = [a for a in CAMPAIGN_DECK_TYPES.get(uid, [])
+                         if a not in have_after_families and aircraft_exists(a)]
+        if campaign_adds:
+            adds[CAMPAIGN_FITS] = campaign_adds
         if adds:
             out.append((uid, owner_of(f), n, sec, current, adds))
     return out
@@ -291,10 +331,25 @@ def plan():
 def stub(uid, owner, nat, current, adds):
     added = [a for ids in adds.values() for a in ids]
     lines = [f"#!extend vessels/{uid}.ini", "",
-             f"# SEST Cross-Deck: {owner}'s {uid} ({nat}) lists {len(current)} type(s). It",
-             "# already flies one of each family below, so it operates the allied",
-             "# members too (the hull's own list is kept; only aircraft the enabled",
-             "# collection ships are added; read from the winning file at build):"]
+             f"# SEST Cross-Deck: {owner}'s {uid} ({nat}) lists {len(current)} type(s). It"]
+    fit, that = (("fit", "that") if len(adds.get(CAMPAIGN_FITS, [])) == 1
+                 else ("fits", "those"))
+    if list(adds) == [CAMPAIGN_FITS]:
+        # No family: "one of each family below" would be untrue here.
+        lines += [f"# takes the campaign {fit} below, which no family reaches: a campaign",
+                  f"# sells this deck and {that} aircraft together (the hull's own list",
+                  "# is kept; only aircraft the enabled collection ships are added;",
+                  "# read from the winning file at build):"]
+    elif CAMPAIGN_FITS in adds:
+        lines += ["# already flies one of each family below, so it operates the allied",
+                  f"# members too, and it takes the campaign {fit} listed last, which no",
+                  "# family reaches (the hull's own list is kept; only aircraft the",
+                  "# enabled collection ships are added; read from the winning file at",
+                  "# build):"]
+    else:
+        lines += ["# already flies one of each family below, so it operates the allied",
+                  "# members too (the hull's own list is kept; only aircraft the enabled",
+                  "# collection ships are added; read from the winning file at build):"]
     for fam, ids in adds.items():
         lines.append(f"#   {fam}: {', '.join(ids)}")
     lines += ["", "[FlightDeck]",
@@ -320,7 +375,9 @@ def main():
              "", "Generated by integration/cross-deck/build_pack.py. A deck that already",
              "flies one member of an airframe family takes the allied members too;",
              "the hull's own list is kept. Nothing here changes a deck that already",
-             "accepts every helicopter or every carrier aircraft.", ""]
+             "accepts every helicopter or every carrier aircraft. A line headed",
+             f"\"{CAMPAIGN_FITS}\" lists what one campaign flies from that deck",
+             "and no family reaches (CAMPAIGN_DECK_TYPES).", ""]
     by_nation = collections.Counter()
     for uid, owner, nat, _sec, current, adds in rows:
         (out_dir / f"{uid}_CrossDeck_SEST.ini").write_text(
