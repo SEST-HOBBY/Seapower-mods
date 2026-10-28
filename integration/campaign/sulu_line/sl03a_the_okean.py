@@ -119,10 +119,10 @@ MISSION = dict(
         U("blue", "philippines-luzon-line", "phl_pt_jacinto", "mabini", variant="Variant2"),
         U("blue", "philippines-luzon-line", "phl_pb_jose_andrada", "inigo",
           variant="Variant21"),
-        U("blue", "philippines-luzon-line", "phl_h-76", "helo", squadron="Squadron1",
+        U("blue", "philippines-luzon-line", "phl_h-76", "helo", squadron="Squadron2",
           name="Tawi 22", alt=800, loadout="CAS"),
         U("blue", "_vanilla", "airfield_small_1", "home",
-          name="Sanga-Sanga (Bongao)", nation="Philippines", weapons="Hold"),
+          name="Sanga-Sanga (Bongao)", nation="Philippines", weapons="Hold", air_group=[]),
         # Hold until she is at the boats; then her tube is Free, the "fights
         # back" of the brief.
         U("red", "project-2498-zyetseth", "civ_fv_okean_surprise", "okean",

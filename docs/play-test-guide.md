@@ -75,10 +75,13 @@ rests on one rule: there is no free rearm.** Check that first.
 |---|---|---|
 | Start Sulu Line on **Standard** | Commander screen: nation **Philippines**, the Philippine flag as navy emblem, rank **Commodore**, a Spanish-style default name (editable). Rank pictures are blank on purpose | The screen refuses the nation, shows a broken image, or won't continue **(4.1)** |
 | Read Campaign Rules → Your Goal | "Rearm: never free…", and a paragraph naming the three supply-ship sales | Still says "for free" **(1.3)** |
-| Open the Task Force builder before mission 1 | 1,000 points. On sale: Jose Rizal class, Miguel Malvar class, Del Pilar class, Conrado Yap, BRP Tarlac / Davao del Sur, HTMS Chula, the H-76 helicopter. **Not** on sale yet: Thai frigate, RAN Anzac, FA-50, the C8 charter **(1.1)** | Anything else on sale, or a supply ship missing |
+| Open the Task Force builder before mission 1 | 1,000 points. On sale: Jose Rizal class, Miguel Malvar class, Del Pilar class, Conrado Yap, BRP Tarlac / Davao del Sur, HTMS Chula, the H-76 helicopter (offered first as the **AW109E LAH**, then as the AUH-76). **Not** on sale yet: Thai frigate and Seahawk, RAN Anzac and MH-60R, FA-50, the C8 charter **(1.1, 8.5)** | Anything else on sale, or a supply ship missing |
 | Check prices | Philippine units 20% cheaper than their list price; Thai, Australian and MSC units at full price. Note especially whether the **Jose Rizal** and **Miguel Malvar** get the discount (their files spell the nation in lower case) **(4.2)** | Note the prices you see |
+| Assign the H-76 to your Jose Rizal or Miguel Malvar in the Task Force Manager | Accepted **(8.2)** | Refused: the game ignores deck lists set by SEST Cross-Deck. Bring back Player.log |
 
-**Buy:** at least one frigate, one Tarlac, and the H-76.
+**Buy:** at least one frigate, one Tarlac, and the H-76. Start from a new
+campaign: a mid-mission save from an older build keeps the aircraft it
+stored.
 
 ### 2B. The no-rearm rule (most important)
 
@@ -101,10 +104,10 @@ rests on one rule: there is no free rearm.** Check that first.
 
 | Mission | What to check |
 |---|---|
-| **1 The Island Road** | Convoy of two reaches the box 30 NM south-west; two Meridian fast attack craft come from the south-east. Win = both convoy ships in the box |
+| **1 The Island Road** | Convoy of two reaches the box 30 NM south-west; two Meridian fast attack craft come from the south-east. Win = both convoy ships in the box. Puerto Princesa holds only what you bought and the mission's own flights: no F-4s, RA-5Cs, EA-6Bs, E-3A, P-3Cs, SH-3Hs or CH-46s **(8.1)**. Your H-76 flies from and lands on the frigate **(8.2)**. Fly the H-76 that starts in the air until it is low on fuel: it lands and refuels on the frigate or at Puerto Princesa, and search and rescue never says "no home base" **(8.4)** |
 | **2 Fire Mission Jolo** | Ship starts 25 NM north of Jolo. Steam in; the 76 mm reaches the ridge from about 8 NM. **Three of five** positions destroyed = victory **(3.1)**. Check the launch rails can attack your ship |
 | **3 Ayungin** | Nothing fires at the boat: the cutters carry machine guns only and shadow north of its track; the watcher is an unarmed intelligence ship **(5.1)**. Firing on any Chinese unit ends the mission. The boat entering the shoal's lagoon wins |
-| **4 Service at Sea** | Keep your lead ship within 3 miles of *Sulu Provider* for 30 minutes: a "Thirty minutes" message appears, then she steers north to the box. Use her to rearm: go alongside at 8 kn or less. In a second run let her be sunk after the message and take the lead ship into the box: the mission is **won** (Charter failed), and she is **missing** from mission 6 **(2.5)**. Losing her no longer ends the mission (20 Oct 2026) |
+| **4 Service at Sea** | Before it, the RAN Anzac **and the RAN MH-60R** are on sale (here and before mission 6 only); assign the Thai Seahawk and the MH-60R to Naresuan and to Tarlac, and the H-76 to the Anzac: each is accepted **(8.3, 8.6)**. Keep your lead ship within 3 miles of *Sulu Provider* for 30 minutes: a "Thirty minutes" message appears, then she steers north to the box. Use her to rearm: go alongside at 8 kn or less. In a second run let her be sunk after the message and take the lead ship into the box: the mission is **won** (Charter failed), and she is **missing** from mission 6 **(2.5)**. Losing her no longer ends the mission (20 Oct 2026) |
 | **5 Celebes Gate** | Four coasters, one is the gun-runner (armed, with an escort boat and, from about minute 5, a drone nearby). Sinking a wrong one ends the mission. Sinking the right one before the Basilan Strait wins |
 | **6 The Aborlan Battery** | Two Silkworm launchers ashore fire at ships inside about 25 NM, including the convoy at anchor, from about minute 5 (the battery is under cover and not on the map until then) **(3.2)**. Both launchers destroyed wins |
 | **7 Balabac Strait** | Chinese surface group of five from the west, two JH-7A strike aircraft, maybe a submarine. **Three of five** ships sunk wins. Note how much ammunition you had left |
@@ -113,7 +116,9 @@ rests on one rule: there is no free rearm.** Check that first.
 
 Mission results; the answer to **2B** (most important); whether rounds crossed
 in **2C** and at what speeds; whether supply-ship stocks persisted; the
-discount prices; how many shots it took to win missions 2 and 6.
+discount prices; how many shots it took to win missions 2 and 6; which
+helicopters the frigates, Naresuan, Tarlac and the Anzac took (**8.2-8.3**),
+and anything old on a Philippine field (**8.1**).
 
 ---
 

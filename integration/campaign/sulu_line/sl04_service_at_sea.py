@@ -61,8 +61,8 @@ MISSION = dict(
     ),
     special=(
         "The service window: the lead ship within three miles of Sulu Provider at the "
-        "thirty-minute check. Supply ships, the Thai detachment and one RAN frigate are on "
-        "sale before this mission."
+        "thirty-minute check. Supply ships, the Thai detachment and one RAN frigate with her "
+        "MH-60R are on sale before this mission."
     ),
     objectives=[
         ("Service", (
@@ -120,7 +120,7 @@ MISSION = dict(
     },
     units=[
         U("blue", "euromod-philippines", "pn_ffg-150", "screen", variant="Variant1"),
-        U("blue", "philippines-luzon-line", "phl_h-76", "flight", squadron="Squadron1",
+        U("blue", "philippines-luzon-line", "phl_h-76", "flight", squadron="Squadron2",
           alt=500, loadout="CAS", slot="HeloRecon"),
         U("blue", "philippines-luzon-line", "rok_f-50_ph", "strike", squadron="Squadron1",
           alt=3000, loadout="CAS", slot="Attack"),
@@ -131,7 +131,7 @@ MISSION = dict(
           route=[(9.04, 119.12, 0)], telegraph=1),
         U("blue", "_vanilla", "airfield_small_1", "home",
           name="Puerto Princesa (Antonio Bautista Air Base)", nation="Philippines",
-          weapons="Hold"),
+          weapons="Hold", air_group=[]),
         U("red", "red-storm-arsenal", "ir_ptg_peykaap_3", "raiders", name="Meridian Escort 15",
           nation="Panama", route=[(8.75, 119.25, 0)], telegraph=4),
         U("red", "red-storm-arsenal", "ir_ptg_peykaap_3", "raiders", name="Meridian Escort 16",
@@ -157,8 +157,8 @@ MISSION = dict(
                 situation=(
                     "The second of the three supply-ship sales: Tarlac, Davao del Sur, Chula "
                     "and an MSC barge carrier are on offer, with the Thai detachment and one "
-                    "RAN frigate released from the Arafura. Nothing is rearmed here: the "
-                    "rearm is the charter at the rendezvous."
+                    "RAN frigate and her MH-60R released from the Arafura. Nothing is rearmed "
+                    "here: the rearm is the charter at the rendezvous."
                 )),
     role="logistics",
 )

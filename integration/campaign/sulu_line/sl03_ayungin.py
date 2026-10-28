@@ -89,13 +89,13 @@ MISSION = dict(
     units=[
         U("blue", "euromod-philippines", "pn_ffg-150", "escort", variant="Variant1",
           weapons="Hold"),
-        U("blue", "philippines-luzon-line", "phl_h-76", "flight", squadron="Squadron1",
+        U("blue", "philippines-luzon-line", "phl_h-76", "flight", squadron="Squadron2",
           alt=500, weapons="Hold", loadout="CAS", slot="HeloRecon"),
         U("blue", "_vanilla", "civ_fv_sterntrawler_b", "boat", name="M/L Kalayaan",
           nation="Philippines", weapons="Hold", route=[(9.73, 115.87, 0)], telegraph=3),
         U("blue", "_vanilla", "airfield_small_1", "home",
           name="Puerto Princesa (Antonio Bautista Air Base)", nation="Philippines",
-          weapons="Hold"),
+          weapons="Hold", air_group=[]),
         # The cutters carry machine guns and nothing else. They were Type 056A
         # corvettes at weapons Hold until the first public report (6 Oct 2026):
         # their YJ-83s were on the boat within fifteen seconds of the start, so
