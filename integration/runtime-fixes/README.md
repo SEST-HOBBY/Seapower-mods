@@ -102,15 +102,32 @@ cover the fail-closed cases above. `SEST_RUNTIME_README.txt` and
 pack without Mono (`plugin-build.json` keeps the capture's hashes as
 provenance; the test holds the pack copies to the committed files only).
 
-**What the player README says about SETUP.** As captured,
-`SEST_RUNTIME_README.txt` described what GPT's PC-only installer did, not
-what this repository's SETUP does: a Topographic Map remap to F7 (F7 is the
-game's own previous-aircraft key) and a hash-pinned REDFOR helper. On
-28 Oct 2026 those two sections were rewritten to match the integrated
-SETUP: it unbinds Contact Log's default F6 and F8 only, leaves Topographic
-Map's keys alone, and marks THE REDFOR MOD from a reviewed list while its
-folder holds no code. The rest of the file is as captured. Keep these
-sections in step with `integration/campaign/setup/` whenever SETUP changes.
+**What the player README says.** As captured, `SEST_RUNTIME_README.txt`
+described what GPT's PC-only installer did, not what this repository's
+SETUP does: a Topographic Map remap to F7 and a hash-pinned REDFOR helper.
+On 28 Oct 2026 three parts of it were rewritten:
+
+- *SEST default UI keys*: SETUP unbinds Contact Log's default F6 window
+  toggle, which clashes with Topographic Map's default F6, and its default
+  F8 diagnostic probe, which clashes with Coordinated Strike Tool's F8
+  planner, and only once Contact Log has written its settings file. It
+  leaves Topographic Map's keys alone: with Contact Log's F6 unbound there
+  is no clash left for a remap to resolve. The clashes are between mods: the
+  game's shipped `controls.ini` (`mods-source/_vanilla/original/controls.ini`)
+  binds no plain F6, F7 or F8, and those values in the game's code are only
+  fallbacks for a missing key.
+- *Mods made for a newer game version*: SETUP marks THE REDFOR MOD from a
+  reviewed list while its folder holds no code, as it marks an older mod
+  (MAJOR.MINOR.0), keeping the author's `_info.ini` for `-RestoreModFiles`.
+- The closing *Settings* paragraph: its "runtime updater" and "performed on
+  the gaming PC" sentences described the handoff's updater and its
+  acceptance tests on the PC, neither of which ships.
+  It now says the plugin changes no key bindings (1.5.0 references no
+  key-binding API) and points to `plugins/README.txt` for UI Follow-up's
+  Quick Load move.
+
+The rest of the file is as captured. Keep the first two in step with
+`integration/campaign/setup/` whenever SETUP changes.
 
 **Open on 27 Oct 2026.** The owner's PC ran 1.5.0 with SEST UI Follow-up
 1.4.2 that day and reported a crash whose cause is unknown (the last logged
@@ -124,10 +141,10 @@ source it cannot be re-gated (steps 6 and 7 below need it).
 ## The fork base (1.2.0, built by `build_plugin.py`)
 
 The rest of this file describes the fork base, which was the shipped plugin
-until 27 Oct 2026: the Tomahawk MST terrain clearance
-(`TerrainClearance.cs`), the task-force debrief's lost hulls
-(`TaskForceDebrief.cs`), and complete material-cost accounting
-(`CombatPrices.cs`, `CampaignCosts.cs`, `CampaignInventory.cs`,
+until 28 Oct 2026 (1.5.0 has run on the owner's PC since 27 Oct): the
+Tomahawk MST terrain clearance (`TerrainClearance.cs`), the task-force
+debrief's lost hulls (`TaskForceDebrief.cs`), and complete material-cost
+accounting (`CombatPrices.cs`, `CampaignCosts.cs`, `CampaignInventory.cs`,
 `F11CombatCosts.cs`, `CombatHistory.cs`). It installs nothing unless the
 game's `Seapower-Scripts.dll` hashes to the one inspected build
 (`SestRuntimeFixes.cs`, `inspected`), and `verify_native_api.py` checks a
@@ -270,8 +287,10 @@ source first; steps 1 to 5 still apply to whatever source is then rebuilt.
 8. **Rebuild the pack:** `python3 tools/build_all.py --from-scratch`
    (`write_runtime_fixes` copies the plugin into `SEST_Campaign/plugins` and
    the dist), then the twelve gates and both test suites.
-9. **On the PC, after syncing:** `Player.log` must show both
-   `[SEST Runtime] ... correction installed` lines and no `inactive` line.
+9. **On the PC, after syncing:** `Player.log` must show all three
+   `[SEST Runtime] ... correction installed` lines (terrain, debrief, towed
+   sensor; two for a 1.2.0-based rebuild) and no `inactive: uninspected
+   native assembly` line.
    Then the acceptance tests in `docs/playtests/fleet-terrain-debrief-20261020.md`
    (a Tomahawk MST ridge crossing; a debrief of a Generated mission that
    lost a ship, and an older debrief reopened after a save and reload).

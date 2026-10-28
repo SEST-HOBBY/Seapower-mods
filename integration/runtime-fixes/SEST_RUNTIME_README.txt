@@ -21,8 +21,8 @@ Group Manager 0.2.17
 - The bridge declines unknown versions rather than modifying an unreviewed UI.
 
 SEST default UI keys
-- Contacts: open it with its existing on-screen button. Where Contact Log is installed, SETUP unbinds its default F6 shortcut, which the game itself uses. A key you set yourself is kept.
-- SETUP also unbinds Contact Log's default F8 diagnostic probe, so the strike planner keeps F8.
+- Contacts: open it with its existing on-screen button. Where Contact Log is installed, SETUP unbinds its default F6 window shortcut, which clashes with Topographic Map's default F6. This happens once Contact Log has written its settings file: start the game with it once, then run SETUP again. A key you set yourself is kept.
+- SETUP also unbinds Contact Log's default F8 diagnostic probe, so Coordinated Strike Tool's planner keeps F8.
 - Topographic Map keeps its own keys; SETUP does not change them.
 - Where SEST UI Follow-up is active, the game's Quick Load moves from F9 alone to Ctrl+F9; see plugins/README.txt.
 
@@ -46,6 +46,6 @@ Other retained corrections
 - Native debrief times are unchanged.
 
 Mods made for a newer game version
-SETUP names them and leaves them alone, with one reviewed exception: THE REDFOR MOD, data only, which declares 0.8.8. While its folder holds no code, SETUP marks it compatible like a mod made for an older version and keeps the author's _info.ini. SETUP -RestoreModFiles puts the author's file back. This does not claim every REDFOR unit has been playtested.
+SETUP names them and leaves them alone, with one reviewed exception: THE REDFOR MOD, data only, which declared 0.8.8 when it was reviewed. While its folder holds no code, SETUP marks it compatible as it does an older mod (its declaration becomes 0.8.0) and keeps a copy of the author's _info.ini, which SETUP -RestoreModFiles puts back. This does not claim every REDFOR unit has been playtested.
 
-Settings: plugins/sest_runtime.ini. Set an individual option to 0 and restart to disable that SEST correction. Game, mod and custom keybinding settings are not overwritten by the runtime updater. Native gameplay, layout, monitor focus and repeat-start acceptance are performed on the gaming PC.
+Settings: plugins/sest_runtime.ini. Set an individual option to 0 and restart to disable that SEST correction. This plugin changes no key bindings; SEST UI Follow-up's Quick Load move is described in plugins/README.txt.
