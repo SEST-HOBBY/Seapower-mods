@@ -28,16 +28,40 @@ WORLD_VARIANTS = ("sest-world-sandbox", "sest-world-regions-2028")
 # parser), from a separate interpreter: it imports build_pack, home_bases and
 # submarines by bare name.
 SCRIPT = r"""
-import json, sys
+import json, re, sys
 sys.path.insert(0, sys.argv[1])
 import build_dynamic_campaign as b
+
+
+def shipped_by(rel):
+    # The first provider in load order that ships rel, matched without case
+    # as the game does. bp.index() leaves out files two folders deep under
+    # aircraft/, which is where model folders sit, so walk the providers.
+    for token, base in b.bp.providers():
+        cur = base
+        for part in filter(None, rel.split("/")):
+            cur = next((c for c in cur.iterdir() if c.name.lower() == part.lower()),
+                       None) if cur.is_dir() else None
+            if cur is None:
+                break
+        if cur is not None and cur.is_file():
+            return token
+    return None
+
+
 units = {}
 for uid in sys.argv[2:]:
     f = b.bp.unit_file(uid)[1]
     squadrons = b.bp.winning(f"aircraft/{uid}_squadrons.ini")
-    units[uid] = {"file": str(f) if f else None, "text": b.text_of(uid),
+    text = b.text_of(uid)
+    key = lambda k: (re.search(rf"^\s*{k}\s*=\s*(\S+)", text, re.M) or [None, None])[1]
+    folder, material = key("ResourcesFolder"), key("ResourcesMaterial")
+    units[uid] = {"file": str(f) if f else None, "text": text,
                   "squadrons": b.bp.read(squadrons) if squadrons else "",
-                  "value": b.value_of(uid)[0] if f else None}
+                  "value": b.value_of(uid)[0] if f else None,
+                  "model_folder": folder, "material": material,
+                  "material_from": shipped_by(f"{folder}/{material}")   # folder may end in /
+                                   if folder and material else None}
 register = json.loads(b.REGISTER.read_text(encoding="utf-8"))
 quantity = {f"{p['world_id']} {r['asset_id']}": b.quantity(r)
             for p in register["packages"] for r in p["forces"]}
@@ -78,6 +102,13 @@ class WorldPoseidonModelTests(unittest.TestCase):
         self.assertIsNotNone(unit["file"], f"no installed mod defines {CURRENT}")
         self.assertRegex(unit["text"], r"(?m)^ResourcesRoot=P8_Poseidon\.obj\s*$")
         self.assertRegex(unit["squadrons"], r"(?m)^Nation=US\s*$")
+        # The model folder comes from another mod (Boeing P-8 Poseidon,
+        # 3602046770, today), so check that the load order still ships it:
+        # the exported mods are text only, so its material file stands in
+        # for the mesh.
+        self.assertIsNotNone(
+            unit["material_from"],
+            f"no mod in the load order ships {unit['model_folder']}{unit['material']}")
 
     def test_the_swap_keeps_the_price(self):
         # value_of(): an aircraft is valued by its first Role (both are MPA).
@@ -133,7 +164,7 @@ class WorldPoseidonModelTests(unittest.TestCase):
                 fielded = Counter()
                 for f in source["forces"]:
                     n = unit_counts(f)[CURRENT]
-                    if n and f["base"] in expected:
+                    if n:
                         self.assertEqual(f["type"], "Air", f["name"])
                         fielded[f["base"]] += n
                 self.assertEqual(fielded, expected)
