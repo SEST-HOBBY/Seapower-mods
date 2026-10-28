@@ -1674,9 +1674,8 @@ def resolve(spec, year=None):
     for atype in deck_aircraft(uid, kind_dir, path, keys.get("VariantReference"), spec):
         for token, how, detail in aircraft_credit(atype):
             note(token, how, f"{uid} deck / {detail}")
-    for folder in sorted(set(ASSET_FOLDER.findall(read(path)))):
-        for token in sorted(asset_owners(folder)):
-            note(token, "asset", f"{uid} / {folder.rstrip('/')}")
+    for token, how, detail in asset_credit(uid, path):
+        note(token, how, detail)
 
     # The roster says which mod each unit is there to exercise. If the game
     # would read nothing of that mod's, the roster is wrong - either something
@@ -1758,6 +1757,15 @@ def stronger_credit(why, best):
 ASSET_FOLDER = re.compile(r"^\s*Resources\w*Folder\s*=\s*([A-Za-z0-9_][^\s#/]*(?:/[^\s#/]+)*)/?",
                           re.M | re.I)
 _ASSET_OWNERS = None
+
+
+def asset_credit(uid, path):
+    """(token, "asset", detail) for every model folder a unit's winning file
+    loads (ASSET_FOLDER): each mod that wins a file under it (asset_owners).
+    resolve() credits a placed unit with it, and roster_ini() a sold one."""
+    return [(token, "asset", f"{uid} / {folder.rstrip('/')}")
+            for folder in sorted(set(ASSET_FOLDER.findall(read(path))))
+            for token in sorted(asset_owners(folder))]
 
 
 def asset_owners(folder):
@@ -6476,6 +6484,12 @@ def roster_ini(roster, heading=None):
     # is never read, ObjectBaseLoader.loadObjectFromInternalResources
     # IL_05bc), else the first fit it offers, a superset of the bare
     # sections a missing Default leaves. The roster prices no other fit.
+    #
+    # Last, as resolve() orders them, the model folders a sold unit's file
+    # loads from another mod (asset_credit). The Mistral, on sale in Southern
+    # Watch and Southern Reach, draws eight vehicle models from French Army
+    # Vehicles. Until later on 28 Oct 2026 Southern Reach listed that mod as
+    # not used, and Southern Watch as needed only for the Dispatches.
     for entry in roster:
         uid = entry["unit"]
         kind_dir, path = unit_file(uid)
@@ -6488,6 +6502,7 @@ def roster_ini(roster, heading=None):
             found = [(owner(f"{kind_dir}/{uid}_variants.ini"), "variant", f"{uid} {pick}")
                      for pick in entry["picks"]]
             found += store_credit(uid, kind_dir, path, fit)
+        found += asset_credit(uid, path)
         for token, how, detail in found:
             if token and token not in credits:
                 credits[token] = (how, detail)
@@ -7391,15 +7406,15 @@ def _spine(missions, events):
 # --- coverage ----------------------------------------------------------------
 
 # Since 28 Oct 2026 the roster credits what a unit on sale makes the game
-# read, as resolve() credits a placed one: a variant, squadron or store row
-# may be a sold unit's.
+# read, as resolve() credits a placed one: a variant, squadron, store or
+# asset row may be a sold unit's.
 HOW_TEXT = {
     "unit": "places the unit; this mod wins its file",
     "roster": "the requisition roster prices it, so the player can buy it",
     "variant": "supplies the hull variant a placed or sold unit uses",
     "squadron": "supplies the squadron a placed or sold airframe flies from",
     "store": "supplies a round a placed or sold unit's loadout hangs",
-    "asset": "supplies a model folder the placed unit's file draws from",
+    "asset": "supplies a model folder a placed or sold unit's file draws from",
 }
 
 
@@ -7666,7 +7681,7 @@ NEEDED = {"unit": "a unit a mission places",
           "squadron": "a squadron a flight comes from",
           "roster": "a unit the player can buy",
           "store": "a weapon a loadout hangs",
-          "asset": "a model a placed unit draws"}
+          "asset": "a model a unit draws"}
 
 
 def _squash(s):

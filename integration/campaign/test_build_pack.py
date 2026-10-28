@@ -1278,6 +1278,29 @@ class RosterAndSeahawk(unittest.TestCase):
                     self.assertIn(token, credits, f"{spec['SLUG']}: {detail}")
 
 
+    def test_a_sold_unit_credits_the_model_folders_its_file_loads(self):
+        # The Mistral, sold in Southern Watch and Southern Reach, loads eight
+        # vehicle models from French Army Vehicles (3736147136), which Southern
+        # Reach listed as not used until 28 Oct 2026. Credited as resolve()
+        # credits a placed unit's model folders.
+        uid = "fr_lhd_mistral"
+        kind, path = bp.unit_file(uid)
+        folder = "assets/models/land_units/caesar"
+        self.assertIn(folder, [f.rstrip("/") for f in bp.ASSET_FOLDER.findall(bp.read(path))])
+        self.assertEqual(bp.asset_owners(folder), {"3736147136"})
+        bp.set_campaign(next(s for s in bp.campaign_specs()
+                             if s["SLUG"] == "sest-southern-reach"))
+        credits = bp.roster_ini([dict(unit=uid, picks=["Variant1"], points=100)])[1]
+        self.assertEqual(credits["3736147136"], ("asset", f"{uid} / {folder}"))
+
+    def test_every_campaigns_roster_credits_its_units_model_folders(self):
+        for spec in bp.campaign_specs():
+            bp.set_campaign(spec)
+            _text, credits = bp.roster_ini(spec["ROSTER"])
+            for e in spec["ROSTER"]:
+                for token, _how, detail in bp.asset_credit(e["unit"], bp.unit_file(e["unit"])[1]):
+                    self.assertIn(token, credits, f"{spec['SLUG']}: {detail}")
+
 class CreditMerge(unittest.TestCase):
     """Which credit a coverage row shows. The roster's are merged first; a
     mission's replaces one when it is a stronger kind, or as strong and the

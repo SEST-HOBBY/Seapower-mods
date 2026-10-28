@@ -222,6 +222,7 @@ computed the way the game resolves files, not from the folder list:
 | `variant` / `squadron` | it wins the `_variants` / `_squadrons` file a placed or sold unit uses |
 | `store` | it wins an ammunition file a placed or sold unit's loadout hangs |
 | `roster` | the requisition roster prices it, so the player can buy it |
+| `asset` | it wins a file in a model folder a placed or sold unit's file loads |
 | `library` | it wins nothing a mission can name — UI, effects, a bare dependency marker — and applies install-wide |
 | `shadowed` | everything it ships is outranked; nothing it contains can load |
 
