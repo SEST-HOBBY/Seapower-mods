@@ -41,10 +41,14 @@ together and the hull's own list was written for another navy or an older
 air group (CAMPAIGN_DECK_TYPES: Sulu Line's Philippine, Thai and Australian
 decks).
 
-Not demonstrated in game: whether the engine reads an `AircraftSupported`
-set through `#!extend` (the CombatSystems stubs set other sections the same
-way, and those are live). Test cards: Southern Watch 6J; Sulu Line 8.2-8.3
-for the campaign fits.
+Sea Power 0.8.7 applies `#!extend` files generically, whatever section
+they set: IniHandler.ScanForModifierFiles registers each enabled mod
+folder's `#!extend` targets, and IniHandler.open reads those files before
+the target and keeps the first value of each key (read from the game's
+Seapower-Scripts.dll on 28 Oct 2026). So the stubs' `AircraftSupported`
+should take effect, as the CombatSystems stubs do; it has not yet been seen
+in game. Test cards: Southern Watch 6J; Sulu Line 8.2-8.3 for the campaign
+fits.
 
 Usage (repo root):  python3 integration/cross-deck/build_pack.py
 """

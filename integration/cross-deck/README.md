@@ -34,6 +34,12 @@ hull's deck is measured the way the game sees it.
 
     python3 integration/cross-deck/build_pack.py
 
-Not demonstrated in game: that the engine honours an `AircraftSupported` set
-through `#!extend`. Test cards: Southern Watch 6J; Sulu Line 8.2-8.3 for the
+Sea Power 0.8.7's own code applies `#!extend` files generically, whatever
+section they set (read from its `Seapower-Scripts.dll`, `eab2297b...`, on
+28 Oct 2026): `IniHandler.ScanForModifierFiles` scans every enabled mod
+folder's `.ini` files and registers each `#!extend` target, and
+`IniHandler.open` reads those files before the target file and keeps the
+first value of each key, so the stub's `AircraftSupported` is the one the
+deck gets. The deck fits should therefore take effect; none has yet been
+seen in game. Test cards: Southern Watch 6J; Sulu Line 8.2-8.3 for the
 campaign fits.
