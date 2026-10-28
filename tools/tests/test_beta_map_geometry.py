@@ -44,23 +44,47 @@ Waypoints=6,0,6/AttackAtWaypoint,plan_yj18a,Taskforce1Vessel1,2|7,BelowLayer,7|l
 
     def test_loop_ends_the_route(self):
         center = (0.0, 0.0)
-        points, unplaced = geo.waypoint_points('60,0,0|LOOP|600,0,600', center)
-        self.assertEqual(points, [(0.0, 1.0)])
-        self.assertEqual(unplaced, 0)
+        self.assertEqual(geo.waypoint_points('60,0,0|LOOP|600,0,600', center),
+                         ([(0.0, 1.0)], 0, 0))
+        # The 0.8.7 reader checks every '/' part and returns before adding
+        # the token that carries Loop, so its position is not part of the route.
+        self.assertEqual(geo.waypoint_points('60,0,0|120,0,0/Loop|600,0,600', center),
+                         ([(0.0, 1.0)], 0, 0))
 
-    def test_keyword_leg_is_counted_not_mapped(self):
-        # Course,heading,distance,height is placed from the unit at run time.
+    def test_order_separators_as_the_reader_splits_them(self):
+        # '/' first, else the broken bar, else U+FFFD (a cp1252 broken bar
+        # read as UTF-8 with errors replaced).
+        center = (0.0, 0.0)
+        for sep in ('/', '\u00a6', '\ufffd'):
+            self.assertEqual(geo.waypoint_points(f'60,0,0{sep}SetTelegraph,2|Loop', center),
+                             ([(0.0, 1.0)], 0, 0), repr(sep))
+        p = self.make_file('', name='cp1252.ini')
+        p.write_bytes(b'[Environment]\nMapCenterLatitude=0\nMapCenterLongitude=0\n'
+                      b'[A]\nRelativePositionInNM=0,0,0\n'
+                      b'Waypoints=60,0,60\xa6SetTelegraph,2|Loop\n')
+        row = geo.analyze(p)
+        self.assertEqual((row['waypoints'], row['malformed_waypoints']), (1, 0))
+        self.assertEqual(row['north_south_nm_est'], 60.0)
+
+    def test_keyword_legs_and_malformed_tokens_are_counted_apart(self):
+        # Course,heading,distance,height and FollowLoose,unit,ownPos are
+        # placed by the game at run time; '15,0-20' (two fields) is malformed
+        # and the 0.8.7 reader drops it.
         p = self.make_file("""[Environment]
 MapCenterLatitude=10
 MapCenterLongitude=120
 [A]
 RelativePositionInNM=0,0,0
-Waypoints=10,0,10|Course,90,20,0/SetTelegraph,2|Loop
+Waypoints=10,0,10|Course,90,20,0/SetTelegraph,2|FollowLoose,B,ownPos|15,0-20|Loop
 """)
         row = geo.analyze(p)
         self.assertEqual(row['waypoints'], 1)
-        self.assertEqual(row['dynamic_waypoints'], 1)
-        self.assertIn('1 waypoint placed at run time', row['notes'])
+        self.assertEqual(row['dynamic_waypoints'], 2)
+        self.assertEqual(row['malformed_waypoints'], 1)
+        self.assertIn('2 waypoints placed at run time', row['notes'])
+        self.assertIn('1 malformed waypoint token not mapped', row['notes'])
+        self.assertTrue(geo.placed_at_run_time('3\\5,0,7'))     # random x range
+        self.assertFalse(geo.placed_at_run_time('14.9555200,3.4275'))
 
     def test_dateline_shortest_span(self):
         p = self.make_file("""[Environment]
