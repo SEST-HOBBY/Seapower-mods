@@ -167,16 +167,42 @@ def _section(text, name):
     return m.start(), m.end(), nxt.start() if nxt else len(text)
 
 
-def check_gps_receiver():
+def _ini_values(text, key):
+    """Every value of `key` in an ini text, as the game's IniHandler reads a
+    line (ReadFileToIni IL_0093-IL_01a2, separators from its .cctor): cut at
+    the first ';', '//' or '#', trimmed, split on '=', the key and each later
+    piece trimmed and the pieces joined again with '='. Any section."""
+    out = []
+    for raw in text.splitlines():
+        parts = re.split(r";|//|#", raw, maxsplit=1)[0].strip().split("=")
+        if len(parts) >= 2 and parts[0].strip().lower() == key.lower():
+            out.append("=".join(p.strip() for p in parts[1:]))
+    return out
+
+
+def check_gps_receiver(root=ROOT):
     """Stop unless every [GPS_Receiver] in the export can guide a radio-command
     round. U.S. Navy 2027 (which this pack already needs for usn_agm-84n)
     defines it, and so do three other mods; the game merges systems/sensors.ini
     key by key, so each copy must hold: Kind=Radar, Type=Targeting (stays on,
     see P8_GUIDANCE), Mode=RadioCommand, WeaponChannels above 0, and not
     DatalinkGuidance=True, which would refuse a round that is not datalink
-    (SensorSystem.CanGuideAmmo)."""
+    (SensorSystem.CanGuideAmmo). The SEST packs' sensors.ini copies are held
+    to the same.
+
+    And stop unless every copy of the Harpoon lets that sensor guide it.
+    SensorSystem.CanGuideAmmo (IL_001c-IL_003e) also returns false when the
+    round's CompatibleGuidanceSystems list is not empty and does not hold the
+    sensor's SystemName. AmmunitionParameters.loadWeaponParameters
+    (IL_0528-IL_0582) reads that key from [Guidance], splits it on commas
+    without trimming, and empties it only when the value itself is empty. So
+    every copy of ammunition/usn_agm-84n.ini in the export or a SEST pack,
+    and every file whose #!extend names it, must write no such value or one
+    whose comma-separated names include GPS_Receiver exactly. The key is
+    checked in any section of the file, not only [Guidance]."""
     owners = []
-    for f in sorted((ROOT / "mods-source").glob("*/systems/sensors.ini")):
+    for f in sorted([*(root / "mods-source").glob("*/systems/sensors.ini"),
+                     *(root / "integration").glob("*/SEST_*/systems/sensors.ini")]):
         text = f.read_text(encoding="utf-8-sig", errors="replace")
         span = _section(text, GPS_SENSOR)
         if not span:
@@ -190,12 +216,29 @@ def check_gps_receiver():
         if ((key("Kind"), key("Type"), key("Mode")) != ("Radar", "Targeting", "RadioCommand")
                 or not key("WeaponChannels").isdigit() or int(key("WeaponChannels")) < 1
                 or key("DatalinkGuidance").lower() == "true"):
-            sys.exit(f"{f.relative_to(ROOT)}: [{GPS_SENSOR}] is no longer a radio-command "
+            sys.exit(f"{f.relative_to(root)}: [{GPS_SENSOR}] is no longer a radio-command "
                      "channel - re-check the P-8 Harpoon guidance link")
         owners.append(f.parts[-3])
     if P8_GUIDANCE["usn_p8_2027.ini"][0] not in owners:
         sys.exit(f"U.S. Navy 2027 no longer defines [{GPS_SENSOR}] - the P-8 Harpoon "
                  "guidance link has no channel")
+
+    stub = re.compile(rf"^\s*#!extend\s+(?:ammunition[/\\])?{re.escape(REPLACE)}(?:\.ini)?\s*$",
+                      re.M | re.I)
+    copies = 0
+    for f in sorted([*(root / "mods-source").glob("*/ammunition/*.ini"),
+                     *(root / "integration").glob("*/SEST_*/ammunition/*.ini")]):
+        text = f.read_text(encoding="utf-8-sig", errors="replace")
+        if f.name.lower() != f"{REPLACE}.ini" and not stub.search(text):
+            continue
+        copies += 1
+        for value in _ini_values(text, "CompatibleGuidanceSystems"):
+            if value and GPS_SENSOR not in value.split(","):
+                sys.exit(f"{f.relative_to(root)}: CompatibleGuidanceSystems={value} does "
+                         f"not name {GPS_SENSOR}, so the game will not let it guide "
+                         f"{REPLACE} - re-check the P-8 Harpoon guidance link")
+    if not copies:
+        sys.exit(f"nothing defines ammunition/{REPLACE}.ini - the P-8 Harpoon has no round")
 
 
 def link_gps(text, name):

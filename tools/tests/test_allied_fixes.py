@@ -13,7 +13,9 @@ repository root:
 """
 import importlib.util
 import re
+import shutil
 import sys
+import tempfile
 import unittest
 from collections import Counter
 from pathlib import Path
@@ -176,6 +178,131 @@ class P8HarpoonChannelGuards(unittest.TestCase):
                    "usn_p8.ini")
         self.stops(self.p8_2027.replace("Station4=usn_agm-84n", "Station4=usn_agm-158c"),
                    "usn_p8_2027.ini")
+
+
+class GpsReceiverGuards(unittest.TestCase):
+    """check_gps_receiver() against a scratch tree: every [GPS_Receiver] copy
+    must stay a radio-command Targeting radar with a weapon channel, and no
+    copy of the Harpoon (or #!extend stub of it) may write a non-empty
+    CompatibleGuidanceSystems= that leaves GPS_Receiver out - the game's
+    SensorSystem.CanGuideAmmo returns false then."""
+
+    GPS_COPY = ("[GPS_Receiver] #GPS receiver\n"
+                "Kind=Radar\n"
+                "Type=Targeting                         // Search or Targeting\n"
+                "Mode=RadioCommand\n"
+                "WeaponChannels=5000                    // weapons it can guide\n"
+                "ModuleType=SmallSensor\n\n"
+                "[NextSensor]\nKind=Radar\n")
+    HARPOON = ("[General]\nType=Missile\n[Guidance]\nGuidanceType=3\n"
+               "MidCourseCorrection=1                  // 1 = Radio Command\n")
+
+    @classmethod
+    def setUpClass(cls):
+        cls.bp = builder()
+
+    def setUp(self):
+        self.root = Path(tempfile.mkdtemp())
+        self.addCleanup(shutil.rmtree, self.root)
+        self.write("mods-source/3606774881/systems/sensors.ini", self.GPS_COPY)
+        self.write("mods-source/3606774881/ammunition/usn_agm-84n.ini", self.HARPOON)
+
+    def write(self, rel, text):
+        path = self.root / rel
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_text(text, encoding="utf-8")
+
+    def passes(self):
+        self.bp.check_gps_receiver(self.root)
+
+    def stops(self, says):
+        with self.assertRaises(SystemExit) as caught:
+            self.bp.check_gps_receiver(self.root)
+        self.assertIn(says, str(caught.exception))
+
+    def harpoon(self, value, rel="mods-source/3606774881/ammunition/usn_agm-84n.ini",
+                head=""):
+        self.write(rel, head + self.HARPOON + f"CompatibleGuidanceSystems={value}\n")
+
+    def test_the_scratch_tree_passes(self):
+        self.passes()
+
+    # The receiver -----------------------------------------------------------
+
+    def test_a_copy_that_is_a_search_radar_stops(self):
+        self.write("mods-source/3606774881/systems/sensors.ini",
+                   self.GPS_COPY.replace("Type=Targeting", "Type=Search", 1))
+        self.stops("no longer a radio-command channel")
+
+    def test_a_copy_that_illuminates_stops(self):
+        self.write("mods-source/3606774881/systems/sensors.ini",
+                   self.GPS_COPY.replace("Mode=RadioCommand", "Mode=Illuminate", 1))
+        self.stops("no longer a radio-command channel")
+
+    def test_a_copy_with_no_weapon_channel_stops(self):
+        self.write("mods-source/3606774881/systems/sensors.ini",
+                   self.GPS_COPY.replace("WeaponChannels=5000", "WeaponChannels=0", 1))
+        self.stops("no longer a radio-command channel")
+
+    def test_a_copy_that_guides_only_datalink_rounds_stops(self):
+        self.write("mods-source/3606774881/systems/sensors.ini",
+                   self.GPS_COPY.replace("ModuleType", "DatalinkGuidance=True\nModuleType", 1))
+        self.stops("no longer a radio-command channel")
+
+    def test_another_mods_bad_copy_stops(self):
+        # The game merges sensors.ini key by key: any mod's copy counts.
+        self.write("mods-source/3737267013/systems/sensors.ini",
+                   self.GPS_COPY.replace("Kind=Radar", "Kind=Visual", 1))
+        self.stops("3737267013")
+
+    def test_a_sest_packs_bad_copy_stops(self):
+        self.write("integration/x/SEST_X/systems/sensors.ini",
+                   self.GPS_COPY.replace("Type=Targeting", "Type=Search", 1))
+        self.stops("SEST_X")
+
+    def test_us_navy_2027_dropping_it_stops(self):
+        self.write("mods-source/3606774881/systems/sensors.ini", "[NextSensor]\nKind=Radar\n")
+        self.write("mods-source/3737267013/systems/sensors.ini", self.GPS_COPY)
+        self.stops("U.S. Navy 2027 no longer defines")
+
+    # The Harpoon ------------------------------------------------------------
+
+    def test_a_list_that_leaves_the_receiver_out_stops(self):
+        self.harpoon("GuidancePod,GuidancePodNoAlignment")
+        self.stops("does not name GPS_Receiver")
+
+    def test_a_list_that_names_it_passes(self):
+        self.harpoon("GuidancePod,GPS_Receiver   // pod or GPS")
+        self.passes()
+
+    def test_an_empty_value_passes(self):
+        # One empty entry is cleared, and an empty list lets any sensor guide.
+        self.harpoon("    // none")
+        self.passes()
+
+    def test_a_space_after_the_comma_stops(self):
+        # The game splits on commas and does not trim the names.
+        self.harpoon("GuidancePod, GPS_Receiver")
+        self.stops("does not name GPS_Receiver")
+
+    def test_a_sest_packs_copy_stops(self):
+        self.harpoon("GuidancePod", rel="integration/x/SEST_X/ammunition/usn_agm-84n.ini",
+                     head="#!extend ammunition/usn_agm-84n.ini\n")
+        self.stops("SEST_X")
+
+    def test_an_extend_stub_under_another_name_stops(self):
+        self.harpoon("GuidancePod", rel="mods-source/123/ammunition/harpoon_fix.ini",
+                     head="#!extend ammunition/usn_agm-84n.ini\n")
+        self.stops("harpoon_fix.ini")
+
+    def test_another_rounds_list_is_not_its_business(self):
+        self.write("mods-source/123/ammunition/usn_gbu-12.ini",
+                   "[Guidance]\nCompatibleGuidanceSystems=GuidancePod\n")
+        self.passes()
+
+    def test_no_harpoon_at_all_stops(self):
+        (self.root / "mods-source/3606774881/ammunition/usn_agm-84n.ini").unlink()
+        self.stops("nothing defines ammunition/usn_agm-84n.ini")
 
 
 if __name__ == "__main__":
