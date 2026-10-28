@@ -6,8 +6,9 @@
     the two or three numbers it starts with) and the reviewed REDFOR, names
     and leaves the rest, judges its own marks again after a game update (up
     a version, and back down again), gives REDFOR's own file back once it
-    holds a .dll, and turns a mod file it cannot read into one warning (its
-    [ok] line then speaks only for the mods it could read);
+    holds a .dll, and turns a mod file it cannot read, or cannot keep, into
+    one warning (its [ok] line then does not speak for the mods it warns
+    about);
     -RestoreModFiles puts every file back byte for byte, and one that stops
     part-way says changes were made; -KeepDir moves the kept files, a
     relative one read against the folder PowerShell is in and passed to the
@@ -310,9 +311,9 @@ try {
     Check ($r.Code -eq 0 -and $r.Out -match '\[!!\]   Could not check or mark Huge Patch: ' -and $r.Out -match 'read the 1 \[!!\] warning' -and $r.Out -match '\[done\] 6 mod\(s\) made for an older game version marked compatible' -and $r.Out -match 'but reviewed, so marked compatible with 0\.8\.7: THE REDFOR MOD') "a mod file that cannot be read is one warning; the other older mods and REDFOR are still marked"
     Check ((Text ([IO.File]::ReadAllBytes($settings))) -match 'Mod1Directory=3812461539,True') "and the mod order is still written"
     # 10b. Run again with that file still unreadable: nothing is left to
-    # mark, and the [ok] line speaks only for the mods SETUP could read.
+    # mark, and the [ok] line does not speak for the mod it warns about.
     $r = Setup @()
-    Check ($r.Code -eq 0 -and $r.Out -match '\[ok\]   7 mod\(s\) already marked compatible with 0\.8\.7; no other mod that SETUP could read and can change is made for an older game version' -and $r.Out -match '\[!!\]   Could not check or mark Huge Patch: ' -and $r.Out -match 'read the 1 \[!!\] warning') "run again with that file unreadable: the [ok] line speaks only for the mods SETUP could read, and it is still one warning"
+    Check ($r.Code -eq 0 -and $r.Out -match '\[ok\]   7 mod\(s\) already marked compatible with 0\.8\.7; no other mod that SETUP can change is made for an older game version \(not counting the 1 with a \[!!\] warning below\)\r?\n' -and @([regex]::Matches($r.Out, '(?m)^  \[!!\]')).Count -eq 1 -and $r.Out -match '\[!!\]   Could not check or mark Huge Patch: ' -and $r.Out -match 'read the 1 \[!!\] warning') "run again with that file unreadable: the [ok] line leaves out the mod it warns about, and it is still one warning"
 
     # 11. -RestoreModFiles stopped part-way, after putting files back, does
     # not say that nothing was changed.
@@ -360,6 +361,15 @@ try {
     }
     $passed = ''; if (Test-Path -LiteralPath $argFile) { $passed = [IO.File]::ReadAllText($argFile) }
     Check ($r.Code -eq 0 -and $r.Out -match 'Finished in the administrator window' -and $passed.Contains('-KeepDir "' + $full + '"') -and @(Get-ChildItem -LiteralPath $full -File).Count -eq 0) "the administrator relaunch is passed a relative -KeepDir as that full path ($passed)"
+    # 12e. A -KeepDir SETUP cannot write to (here a file): each older mod
+    # and REDFOR is one warning, no file changes, and the [ok] line does not
+    # speak for the mods it warns about.
+    $blocker = J $root 'blocker'
+    Put $blocker (Bytes 'x')
+    $r = Setup @('-KeepDir', $blocker)
+    $wrong = AllAsShipped
+    Check ($r.Code -eq 0 -and -not $wrong -and @(Get-ChildItem -LiteralPath $keep -File -ErrorAction SilentlyContinue).Count -eq 0 -and $r.Out -match '\[ok\]   no mod that SETUP can change is made for an older game version \(not counting the 8 with a \[!!\] warning below\)\r?\n' -and @([regex]::Matches($r.Out, '\[!!\]   Could not check or mark ')).Count -eq 8 -and @([regex]::Matches($r.Out, '(?m)^  \[!!\]')).Count -eq 8 -and $r.Out -match 'Could not check or mark THE REDFOR MOD: ' -and $r.Out -match 'read the 8 \[!!\] warning') "a -KeepDir SETUP cannot write: eight warnings, no file changed, the [ok] line leaves those eight out ($wrong)"
+    Remove-Item -LiteralPath $blocker -Force
 
     # 13. Contact Log downloaded but no settings file yet: one note, not a
     # warning, and nothing created.

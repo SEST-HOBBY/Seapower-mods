@@ -564,8 +564,8 @@ try {
     # left marked (CompatCode).
     # An ExactVersion or a range is named and left alone too. Only the mods
     # the pack lists; Steam puts a mod's own file back when the mod updates.
-    # A mod whose file cannot be read or written is one [!!] warning, and the
-    # next mod is checked.
+    # A mod whose file cannot be read, judged, kept or written is one [!!]
+    # warning, and the next mod is checked.
     try {
         $gameVer = $null
         foreach ($chg in @((J $game 'changelog.txt'), (J $game 'Sea Power_Data' 'changelog.txt'))) {
@@ -641,11 +641,13 @@ try {
         if ($back) { Say ('  [done] ' + $back + ' mod file(s) SETUP had marked for a later game version than ' + $gameVer + ' put back as their authors shipped them') 'Green' }
         if ($codeBack.Count) { Say ('  [done] reviewed mod(s) whose folder now holds a .dll put back as their authors shipped them: ' + ($codeBack -join ', ')) 'Green' }
         if (-not $older -and -not $reviewed.Count) {
-            # Of the mods it could read: one it could not is a warning below.
-            $can = @(); if ($broken.Count) { $can += 'could read' }; if ($leftOlder) { $can += 'can change' }
-            $other = 'mod'; if ($can.Count) { $other = 'mod that SETUP ' + ($can -join ' and ') }
-            if ($already) { Say ('  [ok]   ' + $already + ' mod(s) already marked compatible with ' + $gameVer + '; no other ' + $other + ' is made for an older game version') 'Green' }
-            else { Say ('  [ok]   no ' + $other + ' is made for an older game version') 'Green' }
+            # $broken holds the mods whose file could not be read, judged,
+            # kept or written: each is a [!!] warning below, and this line
+            # does not speak for them.
+            $other = 'mod'; if ($leftOlder) { $other = 'mod that SETUP can change' }
+            $tail = ''; if ($broken.Count) { $tail = ' (not counting the ' + $broken.Count + ' with a [!!] warning below)' }
+            if ($already) { Say ('  [ok]   ' + $already + ' mod(s) already marked compatible with ' + $gameVer + '; no other ' + $other + ' is made for an older game version' + $tail) 'Green' }
+            else { Say ('  [ok]   no ' + $other + ' is made for an older game version' + $tail) 'Green' }
         }
         if ($newer.Count) { Say ('         Not marked, made for a newer game version than ' + $gameVer + ' (listed as not compatible until the game catches up): ' + ($newer -join ', ')) }
         if ($left.Count) { Say ('         Not marked, declared in a way SETUP does not change (listed as not compatible): ' + ($left -join ', ')) }
