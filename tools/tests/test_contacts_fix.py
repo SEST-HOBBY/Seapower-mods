@@ -93,7 +93,7 @@ class PinnedHashes(unittest.TestCase):
             "ContactsFix.cs RuntimeHash":
                 one(r'const string RuntimeHash = "' + HEX + '"', source("ContactsFix.cs"), "RuntimeHash"),
             "CostCatalogueCache.cs":
-                one(r'Require\(campaign\.Assembly, "' + HEX + '"\)', source("CostCatalogueCache.cs"),
+                one(r'Require\(campaign\.Assembly, "' + HEX + r'"\)', source("CostCatalogueCache.cs"),
                     "CostCatalogueCache runtime pin"),
             "DiagnosticModules.cs":
                 one(r'"SEST\.RuntimeFixes", "' + HEX + '"', source("DiagnosticModules.cs"),
