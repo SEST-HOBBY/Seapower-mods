@@ -167,16 +167,62 @@ def _section(text, name):
     return m.start(), m.end(), nxt.start() if nxt else len(text)
 
 
-def _ini_values(text, key):
+_COMMENT = re.compile(r";|//|#")
+
+
+def _ini_values(text, key, section=None):
     """Every value of `key` in an ini text, as the game's IniHandler reads a
     line (ReadFileToIni IL_0093-IL_01a2, separators from its .cctor): cut at
     the first ';', '//' or '#', trimmed, split on '=', the key and each later
-    piece trimmed and the pieces joined again with '='. Any section."""
-    out = []
+    piece trimmed and the pieces joined again with '='. In any section, or
+    only under [section] when one is named, matched with case as the game's
+    section table is (IniHandler.open IL_0247 builds it with no comparer)."""
+    out, current = [], None
     for raw in text.splitlines():
-        parts = re.split(r";|//|#", raw, maxsplit=1)[0].strip().split("=")
-        if len(parts) >= 2 and parts[0].strip().lower() == key.lower():
+        line = _COMMENT.split(raw, maxsplit=1)[0].strip()
+        head = re.match(r"\[(.+)\]", line)
+        if head:
+            current = head.group(1)
+            continue
+        parts = line.split("=")
+        if (len(parts) >= 2 and parts[0].strip().lower() == key.lower()
+                and section in (None, current)):
             out.append("=".join(p.strip() for p in parts[1:]))
+    return out
+
+
+def _directive_paths(text, directive):
+    """The paths a file's `#!extend` or `#!alias` lines name, lower case,
+    with '/' and a `.ini`, for check_gps_receiver().
+
+    The game reads both more narrowly. IniHandler.ScanForModifierFiles
+    (IL_00da-IL_0298) reads #!extend from every .ini in an enabled folder and
+    its subfolders: each line trimmed, up to the first line opening '['; one
+    opening '#!extend' (with case) loses every '#!extend', is trimmed and
+    split on ','; each piece is trimmed, '\\' becomes '/', and the result is
+    matched without case against the extended file's path in its folder
+    (GetModifierFiles). ReadFileToIni (IL_0042-IL_0093) takes the rest of an
+    '#!alias' line the same way, as one name, from any line, and open() reads
+    that file after the file's own keys and its stubs' (IL_039d-IL_03d0).
+    Neither cuts a comment off, so "#!extend ammunition/usn_agm-84n.ini ; fix"
+    names a file no folder has, and the game extends nothing with it.
+
+    This reads every line, either directive in any case, splits both on ','
+    and cuts each name at the first ';', '//' or '#', as a key line is cut.
+    A stub the game reads cannot slip past it, and one that a stray comment
+    keeps from loading is held to the same rule: one edit makes it live.
+    """
+    out = []
+    if directive.lower() not in text.lower():
+        return out
+    for line in text.splitlines():
+        m = re.match(rf"\s*{re.escape(directive)}(.*)", line.lstrip("\ufeff"), re.I)
+        if not m:
+            continue
+        for name in re.sub(re.escape(directive), "", m.group(1), flags=re.I).split(","):
+            name = _COMMENT.split(name, maxsplit=1)[0].strip().replace("\\", "/").lower()
+            if name:
+                out.append(name if name.endswith(".ini") else name + ".ini")
     return out
 
 
@@ -197,9 +243,14 @@ def check_gps_receiver(root=ROOT):
     (IL_0528-IL_0582) reads that key from [Guidance], splits it on commas
     without trimming, and empties it only when the value itself is empty. So
     every copy of ammunition/usn_agm-84n.ini in the export or a SEST pack,
-    and every file whose #!extend names it, must write no such value or one
-    whose comma-separated names include GPS_Receiver exactly. The key is
-    checked in any section of the file, not only [Guidance]."""
+    every file in them whose #!extend names it (in any folder: U.S. Navy 2027
+    keeps its stubs in ammunition_overwrite/), and every file one of those
+    names by #!alias, must write no such value or one whose comma-separated
+    names include GPS_Receiver exactly. The key is checked in any section of
+    the file, not only [Guidance]. An #!alias base is checked unless the file
+    that names it writes the key under [Guidance] itself, where its own value
+    wins; the bases are followed four deep, as build_pack.chain_owners does,
+    and every copy of one is read, not only the copy the load order picks."""
     owners = []
     for f in sorted([*(root / "mods-source").glob("*/systems/sensors.ini"),
                      *(root / "integration").glob("*/SEST_*/systems/sensors.ini")]):
@@ -223,22 +274,46 @@ def check_gps_receiver(root=ROOT):
         sys.exit(f"U.S. Navy 2027 no longer defines [{GPS_SENSOR}] - the P-8 Harpoon "
                  "guidance link has no channel")
 
-    stub = re.compile(rf"^\s*#!extend\s+(?:ammunition[/\\])?{re.escape(REPLACE)}(?:\.ini)?\s*$",
-                      re.M | re.I)
-    copies = 0
-    for f in sorted([*(root / "mods-source").glob("*/ammunition/*.ini"),
-                     *(root / "integration").glob("*/SEST_*/ammunition/*.ini")]):
-        text = f.read_text(encoding="utf-8-sig", errors="replace")
-        if f.name.lower() != f"{REPLACE}.ini" and not stub.search(text):
+    harpoon = f"ammunition/{REPLACE}.ini"
+    files = {}   # path in its folder, lower case -> every copy, mods then SEST packs
+    bases = [d for d in sorted((root / "mods-source").glob("*")) if not d.name.startswith("_")]
+    bases += [*sorted((root / "integration").glob("*/SEST_*")),
+              root / "mods-source" / "_vanilla" / "original"]
+    for base in (b for b in bases if b.is_dir()):
+        for f in sorted(base.rglob("*.ini")):
+            files.setdefault(f.relative_to(base).as_posix().lower(), []).append(f)
+    if harpoon not in files:
+        sys.exit(f"nothing defines {harpoon} - the P-8 Harpoon has no round")
+
+    def text_of(f):
+        return f.read_text(encoding="utf-8-sig", errors="replace")
+
+    def extends_it(f):
+        return any(p in (harpoon, f"{REPLACE}.ini")
+                   for p in _directive_paths(text_of(f), "#!extend"))
+
+    queue = [(f, 0, "") for f in files[harpoon]]
+    queue += [(f, 0, "") for rel in sorted(files) if rel != harpoon
+              for f in files[rel] if extends_it(f)]
+    seen = set()
+    while queue:
+        f, depth, via = queue.pop(0)
+        if f in seen:
             continue
-        copies += 1
+        seen.add(f)
+        text = text_of(f)
         for value in _ini_values(text, "CompatibleGuidanceSystems"):
             if value and GPS_SENSOR not in value.split(","):
-                sys.exit(f"{f.relative_to(root)}: CompatibleGuidanceSystems={value} does "
-                         f"not name {GPS_SENSOR}, so the game will not let it guide "
+                sys.exit(f"{f.relative_to(root)}{via}: CompatibleGuidanceSystems={value} "
+                         f"does not name {GPS_SENSOR}, so the game will not let it guide "
                          f"{REPLACE} - re-check the P-8 Harpoon guidance link")
-    if not copies:
-        sys.exit(f"nothing defines ammunition/{REPLACE}.ini - the P-8 Harpoon has no round")
+        if depth >= 4 or _ini_values(text, "CompatibleGuidanceSystems", "Guidance"):
+            continue
+        for name in _directive_paths(text, "#!alias"):
+            if "/" not in name:
+                name = f"{f.parent.name.lower()}/{name}"
+            queue += [(base, depth + 1, f" (the #!alias base of {f.relative_to(root)})")
+                      for base in files.get(name, [])]
 
 
 def link_gps(text, name):

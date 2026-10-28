@@ -295,6 +295,72 @@ class GpsReceiverGuards(unittest.TestCase):
                      head="#!extend ammunition/usn_agm-84n.ini\n")
         self.stops("harpoon_fix.ini")
 
+    def test_an_extend_line_with_a_trailing_comment_stops(self):
+        # The game keeps the comment as part of the path and extends nothing;
+        # the guard cuts it, so taking the comment out cannot arm the list.
+        for comment in ("; Harpoon fix", "// Harpoon fix", "# Harpoon fix"):
+            with self.subTest(comment=comment):
+                self.harpoon("GuidancePod", rel="mods-source/123/ammunition/harpoon_fix.ini",
+                             head=f"#!extend ammunition/usn_agm-84n.ini   {comment}\n")
+                self.stops("harpoon_fix.ini")
+
+    def test_an_extend_line_naming_several_files_stops(self):
+        # ScanForModifierFiles splits the line on commas; 15 ammunition stubs in
+        # the export name several rounds that way.
+        self.harpoon("GuidancePod", rel="mods-source/123/ammunition/harpoon_fix.ini",
+                     head="#!extend ammunition/usn_agm-84d.ini, ammunition\\usn_agm-84n.ini\n")
+        self.stops("harpoon_fix.ini")
+
+    def test_an_extend_stub_outside_the_ammunition_folder_stops(self):
+        # Any .ini in the mod's folder tree: U.S. Navy 2027 keeps its own
+        # stubs in ammunition_overwrite/.
+        self.harpoon("GuidancePod",
+                     rel="mods-source/3606774881/ammunition_overwrite/usn_agm-84n_OVWR.ini",
+                     head="#!extend ammunition/usn_agm-84n.ini\n")
+        self.stops("usn_agm-84n_OVWR.ini")
+
+    def test_a_copy_whose_alias_base_leaves_the_receiver_out_stops(self):
+        # ReadFileToIni reads an #!alias base's keys after the copy's own, so a
+        # copy that writes no list takes its base's.
+        self.write("mods-source/3606774881/ammunition/usn_agm-84n.ini",
+                   "#!alias ammunition/usn_agm-84d.ini\n" + self.HARPOON)
+        self.write("mods-source/999/ammunition/usn_agm-84d.ini",
+                   "[Guidance]\nCompatibleGuidanceSystems=GuidancePod   // pods only\n")
+        self.stops("#!alias base of mods-source/3606774881/ammunition/usn_agm-84n.ini")
+
+    def test_an_alias_base_in_the_stock_game_stops(self):
+        self.write("mods-source/3606774881/ammunition/usn_agm-84n.ini",
+                   "#!alias ammunition/usn_agm-84d.ini\n" + self.HARPOON)
+        self.write("mods-source/_vanilla/original/ammunition/usn_agm-84d.ini",
+                   "[Guidance]\nCompatibleGuidanceSystems=GuidancePod\n")
+        self.stops("_vanilla")
+
+    def test_an_alias_chain_is_followed(self):
+        self.write("mods-source/3606774881/ammunition/usn_agm-84n.ini",
+                   "#!alias ammunition/harpoon_mid.ini\n" + self.HARPOON)
+        self.write("mods-source/999/ammunition/harpoon_mid.ini",
+                   "#!alias ammunition/harpoon_base.ini\n[General]\nType=Missile\n")
+        self.write("mods-source/999/ammunition/harpoon_base.ini",
+                   "[Guidance]\nCompatibleGuidanceSystems=GuidancePod\n")
+        self.stops("harpoon_base.ini")
+
+    def test_an_extend_stubs_alias_base_is_followed(self):
+        self.write("mods-source/123/ammunition/harpoon_fix.ini",
+                   "#!extend ammunition/usn_agm-84n.ini\n#!alias ammunition/pods.ini\n"
+                   "[General]\nType=Missile\n")
+        self.write("mods-source/123/ammunition/pods.ini",
+                   "[Guidance]\nCompatibleGuidanceSystems=GuidancePod\n")
+        self.stops("pods.ini")
+
+    def test_a_copy_that_writes_its_own_list_is_not_held_to_its_base(self):
+        # Its own [Guidance] value wins over the base's.
+        self.write("mods-source/3606774881/ammunition/usn_agm-84n.ini",
+                   "#!alias ammunition/usn_agm-84d.ini\n" + self.HARPOON
+                   + "CompatibleGuidanceSystems=GPS_Receiver\n")
+        self.write("mods-source/999/ammunition/usn_agm-84d.ini",
+                   "[Guidance]\nCompatibleGuidanceSystems=GuidancePod\n")
+        self.passes()
+
     def test_another_rounds_list_is_not_its_business(self):
         self.write("mods-source/123/ammunition/usn_gbu-12.ini",
                    "[Guidance]\nCompatibleGuidanceSystems=GuidancePod\n")
