@@ -313,7 +313,7 @@ When two mods change the same unit, weapon or text, the result is usually
 broken. These are the fixes.
 
 **Allied decks for allied aircraft** *(SEST Cross-Deck, 13 October 2026)*
-- 122 flight decks of 13 allied navies operate the similar allied aircraft
+- 130 flight decks of 13 allied navies operate the similar allied aircraft
   their mod did not list: a deck that already flies one Seahawk, NH90, Lynx
   or Wildcat, Merlin, Sea King, AB 212, Panther, Seasprite, Cougar, Wasp,
   Alouette, CH-53, Osprey, Harrier, AV-8B/F-35B or catapult type takes the
@@ -322,6 +322,10 @@ broken. These are the fixes.
   Australian S-70B-2 on a Maya; a Rafale M on the Nimitz. Each hull's own
   list is kept, a deck that already accepts everything is left alone, and
   only aircraft in this collection are added. Not yet confirmed in game.
+- Five Sulu Line decks also take the coalition helicopters their own lists
+  leave out *(28 October 2026)*: the H-76 on the Jose Rizal, Miguel Malvar,
+  Naresuan and Anzac, and the Thai Seahawk and MH-60R on Naresuan and BRP
+  Tarlac. Not yet confirmed in game.
 
 **Air-to-ground weapons**
 - HARM back to its stock values.
