@@ -11,8 +11,9 @@
     about);
     -RestoreModFiles puts every file back byte for byte, and one that stops
     part-way says changes were made; -KeepDir moves the kept files, a
-    relative one read against the folder PowerShell is in and passed to the
-    administrator relaunch as that full path; step 4
+    relative one read against the folder PowerShell is in (also when
+    PowerShell is at Env:) and passed to the administrator relaunch as that
+    full path, and one that is not a folder path stops SETUP; step 4
     runs sest-ui-keys.ps1 only when it and Contact Log's settings exist, a
     failure there is a warning, not a stop, and Contact Log downloaded with
     no settings yet is one note.
@@ -148,11 +149,12 @@ function Setup([string[]]$more) {
     $o = (& $exe @a 2>&1 | Out-String) -replace ([string][char]27 + '\[[0-9;]*m'), ''
     return @{ Out = $o; Code = $LASTEXITCODE }
 }
-function SetupAt([string]$dir, [string]$more, [string]$first) {
+function SetupAt([string]$dir, [string]$more, [string]$first, [string]$then = '') {
     # SETUP run from a PowerShell prompt in $dir, after the PowerShell text
-    # $first, with the PowerShell text $more after it. .NET's current folder
-    # stays the temp root, so a path read against it lands in another folder.
-    $cmd = $first + "Set-Location -LiteralPath '" + $dir + "'; & '" + (J $pack 'sest-setup.ps1') + "' " + $more + "; exit `$LASTEXITCODE"
+    # $first, with the PowerShell text $more after it ($then runs just
+    # before SETUP, after the move to $dir). .NET's current folder stays the
+    # temp root, so a path read against it lands in another folder.
+    $cmd = $first + "Set-Location -LiteralPath '" + $dir + "'; " + $then + "& '" + (J $pack 'sest-setup.ps1') + "' " + $more + "; exit `$LASTEXITCODE"
     Push-Location -LiteralPath $root
     try { $o = (& $exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -Command $cmd 2>&1 | Out-String) -replace ([string][char]27 + '\[[0-9;]*m'), ''; $code = $LASTEXITCODE }
     finally { Pop-Location }
@@ -361,6 +363,19 @@ try {
     }
     $passed = ''; if (Test-Path -LiteralPath $argFile) { $passed = [IO.File]::ReadAllText($argFile) }
     Check ($r.Code -eq 0 -and $r.Out -match 'Finished in the administrator window' -and $passed.Contains('-KeepDir "' + $full + '"') -and @(Get-ChildItem -LiteralPath $full -File).Count -eq 0) "the administrator relaunch is passed a relative -KeepDir as that full path ($passed)"
+    # 12c. Started with PowerShell at Env: (not a folder), a relative
+    # -KeepDir is still read against the folder PowerShell was last in.
+    $r = SetupAt $prompt ("-KeepDir '" + $rel + "'") '' 'Set-Location Env:; '
+    Check ($r.Code -eq 0 -and $r.Out -match 'All done' -and @(Get-ChildItem -LiteralPath $full -File -ErrorAction SilentlyContinue).Count -eq 8 -and -not (Test-Path -LiteralPath (J $root 'kept')) -and @(Get-ChildItem -LiteralPath $keep -File -ErrorAction SilentlyContinue).Count -eq 0) "started at Env:, a relative -KeepDir keeps the authors' files under the folder PowerShell was in"
+    $r = SetupAt $prompt ("-RestoreModFiles -KeepDir '" + $rel + "'") '' 'Set-Location Env:; '
+    $wrong = AllAsShipped
+    Check ($r.Code -eq 0 -and -not $wrong -and @(Get-ChildItem -LiteralPath $full -File).Count -eq 0 -and $r.Out -match '\[done\] 8 mod file\(s\) put back') "started at Env:, -RestoreModFiles with that relative -KeepDir puts them back from there ($wrong)"
+    # 12d. A -KeepDir that is not a folder path stops SETUP before it
+    # changes anything (run in the temp root, where a SETUP that took it for
+    # a relative folder would put it).
+    $r = SetupAt $root "-KeepDir 'Env:\SEST_KEEP_TEST'" ''
+    $wrong = AllAsShipped
+    Check ($r.Code -ne 0 -and $r.Out -match "STOPPED: -KeepDir Env:\\SEST_KEEP_TEST is not a folder SETUP can use: it is a path in PowerShell's Environment provider, not a folder" -and $r.Out -match 'Nothing was changed' -and -not $wrong -and -not (Test-Path -LiteralPath (J $root 'SEST_KEEP_TEST'))) "a -KeepDir in another PowerShell provider stops SETUP, nothing changed ($wrong)"
     # 12e. A -KeepDir SETUP cannot write to (here a file): each older mod
     # and REDFOR is one warning, no file changes, and the [ok] line does not
     # speak for the mods it warns about.

@@ -307,12 +307,22 @@ $AppId = '1286220'
 try {
     Say 'SEST setup - checking your PC...' 'Cyan'
 
-    # -KeepDir as a full path, once, read against the folder PowerShell is in
-    # (.NET's current folder can be another): the administrator relaunch
-    # starts in another folder, so it is passed this full path.
+    # -KeepDir as a full path, once: the administrator relaunch starts in
+    # another folder, so it is passed this full path. A relative one is read
+    # against the folder PowerShell is in (.NET's current folder can be
+    # another), also when SETUP is started from a location that is not a
+    # folder, such as Env: or HKCU:. One that names no folder stops SETUP.
     if ($KeepDir) {
-        try { $KeepDir = $ExecutionContext.SessionState.Path.GetUnresolvedProviderPathFromPSPath($KeepDir) }
+        $kpv = $null; $kdr = $null; $moved = $false
+        try {
+            if ((Get-Location).Provider.Name -ne 'FileSystem') { Push-Location -LiteralPath (Get-Location -PSProvider FileSystem).Path; $moved = $true }
+            $kd = $ExecutionContext.SessionState.Path.GetUnresolvedProviderPathFromPSPath($KeepDir, [ref]$kpv, [ref]$kdr)
+            if ($kpv.Name -ne 'FileSystem') { throw ('it is a path in PowerShell''s ' + $kpv.Name + ' provider, not a folder') }
+            if (-not [IO.Path]::IsPathRooted($kd)) { throw 'it did not resolve to a full path' }
+            $KeepDir = $kd
+        }
         catch { Fail ('-KeepDir ' + $KeepDir + ' is not a folder SETUP can use: ' + $_.Exception.Message); return }
+        finally { if ($moved) { Pop-Location } }
     }
 
     if (Get-Process -Name 'Sea Power', 'SeaPower' -ErrorAction SilentlyContinue) {
