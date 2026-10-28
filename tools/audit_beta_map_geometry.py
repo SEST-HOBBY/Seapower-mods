@@ -5,28 +5,38 @@ Old SEST source maps RelativePositionInNM X,Z to longitude/latitude arcminutes;
 that is a historical authoring convention, NOT a claim about beta serialization.
 This tool never converts or rewrites a mission and cannot verify in-game
 play areas, terrain, actual ranges, or map projection behaviour.
+
+World Sandbox dynamic campaigns (campaign.json) are read as well. Their bases,
+forces, patrols and traffic routes are already geographic latitude/longitude,
+so that pass reports where they sit (high latitudes, longitudes written past
+180, legs across the antimeridian) rather than tactical-map extents.
 """
 import argparse
 import csv
+import json
 import math
 import re
 import sys
+import textwrap
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_ROOTS = [ROOT / 'integration/campaign/SEST_Campaign/campaigns',
-                 ROOT / 'integration/mission-seeds']
+                 ROOT / 'integration/mission-seeds',
+                 ROOT / 'integration/world-sandbox/SEST_World_Campaign/dynamic_campaigns']
 KEY = re.compile(r'^\s*([^=\s]+)\s*=\s*(.*?)\s*$')
 SECTION = re.compile(r'^\s*\[([^]]+)\]\s*$')
 # A waypoint token is 'x,height,z' optionally followed by orders, e.g.
 # '12,0,-30/SetTelegraph,2'. The 0.8.7 reader (SceneCreator.ReadWaypoints)
 # splits on '/' or, failing that, the broken bar.
 ORDERS = re.compile('[/\u00a6]')
-FIELDS = ('priority', 'mission', 'map_lat', 'map_lon', 'points', 'waypoints',
+HIGH_LAT = 50.0
+FIELDS = ('kind', 'priority', 'file', 'map_lat', 'map_lon', 'points', 'waypoints',
           'dynamic_waypoints', 'relative_sections', 'lat_max_abs',
           'longitude_span_deg', 'legacy_east_west_nm', 'globe_east_west_nm_est',
           'north_south_nm_est', 'dateline', 'geo_positions', 'play_area_field',
-          'notes')
+          'lat_min', 'lat_max', 'lon_min', 'lon_max', 'lon_past_180',
+          'dateline_legs', 'high_lat_positions', 'outside_bounds', 'notes')
 
 
 def number(value):
@@ -51,6 +61,12 @@ def longitude_span(lons):
     gaps = [b - a for a, b in zip(values, values[1:])]
     gaps.append(values[0] + 360 - values[-1])
     return 360 - max(gaps)
+
+
+def priority_for(dateline, max_abs_lat, largest_est=0.0):
+    if dateline or max_abs_lat >= HIGH_LAT or largest_est >= 4500:
+        return 'P1'
+    return 'P2' if max_abs_lat >= 35 or largest_est >= 2500 else 'P3'
 
 
 def parse_sections(text):
@@ -171,10 +187,9 @@ def analyze(path):
     # A candidate play-area edge is not derivable from this approximation:
     # editor centre, orientation, triggers, land use and nonnumeric routes matter.
     largest_est = max(globe_ew, north_south)
-    priority = 'P1' if dateline or max_abs_lat >= 50 or largest_est >= 4500 else (
-        'P2' if max_abs_lat >= 35 or largest_est >= 2500 else 'P3')
+    priority = priority_for(dateline, max_abs_lat, largest_est)
     notes = []
-    if max_abs_lat >= 50:
+    if max_abs_lat >= HIGH_LAT:
         notes.append('high latitude')
     if dateline:
         notes.append('dateline')
@@ -185,10 +200,10 @@ def analyze(path):
                      '(Course/Turn etc.), not mapped')
     if rel_count:
         notes.append('parent-relative positions skipped')
-    return dict(priority=priority, mission=str(path), map_lat=round(lat, 4),
-                map_lon=round(lon, 4), points=len(points), waypoints=wp_count,
-                dynamic_waypoints=dyn_count, relative_sections=rel_count,
-                lat_max_abs=round(max_abs_lat, 2),
+    return dict(kind='mission', priority=priority, file=str(path),
+                map_lat=round(lat, 4), map_lon=round(lon, 4), points=len(points),
+                waypoints=wp_count, dynamic_waypoints=dyn_count,
+                relative_sections=rel_count, lat_max_abs=round(max_abs_lat, 2),
                 longitude_span_deg=round(lon_span, 3),
                 legacy_east_west_nm=round(legacy_ew, 1),
                 globe_east_west_nm_est=round(globe_ew, 1),
@@ -197,45 +212,205 @@ def analyze(path):
                 play_area_field=has_play_area, notes='; '.join(notes))
 
 
+def coord(lat, lon):
+    """A (lat, lon) pair of finite numbers with a valid latitude, else None."""
+    values = []
+    for v in (lat, lon):
+        if isinstance(v, bool) or not isinstance(v, (int, float)) or not math.isfinite(v):
+            return None
+        values.append(float(v))
+    return tuple(values) if -90 <= values[0] <= 90 else None
+
+
+def pair(value):
+    if isinstance(value, (list, tuple)) and len(value) >= 2:
+        return coord(value[0], value[1])
+    return None
+
+
+def campaign_geometry(data):
+    """Every placed position in a dynamic campaign, and its route legs.
+
+    Positions are (what, name, lat, lon) with the longitude as authored.
+    Labels and the opening map view are cosmetic and left out. Patrols are
+    closed rings (the builder checks the leg back to the first point);
+    traffic lanes and airways are open routes.
+    """
+    positions, legs = [], []
+
+    def add(what, name, p):
+        if p:
+            positions.append((what, str(name), p[0], p[1]))
+
+    for base in data.get('bases') or []:
+        if not isinstance(base, dict):
+            continue
+        add('base', base.get('id'), coord(base.get('lat'), base.get('lon')))
+        field = base.get('field')
+        if isinstance(field, dict):
+            add('airfield', base.get('id'), coord(field.get('lat'), field.get('lon')))
+    for force in data.get('forces') or []:
+        if isinstance(force, dict):
+            add('force', force.get('name'), pair(force.get('at')))
+    traffic = data.get('traffic') if isinstance(data.get('traffic'), dict) else {}
+    routes = [('patrol', r.get('force'), r.get('points'), True)
+              for r in data.get('patrols') or [] if isinstance(r, dict)]
+    for what, key in (('lane', 'lanes'), ('airway', 'airways')):
+        routes += [(what, r.get('name'), r.get('points'), False)
+                   for r in traffic.get(key) or [] if isinstance(r, dict)]
+    for what, name, points, closed in routes:
+        pts = [p for p in (pair(v) for v in points or []) if p]
+        for p in pts:
+            add(what, name, p)
+        steps = list(zip(pts, pts[1:]))
+        if closed and len(pts) > 2:
+            steps.append((pts[-1], pts[0]))
+        legs += [(what, str(name), a, b) for a, b in steps]
+    return positions, legs
+
+
+def crosses_antimeridian(a, b):
+    """True when the shorter way between two points crosses 180 degrees."""
+    return abs(lon_normalize(a[1]) - lon_normalize(b[1])) > 180
+
+
+def analyze_campaign(path):
+    try:
+        data = json.loads(path.read_text(encoding='utf-8-sig'))
+    except (OSError, ValueError) as exc:
+        print(f'skipped {path}: {exc}', file=sys.stderr)
+        return None
+    if not isinstance(data, dict) or not isinstance(data.get('bases'), list):
+        return None
+    positions, legs = campaign_geometry(data)
+    if not positions:
+        return None
+    lats = [p[2] for p in positions]
+    lons = [p[3] for p in positions]
+    past_180 = [p for p in positions if p[3] > 180]
+    high = [p for p in positions if abs(p[2]) >= HIGH_LAT]
+    seam = [leg for leg in legs if crosses_antimeridian(leg[2], leg[3])]
+    bounds = data.get('bounds') if isinstance(data.get('bounds'), dict) else {}
+    lim = [bounds.get(k) for k in ('latMin', 'latMax', 'lonMin', 'lonMax')]
+    outside = []
+    if all(isinstance(v, (int, float)) and not isinstance(v, bool) for v in lim):
+        outside = [p for p in positions
+                   if not (lim[0] <= p[2] <= lim[1] and lim[2] <= p[3] <= lim[3])]
+    max_abs_lat = max(abs(v) for v in lats)
+    notes = []
+    if past_180:
+        notes.append(f'{len(past_180)} longitudes written past 180 '
+                     f'(e.g. {past_180[0][1]} {past_180[0][3]:g})')
+    if seam:
+        notes.append(f'{len(seam)} route leg{"s cross" if len(seam) > 1 else " crosses"} 180')
+    if high:
+        notes.append(f'{len(high)} positions at {HIGH_LAT:g} deg or more')
+    if outside:
+        notes.append(f'{len(outside)} positions outside the campaign bounds')
+    row = dict(kind='campaign', priority=priority_for(bool(seam), max_abs_lat),
+               file=str(path), points=len(positions),
+               waypoints=sum(1 for p in positions if p[0] in ('patrol', 'lane', 'airway')),
+               lat_max_abs=round(max_abs_lat, 2),
+               longitude_span_deg=round(longitude_span(lons), 3),
+               dateline=bool(seam), geo_positions=len(positions),
+               lat_min=round(min(lats), 3), lat_max=round(max(lats), 3),
+               lon_min=round(min(lons), 3), lon_max=round(max(lons), 3),
+               lon_past_180=len(past_180), dateline_legs=len(seam),
+               high_lat_positions=len(high), outside_bounds=len(outside),
+               notes='; '.join(notes))
+    row['detail'] = dict(past_180=past_180, seam=seam, high=high, outside=outside)
+    return row
+
+
 def scan(roots):
     paths = set()
     for root in roots:
-        if root.is_file() and root.suffix.lower() == '.ini':
-            paths.add(root)
-        elif root.is_dir():
-            paths.update(p for p in root.rglob('*') if p.is_file() and p.suffix.lower() == '.ini')
+        if root.is_file():
+            if root.suffix.lower() in ('.ini', '.json'):   # named explicitly
+                paths.add(root)
+            continue
+        paths.update(p for p in root.rglob('*') if p.is_file() and (
+            p.suffix.lower() == '.ini' or p.name.lower() == 'campaign.json'))
     rows = []
     for path in sorted(paths):
-        result = analyze(path)
+        result = analyze(path) if path.suffix.lower() == '.ini' else analyze_campaign(path)
         if result:
             try:
-                result['mission'] = str(path.relative_to(ROOT))
+                result['file'] = str(path.relative_to(ROOT))
             except ValueError:
                 pass
             rows.append(result)
-    return sorted(rows, key=lambda r: (r['priority'], -r['lat_max_abs'], r['mission']))
+    return sorted(rows, key=lambda r: (r['kind'] != 'mission', r['priority'],
+                                       -r['lat_max_abs'], r['file']))
+
+
+GROUPS = (('bases', ('base', 'airfield')), ('forces', ('force', 'patrol')),
+          ('routes', ('lane', 'airway')))
+
+
+def names(positions):
+    """Distinct names, grouped as bases (with their airfields), forces (with
+    their patrol rings) and traffic routes, in file order."""
+    parts = []
+    for group, kinds in GROUPS:
+        seen = []
+        for what, name, _, _ in positions:
+            if what in kinds and name not in seen:
+                seen.append(name)
+        if seen:
+            parts.append(f'{group} ' + ', '.join(seen))
+    return '; '.join(parts)
+
+
+def wrap(label, text):
+    return textwrap.fill(text, width=100, initial_indent=f'    {label}: ',
+                         subsequent_indent=' ' * 8)
+
+
+def tally(rows):
+    return ', '.join(f'{p}: {sum(r["priority"] == p for r in rows)}'
+                     for p in ('P1', 'P2', 'P3'))
 
 
 def print_report(rows):
-    for r in rows:
+    missions = [r for r in rows if r['kind'] == 'mission']
+    campaigns = [r for r in rows if r['kind'] == 'campaign']
+    for r in missions:
         print(f"{r['priority']} {r['lat_max_abs']:>5.1f}deg  "
               f"EW {r['globe_east_west_nm_est']:>7.1f} / old {r['legacy_east_west_nm']:>7.1f} nm  "
               f"NS {r['north_south_nm_est']:>7.1f} nm  "
-              f"{r['mission']}" + (f" | {r['notes']}" if r['notes'] else ''))
-    print(f'{len(rows)} authored missions; ' +
-          ', '.join(f'{p}: {sum(r["priority"] == p for r in rows)}'
-                    for p in ('P1', 'P2', 'P3')))
+              f"{r['file']}" + (f" | {r['notes']}" if r['notes'] else ''))
+    if missions or not campaigns:
+        print(f'{len(missions)} authored missions; {tally(missions)}')
     # Shown once here rather than as a note on every row.
-    no_area = sum(not r['play_area_field'] for r in rows)
+    no_area = sum(not r['play_area_field'] for r in missions)
     if no_area:
-        print(f'{no_area} of {len(rows)} missions set no play-area key; the beta '
+        print(f'{no_area} of {len(missions)} missions set no play-area key; the beta '
               "editor's auto-generated play area is unverified for them.")
+    if not campaigns:
+        return
+    if missions:
+        print()
+    for r in campaigns:
+        d = r['detail']
+        print(f"{r['priority']} {r['lat_max_abs']:>5.1f}deg  lat {r['lat_min']:g}..{r['lat_max']:g}  "
+              f"lon {r['lon_min']:g}..{r['lon_max']:g}  {r['points']} positions  "
+              f"{r['file']}" + (f" | {r['notes']}" if r['notes'] else ''))
+        if d['past_180']:
+            print(wrap('past 180', names(d['past_180'])))
+        for what, name, a, b in d['seam']:
+            print(f'    crosses 180: {what} {name} ({a[0]:g}, {a[1]:g}) to ({b[0]:g}, {b[1]:g})')
+        if d['high']:
+            print(wrap(f'{HIGH_LAT:g} deg or more', names(d['high'])))
+        if d['outside']:
+            print(wrap('outside bounds', names(d['outside'])))
+    print(f'{len(campaigns)} dynamic campaigns (geographic lat/lon); {tally(campaigns)}')
 
 
 def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--root', type=Path, action='append', dest='roots',
-                        help='INI file or directory to scan; repeatable')
+                        help='INI or campaign.json file, or directory to scan; repeatable')
     parser.add_argument('--csv', action='store_true', help='CSV to standard output')
     args = parser.parse_args(argv)
     roots = args.roots or DEFAULT_ROOTS
@@ -244,7 +419,8 @@ def main(argv=None):
         parser.error('missing input: ' + ', '.join(absent))
     rows = scan(roots)
     if args.csv:
-        writer = csv.DictWriter(sys.stdout, fieldnames=FIELDS)
+        writer = csv.DictWriter(sys.stdout, fieldnames=FIELDS, restval='',
+                                extrasaction='ignore')
         writer.writeheader()
         writer.writerows(rows)
     else:

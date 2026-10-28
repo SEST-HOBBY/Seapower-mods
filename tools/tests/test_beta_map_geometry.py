@@ -1,6 +1,7 @@
 """Synthetic read-only geometry tests; no game content is modified."""
 import contextlib
 import io
+import json
 import sys
 import tempfile
 import unittest
@@ -110,6 +111,87 @@ RelativePositionInNM=0,0,0
         self.assertEqual(out.getvalue().count('play area'), 1)
         self.assertIn('1 of 1 missions set no play-area key', out.getvalue())
 
+
+CAMPAIGN = {
+    "bounds": {"latMin": -62.0, "latMax": 74.0, "lonMin": -100.0, "lonMax": 258.0},
+    "view": {"lat": 89.0, "lon": 300.0},
+    "labels": [{"text": "cosmetic", "lat": 89.5, "lon": 400.0}],
+    "bases": [
+        {"id": "san_diego", "lat": 32.7, "lon": 242.8,
+         "field": {"unit": "x", "lat": 32.7, "lon": 242.8}},
+        {"id": "severomorsk", "lat": 69.07, "lon": 33.42},
+        {"id": "darwin", "lat": -12.4, "lon": 130.8},
+    ],
+    "forces": [
+        {"name": "Carl Vinson group", "at": [32.284, 242.9]},
+        {"name": "Harbour", "base": "darwin"},
+    ],
+    "patrols": [
+        {"force": "Fiji patrol", "points": [[-17.0, 179.8], [-17.5, 179.9],
+                                            [-17.5, -179.8], [-17.0, -179.9]]},
+    ],
+    "traffic": {
+        "lanes": [{"name": "Trans-Pacific", "points": [[30.0, 160.0], [24.0, 190.0],
+                                                        [22.0, 202.2]]}],
+        "airways": [{"name": "Honolulu to San Diego",
+                     "points": [[21.32, 202.08], [32.73, 242.81]]}],
+    },
+}
+
+
+class WorldSandboxCampaignTests(unittest.TestCase):
+    def make_campaign(self, data, name='campaign.json'):
+        temp = tempfile.TemporaryDirectory()
+        self.addCleanup(temp.cleanup)
+        path = Path(temp.name) / name
+        path.write_text(json.dumps(data), encoding='utf-8')
+        return path
+
+    def test_world_positions_and_seams(self):
+        row = geo.analyze_campaign(self.make_campaign(CAMPAIGN))
+        self.assertEqual(row['kind'], 'campaign')
+        self.assertEqual(row['priority'], 'P1')
+        # 3 bases + 1 airfield + 1 placed force + 4 patrol + 3 lane + 2 airway
+        self.assertEqual(row['points'], 14)
+        self.assertEqual(row['waypoints'], 9)
+        # San Diego, its airfield, the carrier, two lane and two airway points
+        self.assertEqual(row['lon_past_180'], 7)
+        # Trans-Pacific 160 -> 190, and the Fiji ring twice (out and back)
+        self.assertEqual(row['dateline_legs'], 3)
+        self.assertEqual(row['high_lat_positions'], 1)
+        self.assertEqual(row['outside_bounds'], 2)      # Fiji's -179.8, -179.9 < lonMin
+        self.assertEqual(row['lat_max_abs'], 69.07)     # labels and view ignored
+        self.assertEqual(row['lon_max'], 242.9)
+        self.assertIn('route legs cross 180', row['notes'])
+        seams = {(what, name) for what, name, _, _ in row['detail']['seam']}
+        self.assertEqual(seams, {('lane', 'Trans-Pacific'), ('patrol', 'Fiji patrol')})
+
+    def test_continuous_longitudes_without_a_seam(self):
+        data = dict(CAMPAIGN, patrols=[], traffic={"airways": CAMPAIGN['traffic']['airways']},
+                    bases=CAMPAIGN['bases'][:1])
+        row = geo.analyze_campaign(self.make_campaign(data))
+        self.assertEqual(row['dateline_legs'], 0)
+        self.assertFalse(row['dateline'])
+        self.assertEqual(row['priority'], 'P3')
+        self.assertEqual(row['lon_past_180'], 5)
+
+    def test_scan_reads_campaign_json_only(self):
+        path = self.make_campaign(CAMPAIGN)
+        (path.parent / 'lanes.json').write_text('{"a": [[0, 0], [1, 1]]}', encoding='utf-8')
+        (path.parent / 'not-a-campaign').mkdir()
+        (path.parent / 'not-a-campaign' / 'campaign.json').write_text('{"name": "x"}',
+                                                                      encoding='utf-8')
+        rows = geo.scan([path.parent])
+        self.assertEqual([r['kind'] for r in rows], ['campaign'])
+        out = io.StringIO()
+        with contextlib.redirect_stdout(out):
+            geo.print_report(rows)
+        self.assertIn('crosses 180: lane Trans-Pacific (30, 160) to (24, 190)', out.getvalue())
+        self.assertIn('bases san_diego', out.getvalue())
+
+    def test_default_roots_exist(self):
+        for root in geo.DEFAULT_ROOTS:
+            self.assertTrue(root.is_dir(), root)
 
 
 if __name__ == '__main__':
