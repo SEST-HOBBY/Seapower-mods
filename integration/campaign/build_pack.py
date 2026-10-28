@@ -7386,12 +7386,16 @@ def _spine(missions, events):
 
 # --- coverage ----------------------------------------------------------------
 
+# Since 28 Oct 2026 the roster credits what a unit on sale makes the game
+# read, as resolve() credits a placed one: a variant, squadron or store row
+# may be a sold unit's, and a roster row an aircraft aboard a sold ship.
 HOW_TEXT = {
     "unit": "places the unit; this mod wins its file",
-    "roster": "the requisition roster prices it, so the player can buy it",
-    "variant": "supplies the hull variant the placed unit uses",
-    "squadron": "supplies the squadron the placed airframe flies from",
-    "store": "supplies a round the placed unit's loadout hangs",
+    "roster": ("the player can buy the unit from the requisition roster, or it "
+               "comes aboard a ship they can buy"),
+    "variant": "supplies the hull variant a placed or sold unit uses",
+    "squadron": "supplies the squadron a placed or sold airframe flies from",
+    "store": "supplies a round a placed or sold unit's loadout hangs",
     "asset": "supplies a model folder the placed unit's file draws from",
 }
 
@@ -7588,11 +7592,12 @@ def campaign_requirements(rows, missing, title, dispatches=(), dispatch_folder=N
     key = lambda r: r[1].lower()
     L = [f"{title.upper()} - what this campaign needs", "",
          "Derived from the units its missions place, the squadrons and hull",
-         "variants they name, the rounds their loadouts hang and the units its",
-         "roster sells. The pack-level REQUIRED-MODS.txt two folders up, at the",
-         "pack's root, is the union across every campaign in the pack.", "",
-         f"1. HARD REQUIRED ({len(need) + len(promoted)}): a mission names a file of "
-         "theirs, or a mod above says it cannot run without them.", ""]
+         "variants they name and the rounds their loadouts hang, and from the",
+         "units its roster sells with their variants, rounds and air groups.",
+         "The pack-level REQUIRED-MODS.txt two folders up, at the pack's root,",
+         "is the union across every campaign in the pack.", "",
+         f"1. HARD REQUIRED ({len(need) + len(promoted)}): a mission or the roster "
+         "names a file of theirs, or a mod above says it cannot run without them.", ""]
     for _mid, t, how, _d, _m, token in sorted(need, key=key):
         L.append(f"  {token:<13} {NEEDED[how]:<32} {t}")
     for row, askers in sorted(promoted.items(), key=lambda kv: kv[0][1].lower()):
@@ -7656,7 +7661,7 @@ def campaign_requirements(rows, missing, title, dispatches=(), dispatch_folder=N
 NEEDED = {"unit": "a unit a mission places",
           "variant": "a hull variant in use",
           "squadron": "a squadron a flight comes from",
-          "roster": "a unit the player can buy",
+          "roster": "a buyable unit or its aircraft",
           "store": "a weapon a loadout hangs",
           "asset": "a model a placed unit draws"}
 

@@ -219,9 +219,9 @@ computed the way the game resolves files, not from the folder list:
 | class | what it means |
 |---|---|
 | `unit` | the mod's copy of the placed unit's file wins the load order |
-| `variant` / `squadron` | it wins the `_variants` / `_squadrons` file the mission names |
-| `store` | it wins an ammunition file the placed unit's chosen loadout hangs |
-| `roster` | the requisition roster prices it, so the player can buy it |
+| `variant` / `squadron` | it wins the `_variants` / `_squadrons` file a placed or sold unit uses |
+| `store` | it wins an ammunition file a placed or sold unit's loadout hangs |
+| `roster` | the player can buy the unit from the requisition roster, or it comes aboard a ship they can buy |
 | `library` | it wins nothing a mission can name — UI, effects, a bare dependency marker — and applies install-wide |
 | `shadowed` | everything it ships is outranked; nothing it contains can load |
 
