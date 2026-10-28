@@ -1744,6 +1744,35 @@ def stronger_credit(why, best):
             and why[2] != ROSTER_ORIGIN)
 
 
+def merge_into(held, credits):
+    """Take each credit of `credits` into `held` where stronger_credit()
+    says it replaces the one held there."""
+    for token, why in credits.items():
+        if stronger_credit(why, held.get(token)):
+            held[token] = why
+
+
+def merge_credits(roster_credits, reached):
+    """A campaign's credits, and its play credits without the Dispatches, as
+    its coverage rows show them: the roster's first, each from ROSTER_ORIGIN,
+    then each mission's of `reached` ([(mission, {token: (how, detail,
+    mission key)})]) in build order, by merge_into(). What the campaign
+    itself loads - its own missions and its roster - is apart from the
+    Dispatches, which are browser missions the campaign never loads.
+    Southern Watch's Dispatches place a unit from nearly every mod in the
+    collection (they are the pack's coverage), and a REQUIRED-MODS built
+    from both told a player of the campaign to install 137 mods it does not
+    use (user report, 28 Sep)."""
+    credits = {token: (why[0], why[1], ROSTER_ORIGIN)
+               for token, why in roster_credits.items()}
+    play_credits = dict(credits)
+    for mission, mission_credits in reached:
+        merge_into(credits, mission_credits)
+        if mission["group"] != "dispatch":
+            merge_into(play_credits, mission_credits)
+    return credits, play_credits
+
+
 # Model folders a unit file loads from another mod's `assets/` tree. The game
 # resolves `ResourcesMeshFolder=assets/models/aircraft/usn_sh-60b/` through the
 # load order like any other path, so the mod that ships that folder is as much
@@ -8266,26 +8295,10 @@ def main():
             check_flights(flight_rows, ROSTER, authored=authored)
         if spec.get("RESERVE_OPENS"):
             print_reserve(spec)
-        # The roster's credits first, then each mission's in build order, a
-        # stronger kind replacing a weaker one: merged here rather than as
-        # each mission was built, so that the roster is the one the reserve
-        # has settled (21 Oct 2026). What the campaign itself loads - its own
-        # missions and its roster - is apart from the Dispatches, which are
-        # browser missions the campaign never loads. Southern Watch's
-        # Dispatches place a unit from nearly every mod in the collection
-        # (they are the pack's coverage), and a REQUIRED-MODS built from both
-        # told a player of the campaign to install 137 mods it does not use
-        # (user report, 28 Sep).
-        credits = {token: (why[0], why[1], ROSTER_ORIGIN)
-                   for token, why in roster_credits.items()}
-        play_credits = dict(credits)
-        for mission, mission_credits in reached:
-            for token, why in mission_credits.items():
-                if stronger_credit(why, credits.get(token)):
-                    credits[token] = why
-                if mission["group"] != "dispatch":
-                    if stronger_credit(why, play_credits.get(token)):
-                        play_credits[token] = why
+        # The roster's credits first, then each mission's in build order
+        # (merge_credits): merged here rather than as each mission was built,
+        # so that the roster is the one the reserve has settled (21 Oct 2026).
+        credits, play_credits = merge_credits(roster_credits, reached)
 
         # Built BEFORE the dry-run exit, because every air-tasking gate lives
         # in here - the row/section pairing, the role and fit checks, the
@@ -8332,9 +8345,7 @@ def main():
                               coast=list(COAST_CHECKED),
                               pooled=sum((m.get("geography") or GEOGRAPHY) != "coast"
                                          for m in missions)))
-        for token, why in credits.items():
-            if stronger_credit(why, pack_credits.get(token)):
-                pack_credits[token] = why
+        merge_into(pack_credits, credits)
 
     # The pack's coverage rule: every enabled mod is placed by SOME campaign
     # in the pack, or excused in writing. A second campaign does not have to

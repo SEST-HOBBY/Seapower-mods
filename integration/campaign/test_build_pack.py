@@ -1345,6 +1345,40 @@ class CreditMerge(unittest.TestCase):
         self.assertTrue(bp.stronger_credit(("unit", "pn_ffg-150", "m"), self.ROSTER))
         self.assertTrue(bp.stronger_credit(self.ROSTER, None))
 
+    # main() merges with these two, so the rule is tested where it is used.
+
+    def test_a_campaigns_merge_keeps_the_placed_example(self):
+        roster = {"euromod-main": self.ROSTER[:2]}
+        reached = [(dict(group="core"), {"euromod-main": self.PLACED}),
+                   (dict(group="core"), {"euromod-main": ("store", "x / y", "later")})]
+        credits, play = bp.merge_credits(roster, reached)
+        self.assertEqual(credits["euromod-main"], self.PLACED)
+        self.assertEqual(play["euromod-main"], self.PLACED)
+
+    def test_a_dispatch_counts_for_the_pack_but_not_for_play(self):
+        reached = [(dict(group="dispatch"), {"euromod-main": self.PLACED})]
+        credits, play = bp.merge_credits({"euromod-main": self.ROSTER[:2]}, reached)
+        self.assertEqual(credits["euromod-main"], self.PLACED)
+        self.assertEqual(play["euromod-main"], self.ROSTER)
+
+    def test_the_pack_merge_takes_a_later_campaigns_placed_unit(self):
+        # Campaigns merge in pack order; a later campaign's placed unit
+        # replaces an earlier campaign's roster example of the same kind.
+        pack = {}
+        bp.merge_into(pack, {"euromod-main": self.ROSTER})
+        bp.merge_into(pack, {"euromod-main": self.PLACED})
+        bp.merge_into(pack, {"euromod-main": ("store", "x / y", bp.ROSTER_ORIGIN)})
+        self.assertEqual(pack["euromod-main"], self.PLACED)
+
+    def test_the_built_report_shows_the_placed_unit(self):
+        # End to end: Sulu Line's report, as the last build wrote it.
+        doc = bp.ROOT / "docs" / "campaigns" / "sulu-line" / "coverage.md"
+        if not doc.is_file():
+            self.skipTest("pack not built")
+        row = next(l for l in doc.read_text(encoding="utf-8").splitlines()
+                   if l.startswith("| `euromod-main` |"))
+        self.assertIn("| pn_ffg-150 / fr_cal_76mm | The Island Road |", row)
+
 
 class RosterOnSale(unittest.TestCase):
     """A roster entry no purchase window sells is a price nobody can pay -
