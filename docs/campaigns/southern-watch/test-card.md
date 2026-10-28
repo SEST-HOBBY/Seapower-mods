@@ -82,11 +82,12 @@ earlier install reported IN LINE against a commit that contained none of this
 campaign, because the repo was on the wrong branch and the guard was pointed
 at the wrong one.
 
-The short version, game **closed** (it rewrites `usersettings.ini` on exit):
+The short version, game **closed** (it rewrites `usersettings.ini` on exit),
+on the branch named in `data\deploy-branch.txt` (`sest-dev/jolly-ride-rptj4t`):
 
 ```powershell
-git checkout sest-dev/loving-bell-3cnvvw
-git pull origin sest-dev/loving-bell-3cnvvw
+git checkout sest-dev/jolly-ride-rptj4t      # the branch data\deploy-branch.txt names
+git pull origin sest-dev/jolly-ride-rptj4t
 powershell -ExecutionPolicy Bypass -File .\tools\sync-sest.ps1
 ```
 
