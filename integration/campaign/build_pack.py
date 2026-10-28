@@ -6486,8 +6486,13 @@ def roster_ini(roster, heading=None):
     # Sulu Line's REQUIRED-MODS listed Modern US Navy and United States Naval
     # Aviation as not used while the Thai Seahawk's ASW fit hangs their
     # usn_ssq-62 and the RAN MH-60R's fits hang USNA's Hellfires and tanks.
-    # Added after the units' own credits, and only for a mod not already
-    # credited, so a mod that sells a unit stays a `roster` one.
+    # Added after the units' own credits, so a mod that sells a unit stays a
+    # `roster` one. Among the rest the most direct kind (STRENGTH) wins
+    # whatever the order of the roster, as place() takes the strongest across
+    # a mission's units. Keeping the first one found instead, Southern Reach
+    # reported
+    # Euromod - Modern British Navy by the shared materials folder of the
+    # Hobart, sold earlier, though it writes the Type 45's variants file.
     #
     # A bought hull's deck is not credited: it carries only the roster
     # aircraft the player puts aboard, which are credited as sold airframes.
@@ -6540,7 +6545,9 @@ def roster_ini(roster, heading=None):
                 found += store_credit(uid, kind_dir, path, fit)
         found += asset_credit(uid, path)
         for token, how, detail in found:
-            if token and token not in credits:
+            held = credits.get(token)
+            if token and (held is None or (held[0] != "roster"
+                                           and STRENGTH[how] < STRENGTH[held[0]])):
                 credits[token] = (how, detail)
 
     L = [heading or f"; SEST {TITLE} requisition roster.",

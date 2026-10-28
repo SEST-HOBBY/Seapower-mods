@@ -1308,6 +1308,20 @@ class RosterAndSeahawk(unittest.TestCase):
         credits = bp.roster_ini([dict(unit=uid, picks=["Variant1"], points=100)])[1]
         self.assertEqual(credits["3736147136"], ("asset", f"{uid} / {folder}"))
 
+    def test_the_strongest_reason_wins_whatever_the_rosters_order(self):
+        # The Hobart, sold first, loads a shared materials folder that Modern
+        # British Navy also ships; the Type 45, sold later, reads that mod's
+        # variants file. The row says the variant, as place() would.
+        spec = next(s for s in bp.campaign_specs() if s["SLUG"] == "sest-southern-reach")
+        bp.set_campaign(spec)
+        entries = [e for e in spec["ROSTER"] if e["unit"] in ("ran_ddg_hobart", "rn_ddg_type45_26")]
+        self.assertEqual([e["unit"] for e in entries], ["ran_ddg_hobart", "rn_ddg_type45_26"])
+        holder = bp.owner("vessels/rn_ddg_type45_26_variants.ini")
+        self.assertIn(holder, {t for t, _h, _d in bp.asset_credit(
+            "ran_ddg_hobart", bp.unit_file("ran_ddg_hobart")[1])})
+        credits = bp.roster_ini(entries)[1]
+        self.assertEqual(credits[holder], ("variant", f"rn_ddg_type45_26 {entries[1]['picks'][0]}"))
+
     def test_every_campaigns_roster_credits_its_units_model_folders(self):
         for spec in bp.campaign_specs():
             bp.set_campaign(spec)
