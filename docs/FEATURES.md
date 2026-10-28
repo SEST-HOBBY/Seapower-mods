@@ -127,7 +127,7 @@ experience carry forward from mission to mission.
   price: a Royal Thai Navy frigate with its Seahawk, and one RAN Anzac with
   its MH-60R, from Service at Sea.
 - Philippine airfields hold only what you buy and the missions' own flights:
-  no free 1970s U.S. air wing *(28 October 2026)*.
+  no free 1970s U.S. air wing *(28 October 2026)*. Not yet confirmed in game.
 - **No free rearm.** After the first mission, ships get ammunition back only
   from a supply ship you bought (BRP Tarlac or Davao del Sur, HTMS Chula, or an
   MSC C8 barge carrier) by going alongside at sea, or from the chartered
@@ -404,7 +404,8 @@ game's own values back. *Not yet confirmed in game.*
   radio-command AGM-84N needs a linked sensor: the Boeing P-8 mod's Poseidon
   could not launch it, and U.S. Navy 2027's launched it with no midcourse
   updates. Both wing pylons now link U.S. Navy 2027's GPS receiver. Not yet
-  seen in game (Southern Watch 05's P-8 on AntiShip is the test).
+  seen in game (Southern Watch 05's P-8 on AntiShip is the test, test card
+  H.25).
 - HMS Ocean can now operate the Apache.
 - RNZAF and ROKN P-8 squadrons named nations with no flag.
 
@@ -478,9 +479,12 @@ checked automatically.
     way; `-RestoreModFiles` puts their own files back). It follows the game's
     own version rule and renews its marks after a game update, including one
     that goes back a version. Mods made for a newer game version are named,
-    not changed;
-  - if Contact Log is installed, unbinds its default F6 and F8 keys, which
-    clash with the game's own; a key you set yourself is kept;
+    not changed, except THE REDFOR MOD, reviewed and data only, which SETUP
+    marks while its folder holds no code;
+  - if Contact Log is installed and has written its settings file (start the
+    game with it once), unbinds its default F6 and F8 keys, which clash with
+    Topographic Map's F6 and Coordinated Strike Tool's F8 planner; a key you
+    set yourself is kept;
   - sets the whole Mod Manager order: the pack first, then the mods in the
     tested order, your other mods at the bottom;
   - safe to run again: run it after every pack or mod update.
@@ -547,10 +551,12 @@ how to check each.
   source is not in the repository yet (`integration/runtime-fixes/README.md`).
   1.5.0 adds movable, game-styled F11 cost windows in a mission and in the
   Task Force menu, a 3-row debrief (mission cost, campaign cost, details in
-  F11), pop-out buttons for Contact Log and Group Manager, own units plotted
-  while paused in preparation, and a guard for towed sonars with an
-  incomplete link. Player.log should show three `[SEST Runtime] ...
-  correction installed` lines (terrain, debrief, towed sonar). The debrief
+  F11), pop-out buttons for Contact Log 1.0.1 and Group Manager 0.2.17 (the
+  pop-outs, the F11 windows' included, need Pop-Out Windows 1.0.1, which is
+  not in the collection, and a second monitor), own units plotted while
+  paused in preparation, and a guard for towed sonars with an incomplete
+  link. Player.log should show three `[SEST Runtime] ... correction
+  installed` lines (terrain, debrief, towed sensor). The debrief
   correction fills in the generated and
   replaced missions, 52 of the 69 in the four campaigns. In the other 17,
   played as written, SEST's mission files give the player's ships no
@@ -560,8 +566,9 @@ how to check each.
   working in a mission yet.
 - **SEST UI Follow-up** (`plugins/SEST.ContactsFix.dll`, 1.4.2, 28 Oct
   2026): for players of Contact Log 1.0.1. Space and +/- no longer open or
-  close Contacts, its pop-out is fixed, Group Manager gets a Stock UI /
-  Enhanced UI switch, and the live F11 window reuses its price lists per
+  close Contacts; its pop-out is fixed and Group Manager gets a Stock UI /
+  Enhanced UI switch (both need Pop-Out Windows 1.0.1, the pop-out a second
+  monitor too); and the live F11 window reuses its price lists per
   mission instead of rebuilding them twice a second (stalls of 253-494 ms on
   the owner's PC). It also moves the game's Quick Load from F9 alone to
   Ctrl+F9, which Options > Accept saves into controls.ini; nothing in the

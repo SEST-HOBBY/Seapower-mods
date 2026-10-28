@@ -25,6 +25,10 @@ combined.
 | P-8 Harpoon guidance link | `integration/allied-fixes/build_patch.py` | Hand-edited files | No |
 | Globe beta audit (PR #49, reworked) | `tools/audit_beta_map_geometry.py` | n/a (developer tool) | n/a |
 
+Commit 205077c6 cites `integ/u1-setup`: that branch's SETUP work landed
+here as 4fbad96d, 414afd48 and daa6ff89 (the same patches; its two Rebuild
+commits were not carried, and c32c485e rebuilds everything).
+
 ## Not taken from PRs #50 and #51, and why
 
 - **99 of PR #50's files** with no source behind them: 19 SEST files from
@@ -39,8 +43,13 @@ combined.
   listed mod is missing, so shipping that list would stop SETUP for other
   subscribers.
 - **GPT's REDFOR script** (hash-pinned, a false warning for everyone else)
-  and **its Topographic Map remap** to F7, the game's own previous-aircraft
-  key.
+  and **its Topographic Map remap** to F7. The key clashes are between mods:
+  Contact Log's default F6 window toggle against Topographic Map's default
+  F6 toggle (and Contact Log's default F8 probe against Coordinated Strike
+  Tool's F8 planner). Once SETUP unbinds Contact Log's F6, there is nothing
+  left for a remap to resolve. F7 was not a game key either: the game's
+  shipped `controls.ini` binds no plain F6, F7 or F8 (the F6, F7 and F8 in
+  its code are only fallbacks for a missing key).
 
 ## Decisions taken by default (the owner's to change)
 
@@ -65,7 +74,9 @@ combined.
 2. **Quick Load.** UI Follow-up moves the game's plain-F9 Quick Load to
    Ctrl+F9 for every Contact Log 1.0.1 player, though only the owner's PC
    binds F9 to Contacts. Options > Accept saves it. Documented in
-   `plugins/README.txt`; the owner decides before the upload.
+   `plugins/README.txt` and in the 28 Oct change log, whose Quick Load line
+   stays while `SEST.ContactsFix.dll` makes the move; the owner decides
+   before the upload whether to ship the plugin as it is.
 3. **The Workshop refresh capture** (`chore/workshop-refresh-20261027`), run
    on the PC, then integrated and rebuilt. Expected with it: the USN v626 and
    FREMM files, the S-55 (with a $30M rough price and a World Sandbox entry),
@@ -73,12 +84,15 @@ combined.
    entries (PR #47's tests no longer hard-code the count).
 4. **The 27 Oct crash** with both plugins on: no stack yet. The test plan is in
    the owner's review document.
-5. **The owner's PC** still has GPT's Topographic Map remap (toggle F7) if
-   GPT's script ran there; SETUP no longer touches that file.
-6. **In game, still to see:** Sulu Line test card 8.2 to 8.5 (empty fields,
-   deck fits, the H-76 without a home field, the AW109E livery), Southern
-   Watch 05's P-8 firing its Harpoons, the World Sandbox Poseidons
-   (`docs/playtests/world-p8-20261026.md`), SETUP's messages on the PC.
+5. **The owner's PC** may still have GPT's Topographic Map remap (toggle
+   F7) if GPT's script ran there. SETUP no longer touches that file, and the
+   remap is harmless (the game's shipped `controls.ini` binds no plain F7),
+   so nothing needs changing.
+6. **In game, still to see:** Sulu Line test card 8.1 to 8.6 (empty fields,
+   deck fits, the H-76 without a home field, the AW109E livery, the MH-60R
+   on sale), Southern Watch 05's P-8 firing its Harpoons (test card H.25),
+   the World Sandbox Poseidons (`docs/playtests/world-p8-20261026.md`),
+   SETUP's messages on the PC.
 7. **GitHub:** PRs #47 and #49 are carried here in reworked form, #48 is
    superseded by 1.5.0, and #50 and #51 stay as a record of the PC; the owner
    closes them.

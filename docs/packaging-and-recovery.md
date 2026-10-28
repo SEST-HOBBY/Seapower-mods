@@ -82,8 +82,9 @@ own files; only the player's SETUP the pack carries adds anything beside them,
 the Anchor Chain preloader next to `Sea Power.exe` when it is missing. SETUP
 also switches off one mod's debug logging, marks the listed mods made for an
 older game version compatible (one `_info.ini` value each, the author's
-file kept), unbinds Contact Log's default F6/F8 keys when that mod's
-settings file exists, and, like `set-mod-order.ps1`,
+file kept), unbinds Contact Log's default F6/F8 keys (they clash with
+Topographic Map's F6 and Coordinated Strike Tool's F8 planner) when that
+mod's settings file exists, and, like `set-mod-order.ps1`,
 rewrites `[LoadOrder]` after a backup. `tools/consolidate_packs.py` builds it from
 every source pack; Sea Power's Mod Manager lists it as one entry, SEST
 Integration Pack, beside the workshop entries, and it takes part in the same

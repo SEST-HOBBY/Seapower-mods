@@ -18,13 +18,11 @@ The item's Required Items are the load order's Workshop mods, so Subscribe
 offers them all in one click, as the collection does; SETUP writes the order.
 `publishing.md` (*Dependencies*) has the detail.
 
-Counts (24 Oct 2026, the World Sandbox branch `8e72f353` with the 24 Oct
-capture): 199 Workshop mods in `data/load-order.tokens.txt` (200 entries
-with the pack), 165 named by a mission (REQUIRED-MODS.txt), 528 borrowed
-files from 64 mods (CREDITS.txt; `sest-dev/jolly-ride-rptj4t` without the
-World Sandbox branch has 527 from 63: the extra file is the Chilean
-frigate's save alias variants). Redo them from
-those files when they change. The 19-tube pod
+Counts (28 Oct 2026, `c32c485e`): 199 Workshop mods in
+`data/load-order.tokens.txt` (200 entries with the pack), 165 named by a
+mission (REQUIRED-MODS.txt), 529 borrowed files from 64 mods (CREDITS.txt;
+U.S. Navy 2027's `usn_p8_2027` joined for the P-8 guidance link). Redo them
+from those files when they change. The 19-tube pod
 is credited to RADF's `adf_lau-3a`: the pod is the game's own `usn_lau-3a`,
 which CREDITS.txt never compares against, and RADF's is that file with one
 line changed. The MALD brought in the B-2 Spirit on 19 Oct; on 20 Oct the
@@ -89,7 +87,7 @@ In the folder: SETUP, REQUIRED-MODS.txt (every mod the campaigns name), LOAD-ORD
 A Sea Power unit file is a whole-file override, so 529 files here are other authors' files with edits, each 90% or more unchanged, from 64 Workshop mods. CREDITS.txt lists every one, measured by diffing against the collection. Every photograph is real and credited. If you wrote one of those mods and would rather this pack did not carry your file, say so and it will change.
 
 [h2]Fiction, language, status[/h2]
-Every nation, unit, ship name, incident and date is invented; the campaigns take no position on any real dispute. English only. Built for Sea Power 0.8.7: every unit, squadron, loadout and weapon in every mission is checked to resolve on every build, but balance is not, and most missions have not been played to completion. SEST's code (the Tomahawk terrain fix, the debrief, the combat cost windows, the towed-sonar guard and, with Contact Log, the UI follow-up) runs only on Sea Power 0.8.7 Build 261021 and switches itself off on any other. Feedback on difficulty and pacing is wanted.
+Every nation, unit, ship name, incident and date is invented; the campaigns take no position on any real dispute. English only. Built for Sea Power 0.8.7: every unit, squadron, loadout and weapon in every mission is checked to resolve on every build, but balance is not, and most missions have not been played to completion. SEST's code (the Tomahawk terrain fix, the debrief, the combat cost windows, the towed-sonar guard and, with Contact Log, the UI follow-up, which moves Quick Load from F9 to Ctrl+F9) runs only on Sea Power 0.8.7 Build 261021 and switches itself off on any other. Feedback on difficulty and pacing is wanted.
 ```
 
 ## Change log: integration of the owner's PC state, 28 Oct 2026
@@ -98,41 +96,47 @@ For the next upload, which also carries the SETUP update below and, if not
 yet pasted, the 24 Oct block. Not to be uploaded before the Workshop refresh
 capture (`chore/workshop-refresh-20261027`) is integrated and the release
 gate passes: until then the pack would still carry the old Modern US Navy
-and Italian FREMM files. Before Submit:
+and Italian FREMM files. Paste the Description as well (its F11 line, the
+529-file credit and the code list changed, and the older-mods line with the
+SETUP update). Before Submit:
 
 - Run SETUP from the Workshop copy on the PC. Expect THE REDFOR MOD to count
   as already marked, and Contact Log's RunProbe to become None if it is still
   F8 (a ToggleWindow of F9 is kept).
 - Player.log must show three `[SEST Runtime] ... correction installed` lines
-  (terrain, debrief, towed sonar) and, with Contact Log 1.0.1,
-  `[SEST UI Follow-up] 1.4.2 input fix installed`. Take out any line below
-  whose plugin did not install.
-- The owner decides whether to keep the Quick Load line (UI Follow-up moves
-  plain F9 to Ctrl+F9) and whether to mention the unexplained 27 Oct crash
-  with both plugins on.
+  (terrain, debrief, towed sensor), no `[SEST Runtime] inactive: uninspected
+  native assembly` line and, with Contact Log 1.0.1, `[SEST UI Follow-up]
+  1.4.2 input fix installed`. Other `[SEST Runtime] ... inactive` lines are
+  not SEST's to prevent: a pop-out bridge logs one when the installed Contact
+  Log, Group Manager or Pop-Out Windows is not the version SEST inspected.
+  Take out any line below whose plugin did not install.
+- The Quick Load line stays while `SEST.ContactsFix.dll` makes the move (UI
+  Follow-up moves plain F9 to Ctrl+F9); it can go only if the plugin is held
+  back or rebuilt without it. The owner decides whether to mention the
+  unexplained 27 Oct crash with both plugins on.
 
 ```
 [h2]28 October 2026[/h2]
 
 [b]Interface and costs[/b]
 [list]
-[*]SEST's runtime plugin is now 1.5.0. F11 opens game-styled cost windows in a mission and in the Task Force menu; move them by the title bar and resize them at the edges, and with Pop-Out Windows they go to a second screen. The debrief shows mission and campaign cost, with the details in F11.
-[*]With Contact Log 1.0.1 and Group Manager 0.2.17, Contacts and Group Manager can pop out to a second screen. Own units are plotted while paused during preparation, and a towed sonar with an incomplete link no longer stops the game's update.
-[*]New: SEST UI Follow-up, for players of Contact Log 1.0.1. Space and +/- no longer open or close Contacts, Group Manager gets a Stock UI / Enhanced UI switch, and the live F11 window stops rebuilding its price lists twice a second. Without Contact Log, or on another game build, it does nothing.
+[*]SEST's runtime plugin is now 1.5.0. F11 opens game-styled cost windows in a mission and in the Task Force menu; move them by the title bar and resize them at the edges, and with Pop-Out Windows 1.0.1 and a second monitor they go to that screen. The debrief shows mission and campaign cost, with the details in F11.
+[*]With Pop-Out Windows 1.0.1 (not in the collection) and a second monitor, Contacts (Contact Log 1.0.1) and Group Manager (0.2.17) can pop out to that screen. Own units are plotted while paused during preparation, and a towed sonar with an incomplete link no longer stops the game's update.
+[*]New: SEST UI Follow-up, for players of Contact Log 1.0.1. Space and +/- no longer open or close Contacts, Group Manager gets a Stock UI / Enhanced UI switch where Pop-Out Windows 1.0.1 is installed, and the live F11 window stops rebuilding its price lists twice a second. Without Contact Log, or on another game build, it does nothing.
 [*]With UI Follow-up active, Quick Load moves from F9 to Ctrl+F9; any other Quick Load key is kept. Once you press Accept in Options, Ctrl+F9 stays after you unsubscribe; set Quick Load back in Options.
 [/list]
 
 [b]Campaigns[/b]
 [list]
-[*]Sulu Line: Philippine airfields no longer come with a free 1970s U.S. air wing; a field holds what you buy for it and the mission's own flights. The Navy helicopter is offered as the AW109E LAH, then the AUH-76. The RAN MH-60R is on sale with the Anzac before Service at Sea and The Aborlan Battery. Deck fits for the H-76, the Thai Seahawk and the MH-60R on the Jose Rizal, Miguel Malvar, Naresuan, Anzac and BRP Tarlac (not yet confirmed in game). Start a new campaign or load a mission fresh to see these.
+[*]Sulu Line: Philippine airfields no longer come with a free 1970s U.S. air wing; a field holds what you buy for it and the mission's own flights (not yet confirmed in game). The Navy helicopter is offered as the AW109E LAH, then the AUH-76. The RAN MH-60R is on sale with the Anzac before Service at Sea and The Aborlan Battery. Deck fits for the H-76, the Thai Seahawk and the MH-60R on the Jose Rizal, Miguel Malvar, Naresuan, Anzac and BRP Tarlac (not yet confirmed in game). Start a new campaign or load a mission fresh to see these.
 [*]World Sandbox and Regional Expansion: the US Navy's twelve P-8As are a real P-8A Poseidon (U.S. Navy 2027's) instead of a P-3 Orion body. Bases, numbers and price are unchanged. Start a new campaign to see it.
-[*]Both P-8s' Harpoons now get a guidance channel: one P-8 could not fire its AntiShip Harpoons at all, the other fired them with no midcourse updates.
+[*]Both P-8s' Harpoons now get a guidance channel: one P-8 could not fire its AntiShip Harpoons at all, the other fired them with no midcourse updates (not yet confirmed in game).
 [/list]
 
 [b]SETUP[/b]
 [list]
-[*]SETUP now checks mod versions the way the game does. After a game update, or a step back to an earlier version, it renews the marks it made, so the not-compatible warning does not come back. Mods made for a newer game version are named and left alone.
-[*]If you use Contact Log, SETUP frees its default F6 and F8 keys, which the game also uses. Keys you changed yourself are kept.
+[*]SETUP now checks mod versions the way the game does. Run SETUP again after a game update, or after going back to an earlier version, and it renews the marks it made, so the not-compatible warning does not come back. Mods made for a newer game version are named and left alone, except THE REDFOR MOD, reviewed and data only, which SETUP marks while its folder holds no code.
+[*]If you use Contact Log, SETUP frees its default F6 and F8 keys, which clash with Topographic Map's F6 and Coordinated Strike Tool's F8 planner. It can once Contact Log has written its settings file: start the game with it once, then run SETUP again. Keys you changed yourself are kept.
 [/list]
 ```
 

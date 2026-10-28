@@ -188,8 +188,9 @@ renewed after a game update, or put back from the kept file when the game
 goes back a version and the author's file needs none; mods made for a newer
 game version are named and left alone unless reviewed, which so far only THE
 REDFOR MOD is; `sest-setup.ps1 -RestoreModFiles` puts them back); unbinds
-Contact Log's default F6 and F8 keys when that mod's settings file exists
-(`sest-ui-keys.ps1`, beside SETUP); and writes the Mod Manager order: the pack first, the mods in
+Contact Log's default F6 and F8 keys, which clash with Topographic Map's F6
+and Coordinated Strike Tool's F8 planner, when that mod's settings file
+exists (`sest-ui-keys.ps1`, beside SETUP); and writes the Mod Manager order: the pack first, the mods in
 `LOAD-ORDER.txt` order, the player's other mods at the bottom as they were. It
 backs up the game's settings first and is safe to run again.
 
@@ -288,10 +289,13 @@ real, it goes into the load order and the collection like any other mod.
    the Workshop refresh capture of 27 Oct is integrated (until then the pack
    still carries the old Modern US Navy and FREMM files the PC had merged by
    hand); Player.log on the PC shows the three `[SEST Runtime] ... correction
-   installed` lines and, with Contact Log 1.0.1, `[SEST UI Follow-up] 1.4.2
-   input fix installed`; and the owner has decided the Quick Load line (UI
-   Follow-up moves plain F9 to Ctrl+F9 for every Contact Log 1.0.1 player)
-   and whether to wait on the unexplained 27 Oct crash. The change log is in
+   installed` lines, no `[SEST Runtime] inactive: uninspected native
+   assembly` line and, with Contact Log 1.0.1, `[SEST UI Follow-up] 1.4.2
+   input fix installed`; and the owner has decided whether to wait on the
+   unexplained 27 Oct crash. The change log's Quick Load line (UI Follow-up
+   moves plain F9 to Ctrl+F9 for every Contact Log 1.0.1 player) stays while
+   `SEST.ContactsFix.dll` makes the move; it can go only if the plugin is
+   held back or rebuilt without it. The change log is in
    `workshop-listing.md` (28 Oct block).
 
 ## The upload
