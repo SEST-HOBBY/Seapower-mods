@@ -196,8 +196,9 @@ class GameVersionTests(unittest.TestCase):
         self.assertIn("  0.8.3   100  Ahead", lines)
         self.assertIn("INFO: 1 mod(s) declare an ApproximateVersion the game cannot read (not MAJOR.MINOR.PATCH, "
                       "or a number above 2147483647), which the Mod Manager lists as not compatible on any game "
-                      "version; SETUP marks the ones with a number above 2147483647 and the ones whose first "
-                      "two or three numbers (PATCH 0 when there are two) are no higher than 0.8.2:", lines)
+                      "version; SETUP marks a value written MAJOR.MINOR.PATCH with a number above 2147483647, and "
+                      "judges any other by its first two or three numbers (PATCH 0 when there are two), marking "
+                      "it when they are no higher than 0.8.2:", lines)
         self.assertIn("  '0.8'     300  Short", lines)
 
     def test_a_pack_or_builder_value_the_game_cannot_read_fails(self):

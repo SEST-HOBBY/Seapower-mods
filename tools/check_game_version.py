@@ -55,10 +55,12 @@ game's, numerically per component. Listed as information: the mods more
 than one minor version behind; the ones made for a newer game version,
 which SETUP leaves alone unless they are on its reviewed list; and the ones
 the game cannot read (not MAJOR.MINOR.PATCH, or a number above 2147483647),
-which no game version accepts. SETUP marks those with a number too big and
-those whose first two or three numbers (PATCH 0 when there are two) are no
-higher than the game's version: on 0.8.7 it marks 0.8, 0.8.07 and 0.8.7.1
-and leaves 0.8.08 and 0.8.8.1 alone.
+which no game version accepts. SETUP marks a value written
+MAJOR.MINOR.PATCH with a number above 2147483647, and judges any other by
+its first two or three numbers (PATCH 0 when there are two), marking it
+when they are no higher than the game's version: on 0.8.7 it marks
+0.8.99999999999, 0.8, 0.8.07 and 0.8.7.1 and leaves 0.8.08, 0.8.8.1 and
+0.8.99999999999.1 alone.
 
 --version and --bump take a version the game itself reads as
 MAJOR.MINOR.PATCH (no leading zeros; --bump also no -pre-release or +build
@@ -442,9 +444,9 @@ def audit(root, version):
     if listed[NOT_SEMVER]:
         lines.append(f"INFO: {len(listed[NOT_SEMVER])} mod(s) declare an ApproximateVersion the game cannot read "
                      "(not MAJOR.MINOR.PATCH, or a number above 2147483647), which the Mod Manager lists as not "
-                     "compatible on any game version; SETUP marks the ones with a number above 2147483647 and the "
-                     "ones whose first two or three numbers (PATCH 0 when there are two) are no higher than "
-                     f"{version}:")
+                     "compatible on any game version; SETUP marks a value written MAJOR.MINOR.PATCH with a "
+                     "number above 2147483647, and judges any other by its first two or three numbers (PATCH 0 "
+                     f"when there are two), marking it when they are no higher than {version}:")
         for _, wid, name, approx in sorted(listed[NOT_SEMVER]):
             lines.append(f"  {approx!r:<10}{wid}  {name}")
 
