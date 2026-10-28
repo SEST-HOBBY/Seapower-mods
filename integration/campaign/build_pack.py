@@ -8088,9 +8088,9 @@ def write_menu_background(out):
           f"{film.name} ({film.stat().st_size // 1024} KB) in plugins/")
 
 
-# SEST Runtime Fixes. Since 27 Oct 2026 the committed DLL is Runtime 1.5.0
-# captured byte for byte from the owner's PC; its source is not in the
-# repository and build_plugin.py refuses to overwrite it
+# SEST Runtime Fixes. Since 28 Oct 2026 the committed DLL is Runtime 1.5.0,
+# captured byte for byte from the owner's PC (installed there on 27 Oct); its
+# source is not in the repository and build_plugin.py refuses to overwrite it
 # (integration/runtime-fixes/README.md, plugin-build.json).
 def write_runtime_fixes(out):
     source = ROOT / "integration/runtime-fixes"
