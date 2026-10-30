@@ -7,6 +7,8 @@ in flight only through a linked radar with a weapon channel (the game code
 is summarised above P8_GUIDANCE in integration/allied-fixes/build_patch.py).
 usn_p8 linked nothing, usn_p8_2027 only a FLIR; both now link a
 GPS_Receiver to their wing pylons.
+Also the RAN S-70B-2's airframe (30 Oct 2026): the author's current file,
+on the SH-60 model, with only the Redback fit added (RanSeahawkAirframe).
 These check the built files, so run them after a build, from the
 repository root:
     python3 -m unittest discover -s tools/tests -p 'test_allied_fixes.py' -v
@@ -395,6 +397,48 @@ class GpsReceiverGuards(unittest.TestCase):
     def test_no_harpoon_at_all_stops(self):
         (self.root / "mods-source/3606774881/ammunition/usn_agm-84n.ini").unlink()
         self.stops("nothing defines ammunition/usn_agm-84n.ini")
+
+
+class RanSeahawkAirframe(unittest.TestCase):
+    """SEST's RAN S-70B-2 is Euromod RAN's current airframe (28 Oct 2026).
+
+    The author rebuilt ran_S-70B-2_Seahawk on US Naval Aviation's SH-60 model
+    and pointed its squadron table, which SEST does not ship, at the RAN
+    MH-60R's liveries for that model. SEST ships the airframe for its
+    SEST_REDBACK fit alone, so a copy of the old airframe beside the new
+    table would wear liveries painted for another model. The pack's file is
+    the author's, line for line, with the fit added: no key of the old
+    model survives."""
+
+    UID = "ran_S-70B-2_Seahawk"
+    UPSTREAM = ROOT / "mods-source/3820759806/aircraft/ran_S-70B-2_Seahawk.ini"
+
+    def test_it_is_the_authors_file_with_the_redback_fit(self):
+        upstream = self.UPSTREAM.read_text(encoding="utf-8-sig")
+        text = built(self.UID)
+        removed, added = changed_lines(upstream, text)
+        loadouts = re.search(r"^AvailableLoadouts=[^\n]*", upstream, re.M).group(0)
+        self.assertEqual(removed, Counter([loadouts]))
+        fit = dict(employment.weapon_blocks(text))["1SEST_REDBACK"]
+        self.assertEqual(added, Counter([loadouts + ",SEST_REDBACK", "[WeaponSystem1SEST_REDBACK]"]
+                                        + fit.splitlines()))
+
+    def test_none_of_the_old_airframe_is_left(self):
+        # The old file's own mesh and tandem-rotor animation, its Penguin on
+        # Station9, its Hellfire rails and the fit the author dropped.
+        text = built(self.UID)
+        for stale in ("S-70B-2_Seahawk.obj", "aircraft/ran_S-70B-2_Seahawk/",
+                      "animations_S-70B-2_Seahawk", "knm_penguin_mk2", "AGM-114_Rails",
+                      "ASWHunterLight"):
+            with self.subTest(stale=stale):
+                self.assertNotIn(stale, text)
+        self.assertRegex(text, r"(?m)^ResourcesFolder=assets/models/aircraft/sh60/$")
+        self.assertRegex(text, r"(?m)^AnimationFile_1=animations_usn_sh60$")
+        self.assertRegex(text, r"(?m)^RotorConfiguration=SingleMain\b")
+
+    def test_the_consolidated_pack_ships_it(self):
+        self.assertEqual((DIST / "aircraft" / f"{self.UID}.ini").read_bytes(),
+                         (ALLIED / "aircraft" / f"{self.UID}.ini").read_bytes())
 
 
 if __name__ == "__main__":

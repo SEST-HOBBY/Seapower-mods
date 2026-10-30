@@ -688,8 +688,9 @@ def main():
     # pod goes on a single pylon, on the airframe's own mount for a store its
     # size; the 7-tube stays where a rack hangs several (the A-10's TERs, the
     # Hornets' twin mounts, the MH-60R's M299 Hellfire rails), on the MQ-9's
-    # light pylons and on the S-70B-2's Penguin arm, whose gap between the
-    # Hellfire rails a 19-tube overfills.
+    # light pylons and on the S-70B-2s' Penguin stations (3403661005's
+    # between the Hellfire rails, a gap a 19-tube overfills; Euromod RAN's,
+    # since the 28 Oct 2026 export, the SH-60 model's own Penguin point).
     ROLLOUT = [
         # Apaches: four 19-tube pods on the mod's own LAU-3 mount, as its
         # Default fit hangs them.
@@ -744,11 +745,32 @@ def main():
         # rail. No mesh is in the export: the loadout preview confirms it
         # (docs/playtest-20261023-redback.md), and the seat's height is the
         # one number to move.
-        # The S-70B-2's Penguin hangs between the four Hellfire rails, 0.35 m
-        # apart: the 7-tube pod is the Penguin's size, the 19-tube pod was
-        # wider than the gap. Provisional: the launcher stays drawn, as in
-        # the author's Penguin fit, so if the preview shows the pod inside it
-        # the two S-70B-2 rows come out before the next upload.
+        # 3403661005's S-70B-2 hangs its Penguin between the four Hellfire
+        # rails, 0.35 m apart: the 7-tube pod is the Penguin's size, the
+        # 19-tube pod was wider than the gap. Provisional: the launcher stays
+        # drawn, as in the author's Penguin fit, so if the preview shows the
+        # pod inside it the row comes out before the next upload.
+        # Euromod RAN's S-70B-2 is rebuilt in the 28 Oct 2026 export on US
+        # Naval Aviation's SH-60 model (assets/models/aircraft/sh60/, the one
+        # its RAN MH-60R and the new squadron liveries are made for), station
+        # for station that mod's usn_sh-60b. Its AntiShip fit hangs the
+        # Penguin - now usn_agm-119_air, which US Naval Aviation, a mod it
+        # requires, defines - on Station10, the model's own Penguin point
+        # 3.3 m to port, beside a tank on Station2, with the M299 launcher
+        # (H60_Pylon114) hidden and the Penguin arm (H60_Pylon119) drawn;
+        # knm_penguin_mk2, the old Station9 and the ASWHunterLight fit are
+        # gone. The owner's decision of 30 Oct 2026: retarget the row to that
+        # fit. The pod takes the Penguin's line with no seat, as the Penguin
+        # had none, so it hangs at Station10's own point on the drawn arm,
+        # with no launcher around it; the tank stays. Whether the 7-tube sits
+        # right on that arm, the loadout preview shows. The author's
+        # aircraft/Testing/ copy of the old file is no unit: the game lists a
+        # folder's units with Directory.GetFiles on that folder alone and
+        # opens a unit by its exact path; of the two passes that walk
+        # subfolders, the ini cache keys a file by its own path and the
+        # modifier scan takes only a file with a #! header, which the copy
+        # has not (Seapower-Scripts.dll eab2297b). This builder reads
+        # mods-source/<mod>/aircraft/<file> only.
         ("3606774881", "usn_mh-60r.ini", "AntiShipLateLongRange",
          [("usa_agm-114l_mm", "pod", 2, "RedbackM299"), ("usa_agm-114k_hh", "pod", 2, "RedbackM299")],
          dict(positions={"RedbackM299": "0.002461,-0.0004,0|-0.002405,-0.0004,0"})),
@@ -756,7 +778,7 @@ def main():
          [("usa_agm-114l_mm", "pod", 2, "RedbackM299"), ("usa_agm-114k_hh", "pod", 2, "RedbackM299")],
          dict(positions={"RedbackM299": "0.002461,-0.0004,0|-0.002405,-0.0004,0"})),
         ("3403661005", "S-70B-2_Seahawk.ini", "AntiShip", [("knm_penguin_mk2", "pod", 1)]),
-        ("3820759806", "ran_S-70B-2_Seahawk.ini", "AntiShip", [("knm_penguin_mk2", "pod", 1)]),
+        ("3820759806", "ran_S-70B-2_Seahawk.ini", "AntiShip", [("usn_agm-119_air", "pod", 1)]),
         # RAAF Hornets. The F/A-18A's CAS fit already flies the layout: wing
         # tanks, and two 7-tube pods on the pylon outboard of them (the twin
         # Zuni mount). The F/A-18F takes it from its long-range anti-ship
