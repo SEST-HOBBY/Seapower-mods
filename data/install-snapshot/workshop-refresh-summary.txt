@@ -3,130 +3,288 @@ WORKSHOP REFRESH SUMMARY
 Written by tools/workshop_refresh_summary.py from data/install-snapshot/ and the
 canonical lists. Facts only; compatibility is judged in a later review.
 
-capture date           : 2026-10-25T13:25:14
-repo commit captured at: c350b2cab (chore/workshop-refresh-20261025)
-previous capture       : c350b2ca
-previous export        : 970a35783e24
-Sea Power              : 21-Oct-2026: 0.8.7 Build 261021 Public Release
-  Steam build id       : 26103404
+capture date           : 2026-10-28T23:21:55
+repo commit captured at: 3421284b (chore/workshop-refresh-20261028)
+previous capture       : 0a74b07f8639
+previous export        : 0a74b07f8639
+Sea Power              : 26-Oct-2026: 0.8.7 Build 261026
+  Steam build id       : 26223125
   engine               : Unity 6000.0.84f1 (78ab6fc243d5)
 
 COUNTS
-  A Steam-tracked subscriptions : 199
-  B Workshop folders on disk    : 199
+  A Steam-tracked subscriptions : 204
+  B Workshop folders on disk    : 204
   C canonical Workshop ids      : 199
   D catalog installed entries   : 199
   SEST entries in the order     : 1 (SEST_Integration)
-  SEST in the live order        : SEST_Integration at 1 (on)
-  local SEST folders (StreamingAssets): 1
+  SEST in the live order        : 3812461539 at 1 (on, Workshop copy)
+  local SEST folders (StreamingAssets): 0
   canonical Mod Manager entries : 200
-  live Mod Manager entries      : 201
+  live Mod Manager entries      : 206
   pending (NeedsDownload / NeedsUpdate): 0 / 0
 
 SINCE THE PREVIOUS CAPTURE
   new folders:
-  (none)
+  3812461539  SEST Integration Pack [SEST's own Workshop item]
+  3819427362  Contact Log
+  3821992229  B-21 Raider
+  3826122523  Sea Power Topographic Map
+  3826396311  Sea Power Pop-Out Windows
   removed folders:
   (none)
   updated on the Workshop (Steam's timeupdated for the item changed, from
   appworkshop_1286220.acf; the exported files below are the full record):
-  3629144864  Euromod - Main Pack  2026-10-24 06:54 -> 2026-10-25 04:30
-  3737267013  US Naval Aviation  2026-10-22 12:59 -> 2026-10-25 08:05
-  3784474738  Euromod - Anchorchain Expansion Pack  2026-10-21 02:59 -> 2026-10-25 07:49
-  3802216383  JMSDF Hyūga-class — Hyūga & Ise  2026-10-09 07:57 -> 2026-10-25 11:22
-  3813157776  Dynamic Campaign Mod  2026-10-16 08:32 -> 2026-10-25 07:17
-  3820759806  Euromod - Modern Royal Australian Navy Mod  2026-10-20 20:49 -> 2026-10-25 11:23
-  exported files changed since the previous export (970a35783e24; A added, D removed, M modified, R renamed):
-  3629144864  Euromod - Main Pack  files 761 -> 768  (A 7, D 0, M 0, R 0)
-      A assets/europack/materials/eu_da05/da05_mat.ini
-      A assets/europack/materials/eu_da08/da08_mat.ini
-      A assets/europack/materials/eu_lirod/lirod_mat.ini
-      A assets/europack/materials/eu_lw03/lw03_mat.ini
-      A assets/europack/materials/eu_lw08/lw08_mat.ini
-      A assets/europack/materials/eu_stir1.8/stir_1.8_mat.ini
-      A assets/europack/materials/eu_zw06/zw06_mat.ini
-  3737267013  US Naval Aviation  files 272 -> 272  (A 0, D 0, M 6, R 3)
-      R aircraft/usn_hh-60h.ini
-      R aircraft/usn_hh-60h_squadrons.ini
-      R version_counter_107.txt
-      M aircraft/usn_mh-60r.ini
-      M aircraft/usn_sh-60b.ini
-      M aircraft/usn_sh-60f.ini
-      M aircraft/usn_sh-60f_squadrons.ini
-      M language_cn/aircraft_names.ini
+  3373960386  Flight Deck Ops  2026-10-13 00:34 -> 2026-10-27 04:28
+  3390330875  Euromod - Modern US Navy  2026-10-24 13:50 -> 2026-10-27 09:18
+  3488139470  Euromod - Modern Italian Navy  2026-10-17 03:31 -> 2026-10-28 07:34
+  3567228449  French Helicopter Package  2026-10-11 00:48 -> 2026-10-26 06:32
+  3567256221  Charles De Gaulle & Modern French Navy  2026-10-12 03:16 -> 2026-10-26 06:12
+  3630495619  Spanish Navy Mod (Cold War)  2026-10-22 07:27 -> 2026-10-28 07:46
+  3731208477  Spanish Navy Mod (Modern)  2026-10-22 03:39 -> 2026-10-26 03:59
+  3732654992  THE REDFOR MOD  2026-10-23 21:50 -> 2026-10-26 03:46
+  3737267013  US Naval Aviation  2026-10-25 08:05 -> 2026-10-27 11:37
+  3766210676  Saronic Corsair ASV  2026-10-23 12:38 -> 2026-10-27 20:59
+  3784474738  Euromod - Anchorchain Expansion Pack  2026-10-25 07:49 -> 2026-10-26 04:57
+  3790594162  Identify Expanded  2026-10-15 13:18 -> 2026-10-27 10:45
+  3796349767  YF-23 Black Widow II  2026-10-23 12:38 -> 2026-10-27 20:58
+  3796706214  飞机与直升机的真实照片  2026-10-05 10:56 -> 2026-10-27 16:33
+  3804868806  Anduril FQ-44 Fury US Navy Carrier Wingmen  2026-10-23 12:38 -> 2026-10-27 20:58
+  3810611344  MV-75 Cheyenne II  2026-10-23 12:37 -> 2026-10-27 21:01
+  3813033771  EC-2 Stand Off Jammer  2026-10-23 12:37 -> 2026-10-27 20:59
+  3818251045  Group Manager  2026-10-12 10:47 -> 2026-10-26 09:02
+  3819522350  Anduril Maritime Drones  2026-10-23 12:36 -> 2026-10-27 21:00
+  3820576916  Steelfin  2026-10-23 12:36 -> 2026-10-27 20:57
+  3820759806  Euromod - Modern Royal Australian Navy Mod  2026-10-25 11:23 -> 2026-10-26 07:12
+  exported files changed since the previous export (0a74b07f8639; A added, D removed, M modified, R renamed):
+  3373960386  Flight Deck Ops  files 47 -> 47  (A 0, D 0, M 11, R 0)
+      M _info.ini
+      M animations/animations_usn_cvn_nimitz_fdo.ini
+      M vessels/usn_cv_america_79.ini
+      M vessels/usn_cv_forrestal_75.ini
+      M vessels/usn_cv_kitty_hawk.ini
+      M vessels/usn_cvn_enterprise.ini
+      M vessels/usn_cvn_nimitz.ini
+      M vessels/usn_lha_tarawa.ini
+      M vessels/wp_cv_orel.ini
+      M vessels/wp_pkr_moskva.ini
+      M vessels/wp_takr_kiev.ini
+  3390330875  Euromod - Modern US Navy  files 280 -> 281  (A 1, D 0, M 63, R 1)
+      A usn_lhd_wasp.ini
+      R version_counter_626.txt
+      M aircraft/usn_mh-60r_p2.ini
+      M ammunition/usn_ssq-62.ini
+      M language_en/vessel_names.ini
+      M vessels/usn_cg_bunker_hill_vls_2004.ini
+      M vessels/usn_cg_bunker_hill_vls_2014.ini
+      M vessels/usn_cg_bunker_hill_vls_2024.ini
+      M vessels/usn_cg_bunker_hill_vls_2024_late.ini
+      M vessels/usn_cvn_nimitz_2025.ini
+      M vessels/usn_dd_spruance_mk71.ini
+      M vessels/usn_dd_spruance_ram_lamps-3.ini
+      ... and 53 more
+  3488139470  Euromod - Modern Italian Navy  files 75 -> 75  (A 0, D 0, M 3, R 1)
+      R version_counter_53.txt
+      M vessels/ita_ffg_fremm.ini
+      M vessels/ita_ffg_fremm_asw.ini
+      M vessels/ita_fs_ppx.ini
+  3567228449  French Helicopter Package  files 198 -> 198  (A 0, D 0, M 1, R 0)
+      M animations/animations_vsr_700.ini
+  3567256221  Charles De Gaulle & Modern French Navy  files 297 -> 321  (A 24, D 0, M 14, R 0)
+      A aircraft/fr_aliaca.ini
+      A aircraft/fr_aliaca_squadrons.ini
+      A ammunition/fr_mu_90_air.ini
+      A animations/animations_fr_aliaca.ini
+      A animations/animations_fr_ffg_flor\303\251al.ini"
+      A assets/models/aircraft/aliaca/aliaca_mat.ini
+      A assets/models/aircraft/aliaca/rotor_mat.ini
+      A assets/models/vechicle/vessels/flor\303\251al/alpha_mat.ini"
+      A assets/models/vechicle/vessels/flor\303\251al/canon20mm_mat.ini"
+      A assets/models/vechicle/vessels/flor\303\251al/coffre_mat.ini"
+      A assets/models/vechicle/vessels/flor\303\251al/coque_es_mat.ini"
+      A assets/models/vechicle/vessels/flor\303\251al/coque_mat.ini"
+      ... and 26 more
+  3630495619  Spanish Navy Mod (Cold War)  files 196 -> 201  (A 5, D 0, M 18, R 0)
+      A aircraft/spa_s-55.ini
+      A aircraft/spa_s-55/spa_s-55_mat.ini
+      A aircraft/spa_s-55_squadrons.ini
+      A animations/animations_spa_s-55.ini
+      A ships/ae_cvl_dedalo/ae_cvl_dedalo_early_deck_mat.ini
+      M Credits.txt
+      M Spanish cold war changes.txt
+      M _info.ini
+      M aircraft/spa_mirage_iii.ini
+      M aircraft/spa_mirage_iii_squadrons.ini
+      M animations/animations_spa_mirage_iii.ini
       M language_en/aircraft_names.ini
-  3784474738  Euromod - Anchorchain Expansion Pack  files 1042 -> 1166  (A 124, D 0, M 7, R 0)
-      A TestRange_README.txt
-      A effects/explosions/emitters/nuclear_500kt_surface_v3/crown_00_00.ini
-      A effects/explosions/emitters/nuclear_500kt_surface_v3/crown_00_01.ini
-      A effects/explosions/emitters/nuclear_500kt_surface_v3/crown_00_02.ini
-      A effects/explosions/emitters/nuclear_500kt_surface_v3/crown_00_03.ini
-      A effects/explosions/emitters/nuclear_500kt_surface_v3/crown_00_04.ini
-      A effects/explosions/emitters/nuclear_500kt_surface_v3/crown_00_05.ini
-      A effects/explosions/emitters/nuclear_500kt_surface_v3/crown_00_06.ini
-      A effects/explosions/emitters/nuclear_500kt_surface_v3/crown_00_07.ini
-      A effects/explosions/emitters/nuclear_500kt_surface_v3/crown_00_08.ini
-      A effects/explosions/emitters/nuclear_500kt_surface_v3/crown_00_09.ini
-      A effects/explosions/emitters/nuclear_500kt_surface_v3/crown_00_10.ini
-      ... and 119 more
-  3802216383  JMSDF Hyūga-class — Hyūga & Ise  files 203 -> 203  (A 0, D 0, M 4, R 0)
-      M SHA256SUMS.json
-      M WORKSHOP_CHANGELOG.txt
+      ... and 11 more
+  3731208477  Spanish Navy Mod (Modern)  files 125 -> 125  (A 0, D 0, M 3, R 0)
+      M Changelog.txt
       M _info.ini
-      M vessels/jmsdf_ddh_hyuga.ini
-  3813157776  Dynamic Campaign Mod  files 5 -> 5  (A 0, D 0, M 4, R 0)
+      M language_es/ammunition_names.ini
+  3732654992  THE REDFOR MOD  files 329 -> 332  (A 4, D 1, M 8, R 1)
+      D MissileDatalinkRelay.ini
+      A aircraft/wp_su-24m2.ini
+      A aircraft/wp_su-24m2_squadrons.ini
+      A aircraft/wp_su-24mp.ini
+      A aircraft/wp_su-24mp_squadrons.ini
+      R weapons/wp_as-13/wp_kh59_mat.ini
+      M REDFOR.txt
       M _info.ini
-      M dynamic_campaigns/atlantic_1972_hold_the_gap/campaign.json
-      M dynamic_campaigns/atlantic_1972_red_storm_rising/campaign.json
-      M dynamic_campaigns/east_asia_1985/campaign.json
-  3820759806  Euromod - Modern Royal Australian Navy Mod  files 217 -> 238  (A 21, D 0, M 12, R 0)
-      A aircraft/Testing/usaf_f-35a.ini
-      A aircraft/Testing/usaf_f-35a_1.ini
-      A aircraft/Testing/usaf_f-35a_2.ini
-      A aircraft/raaf_f-35a.ini
-      A aircraft/raaf_f-35a_blk4.ini
-      A aircraft/raaf_f-35a_blk4_squadrons.ini
-      A aircraft/raaf_f-35a_squadrons.ini
-      A aircraft/ran_f-35b_late.ini
-      A aircraft/ran_f-35b_late_squadrons.ini
-      A ammunition/WIP/scn_nasams_aim120c7.ini
-      A ammunition/WIP/scn_nasams_aim9x.ini
-      A ammunition/usn_cal_25mm_apex.ini
-      ... and 21 more
+      M flanker/models/weapon/ammunition/kh59m/wp_as-18_mat.ini
+      M land_units/wp_mzkt_bigbird.ini
+      M language_en/aircraft_names.ini
+      M language_en/ammunition_names.ini
+      ... and 2 more
+  3737267013  US Naval Aviation  files 272 -> 272  (A 0, D 0, M 18, R 1)
+      R version_counter_111.txt
+      M _info.ini
+      M aircraft/usmc_av-8b+.ini
+      M aircraft/usmc_f-35b.ini
+      M aircraft/usn_e-2d.ini
+      M aircraft/usn_ea-18g.ini
+      M aircraft/usn_ea-18g_2020.ini
+      M aircraft/usn_ep-3e.ini
+      M aircraft/usn_ep-3e_late.ini
+      M aircraft/usn_es-3a.ini
+      M aircraft/usn_f-35c.ini
+      M aircraft/usn_fa-18a+.ini
+      ... and 7 more
+  3766210676  Saronic Corsair ASV  files 43 -> 43  (A 0, D 0, M 2, R 0)
+      M CHANGELOG.txt
+      M language_en/ammunition_names.ini
+  3784474738  Euromod - Anchorchain Expansion Pack  files 1166 -> 1166  (A 0, D 0, M 22, R 0)
+      M ExtendedGuidance_README.txt
+      M HullDamage.ini
+      M TestRange_README.txt
+      M ammunition_overwrite/knm_nsm_1a_OVWR.ini
+      M ammunition_overwrite/usa_mim-104f_mi_OVWR.ini
+      M ammunition_overwrite/usn_pac3_mse_OVWR.ini
+      M ammunition_overwrite/usn_rim-161c_OVWR.ini
+      M ammunition_overwrite/usn_rim-161d_OVWR.ini
+      M ammunition_overwrite/usn_rim-162a_OVWR.ini
+      M ammunition_overwrite/usn_rim-162b_OVWR.ini
+      M ammunition_overwrite/usn_rim-162c_OVWR.ini
+      M ammunition_overwrite/usn_rim-162d_OVWR.ini
+      ... and 10 more
+  3790594162  Identify Expanded  files 10 -> 11  (A 1, D 0, M 1, R 1)
+      A language_cn/identify_expanded.ini
+      R language_ja/identify_expanded.ini
+      M language_en/identify_expanded.ini
+  3804868806  Anduril FQ-44 Fury US Navy Carrier Wingmen  files 61 -> 61  (A 0, D 0, M 8, R 0)
+      M SENSOR_CONTROLS.txt
+      M aircraft/usn_fury_escort_squadrons.ini
+      M aircraft/usn_fury_ew_squadrons.ini
+      M aircraft/usn_fury_interceptor_squadrons.ini
+      M aircraft/usn_fury_recon_squadrons.ini
+      M aircraft/usn_fury_sead_squadrons.ini
+      M aircraft/usn_fury_strike_squadrons.ini
+      M language_en/aircraft_names.ini
+  3818251045  Group Manager  files 2 -> 2  (A 0, D 0, M 2, R 0)
+      M README.txt
+      M _info.ini
+  3819427362  Contact Log  files - -> 1  (A 1, D 0, M 0, R 0)
+      A _info.ini
+  3819522350  Anduril Maritime Drones  files 124 -> 124  (A 0, D 0, M 9, R 0)
+      M language_cn/ammunition_names.ini
+      M language_de/ammunition_names.ini
+      M language_en/ammunition_names.ini
+      M language_es/ammunition_names.ini
+      M language_fr/ammunition_names.ini
+      M language_ja/ammunition_names.ini
+      M language_ko/ammunition_names.ini
+      M language_ru/ammunition_names.ini
+      M language_vn/ammunition_names.ini
+  3820576916  Steelfin  files 20 -> 20  (A 0, D 0, M 6, R 0)
+      M Readme.txt
+      M _info.ini
+      M language_en/ammunition_names.ini
+      M language_en/land_units_names.ini
+      M missions/Steelfin/_info.ini
+      M missions/Steelfin/steelfin_range.ini
+  3820759806  Euromod - Modern Royal Australian Navy Mod  files 238 -> 242  (A 4, D 0, M 10, R 0)
+      A aircraft/Testing/ran_S-70B-2_Seahawk.ini
+      A aircraft/Testing/ran_S-70B-2_Seahawk_squadrons.ini
+      A aircraft/aus_a330_mrtt.ini
+      A aircraft/aus_a330_mrtt_squadrons.ini
+      M _info.ini
+      M aircraft/raaf_f-35a.ini
+      M aircraft/raaf_f-35a_blk4.ini
+      M aircraft/ran_S-70B-2_Seahawk.ini
+      M aircraft/ran_S-70B-2_Seahawk_squadrons.ini
+      M aircraft/ran_uh-60m.ini
+      M aircraft/rnzaf_p8.ini
+      M language_en/aircraft_names.ini
+      ... and 2 more
+  3821992229  B-21 Raider  files - -> 41  (A 41, D 0, M 0, R 0)
+      A Formation.txt
+      A LICENSE.txt
+      A STEELFIN.txt
+      A _info.ini
+      A aircraft/usaf_b-21_raider.ini
+      A aircraft/usaf_b-21_raider_squadrons.ini
+      A ammunition/usaf_b21_agm-158b.ini
+      A ammunition/usaf_b21_agm-158c.ini
+      A ammunition/usaf_b21_gbu-31.ini
+      A ammunition/usaf_b21_gbu-38.ini
+      A ammunition/usaf_b21_mk-82.ini
+      A ammunition/usn_steelfin_air.ini
+      ... and 29 more
+  3826122523  Sea Power Topographic Map  files - -> 2  (A 2, D 0, M 0, R 0)
+      A LICENSE.txt
+      A _info.ini
+  3826396311  Sea Power Pop-Out Windows  files - -> 2  (A 2, D 0, M 0, R 0)
+      A LICENSE.txt
+      A _info.ini
   plugin DLLs changed:
-  [SEST_Integration\plugins] SEST.MenuBackground.dll
-  [SEST_Integration\plugins] SEST.RuntimeFixes.dll
+  [workshop] 3766210676\SaronicCorsairStrikeUSV.dll
   [workshop] 3784474738\ACPackSettings.dll
-  [workshop] 3784474738\CombatWorker.dll
-  [workshop] 3784474738\CustomAudioLoader.dll
-  [workshop] 3784474738\EnhancedDecoyMod.dll
-  [workshop] 3784474738\EnhancedUIMod.dll
-  [workshop] 3784474738\Euromod-Welldeck.dll
   [workshop] 3784474738\ExtendedGuidance.dll
-  [workshop] 3784474738\HighAltitudeSkyFix.v1.2.0.dll
   [workshop] 3784474738\HullDamage.dll
-  [workshop] 3784474738\MeshCutOut.dll
-  [workshop] 3784474738\MissileControlMod.dll
-  [workshop] 3784474738\MissileControlSurfaces.dll
   [workshop] 3784474738\MultiStageMissiles.dll
   [workshop] 3784474738\OptimalTargetDist.dll
-  [workshop] 3784474738\ParallelRangeProbe.dll
-  [workshop] 3784474738\ProfileImage1024.dll
-  [workshop] 3784474738\SATCOM.dll
-  [workshop] 3784474738\SmokeParticleLOD.dll
-  [workshop] 3784474738\SubModelStabilization.dll
-  [workshop] 3784474738\UiWorkerProbe.dll
-  [workshop] 3784474738\V22Tiltrotor.dll
-  [workshop] 3784474738\WeaponLauncherEffects.dll
-  [workshop] 3813157776\DynamicCampaignMod.dll
-  plugin DLLs new:
-  [workshop] 3784474738\SeaPowerDLSS.dll_
   [workshop] 3784474738\TestRange.dll
+  [workshop] 3790594162\IdentifyExpanded.dll
+  [workshop] 3796349767\AlpineSeaPower.dll
+  [workshop] 3796349767\YF23Ejection.dll
+  [workshop] 3796349767\YF23Formation.dll
+  [workshop] 3796349767\YF23Lights.dll
+  [workshop] 3804868806\AlpineSeaPower.dll
+  [workshop] 3804868806\FuryFormation.dll
+  [workshop] 3804868806\FuryLights.dll
+  [workshop] 3804868806\FuryVoice.Harmony.dll
+  [workshop] 3804868806\XQ58Shadow.dll
+  [workshop] 3810611344\BellSystemsFixtureTilt.dll
+  [workshop] 3810611344\CheyenneCabinJoints.dll
+  [workshop] 3810611344\CheyenneDoorLining.dll
+  [workshop] 3810611344\MV75CrewEscape.dll
+  [workshop] 3810611344\MV75Formation.dll
+  [workshop] 3813033771\EC2CommsJamming.dll
+  [workshop] 3813033771\EC2Ejection.dll
+  [workshop] 3813033771\EC2Formation.dll
+  [workshop] 3813033771\EC2Lights.dll
+  [workshop] 3813033771\EC2Tooltip.dll
+  [workshop] 3818251045\SeaPowerSquadPanel.dll
+  [workshop] 3819522350\K5KrakenContactStrike.dll
+  plugin DLLs new:
+  [workshop] 3812461539\plugins\SEST.ContactsFix.dll
+  [workshop] 3812461539\plugins\SEST.MenuBackground.dll
+  [workshop] 3812461539\plugins\SEST.RuntimeFixes.dll
+  [workshop] 3819427362\ContactLog.dll
+  [workshop] 3821992229\B21Ejection.dll
+  [workshop] 3821992229\B21Formation.dll
+  [workshop] 3821992229\B21Lights.dll
+  [workshop] 3826122523\SeaPowerTopo.dll
+  [workshop] 3826122523\SeaPowerTopoFlat.dll
+  [workshop] 3826396311\SeaPowerPopOut.dll
 
 INVENTORY
   subscribed + downloaded + canonical + catalogued: 199
   subscribed but unplaced (B not C):
-  (none)
+  3812461539  SEST Integration Pack [SEST's own Workshop item]
+  3819427362  Contact Log
+  3821992229  B-21 Raider
+  3826122523  Sea Power Topographic Map
+  3826396311  Sea Power Pop-Out Windows
   canonical but not downloaded (C not B):
   (none)
   canonical but not catalogued (C not D):
@@ -134,7 +292,11 @@ INVENTORY
   catalogued installed but not on disk (D not B):
   (none)
   new uncatalogued subscriptions (B not in any catalog entry):
-  (none)
+  3812461539  SEST Integration Pack [SEST's own Workshop item]
+  3819427362  Contact Log
+  3821992229  B-21 Raider
+  3826122523  Sea Power Topographic Map
+  3826396311  Sea Power Pop-Out Windows
   historical catalog entries (status not installed): 9
   Steam-tracked but not on disk: (none)
   on disk but not Steam-tracked: (none)
@@ -152,20 +314,38 @@ EXPORTER UPDATE CHECK (export-mod-configs.ps1 -CheckUpdates)
   Found Sea Power (app 1286220)
     game dir : c:\program files (x86)\steam\steamapps\common\Sea Power
     workshop : c:\program files (x86)\steam\steamapps\workshop\content\1286220
-  unchanged since the last export : 185
+  unchanged since the last export : 173
+  skipped, SEST's own Workshop item: 3812461539
   UPDATED by their authors (re-export to pick the changes up):
+    3373960386  Flight Deck Ops
     3390330875  Euromod - Modern US Navy
+    3488139470  Euromod - Modern Italian Navy
+    3567228449  French Helicopter Package
+    3567256221  Charles De Gaulle & Modern French Navy
     3592460366  Modern US Airbase
     3606774881  U.S. Navy 2027 Capabilities
     3607989779  F-35C Lightning II Alt. Loadouts
     3629144864  Euromod - Main Pack
+    3630495619  Spanish Navy Mod (Cold War)
     3642656500  Euromod-Scandinavian Navy
     3695809489  Euromod-(Japan)JMSDF Modern navy
+    3731208477  Spanish Navy Mod (Modern)
     3732654992  THE REDFOR MOD
     3737267013  US Naval Aviation
+    3766210676  Saronic Corsair ASV
     3776730617  Euromod - Modern Armada de Chile
     3784474738  Euromod - Anchorchain Expansion Pack
+    3790594162  Identify Expanded
     3802216383  JMSDF Hyūga-class — Hyūga & Ise
+    3804868806  Anduril FQ-44 Fury US Navy Carrier Wingmen
     3813157776  Dynamic Campaign Mod
+    3818251045  Group Manager
+    3819522350  Anduril Maritime Drones
+    3820576916  Steelfin
     3820759806  Euromod - Modern Royal Australian Navy Mod
+  NEW subscriptions (not exported yet):
+    3819427362  Contact Log
+    3821992229  B-21 Raider
+    3826122523  Sea Power Topographic Map
+    3826396311  Sea Power Pop-Out Windows
   To capture: re-run this script without -CheckUpdates, then commit and push.
