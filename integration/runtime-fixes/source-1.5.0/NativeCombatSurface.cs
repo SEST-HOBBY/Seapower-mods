@@ -61,20 +61,22 @@ internal static class NativeCombatSurface
 
 	private const string Xaml = "<ResourceDictionary xmlns='http://schemas.microsoft.com/winfx/2006/xaml/presentation' xmlns:x='http://schemas.microsoft.com/winfx/2006/xaml' xmlns:local='clr-namespace:SeapowerUI' xmlns:sest='clr-namespace:Sest.RuntimeFixes;assembly=SEST.RuntimeFixes'>\n<DataTemplate DataType='{x:Type sest:CumulativeCombatCostsViewModel}'>\n<local:Window x:Name='SestCostWindow' Header='{Binding Title}' Width='570' Height='560' MinWidth='100' MinHeight='100' X='12' Y='170' AnchorRight='False' AnchorBottom='False' Draggable='True' CanResize='True' HorizontalAlignment='Left' VerticalAlignment='Top' HorizontalContentAlignment='Stretch' VerticalContentAlignment='Stretch' Background='#ED151D24'>\n<Grid Margin='10' Background='#ED151D24'><Grid.RowDefinitions><RowDefinition Height='Auto'/><RowDefinition Height='Auto'/><RowDefinition Height='*'/><RowDefinition Height='Auto'/></Grid.RowDefinitions>\n<TextBlock Text='{Binding Subtitle}' Foreground='#9BAEBB' FontSize='11' TextWrapping='Wrap' Margin='0,0,0,8'/>\n<StackPanel x:Name='SestCostSummary' Grid.Row='1' Margin='0,0,0,10'/>\n<ScrollViewer x:Name='SestCostScroll' Grid.Row='2' VerticalScrollBarVisibility='Auto' HorizontalScrollBarVisibility='Disabled' Background='Transparent' CanContentScroll='False'>\n<StackPanel x:Name='SestCostDetails' Margin='0,0,10,0'/></ScrollViewer>\n<TextBlock Grid.Row='3' Text='{Binding Notes}' Foreground='#A8B6C2' FontSize='11' TextWrapping='Wrap' Margin='0,10,0,0'/>\n</Grid></local:Window></DataTemplate></ResourceDictionary>";
 
-	internal static bool Ready => startup.Ready && !NoesisTeardown.InProgress;
-
-	internal static bool IsMouseOver => shown && window != null && window.IsVisible && window.IsMouseOver;
+	internal static bool Ready
+	{
+		get { return startup.Ready && !NoesisTeardown.InProgress; }
+	}
 
 	internal static void Bind()
 	{
 		using (FileStream inputStream = File.OpenRead(typeof(GUI).Assembly.Location))
 		{
-			using (SHA256 sHA = SHA256.Create()) {
-			if (BitConverter.ToString(sHA.ComputeHash(inputStream)).Replace("-", string.Empty).ToLowerInvariant() != "c4e2c37cd9162fe9e4d6426b646cdaa9a16ccbcd80e69261cc900a4386920d65")
+			using (SHA256 sHA = SHA256.Create())
 			{
-				throw new InvalidOperationException("uninspected Noesis UI assembly");
+				if (BitConverter.ToString(sHA.ComputeHash(inputStream)).Replace("-", string.Empty).ToLowerInvariant() != "c4e2c37cd9162fe9e4d6426b646cdaa9a16ccbcd80e69261cc900a4386920d65")
+				{
+					throw new InvalidOperationException("uninspected Noesis UI assembly");
+				}
 			}
-}
 		}
 		uiInitialized = typeof(GUI).GetField("_initialized", BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Static);
 		if (uiInitialized == null || !uiInitialized.IsStatic || uiInitialized.FieldType != typeof(bool))
@@ -139,10 +141,10 @@ internal static class NativeCombatSurface
 		{
 			DependencyObject current = queue.Dequeue();
 			yield return current;
-			int i = VisualTreeHelper.GetChildrenCount(current);
-			for (int j = 0; j < i; j++)
+			int n = VisualTreeHelper.GetChildrenCount(current);
+			for (int i = 0; i < n; i++)
 			{
-				queue.Enqueue(VisualTreeHelper.GetChild(current, j));
+				queue.Enqueue(VisualTreeHelper.GetChild(current, i));
 			}
 		}
 	}
@@ -167,7 +169,7 @@ internal static class NativeCombatSurface
 
 	private static FrameworkElement Root(bool live)
 	{
-		return (!live) ? LinearCampaignView.Instance : ((!(Globals._mainGameViewModel == null)) ? Globals._mainGameViewModel.RootControl : null);
+		return live ? (Globals._mainGameViewModel == null ? null : Globals._mainGameViewModel.RootControl) : LinearCampaignView.Instance;
 	}
 
 	internal static void Tick(bool live, bool open, CampaignCosts.CostView report, string identity, Action onClosed, double now)
@@ -175,124 +177,122 @@ internal static class NativeCombatSurface
 		if (NoesisTeardown.InProgress)
 		{
 			Forget();
+			return;
 		}
-		else
+		if (!Ready)
 		{
-			if (!Ready)
+			return;
+		}
+		PopOutBridge.EnsureBound();
+		closed = onClosed;
+		FrameworkElement target = Root(live);
+		if (!object.ReferenceEquals(root, target) || wasLive != live)
+		{
+			Close();
+			root = target;
+			wasLive = live;
+			home = root == null ? null : Host(root);
+			path = System.IO.Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.UserProfile), "AppData", "LocalLow", "Triassic Games", "Sea Power", "SEST", live ? "combat-window-mission.txt" : "combat-window-campaign.txt");
+			try
 			{
-				return;
+				state = CostWindowState.Parse(File.Exists(path) ? File.ReadAllText(path) : null);
 			}
-			PopOutBridge.EnsureBound();
-			closed = onClosed;
-			FrameworkElement objB = Root(live);
-			if (!object.ReferenceEquals(root, objB) || wasLive != live)
+			catch (Exception error)
 			{
-				Close();
-				root = objB;
-				wasLive = live;
-				home = ((!(root == null)) ? Host(root) : null);
-				path = System.IO.Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.UserProfile), "AppData", "LocalLow", "Triassic Games", "Sea Power", "SEST", (!live) ? "combat-window-campaign.txt" : "combat-window-mission.txt");
-				try
-				{
-					state = CostWindowState.Parse((!File.Exists(path)) ? null : File.ReadAllText(path));
-				}
-				catch (Exception error)
-				{
-					state = new CostWindowState();
-					Api.LogFailure("cost-window placement could not be read; defaults used", error);
-				}
-				lastSaved = state.Encode();
-				nextLayout = (nextSave = 0.0);
-				boundsLogged = false;
-				Register(root);
+				state = new CostWindowState();
+				Api.LogFailure("cost-window placement could not be read; defaults used", error);
 			}
-			Register(PopOutBridge.Root);
-			if (!open || root == null || home == null)
+			lastSaved = state.Encode();
+			nextLayout = (nextSave = 0.0);
+			boundsLogged = false;
+			Register(root);
+		}
+		Register(PopOutBridge.Root);
+		if (!open || root == null || home == null)
+		{
+			Close();
+			return;
+		}
+		if (scope != identity)
+		{
+			scope = identity;
+			if (scroll != null)
 			{
-				Close();
-				return;
+				scroll.ScrollToVerticalOffset(0f);
 			}
-			if (scope != identity)
+		}
+		model.Set(report, live);
+		if (!shown)
+		{
+			if (PopOutBridge.HostOpening(home, model))
 			{
-				scope = identity;
-				if (scroll != null)
-				{
-					scroll.ScrollToVerticalOffset(0f);
-				}
+				home.Windows.Add(model);
 			}
-			model.Set(report, live);
-			if (!shown)
+			shown = true;
+			nextLayout = 0.0;
+			Api.Log("native cumulative-cost window opened in " + (live ? "mission" : "campaign") + "; draggable, resizable, native scrolling");
+		}
+		else if (!home.Windows.Contains(model) && !PopOutBridge.Contains(model))
+		{
+			shown = false;
+			window = null;
+			scroll = null;
+			summaryPanel = (detailPanel = null);
+			renderedRevision = -1;
+			if (closed != null)
 			{
-				if (PopOutBridge.HostOpening(home, model))
-				{
-					home.Windows.Add(model);
-				}
-				shown = true;
-				nextLayout = 0.0;
-				Api.Log("native cumulative-cost window opened in " + ((!live) ? "campaign" : "mission") + "; draggable, resizable, native scrolling");
+				closed();
 			}
-			else if (!home.Windows.Contains(model) && !PopOutBridge.Contains(model))
+			return;
+		}
+		if (now < nextLayout)
+		{
+			return;
+		}
+		nextLayout = now + 0.2;
+		FrameworkElement host = PopOutBridge.Contains(model) ? PopOutBridge.Root : root;
+		Window found = window != null && window.IsDescendantOf(host) ? window : Walk(host).OfType<Window>().FirstOrDefault((Window w) => object.ReferenceEquals(w.DataContext, model));
+		if (found == null)
+		{
+			return;
+		}
+		if (!object.ReferenceEquals(window, found))
+		{
+			window = found;
+			scroll = Walk(window).OfType<ScrollViewer>().FirstOrDefault((ScrollViewer s) => s.Name == "SestCostScroll");
+			summaryPanel = Walk(window).OfType<StackPanel>().FirstOrDefault((StackPanel p) => p.Name == "SestCostSummary");
+			detailPanel = Walk(window).OfType<StackPanel>().FirstOrDefault((StackPanel p) => p.Name == "SestCostDetails");
+			if (summaryPanel == null || detailPanel == null)
 			{
-				shown = false;
-				NativeCombatSurface.window = null;
-				scroll = null;
-				summaryPanel = (detailPanel = null);
-				renderedRevision = -1;
-				if (closed != null)
-				{
-					closed();
-				}
-				return;
+				throw new MissingMemberException("native cost report text panels");
 			}
-			if (now < nextLayout)
-			{
-				return;
-			}
-			nextLayout = now + 0.2;
-			FrameworkElement frameworkElement = ((!PopOutBridge.Contains(model)) ? root : PopOutBridge.Root);
-			Window window = ((!(NativeCombatSurface.window != null) || !NativeCombatSurface.window.IsDescendantOf(frameworkElement)) ? Walk(frameworkElement).OfType<Window>().FirstOrDefault((Window w) => object.ReferenceEquals(w.DataContext, model)) : NativeCombatSurface.window);
-			if (window == null)
-			{
-				return;
-			}
-			if (!object.ReferenceEquals(NativeCombatSurface.window, window))
-			{
-				NativeCombatSurface.window = window;
-				scroll = Walk(NativeCombatSurface.window).OfType<ScrollViewer>().FirstOrDefault((ScrollViewer s) => s.Name == "SestCostScroll");
-				summaryPanel = Walk(NativeCombatSurface.window).OfType<StackPanel>().FirstOrDefault((StackPanel p) => p.Name == "SestCostSummary");
-				detailPanel = Walk(NativeCombatSurface.window).OfType<StackPanel>().FirstOrDefault((StackPanel p) => p.Name == "SestCostDetails");
-				if (summaryPanel == null || detailPanel == null)
-				{
-					throw new MissingMemberException("native cost report text panels");
-				}
-				renderedRevision = -1;
-				NativeCombatSurface.window.PreviewMouseWheel += OnWheel;
-				if (!PopOutBridge.Contains(model))
-				{
-					ApplyBounds(live, initial: true);
-				}
-				PopOutBridge.Decorate(NativeCombatSurface.window);
-			}
-			if (renderedRevision != model.Revision)
-			{
-				NativeCostTypography.Render(summaryPanel, model.SummaryRows);
-				NativeCostTypography.Render(detailPanel, model.DetailRows);
-				renderedRevision = model.Revision;
-			}
+			renderedRevision = -1;
+			window.PreviewMouseWheel += OnWheel;
 			if (!PopOutBridge.Contains(model))
 			{
-				ApplyBounds(live, initial: false);
+				ApplyBounds(live, initial: true);
 			}
-			if (now >= nextSave && !PopOutBridge.Contains(model))
+			PopOutBridge.Decorate(window);
+		}
+		if (renderedRevision != model.Revision)
+		{
+			NativeCostTypography.Render(summaryPanel, model.SummaryRows);
+			NativeCostTypography.Render(detailPanel, model.DetailRows);
+			renderedRevision = model.Revision;
+		}
+		if (!PopOutBridge.Contains(model))
+		{
+			ApplyBounds(live, initial: false);
+		}
+		if (now >= nextSave && !PopOutBridge.Contains(model))
+		{
+			nextSave = now + 1.0;
+			string text = state.Encode();
+			if (text != lastSaved)
 			{
-				nextSave = now + 1.0;
-				string text = state.Encode();
-				if (text != lastSaved)
-				{
-					state.Positioned = true;
-					state.Save(path);
-					lastSaved = text;
-				}
+				state.Positioned = true;
+				state.Save(path);
+				lastSaved = text;
 			}
 		}
 	}
@@ -320,8 +320,8 @@ internal static class NativeCombatSurface
 			return true;
 		}
 		Binding binding = BindingOperations.GetBinding(items, ItemsControl.ItemsSourceProperty);
-		string text = ((!(binding == null) && !(binding.Path == null)) ? binding.Path.Path : null);
-		return text == name || (text?.EndsWith("." + name, StringComparison.Ordinal) ?? false);
+		string text = binding == null || binding.Path == null ? null : binding.Path.Path;
+		return text == name || (text != null && text.EndsWith("." + name, StringComparison.Ordinal));
 	}
 
 	internal static CostBounds MenuBounds(FrameworkElement host)
@@ -373,24 +373,30 @@ internal static class NativeCombatSurface
 
 	private static void ApplyBounds(bool live, bool initial)
 	{
-		if (!(root.ActualWidth <= 0f) && !(root.ActualHeight <= 0f))
+		if (root.ActualWidth <= 0f || root.ActualHeight <= 0f)
 		{
-			if (!initial)
-			{
-				state.X = window.X;
-				state.Y = window.Y;
-				state.Width = window.Width;
-				state.Height = window.Height;
-			}
-			CostBounds area = ((!live) ? MenuBounds(root) : new CostBounds(8f, 8f, root.ActualWidth - 8f, root.ActualHeight - 8f));
-			state.Fit(area, !live);
-			window.MaxWidth = area.Width;
-			window.MaxHeight = area.Height;
-			window.Width = state.Width;
-			window.Height = state.Height;
-			window.X = state.X;
-			window.Y = state.Y;
+			return;
 		}
+		if (!initial)
+		{
+			state.X = window.X;
+			state.Y = window.Y;
+			state.Width = window.Width;
+			state.Height = window.Height;
+		}
+		CostBounds area = live ? new CostBounds(8f, 8f, root.ActualWidth - 8f, root.ActualHeight - 8f) : MenuBounds(root);
+		state.Fit(area, !live);
+		window.MaxWidth = area.Width;
+		window.MaxHeight = area.Height;
+		window.Width = state.Width;
+		window.Height = state.Height;
+		window.X = state.X;
+		window.Y = state.Y;
+	}
+
+	internal static bool IsMouseOver
+	{
+		get { return shown && window != null && window.IsVisible && window.IsMouseOver; }
 	}
 
 	internal static bool BeforeMapWheel(object __1)
@@ -426,35 +432,33 @@ internal static class NativeCombatSurface
 		if (NoesisTeardown.InProgress)
 		{
 			Forget();
+			return;
 		}
-		else
+		if (closing || !shown)
 		{
-			if (closing || !shown)
+			return;
+		}
+		closing = true;
+		try
+		{
+			if (window != null)
 			{
-				return;
+				window.PreviewMouseWheel -= OnWheel;
 			}
-			closing = true;
-			try
+			if (home != null)
 			{
-				if (window != null)
-				{
-					window.PreviewMouseWheel -= OnWheel;
-				}
-				if (home != null)
-				{
-					home.Windows.Remove(model);
-				}
-				PopOutBridge.Remove(model);
-				shown = false;
-				window = null;
-				scroll = null;
-				summaryPanel = (detailPanel = null);
-				renderedRevision = -1;
+				home.Windows.Remove(model);
 			}
-			finally
-			{
-				closing = false;
-			}
+			PopOutBridge.Remove(model);
+			shown = false;
+			window = null;
+			scroll = null;
+			summaryPanel = (detailPanel = null);
+			renderedRevision = -1;
+		}
+		finally
+		{
+			closing = false;
 		}
 	}
 

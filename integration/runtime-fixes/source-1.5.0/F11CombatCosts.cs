@@ -43,7 +43,10 @@ internal static class F11CombatCosts
 
 	private static string campaignScope;
 
-	private static double Now => (double)Stopwatch.GetTimestamp() / (double)Stopwatch.Frequency;
+	private static double Now
+	{
+		get { return (double)Stopwatch.GetTimestamp() / (double)Stopwatch.Frequency; }
+	}
 
 	private static FieldInfo Field(Type type, string name, Type expected = null)
 	{
@@ -85,11 +88,12 @@ internal static class F11CombatCosts
 		}
 		try
 		{
-			if (!(args.LoadedAssembly.GetType("WeaponCostsMod.Overlay", throwOnError: false) == null))
+			if (args.LoadedAssembly.GetType("WeaponCostsMod.Overlay", throwOnError: false) == null)
 			{
-				nextAttach = 0.0;
-				Poll();
+				return;
 			}
+			nextAttach = 0.0;
+			Poll();
 		}
 		catch (Exception error)
 		{
@@ -105,8 +109,7 @@ internal static class F11CombatCosts
 			return;
 		}
 		nextAttach = Now + 1.0;
-		Assembly[] assemblies = AppDomain.CurrentDomain.GetAssemblies();
-		foreach (Assembly assembly in assemblies)
+		foreach (Assembly assembly in AppDomain.CurrentDomain.GetAssemblies())
 		{
 			if (assembly.GetType("WeaponCostsMod.Overlay", throwOnError: false) == null)
 			{
@@ -114,51 +117,52 @@ internal static class F11CombatCosts
 			}
 			try
 			{
-				string text;
-				using (FileStream inputStream = File.OpenRead(assembly.Location))
+				string digest;
+				using (FileStream stream = File.OpenRead(assembly.Location))
 				{
-					using (SHA256 sHA = SHA256.Create()) {
-					text = BitConverter.ToString(sHA.ComputeHash(inputStream)).Replace("-", string.Empty).ToLowerInvariant();
-}
+					using (SHA256 sha = SHA256.Create())
+					{
+						digest = BitConverter.ToString(sha.ComputeHash(stream)).Replace("-", string.Empty).ToLowerInvariant();
+					}
 				}
-				if (text != "74afa9028fc0c52b93f415263504f51ecf8d056a624feaebcc8053ba5a1c0ac3")
+				if (digest != TrackerHash)
 				{
 					stopped = true;
-					Api.Log("F11 campaign totals inactive: uninspected Combat Cost Tracker " + text);
-					break;
+					Api.Log("F11 campaign totals inactive: uninspected Combat Cost Tracker " + digest);
+					return;
 				}
 				Bind(assembly);
-				Type type = Api.Type(assembly, "WeaponCostsMod.Overlay");
-				Api.Postfix(Api.Method(type, "Update", typeof(void)), typeof(F11CombatCosts), "AfterUpdate", "io.github.sest-hobby.cumulative-combat-costs");
-				Api.Hooks(Api.Method(type, "OnGUI", typeof(void)), typeof(F11CombatCosts), "BeforeGUI", null, "io.github.sest-hobby.cumulative-combat-costs");
+				Type overlay = Api.Type(assembly, "WeaponCostsMod.Overlay");
+				Api.Postfix(Api.Method(overlay, "Update", typeof(void)), typeof(F11CombatCosts), "AfterUpdate", "io.github.sest-hobby.cumulative-combat-costs");
+				Api.Hooks(Api.Method(overlay, "OnGUI", typeof(void)), typeof(F11CombatCosts), "BeforeGUI", null, "io.github.sest-hobby.cumulative-combat-costs");
 				Api.Log("F11 campaign combat costs installed: native movable windows, mission detail and complete scrollable campaign history");
-				break;
 			}
 			catch (Exception error)
 			{
 				stopped = true;
 				attached = false;
 				Api.LogFailure("F11 campaign totals not installed; original tracker retained", error);
-				break;
 			}
+			return;
 		}
 	}
 
 	internal static void BeforeDestroy()
 	{
 		NativeCombatSurface.Close();
-		if (CombatHistory.CurrentId != null)
+		if (CombatHistory.CurrentId == null)
 		{
-			try
-			{
-				CombatHistory.Refresh(CampaignCosts.CaptureLive("Game"));
-			}
-			catch (Exception error)
-			{
-				Api.LogFailure("final game cost refresh unavailable", error);
-			}
-			CombatHistory.Finish();
+			return;
 		}
+		try
+		{
+			CombatHistory.Refresh(CampaignCosts.CaptureLive("Game"));
+		}
+		catch (Exception error)
+		{
+			Api.LogFailure("final game cost refresh unavailable", error);
+		}
+		CombatHistory.Finish();
 	}
 
 	internal static void Bind(Assembly tracker)
@@ -185,11 +189,10 @@ internal static class F11CombatCosts
 
 	private static bool Modified()
 	{
-		Type enumType = Api.FindType("UnityEngine.KeyCode");
-		string[] array = new string[6] { "LeftControl", "RightControl", "LeftAlt", "RightAlt", "LeftShift", "RightShift" };
-		foreach (string value in array)
+		Type code = Api.FindType("UnityEngine.KeyCode");
+		foreach (string name in new[] { "LeftControl", "RightControl", "LeftAlt", "RightAlt", "LeftShift", "RightShift" })
 		{
-			if ((bool)getKey.Invoke(null, new object[1] { Enum.Parse(enumType, value) }))
+			if ((bool)getKey.Invoke(null, new[] { Enum.Parse(code, name) }))
 			{
 				return true;
 			}
@@ -205,20 +208,20 @@ internal static class F11CombatCosts
 		}
 		try
 		{
-			bool flag = (bool)missionActive.GetValue(__instance);
-			if (!NativeCombatSurface.EnsureReady(flag))
+			bool live = (bool)missionActive.GetValue(__instance);
+			if (!NativeCombatSurface.EnsureReady(live))
 			{
 				return;
 			}
-			if (flag != wasLive)
+			if (live != wasLive)
 			{
 				menuShown = false;
-				wasLive = flag;
+				wasLive = live;
 				nextLines = 0.0;
 				view = null;
 				NativeCombatSurface.Close();
 			}
-			if (!flag && CampaignCosts.TaskForceMenuAvailable() && !Modified() && (bool)keyDown.Invoke(null, new object[1] { toggle.GetValue(__instance) }))
+			if (!live && CampaignCosts.TaskForceMenuAvailable() && !Modified() && (bool)keyDown.Invoke(null, new[] { toggle.GetValue(__instance) }))
 			{
 				menuShown = !menuShown;
 				nextLines = 0.0;
@@ -226,15 +229,15 @@ internal static class F11CombatCosts
 			if (Now >= nextCapture)
 			{
 				nextCapture = Now + 0.5;
-				string text = ((!(missionPath == null)) ? ((string)missionPath.GetValue(null)) : null);
-				string text2 = ((!string.IsNullOrWhiteSpace(text)) ? Path.GetFileNameWithoutExtension(text) : "Game");
-				if (text2.Length > 256)
+				string path = missionPath == null ? null : (string)missionPath.GetValue(null);
+				string name = string.IsNullOrWhiteSpace(path) ? "Game" : Path.GetFileNameWithoutExtension(path);
+				if (name.Length > 256)
 				{
-					text2 = text2.Substring(0, 256);
+					name = name.Substring(0, 256);
 				}
-				CombatHistory.Observe((!flag) ? null : mission.GetValue(__instance), (!flag) ? null : CampaignCosts.CaptureLive(text2));
+				CombatHistory.Observe(live ? mission.GetValue(__instance) : null, live ? CampaignCosts.CaptureLive(name) : null);
 			}
-			SyncWindow(__instance, flag);
+			SyncWindow(__instance, live);
 		}
 		catch (Exception error)
 		{
@@ -251,20 +254,20 @@ internal static class F11CombatCosts
 
 	private static void SyncWindow(object owner, bool live)
 	{
-		bool flag = (live ? ((bool)visible.GetValue(owner)) : (menuShown && CampaignCosts.TaskForceMenuAvailable()));
-		string text = (live ? "live" : ((!flag) ? campaignScope : CampaignCosts.CurrentSource()));
-		if (text != campaignScope)
+		bool open = live ? (bool)visible.GetValue(owner) : (menuShown && CampaignCosts.TaskForceMenuAvailable());
+		string identity = live ? "live" : (open ? CampaignCosts.CurrentSource() : campaignScope);
+		if (identity != campaignScope)
 		{
-			campaignScope = text;
+			campaignScope = identity;
 			view = null;
 			nextLines = 0.0;
 		}
-		if (flag && (view == null || Now >= nextLines))
+		if (open && (view == null || Now >= nextLines))
 		{
-			view = ((!live) ? CampaignCosts.CampaignView(CampaignCosts.SavedGames()) : CampaignCosts.LiveView(CampaignCosts.CaptureLive("Current mission")));
-			nextLines = Now + ((!live) ? 2.0 : 0.5);
+			view = live ? CampaignCosts.LiveView(CampaignCosts.CaptureLive("Current mission")) : CampaignCosts.CampaignView(CampaignCosts.SavedGames());
+			nextLines = Now + (live ? 0.5 : 2.0);
 		}
-		NativeCombatSurface.Tick(live, flag, view, text, delegate
+		NativeCombatSurface.Tick(live, open, view, identity, delegate
 		{
 			if (live)
 			{

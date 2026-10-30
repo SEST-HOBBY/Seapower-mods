@@ -28,70 +28,68 @@ internal static class NativeCostTypography
 		{
 			if (row.Kind == CostLineKind.Spacer)
 			{
-				panel.Children.Add(new Border
-				{
-					Height = 6f
-				});
+				panel.Children.Add(new Border { Height = 6f });
 				continue;
 			}
-			TextBlock textBlock = new TextBlock();
-			textBlock.Text = row.Text.TrimStart();
-			textBlock.TextWrapping = TextWrapping.Wrap;
-			textBlock.FontSize = 14f;
-			textBlock.FontWeight = FontWeight.Normal;
-			textBlock.Foreground = Ink("#DCE4EA");
-			textBlock.Margin = new Thickness(0f, 0f, 0f, 4f);
-			TextBlock textBlock2 = textBlock;
+			TextBlock text = new TextBlock
+			{
+				Text = row.Text.TrimStart(),
+				TextWrapping = TextWrapping.Wrap,
+				FontSize = 14f,
+				FontWeight = FontWeight.Normal,
+				Foreground = Ink("#DCE4EA"),
+				Margin = new Thickness(0f, 0f, 0f, 4f)
+			};
 			switch (row.Kind)
 			{
 			case CostLineKind.Basis:
-				textBlock2.FontSize = 11f;
-				textBlock2.Foreground = Ink("#9BAEBB");
-				textBlock2.Margin = new Thickness(0f, 0f, 0f, 6f);
+				text.FontSize = 11f;
+				text.Foreground = Ink("#9BAEBB");
+				text.Margin = new Thickness(0f, 0f, 0f, 6f);
 				break;
 			case CostLineKind.PlayerTotal:
 			case CostLineKind.EnemyTotal:
-				textBlock2.FontSize = 16f;
-				textBlock2.FontWeight = FontWeight.DemiBold;
-				textBlock2.Foreground = Ink((row.Kind != CostLineKind.PlayerTotal) ? "#E3C4B0" : "#B7DEC5");
-				textBlock2.Margin = new Thickness(0f, 6f, 0f, 3f);
+				text.FontSize = 16f;
+				text.FontWeight = FontWeight.DemiBold;
+				text.Foreground = Ink(row.Kind == CostLineKind.PlayerTotal ? "#B7DEC5" : "#E3C4B0");
+				text.Margin = new Thickness(0f, 6f, 0f, 3f);
 				break;
 			case CostLineKind.Breakdown:
-				textBlock2.FontSize = 12f;
-				textBlock2.Foreground = Ink("#B6C4CE");
-				textBlock2.Margin = new Thickness(10f, 0f, 0f, 2f);
+				text.FontSize = 12f;
+				text.Foreground = Ink("#B6C4CE");
+				text.Margin = new Thickness(10f, 0f, 0f, 2f);
 				break;
 			case CostLineKind.Section:
-				textBlock2.FontSize = 11f;
-				textBlock2.FontWeight = FontWeight.DemiBold;
-				textBlock2.Foreground = Ink("#B6C8D4");
-				textBlock2.Margin = new Thickness(0f, 10f, 0f, 5f);
+				text.FontSize = 11f;
+				text.FontWeight = FontWeight.DemiBold;
+				text.Foreground = Ink("#B6C8D4");
+				text.Margin = new Thickness(0f, 10f, 0f, 5f);
 				break;
 			case CostLineKind.Mission:
-				textBlock2.FontWeight = FontWeight.DemiBold;
-				textBlock2.Foreground = Ink("#F0F3F5");
-				textBlock2.Margin = new Thickness(0f, 0f, 0f, 4f);
+				text.FontWeight = FontWeight.DemiBold;
+				text.Foreground = Ink("#F0F3F5");
+				text.Margin = new Thickness(0f, 0f, 0f, 4f);
 				break;
 			case CostLineKind.Amount:
-				textBlock2.Margin = new Thickness(8f, 0f, 0f, 3f);
+				text.Margin = new Thickness(8f, 0f, 0f, 3f);
 				break;
 			case CostLineKind.Time:
-				textBlock2.FontSize = 11f;
-				textBlock2.FontStyle = FontStyle.Italic;
-				textBlock2.Foreground = Ink("#9BAEBB");
-				textBlock2.Margin = new Thickness(8f, 0f, 0f, 6f);
+				text.FontSize = 11f;
+				text.FontStyle = FontStyle.Italic;
+				text.Foreground = Ink("#9BAEBB");
+				text.Margin = new Thickness(8f, 0f, 0f, 6f);
 				break;
 			case CostLineKind.Category:
-				textBlock2.FontSize = 12f;
-				textBlock2.Foreground = Ink("#B6C4CE");
-				textBlock2.Margin = new Thickness(16f, 0f, 0f, 3f);
+				text.FontSize = 12f;
+				text.Foreground = Ink("#B6C4CE");
+				text.Margin = new Thickness(16f, 0f, 0f, 3f);
 				break;
 			}
 			if (row.Kind == CostLineKind.Mission)
 			{
 				panel.Children.Add(new Border
 				{
-					Child = textBlock2,
+					Child = text,
 					BorderBrush = Ink("#34434D"),
 					BorderThickness = new Thickness(0f, 1f, 0f, 0f),
 					Padding = new Thickness(0f, 8f, 0f, 0f),
@@ -100,7 +98,7 @@ internal static class NativeCostTypography
 			}
 			else
 			{
-				panel.Children.Add(textBlock2);
+				panel.Children.Add(text);
 			}
 		}
 	}
