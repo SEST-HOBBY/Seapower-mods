@@ -8,16 +8,24 @@ plugin reads. SEST keeps that plugin off, so the keys are declined
 game's own guidance, and the guard still stops the build if the author moves
 a value or gives the IB the section.
 
+Charles De Gaulle & Modern French Navy renamed its [EOMS-NG] sensor
+[EOMS_NG] and left both carriers mounting EOMS-NG, which then nothing
+defined; this pack supplies [EOMS-NG], cloned from the author's renamed
+section (MISSING_SENSORS).
+
 The checks on built files need a build; run from the repository root:
     python3 -m unittest discover -s tools/tests -p 'test_collection_fixes.py' -v
 """
 import importlib.util
+import re
 import unittest
 from pathlib import Path
 from unittest import mock
 
 ROOT = Path(__file__).resolve().parents[2]
 FIXES = ROOT / "integration/collection-fixes/SEST_Collection_Fixes"
+DIST = ROOT / "integration/dist/SEST_Integration"
+FRENCH = ROOT / "mods-source/3567256221"
 SM3 = ("usn_rim-161b", "usn_rim-161c", "usn_rim-161d")
 EG_KEYS = ("SeekerProfile", "SeekerTrackRate", "IRBackgroundRejection",
            "IRBrightnessRejection", "IRShapeRejection")
@@ -33,6 +41,17 @@ def builder():
 
 def read(path):
     return Path(path).read_text(encoding="utf-8-sig", errors="replace")
+
+
+def section(text, name):
+    """A section's body, its header's trailing comment allowed; None if absent."""
+    m = re.search(rf"^\[{re.escape(name)}\][^\n]*\n(.*?)(?=^\[|\Z)", text, re.M | re.S)
+    return m.group(1) if m else None
+
+
+def lines(body):
+    """A body's lines, comments and blank lines aside."""
+    return [x.rstrip() for x in body.splitlines() if x.strip() and not x.lstrip().startswith("#")]
 
 
 class SM3ExtendedGuidance(unittest.TestCase):
@@ -101,6 +120,41 @@ class SM3ExtendedGuidance(unittest.TestCase):
                 self.assertNotIn("[ExtendedGuidance]", text)
                 for key in EG_KEYS:
                     self.assertNotRegex(text, rf"(?m)^\s*{key}\s*=")
+
+
+class CharlesDeGaulleEomsNg(unittest.TestCase):
+    CARRIERS = {"fr_cvn_charles-de-gaulle": "SensorSystem6",
+                "fr_cvn_charles-de-gaulle_late": "SensorSystem5"}
+
+    def test_both_carriers_still_mount_it(self):
+        # The day the author points them at [EOMS_NG], the entry retires.
+        for hull, mount in self.CARRIERS.items():
+            with self.subTest(hull=hull):
+                body = section(read(FRENCH / "vessels" / f"{hull}.ini"), mount)
+                self.assertRegex(body, r"(?m)^SystemName=EOMS-NG\s*$")
+
+    def test_no_mod_defines_it(self):
+        # build_missing_sensors() stops the build then, rather than shadow it.
+        definers = [f.relative_to(ROOT).as_posix()
+                    for f in sorted((ROOT / "mods-source").rglob("systems/sensors.ini"))
+                    if section(read(f), "EOMS-NG") is not None]
+        self.assertEqual(definers, [])
+
+    def test_the_clone_is_the_authors_renamed_section(self):
+        donor = section(read(FRENCH / "systems" / "sensors.ini"), "EOMS_NG")
+        self.assertIsNotNone(donor)
+        built = section(read(FIXES / "systems" / "sensors.ini"), "EOMS-NG")
+        self.assertIsNotNone(built)
+        self.assertEqual(lines(built), lines(donor))
+        self.assertRegex(built, r"(?m)^Kind=Visual\b")
+        self.assertRegex(built, r"(?m)^MaxRange=40\.0\b")
+        self.assertRegex(built, r"(?m)^HasDataLink=True\b")
+
+    def test_the_consolidated_pack_has_it(self):
+        built = section(read(FIXES / "systems" / "sensors.ini"), "EOMS-NG")
+        shipped = section(read(DIST / "systems" / "sensors.ini"), "EOMS-NG")
+        self.assertIsNotNone(shipped)
+        self.assertEqual(lines(shipped), lines(built))
 
 
 if __name__ == "__main__":

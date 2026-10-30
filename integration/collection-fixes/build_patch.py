@@ -1273,6 +1273,17 @@ MISSING_SENSORS = {
              "defined it until its 22 Oct 2026 update, which dropped its own "
              "copy for Euromod's eu_zw06, the donor here. The world campaign "
              "places two Niteroi 2005 at Rio."),
+    "EOMS-NG": ("3567256221", "EOMS_NG",
+                "Safran EOMS-NG electro-optical search sensor (40 km, air and "
+                "surface, datalinked): SensorSystem6 on fr_cvn_charles-de-gaulle, "
+                "SensorSystem5 on fr_cvn_charles-de-gaulle_late. Charles De "
+                "Gaulle & Modern French Navy renamed its definition [EOMS_NG] "
+                "in the 28 Oct 2026 export and left both carriers naming "
+                "EOMS-NG. The donor is that renamed section, so the clone is "
+                "the author's current definition, which dropped the old one's "
+                "RPM=60 and Bonus IRST range multipliers. Southern Watch D3 "
+                "places the carrier, the RAN campaigns' allied rosters sell it "
+                "and the World Sandbox fields both hulls."),
 }
 
 
