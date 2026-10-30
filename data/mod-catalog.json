@@ -1,8 +1,8 @@
 {
   "meta": {
     "game": "Sea Power: Naval Combat in the Missile Age",
-    "source": "Steam Workshop subscription list pasted by user, 2026-08-23 (see data/raw-workshop-list.txt) Extended 2026-08-24: +18 new subscriptions (titles only — file-level fields pending a mods-source re-export); 1 unsubscribed; Tu-95K-22 re-subscription was a duplicate of an existing entry. Extended 2026-09-20: mods-source re-exported after a long gap, which is what brought these in - only the Anzac Class Frigate is a NEW subscription (user-stated). The other 10 folders that appeared (F-2A, J-16 Multirole, PLA AEP, Auto Time-on-Target, RQ-180, YF-23, MiG-31, CH-53E, J-36, and the already-catalogued Y-8/Y-9 family) were subscribed earlier and simply never exported; the repo cannot date them, since data/raw-workshop-list.txt is the 109-item list from 2026-08-23 and predates all of them. Y-8/Y-9 proves the backlog was real: it was catalogued and in the load order already, with no files. 3 mods unsubscribed and pruned (F-35C MyGo, F/A-18E/F MyGo, AI Doctrine Overhaul). meta.count now tracks catalog entries, which is what tools/generate_catalog.py asserts. Extended 2026-09-30: RC-135V/W Rivet Joint and Coordinated Strike Tool subscribed (user-stated; both in the 30 Sep export). The Dassault Rafale (3504168760) has been absent from the PC's subscriptions since the 28 Sep snapshot and the 30 Sep export pruned its folder; it stays active here until the player says whether it is coming back. Extended 2026-10-03: Auto Time-on-Target unsubscribed by the user (Coordinated Strike Tool is the one salvo planner kept). Extended 2026-10-03 (evening): four new subscriptions in the export - Moloti's Armed Merchantmen, French Air Force (which brings the Rafale family back under the old ids), MV-75 Cheyenne II and the PLAAF Aircraft Pack. Extended 2026-10-04: ten further subscriptions (Hyuga class, AS350, S-350 Vityaz, Shahed 238, EMAD, Fattah-1, Fattah-2, Iran Bell-212, Project 2498 Zyetseth, Thailand: The Siam Shield). Extended 2026-10-11: Dynamic Campaign Mod (3813157776) added to the load order at the user's request. Extended 2026-10-13: five new subscriptions placed in the order on the player's decision - BUK-M3, ISKANDER-K, ICBM silos, Road Mobile ICBMs (Topol-M, DF-41) and Prithvi TBM. Extended 2026-10-14: Anduril Maritime Drones (3819522350) subscribed by the user and placed below Saronic Corsair ASV. Extended 2026-10-17: Steelfin (3820576916) subscribed by the user and placed directly above Saronic Corsair ASV. Extended 2026-10-20: Combat Cost Tracker and Formation Manager Replacement installed and selected by the player; their current text exports are captured.",
-    "count": 208,
+    "source": "Steam Workshop subscription list pasted by user, 2026-08-23 (see data/raw-workshop-list.txt) Extended 2026-08-24: +18 new subscriptions (titles only — file-level fields pending a mods-source re-export); 1 unsubscribed; Tu-95K-22 re-subscription was a duplicate of an existing entry. Extended 2026-09-20: mods-source re-exported after a long gap, which is what brought these in - only the Anzac Class Frigate is a NEW subscription (user-stated). The other 10 folders that appeared (F-2A, J-16 Multirole, PLA AEP, Auto Time-on-Target, RQ-180, YF-23, MiG-31, CH-53E, J-36, and the already-catalogued Y-8/Y-9 family) were subscribed earlier and simply never exported; the repo cannot date them, since data/raw-workshop-list.txt is the 109-item list from 2026-08-23 and predates all of them. Y-8/Y-9 proves the backlog was real: it was catalogued and in the load order already, with no files. 3 mods unsubscribed and pruned (F-35C MyGo, F/A-18E/F MyGo, AI Doctrine Overhaul). meta.count now tracks catalog entries, which is what tools/generate_catalog.py asserts. Extended 2026-09-30: RC-135V/W Rivet Joint and Coordinated Strike Tool subscribed (user-stated; both in the 30 Sep export). The Dassault Rafale (3504168760) has been absent from the PC's subscriptions since the 28 Sep snapshot and the 30 Sep export pruned its folder; it stays active here until the player says whether it is coming back. Extended 2026-10-03: Auto Time-on-Target unsubscribed by the user (Coordinated Strike Tool is the one salvo planner kept). Extended 2026-10-03 (evening): four new subscriptions in the export - Moloti's Armed Merchantmen, French Air Force (which brings the Rafale family back under the old ids), MV-75 Cheyenne II and the PLAAF Aircraft Pack. Extended 2026-10-04: ten further subscriptions (Hyuga class, AS350, S-350 Vityaz, Shahed 238, EMAD, Fattah-1, Fattah-2, Iran Bell-212, Project 2498 Zyetseth, Thailand: The Siam Shield). Extended 2026-10-11: Dynamic Campaign Mod (3813157776) added to the load order at the user's request. Extended 2026-10-13: five new subscriptions placed in the order on the player's decision - BUK-M3, ISKANDER-K, ICBM silos, Road Mobile ICBMs (Topol-M, DF-41) and Prithvi TBM. Extended 2026-10-14: Anduril Maritime Drones (3819522350) subscribed by the user and placed below Saronic Corsair ASV. Extended 2026-10-17: Steelfin (3820576916) subscribed by the user and placed directly above Saronic Corsair ASV. Extended 2026-10-20: Combat Cost Tracker and Formation Manager Replacement installed and selected by the player; their current text exports are captured. Extended 2026-10-28: the 28 Oct export holds four new subscriptions, all catalogued and placed in the order on the owner's decision - Contact Log, Sea Power Topographic Map and Sea Power Pop-Out Windows (code mods, directly below Group Manager, where the PC has them) and the B-21 Raider (with the bombers, directly below the B-2 Spirit). 3818251045, catalogued on 20 Oct as Formation Manager Replacement, is retitled Group Manager, the name its own _info.ini and Steam give it.",
+    "count": 212,
     "field_notes": {
       "faction": "Primary operator the content represents (usa, russia, china, japan, australia, europe, france, italy, spain, iran, thailand, multi, civilian, utility)",
       "type": "framework | weapons | fixed-wing | rotary | uav | ship | submarine | land | airbase | patch (modifies other mods or vanilla units) | civilian | campaign (a third-party mission or campaign pack that ships no units of its own)",
@@ -2914,7 +2914,7 @@
     {
       "id": "formation-manager-replacement",
       "workshop_id": "3818251045",
-      "title": "Formation Manager Replacement",
+      "title": "Group Manager",
       "author": "DiMkA",
       "faction": "utility",
       "type": "framework",
@@ -2922,7 +2922,66 @@
       "requires": [
         "anchor-chain"
       ],
-      "notes": "Captured SeaPowerSquadPanel.dll 0.2.16.0 and its source ZIP on 20 October 2026. Compact formation UI, aircraft map grouping and persistent panel settings. Loaded through Anchor Chain in the captured log; map threshold slider attached. No equipment data overrides; runtime compatibility with Better TacMap still requires the player trial."
+      "notes": "Captured SeaPowerSquadPanel.dll 0.2.16.0 and its source ZIP on 20 October 2026. Compact formation UI, aircraft map grouping and persistent panel settings. Loaded through Anchor Chain in the captured log; map threshold slider attached. No equipment data overrides; runtime compatibility with Better TacMap still requires the player trial. 28 Oct 2026 update: SeaPowerSquadPanel 0.2.16 -> 0.2.17 (6230e8e7, 26 Oct), the build SEST Runtime Fixes 1.5.0 and SEST UI Follow-up pin; otherwise its README and _info.ini text. No data. Retitled from Formation Manager Replacement to Group Manager, the name in its own _info.ini and on Steam; the catalog id stays formation-manager-replacement."
+    },
+    {
+      "id": "contact-log",
+      "workshop_id": "3819427362",
+      "title": "Contact Log",
+      "author": "unknown",
+      "faction": "utility",
+      "type": "framework",
+      "status": "active",
+      "requires": [
+        "anchor-chain (inferred: it ships ContactLog.dll, and every DLL mod in this collection loads through the chainloader)"
+      ],
+      "load_order": "Directly below Group Manager, above Sea Power Topographic Map and Pop-Out Windows: the three code mods sit where the owner's PC has them (live positions 8 to 10, 28 Oct 2026). Its export is its _info.ini alone, so it contests no file and the slot is a grouping choice.",
+      "notes": "A sortable contact-log window: every contact the task force holds, with range, speed, course, altitude, class and how it is detected, and a detail panel per contact with its sensors, armament and which of your units can reach it. Code only: the export is its _info.ini (ApproximateVersion 0.8.5); ContactLog.dll 1.0.1 (a1b8b450, 26 Oct 2026) is the build SEST Runtime Fixes 1.5.0 and SEST UI Follow-up pin, and the last session on game 0.8.7 Build 261021 logged Runtime's Contact Log 1.0.1 bridge as installed. Its default keys clash: F6 (its window) with Topographic Map's F6 and F8 (a diagnostic probe) with Coordinated Strike Tool's F8 planner; SETUP sets both to None while they hold those defaults (sest-ui-keys.ps1), and UI Follow-up moves the game's plain-F9 Quick Load to Ctrl+F9 for Contact Log 1.0.1 players. No unit, round or system; no SEST mission depends on it (campaign coverage: library). On the PC since 26 Oct 2026. Catalogued and placed in the order on 30 Oct 2026, on the owner's decision to make it part of the collection, so SETUP now requires it for every subscriber."
+    },
+    {
+      "id": "sea-power-topographic-map",
+      "workshop_id": "3826122523",
+      "title": "Sea Power Topographic Map",
+      "author": "Lukas Struckl",
+      "faction": "utility",
+      "type": "framework",
+      "status": "active",
+      "requires": [
+        "anchor-chain (stated: 'Requires Anchor Chain')"
+      ],
+      "load_order": "Directly below Contact Log and above Pop-Out Windows, as on the owner's PC (live position 9, 28 Oct 2026); a code mod whose export is its _info.ini and an MIT LICENSE.txt, so it contests no file.",
+      "notes": "Land heights and sea depths on the tactical map: height-coloured land with hill shading and contours, the sea tinted by depth, a cursor height and depth readout, terrain above the selected aircraft's altitude in red and 18 looks, with its buttons in the map's title bar and in the mission editor. Code only: SeaPowerTopo.dll 1.3.1 (fd514064) and a new SeaPowerTopoFlat.dll 1.3.0 (7691f174), both of 28 Oct 2026; ApproximateVersion 0.8.7; MIT licence (Lukas Struckl). Its _info.ini says it works on the current flat map (0.8.7) and on the public beta's 3D globe; on the owner's beta build (261026) no Anchor Chain code mod loaded on 28 Oct, so the globe side is not seen. SEST UI Follow-up pins its 1.2.0 build (25d42e53) only for a stutter-diagnostic timing hook, which 1.3.1 skips; nothing else in SEST depends on it. Its default F6 map toggle is the key Contact Log's F6 clashed with (SETUP frees Contact Log's). No unit, round or system; no SEST mission depends on it (campaign coverage: library). On the PC since 26 Oct 2026 (1.2.0 then). Catalogued and placed in the order on 30 Oct 2026, on the owner's decision to make it part of the collection, so SETUP now requires it for every subscriber."
+    },
+    {
+      "id": "sea-power-pop-out-windows",
+      "workshop_id": "3826396311",
+      "title": "Sea Power Pop-Out Windows",
+      "author": "Lukas Struckl",
+      "faction": "utility",
+      "type": "framework",
+      "status": "active",
+      "requires": [
+        "anchor-chain (stated: 'Requires Anchor Chain')"
+      ],
+      "load_order": "Directly below Sea Power Topographic Map and above Combat Cost Tracker, as on the owner's PC (live position 10, 28 Oct 2026); a code mod whose export is its _info.ini and an MIT LICENSE.txt, so it contests no file.",
+      "notes": "Moves the formation manager, message log, unit status and the game's other windows onto a second monitor with one click on their title bar; they float, snap to each other and are remembered between missions. Code only: SeaPowerPopOut.dll 1.0.2 (2c6bc876) since 28 Oct 2026; ApproximateVersion 0.8.7; MIT licence (Lukas Struckl). SEST Runtime Fixes 1.5.0 and SEST UI Follow-up pin 1.0.1's hash (d0027215), which the last session on game 0.8.7 Build 261021 still ran. With 1.0.2, Runtime's pop-out bridges (Contacts, Group Manager and the F11 windows) and UI Follow-up's Contacts pop-out surface fix, Formation UI mode switch and camera compass stay off until both plugins are re-pinned; the F11 windows themselves, UI Follow-up's input fix and the rest of both plugins stay on. That follows from the pinned hashes and is not yet seen in a log. No unit, round or system; no SEST mission depends on it (campaign coverage: library). On the PC since 26 Oct 2026 (1.0.1 then). Catalogued and placed in the order on 30 Oct 2026, on the owner's decision to make it part of the collection, so SETUP now requires it for every subscriber."
+    },
+    {
+      "id": "b-21-raider",
+      "workshop_id": "3821992229",
+      "title": "B-21 Raider",
+      "author": "RSG",
+      "faction": "usa",
+      "type": "fixed-wing",
+      "status": "active",
+      "requires": [
+        "anchor-chain (stated: 'Requires Anchor Chain for exterior lights and formation spacing')"
+      ],
+      "load_order": "Directly below B-2 Spirit and above B-52H Stratofortress, with the bombers (in title order there). The slot is also below Steelfin, which matters for one file: its ammunition/usn_steelfin_air.ini is byte-identical to Steelfin's (and to the YF-23's, the Fury's and the MV-75's), and Steelfin's own copy, higher in the order, is the one that loads. Its other seven unit files (the airframe, its squadrons and its five rounds) are its own, so nothing else changes hands.",
+      "overlaps": [
+        "steelfin (byte-identical ammunition/usn_steelfin_air.ini and assets/steelfin/steelfin_mat.ini; Steelfin's copies load)"
+      ],
+      "notes": "The B-21 Raider stealth bomber (usaf_b-21_raider: Role=HeavyBomber,Bomber, RCS 0.000001, no radar - optics, RWR, a late DECM and FLIR - and one squadron, the US 'Raider Evaluation Flight') by RSG, Steelfin's licensor (maintainer AlpineStatic). Five internal loadouts with five rounds of its own: B21Conventional (60 Mk 82), B21AntiShip (4 AGM-158C LRASM), B21LandAttack (4 AGM-158B JASSM-ER), B21GuidedHeavy (4 GBU-31 JDAM) and B21GuidedLight (36 GBU-38), as usaf_b21_mk-82, _agm-158c, _agm-158b, _gbu-31 and _gbu-38; generic Strike, AntiShip, StrikeLongRange and StrikePrecision fits repeat them, and a Steelfin fit ([WeaponSystem1Steelfin], aircraft/usaf_b-21_raider.ini:877-883) hangs two usn_steelfin_air, as on the YF-23, Fury and MV-75. ApproximateVersion 0.8.5; DLLs B21Ejection, B21Formation and B21Lights 1.0.0. Its LICENSE.txt is RSG's proprietary text with Steelfin's clause: compatibility patches may add content beside it but may not copy, replace, override or redistribute its material, so SEST ships no file of it. No SEST mission or campaign roster fields it yet (campaign coverage: external); the World Sandbox's US buy list takes it from the next rebuild, valued 172 as a heavy bomber. SEST Combat Costs prices the airframe at the Air Force's published average procurement unit cost (USD 550M in base-year 2010 dollars, 692M in 2022 dollars), its AGM-158B, AGM-158C, GBU-31 and GBU-38 as the tracker's own entries for those rounds, and its Mk 82 by the general-purpose bomb model, as the game's Mk 82 Snakeye. Subscribed on the PC on 28 Oct 2026 (41 files exported). Catalogued and placed in the order on 30 Oct 2026, on the owner's decision to make it part of the collection, so SETUP now requires it for every subscriber."
     }
   ]
 }

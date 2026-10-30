@@ -160,6 +160,19 @@ EXCUSES = {
     "combat-cost-tracker": (
         "library", "USD expenditure and equipment-loss overlay through Anchor Chain; "
         "its cost catalogs apply to all missions and do not alter purchase points"),
+    # Code mods of the 28 Oct 2026 export, in the order on the owner's decision.
+    "contact-log": (
+        "library", "player interface - a sortable contact-log window run through "
+        "Anchor Chain; its export is one `_info.ini`, no unit, round or system a "
+        "mission can name, and no SEST mission may depend on it"),
+    "sea-power-topographic-map": (
+        "library", "player interface - land heights and sea depths on the tactical "
+        "map, run through Anchor Chain; it ships `_info.ini` and a licence, nothing "
+        "a mission can name"),
+    "sea-power-pop-out-windows": (
+        "library", "player interface - the game's windows on a second monitor, run "
+        "through Anchor Chain; it ships `_info.ini` and a licence, nothing a "
+        "mission can name"),
     "SEST_Combat_Costs": (
         "library", "three Combat Cost Tracker catalog extensions: spelling corrections, "
         "reviewed airframe/hull/weapon-family estimates and SEST researched estimates "
@@ -295,6 +308,12 @@ EXCUSES = {
         "external", "US and Soviet ICBM silo fields kept for the mission editor; "
         "their rounds are nuclear-scale (Power 10000) and no SEST campaign puts "
         "nuclear weapons in a magazine"),
+    # The B-21 Raider (28 Oct 2026 export), in the order on the owner's decision.
+    "b-21-raider": (
+        "external", "the B-21 Raider stealth bomber and its five rounds, subscribed "
+        "28 Oct 2026; no SEST mission or roster fields it yet (the World "
+        "Sandbox's US buy list sells it), and its licence forbids SEST patching "
+        "its files"),
 }
 
 EVENTS = [
