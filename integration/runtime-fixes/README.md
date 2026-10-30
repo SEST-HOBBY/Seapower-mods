@@ -53,7 +53,9 @@ a player):
   it accepts only the game build `eab2297b...` (0.8.7 Build 261021).
 
 **Nothing here builds it.** `build_plugin.py` refuses to overwrite a
-captured binary and says why. It fails closed: it also refuses when the
+captured binary and says why. (A scratch build, `build_plugin.py --source DIR
+--output PATH`, compiles another folder to a path of its own and leaves the
+DLL and record alone; that is how `source-1.5.0/` below is built.) It fails closed: it also refuses when the
 captured DLL is missing, and whenever a DLL is present that
 `plugin-build.json` does not account for (the record cannot be read, is not
 a JSON object, or records another SHA-256, as after a merge that brought
@@ -77,6 +79,19 @@ stand-in reference assemblies and check the result by IL comparison against
 `7ba6d6d9...`. Once a source builds here, commit it, let `build_plugin.py`
 build it and write a normal `plugin-build.json`, and rebuild SEST UI
 Follow-up for the new hash in the same change.
+
+**Reconstruction in progress (30 Oct 2026).** `source-1.5.0/` seeds that
+rebuild: the handoff's decompiled reference, downleveled to C# 7.2, for the
+types 1.5.0 added, and the fork base's files for the types it kept, with
+compile-time stand-ins for the Noesis and UnityEngine assemblies. Built with
+`build_plugin.py --source integration/runtime-fixes/source-1.5.0 --output
+<scratch> --reference <Seapower-Scripts.dll> --reference <0Harmony.dll>`, 253
+of 1.5.0's 317 methods come out IL-identical and 64 still differ (the
+decompiler's reshaping); `source-1.5.0/README.md` lists them by area, with
+what the captured DLL says about the original build (Mono mcs with
+`-optimize+`, the .NET Standard 2.1 reference set, a netstandard build of
+HarmonyX 2.9.0) and the type and member order a byte-identical rebuild needs.
+Nothing in that folder ships.
 
 **SEST UI Follow-up depends on this exact hash.**
 `integration/ui-followup/SEST.ContactsFix.dll` patches 1.5.0's own Contacts
