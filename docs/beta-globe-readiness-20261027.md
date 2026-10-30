@@ -68,3 +68,20 @@ If the version checker fails on *new* beta version strings, do not use --bump un
 - Capture the published November 11 build and re-run gate; beta pass does not automatically prove release pass.
 
 **Known audit limits:** file scan may include generated/browser duplicate missions; numeric waypoints are approximated only when directly parseable; the scan is a screening prioritizer, not an authoritative geodesic model or game parser.
+
+## 27 October update: exact-build and runtime UI compatibility gate
+
+The previous stable capture is **0.8.7 Build 261021**. The public beta is labelled **0.8.7 Build 261026**. Same numeric version does **not** imply same native assembly or compatible Noesis UI. The existing `check_game_version.py` only checks X.Y.Z: also run the new read-only exact-build/hash gate:
+
+    python3 tools/check_beta_runtime_build.py
+    python3 -m unittest discover -s tools/tests -p 'test_beta_*.py'
+
+The gate deliberately fails until a **261026 beta capture** and all three exact binaries are supplied for review: `Seapower-Scripts.dll`, `Noesis.NoesisGUI.dll`, and the inspected `SEST.RuntimeFixes.dll`. Use the script's `--scripts-dll`, `--noesis-dll`, and `--sest-runtime-dll` arguments with explicit local paths. It compares against source-pinned hashes and never rewrites them. The UI source in PR #50 includes `ContactsFix.cs` and therefore this check is expected to report unavailable UI source until the review branch is combined, preferably in a temporary integration worktree. Do not merge PR #50/#51 blindly.
+
+**Specific review targets from PR #50/51:** `integration/ui-followup/source/ContactsFix.cs` pins the native game, NoesisGUI, RuntimeFixes and Contact Log assembly SHA-256s; `UiRefinements.cs` patches `RichMissionMessages.ParseMissionPopupText`, `InputHandler.LoadKeybindings` and contact Noesis windows; `FormationPerformance.cs` / `FormationBoundsGate.cs` manage the formation pop-out and window resize. These hooks should remain fail-closed on changed assemblies; never replace their hashes just to suppress startup warnings. The runtime compatibility readme explicitly names build 261021. Review the full native ABI, game UI tree, and gameplay state before rebuilding for 261026.
+
+**After beta capture:** record actual build ID, native DLL hashes, Anchor Chain and mod versions, and the first `inactive` or exception lines in `Player.log` and `BepInEx/LogOutput.log`. Inspect native method signatures and Harmony patch targets using the repo's `integration/runtime-fixes/verify_native_api.py` plus the newer UI capture verifier. Rebuild on a separate beta candidate branch; preserve previous known-good versions. The UI metadata may move without a compatible patch target, so static signatures alone do not prove correct behaviour.
+
+**New map geometry tests:** the geometry inventory now determines dateline crossing using the shortest continuous longitude arc, including 160E -> 160W; tests also ensure 350E -> 10E does not falsely register as the date line. This inventory remains read-only and **does not** prove that projected range calculations, play area bounds, or flight timing work in game.
+
+**Layered override policy:** do not migrate existing `vessels_overwrite`, `#!alias`, `#!extend`, or SEST whole-file patches until the beta's file-layer precedence is validated with paired small test mods; check the winning definitions and load order after each test. In particular keep the existing SEST integration pack distinct from the Workshop copy.
