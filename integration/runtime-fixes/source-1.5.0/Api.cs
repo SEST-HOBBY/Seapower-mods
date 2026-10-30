@@ -8,8 +8,7 @@ internal static class Api
 
 	internal static Type FindType(string name)
 	{
-		Assembly[] assemblies = AppDomain.CurrentDomain.GetAssemblies();
-		foreach (Assembly assembly in assemblies)
+		foreach (Assembly assembly in AppDomain.CurrentDomain.GetAssemblies())
 		{
 			Type type = assembly.GetType(name, throwOnError: false);
 			if (type != null)
@@ -69,75 +68,55 @@ internal static class Api
 
 	internal static void Hooks(MethodInfo target, Type owner, string before, string after, string harmonyId, string finalizer = null, string transpiler = null)
 	{
-		Type type = FindType("HarmonyLib.Harmony");
-		Type type2 = FindType("HarmonyLib.HarmonyMethod");
-		MethodInfo methodInfo = null;
-		MethodInfo[] methods = type.GetMethods(BindingFlags.Instance | BindingFlags.Public);
-		foreach (MethodInfo methodInfo2 in methods)
+		Type harmony = FindType("HarmonyLib.Harmony");
+		Type hm = FindType("HarmonyLib.HarmonyMethod");
+		MethodInfo patch = null;
+		foreach (MethodInfo candidate in harmony.GetMethods(BindingFlags.Instance | BindingFlags.Public))
 		{
-			if (methodInfo2.Name != "Patch")
+			if (candidate.Name != "Patch")
 			{
 				continue;
 			}
-			ParameterInfo[] parameters = methodInfo2.GetParameters();
-			if (parameters.Length < 2 || parameters[0].ParameterType != typeof(MethodBase))
+			ParameterInfo[] ps = candidate.GetParameters();
+			if (ps.Length < 2 || ps[0].ParameterType != typeof(MethodBase))
 			{
 				continue;
 			}
-			ParameterInfo[] array = parameters;
-			foreach (ParameterInfo parameterInfo in array)
+			foreach (ParameterInfo p in ps)
 			{
-				if (parameterInfo.Name == "postfix" && parameterInfo.ParameterType == type2)
+				if (p.Name == "postfix" && p.ParameterType == hm)
 				{
-					methodInfo = methodInfo2;
+					patch = candidate;
 					break;
 				}
 			}
-			if (methodInfo != null)
+			if (patch != null)
 			{
 				break;
 			}
 		}
-		ConstructorInfo constructor = type2.GetConstructor(new Type[1] { typeof(MethodInfo) });
-		if (methodInfo == null || constructor == null)
+		ConstructorInfo constructor = hm.GetConstructor(new[] { typeof(MethodInfo) });
+		if (patch == null || constructor == null)
 		{
 			throw new MissingMethodException("Harmony.Patch(..., postfix)");
 		}
-		object obj = ((before != null) ? constructor.Invoke(new object[1] { owner.GetMethod(before, BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Static) }) : null);
-		object obj2 = ((after != null) ? constructor.Invoke(new object[1] { owner.GetMethod(after, BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Static) }) : null);
-		object obj3 = ((finalizer != null) ? constructor.Invoke(new object[1] { owner.GetMethod(finalizer, BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Static) }) : null);
-		object obj4 = ((transpiler != null) ? constructor.Invoke(new object[1] { owner.GetMethod(transpiler, BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Static) }) : null);
-		ParameterInfo[] parameters2 = methodInfo.GetParameters();
-		object[] array2 = new object[parameters2.Length];
-		array2[0] = target;
-		for (int k = 1; k < array2.Length; k++)
+		object prefix = before == null ? null : constructor.Invoke(new object[] { owner.GetMethod(before, All) });
+		object postfix = after == null ? null : constructor.Invoke(new object[] { owner.GetMethod(after, All) });
+		object finish = finalizer == null ? null : constructor.Invoke(new object[] { owner.GetMethod(finalizer, All) });
+		object transpile = transpiler == null ? null : constructor.Invoke(new object[] { owner.GetMethod(transpiler, All) });
+		ParameterInfo[] parameters = patch.GetParameters();
+		object[] args = new object[parameters.Length];
+		args[0] = target;
+		for (int i = 1; i < args.Length; i++)
 		{
-			if (parameters2[k].Name == "postfix")
-			{
-				array2[k] = obj2;
-			}
-			if (parameters2[k].Name == "prefix")
-			{
-				array2[k] = obj;
-			}
-			if (parameters2[k].Name == "finalizer")
-			{
-				array2[k] = obj3;
-			}
-			if (parameters2[k].Name == "transpiler")
-			{
-				array2[k] = obj4;
-			}
+			if (parameters[i].Name == "postfix") args[i] = postfix;
+			if (parameters[i].Name == "prefix") args[i] = prefix;
+			if (parameters[i].Name == "finalizer") args[i] = finish;
+			if (parameters[i].Name == "transpiler") args[i] = transpile;
 		}
-		if (obj3 != null && !Array.Exists(parameters2, (ParameterInfo p) => p.Name == "finalizer"))
-		{
-			throw new MissingMethodException("Harmony.Patch(..., finalizer)");
-		}
-		if (obj4 != null && !Array.Exists(parameters2, (ParameterInfo p) => p.Name == "transpiler"))
-		{
-			throw new MissingMethodException("Harmony.Patch(..., transpiler)");
-		}
-		methodInfo.Invoke(Activator.CreateInstance(type, harmonyId), array2);
+		if (finish != null && !Array.Exists(parameters, p => p.Name == "finalizer")) throw new MissingMethodException("Harmony.Patch(..., finalizer)");
+		if (transpile != null && !Array.Exists(parameters, p => p.Name == "transpiler")) throw new MissingMethodException("Harmony.Patch(..., transpiler)");
+		patch.Invoke(Activator.CreateInstance(harmony, harmonyId), args);
 	}
 }
 
