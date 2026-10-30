@@ -930,6 +930,13 @@ def deck_types(deck_type):
     list, replaced by SEST Cross-Deck's extended list where one is built.
     None when the hull declares no list at all."""
     stub = CROSS_DECK / f"{deck_type}_CrossDeck_SEST.ini"
+    if not deck_type.isascii():
+        # Cross-Deck spells such a hull's stub name in ASCII (fr_ffg_floréal's
+        # is fr_ffg_floreal_...); the game, and so this, finds a stub by the
+        # target its #!extend line names.
+        head = f"#!extend vessels/{deck_type}.ini\n"
+        stub = next((s for s in sorted(CROSS_DECK.glob("*_CrossDeck_SEST.ini"))
+                     if read(s).startswith(head)), stub)
     if stub.is_file():
         m = re.search(r"^AircraftSupported=([^\n/]*)", read(stub), re.M)
         if m:

@@ -861,11 +861,18 @@ class DeckLists(unittest.TestCase):
         if not stubs:
             self.skipTest("SEST Cross-Deck not built")
         for stub in stubs:
-            uid = stub.name[:-len("_CrossDeck_SEST.ini")]
+            # The game keys a stub by its #!extend line; the file name is the
+            # hull id spelt in ASCII (cross-deck's stub_name).
             text = stub.read_text(encoding="utf-8")
-            self.assertTrue(text.startswith(f"#!extend vessels/{uid}.ini\n"), stub.name)
+            head = re.match(r"#!extend vessels/([^\n/]+)\.ini\n", text)
+            self.assertTrue(head, stub.name)
+            uid = head.group(1)
+            self.assertEqual(stub.name, cross_deck().stub_name(uid))
             own = bp.unit_value(uid, "AircraftSupported")
             self.assertTrue(own and "Helicopters" not in own, uid)
+            # The campaign reads this stub's list for the hull, under either name.
+            listed = re.search(r"^AircraftSupported=([^\n/]*)", text, re.M).group(1).strip()
+            self.assertEqual(bp.deck_types(uid), listed, uid)
             new = bp.deck_types(uid).split(",")
             self.assertEqual(new[:len(own.split(","))], own.split(","), uid)
             self.assertEqual(len(new), len(set(new)), uid)
