@@ -196,9 +196,33 @@ def sm3_value(key, name):
 # that would let the round fly for fifty minutes on every install. With the
 # preloader the overwrite still applies on top, and the rounds then fly
 # 3000 s whatever this pack ships.
+# The five seeker keys: since the 28 Oct 2026 export the IIA and IIB
+# overwrites (the C and the D; the B has none) carry an [ExtendedGuidance]
+# section - SeekerProfile=IIR_Imaging, SeekerTrackRate=50,
+# IRBackgroundRejection=0.8, IRBrightnessRejection=0.6, IRShapeRejection=0.25
+# - which ini_values() reads as overwrite keys like any other. Declined, the
+# owner's decision of 30 Oct 2026. They are extension keys, read only by the
+# AC Pack's ExtendedGuidance plugin (0.9.7 in this export), which SEST play
+# keeps off: SEST Intercept Model and the SM-3 tuning assume the game's own
+# Pk (docs/workshop-refresh-20261022-review.md, section 5, and the catalog
+# note of 3784474738). The game reads none of them: Seapower-Scripts.dll
+# eab2297b (Build 261021) holds no string for any of the five, as it holds
+# none for the AutoAttack*, OptimalTargetDist and ThermalGlow keys
+# SM3_OVWR_IGNORABLE passes, while it does hold SeekerFOV,
+# SeekerPassiveRange, TerminalLoft and OptimizeLoftAlt, which the fold
+# copies. So the rounds keep the supported native guidance, and this pack
+# writes no key that only a plugin it keeps off would read. They are listed
+# here rather than in SM3_OVWR_IGNORABLE so the build still stops if the
+# author moves a value or gives the B the section: with the plugin on, they
+# are what the rounds' seekers run on.
 SM3_OVWR_DECLINED = {
     "MaxFlightTime": {"usn_rim-161b": "3000", "usn_rim-161c": "3000",
                       "usn_rim-161d": "3000"},
+    "SeekerProfile": {"usn_rim-161c": "IIR_Imaging", "usn_rim-161d": "IIR_Imaging"},
+    "SeekerTrackRate": {"usn_rim-161c": "50", "usn_rim-161d": "50"},
+    "IRBackgroundRejection": {"usn_rim-161c": "0.8", "usn_rim-161d": "0.8"},
+    "IRBrightnessRejection": {"usn_rim-161c": "0.6", "usn_rim-161d": "0.6"},
+    "IRShapeRejection": {"usn_rim-161c": "0.25", "usn_rim-161d": "0.25"},
 }
 # Keys the overwrite sets for some rounds only, copied for those rounds (a
 # round not listed must not set the key). 18 Oct 2026 export: the author gave
