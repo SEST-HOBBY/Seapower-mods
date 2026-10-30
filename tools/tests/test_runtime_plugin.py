@@ -6,6 +6,11 @@ manifest's status is "captured-binary-source-not-recovered" the DLL is a
 byte-for-byte capture (Runtime 1.5.0 from the owner's PC) whose source is not
 in the repository: then the DLL is held to its recorded hash, the builder
 must refuse to overwrite it, and the .cs files are only its fork base.
+
+A scratch build (build_plugin.py --source DIR --output PATH) compiles another
+folder, such as source-1.5.0/, to a path of its own and leaves the committed
+DLL and record alone; --source without --output and an --output that names
+the committed DLL are refused before any toolchain is touched.
 """
 import hashlib
 import json
@@ -51,6 +56,16 @@ def run_builder(plugin, *args):
     env["PATH"] = ""
     return subprocess.run([sys.executable, str(plugin / "build_plugin.py"), *args], cwd=plugin, env=env,
                           capture_output=True, text=True, timeout=60)
+
+
+def toolchain_available():
+    return bool(os.environ.get("SEST_MONO_PREFIX")) or bool(shutil.which("mcs") and shutil.which("mono"))
+
+
+def run_builder_with_toolchain(plugin, *args):
+    # The real toolchain, for a scratch build that compiles and runs the mocked tests.
+    return subprocess.run([sys.executable, str(plugin / "build_plugin.py"), *args], cwd=plugin,
+                          capture_output=True, text=True, timeout=900)
 
 
 class RuntimePluginBuild(unittest.TestCase):
@@ -166,6 +181,47 @@ class BuilderFailsClosed(unittest.TestCase):
         other = base.get("sha256", "0" * 64)
         old = {"format": 1, "binary": "SEST.RuntimeFixes.dll", "sha256": other, "inputs": base.get("inputs", {})}
         self.check_refusal(json.dumps(old, indent=2) + "\n", "records sha256 " + other)
+
+
+class ScratchBuilds(unittest.TestCase):
+    """build_plugin.py --source/--output writes elsewhere and never the committed DLL or record."""
+
+    def setUp(self):
+        self.manifest = json.loads((PLUGIN / "plugin-build.json").read_text())
+
+    def test_source_without_output_is_refused(self):
+        with tempfile.TemporaryDirectory(prefix="sest-runtime-scratch-") as tmp:
+            plugin = builder_copy(Path(tmp))
+            before = (plugin / "SEST.RuntimeFixes.dll").read_bytes(), (plugin / "plugin-build.json").read_bytes()
+            run = run_builder(plugin, "--source", str(plugin / "source-1.5.0"))
+            self.assertNotEqual(run.returncode, 0)
+            self.assertIn("--source needs --output", run.stderr)
+            self.assertEqual(((plugin / "SEST.RuntimeFixes.dll").read_bytes(), (plugin / "plugin-build.json").read_bytes()), before)
+
+    def test_output_naming_the_committed_dll_is_refused(self):
+        with tempfile.TemporaryDirectory(prefix="sest-runtime-scratch-") as tmp:
+            plugin = builder_copy(Path(tmp))
+            before = (plugin / "SEST.RuntimeFixes.dll").read_bytes()
+            run = run_builder(plugin, "--output", str(plugin / "SEST.RuntimeFixes.dll"))
+            self.assertNotEqual(run.returncode, 0)
+            self.assertIn("names the committed DLL", run.stderr)
+            self.assertEqual((plugin / "SEST.RuntimeFixes.dll").read_bytes(), before)
+
+    def test_a_scratch_build_of_the_fork_base_reproduces_it(self):
+        # The fork base compiles to its recorded hash through --source/--output,
+        # its mocked regressions run, and the capture beside it stays as it was.
+        if not toolchain_available():
+            self.skipTest("no Mono toolchain (SEST_MONO_PREFIX or mcs on PATH)")
+        with tempfile.TemporaryDirectory(prefix="sest-runtime-scratch-") as tmp:
+            plugin = builder_copy(Path(tmp))
+            dll, record = plugin / "SEST.RuntimeFixes.dll", plugin / "plugin-build.json"
+            before = dll.read_bytes(), record.read_bytes()
+            out = Path(tmp) / "scratch" / "SEST.RuntimeFixes.dll"
+            run = run_builder_with_toolchain(plugin, "--source", str(plugin), "--output", str(out))
+            self.assertEqual(run.returncode, 0, run.stderr)
+            self.assertIn("Runtime regressions passed", run.stdout)
+            self.assertEqual(sha256(out), self.manifest["fork_base"]["sha256"])
+            self.assertEqual((dll.read_bytes(), record.read_bytes()), before)
 
 
 if __name__ == "__main__":
