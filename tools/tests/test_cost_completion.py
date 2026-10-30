@@ -84,6 +84,15 @@ class CompleteCatalog(unittest.TestCase):
         model,_=select_model('weapon','new_155mm_laser',{'general':{'type':'Projectile','mass':'45'}})
         self.assertNotEqual(model,'none')
 
+    def test_hand_launched_mini_uav_is_a_small_uav_not_a_fighter(self):
+        # fr_aliaca (Charles De Gaulle & Modern French Navy, 28 Oct 2026): EmptyMass=13.0,
+        # Role=Recon and no "uav" in its id, so the fighter proxy ($75M) took it.
+        model,_=select_model('aircraft','fr_aliaca',{'general':{'unittype':'Aircraft','emptymass':'13.0','role':'Recon'}})
+        self.assertEqual(model,'small_uav')
+        row=self.rows['aircraft','fr_aliaca']
+        self.assertEqual(row['completion']['model'],'small_uav')
+        self.assertEqual(costs.price(row['current']),2000000)
+
     def test_pod_is_hardware_not_seven_missiles(self):
         pod=self.rows['weapon','sest_agr-30_pod']
         missile=self.rows['weapon','sest_agr-30']
