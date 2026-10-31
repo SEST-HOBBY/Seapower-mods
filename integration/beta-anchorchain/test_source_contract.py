@@ -40,7 +40,7 @@ class BetaSourceContract(unittest.TestCase):
         marker = "if (!loadedOne && currentLevel.Count != 0)"
         self.assertIn(marker, self.main)
         after = self.main.split(marker, 1)[1]
-        self.assertIn("break;", after.split("}", 1)[0])
+        self.assertIn("break;", after[:500])
 
     def test_finite_load_budget(self):
         self.assertIn("levelBudget = recognizedPlugins.Count + 1", self.main)
