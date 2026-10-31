@@ -19,7 +19,16 @@ $source = Join-Path $PSScriptRoot "out\SEST.BetaAnchorBootstrap.dll"
 $dest = Join-Path $GameRoot "BepInEx\plugins\SEST.BetaAnchorBootstrap.dll"
 $log = Join-Path $GameRoot "BepInEx\LogOutput.log"
 $betaHash = "3005bc6d4221a921008778a18dec06515d98c63d3afb6a3a2835b985ab2e7d62"
-$receiptHash = "e2a029d6a33918227690e4f149197212154dee19f23b3618913f973cfc5ce72e"
+$legacyHash = "e2a029d6a33918227690e4f149197212154dee19f23b3618913f973cfc5ce72e"
+$receiptPath = Join-Path $PSScriptRoot "out\build-receipt.json"
+$receiptHash = $legacyHash
+if (Test-Path -LiteralPath $receiptPath -PathType Leaf) {
+    $receipt = Get-Content -LiteralPath $receiptPath -Raw | ConvertFrom-Json
+    if ($receipt.game_sha256 -ne $betaHash) { throw "Build receipt is for a different game build." }
+    $receiptHash = [string]$receipt.dll_sha256
+    $actualSourceHash = (Get-FileHash -LiteralPath (Join-Path $PSScriptRoot "AnchorChainBetaBootstrap.cs") -Algorithm SHA256).Hash.ToLowerInvariant()
+    if ($actualSourceHash -ne [string]$receipt.source_sha256) { throw "Build receipt source hash does not match current source. Rebuild first." }
+}
 
 function Read-Sha256([string]$Path) {
     return (Get-FileHash -LiteralPath $Path -Algorithm SHA256).Hash.ToLowerInvariant()
@@ -73,8 +82,8 @@ elseif ($Action -eq "Remove") {
         Write-Host "Nothing to remove. Candidate plugin is not installed."
         return
     }
-    if ((Read-Sha256 $dest) -ne $receiptHash) {
-        throw "Installed file differs from known test candidate; refusing to remove: $dest"
+    if ((Read-Sha256 $dest) -notin @($receiptHash, $legacyHash)) {
+        throw "Installed file differs from known test candidates; refusing to remove: $dest"
     }
     Remove-Item -LiteralPath $dest -Force
     Write-Host "BETA TEST PLUGIN REMOVED" -ForegroundColor Green
@@ -103,7 +112,11 @@ else {
         "Loaded plugin ",
         "Error loading plugin",
         "Error loading assembly",
-        "FileManager discovery"
+        "FileManager discovery",
+        "Probe tick=",
+        "Steam Workshop",
+        "Anchor Chain not ready",
+        "Retry using"
     )
     $hits = @(
         Get-Content -LiteralPath $log -Tail 2000 |
