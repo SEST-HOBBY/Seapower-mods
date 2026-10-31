@@ -15,7 +15,7 @@ using UnityEngine;
 
 namespace SEST.Beta
 {
-    [BepInPlugin("io.sest.anchorchain.beta.bootstrap", "SEST Beta Anchor Chain Bootstrap", "0.1.0")]
+    [BepInPlugin("io.sest.anchorchain.beta.bootstrap", "SEST Beta Anchor Chain Bootstrap", "0.1.1")]
     public sealed class AnchorChainBetaBootstrap : BaseUnityPlugin
     {
         // Captured 28 October on the Sea Power PUBLIC BETA, not a semver guess.
@@ -147,33 +147,78 @@ namespace SEST.Beta
             }
         }
 
+        // The game may expose FileManager.Instance on an inherited singleton
+        // base class. Reflection with Static but without FlattenHierarchy only
+        // searches the derived type. Walk each declaring type explicitly so
+        // private and generic inherited static members are visible as well.
+        private static object ReadMember(Type type, object target, string name, out string description)
+        {
+            BindingFlags flags = BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.DeclaredOnly
+                | (target == null ? BindingFlags.Static : BindingFlags.Instance);
+            string last = "not declared on hierarchy";
+            for (Type owner = type; owner != null; owner = owner.BaseType)
+            {
+                try
+                {
+                    PropertyInfo property = owner.GetProperty(name, flags);
+                    if (property != null && property.GetIndexParameters().Length == 0)
+                    {
+                        object value = property.GetValue(target, null);
+                        last = "property " + owner.FullName + "." + name + (value == null ? " null" : " OK");
+                        if (value != null)
+                        {
+                            description = last;
+                            return value;
+                        }
+                    }
+                    FieldInfo field = owner.GetField(name, flags);
+                    if (field != null)
+                    {
+                        object value = field.GetValue(target);
+                        last = "field " + owner.FullName + "." + name + (value == null ? " null" : " OK");
+                        if (value != null)
+                        {
+                            description = last;
+                            return value;
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    last = owner.FullName + "." + name + " threw " + ex.GetType().Name + ": " + ex.Message;
+                }
+            }
+            description = last;
+            return null;
+        }
+
+        private static Type FileManagerType()
+        {
+            return AppDomain.CurrentDomain.GetAssemblies()
+                .Select(a => a.GetType("SeaPower.FileManager", false))
+                .FirstOrDefault(t => t != null);
+        }
+
         private string DescribeFileManager()
         {
             try
             {
-                Type type = AppDomain.CurrentDomain.GetAssemblies()
-                    .Select(a => a.GetType("SeaPower.FileManager", false))
-                    .FirstOrDefault(t => t != null);
+                Type type = FileManagerType();
                 if (type == null) return "SeaPower.FileManager type missing";
-                const BindingFlags statics = BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic;
-                PropertyInfo instance = type.GetProperty("Instance", statics);
-                object manager = instance != null ? instance.GetValue(null, null) : null;
+                string viaInstance;
+                object manager = ReadMember(type, null, "Instance", out viaInstance);
                 if (manager == null)
                 {
-                    FieldInfo field = type.GetField("Instance", statics);
-                    if (field != null) manager = field.GetValue(null);
+                    return "type=" + type.Assembly.GetName().Name + ", instance=" + viaInstance
+                        + ", ancestors=" + FileManagerBases(type);
                 }
-                if (manager == null) return "Instance null in " + type.Assembly.GetName().Name;
-                const BindingFlags members = BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance;
-                PropertyInfo dirs = type.GetProperty("Directories", members);
-                object raw = dirs != null ? dirs.GetValue(manager, null) : null;
-                if (raw == null)
-                {
-                    FieldInfo field = type.GetField("Directories", members);
-                    if (field != null) raw = field.GetValue(manager);
-                }
-                return raw == null ? "Directories null/missing" :
-                    ("Directories type=" + raw.GetType().FullName);
+                string viaDirectories;
+                object dirs = ReadMember(manager.GetType(), manager, "Directories", out viaDirectories);
+                if (dirs == null) return "instance=" + viaInstance + ", directories=" + viaDirectories;
+                var collection = dirs as ICollection;
+                return "instance=" + viaInstance + ", directories=" + viaDirectories
+                    + ", collection-type=" + dirs.GetType().FullName
+                    + (collection != null ? ", count=" + collection.Count : "");
             }
             catch (Exception ex)
             {
@@ -181,38 +226,30 @@ namespace SEST.Beta
             }
         }
 
+        private static string FileManagerBases(Type type)
+        {
+            var names = new List<string>();
+            for (Type ancestor = type; ancestor != null; ancestor = ancestor.BaseType)
+                names.Add(ancestor.FullName);
+            return String.Join(" > ", names.ToArray());
+        }
+
         private List<string> GetGameModDirectories()
         {
             var output = new List<string>();
             try
             {
-                Type type = AppDomain.CurrentDomain.GetAssemblies()
-                    .Select(a => a.GetType("SeaPower.FileManager", false))
-                    .FirstOrDefault(t => t != null);
+                Type type = FileManagerType();
                 if (type == null)
                     return output;
 
-                const BindingFlags flags = BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic;
-                PropertyInfo singleton = type.GetProperty("Instance", flags);
-                object manager = singleton != null ? singleton.GetValue(null, null) : null;
-                if (manager == null)
-                {
-                    FieldInfo singletonField = type.GetField("Instance", flags);
-                    if (singletonField != null)
-                        manager = singletonField.GetValue(null);
-                }
+                string viaInstance;
+                object manager = ReadMember(type, null, "Instance", out viaInstance);
                 if (manager == null)
                     return output;
 
-                const BindingFlags memberFlags = BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic;
-                PropertyInfo dirsProp = type.GetProperty("Directories", memberFlags);
-                object raw = dirsProp != null ? dirsProp.GetValue(manager, null) : null;
-                if (raw == null)
-                {
-                    FieldInfo dirsField = type.GetField("Directories", memberFlags);
-                    if (dirsField != null)
-                        raw = dirsField.GetValue(manager);
-                }
+                string viaDirectories;
+                object raw = ReadMember(manager.GetType(), manager, "Directories", out viaDirectories);
                 var dirs = raw as IEnumerable;
                 if (dirs == null)
                     return output;
@@ -224,10 +261,9 @@ namespace SEST.Beta
                     var info = entry as DirectoryInfo;
                     if (info == null)
                     {
-                        PropertyInfo property = entry.GetType().GetProperty("DirectoryInfo",
-                            BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance);
-                        if (property != null)
-                            info = property.GetValue(entry, null) as DirectoryInfo;
+                        string viaInfo;
+                        info = ReadMember(entry.GetType(), entry, "DirectoryInfo", out viaInfo)
+                            as DirectoryInfo;
                     }
                     if (info != null && Directory.Exists(info.FullName))
                         output.Add(info.FullName);
@@ -235,7 +271,7 @@ namespace SEST.Beta
             }
             catch (Exception ex)
             {
-                Logger.LogWarning("Beta FileManager discovery not ready: " + ex.GetType().Name);
+                Logger.LogWarning("Beta FileManager discovery exception: " + ex.GetType().Name + ": " + ex.Message);
             }
             return output.Distinct(StringComparer.OrdinalIgnoreCase).ToList();
         }
