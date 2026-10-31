@@ -54,6 +54,38 @@ if (!(Test-Path -LiteralPath $candidate -PathType Leaf)) {
 }
 $dest = Join-Path $OutDir "AnchorChain.dll"
 Copy-Item -LiteralPath $candidate -Destination $dest -Force
+
+# Build the separate inert-first bootstrap with the Windows Framework compiler.
+# The bootstrap does not reference the fork until the user explicitly enables it
+# with a stage manifest; only the patched fork retains its original assembly name.
+$bootstrapSource = Join-Path $PSScriptRoot "SEST.BetaSafeBootstrap.cs"
+if (!(Test-Path -LiteralPath $bootstrapSource -PathType Leaf)) {
+    throw "Bootstrap source missing. Nothing installed."
+}
+$unityApi = Join-Path $GameRoot "Sea Power_Data\Managed\UnityEngine.dll"
+$unityCore = Join-Path $GameRoot "Sea Power_Data\Managed\UnityEngine.CoreModule.dll"
+$bep = Join-Path $GameRoot "BepInEx\core\BepInEx.dll"
+foreach ($p in @($bep, $unityApi, $unityCore)) {
+    if (!(Test-Path -LiteralPath $p -PathType Leaf)) { throw "Missing bootstrap reference: $p" }
+}
+$csc = Join-Path $env:WINDIR "Microsoft.NET\Framework64\v4.0.30319\csc.exe"
+if (!(Test-Path -LiteralPath $csc -PathType Leaf)) {
+    $csc = Join-Path $env:WINDIR "Microsoft.NET\Framework\v4.0.30319\csc.exe"
+}
+if (!(Test-Path -LiteralPath $csc -PathType Leaf)) {
+    throw "Windows Framework C# compiler is absent; bootstrap DLL not built. Nothing installed."
+}
+$tempDll = Join-Path $env:TEMP ("SEST-BetaSafeBootstrap-" + [guid]::NewGuid().ToString("N") + ".dll")
+try {
+    & $csc -nologo -target:library -optimize+ "-out:$tempDll" "-r:$bep" "-r:$unityApi" "-r:$unityCore" "-r:System.Core.dll" $bootstrapSource
+    if ($LASTEXITCODE -ne 0 -or !(Test-Path -LiteralPath $tempDll -PathType Leaf)) {
+        throw "Bootstrap compiler failed. Nothing installed."
+    }
+    $bootstrapDll = Join-Path $OutDir "SEST.BetaSafeBootstrap.dll"
+    Copy-Item -LiteralPath $tempDll -Destination $bootstrapDll -Force
+} finally {
+    Remove-Item -LiteralPath $tempDll -Force -ErrorAction SilentlyContinue
+}
 $receipt = [ordered]@{
     format = 1
     target_game_sha256 = (Hash-File $native)
@@ -62,13 +94,17 @@ $receipt = [ordered]@{
     fork_source_sha256 = (Hash-File $source)
     fork_dll_sha256 = (Hash-File $dest)
     fork_dll = "AnchorChain.dll"
+    bootstrap_source_sha256 = (Hash-File $bootstrapSource)
+    bootstrap_dll_sha256 = (Hash-File $bootstrapDll)
+    bootstrap_dll = "SEST.BetaSafeBootstrap.dll"
     created_utc = [DateTime]::UtcNow.ToString("o")
     status = "built-not-gameplay-verified"
 }
 $receiptPath = Join-Path $OutDir "build-receipt.json"
 $receipt | ConvertTo-Json -Depth 4 | Set-Content -LiteralPath $receiptPath -Encoding UTF8
 Write-Host "SAFE ANCHOR CHAIN SOURCE FORK COMPILED" -ForegroundColor Green
-Write-Host "DLL: $dest"
+Write-Host "Bounded loader: $dest"
+Write-Host "Inert-first bootstrap: $bootstrapDll"
 Write-Host "SHA256: $($receipt.fork_dll_sha256)"
 Write-Host "Receipt: $receiptPath"
 Write-Host "Build only. No Steam/Workshop file was modified or installed."
