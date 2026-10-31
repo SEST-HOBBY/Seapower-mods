@@ -15,8 +15,9 @@ if (!$OutDir) { $OutDir = Join-Path $PSScriptRoot "out" }
 $managed = Join-Path $GameRoot "Sea Power_Data\Managed"
 $bep = Join-Path $GameRoot "BepInEx\core\BepInEx.dll"
 $unity = Join-Path $managed "UnityEngine.CoreModule.dll"
+$unityApi = Join-Path $managed "UnityEngine.dll"
 $game = Join-Path $managed "Seapower-Scripts.dll"
-foreach ($p in @($bep, $unity, $game)) {
+foreach ($p in @($bep, $unity, $unityApi, $game)) {
     if (!(Test-Path -LiteralPath $p -PathType Leaf)) { throw "Missing dependency: $p" }
 }
 $expected = "3005bc6d4221a921008778a18dec06515d98c63d3afb6a3a2835b985ab2e7d62"
@@ -75,7 +76,7 @@ $candidate = Join-Path $tmp "SEST.BetaAnchorBootstrap.dll"
 try {
     $compilerArgs = @(
         "-nologo", "-target:library", "-optimize+",
-        "-out:$candidate", "-r:$bep", "-r:$unity", "-r:System.Core.dll"
+        "-out:$candidate", "-r:$bep", "-r:$unity", "-r:$unityApi", "-r:System.Core.dll"
     )
     $standard = Join-Path $managed "netstandard.dll"
     if (Test-Path -LiteralPath $standard -PathType Leaf) {
