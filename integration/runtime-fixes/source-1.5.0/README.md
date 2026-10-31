@@ -19,13 +19,15 @@ hash, until the owner decides otherwise. Do not pass
 
 ## Where every file came from
 
-- **Decompiled reference, downleveled to C# 7.2** (18 files): `Api.cs`,
+- **Decompiled reference, downleveled to C# 7.2** (18 files at the seed): `Api.cs`,
   `CampaignCosts.cs`, `ContactHostScope.cs`, `ContactPopOutState.cs`,
   `ContactWindowBridge.cs`, `CostBounds.cs`, `CostLineKind.cs`,
   `CostReportLine.cs`, `CostWindowState.cs`, `CumulativeCombatCostsViewModel.cs`,
   `F11CombatCosts.cs`, `NativeCombatSurface.cs`, `NativeCostTypography.cs`,
   `PopOutBridge.cs`, `PreparationMap.cs`, `RuntimeFixesMod.cs`,
-  `TowedSensorGuard.cs`, `UiStartupGate.cs`. The decompile is the 27 Oct
+  `TowedSensorGuard.cs`, `UiStartupGate.cs`. Since then `Api` has moved into
+  `RuntimeFixesMod.cs` and the five cost types into `CostWindow.cs`, the
+  files the capture's type order says the original had. The decompile is the 27 Oct
   2026 handoff's `review/pc-playtest-20261027/runtime-1.5.0-reference/`
   (ILSpy-style C# 10 of the captured DLL, byte-identical in both handoff
   zips, tree hash `035fa6279f8aea1a011f7162dc47c55cb7e1acb94a4f4dbc7e2d25e705dbf44e`
@@ -77,8 +79,8 @@ and 64 differ. None is missing or extra; all 51 types, 621 string literals
 and 6 referenced assemblies' names match. The 64, by the area one agent can
 finish at a time:
 
-- **core-pins** (3): `Api.FindType`, `Api.Hooks`, `RuntimeFixesMod.TriggerEntryPoint`.
-- **f11-native-windows** (15): `CumulativeCombatCostsViewModel.Change`, `.Set`;
+- **core-pins** (3, matched since: see below): `Api.FindType`, `Api.Hooks`, `RuntimeFixesMod.TriggerEntryPoint`.
+- **f11-native-windows** (15, matched since: see below): `CumulativeCombatCostsViewModel.Change`, `.Set`;
   `F11CombatCosts.AfterUpdate`, `.BeforeDestroy`, `.Modified`, `.Poll`,
   `.SyncWindow`, `.TrackerLoaded`; `NativeCombatSurface.ApplyBounds`,
   `.BoundTo`, `.Close`, `.Root`, `.Tick`, `NativeCombatSurface/<Walk>c__Iterator0.MoveNext`;
@@ -121,8 +123,10 @@ rebuild needs, all of it source order or source form:
   `NativeCombatSurface`, `NativeCostTypography`, `Policy`, `PopOutBridge`,
   `PreparationMap`, `RuntimeFixesMod` then `Api` (one file, the fork's
   `SestRuntimeFixes.cs` layout), `TaskForceDebrief`, `TerrainClearance`,
-  `TowedSensorGuard`, `UiStartupGate`. The seed keeps one file per type as
-  the decompile has it; `Api` and the five cost types sort elsewhere.
+  `TowedSensorGuard`, `UiStartupGate`. The seed kept one file per type as
+  the decompile has it, which sorted `Api` and the five cost types
+  elsewhere; with `Api` in `RuntimeFixesMod.cs` and the cost types in
+  `CostWindow.cs` the TypeDef table now matches the capture row for row.
 - Member order inside `CampaignCosts/CostView`, `ContactWindowBridge`,
   `CumulativeCombatCostsViewModel` (event first), `NativeCombatSurface`,
   `PopOutBridge` (the decompiler groups properties before methods), and the
@@ -145,6 +149,28 @@ rebuild needs, all of it source order or source form:
   handoff mentions). Built that way here, the seed's AssemblyRef table and
   heap sizes equal 1.5.0's. `build_plugin.py` has no option for that recipe
   yet; the mscorlib-referenced build it makes is what the IL comparison uses.
+
+## Progress since the seed
+
+- core-pins: `Api.FindType`, `Api.Hooks` and `RuntimeFixesMod.TriggerEntryPoint`
+  match the capture (commit "Runtime 1.5.0 source: FindType, Hooks and
+  TriggerEntryPoint match the captured IL"), and `Api` is declared after
+  `RuntimeFixesMod` in `RuntimeFixesMod.cs`, the fork's one-file layout, as
+  the capture orders them.
+- f11-native-windows: all 15 match (commit "Runtime 1.5.0 source: the F11
+  native cost windows match the captured IL"); the five cost types live in
+  `CostWindow.cs` in the capture's order, the view model declares its event
+  first, and the area's nine expression-bodied getters are block-bodied.
+- The build is now SHA-256
+  `0dd2625500a2c112a4fc90f21264593b9c7ee4bcd647ec17bedf449fd3eb78a8`
+  (128,512 bytes, two runs the same): **271 of 317 methods IL-identical, 46
+  differ**, all in popout-bridges (17), campaign-costs-inventory (24),
+  towed-sensor-guard (3) and preparation-map (2). The TypeDef table is
+  identical to the capture's; the Field table first diverges at
+  `CombatGameRecord.CompletedAt` (declared after `Context` here, before it
+  in the capture) and the MethodDef table at `CampaignCosts/CostView`
+  (`AddSummary`, `AddDetail`, `get_Lines`), both campaign-costs-inventory
+  items.
 
 ## Tests
 
