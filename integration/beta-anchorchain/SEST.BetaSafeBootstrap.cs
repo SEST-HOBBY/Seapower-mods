@@ -77,7 +77,18 @@ namespace SEST.BetaAnchor
 
                 if (ready && stable >= ReadyTicks)
                 {
-                    bool enabled = File.Exists(Path.Combine(_payloadDirectory, "enable.flag"));
+                    bool enabled = false;
+                    try
+                    {
+                        string flag = Path.Combine(_payloadDirectory, "enable.flag");
+                        enabled = File.Exists(flag)
+                            && String.Equals(File.ReadAllText(flag).Trim(), "enable-beta-261026",
+                                StringComparison.Ordinal);
+                    }
+                    catch (Exception ex)
+                    {
+                        Logger.LogWarning("Enable flag unreadable; loader remains inactive: " + ex.Message);
+                    }
                     Logger.LogInfo("BETA SAFE BOOTSTRAP READY; enable=" + enabled
                         + " roots=" + roots.Count + " workshopRegistered=" + registered);
                     if (enabled)
