@@ -25,15 +25,16 @@ The deferred bridge is an **opt-in beta-only** BepInEx plugin, with these limits
 - Does not solve any native API mismatch, Noesis 4.0.1 changes, mission
   geometry/trigger migration, game balance, cost data or performance stutter.
 
-## Build (requires installed Mono mcs on Windows)
+## Build (Windows .NET Framework C# compiler or Mono mcs)
 
 Game closed:
 
     powershell -NoProfile -ExecutionPolicy Bypass -File integration/beta-bootstrap/build.ps1 -GameRoot "C:\Program Files (x86)\Steam\steamapps\common\Sea Power"
 
 The script verifies the exact beta SHA-256 and builds out/SEST.BetaAnchorBootstrap.dll
-locally. It NEVER installs it. If Mono is unavailable, stop and use an available
-compiler after reviewing the source. **Do not ship an untested DLL.**
+locally. It uses Mono mcs when available, otherwise Windows .NET Framework
+csc.exe (and references UnityEngine.dll plus UnityEngine.CoreModule.dll).
+It NEVER installs the output. **Do not ship an untested DLL.**
 
 ## Validation required before beta deployment
 
