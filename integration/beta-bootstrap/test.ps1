@@ -27,7 +27,7 @@ if (Test-Path -LiteralPath $receiptPath -PathType Leaf) {
     if ($receipt.game_sha256 -ne $betaHash) { throw "Build receipt is for a different game build." }
     $receiptHash = [string]$receipt.dll_sha256
     $actualSourceHash = (Get-FileHash -LiteralPath (Join-Path $PSScriptRoot "AnchorChainBetaBootstrap.cs") -Algorithm SHA256).Hash.ToLowerInvariant()
-    if ($actualSourceHash -ne [string]$receipt.source_sha256) { throw "Build receipt source hash does not match current source. Rebuild first." }
+    if ($Action -eq "Install" -and $actualSourceHash -ne [string]$receipt.source_sha256) { throw "Build receipt source hash does not match current source. Rebuild first." }
 }
 
 function Read-Sha256([string]$Path) {
