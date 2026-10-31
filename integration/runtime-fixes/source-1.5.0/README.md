@@ -53,10 +53,14 @@ hash, until the owner decides otherwise. Do not pass
   members 1.5.0 uses, with the owner types 1.5.0 names). `build_plugin.py`
   compiles each `stubs/<Assembly>.cs` to `<Assembly>.dll` in its temporary
   folder and references it; neither is shipped. The real
-  `Noesis.NoesisGUI.dll` (`c4e2c37c...`) and `UnityEngine.CoreModule.dll`
-  are not in the repository or on the build machine, so every signature the
-  stubs declare must be re-verified against the game's files before a build
-  from here is tried on the PC. The Anchor Chain stand-in is the committed
+  `Noesis.NoesisGUI.dll` (`c4e2c37c...`, the file 1.5.0 pins) and
+  `UnityEngine.CoreModule.dll` are not in the repository. The 31 Oct beta
+  capture's copies of both (Noesis `ed875dca...`, CoreModule `e59403b8...`)
+  compile these sources with mcs to the same IL as the stubs, method for
+  method, with the same 540 MemberRefs as the capture, so the stubs declare
+  the right signatures for every member 1.5.0 uses; that build needs the
+  netstandard 2.1 recipe below, because the game's CoreModule itself
+  references `netstandard 2.1.0.0`. The Anchor Chain stand-in is the committed
   `integration/menu-background/stubs/AnchorChain.cs`, as for the fork base.
   `Seapower-Scripts.dll` (Build 261021, SHA-256 `eab2297b...`, the build
   1.5.0 pins) and BepInEx's `0Harmony.dll` (HarmonyX 2.9.0, `1a21cc03...`)
