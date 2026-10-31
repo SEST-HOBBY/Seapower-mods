@@ -57,16 +57,35 @@ namespace SEST.Beta
                     yield break;
 
                 List<string> roots = GetGameModDirectories();
-                string candidate = FindAnchorChain(roots);
+                string registered = FindAnchorChain(roots);
+                string workshop = FindSteamWorkshopAnchorChain();
+                string candidate = registered ?? workshop;
                 string signature = String.Join("\n", roots.OrderBy(x => x, StringComparer.OrdinalIgnoreCase).ToArray())
                     + "\n" + (candidate ?? "");
-                if (candidate != null && String.Equals(signature, previous, StringComparison.Ordinal))
+                if (candidate != null && roots.Count != 0 && String.Equals(signature, previous, StringComparison.Ordinal))
                     stable++;
                 else
                     stable = 0;
                 previous = signature;
 
-                if (candidate != null && stable >= StableTicksRequired)
+                if (attempt == 0 || attempt == 10 || attempt == 30 || attempt == 60
+                    || attempt == 90 || attempt == MaxTicks - 1)
+                {
+                    Logger.LogInfo("Probe tick=" + attempt
+                        + " roots=" + roots.Count
+                        + " registered=" + (registered ?? "<none>")
+                        + " workshop=" + (workshop ?? "<none>")
+                        + " roots-list=" + (roots.Count == 0 ? "<empty>" : String.Join(" | ", roots.ToArray()))
+                        + " filemanager=" + DescribeFileManager());
+                }
+                if (registered != null && workshop != null
+                    && !String.Equals(Path.GetFullPath(registered), Path.GetFullPath(workshop),
+                        StringComparison.OrdinalIgnoreCase))
+                {
+                    Logger.LogWarning("Distinct AnchorChain.dll copies in registered and Workshop locations; prefer registered copy. Validate provenance.");
+                    candidate = registered;
+                }
+                if (candidate != null && roots.Count != 0 && stable >= StableTicksRequired)
                 {
                     _attempted = true;
                     try
@@ -77,6 +96,8 @@ namespace SEST.Beta
                         }
                         else
                         {
+                            Logger.LogInfo("Retry using " + (registered != null ? "FileManager-registered" : "Steam Workshop")
+                                + " AnchorChain.dll and " + roots.Count + " FileManager directories.");
                             LoadAnchorChain(candidate);
                         }
                     }
@@ -88,7 +109,76 @@ namespace SEST.Beta
                 }
                 yield return new WaitForSecondsRealtime(0.5f);
             }
-            Logger.LogWarning("Anchor Chain was not found in ready FileManager directories after 60 seconds. No further retry.");
+            Logger.LogWarning("Anchor Chain not ready after 60 seconds. No further retry; see Probe lines for paths.");
+        }
+
+        private string FindSteamWorkshopAnchorChain()
+        {
+            // Resolve the Steam library from the running game's data directory.
+            // Never scan all drives or load arbitrary DLLs from Downloads.
+            try
+            {
+                DirectoryInfo dataDir = new DirectoryInfo(Application.dataPath);
+                DirectoryInfo gameDir = dataDir.Parent;
+                DirectoryInfo common = gameDir != null ? gameDir.Parent : null;
+                DirectoryInfo steamapps = common != null ? common.Parent : null;
+                if (common == null || steamapps == null
+                    || !String.Equals(common.Name, "common", StringComparison.OrdinalIgnoreCase)
+                    || !String.Equals(steamapps.Name, "steamapps", StringComparison.OrdinalIgnoreCase))
+                    return null;
+                string workshop = Path.Combine(steamapps.FullName, "workshop", "content",
+                    "1286220", AnchorChainWorkshopId);
+                if (!Directory.Exists(workshop))
+                    return null;
+                string[] dlls = Directory.GetFiles(workshop, "AnchorChain.dll",
+                    SearchOption.AllDirectories);
+                if (dlls.Length != 1)
+                {
+                    if (dlls.Length > 1)
+                        Logger.LogWarning("Workshop Anchor Chain folder has multiple AnchorChain.dll files; refusing fallback.");
+                    return null;
+                }
+                return Path.GetFullPath(dlls[0]);
+            }
+            catch (Exception ex)
+            {
+                Logger.LogWarning("Steam Workshop Anchor Chain probe failed: " + ex.Message);
+                return null;
+            }
+        }
+
+        private string DescribeFileManager()
+        {
+            try
+            {
+                Type type = AppDomain.CurrentDomain.GetAssemblies()
+                    .Select(a => a.GetType("SeaPower.FileManager", false))
+                    .FirstOrDefault(t => t != null);
+                if (type == null) return "SeaPower.FileManager type missing";
+                const BindingFlags statics = BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic;
+                PropertyInfo instance = type.GetProperty("Instance", statics);
+                object manager = instance != null ? instance.GetValue(null, null) : null;
+                if (manager == null)
+                {
+                    FieldInfo field = type.GetField("Instance", statics);
+                    if (field != null) manager = field.GetValue(null);
+                }
+                if (manager == null) return "Instance null in " + type.Assembly.GetName().Name;
+                const BindingFlags members = BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance;
+                PropertyInfo dirs = type.GetProperty("Directories", members);
+                object raw = dirs != null ? dirs.GetValue(manager, null) : null;
+                if (raw == null)
+                {
+                    FieldInfo field = type.GetField("Directories", members);
+                    if (field != null) raw = field.GetValue(manager);
+                }
+                return raw == null ? "Directories null/missing" :
+                    ("Directories type=" + raw.GetType().FullName);
+            }
+            catch (Exception ex)
+            {
+                return "inspect failed: " + ex.GetType().Name + " " + ex.Message;
+            }
         }
 
         private List<string> GetGameModDirectories()
