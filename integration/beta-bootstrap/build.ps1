@@ -1,30 +1,100 @@
 param(
     [Parameter(Mandatory=$true)][string]$GameRoot,
-    [string]$OutDir = ""
+    [string]$OutDir = "",
+    [string]$CompilerPath = ""
 )
 $ErrorActionPreference = "Stop"
-# This script builds a NEW compatibility plugin only. It never installs, edits
-# SEST.RuntimeFixes.dll, edits the Steam Workshop, or mutates game assemblies.
+Set-StrictMode -Version Latest
+
+# Build only. Never install/change a game DLL, bypass a hash guard or publish
+# to Workshop. This accepts the inspected PUBLIC BETA Build 261026 only.
 $source = Join-Path $PSScriptRoot "AnchorChainBetaBootstrap.cs"
 if (!(Test-Path -LiteralPath $source)) { throw "Missing source: $source" }
 if (!$OutDir) { $OutDir = Join-Path $PSScriptRoot "out" }
+
 $managed = Join-Path $GameRoot "Sea Power_Data\Managed"
 $bep = Join-Path $GameRoot "BepInEx\core\BepInEx.dll"
 $unity = Join-Path $managed "UnityEngine.CoreModule.dll"
 $game = Join-Path $managed "Seapower-Scripts.dll"
-foreach ($p in @($bep,$unity,$game)) {
-    if (!(Test-Path -LiteralPath $p)) { throw "Missing dependency: $p" }
+foreach ($p in @($bep, $unity, $game)) {
+    if (!(Test-Path -LiteralPath $p -PathType Leaf)) { throw "Missing dependency: $p" }
 }
 $expected = "3005bc6d4221a921008778a18dec06515d98c63d3afb6a3a2835b985ab2e7d62"
 $hash = (Get-FileHash -LiteralPath $game -Algorithm SHA256).Hash.ToLowerInvariant()
-if ($hash -ne $expected) { throw "Not inspected beta build 261026 ($hash). No output." }
+if ($hash -ne $expected) { throw "Not the inspected public beta Build 261026 ($hash). No output." }
 
-$mcs = Get-Command "mcs" -ErrorAction SilentlyContinue
-if (!$mcs) { throw "Mono mcs is required to compile. Install Mono or build with equivalent C# compiler using BepInEx.dll and UnityEngine.CoreModule.dll; no DLL was produced." }
+# Windows PowerShell can use its installed .NET Framework csc.exe. No Mono
+# installation is required when csc.exe is present.
+$compilerKind = $null
+$compilerExe = $null
+if ($CompilerPath) {
+    if (!(Test-Path -LiteralPath $CompilerPath -PathType Leaf)) {
+        throw "Specified compiler does not exist: $CompilerPath"
+    }
+    $compilerExe = (Resolve-Path -LiteralPath $CompilerPath).ProviderPath
+    $compilerKind = if ((Split-Path -Leaf $compilerExe) -ieq "mcs.exe") { "mcs" } else { "csc" }
+}
+else {
+    $mcs = Get-Command "mcs" -ErrorAction SilentlyContinue
+    if ($mcs) {
+        $compilerExe = $mcs.Source
+        $compilerKind = "mcs"
+    }
+    else {
+        $candidates = @(
+            (Join-Path $env:WINDIR "Microsoft.NET\Framework64\v4.0.30319\csc.exe")
+            (Join-Path $env:WINDIR "Microsoft.NET\Framework\v4.0.30319\csc.exe")
+        )
+        foreach ($candidate in $candidates) {
+            if (Test-Path -LiteralPath $candidate -PathType Leaf) {
+                $compilerExe = $candidate
+                $compilerKind = "csc"
+                break
+            }
+        }
+        if (!$compilerExe) {
+            $csc = Get-Command "csc.exe" -ErrorAction SilentlyContinue
+            if ($csc) {
+                $compilerExe = $csc.Source
+                $compilerKind = "csc"
+            }
+        }
+    }
+}
+if (!$compilerExe) {
+    throw "No usable C# compiler. Checked mcs, Windows .NET Framework csc.exe and PATH. Install a C# compiler, then rerun. No DLL was produced."
+}
+
 New-Item -ItemType Directory -Path $OutDir -Force | Out-Null
 $dest = Join-Path $OutDir "SEST.BetaAnchorBootstrap.dll"
-& $mcs.Source -nologo -target:library -optimize+ "-out:$dest" "-r:$bep" "-r:$unity" $source
-if ($LASTEXITCODE -ne 0) { throw "Bootstrap compilation failed, exit $LASTEXITCODE" }
+# Build in a temporary folder so a failed compile cannot overwrite a known DLL.
+$tmp = Join-Path ([IO.Path]::GetTempPath()) ("sest-beta-compile-" + [guid]::NewGuid().ToString("N"))
+New-Item -ItemType Directory -Path $tmp -Force | Out-Null
+$candidate = Join-Path $tmp "SEST.BetaAnchorBootstrap.dll"
+
+try {
+    $compilerArgs = @(
+        "-nologo", "-target:library", "-optimize+",
+        "-out:$candidate", "-r:$bep", "-r:$unity", "-r:System.Core.dll"
+    )
+    $standard = Join-Path $managed "netstandard.dll"
+    if (Test-Path -LiteralPath $standard -PathType Leaf) {
+        $compilerArgs += "-r:$standard"
+    }
+    $compilerArgs += $source
+
+    Write-Host "Compiler: $compilerExe ($compilerKind)"
+    & $compilerExe @compilerArgs
+    $result = $LASTEXITCODE
+    if ($result -ne 0 -or !(Test-Path -LiteralPath $candidate -PathType Leaf)) {
+        throw "Bootstrap compilation failed (exit $result). No existing output was overwritten."
+    }
+    Copy-Item -LiteralPath $candidate -Destination $dest -Force
+}
+finally {
+    Remove-Item -LiteralPath $tmp -Recurse -Force -ErrorAction SilentlyContinue
+}
+
 Write-Host "BETA BRIDGE COMPILED: $dest" -ForegroundColor Green
 Write-Host "SHA256: $((Get-FileHash -LiteralPath $dest -Algorithm SHA256).Hash)"
-Write-Host "This is an unvalidated candidate. It has not been installed or tested in game."
+Write-Host "Candidate only: no installed game files changed. Runtime/UI beta compatibility still unverified."
