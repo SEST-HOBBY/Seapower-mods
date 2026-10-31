@@ -96,6 +96,19 @@ finally {
     Remove-Item -LiteralPath $tmp -Recurse -Force -ErrorAction SilentlyContinue
 }
 
+$receipt = [ordered]@{
+    format = 1
+    game_sha256 = $hash
+    source_sha256 = (Get-FileHash -LiteralPath $source -Algorithm SHA256).Hash.ToLowerInvariant()
+    dll_sha256 = (Get-FileHash -LiteralPath $dest -Algorithm SHA256).Hash.ToLowerInvariant()
+    binary = "SEST.BetaAnchorBootstrap.dll"
+    built_at_utc = [DateTime]::UtcNow.ToString("o")
+    compiler = $compilerExe
+}
+$receiptPath = Join-Path $OutDir "build-receipt.json"
+$receipt | ConvertTo-Json -Depth 4 | Set-Content -LiteralPath $receiptPath -Encoding UTF8
+Write-Host "Receipt: $receiptPath"
+
 Write-Host "BETA BRIDGE COMPILED: $dest" -ForegroundColor Green
 Write-Host "SHA256: $((Get-FileHash -LiteralPath $dest -Algorithm SHA256).Hash)"
 Write-Host "Candidate only: no installed game files changed. Runtime/UI beta compatibility still unverified."
