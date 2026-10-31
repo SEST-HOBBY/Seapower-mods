@@ -1,0 +1,6 @@
+# Locally compiled binaries, SDK caches and captured references are never source.
+out/
+source/bin/
+source/obj/
+*.user
+*.tmp
