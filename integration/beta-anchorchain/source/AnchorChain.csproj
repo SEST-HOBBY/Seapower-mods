@@ -1,0 +1,47 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>netstandard2.1</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>disable</Nullable>
+    <LangVersion>12.0</LangVersion>
+    <Version>1.1.0</Version>
+    <AssemblyName>AnchorChain</AssemblyName>
+    <GenerateDocumentationFile>false</GenerateDocumentationFile>
+    <Deterministic>true</Deterministic>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="Main.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="AnchorChain.Preloader">
+      <HintPath>$(SESTGameRoot)/BepInEx/plugins/AnchorChain.Preloader.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="BepInEx">
+      <HintPath>$(SESTGameRoot)/BepInEx/core/BepInEx.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="0Harmony">
+      <HintPath>$(SESTGameRoot)/BepInEx/core/0Harmony.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Seapower-Scripts">
+      <HintPath>$(SESTGameRoot)/Sea Power_Data/Managed/Seapower-Scripts.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Noesis.NoesisGUI">
+      <HintPath>$(SESTGameRoot)/Sea Power_Data/Managed/Noesis.NoesisGUI.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEngine">
+      <HintPath>$(SESTGameRoot)/Sea Power_Data/Managed/UnityEngine.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEngine.CoreModule">
+      <HintPath>$(SESTGameRoot)/Sea Power_Data/Managed/UnityEngine.CoreModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+  </ItemGroup>
+</Project>
