@@ -96,6 +96,10 @@ param([string]$DataDir, [string]$OutFile)
         Write-Host "PASS: $($case.Label)"
     }
     Write-Host "CAPTURE-CONTEXT STRICTMODE REGRESSION: PASS"
+    # The isolated fixture is intentionally not a Git repository. Its
+    # environment probe can leave LASTEXITCODE=128 even when every check passes.
+    # Clear the native-command status so Windows Actions reports the test result.
+    $global:LASTEXITCODE = 0
 }
 finally {
     Remove-Item -LiteralPath $fixture -Recurse -Force -ErrorAction SilentlyContinue
