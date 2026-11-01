@@ -52,30 +52,64 @@ try {
     }
     $bundle = Join-Path $OutputDir "review"
     New-Item -ItemType Directory -Path $bundle -Force | Out-Null
+    $issues = [System.Collections.Generic.List[string]]::new()
 
     $dirs = @(Get-ChildItem -LiteralPath $workshop -Directory |
         Where-Object { $_.Name -match '^\d{8,12}$' })
     Write-Host "Workshop folders detected: $($dirs.Count)"
     Write-Host "[1/6] Capturing Steam Workshop and installed DLLs..."
-    & (Join-Path $PSScriptRoot "capture-context.ps1") -Redact
-    if (!$?) { throw "Live capture failed; partial data remains in the repo." }
+    try {
+        & (Join-Path $PSScriptRoot "capture-context.ps1") -Redact
+        if (!$?) { throw "Live capture returned an unsuccessful status." }
+    }
+    catch {
+        $reason = "Live context capture failed: $($_.Exception.Message)"
+        $issues.Add($reason)
+        @($reason, $_.ScriptStackTrace) |
+            Set-Content -LiteralPath (Join-Path $bundle "capture-context-error.txt") -Encoding UTF8
+        Write-Warning "Live context incomplete. Continuing the independent Workshop mod export."
+    }
 
     Write-Host "[2/6] Checking and exporting all Workshop mod text files..."
     $updatesPath = Join-Path $repo "data\install-snapshot\workshop-updates.txt"
-    & (Join-Path $PSScriptRoot "export-mod-configs.ps1") -WorkshopContentDir $workshop -CheckUpdates -ReportPath $updatesPath
-    if (!$?) { throw "Mod update comparison failed." }
+    try {
+        & (Join-Path $PSScriptRoot "export-mod-configs.ps1") -WorkshopContentDir $workshop -CheckUpdates -ReportPath $updatesPath
+        if (!$?) { throw "Steam mod update check returned an unsuccessful status." }
+    }
+    catch {
+        $issues.Add("Mod update comparison failed: $($_.Exception.Message)")
+        Write-Warning "Update comparison incomplete; attempting the full Workshop export."
+    }
     if (!$SkipExport) {
-        & (Join-Path $PSScriptRoot "export-mod-configs.ps1") -WorkshopContentDir $workshop
-        if (!$?) { throw "Mod config export failed; partial data preserved." }
+        try {
+            & (Join-Path $PSScriptRoot "export-mod-configs.ps1") -WorkshopContentDir $workshop
+            if (!$?) { throw "Mod export returned an unsuccessful status." }
+        }
+        catch {
+            $issues.Add("Mod config export failed: $($_.Exception.Message)")
+            Write-Warning "Mod export incomplete; saving the collected reports and files."
+        }
     }
 
     Write-Host "[3/6] Fingerprinting, summarising and checking inventory..."
-    if ($py) { & $py.Source -3 "tools/fingerprint_mods.py" }
-    else { & $python.Source "tools/fingerprint_mods.py" }
-    if ($LASTEXITCODE -ne 0) { throw "Fingerprint update failed." }
-    if ($py) { & $py.Source -3 "tools/workshop_refresh_summary.py" --since $BaselineRef --since-export $BaselineRef }
-    else { & $python.Source "tools/workshop_refresh_summary.py" --since $BaselineRef --since-export $BaselineRef }
-    if ($LASTEXITCODE -ne 0) { throw "Workshop summary failed." }
+    try {
+        if ($py) { & $py.Source -3 "tools/fingerprint_mods.py" }
+        else { & $python.Source "tools/fingerprint_mods.py" }
+        if ($LASTEXITCODE -ne 0) { throw "Fingerprint update failed (exit $LASTEXITCODE)." }
+    }
+    catch {
+        $issues.Add("Fingerprinting: $($_.Exception.Message)")
+        Write-Warning "Fingerprint report failed; retaining Workshop export."
+    }
+    try {
+        if ($py) { & $py.Source -3 "tools/workshop_refresh_summary.py" --since $BaselineRef --since-export $BaselineRef }
+        else { & $python.Source "tools/workshop_refresh_summary.py" --since $BaselineRef --since-export $BaselineRef }
+        if ($LASTEXITCODE -ne 0) { throw "Workshop summary failed (exit $LASTEXITCODE)." }
+    }
+    catch {
+        $issues.Add("Workshop summary: $($_.Exception.Message)")
+        Write-Warning "Workshop summary failed; retaining raw export and manifest."
+    }
     if ($py) { $inventory = @(& $py.Source -3 "tools/check_inventory.py" 2>&1) }
     else { $inventory = @(& $python.Source "tools/check_inventory.py" 2>&1) }
     $inventoryExit = $LASTEXITCODE
@@ -142,6 +176,8 @@ try {
         "Changed/new/deleted mod paths: $($delta.Count)",
         "Changed/new mod files copied: $copied",
         "Inventory gate exit: $inventoryExit",
+        "Capture warnings/errors: $($issues.Count)",
+        $($issues | ForEach-Object { "ISSUE: $_" }),
         "Steam or installed mod files modified: none",
         "Beta test DLLs installed: none",
         "Raw Player logs and user saves intentionally excluded."
@@ -180,7 +216,11 @@ try {
     }
     Write-Host "[6/6] Creating shareable review ZIP..."
     Compress-Archive -LiteralPath $bundle -DestinationPath $zip -CompressionLevel Optimal
-    Write-Host "SEST ALL-MOD CAPTURE COMPLETE" -ForegroundColor Green
+    if ($issues.Count -eq 0) {
+        Write-Host "SEST ALL-MOD CAPTURE COMPLETE" -ForegroundColor Green
+    } else {
+        Write-Host "SEST PARTIAL CAPTURE: $($issues.Count) issue(s). Review errors in the ZIP." -ForegroundColor Yellow
+    }
     Write-Host "Workshop folders: $($dirs.Count)"
     Write-Host "Changed/new mod paths: $($delta.Count)"
     Write-Host "Review ZIP: $zip" -ForegroundColor Green
