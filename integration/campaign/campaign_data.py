@@ -157,6 +157,19 @@ EXCUSES = {
     "formation-manager-replacement": (
         "library", "compact formation UI and aircraft map grouping through Anchor Chain; "
         "no unit or ammunition a mission can place"),
+    "contact-log": (
+        "library", "HUD contact logger and contact history; no unit or weapon "
+        "a mission can place. Its keyboard defaults are checked by SETUP"),
+    "sea-power-topographic-map": (
+        "library", "map terrain overlay with independent UI toggles; no unit "
+        "or weapon a campaign can place"),
+    "sea-power-pop-out-windows": (
+        "library", "window relocation framework; no unit or weapon a mission "
+        "can place; SEST bridge remains version-gated"),
+    "b-21-raider": (
+        "external", "standalone Workshop stealth bomber and test equipment; "
+        "not redistributed by SEST and not yet fielded in a campaign or roster. "
+        "Keep its official content usable independently"),
     "combat-cost-tracker": (
         "library", "USD expenditure and equipment-loss overlay through Anchor Chain; "
         "its cost catalogs apply to all missions and do not alter purchase points"),
