@@ -14,6 +14,7 @@ BOOT = HERE / "SEST.BetaSafeBootstrap.cs"
 BUILD = HERE / "build.ps1"
 TEST = HERE / "test.ps1"
 PROJECT = HERE / "source" / "AnchorChain.csproj"
+BOOTSTRAP_PROJECT = HERE / "bootstrap" / "SEST.BetaSafeBootstrap.csproj"
 
 class BetaSourceContract(unittest.TestCase):
     @classmethod
@@ -23,6 +24,7 @@ class BetaSourceContract(unittest.TestCase):
         cls.build = BUILD.read_text(encoding="utf-8")
         cls.test = TEST.read_text(encoding="utf-8")
         cls.project = PROJECT.read_text(encoding="utf-8")
+        cls.bootstrap_project = BOOTSTRAP_PROJECT.read_text(encoding="utf-8")
 
     def test_fork_keeps_original_assembly_identity(self):
         self.assertIn("public class AnchorChainLoader : BaseUnityPlugin, Preloader.IPluginLoader", self.main)
@@ -71,6 +73,14 @@ class BetaSourceContract(unittest.TestCase):
         self.assertIn('<Reference Include="UnityEngine.ParticleSystemModule">', self.project)
         self.assertIn('UnityEngine.ParticleSystemModule.dll', self.project)
         self.assertIn('$particleModule', self.build)
+
+    def test_bootstrap_uses_netstandard_sdk_not_framework_csc(self):
+        self.assertIn("<TargetFramework>netstandard2.1</TargetFramework>", self.bootstrap_project)
+        self.assertIn('<Reference Include="BepInEx">', self.bootstrap_project)
+        self.assertIn('<Reference Include="UnityEngine.CoreModule">', self.bootstrap_project)
+        self.assertIn('bootstrap\\SEST.BetaSafeBootstrap.csproj', self.build)
+        self.assertIn('bootstrap\\bin\\Release\\netstandard2.1\\SEST.BetaSafeBootstrap.dll', self.build)
+        self.assertNotIn('Framework64\\v4.0.30319\\csc.exe', self.build)
 
     def test_build_is_non_installing(self):
         self.assertIn('Join-Path $OutDir "AnchorChain.dll"', self.build)
