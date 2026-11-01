@@ -13,6 +13,7 @@ MAIN = HERE / "source" / "Main.cs"
 BOOT = HERE / "SEST.BetaSafeBootstrap.cs"
 BUILD = HERE / "build.ps1"
 TEST = HERE / "test.ps1"
+PROJECT = HERE / "source" / "AnchorChain.csproj"
 
 class BetaSourceContract(unittest.TestCase):
     @classmethod
@@ -21,6 +22,7 @@ class BetaSourceContract(unittest.TestCase):
         cls.boot = BOOT.read_text(encoding="utf-8")
         cls.build = BUILD.read_text(encoding="utf-8")
         cls.test = TEST.read_text(encoding="utf-8")
+        cls.project = PROJECT.read_text(encoding="utf-8")
 
     def test_fork_keeps_original_assembly_identity(self):
         self.assertIn("public class AnchorChainLoader : BaseUnityPlugin, Preloader.IPluginLoader", self.main)
@@ -64,6 +66,11 @@ class BetaSourceContract(unittest.TestCase):
         self.assertIn('elseif ($Action -eq "Disable")', self.test)
         self.assertIn('elseif ($Action -eq "Remove")', self.test)
         self.assertIn("BETA SAFE BOOTSTRAP READY; enable=False", self.test)
+
+    def test_game_particle_system_reference(self):
+        self.assertIn('<Reference Include="UnityEngine.ParticleSystemModule">', self.project)
+        self.assertIn('UnityEngine.ParticleSystemModule.dll', self.project)
+        self.assertIn('$particleModule', self.build)
 
     def test_build_is_non_installing(self):
         self.assertIn('Join-Path $OutDir "AnchorChain.dll"', self.build)
