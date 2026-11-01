@@ -1,0 +1,66 @@
+<Grid
+  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+<Grid.RowDefinitions>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="10"/>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="10"/>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="10"/>
+        <RowDefinition Height="Auto"/>
+    </Grid.RowDefinitions>
+    <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="Auto"/>
+        <ColumnDefinition Width="10"/>
+        <ColumnDefinition Width="*"/>
+        <ColumnDefinition Width="Auto"/>
+    </Grid.ColumnDefinitions>
+	<TextBlock Grid.Row="1" Grid.ColumnSpan="4" HorizontalAlignment="Left" FontSize="{StaticResource Font.Size.Header}">
+		FLASH
+		<LineBreak/>
+		Z 261055Z JUN 85
+		</TextBlock>
+		<TextBlock Grid.Row="3" Grid.Column="0" FontSize="{StaticResource Font.Size.Header}" Text="FM"/>
+		<TextBlock Grid.Row="3" Grid.Column="2" FontSize="{StaticResource Font.Size.Header}" Text="CINCPACFLT PEARL HARBOR HI"/>
+		<TextBlock Grid.Row="4" Grid.Column="0" FontSize="{StaticResource Font.Size.Header}" Text="TO"/>
+		<TextBlock Grid.Row="4" Grid.Column="2" FontSize="{StaticResource Font.Size.Header}">
+		ALL PACFLT UNITS WESTPAC<LineBreak/>
+		CO USS HAWAII CGN-43
+		</TextBlock>
+		<TextBlock Grid.Row="5" Grid.Column="0" FontSize="{StaticResource Font.Size.Header}" Text="INFO"/>
+		<TextBlock Grid.Row="5" Grid.Column="2" FontSize="{StaticResource Font.Size.Header}">
+		COMSEVENTHFLT PEARL HARBOR HI<LineBreak/>
+		CTF 77 YOKOSUKA JA<LineBreak/>
+		COMUSJAPAN YOKOTA AB<LineBreak/>
+		NAVFAC OKINAWA
+		</TextBlock>
+		<TextBlock Grid.Row="7" Grid.Column="0" FontSize="{StaticResource Font.Size.Header}" Text="SUBJ"/>
+		<TextBlock Grid.Row="7" Grid.Column="2" FontSize="{StaticResource Font.Size.Header}" Text="WAR WARNING - EAST CHINA SEA WITHDRAWAL"/>
+		<TextBlock Grid.Row="9" Grid.ColumnSpan="4" FontSize="{StaticResource Font.Size.Header}" TextWrapping="Wrap">
+		SECRET
+		<LineBreak/>
+		<LineBreak/>
+		1. (S) HOSTILITIES HAVE BEGUN AGAINST PACT FORCES IN EUROPE AND PACIFIC AND WE ARE NOW OPERATING ON WAR FOOTING.
+		<LineBreak/>
+		<LineBreak/>
+		2. (S) EFFECTIVE IMMEDIATELY, EXIT EAST CHINA SEA AT BEST SPEED.
+		<LineBreak/>
+		<LineBreak/>
+		3. (S) THREAT: ENEMY IS MOST LIKELY AWARE OF YOUR FORCE ROUGH POSITION. EXPECT CHINESE SURFACE FORCES WEST OF SENKAKUS, SOVIET HEAVY SURFACE UNITS ATTEMPTING TO CLOSE FROM NORTH OF SENKAKUS, AND LONG RANGE SOVIET MARITIME RECONNAISSANCE AND STRIKE FROM MAINLAND CHINA. SUBMARINE THREAT IS ASSESSED NORTH OF MIYAKO JIMA ALONG WITHDRAWAL ROUTE.
+		<LineBreak/>
+		<LineBreak/>
+		4. (S) FRIENDLY FORCES: VS-29 WILL ROUTE 1 X S-3A TO YOU FROM KADENA FOR SEARCH AND ATTACK. NAVFAC OKINAWA WILL PASS ACOUSTIC DATUM REPORTS WHEN AVAILABLE. NO FURTHER ALLIED SUPPORT IS AVAILABLE.
+		<LineBreak/>
+		<LineBreak/>
+		5. (S) REMARKS: CIVIL AND FISHING TRAFFIC REMAIN PRESENT IN THE OPAREA. IDENTIFY TARGETS BEFORE ENGAGING. ONCE THROUGH RYUKYUS, MOVE EAST THROUGH PHILIPPINE SEA AND CLEAR THE AREA, THEN AWAIT FURTHER TASKING. GOOD LUCK HAWAII.
+		<LineBreak/>
+		<LineBreak/>
+		SECRET
+		<LineBreak/>
+		DECL OADR BT
+	</TextBlock>
+</Grid>

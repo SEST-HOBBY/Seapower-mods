@@ -1,0 +1,136 @@
+<Viewbox Margin="20" HorizontalAlignment="Center" VerticalAlignment="Center"
+  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+  xmlns:local="clr-namespace:SeapowerUI">
+	<Canvas Width="1095" Height="662">
+        <Image Source="{Binding Assets[01A_Senkakus_Close]}"/>
+		<!-- Small Map -->
+        <Border Canvas.Right="10" Canvas.Top="10" BorderThickness="5" BorderBrush="White">
+            <Grid>
+                <Image Stretch="Uniform" Source="{Binding Assets[WesternPacificFar]}" Width="250"/>
+                <Border BorderThickness="2" HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="32" Height="22" Margin="110,0,0,130" BorderBrush="{StaticResource Brush.Border.FocusAccent}"/>
+            </Grid>
+        </Border>
+
+		<!-- Player unit summary -->
+		<Border Canvas.Right="10" Canvas.Bottom="10" BorderThickness="3" BorderBrush="{StaticResource NTDS.FriendColour}" Background="#90a3b6" Width="250">
+			<TextBlock Foreground="Blue" TextAlignment="Left" VerticalAlignment="Center" Margin="5">
+                <Run Text="HAWAII SAG:" TextDecorations="Underline"/><LineBreak/><LineBreak/>
+                <Run Text="USS Hawaii CGN-43"/><LineBreak/>
+                <Run Text="USS Knox FF-1052"/>
+           </TextBlock>
+		</Border>
+
+		<!-- Map Labels -->
+		<TextBlock Foreground="SteelBlue" Text="East China Sea" HorizontalAlignment="Center" FontStyle="Italic" FontSize="18" FontWeight="Bold" Canvas.Left="650" Canvas.Top="95"/>
+		<TextBlock Foreground="Black" Text="Senkaku Islands" HorizontalAlignment="Center" FontSize="16" FontWeight="Bold" Canvas.Left="295" Canvas.Top="50"/>
+		<TextBlock Foreground="Black" Text="Ryukyu Islands" HorizontalAlignment="Center" FontSize="16" FontWeight="Bold" Canvas.Left="900" Canvas.Top="475"/>
+
+		<!-- HAWAII SAG -->
+		<StackPanel Orientation="Vertical" Canvas.Left="200" Canvas.Top="220">
+			<TextBlock Foreground="Blue" TextAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,0">
+                <Run Text="Hawaii SAG"/>
+            </TextBlock>
+			<Canvas Width="22.5" Height="22.5" HorizontalAlignment="Center">
+                <Path StrokeThickness="{DynamicResource ContactIconThickness}" Stroke="{StaticResource NTDS.FriendColour}" Data="{StaticResource NTDS.Allied.Surface}"/>
+                <Ellipse Canvas.Left="10" Canvas.Top="10" Width="3" Height="3" StrokeThickness="1.325" Stroke="{StaticResource NTDS.FriendColour}"/>
+            </Canvas>
+        </StackPanel>
+
+		<!-- VS-29 S-3A -->
+		<StackPanel Orientation="Vertical" Canvas.Left="950" Canvas.Top="275">
+			<TextBlock Foreground="Blue" TextAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,0">
+                <Run Text="S-3A VS-29 'Dragonfires'"/>
+            </TextBlock>
+			<Canvas Width="22.5" Height="22.5" HorizontalAlignment="Center">
+                <Path StrokeThickness="{DynamicResource ContactIconThickness}" Stroke="{StaticResource NTDS.FriendColour}" Data="{StaticResource NTDS.Allied.Air}"/>
+                <Ellipse Canvas.Left="10" Canvas.Top="10" Width="3" Height="3" StrokeThickness="1.325" Stroke="{StaticResource NTDS.FriendColour}"/>
+            </Canvas>
+        </StackPanel>
+
+		<!-- PLAN surface threat -->
+		<StackPanel Orientation="Vertical" Canvas.Left="50" Canvas.Top="300">
+			<TextBlock Foreground="{StaticResource NTDS.HostileColour}" TextAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,0">
+                <Run Text="PLAN SAG (?)"/>
+            </TextBlock>
+			<Canvas Width="22.5" Height="22.5" HorizontalAlignment="Center">
+                <Path StrokeThickness="{DynamicResource ContactIconThickness}" Stroke="{StaticResource NTDS.HostileColour}" Data="{StaticResource NTDS.Enemy.Surface}"/>
+                <Ellipse Canvas.Left="10" Canvas.Top="10" Width="3" Height="3" StrokeThickness="1.325" Stroke="{StaticResource NTDS.HostileColour}"/>
+            </Canvas>
+        </StackPanel>
+
+		<!-- Soviet surface threat -->
+		<StackPanel Orientation="Vertical" Canvas.Left="500" Canvas.Top="75">
+			<TextBlock Foreground="{StaticResource NTDS.HostileColour}" TextAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,0">
+                <Run Text="USSR SAG (?)"/>
+            </TextBlock>
+			<Canvas Width="22.5" Height="22.5" HorizontalAlignment="Center">
+                <Path StrokeThickness="{DynamicResource ContactIconThickness}" Stroke="{StaticResource NTDS.HostileColour}" Data="{StaticResource NTDS.Enemy.Surface}"/>
+                <Ellipse Canvas.Left="10" Canvas.Top="10" Width="3" Height="3" StrokeThickness="1.325" Stroke="{StaticResource NTDS.HostileColour}"/>
+            </Canvas>
+        </StackPanel>
+
+		<!-- Soviet heavy unit reports -->
+		<StackPanel Orientation="Vertical" Canvas.Left="300" Canvas.Top="125">
+			<TextBlock Foreground="{StaticResource NTDS.HostileColour}" TextAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,0">
+                <Run Text="USSR SAG (?)"/>
+            </TextBlock>
+			<Canvas Width="22.5" Height="22.5" HorizontalAlignment="Center">
+                <Path StrokeThickness="{DynamicResource ContactIconThickness}" Stroke="{StaticResource NTDS.HostileColour}" Data="{StaticResource NTDS.Enemy.Surface}"/>
+                <Ellipse Canvas.Left="10" Canvas.Top="10" Width="3" Height="3" StrokeThickness="1.325" Stroke="{StaticResource NTDS.HostileColour}"/>
+            </Canvas>
+        </StackPanel>
+
+		<!-- Submarine datum -->
+		<StackPanel Orientation="Vertical" Canvas.Left="455" Canvas.Top="450">
+			<TextBlock Foreground="{StaticResource NTDS.HostileColour}" TextAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,0">
+                <Run Text="?"/>
+            </TextBlock>
+			<Canvas Width="22.5" Height="22.5" HorizontalAlignment="Center">
+                <Path StrokeThickness="{DynamicResource ContactIconThickness}" Stroke="{StaticResource NTDS.HostileColour}" Data="{StaticResource NTDS.Enemy.Submarine}"/>
+                <Ellipse Canvas.Left="10" Canvas.Top="10" Width="3" Height="3" StrokeThickness="1.325" Stroke="{StaticResource NTDS.HostileColour}"/>
+            </Canvas>
+        </StackPanel>
+
+		<!-- Mainland strike aircraft -->
+		<StackPanel Orientation="Vertical" Canvas.Left="85" Canvas.Top="425">
+			<TextBlock Foreground="{StaticResource NTDS.HostileColour}" TextAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,0">
+                <Run Text="PRC / USSR strike aircraft"/>
+            </TextBlock>
+			<Canvas Width="22.5" Height="22.5" HorizontalAlignment="Center">
+                <Path StrokeThickness="{DynamicResource ContactIconThickness}" Stroke="{StaticResource NTDS.HostileColour}" Data="{StaticResource NTDS.Enemy.Air}"/>
+                <Ellipse Canvas.Left="10" Canvas.Top="10" Width="3" Height="3" StrokeThickness="1.325" Stroke="{StaticResource NTDS.HostileColour}"/>
+            </Canvas>
+        </StackPanel>
+
+		<!-- Soviet maritime aviation -->
+		<StackPanel Orientation="Vertical" Canvas.Left="420" Canvas.Top="45">
+			<TextBlock Foreground="{StaticResource NTDS.HostileColour}" TextAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,0">
+                <Run Text="MPRA / Backfires"/>
+            </TextBlock>
+			<Canvas Width="22.5" Height="22.5" HorizontalAlignment="Center">
+                <Path StrokeThickness="{DynamicResource ContactIconThickness}" Stroke="{StaticResource NTDS.HostileColour}" Data="{StaticResource NTDS.Enemy.Air}"/>
+                <Ellipse Canvas.Left="10" Canvas.Top="10" Width="3" Height="3" StrokeThickness="1.325" Stroke="{StaticResource NTDS.HostileColour}"/>
+            </Canvas>
+        </StackPanel>
+
+		<!-- Recon / surveillance contact -->
+		<StackPanel Orientation="Vertical" Canvas.Left="700" Canvas.Top="210">
+			<TextBlock Foreground="{StaticResource NTDS.HostileColour}" TextAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,0">
+                <Run Text="Tu-95RT 304th MRAP"/>
+            </TextBlock>
+			<Canvas Width="22.5" Height="22.5" HorizontalAlignment="Center">
+                <Path StrokeThickness="{DynamicResource ContactIconThickness}" Stroke="{StaticResource NTDS.HostileColour}" Data="{StaticResource NTDS.Enemy.Air}"/>
+                <Ellipse Canvas.Left="10" Canvas.Top="10" Width="3" Height="3" StrokeThickness="1.325" Stroke="{StaticResource NTDS.HostileColour}"/>
+            </Canvas>
+        </StackPanel>
+
+		<!-- Arrows -->
+		<!-- Tool for making paths: https://yqnn.github.io/svg-path-editor/ -->
+        <Path Canvas.Left="350" Canvas.Top="285" Data="M 0 -7 L 10 10 L 4 10 L 4 80 L -4 80 L -4 10 L -10 10 Z" Fill="{StaticResource NTDS.FriendColour}">
+            <Path.RenderTransform>
+                <RotateTransform Angle="110"/>
+            </Path.RenderTransform>
+        </Path>
+	</Canvas>
+</Viewbox>

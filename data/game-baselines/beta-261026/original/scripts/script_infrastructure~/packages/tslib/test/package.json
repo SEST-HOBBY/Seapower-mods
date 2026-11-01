@@ -1,0 +1,10 @@
+{
+  "dependencies": {
+    "chalk": "^4.1.2",
+    "rollup": "4.22.0",
+    "tslib": "file:..",
+    "vite": "5.4.6",
+    "webpack": "5.94.0",
+    "webpack-cli": "5.1.4"
+  }
+}

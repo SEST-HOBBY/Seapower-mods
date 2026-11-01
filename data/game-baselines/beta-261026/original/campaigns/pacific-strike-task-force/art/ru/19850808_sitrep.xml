@@ -1,0 +1,161 @@
+<!-- Campaign event template for standard USN-style "daily intentions message" (DIM) - formatting taken from real world examples -->
+
+<ScrollViewer xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+  xmlns:local="clr-namespace:SeapowerUI">
+
+	<Border HorizontalAlignment="Center" VerticalAlignment="Center" Width="900" TextElement.FontFamily="Courier New" TextElement.Foreground="Black" TextElement.FontSize="16" Padding="45">
+		<Border.Effect>
+			<DropShadowEffect />
+		</Border.Effect>
+		<Border.Background>
+			<ImageBrush ImageSource="{Binding Assets[bkg_paper]}" Stretch="UniformToFill"/>
+		</Border.Background>
+		
+        <StackPanel Orientation="Vertical">
+
+		<Grid
+		  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+		  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" >
+		<Grid.RowDefinitions>
+			<RowDefinition Height="Auto"/>
+		</Grid.RowDefinitions>
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="Auto"/>
+				<ColumnDefinition Width="3*"/>
+				<ColumnDefinition Width="Auto"/>
+			</Grid.ColumnDefinitions>
+			
+			<TextBlock Grid.Row="0" Grid.Column="0" Text="СООБЩЕНИЕ ПО ФЛОТУ" Margin="0" FontFamily="Arial Narrow Bold" FontSize="26" FontWeight="Bold" TextAlignment="Left"/>
+			<TextBlock Grid.Row="0" Grid.Column="1" Text="*******С Е К Р Е Т Н О*******" Margin="40,0,40,0" FontWeight="Bold" TextAlignment="Center"/>
+			<TextBlock Grid.Row="0" Grid.Column="2" Text="МИНИСТЕРСТВО ВМФ" Margin="0" FontFamily="Arial Narrow Bold" FontSize="26" FontWeight="Bold" TextAlignment="Right"/>
+			
+		</Grid>
+		
+		<Rectangle HorizontalAlignment="Stretch" Height="1" Fill="Black" Margin="0,0,0,1"/>
+		<Rectangle HorizontalAlignment="Stretch" Height="1" Fill="Black" Margin="0,0,0,10"/>
+
+			<Grid
+			  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+			  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+			<Grid.RowDefinitions>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="10"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+				</Grid.RowDefinitions>
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="Auto"/>
+					<ColumnDefinition Width="10"/>
+					<ColumnDefinition Width="*"/>
+					<ColumnDefinition Width="Auto"/>
+				</Grid.ColumnDefinitions>
+				<TextBlock Grid.Row="1" Grid.ColumnSpan="4" HorizontalAlignment="Left" FontSize="16">
+					НЕМЕДЛЕННО<LineBreak/>
+					O 082100Z AUG 85
+				</TextBlock>
+				
+				<TextBlock Grid.Row="1" Grid.Column="3" FontSize="16" Text="ZYUW RUHGOAA0777 2202100"/>
+
+				<TextBlock Grid.Row="3" Grid.Column="0" FontSize="16" Text="ОТ"/>
+				<TextBlock Grid.Row="3" Grid.Column="2" FontSize="16" Text="CTF 77"/>
+				<TextBlock Grid.Row="4" Grid.Column="0" FontSize="16" Text="КОМУ"/>
+				<TextBlock Grid.Row="4" Grid.Column="2" FontSize="16" Text="ОГ 77, CVW-9, ИНЖТЕХФЛТ ДАРВИН, 10 ЭСК КАВВС"/>
+				<TextBlock Grid.Row="11" Grid.Column="0" FontSize="16" Text="ИНФ"/>
+				<TextBlock Grid.Row="11" Grid.Column="2" FontSize="16" Text="КОМТИХФЛОТ"/>
+				<TextBlock Grid.Row="13" Grid.Column="0" FontSize="16" Text="ТЕМА:"/>
+				<TextBlock Grid.Row="13" Grid.Column="2" FontSize="16" Text="СИТДОКЛ 09/1200Z - 10/1200Z - MSG NO 047/85"/>
+
+				<TextBlock Grid.Row="15" Grid.ColumnSpan="4" FontSize="16" TextWrapping="Wrap">
+					<LineBreak/>
+					СЕКРЕТНО
+					<LineBreak/>
+					<LineBreak/>
+					1. (S) СТРАТЕГИЧЕСКАЯ СИТУАЦИЯ: Силы США и союзников сосредоточились в Дарвине после падения Сингапура и Малайзии. Силы противника продолжают продвигаться в южном направлении. Разведка считает, что его цель - полностью изолировать силы союзников, сражающиеся на Лусоне и принудить их к сдаче. Нейтрализация Суматры и Явы, осуществлённая противником, позволяет ему теперь свободно выходить в Индийский океан, откуда силы СССР смогут угрожать Персидскому заливу, западной Австралии и Южной Африке. Советская морская авиация свободно действует от Владивостока до бухты Камрань. Зафиксировано проникновение советских подлодок в Тиморское море.
+					<LineBreak/>
+				</TextBlock>
+				<TextBlock Grid.Row="16" Grid.ColumnSpan="4" FontSize="16" TextWrapping="Wrap">
+					2. (S) ЗАДАЧА: ОГ 77 должна защитить Австралию во взаимодействии с союзными силами в Дарвине. На ОГ 77 возложено общее командование.
+					<LineBreak/>
+				</TextBlock>
+				<TextBlock Grid.Row="17" Grid.ColumnSpan="4" TextWrapping="Wrap">
+					3. (S) ПОЛОЖЕНИЕ ОГ 77:
+				</TextBlock>	
+				<TextBlock Grid.Row="18" Grid.ColumnSpan="4" TextWrapping="Wrap" Margin="20,0,0,0">	
+					- КИТТИ-ХОК продолжает ремонтироваться в Пьюджет-Саунд после подрыва на мине у Йокосуки.
+					<LineBreak/>
+					- Часть авиакрыла CVW-9 действует с наземных авиабаз у Дарвина.
+					<LineBreak/>
+					- МООСБРУГЕР отделен от основных сил для выполнения срочной задачи у Куктауна по просьбе автралийского правительства.
+					<LineBreak/>
+					- Самолёт ДРЛО типа "Хокай" из VAW-114 потерян над Восточным Тимором 7 августа. Самолёт на замену прибудет из CVW-14 к 14 августа.
+					<LineBreak/>
+				</TextBlock>				
+				<TextBlock Grid.Row="19" Grid.ColumnSpan="4" TextWrapping="Wrap">
+					4. (S) СОЮЗНЫЕ СИЛЫ:
+				</TextBlock>
+				<TextBlock Grid.Row="20" Grid.ColumnSpan="4" TextWrapping="Wrap" Margin="20,0,0,0">
+					- Австралия: парк австралийских F-111 понес серьезные потери после нанесения ударов по коммуникациям противника в Индонезии. Загоризонтный радар JORN королевских австралийских ВВС выведен из строя 3 августа вражескими агентами.
+					<LineBreak/>
+					- Малайзия/Индонезия: вооруженные силы капитулировали или рассеяны. Никакого организованного сопротивления с их стороны не ожидается.
+					<LineBreak/>
+					- Сингапур: внезапный захват острова привел к потере британского соединения F в полном составе. Другие британские силы полностью задействованы в Атлантике и на Средиземном море.
+					<LineBreak/>
+				</TextBlock>
+				<TextBlock Grid.Row="21" Grid.ColumnSpan="4" TextWrapping="Wrap">
+					5. (S) РАЗВЕДКА / УГРОЗЫ:
+				</TextBlock>
+				<TextBlock Grid.Row="22" Grid.ColumnSpan="4" TextWrapping="Wrap" Margin="20,0,0,0">
+					- Австралийские береговые наблюдатели скрытно высажены в Индонезии, чтобы наблюдать за перемещениями сил противника через ключевые узости (пролив Сунда, пролив Ломбок, Омбайский пролив/о.Ветар).
+					<LineBreak/>
+					- Возросшая активность самолётов Ту-95РЦ над Тимором и Арафурским морем говорит о скором вражеском налетё, который стоит ожидать в течение последующих 48-72 часов. VF-111 доложила 8 августа об одном сбитом и одном вытесненном Ту-95.
+					<LineBreak/>
+					- Радиоэлектронная разведка обнаружила присутствие вражеских подлодок, двигающихся на юг.
+					<LineBreak/>
+				</TextBlock>	
+				<TextBlock Grid.Row="23" Grid.ColumnSpan="4" TextWrapping="Wrap">
+					6. (S) ПРИМЕЧАНИЯ: Наступил критический момент во всей кампании. Нас отбросили намного дальше, чем предполагалось по любым довоенным расчётам, но при должной координации мы сможем остановить вражеское наступление. Хорошей охоты и удачи. CTF 77 передача.
+					<LineBreak/>
+				</TextBlock>
+				<TextBlock Grid.Row="24" Grid.ColumnSpan="4" TextWrapping="Wrap">
+					ПОДПИСЬ: КАПИТАН К.Ф.РОБИНСОН
+					<LineBreak/>
+					CTF 77
+					<LineBreak/>
+					<LineBreak/>
+					СЕКРЕТНО
+					<LineBreak/>
+					СМЕНА ГРИФА НЕВОЗМОЖНА БЕЗ СОГЛАСИЯ АДРЕСАТА
+				</TextBlock>
+			</Grid>
+        </StackPanel>
+    </Border>
+</ScrollViewer>

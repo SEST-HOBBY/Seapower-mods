@@ -1,0 +1,66 @@
+<Grid
+  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+<Grid.RowDefinitions>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="10"/>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="10"/>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="10"/>
+        <RowDefinition Height="Auto"/>
+    </Grid.RowDefinitions>
+    <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="Auto"/>
+        <ColumnDefinition Width="10"/>
+        <ColumnDefinition Width="*"/>
+        <ColumnDefinition Width="Auto"/>
+    </Grid.ColumnDefinitions>
+	
+	<TextBlock Grid.Row="1" Grid.ColumnSpan="4" HorizontalAlignment="Left" FontSize="{StaticResource Font.Size.Header}">
+        FLASH
+        <LineBreak/>
+        03:00UTC 07 Окт 85
+    </TextBlock>
+        <TextBlock Grid.Row="3" Grid.Column="0" FontSize="{StaticResource Font.Size.Header}" Text="От:"/>
+        <TextBlock Grid.Row="3" Grid.Column="2" FontSize="{StaticResource Font.Size.Header}" Text="Ком ТГ 77"/>
+        <TextBlock Grid.Row="4" Grid.Column="0" FontSize="{StaticResource Font.Size.Header}" Text="Кому:"/>
+        <TextBlock Grid.Row="4" Grid.Column="2" FontSize="{StaticResource Font.Size.Header}" Text="{TaskForceFlagshipName} {TaskForceName} Миндоро Филиппины"/>
+        <TextBlock Grid.Row="5" Grid.Column="0" FontSize="{StaticResource Font.Size.Header}" Text="Копия:"/>
+    <TextBlock Grid.Row="5" Grid.Column="2" FontSize="{StaticResource Font.Size.Header}">
+        Ком. Тихоокеанским флотом США, Пёрл-Харбор<LineBreak/>
+        Ком. ВМС США в Японии, Авиабаза Йокота<LineBreak/>
+        АБ Кларк Филиппины
+        </TextBlock>
+        <TextBlock Grid.Row="7" Grid.Column="0" FontSize="{StaticResource Font.Size.Header}" Text="Тема:"/>
+        <TextBlock Grid.Row="7" Grid.Column="2" FontSize="{StaticResource Font.Size.Header}" Text="Рейд на Палаван"/>
+    <StackPanel Grid.Row="9" Grid.ColumnSpan="4">
+    <TextBlock FontSize="{StaticResource Font.Size.Header}" TextWrapping="Wrap">
+        СЕКРЕТНО
+        <LineBreak/>
+        <LineBreak/>
+        1. (S) Ситуация: В ходе операции «Челленджер» американо-филиппинские силы высадились на о. Палаван, но противник продолжает оказывать сильное сопротивление на суше. Средствами технической разведки США установлено, что советский авианосец «Киев» вышел в море во главе корабельной ударной группы с целью прикрытия конвоя с подкреплениями, направляющимися на Палаван. Враг пытается пройти Южно-Китайское море под прикрытием тропического шторма, пользуясь тем, что большая часть нашей авиации вынуждена находиться на земле, а спутниковая разведка невозможна. Если эти силы достигнут острова, это может привести к перелому ситуации в наземном сражении.
+        <LineBreak/>
+        <LineBreak/>
+        2. (S) ЗАДАЧА: {TaskForceName} приказано выйти в направлении на северо-запад от острова Палаван, обнаружить «Киев» и войсковой конвой и уничтожить эти силы, прежде чем они смогут достичь Палавана.
+        <LineBreak/>
+        <LineBreak/>
+        3. (S) ВЫПОЛНЕНИЕ: Провести поиск вражеских надводных кораблей к западу от о. Лусон. Сильные тропические шторма в этом районе маскируют приближение противника и не позволяют действовать авиации обеих сторон, но согласно прогнозу метеослужбы флота, шторм прекратится после 22:00UTC. Как только позволят условия, используйте авиацию с авиабазы Кларк для поиска, идентификации и нанесения ударов по вражеским кораблям. Приоритетной целью является «Киев», за которым следуют конвои и корабли сопровождения.
+        <LineBreak/>
+        <LineBreak/>
+        4. (S) Угроза: Силы противника включают авианесущий крейсер «Киев» в сопровождении БПК типов «Беркут-Б» и «Фрегат». Дополнительные корабельные группы выполняют отвлекающие действия. Разведка сообщает, что дальние бомбардировщики (Tu-16K, H-6D) из Камрани или с Хайнаня попытаются прикрыть надводные силы противника, ведя разведку и нанося ракетные удары по нашим силам.
+        <LineBreak/>
+        <LineBreak/>
+        5. (S) Приданные силы: авиабаза Кларк обеспечит Вам поддержку истребителями, ударными самолётами и самолётами морской патрульной авиации.
+        <LineBreak/>
+        <LineBreak/>
+        6. (S) Примечание: подкрепления противника не должны достигнуть острова Палаван. Этот бой решит исход всех операций, которые были осуществлены ранее. Удачи и хорошей охоты.
+        <LineBreak/>
+        <LineBreak/>
+        СЕКРЕТНО
+    </TextBlock>
+    </StackPanel>
+</Grid>

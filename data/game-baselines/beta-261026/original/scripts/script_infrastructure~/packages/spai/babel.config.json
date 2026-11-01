@@ -1,0 +1,8 @@
+{
+    "presets": [],
+    "plugins": [
+        ["module:@seapower/sp-closure-transform", {"import_meta": true}],
+        "@babel/plugin-transform-modules-systemjs"],
+    "sourceMaps": "inline",
+    "inputSourceMap": true
+}

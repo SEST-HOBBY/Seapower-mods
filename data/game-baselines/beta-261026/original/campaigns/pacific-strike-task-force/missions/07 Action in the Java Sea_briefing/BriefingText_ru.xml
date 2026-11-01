@@ -1,0 +1,66 @@
+<Grid
+  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+<Grid.RowDefinitions>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="10"/>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="10"/>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="10"/>
+        <RowDefinition Height="Auto"/>
+    </Grid.RowDefinitions>
+    <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="Auto"/>
+        <ColumnDefinition Width="10"/>
+        <ColumnDefinition Width="*"/>
+        <ColumnDefinition Width="Auto"/>
+    </Grid.ColumnDefinitions>
+	
+	<TextBlock Grid.Row="1" Grid.ColumnSpan="4" HorizontalAlignment="Left" FontSize="{StaticResource Font.Size.Header}">
+        FLASH
+        <LineBreak/>
+        Z 260715Z AUG 85
+    </TextBlock>
+        <TextBlock Grid.Row="3" Grid.Column="0" FontSize="{StaticResource Font.Size.Header}" Text="От кого:"/>
+        <TextBlock Grid.Row="3" Grid.Column="2" FontSize="{StaticResource Font.Size.Header}" Text="CTF 77"/>
+        <TextBlock Grid.Row="4" Grid.Column="0" FontSize="{StaticResource Font.Size.Header}" Text="Кому:"/>
+        <TextBlock Grid.Row="4" Grid.Column="2" FontSize="{StaticResource Font.Size.Header}" Text="{TaskForceFlagshipName} {TaskForceName}"/>
+        <TextBlock Grid.Row="5" Grid.Column="0" FontSize="{StaticResource Font.Size.Header}" Text="Копия:"/>
+    <TextBlock Grid.Row="5" Grid.Column="2" FontSize="{StaticResource Font.Size.Header}">
+        КОМ. ТИХООКЕАНСКОГО ФЛ. ПЕРЛ-ХАРБОР<LineBreak/>
+        КОМ. АВ. ТИХООКЕАНСКОГО ФЛ. АБ ХИКЭМ<LineBreak/>
+        ШТБ. КОМ. КАВВС ГЛЕНБРУК НЮУ АВ
+        </TextBlock>
+        <TextBlock Grid.Row="7" Grid.Column="0" FontSize="{StaticResource Font.Size.Header}" Text="Тема:"/>
+        <TextBlock Grid.Row="7" Grid.Column="2" FontSize="{StaticResource Font.Size.Header}" Text="СМЕНА ЗАДАЧИ - УГРОЗА В ЯВАНСКОМ МОРЕ"/>
+        <TextBlock Grid.Row="9" Grid.ColumnSpan="4" FontSize="{StaticResource Font.Size.Header}" TextWrapping="Wrap">
+        СЕКРЕТНО
+        <LineBreak/>
+        <LineBreak/>
+        1. (S) СИТУАЦИЯ: о. Бали взят и возвращен под контроль Индонезии. Однако крупные советские военно-морские силы остаются в Яванском море и Москва пригрозила Джакарте массированными бомбардировками, если Индонезия не капитулирует, или не объявит нейтралитет. Президент приказал силам США в этом районе немедленно вмешаться в ситуацию.
+        <LineBreak/>
+        <LineBreak/>
+        2. (S) ЗАДАЧА: Союзные силы должны войти в Яванское море, чтобы найти и уничтожить советскую боевую надводную группу.
+        <LineBreak/>
+        <LineBreak/>
+        3. (S) ВЫПОЛНЕНИЕ: {TaskForceName} приказано отойти на северо-запад от Бали, пополнить запасы топлива в Сурабае и затем следовать в Яванское море. Работайте в кооперации с союзными авиационными силами, чтобы найти и уничтожить группу советских кораблей. Также уничтожайте советские подлодки в случае их обнаружения.
+        <LineBreak/>
+        <LineBreak/>
+        4. (S) УГРОЗА: Советская крейсерская группа состоит из крейсеров АДМИРАЛ СЕНЯВИН (типа SVERDLOV), АДМИРАЛ ОКТЯБРЬСКИЙ (тип KRESTA II), а также эсминцев типа LUDA и KASHIN. Разведка считает, что эту группу с высокой долей вероятности поддерживает 1 подлодка типа FOXTROT, действующая в Яванском море. Бомбардировщики СССР, действующие из Камрани будут также поддерживать свой крейсерский отряд.
+        <LineBreak/>
+        <LineBreak/>
+        5. (S) СОЮЗНЫЕ СИЛЫ: Индонезия разрешила разместить военно-воздушные силы союзников вблизи Сурабаи для осуществления данной операции. Авиационные части, ранее дислоцированные на Брум, были переброшены на север и готовы к получению приказов. Подлодки США действуют в Яванском море, но не находятся в вашем оперативном подчинении.
+        <LineBreak/>
+        <LineBreak/>
+        6. (S) ПРИМЕЧАНИЕ: Эта операция проводится по личному приказу и под контролем Президента, который хочет ослабить давление на Индонезию и побудить её к вступлению в войну на нашей стороне. Успех этой операции имеет первостепенное значение. Командование Тихоокеанского флота полностью уверено в том, что офицеры, матросы и авиаторы {TaskForceName} смогут выполнить эту работу. Хорошей охоты и удачи. CTF 77 передача.
+        <LineBreak/>
+        <LineBreak/>
+        СЕКРЕТНО
+        <LineBreak/>
+        DECL OADR BT
+    </TextBlock>
+</Grid>

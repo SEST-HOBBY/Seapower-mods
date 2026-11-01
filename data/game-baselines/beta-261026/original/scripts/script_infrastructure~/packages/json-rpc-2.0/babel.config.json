@@ -1,0 +1,9 @@
+{
+    "presets": [],
+    "plugins": [
+        ["module:@seapower/sp-closure-transform", {
+            "context": "json-rpc-2.0",
+            "globally_unique_anon": true}]
+    ],
+    "sourceMaps": "inline"
+}

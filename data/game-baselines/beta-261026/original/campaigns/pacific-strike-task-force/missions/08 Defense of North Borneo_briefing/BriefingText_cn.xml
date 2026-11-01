@@ -1,0 +1,65 @@
+<Grid
+  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+<Grid.RowDefinitions>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="10"/>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="10"/>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="10"/>
+        <RowDefinition Height="Auto"/>
+    </Grid.RowDefinitions>
+    <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="Auto"/>
+        <ColumnDefinition Width="10"/>
+        <ColumnDefinition Width="*"/>
+        <ColumnDefinition Width="Auto"/>
+    </Grid.ColumnDefinitions>
+	
+	<TextBlock Grid.Row="1" Grid.ColumnSpan="4" HorizontalAlignment="Left" FontSize="{StaticResource Font.Size.Header}">
+        紧急
+        <LineBreak/>
+        1985年9月19日0300Z时
+    </TextBlock>
+        <TextBlock Grid.Row="3" Grid.Column="0" FontSize="{StaticResource Font.Size.Header}" Text="发件："/>
+        <TextBlock Grid.Row="3" Grid.Column="2" FontSize="{StaticResource Font.Size.Header}" Text="第77特遣舰队指挥官"/>
+        <TextBlock Grid.Row="4" Grid.Column="0" FontSize="{StaticResource Font.Size.Header}" Text="收件："/>
+        <TextBlock Grid.Row="4" Grid.Column="2" FontSize="{StaticResource Font.Size.Header}" Text="马来西亚山打根{TaskForceName}指挥官"/>
+        <TextBlock Grid.Row="5" Grid.Column="0" FontSize="{StaticResource Font.Size.Header}" Text="抄送："/>
+    <TextBlock Grid.Row="5" Grid.Column="2" FontSize="{StaticResource Font.Size.Header}">
+        夏威夷州珍珠港太平洋舰队总司令<LineBreak/>
+        马来西亚山打根澳大利亚皇家空军第81联队（临时）
+        </TextBlock>
+        <TextBlock Grid.Row="7" Grid.Column="0" FontSize="{StaticResource Font.Size.Header}" Text="主题："/>
+        <TextBlock Grid.Row="7" Grid.Column="2" FontSize="{StaticResource Font.Size.Header}" Text="提示——敌方即将攻击山打根"/>
+        <TextBlock Grid.Row="9" Grid.ColumnSpan="4" FontSize="{StaticResource Font.Size.Header}" TextWrapping="Wrap">
+        绝密
+        <LineBreak/>
+        <LineBreak/>
+        1.（机密）态势：印度尼西亚的行动取得成功后，盟军的行动重心已转向北方，目标是夺回巴拉望岛，敌军自7月以来一直占据那里。盟军在马来西亚山打根的基地目前被用作后续行动的集结地。国家技术手段表明敌军意图对山打根发动破坏性攻击以拖延我方攻势。
+        <LineBreak/>
+        <LineBreak/>
+        2.（机密）任务：山打根附近的美军和盟军部队将击退敌方海空攻势。
+        <LineBreak/>
+        <LineBreak/>
+        3.（机密）执行：{TaskForceName}将接管当地防御的战术指挥权并协调所有资产以击退敌军攻势。首要防御目标是停泊在山打根港的盟军辅助舰艇，你必须阻止敌军对这些舰艇的炸弹或导弹袭击。消灭所有进攻山打根的敌军。
+        <LineBreak/>
+        <LineBreak/>
+        4.（绝密）威胁：位于普林塞萨港的分隔情报来源“星光”报告称敌方水面舰艇正在准备攻击山打根。情报显示中国海军导弹艇沿海岸线移动，并且有053型护卫舰提供支援。最近一次卫星飞越显示051型驱逐舰正在苏禄海向东南方航行。报告还发现了敌方潜艇，普林塞萨港和金兰湾的敌军飞机很可能发动空袭。
+        <LineBreak/>
+        <LineBreak/>
+        5.（机密）盟军部队：{TaskForceName}下属的菲律宾海军护卫舰迭戈·西朗号已换装鱼叉导弹。盟军空中单位将从山打根机场起飞作战。山打根港附近的鹰式导弹阵地将提供局部防空火力覆盖。
+        <LineBreak/>
+        <LineBreak/>
+        6.（机密）备注：请确保山打根盟军基地完好无损。祝你好运，猎杀愉快。
+        <LineBreak/>
+        <LineBreak/>
+        机密
+        <LineBreak/>
+        解密：由原始发布机构决定
+    </TextBlock>
+</Grid>

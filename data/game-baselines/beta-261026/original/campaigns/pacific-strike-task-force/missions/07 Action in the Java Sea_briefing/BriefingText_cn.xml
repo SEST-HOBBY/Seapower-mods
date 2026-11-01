@@ -1,0 +1,66 @@
+<Grid
+  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+<Grid.RowDefinitions>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="10"/>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="10"/>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="10"/>
+        <RowDefinition Height="Auto"/>
+    </Grid.RowDefinitions>
+    <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="Auto"/>
+        <ColumnDefinition Width="10"/>
+        <ColumnDefinition Width="*"/>
+        <ColumnDefinition Width="Auto"/>
+    </Grid.ColumnDefinitions>
+	
+	<TextBlock Grid.Row="1" Grid.ColumnSpan="4" HorizontalAlignment="Left" FontSize="{StaticResource Font.Size.Header}">
+        紧急
+        <LineBreak/>
+        1985年8月26日0715Z时
+    </TextBlock>
+        <TextBlock Grid.Row="3" Grid.Column="0" FontSize="{StaticResource Font.Size.Header}" Text="发件："/>
+        <TextBlock Grid.Row="3" Grid.Column="2" FontSize="{StaticResource Font.Size.Header}" Text="第77特遣舰队指挥官"/>
+        <TextBlock Grid.Row="4" Grid.Column="0" FontSize="{StaticResource Font.Size.Header}" Text="收件："/>
+        <TextBlock Grid.Row="4" Grid.Column="2" FontSize="{StaticResource Font.Size.Header}" Text="{TaskForceName}指挥官"/>
+        <TextBlock Grid.Row="5" Grid.Column="0" FontSize="{StaticResource Font.Size.Header}" Text="抄送："/>
+    <TextBlock Grid.Row="5" Grid.Column="2" FontSize="{StaticResource Font.Size.Header}">
+        夏威夷州珍珠港太平洋舰队总司令<LineBreak/>
+        夏威夷州希卡姆空军基地太平洋空军总司令<LineBreak/>
+        澳大利亚新南威尔士州格伦布鲁克皇家空军司令部
+        </TextBlock>
+        <TextBlock Grid.Row="7" Grid.Column="0" FontSize="{StaticResource Font.Size.Header}" Text="主题："/>
+        <TextBlock Grid.Row="7" Grid.Column="2" FontSize="{StaticResource Font.Size.Header}" Text="重分配——爪哇海的威胁"/>
+        <TextBlock Grid.Row="9" Grid.ColumnSpan="4" FontSize="{StaticResource Font.Size.Header}" TextWrapping="Wrap">
+        机密
+        <LineBreak/>
+        <LineBreak/>
+        1.（机密）态势：巴厘岛已被收复并重归印度尼西亚控制，但一支庞大的苏联水面部队仍在爪哇海的不明位置，莫斯科威胁雅加达，如果印度尼西亚不投降或解除武装，就将发动无差别轰炸。总统已命令此区域内的美军立即干预。
+        <LineBreak/>
+        <LineBreak/>
+        2.（机密）任务：此区域内的盟军部队将进入爪哇海，找到并摧毁苏联水面特遣舰队。
+        <LineBreak/>
+        <LineBreak/>
+        3.（机密）执行：{TaskForceName}将从巴厘岛向西北方向航行，在泗水补充燃料后进入爪哇海。{TaskForceName}将与盟军空中资产协同，找到并摧毁苏联水面部队，如果发现苏联潜艇，也需要将其摧毁。
+        <LineBreak/>
+        <LineBreak/>
+        4.（机密）威胁：苏联巡洋舰编队由谢尼亚文海军上将号（68bis型巡洋舰）、奥克佳布里斯基海军上将号（1134A型巡洋舰）、051型驱逐舰和61型驱逐舰组成。情报显示此编队将得到一艘在爪哇海活动的641型潜艇支援。金兰湾的苏联轰炸机也可能参与支援行动。
+        <LineBreak/>
+        <LineBreak/>
+        5.（机密）盟军部队：印度尼西亚允许盟军空中部队从泗水起飞执行此次行动。之前驻扎在布鲁姆的空中资产已经向北转移，随时可以执行任务。有美国潜艇在爪哇海活动，但不在你的战术指挥之下。
+        <LineBreak/>
+        <LineBreak/>
+        6.（机密）备注：此次行动由总统亲自下令，目标是缓解印度尼西亚的压力并使其重新加入我方阵营。太平洋司令部总司令完全相信{TaskForceName}的全体官兵能够完成任务。祝你好运，猎杀愉快。
+        <LineBreak/>
+        <LineBreak/>
+        机密
+        <LineBreak/>
+        解密：由原始发布机构决定
+    </TextBlock>
+</Grid>

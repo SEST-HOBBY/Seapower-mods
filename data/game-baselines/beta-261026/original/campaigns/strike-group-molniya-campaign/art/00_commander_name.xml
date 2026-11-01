@@ -1,0 +1,29 @@
+<Page
+  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+  xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+  mc:Ignorable="d"
+  d:DesignWidth="1920"
+  d:DesignHeight="1080">
+
+	<Border Background="#2b2d31" HorizontalAlignment="Center" VerticalAlignment="Center" Height="Auto" Width="900" TextElement.Foreground="#949aa1" TextElement.FontWeight="Bold" TextElement.FontSize="16" Padding="20">
+
+        <StackPanel Orientation="Vertical">
+			<TextBlock FontSize="24" Foreground="White">
+			Comrade Commander, what is your name?
+			</TextBlock>
+			
+			<TextBlock FontSize="16" Margin="0,10,0,15">
+			Enter the name under which you will lead Strike Group Molniya through the coming campaign.
+			</TextBlock>
+			<!-- Keep the prompt close to main by binding directly into PersistentData. -->
+			<StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+				<TextBlock Text="Rear Admiral" Margin="0,0,10,0" VerticalAlignment="Center"/>
+				<TextBox x:Name="CommanderNameBox" Width="300" MaxLength="100" Text="{Binding DataSource.PersistentData[CommanderName], Mode=TwoWay}"/>
+				<Button Width="110" Margin="10,0,0,0" Content="Refresh" Command="{Binding DataSource.RefreshCommanderNameCommand}"/>
+			</StackPanel>
+			<Button Width="120" Margin="0,15,0,0" Content="Submit" Command="{Binding DataSource.SubmitCommanderNameCommand}" CommandParameter="{Binding}"/>
+        </StackPanel>
+    </Border>
+</Page>

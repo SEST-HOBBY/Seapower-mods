@@ -1,0 +1,155 @@
+<!-- Campaign event template for standard USN-style "daily intentions message" (DIM) - formatting taken from real world examples -->
+
+<ScrollViewer xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+  xmlns:local="clr-namespace:SeapowerUI">
+
+	<Border HorizontalAlignment="Center" VerticalAlignment="Center" Width="900" TextElement.FontFamily="Courier New" TextElement.Foreground="Black" TextElement.FontSize="16" Padding="45">
+		<Border.Effect>
+			<DropShadowEffect />
+		</Border.Effect>
+		<Border.Background>
+			<ImageBrush ImageSource="{Binding Assets[bkg_paper]}" Stretch="UniformToFill"/>
+		</Border.Background>
+		
+        <StackPanel Orientation="Vertical">
+
+		<Grid
+		  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+		  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" >
+		<Grid.RowDefinitions>
+			<RowDefinition Height="Auto"/>
+		</Grid.RowDefinitions>
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="Auto"/>
+				<ColumnDefinition Width="3*"/>
+				<ColumnDefinition Width="Auto"/>
+			</Grid.ColumnDefinitions>
+			
+			<TextBlock Grid.Row="0" Grid.Column="0" Text="NAVAL MESSAGE" Margin="0" FontFamily="Arial Narrow Bold" FontSize="26" FontWeight="Bold" TextAlignment="Left"/>
+			<TextBlock Grid.Row="0" Grid.Column="1" Text="*******S E C R E T*******" Margin="40,0,40,0" FontWeight="Bold" TextAlignment="Center"/>
+			<TextBlock Grid.Row="0" Grid.Column="2" Text="NAVY DEPARTMENT" Margin="0" FontFamily="Arial Narrow Bold" FontSize="26" FontWeight="Bold" TextAlignment="Right"/>
+			
+		</Grid>
+		
+		<Rectangle HorizontalAlignment="Stretch" Height="1" Fill="Black" Margin="0,0,0,1"/>
+		<Rectangle HorizontalAlignment="Stretch" Height="1" Fill="Black" Margin="0,0,0,10"/>
+
+			<Grid
+			  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+			  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+			<Grid.RowDefinitions>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="10"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+				</Grid.RowDefinitions>
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="Auto"/>
+					<ColumnDefinition Width="10"/>
+					<ColumnDefinition Width="*"/>
+					<ColumnDefinition Width="Auto"/>
+				</Grid.ColumnDefinitions>
+				<TextBlock Grid.Row="1" Grid.ColumnSpan="4" HorizontalAlignment="Left" FontSize="16">
+					ROUTINE<LineBreak/>
+					R 011200Z JUL 85
+				</TextBlock>
+				
+				<TextBlock Grid.Row="1" Grid.Column="3" FontSize="16" Text="ZYUW RUHGOAA0777 1821200"/>
+
+
+				<TextBlock Grid.Row="3" Grid.Column="0" FontSize="16" Text="VON"/>
+				<TextBlock Grid.Row="3" Grid.Column="2" FontSize="16" Text="CTF 77 YOKOSUKA JA"/>
+				<TextBlock Grid.Row="4" Grid.Column="0" FontSize="16" Text="AN"/>
+				<TextBlock Grid.Row="4" Grid.Column="2" FontSize="16">
+					<Run Text="KOMMANDANT"/>
+					<Run Text="{Binding DataSource.PersistentData[PlayerTaskForceName], Converter={StaticResource UppercaseConverter}}"/>
+					<Run Text="NAHA OKINAWA JA"/>
+				</TextBlock>
+				<TextBlock Grid.Row="11" Grid.Column="0" FontSize="16" Text="INFO"/>
+				<TextBlock Grid.Row="11" Grid.Column="2" FontSize="16" Text="CINCPACFLT PEARL HARBOR HI"/>
+				<TextBlock Grid.Row="12" Grid.Column="2" FontSize="16" Text="COMUSJAPAN YOKOTA AB JA"/>
+				<TextBlock Grid.Row="13" Grid.Column="2" FontSize="16" Text="CNO WASHINGTON DC"/>
+				<TextBlock Grid.Row="14" Grid.Column="0" FontSize="16" Text="BETR"/>
+				<TextBlock Grid.Row="14" Grid.Column="2" FontSize="16" Text="INTSUM 01/1200Z - 02/1200Z - WESTPAZIFIK"/>
+
+				<TextBlock Grid.Row="15" Grid.ColumnSpan="4" FontSize="16" TextWrapping="Wrap">
+					<LineBreak/>
+					GEHEIM
+					<LineBreak/>
+					BT
+					<LineBreak/>
+					<LineBreak/>
+					1. (S) ZUSAMMENFASSUNG: Feindliche Offensivoperationen dauern im gesamten WESTPAC an. Sowjetische und chinesische Kräfte nutzen die anfängliche Desorganisation der Alliierten in Japan, Korea, auf den Philippinen und in Südostasien aus. Aktuelle feindliche Bewegungen deuten auf einen operativen Schwerpunkt nach Süden in Richtung Südchinesisches Meer hin, vermutlich mit der Absicht, Singapur zu isolieren und die alliierten Seeverbindungslinien zum Indischen Ozean abzuschneiden.
+					<LineBreak/>
+				</TextBlock>
+				<TextBlock Grid.Row="16" Grid.ColumnSpan="4" FontSize="16" TextWrapping="Wrap">
+					2. (S) FEINDLAGE: Die KIEV-Trägergruppe passierte am 30JUN die Tsushima-Straße, nachdem sie südkoreanische Kräfte zerstört hatte, die den Durchmarsch verhindern sollten. Der Standort der KIEV ist weiterhin unbekannt. Auch die KIROV- und SLAVA-SAGs sind nicht lokalisiert. Aktuelle Einschätzung: Eine oder beide Gruppen bewegen sich zur Unterstützung der umfassenderen feindlichen Offensive nach Süden.
+					<LineBreak/>
+				</TextBlock>
+				<TextBlock Grid.Row="17" Grid.ColumnSpan="4" TextWrapping="Wrap">
+					3. (S) EIGENE LAGE:
+				</TextBlock>	
+				<TextBlock Grid.Row="18" Grid.ColumnSpan="4" TextWrapping="Wrap" Margin="20,0,0,0">	
+					- KITTY HAWK bleibt nach Minentreffer vor Yokosuka nicht einsatzbereit. Luftfahrzeuge der CVW-9 wurden ausgeflogen und bis zur Neuzuordnung an Land verteilt.
+					<LineBreak/>
+					- CONSTELLATION und Battle Group DELTA übernehmen den Auftrag zur Verteidigung Japans.
+					<LineBreak/>
+					- Angriffsverband TF 77 liegt nach dem Einsatz MAGIC THUNDER in der Taiwanstraße im Hafen von Okinawa.
+					<LineBreak/>
+				</TextBlock>	
+				<TextBlock Grid.Row="19" Grid.ColumnSpan="4" TextWrapping="Wrap">
+					4. (S) ALLIIERTE / REGIONALE LAGE: Japan und Korea stehen unter schweren sowjetischen Luft-, Flugkörper- und Seeangriffen. Die verbliebenen Kräfte sind in der Heimatverteidigung gebunden. Malaysia und Singapur melden Angriffe sowjetischer und vietnamesischer Luftstreitkräfte. Die indonesische Zentralregierung ist gelähmt, Präsident Suharto gilt als nicht auffindbar. Indien hat Neutralität erklärt, aktuelle Meldungen deuten jedoch darauf hin, dass sowjetische Kräfte indische Häfen und Flugplätze zur Versorgung nutzen.
+					<LineBreak/>
+				</TextBlock>
+				<TextBlock Grid.Row="21" Grid.ColumnSpan="4" TextWrapping="Wrap">
+					5. (S) BEURTEILUNG: Die Absicht des Feindes wird als rasche Ausnutzung der Lage eingeschätzt, bevor US-Träger- und Logistikkräfte reagieren können. Die Lähmung Indonesiens und die stillschweigende Zusammenarbeit Indiens mit der UdSSR schränken die alliierten Optionen an der Südflanke erheblich ein.
+					<LineBreak/>
+				</TextBlock>
+				<TextBlock Grid.Row="23" Grid.ColumnSpan="4" TextWrapping="Wrap">
+					6. (S) ANMERKUNGEN DES KOMMANDANTEN: Die Kräfte des Pakts haben eine bemerkenswerte Angriffslust gezeigt, die in keiner Vorkriegsplanung erwartet wurde. Die Verteidigung Singapurs hängt nun von der schnellen Konzentration verfügbarer Seestreitkräfte ab, bevor sowjetische und vietnamesische Maßnahmen die Zugänge zum Südchinesischen Meer schließen können. Weitere Befehle folgen in gesonderter Meldung. Viel Glück und Gottes Segen. CTF 77 Ende.
+					<LineBreak/>
+				</TextBlock>
+				<TextBlock Grid.Row="25" Grid.ColumnSpan="4" TextWrapping="Wrap">
+					GEZEICHNET: EDWARDS
+					<LineBreak/>
+					CTF 77
+					<LineBreak/>
+					<LineBreak/>
+					BT
+					<LineBreak/>
+					GEHEIM DECL OADR
+					<LineBreak/>
+				</TextBlock>
+			</Grid>
+        </StackPanel>
+    </Border>
+</ScrollViewer>

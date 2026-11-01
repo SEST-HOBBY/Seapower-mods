@@ -1,0 +1,65 @@
+<Grid
+  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+<Grid.RowDefinitions>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="10"/>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="10"/>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="10"/>
+        <RowDefinition Height="Auto"/>
+    </Grid.RowDefinitions>
+    <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="Auto"/>
+        <ColumnDefinition Width="10"/>
+        <ColumnDefinition Width="*"/>
+        <ColumnDefinition Width="Auto"/>
+    </Grid.ColumnDefinitions>
+	
+	<TextBlock Grid.Row="1" Grid.ColumnSpan="4" HorizontalAlignment="Left" FontSize="{StaticResource Font.Size.Header}">
+       立即
+        <LineBreak/>
+        1985年8月20日0300Z时
+    </TextBlock>
+        <TextBlock Grid.Row="3" Grid.Column="0" FontSize="{StaticResource Font.Size.Header}" Text="发件："/>
+        <TextBlock Grid.Row="3" Grid.Column="2" FontSize="{StaticResource Font.Size.Header}" Text="第77特遣舰队指挥官"/>
+        <TextBlock Grid.Row="4" Grid.Column="0" FontSize="{StaticResource Font.Size.Header}" Text="收件："/>
+        <TextBlock Grid.Row="4" Grid.Column="2" FontSize="{StaticResource Font.Size.Header}" Text="澳大利亚北领地达尔文{TaskForceName}指挥官"/>
+        <TextBlock Grid.Row="5" Grid.Column="0" FontSize="{StaticResource Font.Size.Header}" Text="抄送："/>
+    <TextBlock Grid.Row="5" Grid.Column="2" FontSize="{StaticResource Font.Size.Header}">
+       夏威夷州珍珠港太平洋舰队总司令<LineBreak/>
+        澳大利亚新南威尔士州格伦布鲁克皇家空军司令部
+        </TextBlock>
+        <TextBlock Grid.Row="7" Grid.Column="0" FontSize="{StaticResource Font.Size.Header}" Text="主题："/>
+        <TextBlock Grid.Row="7" Grid.Column="2" FontSize="{StaticResource Font.Size.Header}" Text="行动计划——龙之矛"/>
+        <TextBlock Grid.Row="9" Grid.ColumnSpan="4" FontSize="{StaticResource Font.Size.Header}" TextWrapping="Wrap">
+        机密
+        <LineBreak/>
+        <LineBreak/>
+        1.（机密）态势：8月11日基洛夫号水面行动群的覆灭缓解了盟军的行动压力，也为反攻铺平了道路。敌军仍控制着7月20日占领的巴厘岛机场，其海岸部队在龙目海峡活动频繁。印度尼西亚政府已请求我方协助清除这些敌军。
+        <LineBreak/>
+        <LineBreak/>
+        2.（机密）任务：第77特遣舰队将强攻龙目海峡，消灭阻碍通行的敌军并分隔巴厘岛，为后续两栖行动做好准备。任务完成后，海军陆战队第17远征队将夺回机场，并使印度尼西亚恢复对巴厘岛的控制权。
+        <LineBreak/>
+        <LineBreak/>
+        3.（机密）执行：{TaskForceName}将对龙目海峡进行水面扫荡，引诱并摧毁敌方海军单位。敌方岸上设施、机场防御工事和沿海阵地需要清理，以便海军陆战队在巴厘岛开展后续行动。
+        <LineBreak/>
+        <LineBreak/>
+        4.（机密）威胁：上次卫星飞越发现了两艘敌方驱逐舰和混编的海岸部队。巴厘岛机场可能有少量敌方空中资产，包括雅克-38垂直起降战斗机，机场附近还发现了海岸炮和防空炮。此区域内未发现苏联潜艇。
+        <LineBreak/>
+        <LineBreak/>
+        5.（机密）盟军部队：空中资产将提供侦察和水面战斗空中巡逻以支援行动。注意：预计将有大量民用船只，请避免造成平民伤亡。
+        <LineBreak/>
+        <LineBreak/>
+        6.（机密）备注：根据目前的攻势时间表，此次行动后无法保证立即进行补给。谨慎使用军械，因为在更北地区开展的后续行动可能很快就会到来。祝你好运，猎杀愉快。
+        <LineBreak/>
+        <LineBreak/>
+        机密
+        <LineBreak/>
+        解密：由原始发布机构决定
+    </TextBlock>
+</Grid>

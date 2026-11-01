@@ -1,0 +1,65 @@
+<Grid
+  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+<Grid.RowDefinitions>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="10"/>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="10"/>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="10"/>
+        <RowDefinition Height="Auto"/>
+    </Grid.RowDefinitions>
+    <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="Auto"/>
+        <ColumnDefinition Width="10"/>
+        <ColumnDefinition Width="*"/>
+        <ColumnDefinition Width="Auto"/>
+    </Grid.ColumnDefinitions>
+	
+	<TextBlock Grid.Row="1" Grid.ColumnSpan="4" HorizontalAlignment="Left" FontSize="{StaticResource Font.Size.Header}">
+        СРОЧНОЕ СООБЩЕНИЕ
+        <LineBreak/>
+        O 200300Z AUG 85
+    </TextBlock>
+        <TextBlock Grid.Row="3" Grid.Column="0" FontSize="{StaticResource Font.Size.Header}" Text="От кого:"/>
+        <TextBlock Grid.Row="3" Grid.Column="2" FontSize="{StaticResource Font.Size.Header}" Text="CTF 77"/>
+        <TextBlock Grid.Row="4" Grid.Column="0" FontSize="{StaticResource Font.Size.Header}" Text="Кому:"/>
+        <TextBlock Grid.Row="4" Grid.Column="2" FontSize="{StaticResource Font.Size.Header}" Text="{TaskForceFlagshipName} {TaskForceName} ДАРВИН СТ АВ"/>
+        <TextBlock Grid.Row="5" Grid.Column="0" FontSize="{StaticResource Font.Size.Header}" Text="Копия:"/>
+    <TextBlock Grid.Row="5" Grid.Column="2" FontSize="{StaticResource Font.Size.Header}">
+        КОМ. ТИХООКЕАНСКОГО ФЛ. ПЕРЛ-ХАРБОР<LineBreak/>
+        ШТБ. КОМ. КАВВС ГЛЕНБРУК НЮУ АВ
+        </TextBlock>
+        <TextBlock Grid.Row="7" Grid.Column="0" FontSize="{StaticResource Font.Size.Header}" Text="Тема:"/>
+        <TextBlock Grid.Row="7" Grid.Column="2" FontSize="{StaticResource Font.Size.Header}" Text="ПЛАН ОПЕРАЦИИ - ШИП ДРАКОНА"/>
+        <TextBlock Grid.Row="9" Grid.ColumnSpan="4" FontSize="{StaticResource Font.Size.Header}" TextWrapping="Wrap">
+        СЕКРЕТНО
+        <LineBreak/>
+        <LineBreak/>
+        1. (S) СИТУАЦИЯ: Уничтожение советской корабельной ударной группы 11-го августа привело к ослаблению советского давления на операции союзников и открыло нам путь к контрнаступлению. Вражеские войска всё еще удерживают аэродром на Бали, захваченный ими 20-го июля, а прибрежные силы противника по-прежнему активны в проливе Ломбок. Правительство Индонезии обратилось к нам за помощью, в борьбе против этих сил.
+        <LineBreak/>
+        <LineBreak/>
+        2. (S) ЗАДАЧА: КГ 77 должна форсировать пролив Ломбок, уничтожить вражеские силы, противодействующие прорыву и изолировать подходы к о. Бали, с целью последующего проведения десантной операции, которая будет осуществлена силами 17-го отряда морской пехоты США после успешного завершения Вами вашей части операции. Морпехи захватят аэродром и вернут Бали под контроль Индонезии.
+        <LineBreak/>
+        <LineBreak/>
+        3. (S) ВЫПОЛНЕНИЕ: {TaskForceName} проведет поиск и уничтожение военно-морских сил противника в проливе Ломбок. Вражеские береговые объекты, силы обороны аэродрома и позиции войск береговой обороны также следует уничтожить, чтобв обеспечить последующую операцию КМП по высадке на Бали.
+        <LineBreak/>
+        <LineBreak/>
+        4. (S) УГРОЗА: По последним разведданным со спутников в районе установлено присутствие двух вражеских эсминцев и разнообразных кораблей береговой обороны. С аэродрома на Бали ограниченно действует авиация противника, включающая самолёты вертикального взлёта и посадки Як-38. В непосредственной близости аэродрома обнаружены береговые батареи и малая зенитная артиллерия. Подлодки СССР поблизости не замечены.
+        <LineBreak/>
+        <LineBreak/>
+        5. (S) СОЮЗНЫЕСИЛЫ: Вас будет поддерживать береговая разведывательная авиация, также вы можете расчитывать на истребительное прикрытие. ВАЖНО: в районе интенсивное гражданское судоходство. Избегайте жертв среди гражданских.
+        <LineBreak/>
+        <LineBreak/>
+        6. (S) ПРИМЕЧАНИЯ: Немедленное пополнение запасов после данной операции не гарантируется из-за напряженного графика операций. Расходуйте боезапас с умом, имея в виду, что в самом скором времени могут последовать новые операции к северу от текущей зоны. Хорошей охоты и удачи. CTF 77 передача.
+        <LineBreak/>
+        <LineBreak/>
+        СЕКРЕТНО
+        <LineBreak/>
+        DECL OADR BT
+    </TextBlock>
+</Grid>
