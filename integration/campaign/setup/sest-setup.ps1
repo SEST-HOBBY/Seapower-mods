@@ -410,6 +410,27 @@ try {
     } else {
         if ($wsPacks.Count) { Fail ('You are running SETUP from a copy in the game folder, but you are also subscribed to the pack on the Workshop (' + $wsPacks[0].Name + '). Two copies fight over the same files. Unsubscribe, or delete ' + $pack.FullName + ' and run SETUP from the Workshop copy.'); return }
     }
+    # One Workshop pack supports both Sea Power builds, but exact runtime
+    # compatibility is selected from Seapower-Scripts.dll SHA256. Detect and
+    # refuse the unsafe experimental bridge BEFORE modifying user settings.
+    $profileScript = J $pack.FullName 'sest-profile.ps1'
+    if (-not (Test-Path -LiteralPath $profileScript)) {
+        # Old Workshop uploads predate the dual-build profile. The new source
+        # build copies this script automatically; do not demand it from users
+        # who are rolling back to an older published pack.
+        $profileScript = J $PSScriptRoot 'sest-profile.ps1'
+    }
+    if (Test-Path -LiteralPath $profileScript) {
+        & $profileScript -GameDir $game -PackDir $pack.FullName
+        if ($LASTEXITCODE -ne 0) {
+            Fail ('SEST build profile verification failed (exit ' + $LASTEXITCODE + '). See the message above. No Workshop files were altered.')
+            return
+        }
+    } else {
+        $warnings++
+        Say '  [!!] SEST build profile tool missing: this pack predates dual-build verification.' 'Yellow'
+    }
+
     $ids = New-Object System.Collections.Generic.List[string]
     $names = @{}
     $self = $false
