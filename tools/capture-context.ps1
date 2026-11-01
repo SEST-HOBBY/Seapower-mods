@@ -90,7 +90,10 @@ New-Item -ItemType Directory -Force -Path $outDir | Out-Null
 
 function Write-Snapshot([string]$Name, [string[]]$Lines) {
     $text = ($Lines -join "`r`n") + "`r`n"
-    if ($Redact) { $text = $text.Replace($env:USERPROFILE, "<USER>").Replace($env:USERNAME, "<USER>") }
+    if ($Redact) {
+        if ($env:USERPROFILE) { $text = $text.Replace($env:USERPROFILE, "<USER>") }
+        if ($env:USERNAME) { $text = $text.Replace($env:USERNAME, "<USER>") }
+    }
     [System.IO.File]::WriteAllText((Join-Path $outDir $Name), $text)
     Write-Host ("  wrote  {0,-30} {1} line(s)" -f $Name, $Lines.Count)
 }
