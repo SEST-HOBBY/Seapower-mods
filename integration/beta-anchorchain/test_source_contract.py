@@ -78,8 +78,8 @@ class BetaSourceContract(unittest.TestCase):
         self.assertIn("<TargetFramework>netstandard2.1</TargetFramework>", self.bootstrap_project)
         self.assertIn('<Reference Include="BepInEx">', self.bootstrap_project)
         self.assertIn('<Reference Include="UnityEngine.CoreModule">', self.bootstrap_project)
-        self.assertIn(r'bootstrap\\SEST.BetaSafeBootstrap.csproj', self.build)
-        self.assertIn(r'bootstrap\\bin\\Release\\netstandard2.1\\SEST.BetaSafeBootstrap.dll', self.build)
+        self.assertIn(r'bootstrap\SEST.BetaSafeBootstrap.csproj', self.build)
+        self.assertIn(r'bootstrap\bin\Release\netstandard2.1\SEST.BetaSafeBootstrap.dll', self.build)
         self.assertNotIn(r'Framework64\\v4.0.30319\\csc.exe', self.build)
 
     def test_build_is_non_installing(self):
