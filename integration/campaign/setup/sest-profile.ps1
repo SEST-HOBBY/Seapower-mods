@@ -62,9 +62,12 @@ elseif ($detected -eq "Beta") {
     }
 }
 else {
-    Write-Host "[UNVERIFIED] Unknown game assembly hash. Do not assume compatibility with a future Steam build." -ForegroundColor Red
-    Write-Host "The pack's static data may load, but SEST does not claim that its plugins or missions work on this build."
-    exit 2
+    # A Steam hotfix should not make the entire Workshop mod unusable.
+    # Leave all SEST binary runtime guards intact; SETUP can still maintain
+    # the canonical mod order and non-code data on an uninspected build.
+    Write-Host "[UNVERIFIED] Unknown game assembly hash: possible newer beta/stable build." -ForegroundColor Yellow
+    Write-Host "[UNVERIFIED] Data-only fallback. Runtime and UI plugins must pass their own exact SHA gates."
+    Write-Host "[UNVERIFIED] No native Harmony compatibility or mission gameplay claims for this build."
 }
 if ($PackDir) { Write-Host "SEST pack: $PackDir" }
 Write-Host "No files changed by profile detection."
