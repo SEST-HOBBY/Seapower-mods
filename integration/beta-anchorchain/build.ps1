@@ -11,6 +11,7 @@ $native = Join-Path $GameRoot "Sea Power_Data\Managed\Seapower-Scripts.dll"
 $plugin = Join-Path $GameRoot "BepInEx\plugins\AnchorChain.Preloader.dll"
 $source = Join-Path $PSScriptRoot "source\Main.cs"
 $project = Join-Path $PSScriptRoot "source\AnchorChain.csproj"
+$particleModule = Join-Path $GameRoot "Sea Power_Data\Managed\UnityEngine.ParticleSystemModule.dll"
 $knownBeta = "3005bc6d4221a921008778a18dec06515d98c63d3afb6a3a2835b985ab2e7d62"
 $knownPreloader = "1ee1570f1e7f457ffa63c24ee4085b2cdea8069ea8cebf146de5ef027eaa3984"
 $knownWorkshop = "e272811050698640a8936834363da91769dbc83e017637e3629c21bca6bea764"
@@ -25,7 +26,7 @@ if ((Split-Path -Leaf $steamCommon) -ine "common") {
 }
 $steamapps = Split-Path -Parent $steamCommon
 $upstream = Join-Path $steamapps "workshop\content\1286220\3380210757\AnchorChain.dll"
-foreach ($p in @($native, $plugin, $upstream, $source, $project)) {
+foreach ($p in @($native, $plugin, $upstream, $source, $project, $particleModule)) {
     if (!(Test-Path -LiteralPath $p -PathType Leaf)) { throw "Required reference missing: $p" }
 }
 if ((Hash-File $native) -ne $knownBeta) {
