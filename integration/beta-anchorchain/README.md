@@ -23,16 +23,17 @@ No Harmony methods, game files, missile behavior, campaign data or Runtime 1.5.0
 
 ## State / gate
 
-**Source patch and staged test tooling only.** No compiled/validated beta DLL is available in the repository. The launch failure in PR #53 was reproduced with the unmodified upstream loader after the bootstrap discovered mods. Do **not** reinstall PR #53's `SEST.BetaAnchorBootstrap.dll`. Do not change Workshop item 3380210757 or distribute a replacement until a controlled beta test verifies bootstrap plus bounded loader and reviews independent native API failures.
+**Source patch and staged test tooling only.** The owner compiled the bounded fork on 1 November 2026 with two non-blocking assembly-version warnings. The bootstrap SDK compilation and in-game validation remain outstanding; no compiled beta DLL is committed to the repository. The launch failure in PR #53 was reproduced with the unmodified upstream loader after the bootstrap discovered mods. Do **not** reinstall PR #53's `SEST.BetaAnchorBootstrap.dll`. Do not change Workshop item 3380210757 or distribute a replacement until a controlled beta test verifies bootstrap plus bounded loader and reviews independent native API failures.
 
 The target beta is **0.8.7-261026**. Runtime 1.5.0 and UI Follow-up remain deliberately disabled on the beta until their own source and APIs can be validated; changing Anchor Chain does not make them compatible.
 
 ## Build and staged testing (not a production install)
 
 Run from the repository root with Sea Power closed. A .NET 8+ SDK is required
-to compile the MIT-licensed C# 12 upstream fork; Windows' built-in .NET
-Framework csc.exe compiles the small bootstrap. The build never writes to the
-game installation.
+to compile **both** projects against netstandard2.1: the MIT-licensed C# 12
+Anchor Chain fork and the SEST bootstrap. Windows Framework csc.exe cannot
+resolve the netstandard2.1 type references in the game's Unity 6000 binaries.
+The build never writes to the game installation.
 
     .\integration\beta-anchorchain\build.ps1 -GameRoot "C:\Program Files (x86)\Steam\steamapps\common\Sea Power"
 
