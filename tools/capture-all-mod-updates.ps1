@@ -10,7 +10,7 @@
 [CmdletBinding()]
 param(
     [string]$GameRoot = "C:\Program Files (x86)\Steam\steamapps\common\Sea Power",
-    [string]$BaselineRef = "integ/capture-20261028",
+    [string]$BaselineRef = "origin/integ/capture-20261028",
     [string]$OutputDir = "",
     [switch]$SkipExport,
     [switch]$SkipBetaBuild
