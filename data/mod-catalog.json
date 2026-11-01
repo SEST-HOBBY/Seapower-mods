@@ -2591,7 +2591,7 @@
     {
       "id": "euromod-philippines",
       "workshop_id": "3812454152",
-      "title": "Euromod-Philippine-Navy",
+      "title": "Euromod - Hyundai & Hanwha Naval Systems",
       "author": "unknown",
       "faction": "philippines",
       "type": "ship",
@@ -2604,7 +2604,7 @@
         "3437105712"
       ],
       "load_order": "Directly below Euromod-India-Navy, above Royal Navy Type 23 'Duke Class' Frigate [OLD]; it collides with nothing that changes hands, so the slot is a grouping choice.",
-      "notes": "Philippine Navy addon to Euromod: Jose Rizal class frigates (pn_ffg-150, and pn_ffg-150_2 with Sylver A43 VLS) and Miguel Malvar (pn_ffg-06), 2020-2021, with Harpoon, twin Mistral, MICA and 76 mm. Its twin Mistral launcher, [Sinbad], is defined only by Philippines: The Luzon Line (3752415457). Its Sylver A43 section and FREMM meshes come from the Charles De Gaulle & Modern French Navy pack (3567256221). pn_ffg-150_2 hangs fr_mica-em from French Air Force (3758943352), while pn_ffg-06 hangs the mod's own PN_fr_mica_em. Each variants file declares three variants and defines two. No file or system name collides with anything. Verified 4 Oct 2026 from the export; not yet seen in the game."
+      "notes": "Philippine Navy addon to Euromod: Jose Rizal class frigates (pn_ffg-150, and pn_ffg-150_2 with Sylver A43 VLS) and Miguel Malvar (pn_ffg-06), 2020-2021, with Harpoon, twin Mistral, MICA and 76 mm. Its twin Mistral launcher, [Sinbad], is defined only by Philippines: The Luzon Line (3752415457). Its Sylver A43 section and FREMM meshes come from the Charles De Gaulle & Modern French Navy pack (3567256221). pn_ffg-150_2 hangs fr_mica-em from French Air Force (3758943352), while pn_ffg-06 hangs the mod's own PN_fr_mica_em. Each variants file declares three variants and defines two. No file or system name collides with anything. Verified 4 Oct 2026 from the export; not yet seen in the game. 1 Nov 2026: Steam's Euromod collection now titles this same Workshop ID 'Euromod - Hyundai & Hanwha Naval Systems'; local installed _info.ini still titles it 'Euromod-HD Hyundai Export Ships Mod'. Steam ACF capture records an update at 13:15 +10:00 on 1 Nov (user's Steam UI reports 14:15); title and time differ from local metadata. Retain legacy catalog slug and earlier Philippine hull references until the updated content is exported and audited. Do not assume a rename proves any hull or weapon files have been removed."
     },
     {
       "id": "philippines-luzon-line",
