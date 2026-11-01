@@ -28,6 +28,16 @@ param([string]$DataDir, [string]$OutFile)
 "test-only" | Set-Content -LiteralPath $OutFile -Encoding UTF8
 '@ | Set-Content -LiteralPath (Join-Path $toolDir "scan-ui-assets.ps1") -Encoding UTF8
 
+    # Exercise a singleton DLL and one-line Player/BepInEx logs as well as
+    # empty mods. Those were separately broken by pipeline unrolling.
+    $gameRoot = Split-Path -Parent (Split-Path -Parent $game)
+    $bepRoot = Join-Path $gameRoot "BepInEx"
+    New-Item -ItemType Directory -Path $bepRoot -Force | Out-Null
+    [IO.File]::WriteAllText((Join-Path $gameRoot "test-only.dll"), "fixture")
+    [IO.File]::WriteAllText((Join-Path $fixture "Player.log"), "Error: synthetic test")
+    [IO.File]::WriteAllText((Join-Path $fixture "Player-prev.log"), "synthetic prior session")
+    [IO.File]::WriteAllText((Join-Path $bepRoot "LogOutput.log"), "[Info] synthetic BepInEx")
+
     $cases = @(
         @{ Label = "absent-section"; Tokens = @("SEST_Integration"); Live = @(); Match = @() },
         @{ Label = "one-enabled"; Tokens = @("SEST_Integration"); Live = @("SEST_Integration,True"); Match = @(
@@ -73,6 +83,11 @@ param([string]$DataDir, [string]$OutFile)
             throw
         }
         $result = Get-Content -LiteralPath (Join-Path $dataDir "install-snapshot\load-order.live.txt") -Raw
+        $snapDir = Join-Path $dataDir "install-snapshot"
+        $dllReport = Get-Content -LiteralPath (Join-Path $snapDir "plugin-dlls.txt") -Raw
+        if (-not $dllReport.Contains("[game]  1 DLL(s)")) { throw "Expected one loose DLL for $($case.Label)" }
+        $problemReport = Get-Content -LiteralPath (Join-Path $snapDir "player.problems.txt") -Raw
+        if (-not $problemReport.Contains("# 1 hit(s)")) { throw "Expected single error log match for $($case.Label)" }
         foreach ($expected in $case.Match) {
             if (-not $result.Contains($expected)) {
                 throw "Expected '$expected' missing in $($case.Label)"
