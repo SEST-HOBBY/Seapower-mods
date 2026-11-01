@@ -199,6 +199,14 @@ def sm3_value(key, name):
 SM3_OVWR_DECLINED = {
     "MaxFlightTime": {"usn_rim-161b": "3000", "usn_rim-161c": "3000",
                       "usn_rim-161d": "3000"},
+    # 28 Oct AC Pack ExtendedGuidance submod is off by default; do not
+    # silently enable these non-vanilla seeker keys in SEST's SM-3 round.
+    # Pin the precise upstream c/d values so the guard still detects drift.
+    "SeekerProfile": {"usn_rim-161c": "IIR_Imaging", "usn_rim-161d": "IIR_Imaging"},
+    "SeekerTrackRate": {"usn_rim-161c": "50", "usn_rim-161d": "50"},
+    "IRBackgroundRejection": {"usn_rim-161c": "0.8", "usn_rim-161d": "0.8"},
+    "IRBrightnessRejection": {"usn_rim-161c": "0.6", "usn_rim-161d": "0.6"},
+    "IRShapeRejection": {"usn_rim-161c": "0.25", "usn_rim-161d": "0.25"},
 }
 # Keys the overwrite sets for some rounds only, copied for those rounds (a
 # round not listed must not set the key). 18 Oct 2026 export: the author gave
@@ -1221,6 +1229,12 @@ def restore_vanilla_sensor_sections():
 #
 #   new type          donor                       who mounts it (mission units)
 MISSING_SENSORS = {
+    "EOMS-NG": ("3567256221", "EOMS_NG",
+                "Both Charles de Gaulle variants still mount EOMS-NG, but "
+                "the 28 Oct Modern French Navy update renamed its sensor "
+                "definition to EOMS_NG. Clone today's donor values, rather "
+                "than restoring the older sensor parameters. Remove this "
+                "entry if upstream restores the hyphenated alias."),
     "Side_Globe": ("_vanilla/original", "Gurzuf",
                    "Soviet shipboard noise jammer, NATO's Side Globe. Donor is "
                    "vanilla's own Side Globe, which 0.8.3 (1 Oct 2026) added "
