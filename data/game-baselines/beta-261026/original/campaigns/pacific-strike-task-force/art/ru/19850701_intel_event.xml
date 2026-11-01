@@ -1,0 +1,155 @@
+<!-- Campaign event template for standard USN-style "daily intentions message" (DIM) - formatting taken from real world examples -->
+
+<ScrollViewer xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+  xmlns:local="clr-namespace:SeapowerUI">
+
+	<Border HorizontalAlignment="Center" VerticalAlignment="Center" Width="900" TextElement.FontFamily="Courier New" TextElement.Foreground="Black" TextElement.FontSize="16" Padding="45">
+		<Border.Effect>
+			<DropShadowEffect />
+		</Border.Effect>
+		<Border.Background>
+			<ImageBrush ImageSource="{Binding Assets[bkg_paper]}" Stretch="UniformToFill"/>
+		</Border.Background>
+		
+        <StackPanel Orientation="Vertical">
+
+		<Grid
+		  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+		  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" >
+		<Grid.RowDefinitions>
+			<RowDefinition Height="Auto"/>
+		</Grid.RowDefinitions>
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="Auto"/>
+				<ColumnDefinition Width="3*"/>
+				<ColumnDefinition Width="Auto"/>
+			</Grid.ColumnDefinitions>
+			
+			<TextBlock Grid.Row="0" Grid.Column="0" Text="СООБЩЕНИЕ ПО ФЛОТУ" Margin="0" FontFamily="Arial Narrow Bold" FontSize="26" FontWeight="Bold" TextAlignment="Left"/>
+			<TextBlock Grid.Row="0" Grid.Column="1" Text="*******S E C R E T*******" Margin="40,0,40,0" FontWeight="Bold" TextAlignment="Center"/>
+			<TextBlock Grid.Row="0" Grid.Column="2" Text="МИНИСТЕРСТВО ВМФ" Margin="0" FontFamily="Arial Narrow Bold" FontSize="26" FontWeight="Bold" TextAlignment="Right"/>
+			
+		</Grid>
+		
+		<Rectangle HorizontalAlignment="Stretch" Height="1" Fill="Black" Margin="0,0,0,1"/>
+		<Rectangle HorizontalAlignment="Stretch" Height="1" Fill="Black" Margin="0,0,0,10"/>
+
+			<Grid
+			  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+			  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+			<Grid.RowDefinitions>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="10"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+				</Grid.RowDefinitions>
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="Auto"/>
+					<ColumnDefinition Width="10"/>
+					<ColumnDefinition Width="*"/>
+					<ColumnDefinition Width="Auto"/>
+				</Grid.ColumnDefinitions>
+				<TextBlock Grid.Row="1" Grid.ColumnSpan="4" HorizontalAlignment="Left" FontSize="16">
+					ДЕЖУРНОЕ<LineBreak/>
+					R 011200Z JUL 85
+				</TextBlock>
+				
+				<TextBlock Grid.Row="1" Grid.Column="3" FontSize="16" Text="ZYUW RUHGOAA0777 1821200"/>
+
+
+				<TextBlock Grid.Row="3" Grid.Column="0" FontSize="16" Text="ОТ"/>
+				<TextBlock Grid.Row="3" Grid.Column="2" FontSize="16" Text="CTF 77 ЙОКОСУКА ЯП"/>
+				<TextBlock Grid.Row="4" Grid.Column="0" FontSize="16" Text="КОМУ"/>
+				<TextBlock Grid.Row="4" Grid.Column="2" FontSize="16">
+					<Run Text="КОМАНДУЮЩИЙ"/>
+					<Run Text="{Binding DataSource.PersistentData[PlayerTaskForceName], Converter={StaticResource UppercaseConverter}}"/>
+					<Run Text="НАХА ОКИНАВА ЯП"/>
+				</TextBlock>
+				<TextBlock Grid.Row="11" Grid.Column="0" FontSize="16" Text="ИНФО"/>
+				<TextBlock Grid.Row="11" Grid.Column="2" FontSize="16" Text="КОМ. ТИХООКЕАНСКОГО ФЛ. ПЕРЛ-ХАРБОР"/>
+				<TextBlock Grid.Row="12" Grid.Column="2" FontSize="16" Text="КОМ. США В ЯПОНИИ АБ ЙОКОТА ЯП"/>
+				<TextBlock Grid.Row="13" Grid.Column="2" FontSize="16" Text="ШТАБ ВМФ ВАШИНГТОН ОК"/>
+				<TextBlock Grid.Row="14" Grid.Column="0" FontSize="16" Text="ТЕМА"/>
+				<TextBlock Grid.Row="14" Grid.Column="2" FontSize="16" Text="РАЗВЕДСВ 01/1200Z - 02/1200Z - ЗАП. ТИХИЙ ОКЕАН"/>
+
+				<TextBlock Grid.Row="15" Grid.ColumnSpan="4" FontSize="16" TextWrapping="Wrap">
+					<LineBreak/>
+					СЕКРЕТНО
+					<LineBreak/>
+					BT
+					<LineBreak/>
+					<LineBreak/>
+					1. (S) КРАТКО: Вражеские наступательные операции продолжаются во всей акватории западной части Тихого океана. Советские и китайские силы успешно используют недостатки первоначальной дислокации союзников в Японии, Корее, на Филлипинах и в Юго-Восточной Азии. Текущие перемещения сил противника показывают общий фокус их усилий на южном направлении, к Южно-Китайскому морю. Возможный замысел - изоляция Сингапура и перерезание маршрута конвоев союзников, ведущего в Индийский океан.
+					<LineBreak/>
+				</TextBlock>
+				<TextBlock Grid.Row="16" Grid.ColumnSpan="4" FontSize="16" TextWrapping="Wrap">
+					2. (S) ПОЛОЖЕНИЕ СИЛ ПРОТИВНИКА: КУГ авианесущего крейсера типа КИЕВ прошла пролив Цусима 30-го июня, уничтожив южнокорейские силы, пытавшиеся помешать прорыву. Текущее местонахождение группы КИЕВ остается неизвестным. Группы КИРОВ и СЛАВА также не обнаружены. Предположительно, одна или обе группы двигаются на юг с целью поддержки широкомасштабного наступления противника.
+					<LineBreak/>
+				</TextBlock>
+				<TextBlock Grid.Row="17" Grid.ColumnSpan="4" TextWrapping="Wrap">
+					3. (S) ПОЛОЖЕНИЕ НАШИХ СИЛ:
+				</TextBlock>	
+				<TextBlock Grid.Row="18" Grid.ColumnSpan="4" TextWrapping="Wrap" Margin="20,0,0,0">	
+					- АВ КИТТИ-ХОК по-прежнему небоеспособен после подрыва на мине у Йокосуки. Самолёты авиакрыла CVW-9 рассредоточены по береговым базам до последующих распоряжений.
+					<LineBreak/>
+					- АВ КОНСТЕЛЛЕЙШН и Боевая группа ДЕЛЬТА сосредоточены на задаче обороны Японии.
+					<LineBreak/>
+					- КУГ ТГ 77 находится на Окинаве в порту после операции ВОЛШЕБНЫЙ ГРОМ в Тайваньском проливе.
+					<LineBreak/>
+				</TextBlock>	
+				<TextBlock Grid.Row="19" Grid.ColumnSpan="4" TextWrapping="Wrap">
+					4. (S) СТАТУС СОЮЗНИКОВ/РЕГИОНА: Япония и Корея подвергаются сильным советским воздушным, ракетным ударам и атакам с моря. Уцелевшие силы этих стран сосредоточены на защите собственной территории. Малайзия и Сингапур сообщают об атаках со стороны советских и вьетнамских военно-воздушных сил. Центральная власть Индонезии парализована, местонахождение президента Сухарто неизвестно. Индия объявила о нейтралитете, но сообщается о случаях использования советскими силами индийских портов и аэродромов для снабжения.
+					<LineBreak/>
+				</TextBlock>
+				<TextBlock Grid.Row="21" Grid.ColumnSpan="4" TextWrapping="Wrap">
+					5. (S) ОЦЕНКА ОБСТАНОВКИ: Предполагается, что противник будет развивать наступление, сохраняя высокий темп проведения операций, чтобы использовать благоприятную для него обстановку: до сосредоточения дополнительных авианосных сил ВМФ США и усиления снабжения наших сил на театре. Паралич власти в Индонезии и молчаливое сотрудничество Индии и СССР существенно ограничивают возмодности союзников на южном фланге.
+					<LineBreak/>
+				</TextBlock>
+				<TextBlock Grid.Row="23" Grid.ColumnSpan="4" TextWrapping="Wrap">
+					6. (S) КОММЕНТАРИИ КОМАНДУЮЩЕГО: Силы ОВД демонстрируют выдающуюся агрессивность, которая не была предусмотрена в любом довоенном планировании. Оборона Сингапура теперь зависит быстрой концентрации имеющихся военно-морских сил до того, как действия СССР и Вьетнама приведут к перекрытию проходов в Южно-Китайское море. Дальнейшие приказы будут переданы по отдельному каналу. С Богом и удачи. CTF 77 передача.
+					<LineBreak/>
+				</TextBlock>
+				<TextBlock Grid.Row="25" Grid.ColumnSpan="4" TextWrapping="Wrap">
+					ПОДПИСЬ: ЭДВАРДС
+					<LineBreak/>
+					CTF 77
+					<LineBreak/>
+					<LineBreak/>
+					BT
+					<LineBreak/>
+					СЕКРЕТНО DECL OADR
+					<LineBreak/>
+				</TextBlock>
+			</Grid>
+        </StackPanel>
+    </Border>
+</ScrollViewer>

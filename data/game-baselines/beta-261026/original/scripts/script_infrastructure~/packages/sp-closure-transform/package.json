@@ -1,0 +1,28 @@
+{
+    "name": "@seapower/sp-closure-transform",
+    "files": [
+        "build/ts/*.js"
+    ],
+    "main": "./build/ts/index.js",
+    "exports": {
+        ".": {
+            "types": "./build/ts/index.d.ts",
+            "default": "./build/ts/index.js"
+        },
+        "./package.json": "./package.json"
+    },
+    "type": "module",
+    "scripts": {
+        "build": "npx tsc"
+    },
+    "dependencies": {
+        "@babel/core": "^7.28.4",
+        "@babel/helper-plugin-utils": "^7.27.1"
+    },
+    "devDependencies": {
+        "@types/babel__core": "^7",
+        "@types/babel__helper-plugin-utils": "^7.10.3",
+        "@types/babel__traverse": "^7",
+        "typescript": "^5.9.2"
+    }
+}

@@ -90,7 +90,10 @@ New-Item -ItemType Directory -Force -Path $outDir | Out-Null
 
 function Write-Snapshot([string]$Name, [string[]]$Lines) {
     $text = ($Lines -join "`r`n") + "`r`n"
-    if ($Redact) { $text = $text.Replace($env:USERPROFILE, "<USER>").Replace($env:USERNAME, "<USER>") }
+    if ($Redact) {
+        if ($env:USERPROFILE) { $text = $text.Replace($env:USERPROFILE, "<USER>") }
+        if ($env:USERNAME) { $text = $text.Replace($env:USERNAME, "<USER>") }
+    }
     [System.IO.File]::WriteAllText((Join-Path $outDir $Name), $text)
     Write-Host ("  wrote  {0,-30} {1} line(s)" -f $Name, $Lines.Count)
 }
@@ -126,16 +129,16 @@ if (Test-Path -LiteralPath $SettingsPath) {
         }
         $canonPath = Join-Path $repoRoot "data\load-order.tokens.txt"
         if (Test-Path $canonPath) {
-            $canon = Get-Content -LiteralPath $canonPath | Where-Object { $_ -and $_ -notmatch "^#" }
+            $canon = @(Get-Content -LiteralPath $canonPath | Where-Object { $_ -and $_ -notmatch "^#" })
             $lines += ""; $lines += "--- drift against the canonical order ---"
-            $missing = $canon | Where-Object { -not $live.Contains($_) }
-            $extra   = $live.Keys | Where-Object { $canon -notcontains $_ }
+            $missing = @($canon | Where-Object { -not $live.Contains($_) })
+            $extra   = @($live.Keys | Where-Object { $canon -notcontains $_ })
             $lines += "canonical but not live ($($missing.Count)): $($missing -join ', ')"
             $lines += "live but not canonical ($($extra.Count)): $($extra -join ', ')"
-            $shared = $canon | Where-Object { $live.Contains($_) }
-            $liveShared = $live.Keys | Where-Object { $canon -contains $_ }
+            $shared = @($canon | Where-Object { $live.Contains($_) })
+            $liveShared = @($live.Keys | Where-Object { $canon -contains $_ })
             $lines += "order of shared entries matches: $(if (-not (Compare-Object $shared $liveShared -SyncWindow 0)) { 'YES' } else { 'NO - the game has reordered them' })"
-            $off = $live.Keys | Where-Object { $live[$_] -eq "False" }
+            $off = @($live.Keys | Where-Object { $live[$_] -eq "False" })
             $lines += "disabled in game ($($off.Count)): $($off -join ', ')"
         }
     } else { $lines += "[LoadOrder] section not found" }
@@ -174,7 +177,7 @@ if ($StreamingAssetsDir -and (Test-Path -LiteralPath (Join-Path $StreamingAssets
     $files = @(Get-ChildItem -LiteralPath $orig -Recurse -File -ErrorAction SilentlyContinue |
                Where-Object { $media -contains $_.Extension.ToLower() } | Sort-Object FullName)
     $lines += "original\: $($files.Count) picture/film file(s)"
-    $byDir = $files | Group-Object { Split-Path -Parent $_.FullName.Substring($orig.Length + 1) }
+    $byDir = @($files | Group-Object { Split-Path -Parent $_.FullName.Substring($orig.Length + 1) })
     foreach ($g in ($byDir | Sort-Object Name)) {
         $lines += ""; $lines += "[$(if ($g.Name) { $g.Name } else { '.' })]  $($g.Count) file(s)"
         foreach ($f in ($g.Group | Select-Object -First 60)) {
@@ -243,8 +246,13 @@ if ($StreamingAssetsDir -and (Test-Path -LiteralPath $StreamingAssetsDir)) {
 foreach ($root in $dllRoots) {
     $label, $dir = $root[0], $root[1]
     # the game folder itself: only the loose DLLs beside Sea Power.exe (winhttp.dll and friends)
-    $files = if ($label -eq "game") { @(Get-ChildItem -LiteralPath $dir -File -Filter *.dll -ErrorAction SilentlyContinue) }
-             else { @(Get-ChildItem -LiteralPath $dir -Recurse -File -Filter *.dll -ErrorAction SilentlyContinue) }
+    # Wrap the whole if-expression: @() inside a branch is unrolled when the
+    # branch returns, turning zero results into $null (or one into a scalar).
+    $files = @(if ($label -eq "game") {
+        Get-ChildItem -LiteralPath $dir -File -Filter *.dll -ErrorAction SilentlyContinue
+    } else {
+        Get-ChildItem -LiteralPath $dir -Recurse -File -Filter *.dll -ErrorAction SilentlyContinue
+    })
     $lines += "[$label]  $($files.Count) DLL(s)"
     foreach ($f in ($files | Sort-Object FullName)) {
         $rel = $f.FullName.Substring($dir.Length).TrimStart("\", "/")
@@ -262,12 +270,12 @@ $logDir = Split-Path -Parent $SettingsPath
 foreach ($pair in @(@("Player.log", "player.log"), @("Player-prev.log", "player-prev.log"))) {
     $src = Join-Path $logDir $pair[0]
     if (Test-Path -LiteralPath $src) {
-        $all = Get-Content -LiteralPath $src -ErrorAction SilentlyContinue
-        $keep = if ($all.Count -gt $LogTailLines) { $all[-$LogTailLines..-1] } else { $all }
+        $all = @(Get-Content -LiteralPath $src -ErrorAction SilentlyContinue)
+        $keep = @(if ($all.Count -gt $LogTailLines) { $all[-$LogTailLines..-1] } else { $all })
         $head = @("# $($pair[0]) - last $($keep.Count) of $($all.Count) line(s), captured $(Get-Date -Format s).",
                   "# Unity writes this fresh each launch; -prev is the session before.", "")
         Write-Snapshot $pair[1] ($head + $keep)
-        $bad = $all | Select-String -Pattern "Exception|Error|not found|missing|failed" -CaseSensitive:$false
+        $bad = @($all | Select-String -Pattern "Exception|Error|not found|missing|failed" -CaseSensitive:$false)
         if ($bad) {
             Write-Snapshot ($pair[1] -replace "\.log$", ".problems.txt") `
                 (@("# Lines from $($pair[0]) matching Exception/Error/not found/missing/failed.",
@@ -364,9 +372,9 @@ foreach ($lib in Get-SteamLibraries) {
 }
 $canonPath = Join-Path $repoRoot "data\load-order.tokens.txt"
 if (Test-Path $canonPath) {
-    $canon = Get-Content -LiteralPath $canonPath | Where-Object { $_ -and $_ -notmatch "^#" }
-    $new = $seen.Keys | Where-Object { $canon -notcontains $_ } | Sort-Object
-    $gone = $canon | Where-Object { $_ -notmatch "^\d+$" -eq $false -and -not $seen.ContainsKey($_) }
+    $canon = @(Get-Content -LiteralPath $canonPath | Where-Object { $_ -and $_ -notmatch "^#" })
+    $new = @($seen.Keys | Where-Object { $canon -notcontains $_ } | Sort-Object)
+    $gone = @($canon | Where-Object { $_ -match "^\d+$" -and -not $seen.ContainsKey($_) })
     $lines += ""; $lines += "subscribed but UNPLACED ($($new.Count)): $($new -join ', ')"
     $lines += "placed but NOT SUBSCRIBED ($($gone.Count)): $($gone -join ', ')"
 }

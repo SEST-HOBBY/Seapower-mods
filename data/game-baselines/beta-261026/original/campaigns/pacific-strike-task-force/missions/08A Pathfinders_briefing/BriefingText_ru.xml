@@ -1,0 +1,66 @@
+<Grid
+  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+<Grid.RowDefinitions>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="10"/>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="10"/>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="10"/>
+        <RowDefinition Height="Auto"/>
+    </Grid.RowDefinitions>
+    <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="Auto"/>
+        <ColumnDefinition Width="10"/>
+        <ColumnDefinition Width="*"/>
+        <ColumnDefinition Width="Auto"/>
+    </Grid.ColumnDefinitions>
+	
+	<TextBlock Grid.Row="1" Grid.ColumnSpan="4" HorizontalAlignment="Left" FontSize="{StaticResource Font.Size.Header}">
+        FLASH
+        <LineBreak/>
+        Z 180600Z SEP 85
+    </TextBlock>
+        <TextBlock Grid.Row="3" Grid.Column="0" FontSize="{StaticResource Font.Size.Header}" Text="От кого:"/>
+        <TextBlock Grid.Row="3" Grid.Column="2" FontSize="{StaticResource Font.Size.Header}" Text="МОРСКОЙ ШТАБ"/>
+        <TextBlock Grid.Row="4" Grid.Column="0" FontSize="{StaticResource Font.Size.Header}" Text="Кому:"/>
+        <TextBlock Grid.Row="4" Grid.Column="2" FontSize="{StaticResource Font.Size.Header}" Text="HMAS ОРИОН S61"/>
+        <TextBlock Grid.Row="5" Grid.Column="0" FontSize="{StaticResource Font.Size.Header}" Text="Копия:"/>
+    <TextBlock Grid.Row="5" Grid.Column="2" FontSize="{StaticResource Font.Size.Header}">
+        HMAS ПЛАТИПУС<LineBreak/>
+        КОМАВФЛТ<LineBreak/>
+        КОМТИХФЛТ<LineBreak/>
+        КОМПЛТИХФЛТ
+        </TextBlock>
+        <TextBlock Grid.Row="7" Grid.Column="0" FontSize="{StaticResource Font.Size.Header}" Text="Тема:"/>
+        <TextBlock Grid.Row="7" Grid.Column="2" FontSize="{StaticResource Font.Size.Header}" Text="ЗАДАНИЕ - РАЗВЕДКА ПУЭРТО-ПРИНСЕСА"/>
+    <TextBlock Grid.Row="9" Grid.ColumnSpan="4" FontSize="{StaticResource Font.Size.Header}" TextWrapping="Wrap">
+		СЕКРЕТНО - REL: США, Япония
+		<LineBreak/>
+		<LineBreak/>
+		1. (S) ЗАПЛАНИРОВАНА ДЕСАНТНАЯ ОПЕРАЦИЯ ПРОТИВ ПАЛАВАНА. Противник организовал оборону города Пуэрто-Принсеса с помощью частей береговой обороны, включающих штабные подразделения, подразделения ПВО и береговые батареи.
+		<LineBreak/>
+		<LineBreak/>
+		2. (S) Данный узел обороны должен быть подавлен до входа десантного соединения в зону высадки. Требуется провести визуальную разведку сил обороны.
+		<LineBreak/>
+		<LineBreak/>
+		3. (S) Проследуйте в зону к северу от Сандакана и проведите скрытную разведку подходов к Пуэрто-Принсеса. Скрытно войдите в зону и визуально идентифицируйте вражеские береговые объекты, используя перископ. Доложить о подтвержденных целях. Требуется подтвердить местоположение следующих целей, предположительно размещенных вблизи Пуэрто-Принсеса:
+		<LineBreak/>
+		- Батарея ЗРК С-300 рядом с авиабазой Антонио Баутиста
+		<LineBreak/>
+		- Батареи береговых противокорабельных ракетных комплексов SILKWORM к северу и к югу от входа в гавань
+		<LineBreak/>
+		<LineBreak/>
+		4. (S) Избегайте обнаружения воздушными и морскими силами противника. Применение оружия разрешается только в целях самообороны лодки или в целях выполнения задачи.
+		<LineBreak/>
+		<LineBreak/>
+		5. (S) После сбора разведданных отходите на восток. Не оставайтесь в зоне проведения операции после обнаружения всех целей. С Богом и удачи.
+		<LineBreak/>
+		<LineBreak/>
+		СЕКРЕТНО - REL: США, Япония
+	</TextBlock>
+</Grid>

@@ -1,3 +1,7 @@
+v3.49 - 20261025
+
+	- Added missing Spanish translations for weapons.
+
 v1.48 - 20261021
 
 	- Service dates for aircraft and helicopters reviewed.

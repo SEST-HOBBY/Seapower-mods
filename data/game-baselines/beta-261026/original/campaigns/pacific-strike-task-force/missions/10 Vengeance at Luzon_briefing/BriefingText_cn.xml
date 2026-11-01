@@ -1,0 +1,68 @@
+<Grid
+  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+<Grid.RowDefinitions>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="10"/>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="10"/>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="10"/>
+        <RowDefinition Height="Auto"/>
+    </Grid.RowDefinitions>
+    <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="Auto"/>
+        <ColumnDefinition Width="10"/>
+        <ColumnDefinition Width="*"/>
+        <ColumnDefinition Width="Auto"/>
+    </Grid.ColumnDefinitions>
+	
+	<TextBlock Grid.Row="1" Grid.ColumnSpan="4" HorizontalAlignment="Left" FontSize="{StaticResource Font.Size.Header}">
+        紧急
+        <LineBreak/>
+        1985年10月7日0300Z时
+    </TextBlock>
+        <TextBlock Grid.Row="3" Grid.Column="0" FontSize="{StaticResource Font.Size.Header}" Text="发件："/>
+        <TextBlock Grid.Row="3" Grid.Column="2" FontSize="{StaticResource Font.Size.Header}" Text="第77特遣舰队指挥官"/>
+        <TextBlock Grid.Row="4" Grid.Column="0" FontSize="{StaticResource Font.Size.Header}" Text="收件："/>
+        <TextBlock Grid.Row="4" Grid.Column="2" FontSize="{StaticResource Font.Size.Header}" Text="菲律宾民都洛{TaskForceName}指挥官"/>
+        <TextBlock Grid.Row="5" Grid.Column="0" FontSize="{StaticResource Font.Size.Header}" Text="抄送："/>
+    <TextBlock Grid.Row="5" Grid.Column="2" FontSize="{StaticResource Font.Size.Header}">
+        夏威夷州珍珠港太平洋舰队总司令<LineBreak/>
+        夏威夷州希卡姆空军基地太平洋空军总司令<LineBreak/>
+        菲律宾克拉克航空基地
+        </TextBlock>
+        <TextBlock Grid.Row="7" Grid.Column="0" FontSize="{StaticResource Font.Size.Header}" Text="主题："/>
+        <TextBlock Grid.Row="7" Grid.Column="2" FontSize="{StaticResource Font.Size.Header}" Text="提示——出击巴拉望岛"/>
+    <StackPanel Grid.Row="9" Grid.ColumnSpan="4">
+    <TextBlock FontSize="{StaticResource Font.Size.Header}" TextWrapping="Wrap">
+        绝密
+        <LineBreak/>
+        <LineBreak/>
+        1.（机密）态势：美菲联军已在挑战者行动中部署至巴拉望岛，但敌军仍在岛上顽强抵抗。国家技术手段表明苏联的基辅号航母已率领护航舰艇出击，掩护一支前往巴拉望岛的增援护航队。敌军正尝试利用热带风暴的保护穿越南海，此时我方的大部分飞机无法升空，卫星侦察也无法进行。如果这些部队抵达巴拉望岛，或许将决定岛上战局的走向。
+        <LineBreak/>
+        <LineBreak/>
+        2.（机密）任务：{TaskForceName}从巴拉望岛向西北方向航行，找到基辅号和增援护航队，并在其抵达巴拉望岛之前将其摧毁。
+        <LineBreak/>
+        <LineBreak/>
+        3.（机密）执行：在吕宋岛以西进行反水面扫荡。此区域内的强烈热带风暴活动为敌方提供了掩护，并使双方飞机停飞，但舰队天气预报显示风暴将于8日2200Z时前减弱。一旦条件允许，使用克拉克基地的可用空中资产搜索、识别并打击敌方海军单位。优先目标是基辅号，其次是护航队单位和护航舰艇。
+        <LineBreak/>
+        <LineBreak/>
+        4.（绝密）威胁：敌方部队包含基辅号、1134B型和1155型等舰艇，还有前来分散我方兵力的其他水面编队。情报显示从金兰湾或海南起飞的远程轰炸机（图-16K、轰-6D）将尝试掩护敌方水面舰艇进行侦察和打击。
+        <LineBreak/>
+        <LineBreak/>
+        5.（机密）盟军部队：克拉克基地可提供战斗空中巡逻、打击和海上巡逻支援。
+        <LineBreak/>
+        <LineBreak/>
+        6.（机密）备注：绝不能放任敌方增援抵达巴拉望。此次行动将决定此前所有行动的成败。祝你好运，猎杀愉快。
+        <LineBreak/>
+        <LineBreak/>
+        机密
+        <LineBreak/>
+        解密：由原始发布机构决定
+    </TextBlock>
+    </StackPanel>
+</Grid>

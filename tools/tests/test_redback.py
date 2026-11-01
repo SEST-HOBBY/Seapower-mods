@@ -182,7 +182,8 @@ class SeahawkMounts(unittest.TestCase):
             with self.subTest(uid=uid):
                 text = built(uid)
                 body = fit(text)
-                self.assertEqual(stations(body, redback.POD), [9])
+                expected_station = [10] if uid == "ran_S-70B-2_Seahawk" else [9]
+                self.assertEqual(stations(body, redback.POD), expected_station)
                 self.assertNotIn(redback.POD19, body)
                 self.assertNotIn("|MK46", body)
 

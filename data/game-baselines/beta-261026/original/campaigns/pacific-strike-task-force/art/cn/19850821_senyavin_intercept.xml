@@ -1,0 +1,115 @@
+<Page
+  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+  xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+  mc:Ignorable="d"
+  d:DesignWidth="1920"
+  d:DesignHeight="1080">
+  <Viewbox>
+    <Border Background="White" HorizontalAlignment="Center" VerticalAlignment="Center" Width="864" Height="1120" Padding="45"
+            TextElement.FontFamily="Courier New" TextElement.Foreground="Black" TextElement.FontSize="16">
+      <Border.Effect>
+        <DropShadowEffect />
+      </Border.Effect>
+
+      <Border BorderThickness="0,10,10,10" BorderBrush="#FF000000">
+        <Grid>
+          <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="10"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+          </Grid.RowDefinitions>
+          <TextBlock Text="C05084521" Background="#FFFFFFFF" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="17,-15,0,0" Padding="5,0,5,0" />
+          <Grid Grid.Row="0">
+            <Grid.RowDefinitions>
+              <RowDefinition Height="Auto"/>
+              <RowDefinition Height="Auto"/>
+              <RowDefinition Height="Auto"/>
+              <RowDefinition Height="10"/>
+              <RowDefinition Height="Auto"/>
+              <RowDefinition Height="15"/>
+              <RowDefinition Height="Auto"/>
+              <RowDefinition Height="Auto"/>
+              <RowDefinition Height="15"/>
+              <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+              <ColumnDefinition Width="Auto"/>
+              <ColumnDefinition Width="Auto"/>
+              <ColumnDefinition Width="Auto"/>
+              <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="4" Text="绝密" TextAlignment="Center"/>
+            <TextBlock Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="4" Grid.RowSpan="2" TextAlignment="Center" FontFamily="Times New Roman">
+              中央情报局局长
+              <LineBreak/>
+              <LineBreak/>
+              <Run FontSize="12">华盛顿特区20505</Run>
+            </TextBlock>
+            <TextBlock Grid.Row="4" Grid.Column="3" Text="1985年8月21日"/>
+            <TextBlock Grid.Row="6" Grid.Column="3" Text="222X1"/>
+            <TextBlock Grid.Row="7" Grid.Column="0" Text="存备忘录："/>
+            <TextBlock Grid.Row="7" Grid.Column="1" TextWrapping="Wrap">
+              华盛顿特区参谋长联席会议//作战//
+              <LineBreak/>
+              夏威夷州火奴鲁鲁太平洋司令部总司令
+              <LineBreak/>
+              夏威夷州珍珠港太平洋舰队总司令
+              <LineBreak/>
+              夏威夷州珍珠港太平洋潜艇部队司令
+            </TextBlock>
+            <TextBlock Grid.Row="7" Grid.Column="3" TextWrapping="Wrap">
+              行政命令13526 3.3（b）（1）>25年
+              <LineBreak/>
+              行政命令13526 3.5（c）
+            </TextBlock>
+            <TextBlock Grid.Row="9" Grid.Column="0" Text="主题："/>
+            <TextBlock Grid.Row="9" Grid.Column="1" Grid.ColumnSpan="3" Text="苏联对印度尼西亚的胁迫和谢尼亚文海军上将号水面行动群"/>
+          </Grid>
+          <StackPanel Grid.Row="2">
+            <TextBlock TextWrapping="Wrap">
+            1.尽管盟军在印度洋成功阻挡了苏联的进攻，但印度尼西亚政府仍处于混乱之中。截获的情报显示莫斯科正加大对印度尼西亚军方和内阁的压力，要求他们接受中立姿态。苏联的要求包括禁止盟军建立基地和通过印度尼西亚控制的海峡。
+            <LineBreak/>
+            <LineBreak/>
+            2.我方获取的任务指令要求苏联火炮巡洋舰谢尼亚文海军上将号留在雅加达以北，同时水面行动群向丹戎不碌、雅加达的沿海目标和海岸基础设施展示舰炮射程。此水面行动群还收到命令拦截可能支援盟军行动的船只。敌方指挥部强调在政治目标达成之前避免决战。
+            <LineBreak/>
+            <LineBreak/>
+            3.根据评估，来自金兰湾的远程轰炸机将掩护谢尼亚文海军上将号水面行动群。新加坡和马来西亚空军全军覆没后，苏联飞机进入爪哇海的航线几乎畅通无阻。我们评估马来西亚皇家空军巴特沃斯基地在跑道、燃料库和维修区域遭受多次常规打击后已经瘫痪。
+            <LineBreak/>
+            <LineBreak/>
+            4.苏联外交和情报渠道一方面提供中立姿态的保障，另一方面则威胁雅加达，如果恢复与盟军的合作，苏联将持续进行海岸炮击、燃料封锁并支持当地势力。苏联方面认为对港口和政府目标进行炮击是胁迫行动的主要手段。其核心诉求是禁止盟军在印度尼西亚使用机场和通过海峡。
+            <LineBreak/>
+            <LineBreak/>
+            5.我们认为谢尼亚文海军上将号水面行动群是此次胁迫行动的可见执行者。摧毁或驱逐此水面行动群将使印度尼西亚倒向盟军一方。此次截获的信息应被视为采取行动的机会。
+            </TextBlock>
+            <TextBlock Text="威廉·J·凯西" HorizontalAlignment="Right" TextAlignment="Right" Margin="15"/>
+          </StackPanel>
+          <TextBlock Grid.Row="2" Grid.RowSpan="3" VerticalAlignment="Bottom">
+            <Run TextDecorations="Underline">通过执行登记处传递/1985年8月21日/带有附件</Run>
+            <LineBreak/>
+            <LineBreak/>
+            原件——每位收件人
+            <LineBreak/>
+               1——中央情报局局长
+            <LineBreak/>
+               1——中央情报局副局长
+            <LineBreak/>
+               1——执行主任
+            <LineBreak/>
+               1——国家情报委员会主席
+            <LineBreak/>
+               1——国家情报委员会副主席
+            <LineBreak/>
+               1——国家预警情报官
+            <LineBreak/>
+               1——执行登记处文件
+          </TextBlock>
+          <TextBlock Grid.Row="4" Text="绝密" TextAlignment="Center"/>
+        </Grid>
+      </Border>
+    </Border>
+  </Viewbox>
+</Page>

@@ -236,6 +236,11 @@ AIR_ROLE_VALUE = {"AEW": 242, "Bomber": 78, "EW": 118, "Fighter": 46, "HeavyBomb
                   "Transport": 23, "Tanker": 60, "Airliner": 2, "ASW": 39, "ASuW": 39,
                   "Attack": 25, "Targeting": 25, "Utility": 21}
 AIR_DEFAULT_VALUE = 40
+# The Euromod RAN KC-30A declares Role=Airliner (28 Oct 2026), but the
+# airframe is a multirole tanker with boom/probe-and-drogue. Retain the
+# sample's Tanker (60) strategic value rather than the Airliner (2) score.
+AIR_UNIT_VALUE_OVERRIDES = {"aus_a330_mrtt": (60, "KC-30A tanker override")}
+
 
 # Replenishment ships and tankers present in the world. Approximate public
 # cargo capacities in tonnes, rounded - SCENARIO CHOICE, not register claims.
@@ -521,6 +526,8 @@ def value_of(uid):
             return max(5, round(a * disp ** b)), f"Displacement {disp:.0f} t"
         return 100, "no Displacement: default"
     if ty in ("Aircraft", "Helicopter", "VTOL"):
+        if uid in AIR_UNIT_VALUE_OVERRIDES:
+            return AIR_UNIT_VALUE_OVERRIDES[uid]
         r = role(uid)
         return AIR_ROLE_VALUE.get(r, AIR_DEFAULT_VALUE), f"Role {r or 'none'}"
     return 10, "default"

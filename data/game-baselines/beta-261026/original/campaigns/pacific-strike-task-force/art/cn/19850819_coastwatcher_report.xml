@@ -1,0 +1,102 @@
+<!-- Pacific Strike classified coastwatcher event: naval-message paper format. -->
+<ScrollViewer xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+  <Border HorizontalAlignment="Center" VerticalAlignment="Center" Width="900" MinHeight="1000" TextElement.FontFamily="Courier New" TextElement.Foreground="Black" TextElement.FontSize="16" Padding="45">
+    <Border.Effect>
+      <DropShadowEffect />
+    </Border.Effect>
+    <Border.Background>
+      <ImageBrush ImageSource="{Binding Assets[bkg_paper]}" Stretch="UniformToFill"/>
+    </Border.Background>
+
+    <StackPanel Orientation="Vertical">
+      <Grid>
+        <Grid.ColumnDefinitions>
+          <ColumnDefinition Width="Auto"/>
+          <ColumnDefinition Width="3*"/>
+          <ColumnDefinition Width="Auto"/>
+        </Grid.ColumnDefinitions>
+
+        <TextBlock Grid.Column="0" Text="海军消息" FontFamily="Arial Narrow Bold" FontSize="26" FontWeight="Bold" TextAlignment="Left"/>
+        <TextBlock Grid.Column="1" Text="——————机————密——————" Margin="40,0,40,0" FontWeight="Bold" TextAlignment="Center"/>
+        <TextBlock Grid.Column="2" Text="海军部" FontFamily="Arial Narrow Bold" FontSize="26" FontWeight="Bold" TextAlignment="Right"/>
+      </Grid>
+
+      <Rectangle HorizontalAlignment="Stretch" Height="1" Fill="Black" Margin="0,0,0,1"/>
+      <Rectangle HorizontalAlignment="Stretch" Height="1" Fill="Black" Margin="0,0,0,10"/>
+
+      <Grid>
+        <Grid.RowDefinitions>
+          <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+          <ColumnDefinition Width="Auto"/>
+          <ColumnDefinition Width="10"/>
+          <ColumnDefinition Width="*"/>
+          <ColumnDefinition Width="Auto"/>
+        </Grid.ColumnDefinitions>
+
+        <TextBlock Grid.Row="0" Grid.ColumnSpan="3" HorizontalAlignment="Left" FontSize="16">
+          优先<LineBreak/>
+          1985年8月19日2000Z时
+        </TextBlock>
+
+        <TextBlock Grid.Row="0" Grid.Column="3" FontSize="16" Text="ZYUW RAYOC0777 2312000"/>
+      </Grid>
+
+      <Grid Margin="0,18,0,0">
+        <Grid.ColumnDefinitions>
+          <ColumnDefinition Width="Auto"/>
+          <ColumnDefinition Width="10"/>
+          <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+          <RowDefinition Height="Auto"/>
+          <RowDefinition Height="Auto"/>
+          <RowDefinition Height="Auto"/>
+          <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.Row="0" Grid.Column="0" FontSize="16" Text="发件："/>
+        <TextBlock Grid.Row="0" Grid.Column="2" FontSize="16" Text="龙目岛海岸观察员网络（通过澳大利亚北领地达尔文皇家海军发送）"/>
+        <TextBlock Grid.Row="1" Grid.Column="0" FontSize="16" Text="收件："/>
+        <TextBlock Grid.Row="1" Grid.Column="2" FontSize="16" Text="澳大利亚北领地达尔文第77特遣舰队指挥官"/>
+        <TextBlock Grid.Row="2" Grid.Column="0" FontSize="16" Text="抄送："/>
+        <TextBlock Grid.Row="2" Grid.Column="2" FontSize="16">
+          夏威夷州珍珠港太平洋舰队总司令<LineBreak/>
+          澳大利亚新南威尔士州格伦布鲁克皇家空军总部<LineBreak/>
+          澳大利亚北领地达尔文印度尼西亚海军联络员
+        </TextBlock>
+        <TextBlock Grid.Row="3" Grid.Column="0" FontSize="16" Text="主题："/>
+        <TextBlock Grid.Row="3" Grid.Column="2" FontSize="16" Text="海岸观察员报告——巴厘岛/龙目岛区域"/>
+      </Grid>
+
+      <TextBlock TextWrapping="Wrap" FontSize="16" Margin="0,24,0,0">
+        机密
+        <LineBreak/>
+        正文分隔
+        <LineBreak/><LineBreak/>
+        1.（机密）概要：盟军海岸观察员报告称苏联及其盟友正在登巴萨机场和龙目海峡附近巩固阵地。敌军活动表明他们已做好阻止水面部队突破海峡的准备。
+        <LineBreak/><LineBreak/>
+        2.（机密）目击：8月19日日落时分，龙目海峡以北出现两艘驱逐舰大小的作战舰艇。报告显示小型快速巡逻艇在海峡内成对活动。多艘武装辅助舰艇和登陆艇仍停留在巴厘岛附近。
+        <LineBreak/><LineBreak/>
+        3.（机密）海岸防御：观察员报告了登巴萨机场的雷达活动和重炮阵地。至少有一处疑似岸基导弹阵地在过去48小时内两次移动。另有报告称机场附近有防空炮阵地。
+        <LineBreak/><LineBreak/>
+        4.（机密）空中活动：观察到少量短距起飞喷气式飞机从巴厘岛机场起飞。飞机仅在当地活动，未在视距外追逐民用载具。配备反坦克武器和炸弹的串列旋翼直升机持续沿海岸线巡逻，可能是来自港内1174型或775型登陆舰（已拍摄）的卡-29。
+        <LineBreak/><LineBreak/>
+        5.（机密）民用交通：虽然我方已多次警告，仍有渔船停留在龙目海峡。部分船只可能受到敌方监视或胁迫。交战前必须进行身份确认。
+        <LineBreak/><LineBreak/>
+        6.（机密）评估：敌方意图阻碍盟军通行，以此拖延对印度尼西亚的救援。消息来源表明附近海域未发现可确认的潜艇活动。
+        <LineBreak/><LineBreak/>
+        署名：澳大利亚皇家海军上校M·S·沙利文
+		<LineBreak/>
+		澳大利亚皇家海军联络员
+        <LineBreak/><LineBreak/>
+        正文分隔
+        <LineBreak/>
+        解密：由原始发布机构决定
+      </TextBlock>
+    </StackPanel>
+  </Border>
+</ScrollViewer>

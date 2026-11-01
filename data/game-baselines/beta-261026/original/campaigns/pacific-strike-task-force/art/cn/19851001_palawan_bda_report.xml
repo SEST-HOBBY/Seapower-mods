@@ -1,0 +1,108 @@
+<!-- Pacific Strike battle damage assessment event: naval-message paper format. -->
+<ScrollViewer xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+  <Border HorizontalAlignment="Center" VerticalAlignment="Center" Width="900" TextElement.FontFamily="Courier New" TextElement.Foreground="Black" TextElement.FontSize="16" Padding="45">
+    <Border.Effect>
+      <DropShadowEffect />
+    </Border.Effect>
+    <Border.Background>
+      <ImageBrush ImageSource="{Binding Assets[bkg_paper]}" Stretch="UniformToFill"/>
+    </Border.Background>
+
+    <StackPanel Orientation="Vertical">
+      <Grid>
+        <Grid.ColumnDefinitions>
+          <ColumnDefinition Width="Auto"/>
+          <ColumnDefinition Width="3*"/>
+          <ColumnDefinition Width="Auto"/>
+        </Grid.ColumnDefinitions>
+
+        <TextBlock Grid.Column="0" Text="海军消息" FontFamily="Arial Narrow Bold" FontSize="26" FontWeight="Bold" TextAlignment="Left"/>
+        <TextBlock Grid.Column="1" Text="——————机————密——————" Margin="40,0,40,0" FontWeight="Bold" TextAlignment="Center"/>
+        <TextBlock Grid.Column="2" Text="海军部" FontFamily="Arial Narrow Bold" FontSize="26" FontWeight="Bold" TextAlignment="Right"/>
+      </Grid>
+
+      <Rectangle HorizontalAlignment="Stretch" Height="1" Fill="Black" Margin="0,0,0,1"/>
+      <Rectangle HorizontalAlignment="Stretch" Height="1" Fill="Black" Margin="0,0,0,10"/>
+
+      <Grid>
+        <Grid.RowDefinitions>
+          <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+          <ColumnDefinition Width="Auto"/>
+          <ColumnDefinition Width="10"/>
+          <ColumnDefinition Width="*"/>
+          <ColumnDefinition Width="Auto"/>
+        </Grid.ColumnDefinitions>
+
+        <TextBlock Grid.Row="0" Grid.ColumnSpan="3" HorizontalAlignment="Left" FontSize="16">
+          立即<LineBreak/>
+          1985年10月1日1200Z时
+        </TextBlock>
+
+        <TextBlock Grid.Row="0" Grid.Column="3" FontSize="16" Text="ZYUW RUHGOAA0777 2741200"/>
+      </Grid>
+
+      <Grid Margin="0,18,0,0">
+        <Grid.ColumnDefinitions>
+          <ColumnDefinition Width="Auto"/>
+          <ColumnDefinition Width="10"/>
+          <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+          <RowDefinition Height="Auto"/>
+          <RowDefinition Height="Auto"/>
+          <RowDefinition Height="Auto"/>
+          <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.Row="0" Grid.Column="0" FontSize="16" Text="发件："/>
+        <TextBlock Grid.Row="0" Grid.Column="2" FontSize="16" Text="菲律宾普林塞萨港第77特遣舰队指挥官"/>
+        <TextBlock Grid.Row="1" Grid.Column="0" FontSize="16" Text="收件："/>
+        <TextBlock Grid.Row="1" Grid.Column="2" FontSize="16" Text="夏威夷州珍珠港太平洋舰队总司令"/>
+        <TextBlock Grid.Row="2" Grid.Column="0" FontSize="16" Text="抄送："/>
+        <TextBlock Grid.Row="2" Grid.Column="2" FontSize="16">
+          海军陆战队第17远征队指挥官<LineBreak/>
+          菲律宾马尼拉美国驻菲律宾部队司令<LineBreak/>
+          华盛顿特区参谋长联席会议
+        </TextBlock>
+        <TextBlock Grid.Row="3" Grid.Column="0" FontSize="16" Text="主题："/>
+        <TextBlock Grid.Row="3" Grid.Column="2" FontSize="16" Text="战斗毁伤评估报告——普林塞萨港/巴拉望后续行动"/>
+      </Grid>
+
+      <TextBlock TextWrapping="Wrap" FontSize="16" Margin="0,24,0,0">
+        机密
+        <LineBreak/>
+        正文分隔
+        <LineBreak/><LineBreak/>
+        参考资料：
+        <LineBreak/><LineBreak/>
+        A.第77特遣舰队机组人员汇报和打击后照片解读。
+        <LineBreak/>
+        B.海军陆战队第17远征队态势报告（1985年10月1日1030Z时）。
+        <LineBreak/>
+        C.菲律宾司令部巴拉望地面报告（1985年10月1日1045Z时）。
+        <LineBreak/><LineBreak/>
+        1.（机密）概要：海军陆战队第17远征队和菲律宾部队已在挑战者行动中登陆普林塞萨港，登陆海滩现已安全。友军控制了部分城区，并正在清理内陆道路。此报告为基于参考资料A至C的初步报告。
+        <LineBreak/><LineBreak/>
+        2.（机密）毁伤评估——普林塞萨港：安东尼奥·包蒂斯塔航空基地的跑道布满弹坑。燃料和储存区域遭到破坏。附近区域内已知的雷达站、防空炮、岸基导弹阵地已被摧毁、损坏或被迫转移。港口设施受损，但在工程师和潜水员清理完毕后，可能可以提供有限的后勤保障。
+        <LineBreak/><LineBreak/>
+        3.（机密）后续行动：海军陆战队第17远征队正在扩大滩头阵地并清理城市郊区附近的敌军。预计敌方会布置地雷、陷阱并埋伏导弹小队。在跑道和燃料系统修复之前，盟军无法从巴拉望进行任何固定翼飞机行动。 
+        <LineBreak/><LineBreak/>
+        4.（机密）奎松/西巴拉望：敌军在巴拉望西侧的奎松附近仍然活跃，此处的阵地未在挑战者行动中被削弱。目前评估认为此阵地是一处指挥和补给节点，可能具备接收救援物资的能力。
+        <LineBreak/><LineBreak/>
+        5.（机密）评估：普林塞萨港已被攻占，但巴拉望仍不安全。如果奎松海峡保持开放，敌方指挥官仍可从海上增援。第77特遣舰队应计划在有限的补给条件下进行后续扫荡行动，并且将任何驶向巴拉望西部的护航队视为紧急威胁。
+        <LineBreak/><LineBreak/>
+        署名：参谋情报官
+        <LineBreak/>
+        第77特遣舰队指挥官/情报
+        <LineBreak/><LineBreak/>
+        正文分隔
+        <LineBreak/>
+        解密：由原始发布机构决定
+      </TextBlock>
+    </StackPanel>
+  </Border>
+</ScrollViewer>

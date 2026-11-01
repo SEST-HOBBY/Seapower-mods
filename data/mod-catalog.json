@@ -1,8 +1,8 @@
 {
   "meta": {
     "game": "Sea Power: Naval Combat in the Missile Age",
-    "source": "Steam Workshop subscription list pasted by user, 2026-08-23 (see data/raw-workshop-list.txt) Extended 2026-08-24: +18 new subscriptions (titles only — file-level fields pending a mods-source re-export); 1 unsubscribed; Tu-95K-22 re-subscription was a duplicate of an existing entry. Extended 2026-09-20: mods-source re-exported after a long gap, which is what brought these in - only the Anzac Class Frigate is a NEW subscription (user-stated). The other 10 folders that appeared (F-2A, J-16 Multirole, PLA AEP, Auto Time-on-Target, RQ-180, YF-23, MiG-31, CH-53E, J-36, and the already-catalogued Y-8/Y-9 family) were subscribed earlier and simply never exported; the repo cannot date them, since data/raw-workshop-list.txt is the 109-item list from 2026-08-23 and predates all of them. Y-8/Y-9 proves the backlog was real: it was catalogued and in the load order already, with no files. 3 mods unsubscribed and pruned (F-35C MyGo, F/A-18E/F MyGo, AI Doctrine Overhaul). meta.count now tracks catalog entries, which is what tools/generate_catalog.py asserts. Extended 2026-09-30: RC-135V/W Rivet Joint and Coordinated Strike Tool subscribed (user-stated; both in the 30 Sep export). The Dassault Rafale (3504168760) has been absent from the PC's subscriptions since the 28 Sep snapshot and the 30 Sep export pruned its folder; it stays active here until the player says whether it is coming back. Extended 2026-10-03: Auto Time-on-Target unsubscribed by the user (Coordinated Strike Tool is the one salvo planner kept). Extended 2026-10-03 (evening): four new subscriptions in the export - Moloti's Armed Merchantmen, French Air Force (which brings the Rafale family back under the old ids), MV-75 Cheyenne II and the PLAAF Aircraft Pack. Extended 2026-10-04: ten further subscriptions (Hyuga class, AS350, S-350 Vityaz, Shahed 238, EMAD, Fattah-1, Fattah-2, Iran Bell-212, Project 2498 Zyetseth, Thailand: The Siam Shield). Extended 2026-10-11: Dynamic Campaign Mod (3813157776) added to the load order at the user's request. Extended 2026-10-13: five new subscriptions placed in the order on the player's decision - BUK-M3, ISKANDER-K, ICBM silos, Road Mobile ICBMs (Topol-M, DF-41) and Prithvi TBM. Extended 2026-10-14: Anduril Maritime Drones (3819522350) subscribed by the user and placed below Saronic Corsair ASV. Extended 2026-10-17: Steelfin (3820576916) subscribed by the user and placed directly above Saronic Corsair ASV. Extended 2026-10-20: Combat Cost Tracker and Formation Manager Replacement installed and selected by the player; their current text exports are captured.",
-    "count": 208,
+    "source": "Steam Workshop subscription list pasted by user, 2026-08-23 (see data/raw-workshop-list.txt) Extended 2026-08-24: +18 new subscriptions (titles only — file-level fields pending a mods-source re-export); 1 unsubscribed; Tu-95K-22 re-subscription was a duplicate of an existing entry. Extended 2026-09-20: mods-source re-exported after a long gap, which is what brought these in - only the Anzac Class Frigate is a NEW subscription (user-stated). The other 10 folders that appeared (F-2A, J-16 Multirole, PLA AEP, Auto Time-on-Target, RQ-180, YF-23, MiG-31, CH-53E, J-36, and the already-catalogued Y-8/Y-9 family) were subscribed earlier and simply never exported; the repo cannot date them, since data/raw-workshop-list.txt is the 109-item list from 2026-08-23 and predates all of them. Y-8/Y-9 proves the backlog was real: it was catalogued and in the load order already, with no files. 3 mods unsubscribed and pruned (F-35C MyGo, F/A-18E/F MyGo, AI Doctrine Overhaul). meta.count now tracks catalog entries, which is what tools/generate_catalog.py asserts. Extended 2026-09-30: RC-135V/W Rivet Joint and Coordinated Strike Tool subscribed (user-stated; both in the 30 Sep export). The Dassault Rafale (3504168760) has been absent from the PC's subscriptions since the 28 Sep snapshot and the 30 Sep export pruned its folder; it stays active here until the player says whether it is coming back. Extended 2026-10-03: Auto Time-on-Target unsubscribed by the user (Coordinated Strike Tool is the one salvo planner kept). Extended 2026-10-03 (evening): four new subscriptions in the export - Moloti's Armed Merchantmen, French Air Force (which brings the Rafale family back under the old ids), MV-75 Cheyenne II and the PLAAF Aircraft Pack. Extended 2026-10-04: ten further subscriptions (Hyuga class, AS350, S-350 Vityaz, Shahed 238, EMAD, Fattah-1, Fattah-2, Iran Bell-212, Project 2498 Zyetseth, Thailand: The Siam Shield). Extended 2026-10-11: Dynamic Campaign Mod (3813157776) added to the load order at the user's request. Extended 2026-10-13: five new subscriptions placed in the order on the player's decision - BUK-M3, ISKANDER-K, ICBM silos, Road Mobile ICBMs (Topol-M, DF-41) and Prithvi TBM. Extended 2026-10-14: Anduril Maritime Drones (3819522350) subscribed by the user and placed below Saronic Corsair ASV. Extended 2026-10-17: Steelfin (3820576916) subscribed by the user and placed directly above Saronic Corsair ASV. Extended 2026-10-20: Combat Cost Tracker and Formation Manager Replacement installed and selected by the player; their current text exports are captured. Extended 2026-10-28: Contact Log, Sea Power Topographic Map, Sea Power Pop-Out Windows and B-21 Raider subscribed; their public dependencies must be aligned with the Workshop item before next upload.",
+    "count": 212,
     "field_notes": {
       "faction": "Primary operator the content represents (usa, russia, china, japan, australia, europe, france, italy, spain, iran, thailand, multi, civilian, utility)",
       "type": "framework | weapons | fixed-wing | rotary | uav | ship | submarine | land | airbase | patch (modifies other mods or vanilla units) | civilian | campaign (a third-party mission or campaign pack that ships no units of its own)",
@@ -2591,7 +2591,7 @@
     {
       "id": "euromod-philippines",
       "workshop_id": "3812454152",
-      "title": "Euromod-Philippine-Navy",
+      "title": "Euromod - Hyundai & Hanwha Naval Systems",
       "author": "unknown",
       "faction": "philippines",
       "type": "ship",
@@ -2604,7 +2604,7 @@
         "3437105712"
       ],
       "load_order": "Directly below Euromod-India-Navy, above Royal Navy Type 23 'Duke Class' Frigate [OLD]; it collides with nothing that changes hands, so the slot is a grouping choice.",
-      "notes": "Philippine Navy addon to Euromod: Jose Rizal class frigates (pn_ffg-150, and pn_ffg-150_2 with Sylver A43 VLS) and Miguel Malvar (pn_ffg-06), 2020-2021, with Harpoon, twin Mistral, MICA and 76 mm. Its twin Mistral launcher, [Sinbad], is defined only by Philippines: The Luzon Line (3752415457). Its Sylver A43 section and FREMM meshes come from the Charles De Gaulle & Modern French Navy pack (3567256221). pn_ffg-150_2 hangs fr_mica-em from French Air Force (3758943352), while pn_ffg-06 hangs the mod's own PN_fr_mica_em. Each variants file declares three variants and defines two. No file or system name collides with anything. Verified 4 Oct 2026 from the export; not yet seen in the game."
+      "notes": "Philippine Navy addon to Euromod: Jose Rizal class frigates (pn_ffg-150, and pn_ffg-150_2 with Sylver A43 VLS) and Miguel Malvar (pn_ffg-06), 2020-2021, with Harpoon, twin Mistral, MICA and 76 mm. Its twin Mistral launcher, [Sinbad], is defined only by Philippines: The Luzon Line (3752415457). Its Sylver A43 section and FREMM meshes come from the Charles De Gaulle & Modern French Navy pack (3567256221). pn_ffg-150_2 hangs fr_mica-em from French Air Force (3758943352), while pn_ffg-06 hangs the mod's own PN_fr_mica_em. Each variants file declares three variants and defines two. No file or system name collides with anything. Verified 4 Oct 2026 from the export; not yet seen in the game. 1 Nov 2026: Steam's Euromod collection now titles this same Workshop ID 'Euromod - Hyundai & Hanwha Naval Systems'; local installed _info.ini still titles it 'Euromod-HD Hyundai Export Ships Mod'. Steam ACF capture records an update at 13:15 +10:00 on 1 Nov (user's Steam UI reports 14:15); title and time differ from local metadata. Retain legacy catalog slug and earlier Philippine hull references until the updated content is exported and audited. Do not assume a rename proves any hull or weapon files have been removed."
     },
     {
       "id": "philippines-luzon-line",
@@ -2914,7 +2914,7 @@
     {
       "id": "formation-manager-replacement",
       "workshop_id": "3818251045",
-      "title": "Formation Manager Replacement",
+      "title": "Group Manager (Formation Manager Overhaul)",
       "author": "DiMkA",
       "faction": "utility",
       "type": "framework",
@@ -2922,7 +2922,53 @@
       "requires": [
         "anchor-chain"
       ],
-      "notes": "Captured SeaPowerSquadPanel.dll 0.2.16.0 and its source ZIP on 20 October 2026. Compact formation UI, aircraft map grouping and persistent panel settings. Loaded through Anchor Chain in the captured log; map threshold slider attached. No equipment data overrides; runtime compatibility with Better TacMap still requires the player trial."
+      "notes": "Captured SeaPowerSquadPanel.dll 0.2.16.0 and its source ZIP on 20 October 2026. Compact formation UI, aircraft map grouping and persistent panel settings. Loaded through Anchor Chain in the captured log; map threshold slider attached. No equipment data overrides; runtime compatibility with Better TacMap still requires the player trial. 28 Oct update: SeaPowerSquadPanel.dll 0.2.17; public title Group Manager / Formation Manager Overhaul. SEST's legacy slug remains unchanged for compatibility."
+    },
+    {
+      "id": "contact-log",
+      "workshop_id": "3819427362",
+      "title": "Contact Log",
+      "author": "unknown (installed 26 Oct 2026)",
+      "faction": "utility",
+      "type": "framework",
+      "status": "active",
+      "requires": [
+        "anchor-chain"
+      ],
+      "notes": "Contact Log 1.0.1 HUD overlay; installed 26 Oct. SEST UI Follow-up 1.4.2 depends on this plugin. F6/F8 defaults conflict with Topographic Map and Coordinated Strike; SEST SETUP's key helper unbinds Contact Log shortcuts. Beta compatibility not verified."
+    },
+    {
+      "id": "sea-power-topographic-map",
+      "workshop_id": "3826122523",
+      "title": "Sea Power Topographic Map",
+      "author": "unknown (installed 26 Oct 2026)",
+      "faction": "utility",
+      "type": "framework",
+      "status": "active",
+      "notes": "Topographic terrain map layer 1.2.0, installed 26 Oct. Its F6 toggle conflicts with Contact Log's default shortcut; the latter is unbound by SETUP. Version and beta compatibility must be verified with latest capture."
+    },
+    {
+      "id": "sea-power-pop-out-windows",
+      "workshop_id": "3826396311",
+      "title": "Sea Power Pop-Out Windows",
+      "author": "unknown (installed 26 Oct 2026)",
+      "faction": "utility",
+      "type": "framework",
+      "status": "active",
+      "requires": [
+        "anchor-chain"
+      ],
+      "notes": "Pop-Out Windows 1.0.1 observed on 26 Oct; 1.0.2 observed by 28 Oct. SEST Runtime 1.5.0 and ContactsFix 1.4.2 pop-out bridges are pinned to 1.0.1 and fail closed on 1.0.2; the native plugin's other features remain. Requires owner verification before claiming pop-out compatibility."
+    },
+    {
+      "id": "b-21-raider",
+      "workshop_id": "3821992229",
+      "title": "B-21 Raider",
+      "author": "unknown (installed 28 Oct 2026)",
+      "faction": "usa",
+      "type": "fixed-wing",
+      "status": "active",
+      "notes": "Workshop B-21 stealth bomber and five weapons newly subscribed by 28 Oct. It may supply overlap with Steelfin air round; place below Steelfin, and never redistribute its files in SEST. No SEST campaign or roster uses it pending gameplay compatibility and researched cost coverage."
     }
   ]
 }

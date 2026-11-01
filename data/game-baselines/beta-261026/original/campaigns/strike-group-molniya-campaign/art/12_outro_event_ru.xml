@@ -1,0 +1,79 @@
+<Page
+  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+  xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+  mc:Ignorable="d"
+  d:DesignWidth="1920"
+  d:DesignHeight="1080">
+  <Viewbox>
+    <Border Background="AntiqueWhite" HorizontalAlignment="Center" VerticalAlignment="Center" Width="900" Height="1272" Padding="45" 
+            TextElement.FontFamily="Times New Roman" TextElement.Foreground="Black" TextElement.FontSize="16">
+		<Border.Effect>
+			<DropShadowEffect />
+		</Border.Effect>
+        <StackPanel Orientation="Vertical">
+            <Rectangle HorizontalAlignment="Stretch" Height="5" Fill="Black"/>
+            <TextBlock Text="Июль 20, 1985 | Vol. 76, No. 35 | 25 Cents" Margin="0,15,0,15" FontSize="24"/>
+            <Rectangle HorizontalAlignment="Stretch" Height="5" Fill="Black"/>
+            <!--Image Source="{Binding Assets[world_news_logo]}" Stretch="UniformToFill" Margin="0,15,0,15"/-->
+			<Grid Margin="0,5,0,15">
+				<Rectangle Fill="Red" Margin="0,110,0,5"/>
+				<TextBlock Text="Exposition News" TextAlignment="Center" FontSize="112" FontWeight="Bold"/>
+			</Grid>
+            <Rectangle HorizontalAlignment="Stretch" Height="5" Fill="Black"/>
+            <Grid Margin="0,15,0,15">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="3*"/>
+                    <ColumnDefinition Width="30"/>
+                    <ColumnDefinition Width="2*"/>
+                </Grid.ColumnDefinitions>
+				<Grid.RowDefinitions>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+				</Grid.RowDefinitions>
+				<TextBlock Grid.Row="0" Grid.ColumnSpan="3" Text="СОВЕТСКИЕ РЕЙДЕРЫ УКРЫЛИСЬ В ИНДИИ. ЗАПАДНЫЕ ДИПЛОМАТЫ В ЯРОСТИ!" FontWeight="Bold" FontSize="32" TextWrapping="Wrap" TextAlignment="Center" Margin="0,0,0,15"/>
+                <StackPanel Grid.Column="2" Grid.Row="1" Orientation="Vertical">
+                    
+                    <TextBlock Text="Индию обвиняют в предвзятости" FontSize="24" TextWrapping="Wrap" TextAlignment="Center" Margin="0,0,0,15"/>
+                    <TextBlock TextWrapping="Wrap" TextAlignment="Justify">
+						КОЧИН, ИНДИЯ — По сообщениям официальных лиц в Нью-Дели, вчера в индийский порт Кочин вошла советская группа военных кораблей, проводившая операции против торговых судов НАТО, в Южной Атлантике и Индийском океане.
+						<LineBreak/>
+						Представители Минобороны США подтвердили, что американские ВМС были вынуждены прекратить преследование, когда советские корабли вошли в территориальные воды Индии. Западные дипломаты выразили крайнее недовольство решением Индии, в то время как индийские официальные лица заявили, что этот шаг был необходим для предотвращения дальнейшего кровопролития в их региональных водах.
+						<LineBreak/>
+						Военные аналитики отмечают, что действия рейдеров вынудили НАТО перенаправить значительные силы с основных театров военных действий. (продолжение на странице 2)
+					</TextBlock>
+                </StackPanel>
+                <StackPanel Grid.Column="0" Grid.Row="1" Orientation="Vertical" VerticalAlignment="Top">
+                    <Image Source="{Binding Assets[12_petropavlovsk]}" Stretch="Uniform"/>
+                    <TextBlock Text="БПК «Петропавловск» на учениях (фотография довоенного периода). Этот корабль и его экипаж пересекли Атлантический и Индийский океаны, скрываясь от сил НАТО и нанося неожиданные удары. Сенатор США заявил изданию Exposition News, что решение о прекращении преследования советских кораблей в индийских водах, представляет собой «серьезный провал решимости». Американские и союзные военные корабли остаются в море у берегов Индии. (Фото Министерства обороны США)" TextWrapping="Wrap" TextAlignment="Left" Margin="0,10,0,0"/>
+                </StackPanel>
+            </Grid>
+            <Rectangle HorizontalAlignment="Stretch" Height="5" Fill="Black"/>
+            <Grid Margin="0,15,0,15">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="3*"/>
+                    <ColumnDefinition Width="30"/>
+                    <ColumnDefinition Width="3*"/>
+                </Grid.ColumnDefinitions>
+                <StackPanel Grid.Column="0" Orientation="Vertical">
+                    <TextBlock Text="США УСТАНАВЛИВАЮТ МОРСКУЮ БЛОКАДУ У БЕРЕГОВ ИНДИИ." FontSize="24" FontWeight="Bold" TextWrapping="Wrap" TextAlignment="Center" Margin="0,0,0,15"/>
+                    <TextBlock TextWrapping="Wrap" TextAlignment="Justify">
+						КОЧИН, ИНДИЯ — Сегодня военно-морские силы США установили морскую блокаду у западного побережья Индии, разместив надводные корабли и патрульные самолеты за пределами территориальных вод Индии, в то время как советские военные корабли остаются интернированными в гавани Кочина. Представители министерства обороны заявили, что развертывание предназначено для поддержания наблюдения в то время, когда продолжаются дипломатические усилия.
+						<LineBreak/>
+						Военные источники сообщили, что палубная авиация и корабли сопровождения ведут непрерывное наблюдения за акваторией Кочина, при этом командиры подчеркивают необходимость соблюдения объявленной Индией зоны отчуждения.
+						<LineBreak/>
+						Американские представители предупредили, что войска останутся на позиции до тех пор, пока сохраняется советское присутствие в Кочине. Представители союзников заявили, что блокада отражает обеспокоенность по поводу возможнсти возвращения рейдеров, даже несмотря на то, что внимание снова переключается на основные театры военных действий. (продолжение на странице 3)
+					</TextBlock>
+                </StackPanel>
+                <StackPanel Grid.Column="2" Orientation="Vertical">
+                    <Image Source="{Binding Assets[12_p-3c]}"/>
+                    <TextBlock Text="Патрульный самолет ВМС США «Орион» пролетает над всплывшей подводной лодкой в ​​рамках демонстрации силы, призванной удержать советские войска на якоре в Кочине. Представители Министерства обороны США утверждают, что действуют с полным уважением к нейтралитету Индии. (Фото ВМС США)" TextWrapping="Wrap" TextAlignment="Left" Margin="0,10,0,0"/>
+                </StackPanel>
+            </Grid>
+			<TextBlock Text="-1-" TextAlignment="Center"/>
+        </StackPanel>
+    </Border>
+</Viewbox>
+</Page>

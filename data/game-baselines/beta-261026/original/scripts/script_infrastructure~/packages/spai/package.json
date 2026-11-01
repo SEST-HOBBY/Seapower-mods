@@ -1,0 +1,28 @@
+{
+  "name": "@seapower/spai",
+  "version": "0.1.0",
+  "main": "dist/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "npm run build:tsc && npm run build:babel",
+    "build:tsc": "pnpm exec tsc",
+    "build:babel": "pnpm exec babel build/ts --out-dir dist",
+    "pack": "npm-pack-zip --destination=\"../../../modules\" --add-version=true"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.0.0",
+    "@babel/core": "^7.0.0",
+    "@babel/plugin-transform-modules-systemjs": "^7.27.1",
+    "@seapower/sp-closure-transform": "workspace:*",
+    "@types/node": "^24.1.0",
+    "ts-loader": "^9.5.2",
+    "ts-patch": "^3.3.0",
+    "tslib": "workspace:@seapower/tslib@*",
+    "typescript": "^5.9.2"
+  },
+  "dependencies": {
+    "@seapower/spruntime": "workspace:*",
+    "@seapower/tslib": "workspace:*",
+    "json-rpc-2.0": "workspace:*"
+  }
+}

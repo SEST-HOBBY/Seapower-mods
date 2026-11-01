@@ -1,0 +1,66 @@
+<Grid
+  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+<Grid.RowDefinitions>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="10"/>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="10"/>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="10"/>
+        <RowDefinition Height="Auto"/>
+    </Grid.RowDefinitions>
+    <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="Auto"/>
+        <ColumnDefinition Width="10"/>
+        <ColumnDefinition Width="*"/>
+        <ColumnDefinition Width="Auto"/>
+    </Grid.ColumnDefinitions>
+	<!--TextBlock Grid.Row="1" Grid.ColumnSpan="4" HorizontalAlignment="Left" Text="1985-8-18" FontSize="{StaticResource Font.Size.Header}"/-->
+	<TextBlock Grid.Row="1" Grid.ColumnSpan="4" HorizontalAlignment="Left" FontSize="{StaticResource Font.Size.Header}">
+	紧急
+	<LineBreak/>
+	1985年7月7日0230Z时
+	</TextBlock>
+
+    <TextBlock Grid.Row="3" Grid.Column="0" FontSize="{StaticResource Font.Size.Header}" Text="发件："/>
+    <TextBlock Grid.Row="3" Grid.Column="2" FontSize="{StaticResource Font.Size.Header}" Text="日本横须贺市第77特遣舰队指挥官"/>
+    <TextBlock Grid.Row="4" Grid.Column="0" FontSize="{StaticResource Font.Size.Header}" Text="收件："/>
+    <TextBlock Grid.Row="4" Grid.Column="2" FontSize="{StaticResource Font.Size.Header}" Text="{TaskForceName}指挥官"/>
+	<TextBlock Grid.Row="5" Grid.Column="0" FontSize="{StaticResource Font.Size.Header}" Text="抄送："/>
+    <TextBlock Grid.Row="5" Grid.Column="2" FontSize="{StaticResource Font.Size.Header}">
+		夏威夷州珍珠港太平洋舰队总司令<LineBreak/>
+		横田空军基地美国驻日本部队司令
+	</TextBlock>
+    <TextBlock Grid.Row="7" Grid.Column="0" FontSize="{StaticResource Font.Size.Header}" Text="主题："/>
+    <TextBlock Grid.Row="7" Grid.Column="2" FontSize="{StaticResource Font.Size.Header}" Text="新任务——防御新加坡"/>
+    <TextBlock Grid.Row="9" Grid.ColumnSpan="4" FontSize="{StaticResource Font.Size.Header}" TextWrapping="Wrap">
+		机密
+		<LineBreak/>
+		<LineBreak/>
+		1.（机密）敌方海空部队正在威胁新加坡。
+		<LineBreak/>
+		<LineBreak/>
+		2.（机密）{TaskForceName}离开冲绳，此命令立即生效。
+		<LineBreak/>
+		<LineBreak/>
+		3.（机密）以最佳速度前往马来西亚山打根，加入在那里集结的盟军增援部队。
+		<LineBreak/>
+		<LineBreak/>
+		4.（机密）巴拉望海峡和婆罗洲​​西北疑似有敌方潜艇活动。情报显示中国潜艇可能在北巴拉巴克海峡布设了水雷。
+		<LineBreak/>
+		<LineBreak/>
+		5.（机密）注意：所有盟军潜艇已全面部署在台湾和冲绳海域，允许对巴拉望海域的水下接触自由开火。
+		<LineBreak/>
+		<LineBreak/>
+		6.（机密）抵达山打根并等待进一步命令。注意：由于补给有限，你无法在山打根补充军械。祝你好运。
+		<LineBreak/>
+		<LineBreak/>
+		机密
+		<LineBreak/>
+		解密：由原始发布机构决定
+	</TextBlock>
+</Grid>

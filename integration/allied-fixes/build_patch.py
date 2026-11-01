@@ -756,7 +756,7 @@ def main():
          [("usa_agm-114l_mm", "pod", 2, "RedbackM299"), ("usa_agm-114k_hh", "pod", 2, "RedbackM299")],
          dict(positions={"RedbackM299": "0.002461,-0.0004,0|-0.002405,-0.0004,0"})),
         ("3403661005", "S-70B-2_Seahawk.ini", "AntiShip", [("knm_penguin_mk2", "pod", 1)]),
-        ("3820759806", "ran_S-70B-2_Seahawk.ini", "AntiShip", [("knm_penguin_mk2", "pod", 1)]),
+        ("3820759806", "ran_S-70B-2_Seahawk.ini", "AntiShip", [("usn_agm-119_air", "pod", 1)]),
         # RAAF Hornets. The F/A-18A's CAS fit already flies the layout: wing
         # tanks, and two 7-tube pods on the pylon outboard of them (the twin
         # Zuni mount). The F/A-18F takes it from its long-range anti-ship

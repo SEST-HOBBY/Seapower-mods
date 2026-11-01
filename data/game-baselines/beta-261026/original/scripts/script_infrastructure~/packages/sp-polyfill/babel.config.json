@@ -1,0 +1,9 @@
+{
+    "presets": [],
+    "plugins": [
+        ["module:@seapower/sp-closure-transform", {
+            "context": "@seapower/sp-polyfill",
+            "globally_unique_anon": true
+        }]],
+    "sourceMaps": "inline"
+}

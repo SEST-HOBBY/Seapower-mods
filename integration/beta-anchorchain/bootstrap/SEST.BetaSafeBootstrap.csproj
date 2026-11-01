@@ -1,0 +1,31 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>netstandard2.1</TargetFramework>
+    <ImplicitUsings>disable</ImplicitUsings>
+    <Nullable>disable</Nullable>
+    <LangVersion>12.0</LangVersion>
+    <Version>0.2.0</Version>
+    <AssemblyName>SEST.BetaSafeBootstrap</AssemblyName>
+    <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
+    <GenerateDocumentationFile>false</GenerateDocumentationFile>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <!-- Bootstrap uses the same SDK/runtime target as the upstream Anchor Chain
+       fork. Windows Framework csc.exe cannot satisfy netstandard 2.1 metadata
+       in Unity 6000 and BepInEx dependencies. -->
+  <ItemGroup>
+    <Compile Include="../SEST.BetaSafeBootstrap.cs" Link="SEST.BetaSafeBootstrap.cs" />
+    <Reference Include="BepInEx">
+      <HintPath>$(SESTGameRoot)/BepInEx/core/BepInEx.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEngine">
+      <HintPath>$(SESTGameRoot)/Sea Power_Data/Managed/UnityEngine.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEngine.CoreModule">
+      <HintPath>$(SESTGameRoot)/Sea Power_Data/Managed/UnityEngine.CoreModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+  </ItemGroup>
+</Project>

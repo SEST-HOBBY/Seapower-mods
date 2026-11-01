@@ -2886,6 +2886,26 @@
           "url": "https://www.secnav.navy.mil/fmc/fmb/Documents/22pres/OPN_BA3_Book.pdf"
         }
       ]
+    },
+    {
+      "target": "usaf_b21_agm-158b",
+      "source": "dts_agm-158b-2",
+      "basis": "JASSM-ER family comparison; not a B-21-specific purchase price."
+    },
+    {
+      "target": "usaf_b21_agm-158c",
+      "source": "usn_agm_158c",
+      "basis": "AGM-158C LRASM family comparison; not a B-21-specific price."
+    },
+    {
+      "target": "usaf_b21_gbu-31",
+      "source": "b-2_gbu_31",
+      "basis": "GBU-31 JDAM complete-round cost reference for B-2 family."
+    },
+    {
+      "target": "usaf_b21_gbu-38",
+      "source": "b-2_gbu_38",
+      "basis": "GBU-38 JDAM complete-round cost reference for B-2 family."
     }
   ],
   "aircraft": [
@@ -3205,6 +3225,33 @@
       "target": "usn_p8_2027",
       "source": "usn_p8",
       "basis": "Same P-8A Poseidon type; copies the author's P-8 estimate (reference 2021)"
+    },
+    {
+      "target": "usaf_b-21_raider",
+      "source": "usaf_b-2_spirit",
+      "basis": "Temporary gameplay replacement-cost proxy: B-2 Spirit stealth bomber cost series. This is not a B-21 contract price or a claim of equivalent airframe cost; use only pending independent B-21 cost research."
+    },
+    {
+      "target": "fr_aliaca",
+      "basis": "Aliaca is a 13 kg reusable reconnaissance UAV, not a fighter. Apply SEST small_uav 2026 gameplay model ($2M including an air vehicle replacement proxy; not an actual purchase price).",
+      "category": "Aircraft",
+      "estimate": {
+        "historical": "",
+        "current": "2000000",
+        "current_year": "2026",
+        "current_method": "model estimate",
+        "note": "Policy: integration/combat-costs/coverage-policy.json models.small_uav; 13 kg aircraft, not a fighter."
+      },
+      "sources": [
+        {
+          "title": "SEST 24 Oct 2026 small_uav gameplay replacement model",
+          "url": "file:integration/combat-costs/coverage-policy.json"
+        },
+        {
+          "title": "French Naval Aliaca unit and specification (28 Oct author export)",
+          "url": "file:mods-source/3567256221/aircraft/fr_aliaca.ini"
+        }
+      ]
     }
   ],
   "vessel": [
@@ -3327,11 +3374,6 @@
       "target": "ch_ss_thomson_mlu",
       "source": "type_209",
       "basis": "Same Chilean Type 209/1400 hull (Thomson class), renamed by its author on 22 Oct 2026; the tracker still prices it under the old id"
-    },
-    {
-      "target": "ch_ffg_jvh",
-      "source": "rnn_ffg_van_heemskerck",
-      "basis": "Same Jacob van Heemskerck class: Chile's L class is the two Dutch hulls it bought in 2005; retain the tracker's Dutch estimate and reference basis"
     },
     {
       "target": "ch_ffg_jacob_van_heemskerck",

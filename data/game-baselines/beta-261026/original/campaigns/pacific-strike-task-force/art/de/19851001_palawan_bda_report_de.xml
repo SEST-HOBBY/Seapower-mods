@@ -1,0 +1,108 @@
+<!-- Pacific Strike battle damage assessment event: naval-message paper format. -->
+<ScrollViewer xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+  <Border HorizontalAlignment="Center" VerticalAlignment="Center" Width="900" TextElement.FontFamily="Courier New" TextElement.Foreground="Black" TextElement.FontSize="16" Padding="45">
+    <Border.Effect>
+      <DropShadowEffect />
+    </Border.Effect>
+    <Border.Background>
+      <ImageBrush ImageSource="{Binding Assets[bkg_paper]}" Stretch="UniformToFill"/>
+    </Border.Background>
+
+    <StackPanel Orientation="Vertical">
+      <Grid>
+        <Grid.ColumnDefinitions>
+          <ColumnDefinition Width="Auto"/>
+          <ColumnDefinition Width="3*"/>
+          <ColumnDefinition Width="Auto"/>
+        </Grid.ColumnDefinitions>
+
+        <TextBlock Grid.Column="0" Text="NAVAL MESSAGE" FontFamily="Arial Narrow Bold" FontSize="26" FontWeight="Bold" TextAlignment="Left"/>
+        <TextBlock Grid.Column="1" Text="*******S E C R E T*******" Margin="40,0,40,0" FontWeight="Bold" TextAlignment="Center"/>
+        <TextBlock Grid.Column="2" Text="NAVY DEPARTMENT" FontFamily="Arial Narrow Bold" FontSize="26" FontWeight="Bold" TextAlignment="Right"/>
+      </Grid>
+
+      <Rectangle HorizontalAlignment="Stretch" Height="1" Fill="Black" Margin="0,0,0,1"/>
+      <Rectangle HorizontalAlignment="Stretch" Height="1" Fill="Black" Margin="0,0,0,10"/>
+
+      <Grid>
+        <Grid.RowDefinitions>
+          <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+          <ColumnDefinition Width="Auto"/>
+          <ColumnDefinition Width="10"/>
+          <ColumnDefinition Width="*"/>
+          <ColumnDefinition Width="Auto"/>
+        </Grid.ColumnDefinitions>
+
+        <TextBlock Grid.Row="0" Grid.ColumnSpan="3" HorizontalAlignment="Left" FontSize="16">
+          SOFORT<LineBreak/>
+          O 011200Z OCT 85
+        </TextBlock>
+
+        <TextBlock Grid.Row="0" Grid.Column="3" FontSize="16" Text="ZYUW RUHGOAA0777 2741200"/>
+      </Grid>
+
+      <Grid Margin="0,18,0,0">
+        <Grid.ColumnDefinitions>
+          <ColumnDefinition Width="Auto"/>
+          <ColumnDefinition Width="10"/>
+          <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+          <RowDefinition Height="Auto"/>
+          <RowDefinition Height="Auto"/>
+          <RowDefinition Height="Auto"/>
+          <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.Row="0" Grid.Column="0" FontSize="16" Text="VON"/>
+        <TextBlock Grid.Row="0" Grid.Column="2" FontSize="16" Text="CTF 77 PUERTO PRINCESA RP"/>
+        <TextBlock Grid.Row="1" Grid.Column="0" FontSize="16" Text="AN"/>
+        <TextBlock Grid.Row="1" Grid.Column="2" FontSize="16" Text="CINCPACFLT PEARL HARBOR HI"/>
+        <TextBlock Grid.Row="2" Grid.Column="0" FontSize="16" Text="INFO"/>
+        <TextBlock Grid.Row="2" Grid.Column="2" FontSize="16">
+          COMMANDER 17 MAU ASHORE<LineBreak/>
+          COMUSPHIL MANILA PI<LineBreak/>
+          JCS WASHINGTON DC
+        </TextBlock>
+        <TextBlock Grid.Row="3" Grid.Column="0" FontSize="16" Text="BETR"/>
+        <TextBlock Grid.Row="3" Grid.Column="2" FontSize="16" Text="BDA-BERICHT - PUERTO PRINCESA / FOLGEOPERATIONEN AUF PALAWAN"/>
+      </Grid>
+
+      <TextBlock TextWrapping="Wrap" FontSize="16" Margin="0,24,0,0">
+        GEHEIM
+        <LineBreak/>
+        BT
+        <LineBreak/><LineBreak/>
+        REFS:
+        <LineBreak/><LineBreak/>
+        A. TF 77 BESATZUNGSNACHBESPRECHUNGEN UND FOTOAUSWERTUNG NACH ANGRIFF.
+        <LineBreak/>
+        B. 17 MAU SITREP 011030Z OKT 85.
+        <LineBreak/>
+        C. PHILCOM PALAWAN BODENLAGEBERICHT 011045Z OKT 85.
+        <LineBreak/><LineBreak/>
+        1. (S) ZUSAMMENFASSUNG: Operation CHALLENGER hat 17 MAU und philippinische Elemente bei Puerto Princesa an Land gebracht. Die Landungsstrände sind gesichert. Eigene Kräfte halten Teile der Stadt und räumen Wege ins Landesinnere frei. Dieser Bericht ist vorläufig und basiert auf den Referenzen A bis C.
+        <LineBreak/><LineBreak/>
+        2. (S) SCHADENSBEWERTUNG - PUERTO PRINCESA: Die Start- und Landebahnen der Antonio Bautista Air Base sind von Einschlagkratern übersät. Treibstoff- und Lagerbereiche sind beschädigt. Bekannte Radar-, Flak- und Küstenflugkörperstellungen in den unmittelbaren Anmarschwegen sind zerstört, beschädigt oder zum Ausweichen gezwungen worden. Hafenanlagen sind beschädigt, könnten nach Räumung durch Pioniere und Taucher jedoch eingeschränkte Logistik unterstützen.
+        <LineBreak/><LineBreak/>
+        3. (S) FOLGEOPERATIONEN: 17 MAU erweitert den Landekopf und bekämpft feindliche Widerstandsnester nahe dem Stadtrand. Es ist mit Minen, Sprengfallen und zurückgelassenen Flugkörpertrupps zu rechnen. Alliierter Flugbetrieb mit Starrflüglern von Palawan ist nicht möglich, bis Startbahnen und Treibstoffsysteme instandgesetzt sind.
+        <LineBreak/><LineBreak/>
+        4. (S) QUEZON / WEST-PALAWAN: Feindliche Kräfte bleiben nahe Quezon am westlichen Rand Palawans aktiv. Der Standort wurde durch CHALLENGER nicht ausgeschaltet. Aktuelle Bewertung: Führungs- und Versorgungsstelle mit wahrscheinlicher Fähigkeit zur Aufnahme von Entsatzverkehr.
+        <LineBreak/><LineBreak/>
+        5. (S) BEWERTUNG: Puerto Princesa wurde eingenommen, doch Palawan ist nicht gesichert. Feindliche Kommandeure können weiterhin über See verstärken, solange Quezon offen bleibt. TF 77 sollte Folge-Säuberungsoperationen mit begrenzter Wiederbewaffnung planen und jeden Konvoi in Richtung West-Palawan als dringende Bedrohung behandeln.
+        <LineBreak/><LineBreak/>
+        GEZEICHNET: STAFF INTELLIGENCE OFFICER
+        <LineBreak/>
+        N2, CTF 77
+        <LineBreak/><LineBreak/>
+        BT
+        <LineBreak/>
+        GEHEIM
+      </TextBlock>
+    </StackPanel>
+  </Border>
+</ScrollViewer>

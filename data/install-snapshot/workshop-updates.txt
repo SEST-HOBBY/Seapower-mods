@@ -2,22 +2,41 @@ Found Sea Power (app 1286220)
   game dir : c:\program files (x86)\steam\steamapps\common\Sea Power
   workshop : c:\program files (x86)\steam\steamapps\workshop\content\1286220
 
-unchanged since the last export : 185
+unchanged since the last export : 173
+skipped, SEST's own Workshop item: 3812461539
 
 UPDATED by their authors (re-export to pick the changes up):
+  3373960386  Flight Deck Ops
   3390330875  Euromod - Modern US Navy
+  3488139470  Euromod - Modern Italian Navy
+  3567228449  French Helicopter Package
+  3567256221  Charles De Gaulle & Modern French Navy
   3592460366  Modern US Airbase
   3606774881  U.S. Navy 2027 Capabilities
   3607989779  F-35C Lightning II Alt. Loadouts
   3629144864  Euromod - Main Pack
+  3630495619  Spanish Navy Mod (Cold War)
   3642656500  Euromod-Scandinavian Navy
   3695809489  Euromod-(Japan)JMSDF Modern navy
+  3731208477  Spanish Navy Mod (Modern)
   3732654992  THE REDFOR MOD
   3737267013  US Naval Aviation
+  3766210676  Saronic Corsair ASV
   3776730617  Euromod - Modern Armada de Chile
   3784474738  Euromod - Anchorchain Expansion Pack
+  3790594162  Identify Expanded
   3802216383  JMSDF Hyūga-class — Hyūga & Ise
+  3804868806  Anduril FQ-44 Fury US Navy Carrier Wingmen
   3813157776  Dynamic Campaign Mod
+  3818251045  Group Manager
+  3819522350  Anduril Maritime Drones
+  3820576916  Steelfin
   3820759806  Euromod - Modern Royal Australian Navy Mod
+
+NEW subscriptions (not exported yet):
+  3819427362  Contact Log
+  3821992229  B-21 Raider
+  3826122523  Sea Power Topographic Map
+  3826396311  Sea Power Pop-Out Windows
 
 To capture: re-run this script without -CheckUpdates, then commit and push.

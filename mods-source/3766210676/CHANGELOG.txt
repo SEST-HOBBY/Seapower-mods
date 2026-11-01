@@ -1,12 +1,17 @@
 Saronic Corsair ASV
+October 27, 2026
+Mod list update
+
+The Corsair's code now stays off while the mod is unticked in the mod manager.
+
 October 10, 2026
 True scale update
 
 The Corsair now appears at its real 24 ft (7.3 m) length. Before this update it was drawn at about two thirds of its real size.
 
-All seven configurations were scaled together, including their guns, launchers, torpedo cradle, sensors, wakes and camera views. The Corsair Hellfire now has its real 1.76 m length.
+All seven configurations were scaled together, including their guns, launchers, torpedo cradle, sensors, wakes and camera views. The Corsair Hellfire now has its real 5 ft 9 in (1.76 m) length.
 
-The Corsair ASV's contact strike measures its distance to the target from the full-size bow.
+The Corsair ASV's contact strike measures its distance to the target from the full size bow.
 
 October 3, 2026
 Corsair model and preview update
@@ -19,6 +24,6 @@ Three smaller stern drives with steering and spinning propellers.
 
 Updated gun and launcher models. The combined loadout keeps the gun forward and the launcher aft.
 
-Radar rotation and optical-head tracking use their moving mounts.
+Radar rotation and optical head tracking use their moving mounts.
 
-New preview from an in-game screenshot, with "COMMAND OF THE SEAS".
+New preview from an in game screenshot, with "COMMAND OF THE SEAS".

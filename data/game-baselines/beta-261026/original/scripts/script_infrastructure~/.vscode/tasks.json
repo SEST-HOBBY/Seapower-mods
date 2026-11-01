@@ -1,0 +1,29 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"type": "npm",
+			"script": "build",
+			"path": "spruntime",
+			"group": {
+				"kind": "build",
+				"isDefault": true
+			},
+			"problemMatcher": [],
+			"label": "npm: build - spruntime",
+			"detail": "npx webpack --disable-interpret -c ./webpack.config.ts"
+		},
+		{
+			"type": "npm",
+			"script": "build",
+			"path": "spai",
+			"group": {
+				"kind": "build",
+				"isDefault": true
+			},
+			"problemMatcher": [],
+			"label": "npm: build - spai",
+			"detail": "npx webpack --disable-interpret -c ./webpack.config.ts"
+		}
+	]
+}

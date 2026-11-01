@@ -1,0 +1,102 @@
+<!-- Pacific Strike classified coastwatcher event: naval-message paper format. -->
+<ScrollViewer xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+  <Border HorizontalAlignment="Center" VerticalAlignment="Center" Width="900" MinHeight="1000" TextElement.FontFamily="Courier New" TextElement.Foreground="Black" TextElement.FontSize="16" Padding="45">
+    <Border.Effect>
+      <DropShadowEffect />
+    </Border.Effect>
+    <Border.Background>
+      <ImageBrush ImageSource="{Binding Assets[bkg_paper]}" Stretch="UniformToFill"/>
+    </Border.Background>
+
+    <StackPanel Orientation="Vertical">
+      <Grid>
+        <Grid.ColumnDefinitions>
+          <ColumnDefinition Width="Auto"/>
+          <ColumnDefinition Width="3*"/>
+          <ColumnDefinition Width="Auto"/>
+        </Grid.ColumnDefinitions>
+
+        <TextBlock Grid.Column="0" Text="СООБЩЕНИЕ ПО ФЛОТУ" FontFamily="Arial Narrow Bold" FontSize="26" FontWeight="Bold" TextAlignment="Left"/>
+        <TextBlock Grid.Column="1" Text="*******С Е К Р Е Т Н О*******" Margin="40,0,40,0" FontWeight="Bold" TextAlignment="Center"/>
+        <TextBlock Grid.Column="2" Text="МИНИСТЕРСТВО ВМФ" FontFamily="Arial Narrow Bold" FontSize="26" FontWeight="Bold" TextAlignment="Right"/>
+      </Grid>
+
+      <Rectangle HorizontalAlignment="Stretch" Height="1" Fill="Black" Margin="0,0,0,1"/>
+      <Rectangle HorizontalAlignment="Stretch" Height="1" Fill="Black" Margin="0,0,0,10"/>
+
+      <Grid>
+        <Grid.RowDefinitions>
+          <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+          <ColumnDefinition Width="Auto"/>
+          <ColumnDefinition Width="10"/>
+          <ColumnDefinition Width="*"/>
+          <ColumnDefinition Width="Auto"/>
+        </Grid.ColumnDefinitions>
+
+        <TextBlock Grid.Row="0" Grid.ColumnSpan="3" HorizontalAlignment="Left" FontSize="16">
+          ПРИОРИТЕТНОЕ<LineBreak/>
+          O 192000Z AUG 85
+        </TextBlock>
+
+        <TextBlock Grid.Row="0" Grid.Column="3" FontSize="16" Text="ZYUW RAYOC0777 2312000"/>
+      </Grid>
+
+      <Grid Margin="0,18,0,0">
+        <Grid.ColumnDefinitions>
+          <ColumnDefinition Width="Auto"/>
+          <ColumnDefinition Width="10"/>
+          <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+          <RowDefinition Height="Auto"/>
+          <RowDefinition Height="Auto"/>
+          <RowDefinition Height="Auto"/>
+          <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.Row="0" Grid.Column="0" FontSize="16" Text="ОТ"/>
+        <TextBlock Grid.Row="0" Grid.Column="2" FontSize="16" Text="СЕТЬ НАБЛЮДЕНИЯ ЛОМБОК ЧЕРЕЗ КАФ ДАРВИН СТ АВ"/>
+        <TextBlock Grid.Row="1" Grid.Column="0" FontSize="16" Text="КОМУ"/>
+        <TextBlock Grid.Row="1" Grid.Column="2" FontSize="16" Text="CTF 77 ДАРВИН СТ АВ"/>
+        <TextBlock Grid.Row="2" Grid.Column="0" FontSize="16" Text="ИНФО"/>
+        <TextBlock Grid.Row="2" Grid.Column="2" FontSize="16">
+          КОМ. ТИХООКЕАНСКОГО ФЛОТА ПЕРЛ-ХАРБОР<LineBreak/>
+          ШТАБ ВОЗДУШН. КОМ. КАВВС ГЛЕНБРУК НЮУ АВ<LineBreak/>
+          ИНДОНЕЗИЙСКИЙ ОФ. СВЯЗИ ДАРВИН СТ АВ
+        </TextBlock>
+        <TextBlock Grid.Row="3" Grid.Column="0" FontSize="16" Text="ТЕМА"/>
+        <TextBlock Grid.Row="3" Grid.Column="2" FontSize="16" Text="ДОКЛАД НАБЛЮДАТЕЛЕЙ РАЙОН БАЛИ/ЛОМБОК"/>
+      </Grid>
+
+      <TextBlock TextWrapping="Wrap" FontSize="16" Margin="0,24,0,0">
+        СЕКРЕТНО
+        <LineBreak/>
+        BT
+        <LineBreak/><LineBreak/>
+        1. (S) КРАТКО: Береговые наблюдатели союзников сообщают, что силы СССР и их союзников сосредотачиваются на позициях вокруг аэродрома Денпасар и в проливе Ломбок. Действия противника указывают на подготовку к блокировке и удержанию пролива, чтобы закрыть его для прохода любых надводных кораблей.
+        <LineBreak/><LineBreak/>
+        2. (S) ОБНАРУЖЕНИЯ: Два боевых надводных корабля размером с эсминец замечены к северу от пролива Ломбок на закате 19 августа. Малые быстроходные боевые корабли по донесениям действуют парами в самом проливе. Множество вооруженных транспортов и десантных средств остаются у Бали.
+        <LineBreak/><LineBreak/>
+        3. (S) БЕРЕГОВАЯ ОБОРОНА: Наблюдатели докладывают о размещении противником радаров и тяжелых береговых орудий возле аэродрома Денпасар. Как минимум одна береговая батарея противокорабельных ракет дважды меняла позиции за последние 48 часов. Вокруг аэродрома также замечена малая зенитная артиллерия.
+        <LineBreak/><LineBreak/>
+        4. (S) АКТИВНОСТЬ В ВОЗДУХЕ: Замечены немногочисленные пролёты самолётов короткого взлёта с аэродрома на Бали. Самолёты держались в виду аэродрома и не преследовали гражданский трафик за пределами визуальной видимости. Побережье патрулируется вертолётами соосной схемы, вооруженными ПТУРами и бомбами, вероятнее всего Ка-29 с БДК типов IVAN ROGOV или ROPUCHA, заснятых в порту.
+        <LineBreak/><LineBreak/>
+        5. (S) ГРАЖДАНСКИЙ ТРАФИК: Рыболовные суда, вопреки многочисленным предупреждениям, остаются в проливе Ломбок. Некоторые суда могут находиться под наблюдением противника, или содействовать ему. Требуется идентификация целей перед открытием огня.
+        <LineBreak/><LineBreak/>
+        6. (S) АНАЛИЗ: Противник намерен препятствовать проходу кораблей союзников, чтобы отсрочить возвращение Индонезии. Источники не сообщают о наличии подлодок противника в этом районе.
+        <LineBreak/><LineBreak/>
+        ПОДПИСЬ: КАПИТАН М.С.САЛЛИВАН, КАФ
+		<LineBreak/>
+		ПРЕДСТАВИТЕЛЬ КОРОЛЕВСКОГО АВСТРАЛИЙСКОГО ФЛОТА
+        <LineBreak/><LineBreak/>
+        BT
+        <LineBreak/>
+        СЕКРЕТНО DECL OADR
+      </TextBlock>
+    </StackPanel>
+  </Border>
+</ScrollViewer>

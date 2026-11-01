@@ -1,0 +1,116 @@
+<!-- Pacific Strike CIA memorandum event, adapted from Strike Group Molniya U.S.-voice interstitial format. -->
+<Page
+  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+  xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+  mc:Ignorable="d"
+  d:DesignWidth="1920"
+  d:DesignHeight="1080">
+  <Viewbox>
+    <Border Background="White" HorizontalAlignment="Center" VerticalAlignment="Center" Width="864" Height="1120" Padding="45"
+            TextElement.FontFamily="Courier New" TextElement.Foreground="Black" TextElement.FontSize="16">
+      <Border.Effect>
+        <DropShadowEffect />
+      </Border.Effect>
+
+      <Border BorderThickness="0,10,10,10" BorderBrush="#FF000000">
+        <Grid>
+          <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="10"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+          </Grid.RowDefinitions>
+          <TextBlock Text="C05084534" Background="#FFFFFFFF" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="17,-15,0,0" Padding="5,0,5,0" />
+          <Grid Grid.Row="0">
+            <Grid.RowDefinitions>
+              <RowDefinition Height="Auto"/>
+              <RowDefinition Height="Auto"/>
+              <RowDefinition Height="Auto"/>
+              <RowDefinition Height="10"/>
+              <RowDefinition Height="Auto"/>
+              <RowDefinition Height="15"/>
+              <RowDefinition Height="Auto"/>
+              <RowDefinition Height="Auto"/>
+              <RowDefinition Height="15"/>
+              <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+              <ColumnDefinition Width="Auto"/>
+              <ColumnDefinition Width="Auto"/>
+              <ColumnDefinition Width="Auto"/>
+              <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="4" Text="绝密" TextAlignment="Center"/>
+            <TextBlock Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="4" Grid.RowSpan="2" TextAlignment="Center" FontFamily="Times New Roman">
+              中央情报局局长
+              <LineBreak/>
+              <LineBreak/>
+              <Run FontSize="12">华盛顿特区20505</Run>
+            </TextBlock>
+            <TextBlock Grid.Row="4" Grid.Column="3" Text="1985年9月21日"/>
+            <TextBlock Grid.Row="6" Grid.Column="3" Text="222X1"/>
+            <TextBlock Grid.Row="7" Grid.Column="0" Text="存备忘录："/>
+            <TextBlock Grid.Row="7" Grid.Column="1" TextWrapping="Wrap">
+              华盛顿特区参谋长联席会议//作战//
+              <LineBreak/>
+              夏威夷州火奴鲁鲁太平洋司令部总司令
+              <LineBreak/>
+              夏威夷州珍珠港太平洋舰队总司令
+              <LineBreak/>
+              菲律宾马尼拉美国驻菲律宾部队司令
+            </TextBlock>
+            <TextBlock Grid.Row="7" Grid.Column="3" TextWrapping="Wrap">
+              行政命令13526 3.3（b）（1）>25年
+              <LineBreak/>
+              行政命令13526 3.5（c）
+            </TextBlock>
+            <TextBlock Grid.Row="9" Grid.Column="0" Text="主题："/>
+            <TextBlock Grid.Row="9" Grid.Column="1" Grid.ColumnSpan="3" Text="突袭山打根后的中国军队通信"/>
+          </Grid>
+          <TextBlock Grid.Row="2" TextWrapping="Wrap">
+            1.位于普林塞萨港市的分隔情报来源“星光”已发来中方指挥部的通信内容，敌方承认突袭未能摧毁盟军集结的两栖部队。通信内容反映出中方对盟军部署到位并准备进攻巴拉望的急切担忧。 
+            <LineBreak/>
+            <LineBreak/>
+            2.中国陆海军指示巴拉望的指挥官不惜一切代价坚守普林塞萨港和奎松。守军请求包括增派岸基导弹补给、工程部队、弹药、移动式防空导弹系统和岸防分遣队。敌方还请求苏联从金兰湾派出空中掩护和护航队。
+            <LineBreak/>
+            <LineBreak/>
+            3.预计敌方会通过强化普林塞萨港的防御、将后备转移至岛屿西岸的奎松并且使用小艇、岸基导弹和潜艇来阻止一切登陆行动。
+            <LineBreak/>
+            <LineBreak/>
+			4.截获消息显示两名对突袭山打根失败负有责任的中国指挥官已被撤回，我方消息来源认为他们将被处决。我们评估认为这将强化巴拉望岛当地指挥官的决心。
+            <LineBreak/>
+            <LineBreak/>
+            5.中苏指挥官似乎都意识到巴拉望岛已暴露在我方攻势之下。鉴于此情况，我们评估盟军很可能需要在敌方请求的增援抵达前行动。
+            <LineBreak/>
+            <LineBreak/>
+          </TextBlock>
+          <TextBlock TextAlignment="Right" Text="威廉·J·凯西" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="480,500,0,0" Grid.Row="2"/>
+          <TextBlock Grid.Row="2" Grid.RowSpan="3" VerticalAlignment="Bottom">
+            <Run TextDecorations="Underline">通过执行登记处传递/1985年9月21日/带有附件</Run>
+            <LineBreak/>
+            <LineBreak/>
+            原件——每位收件人
+            <LineBreak/>
+               1——中央情报局局长
+            <LineBreak/>
+               1——中央情报局副局长
+            <LineBreak/>
+               1——执行主任
+            <LineBreak/>
+               1——国家情报委员会主席
+            <LineBreak/>
+               1——国家情报委员会副主席
+            <LineBreak/>
+               1——国家预警情报官
+            <LineBreak/>
+               1——执行登记处文件
+          </TextBlock>
+          <TextBlock Grid.Row="4" Text="绝密" TextAlignment="Center"/>
+        </Grid>
+      </Border>
+    </Border>
+  </Viewbox>
+</Page>

@@ -1,0 +1,62 @@
+<Grid
+  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+<Grid.RowDefinitions>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="10"/>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="10"/>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="10"/>
+        <RowDefinition Height="Auto"/>
+    </Grid.RowDefinitions>
+    <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="Auto"/>
+        <ColumnDefinition Width="10"/>
+        <ColumnDefinition Width="*"/>
+        <ColumnDefinition Width="Auto"/>
+    </Grid.ColumnDefinitions>
+	
+	<TextBlock Grid.Row="1" Grid.ColumnSpan="4" HorizontalAlignment="Left" FontSize="{StaticResource Font.Size.Header}">
+        紧急
+        <LineBreak/>
+        1985年8月26日0715Z时
+    </TextBlock>
+        <TextBlock Grid.Row="3" Grid.Column="0" FontSize="{StaticResource Font.Size.Header}" Text="发件："/>
+        <TextBlock Grid.Row="3" Grid.Column="2" FontSize="{StaticResource Font.Size.Header}" Text="海军总部"/>
+        <TextBlock Grid.Row="4" Grid.Column="0" FontSize="{StaticResource Font.Size.Header}" Text="收件："/>
+        <TextBlock Grid.Row="4" Grid.Column="2" FontSize="{StaticResource Font.Size.Header}" Text="俄里翁号潜艇"/>
+        <TextBlock Grid.Row="5" Grid.Column="0" FontSize="{StaticResource Font.Size.Header}" Text="抄送："/>
+    <TextBlock Grid.Row="5" Grid.Column="2" FontSize="{StaticResource Font.Size.Header}">
+        鸭嘴兽基地<LineBreak/>
+        澳大利亚舰队司令<LineBreak/>
+        太平洋舰队总司令<LineBreak/>
+        太平洋潜艇部队司令
+        </TextBlock>
+        <TextBlock Grid.Row="7" Grid.Column="0" FontSize="{StaticResource Font.Size.Header}" Text="主题："/>
+        <TextBlock Grid.Row="7" Grid.Column="2" FontSize="{StaticResource Font.Size.Header}" Text="接触报告——南海"/>
+        <TextBlock Grid.Row="9" Grid.ColumnSpan="4" FontSize="{StaticResource Font.Size.Header}" TextWrapping="Wrap">
+        机密——可透露：美国、日本
+        <LineBreak/>
+        <LineBreak/>
+        1.（机密）卫星侦察发现以光荣号为核心的水面舰艇群正离开金兰湾，向东南方航行，航向140，速度18节。
+		<LineBreak/>
+		<LineBreak/>
+		2.（机密）此舰艇群正在护送前往巴拉望岛中国阵地的运输单位。
+		<LineBreak/>
+		<LineBreak/>
+		3.（机密）以最佳速度航行，拦截这支部队。
+		<LineBreak/>
+		<LineBreak/>
+		4.（机密）优先目标为光荣号巡洋舰，其次为运输单位。如果战术态势允许，消灭遭遇的所有敌军。
+		<LineBreak/>
+		<LineBreak/>
+		5.（机密）报告击沉位置并等待进一步命令。
+        <LineBreak/>
+        <LineBreak/>
+        机密——可透露：美国、日本
+    </TextBlock>
+</Grid>
