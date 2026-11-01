@@ -1,10 +1,9 @@
 name: SEST dual-build release source gates
 
 on:
-  push:
-    branches:
-      - release/sest-workshop-20261101
   pull_request:
+    branches:
+      - sest-dev/jolly-ride-rptj4t
     paths:
       - 'data/**'
       - 'mods-source/**'
