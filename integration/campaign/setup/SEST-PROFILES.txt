@@ -1,0 +1,40 @@
+SEST INTEGRATION PACK - 0.8.7 GAME PROFILES (1 NOVEMBER 2026)
+
+ONE WORKSHOP PACK; TWO GAME BRANCHES
+- Beta (primary development target): 0.8.7 Build 261026
+- Normal/stable (maintained compatibility): 0.8.7 Build 261021
+- The semantic version 0.8.7 is identical for both, so SETUP reads the
+  Seapower-Scripts.dll SHA256 instead. The game branch is never guessed.
+
+THE VERSION RULES
+- Stable: SEST Runtime Fixes 1.5.0 and SEST UI Follow-up 1.4.2 can load
+  only on the pinned game and exact dependencies. F11 costs, preparation,
+  debrief and other Runtime features retain their existing stable code.
+- Beta: same pack and campaign data; existing Runtime and UI DLLs stay
+  inactive under their own SHA256 safeguards until beta-native source is
+  rebuilt and play-tested. The upstream Anchor Chain preloader may fail to
+  find its chainloader early in beta startup. A bounded SEST repair fork
+  exists in the source repository but is NOT shipped or enabled here.
+- Unknown game build: preserve data-only fallback, do not claim full
+  runtime, UI or campaign compatibility. Record new DLL hashes and compare.
+
+SETUP:
+1. Close Sea Power.
+2. Open the SEST pack's folder from Mod Manager.
+3. Run SETUP - double-click me.cmd.
+4. Review the "SEST INTEGRATION PACK - SINGLE MOD, DUAL GAME PROFILES"
+   report for the exact current Steam build.
+5. Run SETUP again after Steam switches the game branch.
+
+SAFETY:
+- Never install the discontinued SEST.BetaAnchorBootstrap.dll.
+- Never overwrite Steam Workshop mod DLLs with a beta test candidate.
+- Keep the original stable Runtime 1.5.0 DLL unchanged.
+- Disable/rollback new beta loaders if the game stops opening.
+- Do not present plugin-disabled beta mode as feature-complete.
+
+PUBLIC RELEASE GATE:
+Both beta and stable must load the same Workshop pack without startup
+failure. Every runtime/UI feature claimed for the beta must pass a separate
+in-game test; the source/build gate alone is not enough. Required Items
+and the Steam collection must match LOAD-ORDER.txt before uploading.
