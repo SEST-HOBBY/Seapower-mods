@@ -246,8 +246,13 @@ if ($StreamingAssetsDir -and (Test-Path -LiteralPath $StreamingAssetsDir)) {
 foreach ($root in $dllRoots) {
     $label, $dir = $root[0], $root[1]
     # the game folder itself: only the loose DLLs beside Sea Power.exe (winhttp.dll and friends)
-    $files = if ($label -eq "game") { @(Get-ChildItem -LiteralPath $dir -File -Filter *.dll -ErrorAction SilentlyContinue) }
-             else { @(Get-ChildItem -LiteralPath $dir -Recurse -File -Filter *.dll -ErrorAction SilentlyContinue) }
+    # Wrap the whole if-expression: @() inside a branch is unrolled when the
+    # branch returns, turning zero results into $null (or one into a scalar).
+    $files = @(if ($label -eq "game") {
+        Get-ChildItem -LiteralPath $dir -File -Filter *.dll -ErrorAction SilentlyContinue
+    } else {
+        Get-ChildItem -LiteralPath $dir -Recurse -File -Filter *.dll -ErrorAction SilentlyContinue
+    })
     $lines += "[$label]  $($files.Count) DLL(s)"
     foreach ($f in ($files | Sort-Object FullName)) {
         $rel = $f.FullName.Substring($dir.Length).TrimStart("\", "/")
