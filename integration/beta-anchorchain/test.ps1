@@ -37,8 +37,10 @@ function Game-Closed {
     }
 }
 function Require-Beta {
-    if (!(Test-Path -LiteralPath $native -PathType Leaf)
-        -or (Hash-File $native) -ne $knownBeta) {
+    if (!(Test-Path -LiteralPath $native -PathType Leaf)) {
+        throw "Game assembly not found. No files changed."
+    }
+    if ((Hash-File $native) -ne $knownBeta) {
         throw "This test supports only verified Sea Power beta Build 261026. No files changed."
     }
 }
@@ -81,8 +83,10 @@ if ($Action -eq "Stage") {
     $boot = Join-Path $outDir "SEST.BetaSafeBootstrap.dll"
     foreach ($pair in @(@($fork, [string]$r.fork_dll_sha256),
                         @($boot, [string]$r.bootstrap_dll_sha256))) {
-        if (!(Test-Path -LiteralPath $pair[0] -PathType Leaf)
-            -or (Hash-File $pair[0]) -ne $pair[1]) {
+        if (!(Test-Path -LiteralPath $pair[0] -PathType Leaf)) {
+            throw "Local compiled file missing: $($pair[0])"
+        }
+        if ((Hash-File $pair[0]) -ne $pair[1]) {
             throw "Local compiled file differs from its build receipt: $($pair[0])"
         }
     }
