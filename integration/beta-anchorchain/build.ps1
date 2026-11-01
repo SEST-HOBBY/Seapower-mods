@@ -53,40 +53,32 @@ $candidate = Join-Path $PSScriptRoot "source\bin\Release\netstandard2.1\AnchorCh
 if (!(Test-Path -LiteralPath $candidate -PathType Leaf)) {
     throw "Build reported success but AnchorChain.dll was not found. No files installed."
 }
-$dest = Join-Path $OutDir "AnchorChain.dll"
-Copy-Item -LiteralPath $candidate -Destination $dest -Force
-
-# Build the separate inert-first bootstrap with the Windows Framework compiler.
-# The bootstrap does not reference the fork until the user explicitly enables it
-# with a stage manifest; only the patched fork retains its original assembly name.
+# Use the .NET SDK for both projects. Unity 6000 assemblies and BepInEx
+# reference netstandard 2.1, which Framework v4 csc.exe cannot resolve.
 $bootstrapSource = Join-Path $PSScriptRoot "SEST.BetaSafeBootstrap.cs"
-if (!(Test-Path -LiteralPath $bootstrapSource -PathType Leaf)) {
-    throw "Bootstrap source missing. Nothing installed."
-}
+$bootstrapProject = Join-Path $PSScriptRoot "bootstrap\SEST.BetaSafeBootstrap.csproj"
 $unityApi = Join-Path $GameRoot "Sea Power_Data\Managed\UnityEngine.dll"
 $unityCore = Join-Path $GameRoot "Sea Power_Data\Managed\UnityEngine.CoreModule.dll"
 $bep = Join-Path $GameRoot "BepInEx\core\BepInEx.dll"
-foreach ($p in @($bep, $unityApi, $unityCore)) {
-    if (!(Test-Path -LiteralPath $p -PathType Leaf)) { throw "Missing bootstrap reference: $p" }
-}
-$csc = Join-Path $env:WINDIR "Microsoft.NET\Framework64\v4.0.30319\csc.exe"
-if (!(Test-Path -LiteralPath $csc -PathType Leaf)) {
-    $csc = Join-Path $env:WINDIR "Microsoft.NET\Framework\v4.0.30319\csc.exe"
-}
-if (!(Test-Path -LiteralPath $csc -PathType Leaf)) {
-    throw "Windows Framework C# compiler is absent; bootstrap DLL not built. Nothing installed."
-}
-$tempDll = Join-Path $env:TEMP ("SEST-BetaSafeBootstrap-" + [guid]::NewGuid().ToString("N") + ".dll")
-try {
-    & $csc -nologo -target:library -optimize+ "-out:$tempDll" "-r:$bep" "-r:$unityApi" "-r:$unityCore" "-r:System.Core.dll" $bootstrapSource
-    if ($LASTEXITCODE -ne 0 -or !(Test-Path -LiteralPath $tempDll -PathType Leaf)) {
-        throw "Bootstrap compiler failed. Nothing installed."
+foreach ($p in @($bootstrapSource, $bootstrapProject, $bep, $unityApi, $unityCore)) {
+    if (!(Test-Path -LiteralPath $p -PathType Leaf)) {
+        throw "Missing bootstrap source/reference: $p. No game files changed."
     }
-    $bootstrapDll = Join-Path $OutDir "SEST.BetaSafeBootstrap.dll"
-    Copy-Item -LiteralPath $tempDll -Destination $bootstrapDll -Force
-} finally {
-    Remove-Item -LiteralPath $tempDll -Force -ErrorAction SilentlyContinue
 }
+& $dotnet.Source build $bootstrapProject "--configuration" "Release" "--property:SESTGameRoot=$GameRoot" "--property:ContinuousIntegrationBuild=true" "--nologo"
+if ($LASTEXITCODE -ne 0) { throw "Safe bootstrap SDK build failed. Nothing installed." }
+$bootstrapCandidate = Join-Path $PSScriptRoot "bootstrap\bin\Release\netstandard2.1\SEST.BetaSafeBootstrap.dll"
+if (!(Test-Path -LiteralPath $bootstrapCandidate -PathType Leaf)) {
+    throw "Bootstrap SDK build reported success but candidate DLL is missing. Nothing installed."
+}
+
+# Only publish build outputs to the local out folder after BOTH compile.
+# No files are ever copied into Sea Power, BepInEx or Steam Workshop here.
+$dest = Join-Path $OutDir "AnchorChain.dll"
+$bootstrapDll = Join-Path $OutDir "SEST.BetaSafeBootstrap.dll"
+Copy-Item -LiteralPath $candidate -Destination $dest -Force
+Copy-Item -LiteralPath $bootstrapCandidate -Destination $bootstrapDll -Force
+
 $receipt = [ordered]@{
     format = 1
     target_game_sha256 = (Hash-File $native)
