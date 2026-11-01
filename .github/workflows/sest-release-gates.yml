@@ -76,6 +76,10 @@ jobs:
         shell: powershell
         run: .\\tools\\tests\\test_capture_context.ps1
 
+      - name: Run Workshop export regression under Windows PowerShell 5.1
+        shell: powershell
+        run: .\tools\tests\test_export_mod_configs.ps1
+
   build-consolidated-pack:
     needs: source-and-inventory
     runs-on: ubuntu-latest
