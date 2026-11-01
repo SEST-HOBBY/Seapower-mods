@@ -47,7 +47,9 @@ jobs:
         shell: pwsh
         run: |
           $paths = @(
+            'tools/capture-context.ps1',
             'tools/capture-all-mod-updates.ps1',
+            'tools/tests/test_capture_context.ps1',
             'integration/campaign/setup/sest-profile.ps1',
             'integration/campaign/setup/sest-setup.ps1',
             'integration/beta-anchorchain/build.ps1',
@@ -63,6 +65,16 @@ jobs:
             }
             Write-Host "Parsed: $path"
           }
+
+  capture-context-regression:
+    runs-on: windows-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Run real capture script under Windows PowerShell 5.1 StrictMode
+        shell: powershell
+        run: .\\tools\\tests\\test_capture_context.ps1
 
   build-consolidated-pack:
     needs: source-and-inventory
