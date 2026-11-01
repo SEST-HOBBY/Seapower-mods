@@ -12,7 +12,8 @@ param(
     [string]$GameRoot = "C:\Program Files (x86)\Steam\steamapps\common\Sea Power",
     [string]$BaselineRef = "integ/capture-20261028",
     [string]$OutputDir = "",
-    [switch]$SkipExport
+    [switch]$SkipExport,
+    [switch]$SkipBetaBuild
 )
 $ErrorActionPreference = "Stop"
 Set-StrictMode -Version Latest
@@ -55,11 +56,11 @@ try {
     $dirs = @(Get-ChildItem -LiteralPath $workshop -Directory |
         Where-Object { $_.Name -match '^\d{8,12}$' })
     Write-Host "Workshop folders detected: $($dirs.Count)"
-    Write-Host "[1/5] Capturing Steam Workshop and installed DLLs..."
+    Write-Host "[1/6] Capturing Steam Workshop and installed DLLs..."
     & (Join-Path $PSScriptRoot "capture-context.ps1") -Redact
     if (!$?) { throw "Live capture failed; partial data remains in the repo." }
 
-    Write-Host "[2/5] Checking and exporting all Workshop mod text files..."
+    Write-Host "[2/6] Checking and exporting all Workshop mod text files..."
     $updatesPath = Join-Path $repo "data\install-snapshot\workshop-updates.txt"
     & (Join-Path $PSScriptRoot "export-mod-configs.ps1") -WorkshopContentDir $workshop -CheckUpdates -ReportPath $updatesPath
     if (!$?) { throw "Mod update comparison failed." }
@@ -68,7 +69,7 @@ try {
         if (!$?) { throw "Mod config export failed; partial data preserved." }
     }
 
-    Write-Host "[3/5] Fingerprinting, summarising and checking inventory..."
+    Write-Host "[3/6] Fingerprinting, summarising and checking inventory..."
     if ($py) { & $py.Source -3 "tools/fingerprint_mods.py" }
     else { & $python.Source "tools/fingerprint_mods.py" }
     if ($LASTEXITCODE -ne 0) { throw "Fingerprint update failed." }
@@ -81,7 +82,7 @@ try {
     $inventory | Set-Content -LiteralPath (Join-Path $bundle "inventory-gate.txt") -Encoding UTF8
     Write-Host "Inventory gate: $(if ($inventoryExit -eq 0) { 'PASS' } else { 'DRIFT detected (report saved)' })"
 
-    Write-Host "[4/5] Collecting changed/new mod configs..."
+    Write-Host "[4/6] Collecting changed/new mod configs..."
     $changed = @(& git diff --name-only -- mods-source)
     if ($LASTEXITCODE -ne 0) { throw "Git diff failed." }
     $untracked = @(& git ls-files --others --exclude-standard -- mods-source)
@@ -146,7 +147,38 @@ try {
         "Raw Player logs and user saves intentionally excluded."
     ) | Set-Content -LiteralPath (Join-Path $bundle "README.txt") -Encoding UTF8
 
-    Write-Host "[5/5] Creating shareable review ZIP..."
+    Write-Host "[5/6] Checking beta loader sources and compiling candidate (no installation)..."
+    $buildReport = Join-Path $bundle "beta-build.txt"
+    if ($SkipBetaBuild) {
+        "Beta compilation skipped by -SkipBetaBuild." |
+            Set-Content -LiteralPath $buildReport -Encoding UTF8
+    }
+    else {
+        try {
+            $betaTest = Join-Path $repo "integration\beta-anchorchain\test_source_contract.py"
+            $betaBuilder = Join-Path $repo "integration\beta-anchorchain\build.ps1"
+            $log = New-Object System.Collections.Generic.List[string]
+            if ($py) { $code = @(& $py.Source -3 $betaTest 2>&1) }
+            else { $code = @(& $python.Source $betaTest 2>&1) }
+            $exitCode = $LASTEXITCODE
+            foreach ($line in $code) { $log.Add([string]$line) }
+            if ($exitCode -ne 0) { throw "Beta source-contract tests failed ($exitCode)." }
+            $log.Add("Source-contract tests: PASS")
+            $output = @(& $betaBuilder -GameRoot $GameRoot 2>&1)
+            foreach ($line in $output) { $log.Add([string]$line) }
+            $log.Add("Beta build script completed. No DLL installed in Sea Power.")
+            $log | Set-Content -LiteralPath $buildReport -Encoding UTF8
+            Write-Host "Beta build: see beta-build.txt in capture ZIP" -ForegroundColor Green
+        }
+        catch {
+            @("BETA BUILD NOT VERIFIED / CANDIDATE NOT INSTALLED",
+              $_.Exception.Message,
+              "This does not invalidate the mod capture. Stable pack and game files remain unchanged.") |
+                Set-Content -LiteralPath $buildReport -Encoding UTF8
+            Write-Host "Beta build did not complete; error preserved in ZIP. No game DLL was installed." -ForegroundColor Yellow
+        }
+    }
+    Write-Host "[6/6] Creating shareable review ZIP..."
     Compress-Archive -LiteralPath $bundle -DestinationPath $zip -CompressionLevel Optimal
     Write-Host "SEST ALL-MOD CAPTURE COMPLETE" -ForegroundColor Green
     Write-Host "Workshop folders: $($dirs.Count)"
