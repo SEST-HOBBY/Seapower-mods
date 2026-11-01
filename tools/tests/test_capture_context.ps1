@@ -67,7 +67,10 @@ param([string]$DataDir, [string]$OutFile)
         }
         catch {
             Get-Content -LiteralPath $report -ErrorAction SilentlyContinue | Select-Object -Last 20 | Write-Host
-            throw "Capture failed for $($case.Label): $($_.Exception.Message)"
+            Write-Host ("Failed case: " + $case.Label)
+            Write-Host $_.InvocationInfo.PositionMessage
+            Write-Host $_.ScriptStackTrace
+            throw
         }
         $result = Get-Content -LiteralPath (Join-Path $dataDir "install-snapshot\load-order.live.txt") -Raw
         foreach ($expected in $case.Match) {
