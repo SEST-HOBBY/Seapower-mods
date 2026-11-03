@@ -5,7 +5,7 @@
 # artifact upload, no release, no Workshop or Steam step, and no game is
 # installed. The jobs build in a throwaway checkout and report pass or
 # fail. The gates job is the same sequence as a session's gate run: the
-# from-scratch build, the 17 checks, the two test suites, then a clean
+# from-scratch build, the 15 checks, the two test suites, then a clean
 # git status, which proves the committed pack output is what the builders
 # produce.
 name: SEST release gates
