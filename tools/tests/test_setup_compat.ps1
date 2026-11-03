@@ -29,7 +29,9 @@
     LOCALAPPDATA, and runs it in a child PowerShell (the same executable as
     this one). Also checks that the setup folder's scripts are ASCII with
     CRLF line endings and use no PowerShell 7-only operator, since players
-    run them in Windows PowerShell 5.1. Exit code 1 on any failed check.
+    run them in Windows PowerShell 5.1 (a .txt there, which the build
+    rewrites to LF, is checked for LF instead). Exit code 1 on any failed
+    check.
 
         pwsh -File tools/tests/test_setup_compat.ps1
     (Windows PowerShell 5.1 runs it too.)
@@ -67,7 +69,14 @@ foreach ($f in @(Get-ChildItem -LiteralPath $src -File)) {
         if ($b[$i] -eq 0x0D -and ($i + 1 -ge $b.Length -or $b[$i + 1] -ne 0x0A)) { $lf++ }
     }
     Check ($bad -eq 0) "$($f.Name) is plain ASCII"
-    Check ($lf -eq 0 -and $b.Length -gt 0 -and $b[$b.Length - 1] -eq 0x0A) "$($f.Name) has CRLF line endings throughout"
+    if ($f.Extension -eq '.txt') {
+        # tools/build_all.py rewrites every built .txt to LF, so a .txt here
+        # is kept LF to ship byte for byte as it is in the repository.
+        $cr = @($b | Where-Object { $_ -eq 0x0D }).Count
+        Check ($cr -eq 0 -and $b.Length -gt 0 -and $b[$b.Length - 1] -eq 0x0A) "$($f.Name) has LF line endings throughout (the build makes every .txt LF)"
+    } else {
+        Check ($lf -eq 0 -and $b.Length -gt 0 -and $b[$b.Length - 1] -eq 0x0A) "$($f.Name) has CRLF line endings throughout"
+    }
     if ($f.Extension -eq '.ps1') {
         $tokens = $null; $errors = $null
         [System.Management.Automation.Language.Parser]::ParseFile($f.FullName, [ref]$tokens, [ref]$errors) | Out-Null
