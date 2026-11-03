@@ -88,5 +88,12 @@ class BetaSourceContract(unittest.TestCase):
         self.assertNotIn("Copy-Item -LiteralPath $dest -Destination $plugins", self.build)
         self.assertNotIn("Copy-Item -LiteralPath $dest -Destination $upstream", self.build)
 
+    def test_metadata_preparation_precedes_clr_loading(self):
+        self.assertLess(self.main.index("BetaAssemblyPolicy.Prepare(asmPath"), self.main.index("Assembly.LoadFile(prepared)"))
+        policy = (HERE / 'source' / 'AssemblyPolicy.cs').read_text()
+        self.assertIn('ExtendedHash', policy)
+        self.assertIn('SKIPPED before CLR load', policy)
+        self.assertIn('InvalidNativeFields', policy)
+
 if __name__ == "__main__":
     unittest.main(verbosity=2)

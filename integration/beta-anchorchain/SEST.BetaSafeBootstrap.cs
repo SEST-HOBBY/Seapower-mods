@@ -14,7 +14,7 @@ using UnityEngine;
 
 namespace SEST.BetaAnchor
 {
-    [BepInPlugin("io.sest.beta.safeanchor", "SEST Beta Safe Anchor Chain", "0.2.0")]
+    [BepInPlugin("io.sest.beta.safeanchor", "SEST Beta Safe Anchor Chain", "0.3.0")]
     public sealed class Bootstrap : BaseUnityPlugin
     {
         private const string TargetGameSha256 =
@@ -91,6 +91,7 @@ namespace SEST.BetaAnchor
                     }
                     Logger.LogInfo("BETA SAFE BOOTSTRAP READY; enable=" + enabled
                         + " roots=" + roots.Count + " workshopRegistered=" + registered);
+                    WriteProbeReceipt(enabled);
                     if (enabled)
                     {
                         _attempted = true;
@@ -102,6 +103,28 @@ namespace SEST.BetaAnchor
                 yield return new WaitForSecondsRealtime(0.5f);
             }
             Logger.LogWarning("Safe bootstrap never observed a stable, registered Workshop directory. Not loading any plugin.");
+        }
+
+        private void WriteProbeReceipt(bool enabled)
+        {
+            // The installer supplies a fresh token. An old launch log cannot
+            // accidentally authorize activation of a newly staged candidate.
+            try
+            {
+                string tokenPath = Path.Combine(_payloadDirectory, "probe-token.txt");
+                if (!File.Exists(tokenPath)) return;
+                string token = File.ReadAllText(tokenPath).Trim();
+                if (!Regex.IsMatch(token, "^[0-9a-f]{32}$")) return;
+                string json = "{\"format\":1,\"token\":\"" + token
+                    + "\",\"native_sha256\":\"" + TargetGameSha256
+                    + "\",\"enabled\":" + (enabled ? "true" : "false")
+                    + ",\"created_utc\":\"" + DateTime.UtcNow.ToString("o") + "\"}";
+                File.WriteAllText(Path.Combine(_payloadDirectory, "probe-ready.json"), json);
+            }
+            catch (Exception ex)
+            {
+                Logger.LogWarning("Probe receipt could not be saved: " + ex.Message);
+            }
         }
 
         private List<string> GetModDirectories(out string status)

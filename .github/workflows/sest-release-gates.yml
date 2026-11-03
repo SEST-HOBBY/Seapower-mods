@@ -48,6 +48,8 @@ jobs:
         run: |
           $paths = @(
             'tools/capture-context.ps1',
+            'tools/capture-beta-references.ps1',
+            'tools/tests/test_capture_beta_references.ps1',
             'tools/capture-all-mod-updates.ps1',
             'tools/tests/test_capture_context.ps1',
             'integration/campaign/setup/sest-profile.ps1',
@@ -79,6 +81,10 @@ jobs:
       - name: Run Workshop export regression under Windows PowerShell 5.1
         shell: powershell
         run: .\tools\tests\test_export_mod_configs.ps1
+
+      - name: Run beta reference capture regression under Windows PowerShell 5.1
+        shell: powershell
+        run: .\tools\tests\test_capture_beta_references.ps1
 
   build-consolidated-pack:
     needs: source-and-inventory

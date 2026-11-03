@@ -23,7 +23,15 @@ No Harmony methods, game files, missile behavior, campaign data or Runtime 1.5.0
 
 ## State / gate
 
-**Source patch and staged test tooling only.** The owner compiled the bounded fork on 1 November 2026 with two non-blocking assembly-version warnings. The bootstrap SDK compilation and in-game validation remain outstanding; no compiled beta DLL is committed to the repository. The launch failure in PR #53 was reproduced with the unmodified upstream loader after the bootstrap discovered mods. Do **not** reinstall PR #53's `SEST.BetaAnchorBootstrap.dll`. Do not change Workshop item 3380210757 or distribute a replacement until a controlled beta test verifies bootstrap plus bounded loader and reviews independent native API failures.
+**Beta test candidate and startup repair.** The bootstrap, bounded loader and
+Runtime/UI candidate compiled against the owner's captured beta 261026
+assemblies. The first PC activation installed SEST hooks but mission loading
+stopped on ExtendedGuidance's incompatible SensorDistanceData field. The R2
+policy rejects that image before CLR loading, checks other native field layouts,
+and adapts Identify's legacy CourseTo calls in a private cache. The original
+Workshop DLLs remain intact. See `../beta-feature-parity/README.md` for the
+captured failure, managed/installer validation, remaining quarantines and PC test
+instructions. No successful R2 Unity gameplay test is claimed.
 
 The target beta is **0.8.7-261026**. Runtime 1.5.0 and UI Follow-up remain deliberately disabled on the beta until their own source and APIs can be validated; changing Anchor Chain does not make them compatible.
 
