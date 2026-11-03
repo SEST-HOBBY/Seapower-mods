@@ -472,7 +472,8 @@ game, 0.8.7 Build 261021, until the beta becomes the release on 11 Nov
 2026, and `mods-source/_vanilla` must keep holding that build: the builders
 fork it and the gates compare against it. An export with `-IncludeVanilla`
 on a beta PC writes the beta's files over it, which is what the 28 Oct 2026
-capture did (1,031 files and `changelog.txt`, put back by 9b382fd8). The
+capture did (1,031 changed files, one added file and `changelog.txt`, put
+back by 9b382fd8). The
 changelog head in `data/install-snapshot/changelog.live.txt` says which
 build is installed: `Build 261026` is the beta. On the beta, run this block
 without `-IncludeVanilla` on the export line, or, if it has already run,
@@ -484,12 +485,18 @@ put the vanilla export back to the committed build before the first commit:
   git checkout -- mods-source/_vanilla/original mods-source/_vanilla/changelog.txt
   if ($LASTEXITCODE) { throw 'restore failed - stop and report it' }
   git clean -fdq -- mods-source/_vanilla/original
-  git status --short -- mods-source/_vanilla
+  git status --short -- mods-source/_vanilla/original mods-source/_vanilla/changelog.txt
 }
 ```
 
 `git clean` there removes only files the beta added under
-`_vanilla/original`; the last line should print nothing. A beta export
+`_vanilla/original`, such as `missions/Demo/AircraftEditorMission.ini` on
+the 28 Oct capture; the last line should print nothing. The export also
+writes the rest of the StreamingAssets text tree into `_vanilla`, so
+`git status --short -- mods-source/_vanilla` may still list files outside
+`original/`. `user/controls.ini` is your own key bindings and stays as you
+have it, as 9b382fd8 kept it; put any other one back with
+`git checkout -- <path>`. A beta export
 belongs to the beta work (the 28 Oct one is on the owner's
 `chore/workshop-refresh-20261028` at `f590fb8c`), never in `_vanilla`.
 
@@ -604,8 +611,10 @@ deploy branch, or with uncommitted changes. It never commits, pushes,
 uploads or publishes, never builds, copies or installs a DLL, and only
 reads Steam, the game folder, BepInEx and the Workshop folders; what it
 writes is `data\install-snapshot\`, the Workshop mods' folders in
-`mods-source\` and `data\mod-fingerprints.json`, for you to review and
-commit:
+`mods-source\` and `data\mod-fingerprints.json`. The block below commits
+and pushes what was captured, partial or not: a failed stage prints
+`SEST CAPTURE PARTIAL` but does not stop the block, and the ZIP's README
+lists the stage that failed, so send the ZIP either way:
 
 ```powershell
 & { $ErrorActionPreference = 'Stop'
