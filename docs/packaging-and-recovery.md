@@ -467,6 +467,32 @@ lines it prints are the new changelog head, whose `dd-Mon-yyyy: X.Y.Z Build
 record. Report both. If a campaign is under way, add `-IncludeSaves` to the
 capture line before running it; the save paragraph below says why.
 
+**When the PC is on Steam's public beta.** The pack targets the stable
+game, 0.8.7 Build 261021, until the beta becomes the release on 11 Nov
+2026, and `mods-source/_vanilla` must keep holding that build: the builders
+fork it and the gates compare against it. An export with `-IncludeVanilla`
+on a beta PC writes the beta's files over it, which is what the 28 Oct 2026
+capture did (1,031 files and `changelog.txt`, put back by 9b382fd8). The
+changelog head in `data/install-snapshot/changelog.live.txt` says which
+build is installed: `Build 261026` is the beta. On the beta, run this block
+without `-IncludeVanilla` on the export line, or, if it has already run,
+put the vanilla export back to the committed build before the first commit:
+
+```powershell
+& { $ErrorActionPreference = 'Stop'
+  Set-Location -LiteralPath 'C:\Users\rolyl\Seapower-mods'
+  git checkout -- mods-source/_vanilla/original mods-source/_vanilla/changelog.txt
+  if ($LASTEXITCODE) { throw 'restore failed - stop and report it' }
+  git clean -fdq -- mods-source/_vanilla/original
+  git status --short -- mods-source/_vanilla
+}
+```
+
+`git clean` there removes only files the beta added under
+`_vanilla/original`; the last line should print nothing. A beta export
+belongs to the beta work (the 28 Oct one is on the owner's
+`chore/workshop-refresh-20261028` at `f590fb8c`), never in `_vanilla`.
+
 **What the export cannot tell you: files the game removed.** The per-mod
 export mirrors deletions; the vanilla export does not.
 `export-mod-configs.ps1` copies each StreamingAssets text file over
@@ -557,6 +583,49 @@ inventories (Steam's record, folders on disk, the canonical order, the
 catalog) side by side, and what changed since the previous capture - facts
 only, for the review to judge. Nothing on the refresh branch is merged; it is
 read by the next pass.
+
+**On the public beta**, take the `-IncludeVanilla` line out of the block
+above (the Workshop mods export the same either way), or run the restore
+block in *On the PC* above before `git add`: the pack targets Build 261021
+until the 11 Nov 2026 release, and a beta export in `mods-source/_vanilla`
+would move every builder and gate onto the beta.
+
+**The same capture in one command.** `tools\capture-all-mod-updates.ps1`
+runs the steps of the block above in order: the capture with `-Redact`,
+the read-only update check into `workshop-updates.txt`, the Workshop
+export, then `fingerprint_mods.py`, `workshop_refresh_summary.py` and
+`check_inventory.py`. It never runs the export with `-IncludeVanilla`, so
+it is safe on the beta as it stands. It also writes a review ZIP outside the
+clone (by default `Downloads\SEST-Workshop-Capture-<date-time>.zip`) with
+the changed and new mod files, the snapshot's key files, the inventory
+report and a README naming any stage that failed; a failed stage does not
+stop the later ones. It refuses to start with the game running, on the
+deploy branch, or with uncommitted changes. It never commits, pushes,
+uploads or publishes, never builds, copies or installs a DLL, and only
+reads Steam, the game folder, BepInEx and the Workshop folders; what it
+writes is `data\install-snapshot\`, the Workshop mods' folders in
+`mods-source\` and `data\mod-fingerprints.json`, for you to review and
+commit:
+
+```powershell
+& { $ErrorActionPreference = 'Stop'
+  Set-Location -LiteralPath 'C:\Users\rolyl\Seapower-mods'
+  $b = 'chore/workshop-refresh-YYYYMMDD'                  # the branch Claude made
+  git fetch origin $b
+  if ($LASTEXITCODE) { throw 'fetch failed - is the branch name right?' }
+  git checkout -B $b "origin/$b"
+  powershell -ExecutionPolicy Bypass -File .\tools\capture-all-mod-updates.ps1
+  if ($LASTEXITCODE) { throw 'capture refused or failed - read its last lines; nothing has been committed' }
+  git add -A mods-source data\install-snapshot data\mod-fingerprints.json
+  git commit -m "chore: capture workshop refresh $(Get-Date -Format yyyy-MM-dd)"
+  git push -u origin $b
+  if ($LASTEXITCODE) { throw 'push failed' }
+  git checkout sest-dev/jolly-ride-rptj4t                 # back to the deploy branch for play
+}
+```
+
+The push is the block's own last step, as above, not the script's. Send the
+ZIP too when the review needs the files without the branch.
 
 ### In the repo: read the drift, bump the version, rebuild, gate, document, push
 
