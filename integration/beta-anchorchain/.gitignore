@@ -2,5 +2,9 @@
 out/
 source/bin/
 source/obj/
+bootstrap/bin/
+bootstrap/obj/
+*.dll
+*.pdb
 *.user
 *.tmp
