@@ -5,14 +5,16 @@
     Read-only against Sea Power, Workshop and user settings. Writes a ZIP to
     Downloads; never installs a plugin, changes a Steam branch, or uploads files.
     Includes managed game/plugin DLLs, load order, redacted logs and SHA256s.
-    Excludes saves, audio, images, credentials and arbitrary configuration files.
+    Includes SEST cost history and matched Global Hawk/Triton aircraft/sensor INIs.
+    Excludes campaign saves, audio, images, credentials and unrelated configuration.
 #>
 [CmdletBinding()]
 param(
     [string]$GameRoot = '',
     [string[]]$WorkshopContentRoot = @(),
     [string]$PlayerDataRoot = '',
-    [string]$OutDirectory = ''
+    [string]$OutDirectory = '',
+    [string[]]$AdditionalWorkshopContentRoot = @()
 )
 $ErrorActionPreference = 'Stop'
 Set-StrictMode -Version Latest
@@ -121,6 +123,7 @@ if ($WorkshopContentRoot.Count -eq 0) {
     $WorkshopContentRoot = @(@($sameLibrary) + $libraries | ForEach-Object { Join-Path $_ 'workshop/content/1286220' } |
         Where-Object { Test-Path -LiteralPath $_ -PathType Container } | Select-Object -Unique)
 }
+$WorkshopContentRoot += @($AdditionalWorkshopContentRoot | Where-Object { Test-Path -LiteralPath $_ -PathType Container })
 $WorkshopContentRoot = @(Get-UniqueDirectories @($WorkshopContentRoot | ForEach-Object { (Resolve-Path -LiteralPath $_).ProviderPath }))
 if (!$OutDirectory) { $OutDirectory = Join-Path $profileRoot 'Downloads' }
 $OutDirectory = [IO.Path]::GetFullPath($OutDirectory)
@@ -175,6 +178,14 @@ try {
         foreach ($file in @(Get-TreeDlls $root)) {
             Copy-Reference $file ('references/workshop/library-' + $libraryIndex + '/' + $file.FullName.Substring($root.Length + 1)) -ManagedOnly
         }
+        foreach ($catalog in @('sest_weapon_costs.ini','sest_vessel_costs.ini','sest_aircraft_costs.ini','sest_land_costs.ini')) {
+            $path = Join-Path $root ('3812461539/systems/' + $catalog)
+            if (!(Test-Path -LiteralPath $path -PathType Leaf)) { continue }
+            $item = Get-Item -LiteralPath $path
+            if ($item.Length -le 8MB -and ($item.Attributes -band [IO.FileAttributes]::ReparsePoint) -eq 0) {
+                Write-Report ("reports/SEST-cost-catalogs/library-$libraryIndex/" + $catalog) ([IO.File]::ReadAllText($path))
+            }
+        }
     }
     if ($WorkshopContentRoot.Count -eq 0) { $missing.Add('Workshop content directory') }
     $streaming = Join-Path $GameRoot 'Sea Power_Data/StreamingAssets'
@@ -214,6 +225,61 @@ try {
         }
         Write-Report ('reports/' + $name) $text
     }
+    # Focused read-only diagnostics for the post-mission cost and UAV report.
+    # No campaign/save files are opened here; only SEST's quantity-history file.
+    $history = Join-Path $PlayerDataRoot 'SEST/combat-history-v1.txt'
+    if (Test-Path -LiteralPath $history -PathType Leaf) {
+        if ((Get-Item -LiteralPath $history).Length -le 8MB) { Write-Report 'reports/SEST-combat-history-v1.txt' ([IO.File]::ReadAllText($history)) }
+    }
+    $dataRoots = @((Join-Path $streaming 'original'))
+    if (Test-Path -LiteralPath $streaming -PathType Container) {
+        foreach ($local in @(Get-ChildItem -LiteralPath $streaming -Directory)) {
+            if ($local.Name -in @('original','EntityScenes') -or
+                ($local.Attributes -band [IO.FileAttributes]::ReparsePoint) -ne 0) { continue }
+            $dataRoots += $local.FullName
+        }
+    }
+    foreach ($library in $WorkshopContentRoot) {
+        foreach ($mod in @(Get-ChildItem -LiteralPath $library -Directory)) {
+            if (($mod.Attributes -band [IO.FileAttributes]::ReparsePoint) -eq 0) { $dataRoots += $mod.FullName }
+        }
+    }
+    $uav = New-Object 'System.Collections.Generic.List[string]'
+    $index = 0
+    foreach ($dataRoot in $dataRoots) {
+        $index++
+        $aircraftRoot = Join-Path $dataRoot 'aircraft'
+        if (!(Test-Path -LiteralPath $aircraftRoot -PathType Container)) { continue }
+        $found = $false
+        foreach ($ini in @(Get-ChildItem -LiteralPath $aircraftRoot -Filter '*.ini' -File)) {
+            if ($ini.Length -gt 2MB -or ($ini.Attributes -band [IO.FileAttributes]::ReparsePoint) -ne 0) { continue }
+            $text = [IO.File]::ReadAllText($ini.FullName)
+            if (($ini.Name + "`n" + $text) -notmatch '(?i)(global[ _-]*hawk|\brq[-_ ]?4|\bmq[-_ ]?4|triton)') { continue }
+            $found = $true
+            $uav.Add(($dataRoot + '/' + $ini.Name))
+            Write-Report ("reports/uav/layer-$index/aircraft/" + $ini.Name) $text
+        }
+        if ($found) {
+            foreach ($name in @('_info.ini','systems/sensors.ini')) {
+                $config = Join-Path $dataRoot $name
+                if ((Test-Path -LiteralPath $config -PathType Leaf) -and (Get-Item -LiteralPath $config).Length -le 8MB) {
+                    Write-Report ("reports/uav/layer-$index/" + $name) ([IO.File]::ReadAllText($config))
+                }
+            }
+        }
+    }
+    if ($uav.Count -gt 0) {
+        $sensorIndex=0
+        foreach ($dataRoot in $dataRoots) {
+            $sensorIndex++
+            $sensorFile=Join-Path $dataRoot 'systems/sensors.ini'
+            if ((Test-Path -LiteralPath $sensorFile -PathType Leaf) -and (Get-Item -LiteralPath $sensorFile).Length -le 8MB) {
+                Write-Report ("reports/uav/sensor-layers/$sensorIndex-sensors.ini") ([IO.File]::ReadAllText($sensorFile))
+            }
+        }
+    }
+    Write-Report 'reports/uav/layers.txt' (($dataRoots | ForEach-Object -Begin { $layerNumber=0 } -Process { $layerNumber++; "$layerNumber`t$_" }) -join "`r`n")
+    Write-Report 'reports/uav/matched-aircraft.txt' ($uav -join "`r`n")
     $receipt = [ordered]@{
         format = 1; purpose = 'Beta game with full pre-beta SEST feature parity'
         created_utc = [DateTime]::UtcNow.ToString('o'); build_status = $buildStatus

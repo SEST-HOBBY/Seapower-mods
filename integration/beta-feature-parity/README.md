@@ -12,7 +12,8 @@ R3 playing its first campaign mission. Runtime 1.5.2 beta; the loader,
 bootstrap, UI 1.4.3 beta and Identify shim are R3's sources rebuilt with the
 same compiler as the Runtime (see the build section). GPT had described these
 three fixes on 2 November but its R4 build was never delivered; this is a new
-implementation from the same evidence.
+implementation from the same evidence, and `beta/r4-20261103` is the R4
+baseline for the next PC test.
 
 - **Version watermark.** `SeaPower.VersionWatermark.OnStart` keeps its text
   active whenever `SteamApps.GetCurrentBetaName` succeeds, whatever the
@@ -57,7 +58,8 @@ change is the game's horizon and look-down geometry (`SensorSystem.IsInLookDown`
 now uses a curvature-aware dip with a 4/3 radar Earth radius, and `GetRange`,
 `RangeReaches` and `Radar.IsDetectableTarget_Conditional` are new), so any
 range difference is the beta's code, to be compared in game on both builds.
-Not done: the clipped tab borders (no screenshot was attached) and ports of
+Not done: the clipped tab borders (the small header crop shows the overhang;
+a full view of the affected window and its display scaling are needed) and ports of
 the author plugins that stop on beta APIs; their failures are their own
 validations refusing changed native signatures (`MissileControlMod` steering
 limits 0/0/2, `MultiStageMissiles` `MissileSimulator.BuildAltitudeNodes`,
@@ -69,6 +71,15 @@ limits 0/0/2, `MultiStageMissiles` `MissileSimulator.BuildAltitudeNodes`,
 The repair script now replaces all five candidate files and accepts the
 installed R1, R2 or R3 set as a whole; `Restore-Previous-SEST.cmd` still
 restores the original backups.
+
+For the follow-up PC capture, `tools/capture-r4-results.ps1` reuses the game
+folder in the installed beta journal and also includes its Workshop library
+alongside Steam's discovered libraries. The read-only collector includes SEST's
+saved quantity history and installed cost catalogues, matching Global Hawk/Triton
+aircraft definitions, and the layered sensor definitions. Campaign save files
+are excluded. The capture fixture checks journal selection, multiple libraries,
+redaction and byte-identical source files. Runtime and plugin testing still uses
+the R4 payload above.
 
 ## R3: campaign menu and scenario errors
 

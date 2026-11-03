@@ -47,6 +47,13 @@ try {
     $null = Put 'player/usersettings.ini' "[Private]`nSecret=DO-NOT-CAPTURE`n[LoadOrder]`nNumberOfModFiles=2`nMod1Directory=3790594162,True`nMod2Directory=IdentifyExpanded,False`n[Other]`nSecret=ALSO-PRIVATE`n"
     $null = Put 'game/BepInEx/LogOutput.log' 'File C:\Users\SamplePerson\Steam; Steam ID 76561198012345678'
     $null = Put 'player/Player.log' 'Beta launched and exited'
+    $null = Put 'workshop one/777/aircraft/rq4.ini' "[General]`nName=Global Hawk`nSensor=ZPY-2`n"
+    $null = Put 'workshop one/777/systems/sensors.ini' "[ZPY-2]`nMaxRange=100`n"
+    $null = Put 'game/Sea Power_Data/StreamingAssets/original/systems/sensors.ini' "[ZPY-2]`nMaxRange=80`n"
+    $null = Put 'game/Sea Power_Data/StreamingAssets/user/aircraft/mq4c.ini' "[General]`nName=Triton`nSensor=ZPY-3`n"
+    $null = Put 'game/Sea Power_Data/StreamingAssets/user/systems/sensors.ini' "[ZPY-3]`nMaxRange=120`n"
+    $null = Put 'player/SEST/combat-history-v1.txt' 'SEST QUANTITY HISTORY'
+    $null = Put 'workshop one/3812461539/systems/sest_weapon_costs.ini' "#!extend weaponcosts.ini`n[sest_agr-30]`nWeaponCosts=70000`n"
     $before = Source-Hashes
     $options = @{
         GameRoot = (Join-Path $temp 'game')
@@ -77,9 +84,29 @@ try {
     $log = [IO.File]::ReadAllText((Join-Path $extract 'reports/BepInEx.log'))
     Assert ($log -match '<USER>' -and $log -match '<STEAM_ID>' -and $log -notmatch 'SamplePerson|76561198012345678') 'Log redaction failed'
     Assert ([IO.File]::ReadAllText((Join-Path $extract 'reports/local-mod-folders.txt')) -match 'IdentifyExpanded') 'Local generated folder was not reported'
+    Assert (Test-Path -LiteralPath (Join-Path $extract 'reports/SEST-combat-history-v1.txt')) 'SEST quantity history omitted'
+    Assert (@($names | Where-Object { $_ -match 'reports/uav/layer-.*/aircraft/rq4.ini$' }).Count -eq 1) 'Matched UAV aircraft definition omitted'
+    Assert (@($names | Where-Object { $_ -match 'reports/uav/layer-.*/aircraft/mq4c.ini$' }).Count -eq 1) 'Matched local UAV aircraft definition omitted'
+    Assert (@($names | Where-Object { $_ -match 'reports/uav/sensor-layers/' }).Count -ge 3) 'Layered sensor definitions omitted'
+    Assert ($names -contains 'reports/SEST-cost-catalogs/library-1/sest_weapon_costs.ini') 'Installed SEST cost catalogue omitted'
     $after = Source-Hashes
     Assert ($before.Count -eq $after.Count) 'Capture added or removed a source file'
     foreach ($name in $before.Keys) { Assert ($before[$name] -eq $after[$name]) ('Source changed: ' + $name) }
+    $journalPath = Put 'install-state/current.json' (([ordered]@{ format=1; game_root=$options.GameRoot; workshop_root=(Join-Path $temp 'workshop one') }) | ConvertTo-Json)
+    $journalOptions = $options.Clone()
+    $journalOptions.Remove('GameRoot')
+    $journalOptions.OutDirectory = Join-Path $temp 'journal-output'
+    & (Join-Path $repo 'tools/capture-r4-results.ps1') @journalOptions -InstallJournal $journalPath
+    Assert (@(Get-ChildItem -LiteralPath $journalOptions.OutDirectory -Filter '*.zip').Count -eq 1) 'R4 capture wrapper did not use the saved game folder'
+    $defaultJournalOutput = Join-Path $temp 'journal-library-output'
+    & (Join-Path $repo 'tools/capture-r4-results.ps1') -InstallJournal $journalPath -PlayerDataRoot $options.PlayerDataRoot -OutDirectory $defaultJournalOutput
+    $journalArchive = @(Get-ChildItem -LiteralPath $defaultJournalOutput -Filter '*.zip')
+    Assert ($journalArchive.Count -eq 1) 'R4 capture without explicit libraries failed'
+    $journalExtract = Join-Path $temp 'journal-extracted'
+    Expand-Archive -LiteralPath $journalArchive[0].FullName -DestinationPath $journalExtract
+    Assert (Test-Path -LiteralPath (Join-Path $journalExtract 'references/workshop/library-1/3380210757/AnchorChain.dll')) 'Saved Workshop library was not included alongside discovered libraries'
+    $afterJournal = Source-Hashes
+    foreach ($name in $before.Keys) { Assert ($before[$name] -eq $afterJournal[$name]) ('Journal capture changed a source: ' + $name) }
     $unsafeOptions = $options.Clone()
     $unsafeOptions.OutDirectory = Join-Path $options.GameRoot 'capture-output'
     $blocked = $false
