@@ -66,6 +66,21 @@ function Invoke-Python([object]$Python, [string[]]$Arguments) {
     finally { $ErrorActionPreference = $saved }
 }
 
+function Invoke-Git([string[]]$Arguments) {
+    # The same guard for git: a warning on stderr must not stop the script
+    # under Windows PowerShell 5.1. Only stdout is returned; a non-zero exit
+    # is an error.
+    $saved = $ErrorActionPreference
+    $ErrorActionPreference = "Continue"
+    try {
+        $out = @(& git @Arguments 2>$null | ForEach-Object { [string]$_ })
+        $code = $LASTEXITCODE
+    }
+    finally { $ErrorActionPreference = $saved }
+    if ($code -ne 0) { throw "git $($Arguments -join ' ') exited $code." }
+    $out
+}
+
 Push-Location -LiteralPath $repo
 try {
     if (Test-SeaPowerRunning) {
@@ -74,13 +89,13 @@ try {
     if (!(Test-Path -LiteralPath (Join-Path $repo ".git"))) {
         throw "Run from a Git clone of the repository."
     }
-    $branch = "$(& git branch --show-current)".Trim()
+    $branch = "$(Invoke-Git @('branch', '--show-current'))".Trim()
     $deployFile = Join-Path $repo "data\deploy-branch.txt"
     $deploy = if (Test-Path -LiteralPath $deployFile) { "$(Get-Content -LiteralPath $deployFile -TotalCount 1)".Trim() } else { "" }
     if ($deploy -and $branch -eq $deploy) {
         throw "On the deploy branch $deploy. A capture goes on its own chore/workshop-refresh-YYYYMMDD branch first."
     }
-    if (@(& git status --porcelain).Count -gt 0) {
+    if (@(Invoke-Git @('status', '--porcelain')).Count -gt 0) {
         throw "The clone has uncommitted changes. Commit or remove them first so the capture's changes stand alone."
     }
     if (!$WorkshopContentDir) { $WorkshopContentDir = Find-WorkshopContent }
@@ -154,12 +169,12 @@ try {
     Write-Host "Inventory gate: $(if ($inventory.Exit -eq 0) { 'PASS' } else { 'drift found (report saved)' })"
 
     Write-Host "[4/5] Collecting the changed and new mod files..."
-    $changed = @(& git -c core.quotepath=off diff --name-only -- mods-source)
-    $untracked = @(& git -c core.quotepath=off ls-files --others --exclude-standard -- mods-source)
+    $changed = @(Invoke-Git @('-c', 'core.quotepath=off', 'diff', '--name-only', '--', 'mods-source'))
+    $untracked = @(Invoke-Git @('-c', 'core.quotepath=off', 'ls-files', '--others', '--exclude-standard', '--', 'mods-source'))
     $delta = @(@($changed) + @($untracked) | Where-Object { $_ } | Sort-Object -Unique)
-    & git diff --name-status -- mods-source data/mod-fingerprints.json |
+    Invoke-Git @('diff', '--name-status', '--', 'mods-source', 'data/mod-fingerprints.json') |
         Set-Content -LiteralPath (Join-Path $bundle "mod-export-diff.txt") -Encoding UTF8
-    & git status --short -- mods-source data/mod-fingerprints.json data/install-snapshot |
+    Invoke-Git @('status', '--short', '--', 'mods-source', 'data/mod-fingerprints.json', 'data/install-snapshot') |
         Set-Content -LiteralPath (Join-Path $bundle "git-status.txt") -Encoding UTF8
     $changedRoot = Join-Path $bundle "changed-mod-configs"
     $copied = 0

@@ -105,7 +105,7 @@ try {
     Check (@(Invoke-FixtureGit @("remote")).Count -eq 0) "the fixture has no remote, so nothing can be pushed"
     Check ((Get-TreeHash $workshop) -eq $workshopBefore) "leaves the Workshop folder unchanged"
     $text = Get-Content -LiteralPath (Join-Path $src "tools\capture-all-mod-updates.ps1") -Raw
-    Check (-not ($text -match '(?im)&\s*git\b[^\r\n]*\b(push|commit)\b')) "the script runs no git push or commit"
+    Check (-not ($text -match '(?im)(&\s*git|Invoke-Git)\b[^\r\n]*\b(push|commit)\b')) "the script runs no git push or commit"
     $vanilla = @($text -split "`n" | Where-Object { $_ -match 'export-mod-configs\.ps1' -and $_ -match 'IncludeVanilla' })
     Check ($vanilla.Count -eq 0) "the script never runs the export with -IncludeVanilla"
 }
