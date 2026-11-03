@@ -8,12 +8,12 @@ Ammunition, embarked aircraft, removable pods and tank contents are excluded fro
 
 | Kind | References | Historical prices | Current prices |
 |---|---:|---:|---:|
-| weapon | 2171 | 2171 | 2171 |
-| vessel | 938 | 938 | 938 |
-| aircraft | 759 | 759 | 759 |
+| weapon | 2176 | 2176 | 2176 |
+| vessel | 939 | 939 | 939 |
+| aircraft | 762 | 762 | 762 |
 | land | 502 | 502 | 502 |
 
-Preserved 5447 pre-existing usable price fields. Filled 3293 missing fields. No acquisition-point field was used as USD.
+Preserved 5457 pre-existing usable price fields. Filled 3301 missing fields. No acquisition-point field was used as USD.
 
 ## Weapon
 
@@ -1265,6 +1265,11 @@ Preserved 5447 pre-existing usable price fields. Filled 3293 missing fields. No 
 | `usaf_alq-184` | Pod | 8000000 | 8000000 | historical: rough model (electronic-warfare pod hardware proxy); current: rough model (electronic-warfare pod hardware proxy) | counted |
 | `usaf_alq-184_2` | Pod | 8000000 | 8000000 | historical: rough model (electronic-warfare pod hardware proxy); current: rough model (electronic-warfare pod hardware proxy) | counted |
 | `usaf_anasq-213` | Pod | 5000 | 5000 | historical: rough model (reusable launch rail, adapter or ejector-rack hardware proxy, excluding stores); current: rough model (reusable launch rail, adapter or ejector-rack hardware proxy, excluding stores) | counted |
+| `usaf_b21_agm-158b` | Land Attack | 1110000 | 1570000 | historical: existing usable value preserved (reviewed catalog mapping: usn_agm-158b-2); current: existing usable value preserved (reviewed catalog mapping: usn_agm-158b-2) | counted |
+| `usaf_b21_agm-158c` | ASM | 3260000 | 4350000 | historical: existing usable value preserved (reviewed catalog mapping: b-2_lrasm); current: existing usable value preserved (reviewed catalog mapping: b-2_lrasm) | counted |
+| `usaf_b21_gbu-31` | Bomb | 28000 | 45000 | historical: existing usable value preserved (reviewed catalog mapping: usn_gbu-31v1); current: existing usable value preserved (reviewed catalog mapping: usn_gbu-31v1) | counted |
+| `usaf_b21_gbu-38` | Bomb | 28000 | 45000 | historical: existing usable value preserved (reviewed catalog mapping: usn_gbu-38_10); current: existing usable value preserved (reviewed catalog mapping: usn_gbu-38_10) | counted |
+| `usaf_b21_mk-82` | Bomb | 244 | 2760 | historical: rough model (general-purpose bomb complete-round proxy; model scales by configured mass); current: rough model (general-purpose bomb complete-round proxy; model scales by configured mass) | counted |
 | `usaf_bolt-117` | Bomb | 50000 | 50000 | historical: rough model (guided bomb complete-round proxy including guidance kit and body); current: rough model (guided bomb complete-round proxy including guidance kit and body) | counted |
 | `usaf_bsu-49` | Bomb | 2892 | 2892 | historical: rough model (general-purpose bomb complete-round proxy; model scales by configured mass); current: rough model (general-purpose bomb complete-round proxy; model scales by configured mass) | counted |
 | `usaf_cbu-24` | Bomb | 272 | 2664 | historical: rough model (general-purpose bomb complete-round proxy; model scales by configured mass); current: rough model (general-purpose bomb complete-round proxy; model scales by configured mass) | counted |
@@ -2334,6 +2339,7 @@ Preserved 5447 pre-existing usable price fields. Filled 3293 missing fields. No 
 | `fr_ffg_aquitaine_asw` | FFG | 864000000 | 1261000000 | historical: existing usable value preserved (tracker author catalog); current: existing usable value preserved (tracker author catalog) | counted |
 | `fr_ffg_aquitaine_modernized_aaw` | FFG | 864000000 | 1261000000 | historical: existing usable value preserved (tracker author catalog); current: existing usable value preserved (tracker author catalog) | counted |
 | `fr_ffg_aquitaine_modernized_asw` | FFG | 864000000 | 1261000000 | historical: existing usable value preserved (tracker author catalog); current: existing usable value preserved (tracker author catalog) | counted |
+| `fr_ffg_floréal` | FFG | 700000000 | 700000000 | historical: rough model (fitted frigate replacement proxy, excluding ammunition and embarked aircraft); current: rough model (fitted frigate replacement proxy, excluding ammunition and embarked aircraft) | counted |
 | `fr_ffg_lafayette_modernized` | FFG | 397000000 | 847000000 | historical: existing usable value preserved (tracker author catalog); current: existing usable value preserved (tracker author catalog) | counted |
 | `fr_ffg_lafayette_version_opv` | FFG | 397000000 | 847000000 | historical: existing usable value preserved (tracker author catalog); current: existing usable value preserved (tracker author catalog) | counted |
 | `fr_ffg_lafayette_version_opv_modernized` | FFG | 397000000 | 847000000 | historical: existing usable value preserved (tracker author catalog); current: existing usable value preserved (tracker author catalog) | counted |
@@ -3215,6 +3221,7 @@ Preserved 5447 pre-existing usable price fields. Filled 3293 missing fields. No 
 | `fr_a400m_airdroop-para` | Aircraft | 150000000 | 190000000 | historical: existing usable value preserved (tracker author catalog); current: existing usable value preserved (tracker author catalog) | counted |
 | `fr_a400m_sf` | Aircraft | 150000000 | 190000000 | historical: existing usable value preserved (tracker author catalog); current: existing usable value preserved (tracker author catalog) | counted |
 | `fr_a400m_tankers` | Aircraft | 150000000 | 190000000 | historical: existing usable value preserved (tracker author catalog); current: existing usable value preserved (tracker author catalog) | counted |
+| `fr_aliaca` | Aircraft | 2000000 | 2000000 | historical: rough model (small reusable UAV air vehicle; ground-control station is separate); current: rough model (small reusable UAV air vehicle; ground-control station is separate) | counted |
 | `fr_alouette_II` | Aircraft | 210000 | 2200000 | historical: existing usable value preserved (tracker author catalog); current: existing usable value preserved (tracker author catalog) | counted |
 | `fr_aquilon_202` | Aircraft | 1500000 | 16700000 | historical: existing usable value preserved (tracker author catalog); current: existing usable value preserved (tracker author catalog) | counted |
 | `fr_as-350` | Aircraft | 210000 | 2200000 | historical: existing usable value preserved (tracker author catalog); current: existing usable value preserved (tracker author catalog) | counted |
@@ -3606,6 +3613,7 @@ Preserved 5447 pre-existing usable price fields. Filled 3293 missing fields. No 
 | `spa_md500` | Aircraft | 210000 | 2200000 | historical: existing usable value preserved (tracker author catalog); current: existing usable value preserved (tracker author catalog) | counted |
 | `spa_mirage_iii` | Aircraft | 1500000 | 15000000 | historical: existing usable value preserved (tracker author catalog); current: existing usable value preserved (tracker author catalog) | counted |
 | `spa_p-3a` | Aircraft | 36000000 | 70000000 | historical: existing usable value preserved (tracker author catalog); current: existing usable value preserved (tracker author catalog) | counted |
+| `spa_s-55` | Aircraft | 30000000 | 30000000 | historical: rough model (medium military helicopter fitted replacement proxy); current: rough model (medium military helicopter fitted replacement proxy) | counted |
 | `spa_sh-3d` | Aircraft | 1800000 | 19700000 | historical: existing usable value preserved (tracker author catalog); current: existing usable value preserved (tracker author catalog) | counted |
 | `spa_sh-3d_AEW` | Aircraft | 1800000 | 19700000 | historical: existing usable value preserved (tracker author catalog); current: existing usable value preserved (tracker author catalog) | counted |
 | `spa_sh-60b` | Aircraft | 11300000 | 36500000 | historical: existing usable value preserved (tracker author catalog); current: existing usable value preserved (tracker author catalog) | counted |
@@ -3648,6 +3656,7 @@ Preserved 5447 pre-existing usable price fields. Filled 3293 missing fields. No 
 | `usaf_ac-130h` | Aircraft | 25000000 | 80000000 | historical: existing usable value preserved (tracker author catalog); current: existing usable value preserved (tracker author catalog) | counted |
 | `usaf_ac-130j` | Aircraft | 110000000 | 130000000 | historical: existing usable value preserved (tracker author catalog); current: existing usable value preserved (tracker author catalog) | counted |
 | `usaf_b-1b_dts` | Aircraft | 200000000 | 350000000 | historical: existing usable value preserved (tracker author catalog); current: existing usable value preserved (tracker author catalog) | counted |
+| `usaf_b-21_raider` | Aircraft | 550000000 | 692000000 | historical: existing usable value preserved (SEST checked research: B-21 Raider: the Air Force's average procurement unit cost requirement for a 100-aircraft buy, USD 550M in base-year 2010 dollars, which the Air Force restates as USD 692M in 2022 dollars (B-21 fact sheet); a cost cap, not a contract price (lot prices are classified)); current: existing usable value preserved (SEST checked research: B-21 Raider: the Air Force's average procurement unit cost requirement for a 100-aircraft buy, USD 550M in base-year 2010 dollars, which the Air Force restates as USD 692M in 2022 dollars (B-21 fact sheet); a cost cap, not a contract price (lot prices are classified)) | counted |
 | `usaf_b-2_spirit` | Aircraft | 750000000 | 1200000000 | historical: existing usable value preserved (tracker author catalog); current: existing usable value preserved (tracker author catalog) | counted |
 | `usaf_b-52d` | Aircraft | 6700000 | 120000000 | historical: existing usable value preserved (tracker author catalog); current: existing usable value preserved (tracker author catalog) | counted |
 | `usaf_b-52g` | Aircraft | 6700000 | 120000000 | historical: existing usable value preserved (tracker author catalog); current: existing usable value preserved (tracker author catalog) | counted |

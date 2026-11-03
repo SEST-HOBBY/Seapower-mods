@@ -476,6 +476,26 @@
         "CurrentYearCost": "150000",
         "Category": "ATGM"
       },
+      "usaf_b21_agm-158b": {
+        "WeaponCosts": "1110000",
+        "CurrentYearCost": "1570000",
+        "Category": "Land Attack"
+      },
+      "usaf_b21_agm-158c": {
+        "WeaponCosts": "3260000",
+        "CurrentYearCost": "4350000",
+        "Category": "ASM"
+      },
+      "usaf_b21_gbu-31": {
+        "WeaponCosts": "28000",
+        "CurrentYearCost": "45000",
+        "Category": "Bomb"
+      },
+      "usaf_b21_gbu-38": {
+        "WeaponCosts": "28000",
+        "CurrentYearCost": "45000",
+        "Category": "Bomb"
+      },
       "usaf_gbu-24": {
         "WeaponCosts": "48000",
         "CurrentYearCost": "160000",
@@ -3474,6 +3494,11 @@
         "CurrentYearCost": "5000",
         "Category": "Pod"
       },
+      "usaf_b21_mk-82": {
+        "WeaponCosts": "244",
+        "CurrentYearCost": "2760",
+        "Category": "Bomb"
+      },
       "usaf_bolt-117": {
         "WeaponCosts": "50000",
         "CurrentYearCost": "50000",
@@ -5753,6 +5778,11 @@
         "CurrentYearCost": "4520000000",
         "Category": "CVN"
       },
+      "fr_ffg_flor\u00e9al": {
+        "VesselCosts": "700000000",
+        "CurrentYearCost": "700000000",
+        "Category": "FFG"
+      },
       "ins_d-63": {
         "VesselCosts": "2000000000",
         "CurrentYearCost": "2000000000",
@@ -6283,6 +6313,10 @@
         "AircraftCosts": "10000000",
         "CurrentYearCost": "25000000"
       },
+      "usaf_b-21_raider": {
+        "AircraftCosts": "550000000",
+        "CurrentYearCost": "692000000"
+      },
       "usaf_b-52h_419_flts": {
         "AircraftCosts": "6700000",
         "CurrentYearCost": "120000000"
@@ -6362,6 +6396,10 @@
       "civ_a380": {
         "AircraftCosts": "150000000",
         "CurrentYearCost": "150000000"
+      },
+      "fr_aliaca": {
+        "AircraftCosts": "2000000",
+        "CurrentYearCost": "2000000"
       },
       "irh_bell-212": {
         "AircraftCosts": "1900000",
@@ -6738,6 +6776,10 @@
       "spa_av-8b": {
         "AircraftCosts": "22400000",
         "CurrentYearCost": "55000000"
+      },
+      "spa_s-55": {
+        "AircraftCosts": "30000000",
+        "CurrentYearCost": "30000000"
       },
       "sv22_2024_osprey": {
         "AircraftCosts": "62300000",
@@ -9784,6 +9826,47 @@
         "AircraftCosts": "6700000",
         "CurrentYearCost": "120000000"
       }
+    },
+    {
+      "kind": "aircraft",
+      "target": "fr_aliaca",
+      "origin": "completion",
+      "source": null,
+      "basis": "small reusable UAV air vehicle; ground-control station is separate",
+      "fields": {
+        "AircraftCosts": "2000000",
+        "CurrentYearCost": "2000000"
+      },
+      "completion": {
+        "model": "small_uav",
+        "historical": "2000000",
+        "current": "2000000",
+        "category": "Aircraft",
+        "source": null,
+        "basis": "small reusable UAV air vehicle; ground-control station is separate",
+        "source_id": "policy",
+        "historical_year": 2026,
+        "historical_basis": "2026 replacement proxy; IOC unknown",
+        "confidence": "rough model",
+        "current_low": "1000000",
+        "current_high": "4000000",
+        "disposition": "counted"
+      },
+      "field_methods": {
+        "historical": "rough model",
+        "current": "rough model"
+      },
+      "prior_origin": null,
+      "sources": [
+        {
+          "title": "SEST owner-authorized replacement-cost model, 24 October 2026",
+          "url": "https://github.com/SEST-HOBBY/Seapower-mods/blob/fix/complete-combat-costs-20261024/integration/combat-costs/coverage-policy.json"
+        },
+        {
+          "title": "SEST owner-authorized replacement-cost model, 24 October 2026",
+          "url": "https://github.com/SEST-HOBBY/Seapower-mods/blob/fix/complete-combat-costs-20261024/integration/combat-costs/coverage-policy.json"
+        }
+      ]
     },
     {
       "kind": "aircraft",
@@ -13989,6 +14072,47 @@
     },
     {
       "kind": "aircraft",
+      "target": "spa_s-55",
+      "origin": "completion",
+      "source": null,
+      "basis": "medium military helicopter fitted replacement proxy",
+      "fields": {
+        "AircraftCosts": "30000000",
+        "CurrentYearCost": "30000000"
+      },
+      "completion": {
+        "model": "helo",
+        "historical": "30000000",
+        "current": "30000000",
+        "category": "Aircraft",
+        "source": null,
+        "basis": "medium military helicopter fitted replacement proxy",
+        "source_id": "policy",
+        "historical_year": 2026,
+        "historical_basis": "2026 replacement proxy; IOC unknown",
+        "confidence": "rough model",
+        "current_low": "15000000",
+        "current_high": "60000000",
+        "disposition": "counted"
+      },
+      "field_methods": {
+        "historical": "rough model",
+        "current": "rough model"
+      },
+      "prior_origin": null,
+      "sources": [
+        {
+          "title": "SEST owner-authorized replacement-cost model, 24 October 2026",
+          "url": "https://github.com/SEST-HOBBY/Seapower-mods/blob/fix/complete-combat-costs-20261024/integration/combat-costs/coverage-policy.json"
+        },
+        {
+          "title": "SEST owner-authorized replacement-cost model, 24 October 2026",
+          "url": "https://github.com/SEST-HOBBY/Seapower-mods/blob/fix/complete-combat-costs-20261024/integration/combat-costs/coverage-policy.json"
+        }
+      ]
+    },
+    {
+      "kind": "aircraft",
       "target": "sv22_2024_osprey",
       "origin": "completion",
       "source": "mv22b_osprey",
@@ -14295,6 +14419,40 @@
         "AircraftCosts": "10000000",
         "CurrentYearCost": "25000000"
       }
+    },
+    {
+      "kind": "aircraft",
+      "target": "usaf_b-21_raider",
+      "source": null,
+      "origin": "estimate",
+      "basis": "B-21 Raider: the Air Force's average procurement unit cost requirement for a 100-aircraft buy, USD 550M in base-year 2010 dollars, which the Air Force restates as USD 692M in 2022 dollars (B-21 fact sheet); a cost cap, not a contract price (lot prices are classified)",
+      "fields": {
+        "AircraftCosts": "550000000",
+        "CurrentYearCost": "692000000"
+      },
+      "estimate": {
+        "historical": "550000000",
+        "historical_year": "2010",
+        "historical_method": "published price",
+        "current": "692000000",
+        "current_year": "2022",
+        "current_method": "published price",
+        "note": "Air Force fact sheet: APUC USD 550M (base year 2010), 639M (2019) and 692M (2022); current is the Air Force's own 2022 figure, no inflation applied"
+      },
+      "sources": [
+        {
+          "title": "U.S. Air Force, B-21 Raider fact sheet - search excerpt (two searches, 30 Oct 2026; www.af.mil was outside this session's network, so the page itself was not read)",
+          "url": "https://www.af.mil/About-Us/Fact-Sheets/Display/Article/2682973/"
+        },
+        {
+          "title": "The Aviationist, 'B-21 Raider's Price Likely To Increase For Additional Aircraft' (27 Jun 2024), quoting Northrop Grumman: on track for the APUC key performance parameter of USD 550M in base-year 2010 dollars - search excerpt",
+          "url": "https://theaviationist.com/2024/06/27/b-21-raiders-price-likely-to-increase-for-additional-aircraft/"
+        },
+        {
+          "title": "usaf_b-21_raider config (mod 3821992229)",
+          "url": "file:mods-source/3821992229/aircraft/usaf_b-21_raider.ini"
+        }
+      ]
     },
     {
       "kind": "aircraft",
@@ -37237,6 +37395,48 @@
         {
           "title": "Combat Cost Tracker 0.7.1 captured catalog estimates; retain original reference-year basis",
           "url": "https://steamcommunity.com/sharedfiles/filedetails/?id=3807187341"
+        },
+        {
+          "title": "SEST owner-authorized replacement-cost model, 24 October 2026",
+          "url": "https://github.com/SEST-HOBBY/Seapower-mods/blob/fix/complete-combat-costs-20261024/integration/combat-costs/coverage-policy.json"
+        }
+      ]
+    },
+    {
+      "kind": "vessel",
+      "target": "fr_ffg_flor\u00e9al",
+      "origin": "completion",
+      "source": null,
+      "basis": "fitted frigate replacement proxy, excluding ammunition and embarked aircraft",
+      "fields": {
+        "VesselCosts": "700000000",
+        "CurrentYearCost": "700000000",
+        "Category": "FFG"
+      },
+      "completion": {
+        "model": "frigate",
+        "historical": "700000000",
+        "current": "700000000",
+        "category": "FFG",
+        "source": null,
+        "basis": "fitted frigate replacement proxy, excluding ammunition and embarked aircraft",
+        "source_id": "policy",
+        "historical_year": 2026,
+        "historical_basis": "2026 replacement proxy; IOC unknown",
+        "confidence": "rough model",
+        "current_low": "350000000",
+        "current_high": "1400000000",
+        "disposition": "counted"
+      },
+      "field_methods": {
+        "historical": "rough model",
+        "current": "rough model"
+      },
+      "prior_origin": null,
+      "sources": [
+        {
+          "title": "SEST owner-authorized replacement-cost model, 24 October 2026",
+          "url": "https://github.com/SEST-HOBBY/Seapower-mods/blob/fix/complete-combat-costs-20261024/integration/combat-costs/coverage-policy.json"
         },
         {
           "title": "SEST owner-authorized replacement-cost model, 24 October 2026",
@@ -66097,6 +66297,96 @@
     },
     {
       "kind": "weapon",
+      "target": "usaf_b21_agm-158b",
+      "source": "usn_agm-158b-2",
+      "origin": "mapping",
+      "basis": "AGM-158B JASSM-ER (B-21 Raider's internal land-attack round, 500 NM): the same AGM-158B as the author's usn_agm-158b-2 estimate; retain its 2014 reference basis",
+      "fields": {
+        "WeaponCosts": "1110000",
+        "CurrentYearCost": "1570000",
+        "Category": "Land Attack"
+      }
+    },
+    {
+      "kind": "weapon",
+      "target": "usaf_b21_agm-158c",
+      "source": "b-2_lrasm",
+      "origin": "mapping",
+      "basis": "AGM-158C LRASM (B-21 Raider's internal anti-ship round, IR terminal, 200 NM): the same AGM-158C as the author's b-2_lrasm estimate (the B-2's LRASM); retain its 2018 reference basis",
+      "fields": {
+        "WeaponCosts": "3260000",
+        "CurrentYearCost": "4350000",
+        "Category": "ASM"
+      }
+    },
+    {
+      "kind": "weapon",
+      "target": "usaf_b21_gbu-31",
+      "source": "usn_gbu-31v1",
+      "origin": "mapping",
+      "basis": "GBU-31(V)1/B JDAM (Mk 84 body, 925 kg), B-21 Raider: the same GBU-31(V)1/B as catalog usn_gbu-31v1; author JDAM complete-round model estimate, reference 2007",
+      "fields": {
+        "WeaponCosts": "28000",
+        "CurrentYearCost": "45000",
+        "Category": "Bomb"
+      }
+    },
+    {
+      "kind": "weapon",
+      "target": "usaf_b21_gbu-38",
+      "source": "usn_gbu-38_10",
+      "origin": "mapping",
+      "basis": "GBU-38/B JDAM (Mk 82 body), B-21 Raider: the same GBU-38 500-lb JDAM as catalog usn_gbu-38_10; author JDAM complete-round model estimate, reference 2007",
+      "fields": {
+        "WeaponCosts": "28000",
+        "CurrentYearCost": "45000",
+        "Category": "Bomb"
+      }
+    },
+    {
+      "kind": "weapon",
+      "target": "usaf_b21_mk-82",
+      "origin": "completion",
+      "source": null,
+      "basis": "general-purpose bomb complete-round proxy; model scales by configured mass",
+      "fields": {
+        "WeaponCosts": "244",
+        "CurrentYearCost": "2760",
+        "Category": "Bomb"
+      },
+      "completion": {
+        "model": "unguided_bomb",
+        "historical": "244",
+        "current": "2760",
+        "category": "Bomb",
+        "source": null,
+        "basis": "general-purpose bomb complete-round proxy; model scales by configured mass",
+        "source_id": "policy",
+        "historical_year": 1960,
+        "historical_basis": "configured service-year CPI model",
+        "confidence": "rough model",
+        "current_low": "1380",
+        "current_high": "5520",
+        "disposition": "counted"
+      },
+      "field_methods": {
+        "historical": "rough model",
+        "current": "rough model"
+      },
+      "prior_origin": null,
+      "sources": [
+        {
+          "title": "SEST owner-authorized replacement-cost model, 24 October 2026",
+          "url": "https://github.com/SEST-HOBBY/Seapower-mods/blob/fix/complete-combat-costs-20261024/integration/combat-costs/coverage-policy.json"
+        },
+        {
+          "title": "SEST owner-authorized replacement-cost model, 24 October 2026",
+          "url": "https://github.com/SEST-HOBBY/Seapower-mods/blob/fix/complete-combat-costs-20261024/integration/combat-costs/coverage-policy.json"
+        }
+      ]
+    },
+    {
+      "kind": "weapon",
       "target": "usaf_bolt-117",
       "origin": "completion",
       "source": null,
@@ -84723,27 +85013,27 @@
   ],
   "coverage": {
     "weapon": {
-      "eligible": 2171,
-      "historical_known": 2171,
-      "current_known": 2171,
+      "eligible": 2176,
+      "historical_known": 2176,
+      "current_known": 2176,
       "sest_eligible": 138,
       "sest_historical_known": 138,
       "sest_current_known": 138,
       "unknown": []
     },
     "vessel": {
-      "eligible": 938,
-      "historical_known": 938,
-      "current_known": 938,
+      "eligible": 939,
+      "historical_known": 939,
+      "current_known": 939,
       "sest_eligible": 340,
       "sest_historical_known": 340,
       "sest_current_known": 340,
       "unknown": []
     },
     "aircraft": {
-      "eligible": 759,
-      "historical_known": 759,
-      "current_known": 759,
+      "eligible": 762,
+      "historical_known": 762,
+      "current_known": 762,
       "sest_eligible": 39,
       "sest_historical_known": 39,
       "sest_current_known": 39,
@@ -122048,6 +122338,140 @@
       },
       {
         "kind": "weapon",
+        "id": "usaf_b21_agm-158b",
+        "owner": "3821992229",
+        "path": "mods-source/3821992229/ammunition/usaf_b21_agm-158b.ini",
+        "category": "Land Attack",
+        "type": "Missile",
+        "historical": "1110000",
+        "current": "1570000",
+        "field_methods": {
+          "historical": "existing usable value preserved",
+          "current": "existing usable value preserved"
+        },
+        "field_sources": {
+          "historical": "reviewed catalog mapping: usn_agm-158b-2",
+          "current": "reviewed catalog mapping: usn_agm-158b-2"
+        },
+        "completion": null,
+        "disposition": "counted",
+        "historical_basis": "reviewed catalog mapping: usn_agm-158b-2; original reference-year basis retained",
+        "historical_reference_year": null,
+        "current_low": null,
+        "current_high": null
+      },
+      {
+        "kind": "weapon",
+        "id": "usaf_b21_agm-158c",
+        "owner": "3821992229",
+        "path": "mods-source/3821992229/ammunition/usaf_b21_agm-158c.ini",
+        "category": "ASM",
+        "type": "Missile",
+        "historical": "3260000",
+        "current": "4350000",
+        "field_methods": {
+          "historical": "existing usable value preserved",
+          "current": "existing usable value preserved"
+        },
+        "field_sources": {
+          "historical": "reviewed catalog mapping: b-2_lrasm",
+          "current": "reviewed catalog mapping: b-2_lrasm"
+        },
+        "completion": null,
+        "disposition": "counted",
+        "historical_basis": "reviewed catalog mapping: b-2_lrasm; original reference-year basis retained",
+        "historical_reference_year": null,
+        "current_low": null,
+        "current_high": null
+      },
+      {
+        "kind": "weapon",
+        "id": "usaf_b21_gbu-31",
+        "owner": "3821992229",
+        "path": "mods-source/3821992229/ammunition/usaf_b21_gbu-31.ini",
+        "category": "Bomb",
+        "type": "Bomb",
+        "historical": "28000",
+        "current": "45000",
+        "field_methods": {
+          "historical": "existing usable value preserved",
+          "current": "existing usable value preserved"
+        },
+        "field_sources": {
+          "historical": "reviewed catalog mapping: usn_gbu-31v1",
+          "current": "reviewed catalog mapping: usn_gbu-31v1"
+        },
+        "completion": null,
+        "disposition": "counted",
+        "historical_basis": "reviewed catalog mapping: usn_gbu-31v1; original reference-year basis retained",
+        "historical_reference_year": null,
+        "current_low": null,
+        "current_high": null
+      },
+      {
+        "kind": "weapon",
+        "id": "usaf_b21_gbu-38",
+        "owner": "3821992229",
+        "path": "mods-source/3821992229/ammunition/usaf_b21_gbu-38.ini",
+        "category": "Bomb",
+        "type": "Bomb",
+        "historical": "28000",
+        "current": "45000",
+        "field_methods": {
+          "historical": "existing usable value preserved",
+          "current": "existing usable value preserved"
+        },
+        "field_sources": {
+          "historical": "reviewed catalog mapping: usn_gbu-38_10",
+          "current": "reviewed catalog mapping: usn_gbu-38_10"
+        },
+        "completion": null,
+        "disposition": "counted",
+        "historical_basis": "reviewed catalog mapping: usn_gbu-38_10; original reference-year basis retained",
+        "historical_reference_year": null,
+        "current_low": null,
+        "current_high": null
+      },
+      {
+        "kind": "weapon",
+        "id": "usaf_b21_mk-82",
+        "owner": "3821992229",
+        "path": "mods-source/3821992229/ammunition/usaf_b21_mk-82.ini",
+        "category": "Bomb",
+        "type": "Bomb",
+        "historical": "244",
+        "current": "2760",
+        "field_methods": {
+          "historical": "rough model",
+          "current": "rough model"
+        },
+        "field_sources": {
+          "historical": "general-purpose bomb complete-round proxy; model scales by configured mass",
+          "current": "general-purpose bomb complete-round proxy; model scales by configured mass"
+        },
+        "completion": {
+          "model": "unguided_bomb",
+          "historical": "244",
+          "current": "2760",
+          "category": "Bomb",
+          "source": null,
+          "basis": "general-purpose bomb complete-round proxy; model scales by configured mass",
+          "source_id": "policy",
+          "historical_year": 1960,
+          "historical_basis": "configured service-year CPI model",
+          "confidence": "rough model",
+          "current_low": "1380",
+          "current_high": "5520",
+          "disposition": "counted"
+        },
+        "disposition": "counted",
+        "historical_basis": "configured service-year CPI model",
+        "historical_reference_year": 1960,
+        "current_low": "1380",
+        "current_high": "5520"
+      },
+      {
+        "kind": "weapon",
         "id": "usaf_bolt-117",
         "owner": "3606134711",
         "path": "mods-source/3606134711/ammunition/usaf_bolt-117.ini",
@@ -153184,6 +153608,44 @@
       },
       {
         "kind": "vessel",
+        "id": "fr_ffg_flor\u00e9al",
+        "owner": "3567256221",
+        "path": "mods-source/3567256221/vessels/fr_ffg_flor\u00e9al.ini",
+        "category": "FFG",
+        "type": "Vessel",
+        "historical": "700000000",
+        "current": "700000000",
+        "field_methods": {
+          "historical": "rough model",
+          "current": "rough model"
+        },
+        "field_sources": {
+          "historical": "fitted frigate replacement proxy, excluding ammunition and embarked aircraft",
+          "current": "fitted frigate replacement proxy, excluding ammunition and embarked aircraft"
+        },
+        "completion": {
+          "model": "frigate",
+          "historical": "700000000",
+          "current": "700000000",
+          "category": "FFG",
+          "source": null,
+          "basis": "fitted frigate replacement proxy, excluding ammunition and embarked aircraft",
+          "source_id": "policy",
+          "historical_year": 2026,
+          "historical_basis": "2026 replacement proxy; IOC unknown",
+          "confidence": "rough model",
+          "current_low": "350000000",
+          "current_high": "1400000000",
+          "disposition": "counted"
+        },
+        "disposition": "counted",
+        "historical_basis": "2026 replacement proxy; IOC unknown",
+        "historical_reference_year": 2026,
+        "current_low": "350000000",
+        "current_high": "1400000000"
+      },
+      {
+        "kind": "vessel",
         "id": "fr_ffg_lafayette_modernized",
         "owner": "3567256221",
         "path": "mods-source/3567256221/vessels/fr_ffg_lafayette_modernized.ini",
@@ -173903,8 +174365,8 @@
       {
         "kind": "aircraft",
         "id": "aus_a330_mrtt",
-        "owner": "3758943352",
-        "path": "mods-source/3758943352/aircraft/aus_a330_mrtt.ini",
+        "owner": "3820759806",
+        "path": "mods-source/3820759806/aircraft/aus_a330_mrtt.ini",
         "category": "Aircraft",
         "type": "Aircraft",
         "historical": "180000000",
@@ -175591,6 +176053,44 @@
         "historical_reference_year": null,
         "current_low": null,
         "current_high": null
+      },
+      {
+        "kind": "aircraft",
+        "id": "fr_aliaca",
+        "owner": "3567256221",
+        "path": "mods-source/3567256221/aircraft/fr_aliaca.ini",
+        "category": "Aircraft",
+        "type": "Aircraft",
+        "historical": "2000000",
+        "current": "2000000",
+        "field_methods": {
+          "historical": "rough model",
+          "current": "rough model"
+        },
+        "field_sources": {
+          "historical": "small reusable UAV air vehicle; ground-control station is separate",
+          "current": "small reusable UAV air vehicle; ground-control station is separate"
+        },
+        "completion": {
+          "model": "small_uav",
+          "historical": "2000000",
+          "current": "2000000",
+          "category": "Aircraft",
+          "source": null,
+          "basis": "small reusable UAV air vehicle; ground-control station is separate",
+          "source_id": "policy",
+          "historical_year": 2026,
+          "historical_basis": "2026 replacement proxy; IOC unknown",
+          "confidence": "rough model",
+          "current_low": "1000000",
+          "current_high": "4000000",
+          "disposition": "counted"
+        },
+        "disposition": "counted",
+        "historical_basis": "2026 replacement proxy; IOC unknown",
+        "historical_reference_year": 2026,
+        "current_low": "1000000",
+        "current_high": "4000000"
       },
       {
         "kind": "aircraft",
@@ -186308,6 +186808,44 @@
       },
       {
         "kind": "aircraft",
+        "id": "spa_s-55",
+        "owner": "3630495619",
+        "path": "mods-source/3630495619/aircraft/spa_s-55.ini",
+        "category": "Aircraft",
+        "type": "Helicopter",
+        "historical": "30000000",
+        "current": "30000000",
+        "field_methods": {
+          "historical": "rough model",
+          "current": "rough model"
+        },
+        "field_sources": {
+          "historical": "medium military helicopter fitted replacement proxy",
+          "current": "medium military helicopter fitted replacement proxy"
+        },
+        "completion": {
+          "model": "helo",
+          "historical": "30000000",
+          "current": "30000000",
+          "category": "Aircraft",
+          "source": null,
+          "basis": "medium military helicopter fitted replacement proxy",
+          "source_id": "policy",
+          "historical_year": 2026,
+          "historical_basis": "2026 replacement proxy; IOC unknown",
+          "confidence": "rough model",
+          "current_low": "15000000",
+          "current_high": "60000000",
+          "disposition": "counted"
+        },
+        "disposition": "counted",
+        "historical_basis": "2026 replacement proxy; IOC unknown",
+        "historical_reference_year": 2026,
+        "current_low": "15000000",
+        "current_high": "60000000"
+      },
+      {
+        "kind": "aircraft",
         "id": "spa_sh-3d",
         "owner": "3630495619",
         "path": "mods-source/3630495619/aircraft/spa_sh-3d.ini",
@@ -187409,6 +187947,30 @@
         "disposition": "counted",
         "historical_basis": "tracker author catalog; original reference-year basis retained",
         "historical_reference_year": null,
+        "current_low": null,
+        "current_high": null
+      },
+      {
+        "kind": "aircraft",
+        "id": "usaf_b-21_raider",
+        "owner": "3821992229",
+        "path": "mods-source/3821992229/aircraft/usaf_b-21_raider.ini",
+        "category": "Aircraft",
+        "type": "Aircraft",
+        "historical": "550000000",
+        "current": "692000000",
+        "field_methods": {
+          "historical": "existing usable value preserved",
+          "current": "existing usable value preserved"
+        },
+        "field_sources": {
+          "historical": "SEST checked research: B-21 Raider: the Air Force's average procurement unit cost requirement for a 100-aircraft buy, USD 550M in base-year 2010 dollars, which the Air Force restates as USD 692M in 2022 dollars (B-21 fact sheet); a cost cap, not a contract price (lot prices are classified)",
+          "current": "SEST checked research: B-21 Raider: the Air Force's average procurement unit cost requirement for a 100-aircraft buy, USD 550M in base-year 2010 dollars, which the Air Force restates as USD 692M in 2022 dollars (B-21 fact sheet); a cost cap, not a contract price (lot prices are classified)"
+        },
+        "completion": null,
+        "disposition": "counted",
+        "historical_basis": "SEST checked research: B-21 Raider: the Air Force's average procurement unit cost requirement for a 100-aircraft buy, USD 550M in base-year 2010 dollars, which the Air Force restates as USD 692M in 2022 dollars (B-21 fact sheet); a cost cap, not a contract price (lot prices are classified); original reference-year basis retained",
+        "historical_reference_year": "2010",
         "current_low": null,
         "current_high": null
       },
@@ -212830,26 +213392,26 @@
       }
     ],
     "filled_fields": {
-      "weapon": 1834,
-      "vessel": 190,
-      "aircraft": 292,
+      "weapon": 1836,
+      "vessel": 192,
+      "aircraft": 296,
       "land": 977
     },
-    "known_fields_preserved": 5447,
+    "known_fields_preserved": 5457,
     "category_counts": {
       "Ballistic": 25,
       "Decoy": 54,
       "Gun": 208,
-      "ASM": 360,
+      "ASM": 361,
       "AAM": 244,
       "Rocket": 29,
       "Pod": 204,
       "ATGM": 42,
       "Ignore": 35,
       "Torpedo": 210,
-      "Land Attack": 78,
+      "Land Attack": 79,
       "Fuel tank": 97,
-      "Bomb": 116,
+      "Bomb": 119,
       "ARM": 42,
       "ASW": 62,
       "SAM": 298,
@@ -212860,7 +213422,7 @@
       "AO": 13,
       "CVL": 21,
       "DD": 24,
-      "FFG": 107,
+      "FFG": 108,
       "FS": 16,
       "LHD": 7,
       "LPA": 1,
@@ -212925,7 +213487,7 @@
       "T-AKR": 1,
       "UUV": 4,
       "CVH": 1,
-      "Aircraft": 757,
+      "Aircraft": 760,
       "Installation": 41,
       "AAA": 16,
       "Armour": 37,

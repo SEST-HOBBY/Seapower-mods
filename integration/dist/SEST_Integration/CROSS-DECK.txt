@@ -63,6 +63,8 @@ fr_ffg_aquitaine_modernized_aaw (france, 3567256221): +6
     NH90 NFH: ger_nh90, de_nh90, nl_nh90, ita_sh90, be_nh90, sp_nh90_mspt
 fr_ffg_aquitaine_modernized_asw (france, 3567256221): +6
     NH90 NFH: ger_nh90, de_nh90, nl_nh90, ita_sh90, be_nh90, sp_nh90_mspt
+fr_ffg_floréal (france, 3567256221): +1  [file fr_ffg_floreal_CrossDeck_SEST.ini]
+    Panther / S-76: phl_h-76
 fr_ffg_lafayette_modernized (france, 3567256221): +1
     Panther / S-76: phl_h-76
 fr_ffg_lafayette_version_opv (france, 3567256221): +1

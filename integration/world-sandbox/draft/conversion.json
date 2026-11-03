@@ -8336,7 +8336,7 @@
   "catalogue_by_side_nation": {
    "blue US": {
     "ships": 248,
-    "aircraft": 167
+    "aircraft": 168
    },
    "blue Australia": {
     "ships": 44,
@@ -8347,8 +8347,8 @@
     "aircraft": 19
    },
    "blue France": {
-    "ships": 38,
-    "aircraft": 60
+    "ships": 39,
+    "aircraft": 61
    },
    "blue Italy": {
     "ships": 35,
@@ -8364,7 +8364,7 @@
    },
    "blue Spain": {
     "ships": 36,
-    "aircraft": 29
+    "aircraft": 30
    },
    "blue Germany": {
     "ships": 23,
@@ -8749,7 +8749,7 @@
   "am_tornado_ecr": "Role Bomber",
   "am_tornado_ids": "Role Recon",
   "am_tornado_ids_95": "Role Recon",
-  "aus_a330_mrtt": "Role AEW",
+  "aus_a330_mrtt": "Role Tanker, SEST choice (the winning file says Role Airliner)",
   "aus_ec_665_had-e": "Role ASuW",
   "aus_mrh90_tth": "Role Transport",
   "be_nh90": "Role ASW",
@@ -8786,6 +8786,7 @@
   "fr_a400m_airdroop-para": "Role AEW",
   "fr_a400m_sf": "Role AEW",
   "fr_a400m_tankers": "Role EW",
+  "fr_aliaca": "Role Recon",
   "fr_alouette_II": "Role Attack",
   "fr_aquilon_202": "Role Fighter",
   "fr_as-350": "Role Transport",
@@ -9136,6 +9137,7 @@
   "spa_md500": "Role ASW",
   "spa_mirage_iii": "Role Fighter",
   "spa_p-3a": "Role MPA",
+  "spa_s-55": "Role ASW",
   "spa_sh-3d": "Role ASW",
   "spa_sh-3d_AEW": "Role AEW",
   "spa_sh-60b": "Role ASW",
@@ -9169,6 +9171,7 @@
   "usaf_ac-130a_83": "Role Attack",
   "usaf_ac-130h": "Role Attack",
   "usaf_ac-130j": "Role Attack",
+  "usaf_b-21_raider": "Role HeavyBomber",
   "usaf_b-52d": "Role HeavyBomber",
   "usaf_b-52g": "Role HeavyBomber",
   "usaf_b-52h_419_flts": "Role HeavyBomber",
@@ -9447,6 +9450,7 @@
   "fr_edas_vl": "Displacement 120 t",
   "fr_fdi_amiral_ronarc'h": "Displacement 4460 t",
   "fr_ffg_aquitaine_modernized_asw": "Displacement 6172 t",
+  "fr_ffg_flor\u00e9al": "Displacement 3800 t",
   "fr_ffg_lafayette_version_opv": "Displacement 3800 t",
   "fr_ffg_lafayette_version_opv_modernized": "Displacement 3800 t",
   "fr_ss_agosta": "Displacement 1760 t",
@@ -10074,8 +10078,8 @@
    "Air": 107
   },
   "patrols": 49,
-  "catalogue": 1560,
-  "values": 1560,
+  "catalogue": 1564,
+  "values": 1564,
   "lanes_kept": 11,
   "lanes_authored": 11,
   "skipped_nodes": 34
