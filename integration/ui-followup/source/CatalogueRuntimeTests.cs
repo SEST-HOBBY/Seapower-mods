@@ -151,6 +151,10 @@ static class CatalogueRuntimeTests
         Func<object> cached = () => dynamic.Invoke(null, null);
         Action clear = () => cache.GetMethod("Clear", All).Invoke(null, null);
         var life = new Life(); Context(life); clear();
+        // How many virtual catalogues one build opens: 5 on the captured 1.5.0
+        // factory, 8 once the beta factory also reads SEST's own catalog files.
+        int perBuild = catalogReads; original.Invoke(null, null); perBuild = catalogReads - perBuild;
+        Check(perBuild == 5 || perBuild == 8, "Factory opens the expected virtual catalogues per build");
         string[] kinds = { "weapon", "vessel", "aircraft", "land", "weapon", "weapon" };
         string[] refs = { "test-missile", "test-ship", "test-air", "test-land", "missing-price", "ignored-price" };
         object first = null;
@@ -159,18 +163,18 @@ static class CatalogueRuntimeTests
             object expected = original.Invoke(null, null); int before = catalogReads; object actual = cached();
             if (report == 0) first = actual;
             Check(ReferenceEquals(first, actual), "Reuse same successful pricing object within mission");
-            Check(catalogReads - before == (report == 0 ? 5 : 0), "No repeated virtual catalogue opens");
+            Check(catalogReads - before == (report == 0 ? perBuild : 0), "No repeated virtual catalogue opens");
             for (int i = 0; i < refs.Length; i++)
                 Check(Describe(ReadPrice(expected, kinds[i], refs[i]), report + 1) == Describe(ReadPrice(actual, kinds[i], refs[i]), report + 1), "Live quantities and all price/missing/ignored results agree");
         }
-        Check(catalogReads == 180 * 5 + 5, "180 original builds versus one cached build");
+        Check(catalogReads == 182 * perBuild, "181 original builds versus one cached build");
         clear(); currentYear = true; object current = cached();
         Check(!ReferenceEquals(first, current), "Tracker reload invalidates cached price basis");
         Check((bool)current.GetType().GetField("Current", All).GetValue(current), "New config basis is observed");
         Check(Describe(ReadPrice(current, "weapon", "test-missile"), 3).StartsWith("600/"), "Reloaded current-year amount and live quantity");
         Context(new Life()); object nextMission = cached(); Check(!ReferenceEquals(current, nextMission), "New mission invalidates cache");
-        Context(new Life { Closing = true }); int outside = catalogReads; cached(); cached(); Check(catalogReads - outside == 10, "Closing/menu path uses original fresh factory");
-        Context(new Life { Initialized = false }); outside = catalogReads; cached(); cached(); Check(catalogReads - outside == 10, "Loading path does not reuse mission catalogues");
+        Context(new Life { Closing = true }); int outside = catalogReads; cached(); cached(); Check(catalogReads - outside == 2 * perBuild, "Closing/menu path uses original fresh factory");
+        Context(new Life { Initialized = false }); outside = catalogReads; cached(); cached(); Check(catalogReads - outside == 2 * perBuild, "Loading path does not reuse mission catalogues");
         Context(new Life()); clear(); missing = true; outside = catalogReads;
         Check(cached() == null && cached() == null && catalogReads - outside == 2, "Missing catalogue results retry instead of becoming sticky nulls");
         missing = false; Check(cached() != null, "Recovery from missing catalogue");
@@ -178,8 +182,8 @@ static class CatalogueRuntimeTests
         try { cached(); } catch (TargetInvocationException) { threw = true; }
         Check(threw, "Reader exception is propagated unchanged through the factory");
         fail = false; Check(cached() != null, "Failed load does not poison next attempt");
-        clear(); Context(null); outside = catalogReads; cached(); cached(); Check(catalogReads - outside == 10, "No live mission means no cached catalogue");
-        Console.WriteLine("Captured Runtime factory/transpiler checks passed: " + checks + "; identical changing-quantity results across 180 refreshes; successful catalogue opens reduced from 900 to 5 in that sequence. No game/native execution.");
+        clear(); Context(null); outside = catalogReads; cached(); cached(); Check(catalogReads - outside == 2 * perBuild, "No live mission means no cached catalogue");
+        Console.WriteLine("Captured Runtime factory/transpiler checks passed: " + checks + "; identical changing-quantity results across 180 refreshes; successful catalogue opens reduced from " + (180 * perBuild) + " to " + perBuild + " in that sequence. No game/native execution.");
     }
     static void Main(string[] args)
     {

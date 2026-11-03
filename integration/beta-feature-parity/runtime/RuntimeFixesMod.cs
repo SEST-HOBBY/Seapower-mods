@@ -6,7 +6,7 @@ using AnchorChain;
 
 namespace Sest.RuntimeFixes;
 
-[ACPlugin("io.github.sest-hobby.runtime-fixes", "SEST Runtime Fixes Beta", "1.5.1", null, null)]
+[ACPlugin("io.github.sest-hobby.runtime-fixes", "SEST Runtime Fixes Beta", "1.5.2", null, null)]
 public sealed class RuntimeFixesMod : IAnchorChainMod
 {
 	public void TriggerEntryPoint()
@@ -33,6 +33,29 @@ public sealed class RuntimeFixesMod : IAnchorChainMod
 				return;
 			}
 			string[] lines = File.ReadAllLines(Path.Combine(fullName, "plugins", "sest_runtime.ini"));
+			// Beta only: both default to on when the pack's options file predates them.
+			if (Policy.TextOption(lines, "ModifierRegistry", "1") == "1")
+			{
+				try
+				{
+					ModifierRegistry.Install(assembly, fullName);
+				}
+				catch (Exception error9)
+				{
+					Api.LogFailure("modifier file check not installed", error9);
+				}
+			}
+			if (Policy.TextOption(lines, "HideVersionWatermark", "1") == "1")
+			{
+				try
+				{
+					VersionWatermark.Install(assembly);
+				}
+				catch (Exception error10)
+				{
+					Api.LogFailure("version watermark not hidden", error10);
+				}
+			}
 			if (Policy.OptionEnabled(lines, "TowedSensorGuard"))
 			{
 				try

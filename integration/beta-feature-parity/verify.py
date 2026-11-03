@@ -26,6 +26,11 @@ out = a.candidate.resolve()
 flat = a.flat_references.resolve()
 workshop = a.workshop_references.resolve() if a.workshop_references else capture / 'references/workshop/library-1'
 original = capture / 'references/workshop/library-1/3812461539/plugins/SEST.RuntimeFixes.dll'
+# A capture taken after a candidate was installed holds that candidate in the
+# Workshop folder; the parity checks then use the repository's preserved 1.5.0.
+if hashlib.sha256(original.read_bytes()).hexdigest() != '7ba6d6d9c58b6c3db31d731e951ed7ea3979925bdff054c9b92482dbe69c9986':
+    original = root / 'integration/runtime-fixes/SEST.RuntimeFixes.dll'
+    assert hashlib.sha256(original.read_bytes()).hexdigest() == '7ba6d6d9c58b6c3db31d731e951ed7ea3979925bdff054c9b92482dbe69c9986', 'preserved Runtime 1.5.0 missing'
 runtime, ui = out / 'SEST.RuntimeFixes.dll', out / 'SEST.ContactsFix.dll'
 results = []
 (out / 'validation.json').unlink(missing_ok=True)
@@ -52,6 +57,7 @@ run('identify-path-detours', [a.mono, out / 'PathTests.exe', workshop / '3790594
 run('bounded-loader-scheduler', [a.mono, out / 'LoaderTests.exe'])
 run('assembly-preload-policy-and-identify-geometry', [a.mono, out / 'AssemblyPolicyTests.exe', workshop, flat / 'Seapower-Scripts.dll'])
 run('campaign-scenario-beta-api-regressions', [a.mono, out / 'BetaApiTests.exe', workshop, flat / 'Seapower-Scripts.dll'])
+run('cost-rows-and-sest-catalog-fallback', [a.mono, out / 'CostRowsTests.exe', flat, runtime])
 run('installer-rollback', [a.powershell, '-NoLogo', '-NoProfile', '-File', here / 'tests/Test-Installer.ps1', '-Capture', capture, '-Candidate', out])
 if len(a.previous_package) != len(a.previous_payload):
     raise SystemExit('Pair every previous package with its matching payload.')

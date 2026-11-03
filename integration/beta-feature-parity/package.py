@@ -89,42 +89,46 @@ commands = {
 }
 repair_commands = {}
 if a.repair_base:
-    readme = '''R3 CAMPAIGN / SCENARIO ERROR REPAIR — 2 NOVEMBER 2026
+    readme = '''R4 BETA REPAIR: WATERMARK, #!EXTEND SCAN, COST ROWS. 3 NOVEMBER 2026
 
-For the already installed R1 or R2 Nov 1 beta candidate:
+For the installed R3 candidate (R1 and R2 are accepted too):
 1. Close Sea Power and extract this NEW ZIP into a fresh folder.
-2. Run Repair-Beta-Startup.cmd. It updates the loader and Identify data shim,
-   preserves the original backups and re-enables only after verified copies.
-3. Launch beta and open Campaigns. Start/continue the failing campaign and,
-   where possible, enter/leave a battle. Then load the same standalone scenario.
-   Check that the expected units appear and the two reported errors are gone.
+2. Run Repair-Beta-Startup.cmd. It replaces all five candidate files, keeps
+   the original backups and re-enables only after every copy verifies.
+3. Launch beta and check:
+   - no "Sea Power v0.8.7-261026" text over the game view;
+   - Player.log holds a "[SEST Runtime] modifier files repaired" line (or
+     "nothing to repair");
+   - play a mission that fires an AGR-30 Redback, then open the campaign
+     menu's F11 window: the mission lists each round with its quantity,
+     unit price, line total and catalog section (sest_agr-30 at $70,000
+     from sest_weapon_costs.ini).
 4. Quit, run Capture-Repair-Results.cmd and attach its ZIP.
 
 Disable-Beta-Test.cmd stops this test activation. Restore-Previous-SEST.cmd
 restores the original backed-up code; the repair updates that restore journal.
 
-This repair adapts Dynamic Campaign's directory/file lookups and other changed
-beta APIs used in its battle path: bearings, mission-path read/write, unload,
-ASW attack defaults, reaction time, constant-speed requests and the legacy
-secondary enemy taskforce. Native beta defaults and mission mounts are kept.
-It also adapts Sub Ammunition and Second Thrust's old INI calls, chooses one
-captured Sub Ammunition image before loading, and fixes Enhanced Decoy's
-constructor branch to retain beta's contact-registration epilogue. Identify's
-enemy-hail scan now skips units whose taskforce is not assigned. Author DLLs
-remain unchanged; the loader creates inspected private compatibility images.
+What R4 changes (Runtime 1.5.2 beta; the loader, bootstrap, UI 1.4.3 beta
+and Identify shim are the R3 sources rebuilt with this candidate's compiler):
+- The beta's version watermark (SeaPower.VersionWatermark) is hidden after
+  it starts; nothing else on the HUD changes. HideVersionWatermark=0 in
+  plugins/sest_runtime.ini keeps it.
+- Beta 261026 scans #!extend files once. On this PC that scan runs before
+  the Workshop folders are registered, because Anchor Chain's preloader and
+  the SEST bootstrap read FileManager.Directories early, so every Workshop
+  mod's #!extend, #!prepend and #!copy file was ignored all session: SEST's
+  cost catalogs, Cross-Deck stubs and the Collection and Allied Fixes
+  extends. The Runtime rescans once the Workshop folders are registered and
+  clears the ini cache, as the Mod Manager's Apply does.
+- Cumulative Combat Costs reads SEST's own catalog files where the merged
+  catalog lacks a section, and lists every expended round per mission with
+  quantity, unit price, line total and the section the price came from.
 
-The earlier mission-load failure is ExtendedGuidance 0.9.7's incompatible
-SensorDistanceData field layout, encountered by Unity ECS type discovery.
-That captured DLL is now rejected BEFORE CLR loading. Automatic SAR and
-Osprey mechanics/deck code with confirmed beta patch failures are held inactive.
-Their Workshop files and data are kept. Full pre-beta parity is still unfinished.
-
-Identify Expanded stays active: all 10 old CourseTo calls are adapted to beta's
-HeadingToPosition in a private cache. Its Workshop DLL and asset paths stay
-unchanged, and Local data remains redirected outside StreamingAssets.
-
-For a FRESH install or after restoring the old candidate, use Stage/menu/Enable
-below instead of Repair. Keep Steam on beta throughout.
+Not in R4: the clipped tab borders (no screenshot received), the Global
+Hawk range (its data is unchanged; see BETA-FEATURE-PARITY.md) and the
+author plugins that stop on beta APIs (MissileControlMod, MultiStageMissiles,
+OptimalTargetDist, SubModelStabilization, TestRange, UiWorkerProbe,
+WeaponLauncherEffects, BetterTacMap): those need their authors' ports.
 
 --------------------------------------------------------------------------
 

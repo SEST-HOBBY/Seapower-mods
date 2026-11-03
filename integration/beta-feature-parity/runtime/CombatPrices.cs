@@ -11,6 +11,14 @@ internal sealed class CombatPrices
 
 	private readonly Dictionary<string, Dictionary<string, Dictionary<string, string>>> catalogs;
 
+	// SEST's own catalog files, read by their own file names. On the public
+	// beta the game's one-shot modifier scan can miss every Workshop #!extend
+	// file (see ModifierRegistry), so the merged weaponcosts.ini may lack the
+	// sections that sest_weapon_costs.ini extends into it. These are the same
+	// sections read without the merge; the merged catalog wins where it has
+	// the section.
+	private readonly Dictionary<string, Dictionary<string, Dictionary<string, string>>> own;
+
 	private readonly Func<string, string, Dictionary<string, string>> readUnit;
 
 	private readonly Dictionary<string, CombatPrice> cache = new Dictionary<string, CombatPrice>(StringComparer.OrdinalIgnoreCase);
@@ -20,8 +28,14 @@ internal sealed class CombatPrices
 	internal readonly string Basis;
 
 	internal CombatPrices(Dictionary<string, Dictionary<string, Dictionary<string, string>>> lists, Dictionary<string, Dictionary<string, string>> config, Func<string, string, Dictionary<string, string>> unitReader)
+		: this(lists, config, unitReader, null)
+	{
+	}
+
+	internal CombatPrices(Dictionary<string, Dictionary<string, Dictionary<string, string>>> lists, Dictionary<string, Dictionary<string, string>> config, Func<string, string, Dictionary<string, string>> unitReader, Dictionary<string, Dictionary<string, Dictionary<string, string>>> ownLists)
 	{
 		catalogs = lists;
+		own = ownLists ?? new Dictionary<string, Dictionary<string, Dictionary<string, string>>>();
 		readUnit = unitReader;
 		Dictionary<string, string> data = Section(lists["weapon"], "Costs");
 		Dictionary<string, string> data2 = Section(config, "Costs");
@@ -63,12 +77,25 @@ internal sealed class CombatPrices
 
 	internal static string Resolve(Dictionary<string, string> own, Dictionary<string, string> global, Dictionary<string, string> entry, string field, string inlineField = null)
 	{
+		return Resolve(own, global, entry, field, inlineField, out bool _);
+	}
+
+	// fromEntry says whether the catalog section, rather than the unit's own
+	// file, supplied the value.
+	internal static string Resolve(Dictionary<string, string> own, Dictionary<string, string> global, Dictionary<string, string> entry, string field, string inlineField, out bool fromEntry)
+	{
 		bool fallback = Preference(global, "OverrideInline", fallback: false);
 		fallback = Preference(entry, "OverrideInline", fallback);
 		fallback = Preference(entry, "Override" + field, fallback);
 		string text = Get(own, inlineField ?? field);
 		string text2 = Get(entry, field);
+		fromEntry = ((!fallback) ? (text == null && text2 != null) : (text2 != null));
 		return (!fallback) ? (text ?? text2) : (text2 ?? text);
+	}
+
+	internal static string CatalogName(string kind)
+	{
+		return (kind == "land") ? "sest_land_costs.ini" : (kind + "costs.ini");
 	}
 
 	internal static decimal? Parse(string value)
@@ -142,6 +169,12 @@ internal sealed class CombatPrices
 		Dictionary<string, Dictionary<string, string>> data = catalogs[kind];
 		Dictionary<string, string> global = Section(data, "Costs");
 		Dictionary<string, string> entry = Section(data, reference);
+		string catalog = CatalogName(kind);
+		if (entry.Count == 0 && own.TryGetValue(kind, out var ownData))
+		{
+			entry = Section(ownData, reference);
+			catalog = "sest_" + kind + "_costs.ini";
+		}
 		string text = kind switch
 		{
 			"weapon" => "WeaponCosts",
@@ -150,7 +183,8 @@ internal sealed class CombatPrices
 			_ => "LandCosts",
 		};
 		CombatPrice combatPrice = new CombatPrice();
-		combatPrice.Amount = Parse(Resolve(dictionary, global, entry, (!Current) ? text : "CurrentYearCost"));
+		combatPrice.Amount = Parse(Resolve(dictionary, global, entry, (!Current) ? text : "CurrentYearCost", null, out bool fromEntry));
+		combatPrice.Source = ((!combatPrice.Amount.HasValue) ? ("no " + Basis + " price") : ((!fromEntry) ? (folder + "/" + reference + ".ini") : (catalog + " [" + reference + "]")));
 		value = combatPrice;
 		if (kind == "weapon")
 		{

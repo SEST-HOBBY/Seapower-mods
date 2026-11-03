@@ -5,6 +5,71 @@ SEST Workshop item (`3812461539`). It restores the Runtime/UI feature code for
 beta testing. It does not change the Steam branch or replace campaign/data packs.
 The earlier stable restore ZIP is superseded for this task.
 
+## R4: version watermark, the beta's #!extend scan, cost item rows
+
+Built on 3 November 2026 from the 2 November 22:26 capture, which recorded
+R3 playing its first campaign mission. Runtime 1.5.2 beta; the loader,
+bootstrap, UI 1.4.3 beta and Identify shim are R3's sources rebuilt with the
+same compiler as the Runtime (see the build section). GPT had described these
+three fixes on 2 November but its R4 build was never delivered; this is a new
+implementation from the same evidence.
+
+- **Version watermark.** `SeaPower.VersionWatermark.OnStart` keeps its text
+  active whenever `SteamApps.GetCurrentBetaName` succeeds, whatever the
+  player's `[Debug] ShowVersionWatermark` option says; only the game's own
+  config.ini could turn it off. `runtime/VersionWatermark.cs` postfixes
+  `OnStart` and deactivates that one object, and deactivates any instance
+  that started before the plugin loaded. `HideVersionWatermark=0` in
+  `plugins/sest_runtime.ini` keeps it; the key defaults to on when missing.
+- **The beta ignores every Workshop `#!extend` file.** Read from the IL of
+  Build 261026: `FileManager.Directories` is built lazily, and when a BepInEx
+  plugin reads it before SteamManager has initialised (Anchor Chain's
+  preloader does, to find the chainloader; the SEST bootstrap probe does
+  too) it holds the game's own three folders. `FileManager.OnStart` rebuilds
+  the list, but every `SearchDirectory` it constructs opens its `_info.ini`
+  through `IniHandler.open`, whose one-shot `ScanForModifierFiles` then runs
+  against the stale list, because the rebuilt list is published only after
+  all directories exist. Nothing rescans until the Mod Manager's Apply, so
+  SEST's cost catalogs, the 129 Cross-Deck stubs and the Collection and
+  Allied Fixes extends never applied in the 2 November session. That is why
+  `[WeaponCosts] Missing WeaponCosts: sest_agr-30 (ASM)` and the Runtime's
+  `no reference-year price` both appear although the published item's
+  `sest_weapon_costs.ini` carries the section. `runtime/ModifierRegistry.cs`
+  checks the registry for the pack's own modifier files once the Workshop
+  folders are registered and, only when none is there, does what Apply does:
+  `invalidateModifierRegistry`, a rescan, then `invalidateCache`. It logs the
+  counts before and after. `ModifierRegistry=0` turns it off.
+- **Cost rows.** `CombatPrices` now also reads `sest_weapon_costs.ini`,
+  `sest_vessel_costs.ini` and `sest_aircraft_costs.ini` by their own names
+  and uses them for a section the merged catalog lacks; the merged catalog
+  still wins where it has the section. Every price records its source. The
+  campaign window lists each expended round per mission, and the live window
+  lists them under the categories: quantity, unit price, line total and the
+  catalog section or unit file the price came from, sorted by line total.
+  Saved quantity records are not changed. `tests/CostRowsTests.cs` covers the
+  fallback, precedence, sources and rows against in-memory catalogs, and the
+  shared catalogue cache test now measures the catalogue reads per build.
+
+Checked but not changed: the MQ-4C Triton's `AN/ZPY-3` (430 km, Gain 60,
+900 kW, `RadarsActive=True` in the missions that place it) is identical on
+both builds, and no vanilla radar changed between the two exports; what did
+change is the game's horizon and look-down geometry (`SensorSystem.IsInLookDown`
+now uses a curvature-aware dip with a 4/3 radar Earth radius, and `GetRange`,
+`RangeReaches` and `Radar.IsDetectableTarget_Conditional` are new), so any
+range difference is the beta's code, to be compared in game on both builds.
+Not done: the clipped tab borders (no screenshot was attached) and ports of
+the author plugins that stop on beta APIs; their failures are their own
+validations refusing changed native signatures (`MissileControlMod` steering
+limits 0/0/2, `MultiStageMissiles` `MissileSimulator.BuildAltitudeNodes`,
+`OptimalTargetDist` launch layout 1/1/1/4, `TestRange`
+`SeaPower.ECM.CombinedJamUnit`, `UiWorkerProbe` and `BetterTacMap`
+`GizmoLayerManager.Instance`, `SubModelStabilization` and
+`WeaponLauncherEffects` null target methods), which an adapter cannot supply.
+
+The repair script now replaces all five candidate files and accepts the
+installed R1, R2 or R3 set as a whole; `Restore-Previous-SEST.cmd` still
+restores the original backups.
+
 ## R3: campaign menu and scenario errors
 
 The 2 November 00:50 capture verifies the R2 scenario can initialize, but its
@@ -140,6 +205,23 @@ BepInEx, original author DLL or compile-time stub belongs in the deliverable.
 The AnchorChain fork retains its MIT license.
 
 ## Build and validation
+
+With PowerShell 7.4 alone, using the Roslyn compiler it ships (C# 12):
+
+```sh
+pwsh -NoProfile -File integration/beta-feature-parity/build-roslyn.ps1 \
+  -Capture /path/to/extracted-beta-capture -Output /path/to/separate-candidate-output
+```
+
+That is the same build as build.py (same checks, sources, generated files
+and switches) without a .NET SDK; the receipt names the compiler. R3's sources
+rebuilt this way are IL-identical to R3's payload in every Runtime, loader
+and bootstrap method; only the UI and shim pins differ, as they hash the
+Runtime. A capture taken after a candidate was installed holds that candidate
+in the Workshop folder; both scripts then take the preserved 1.5.0 from
+`integration/runtime-fixes` for the provenance and parity checks.
+
+With a .NET 8 host and Roslyn 4.12:
 
 ```sh
 python integration/beta-feature-parity/build.py \

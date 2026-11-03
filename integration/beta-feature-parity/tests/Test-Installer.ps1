@@ -92,8 +92,18 @@ try {
     Assert ($same.token -eq $state.token) 'Staging the enabled candidate was not idempotent'
     if ($RepairPackage) {
         $repairScript=J $RepairPackage 'Repair-SEST-Beta-Startup.ps1'
-        $oldLoaderHash=Hash (J $loader 'AnchorChain.dll')
-        $oldShimHash=Hash (J $plugins 'SEST.IdentifyDataPaths.dll')
+        $newReceipt=Get-Content -LiteralPath (J $RepairPackage 'payload' 'build-receipt.json') -Raw | ConvertFrom-Json
+        # A repair replaces every candidate file; the shim is copied last, so a
+        # failure there must roll the four earlier copies back.
+        $codePaths=[ordered]@{
+            'AnchorChain.dll'=(J $loader 'AnchorChain.dll')
+            'SEST.BetaSafeBootstrap.dll'=(J $game 'BepInEx' 'plugins' 'SEST.BetaSafeBootstrap.dll')
+            'SEST.RuntimeFixes.dll'=(J $plugins 'SEST.RuntimeFixes.dll')
+            'SEST.ContactsFix.dll'=(J $plugins 'SEST.ContactsFix.dll')
+            'SEST.IdentifyDataPaths.dll'=(J $plugins 'SEST.IdentifyDataPaths.dll')
+        }
+        $beforeRepair=@{}
+        foreach ($name in $codePaths.Keys) { $beforeRepair[$name]=Hash $codePaths[$name] }
         $fault=[pscustomobject]@{ Fired=$false; PayloadPath=(J $RepairPackage 'payload' 'SEST.IdentifyDataPaths.dll') }
         try {
             function Copy-Item {
@@ -105,17 +115,16 @@ try {
             try { & $repairScript @options } catch { $blocked=$_.Exception.Message -match 'Synthetic repair-copy failure' }
             Assert ($blocked -and $fault.Fired) 'Repair failure was not injected'
         } finally { Remove-Item -LiteralPath 'Function:\Copy-Item' }
-        Assert ((Hash (J $loader 'AnchorChain.dll')) -eq $oldLoaderHash -and (Hash (J $plugins 'SEST.IdentifyDataPaths.dll')) -eq $oldShimHash) 'Failed repair did not restore the previous pair'
+        foreach ($name in $codePaths.Keys) { Assert ((Hash $codePaths[$name]) -eq $beforeRepair[$name]) "Failed repair did not restore $name" }
         Assert (!(Test-Path -LiteralPath (J $loader 'enable.flag'))) 'Failed repair reactivated the crashing setup'
         & $repairScript @options
-        $newReceipt=Get-Content -LiteralPath (J $RepairPackage 'payload' 'build-receipt.json') -Raw | ConvertFrom-Json
         $repaired=Get-Content -LiteralPath $stateFile -Raw | ConvertFrom-Json
-        Assert ((Hash (J $loader 'AnchorChain.dll')) -eq $newReceipt.files.PSObject.Properties['AnchorChain.dll'].Value) 'Repaired loader hash mismatch'
-        Assert ((Hash (J $plugins 'SEST.IdentifyDataPaths.dll')) -eq $newReceipt.files.PSObject.Properties['SEST.IdentifyDataPaths.dll'].Value) 'Repaired data shim hash mismatch'
-        Assert ((Hash (J $plugins 'SEST.RuntimeFixes.dll')) -eq $receipt.files.PSObject.Properties['SEST.RuntimeFixes.dll'].Value) 'Repair replaced the already working Runtime'
-        Assert ((Hash (J $plugins 'SEST.ContactsFix.dll')) -eq $receipt.files.PSObject.Properties['SEST.ContactsFix.dll'].Value) 'Repair replaced the already working UI'
+        foreach ($name in $codePaths.Keys) {
+            Assert ((Hash $codePaths[$name]) -eq $newReceipt.files.PSObject.Properties[$name].Value) "Repaired file hash mismatch: $name"
+            Assert (@($repaired.files | Where-Object { $_.name -eq $name -and $_.installed_sha256 -eq $newReceipt.files.PSObject.Properties[$name].Value }).Count -eq 1) "Restore journal does not recognize the repaired $name"
+        }
+        Assert ([IO.File]::ReadAllText((J $loader 'AnchorChain.sha256')) -eq $newReceipt.files.PSObject.Properties['AnchorChain.dll'].Value) 'Loader hash file was not updated'
         Assert ($repaired.token -eq $state.token -and $repaired.files.Count -eq $state.files.Count) 'Repair replaced the original restore journal'
-        Assert (@($repaired.files | Where-Object { $_.name -eq 'AnchorChain.dll' -and $_.installed_sha256 -eq $newReceipt.files.PSObject.Properties['AnchorChain.dll'].Value }).Count -eq 1) 'Restore journal does not recognize the repaired loader'
         Assert ([IO.File]::ReadAllText($settings) -ceq $newText -and !(Test-Path -LiteralPath $local)) 'Repair changed settings or recreated Local Identify'
         & $repairScript @options
         $again=Get-Content -LiteralPath $stateFile -Raw | ConvertFrom-Json

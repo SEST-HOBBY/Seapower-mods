@@ -628,6 +628,13 @@ internal static class CampaignCosts
 			}
 			list.Add(new CostReportLine(CostLineKind.Mission, Clip(item.Name, 256)));
 			list.Add(new CostReportLine(CostLineKind.Amount, "   " + string.Join(" | ", list2)));
+			foreach (CombatSideRecord side4 in item.Sides)
+			{
+				if (side4.Name == "Player" || side4.Name == "Enemy")
+				{
+					list.AddRange(Items(side4.Name + " weapons expended", side4.Spent, combatPrices));
+				}
+			}
 			list.Add(new CostReportLine(CostLineKind.Time, "   Completed: " + ((!item.CompletedAt.HasValue) ? "Not recorded" : item.CompletedAt.Value.ToString("d MMM yyyy HH:mm'Z'", CultureInfo.InvariantCulture))));
 		}
 		costView.AddSummary(CostLineKind.Basis, Basis(combatPrices) + " | " + games.Count + " completed mission" + ((games.Count != 1) ? "s" : string.Empty) + ".");
@@ -661,6 +668,50 @@ internal static class CampaignCosts
 	private static string Full(CombatAmount amount)
 	{
 		return "$" + amount.Known.ToString("#,0.##", CultureInfo.InvariantCulture) + ((!amount.Incomplete) ? string.Empty : " + ?");
+	}
+
+	private static string Exact(decimal amount)
+	{
+		return "$" + amount.ToString("#,0.##", CultureInfo.InvariantCulture);
+	}
+
+	// One row per weapon reference in a ledger: quantity, unit price, line
+	// total and the catalog section (or unit file) the price came from. Reads
+	// only; the saved quantity records are not changed.
+	internal static List<CostReportLine> Items(string label, InventoryLedger ledger, CombatPrices prices)
+	{
+		List<KeyValuePair<decimal, string>> rows = new List<KeyValuePair<decimal, string>>();
+		foreach (KeyValuePair<string, long> item in ledger.Ammo)
+		{
+			if (item.Value <= 0)
+			{
+				continue;
+			}
+			CombatPrice combatPrice = Price(prices, "weapon", item.Key, "ammunition");
+			if (combatPrice.Ignored)
+			{
+				continue;
+			}
+			decimal total = ((!combatPrice.Amount.HasValue) ? (-1m) : (combatPrice.Amount.Value * (decimal)item.Value));
+			string text = "      " + item.Key + " ×" + item.Value.ToString("N0", CultureInfo.InvariantCulture) + " @ " + ((!combatPrice.Amount.HasValue) ? "?" : Exact(combatPrice.Amount.Value)) + " = " + ((!combatPrice.Amount.HasValue) ? "?" : Exact(total)) + " | " + (combatPrice.Source ?? "no price");
+			rows.Add(new KeyValuePair<decimal, string>(total, text));
+		}
+		List<CostReportLine> list = new List<CostReportLine>();
+		if (rows.Count == 0)
+		{
+			return list;
+		}
+		rows.Sort(delegate(KeyValuePair<decimal, string> a, KeyValuePair<decimal, string> b)
+		{
+			int num = b.Key.CompareTo(a.Key);
+			return (num != 0) ? num : string.Compare(a.Value, b.Value, StringComparison.OrdinalIgnoreCase);
+		});
+		list.Add(new CostReportLine(CostLineKind.Category, "   " + label));
+		foreach (KeyValuePair<decimal, string> row in rows)
+		{
+			list.Add(new CostReportLine(CostLineKind.Item, row.Value));
+		}
+		return list;
 	}
 
 	private static void Categories(CostView view, InventoryLedger ledger, CombatPrices prices, string noun)
@@ -708,11 +759,19 @@ internal static class CampaignCosts
 				costView.AddDetail(CostLineKind.Section, side2.Name + " - expenditure and losses");
 				costView.AddDetail(CostLineKind.Body, "Weapons expended: " + Full(side.Weapons));
 				Categories(costView, side2.Spent, combatPrices, "expended");
+				foreach (CostReportLine row in Items("Items", side2.Spent, combatPrices))
+				{
+					costView.AddDetail(row.Kind, row.Text);
+				}
 				costView.AddDetail(CostLineKind.Body, "Ships & submarines destroyed: " + side.Ships.Count + " | " + Full(side.Ships));
 				costView.AddDetail(CostLineKind.Body, "Aircraft destroyed: " + side.Air.Count + " | " + Full(side.Air));
 				costView.AddDetail(CostLineKind.Body, "Land units destroyed: " + side.Land.Count + " | " + Full(side.Land));
 				costView.AddDetail(CostLineKind.Body, "Stores lost with destroyed units: " + Full(side.Stores));
 				Categories(costView, side2.Stores, combatPrices, "lost");
+				foreach (CostReportLine row2 in Items("Items", side2.Stores, combatPrices))
+				{
+					costView.AddDetail(row2.Kind, row2.Text);
+				}
 				costView.AddDetail(CostLineKind.Spacer, string.Empty);
 			}
 		}
@@ -779,6 +838,13 @@ internal static class CampaignCosts
 			}
 		}
 		dictionary["land"] = Catalog("sest_land_costs");
+		// SEST's own catalog files, for sections the merged catalogs lack when
+		// the game's modifier scan missed the pack's #!extend files (beta).
+		Dictionary<string, Dictionary<string, Dictionary<string, string>>> ownLists = new Dictionary<string, Dictionary<string, Dictionary<string, string>>>();
+		foreach (string text2 in array)
+		{
+			ownLists[text2] = Catalog("sest_" + text2 + "_costs");
+		}
 		return new CombatPrices(dictionary, Catalog("config", "systems/combatcosts"), delegate(string folder, string reference)
 		{
 			object ini = openUnit.Invoke(null, new object[4]
@@ -789,7 +855,7 @@ internal static class CampaignCosts
 				true
 			});
 			return CombatPrices.Section(Data(ini), "General");
-		});
+		}, ownLists);
 	}
 
 	private static CombatPrice Price(CombatPrices prices, string kind, string reference, string folder, string type = null)

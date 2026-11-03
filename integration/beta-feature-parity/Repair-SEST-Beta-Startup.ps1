@@ -72,17 +72,16 @@ $checks=[ordered]@{
 foreach ($name in $checks.Keys) {
     if ((Hash $checks[$name]) -ne $new.captured_references.PSObject.Properties[$name].Value) { throw "Reference changed: $name. Activation remains disabled." }
 }
+# Every candidate file is replaced: the loader, the bootstrap, the Runtime, the
+# UI follow-up and the Identify data shim. The installed set must be one reviewed
+# candidate as a whole (the first candidate, any earlier repair or this one), and
+# the original Stage backups are kept untouched.
 $map=[ordered]@{
     'AnchorChain.dll'=(J $loader 'AnchorChain.dll')
-    'SEST.IdentifyDataPaths.dll'=(J $WorkshopContentRoot '3812461539' 'plugins' 'SEST.IdentifyDataPaths.dll')
-}
-$untouched=[ordered]@{
+    'SEST.BetaSafeBootstrap.dll'=(J $GameRoot 'BepInEx' 'plugins' 'SEST.BetaSafeBootstrap.dll')
     'SEST.RuntimeFixes.dll'=(J $WorkshopContentRoot '3812461539' 'plugins' 'SEST.RuntimeFixes.dll')
     'SEST.ContactsFix.dll'=(J $WorkshopContentRoot '3812461539' 'plugins' 'SEST.ContactsFix.dll')
-    'SEST.BetaSafeBootstrap.dll'=(J $GameRoot 'BepInEx' 'plugins' 'SEST.BetaSafeBootstrap.dll')
-}
-foreach ($name in $untouched.Keys) {
-    if ((Hash $untouched[$name]) -ne $repair.base_files.PSObject.Properties[$name].Value) { throw "Unexpected installed candidate: $name. Activation remains disabled." }
+    'SEST.IdentifyDataPaths.dll'=(J $WorkshopContentRoot '3812461539' 'plugins' 'SEST.IdentifyDataPaths.dll')
 }
 $known=@($repair.base_files, $new.files)
 if ($repair.PSObject.Properties['previous_files']) { $known+=@($repair.previous_files) }
@@ -96,7 +95,7 @@ foreach ($version in $known) {
     }
     if ($matches) { $accepted=$true; break }
 }
-if (!$accepted) { throw 'Installed loader/shim pair is not a reviewed beta candidate. Activation remains disabled.' }
+if (!$accepted) { throw 'Installed candidate files are not a reviewed beta candidate. Activation remains disabled.' }
 foreach ($name in $map.Keys) {
     if ((Hash (J $payload $name)) -ne $new.files.PSObject.Properties[$name].Value) { throw "Repair payload failed verification: $name" }
     $entries=@($state.files | Where-Object { $_.name -eq $name -and $_.is_code })
@@ -113,7 +112,7 @@ try {
         if ($map.Contains($entry.name)) { $entry.installed_sha256=$new.files.PSObject.Properties[$entry.name].Value }
     }
     # Original backup locations/hashes are retained. Restore now recognizes the
-    # repaired pair instead of treating it as an unrelated external overwrite.
+    # repaired files instead of treating them as an unrelated external overwrite.
     $state.phase='enabled'
     Write-Atomic $statePath ($state | ConvertTo-Json -Depth 8)
     Write-Atomic $flag 'enable-beta-261026'
@@ -125,8 +124,7 @@ try {
     Copy-Verified (J $backup 'current-before-repair.json') $statePath
     throw $failure
 }
-Write-Host 'R3 campaign/scenario API repair installed and enabled; original backups and Identify data retained.' -ForegroundColor Green
-Write-Host 'Extended Guidance, Automatic SAR and Osprey mechanics/deck code are held inactive on this captured beta set.'
-Write-Host 'Campaign file lookup/battle calls, Sub Ammunition/Second Thrust INI calls and the Enhanced Decoy contact exit are adapted.'
-Write-Host 'Identify navigation and its enemy-hail guard are adapted; Workshop DLLs/assets are preserved.'
-Write-Host 'Launch beta, open Campaigns and test a campaign, then test the same standalone scenario. Quit and run Capture-Repair-Results.cmd.'
+Write-Host 'R4 beta repair installed and enabled; original backups and Identify data retained.' -ForegroundColor Green
+Write-Host 'Runtime 1.5.2 beta: the build text over the game view is hidden, the game''s #!extend scan is repaired once the Workshop folders are registered, and the cost windows price SEST rounds from SEST''s own catalog with item rows.'
+Write-Host 'The loader, bootstrap, UI follow-up and Identify shim are the R3 sources rebuilt with this candidate''s compiler.'
+Write-Host 'Launch beta, play a mission that fires an AGR-30 Redback, open F11 in the campaign menu, then quit and run Capture-Repair-Results.cmd.'

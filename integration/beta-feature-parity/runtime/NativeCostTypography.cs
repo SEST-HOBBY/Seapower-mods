@@ -87,6 +87,11 @@ internal static class NativeCostTypography
 				textBlock2.Foreground = Ink("#B6C4CE");
 				textBlock2.Margin = new Thickness(16f, 0f, 0f, 3f);
 				break;
+			case CostLineKind.Item:
+				textBlock2.FontSize = 12f;
+				textBlock2.Foreground = Ink("#A3B3BF");
+				textBlock2.Margin = new Thickness(26f, 0f, 0f, 2f);
+				break;
 			}
 			if (row.Kind == CostLineKind.Mission)
 			{

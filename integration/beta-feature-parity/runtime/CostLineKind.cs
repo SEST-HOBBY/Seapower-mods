@@ -12,5 +12,6 @@ internal enum CostLineKind
 	Amount,
 	Time,
 	Category,
-	Spacer
+	Spacer,
+	Item
 }

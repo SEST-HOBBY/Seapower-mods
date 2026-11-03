@@ -14,7 +14,7 @@ class Probe {
   };
   var game=Assembly.LoadFrom(Path.Combine(args[0],"Seapower-Scripts.dll"));
   var rt=Assembly.LoadFrom(args[1]);int fails=0;
-  foreach(string entry in new[]{"TowedSensorGuard.Bind","TerrainClearance.Bind","TaskForceDebrief.Bind","PreparationMap.Bind","CampaignCosts.Bind","CampaignCosts.BindLive","CampaignCosts.BindMenu","CampaignInventory.Bind","NativeCombatSurface.Bind","F11CombatCosts.BindMissionPath"}) {
+  foreach(string entry in new[]{"TowedSensorGuard.Bind","TerrainClearance.Bind","TaskForceDebrief.Bind","PreparationMap.Bind","CampaignCosts.Bind","CampaignCosts.BindLive","CampaignCosts.BindMenu","CampaignInventory.Bind","NativeCombatSurface.Bind","F11CombatCosts.BindMissionPath","VersionWatermark.Bind","ModifierRegistry.Bind"}) {
    try {
     int dot=entry.LastIndexOf('.');var t=rt.GetType("Sest.RuntimeFixes."+entry.Substring(0,dot),true);
     var m=t.GetMethod(entry.Substring(dot+1),BindingFlags.Static|BindingFlags.NonPublic|BindingFlags.Public);
