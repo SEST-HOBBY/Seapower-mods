@@ -31,9 +31,14 @@ and checked on its own branch and then by a second reader:
 **GPT's pieces, ported.** GPT's line (PR #54, branch
 `fix/beta-261026-safe-anchorchain`, and PR #55, branch
 `release/sest-workshop-20261101`, pushed 31 Oct to 1 Nov 2026) added work the
-lead's line lacks. Those pieces are ported by cherry-pick with `-x`, so each
-ported commit names GPT's source commit; the subjects were reworded into
-plain English. GPT's own subjects, by piece:
+lead's line lacks. Those pieces are ported by cherry-pick with `-x` where
+the commit applied as it was, so the ported commit names GPT's source commit
+(the capture pieces), or reworked by hand where it mixed wanted and unwanted
+changes (the beta pieces, which carry no cherry-pick line). Either way the
+subjects are in plain English. Items 3, 7 and 8 below were not carried by any
+unit when this note was written; they are listed so the lead can port them or
+leave them out. Before combining, check each piece against the final branch
+log. GPT's own subjects, by piece:
 
 1. **The bounded Anchor Chain fork and the inert beta bootstrap**
    (`integration/beta-anchorchain/`), from PR #54: `25606fd8` "fix(beta):
@@ -59,11 +64,13 @@ plain English. GPT's own subjects, by piece:
    SETUP fallback after new Steam beta updates". Reworked here: SETUP names
    the detected game build by the hash of `Seapower-Scripts.dll` (stable
    `eab2297b`, beta `3005bc6d`) and warns when the game's last launch loaded
-   no code mod. It stops only where SETUP already stopped.
+   no code mod. It warns, without stopping, when the discontinued PR #53
+   `SEST.BetaAnchorBootstrap.dll` is installed, and reports an unknown build
+   as data only. It stops only where SETUP already stopped.
 3. **The beta's vanilla export** (`data/game-baselines/beta-261026/`, 5,387
    files): `f8637c91` "build(release): retain beta 261026 vanilla snapshot
-   while restoring stable 261021 source inputs". It is reference data for the
-   beta work. The pack still builds from `mods-source/_vanilla`, Build 261021.
+   while restoring stable 261021 source inputs". Not ported yet. It would be
+   reference data for the beta work. The pack still builds from `mods-source/_vanilla`, Build 261021.
 4. **The one-command capture** (`tools/capture-all-mod-updates.ps1`):
    `04443995` "feat(release): capture every installed Workshop mod and export
    today's changes in one step", `dc8fd88f` "feat(release): include guarded
@@ -85,9 +92,14 @@ plain English. GPT's own subjects, by piece:
    and `9a36e6d5` ("ci(release)" and "ci(capture)"). A green run is a build
    check, not a game test.
 7. **The Hyundai-Hanwha rename**: `19319c44` "catalog(release): reconcile
-   Hyundai-Hanwha Steam Workshop rename with legacy Philippine item ID".
+   Hyundai-Hanwha Steam Workshop rename with legacy Philippine item ID". Not
+   ported yet: it retitles `euromod-philippines` (3812454152) in
+   `data/mod-catalog.json` and notes the rename, keeping the old slug until
+   the updated content is exported.
 8. **The Chilean JvH cost id**: `bb249223` "fix(release): remove obsolete
-   Chilean JvH cost ID; retain renamed vessel mapping".
+   Chilean JvH cost ID; retain renamed vessel mapping". Not ported yet: it
+   drops the `ch_ffg_jvh` mapping from `integration/combat-costs/mappings.json`
+   and keeps `ch_ffg_jacob_van_heemskerck`.
 
 The final hashes and subjects of the ported commits are in the branch log;
 the lead's merge record lists them.
@@ -101,7 +113,7 @@ notes (`04f836bf`, `b556c002`). Their "beta-first" framing contradicts the
 owner's decision of 30 Oct 2026 that the pack targets Build 261021. Three of
 their points stand and are kept here: a green CI run is not gameplay
 validation, the discontinued PR #53 bootstrap DLL must not be on a PC that
-runs SETUP, and the previous stable build stays reproducible from its commit
+runs SETUP (SETUP now warns about it), and the previous stable build stays reproducible from its commit
 for a rollback.
 
 ## What this branch is not
@@ -145,9 +157,13 @@ for a rollback.
 
 ## Open
 
-- **The beta repairs R2, R3 and R4.** They are not in the repository. The
+- **The beta repairs R2, R3 and R4.** R3 is on `beta/r3-20261102`, off this
+  branch and not shipped: its source is `8ef1dfc6` (a later bounded Anchor
+  Chain fork with assembly adapters, the bootstrap, and Runtime 1.5.1 beta and
+  UI Follow-up 1.4.3 beta sources), and `7e61be6d` holds the candidates as the
+  owner's PC ran them on 2 Nov 2026. R2 and R4 are not in the repository. The
   beta branch for the game's 11 Nov 2026 release takes them up with the rest
-  of the beta work.
+  of the beta work. (The lead to confirm this R3 wording.)
 - **The 1 Nov 2026 PC capture.** It has not reached the repository. This
   branch is built on the 28 Oct capture; the next capture may bring more
   author updates.
@@ -158,9 +174,11 @@ for a rollback.
 - **The pop-out parts.** Runtime's pop-out bridges and UI Follow-up's pop-out
   parts stay off with Pop-Out Windows 1.0.2 until both are re-pinned.
 - **Quick Load.** UI Follow-up moves plain F9 to Ctrl+F9 for every Contact
-  Log 1.0.1 player, and Contact Log is now in the collection. The owner
+  Log 1.0.1 player. The load order names Contact Log since the 28 Oct capture,
+  and the collection will carry it once the owner adds it. The owner
   decides before the upload whether to ship the plugin as it is
   (`docs/integration-20261028-review.md`, open item 2).
-- **The beta itself.** Neither the bounded fork nor the bootstrap has been
-  compiled against the owner's game files or run on the beta. Their test plan
+- **The beta itself.** The PR #54 fork and bootstrap carried on this branch
+  have not been run on the beta. R3's later versions of them ran on the
+  owner's PC on 2 Nov 2026; their results belong to the beta branch. Their test plan
   is in `integration/beta-anchorchain/README.md`.

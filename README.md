@@ -25,8 +25,9 @@ there and switches itself off on any other build; on the public beta no mod's
 code loads at all, because the Workshop Anchor Chain preloader finds no
 chainloader there. A bounded Anchor Chain fork and an inert beta bootstrap are
 source-only test candidates in `integration/beta-anchorchain/`, not shipped.
-With Pop-Out Windows 1.0.2, now in the collection, the pop-out parts of both
-plugins stay off, since both are pinned to Pop-Out Windows 1.0.1.
+The load order names Pop-Out Windows 1.0.2 since the 28 Oct capture, and the
+collection will carry it once the owner adds it. With 1.0.2 the pop-out parts
+of both plugins stay off, since both are pinned to Pop-Out Windows 1.0.1.
 `docs/release-20261103-consolidated.md` says what the current release branch
 carries and what gates it.
 

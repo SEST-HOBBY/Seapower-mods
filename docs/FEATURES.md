@@ -565,8 +565,9 @@ how to check each.
   Task Force menu, a 3-row debrief (mission cost, campaign cost, details in
   F11), pop-out buttons for Contact Log 1.0.1 and Group Manager 0.2.17
   (these pop-outs, like the F11 windows', need Pop-Out Windows 1.0.1 and a
-  second monitor; the collection carries Pop-Out Windows 1.0.2 since the 28
-  Oct capture, and Runtime's pop-out bridges are pinned to 1.0.1, so they
+  second monitor; the load order names Pop-Out Windows 1.0.2 since the 28
+  Oct capture, and the collection will carry it once the owner adds it;
+  Runtime's pop-out bridges are pinned to 1.0.1, so they
   stay off with it until Runtime is re-pinned; the F11 windows themselves
   stay on), own units plotted while
   paused in preparation, and a guard for towed sonars with an incomplete
@@ -580,11 +581,11 @@ how to check each.
   correction cannot add one either. None of the three corrections has been
   watched working in a mission yet.
 - **SEST UI Follow-up** (`plugins/SEST.ContactsFix.dll`, 1.4.2, 28 Oct
-  2026): for players of Contact Log 1.0.1, which the collection carries
-  since the 28 Oct capture. Space and +/- no longer open or
+  2026): for players of Contact Log 1.0.1, which the load order names since
+  the 28 Oct capture and the collection will carry once the owner adds it. Space and +/- no longer open or
   close Contacts; its pop-out is fixed and Group Manager gets a Stock UI /
   Enhanced UI switch (both need Pop-Out Windows 1.0.1, the pop-out a second
-  monitor too; with the collection's Pop-Out Windows 1.0.2 the Contacts
+  monitor too; with Pop-Out Windows 1.0.2 the Contacts
   pop-out surface fix, the Formation UI mode switch and the camera compass
   log `inactive` and stay off until the plugin is re-pinned, while the input
   fix stays on); and the live F11 window reuses its price lists per

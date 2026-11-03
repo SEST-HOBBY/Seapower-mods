@@ -139,7 +139,7 @@ SETUP update). Before Submit:
 [*]SEST's runtime plugin is now 1.5.0. F11 opens game-styled cost windows in a mission and in the Task Force menu; move them by the title bar and resize them at the edges. The debrief shows mission and campaign cost, with the details in F11.
 [*]Own units are plotted while paused during preparation, and a towed sonar with an incomplete link no longer stops the game's update.
 [*]SEST's pop-outs to a second monitor (Contacts, Group Manager and the F11 windows) are off for now: they were built for Pop-Out Windows 1.0.1, and the collection carries 1.0.2. Pop-Out Windows' own pop-outs work as usual.
-[*]New: SEST UI Follow-up, for players of Contact Log 1.0.1. Space and +/- no longer open or close Contacts, and the live F11 window stops rebuilding its price lists twice a second. Its Group Manager Stock UI / Enhanced UI switch waits for the same Pop-Out Windows update. Without Contact Log, or on another game build, it does nothing.
+[*]New: SEST UI Follow-up, for players of Contact Log 1.0.1. Space and +/- no longer open or close Contacts, and the live F11 window stops rebuilding its price lists twice a second. Its Group Manager Stock UI / Enhanced UI switch is off for the same reason until SEST is updated for Pop-Out Windows 1.0.2. Without Contact Log, or on another game build, it does nothing.
 [*]With UI Follow-up active, Quick Load moves from F9 to Ctrl+F9; any other Quick Load key is kept. Once you press Accept in Options, Ctrl+F9 stays after you unsubscribe; set Quick Load back in Options.
 [/list]
 
