@@ -269,20 +269,24 @@ Write-Snapshot "plugin-dlls.txt" $lines
 $logDir = Split-Path -Parent $SettingsPath
 foreach ($pair in @(@("Player.log", "player.log"), @("Player-prev.log", "player-prev.log"))) {
     $src = Join-Path $logDir $pair[0]
+    $problems = $pair[1] -replace "\.log$", ".problems.txt"
     if (Test-Path -LiteralPath $src) {
         $all = @(Get-Content -LiteralPath $src -ErrorAction SilentlyContinue)
         $keep = @(if ($all.Count -gt $LogTailLines) { $all[-$LogTailLines..-1] } else { $all })
         $head = @("# $($pair[0]) - last $($keep.Count) of $($all.Count) line(s), captured $(Get-Date -Format s).",
                   "# Unity writes this fresh each launch; -prev is the session before.", "")
         Write-Snapshot $pair[1] ($head + $keep)
+        # Written on every run, "0 hit(s)" included: a clean session must
+        # replace the previous session's summary, not leave it in place.
         $bad = @($all | Select-String -Pattern "Exception|Error|not found|missing|failed" -CaseSensitive:$false)
-        if ($bad) {
-            Write-Snapshot ($pair[1] -replace "\.log$", ".problems.txt") `
-                (@("# Lines from $($pair[0]) matching Exception/Error/not found/missing/failed.",
-                   "# $($bad.Count) hit(s) - the first place to look when something did not load.", "") +
-                 ($bad | ForEach-Object { "{0,7}: {1}" -f $_.LineNumber, $_.Line }))
-        }
-    } else { Write-Host ("  skipped {0,-30} not present" -f $pair[0]) }
+        Write-Snapshot $problems `
+            (@("# Lines from $($pair[0]) matching Exception/Error/not found/missing/failed.",
+               "# $($bad.Count) hit(s) - the first place to look when something did not load.", "") +
+             @($bad | ForEach-Object { "{0,7}: {1}" -f $_.LineNumber, $_.Line }))
+    } else {
+        Write-Host ("  skipped {0,-30} not present" -f $pair[0])
+        Write-Snapshot $problems @("# $($pair[0]) was not present when this capture ran.", "# 0 hit(s).")
+    }
 }
 
 # --- 3b. the code mods' log ----------------------------------------------------
