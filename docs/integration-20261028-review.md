@@ -130,3 +130,31 @@ reviewer, then combined and rebuilt:
    Cross-Deck notes now say so. Older catalog notes and builder comments
    still call it Anchor Chain's and say an extend needs the preloader; that
    needs checking before those notes are rewritten.
+
+## After the 28 Oct capture
+
+The capture of 28 Oct 2026 is reviewed in
+`docs/workshop-refresh-20261028-review.md`, and the branch that integrates it
+is described in `docs/release-20261103-consolidated.md`. The owner took five
+decisions on 30 Oct 2026 (the review's section 4, items 1, 2, 3, 5 and 6):
+
+1. **The SM-3 IIA and IIB `[ExtendedGuidance]` keys are declined.** Only the
+   AC Pack's ExtendedGuidance submod reads them, and SEST keeps it off.
+2. **The RAN Seahawk's Redback row is retargeted** to Euromod RAN's new
+   AntiShip fit, on the Penguin station (Station10).
+3. **The four new mods join the catalog, the canonical order and the
+   collection:** Contact Log, Sea Power Topographic Map, Sea Power Pop-Out
+   Windows and B-21 Raider. This replaces the default above that the three
+   UI mods stay off the collection. The order has 204 entries: 203 Workshop
+   mods and the pack.
+4. **Runtime 1.5.0 stays the shipped binary**, and its source is being
+   recovered or reconstructed. No older build replaces it.
+5. **The pack targets Build 261021.** `mods-source/_vanilla` stays the
+   261021 export; the beta work goes to a beta branch for the game's 11 Nov
+   2026 release.
+
+GPT's PR #54 (`fix/beta-261026-safe-anchorchain`) and PR #55
+(`release/sest-workshop-20261101`) are folded into
+`release/consolidated-20261103`: the pieces the lead's line lacked are
+ported, and where both lines fixed the same thing, the lead's reviewed fix
+stands. The release note lists which is which. The owner closes both PRs.
