@@ -1,4 +1,4 @@
-# BepInEx\LogOutput.log - whole file, 18 line(s), 0.0 MB, last written 2026-10-28T22:40:10. 
+# BepInEx\LogOutput.log - whole file, 1374 line(s), 0.1 MB, last written 2026-11-03T23:08:08. 
 [Error  :   BepInEx] Unable to start Unity log writer
 [Message:   BepInEx] BepInEx 5.4.23.2 - Sea Power (15/10/2026 4:59:12 PM)
 [Info   :   BepInEx] Running under Unity v6000.0.84.7908207
@@ -12,8 +12,1364 @@
 [Message:   BepInEx] Preloader finished
 [Message:   BepInEx] Chainloader ready
 [Message:   BepInEx] Chainloader started
-[Info   :   BepInEx] 1 plugin to load
+[Info   :   BepInEx] 2 plugins to load
 [Info   :   BepInEx] Loading [AnchorChain Preloader 1.0.0]
 [Info   :AnchorChain Preloader] AnchorChain Preloader started!
 [Error  :AnchorChain Preloader] Could not find AnchorChain chainloader
+[Info   :   BepInEx] Loading [SEST Beta Safe Anchor Chain 0.3.0]
+[Info   :SEST Beta Safe Anchor Chain] Beta 261026 verified. Startup probe only until explicit enable.flag is present.
+[Info   :SEST Beta Safe Anchor Chain] Safe probe tick=0 roots=3 workshopRegistered=False state=instance=SeaPower.Singleton`1[[SeaPower.FileManager, Seapower-Scripts, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]].Instance property OK; directories=SeaPower.FileManager.Directories property OK
 [Message:   BepInEx] Chainloader startup complete
+[Info   :SEST Beta Safe Anchor Chain] BETA SAFE BOOTSTRAP READY; enable=True roots=207 workshopRegistered=True
+[Info   :SEST Beta Safe Anchor Chain] Starting bounded Anchor Chain 1.1.0 fork once.
+[Info   :AnchorChain] Loaded assembly SEST.ContactsFix, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+[Info   :AnchorChain] Loaded assembly SEST.IdentifyDataPaths, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+[Info   :AnchorChain] Loaded assembly SEST.MenuBackground, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+[Info   :AnchorChain] Loaded assembly SEST.RuntimeFixes, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+[Info   :AnchorChain] Loaded assembly ACPackSettings, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+[Warning:AnchorChain] [Beta compatibility] SKIPPED before CLR load: CombatWorker.dll; CombatWorkers.OverlapScope.Result: SeaPower.MissileSimulator/KinematicRangeResult encoded as reference; native definition is value
+[Info   :AnchorChain] Loaded assembly CustomAudioLoader, Version=2.5.6.0, Culture=neutral, PublicKeyToken=null
+[Warning:AnchorChain] [Beta compatibility] ADAPTED EnhancedDecoyMod in private cache: contact-color=1, contact-exit=1, locations=2, ui=1, vehicle-view=4; original Workshop DLL and asset paths preserved.
+[Info   :AnchorChain] Loaded assembly EnhancedDecoyMod, Version=0.5.3.0, Culture=neutral, PublicKeyToken=null
+[Info   :AnchorChain] Loaded assembly EnhancedUIMod, Version=0.1.1.0, Culture=neutral, PublicKeyToken=null
+[Info   :AnchorChain] Loaded assembly Euromod-Welldeck, Version=1.0.3.0, Culture=neutral, PublicKeyToken=null
+[Warning:AnchorChain] [Beta compatibility] SKIPPED before CLR load: ExtendedGuidance 0.9.7; SensorDistanceData field layout blocks beta ECS initialization. Data files retained.
+[Info   :AnchorChain] Loaded assembly HighAltitudeSkyFix, Version=1.2.2.0, Culture=neutral, PublicKeyToken=null
+[Info   :AnchorChain] Loaded assembly HullDamage, Version=0.6.10.0, Culture=neutral, PublicKeyToken=null
+[Info   :AnchorChain] Loaded assembly MeshCutOut.ACPack, Version=0.5.1.0, Culture=neutral, PublicKeyToken=null
+[Info   :AnchorChain] Loaded assembly MissileControlMod, Version=0.1.16.0, Culture=neutral, PublicKeyToken=null
+[Info   :AnchorChain] Loaded assembly MissileControlSurfaces, Version=1.1.3.0, Culture=neutral, PublicKeyToken=null
+[Info   :AnchorChain] Loaded assembly MultiStageMissiles, Version=1.7.17.0, Culture=neutral, PublicKeyToken=null
+[Info   :AnchorChain] Loaded assembly OptimalTargetDist, Version=1.2.1.0, Culture=neutral, PublicKeyToken=null
+[Info   :AnchorChain] Loaded assembly ParallelRangeProbe, Version=0.12.0.0, Culture=neutral, PublicKeyToken=null
+[Info   :AnchorChain] Loaded assembly ProfileImage1024, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+[Info   :AnchorChain] Loaded assembly SATCOM, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+[Info   :AnchorChain] Loaded assembly SmokeParticleLOD, Version=0.4.1.0, Culture=neutral, PublicKeyToken=null
+[Info   :AnchorChain] Loaded assembly SubModelStabilization, Version=1.1.2.0, Culture=neutral, PublicKeyToken=null
+[Info   :AnchorChain] Loaded assembly TestRange, Version=0.2.3.0, Culture=neutral, PublicKeyToken=null
+[Info   :AnchorChain] Loaded assembly UiWorkerProbe, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null
+[Info   :AnchorChain] Loaded assembly V22Tiltrotor, Version=2.8.15.0, Culture=neutral, PublicKeyToken=null
+[Info   :AnchorChain] Loaded assembly WeaponLauncherEffects, Version=1.0.18.0, Culture=neutral, PublicKeyToken=null
+[Warning:AnchorChain] [Beta compatibility] ADAPTED SecondThrustMod in private cache: ini=1, locations=1; original Workshop DLL and asset paths preserved.
+[Info   :AnchorChain] Loaded assembly SecondThrustMod, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+[Warning:AnchorChain] [Beta compatibility] ADAPTED SubAmmunitionMod in private cache: file=1, ini=5, locations=1, offset-grid=2; original Workshop DLL and asset paths preserved.
+[Info   :AnchorChain] Loaded assembly SubAmmunitionMod, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+[Warning:AnchorChain] [Beta compatibility] SKIPPED duplicate before CLR load: SubAmmunitionMod.fixed.dll; canonical SubAmmunitionMod.dll is present and will receive the beta API adapter.
+[Info   :AnchorChain] Loaded assembly LoadoutManager, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+[Info   :AnchorChain] Loaded assembly LoadoutManager, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+[Info   :AnchorChain] Loaded assembly BetterTacMap, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+[Info   :AnchorChain] Loaded assembly SeaPowerSquadPanel, Version=0.2.17.0, Culture=neutral, PublicKeyToken=null
+[Info   :AnchorChain] Loaded assembly ContactLog, Version=1.0.1.0, Culture=neutral, PublicKeyToken=null
+[Info   :AnchorChain] Loaded assembly SeaPowerTopo, Version=1.5.0.0, Culture=neutral, PublicKeyToken=null
+[Info   :AnchorChain] Loaded assembly SeaPowerTopoFlat, Version=1.5.0.0, Culture=neutral, PublicKeyToken=null
+[Info   :AnchorChain] Loaded assembly SeaPowerPopOut, Version=1.1.3.0, Culture=neutral, PublicKeyToken=null
+[Info   :AnchorChain] Loaded assembly CombatCosts, Version=0.7.1.0, Culture=neutral, PublicKeyToken=null
+[Info   :AnchorChain] Loaded assembly CoordinatedStrikeTool, Version=1.3.1.0, Culture=neutral, PublicKeyToken=null
+[Warning:AnchorChain] [Beta compatibility] SKIPPED before CLR load: AutomaticSAR.dll; captured beta patch failure with partial initialization. Awaiting a port.
+[Warning:AnchorChain] [Beta compatibility] ADAPTED IdentifyExpanded in private cache: bearings=10, hail-guard=1, locations=2, ui=5; original Workshop DLL and asset paths preserved.
+[Info   :AnchorChain] Loaded assembly IdentifyExpanded, Version=3.420.6967.0, Culture=neutral, PublicKeyToken=null
+[Warning:AnchorChain] [Beta compatibility] ADAPTED DynamicCampaignMod in private cache: Acquisition=1, DoUnload=1, GetDirectories=1, GetFiles=1, SetAttackAtWaypointTask=2, attack-reflection=1, bearing-reflection=1, bearings=1, facts-property=1, mission-get=3, mission-set=1, secondary-side=6, speed-make=1, speed-set=1, ui=24; original Workshop DLL and asset paths preserved.
+[Info   :AnchorChain] Loaded assembly DynamicCampaignMod, Version=0.25.0.1, Culture=neutral, PublicKeyToken=null
+[Info   :AnchorChain] Loaded assembly ACC.CV16.SkiJumpFix, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+[Info   :AnchorChain] Loaded assembly Z20RotorVisualSync, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+[Warning:AnchorChain] Error loading assembly at path C:\Program Files (x86)\Steam\steamapps\workshop\content\1286220\3766210676\version.dll: System.BadImageFormatException: Format of the executable (.exe) or library (.dll) is invalid.
+  at Mono.Cecil.PE.ImageReader.ReadOptionalHeaders (System.UInt16& subsystem, System.UInt16& dll_characteristics) [0x000bb] in <6034b380a22b41a596c9dc29d282c0a9>:0 
+  at Mono.Cecil.PE.ImageReader.ReadImage () [0x0008b] in <6034b380a22b41a596c9dc29d282c0a9>:0 
+  at Mono.Cecil.PE.ImageReader.ReadImage (Mono.Disposable`1[T] stream, System.String file_name) [0x00007] in <6034b380a22b41a596c9dc29d282c0a9>:0 
+  at Mono.Cecil.ModuleDefinition.ReadModule (Mono.Disposable`1[T] stream, System.String fileName, Mono.Cecil.ReaderParameters parameters) [0x00006] in <6034b380a22b41a596c9dc29d282c0a9>:0 
+  at Mono.Cecil.ModuleDefinition.ReadModule (System.String fileName, Mono.Cecil.ReaderParameters parameters) [0x0006c] in <6034b380a22b41a596c9dc29d282c0a9>:0 
+  at AnchorChain.BetaAssemblyPolicy.Prepare (System.String source, System.String nativePath, System.String cacheRoot, System.Action`1[T] log) [0x0013e] in <5e4b5612895d470cb7b614f9aa9b3bee>:0 
+  at AnchorChain.AnchorChainLoader.LoadPluginsCore () [0x0009b] in <5e4b5612895d470cb7b614f9aa9b3bee>:0 
+[Info   :AnchorChain] Loaded assembly K5KrakenContactStrike, Version=1.0.1.0, Culture=neutral, PublicKeyToken=null
+[Info   :AnchorChain] Loaded assembly AlpineSeaPower, Version=0.3.2.0, Culture=neutral, PublicKeyToken=null
+[Info   :AnchorChain] Loaded assembly FuryFormation, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+[Info   :AnchorChain] Loaded assembly FuryLights, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+[Info   :AnchorChain] Loaded assembly FuryVoice.Harmony, Version=1.5.0.0, Culture=neutral, PublicKeyToken=null
+[Info   :AnchorChain] Loaded assembly XQ58Shadow, Version=1.2.6.0, Culture=neutral, PublicKeyToken=null
+[Info   :AnchorChain] Loaded assembly B21Ejection, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+[Info   :AnchorChain] Loaded assembly B21Formation, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+[Info   :AnchorChain] Loaded assembly B21Lights, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+[Info   :AnchorChain] Loaded assembly EC2CommsJamming, Version=1.1.1.0, Culture=neutral, PublicKeyToken=null
+[Info   :AnchorChain] Loaded assembly EC2Ejection, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+[Info   :AnchorChain] Loaded assembly EC2Formation, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+[Info   :AnchorChain] Loaded assembly EC2Lights, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+[Info   :AnchorChain] Loaded assembly EC2Tooltip, Version=1.0.2.0, Culture=neutral, PublicKeyToken=null
+[Info   :AnchorChain] Loaded assembly J16Systems, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+[Info   :AnchorChain] Loaded assembly J36AfterburnerNozzle, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+[Warning:AnchorChain] [Beta compatibility] SKIPPED before CLR load: OspreyDeckOps.dll; depends on the captured, incompatible OspreyMechanics assembly.
+[Warning:AnchorChain] [Beta compatibility] SKIPPED before CLR load: OspreyMechanics.dll; captured beta patch failure with partial initialization. Awaiting a port.
+[Info   :AnchorChain] Loaded assembly BellSystemsFixtureTilt, Version=0.5.2.0, Culture=neutral, PublicKeyToken=null
+[Info   :AnchorChain] Loaded assembly CheyenneCabinJoints, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+[Info   :AnchorChain] Loaded assembly CheyenneDoorLining, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+[Info   :AnchorChain] Loaded assembly MV75CrewEscape, Version=1.0.1.0, Culture=neutral, PublicKeyToken=null
+[Info   :AnchorChain] Loaded assembly MV75Formation, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+[Info   :AnchorChain] Loaded assembly Z21GunMoveFire, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.WeaponSystem and name _containerBaseObject
+[Info   :AnchorChain] Loaded assembly AlpineSeaPower, Version=0.3.2.0, Culture=neutral, PublicKeyToken=null
+[Warning:AnchorChain] Attempted to load a duplicate plugin: Sea Power scoped runtime fixes (alpine.seapower.runtime)
+[Info   :AnchorChain] Loaded assembly YF23Ejection, Version=1.1.0.0, Culture=neutral, PublicKeyToken=null
+[Info   :AnchorChain] Loaded assembly YF23Formation, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+[Info   :AnchorChain] Loaded assembly YF23Lights, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+[Info   :AnchorChain] Loaded plugin SEST Menu Background (io.github.sest-hobby.menu-background)
+[Info   :AnchorChain] Loaded plugin SEST Runtime Fixes Beta (io.github.sest-hobby.runtime-fixes)
+[Info   :AnchorChain] Loaded plugin AC Pack Settings (io.github.euromod.acpack-settings)
+[Info   :AnchorChain] Loaded plugin Sonar Audio Loader (io.github.euromod.sonar-audio-loader)
+[Info   :AnchorChain] Loaded plugin EnhancedDecoyMod (io.github.euromod.enhanceddecoymod)
+[Info   :AnchorChain] Loaded plugin EnhancedUIMod (local.seapower.enhanceduimod)
+[Info   :AnchorChain] Loaded plugin Euromod Well Deck (euromod.welldeck)
+[Warning:  HarmonyX] AccessTools.Method: Could not find method for type SeaPower.DynamicSky and name UpdateSky and parameters 
+[Info   :AnchorChain] Loaded plugin High Altitude Sky Fix (io.github.euromod.high-altitude-sky-fix)
+[Info   :AnchorChain] Loaded plugin Hull Damage (euromod.hull-damage)
+[Info   :AnchorChain] Loaded plugin Mesh CutOut (euromod.mesh-cutout.acpack)
+[Info   :AnchorChain] Loaded plugin MissileControlMod (io.github.euromod.missilecontrol)
+[Info   :AnchorChain] Loaded plugin Missile Control Surfaces (io.github.euromod.missile-control-surfaces)
+[Info   :AnchorChain] Loaded plugin Multi-Stage Missiles, Glow and Submunitions (io.github.euromod.multistagemissiles)
+[Info   :AnchorChain] Loaded plugin Optimal Target Distance (io.github.euromod.optimal-target-distance)
+[Info   :AnchorChain] Loaded plugin Datalink Reuse and Contact Jobs Trial (local.seapower.parallelrangeprobe)
+[Info   :AnchorChain] Loaded plugin Profile Image 1024 (io.github.euromod.profile-image-1024)
+[Info   :AnchorChain] Loaded plugin SATCOM Mid-Course Correction (io.github.euromod.satcom)
+[Info   :AnchorChain] Loaded plugin Smoke Particle LOD (euromod.smoke-particle-lod)
+[Warning:  HarmonyX] AccessTools.Method: Could not find method for type SeaPower.VesselLoader and name loadShipFromInternalResources and parameters (string, string, string, int, SeaPower.GeoPosition, SeaPower.GeoPosition, SeaPower.Taskforce, SeaPower.ResourceLoader+ResourceBatch, string, bool)
+[Info   :AnchorChain] Loaded plugin Vessel SubModel Stabilization (io.github.euromod.submodel-stabilization)
+[Info   :AnchorChain] Loaded plugin Test Range (euromod.test-range)
+[Info   :AnchorChain] Loaded plugin UI Preparation Workers Trial (local.seapower.uiworkerprobe)
+[Info   :AnchorChain] Loaded plugin Euromod V-22 Tiltrotor + Pivot BFWS (euromod.v22tiltrotor)
+[Warning:  HarmonyX] AccessTools.Method: Could not find method for type SeaPower.WeaponContainer and name launch and parameters (SeaPower.ObjectBase, UnityEngine.Vector3, UnityEngine.Vector3, float, string)
+[Error  :WeaponLauncherEffects] [WeaponLauncherEffects] Initialization failed; vanilla weapon behavior remains active: System.Reflection.TargetInvocationException: Exception has been thrown by the target of an invocation. ---> HarmonyLib.HarmonyException: Patching exception in method static System.Reflection.MethodBase WeaponLauncherEffectsAnchorChain.WeaponContainerLaunchLauncherEffectsPatch::TargetMethod() ---> System.Exception: Method static System.Reflection.MethodBase WeaponLauncherEffectsAnchorChain.WeaponContainerLaunchLauncherEffectsPatch::TargetMethod() returned an unexpected result: null
+  at HarmonyLib.PatchClassProcessor.RunMethod[S,T] (T defaultIfNotExisting, T defaultIfFailing, System.Func`2[T,TResult] failOnResult, System.Object[] parameters) [0x0010d] in <474744d65d8e460fa08cd5fd82b5d65f>:0 
+   --- End of inner exception stack trace ---
+  at HarmonyLib.PatchClassProcessor.ReportException (System.Exception exception, System.Reflection.MethodBase original) [0x00045] in <474744d65d8e460fa08cd5fd82b5d65f>:0 
+  at HarmonyLib.PatchClassProcessor.Patch () [0x00095] in <474744d65d8e460fa08cd5fd82b5d65f>:0 
+  at HarmonyLib.Harmony.<PatchAll>b__11_0 (System.Type type) [0x00007] in <474744d65d8e460fa08cd5fd82b5d65f>:0 
+  at HarmonyLib.CollectionExtensions.Do[T] (System.Collections.Generic.IEnumerable`1[T] sequence, System.Action`1[T] action) [0x00014] in <474744d65d8e460fa08cd5fd82b5d65f>:0 
+  at HarmonyLib.Harmony.PatchAll (System.Reflection.Assembly assembly) [0x00006] in <474744d65d8e460fa08cd5fd82b5d65f>:0 
+  at (wrapper managed-to-native) System.Reflection.RuntimeMethodInfo.InternalInvoke(System.Reflection.RuntimeMethodInfo,object,object[],System.Exception&)
+  at System.Reflection.RuntimeMethodInfo.Invoke (System.Object obj, System.Reflection.BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x0006a] in <0bf5fd6723884ebdacdfd1f46b78d44f>:0 
+   --- End of inner exception stack trace ---
+  at System.Reflection.RuntimeMethodInfo.Invoke (System.Object obj, System.Reflection.BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x00083] in <0bf5fd6723884ebdacdfd1f46b78d44f>:0 
+  at System.Reflection.MethodBase.Invoke (System.Object obj, System.Object[] parameters) [0x00000] in <0bf5fd6723884ebdacdfd1f46b78d44f>:0 
+  at WeaponLauncherEffectsAnchorChain.WeaponLauncherEffectsMod.InitializeWhenModEnabled () [0x00069] in <2918dc045d154620bcaca29271a571ba>:0 
+[Info   :AnchorChain] Loaded plugin Weapon Launcher Effects (io.github.euromod.weaponlaunchereffects)
+[Info   :SecondThrust] Debug logging OFF (create C:\Program Files (x86)\Steam\steamapps\workshop\content\1286220\3789188689\debug.ini with 'Enabled=1' to enable)
+[Info   :AnchorChain] Loaded plugin Second Thrust (io.github.yourname.second-thrust)
+[Info   :SubAmmunition] Debug logging OFF (create C:\Program Files (x86)\Steam\steamapps\workshop\content\1286220\3789188689\debug.ini with 'Enabled=1' to enable)
+[Info   :SubAmmunition] SubAmmunitionPatches applied
+[Info   :SubAmmunition] å¯¹è±¡æ± ä¿®å¤ï¼šå·²æŒ‚ PoolManager.freeObjectï¼ˆå›žæ”¶å‰å…ˆ removeObjectï¼‰
+[Info   :SubAmmunition] å¯¹è±¡è¡¨æ¸…ç†ï¼šå·²æŒ‚ SensorSystemsLink.OnUpdate
+[Info   :SubAmmunition] LoS é˜²æŠ–ï¼šå·²æŒ‚ UnitsHaveRadarlLOS
+[Warning:  HarmonyX] AccessTools.Method: Could not find method for type SeaPower.UnitSensorCache and name UnitsHaveVisualLOS and parameters 
+[Info   :SubAmmunition] LoS é˜²æŠ–ï¼šæœªæ‰¾åˆ° UnitSensorCache.UnitsHaveVisualLOSï¼Œè·³è¿‡
+[Info   :SubAmmunition] LoS é˜²æŠ–ï¼šå·²æŒ‚ UnitsHaveDirectlLOS
+[Info   :SubAmmunition] ESM æ­»å¯¹è±¡æ¸…ç†ï¼šå·²æŒ‚ createListOfPotentialContactsï¼ˆ_homeObject=okï¼‰
+[Info   :SubAmmunition] PatchAll + Apply done
+[Info   :SubAmmunition] Driver GameObject created
+[Info   :AnchorChain] Loaded plugin Sub Ammunition (io.github.yourname.sub-ammunition)
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: Could not find method for type SeaPower.WeaponBase and name activateGuidingSystem and parameters 
+[Warning:  HarmonyX] AccessTools.Method: Could not find method for type SeaPower.WeaponBase and name ActivateRadarGuidanceSystem and parameters 
+[Info   :AnchorChain] Loaded plugin CustomLoadoutManager (l963.seapower.loadoutmanager)
+[Info   :AnchorChain] Loaded plugin CustomLoadoutManager (l963.seapower.loadoutmanager.old)
+[Info   :AnchorChain] Loaded plugin BetterTacMap (toemel.bettertacmap)
+[Info   :Sea Power Group Manager] Mod configuration: C:/Users/<USER>/AppData/LocalLow/Triassic Games/Sea Power\SeaPowerSquadPanel\settings.cfg
+[Info   :Sea Power Group Manager] Scoped squad UI camera LMB guard attached.
+[Info   :Sea Power Group Manager] Native squad window shortcut persistence attached.
+[Info   :Sea Power Group Manager] Sea Power Group Manager 0.2.17 loaded through Anchor Chain.
+[Info   :AnchorChain] Loaded plugin Sea Power Group Manager (seapower.squad-panel)
+[Info   :Contact Log] Contact Log 1.0.1.0 build 392c79a2 starting.
+[Info   :Contact Log] Contact Log behaviour started (Update is running).
+[Info   :Contact Log] Contact Log loaded. Window: F9   Probe: Not set
+[Info   :AnchorChain] Loaded plugin Contact Log (com.seapower.contactlog)
+[Info   :SeaPowerTopo] Theme files: 0 loaded from C:\Program Files (x86)\Steam\steamapps\common\Sea Power\BepInEx\config\SeaPowerTopo\themes
+[Info   :SeaPowerTopo] Sea Power Topographic Map 1.5.0 loaded.
+[Info   :AnchorChain] Loaded plugin Sea Power Topographic Map (dev.sewerlabs.seapowertopo)
+[Info   :SeaPowerTopo] This game has the 3D globe map: the globe build runs, the flat-map build stays off.
+[Info   :AnchorChain] Loaded plugin Sea Power Topographic Map (flat map) (dev.sewerlabs.seapowertopo.flatmap)
+[Info   :SeaPowerPopOut] Sea Power Pop-Out Windows 1.1.3 loaded.
+[Info   :AnchorChain] Loaded plugin Sea Power Pop-Out Windows (dev.sewerlabs.seapowerpopout)
+[Info   :AnchorChain] Loaded plugin Weapon Costs (local.seapower.weaponcosts)
+[Info   :Coordinated Strike Tool] Coordinated Strike Tool 1.3.1 loaded. Press the panel hotkey (default F8) in a mission to open the planner.
+[Info   :AnchorChain] Loaded plugin Coordinated Strike Tool (coordinatedstriketool)
+[Info   :Dynamic Campaign Mod] Dynamic Campaign Mod 0.25.0.1 loaded. Patches are applied once the main menu is up.
+[Info   :AnchorChain] Loaded plugin Dynamic Campaign Mod (dynamiccampaignmod)
+[Warning:  HarmonyX] meltemi.acc.cv16.skijumpfix: You should only patch implemented methods/constructors to avoid issues. Patch the declared method void SeaPower.FlightDeckPoint::Release(SeaPower.ObjectBase occupyingObject) instead of void SeaPower.FlightDeckPoint::Release(SeaPower.ObjectBase occupyingObject).
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.PendingLaunchTask and name _vehicleType
+[Info   :AnchorChain] Loaded plugin ACC CV16 Ski-Jump Fix (meltemi.acc.cv16.skijumpfix)
+[Info   :AnchorChain] Loaded plugin Z-20 Rotor Visual Sync (meltemi.seapower.z20.rotor-visual-sync)
+[Info   :AnchorChain] Loaded plugin K5 KRAKEN contact strike (alpine.seapower.k5.contact)
+[Info   :AnchorChain] Loaded plugin Sea Power scoped runtime fixes (alpine.seapower.runtime)
+[Info   :AnchorChain] Loaded plugin FuryFormation spacing (alpine.formation.fury)
+[Info   :AnchorChain] Loaded plugin Fury Lights (alpine.fury.lights)
+[Info   :AnchorChain] Loaded plugin Fury voice routing (alpine.seapower.furyvoice)
+[Info   :AnchorChain] Loaded plugin Fury Friendly Loss Voice (fury.voice.friendlyloss)
+[Info   :AnchorChain] Loaded plugin Drone Control (alpine.xq58.shadow)
+[Info   :AnchorChain] Loaded plugin B-21 Ejection (seapower.b21.ejection)
+[Info   :AnchorChain] Loaded plugin B21Formation spacing (alpine.formation.b21)
+[Info   :AnchorChain] Loaded plugin B-21 Lights (alpine.b21.lights)
+[Info   :AnchorChain] Loaded plugin EC-2 Communications Jamming (jasdf.ec2.comms)
+[Info   :AnchorChain] Loaded plugin EC-2 Ejection (seapower.ec2.ejection)
+[Info   :AnchorChain] Loaded plugin EC2Formation spacing (alpine.formation.ec2)
+[Info   :AnchorChain] Loaded plugin EC-2 Lights (alpine.ec2.lights)
+[Info   :AnchorChain] Loaded plugin EC-2 Tooltip (jasdf.ec2.tooltip)
+[Info   :J-16 Systems] features from J16Systems.ini: lights=True afterburner=True chute=True
+[Info   :J-16 Systems] J-16 Systems 1.1.0 patched (afterburner + landing/formation/navigation lights + brake parachute).
+[Info   :AnchorChain] Loaded plugin J-16 Systems (meltemi.seapower.j16.systems)
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.FixedWingFlightPhysics and name _aircraftParameters
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.FixedWingFlightPhysics and name _aircraftParameters
+[Info   :AnchorChain] Loaded plugin J-36 Systems (meltemi.seapower.j36.afterburner-nozzle)
+[Info   :AnchorChain] Loaded plugin MV-75 Cheyenne II (local.bell.systems.fixture)
+[Info   :AnchorChain] Loaded plugin Cheyenne cabin joints (rsg.cheyenne.cabin.joints)
+[Info   :AnchorChain] Loaded plugin Cheyenne cabin lining (seapower.cheyenne.doorlining)
+[Info   :AnchorChain] Loaded plugin MV-75 Crew Escape (seapower.mv75.crewescape)
+[Info   :AnchorChain] Loaded plugin MV75Formation spacing (alpine.formation.mv75)
+[Info   :AnchorChain] Loaded plugin Z-21 Gun and EOTS Synchronization (meltemi.seapower.z21.gun-move-fire)
+[Info   :AnchorChain] Loaded plugin YF-23 Ejection (seapower.yf23.ejection)
+[Info   :AnchorChain] Loaded plugin YF23Formation spacing (alpine.formation.yf23)
+[Info   :AnchorChain] Loaded plugin YF-23 Lights (alpine.yf23.lights)
+[Info   :AnchorChain] Loaded plugin SEST UI Follow-up Beta (io.github.sest-hobby.contacts-input-fix)
+[Info   :AnchorChain] Loaded plugin SEST Identify Data Paths (io.github.sest-hobby.identify-data-paths)
+[Info   :AnchorChain] Loaded plugin IdentifyExpanded (com.fmsv.identifyexpanded)
+[Info   :AnchorChain] Loaded AnchorChain V1.1.0!
+[Info   :SEST Beta Safe Anchor Chain] Bounded Anchor Chain loader returned to bootstrap.
+[Info   :Contact Log] IMGUI is active (OnGUI is being called).
+[Info   :SeaPowerTopo] Map hook in place (legend and cursor readout).
+[Info   :SeaPowerPopOut] Monitor 1: 2560x1440 (game)
+[Info   :SeaPowerPopOut] Monitor 2: 2560x1440
+[Info   :SeaPowerPopOut] Window hooks in place. Pop-out monitor: 2
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.ObjectBase and name _nation
+[Info   :Contact Log] Perf (30 s): view 1x avg 0.4 max 0.4 ms | window 4x avg 4.3 max 16.7 ms | Noesis calls 254, type lookups 3 (3 scans), rows built 0 | 0 known, 0 shown, interval 4.0 s, window closed
+[Info   :Dynamic Campaign Mod] Game members: all 704 found. Found as another kind than their entry's: Globals._secondEnemyTaskforce (a property).
+[Info   :Dynamic Campaign Mod] Patched: the dynamic campaigns will appear in the Campaign menu.
+[Info   :Contact Log] Scene changed to 'linear-campaign'; contact list cleared.
+[Info   :Contact Log] Scene changed to 'mission'; contact list cleared.
+[Info   :SubAmmunition] å¯¹è±¡æ± ä¿®å¤ï¼šfreeObject å‰æ‘˜è¡¨ Missileï¼ˆç´¯è®¡ 1ï¼‰
+[Info   :SubAmmunition] å¯¹è±¡æ± ä¿®å¤ï¼šfreeObject å‰æ‘˜è¡¨ Missileï¼ˆç´¯è®¡ 2ï¼‰
+[Info   :SubAmmunition] å¯¹è±¡æ± ä¿®å¤ï¼šfreeObject å‰æ‘˜è¡¨ Missileï¼ˆç´¯è®¡ 3ï¼‰
+[Info   :SubAmmunition] å¯¹è±¡æ± ä¿®å¤ï¼šfreeObject å‰æ‘˜è¡¨ Missileï¼ˆç´¯è®¡ 4ï¼‰
+[Info   :SubAmmunition] å¯¹è±¡æ± ä¿®å¤ï¼šfreeObject å‰æ‘˜è¡¨ Missileï¼ˆç´¯è®¡ 5ï¼‰
+[Info   :Contact Log] Contacts source: SeaPower.Globals::_playerTaskforce.PlottingTable.LocalVehicles (3 records now). Candidates: LocalVehicles=3, Vehicles=3
+[Info   :Coordinated Strike Tool] [t=171.51s] in mission: True, game menu open: True, HUD visible: False
+[Info   :SeaPowerTopo] Map layer 'Topography (heights and depths)' added to the Layers menu (#600), on.
+[Info   :SeaPowerTopo] Topography buttons placed in the map's title bar.
+[Info   :SeaPowerTopo] Legend and cursor readout attached to the map.
+[Info   :Sea Power Group Manager] Air grid threshold slider attached to native map settings dropdown.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Info   :SeaPowerTopo] World height grid read from C:\Program Files (x86)\Steam\steamapps\common\Sea Power\Sea Power_Data\StreamingAssets\original\terrain/data/lowres.raw
+[Info   :Sea Power Group Manager] Native Formation Manager window found; compact squad bar attached with original tab content.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Info   :Sea Power Group Manager] Horizontal squad tiles attached along top of HUD; native menus, selection and drag/drop retained.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Info   :Contact Log] Bar button added left of 'DoctrineWindow': template 95x32, cell r0 c7, shift -95.76367 px, content Border
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Info   :Contact Log] Perf (30 s): poll 12x avg 0.7 max 3.5 ms | store 3x avg 0.3 max 0.9 ms | view 4x avg 0.0 max 0.0 ms | window 87x avg 0.6 max 7.3 ms | bar 12x avg 2.0 max 19.7 ms | Noesis calls 38195, type lookups 1 (1 scans), rows built 0 | 0 known, 0 shown, interval 4.0 s, window closed
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Info   :Coordinated Strike Tool] [t=185.37s] in mission: True, game menu open: False, HUD visible: True
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Info   :SeaPowerTopo] Pre-drawn layer 1: -11.4..-9.4Â°N 129.9..133.9Â°E, 232 m per pixel
+[Info   :SeaPowerTopo] Pre-drawn layer 2: -14.4..-6.4Â°N 123.9..139.9Â°E, 928 m per pixel
+[Info   :SeaPowerTopo] Pre-drawn layer 3: -26.4..5.6Â°N 99.9..163.9Â°E, 3711 m per pixel
+[Info   :SeaPowerTopo] Pre-drawn layers for 9 units, plus the world at 11 km per pixel.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.GameTime and name time
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.GameTime and name time
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.Helicopter and name AircraftAnimation
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.Helicopter and name AircraftAnimation
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Info   :Contact Log] Class reference 'civ_ms_mairangi_bay' -> 'Mairangi Bay Class (Container Ship)'  [DisplayClassName='Container Ship' TreeLabel='Mairangi Bay-class' TreeLabelOverride='' DisplayName='Mairangi Bay-class' LongName='' type fact='' nation='UK' flag=True]
+[Info   :Contact Log] Class names and armament come from SeapowerUI.ViewModels.ObjectInformationViewModel (e.g. 'civ_ms_mairangi_bay' -> 'Mairangi Bay Class (Container Ship)', 0 weapon(s)).
+[Info   :Contact Log] SeapowerUI.ViewModels.ContactBaseViewModel constructors: (ObjectBase objectBase) | (Vehicle vehicle)
+[Info   :Contact Log] Class names come from ContactBaseViewModel.ObjectName (e.g. 'civ_ms_mairangi_bay' -> 'MV Arafura Trader').
+[Info   :Contact Log] Class reference 'civ_ms_yuniy_partizan' -> 'Yuniy Partizan Class (General Cargo Ship)'  [DisplayClassName='General Cargo Ship' TreeLabel='Yuniy Partizan-class' TreeLabelOverride='' DisplayName='Yuniy Partizan-class' LongName='' type fact='' nation='Soviet' flag=True]
+[Info   :Contact Log] Class reference 'civ_ms_freighter_a' -> 'C4 Class (General Cargo Ship)'  [DisplayClassName='General Cargo Ship' TreeLabel='C4-class' TreeLabelOverride='' DisplayName='C4-class' LongName='' type fact='' nation='US' flag=True]
+[Info   :Contact Log] Class reference 'civ_fv_sterntrawler_a' -> 'Stern Trawler A (Fishing Vessel)'  [DisplayClassName='Fishing Vessel' TreeLabel='Stern Trawler A' TreeLabelOverride='' DisplayName='Stern Trawler A' LongName='' type fact='' nation='Norway' flag=True]
+[Info   :Contact Log] Class reference 'civ_ms_encounter' -> 'Encounter Class (Container Ship)'  [DisplayClassName='Container Ship' TreeLabel='Encounter-class' TreeLabelOverride='' DisplayName='Encounter-class' LongName='' type fact='' nation='UK' flag=True]
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Info   :Contact Log] Perf (30 s): poll 20x avg 18.6 max 113.4 ms | store 8x avg 0.2 max 1.5 ms | view 8x avg 0.1 max 0.9 ms | window 114x avg 0.5 max 8.8 ms | bar 30x avg 0.9 max 1.9 ms | Noesis calls 69359, type lookups 0 (0 scans), rows built 0 | 5 known, 5 shown, interval 4.0 s, window closed
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.Helicopter and name AircraftAnimation
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.Helicopter and name AircraftAnimation
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Info   :SeaPowerPopOut] Pointer on monitor 2: camera 2560x1440, monitor 2560x1440 (rendering 2560x1440), game window 2560x1440; first mouse position 25,542
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Info   :Contact Log] IMGUI is receiving mouse events (first MouseDown at (1699.00, 933.00)).
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.Helicopter and name AircraftAnimation
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.Helicopter and name AircraftAnimation
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Info   :Coordinated Strike Tool] [t=358.61s] in mission: True, game menu open: True, HUD visible: False
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Warning:Sea Power Group Manager] Unsupported UnitIcon template: preserving original icon for this contact.
+[Info   :Contact Log] Scene changed to 'background'; contact list cleared.
+[Info   :Coordinated Strike Tool] [t=362.46s] in mission: False, game menu open: False, HUD visible: True
