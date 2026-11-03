@@ -49,7 +49,10 @@ Four checks; each finding is a FAIL line and the run exits 1:
      excludes the game: SETUP never rewrites those;
   4. mods-source/_vanilla/changelog.txt is not from a newer game than the
      snapshot's changelog, which would mean the export landed and the
-     snapshot did not.
+     snapshot did not. The versions are compared, not the builds: when the
+     two name different builds (since 28 Oct 2026 the capture PC runs the
+     public beta, Build 261026, and the export the pack builds from is the
+     stable Build 261021, both 0.8.7) an INFO line names both.
 Workshop ApproximateVersion values are counted by how far they sit from the
 game's, numerically per component. Listed as information: the mods more
 than one minor version behind; the ones made for a newer game version,
@@ -88,6 +91,8 @@ VANILLA_CHANGELOG = "mods-source/_vanilla/changelog.txt"
 LOAD_ORDER = "data/load-order.tokens.txt"
 CONSOLIDATOR = "tools/consolidate_packs.py"
 REBUILD = "run python3 tools/build_all.py --from-scratch"
+# Builds named in the INFO line when the snapshot and the export differ.
+KNOWN_BUILDS = {"261021": "the stable build", "261026": "the public beta"}
 
 # Every day in the changelog so far is zero-padded; a "2-Oct-2026" line must
 # still be read as the newest, not skipped for the one below it.
@@ -455,6 +460,12 @@ def audit(root, version):
     if live and export and parse_version(export[0]) > parse_version(live[0]):
         fail("snapshot", f"{VANILLA_CHANGELOG} is from {export[0]} Build #{export[2]} but {LIVE_CHANGELOG} "
                          f"says {live[0]}: the export is newer than the snapshot; run tools/capture-context.ps1")
+    elif live and export and live[2] != export[2]:
+        def named(build):
+            return f"Build {build}" + (f", {KNOWN_BUILDS[build]}" if build in KNOWN_BUILDS else "")
+        lines.append(f"INFO: the capture PC runs {named(live[2])}; the pack targets {named(export[2])} "
+                     f"({LIVE_CHANGELOG} says {live[0]} Build {live[2]}, {VANILLA_CHANGELOG}, "
+                     f"which the build reads, {export[0]} Build {export[2]})")
     return lines, problems, found
 
 
