@@ -176,6 +176,80 @@ RelativePositionInNM=0,0,0
         self.assertIn('1 of 1 missions set no play-area key', out.getvalue())
 
 
+    # Lines from PLAN 01 Clash in the Paracels as the Build 261026 beta saved
+    # it (commit 16deca0f): GeoPosition, 'geo,lat,lon,height' waypoints and
+    # the Lambert keys in [Environment].
+    BETA_PLAN01 = """[Environment]
+MapCenterLatitude=16.5
+MapCenterLongitude=111.71
+LambertParallel1=39.752935491535
+LambertParallel2=50.247064508465
+LambertAxisLatitude=61.4991607666016
+LambertAxisLongitude=112.098289489746
+LambertExtent=0.137271937856346
+LambertMarginNm=1
+LambertControlPointLatitude=24.3565747622323
+LambertControlPointLongitude=111.749316416669
+LoadBackgroundData=False
+[Taskforce1Vessel1]
+Type=plan_msc_type_010
+GeoPosition=16.4805,111.849333,0
+Waypoints=geo,16.480804,111.66394,220
+[Taskforce2Vessel3]
+Type=usn_mso_aggressive
+GeoPosition=16.471167,111.478833,0
+Waypoints=geo,16.45475,111.628052,220|geo,16.511414,111.747772,220
+[Taskforce1Aircraft1]
+Type=pla_q-5
+GeoPosition=18.414167,110.001667,3000
+Waypoints=geo,16.564827,111.638885,3000
+[Taskforce1LandUnit1]
+Type=airfield_small_1
+GeoPosition=18.436299,109.960331,grounded
+"""
+
+    def test_beta_saved_mission_maps_geo_waypoints_and_lambert_play_area(self):
+        p = self.make_file(self.BETA_PLAN01)
+        row = geo.analyze(p)
+        self.assertEqual(row['geo_positions'], 4)
+        self.assertEqual(row['waypoints'], 4)
+        self.assertEqual(row['malformed_waypoints'], 0)
+        self.assertEqual(row['points'], 8)
+        self.assertTrue(row['play_area_field'])
+        self.assertEqual(row['notes'], '')
+        # Latitudes 16.45475 to 18.436299.
+        self.assertAlmostEqual(row['north_south_nm_est'], 118.9, places=1)
+        out = io.StringIO()
+        with contextlib.redirect_stdout(out):
+            geo.print_report(geo.scan([p]))
+        self.assertNotIn('play-area key', out.getvalue())
+
+    def test_geo_waypoint_tokens(self):
+        center = (0.0, 0.0)   # a geo token ignores the map centre
+        self.assertEqual(
+            geo.waypoint_points('GEO,16.5,111.5,220/SetTelegraph,2|geo,-10,190', center),
+            ([(16.5, 111.5), (-10.0, -170.0)], 0, 0))
+        # A random latitude range is placed at run time; too few fields, a
+        # word for a latitude or a latitude past the pole does not map.
+        self.assertEqual(geo.waypoint_points('geo,16\\17,111,0', center), ([], 1, 0))
+        self.assertEqual(geo.waypoint_points('geo,16|geo,a,111,0|geo,95,111,0', center),
+                         ([], 0, 3))
+        self.assertEqual(geo.waypoint_points('geo,1,2,0|Loop|geo,3,4,0', center),
+                         ([(1.0, 2.0)], 0, 0))
+
+    def test_any_lambert_key_counts_as_a_play_area(self):
+        for key in geo.LAMBERT_KEYS:
+            p = self.make_file(f"""[Environment]
+MapCenterLatitude=0
+MapCenterLongitude=0
+{key}=1
+[A]
+RelativePositionInNM=0,0,0
+""")
+            self.assertTrue(geo.analyze(p)['play_area_field'], key)
+        self.assertEqual(len(geo.LAMBERT_KEYS), 8)
+
+
 CAMPAIGN = {
     "bounds": {"latMin": -62.0, "latMax": 74.0, "lonMin": -100.0, "lonMax": 258.0},
     "view": {"lat": 89.0, "lon": 300.0},
