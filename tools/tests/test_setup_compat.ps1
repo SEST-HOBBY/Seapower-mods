@@ -16,7 +16,11 @@
     full path, and one that is not a folder path stops SETUP; step 4
     runs sest-ui-keys.ps1 only when it and Contact Log's settings exist, a
     failure there is a warning, not a stop, and Contact Log downloaded with
-    no settings yet is one note.
+    no settings yet is one note; step 1's sest-profile.ps1 names the stable
+    build, the public beta or another build by Seapower-Scripts.dll's
+    SHA-256, makes the discontinued PR #53 SEST.BetaAnchorBootstrap.dll and
+    a last launch whose LogOutput.log shows Anchor Chain did not load one
+    [!!] warning each, never a stop, and a failing one is one warning.
 
 .DESCRIPTION
     Builds a synthetic Steam folder (game, Workshop items, the pack with
@@ -89,7 +93,7 @@ Put (J $game "BepInEx" "plugins" "AnchorChain.dll") (Bytes "x")
 function GameVersion([string]$line) { Put (J $game "changelog.txt") (Bytes "Change log`r`n----------`r`n`r`n$line`r`n----`r`n") }
 GameVersion "21-Oct-2026: 0.8.7 Build 261021 Public Release"
 Put (J $pack "campaigns" "sest-southern-watch" "campaign.ini") (Bytes "x")
-foreach ($n in 'sest-setup.ps1', 'sest-ui-keys.ps1') { Put (J $pack $n) ([IO.File]::ReadAllBytes((J $src $n))) }
+foreach ($n in 'sest-setup.ps1', 'sest-ui-keys.ps1', 'sest-profile.ps1') { Put (J $pack $n) ([IO.File]::ReadAllBytes((J $src $n))) }
 $clBefore = Bytes "[Input]`r`n# Default value: F6`r`nToggleWindow = F6`r`n`r`n# Default value: F8`r`nRunProbe = F8`r`n`r`n[Window]`r`nRect = [100, 100, 400, 300]`r`n"
 Put $cl $clBefore
 
@@ -392,6 +396,77 @@ try {
     $r = Setup @()
     Check ($r.Code -eq 0 -and $r.Out -match "\[note\] Contact Log has no settings file yet\. Start Sea Power once with it, quit, then run SETUP again to free its default F6 \(Topographic Map's F6\) and F8 \(Coordinated Strike Tool's F8 planner\)\." -and $r.Out -match 'All done' -and -not (Test-Path -LiteralPath (J $game 'BepInEx' 'config'))) "Contact Log downloaded with no settings file: one note, no warning, nothing created"
     Remove-Item -LiteralPath (J $content '3819427362') -Recurse -Force
+    Setup @('-RestoreModFiles') | Out-Null
+
+    # 14. Step 1's game build check (sest-profile.ps1). The stand-in game
+    # has no Seapower-Scripts.dll until here: every run above named the
+    # build as not identified, with no warning.
+    $scriptsDll = J $game 'Sea Power_Data' 'Managed' 'Seapower-Scripts.dll'
+    $profileTool = J $src 'sest-profile.ps1'
+    $toolText = [IO.File]::ReadAllText($profileTool)
+    Check ($toolText.Contains("'eab2297ba92c6013958bdb2cf16d5794a4731330818ce353f89dc2241e16a3bd'") -and $toolText.Contains("'3005bc6d4221a921008778a18dec06515d98c63d3afb6a3a2835b985ab2e7d62'")) "sest-profile.ps1 knows the stable Build 261021 and beta Build 261026 Seapower-Scripts.dll hashes"
+    Check ($toolText -notmatch '(?m)^\s*exit\b') "sest-profile.ps1 never exits with a code of its own"
+    function BuildCheck([string[]]$more) {
+        $a = @('-NoProfile', '-NonInteractive', '-ExecutionPolicy', 'Bypass', '-File', $profileTool, '-GameDir', $game, '-PassThru') + $more
+        $o = (& $exe @a 2>&1 | Out-String) -replace ([string][char]27 + '\[[0-9;]*m'), ''
+        return @{ Out = $o; Code = $LASTEXITCODE; Count = ([regex]::Match($o, '(\d+)\s*$')).Groups[1].Value }
+    }
+    Put $scriptsDll (Bytes 'stand-in Seapower-Scripts')
+    $h = (Get-FileHash -LiteralPath $scriptsDll -Algorithm SHA256).Hash.ToLowerInvariant()
+    # 14a. The three builds, the tool on its own (a stand-in file's hash
+    # passed for the stable or the beta one).
+    $r = BuildCheck @('-StableSha256', $h)
+    Check ($r.Code -eq 0 -and $r.Count -eq '0' -and $r.Out -match '\[ok\]   game build: Sea Power 0\.8\.7 Build 261021, the stable build this pack targets' -and $r.Out -match 'SEST Runtime Fixes 1\.5\.0 and SEST UI Follow-up can start, each only if its own SHA-256 checks pass') "stable hash: Build 261021, the plugins may start under their own checks, no warning"
+    $r = BuildCheck @('-BetaSha256', $h)
+    Check ($r.Code -eq 0 -and $r.Count -eq '0' -and $r.Out -match '\[note\] game build: Sea Power 0\.8\.7 Build 261026, the public beta\. This pack targets the stable Build 261021\.' -and $r.Out -match 'stay off under their SHA-256 checks' -and $r.Out -match 'Anchor Chain preloader finds no chainloader, so no Anchor Chain mod loads' -and $r.Out -match 'test candidate only; nothing installs it') "beta hash: Build 261026, plugins off under their SHA checks, no chainloader, the fork a test candidate, a note not a warning"
+    $r = BuildCheck @()
+    Check ($r.Code -eq 0 -and $r.Count -eq '0' -and $r.Out -match ('\[note\] game build not recognised: Seapower-Scripts\.dll SHA-256 ' + $h.Substring(0, 16) + '\.\.\., neither Build 261021 nor Build 261026\.') -and $r.Out -match 'data only') "unknown hash: named by its first 16 digits, data only, no warning"
+    # 14b. SETUP on that unknown build: a note, no warning, the order written.
+    Put $settings (Bytes "[General]`r`nX=1`r`n[LoadOrder]`r`nNumberOfModFiles=1`r`nMod1Directory=9000001,True`r`n")
+    $r = Setup @()
+    Check ($r.Code -eq 0 -and $r.Out -match 'All done' -and $r.Out -match '\[note\] game build not recognised' -and (Text ([IO.File]::ReadAllBytes($settings))) -match 'Mod1Directory=3812461539,True') "SETUP on an unknown build: one note, no warning, the mod order written"
+    # 14c. The discontinued PR #53 plugin: one warning that names the file
+    # to delete, left in place, and SETUP still writes the mod order.
+    $old53 = J $game 'BepInEx' 'plugins' 'SEST.BetaAnchorBootstrap.dll'
+    Put $old53 (Bytes 'MZ')
+    Put $settings (Bytes "[General]`r`nX=1`r`n[LoadOrder]`r`nNumberOfModFiles=1`r`nMod1Directory=9000001,True`r`n")
+    $r = Setup @()
+    Check ($r.Code -eq 0 -and $r.Out -match '\[!!\]   SEST\.BetaAnchorBootstrap\.dll, the discontinued PR #53 beta test plugin, is installed' -and $r.Out -match ('Close the game and delete ' + [regex]::Escape($old53)) -and $r.Out -match 'read the 1 \[!!\] warning' -and $r.Out -notmatch 'STOPPED' -and (Test-Path -LiteralPath $old53) -and (Text ([IO.File]::ReadAllBytes($settings))) -match 'Mod1Directory=3812461539,True') "the PR #53 DLL is one warning naming its removal, not a stop; left alone; the mod order written"
+    Remove-Item -LiteralPath $old53 -Force
+    $safeBoot = J $game 'BepInEx' 'plugins' 'SEST.BetaSafeBootstrap.dll'
+    Put $safeBoot (Bytes 'MZ')
+    $r = Setup @()
+    Check ($r.Code -eq 0 -and $r.Out -match 'All done' -and $r.Out -match '\[note\] SEST\.BetaSafeBootstrap\.dll, the beta Anchor Chain test bootstrap, is installed') "the inert beta test bootstrap is a note, not a warning"
+    Remove-Item -LiteralPath $safeBoot -Force
+    # 14d. The last launch, from BepInEx\LogOutput.log.
+    $bepLog = J $game 'BepInEx' 'LogOutput.log'
+    $started = "[Info   :   BepInEx] Loading [AnchorChain Preloader 1.0.0]`r`n[Info   :AnchorChain Preloader] AnchorChain Preloader started!`r`n"
+    $loaded = "[Info   :AnchorChain Preloader] Loaded assembly AnchorChain, Version=1.1.0.0, Culture=neutral, PublicKeyToken=null`r`n[Info   :AnchorChain] Loaded assembly SEST.RuntimeFixes, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null`r`n"
+    Put $bepLog (Bytes ($started + "[Error  :AnchorChain Preloader] Could not find AnchorChain chainloader`r`n[Message:   BepInEx] Chainloader startup complete`r`n"))
+    Put $settings (Bytes "[General]`r`nX=1`r`n[LoadOrder]`r`nNumberOfModFiles=1`r`nMod1Directory=9000001,True`r`n")
+    $r = Setup @()
+    Check ($r.Code -eq 0 -and $r.Out -match "\[!!\]   The code mods did not load at the last launch: BepInEx\\LogOutput\.log says 'Could not find AnchorChain chainloader'\." -and $r.Out -match 'read the 1 \[!!\] warning' -and (Text ([IO.File]::ReadAllBytes($settings))) -match 'Mod1Directory=3812461539,True') "a last launch with 'Could not find AnchorChain chainloader' is one warning; the mod order written"
+    Put $bepLog (Bytes ($started + "[Message:   BepInEx] Chainloader startup complete`r`n"))
+    $r = Setup @()
+    Check ($r.Code -eq 0 -and $r.Out -match '\[!!\]   The code mods did not load at the last launch: BepInEx\\LogOutput\.log says the Anchor Chain preloader started but never loaded Anchor Chain\.' -and $r.Out -match 'read the 1 \[!!\] warning') "a last launch with no 'Loaded assembly AnchorChain' after the preloader started is one warning"
+    Put $bepLog (Bytes ($started + "[Error  :AnchorChain Preloader] Could not find AnchorChain chainloader`r`n" + $started + $loaded))
+    $r = Setup @()
+    Check ($r.Code -eq 0 -and $r.Out -match 'All done' -and $r.Out -notmatch 'did not load at the last launch') "a log whose last run loaded Anchor Chain: no warning"
+    Put $bepLog (Bytes ($started + "[Error  :AnchorChain Preloader] Could not find AnchorChain chainloader`r`n"))
+    $r = BuildCheck @('-BetaSha256', $h)
+    Check ($r.Count -eq '1' -and $r.Out -match 'This is known on the public beta \(Build 261026\)') "on the beta the last-launch warning says it is known there, and counts one"
+    Remove-Item -LiteralPath $bepLog -Force
+    # 14e. A failing build check is one warning, not a stop; with none
+    # beside SETUP nothing is said.
+    Put (J $pack 'sest-profile.ps1') (Bytes "param([string]`$GameDir, [switch]`$PassThru)`r`nthrow 'simulated failure'`r`n")
+    Put $settings (Bytes "[General]`r`nX=1`r`n[LoadOrder]`r`nNumberOfModFiles=1`r`nMod1Directory=9000001,True`r`n")
+    $r = Setup @()
+    Check ($r.Code -eq 0 -and $r.Out -match '\[!!\]   Could not check the game build: simulated failure' -and $r.Out -match 'read the 1 \[!!\] warning' -and (Text ([IO.File]::ReadAllBytes($settings))) -match 'Mod1Directory=3812461539,True') "a failing build check is one warning; the mod order still written"
+    Remove-Item -LiteralPath (J $pack 'sest-profile.ps1') -Force
+    $r = Setup @()
+    Check ($r.Code -eq 0 -and $r.Out -match 'All done' -and $r.Out -notmatch 'game build') "no sest-profile.ps1: nothing said, no warning"
+    Put (J $pack 'sest-profile.ps1') ([IO.File]::ReadAllBytes($profileTool))
+    Remove-Item -LiteralPath $scriptsDll -Force
     Setup @('-RestoreModFiles') | Out-Null
 } finally {
     foreach ($k in $saved.Keys) { Set-Item -Path ("env:" + $k) -Value $saved[$k] -ErrorAction SilentlyContinue; if ($null -eq $saved[$k]) { Remove-Item -Path ("env:" + $k) -ErrorAction SilentlyContinue } }
