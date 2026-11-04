@@ -43,6 +43,23 @@ Not included, having checked each one:
     DateBased_* stores. They do not - DateBased_ is a vanilla mechanic, used
     by stock submarines like usn_ssn_permit.
 
+UPDATE, 4 Nov 2026: the Redback carriers' night check. The AGR-30 keeps AAW
+as its secondary target type (counter-drone), so the loadout screen treats it
+as an air-to-air round and warns "No radar or night vision: this aircraft
+cannot find air targets at night" unless the carrier passes the game's
+SensorUtils.HasNightCapableSensors(unit, requireAir: true): an Infrared
+sensor, a Visual sensor whose NightVisionLevel is above 0, or a radar whose
+Role covers air targets (IL identical on Build 261021 and the beta 261026).
+A Visual sensor's level comes from the merged systems/sensors.ini unless the
+unit's own [SensorSystemN] section carries the key, which wins on both
+builds (SensorSystemVisual.LoadFromInI re-reads it with the merged value as
+the default). The owner's beta session of 3 Nov 2026 showed that warning on
+a Redback MH-60R, whose only radar is the surface-role APS-147 and whose FLIR
+level is set by one mod of the three that define it. NIGHT_VISION writes
+each carrier's FLIR level into its unit file, at the value the top-most
+defining mod gives in the canonical load order (so the stable game sees no
+change), and the builder stops if that mod's value moves.
+
 Usage (repo root):  python3 integration/allied-fixes/build_patch.py
 """
 import re
@@ -376,6 +393,64 @@ def link_gps(text, name):
     body = (f"NumberOfAssociatedSensors={len(links)}\n"
             f"AssociatedSensors={','.join(links)}\n" + body)
     return text[:pylons[1]] + body + text[pylons[2]:]
+
+
+# Explicit night vision for the Redback carriers' EO/FLIR sensors (4 Nov
+# 2026, see the module docstring): unit file -> [(system name, level, the
+# mod whose systems/sensors.ini sets that level and sits highest in the
+# canonical load order among the mods that set it)]. tools/tests/
+# test_allied_fixes.py checks the top-most rule against LOAD-ORDER.txt.
+NIGHT_VISION = {
+    "ran_S-70B-2_Seahawk.ini": [("AN/AAQ-16", "0.7", "3820759806")],
+    "ran_mh-60r.ini": [("3rd_Gen_FLIR", "0.85", "3775128499")],
+    "usn_mh-60r.ini": [("AN/AAS-44 EOFLIR", "1", "3590477166")],
+    "S-70B-2_Seahawk.ini": [("AdvancedOptics", "0.25", "3629144864")],
+}
+
+
+def _defined_level(mod, system, root=ROOT):
+    """NightVisionLevel of [system] in mod's systems/sensors.ini, or None."""
+    path = root / "mods-source" / mod / "systems" / "sensors.ini"
+    if not path.exists():
+        return None
+    text = path.read_text(encoding="utf-8-sig", errors="replace")
+    span = _section(text, system)
+    if not span:
+        return None
+    values = _ini_values(text[span[1]:span[2]], "NightVisionLevel")
+    return values[-1] if values else None
+
+
+def set_night_vision(text, fname, entries, root=ROOT):
+    """`text` with NightVisionLevel written into the [SensorSystemN] section
+    that names each system (Type=Visual), at the level the named mod defines.
+    Stops when the section is missing, already carries the key (upstream now
+    sets it: re-check) or the mod's definition no longer gives that level."""
+    for system, level, mod in entries:
+        found = None
+        for m in re.finditer(r"^\[(SensorSystem\d+)\][^\n]*\n", text, re.M):
+            nxt = re.compile(r"^\[", re.M).search(text, m.end())
+            body = text[m.end():nxt.start() if nxt else len(text)]
+            if _ini_values(body, "SystemName") == [system]:
+                if _ini_values(body, "Type") != ["Visual"]:
+                    sys.exit(f"{fname}: [{m[1]}] {system} is not Type=Visual - re-check NIGHT_VISION")
+                if _ini_values(body, "NightVisionLevel"):
+                    sys.exit(f"{fname}: [{m[1]}] {system} already sets NightVisionLevel - "
+                             "upstream changed, re-check NIGHT_VISION")
+                found = (m, body)
+                break
+        if not found:
+            sys.exit(f"{fname}: no [SensorSystemN] names {system} - upstream changed, re-check NIGHT_VISION")
+        defined = _defined_level(mod, system, root)
+        if defined is None or float(defined) != float(level):
+            sys.exit(f"{fname}: {mod} defines [{system}] NightVisionLevel={defined} "
+                     f"where {level} was expected - its sensors.ini changed, re-check NIGHT_VISION")
+        m, body = found
+        line = (f"NightVisionLevel={level}   // SEST: {mod}'s value, explicit so the AGR-30's "
+                "night check holds whatever sensors.ini wins\n")
+        body = re.sub(r"^(SystemName=[^\n]*\n)", lambda k: k[1] + line, body, count=1, flags=re.M)
+        text = text[:m.end()] + body + text[m.end() + len(found[1]):]
+    return text
 
 
 def main():
@@ -820,6 +895,9 @@ def main():
                          "upstream changed, re-check the overlap fix")
             extra = ", Default fit's doubled pods moved outboard"
         ct = add_redback(ct, fname, donor, pylons, **(opts[0] if opts else {}))
+        if fname in NIGHT_VISION:
+            ct = set_night_vision(ct, fname, NIGHT_VISION[fname])
+            extra += ", FLIR night vision explicit"
         if fname == "usa_a-10c.ini":
             # Two defects in the standard aircraft, repaired here because
             # this pack already ships the file. They are bugs, not the
