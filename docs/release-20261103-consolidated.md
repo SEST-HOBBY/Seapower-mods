@@ -116,6 +116,22 @@ validation, the discontinued PR #53 bootstrap DLL must not be on a PC that
 runs SETUP (SETUP now warns about it), and the previous stable build stays reproducible from its commit
 for a rollback.
 
+**Added on 4 Nov 2026**, after the owner's beta session of 3 Nov 2026:
+
+- `9a56b9ee` SEST_TacMap_Colors carries the 32 tactical-map keys the public
+  beta (Build 261026) reads and logged as missing, at the beta's default
+  values; the stable build ignores them. `tools/tests/test_tacmap_colors.py`
+  checks the pack and its dist copy.
+- `d19ce922` The Redback helicopters' FLIR night vision levels are written
+  into their unit files (`integration/allied-fixes/build_patch.py`,
+  `NIGHT_VISION`): the AGR-30 counts as an air-to-air round, and the weapon
+  panel warned "No radar or night vision" on the RAN MH-60R, whose only radar
+  is a surface-search set. Each value is the one the top-most defining mod
+  gives, so the stable game sees no change; the check no longer depends on
+  which mods are enabled or on the beta's sensors.ini merge.
+- `docs/dual-build-workshop-update-plan.md`: the plan for one Workshop
+  update that serves both Steam builds, with the owner's decisions listed.
+
 ## What this branch is not
 
 - No beta DLL is shipped or installed. The bounded fork and the bootstrap are

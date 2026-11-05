@@ -407,8 +407,9 @@ class RanSeahawkAirframe(unittest.TestCase):
     MH-60R's liveries for that model. SEST ships the airframe for its
     SEST_REDBACK fit alone, so a copy of the old airframe beside the new
     table would wear liveries painted for another model. The pack's file is
-    the author's, line for line, with the fit added: no key of the old
-    model survives."""
+    the author's, line for line, with the fit added and, since 4 Nov 2026,
+    the AN/AAQ-16's night vision level written out (RedbackCarriersAtNight):
+    no key of the old model survives."""
 
     UID = "ran_S-70B-2_Seahawk"
     UPSTREAM = ROOT / "mods-source/3820759806/aircraft/ran_S-70B-2_Seahawk.ini"
@@ -420,8 +421,10 @@ class RanSeahawkAirframe(unittest.TestCase):
         loadouts = re.search(r"^AvailableLoadouts=[^\n]*", upstream, re.M).group(0)
         self.assertEqual(removed, Counter([loadouts]))
         fit = dict(employment.weapon_blocks(text))["1SEST_REDBACK"]
+        night = [line for line in text.splitlines() if line.startswith("NightVisionLevel=")]
+        self.assertEqual(len(night), 1, night)
         self.assertEqual(added, Counter([loadouts + ",SEST_REDBACK", "[WeaponSystem1SEST_REDBACK]"]
-                                        + fit.splitlines()))
+                                        + fit.splitlines() + night))
 
     def test_none_of_the_old_airframe_is_left(self):
         # The old file's own mesh and tandem-rotor animation, its Penguin on
@@ -443,3 +446,127 @@ class RanSeahawkAirframe(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class RedbackCarriersAtNight(unittest.TestCase):
+    """The AGR-30 keeps AAW as its secondary target type (counter-drone), so
+    the game's weapon panel treats it as an air-to-air round and warns "No
+    radar or night vision: this aircraft cannot find air targets at night"
+    unless the carrier passes SensorUtils.HasNightCapableSensors(unit, true):
+    an Infrared sensor, a Visual sensor whose NightVisionLevel is above 0, or a
+    radar whose Role covers air targets. A Visual sensor's level is the merged
+    sensors.ini value unless the unit's own section carries the key (both
+    builds). The builder writes it into the Redback carriers' unit files
+    (build_patch.NIGHT_VISION), each the value of the top-most mod that defines
+    it in the canonical load order, so the stable game sees no change."""
+    LOAD_ORDER = DIST / "LOAD-ORDER.txt"
+    AIR_ROLES = {"Air", "AirAndSurface"}
+
+    @classmethod
+    def setUpClass(cls):
+        cls.build = builder()
+        cls.position = {}
+        for line in cls.LOAD_ORDER.read_text(encoding="utf-8").splitlines():
+            m = re.match(r"\s*(\d+)\.\s+(\d{8,})\b", line)
+            if m:
+                cls.position[m[2]] = int(m[1])
+        cls.carriers = sorted(p for p in (ALLIED / "aircraft").glob("*.ini")
+                              if "sest_agr-30" in p.read_text(encoding="utf-8"))
+
+    @staticmethod
+    def sensors(text):
+        """[(section, type, system name, explicit night vision level or None)]."""
+        out = []
+        for m in re.finditer(r"^\[(SensorSystem\d+)\][^\n]*\n", text, re.M):
+            nxt = re.compile(r"^\[", re.M).search(text, m.end())
+            body = text[m.end():nxt.start() if nxt else len(text)]
+            values = lambda key: (lambda v: v[-1] if v else None)(
+                re.findall(rf"^{key}=([^\n]*)", body, re.M))
+            cut = lambda v: None if v is None else re.split(r";|//|#", v)[0].strip()
+            out.append((m[1], cut(values("Type")), cut(values("SystemName")),
+                        cut(values("NightVisionLevel"))))
+        return out
+
+    def definitions(self, system, key):
+        """[(position, mod, value)] over every exported mod's systems/sensors.ini
+        that defines [system] with `key`; vanilla sits below every mod."""
+        found = []
+        for ini in sorted((ROOT / "mods-source").glob("*/systems/sensors.ini")):
+            mod = ini.parts[-3]
+            text = ini.read_text(encoding="utf-8-sig", errors="replace")
+            m = re.search(rf"^\[{re.escape(system)}\][^\n]*\n", text, re.M)
+            if not m:
+                continue
+            nxt = re.compile(r"^\[", re.M).search(text, m.end())
+            body = text[m.end():nxt.start() if nxt else len(text)]
+            values = re.findall(rf"^{key}=([^\n]*)", body, re.M)
+            if not values:
+                continue
+            value = re.split(r";|//|#", values[-1])[0].strip()
+            pos = 10 ** 6 if mod == "_vanilla" else self.position.get(mod)
+            if pos is None:
+                continue  # exported but not in the canonical order: never merged
+            found.append((pos, mod, value))
+        return sorted(found)
+
+    def test_every_redback_carrier_passes_the_night_check_without_the_merge(self):
+        self.assertTrue(self.carriers)
+        for path in self.carriers:
+            capable = []
+            for section, kind, name, level in self.sensors(path.read_text(encoding="utf-8")):
+                if kind == "Infrared":
+                    capable.append(f"{section} {name} is Infrared")
+                elif kind == "Visual" and level and float(level) > 0:
+                    capable.append(f"{section} {name} NightVisionLevel={level}")
+                elif kind == "Radar":
+                    roles = self.definitions(name, "Role")
+                    if roles and roles[0][2] in self.AIR_ROLES:
+                        capable.append(f"{section} {name} Role={roles[0][2]} ({roles[0][1]})")
+            self.assertTrue(capable, f"{path.name}: no night-capable sensor of its own; "
+                                     f"sensors: {self.sensors(path.read_text(encoding='utf-8'))}")
+
+    def test_the_explicit_levels_are_the_top_most_definitions(self):
+        for fname, entries in self.build.NIGHT_VISION.items():
+            text = (ALLIED / "aircraft" / fname).read_text(encoding="utf-8")
+            explicit = {name: level for _, kind, name, level in self.sensors(text) if level}
+            for system, level, mod in entries:
+                defined = self.definitions(system, "NightVisionLevel")
+                self.assertTrue(defined, f"{fname}: nothing defines [{system}] NightVisionLevel")
+                self.assertEqual(defined[0][1], mod,
+                                 f"{fname}: [{system}] is set highest by {defined[0]}, not {mod}: {defined}")
+                self.assertEqual(float(defined[0][2]), float(level), f"{fname}: [{system}] {defined[0]}")
+                self.assertEqual(explicit.get(system), level, f"{fname}: {explicit}")
+
+    def test_the_consolidated_pack_ships_the_levels(self):
+        for fname in self.build.NIGHT_VISION:
+            self.assertEqual((DIST / "aircraft" / fname).read_text(encoding="utf-8"),
+                             (ALLIED / "aircraft" / fname).read_text(encoding="utf-8"), fname)
+
+    SYNTHETIC = ("[SensorSystem1] #FLIR\nType=Visual\nSystemName=3rd_Gen_FLIR\nMount=Dummy\n\n"
+                 "[SensorSystem2]\nType=Radar\nSystemName=APS-147\n\n[WeaponSystems]\n")
+
+    def test_the_builder_writes_the_level_after_the_system_name(self):
+        out = self.build.set_night_vision(self.SYNTHETIC, "x.ini", [("3rd_Gen_FLIR", "0.85", "3775128499")])
+        self.assertIn("SystemName=3rd_Gen_FLIR\nNightVisionLevel=0.85   // SEST: 3775128499's value", out)
+        self.assertEqual(out.replace("NightVisionLevel=0.85   // SEST: 3775128499's value, explicit so "
+                                     "the AGR-30's night check holds whatever sensors.ini wins\n", ""),
+                         self.SYNTHETIC)
+
+    def stops(self, text, entries):
+        with self.assertRaises(SystemExit) as cm:
+            self.build.set_night_vision(text, "x.ini", entries)
+        return str(cm.exception)
+
+    def test_a_section_that_already_sets_the_level_stops(self):
+        why = self.stops(self.SYNTHETIC.replace("Mount=Dummy", "NightVisionLevel=1"),
+                         [("3rd_Gen_FLIR", "0.85", "3775128499")])
+        self.assertIn("already sets NightVisionLevel", why)
+
+    def test_a_missing_sensor_stops(self):
+        self.assertIn("no [SensorSystemN] names", self.stops(self.SYNTHETIC, [("AN/AAQ-16", "0.7", "3820759806")]))
+
+    def test_a_radar_stops(self):
+        self.assertIn("not Type=Visual", self.stops(self.SYNTHETIC, [("APS-147", "0.85", "3775128499")]))
+
+    def test_a_moved_definition_stops(self):
+        self.assertIn("sensors.ini changed", self.stops(self.SYNTHETIC, [("3rd_Gen_FLIR", "0.5", "3775128499")]))
