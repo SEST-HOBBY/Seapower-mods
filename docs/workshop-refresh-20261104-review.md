@@ -34,7 +34,10 @@ The from-scratch build on the export stopped in two builders.
   every Sulu Line mission fields the FFG-150. The coverage excuse for The Royal
   Navy is removed, so the builder credits it; it was already subscribed and in
   the collection. Sulu Line's coverage no longer credits Euromod South Korea
-  through the frigate's deck.
+  through the frigate's deck. The release gate that re-derives coverage from
+  the built missions (`tools/check_campaign_coverage.py`) had never learnt the
+  builder's deck rule of 20 Oct 2026 and reported The Royal Navy unreached; it
+  now credits a placed ship's embarked aircraft the same way.
 
 Everything else the authors changed is absorbed by the rebuild: SEST
 Replenishment's forks, the Cross-Deck stubs and the Allied Fixes, Growler NGJ
@@ -64,7 +67,13 @@ and F-35C JATM forks rebase on the new files.
   three Trieste LHDs, the Type 053H2G and 054B Phase 1, two Chilean F-16s and
   three Hyundai export hulls) and 22 rounds. No SEST mission places any of
   them. The Chilean F-16s use F-16C Fighting Falcon (modern)'s model and
-  sensors, a dependency their mod does not declare.
+  sensors, a dependency their mod does not declare. The cost model priced
+  the new units by its rough types, but four hulls matched no type and fell
+  to the $75M merchant default; they now take a same-family price from the
+  Combat Cost Tracker author's catalog (`integration/combat-costs/mappings.json`):
+  the 054B Phase 1 as Red Storm Arsenal's Type 054B, the 053H2G as its
+  successor the 053H3, the HDF-3600 as the Daegu-class frigate and the BBG
+  Ulysses S. Grant as the same mod's BBG Trump.
 - **Code mods**: Pop-Out Windows 1.1.3 and Topographic Map 1.5.0; Custom
   Loadout Editor's "fixed mod not working on beta"; Saronic Corsair now ships
   its own bootstrap, a `version.dll` the player copies beside `Sea Power.exe`
