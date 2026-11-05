@@ -278,10 +278,10 @@ EXCUSES = {
         "external", "US, Philippine and Aeronavale Crusaders, the last retired in 1999, "
         "which no 2028 mission fields; the Clemenceau's 1970-1990 air "
         "groups embark them"),
-    "the-royal-navy": (
-        "external", "Cold War Royal Navy (County, Leander, Type 42, Invincible, "
-        "Buccaneer, Sea Vixen, Nimrod) for its own Falklands missions; SEST "
-        "Collection Fixes restores the game files it ships stale"),
+    # "the-royal-navy" left this table on 5 Nov 2026: Euromod-HD Hyundai's
+    # 3 Nov update embarks its rn_sea_lynx_3 on the PN FFG-150 (in place of
+    # Euromod South Korea's rok_mk99_a), and every Sulu Line mission fields
+    # that frigate, so the campaign now reaches The Royal Navy.
     "euromod-brazil": (
         "external", "Brazilian Navy and naval air arm (service 1976-2029) outside every "
         "SEST theatre; placed by no installed campaign"),

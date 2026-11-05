@@ -1001,19 +1001,23 @@ def main():
           "and defines none), NumberOfSquadrons=1 to match.")
     built.append("plaaf_jh7a_squadrons")
 
-    # ran_seakingmk50ab_squadrons - Euromod RAN's Sea King Mk.50A/B is
-    # aircraft/ran_seakingmk50ab.ini, but its squadron table is spelled
-    # ran_seakingmk50bab_squadrons.ini, so the game finds none: the Unit
-    # Reference showed it under Missing Type and Missing Class, 0 m long
-    # (19 Oct 2026). The table is copied verbatim under the name the game
-    # reads, while no mod ships one under that name.
-    if (MODS / "3820759806" / "aircraft" / "ran_seakingmk50ab_squadrons.ini").exists():
-        sys.exit("ran_seakingmk50ab_squadrons: upstream now ships the right name - retire this fix")
-    t = read("3820759806", "aircraft/ran_seakingmk50bab_squadrons.ini").replace("\r\n", "\n")
-    write("aircraft/ran_seakingmk50ab_squadrons.ini", t,
-          "SEST Collection Fixes - base: 3820759806's ran_seakingmk50bab_squadrons.ini,\n"
-          "verbatim, under the name its aircraft (ran_seakingmk50ab) is read with.")
-    built.append("ran_seakingmk50ab_squadrons")
+    # ran_seakingmk50ab_squadrons - RETIRED 5 Nov 2026. Euromod RAN's Sea
+    # King Mk.50A/B is aircraft/ran_seakingmk50ab.ini, and until the 1 Nov
+    # 2026 update its squadron table was spelled ran_seakingmk50bab_squadrons
+    # .ini, so the game found none: the Unit Reference showed it under
+    # Missing Type and Missing Class, 0 m long (19 Oct 2026). SEST copied
+    # the table verbatim under the name the game reads. The 3 Nov 2026
+    # export has the author's table under the right name (one rename, the
+    # same content), so the copy is dropped; a stale copy would outrank the
+    # author's every time they edit it. The check keeps this true: the
+    # fix comes back the day the right name disappears again.
+    if not (MODS / "3820759806" / "aircraft" / "ran_seakingmk50ab_squadrons.ini").exists():
+        sys.exit("ran_seakingmk50ab_squadrons: upstream no longer ships the right name - "
+                 "bring the copy back into this pack")
+    stale_table = OUT / "aircraft" / "ran_seakingmk50ab_squadrons.ini"
+    if stale_table.exists():
+        stale_table.unlink()
+        print("    removed aircraft/ran_seakingmk50ab_squadrons.ini (retired - upstream ships the name)")
 
     # usaf_f-16c_blk40_squadrons - Euromod South Korea Navy's USAF F-16C
     # Block 40 has no squadron table at all (and no name: SEST Name Fixes

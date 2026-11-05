@@ -3909,6 +3909,26 @@
       "target": "usn_ddg_arleigh_flt2A_119_2027",
       "source": "usn_ddg_burke_f2a_119",
       "basis": "Alias of usn_ddg_burke_f2a_119, the same seven Flight IIA hulls (DDG-119 to 124 and 127): copies the author's Flight IIA construction-cohort estimate exactly, with no premium for the 2027 fit."
+    },
+    {
+      "target": "plan_type_054b_p1",
+      "source": "plan_ffg_type_054b",
+      "basis": "Type 054B Phase 1 (PLAN Pack, 3 Nov 2026 export): the same class as Red Storm Arsenal's plan_ffg_type_054b, which the tracker author's catalog prices"
+    },
+    {
+      "target": "plan_type_053h2g",
+      "source": "plan_type_053h3_p1",
+      "basis": "Type 053H2G (PLAN Pack, 3 Nov 2026 export): valued as the same mod's Type 053H3, its successor of the same frigate family, which the tracker author's catalog prices; a family comparator, not a class quote"
+    },
+    {
+      "target": "ko_hdf-3600",
+      "source": "ko_ffg-818",
+      "basis": "HDF-3600 (Euromod-HD Hyundai, 3 Nov 2026 export): a Korean export frigate design of about 3,600 tonnes, valued as the Daegu-class frigate the tracker author's catalog prices; a family comparator, not a contract price"
+    },
+    {
+      "target": "usn_bbg_ulysses_s_grant",
+      "source": "usn_bbg_trump",
+      "basis": "Red Storm Arsenal's fictional 2032 battleship (3 Nov 2026 export): valued as the same mod's usn_bbg_trump, the battleship the tracker author's catalog prices; not a design estimate"
     }
   ],
   "land": [

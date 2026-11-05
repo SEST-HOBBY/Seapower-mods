@@ -634,7 +634,7 @@ original\: 558 picture/film file(s)
   ... and 58 more
 
 --- Workshop pictures named for loading screens, backgrounds or menus ---
-201 file(s) in 14 mod(s): 3491248180 (30), 3629144864 (10), 3630495619 (4), 3711297532 (2), 3732654992 (24), 3752415457 (2), 3758943352 (1), 3766210676 (3), 3775128499 (15), 3784474738 (1), 3789208859 (8), 3807164392 (1), 3812454152 (2), 3812461539 (98)
+225 file(s) in 15 mod(s): 3491248180 (30), 3629144864 (10), 3630495619 (4), 3711297532 (2), 3732654992 (25), 3752415457 (2), 3758943352 (1), 3766210676 (3), 3775128499 (15), 3784474738 (1), 3789208859 (8), 3807164392 (1), 3812454152 (2), 3812461539 (98), 3820759806 (23)
   3491248180\ui\backgrounds\loading_screen_1.png                                                1,057
   3491248180\ui\backgrounds\loading_screen_10.png                                               2,341
   3491248180\ui\backgrounds\loading_screen_11.png                                               1,038
@@ -698,6 +698,7 @@ original\: 558 picture/film file(s)
   3732654992\ui\backgrounds\loading_screen_22.png                                               2,201
   3732654992\ui\backgrounds\loading_screen_23.png                                               2,947
   3732654992\ui\backgrounds\loading_screen_24.png                                               2,699
+  3732654992\ui\backgrounds\loading_screen_25.png                                                 722
   3732654992\ui\backgrounds\loading_screen_3.png                                                1,942
   3732654992\ui\backgrounds\loading_screen_4.png                                                2,699
   3732654992\ui\backgrounds\loading_screen_5.png                                                2,867
@@ -736,8 +737,8 @@ original\: 558 picture/film file(s)
   3789208859\ui\backgrounds\Euromod - South Korea Navy_loading_screen7.png                      1,951
   3789208859\ui\backgrounds\Euromod - South Korea Navy_loading_screen8.png                      1,289
   3807164392\ui\backgrounds\1.png                                                               1,839
-  3812454152\ui\backgrounds\background_1.png                                                    2,005
-  3812454152\ui\backgrounds\background_2.png                                                    2,888
+  3812454152\ui\backgrounds\HDF.png                                                             2,008
+  3812454152\ui\backgrounds\HDF_2.png                                                           2,164
   3812461539\campaigns\sest-red-line\art\00_campaign_background.png                             1,062
   3812461539\campaigns\sest-southern-reach\art\00_campaign_background.png                       1,713
   3812461539\campaigns\sest-southern-watch\art\00_campaign_background.png                         941
@@ -836,3 +837,26 @@ original\: 558 picture/film file(s)
   3812461539\ui\backgrounds\loading_screen_8.png                                                  279
   3812461539\ui\backgrounds\loading_screen_80.png                                                 386
   3812461539\ui\backgrounds\loading_screen_9.png                                                  345
+  3820759806\ui\backgrounds\au_bg1.jpg                                                            140
+  3820759806\ui\backgrounds\au_bg10.jpg                                                           301
+  3820759806\ui\backgrounds\au_bg11.jpg                                                           141
+  3820759806\ui\backgrounds\au_bg12.jpg                                                           162
+  3820759806\ui\backgrounds\au_bg13.jpg                                                           172
+  3820759806\ui\backgrounds\au_bg14.jpg                                                           335
+  3820759806\ui\backgrounds\au_bg15.jpg                                                           300
+  3820759806\ui\backgrounds\au_bg16.jpg                                                           159
+  3820759806\ui\backgrounds\au_bg17.jpg                                                           198
+  3820759806\ui\backgrounds\au_bg18.jpg                                                           219
+  3820759806\ui\backgrounds\au_bg19.jpg                                                           569
+  3820759806\ui\backgrounds\au_bg2.jpg                                                            237
+  3820759806\ui\backgrounds\au_bg20.jpg                                                           117
+  3820759806\ui\backgrounds\au_bg21.jpg                                                           154
+  3820759806\ui\backgrounds\au_bg22.jpg                                                           357
+  3820759806\ui\backgrounds\au_bg23.jpg                                                           181
+  3820759806\ui\backgrounds\au_bg3.jpg                                                            339
+  3820759806\ui\backgrounds\au_bg4.jpg                                                            207
+  3820759806\ui\backgrounds\au_bg5.jpg                                                            318
+  3820759806\ui\backgrounds\au_bg6.jpg                                                            454
+  3820759806\ui\backgrounds\au_bg7.jpg                                                            237
+  3820759806\ui\backgrounds\au_bg8.jpg                                                            171
+  3820759806\ui\backgrounds\au_bg9.jpg                                                            187

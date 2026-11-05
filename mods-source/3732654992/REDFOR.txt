@@ -37,6 +37,7 @@
     [*]Tu-95K-22
     [*]Buk-M3 Viking  
     [*]Fencer Family (Su-24m2,Su-24MP)
+    [*]Projekt 1124K Frigate (MPK-104)
 [/list] 
 [h3]S-400[/h3]
 [img]https://i.imgur.com/ALjyWzq.jpeg[/img]

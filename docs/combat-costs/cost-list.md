@@ -8,12 +8,12 @@ Ammunition, embarked aircraft, removable pods and tank contents are excluded fro
 
 | Kind | References | Historical prices | Current prices |
 |---|---:|---:|---:|
-| weapon | 2176 | 2176 | 2176 |
-| vessel | 939 | 939 | 939 |
-| aircraft | 762 | 762 | 762 |
+| weapon | 2198 | 2198 | 2198 |
+| vessel | 956 | 956 | 956 |
+| aircraft | 764 | 764 | 764 |
 | land | 502 | 502 | 502 |
 
-Preserved 5457 pre-existing usable price fields. Filled 3301 missing fields. No acquisition-point field was used as USD.
+Preserved 5467 pre-existing usable price fields. Filled 3373 missing fields. No acquisition-point field was used as USD.
 
 ## Weapon
 
@@ -325,6 +325,7 @@ Preserved 5457 pre-existing usable price fields. Filled 3301 missing fields. No 
 | `ger_27mm` | Gun | 5.4 | 46 | historical: existing usable value preserved (tracker author catalog); current: existing usable value preserved (tracker author catalog) | counted |
 | `ger_27mm_fapds` | Gun | 5.4 | 46 | historical: existing usable value preserved (reviewed catalog mapping: ger_27mm); current: existing usable value preserved (reviewed catalog mapping: ger_27mm) | counted |
 | `ger_3DDS` | Decoy | 10000 | 10000 | historical: rough model (modern multispectral expendable cartridge proxy); current: rough model (modern multispectral expendable cartridge proxy) | counted |
+| `ger_aim-9l-i` | AAM | 130428 | 500000 | historical: rough model (short-range IR AAM complete-round proxy); current: rough model (short-range IR AAM complete-round proxy) | counted |
 | `ger_C303S_MTE` | Decoy | 60000 | 60000 | historical: rough model (self-propelled submarine simulator proxy); current: rough model (self-propelled submarine simulator proxy) | counted |
 | `ger_C303S_noisemaker` | Decoy | 8000 | 8000 | historical: rough model (expendable acoustic countermeasure proxy); current: rough model (expendable acoustic countermeasure proxy) | counted |
 | `ger_cal_155mm` | Gun | 480 | 4200 | historical: existing usable value preserved (tracker author catalog); current: existing usable value preserved (tracker author catalog) | counted |
@@ -769,6 +770,7 @@ Preserved 5457 pre-existing usable price fields. Filled 3301 missing fields. No 
 | `plan_hq-16` | SAM | 190000 | 775000 | historical: existing usable value preserved (tracker author catalog); current: existing usable value preserved (tracker author catalog) | counted |
 | `plan_hq-16c` | SAM | 190000 | 775000 | historical: existing usable value preserved (tracker author catalog); current: existing usable value preserved (tracker author catalog) | counted |
 | `plan_hq-61` | SAM | 25000 | 205000 | historical: existing usable value preserved (tracker author catalog); current: existing usable value preserved (tracker author catalog) | counted |
+| `plan_hq-61b` | SAM | 904904 | 2500000 | historical: rough model (surface-to-air missile complete-round proxy); current: rough model (surface-to-air missile complete-round proxy) | counted |
 | `plan_hq10` | SAM | 390000 | 560000 | historical: existing usable value preserved (tracker author catalog); current: existing usable value preserved (tracker author catalog) | counted |
 | `plan_hq15` | SAM | 345000 | 1110000 | historical: existing usable value preserved (tracker author catalog); current: existing usable value preserved (tracker author catalog) | counted |
 | `plan_hq16` | SAM | 190000 | 775000 | historical: existing usable value preserved (tracker author catalog); current: existing usable value preserved (tracker author catalog) | counted |
@@ -1060,6 +1062,7 @@ Preserved 5457 pre-existing usable price fields. Filled 3301 missing fields. No 
 | `spa_cal_27mm` | Gun | 5.4 | 46 | historical: existing usable value preserved (tracker author catalog); current: existing usable value preserved (tracker author catalog) | counted |
 | `spa_cal_37mm` | Gun | 11 | 93 | historical: existing usable value preserved (tracker author catalog); current: existing usable value preserved (tracker author catalog) | counted |
 | `spa_cal_40mm` | Gun | 18 | 150 | historical: existing usable value preserved (tracker author catalog); current: existing usable value preserved (tracker author catalog) | counted |
+| `spa_dm2a4_er` | Torpedo | 2834928 | 4000000 | historical: rough model (modern heavyweight guided torpedo replacement proxy); current: rough model (modern heavyweight guided torpedo replacement proxy) | counted |
 | `spa_ef2000_fueltank` | Fuel tank | 25000 | 25000 | historical: rough model (external reusable fuel-tank hardware proxy, excluding fuel contents); current: rough model (external reusable fuel-tank hardware proxy, excluding fuel contents) | counted |
 | `spa_f-104_tank` | Fuel tank | 25000 | 25000 | historical: rough model (external reusable fuel-tank hardware proxy, excluding fuel contents); current: rough model (external reusable fuel-tank hardware proxy, excluding fuel contents) | counted |
 | `spa_f-18a_fueltank` | Fuel tank | 25000 | 25000 | historical: rough model (external reusable fuel-tank hardware proxy, excluding fuel contents); current: rough model (external reusable fuel-tank hardware proxy, excluding fuel contents) | counted |
@@ -1076,6 +1079,7 @@ Preserved 5457 pre-existing usable price fields. Filled 3301 missing fields. No 
 | `spa_mIII_fueltank_RPK10_l` | Fuel tank | 25000 | 25000 | historical: rough model (external reusable fuel-tank hardware proxy, excluding fuel contents); current: rough model (external reusable fuel-tank hardware proxy, excluding fuel contents) | counted |
 | `spa_mIII_fueltank_RPK10_r` | Fuel tank | 25000 | 25000 | historical: rough model (external reusable fuel-tank hardware proxy, excluding fuel contents); current: rough model (external reusable fuel-tank hardware proxy, excluding fuel contents) | counted |
 | `spa_mk14` | Torpedo | 167464 | 4000000 | historical: rough model (modern heavyweight guided torpedo replacement proxy); current: rough model (modern heavyweight guided torpedo replacement proxy) | counted |
+| `spa_mk43_mod3_air` | Torpedo | 115505 | 1500000 | historical: rough model (generic lightweight ASW torpedo replacement proxy); current: rough model (generic lightweight ASW torpedo replacement proxy) | counted |
 | `spa_rim-66e_VIb` | SAM | 57000 | 570000 | historical: existing usable value preserved (tracker author catalog); current: existing usable value preserved (tracker author catalog) | counted |
 | `spa_saes_mine` | Torpedo | 3752392 | 4000000 | historical: rough model (modern heavyweight guided torpedo replacement proxy); current: rough model (modern heavyweight guided torpedo replacement proxy) | counted |
 | `spa_sh-60b_120gal_tank` | Fuel tank | 25000 | 25000 | historical: rough model (external reusable fuel-tank hardware proxy, excluding fuel contents); current: rough model (external reusable fuel-tank hardware proxy, excluding fuel contents) | counted |
@@ -1138,7 +1142,13 @@ Preserved 5457 pre-existing usable price fields. Filled 3301 missing fields. No 
 | `swe_375mm_rocket` | ASW | 20000 | 20000 | historical: rough model (ASW rocket/depth-charge complete-round proxy); current: rough model (ASW rocket/depth-charge complete-round proxy) | counted |
 | `swe_cal_120mm` | Gun | 320 | 2700 | historical: existing usable value preserved (tracker author catalog); current: existing usable value preserved (tracker author catalog) | counted |
 | `swe_cal_120mm_ersta` | Gun | 4000 | 4000 | historical: rough model (per-projectile calibre-band replacement estimate, not cost per burst); current: rough model (per-projectile calibre-band replacement estimate, not cost per burst) | counted |
+| `swe_cal_152mm` | Gun | 8000 | 8000 | historical: rough model (per-projectile calibre-band replacement estimate, not cost per burst); current: rough model (per-projectile calibre-band replacement estimate, not cost per burst) | counted |
+| `swe_cal_40mm` | Gun | 250 | 250 | historical: rough model (per-projectile calibre-band replacement estimate, not cost per burst); current: rough model (per-projectile calibre-band replacement estimate, not cost per burst) | counted |
 | `swe_cal_57mm` | Gun | 1700 | 1700 | historical: rough model (per-projectile calibre-band replacement estimate, not cost per burst); current: rough model (per-projectile calibre-band replacement estimate, not cost per burst) | counted |
+| `swe_rb24` | AAM | 42614 | 500000 | historical: rough model (short-range IR AAM complete-round proxy); current: rough model (short-range IR AAM complete-round proxy) | counted |
+| `swe_rb24j` | AAM | 110167 | 500000 | historical: rough model (short-range IR AAM complete-round proxy); current: rough model (short-range IR AAM complete-round proxy) | counted |
+| `swe_rb24l` | AAM | 137650 | 500000 | historical: rough model (short-range IR AAM complete-round proxy); current: rough model (short-range IR AAM complete-round proxy) | counted |
+| `swe_rb71` | AAM | 330502 | 1500000 | historical: rough model (modern radar AAM complete-round proxy); current: rough model (modern radar AAM complete-round proxy) | counted |
 | `swe_rbs15_mk1` | ASM | 985000 | 3070000 | historical: existing usable value preserved (tracker author catalog); current: existing usable value preserved (tracker author catalog) | counted |
 | `swe_rbs15_mk2` | ASM | 985000 | 3070000 | historical: existing usable value preserved (tracker author catalog); current: existing usable value preserved (tracker author catalog) | counted |
 | `swe_rbs15_mk3` | ASM | 985000 | 3070000 | historical: existing usable value preserved (tracker author catalog); current: existing usable value preserved (tracker author catalog) | counted |
@@ -1219,6 +1229,12 @@ Preserved 5457 pre-existing usable price fields. Filled 3301 missing fields. No 
 | `usa_mim-23k` | SAM | 1132252 | 2500000 | historical: rough model (surface-to-air missile complete-round proxy); current: rough model (surface-to-air missile complete-round proxy) | counted |
 | `usa_mim-23l` | SAM | 1132252 | 2500000 | historical: rough model (surface-to-air missile complete-round proxy); current: rough model (surface-to-air missile complete-round proxy) | counted |
 | `usa_mim-23m` | SAM | 1132252 | 2500000 | historical: rough model (surface-to-air missile complete-round proxy); current: rough model (surface-to-air missile complete-round proxy) | counted |
+| `usa_mim-72a` | SAM | 283194 | 2500000 | historical: rough model (surface-to-air missile complete-round proxy); current: rough model (surface-to-air missile complete-round proxy) | counted |
+| `usa_mim-72c` | SAM | 550837 | 2500000 | historical: rough model (surface-to-air missile complete-round proxy); current: rough model (surface-to-air missile complete-round proxy) | counted |
+| `usa_mim-72e` | SAM | 616029 | 2500000 | historical: rough model (surface-to-air missile complete-round proxy); current: rough model (surface-to-air missile complete-round proxy) | counted |
+| `usa_mim-72g` | SAM | 941014 | 2500000 | historical: rough model (surface-to-air missile complete-round proxy); current: rough model (surface-to-air missile complete-round proxy) | counted |
+| `usa_mim-72h` | SAM | 616029 | 2500000 | historical: rough model (surface-to-air missile complete-round proxy); current: rough model (surface-to-air missile complete-round proxy) | counted |
+| `usa_mim-72j` | SAM | 941014 | 2500000 | historical: rough model (surface-to-air missile complete-round proxy); current: rough model (surface-to-air missile complete-round proxy) | counted |
 | `usa_mim_104a` | SAM | 875000 | 2820000 | historical: existing usable value preserved (tracker author catalog); current: existing usable value preserved (tracker author catalog) | counted |
 | `usa_mim_104b` | SAM | 875000 | 2820000 | historical: existing usable value preserved (tracker author catalog); current: existing usable value preserved (tracker author catalog) | counted |
 | `usa_mim_104c` | SAM | 875000 | 2820000 | historical: existing usable value preserved (tracker author catalog); current: existing usable value preserved (tracker author catalog) | counted |
@@ -1259,6 +1275,9 @@ Preserved 5457 pre-existing usable price fields. Filled 3301 missing fields. No 
 | `usaf_aim-9e` | AAM | 6900 | 69000 | historical: existing usable value preserved (tracker author catalog); current: existing usable value preserved (tracker author catalog) | counted |
 | `usaf_aim-9j` | AAM | 15000 | 120000 | historical: existing usable value preserved (tracker author catalog); current: existing usable value preserved (tracker author catalog) | counted |
 | `usaf_aim-9p` | AAM | 22000 | 130000 | historical: existing usable value preserved (tracker author catalog); current: existing usable value preserved (tracker author catalog) | counted |
+| `usaf_aim-9p-3` | AAM | 116687 | 500000 | historical: rough model (short-range IR AAM complete-round proxy); current: rough model (short-range IR AAM complete-round proxy) | counted |
+| `usaf_aim-9p-4` | AAM | 123206 | 500000 | historical: rough model (short-range IR AAM complete-round proxy); current: rough model (short-range IR AAM complete-round proxy) | counted |
+| `usaf_aim-9p-5` | AAM | 62000 | 170000 | historical: existing usable value preserved (reviewed catalog mapping: usaf_aim-9p5); current: existing usable value preserved (reviewed catalog mapping: usaf_aim-9p5) | counted |
 | `usaf_alq-119` | Pod | 8000000 | 8000000 | historical: rough model (electronic-warfare pod hardware proxy); current: rough model (electronic-warfare pod hardware proxy) | counted |
 | `usaf_alq-131` | Pod | 8000000 | 8000000 | historical: rough model (electronic-warfare pod hardware proxy); current: rough model (electronic-warfare pod hardware proxy) | counted |
 | `usaf_alq-131v2+` | Pod | 8000000 | 8000000 | historical: rough model (electronic-warfare pod hardware proxy); current: rough model (electronic-warfare pod hardware proxy) | counted |
@@ -1418,6 +1437,7 @@ Preserved 5457 pre-existing usable price fields. Filled 3301 missing fields. No 
 | `usn_aim-9h` | AAM | 17000 | 140000 | historical: existing usable value preserved (tracker author catalog); current: existing usable value preserved (tracker author catalog) | counted |
 | `usn_aim-9l` | AAM | 36000 | 200000 | historical: existing usable value preserved (tracker author catalog); current: existing usable value preserved (tracker author catalog) | counted |
 | `usn_aim-9m` | AAM | 59000 | 200000 | historical: existing usable value preserved (tracker author catalog); current: existing usable value preserved (tracker author catalog) | counted |
+| `usn_aim-9s` | AAM | 166537 | 500000 | historical: rough model (short-range IR AAM complete-round proxy); current: rough model (short-range IR AAM complete-round proxy) | counted |
 | `usn_aim-9x` | AAM | 295000 | 535000 | historical: existing usable value preserved (tracker author catalog); current: existing usable value preserved (tracker author catalog) | counted |
 | `usn_aim-9x_LQS` | AAM | 295000 | 535000 | historical: existing usable value preserved (tracker author catalog); current: existing usable value preserved (tracker author catalog) | counted |
 | `usn_aim-9xb2+` | AAM | 375000 | 530000 | historical: existing usable value preserved (tracker author catalog); current: existing usable value preserved (tracker author catalog) | counted |
@@ -1451,6 +1471,7 @@ Preserved 5457 pre-existing usable price fields. Filled 3301 missing fields. No 
 | `usn_cal_05in` | Gun | 0.4 | 4.6 | historical: existing usable value preserved (tracker author catalog); current: existing usable value preserved (tracker author catalog) | counted |
 | `usn_cal_05in_land` | Gun | 0.4 | 4.6 | historical: existing usable value preserved (tracker author catalog); current: existing usable value preserved (tracker author catalog) | counted |
 | `usn_cal_105mm` | Gun | 200 | 2300 | historical: existing usable value preserved (tracker author catalog); current: existing usable value preserved (tracker author catalog) | counted |
+| `usn_cal_1194mm` | Gun | 20000 | 20000 | historical: rough model (per-projectile calibre-band replacement estimate, not cost per burst); current: rough model (per-projectile calibre-band replacement estimate, not cost per burst) | counted |
 | `usn_cal_127mm` | Gun | 360 | 3100 | historical: existing usable value preserved (tracker author catalog); current: existing usable value preserved (tracker author catalog) | counted |
 | `usn_cal_127mm_54` | Gun | 360 | 3100 | historical: existing usable value preserved (tracker author catalog); current: existing usable value preserved (tracker author catalog) | counted |
 | `usn_cal_127mm_62` | Gun | 360 | 3100 | historical: existing usable value preserved (tracker author catalog); current: existing usable value preserved (tracker author catalog) | counted |
@@ -1707,6 +1728,7 @@ Preserved 5457 pre-existing usable price fields. Filled 3301 missing fields. No 
 | `usn_rim-67b` | SAM | 210000 | 855000 | historical: existing usable value preserved (tracker author catalog); current: existing usable value preserved (tracker author catalog) | counted |
 | `usn_rim-67c` | SAM | 280000 | 855000 | historical: existing usable value preserved (tracker author catalog); current: existing usable value preserved (tracker author catalog) | counted |
 | `usn_rim-7` | SAM | 59000 | 345000 | historical: existing usable value preserved (tracker author catalog); current: existing usable value preserved (tracker author catalog) | counted |
+| `usn_rim-72c` | SAM | 550837 | 2500000 | historical: rough model (surface-to-air missile complete-round proxy); current: rough model (surface-to-air missile complete-round proxy) | counted |
 | `usn_rim-7h` | SAM | 59000 | 345000 | historical: existing usable value preserved (tracker author catalog); current: existing usable value preserved (tracker author catalog) | counted |
 | `usn_rim-7m` | SAM | 99000 | 345000 | historical: existing usable value preserved (tracker author catalog); current: existing usable value preserved (tracker author catalog) | counted |
 | `usn_rim-7p` | SAM | 115000 | 340000 | historical: existing usable value preserved (tracker author catalog); current: existing usable value preserved (tracker author catalog) | counted |
@@ -2423,6 +2445,9 @@ Preserved 5457 pre-existing usable price fields. Filled 3301 missing fields. No 
 | `ita_ffg_ppa` | FFG | 479000000 | 689000000 | historical: existing usable value preserved (tracker author catalog); current: existing usable value preserved (tracker author catalog) | counted |
 | `ita_ffg_ppa_evo` | FFG | 479000000 | 689000000 | historical: existing usable value preserved (tracker author catalog); current: existing usable value preserved (tracker author catalog) | counted |
 | `ita_fs_ppx` | OPV | 60000000 | 103000000 | historical: existing usable value preserved (tracker author catalog); current: existing usable value preserved (tracker author catalog) | counted |
+| `ita_lhd_trieste` | LPD | 1200000000 | 1200000000 | historical: rough model (amphibious ship replacement proxy, excluding vehicles, aircraft and ammunition); current: rough model (amphibious ship replacement proxy, excluding vehicles, aircraft and ammunition) | counted |
+| `ita_lhd_trieste_saam16` | LPD | 1200000000 | 1200000000 | historical: rough model (amphibious ship replacement proxy, excluding vehicles, aircraft and ammunition); current: rough model (amphibious ship replacement proxy, excluding vehicles, aircraft and ammunition) | counted |
+| `ita_lhd_trieste_saam32` | LPD | 1200000000 | 1200000000 | historical: rough model (amphibious ship replacement proxy, excluding vehicles, aircraft and ammunition); current: rough model (amphibious ship replacement proxy, excluding vehicles, aircraft and ammunition) | counted |
 | `ita_ssk_todaro_batch1` | SSK | 435000000 | 746000000 | historical: existing usable value preserved (tracker author catalog); current: existing usable value preserved (tracker author catalog) | counted |
 | `jmsdf_aoe_mashuu` | AOE | 399000000 | 481000000 | historical: existing usable value preserved (SEST checked research: Mashu-class AOE (FY2000 plan): published build cost JPY 43.0bn (ja.wikipedia) at the tracker's JPY Rate2000; current is ATLA's 2025 contract for the larger 14,500 t successor AOE, an upper-side proxy); current: existing usable value preserved (SEST checked research: Mashu-class AOE (FY2000 plan): published build cost JPY 43.0bn (ja.wikipedia) at the tracker's JPY Rate2000; current is ATLA's 2025 contract for the larger 14,500 t successor AOE, an upper-side proxy) | counted |
 | `jmsdf_cv_shokaku_late` | CV | 300000000 | 2589000000 | historical: existing usable value preserved (tracker author catalog); current: existing usable value preserved (tracker author catalog) | counted |
@@ -2460,12 +2485,15 @@ Preserved 5457 pre-existing usable price fields. Filled 3301 missing fields. No 
 | `ko_ddh-971` | DDH | 380000000 | 781000000 | historical: existing usable value preserved (tracker author catalog); current: existing usable value preserved (tracker author catalog) | counted |
 | `ko_ddh-975_kvls` | DDH | 380000000 | 781000000 | historical: existing usable value preserved (tracker author catalog); current: existing usable value preserved (tracker author catalog) | counted |
 | `ko_ff-951` | FFG | 587000000 | 1141000000 | historical: existing usable value preserved (tracker author catalog); current: existing usable value preserved (tracker author catalog) | counted |
+| `ko_ffg-471` | FFG | 700000000 | 700000000 | historical: rough model (fitted frigate replacement proxy, excluding ammunition and embarked aircraft); current: rough model (fitted frigate replacement proxy, excluding ammunition and embarked aircraft) | counted |
 | `ko_ffg-811` | FFG | 587000000 | 1141000000 | historical: existing usable value preserved (tracker author catalog); current: existing usable value preserved (tracker author catalog) | counted |
 | `ko_ffg-818` | FFG | 587000000 | 1141000000 | historical: existing usable value preserved (tracker author catalog); current: existing usable value preserved (tracker author catalog) | counted |
 | `ko_ffg-828` | FFG | 587000000 | 1141000000 | historical: existing usable value preserved (tracker author catalog); current: existing usable value preserved (tracker author catalog) | counted |
+| `ko_hdf-3600` | FFG | 587000000 | 1141000000 | historical: existing usable value preserved (reviewed catalog mapping: ko_ffg-818); current: existing usable value preserved (reviewed catalog mapping: ko_ffg-818) | counted |
 | `ko_kddx` | DDG | 1605000000 | 2077000000 | historical: existing usable value preserved (reviewed catalog mapping: non/ko_kddx); current: existing usable value preserved (reviewed catalog mapping: non/ko_kddx) | counted |
 | `ko_lph-6111` | LHD | 704000000 | 1169000000 | historical: existing usable value preserved (tracker author catalog); current: existing usable value preserved (tracker author catalog) | counted |
 | `ko_lph-6112` | LHD | 704000000 | 1169000000 | historical: existing usable value preserved (reviewed catalog mapping: ko_lph-6111); current: existing usable value preserved (reviewed catalog mapping: ko_lph-6111) | counted |
+| `ko_opv` | OPV | 150000000 | 150000000 | historical: rough model (offshore patrol ship replacement proxy); current: rough model (offshore patrol ship replacement proxy) | counted |
 | `ko_pcc-756` | FFG | 41000000 | 131000000 | historical: existing usable value preserved (tracker author catalog); current: existing usable value preserved (tracker author catalog) | counted |
 | `ko_pkg-711` | FAC | 35000000 | 60000000 | historical: existing usable value preserved (tracker author catalog); current: existing usable value preserved (tracker author catalog) | counted |
 | `ko_pkg-711_scl` | FAC | 35000000 | 60000000 | historical: existing usable value preserved (reviewed catalog mapping: ko_pkg-711); current: existing usable value preserved (reviewed catalog mapping: ko_pkg-711) | counted |
@@ -2593,6 +2621,7 @@ Preserved 5457 pre-existing usable price fields. Filled 3301 missing fields. No 
 | `plan_type_052d_p2_2` | DDG | 680000000 | 962000000 | historical: existing usable value preserved (tracker author catalog); current: existing usable value preserved (tracker author catalog) | counted |
 | `plan_type_052d_p3` | DDG | 680000000 | 962000000 | historical: existing usable value preserved (tracker author catalog); current: existing usable value preserved (tracker author catalog) | counted |
 | `plan_type_052d_p4` | DDG | 680000000 | 962000000 | historical: existing usable value preserved (tracker author catalog); current: existing usable value preserved (tracker author catalog) | counted |
+| `plan_type_053h2g` | FFG | 110000000 | 221000000 | historical: existing usable value preserved (reviewed catalog mapping: plan_type_053h3_p1); current: existing usable value preserved (reviewed catalog mapping: plan_type_053h3_p1) | counted |
 | `plan_type_053h3_p1` | FFG | 110000000 | 221000000 | historical: existing usable value preserved (tracker author catalog); current: existing usable value preserved (tracker author catalog) | counted |
 | `plan_type_053h3_p2` | FFG | 110000000 | 221000000 | historical: existing usable value preserved (tracker author catalog); current: existing usable value preserved (tracker author catalog) | counted |
 | `plan_type_054_p1` | FFG | 201000000 | 344000000 | historical: existing usable value preserved (tracker author catalog); current: existing usable value preserved (tracker author catalog) | counted |
@@ -2602,6 +2631,7 @@ Preserved 5457 pre-existing usable price fields. Filled 3301 missing fields. No 
 | `plan_type_054a_p3` | FFG | 316000000 | 492000000 | historical: existing usable value preserved (tracker author catalog); current: existing usable value preserved (tracker author catalog) | counted |
 | `plan_type_054a_p4` | FFG | 316000000 | 492000000 | historical: existing usable value preserved (tracker author catalog); current: existing usable value preserved (tracker author catalog) | counted |
 | `plan_type_054a_p5` | FFG | 316000000 | 492000000 | historical: existing usable value preserved (tracker author catalog); current: existing usable value preserved (tracker author catalog) | counted |
+| `plan_type_054b_p1` | FFG | 604000000 | 664000000 | historical: existing usable value preserved (reviewed catalog mapping: plan_ffg_type_054b); current: existing usable value preserved (reviewed catalog mapping: plan_ffg_type_054b) | counted |
 | `plan_type_055_2020` | DDG | 863000000 | 1116000000 | historical: existing usable value preserved (tracker author catalog); current: existing usable value preserved (tracker author catalog) | counted |
 | `plan_type_055_2026` | DDG | 863000000 | 1116000000 | historical: existing usable value preserved (tracker author catalog); current: existing usable value preserved (tracker author catalog) | counted |
 | `plan_type_056a` | FFG | 122000000 | 172000000 | historical: existing usable value preserved (tracker author catalog); current: existing usable value preserved (tracker author catalog) | counted |
@@ -2783,6 +2813,7 @@ Preserved 5457 pre-existing usable price fields. Filled 3301 missing fields. No 
 | `usn_bb_iowa` | BB | 202000000 | 2805000000 | historical: existing usable value preserved (tracker author catalog); current: existing usable value preserved (tracker author catalog) | counted |
 | `usn_bb_iowa_vls_refit` | BB | 202000000 | 2805000000 | historical: existing usable value preserved (tracker author catalog); current: existing usable value preserved (tracker author catalog) | counted |
 | `usn_bbg_trump` | BBG | 1608000000 | 6538000000 | historical: existing usable value preserved (tracker author catalog); current: existing usable value preserved (tracker author catalog) | counted |
+| `usn_bbg_ulysses_s_grant` | BBG | 1608000000 | 6538000000 | historical: existing usable value preserved (reviewed catalog mapping: usn_bbg_trump); current: existing usable value preserved (reviewed catalog mapping: usn_bbg_trump) | counted |
 | `usn_cg_belknap` | CG | 197000000 | 2125000000 | historical: existing usable value preserved (tracker author catalog); current: existing usable value preserved (tracker author catalog) | counted |
 | `usn_cg_belknap_72` | DLG | 197000000 | 2125000000 | historical: existing usable value preserved (tracker author catalog); current: existing usable value preserved (tracker author catalog) | counted |
 | `usn_cg_bunker_hill` | DDG | 972000000 | 3269000000 | historical: catalog comparator estimate (design/family/role catalog comparator usn_cg_ticonderogavls; donor reference-year series retained; not a class-specific quote); current: catalog comparator estimate (design/family/role catalog comparator usn_cg_ticonderogavls; donor reference-year series retained; not a class-specific quote) | counted |
@@ -2905,24 +2936,32 @@ Preserved 5457 pre-existing usable price fields. Filled 3301 missing fields. No 
 | `usn_ddg_burke_f2_072_late` | DDG | 900000000 | 1731000000 | historical: existing usable value preserved (tracker author catalog); current: existing usable value preserved (tracker author catalog) | counted |
 | `usn_ddg_burke_f2_075_late` | DDG | 900000000 | 1731000000 | historical: existing usable value preserved (tracker author catalog); current: existing usable value preserved (tracker author catalog) | counted |
 | `usn_ddg_burke_f2a_079` | DDG | 1000000000 | 2200000000 | historical: existing usable value preserved (tracker author catalog); current: existing usable value preserved (tracker author catalog) | counted |
+| `usn_ddg_burke_f2a_079_early` | DDG | 2000000000 | 2000000000 | historical: rough model (fitted destroyer replacement proxy, excluding ammunition and aircraft); current: rough model (fitted destroyer replacement proxy, excluding ammunition and aircraft) | counted |
 | `usn_ddg_burke_f2a_079_late` | DDG | 1000000000 | 2200000000 | historical: existing usable value preserved (tracker author catalog); current: existing usable value preserved (tracker author catalog) | counted |
 | `usn_ddg_burke_f2a_080` | DDG | 1000000000 | 2200000000 | historical: existing usable value preserved (tracker author catalog); current: existing usable value preserved (tracker author catalog) | counted |
+| `usn_ddg_burke_f2a_080_early` | DDG | 2000000000 | 2000000000 | historical: rough model (fitted destroyer replacement proxy, excluding ammunition and aircraft); current: rough model (fitted destroyer replacement proxy, excluding ammunition and aircraft) | counted |
 | `usn_ddg_burke_f2a_080_late` | DDG | 1000000000 | 2200000000 | historical: existing usable value preserved (tracker author catalog); current: existing usable value preserved (tracker author catalog) | counted |
 | `usn_ddg_burke_f2a_081` | DDG | 1000000000 | 2200000000 | historical: existing usable value preserved (tracker author catalog); current: existing usable value preserved (tracker author catalog) | counted |
+| `usn_ddg_burke_f2a_081_early` | DDG | 2000000000 | 2000000000 | historical: rough model (fitted destroyer replacement proxy, excluding ammunition and aircraft); current: rough model (fitted destroyer replacement proxy, excluding ammunition and aircraft) | counted |
 | `usn_ddg_burke_f2a_081_late` | DDG | 1000000000 | 2200000000 | historical: existing usable value preserved (tracker author catalog); current: existing usable value preserved (tracker author catalog) | counted |
 | `usn_ddg_burke_f2a_084_late` | DDG | 1000000000 | 2200000000 | historical: existing usable value preserved (tracker author catalog); current: existing usable value preserved (tracker author catalog) | counted |
 | `usn_ddg_burke_f2a_085` | DDG | 1000000000 | 2200000000 | historical: existing usable value preserved (tracker author catalog); current: existing usable value preserved (tracker author catalog) | counted |
+| `usn_ddg_burke_f2a_085_early` | DDG | 2000000000 | 2000000000 | historical: rough model (fitted destroyer replacement proxy, excluding ammunition and aircraft); current: rough model (fitted destroyer replacement proxy, excluding ammunition and aircraft) | counted |
 | `usn_ddg_burke_f2a_085_late` | DDG | 1000000000 | 2200000000 | historical: existing usable value preserved (tracker author catalog); current: existing usable value preserved (tracker author catalog) | counted |
 | `usn_ddg_burke_f2a_088_laser` | DDG | 1000000000 | 2200000000 | historical: existing usable value preserved (tracker author catalog); current: existing usable value preserved (tracker author catalog) | counted |
 | `usn_ddg_burke_f2a_089` | DDG | 1000000000 | 2200000000 | historical: existing usable value preserved (tracker author catalog); current: existing usable value preserved (tracker author catalog) | counted |
+| `usn_ddg_burke_f2a_089_early` | DDG | 2000000000 | 2000000000 | historical: rough model (fitted destroyer replacement proxy, excluding ammunition and aircraft); current: rough model (fitted destroyer replacement proxy, excluding ammunition and aircraft) | counted |
 | `usn_ddg_burke_f2a_089_late` | DDG | 1000000000 | 2200000000 | historical: existing usable value preserved (tracker author catalog); current: existing usable value preserved (tracker author catalog) | counted |
 | `usn_ddg_burke_f2a_091` | DDG | 1000000000 | 2200000000 | historical: existing usable value preserved (tracker author catalog); current: existing usable value preserved (tracker author catalog) | counted |
+| `usn_ddg_burke_f2a_091_early` | DDG | 2000000000 | 2000000000 | historical: rough model (fitted destroyer replacement proxy, excluding ammunition and aircraft); current: rough model (fitted destroyer replacement proxy, excluding ammunition and aircraft) | counted |
 | `usn_ddg_burke_f2a_091_late` | DDG | 1000000000 | 2200000000 | historical: existing usable value preserved (tracker author catalog); current: existing usable value preserved (tracker author catalog) | counted |
 | `usn_ddg_burke_f2a_091_sewip` | DDG | 1000000000 | 2200000000 | historical: existing usable value preserved (tracker author catalog); current: existing usable value preserved (tracker author catalog) | counted |
 | `usn_ddg_burke_f2a_097` | DDG | 1400000000 | 2200000000 | historical: existing usable value preserved (tracker author catalog); current: existing usable value preserved (tracker author catalog) | counted |
+| `usn_ddg_burke_f2a_097_early` | DDG | 2000000000 | 2000000000 | historical: rough model (fitted destroyer replacement proxy, excluding ammunition and aircraft); current: rough model (fitted destroyer replacement proxy, excluding ammunition and aircraft) | counted |
 | `usn_ddg_burke_f2a_097_late` | DDG | 1400000000 | 2200000000 | historical: existing usable value preserved (tracker author catalog); current: existing usable value preserved (tracker author catalog) | counted |
 | `usn_ddg_burke_f2a_097_sewip` | DDG | 1400000000 | 2200000000 | historical: existing usable value preserved (tracker author catalog); current: existing usable value preserved (tracker author catalog) | counted |
 | `usn_ddg_burke_f2a_099` | DDG | 1400000000 | 2200000000 | historical: existing usable value preserved (tracker author catalog); current: existing usable value preserved (tracker author catalog) | counted |
+| `usn_ddg_burke_f2a_099_early` | DDG | 2000000000 | 2000000000 | historical: rough model (fitted destroyer replacement proxy, excluding ammunition and aircraft); current: rough model (fitted destroyer replacement proxy, excluding ammunition and aircraft) | counted |
 | `usn_ddg_burke_f2a_099_late` | DDG | 1400000000 | 2200000000 | historical: existing usable value preserved (tracker author catalog); current: existing usable value preserved (tracker author catalog) | counted |
 | `usn_ddg_burke_f2a_100_late` | DDG | 1400000000 | 2200000000 | historical: existing usable value preserved (tracker author catalog); current: existing usable value preserved (tracker author catalog) | counted |
 | `usn_ddg_burke_f2a_108` | DDG | 1400000000 | 2200000000 | historical: existing usable value preserved (tracker author catalog); current: existing usable value preserved (tracker author catalog) | counted |
@@ -3180,6 +3219,8 @@ Preserved 5457 pre-existing usable price fields. Filled 3301 missing fields. No 
 | `ca_a330_mrtt` | Aircraft | 180000000 | 230000000 | historical: existing usable value preserved (tracker author catalog); current: existing usable value preserved (tracker author catalog) | counted |
 | `canberra_bomber` | Aircraft | 1000000 | 12000000 | historical: existing usable value preserved (tracker author catalog); current: existing usable value preserved (tracker author catalog) | counted |
 | `ch_e3d` | Aircraft | 270000000 | 300000000 | historical: existing usable value preserved (tracker author catalog); current: existing usable value preserved (tracker author catalog) | counted |
+| `ch_f-16` | Aircraft | 75000000 | 75000000 | historical: rough model (conventional combat-aircraft replacement proxy, excluding ammunition and removable priced pods); current: rough model (conventional combat-aircraft replacement proxy, excluding ammunition and removable priced pods) | counted |
+| `ch_f-16_mlu` | Aircraft | 75000000 | 75000000 | historical: rough model (conventional combat-aircraft replacement proxy, excluding ammunition and removable priced pods); current: rough model (conventional combat-aircraft replacement proxy, excluding ammunition and removable priced pods) | counted |
 | `ch_f-5e` | Aircraft | 2000000 | 15000000 | historical: existing usable value preserved (tracker author catalog); current: existing usable value preserved (tracker author catalog) | counted |
 | `ch_kc135` | Aircraft | 39600000 | 90000000 | historical: existing usable value preserved (tracker author catalog); current: existing usable value preserved (tracker author catalog) | counted |
 | `china_tianlong_satellite` | Aircraft | 500000000 | 500000000 | historical: rough model (in-game satellite asset rough replacement proxy, excluding launch service); current: rough model (in-game satellite asset rough replacement proxy, excluding launch service) | counted |

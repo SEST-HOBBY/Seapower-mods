@@ -1,6 +1,30 @@
 SPANISH MOD (#coldwar)  CHANGELOG
 
+v3.66 - 20261102
+
+	- Review of the version of chaff used on aircraft and ships.
+
+v3.65 - 20261101
+
+	- Added the MinTakeoffDistance value to airplanes and helicopters.
+	- Review of LOD values.
+	- Reviewed the MaxClimbPitch, MaxCombatClimbPitch, MaxDescentPitch, and MaxCombatDescentPitch values ​​for the aircrafts.
+	- Added values ​​for FCSolutionGainRate, FCMinSolution, and FCTracksRounds to the radars that require them.
+	- Updated ECM/ECCM/Chaff values.
+	- Updated CombatSystems values.
+	- R01: Holding point modified following helicopter take-offs.
+	- R11: Holding point modified following helicopter take-offs.
+
+v3.64 - 20261029
+
+	NEW: Mk.43 air launched torpedo, was the main ASW weapon on the S-55
+	- S-55: Added Mk43 torpedo
+	- S-55:corrected deck pivot point
+	- R01 Dedalo Early: corrected all flight deck positions
+	- R01 Dedalo Late: corrected all flight deck positions
+	
 v3.63 - 20261027
+
 	- S-55: added ASW Hunter loadout, equipped with new AQS-4 dipping sonar
 	- S-55 corrected some textures, added pylon for torpedoes
 	- R01 and R11: corrected take-off inmediate direction for helicopters to front of ship.
@@ -8,7 +32,9 @@ v3.63 - 20261027
 	- R01: changed Early Dédalo air group to 4 S-55, 2 MD500, 4 AH-1G and 6 SH-3D
 
 v3.62 - 20261027
-	- S-55: Added profiles and plan images
+
+	- S-55: Added profiles and plan images.
+
 v3.61 - 20261026
 	
 	NEW UNIT: SIKORSKY S-55B /H-19 /HRS-3 CHICKASAW Helicopter (no weapons or sensors atm)

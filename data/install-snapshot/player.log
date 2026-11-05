@@ -1,4 +1,4 @@
-# Player.log - last 73 of 73 line(s), captured 2026-10-28T23:21:54.
+# Player.log - last 416 of 416 line(s), captured 2026-11-03T23:22:34.
 # Unity writes this fresh each launch; -prev is the session before.
 
 Mono path[0] = 'C:/Program Files (x86)/Steam/steamapps/common/Sea Power/Sea Power_Data/Managed'
@@ -17,7 +17,7 @@ Direct3D:
     VRAM:     7989 MB
     Driver:   32.0.16.1088
 Begin MonoManager ReloadAssembly
-- Loaded All Assemblies, in  0.215 seconds
+- Loaded All Assemblies, in  0.206 seconds
 - Finished resetting the current domain, in  0.002 seconds
 [Physics::Module] Selected backend.
 [Physics::Module] Name: PhysX
@@ -32,7 +32,7 @@ Using Windows.Gaming.Input
 <RI> Input initialized.
 
 [3D WebView] Using Vuplex 3D WebView for Windows v4.15.2 
-UnloadTime: 4.232000 ms
+UnloadTime: 1.341400 ms
 [3D WebView] System info (used by Vuplex support):
 Unity version: 6000.0.84f1
 Development build: False
@@ -49,25 +49,368 @@ FileManager.OnStart(Game) Subscribed Items = [(3821992229, k_EItemStateSubscribe
 FileManager.Directories contains Mods
 FileManager.CheckFileValidity(): Game passed file validity checks!
 FileManager.CheckForUpdates(): The following files require update []
+[SEST TileGuard] guarding Seapower.SceneEditor.SeapowerTileMap.LoadTile(Tile) -> Void
+[SEST Backdrops] ready: 80 SEST photographs from C:\Program Files (x86)\Steam\steamapps\workshop\content\1286220\3812461539\ui\backgrounds; backdrops only, campaign and mission pictures left alone
+[SEST Menu] ready: C:\Program Files (x86)\Steam\steamapps\workshop\content\1286220\3812461539\plugins\sest_menu.mp4 for clip 'main_menu'
+[SEST Runtime] towed sensor correction installed: guarded native active-sonar retraction, mechanical behavior retained
+[SEST Runtime] MST terrain correction installed: RGM/UGM-109E5a cruise only, 500 ft over land ahead; native terminal profile retained
+[SEST Runtime] task-force debrief correction installed: append explicitly destroyed launch-snapshot hulls missing from section 3
+[SEST Runtime] preparation map refresh installed: own units only, native preparation queue, restart cleanup, no simulation step
+[SEST Runtime] campaign combat costs installed: saved debrief weapons, ship, air and land losses; independent of tracker display
+[SEST Runtime] combat inventory capture installed: raw remaining quantities in versioned SEST keys; hull, airframe and land costs remain separate
+[SEST Runtime] F11 campaign panel awaiting the enabled Combat Cost Tracker
+[SEST Runtime] native cost UI deferred until Noesis is initialized and a game view is attached
+[SEST Runtime] F11 campaign combat costs installed: native movable windows, mission detail and complete scrollable campaign history
+[ACPackSettings] loaded successfully.
+[CustomAudioLoader] loaded successfully.
+[EnhancedDecoyMod] loaded successfully.
+[Euromod-Welldeck] loaded successfully.
+[HighAltitudeSkyFix] loaded successfully.
+[HullDamage] loaded successfully.
+[MeshCutOut] loaded successfully.
+[MissileControlMod] Disabled; native behavior retained: System.Exception: Native steering limit hook shape changed: 0/0/2
+  at MissileControlMod.Hooks.PatchSteeringLimits (System.Collections.Generic.IEnumerable`1[T] source, System.Int32 expectedG, System.Int32 expectedRate, System.Int32 expectedTerminal) [0x001a6] in <703df634a5434d42b263a60cea7c9675>:0 
+  at MissileControlMod.Hooks.SteeringLimits (System.Collections.Generic.IEnumerable`1[T] source) [0x0000d] in <703df634a5434d42b263a60cea7c9675>:0 
+  at MissileControlMod.Compatibility.ValidateGame () [0x0038a] in <703df634a5434d42b263a60cea7c9675>:0 
+  at MissileControlMod.Plugin.InitializeWhenModEnabled () [0x00013] in <703df634a5434d42b263a60cea7c9675>:0 
+[MissileControlSurfaces] loaded successfully.
+[MultiStageMissiles] Initialization failed; vanilla missile behavior remains active: System.MissingMethodException: Unsupported stage propulsion API: MissileSimulator.BuildAltitudeNodes
+  at MultiStageMissilesAnchorChain.PropulsionApi.Require (System.Type t, System.String name, System.Boolean isStatic, System.Type result, System.Type[] args) [0x0004c] in <22996371a1154758b343a0c9c70e6eba>:0 
+  at MultiStageMissilesAnchorChain.StageFlyout.BindAltitudeNodes (System.Type simulator) [0x00126] in <22996371a1154758b343a0c9c70e6eba>:0 
+  at MultiStageMissilesAnchorChain.StageFlyout.Validate (System.Type simulator) [0x000cb] in <22996371a1154758b343a0c9c70e6eba>:0 
+  at MultiStageMissilesAnchorChain.PropulsionApi.Validate () [0x003af] in <22996371a1154758b343a0c9c70e6eba>:0 
+  at MultiStageMissilesAnchorChain.MultiStageMissilesMod.InitializeWhenModEnabled () [0x0002c] in <22996371a1154758b343a0c9c70e6eba>:0 
+[OptimalTargetDist] SystemGroup launch sharing disabled; original name-based behavior retained: System.NotSupportedException: Unrecognized launch layout: 1/1/1/4
+  at OptimalTargetDistAnchorChain.SharedLaunchGroups.Transpiler (System.Collections.Generic.IEnumerable`1[T] instructions) [0x0041e] in <e8cbcdcc7c0049dfb36a214ab390f280>:0 
+  at OptimalTargetDistAnchorChain.SharedLaunchGroups.Install () [0x0003a] in <e8cbcdcc7c0049dfb36a214ab390f280>:0 
+[DatalinkReuse 0.12.0] ACTIVE; Contacts=True (runtime job dependency contract); RangeReuse=False (Missile/radar signatures changed); Prediction=False (Expected reference type but got type kind 17). Independent native fallbacks; no recording.
+[ProfileImage1024] loaded successfully.
+[SATCOM] loaded successfully.
+[SmokeParticleLOD] loaded successfully.
+[SubModelStabilization] Initialization failed; all vessels retain their original behavior: System.Reflection.TargetInvocationException: Exception has been thrown by the target of an invocation. ---> HarmonyLib.HarmonyException: Patching exception in method static System.Reflection.MethodBase SubModelStabilizationAnchorChain.VesselLoaderStabilizationPatch::TargetMethod() ---> System.Exception: Method static System.Reflection.MethodBase SubModelStabilizationAnchorChain.VesselLoaderStabilizationPatch::TargetMethod() returned an unexpected result: null
+  at HarmonyLib.PatchClassProcessor.RunMethod[S,T] (T defaultIfNotExisting, T defaultIfFailing, System.Func`2[T,TResult] failOnResult, System.Object[] parameters) [0x0010d] in <474744d65d8e460fa08cd5fd82b5d65f>:0 
+   --- End of inner exception stack trace ---
+  at HarmonyLib.PatchClassProcessor.ReportException (System.Exception exception, System.Reflection.MethodBase original) [0x00045] in <474744d65d8e460fa08cd5fd82b5d65f>:0 
+  at HarmonyLib.PatchClassProcessor.Patch () [0x00095] in <474744d65d8e460fa08cd5fd82b5d65f>:0 
+  at HarmonyLib.Harmony.<PatchAll>b__11_0 (System.Type type) [0x00007] in <474744d65d8e460fa08cd5fd82b5d65f>:0 
+  at HarmonyLib.CollectionExtensions.Do[T] (System.Collections.Generic.IEnumerable`1[T] sequence, System.Action`1[T] action) [0x00014] in <474744d65d8e460fa08cd5fd82b5d65f>:0 
+  at HarmonyLib.Harmony.PatchAll (System.Reflection.Assembly assembly) [0x00006] in <474744d65d8e460fa08cd5fd82b5d65f>:0 
+  at (wrapper managed-to-native) System.Reflection.RuntimeMethodInfo.InternalInvoke(System.Reflection.RuntimeMethodInfo,object,object[],System.Exception&)
+  at System.Reflection.RuntimeMethodInfo.Invoke (System.Object obj, System.Reflection.BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x0006a] in <0bf5fd6723884ebdacdfd1f46b78d44f>:0 
+   --- End of inner exception stack trace ---
+  at System.Reflection.RuntimeMethodInfo.Invoke (System.Object obj, System.Reflection.BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x00083] in <0bf5fd6723884ebdacdfd1f46b78d44f>:0 
+  at System.Reflection.MethodBase.Invoke (System.Object obj, System.Object[] parameters) [0x00000] in <0bf5fd6723884ebdacdfd1f46b78d44f>:0 
+  at SubModelStabilizationAnchorChain.SubModelStabilizationMod.InitializeWhenModEnabled () [0x00069] in <6ae01846c5ac438db7911214161acb2b>:0 
+[TestRange] Initialization failed: System.MissingMethodException: Method 'SeaPower.ECM.CombinedJamUnit' not found.
+  at TestRange.CountermeasureApi.Add (System.Type type, System.String name, System.Type result, System.Boolean isStatic, System.String hook, System.Boolean postfix, System.Boolean optional, System.Type[] args) [0x0006e] in <3189f5793c994d449bc92cea3fefd735>:0 
+  at TestRange.CountermeasureApi.Validate () [0x0016e] in <3189f5793c994d449bc92cea3fefd735>:0 
+  at TestRange.Api.Validate () [0x00000] in <3189f5793c994d449bc92cea3fefd735>:0 
+  at TestRange.Plugin.InitializeWhenModEnabled () [0x0000c] in <3189f5793c994d449bc92cea3fefd735>:0 
+[UiWorkerProbe 0.2.0] Native fallback: MissingMethodException: Method not found: SeapowerUI.GizmoLayerManager SeapowerUI.GizmoLayerManager.get_Instance()
+[V22Tiltrotor] loaded successfully.
+[WeaponLauncherEffects] Initialization failed; vanilla weapon behavior remains active: System.Reflection.TargetInvocationException: Exception has been thrown by the target of an invocation. ---> HarmonyLib.HarmonyException: Patching exception in method static System.Reflection.MethodBase WeaponLauncherEffectsAnchorChain.WeaponContainerLaunchLauncherEffectsPatch::TargetMethod() ---> System.Exception: Method static System.Reflection.MethodBase WeaponLauncherEffectsAnchorChain.WeaponContainerLaunchLauncherEffectsPatch::TargetMethod() returned an unexpected result: null
+  at HarmonyLib.PatchClassProcessor.RunMethod[S,T] (T defaultIfNotExisting, T defaultIfFailing, System.Func`2[T,TResult] failOnResult, System.Object[] parameters) [0x0010d] in <474744d65d8e460fa08cd5fd82b5d65f>:0 
+   --- End of inner exception stack trace ---
+  at HarmonyLib.PatchClassProcessor.ReportException (System.Exception exception, System.Reflection.MethodBase original) [0x00045] in <474744d65d8e460fa08cd5fd82b5d65f>:0 
+  at HarmonyLib.PatchClassProcessor.Patch () [0x00095] in <474744d65d8e460fa08cd5fd82b5d65f>:0 
+  at HarmonyLib.Harmony.<PatchAll>b__11_0 (System.Type type) [0x00007] in <474744d65d8e460fa08cd5fd82b5d65f>:0 
+  at HarmonyLib.CollectionExtensions.Do[T] (System.Collections.Generic.IEnumerable`1[T] sequence, System.Action`1[T] action) [0x00014] in <474744d65d8e460fa08cd5fd82b5d65f>:0 
+  at HarmonyLib.Harmony.PatchAll (System.Reflection.Assembly assembly) [0x00006] in <474744d65d8e460fa08cd5fd82b5d65f>:0 
+  at (wrapper managed-to-native) System.Reflection.RuntimeMethodInfo.InternalInvoke(System.Reflection.RuntimeMethodInfo,object,object[],System.Exception&)
+  at System.Reflection.RuntimeMethodInfo.Invoke (System.Object obj, System.Reflection.BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x0006a] in <0bf5fd6723884ebdacdfd1f46b78d44f>:0 
+   --- End of inner exception stack trace ---
+  at System.Reflection.RuntimeMethodInfo.Invoke (System.Object obj, System.Reflection.BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x00083] in <0bf5fd6723884ebdacdfd1f46b78d44f>:0 
+  at System.Reflection.MethodBase.Invoke (System.Object obj, System.Object[] parameters) [0x00000] in <0bf5fd6723884ebdacdfd1f46b78d44f>:0 
+  at WeaponLauncherEffectsAnchorChain.WeaponLauncherEffectsMod.InitializeWhenModEnabled () [0x00069] in <2918dc045d154620bcaca29271a571ba>:0 
+Harmony.Loadoutmanager active
+[BetterTacMap] Harmony patching failed: HarmonyLib.HarmonyException: Patching exception in method null ---> System.ArgumentException: Undefined target method for patch method static void BetterTacMap.Patches.GizmoLayerManagerConstructorPatch::Postfix(SeapowerUI.GizmoLayerManager __instance)
+  at HarmonyLib.PatchClassProcessor.PatchWithAttributes (System.Reflection.MethodBase& lastOriginal) [0x00047] in <474744d65d8e460fa08cd5fd82b5d65f>:0 
+  at HarmonyLib.PatchClassProcessor.Patch () [0x0006a] in <474744d65d8e460fa08cd5fd82b5d65f>:0 
+   --- End of inner exception stack trace ---
+  at HarmonyLib.PatchClassProcessor.ReportException (System.Exception exception, System.Reflection.MethodBase original) [0x0006c] in <474744d65d8e460fa08cd5fd82b5d65f>:0 
+  at HarmonyLib.PatchClassProcessor.Patch () [0x00095] in <474744d65d8e460fa08cd5fd82b5d65f>:0 
+  at HarmonyLib.Harmony.<PatchAll>b__11_0 (System.Type type) [0x00007] in <474744d65d8e460fa08cd5fd82b5d65f>:0 
+  at HarmonyLib.CollectionExtensions.Do[T] (System.Collections.Generic.IEnumerable`1[T] sequence, System.Action`1[T] action) [0x00014] in <474744d65d8e460fa08cd5fd82b5d65f>:0 
+  at HarmonyLib.Harmony.PatchAll (System.Reflection.Assembly assembly) [0x00006] in <474744d65d8e460fa08cd5fd82b5d65f>:0 
+  at HarmonyLib.Harmony.PatchAll () [0x0001b] in <474744d65d8e460fa08cd5fd82b5d65f>:0 
+  at BetterTacMap.BetterTacMapMod.TriggerEntryPoint () [0x00050] in C:\Users\thsch\Documents\_Projects\SeaPower\betterMinimap-main\BetterTacMap\BetterTacMapMod.cs:47 
+[WeaponCosts] v0.7.1: weapon, vessel, onboard aircraft and save/load capabilities validated; awaiting mod selection.
+[ACC CV16 Ski-Jump Fix] v1.7.0 mass-aware ski-jump pitch/contact patch applied; runway wait=True.
+[ACC CV16 Ski-Jump Fix] Fixed-wing deflector binding patch applied.
+[K5Kraken] Harmony lifecycle hooks installed: 8; owner alpine.seapower.k5.contact.orders.
+[K5Kraken] Contact controller 1.0.0 loaded; K5 one-way attack variant only.
+[FuryFormation] The game version differs from the tested one, but everything this mod uses in the game is unchanged, so it stays on.
+[AlpineFormation] Formation repair on.
+[FuryLights] The game version differs from the tested one, but everything this mod uses in the game is unchanged, so it stays on.
+[Fury Lights] on: build check UnchangedContract.
+[FuryLoss] Native loss observer loaded.
+[XQ58Shadow] Loaded; native optics, shadow contact and tracking enabled.
+[B-21 Ejection] loaded.
+[B21Formation] The game version differs from the tested one, but everything this mod uses in the game is unchanged, so it stays on.
+[B21Lights] The game version differs from the tested one, but everything this mod uses in the game is unchanged, so it stays on.
+[B-21 Lights] on: build check UnchangedContract.
+[EC2 Comms] on: verdict ExactBuild, 37 of 37 patches installed.
+[EC-2 Ejection] loaded.
+[EC2Formation] The game version differs from the tested one, but everything this mod uses in the game is unchanged, so it stays on.
+[EC2Lights] The game version differs from the tested one, but everything this mod uses in the game is unchanged, so it stays on.
+[EC-2 Lights] on: build check UnchangedContract.
+[J36 Config] lights=True afterburner=True vectorFlight=True highSpeedDrag=True centralNozzle=True
+[J36 Systems] initializing modular patches
+[BellSystemsFixtureTilt] 0.5.1 initialized; scope Navy and Army Cheyenne II.
+[MV75Formation] The game version differs from the tested one, but everything this mod uses in the game is unchanged, so it stays on.
+[YF-23 Ejection] 1.1.0 loaded.
+[YF23Formation] The game version differs from the tested one, but everything this mod uses in the game is unchanged, so it stays on.
+[YF23Lights] The game version differs from the tested one, but everything this mod uses in the game is unchanged, so it stays on.
+[YF-23 Lights] on: build check UnchangedContract.
+[SEST UI Follow-up] 1.4.3 beta input fix installed; full Runtime 1.5.1 paired; Contacts time-control behavior retained.
+[SEST UI Follow-up] Contacts surface fix inactive; keyboard fix retained: Uninspected assembly: SeaPowerPopOut
+[SEST UI Follow-up] Formation UI mode inactive; original Group Manager retained: Uninspected assembly: SeaPowerPopOut
+[SEST UI Follow-up] Performance: picture diagnostics disabled; background texture/video discovery suspended during initialized missions and resumed for loading/menus.
+[SEST UI Follow-up] Performance: Contacts screen-button refresh capped at 5 Hz; window/open transitions refresh immediately, original contact polling retained.
+[SEST UI Follow-up] CV16: clearance reads the helicopter's own flight flag; fixed-wing behavior and 30-second timeout retained.
+[SEST UI Follow-up] Performance samples enabled: one aggregate line every 30 seconds; original simulation and contact polling cadence retained.
+[SEST UI Follow-up] Preparation instructions: complete paused setup steps and Start preparation button installed.
+[SEST UI Follow-up] Contacts pop-out button: automatic height/width, explicit padding and centered text installed.
+[SEST UI Follow-up] Camera compass inactive: Uninspected assembly: SeaPowerPopOut
+[SEST UI Follow-up] Formation performance: idle discovery no longer forces a full fitting search; actual size/content/drag invalidation retained. Pop-out chrome capped at 5 Hz.
+[SEST UI Follow-up] Terrain cleanup: mission texture-array requests batched after 350 ms quiet or 2 s maximum; loading/menu/scene-exit cleanup retained.
+[SEST UI Follow-up] Cost catalogues: reuse successful price factory results within each mission; clear on mission changes and tracker config reload. Live expenditure, losses, history and refresh cadence retained.
+[SEST UI Follow-up] Stutter observations skipped IdentifyExpanded: Uninspected assembly: IdentifyExpanded
+[SEST UI Follow-up] Stutter observations skipped SeaPowerPopOut: Uninspected assembly: SeaPowerPopOut
+[SEST UI Follow-up] Stutter observations skipped SeaPowerTopo: Uninspected assembly: SeaPowerTopo
+[SEST UI Follow-up] Stutter observations installed: 19 timing hooks; main-thread allocation counter unavailable. Original methods and GC policy retained.
+[SEST Identify Paths] active: settings/audio use <USER>\AppData\Local\SEST\IdentifyExpanded; Workshop DLL unchanged.
+[IDX][Patches_CampaignPrize.cs:94 Resolve] [IDX-Prize] vanilla API resolved: True (write=True merge=True itemCtor=14 snapCtor=True)
+[IDX][Patches_CampaignPrize.cs:46 Apply] [IDX-Prize] hooked WriteCurrentTaskForceSnapshot for prize injection
+[IDX][Plugin.cs:61 TriggerEntryPoint] [IDX] Sections Patched and Methods Initialized: 13 patched, 13 methods
+[IDX][Plugin.cs:68 TriggerEntryPoint] [IDX] build stamp: 2026-10-27 10:54:15 (IdentifyExpanded.dll)
+[SEST Backdrops] watching the loading screen's picture (LoadScreen.BackgroundImage) every frame; its members: ScaleValueX:Single, ScaleValueY:Single, CoroutineWeight:Single, CurrentIndex:Int32, CurrentSubStep:Int32, BackgroundImage:TextureSource, LoadText:String, LoadPercent:Single, LoadingTipHeader:String, LoadingTip:String, HasLoadingTip:Boolean, ShowWarningPSE:Boolean, WarningPSE:String, WindowHost:WindowHost, LoadScreenView:NoesisView, destroyCancellationToken:CancellationToken, useGUILayout:Boolean, didStart:Boolean, didAwake:Boolean, enabled:Boolean, isActiveAndEnabled:Boolean, transform:Transform, gameObject:GameObject, tag:String, name:String, hideFlags:HideFlags
+[SEST Backdrops] SEST photo loading_screen_24.png in place of C:\Program Files (x86)\Steam\steamapps\common\Sea Power\Sea Power_Data\StreamingAssets\original\ui/backgrounds\loading_screen_74.png (1920x1080); 1 so far
+launchangles installed
+salute installed
+deckstate installed
+Fury voice routing 1.5.0 installed through the speaker voice path; optional-content marker respected.
+[EnhancedUIMod] loaded successfully.
+[WorkerExpansion 0.12.0] FALLBACK: Method 'SeaPower.SensorSystemRadar.GetRangeInternal' not found.
+[WeaponCosts] Ready; F11 toggles the overlay. Ship losses and remaining inventories are tracked while hidden too.
+[IDX][CampaignCapture.cs:76 Load] [IDX-Prize] Loaded prize roster: 7 prize(s)
+[IDX][Localization.cs:42 Load] [IDX] localization ini not found for language 'en' or en
+[IDX][TensionConfig.cs:62 SetRaw] [IDX-Tension] set to TENSE -> Tense (DEFCON 3)
+[IDX][TensionConfig.cs:283 Load] [IDX-Tension] no config found, defaulting to TENSE DEFCON 3 (neutral)
+[IDX][BroadcastService.cs:3247 WriteLog] [IDX] _mainGameViewModel is null
+[IDX][CampaignCapture.cs:264 AnnouncePrizes] [IDX-Prize] Roster for mission:unknown: 2/7 boarded
+[IDX][RescueService.cs:384 AnnounceCampaignRescues] [IDX-Rescue] no rescued crew on ledger for current campaign
+[IDX][AmbienceConfig.cs:53 Load] [IDX-Ambience] config: watch=True 240min pools=[Japan] chatter=True 180-480s@35 %
+[IDX][NamePool.cs:33 Load] [IDX-Ambience] NamePool loaded 18 pools
+[IDX][AmbienceService.cs:315 LoadLines] [IDX-Ambience] lines: generic=8 anchored=3 ship=3 sub=3 air=3
+[IDX][AmbienceService.cs:112 Initialize] [IDX-Ambience] started, OOW Makoto Suzuki
+[IDX][AudioBroadcastService.cs:225 Initialize] [IDX-Audio] ready, 0 tracks
+[IDX][AdvisorBridge.cs:142 CheckInstallation] [IDX-Advisor] AI Advisor is not installed; comms bridge disabled. Identify Expanded runs normally.
+[SEST Backdrops] SEST photo loading_screen_3.png in place of C:\Program Files (x86)\Steam\steamapps\workshop\content\1286220\3630495619\ui/backgrounds\ae_cvl_dedalo.png (2560x1440); 2 so far
+[SEST Backdrops] SEST photo loading_screen_55.png in place of C:\Program Files (x86)\Steam\steamapps\workshop\content\1286220\3491248180\ui/backgrounds\loading_screen_13.png (1920x1080); 3 so far
+[2101 - HTTPRequestCompleted] - 8 -- 1 -- True -- k_EHTTPStatusCode200OK -- 3869
+[SEST Menu] video player 'MediaPlayer' in scene 'background': source=VideoClip clip='main_menu' url='' render=APIOnly loop=False playing=False audio=Direct tracks=0
+[SEST Menu] menu film now C:\Program Files (x86)\Steam\steamapps\workshop\content\1286220\3812461539\plugins\sest_menu.mp4
 Unexpected timestamp values detected. This can occur in H.264 videos not encoded with the baseline profile. Timestamps will be skewed to correct the playback for C:\Program Files (x86)\Steam\steamapps\common\Sea Power\Sea Power_Data\sharedassets1.resource
-[2101 - HTTPRequestCompleted] - 10 -- 1 -- True -- k_EHTTPStatusCode200OK -- 3869
-FileManager.Directories contains Mods
-Unloading 5 Unused Serialized files (Serialized files now loaded: 7)
-UnloadTime: 15.562900 ms
-0.8.7-261026 (C) Triassic Games 2024-2026
+Unexpected timestamp values detected. This can occur in H.264 videos not encoded with the baseline profile. Timestamps will be skewed to correct the playback for C:\Program Files (x86)\Steam\steamapps\workshop\content\1286220\3812461539\plugins\sest_menu.mp4
+Color primaries 0 is unknown or unsupported by WindowsMediaFoundation. Falling back to default may result in color shift. C:\Program Files (x86)\Steam\steamapps\workshop\content\1286220\3812461539\plugins\sest_menu.mp4
+[SEST Backdrops] SEST photo loading_screen_4.png in place of C:\Program Files (x86)\Steam\steamapps\workshop\content\1286220\3789208859\ui/backgrounds\Euromod - South Korea Navy_loading_screen5.png (1920x1080); 4 so far
+[SEST Backdrops] SEST photo loading_screen_41.png in place of C:\Program Files (x86)\Steam\steamapps\workshop\content\1286220\3732654992\ui/backgrounds\loading_screen_7.png (1920x1080); 5 so far
+[SEST Menu] video player 'MediaPlayer' in scene 'background': source=VideoClip clip='main_menu' url='' render=APIOnly loop=False playing=True audio=Direct tracks=0
+[SEST Menu] menu film now C:\Program Files (x86)\Steam\steamapps\workshop\content\1286220\3812461539\plugins\sest_menu.mp4
+[SEST Backdrops] SEST photo loading_screen_63.png in place of C:\Program Files (x86)\Steam\steamapps\common\Sea Power\Sea Power_Data\StreamingAssets\original\ui/backgrounds\loading_screen_8.png (1920x1080); 6 so far
+[SEST Backdrops] SEST photo loading_screen_29.png in place of C:\Program Files (x86)\Steam\steamapps\common\Sea Power\Sea Power_Data\StreamingAssets\original\ui/backgrounds\loading_screen_59.png (1920x1080); 7 so far
+[SEST Backdrops] SEST photo loading_screen_20.png in place of C:\Program Files (x86)\Steam\steamapps\common\Sea Power\Sea Power_Data\StreamingAssets\original\ui/backgrounds\loading_screen_45.png (1920x1080); 8 so far
+[SEST Backdrops] SEST photo loading_screen_5.png in place of C:\Program Files (x86)\Steam\steamapps\common\Sea Power\Sea Power_Data\StreamingAssets\original\ui/backgrounds\loading_screen_63.png (1920x1080); 9 so far
+UI_Parameters: Settings_UI_Tactical.ini has no map setting 'WeaponNoEscapeRangeColor'
+UI_Parameters: Settings_UI_Tactical.ini has no map setting 'SeekerHiddenColor'
+UI_Parameters: Settings_UI_Tactical.ini has no map setting 'FiringArcColor'
+UI_Parameters: Settings_UI_Tactical.ini has no map setting 'InvisibleColor'
+UI_Parameters: Settings_UI_Tactical.ini has no map setting 'PlayAreaStrokeColor'
+UI_Parameters: Settings_UI_Tactical.ini has no map setting 'PlayAreaFillColor'
+UI_Parameters: Settings_UI_Tactical.ini has no map setting 'DrawingPolygonFillColor'
+UI_Parameters: Settings_UI_Tactical.ini has no map setting 'DrawingEraseHighlightColor'
+UI_Parameters: Settings_UI_Tactical.ini has no map setting 'DrawingPresetDefault'
+UI_Parameters: Settings_UI_Tactical.ini has no map setting 'DrawingPresetRed'
+UI_Parameters: Settings_UI_Tactical.ini has no map setting 'DrawingPresetBlue'
+UI_Parameters: Settings_UI_Tactical.ini has no map setting 'DrawingPresetGreen'
+UI_Parameters: Settings_UI_Tactical.ini has no map setting 'DrawingPresetYellow'
+UI_Parameters: Settings_UI_Tactical.ini has no map setting 'DrawingPresetOrange'
+UI_Parameters: Settings_UI_Tactical.ini has no map setting 'DrawingPresetCyan'
+UI_Parameters: Settings_UI_Tactical.ini has no map setting 'DrawingPresetMagenta'
+UI_Parameters: Settings_UI_Tactical.ini has no map setting 'DrawingPresetWhite'
+[SEST Runtime] native cost UI initialized after the game attached its Noesis view; map input guards installed
+[SEST Runtime] Group Manager 0.2.17 pop-out bridge installed: original controls, scoped host lookup, separate placement
+[SEST Runtime] pop-out bridge inactive for an uninspected Pop-Out DLL
+[SEST Runtime] Contact Log 1.0.1 bridge installed: main-view host lookup, shared Contacts/Rules pop-out and return, separate placement
+[SEST Backdrops] SEST photo loading_screen_43.png in place of C:\Program Files (x86)\Steam\steamapps\common\Sea Power\Sea Power_Data\StreamingAssets\original\ui/backgrounds\loading_screen_73.png (1920x1080); 10 so far
+[SEST Backdrops] SEST photo loading_screen_35.png in place of C:\Program Files (x86)\Steam\steamapps\workshop\content\1286220\3732654992\ui/backgrounds\loading_screen_13.png (1920x1080); 11 so far
 Global logging level set to: <b>Info</b>
 Noesis logging level set to: <b>Trace</b>
-Unloading 121 unused Assets to reduce memory usage. Loaded Objects now: 8806.
-Total: 178.901300 ms (FindLiveObjects: 0.610400 ms CreateObjectMapping: 0.433800 ms MarkObjects: 170.680400 ms  DeleteObjects: 7.176500 ms)
+Initialization Warning: Pool 'Effects' contains a PrefabPool with no prefab reference. Skipping.
+Initialization Warning: Pool 'Effects' contains a PrefabPool with no prefab reference. Skipping.
+Added pool 'Effects'
+DontDestroyOnLoad only works for root GameObjects or components on root GameObjects.
+Clearing persistant loadout data, 0 elements removed, 0 of which are unlaunched loadouts
+[IDX][BottomBarInjector.cs:375 TryCreateLogoContent] [IDX-BottomBar] logo loaded 64x64 from C:\Program Files (x86)\Steam\steamapps\workshop\content\1286220\3790594162\assets\logo_64.png as 30x30 Image (vanilla 32x32 DXT1 in 32dp button)
+[IDX][BottomBarInjector.cs:168 TryInject] [IDX-BottomBar] anchor FormationManagerWindow at Row=2 Col=1 grid 3x6
+[IDX][BottomBarInjector.cs:200 TryInject] [IDX-BottomBar] nested IDX button with FormationManagerWindow at Row=2 Col=1 Ã¢â‚¬â€ grid untouched
+[IDX][BottomBarInjector.cs:218 TryInject] [IDX-BottomBar] injected IDX ToggleButton into Grid Ã¢â‚¬â€ native overlay window
+Side relations:
+  Taskforce1 <-> Taskforce2: Hostile
+  Taskforce1 <-> Neutral: Neutral
+  Taskforce2 <-> Neutral: Neutral
+LoadMaterialFromFile(assets/europack/materials/usn_mk46/usn_mk54_mat.ini): SetColor(_Color, {*}808080ff)
+LoadMaterialFromFile(assets/europack/materials/usn_mk46/usn_mk54_mat.ini): SetColor(_SpecColor, {*}ffffffff)
+LoadMaterialFromFile(assets/europack/materials/usn_mk46/usn_mk54_mat.ini): SetFloat(_SpecInt, 1.0)
+LoadMaterialFromFile(assets/europack/materials/usn_mk46/usn_mk54_mat.ini): SetFloat(_Shininess, 8.5)
+LoadMaterialFromFile(assets/europack/materials/usn_mk46/usn_mk54_mat.ini): SetFloat(_Fresnel, 0.75)
+[SEST UI Follow-up] Stutter counter availability: Gfx.WaitForRenderThread [TimeNanoseconds], Gfx.WaitForPresentOnGfxThread [TimeNanoseconds], GC.Collect [TimeNanoseconds], Main Thread [TimeNanoseconds], PlayerLoop [TimeNanoseconds], WaitForTargetFPS [TimeNanoseconds], GC Used Memory [Bytes], GC Reserved Memory [Bytes], CPU Main Thread Frame Time [TimeNanoseconds], CPU Render Thread Frame Time [TimeNanoseconds], GPU Frame Time [TimeNanoseconds]; incremental GC=True. Missing counters are unavailable, not zero. First window includes diagnostic startup.
+UI_Parameters: Settings_UI_Tactical.ini has no map setting 'PlayAreaStrokeThickness'
+UI_Parameters: Settings_UI_Tactical.ini has no map setting 'WeaponNoEscapeRangeColor'
+UI_Parameters: Settings_UI_Tactical.ini has no map setting 'SeekerHiddenColor'
+UI_Parameters: Settings_UI_Tactical.ini has no map setting 'FiringArcColor'
+UI_Parameters: Settings_UI_Tactical.ini has no map setting 'InvisibleColor'
+UI_Parameters: Settings_UI_Tactical.ini has no map setting 'PlayAreaStrokeColor'
+UI_Parameters: Settings_UI_Tactical.ini has no map setting 'PlayAreaFillColor'
+UI_Parameters: Settings_UI_Tactical.ini has no map setting 'DrawingPolygonFillColor'
+UI_Parameters: Settings_UI_Tactical.ini has no map setting 'DrawingEraseHighlightColor'
+UI_Parameters: Settings_UI_Tactical.ini has no map setting 'DrawingPresetDefault'
+UI_Parameters: Settings_UI_Tactical.ini has no map setting 'DrawingPresetRed'
+UI_Parameters: Settings_UI_Tactical.ini has no map setting 'DrawingPresetBlue'
+UI_Parameters: Settings_UI_Tactical.ini has no map setting 'DrawingPresetGreen'
+UI_Parameters: Settings_UI_Tactical.ini has no map setting 'DrawingPresetYellow'
+UI_Parameters: Settings_UI_Tactical.ini has no map setting 'DrawingPresetOrange'
+UI_Parameters: Settings_UI_Tactical.ini has no map setting 'DrawingPresetCyan'
+UI_Parameters: Settings_UI_Tactical.ini has no map setting 'DrawingPresetMagenta'
+UI_Parameters: Settings_UI_Tactical.ini has no map setting 'DrawingPresetWhite'
+[3D WebView] [StandaloneWebView.TerminateBrowserProcess] Terminating the browser process.
+[3D WebView] Enabling remote debugging for Windows on port 9222. To inspect webviews, load the URL chrome://inspect in a Chromium-based browser. For more info, see https://support.vuplex.com/articles/how-to-debug-web-content#standalone. If port 9222 is already in use, you can specify a different port using StandaloneWebView.EnableRemoteDebugging(portNumber): https://developer.vuplex.com/webview/StandaloneWebView#EnableRemoteDebugging.
+[WeaponCosts] Mission service year fixed: 2022 (initial roster)
+[SEST Runtime] native cumulative-cost window opened in mission; draggable, resizable, native scrolling
+Unloading 8 Unused Serialized files (Serialized files now loaded: 7)
+[SEST UI Follow-up] Terrain cleanup: 4 texture-array request(s) combined into one asset sweep.
+Unloading 167 unused Assets to reduce memory usage. Loaded Objects now: 76772.
+Total: 252.280000 ms (FindLiveObjects: 4.462600 ms CreateObjectMapping: 1.479800 ms MarkObjects: 244.898600 ms  DeleteObjects: 1.438500 ms)
 
-FileManager.OnStart(Game) Subscribed Items = [(3821992229, k_EItemStateSubscribed, k_EItemStateInstalled), (3499239964, k_EItemStateSubscribed, k_EItemStateInstalled), (3403661005, k_EItemStateSubscribed, k_EItemStateInstalled), (3413868677, k_EItemStateSubscribed, k_EItemStateInstalled), (3781062859, k_EItemStateSubscribed, k_EItemStateInstalled), (3652906664, k_EItemStateSubscribed, k_EItemStateInstalled), (3496055699, k_EItemStateSubscribed, k_EItemStateInstalled), (3673908868, k_EItemStateSubscribed, k_EItemStateInstalled), (3438479626, k_EItemStateSubscribed, k_EItemStateInstalled), (3587091564, k_EItemStateSubscribed, k_EItemStateInstalled), (3551621846, k_EItemStateSubscribed, k_EItemStateInstalled), (3681748718, k_EItemStateSubscribed, k_EItemStateInstalled), (3414146266, k_EItemStateSubscribed, k_EItemStateInstalled), (3459682829, k_EItemStateSubscribed, k_EItemStateInstalled), (3425450153, k_EItemStateSubscribed, k_EItemStateInstalled), (3461091581, k_EItemStateSubscribed, k_EItemStateInstalled), (3380210757, k_EItemStateSubscribed, k_EItemStateInstalled), (3804868806, k_EItemStateSubscribed, k_EItemStateInstalled), (3819522350, k_EItemStateSubscribed, k_EItemStateInstalled), (3820576916, k_EItemStateSubscribed, k_EItemStateInstalled), (3416372890, k_EItemStateSubscribed, k_EItemStateInstalled), (3403993583, k_EItemStateSubscribed, k_EItemStateInstalled), (3774105087, k_EItemStateSubscribed, k_EItemStateInstalled), (3432668460, k_EItemStateSubscribed, k_EItemStateInstalled), (3801549552, k_EItemStateSubscribed, k_EItemStateInstalled), (3774746803, k_EItemStateSubscribed, k_EItemStateInstalled), (3652097318, k_EItemStateSubscribed, k_EItemStateInstalled), (3480965706, k_EItemStateSubscribed, k_EItemStateInstalled), (3394781441, k_EItemStateSubscribed, k_EItemStateInstalled), (3741944366, k_EItemStateSubscribed, k_EItemStateInstalled), (3768036424, k_EItemStateSubscribed, k_EItemStateInstalled), (3602046770, k_EItemStateSubscribed, k_EItemStateInstalled), (3808882954, k_EItemStateSubscribed, k_EItemStateInstalled), (3628203171, k_EItemStateSubscribed, k_EItemStateInstalled), (3600788156, k_EItemStateSubscribed, k_EItemStateInstalled), (3813157776, k_EItemStateSubscribed, k_EItemStateInstalled), (3801363152, k_EItemStateSubscribed, k_EItemStateInstalled), (3567256221, k_EItemStateSubscribed, k_EItemStateInstalled), (3481228992, k_EItemStateSubscribed, k_EItemStateInstalled), (3417801942, k_EItemStateSubscribed, k_EItemStateInstalled), (3746453639, k_EItemStateSubscribed, k_EItemStateInstalled), (3628201887, k_EItemStateSubscribed, k_EItemStateInstalled), (3807187341, k_EItemStateSubscribed, k_EItemStateInstalled), (3806686336, k_EItemStateSubscribed, k_EItemStateInstalled), (3606134711, k_EItemStateSubscribed, k_EItemStateInstalled), (3558173926, k_EItemStateSubscribed, k_EItemStateInstalled), (3760871384, k_EItemStateSubscribed, k_EItemStateInstalled), (3493115616, k_EItemStateSubscribed, k_EItemStateInstalled), (3555361900, k_EItemStateSubscribed, k_EItemStateInstalled), (3587877691, k_EItemStateSubscribed, k_EItemStateInstalled), (3784474738, k_EItemStateSubscribed, k_EItemStateInstalled), (3678767059, k_EItemStateSubscribed, k_EItemStateInstalled), (3630495619, k_EItemStateSubscribed, k_EItemStateInstalled), (3629144864, k_EItemStateSubscribed, k_EItemStateInstalled), (3599752717, k_EItemStateSubscribed, k_EItemStateInstalled), (3776730617, k_EItemStateSubscribed, k_EItemStateInstalled), (3444379330, k_EItemStateSubscribed, k_EItemStateInstalled), (3575847216, k_EItemStateSubscribed, k_EItemStateInstalled), (3807164392, k_EItemStateSubscribed, k_EItemStateInstalled), (3488139470, k_EItemStateSubscribed, k_EItemStateInstalled), (3695809489, k_EItemStateSubscribed, k_EItemStateInstalled), (3642656500, k_EItemStateSubscribed, k_EItemStateInstalled), (3820759806, k_EItemStateSubscribed, k_EItemStateInstalled), (3731208477, k_EItemStateSubscribed, k_EItemStateInstalled), (3390330875, k_EItemStateSubscribed, k_EItemStateInstalled), (3812454152, k_EItemStateSubscribed, k_EItemStateInstalled), (3789208859, k_EItemStateSubscribed, k_EItemStateInstalled), (3448845252, k_EItemStateSubscribed, k_EItemStateInstalled), (3636386513, k_EItemStateSubscribed, k_EItemStateInstalled), (3553116604, k_EItemStateSubscribed, k_EItemStateInstalled), (3758320372, k_EItemStateSubscribed, k_EItemStateInstalled), (3418252667, k_EItemStateSubscribed, k_EItemStateInstalled), (3607989779, k_EItemStateSubscribed, k_EItemStateInstalled), (3591820675, k_EItemStateSubscribed, k_EItemStateInstalled), (3430135740, k_EItemStateSubscribed, k_EItemStateInstalled), (3673703427, k_EItemStateSubscribed, k_EItemStateInstalled), (3672497668, k_EItemStateSubscribed, k_EItemStateInstalled), (3373960386, k_EItemStateSubscribed, k_EItemStateInstalled), (3818251045, k_EItemStateSubscribed, k_EItemStateInstalled), (3758943352, k_EItemStateSubscribed, k_EItemStateInstalled), (3736147136, k_EItemStateSubscribed, k_EItemStateInstalled), (3567228449, k_EItemStateSubscribed, k_EItemStateInstalled), (3503670861, k_EItemStateSubscribed, k_EItemStateInstalled), (3461044389, k_EItemStateSubscribed, k_EItemStateInstalled), (3412480633, k_EItemStateSubscribed, k_EItemStateInstalled), (3410473695, k_EItemStateSubscribed, k_EItemStateInstalled), (3508275114, k_EItemStateSubscribed, k_EItemStateInstalled), (3384079999, k_EItemStateSubscribed, k_EItemStateInstalled), (3556629790, k_EItemStateSubscribed, k_EItemStateInstalled), (3790594162, k_EItemStateSubscribed, k_EItemStateInstalled), (3717610332, k_EItemStateSubscribed, k_EItemStateInstalled), (3549377308, k_EItemStateSubscribed, k_EItemStateInstalled), (3686449681, k_EItemStateSubscribed, k_EItemStateInstalled), (3408662804, k_EItemStateSubscribed, k_EItemStateInstalled), (3505420313, k_EItemStateSubscribed, k_EItemStateInstalled), (3520352434, k_EItemStateSubscribed, k_EItemStateInstalled), (3802216383, k_EItemStateSubscribed, k_EItemStateInstalled), (3776340577, k_EItemStateSubscribed, k_EItemStateInstalled), (3813033771, k_EItemStateSubscribed, k_EItemStateInstalled), (3722749887, k_EItemStateSubscribed, k_EItemStateInstalled), (3744475027, k_EItemStateSubscribed, k_EItemStateInstalled), (3406985435, k_EItemStateSubscribed, k_EItemStateInstalled), (3559495372, k_EItemStateSubscribed, k_EItemStateInstalled), (3502273861, k_EItemStateSubscribed, k_EItemStateInstalled), (3759042728, k_EItemStateSubscribed, k_EItemStateInstalled), (3740293822, k_EItemStateSubscribed, k_EItemStateInstalled), (3430106996, k_EItemStateSubscribed, k_EItemStateInstalled), (3590477166, k_EItemStateSubscribed, k_EItemStateInstalled), (3465256032, k_EItemStateSubscribed, k_EItemStateInstalled), (3458148344, k_EItemStateSubscribed, k_EItemStateInstalled), (3417446309, k_EItemStateSubscribed, k_EItemStateInstalled), (3799742828, k_EItemStateSubscribed, k_EItemStateInstalled), (3513571010, k_EItemStateSubscribed, k_EItemStateInstalled), (3434693420, k_EItemStateSubscribed, k_EItemStateInstalled), (3755769170, k_EItemStateSubscribed, k_EItemStateInstalled), (3631042692, k_EItemStateSubscribed, k_EItemStateInstalled), (3812111085, k_EItemStateSubscribed, k_EItemStateInstalled), (3775128499, k_EItemStateSubscribed, k_EItemStateInstalled), (3629269283, k_EItemStateSubscribed, k_EItemStateInstalled), (3592460366, k_EItemStateSubscribed, k_EItemStateInstalled), (3456859157, k_EItemStateSubscribed, k_EItemStateInstalled), (3485917612, k_EItemStateSubscribed, k_EItemStateInstalled), (3806197116, k_EItemStateSubscribed, k_EItemStateInstalled), (3716049886, k_EItemStateSubscribed, k_EItemStateInstalled), (3810611344, k_EItemStateSubscribed, k_EItemStateInstalled), (3595014060, k_EItemStateSubscribed, k_EItemStateInstalled), (3432592449, k_EItemStateSubscribed, k_EItemStateInstalled), (3812140001, k_EItemStateSubscribed, k_EItemStateInstalled), (3752415457, k_EItemStateSubscribed, k_EItemStateInstalled), (3681873198, k_EItemStateSubscribed, k_EItemStateInstalled), (3789188689, k_EItemStateSubscribed, k_EItemStateInstalled), (3733719765, k_EItemStateSubscribed, k_EItemStateInstalled), (3729578404, k_EItemStateSubscribed, k_EItemStateInstalled), (3729579342, k_EItemStateSubscribed, k_EItemStateInstalled), (3769142422, k_EItemStateSubscribed, k_EItemStateInstalled), (3594891803, k_EItemStateSubscribed, k_EItemStateInstalled), (3774859959, k_EItemStateSubscribed, k_EItemStateInstalled), (3774572038, k_EItemStateSubscribed, k_EItemStateInstalled), (3731931836, k_EItemStateSubscribed, k_EItemStateInstalled), (3399699218, k_EItemStateSubscribed, k_EItemStateInstalled), (3605013271, k_EItemStateSubscribed, k_EItemStateInstalled), (3796706214, k_EItemStateSubscribed, k_EItemStateInstalled), (3571718093, k_EItemStateSubscribed, k_EItemStateInstalled), (3455404959, k_EItemStateSubscribed, k_EItemStateInstalled), (3378409795, k_EItemStateSubscribed, k_EItemStateInstalled), (3373356293, k_EItemStateSubscribed, k_EItemStateInstalled), (3796113927, k_EItemStateSubscribed, k_EItemStateInstalled), (3597650470, k_EItemStateSubscribed, k_EItemStateInstalled), (3468260539, k_EItemStateSubscribed, k_EItemStateInstalled), (3524446392, k_EItemStateSubscribed, k_EItemStateInstalled), (3392434750, k_EItemStateSubscribed, k_EItemStateInstalled), (3673250557, k_EItemStateSubscribed, k_EItemStateInstalled), (3437105712, k_EItemStateSubscribed, k_EItemStateInstalled), (3766210676, k_EItemStateSubscribed, k_EItemStateInstalled), (3636213685, k_EItemStateSubscribed, k_EItemStateInstalled), (3461519690, k_EItemStateSubscribed, k_EItemStateInstalled), (3455931957, k_EItemStateSubscribed, k_EItemStateInstalled), (3628247436, k_EItemStateSubscribed, k_EItemStateInstalled), (3551676319, k_EItemStateSubscribed, k_EItemStateInstalled), (3812461539, k_EItemStateSubscribed, k_EItemStateInstalled), (3497601759, k_EItemStateSubscribed, k_EItemStateInstalled), (3436170138, k_EItemStateSubscribed, k_EItemStateInstalled), (3433577445, k_EItemStateSubscribed, k_EItemStateInstalled), (3524112296, k_EItemStateSubscribed, k_EItemStateInstalled), (3779799226, k_EItemStateSubscribed, k_EItemStateInstalled), (3451166840, k_EItemStateSubscribed, k_EItemStateInstalled), (3762023575, k_EItemStateSubscribed, k_EItemStateInstalled), (3503594612, k_EItemStateSubscribed, k_EItemStateInstalled), (3683253079, k_EItemStateSubscribed, k_EItemStateInstalled), (3711297532, k_EItemStateSubscribed, k_EItemStateInstalled), (3732654992, k_EItemStateSubscribed, k_EItemStateInstalled), (3491248180, k_EItemStateSubscribed, k_EItemStateInstalled), (3709961172, k_EItemStateSubscribed, k_EItemStateInstalled), (3509329205, k_EItemStateSubscribed, k_EItemStateInstalled), (3395022688, k_EItemStateSubscribed, k_EItemStateInstalled), (3411341227, k_EItemStateSubscribed, k_EItemStateInstalled), (3715323261, k_EItemStateSubscribed, k_EItemStateInstalled), (3486502935, k_EItemStateSubscribed, k_EItemStateInstalled), (3468959181, k_EItemStateSubscribed, k_EItemStateInstalled), (3606774881, k_EItemStateSubscribed, k_EItemStateInstalled), (3672072359, k_EItemStateSubscribed, k_EItemStateInstalled), (3737267013, k_EItemStateSubscribed, k_EItemStateInstalled), (3806466625, k_EItemStateSubscribed, k_EItemStateInstalled), (3478767194, k_EItemStateSubscribed, k_EItemStateInstalled), (3433957933, k_EItemStateSubscribed, k_EItemStateInstalled), (3782020901, k_EItemStateSubscribed, k_EItemStateInstalled), (3637954857, k_EItemStateSubscribed, k_EItemStateInstalled), (3796349767, k_EItemStateSubscribed, k_EItemStateInstalled), (3564792549, k_EItemStateSubscribed, k_EItemStateInstalled), (3569219326, k_EItemStateSubscribed, k_EItemStateInstalled), (3601891050, k_EItemStateSubscribed, k_EItemStateInstalled), (3603306548, k_EItemStateSubscribed, k_EItemStateInstalled), (3603367264, k_EItemStateSubscribed, k_EItemStateInstalled), (3780118683, k_EItemStateSubscribed, k_EItemStateInstalled), (3470643173, k_EItemStateSubscribed, k_EItemStateInstalled), (3591563716, k_EItemStateSubscribed, k_EItemStateInstalled), (3526982088, k_EItemStateSubscribed, k_EItemStateInstalled), (3506979898, k_EItemStateSubscribed, k_EItemStateInstalled), (3670643788, k_EItemStateSubscribed, k_EItemStateInstalled), (3659742367, k_EItemStateSubscribed, k_EItemStateInstalled), (3434072450, k_EItemStateSubscribed, k_EItemStateInstalled), (3826122523, k_EItemStateSubscribed, k_EItemStateInstalled), (3826396311, k_EItemStateSubscribed, k_EItemStateInstalled), (3819427362, k_EItemStateSubscribed, k_EItemStateInstalled)]
-FileManager.Directories contains Mods
-FileManager.CheckFileValidity(): Game passed file validity checks!
-FileManager.CheckForUpdates(): The following files require update []
-LoadMaterialFromFile(effects/explosions/emitters/kinetic_kill_hit_pac3/materials/ejecta_shell.ini): SetColor(_TintColor, white)
-LoadMaterialFromFile(effects/explosions/emitters/kinetic_kill_hit_pac3/materials/ejecta_shell.ini): SetFloat(_InvFade, 1)
-Unexpected timestamp values detected. This can occur in H.264 videos not encoded with the baseline profile. Timestamps will be skewed to correct the playback for C:\Program Files (x86)\Steam\steamapps\common\Sea Power\Sea Power_Data\sharedassets1.resource
-[2101 - HTTPRequestCompleted] - 11 -- 1 -- True -- k_EHTTPStatusCode200OK -- 3869
+[SEST Runtime] preparation map initialized 3 own-unit plotting record(s) while paused; mission clock unchanged
+[SEST UI Follow-up] Perf (30 s; nested measurements): simulation 1x avg 38.10 max 38.10 ms, >=16.7ms 1 | contact begin 5x avg 0.05 max 0.06 ms, >=16.7ms 0 | contact step 5x avg 0.13 max 0.32 ms, >=16.7ms 0 | cost capture 73x avg 0.07 max 0.21 ms, >=16.7ms 0 | formation tick 191x avg 0.66 max 25.27 ms, >=16.7ms 3 | formation layout 189x avg 0.23 max 25.16 ms, >=16.7ms 1 | formation fit 6x avg 0.62 max 1.28 ms, >=16.7ms 0 | formation discovery 44x avg 0.34 max 5.40 ms, >=16.7ms 0 | formation chrome 191x avg 0.02 max 0.16 ms, >=16.7ms 0 | SEST formation controls 0x avg 0.00 max 0.00 ms, >=16.7ms 0 | Noesis update 3044x avg 0.16 max 217.30 ms, >=16.7ms 4
+[SEST UI Follow-up] Frame pacing (30 s; wall time, not a CPU/GPU attribution): 761 frames, 38.5 fps avg, p95 <=42 ms, max 965.5 ms, >50ms 23; actual VSync=2; target=120; focused=True; resolution=2560x1440.
+[SEST UI Follow-up] Stutter memory (between Update observations; GC/frame overlap is correlation): frames=760; collections gen0/1/2=8/8/8; >50ms observations with collection=1; main-thread allocated=unavailable; incremental GC=True.
+[SEST UI Follow-up] Stutter UI methods (elapsed; nested; do not add): SeaPower.GameMain.LateUpdate 760x avg 1.589 max 777.23 ms | WeaponCostsMod.Overlay.Update 760x avg 0.272 max 159.77 ms | Sest.RuntimeFixes.F11CombatCosts.SyncWindow 760x avg 0.255 max 158.09 ms | Sest.RuntimeFixes.CampaignCosts.LiveView 36x avg 4.239 max 151.01 ms | Sest.RuntimeFixes.CampaignCosts.Prices 36x avg 4.196 max 150.95 ms | SeaPower.GameMain.Update 759x avg 1.041 max 121.50 ms | SeaPowerSquadPanel.Plugin.LateUpdate 760x avg 0.218 max 25.30 ms | ContactLog.ContactLogBehaviour.Update 760x avg 0.100 max 19.67 ms | Sest.RuntimeFixes.NativeCombatSurface.Tick 760x avg 0.048 max 6.97 ms | SeaPower.CameraManager.OnLateUpdate 760x avg 0.143 max 0.97 ms
+[SEST UI Follow-up] Stutter native counter: Gfx.WaitForRenderThread; unit=TimeNanoseconds; polls=760; last=0; max=0. Marker values may persist between events; waits are not CPU/GPU attribution.
+[SEST UI Follow-up] Stutter native counter: Gfx.WaitForPresentOnGfxThread; unit=TimeNanoseconds; polls=760; last=1600; max=50708700. Marker values may persist between events; waits are not CPU/GPU attribution.
+[SEST UI Follow-up] Stutter native counter: GC.Collect; unit=TimeNanoseconds; polls=760; last=0; max=19502300. Marker values may persist between events; waits are not CPU/GPU attribution.
+[SEST UI Follow-up] Stutter native counter: Main Thread; unit=TimeNanoseconds; polls=760; last=20386300; max=807532000. Marker values may persist between events; waits are not CPU/GPU attribution.
+[SEST UI Follow-up] Stutter native counter: PlayerLoop; unit=TimeNanoseconds; polls=760; last=20382800; max=807530500. Marker values may persist between events; waits are not CPU/GPU attribution.
+[SEST UI Follow-up] Stutter native counter: WaitForTargetFPS; unit=TimeNanoseconds; polls=760; last=8843000; max=152973300. Marker values may persist between events; waits are not CPU/GPU attribution.
+[SEST UI Follow-up] Stutter native counter: GC Used Memory; unit=Bytes; polls=760; last=1882525696; max=2119426048. Marker values may persist between events; waits are not CPU/GPU attribution.
+[SEST UI Follow-up] Stutter native counter: GC Reserved Memory; unit=Bytes; polls=760; last=2227478528; max=2227478528. Marker values may persist between events; waits are not CPU/GPU attribution.
+[SEST UI Follow-up] Stutter native counter: CPU Main Thread Frame Time; unit=TimeNanoseconds; polls=760; last=15754400; max=807435600. Marker values may persist between events; waits are not CPU/GPU attribution.
+[SEST UI Follow-up] Stutter native counter: CPU Render Thread Frame Time; unit=TimeNanoseconds; polls=760; last=5490900; max=665464300. Marker values may persist between events; waits are not CPU/GPU attribution.
+[SEST UI Follow-up] Stutter native counter: GPU Frame Time; unit=TimeNanoseconds; polls=760; last=19970048; max=790620160. Marker values may persist between events; waits are not CPU/GPU attribution.
+[SEST UI Follow-up] Cost catalogue reuse (30 s): 35 hit(s), 1 miss(es), 1 successful build(s), 3 invalidation(s). Quantities and report rows still use the original live refresh.
+AbortLaunchFunc!
+[SEST UI Follow-up] Perf (30 s; nested measurements): simulation 1127x avg 0.74 max 12.11 ms, >=16.7ms 0 | contact begin 7x avg 0.04 max 0.07 ms, >=16.7ms 0 | contact step 11x avg 33.90 max 113.42 ms, >=16.7ms 5 | cost capture 116x avg 0.06 max 0.19 ms, >=16.7ms 0 | formation tick 318x avg 0.26 max 2.66 ms, >=16.7ms 0 | formation layout 318x avg 0.09 max 0.40 ms, >=16.7ms 0 | formation fit 3x avg 0.04 max 0.04 ms, >=16.7ms 0 | formation discovery 66x avg 0.19 max 1.79 ms, >=16.7ms 0 | formation chrome 318x avg 0.02 max 0.07 ms, >=16.7ms 0 | SEST formation controls 0x avg 0.00 max 0.00 ms, >=16.7ms 0 | Noesis update 4844x avg 0.16 max 48.28 ms, >=16.7ms 1
+[SEST UI Follow-up] Frame pacing (30 s; wall time, not a CPU/GPU attribution): 1211 frames, 40.4 fps avg, p95 <=42 ms, max 416.7 ms, >50ms 27; actual VSync=2; target=120; focused=True; resolution=2560x1440.
+[SEST UI Follow-up] Stutter memory (between Update observations; GC/frame overlap is correlation): frames=1211; collections gen0/1/2=12/12/12; >50ms observations with collection=2; main-thread allocated=unavailable; incremental GC=True.
+[SEST UI Follow-up] Stutter UI methods (elapsed; nested; do not add): SeaPower.GameMain.Update 1211x avg 1.801 max 401.18 ms | ContactLog.ContactLogBehaviour.Update 1211x avg 0.394 max 113.43 ms | SeaPower.GameMain.FixedUpdate 1127x avg 0.747 max 12.11 ms | SeaPower.GameMain.LateUpdate 1211x avg 1.207 max 7.10 ms | SeaPowerSquadPanel.Plugin.LateUpdate 1211x avg 0.113 max 4.99 ms | WeaponCostsMod.Overlay.Update 1211x avg 0.058 max 3.16 ms | Sest.RuntimeFixes.F11CombatCosts.SyncWindow 1211x avg 0.044 max 3.15 ms | Sest.RuntimeFixes.NativeCombatSurface.Tick 1211x avg 0.036 max 3.14 ms | SeaPower.CameraManager.OnLateUpdate 1211x avg 0.139 max 1.15 ms | ContactLog.ContactLogBehaviour.OnGUI 2714x avg 0.003 max 0.67 ms
+[SEST UI Follow-up] Stutter native counter: Gfx.WaitForRenderThread; unit=TimeNanoseconds; polls=1211; last=0; max=600. Marker values may persist between events; waits are not CPU/GPU attribution.
+[SEST UI Follow-up] Stutter native counter: Gfx.WaitForPresentOnGfxThread; unit=TimeNanoseconds; polls=1211; last=1800; max=8537500. Marker values may persist between events; waits are not CPU/GPU attribution.
+[SEST UI Follow-up] Stutter native counter: GC.Collect; unit=TimeNanoseconds; polls=1211; last=0; max=25699800. Marker values may persist between events; waits are not CPU/GPU attribution.
+[SEST UI Follow-up] Stutter native counter: Main Thread; unit=TimeNanoseconds; polls=1211; last=24617800; max=424433100. Marker values may persist between events; waits are not CPU/GPU attribution.
+[SEST UI Follow-up] Stutter native counter: PlayerLoop; unit=TimeNanoseconds; polls=1211; last=24617000; max=424432200. Marker values may persist between events; waits are not CPU/GPU attribution.
+[SEST UI Follow-up] Stutter native counter: WaitForTargetFPS; unit=TimeNanoseconds; polls=1211; last=9487400; max=90483500. Marker values may persist between events; waits are not CPU/GPU attribution.
+[SEST UI Follow-up] Stutter native counter: GC Used Memory; unit=Bytes; polls=1211; last=1999978496; max=2441940992. Marker values may persist between events; waits are not CPU/GPU attribution.
+[SEST UI Follow-up] Stutter native counter: GC Reserved Memory; unit=Bytes; polls=1211; last=2464292864; max=2464292864. Marker values may persist between events; waits are not CPU/GPU attribution.
+[SEST UI Follow-up] Stutter native counter: CPU Main Thread Frame Time; unit=TimeNanoseconds; polls=1211; last=22963600; max=424364000. Marker values may persist between events; waits are not CPU/GPU attribution.
+[SEST UI Follow-up] Stutter native counter: CPU Render Thread Frame Time; unit=TimeNanoseconds; polls=1211; last=4445700; max=36525000. Marker values may persist between events; waits are not CPU/GPU attribution.
+[SEST UI Follow-up] Stutter native counter: GPU Frame Time; unit=TimeNanoseconds; polls=1211; last=25004544; max=108620032. Marker values may persist between events; waits are not CPU/GPU attribution.
+[SEST UI Follow-up] Cost catalogue reuse (30 s): 58 hit(s), 0 miss(es), 0 successful build(s), 0 invalidation(s). Quantities and report rows still use the original live refresh.
+[SEST UI Follow-up] Perf (30 s; nested measurements): simulation 1729x avg 0.67 max 5.52 ms, >=16.7ms 0 | contact begin 8x avg 0.04 max 0.04 ms, >=16.7ms 0 | contact step 8x avg 0.43 max 0.67 ms, >=16.7ms 0 | cost capture 116x avg 0.06 max 0.28 ms, >=16.7ms 0 | formation tick 311x avg 0.25 max 0.88 ms, >=16.7ms 0 | formation layout 311x avg 0.09 max 0.48 ms, >=16.7ms 0 | formation fit 0x avg 0.00 max 0.00 ms, >=16.7ms 0 | formation discovery 66x avg 0.16 max 0.25 ms, >=16.7ms 0 | formation chrome 311x avg 0.02 max 0.10 ms, >=16.7ms 0 | SEST formation controls 0x avg 0.00 max 0.00 ms, >=16.7ms 0 | Noesis update 4540x avg 0.07 max 2.19 ms, >=16.7ms 0
+[SEST UI Follow-up] Frame pacing (30 s; wall time, not a CPU/GPU attribution): 1135 frames, 37.8 fps avg, p95 <=35 ms, max 76.4 ms, >50ms 10; actual VSync=2; target=120; focused=False; resolution=2560x1440.
+[SEST UI Follow-up] Stutter memory (between Update observations; GC/frame overlap is correlation): frames=1135; collections gen0/1/2=5/5/5; >50ms observations with collection=2; main-thread allocated=unavailable; incremental GC=True.
+[SEST UI Follow-up] Stutter UI methods (elapsed; nested; do not add): SeaPower.GameMain.LateUpdate 1135x avg 1.456 max 43.59 ms | ContactLog.ContactLogBehaviour.Update 1135x avg 0.083 max 9.52 ms | SeaPower.GameMain.Update 1135x avg 1.518 max 8.19 ms | SeaPower.GameMain.FixedUpdate 1729x avg 0.678 max 5.52 ms | SeaPowerSquadPanel.Plugin.LateUpdate 1135x avg 0.121 max 2.71 ms | NoesisView.RenderOffscreen 3405x avg 0.007 max 0.82 ms | WeaponCostsMod.Overlay.Update 1135x avg 0.054 max 0.59 ms | SeaPower.CameraManager.OnLateUpdate 1135x avg 0.134 max 0.58 ms | Sest.RuntimeFixes.F11CombatCosts.SyncWindow 1135x avg 0.040 max 0.30 ms | UiWorker.UiRuntime.Update 1135x avg 0.004 max 0.19 ms
+[SEST UI Follow-up] Stutter native counter: Gfx.WaitForRenderThread; unit=TimeNanoseconds; polls=1135; last=0; max=300. Marker values may persist between events; waits are not CPU/GPU attribution.
+[SEST UI Follow-up] Stutter native counter: Gfx.WaitForPresentOnGfxThread; unit=TimeNanoseconds; polls=1135; last=1300; max=65700. Marker values may persist between events; waits are not CPU/GPU attribution.
+[SEST UI Follow-up] Stutter native counter: GC.Collect; unit=TimeNanoseconds; polls=1135; last=0; max=28288600. Marker values may persist between events; waits are not CPU/GPU attribution.
+[SEST UI Follow-up] Stutter native counter: Main Thread; unit=TimeNanoseconds; polls=1135; last=21101000; max=69918800. Marker values may persist between events; waits are not CPU/GPU attribution.
+[SEST UI Follow-up] Stutter native counter: PlayerLoop; unit=TimeNanoseconds; polls=1135; last=21097800; max=69917100. Marker values may persist between events; waits are not CPU/GPU attribution.
+[SEST UI Follow-up] Stutter native counter: WaitForTargetFPS; unit=TimeNanoseconds; polls=1135; last=4226300; max=18599500. Marker values may persist between events; waits are not CPU/GPU attribution.
+[SEST UI Follow-up] Stutter native counter: GC Used Memory; unit=Bytes; polls=1135; last=2114076672; max=2206965760. Marker values may persist between events; waits are not CPU/GPU attribution.
+[SEST UI Follow-up] Stutter native counter: GC Reserved Memory; unit=Bytes; polls=1135; last=2464292864; max=2464292864. Marker values may persist between events; waits are not CPU/GPU attribution.
+[SEST UI Follow-up] Stutter native counter: CPU Main Thread Frame Time; unit=TimeNanoseconds; polls=1135; last=15042900; max=69837200. Marker values may persist between events; waits are not CPU/GPU attribution.
+[SEST UI Follow-up] Stutter native counter: CPU Render Thread Frame Time; unit=TimeNanoseconds; polls=1135; last=4031900; max=32102600. Marker values may persist between events; waits are not CPU/GPU attribution.
+[SEST UI Follow-up] Stutter native counter: GPU Frame Time; unit=TimeNanoseconds; polls=1135; last=27079936; max=73517056. Marker values may persist between events; waits are not CPU/GPU attribution.
+[SEST UI Follow-up] Cost catalogue reuse (30 s): 58 hit(s), 0 miss(es), 0 successful build(s), 0 invalidation(s). Quantities and report rows still use the original live refresh.
+[IDX][TaskforceUtil.cs:31 Resolve] [IDX] taskforce access: property=True field=False inner=True
+[SEST UI Follow-up] Perf (30 s; nested measurements): simulation 1780x avg 0.73 max 224.80 ms, >=16.7ms 1 | contact begin 7x avg 0.03 max 0.04 ms, >=16.7ms 0 | contact step 7x avg 0.37 max 0.39 ms, >=16.7ms 0 | cost capture 116x avg 0.05 max 0.26 ms, >=16.7ms 0 | formation tick 300x avg 0.23 max 1.16 ms, >=16.7ms 0 | formation layout 300x avg 0.08 max 0.17 ms, >=16.7ms 0 | formation fit 0x avg 0.00 max 0.00 ms, >=16.7ms 0 | formation discovery 67x avg 0.15 max 0.36 ms, >=16.7ms 0 | formation chrome 300x avg 0.01 max 0.04 ms, >=16.7ms 0 | SEST formation controls 0x avg 0.00 max 0.00 ms, >=16.7ms 0 | Noesis update 4572x avg 0.05 max 0.62 ms, >=16.7ms 0
+[SEST UI Follow-up] Frame pacing (30 s; wall time, not a CPU/GPU attribution): 1143 frames, 38.1 fps avg, p95 <=28 ms, max 236.2 ms, >50ms 3; actual VSync=2; target=120; focused=False; resolution=2560x1440.
+[SEST UI Follow-up] Stutter memory (between Update observations; GC/frame overlap is correlation): frames=1143; collections gen0/1/2=4/4/4; >50ms observations with collection=1; main-thread allocated=unavailable; incremental GC=True.
+[SEST UI Follow-up] Stutter UI methods (elapsed; nested; do not add): SeaPower.GameMain.FixedUpdate 1780x avg 0.732 max 224.81 ms | SeaPower.GameMain.Update 1143x avg 1.450 max 14.42 ms | ContactLog.ContactLogBehaviour.Update 1143x avg 0.075 max 6.02 ms | SeaPower.GameMain.LateUpdate 1143x avg 1.301 max 4.09 ms | SeaPowerSquadPanel.Plugin.LateUpdate 1143x avg 0.106 max 2.06 ms | WeaponCostsMod.Overlay.Update 1143x avg 0.049 max 0.66 ms | Sest.RuntimeFixes.F11CombatCosts.SyncWindow 1143x avg 0.036 max 0.45 ms | Sest.RuntimeFixes.NativeCombatSurface.Tick 1143x avg 0.028 max 0.45 ms | UiWorker.UiRuntime.Update 1143x avg 0.004 max 0.40 ms | SeaPower.CameraManager.OnLateUpdate 1143x avg 0.122 max 0.29 ms
+[SEST UI Follow-up] Stutter native counter: Gfx.WaitForRenderThread; unit=TimeNanoseconds; polls=1143; last=0; max=300. Marker values may persist between events; waits are not CPU/GPU attribution.
+[SEST UI Follow-up] Stutter native counter: Gfx.WaitForPresentOnGfxThread; unit=TimeNanoseconds; polls=1143; last=1400; max=5100. Marker values may persist between events; waits are not CPU/GPU attribution.
+[SEST UI Follow-up] Stutter native counter: GC.Collect; unit=TimeNanoseconds; polls=1143; last=0; max=20613000. Marker values may persist between events; waits are not CPU/GPU attribution.
+[SEST UI Follow-up] Stutter native counter: Main Thread; unit=TimeNanoseconds; polls=1143; last=26314400; max=242511700. Marker values may persist between events; waits are not CPU/GPU attribution.
+[SEST UI Follow-up] Stutter native counter: PlayerLoop; unit=TimeNanoseconds; polls=1143; last=26309000; max=242507400. Marker values may persist between events; waits are not CPU/GPU attribution.
+[SEST UI Follow-up] Stutter native counter: WaitForTargetFPS; unit=TimeNanoseconds; polls=1143; last=9718700; max=33312800. Marker values may persist between events; waits are not CPU/GPU attribution.
+[SEST UI Follow-up] Stutter native counter: GC Used Memory; unit=Bytes; polls=1143; last=2190655488; max=2255888384. Marker values may persist between events; waits are not CPU/GPU attribution.
+[SEST UI Follow-up] Stutter native counter: GC Reserved Memory; unit=Bytes; polls=1143; last=2464292864; max=2464292864. Marker values may persist between events; waits are not CPU/GPU attribution.
+[SEST UI Follow-up] Stutter native counter: CPU Main Thread Frame Time; unit=TimeNanoseconds; polls=1143; last=14961000; max=242432300. Marker values may persist between events; waits are not CPU/GPU attribution.
+[SEST UI Follow-up] Stutter native counter: CPU Render Thread Frame Time; unit=TimeNanoseconds; polls=1143; last=4382300; max=25450100. Marker values may persist between events; waits are not CPU/GPU attribution.
+[SEST UI Follow-up] Stutter native counter: GPU Frame Time; unit=TimeNanoseconds; polls=1143; last=24962560; max=32114688. Marker values may persist between events; waits are not CPU/GPU attribution.
+[SEST UI Follow-up] Cost catalogue reuse (30 s): 58 hit(s), 0 miss(es), 0 successful build(s), 0 invalidation(s). Quantities and report rows still use the original live refresh.
+[SEST UI Follow-up] Perf (30 s; nested measurements): simulation 1759x avg 0.68 max 33.12 ms, >=16.7ms 1 | contact begin 8x avg 0.04 max 0.07 ms, >=16.7ms 0 | contact step 8x avg 0.48 max 0.78 ms, >=16.7ms 0 | cost capture 118x avg 0.06 max 0.31 ms, >=16.7ms 0 | formation tick 314x avg 0.25 max 0.94 ms, >=16.7ms 0 | formation layout 314x avg 0.10 max 0.60 ms, >=16.7ms 0 | formation fit 0x avg 0.00 max 0.00 ms, >=16.7ms 0 | formation discovery 64x avg 0.16 max 0.27 ms, >=16.7ms 0 | formation chrome 314x avg 0.02 max 0.07 ms, >=16.7ms 0 | SEST formation controls 0x avg 0.00 max 0.00 ms, >=16.7ms 0 | Noesis update 4808x avg 0.13 max 10.86 ms, >=16.7ms 0
+[SEST UI Follow-up] Frame pacing (30 s; wall time, not a CPU/GPU attribution): 1202 frames, 40.1 fps avg, p95 <=35 ms, max 83.4 ms, >50ms 13; actual VSync=2; target=120; focused=True; resolution=2560x1440.
+[SEST UI Follow-up] Stutter memory (between Update observations; GC/frame overlap is correlation): frames=1202; collections gen0/1/2=6/6/6; >50ms observations with collection=2; main-thread allocated=unavailable; incremental GC=True.
+[SEST UI Follow-up] Stutter UI methods (elapsed; nested; do not add): SeaPower.GameMain.FixedUpdate 1759x avg 0.684 max 33.12 ms | SeaPower.GameMain.Update 1202x avg 1.595 max 25.77 ms | ContactLog.ContactLogBehaviour.Update 1202x avg 0.074 max 6.78 ms | SeaPower.GameMain.LateUpdate 1202x avg 1.413 max 4.86 ms | SeaPowerSquadPanel.Plugin.LateUpdate 1202x avg 0.111 max 1.90 ms | SeaPower.CameraManager.OnLateUpdate 1202x avg 0.135 max 1.20 ms | WeaponCostsMod.Overlay.Update 1202x avg 0.055 max 0.73 ms | Sest.RuntimeFixes.F11CombatCosts.SyncWindow 1202x avg 0.041 max 0.45 ms | Sest.RuntimeFixes.CampaignCosts.LiveView 59x avg 0.043 max 0.24 ms | NoesisView.RenderOffscreen 3606x avg 0.007 max 0.21 ms
+[SEST UI Follow-up] Stutter native counter: Gfx.WaitForRenderThread; unit=TimeNanoseconds; polls=1202; last=0; max=500. Marker values may persist between events; waits are not CPU/GPU attribution.
+[SEST UI Follow-up] Stutter native counter: Gfx.WaitForPresentOnGfxThread; unit=TimeNanoseconds; polls=1202; last=1700; max=51500. Marker values may persist between events; waits are not CPU/GPU attribution.
+[SEST UI Follow-up] Stutter native counter: GC.Collect; unit=TimeNanoseconds; polls=1202; last=0; max=22348100. Marker values may persist between events; waits are not CPU/GPU attribution.
+[SEST UI Follow-up] Stutter native counter: Main Thread; unit=TimeNanoseconds; polls=1202; last=41546400; max=88673000. Marker values may persist between events; waits are not CPU/GPU attribution.
+[SEST UI Follow-up] Stutter native counter: PlayerLoop; unit=TimeNanoseconds; polls=1202; last=41545500; max=88669200. Marker values may persist between events; waits are not CPU/GPU attribution.
+[SEST UI Follow-up] Stutter native counter: WaitForTargetFPS; unit=TimeNanoseconds; polls=1202; last=70300; max=36919800. Marker values may persist between events; waits are not CPU/GPU attribution.
+[SEST UI Follow-up] Stutter native counter: GC Used Memory; unit=Bytes; polls=1202; last=2104225792; max=2556416000. Marker values may persist between events; waits are not CPU/GPU attribution.
+[SEST UI Follow-up] Stutter native counter: GC Reserved Memory; unit=Bytes; polls=1202; last=2891481088; max=2891481088. Marker values may persist between events; waits are not CPU/GPU attribution.
+[SEST UI Follow-up] Stutter native counter: CPU Main Thread Frame Time; unit=TimeNanoseconds; polls=1202; last=16191500; max=88596600. Marker values may persist between events; waits are not CPU/GPU attribution.
+[SEST UI Follow-up] Stutter native counter: CPU Render Thread Frame Time; unit=TimeNanoseconds; polls=1202; last=3579400; max=25463100. Marker values may persist between events; waits are not CPU/GPU attribution.
+[SEST UI Follow-up] Stutter native counter: GPU Frame Time; unit=TimeNanoseconds; polls=1202; last=0; max=37543936. Marker values may persist between events; waits are not CPU/GPU attribution.
+[SEST UI Follow-up] Cost catalogue reuse (30 s): 59 hit(s), 0 miss(es), 0 successful build(s), 0 invalidation(s). Quantities and report rows still use the original live refresh.
+UI_Parameters: Settings_UI_Tactical.ini has no map setting 'WeaponWireThickness'
+UI_Parameters: Settings_UI_Tactical.ini has no map setting 'SeekerConeStrokeThickness'
+[SEST Runtime] combat costs: weapon sest_agr-30: no reference-year price
+[WeaponCosts] Missing WeaponCosts: sest_agr-30 (ASM)
+[SEST UI Follow-up] Perf (30 s; nested measurements): simulation 1753x avg 0.78 max 31.72 ms, >=16.7ms 1 | contact begin 7x avg 0.04 max 0.04 ms, >=16.7ms 0 | contact step 7x avg 0.46 max 0.91 ms, >=16.7ms 0 | cost capture 118x avg 0.07 max 0.46 ms, >=16.7ms 0 | formation tick 329x avg 0.25 max 0.95 ms, >=16.7ms 0 | formation layout 329x avg 0.09 max 0.39 ms, >=16.7ms 0 | formation fit 0x avg 0.00 max 0.00 ms, >=16.7ms 0 | formation discovery 66x avg 0.17 max 0.38 ms, >=16.7ms 0 | formation chrome 329x avg 0.02 max 0.14 ms, >=16.7ms 0 | SEST formation controls 0x avg 0.00 max 0.00 ms, >=16.7ms 0 | Noesis update 5512x avg 0.12 max 25.72 ms, >=16.7ms 1
+[SEST UI Follow-up] Frame pacing (30 s; wall time, not a CPU/GPU attribution): 1378 frames, 45.9 fps avg, p95 <=35 ms, max 118.1 ms, >50ms 7; actual VSync=2; target=120; focused=False; resolution=2560x1440.
+[SEST UI Follow-up] Stutter memory (between Update observations; GC/frame overlap is correlation): frames=1378; collections gen0/1/2=7/7/7; >50ms observations with collection=1; main-thread allocated=unavailable; incremental GC=True.
+[SEST UI Follow-up] Stutter UI methods (elapsed; nested; do not add): SeaPower.GameMain.LateUpdate 1378x avg 1.474 max 39.02 ms | SeaPower.GameMain.Update 1378x avg 1.650 max 35.00 ms | SeaPower.GameMain.FixedUpdate 1753x avg 0.785 max 31.72 ms | ContactLog.ContactLogBehaviour.Update 1378x avg 0.068 max 7.39 ms | WeaponCostsMod.Overlay.Update 1378x avg 0.057 max 4.17 ms | Sest.RuntimeFixes.F11CombatCosts.SyncWindow 1378x avg 0.041 max 3.70 ms | Sest.RuntimeFixes.CampaignCosts.LiveView 59x avg 0.107 max 3.55 ms | SeaPowerSquadPanel.Plugin.LateUpdate 1378x avg 0.106 max 2.76 ms | SeaPower.CameraManager.OnLateUpdate 1378x avg 0.131 max 1.21 ms | Sest.RuntimeFixes.NativeCombatSurface.Tick 1378x avg 0.031 max 0.43 ms
+[SEST UI Follow-up] Stutter native counter: Gfx.WaitForRenderThread; unit=TimeNanoseconds; polls=1378; last=0; max=200. Marker values may persist between events; waits are not CPU/GPU attribution.
+[SEST UI Follow-up] Stutter native counter: Gfx.WaitForPresentOnGfxThread; unit=TimeNanoseconds; polls=1378; last=1300; max=44600. Marker values may persist between events; waits are not CPU/GPU attribution.
+[SEST UI Follow-up] Stutter native counter: GC.Collect; unit=TimeNanoseconds; polls=1378; last=0; max=22724300. Marker values may persist between events; waits are not CPU/GPU attribution.
+[SEST UI Follow-up] Stutter native counter: Main Thread; unit=TimeNanoseconds; polls=1378; last=20852100; max=122864000. Marker values may persist between events; waits are not CPU/GPU attribution.
+[SEST UI Follow-up] Stutter native counter: PlayerLoop; unit=TimeNanoseconds; polls=1378; last=20849300; max=122860800. Marker values may persist between events; waits are not CPU/GPU attribution.
+[SEST UI Follow-up] Stutter native counter: WaitForTargetFPS; unit=TimeNanoseconds; polls=1378; last=5158300; max=13201700. Marker values may persist between events; waits are not CPU/GPU attribution.
+[SEST UI Follow-up] Stutter native counter: GC Used Memory; unit=Bytes; polls=1378; last=2343518208; max=2520662016. Marker values may persist between events; waits are not CPU/GPU attribution.
+[SEST UI Follow-up] Stutter native counter: GC Reserved Memory; unit=Bytes; polls=1378; last=2891481088; max=2891481088. Marker values may persist between events; waits are not CPU/GPU attribution.
+[SEST UI Follow-up] Stutter native counter: CPU Main Thread Frame Time; unit=TimeNanoseconds; polls=1378; last=14331900; max=122786400. Marker values may persist between events; waits are not CPU/GPU attribution.
+[SEST UI Follow-up] Stutter native counter: CPU Render Thread Frame Time; unit=TimeNanoseconds; polls=1378; last=2491500; max=8976200. Marker values may persist between events; waits are not CPU/GPU attribution.
+[SEST UI Follow-up] Stutter native counter: GPU Frame Time; unit=TimeNanoseconds; polls=1378; last=17463040; max=124440832. Marker values may persist between events; waits are not CPU/GPU attribution.
+[SEST UI Follow-up] Cost catalogue reuse (30 s): 59 hit(s), 0 miss(es), 0 successful build(s), 0 invalidation(s). Quantities and report rows still use the original live refresh.
+SeaPower.LinearCampaign.InstanceExists() = True
+[3D WebView] [StandaloneWebView.TerminateBrowserProcess] Terminating the browser process.
+Unloading 1 Unused Serialized files (Serialized files now loaded: 7)
+[SEST Backdrops] SEST photo loading_screen_16.png in place of C:\Program Files (x86)\Steam\steamapps\common\Sea Power\Sea Power_Data\StreamingAssets\original\ui/backgrounds\loading_screen_35.png (1920x1080); 12 so far
+Unloading 8772 unused Assets to reduce memory usage. Loaded Objects now: 11675.
+Total: 263.753300 ms (FindLiveObjects: 1.129600 ms CreateObjectMapping: 1.129800 ms MarkObjects: 212.792400 ms  DeleteObjects: 48.701200 ms)
+
+[SEST Backdrops] SEST photo loading_screen_59.png in place of C:\Program Files (x86)\Steam\steamapps\workshop\content\1286220\3491248180\ui/backgrounds\loading_screen_2.png (1920x1080); 13 so far
+[SEST Backdrops] SEST photo loading_screen_24.png in place of C:\Program Files (x86)\Steam\steamapps\common\Sea Power\Sea Power_Data\StreamingAssets\original\ui/backgrounds\loading_screen_1.png (1920x1080); 14 so far
+Unloading 0 Unused Serialized files (Serialized files now loaded: 7)
+Unloading 35 unused Assets to reduce memory usage. Loaded Objects now: 11553.
+Total: 223.830400 ms (FindLiveObjects: 0.987500 ms CreateObjectMapping: 0.612500 ms MarkObjects: 222.022000 ms  DeleteObjects: 0.208100 ms)
+
+[SEST Menu] video player 'MediaPlayer' in scene 'background': source=VideoClip clip='main_menu' url='' render=APIOnly loop=False playing=False audio=Direct tracks=0
+[SEST Menu] menu film now C:\Program Files (x86)\Steam\steamapps\workshop\content\1286220\3812461539\plugins\sest_menu.mp4
 [3D WebView] [StandaloneWebView.TerminateBrowserProcess] Terminating the browser process.
 [Physics::Module] Cleanup current backned.
 [Physics::Module] Id: 0xf2b8ea05
