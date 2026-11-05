@@ -124,7 +124,7 @@ try {
     Copy-Verified (J $backup 'current-before-repair.json') $statePath
     throw $failure
 }
-Write-Host 'R4 beta repair installed and enabled; original backups and Identify data retained.' -ForegroundColor Green
-Write-Host 'Runtime 1.5.2 beta: the build text over the game view is hidden, the game''s #!extend scan is repaired once the Workshop folders are registered, and the cost windows price SEST rounds from SEST''s own catalog with item rows.'
-Write-Host 'The loader, bootstrap, UI follow-up and Identify shim are the R3 sources rebuilt with this candidate''s compiler.'
-Write-Host 'Launch beta, play a mission that fires an AGR-30 Redback, open F11 in the campaign menu, then quit and run Capture-Repair-Results.cmd.'
+Write-Host 'R5 beta repair installed and enabled; original backups and Identify data retained.' -ForegroundColor Green
+Write-Host 'Runtime 1.5.3 and UI 1.4.4 beta: R4''s watermark hide, #!extend rescan and cost rows, with the pop-out bridges pinned to Pop-Out Windows 1.1.3.'
+Write-Host 'The loader adapts WeaponLauncherEffects 1.0.18 and SubModelStabilization 1.1.2 to the beta in a private cache; their Workshop files are unchanged.'
+Write-Host 'Launch beta, watch a Mk 41 launch and a stabilised radar in a seaway, fire an AGR-30 Redback, open F11 in the campaign menu, then quit and run Capture-Repair-Results.cmd.'

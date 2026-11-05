@@ -67,6 +67,37 @@ public static class BetaCompatibilityCalls
         return AccessTools.Method(type, name, parameters, generics);
     }
 
+    // WeaponLauncherEffects 1.0.18 finds WeaponContainer.launch and
+    // LaunchFromMagazine by their stable parameter lists. Beta Build 261026
+    // appended "bool failedLaunch = false" to both and left a successful
+    // launch unchanged, so exactly those two lists gain the flag; any other
+    // lookup passes through and fails or succeeds as the author wrote it.
+    private static readonly string[] StableLaunch = { "SeaPower.ObjectBase", "UnityEngine.Vector3", "UnityEngine.Vector3", "System.Single", "System.String" };
+    private static readonly string[] StableMagazineLaunch = { "System.String", "SeaPower.ObjectBase", "UnityEngine.Vector3", "UnityEngine.Vector3", "System.Single", "System.Single" };
+
+    public static MethodInfo LauncherEffectsMethod(Type type, string name, Type[] parameters, Type[] generics)
+    {
+        if (type == typeof(WeaponContainer) && parameters != null && parameters.All(p => p != null) &&
+            ((name == "launch" && parameters.Select(p => p.FullName).SequenceEqual(StableLaunch)) ||
+             (name == "LaunchFromMagazine" && parameters.Select(p => p.FullName).SequenceEqual(StableMagazineLaunch))))
+            parameters = parameters.Concat(new[] { typeof(bool) }).ToArray();
+        return AccessTools.Method(type, name, parameters, generics);
+    }
+
+    // SubModelStabilization 1.1.2 finds VesselLoader.loadShipFromInternalResources
+    // by its ten stable parameters. Beta Build 261026 made it void and passes
+    // the caller's VesselParameters first (vp); the adapted postfix takes vp.
+    private static readonly string[] StableVesselLoad = { "System.String", "System.String", "System.String", "System.Int32",
+        "SeaPower.GeoPosition", "SeaPower.GeoPosition", "SeaPower.Taskforce", "SeaPower.ResourceLoader+ResourceBatch", "System.String", "System.Boolean" };
+
+    public static MethodInfo StabilizationMethod(Type type, string name, Type[] parameters, Type[] generics)
+    {
+        if (type == typeof(VesselLoader) && name == "loadShipFromInternalResources" && parameters != null &&
+            parameters.All(p => p != null) && parameters.Select(p => p.FullName).SequenceEqual(StableVesselLoad))
+            parameters = new[] { typeof(VesselParameters) }.Concat(parameters).ToArray();
+        return AccessTools.Method(type, name, parameters, generics);
+    }
+
     // A not-yet-assigned/pooled unit is ineligible for an enemy hail. Returning
     // true preserves the caller's existing skip branch before IsEnemyUnit runs.
     public static bool SkipEnemyHailCandidate(ObjectBase unit)

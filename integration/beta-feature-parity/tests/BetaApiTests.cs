@@ -38,7 +38,8 @@ static class BetaApiTests
         try {
             var paths=new Dictionary<string,string>();
             foreach (string relative in new[] { "3813157776/DynamicCampaignMod.dll", "3784474738/EnhancedDecoyMod.dll",
-                "3789188689/SubAmmunitionMod.dll", "3789188689/SecondThrustMod.dll", "3790594162/IdentifyExpanded.dll" }) {
+                "3789188689/SubAmmunitionMod.dll", "3789188689/SecondThrustMod.dll", "3790594162/IdentifyExpanded.dll",
+                "3784474738/WeaponLauncherEffects.dll", "3784474738/SubModelStabilization.dll" }) {
                 string source=Path.Combine(workshop,relative); byte[] bytes=File.ReadAllBytes(source);
                 string adapted=BetaAssemblyPolicy.Prepare(source,native,cache,Console.WriteLine);
                 Check(adapted != source && File.Exists(adapted), "Private API image generated: "+relative);
@@ -65,7 +66,7 @@ static class BetaApiTests
                 }
             }
             foreach (string failure in missing) Console.WriteLine("MISSING "+failure);
-            Check(missing.Count==0 && resolved>100, "All active direct native method/field operands resolve across five adapted images");
+            Check(missing.Count==0 && resolved>100, "All active direct native method/field operands resolve across seven adapted images");
             Console.WriteLine("Resolved native operands: "+resolved);
             using (var ammo=ModuleDefinition.ReadModule(paths["SubAmmunitionMod"],new ReaderParameters { AssemblyResolver=resolver })) {
                 var calls=Types(ammo.Types).SelectMany(t=>t.Methods).Where(m=>m.HasBody).SelectMany(m=>m.Body.Instructions)
@@ -95,7 +96,8 @@ static class BetaApiTests
                 var loaded=Assembly.LoadFile(pair.Value);
                 Check(BetaAssemblyPolicy.OriginalLocation(loaded)==Path.Combine(workshop,
                     pair.Key=="DynamicCampaignMod" ? "3813157776/DynamicCampaignMod.dll" :
-                    pair.Key=="IdentifyExpanded" ? "3790594162/IdentifyExpanded.dll" : "3789188689/"+pair.Key+".dll"),
+                    pair.Key=="IdentifyExpanded" ? "3790594162/IdentifyExpanded.dll" :
+                    pair.Key=="WeaponLauncherEffects" || pair.Key=="SubModelStabilization" ? "3784474738/"+pair.Key+".dll" : "3789188689/"+pair.Key+".dll"),
                     "Original asset provenance: "+pair.Key);
                 if (pair.Key=="DynamicCampaignMod") {
                     var postfix=loaded.GetType("DynamicCampaignMod.Game.Patches.CampaignMenuPatch",true).GetMethod("Postfix",BindingFlags.NonPublic|BindingFlags.Static);
@@ -122,10 +124,81 @@ static class BetaApiTests
             Check(typeof(Taskforce).GetProperty("Relations")?.PropertyType==typeof(SideRelations) &&
                 typeof(SideRelations).GetProperty("Sides")?.PropertyType==typeof(IReadOnlyList<Taskforce>),
                 "Secondary-side bridge binds beta's real registered-side types");
+            LauncherAndStabilizationChecks(paths, resolver);
             // Taskforce's static profiler initialization needs the game Mono
             // intrinsics. Live registry evaluation remains part of the PC test.
             Console.WriteLine("Campaign/scenario beta API checks passed: "+checks+"; managed fixtures only, no Unity gameplay.");
         } finally { if (Directory.Exists(cache)) Directory.Delete(cache,true); }
+    }
+    // R5: WeaponLauncherEffects 1.0.18 and SubModelStabilization 1.1.2 from
+    // Euromod's Anchor Chain Expansion Pack. Metadata and reflection only; no
+    // Harmony patch is applied and no plugin or game code runs.
+    static void LauncherAndStabilizationChecks(Dictionary<string,string> paths, DefaultAssemblyResolver resolver)
+    {
+        const BindingFlags all=BindingFlags.NonPublic|BindingFlags.Public|BindingFlags.Static|BindingFlags.Instance;
+        using (var effects=ModuleDefinition.ReadModule(paths["WeaponLauncherEffects"],new ReaderParameters { AssemblyResolver=resolver })) {
+            var post=effects.GetType("WeaponLauncherEffectsAnchorChain.WeaponContainerLaunchLauncherEffectsPatch").Methods.Single(m=>m.Name=="Postfix");
+            var il=post.Body.Instructions;
+            Check(post.Parameters.Count==3 && post.Parameters[2].Name=="__result" && post.Parameters[2].ParameterType.FullName=="System.Boolean",
+                "Launcher postfix receives the beta launch result");
+            Check(il[0].OpCode==Mono.Cecil.Cil.OpCodes.Ldarg_2 && il[1].OpCode==Mono.Cecil.Cil.OpCodes.Brtrue && il[2].OpCode==Mono.Cecil.Cil.OpCodes.Ret &&
+                ReferenceEquals(il[1].Operand,il[3]), "A failed launch returns before the author's effect code");
+            foreach (string name in new[] { "WeaponContainerLaunchLauncherEffectsPatch", "WeaponContainerMagazineLaunchLauncherEffectsPatch" }) {
+                var target=effects.GetType("WeaponLauncherEffectsAnchorChain."+name).Methods.Single(m=>m.Name=="TargetMethod").Body.Instructions;
+                Check(target.Count(i=>(i.Operand as MethodReference)?.Name=="LauncherEffectsMethod")==1 &&
+                    !target.Any(i=>(i.Operand as MethodReference)?.DeclaringType.FullName=="HarmonyLib.AccessTools"),
+                    "Launcher lookup goes through the bridge: "+name);
+            }
+            foreach (string name in new[] { "WeaponSystemLaunchNativeEffectsPatch", "WeaponContainerInitLauncherEffectsPatch" }) {
+                var target=effects.GetType("WeaponLauncherEffectsAnchorChain."+name).Methods.Single(m=>m.Name=="TargetMethod").Body.Instructions;
+                Check(target.Any(i=>(i.Operand as MethodReference)?.DeclaringType.FullName=="HarmonyLib.AccessTools") &&
+                    !target.Any(i=>(i.Operand as MethodReference)?.Name=="LauncherEffectsMethod"), "Unchanged lookup keeps the author's call: "+name);
+            }
+        }
+        var vector=typeof(UnityEngine.Vector3);
+        var launch5=new[] { typeof(ObjectBase), vector, vector, typeof(float), typeof(string) };
+        var magazine6=new[] { typeof(string), typeof(ObjectBase), vector, vector, typeof(float), typeof(float) };
+        Check(AccessTools.Method(typeof(WeaponContainer),"launch",launch5,null)==null && AccessTools.Method(typeof(WeaponContainer),"LaunchFromMagazine",magazine6,null)==null,
+            "The author's stable launcher lookups fail on the beta, as captured");
+        var launch=BetaCompatibilityCalls.LauncherEffectsMethod(typeof(WeaponContainer),"launch",launch5,null);
+        var magazine=BetaCompatibilityCalls.LauncherEffectsMethod(typeof(WeaponContainer),"LaunchFromMagazine",magazine6,null);
+        Check(launch!=null && launch.ReturnType==typeof(bool) && launch.GetParameters().Length==6 && launch.GetParameters()[5].Name=="failedLaunch",
+            "Bridge resolves beta WeaponContainer.launch with failedLaunch");
+        Check(magazine!=null && magazine.ReturnType==typeof(bool) && magazine.GetParameters().Length==7 && magazine.GetParameters()[6].Name=="failedLaunch",
+            "Bridge resolves beta WeaponContainer.LaunchFromMagazine with failedLaunch");
+        Check(BetaCompatibilityCalls.LauncherEffectsMethod(typeof(WeaponContainer),"launch",new[] { typeof(int) },null)==null,
+            "Any other launcher lookup passes through unchanged");
+        using (var stabilizer=ModuleDefinition.ReadModule(paths["SubModelStabilization"],new ReaderParameters { AssemblyResolver=resolver })) {
+            var patch=stabilizer.GetType("SubModelStabilizationAnchorChain.VesselLoaderStabilizationPatch");
+            var post=patch.Methods.Single(m=>m.Name=="Postfix");
+            Check(post.Parameters.Count==2 && post.Parameters[0].Name=="vesselIniName" && post.Parameters[1].Name=="vp" &&
+                post.Parameters[1].ParameterType.FullName=="SeaPower.VesselParameters", "Stabilization postfix takes the caller's VesselParameters vp");
+            var target=patch.Methods.Single(m=>m.Name=="TargetMethod").Body.Instructions;
+            Check(target.Count(i=>(i.Operand as MethodReference)?.Name=="StabilizationMethod")==1 &&
+                !target.Any(i=>(i.Operand as MethodReference)?.DeclaringType.FullName=="HarmonyLib.AccessTools"), "Vessel loader lookup goes through the bridge");
+        }
+        var batch=typeof(ResourceLoader).GetNestedType("ResourceBatch",all);
+        var ten=new[] { typeof(string), typeof(string), typeof(string), typeof(int), typeof(GeoPosition), typeof(GeoPosition), typeof(Taskforce), batch, typeof(string), typeof(bool) };
+        Check(batch!=null && AccessTools.Method(typeof(VesselLoader),"loadShipFromInternalResources",ten,null)==null,
+            "The author's stable vessel loader lookup fails on the beta, as captured");
+        var load=BetaCompatibilityCalls.StabilizationMethod(typeof(VesselLoader),"loadShipFromInternalResources",ten,null);
+        Check(load!=null && load.ReturnType==typeof(void) && load.GetParameters().Length==11 && load.GetParameters()[0].Name=="vp" &&
+            load.GetParameters()[0].ParameterType==typeof(VesselParameters) && load.GetParameters()[3].Name=="vesselIniName",
+            "Bridge resolves the beta vessel loader with vp first");
+        // HarmonyX binds a patch parameter by the original's parameter name, or
+        // as __instance, __state or __result. Check the adapted patches against
+        // the real beta targets by reflection.
+        var launchPost=Assembly.LoadFile(paths["WeaponLauncherEffects"])
+            .GetType("WeaponLauncherEffectsAnchorChain.WeaponContainerLaunchLauncherEffectsPatch",true).GetMethod("Postfix",all);
+        Check(launchPost.GetParameters().Select(p=>p.Name).SequenceEqual(new[] { "__instance", "__state", "__result" }) &&
+            launchPost.GetParameters()[0].ParameterType==typeof(WeaponContainer) && launchPost.GetParameters()[2].ParameterType==launch.ReturnType,
+            "Launcher postfix binds __instance and __result to the beta launch");
+        var stabilizerPost=Assembly.LoadFile(paths["SubModelStabilization"])
+            .GetType("SubModelStabilizationAnchorChain.VesselLoaderStabilizationPatch",true).GetMethod("Postfix",all);
+        foreach (var parameter in stabilizerPost.GetParameters()) {
+            var match=load.GetParameters().SingleOrDefault(p=>p.Name==parameter.Name);
+            Check(match!=null && match.ParameterType==parameter.ParameterType, "Stabilization postfix parameter binds by name: "+parameter.Name);
+        }
     }
     static void HailGuardFixture()
     {

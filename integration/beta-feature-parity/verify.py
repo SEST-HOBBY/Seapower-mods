@@ -17,11 +17,17 @@ p.add_argument('--powershell', required=True)
 p.add_argument('--previous-package', type=Path, action='append', default=[])
 p.add_argument('--previous-payload', type=Path, action='append', default=[])
 p.add_argument('--repair-package', type=Path)
+p.add_argument('--previous-capture', type=Path, help='Capture the previous candidates were reviewed and staged against; defaults to --capture')
 p.add_argument('--workshop-references', type=Path, help='Newer captured Workshop DLL tree for compatibility checks')
 a = p.parse_args()
 here = Path(__file__).resolve().parent
 root = here.parents[1]
 capture = a.capture.resolve()
+# A previous candidate's own installer refuses author DLLs newer than its
+# review (Pop-Out Windows 1.1.1 became 1.1.3 on 3 Nov 2026), while the repair
+# checks only the game, BepInEx and Identify references, which both captures
+# share. So an upgrade test stages the previous candidate on its own capture.
+previous_capture = a.previous_capture.resolve() if a.previous_capture else capture
 out = a.candidate.resolve()
 flat = a.flat_references.resolve()
 workshop = a.workshop_references.resolve() if a.workshop_references else capture / 'references/workshop/library-1'
@@ -64,7 +70,7 @@ if len(a.previous_package) != len(a.previous_payload):
 if a.repair_package:
     for index, (package, payload) in enumerate(zip(a.previous_package, a.previous_payload), 1):
         run('existing-candidate-repair-rollback-' + str(index), [a.powershell, '-NoLogo', '-NoProfile', '-File', here / 'tests/Test-Installer.ps1',
-            '-Capture', capture, '-Candidate', payload.resolve(), '-RepairPackage', a.repair_package.resolve(), '-PreviousPackage', package.resolve()])
+            '-Capture', previous_capture, '-Candidate', payload.resolve(), '-RepairPackage', a.repair_package.resolve(), '-PreviousPackage', package.resolve()])
 run('loader-source-contracts', [sys.executable, here.parent / 'beta-anchorchain/test_source_contract.py'])
 report = {
     'format': 1, 'status': 'managed-and-fixture-checks-passed-needs-pc-gameplay',

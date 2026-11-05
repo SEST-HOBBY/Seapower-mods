@@ -13,12 +13,24 @@ public static partial class BetaAssemblyPolicy
     internal const string SubAmmoHash = "f16f9fc4a0ce9f37173af742a15876774f119c1affffb2288ab3b9e92fa0e3a4";
     internal const string SubAmmoDuplicateHash = "f4d7ddb5b54c53718dcfcda1135e4518f85779a9b7a88b6a3487ff13b7808a9e";
     internal const string SecondThrustHash = "5d8c362ec9c35ab5e054c52b2b2f766426700b8d8d9e1a4f4edd5ba4ae7b0a04";
+    // R5 (5 Nov 2026): Euromod's Anchor Chain Expansion Pack (Workshop
+    // 3784474738) as captured on 3 Nov 2026. WeaponLauncherEffects 1.0.18 and
+    // SubModelStabilization 1.1.2 stop themselves on the beta because their
+    // Harmony TargetMethod lookups use the stable parameter lists.
+    internal const string LauncherEffectsHash = "e79113f4a38f7a034ed8ab42da2e14f931382d77fc522e2cd6d86d4d09dbf717";
+    internal const string StabilizationHash = "09f6ec0eff66c6b09ae1565c5eaf797a579be2cc04b22bfccb0a7ef9e57a8eda";
+    private const string LaunchPatch = "WeaponLauncherEffectsAnchorChain.WeaponContainerLaunchLauncherEffectsPatch";
+    private const string MagazinePatch = "WeaponLauncherEffectsAnchorChain.WeaponContainerMagazineLaunchLauncherEffectsPatch";
+    private const string StabilizationPatch = "SubModelStabilizationAnchorChain.VesselLoaderStabilizationPatch";
 
     private static string AdaptCapturedImage(ModuleDefinition module, ModuleDefinition native, string hash)
     {
         bool identify = hash == IdentifyHash, campaign = hash == CampaignHash, decoy = hash == DecoyHash,
-            subAmmo = hash == SubAmmoHash || hash == SubAmmoDuplicateHash, thrust = hash == SecondThrustHash;
-        if (!(identify || campaign || decoy || subAmmo || thrust)) return null;
+            subAmmo = hash == SubAmmoHash || hash == SubAmmoDuplicateHash, thrust = hash == SecondThrustHash,
+            launcherEffects = hash == LauncherEffectsHash, stabilization = hash == StabilizationHash;
+        if (!(identify || campaign || decoy || subAmmo || thrust || launcherEffects || stabilization)) return null;
+        if (launcherEffects) RequireLauncherSignatures(native);
+        if (stabilization) RequireVesselLoaderSignature(native);
         var counts = new SortedDictionary<string, int>(StringComparer.Ordinal);
         void Count(string name) => counts[name] = counts.TryGetValue(name, out int value) ? value + 1 : 1;
         MethodReference Bridge(string name) => module.ImportReference(typeof(BetaCompatibilityCalls).GetMethod(name));
@@ -36,6 +48,34 @@ public static partial class BetaAssemblyPolicy
                 il.Append(Instruction.Create(OpCodes.Ret)); Count("facts-property");
                 continue;
             }
+            // Beta's WeaponContainer.launch returns false for a failed launch
+            // and still removes the dud from _weapons. The author's launch
+            // postfix spawns effects for whichever weapon left the container,
+            // so it is gated on the launch result, as the author's own
+            // magazine postfix already is.
+            if (launcherEffects && type.FullName == LaunchPatch && method.Name == "Postfix") {
+                if (!method.IsStatic || method.Parameters.Count != 2 || method.Parameters[0].Name != "__instance" ||
+                    method.Parameters[1].Name != "__state" || method.Body.ExceptionHandlers.Count != 0)
+                    throw new InvalidOperationException("Inspected WeaponLauncherEffects launch postfix changed");
+                method.Parameters.Add(new ParameterDefinition("__result", Mono.Cecil.ParameterAttributes.None, module.TypeSystem.Boolean));
+                var gate = method.Body.GetILProcessor(); var first = method.Body.Instructions[0];
+                gate.InsertBefore(first, Instruction.Create(OpCodes.Ldarg_2));
+                gate.InsertBefore(first, Instruction.Create(OpCodes.Brtrue, first));
+                gate.InsertBefore(first, Instruction.Create(OpCodes.Ret));
+                Count("launch-result");
+            }
+            // Beta's loadShipFromInternalResources is void and takes the
+            // caller's VesselParameters first, as vp. HarmonyX binds a patch
+            // parameter by the original's parameter name, so the postfix's
+            // __result (the stable return value) becomes vp: the same object.
+            if (stabilization && type.FullName == StabilizationPatch && method.Name == "Postfix") {
+                if (!method.IsStatic || method.Parameters.Count != 2 || method.Parameters[0].Name != "vesselIniName" ||
+                    method.Parameters[1].Name != "__result" || method.Parameters[1].ParameterType.FullName != "SeaPower.VesselParameters")
+                    throw new InvalidOperationException("Inspected SubModelStabilization postfix changed");
+                method.Parameters[1].Name = "vp"; Count("result-argument");
+            }
+            bool launcherTarget = launcherEffects && method.Name == "TargetMethod" && (type.FullName == LaunchPatch || type.FullName == MagazinePatch);
+            bool stabilizationTarget = stabilization && method.Name == "TargetMethod" && type.FullName == StabilizationPatch;
             bool attackLookup = campaign && method.Body.Instructions.Any(i => i.OpCode == OpCodes.Ldstr && Equals(i.Operand, "SetAttackAtWaypointTask"));
             // Insertions can extend existing short-branch distances. Expand all
             // short branches once; instruction targets and EH bounds stay valid.
@@ -64,6 +104,12 @@ public static partial class BetaAssemblyPolicy
                 string owner = call.DeclaringType.FullName;
                 if (owner == "System.Reflection.Assembly" && call.Name == "get_Location" && call.Parameters.Count == 0) {
                     instruction.OpCode = OpCodes.Call; instruction.Operand = location; Count("locations");
+                }
+                else if ((launcherTarget || stabilizationTarget) && owner == "HarmonyLib.AccessTools" && call.Name == "Method" &&
+                    call.Parameters.Count == 4 && !call.HasThis) {
+                    instruction.OpCode = OpCodes.Call;
+                    instruction.Operand = Bridge(launcherTarget ? nameof(BetaCompatibilityCalls.LauncherEffectsMethod) : nameof(BetaCompatibilityCalls.StabilizationMethod));
+                    Count(launcherTarget ? "launch-reflection" : "target-method");
                 }
                 else if (owner == "SeaPower.UI_Parameters" && call.Name.StartsWith("get_TM_") && !call.HasThis && call.Parameters.Count == 0 &&
                     (call.ReturnType.FullName == "Noesis.Color" || call.ReturnType.FullName == "Noesis.SolidColorBrush" || call.ReturnType.FullName == "System.Single")) {
@@ -129,9 +175,35 @@ public static partial class BetaAssemblyPolicy
         string audit = String.Join(", ", counts.Select(x => x.Key + "=" + x.Value));
         string expected = identify ? "bearings=10, hail-guard=1, locations=2, ui=5" :
             campaign ? "Acquisition=1, DoUnload=1, GetDirectories=1, GetFiles=1, SetAttackAtWaypointTask=2, attack-reflection=1, bearing-reflection=1, bearings=1, facts-property=1, mission-get=3, mission-set=1, secondary-side=6, speed-make=1, speed-set=1, ui=24" :
-            decoy ? "contact-color=1, contact-exit=1, locations=2, ui=1, vehicle-view=4" : thrust ? "ini=1, locations=1" : "file=1, ini=5, locations=1, offset-grid=2";
+            decoy ? "contact-color=1, contact-exit=1, locations=2, ui=1, vehicle-view=4" : thrust ? "ini=1, locations=1" :
+            launcherEffects ? "launch-reflection=2, launch-result=1, locations=2" :
+            stabilization ? "locations=2, result-argument=1, target-method=1" : "file=1, ini=5, locations=1, offset-grid=2";
         if (audit != expected) throw new InvalidOperationException(module.Assembly.Name.Name + " beta rewrite audit changed: " + audit);
         return audit;
+    }
+
+    // The two shapes the R5 bridges rely on, asserted on the pinned native
+    // image before any rewrite; a different beta fails closed.
+    private static void RequireLauncherSignatures(ModuleDefinition native)
+    {
+        var container = native.GetType("SeaPower.WeaponContainer");
+        foreach (var (name, count) in new[] { ("launch", 6), ("LaunchFromMagazine", 7) }) {
+            var method = container.Methods.Single(m => m.Name == name);
+            var last = method.Parameters.LastOrDefault();
+            if (method.Parameters.Count != count || method.ReturnType.FullName != "System.Boolean" || last == null ||
+                last.Name != "failedLaunch" || last.ParameterType.FullName != "System.Boolean" || !last.IsOptional ||
+                !last.HasConstant || !Equals(last.Constant, false))
+                throw new InvalidOperationException("Inspected beta WeaponContainer." + name + " shape changed");
+        }
+    }
+
+    private static void RequireVesselLoaderSignature(ModuleDefinition native)
+    {
+        var load = native.GetType("SeaPower.VesselLoader").Methods.Single(m => m.Name == "loadShipFromInternalResources");
+        if (load.Parameters.Count != 11 || load.ReturnType.FullName != "System.Void" || load.Parameters[0].Name != "vp" ||
+            load.Parameters[0].ParameterType.FullName != "SeaPower.VesselParameters" || load.Parameters[3].Name != "vesselIniName" ||
+            load.Parameters[3].ParameterType.FullName != "System.String")
+            throw new InvalidOperationException("Inspected beta VesselLoader.loadShipFromInternalResources shape changed");
     }
 
     private static bool ParameterTypes(MethodReference method, params string[] names)

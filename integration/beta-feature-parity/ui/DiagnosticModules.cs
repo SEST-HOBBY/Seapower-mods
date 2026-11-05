@@ -10,7 +10,7 @@ namespace Sest.UiFixes
             new[] { "IdentifyExpanded", "9f0ec630e9d7659082bdce61743a87895de14f1903a44c68395f8f158af8afd7" },
             new[] { "SEST.MenuBackground", "9dfd561db256aaa2455ff0039783b46cfbaf113b641c97f0815121d3a4502515" },
             new[] { "SEST.RuntimeFixes", BuildPins.RuntimeSha256 },
-            new[] { "SeaPowerPopOut", "9be4003d26fe2a02120963ce1b94272a34d74d13fa793d9ef0e9242aaaf4fc8d" },
+            new[] { "SeaPowerPopOut", "5709ed68af4623fceee3f3badc8e06bdb9b98f8e095fb0deac2685a9ebc5fc36" },
             new[] { "SeaPowerSquadPanel", "6230e8e78e2ba7ba222241d0c3dcc881d2507ebeeb4eab24b6401cc9144283dd" },
             new[] { "SeaPowerTopo", "25d42e53de90b0e0e1d0b47acd9708d6b24334c681e7f5735a504e147d79989e" },
             new[] { "UiWorkerProbe", "b87d7a1b2b97b2f717be8303ebf4c9fca29d730715bb6283ecbe4a2df594b7b7" },

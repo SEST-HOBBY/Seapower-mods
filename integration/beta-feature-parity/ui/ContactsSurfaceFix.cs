@@ -12,7 +12,7 @@ namespace Sest.UiFixes
     internal static class ContactsSurfaceFix
     {
         const BindingFlags All = ContactsFix.All;
-        internal const string PopOutHash = "9be4003d26fe2a02120963ce1b94272a34d74d13fa793d9ef0e9242aaaf4fc8d";
+        internal const string PopOutHash = "5709ed68af4623fceee3f3badc8e06bdb9b98f8e095fb0deac2685a9ebc5fc36";
         static MethodInfo getRoot;
         static FieldInfo trackedWindows;
         static FieldInfo hint;

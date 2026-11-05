@@ -89,46 +89,62 @@ commands = {
 }
 repair_commands = {}
 if a.repair_base:
-    readme = '''R4 BETA REPAIR: WATERMARK, #!EXTEND SCAN, COST ROWS. 3 NOVEMBER 2026
+    readme = '''R5 BETA REPAIR: LAUNCH EFFECTS, STABILISATION, POP-OUT 1.1.3. 5 NOVEMBER 2026
 
-For the installed R3 candidate (R1 and R2 are accepted too):
+Your PC still runs R3 (the 3 November capture shows it); R5 includes all
+of R4, so run this one. It accepts an installed R1, R2, R3 or R4.
 1. Close Sea Power and extract this NEW ZIP into a fresh folder.
 2. Run Repair-Beta-Startup.cmd. It replaces all five candidate files, keeps
    the original backups and re-enables only after every copy verifies.
 3. Launch beta and check:
    - no "Sea Power v0.8.7-261026" text over the game view;
    - Player.log holds a "[SEST Runtime] modifier files repaired" line (or
-     "nothing to repair");
-   - play a mission that fires an AGR-30 Redback, then open the campaign
-     menu's F11 window: the mission lists each round with its quantity,
-     unit price, line total and catalog section (sest_agr-30 at $70,000
-     from sest_weapon_costs.ini).
+     "nothing to repair") and "native window bridge attached to Pop-Out
+     Windows 1.1.3";
+   - BepInEx.log holds "ADAPTED WeaponLauncherEffects" and "ADAPTED
+     SubModelStabilization" lines, and neither plugin reports
+     "Initialization failed";
+   - in a mission, a Mk 41 or ExLS ship's missile launch shows its launch
+     flame and smoke, and a German F123 or a Burke's stabilised radar
+     platform or horizon bar stays level in a seaway;
+   - fire an AGR-30 Redback, then open the campaign menu's F11 window: the
+     mission lists each round with quantity, unit price, line total and
+     catalog section (sest_agr-30 at $70,000 from sest_weapon_costs.ini);
+   - Contacts and the formation window pop out to the second monitor.
 4. Quit, run Capture-Repair-Results.cmd and attach its ZIP.
 
 Disable-Beta-Test.cmd stops this test activation. Restore-Previous-SEST.cmd
 restores the original backed-up code; the repair updates that restore journal.
 
-What R4 changes (Runtime 1.5.2 beta; the loader, bootstrap, UI 1.4.3 beta
-and Identify shim are the R3 sources rebuilt with this candidate's compiler):
-- The beta's version watermark (SeaPower.VersionWatermark) is hidden after
-  it starts; nothing else on the HUD changes. HideVersionWatermark=0 in
-  plugins/sest_runtime.ini keeps it.
-- Beta 261026 scans #!extend files once. On this PC that scan runs before
-  the Workshop folders are registered, because Anchor Chain's preloader and
-  the SEST bootstrap read FileManager.Directories early, so every Workshop
-  mod's #!extend, #!prepend and #!copy file was ignored all session: SEST's
-  cost catalogs, Cross-Deck stubs and the Collection and Allied Fixes
-  extends. The Runtime rescans once the Workshop folders are registered and
-  clears the ini cache, as the Mod Manager's Apply does.
-- Cumulative Combat Costs reads SEST's own catalog files where the merged
-  catalog lacks a section, and lists every expended round per mission with
-  quantity, unit price, line total and the section the price came from.
+What R5 changes over R4 (Runtime 1.5.3 beta, UI 1.4.4 beta, the loader;
+the bootstrap and Identify shim are R4's sources):
+- Pop-Out Windows 1.1.3: the members the Contacts, formation and compass
+  bridges use are unchanged from 1.1.1, so R5 pins 1.1.3, the version on
+  your PC. With R4's pin those bridges stayed off.
+- WeaponLauncherEffects 1.0.18 (Euromod's Anchor Chain Expansion Pack):
+  the beta added a failed-launch flag to the two launch methods it hooks,
+  so it stopped half-installed and the Mk 41, SA-N-9, Mk 35 and ExLS
+  launchers fired with no launch effect at all. The loader now feeds it the
+  beta methods and skips its effect when a launch fails.
+- SubModelStabilization 1.1.2 (same pack): the beta changed the vessel
+  loader it hooks, so stabilised radar platforms and horizon bars rode with
+  the hull. The loader now feeds it the beta method and the same vessel.
+Both are pinned to the exact author DLLs; the Workshop files are unchanged.
 
-Not in R4: the clipped tab borders (no screenshot received), the Global
-Hawk range (its data is unchanged; see BETA-FEATURE-PARITY.md) and the
-author plugins that stop on beta APIs (MissileControlMod, MultiStageMissiles,
-OptimalTargetDist, SubModelStabilization, TestRange, UiWorkerProbe,
-WeaponLauncherEffects, BetterTacMap): those need their authors' ports.
+What R4 changed (included):
+- The beta's version watermark is hidden.
+- Beta 261026 scans #!extend files once, before the Workshop folders are
+  registered, so every Workshop mod's #!extend file was ignored all
+  session: SEST's cost catalogs and Cross-Deck stubs among them. The
+  Runtime rescans once the Workshop folders are registered.
+- Cumulative Combat Costs reads SEST's own catalogs where the merged
+  catalog lacks a section and lists every expended round with its price.
+
+Not in R5: the clipped tab borders (send a full-window screenshot and your
+Windows display scaling), the Global Hawk range (its data is unchanged; it
+needs the same mission tried on both Steam branches) and the author plugins
+that still stop on beta APIs; BETA-FEATURE-PARITY.md lists each with the
+reason.
 
 --------------------------------------------------------------------------
 

@@ -18,7 +18,7 @@ PINS = {
     'AnchorChain.dll': 'e272811050698640a8936834363da91769dbc83e017637e3629c21bca6bea764',
     'AnchorChain.Preloader.dll': '1ee1570f1e7f457ffa63c24ee4085b2cdea8069ea8cebf146de5ef027eaa3984',
     'IdentifyExpanded.dll': '9f0ec630e9d7659082bdce61743a87895de14f1903a44c68395f8f158af8afd7',
-    'SeaPowerPopOut.dll': '9be4003d26fe2a02120963ce1b94272a34d74d13fa793d9ef0e9242aaaf4fc8d',
+    'SeaPowerPopOut.dll': '5709ed68af4623fceee3f3badc8e06bdb9b98f8e095fb0deac2685a9ebc5fc36',
     'ContactLog.dll': 'a1b8b450df0933df61984651fe2b19138acd605aa4b526bbfc23565d8295015e',
     'SeaPowerSquadPanel.dll': '6230e8e78e2ba7ba222241d0c3dcc881d2507ebeeb4eab24b6401cc9144283dd',
     'CombatCosts.dll': '74afa9028fc0c52b93f415263504f51ecf8d056a624feaebcc8053ba5a1c0ac3',

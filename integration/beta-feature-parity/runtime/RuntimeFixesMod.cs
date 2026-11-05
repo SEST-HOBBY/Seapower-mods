@@ -6,7 +6,7 @@ using AnchorChain;
 
 namespace Sest.RuntimeFixes;
 
-[ACPlugin("io.github.sest-hobby.runtime-fixes", "SEST Runtime Fixes Beta", "1.5.2", null, null)]
+[ACPlugin("io.github.sest-hobby.runtime-fixes", "SEST Runtime Fixes Beta", "1.5.3", null, null)]
 public sealed class RuntimeFixesMod : IAnchorChainMod
 {
 	public void TriggerEntryPoint()

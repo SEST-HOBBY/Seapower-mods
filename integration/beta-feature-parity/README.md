@@ -5,6 +5,58 @@ SEST Workshop item (`3812461539`). It restores the Runtime/UI feature code for
 beta testing. It does not change the Steam branch or replace campaign/data packs.
 The earlier stable restore ZIP is superseded for this task.
 
+## R5: Weapon Launcher Effects, SubModel Stabilization, Pop-Out Windows 1.1.3
+
+Built on 5 November 2026 from the owner's 3 November 23:09 capture. That
+capture still holds R3 (`SEST.RuntimeFixes.dll` a0fb4279): the R4 repair had
+not been run, so R5's repair accepts an installed R1, R2, R3 or R4. Runtime
+1.5.3 beta and UI 1.4.4 beta are R4's sources with the Pop-Out pin moved; the
+loader gains two adapters for Euromod's Anchor Chain Expansion Pack
+(Workshop 3784474738); the bootstrap and Identify shim are unchanged R4
+sources.
+
+- **Pop-Out Windows 1.1.3.** The PC has Pop-Out Windows 1.1.3 (`5709ed68`);
+  R4 pinned 1.1.1 (`9be4003d`), so in the 3 November session the Contacts,
+  formation and compass bridges logged `Uninspected assembly: SeaPowerPopOut`
+  and stayed off. The eleven members the bridges bind (`PopOutScreen`'s
+  `Instance`, `DisplayAvailable`, `root`, `host`, `windows`, `hint`,
+  `HostOpening`, `Decorate`, `Move`, `Place`, `Open`, `Remember`,
+  `UpdateScreen`, `Flatten`, `FindButtonsPanel`) have identical IL in both
+  builds. 1.1.3 changes window snapping, geometry and the settings panels,
+  adds a popup-tracking method, and gives popped-out windows its settings
+  gear and look when they load. R5 pins 1.1.3.
+- **WeaponLauncherEffects 1.0.18** (`e79113f4`). Its Harmony `TargetMethod`s
+  look up `WeaponContainer.launch` and `LaunchFromMagazine` by their stable
+  parameter lists; the beta appended `bool failedLaunch = false` to both, so
+  the lookups return null and HarmonyX stops `PatchAll` after the first two
+  patch classes. Those two had already suppressed the game's own launch
+  smoke and dust on the six mapped systems (Mk 41, Mk 41 quad, SA-N-9, Mk 35,
+  ExLS, ExLS quad), so on the beta those launchers fired with no launch
+  effect at all. The adapter routes both lookups through
+  `BetaCompatibilityCalls.LauncherEffectsMethod`, which appends the flag for
+  exactly those two stable lists, and gates the author's launch postfix on
+  the beta's launch result, as the author's magazine postfix already is, so
+  a failed launch spawns nothing. Audit: `launch-reflection=2,
+  launch-result=1, locations=2`.
+- **SubModelStabilization 1.1.2** (`09f6ec0e`). Its postfix on
+  `VesselLoader.loadShipFromInternalResources` looks up the stable
+  ten-parameter method that returned `VesselParameters`; the beta's method is
+  void and takes the caller's `VesselParameters vp` first. The adapter routes
+  the lookup through `BetaCompatibilityCalls.StabilizationMethod`, which
+  prepends `VesselParameters` for exactly that list, and renames the
+  postfix's `__result` parameter to `vp`, which HarmonyX binds by name to the
+  same object at the same point. It restores the stabilised radar platforms
+  and flight-deck horizon bars on the 26 configured vessels (German F123 and
+  K130, the Modern US Navy Burkes, the Korean LPH, Dutch, Chilean and Indian
+  hulls). Audit: `locations=2, result-argument=1, target-method=1`.
+
+Both adapters are pinned to the captured author hashes and to the beta's
+game hash, assert the beta signatures they rely on before any rewrite, and
+leave the Workshop files byte-identical; a new author DLL loads as its author
+wrote it. `tests/BetaApiTests.cs` checks the private images, the bridges
+against the real beta methods and the name binding of every adapted patch
+parameter, by reflection only.
+
 ## R4: version watermark, the beta's #!extend scan, cost item rows
 
 Built on 3 November 2026 from the 2 November 22:26 capture, which recorded

@@ -23,7 +23,7 @@ internal static class PopOutBridge
 		internal bool Initialized;
 	}
 
-	private const string PopHash = "9be4003d26fe2a02120963ce1b94272a34d74d13fa793d9ef0e9242aaaf4fc8d";
+	private const string PopHash = "5709ed68af4623fceee3f3badc8e06bdb9b98f8e095fb0deac2685a9ebc5fc36";
 
 	private const string FormationHash = "6230e8e78e2ba7ba222241d0c3dcc881d2507ebeeb4eab24b6401cc9144283dd";
 
@@ -113,7 +113,7 @@ internal static class PopOutBridge
 		{
 			if (screenType == null && !popRejected && assembly.GetType("SeaPowerPopOut.PopOutScreen", throwOnError: false) != null)
 			{
-				if (!HashMatches(assembly, "9be4003d26fe2a02120963ce1b94272a34d74d13fa793d9ef0e9242aaaf4fc8d"))
+				if (!HashMatches(assembly, "5709ed68af4623fceee3f3badc8e06bdb9b98f8e095fb0deac2685a9ebc5fc36"))
 				{
 					popRejected = true;
 					Api.Log("pop-out bridge inactive for an uninspected Pop-Out DLL");
@@ -139,7 +139,7 @@ internal static class PopOutBridge
 				{
 					throw new MissingMemberException("captured pop-out window host");
 				}
-				Api.Log("native window bridge attached to Pop-Out Windows 1.1.1");
+				Api.Log("native window bridge attached to Pop-Out Windows 1.1.3");
 			}
 			if (!formationBound && !formationRejected && assembly.GetType("SeaPowerSquadPanel.SquadManagerController", throwOnError: false) != null)
 			{
