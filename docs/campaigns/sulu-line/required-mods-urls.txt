@@ -1,6 +1,6 @@
 Sulu Line - Workshop mods this campaign reaches (reference only)
 
-30 items, in canonical load order. NOT the Workshop item's
+31 items, in canonical load order. NOT the Workshop item's
 Required Items list. All four campaigns ship in one item, the SEST
 Integration Pack (3812461539), whose Required Items - like the
 collection 'SEST - Modernised Campaign Collection' (3812390790) -
@@ -27,7 +27,7 @@ https://steamcommunity.com/sharedfiles/filedetails/?id=3594891803    # PLAN Subm
 https://steamcommunity.com/sharedfiles/filedetails/?id=3436170138    # Shenyang J-11
 https://steamcommunity.com/sharedfiles/filedetails/?id=3486502935    # Type 003 Fujian / Type 004 CVN Aircraft Carriers
 https://steamcommunity.com/sharedfiles/filedetails/?id=3399699218    # Project 2498 Zyetseth Class Assault Vessel
-https://steamcommunity.com/sharedfiles/filedetails/?id=3812454152    # Euromod-Philippine-Navy
+https://steamcommunity.com/sharedfiles/filedetails/?id=3812454152    # Euromod-HD Hyundai Export Ships Mod
 https://steamcommunity.com/sharedfiles/filedetails/?id=3737267013    # United States Naval Aviation
 https://steamcommunity.com/sharedfiles/filedetails/?id=3746453639    # Civil Aircraft Mod (Airbus Family)
 https://steamcommunity.com/sharedfiles/filedetails/?id=3806197116    # Civilian AS350 Ecureuil/AStar MOD
@@ -39,6 +39,7 @@ https://steamcommunity.com/sharedfiles/filedetails/?id=3549377308    # Iran Bell
 https://steamcommunity.com/sharedfiles/filedetails/?id=3601891050    # Small and Medium-Sized UAV Series [WIP] (中小型无人机系列)
 https://steamcommunity.com/sharedfiles/filedetails/?id=3413868677    # Red Storm Arsenal
 https://steamcommunity.com/sharedfiles/filedetails/?id=3455404959    # Royal Australian Defence Forces
+https://steamcommunity.com/sharedfiles/filedetails/?id=3491248180    # The Royal Navy
 https://steamcommunity.com/sharedfiles/filedetails/?id=3752415457    # Philippines: The Luzon Line
 https://steamcommunity.com/sharedfiles/filedetails/?id=3711297532    # Thailand: The Siam Shield
 https://steamcommunity.com/sharedfiles/filedetails/?id=3605013271    # RE-power: the resupply mod

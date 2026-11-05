@@ -150,7 +150,7 @@ Left in the load order because removing one changes which file wins for the mods
 | `euromod-india` | Euromod-India-Navy |
 | `euromod-italian-modern` | Euromod - Modern Italian Navy |
 | `euromod-nordic` | Euromod - Modern Nordic Navy |
-| `euromod-philippines` | Euromod-Philippine-Navy |
+| `euromod-philippines` | Euromod-HD Hyundai Export Ships Mod |
 | `euromod-south-korea` | Euromod-South Korea Navy |
 | `f-117` | F-117 Nighthawk |
 | `f-15e-strike-eagle` | F-15E StrikeEagle |

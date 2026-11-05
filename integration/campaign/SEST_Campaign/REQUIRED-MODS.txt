@@ -8,7 +8,7 @@ listed in subscribes you to all of them in one press. If that
 works you do not need the list below at all, and it is here to
 check against rather than to work through by hand.
 
-165 mods. Each supplies a file a mission names directly - by
+166 mods. Each supplies a file a mission names directly - by
 Type=, SquadronReference=, VariantReference=, a loadout's store,
 or a model folder a placed unit's own file draws from.
 
@@ -69,7 +69,7 @@ Workshop id   supplies                         mod
 3642656500    a hull variant in use            Euromod - Modern Nordic Navy
 3820759806    a unit a mission places          Euromod - Modern Royal Australian Navy Mod
 3731208477    a unit a mission places          Euromod - Modern Spanish Navy
-3812454152    a hull variant in use            Euromod-Philippine-Navy
+3812454152    a hull variant in use            Euromod-HD Hyundai Export Ships Mod
 3789208859    a unit a mission places          Euromod-South Korea Navy
 3448845252    a unit a mission places          F-117 Nighthawk
 3636386513    a weapon a loadout hangs         F-15 EX Eagle II
@@ -172,6 +172,7 @@ Workshop id   supplies                         mod
 3683253079    a unit a mission places          Terminal High Altitude Area Defense (T.H.A.A.D) System (AN/TPY-2 Radar System included)
 3711297532    a squadron a flight comes from   Thailand: The Siam Shield
 3732654992    a model a unit draws             THE REDFOR MOD
+3491248180    a unit a mission places          The Royal Navy
 3509329205    a unit a mission places          TU-160 Blackjack
 3780118683    a unit a mission places          Tu-214R Family (图-214R家族)
 3395022688    a unit a mission places          Tu-95 With AS-15 (Kh-55) ALCM (more realistic nuke)
@@ -194,7 +195,7 @@ above does, in its own description. Skipping one breaks the mod
 that asked for it.
 
 3380210757    required by another mod          Anchor Chain
-                                                 asked for by: Anduril FQ-44 Fury US Navy Carrier Wingmen, Anduril Maritime Drones, B-2 Spirit, EC-2 Stand Off Jammer, Saronic Corsair ASV, V-22 Osprey / SV-22 2024 ASW prototype, YF-23 Black Widow II
+                                                 asked for by: Anduril FQ-44 Fury US Navy Carrier Wingmen, Anduril Maritime Drones, B-2 Spirit, EC-2 Stand Off Jammer, V-22 Osprey / SV-22 2024 ASW prototype, YF-23 Black Widow II
 
 --------------------------------------------------------------------------
 
@@ -222,7 +223,7 @@ by something above them. The campaign does not call for them.
 
 --------------------------------------------------------------------------
 
-In the collection for other campaigns and scenarios (21):
+In the collection for other campaigns and scenarios (20):
 the third-party campaigns the collection carries, the mods they
 place, and content none of these four campaigns uses. They are in
 LOAD-ORDER.txt, so SETUP still requires them.
@@ -245,7 +246,6 @@ LOAD-ORDER.txt, so SETUP still requires them.
 3731931836    other campaigns                  Prithvi TBM (大地弹道导弹)
 3496055699    other campaigns                  S-500
 3628247436    other campaigns                  Sea Venom - Aquilon
-3491248180    other campaigns                  The Royal Navy
 3709961172    other campaigns                  The Second Northern War
 3672072359    other campaigns                  Ultimate Missile Workshop
 

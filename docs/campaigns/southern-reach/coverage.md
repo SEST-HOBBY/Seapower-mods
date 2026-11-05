@@ -202,7 +202,7 @@ Left in the load order because removing one changes which file wins for the mods
 | `euromod-brazil` | Euromod-Brazilian Armed Forces(2000) |
 | `euromod-chile` | EUROMOD-Armada de Chile |
 | `euromod-india` | Euromod-India-Navy |
-| `euromod-philippines` | Euromod-Philippine-Navy |
+| `euromod-philippines` | Euromod-HD Hyundai Export Ships Mod |
 | `f-117` | F-117 Nighthawk |
 | `f-15j-peace-eagle` | F-15J Peace Eagle |
 | `f-2a-viper-zero` | F-2A 'Viper Zero' |

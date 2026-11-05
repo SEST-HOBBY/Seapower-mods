@@ -138,6 +138,17 @@ ita_ffg_ppa_evo (italy, SEST_Replenishment): +11
     AB 212 / Bell 212: spa_ab212, mm_ab212, tha_ab212
 ita_fs_ppx (italy, 3488139470): +6
     NH90 NFH: fr_nh90, ger_nh90, de_nh90, nl_nh90, be_nh90, sp_nh90_mspt
+ita_lhd_trieste (italy, SEST_Replenishment): +8
+    NH90 NFH: fr_nh90, ger_nh90, de_nh90, nl_nh90, be_nh90, sp_nh90_mspt
+    Merlin / EH101: rn_merlin_hm1, rn_merlin_hm2
+ita_lhd_trieste_saam16 (italy, SEST_Replenishment): +15
+    NH90 NFH: fr_nh90, ger_nh90, de_nh90, nl_nh90, be_nh90, sp_nh90_mspt
+    Merlin / EH101: rn_merlin_hm1, rn_merlin_hm2
+    AV-8B / F-35B: usmc_av-8b+, usmc_av_8b, usmc_av_8b_plus, spa_av-8b, spa_av-8b_plus, mm_av-8b_plus, jasdf_f-35b
+ita_lhd_trieste_saam32 (italy, SEST_Replenishment): +15
+    NH90 NFH: fr_nh90, ger_nh90, de_nh90, nl_nh90, be_nh90, sp_nh90_mspt
+    Merlin / EH101: rn_merlin_hm1, rn_merlin_hm2
+    AV-8B / F-35B: usmc_av-8b+, usmc_av_8b, usmc_av_8b_plus, spa_av-8b, spa_av-8b_plus, mm_av-8b_plus, jasdf_f-35b
 jmsdf_dd_asahi (japan, SEST_Replenishment): +13
     Seahawk (S-70B / SH-60 / MH-60): ran_mh-60r, usn_mh-60r_p2, usn_sh-60f, usn_hh-60h, S-70B-2_Seahawk, ran_S-70B-2_Seahawk, spa_sh-60b, spa_sh-60b_block1, spa_sh-60bv1, spa_sh-60bv1_block1, dk_mh-60r, tha_S-70B-7_Seahawk, rok_mh60
 jmsdf_ddg_atago (japan, SEST_Replenishment): +13
@@ -200,10 +211,14 @@ phl_lpd_tarlac (philippines, SEST_Replenishment): +19
     Panther / S-76: fr_as-565_sa
     Seasprite: usn_sh-2g, rnzn_sh-2gi
     Campaign deck fits: tha_S-70B-7_Seahawk, ran_mh-60r
-pn_ffg-06 (philippines, SEST_Replenishment): +1
+pn_ffg-06 (philippines, SEST_Replenishment): +14
+    Lynx / Wildcat: rn_wildcat, rn_lynx, rn_sea_lynx, rn_sea_lynx_has3, rn_sea_lynx_mk8, rn_lynx_has2, rn_lynx_has3, de_sea_lynx_mk88, ger_sea_lynx_mk88, nl_sea_lynx, nl_sea_lynx_D, fr_sea_lynx, fr_sea_lynx_4
     Campaign deck fits: phl_h-76
-pn_ffg-150 (philippines, SEST_Replenishment): +1
+pn_ffg-150 (philippines, SEST_Replenishment): +14
+    Lynx / Wildcat: rn_wildcat, rn_lynx, rn_sea_lynx, rn_sea_lynx_has3, rn_sea_lynx_mk8, rn_lynx_has2, rn_lynx_has3, de_sea_lynx_mk88, ger_sea_lynx_mk88, nl_sea_lynx, nl_sea_lynx_D, fr_sea_lynx, fr_sea_lynx_4
     Campaign deck fits: phl_h-76
+pn_ffg-150_2 (philippines, SEST_Replenishment): +13
+    Lynx / Wildcat: rn_wildcat, rn_lynx, rn_sea_lynx, rn_sea_lynx_has3, rn_sea_lynx_mk8, rn_lynx_has2, rn_lynx_has3, de_sea_lynx_mk88, ger_sea_lynx_mk88, nl_sea_lynx, nl_sea_lynx_D, fr_sea_lynx, fr_sea_lynx_4
 ran_ddg_hobart (australia, SEST_RAN_Fleet): +13
     Seahawk (S-70B / SH-60 / MH-60): usn_mh-60r_p2, usn_sh-60b, usn_sh-60f, usn_hh-60h, jmsdf_sh-60j, jmsdf_sh-60k, spa_sh-60b, spa_sh-60b_block1, spa_sh-60bv1, spa_sh-60bv1_block1, dk_mh-60r, tha_S-70B-7_Seahawk, rok_mh60
 ran_ffg_adelaide (australia, 3455404959): +21

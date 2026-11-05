@@ -8209,7 +8209,6 @@
     "usn_ssn_virginia_2027",
     "usn_ssn_virginia_seal_2027",
     "wp_bpk_udaloy2",
-    "wp_mpk_grisha4",
     "wp_su-30mkk"
    ],
    "not a fighting unit (id)": [
@@ -8321,7 +8320,7 @@
   "other_nations": {
    "Unknown": 5,
    "DDR": 4,
-   "Peru": 2,
+   "Peru": 3,
    "Kazakhstan": 2,
    "Malaysia": 2,
    "Yuktobanian": 2,
@@ -8335,7 +8334,7 @@
   },
   "catalogue_by_side_nation": {
    "blue US": {
-    "ships": 248,
+    "ships": 257,
     "aircraft": 168
    },
    "blue Australia": {
@@ -8351,7 +8350,7 @@
     "aircraft": 61
    },
    "blue Italy": {
-    "ships": 35,
+    "ships": 38,
     "aircraft": 17
    },
    "blue UK": {
@@ -8403,7 +8402,7 @@
     "aircraft": 1
    },
    "blue South_Korea": {
-    "ships": 16,
+    "ships": 17,
     "aircraft": 14
    },
    "blue Philippines": {
@@ -8411,7 +8410,7 @@
     "aircraft": 4
    },
    "blue Thailand": {
-    "ships": 19,
+    "ships": 20,
     "aircraft": 5
    },
    "blue NewZealand": {
@@ -8452,14 +8451,14 @@
    },
    "blue Chile": {
     "ships": 8,
-    "aircraft": 3
+    "aircraft": 5
    },
    "red China": {
-    "ships": 94,
+    "ships": 96,
     "aircraft": 105
    },
    "red Russia": {
-    "ships": 110,
+    "ships": 111,
     "aircraft": 102
    },
    "red Iran": {
@@ -8770,6 +8769,8 @@
   "bw_ec_665_had-e": "Role ASuW",
   "ca_a330_mrtt": "Role AEW",
   "canberra_bomber": "Role Airliner",
+  "ch_f-16": "Role Fighter",
+  "ch_f-16_mlu": "Role Fighter",
   "ch_kc135": "Role Airliner",
   "co_a330_mrtt": "Role AEW",
   "de_nh90": "Role ASW",
@@ -9506,6 +9507,9 @@
   "ita_ddg_orizzonte": "Displacement 7050 t",
   "ita_ffg_ppa_evo": "Displacement 6270 t",
   "ita_fs_ppx": "Displacement 2400 t",
+  "ita_lhd_trieste": "Displacement 38000 t",
+  "ita_lhd_trieste_saam16": "Displacement 38000 t",
+  "ita_lhd_trieste_saam32": "Displacement 38000 t",
   "jmsdf_cv_shokaku_late": "Displacement 83000 t",
   "jmsdf_cvn_yamato": "Displacement 100000 t",
   "jmsdf_dd_hatsuyuki": "Displacement 3050 t",
@@ -9529,9 +9533,11 @@
   "knm_ss_kobben": "Displacement 485 t",
   "ko_ddh-971": "Displacement 3900 t",
   "ko_ff-951": "Displacement 1220 t",
+  "ko_ffg-471": "Displacement 3650 t",
   "ko_ffg-811": "Displacement 3200 t",
   "ko_kddx": "Displacement 9000 t",
   "ko_lph-6112": "Displacement 18800 t",
+  "ko_opv": "Displacement 2500 t",
   "ko_pcc-756": "Displacement 1220 t",
   "ko_pkg-711": "Displacement 570 t",
   "ko_pkg-711_scl": "Displacement 570 t",
@@ -9629,11 +9635,13 @@
   "plan_type_052b_2019": "Displacement 5850 t",
   "plan_type_052c": "Displacement 7050 t",
   "plan_type_052d_p2_2": "Displacement 7500 t",
+  "plan_type_053h2g": "Displacement 2400 t",
   "plan_type_053h3_p1": "Displacement 2400 t",
   "plan_type_053h3_p2": "Displacement 2400 t",
   "plan_type_054_p1": "Displacement 3900 t",
   "plan_type_054a_p1": "Displacement 4200 t",
   "plan_type_054a_p2": "Displacement 4200 t",
+  "plan_type_054b_p1": "Displacement 5500 t",
   "pn_ffg-150": "Displacement 2870 t",
   "pns_ss_hangor": "Displacement 1038 t",
   "ran_cv_centaur_84": "Displacement 29200 t",
@@ -9765,6 +9773,7 @@
   "usn_bb_iowa": "Displacement 58000 t",
   "usn_bb_iowa_vls_refit": "Displacement 58000 t",
   "usn_bbg_trump": "Displacement 35000 t",
+  "usn_bbg_ulysses_s_grant": "Displacement 300000 t",
   "usn_cg_belknap": "Displacement 8957 t",
   "usn_cg_belknap_72": "Displacement 8957 t",
   "usn_cg_bunker_hill": "Displacement 9600 t",
@@ -9883,19 +9892,27 @@
   "usn_ddg_burke_f2_072_late": "Displacement 9000 t",
   "usn_ddg_burke_f2_075_late": "Displacement 9000 t",
   "usn_ddg_burke_f2a_079": "Displacement 9500 t",
+  "usn_ddg_burke_f2a_079_early": "Displacement 9500 t",
   "usn_ddg_burke_f2a_080": "Displacement 9500 t",
+  "usn_ddg_burke_f2a_080_early": "Displacement 9500 t",
   "usn_ddg_burke_f2a_081": "Displacement 9500 t",
+  "usn_ddg_burke_f2a_081_early": "Displacement 9500 t",
   "usn_ddg_burke_f2a_081_late": "Displacement 9500 t",
   "usn_ddg_burke_f2a_085": "Displacement 9500 t",
+  "usn_ddg_burke_f2a_085_early": "Displacement 9500 t",
   "usn_ddg_burke_f2a_085_late": "Displacement 9500 t",
   "usn_ddg_burke_f2a_088_laser": "Displacement 9500 t",
   "usn_ddg_burke_f2a_089": "Displacement 9500 t",
+  "usn_ddg_burke_f2a_089_early": "Displacement 9500 t",
   "usn_ddg_burke_f2a_091": "Displacement 9500 t",
+  "usn_ddg_burke_f2a_091_early": "Displacement 9500 t",
   "usn_ddg_burke_f2a_091_sewip": "Displacement 9500 t",
   "usn_ddg_burke_f2a_097": "Displacement 9500 t",
+  "usn_ddg_burke_f2a_097_early": "Displacement 9500 t",
   "usn_ddg_burke_f2a_097_late": "Displacement 9500 t",
   "usn_ddg_burke_f2a_097_sewip": "Displacement 9500 t",
   "usn_ddg_burke_f2a_099": "Displacement 9500 t",
+  "usn_ddg_burke_f2a_099_early": "Displacement 9500 t",
   "usn_ddg_burke_f2a_100_late": "Displacement 9500 t",
   "usn_ddg_burke_f2a_108": "Displacement 9500 t",
   "usn_ddg_burke_f2a_113": "Displacement 9500 t",
@@ -9989,6 +10006,7 @@
   "wp_em_sovremenny_vls": "Displacement 7940 t",
   "wp_kr_sverdlov": "Displacement 16640 t",
   "wp_mpk_grisha3": "Displacement 990 t",
+  "wp_mpk_grisha4": "Displacement 990 t",
   "wp_mpk_grisha_mu": "Displacement 990 t",
   "wp_mrk_nanuchka": "Displacement 700 t",
   "wp_mrk_nanuchka3_rsa": "Displacement 700 t",
@@ -10078,8 +10096,8 @@
    "Air": 107
   },
   "patrols": 49,
-  "catalogue": 1564,
-  "values": 1564,
+  "catalogue": 1583,
+  "values": 1583,
   "lanes_kept": 11,
   "lanes_authored": 11,
   "skipped_nodes": 34

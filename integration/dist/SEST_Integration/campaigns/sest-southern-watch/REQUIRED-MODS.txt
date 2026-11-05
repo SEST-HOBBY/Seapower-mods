@@ -129,7 +129,7 @@ across every campaign in the pack.
   3526982088    a weapon a loadout hangs         XIAN JH-7A (歼轰-7A 飞豹)
   3782020901    a unit a mission places          Y-20 / KJ-3000
   3380210757    required by another mod          Anchor Chain
-                                                   asked for by: Anduril Maritime Drones, B-2 Spirit, EC-2 Stand Off Jammer, Saronic Corsair ASV, V-22 Osprey / SV-22 2024 ASW prototype
+                                                   asked for by: Anduril Maritime Drones, B-2 Spirit, EC-2 Stand Off Jammer, V-22 Osprey / SV-22 2024 ASW prototype
 
 1b. ONLY FOR THE DISPATCHES (40): the optional browser missions in missions/Southern Watch - Dispatches place these; the campaign
 itself never loads them. Keep them installed anyway: SETUP checks every
@@ -215,7 +215,7 @@ for; the map, salvo and rescue tools are conveniences.)
   3826396311    library                          Sea Power Pop-Out Windows
   3826122523    library                          Sea Power Topographic Map
 
-3b. THIRD-PARTY CAMPAIGNS AND OTHER COLLECTION CONTENT (21): in the collection for
+3b. THIRD-PARTY CAMPAIGNS AND OTHER COLLECTION CONTENT (20): in the collection for
 campaigns and scenarios this one does not include. Keep them installed anyway: SETUP
 stops if any mod in LOAD-ORDER.txt is missing.
 
@@ -237,20 +237,20 @@ stops if any mod in LOAD-ORDER.txt is missing.
   3731931836    other campaigns                  Prithvi TBM (大地弹道导弹)
   3496055699    other campaigns                  S-500
   3628247436    other campaigns                  Sea Venom - Aquilon
-  3491248180    other campaigns                  The Royal Navy
   3709961172    other campaigns                  The Second Northern War
   3672072359    other campaigns                  Ultimate Missile Workshop
 
-4. NOT USED BY THIS CAMPAIGN (9): enabled while it was built, and left in the order because removing one changes which copy of a
+4. NOT USED BY THIS CAMPAIGN (10): enabled while it was built, and left in the order because removing one changes which copy of a
 shared file wins for the mods above.
 
   3806197116    Civilian AS350 Ecureuil/AStar MOD
-  3812454152    Euromod-Philippine-Navy
+  3812454152    Euromod-HD Hyundai Export Ships Mod
   3549377308    Iran Bell-212
   3569219326    ISKANDER-K
   3432592449    Nimitz Expanded
   3808882954    RC-135V/W Rivet Joint
   3455404959    Royal Australian Defence Forces
+  3491248180    The Royal Navy
   3636213685    wp_sattelite_center
   3637954857    Y-8/Y-9 Special Mission Aircraft Family
 

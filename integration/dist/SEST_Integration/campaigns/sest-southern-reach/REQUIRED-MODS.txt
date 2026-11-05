@@ -135,8 +135,8 @@ shared file wins for the mods above.
   3784474738    Euromod - Anchorchain Expansion Pack
   3776730617    EUROMOD-Armada de Chile
   3678767059    Euromod-Brazilian Armed Forces(2000)
+  3812454152    Euromod-HD Hyundai Export Ships Mod
   3807164392    Euromod-India-Navy
-  3812454152    Euromod-Philippine-Navy
   3448845252    F-117 Nighthawk
   3434693420    F-15J Peace Eagle
   3755769170    F-2A 'Viper Zero'

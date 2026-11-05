@@ -6576,6 +6576,8 @@
     "bw_ec_665_had-e": 39,
     "ca_a330_mrtt": 242,
     "canberra_bomber": 2,
+    "ch_f-16": 46,
+    "ch_f-16_mlu": 46,
     "ch_kc135": 2,
     "co_a330_mrtt": 242,
     "de_nh90": 39,
@@ -7312,6 +7314,9 @@
     "ita_ddg_orizzonte": 197,
     "ita_ffg_ppa_evo": 182,
     "ita_fs_ppx": 95,
+    "ita_lhd_trieste": 617,
+    "ita_lhd_trieste_saam16": 617,
+    "ita_lhd_trieste_saam32": 617,
     "jmsdf_cv_shokaku_late": 1047,
     "jmsdf_cvn_yamato": 1187,
     "jmsdf_dd_hatsuyuki": 112,
@@ -7335,9 +7340,11 @@
     "knm_ss_kobben": 32,
     "ko_ddh-971": 132,
     "ko_ff-951": 60,
+    "ko_ffg-471": 126,
     "ko_ffg-811": 115,
     "ko_kddx": 233,
     "ko_lph-6112": 383,
+    "ko_opv": 98,
     "ko_pcc-756": 60,
     "ko_pkg-711": 36,
     "ko_pkg-711_scl": 36,
@@ -7435,11 +7442,13 @@
     "plan_type_052b_2019": 174,
     "plan_type_052c": 197,
     "plan_type_052d_p2_2": 206,
+    "plan_type_053h2g": 95,
     "plan_type_053h3_p1": 95,
     "plan_type_053h3_p2": 95,
     "plan_type_054_p1": 132,
     "plan_type_054a_p1": 139,
     "plan_type_054a_p2": 139,
+    "plan_type_054b_p1": 167,
     "pn_ffg-150": 107,
     "pns_ss_hangor": 54,
     "ran_cv_centaur_84": 516,
@@ -7571,6 +7580,7 @@
     "usn_bb_iowa": 821,
     "usn_bb_iowa_vls_refit": 821,
     "usn_bbg_trump": 583,
+    "usn_bbg_ulysses_s_grant": 2498,
     "usn_cg_belknap": 232,
     "usn_cg_belknap_72": 232,
     "usn_cg_bunker_hill": 243,
@@ -7689,19 +7699,27 @@
     "usn_ddg_burke_f2_072_late": 233,
     "usn_ddg_burke_f2_075_late": 233,
     "usn_ddg_burke_f2a_079": 241,
+    "usn_ddg_burke_f2a_079_early": 241,
     "usn_ddg_burke_f2a_080": 241,
+    "usn_ddg_burke_f2a_080_early": 241,
     "usn_ddg_burke_f2a_081": 241,
+    "usn_ddg_burke_f2a_081_early": 241,
     "usn_ddg_burke_f2a_081_late": 241,
     "usn_ddg_burke_f2a_085": 241,
+    "usn_ddg_burke_f2a_085_early": 241,
     "usn_ddg_burke_f2a_085_late": 241,
     "usn_ddg_burke_f2a_088_laser": 241,
     "usn_ddg_burke_f2a_089": 241,
+    "usn_ddg_burke_f2a_089_early": 241,
     "usn_ddg_burke_f2a_091": 241,
+    "usn_ddg_burke_f2a_091_early": 241,
     "usn_ddg_burke_f2a_091_sewip": 241,
     "usn_ddg_burke_f2a_097": 241,
+    "usn_ddg_burke_f2a_097_early": 241,
     "usn_ddg_burke_f2a_097_late": 241,
     "usn_ddg_burke_f2a_097_sewip": 241,
     "usn_ddg_burke_f2a_099": 241,
+    "usn_ddg_burke_f2a_099_early": 241,
     "usn_ddg_burke_f2a_100_late": 241,
     "usn_ddg_burke_f2a_108": 241,
     "usn_ddg_burke_f2a_113": 241,
@@ -7795,6 +7813,7 @@
     "wp_em_sovremenny_vls": 214,
     "wp_kr_sverdlov": 353,
     "wp_mpk_grisha3": 52,
+    "wp_mpk_grisha4": 52,
     "wp_mpk_grisha_mu": 52,
     "wp_mrk_nanuchka": 41,
     "wp_mrk_nanuchka3_rsa": 41,
@@ -8557,6 +8576,12 @@
       "tier": 1
     },
     {
+      "unit": "usn_ddg_burke_f2a_079_early",
+      "side": "blue",
+      "nation": "US",
+      "tier": 1
+    },
+    {
       "unit": "usn_ddg_burke_f2a_079_late",
       "side": "blue",
       "nation": "US",
@@ -8569,6 +8594,12 @@
       "tier": 1
     },
     {
+      "unit": "usn_ddg_burke_f2a_080_early",
+      "side": "blue",
+      "nation": "US",
+      "tier": 1
+    },
+    {
       "unit": "usn_ddg_burke_f2a_080_late",
       "side": "blue",
       "nation": "US",
@@ -8576,6 +8607,12 @@
     },
     {
       "unit": "usn_ddg_burke_f2a_081",
+      "side": "blue",
+      "nation": "US",
+      "tier": 1
+    },
+    {
+      "unit": "usn_ddg_burke_f2a_081_early",
       "side": "blue",
       "nation": "US",
       "tier": 1
@@ -8599,6 +8636,12 @@
       "tier": 1
     },
     {
+      "unit": "usn_ddg_burke_f2a_085_early",
+      "side": "blue",
+      "nation": "US",
+      "tier": 1
+    },
+    {
       "unit": "usn_ddg_burke_f2a_085_late",
       "side": "blue",
       "nation": "US",
@@ -8617,6 +8660,12 @@
       "tier": 1
     },
     {
+      "unit": "usn_ddg_burke_f2a_089_early",
+      "side": "blue",
+      "nation": "US",
+      "tier": 1
+    },
+    {
       "unit": "usn_ddg_burke_f2a_089_late",
       "side": "blue",
       "nation": "US",
@@ -8624,6 +8673,12 @@
     },
     {
       "unit": "usn_ddg_burke_f2a_091",
+      "side": "blue",
+      "nation": "US",
+      "tier": 1
+    },
+    {
+      "unit": "usn_ddg_burke_f2a_091_early",
       "side": "blue",
       "nation": "US",
       "tier": 1
@@ -8647,6 +8702,12 @@
       "tier": 1
     },
     {
+      "unit": "usn_ddg_burke_f2a_097_early",
+      "side": "blue",
+      "nation": "US",
+      "tier": 1
+    },
+    {
       "unit": "usn_ddg_burke_f2a_097_late",
       "side": "blue",
       "nation": "US",
@@ -8660,6 +8721,12 @@
     },
     {
       "unit": "usn_ddg_burke_f2a_099",
+      "side": "blue",
+      "nation": "US",
+      "tier": 1
+    },
+    {
+      "unit": "usn_ddg_burke_f2a_099_early",
       "side": "blue",
       "nation": "US",
       "tier": 1
@@ -9369,6 +9436,13 @@
     },
     {
       "unit": "usn_aem_nathan_hale",
+      "side": "blue",
+      "nation": "US",
+      "tier": 5,
+      "days": 20
+    },
+    {
+      "unit": "usn_bbg_ulysses_s_grant",
       "side": "blue",
       "nation": "US",
       "tier": 5,
@@ -12316,6 +12390,24 @@
       "tier": 2
     },
     {
+      "unit": "ita_lhd_trieste",
+      "side": "blue",
+      "nation": "Italy",
+      "tier": 3
+    },
+    {
+      "unit": "ita_lhd_trieste_saam16",
+      "side": "blue",
+      "nation": "Italy",
+      "tier": 3
+    },
+    {
+      "unit": "ita_lhd_trieste_saam32",
+      "side": "blue",
+      "nation": "Italy",
+      "tier": 3
+    },
+    {
       "unit": "am_f104g",
       "side": "blue",
       "nation": "Italy",
@@ -13952,6 +14044,12 @@
       "tier": 0
     },
     {
+      "unit": "ko_opv",
+      "side": "blue",
+      "nation": "South_Korea",
+      "tier": 0
+    },
+    {
       "unit": "ko_pcc-756",
       "side": "blue",
       "nation": "South_Korea",
@@ -14334,6 +14432,12 @@
       "side": "blue",
       "nation": "Thailand",
       "tier": 0
+    },
+    {
+      "unit": "ko_ffg-471",
+      "side": "blue",
+      "nation": "Thailand",
+      "tier": 1
     },
     {
       "unit": "tha_ff_knox_84",
@@ -14966,6 +15070,20 @@
       "tier": 1
     },
     {
+      "unit": "ch_f-16",
+      "side": "blue",
+      "nation": "Chile",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "ch_f-16_mlu",
+      "side": "blue",
+      "nation": "Chile",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
       "unit": "ch_f-5e",
       "side": "blue",
       "nation": "Chile",
@@ -15090,6 +15208,12 @@
     },
     {
       "unit": "plan_ssg_wuhan",
+      "side": "red",
+      "nation": "China",
+      "tier": 0
+    },
+    {
+      "unit": "plan_type_053h2g",
       "side": "red",
       "nation": "China",
       "tier": 0
@@ -15432,6 +15556,12 @@
     },
     {
       "unit": "plan_type_054a_p5",
+      "side": "red",
+      "nation": "China",
+      "tier": 1
+    },
+    {
+      "unit": "plan_type_054b_p1",
       "side": "red",
       "nation": "China",
       "tier": 1
@@ -16336,6 +16466,12 @@
     },
     {
       "unit": "wp_mpk_grisha3",
+      "side": "red",
+      "nation": "Russia",
+      "tier": 0
+    },
+    {
+      "unit": "wp_mpk_grisha4",
       "side": "red",
       "nation": "Russia",
       "tier": 0

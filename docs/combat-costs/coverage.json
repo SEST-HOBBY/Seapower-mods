@@ -476,6 +476,11 @@
         "CurrentYearCost": "150000",
         "Category": "ATGM"
       },
+      "usaf_aim-9p-5": {
+        "WeaponCosts": "62000",
+        "CurrentYearCost": "170000",
+        "Category": "AAM"
+      },
       "usaf_b21_agm-158b": {
         "WeaponCosts": "1110000",
         "CurrentYearCost": "1570000",
@@ -1484,6 +1489,11 @@
         "WeaponCosts": "10000",
         "CurrentYearCost": "10000"
       },
+      "ger_aim-9l-i": {
+        "WeaponCosts": "130428",
+        "CurrentYearCost": "500000",
+        "Category": "AAM"
+      },
       "ger_c303s_mte": {
         "WeaponCosts": "60000",
         "CurrentYearCost": "60000",
@@ -2489,6 +2499,11 @@
         "CurrentYearCost": "20000",
         "Category": "ASW"
       },
+      "plan_hq-61b": {
+        "WeaponCosts": "904904",
+        "CurrentYearCost": "2500000",
+        "Category": "SAM"
+      },
       "plan_ksb-2_dc": {
         "WeaponCosts": "15000",
         "CurrentYearCost": "15000",
@@ -3089,6 +3104,11 @@
         "CurrentYearCost": "5508",
         "Category": "Bomb"
       },
+      "spa_dm2a4_er": {
+        "WeaponCosts": "2834928",
+        "CurrentYearCost": "4000000",
+        "Category": "Torpedo"
+      },
       "spa_ef2000_fueltank": {
         "WeaponCosts": "25000",
         "CurrentYearCost": "25000",
@@ -3147,6 +3167,11 @@
       "spa_mk14": {
         "WeaponCosts": "167464",
         "CurrentYearCost": "4000000",
+        "Category": "Torpedo"
+      },
+      "spa_mk43_mod3_air": {
+        "WeaponCosts": "115505",
+        "CurrentYearCost": "1500000",
         "Category": "Torpedo"
       },
       "spa_saes_mine": {
@@ -3279,10 +3304,40 @@
         "CurrentYearCost": "4000",
         "Category": "Gun"
       },
+      "swe_cal_152mm": {
+        "WeaponCosts": "8000",
+        "CurrentYearCost": "8000",
+        "Category": "Gun"
+      },
+      "swe_cal_40mm": {
+        "WeaponCosts": "250",
+        "CurrentYearCost": "250",
+        "Category": "Gun"
+      },
       "swe_cal_57mm": {
         "WeaponCosts": "1700",
         "CurrentYearCost": "1700",
         "Category": "Gun"
+      },
+      "swe_rb24": {
+        "WeaponCosts": "42614",
+        "CurrentYearCost": "500000",
+        "Category": "AAM"
+      },
+      "swe_rb24j": {
+        "WeaponCosts": "110167",
+        "CurrentYearCost": "500000",
+        "Category": "AAM"
+      },
+      "swe_rb24l": {
+        "WeaponCosts": "137650",
+        "CurrentYearCost": "500000",
+        "Category": "AAM"
+      },
+      "swe_rb71": {
+        "WeaponCosts": "330502",
+        "CurrentYearCost": "1500000",
+        "Category": "AAM"
       },
       "swe_sjunkbomb_m33_dc": {
         "WeaponCosts": "20000",
@@ -3424,6 +3479,36 @@
         "CurrentYearCost": "2500000",
         "Category": "SAM"
       },
+      "usa_mim-72a": {
+        "WeaponCosts": "283194",
+        "CurrentYearCost": "2500000",
+        "Category": "SAM"
+      },
+      "usa_mim-72c": {
+        "WeaponCosts": "550837",
+        "CurrentYearCost": "2500000",
+        "Category": "SAM"
+      },
+      "usa_mim-72e": {
+        "WeaponCosts": "616029",
+        "CurrentYearCost": "2500000",
+        "Category": "SAM"
+      },
+      "usa_mim-72g": {
+        "WeaponCosts": "941014",
+        "CurrentYearCost": "2500000",
+        "Category": "SAM"
+      },
+      "usa_mim-72h": {
+        "WeaponCosts": "616029",
+        "CurrentYearCost": "2500000",
+        "Category": "SAM"
+      },
+      "usa_mim-72j": {
+        "WeaponCosts": "941014",
+        "CurrentYearCost": "2500000",
+        "Category": "SAM"
+      },
       "usa_v280_copperhead_100m": {
         "WeaponCosts": "1500000",
         "CurrentYearCost": "1500000",
@@ -3461,6 +3546,16 @@
       },
       "usaf_aim-4d": {
         "WeaponCosts": "500000",
+        "CurrentYearCost": "500000",
+        "Category": "AAM"
+      },
+      "usaf_aim-9p-3": {
+        "WeaponCosts": "116687",
+        "CurrentYearCost": "500000",
+        "Category": "AAM"
+      },
+      "usaf_aim-9p-4": {
+        "WeaponCosts": "123206",
         "CurrentYearCost": "500000",
         "Category": "AAM"
       },
@@ -3872,6 +3967,11 @@
         "WeaponCosts": "4200000",
         "CurrentYearCost": "4500000"
       },
+      "usn_aim-9s": {
+        "WeaponCosts": "166537",
+        "CurrentYearCost": "500000",
+        "Category": "AAM"
+      },
       "usn_alq-167": {
         "WeaponCosts": "8000000",
         "CurrentYearCost": "8000000",
@@ -3941,6 +4041,11 @@
         "WeaponCosts": "2892",
         "CurrentYearCost": "2892",
         "Category": "Bomb"
+      },
+      "usn_cal_1194mm": {
+        "WeaponCosts": "20000",
+        "CurrentYearCost": "20000",
+        "Category": "Gun"
       },
       "usn_cal_25mm_apex": {
         "WeaponCosts": "65",
@@ -4456,6 +4561,11 @@
         "WeaponCosts": "5000",
         "CurrentYearCost": "5000",
         "Category": "Pod"
+      },
+      "usn_rim-72c": {
+        "WeaponCosts": "550837",
+        "CurrentYearCost": "2500000",
+        "Category": "SAM"
       },
       "usn_rockeye": {
         "WeaponCosts": "2664",
@@ -5489,6 +5599,11 @@
         "CurrentYearCost": "1629000000",
         "Category": "DDH"
       },
+      "ko_hdf-3600": {
+        "VesselCosts": "587000000",
+        "CurrentYearCost": "1141000000",
+        "Category": "FFG"
+      },
       "ko_kddx": {
         "VesselCosts": "1605000000",
         "CurrentYearCost": "2077000000",
@@ -5548,6 +5663,16 @@
         "VesselCosts": "1754000000",
         "CurrentYearCost": "4315000000",
         "Category": "CV"
+      },
+      "plan_type_053h2g": {
+        "VesselCosts": "110000000",
+        "CurrentYearCost": "221000000",
+        "Category": "FFG"
+      },
+      "plan_type_054b_p1": {
+        "VesselCosts": "604000000",
+        "CurrentYearCost": "664000000",
+        "Category": "FFG"
       },
       "pn_ffg-06": {
         "VesselCosts": "250000000",
@@ -5663,6 +5788,11 @@
         "VesselCosts": "1000000",
         "CurrentYearCost": "1000000",
         "Category": "USV"
+      },
+      "usn_bbg_ulysses_s_grant": {
+        "VesselCosts": "1608000000",
+        "CurrentYearCost": "6538000000",
+        "Category": "BBG"
       },
       "usn_cg_bunker_hill_vls_2004": {
         "VesselCosts": "972000000",
@@ -5803,6 +5933,21 @@
         "CurrentYearCost": "700000000",
         "Category": "FFG"
       },
+      "ita_lhd_trieste": {
+        "VesselCosts": "1200000000",
+        "CurrentYearCost": "1200000000",
+        "Category": "LPD"
+      },
+      "ita_lhd_trieste_saam16": {
+        "VesselCosts": "1200000000",
+        "CurrentYearCost": "1200000000",
+        "Category": "LPD"
+      },
+      "ita_lhd_trieste_saam32": {
+        "VesselCosts": "1200000000",
+        "CurrentYearCost": "1200000000",
+        "Category": "LPD"
+      },
       "jmsdf_dd_hatsuyuki": {
         "VesselCosts": "2000000000",
         "CurrentYearCost": "2000000000",
@@ -5822,6 +5967,16 @@
         "VesselCosts": "75000000",
         "CurrentYearCost": "75000000",
         "Category": "Merchant"
+      },
+      "ko_ffg-471": {
+        "VesselCosts": "700000000",
+        "CurrentYearCost": "700000000",
+        "Category": "FFG"
+      },
+      "ko_opv": {
+        "VesselCosts": "150000000",
+        "CurrentYearCost": "150000000",
+        "Category": "OPV"
       },
       "mor_ptg_lazaga": {
         "VesselCosts": "50000000",
@@ -6146,6 +6301,46 @@
         "CurrentYearCost": "2200000000",
         "Category": "DDG"
       },
+      "usn_ddg_burke_f2a_079_early": {
+        "VesselCosts": "2000000000",
+        "CurrentYearCost": "2000000000",
+        "Category": "DDG"
+      },
+      "usn_ddg_burke_f2a_080_early": {
+        "VesselCosts": "2000000000",
+        "CurrentYearCost": "2000000000",
+        "Category": "DDG"
+      },
+      "usn_ddg_burke_f2a_081_early": {
+        "VesselCosts": "2000000000",
+        "CurrentYearCost": "2000000000",
+        "Category": "DDG"
+      },
+      "usn_ddg_burke_f2a_085_early": {
+        "VesselCosts": "2000000000",
+        "CurrentYearCost": "2000000000",
+        "Category": "DDG"
+      },
+      "usn_ddg_burke_f2a_089_early": {
+        "VesselCosts": "2000000000",
+        "CurrentYearCost": "2000000000",
+        "Category": "DDG"
+      },
+      "usn_ddg_burke_f2a_091_early": {
+        "VesselCosts": "2000000000",
+        "CurrentYearCost": "2000000000",
+        "Category": "DDG"
+      },
+      "usn_ddg_burke_f2a_097_early": {
+        "VesselCosts": "2000000000",
+        "CurrentYearCost": "2000000000",
+        "Category": "DDG"
+      },
+      "usn_ddg_burke_f2a_099_early": {
+        "VesselCosts": "2000000000",
+        "CurrentYearCost": "2000000000",
+        "Category": "DDG"
+      },
       "usn_ssbn_franklin_late": {
         "VesselCosts": "257000000",
         "CurrentYearCost": "2732000000",
@@ -6388,6 +6583,14 @@
       "boeing_rc135_early": {
         "AircraftCosts": "150000000",
         "CurrentYearCost": "220000000"
+      },
+      "ch_f-16": {
+        "AircraftCosts": "75000000",
+        "CurrentYearCost": "75000000"
+      },
+      "ch_f-16_mlu": {
+        "AircraftCosts": "75000000",
+        "CurrentYearCost": "75000000"
       },
       "china_tianlong_satellite": {
         "AircraftCosts": "500000000",
@@ -9614,6 +9817,88 @@
         {
           "title": "Combat Cost Tracker 0.7.1 captured catalog estimates; retain original reference-year basis",
           "url": "https://steamcommunity.com/sharedfiles/filedetails/?id=3807187341"
+        },
+        {
+          "title": "SEST owner-authorized replacement-cost model, 24 October 2026",
+          "url": "https://github.com/SEST-HOBBY/Seapower-mods/blob/fix/complete-combat-costs-20261024/integration/combat-costs/coverage-policy.json"
+        }
+      ]
+    },
+    {
+      "kind": "aircraft",
+      "target": "ch_f-16",
+      "origin": "completion",
+      "source": null,
+      "basis": "conventional combat-aircraft replacement proxy, excluding ammunition and removable priced pods",
+      "fields": {
+        "AircraftCosts": "75000000",
+        "CurrentYearCost": "75000000"
+      },
+      "completion": {
+        "model": "fighter",
+        "historical": "75000000",
+        "current": "75000000",
+        "category": "Aircraft",
+        "source": null,
+        "basis": "conventional combat-aircraft replacement proxy, excluding ammunition and removable priced pods",
+        "source_id": "policy",
+        "historical_year": 2026,
+        "historical_basis": "2026 replacement proxy; IOC unknown",
+        "confidence": "rough model",
+        "current_low": "37500000",
+        "current_high": "150000000",
+        "disposition": "counted"
+      },
+      "field_methods": {
+        "historical": "rough model",
+        "current": "rough model"
+      },
+      "prior_origin": null,
+      "sources": [
+        {
+          "title": "SEST owner-authorized replacement-cost model, 24 October 2026",
+          "url": "https://github.com/SEST-HOBBY/Seapower-mods/blob/fix/complete-combat-costs-20261024/integration/combat-costs/coverage-policy.json"
+        },
+        {
+          "title": "SEST owner-authorized replacement-cost model, 24 October 2026",
+          "url": "https://github.com/SEST-HOBBY/Seapower-mods/blob/fix/complete-combat-costs-20261024/integration/combat-costs/coverage-policy.json"
+        }
+      ]
+    },
+    {
+      "kind": "aircraft",
+      "target": "ch_f-16_mlu",
+      "origin": "completion",
+      "source": null,
+      "basis": "conventional combat-aircraft replacement proxy, excluding ammunition and removable priced pods",
+      "fields": {
+        "AircraftCosts": "75000000",
+        "CurrentYearCost": "75000000"
+      },
+      "completion": {
+        "model": "fighter",
+        "historical": "75000000",
+        "current": "75000000",
+        "category": "Aircraft",
+        "source": null,
+        "basis": "conventional combat-aircraft replacement proxy, excluding ammunition and removable priced pods",
+        "source_id": "policy",
+        "historical_year": 2026,
+        "historical_basis": "2026 replacement proxy; IOC unknown",
+        "confidence": "rough model",
+        "current_low": "37500000",
+        "current_high": "150000000",
+        "disposition": "counted"
+      },
+      "field_methods": {
+        "historical": "rough model",
+        "current": "rough model"
+      },
+      "prior_origin": null,
+      "sources": [
+        {
+          "title": "SEST owner-authorized replacement-cost model, 24 October 2026",
+          "url": "https://github.com/SEST-HOBBY/Seapower-mods/blob/fix/complete-combat-costs-20261024/integration/combat-costs/coverage-policy.json"
         },
         {
           "title": "SEST owner-authorized replacement-cost model, 24 October 2026",
@@ -37614,6 +37899,132 @@
     },
     {
       "kind": "vessel",
+      "target": "ita_lhd_trieste",
+      "origin": "completion",
+      "source": null,
+      "basis": "amphibious ship replacement proxy, excluding vehicles, aircraft and ammunition",
+      "fields": {
+        "VesselCosts": "1200000000",
+        "CurrentYearCost": "1200000000",
+        "Category": "LPD"
+      },
+      "completion": {
+        "model": "amphibious",
+        "historical": "1200000000",
+        "current": "1200000000",
+        "category": "LPD",
+        "source": null,
+        "basis": "amphibious ship replacement proxy, excluding vehicles, aircraft and ammunition",
+        "source_id": "policy",
+        "historical_year": 2026,
+        "historical_basis": "2026 replacement proxy; IOC unknown",
+        "confidence": "rough model",
+        "current_low": "600000000",
+        "current_high": "2400000000",
+        "disposition": "counted"
+      },
+      "field_methods": {
+        "historical": "rough model",
+        "current": "rough model"
+      },
+      "prior_origin": null,
+      "sources": [
+        {
+          "title": "SEST owner-authorized replacement-cost model, 24 October 2026",
+          "url": "https://github.com/SEST-HOBBY/Seapower-mods/blob/fix/complete-combat-costs-20261024/integration/combat-costs/coverage-policy.json"
+        },
+        {
+          "title": "SEST owner-authorized replacement-cost model, 24 October 2026",
+          "url": "https://github.com/SEST-HOBBY/Seapower-mods/blob/fix/complete-combat-costs-20261024/integration/combat-costs/coverage-policy.json"
+        }
+      ]
+    },
+    {
+      "kind": "vessel",
+      "target": "ita_lhd_trieste_saam16",
+      "origin": "completion",
+      "source": null,
+      "basis": "amphibious ship replacement proxy, excluding vehicles, aircraft and ammunition",
+      "fields": {
+        "VesselCosts": "1200000000",
+        "CurrentYearCost": "1200000000",
+        "Category": "LPD"
+      },
+      "completion": {
+        "model": "amphibious",
+        "historical": "1200000000",
+        "current": "1200000000",
+        "category": "LPD",
+        "source": null,
+        "basis": "amphibious ship replacement proxy, excluding vehicles, aircraft and ammunition",
+        "source_id": "policy",
+        "historical_year": 2026,
+        "historical_basis": "2026 replacement proxy; IOC unknown",
+        "confidence": "rough model",
+        "current_low": "600000000",
+        "current_high": "2400000000",
+        "disposition": "counted"
+      },
+      "field_methods": {
+        "historical": "rough model",
+        "current": "rough model"
+      },
+      "prior_origin": null,
+      "sources": [
+        {
+          "title": "SEST owner-authorized replacement-cost model, 24 October 2026",
+          "url": "https://github.com/SEST-HOBBY/Seapower-mods/blob/fix/complete-combat-costs-20261024/integration/combat-costs/coverage-policy.json"
+        },
+        {
+          "title": "SEST owner-authorized replacement-cost model, 24 October 2026",
+          "url": "https://github.com/SEST-HOBBY/Seapower-mods/blob/fix/complete-combat-costs-20261024/integration/combat-costs/coverage-policy.json"
+        }
+      ]
+    },
+    {
+      "kind": "vessel",
+      "target": "ita_lhd_trieste_saam32",
+      "origin": "completion",
+      "source": null,
+      "basis": "amphibious ship replacement proxy, excluding vehicles, aircraft and ammunition",
+      "fields": {
+        "VesselCosts": "1200000000",
+        "CurrentYearCost": "1200000000",
+        "Category": "LPD"
+      },
+      "completion": {
+        "model": "amphibious",
+        "historical": "1200000000",
+        "current": "1200000000",
+        "category": "LPD",
+        "source": null,
+        "basis": "amphibious ship replacement proxy, excluding vehicles, aircraft and ammunition",
+        "source_id": "policy",
+        "historical_year": 2026,
+        "historical_basis": "2026 replacement proxy; IOC unknown",
+        "confidence": "rough model",
+        "current_low": "600000000",
+        "current_high": "2400000000",
+        "disposition": "counted"
+      },
+      "field_methods": {
+        "historical": "rough model",
+        "current": "rough model"
+      },
+      "prior_origin": null,
+      "sources": [
+        {
+          "title": "SEST owner-authorized replacement-cost model, 24 October 2026",
+          "url": "https://github.com/SEST-HOBBY/Seapower-mods/blob/fix/complete-combat-costs-20261024/integration/combat-costs/coverage-policy.json"
+        },
+        {
+          "title": "SEST owner-authorized replacement-cost model, 24 October 2026",
+          "url": "https://github.com/SEST-HOBBY/Seapower-mods/blob/fix/complete-combat-costs-20261024/integration/combat-costs/coverage-policy.json"
+        }
+      ]
+    },
+    {
+      "kind": "vessel",
       "target": "jmsdf_aoe_mashuu",
       "source": null,
       "origin": "estimate",
@@ -37852,6 +38263,60 @@
     },
     {
       "kind": "vessel",
+      "target": "ko_ffg-471",
+      "origin": "completion",
+      "source": null,
+      "basis": "fitted frigate replacement proxy, excluding ammunition and embarked aircraft",
+      "fields": {
+        "VesselCosts": "700000000",
+        "CurrentYearCost": "700000000",
+        "Category": "FFG"
+      },
+      "completion": {
+        "model": "frigate",
+        "historical": "700000000",
+        "current": "700000000",
+        "category": "FFG",
+        "source": null,
+        "basis": "fitted frigate replacement proxy, excluding ammunition and embarked aircraft",
+        "source_id": "policy",
+        "historical_year": 2026,
+        "historical_basis": "2026 replacement proxy; IOC unknown",
+        "confidence": "rough model",
+        "current_low": "350000000",
+        "current_high": "1400000000",
+        "disposition": "counted"
+      },
+      "field_methods": {
+        "historical": "rough model",
+        "current": "rough model"
+      },
+      "prior_origin": null,
+      "sources": [
+        {
+          "title": "SEST owner-authorized replacement-cost model, 24 October 2026",
+          "url": "https://github.com/SEST-HOBBY/Seapower-mods/blob/fix/complete-combat-costs-20261024/integration/combat-costs/coverage-policy.json"
+        },
+        {
+          "title": "SEST owner-authorized replacement-cost model, 24 October 2026",
+          "url": "https://github.com/SEST-HOBBY/Seapower-mods/blob/fix/complete-combat-costs-20261024/integration/combat-costs/coverage-policy.json"
+        }
+      ]
+    },
+    {
+      "kind": "vessel",
+      "target": "ko_hdf-3600",
+      "source": "ko_ffg-818",
+      "origin": "mapping",
+      "basis": "HDF-3600 (Euromod-HD Hyundai, 3 Nov 2026 export): a Korean export frigate design of about 3,600 tonnes, valued as the Daegu-class frigate the tracker author's catalog prices; a family comparator, not a contract price",
+      "fields": {
+        "VesselCosts": "587000000",
+        "CurrentYearCost": "1141000000",
+        "Category": "FFG"
+      }
+    },
+    {
+      "kind": "vessel",
       "target": "ko_kddx",
       "source": "non/ko_kddx",
       "origin": "mapping",
@@ -37873,6 +38338,48 @@
         "CurrentYearCost": "1169000000",
         "Category": "LHD"
       }
+    },
+    {
+      "kind": "vessel",
+      "target": "ko_opv",
+      "origin": "completion",
+      "source": null,
+      "basis": "offshore patrol ship replacement proxy",
+      "fields": {
+        "VesselCosts": "150000000",
+        "CurrentYearCost": "150000000",
+        "Category": "OPV"
+      },
+      "completion": {
+        "model": "patrol",
+        "historical": "150000000",
+        "current": "150000000",
+        "category": "OPV",
+        "source": null,
+        "basis": "offshore patrol ship replacement proxy",
+        "source_id": "policy",
+        "historical_year": 2026,
+        "historical_basis": "2026 replacement proxy; IOC unknown",
+        "confidence": "rough model",
+        "current_low": "75000000",
+        "current_high": "300000000",
+        "disposition": "counted"
+      },
+      "field_methods": {
+        "historical": "rough model",
+        "current": "rough model"
+      },
+      "prior_origin": null,
+      "sources": [
+        {
+          "title": "SEST owner-authorized replacement-cost model, 24 October 2026",
+          "url": "https://github.com/SEST-HOBBY/Seapower-mods/blob/fix/complete-combat-costs-20261024/integration/combat-costs/coverage-policy.json"
+        },
+        {
+          "title": "SEST owner-authorized replacement-cost model, 24 October 2026",
+          "url": "https://github.com/SEST-HOBBY/Seapower-mods/blob/fix/complete-combat-costs-20261024/integration/combat-costs/coverage-policy.json"
+        }
+      ]
     },
     {
       "kind": "vessel",
@@ -38599,6 +39106,30 @@
         "VesselCosts": "1754000000",
         "CurrentYearCost": "4315000000",
         "Category": "CV"
+      }
+    },
+    {
+      "kind": "vessel",
+      "target": "plan_type_053h2g",
+      "source": "plan_type_053h3_p1",
+      "origin": "mapping",
+      "basis": "Type 053H2G (PLAN Pack, 3 Nov 2026 export): valued as the same mod's Type 053H3, its successor of the same frigate family, which the tracker author's catalog prices; a family comparator, not a class quote",
+      "fields": {
+        "VesselCosts": "110000000",
+        "CurrentYearCost": "221000000",
+        "Category": "FFG"
+      }
+    },
+    {
+      "kind": "vessel",
+      "target": "plan_type_054b_p1",
+      "source": "plan_ffg_type_054b",
+      "origin": "mapping",
+      "basis": "Type 054B Phase 1 (PLAN Pack, 3 Nov 2026 export): the same class as Red Storm Arsenal's plan_ffg_type_054b, which the tracker author's catalog prices",
+      "fields": {
+        "VesselCosts": "604000000",
+        "CurrentYearCost": "664000000",
+        "Category": "FFG"
       }
     },
     {
@@ -40406,6 +40937,18 @@
     },
     {
       "kind": "vessel",
+      "target": "usn_bbg_ulysses_s_grant",
+      "source": "usn_bbg_trump",
+      "origin": "mapping",
+      "basis": "Red Storm Arsenal's fictional 2032 battleship (3 Nov 2026 export): valued as the same mod's usn_bbg_trump, the battleship the tracker author's catalog prices; not a design estimate",
+      "fields": {
+        "VesselCosts": "1608000000",
+        "CurrentYearCost": "6538000000",
+        "Category": "BBG"
+      }
+    },
+    {
+      "kind": "vessel",
       "target": "usn_cg_bunker_hill",
       "origin": "completion",
       "source": "usn_cg_ticonderogavls",
@@ -41555,6 +42098,342 @@
         "CurrentYearCost": "2700000000",
         "Category": "DDG"
       }
+    },
+    {
+      "kind": "vessel",
+      "target": "usn_ddg_burke_f2a_079_early",
+      "origin": "completion",
+      "source": null,
+      "basis": "fitted destroyer replacement proxy, excluding ammunition and aircraft",
+      "fields": {
+        "VesselCosts": "2000000000",
+        "CurrentYearCost": "2000000000",
+        "Category": "DDG"
+      },
+      "completion": {
+        "model": "destroyer",
+        "historical": "2000000000",
+        "current": "2000000000",
+        "category": "DDG",
+        "source": null,
+        "basis": "fitted destroyer replacement proxy, excluding ammunition and aircraft",
+        "source_id": "policy",
+        "historical_year": 2026,
+        "historical_basis": "2026 replacement proxy; IOC unknown",
+        "confidence": "rough model",
+        "current_low": "1000000000",
+        "current_high": "4000000000",
+        "disposition": "counted"
+      },
+      "field_methods": {
+        "historical": "rough model",
+        "current": "rough model"
+      },
+      "prior_origin": null,
+      "sources": [
+        {
+          "title": "SEST owner-authorized replacement-cost model, 24 October 2026",
+          "url": "https://github.com/SEST-HOBBY/Seapower-mods/blob/fix/complete-combat-costs-20261024/integration/combat-costs/coverage-policy.json"
+        },
+        {
+          "title": "SEST owner-authorized replacement-cost model, 24 October 2026",
+          "url": "https://github.com/SEST-HOBBY/Seapower-mods/blob/fix/complete-combat-costs-20261024/integration/combat-costs/coverage-policy.json"
+        }
+      ]
+    },
+    {
+      "kind": "vessel",
+      "target": "usn_ddg_burke_f2a_080_early",
+      "origin": "completion",
+      "source": null,
+      "basis": "fitted destroyer replacement proxy, excluding ammunition and aircraft",
+      "fields": {
+        "VesselCosts": "2000000000",
+        "CurrentYearCost": "2000000000",
+        "Category": "DDG"
+      },
+      "completion": {
+        "model": "destroyer",
+        "historical": "2000000000",
+        "current": "2000000000",
+        "category": "DDG",
+        "source": null,
+        "basis": "fitted destroyer replacement proxy, excluding ammunition and aircraft",
+        "source_id": "policy",
+        "historical_year": 2026,
+        "historical_basis": "2026 replacement proxy; IOC unknown",
+        "confidence": "rough model",
+        "current_low": "1000000000",
+        "current_high": "4000000000",
+        "disposition": "counted"
+      },
+      "field_methods": {
+        "historical": "rough model",
+        "current": "rough model"
+      },
+      "prior_origin": null,
+      "sources": [
+        {
+          "title": "SEST owner-authorized replacement-cost model, 24 October 2026",
+          "url": "https://github.com/SEST-HOBBY/Seapower-mods/blob/fix/complete-combat-costs-20261024/integration/combat-costs/coverage-policy.json"
+        },
+        {
+          "title": "SEST owner-authorized replacement-cost model, 24 October 2026",
+          "url": "https://github.com/SEST-HOBBY/Seapower-mods/blob/fix/complete-combat-costs-20261024/integration/combat-costs/coverage-policy.json"
+        }
+      ]
+    },
+    {
+      "kind": "vessel",
+      "target": "usn_ddg_burke_f2a_081_early",
+      "origin": "completion",
+      "source": null,
+      "basis": "fitted destroyer replacement proxy, excluding ammunition and aircraft",
+      "fields": {
+        "VesselCosts": "2000000000",
+        "CurrentYearCost": "2000000000",
+        "Category": "DDG"
+      },
+      "completion": {
+        "model": "destroyer",
+        "historical": "2000000000",
+        "current": "2000000000",
+        "category": "DDG",
+        "source": null,
+        "basis": "fitted destroyer replacement proxy, excluding ammunition and aircraft",
+        "source_id": "policy",
+        "historical_year": 2026,
+        "historical_basis": "2026 replacement proxy; IOC unknown",
+        "confidence": "rough model",
+        "current_low": "1000000000",
+        "current_high": "4000000000",
+        "disposition": "counted"
+      },
+      "field_methods": {
+        "historical": "rough model",
+        "current": "rough model"
+      },
+      "prior_origin": null,
+      "sources": [
+        {
+          "title": "SEST owner-authorized replacement-cost model, 24 October 2026",
+          "url": "https://github.com/SEST-HOBBY/Seapower-mods/blob/fix/complete-combat-costs-20261024/integration/combat-costs/coverage-policy.json"
+        },
+        {
+          "title": "SEST owner-authorized replacement-cost model, 24 October 2026",
+          "url": "https://github.com/SEST-HOBBY/Seapower-mods/blob/fix/complete-combat-costs-20261024/integration/combat-costs/coverage-policy.json"
+        }
+      ]
+    },
+    {
+      "kind": "vessel",
+      "target": "usn_ddg_burke_f2a_085_early",
+      "origin": "completion",
+      "source": null,
+      "basis": "fitted destroyer replacement proxy, excluding ammunition and aircraft",
+      "fields": {
+        "VesselCosts": "2000000000",
+        "CurrentYearCost": "2000000000",
+        "Category": "DDG"
+      },
+      "completion": {
+        "model": "destroyer",
+        "historical": "2000000000",
+        "current": "2000000000",
+        "category": "DDG",
+        "source": null,
+        "basis": "fitted destroyer replacement proxy, excluding ammunition and aircraft",
+        "source_id": "policy",
+        "historical_year": 2026,
+        "historical_basis": "2026 replacement proxy; IOC unknown",
+        "confidence": "rough model",
+        "current_low": "1000000000",
+        "current_high": "4000000000",
+        "disposition": "counted"
+      },
+      "field_methods": {
+        "historical": "rough model",
+        "current": "rough model"
+      },
+      "prior_origin": null,
+      "sources": [
+        {
+          "title": "SEST owner-authorized replacement-cost model, 24 October 2026",
+          "url": "https://github.com/SEST-HOBBY/Seapower-mods/blob/fix/complete-combat-costs-20261024/integration/combat-costs/coverage-policy.json"
+        },
+        {
+          "title": "SEST owner-authorized replacement-cost model, 24 October 2026",
+          "url": "https://github.com/SEST-HOBBY/Seapower-mods/blob/fix/complete-combat-costs-20261024/integration/combat-costs/coverage-policy.json"
+        }
+      ]
+    },
+    {
+      "kind": "vessel",
+      "target": "usn_ddg_burke_f2a_089_early",
+      "origin": "completion",
+      "source": null,
+      "basis": "fitted destroyer replacement proxy, excluding ammunition and aircraft",
+      "fields": {
+        "VesselCosts": "2000000000",
+        "CurrentYearCost": "2000000000",
+        "Category": "DDG"
+      },
+      "completion": {
+        "model": "destroyer",
+        "historical": "2000000000",
+        "current": "2000000000",
+        "category": "DDG",
+        "source": null,
+        "basis": "fitted destroyer replacement proxy, excluding ammunition and aircraft",
+        "source_id": "policy",
+        "historical_year": 2026,
+        "historical_basis": "2026 replacement proxy; IOC unknown",
+        "confidence": "rough model",
+        "current_low": "1000000000",
+        "current_high": "4000000000",
+        "disposition": "counted"
+      },
+      "field_methods": {
+        "historical": "rough model",
+        "current": "rough model"
+      },
+      "prior_origin": null,
+      "sources": [
+        {
+          "title": "SEST owner-authorized replacement-cost model, 24 October 2026",
+          "url": "https://github.com/SEST-HOBBY/Seapower-mods/blob/fix/complete-combat-costs-20261024/integration/combat-costs/coverage-policy.json"
+        },
+        {
+          "title": "SEST owner-authorized replacement-cost model, 24 October 2026",
+          "url": "https://github.com/SEST-HOBBY/Seapower-mods/blob/fix/complete-combat-costs-20261024/integration/combat-costs/coverage-policy.json"
+        }
+      ]
+    },
+    {
+      "kind": "vessel",
+      "target": "usn_ddg_burke_f2a_091_early",
+      "origin": "completion",
+      "source": null,
+      "basis": "fitted destroyer replacement proxy, excluding ammunition and aircraft",
+      "fields": {
+        "VesselCosts": "2000000000",
+        "CurrentYearCost": "2000000000",
+        "Category": "DDG"
+      },
+      "completion": {
+        "model": "destroyer",
+        "historical": "2000000000",
+        "current": "2000000000",
+        "category": "DDG",
+        "source": null,
+        "basis": "fitted destroyer replacement proxy, excluding ammunition and aircraft",
+        "source_id": "policy",
+        "historical_year": 2026,
+        "historical_basis": "2026 replacement proxy; IOC unknown",
+        "confidence": "rough model",
+        "current_low": "1000000000",
+        "current_high": "4000000000",
+        "disposition": "counted"
+      },
+      "field_methods": {
+        "historical": "rough model",
+        "current": "rough model"
+      },
+      "prior_origin": null,
+      "sources": [
+        {
+          "title": "SEST owner-authorized replacement-cost model, 24 October 2026",
+          "url": "https://github.com/SEST-HOBBY/Seapower-mods/blob/fix/complete-combat-costs-20261024/integration/combat-costs/coverage-policy.json"
+        },
+        {
+          "title": "SEST owner-authorized replacement-cost model, 24 October 2026",
+          "url": "https://github.com/SEST-HOBBY/Seapower-mods/blob/fix/complete-combat-costs-20261024/integration/combat-costs/coverage-policy.json"
+        }
+      ]
+    },
+    {
+      "kind": "vessel",
+      "target": "usn_ddg_burke_f2a_097_early",
+      "origin": "completion",
+      "source": null,
+      "basis": "fitted destroyer replacement proxy, excluding ammunition and aircraft",
+      "fields": {
+        "VesselCosts": "2000000000",
+        "CurrentYearCost": "2000000000",
+        "Category": "DDG"
+      },
+      "completion": {
+        "model": "destroyer",
+        "historical": "2000000000",
+        "current": "2000000000",
+        "category": "DDG",
+        "source": null,
+        "basis": "fitted destroyer replacement proxy, excluding ammunition and aircraft",
+        "source_id": "policy",
+        "historical_year": 2026,
+        "historical_basis": "2026 replacement proxy; IOC unknown",
+        "confidence": "rough model",
+        "current_low": "1000000000",
+        "current_high": "4000000000",
+        "disposition": "counted"
+      },
+      "field_methods": {
+        "historical": "rough model",
+        "current": "rough model"
+      },
+      "prior_origin": null,
+      "sources": [
+        {
+          "title": "SEST owner-authorized replacement-cost model, 24 October 2026",
+          "url": "https://github.com/SEST-HOBBY/Seapower-mods/blob/fix/complete-combat-costs-20261024/integration/combat-costs/coverage-policy.json"
+        },
+        {
+          "title": "SEST owner-authorized replacement-cost model, 24 October 2026",
+          "url": "https://github.com/SEST-HOBBY/Seapower-mods/blob/fix/complete-combat-costs-20261024/integration/combat-costs/coverage-policy.json"
+        }
+      ]
+    },
+    {
+      "kind": "vessel",
+      "target": "usn_ddg_burke_f2a_099_early",
+      "origin": "completion",
+      "source": null,
+      "basis": "fitted destroyer replacement proxy, excluding ammunition and aircraft",
+      "fields": {
+        "VesselCosts": "2000000000",
+        "CurrentYearCost": "2000000000",
+        "Category": "DDG"
+      },
+      "completion": {
+        "model": "destroyer",
+        "historical": "2000000000",
+        "current": "2000000000",
+        "category": "DDG",
+        "source": null,
+        "basis": "fitted destroyer replacement proxy, excluding ammunition and aircraft",
+        "source_id": "policy",
+        "historical_year": 2026,
+        "historical_basis": "2026 replacement proxy; IOC unknown",
+        "confidence": "rough model",
+        "current_low": "1000000000",
+        "current_high": "4000000000",
+        "disposition": "counted"
+      },
+      "field_methods": {
+        "historical": "rough model",
+        "current": "rough model"
+      },
+      "prior_origin": null,
+      "sources": [
+        {
+          "title": "SEST owner-authorized replacement-cost model, 24 October 2026",
+          "url": "https://github.com/SEST-HOBBY/Seapower-mods/blob/fix/complete-combat-costs-20261024/integration/combat-costs/coverage-policy.json"
+        },
+        {
+          "title": "SEST owner-authorized replacement-cost model, 24 October 2026",
+          "url": "https://github.com/SEST-HOBBY/Seapower-mods/blob/fix/complete-combat-costs-20261024/integration/combat-costs/coverage-policy.json"
+        }
+      ]
     },
     {
       "kind": "vessel",
@@ -47768,6 +48647,48 @@
         "confidence": "rough model",
         "current_low": "5000",
         "current_high": "20000",
+        "disposition": "counted"
+      },
+      "field_methods": {
+        "historical": "rough model",
+        "current": "rough model"
+      },
+      "prior_origin": null,
+      "sources": [
+        {
+          "title": "SEST owner-authorized replacement-cost model, 24 October 2026",
+          "url": "https://github.com/SEST-HOBBY/Seapower-mods/blob/fix/complete-combat-costs-20261024/integration/combat-costs/coverage-policy.json"
+        },
+        {
+          "title": "SEST owner-authorized replacement-cost model, 24 October 2026",
+          "url": "https://github.com/SEST-HOBBY/Seapower-mods/blob/fix/complete-combat-costs-20261024/integration/combat-costs/coverage-policy.json"
+        }
+      ]
+    },
+    {
+      "kind": "weapon",
+      "target": "ger_aim-9l-i",
+      "origin": "completion",
+      "source": null,
+      "basis": "short-range IR AAM complete-round proxy",
+      "fields": {
+        "WeaponCosts": "130428",
+        "CurrentYearCost": "500000",
+        "Category": "AAM"
+      },
+      "completion": {
+        "model": "ir_aam",
+        "historical": "130428",
+        "current": "500000",
+        "category": "AAM",
+        "source": null,
+        "basis": "short-range IR AAM complete-round proxy",
+        "source_id": "policy",
+        "historical_year": 1981,
+        "historical_basis": "configured service-year CPI model",
+        "confidence": "rough model",
+        "current_low": "250000",
+        "current_high": "1000000",
         "disposition": "counted"
       },
       "field_methods": {
@@ -56886,6 +57807,48 @@
     },
     {
       "kind": "weapon",
+      "target": "plan_hq-61b",
+      "origin": "completion",
+      "source": null,
+      "basis": "surface-to-air missile complete-round proxy",
+      "fields": {
+        "WeaponCosts": "904904",
+        "CurrentYearCost": "2500000",
+        "Category": "SAM"
+      },
+      "completion": {
+        "model": "sam",
+        "historical": "904904",
+        "current": "2500000",
+        "category": "SAM",
+        "source": null,
+        "basis": "surface-to-air missile complete-round proxy",
+        "source_id": "policy",
+        "historical_year": 1988,
+        "historical_basis": "configured service-year CPI model",
+        "confidence": "rough model",
+        "current_low": "1250000",
+        "current_high": "5000000",
+        "disposition": "counted"
+      },
+      "field_methods": {
+        "historical": "rough model",
+        "current": "rough model"
+      },
+      "prior_origin": null,
+      "sources": [
+        {
+          "title": "SEST owner-authorized replacement-cost model, 24 October 2026",
+          "url": "https://github.com/SEST-HOBBY/Seapower-mods/blob/fix/complete-combat-costs-20261024/integration/combat-costs/coverage-policy.json"
+        },
+        {
+          "title": "SEST owner-authorized replacement-cost model, 24 October 2026",
+          "url": "https://github.com/SEST-HOBBY/Seapower-mods/blob/fix/complete-combat-costs-20261024/integration/combat-costs/coverage-policy.json"
+        }
+      ]
+    },
+    {
+      "kind": "weapon",
       "target": "plan_hy-1ja",
       "source": "plan_hy-1j",
       "origin": "mapping",
@@ -62787,6 +63750,48 @@
     },
     {
       "kind": "weapon",
+      "target": "spa_dm2a4_er",
+      "origin": "completion",
+      "source": null,
+      "basis": "modern heavyweight guided torpedo replacement proxy",
+      "fields": {
+        "WeaponCosts": "2834928",
+        "CurrentYearCost": "4000000",
+        "Category": "Torpedo"
+      },
+      "completion": {
+        "model": "heavy_torpedo",
+        "historical": "2834928",
+        "current": "4000000",
+        "category": "Torpedo",
+        "source": null,
+        "basis": "modern heavyweight guided torpedo replacement proxy",
+        "source_id": "policy",
+        "historical_year": 2015,
+        "historical_basis": "configured service-year CPI model",
+        "confidence": "rough model",
+        "current_low": "2000000",
+        "current_high": "8000000",
+        "disposition": "counted"
+      },
+      "field_methods": {
+        "historical": "rough model",
+        "current": "rough model"
+      },
+      "prior_origin": null,
+      "sources": [
+        {
+          "title": "SEST owner-authorized replacement-cost model, 24 October 2026",
+          "url": "https://github.com/SEST-HOBBY/Seapower-mods/blob/fix/complete-combat-costs-20261024/integration/combat-costs/coverage-policy.json"
+        },
+        {
+          "title": "SEST owner-authorized replacement-cost model, 24 October 2026",
+          "url": "https://github.com/SEST-HOBBY/Seapower-mods/blob/fix/complete-combat-costs-20261024/integration/combat-costs/coverage-policy.json"
+        }
+      ]
+    },
+    {
+      "kind": "weapon",
       "target": "spa_ef2000_fueltank",
       "origin": "completion",
       "source": null,
@@ -63271,6 +64276,48 @@
         "confidence": "rough model",
         "current_low": "2000000",
         "current_high": "8000000",
+        "disposition": "counted"
+      },
+      "field_methods": {
+        "historical": "rough model",
+        "current": "rough model"
+      },
+      "prior_origin": null,
+      "sources": [
+        {
+          "title": "SEST owner-authorized replacement-cost model, 24 October 2026",
+          "url": "https://github.com/SEST-HOBBY/Seapower-mods/blob/fix/complete-combat-costs-20261024/integration/combat-costs/coverage-policy.json"
+        },
+        {
+          "title": "SEST owner-authorized replacement-cost model, 24 October 2026",
+          "url": "https://github.com/SEST-HOBBY/Seapower-mods/blob/fix/complete-combat-costs-20261024/integration/combat-costs/coverage-policy.json"
+        }
+      ]
+    },
+    {
+      "kind": "weapon",
+      "target": "spa_mk43_mod3_air",
+      "origin": "completion",
+      "source": null,
+      "basis": "generic lightweight ASW torpedo replacement proxy",
+      "fields": {
+        "WeaponCosts": "115505",
+        "CurrentYearCost": "1500000",
+        "Category": "Torpedo"
+      },
+      "completion": {
+        "model": "light_torpedo",
+        "historical": "115505",
+        "current": "1500000",
+        "category": "Torpedo",
+        "source": null,
+        "basis": "generic lightweight ASW torpedo replacement proxy",
+        "source_id": "policy",
+        "historical_year": 1953,
+        "historical_basis": "configured service-year CPI model",
+        "confidence": "rough model",
+        "current_low": "750000",
+        "current_high": "3000000",
         "disposition": "counted"
       },
       "field_methods": {
@@ -64431,6 +65478,90 @@
     },
     {
       "kind": "weapon",
+      "target": "swe_cal_152mm",
+      "origin": "completion",
+      "source": null,
+      "basis": "per-projectile calibre-band replacement estimate, not cost per burst",
+      "fields": {
+        "WeaponCosts": "8000",
+        "CurrentYearCost": "8000",
+        "Category": "Gun"
+      },
+      "completion": {
+        "model": "projectile",
+        "historical": "8000",
+        "current": "8000",
+        "category": "Gun",
+        "source": null,
+        "basis": "per-projectile calibre-band replacement estimate, not cost per burst",
+        "source_id": "policy",
+        "historical_year": 2026,
+        "historical_basis": "2026 replacement proxy; IOC unknown",
+        "confidence": "rough model",
+        "current_low": "4000",
+        "current_high": "16000",
+        "disposition": "counted"
+      },
+      "field_methods": {
+        "historical": "rough model",
+        "current": "rough model"
+      },
+      "prior_origin": null,
+      "sources": [
+        {
+          "title": "SEST owner-authorized replacement-cost model, 24 October 2026",
+          "url": "https://github.com/SEST-HOBBY/Seapower-mods/blob/fix/complete-combat-costs-20261024/integration/combat-costs/coverage-policy.json"
+        },
+        {
+          "title": "SEST owner-authorized replacement-cost model, 24 October 2026",
+          "url": "https://github.com/SEST-HOBBY/Seapower-mods/blob/fix/complete-combat-costs-20261024/integration/combat-costs/coverage-policy.json"
+        }
+      ]
+    },
+    {
+      "kind": "weapon",
+      "target": "swe_cal_40mm",
+      "origin": "completion",
+      "source": null,
+      "basis": "per-projectile calibre-band replacement estimate, not cost per burst",
+      "fields": {
+        "WeaponCosts": "250",
+        "CurrentYearCost": "250",
+        "Category": "Gun"
+      },
+      "completion": {
+        "model": "projectile",
+        "historical": "250",
+        "current": "250",
+        "category": "Gun",
+        "source": null,
+        "basis": "per-projectile calibre-band replacement estimate, not cost per burst",
+        "source_id": "policy",
+        "historical_year": 2026,
+        "historical_basis": "2026 replacement proxy; IOC unknown",
+        "confidence": "rough model",
+        "current_low": "125",
+        "current_high": "500",
+        "disposition": "counted"
+      },
+      "field_methods": {
+        "historical": "rough model",
+        "current": "rough model"
+      },
+      "prior_origin": null,
+      "sources": [
+        {
+          "title": "SEST owner-authorized replacement-cost model, 24 October 2026",
+          "url": "https://github.com/SEST-HOBBY/Seapower-mods/blob/fix/complete-combat-costs-20261024/integration/combat-costs/coverage-policy.json"
+        },
+        {
+          "title": "SEST owner-authorized replacement-cost model, 24 October 2026",
+          "url": "https://github.com/SEST-HOBBY/Seapower-mods/blob/fix/complete-combat-costs-20261024/integration/combat-costs/coverage-policy.json"
+        }
+      ]
+    },
+    {
+      "kind": "weapon",
       "target": "swe_cal_57mm",
       "origin": "completion",
       "source": null,
@@ -64453,6 +65584,174 @@
         "confidence": "rough model",
         "current_low": "850",
         "current_high": "3400",
+        "disposition": "counted"
+      },
+      "field_methods": {
+        "historical": "rough model",
+        "current": "rough model"
+      },
+      "prior_origin": null,
+      "sources": [
+        {
+          "title": "SEST owner-authorized replacement-cost model, 24 October 2026",
+          "url": "https://github.com/SEST-HOBBY/Seapower-mods/blob/fix/complete-combat-costs-20261024/integration/combat-costs/coverage-policy.json"
+        },
+        {
+          "title": "SEST owner-authorized replacement-cost model, 24 October 2026",
+          "url": "https://github.com/SEST-HOBBY/Seapower-mods/blob/fix/complete-combat-costs-20261024/integration/combat-costs/coverage-policy.json"
+        }
+      ]
+    },
+    {
+      "kind": "weapon",
+      "target": "swe_rb24",
+      "origin": "completion",
+      "source": null,
+      "basis": "short-range IR AAM complete-round proxy",
+      "fields": {
+        "WeaponCosts": "42614",
+        "CurrentYearCost": "500000",
+        "Category": "AAM"
+      },
+      "completion": {
+        "model": "ir_aam",
+        "historical": "42614",
+        "current": "500000",
+        "category": "AAM",
+        "source": null,
+        "basis": "short-range IR AAM complete-round proxy",
+        "source_id": "policy",
+        "historical_year": 1958,
+        "historical_basis": "configured service-year CPI model",
+        "confidence": "rough model",
+        "current_low": "250000",
+        "current_high": "1000000",
+        "disposition": "counted"
+      },
+      "field_methods": {
+        "historical": "rough model",
+        "current": "rough model"
+      },
+      "prior_origin": null,
+      "sources": [
+        {
+          "title": "SEST owner-authorized replacement-cost model, 24 October 2026",
+          "url": "https://github.com/SEST-HOBBY/Seapower-mods/blob/fix/complete-combat-costs-20261024/integration/combat-costs/coverage-policy.json"
+        },
+        {
+          "title": "SEST owner-authorized replacement-cost model, 24 October 2026",
+          "url": "https://github.com/SEST-HOBBY/Seapower-mods/blob/fix/complete-combat-costs-20261024/integration/combat-costs/coverage-policy.json"
+        }
+      ]
+    },
+    {
+      "kind": "weapon",
+      "target": "swe_rb24j",
+      "origin": "completion",
+      "source": null,
+      "basis": "short-range IR AAM complete-round proxy",
+      "fields": {
+        "WeaponCosts": "110167",
+        "CurrentYearCost": "500000",
+        "Category": "AAM"
+      },
+      "completion": {
+        "model": "ir_aam",
+        "historical": "110167",
+        "current": "500000",
+        "category": "AAM",
+        "source": null,
+        "basis": "short-range IR AAM complete-round proxy",
+        "source_id": "policy",
+        "historical_year": 1978,
+        "historical_basis": "configured service-year CPI model",
+        "confidence": "rough model",
+        "current_low": "250000",
+        "current_high": "1000000",
+        "disposition": "counted"
+      },
+      "field_methods": {
+        "historical": "rough model",
+        "current": "rough model"
+      },
+      "prior_origin": null,
+      "sources": [
+        {
+          "title": "SEST owner-authorized replacement-cost model, 24 October 2026",
+          "url": "https://github.com/SEST-HOBBY/Seapower-mods/blob/fix/complete-combat-costs-20261024/integration/combat-costs/coverage-policy.json"
+        },
+        {
+          "title": "SEST owner-authorized replacement-cost model, 24 October 2026",
+          "url": "https://github.com/SEST-HOBBY/Seapower-mods/blob/fix/complete-combat-costs-20261024/integration/combat-costs/coverage-policy.json"
+        }
+      ]
+    },
+    {
+      "kind": "weapon",
+      "target": "swe_rb24l",
+      "origin": "completion",
+      "source": null,
+      "basis": "short-range IR AAM complete-round proxy",
+      "fields": {
+        "WeaponCosts": "137650",
+        "CurrentYearCost": "500000",
+        "Category": "AAM"
+      },
+      "completion": {
+        "model": "ir_aam",
+        "historical": "137650",
+        "current": "500000",
+        "category": "AAM",
+        "source": null,
+        "basis": "short-range IR AAM complete-round proxy",
+        "source_id": "policy",
+        "historical_year": 1982,
+        "historical_basis": "configured service-year CPI model",
+        "confidence": "rough model",
+        "current_low": "250000",
+        "current_high": "1000000",
+        "disposition": "counted"
+      },
+      "field_methods": {
+        "historical": "rough model",
+        "current": "rough model"
+      },
+      "prior_origin": null,
+      "sources": [
+        {
+          "title": "SEST owner-authorized replacement-cost model, 24 October 2026",
+          "url": "https://github.com/SEST-HOBBY/Seapower-mods/blob/fix/complete-combat-costs-20261024/integration/combat-costs/coverage-policy.json"
+        },
+        {
+          "title": "SEST owner-authorized replacement-cost model, 24 October 2026",
+          "url": "https://github.com/SEST-HOBBY/Seapower-mods/blob/fix/complete-combat-costs-20261024/integration/combat-costs/coverage-policy.json"
+        }
+      ]
+    },
+    {
+      "kind": "weapon",
+      "target": "swe_rb71",
+      "origin": "completion",
+      "source": null,
+      "basis": "modern radar AAM complete-round proxy",
+      "fields": {
+        "WeaponCosts": "330502",
+        "CurrentYearCost": "1500000",
+        "Category": "AAM"
+      },
+      "completion": {
+        "model": "aam",
+        "historical": "330502",
+        "current": "1500000",
+        "category": "AAM",
+        "source": null,
+        "basis": "modern radar AAM complete-round proxy",
+        "source_id": "policy",
+        "historical_year": 1978,
+        "historical_basis": "configured service-year CPI model",
+        "confidence": "rough model",
+        "current_low": "750000",
+        "current_high": "3000000",
         "disposition": "counted"
       },
       "field_methods": {
@@ -65685,6 +66984,258 @@
     },
     {
       "kind": "weapon",
+      "target": "usa_mim-72a",
+      "origin": "completion",
+      "source": null,
+      "basis": "surface-to-air missile complete-round proxy",
+      "fields": {
+        "WeaponCosts": "283194",
+        "CurrentYearCost": "2500000",
+        "Category": "SAM"
+      },
+      "completion": {
+        "model": "sam",
+        "historical": "283194",
+        "current": "2500000",
+        "category": "SAM",
+        "source": null,
+        "basis": "surface-to-air missile complete-round proxy",
+        "source_id": "policy",
+        "historical_year": 1969,
+        "historical_basis": "configured service-year CPI model",
+        "confidence": "rough model",
+        "current_low": "1250000",
+        "current_high": "5000000",
+        "disposition": "counted"
+      },
+      "field_methods": {
+        "historical": "rough model",
+        "current": "rough model"
+      },
+      "prior_origin": null,
+      "sources": [
+        {
+          "title": "SEST owner-authorized replacement-cost model, 24 October 2026",
+          "url": "https://github.com/SEST-HOBBY/Seapower-mods/blob/fix/complete-combat-costs-20261024/integration/combat-costs/coverage-policy.json"
+        },
+        {
+          "title": "SEST owner-authorized replacement-cost model, 24 October 2026",
+          "url": "https://github.com/SEST-HOBBY/Seapower-mods/blob/fix/complete-combat-costs-20261024/integration/combat-costs/coverage-policy.json"
+        }
+      ]
+    },
+    {
+      "kind": "weapon",
+      "target": "usa_mim-72c",
+      "origin": "completion",
+      "source": null,
+      "basis": "surface-to-air missile complete-round proxy",
+      "fields": {
+        "WeaponCosts": "550837",
+        "CurrentYearCost": "2500000",
+        "Category": "SAM"
+      },
+      "completion": {
+        "model": "sam",
+        "historical": "550837",
+        "current": "2500000",
+        "category": "SAM",
+        "source": null,
+        "basis": "surface-to-air missile complete-round proxy",
+        "source_id": "policy",
+        "historical_year": 1978,
+        "historical_basis": "configured service-year CPI model",
+        "confidence": "rough model",
+        "current_low": "1250000",
+        "current_high": "5000000",
+        "disposition": "counted"
+      },
+      "field_methods": {
+        "historical": "rough model",
+        "current": "rough model"
+      },
+      "prior_origin": null,
+      "sources": [
+        {
+          "title": "SEST owner-authorized replacement-cost model, 24 October 2026",
+          "url": "https://github.com/SEST-HOBBY/Seapower-mods/blob/fix/complete-combat-costs-20261024/integration/combat-costs/coverage-policy.json"
+        },
+        {
+          "title": "SEST owner-authorized replacement-cost model, 24 October 2026",
+          "url": "https://github.com/SEST-HOBBY/Seapower-mods/blob/fix/complete-combat-costs-20261024/integration/combat-costs/coverage-policy.json"
+        }
+      ]
+    },
+    {
+      "kind": "weapon",
+      "target": "usa_mim-72e",
+      "origin": "completion",
+      "source": null,
+      "basis": "surface-to-air missile complete-round proxy",
+      "fields": {
+        "WeaponCosts": "616029",
+        "CurrentYearCost": "2500000",
+        "Category": "SAM"
+      },
+      "completion": {
+        "model": "sam",
+        "historical": "616029",
+        "current": "2500000",
+        "category": "SAM",
+        "source": null,
+        "basis": "surface-to-air missile complete-round proxy",
+        "source_id": "policy",
+        "historical_year": 1980,
+        "historical_basis": "configured service-year CPI model",
+        "confidence": "rough model",
+        "current_low": "1250000",
+        "current_high": "5000000",
+        "disposition": "counted"
+      },
+      "field_methods": {
+        "historical": "rough model",
+        "current": "rough model"
+      },
+      "prior_origin": null,
+      "sources": [
+        {
+          "title": "SEST owner-authorized replacement-cost model, 24 October 2026",
+          "url": "https://github.com/SEST-HOBBY/Seapower-mods/blob/fix/complete-combat-costs-20261024/integration/combat-costs/coverage-policy.json"
+        },
+        {
+          "title": "SEST owner-authorized replacement-cost model, 24 October 2026",
+          "url": "https://github.com/SEST-HOBBY/Seapower-mods/blob/fix/complete-combat-costs-20261024/integration/combat-costs/coverage-policy.json"
+        }
+      ]
+    },
+    {
+      "kind": "weapon",
+      "target": "usa_mim-72g",
+      "origin": "completion",
+      "source": null,
+      "basis": "surface-to-air missile complete-round proxy",
+      "fields": {
+        "WeaponCosts": "941014",
+        "CurrentYearCost": "2500000",
+        "Category": "SAM"
+      },
+      "completion": {
+        "model": "sam",
+        "historical": "941014",
+        "current": "2500000",
+        "category": "SAM",
+        "source": null,
+        "basis": "surface-to-air missile complete-round proxy",
+        "source_id": "policy",
+        "historical_year": 1989,
+        "historical_basis": "configured service-year CPI model",
+        "confidence": "rough model",
+        "current_low": "1250000",
+        "current_high": "5000000",
+        "disposition": "counted"
+      },
+      "field_methods": {
+        "historical": "rough model",
+        "current": "rough model"
+      },
+      "prior_origin": null,
+      "sources": [
+        {
+          "title": "SEST owner-authorized replacement-cost model, 24 October 2026",
+          "url": "https://github.com/SEST-HOBBY/Seapower-mods/blob/fix/complete-combat-costs-20261024/integration/combat-costs/coverage-policy.json"
+        },
+        {
+          "title": "SEST owner-authorized replacement-cost model, 24 October 2026",
+          "url": "https://github.com/SEST-HOBBY/Seapower-mods/blob/fix/complete-combat-costs-20261024/integration/combat-costs/coverage-policy.json"
+        }
+      ]
+    },
+    {
+      "kind": "weapon",
+      "target": "usa_mim-72h",
+      "origin": "completion",
+      "source": null,
+      "basis": "surface-to-air missile complete-round proxy",
+      "fields": {
+        "WeaponCosts": "616029",
+        "CurrentYearCost": "2500000",
+        "Category": "SAM"
+      },
+      "completion": {
+        "model": "sam",
+        "historical": "616029",
+        "current": "2500000",
+        "category": "SAM",
+        "source": null,
+        "basis": "surface-to-air missile complete-round proxy",
+        "source_id": "policy",
+        "historical_year": 1980,
+        "historical_basis": "configured service-year CPI model",
+        "confidence": "rough model",
+        "current_low": "1250000",
+        "current_high": "5000000",
+        "disposition": "counted"
+      },
+      "field_methods": {
+        "historical": "rough model",
+        "current": "rough model"
+      },
+      "prior_origin": null,
+      "sources": [
+        {
+          "title": "SEST owner-authorized replacement-cost model, 24 October 2026",
+          "url": "https://github.com/SEST-HOBBY/Seapower-mods/blob/fix/complete-combat-costs-20261024/integration/combat-costs/coverage-policy.json"
+        },
+        {
+          "title": "SEST owner-authorized replacement-cost model, 24 October 2026",
+          "url": "https://github.com/SEST-HOBBY/Seapower-mods/blob/fix/complete-combat-costs-20261024/integration/combat-costs/coverage-policy.json"
+        }
+      ]
+    },
+    {
+      "kind": "weapon",
+      "target": "usa_mim-72j",
+      "origin": "completion",
+      "source": null,
+      "basis": "surface-to-air missile complete-round proxy",
+      "fields": {
+        "WeaponCosts": "941014",
+        "CurrentYearCost": "2500000",
+        "Category": "SAM"
+      },
+      "completion": {
+        "model": "sam",
+        "historical": "941014",
+        "current": "2500000",
+        "category": "SAM",
+        "source": null,
+        "basis": "surface-to-air missile complete-round proxy",
+        "source_id": "policy",
+        "historical_year": 1989,
+        "historical_basis": "configured service-year CPI model",
+        "confidence": "rough model",
+        "current_low": "1250000",
+        "current_high": "5000000",
+        "disposition": "counted"
+      },
+      "field_methods": {
+        "historical": "rough model",
+        "current": "rough model"
+      },
+      "prior_origin": null,
+      "sources": [
+        {
+          "title": "SEST owner-authorized replacement-cost model, 24 October 2026",
+          "url": "https://github.com/SEST-HOBBY/Seapower-mods/blob/fix/complete-combat-costs-20261024/integration/combat-costs/coverage-policy.json"
+        },
+        {
+          "title": "SEST owner-authorized replacement-cost model, 24 October 2026",
+          "url": "https://github.com/SEST-HOBBY/Seapower-mods/blob/fix/complete-combat-costs-20261024/integration/combat-costs/coverage-policy.json"
+        }
+      ]
+    },
+    {
+      "kind": "weapon",
       "target": "usa_v280_762",
       "source": "usa_cal_03in",
       "origin": "mapping",
@@ -66042,6 +67593,102 @@
           "url": "https://github.com/SEST-HOBBY/Seapower-mods/blob/fix/complete-combat-costs-20261024/integration/combat-costs/coverage-policy.json"
         }
       ]
+    },
+    {
+      "kind": "weapon",
+      "target": "usaf_aim-9p-3",
+      "origin": "completion",
+      "source": null,
+      "basis": "short-range IR AAM complete-round proxy",
+      "fields": {
+        "WeaponCosts": "116687",
+        "CurrentYearCost": "500000",
+        "Category": "AAM"
+      },
+      "completion": {
+        "model": "ir_aam",
+        "historical": "116687",
+        "current": "500000",
+        "category": "AAM",
+        "source": null,
+        "basis": "short-range IR AAM complete-round proxy",
+        "source_id": "policy",
+        "historical_year": 1979,
+        "historical_basis": "configured service-year CPI model",
+        "confidence": "rough model",
+        "current_low": "250000",
+        "current_high": "1000000",
+        "disposition": "counted"
+      },
+      "field_methods": {
+        "historical": "rough model",
+        "current": "rough model"
+      },
+      "prior_origin": null,
+      "sources": [
+        {
+          "title": "SEST owner-authorized replacement-cost model, 24 October 2026",
+          "url": "https://github.com/SEST-HOBBY/Seapower-mods/blob/fix/complete-combat-costs-20261024/integration/combat-costs/coverage-policy.json"
+        },
+        {
+          "title": "SEST owner-authorized replacement-cost model, 24 October 2026",
+          "url": "https://github.com/SEST-HOBBY/Seapower-mods/blob/fix/complete-combat-costs-20261024/integration/combat-costs/coverage-policy.json"
+        }
+      ]
+    },
+    {
+      "kind": "weapon",
+      "target": "usaf_aim-9p-4",
+      "origin": "completion",
+      "source": null,
+      "basis": "short-range IR AAM complete-round proxy",
+      "fields": {
+        "WeaponCosts": "123206",
+        "CurrentYearCost": "500000",
+        "Category": "AAM"
+      },
+      "completion": {
+        "model": "ir_aam",
+        "historical": "123206",
+        "current": "500000",
+        "category": "AAM",
+        "source": null,
+        "basis": "short-range IR AAM complete-round proxy",
+        "source_id": "policy",
+        "historical_year": 1980,
+        "historical_basis": "configured service-year CPI model",
+        "confidence": "rough model",
+        "current_low": "250000",
+        "current_high": "1000000",
+        "disposition": "counted"
+      },
+      "field_methods": {
+        "historical": "rough model",
+        "current": "rough model"
+      },
+      "prior_origin": null,
+      "sources": [
+        {
+          "title": "SEST owner-authorized replacement-cost model, 24 October 2026",
+          "url": "https://github.com/SEST-HOBBY/Seapower-mods/blob/fix/complete-combat-costs-20261024/integration/combat-costs/coverage-policy.json"
+        },
+        {
+          "title": "SEST owner-authorized replacement-cost model, 24 October 2026",
+          "url": "https://github.com/SEST-HOBBY/Seapower-mods/blob/fix/complete-combat-costs-20261024/integration/combat-costs/coverage-policy.json"
+        }
+      ]
+    },
+    {
+      "kind": "weapon",
+      "target": "usaf_aim-9p-5",
+      "source": "usaf_aim-9p5",
+      "origin": "normalized",
+      "basis": "Same catalog reference after path/punctuation normalization",
+      "fields": {
+        "WeaponCosts": "62000",
+        "CurrentYearCost": "170000",
+        "Category": "AAM"
+      }
     },
     {
       "kind": "weapon",
@@ -69641,6 +71288,48 @@
     },
     {
       "kind": "weapon",
+      "target": "usn_aim-9s",
+      "origin": "completion",
+      "source": null,
+      "basis": "short-range IR AAM complete-round proxy",
+      "fields": {
+        "WeaponCosts": "166537",
+        "CurrentYearCost": "500000",
+        "Category": "AAM"
+      },
+      "completion": {
+        "model": "ir_aam",
+        "historical": "166537",
+        "current": "500000",
+        "category": "AAM",
+        "source": null,
+        "basis": "short-range IR AAM complete-round proxy",
+        "source_id": "policy",
+        "historical_year": 1986,
+        "historical_basis": "configured service-year CPI model",
+        "confidence": "rough model",
+        "current_low": "250000",
+        "current_high": "1000000",
+        "disposition": "counted"
+      },
+      "field_methods": {
+        "historical": "rough model",
+        "current": "rough model"
+      },
+      "prior_origin": null,
+      "sources": [
+        {
+          "title": "SEST owner-authorized replacement-cost model, 24 October 2026",
+          "url": "https://github.com/SEST-HOBBY/Seapower-mods/blob/fix/complete-combat-costs-20261024/integration/combat-costs/coverage-policy.json"
+        },
+        {
+          "title": "SEST owner-authorized replacement-cost model, 24 October 2026",
+          "url": "https://github.com/SEST-HOBBY/Seapower-mods/blob/fix/complete-combat-costs-20261024/integration/combat-costs/coverage-policy.json"
+        }
+      ]
+    },
+    {
+      "kind": "weapon",
       "target": "usn_alq-167",
       "origin": "completion",
       "source": null,
@@ -70221,6 +71910,48 @@
         "confidence": "rough model",
         "current_low": "1446",
         "current_high": "5784",
+        "disposition": "counted"
+      },
+      "field_methods": {
+        "historical": "rough model",
+        "current": "rough model"
+      },
+      "prior_origin": null,
+      "sources": [
+        {
+          "title": "SEST owner-authorized replacement-cost model, 24 October 2026",
+          "url": "https://github.com/SEST-HOBBY/Seapower-mods/blob/fix/complete-combat-costs-20261024/integration/combat-costs/coverage-policy.json"
+        },
+        {
+          "title": "SEST owner-authorized replacement-cost model, 24 October 2026",
+          "url": "https://github.com/SEST-HOBBY/Seapower-mods/blob/fix/complete-combat-costs-20261024/integration/combat-costs/coverage-policy.json"
+        }
+      ]
+    },
+    {
+      "kind": "weapon",
+      "target": "usn_cal_1194mm",
+      "origin": "completion",
+      "source": null,
+      "basis": "per-projectile calibre-band replacement estimate, not cost per burst",
+      "fields": {
+        "WeaponCosts": "20000",
+        "CurrentYearCost": "20000",
+        "Category": "Gun"
+      },
+      "completion": {
+        "model": "projectile",
+        "historical": "20000",
+        "current": "20000",
+        "category": "Gun",
+        "source": null,
+        "basis": "per-projectile calibre-band replacement estimate, not cost per burst",
+        "source_id": "policy",
+        "historical_year": 2026,
+        "historical_basis": "2026 replacement proxy; IOC unknown",
+        "confidence": "rough model",
+        "current_low": "10000",
+        "current_high": "40000",
         "disposition": "counted"
       },
       "field_methods": {
@@ -75701,6 +77432,48 @@
         "CurrentYearCost": "2230000",
         "Category": "SAM"
       }
+    },
+    {
+      "kind": "weapon",
+      "target": "usn_rim-72c",
+      "origin": "completion",
+      "source": null,
+      "basis": "surface-to-air missile complete-round proxy",
+      "fields": {
+        "WeaponCosts": "550837",
+        "CurrentYearCost": "2500000",
+        "Category": "SAM"
+      },
+      "completion": {
+        "model": "sam",
+        "historical": "550837",
+        "current": "2500000",
+        "category": "SAM",
+        "source": null,
+        "basis": "surface-to-air missile complete-round proxy",
+        "source_id": "policy",
+        "historical_year": 1978,
+        "historical_basis": "configured service-year CPI model",
+        "confidence": "rough model",
+        "current_low": "1250000",
+        "current_high": "5000000",
+        "disposition": "counted"
+      },
+      "field_methods": {
+        "historical": "rough model",
+        "current": "rough model"
+      },
+      "prior_origin": null,
+      "sources": [
+        {
+          "title": "SEST owner-authorized replacement-cost model, 24 October 2026",
+          "url": "https://github.com/SEST-HOBBY/Seapower-mods/blob/fix/complete-combat-costs-20261024/integration/combat-costs/coverage-policy.json"
+        },
+        {
+          "title": "SEST owner-authorized replacement-cost model, 24 October 2026",
+          "url": "https://github.com/SEST-HOBBY/Seapower-mods/blob/fix/complete-combat-costs-20261024/integration/combat-costs/coverage-policy.json"
+        }
+      ]
     },
     {
       "kind": "weapon",
@@ -85013,27 +86786,27 @@
   ],
   "coverage": {
     "weapon": {
-      "eligible": 2176,
-      "historical_known": 2176,
-      "current_known": 2176,
+      "eligible": 2198,
+      "historical_known": 2198,
+      "current_known": 2198,
       "sest_eligible": 138,
       "sest_historical_known": 138,
       "sest_current_known": 138,
       "unknown": []
     },
     "vessel": {
-      "eligible": 939,
-      "historical_known": 939,
-      "current_known": 939,
-      "sest_eligible": 340,
-      "sest_historical_known": 340,
-      "sest_current_known": 340,
+      "eligible": 956,
+      "historical_known": 956,
+      "current_known": 956,
+      "sest_eligible": 350,
+      "sest_historical_known": 350,
+      "sest_current_known": 350,
       "unknown": []
     },
     "aircraft": {
-      "eligible": 762,
-      "historical_known": 762,
-      "current_known": 762,
+      "eligible": 764,
+      "historical_known": 764,
+      "current_known": 764,
       "sest_eligible": 39,
       "sest_historical_known": 39,
       "sest_current_known": 39,
@@ -94049,6 +95822,44 @@
         "historical_reference_year": 2026,
         "current_low": "5000",
         "current_high": "20000"
+      },
+      {
+        "kind": "weapon",
+        "id": "ger_aim-9l-i",
+        "owner": "3629144864",
+        "path": "mods-source/3629144864/ammunition/ger_aim-9l-i.ini",
+        "category": "AAM",
+        "type": "Missile",
+        "historical": "130428",
+        "current": "500000",
+        "field_methods": {
+          "historical": "rough model",
+          "current": "rough model"
+        },
+        "field_sources": {
+          "historical": "short-range IR AAM complete-round proxy",
+          "current": "short-range IR AAM complete-round proxy"
+        },
+        "completion": {
+          "model": "ir_aam",
+          "historical": "130428",
+          "current": "500000",
+          "category": "AAM",
+          "source": null,
+          "basis": "short-range IR AAM complete-round proxy",
+          "source_id": "policy",
+          "historical_year": 1981,
+          "historical_basis": "configured service-year CPI model",
+          "confidence": "rough model",
+          "current_low": "250000",
+          "current_high": "1000000",
+          "disposition": "counted"
+        },
+        "disposition": "counted",
+        "historical_basis": "configured service-year CPI model",
+        "historical_reference_year": 1981,
+        "current_low": "250000",
+        "current_high": "1000000"
       },
       {
         "kind": "weapon",
@@ -107536,6 +109347,44 @@
       },
       {
         "kind": "weapon",
+        "id": "plan_hq-61b",
+        "owner": "3775128499",
+        "path": "mods-source/3775128499/ammunition/plan_hq-61b.ini",
+        "category": "SAM",
+        "type": "Missile",
+        "historical": "904904",
+        "current": "2500000",
+        "field_methods": {
+          "historical": "rough model",
+          "current": "rough model"
+        },
+        "field_sources": {
+          "historical": "surface-to-air missile complete-round proxy",
+          "current": "surface-to-air missile complete-round proxy"
+        },
+        "completion": {
+          "model": "sam",
+          "historical": "904904",
+          "current": "2500000",
+          "category": "SAM",
+          "source": null,
+          "basis": "surface-to-air missile complete-round proxy",
+          "source_id": "policy",
+          "historical_year": 1988,
+          "historical_basis": "configured service-year CPI model",
+          "confidence": "rough model",
+          "current_low": "1250000",
+          "current_high": "5000000",
+          "disposition": "counted"
+        },
+        "disposition": "counted",
+        "historical_basis": "configured service-year CPI model",
+        "historical_reference_year": 1988,
+        "current_low": "1250000",
+        "current_high": "5000000"
+      },
+      {
+        "kind": "weapon",
         "id": "plan_hq10",
         "owner": "3413868677",
         "path": "mods-source/3413868677/ammunition/plan_hq10.ini",
@@ -116284,6 +118133,44 @@
       },
       {
         "kind": "weapon",
+        "id": "spa_dm2a4_er",
+        "owner": "3731208477",
+        "path": "mods-source/3731208477/ammunition/spa_dm2a4_er.ini",
+        "category": "Torpedo",
+        "type": "Torpedo",
+        "historical": "2834928",
+        "current": "4000000",
+        "field_methods": {
+          "historical": "rough model",
+          "current": "rough model"
+        },
+        "field_sources": {
+          "historical": "modern heavyweight guided torpedo replacement proxy",
+          "current": "modern heavyweight guided torpedo replacement proxy"
+        },
+        "completion": {
+          "model": "heavy_torpedo",
+          "historical": "2834928",
+          "current": "4000000",
+          "category": "Torpedo",
+          "source": null,
+          "basis": "modern heavyweight guided torpedo replacement proxy",
+          "source_id": "policy",
+          "historical_year": 2015,
+          "historical_basis": "configured service-year CPI model",
+          "confidence": "rough model",
+          "current_low": "2000000",
+          "current_high": "8000000",
+          "disposition": "counted"
+        },
+        "disposition": "counted",
+        "historical_basis": "configured service-year CPI model",
+        "historical_reference_year": 2015,
+        "current_low": "2000000",
+        "current_high": "8000000"
+      },
+      {
+        "kind": "weapon",
         "id": "spa_ef2000_fueltank",
         "owner": "3731208477",
         "path": "mods-source/3731208477/ammunition/spa_ef2000_fueltank.ini",
@@ -116833,6 +118720,44 @@
         "historical_reference_year": 1931,
         "current_low": "2000000",
         "current_high": "8000000"
+      },
+      {
+        "kind": "weapon",
+        "id": "spa_mk43_mod3_air",
+        "owner": "3630495619",
+        "path": "mods-source/3630495619/ammunition/spa_mk43_mod3_air.ini",
+        "category": "Torpedo",
+        "type": "Torpedo",
+        "historical": "115505",
+        "current": "1500000",
+        "field_methods": {
+          "historical": "rough model",
+          "current": "rough model"
+        },
+        "field_sources": {
+          "historical": "generic lightweight ASW torpedo replacement proxy",
+          "current": "generic lightweight ASW torpedo replacement proxy"
+        },
+        "completion": {
+          "model": "light_torpedo",
+          "historical": "115505",
+          "current": "1500000",
+          "category": "Torpedo",
+          "source": null,
+          "basis": "generic lightweight ASW torpedo replacement proxy",
+          "source_id": "policy",
+          "historical_year": 1953,
+          "historical_basis": "configured service-year CPI model",
+          "confidence": "rough model",
+          "current_low": "750000",
+          "current_high": "3000000",
+          "disposition": "counted"
+        },
+        "disposition": "counted",
+        "historical_basis": "configured service-year CPI model",
+        "historical_reference_year": 1953,
+        "current_low": "750000",
+        "current_high": "3000000"
       },
       {
         "kind": "weapon",
@@ -118688,6 +120613,82 @@
       },
       {
         "kind": "weapon",
+        "id": "swe_cal_152mm",
+        "owner": "3629144864",
+        "path": "mods-source/3629144864/ammunition/swe_cal_152mm.ini",
+        "category": "Gun",
+        "type": "Projectile",
+        "historical": "8000",
+        "current": "8000",
+        "field_methods": {
+          "historical": "rough model",
+          "current": "rough model"
+        },
+        "field_sources": {
+          "historical": "per-projectile calibre-band replacement estimate, not cost per burst",
+          "current": "per-projectile calibre-band replacement estimate, not cost per burst"
+        },
+        "completion": {
+          "model": "projectile",
+          "historical": "8000",
+          "current": "8000",
+          "category": "Gun",
+          "source": null,
+          "basis": "per-projectile calibre-band replacement estimate, not cost per burst",
+          "source_id": "policy",
+          "historical_year": 2026,
+          "historical_basis": "2026 replacement proxy; IOC unknown",
+          "confidence": "rough model",
+          "current_low": "4000",
+          "current_high": "16000",
+          "disposition": "counted"
+        },
+        "disposition": "counted",
+        "historical_basis": "2026 replacement proxy; IOC unknown",
+        "historical_reference_year": 2026,
+        "current_low": "4000",
+        "current_high": "16000"
+      },
+      {
+        "kind": "weapon",
+        "id": "swe_cal_40mm",
+        "owner": "3629144864",
+        "path": "mods-source/3629144864/ammunition/swe_cal_40mm.ini",
+        "category": "Gun",
+        "type": "Projectile",
+        "historical": "250",
+        "current": "250",
+        "field_methods": {
+          "historical": "rough model",
+          "current": "rough model"
+        },
+        "field_sources": {
+          "historical": "per-projectile calibre-band replacement estimate, not cost per burst",
+          "current": "per-projectile calibre-band replacement estimate, not cost per burst"
+        },
+        "completion": {
+          "model": "projectile",
+          "historical": "250",
+          "current": "250",
+          "category": "Gun",
+          "source": null,
+          "basis": "per-projectile calibre-band replacement estimate, not cost per burst",
+          "source_id": "policy",
+          "historical_year": 2026,
+          "historical_basis": "2026 replacement proxy; IOC unknown",
+          "confidence": "rough model",
+          "current_low": "125",
+          "current_high": "500",
+          "disposition": "counted"
+        },
+        "disposition": "counted",
+        "historical_basis": "2026 replacement proxy; IOC unknown",
+        "historical_reference_year": 2026,
+        "current_low": "125",
+        "current_high": "500"
+      },
+      {
+        "kind": "weapon",
         "id": "swe_cal_57mm",
         "owner": "3752415457",
         "path": "mods-source/3752415457/ammunition/swe_cal_57mm.ini",
@@ -118723,6 +120724,158 @@
         "historical_reference_year": 2026,
         "current_low": "850",
         "current_high": "3400"
+      },
+      {
+        "kind": "weapon",
+        "id": "swe_rb24",
+        "owner": "3629144864",
+        "path": "mods-source/3629144864/ammunition/swe_rb24.ini",
+        "category": "AAM",
+        "type": "Missile",
+        "historical": "42614",
+        "current": "500000",
+        "field_methods": {
+          "historical": "rough model",
+          "current": "rough model"
+        },
+        "field_sources": {
+          "historical": "short-range IR AAM complete-round proxy",
+          "current": "short-range IR AAM complete-round proxy"
+        },
+        "completion": {
+          "model": "ir_aam",
+          "historical": "42614",
+          "current": "500000",
+          "category": "AAM",
+          "source": null,
+          "basis": "short-range IR AAM complete-round proxy",
+          "source_id": "policy",
+          "historical_year": 1958,
+          "historical_basis": "configured service-year CPI model",
+          "confidence": "rough model",
+          "current_low": "250000",
+          "current_high": "1000000",
+          "disposition": "counted"
+        },
+        "disposition": "counted",
+        "historical_basis": "configured service-year CPI model",
+        "historical_reference_year": 1958,
+        "current_low": "250000",
+        "current_high": "1000000"
+      },
+      {
+        "kind": "weapon",
+        "id": "swe_rb24j",
+        "owner": "3629144864",
+        "path": "mods-source/3629144864/ammunition/swe_rb24j.ini",
+        "category": "AAM",
+        "type": "Missile",
+        "historical": "110167",
+        "current": "500000",
+        "field_methods": {
+          "historical": "rough model",
+          "current": "rough model"
+        },
+        "field_sources": {
+          "historical": "short-range IR AAM complete-round proxy",
+          "current": "short-range IR AAM complete-round proxy"
+        },
+        "completion": {
+          "model": "ir_aam",
+          "historical": "110167",
+          "current": "500000",
+          "category": "AAM",
+          "source": null,
+          "basis": "short-range IR AAM complete-round proxy",
+          "source_id": "policy",
+          "historical_year": 1978,
+          "historical_basis": "configured service-year CPI model",
+          "confidence": "rough model",
+          "current_low": "250000",
+          "current_high": "1000000",
+          "disposition": "counted"
+        },
+        "disposition": "counted",
+        "historical_basis": "configured service-year CPI model",
+        "historical_reference_year": 1978,
+        "current_low": "250000",
+        "current_high": "1000000"
+      },
+      {
+        "kind": "weapon",
+        "id": "swe_rb24l",
+        "owner": "3629144864",
+        "path": "mods-source/3629144864/ammunition/swe_rb24l.ini",
+        "category": "AAM",
+        "type": "Missile",
+        "historical": "137650",
+        "current": "500000",
+        "field_methods": {
+          "historical": "rough model",
+          "current": "rough model"
+        },
+        "field_sources": {
+          "historical": "short-range IR AAM complete-round proxy",
+          "current": "short-range IR AAM complete-round proxy"
+        },
+        "completion": {
+          "model": "ir_aam",
+          "historical": "137650",
+          "current": "500000",
+          "category": "AAM",
+          "source": null,
+          "basis": "short-range IR AAM complete-round proxy",
+          "source_id": "policy",
+          "historical_year": 1982,
+          "historical_basis": "configured service-year CPI model",
+          "confidence": "rough model",
+          "current_low": "250000",
+          "current_high": "1000000",
+          "disposition": "counted"
+        },
+        "disposition": "counted",
+        "historical_basis": "configured service-year CPI model",
+        "historical_reference_year": 1982,
+        "current_low": "250000",
+        "current_high": "1000000"
+      },
+      {
+        "kind": "weapon",
+        "id": "swe_rb71",
+        "owner": "3629144864",
+        "path": "mods-source/3629144864/ammunition/swe_rb71.ini",
+        "category": "AAM",
+        "type": "Missile",
+        "historical": "330502",
+        "current": "1500000",
+        "field_methods": {
+          "historical": "rough model",
+          "current": "rough model"
+        },
+        "field_sources": {
+          "historical": "modern radar AAM complete-round proxy",
+          "current": "modern radar AAM complete-round proxy"
+        },
+        "completion": {
+          "model": "aam",
+          "historical": "330502",
+          "current": "1500000",
+          "category": "AAM",
+          "source": null,
+          "basis": "modern radar AAM complete-round proxy",
+          "source_id": "policy",
+          "historical_year": 1978,
+          "historical_basis": "configured service-year CPI model",
+          "confidence": "rough model",
+          "current_low": "750000",
+          "current_high": "3000000",
+          "disposition": "counted"
+        },
+        "disposition": "counted",
+        "historical_basis": "configured service-year CPI model",
+        "historical_reference_year": 1978,
+        "current_low": "750000",
+        "current_high": "3000000"
       },
       {
         "kind": "weapon",
@@ -121038,6 +123191,234 @@
       },
       {
         "kind": "weapon",
+        "id": "usa_mim-72a",
+        "owner": "3629144864",
+        "path": "mods-source/3629144864/ammunition/usa_mim-72a.ini",
+        "category": "SAM",
+        "type": "Missile",
+        "historical": "283194",
+        "current": "2500000",
+        "field_methods": {
+          "historical": "rough model",
+          "current": "rough model"
+        },
+        "field_sources": {
+          "historical": "surface-to-air missile complete-round proxy",
+          "current": "surface-to-air missile complete-round proxy"
+        },
+        "completion": {
+          "model": "sam",
+          "historical": "283194",
+          "current": "2500000",
+          "category": "SAM",
+          "source": null,
+          "basis": "surface-to-air missile complete-round proxy",
+          "source_id": "policy",
+          "historical_year": 1969,
+          "historical_basis": "configured service-year CPI model",
+          "confidence": "rough model",
+          "current_low": "1250000",
+          "current_high": "5000000",
+          "disposition": "counted"
+        },
+        "disposition": "counted",
+        "historical_basis": "configured service-year CPI model",
+        "historical_reference_year": 1969,
+        "current_low": "1250000",
+        "current_high": "5000000"
+      },
+      {
+        "kind": "weapon",
+        "id": "usa_mim-72c",
+        "owner": "3629144864",
+        "path": "mods-source/3629144864/ammunition/usa_mim-72c.ini",
+        "category": "SAM",
+        "type": "Missile",
+        "historical": "550837",
+        "current": "2500000",
+        "field_methods": {
+          "historical": "rough model",
+          "current": "rough model"
+        },
+        "field_sources": {
+          "historical": "surface-to-air missile complete-round proxy",
+          "current": "surface-to-air missile complete-round proxy"
+        },
+        "completion": {
+          "model": "sam",
+          "historical": "550837",
+          "current": "2500000",
+          "category": "SAM",
+          "source": null,
+          "basis": "surface-to-air missile complete-round proxy",
+          "source_id": "policy",
+          "historical_year": 1978,
+          "historical_basis": "configured service-year CPI model",
+          "confidence": "rough model",
+          "current_low": "1250000",
+          "current_high": "5000000",
+          "disposition": "counted"
+        },
+        "disposition": "counted",
+        "historical_basis": "configured service-year CPI model",
+        "historical_reference_year": 1978,
+        "current_low": "1250000",
+        "current_high": "5000000"
+      },
+      {
+        "kind": "weapon",
+        "id": "usa_mim-72e",
+        "owner": "3629144864",
+        "path": "mods-source/3629144864/ammunition/usa_mim-72e.ini",
+        "category": "SAM",
+        "type": "Missile",
+        "historical": "616029",
+        "current": "2500000",
+        "field_methods": {
+          "historical": "rough model",
+          "current": "rough model"
+        },
+        "field_sources": {
+          "historical": "surface-to-air missile complete-round proxy",
+          "current": "surface-to-air missile complete-round proxy"
+        },
+        "completion": {
+          "model": "sam",
+          "historical": "616029",
+          "current": "2500000",
+          "category": "SAM",
+          "source": null,
+          "basis": "surface-to-air missile complete-round proxy",
+          "source_id": "policy",
+          "historical_year": 1980,
+          "historical_basis": "configured service-year CPI model",
+          "confidence": "rough model",
+          "current_low": "1250000",
+          "current_high": "5000000",
+          "disposition": "counted"
+        },
+        "disposition": "counted",
+        "historical_basis": "configured service-year CPI model",
+        "historical_reference_year": 1980,
+        "current_low": "1250000",
+        "current_high": "5000000"
+      },
+      {
+        "kind": "weapon",
+        "id": "usa_mim-72g",
+        "owner": "3629144864",
+        "path": "mods-source/3629144864/ammunition/usa_mim-72g.ini",
+        "category": "SAM",
+        "type": "Missile",
+        "historical": "941014",
+        "current": "2500000",
+        "field_methods": {
+          "historical": "rough model",
+          "current": "rough model"
+        },
+        "field_sources": {
+          "historical": "surface-to-air missile complete-round proxy",
+          "current": "surface-to-air missile complete-round proxy"
+        },
+        "completion": {
+          "model": "sam",
+          "historical": "941014",
+          "current": "2500000",
+          "category": "SAM",
+          "source": null,
+          "basis": "surface-to-air missile complete-round proxy",
+          "source_id": "policy",
+          "historical_year": 1989,
+          "historical_basis": "configured service-year CPI model",
+          "confidence": "rough model",
+          "current_low": "1250000",
+          "current_high": "5000000",
+          "disposition": "counted"
+        },
+        "disposition": "counted",
+        "historical_basis": "configured service-year CPI model",
+        "historical_reference_year": 1989,
+        "current_low": "1250000",
+        "current_high": "5000000"
+      },
+      {
+        "kind": "weapon",
+        "id": "usa_mim-72h",
+        "owner": "3629144864",
+        "path": "mods-source/3629144864/ammunition/usa_mim-72h.ini",
+        "category": "SAM",
+        "type": "Missile",
+        "historical": "616029",
+        "current": "2500000",
+        "field_methods": {
+          "historical": "rough model",
+          "current": "rough model"
+        },
+        "field_sources": {
+          "historical": "surface-to-air missile complete-round proxy",
+          "current": "surface-to-air missile complete-round proxy"
+        },
+        "completion": {
+          "model": "sam",
+          "historical": "616029",
+          "current": "2500000",
+          "category": "SAM",
+          "source": null,
+          "basis": "surface-to-air missile complete-round proxy",
+          "source_id": "policy",
+          "historical_year": 1980,
+          "historical_basis": "configured service-year CPI model",
+          "confidence": "rough model",
+          "current_low": "1250000",
+          "current_high": "5000000",
+          "disposition": "counted"
+        },
+        "disposition": "counted",
+        "historical_basis": "configured service-year CPI model",
+        "historical_reference_year": 1980,
+        "current_low": "1250000",
+        "current_high": "5000000"
+      },
+      {
+        "kind": "weapon",
+        "id": "usa_mim-72j",
+        "owner": "3629144864",
+        "path": "mods-source/3629144864/ammunition/usa_mim-72j.ini",
+        "category": "SAM",
+        "type": "Missile",
+        "historical": "941014",
+        "current": "2500000",
+        "field_methods": {
+          "historical": "rough model",
+          "current": "rough model"
+        },
+        "field_sources": {
+          "historical": "surface-to-air missile complete-round proxy",
+          "current": "surface-to-air missile complete-round proxy"
+        },
+        "completion": {
+          "model": "sam",
+          "historical": "941014",
+          "current": "2500000",
+          "category": "SAM",
+          "source": null,
+          "basis": "surface-to-air missile complete-round proxy",
+          "source_id": "policy",
+          "historical_year": 1989,
+          "historical_basis": "configured service-year CPI model",
+          "confidence": "rough model",
+          "current_low": "1250000",
+          "current_high": "5000000",
+          "disposition": "counted"
+        },
+        "disposition": "counted",
+        "historical_basis": "configured service-year CPI model",
+        "historical_reference_year": 1989,
+        "current_low": "1250000",
+        "current_high": "5000000"
+      },
+      {
+        "kind": "weapon",
         "id": "usa_mim_104a",
         "owner": "3413868677",
         "path": "mods-source/3413868677/ammunition/usa_mim_104a.ini",
@@ -122104,6 +124485,106 @@
         "completion": null,
         "disposition": "counted",
         "historical_basis": "tracker author catalog; original reference-year basis retained",
+        "historical_reference_year": null,
+        "current_low": null,
+        "current_high": null
+      },
+      {
+        "kind": "weapon",
+        "id": "usaf_aim-9p-3",
+        "owner": "3629144864",
+        "path": "mods-source/3629144864/ammunition/usaf_aim-9p-3.ini",
+        "category": "AAM",
+        "type": "Missile",
+        "historical": "116687",
+        "current": "500000",
+        "field_methods": {
+          "historical": "rough model",
+          "current": "rough model"
+        },
+        "field_sources": {
+          "historical": "short-range IR AAM complete-round proxy",
+          "current": "short-range IR AAM complete-round proxy"
+        },
+        "completion": {
+          "model": "ir_aam",
+          "historical": "116687",
+          "current": "500000",
+          "category": "AAM",
+          "source": null,
+          "basis": "short-range IR AAM complete-round proxy",
+          "source_id": "policy",
+          "historical_year": 1979,
+          "historical_basis": "configured service-year CPI model",
+          "confidence": "rough model",
+          "current_low": "250000",
+          "current_high": "1000000",
+          "disposition": "counted"
+        },
+        "disposition": "counted",
+        "historical_basis": "configured service-year CPI model",
+        "historical_reference_year": 1979,
+        "current_low": "250000",
+        "current_high": "1000000"
+      },
+      {
+        "kind": "weapon",
+        "id": "usaf_aim-9p-4",
+        "owner": "3629144864",
+        "path": "mods-source/3629144864/ammunition/usaf_aim-9p-4.ini",
+        "category": "AAM",
+        "type": "Missile",
+        "historical": "123206",
+        "current": "500000",
+        "field_methods": {
+          "historical": "rough model",
+          "current": "rough model"
+        },
+        "field_sources": {
+          "historical": "short-range IR AAM complete-round proxy",
+          "current": "short-range IR AAM complete-round proxy"
+        },
+        "completion": {
+          "model": "ir_aam",
+          "historical": "123206",
+          "current": "500000",
+          "category": "AAM",
+          "source": null,
+          "basis": "short-range IR AAM complete-round proxy",
+          "source_id": "policy",
+          "historical_year": 1980,
+          "historical_basis": "configured service-year CPI model",
+          "confidence": "rough model",
+          "current_low": "250000",
+          "current_high": "1000000",
+          "disposition": "counted"
+        },
+        "disposition": "counted",
+        "historical_basis": "configured service-year CPI model",
+        "historical_reference_year": 1980,
+        "current_low": "250000",
+        "current_high": "1000000"
+      },
+      {
+        "kind": "weapon",
+        "id": "usaf_aim-9p-5",
+        "owner": "3629144864",
+        "path": "mods-source/3629144864/ammunition/usaf_aim-9p-5.ini",
+        "category": "AAM",
+        "type": "Missile",
+        "historical": "62000",
+        "current": "170000",
+        "field_methods": {
+          "historical": "existing usable value preserved",
+          "current": "existing usable value preserved"
+        },
+        "field_sources": {
+          "historical": "reviewed catalog mapping: usaf_aim-9p5",
+          "current": "reviewed catalog mapping: usaf_aim-9p5"
+        },
+        "completion": null,
+        "disposition": "counted",
+        "historical_basis": "reviewed catalog mapping: usaf_aim-9p5; original reference-year basis retained",
         "historical_reference_year": null,
         "current_low": null,
         "current_high": null
@@ -127074,6 +129555,44 @@
       },
       {
         "kind": "weapon",
+        "id": "usn_aim-9s",
+        "owner": "3629144864",
+        "path": "mods-source/3629144864/ammunition/usn_aim-9s.ini",
+        "category": "AAM",
+        "type": "Missile",
+        "historical": "166537",
+        "current": "500000",
+        "field_methods": {
+          "historical": "rough model",
+          "current": "rough model"
+        },
+        "field_sources": {
+          "historical": "short-range IR AAM complete-round proxy",
+          "current": "short-range IR AAM complete-round proxy"
+        },
+        "completion": {
+          "model": "ir_aam",
+          "historical": "166537",
+          "current": "500000",
+          "category": "AAM",
+          "source": null,
+          "basis": "short-range IR AAM complete-round proxy",
+          "source_id": "policy",
+          "historical_year": 1986,
+          "historical_basis": "configured service-year CPI model",
+          "confidence": "rough model",
+          "current_low": "250000",
+          "current_high": "1000000",
+          "disposition": "counted"
+        },
+        "disposition": "counted",
+        "historical_basis": "configured service-year CPI model",
+        "historical_reference_year": 1986,
+        "current_low": "250000",
+        "current_high": "1000000"
+      },
+      {
+        "kind": "weapon",
         "id": "usn_aim-9x",
         "owner": "SEST_Collection_Fixes",
         "path": "integration/collection-fixes/SEST_Collection_Fixes/ammunition/usn_aim-9x.ini",
@@ -128059,6 +130578,44 @@
         "historical_reference_year": null,
         "current_low": null,
         "current_high": null
+      },
+      {
+        "kind": "weapon",
+        "id": "usn_cal_1194mm",
+        "owner": "3413868677",
+        "path": "mods-source/3413868677/ammunition/usn_cal_1194mm.ini",
+        "category": "Gun",
+        "type": "Projectile",
+        "historical": "20000",
+        "current": "20000",
+        "field_methods": {
+          "historical": "rough model",
+          "current": "rough model"
+        },
+        "field_sources": {
+          "historical": "per-projectile calibre-band replacement estimate, not cost per burst",
+          "current": "per-projectile calibre-band replacement estimate, not cost per burst"
+        },
+        "completion": {
+          "model": "projectile",
+          "historical": "20000",
+          "current": "20000",
+          "category": "Gun",
+          "source": null,
+          "basis": "per-projectile calibre-band replacement estimate, not cost per burst",
+          "source_id": "policy",
+          "historical_year": 2026,
+          "historical_basis": "2026 replacement proxy; IOC unknown",
+          "confidence": "rough model",
+          "current_low": "10000",
+          "current_high": "40000",
+          "disposition": "counted"
+        },
+        "disposition": "counted",
+        "historical_basis": "2026 replacement proxy; IOC unknown",
+        "historical_reference_year": 2026,
+        "current_low": "10000",
+        "current_high": "40000"
       },
       {
         "kind": "weapon",
@@ -135729,6 +138286,44 @@
         "historical_reference_year": null,
         "current_low": null,
         "current_high": null
+      },
+      {
+        "kind": "weapon",
+        "id": "usn_rim-72c",
+        "owner": "3629144864",
+        "path": "mods-source/3629144864/ammunition/usn_rim-72c.ini",
+        "category": "SAM",
+        "type": "Missile",
+        "historical": "550837",
+        "current": "2500000",
+        "field_methods": {
+          "historical": "rough model",
+          "current": "rough model"
+        },
+        "field_sources": {
+          "historical": "surface-to-air missile complete-round proxy",
+          "current": "surface-to-air missile complete-round proxy"
+        },
+        "completion": {
+          "model": "sam",
+          "historical": "550837",
+          "current": "2500000",
+          "category": "SAM",
+          "source": null,
+          "basis": "surface-to-air missile complete-round proxy",
+          "source_id": "policy",
+          "historical_year": 1978,
+          "historical_basis": "configured service-year CPI model",
+          "confidence": "rough model",
+          "current_low": "1250000",
+          "current_high": "5000000",
+          "disposition": "counted"
+        },
+        "disposition": "counted",
+        "historical_basis": "configured service-year CPI model",
+        "historical_reference_year": 1978,
+        "current_low": "1250000",
+        "current_high": "5000000"
       },
       {
         "kind": "weapon",
@@ -150327,8 +152922,8 @@
       {
         "kind": "vessel",
         "id": "ae_cvl_dedalo_late",
-        "owner": "3630495619",
-        "path": "mods-source/3630495619/vessels/ae_cvl_dedalo_late.ini",
+        "owner": "SEST_Replenishment",
+        "path": "integration/replenishment/SEST_Replenishment/vessels/ae_cvl_dedalo_late.ini",
         "category": "CVL",
         "type": "Vessel",
         "historical": "71000000",
@@ -155694,6 +158289,120 @@
       },
       {
         "kind": "vessel",
+        "id": "ita_lhd_trieste",
+        "owner": "SEST_Replenishment",
+        "path": "integration/replenishment/SEST_Replenishment/vessels/ita_lhd_trieste.ini",
+        "category": "LPD",
+        "type": "Vessel",
+        "historical": "1200000000",
+        "current": "1200000000",
+        "field_methods": {
+          "historical": "rough model",
+          "current": "rough model"
+        },
+        "field_sources": {
+          "historical": "amphibious ship replacement proxy, excluding vehicles, aircraft and ammunition",
+          "current": "amphibious ship replacement proxy, excluding vehicles, aircraft and ammunition"
+        },
+        "completion": {
+          "model": "amphibious",
+          "historical": "1200000000",
+          "current": "1200000000",
+          "category": "LPD",
+          "source": null,
+          "basis": "amphibious ship replacement proxy, excluding vehicles, aircraft and ammunition",
+          "source_id": "policy",
+          "historical_year": 2026,
+          "historical_basis": "2026 replacement proxy; IOC unknown",
+          "confidence": "rough model",
+          "current_low": "600000000",
+          "current_high": "2400000000",
+          "disposition": "counted"
+        },
+        "disposition": "counted",
+        "historical_basis": "2026 replacement proxy; IOC unknown",
+        "historical_reference_year": 2026,
+        "current_low": "600000000",
+        "current_high": "2400000000"
+      },
+      {
+        "kind": "vessel",
+        "id": "ita_lhd_trieste_saam16",
+        "owner": "SEST_Replenishment",
+        "path": "integration/replenishment/SEST_Replenishment/vessels/ita_lhd_trieste_saam16.ini",
+        "category": "LPD",
+        "type": "Vessel",
+        "historical": "1200000000",
+        "current": "1200000000",
+        "field_methods": {
+          "historical": "rough model",
+          "current": "rough model"
+        },
+        "field_sources": {
+          "historical": "amphibious ship replacement proxy, excluding vehicles, aircraft and ammunition",
+          "current": "amphibious ship replacement proxy, excluding vehicles, aircraft and ammunition"
+        },
+        "completion": {
+          "model": "amphibious",
+          "historical": "1200000000",
+          "current": "1200000000",
+          "category": "LPD",
+          "source": null,
+          "basis": "amphibious ship replacement proxy, excluding vehicles, aircraft and ammunition",
+          "source_id": "policy",
+          "historical_year": 2026,
+          "historical_basis": "2026 replacement proxy; IOC unknown",
+          "confidence": "rough model",
+          "current_low": "600000000",
+          "current_high": "2400000000",
+          "disposition": "counted"
+        },
+        "disposition": "counted",
+        "historical_basis": "2026 replacement proxy; IOC unknown",
+        "historical_reference_year": 2026,
+        "current_low": "600000000",
+        "current_high": "2400000000"
+      },
+      {
+        "kind": "vessel",
+        "id": "ita_lhd_trieste_saam32",
+        "owner": "SEST_Replenishment",
+        "path": "integration/replenishment/SEST_Replenishment/vessels/ita_lhd_trieste_saam32.ini",
+        "category": "LPD",
+        "type": "Vessel",
+        "historical": "1200000000",
+        "current": "1200000000",
+        "field_methods": {
+          "historical": "rough model",
+          "current": "rough model"
+        },
+        "field_sources": {
+          "historical": "amphibious ship replacement proxy, excluding vehicles, aircraft and ammunition",
+          "current": "amphibious ship replacement proxy, excluding vehicles, aircraft and ammunition"
+        },
+        "completion": {
+          "model": "amphibious",
+          "historical": "1200000000",
+          "current": "1200000000",
+          "category": "LPD",
+          "source": null,
+          "basis": "amphibious ship replacement proxy, excluding vehicles, aircraft and ammunition",
+          "source_id": "policy",
+          "historical_year": 2026,
+          "historical_basis": "2026 replacement proxy; IOC unknown",
+          "confidence": "rough model",
+          "current_low": "600000000",
+          "current_high": "2400000000",
+          "disposition": "counted"
+        },
+        "disposition": "counted",
+        "historical_basis": "2026 replacement proxy; IOC unknown",
+        "historical_reference_year": 2026,
+        "current_low": "600000000",
+        "current_high": "2400000000"
+      },
+      {
+        "kind": "vessel",
         "id": "ita_ssk_todaro_batch1",
         "owner": "3488139470",
         "path": "mods-source/3488139470/vessels/ita_ssk_todaro_batch1.ini",
@@ -156638,6 +159347,44 @@
       },
       {
         "kind": "vessel",
+        "id": "ko_ffg-471",
+        "owner": "SEST_Replenishment",
+        "path": "integration/replenishment/SEST_Replenishment/vessels/ko_ffg-471.ini",
+        "category": "FFG",
+        "type": "Vessel",
+        "historical": "700000000",
+        "current": "700000000",
+        "field_methods": {
+          "historical": "rough model",
+          "current": "rough model"
+        },
+        "field_sources": {
+          "historical": "fitted frigate replacement proxy, excluding ammunition and embarked aircraft",
+          "current": "fitted frigate replacement proxy, excluding ammunition and embarked aircraft"
+        },
+        "completion": {
+          "model": "frigate",
+          "historical": "700000000",
+          "current": "700000000",
+          "category": "FFG",
+          "source": null,
+          "basis": "fitted frigate replacement proxy, excluding ammunition and embarked aircraft",
+          "source_id": "policy",
+          "historical_year": 2026,
+          "historical_basis": "2026 replacement proxy; IOC unknown",
+          "confidence": "rough model",
+          "current_low": "350000000",
+          "current_high": "1400000000",
+          "disposition": "counted"
+        },
+        "disposition": "counted",
+        "historical_basis": "2026 replacement proxy; IOC unknown",
+        "historical_reference_year": 2026,
+        "current_low": "350000000",
+        "current_high": "1400000000"
+      },
+      {
+        "kind": "vessel",
         "id": "ko_ffg-811",
         "owner": "SEST_Replenishment",
         "path": "integration/replenishment/SEST_Replenishment/vessels/ko_ffg-811.ini",
@@ -156704,6 +159451,30 @@
         "completion": null,
         "disposition": "counted",
         "historical_basis": "tracker author catalog; original reference-year basis retained",
+        "historical_reference_year": null,
+        "current_low": null,
+        "current_high": null
+      },
+      {
+        "kind": "vessel",
+        "id": "ko_hdf-3600",
+        "owner": "SEST_Replenishment",
+        "path": "integration/replenishment/SEST_Replenishment/vessels/ko_hdf-3600.ini",
+        "category": "FFG",
+        "type": "Vessel",
+        "historical": "587000000",
+        "current": "1141000000",
+        "field_methods": {
+          "historical": "existing usable value preserved",
+          "current": "existing usable value preserved"
+        },
+        "field_sources": {
+          "historical": "reviewed catalog mapping: ko_ffg-818",
+          "current": "reviewed catalog mapping: ko_ffg-818"
+        },
+        "completion": null,
+        "disposition": "counted",
+        "historical_basis": "reviewed catalog mapping: ko_ffg-818; original reference-year basis retained",
         "historical_reference_year": null,
         "current_low": null,
         "current_high": null
@@ -156779,6 +159550,44 @@
         "historical_reference_year": null,
         "current_low": null,
         "current_high": null
+      },
+      {
+        "kind": "vessel",
+        "id": "ko_opv",
+        "owner": "SEST_Replenishment",
+        "path": "integration/replenishment/SEST_Replenishment/vessels/ko_opv.ini",
+        "category": "OPV",
+        "type": "Vessel",
+        "historical": "150000000",
+        "current": "150000000",
+        "field_methods": {
+          "historical": "rough model",
+          "current": "rough model"
+        },
+        "field_sources": {
+          "historical": "offshore patrol ship replacement proxy",
+          "current": "offshore patrol ship replacement proxy"
+        },
+        "completion": {
+          "model": "patrol",
+          "historical": "150000000",
+          "current": "150000000",
+          "category": "OPV",
+          "source": null,
+          "basis": "offshore patrol ship replacement proxy",
+          "source_id": "policy",
+          "historical_year": 2026,
+          "historical_basis": "2026 replacement proxy; IOC unknown",
+          "confidence": "rough model",
+          "current_low": "75000000",
+          "current_high": "300000000",
+          "disposition": "counted"
+        },
+        "disposition": "counted",
+        "historical_basis": "2026 replacement proxy; IOC unknown",
+        "historical_reference_year": 2026,
+        "current_low": "75000000",
+        "current_high": "300000000"
       },
       {
         "kind": "vessel",
@@ -160026,6 +162835,30 @@
       },
       {
         "kind": "vessel",
+        "id": "plan_type_053h2g",
+        "owner": "SEST_Replenishment",
+        "path": "integration/replenishment/SEST_Replenishment/vessels/plan_type_053h2g.ini",
+        "category": "FFG",
+        "type": "Vessel",
+        "historical": "110000000",
+        "current": "221000000",
+        "field_methods": {
+          "historical": "existing usable value preserved",
+          "current": "existing usable value preserved"
+        },
+        "field_sources": {
+          "historical": "reviewed catalog mapping: plan_type_053h3_p1",
+          "current": "reviewed catalog mapping: plan_type_053h3_p1"
+        },
+        "completion": null,
+        "disposition": "counted",
+        "historical_basis": "reviewed catalog mapping: plan_type_053h3_p1; original reference-year basis retained",
+        "historical_reference_year": null,
+        "current_low": null,
+        "current_high": null
+      },
+      {
+        "kind": "vessel",
         "id": "plan_type_053h3_p1",
         "owner": "SEST_Replenishment",
         "path": "integration/replenishment/SEST_Replenishment/vessels/plan_type_053h3_p1.ini",
@@ -160236,6 +163069,30 @@
         "completion": null,
         "disposition": "counted",
         "historical_basis": "tracker author catalog; original reference-year basis retained",
+        "historical_reference_year": null,
+        "current_low": null,
+        "current_high": null
+      },
+      {
+        "kind": "vessel",
+        "id": "plan_type_054b_p1",
+        "owner": "SEST_Replenishment",
+        "path": "integration/replenishment/SEST_Replenishment/vessels/plan_type_054b_p1.ini",
+        "category": "FFG",
+        "type": "Vessel",
+        "historical": "604000000",
+        "current": "664000000",
+        "field_methods": {
+          "historical": "existing usable value preserved",
+          "current": "existing usable value preserved"
+        },
+        "field_sources": {
+          "historical": "reviewed catalog mapping: plan_ffg_type_054b",
+          "current": "reviewed catalog mapping: plan_ffg_type_054b"
+        },
+        "completion": null,
+        "disposition": "counted",
+        "historical_basis": "reviewed catalog mapping: plan_ffg_type_054b; original reference-year basis retained",
         "historical_reference_year": null,
         "current_low": null,
         "current_high": null
@@ -165048,6 +167905,30 @@
       },
       {
         "kind": "vessel",
+        "id": "usn_bbg_ulysses_s_grant",
+        "owner": "SEST_Replenishment",
+        "path": "integration/replenishment/SEST_Replenishment/vessels/usn_bbg_ulysses_s_grant.ini",
+        "category": "BBG",
+        "type": "Vessel",
+        "historical": "1608000000",
+        "current": "6538000000",
+        "field_methods": {
+          "historical": "existing usable value preserved",
+          "current": "existing usable value preserved"
+        },
+        "field_sources": {
+          "historical": "reviewed catalog mapping: usn_bbg_trump",
+          "current": "reviewed catalog mapping: usn_bbg_trump"
+        },
+        "completion": null,
+        "disposition": "counted",
+        "historical_basis": "reviewed catalog mapping: usn_bbg_trump; original reference-year basis retained",
+        "historical_reference_year": null,
+        "current_low": null,
+        "current_high": null
+      },
+      {
+        "kind": "vessel",
         "id": "usn_cg_belknap",
         "owner": "vanilla",
         "path": "mods-source/_vanilla/original/vessels/usn_cg_belknap.ini",
@@ -168312,6 +171193,44 @@
       },
       {
         "kind": "vessel",
+        "id": "usn_ddg_burke_f2a_079_early",
+        "owner": "3390330875",
+        "path": "mods-source/3390330875/vessels/usn_ddg_burke_f2a_079_early.ini",
+        "category": "DDG",
+        "type": "Vessel",
+        "historical": "2000000000",
+        "current": "2000000000",
+        "field_methods": {
+          "historical": "rough model",
+          "current": "rough model"
+        },
+        "field_sources": {
+          "historical": "fitted destroyer replacement proxy, excluding ammunition and aircraft",
+          "current": "fitted destroyer replacement proxy, excluding ammunition and aircraft"
+        },
+        "completion": {
+          "model": "destroyer",
+          "historical": "2000000000",
+          "current": "2000000000",
+          "category": "DDG",
+          "source": null,
+          "basis": "fitted destroyer replacement proxy, excluding ammunition and aircraft",
+          "source_id": "policy",
+          "historical_year": 2026,
+          "historical_basis": "2026 replacement proxy; IOC unknown",
+          "confidence": "rough model",
+          "current_low": "1000000000",
+          "current_high": "4000000000",
+          "disposition": "counted"
+        },
+        "disposition": "counted",
+        "historical_basis": "2026 replacement proxy; IOC unknown",
+        "historical_reference_year": 2026,
+        "current_low": "1000000000",
+        "current_high": "4000000000"
+      },
+      {
+        "kind": "vessel",
         "id": "usn_ddg_burke_f2a_079_late",
         "owner": "3390330875",
         "path": "mods-source/3390330875/vessels/usn_ddg_burke_f2a_079_late.ini",
@@ -168360,6 +171279,44 @@
       },
       {
         "kind": "vessel",
+        "id": "usn_ddg_burke_f2a_080_early",
+        "owner": "3390330875",
+        "path": "mods-source/3390330875/vessels/usn_ddg_burke_f2a_080_early.ini",
+        "category": "DDG",
+        "type": "Vessel",
+        "historical": "2000000000",
+        "current": "2000000000",
+        "field_methods": {
+          "historical": "rough model",
+          "current": "rough model"
+        },
+        "field_sources": {
+          "historical": "fitted destroyer replacement proxy, excluding ammunition and aircraft",
+          "current": "fitted destroyer replacement proxy, excluding ammunition and aircraft"
+        },
+        "completion": {
+          "model": "destroyer",
+          "historical": "2000000000",
+          "current": "2000000000",
+          "category": "DDG",
+          "source": null,
+          "basis": "fitted destroyer replacement proxy, excluding ammunition and aircraft",
+          "source_id": "policy",
+          "historical_year": 2026,
+          "historical_basis": "2026 replacement proxy; IOC unknown",
+          "confidence": "rough model",
+          "current_low": "1000000000",
+          "current_high": "4000000000",
+          "disposition": "counted"
+        },
+        "disposition": "counted",
+        "historical_basis": "2026 replacement proxy; IOC unknown",
+        "historical_reference_year": 2026,
+        "current_low": "1000000000",
+        "current_high": "4000000000"
+      },
+      {
+        "kind": "vessel",
         "id": "usn_ddg_burke_f2a_080_late",
         "owner": "3390330875",
         "path": "mods-source/3390330875/vessels/usn_ddg_burke_f2a_080_late.ini",
@@ -168405,6 +171362,44 @@
         "historical_reference_year": null,
         "current_low": null,
         "current_high": null
+      },
+      {
+        "kind": "vessel",
+        "id": "usn_ddg_burke_f2a_081_early",
+        "owner": "3390330875",
+        "path": "mods-source/3390330875/vessels/usn_ddg_burke_f2a_081_early.ini",
+        "category": "DDG",
+        "type": "Vessel",
+        "historical": "2000000000",
+        "current": "2000000000",
+        "field_methods": {
+          "historical": "rough model",
+          "current": "rough model"
+        },
+        "field_sources": {
+          "historical": "fitted destroyer replacement proxy, excluding ammunition and aircraft",
+          "current": "fitted destroyer replacement proxy, excluding ammunition and aircraft"
+        },
+        "completion": {
+          "model": "destroyer",
+          "historical": "2000000000",
+          "current": "2000000000",
+          "category": "DDG",
+          "source": null,
+          "basis": "fitted destroyer replacement proxy, excluding ammunition and aircraft",
+          "source_id": "policy",
+          "historical_year": 2026,
+          "historical_basis": "2026 replacement proxy; IOC unknown",
+          "confidence": "rough model",
+          "current_low": "1000000000",
+          "current_high": "4000000000",
+          "disposition": "counted"
+        },
+        "disposition": "counted",
+        "historical_basis": "2026 replacement proxy; IOC unknown",
+        "historical_reference_year": 2026,
+        "current_low": "1000000000",
+        "current_high": "4000000000"
       },
       {
         "kind": "vessel",
@@ -168480,6 +171475,44 @@
       },
       {
         "kind": "vessel",
+        "id": "usn_ddg_burke_f2a_085_early",
+        "owner": "3390330875",
+        "path": "mods-source/3390330875/vessels/usn_ddg_burke_f2a_085_early.ini",
+        "category": "DDG",
+        "type": "Vessel",
+        "historical": "2000000000",
+        "current": "2000000000",
+        "field_methods": {
+          "historical": "rough model",
+          "current": "rough model"
+        },
+        "field_sources": {
+          "historical": "fitted destroyer replacement proxy, excluding ammunition and aircraft",
+          "current": "fitted destroyer replacement proxy, excluding ammunition and aircraft"
+        },
+        "completion": {
+          "model": "destroyer",
+          "historical": "2000000000",
+          "current": "2000000000",
+          "category": "DDG",
+          "source": null,
+          "basis": "fitted destroyer replacement proxy, excluding ammunition and aircraft",
+          "source_id": "policy",
+          "historical_year": 2026,
+          "historical_basis": "2026 replacement proxy; IOC unknown",
+          "confidence": "rough model",
+          "current_low": "1000000000",
+          "current_high": "4000000000",
+          "disposition": "counted"
+        },
+        "disposition": "counted",
+        "historical_basis": "2026 replacement proxy; IOC unknown",
+        "historical_reference_year": 2026,
+        "current_low": "1000000000",
+        "current_high": "4000000000"
+      },
+      {
+        "kind": "vessel",
         "id": "usn_ddg_burke_f2a_085_late",
         "owner": "3390330875",
         "path": "mods-source/3390330875/vessels/usn_ddg_burke_f2a_085_late.ini",
@@ -168552,6 +171585,44 @@
       },
       {
         "kind": "vessel",
+        "id": "usn_ddg_burke_f2a_089_early",
+        "owner": "3390330875",
+        "path": "mods-source/3390330875/vessels/usn_ddg_burke_f2a_089_early.ini",
+        "category": "DDG",
+        "type": "Vessel",
+        "historical": "2000000000",
+        "current": "2000000000",
+        "field_methods": {
+          "historical": "rough model",
+          "current": "rough model"
+        },
+        "field_sources": {
+          "historical": "fitted destroyer replacement proxy, excluding ammunition and aircraft",
+          "current": "fitted destroyer replacement proxy, excluding ammunition and aircraft"
+        },
+        "completion": {
+          "model": "destroyer",
+          "historical": "2000000000",
+          "current": "2000000000",
+          "category": "DDG",
+          "source": null,
+          "basis": "fitted destroyer replacement proxy, excluding ammunition and aircraft",
+          "source_id": "policy",
+          "historical_year": 2026,
+          "historical_basis": "2026 replacement proxy; IOC unknown",
+          "confidence": "rough model",
+          "current_low": "1000000000",
+          "current_high": "4000000000",
+          "disposition": "counted"
+        },
+        "disposition": "counted",
+        "historical_basis": "2026 replacement proxy; IOC unknown",
+        "historical_reference_year": 2026,
+        "current_low": "1000000000",
+        "current_high": "4000000000"
+      },
+      {
+        "kind": "vessel",
         "id": "usn_ddg_burke_f2a_089_late",
         "owner": "3390330875",
         "path": "mods-source/3390330875/vessels/usn_ddg_burke_f2a_089_late.ini",
@@ -168597,6 +171668,44 @@
         "historical_reference_year": null,
         "current_low": null,
         "current_high": null
+      },
+      {
+        "kind": "vessel",
+        "id": "usn_ddg_burke_f2a_091_early",
+        "owner": "3390330875",
+        "path": "mods-source/3390330875/vessels/usn_ddg_burke_f2a_091_early.ini",
+        "category": "DDG",
+        "type": "Vessel",
+        "historical": "2000000000",
+        "current": "2000000000",
+        "field_methods": {
+          "historical": "rough model",
+          "current": "rough model"
+        },
+        "field_sources": {
+          "historical": "fitted destroyer replacement proxy, excluding ammunition and aircraft",
+          "current": "fitted destroyer replacement proxy, excluding ammunition and aircraft"
+        },
+        "completion": {
+          "model": "destroyer",
+          "historical": "2000000000",
+          "current": "2000000000",
+          "category": "DDG",
+          "source": null,
+          "basis": "fitted destroyer replacement proxy, excluding ammunition and aircraft",
+          "source_id": "policy",
+          "historical_year": 2026,
+          "historical_basis": "2026 replacement proxy; IOC unknown",
+          "confidence": "rough model",
+          "current_low": "1000000000",
+          "current_high": "4000000000",
+          "disposition": "counted"
+        },
+        "disposition": "counted",
+        "historical_basis": "2026 replacement proxy; IOC unknown",
+        "historical_reference_year": 2026,
+        "current_low": "1000000000",
+        "current_high": "4000000000"
       },
       {
         "kind": "vessel",
@@ -168672,6 +171781,44 @@
       },
       {
         "kind": "vessel",
+        "id": "usn_ddg_burke_f2a_097_early",
+        "owner": "3390330875",
+        "path": "mods-source/3390330875/vessels/usn_ddg_burke_f2a_097_early.ini",
+        "category": "DDG",
+        "type": "Vessel",
+        "historical": "2000000000",
+        "current": "2000000000",
+        "field_methods": {
+          "historical": "rough model",
+          "current": "rough model"
+        },
+        "field_sources": {
+          "historical": "fitted destroyer replacement proxy, excluding ammunition and aircraft",
+          "current": "fitted destroyer replacement proxy, excluding ammunition and aircraft"
+        },
+        "completion": {
+          "model": "destroyer",
+          "historical": "2000000000",
+          "current": "2000000000",
+          "category": "DDG",
+          "source": null,
+          "basis": "fitted destroyer replacement proxy, excluding ammunition and aircraft",
+          "source_id": "policy",
+          "historical_year": 2026,
+          "historical_basis": "2026 replacement proxy; IOC unknown",
+          "confidence": "rough model",
+          "current_low": "1000000000",
+          "current_high": "4000000000",
+          "disposition": "counted"
+        },
+        "disposition": "counted",
+        "historical_basis": "2026 replacement proxy; IOC unknown",
+        "historical_reference_year": 2026,
+        "current_low": "1000000000",
+        "current_high": "4000000000"
+      },
+      {
+        "kind": "vessel",
         "id": "usn_ddg_burke_f2a_097_late",
         "owner": "3390330875",
         "path": "mods-source/3390330875/vessels/usn_ddg_burke_f2a_097_late.ini",
@@ -168741,6 +171888,44 @@
         "historical_reference_year": null,
         "current_low": null,
         "current_high": null
+      },
+      {
+        "kind": "vessel",
+        "id": "usn_ddg_burke_f2a_099_early",
+        "owner": "3390330875",
+        "path": "mods-source/3390330875/vessels/usn_ddg_burke_f2a_099_early.ini",
+        "category": "DDG",
+        "type": "Vessel",
+        "historical": "2000000000",
+        "current": "2000000000",
+        "field_methods": {
+          "historical": "rough model",
+          "current": "rough model"
+        },
+        "field_sources": {
+          "historical": "fitted destroyer replacement proxy, excluding ammunition and aircraft",
+          "current": "fitted destroyer replacement proxy, excluding ammunition and aircraft"
+        },
+        "completion": {
+          "model": "destroyer",
+          "historical": "2000000000",
+          "current": "2000000000",
+          "category": "DDG",
+          "source": null,
+          "basis": "fitted destroyer replacement proxy, excluding ammunition and aircraft",
+          "source_id": "policy",
+          "historical_year": 2026,
+          "historical_basis": "2026 replacement proxy; IOC unknown",
+          "confidence": "rough model",
+          "current_low": "1000000000",
+          "current_high": "4000000000",
+          "disposition": "counted"
+        },
+        "disposition": "counted",
+        "historical_basis": "2026 replacement proxy; IOC unknown",
+        "historical_reference_year": 2026,
+        "current_low": "1000000000",
+        "current_high": "4000000000"
       },
       {
         "kind": "vessel",
@@ -175013,6 +178198,82 @@
         "historical_reference_year": null,
         "current_low": null,
         "current_high": null
+      },
+      {
+        "kind": "aircraft",
+        "id": "ch_f-16",
+        "owner": "3776730617",
+        "path": "mods-source/3776730617/aircraft/ch_f-16.ini",
+        "category": "Aircraft",
+        "type": "Aircraft",
+        "historical": "75000000",
+        "current": "75000000",
+        "field_methods": {
+          "historical": "rough model",
+          "current": "rough model"
+        },
+        "field_sources": {
+          "historical": "conventional combat-aircraft replacement proxy, excluding ammunition and removable priced pods",
+          "current": "conventional combat-aircraft replacement proxy, excluding ammunition and removable priced pods"
+        },
+        "completion": {
+          "model": "fighter",
+          "historical": "75000000",
+          "current": "75000000",
+          "category": "Aircraft",
+          "source": null,
+          "basis": "conventional combat-aircraft replacement proxy, excluding ammunition and removable priced pods",
+          "source_id": "policy",
+          "historical_year": 2026,
+          "historical_basis": "2026 replacement proxy; IOC unknown",
+          "confidence": "rough model",
+          "current_low": "37500000",
+          "current_high": "150000000",
+          "disposition": "counted"
+        },
+        "disposition": "counted",
+        "historical_basis": "2026 replacement proxy; IOC unknown",
+        "historical_reference_year": 2026,
+        "current_low": "37500000",
+        "current_high": "150000000"
+      },
+      {
+        "kind": "aircraft",
+        "id": "ch_f-16_mlu",
+        "owner": "3776730617",
+        "path": "mods-source/3776730617/aircraft/ch_f-16_mlu.ini",
+        "category": "Aircraft",
+        "type": "Aircraft",
+        "historical": "75000000",
+        "current": "75000000",
+        "field_methods": {
+          "historical": "rough model",
+          "current": "rough model"
+        },
+        "field_sources": {
+          "historical": "conventional combat-aircraft replacement proxy, excluding ammunition and removable priced pods",
+          "current": "conventional combat-aircraft replacement proxy, excluding ammunition and removable priced pods"
+        },
+        "completion": {
+          "model": "fighter",
+          "historical": "75000000",
+          "current": "75000000",
+          "category": "Aircraft",
+          "source": null,
+          "basis": "conventional combat-aircraft replacement proxy, excluding ammunition and removable priced pods",
+          "source_id": "policy",
+          "historical_year": 2026,
+          "historical_basis": "2026 replacement proxy; IOC unknown",
+          "confidence": "rough model",
+          "current_low": "37500000",
+          "current_high": "150000000",
+          "disposition": "counted"
+        },
+        "disposition": "counted",
+        "historical_basis": "2026 replacement proxy; IOC unknown",
+        "historical_reference_year": 2026,
+        "current_low": "37500000",
+        "current_high": "150000000"
       },
       {
         "kind": "aircraft",
@@ -213392,29 +216653,29 @@
       }
     ],
     "filled_fields": {
-      "weapon": 1836,
-      "vessel": 192,
-      "aircraft": 296,
+      "weapon": 1878,
+      "vessel": 218,
+      "aircraft": 300,
       "land": 977
     },
-    "known_fields_preserved": 5457,
+    "known_fields_preserved": 5467,
     "category_counts": {
       "Ballistic": 25,
       "Decoy": 54,
-      "Gun": 208,
+      "Gun": 211,
       "ASM": 361,
-      "AAM": 244,
+      "AAM": 253,
       "Rocket": 29,
       "Pod": 204,
       "ATGM": 42,
       "Ignore": 35,
-      "Torpedo": 210,
+      "Torpedo": 212,
       "Land Attack": 79,
       "Fuel tank": 97,
       "Bomb": 119,
       "ARM": 42,
       "ASW": 62,
-      "SAM": 298,
+      "SAM": 306,
       "Sonobuoy": 67,
       "ICBM": 5,
       "SS": 49,
@@ -213422,16 +216683,16 @@
       "AO": 13,
       "CVL": 21,
       "DD": 24,
-      "FFG": 108,
+      "FFG": 112,
       "FS": 16,
       "LHD": 7,
       "LPA": 1,
-      "LPD": 9,
+      "LPD": 12,
       "LSD": 2,
       "LST": 8,
       "MSC": 9,
       "MSO": 3,
-      "OPV": 5,
+      "OPV": 6,
       "PFG": 1,
       "PTM": 2,
       "SSK": 7,
@@ -213441,7 +216702,7 @@
       "FF": 47,
       "LPH": 7,
       "AGI": 5,
-      "DDG": 190,
+      "DDG": 198,
       "FAC": 37,
       "CVN": 17,
       "LC": 12,
@@ -213476,7 +216737,7 @@
       "AE": 1,
       "AEM": 2,
       "BB": 2,
-      "BBG": 1,
+      "BBG": 2,
       "DLG": 2,
       "CGN": 14,
       "CLG": 1,
@@ -213487,7 +216748,7 @@
       "T-AKR": 1,
       "UUV": 4,
       "CVH": 1,
-      "Aircraft": 760,
+      "Aircraft": 762,
       "Installation": 41,
       "AAA": 16,
       "Armour": 37,
