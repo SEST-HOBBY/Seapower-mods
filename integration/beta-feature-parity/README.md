@@ -57,6 +57,25 @@ wrote it. `tests/BetaApiTests.cs` checks the private images, the bridges
 against the real beta methods and the name binding of every adapted patch
 parameter, by reflection only.
 
+Not in R5. The other author plugins that stop on the beta stay as R4 left
+them, each reporting its own failure and leaving the game's behaviour in
+place: MissileControlMod (steering-limit transpiler pattern now inside
+`WeaponBase.GLimitedTurnRate`), MultiStageMissiles (`MissileSimulator.BuildAltitudeNodes`
+now takes the beta's native flyout buffers), OptimalTargetDist's launch
+sharing (launch layout 1/1/1/4; its name-based logic still runs), TestRange
+(`SeaPower.ECM.CombinedJamUnit` is gone), BetterTacMap and UiWorkerProbe
+(`GizmoLayerManager` is now a static catalogue; the layers live in
+`MapDisplayState.Tactical`) and parts of ParallelRangeProbe. ExtendedGuidance
+0.9.7, AutomaticSAR and OspreyMechanics stay held back before load. CombatWorker
+0.2.0 stays held back too, and nothing is lost by it: it only moved the
+game's own range arithmetic onto worker threads with bit-exact audits, it was
+already off on the stable build through its own conflict check with
+SecondThrustMod, and the beta computes those ranges in parallel itself
+(`KinematicRangeBatch`). None of the nine self-stopping plugins had a new
+build in the 3 November capture, and none of the authors publishes source;
+the fixes for WeaponLauncherEffects and SubModelStabilization are a few
+lines each and are worth reporting to the Euromod team.
+
 ## R4: version watermark, the beta's #!extend scan, cost item rows
 
 Built on 3 November 2026 from the 2 November 22:26 capture, which recorded
