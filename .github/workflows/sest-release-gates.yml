@@ -79,11 +79,13 @@ jobs:
       - name: Campaign tests
         run: python -m unittest integration/campaign/test_build_pack.py integration/campaign/test_playtest_revision.py
       - name: The build reproduced the committed output
+        # The list is written outside the checkout, so the check does not
+        # count its own file as a change.
         run: |
-          git status --porcelain > status-after.txt
-          if [ -s status-after.txt ]; then
+          git status --porcelain > "$RUNNER_TEMP/status-after.txt"
+          if [ -s "$RUNNER_TEMP/status-after.txt" ]; then
             echo "The from-scratch build or a gate changed committed files:"
-            head -200 status-after.txt
+            head -200 "$RUNNER_TEMP/status-after.txt"
             exit 1
           fi
 
