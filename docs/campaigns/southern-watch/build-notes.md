@@ -3360,7 +3360,9 @@ squadron table) now have names in Name Fixes; the RAN Sea King Mk.50A/B
 (`ran_seakingmk50ab`) had its squadron table spelled
 `ran_seakingmk50bab_squadrons.ini`, so Collection Fixes ships it under the
 name the game reads, and gives the F-16C Block 40 a table cloned from the
-same mod's KF-16. Both retire themselves when the authors fix them.
+same mod's KF-16. Both retire themselves when the authors fix them; the
+Sea King's did on 5 Nov 2026, after Euromod RAN's update of 1 Nov 2026
+renamed the table.
 
 ## The B-2's MALD glides, and SeaLifter is not needed (19 October, later)
 
