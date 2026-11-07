@@ -21,8 +21,8 @@ offers them all in one click, as the collection does; SETUP writes the order.
 Counts (3 Nov 2026, `release/consolidated-20261103` from `9b382fd8`): 203
 Workshop mods in `data/load-order.tokens.txt` (204 entries with the pack;
 the 28 Oct capture added Contact Log, Topographic Map, Pop-Out Windows and
-the B-21 Raider), 165 named by a mission (REQUIRED-MODS.txt, unchanged by
-the four). The borrowed-file count, 529 files from 64 mods (CREDITS.txt;
+the B-21 Raider), 166 named by a mission (REQUIRED-MODS.txt, unchanged by
+the four). The borrowed-file count, 538 files from 65 mods (CREDITS.txt;
 U.S. Navy 2027's `usn_p8_2027` joined for the P-8 guidance link), is
 `c32c485e`'s: check it against the rebuilt CREDITS.txt before pasting.
 Redo them from those files when they change. The 19-tube pod
@@ -77,7 +77,7 @@ With the Combat Cost Tracker from the collection, every weapon, ship, aircraft a
 [/list]
 
 [h2]What it needs - read this[/h2]
-The campaigns name units from 165 Workshop mods. Subscribe to the collection [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3812390790]SEST - Modernised Campaign Collection[/url]: all 203 of its mods in one press. Then Mod Manager → Open Folder on this pack, quit the game and double-click [b]SETUP - double-click me.cmd[/b]. It checks the subscriptions, installs the Anchor Chain preloader and writes the 204-entry load order with this pack at the top. It is safe to run again.
+The campaigns name units from 166 Workshop mods. Subscribe to the collection [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3812390790]SEST - Modernised Campaign Collection[/url]: all 203 of its mods in one press. Then Mod Manager → Open Folder on this pack, quit the game and double-click [b]SETUP - double-click me.cmd[/b]. It checks the subscriptions, installs the Anchor Chain preloader and writes the 204-entry load order with this pack at the top. It is safe to run again.
 [list]
 [*]If the Mod Manager offers to move this pack's dependencies above it, answer no: that undoes every fix in it. SETUP puts the order back.
 [*]Some mods still name SeaLifter as a requirement. It is not needed; they run without it.
@@ -87,10 +87,27 @@ The campaigns name units from 165 Workshop mods. Subscribe to the collection [ur
 In the folder: SETUP, REQUIRED-MODS.txt (every mod the campaigns name), LOAD-ORDER.txt and CREDITS.txt.
 
 [h2]Credit[/h2]
-A Sea Power unit file is a whole-file override, so 529 files here are other authors' files with edits, each 90% or more unchanged, from 64 Workshop mods. CREDITS.txt lists every one, measured by diffing against the collection. Every photograph is real and credited. If you wrote one of those mods and would rather this pack did not carry your file, say so and it will change.
+A Sea Power unit file is a whole-file override, so 538 files here are other authors' files with edits, each 90% or more unchanged, from 65 Workshop mods. CREDITS.txt lists every one, measured by diffing against the collection. Every photograph is real and credited. If you wrote one of those mods and would rather this pack did not carry your file, say so and it will change.
 
 [h2]Fiction, language, status[/h2]
-Every nation, unit, ship name, incident and date is invented; the campaigns take no position on any real dispute. English only. Built for Sea Power 0.8.7: every unit, squadron, loadout and weapon in every mission is checked to resolve on every build, but balance is not, and most missions have not been played to completion. SEST's code (the Tomahawk terrain fix, the debrief, the combat cost windows, the towed-sonar guard and, with Contact Log, the UI follow-up, which moves Quick Load from F9 to Ctrl+F9) runs on Sea Power 0.8.7 Build 261021, the stable game, and switches itself off on the public beta (Build 261026) and any other build. On the public beta no mod's code loads yet, so play on the stable branch. Feedback on difficulty and pacing is wanted.
+Every nation, unit, ship name, incident and date is invented; the campaigns take no position on any real dispute. English only. Built for Sea Power 0.8.7: every unit, squadron, loadout and weapon in every mission is checked to resolve on every build, but balance is not, and most missions have not been played to completion. SEST's code (the Tomahawk terrain fix, the debrief, the combat cost windows, the towed-sonar guard and, with Contact Log, the UI follow-up, which moves Quick Load from F9 to Ctrl+F9) runs on Sea Power 0.8.7 Build 261021, the stable game, and switches itself off on the public beta (Build 261026) and any other build. Ordinary Workshop installation on the public beta has no full code support and a modifier-file limitation; the separate R6 repair is a beta test candidate and is not installed by this upload. Feedback on difficulty and pacing is wanted.
+```
+
+## Change log: November release candidate, 7 Nov 2026
+
+Paste this block after the release candidate's PC checks pass. Earlier blocks below are historical; do not paste their superseded pop-out/version claims. The final PC checks and upload preparation are in `docs/releases/20261107/README-FIRST.txt`.
+
+```
+[h2]7 November 2026 — November integration update[/h2]
+
+[list]
+[*]Refreshed the integration against the captured Workshop configurations of 3 November, including campaign dependencies, aircraft/squadron definitions, SETUP and cost-catalogue corrections.
+[*]Added the public beta's missing tactical-map settings and explicit helicopter night-vision levels for the Redback loadout warning.
+[*]Updated SEST UI Follow-up for the inspected Pop-Out Windows 1.1.3 on the normal game release. Other plugin versions retain the original behavior until checked. Quick Load remains Ctrl+F9 while SEST UI Follow-up is active.
+[*]The canonical load order is now 204 entries: SEST and 203 Workshop dependencies. Subscribe to all Required Items, including B-21 Raider, before running SETUP.
+[/list]
+
+[b]Compatibility:[/b] This upload retains the normal-release CIWS values and Runtime 1.5.0. On public beta Build 261026, the normal Workshop loader does not provide full SEST code functionality; the separate R6 repair remains a beta test candidate. The beta modifier-file limitation is not fixed by this Workshop upload alone. No claim is made here that the clipped tabs or Global Hawk behavior have been fixed.
 ```
 
 ## Change log: integration of the owner's PC state, 28 Oct 2026

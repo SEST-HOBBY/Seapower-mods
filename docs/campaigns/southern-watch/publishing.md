@@ -4,6 +4,23 @@ Open this before every upload. The pack is live and Public, so an update that
 goes up broken reaches every subscriber at once, and the comments arrive
 before the patch does.
 
+## 7 November release candidate
+
+The current candidate is `release/workshop-20261107`, based on merged PR #56.
+Follow `docs/releases/20261107/README-FIRST.txt` and run
+`tools/prepare-workshop-upload.ps1` for a separate, fully hashed upload copy.
+This does not sync over the owner's installed R6 beta repair.
+The new stable companion 1.4.5 leaves Runtime 1.5.0 unchanged and adds a
+contract-checked bridge for the captured Pop-Out 1.1.3. Its installed-version
+and gameplay checks remain required; it is not gameplay-verified here.
+The R6 beta repair remains separate and is not part of this Workshop payload.
+
+Public pages checked on 7 November show the collection now includes Contact
+Log, Topographic Map and Pop-Out Windows, but no B-21. Ensure B-21 3821992229
+is added and all 203 dependencies are in Required Items before Submit.
+The live item still shows 26 October as its last update. Historical counts
+and missing-dependency statements below record the earlier capture.
+
 ## What is on the Workshop
 
 - **The item.** *SEST Integration Pack - Modernised Campaigns*, Workshop id

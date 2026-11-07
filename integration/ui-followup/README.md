@@ -1,3 +1,26 @@
+# 7 November 2026 release candidate: UI Follow-up 1.4.5
+
+This supersedes the 1.4.2 binary described in the historical notes below.
+The new companion is built from `source/`; `plugin-build.json` records its
+hash and all sources. Runtime 1.5.0 stays byte-identical (`7ba6d6d9...`).
+
+`PopOutCompatibility.cs` changes only the old Pop-Out hash literal and its
+success log in Runtime's in-memory `PopOutBridge.EnsureBound`. It installs
+only after the existing exact runtime/game/Noesis/Contact Log gates, the
+captured Pop-Out 1.1.3 hash and every reflected screen contract pass.
+An unexpected runtime body or author API leaves the bridge inactive.
+No on-disk Runtime or third-party DLL is patched.
+
+The existing UI modules now pin the captured Pop-Out 1.1.3. Its actual DLL
+was not available to this build environment; the new runtime contract check
+and a PC pop-out/return test remain required before publication. The 948
+bridge assertions used Runtime 1.5.0's actual IL and the original 1.0.1
+screen contracts. Five policy suites and 1,454 price-cache checks also pass.
+This companion remains inactive on beta Build 261026, whose separate R6
+candidate is on `beta/r6-20261107`. Do not put both companions in one pack.
+
+## Historical 1.4.2 implementation record
+
 # SEST UI Follow-up - developer notes
 
 `SEST.ContactsFix.dll` is SEST's third Anchor Chain plugin: **SEST UI

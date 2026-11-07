@@ -1,0 +1,180 @@
+{
+  "format": 1,
+  "status": "candidate-needs-gameplay",
+  "results": [
+    {
+      "name": "campaign-tests",
+      "command": [
+        "-m",
+        "unittest",
+        "integration/campaign/test_build_pack.py",
+        "integration/campaign/test_playtest_revision.py"
+      ],
+      "exit_code": 0,
+      "seconds": 50.08,
+      "tests": 334
+    },
+    {
+      "name": "check_alias_bases",
+      "command": [
+        "tools/check_alias_bases.py"
+      ],
+      "exit_code": 0,
+      "seconds": 13.15
+    },
+    {
+      "name": "check_campaign_coverage",
+      "command": [
+        "tools/check_campaign_coverage.py"
+      ],
+      "exit_code": 0,
+      "seconds": 14.42
+    },
+    {
+      "name": "check_combat_costs",
+      "command": [
+        "tools/check_combat_costs.py"
+      ],
+      "exit_code": 0,
+      "seconds": 8.57
+    },
+    {
+      "name": "check_dependencies",
+      "command": [
+        "tools/check_dependencies.py"
+      ],
+      "exit_code": 0,
+      "seconds": 14.26
+    },
+    {
+      "name": "check_game_version",
+      "command": [
+        "tools/check_game_version.py"
+      ],
+      "exit_code": 0,
+      "seconds": 0.12
+    },
+    {
+      "name": "check_inventory",
+      "command": [
+        "tools/check_inventory.py"
+      ],
+      "exit_code": 0,
+      "seconds": 0.66
+    },
+    {
+      "name": "check_load_order",
+      "command": [
+        "tools/check_load_order.py"
+      ],
+      "exit_code": 0,
+      "seconds": 0.38
+    },
+    {
+      "name": "check_pack_fidelity",
+      "command": [
+        "tools/check_pack_fidelity.py"
+      ],
+      "exit_code": 0,
+      "seconds": 2.54
+    },
+    {
+      "name": "check_scenarios",
+      "command": [
+        "tools/check_scenarios.py"
+      ],
+      "exit_code": 0,
+      "seconds": 0.03
+    },
+    {
+      "name": "check_stale_phrases",
+      "command": [
+        "tools/check_stale_phrases.py"
+      ],
+      "exit_code": 0,
+      "seconds": 1.17
+    },
+    {
+      "name": "check_vanilla_drift",
+      "command": [
+        "tools/check_vanilla_drift.py",
+        "--since",
+        "1bda58a6"
+      ],
+      "exit_code": 0,
+      "seconds": 1.91
+    },
+    {
+      "name": "check_weapon_employment",
+      "command": [
+        "tools/check_weapon_employment.py"
+      ],
+      "exit_code": 0,
+      "seconds": 12.59
+    },
+    {
+      "name": "preflight",
+      "command": [
+        "tools/preflight.py",
+        "--all"
+      ],
+      "exit_code": 0,
+      "seconds": 114.59
+    },
+    {
+      "name": "regional",
+      "command": [
+        "integration/world-sandbox/check_dynamic_campaign.py",
+        "integration/world-sandbox/SEST_World_Campaign/dynamic_campaigns/sest-world-regions-2028/campaign.json"
+      ],
+      "exit_code": 0,
+      "seconds": 3.86
+    },
+    {
+      "name": "tools-tests",
+      "command": [
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tools/tests",
+        "-p",
+        "test_*.py"
+      ],
+      "exit_code": 0,
+      "seconds": 112.659,
+      "tests": 333,
+      "skipped": 1
+    },
+    {
+      "name": "world",
+      "command": [
+        "integration/world-sandbox/check_dynamic_campaign.py",
+        "integration/world-sandbox/SEST_World_Campaign/dynamic_campaigns/sest-world-sandbox/campaign.json"
+      ],
+      "exit_code": 0,
+      "seconds": 4.1
+    }
+  ],
+  "full_from_scratch_build": "All 25 packs passed before the companion update. Final campaign pack and consolidated dist rebuilt after the update.",
+  "gameplay": "not run",
+  "file_count": 4321,
+  "workshop_capture": "3 November 2026",
+  "ui_version": "1.4.5",
+  "ui_checks": {
+    "input": 45,
+    "formation": 112,
+    "performance": 3768,
+    "compass": 41,
+    "terrain": 12,
+    "price_cache": 1454,
+    "original_runtime_bridge_il": 948,
+    "actual_popout_113_tested": false
+  },
+  "r6": {
+    "source_commit": "14a5af6a635ebd7b95381fe9040a6b3ba5126da5",
+    "five_payload_hashes_and_all_recorded_source_hashes": "verified",
+    "751_beta_api_checks": "recorded by R6 builder, not rerun in this session",
+    "gameplay": "still required"
+  }
+}

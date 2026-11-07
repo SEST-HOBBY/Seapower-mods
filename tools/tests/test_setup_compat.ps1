@@ -44,6 +44,13 @@ $repo = Split-Path -Parent (Split-Path -Parent $PSScriptRoot)
 $src = Join-Path (Join-Path (Join-Path $repo "integration") "campaign") "setup"
 $root = Join-Path ([IO.Path]::GetTempPath()) ("sest-setup-test-" + [Guid]::NewGuid().ToString("N").Substring(0, 8))
 $exe = (Get-Process -Id $PID).Path
+# Process.Path can be blank in containers whose process metadata is hidden.
+if (!$exe) {
+    $name = if ([Environment]::OSVersion.Platform -eq 'Win32NT') {
+        if ($PSVersionTable.PSEdition -eq 'Desktop') { 'powershell.exe' } else { 'pwsh.exe' }
+    } else { 'pwsh' }
+    $exe = Join-Path $PSHOME $name
+}
 $failed = 0
 $enc = New-Object Text.UTF8Encoding($false)
 $marker = '; SEST marked this mod compatible'

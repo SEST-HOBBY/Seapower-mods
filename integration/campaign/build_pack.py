@@ -8064,7 +8064,7 @@ SEST's two other plugins share this folder:
   SEST.RuntimeFixes.dll    SEST Runtime Fixes 1.5.0. SEST_RUNTIME_README.txt
   SEST_RUNTIME_README.txt  says what it does; sest_runtime.ini turns its
   sest_runtime.ini         corrections off one at a time.
-  SEST.ContactsFix.dll     SEST UI Follow-up 1.4.2, for players of Contact
+  SEST.ContactsFix.dll     SEST UI Follow-up 1.4.5, for players of Contact
                            Log: its window no longer opens or closes on the
                            time-control keys; the live F11 cost report
                            reuses each mission's price lists instead of
@@ -8073,7 +8073,7 @@ SEST's two other plugins share this folder:
                            whatever sest_menu.ini says. It rewrites the
                            AIRCRAFT AND UNIT PREPARATION popup as four
                            numbered steps with a Start preparation button.
-                           Three parts need Pop-Out Windows 1.0.1 and stay
+                           Three parts need Pop-Out Windows 1.1.3 and stay
                            off without it: the corrected Contacts pop-out;
                            Group Manager 0.2.17's Stock UI / Enhanced UI
                            switch; and the camera compass, which it moves
@@ -8081,7 +8081,7 @@ SEST's two other plugins share this folder:
                            monitor when that view is detached, or into the
                            3D picture-in-picture over the full-screen map.
                            Popping Contacts or Group Manager out to a
-                           second screen needs Pop-Out Windows 1.0.1 and a
+                           second screen needs Pop-Out Windows 1.1.3 and a
                            second monitor. It writes timing lines to
                            Player.log every 30 seconds. It works only
                            beside this exact SEST.RuntimeFixes.dll, Contact
@@ -8137,7 +8137,7 @@ def write_runtime_fixes(out):
     print(f"  runtime fixes: {dll.name} ({dll.stat().st_size} bytes); own code only")
 
 
-# SEST UI Follow-up 1.4.2 (SEST.ContactsFix.dll), SEST's third plugin: built
+# SEST UI Follow-up 1.4.5 (SEST.ContactsFix.dll), SEST's third plugin: built
 # outside the repository from integration/ui-followup/source/ (it compiles
 # against the game's own NoesisGUI, which cannot be committed) and committed
 # as built. It patches Runtime 1.5.0's own Contacts and cost code, so it
