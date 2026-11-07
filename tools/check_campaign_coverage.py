@@ -16,6 +16,10 @@ files, resolved exactly the way Sea Power resolves them:
   variant   it wins <unit>_variants.ini and the mission names that variant
   squadron  it wins <unit>_squadrons.ini and the mission names that squadron
   store     it wins an ammunition file the mission's chosen loadout hangs
+  deck      a placed ship embarks one of its aircraft (the block's own air
+            group when it writes CustomAirGroup=True, else the winning
+            variant's or the hull's), crediting that aircraft's unit,
+            squadron and stores files as the builder does
 
 Anything it cannot reach must carry a written reason in an EXCUSES table -
 Southern Watch's in campaign_data.py, or any other campaign's own; the rule is
@@ -644,6 +648,19 @@ def main():
                 continue
             for store in bp.stores(uid, kind_dir, path, fit):
                 note(bp.owner(f"ammunition/{store}.ini"), "store", f"{uid} / {store}")
+            # A deck's aircraft fly from it whether or not the mission names
+            # them: the builder has credited them since 20 Oct 2026
+            # (deck_aircraft), and this check did not until a mod was reached
+            # through a deck alone (The Royal Navy's Sea Lynx on the PN
+            # FFG-150, 3 Nov 2026 export). The built block's own air group
+            # wins when it writes CustomAirGroup=True.
+            if keys.get("CustomAirGroup", "").casefold() == "true":
+                embarked = [k for k, v in keys.items() if re.match(r"^\w+,\d+$", v)]
+            else:
+                embarked = bp.deck_aircraft(uid, kind_dir, path, keys.get("VariantReference"), {})
+            for atype in embarked:
+                for token, how, detail in bp.aircraft_credit(atype):
+                    note(token, how, f"{uid} deck / {detail}")
             # Model folders the unit's own file loads from another mod's
             # assets/ tree - the same rule the builder credits by.
             for folder in sorted(set(bp.ASSET_FOLDER.findall(bp.read(path)))):

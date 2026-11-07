@@ -160,6 +160,19 @@ EXCUSES = {
     "combat-cost-tracker": (
         "library", "USD expenditure and equipment-loss overlay through Anchor Chain; "
         "its cost catalogs apply to all missions and do not alter purchase points"),
+    # Code mods of the 28 Oct 2026 export, in the order on the owner's decision.
+    "contact-log": (
+        "library", "player interface - a sortable contact-log window run through "
+        "Anchor Chain; its export is one `_info.ini`, no unit, round or system a "
+        "mission can name, and no SEST mission may depend on it"),
+    "sea-power-topographic-map": (
+        "library", "player interface - land heights and sea depths on the tactical "
+        "map, run through Anchor Chain; it ships `_info.ini` and a licence, nothing "
+        "a mission can name"),
+    "sea-power-pop-out-windows": (
+        "library", "player interface - the game's windows on a second monitor, run "
+        "through Anchor Chain; it ships `_info.ini` and a licence, nothing a "
+        "mission can name"),
     "SEST_Combat_Costs": (
         "library", "three Combat Cost Tracker catalog extensions: spelling corrections, "
         "reviewed airframe/hull/weapon-family estimates and SEST researched estimates "
@@ -265,10 +278,10 @@ EXCUSES = {
         "external", "US, Philippine and Aeronavale Crusaders, the last retired in 1999, "
         "which no 2028 mission fields; the Clemenceau's 1970-1990 air "
         "groups embark them"),
-    "the-royal-navy": (
-        "external", "Cold War Royal Navy (County, Leander, Type 42, Invincible, "
-        "Buccaneer, Sea Vixen, Nimrod) for its own Falklands missions; SEST "
-        "Collection Fixes restores the game files it ships stale"),
+    # "the-royal-navy" left this table on 5 Nov 2026: Euromod-HD Hyundai's
+    # 3 Nov update embarks its rn_sea_lynx_3 on the PN FFG-150 (in place of
+    # Euromod South Korea's rok_mk99_a), and every Sulu Line mission fields
+    # that frigate, so the campaign now reaches The Royal Navy.
     "euromod-brazil": (
         "external", "Brazilian Navy and naval air arm (service 1976-2029) outside every "
         "SEST theatre; placed by no installed campaign"),
@@ -295,6 +308,12 @@ EXCUSES = {
         "external", "US and Soviet ICBM silo fields kept for the mission editor; "
         "their rounds are nuclear-scale (Power 10000) and no SEST campaign puts "
         "nuclear weapons in a magazine"),
+    # The B-21 Raider (28 Oct 2026 export), in the order on the owner's decision.
+    "b-21-raider": (
+        "external", "the B-21 Raider stealth bomber and its five rounds, subscribed "
+        "28 Oct 2026; no SEST mission or roster fields it yet (the World "
+        "Sandbox's US buy list sells it), and its licence forbids SEST patching "
+        "its files"),
 }
 
 EVENTS = [

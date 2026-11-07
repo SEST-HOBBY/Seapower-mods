@@ -236,6 +236,13 @@ AIR_ROLE_VALUE = {"AEW": 242, "Bomber": 78, "EW": 118, "Fighter": 46, "HeavyBomb
                   "Transport": 23, "Tanker": 60, "Airliner": 2, "ASW": 39, "ASuW": 39,
                   "Attack": 25, "Targeting": 25, "Utility": 21}
 AIR_DEFAULT_VALUE = 40
+# A unit valued by a role its winning file does not state. Since the 28 Oct
+# 2026 Workshop refresh Euromod Modern RAN (3820759806, order position 36)
+# ships its own aus_a330_mrtt.ini with Role=Airliner, outranking French Air
+# Force's copy (3758943352, position 191, Role=AEW): read by role the KC-30A
+# fell from an AEW's 242 to an airliner's 2, and neither is a tanker's figure.
+# It takes the Tanker median whichever copy wins. SCENARIO CHOICE.
+AIR_ROLE_OVERRIDE = {"aus_a330_mrtt": "Tanker"}
 
 # Replenishment ships and tankers present in the world. Approximate public
 # cargo capacities in tonnes, rounded - SCENARIO CHOICE, not register claims.
@@ -522,6 +529,10 @@ def value_of(uid):
         return 100, "no Displacement: default"
     if ty in ("Aircraft", "Helicopter", "VTOL"):
         r = role(uid)
+        if uid in AIR_ROLE_OVERRIDE:
+            fixed = AIR_ROLE_OVERRIDE[uid]
+            return AIR_ROLE_VALUE[fixed], \
+                f"Role {fixed}, SEST choice (the winning file says Role {r or 'none'})"
         return AIR_ROLE_VALUE.get(r, AIR_DEFAULT_VALUE), f"Role {r or 'none'}"
     return 10, "default"
 

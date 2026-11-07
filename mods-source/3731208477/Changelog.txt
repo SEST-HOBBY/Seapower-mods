@@ -1,3 +1,24 @@
+v1.51 - 20261102
+
+	- Review of the version of chaff used on aircraft and ships.
+
+v1.50 - 20261101
+
+	- Added the MinTakeoffDistance value to airplanes and helicopters.
+	- Review of LOD values.
+	- Reviewed the MaxClimbPitch, MaxCombatClimbPitch, MaxDescentPitch, and MaxCombatDescentPitch values ​​for the aircrafts.
+	- Added values ​​for FCSolutionGainRate, FCMinSolution, and FCTracksRounds to the radars that require them.
+	- Updated ECM/ECCM/Chaff values.
+	- Updated CombatSystems values.
+	- AB-8B and AV-8B+: Fixed the explosive cord texture on the cockpit canopy.
+	- C.15: Revised the nose landing gear and its corresponding animation.
+	- C.16: Landing gear animations revised.
+	- L61: Holding point modified following helicopter take-offs.
+
+v1.49 - 20261025
+
+	- Added missing Spanish translations for weapons.
+
 v1.48 - 20261021
 
 	- Service dates for aircraft and helicopters reviewed.

@@ -3,7 +3,9 @@
 # Double-click "SETUP - double-click me.cmd" beside this file (Mod Manager >
 # Open Folder on the pack gets you here). It checks that every Workshop mod
 # the campaigns were built against is downloaded, installs the Anchor Chain
-# preloader if it is missing, turns off one mod's debug logging that can
+# preloader if it is missing, names the game build (stable or public beta)
+# and warns when the code mods did not load at the last launch, turns off
+# one mod's debug logging that can
 # freeze a mission, marks the mods made for an older game version compatible
 # so the Mod Manager stops warning about them at start-up, unbinds Contact
 # Log's default F6 and F8 keys if you have that mod (its F6 clashes with
@@ -537,6 +539,22 @@ try {
         $warnings++
         Say '  [!!]   The game folder has part of a BepInEx install (winhttp.dll or BepInEx, not both). Left alone.' 'Yellow'
         Say '         If Coordinated Strike Tool''s F8 planner does not open in a mission, reinstall the preloader from Anchor Chain''s page.' 'Yellow'
+    }
+    # The game build, two beta test plugins and the last launch:
+    # sest-profile.ps1, beside this file, reads Seapower-Scripts.dll's SHA-256
+    # (stable Build 261021, the public beta Build 261026, or another build),
+    # BepInEx\plugins and BepInEx\LogOutput.log, and changes nothing. Its
+    # [!!] lines (the discontinued PR #53 SEST.BetaAnchorBootstrap.dll is
+    # installed; the code mods did not load at the last launch) count as
+    # warnings here. Nothing it finds stops SETUP; one that fails is one
+    # warning.
+    $buildCheck = J $PSScriptRoot 'sest-profile.ps1'
+    if (Test-Path -LiteralPath $buildCheck) {
+        try { $warnings += [int](@(& $buildCheck -GameDir $game -PassThru) | Select-Object -Last 1) }
+        catch {
+            $warnings++
+            Say ('  [!!]   Could not check the game build: ' + $_.Exception.Message) 'Yellow'
+        }
     }
 
     # 2. debug switch that can freeze missions

@@ -371,6 +371,28 @@ class GameVersionTests(unittest.TestCase):
                          "Game version check: FAILED (0 pack(s), 0 builder(s), 0 Workshop exclusion(s) against 0.8.2; "
                          "the snapshot lags the export)")
 
+    def test_snapshot_and_export_on_different_builds_pass_with_an_info_line(self):
+        # The capture PC on the public beta, the export the pack builds from on the stable build.
+        self.write(self.live, CHANGELOG.replace("20-Jul-2026: 0.8.2 Build #358 (23444) Public Release",
+                                                "26-Oct-2026: 0.8.2 Build 261026"))
+        self.write(self.root / "mods-source/_vanilla/changelog.txt",
+                   CHANGELOG.replace("20-Jul-2026: 0.8.2 Build #358 (23444) Public Release",
+                                     "21-Oct-2026: 0.8.2 Build 261021 Public Release"))
+        lines, problems, found = audit(self.root, "0.8.2")
+        self.assertEqual(problems, [])
+        self.assertIn("INFO: the capture PC runs Build 261026, the public beta; the pack targets Build 261021, "
+                      "the stable build (data/install-snapshot/changelog.live.txt says 0.8.2 Build 261026, "
+                      "mods-source/_vanilla/changelog.txt, which the build reads, 0.8.2 Build 261021)", lines)
+        # A build the tool does not know is named by its number alone; the same build says nothing.
+        self.write(self.live, CHANGELOG.replace("0.8.2 Build #358", "0.8.2 Build #359"))
+        self.write(self.root / "mods-source/_vanilla/changelog.txt", CHANGELOG)
+        lines = audit(self.root, "0.8.2")[0]
+        self.assertIn("INFO: the capture PC runs Build 359; the pack targets Build 358 "
+                      "(data/install-snapshot/changelog.live.txt says 0.8.2 Build 359, "
+                      "mods-source/_vanilla/changelog.txt, which the build reads, 0.8.2 Build 358)", lines)
+        self.write(self.live, CHANGELOG)
+        self.assertFalse([l for l in audit(self.root, "0.8.2")[0] if l.startswith("INFO: the capture PC")])
+
     def test_bump_exit_code_says_whether_a_hand_edit_is_left(self):
         out = io.StringIO()
         with contextlib.redirect_stdout(out):

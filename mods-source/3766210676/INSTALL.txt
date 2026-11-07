@@ -1,0 +1,9 @@
+Saronic Corsair ASV
+
+Close Sea Power. Copy version.dll from this mod folder into the Sea Power folder beside Sea Power.exe.
+Keep SaronicCorsairStrikeUSV.dll and HarmonyDependencies inside this mod folder. Enable Saronic Corsair in the mod manager and restart the game.
+
+The controller uses its own bootstrap. No additional loader subscription is required for Corsair.
+If version.dll already exists beside Sea Power.exe, preserve it and resolve ownership before replacing it.
+
+To remove this bootstrap, close the game and remove only the Corsair version.dll you installed. Keep loaders used by other mods.

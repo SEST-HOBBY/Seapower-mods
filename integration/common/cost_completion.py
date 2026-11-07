@@ -296,7 +296,8 @@ def select_model(kind, uid, sections):
         if re.search(r"f[-_]?47|fa[-_]?xx|j[-_]?36|j[-_]?50|yf[-_]?23|su[-_]?47|jh[-_]?[26]|j9$", name): return "future_fighter", None
         if re.search(r"mq[-_]?4|triton|global.?hawk|rq[-_]?4|rq[-_]?180", name): return "large_uav", None
         if re.search(r"fury|loyal|wingman|mq[-_]?28|xq[-_]?", name): return "loyal_wingman", None
-        if re.search(r"uav|rq[-_]?7|djo|drone|mq[-_]?9", name): return "small_uav", None
+        # Aliaca: the French Navy's 13 kg hand-launched mini-UAV (fr_aliaca, Role=Recon), named without "uav".
+        if re.search(r"uav|rq[-_]?7|djo|drone|mq[-_]?9|aliaca", name): return "small_uav", None
         if re.search(r"aew|kj[-_]|ec[-_]?2|tu[-_]?214r|rc[-_]?135|e[-_]?7|zdk|kq100", name): return "aew", None
         if re.search(r"kc[-_]|y[-_]?20|yy[-_]?20|c[-_]?17|c[-_]?130|il[-_]?76", name): return "transport", None
         if re.search(r"civ_a(?:3|[0-9])|boeing|airbus", name): return "civil_airliner", None

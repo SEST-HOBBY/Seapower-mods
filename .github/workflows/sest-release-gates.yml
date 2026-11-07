@@ -1,0 +1,160 @@
+# The repository's own release gates, run on a pull request to the deploy
+# branch (data/deploy-branch.txt) and by hand from the Actions tab.
+#
+# It reads the repository and nothing else: no secrets, no push, no
+# artifact upload, no release, no Workshop or Steam step, and no game is
+# installed. The jobs build in a throwaway checkout and report pass or
+# fail. The gates job is the same sequence as a session's gate run: the
+# from-scratch build, the 15 checks, the two test suites, then a clean
+# git status, which proves the committed pack output is what the builders
+# produce.
+name: SEST release gates
+
+on:
+  pull_request:
+    branches:
+      - sest-dev/jolly-ride-rptj4t
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: sest-release-gates-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  gates:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 60
+    steps:
+      - name: Checkout with full history (the drift check reads 1bda58a6)
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - name: Python 3.13
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - name: Builder and test dependencies at the versions the committed output was built with
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends fonts-dejavu-core fonts-dejavu-mono mono-mcs
+          python -m pip install Pillow==12.3.0 numpy==2.5.3 global-land-mask==1.0.0
+      - name: Build every pack from scratch
+        run: python tools/build_all.py --from-scratch
+      - name: Pack fidelity
+        run: python tools/check_pack_fidelity.py
+      - name: Campaign coverage
+        run: python tools/check_campaign_coverage.py
+      - name: Dependencies
+        run: python tools/check_dependencies.py
+      - name: Load order
+        run: python tools/check_load_order.py
+      - name: Preflight
+        run: python tools/preflight.py --all
+      - name: Weapon employment
+        run: python tools/check_weapon_employment.py
+      - name: Alias bases
+        run: python tools/check_alias_bases.py
+      - name: Scenarios
+        run: python tools/check_scenarios.py
+      - name: Stale phrases
+        run: python tools/check_stale_phrases.py
+      - name: Workshop inventory
+        run: python tools/check_inventory.py
+      - name: Game version
+        run: python tools/check_game_version.py
+      - name: Vanilla drift since the 22 Oct export
+        run: python tools/check_vanilla_drift.py --since 1bda58a6
+      - name: Combat costs
+        run: python tools/check_combat_costs.py
+      - name: World Sandbox campaign
+        run: python integration/world-sandbox/check_dynamic_campaign.py integration/world-sandbox/SEST_World_Campaign/dynamic_campaigns/sest-world-sandbox/campaign.json
+      - name: Regional campaign
+        run: python integration/world-sandbox/check_dynamic_campaign.py integration/world-sandbox/SEST_World_Campaign/dynamic_campaigns/sest-world-regions-2028/campaign.json
+      - name: Tools tests (the PowerShell tests run under pwsh)
+        run: python -m unittest discover -s tools/tests -p 'test_*.py'
+      - name: Campaign tests
+        run: python -m unittest integration/campaign/test_build_pack.py integration/campaign/test_playtest_revision.py
+      - name: The build reproduced the committed output
+        # The list is written outside the checkout, so the check does not
+        # count its own file as a change.
+        run: |
+          git status --porcelain > "$RUNNER_TEMP/status-after.txt"
+          if [ -s "$RUNNER_TEMP/status-after.txt" ]; then
+            echo "The from-scratch build or a gate changed committed files:"
+            head -200 "$RUNNER_TEMP/status-after.txt"
+            exit 1
+          fi
+
+  windows-powershell:
+    # The capture tools run on the gaming PC under Windows PowerShell 5.1,
+    # which no Linux runner has.
+    runs-on: windows-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Capture and export tests under Windows PowerShell 5.1
+        shell: powershell
+        run: |
+          $ErrorActionPreference = 'Stop'
+          foreach ($t in 'test_scripts_parse', 'test_capture_context', 'test_export_mod_configs', 'test_capture_all_mod_updates') {
+            Write-Host "== $t"
+            powershell -NoProfile -ExecutionPolicy Bypass -File ".\tools\tests\$t.ps1"
+            if ($LASTEXITCODE -ne 0) { throw "$t failed" }
+          }
+
+  beta-build:
+    # Builds the data packs against the public beta's vanilla export
+    # (Build 261026) in this throwaway checkout, to show what the beta
+    # would break. It changes nothing committed and is skipped when the
+    # branch has no beta baseline folder.
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Look for the beta baseline
+        id: baseline
+        run: |
+          if [ -d data/game-baselines/beta-261026/original ]; then
+            echo "present=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "present=false" >> "$GITHUB_OUTPUT"
+            echo "data/game-baselines/beta-261026 is not on this branch: beta build skipped."
+          fi
+      - name: Python 3.13
+        if: steps.baseline.outputs.present == 'true'
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - name: Builder dependencies
+        if: steps.baseline.outputs.present == 'true'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends fonts-dejavu-core fonts-dejavu-mono
+          python -m pip install Pillow==12.3.0 numpy==2.5.3 global-land-mask==1.0.0
+      - name: Use the beta's game files in this checkout only
+        if: steps.baseline.outputs.present == 'true'
+        run: |
+          rm -rf mods-source/_vanilla/original
+          cp -a data/game-baselines/beta-261026/original mods-source/_vanilla/original
+          if [ -f data/game-baselines/beta-261026/changelog.txt ]; then
+            cp data/game-baselines/beta-261026/changelog.txt mods-source/_vanilla/changelog.txt
+          fi
+      - name: Build every pack against the beta
+        if: steps.baseline.outputs.present == 'true'
+        run: python tools/build_all.py --from-scratch
+      - name: Dependencies against the beta
+        if: steps.baseline.outputs.present == 'true'
+        run: python tools/check_dependencies.py
+      - name: Pack fidelity against the beta
+        if: steps.baseline.outputs.present == 'true'
+        run: python tools/check_pack_fidelity.py

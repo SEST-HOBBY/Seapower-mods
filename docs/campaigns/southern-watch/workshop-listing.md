@@ -18,11 +18,14 @@ The item's Required Items are the load order's Workshop mods, so Subscribe
 offers them all in one click, as the collection does; SETUP writes the order.
 `publishing.md` (*Dependencies*) has the detail.
 
-Counts (28 Oct 2026, `c32c485e`): 199 Workshop mods in
-`data/load-order.tokens.txt` (200 entries with the pack), 165 named by a
-mission (REQUIRED-MODS.txt), 529 borrowed files from 64 mods (CREDITS.txt;
-U.S. Navy 2027's `usn_p8_2027` joined for the P-8 guidance link). Redo them
-from those files when they change. The 19-tube pod
+Counts (3 Nov 2026, `release/consolidated-20261103` from `9b382fd8`): 203
+Workshop mods in `data/load-order.tokens.txt` (204 entries with the pack;
+the 28 Oct capture added Contact Log, Topographic Map, Pop-Out Windows and
+the B-21 Raider), 165 named by a mission (REQUIRED-MODS.txt, unchanged by
+the four). The borrowed-file count, 529 files from 64 mods (CREDITS.txt;
+U.S. Navy 2027's `usn_p8_2027` joined for the P-8 guidance link), is
+`c32c485e`'s: check it against the rebuilt CREDITS.txt before pasting.
+Redo them from those files when they change. The 19-tube pod
 is credited to RADF's `adf_lau-3a`: the pod is the game's own `usn_lau-3a`,
 which CREDITS.txt never compares against, and RADF's is that file with one
 line changed. The MALD brought in the B-2 Spirit on 19 Oct; on 20 Oct the
@@ -40,7 +43,7 @@ SEST Integration Pack - Modernised Campaigns
 ## Short description
 
 ```
-Four Task Force Mode campaigns (Southern Watch, Southern Reach / Tasman Shield, Red Line, Sulu Line) and every SEST fix in one Mod Manager entry. Needs the 199 Workshop mods in the 'SEST - Modernised Campaign Collection' (3812390790): subscribe to it, then run SETUP.
+Four Task Force Mode campaigns (Southern Watch, Southern Reach / Tasman Shield, Red Line, Sulu Line) and every SEST fix in one Mod Manager entry. Needs the 203 Workshop mods in the 'SEST - Modernised Campaign Collection' (3812390790): subscribe to it, then run SETUP.
 ```
 
 ## Description
@@ -74,7 +77,7 @@ With the Combat Cost Tracker from the collection, every weapon, ship, aircraft a
 [/list]
 
 [h2]What it needs - read this[/h2]
-The campaigns name units from 165 Workshop mods. Subscribe to the collection [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3812390790]SEST - Modernised Campaign Collection[/url]: all 199 of its mods in one press. Then Mod Manager → Open Folder on this pack, quit the game and double-click [b]SETUP - double-click me.cmd[/b]. It checks the subscriptions, installs the Anchor Chain preloader and writes the 200-entry load order with this pack at the top. It is safe to run again.
+The campaigns name units from 165 Workshop mods. Subscribe to the collection [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3812390790]SEST - Modernised Campaign Collection[/url]: all 203 of its mods in one press. Then Mod Manager → Open Folder on this pack, quit the game and double-click [b]SETUP - double-click me.cmd[/b]. It checks the subscriptions, installs the Anchor Chain preloader and writes the 204-entry load order with this pack at the top. It is safe to run again.
 [list]
 [*]If the Mod Manager offers to move this pack's dependencies above it, answer no: that undoes every fix in it. SETUP puts the order back.
 [*]Some mods still name SeaLifter as a requirement. It is not needed; they run without it.
@@ -87,17 +90,19 @@ In the folder: SETUP, REQUIRED-MODS.txt (every mod the campaigns name), LOAD-ORD
 A Sea Power unit file is a whole-file override, so 529 files here are other authors' files with edits, each 90% or more unchanged, from 64 Workshop mods. CREDITS.txt lists every one, measured by diffing against the collection. Every photograph is real and credited. If you wrote one of those mods and would rather this pack did not carry your file, say so and it will change.
 
 [h2]Fiction, language, status[/h2]
-Every nation, unit, ship name, incident and date is invented; the campaigns take no position on any real dispute. English only. Built for Sea Power 0.8.7: every unit, squadron, loadout and weapon in every mission is checked to resolve on every build, but balance is not, and most missions have not been played to completion. SEST's code (the Tomahawk terrain fix, the debrief, the combat cost windows, the towed-sonar guard and, with Contact Log, the UI follow-up, which moves Quick Load from F9 to Ctrl+F9) runs only on Sea Power 0.8.7 Build 261021 and switches itself off on any other. Feedback on difficulty and pacing is wanted.
+Every nation, unit, ship name, incident and date is invented; the campaigns take no position on any real dispute. English only. Built for Sea Power 0.8.7: every unit, squadron, loadout and weapon in every mission is checked to resolve on every build, but balance is not, and most missions have not been played to completion. SEST's code (the Tomahawk terrain fix, the debrief, the combat cost windows, the towed-sonar guard and, with Contact Log, the UI follow-up, which moves Quick Load from F9 to Ctrl+F9) runs on Sea Power 0.8.7 Build 261021, the stable game, and switches itself off on the public beta (Build 261026) and any other build. On the public beta no mod's code loads yet, so play on the stable branch. Feedback on difficulty and pacing is wanted.
 ```
 
 ## Change log: integration of the owner's PC state, 28 Oct 2026
 
 For the next upload, which also carries the SETUP update below and, if not
-yet pasted, the 24 Oct block. Not to be uploaded before the Workshop refresh
-capture (`chore/workshop-refresh-20261027`) is integrated and the release
-gate passes: until then the pack would still carry the old Modern US Navy
-and Italian FREMM files. Paste the Description as well (its F11 line, the
-529-file credit and the code list changed, and the older-mods line with the
+yet pasted, the 24 Oct block. The 26 Oct 2026 upload went up from PR #50's
+head without a reviewed change log (`publishing.md`, *What is on the
+Workshop*), so this block is still to paste. The next upload is
+`release/consolidated-20261103`'s build, which integrates the 28 Oct
+capture; the release gates are in `docs/release-20261103-consolidated.md`.
+Paste the Description as well (its counts, its F11 line, the credit, the
+code list and the beta sentence changed, and the older-mods line with the
 SETUP update). Before Submit:
 
 - Run SETUP from the Workshop copy on the PC. Expect THE REDFOR MOD to count
@@ -116,7 +121,11 @@ SETUP update). Before Submit:
   first bullet and the Description's Task Force F11 item. A pop-out bridge's
   `... inactive` line is not SEST's to prevent: it means the installed
   Contact Log, Group Manager or Pop-Out Windows is not the version SEST
-  inspected. Take out any line below whose plugin did not install.
+  inspected. With Pop-Out Windows 1.0.2 from the collection, expect it from
+  Runtime's pop-out bridge and from UI Follow-up's Contacts pop-out surface
+  fix, Formation UI mode switch and camera compass (pinned to 1.0.1); the
+  block below already says those are off. Take out any other line below
+  whose plugin did not install.
 - The Quick Load line stays while `SEST.ContactsFix.dll` makes the move (UI
   Follow-up moves plain F9 to Ctrl+F9); it can go only if the plugin is held
   back or rebuilt without it. The owner decides whether to mention the
@@ -127,9 +136,10 @@ SETUP update). Before Submit:
 
 [b]Interface and costs[/b]
 [list]
-[*]SEST's runtime plugin is now 1.5.0. F11 opens game-styled cost windows in a mission and in the Task Force menu; move them by the title bar and resize them at the edges, and with Pop-Out Windows 1.0.1 and a second monitor they go to that screen. The debrief shows mission and campaign cost, with the details in F11.
-[*]With Pop-Out Windows 1.0.1 (not in the collection) and a second monitor, Contacts (Contact Log 1.0.1) and Group Manager (0.2.17) can pop out to that screen. Own units are plotted while paused during preparation, and a towed sonar with an incomplete link no longer stops the game's update.
-[*]New: SEST UI Follow-up, for players of Contact Log 1.0.1. Space and +/- no longer open or close Contacts, Group Manager gets a Stock UI / Enhanced UI switch where Pop-Out Windows 1.0.1 is installed, and the live F11 window stops rebuilding its price lists twice a second. Without Contact Log, or on another game build, it does nothing.
+[*]SEST's runtime plugin is now 1.5.0. F11 opens game-styled cost windows in a mission and in the Task Force menu; move them by the title bar and resize them at the edges. The debrief shows mission and campaign cost, with the details in F11.
+[*]Own units are plotted while paused during preparation, and a towed sonar with an incomplete link no longer stops the game's update.
+[*]SEST's pop-outs to a second monitor (Contacts, Group Manager and the F11 windows) are off for now: they were built for Pop-Out Windows 1.0.1, and the collection carries 1.0.2. Pop-Out Windows' own pop-outs work as usual.
+[*]New: SEST UI Follow-up, for players of Contact Log 1.0.1. Space and +/- no longer open or close Contacts, and the live F11 window stops rebuilding its price lists twice a second. Its Group Manager Stock UI / Enhanced UI switch is off for the same reason until SEST is updated for Pop-Out Windows 1.0.2. Without Contact Log, or on another game build, it does nothing.
 [*]With UI Follow-up active, Quick Load moves from F9 to Ctrl+F9; any other Quick Load key is kept. Once you press Accept in Options, Ctrl+F9 stays after you unsubscribe; set Quick Load back in Options.
 [/list]
 
@@ -139,6 +149,12 @@ SETUP update). Before Submit:
 [*]World Sandbox and Regional Expansion: the US Navy's twelve P-8As are a real P-8A Poseidon (U.S. Navy 2027's) instead of a P-3 Orion body. Bases, numbers and price are unchanged. Start a new campaign to see it.
 [*]Both P-8s' Harpoons now get a guidance channel: one P-8 could not fire its AntiShip Harpoons at all, the other fired them with no midcourse updates (not yet confirmed in game).
 [*]Each campaign's REQUIRED-MODS.txt now also counts what the units you can buy need: their hull variants, the rounds of every fit they offer and their models. Sulu Line now lists Modern US Navy and United States Naval Aviation, Southern Reach twelve more mods and packs, and Southern Watch three more as hard required. All of them are already in the collection.
+[/list]
+
+[b]Collection[/b]
+[list]
+[*]Four mods join the collection: Contact Log (a sortable list of every contact your task force holds), Sea Power Topographic Map (land heights and sea depths on the tactical map), Sea Power Pop-Out Windows (game windows on a second monitor) and the B-21 Raider (the US stealth bomber, on sale in the World Sandbox). Press Subscribe to all on the collection to get them.
+[*]If SETUP stopped after 26 Oct asking for Contact Log, Topographic Map and Pop-Out Windows: subscribe to the collection again, then run SETUP again.
 [/list]
 
 [b]SETUP[/b]
@@ -383,7 +399,7 @@ collection stay as they are.
 Keep the pinned "Read first" discussion's install steps in step with it.
 
 ```
-Everything the SEST Integration Pack's campaigns need: 199 Workshop mods plus the pack itself, [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3812461539]SEST Integration Pack - Modernised Campaigns[/url].
+Everything the SEST Integration Pack's campaigns need: 203 Workshop mods plus the pack itself, [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3812461539]SEST Integration Pack - Modernised Campaigns[/url].
 
 [olist]
 [*]Subscribe to all.

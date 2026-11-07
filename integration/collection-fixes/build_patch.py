@@ -196,9 +196,33 @@ def sm3_value(key, name):
 # that would let the round fly for fifty minutes on every install. With the
 # preloader the overwrite still applies on top, and the rounds then fly
 # 3000 s whatever this pack ships.
+# The five seeker keys: since the 28 Oct 2026 export the IIA and IIB
+# overwrites (the C and the D; the B has none) carry an [ExtendedGuidance]
+# section - SeekerProfile=IIR_Imaging, SeekerTrackRate=50,
+# IRBackgroundRejection=0.8, IRBrightnessRejection=0.6, IRShapeRejection=0.25
+# - which ini_values() reads as overwrite keys like any other. Declined, the
+# owner's decision of 30 Oct 2026. They are extension keys, read only by the
+# AC Pack's ExtendedGuidance plugin (0.9.7 in this export), which SEST play
+# keeps off: SEST Intercept Model and the SM-3 tuning assume the game's own
+# Pk (docs/workshop-refresh-20261022-review.md, section 5, and the catalog
+# note of 3784474738). The game reads none of them: Seapower-Scripts.dll
+# eab2297b (Build 261021) holds no string for any of the five, as it holds
+# none for the AutoAttack*, OptimalTargetDist and ThermalGlow keys
+# SM3_OVWR_IGNORABLE passes, while it does hold SeekerFOV,
+# SeekerPassiveRange, TerminalLoft and OptimizeLoftAlt, which the fold
+# copies. So the rounds keep the supported native guidance, and this pack
+# writes no key that only a plugin it keeps off would read. They are listed
+# here rather than in SM3_OVWR_IGNORABLE so the build still stops if the
+# author moves a value or gives the B the section: with the plugin on, they
+# are what the rounds' seekers run on.
 SM3_OVWR_DECLINED = {
     "MaxFlightTime": {"usn_rim-161b": "3000", "usn_rim-161c": "3000",
                       "usn_rim-161d": "3000"},
+    "SeekerProfile": {"usn_rim-161c": "IIR_Imaging", "usn_rim-161d": "IIR_Imaging"},
+    "SeekerTrackRate": {"usn_rim-161c": "50", "usn_rim-161d": "50"},
+    "IRBackgroundRejection": {"usn_rim-161c": "0.8", "usn_rim-161d": "0.8"},
+    "IRBrightnessRejection": {"usn_rim-161c": "0.6", "usn_rim-161d": "0.6"},
+    "IRShapeRejection": {"usn_rim-161c": "0.25", "usn_rim-161d": "0.25"},
 }
 # Keys the overwrite sets for some rounds only, copied for those rounds (a
 # round not listed must not set the key). 18 Oct 2026 export: the author gave
@@ -977,19 +1001,23 @@ def main():
           "and defines none), NumberOfSquadrons=1 to match.")
     built.append("plaaf_jh7a_squadrons")
 
-    # ran_seakingmk50ab_squadrons - Euromod RAN's Sea King Mk.50A/B is
-    # aircraft/ran_seakingmk50ab.ini, but its squadron table is spelled
-    # ran_seakingmk50bab_squadrons.ini, so the game finds none: the Unit
-    # Reference showed it under Missing Type and Missing Class, 0 m long
-    # (19 Oct 2026). The table is copied verbatim under the name the game
-    # reads, while no mod ships one under that name.
-    if (MODS / "3820759806" / "aircraft" / "ran_seakingmk50ab_squadrons.ini").exists():
-        sys.exit("ran_seakingmk50ab_squadrons: upstream now ships the right name - retire this fix")
-    t = read("3820759806", "aircraft/ran_seakingmk50bab_squadrons.ini").replace("\r\n", "\n")
-    write("aircraft/ran_seakingmk50ab_squadrons.ini", t,
-          "SEST Collection Fixes - base: 3820759806's ran_seakingmk50bab_squadrons.ini,\n"
-          "verbatim, under the name its aircraft (ran_seakingmk50ab) is read with.")
-    built.append("ran_seakingmk50ab_squadrons")
+    # ran_seakingmk50ab_squadrons - RETIRED 5 Nov 2026. Euromod RAN's Sea
+    # King Mk.50A/B is aircraft/ran_seakingmk50ab.ini, and until the 1 Nov
+    # 2026 update its squadron table was spelled ran_seakingmk50bab_squadrons
+    # .ini, so the game found none: the Unit Reference showed it under
+    # Missing Type and Missing Class, 0 m long (19 Oct 2026). SEST copied
+    # the table verbatim under the name the game reads. The 3 Nov 2026
+    # export has the author's table under the right name (one rename, the
+    # same content), so the copy is dropped; a stale copy would outrank the
+    # author's every time they edit it. The check keeps this true: the
+    # fix comes back the day the right name disappears again.
+    if not (MODS / "3820759806" / "aircraft" / "ran_seakingmk50ab_squadrons.ini").exists():
+        sys.exit("ran_seakingmk50ab_squadrons: upstream no longer ships the right name - "
+                 "bring the copy back into this pack")
+    stale_table = OUT / "aircraft" / "ran_seakingmk50ab_squadrons.ini"
+    if stale_table.exists():
+        stale_table.unlink()
+        print("    removed aircraft/ran_seakingmk50ab_squadrons.ini (retired - upstream ships the name)")
 
     # usaf_f-16c_blk40_squadrons - Euromod South Korea Navy's USAF F-16C
     # Block 40 has no squadron table at all (and no name: SEST Name Fixes
@@ -1249,6 +1277,17 @@ MISSING_SENSORS = {
              "defined it until its 22 Oct 2026 update, which dropped its own "
              "copy for Euromod's eu_zw06, the donor here. The world campaign "
              "places two Niteroi 2005 at Rio."),
+    "EOMS-NG": ("3567256221", "EOMS_NG",
+                "Safran EOMS-NG electro-optical search sensor (40 km, air and "
+                "surface, datalinked): SensorSystem6 on fr_cvn_charles-de-gaulle, "
+                "SensorSystem5 on fr_cvn_charles-de-gaulle_late. Charles De "
+                "Gaulle & Modern French Navy renamed its definition [EOMS_NG] "
+                "in the 28 Oct 2026 export and left both carriers naming "
+                "EOMS-NG. The donor is that renamed section, so the clone is "
+                "the author's current definition, which dropped the old one's "
+                "RPM=60 and Bonus IRST range multipliers. Southern Watch D3 "
+                "places the carrier, the RAN campaigns' allied rosters sell it "
+                "and the World Sandbox fields both hulls."),
 }
 
 

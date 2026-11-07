@@ -1,0 +1,37 @@
+SEST INTEGRATION PACK - WHICH SEA POWER BUILD IT RUNS ON
+
+The game calls both of its current builds 0.8.7, so SETUP tells them apart
+by the SHA-256 of Sea Power_Data\Managed\Seapower-Scripts.dll. SETUP's
+step 1 (sest-profile.ps1, beside this file) names the build it finds. It
+changes nothing and never stops SETUP.
+
+STABLE: 0.8.7 Build 261021 (Seapower-Scripts.dll eab2297b...)
+- The build this pack targets and was tested on.
+- SEST Runtime Fixes 1.5.0 and SEST UI Follow-up can start, each only if
+  its own SHA-256 checks pass (the game, and for UI Follow-up also Contact
+  Log and Runtime Fixes). The combat costs, preparation and debrief work
+  as they always have.
+
+PUBLIC BETA: 0.8.7 Build 261026 (Seapower-Scripts.dll 3005bc6d...)
+- The pack's campaigns and data load.
+- SEST Runtime Fixes 1.5.0 and SEST UI Follow-up stay off under their
+  SHA-256 checks: no combat costs, no SEST runtime fixes.
+- The Workshop Anchor Chain preloader finds no chainloader on this build,
+  so no Anchor Chain code mod loads, SEST's or any other author's.
+- A bounded Anchor Chain loader for the beta is in SEST's source as a test
+  candidate only. It is not in this pack and nothing installs it.
+
+ANY OTHER BUILD
+- Not a build SEST has checked: data only. Both plugins stay off under
+  their SHA-256 checks until the pack is updated for that build. SETUP
+  still checks the mods and writes the mod order.
+
+WARNINGS SETUP GIVES HERE
+- SEST.BetaAnchorBootstrap.dll in BepInEx\plugins: the discontinued PR #53
+  beta test plugin, with which the beta did not open. Close the game and
+  delete that one file.
+- The code mods did not load at the last launch: BepInEx\LogOutput.log
+  holds "Could not find AnchorChain chainloader", or no "Loaded assembly
+  AnchorChain," after "AnchorChain Preloader started". Known on the beta.
+
+Run SETUP again (game closed) after Steam moves the game to another build.

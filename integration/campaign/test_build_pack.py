@@ -104,6 +104,63 @@ def built_twin(slug, tmp):
     return twin
 
 
+class ProvenPositionForms(unittest.TestCase):
+    """The pool reads a unit's spawn point in the stable and the beta form."""
+
+    # Lines from PLAN 01 Clash in the Paracels: the stable copy, and the
+    # Build 261026 beta's re-save of it (commit 16deca0f).
+    STABLE = """[Environment]
+MapCenterLatitude=16.5
+MapCenterLongitude=111.71
+[Taskforce1Vessel1]
+Type=plan_msc_type_010
+RelativePositionInNM=8.36,0,-1.17
+Waypoints=-2.763574,220.4727,-1.151733
+[Taskforce1Aircraft1]
+Type=pla_q-5
+RelativePositionInNM=-102.5,3000,114.85
+"""
+    BETA = """[Environment]
+MapCenterLatitude=16.5
+MapCenterLongitude=111.71
+LambertExtent=0.137271937856346
+[Taskforce1Vessel1]
+Type=plan_msc_type_010
+GeoPosition=16.4805,111.849333,0
+Waypoints=geo,16.480804,111.66394,220
+[Taskforce1Aircraft1]
+Type=pla_q-5
+GeoPosition=18.414167,110.001667,3000
+[Taskforce1LandUnit1]
+Type=airfield_small_1
+GeoPosition=18.436299,109.960331,grounded
+[Taskforce2LandUnit5]
+Type=wp_large_pvo_airbase
+#RelativePositionInNM=38.47,low,86.34
+GeoPosition=27.2172,56.3826,low
+"""
+
+    def test_relative_position_is_arcminutes_from_the_centre(self):
+        got = bp.mission_positions(self.STABLE)
+        self.assertEqual([g[0] for g in got], ["Taskforce1Vessel1", "Taskforce1Aircraft1"])
+        self.assertAlmostEqual(got[0][1], 16.5 - 1.17 / 60)
+        self.assertAlmostEqual(got[0][2], 111.71 + 8.36 / 60)
+
+    def test_geo_position_is_read_and_waypoints_are_not(self):
+        got = bp.mission_positions(self.BETA)
+        self.assertEqual(got, [("Taskforce1Vessel1", 16.4805, 111.849333),
+                               ("Taskforce1Aircraft1", 18.414167, 110.001667),
+                               ("Taskforce1LandUnit1", 18.436299, 109.960331),
+                               ("Taskforce2LandUnit5", 27.2172, 56.3826)])
+        kinds = [bp.pool_kind(g[0]) for g in got]
+        self.assertEqual(kinds, ["sea", None, "land", "land"])
+
+    def test_geo_position_needs_no_centre_but_relative_does(self):
+        text = "[A Vessel1]\nRelativePositionInNM=1,0,1\n[B Vessel2]\nGeoPosition=1.5,2.5,0\n"
+        self.assertEqual(bp.mission_positions(text), [("B Vessel2", 1.5, 2.5)])
+        self.assertEqual(bp.mission_positions("[A]\nGeoPosition=95,2,0\n"), [])
+
+
 class SailedLegs(unittest.TestCase):
     """Wet endpoints must not let a ship cross an island between them."""
 
@@ -861,11 +918,18 @@ class DeckLists(unittest.TestCase):
         if not stubs:
             self.skipTest("SEST Cross-Deck not built")
         for stub in stubs:
-            uid = stub.name[:-len("_CrossDeck_SEST.ini")]
+            # The game keys a stub by its #!extend line; the file name is the
+            # hull id spelt in ASCII (cross-deck's stub_name).
             text = stub.read_text(encoding="utf-8")
-            self.assertTrue(text.startswith(f"#!extend vessels/{uid}.ini\n"), stub.name)
+            head = re.match(r"#!extend vessels/([^\n/]+)\.ini\n", text)
+            self.assertTrue(head, stub.name)
+            uid = head.group(1)
+            self.assertEqual(stub.name, cross_deck().stub_name(uid))
             own = bp.unit_value(uid, "AircraftSupported")
             self.assertTrue(own and "Helicopters" not in own, uid)
+            # The campaign reads this stub's list for the hull, under either name.
+            listed = re.search(r"^AircraftSupported=([^\n/]*)", text, re.M).group(1).strip()
+            self.assertEqual(bp.deck_types(uid), listed, uid)
             new = bp.deck_types(uid).split(",")
             self.assertEqual(new[:len(own.split(","))], own.split(","), uid)
             self.assertEqual(len(new), len(set(new)), uid)

@@ -930,6 +930,13 @@ def deck_types(deck_type):
     list, replaced by SEST Cross-Deck's extended list where one is built.
     None when the hull declares no list at all."""
     stub = CROSS_DECK / f"{deck_type}_CrossDeck_SEST.ini"
+    if not deck_type.isascii():
+        # Cross-Deck spells such a hull's stub name in ASCII (fr_ffg_floréal's
+        # is fr_ffg_floreal_...); the game, and so this, finds a stub by the
+        # target its #!extend line names.
+        head = f"#!extend vessels/{deck_type}.ini\n"
+        stub = next((s for s in sorted(CROSS_DECK.glob("*_CrossDeck_SEST.ini"))
+                     if read(s).startswith(head)), stub)
     if stub.is_file():
         m = re.search(r"^AircraftSupported=([^\n/]*)", read(stub), re.M)
         if m:
@@ -1003,38 +1010,62 @@ def pool_kind(section):
     return None               # aircraft need no proven ground
 
 
+# A unit's spawn point in either form a mission file writes it. The stable
+# game's missions use RelativePositionInNM=x,height,z (arcminutes from the map
+# centre); a few stable missions and every mission the Build 261026 beta
+# editor saves use GeoPosition=lat,lon,height (degrees; the height may be a
+# word such as low or grounded).
+REL_POSITION = re.compile(r"RelativePositionInNM=(-?[\d.]+),([^,]*),(-?[\d.]+)\s*$")
+GEO_POSITION = re.compile(r"GeoPosition=(-?[\d.]+),(-?[\d.]+)(?:,[^,]*)?\s*$")
+
+
+def mission_positions(text):
+    """(section, lat, lon) for every unit spawn point in one mission file.
+
+    lat = centre + z/60, lon = centre + x/60: RelativePositionInNM is plain
+    arcminutes on both axes, so it needs the file's map centre; GeoPosition
+    is read as written and needs none. Waypoints are routes, not spawn
+    points, so neither the x,height,z nor the beta's geo,lat,lon,height
+    waypoint form is read here.
+    """
+    la = re.search(r"^MapCenterLatitude=(-?[\d.]+)", text, re.M)
+    lo = re.search(r"^MapCenterLongitude=(-?[\d.]+)", text, re.M)
+    centre = (float(la.group(1)), float(lo.group(1))) if la and lo else None
+    out, section = [], None
+    for line in text.splitlines():
+        s = line.strip()
+        if s.startswith("[") and s.endswith("]"):
+            section = s[1:-1]
+            continue
+        if not section:
+            continue
+        m = REL_POSITION.match(s)
+        if m and centre:
+            out.append((section, centre[0] + float(m.group(3)) / 60.0,
+                        centre[1] + float(m.group(1)) / 60.0))
+            continue
+        g = GEO_POSITION.match(s)
+        if g and -90.0 <= float(g.group(1)) <= 90.0:
+            out.append((section, float(g.group(1)), float(g.group(2))))
+    return out
+
+
 def harvest():
     """Every (lat, lon) a loading mission has already put a unit of that kind on.
 
-    lat = centre + z/60, lon = centre + x/60: RelativePositionInNM is plain
-    arcminutes on both axes. Checked against the two RAAF bases NORTHERN
-    FRONT II places - Darwin resolves to -12.427,130.884 and Scherger to
-    -12.603,142.040, both within a mile of the real airfields.
+    Positions come from mission_positions(). Checked against the two RAAF
+    bases NORTHERN FRONT II places - Darwin resolves to -12.427,130.884 and
+    Scherger to -12.603,142.040, both within a mile of the real airfields.
     """
     pool = {"sea": [], "land": []}
     for rel in POOL_ROOTS:
         for f in sorted((ROOT / rel).rglob("*.ini")):
             if OUT in f.parents:
                 continue      # never feed this campaign's own output back in
-            text = read(f)
-            la = re.search(r"^MapCenterLatitude=(-?[\d.]+)", text, re.M)
-            lo = re.search(r"^MapCenterLongitude=(-?[\d.]+)", text, re.M)
-            if not (la and lo):
-                continue
-            clat, clon = float(la.group(1)), float(lo.group(1))
-            section = None
-            for line in text.splitlines():
-                s = line.strip()
-                if s.startswith("[") and s.endswith("]"):
-                    section = s[1:-1]
-                    continue
-                m = re.match(r"RelativePositionInNM=(-?[\d.]+),([^,]*),(-?[\d.]+)\s*$", s)
-                if not (m and section):
-                    continue
+            for section, lat, lon in mission_positions(read(f)):
                 kind = pool_kind(section)
                 if kind:
-                    pool[kind].append((clat + float(m.group(3)) / 60.0,
-                                       clon + float(m.group(1)) / 60.0))
+                    pool[kind].append((lat, lon))
     for kind in pool:
         pool[kind] = sorted(set((round(a, 4), round(b, 4)) for a, b in pool[kind]))
     return pool

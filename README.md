@@ -1,7 +1,7 @@
 # Seapower-mods
 
 Custom loadouts, upgrade variants, cross-mod fixes and missions for a
-**Sea Power: Naval Combat in the Missile Age** install with **199 Workshop
+**Sea Power: Naval Combat in the Missile Age** install with **203 Workshop
 subscriptions** — all shipped as one deployable mod, the **SEST Integration Pack**.
 
 The pack is published on the Steam Workshop as *SEST Integration Pack - Modernised
@@ -15,6 +15,21 @@ the order: the pack first, above every Workshop mod. If the Mod Manager offers t
 pack's dependencies above it, the answer is no (that would undo every fix in it), and SETUP
 run again puts the order back. Every upload is an update to the same item;
 `docs/campaigns/southern-watch/publishing.md` is the procedure.
+
+SETUP also names the game build it finds, by the hash of the game's
+`Seapower-Scripts.dll` (the stable Build 261021 and the public beta Build
+261026 both call themselves 0.8.7), and warns when the game's last launch
+loaded no code mod. The pack targets Build 261021 until the game's 11 Nov 2026
+release. SEST's code (Runtime 1.5.0 and UI Follow-up 1.4.2 in `plugins/`) runs
+there and switches itself off on any other build; on the public beta no mod's
+code loads at all, because the Workshop Anchor Chain preloader finds no
+chainloader there. A bounded Anchor Chain fork and an inert beta bootstrap are
+source-only test candidates in `integration/beta-anchorchain/`, not shipped.
+The load order names Pop-Out Windows 1.0.2 since the 28 Oct capture, and the
+collection will carry it once the owner adds it. With 1.0.2 the pop-out parts
+of both plugins stay off, since both are pinned to Pop-Out Windows 1.0.1.
+`docs/release-20261103-consolidated.md` says what the current release branch
+carries and what gates it.
 
 **[docs/FEATURES.md](docs/FEATURES.md)** is the full feature list; **[docs/play-test-guide.md](docs/play-test-guide.md)** is how to test all four campaigns in the game. Combat Cost Tracker compatibility is documented in **[docs/combat-costs/README.md](docs/combat-costs/README.md)**. The private fleet, weapons and forward-UAV revision is documented in **[docs/playtest-20261020.md](docs/playtest-20261020.md)**.
 
@@ -210,7 +225,7 @@ squadron the winning file actually offers — a price naming a fit the hull no
 longer has fails the build. None of the economy has been exercised in game;
 each campaign's `build-notes.md` says so in detail.
 
-Its point is coverage. 199 Workshop mods are a lot of content to own and never
+Its point is coverage. 203 Workshop mods are a lot of content to own and never
 see, so the campaigns are built so that **every mod in the canonical load
 order, and every SEST pack, is reached by something one of them places** — and
 "reached" is
