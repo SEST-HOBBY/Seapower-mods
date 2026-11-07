@@ -278,10 +278,12 @@ EXCUSES = {
         "external", "US, Philippine and Aeronavale Crusaders, the last retired in 1999, "
         "which no 2028 mission fields; the Clemenceau's 1970-1990 air "
         "groups embark them"),
-    # "the-royal-navy" left this table on 5 Nov 2026: Euromod-HD Hyundai's
-    # 3 Nov update embarks its rn_sea_lynx_3 on the PN FFG-150 (in place of
-    # Euromod South Korea's rok_mk99_a), and every Sulu Line mission fields
-    # that frigate, so the campaign now reaches The Royal Navy.
+    # 7 Nov capture: the PN frigates now embark Euromod Main's rn_sea_lynx,
+    # replacing The Royal Navy's rn_sea_lynx_3. The Cold War pack is no
+    # longer reached through those air groups.
+    "the-royal-navy": (
+        "external", "Cold War Royal Navy outside the campaigns' 2028 service window; "
+        "PN frigates now embark Euromod Main's rn_sea_lynx instead"),
     "euromod-brazil": (
         "external", "Brazilian Navy and naval air arm (service 1976-2029) outside every "
         "SEST theatre; placed by no installed campaign"),

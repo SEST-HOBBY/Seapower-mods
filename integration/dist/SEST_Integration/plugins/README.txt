@@ -31,7 +31,7 @@ SEST's two other plugins share this folder:
   SEST.RuntimeFixes.dll    SEST Runtime Fixes 1.5.0. SEST_RUNTIME_README.txt
   SEST_RUNTIME_README.txt  says what it does; sest_runtime.ini turns its
   sest_runtime.ini         corrections off one at a time.
-  SEST.ContactsFix.dll     SEST UI Follow-up 1.4.5, for players of Contact
+  SEST.ContactsFix.dll     SEST UI Follow-up 1.4.6, for players of Contact
                            Log: its window no longer opens or closes on the
                            time-control keys; the live F11 cost report
                            reuses each mission's price lists instead of

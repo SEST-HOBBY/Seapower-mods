@@ -1,88 +1,78 @@
-SEST WORKSHOP UPDATE CANDIDATE — 7 NOVEMBER 2026
+SEST WORKSHOP UPDATE CANDIDATE — 7 NOVEMBER 2026, R7 TOOLKIT
 
-Workshop item: 3812461539 (update this item; do not create a second item)
-Release branch: release/workshop-20261107
-Base: merged PR #56, 72129cb45d3ec49d145ab323f16111089d868edb
-Latest author configuration capture integrated: 3 November 2026.
-Status: build checked; the final PC gameplay checks below remain.
+This replaces the earlier 7 November toolkit and R6 repair for the new
+0.8.7-261106 beta captured on your PC. Your Steam branch stays on beta.
+The Workshop upload retains stable Runtime 1.5.0 with UI Follow-up 1.4.6;
+the separate R7 playtest uses Runtime 1.5.4 and UI Follow-up 1.4.7.
+Automated build/managed/installer checks are recorded. Gameplay is pending.
 
-PREPARE THE UPLOAD
+PREPARE YOUR PC
 
-This delivery contains a local Git bundle. The release branch has not been
-pushed to GitHub. Extract the complete toolkit ZIP into a fresh folder.
-The bundle uses merged PR #56 as its prerequisite; fetch that public base,
-then import the prepared release locally. This does not change Steam's
-selected game branch or your installed beta repair.
+1. Close Sea Power. Extract the complete new toolkit into a fresh folder.
+2. Run Prepare-PC.cmd, or open PowerShell in the extracted toolkit and run:
 
-Close Sea Power. In PowerShell:
+   powershell -NoProfile -ExecutionPolicy Bypass -File .\Prepare-PC.ps1
 
-  cd C:\Users\rolyl\Seapower-mods
-  git status --short
+The helper uses your existing C:\Users\rolyl\Seapower-mods clone. It verifies
+and imports the bundle into a NEW detached worktree beside that clone; it
+does not switch your current branch or overwrite either existing worktree.
+It checks current author configuration fingerprints, upgrades the existing
+beta candidate to R7, and installs the refreshed SEST data while retaining
+all five verified R7 code files. Previous data is kept under
+steamapps\SEST-release-backups; its exact backup/restore command is printed.
+Original beta code backups and Identify data remain in place.
 
-Keep any local edits before changing branch. With a clean tree, replace
-C:\PATH\TO\TOOLKIT below with the extracted toolkit folder:
+Finally it prepares a fresh Downloads upload folder from the canonical
+stable repository payload. That folder cannot inherit the installed beta
+DLLs. No PC rebuild and no automatic Steam submission are performed.
+If any step stops, keep its error/report; do not substitute older DLLs.
+-ImportOnly imports the new worktree without running install steps.
 
-  git fetch origin sest-dev/jolly-ride-rptj4t
-  git bundle verify "C:\PATH\TO\TOOLKIT\SEST-Workshop-20261107.bundle"
-  git fetch "C:\PATH\TO\TOOLKIT\SEST-Workshop-20261107.bundle" release/workshop-20261107
-  git switch -c release/workshop-20261107 FETCH_HEAD
-  powershell -NoProfile -ExecutionPolicy Bypass -File .\tools\export-mod-configs.ps1 -CheckUpdates
-  powershell -NoProfile -ExecutionPolicy Bypass -File .\tools\prepare-workshop-upload.ps1
+WHAT IS IN THIS REFRESH
 
-Stop if a git command fails. If that branch already exists, switch to it
-and use git merge --ff-only FETCH_HEAD instead of creating it again.
-Read the CheckUpdates report: a changed author configuration needs a new
-capture before upload; its successful script exit alone does not mean
-there was no drift. The preparation script verifies all canonical files,
-then prints a fresh Downloads upload folder. Only the inner SEST_Integration
-folder is uploaded. It does not alter the installed game, current beta
-repair, load order, Steam branch, subscriptions or saves. No rebuild is
-needed on the PC.
+- All 14 changed author configuration exports from today's capture, plus
+  the retained November campaign, SETUP, pricing and dependency corrections.
+- Retires SEST's Harpoon/Mikuma repairs where the author fixed or removed
+  the conflicting source data, preserves the reviewed price for the retired Chilean saved-campaign id,
+  and updates the Sulu Line dependency accounting for the new PN Lynx choice.
+- Follows thin squadron aliases when deciding a roster pick's nation,
+  including the updated German NH-90 file.
+- Stable UI 1.4.6 bridges the captured Pop-Out Windows 1.1.3 and Combat Cost
+  Tracker 0.8.0 interfaces without changing Runtime 1.5.0.
+- R7 targets the captured new game/Noesis DLLs, debrief nation argument,
+  tracker visibility, campaign/terrain APIs, formation label lookup and
+  Osprey fuel conversion. Current author beta releases replace six old
+  adapters. The captured stable-only Loadout Manager duplicate is skipped.
 
-WHAT CHANGED
+R7 LIMITATIONS AND PLAYTEST
 
-- The merged November configuration refresh, campaign dependency fixes,
-  pricing corrections and SETUP fixes from PR #56 are retained.
-- The beta tactical map's 32 missing settings and Redback helicopter
-  night-vision declarations are included; stable CIWS tuning is retained.
-- Stable UI Follow-up 1.4.5 supports the captured Pop-Out Windows 1.1.3
-  through an exact-hash and reflected-contract check. Runtime 1.5.0 is
-  unchanged. Unknown author builds leave the affected bridge inactive.
-- The upload manifest prevents accidental publication of the installed
-  beta test DLLs in place of the canonical stable payload.
+EnhancedDecoyMod, both Topographic Map DLLs and MultiStageMissiles are held
+before CLR load because native interfaces changed. Their data is retained;
+native countermeasures and missile staging remain. ExtendedGuidance stays
+disabled by the SEST profile. See R7\BETA-FEATURE-PARITY.md for details.
+Clipped tabs and the Global Hawk comparison are not claimed fixed.
 
-FINAL GAMEPLAY CHECKS
+Launch beta. Check startup; F11 current, previous and campaign totals and
+Redback prices; mission debrief and continuation into a second mission;
+preparation; Contacts and formation pop-out/return; compass on unit video;
+SAR routing; and Osprey launch, conversion and fuel use. Quit and run
+R7\Capture-Repair-Results.cmd. Keep the original backups until the test is
+reviewed. Restore data before restoring earlier beta code if reverting both.
 
-Stable Build 261021: run SETUP; check the F11 current/campaign/last-game
-cost windows and AGR-30 quantities, debrief, preparation into a second
-mission, Contacts and formation pop-out/return, and compass on the unit
-camera. The 1.4.5 log must include:
-  stable Pop-Out Windows 1.1.3 bridge compatibility installed
-  native window bridge attached to Pop-Out Windows 1.1.3 (stable companion)
-Any inactive bridge or rendering failure needs its log captured before
-the new pop-out change is published. The actual 1.1.3 DLL was not available
-to the build environment, so this installed-version check is still needed.
+The beta test does not verify stable UI 1.4.6 rendering. Before releasing
+that new stable bridge, a stable Build 261021 tester must check F11,
+Contacts/formation pop-out and compass with these author versions. You do
+not need to switch your own PC off beta. No gameplay result is fabricated.
 
-Beta Build 261026: remain on beta for your R6 test. Use the separate
-SEST-Beta-Repair-R6-20261107.zip; run Repair-Beta-Startup.cmd, play the
-checks in its README-FIRST.txt, then Capture-Repair-Results.cmd.
-Do not copy its payload/ DLLs into this upload folder. R6 has recorded
-managed/fixture checks, not a completed gameplay check. It is not part of
-the ordinary Workshop installation. Clipped tabs and the Global Hawk
-comparison remain unresolved; do not advertise either as fixed.
+STEAM UPLOAD AFTER CHECKS PASS
 
-Before upload, take a new Workshop capture if Steam updated an author mod
-after 3 November. Use the existing capture-all-mod-updates.ps1 workflow;
-do not assume that a newer Pop-Out DLL will match the inspected pin.
+Update existing Workshop item 3812461539; do not create a new item.
+Use ONLY the inner SEST_Integration folder printed by the preparation
+script. Do not select the toolkit, repository root or installed beta item.
+Paste STEAM-CHANGE-NOTE.txt after the gameplay checks pass.
 
-STEAM REQUIREMENTS AND UPLOAD
-
-The load order contains 204 entries: SEST plus 203 Workshop dependencies.
-Make the item Required Items match data/load-order.tokens.txt and the
-collection contain those 203 dependencies plus SEST. The live collection
-checked on 7 November contains Contact Log, Topographic Map and Pop-Out
-Windows, but no B-21 entry. Add B-21 Raider 3821992229 and check all four
-are also Required Items before Submit:
+Confirm Required Items and collection contain all 203 dependencies from
+data/load-order.tokens.txt; check these four explicitly:
   Contact Log       3819427362
   Topographic Map   3826122523
   Pop-Out Windows   3826396311
@@ -91,10 +81,7 @@ are also Required Items before Submit:
 Item: https://steamcommunity.com/sharedfiles/filedetails/?id=3812461539
 Collection: https://steamcommunity.com/sharedfiles/filedetails/?id=3812390790
 
-In Sea Power: Mod Manager > Create Mod > Update Existing > item
-3812461539 > Pick Folder > the verified SEST_Integration folder > Submit.
-Keep Public visibility and the dependency list. Paste STEAM-CHANGE-NOTE.txt
-after the gameplay checks pass. Confirm m_eResult: k_EResultOK in Player.log
-and verify the item timestamp, nonzero size and Required Items afterwards.
-
-Nothing in this package publishes to Steam automatically.
+In Sea Power: Mod Manager > Create Mod > Update Existing > 3812461539 >
+Pick Folder > the verified SEST_Integration folder > Submit. Confirm the
+successful Steam result in Player.log, then verify the public timestamp,
+size and dependencies. Steam publication has not been performed here.

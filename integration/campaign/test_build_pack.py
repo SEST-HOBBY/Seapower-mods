@@ -1244,7 +1244,10 @@ class RosterAndSeahawk(unittest.TestCase):
         credits = self.sulu_credits(("tha_S-70B-7_Seahawk", ["Squadron1"]))
         sonobuoy = bp.chain_owners("ammunition/usn_ssq-62.ini")[0]
         self.assertEqual(credits[sonobuoy][0], "store")
-        self.assertIn("usn_ssq-62", credits[sonobuoy][1])
+        self.assertIn((sonobuoy, "store", "tha_S-70B-7_Seahawk / usn_ssq-62"),
+                      bp.aircraft_credit("tha_S-70B-7_Seahawk"))
+        # Several stores now resolve to vanilla, so the per-owner credit
+        # retains the first reason rather than one line per sonobuoy.
         # The mod that sells the airframe stays credited for that.
         seller = bp.owner("aircraft/tha_S-70B-7_Seahawk.ini")
         self.assertEqual(credits[seller][0], "roster")
@@ -1267,7 +1270,7 @@ class RosterAndSeahawk(unittest.TestCase):
                       bp.deck_aircraft("phl_ff_hamilton", kind, path, "Variant1", {}))
         credits = self.sulu_credits(("phl_ff_hamilton", ["Variant1"]))
         self.assertEqual(self.names(credits, "usn_sh-2f"), {})
-        self.assertNotIn(bp.chain_owners("ammunition/usn_ssq-62.ini")[0], credits)
+        self.assertFalse([why for why in credits.values() if "usn_ssq-62" in why[1]], credits)
         self.assertFalse([why for why in credits.values() if " deck" in why[1]], credits)
 
     def test_every_campaigns_roster_credits_all_it_makes_the_game_read(self):

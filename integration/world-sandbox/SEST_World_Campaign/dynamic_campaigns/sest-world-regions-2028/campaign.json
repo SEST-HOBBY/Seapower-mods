@@ -7245,9 +7245,7 @@
     "fr_vsr700": 39,
     "ger_a400m_airdroop-para": 242,
     "ger_a400m_tankers": 242,
-    "ger_nh90": 39,
     "ger_nh90_tth": 39,
-    "ger_sea_lynx_mk88": 39,
     "gre_m2k-5_bg": 46,
     "gre_m2k-5_mk2": 46,
     "gre_m2kbg": 46,
@@ -7366,6 +7364,7 @@
     "plaaf_jh_6a": 46,
     "plaaf_jz-8f": 46,
     "plaaf_kj-3000": 242,
+    "plaaf_kj-500a": 242,
     "plaaf_kj100a": 242,
     "plaaf_kj100b": 242,
     "plaaf_kj2000": 242,
@@ -7925,6 +7924,7 @@
     "jmsdf_ss_uzushio": 125,
     "jmsdf_ss_yushio": 108,
     "jmsdf_ssn_zuiho": 123,
+    "js_ffg_mogami_improved": 181,
     "knm_ffg_oslo": 87,
     "knm_fs_sleipner": 45,
     "knm_msc_sauda": 26,
@@ -7937,6 +7937,8 @@
     "ko_ffg-811": 115,
     "ko_kddx": 233,
     "ko_lph-6112": 383,
+    "ko_ocean-4300": 141,
+    "ko_ocean-4300_pn": 141,
     "ko_opv": 98,
     "ko_pcc-756": 60,
     "ko_pkg-711": 36,
@@ -8064,6 +8066,7 @@
     "ran_ffg_adelaide_ffg_upgrade": 137,
     "ran_ffg_adelaide_shorthull": 137,
     "ran_ffg_adelaide_upgrade": 137,
+    "ran_ffg_mogami_improved": 181,
     "ran_ffh_anzac_wartime": 125,
     "ran_lhd-cv_canberra": 487,
     "ran_lhd-cv_canberra_late": 487,
@@ -11308,6 +11311,12 @@
       "tier": 0
     },
     {
+      "unit": "ko_ocean-4300",
+      "side": "blue",
+      "nation": "Australia",
+      "tier": 1
+    },
+    {
       "unit": "ran_dd_daring",
       "side": "blue",
       "nation": "Australia",
@@ -11387,6 +11396,12 @@
     },
     {
       "unit": "ran_ffg_adelaide_upgrade",
+      "side": "blue",
+      "nation": "Australia",
+      "tier": 1
+    },
+    {
+      "unit": "ran_ffg_mogami_improved",
       "side": "blue",
       "nation": "Australia",
       "tier": 1
@@ -11936,6 +11951,12 @@
     },
     {
       "unit": "js_ffg_mogami",
+      "side": "blue",
+      "nation": "Japan",
+      "tier": 1
+    },
+    {
+      "unit": "js_ffg_mogami_improved",
       "side": "blue",
       "nation": "Japan",
       "tier": 1
@@ -14311,21 +14332,7 @@
       "aircraft": true
     },
     {
-      "unit": "ger_nh90",
-      "side": "blue",
-      "nation": "Germany",
-      "tier": 0,
-      "aircraft": true
-    },
-    {
       "unit": "ger_nh90_tth",
-      "side": "blue",
-      "nation": "Germany",
-      "tier": 0,
-      "aircraft": true
-    },
-    {
-      "unit": "ger_sea_lynx_mk88",
       "side": "blue",
       "nation": "Germany",
       "tier": 0,
@@ -14895,6 +14902,12 @@
       "side": "blue",
       "nation": "Philippines",
       "tier": 0
+    },
+    {
+      "unit": "ko_ocean-4300_pn",
+      "side": "blue",
+      "nation": "Philippines",
+      "tier": 1
     },
     {
       "unit": "phl_lpd_tarlac",
@@ -16919,6 +16932,13 @@
     },
     {
       "unit": "plaaf_kj-500",
+      "side": "red",
+      "nation": "China",
+      "tier": 1,
+      "aircraft": true
+    },
+    {
+      "unit": "plaaf_kj-500a",
       "side": "red",
       "nation": "China",
       "tier": 1,

@@ -1,0 +1,37 @@
+<# Import the private release bundle into a fresh worktree, repair the existing
+   beta candidate, install refreshed data with backup, then stage a separate
+   canonical stable upload. Never submits to Steam. #>
+[CmdletBinding()]
+param([string]$MainRepository='', [string]$GameRoot='', [string]$WorkshopContentRoot='', [switch]$ImportOnly)
+$ErrorActionPreference='Stop'
+Set-StrictMode -Version Latest
+$env:POWERSHELL_TELEMETRY_OPTOUT='1'
+$env:DOTNET_CLI_TELEMETRY_OPTOUT='1'
+function J { $p=[string]$args[0];for($i=1;$i -lt $args.Count;$i++){$p=[IO.Path]::Combine($p,[string]$args[$i])};$p }
+function G { & git -C $MainRepository @args;if($LASTEXITCODE -ne 0){throw 'Git stopped; no later install step was run.'} }
+if(@(Get-Process -Name 'Sea Power','SeaPower' -ErrorAction SilentlyContinue).Count){throw 'Close Sea Power first.'}
+if(!$MainRepository){$MainRepository=J $env:USERPROFILE 'Seapower-mods'}
+$MainRepository=(Resolve-Path -LiteralPath $MainRepository).ProviderPath
+$bundle=J $PSScriptRoot 'SEST-Workshop-20261107.bundle'
+$receipt=Get-Content -LiteralPath (J $PSScriptRoot 'SOURCE-RECEIPT.json') -Raw | ConvertFrom-Json
+if((Get-FileHash -LiteralPath $bundle -Algorithm SHA256).Hash.ToLowerInvariant() -ne $receipt.workshop_bundle.sha256){throw 'Release bundle hash differs; extract the complete toolkit again.'}
+G bundle verify $bundle
+G fetch $bundle release/workshop-20261107
+$checkout=J (Split-Path -Parent $MainRepository) ('Seapower-Workshop-20261107-R7-'+(Get-Date -Format 'HHmmss'))
+if(Test-Path -LiteralPath $checkout){throw 'The new checkout already exists; run again after the clock advances.'}
+G worktree add --detach $checkout FETCH_HEAD
+Write-Host ('Release checkout: '+$checkout) -ForegroundColor Green
+if($ImportOnly){return}
+$report=J $PSScriptRoot ('check-updates-'+(Get-Date -Format 'HHmmss')+'.txt')
+& powershell.exe -NoProfile -ExecutionPolicy Bypass -File (J $checkout 'tools' 'export-mod-configs.ps1') -CheckUpdates -ReportPath $report
+if($LASTEXITCODE -ne 0 -or !(Test-Path -LiteralPath $report)){throw 'The author-update check failed. No beta/data installation was attempted.'}
+if([IO.File]::ReadAllText($report) -notmatch 'Nothing has changed upstream\.'){throw 'An author configuration changed after this capture. Keep the report and capture the new update before installation.'}
+$beta=J $PSScriptRoot 'R7'
+$options=@{};if($GameRoot){$options.GameRoot=$GameRoot};if($WorkshopContentRoot){$options.WorkshopContentRoot=$WorkshopContentRoot}
+& (J $beta 'Repair-SEST-Beta-Startup.ps1') @options -Action Repair
+$dataOptions=@{RepositoryRoot=$checkout;BetaPackageRoot=$beta}
+if($GameRoot){$dataOptions.GameDirectory=$GameRoot};if($WorkshopContentRoot){$dataOptions.WorkshopContentRoot=$WorkshopContentRoot}
+& (J $checkout 'tools' 'install-workshop-release-data.ps1') @dataOptions
+& (J $checkout 'tools' 'prepare-workshop-upload.ps1') -RepositoryRoot $checkout
+Write-Host 'Beta playtest prepared. Launch the game, test the README items, quit and run R7\Capture-Repair-Results.cmd.' -ForegroundColor Green
+Write-Host 'The printed upload folder contains canonical stable code. Submit to Steam only after the required gameplay checks pass.'

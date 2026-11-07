@@ -1366,13 +1366,22 @@ def pick_nation(uid, pick):
     f = winning(f"{kind}/{uid}_{'squadrons' if kind == 'aircraft' else 'variants'}.ini")
     if f is None:
         return None
-    text = read(f)
+    # Author squadron files can be thin aliases that only change dates.
+    # Merge each section's Nation through the alias chain before falling
+    # back from the selected squadron/variant to [Default].
     for section in (pick, "Default"):
-        m = re.search(rf"^\[{re.escape(section)}\][^\n]*\n(.*?)(?=^\[|\Z)", text, re.M | re.S)
-        n = m and re.search(r"^[ \t]*Nation[ \t]*=[ \t]*(.*?)[ \t]*\r?$", m.group(1), re.M)
-        value = n and re.split(r"\s*(?://|#|;)", n.group(1), 1)[0].strip()
-        if value:
-            return value
+        current, seen = f, set()
+        while current is not None:
+            if current in seen:
+                raise SystemExit(f"roster: alias cycle reading {uid} {pick}")
+            seen.add(current)
+            text = read(current)
+            m = re.search(rf"^\[{re.escape(section)}\][^\n]*\n(.*?)(?=^\[|\Z)", text, re.M | re.S)
+            n = m and re.search(r"^[ \t]*Nation[ \t]*=[ \t]*(.*?)[ \t]*\r?$", m.group(1), re.M)
+            value = n and re.split(r"\s*(?://|#|;)", n.group(1), 1)[0].strip()
+            if value:
+                return value
+            current = alias_target(current)
     return None
 
 
@@ -8064,7 +8073,7 @@ SEST's two other plugins share this folder:
   SEST.RuntimeFixes.dll    SEST Runtime Fixes 1.5.0. SEST_RUNTIME_README.txt
   SEST_RUNTIME_README.txt  says what it does; sest_runtime.ini turns its
   sest_runtime.ini         corrections off one at a time.
-  SEST.ContactsFix.dll     SEST UI Follow-up 1.4.5, for players of Contact
+  SEST.ContactsFix.dll     SEST UI Follow-up 1.4.6, for players of Contact
                            Log: its window no longer opens or closes on the
                            time-control keys; the live F11 cost report
                            reuses each mission's price lists instead of
@@ -8137,7 +8146,7 @@ def write_runtime_fixes(out):
     print(f"  runtime fixes: {dll.name} ({dll.stat().st_size} bytes); own code only")
 
 
-# SEST UI Follow-up 1.4.5 (SEST.ContactsFix.dll), SEST's third plugin: built
+# SEST UI Follow-up 1.4.6 (SEST.ContactsFix.dll), SEST's third plugin: built
 # outside the repository from integration/ui-followup/source/ (it compiles
 # against the game's own NoesisGUI, which cannot be committed) and committed
 # as built. It patches Runtime 1.5.0's own Contacts and cost code, so it

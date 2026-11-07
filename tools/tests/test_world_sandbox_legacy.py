@@ -67,6 +67,19 @@ class WorldHullCompatibilityTests(unittest.TestCase):
             names = (ROOT / pack / "language_en/aircraft_names.ini").read_text(encoding="utf-8")
             self.assertRegex(names, r"(?m)^\[usn_hh-60\]$")
 
+    def test_reviewed_legacy_target_exists_before_generated_output(self):
+        import sys
+        from unittest.mock import patch
+        sys.path.insert(0, str(ROOT / "integration"))
+        from common import costs
+        generated = ROOT / WORLD
+        original = costs.providers
+        with patch.object(costs, "providers", side_effect=lambda root: [
+                (owner, folder) for owner, folder in original(root) if folder != generated]):
+            legacy = costs.inventory(ROOT)["vessel"][LEGACY]
+        self.assertEqual(legacy["owner"], "SEST_World_Campaign")
+        self.assertEqual(legacy["alias"], f"vessels/{CURRENT}.ini")
+
     def test_build_order_declared(self):
         entries = json.loads((ROOT / "data/mod-catalog.json").read_text(encoding="utf-8"))["local_packs"]
         prices = next(p for p in entries if p["folder"] == "SEST_Combat_Costs")

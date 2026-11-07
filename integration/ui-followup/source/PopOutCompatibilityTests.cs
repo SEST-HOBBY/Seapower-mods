@@ -111,7 +111,57 @@ static class PopOutCompatibilityTests
             try { validate.Invoke(null, new object[] { typeof(PopOutCompatibilityTests) }); }
             catch (TargetInvocationException e) { invalid = e.InnerException is MissingMemberException; }
             Check(invalid, "Incompatible screen rejected");
-            Console.WriteLine("Stable Pop-Out compatibility checks passed: " + checks + "; actual Runtime 1.5.0 IL, original captured screen contracts; no game execution.");
+            if (args.Length > 4)
+            {
+                var tracker = Assembly.LoadFrom(args[4]);
+                var trackerPatch = own.GetType("Sest.UiFixes.TrackerCompatibility", true);
+                var validateTracker = trackerPatch.GetMethod("ValidateTracker", All);
+                validateTracker.Invoke(null, new object[] { tracker.GetType("WeaponCostsMod.Overlay", true) });
+                Check(true, "Actual captured Tracker 0.8 overlay contracts accepted");
+                var bridge = runtime.GetType("Sest.RuntimeFixes.F11CombatCosts", true);
+                var pollBody = Read(bridge.GetMethod("Poll", All));
+                var originals = pollBody.Select(c => c.operand).ToArray();
+                var rewritten = ((IEnumerable<CodeInstruction>)trackerPatch.GetMethod("Rewrite", All)
+                    .Invoke(null, new object[] { pollBody })).ToList();
+                Check(rewritten.Count == originals.Length, "Tracker bridge instruction count retained");
+                int changedPins = 0;
+                for (int i = 0; i < originals.Length; i++)
+                {
+                    Check(ReferenceEquals(pollBody[i], rewritten[i]), "Tracker bridge instructions retained");
+                    if (!Equals(originals[i], rewritten[i].operand))
+                    {
+                        changedPins++;
+                        Check(rewritten[i].opcode == OpCodes.Ldstr &&
+                            Equals(rewritten[i].operand, trackerPatch.GetField("CurrentHash", All).GetRawConstantValue()),
+                            "Only the tracker pin changes");
+                    }
+                }
+                Check(changedPins == 1, "Exactly one tracker string operand changes");
+                bool invalidTracker = false;
+                try { validateTracker.Invoke(null, new object[] { typeof(PopOutCompatibilityTests) }); }
+                catch (TargetInvocationException e) { invalidTracker = e.InnerException is MissingMemberException; }
+                Check(invalidTracker, "Incompatible tracker rejected");
+                var overlay = tracker.GetType("WeaponCostsMod.Overlay", true);
+                var fieldArgs = new object[] { overlay, "visible", typeof(bool), null };
+                Check(!(bool)trackerPatch.GetMethod("BeforeField", All).Invoke(null, fieldArgs), "Legacy visibility lookup is projected");
+                var projected = (FieldInfo)fieldArgs[3];
+                var owner = System.Runtime.Serialization.FormatterServices.GetUninitializedObject(overlay);
+                var stateField = overlay.GetField("visibility", All);
+                var state = Activator.CreateInstance(stateField.FieldType);
+                stateField.SetValue(owner, state);
+                Check((bool)projected.GetValue(owner), "Captured Tracker 0.8 starts expanded");
+                projected.SetValue(owner, false);
+                Check(!(bool)state.GetType().GetField("Expanded").GetValue(state), "Runtime close writes the author's actual state");
+                state.GetType().GetMethod("Toggle").Invoke(state, new object[] { true });
+                Check((bool)projected.GetValue(owner), "Author F11 toggle reopens the Runtime window");
+                state.GetType().GetMethod("Toggle").Invoke(state, new object[] { false });
+                Check((bool)projected.GetValue(owner), "Hidden HUD does not toggle visibility");
+                var legacyField = bridge.GetMethod("Field", All);
+                foreach (string name in new[] { "ready", "missionActive", "mission", "toggle" })
+                    Check(legacyField.Invoke(null, new object[] { overlay, name, null }) is FieldInfo,
+                        "Unchanged captured Runtime field binds actual Tracker 0.8: " + name);
+            }
+            Console.WriteLine("Stable Pop-Out compatibility checks passed: " + checks + "; actual Runtime 1.5.0 IL, captured PopOut 1.1.3 and Tracker 0.8 contracts; no game execution.");
             return 0;
         }
         catch (Exception e) { Console.Error.WriteLine(e); return 1; }

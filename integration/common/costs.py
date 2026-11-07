@@ -132,6 +132,10 @@ def providers(root):
     registry = json.loads((root / "data/mod-catalog.json").read_text(encoding="utf-8"))
     found = [(p["folder"], root / p["source"] / p["folder"])
              for p in registry["local_packs"] if p["folder"] != "SEST_Combat_Costs"]
+    # Source-owned compatibility aliases exist before generated pack output.
+    # Early consumers (RAS) must validate their reviewed prices on a clean tree.
+    found += [(p["folder"], root / p["compatibility_source"])
+              for p in registry["local_packs"] if p.get("compatibility_source")]
     tokens = (root / "data/load-order.tokens.txt").read_text(encoding="utf-8").splitlines()
     found += [(t.strip(), root / "mods-source" / t.strip()) for t in tokens if t.strip().isdigit()]
     found.append(("vanilla", root / "mods-source/_vanilla/original"))

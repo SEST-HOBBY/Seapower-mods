@@ -32,7 +32,8 @@ param(
     [Parameter(Mandatory = $true)][string]$GameDir,
     [switch]$PassThru,
     [string]$StableSha256 = 'eab2297ba92c6013958bdb2cf16d5794a4731330818ce353f89dc2241e16a3bd',
-    [string]$BetaSha256 = '3005bc6d4221a921008778a18dec06515d98c63d3afb6a3a2835b985ab2e7d62'
+    [string]$BetaSha256 = '3005bc6d4221a921008778a18dec06515d98c63d3afb6a3a2835b985ab2e7d62',
+    [string]$CurrentBetaSha256 = '9b35a7aa4f0bd3c78211fb9cf1e3d6398d0dbbc0f787674e843cc9563fd93f53'
 )
 $ErrorActionPreference = 'Stop'
 function J { $p = [string]$args[0]; for ($k = 1; $k -lt $args.Count; $k++) { $p = [IO.Path]::Combine($p, [string]$args[$k]) }; $p }
@@ -48,6 +49,7 @@ if (Test-Path -LiteralPath $scripts -PathType Leaf) {
 $build = 'unknown'
 if ($hash -and $hash -eq $StableSha256.ToLowerInvariant()) { $build = 'stable' }
 elseif ($hash -and $hash -eq $BetaSha256.ToLowerInvariant()) { $build = 'beta' }
+elseif ($hash -and $hash -eq $CurrentBetaSha256.ToLowerInvariant()) { $build = 'beta-current' }
 if ($build -eq 'stable') {
     Say '  [ok]   game build: Sea Power 0.8.7 Build 261021, the stable build this pack targets' 'Green'
     Say '         SEST Runtime Fixes 1.5.0 and SEST UI Follow-up can start, each only if its own SHA-256 checks pass.'
@@ -56,6 +58,10 @@ if ($build -eq 'stable') {
     Say '         On the beta the pack''s campaigns and data load, but SEST Runtime Fixes 1.5.0 and SEST UI Follow-up stay off under their SHA-256 checks,'
     Say '         and the Workshop Anchor Chain preloader finds no chainloader, so no Anchor Chain mod loads, SEST''s or any other author''s.'
     Say '         A bounded Anchor Chain loader for the beta is in SEST''s source as a test candidate only; nothing installs it.'
+} elseif ($build -eq 'beta-current') {
+    Say '  [note] game build: Sea Power 0.8.7 Build 261106, captured 7 November 2026.'
+    Say '         The Workshop pack targets stable Build 261021; its data loads, while the stable code plugins remain inactive.'
+    Say '         The separate R7 beta repair candidate is required for this build; earlier beta repair candidates remain inactive.'
 } elseif ($hash) {
     Say ('  [note] game build not recognised: Seapower-Scripts.dll SHA-256 ' + $hash.Substring(0, 16) + '..., neither Build 261021 nor Build 261026.')
     Say '         SEST has not checked this build: data only. SEST Runtime Fixes and SEST UI Follow-up stay off under their SHA-256 checks until the pack is updated for it.'
@@ -97,6 +103,7 @@ if (Test-Path -LiteralPath $log -PathType Leaf) {
             Say ('  [!!]   The code mods did not load at the last launch: BepInEx\LogOutput.log says ' + $why + '.') 'Yellow'
             Say '         Anchor Chain loaded none of its mods, so SEST Runtime Fixes, the combat costs and every other Anchor Chain mod were off.' 'Yellow'
             if ($build -eq 'beta') { Say '         This is known on the public beta (Build 261026); the campaigns and data still play. It needs no action from you.' 'Yellow' }
+            elseif ($build -eq 'beta-current') { Say '         This is known with the stock Build 261106 beta preloader; the data still loads. Use the separate R7 candidate for beta code testing.' 'Yellow' }
             else { Say '         Start the game once more and run SETUP again; if this is still here, reinstall the preloader from Anchor Chain''s Workshop page.' 'Yellow' }
         }
     }

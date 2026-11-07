@@ -1,9 +1,26 @@
-# Combat Cost Tracker 0.6.0
+﻿# Combat Cost Tracker 0.8.0
 
 Requires **AnchorChain**. Independent of AC Pack and DryDock.
 Install `Weapon Costs` in `Sea Power_Data/StreamingAssets`, enable it in the mod manager, and restart.
 
 **F11** toggles the translucent panel at the upper right. Player is left, Enemy right. Each side shows weapon expenditure, vessels lost by type, and a bold grand total. Ally and Neutral appear when used. F11 is reserved for the game's terrain redraw while its developer menu is open. F8 remains available for DryDock.
+
+## Visibility, AC Pack menu and observed costs
+
+The optional AC Pack Settings menu lists **Combat Cost Tracker** under **Audio and interface**:
+- Enable/disable the tracker. A full game restart applies this switch; the standalone mod must also be enabled in Mod Manager.
+- **Open automatically at mission start (off: F11)** chooses automatic opening or manual opening. Until explicitly set, the existing `VisibleOnStart` INI setting remains the default.
+
+The bold F11 button at the upper right also collapses/opens the panel. When collapsed, only this button remains. Hiding the native HUD (normally Backspace) hides the tracker and its button too.
+
+**Observed only: Enemy / Neutral** in the overlay is enabled by default. Player and Ally always use the full totals. Enemy/Neutral weapons require an identified, fresh player sensor contact; a missile detected after launch is included when observed. A known ship disappearing from contact is not automatically a confirmed loss: the loss must occur while observed. Gun/CIWS rounds require visual contact with the identified firing platform. The filter also covers airborne losses and the remaining inventory of observed vessel/aircraft losses. Missing prices still remain unknown.
+
+Switch this checkbox at any time to recalculate the displayed costs and ratios retrospectively. The complete native totals and the separate observation journal remain available; hiding the overlay does not stop tracking. Observations, stable object IDs and loss inventories are saved in `CombatCostsObservationsV1` alongside each taskforce AAR. Old saves cannot reconstruct past observation and omit those unconfirmed events in filtered mode. The unfiltered view still uses their native history.
+
+The menu and tracker retain preferences in the existing user settings file (never shipped with updates):
+`%USERPROFILE%/AppData/LocalLow/Triassic Games/Sea Power/Mods/ACPack/submods.ini`
+
+Under `[Submods]`, the optional keys are `local.seapower.weaponcosts`, `local.seapower.weaponcosts.auto-open`, and `local.seapower.weaponcosts.observed-only` (`true`/`false`). The menu is optional; no AC Pack assembly dependency is introduced.
 
 ## Price settings
 

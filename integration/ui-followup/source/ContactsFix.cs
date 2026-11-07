@@ -12,7 +12,7 @@ using UnityEngine;
 
 namespace Sest.UiFixes
 {
-    [ACPlugin("io.github.sest-hobby.contacts-input-fix", "SEST UI Follow-up", "1.4.5", null, null)]
+    [ACPlugin("io.github.sest-hobby.contacts-input-fix", "SEST UI Follow-up", "1.4.6", null, null)]
     public sealed class ContactsFix : IAnchorChainMod
     {
         internal const BindingFlags All = BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static | BindingFlags.Instance;
@@ -71,7 +71,7 @@ namespace Sest.UiFixes
                 harmony.Patch(matches, prefix: new HarmonyMethod(typeof(ContactsFix), nameof(BeforeMatches)));
                 harmony.Patch(tick, transpiler: new HarmonyMethod(typeof(ContactsFix), nameof(LogicalParents)));
                 installed = true;
-                Log("1.4.5 input fix installed; confirmed time-control behavior retained. Runtime 1.5.0 retained.");
+                Log("1.4.6 input fix installed; confirmed time-control behavior retained. Runtime 1.5.0 retained.");
             }
             catch (Exception error)
             {
@@ -83,6 +83,7 @@ namespace Sest.UiFixes
             {
                 // Each UI module has its own rollback boundary; neither can
                 // remove the independently installed, PC-confirmed input fix.
+                TrackerCompatibility.Install();
                 PopOutCompatibility.Install();
                 ContactsSurfaceFix.Install();
                 FormationUiMode.Install();

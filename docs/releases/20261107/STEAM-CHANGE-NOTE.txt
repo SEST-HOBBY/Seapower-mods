@@ -1,10 +1,12 @@
-[h2]7 November 2026 — November integration update[/h2]
+[b]November integration update[/b]
 
 [list]
-[*]Refreshed the integration against the captured Workshop configurations of 3 November, including campaign dependencies, aircraft/squadron definitions, SETUP and cost-catalogue corrections.
-[*]Added the public beta's missing tactical-map settings and explicit helicopter night-vision levels for the Redback loadout warning.
-[*]Updated SEST UI Follow-up for the inspected Pop-Out Windows 1.1.3 on the normal game release. Other plugin versions retain the original behavior until checked. Quick Load remains Ctrl+F9 while SEST UI Follow-up is active.
-[*]The canonical load order is now 204 entries: SEST and 203 Workshop dependencies. Subscribe to all Required Items, including B-21 Raider, before running SETUP.
+[*]Refreshed against the Workshop configurations captured on 7 November, including the latest US, German, Chinese, Chilean, South Korean and Hyundai export-ship changes.
+[*]Updated campaign dependency and equipment-cost accounting, including the PN Lynx change and preservation of retired Chilean saved-campaign hull prices.
+[*]Retired overlapping Harpoon and Mikuma corrections now supplied by the source mods.
+[*]Improved roster nation detection for squadron files that inherit their definitions through aliases.
+[*]Updated the stable UI companion for Pop-Out Windows 1.1.3 and Combat Cost Tracker 0.8.0, retaining Runtime 1.5.0.
+[*]Retained the tactical-map settings, Redback helicopter night-vision declarations and normal-release CIWS tuning.
 [/list]
 
-[b]Compatibility:[/b] This upload retains the normal-release CIWS values and Runtime 1.5.0. On public beta Build 261026, the normal Workshop loader does not provide full SEST code functionality; the separate R6 repair remains a beta test candidate. The beta modifier-file limitation is not fixed by this Workshop upload alone. No claim is made here that the clipped tabs or Global Hawk behavior have been fixed.
+[b]Compatibility:[/b] The public payload targets stable Build 261021. The separate R7 repair targets the captured beta Build 261106 and remains a gameplay-test candidate; its DLLs are not included in this upload. Clipped tabs and Global Hawk behavior are not advertised as fixed. The underlying Workshop dependencies remain required.

@@ -251,7 +251,8 @@
         "SEST_Raptor_Squadrons",
         "SEST_Replenishment",
         "SEST_TacMap_Colors"
-      ]
+      ],
+      "compatibility_source": "integration/world-sandbox/compatibility"
     },
     {
       "folder": "SEST_Combat_Costs",
@@ -2604,7 +2605,7 @@
         "3437105712"
       ],
       "load_order": "Directly below Euromod-India-Navy, above Royal Navy Type 23 'Duke Class' Frigate [OLD]; it collides with nothing that changes hands, so the slot is a grouping choice.",
-      "notes": "Philippine Navy addon to Euromod: Jose Rizal class frigates (pn_ffg-150, and pn_ffg-150_2 with Sylver A43 VLS) and Miguel Malvar (pn_ffg-06), 2020-2021, with Harpoon, twin Mistral, MICA and 76 mm. Its twin Mistral launcher, [Sinbad], is defined only by Philippines: The Luzon Line (3752415457). Its Sylver A43 section and FREMM meshes come from the Charles De Gaulle & Modern French Navy pack (3567256221). pn_ffg-150_2 hangs fr_mica-em from French Air Force (3758943352), while pn_ffg-06 hangs the mod's own PN_fr_mica_em. Each variants file declares three variants and defines two. No file or system name collides with anything. Verified 4 Oct 2026 from the export; not yet seen in the game. 3 Nov 2026: the mod is now titled 'Euromod-HD Hyundai Export Ships Mod' (the slug stays). It receives the KDDX and PKG-711 SCL from Euromod South Korea and adds the Thai ko_ffg-471, the Peruvian ko_hdf-3600 and ko_opv. The PN FFG-06 and FFG-150s now embark The Royal Navy's rn_sea_lynx_3 in place of rok_mk99_a, so the Sulu Line campaign, which fields the FFG-150 in every mission, now reaches The Royal Navy (3491248180): its coverage excuse was removed. New nations and UI flag overrides lose by order to two other mods' copies."
+      "notes": "Philippine Navy addon to Euromod: Jose Rizal class frigates (pn_ffg-150, and pn_ffg-150_2 with Sylver A43 VLS) and Miguel Malvar (pn_ffg-06), 2020-2021, with Harpoon, twin Mistral, MICA and 76 mm. Its twin Mistral launcher, [Sinbad], is defined only by Philippines: The Luzon Line (3752415457). Its Sylver A43 section and FREMM meshes come from the Charles De Gaulle & Modern French Navy pack (3567256221). pn_ffg-150_2 hangs fr_mica-em from French Air Force (3758943352), while pn_ffg-06 hangs the mod's own PN_fr_mica_em. Each variants file declares three variants and defines two. No file or system name collides with anything. Verified 4 Oct 2026 from the export; not yet seen in the game. 3 Nov 2026: the mod is now titled 'Euromod-HD Hyundai Export Ships Mod' (the slug stays). It receives the KDDX and PKG-711 SCL from Euromod South Korea and adds the Thai ko_ffg-471, the Peruvian ko_hdf-3600 and ko_opv. The 3 Nov export embarked The Royal Navy's rn_sea_lynx_3. In the 7 Nov author update the PN FFG-06 and FFG-150s embark Euromod Main's rn_sea_lynx instead; the Sulu Line no longer reaches The Royal Navy, whose coverage excuse is restored. New nations and UI flag overrides lose by order to two other mods' copies."
     },
     {
       "id": "philippines-luzon-line",

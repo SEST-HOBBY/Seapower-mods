@@ -8,7 +8,7 @@ listed in subscribes you to all of them in one press. If that
 works you do not need the list below at all, and it is here to
 check against rather than to work through by hand.
 
-166 mods. Each supplies a file a mission names directly - by
+165 mods. Each supplies a file a mission names directly - by
 Type=, SquadronReference=, VariantReference=, a loadout's store,
 or a model folder a placed unit's own file draws from.
 
@@ -172,7 +172,6 @@ Workshop id   supplies                         mod
 3683253079    a unit a mission places          Terminal High Altitude Area Defense (T.H.A.A.D) System (AN/TPY-2 Radar System included)
 3711297532    a squadron a flight comes from   Thailand: The Siam Shield
 3732654992    a model a unit draws             THE REDFOR MOD
-3491248180    a unit a mission places          The Royal Navy
 3509329205    a unit a mission places          TU-160 Blackjack
 3780118683    a unit a mission places          Tu-214R Family (图-214R家族)
 3395022688    a unit a mission places          Tu-95 With AS-15 (Kh-55) ALCM (more realistic nuke)
@@ -223,7 +222,7 @@ by something above them. The campaign does not call for them.
 
 --------------------------------------------------------------------------
 
-In the collection for other campaigns and scenarios (20):
+In the collection for other campaigns and scenarios (21):
 the third-party campaigns the collection carries, the mods they
 place, and content none of these four campaigns uses. They are in
 LOAD-ORDER.txt, so SETUP still requires them.
@@ -246,6 +245,7 @@ LOAD-ORDER.txt, so SETUP still requires them.
 3731931836    other campaigns                  Prithvi TBM (大地弹道导弹)
 3496055699    other campaigns                  S-500
 3628247436    other campaigns                  Sea Venom - Aquilon
+3491248180    other campaigns                  The Royal Navy
 3709961172    other campaigns                  The Second Northern War
 3672072359    other campaigns                  Ultimate Missile Workshop
 

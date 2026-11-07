@@ -8338,11 +8338,11 @@
     "aircraft": 168
    },
    "blue Australia": {
-    "ships": 44,
+    "ships": 46,
     "aircraft": 51
    },
    "blue Japan": {
-    "ships": 23,
+    "ships": 24,
     "aircraft": 19
    },
    "blue France": {
@@ -8367,7 +8367,7 @@
    },
    "blue Germany": {
     "ships": 23,
-    "aircraft": 10
+    "aircraft": 8
    },
    "blue Netherlands": {
     "ships": 9,
@@ -8406,7 +8406,7 @@
     "aircraft": 14
    },
    "blue Philippines": {
-    "ships": 13,
+    "ships": 14,
     "aircraft": 4
    },
    "blue Thailand": {
@@ -8455,7 +8455,7 @@
    },
    "red China": {
     "ships": 96,
-    "aircraft": 105
+    "aircraft": 106
    },
    "red Russia": {
     "ships": 111,
@@ -8845,9 +8845,7 @@
   "fr_vsr700": "Role ASuW",
   "ger_a400m_airdroop-para": "Role AEW",
   "ger_a400m_tankers": "Role AEW",
-  "ger_nh90": "Role ASW",
   "ger_nh90_tth": "Role ASW",
-  "ger_sea_lynx_mk88": "Role ASW",
   "gre_m2k-5_bg": "Role Fighter",
   "gre_m2k-5_mk2": "Role Fighter",
   "gre_m2kbg": "Role Fighter",
@@ -8966,6 +8964,7 @@
   "plaaf_jh_6a": "Role Fighter",
   "plaaf_jz-8f": "Role Fighter",
   "plaaf_kj-3000": "Role AEW",
+  "plaaf_kj-500a": "Role AEW",
   "plaaf_kj100a": "Role AEW",
   "plaaf_kj100b": "Role AEW",
   "plaaf_kj2000": "Role AEW",
@@ -9525,6 +9524,7 @@
   "jmsdf_ss_uzushio": "Displacement 3600 t",
   "jmsdf_ss_yushio": "Displacement 2900 t",
   "jmsdf_ssn_zuiho": "Displacement 3500 t",
+  "js_ffg_mogami_improved": "Displacement 6200 t",
   "knm_ffg_oslo": "Displacement 2100 t",
   "knm_fs_sleipner": "Displacement 800 t",
   "knm_msc_sauda": "Displacement 360 t",
@@ -9537,6 +9537,8 @@
   "ko_ffg-811": "Displacement 3200 t",
   "ko_kddx": "Displacement 9000 t",
   "ko_lph-6112": "Displacement 18800 t",
+  "ko_ocean-4300": "Displacement 4300 t",
+  "ko_ocean-4300_pn": "Displacement 4300 t",
   "ko_opv": "Displacement 2500 t",
   "ko_pcc-756": "Displacement 1220 t",
   "ko_pkg-711": "Displacement 570 t",
@@ -9664,6 +9666,7 @@
   "ran_ffg_adelaide_ffg_upgrade": "Displacement 4100 t",
   "ran_ffg_adelaide_shorthull": "Displacement 4100 t",
   "ran_ffg_adelaide_upgrade": "Displacement 4100 t",
+  "ran_ffg_mogami_improved": "Displacement 6200 t",
   "ran_ffh_anzac_wartime": "Displacement 3600 t",
   "ran_lhd-cv_canberra": "Displacement 26800 t",
   "ran_lhd-cv_canberra_late": "Displacement 26800 t",
@@ -10096,8 +10099,8 @@
    "Air": 107
   },
   "patrols": 49,
-  "catalogue": 1583,
-  "values": 1583,
+  "catalogue": 1586,
+  "values": 1586,
   "lanes_kept": 11,
   "lanes_authored": 11,
   "skipped_nodes": 34

@@ -215,13 +215,12 @@ METER_CATEGORIES = {"ASuW": LAND_ATTACK, "AAW": LONG_RANGE_SAM}
 # conditions above, and the builder prints what it excluded and why.
 METER_EXEMPT = {}
 
-# Four rounds whose vanilla AmmoPoints and SupplyCategory are stripped by a
-# lower-priority mod's stats stub. Restoring the vanilla bytes at tier 0 is a
-# straight bug fix and is worth shipping on its own merits: the whole Euromod
-# Harpoon Block II tree aliases usn_rgm-84d, so today that family costs zero
-# points and carries no category at all.
+# Three rounds whose vanilla AmmoPoints and SupplyCategory are stripped by
+# lower-priority stats stubs. Restore the vanilla bytes at tier 0. The former
+# Mogami usn_rgm-84d restoration was retired with the 7 Nov author update.
 RESTORE_ROUNDS = {
-    "usn_rgm-84d": "3456859157",    # Mogami-class stats stub drops 1725 / Harpoon
+    # 7 Nov capture: Mogami retired its usn_rgm-84d override; vanilla
+    # supplies the priced round, so no restoration is shipped for it.
     "usn_agm-84d": "3430135740",    # drops 1350 / Harpoon
     "wp_ss-n-12": "3395022688",     # drops 7740 / SovietAdvancedASM
     "wp_ss-n-19": "3395022688",     # drops 21000 / SovietAdvancedASM

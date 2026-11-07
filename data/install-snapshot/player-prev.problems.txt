@@ -1,5 +1,5 @@
 # Lines from Player-prev.log matching Exception/Error/not found/missing/failed.
-# 21 hit(s) - the first place to look when something did not load.
+# 23 hit(s) - the first place to look when something did not load.
 
      54: [SEST Runtime] task-force debrief correction installed: append explicitly destroyed launch-snapshot hulls missing from section 3
      68: [MissileControlMod] Disabled; native behavior retained: System.Exception: Native steering limit hook shape changed: 0/0/2
@@ -22,3 +22,5 @@
     127:   at HarmonyLib.PatchClassProcessor.ReportException (System.Exception exception, System.Reflection.MethodBase original) [0x0006c] in <474744d65d8e460fa08cd5fd82b5d65f>:0 
     191: [WorkerExpansion 0.12.0] FALLBACK: Method 'SeaPower.SensorSystemRadar.GetRangeInternal' not found.
     194: [IDX][Localization.cs:42 Load] [IDX] localization ini not found for language 'en' or en
+    265: [SEST UI Follow-up] Stutter counter availability: Gfx.WaitForRenderThread [TimeNanoseconds], Gfx.WaitForPresentOnGfxThread [TimeNanoseconds], GC.Collect [TimeNanoseconds], Main Thread [TimeNanoseconds], PlayerLoop [TimeNanoseconds], WaitForTargetFPS [TimeNanoseconds], GC Used Memory [Bytes], GC Reserved Memory [Bytes], CPU Main Thread Frame Time [TimeNanoseconds], CPU Render Thread Frame Time [TimeNanoseconds], GPU Frame Time [TimeNanoseconds]; incremental GC=True. Missing counters are unavailable, not zero. First window includes diagnostic startup.
+    379: [WeaponCosts] Missing WeaponCosts: sest_agr-30 (ASM)
