@@ -5,6 +5,239 @@ SEST Workshop item (`3812461539`). It restores the Runtime/UI feature code for
 beta testing. It does not change the Steam branch or replace campaign/data packs.
 The earlier stable restore ZIP is superseded for this task.
 
+## R6: seven more author plugins
+
+Built on 7 November 2026 on R5. R6 changes only the loader (`AnchorChain.dll`):
+it adds seven hash-pinned adapters, one file each
+(`beta-anchorchain/source/AssemblyAdapters.<Plugin>.cs`, with any bridges in
+`BetaCompatibilityCalls.<Plugin>.cs` and its managed checks in
+`tests/BetaApiTests.<Plugin>.cs`). The loader finds each `<Plugin>Adapter` by
+reflection; Prepare lets a held-back image through only when an adapter is
+pinned to its hash, and accepts only the native-field findings that adapter
+names, re-checking the written image. Each adapter was built against its
+investigation and an independent verification, then reviewed again against
+the IL before it was merged; every review cleared it to ship with minor
+findings only. 14 images now adapt (R5's seven with unchanged audits); 751
+managed API checks pass, against 63 in R5.
+
+| Plugin | What it brings back on the beta |
+|---|---|
+| OptimalTargetDist 1.2.1 | SystemGroup launch sharing (per-bank launch timers) |
+| MissileControlMod 0.1.16 | vertical launch and tip-over, TVC turn bonus, SS-N-26 Lo-Lo profile and ring |
+| ParallelRangeProbe 0.12.0 | its WorkerExpansion sensor and priority workers (CPU only) |
+| TestRange 0.2.3 | the F10 Test Range tab, salvo spawning, chaff and ECM switches |
+| BetterTacMap | its map layers, hotkeys and label lines |
+| AutomaticSAR | automatic search and rescue for ships, submarines and helicopters |
+| OspreyMechanics 1.1.45 and OspreyDeckOps 1.1.36 | the V-22 rig, hover flight, SV-22 dipping sonar and deck operations |
+
+Still not restored, by design: MultiStageMissiles 1.7.17 (the beta's flyout is
+Burst-compiled over native buffers; only the author can port it, and until
+then MissileControlMod's staged rounds stage natively and the SS-N-26 hands
+off after about 6 s), ParallelRangeProbe's TrajectoryPreview (needs an author
+kernel), UiWorkerProbe and CombatWorker (performance only; nothing is lost),
+and ExtendedGuidance 0.9.7, which SEST keeps off on both builds.
+
+Corrections to the R5 notes below, from the independent checks of 7 November
+2026. WeaponLauncherEffects suppressed the game's own launch smoke only on
+the Mk 41, Mk 41 quad and Mk 35; SA-N-9's smoke is blanked by the pack's own
+data and ExLS defines none, so the conclusion stands (all six fired with no
+launch effect) but the stated reason was too broad. For the authors: neither
+fix is "a few lines" that also suits the stable build. Appending the beta's
+`failedLaunch` flag alone would break WeaponLauncherEffects on 261021; a fix
+for both builds needs a signature-tolerant lookup and the result gate only
+where `launch` returns bool. The Burke horizon bars are stabilised only while
+a helicopter launches or lands (FlightOps); the F123 radar platforms while
+their radar is on.
+
+#### OptimalTargetDist 1.2.1.0
+
+Restores: SystemGroup launch sharing works again on the beta, the same as on 261021. Each ship's grouped launchers share one launch timer per SystemGroup, and that timer uses the group's largest SharedLaunchInterval. Different groups fire independently even when their SystemName is the same: on usn_cg_bunker_hill_vls_2004, for example, the forward bank (WS1-8, including the eu_mk41_quad module) and the aft bank (WS9-16) each launch at most once per second, but both can fire in the same second. Grouped and ungrouped launchers don't affect each other, and ships never share timers. Ungrouped launchers (for example Mk141 at 5 s) keep the native name-based timing. This affects the 112 Workshop vessel/overwrite INIs and the 44 SEST_Integration INIs that use SystemGroup. One beta rule now also applies per group: a failed launch that is not a malfunction still uses up the group's interval, the same way the beta treats name-keyed launchers. The plugin's other features ran on the beta already and are unchanged: distance-preferred ammo, altitude gates, ammo policy carry-over, AdaptiveLoft and RangeCorrection.
+
+Not restored: Nothing in this plugin stays lost. One related limit is outside this adapter: CombatWorker.dll is skipped on the beta because KinematicRangeResult changed from a class to a struct. That removes one of the two worker assemblies RangeCorrection's worker-aware path looks for. ParallelRangeProbe still loads, and RangeCorrection logged no error.
+
+Audit: `launch-layout=1, locations=2`
+
+PC checks:
+
+- BepInEx/LogOutput.log contains the warning '[Beta compatibility] ADAPTED OptimalTargetDist in private cache: launch-layout=1, locations=2; original Workshop DLL and asset paths preserved.' followed by 'Loaded assembly OptimalTargetDist, Version=1.2.1.0, Culture=neutral, PublicKeyToken=null'.
+- Player.log no longer contains '[OptimalTargetDist] SystemGroup launch sharing disabled; original name-based behavior retained: ' (and no 'Unrecognized launch layout: 1/1/1/4').
+- Player.log contains '[OptimalTargetDist] loaded successfully.' (printed only when no OptimalTargetDist error or warning was logged first).
+- Player.log has no '[ACModActivation 1.0] ...' warning for OptimalTargetDist and no '[OptimalTargetDist] Could not remove inactive launch-group hooks: ' line.
+- While a mission with grouped ships loads, Player.log has no '[OptimalTargetDist] SystemGroup configuration rejected; previous/native launch sharing retained: ' line.
+- Gameplay, compared with stable 261021 if possible: send usn_cg_bunker_hill_vls_2004 (Modern US Navy plus the Euromod LaunchGroups overwrite) against a large air raid and watch its VLS launches. Forward-bank launches (WS1-8, including the quad-pack WS6) are never less than 1 s apart. Aft-bank launches (WS9-16) are never less than 1 s apart. A forward and an aft launch can happen in the same second, so up to two per second ship-wide. Mk141 launchers keep their 5 s spacing. Without the adapter, all eu_mk41 cells shared one 1 s timer ship-wide and the quad-pack fired on its own timer.
+- Optional, with weapon failures enabled in options: after a failed launch that is not a malfunction, the next launch in the same bank waits for the bank interval.
+
+#### ParallelRangeProbe 0.12.0
+
+Restores: On the beta, ParallelRangeProbe's WorkerExpansion module starts again and behaves as it did on 261021. Worker threads pre-compute radar horizon and radar detection-range results and AI engagement-priority scores, and those results are only used after the plugin checks them against the native game. Unit behaviour is unchanged; the gain is less main-thread CPU in busy radar and AI engagements. The Contacts module (batched plotting-table contact jobs) was already running on the beta and still is.
+
+Not restored: TrajectoryPreview (Prediction) stays off. On 261021 it gave cached, worker-forecast AI weapon-range estimates and the attack UI's displayed range. On the beta the game computes those natively every time. The beta changed KinematicRangeResult to a struct and moved MissileSimulator to Burst, so the plugin's stable-era kernel can never pass its own bit-exact audit. Only a Euromod port can bring it back. RangeReuse (missile datalink radar-range memoising) stays off as well, but it was already off on 261021 in this install ('Conflicting hook at Update'). None of this changes gameplay results, only CPU use.
+
+Audit: `locations=2, radar-range-bool=1, sensor-constant-fold=1`
+
+PC checks:
+
+- Beta 261026: BepInEx/LogOutput.log contains exactly 'ADAPTED ParallelRangeProbe in private cache: locations=2, radar-range-bool=1, sensor-constant-fold=1; original Workshop DLL and asset paths preserved.'
+- Player.log contains a '[DatalinkReuse 0.12.0] ACTIVE; Contacts=True (runtime job dependency contract); RangeReuse=False (...); Prediction=False (...)' line. RangeReuse and Prediction reading False is expected on the beta.
+- Player.log, from the main menu through a full mission, has no line starting '[WorkerExpansion 0.12.0] FALLBACK:', '[WorkerExpansion 0.12.0] Sensor FALLBACK:' or '[WorkerExpansion 0.12.0] Priority FALLBACK:', and no 'Worker/native result mismatch' text. Do not look for a WorkerExpansion ACTIVE line: QuietLog suppresses it.
+- In a radar-heavy mission with AI engagements (for example transitBuiltInMission), write 'status' into %USERPROFILE%\AppData\LocalLow\Triassic Games\Sea Power\Mods\ParallelRangeProbe\live\mode.request (so its write time changes), then open status.txt in the same folder. Expect AdditionalWorkers=ACTIVE, SensorState=enabled, PriorityState=enabled, SensorWorkerHits, SensorAudits, PriorityWorkerHits and PriorityAudits above 0, and AdditionalWorkerIds not empty.
+- Repeat the 'status' request a few minutes later: the SensorWorkerHits, SensorAudits, PriorityWorkerHits and PriorityAudits counters should have grown.
+- Gameplay check: radar contacts appear and AI ships and aircraft pick and engage targets at the same ranges as without the plugin. No stutter or error dialog appears when radar-equipped units first see each other.
+
+#### MissileControlMod 0.1.16
+
+Restores: On the beta, MissileControlMod switches on again instead of disabling itself at startup. It brings back its own features:
+- controlled vertical launch, tip-over and cold-ejection timing for the 37 rounds it configures;
+- the thrust-vector-control G and turn-rate bonus, including the terminal vertical rate, for its 16 TVC rounds;
+- the SS-N-26/26b Lo-Lo sea-skimming profile and the ' Lo-Lo Max Range' map ring;
+- save and load of in-flight controller state;
+- thruster and jet-vane effects.
+
+Steering for every missile the plugin does not configure stays exactly native. The bridge reproduces beta's own GLimitedTurnRate bit for bit, and the plugin's EffectiveG and EffectiveRate return their input for unconfigured weapons.
+
+Not restored: Full parity with 261021 is not restored for the staged rounds. On stable, all 37 launch-control rounds also flew with MultiStageMissiles 1.7.16 driving their stages. The beta PC runs MultiStageMissiles 1.7.17, which disables itself (BuildAltitudeNodes), so:
+- booster/sustainer staging is native single-stage;
+- every step MissileControlMod coordinates with MSM does nothing;
+- SS-N-26/26b wait in AwaitIgnition and only hand off through 'ignition wait timeout' after about 6.25 s.
+
+That needs the separate MSM 1.7.17 port. Beta-native changes that apply to every missile stay as the beta defines them: the collision gate, effect timing and launcher-discard handling. Rounds discarded from the launcher stay native.
+
+Audit: `file=1, locations=2, steering-shape=1`
+
+PC checks:
+
+- BepInEx.log contains exactly: 'ADAPTED MissileControlMod in private cache: file=1, locations=2, steering-shape=1; original Workshop DLL and asset paths preserved.'
+- Player.log contains '[MissileControlMod] loaded successfully.'
+- Player.log contains none of: 'Disabled; native behavior retained', 'Competing transpiler on', 'Stage adapter disabled', 'Optional stage synchronization skipped', 'Runtime initialization failed', 'Launch control requires the verified MultiStage adapter', 'Error loading assembly' for MissileControlMod. Do not look for an '[ACModActivation 1.0] MissileControlMod: enabled; ...' line: QuietLog suppresses it.
+- Fire ESSM or Aster 30 from a VLS: the round climbs vertically clear of the ship and tips over smoothly before guidance takes over. Without the plugin it pitches over at once.
+- Fire CAMM or SA-N-9: cold ejection, and the motor lights after tip-over.
+- Fire UGM-133A, or SS-N-26 from a submarine: native underwater ascent, then a controlled tip-over after it leaves the water.
+- Fire SS-N-26 from a ship and from a submarine with MultiStageMissiles inactive: it holds after launch and hands off after about 6 s. Confirm it is no worse than native: no crash, no stall into the sea.
+- With dev mode on, fire an AIM-9X: during TerminalApproach the measured 'Turn Rate' readout exceeds the native G-limited value. The ceiling is about 50.9 against 36.4 deg/s at 1,500 kt.
+- Fire SS-N-26 inside 65 nm: it flies sea-skimming without the loft. With ShowLowLowRange on, the map shows the ' Lo-Lo Max Range' ring, and repeated updates do not stack several rings (beta ReplaceGizmo now calls AddGizmo).
+- Save and reload during a tip-over and during terminal TVC: the flight resumes, and Player.log shows no 'Invalid saved' errors.
+- With weapon failures on, a dud round from a configured launcher stays native and logs no MissileControlMod errors.
+- On a stable 261021 install, BepInEx.log has no 'ADAPTED MissileControlMod' line and the plugin still logs '[MissileControlMod] loaded successfully.'.
+
+#### BetterTacMap
+
+Restores: On beta 261026, BetterTacMap should start completely again. All 18 Harmony patch classes and the manual same-taskforce patch apply, the Ctrl+Alt+1 to 8 hotkeys start, and the settings come from the Workshop settings.cfg, so the owner's Speed=true and EtaDisplayMode=TtgSeconds take effect. Features that come back:
+- The 8 map-layer entries: Contact Info: Depth, Speed, Altitude, Distress Beacons, CPA, Contact Age and Exact Enemy Depth, plus Weapon Info: Time-To-Go. Each can be turned on and off from the menu or a hotkey, and the choice is written back to settings.cfg.
+- The Sensor Coverage (Radar/Sonar) and Threat Range Circles context-menu items, next to Firing Arcs and Plot Intercept Course, which already worked.
+- Clicking a unit in the selected unit's taskforce opens its context menu.
+- The mod's drawings are saved in a [BetterTacMap] section of the mission .ini, are no longer written as plain [DrawingLayer] polygons, and come back on load still tied to their units.
+- The Waypoint ETA button cycles through Eta, Distance and TTG, with an h m s countdown for TTG.
+- The extra contact-label lines (Depth, Speed, TTG, CPA, 'Last seen ... ago') keep updating, at most about 1.5 s behind (0.5 s refresh plus the author's own 1 s cache). Today they freeze whenever the game's own label inputs stop changing.
+
+Not restored: Three differences come from the beta itself, not the adapter:
+- The extra label lines are part of the game's line 3. That line now shows only while the native CONTACT_INFO_RANGE layer is visible and the label decluttering leaves room for it, so the plugin's lines are hidden whenever the game hides line 3.
+- The plugin's range rings sit on the native DRAWINGS map layer and its arc wedges on ON_MAP_AREAS. Hiding either native layer also hides the plugin's drawings.
+- Same-taskforce context menus open without the beta's colour-palette preparation, which only affects colour-preset pickers.
+
+Five things could not be tested offline and need the PC:
+- the eight entries actually showing in the Map Layers menu (that part of the beta UI was not in the capture);
+- the multi-line label text displaying without clipping;
+- frame time;
+- the real (layerNumber, name) MapLayer construction, which needs the game's language singleton;
+- missions saving and loading the drawings.
+
+Audit: `attr-load-overload=1, attr-scene-ctor=1, attr-tactical-getter=2, layer-ctor=1, layers-by-id=3, layers-by-name=1, layers-list=1, line3-refresh=1, locations=1, retype-display-state=4`
+
+PC checks:
+
+- Beta 261026 with SEST R6: BepInEx LogOutput.log has the warning '[Beta compatibility] ADAPTED BetterTacMap in private cache: attr-load-overload=1, attr-scene-ctor=1, attr-tactical-getter=2, layer-ctor=1, layers-by-id=3, layers-by-name=1, layers-list=1, line3-refresh=1, locations=1, retype-display-state=4; original Workshop DLL and asset paths preserved.' followed by 'Loaded assembly BetterTacMap, ...'.
+- Player.log has none of these lines: '[BetterTacMap] Harmony patching failed:', '[BetterTacMap] Map layer hotkeys failed to start:', '[BetterTacMap] Failed to load settings.cfg', '... is already registered - skipping to avoid clobbering another layer.', "[BetterTacMap] Could not find UnitSelectedState.HandleUnit to patch". The plugin's '[BetterTacMap] Initializing...' and '[BetterTacMap] Initialized.' lines are suppressed (VerboseLogging is false), so their absence proves nothing.
+- In a mission, open the Map Layers menu on the tactical map. It lists the 8 entries: Contact Info: Depth, Weapon Info: Time-To-Go, Contact Info: Speed, Contact Info: Altitude, Contact Info: Distress Beacons, Contact Info: CPA, Contact Info: Contact Age, Contact Info: Exact Enemy Depth. Check them on the second map too.
+- Turn one entry off and on from the menu, then with Ctrl+Alt+1 to 8. Each time, the matching key under [ContactInfo] in the Workshop folder's 3768036424/settings.cfg changes, and the label lines appear or disappear.
+- With CONTACT_INFO_RANGE visible: a submerged contact shows a 'Depth: ... ft' line; contacts show 'Speed: ... kt' (settings.cfg has Speed=true); an in-flight weapon with a target shows 'TTG:' counting down; with an own unit selected, a closing contact shows 'CPA: x nm in t'.
+- Leave an unselected, stationary submarine or surface contact for more than 15 s without touching anything. 'Last seen: ... ago' should appear and keep counting about once a second. This is the line-3 refresh; on today's beta it freezes. Check that the lines are not clipped.
+- Watch frame time with many contact labels on screen, with BetterTacMap enabled and disabled. The adapter rebuilds each shown label's line 3 every 0.5 s. Also watch for labels flickering or resizing.
+- Right-click a unit: the menu shows Firing Arcs, Sensor Coverage (Radar/Sonar), Threat Range Circles and Plot Intercept Course, but not the redundant Friendly/Neutral/Hostile items. With a unit selected, clicking a unit of its taskforce opens that unit's context menu. A detected life raft within reception range gets a ring marker, and turning off 'Contact Info: Distress Beacons' removes it.
+- Press the Waypoint ETA button: it cycles Eta, Distance and TTG, and TTG shows an h m s countdown (EtaDisplayMode=TtgSeconds).
+- Show arcs, sensor coverage and threat circles, then save the mission. The saved .ini has a [BetterTacMap] section with DrawingN keys, and no extra Polygon or Circle entries in [DrawingLayer]. Reload: the drawings come back tied to their units and follow them. Destroying a unit removes its drawings.
+- For comparison, run the same checks on stable 261021, where the unadapted Workshop DLL loads as is.
+
+#### TestRange 0.2.3
+
+Restores: On the beta, TestRange starts again and logs '[TestRange] loaded successfully.'. F10 > Spawn shows its 'Test Range - Missile Test' tab in place of the native Missile Test view. The nation and missile catalog fills from every active file layer. Respawn selected unit, the Missile Trails toggle and Reset filters work. Every per-unit countermeasure switch behaves as on stable: chaff and decoy launches (Nulka included), defensive jamming of incoming missiles, burn-through jamming, standoff/support noise in the combined jamming model, self-screening noise, noise-jammer status and offensive jamming. A blocked support jammer adds nothing to the hostile radar's combined noise, which is what stable got by dropping it from the jammer list. When a defence filter blocks a launcher shot, the launcher carries on as it did on stable and does not enter the beta's new failed-launch cleanup. Once a salvo can run, the defence filters (Match, Launch, Hardpoint, Gun, CIWS) and the result and SENSOR_ASSESSMENT logging work again.
+
+Not restored: Starting a missile salvo still fails while the beta loader holds back ExtendedGuidance 0.9.7. TestRange 0.2.3 requires ExtendedGuidance's diagnostics, so Start shows 'Cannot start: ExtendedGuidance diagnostics are inactive. Enable ExtendedGuidance and restart Sea Power before testing.'. Stable behaved the same with ExtendedGuidance off, which is how the owner's only 0.2.3 stable session ran. The author's gate was deliberately left unchanged. Until ExtendedGuidance is ported to the beta and enabled, the salvo defence filters and the shot/SENSOR_ASSESSMENT result logging cannot be exercised either.
+
+Audit: `jam-hook=1, jam-legacy=1, jam-standoff=1, launch-blocked-result=1, launch-result=1, locations=2, scan-files=1, sensor-data=1`
+
+PC checks:
+
+- Beta 261026, R6 build installed: BepInEx log contains exactly 'ADAPTED TestRange in private cache: jam-hook=1, jam-legacy=1, jam-standoff=1, launch-blocked-result=1, launch-result=1, locations=2, scan-files=1, sensor-data=1; original Workshop DLL and asset paths preserved.' and no 'beta rewrite audit changed' or 'Inspected beta ... changed' exception for TestRange.
+- Player.log contains '[TestRange] loaded successfully.' and contains no '[TestRange] Initialization failed:' line and no '[ACModActivation 1.0]' warning naming TestRange as inactive. Do not look for '[TestRange] bereit.' or the Guard 'enabled' line: the plugin suppresses both.
+- Start a mission, press F10 > Spawn: the 'Test Range - Missile Test' tab replaces the native Missile Test view. Check that the tab's backgrounds line up with the beta's longer tab strip (beta DoTestWindow has 39 tab cases, stable 36). The nation and missile lists fill with no '[TestRange] UI error:' line in Player.log; Workshop and mod missiles appear once each.
+- Respawn selected unit replaces the selected unit; Missile Trails toggles between 'Missile Trails: ON' and 'Missile Trails: OFF' and trails appear and disappear; Reset filters clears the filters.
+- Countermeasures, no salvo needed: with Chaff / Decoys blocked on a ship, it launches no chaff or Nulka at an incoming missile; set 'Allow all' and it launches again.
+- With ECM / Jamming blocked on a ship, its jammer no longer deflects incoming missiles. Used as a standoff/support jammer covering a friendly unit, it no longer shortens the hostile radar's detection range of that unit: compare the detection range with the jammer allowed and blocked, and against the same steps on stable 261021. Other units' jamming must stay unchanged, and 'Allow all' restores the effect.
+- Without ExtendedGuidance, pressing Start shows the status 'Cannot start: ExtendedGuidance diagnostics are inactive. Enable ExtendedGuidance and restart Sea Power before testing.', the same as stable with ExtendedGuidance off.
+- Only once ExtendedGuidance is restored on the beta and enabled: Start shows 'Test queued.' and the salvo spawns; the Results/Log window and the automatic log record the shots and SENSOR_ASSESSMENT lines with 'estimated sensor range=... nm' (there may be more than on stable, because GetSensorRange gained a caller). With 'Only CIWS', the defender's SAM launcher holds fire against the salvo and later engages other targets normally, without sticking in its engage cycle, and CIWS engages.
+
+#### AutomaticSAR
+
+Restores: On beta 261026, Automatic SAR now loads and finishes starting, so it works as it did on stable 261021. The right-click menu on ships, submarines and helicopters shows 'Start automatic SAR' (it changes to 'Automatic SAR running', and clicking it again cancels) and the 'SAR setting' submenu with its three saved settings. Ships and submarines are sent to sunk vessels that still have life rafts, on routes checked for water depth with a detour when the direct line is blocked. They hold the SAR speed, and a submerged submarine keeps the author's uncapped speed rather than the beta's cavitation cap. Near the wreck they brake with full reverse, and the game's own pickup takes survivors aboard until all are rescued or the unit is full. Helicopters work the rafts one at a time: they fly a waypoint 0.5 nm past each raft, slow to about 10 kn on the approach, pick up, then return to base or loiter as set. A player's own order cancels the job: a speed order (now also through the beta's new speed path), a telegraph order, a waypoint or order change, or a helicopter altitude preset. The SAR's own speed and telegraph changes do not cancel it. Sunk wrecks are put back at their map position when the centre tile changes. Status and completion alerts appear, and rescued survivors count in the debrief through the native CSAR points.
+
+Not restored: nothing known. VTOL (MV-22B) SAR is offered only to aircraft with OspreyMechanics' 'OspreyRig.Controller'; R6 adapts OspreyMechanics too, so it should return with it (not covered by this adapter's own checks). The SAR side's VTOL speed code is already adapted. Two known small differences remain, both from how the beta handles speed. (1) While a submarine runs its uncapped SAR speed, a player speed order of exactly the same knots is ignored by the game's SpeedState, so that order does not replace the SAR speed command. The order still cancels the SAR job. (2) Route depth samples follow a straight latitude/longitude line, as on stable. In the beta's default LCC projection, the line the ship actually sails can differ from it by up to about 1%.
+
+Audit: `bearings=1, generic-filter=1, lerp-body=1, local-retype=2, mach-make=1, speed-interface=2, speed-kind=2, speed-make=2, speed-read=2, speed-set=3, sub-speed=1, ui-forwarder=1`
+
+PC checks:
+
+- Launch beta 261026 with SEST. BepInEx.log must contain '[Beta compatibility] ADAPTED AutomaticSAR in private cache: bearings=1, generic-filter=1, lerp-body=1, local-retype=2, mach-make=1, speed-interface=2, speed-kind=2, speed-make=2, speed-read=2, speed-set=3, sub-speed=1, ui-forwarder=1; original Workshop DLL and asset paths preserved.' and 'Loaded plugin Automatic SAR (local.automatic-sar)' once each. It must not contain 'SKIPPED before CLR load: AutomaticSAR.dll' or 'Error loading plugin Automatic SAR'.
+- Player.log must contain '[AutomaticSAR] Loaded.' exactly once. There must be no HarmonyException, NotSupportedException, TypeLoadException, MissingMethodException or BadImageFormatException that mentions AutomaticSAR, SetSpeedCommand or SarConstantSpeed.
+- In a mission with a sunk enemy ship that has life rafts, right-click a ship, a submarine and a helicopter. Each menu must show 'Start automatic SAR' and 'SAR setting' once, not duplicated.
+- Ship: start SAR. It must route to the wreck and hold the SAR speed (the speed panel shows a constant-knots order). Near the wreck Player.log must show '[AutomaticSAR] <ship> began full-reverse braking at <x> nm from <wreck>.' Survivors must come aboard, and the SAR alert and a '[AutomaticSAR] <unit>: <status>' line must follow when the job completes or the unit is full.
+- Submerged submarine: the same rescue. Its speed must stay at the SAR value rather than dropping to the cavitation cap while it is submerged.
+- Helicopter: start SAR. It must fly to each raft in turn, slow to about 10 kn on the final 0.3 nm, pick up, then return to base or loiter according to the 'SAR setting' Completion choice.
+- During an active ship or submarine job, move the speed slider or press a speed button. Player.log must show '[AutomaticSAR] Automatic SAR cancelled for <unit>.' and the menu must return to 'Start automatic SAR'. Repeat with a telegraph button, a new waypoint, and an altitude preset on a helicopter job. Each must cancel. The SAR's own speed change and braking must not log a cancel.
+- Pan the camera far enough to change the centre tile (or let the player unit cross tiles). A sunk wreck must stay at its map position.
+- End the mission. The debrief must show the rescued survivors with the CSAR points.
+- MV-22B, with OspreyMechanics adapted in R6: right-click an Osprey; the SAR items should be offered and a VTOL SAR run should hover over each raft.
+
+#### OspreyMechanics 1.1.45
+
+Restores: On beta Build 261026 the MV-22B, JGSDF MV-22B and SV-22 should behave as they did on stable Build 261021:
+- Full V-22 model rig: nacelle tilt, rotors and rotor-blur discs, blade and wing fold, gear and doors, cabin doors and rear ramp.
+- Engine-audio gating and the elevator hold during the fold.
+- The hover flight model (vertical climb and descent, level zero-speed hover, sea floor).
+- Hover and Slow SAR items in the MV-22 speed menu.
+- Terminal auto-hover with braking and position hold at the last waypoint of a non-loop transport route. A player speed change during the approach releases it.
+- Cruise-climb limit.
+- SV-22 continuous dipping-sonar tasks: approach, hover at about 35 ft, deploy, listen, retrieve, then the previous speed and altitude are restored. Player speed or altitude commands cancel the task.
+- Mk 54 and SSQ-53G/62F stores leave from the aft ramp.
+- Empty, Transport and Ferry loadouts with capacities 0/32/0.
+- OspreyDeckOps deck operations: launch-point and helipad wait, ready-up times, the USS Wasp RecoveryPoint3 to Elevator1 route repair, engine stop before the elevator.
+
+Not restored: No feature is known to stay lost. Small differences from stable that remain:
+- If another game system re-issues exactly the plugin's own speed request without passing through the plugin's two hooks' checks, the plugin keeps ownership. The speed is identical either way.
+- Formation aircraft now go through SetSpeedCommand every fixed update on the beta, so the plugin's hooks run for them too. A dipping SV-22 inside a formation would log 'native speed refresh' trace lines.
+- A Mach or telegraph speed captured as the dipping resume speed records its demanded knots at capture time. The request itself is restored exactly.
+- While the hover prefix skips native FixedWingFlightPhysics.OnFixedUpdate, the beta's new G-force and turn-rate state is not updated. Stable skipped the same function.
+- The beta changed the waypoint distance metric. Plugin braking and native arrival both use it, so they agree.
+
+Audit: `hook-argument=2, hook-load=4, speed-field=2, speed-knots=2, speed-local=1, speed-make=5, speed-read=6, speed-set=5, speed-snapshot=1, speed-target=2`
+
+PC checks:
+
+- BepInEx/LogOutput.log shows '[Warning:AnchorChain] [Beta compatibility] ADAPTED OspreyMechanics in private cache: hook-argument=2, hook-load=4, speed-field=2, speed-knots=2, speed-local=1, speed-make=5, speed-read=6, speed-set=5, speed-snapshot=1, speed-target=2; original Workshop DLL and asset paths preserved.'
+- The log has no '[Beta compatibility] SKIPPED' line naming OspreyMechanics.dll or OspreyDeckOps.dll, and no 'Error loading assembly at path' line for either.
+- Exactly one '[Info   :AnchorChain] Loaded assembly OspreyMechanics, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null' line, and one 'Loaded assembly OspreyDeckOps, ...' line.
+- '[Info   :OspreyMechanics] Compatible game clock: missionElapsedTime (double)' and '[Info   :OspreyMechanics] V-22 rig 1.1.45 ready; SV-22 sonar deployment checks actual hover attitude ...' both appear.
+- '[Info   :AnchorChain] Loaded plugin MV-22 Source Mechanics (local.mv22.source.mechanics)' and '[Info   :AnchorChain] Loaded plugin MV-22 Deck Operations (local.mv22.deckops)' both appear, and there is no 'Skipping mod "MV-22 Deck Operations"' line.
+- Player.log shows '[MV-22 Deck Operations] 1.1.36 loaded; shared cached identity lookup; deck routing and native armed loadouts preserved.' and no '[MV-22 Deck Operations] Patches disabled:' line.
+- No '[Error  :OspreyMechanics]' line, and no AmbiguousMatchException, 'Null method for local.mv22.source.mechanics', BadImageFormatException or MissingMethodException naming OspreyRig or SetSpeedCommand.
+- Mission with an MV-22B and an SV-22 on an LHD/LHA: on deck the wings and blades unfold and the nacelles go vertical. The aircraft takes off vertically, retracts its gear and converts to cruise. Rotor discs are visible.
+- The MV-22 speed menu lists Hover and Slow SAR. Hover gives 0 kt with the aircraft level and holding altitude.
+- Give an MV-22 a non-loop transport route. Near the last waypoint the log shows 'Terminal auto-hover <unit>: braking toward last waypoint at ...' and then 'Terminal auto-hover <unit>: arrived; commanded hover, waypoints=...'. The aircraft hovers and holds position.
+- Repeat the route and change the speed with the slider during the approach. The log shows 'Terminal auto-hover <unit>: cancelled (speed command changed during approach); ...' and the aircraft keeps the player's speed. This tests the ownership bridge.
+- SV-22 dipping waypoints: the log shows 'SV-22 dipping sonar <unit>: sonar task started; listening interval=...', then 'hover established; deploying at ...', 'probe underwater; listening', 'listening ended; retrieving' and 'probe stowed; sonar task completed'. Afterwards the aircraft returns to the speed and altitude it had before the task. This tests the snapshot bridge.
+- During an SV-22 dip, move the speed slider. The log shows 'SV-22 dipping sonar <unit>: cancelled; native retrieval requested (player speed command: ...)' and the probe is retrieved.
+- Mk 54 and SSQ buoys leave from the aft ramp. The loadout list shows Empty, Transport and Ferry, and transport capacity is 0, 32 and 0.
+- On recovery the wings fold before the elevator, and the Wasp RecoveryPoint3 to Elevator1 route works. While hovering, watch for stale G or turn-rate readouts.
+
 ## R5: Weapon Launcher Effects, SubModel Stabilization, Pop-Out Windows 1.1.3
 
 Built on 5 November 2026 from the owner's 3 November 23:09 capture. That

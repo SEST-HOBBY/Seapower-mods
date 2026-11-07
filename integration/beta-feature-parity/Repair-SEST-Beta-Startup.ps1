@@ -124,7 +124,7 @@ try {
     Copy-Verified (J $backup 'current-before-repair.json') $statePath
     throw $failure
 }
-Write-Host 'R5 beta repair installed and enabled; original backups and Identify data retained.' -ForegroundColor Green
+Write-Host 'R6 beta repair installed and enabled; original backups and Identify data retained.' -ForegroundColor Green
 Write-Host 'Runtime 1.5.3 and UI 1.4.4 beta: R4''s watermark hide, #!extend rescan and cost rows, with the pop-out bridges pinned to Pop-Out Windows 1.1.3.'
 Write-Host 'The loader adapts WeaponLauncherEffects 1.0.18 and SubModelStabilization 1.1.2 to the beta in a private cache; their Workshop files are unchanged.'
 Write-Host 'Launch beta, watch a Mk 41 launch and a stabilised radar in a seaway, fire an AGR-30 Redback, open F11 in the campaign menu, then quit and run Capture-Repair-Results.cmd.'

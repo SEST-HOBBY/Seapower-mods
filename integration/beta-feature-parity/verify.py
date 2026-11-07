@@ -17,7 +17,7 @@ p.add_argument('--powershell', required=True)
 p.add_argument('--previous-package', type=Path, action='append', default=[])
 p.add_argument('--previous-payload', type=Path, action='append', default=[])
 p.add_argument('--repair-package', type=Path)
-p.add_argument('--previous-capture', type=Path, help='Capture the previous candidates were reviewed and staged against; defaults to --capture')
+p.add_argument('--previous-capture', type=Path, action='append', default=[], help='Capture each previous candidate was reviewed and staged against: one for all, or one per --previous-package in order; defaults to --capture')
 p.add_argument('--workshop-references', type=Path, help='Newer captured Workshop DLL tree for compatibility checks')
 a = p.parse_args()
 here = Path(__file__).resolve().parent
@@ -27,7 +27,7 @@ capture = a.capture.resolve()
 # review (Pop-Out Windows 1.1.1 became 1.1.3 on 3 Nov 2026), while the repair
 # checks only the game, BepInEx and Identify references, which both captures
 # share. So an upgrade test stages the previous candidate on its own capture.
-previous_capture = a.previous_capture.resolve() if a.previous_capture else capture
+previous_captures = [c.resolve() for c in a.previous_capture] or [capture]
 out = a.candidate.resolve()
 flat = a.flat_references.resolve()
 workshop = a.workshop_references.resolve() if a.workshop_references else capture / 'references/workshop/library-1'
@@ -67,8 +67,11 @@ run('cost-rows-and-sest-catalog-fallback', [a.mono, out / 'CostRowsTests.exe', f
 run('installer-rollback', [a.powershell, '-NoLogo', '-NoProfile', '-File', here / 'tests/Test-Installer.ps1', '-Capture', capture, '-Candidate', out])
 if len(a.previous_package) != len(a.previous_payload):
     raise SystemExit('Pair every previous package with its matching payload.')
+if len(previous_captures) not in (1, len(a.previous_package)) and a.previous_package:
+    raise SystemExit('Give one --previous-capture for all previous packages, or one for each.')
 if a.repair_package:
     for index, (package, payload) in enumerate(zip(a.previous_package, a.previous_payload), 1):
+        previous_capture = previous_captures[0] if len(previous_captures) == 1 else previous_captures[index - 1]
         run('existing-candidate-repair-rollback-' + str(index), [a.powershell, '-NoLogo', '-NoProfile', '-File', here / 'tests/Test-Installer.ps1',
             '-Capture', previous_capture, '-Candidate', payload.resolve(), '-RepairPackage', a.repair_package.resolve(), '-PreviousPackage', package.resolve()])
 run('loader-source-contracts', [sys.executable, here.parent / 'beta-anchorchain/test_source_contract.py'])

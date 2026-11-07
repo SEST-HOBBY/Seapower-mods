@@ -16,7 +16,7 @@ differ from a build.py build; the receipt records which compiler produced them.
 param(
     [Parameter(Mandatory)][string]$Capture,
     [Parameter(Mandatory)][string]$Output,
-    [string]$Revision = 'R5-20261105-launcher-effects-stabilization-popout-113'
+    [string]$Revision = 'R6-20261107-seven-author-plugin-adapters'
 )
 Set-StrictMode -Version Latest
 $ErrorActionPreference = 'Stop'
