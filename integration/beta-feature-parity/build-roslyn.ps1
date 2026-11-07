@@ -157,7 +157,8 @@ Compile 'LoaderTests.exe' @((J $here 'tests' 'LoaderTests.cs'))
 Compile 'RuntimeParityTests.exe' @((J $here 'tests' 'RuntimeParityTests.cs'))
 Compile 'HookTests.exe' @((J $here 'tests' 'HookTests.cs'))
 Compile 'AssemblyPolicyTests.exe' @((J $here 'tests' 'AssemblyPolicyTests.cs'))
-Compile 'BetaApiTests.exe' @((J $here 'tests' 'BetaApiTests.cs'))
+# R6: BetaApiTests.cs plus one BetaApiTests.<Plugin>.cs per adapter.
+Compile 'BetaApiTests.exe' @(Get-ChildItem -LiteralPath (J $here 'tests') -Filter 'BetaApiTests*.cs' -File | Sort-Object -Property Name -Culture '' | ForEach-Object { $_.FullName })
 if (Test-Path -LiteralPath (J $here 'tests' 'CostRowsTests.cs')) { Compile 'CostRowsTests.exe' @((J $here 'tests' 'CostRowsTests.cs')) }
 
 $outputs = 'AnchorChain.dll', 'SEST.BetaSafeBootstrap.dll', 'SEST.RuntimeFixes.dll', 'SEST.ContactsFix.dll', 'SEST.IdentifyDataPaths.dll'

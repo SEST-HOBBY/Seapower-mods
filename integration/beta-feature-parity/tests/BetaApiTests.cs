@@ -12,7 +12,7 @@ using SeaPower;
 using SeapowerUI;
 using SeapowerUI.ViewModels;
 
-static class BetaApiTests
+static partial class BetaApiTests
 {
     public sealed class HailCandidate
     {
@@ -125,10 +125,36 @@ static class BetaApiTests
                 typeof(SideRelations).GetProperty("Sides")?.PropertyType==typeof(IReadOnlyList<Taskforce>),
                 "Secondary-side bridge binds beta's real registered-side types");
             LauncherAndStabilizationChecks(paths, resolver);
+            R6Checks(new R6Context { Workshop=workshop, Native=native, Cache=cache, Resolver=resolver });
             // Taskforce's static profiler initialization needs the game Mono
             // intrinsics. Live registry evaluation remains part of the PC test.
             Console.WriteLine("Campaign/scenario beta API checks passed: "+checks+"; managed fixtures only, no Unity gameplay.");
         } finally { if (Directory.Exists(cache)) Directory.Delete(cache,true); }
+    }
+    // R6: each adapter's checks live in BetaApiTests.<Plugin>.cs as a static
+    // void R6_<Plugin>(R6Context) method, run here in name order. Every
+    // adapter the loader registers must have one.
+    internal sealed class R6Context
+    {
+        internal string Workshop, Native, Cache;
+        internal DefaultAssemblyResolver Resolver;
+    }
+    static void R6Checks(R6Context context)
+    {
+        var methods=typeof(BetaApiTests).GetMethods(BindingFlags.NonPublic|BindingFlags.Static)
+            .Where(m=>m.Name.StartsWith("R6_",StringComparison.Ordinal) && m.GetParameters().Length==1 &&
+                m.GetParameters()[0].ParameterType==typeof(R6Context))
+            .OrderBy(m=>m.Name,StringComparer.Ordinal).ToList();
+        foreach (string name in BetaAssemblyPolicy.AdapterNames())
+            Check(methods.Any(m=>m.Name=="R6_"+name), "R6 adapter has its own managed checks: "+name);
+        foreach (var method in methods) {
+            int before=checks;
+            try { method.Invoke(null,new object[] { context }); }
+            catch (TargetInvocationException ex) when (ex.InnerException!=null) {
+                System.Runtime.ExceptionServices.ExceptionDispatchInfo.Capture(ex.InnerException).Throw();
+            }
+            Console.WriteLine(method.Name.Substring(3)+" checks passed: "+(checks-before));
+        }
     }
     // R5: WeaponLauncherEffects 1.0.18 and SubModelStabilization 1.1.2 from
     // Euromod's Anchor Chain Expansion Pack. Metadata and reflection only; no

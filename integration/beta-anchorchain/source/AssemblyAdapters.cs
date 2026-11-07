@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using Mono.Cecil;
 using Mono.Cecil.Cil;
 
@@ -8,6 +9,62 @@ namespace AnchorChain;
 
 public static partial class BetaAssemblyPolicy
 {
+    // R6 (7 Nov 2026): later adapters live one per file,
+    // AssemblyAdapters.<Plugin>.cs. Each file defines one private static
+    // method named <Plugin>Adapter that returns an ImageAdapter. The loader
+    // finds them by reflection, so adding an adapter edits no shared list.
+    internal sealed class ImageAdapter
+    {
+        internal string Name;
+        // The pinned author images; any other hash loads unadapted, as before.
+        internal string[] Hashes = Array.Empty<string>();
+        // Exact InvalidNativeFields findings this adapter re-encodes. The
+        // written image is checked again and must have none left.
+        internal string[] AcceptedNativeFields = Array.Empty<string>();
+        // An assembly whose dependents the policy otherwise skips; set only by
+        // that assembly's own adapter.
+        internal string ReleasesDependentsOf;
+        // Asserts the native shapes the rewrites rely on; throws on a mismatch.
+        internal Action<ModuleDefinition> RequireNative;
+        // Runs once for every method with a body, before the shared rules.
+        // Returns true when the shared instruction loop must skip the method.
+        internal Func<AdapterScope, TypeDefinition, MethodDefinition, bool> RewriteMethod;
+        // Runs for every call instruction, before the shared call rules.
+        // Returns true when it handled the instruction.
+        internal Func<AdapterScope, TypeDefinition, MethodDefinition, Instruction, MethodReference, bool> RewriteCall;
+        // Runs once after every method has been visited.
+        internal Action<AdapterScope> Finish;
+        internal string ExpectedAudit;
+    }
+
+    internal sealed class AdapterScope
+    {
+        internal ModuleDefinition Module, Native;
+        internal Action<string> Count;
+        internal MethodReference Bridge(string name)
+            => Module.ImportReference(typeof(BetaCompatibilityCalls).GetMethod(name)
+                ?? throw new InvalidOperationException("Missing beta bridge " + name));
+        internal void ExpandBranches(MethodDefinition method)
+        {
+            foreach (var instruction in method.Body.Instructions) ExpandBranch(instruction);
+        }
+        internal void Replace(MethodDefinition method, Instruction instruction, params Instruction[] extra)
+            => ReplaceCall(method, instruction, extra);
+    }
+
+    private static ImageAdapter[] adapters;
+    internal static IReadOnlyList<ImageAdapter> Adapters => adapters ??= typeof(BetaAssemblyPolicy)
+        .GetMethods(BindingFlags.NonPublic | BindingFlags.Static)
+        .Where(m => m.ReturnType == typeof(ImageAdapter) && m.GetParameters().Length == 0 && m.Name.EndsWith("Adapter", StringComparison.Ordinal))
+        .OrderBy(m => m.Name, StringComparer.Ordinal)
+        .Select(m => (ImageAdapter)m.Invoke(null, null))
+        .ToArray();
+
+    internal static ImageAdapter AdapterFor(string hash) => Adapters.SingleOrDefault(a => a.Hashes.Contains(hash));
+
+    // For the managed tests: each R6 adapter must have its own checks.
+    public static string[] AdapterNames() => Adapters.Select(a => a.Name).ToArray();
+
     internal const string CampaignHash = "eacdb9a4c0353edd24543b631826e61f7cbcfc4f1a78de4fa80527aa5a2208f4";
     internal const string DecoyHash = "bd173bd5087f5eb3d880b95f9b63fd4efbf90a94ba03097f7a6dcfc588eb1ed6";
     internal const string SubAmmoHash = "f16f9fc4a0ce9f37173af742a15876774f119c1affffb2288ab3b9e92fa0e3a4";
@@ -28,18 +85,22 @@ public static partial class BetaAssemblyPolicy
         bool identify = hash == IdentifyHash, campaign = hash == CampaignHash, decoy = hash == DecoyHash,
             subAmmo = hash == SubAmmoHash || hash == SubAmmoDuplicateHash, thrust = hash == SecondThrustHash,
             launcherEffects = hash == LauncherEffectsHash, stabilization = hash == StabilizationHash;
-        if (!(identify || campaign || decoy || subAmmo || thrust || launcherEffects || stabilization)) return null;
+        var adapter = AdapterFor(hash);
+        if (!(identify || campaign || decoy || subAmmo || thrust || launcherEffects || stabilization || adapter != null)) return null;
         if (launcherEffects) RequireLauncherSignatures(native);
         if (stabilization) RequireVesselLoaderSignature(native);
+        adapter?.RequireNative?.Invoke(native);
         var counts = new SortedDictionary<string, int>(StringComparer.Ordinal);
         void Count(string name) => counts[name] = counts.TryGetValue(name, out int value) ? value + 1 : 1;
+        var scope = adapter == null ? null : new AdapterScope { Module = module, Native = native, Count = Count };
         MethodReference Bridge(string name) => module.ImportReference(typeof(BetaCompatibilityCalls).GetMethod(name));
         var location = module.ImportReference(typeof(BetaAssemblyPolicy).GetMethod(nameof(OriginalLocation)));
         var heading = native.GetType("SeaPower.GeoPosition").Methods.Single(m => m.Name == "HeadingToPosition" &&
             m.Parameters.Count == 1 && m.ReturnType.FullName == "System.Single");
 
-        foreach (var type in Types(module.Types)) foreach (var method in type.Methods) {
+        foreach (var type in Types(module.Types)) foreach (var method in type.Methods.ToArray()) {
             if (!method.HasBody) continue;
+            if (adapter?.RewriteMethod != null && adapter.RewriteMethod(scope, type, method)) continue;
             if (campaign && type.FullName == "DynamicCampaignMod.Game.GameFacts" && method.Name == "AnyProperty") {
                 method.Body.Instructions.Clear(); method.Body.Variables.Clear(); method.Body.ExceptionHandlers.Clear();
                 var il = method.Body.GetILProcessor();
@@ -101,6 +162,7 @@ public static partial class BetaAssemblyPolicy
                     }
                 }
                 if (instruction.Operand is not MethodReference call) continue;
+                if (adapter?.RewriteCall != null && adapter.RewriteCall(scope, type, method, instruction, call)) continue;
                 string owner = call.DeclaringType.FullName;
                 if (owner == "System.Reflection.Assembly" && call.Name == "get_Location" && call.Parameters.Count == 0) {
                     instruction.OpCode = OpCodes.Call; instruction.Operand = location; Count("locations");
@@ -170,10 +232,11 @@ public static partial class BetaAssemblyPolicy
                 }
             }
         }
+        adapter?.Finish?.Invoke(scope);
         // Audits are against the captured images, not guesses about filename or
         // version. Unexpected counts reject the private image before CLR load.
         string audit = String.Join(", ", counts.Select(x => x.Key + "=" + x.Value));
-        string expected = identify ? "bearings=10, hail-guard=1, locations=2, ui=5" :
+        string expected = adapter != null ? adapter.ExpectedAudit : identify ? "bearings=10, hail-guard=1, locations=2, ui=5" :
             campaign ? "Acquisition=1, DoUnload=1, GetDirectories=1, GetFiles=1, SetAttackAtWaypointTask=2, attack-reflection=1, bearing-reflection=1, bearings=1, facts-property=1, mission-get=3, mission-set=1, secondary-side=6, speed-make=1, speed-set=1, ui=24" :
             decoy ? "contact-color=1, contact-exit=1, locations=2, ui=1, vehicle-view=4" : thrust ? "ini=1, locations=1" :
             launcherEffects ? "launch-reflection=2, launch-result=1, locations=2" :

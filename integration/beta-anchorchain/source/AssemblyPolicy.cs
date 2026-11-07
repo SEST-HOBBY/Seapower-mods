@@ -71,6 +71,8 @@ public static partial class BetaAssemblyPolicy
     public static string Prepare(string source, string nativePath, string cacheRoot, Action<string> log)
     {
         string hash = Hash(source);
+        // R6: a held-back image loads only when an adapter is pinned to it.
+        var adapter = AdapterFor(hash);
         // Both captured files declare the same plugin/assembly identity. Pick
         // the Workshop-named image before either duplicate enters the CLR.
         if (hash == SubAmmoDuplicateHash) {
@@ -82,12 +84,12 @@ public static partial class BetaAssemblyPolicy
         }
         // The crash capture proves this image blocks Unity ECS before a mission
         // can initialize. Do this BEFORE Assembly.LoadFile/GetExportedTypes.
-        if (hash == ExtendedHash) {
+        if (hash == ExtendedHash && adapter == null) {
             log("SKIPPED before CLR load: ExtendedGuidance 0.9.7; SensorDistanceData field layout blocks beta ECS initialization. Data files retained.");
             return null;
         }
-        if (hash == "bcd193256a8078652bacb4a0055d713fc0e7b0c1fe0d76d5152acf733b937361" ||
-            hash == "2349def7bf71a7df1f87b387645e4e146f66ba9bc6869a3e5001187a0a7ae98b") {
+        if (adapter == null && (hash == "bcd193256a8078652bacb4a0055d713fc0e7b0c1fe0d76d5152acf733b937361" ||
+            hash == "2349def7bf71a7df1f87b387645e4e146f66ba9bc6869a3e5001187a0a7ae98b")) {
             log("SKIPPED before CLR load: " + Path.GetFileName(source) + "; captured beta patch failure with partial initialization. Awaiting a port.");
             return null;
         }
@@ -98,7 +100,8 @@ public static partial class BetaAssemblyPolicy
             if (!String.IsNullOrEmpty(resolverDirectory)) resolver.AddSearchDirectory(resolverDirectory);
         using var module = ModuleDefinition.ReadModule(source, new ReaderParameters {
             InMemory = true, ReadingMode = ReadingMode.Deferred, AssemblyResolver = resolver });
-        if (module.AssemblyReferences.Any(a => a.Name == "OspreyMechanics")) {
+        if (module.AssemblyReferences.Any(a => a.Name == "OspreyMechanics") &&
+            !Adapters.Any(a => a.ReleasesDependentsOf == "OspreyMechanics")) {
             log("SKIPPED before CLR load: " + Path.GetFileName(source) + "; depends on the captured, incompatible OspreyMechanics assembly.");
             return null;
         }
@@ -113,6 +116,7 @@ public static partial class BetaAssemblyPolicy
             nativeModules[nativePath] = native;
         }
         var bad = InvalidNativeFields(module, native);
+        if (adapter != null) bad.RemoveAll(finding => adapter.AcceptedNativeFields.Contains(finding));
         if (bad.Count != 0) {
             log("SKIPPED before CLR load: " + Path.GetFileName(source) + "; " + String.Join("; ", bad.Take(4)));
             return null;

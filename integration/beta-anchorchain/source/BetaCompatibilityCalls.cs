@@ -12,7 +12,7 @@ using SeapowerUI;
 
 namespace AnchorChain;
 
-public static class BetaCompatibilityCalls
+public static partial class BetaCompatibilityCalls
 {
     public static MapUnitViewModel VehicleViewModel(Vehicle vehicle)
         => FindVehicleViewModel(vehicle, Globals._mainGameViewModel?.Map?.MapKnownUnits?.AllUnits)
