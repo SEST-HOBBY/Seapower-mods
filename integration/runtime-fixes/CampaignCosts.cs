@@ -429,6 +429,11 @@ namespace Sest.RuntimeFixes
         static string Pair(CombatAmount player,CombatAmount enemy)
         { return "Player "+player.Text+" | Enemy "+enemy.Text; }
 
+        // Debrief summary has a narrow native value column. Keep the full
+        // basis, category breakdown and uncertainty messages in F11.
+        static string DebriefPair(CombatAmount player,CombatAmount enemy)
+        { return "P "+player.Text+" | E "+enemy.Text; }
+
         internal static void Postfix(object __instance,object __0)
         {
             if (!active || __instance==null || __0==null) return;
@@ -461,18 +466,17 @@ namespace Sest.RuntimeFixes
                 if (current==null) return;
                 var rows=new List<object>();
                 Action<string,string> add=(label,value)=>rows.Add(summaryConstructor.Invoke(new object[]{label,value,false,false}));
-                add("Combat Cost: Weapons",Pair(current.Player.Weapons,current.Enemy.Weapons));
-                add("Combat Cost: Ships",Pair(current.Player.Ships,current.Enemy.Ships));
-                add("Combat Cost: Aircraft",Pair(current.Player.Air,current.Enemy.Air));
-                add("Combat Cost: Land",Pair(current.Player.Land,current.Enemy.Land));
-                add("Combat Cost: Lost Stores",Pair(current.Player.Stores,current.Enemy.Stores));
-                add("Combat Cost: Mission",Pair(current.Player.Total,current.Enemy.Total));
-                add("Combat Cost: Campaign",Pair(campaign.Player.Total,campaign.Enemy.Total)+" ("+completed+" "+(completed==1?"mission":"missions")+")");
-                add("Combat Cost: Basis","USD estimates, "+prices.Basis+"; updated catalogs re-price prior missions");
-                if (campaign.Player.Stores.Incomplete || campaign.Enemy.Stores.Incomplete)
-                    add("Combat Cost: Incomplete","+ ? includes remaining stores not captured, virtual flight-deck stock pools or incomplete native records");
+                // Only concise numeric rows belong in the native debrief. The
+                // separate F11 Combat Costs panel retains all detailed
+                // categories, the price basis and missing-data explanations.
+                add("Cost Weapons",DebriefPair(current.Player.Weapons,current.Enemy.Weapons));
+                add("Cost Units",DebriefPair(current.Player.Losses,current.Enemy.Losses));
+                add("Cost Stores",DebriefPair(current.Player.Stores,current.Enemy.Stores));
+                add("Cost Mission",DebriefPair(current.Player.Total,current.Enemy.Total));
+                add("Cost Campaign",DebriefPair(campaign.Player.Total,campaign.Enemy.Total));
                 long unpriced=current.Player.Total.Unknown+current.Enemy.Total.Unknown;
-                if (unpriced>0) add("Combat Cost: Unpriced",unpriced.ToString(CultureInfo.InvariantCulture)+" counted items without a selected-basis price");
+                if (unpriced>0 || campaign.Player.Stores.Incomplete || campaign.Enemy.Stores.Incomplete)
+                    add("Cost Data Gaps","See F11 Combat Costs");
                 target=summaryRows.GetValue(__instance,null) as IList;
                 if (target==null) throw new InvalidOperationException("summary rows are not a mutable native collection");
                 before=target.Count;
