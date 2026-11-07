@@ -1,29 +1,168 @@
 # SEST Runtime Fixes - developer notes
 
-SEST's own Anchor Chain plugin (`SEST.RuntimeFixes.dll`): the Tomahawk MST
-terrain clearance (`TerrainClearance.cs`), the task-force debrief's lost
-hulls (`TaskForceDebrief.cs`), and complete material-cost accounting
-(`CombatPrices.cs`, `CampaignCosts.cs`, `CampaignInventory.cs`, `F11CombatCosts.cs`, `CombatHistory.cs`). What it does for a player is in
-`SEST_RUNTIME_README.txt`, which the campaign builder
+SEST's own Anchor Chain plugin (`SEST.RuntimeFixes.dll`). What it does for a
+player is in `SEST_RUNTIME_README.txt`, which the campaign builder
 (`build_pack.write_runtime_fixes`) copies into the pack's `plugins/` with
-`sest_runtime.ini` and the DLL. The plugin installs nothing unless the game's
-`Seapower-Scripts.dll` hashes to the one inspected build
-(`SestRuntimeFixes.cs`, `inspected`), and `verify_native_api.py` checks a
-player-exported copy of that DLL against the signatures the plugin binds.
+`sest_runtime.ini` and the DLL.
 
-    python3 integration/runtime-fixes/build_plugin.py   # needs mono-mcs or SEST_MONO_PREFIX
+## The shipped DLL is Runtime 1.5.0, a captured binary (27 Oct 2026)
+
+`SEST.RuntimeFixes.dll` is **SEST Runtime Fixes 1.5.0**, SHA-256
+`7ba6d6d9c58b6c3db31d731e951ed7ea3979925bdff054c9b92482dbe69c9986`,
+128000 bytes: the file the owner's gaming PC runs, copied byte for byte from
+`plugins/` of its Steam Workshop copy of the pack (captured 27 Oct 2026,
+13:18 Brisbane), with the `sest_runtime.ini` and `SEST_RUNTIME_README.txt`
+that came with it. The same bytes are in the 27 Oct handoff's PC baseline
+and in PR #50's dist. It was built outside this repository, and **its
+source has not been recovered**: no branch, pull request, tag or commit
+holds it. `plugin-build.json` says so (`"status":
+"captured-binary-source-not-recovered"`) and records the provenance.
+
+**The `.cs` files, `tests/` and `build_plugin.py` here are its fork base,
+not its source.** They are SEST Runtime Fixes 1.2.0 (its `ACPlugin`
+version) as committed since dc46eba2 (24 Oct 2026), which builds
+`41ff20d9...` (`fork_base` in `plugin-build.json`). An IL comparison of the
+two DLLs finds 147 of 1.5.0's 317 methods identical to 1.2.0's, among them
+every method of `CombatPrices`, `CombatHistory`, `TaskForceDebrief`,
+`TerrainClearance` and `Policy`; 11 changed (the debrief rows'
+`CampaignCosts.Postfix`, six F11 hooks, the entry point and three helpers),
+159 new, and 11 of 1.2.0's gone with its IMGUI Task Force panel
+(`CostGUI`). What 1.5.0 adds (its own `SEST_RUNTIME_README.txt` describes each for
+a player):
+
+- **Native F11 windows.** Cumulative combat costs in game-styled (Noesis)
+  windows, in a mission and between Task Force missions, moved by the title
+  bar, resized at the edges, placement remembered; they replace 1.2.0's
+  IMGUI panel. With Pop-Out Windows 1.0.1 and a second monitor they pop out.
+- **A 3-row debrief:** `Cost: Mission`, `Cost: Campaign` and `Details
+  (USD)` in place of 1.2.0's `Combat Cost: ...` rows (up to ten); the
+  detail is in F11.
+- **Contacts and Group Manager pop-out bridges.** Contact Log 1.0.1's
+  Contacts window and Group Manager 0.2.17's panel get a pop out / return
+  control that moves them to and from the Pop-Out Windows screen; unknown
+  versions of those DLLs are left alone.
+- **Preparation map** (`PreparationMap=1`): own-unit plotting records are
+  set up while paused at mission start or while the flight-preparation
+  queue runs, with no simulation step or enemy detection.
+- **Towed-sonar guard** (`TowedSensorGuard=1`): the native towed-system
+  active-sonar retraction waits and retries on an incomplete sonar link
+  instead of aborting the whole fixed update.
+- Its native UI setup waits until the game's Noesis UI is up. Unlike the
+  fork base it compiles directly against Noesis.NoesisGUI,
+  UnityEngine.CoreModule and Seapower-Scripts (its AssemblyRef table), and
+  it accepts only the game build `eab2297b...` (0.8.7 Build 261021).
+
+**Nothing here builds it.** `build_plugin.py` refuses to overwrite a
+captured binary and says why. It fails closed: it also refuses when the
+captured DLL is missing, and whenever a DLL is present that
+`plugin-build.json` does not account for (the record cannot be read, is not
+a JSON object, or records another SHA-256, as after a merge that brought
+back a format-1 record beside the capture).
+`build_plugin.py --replace-captured-binary` builds the fork base anyway (on
+27 Oct 2026 that still gave `41ff20d9...` byte for byte) and rewrites
+`plugin-build.json` for it. That is a downgrade: the pack would lose
+everything listed above, and SEST UI Follow-up would go inactive (below).
+
+**To reproduce the exact file, recover its source.** Ask whoever built 1.5.0
+for the original project folder and its build script; then rebuild it with
+the same compiler and references. Its generated names (`<X>c__AnonStorey`,
+`c__Iterator`) are Mono mcs's, it targets netstandard 2.1, and it references
+the game's Noesis.NoesisGUI, UnityEngine.CoreModule and Seapower-Scripts,
+AnchorChain 1.1 and 0Harmony 2.9. mcs output is deterministic, so the same
+source, compiler and reference set should give `7ba6d6d9...` again; any
+difference gives a new hash. A decompiled reference of 1.5.0 exists in the
+27 Oct handoff; it is not committed and is not its source (a rebuild from it
+gives a different file). Game assemblies are never committed: build against
+stand-in reference assemblies and check the result by IL comparison against
+`7ba6d6d9...`. Once a source builds here, commit it, let `build_plugin.py`
+build it and write a normal `plugin-build.json`, and rebuild SEST UI
+Follow-up for the new hash in the same change.
+
+**SEST UI Follow-up depends on this exact hash.**
+`integration/ui-followup/SEST.ContactsFix.dll` patches 1.5.0's own Contacts
+and cost code and pins `7ba6d6d9...` in three places
+(`source/ContactsFix.cs` `RuntimeHash`, `source/CostCatalogueCache.cs`,
+`source/DiagnosticModules.cs`). Beside any other `SEST.RuntimeFixes.dll`,
+including a rebuild that differs by one byte, it logs `inactive; original
+behavior retained` and none of its fixes run until it is rebuilt off the
+repository with the new hash (`integration/ui-followup/README.md`).
+`tools/tests/test_contacts_fix.py` fails when the two disagree.
+
+**Checks.** `tools/tests/test_runtime_plugin.py`: while the status is
+captured, the DLL must hash to `plugin-build.json`'s `sha256`, every copy
+of the DLL, `sest_runtime.ini` and `SEST_RUNTIME_README.txt` in
+`SEST_Campaign/plugins` and the dist must equal the committed files, the
+fork base's sources must be unchanged (editing them changes nothing that
+ships), and `build_plugin.py` must refuse. With a normal status it checks
+the source hashes as before. The builder tests run `build_plugin.py` on a
+temporary copy of this folder with no Mono on the path, so a broken refusal
+fails the test without touching the committed DLL or record; they also
+cover the fail-closed cases above. `SEST_RUNTIME_README.txt` and
+`sest_runtime.ini` are not inputs: they can be edited and rebuilt into the
+pack without Mono (`plugin-build.json` keeps the capture's hashes as
+provenance; the test holds the pack copies to the committed files only).
+
+**What the player README says.** As captured, `SEST_RUNTIME_README.txt`
+described what GPT's PC-only installer did, not what this repository's
+SETUP does: a Topographic Map remap to F7 and a hash-pinned REDFOR helper.
+On 28 Oct 2026 three parts of it were rewritten:
+
+- *SEST default UI keys*: SETUP unbinds Contact Log's default F6 window
+  toggle, which clashes with Topographic Map's default F6, and its default
+  F8 diagnostic probe, which clashes with Coordinated Strike Tool's F8
+  planner, and only once Contact Log has written its settings file. It
+  leaves Topographic Map's keys alone: with Contact Log's F6 unbound there
+  is no clash left for a remap to resolve. The clashes are between mods: the
+  game's shipped `controls.ini` (`mods-source/_vanilla/original/controls.ini`)
+  binds no plain F6, F7 or F8, and those values in the game's code are only
+  fallbacks for a missing key.
+- *Mods made for a newer game version*: SETUP marks THE REDFOR MOD from a
+  reviewed list while its folder holds no code, as it marks an older mod
+  (MAJOR.MINOR.0), keeping the author's `_info.ini` for `-RestoreModFiles`.
+- The closing *Settings* paragraph: its "runtime updater" and "performed on
+  the gaming PC" sentences described the handoff's updater and its
+  acceptance tests on the PC, neither of which ships.
+  It now says the plugin changes no key bindings (1.5.0 only reads keys,
+  through `UnityEngine.Input`, and names no `controls.ini`) and points to
+  `plugins/README.txt` for UI Follow-up's Quick Load move.
+
+The rest of the file is as captured. Keep the first two in step with
+`integration/campaign/setup/` whenever SETUP changes.
+
+**Open on 27 Oct 2026.** The owner's PC ran 1.5.0 with SEST UI Follow-up
+1.4.2 that day and reported a crash whose cause is unknown (the last logged
+action was moving Contacts to the second screen). In a mission 1.5.0's F11
+window rebuilds its price catalogues on every 0.5 s refresh (the 27 Oct
+capture measured 253-494 ms stalls); UI Follow-up 1.4.2's cost cache
+removes that, but only where UI Follow-up is active. After the next game
+update 1.5.0 goes inactive like any build of this plugin, and without its
+source it cannot be re-gated (steps 6 and 7 below need it).
+
+## The fork base (1.2.0, built by `build_plugin.py`)
+
+The rest of this file describes the fork base, which was the shipped plugin
+until 28 Oct 2026 (1.5.0 has run on the owner's PC since 27 Oct): the
+Tomahawk MST terrain clearance (`TerrainClearance.cs`), the task-force
+debrief's lost hulls (`TaskForceDebrief.cs`), and complete material-cost
+accounting (`CombatPrices.cs`, `CampaignCosts.cs`, `CampaignInventory.cs`,
+`F11CombatCosts.cs`, `CombatHistory.cs`). It installs nothing unless the
+game's `Seapower-Scripts.dll` hashes to the one inspected build
+(`SestRuntimeFixes.cs`, `inspected`), and `verify_native_api.py` checks a
+player-exported copy of that DLL against the signatures it binds.
+
+    python3 integration/runtime-fixes/build_plugin.py --replace-captured-binary   # needs mono-mcs or SEST_MONO_PREFIX
     python3 integration/runtime-fixes/verify_native_api.py <Seapower-Scripts.dll>   # needs dnfile, dncil
 
-`plugin-build.json` records the hash of every source, the stub, the builder
-and the tests; `tools/tests/test_runtime_plugin.py` fails if any of them is
-edited without running `build_plugin.py`, or if the DLL in the dist differs.
-`SEST_RUNTIME_README.txt` and `sest_runtime.ini` are not inputs: they can be
-edited and rebuilt into the pack without Mono.
+`plugin-build.json`'s `fork_base.inputs` records the hash of every source,
+the stub, the builder (as it was before it learned to refuse) and the
+tests. `build_plugin.py` writes the DLL only after the mocked regressions
+pass, then rewrites `plugin-build.json` with format 1 and no captured
+status.
 
 Reference compiler: Ubuntu 24.04's `mono-mcs` 6.8.0.105+dfsg-3.6ubuntu2
 (installed, or unpacked into a prefix named by `SEST_MONO_PREFIX`). Its
 output is deterministic (no timestamp, content-derived MVID), so the
-committed DLL rebuilds byte for byte from the sources; another Mono build
+fork base rebuilds byte for byte from the sources; another Mono build
 may compile them to different bytes.
 
 ## Complete material-cost accounting (24 October 2026; PC acceptance pending)
@@ -108,6 +247,11 @@ On 23 Oct 2026 the owner's export
 
 ### After the next game update
 
+While the shipped DLL is the captured 1.5.0 (above), steps 6 and 7 cannot be
+done: they edit and rebuild a source this repository does not have, and
+rebuilding the fork base would replace 1.5.0 with 1.2.0. Recover 1.5.0's
+source first; steps 1 to 5 still apply to whatever source is then rebuilt.
+
 1. **On the PC, game closed:**
    `powershell -ExecutionPolicy Bypass -File .\tools\export-map-diagnostics.ps1 -IncludeGameAssembly`.
    It writes `SEST-map-review-complete-<date>-<id>.zip` to Downloads with
@@ -143,8 +287,10 @@ On 23 Oct 2026 the owner's export
 8. **Rebuild the pack:** `python3 tools/build_all.py --from-scratch`
    (`write_runtime_fixes` copies the plugin into `SEST_Campaign/plugins` and
    the dist), then the twelve gates and both test suites.
-9. **On the PC, after syncing:** `Player.log` must show both
-   `[SEST Runtime] ... correction installed` lines and no `inactive` line.
+9. **On the PC, after syncing:** `Player.log` must show all three
+   `[SEST Runtime] ... correction installed` lines (terrain, debrief, towed
+   sensor; two for a 1.2.0-based rebuild) and no `inactive: uninspected
+   native assembly` line.
    Then the acceptance tests in `docs/playtests/fleet-terrain-debrief-20261020.md`
    (a Tomahawk MST ridge crossing; a debrief of a Generated mission that
    lost a ship, and an older debrief reopened after a save and reload).

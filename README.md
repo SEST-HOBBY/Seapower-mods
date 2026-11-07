@@ -1,7 +1,7 @@
 # Seapower-mods
 
 Custom loadouts, upgrade variants, cross-mod fixes and missions for a
-**Sea Power: Naval Combat in the Missile Age** install with **199 Workshop
+**Sea Power: Naval Combat in the Missile Age** install with **203 Workshop
 subscriptions** — all shipped as one deployable mod, the **SEST Integration Pack**.
 
 The pack is published on the Steam Workshop as *SEST Integration Pack - Modernised
@@ -15,6 +15,21 @@ the order: the pack first, above every Workshop mod. If the Mod Manager offers t
 pack's dependencies above it, the answer is no (that would undo every fix in it), and SETUP
 run again puts the order back. Every upload is an update to the same item;
 `docs/campaigns/southern-watch/publishing.md` is the procedure.
+
+SETUP also names the game build it finds, by the hash of the game's
+`Seapower-Scripts.dll` (the stable Build 261021 and the public beta Build
+261026 both call themselves 0.8.7), and warns when the game's last launch
+loaded no code mod. The pack targets Build 261021 until the game's 11 Nov 2026
+release. SEST's code (Runtime 1.5.0 and UI Follow-up 1.4.2 in `plugins/`) runs
+there and switches itself off on any other build; on the public beta no mod's
+code loads at all, because the Workshop Anchor Chain preloader finds no
+chainloader there. A bounded Anchor Chain fork and an inert beta bootstrap are
+source-only test candidates in `integration/beta-anchorchain/`, not shipped.
+The load order names Pop-Out Windows 1.0.2 since the 28 Oct capture, and the
+collection will carry it once the owner adds it. With 1.0.2 the pop-out parts
+of both plugins stay off, since both are pinned to Pop-Out Windows 1.0.1.
+`docs/release-20261103-consolidated.md` says what the current release branch
+carries and what gates it.
 
 **[docs/FEATURES.md](docs/FEATURES.md)** is the full feature list; **[docs/play-test-guide.md](docs/play-test-guide.md)** is how to test all four campaigns in the game. Combat Cost Tracker compatibility is documented in **[docs/combat-costs/README.md](docs/combat-costs/README.md)**. The private fleet, weapons and forward-UAV revision is documented in **[docs/playtest-20261020.md](docs/playtest-20261020.md)**.
 
@@ -56,7 +71,7 @@ ships, escorts, and the allied aircraft a mission can fly - or in Red Line the P
 901 and 903A supply ships; the windows before it keep the story's own lists. The Open
 Allocation twins that sold each campaign's whole roster from the first window were retired
 from the pack on 21 Oct 2026, the standard campaigns took on what they did, and the
-builder keeps them as an opt-in for a world-wide campaign). Consolidated, they are 4299 files in `integration/dist/SEST_Integration/`.
+builder keeps them as an opt-in for a world-wide campaign). Consolidated, they are 4305 files in `integration/dist/SEST_Integration/`.
 `SEST_Zumwalt_CPS` was retired on 20 Sep 2026, when Modern US Navy fixed what it patched. `SEST_Rafale_F5` was retired for one build on
 3 Oct 2026, the Rafale mod it patched having left the collection, and rebuilt the same
 evening on the French Air Force mod, which ships the same Rafales (`docs/packaging-and-recovery.md`).
@@ -87,6 +102,7 @@ python3 tools/check_dependencies.py         # every pack's upstreams exported an
 python3 tools/check_scenarios.py            # the carved NF3 scenarios' counts, formations and section numbers
 python3 tools/check_stale_phrases.py        # retired claims (the pre-reveal AIM-424) stay out of builders and packs
 python3 tools/check_mod_conflicts.py <id>   # what a newly added mod would collide with
+python3 tools/audit_beta_map_geometry.py    # read-only globe-beta screen: positions by latitude, 180 crossings, map-centre distance (docs/beta-globe-readiness-20261027.md)
 python3 tools/check_system_names.py         # pack-added SystemName refs a rival mod's definition could win (report)
 python3 tools/check_weapon_employment.py    # every mount can fire what it carries (inherited upstream defects reported)
 python3 tools/check_pack_fidelity.py        # every SEST_Replenishment file is its upstream plus only the intended lines
@@ -131,13 +147,18 @@ Steel Highway once BepInEx was installed. A mod update puts the author's file ba
 `LogOutput.log`, where the code mods write, whole (head and tail with a marker line over 50 MB).
 
 `tools\mark-mods-compatible.ps1` stops the Mod Manager's start-up warning that mods are not
-compatible with this game version: every mod whose `_info.ini` declares an `ApproximateVersion`
-with a different MAJOR.MINOR from the game's (68 on 18 Oct 2026, last set for 0.4 to 0.7) has that
-one line set to the game's version, on this PC only. The authors' own files are kept under
-`%LOCALAPPDATA%\SEST\compat-originals`, `export-mod-configs.ps1` exports those, so `mods-source/`
-and the update check still see the authors' files, and `-Restore` puts them all back.
-`sync-sest.ps1` runs it on every sync, since a mod update puts the author's file back. A player
-who subscribes still sees the warning for the same mods: their files are their authors'.
+compatible with this game version, on this PC only. It applies the players' SETUP's own rule,
+the `Compat*` functions in `integration/campaign/setup/sest-setup.ps1`, which follow Sea Power
+0.8.7's `ModCompatibility.Matches`: an `ExactVersion` must equal the game's version; otherwise an
+`ApproximateVersion` must be MAJOR.MINOR.PATCH with the game's MAJOR and MINOR and a PATCH no
+higher than the game's. A mod made for an older game version (68 on 18 Oct 2026, last set for 0.4
+to 0.7) has that one value set to the game's MAJOR.MINOR.0. Marks are renewed after a game update;
+if the game goes back a version, the author's kept file decides. A mod made for a newer game
+version is named and left alone, unless SETUP's reviewed list names it (THE REDFOR MOD, data
+only). The authors' own files are kept under `%LOCALAPPDATA%\SEST\compat-originals`,
+`export-mod-configs.ps1` exports those, so `mods-source/` and the update check still see the
+authors' files, and `-Restore` puts them all back. `sync-sest.ps1` runs it on every sync, since a
+mod update puts the author's file back. Players get the same from the pack's SETUP.
 
 `docs/setup-runbook.md` is the full walkthrough.
 
@@ -204,7 +225,7 @@ squadron the winning file actually offers — a price naming a fit the hull no
 longer has fails the build. None of the economy has been exercised in game;
 each campaign's `build-notes.md` says so in detail.
 
-Its point is coverage. 199 Workshop mods are a lot of content to own and never
+Its point is coverage. 203 Workshop mods are a lot of content to own and never
 see, so the campaigns are built so that **every mod in the canonical load
 order, and every SEST pack, is reached by something one of them places** — and
 "reached" is
@@ -213,9 +234,10 @@ computed the way the game resolves files, not from the folder list:
 | class | what it means |
 |---|---|
 | `unit` | the mod's copy of the placed unit's file wins the load order |
-| `variant` / `squadron` | it wins the `_variants` / `_squadrons` file the mission names |
-| `store` | it wins an ammunition file the placed unit's chosen loadout hangs |
+| `variant` / `squadron` | it wins the `_variants` / `_squadrons` file a placed or sold unit uses |
+| `store` | it wins an ammunition file a placed or sold unit's loadout hangs |
 | `roster` | the requisition roster prices it, so the player can buy it |
+| `asset` | it wins a file in a model folder a placed or sold unit's file loads |
 | `library` | it wins nothing a mission can name — UI, effects, a bare dependency marker — and applies install-wide |
 | `shadowed` | everything it ships is outranked; nothing it contains can load |
 

@@ -91,7 +91,7 @@ MISSION = dict(
     },
     units=[
         U("blue", "euromod-philippines", "pn_ffg-150", "screen", variant="Variant1"),
-        U("blue", "philippines-luzon-line", "phl_h-76", "flight", squadron="Squadron1",
+        U("blue", "philippines-luzon-line", "phl_h-76", "flight", squadron="Squadron2",
           alt=500, loadout="CAS", slot="HeloRecon"),
         U("blue", "_vanilla", "civ_ms_roro_c", "convoy", name="MV Palawan Pioneer",
           nation="Philippines", weapons="Hold", route=[(8.86, 118.42, 0)], telegraph=3),
@@ -99,7 +99,7 @@ MISSION = dict(
           nation="Philippines", weapons="Hold", route=[(8.90, 118.40, 0)], telegraph=3),
         U("blue", "_vanilla", "airfield_small_1", "home",
           name="Puerto Princesa (Antonio Bautista Air Base)", nation="Philippines",
-          weapons="Hold"),
+          weapons="Hold", air_group=[]),
         U("red", "red-storm-arsenal", "ir_ptg_peykaap_3", "raiders", name="Meridian Escort 11",
           nation="Panama", route=[(9.10, 118.55, 0)], telegraph=4),
         U("red", "red-storm-arsenal", "ir_ptg_peykaap_3", "raiders", name="Meridian Escort 12",

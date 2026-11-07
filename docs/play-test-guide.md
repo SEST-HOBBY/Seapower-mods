@@ -18,16 +18,23 @@ loaded and partly played; their open questions are listed below.
    commit number.
 2. Start Sea Power → **Mod Manager**: *SEST Integration Pack* is at the top
    and ticked. If it offers to move or fix dependencies, say **no**.
-3. **SEST's runtime plugin.** After the main menu has shown, open
+3. **SEST's runtime plugins.** After the main menu has shown, open
    `%USERPROFILE%\AppData\LocalLow\Triassic Games\Sea Power\Player.log`
-   and find the `[SEST Runtime]` lines. Two lines containing
-   `correction installed` mean the Tomahawk MST terrain clearance and the
-   task-force debrief's lost-ship rows are on: on Sea Power 0.8.7 that is
-   expected since SEST was matched to it on 23 Oct 2026. `inactive:
+   and find the `[SEST Runtime]` lines. Lines containing
+   `correction installed` (the Tomahawk MST terrain clearance, the
+   task-force debrief's lost-ship rows and the towed-sonar guard) mean SEST
+   Runtime Fixes 1.5.0 is on: on Sea Power 0.8.7 that is expected. `inactive:
    uninspected native assembly` means the game has updated past the build
-   SEST checked, and both are off: the game's own behaviour applies, so do
-   not report the MST over mountains or the debrief as SEST faults then.
-   Say which line you saw, and the game's build.
+   SEST checked, and all of them are off: the game's own behaviour applies,
+   so do not report the MST over mountains or the debrief as SEST faults
+   then. `inactive: owning pack is not enabled` means the pack is not
+   ticked (step 2). `F11 campaign totals inactive: uninspected Combat Cost
+   Tracker` means SEST's F11 cost windows are off with the tracker you
+   have: say so, with the tracker's version. With Contact Log subscribed,
+   a `[SEST UI Follow-up] 1.4.2 input fix installed` line means the UI
+   follow-up is on too; `[SEST UI Follow-up] inactive; original behavior
+   retained` means it is off. With UI Follow-up on, Quick Load is Ctrl+F9.
+   Say which lines you saw, and the game's build.
 4. **Options:** note the two weapons settings under Left Shift+O —
    "Ships on Weapons Tight engage hostile aircraft" and "Ships use anti-ship
    missiles on Weapons Free". Leave them at their defaults and say what they
@@ -72,10 +79,13 @@ rests on one rule: there is no free rearm.** Check that first.
 |---|---|---|
 | Start Sulu Line on **Standard** | Commander screen: nation **Philippines**, the Philippine flag as navy emblem, rank **Commodore**, a Spanish-style default name (editable). Rank pictures are blank on purpose | The screen refuses the nation, shows a broken image, or won't continue **(4.1)** |
 | Read Campaign Rules → Your Goal | "Rearm: never free…", and a paragraph naming the three supply-ship sales | Still says "for free" **(1.3)** |
-| Open the Task Force builder before mission 1 | 1,000 points. On sale: Jose Rizal class, Miguel Malvar class, Del Pilar class, Conrado Yap, BRP Tarlac / Davao del Sur, HTMS Chula, the H-76 helicopter. **Not** on sale yet: Thai frigate, RAN Anzac, FA-50, the C8 charter **(1.1)** | Anything else on sale, or a supply ship missing |
+| Open the Task Force builder before mission 1 | 1,000 points. On sale: Jose Rizal class, Miguel Malvar class, Del Pilar class, Conrado Yap, BRP Tarlac / Davao del Sur, HTMS Chula, the H-76 helicopter (offered first as the **AW109E LAH**, then as the AUH-76). **Not** on sale yet: Thai frigate and Seahawk, RAN Anzac and MH-60R, FA-50, the C8 charter **(1.1, 8.5)** | Anything else on sale, or a supply ship missing |
 | Check prices | Philippine units 20% cheaper than their list price; Thai, Australian and MSC units at full price. Note especially whether the **Jose Rizal** and **Miguel Malvar** get the discount (their files spell the nation in lower case) **(4.2)** | Note the prices you see |
+| Assign the H-76 to your Jose Rizal or Miguel Malvar in the Task Force Manager | Accepted **(8.2)** | Refused: SEST Cross-Deck's deck fit did not take effect. Bring back Player.log and the `pn_ffg-150` and `pn_ffg-06` lines of the pack's `CROSS-DECK.txt` |
 
-**Buy:** at least one frigate, one Tarlac, and the H-76.
+**Buy:** at least one frigate, one Tarlac, and the H-76. Start from a new
+campaign: a mid-mission save from an older build keeps the aircraft it
+stored.
 
 ### 2B. The no-rearm rule (most important)
 
@@ -98,10 +108,10 @@ rests on one rule: there is no free rearm.** Check that first.
 
 | Mission | What to check |
 |---|---|
-| **1 The Island Road** | Convoy of two reaches the box 30 NM south-west; two Meridian fast attack craft come from the south-east. Win = both convoy ships in the box |
+| **1 The Island Road** | Convoy of two reaches the box 30 NM south-west; two Meridian fast attack craft come from the south-east. Win = both convoy ships in the box. Puerto Princesa holds only what you bought and the mission's own flights: no F-4s, RA-5Cs, EA-6Bs, E-3A, P-3Cs, SH-3Hs or CH-46s **(8.1)**. Your H-76 flies from and lands on the frigate **(8.2)**. Fly the H-76 that starts in the air until it is low on fuel: it lands and refuels on the frigate or at Puerto Princesa, and search and rescue never says "no home base" **(8.4)** |
 | **2 Fire Mission Jolo** | Ship starts 25 NM north of Jolo. Steam in; the 76 mm reaches the ridge from about 8 NM. **Three of five** positions destroyed = victory **(3.1)**. Check the launch rails can attack your ship |
 | **3 Ayungin** | Nothing fires at the boat: the cutters carry machine guns only and shadow north of its track; the watcher is an unarmed intelligence ship **(5.1)**. Firing on any Chinese unit ends the mission. The boat entering the shoal's lagoon wins |
-| **4 Service at Sea** | Keep your lead ship within 3 miles of *Sulu Provider* for 30 minutes: a "Thirty minutes" message appears, then she steers north to the box. Use her to rearm: go alongside at 8 kn or less. In a second run let her be sunk after the message and take the lead ship into the box: the mission is **won** (Charter failed), and she is **missing** from mission 6 **(2.5)**. Losing her no longer ends the mission (20 Oct 2026) |
+| **4 Service at Sea** | Before it, the RAN Anzac **and the RAN MH-60R** are on sale (here and before mission 6 only); assign the H-76, the Thai Seahawk and the MH-60R to Naresuan, the Thai Seahawk and the MH-60R to Tarlac, and the H-76 to the Anzac: each is accepted **(8.3, 8.6)**. Keep your lead ship within 3 miles of *Sulu Provider* for 30 minutes: a "Thirty minutes" message appears, then she steers north to the box. Use her to rearm: go alongside at 8 kn or less. In a second run let her be sunk after the message and take the lead ship into the box: the mission is **won** (Charter failed), and she is **missing** from mission 6 **(2.5)**. Losing her no longer ends the mission (20 Oct 2026) |
 | **5 Celebes Gate** | Four coasters, one is the gun-runner (armed, with an escort boat and, from about minute 5, a drone nearby). Sinking a wrong one ends the mission. Sinking the right one before the Basilan Strait wins |
 | **6 The Aborlan Battery** | Two Silkworm launchers ashore fire at ships inside about 25 NM, including the convoy at anchor, from about minute 5 (the battery is under cover and not on the map until then) **(3.2)**. Both launchers destroyed wins |
 | **7 Balabac Strait** | Chinese surface group of five from the west, two JH-7A strike aircraft, maybe a submarine. **Three of five** ships sunk wins. Note how much ammunition you had left |
@@ -110,7 +120,9 @@ rests on one rule: there is no free rearm.** Check that first.
 
 Mission results; the answer to **2B** (most important); whether rounds crossed
 in **2C** and at what speeds; whether supply-ship stocks persisted; the
-discount prices; how many shots it took to win missions 2 and 6.
+discount prices; how many shots it took to win missions 2 and 6; which
+helicopters the frigates, Naresuan, Tarlac and the Anzac took (**8.2-8.3**),
+and anything old on a Philippine field (**8.1**).
 
 ---
 
@@ -133,6 +145,7 @@ Dispatches*. Full card: `docs/campaigns/southern-watch/test-card.md`.
 | Rearm earned **(6.9)** | Hold mission 9's service window, then look before mission 10 | A rearm is offered. Miss the window and it is not |
 | Rearm at sea **(6E)** | Mission 9, fire a missile, then go within half a mile of HMAS Stalwart at 12 kn or less | The missile comes back |
 | Redback from the Seahawk **(first things, 6)** | Mission 3, Rig Seventeen: ready one of HMAS Canberra's MH-60Rs on **SEST Redback Strike** and look at it in the loadout preview, then launch it and order an attack on the Peykaap or the Boghammar from about 4 NM | Its tanks hang on their pylons and four 7-tube pods a side on the Hellfire launcher where the Hellfires do, with no Hellfire and the upper pods clear of the lower rails. Two AGR-30s leave the pods (it fired from 19-tube pods on 23 Oct 2026, not yet from these), the flame burns about ten seconds, the round climbs to about 2 km, slows steadily to about 150 knots over roughly a minute, picks up to about 220 knots 2 NM out and dives. If no salvo leaves, or it never climbs, note the range and any message (`docs/playtest-20261023-redback.md`) |
+| P-8 Harpoons **(H.25)** | Before mission 5, Weapons Free: buy the P-8, task it on Maritime Strike with the AntiShip fit, and engage the Sovremenny with its Harpoons | The Harpoons launch and get midcourse updates. No launch (Player.log `can not be launched without associated sensor`) or the link lost at launch: bring back Player.log and the range |
 | Optional ops **(6.7)** | Bring both Korean warships in at O3, then start mission 6 | ROKS Sejong the Great is in your screen |
 | Open Allocation **(2.9)** | A **new** campaign, windows before missions 1-3 | The story's own short lists and nothing allied, ship or aircraft; Campaign Rules' availability line says the windows before Weapons Free offer what the story releases, and every one from the one before it the whole roster and the allied fleet |
 | Open Allocation **(2.10)** | Window before mission 5, Weapons Free: buy a Mogami or a Type 23 | The whole roster, 82 units in all: the campaign's own ten (the Triton among them), the Canberra-class LHD and the allied fleet at its own navies' prices - carriers, amphibious and supply ships, destroyers and frigates (52 classes) and 19 aircraft types; the bought ship sails; still only one ship sails |

@@ -218,6 +218,9 @@ their side's lead nation's (US or China) garrisons, escorts and convoys.
 | Hull names | `named`, from the register's hull names, quoted variant names or carrier asset ids |
 | Supply ships | `replenishment` with fuel and ammunition tonnes; their forces start with `cargo: full` |
 | Unit ids the collection retired | Retargeted through `integration/mission-seeds/retarget_units.py`'s table |
+| Unit ids a mod renamed (`LEGACY_HULL_ALIASES`, `LEGACY_AIRCRAFT_ALIASES`) | New campaigns name the current id. The old id ships only as a `#!alias` in `SEST_World_Campaign`, so older saves still load. The builder never reads that alias back as a unit, so a build over its own previous output gives the same bytes as `--from-scratch` (`tools/tests/test_world_sandbox_rebuild.py`) |
+| A unit that draws the wrong model (`WORLD_UNIT_SUBSTITUTIONS`) | Placed and sold as its replacement in the World Sandbox only; the register keeps the id its research named. Since 28 Oct 2026 (PR #47 of 26 Oct) Red Storm Arsenal's `usn_p_8a`, a P-8A that draws the P-3C, is U.S. Navy 2027's `usn_p8_2027` (`docs/playtests/world-p8-20261026.md`) |
+| An aircraft whose winning file states the wrong role (`AIR_ROLE_OVERRIDE`) | Valued by the role SEST names; `conversion.json` records that choice and the file's own role. Placed and sold as before. Since 30 Oct 2026 the RAAF KC-30A (`aus_a330_mrtt`) is a Tanker at 60: the 28 Oct Workshop refresh brought Euromod Modern RAN's own copy of the file (Role=Airliner), which outranks French Air Force's (Role=AEW), and neither role is a tanker's (`docs/playtests/world-kc30a-20261030.md`) |
 
 ### Scenario choices the adapter makes
 
@@ -238,7 +241,8 @@ All are recorded per row in `conversion.json`. None is a research claim.
   cannot feed ships, Rota with sea convoys is the fallback.
 - **Unit values.** Ships: fitted on the sample's 102 priced hulls against each hull's own
   Displacement (R² 0.72), supply and cargo ships at 0.32 of that. Aircraft: the sample's median
-  value for the aircraft's own Role. Carriers come out at about 1,190, a Burke Flight III at 245.
+  value for the aircraft's own Role, or for the role `AIR_ROLE_OVERRIDE` names where the winning file's
+  is wrong (the KC-30A, a Tanker at 60). Carriers come out at about 1,190, a Burke Flight III at 245.
 - **Replenishment tonnes.** Approximate public cargo capacities, rounded.
 - **Runway headings.** 0 everywhere; the register has none.
 - **Bounds.** Latitude 62S to 74N; longitude 100W east-about to 102W (258). The seam sits over

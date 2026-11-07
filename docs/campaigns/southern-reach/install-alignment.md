@@ -11,10 +11,11 @@ Two facts shape it:
 
 - **The PC deploys from one branch**, the one `data\deploy-branch.txt` names:
   `sest-dev/jolly-ride-rptj4t` since 25 Oct 2026 (it carries the live 24 Oct
-  Workshop build and every earlier branch, `sest-dev/loving-bell-3cnvvw`
-  included). `sync-sest.ps1` refuses to run from any
-  other branch, on purpose — the last time it ran on the wrong one it reported
-  `IN LINE` against a build with none of the campaign in it.
+  Workshop build and every earlier branch, among them
+  `sest-dev/loving-bell-3cnvvw`, the deploy branch until then).
+  `sync-sest.ps1` refuses to run from any other branch, on purpose — the
+  last time it ran on the wrong one it reported `IN LINE` against a build
+  with none of the campaign in it.
 - **Sessions work on their own branches.** This session's work was on
   `claude/campaign-missions-lore-td653z` (`694db53e`, 3 Oct). It is no longer
   the source. The deploy branch has since taken `10b6b48b` and `7d670392`
@@ -479,7 +480,7 @@ steps on the PC** that the ports need.
 
 | Branch | What it is | State |
 |---|---|---|
-| `sest-dev/loving-bell-3cnvvw` | the deploy branch the PC tracks | at `fa692245` (4 Oct) or later; `fa692245` is the build published as Workshop item 3812461539 |
+| `sest-dev/jolly-ride-rptj4t` | the deploy branch the PC tracks, the one `data\deploy-branch.txt` names (`sest-dev/loving-bell-3cnvvw` until 25 Oct 2026) | at `fa692245` (4 Oct) or later; `fa692245` is the build first published as Workshop item 3812461539 |
 | `claude/campaign-missions-lore-td653z` | this session: the three campaigns and their Open Allocation twins, the multi-campaign builder, the coastline proof, the RNZAF bases, and the ported work | at `694db53e` (3 Oct), diverged from the deploy branch: it lacks `10b6b48b`, `7d670392`, `d4fd1668` and `fa692245`; do not merge it on the PC |
 | `feature/northern-front-iii-export` | the repo's default branch on GitHub | at `3b040cc0`, behind the deploy branch; do not deploy from it |
 | the other `sest-dev/*`, `fix/*`, `feature/*`, `chore/*` branches | earlier sessions | see §6: what was ported, and what was left and why |
@@ -504,8 +505,8 @@ reads `<` as a redirection operator.
 cd C:\Users\<you>\Seapower-mods
 git status --short                       # must be EMPTY - see below if not
 git fetch origin
-git checkout sest-dev/loving-bell-3cnvvw
-git pull origin sest-dev/loving-bell-3cnvvw
+git checkout sest-dev/jolly-ride-rptj4t     # the branch data\deploy-branch.txt names
+git pull origin sest-dev/jolly-ride-rptj4t
 ```
 
 If `git status --short` prints anything, the PC has local changes (usually a
@@ -537,7 +538,7 @@ machine. Run the checks below either way.
 Then push the deploy branch so the PC and GitHub agree:
 
 ```powershell
-git push origin sest-dev/loving-bell-3cnvvw
+git push origin sest-dev/jolly-ride-rptj4t
 ```
 
 Then make GitHub show it. The repository's landing page (and every new
@@ -546,12 +547,13 @@ session, which starts from the default branch) reads
 Either:
 
 - **GitHub → the repository → Settings → General → Default branch →**
-  switch to `sest-dev/loving-bell-3cnvvw` (recommended: the page, the README
-  and every new session then start from what the PC runs), or
+  switch to the deploy branch, `sest-dev/jolly-ride-rptj4t` (recommended:
+  the page, the README and every new session then start from what the PC
+  runs), or
 - fast-forward the old default branch to match, from the PC:
 
 ```powershell
-git push origin sest-dev/loving-bell-3cnvvw:feature/northern-front-iii-export
+git push origin sest-dev/jolly-ride-rptj4t:feature/northern-front-iii-export
 ```
 
 That push only succeeds as a fast-forward, which it is today; it cannot
@@ -560,9 +562,9 @@ overwrite anything.
 Check, and do not skip:
 
 ```powershell
-git branch --show-current            # sest-dev/loving-bell-3cnvvw
+git branch --show-current            # sest-dev/jolly-ride-rptj4t
 git log --oneline -1                 # note the short hash: the IN LINE line must name it
-Get-Content data\deploy-branch.txt   # sest-dev/loving-bell-3cnvvw
+Get-Content data\deploy-branch.txt   # sest-dev/jolly-ride-rptj4t
 git merge-base --is-ancestor fa692245 HEAD; $?   # True: the 4 Oct build (the one on Workshop item 3812461539) or later
 ```
 
@@ -780,8 +782,8 @@ Line's (`../red-line/test-card.md`) with its rules of engagement.
 
 | Symptom | The command that answers it |
 |---|---|
-| `git merge --ff-only` refuses | expected for `claude/campaign-missions-lore-td653z`, which lacks `10b6b48b`, `7d670392`, `d4fd1668` and `fa692245` (skip step 2's merge); for a branch a round hands you, `git log --oneline origin/sest-dev/loving-bell-3cnvvw -5` — whatever is there and not on that branch was pushed after it was cut; report it |
-| sync refuses on the branch guard | you are not on `sest-dev/loving-bell-3cnvvw`; go back to step 1 rather than passing `-AnyBranch` |
+| `git merge --ff-only` refuses | expected for `claude/campaign-missions-lore-td653z`, which lacks `10b6b48b`, `7d670392`, `d4fd1668` and `fa692245` (skip step 2's merge); for a branch a round hands you, `git log --oneline origin/sest-dev/jolly-ride-rptj4t -5` (the deploy branch) — whatever is there and not on that branch was pushed after it was cut; report it |
+| sync refuses on the branch guard | you are not on the branch `data\deploy-branch.txt` names (`sest-dev/jolly-ride-rptj4t`); go back to step 1 rather than passing `-AnyBranch` |
 | an Open Allocation entry is still in the campaign list | those versions were retired on 21 Oct 2026, so the install is older than this build: `Get-ChildItem "$sa\campaigns" -Directory -Filter '*-open'` should list nothing, and the sync's mirror copy removes them. A save from one cannot be continued; start the standard campaign |
 | the game stops responding in the middle of a mission, above all one with sonobuoys in the water | a mod's debug logging: `powershell -ExecutionPolicy Bypass -File .\tools\quiet-mod-debug.ps1` (the sync runs it too), then capture with `-IncludeSaves` if it happens again - the capture now includes BepInEx's log, where code mods write |
 | Rig Seventeen dies loading again | `powershell -ExecutionPolicy Bypass -File .\tools\capture-context.ps1 -Redact -IncludeSaves` with the game closed, then commit `data\install-snapshot` and push the deploy branch: the log names the step and the save shows the force |

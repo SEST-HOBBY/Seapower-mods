@@ -51,6 +51,27 @@ from .tables import (CALENDAR, MODULES, ROSTER, SUPPLY, TASKFORCE,  # noqa: E402
 _PARTIAL = bool(os.environ.get("SR_ALLOW_MISSING"))
 MISSING = []
 MISSIONS = []
+
+
+def check_fields(mission):
+    """A Philippine field holds only what the player buys or the mission
+    places. A field the mission writes without a CustomAirGroup gets its
+    unit file's [AirGroup] for free: the stock airfield_small_1's F-4D/Es,
+    RA-5Cs, EA-6Bs, E-3A, P-3Cs, SH-3Hs and CH-46s, a 1970s U.S. wing on a
+    2028 Philippine field (corrected by hand on the owner's PC on 27 Oct
+    2026; the rule confirmed in the 0.8.7 game assembly the same day). So
+    every player-side field says what it holds - air_group=[] for an empty
+    one, or its own flights - and one that does not stops the build rather
+    than being emptied here, where a reader of the mission module would not
+    see it. A field is any unit whose type names an airfield or an airbase;
+    test_build_pack's SuluLineCoalition also reads the unit files."""
+    for u in mission["units"]:
+        if (u["side"] == "blue" and u.get("air_group") is None
+                and any(w in u["type"] for w in ("airfield", "airbase"))):
+            raise SystemExit(f"{mission['code']}: {u['type']} inherits its stock air "
+                             "group - give it air_group=[] or its own flights")
+
+
 for _mod in MODULES:
     try:
         _m = importlib.import_module(f"{__name__}.{_mod}").MISSION
@@ -72,6 +93,7 @@ for _mod in MODULES:
         raise SystemExit(f"{_m['code']}: window rearms for free - Sulu Line's rearm "
                          "is a supply ship alongside, the player's own or Service at "
                          "Sea's charter")
+    check_fields(_m)
     MISSIONS.append(_m)
 
 _codes = [m["code"] for m in MISSIONS]

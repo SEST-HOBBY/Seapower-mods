@@ -512,7 +512,7 @@ Total about 47 sessions.
 
 ### Re-checked at `4defe5c8` for this document
 
-- **Branch and deploy.** `data/deploy-branch.txt` names `sest-dev/loving-bell-3cnvvw`. That branch does not resolve in this clone, and `c8f1b0f5` is an ancestor of HEAD, two commits back (`87b43e03`, `4defe5c8`). The PC last synced to `c8f1b0f5` (`docs/workshop-refresh-20261020-review.md:155`). `44cde6d0` is in the clone, 14 commits behind HEAD.
+- **Branch and deploy.** `data/deploy-branch.txt` named `sest-dev/loving-bell-3cnvvw` at the time (`sest-dev/jolly-ride-rptj4t` since 25 Oct 2026). That branch does not resolve in this clone, and `c8f1b0f5` is an ancestor of HEAD, two commits back (`87b43e03`, `4defe5c8`). The PC last synced to `c8f1b0f5` (`docs/workshop-refresh-20261020-review.md:155`). `44cde6d0` is in the clone, 14 commits behind HEAD.
 - **Last upload:** `c948bc9a` on 15 Oct (`docs/workshop-refresh-20261015-review.md:95`); 82 commits since.
 - **SW04 overwrite:** CD:5868 appends the `O5ReceiverNamed` reveal, then CD:5908 assigns `_m["reveal_if"] = [...]`, replacing it.
 - **Allied escorts in the build:** MD:206-234 hard-codes three classes. They are in Southern Watch's [Mission17] and [Mission40] allowlists and in Southern Reach's roster with Mogami Variant1 (`OUT/sest-southern-reach/player_task_force_roster.ini:18`).
@@ -664,7 +664,7 @@ Also play the eight open items in `docs/playtest-20261020.md:236-249`. They cove
 ### 8.6 Deploy and publish
 
 1. Commit on `sest-dev/jolly-ride-rptj4t`.
-2. Carry the commit to the deploy branch named in `data/deploy-branch.txt` (`sest-dev/loving-bell-3cnvvw`). Fast-forward if it is an ancestor (ASSUMPTION 1).
+2. Carry the commit to the deploy branch named in `data/deploy-branch.txt` (`sest-dev/loving-bell-3cnvvw` when this was written; `sest-dev/jolly-ride-rptj4t` since 25 Oct 2026). Fast-forward if it is an ancestor (ASSUMPTION 1).
 3. On the PC: `.\tools\sync-sest.ps1` must report IN LINE.
 4. Play R1–R12.
 5. Before Submit, apply the pending Required Items changes (WL:112-116: add 3807187341 and 3818251045; remove 3440622312).

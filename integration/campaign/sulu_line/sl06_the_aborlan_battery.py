@@ -89,7 +89,7 @@ MISSION = dict(
     },
     units=[
         U("blue", "euromod-philippines", "pn_ffg-150", "gunline", variant="Variant1"),
-        U("blue", "philippines-luzon-line", "phl_h-76", "flight", squadron="Squadron1",
+        U("blue", "philippines-luzon-line", "phl_h-76", "flight", squadron="Squadron2",
           alt=500, loadout="CAS", slot="HeloRecon"),
         U("blue", "philippines-luzon-line", "rok_f-50_ph", "strike", squadron="Squadron1",
           alt=3000, loadout="CAS", slot="Attack"),
@@ -106,7 +106,7 @@ MISSION = dict(
           spawn_if=("SL04SupplierLost", "IsFalse")),
         U("blue", "_vanilla", "airfield_small_1", "home",
           name="Puerto Princesa (Antonio Bautista Air Base)", nation="Philippines",
-          weapons="Hold"),
+          weapons="Hold", air_group=[]),
         # The battery comes up at minute 5 (13 Oct, option b): from the first
         # second the launchers (four SY-1As each, 24 NM) held the convoy at the
         # anchorage, 19 NM off, with their own radar. One formation, so the

@@ -100,7 +100,7 @@ MISSION = dict(
           name="MV Pag-asa Uno (Navy charter)", nation="Philippines", weapons="Hold",
           route=[(7.92, 119.42, 0)], telegraph=3),
         U("blue", "_vanilla", "airfield_small_1", "home",
-          name="Puerto Princesa", nation="Philippines", weapons="Hold"),
+          name="Puerto Princesa", nation="Philippines", weapons="Hold", air_group=[]),
         U("red", "iran-shahed-238", "wp_shahed238_launcher", "launchers",
           name="Jet launcher ONE", nation="Panama"),
         U("red", "iran-shahed-238", "wp_shahed238_launcher", "launchers",

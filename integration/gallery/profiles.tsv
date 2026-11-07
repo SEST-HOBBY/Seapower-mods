@@ -645,6 +645,7 @@ usn_p-3d	p3c	same_family	P-3 Orion seen from behind releasing flares; P-3C rathe
 usn_p-8a	p8a	same_type	RAF Poseidon MRA1 (ZP803) in flight; the same P-8A airframe in a different operator's markings. / RAF Poseidon MRA1 (P-8A airframe, ZP803) in flight; operator differs but type is identical.
 usn_p8_2027	p8a	same_type	RAF Poseidon MRA1 ZP803 in flight; same P-8A airframe, and future fit changes are not visible. / RAF Poseidon MRA1 ZP803 (a P-8A airframe) in flight; the 2027 fit is not visible but it is the same airframe.
 usn_p_8a	p8a	same_type	RAF Poseidon MRA1 ZP803 in flight; same P-8A airframe, different operator. / RAF Poseidon MRA1 ZP803 (a P-8A airframe) in flight.
+rnzaf_p8	p8a	same_type	RAF Poseidon MRA1 ZP803 in flight; the same P-8A airframe as No. 5 Squadron RNZAF flies, different operator. Added 25 Oct 2026 when it replaced usn_p_8a in O2 Southern Cross (the row usn_p_8a carries).
 usn_rf-8a	f8_crusader	same_family	French F-8E(FN) fighter Crusader; recon RF-8A has a camera nose not shown. / French F-8E(FN) fighter, not the camera-nosed RF-8A reconnaissance variant.
 usn_rf-8g	f8_crusader	same_family	French F-8E(FN) fighter Crusader; recon RF-8G has a camera nose not shown. / French F-8E(FN) fighter, not the camera-nosed RF-8G reconnaissance variant.
 usn_rq7705	rq7	same_type	RQ-7 Shadow UAV on its launcher, being handled by US Army soldiers; fuselage and payload are clear, but people cover part of it and the wings run out of frame. / US Army soldiers handling an RQ-7 Shadow UAV on its launcher; fuselage and EO turret clearly visible.

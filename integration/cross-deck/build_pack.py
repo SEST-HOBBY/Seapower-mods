@@ -26,26 +26,50 @@ Harrier carrier does not get an F-35B unless it lists an AV-8B already
 (Juan Carlos and Canberra do; the Thai Chakri Naruebet, with AV-8S Matadors,
 gets the Sea Harriers and nothing newer).
 
-One `#!extend` stub per deck, in vessels_overwrite/ (Anchor Chain's own
-mechanic, the way Euromod assigns combat systems and SEST Collection Fixes
-does the same): the stub names the hull and sets `AircraftSupported` to the
-winning file's own list plus the additions. The winning file is read at
+One `#!extend` stub per deck, in vessels_overwrite/ (the game's own
+mechanic, below, which Euromod and SEST Collection Fixes use too): the stub
+names the hull and sets `AircraftSupported` to the winning file's own list
+plus the additions. The winning file is read at
 build time, so an upstream list change is carried through on the next build,
 and a type the mod lists that no mod ships (dk_mh-60r on the Iver Huitfeldt
 was one until the Danish pack arrived; rn_aw159 on the Type 45 still is) is
 left exactly as the author wrote it. Only aircraft that exist in the enabled
 collection are added, only to decks registered to an allied navy, and never
-to a deck that takes everything already.
+to a deck that takes everything already. A few decks also take a type no
+family reaches, because one campaign sells the deck and that aircraft
+together and the hull's own list was written for another navy or an older
+air group (CAMPAIGN_DECK_TYPES: Sulu Line's Philippine, Thai and Australian
+decks).
 
-Not demonstrated in game: whether the engine reads an `AircraftSupported`
-set through `#!extend` (the CombatSystems stubs set other sections the same
-way, and those are live). Test card: Southern Watch 6J.
+Sea Power 0.8.7 applies `#!extend` files generically, whatever section
+they set: IniHandler.ScanForModifierFiles registers each enabled mod
+folder's `#!extend` targets, and IniHandler.open reads those files before
+the target and keeps the first value of each key (read from the game's
+Seapower-Scripts.dll on 28 Oct 2026). So the stubs' `AircraftSupported`
+should take effect, as the CombatSystems stubs do; it has not yet been seen
+in game. Test cards: Southern Watch 6J; Sulu Line 8.2-8.3 for the campaign
+fits.
+
+A stub's file name is free, since the game keys it by its `#!extend` line,
+and it is always spelt in ASCII (stub_name). The 28 Oct 2026 export brought
+the first hull id with a letter outside ASCII, Charles De Gaulle & Modern
+French Navy's fr_ffg_floréal, and with it would have come the first such path
+in SEST's output. Nothing in the repo would have broken on it: the
+consolidation copies every file by its relative path as it finds it, the
+installer (tools/install-sest-packs.ps1, run by tools/sync-sest.ps1) copies
+the pack folder with Copy-Item -LiteralPath and the sync's check hashes what
+Get-ChildItem lists, and SETUP never lists or copies SEST's own files. But
+the Workshop upload (the game's Mod Manager), Steam's download to every
+subscriber and any archive of the pack are untested with such a name, and an
+ASCII name costs the game nothing. So the `#!extend` line names the real
+path and the file name drops the accents: fr_ffg_floreal_CrossDeck_SEST.ini.
 
 Usage (repo root):  python3 integration/cross-deck/build_pack.py
 """
 import collections
 import re
 import sys
+import unicodedata
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -128,6 +152,36 @@ FAMILIES = {
         "usn_f-35c", "usn_f_35c", "usn_fa-18e", "usn_fa-18f", "usn_fa-18f_blk3",
         "usn_ea-18g", "usn_ea-18g_2020", "usn_e-2d", "usn_e-2c",
         "usn_e_2c_group2_plus", "fr_rafale_m", "fr_rafale_m_l", "fr_e2c", "fr_e2d"],
+}
+
+# Fits a campaign needs that no family rule can infer: the hull's own list
+# was written for another navy or an older air group, so it names nothing of
+# the family the campaign flies from it. Each entry is a deck and an aircraft
+# one campaign sells together (Sulu Line's roster, sulu_line/tables.py, for
+# every entry today). Family additions come first; a type the hull lists or
+# a family already adds is not repeated, and, as above, only aircraft the
+# enabled collection ships are added. Capacities and deck geometry are the
+# hull's own. The stub and CROSS-DECK.txt list them under CAMPAIGN_FITS.
+CAMPAIGN_FITS = "Campaign deck fits"
+CAMPAIGN_DECK_TYPES = {
+    # Sulu Line: the Philippine Navy's helicopter on its two frigate classes.
+    # Jose Rizal and Miguel Malvar are Korean-built, and their files list
+    # only the Korean Super Lynx (rok_mk99_a), which nothing in Sulu Line
+    # flies; no family holds both.
+    "pn_ffg-150": ["phl_h-76"],
+    "pn_ffg-06": ["phl_h-76"],
+    # Sulu Line: the Thai frigates' own Seahawk, the RAN MH-60R released with
+    # the Anzac, and the Philippine H-76 - the coalition's three helicopters.
+    # The Naresuan's file lists Ka-25s and Ka-27s, a Seasprite, an AB 212 and
+    # light helicopters - no Seahawk and no S-76 - so neither family reaches
+    # her.
+    "tha_ffg_naresuan": ["phl_h-76", "tha_S-70B-7_Seahawk", "ran_mh-60r"],
+    # Sulu Line: BRP Tarlac lists the H-76 already; she takes the Thai
+    # Seahawk and the RAN MH-60R as well.
+    "phl_lpd_tarlac": ["tha_S-70B-7_Seahawk", "ran_mh-60r"],
+    # Sulu Line: the H-76 on the Anzac. The Thai Seahawk reaches her through
+    # the Seahawk family, since her own list names the MH-60R.
+    "ran_ffh_anzac": ["phl_h-76"],
 }
 
 CATEGORY_TOKENS = {"Helicopters"}       # the game's own wildcard
@@ -283,20 +337,62 @@ def plan():
                 new = [a for a in ids if a not in have]
                 if new:
                     adds[fam] = new
+        have_after_families = have | {a for ids in adds.values() for a in ids}
+        campaign_adds = [a for a in CAMPAIGN_DECK_TYPES.get(uid, [])
+                         if a not in have_after_families and aircraft_exists(a)]
+        if campaign_adds:
+            adds[CAMPAIGN_FITS] = campaign_adds
         if adds:
             out.append((uid, owner_of(f), n, sec, current, adds))
     return out
 
 
+STUB_SUFFIX = "_CrossDeck_SEST.ini"
+
+
+def stub_name(uid):
+    """The stub's file name: <uid>_CrossDeck_SEST.ini, spelt in ASCII.
+
+    The transliteration: each letter is decomposed (Unicode NFKD) and its
+    accents (the combining marks) are left out, so fr_ffg_floréal is spelt
+    fr_ffg_floreal. An id that is ASCII already keeps its name. A letter with
+    no plain spelling that way stops the build rather than guessing one."""
+    plain = "".join(c for c in unicodedata.normalize("NFKD", uid)
+                    if not unicodedata.combining(c))
+    if not plain.isascii():
+        sys.exit(f"{uid}: no ASCII spelling for its stub's file name - "
+                 "spell it in stub_name() rather than ship a non-ASCII path")
+    return plain + STUB_SUFFIX
+
+
 def stub(uid, owner, nat, current, adds):
     added = [a for ids in adds.values() for a in ids]
     lines = [f"#!extend vessels/{uid}.ini", "",
-             f"# SEST Cross-Deck: {owner}'s {uid} ({nat}) lists {len(current)} type(s). It",
-             "# already flies one of each family below, so it operates the allied",
-             "# members too (the hull's own list is kept; only aircraft the enabled",
-             "# collection ships are added; read from the winning file at build):"]
+             f"# SEST Cross-Deck: {owner}'s {uid} ({nat}) lists {len(current)} type(s). It"]
+    fit, that = (("fit", "that") if len(adds.get(CAMPAIGN_FITS, [])) == 1
+                 else ("fits", "those"))
+    if list(adds) == [CAMPAIGN_FITS]:
+        # No family: "one of each family below" would be untrue here.
+        lines += [f"# takes the campaign {fit} below, which no family reaches: a campaign",
+                  f"# sells this deck and {that} aircraft together (the hull's own list",
+                  "# is kept; only aircraft the enabled collection ships are added;",
+                  "# read from the winning file at build):"]
+    elif CAMPAIGN_FITS in adds:
+        lines += ["# already flies one of each family below, so it operates the allied",
+                  f"# members too, and it takes the campaign {fit} listed last, which no",
+                  "# family reaches (the hull's own list is kept; only aircraft the",
+                  "# enabled collection ships are added; read from the winning file at",
+                  "# build):"]
+    else:
+        lines += ["# already flies one of each family below, so it operates the allied",
+                  "# members too (the hull's own list is kept; only aircraft the enabled",
+                  "# collection ships are added; read from the winning file at build):"]
     for fam, ids in adds.items():
         lines.append(f"#   {fam}: {', '.join(ids)}")
+    name = stub_name(uid)
+    if name != uid + STUB_SUFFIX:
+        lines += [f"# This file's name spells the hull id in ASCII ({name}); the",
+                  "# game applies the stub by the #!extend line above, whatever its name."]
     lines += ["", "[FlightDeck]",
               "AircraftSupported=" + ",".join(current + added), ""]
     return "\n".join(lines)
@@ -307,7 +403,7 @@ def main():
     (OUT / "_info.ini").write_text(INFO_INI, encoding="utf-8")
     out_dir = OUT / "vessels_overwrite"
     out_dir.mkdir(parents=True, exist_ok=True)
-    for stale in out_dir.glob("*_CrossDeck_SEST.ini"):
+    for stale in out_dir.glob("*" + STUB_SUFFIX):
         stale.unlink()
     print("SEST_Cross_Deck")
     rows = plan()
@@ -316,18 +412,29 @@ def main():
         sys.exit("AircraftSupported outside [FlightDeck] on: "
                  + ", ".join(f"{r[0]} ([{r[3]}])" for r in bad_section)
                  + " - the stub would set the key in the wrong section")
+    # Two hulls whose ids spell alike in ASCII, or differ only in case (one
+    # file on NTFS), would write one stub over the other.
+    spelt = {}
+    for uid, *_rest in rows:
+        other = spelt.setdefault(stub_name(uid).lower(), uid)
+        if other != uid:
+            sys.exit(f"{other} and {uid} would both write {stub_name(uid)} - "
+                     "spell one apart in stub_name()")
     table = ["SEST Cross-Deck - which allied aircraft each deck now operates",
              "", "Generated by integration/cross-deck/build_pack.py. A deck that already",
              "flies one member of an airframe family takes the allied members too;",
              "the hull's own list is kept. Nothing here changes a deck that already",
-             "accepts every helicopter or every carrier aircraft.", ""]
+             "accepts every helicopter or every carrier aircraft. A line headed",
+             f"\"{CAMPAIGN_FITS}\" lists what one campaign flies from that deck",
+             "and no family reaches (CAMPAIGN_DECK_TYPES).", ""]
     by_nation = collections.Counter()
     for uid, owner, nat, _sec, current, adds in rows:
-        (out_dir / f"{uid}_CrossDeck_SEST.ini").write_text(
-            stub(uid, owner, nat, current, adds), encoding="utf-8")
+        name = stub_name(uid)
+        (out_dir / name).write_text(stub(uid, owner, nat, current, adds), encoding="utf-8")
         by_nation[nat] += 1
         added = [a for ids in adds.values() for a in ids]
-        table.append(f"{uid} ({nat}, {owner}): +{len(added)}")
+        table.append(f"{uid} ({nat}, {owner}): +{len(added)}"
+                     + ("" if name == uid + STUB_SUFFIX else f"  [file {name}]"))
         for fam, ids in adds.items():
             table.append(f"    {fam}: {', '.join(ids)}")
         print(f"  {uid:40} {nat:12} +{len(added):2}  "

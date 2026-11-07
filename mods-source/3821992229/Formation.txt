@@ -1,0 +1,3 @@
+Formation spacing
+
+Enable Anchor Chain for the formation spacing repair, then restart Sea Power. Valid Loose layouts retain their positions. Collapsed layouts receive separated stations, and spacing changes apply when ordered.

@@ -171,7 +171,7 @@ class CompatibilityBuild(unittest.TestCase):
                 fields = entries[(kind, item["target"].casefold())]["fields"]
                 self.assertEqual(fields[KINDS[kind][2]], item["estimate"].get("historical", ""))
                 self.assertEqual(fields["CurrentYearCost"], item["estimate"]["current"])
-        self.assertEqual(count, 115)
+        self.assertEqual(count, 116)    # 28 Oct 2026: + usaf_b-21_raider
 
     def test_refuted_and_unshipped_research_carries_no_price(self):
         for item in self.research["items"]:

@@ -1,0 +1,3 @@
+Steelfin loadout
+
+Select Steelfin in the aircraft loadout list. The interceptor and its resources are included. Existing loadouts and weapons remain available.

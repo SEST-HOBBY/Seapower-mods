@@ -235,11 +235,13 @@ function Get-LogExcerpt {
 }
 
 # --- Mods marked compatible (tools\mark-mods-compatible.ps1) -----------------
-# The Mod Manager warns at start-up about every mod whose _info.ini declares an
-# ApproximateVersion whose MAJOR.MINOR differs from the game's. On the gaming
-# PC, mark-mods-compatible.ps1 rewrites that one line in each such mod's
-# Workshop folder and keeps the author's file here. The exporter reads the
-# author's copy back from here, so mods-source stays a faithful mirror.
+# The Mod Manager warns at start-up about every mod whose _info.ini the game
+# does not accept: most of them declare an ApproximateVersion made for an
+# older game version (the rule is in integration/campaign/setup/sest-setup.ps1,
+# above its Compat* functions). On the gaming PC, mark-mods-compatible.ps1
+# rewrites that one value in each such mod's Workshop folder and keeps the
+# author's file here. The exporter reads the author's copy back from here, so
+# mods-source stays a faithful mirror.
 $SestCompatMarker = '; SEST marked this mod compatible'
 
 function Get-CompatBackupDir {

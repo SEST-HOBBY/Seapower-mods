@@ -84,6 +84,15 @@ class CompleteCatalog(unittest.TestCase):
         model,_=select_model('weapon','new_155mm_laser',{'general':{'type':'Projectile','mass':'45'}})
         self.assertNotEqual(model,'none')
 
+    def test_hand_launched_mini_uav_is_a_small_uav_not_a_fighter(self):
+        # fr_aliaca (Charles De Gaulle & Modern French Navy, 28 Oct 2026): EmptyMass=13.0,
+        # Role=Recon and no "uav" in its id, so the fighter proxy ($75M) took it.
+        model,_=select_model('aircraft','fr_aliaca',{'general':{'unittype':'Aircraft','emptymass':'13.0','role':'Recon'}})
+        self.assertEqual(model,'small_uav')
+        row=self.rows['aircraft','fr_aliaca']
+        self.assertEqual(row['completion']['model'],'small_uav')
+        self.assertEqual(costs.price(row['current']),2000000)
+
     def test_pod_is_hardware_not_seven_missiles(self):
         pod=self.rows['weapon','sest_agr-30_pod']
         missile=self.rows['weapon','sest_agr-30']
@@ -131,6 +140,24 @@ class CompleteCatalog(unittest.TestCase):
     def test_category_validator_matches_tracker_character_rule(self):
         item={'target':'x','basis':'test','category':'SAM/','estimate':{'current':'1','current_year':'2026','current_method':'model estimate'},'sources':[{'title':'test','url':'https://example.org'}]}
         with self.assertRaises(ValueError):costs.estimate_fields('weapon',item)
+
+    def test_b21_raider_is_priced_as_a_bomber_with_its_rounds_mapped(self):
+        # B-21 Raider (3821992229, in the order since the 28 Oct 2026 export): Role=HeavyBomber,Bomber
+        # and no bomber rule in select_model, so without its mapping the fighter proxy ($75M) took it.
+        row=self.rows['aircraft','usaf_b-21_raider']
+        self.assertEqual((row['historical'],row['current']),('550000000','692000000'))
+        self.assertEqual(row['field_methods']['current'],'existing usable value preserved')
+        for uid,donor in [('usaf_b21_agm-158b','usn_agm-158b-2'),('usaf_b21_agm-158c','b-2_lrasm'),
+                          ('usaf_b21_gbu-31','usn_gbu-31v1'),('usaf_b21_gbu-38','usn_gbu-38_10')]:
+            row,source=self.rows['weapon',uid],self.rows['weapon',donor]
+            self.assertEqual((row['historical'],row['current']),(source['historical'],source['current']),uid)
+            self.assertEqual(row['field_sources']['current'],'reviewed catalog mapping: '+donor,uid)
+        # No tracker Mk 82 exists and the 24 Oct check would not copy SEST's usn_mk-82 donor:
+        # the general-purpose bomb model, labelled, as on the game's Mk 82 Snakeye.
+        mk82=self.rows['weapon','usaf_b21_mk-82']
+        self.assertEqual((mk82['completion']['model'],mk82['field_methods']['current']),('unguided_bomb','rough model'))
+        # Its byte-identical usn_steelfin_air loses to Steelfin's own copy, which keeps its price.
+        self.assertEqual(self.rows['weapon','usn_steelfin_air']['owner'],'3820576916')
 
 
 class PriceParity(unittest.TestCase):

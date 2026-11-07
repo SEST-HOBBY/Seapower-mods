@@ -11,7 +11,8 @@ texture or asset bundle among them — with one exception: SEST RAAF F-35A JATM
 carries the RAAF F-35A's own model, textures and livery, because its Workshop
 mod was removed and the campaigns fly it (see `mods-source/_retired/README.md`). Only the campaign pack adds anything else:
 its campaign pages, briefing maps, art, mod lists and the player's SETUP
-(`SETUP - double-click me.cmd` and `sest-setup.ps1`). Check it yourself (the
+(`SETUP - double-click me.cmd`, `sest-setup.ps1` and its key helper
+`sest-ui-keys.ps1`). Check it yourself (the
 filter leaves out the campaign pack and the built `dist` copy):
 
 ```powershell
@@ -79,7 +80,11 @@ The packs install as **one folder**, `SEST_Integration`, under
 `StreamingAssets`, exactly like a workshop mod, and never write into the game's
 own files; only the player's SETUP the pack carries adds anything beside them,
 the Anchor Chain preloader next to `Sea Power.exe` when it is missing. SETUP
-also switches off one mod's debug logging and, like `set-mod-order.ps1`,
+also switches off one mod's debug logging, marks the listed mods made for an
+older game version compatible (one `_info.ini` value each, the author's
+file kept), unbinds Contact Log's default F6/F8 keys (they clash with
+Topographic Map's F6 and Coordinated Strike Tool's F8 planner) when that
+mod's settings file exists, and, like `set-mod-order.ps1`,
 rewrites `[LoadOrder]` after a backup. `tools/consolidate_packs.py` builds it from
 every source pack; Sea Power's Mod Manager lists it as one entry, SEST
 Integration Pack, beside the workshop entries, and it takes part in the same
@@ -424,9 +429,9 @@ press Enter once more.
   if (Get-Process -Name 'Sea Power', 'SeaPower' -ErrorAction SilentlyContinue) { throw 'Sea Power is running - exit it first' }
   Set-Location -LiteralPath 'C:\Users\rolyl\Seapower-mods'
   if (git status --short) { throw 'The clone has uncommitted changes - stop and report them' }
-  git checkout sest-dev/loving-bell-3cnvvw
+  git checkout sest-dev/jolly-ride-rptj4t
   if ($LASTEXITCODE) { throw 'checkout failed' }
-  git pull --ff-only origin sest-dev/loving-bell-3cnvvw
+  git pull --ff-only origin sest-dev/jolly-ride-rptj4t
   if ($LASTEXITCODE) { throw 'pull refused - stop and report it' }
   powershell -ExecutionPolicy Bypass -File .\tools\export-mod-configs.ps1 -IncludeVanilla
   if ($LASTEXITCODE) { throw 'export failed - read its last lines; nothing has been committed' }
@@ -438,7 +443,7 @@ press Enter once more.
   git add -A data\install-snapshot
   git commit -m 'Install snapshot after the Sea Power update'
   if ($LASTEXITCODE) { throw 'nothing to commit - the capture wrote nothing new' }
-  git push origin sest-dev/loving-bell-3cnvvw
+  git push origin sest-dev/jolly-ride-rptj4t
   if ($LASTEXITCODE) { throw 'push failed' }
   Get-Content -LiteralPath data\install-snapshot\changelog.live.txt -TotalCount 8
   Get-Content -LiteralPath data\install-snapshot\game-build.txt
@@ -461,6 +466,39 @@ lines it prints are the new changelog head, whose `dd-Mon-yyyy: X.Y.Z Build
 #N` line is the version everything below works from, and Steam's build
 record. Report both. If a campaign is under way, add `-IncludeSaves` to the
 capture line before running it; the save paragraph below says why.
+
+**When the PC is on Steam's public beta.** The pack targets the stable
+game, 0.8.7 Build 261021, until the beta becomes the release on 11 Nov
+2026, and `mods-source/_vanilla` must keep holding that build: the builders
+fork it and the gates compare against it. An export with `-IncludeVanilla`
+on a beta PC writes the beta's files over it, which is what the 28 Oct 2026
+capture did (1,031 changed files, one added file and `changelog.txt`, put
+back by 9b382fd8). The
+changelog head in `data/install-snapshot/changelog.live.txt` says which
+build is installed: `Build 261026` is the beta. On the beta, run this block
+without `-IncludeVanilla` on the export line, or, if it has already run,
+put the vanilla export back to the committed build before the first commit:
+
+```powershell
+& { $ErrorActionPreference = 'Stop'
+  Set-Location -LiteralPath 'C:\Users\rolyl\Seapower-mods'
+  git checkout -- mods-source/_vanilla/original mods-source/_vanilla/changelog.txt
+  if ($LASTEXITCODE) { throw 'restore failed - stop and report it' }
+  git clean -fdq -- mods-source/_vanilla/original
+  git status --short -- mods-source/_vanilla/original mods-source/_vanilla/changelog.txt
+}
+```
+
+`git clean` there removes only files the beta added under
+`_vanilla/original`, such as `missions/Demo/AircraftEditorMission.ini` on
+the 28 Oct capture; the last line should print nothing. The export also
+writes the rest of the StreamingAssets text tree into `_vanilla`, so
+`git status --short -- mods-source/_vanilla` may still list files outside
+`original/`. `user/controls.ini` is your own key bindings and stays as you
+have it, as 9b382fd8 kept it; put any other one back with
+`git checkout -- <path>`. A beta export
+belongs to the beta work (the 28 Oct one is on the owner's
+`chore/workshop-refresh-20261028` at `f590fb8c`), never in `_vanilla`.
 
 **What the export cannot tell you: files the game removed.** The per-mod
 export mirrors deletions; the vanilla export does not.
@@ -526,7 +564,7 @@ quit it, then:
   git commit -m "chore: capture workshop refresh $(Get-Date -Format yyyy-MM-dd)"
   git push -u origin $b
   if ($LASTEXITCODE) { throw 'push failed' }
-  git checkout sest-dev/loving-bell-3cnvvw                 # back to the deploy branch for play
+  git checkout sest-dev/jolly-ride-rptj4t                 # back to the deploy branch for play
 }
 ```
 
@@ -553,6 +591,51 @@ catalog) side by side, and what changed since the previous capture - facts
 only, for the review to judge. Nothing on the refresh branch is merged; it is
 read by the next pass.
 
+**On the public beta**, take the `-IncludeVanilla` line out of the block
+above (the Workshop mods export the same either way), or run the restore
+block in *On the PC* above before `git add`: the pack targets Build 261021
+until the 11 Nov 2026 release, and a beta export in `mods-source/_vanilla`
+would move every builder and gate onto the beta.
+
+**The same capture in one command.** `tools\capture-all-mod-updates.ps1`
+runs the steps of the block above in order: the capture with `-Redact`,
+the read-only update check into `workshop-updates.txt`, the Workshop
+export, then `fingerprint_mods.py`, `workshop_refresh_summary.py` and
+`check_inventory.py`. It never runs the export with `-IncludeVanilla`, so
+it is safe on the beta as it stands. It also writes a review ZIP outside the
+clone (by default `Downloads\SEST-Workshop-Capture-<date-time>.zip`) with
+the changed and new mod files, the snapshot's key files, the inventory
+report and a README naming any stage that failed; a failed stage does not
+stop the later ones. It refuses to start with the game running, on the
+deploy branch, or with uncommitted changes. It never commits, pushes,
+uploads or publishes, never builds, copies or installs a DLL, and only
+reads Steam, the game folder, BepInEx and the Workshop folders; what it
+writes is `data\install-snapshot\`, the Workshop mods' folders in
+`mods-source\` and `data\mod-fingerprints.json`. The block below commits
+and pushes what was captured, partial or not: a failed stage prints
+`SEST CAPTURE PARTIAL` but does not stop the block, and the ZIP's README
+lists the stage that failed, so send the ZIP either way:
+
+```powershell
+& { $ErrorActionPreference = 'Stop'
+  Set-Location -LiteralPath 'C:\Users\rolyl\Seapower-mods'
+  $b = 'chore/workshop-refresh-YYYYMMDD'                  # the branch Claude made
+  git fetch origin $b
+  if ($LASTEXITCODE) { throw 'fetch failed - is the branch name right?' }
+  git checkout -B $b "origin/$b"
+  powershell -ExecutionPolicy Bypass -File .\tools\capture-all-mod-updates.ps1
+  if ($LASTEXITCODE) { throw 'capture refused or failed - read its last lines; nothing has been committed' }
+  git add -A mods-source data\install-snapshot data\mod-fingerprints.json
+  git commit -m "chore: capture workshop refresh $(Get-Date -Format yyyy-MM-dd)"
+  git push -u origin $b
+  if ($LASTEXITCODE) { throw 'push failed' }
+  git checkout sest-dev/jolly-ride-rptj4t                 # back to the deploy branch for play
+}
+```
+
+The push is the block's own last step, as above, not the script's. Send the
+ZIP too when the review needs the files without the branch.
+
 ### In the repo: read the drift, bump the version, rebuild, gate, document, push
 
 1. **Note the baseline, then merge the deploy branch.** The drift tool's
@@ -562,7 +645,7 @@ read by the next pass.
    ```bash
    git log -1 --format=%h -- mods-source/_vanilla/original   # the drift baseline: a4d3c1c1 on 2 Oct 2026
    git fetch origin
-   git merge origin/sest-dev/loving-bell-3cnvvw
+   git merge origin/sest-dev/jolly-ride-rptj4t
    ```
 
    The PC's two commits touch `mods-source/` and `data/install-snapshot/`,
@@ -620,13 +703,20 @@ read by the next pass.
    Then read `data/install-snapshot/player.log` for `[SEST Runtime]`. SEST's
    own runtime plugin is matched to one game assembly and fails closed on
    any other: `inactive: uninspected native assembly <hash>` means the
-   update changed `Seapower-Scripts.dll` and both of its corrections are
-   off. No gate notices this. Do not add the new hash unverified: the
-   steps, from the PC export (`tools/export-map-diagnostics.ps1
-   -IncludeGameAssembly`) to `build_plugin.py`, are in
-   `integration/runtime-fixes/README.md`, and until they are done nothing
-   player-facing may claim either correction (0.8.7: off from its release
-   on 21 Oct 2026, matched on 23 Oct).
+   update changed `Seapower-Scripts.dll` and its corrections are off, and
+   SEST UI Follow-up (`plugins/SEST.ContactsFix.dll`) logs `inactive;
+   original behavior retained` with it. No gate notices this. Do not add
+   the new hash unverified: the steps, from the PC export
+   (`tools/export-map-diagnostics.ps1 -IncludeGameAssembly`) to
+   `build_plugin.py`, are in `integration/runtime-fixes/README.md`, and
+   until they are done nothing player-facing may claim the corrections
+   (0.8.7: off from its release on 21 Oct 2026, matched on 23 Oct). Since
+   28 Oct 2026 the shipped runtime is 1.5.0, a binary captured from the
+   owner's PC whose source is not in the repository: it cannot be re-gated
+   until that source is recovered, and `build_plugin.py` refuses to replace
+   it with the 1.2.0 fork base (`--replace-captured-binary` would). Any new
+   runtime file also needs UI Follow-up rebuilt against its hash
+   (`integration/ui-followup/README.md`).
 
 4. **Rebuild everything.**
 

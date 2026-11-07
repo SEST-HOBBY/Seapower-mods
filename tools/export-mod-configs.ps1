@@ -167,7 +167,11 @@ if ($CheckUpdates) {
         $fp = Get-ModFingerprint $mod.FullName
         if (-not $fp) { continue }
         $name = Get-ModDisplayName -ModDir $mod.FullName
-        $known = $baseline.($mod.Name)
+        # PowerShell 5.1 StrictMode throws when a newly subscribed ID is
+        # absent from the previous JSON object. Access the property collection
+        # directly so an unknown ID is treated as a NEW mod, not an error.
+        $record = $baseline.PSObject.Properties[$mod.Name]
+        $known = if ($null -ne $record) { $record.Value } else { $null }
         if (-not $known) {
             $fresh += [pscustomobject]@{ Id = $mod.Name; Name = $name }
         } elseif ($known.fingerprint -ne $fp) {
@@ -215,15 +219,15 @@ if ($CheckUpdates) {
 # Re-exporting output into the input is circular; the folder is skipped here
 # so it cannot come back on the next run. The ids are $SestOwnWorkshopIds in
 # lib\common.ps1, shared with sync-sest.ps1 and set-mod-order.ps1.
-$modDirs = Get-ChildItem -LiteralPath $WorkshopContentDir -Directory |
-    Where-Object { $SestOwnWorkshopIds -notcontains $_.Name }
-$skipped = (Get-ChildItem -LiteralPath $WorkshopContentDir -Directory |
+$modDirs = @(Get-ChildItem -LiteralPath $WorkshopContentDir -Directory |
+    Where-Object { $SestOwnWorkshopIds -notcontains $_.Name })
+$skipped = @(Get-ChildItem -LiteralPath $WorkshopContentDir -Directory |
     Where-Object { $SestOwnWorkshopIds -contains $_.Name }).Count
 if ($skipped) { Write-Host "Skipping $skipped SEST-published item(s) - this project's own output." }
 Write-Host "Exporting text configs from $($modDirs.Count) workshop items..."
 foreach ($mod in $modDirs) {
-    $files = Get-ChildItem -LiteralPath $mod.FullName -Recurse -File |
-        Where-Object { $TextExtensions -contains $_.Extension.ToLower() -and $_.Length -le $MaxFileBytes }
+    $files = @(Get-ChildItem -LiteralPath $mod.FullName -Recurse -File |
+        Where-Object { $TextExtensions -contains $_.Extension.ToLower() -and $_.Length -le $MaxFileBytes })
     $copied = 0; $bytes = 0
     $kept = @{}
     foreach ($f in $files) {
@@ -285,8 +289,8 @@ if ($IncludeVanilla) {
             Where-Object { $_.Name -eq "StreamingAssets" } | Select-Object -First 1
         if ($sa) {
             $vanillaDest = Join-Path $DestDir "_vanilla"
-            $files = Get-ChildItem -LiteralPath $sa.FullName -Recurse -File |
-                Where-Object { $TextExtensions -contains $_.Extension.ToLower() -and $_.Length -le $MaxFileBytes }
+            $files = @(Get-ChildItem -LiteralPath $sa.FullName -Recurse -File |
+                Where-Object { $TextExtensions -contains $_.Extension.ToLower() -and $_.Length -le $MaxFileBytes })
             foreach ($f in $files) {
                 $rel = $f.FullName.Substring($sa.FullName.Length).TrimStart('\', '/')
                 # Skip the installed SEST packs - they are generated from this

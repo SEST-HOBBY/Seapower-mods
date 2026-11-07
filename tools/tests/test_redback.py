@@ -173,18 +173,43 @@ class SeahawkMounts(unittest.TestCase):
                 self.assertEqual([x for x in text.splitlines() if "RedbackH60" in x], [])
 
     def test_s70_pod_is_the_penguin_sized_7_tube_on_its_station(self):
-        # The Penguin hangs between the four Hellfire rails, 0.345 m apart.
-        # The 19-tube pod's outer tubes alone sit 0.48 m apart; the 7-tube
-        # pod's 0.22 m, inside the Penguin's own envelope. Whether the drawn
-        # launcher (AGM-114_Rails) should stay, the loadout preview decides
-        # (provisional, 23 Oct 2026): this does not pin it either way.
-        for uid in ("ran_S-70B-2_Seahawk", "S-70B-2_Seahawk"):
+        # 3403661005's S-70B-2 hangs its Penguin between the four Hellfire
+        # rails, 0.345 m apart, on Station9. The 19-tube pod's outer tubes
+        # alone sit 0.48 m apart; the 7-tube pod's 0.22 m, inside the
+        # Penguin's own envelope. Whether the drawn launcher (AGM-114_Rails)
+        # should stay, the loadout preview decides (provisional, 23 Oct
+        # 2026): this does not pin it either way. Euromod RAN's S-70B-2 is
+        # the SH-60 model since the 28 Oct 2026 export, its Penguin on the
+        # model's own Station10 (the owner's decision of 30 Oct 2026).
+        for uid, station in (("ran_S-70B-2_Seahawk", 10), ("S-70B-2_Seahawk", 9)):
             with self.subTest(uid=uid):
                 text = built(uid)
                 body = fit(text)
-                self.assertEqual(stations(body, redback.POD), [9])
+                self.assertEqual(stations(body, redback.POD), [station])
                 self.assertNotIn(redback.POD19, body)
                 self.assertNotIn("|MK46", body)
+
+    def test_ran_s70_fit_is_its_donor_with_the_pod_for_the_penguin(self):
+        # The author's AntiShip fit, line for line, with only the Penguin
+        # line changed: the tank on Station2, the M299 launcher hidden and
+        # the Penguin arm drawn as the author wrote them. The pod takes no
+        # seat, as the Penguin had none, so it hangs at Station10's own
+        # point - the model's Penguin station, which the file still declares.
+        text = built("ran_S-70B-2_Seahawk")
+        blocks = dict(employment.weapon_blocks(text))
+        body = blocks["1" + redback.LOADOUT]
+        expected, n = re.subn(r"(?m)^Station10=usn_agm-119_air$",
+                              "Station10=" + redback.POD, blocks["1AntiShip"])
+        self.assertEqual(n, 1)
+        self.assertEqual(body, expected)
+        self.assertEqual(stations(body, "usn_sh60_tank"), [2])
+        self.assertEqual(hidden(body), ["H60_Pylon114"])
+        self.assertRegex(text, r"(?m)^NumberOfStations=10\b")
+        self.assertRegex(text, r"(?m)^Station10=-0\.033217,-0\.011856,0\.005389\b")
+        # Neither the old file's Penguin nor a Station9 line in the fit
+        # (Station9 is a sonobuoy rack on this model).
+        self.assertNotIn("knm_penguin_mk2", text)
+        self.assertNotRegex(body, r"(?m)^Station9=")
 
     def test_mq9_pods_hang_under_the_pylon_not_on_the_hellfire_launcher(self):
         for uid in ("usaf_mq-9a", "usaf_mq-9_er"):

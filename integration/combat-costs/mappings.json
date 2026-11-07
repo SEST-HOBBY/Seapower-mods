@@ -2886,6 +2886,26 @@
           "url": "https://www.secnav.navy.mil/fmc/fmb/Documents/22pres/OPN_BA3_Book.pdf"
         }
       ]
+    },
+    {
+      "target": "usaf_b21_agm-158b",
+      "source": "usn_agm-158b-2",
+      "basis": "AGM-158B JASSM-ER (B-21 Raider's internal land-attack round, 500 NM): the same AGM-158B as the author's usn_agm-158b-2 estimate; retain its 2014 reference basis"
+    },
+    {
+      "target": "usaf_b21_agm-158c",
+      "source": "b-2_lrasm",
+      "basis": "AGM-158C LRASM (B-21 Raider's internal anti-ship round, IR terminal, 200 NM): the same AGM-158C as the author's b-2_lrasm estimate (the B-2's LRASM); retain its 2018 reference basis"
+    },
+    {
+      "target": "usaf_b21_gbu-31",
+      "source": "usn_gbu-31v1",
+      "basis": "GBU-31(V)1/B JDAM (Mk 84 body, 925 kg), B-21 Raider: the same GBU-31(V)1/B as catalog usn_gbu-31v1; author JDAM complete-round model estimate, reference 2007"
+    },
+    {
+      "target": "usaf_b21_gbu-38",
+      "source": "usn_gbu-38_10",
+      "basis": "GBU-38/B JDAM (Mk 82 body), B-21 Raider: the same GBU-38 500-lb JDAM as catalog usn_gbu-38_10; author JDAM complete-round model estimate, reference 2007"
     }
   ],
   "aircraft": [
@@ -3205,6 +3225,33 @@
       "target": "usn_p8_2027",
       "source": "usn_p8",
       "basis": "Same P-8A Poseidon type; copies the author's P-8 estimate (reference 2021)"
+    },
+    {
+      "target": "usaf_b-21_raider",
+      "basis": "B-21 Raider: the Air Force's average procurement unit cost requirement for a 100-aircraft buy, USD 550M in base-year 2010 dollars, which the Air Force restates as USD 692M in 2022 dollars (B-21 fact sheet); a cost cap, not a contract price (lot prices are classified)",
+      "estimate": {
+        "historical": "550000000",
+        "historical_year": "2010",
+        "historical_method": "published price",
+        "current": "692000000",
+        "current_year": "2022",
+        "current_method": "published price",
+        "note": "Air Force fact sheet: APUC USD 550M (base year 2010), 639M (2019) and 692M (2022); current is the Air Force's own 2022 figure, no inflation applied"
+      },
+      "sources": [
+        {
+          "title": "U.S. Air Force, B-21 Raider fact sheet - search excerpt (two searches, 30 Oct 2026; www.af.mil was outside this session's network, so the page itself was not read)",
+          "url": "https://www.af.mil/About-Us/Fact-Sheets/Display/Article/2682973/"
+        },
+        {
+          "title": "The Aviationist, 'B-21 Raider's Price Likely To Increase For Additional Aircraft' (27 Jun 2024), quoting Northrop Grumman: on track for the APUC key performance parameter of USD 550M in base-year 2010 dollars - search excerpt",
+          "url": "https://theaviationist.com/2024/06/27/b-21-raiders-price-likely-to-increase-for-additional-aircraft/"
+        },
+        {
+          "title": "usaf_b-21_raider config (mod 3821992229)",
+          "url": "file:mods-source/3821992229/aircraft/usaf_b-21_raider.ini"
+        }
+      ]
     }
   ],
   "vessel": [
@@ -3862,6 +3909,26 @@
       "target": "usn_ddg_arleigh_flt2A_119_2027",
       "source": "usn_ddg_burke_f2a_119",
       "basis": "Alias of usn_ddg_burke_f2a_119, the same seven Flight IIA hulls (DDG-119 to 124 and 127): copies the author's Flight IIA construction-cohort estimate exactly, with no premium for the 2027 fit."
+    },
+    {
+      "target": "plan_type_054b_p1",
+      "source": "plan_ffg_type_054b",
+      "basis": "Type 054B Phase 1 (PLAN Pack, 3 Nov 2026 export): the same class as Red Storm Arsenal's plan_ffg_type_054b, which the tracker author's catalog prices"
+    },
+    {
+      "target": "plan_type_053h2g",
+      "source": "plan_type_053h3_p1",
+      "basis": "Type 053H2G (PLAN Pack, 3 Nov 2026 export): valued as the same mod's Type 053H3, its successor of the same frigate family, which the tracker author's catalog prices; a family comparator, not a class quote"
+    },
+    {
+      "target": "ko_hdf-3600",
+      "source": "ko_ffg-818",
+      "basis": "HDF-3600 (Euromod-HD Hyundai, 3 Nov 2026 export): a Korean export frigate design of about 3,600 tonnes, valued as the Daegu-class frigate the tracker author's catalog prices; a family comparator, not a contract price"
+    },
+    {
+      "target": "usn_bbg_ulysses_s_grant",
+      "source": "usn_bbg_trump",
+      "basis": "Red Storm Arsenal's fictional 2032 battleship (3 Nov 2026 export): valued as the same mod's usn_bbg_trump, the battleship the tracker author's catalog prices; not a design estimate"
     }
   ],
   "land": [
