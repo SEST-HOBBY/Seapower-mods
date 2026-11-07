@@ -62,7 +62,8 @@ static class AssemblyPolicyTests
                 inspected++; if (prepared != null) allowed++;
             }
             Check(inspected > 60 && allowed > 20, "Complete captured managed Workshop set passes metadata preparation without broad exclusion");
-            Check(messages.Any(x => x.Contains("OspreyDeckOps")), "Dependent Osprey deck code is rejected before loading its quarantined dependency");
+            Check(messages.Any(x => x.StartsWith("ADAPTED OspreyMechanics ")) && !messages.Any(x => x.Contains("OspreyDeckOps")),
+                "Dependent Osprey deck code is released once its OspreyMechanics dependency is adapted (R6)");
             Console.WriteLine("Metadata discovery: " + inspected + " other DLLs inspected, " + allowed + " plugin assemblies admitted; no plugin entrypoints executed.");
             Console.WriteLine("Assembly pre-load/Identify beta geometry checks passed: " + checks + "; no Unity gameplay.");
         } finally { if (Directory.Exists(cache)) Directory.Delete(cache, true); }
