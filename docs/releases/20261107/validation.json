@@ -231,5 +231,30 @@
     "r9_gameplay": "not run",
     "steam_published": false,
     "github_pushed": false
+  },
+  "r10_topography": {
+    "source_commit": "2e9c129acd67a2ac85a039b93335249479daadc3",
+    "capture": "SEST-Beta-References-20261108-235339-dedf89.zip",
+    "game_hash_unchanged": true,
+    "managed_and_upgrade_groups": 13,
+    "all_passed": true,
+    "api_assertions": 901,
+    "topography_assertions": 481,
+    "native_dem_values_checked": 65536,
+    "maximum_float_round_trip_difference_metres": 0.00390625,
+    "other_topography_method_bodies_unchanged": 388,
+    "upgrade_rollback_assertions": 65,
+    "data_install_restore_assertions": 24,
+    "canonical_upload_files_verified": 4326,
+    "canonical_data_and_code": "unchanged from reviewed 8 November snapshot",
+    "data_gates": "The 17 original data gates and 335/334 test suites are the preserved R8 results, not rerun for unchanged data.",
+    "restored": "Topographic Map 1.5.0 globe variant through a private, exact-hash adapter",
+    "still_held": "flat-map Topography and all other R9 feature holds",
+    "changed_payload_files": [
+      "AnchorChain.dll"
+    ],
+    "map_rendering": "not run; requires PC map check",
+    "steam_published": false,
+    "github_pushed": false
   }
 }
