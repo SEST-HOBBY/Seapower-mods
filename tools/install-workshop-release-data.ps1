@@ -55,10 +55,10 @@ $GameDirectory=(Resolve-Path -LiteralPath $GameDirectory).ProviderPath
 if(!$WorkshopContentRoot){$WorkshopContentRoot=J (Split-Path -Parent (Split-Path -Parent $GameDirectory)) 'workshop' 'content' '1286220'}
 $WorkshopContentRoot=(Resolve-Path -LiteralPath $WorkshopContentRoot).ProviderPath
 if((Split-Path -Leaf $WorkshopContentRoot) -ne '1286220'){throw 'WorkshopContentRoot must end in 1286220.'}
-if(!$BetaPackageRoot){throw 'Supply the extracted R7 repair directory with -BetaPackageRoot.'}
+if(!$BetaPackageRoot){throw 'Supply the extracted reviewed repair directory with -BetaPackageRoot.'}
 $receipt=Get-Content -LiteralPath (J $BetaPackageRoot 'payload' 'build-receipt.json') -Raw | ConvertFrom-Json
-if($receipt.candidate_revision -notmatch '^R[78]-'){throw 'This data playtest requires a reviewed R7 or R8 beta repair.'}
-if((Hash (J $GameDirectory 'Sea Power_Data' 'Managed' 'Seapower-Scripts.dll')) -ne $receipt.target_game_sha256){throw 'Game build differs from R7.'}
+if($receipt.candidate_revision -notmatch '^R[789]-'){throw 'This data playtest requires a reviewed R7, R8 or R9 beta repair.'}
+if((Hash (J $GameDirectory 'Sea Power_Data' 'Managed' 'Seapower-Scripts.dll')) -ne $receipt.target_game_sha256){throw 'Game build differs from the reviewed repair.'}
 $destination=J $WorkshopContentRoot '3812461539'
 $code=[ordered]@{
     'SEST.RuntimeFixes.dll'=(J $destination 'plugins' 'SEST.RuntimeFixes.dll')

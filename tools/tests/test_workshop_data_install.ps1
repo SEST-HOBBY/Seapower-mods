@@ -22,7 +22,7 @@ try {
         'SEST.BetaSafeBootstrap.dll'=(J $game 'BepInEx' 'plugins' 'SEST.BetaSafeBootstrap.dll')
     }
     $hashes=[ordered]@{};foreach($n in $code.Keys){Put $code[$n] ('R7 '+$n);$hashes[$n]=Sha $code[$n]}
-    $receipt=@{candidate_revision='R8-fixture';target_game_sha256=(Sha $gameDll);files=$hashes}
+    $receipt=@{candidate_revision='R9-fixture';target_game_sha256=(Sha $gameDll);files=$hashes}
     Put (J $package 'payload' 'build-receipt.json') ($receipt|ConvertTo-Json -Depth 5)
     $prefix=$source+[IO.Path]::DirectorySeparatorChar
     $files=@(Get-ChildItem -LiteralPath $source -Recurse -File|ForEach-Object{@{path=$_.FullName.Substring($prefix.Length).Replace('\','/');bytes=$_.Length;sha256=(Sha $_.FullName)}})

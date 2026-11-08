@@ -194,5 +194,42 @@
     ],
     "profile_disabled": "ExtendedGuidance",
     "gameplay": "not run"
+  },
+  "r9_follow_up": {
+    "source_commit": "ffec5d5b2cda8fe66b52b41d90dbaf5f446657e7",
+    "source_capture": "SEST-Beta-References-20261108-222324-bde4bd.zip",
+    "source_capture_created_utc": "2026-11-08T12:23:24.3950953Z",
+    "pc_game_label": "0.8.7-261107",
+    "game_hash_unchanged_from_r8": true,
+    "verified_reference_files": 331,
+    "managed_and_upgrade_groups": 13,
+    "all_managed_and_upgrade_groups_passed": true,
+    "api_assertions": 419,
+    "r8_upgrade_rollback_assertions": 65,
+    "data_install_restore_fixture": "PASS, 24 assertions with R9 receipt",
+    "canonical_upload_verification": "PASS, all 4326 files; canonical data/code unchanged",
+    "prior_data_gates": "The 17 data-release gates and 335/334 test suites above are the preserved R8 results; not rerun for the unchanged data snapshot.",
+    "changed_payload_files": [
+      "AnchorChain.dll",
+      "SEST.BetaSafeBootstrap.dll"
+    ],
+    "unchanged_payload_files": [
+      "SEST.RuntimeFixes.dll",
+      "SEST.ContactsFix.dll",
+      "SEST.IdentifyDataPaths.dll"
+    ],
+    "feature_holds": [
+      "Exterior Cameras",
+      "K5 Kraken contact strike",
+      "XQ-58 shadow contacts",
+      "Alpine scoped runtime fixes",
+      "MV-75/Cheyenne II systems",
+      "EC-2 comms jamming",
+      "MV-75 crew escape"
+    ],
+    "optional_feature_hold": "Optimal Target Distance AAW interception; Ready=false, native target rules retained",
+    "r9_gameplay": "not run",
+    "steam_published": false,
+    "github_pushed": false
   }
 }
