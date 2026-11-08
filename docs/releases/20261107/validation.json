@@ -11,7 +11,7 @@
         "integration/campaign/test_playtest_revision.py"
       ],
       "exit_code": 0,
-      "seconds": 50.67
+      "seconds": 49.32
     },
     {
       "name": "tools-tests",
@@ -25,7 +25,7 @@
         "test_*.py"
       ],
       "exit_code": 0,
-      "seconds": 124.68
+      "seconds": 125.32
     },
     {
       "name": "check_pack_fidelity",
@@ -33,7 +33,7 @@
         "tools/check_pack_fidelity.py"
       ],
       "exit_code": 0,
-      "seconds": 2.76
+      "seconds": 2.58
     },
     {
       "name": "check_campaign_coverage",
@@ -41,7 +41,7 @@
         "tools/check_campaign_coverage.py"
       ],
       "exit_code": 0,
-      "seconds": 14.45
+      "seconds": 16.52
     },
     {
       "name": "check_dependencies",
@@ -49,7 +49,7 @@
         "tools/check_dependencies.py"
       ],
       "exit_code": 0,
-      "seconds": 14.68
+      "seconds": 14.78
     },
     {
       "name": "check_load_order",
@@ -57,7 +57,7 @@
         "tools/check_load_order.py"
       ],
       "exit_code": 0,
-      "seconds": 0.29
+      "seconds": 0.36
     },
     {
       "name": "preflight",
@@ -66,7 +66,7 @@
         "--all"
       ],
       "exit_code": 0,
-      "seconds": 116.26
+      "seconds": 117.29
     },
     {
       "name": "check_weapon_employment",
@@ -74,7 +74,7 @@
         "tools/check_weapon_employment.py"
       ],
       "exit_code": 0,
-      "seconds": 11.8
+      "seconds": 11.88
     },
     {
       "name": "check_alias_bases",
@@ -82,7 +82,7 @@
         "tools/check_alias_bases.py"
       ],
       "exit_code": 0,
-      "seconds": 13.75
+      "seconds": 13.41
     },
     {
       "name": "check_scenarios",
@@ -124,7 +124,7 @@
         "1bda58a6"
       ],
       "exit_code": 0,
-      "seconds": 1.98
+      "seconds": 1.95
     },
     {
       "name": "check_combat_costs",
@@ -132,7 +132,7 @@
         "tools/check_combat_costs.py"
       ],
       "exit_code": 0,
-      "seconds": 7.68
+      "seconds": 7.76
     },
     {
       "name": "world",
@@ -141,7 +141,7 @@
         "integration/world-sandbox/SEST_World_Campaign/dynamic_campaigns/sest-world-sandbox/campaign.json"
       ],
       "exit_code": 0,
-      "seconds": 3.61
+      "seconds": 3.89
     },
     {
       "name": "regional",
@@ -150,46 +150,49 @@
         "integration/world-sandbox/SEST_World_Campaign/dynamic_campaigns/sest-world-regions-2028/campaign.json"
       ],
       "exit_code": 0,
-      "seconds": 3.88
+      "seconds": 3.93
     }
   ],
-  "full_from_scratch_build": "All 25 packs built and consolidated from scratch after the 7 November capture, alias-aware roster nation fix and saved-hull price fix.",
   "gameplay": "not run",
-  "file_count": 4326,
-  "workshop_capture": "7 November 2026",
-  "ui_version": "1.4.6",
-  "ui_checks": {
-    "input": 45,
-    "formation": 112,
-    "performance": 3768,
-    "compass": 41,
-    "terrain": 12,
-    "price_cache": 1454,
-    "actual_runtime_and_author_bridge_checks": 1085,
-    "actual_popout_113_tested": true,
-    "actual_tracker_080_tested": true,
-    "stable_tracker_gameapi_and_vesselapi_bindings": "passed",
-    "unity_rendering": "not run"
-  },
+  "full_from_scratch_build": "All 25 packs rebuilt and consolidated from the 8 November configuration capture. Final startup profile copied byte-for-byte from its source, as the campaign builder does.",
+  "source_capture": "SEST-Workshop-Capture-20261108-200546-FULL.zip",
+  "source_capture_date": "2026-11-08",
+  "capture_stage_problems": 0,
+  "changed_or_new_files": 94,
+  "explicit_deletions": 14,
+  "unchanged_dll_hash_records": 110,
+  "canonical_files": 4326,
   "test_suites": {
-    "tools-tests": "335",
-    "campaign-tests": "334"
+    "tools-tests": 335,
+    "campaign-tests": 334
   },
-  "r7": {
-    "source_commit": "27eaf34633d06334cf8cd0d28633182a6f8b08f2",
-    "target_build": "261106",
-    "verification_groups": 13,
-    "current_admitted_author_images": 64,
+  "canonical_code": {
+    "runtime": "1.5.0",
+    "ui": "1.4.6",
+    "unchanged_from_previous_release": true,
+    "native_rendering": "not run"
+  },
+  "r8": {
+    "source_commit": "1026fbfa15d1e6a48970e69fc09b1cc8dc110068",
+    "target_game_sha256": "499675cda59912054924ae42297bce7a82b12ca00957dabd684105a24aa353a9",
+    "native_steam_build_id": "26502734",
+    "noesis_sha256": "7b1fd6a6b90d0692297906f5907a1b4a2072bf3bf25a983b36aaa5b5c043ebdd",
+    "runtime": "1.5.5",
+    "ui": "1.4.8",
+    "verification_groups": 14,
+    "admitted_author_images": 64,
     "resolved_native_operands": 11504,
+    "api_regression_assertions": 347,
     "r3_upgrade_rollback_assertions": 65,
-    "new_data_install_restore_assertions": 24,
-    "gameplay": "not run",
+    "r7_upgrade_rollback_assertions": 65,
+    "data_install_restore_assertions": 24,
     "held_plugins": [
       "EnhancedDecoyMod",
       "SeaPowerTopo",
       "SeaPowerTopoFlat",
       "MultiStageMissiles"
     ],
-    "profile_disabled": "ExtendedGuidance"
+    "profile_disabled": "ExtendedGuidance",
+    "gameplay": "not run"
   }
 }

@@ -134,9 +134,9 @@ Not sold (30):
 | `usaf_b-2_spirit` | no air-tasking row in this campaign takes it |
 | `usaf_b-1b_dts` | no air-tasking row in this campaign takes it |
 | `dts_b-52h` | no air-tasking row in this campaign takes it |
-| `usaf_e-3g` | a row takes its role but offers none of its fits: Recon: sells usaf_e-3g into this flight, and it defines none of ASW/AntiShip/ASWLongRange/ASWHunter/SEST_REDBACK (has: AEW) |
+| `usaf_e-3g` | a row takes its role but offers none of its fits: Recon: sells usaf_e-3g into this flight, and it defines none of ASW/AntiShip/Default/ASWLongRange/ASWHunter/SEST_REDBACK (has: AEW) |
 | `usaf_kc-46a_warp` | no air-tasking row in this campaign takes it |
-| `usn_e-2d` | a row takes its role but offers none of its fits: Recon: sells usn_e-2d into this flight, and it defines none of ASW/AntiShip/ASWLongRange/ASWHunter/SEST_REDBACK (has: Recon) |
+| `usn_e-2d` | a row takes its role but offers none of its fits: Recon: sells usn_e-2d into this flight, and it defines none of ASW/AntiShip/Default/ASWLongRange/ASWHunter/SEST_REDBACK (has: Recon) |
 | `usaf_f-15ex_SEII` | no field or deck in reach in Southern Cross CAP, Tasman Crossing CAP |
 | `usaf_ac-130j` | a row takes its role but offers none of its fits: CAP: sells usaf_ac-130j into this flight, and it defines none of AirToAir/AirToAirStealth/MurderHornetCAP/MurderHornetInterceptor/SEST_SEAD120D/MurderHornetPenetrator (has: Default) |
 | `usaf_f-16cm-bl52d` | no field or deck in reach in Southern Cross CAP, Tasman Crossing CAP |
@@ -144,7 +144,7 @@ Not sold (30):
 | `usmc_uh-1y` | no air-tasking row in this campaign takes it |
 | `rn_merlin_hm2` | no field or deck in reach in Beneath the South HeloRecon, Beneath the South Recon, Cold Route HeloRecon, Cold Route Recon, Last Ship South HeloRecon, Macquarie Passage HeloRecon, Macquarie Passage Recon, Search Datum HeloRecon, Search Datum Recon, Southern Cross HeloRecon, Southern Cross Recon, Southern Departure HeloRecon, Southern Line HeloRecon, Tasman Crossing HeloRecon, Tasman Crossing Recon |
 | `rn_wildcat` | no field or deck in reach in Approaches Recon, Beneath the South Recon, Broken Supply Line Recon, Chatham Watch Recon, Cold Route Recon, Cook Strait Recon, Great Australian Bight Recon, Home Waters Recon, Macquarie Passage Recon, Search Datum Recon, Southern Air Bridge Recon, Southern Cross Recon, Tasman Crossing Recon, The Southern Convoy Recon, The Twelve-Mile Line Recon, Turning North Recon |
-| `fr_e2d` | a row takes its role but offers none of its fits: Recon: sells fr_e2d into this flight, and it defines none of ASW/AntiShip/ASWLongRange/ASWHunter/SEST_REDBACK (has: Recon) |
+| `fr_e2d` | a row takes its role but offers none of its fits: Recon: sells fr_e2d into this flight, and it defines none of ASW/AntiShip/Default/ASWLongRange/ASWHunter/SEST_REDBACK (has: Recon) |
 | `fr_rafale_m_l` | no field or deck in reach in Southern Cross CAP, Tasman Crossing CAP |
 | `fr_rafale_b_l` | no field or deck in reach in Southern Cross CAP, Tasman Crossing CAP |
 | `fr_ec_665_had-e` | no air-tasking row in this campaign takes it |

@@ -1,87 +1,92 @@
-SEST WORKSHOP UPDATE CANDIDATE — 7 NOVEMBER 2026, R7 TOOLKIT
+SEST WORKSHOP UPDATE CANDIDATE — 8 NOVEMBER 2026, R8 TOOLKIT
 
-This replaces the earlier 7 November toolkit and R6 repair for the new
-0.8.7-261106 beta captured on your PC. Your Steam branch stays on beta.
-The Workshop upload retains stable Runtime 1.5.0 with UI Follow-up 1.4.6;
-the separate R7 playtest uses Runtime 1.5.4 and UI Follow-up 1.4.7.
-Automated build/managed/installer checks are recorded. Gameplay is pending.
+This replaces the R7 toolkit. Your 8 November FULL capture contains a newer
+game assembly (499675cd...), although the plugin DLL hashes are unchanged.
+R8 targets that exact captured assembly. Your Steam branch stays on beta.
+Canonical Workshop code remains stable Runtime 1.5.0 and UI 1.4.6; the
+separate R8 playtest uses Runtime 1.5.5 and UI 1.4.8.
 
 PREPARE YOUR PC
 
-1. Close Sea Power. Extract the complete new toolkit into a fresh folder.
-2. Run Prepare-PC.cmd, or open PowerShell in the extracted toolkit and run:
+Close Sea Power. Extract the complete NEW toolkit into a fresh folder and
+run Prepare-PC.cmd. Alternatively, open PowerShell in that folder and run:
 
-   powershell -NoProfile -ExecutionPolicy Bypass -File .\Prepare-PC.ps1
+  powershell -NoProfile -ExecutionPolicy Bypass -File .\Prepare-PC.ps1
 
-The helper uses your existing C:\Users\rolyl\Seapower-mods clone. It verifies
-and imports the bundle into a NEW detached worktree beside that clone; it
-does not switch your current branch or overwrite either existing worktree.
-It checks current author configuration fingerprints, upgrades the existing
-beta candidate to R7, and installs the refreshed SEST data while retaining
-all five verified R7 code files. Previous data is kept under
-steamapps\SEST-release-backups; its exact backup/restore command is printed.
-Original beta code backups and Identify data remain in place.
+The helper imports the reviewed bundle into a new detached worktree beside
+C:\Users\rolyl\Seapower-mods. Existing worktrees and branches are retained.
+It checks author configurations, upgrades the existing candidate to R8,
+backs up and refreshes SEST data while preserving the verified beta code,
+and prepares a separate canonical stable upload folder in Downloads.
 
-Finally it prepares a fresh Downloads upload folder from the canonical
-stable repository payload. That folder cannot inherit the installed beta
-DLLs. No PC rebuild and no automatic Steam submission are performed.
-If any step stops, keep its error/report; do not substitute older DLLs.
--ImportOnly imports the new worktree without running install steps.
+If any step fails, preparation stops. There is no automatic Steam upload.
+Keep the printed backup path and UPLOAD FOLDER. An author update after this
+capture requires review; do not skip the check. -ImportOnly imports the
+source checkout without applying the repair or refreshing installed data.
 
-WHAT IS IN THIS REFRESH
+WHAT CHANGED
 
-- All 14 changed author configuration exports from today's capture, plus
-  the retained November campaign, SETUP, pricing and dependency corrections.
-- Retires SEST's Harpoon/Mikuma repairs where the author fixed or removed
-  the conflicting source data, preserves the reviewed price for the retired Chilean saved-campaign id,
-  and updates the Sulu Line dependency accounting for the new PN Lynx choice.
-- Follows thin squadron aliases when deciding a roster pick's nation,
-  including the updated German NH-90 file.
-- Stable UI 1.4.6 bridges the captured Pop-Out Windows 1.1.3 and Combat Cost
-  Tracker 0.8.0 interfaces without changing Runtime 1.5.0.
-- R7 targets the captured new game/Noesis DLLs, debrief nation argument,
-  tracker visibility, campaign/terrain APIs, formation label lookup and
-  Osprey fuel conversion. Current author beta releases replace six old
-  adapters. The captured stable-only Loadout Manager duplicate is skipped.
+The seven author updates captured on 8 November are integrated: Modern US
+Navy, Mogami, PLAN, South Korea, India, Hyundai Export Ships and Modern RAN.
+The capture contains 94 changed/new files and 14 explicit deletions, with
+all 203 dependencies present and no capture-stage problems.
 
-R7 LIMITATIONS AND PLAYTEST
+- Helicopter rotor/submodel changes and the Wasp update propagate through
+  the builders instead of retaining old full-file copies.
+- Mogami's Type 07 ASROC / Type 12 torpedo entries, flight-deck accounting
+  and model changes are retained. Removed shared SAM overrides are retired.
+- PLAN measured geometry and sensor/seeker edits are retained.
+- Korean, Indian and export-ship signature changes are retained.
+- The RAN's promoted NASAMS/CEAOPS and Mogami files are captured alongside
+  the retired testing/legacy paths. Canonical precedence is rebuilt.
+- All preceding November fixes remain, including alias-aware roster nation
+  detection, saved Chilean hull pricing and stable UI author bridges.
 
-EnhancedDecoyMod, both Topographic Map DLLs and MultiStageMissiles are held
-before CLR load because native interfaces changed. Their data is retained;
-native countermeasures and missile staging remain. ExtendedGuidance stays
-disabled by the SEST profile. See R7\BETA-FEATURE-PARITY.md for details.
-Clipped tabs and the Global Hawk comparison are not claimed fixed.
+R8 compiles against the newly captured game assembly. Dynamic Campaign Mod
+calls a night-sensor method that now takes an optional nation argument; the
+bounded adapter supplies the native null default so the game infers it.
+Unknown game images remain inactive. Current Noesis, Tracker and other
+recorded plugin hashes match the preceding capture.
 
-Launch beta. Check startup; F11 current, previous and campaign totals and
-Redback prices; mission debrief and continuation into a second mission;
-preparation; Contacts and formation pop-out/return; compass on unit video;
-SAR routing; and Osprey launch, conversion and fuel use. Quit and run
-R7\Capture-Repair-Results.cmd. Keep the original backups until the test is
-reviewed. Restore data before restoring earlier beta code if reverting both.
+R8 LIMITATIONS AND GAMEPLAY CHECKS
 
-The beta test does not verify stable UI 1.4.6 rendering. Before releasing
-that new stable bridge, a stable Build 261021 tester must check F11,
-Contacts/formation pop-out and compass with these author versions. You do
-not need to switch your own PC off beta. No gameplay result is fabricated.
+EnhancedDecoyMod, both Topographic Map DLLs and MultiStageMissiles remain
+held before CLR load for the previously identified compatibility failures.
+Their data is kept; native countermeasures and missile staging remain.
+ExtendedGuidance stays disabled by the SEST profile. Clipped tabs and the
+Global Hawk comparison are not advertised as fixed.
 
-STEAM UPLOAD AFTER CHECKS PASS
+Launch beta and check startup; F11 current/previous/campaign costs and
+Redback prices; debrief and continuation into a second mission; preparation;
+Contacts and formation pop-out/return; compass on unit video; SAR; and
+Osprey launch/conversion/fuel. Check night-capability decisions and the
+updated helicopter/Mogami models too. Quit, then run:
 
-Update existing Workshop item 3812461539; do not create a new item.
-Use ONLY the inner SEST_Integration folder printed by the preparation
-script. Do not select the toolkit, repository root or installed beta item.
-Paste STEAM-CHANGE-NOTE.txt after the gameplay checks pass.
+  R8\Capture-Repair-Results.cmd
 
-Confirm Required Items and collection contain all 203 dependencies from
-data/load-order.tokens.txt; check these four explicitly:
-  Contact Log       3819427362
-  Topographic Map   3826122523
-  Pop-Out Windows   3826396311
-  B-21 Raider       3821992229
+Attach its ZIP for review. No Unity launch, native Noesis rendering or
+actual gameplay is represented by the managed tests. Stable UI 1.4.6 also
+needs a stable Build 261021 tester for its F11/pop-out/compass rendering;
+you can keep your own PC on beta.
+
+Backups: original beta code and Identify data retain their existing
+journal. Data backups are under steamapps\SEST-release-backups; the exact
+restore command is printed during installation. Restore data before
+restoring earlier beta code if reverting both.
+
+STEAM UPLOAD AFTER GAMEPLAY CHECKS PASS
+
+Update existing item 3812461539. Select ONLY the inner SEST_Integration
+folder printed under UPLOAD FOLDER. Do not select the installed beta item,
+repository root or toolkit. Paste STEAM-CHANGE-NOTE.txt after checks pass.
+
+Confirm Required Items and the collection match the 203 dependency IDs in
+data/load-order.tokens.txt, including Contact Log 3819427362, Topographic
+Map 3826122523, Pop-Out Windows 3826396311 and B-21 Raider 3821992229.
 
 Item: https://steamcommunity.com/sharedfiles/filedetails/?id=3812461539
 Collection: https://steamcommunity.com/sharedfiles/filedetails/?id=3812390790
 
-In Sea Power: Mod Manager > Create Mod > Update Existing > 3812461539 >
-Pick Folder > the verified SEST_Integration folder > Submit. Confirm the
-successful Steam result in Player.log, then verify the public timestamp,
-size and dependencies. Steam publication has not been performed here.
+Mod Manager > Create Mod > Update Existing > 3812461539 > Pick Folder >
+verified SEST_Integration > Submit. Confirm Steam success in Player.log and
+check the public item timestamp, size and dependencies afterwards.

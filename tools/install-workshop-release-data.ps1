@@ -1,5 +1,5 @@
 <# Install verified release data for a local beta playtest, retaining the exact
-   R7 code set. The canonical Steam upload stays in the repository. #>
+   reviewed beta code set. The canonical Steam upload stays in the repository. #>
 [CmdletBinding()]
 param(
     [ValidateSet('Install','Restore')][string]$Action = 'Install',
@@ -57,7 +57,7 @@ $WorkshopContentRoot=(Resolve-Path -LiteralPath $WorkshopContentRoot).ProviderPa
 if((Split-Path -Leaf $WorkshopContentRoot) -ne '1286220'){throw 'WorkshopContentRoot must end in 1286220.'}
 if(!$BetaPackageRoot){throw 'Supply the extracted R7 repair directory with -BetaPackageRoot.'}
 $receipt=Get-Content -LiteralPath (J $BetaPackageRoot 'payload' 'build-receipt.json') -Raw | ConvertFrom-Json
-if($receipt.candidate_revision -notlike 'R7-*'){throw 'This data playtest requires the reviewed R7 beta repair.'}
+if($receipt.candidate_revision -notmatch '^R[78]-'){throw 'This data playtest requires a reviewed R7 or R8 beta repair.'}
 if((Hash (J $GameDirectory 'Sea Power_Data' 'Managed' 'Seapower-Scripts.dll')) -ne $receipt.target_game_sha256){throw 'Game build differs from R7.'}
 $destination=J $WorkshopContentRoot '3812461539'
 $code=[ordered]@{
@@ -68,7 +68,7 @@ $code=[ordered]@{
     'SEST.BetaSafeBootstrap.dll'=(J $GameDirectory 'BepInEx' 'plugins' 'SEST.BetaSafeBootstrap.dll')
 }
 foreach($name in $code.Keys){
-    if((Hash $code[$name]) -ne $receipt.files.PSObject.Properties[$name].Value){throw "Install the R7 repair before refreshing data: $name differs."}
+    if((Hash $code[$name]) -ne $receipt.files.PSObject.Properties[$name].Value){throw "Install the matching beta repair before refreshing data: $name differs."}
 }
 $manifest=Get-Content -LiteralPath (J $RepositoryRoot 'docs' 'releases' '20261107' 'upload-manifest.json') -Raw | ConvertFrom-Json
 if($manifest.workshop_item_id -ne '3812461539' -or $manifest.status -ne 'candidate-needs-gameplay'){throw 'Wrong Workshop release manifest.'}
@@ -98,7 +98,7 @@ catch {
     Move-Item -LiteralPath $previous -Destination $destination
     throw
 }
-Write-Host 'Refreshed Workshop data installed; all five R7 code files retained.' -ForegroundColor Green
+Write-Host 'Refreshed Workshop data installed; all five verified beta code files retained.' -ForegroundColor Green
 Write-Host ('Backup: '+$BackupDirectory)
 Write-Host 'Steam branch, load order and saves were not changed. The repository remains the canonical stable upload.'
 Write-Host ('Restore data with: powershell -NoProfile -ExecutionPolicy Bypass -File "'+$PSCommandPath+'" -Action Restore -BackupDirectory "'+$BackupDirectory+'"')

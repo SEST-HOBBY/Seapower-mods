@@ -1,4 +1,4 @@
-# The [LoadOrder] Sea Power is actually using, captured 2026-11-07T13:13:04.
+# The [LoadOrder] Sea Power is actually using, captured 2026-11-08T20:06:06.
 # Compare against data\load-order.tokens.txt - the canonical order.
 
 NumberOfModFiles=205   entries parsed: 205

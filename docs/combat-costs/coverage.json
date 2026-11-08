@@ -936,6 +936,16 @@
         "CurrentYearCost": "25000",
         "Category": "Pod"
       },
+      "adf_nasams_aim120c7": {
+        "WeaponCosts": "835000",
+        "CurrentYearCost": "1380000",
+        "Category": "Ballistic"
+      },
+      "adf_nasams_aim9x": {
+        "WeaponCosts": "5000000",
+        "CurrentYearCost": "5000000",
+        "Category": "Ballistic"
+      },
       "air_drop": {
         "WeaponCosts": "0",
         "CurrentYearCost": "0",
@@ -1823,6 +1833,21 @@
         "WeaponCosts": "5000",
         "CurrentYearCost": "5000",
         "Category": "Pod"
+      },
+      "js_type07_asroc": {
+        "WeaponCosts": "1012231",
+        "CurrentYearCost": "1500000",
+        "Category": "Torpedo"
+      },
+      "js_type12_asroc": {
+        "WeaponCosts": "1012231",
+        "CurrentYearCost": "1500000",
+        "Category": "Torpedo"
+      },
+      "js_type12_ship": {
+        "WeaponCosts": "1012231",
+        "CurrentYearCost": "1500000",
+        "Category": "Torpedo"
       },
       "js_type17_ssm2": {
         "WeaponCosts": "2000000",
@@ -7280,6 +7305,11 @@
         "CurrentYearCost": "2500000",
         "Category": "AAA"
       },
+      "adf_ceaops": {
+        "LandCosts": "25000000",
+        "CurrentYearCost": "25000000",
+        "Category": "Radar"
+      },
       "adf_mbt_leopard1": {
         "LandCosts": "8000000",
         "CurrentYearCost": "8000000",
@@ -7294,6 +7324,11 @@
         "LandCosts": "1000000",
         "CurrentYearCost": "1000000",
         "Category": "Vehicle"
+      },
+      "adf_nasams_launcher": {
+        "LandCosts": "5000000",
+        "CurrentYearCost": "5000000",
+        "Category": "SAM platform"
       },
       "airbase_raaf_amberley": {
         "LandCosts": "250000000",
@@ -16612,6 +16647,48 @@
     },
     {
       "kind": "land",
+      "target": "adf_ceaops",
+      "origin": "completion",
+      "source": null,
+      "basis": "one radar installation/vehicle hardware proxy, not the whole defence system",
+      "fields": {
+        "LandCosts": "25000000",
+        "CurrentYearCost": "25000000",
+        "Category": "Radar"
+      },
+      "completion": {
+        "model": "radar",
+        "historical": "25000000",
+        "current": "25000000",
+        "category": "Radar",
+        "source": null,
+        "basis": "one radar installation/vehicle hardware proxy, not the whole defence system",
+        "source_id": "policy",
+        "historical_year": 2026,
+        "historical_basis": "2026 replacement proxy; IOC unknown",
+        "confidence": "rough model",
+        "current_low": "12500000",
+        "current_high": "50000000",
+        "disposition": "counted"
+      },
+      "field_methods": {
+        "historical": "rough model",
+        "current": "rough model"
+      },
+      "prior_origin": null,
+      "sources": [
+        {
+          "title": "SEST owner-authorized replacement-cost model, 24 October 2026",
+          "url": "https://github.com/SEST-HOBBY/Seapower-mods/blob/fix/complete-combat-costs-20261024/integration/combat-costs/coverage-policy.json"
+        },
+        {
+          "title": "SEST owner-authorized replacement-cost model, 24 October 2026",
+          "url": "https://github.com/SEST-HOBBY/Seapower-mods/blob/fix/complete-combat-costs-20261024/integration/combat-costs/coverage-policy.json"
+        }
+      ]
+    },
+    {
+      "kind": "land",
       "target": "adf_mbt_leopard1",
       "origin": "completion",
       "source": null,
@@ -16718,6 +16795,48 @@
         "confidence": "rough model",
         "current_low": "500000",
         "current_high": "2000000",
+        "disposition": "counted"
+      },
+      "field_methods": {
+        "historical": "rough model",
+        "current": "rough model"
+      },
+      "prior_origin": null,
+      "sources": [
+        {
+          "title": "SEST owner-authorized replacement-cost model, 24 October 2026",
+          "url": "https://github.com/SEST-HOBBY/Seapower-mods/blob/fix/complete-combat-costs-20261024/integration/combat-costs/coverage-policy.json"
+        },
+        {
+          "title": "SEST owner-authorized replacement-cost model, 24 October 2026",
+          "url": "https://github.com/SEST-HOBBY/Seapower-mods/blob/fix/complete-combat-costs-20261024/integration/combat-costs/coverage-policy.json"
+        }
+      ]
+    },
+    {
+      "kind": "land",
+      "target": "adf_nasams_launcher",
+      "origin": "completion",
+      "source": null,
+      "basis": "one separate SAM launcher vehicle/trailer, ammunition excluded",
+      "fields": {
+        "LandCosts": "5000000",
+        "CurrentYearCost": "5000000",
+        "Category": "SAM platform"
+      },
+      "completion": {
+        "model": "sam_launcher",
+        "historical": "5000000",
+        "current": "5000000",
+        "category": "SAM platform",
+        "source": null,
+        "basis": "one separate SAM launcher vehicle/trailer, ammunition excluded",
+        "source_id": "policy",
+        "historical_year": 2026,
+        "historical_basis": "2026 replacement proxy; IOC unknown",
+        "confidence": "rough model",
+        "current_low": "2500000",
+        "current_high": "10000000",
         "disposition": "counted"
       },
       "field_methods": {
@@ -43708,6 +43827,90 @@
     },
     {
       "kind": "weapon",
+      "target": "adf_nasams_aim120c7",
+      "origin": "completion",
+      "source": "usn_aim-120c7",
+      "basis": "design/family/role catalog comparator usn_aim-120c7; donor reference-year series retained; not a class-specific quote",
+      "fields": {
+        "WeaponCosts": "835000",
+        "CurrentYearCost": "1380000",
+        "Category": "Ballistic"
+      },
+      "completion": {
+        "model": "ballistic",
+        "historical": "835000",
+        "current": "1380000",
+        "category": "Ballistic",
+        "source": "usn_aim-120c7",
+        "basis": "design/family/role catalog comparator usn_aim-120c7; donor reference-year series retained; not a class-specific quote",
+        "source_id": "tracker",
+        "historical_year": null,
+        "historical_basis": "donor reference year",
+        "confidence": "catalog comparator estimate",
+        "current_low": "690000",
+        "current_high": "2760000",
+        "disposition": "counted"
+      },
+      "field_methods": {
+        "historical": "catalog comparator estimate",
+        "current": "catalog comparator estimate"
+      },
+      "prior_origin": null,
+      "sources": [
+        {
+          "title": "Combat Cost Tracker 0.7.1 captured catalog estimates; retain original reference-year basis",
+          "url": "https://steamcommunity.com/sharedfiles/filedetails/?id=3807187341"
+        },
+        {
+          "title": "SEST owner-authorized replacement-cost model, 24 October 2026",
+          "url": "https://github.com/SEST-HOBBY/Seapower-mods/blob/fix/complete-combat-costs-20261024/integration/combat-costs/coverage-policy.json"
+        }
+      ]
+    },
+    {
+      "kind": "weapon",
+      "target": "adf_nasams_aim9x",
+      "origin": "completion",
+      "source": null,
+      "basis": "tactical ballistic missile complete-round proxy",
+      "fields": {
+        "WeaponCosts": "5000000",
+        "CurrentYearCost": "5000000",
+        "Category": "Ballistic"
+      },
+      "completion": {
+        "model": "ballistic",
+        "historical": "5000000",
+        "current": "5000000",
+        "category": "Ballistic",
+        "source": null,
+        "basis": "tactical ballistic missile complete-round proxy",
+        "source_id": "policy",
+        "historical_year": 2026,
+        "historical_basis": "2026 replacement proxy; IOC unknown",
+        "confidence": "rough model",
+        "current_low": "2500000",
+        "current_high": "10000000",
+        "disposition": "counted"
+      },
+      "field_methods": {
+        "historical": "rough model",
+        "current": "rough model"
+      },
+      "prior_origin": null,
+      "sources": [
+        {
+          "title": "SEST owner-authorized replacement-cost model, 24 October 2026",
+          "url": "https://github.com/SEST-HOBBY/Seapower-mods/blob/fix/complete-combat-costs-20261024/integration/combat-costs/coverage-policy.json"
+        },
+        {
+          "title": "SEST owner-authorized replacement-cost model, 24 October 2026",
+          "url": "https://github.com/SEST-HOBBY/Seapower-mods/blob/fix/complete-combat-costs-20261024/integration/combat-costs/coverage-policy.json"
+        }
+      ]
+    },
+    {
+      "kind": "weapon",
       "target": "agm-114",
       "source": "usaf_agm-114_hellfire",
       "origin": "mapping",
@@ -51836,6 +52039,132 @@
         "confidence": "rough model",
         "current_low": "2500",
         "current_high": "10000",
+        "disposition": "counted"
+      },
+      "field_methods": {
+        "historical": "rough model",
+        "current": "rough model"
+      },
+      "prior_origin": null,
+      "sources": [
+        {
+          "title": "SEST owner-authorized replacement-cost model, 24 October 2026",
+          "url": "https://github.com/SEST-HOBBY/Seapower-mods/blob/fix/complete-combat-costs-20261024/integration/combat-costs/coverage-policy.json"
+        },
+        {
+          "title": "SEST owner-authorized replacement-cost model, 24 October 2026",
+          "url": "https://github.com/SEST-HOBBY/Seapower-mods/blob/fix/complete-combat-costs-20261024/integration/combat-costs/coverage-policy.json"
+        }
+      ]
+    },
+    {
+      "kind": "weapon",
+      "target": "js_type07_asroc",
+      "origin": "completion",
+      "source": null,
+      "basis": "generic lightweight ASW torpedo replacement proxy",
+      "fields": {
+        "WeaponCosts": "1012231",
+        "CurrentYearCost": "1500000",
+        "Category": "Torpedo"
+      },
+      "completion": {
+        "model": "light_torpedo",
+        "historical": "1012231",
+        "current": "1500000",
+        "category": "Torpedo",
+        "source": null,
+        "basis": "generic lightweight ASW torpedo replacement proxy",
+        "source_id": "policy",
+        "historical_year": 2012,
+        "historical_basis": "configured service-year CPI model",
+        "confidence": "rough model",
+        "current_low": "750000",
+        "current_high": "3000000",
+        "disposition": "counted"
+      },
+      "field_methods": {
+        "historical": "rough model",
+        "current": "rough model"
+      },
+      "prior_origin": null,
+      "sources": [
+        {
+          "title": "SEST owner-authorized replacement-cost model, 24 October 2026",
+          "url": "https://github.com/SEST-HOBBY/Seapower-mods/blob/fix/complete-combat-costs-20261024/integration/combat-costs/coverage-policy.json"
+        },
+        {
+          "title": "SEST owner-authorized replacement-cost model, 24 October 2026",
+          "url": "https://github.com/SEST-HOBBY/Seapower-mods/blob/fix/complete-combat-costs-20261024/integration/combat-costs/coverage-policy.json"
+        }
+      ]
+    },
+    {
+      "kind": "weapon",
+      "target": "js_type12_asroc",
+      "origin": "completion",
+      "source": null,
+      "basis": "generic lightweight ASW torpedo replacement proxy",
+      "fields": {
+        "WeaponCosts": "1012231",
+        "CurrentYearCost": "1500000",
+        "Category": "Torpedo"
+      },
+      "completion": {
+        "model": "light_torpedo",
+        "historical": "1012231",
+        "current": "1500000",
+        "category": "Torpedo",
+        "source": null,
+        "basis": "generic lightweight ASW torpedo replacement proxy",
+        "source_id": "policy",
+        "historical_year": 2012,
+        "historical_basis": "configured service-year CPI model",
+        "confidence": "rough model",
+        "current_low": "750000",
+        "current_high": "3000000",
+        "disposition": "counted"
+      },
+      "field_methods": {
+        "historical": "rough model",
+        "current": "rough model"
+      },
+      "prior_origin": null,
+      "sources": [
+        {
+          "title": "SEST owner-authorized replacement-cost model, 24 October 2026",
+          "url": "https://github.com/SEST-HOBBY/Seapower-mods/blob/fix/complete-combat-costs-20261024/integration/combat-costs/coverage-policy.json"
+        },
+        {
+          "title": "SEST owner-authorized replacement-cost model, 24 October 2026",
+          "url": "https://github.com/SEST-HOBBY/Seapower-mods/blob/fix/complete-combat-costs-20261024/integration/combat-costs/coverage-policy.json"
+        }
+      ]
+    },
+    {
+      "kind": "weapon",
+      "target": "js_type12_ship",
+      "origin": "completion",
+      "source": null,
+      "basis": "generic lightweight ASW torpedo replacement proxy",
+      "fields": {
+        "WeaponCosts": "1012231",
+        "CurrentYearCost": "1500000",
+        "Category": "Torpedo"
+      },
+      "completion": {
+        "model": "light_torpedo",
+        "historical": "1012231",
+        "current": "1500000",
+        "category": "Torpedo",
+        "source": null,
+        "basis": "generic lightweight ASW torpedo replacement proxy",
+        "source_id": "policy",
+        "historical_year": 2012,
+        "historical_basis": "configured service-year CPI model",
+        "confidence": "rough model",
+        "current_low": "750000",
+        "current_high": "3000000",
         "disposition": "counted"
       },
       "field_methods": {
@@ -87143,9 +87472,9 @@
   ],
   "coverage": {
     "weapon": {
-      "eligible": 2201,
-      "historical_known": 2201,
-      "current_known": 2201,
+      "eligible": 2206,
+      "historical_known": 2206,
+      "current_known": 2206,
       "sest_eligible": 138,
       "sest_historical_known": 138,
       "sest_current_known": 138,
@@ -87170,9 +87499,9 @@
       "unknown": []
     },
     "land": {
-      "eligible": 502,
-      "historical_known": 502,
-      "current_known": 502,
+      "eligible": 504,
+      "historical_known": 504,
+      "current_known": 504,
       "sest_eligible": 27,
       "sest_historical_known": 27,
       "sest_current_known": 27,
@@ -87679,6 +88008,82 @@
         "historical_reference_year": 2026,
         "current_low": "12500",
         "current_high": "50000"
+      },
+      {
+        "kind": "weapon",
+        "id": "adf_nasams_aim120c7",
+        "owner": "3820759806",
+        "path": "mods-source/3820759806/ammunition/adf_nasams_aim120c7.ini",
+        "category": "Ballistic",
+        "type": "Missile",
+        "historical": "835000",
+        "current": "1380000",
+        "field_methods": {
+          "historical": "catalog comparator estimate",
+          "current": "catalog comparator estimate"
+        },
+        "field_sources": {
+          "historical": "design/family/role catalog comparator usn_aim-120c7; donor reference-year series retained; not a class-specific quote",
+          "current": "design/family/role catalog comparator usn_aim-120c7; donor reference-year series retained; not a class-specific quote"
+        },
+        "completion": {
+          "model": "ballistic",
+          "historical": "835000",
+          "current": "1380000",
+          "category": "Ballistic",
+          "source": "usn_aim-120c7",
+          "basis": "design/family/role catalog comparator usn_aim-120c7; donor reference-year series retained; not a class-specific quote",
+          "source_id": "tracker",
+          "historical_year": null,
+          "historical_basis": "donor reference year",
+          "confidence": "catalog comparator estimate",
+          "current_low": "690000",
+          "current_high": "2760000",
+          "disposition": "counted"
+        },
+        "disposition": "counted",
+        "historical_basis": "donor reference year",
+        "historical_reference_year": null,
+        "current_low": "690000",
+        "current_high": "2760000"
+      },
+      {
+        "kind": "weapon",
+        "id": "adf_nasams_aim9x",
+        "owner": "3820759806",
+        "path": "mods-source/3820759806/ammunition/adf_nasams_aim9x.ini",
+        "category": "Ballistic",
+        "type": "Missile",
+        "historical": "5000000",
+        "current": "5000000",
+        "field_methods": {
+          "historical": "rough model",
+          "current": "rough model"
+        },
+        "field_sources": {
+          "historical": "tactical ballistic missile complete-round proxy",
+          "current": "tactical ballistic missile complete-round proxy"
+        },
+        "completion": {
+          "model": "ballistic",
+          "historical": "5000000",
+          "current": "5000000",
+          "category": "Ballistic",
+          "source": null,
+          "basis": "tactical ballistic missile complete-round proxy",
+          "source_id": "policy",
+          "historical_year": 2026,
+          "historical_basis": "2026 replacement proxy; IOC unknown",
+          "confidence": "rough model",
+          "current_low": "2500000",
+          "current_high": "10000000",
+          "disposition": "counted"
+        },
+        "disposition": "counted",
+        "historical_basis": "2026 replacement proxy; IOC unknown",
+        "historical_reference_year": 2026,
+        "current_low": "2500000",
+        "current_high": "10000000"
       },
       {
         "kind": "weapon",
@@ -99723,6 +100128,120 @@
         "historical_reference_year": null,
         "current_low": null,
         "current_high": null
+      },
+      {
+        "kind": "weapon",
+        "id": "js_type07_asroc",
+        "owner": "3456859157",
+        "path": "mods-source/3456859157/ammunition/js_type07_asroc.ini",
+        "category": "Torpedo",
+        "type": "ASROC",
+        "historical": "1012231",
+        "current": "1500000",
+        "field_methods": {
+          "historical": "rough model",
+          "current": "rough model"
+        },
+        "field_sources": {
+          "historical": "generic lightweight ASW torpedo replacement proxy",
+          "current": "generic lightweight ASW torpedo replacement proxy"
+        },
+        "completion": {
+          "model": "light_torpedo",
+          "historical": "1012231",
+          "current": "1500000",
+          "category": "Torpedo",
+          "source": null,
+          "basis": "generic lightweight ASW torpedo replacement proxy",
+          "source_id": "policy",
+          "historical_year": 2012,
+          "historical_basis": "configured service-year CPI model",
+          "confidence": "rough model",
+          "current_low": "750000",
+          "current_high": "3000000",
+          "disposition": "counted"
+        },
+        "disposition": "counted",
+        "historical_basis": "configured service-year CPI model",
+        "historical_reference_year": 2012,
+        "current_low": "750000",
+        "current_high": "3000000"
+      },
+      {
+        "kind": "weapon",
+        "id": "js_type12_asroc",
+        "owner": "3456859157",
+        "path": "mods-source/3456859157/ammunition/js_type12_asroc.ini",
+        "category": "Torpedo",
+        "type": "Torpedo",
+        "historical": "1012231",
+        "current": "1500000",
+        "field_methods": {
+          "historical": "rough model",
+          "current": "rough model"
+        },
+        "field_sources": {
+          "historical": "generic lightweight ASW torpedo replacement proxy",
+          "current": "generic lightweight ASW torpedo replacement proxy"
+        },
+        "completion": {
+          "model": "light_torpedo",
+          "historical": "1012231",
+          "current": "1500000",
+          "category": "Torpedo",
+          "source": null,
+          "basis": "generic lightweight ASW torpedo replacement proxy",
+          "source_id": "policy",
+          "historical_year": 2012,
+          "historical_basis": "configured service-year CPI model",
+          "confidence": "rough model",
+          "current_low": "750000",
+          "current_high": "3000000",
+          "disposition": "counted"
+        },
+        "disposition": "counted",
+        "historical_basis": "configured service-year CPI model",
+        "historical_reference_year": 2012,
+        "current_low": "750000",
+        "current_high": "3000000"
+      },
+      {
+        "kind": "weapon",
+        "id": "js_type12_ship",
+        "owner": "3456859157",
+        "path": "mods-source/3456859157/ammunition/js_type12_ship.ini",
+        "category": "Torpedo",
+        "type": "Torpedo",
+        "historical": "1012231",
+        "current": "1500000",
+        "field_methods": {
+          "historical": "rough model",
+          "current": "rough model"
+        },
+        "field_sources": {
+          "historical": "generic lightweight ASW torpedo replacement proxy",
+          "current": "generic lightweight ASW torpedo replacement proxy"
+        },
+        "completion": {
+          "model": "light_torpedo",
+          "historical": "1012231",
+          "current": "1500000",
+          "category": "Torpedo",
+          "source": null,
+          "basis": "generic lightweight ASW torpedo replacement proxy",
+          "source_id": "policy",
+          "historical_year": 2012,
+          "historical_basis": "configured service-year CPI model",
+          "confidence": "rough model",
+          "current_low": "750000",
+          "current_high": "3000000",
+          "disposition": "counted"
+        },
+        "disposition": "counted",
+        "historical_basis": "configured service-year CPI model",
+        "historical_reference_year": 2012,
+        "current_low": "750000",
+        "current_high": "3000000"
       },
       {
         "kind": "weapon",
@@ -198468,6 +198987,44 @@
       },
       {
         "kind": "land",
+        "id": "adf_ceaops",
+        "owner": "3820759806",
+        "path": "mods-source/3820759806/land_units/adf_ceaops.ini",
+        "category": "Radar",
+        "type": "Radar",
+        "historical": "25000000",
+        "current": "25000000",
+        "field_methods": {
+          "historical": "rough model",
+          "current": "rough model"
+        },
+        "field_sources": {
+          "historical": "one radar installation/vehicle hardware proxy, not the whole defence system",
+          "current": "one radar installation/vehicle hardware proxy, not the whole defence system"
+        },
+        "completion": {
+          "model": "radar",
+          "historical": "25000000",
+          "current": "25000000",
+          "category": "Radar",
+          "source": null,
+          "basis": "one radar installation/vehicle hardware proxy, not the whole defence system",
+          "source_id": "policy",
+          "historical_year": 2026,
+          "historical_basis": "2026 replacement proxy; IOC unknown",
+          "confidence": "rough model",
+          "current_low": "12500000",
+          "current_high": "50000000",
+          "disposition": "counted"
+        },
+        "disposition": "counted",
+        "historical_basis": "2026 replacement proxy; IOC unknown",
+        "historical_reference_year": 2026,
+        "current_low": "12500000",
+        "current_high": "50000000"
+      },
+      {
+        "kind": "land",
         "id": "adf_mbt_leopard1",
         "owner": "3455404959",
         "path": "mods-source/3455404959/land_units/adf_mbt_leopard1.ini",
@@ -198579,6 +199136,44 @@
         "historical_reference_year": 2026,
         "current_low": "500000",
         "current_high": "2000000"
+      },
+      {
+        "kind": "land",
+        "id": "adf_nasams_launcher",
+        "owner": "3820759806",
+        "path": "mods-source/3820759806/land_units/adf_nasams_launcher.ini",
+        "category": "SAM platform",
+        "type": "SAM",
+        "historical": "5000000",
+        "current": "5000000",
+        "field_methods": {
+          "historical": "rough model",
+          "current": "rough model"
+        },
+        "field_sources": {
+          "historical": "one separate SAM launcher vehicle/trailer, ammunition excluded",
+          "current": "one separate SAM launcher vehicle/trailer, ammunition excluded"
+        },
+        "completion": {
+          "model": "sam_launcher",
+          "historical": "5000000",
+          "current": "5000000",
+          "category": "SAM platform",
+          "source": null,
+          "basis": "one separate SAM launcher vehicle/trailer, ammunition excluded",
+          "source_id": "policy",
+          "historical_year": 2026,
+          "historical_basis": "2026 replacement proxy; IOC unknown",
+          "confidence": "rough model",
+          "current_low": "2500000",
+          "current_high": "10000000",
+          "disposition": "counted"
+        },
+        "disposition": "counted",
+        "historical_basis": "2026 replacement proxy; IOC unknown",
+        "historical_reference_year": 2026,
+        "current_low": "2500000",
+        "current_high": "10000000"
       },
       {
         "kind": "land",
@@ -217314,14 +217909,14 @@
       }
     ],
     "filled_fields": {
-      "weapon": 1884,
+      "weapon": 1894,
       "vessel": 226,
       "aircraft": 302,
-      "land": 977
+      "land": 981
     },
     "known_fields_preserved": 5467,
     "category_counts": {
-      "Ballistic": 25,
+      "Ballistic": 27,
       "Decoy": 54,
       "Gun": 211,
       "ASM": 363,
@@ -217330,7 +217925,7 @@
       "Pod": 204,
       "ATGM": 42,
       "Ignore": 35,
-      "Torpedo": 212,
+      "Torpedo": 215,
       "Land Attack": 79,
       "Fuel tank": 97,
       "Bomb": 119,
@@ -217412,11 +218007,11 @@
       "Aircraft": 763,
       "Installation": 41,
       "AAA": 16,
+      "Radar": 62,
       "Armour": 37,
       "Vehicle": 102,
+      "SAM platform": 109,
       "Airbase": 51,
-      "Radar": 61,
-      "SAM platform": 108,
       "Missile site": 25,
       "Oil rig": 3,
       "Bridge": 3,

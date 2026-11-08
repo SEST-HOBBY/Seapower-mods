@@ -1,12 +1,12 @@
 [b]November integration update[/b]
 
 [list]
-[*]Refreshed against the Workshop configurations captured on 7 November, including the latest US, German, Chinese, Chilean, South Korean and Hyundai export-ship changes.
-[*]Updated campaign dependency and equipment-cost accounting, including the PN Lynx change and preservation of retired Chilean saved-campaign hull prices.
-[*]Retired overlapping Harpoon and Mikuma corrections now supplied by the source mods.
-[*]Improved roster nation detection for squadron files that inherit their definitions through aliases.
-[*]Updated the stable UI companion for Pop-Out Windows 1.1.3 and Combat Cost Tracker 0.8.0, retaining Runtime 1.5.0.
+[*]Refreshed against the Workshop configurations captured on 8 November, including Modern US Navy, Mogami, PLAN, South Korea, India, Hyundai export ships and Modern RAN.
+[*]Rebuilt helicopter model/rotor definitions, Mogami ammunition and flight-deck changes, PLAN geometry/sensor changes and the authors' ship-signature revisions.
+[*]Captured the RAN's newly promoted NASAMS, CEAOPS and Mogami definitions and removed retired testing/legacy paths.
+[*]Retained campaign dependency and cost-accounting corrections, including saved-campaign Chilean hull prices and inherited squadron nation detection.
+[*]Updated the stable UI companion for Pop-Out Windows 1.1.3 and Combat Cost Tracker 0.8.0 while retaining Runtime 1.5.0.
 [*]Retained the tactical-map settings, Redback helicopter night-vision declarations and normal-release CIWS tuning.
 [/list]
 
-[b]Compatibility:[/b] The public payload targets stable Build 261021. The separate R7 repair targets the captured beta Build 261106 and remains a gameplay-test candidate; its DLLs are not included in this upload. Clipped tabs and Global Hawk behavior are not advertised as fixed. The underlying Workshop dependencies remain required.
+[b]Compatibility:[/b] The public payload targets stable Build 261021. The separate R8 beta repair targets the game assembly captured on 8 November and remains a gameplay-test candidate. Its DLLs are not included in this upload. Clipped tabs and Global Hawk behavior are not advertised as fixed. Workshop dependencies remain required.

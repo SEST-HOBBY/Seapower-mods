@@ -277,14 +277,14 @@ Not sold (21):
 | `usaf_b-2_spirit` | no air-tasking row in this campaign takes it |
 | `usaf_b-1b_dts` | no air-tasking row in this campaign takes it |
 | `dts_b-52h` | no air-tasking row in this campaign takes it |
-| `usaf_e-3g` | a row takes its role but offers none of its fits: Recon: sells usaf_e-3g into this flight, and it defines none of ASW/AntiShip/ASWLongRange/ASWHunter/SEST_REDBACK (has: AEW) |
+| `usaf_e-3g` | a row takes its role but offers none of its fits: Recon: sells usaf_e-3g into this flight, and it defines none of ASW/AntiShip/Default/ASWLongRange/ASWHunter/SEST_REDBACK (has: AEW) |
 | `usaf_kc-46a_warp` | no air-tasking row in this campaign takes it |
-| `usn_e-2d` | a row takes its role but offers none of its fits: Recon: sells usn_e-2d into this flight, and it defines none of ASW/AntiShip/ASWLongRange/ASWHunter/SEST_REDBACK (has: Recon) |
+| `usn_e-2d` | a row takes its role but offers none of its fits: Recon: sells usn_e-2d into this flight, and it defines none of ASW/AntiShip/Default/ASWLongRange/ASWHunter/SEST_REDBACK (has: Recon) |
 | `usaf_ac-130j` | a row takes its role but offers none of its fits: CAP: sells usaf_ac-130j into this flight, and it defines none of AirToAir/AirToAirStealth/MurderHornetCAP/MurderHornetInterceptor/SEST_SEAD120D/MurderHornetPenetrator (has: Default) |
 | `usmc_uh-1y` | no air-tasking row in this campaign takes it |
 | `rn_merlin_hm2` | no field or deck in reach in After the Wake HeloRecon, Southern Lifeline HeloRecon, Southern Lifeline Recon, The Missing Beacon HeloRecon, The Second Convoy HeloRecon |
 | `rn_wildcat` | no field or deck in reach in Blind Horizon Recon, Southern Lifeline Recon, Steel Highway Recon, The First Ship Through Recon, The Quiet Passenger Recon |
-| `fr_e2d` | a row takes its role but offers none of its fits: Recon: sells fr_e2d into this flight, and it defines none of ASW/AntiShip/ASWLongRange/ASWHunter/SEST_REDBACK (has: Recon) |
+| `fr_e2d` | a row takes its role but offers none of its fits: Recon: sells fr_e2d into this flight, and it defines none of ASW/AntiShip/Default/ASWLongRange/ASWHunter/SEST_REDBACK (has: Recon) |
 | `fr_ec_665_had-e` | no air-tasking row in this campaign takes it |
 | `fr_nh90` | no field or deck in reach in Southern Lifeline Recon |
 | `fr_as-565_sa` | no field or deck in reach in After the Wake HeloRecon, Southern Lifeline HeloRecon, Southern Lifeline Recon, The Missing Beacon HeloRecon, The Quiet Passenger HeloRecon, The Quiet Passenger Recon, The Second Convoy HeloRecon |

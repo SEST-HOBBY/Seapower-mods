@@ -8,12 +8,12 @@ Ammunition, embarked aircraft, removable pods and tank contents are excluded fro
 
 | Kind | References | Historical prices | Current prices |
 |---|---:|---:|---:|
-| weapon | 2201 | 2201 | 2201 |
+| weapon | 2206 | 2206 | 2206 |
 | vessel | 960 | 960 | 960 |
 | aircraft | 765 | 765 | 765 |
-| land | 502 | 502 | 502 |
+| land | 504 | 504 | 504 |
 
-Preserved 5467 pre-existing usable price fields. Filled 3389 missing fields. No acquisition-point field was used as USD.
+Preserved 5467 pre-existing usable price fields. Filled 3403 missing fields. No acquisition-point field was used as USD.
 
 ## Weapon
 
@@ -35,6 +35,8 @@ Preserved 5467 pre-existing usable price fields. Filled 3389 missing fields. No 
 | `adf_fz90` | Rocket | 3000 | 3000 | historical: rough model (unguided aircraft rocket complete-round proxy); current: rough model (unguided aircraft rocket complete-round proxy) | counted |
 | `adf_lau-3a` | Pod | 70000 | 70000 | historical: rough model (nineteen-tube reusable digital rocket-pod hardware, excluding rockets; PB2020 LAU-61 comparator rounded to 2026); current: rough model (nineteen-tube reusable digital rocket-pod hardware, excluding rockets; PB2020 LAU-61 comparator rounded to 2026) | counted |
 | `adf_lau-68` | Pod | 25000 | 25000 | historical: rough model (seven-tube reusable rocket-pod hardware, excluding its rockets; PB2020 LAU-68 comparator rounded to 2026); current: rough model (seven-tube reusable rocket-pod hardware, excluding its rockets; PB2020 LAU-68 comparator rounded to 2026) | counted |
+| `adf_nasams_aim120c7` | Ballistic | 835000 | 1380000 | historical: catalog comparator estimate (design/family/role catalog comparator usn_aim-120c7; donor reference-year series retained; not a class-specific quote); current: catalog comparator estimate (design/family/role catalog comparator usn_aim-120c7; donor reference-year series retained; not a class-specific quote) | counted |
+| `adf_nasams_aim9x` | Ballistic | 5000000 | 5000000 | historical: rough model (tactical ballistic missile complete-round proxy); current: rough model (tactical ballistic missile complete-round proxy) | counted |
 | `agm-114` | ATGM | 24000 | 70000 | historical: existing usable value preserved (reviewed catalog mapping: usaf_agm-114_hellfire); current: existing usable value preserved (reviewed catalog mapping: usaf_agm-114_hellfire) | counted |
 | `agm-84l` | ASM | 965000 | 1830000 | historical: existing usable value preserved (tracker author catalog); current: existing usable value preserved (tracker author catalog) | counted |
 | `Air_Drop` | Ignore | 0 | 0 | historical: rough model (non-procured helper, simulated process, personnel or transfer; cost included in its parent or not a material acquisition); current: rough model (non-procured helper, simulated process, personnel or transfer; cost included in its parent or not a material acquisition) | included or non-procured |
@@ -433,6 +435,9 @@ Preserved 5467 pre-existing usable price fields. Filled 3389 missing fields. No 
 | `jp_tank_610_f-2a` | Fuel tank | 25000 | 25000 | historical: rough model (external reusable fuel-tank hardware proxy, excluding fuel contents); current: rough model (external reusable fuel-tank hardware proxy, excluding fuel contents) | counted |
 | `jp_ter_rockeye_3` | Pod | 5000 | 5000 | historical: rough model (reusable launch rail, adapter or ejector-rack hardware proxy, excluding stores); current: rough model (reusable launch rail, adapter or ejector-rack hardware proxy, excluding stores) | counted |
 | `js_ssm-1b` | ASM | 985000 | 3070000 | historical: existing usable value preserved (tracker author catalog); current: existing usable value preserved (tracker author catalog) | counted |
+| `js_type07_asroc` | Torpedo | 1012231 | 1500000 | historical: rough model (generic lightweight ASW torpedo replacement proxy); current: rough model (generic lightweight ASW torpedo replacement proxy) | counted |
+| `js_type12_asroc` | Torpedo | 1012231 | 1500000 | historical: rough model (generic lightweight ASW torpedo replacement proxy); current: rough model (generic lightweight ASW torpedo replacement proxy) | counted |
+| `js_type12_ship` | Torpedo | 1012231 | 1500000 | historical: rough model (generic lightweight ASW torpedo replacement proxy); current: rough model (generic lightweight ASW torpedo replacement proxy) | counted |
 | `js_type17_ssm2` | ASM | 2000000 | 2000000 | historical: rough model (anti-ship missile complete-round proxy); current: rough model (anti-ship missile complete-round proxy) | counted |
 | `js_type23_asam` | SAM | 2345245 | 2500000 | historical: rough model (surface-to-air missile complete-round proxy); current: rough model (surface-to-air missile complete-round proxy) | counted |
 | `jsdf_sam1` | SAM | 25000 | 205000 | historical: existing usable value preserved (tracker author catalog); current: existing usable value preserved (tracker author catalog) | counted |
@@ -3962,9 +3967,11 @@ Preserved 5467 pre-existing usable price fields. Filled 3389 missing fields. No 
 |---|---|---:|---:|---|---|
 | `4tentgroup` | Installation | 26400 | 48000 | historical: existing usable value preserved (SEST checked research: Four GP tents at the 2003 US Army MGPTS urgent order price, USD 42.9M / 6,500 = 6,600 each x 4; barrels unpriced; CPI to Aug 2026); current: existing usable value preserved (SEST checked research: Four GP tents at the 2003 US Army MGPTS urgent order price, USD 42.9M / 6,500 = 6,600 each x 4; barrels unpriced; CPI to Aug 2026) | counted |
 | `adf_bofors` | AAA | 2500000 | 2500000 | historical: rough model (one air-defence gun platform hardware proxy, ammunition excluded); current: rough model (one air-defence gun platform hardware proxy, ammunition excluded) | counted |
+| `adf_ceaops` | Radar | 25000000 | 25000000 | historical: rough model (one radar installation/vehicle hardware proxy, not the whole defence system); current: rough model (one radar installation/vehicle hardware proxy, not the whole defence system) | counted |
 | `adf_mbt_leopard1` | Armour | 8000000 | 8000000 | historical: rough model (tank/self-propelled artillery fitted replacement proxy, excluding ammunition); current: rough model (tank/self-propelled artillery fitted replacement proxy, excluding ammunition) | counted |
 | `adf_mbt_leopard1_dozer` | Armour | 8000000 | 8000000 | historical: rough model (tank/self-propelled artillery fitted replacement proxy, excluding ammunition); current: rough model (tank/self-propelled artillery fitted replacement proxy, excluding ammunition) | counted |
 | `adf_mbt_mk5-1` | Vehicle | 1000000 | 1000000 | historical: rough model (generic mobile military platform hardware proxy, excluding ammunition); current: rough model (generic mobile military platform hardware proxy, excluding ammunition) | counted |
+| `adf_nasams_launcher` | SAM platform | 5000000 | 5000000 | historical: rough model (one separate SAM launcher vehicle/trailer, ammunition excluded); current: rough model (one separate SAM launcher vehicle/trailer, ammunition excluded) | counted |
 | `airbase_raaf_amberley` | Airbase | 250000000 | 250000000 | historical: rough model (abstract airfield's fixed infrastructure replacement proxy; aircraft, weapons, removable vehicles and fuel excluded); current: rough model (abstract airfield's fixed infrastructure replacement proxy; aircraft, weapons, removable vehicles and fuel excluded) | counted |
 | `airbase_raaf_butterworth` | Airbase | 250000000 | 250000000 | historical: rough model (abstract airfield's fixed infrastructure replacement proxy; aircraft, weapons, removable vehicles and fuel excluded); current: rough model (abstract airfield's fixed infrastructure replacement proxy; aircraft, weapons, removable vehicles and fuel excluded) | counted |
 | `airbase_raaf_curtin` | Installation | 50000000 | 142000000 | historical: existing usable value preserved (SEST checked research: RAAF Base Curtin bare base: A$64M build cost (Australian Aviation, 1988; built 1983-87) at 0.784 USD/AUD (1988 FRED average); CPI to Aug 2026); current: existing usable value preserved (SEST checked research: RAAF Base Curtin bare base: A$64M build cost (Australian Aviation, 1988; built 1983-87) at 0.784 USD/AUD (1988 FRED average); CPI to Aug 2026) | counted |

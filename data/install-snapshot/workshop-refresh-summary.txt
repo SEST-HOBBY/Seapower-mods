@@ -3,12 +3,12 @@ WORKSHOP REFRESH SUMMARY
 Written by tools/workshop_refresh_summary.py from data/install-snapshot/ and the
 canonical lists. Facts only; compatibility is judged in a later review.
 
-capture date           : 2026-11-07T13:14:50
-repo commit captured at: 4c224ae47 (chore/workshop-refresh-20261107-131303)
-previous capture       : 4c224ae47
-previous export        : 4c224ae47
+capture date           : 2026-11-08T20:07:57
+repo commit captured at: be631deaf (chore/workshop-refresh-20261108-200546)
+previous capture       : be631deafd8a
+previous export        : be631deafd8a
 Sea Power              : 21-Oct-2026: 0.8.7 Build 261021 Public Release
-  Steam build id       : 26479221
+  Steam build id       : 26502734
   engine               : Unity 6000.0.84f1 (78ab6fc243d5)
 
 COUNTS
@@ -30,122 +30,42 @@ SINCE THE PREVIOUS CAPTURE
   (none)
   updated on the Workshop (Steam's timeupdated for the item changed, from
   appworkshop_1286220.acf; the exported files below are the full record):
-  3390330875  Euromod - Modern US Navy  2026-11-02 15:03 -> 2026-11-05 07:52
-  3403993583  Armed Oil Rig with helo  2026-03-25 02:06 -> 2026-11-06 00:51
-  3456859157  Mogami-class frigate  2026-10-19 14:13 -> 2026-11-07 02:18
-  3575847216  Euromod - Modern German Navy  2026-10-10 02:13 -> 2026-11-05 08:45
-  3732654992  THE REDFOR MOD  2026-11-03 07:34 -> 2026-11-04 22:06
-  3737267013  US Naval Aviation  2026-11-02 16:09 -> 2026-11-05 21:09
-  3766210676  Saronic Corsair ASV  2026-11-02 06:22 -> 2026-11-07 06:58
-  3775128499  PLAN Pack  2026-11-02 00:52 -> 2026-11-06 19:59
-  3776730617  Euromod - Modern Armada de Chile  2026-10-30 03:58 -> 2026-11-07 10:17
-  3784474738  Euromod - Anchorchain Expansion Pack  2026-10-26 04:57 -> 2026-11-05 08:13
-  3789208859  Euromod-South Korea Navy  2026-11-03 01:05 -> 2026-11-05 23:06
-  3796349767  YF-23 Black Widow II  2026-11-02 14:21 -> 2026-11-07 06:57
-  3801363152  CH-53E Standalone v0.1.0  2026-09-19 22:28 -> 2026-11-07 06:31
-  3804868806  Anduril FQ-44 Fury US Navy Carrier Wingmen  2026-11-02 14:21 -> 2026-11-07 06:46
-  3807187341  Combat Cost Tracker  2026-09-27 03:28 -> 2026-11-04 00:55
-  3810611344  MV-75 Cheyenne II  2026-11-02 14:21 -> 2026-11-07 08:46
-  3812454152  Euromod-HD Hyundai Export Ships Mod  2026-11-03 05:07 -> 2026-11-05 23:00
-  3813033771  EC-2 Stand Off Jammer  2026-11-02 14:20 -> 2026-11-07 06:48
-  3819522350  Anduril Maritime Drones  2026-11-02 14:17 -> 2026-11-07 06:57
-  3820576916  Steelfin (Alpine)  2026-10-27 20:57 -> 2026-11-07 07:10
-  exported files changed since the previous export (4c224ae47; A added, D removed, M modified, R renamed):
-  3390330875  Euromod - Modern US Navy  files 297 -> 296  (A 0, D 2, M 33, R 0)
-      D ammunition/usn_ssq-62.ini
-      D version_counter_633.txt
+  3390330875  Euromod - Modern US Navy  2026-11-05 07:52 -> 2026-11-08 11:12
+  3456859157  Mogami-class frigate  2026-11-07 02:18 -> 2026-11-08 15:11
+  3775128499  PLAN Pack  2026-11-06 19:59 -> 2026-11-07 14:49
+  3789208859  Euromod-South Korea Navy  2026-11-05 23:06 -> 2026-11-08 16:05
+  3807164392  Euromod-India-Navy  2026-10-31 19:29 -> 2026-11-08 16:10
+  3812454152  Euromod-HD Hyundai Export Ships Mod  2026-11-05 23:00 -> 2026-11-08 16:08
+  3820759806  Euromod - Modern Royal Australian Navy Mod  2026-11-01 20:50 -> 2026-11-07 16:13
+  exported files changed since the previous export (be631deafd8a; A added, D removed, M modified, R renamed):
+  3390330875  Euromod - Modern US Navy  files 296 -> 296  (A 0, D 1, M 2, R 0)
+      D version_counter_636.txt
       M aircraft/usn_mh-60r_p2.ini
-      M language_en/ammunition_names.ini
-      M language_en/loadout_names.ini
-      M systems/weapons.ini
-      M vessels/usn_ddg_burke_f2a_079_late.ini
-      M vessels/usn_ddg_burke_f2a_079_late_variants.ini
-      M vessels/usn_ddg_burke_f2a_079_variants.ini
-      M vessels/usn_ddg_burke_f2a_080.ini
-      M vessels/usn_ddg_burke_f2a_080_early.ini
-      M vessels/usn_ddg_burke_f2a_080_late.ini
-      ... and 23 more
-  3403993583  Armed Oil Rig with helo  files 4 -> 6  (A 0, D 0, M 3, R 0)
-      M _info.ini
-      M land_units/civ_spar_rig_helo.ini
-      M language_en/land_units_names.ini
-  3456859157  Mogami-class frigate  files 17 -> 34  (A 0, D 1, M 9, R 0)
-      D ammunition/usn_rgm-84d.ini
-      M _info.ini
-      M ammunition/usn_rim-116.ini
-      M ammunition/usn_rim-162.ini
-      M animations/animations_js_ffg_mogami.ini
+      M vessels/usn_lhd_wasp.ini
+  3456859157  Mogami-class frigate  files 34 -> 37  (A 0, D 2, M 6, R 0)
+      D ammunition/usn_rim-116.ini
+      D ammunition/usn_rim-162.ini
       M language_en/ammunition_names.ini
       M language_en/vessel_names.ini
-      M systems/sensors.ini
+      M language_ja/ammunition_names.ini
       M vessels/js_ffg_mogami.ini
-      M vessels/js_ffg_mogami_variants.ini
-  3575847216  Euromod - Modern German Navy  files 138 -> 138  (A 0, D 0, M 31, R 0)
-      M _info.ini
-      M aircraft/ger_nh90.ini
-      M aircraft/ger_nh90_squadrons.ini
-      M aircraft/ger_sea_lynx_mk88.ini
-      M aircraft/ger_sea_lynx_mk88_squadrons.ini
-      M assets/ships/ger_F123_brandenburg/F123_boat_mat.ini
-      M assets/ships/ger_F123_brandenburg/F123_main_mat.ini
-      M assets/ships/ger_F123_brandenburg/F123_main_old_mat.ini
-      M assets/ships/ger_F123_brandenburg/mlg27_main_mat.ini
-      M assets/ships/ger_F127/F127_boat_mat.ini
-      M assets/ships/ger_F127/F127_main_mat.ini
-      M assets/ships/ger_K130_braunschweig/K130_boat_mat.ini
-      ... and 19 more
-  3732654992  THE REDFOR MOD  files 344 -> 345  (A 0, D 0, M 5, R 0)
-      M aircraft/wp_su-24m2.ini
-      M aircraft/wp_su-30sm2.ini
-      M aircraft/wp_su-35s.ini
-      M systems/sensors.ini
-      M systems/weapons.ini
-  3737267013  US Naval Aviation  files 272 -> 272  (A 0, D 1, M 95, R 0)
-      D version_counter_114.txt
-      M aircraft/usmc_ah-1w.ini
-      M aircraft/usmc_ah-1w_late.ini
-      M aircraft/usmc_av-8b+.ini
-      M aircraft/usmc_ch-46e.ini
-      M aircraft/usmc_f-35b.ini
-      M aircraft/usmc_kc-130j.ini
-      M aircraft/usmc_kc-130t.ini
-      M aircraft/usmc_mv-22b.ini
-      M aircraft/usmc_uh-1y.ini
-      M aircraft/usn_ch-46d.ini
-      M aircraft/usn_e-2d.ini
-      ... and 84 more
-  3775128499  PLAN Pack  files 356 -> 360  (A 0, D 0, M 20, R 0)
-      M aircraft/plaaf_kj-500.ini
-      M aircraft/plan_j-15t.ini
-      M aircraft/plan_z-20f.ini
-      M ammunition/plan_hq-61b.ini
-      M animations/animations_plan_z20.ini
-      M language_cn/aircraft_names.ini
-      M language_cn/ammunition_names.ini
-      M language_cn/systemgroups.ini
-      M language_cn/vessel_names.ini
-      M language_en/aircraft_names.ini
-      M language_en/ammunition_names.ini
-      M language_en/systemgroups.ini
-      ... and 8 more
-  3776730617  Euromod - Modern Armada de Chile  files 133 -> 133  (A 0, D 1, M 1, R 0)
-      D version_counter_10.txt
-      M language_en/aircraft_names.ini
-  3784474738  Euromod - Anchorchain Expansion Pack  files 1166 -> 1290  (A 0, D 2, M 6, R 0)
-      D ExtendedGuidance_README.txt
-      D TestRange_README.txt
-      M ammunition_overwrite/knm_3sm_tyrfing_OVWR.ini
-      M readme/README_OptimalTargetDistMod.md
-      M systems/ExtendedGuidance_OVWR.ini
-      M systems/ExtendedGuidance_Profiles.ini
-      M systems/WeaponAudioClip_Mapping.ini
-      M systems/WeaponEffect_Mapping.ini
-  3789208859  Euromod-South Korea Navy  files 162 -> 163  (A 0, D 0, M 15, R 0)
-      M ammunition/rok_k-sam-II.ini
-      M ammunition/rok_saam-400k.ini
-      M ammunition/rok_ssm-700k.ini
-      M ammunition/rok_ssm-750k.ini
-      M language_en/ammunition_names.ini
+      M vessels/js_ffg_mogami_improved.ini
+      M vessels/ran_ffg_mogami_improved.ini
+  3775128499  PLAN Pack  files 360 -> 360  (A 0, D 0, M 26, R 0)
+      M aircraft/plan_ka-28.ini
+      M ammunition/plan_48n6e1.ini
+      M ammunition/plan_9m317.ini
+      M ammunition/plan_cal_100mm.ini
+      M ammunition/plan_cal_130mm.ini
+      M ammunition/plan_cal_30mm.ini
+      M ammunition/plan_cal_37mm.ini
+      M ammunition/plan_cal_76mm.ini
+      M ammunition/plan_rbu2000.ini
+      M ammunition/plan_rgb-81.ini
+      M ammunition/plan_skf-12.ini
+      M ammunition/plan_skf-14.ini
+      ... and 14 more
+  3789208859  Euromod-South Korea Navy  files 163 -> 163  (A 0, D 0, M 14, R 0)
       M vessels/ko_ddg-991.ini
       M vessels/ko_ddg-995.ini
       M vessels/ko_ddh-971.ini
@@ -153,20 +73,18 @@ SINCE THE PREVIOUS CAPTURE
       M vessels/ko_ff-951.ini
       M vessels/ko_ffg-811.ini
       M vessels/ko_ffg-818.ini
-      ... and 3 more
-  3801363152  CH-53E Standalone v0.1.0  files 44 -> 44  (A 0, D 0, M 5, R 0)
-      M aircraft/jmsdf_ch53_standalone.ini
-      M aircraft/usmc_ch53_standalone.ini
-      M ammunition/ch53sa_mk48_air.ini
-      M animations/animations_ch53_standalone.ini
-      M systems/sensors.ini
-  3807187341  Combat Cost Tracker  files 9 -> 9  (A 0, D 0, M 4, R 0)
-      M README.md
-      M _info.ini
-      M systems/combatcosts/config.ini
-      M systems/weaponcosts.ini
-  3812454152  Euromod-HD Hyundai Export Ships Mod  files 41 -> 46  (A 0, D 0, M 9, R 0)
-      M language_en/vessel_names.ini
+      M vessels/ko_ffg-828.ini
+      M vessels/ko_lph-6111.ini
+      M vessels/ko_lph-6112.ini
+      M vessels/ko_pcc-756.ini
+      M vessels/ko_pkg-711.ini
+      ... and 2 more
+  3807164392  Euromod-India-Navy  files 25 -> 25  (A 0, D 0, M 4, R 0)
+      M vessels/ins_F-33.ini
+      M vessels/ins_F-47.ini
+      M vessels/ins_d-63.ini
+      M vessels/ins_d-66.ini
+  3812454152  Euromod-HD Hyundai Export Ships Mod  files 46 -> 47  (A 0, D 0, M 8, R 0)
       M vessels/ko_ffg-471.ini
       M vessels/ko_hdf-3600.ini
       M vessels/ko_kddx.ini
@@ -175,36 +93,23 @@ SINCE THE PREVIOUS CAPTURE
       M vessels/pn_ffg-06.ini
       M vessels/pn_ffg-150.ini
       M vessels/pn_ffg-150_2.ini
-  3820576916  Steelfin (Alpine)  files 20 -> 20  (A 0, D 0, M 1, R 0)
+  3820759806  Euromod - Modern Royal Australian Navy Mod  files 243 -> 247  (A 0, D 11, M 11, R 0)
+      D aircraft/Testing/usaf_f-35a.ini
+      D aircraft/Testing/usaf_f-35a_1.ini
+      D aircraft/Testing/usaf_f-35a_2.ini
+      D aircraft/Testing/usmc_f-35b.ini
+      D ammunition/WIP/scn_nasams_aim120c7.ini
+      D ammunition/WIP/scn_nasams_aim9x.ini
+      D land_units/WIP/adf_nasams_launcher.ini
+      D land_units/WIP/adf_nasams_launcher_variants.ini
+      D systems/Legacy/sensors.ini
+      D systems/Legacy/sensors_modernADF.ini
+      D systems/Legacy/weapons.ini
       M _info.ini
+      ... and 10 more
   plugin DLLs changed:
-  [workshop] 3766210676\SaronicCorsairStrikeUSV.dll
-  [workshop] 3784474738\ACPackSettings.dll
-  [workshop] 3784474738\CombatWorker.dll
-  [workshop] 3784474738\CustomAudioLoader.dll
-  [workshop] 3784474738\EnhancedDecoyMod.dll
-  [workshop] 3784474738\EnhancedUIMod.dll
-  [workshop] 3784474738\ExtendedGuidance.dll
-  [workshop] 3784474738\MissileControlMod.dll
-  [workshop] 3784474738\MultiStageMissiles.dll
-  [workshop] 3784474738\OptimalTargetDist.dll
-  [workshop] 3784474738\ParallelRangeProbe.dll
-  [workshop] 3784474738\SATCOM.dll
-  [workshop] 3784474738\SubModelStabilization.dll
-  [workshop] 3784474738\TestRange.dll
-  [workshop] 3784474738\UiWorkerProbe.dll
-  [workshop] 3784474738\WeaponLauncherEffects.dll
-  [workshop] 3796349767\AlpineSeaPower.dll
-  [workshop] 3804868806\AlpineSeaPower.dll
-  [workshop] 3804868806\XQ58Shadow.dll
-  [workshop] 3807187341\CombatCosts.dll
-  [workshop] 3810611344\BellSystemsFixtureTilt.dll
-  [workshop] 3810611344\MV75CrewEscape.dll
-  [workshop] 3813033771\EC2CommsJamming.dll
-  [workshop] 3819522350\K5KrakenContactStrike.dll
+  (none)
   plugin DLLs new:
-  [workshop] 3819522350\AlpineExteriorCameras.dll
-  [workshop] 3820576916\AlpineExteriorCameras.dll
 
 INVENTORY
   subscribed + downloaded + canonical + catalogued: 203
@@ -233,21 +138,14 @@ AUTHORS' CHANGE NOTES (data/install-snapshot/workshop-change-notes.txt)
 
 EXPORTER UPDATE CHECK (export-mod-configs.ps1 -CheckUpdates)
     workshop : C:\Program Files (x86)\Steam\steamapps\workshop\content\1286220
-  unchanged since the last export : 189
+  unchanged since the last export : 196
   skipped, SEST's own Workshop item: 3812461539
   UPDATED by their authors (re-export to pick the changes up):
     3390330875  Euromod - Modern US Navy
-    3403993583  Armed Oil Rig with helo
     3456859157  Mogami-class frigate
-    3575847216  Euromod - Modern German Navy
-    3732654992  THE REDFOR MOD
-    3737267013  US Naval Aviation
     3775128499  PLAN Pack
-    3776730617  Euromod - Modern Armada de Chile
-    3784474738  Euromod - Anchorchain Expansion Pack
     3789208859  Euromod-South Korea Navy
-    3801363152  CH-53E Standalone v0.1.0
-    3807187341  Combat Cost Tracker
+    3807164392  Euromod-India-Navy
     3812454152  Euromod-HD Hyundai Export Ships Mod
-    3820576916  Steelfin (Alpine)
+    3820759806  Euromod - Modern Royal Australian Navy Mod
   To capture: re-run this script without -CheckUpdates, then commit and push.

@@ -1,6 +1,5 @@
-<# Import the private release bundle into a fresh worktree, repair the existing
-   beta candidate, install refreshed data with backup, then stage a separate
-   canonical stable upload. Never submits to Steam. #>
+<# Import a reviewed release, repair beta code, install backed-up data, and
+   stage a separate canonical stable upload. Never submits to Steam. #>
 [CmdletBinding()]
 param([string]$MainRepository='', [string]$GameRoot='', [string]$WorkshopContentRoot='', [switch]$ImportOnly)
 $ErrorActionPreference='Stop'
@@ -12,26 +11,33 @@ function G { & git -C $MainRepository @args;if($LASTEXITCODE -ne 0){throw 'Git s
 if(@(Get-Process -Name 'Sea Power','SeaPower' -ErrorAction SilentlyContinue).Count){throw 'Close Sea Power first.'}
 if(!$MainRepository){$MainRepository=J $env:USERPROFILE 'Seapower-mods'}
 $MainRepository=(Resolve-Path -LiteralPath $MainRepository).ProviderPath
-$bundle=J $PSScriptRoot 'SEST-Workshop-20261107.bundle'
 $receipt=Get-Content -LiteralPath (J $PSScriptRoot 'SOURCE-RECEIPT.json') -Raw | ConvertFrom-Json
+$bundleName=[string]$receipt.workshop_bundle.file
+if(!$bundleName -or (Split-Path -Leaf $bundleName) -cne $bundleName){throw 'Unsafe bundle filename in release receipt.'}
+$bundle=J $PSScriptRoot $bundleName
 if((Get-FileHash -LiteralPath $bundle -Algorithm SHA256).Hash.ToLowerInvariant() -ne $receipt.workshop_bundle.sha256){throw 'Release bundle hash differs; extract the complete toolkit again.'}
+$branch=[string]$receipt.release_branch
+$betaName=if($receipt.PSObject.Properties['beta_directory']){[string]$receipt.beta_directory}else{'R7'}
+if($branch -notmatch '^release/[A-Za-z0-9._/-]+$' -or $betaName -notmatch '^R\d+$'){throw 'Unrecognised release receipt.'}
 G bundle verify $bundle
-G fetch $bundle release/workshop-20261107
-$checkout=J (Split-Path -Parent $MainRepository) ('Seapower-Workshop-20261107-R7-'+(Get-Date -Format 'HHmmss'))
+G fetch $bundle $branch
+$checkout=J (Split-Path -Parent $MainRepository) ('Seapower-Workshop-'+$betaName+'-'+(Get-Date -Format 'yyyyMMdd-HHmmss'))
 if(Test-Path -LiteralPath $checkout){throw 'The new checkout already exists; run again after the clock advances.'}
 G worktree add --detach $checkout FETCH_HEAD
 Write-Host ('Release checkout: '+$checkout) -ForegroundColor Green
 if($ImportOnly){return}
 $report=J $PSScriptRoot ('check-updates-'+(Get-Date -Format 'HHmmss')+'.txt')
-& powershell.exe -NoProfile -ExecutionPolicy Bypass -File (J $checkout 'tools' 'export-mod-configs.ps1') -CheckUpdates -ReportPath $report
+$checkArgs=@('-NoProfile','-ExecutionPolicy','Bypass','-File',(J $checkout 'tools' 'export-mod-configs.ps1'),'-CheckUpdates','-ReportPath',$report)
+if($WorkshopContentRoot){$checkArgs+=@('-WorkshopContentDir',$WorkshopContentRoot)}
+& powershell.exe @checkArgs
 if($LASTEXITCODE -ne 0 -or !(Test-Path -LiteralPath $report)){throw 'The author-update check failed. No beta/data installation was attempted.'}
 if([IO.File]::ReadAllText($report) -notmatch 'Nothing has changed upstream\.'){throw 'An author configuration changed after this capture. Keep the report and capture the new update before installation.'}
-$beta=J $PSScriptRoot 'R7'
+$beta=J $PSScriptRoot $betaName
 $options=@{};if($GameRoot){$options.GameRoot=$GameRoot};if($WorkshopContentRoot){$options.WorkshopContentRoot=$WorkshopContentRoot}
 & (J $beta 'Repair-SEST-Beta-Startup.ps1') @options -Action Repair
 $dataOptions=@{RepositoryRoot=$checkout;BetaPackageRoot=$beta}
 if($GameRoot){$dataOptions.GameDirectory=$GameRoot};if($WorkshopContentRoot){$dataOptions.WorkshopContentRoot=$WorkshopContentRoot}
 & (J $checkout 'tools' 'install-workshop-release-data.ps1') @dataOptions
 & (J $checkout 'tools' 'prepare-workshop-upload.ps1') -RepositoryRoot $checkout
-Write-Host 'Beta playtest prepared. Launch the game, test the README items, quit and run R7\Capture-Repair-Results.cmd.' -ForegroundColor Green
+Write-Host ('Beta playtest prepared. Launch the game, test the README items, quit and run '+$betaName+'\Capture-Repair-Results.cmd.') -ForegroundColor Green
 Write-Host 'The printed upload folder contains canonical stable code. Submit to Steam only after the required gameplay checks pass.'

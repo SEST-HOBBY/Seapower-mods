@@ -433,6 +433,10 @@ try {
     # passed for the stable or the beta one).
     $r = BuildCheck @('-StableSha256', $h)
     Check ($r.Code -eq 0 -and $r.Count -eq '0' -and $r.Out -match '\[ok\]   game build: Sea Power 0\.8\.7 Build 261021, the stable build this pack targets' -and $r.Out -match 'SEST Runtime Fixes 1\.5\.0 and SEST UI Follow-up can start, each only if its own SHA-256 checks pass') "stable hash: Build 261021, the plugins may start under their own checks, no warning"
+    $r = BuildCheck @('-CurrentBetaSha256', $h)
+    Check ($r.Count -eq '0' -and $r.Out -match '8 November 2026' -and $r.Out -match 'R8') 'new captured assembly: R8 profile recognised without a warning'
+    $r = BuildCheck @('-PreviousBetaSha256', $h)
+    Check ($r.Count -eq '0' -and $r.Out -match '7 November 2026' -and $r.Out -match 'R7') 'previous captured assembly: R7 profile retained'
     $r = BuildCheck @('-BetaSha256', $h)
     Check ($r.Code -eq 0 -and $r.Count -eq '0' -and $r.Out -match '\[note\] game build: Sea Power 0\.8\.7 Build 261026, the public beta\. This pack targets the stable Build 261021\.' -and $r.Out -match 'stay off under their SHA-256 checks' -and $r.Out -match 'Anchor Chain preloader finds no chainloader, so no Anchor Chain mod loads' -and $r.Out -match 'test candidate only; nothing installs it') "beta hash: Build 261026, plugins off under their SHA checks, no chainloader, the fork a test candidate, a note not a warning"
     $r = BuildCheck @()
