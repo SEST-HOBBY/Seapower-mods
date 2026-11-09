@@ -1,77 +1,71 @@
-SEST R12 — FULL WORKSHOP FEATURE UPDATE
+SEST R12 - WORLD OPERATIONS UPDATE
 9 November 2026 | SEST-DEV
 
-R12 WORLD-BATTLE FLOW REFINEMENT - UI 1.4.10
-The 19:10 capture confirms the previous R12 payload is installed. This update
-adds a paused battle-preparation checklist and a clearer End battle... entry
-in the world-battle pause menu. Its confirmation explains that victory is not
-required while retaining the campaign's complete consequence warning.
+START HERE
+Close Sea Power. Extract this complete toolkit to a NEW folder, then run
+Prepare-PC.cmd. This installs the revised world data and the paired code.
+Repair-PC.cmd alone only updates code and will not install the new bases.
+Keep the printed checkout, backup path and verified UPLOAD FOLDER.
 
-EXISTING R12 INSTALLATION: close Sea Power, extract this complete toolkit to
-a new folder and run Repair-PC.cmd. This applies the inspected UI update.
-Test a new paused battle, preparation, a replay and ending an unfinished
-battle through Esc > End battle... > debrief > return to campaign. Quit and
-run R12\Capture-Repair-Results.cmd. See R12-BATTLE-FLOW.txt for details.
+Start a NEW Global Maritime Operations 2028 campaign to test the full layout.
+An already spawned battle will not move its airfields when files are updated.
 
-Only the UI DLL changes from the previous R12 payload. Runtime, loader,
-bootstrap and Identify shim retain their existing hashes. The reviewed
-BetterTacMap/Pop-Out configuration baseline is retained. For a complete
-publisher preparation and verified upload folder, use Prepare-PC.cmd below.
+CHANGES
+- Global Maritime Operations 2028: 196 bases, 293 force groups, 54 patrols and
+  1,586 recruitment entries. Forty new real airfields across 16 nations.
+- Reviewed 37 existing airfield placements/orientations. Muharraq uses the
+  published Bahrain airport reference point instead of rounded coordinates.
+- Operational briefings covering mission, threat, execution and sustainment.
+- Eight command stages at 0 / 300 / 800 / 1,600 / 2,800 / 4,500 / 7,000 /
+  10,500 renown, with progressively available recruitment bands.
+- F11 Overview shows your next milestone, new recruitment count, live
+  Admiralty task rewards and deadlines, and ways to sustain your force.
+- Earn renown and credits through native battle results and accepted
+  Admiralty assignments: escort, shadowing, area control and operations when
+  offered. Read the conditions; routine movement earns no task reward.
+- Supply stays physical: depot production, convoys, ammunition airlifts and
+  replenishment ships. New airfields start at quarter stock and add no
+  aircraft, ships, income or production depots.
+- Paused battle preparation and Esc > End battle... remain included. Return
+  through the debrief; victory is not required and campaign consequences apply.
 
-THIS STEAM UPDATE INCLUDES THE NEW UI FEATURES
-The verified SEST_Integration upload now includes the Modernised Worldwide
-Campaign, native ribbons and the installer for F11 World Operations, world
-service progress, campaign costing and Coordinated Strike UI refinements.
-Use this R12 package rather than the earlier R11 data-only upload folder.
+The base network is expanded in the scenario definition. Constructing new
+bases during play is not included. Access, coalitions, forces and stocks are
+hypothetical 2028 assumptions. Command stages are coalition appointments,
+not national promotion rules. Campaign credits and USD estimates are separate.
 
-PUBLISHER PC
-1. Close Sea Power. Extract this complete toolkit to a new folder.
-2. Run Prepare-PC.cmd. Keep its printed checkout, backup and UPLOAD FOLDER.
-3. Check the new world, F11 tabs, service progress, strike controls, Topography,
-   pop-outs, battle return and save/load. Quit and capture diagnostics.
-4. Upload only the verified SEST_Integration folder to existing item 3812461539.
-   If the picker requires StreamingAssets, use Upload-PC.cmd to create a
-   fresh top-level publishing copy and copy the change note to the clipboard.
-   Keep that temporary local copy disabled. After upload, quit the game and
-   run Finish-Upload.cmd to move it out before using subscriber SETUP.
-5. Confirm upload success, non-zero item size, change note and Required Items.
+PC CHECK BEFORE UPLOAD
+1. Start the new world as each coalition. Check F11 Overview and recruitment.
+2. Check Muharraq, Chambers Field, Souda and Diego Garcia in generated battles.
+   Geographic checks cannot verify the game's terrain or reclaimed islands.
+3. Check a new airfield's stocks, supply source and aircraft rebasing.
+4. Complete an Admiralty task; compare its renown/credit reward with F11.
+5. Save/reload, prepare a paused battle and end an unfinished engagement.
+6. Quit. Run R12\Capture-Repair-Results.cmd and retain the capture.
 
-Preparation checks author configuration updates, repairs the existing beta
-installation and installs backed-up data. It does not submit anything to
-Steam, switch Steam branches or overwrite native game DLLs or save files.
-If preparation stops, retain the error and report. Do not skip its checks.
+STEAM UPDATE WALKTHROUGH
+After the PC checks pass, keep the game closed and run Upload-PC.cmd. It
+creates a verified publishing copy under StreamingAssets and copies the
+change note to the clipboard. Keep that temporary local mod disabled.
+Open Sea Power > Mod Manager > Create Mod > Update Existing. Select existing
+Workshop item 3812461539. Pick the exact folder printed by Upload-PC.cmd,
+paste the change note, then submit. Confirm upload success and non-zero size.
+Quit and run Finish-Upload.cmd to move the temporary copy out of the game.
+After Steam downloads the update, run subscriber SETUP from the pack folder.
+
+Preparation checks captured author configurations, repairs the enabled beta
+installation and installs backed-up world data. It does not submit to Steam,
+switch Steam branches or edit native game DLLs or save files. If a check
+stops, retain the error/report and do not bypass it.
 
 SUBSCRIBER INSTALLATION
-After Steam finishes downloading this item, close Sea Power and run
-SETUP - double-click me.cmd from Mod Manager > Open Folder on the pack.
-On the supported beta build:
-- Existing enabled SEST beta installation: one SETUP run updates features.
-- Fresh installation: SETUP stages features. Launch to the main menu, wait
-  about ten seconds, quit, then run SETUP again to enable them.
-- After a Steam item update, rerun SETUP to reapply the bundled features.
-Original restore backups, Identify data, settings and saves are retained.
-Unknown game/author DLL versions or unreviewed installed code are refused.
-On other builds, SETUP leaves the normal-release active plugins selected.
-The new feature code is present in the Workshop download, not a separate
-external download. Installation still depends on the supported game build.
+Run SETUP - double-click me.cmd from Mod Manager > Open Folder, with the game
+closed. On the supported beta, an existing enabled installation updates in
+one run. A fresh install needs SETUP, a launch to the main menu for about ten
+seconds, quitting, then a second SETUP run. Rerun SETUP after Steam refreshes
+this item. Original backups, settings, Identify data and saves are retained.
 
-FEATURES
-- One Modernised Worldwide Campaign combines the original and regional
-  expansion: 156 bases, 293 forces, 54 patrols and 1,586 catalogue entries.
-- Four native campaign completion ribbons with artwork and citations.
-- F11 World Operations: Overview, Forces, Costs and Service.
-- Independent profile service progress; native campaign saves are unchanged.
-- Coordinated Strike shared styling and planned/remaining weapon estimates.
-  Original scheduling and launch controls are retained.
-- Reviewed beta Topography, Pop-Out and DCM salvo-hold support.
-
-PC ACCEPTANCE
-Check a new world and an existing regional save, complete a battle and return,
-then save/load and confirm no duplicate service awards or battle cost totals.
-Check native Service Record artwork/citations, F11 movement/scroll/pop-out,
-strike planning and launch controls, Identify, Contacts and Group Manager.
-Credits remain separate from estimated USD values. A full strike-window layout
-redesign is follow-on work; this update delivers styling and cost summaries.
-Quit and run R12\Capture-Repair-Results.cmd, then send the new capture.
-Managed checks do not replace native rendering and gameplay acceptance.
-No Steam submission or GitHub push has been performed by this toolkit.
+The full package also retains campaign completion ribbons, F11 Forces/Costs/
+Service, the independent service record, Coordinated Strike styling/cost
+estimates, Topography, Pop-Out support and DCM salvo hold. Native rendering,
+terrain placement and gameplay acceptance remain pending on the PC.

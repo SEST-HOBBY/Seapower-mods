@@ -1,11 +1,11 @@
-Modernised Worldwide Campaign and UI Feature Update
+Global Maritime Operations 2028 - Bases and Command Progress
 
-The original World Sandbox and full Regional Expansion are combined into one Modernised Worldwide Campaign 2028: 156 bases, 293 force groups, 54 patrols and 1,586 catalogue entries. Regional save identity is retained; new content applies to new games.
+Expanded the world to 196 bases with 40 additional real airfields. Reviewed 37 existing airfield placements and orientations, including Muharraq, Chambers Field, Souda, Longtian and Severomorsk-3. Existing force groups, patrols and recruitment platforms are retained.
 
-Added native completion ribbons, artwork and citations for Southern Watch, Southern Reach, Red Line and Sulu Line. Existing third-party awards are preserved.
+Rewrote world briefings around mission, threat, execution and sustainment. Added eight command stages with earlier milestones and progressive recruitment bands. F11 Overview now shows the next renown milestone, recruitment unlock counts, live Admiralty rewards and deadlines, and supply guidance. Native escort, surveillance, area-control and multi-phase assignments offer alternatives to fleet battles when available. Rewards follow each accepted assignment's conditions.
 
-This Workshop download now includes F11 World Operations (Overview, Forces, Costs and Service), world service progress, campaign cost reporting, and Coordinated Strike styling with planned/remaining weapon-cost estimates. Original strike scheduling and launch controls are retained.
+Forty new airfields start at quarter stock without extra forces, income or production depots. Supply uses the existing depot, convoy, ammunition-airlift and replenishment systems. Coalition access and deployments are hypothetical 2028 scenario assumptions. Start a new campaign for the complete revised layout.
 
-On the supported beta build, run SETUP from the pack folder after downloading. A first installation needs a main-menu check and a second SETUP run. Existing enabled installations update in one run. Rerun SETUP after Steam updates the item. Normal-release active plugins are retained for other builds.
+Includes paused world-battle preparation and a clear End battle... pause-menu action. Victory is not required to return through the debrief; the campaign's consequence assessment remains in effect.
 
-World campaign battle flow: added a paused opening preparation checklist and a clearer End battle... pause-menu entry. Returning through the debrief does not require victory; the campaign's existing consequence warning and outcome assessment are retained.
+Also includes campaign completion ribbons, F11 Forces/Costs/Service, campaign costing and Coordinated Strike styling and weapon estimates. On the supported beta build, run SETUP from the pack folder after Steam finishes downloading. Existing enabled installations update in one run; a fresh installation needs a main-menu launch and second SETUP run. Rerun SETUP after Steam updates this item.

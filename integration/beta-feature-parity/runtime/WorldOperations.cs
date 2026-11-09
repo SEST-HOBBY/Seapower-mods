@@ -69,6 +69,11 @@ internal static class WorldOperations
         var d = value as IDictionary;
         return d != null && d.Contains(key) ? Clean(d[key]) : "Not recorded";
     }
+    private static object Lookup(object value, string key)
+    {
+        var d = value as IDictionary;
+        return d != null && d.Contains(key) ? d[key] : null;
+    }
 
     private static void Bind()
     {
@@ -206,7 +211,7 @@ internal static class WorldOperations
     private static void Overview(CampaignCosts.CostView v)
     {
         v.AddSummary(CostLineKind.PlayerTotal, "Campaign budget: " + Dict(Get(state, "Points"), side) + " credits");
-        v.AddSummary(CostLineKind.Breakdown, "Renown " + Dict(Get(state, "Renown"), side) + " | Rank tier " + Dict(Get(state, "Ranks"), side));
+        Progression(v, state, definition, side);
         var owners = Get(state, "BaseOwner") as IDictionary;
         int ports = owners == null ? 0 : owners.Values.Cast<object>().Count(x => Convert.ToString(x) == side);
         v.AddDetail(CostLineKind.Section, "WORLD AND COMMAND");
@@ -219,7 +224,7 @@ internal static class WorldOperations
         string[] types = { "WeaponCostsMod.Overlay", "SeaPowerTopo.Plugin", "IdentifyExpanded.Plugin" };
         string[] names = { "Combat Cost Tracker", "Topographic Map", "Identify Expanded" };
         var assemblies = AppDomain.CurrentDomain.GetAssemblies();
-        v.AddDetail(CostLineKind.Body, "Dynamic Campaign Mod: connected | SEST beta map integration: active");
+        v.AddDetail(CostLineKind.Body, "Dynamic Campaign Mod: connected | Campaign map integration: active");
         for (int i = 0; i < types.Length; i++)
         {
             bool found = assemblies.Any(a => a.GetType(types[i], false) != null);
@@ -227,7 +232,44 @@ internal static class WorldOperations
             v.AddDetail(CostLineKind.Item, names[i] + ": " + (found ? "assembly detected; check its in-game controls" : "not detected by this panel"));
         }
         v.AddDetail(CostLineKind.Section, "CAMPAIGN CONTENT");
-        v.AddDetail(CostLineKind.Body, "The original world and regional expansion are combined in the Modernised Worldwide Campaign. New bases and forces apply to new games; existing saves keep their own state.");
+        v.AddDetail(CostLineKind.Body, "Global Maritime Operations 2028 uses hypothetical coalition access, forces and stocks. Revised facilities and command stages apply to new campaigns. Start a new campaign for the complete revised layout; existing saves keep their saved forces and stocks.");
+    }
+
+    // Read the author's live definitions and orders. No reward, stock or save
+    // mutation here: DCM alone decides completion and applies its own rewards.
+    internal static void Progression(CampaignCosts.CostView v, object gameState, object def, string ours)
+    {
+        int renown = Convert.ToInt32(Lookup(Get(gameState, "Renown"), ours) ?? 0);
+        var stages = Rows(Lookup(Get(def, "ranks"), ours));
+        int rank = Math.Max(0, stages.FindLastIndex(x => Convert.ToInt32(Get(x, "renown")) <= renown));
+        // DCM keeps an announced promotion after a later renown penalty.
+        rank = Math.Min(Math.Max(0, stages.Count - 1), Math.Max(rank, Convert.ToInt32(Lookup(Get(gameState, "Ranks"), ours) ?? 0)));
+        if (stages.Count > 0)
+        {
+            v.AddSummary(CostLineKind.Breakdown, "Command stage " + (rank + 1) + "/" + stages.Count + ": " + Clean(Get(stages[rank], "name")) + " | Renown " + renown);
+            v.AddDetail(CostLineKind.Section, "COMMAND PROGRESS");
+            if (rank + 1 < stages.Count)
+            {
+                int target = Convert.ToInt32(Get(stages[rank + 1], "renown"));
+                int unlocks = Rows(Get(def, "catalogue")).Count(x => S(x, "side") == ours && Convert.ToInt32(Get(x, "tier")) == rank + 1);
+                v.AddDetail(CostLineKind.Body, "Next: " + Clean(Get(stages[rank + 1], "name")) + " at " + target + " renown | " + Math.Max(0, target - renown) + " to go | " + unlocks + " additional recruitment entries");
+            }
+            else v.AddDetail(CostLineKind.Body, "Final command stage reached. Continue operations to build renown and sustain your force.");
+        }
+        v.AddDetail(CostLineKind.Body, "RENOWN AND BUDGET: battle results and completed, accepted Admiralty tasks. Look for escort, area-control, shadowing and multi-phase assignments when offered. Read each task's conditions; routine movement or ending a battle alone earns no task reward.");
+        v.AddDetail(CostLineKind.Body, "SUPPLIES: depot production feeds convoys; airlift moves urgent ammunition; loaded replenishment ships support forces at sea. Protect deliveries and raise a short base's supply priority. Credits fund purchases and are separate from physical stocks.");
+        v.AddDetail(CostLineKind.Section, "CURRENT ADMIRALTY TASKS");
+        var orders = Rows(Get(gameState, "AdmiraltyOrders")).Where(x => S(x, "SideId") == ours && (S(x, "Status") == "Offered" || S(x, "Status") == "Active")).OrderBy(x => (DateTime)Get(x, "Deadline")).ToList();
+        foreach (var order in orders.Take(4))
+        {
+            bool offered = S(order, "Status") == "Offered";
+            v.AddDetail(CostLineKind.Mission, Clean(Get(order, "Title")) + (offered ? " | Offered - accept in Admiralty" : " | Active"));
+            v.AddDetail(CostLineKind.Item, "+" + Clean(Get(order, "RewardRenown")) + " renown | +" + Clean(Get(order, "RewardPoints")) + " credits on completion | Failure penalty: " + Clean(Get(order, "PenaltyRenown")) + " renown");
+            var when = (DateTime)Get(order, offered ? "OfferLapses" : "Deadline");
+            v.AddDetail(CostLineKind.Time, (offered ? "Offer expires " : "Deadline ") + when.ToString("d MMM HH:mm", CultureInfo.InvariantCulture) + " | Open Admiralty for task conditions and progress.");
+        }
+        if (orders.Count == 0) v.AddDetail(CostLineKind.Body, "No offered or active assignments recorded. Check Admiralty as campaign time advances; task availability follows the operational situation.");
+        if (orders.Count > 4) v.AddDetail(CostLineKind.Body, (orders.Count - 4) + " more assignments in Admiralty.");
     }
 
     private static void Forces(CampaignCosts.CostView v)

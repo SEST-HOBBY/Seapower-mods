@@ -105,6 +105,47 @@ static class WorldOperationsTests
             object sim = System.Runtime.Serialization.FormatterServices.GetUninitializedObject(dcm.GetType("DynamicCampaignMod.Core.Sim.CampaignSim", true));
             object fakeState = System.Runtime.Serialization.FormatterServices.GetUninitializedObject(dcm.GetType("DynamicCampaignMod.Core.State.CampaignState", true));
             object def = System.Runtime.Serialization.FormatterServices.GetUninitializedObject(dcm.GetType("DynamicCampaignMod.Core.Data.CampaignDefinition", true));
+            // Deserialize the shipped definition into the captured author's
+            // actual types, then exercise the live progress display against it.
+            var json = Assembly.LoadFrom(Path.Combine(args[0], "Newtonsoft.Json.dll")).GetType("Newtonsoft.Json.JsonConvert", true);
+            object revised = json.GetMethod("DeserializeObject", new[] { typeof(string), typeof(Type) }).Invoke(null, new object[] {
+                File.ReadAllText("integration/world-sandbox/SEST_World_Campaign/dynamic_campaigns/sest-world-regions-2028/campaign.json"), def.GetType() });
+            Check(((IList)Field(revised, "bases")).Count == 196, "Captured DCM deserializes all 196 revised world bases");
+            var stages = (IList)((IDictionary)Field(revised, "ranks"))["blue"];
+            Check(stages.Count == 8 && (int)Field(stages[7], "renown") == 10500, "Captured native rank definitions accept all eight reachable command stages");
+            var xp = (IDictionary)Activator.CreateInstance(fakeState.GetType().GetField("Renown", All).FieldType);
+            xp.Add("blue", 299); Set(fakeState, "Renown", xp);
+            var retainedRanks = (IDictionary)Activator.CreateInstance(fakeState.GetType().GetField("Ranks", All).FieldType);
+            Set(fakeState, "Ranks", retainedRanks); Set(fakeState, "Definition", revised);
+            var tasks = (IList)Activator.CreateInstance(fakeState.GetType().GetField("AdmiraltyOrders", All).FieldType);
+            var orderType = dcm.GetType("DynamicCampaignMod.Core.State.AdmiraltyOrder", true);
+            for (int i = 0; i < 3; i++)
+            {
+                object order = Activator.CreateInstance(orderType, true);
+                Set(order, "SideId", i == 1 ? "red" : "blue"); Set(order, "Title", new[] { "Escort supply convoy", "Enemy task", "Already completed" }[i]);
+                Set(order, "Status", Enum.Parse(orderType.GetField("Status").FieldType, i == 2 ? "Completed" : "Offered"));
+                Set(order, "RewardRenown", 125); Set(order, "RewardPoints", 60); Set(order, "PenaltyRenown", 20);
+                Set(order, "Deadline", new DateTime(2028, 10, 3)); Set(order, "OfferLapses", new DateTime(2028, 10, 2)); tasks.Add(order);
+            }
+            Set(fakeState, "AdmiraltyOrders", tasks);
+            Func<object> progressView = () => {
+                object page = Activator.CreateInstance(view.GetType(), true);
+                Call(world, "Progression", page, fakeState, revised, "blue"); return page;
+            };
+            Func<object, string> progressText = page => string.Join("\n", ((IEnumerable)Field(page, "Summary")).Cast<string>().Concat(((IEnumerable)Field(page, "Details")).Cast<string>()));
+            object progress = progressView(); string displayed = progressText(progress);
+            Check(displayed.Contains("Command stage 1/8") && displayed.Contains("1 to go"), "Next milestone is clear immediately before promotion");
+            Check(displayed.Contains("+125 renown | +60 credits") && displayed.Contains("Offer expires 2 Oct"), "Actual task rewards and offer expiry appear without invented supply payouts");
+            Check(!displayed.Contains("Enemy task") && !displayed.Contains("Already completed"), "Task display excludes enemy and completed assignments");
+            Check((int)xp["blue"] == 299 && tasks.Count == 3, "Opening progress does not grant renown or mutate native task state");
+            xp["blue"] = 300; Check(progressText(progressView()).Contains("Command stage 2/8"), "Exact promotion boundary advances the displayed stage");
+            xp["blue"] = 10500; displayed = progressText(progressView());
+            Check(displayed.Contains("Command stage 8/8") && displayed.Contains("Final command stage reached") && !displayed.Contains("to go"), "Final stage has no phantom ninth milestone");
+            object yards = System.Runtime.Serialization.FormatterServices.GetUninitializedObject(dcm.GetType("DynamicCampaignMod.Core.Sim.Shipyards", true));
+            Set(yards, "_state", fakeState);
+            Check((int)Call(yards, "RankOf", "blue") == 7, "Author's actual procurement engine reaches the eighth stage");
+            retainedRanks["blue"] = 3; xp["blue"] = 299;
+            Check(progressText(progressView()).Contains("Command stage 4/8") && (int)Call(yards, "RankOf", "blue") == 3, "Display matches native retained promotion after a renown penalty");
             object plan = System.Runtime.Serialization.FormatterServices.GetUninitializedObject(dcm.GetType("DynamicCampaignMod.Core.State.BattlePlan", true));
             object engagement = System.Runtime.Serialization.FormatterServices.GetUninitializedObject(dcm.GetType("DynamicCampaignMod.Core.State.Engagement", true));
             Set(sim, "State", fakeState); Set(plan, "Engagement", engagement); Set(engagement, "Id", 1559); Set(engagement, "At", new DateTime(2028, 10, 1));

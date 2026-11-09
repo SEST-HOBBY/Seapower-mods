@@ -113,3 +113,11 @@ upload behavior or a complete world campaign. Treat this as a beta candidate
 until those PC checks pass. The canonical upload keeps normal-release active plugins and carries the
 beta feature archive. SETUP selects the reviewed beta installation on the
 supported build. The Operations/strike code is included in this Steam update.
+
+R12 WORLD OPERATIONS FOLLOW-UP
+Start Global Maritime Operations 2028 as each coalition. Confirm 196 bases,
+next stage at 300 renown, and eight reachable recruitment stages. F11 must
+match Admiralty task rewards and deadlines; completion pays only once.
+Check Muharraq, Chambers Field, Souda and Diego Garcia in a generated battle.
+Check quarter-stock new fields request supply and retain correct ownership
+after save/reload. No aircraft or ships should be added by this update.

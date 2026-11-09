@@ -1,10 +1,11 @@
 {
   "schema": "sest.world-operations.v1",
   "campaign_id": "sest.world_sandbox_2028.regional",
-  "display_name": "SEST Modernised Worldwide Campaign 2028",
+  "display_name": "Global Maritime Operations 2028",
   "combined_sources": [
     "original-world",
-    "regional-expansion-2028"
+    "regional-expansion-2028",
+    "world-operations-2028"
   ],
   "legacy_original_id": "sest.world_sandbox_2028",
   "legacy_original_definition": "legacy_campaigns/sest-world-sandbox/campaign.json",
@@ -14,7 +15,7 @@
     "combat_catalogue": "USD estimates; catalogue basis shown in UI"
   },
   "counts": {
-    "bases": 156,
+    "bases": 196,
     "forces": 293,
     "patrols": 54,
     "catalogue": 1586
@@ -98,5 +99,49 @@
     "ranks",
     "catalogue"
   ],
-  "service_policy": "Fictional service awards from completed manual battle reports; never inferred from USD spending."
+  "service_policy": "Fictional service awards from completed manual battle reports; never inferred from USD spending.",
+  "progression": {
+    "stages": [
+      {
+        "name": "Task Unit Commander",
+        "renown": 0
+      },
+      {
+        "name": "Escort Group Commander",
+        "renown": 300
+      },
+      {
+        "name": "Task Group Commander",
+        "renown": 800
+      },
+      {
+        "name": "Flotilla Commander",
+        "renown": 1600
+      },
+      {
+        "name": "Force Commander",
+        "renown": 2800
+      },
+      {
+        "name": "Joint Force Commander",
+        "renown": 4500
+      },
+      {
+        "name": "Fleet Commander",
+        "renown": 7000
+      },
+      {
+        "name": "Theatre Commander",
+        "renown": 10500
+      }
+    ],
+    "rewards": "Native battle results and accepted Admiralty assignments; no custom currency or automatic transit reward.",
+    "supply": "Native depot production, convoys, ammunition airlifts and replenishment cargo. Credits are not physical supplies."
+  },
+  "geography": {
+    "spec": "integration/world-sandbox/world-operations-2028.json",
+    "corrected_airfields": 37,
+    "added_airfields": 40,
+    "terrain_validation": "Geographic mask checked; native terrain and gameplay acceptance pending."
+  }
 }

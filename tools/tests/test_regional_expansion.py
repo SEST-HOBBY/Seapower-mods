@@ -32,18 +32,22 @@ class RegionalExpansionTest(unittest.TestCase):
         self.assertEqual(self.variant, shipped)
         self.assertEqual(json.loads((DIST / ORIGINAL).read_text(encoding="utf-8")), self.original)
         self.assertEqual([p.parent.name for p in PACK.glob("*/campaign.json")], ["sest-world-regions-2028"])
-        self.assertEqual(self.variant["name"], "SEST Modernised Worldwide Campaign 2028")
+        self.assertEqual(self.variant["name"], "Global Maritime Operations 2028")
         self.assertNotEqual(self.original["id"], self.variant["id"])
         self.assertEqual(self.original["id"], "sest.world_sandbox_2028")
         self.assertEqual(self.variant["id"], "sest.world_sandbox_2028.regional")
-        self.assertEqual(len(self.variant["bases"]), len(self.original["bases"]) + 15)
+        self.assertEqual(len(self.variant["bases"]), len(self.original["bases"]) + 55)
         self.assertEqual(len(self.variant["forces"]), len(self.original["forces"]) + 26)
         self.assertEqual(len(self.variant["patrols"]), len(self.original["patrols"]) + 5)
         self.assertEqual(len(self.variant["catalogue"]), len(self.original["catalogue"]))
-        for field in ("bases", "forces", "patrols", "catalogue"):
+        for field in ("forces", "patrols"):
             self.assertEqual(self.variant[field][:len(self.original[field])], self.original[field],
                              "Combined campaign must retain every original " + field + " entry")
-        self.assertEqual(len(self.variant["values"]), len(self.original["values"]))
+        self.assertEqual({b["id"] for b in self.variant["bases"][:len(self.original["bases"])]},
+                         {b["id"] for b in self.original["bases"]})
+        self.assertEqual([{k:v for k,v in r.items() if k != "tier"} for r in self.variant["catalogue"]],
+                         [{k:v for k,v in r.items() if k != "tier"} for r in self.original["catalogue"]])
+        self.assertEqual(self.variant["values"], self.original["values"])
         self.assertNotIn("ch_ffg_jvh", self.variant["values"])
         self.assertEqual(sum(f["side"] == "red" for f in self.variant["forces"]), 123)
 

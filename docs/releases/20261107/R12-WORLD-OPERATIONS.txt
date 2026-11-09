@@ -1,0 +1,110 @@
+R12 WORLD OPERATIONS - CHANGE REVIEW
+9 November 2026
+
+196 BASES / 293 FORCES / 54 PATROLS / 1,586 RECRUITMENT ENTRIES
+
+This update expands the scenario base network. Construction of brand-new
+bases during play is not included. Start a new campaign for the full layout.
+
+COMMAND STAGES
+Renown is the native experience measure. These coalition command appointments
+are game progression, not a model of national promotion policy.
+1. Task Unit Commander: 0 renown; +480 BLUE / +197 RED recruitment entries.
+2. Escort Group Commander: 300 renown; +152 BLUE / +66 RED recruitment entries.
+3. Task Group Commander: 800 renown; +158 BLUE / +86 RED recruitment entries.
+4. Flotilla Commander: 1,600 renown; +224 BLUE / +79 RED recruitment entries.
+5. Force Commander: 2,800 renown; +46 BLUE / +14 RED recruitment entries.
+6. Joint Force Commander: 4,500 renown; +33 BLUE / +10 RED recruitment entries.
+7. Fleet Commander: 7,000 renown; +4 BLUE / +4 RED recruitment entries.
+8. Theatre Commander: 10,500 renown; +21 BLUE / +12 RED recruitment entries.
+
+Renown and budget rewards remain the native campaign's: battle results and
+accepted Admiralty assignments, including escort, shadowing, area control
+and multi-phase operations when available. F11 shows actual offered/active
+tasks, rewards, failure penalties and offer expiry or deadline. The display
+does not pay rewards. Opening it or routine travel cannot grant experience.
+
+Physical supplies remain separate from credits. Production depots feed
+convoys, airlifts carry ammunition and loaded replenishment ships support
+groups at sea. New fields start at quarter stock, draw from friendly depots
+and create no extra income, production, aircraft or ships.
+
+ADDITIONAL OPERATING LOCATIONS
+RAAF Base Darwin | Australia | YPDN
+RAAF Base Edinburgh | Australia | YPED
+RAAF Base Amberley | Australia | YAMB
+RAAF Base Williamtown | Australia | YWLM
+RAAF Base Learmonth | Australia | YPLM
+RAAF Base Scherger | Australia | YBSG
+Kadena Air Base | US | RODN
+Misawa Air Base | US | RJSM
+Osan Air Base | US | RKSO
+Kunsan Air Base | US | RKJK
+Hickam Airfield | US | PHIK
+RAF Lakenheath | US | EGUL
+RAF Mildenhall | US | EGUN
+NAS Whidbey Island | US | KNUW
+NAS Oceana | US | KNTU
+RAF Marham | UK | EGYM
+RAF Brize Norton | UK | EGVN
+BAN Landivisiau | France | LFRJ
+Amendola Air Base | Italy | LIBA
+Nordholz Naval Air Base | Germany | ETMN
+CFB Greenwood | Canada | CYZX
+CFB Comox | Canada | CYQQ
+INS Utkrosh | India | VOPB
+Iwakuni Air Base | Japan | RJOI
+Dingxin Air Base | China | CN-0190
+Anshan Air Base | China | ZYAS
+Cangxian Air Base | China | CN-0090
+Zhangzhou Air Base | China | CN-0183
+Suixi Air Base | China | CN-0080
+Ledong Naval Air Base | China | CN-0376
+Monchegorsk Air Base | Russia | RU-1110
+Shaykovka Air Base | Russia | RU-9942
+Kamenny Ruchey Naval Air Base | Russia | UHKG
+Knevichi Airfield | Russia | UHWW
+Bandar Abbas Air Base | Iran | OIKB
+Shahid Nojeh Air Base | Iran | OIHS
+PAF Base Rafiqui | Pakistan | OPRQ
+Da Nang Air Base | Vietnam | VVDN
+Sultan Hasanuddin Air Base | Indonesia | WAAA
+Orang Air Base | North_Korea | ZKHM
+
+GEOGRAPHY REVIEW
+Muharraq base and field: 26.270833 N, 50.633611 E, using the official airport
+reference point, with runway 12L true bearing 122.62 degrees. Thirty-six
+other airfields were reviewed against public airport reference data.
+Longtian and Severomorsk-3 now use their named fields. Both the campaign
+marker and the tactical field position are updated. Continuous longitudes
+are preserved, including US/Canadian west-coast and Hawaiian locations.
+
+Known limits: a geographic mask does not certify Sea Power terrain. The
+existing Fiery Cross and Woody Island models remain explicit small-island
+exceptions. Naha and Natuna use retained land-side positions near the
+published airport reference points. Eight new fields use generic model
+headings where the dataset has no runway direction; ten corrected fields
+retain their previous model heading. These are not surveyed airport models.
+
+Sources:
+Bahrain AIP: https://aim.mtt.gov.bh/eAIP/2025-07-10-AIRAC/html/eAIP/OB-AD-2.OBBI-en-BH.html
+Public-domain airport/runway dataset: https://ourairports.com/data/
+Selected records, hashes and individual exceptions are retained in source:
+integration/world-sandbox/world-operations-2028.json
+
+VALIDATION
+15 managed/installer groups passed, including native eight-stage procurement
+and F11 task display checks; 29 world/regional Python tests passed. Existing
+R12 repair and rollback passed 65 assertions; Workshop feature installation
+and Steam refresh passed 40; upload preparation passed 7; publisher flow 10.
+Data install and canonical upload inventory results are in VALIDATION.json.
+No Unity/Noesis rendering or native terrain/playthrough verification here.
+
+INSTALL AND STEAM WALKTHROUGH
+Close Sea Power, extract the complete toolkit to a NEW folder and run
+Prepare-PC.cmd. Repair-PC.cmd alone does not install world data. Start a
+NEW Global Maritime Operations 2028 campaign. Check the moved airfields,
+F11, stock routing, rebasing, paused setup, unfinished battle exit and saves.
+Quit and run R12\Capture-Repair-Results.cmd. After those checks pass, run
+Upload-PC.cmd, use its exact publishing folder to update item 3812461539,
+then quit and run Finish-Upload.cmd. See README-FIRST.txt for all steps.

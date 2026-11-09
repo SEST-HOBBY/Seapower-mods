@@ -786,3 +786,9 @@ user edits are preserved. Backups remain under
 
 In-game launch, rendering, second-monitor behavior and campaign progression remain
 unverified until this PC test. This candidate is not a published Steam update.
+
+R12 world operations follow-up: Runtime 1.6.1 / UI 1.4.11. F11 Overview reads
+the live rank definitions, next renown threshold, recruitment unlock counts
+and offered/active Admiralty rewards. It never grants or modifies rewards.
+Global Maritime Operations 2028 adds eight command stages and reviewed public
+airfield locations in the data pack. New campaign required for the full layout.

@@ -1,7 +1,7 @@
-SEST MODERNISED WORLDWIDE CAMPAIGN 2028
+GLOBAL MARITIME OPERATIONS 2028
 
 One new-game entry combines the original World Sandbox and the complete
-regional expansion: 156 bases, 293 forces, 54 patrols and 1,586 buy entries.
+regional expansion: 196 bases, 293 forces, 54 patrols and 1,586 buy entries.
 This is a fictional scenario; deployments and alliances are design choices.
 Requires Dynamic Campaign Mod and the SEST collection. Start a new game for
 new content; existing saves retain their own state.
@@ -28,7 +28,28 @@ restore the default single-entry layout when the mod receives an update.
 
 UI AND COSTS
 Native campaign credits remain separate from estimated USD combat prices.
-The R11 beta test payload adds an F11 Operations window with Overview, Forces,
+The R12 beta test payload adds an F11 Operations window with Overview, Forces,
 Costs and Service; it is separate from the canonical stable Workshop code.
 Its PC rendering and gameplay checks must pass before a wider beta release.
 Native completion ribbons for the four authored campaigns use Service Record.
+
+COMMAND PROGRESS AND SUPPLY
+Eight command stages use one renown total: 0, 300, 800, 1,600, 2,800,
+4,500, 7,000 and 10,500. New-game recruitment bands follow these stages.
+F11 Overview shows the next milestone and live Admiralty rewards. Accept
+assignments in Admiralty: escort, shadowing, area control and operations
+can reward renown and credits when their stated conditions are completed.
+Availability depends on the operational situation. Routine sailing and
+leaving a battle do not grant task rewards.
+
+Fuel and ammunition are physical stocks. Depots produce them, convoys move
+them, airlift carries ammunition and replenishment ships support forces
+at sea. Raise an exposed base's supply priority and escort its deliveries.
+The 40 additional airfields start at quarter stock and add no income,
+production depots or extra aircraft. Existing forces remain available.
+
+GEOGRAPHY
+37 airfield positions or orientations were reviewed against public airport
+data, including Muharraq, Chambers Field, Souda and Diego Garcia. Small
+reclaimed-island airfields remain explicit terrain exceptions. Geographic
+checks cannot certify the game's coastlines; check tactical placement on PC.
