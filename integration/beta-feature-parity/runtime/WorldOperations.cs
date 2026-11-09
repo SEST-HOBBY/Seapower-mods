@@ -18,6 +18,9 @@ internal static class WorldOperations
     private const string CampaignHash = "eacdb9a4c0353edd24543b631826e61f7cbcfc4f1a78de4fa80527aa5a2208f4";
     private static readonly Dictionary<string, FieldInfo> fields = new Dictionary<string, FieldInfo>();
     private static Type session, battle;
+    private static MethodInfo campaignTick;
+    private static bool tickAttached;
+    private static int lastFrame = int.MinValue;
     private static WorldServiceLedger ledger;
     private static bool stopped, shown, wasStrategic;
     private static double nextBind, nextSample, nextView;
@@ -40,6 +43,19 @@ internal static class WorldOperations
     {
         if (value < 0 || value > 3 || value == Tab) return;
         Tab = value; report = null; nextView = 0;
+    }
+
+    internal static void OpenCosts()
+    {
+        if (!StrategicActive) return;
+        Tab = 2; shown = true; report = null; nextView = 0;
+    }
+
+    internal static void ToggleMapReport()
+    {
+        if (!StrategicActive) return;
+        if (shown) shown = false;
+        else OpenCosts();
     }
 
     private static object Get(object value, string name)
@@ -89,6 +105,9 @@ internal static class WorldOperations
         battle = a.GetType("DynamicCampaignMod.Game.Battle.BattleSession", true);
         if (session.GetProperty("Active", Api.All)?.PropertyType != typeof(bool) || battle.GetProperty("Active", Api.All)?.PropertyType != typeof(bool))
             throw new MissingMemberException("inspected DCM session lifecycle");
+        WorldOpeningBriefing.Bind(a);
+        campaignTick = a.GetType("DynamicCampaignMod.UI.CampaignUI", true).GetMethod("Tick", Api.All, null, Type.EmptyTypes, null);
+        if (campaignTick?.ReturnType != typeof(void)) throw new MissingMemberException("captured strategic UI update");
         Api.Log("World Operations attached to Dynamic Campaign Mod 0.25.0.1");
     }
 
@@ -117,11 +136,19 @@ internal static class WorldOperations
         try
         {
             Bind();
+            WorldOpeningBriefing.Install();
+            if (!tickAttached && campaignTick != null)
+            {
+                Api.Postfix(campaignTick, typeof(WorldOperations), nameof(Poll), "io.github.sest-hobby.world-map-update");
+                tickAttached = true;
+            }
             bool active = ReadContext();
+            if (active && !EnterFrame(UnityEngine.Time.frameCount)) return;
             bool inBattle = currentPlan != null;
             if (StrategicActive != wasStrategic)
             {
                 shown = false; report = null; nextSample = 0;
+                WorldMapCostsButton.Remove();
                 if (StrategicActive) CombatHistory.Observe(null, null);
                 if (wasStrategic) NativeCombatSurface.Close();
                 wasStrategic = StrategicActive;
@@ -137,21 +164,30 @@ internal static class WorldOperations
                 RememberEngagement(inBattle ? currentPlan : null);
                 UpdateService();
             }
-            if (!StrategicActive || !NativeCombatSurface.EnsureReady(true)) return;
+            if (!StrategicActive || !NativeCombatSurface.EnsureReady(false)) return;
+            WorldMapCostsButton.Ensure(Get(Prop(session, "UI"), "_strategyView") as Noesis.FrameworkElement, Now);
             if (UnityEngine.Input.GetKeyDown(UnityEngine.KeyCode.F11) && !Modified())
-            { shown = !shown; report = null; }
+                ToggleMapReport();
             if (shown && (report == null || Now >= nextView))
             {
                 report = View(); nextView = Now + (Tab == 1 ? 5 : 2);
             }
-            NativeCombatSurface.Tick(true, shown, report, "world:" + scope + ":" + Tab, () => shown = false, Now);
+            NativeCombatSurface.Tick(false, shown, report, "world:" + scope + ":" + Tab, () => shown = false, Now);
         }
         catch (Exception ex)
         {
             if (wasStrategic) NativeCombatSurface.Close();
+            WorldMapCostsButton.Remove();
             stopped = true; StrategicActive = false;
             Api.LogFailure("World Operations unavailable; native campaign and combat costs retained", ex);
         }
+    }
+
+    internal static bool EnterFrame(int frame)
+    {
+        if (frame == lastFrame) return false;
+        lastFrame = frame;
+        return true;
     }
 
     private static bool Modified() => UnityEngine.Input.GetKey(UnityEngine.KeyCode.LeftControl) || UnityEngine.Input.GetKey(UnityEngine.KeyCode.RightControl) || UnityEngine.Input.GetKey(UnityEngine.KeyCode.LeftAlt) || UnityEngine.Input.GetKey(UnityEngine.KeyCode.RightAlt) || UnityEngine.Input.GetKey(UnityEngine.KeyCode.LeftShift) || UnityEngine.Input.GetKey(UnityEngine.KeyCode.RightShift);
@@ -194,11 +230,11 @@ internal static class WorldOperations
 
     private static CampaignCosts.CostView View()
     {
-        var v = new CampaignCosts.CostView { Title = "WORLD CAMPAIGN OPERATIONS", Subtitle = campaignName + " | F11 closes | Drag title bar to move", World = true };
+        var v = new CampaignCosts.CostView { Title = Tab == 2 ? "CUMULATIVE COMBAT COSTS" : "WORLD CAMPAIGN OPERATIONS", Subtitle = campaignName + " | F11 closes | Drag title bar to move", World = true };
         v.Notes[0] = "Campaign credits and USD catalogue estimates are separate. Orders and purchases stay in the native campaign panels.";
         v.Notes[1] = "Service record belongs to this profile and coalition across saves. Native commander records and saves are unchanged.";
         v.Notes[2] = "";
-        v.AddSummary(CostLineKind.Basis, ((DateTime)Get(state, "Now")).ToString("d MMM yyyy HH:mm", CultureInfo.InvariantCulture) + " | Coalition " + side + " | " + new[] { "Overview", "Forces", "Costs", "Service" }[Tab]);
+        v.AddSummary(CostLineKind.Basis, ((DateTime)Get(state, "Now")).ToString("d MMM yyyy HH:mm", CultureInfo.InvariantCulture) + " | Coalition " + side + " | " + new[] { "Overview", "Forces", "Combat Costs", "Service" }[Tab]);
         switch (Tab) {
             case 0: Overview(v); break;
             case 1: Forces(v); break;
@@ -311,12 +347,12 @@ internal static class WorldOperations
 
     private static void Costs(CampaignCosts.CostView v)
     {
-        v.AddSummary(CostLineKind.PlayerTotal, "Campaign budget: " + Dict(Get(state, "Points"), side) + " credits");
+        v.AddDetail(CostLineKind.Basis, "Campaign budget: " + Dict(Get(state, "Points"), side) + " credits (separate from USD combat costs)");
         var completed = ledger.Entries.Where(e => e.Scope == scope && e.Manual).ToList();
         var games = RecordedGames(CombatHistory.Games, completed, scope);
         v.AddDetail(CostLineKind.Basis, completed.Count + " completed manual battle reports | " + games.Count + " with SEST itemised cost history. Reloaded attempts use the latest record for the same engagement.");
         var costs = CampaignCosts.CampaignView(games);
-        foreach (var row in costs.SummaryRows) v.AddDetail(row.Kind, row.Text);
+        foreach (var row in costs.SummaryRows) v.AddSummary(row.Kind, row.Text);
         foreach (var row in costs.DetailRows) v.AddDetail(row.Kind, row.Text);
         v.Notes[0] = "USD totals cover SEST-recorded battles for this campaign and coalition across saves. Older battles and auto-resolved battles may lack itemised USD evidence.";
         v.Notes[1] = costs.Notes[1]; v.Notes[2] = costs.Notes[2];

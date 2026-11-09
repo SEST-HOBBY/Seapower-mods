@@ -162,6 +162,6 @@ try {
 }
 Write-Host ('Reviewed beta code installed: '+$new.candidate_revision+'. Original restore journal and Identify data retained.') -ForegroundColor Green
 if ($steamRefresh) { Write-Host 'Steam-refreshed Workshop plugins recognised and beta features reapplied; original restore backups retained.' }
-Write-Host 'R11 includes World Operations, service progress and Coordinated Strike presentation. The root Prepare-PC command also installs the combined world and native ribbon data.'
-Write-Host 'Follow R11-PC-TESTS in README-FIRST: check the world map, F11 tabs, strike controls, native service records, Topography, pop-outs and campaign continuation.'
+Write-Host 'R12 includes World Operations, service progress and Coordinated Strike presentation. The root Prepare-PC command also installs the combined world and native ribbon data.'
+Write-Host 'Follow the PC checks in README-FIRST: check the world map, F11 tabs, strike controls, native service records, Topography, pop-outs and campaign continuation.'
 Write-Host 'Quit and run Capture-Repair-Results.cmd after testing. Steam publication remains a separate step.'

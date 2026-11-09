@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Xml;
 using Mono.Cecil;
 
 static class WorldOperationsTests
@@ -99,6 +100,7 @@ static class WorldOperationsTests
             var dcm = Assembly.LoadFrom(dcmPath);
             Call(rt.GetType("Sest.RuntimeFixes.WorldOperations", true), "Bind");
             var world = rt.GetType("Sest.RuntimeFixes.WorldOperations", true);
+            Check((bool)Call(world, "EnterFrame", 101) && !(bool)Call(world, "EnterFrame", 101) && (bool)Call(world, "EnterFrame", 102), "Tactical, tracker and strategic callbacks cannot toggle F11 twice in one frame");
             var sessionType = dcm.GetType("DynamicCampaignMod.Game.Session.CampaignSession", true);
             var battleType = dcm.GetType("DynamicCampaignMod.Game.Battle.BattleSession", true);
             Check(battleType.GetField("Plan", All) == null && battleType.GetProperty("Plan", All) != null, "Captured battle plan is a property, not a field");
@@ -113,6 +115,42 @@ static class WorldOperationsTests
             Check(((IList)Field(revised, "bases")).Count == 196, "Captured DCM deserializes all 196 revised world bases");
             var stages = (IList)((IDictionary)Field(revised, "ranks"))["blue"];
             Check(stages.Count == 8 && (int)Field(stages[7], "renown") == 10500, "Captured native rank definitions accept all eight reachable command stages");
+            var opening = rt.GetType("Sest.RuntimeFixes.WorldOpeningBriefing", true);
+            var paperType = dcm.GetType("DynamicCampaignMod.Core.Sim.Briefing", true);
+            object paper = Activator.CreateInstance(paperType, true);
+            Set(paper, "Subject", "SITREP 001 - GENERAL SITUATION"); Set(paper, "DateTimeGroup", "01 OCT '28 & <UTC>");
+            Set(paper, "From", "Coalition HQ"); Set(fakeState, "Definition", revised);
+            Call(paper, "Add", "OLD ROSTER", new List<string> { new string('x', 12000) });
+            Call(opening, "AfterOpening", fakeState, paper);
+            Check(((IList)Field(paper, "Sections")).Count == 8 && (string)Field(paper, "From") == "Coalition HQ", "World opening replaces long rosters with eight sections and retains native header evidence");
+            object[] paperArgs = { paper, "AUTHOR PAPER" };
+            opening.GetMethod("AfterPaper", All).Invoke(null, paperArgs);
+            var formatted = new XmlDocument(); formatted.LoadXml((string)paperArgs[1]);
+            var textNodes = formatted.SelectNodes("//*[local-name()='TextBlock']").Cast<XmlElement>().ToList();
+            Check(textNodes.All(x => x.GetAttribute("TextWrapping") == "Wrap"), "Every opening-paper text block wraps within the native window");
+            Check(textNodes.Any(x => x.GetAttribute("Text") == "01 OCT '28 & <UTC>"), "Opening-paper markup safely escapes punctuation and XML characters");
+            Check(textNodes.Sum(x => x.GetAttribute("Text").Length) < 3500 && !((string)paperArgs[1]).Contains("Courier New"), "Opening brief stays concise and inherits the game's readable font");
+            var commandSection = textNodes.Single(x => x.GetAttribute("Text").StartsWith("Renown opens"));
+            Check(commandSection.GetAttribute("FontWeight") == "Normal", "Body paragraphs use normal weight rather than all-bold briefing text");
+            object foreign = Activator.CreateInstance(paperType, true); Set(foreign, "Subject", "OTHER CAMPAIGN");
+            object foreignDefinition = Activator.CreateInstance(def.GetType(), true); Set(foreignDefinition, "id", "other.campaign");
+            object foreignState = System.Runtime.Serialization.FormatterServices.GetUninitializedObject(fakeState.GetType()); Set(foreignState, "Definition", foreignDefinition);
+            Call(foreign, "Add", "ORIGINAL", new List<string> { "Author's briefing" }); Call(opening, "AfterOpening", foreignState, foreign);
+            paperArgs = new object[] { foreign, "AUTHOR PAPER" }; opening.GetMethod("AfterPaper", All).Invoke(null, paperArgs);
+            Check((string)Field(foreign, "Subject") == "OTHER CAMPAIGN" && ((IList)Field(foreign, "Sections")).Count == 1 && (string)paperArgs[1] == "AUTHOR PAPER", "Other campaign openings and paper rendering remain unchanged");
+            using (var actual = AssemblyDefinition.ReadAssembly(dcmPath))
+            using (var candidate = AssemblyDefinition.ReadAssembly(runtime))
+            {
+                var nativeRoot = actual.MainModule.GetType("DynamicCampaignMod.UI.CampaignUI").Methods.Single(m => m.Name == "AttachBars").Body.Instructions
+                    .Select(i => i.Operand).OfType<FieldReference>().First(f => f.Name == "Instance");
+                var costRoot = candidate.MainModule.GetType("Sest.RuntimeFixes.NativeCombatSurface").Methods.Single(m => m.Name == "Root");
+                Check(nativeRoot.DeclaringType.FullName == "SeapowerUI.CampaignView" && costRoot.Body.Instructions.Select(i => i.Operand).OfType<FieldReference>().Any(f => f.FullName == nativeRoot.FullName), "World cost report targets the actual captured DCM campaign view, distinct from tactical and linear campaign views");
+                var resource = actual.MainModule.Resources.OfType<EmbeddedResource>().Single(r => r.Name == "StrategyBar.xaml");
+                string bar; using (var reader = new StreamReader(resource.GetResourceStream())) bar = reader.ReadToEnd();
+                var layout = new XmlDocument(); layout.LoadXml(bar);
+                var economyButton = layout.SelectNodes("//*[local-name()='ToggleButton']").Cast<XmlElement>().Single(x => x.GetAttribute("IsChecked").Contains("EconomyOpen"));
+                Check(economyButton.ParentNode.LocalName == "StackPanel" && layout.SelectNodes("//*[local-name()='Style']").Cast<XmlElement>().Any(x => x.GetAttribute("x:Key") == "ToolButton"), "Map cost shortcut anchors to the captured Economy strip and normal button style");
+            }
             var xp = (IDictionary)Activator.CreateInstance(fakeState.GetType().GetField("Renown", All).FieldType);
             xp.Add("blue", 299); Set(fakeState, "Renown", xp);
             var retainedRanks = (IDictionary)Activator.CreateInstance(fakeState.GetType().GetField("Ranks", All).FieldType);
@@ -153,6 +191,12 @@ static class WorldOperationsTests
             sessionType.GetField("_definition", All).SetValue(null, def);
             sessionType.GetProperty("Active", All).GetSetMethod(true).Invoke(null, new object[] { true });
             Check((bool)Call(world, "ReadContext") && (bool)world.GetProperty("StrategicActive", All).GetValue(null, null), "Real captured session getters expose the strategic context");
+            Call(world, "OpenCosts");
+            Check((int)world.GetProperty("Tab", All).GetValue(null, null) == 2 && (bool)world.GetField("shown", All).GetValue(null), "Map shortcut opens cumulative combat costs directly");
+            Call(world, "ToggleMapReport"); Check(!(bool)world.GetField("shown", All).GetValue(null), "F11 closes an open world report");
+            Call(world, "SelectTab", 0); Call(world, "ToggleMapReport");
+            Check((int)world.GetProperty("Tab", All).GetValue(null, null) == 2 && (bool)world.GetField("shown", All).GetValue(null), "F11 opens Costs directly even after using Overview");
+            Call(world, "ToggleMapReport");
             sessionType.GetProperty("Active", All).GetSetMethod(true).Invoke(null, new object[] { false });
             battleType.GetProperty("Plan", All).GetSetMethod(true).Invoke(null, new[] { plan });
             Check((bool)Call(world, "ReadContext") && !(bool)world.GetProperty("StrategicActive", All).GetValue(null, null), "Battle context survives the author closing the strategic scene");

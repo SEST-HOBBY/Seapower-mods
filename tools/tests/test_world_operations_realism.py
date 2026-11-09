@@ -56,7 +56,9 @@ class WorldOperationsRealism(unittest.TestCase):
 
     def test_realism_briefing_and_original_coalitions_remain_explicit(self):
         text=json.dumps(self.world['story'])
-        self.assertIn('SUSTAINMENT',text);self.assertIn('Victory is not required',text)
+        self.assertIn('supply priorities',text);self.assertIn('Victory is not required',text)
+        self.assertIn('\n\n',self.world['description'])
+        self.assertNotIn('<LineBreak',self.world['description'])
         self.assertNotIn('SEST research',text);self.assertNotIn('This is a sandbox',text)
         original=json.loads((HERE/'SEST_World_Campaign/legacy_campaigns/sest-world-sandbox/campaign.json').read_text())
         self.assertEqual([s['nations'] for s in self.world['sides']],[s['nations'] for s in original['sides']])

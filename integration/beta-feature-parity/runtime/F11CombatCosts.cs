@@ -215,6 +215,7 @@ internal static class F11CombatCosts
 
 	internal static void AfterUpdate(object __instance)
 	{
+        WorldOperations.Poll();
         if (WorldOperations.StrategicActive) return;
 		if (!attached || stopped || !(bool)ready.GetValue(__instance))
 		{

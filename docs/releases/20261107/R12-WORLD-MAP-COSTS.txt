@@ -1,0 +1,64 @@
+SEST R12 - WORLD MAP COSTS AND OPENING BRIEF
+9 November 2026 | SEST-DEV
+Runtime 1.6.2 / UI 1.4.12
+
+OPENING BRIEF
+The world opening report now has eight short operational sections, distinct
+headings and wrapped 14-point, normal-weight body text. It replaces the very
+long automatically generated opening force lists for this scenario. The
+campaign selection description uses actual paragraph breaks. Native message
+history, closing, guide and pause commands are retained. Other campaigns'
+papers are unchanged. Reopening the initial SITREP uses the new presentation.
+
+WORLD MAP COMBAT COSTS
+A Combat Costs button is added directly beneath Economy in the left sidebar.
+F11 opens the same Cumulative Combat Costs tab. Overview, Forces and Service
+remain available in that window. Estimated USD totals appear in the summary;
+campaign budget credits are labelled separately in the details.
+
+The strategic report now attaches to the actual CampaignView WindowHost,
+rather than the tactical or linear-campaign view. The campaign's own UI tick
+also drives updates, with one input/update pass per frame. World window
+placement has its own saved bounds and avoids the strategy sidebar and bars.
+
+SCOPE
+The existing world save can be used for these UI fixes. No campaign save is
+rewritten. The 196 bases, 293 force groups, 54 patrols, 1,586 catalogue entries,
+eight command stages, stocks and progression remain as in the previous R12.
+The expanded layout still needs a new world if the old save predates it.
+Paused battle preparation and the native End battle/debrief flow are retained.
+
+REFERENCE REVIEW
+Built against SEST-Beta-References-20261109-225727-b5394c.zip. Sea Power
+0.8.7-261107, Noesis and Dynamic Campaign Mod 0.25.0.1 match the previous
+capture. The newer captured EC2CommsJamming author guard returns ExactBuild;
+the regression test now recognises that image. No author entrypoint was run
+and the loader's admission policy was not relaxed. Anchor Chain and the safe
+bootstrap binaries remain byte-identical. Runtime, UI and Identify payloads
+were rebuilt together. The reviewed Steelfin configuration baseline is kept.
+
+VALIDATION
+- All 15 managed and installer groups passed, including 80 world checks,
+  24 battle-flow checks and 65 installed-R12 upgrade/rollback assertions.
+- World/regional Python checks: 24 + 5 passed. Steam listing checks: 4 passed.
+- Workshop feature install/refresh/restore: 40 assertions passed.
+- Data install/restore: 24; upload preparation: 7; publisher flow: 10 passed.
+- All 4,337 canonical upload files match the release manifest.
+- The five shipped code hashes match the build and test receipts.
+
+Unity gameplay, native Noesis rendering/input, terrain and multiple displays
+still require the PC. The fixture tests do not claim a game playthrough.
+
+PC CHECK
+1. Quit Sea Power. Extract the full toolkit into a NEW folder. Keep SEST
+   subscribed. Run Prepare-PC.cmd to install the paired code and world data.
+2. Load the existing world save. Click Combat Costs under Economy, then test
+   F11 close/reopen. Check USD totals, history and the other three tabs.
+3. Reopen the opening SITREP from Messages/Guide, or start a new world, and
+   check headings, wrapping, scrolling, close/guide controls and window size.
+4. Enter a battle; check paused preparation, mission F11 costs, End battle
+   without victory and the return to campaign. Compare cumulative costs.
+5. Check linear Task Force and normal mission costs still open normally.
+6. Quit and run R12\Capture-Repair-Results.cmd. Retain the capture for review.
+7. After gameplay checks pass, follow README-FIRST.txt and Upload-PC.cmd to
+   update existing Workshop item 3812461539. Nothing has been published here.

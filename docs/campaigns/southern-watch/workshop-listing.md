@@ -72,7 +72,7 @@ A single worldwide campaign for [b]Dynamic Campaign Mod[/b], combining the origi
 
 [h2]Operations, service and combat costs[/h2]
 [list]
-[*][b]F11 World Operations[/b] brings together Overview, Forces, Costs and Service. Check your next command milestone, recruitment unlocks, and offered or active Admiralty task rewards and deadlines.
+[*][b]F11 World Operations[/b] brings together Overview, Forces, Costs and Service. Use F11 or Combat Costs beside Economy to open cumulative combat costs. Overview shows your next command milestone, recruitment unlocks, and Admiralty task rewards and deadlines.
 [*][b]Cumulative Combat Costs[/b] records available evidence of weapons expenditure, platform losses and stores lost with destroyed units. View mission and campaign reports through F11, with cost summaries in the Task Force debrief.
 [*]Historical and current price bases are labelled. Missing prices remain identified as unknown. [b]Estimated USD costs are separate from campaign credits and physical supplies.[/b]
 [*]Native completion ribbons recognise the four authored campaigns. A separate world service record tracks completed manual engagements and theatre service.

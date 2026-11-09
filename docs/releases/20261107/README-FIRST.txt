@@ -1,15 +1,24 @@
-SEST R12 - WORLD OPERATIONS UPDATE
+SEST R12 - WORLD MAP COSTS AND OPENING BRIEF
 9 November 2026 | SEST-DEV
 
-STEELFIN FOLLOW-UP - 9 NOVEMBER 2026
-The 21:37 capture contains only removal of Steelfin's demo mission and its
-menu file. The 18 retained author files, SEST world data and all five beta
-DLLs are unchanged. The recorded author baseline is refreshed. Keep SEST
-subscribed; the update checker correctly excludes SEST's own Workshop item.
+RUNTIME 1.6.2 / UI 1.4.12
+The opening report now has short sections and wrapped, normal-weight body
+text. The world map has a Combat Costs button directly beneath Economy in
+the left sidebar. F11 opens Cumulative Combat Costs; Overview, Forces and
+Service remain tabs in the same window. USD totals are shown in its summary.
 
-Extract this refreshed toolkit to a NEW folder and run Prepare-PC.cmd.
-The previous stopped run did not install the new world or code.
-STEAM-PAGE-DESCRIPTION.txt contains the new page description in Steam BBCode;
+Existing world saves can use these UI fixes. Close Sea Power, extract this
+complete toolkit into a NEW folder and run Prepare-PC.cmd for code AND data.
+Then load your world and check the sidebar button and F11. Reopen the opening
+SITREP from Messages/Guide, or start a new world to check its initial display.
+Native render/input and game terrain checks still need the PC.
+
+The first 196-base layout and eight-stage progression still require a new
+campaign if you are coming from a world created before that expansion.
+Keep SEST subscribed. The Steelfin author baseline from the 21:37 capture is
+retained. This follow-up uses the 22:57 beta reference capture.
+
+STEAM-PAGE-DESCRIPTION.txt contains the main page copy in Steam BBCode;
 STEAM-CHANGE-NOTE.txt is the separate update/change-log text.
 
 START HERE

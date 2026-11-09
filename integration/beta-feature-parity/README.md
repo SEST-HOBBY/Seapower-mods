@@ -792,3 +792,10 @@ the live rank definitions, next renown threshold, recruitment unlock counts
 and offered/active Admiralty rewards. It never grants or modifies rewards.
 Global Maritime Operations 2028 adds eight command stages and reviewed public
 airfield locations in the data pack. New campaign required for the full layout.
+
+R12 map-cost and opening-brief follow-up: Runtime 1.6.2 / UI 1.4.12.
+The strategic map uses CampaignView.Instance and its named WindowHost,
+not the tactical mission RootControl or the linear Task Force menu.
+Combat Costs beside Economy and F11 open Cumulative Combat Costs.
+The world opening paper uses concise sections and wrapped body text;
+other DCM briefings and the native close/guide commands are retained.

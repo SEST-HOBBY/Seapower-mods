@@ -151,6 +151,10 @@ internal static class NativeCombatSurface
 
 	internal static WindowHost Host(DependencyObject target)
 	{
+		// DCM attaches to CampaignView and resolves its named WindowHost. It is
+		// a different view from the linear Task Force menu and tactical mission.
+        if (target is FrameworkElement named && named.FindName("WindowHost") is WindowHost direct)
+            return direct;
 		DependencyObject dependencyObject = target;
 		while (dependencyObject != null)
 		{
@@ -169,6 +173,7 @@ internal static class NativeCombatSurface
 
 	private static FrameworkElement Root(bool live)
 	{
+		if (WorldOperations.StrategicActive) return CampaignView.Instance;
 		return (!live) ? LinearCampaignView.Instance : ((!(Globals._mainGameViewModel == null)) ? Globals._mainGameViewModel.RootControl : null);
 	}
 
@@ -193,7 +198,7 @@ internal static class NativeCombatSurface
 				root = objB;
 				wasLive = live;
 				home = ((!(root == null)) ? Host(root) : null);
-				path = System.IO.Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.UserProfile), "AppData", "LocalLow", "Triassic Games", "Sea Power", "SEST", (!live) ? "combat-window-campaign.txt" : "combat-window-mission.txt");
+				path = System.IO.Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.UserProfile), "AppData", "LocalLow", "Triassic Games", "Sea Power", "SEST", WorldOperations.StrategicActive ? "combat-window-world.txt" : ((!live) ? "combat-window-campaign.txt" : "combat-window-mission.txt"));
 				try
 				{
 					state = CostWindowState.Parse((!File.Exists(path)) ? null : File.ReadAllText(path));
@@ -272,7 +277,7 @@ internal static class NativeCombatSurface
                 if (worldTabs != null)
                 {
                     worldTabs.Children.Clear();
-                    string[] labels = { "Overview", "Forces", "Costs", "Service" };
+                    string[] labels = { "Overview", "Forces", "Combat Costs", "Service" };
                     for (int i = 0; i < labels.Length; i++)
                     {
                         int index = i;
@@ -348,6 +353,8 @@ internal static class NativeCombatSurface
 
 	internal static CostBounds MenuBounds(FrameworkElement host)
 	{
+        if (WorldOperations.StrategicActive)
+            return new CostBounds(52f, 38f, Math.Max(53f, host.ActualWidth - 8f), Math.Max(39f, host.ActualHeight - 38f));
 		float num = 8f;
 		float num2 = host.ActualHeight - 8f;
 		FrameworkElement frameworkElement = host.FindName("CampaignTimelineRibbonScrollViewer") as FrameworkElement;

@@ -38,11 +38,11 @@ def modernise(expanded):
         "October 2028. Command a coalition maritime force across the Atlantic, Mediterranean, Indian Ocean "
         "and Pacific. Protect sea communications, maintain forward air cover and sustain deployed groups "
         "through a network of naval facilities and airfields. Intelligence is incomplete; losses and "
-        "expenditure carry into subsequent operations.<LineBreak/><LineBreak/>"
+        "expenditure carry into subsequent operations.\n\n"
         "Earn renown through battle results and accepted Admiralty tasks: escort, area control, surveillance "
         "and multi-phase operations when offered. Eight command stages progressively open the recruitment "
         "catalogue. Keep fuel and ammunition moving by convoy, airlift and replenishment ship. F11 opens "
-        "Operations with current task rewards and the next command milestone.<LineBreak/><LineBreak/>"
+        "cumulative combat costs; Overview shows task rewards and the next command milestone.\n\n"
         "Hypothetical 2028 scenario. Coalition alignments, access, forces and stocks are design assumptions; "
         "public facility locations do not establish actual deployments or readiness. Requires the SEST "
         "collection and Dynamic Campaign Mod. Campaign credits and USD cost estimates are separate. "
@@ -86,21 +86,21 @@ def modernise(expanded):
     for side in ("blue", "red"):
         world["story"]["opening"][side] = {
             "situation": [
-                "SITUATION - 1 October 2028. Maritime confrontation has escalated across several theatres. "
+                "1 October 2028. Maritime confrontation has escalated across several theatres. "
                 "Your coalition's dispersed forces must operate with incomplete contact information and finite stocks.",
-                "MISSION - Protect coalition bases and sea communications. Maintain freedom of movement for "
+                "Protect coalition bases and sea communications. Maintain freedom of movement for "
                 "supply traffic and prevent hostile forces from isolating forward positions."],
-            "enemy": ["THREAT - Expect surface groups, submarines and land-based aviation. Intelligence reports "
+            "enemy": ["Expect surface groups, submarines and land-based aviation. Intelligence reports "
                       "are estimates; establish identification before committing weapons. Civil traffic remains present."],
             "intent": [
-                "EXECUTION - Concentrate locally, retain a reserve and coordinate air cover with surface and "
+                "Concentrate locally, retain a reserve and coordinate air cover with surface and "
                 "submarine operations. Accept Admiralty assignments whose deadlines your force can meet.",
-                "SUSTAINMENT - Check fuel, magazines and base stocks before sailing. Set supply priorities, "
+                "Check fuel, magazines and base stocks before sailing. Set supply priorities, "
                 "escort exposed convoys and use airlift for urgent ammunition. Replenishment ships draw from port stocks.",
-                "COMMAND - Renown records operational achievement and opens eight command stages. Escort, "
+                "Renown records operational achievement and opens eight command stages. Escort, "
                 "surveillance and area-control assignments can earn renown and credits without a fleet battle. "
                 "Read the offered task's conditions and rewards; routine movement alone earns no task reward.",
-                "BATTLE HANDOVER - Begin each engagement paused, prepare aircraft and issue initial orders, "
+                "Begin each engagement paused, prepare aircraft and issue initial orders, "
                 "then unpause. To disengage, press Esc and choose End battle. Victory is not required; "
                 "the campaign assesses survivors, losses and unresolved fighting on return."]}
     world["texts"] = dict(world.get("texts") or {},

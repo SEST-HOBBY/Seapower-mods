@@ -107,7 +107,7 @@ static partial class BetaApiTests
             "3820576916/AlpineExteriorCameras.dll", "3819522350/AlpineExteriorCameras.dll",
             "3819522350/K5KrakenContactStrike.dll", "3804868806/XQ58Shadow.dll",
             "3804868806/AlpineSeaPower.dll", "3796349767/AlpineSeaPower.dll",
-            "3810611344/BellSystemsFixtureTilt.dll", "3813033771/EC2CommsJamming.dll",
+            "3810611344/BellSystemsFixtureTilt.dll",
             "3810611344/MV75CrewEscape.dll",
         };
         foreach (string relative in held) {
@@ -123,6 +123,38 @@ static partial class BetaApiTests
             Check(!AppDomain.CurrentDomain.GetAssemblies().Any(a => a.GetName().Name == metadata.Assembly.Name.Name),
                 "Rejected image never entered CLR: " + relative);
         }
+        CurrentEc2Startup(context);
+    }
+
+    static void CurrentEc2Startup(R6Context context)
+    {
+        string source = Path.Combine(context.Workshop, "3813033771", "EC2CommsJamming.dll");
+        byte[] before = File.ReadAllBytes(source);
+        string hash;
+        using (var sha = System.Security.Cryptography.SHA256.Create())
+            hash = BitConverter.ToString(sha.ComputeHash(before)).Replace("-", "").ToLowerInvariant();
+        var messages = new List<string>();
+        string prepared = BetaAssemblyPolicy.Prepare(source, context.Native, context.Cache, messages.Add);
+        if (hash == "f933cec252c0c2ba99192e3f14b0f333d11456005c496a49d8b532d3e3187f81")
+        {
+            Check(prepared == null && messages.Single().Contains("Data retained"), "Earlier rejected EC-2 image remains held before registration");
+            Check(before.SequenceEqual(File.ReadAllBytes(source)), "Earlier EC-2 author bytes retained");
+            return;
+        }
+        Check(hash == "b6e7f8e705106b948588b6ed1a9e3d19e48e30d74d5b7fef431d2a9f6401d22c", "Current EC-2 image is the inspected 22:57 capture");
+        Check(prepared == source && before.SequenceEqual(File.ReadAllBytes(source)), "Updated EC-2 is admitted without a private rewrite or author-file change");
+        // Invoke only the author's pure build-contract validator, never its
+        // plugin entrypoint or Harmony installers. The new image accepts this
+        // native build itself; the old exact-hash hold must not block it.
+        var assembly = Assembly.LoadFrom(source);
+        var strings = assembly.GetType("<PrivateImplementationDetails>{069DC387-A350-4807-AFC1-E74C900DD3F4}.1FB7A22C-FA48-414E-8637-E3EC1E425B87", true);
+        string expected = (string)strings.GetMethod("Y", CurrentAll).Invoke(null, null);
+        var guard = assembly.GetType("AlpineRuntimeInternal.BuildContract", true).GetMethod("A", CurrentAll, null,
+            new[] { typeof(Assembly), typeof(string), typeof(string), typeof(string).MakeByRefType() }, null);
+        object[] args = { assembly, context.Native, expected, null };
+        var verdict = guard.Invoke(null, args);
+        Check(verdict.ToString() == "ExactBuild", "Updated EC-2's actual author guard accepts the captured native game exactly");
+        Check(string.IsNullOrEmpty((string)args[3]), "Updated EC-2 author validator reports no contract rejection");
     }
 
     static void NativePeDiscovery(R6Context context)

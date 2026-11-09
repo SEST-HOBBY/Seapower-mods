@@ -121,3 +121,11 @@ match Admiralty task rewards and deadlines; completion pays only once.
 Check Muharraq, Chambers Field, Souda and Diego Garcia in a generated battle.
 Check quarter-stock new fields request supply and retain correct ownership
 after save/reload. No aircraft or ships should be added by this update.
+
+R12 OPENING AND WORLD-MAP COSTS
+Check campaign-selection paragraphs and the opening operations paper for
+readable wrapped text. Understood and Open the Guide must keep working.
+On the strategic map, click Combat Costs beside Economy, then try F11.
+The title must say Cumulative Combat Costs. Check scroll, resize, close,
+return from battle and reload; existing and new world saves need the map
+button once only. Completed battle USD totals must be in the summary.
