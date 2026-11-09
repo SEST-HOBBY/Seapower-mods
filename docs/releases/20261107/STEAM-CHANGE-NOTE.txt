@@ -13,3 +13,5 @@ Also includes campaign completion ribbons, F11 Forces/Costs/Service, campaign co
 Refreshed against the latest Steelfin export: its removed demo mission and menu file do not change the weapons, launcher or SEST scenarios.
 
 World-map UI follow-up: F11 and the new Combat Costs sidebar button open Cumulative Combat Costs directly. Corrected the campaign-view/window-host connection and strategic update path. USD totals now appear in the report summary. The opening world briefing uses concise, wrapped sections and normal-weight body text; native close and guide controls remain.
+
+Corrected the Growler starting-flight loadout selection in Southern Watch and Southern Reach. HARM (AGM-88C) and AARGM (AGM-88E) options now appear alongside AARGM-ER (AGM-88G); each keeps AIM-120D self-defence missiles, NGJ pods and both wing tanks. Existing loadout IDs and the tested Runtime 1.6.2 / UI 1.4.12 code are retained.

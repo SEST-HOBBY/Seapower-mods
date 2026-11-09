@@ -1,91 +1,73 @@
-SEST R12 - WORLD MAP COSTS AND OPENING BRIEF
+SEST R12 - FINAL POSTING PACKAGE
 9 November 2026 | SEST-DEV
+Runtime 1.6.2 / UI 1.4.12
 
-RUNTIME 1.6.2 / UI 1.4.12
-The opening report now has short sections and wrapped, normal-weight body
-text. The world map has a Combat Costs button directly beneath Economy in
-the left sidebar. F11 opens Cumulative Combat Costs; Overview, Forces and
-Service remain tabs in the same window. USD totals are shown in its summary.
+CONFIRMED ON THE PC
+The opening briefing's headings and wrapped text, world-map Combat Costs
+button, direct F11 cumulative USD costs and revised Steam description were
+confirmed working by the owner. This follow-up retains that exact code.
 
-Existing world saves can use these UI fixes. Close Sea Power, extract this
-complete toolkit into a NEW folder and run Prepare-PC.cmd for code AND data.
-Then load your world and check the sidebar button and F11. Reopen the opening
-SITREP from Messages/Guide, or start a new world to check its initial display.
-Native render/input and game terrain checks still need the PC.
+FINAL GROWLER CORRECTION
+The starting-flight selector previously allowed only SEST_SEAD120D for the
+RAAF Growler. Southern Watch and Southern Reach now offer three conventional
+choices: HARM (AGM-88C), AARGM (AGM-88E) and AARGM-ER (AGM-88G). Each carries
+two anti-radiation missiles, two AIM-120Ds, NGJ pods and both wing tanks.
+The first two are also available on the modern US Navy Growler. Existing
+loadout IDs, aircraft defaults and campaign saves have not been rewritten.
 
-The first 196-base layout and eight-stage progression still require a new
-campaign if you are coming from a world created before that expansion.
-Keep SEST subscribed. The Steelfin author baseline from the 21:37 capture is
-retained. This follow-up uses the 22:57 beta reference capture.
+PREPARE AND POST
+1. Close Sea Power. Keep SEST and the collection subscribed. Extract this
+   COMPLETE toolkit into a NEW folder and run Prepare-PC.cmd. Keep the
+   printed release checkout, backup path and verified UPLOAD FOLDER.
+   Use Prepare-PC, since Repair-PC alone only installs code, not loadout data.
+2. Open Starting Airborne Flights in Southern Watch or Southern Reach.
+   Select the RAAF E/A-18G and check the three loadouts above. The briefing
+   and world costs do not need their acceptance tests repeated for this
+   data-only follow-up. Quit the game after the check.
+3. Run Upload-PC.cmd. It creates a verified publishing copy under
+   StreamingAssets and puts STEAM-CHANGE-NOTE.txt on the clipboard. Keep
+   this temporary local mod disabled.
+4. Open Sea Power > Mod Manager > Create Mod > Update Existing. Select
+   Workshop item 3812461539 and the EXACT folder printed by Upload-PC.cmd.
+   Paste the change note and submit. Confirm success and a non-zero size.
+5. Update the page description with STEAM-PAGE-DESCRIPTION.txt (Steam BBCode).
+   STEAM-SHORT-DESCRIPTION.txt and STEAM-COLLECTION-DESCRIPTION.txt contain
+   the separate short and collection copy if needed.
+6. Quit and run Finish-Upload.cmd to move the temporary publishing copy out
+   of the game. After Steam downloads the update, open the subscribed pack
+   folder and run SETUP - double-click me.cmd with the game closed.
 
-STEAM-PAGE-DESCRIPTION.txt contains the main page copy in Steam BBCode;
-STEAM-CHANGE-NOTE.txt is the separate update/change-log text.
+RETAINED FEATURES
+- Global Maritime Operations 2028: 196 bases, 293 force groups, 54 patrols
+  and 1,586 recruitment entries; 40 added airfields and 37 reviewed positions.
+- Eight coalition command stages at 0 / 300 / 800 / 1,600 / 2,800 / 4,500 /
+  7,000 / 10,500 renown, with progressive recruitment access.
+- Native Admiralty assignments and battle outcomes reward command progress.
+  Fuel and ammunition use depots, convoys, airlifts and replenishment ships.
+- Paused world-battle preparation and Esc > End battle... return through the
+  debrief without requiring victory; campaign consequences still apply.
+- F11 Overview, Forces, Combat Costs and Service; campaign completion ribbons;
+  independent world service records; Coordinated Strike styling and estimates;
+  Topography, Pop-Out support and DCM salvo hold.
 
-START HERE
-Close Sea Power. Extract this complete toolkit to a NEW folder, then run
-Prepare-PC.cmd. This installs the revised world data and the paired code.
-Repair-PC.cmd alone only updates code and will not install the new bases.
-Keep the printed checkout, backup path and verified UPLOAD FOLDER.
+Existing worlds can use the tested UI fixes. A world created before the
+196-base expansion needs a new campaign for that full layout and progression.
+The expanded network is scenario data; building bases during play is not
+included. Coalition access, deployments and stocks are hypothetical 2028
+assumptions. Campaign credits and estimated USD costs are separate.
 
-Start a NEW Global Maritime Operations 2028 campaign to test the full layout.
-An already spawned battle will not move its airfields when files are updated.
-
-CHANGES
-- Global Maritime Operations 2028: 196 bases, 293 force groups, 54 patrols and
-  1,586 recruitment entries. Forty new real airfields across 16 nations.
-- Reviewed 37 existing airfield placements/orientations. Muharraq uses the
-  published Bahrain airport reference point instead of rounded coordinates.
-- Operational briefings covering mission, threat, execution and sustainment.
-- Eight command stages at 0 / 300 / 800 / 1,600 / 2,800 / 4,500 / 7,000 /
-  10,500 renown, with progressively available recruitment bands.
-- F11 Overview shows your next milestone, new recruitment count, live
-  Admiralty task rewards and deadlines, and ways to sustain your force.
-- Earn renown and credits through native battle results and accepted
-  Admiralty assignments: escort, shadowing, area control and operations when
-  offered. Read the conditions; routine movement earns no task reward.
-- Supply stays physical: depot production, convoys, ammunition airlifts and
-  replenishment ships. New airfields start at quarter stock and add no
-  aircraft, ships, income or production depots.
-- Paused battle preparation and Esc > End battle... remain included. Return
-  through the debrief; victory is not required and campaign consequences apply.
-
-The base network is expanded in the scenario definition. Constructing new
-bases during play is not included. Access, coalitions, forces and stocks are
-hypothetical 2028 assumptions. Command stages are coalition appointments,
-not national promotion rules. Campaign credits and USD estimates are separate.
-
-PC CHECK BEFORE UPLOAD
-1. Start the new world as each coalition. Check F11 Overview and recruitment.
-2. Check Muharraq, Chambers Field, Souda and Diego Garcia in generated battles.
-   Geographic checks cannot verify the game's terrain or reclaimed islands.
-3. Check a new airfield's stocks, supply source and aircraft rebasing.
-4. Complete an Admiralty task; compare its renown/credit reward with F11.
-5. Save/reload, prepare a paused battle and end an unfinished engagement.
-6. Quit. Run R12\Capture-Repair-Results.cmd and retain the capture.
-
-STEAM UPDATE WALKTHROUGH
-After the PC checks pass, keep the game closed and run Upload-PC.cmd. It
-creates a verified publishing copy under StreamingAssets and copies the
-change note to the clipboard. Keep that temporary local mod disabled.
-Open Sea Power > Mod Manager > Create Mod > Update Existing. Select existing
-Workshop item 3812461539. Pick the exact folder printed by Upload-PC.cmd,
-paste the change note, then submit. Confirm upload success and non-zero size.
-Quit and run Finish-Upload.cmd to move the temporary copy out of the game.
-After Steam downloads the update, run subscriber SETUP from the pack folder.
-
-Preparation checks captured author configurations, repairs the enabled beta
-installation and installs backed-up world data. It does not submit to Steam,
-switch Steam branches or edit native game DLLs or save files. If a check
-stops, retain the error/report and do not bypass it.
+The reviewed Steelfin baseline is retained. Preparation checks author
+configuration updates and makes backed-up code/data changes. It does not
+submit to Steam, switch Steam branches, edit native game DLLs or write saves.
+If an upstream check stops, keep its error/report for review.
 
 SUBSCRIBER INSTALLATION
-Run SETUP - double-click me.cmd from Mod Manager > Open Folder, with the game
-closed. On the supported beta, an existing enabled installation updates in
-one run. A fresh install needs SETUP, a launch to the main menu for about ten
-seconds, quitting, then a second SETUP run. Rerun SETUP after Steam refreshes
-this item. Original backups, settings, Identify data and saves are retained.
+Subscribe to this pack and all collection items. In Mod Manager, open this
+pack's folder, close Sea Power and run SETUP - double-click me.cmd. On the
+supported beta, an enabled installation updates in one run. A fresh install
+needs SETUP, a main-menu launch for about ten seconds, quitting and a second
+SETUP run. Rerun SETUP after Steam refreshes this item. Keep SEST at the top.
+Original backups, settings, Identify data and saves are retained.
 
-The full package also retains campaign completion ribbons, F11 Forces/Costs/
-Service, the independent service record, Coordinated Strike styling/cost
-estimates, Topography, Pop-Out support and DCM salvo hold. Native rendering,
-terrain placement and gameplay acceptance remain pending on the PC.
+To collect a later issue, quit and run R12\Capture-Repair-Results.cmd.
+Validation details are in VALIDATION.json and R12-POSTING-REVIEW.txt.

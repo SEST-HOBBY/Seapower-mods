@@ -1,9 +1,9 @@
 # Workshop listing — paste-ready copy
 
 The reference copy for the Steam page of SEST Integration Pack - Modernised
-Campaigns (3812461539) and its collection (3812390790). The 9 November R12 draft below is prepared for the updated
-release; it has not been posted to Steam by this workflow. Complete the PC
-acceptance checks before publishing the updated listing. Nothing here is generated; when the campaigns change, edit it
+Campaigns (3812461539) and its collection (3812390790). The 9 November R12 release copy below is prepared for posting; it has not
+been posted to Steam by this workflow. The opening brief and world-map costs
+were accepted on the PC; check the final Growler choices after installing. Nothing here is generated; when the campaigns change, edit it
 by hand.
 
 Every block below is ready to paste: Steam BBCode (`[h1]`-`[h3]`, `[b]`,
@@ -77,6 +77,7 @@ A single worldwide campaign for [b]Dynamic Campaign Mod[/b], combining the origi
 [*]Historical and current price bases are labelled. Missing prices remain identified as unknown. [b]Estimated USD costs are separate from campaign credits and physical supplies.[/b]
 [*]Native completion ribbons recognise the four authored campaigns. A separate world service record tracks completed manual engagements and theatre service.
 [*]Coordinated Strike refinements add shared styling and planned/remaining weapon-cost estimates, alongside the original planning and launch controls.
+[*]Starting airborne Growler flights in Southern Watch and Southern Reach offer [b]HARM, AARGM and AARGM-ER[/b] loadouts, with AIM-120D self-defence missiles, NGJ pods and two external tanks.
 [/list]
 
 [h2]Installation and updates[/h2]

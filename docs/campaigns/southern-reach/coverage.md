@@ -138,7 +138,7 @@ Not sold (30):
 | `usaf_kc-46a_warp` | no air-tasking row in this campaign takes it |
 | `usn_e-2d` | a row takes its role but offers none of its fits: Recon: sells usn_e-2d into this flight, and it defines none of ASW/AntiShip/Default/ASWLongRange/ASWHunter/SEST_REDBACK (has: Recon) |
 | `usaf_f-15ex_SEII` | no field or deck in reach in Southern Cross CAP, Tasman Crossing CAP |
-| `usaf_ac-130j` | a row takes its role but offers none of its fits: CAP: sells usaf_ac-130j into this flight, and it defines none of AirToAir/AirToAirStealth/MurderHornetCAP/MurderHornetInterceptor/SEST_SEAD120D/MurderHornetPenetrator (has: Default) |
+| `usaf_ac-130j` | a row takes its role but offers none of its fits: CAP: sells usaf_ac-130j into this flight, and it defines none of AirToAir/AirToAirStealth/MurderHornetCAP/MurderHornetInterceptor/SEST_SEAD120D/SEST_SEAD88C/SEST_SEAD88E/MurderHornetPenetrator (has: Default) |
 | `usaf_f-16cm-bl52d` | no field or deck in reach in Southern Cross CAP, Tasman Crossing CAP |
 | `usaf_mq-9_er` | no field or deck in reach in Beneath the South Recon, Cold Route Recon, Macquarie Passage Recon, Search Datum Recon, Southern Cross Recon, Tasman Crossing Recon |
 | `usmc_uh-1y` | no air-tasking row in this campaign takes it |

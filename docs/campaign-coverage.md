@@ -280,7 +280,7 @@ Not sold (21):
 | `usaf_e-3g` | a row takes its role but offers none of its fits: Recon: sells usaf_e-3g into this flight, and it defines none of ASW/AntiShip/Default/ASWLongRange/ASWHunter/SEST_REDBACK (has: AEW) |
 | `usaf_kc-46a_warp` | no air-tasking row in this campaign takes it |
 | `usn_e-2d` | a row takes its role but offers none of its fits: Recon: sells usn_e-2d into this flight, and it defines none of ASW/AntiShip/Default/ASWLongRange/ASWHunter/SEST_REDBACK (has: Recon) |
-| `usaf_ac-130j` | a row takes its role but offers none of its fits: CAP: sells usaf_ac-130j into this flight, and it defines none of AirToAir/AirToAirStealth/MurderHornetCAP/MurderHornetInterceptor/SEST_SEAD120D/MurderHornetPenetrator (has: Default) |
+| `usaf_ac-130j` | a row takes its role but offers none of its fits: CAP: sells usaf_ac-130j into this flight, and it defines none of AirToAir/AirToAirStealth/MurderHornetCAP/MurderHornetInterceptor/SEST_SEAD120D/SEST_SEAD88C/SEST_SEAD88E/MurderHornetPenetrator (has: Default) |
 | `usmc_uh-1y` | no air-tasking row in this campaign takes it |
 | `rn_merlin_hm2` | no field or deck in reach in After the Wake HeloRecon, Southern Lifeline HeloRecon, Southern Lifeline Recon, The Missing Beacon HeloRecon, The Second Convoy HeloRecon |
 | `rn_wildcat` | no field or deck in reach in Blind Horizon Recon, Southern Lifeline Recon, Steel Highway Recon, The First Ship Through Recon, The Quiet Passenger Recon |

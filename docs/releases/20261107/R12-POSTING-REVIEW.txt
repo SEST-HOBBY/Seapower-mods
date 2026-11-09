@@ -1,0 +1,59 @@
+SEST R12 - POSTING REVIEW
+9 November 2026 | SEST-DEV
+Runtime 1.6.2 / UI 1.4.12 retained
+
+OWNER ACCEPTANCE
+The owner confirmed the shortened/wrapped opening brief, world-map Combat
+Costs button, direct F11 cumulative USD report and updated page description
+working on the PC. No runtime, UI, bootstrap, loader or Identify code is
+changed in this posting follow-up. Those five shipped binaries are identical
+to the preceding world-map-costs package.
+
+GROWLER FINDING AND CORRECTION
+The RAAF Growler file had six selectable fits, but the authored campaign
+CAP and strike rows explicitly permitted only SEST_SEAD120D. The remaining
+fits carried the speculative AIM-260 or AIM-424 and were deliberately kept
+outside the core campaigns. Automatic flight-list widening cannot add an
+anti-radiation fit to CAP, which explains the single menu entry in the
+owner's Southern Reach screenshot.
+
+The data now adds two conventional options to both modern Growler airframes:
+- SEST_SEAD88C: 2 x AGM-88C HARM, 2 x AIM-120D, 2 x wing tanks.
+- SEST_SEAD88E: 2 x AGM-88E AARGM, 2 x AIM-120D, 2 x wing tanks.
+Southern Watch and Southern Reach explicitly offer them alongside the
+existing SEST_SEAD120D (AGM-88G AARGM-ER) in the CAP and strike selectors.
+The US Navy Growler retains native SEAD and gains the two alternatives.
+NGJ systems, station positions, tank/pod clearances, existing loadout IDs
+and the first/default fit remain unchanged. The added rounds already exist
+in the subscribed collection. No new subscription is required. English and
+Chinese fallback loadout labels describe the different weapons.
+
+The captured native AirTaskingContext.Load reads the campaign INI when the
+manager opens. Native FilterLoadouts filters the aircraft's unlocked choices
+by the row's AllowedLoadoutReferences; the campaign data is the correct
+place to repair this restriction. No native method is patched for this fix.
+No save file is edited.
+
+BUILD AND VALIDATION
+The Growler patch, all four authored campaigns and the consolidated upload
+are rebuilt from source. Regression tests check actual shipped aircraft,
+menu rows, ammunition resolution, localisation and consolidation. The
+release validation records their results and the canonical file inventory.
+The previous code's managed, installer and rollback results are retained
+because its payload and source hashes are unchanged.
+
+RELEASE SCOPE
+All earlier R12 base-network, progression, logistics, service, battle-flow
+and cost-reporting changes are retained. This follow-up changes loadout data,
+flight-assignment rows, generated coverage records and publishing documents.
+The final EA-18G dropdown on the gaming PC remains the one focused acceptance
+check before posting. The already accepted world UI needs no repeat test for
+this data-only follow-up. Steam and GitHub have not been updated by this run.
+
+POSTING
+Extract the complete new toolkit into a fresh folder. Close Sea Power and
+run Prepare-PC.cmd for data and code. Check the three RAAF Growler choices,
+quit, run Upload-PC.cmd and use Update Existing for Workshop item 3812461539.
+Use the exact printed upload folder and supplied Steam change note/page copy.
+After upload, quit and run Finish-Upload.cmd. Let Steam download the item,
+then run SETUP from its subscribed folder. Full steps are in README-FIRST.txt.
