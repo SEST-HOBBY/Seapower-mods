@@ -162,6 +162,7 @@ Compile 'BetaApiTests.exe' @(Get-ChildItem -LiteralPath (J $here 'tests') -Filte
 if (Test-Path -LiteralPath (J $here 'tests' 'CostRowsTests.cs')) { Compile 'CostRowsTests.exe' @((J $here 'tests' 'CostRowsTests.cs')) }
 
 Compile 'WorldOperationsTests.exe' @((J $here 'tests' 'WorldOperationsTests.cs'))
+Compile 'WorldBattleFlowTests.exe' @((J $here 'tests' 'WorldBattleFlowTests.cs'))
 
 $outputs = 'AnchorChain.dll', 'SEST.BetaSafeBootstrap.dll', 'SEST.RuntimeFixes.dll', 'SEST.ContactsFix.dll', 'SEST.IdentifyDataPaths.dll'
 $sourceFiles = @($runtimeSources) + @(Get-ChildItem -LiteralPath (J $here 'ui') -Filter '*.cs' -File | ForEach-Object { $_.FullName })

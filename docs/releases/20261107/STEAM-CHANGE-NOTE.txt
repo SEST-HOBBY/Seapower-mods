@@ -7,3 +7,5 @@ Added native completion ribbons, artwork and citations for Southern Watch, South
 This Workshop download now includes F11 World Operations (Overview, Forces, Costs and Service), world service progress, campaign cost reporting, and Coordinated Strike styling with planned/remaining weapon-cost estimates. Original strike scheduling and launch controls are retained.
 
 On the supported beta build, run SETUP from the pack folder after downloading. A first installation needs a main-menu check and a second SETUP run. Existing enabled installations update in one run. Rerun SETUP after Steam updates the item. Normal-release active plugins are retained for other builds.
+
+World campaign battle flow: added a paused opening preparation checklist and a clearer End battle... pause-menu entry. Returning through the debrief does not require victory; the campaign's existing consequence warning and outcome assessment are retained.

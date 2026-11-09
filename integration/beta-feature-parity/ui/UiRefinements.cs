@@ -98,10 +98,11 @@ namespace Sest.UiFixes
             }
             catch (Exception e) { if (!reported) { reported = true; ContactsFix.Log("Contacts header sizing skipped: " + e.Message); } }
         }
-        internal static void Tick() { if (Ready) CameraCompass.Tick(); }
+        internal static void Tick() { if (Ready) { CameraCompass.Tick(); WorldBattleFlow.Tick(); } }
         internal static void End()
         {
             contacts = new ConditionalWeakTable<object, ContactEntry>();
+            WorldBattleFlow.End();
             CameraCompass.End(); FormationPerformance.Clear();
         }
     }

@@ -1,14 +1,22 @@
 SEST R12 — FULL WORKSHOP FEATURE UPDATE
 9 November 2026 | SEST-DEV
 
-R12 CONFIGURATION REFRESH - 9 NOVEMBER, 17:33 CAPTURE
-The BetterTacMap hotkey comments and Pop-Out Windows English/German menu
-labels are now included in the author-update baseline. All 15 recorded R12
-build references match the new capture, including Topographic Map 1.6.0 and
-Pop-Out Windows 1.2.0. The five beta payload DLLs are unchanged. Extract this
-refreshed toolkit into a new folder and run Prepare-PC.cmd with Sea Power
-closed. Follow the PC checks before preparing or submitting the Steam upload.
-See R12-REFRESH-REVIEW.txt for the exact findings and validation limits.
+R12 WORLD-BATTLE FLOW REFINEMENT - UI 1.4.10
+The 19:10 capture confirms the previous R12 payload is installed. This update
+adds a paused battle-preparation checklist and a clearer End battle... entry
+in the world-battle pause menu. Its confirmation explains that victory is not
+required while retaining the campaign's complete consequence warning.
+
+EXISTING R12 INSTALLATION: close Sea Power, extract this complete toolkit to
+a new folder and run Repair-PC.cmd. This applies the inspected UI update.
+Test a new paused battle, preparation, a replay and ending an unfinished
+battle through Esc > End battle... > debrief > return to campaign. Quit and
+run R12\Capture-Repair-Results.cmd. See R12-BATTLE-FLOW.txt for details.
+
+Only the UI DLL changes from the previous R12 payload. Runtime, loader,
+bootstrap and Identify shim retain their existing hashes. The reviewed
+BetterTacMap/Pop-Out configuration baseline is retained. For a complete
+publisher preparation and verified upload folder, use Prepare-PC.cmd below.
 
 THIS STEAM UPDATE INCLUDES THE NEW UI FEATURES
 The verified SEST_Integration upload now includes the Modernised Worldwide

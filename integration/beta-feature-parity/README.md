@@ -1,5 +1,24 @@
 # R12 — World Operations and strike features included in Workshop
 
+## World-battle preparation and exit refinement, 9 November
+
+UI Follow-up 1.4.10 adds a native preparation checklist at the opening of a
+paused world-campaign battle. Start preparation dismisses it while leaving
+the clock paused; the player arranges aircraft, formation, sensors and orders
+before explicitly unpausing. Replays get their own checklist. A mid-battle
+save, an already unpaused game and ordinary SEST missions are not interrupted.
+
+In a world battle the native pause menu's Exit caption is now End battle... .
+Its original command still opens the native debrief. The campaign's existing
+return confirmation keeps its full consequence warning, with an added note
+that victory is not required. No outcome, loss or campaign-state calculation
+is replaced. Quit-game wording and other pause-menu commands are retained.
+
+The 19:10 PC capture confirms the original R12 payload was installed and the
+game returned through battles normally. The new presentation still needs PC
+rendering/interaction acceptance. Managed checks cover opening/replay/save
+gating, inspected bindings and preservation of the original exit command.
+
 The canonical Steam upload now carries the reviewed feature installer and
 five-DLL beta payload in an inert archive under beta-support/. The normal
 SETUP command stages/enables it on the exact supported game build, using the

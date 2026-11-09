@@ -1,0 +1,40 @@
+{
+  "format": 1,
+  "status": "managed-and-fixture-checks-passed-needs-focused-pc-gameplay",
+  "release_revision": "R12-world-battle-flow",
+  "base_release_commit": "281c9d6d67a1dab9d8935fed42fe06c79cc87a42",
+  "code_capture": "SEST-Beta-References-20261109-191015-5e1918.zip",
+  "captured_reference_integrity": {
+    "checked": 331,
+    "mismatches": 0
+  },
+  "beta_candidate_validation": "R12/VALIDATION.json",
+  "beta_managed_and_installer_groups": 15,
+  "world_battle_flow_checks": 24,
+  "fresh_installer_assertions": 46,
+  "r12_upgrade_rollback_assertions": 65,
+  "workshop_included_feature_assertions": 40,
+  "publisher_pc_assertions": 10,
+  "upload_preparation_assertions": 7,
+  "canonical_upload_files": 4337,
+  "canonical_upload_sha256_verified": true,
+  "canonical_changed_paths": [
+    "beta-support/SEST-Beta-Features.zip",
+    "beta-support/manifest.json"
+  ],
+  "only_changed_beta_dll": "SEST.ContactsFix.dll",
+  "ui_version": "1.4.10",
+  "unchanged_beta_dlls": [
+    "AnchorChain.dll",
+    "SEST.BetaSafeBootstrap.dll",
+    "SEST.RuntimeFixes.dll",
+    "SEST.IdentifyDataPaths.dll"
+  ],
+  "native_gameplay_tested_for_new_flow": false,
+  "limitations": [
+    "The owner has playtested the preceding R12 build; these new UI changes still need native rendering and interaction checks.",
+    "Linux PowerShell installer fixtures do not substitute for Windows PowerShell 5.1 or Unity execution."
+  ],
+  "steam_published": false,
+  "github_pushed": false
+}

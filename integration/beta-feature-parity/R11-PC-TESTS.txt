@@ -1,5 +1,18 @@
 R12 WORKSHOP-INCLUDED FEATURES — 9 NOVEMBER 2026
 
+WORLD-BATTLE FLOW REFINEMENT (UI 1.4.10)
+At the beginning of a paused world battle, a preparation checklist now shows
+the setup steps. Choose Start preparation, arrange the force while paused,
+then explicitly unpause to begin. A restarted battle shows it again; a saved
+mid-battle session and ordinary missions keep their existing behavior.
+
+To leave an unfinished battle, press Esc and choose End battle... . This
+opens the normal debrief. Leave the debrief to return to the world campaign;
+victory is not required. Read and confirm the campaign's full warning about
+current losses and unresolved fighting. The existing outcome logic is retained.
+Cancel at the confirmation to stay in the debrief and use its normal controls.
+Test both an early withdrawal and a normal completed battle, then save/load.
+
 This Steam update now INCLUDES the World Operations and Coordinated Strike
 feature code as well as the unified world and ribbon data. The five reviewed
 beta DLLs travel inside beta-support/SEST-Beta-Features.zip. They stay inert
@@ -27,7 +40,7 @@ That imports the reviewed source, checks author config updates, repairs
 the beta code and installs the backed-up campaign data. It prints separate
 data backup and canonical upload paths. It never submits anything to Steam.
 
-Run the root Prepare-PC.cmd once. R11\Repair-Beta-Startup.cmd alone changes
+Run the root Prepare-PC.cmd once. R12\Repair-Beta-Startup.cmd alone changes
 code only; the root command also installs the new world and ribbon data.
 If a check stops, retain its report and send the error. Do not print a
 success message or continue installing after a failed author-update check.
@@ -76,10 +89,10 @@ COORDINATED STRIKE TOOL
   the planner with a Noesis window or change its scheduling/launch algorithms.
 
 COMPATIBILITY AND REGRESSION CHECKS
-- Current Topography 1.5.1 keeps the author's option fallbacks and gets the
+- Current Topography 1.6.0 keeps the author's option fallbacks and gets the
   inspected 50 m shoreline correction. Old 1.5.0 support is retained. Both
   inspected flat-only images remain held on this globe build.
-- Current Pop-Out Windows is recognised by its inspected hash. Check Contacts,
+- Current Pop-Out Windows 1.2.0 is recognised by its inspected hash. Check Contacts,
   Group Manager and F11 windows on the main and secondary display.
 - DCM's automatic anti-ship salvo-hold patch targets the current beta method;
   the author's anti-ship-only predicate and existing native blocks remain.
@@ -94,7 +107,7 @@ from the imported source checkout with -PackPath pointing at Workshop item
 to one world entry. It never rewrites a save. Your current regional saves do
 not require this activation.
 
-After testing, quit and run R11\Capture-Repair-Results.cmd; send the new capture.
+After testing, quit and run R12\Capture-Repair-Results.cmd; send the new capture.
 Managed and installer checks cannot verify native Noesis rendering, Steam
 upload behavior or a complete world campaign. Treat this as a beta candidate
 until those PC checks pass. The canonical upload keeps normal-release active plugins and carries the
