@@ -434,7 +434,7 @@ try {
     $r = BuildCheck @('-StableSha256', $h)
     Check ($r.Code -eq 0 -and $r.Count -eq '0' -and $r.Out -match '\[ok\]   game build: Sea Power 0\.8\.7 Build 261021, the stable build this pack targets' -and $r.Out -match 'SEST Runtime Fixes 1\.5\.0 and SEST UI Follow-up can start, each only if its own SHA-256 checks pass') "stable hash: Build 261021, the plugins may start under their own checks, no warning"
     $r = BuildCheck @('-CurrentBetaSha256', $h)
-    Check ($r.Count -eq '0' -and $r.Out -match '8 November 2026' -and $r.Out -match 'R8') 'new captured assembly: R8 profile recognised without a warning'
+    Check ($r.Count -eq '0' -and $r.Out -match '9 November 2026' -and $r.Out -match 'R12') 'reviewed assembly: R12 bundled-feature profile recognised without a warning'
     $r = BuildCheck @('-PreviousBetaSha256', $h)
     Check ($r.Count -eq '0' -and $r.Out -match '7 November 2026' -and $r.Out -match 'R7') 'previous captured assembly: R7 profile retained'
     $r = BuildCheck @('-BetaSha256', $h)
@@ -486,6 +486,20 @@ try {
     $r = Setup @()
     Check ($r.Code -eq 0 -and $r.Out -match 'All done' -and $r.Out -notmatch 'game build') "no sest-profile.ps1: nothing said, no warning"
     Put (J $pack 'sest-profile.ps1') ([IO.File]::ReadAllBytes($profileTool))
+    # Normal SETUP hands its resolved game and invoking-player paths to the
+    # bundled feature installer, including after an elevated relaunch.
+    $env:SEST_FEATURE_TEST = J $root 'feature-handoff.json'
+    $featureStub = @'
+param([string]$GameRoot,[string]$WorkshopContentRoot,[string]$PlayerDataRoot,[string]$AppDataRoot)
+@{game=$GameRoot;workshop=$WorkshopContentRoot;player=$PlayerDataRoot;app=$AppDataRoot}|ConvertTo-Json|Set-Content -LiteralPath $env:SEST_FEATURE_TEST
+'@
+    Put (J $pack 'sest-workshop-features.ps1') (Bytes $featureStub)
+    $r = Setup @()
+    $handoff = Get-Content -LiteralPath $env:SEST_FEATURE_TEST -Raw | ConvertFrom-Json
+    Check ($r.Code -eq 0 -and $handoff.game -eq $game -and $handoff.workshop -eq $content) 'normal SETUP routes to the bundled feature installer with the discovered Steam paths'
+    Check ($handoff.player -eq (Split-Path -Parent $settings) -and $handoff.app -notlike ($game+'*')) 'feature setup receives the invoking player settings and external cache paths'
+    Remove-Item -LiteralPath (J $pack 'sest-workshop-features.ps1')
+    Remove-Item -Path 'Env:SEST_FEATURE_TEST'
     Remove-Item -LiteralPath $scriptsDll -Force
     Setup @('-RestoreModFiles') | Out-Null
 } finally {

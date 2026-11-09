@@ -61,9 +61,9 @@ if ($build -eq 'stable') {
     Say '         and the Workshop Anchor Chain preloader finds no chainloader, so no Anchor Chain mod loads, SEST''s or any other author''s.'
     Say '         A bounded Anchor Chain loader for the beta is in SEST''s source as a test candidate only; nothing installs it.'
 } elseif ($build -eq 'beta-current') {
-    Say '  [note] game assembly: 499675cd..., captured 8 November 2026 (Steam build 26502734).'
+    Say '  [note] game assembly: 499675cd..., reviewed 9 November 2026 for the bundled Workshop feature update.'
     Say '         The Workshop pack targets stable Build 261021; its data loads, while the stable code plugins remain inactive.'
-    Say '         The separate R8 beta repair candidate targets this image; earlier beta repair candidates remain inactive.'
+    Say '         The R12 Workshop item includes World Operations and strike features; SETUP installs the reviewed bundle on this build.'
 } elseif ($build -eq 'beta-previous') {
     Say '  [note] older beta assembly: 9b35a7aa..., captured 7 November 2026. R7 targets this image; the stable code plugins remain inactive.'
 } elseif ($hash) {
@@ -107,7 +107,7 @@ if (Test-Path -LiteralPath $log -PathType Leaf) {
             Say ('  [!!]   The code mods did not load at the last launch: BepInEx\LogOutput.log says ' + $why + '.') 'Yellow'
             Say '         Anchor Chain loaded none of its mods, so SEST Runtime Fixes, the combat costs and every other Anchor Chain mod were off.' 'Yellow'
             if ($build -eq 'beta') { Say '         This is known on the public beta (Build 261026); the campaigns and data still play. It needs no action from you.' 'Yellow' }
-            elseif ($build -eq 'beta-current') { Say '         This is known with the stock beta preloader; the data still loads. Use the matching R8 candidate for this 8 November assembly.' 'Yellow' }
+            elseif ($build -eq 'beta-current') { Say '         This can occur with the stock beta preloader. This SETUP installs the bundled R12 features for the reviewed assembly.' 'Yellow' }
             elseif ($build -eq 'beta-previous') { Say '         This is the older 7 November beta image; use its matching R7 candidate for code testing.' 'Yellow' }
             else { Say '         Start the game once more and run SETUP again; if this is still here, reinstall the preloader from Anchor Chain''s Workshop page.' 'Yellow' }
         }

@@ -1,3 +1,23 @@
+R12 WORKSHOP-INCLUDED FEATURES — 9 NOVEMBER 2026
+
+This Steam update now INCLUDES the World Operations and Coordinated Strike
+feature code as well as the unified world and ribbon data. The five reviewed
+beta DLLs travel inside beta-support/SEST-Beta-Features.zip. They stay inert
+until normal SETUP installs them on the supported beta game build. Stable
+plugins remain in plugins/ for the normal game. No Steam branch is changed.
+
+SUBSCRIBERS: close the game and run SETUP - double-click me.cmd from the
+Workshop item. On a fresh beta installation, launch to the main menu, wait
+about ten seconds, quit and run SETUP again to enable the staged features.
+On an existing enabled installation, SETUP upgrades in one run. Run SETUP
+after Steam updates the item to reapply its bundled features. Original restore
+backups and Identify data are retained; unknown code is not overwritten.
+
+PUBLISHER: run Prepare-PC.cmd from the full R12 toolkit. Upload only the
+verified SEST_Integration folder it prints. That folder includes the feature
+archive, normal SETUP integration and all campaign/ribbon data. Complete the
+PC checks below before Submit Mod. No Steam publication has occurred here.
+
 R11 MODERNISED WORLD, SERVICE RIBBONS AND STRIKE PRESENTATION
 9 November 2026 | SEST-DEV | beta 0.8.7-261107, native SHA 499675cd
 
@@ -77,5 +97,6 @@ not require this activation.
 After testing, quit and run R11\Capture-Repair-Results.cmd; send the new capture.
 Managed and installer checks cannot verify native Noesis rendering, Steam
 upload behavior or a complete world campaign. Treat this as a beta candidate
-until those PC checks pass. The canonical stable upload keeps stable code;
-the new Operations/strike code is in the separate beta payload.
+until those PC checks pass. The canonical upload keeps normal-release active plugins and carries the
+beta feature archive. SETUP selects the reviewed beta installation on the
+supported build. The Operations/strike code is included in this Steam update.

@@ -752,6 +752,14 @@ try {
     if ($others.Count) { Say ('         your ' + $others.Count + ' other mod(s) moved to the bottom, on/off as you had them') }
     Say ('         settings backup: ' + $backup)
 
+    # The Workshop item carries the reviewed beta feature installer itself.
+    # Keep the invoking player's settings/cache paths through UAC elevation.
+    $featureSetup = J $pack.FullName 'sest-workshop-features.ps1'
+    if (Test-Path -LiteralPath $featureSetup) {
+        & $featureSetup -GameRoot $game -WorkshopContentRoot $content `
+            -PlayerDataRoot (Split-Path -Parent $settings) -AppDataRoot (Split-Path -Parent (KeepDir))
+    }
+
     Say ''
     if ($warnings) { Say ('Done, but read the ' + $warnings + ' [!!] warning(s) above first. Then start Sea Power:') 'Yellow' }
     else { Say 'All done. Start Sea Power:' 'Cyan' }

@@ -57,7 +57,7 @@ $WorkshopContentRoot=(Resolve-Path -LiteralPath $WorkshopContentRoot).ProviderPa
 if((Split-Path -Leaf $WorkshopContentRoot) -ne '1286220'){throw 'WorkshopContentRoot must end in 1286220.'}
 if(!$BetaPackageRoot){throw 'Supply the extracted reviewed repair directory with -BetaPackageRoot.'}
 $receipt=Get-Content -LiteralPath (J $BetaPackageRoot 'payload' 'build-receipt.json') -Raw | ConvertFrom-Json
-if($receipt.candidate_revision -notmatch '^R(?:[789]|10|11)-'){throw 'This data playtest requires a reviewed R7, R8, R9, R10 or R11 beta repair.'}
+if($receipt.candidate_revision -notmatch '^R(?:[789]|10|11|12)-'){throw 'This data playtest requires a reviewed R7, R8, R9, R10, R11 or R12 beta repair.'}
 if((Hash (J $GameDirectory 'Sea Power_Data' 'Managed' 'Seapower-Scripts.dll')) -ne $receipt.target_game_sha256){throw 'Game build differs from the reviewed repair.'}
 $destination=J $WorkshopContentRoot '3812461539'
 $code=[ordered]@{
@@ -100,5 +100,5 @@ catch {
 }
 Write-Host 'Refreshed Workshop data installed; all five verified beta code files retained.' -ForegroundColor Green
 Write-Host ('Backup: '+$BackupDirectory)
-Write-Host 'Steam branch, load order and saves were not changed. The repository remains the canonical stable upload.'
+Write-Host 'Steam branch, load order and saves were not changed. The repository remains the canonical Workshop upload.'
 Write-Host ('Restore data with: powershell -NoProfile -ExecutionPolicy Bypass -File "'+$PSCommandPath+'" -Action Restore -BackupDirectory "'+$BackupDirectory+'"')

@@ -8679,6 +8679,10 @@ def main():
     for src in sorted((HERE / "setup").iterdir()):
         if src.is_file() and not src.name.startswith("."):
             (OUT / src.name).write_bytes(src.read_bytes())
+    support = HERE / "setup" / "beta-support"
+    if support.is_dir():
+        import shutil
+        shutil.copytree(support, OUT / "beta-support", dirs_exist_ok=True)
     write_menu_background(OUT)
     write_runtime_fixes(OUT)
     write_contacts_fix(OUT)

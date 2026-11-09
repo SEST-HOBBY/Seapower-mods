@@ -137,7 +137,7 @@ def main():
     source_files += [HERE / 'Install-SEST-Beta.ps1', HERE / 'Repair-SEST-Beta-Startup.ps1', HERE / 'tests/check_runtime_contract.py', HERE / 'verify.py', HERE / 'package.py']
     manifest = {
         'format': 1, 'status': 'compiled-candidate-needs-pc-gameplay-test',
-        'candidate_revision': 'R11-20261109-world-service-499675cd',
+        'candidate_revision': 'R12-20261109-workshop-features-499675cd',
         'target_game_sha256': PINS['Seapower-Scripts.dll'], 'target_noesis_sha256': PINS['Noesis.NoesisGUI.dll'],
         'runtime_source': 'reconstructed-from-captured-1.5.0; original-project-not-recovered',
         'original_runtime_sha256': sha(original), 'captured_references': PINS,

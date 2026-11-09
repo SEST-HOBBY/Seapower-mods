@@ -1,0 +1,112 @@
+{
+  "format": 1,
+  "release_revision": "R12",
+  "status": "candidate-needs-gameplay",
+  "results": [
+    {
+      "name": "campaign-tests",
+      "exit_code": 0,
+      "log_sha256": "24802b377b8bb685df84be77b46370c6df45bda743eb8bfb31cb03eebca6cd0d",
+      "result": "Ran 350 tests"
+    },
+    {
+      "name": "tools-tests",
+      "exit_code": 0,
+      "log_sha256": "416632891b917ec13bf5b9302d2a49f94c2d8efc65a0b3b04604f2ed81efb020",
+      "result": "OK (skipped=17)"
+    },
+    {
+      "name": "replenishment-fidelity",
+      "exit_code": 0,
+      "log_sha256": "afdb5119fc29c20a942a35132fb335b023e028115a68be585c1adbfd748129d5",
+      "result": "every byte difference is an intended insertion"
+    },
+    {
+      "name": "campaign-coverage",
+      "exit_code": 0,
+      "log_sha256": "b89faa8fb70e897bc76c0ee0058146bccedfb5e931a3c8cefc34f99d251b01f4",
+      "result": "all 228 enabled mods and SEST packs accounted for"
+    },
+    {
+      "name": "dependencies",
+      "exit_code": 0,
+      "log_sha256": "7a99bc7623c029d06ad9aa55c6bde582cccbc7189855397b1f4f3b2e46457a41",
+      "result": "every SEST pack has its upstream mods exported and ordered"
+    },
+    {
+      "name": "load-order",
+      "exit_code": 0,
+      "log_sha256": "de3e0495cf9dae3a6537ecaedd283d61b754ea0b855b8ee037a3c587d83ab8e3",
+      "result": "every SEST override still outranks its target"
+    },
+    {
+      "name": "scenario-preflight",
+      "exit_code": 0,
+      "log_sha256": "8c6d07191fccb2963a1d9263bdb4f27445bca204ac8e7ba815c9dea4b0b7aec6",
+      "result": "every unit, air group, loadout variant, hull variant and pylon store resolves"
+    },
+    {
+      "name": "workshop-data-install-and-restore",
+      "exit_code": 0,
+      "log_sha256": "08fee4ff730510b36e6392e5f4894e70a42b984d494c7a6d22b9e6e0b2f8cecc",
+      "result": "restore (24)"
+    },
+    {
+      "name": "upload-preparation-fixture",
+      "exit_code": 0,
+      "log_sha256": "d69d1ba766918b89708aa8068f1bae69c210f5482c638bff4bf850eeb205074a",
+      "result": "preparation (7)"
+    },
+    {
+      "name": "publisher-pc-workflow",
+      "exit_code": 0,
+      "log_sha256": "0c83a75652257c1a161f10f6b6fa3e8db4e886e4304882c5d8bc1c978d918dd4",
+      "result": "passed: 10 assertions"
+    },
+    {
+      "name": "normal-setup-and-path-handoff",
+      "exit_code": 0,
+      "log_sha256": "284d2fb57068bb5f7d33df08f35407509516dbf546772d8e7a6e92cd71da424d",
+      "result": "all checks passed"
+    },
+    {
+      "name": "workshop-included-features",
+      "exit_code": 0,
+      "log_sha256": "d00ee6c4f247ab50e2c975b77292087886eec411b79d48fe1c51caeb15136e80",
+      "result": "passed: 40 assertions"
+    },
+    {
+      "name": "r11-r12-upgrade-and-rollback",
+      "exit_code": 0,
+      "log_sha256": "010d49377bbcc43ddd676ee8ad32f1b8d1ee14e4c55bd7bb10ab21a5439188f7",
+      "result": "passed: 65 assertions"
+    },
+    {
+      "name": "canonical-upload-manifest",
+      "exit_code": 0,
+      "log_sha256": "1771802775c97ef85494569baec073f2bb27eec0e3c3977749c1774394626af3",
+      "result": "all 4337 canonical upload files match"
+    },
+    {
+      "name": "canonical-git-bytes-and-windows-checkout",
+      "exit_code": 0,
+      "result": "All 4337 canonical files match staged Git blobs; no generated text file converts to CRLF on checkout."
+    }
+  ],
+  "beta_managed_groups": 15,
+  "beta_validation": "integration/beta-feature-parity/candidates/R12-20261109/validation.json",
+  "canonical_files": 4337,
+  "configuration_capture": "SEST-Workshop-Capture-20261108-200546-FULL.zip",
+  "code_capture": "SEST-Beta-References-20261109-135048-eef2e9.zip",
+  "workshop_includes_new_feature_code": true,
+  "subscriber_installation": "normal SETUP; fresh menu probe required; existing enabled installs repair in one run",
+  "limitations": [
+    "No Unity/game launch for R12",
+    "No Windows PowerShell 5.1 native execution",
+    "No Noesis native rendering or second-monitor execution",
+    "No full world-campaign progression",
+    "No Steam publication or GitHub push"
+  ],
+  "steam_published": false,
+  "github_pushed": false
+}

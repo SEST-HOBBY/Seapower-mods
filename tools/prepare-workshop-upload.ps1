@@ -20,7 +20,7 @@ $RepositoryRoot = [IO.Path]::GetFullPath($RepositoryRoot)
 $manifestPath = Join-Path $RepositoryRoot 'docs/releases/20261107/upload-manifest.json'
 $manifest = Get-Content -LiteralPath $manifestPath -Raw | ConvertFrom-Json
 if ($manifest.workshop_item_id -ne '3812461539' -or $manifest.status -ne 'candidate-needs-gameplay') {
-    throw 'This is not the reviewed 7 November SEST release manifest.'
+    throw 'This is not the reviewed SEST release manifest.'
 }
 $source = Join-Path $RepositoryRoot 'integration/dist/SEST_Integration'
 function Test-ReleaseTree([string]$Root) {

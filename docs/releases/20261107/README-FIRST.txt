@@ -1,68 +1,60 @@
-SEST R11 — MODERNISED WORLD AND SERVICE UPDATE CANDIDATE
-9 November 2026 | SEST-DEV | beta 0.8.7-261107
+SEST R12 — FULL WORKSHOP FEATURE UPDATE
+9 November 2026 | SEST-DEV
 
-CLOSE SEA POWER, EXTRACT THIS COMPLETE ZIP INTO A NEW FOLDER, THEN RUN:
+THIS STEAM UPDATE INCLUDES THE NEW UI FEATURES
+The verified SEST_Integration upload now includes the Modernised Worldwide
+Campaign, native ribbons and the installer for F11 World Operations, world
+service progress, campaign costing and Coordinated Strike UI refinements.
+Use this R12 package rather than the earlier R11 data-only upload folder.
 
-  Prepare-PC.cmd
+PUBLISHER PC
+1. Close Sea Power. Extract this complete toolkit to a new folder.
+2. Run Prepare-PC.cmd. Keep its printed checkout, backup and UPLOAD FOLDER.
+3. Check the new world, F11 tabs, service progress, strike controls, Topography,
+   pop-outs, battle return and save/load. Quit and capture diagnostics.
+4. Upload only the verified SEST_Integration folder to existing item 3812461539.
+   If the picker requires StreamingAssets, use Upload-PC.cmd to create a
+   fresh top-level publishing copy and copy the change note to the clipboard.
+   Keep that temporary local copy disabled. After upload, quit the game and
+   run Finish-Upload.cmd to move it out before using subscriber SETUP.
+5. Confirm upload success, non-zero item size, change note and Required Items.
 
-This imports the reviewed source into a new detached checkout, checks author
-configuration updates, upgrades the existing beta installation and installs
-backed-up campaign data. Keep the printed checkout, backup and UPLOAD FOLDER
-paths. It does not upload to Steam or change the Steam beta branch.
+Preparation checks author configuration updates, repairs the existing beta
+installation and installs backed-up data. It does not submit anything to
+Steam, switch Steam branches or overwrite native game DLLs or save files.
+If preparation stops, retain the error and report. Do not skip its checks.
 
-Prepare-PC.cmd is the full R11 preparation. Repair-PC.cmd changes code only;
-use the full preparation to receive the combined world and native ribbon data.
-If preparation stops, keep the error/report and send it back. The installer
-stops at the first error; do not continue with later manual install commands.
+SUBSCRIBER INSTALLATION
+After Steam finishes downloading this item, close Sea Power and run
+SETUP - double-click me.cmd from Mod Manager > Open Folder on the pack.
+On the supported beta build:
+- Existing enabled SEST beta installation: one SETUP run updates features.
+- Fresh installation: SETUP stages features. Launch to the main menu, wait
+  about ten seconds, quit, then run SETUP again to enable them.
+- After a Steam item update, rerun SETUP to reapply the bundled features.
+Original restore backups, Identify data, settings and saves are retained.
+Unknown game/author DLL versions or unreviewed installed code are refused.
+On other builds, SETUP leaves the normal-release active plugins selected.
+The new feature code is present in the Workshop download, not a separate
+external download. Installation still depends on the supported game build.
 
-WHAT CHANGED
-- One SEST Modernised Worldwide Campaign 2028 entry combines the original
-  world and complete regional expansion: 156 bases, 293 forces, 54 patrols,
-  1,586 buy entries. The regional campaign ID is retained. New content needs
-  a new game; existing saves retain their own state. The original definition
-  and reversible legacy-save helper remain inside the pack.
-- Four authored campaigns gain native completion ribbons, artwork and
-  citations. Existing third-party awards are preserved.
-- The separate beta payload adds F11 World Operations: Overview, Forces,
-  Costs and Service, with an independent profile service ledger.
-- Coordinated Strike keeps the author's controls and scheduling; SEST adds
-  shared colours and planned/remaining weapon-cost estimates. A full native
-  strike-window redesign is follow-on work.
-- Current Topography/Pop-Out images and the DCM salvo-hold beta target are
-  reviewed. Original author Workshop DLLs are retained.
+FEATURES
+- One Modernised Worldwide Campaign combines the original and regional
+  expansion: 156 bases, 293 forces, 54 patrols and 1,586 catalogue entries.
+- Four native campaign completion ribbons with artwork and citations.
+- F11 World Operations: Overview, Forces, Costs and Service.
+- Independent profile service progress; native campaign saves are unchanged.
+- Coordinated Strike shared styling and planned/remaining weapon estimates.
+  Original scheduling and launch controls are retained.
+- Reviewed beta Topography, Pop-Out and DCM salvo-hold support.
 
-PC CHECKS BEFORE PUBLICATION
-1. Start a new Modernised Worldwide Campaign; check Europe, Indian Ocean,
-   Australia, Americas and the date line on the beta map. Continue your
-   existing regional save separately to confirm continuity.
-2. On the world map, press F11. Check every tab, window size/movement,
-   scrolling and pop-out/return. Credits and estimated USD remain separate.
-3. Launch and complete a battle. Check its F11 costs, return to the world,
-   inspect service progress, save/load and verify no duplicate report awards.
-4. Open Coordinated Strike. Check all original planning/launch controls and
-   the new summary. Confirm the estimate changes with planned weapon counts.
-5. Check native final-mission ribbons/citations, Contacts, Group Manager,
-   Topography, Identify broadcasts and campaign continuation.
-6. Quit the game and run:
-
-  R11\Capture-Repair-Results.cmd
-
-Send the resulting capture for review. See R11\README-FIRST.txt for the full
-acceptance list, ledger scope, legacy saves, restoration and limitations.
-
-STEAM UPDATE
-The separately printed upload folder is canonical stable code plus the new
-campaign/ribbon data. The new Operations/strike beta code is not included in
-that canonical upload. Keep the two payloads distinct. STEAM-CHANGE-NOTE.txt
-covers only the canonical data changes. Both gameplay acceptance and Steam
-submission remain pending; no publication has occurred.
-
-OPTIONAL POWERSHELL EQUIVALENT
-From this extracted toolkit folder:
-
-  powershell -NoProfile -ExecutionPolicy Bypass -File .\Prepare-PC.ps1
-
-For a nonstandard install, add -MainRepository, -GameRoot and
--WorkshopContentRoot using your actual paths. If an author-update report says
-something changed upstream, retain it and capture the new configuration before
-installation. Do not bypass that check.
+PC ACCEPTANCE
+Check a new world and an existing regional save, complete a battle and return,
+then save/load and confirm no duplicate service awards or battle cost totals.
+Check native Service Record artwork/citations, F11 movement/scroll/pop-out,
+strike planning and launch controls, Identify, Contacts and Group Manager.
+Credits remain separate from estimated USD values. A full strike-window layout
+redesign is follow-on work; this update delivers styling and cost summaries.
+Quit and run R12\Capture-Repair-Results.cmd, then send the new capture.
+Managed checks do not replace native rendering and gameplay acceptance.
+No Steam submission or GitHub push has been performed by this toolkit.

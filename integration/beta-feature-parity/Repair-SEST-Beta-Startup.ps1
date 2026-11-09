@@ -103,14 +103,39 @@ foreach ($version in $known) {
     }
     if ($matches) { $accepted=$true; break }
 }
-if (!$accepted) { throw 'Installed candidate files are not a reviewed beta candidate. Activation remains disabled.' }
+$steamRefresh=$false
+# Steam can replace the two active Workshop plugins with this release's
+# canonical plugins while retaining our external loader/bootstrap and journal.
+# Admit only that exact inspected refresh; never an arbitrary mixed install.
+if (!$accepted -and $repair.PSObject.Properties['workshop_refresh_files']) {
+    $canonical=$repair.workshop_refresh_files
+    $entriesByName=@{}
+    foreach ($entry in $state.files) { if ($entry.is_code) { $entriesByName[$entry.name]=$entry } }
+    foreach ($version in $known) {
+        $matches=$true
+        foreach ($name in @('AnchorChain.dll','SEST.BetaSafeBootstrap.dll')) {
+            if (!$entriesByName.ContainsKey($name) -or $installed[$name] -ne $version.PSObject.Properties[$name].Value -or
+                $installed[$name] -ne $entriesByName[$name].installed_sha256) { $matches=$false }
+        }
+        foreach ($name in @('SEST.RuntimeFixes.dll','SEST.ContactsFix.dll')) {
+            if (!$canonical.PSObject.Properties[$name] -or $installed[$name] -ne $canonical.PSObject.Properties[$name].Value) { $matches=$false }
+        }
+        $shim='SEST.IdentifyDataPaths.dll'
+        if (!$entriesByName.ContainsKey($shim) -or
+            ($installed[$shim] -ne $entriesByName[$shim].installed_sha256 -and
+             !(!$installed[$shim] -and !$entriesByName[$shim].existed))) { $matches=$false }
+        if ($matches) { $steamRefresh=$true; $accepted=$true; break }
+    }
+}
+if (!$accepted) { throw 'Installed candidate files are not a reviewed beta candidate or the exact canonical Steam refresh. Activation remains disabled.' }
 foreach ($name in $map.Keys) {
     if ((Hash (J $payload $name)) -ne $new.files.PSObject.Properties[$name].Value) { throw "Repair payload failed verification: $name" }
     $entries=@($state.files | Where-Object { $_.name -eq $name -and $_.is_code })
-    if ($entries.Count -ne 1 -or $entries[0].installed_sha256 -ne $installed[$name]) { throw "Original restore journal does not match installed code: $name" }
+    if ($entries.Count -ne 1) { throw "Original restore journal does not match installed code: $name" }
+    if ($entries[0].installed_sha256 -ne $installed[$name] -and !$steamRefresh) { throw "Original restore journal does not match installed code: $name" }
 }
 $backup=J $AppDataRoot 'BetaCompatibility' 'startup-repairs' ([guid]::NewGuid().ToString('N'))
-foreach ($name in $map.Keys) { Copy-Verified $map[$name] (J $backup $name) }
+foreach ($name in $map.Keys) { if ($installed[$name]) { Copy-Verified $map[$name] (J $backup $name) } }
 Copy-Verified $statePath (J $backup 'current-before-repair.json')
 Copy-Verified (J $loader 'AnchorChain.sha256') (J $backup 'AnchorChain.sha256')
 try {
@@ -127,12 +152,16 @@ try {
 } catch {
     $failure=$_
     if (Test-Path -LiteralPath $flag) { Remove-Item -LiteralPath $flag -Force }
-    foreach ($name in $map.Keys) { Copy-Verified (J $backup $name) $map[$name] }
+    foreach ($name in $map.Keys) {
+        if ($installed[$name]) { Copy-Verified (J $backup $name) $map[$name] }
+        elseif (Test-Path -LiteralPath $map[$name]) { Remove-Item -LiteralPath $map[$name] }
+    }
     Copy-Verified (J $backup 'AnchorChain.sha256') (J $loader 'AnchorChain.sha256')
     Copy-Verified (J $backup 'current-before-repair.json') $statePath
     throw $failure
 }
 Write-Host ('Reviewed beta code installed: '+$new.candidate_revision+'. Original restore journal and Identify data retained.') -ForegroundColor Green
+if ($steamRefresh) { Write-Host 'Steam-refreshed Workshop plugins recognised and beta features reapplied; original restore backups retained.' }
 Write-Host 'R11 includes World Operations, service progress and Coordinated Strike presentation. The root Prepare-PC command also installs the combined world and native ribbon data.'
 Write-Host 'Follow R11-PC-TESTS in README-FIRST: check the world map, F11 tabs, strike controls, native service records, Topography, pop-outs and campaign continuation.'
 Write-Host 'Quit and run Capture-Repair-Results.cmd after testing. Steam publication remains a separate step.'

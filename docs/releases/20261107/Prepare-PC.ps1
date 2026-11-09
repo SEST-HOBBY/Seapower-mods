@@ -1,5 +1,5 @@
 <# Import a reviewed release, repair beta code, install backed-up data, and
-   stage a separate canonical stable upload. Never submits to Steam. #>
+   stage the canonical Workshop upload including bundled features. Never submits to Steam. #>
 [CmdletBinding()]
 param([string]$MainRepository='', [string]$GameRoot='', [string]$WorkshopContentRoot='', [switch]$ImportOnly)
 $ErrorActionPreference='Stop'
@@ -24,6 +24,8 @@ G fetch $bundle $branch
 $checkout=J (Split-Path -Parent $MainRepository) ('Seapower-Workshop-'+$betaName+'-'+(Get-Date -Format 'yyyyMMdd-HHmmss'))
 if(Test-Path -LiteralPath $checkout){throw 'The new checkout already exists; run again after the clock advances.'}
 G worktree add --detach $checkout FETCH_HEAD
+$actualCommit=(& git -C $checkout rev-parse HEAD).Trim()
+if($LASTEXITCODE -ne 0 -or $actualCommit -ne $receipt.release_commit){throw 'The imported checkout does not match the release receipt.'}
 Write-Host ('Release checkout: '+$checkout) -ForegroundColor Green
 if($ImportOnly){return}
 $report=J $PSScriptRoot ('check-updates-'+(Get-Date -Format 'HHmmss')+'.txt')
@@ -39,5 +41,6 @@ $dataOptions=@{RepositoryRoot=$checkout;BetaPackageRoot=$beta}
 if($GameRoot){$dataOptions.GameDirectory=$GameRoot};if($WorkshopContentRoot){$dataOptions.WorkshopContentRoot=$WorkshopContentRoot}
 & (J $checkout 'tools' 'install-workshop-release-data.ps1') @dataOptions
 & (J $checkout 'tools' 'prepare-workshop-upload.ps1') -RepositoryRoot $checkout
+[ordered]@{format=1;repository_root=$checkout;release_commit=$actualCommit;game_root=$GameRoot;workshop_content_root=$WorkshopContentRoot;prepared_utc=[DateTime]::UtcNow.ToString('o')} | ConvertTo-Json | Set-Content -LiteralPath (J $PSScriptRoot 'PREPARED-PC.json') -Encoding UTF8
 Write-Host ('Beta playtest prepared. Launch the game, test the README items, quit and run '+$betaName+'\Capture-Repair-Results.cmd.') -ForegroundColor Green
-Write-Host 'The printed upload folder contains canonical stable code. Submit to Steam only after the required gameplay checks pass.'
+Write-Host 'The verified Workshop folder includes the new feature installer. After gameplay checks, quit and run Upload-PC.cmd.'

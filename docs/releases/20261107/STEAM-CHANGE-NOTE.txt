@@ -1,7 +1,9 @@
-Modernised Worldwide Campaign 2028
+Modernised Worldwide Campaign and UI Feature Update
 
-The original World Sandbox and complete Regional Expansion are combined into one worldwide campaign entry: 156 bases, 293 force groups, 54 patrols and 1,586 catalogue entries.
+The original World Sandbox and full Regional Expansion are combined into one Modernised Worldwide Campaign 2028: 156 bases, 293 force groups, 54 patrols and 1,586 catalogue entries. Regional save identity is retained; new content applies to new games.
 
-The existing regional campaign identity is retained. New content applies to new games; existing saves keep their own state. The original definition and an optional legacy-save selection helper are retained in the pack.
+Added native completion ribbons, artwork and citations for Southern Watch, Southern Reach, Red Line and Sulu Line. Existing third-party awards are preserved.
 
-Southern Watch, Southern Reach, Red Line and Sulu Line gain fictional campaign-completion ribbons with artwork and citations in the native Task Force Service Record. Existing third-party ribbon definitions are preserved.
+This Workshop download now includes F11 World Operations (Overview, Forces, Costs and Service), world service progress, campaign cost reporting, and Coordinated Strike styling with planned/remaining weapon-cost estimates. Original strike scheduling and launch controls are retained.
+
+On the supported beta build, run SETUP from the pack folder after downloading. A first installation needs a main-menu check and a second SETUP run. Existing enabled installations update in one run. Rerun SETUP after Steam updates the item. Normal-release active plugins are retained for other builds.

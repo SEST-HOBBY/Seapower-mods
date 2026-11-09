@@ -1,0 +1,37 @@
+{
+  "format": 1,
+  "workshop_item_id": "3812461539",
+  "revision": "R12-20261109-workshop-features-499675cd",
+  "archive": "SEST-Beta-Features.zip",
+  "archive_sha256": "0d6f0b077678fd5ed39a1f627e2c7a9717743881cf191a844360e3caa0abd567",
+  "target_game_sha256": "499675cda59912054924ae42297bce7a82b12ca00957dabd684105a24aa353a9",
+  "files": {
+    "1-Stage-Beta.cmd": "11f84d252e5c2648cfb3efeb080f450d851c1cde48f40307f9ddc85eaa102710",
+    "2-Enable-Beta.cmd": "d267c7b8313f89527b27f89f1e19fdee90b9e12fbb3e431405ddfd61b58aa865",
+    "3-Capture-Test-Results.cmd": "358d7b69f0bf588a5ba1b94f5aa65e6ead92f90f9c6d3b580728a0fa96b2a07d",
+    "AnchorChain-LICENSE.md": "1822fa626b2960bed648a446d4b2b492506a7485021053bb8c82817103db30de",
+    "BETA-FEATURE-PARITY.md": "b6baf84d4e24dccc1a460bc5b53cd6375f58160312a4af0eb8dfb08733654c1e",
+    "Capture-Repair-Results.cmd": "1f6a1c0221a4c57161b4b9bddf1b9a53522aeef36f9723da0b3a0210693730eb",
+    "Disable-Beta-Test.cmd": "5ee967e8eb13e66187c1df7e937ac109d061c4306128aafdfbb0650cf7a3d90b",
+    "Install-SEST-Beta.ps1": "7f38a63367b81c043ee83514fa8d8a5e96d1ed54c07a8d0974c97208eca14ab0",
+    "README-FIRST.txt": "53d2cfcee8344d40625a2d9dd756b78e828f71538f27fadd4ca6df531f20e7a7",
+    "Repair-Beta-Startup.cmd": "0034b2291882b07e96f52f3b0e507a6534b964971ca2db1956f61207d7b5b108",
+    "Repair-SEST-Beta-Startup.ps1": "4cfb583f679a4b80e48edbbb9c0b129362c49f42d7fc4010b166254973b80de2",
+    "Restore-Previous-SEST.cmd": "a223949189330bf6e989329facc4ee5eef9e87925162f69121ca705e448b3a31",
+    "Topography-MIT-LICENSE.txt": "94e98abb57271ff4963618f23a8b7da20cafc00d96b7cd0ba7c16093541f1559",
+    "VALIDATION.json": "d1089ff12b4945f7a79bbc7f04456fc80cadb9a01f451dbcf6baace4c4f8e5df",
+    "capture-beta-references.ps1": "eba59080d96cd1f87dfe947240d78ab1db1bae181a4692e3339d34350853fd0c",
+    "payload/AnchorChain.dll": "7137ff42f68046854b3cda85a16176407bf78ce1a302d8f76bfee30f110d05d0",
+    "payload/SEST.BetaSafeBootstrap.dll": "268462fa2f7e8553f42994da8357a89106cd80f47ae6d810e6c55446fc24a5df",
+    "payload/SEST.ContactsFix.dll": "ef009436f813021028b8f06103fa4fb3eb8822c148f0795dd7fa8ee136bc5d42",
+    "payload/SEST.IdentifyDataPaths.dll": "9782ea2b339c81437be4f8b3b3238843365646ba20c94f0f30330370cbbf0eff",
+    "payload/SEST.RuntimeFixes.dll": "4634d30f10b7b0a5b40d8894d1914ad5a897682e4911d6292bb8fa55ff6640b8",
+    "payload/build-receipt.json": "500e4b40d7d64693298295d4155962f120c51888471dc6e396f4d4035c53ce42",
+    "repair-receipt.json": "b1374aa5701ce8082f0abcb89ad35488cbe52011cb34cbe9466e9cb2a52871f1"
+  },
+  "features": [
+    "World Operations",
+    "world service ribbons",
+    "Coordinated Strike styling and weapon estimates"
+  ]
+}

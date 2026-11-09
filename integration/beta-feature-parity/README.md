@@ -1,3 +1,18 @@
+# R12 — World Operations and strike features included in Workshop
+
+The canonical Steam upload now carries the reviewed feature installer and
+five-DLL beta payload in an inert archive under beta-support/. The normal
+SETUP command stages/enables it on the exact supported game build, using the
+existing probe, hash checks, Identify migration and original restore journal.
+Stable active plugins remain in plugins/. Rerunning SETUP recognises an exact
+Steam refresh of those active plugins and reapplies the bundled features.
+Unknown installed code and changed native/author references remain refused.
+No branch switch, game-DLL replacement or native save editing is performed.
+
+This changes distribution and setup. R11 feature code (Runtime 1.6.0 / UI
+1.4.9) and its world/cost/ribbon/strike behavior are retained. Native rendering
+and gameplay acceptance still require PC testing. Historical records follow.
+
 # R11 — modernised worldwide campaign, service ribbons and strike refinements
 
 Target: the owner's 9 November 13:50 Brisbane capture, Sea Power

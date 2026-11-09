@@ -107,7 +107,11 @@ with zipfile.ZipFile(a.output, 'w', compression=zipfile.ZIP_DEFLATED, compressle
         base = json.loads(a.repair_base.read_text())
         z.write(here / 'Repair-SEST-Beta-Startup.ps1', 'Repair-SEST-Beta-Startup.ps1')
         previous = [json.loads(path.read_text())['files'] for path in a.repair_previous]
-        z.writestr('repair-receipt.json', json.dumps({'format':1,'base_files':base['files'],'previous_files':previous},indent=2))
+        canonical = root / 'integration/dist/SEST_Integration/plugins'
+        refresh = {name: hashlib.sha256((canonical / name).read_bytes()).hexdigest()
+                   for name in ['SEST.RuntimeFixes.dll', 'SEST.ContactsFix.dll']}
+        z.writestr('repair-receipt.json', json.dumps({'format':1,'base_files':base['files'],'previous_files':previous,
+                    'workshop_refresh_files':refresh},indent=2))
     z.writestr('README-FIRST.txt', readme.replace('\n', '\r\n').encode('utf-8-sig'))
     for name, action in commands.items():
         text = '@echo off\r\npowershell.exe -NoProfile -ExecutionPolicy Bypass -File "%~dp0Install-SEST-Beta.ps1" -Action ' + action
