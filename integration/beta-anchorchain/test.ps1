@@ -26,7 +26,7 @@ $log = Join-Path $bepinex "LogOutput.log"
 $player = Join-Path $env:USERPROFILE "AppData\LocalLow\Triassic Games\Sea Power\Player.log"
 $outDir = Join-Path $PSScriptRoot "out"
 $outReceipt = Join-Path $outDir "build-receipt.json"
-$knownBeta = "3005bc6d4221a921008778a18dec06515d98c63d3afb6a3a2835b985ab2e7d62"
+$knownBeta = "499675cda59912054924ae42297bce7a82b12ca00957dabd684105a24aa353a9"
 
 function Hash-File([string]$path) {
     return (Get-FileHash -LiteralPath $path -Algorithm SHA256).Hash.ToLowerInvariant()
@@ -41,7 +41,7 @@ function Require-Beta {
         throw "Game assembly not found. No files changed."
     }
     if ((Hash-File $native) -ne $knownBeta) {
-        throw "This test supports only verified Sea Power beta Build 261026. No files changed."
+        throw "This test supports only verified Sea Power beta Build 261106. No files changed."
     }
 }
 function Read-Stage-Receipt {
@@ -127,13 +127,13 @@ elseif ($Action -eq "Enable") {
         throw "Ready/inactive probe not confirmed in last BepInEx log. No files changed."
     }
     if (Test-Path -LiteralPath $flag -PathType Leaf) {
-        if ((Get-Content -LiteralPath $flag -Raw).Trim() -eq "enable-beta-261026") {
+        if ((Get-Content -LiteralPath $flag -Raw).Trim() -eq "enable-beta-261106-499675cd") {
             Write-Host "Bounded beta loader already enabled." -ForegroundColor Yellow
             return
         }
         throw "Unknown existing enable.flag. Refusing to overwrite."
     }
-    Set-Content -LiteralPath $flag -Encoding ASCII -Value "enable-beta-261026"
+    Set-Content -LiteralPath $flag -Encoding ASCII -Value "enable-beta-261106-499675cd"
     Write-Host "BOUNDED LOADER ENABLED FOR NEXT LAUNCH" -ForegroundColor Yellow
     Write-Host "This test can still expose other third-party mod incompatibilities."
     Write-Host "If game hangs, quit it and run test.ps1 -Action Disable (or Remove)."
@@ -144,7 +144,7 @@ elseif ($Action -eq "Disable") {
         Write-Host "Loader already inactive; no enable.flag."
         return
     }
-    if ((Get-Content -LiteralPath $flag -Raw).Trim() -ne "enable-beta-261026") {
+    if ((Get-Content -LiteralPath $flag -Raw).Trim() -ne "enable-beta-261106-499675cd") {
         throw "Unexpected enable.flag contents. No file removed."
     }
     Remove-Item -LiteralPath $flag -Force
@@ -153,7 +153,7 @@ elseif ($Action -eq "Disable") {
 elseif ($Action -eq "Remove") {
     Game-Closed
     if (Test-Path -LiteralPath $flag -PathType Leaf) {
-        if ((Get-Content -LiteralPath $flag -Raw).Trim() -ne "enable-beta-261026") {
+        if ((Get-Content -LiteralPath $flag -Raw).Trim() -ne "enable-beta-261106-499675cd") {
             throw "Unexpected enable.flag; refusing to remove any file."
         }
     }

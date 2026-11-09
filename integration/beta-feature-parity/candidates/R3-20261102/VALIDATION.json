@@ -1,0 +1,97 @@
+{
+  "format": 1,
+  "status": "managed-and-fixture-checks-passed-needs-pc-gameplay",
+  "limitations": [
+    "No Unity/game launch",
+    "No Noesis native rendering",
+    "No second-monitor test",
+    "PowerShell installer fixture used the available host; Windows PowerShell 5.1 execution still needs PC testing"
+  ],
+  "results": [
+    {
+      "name": "runtime-api-preservation",
+      "exit_code": 0,
+      "stdout": "Runtime API preservation passed: 314 type/method contracts across 40 types; no gameplay claim.",
+      "stderr": ""
+    },
+    {
+      "name": "native-bindings",
+      "exit_code": 0,
+      "stdout": "PASS TowedSensorGuard.Bind\nPASS TerrainClearance.Bind\nPASS TaskForceDebrief.Bind\nPASS PreparationMap.Bind\nPASS CampaignCosts.Bind\nPASS CampaignCosts.BindLive\nPASS CampaignCosts.BindMenu\nPASS CampaignInventory.Bind\n[SEST Runtime] native cost UI deferred until Noesis is initialized and a game view is attached\nPASS NativeCombatSurface.Bind\nPASS F11CombatCosts.BindMissionPath\nPASS tracker GameApi\nPASS tracker VesselApi\nPASS deferred hook SeaPower.GameMain.Update\nPASS deferred hook SeaPower.GameMain.OnDestroy\nPASS deferred hook SeaPower.MissionManager.ResetData\nPASS deferred hook SeaPower.CameraManager.OnLateUpdate\nPASS deferred map wheel hook",
+      "stderr": ""
+    },
+    {
+      "name": "native-plugin-transpilers",
+      "exit_code": 0,
+      "stdout": "Native/plugin hook checks passed: 18 assertions using beta IL and current Pop-Out metadata; no Unity gameplay execution.",
+      "stderr": ""
+    },
+    {
+      "name": "runtime-history-policy-parity",
+      "exit_code": 0,
+      "stdout": "Runtime 1.5.0/beta reconstruction parity passed: 857 assertions; numerical policy and cross-readable saved history/inventories; no game execution.",
+      "stderr": ""
+    },
+    {
+      "name": "price-factory-caching",
+      "exit_code": 0,
+      "stdout": "Captured Runtime factory/transpiler checks passed: 1454; identical changing-quantity results across 180 refreshes; successful catalogue opens reduced from 900 to 5 in that sequence. No game/native execution.",
+      "stderr": ""
+    },
+    {
+      "name": "identify-path-detours",
+      "exit_code": 0,
+      "stdout": "PASS ModDir moves outside StreamingAssets\nPASS RootDir follows data path\nPASS StreamingAssets retains its original meaning\nPASS data root cannot create a local mod entry\nPASS upstream audio creation uses the new data root\nPASS unpatch restores original getter\nPASS missing API is rejected without partial patches\nPASS Anchor Chain before-Identify metadata retained\nPASS captured Identify Expanded ModDir getter redirects\nPASS captured Identify Expanded RootDir redirects\nPASS captured Identify Expanded StreamingAssets is preserved\nManaged path regressions passed; Unity gameplay not tested.",
+      "stderr": ""
+    },
+    {
+      "name": "bounded-loader-scheduler",
+      "exit_code": 0,
+      "stdout": "Bounded loader regressions passed: 9 assertions against the compiled fork scheduler; no Unity execution.",
+      "stderr": ""
+    },
+    {
+      "name": "assembly-preload-policy-and-identify-geometry",
+      "exit_code": 0,
+      "stdout": "LAYOUT ExtendedGuidance.Runtime/RangeEntry.Value: SeaPower.SensorSystem/SensorDistanceData encoded as reference; native definition is value\ncant resolve internal call to \"UnityEngine.Time::get_unscaledTime\" (tested without signature also)\nMetadata discovery: 80 other DLLs inspected, 65 plugin assemblies admitted; no plugin entrypoints executed.\nAssembly pre-load/Identify beta geometry checks passed: 16; no Unity gameplay.\n\nYour mono runtime and class libraries are out of sync.\nThe out of sync library is: /workspace/scratch/002f1cf60cad/analysis/beta-204313/flat-refs/UnityEngine.CoreModule.dll\n\nWhen you update one from git you need to update, compile and install\nthe other too.\nDo not report this as a bug unless you're sure you have updated correctly:\nyou probably have a broken mono install.\nIf you see other errors or faults after this message they are probably related\nand you need to fix your mono install first.",
+      "stderr": ""
+    },
+    {
+      "name": "campaign-scenario-beta-api-regressions",
+      "exit_code": 0,
+      "stdout": "ADAPTED DynamicCampaignMod in private cache: Acquisition=1, DoUnload=1, GetDirectories=1, GetFiles=1, SetAttackAtWaypointTask=2, attack-reflection=1, bearing-reflection=1, bearings=1, facts-property=1, mission-get=3, mission-set=1, secondary-side=6, speed-make=1, speed-set=1, ui=24; original Workshop DLL and asset paths preserved.\nADAPTED EnhancedDecoyMod in private cache: contact-color=1, contact-exit=1, locations=2, ui=1, vehicle-view=4; original Workshop DLL and asset paths preserved.\nADAPTED SubAmmunitionMod in private cache: file=1, ini=5, locations=1, offset-grid=2; original Workshop DLL and asset paths preserved.\nADAPTED SecondThrustMod in private cache: ini=1, locations=1; original Workshop DLL and asset paths preserved.\nADAPTED IdentifyExpanded in private cache: bearings=10, hail-guard=1, locations=2, ui=5; original Workshop DLL and asset paths preserved.\nSKIPPED duplicate before CLR load: SubAmmunitionMod.fixed.dll; canonical SubAmmunitionMod.dll is present and will receive the beta API adapter.\nResolved native operands: 6140\nCampaign/scenario beta API checks passed: 40; managed fixtures only, no Unity gameplay.",
+      "stderr": ""
+    },
+    {
+      "name": "installer-rollback",
+      "exit_code": 0,
+      "stdout": "Beta candidate staged; plugin loading is still inactive.\nLaunch beta to the main menu, wait about 10 seconds, quit, then run 2-Enable-Beta.cmd.\nBeta candidate enabled. Local IdentifyExpanded was migrated; its Workshop copy remains enabled.\nLaunch beta and test F11 costs/history, debrief, preparation, Contacts and Formation pop-out/return.\nAfter quitting, run 3-Capture-Test-Results.cmd. Run Restore-Previous-SEST.cmd to restore the prior code.\nCandidate is already enabled. No files changed.\nOriginal SEST code restored. Migrated Identify data is retained outside the game.\nBackups retained: <FIXTURE>\nOriginal SEST code restored. Migrated Identify data is retained outside the game.\nBackups retained: <FIXTURE>\nBeta installer fixture passed: 46 assertions. No real game files changed; no Windows/Unity gameplay claim.",
+      "stderr": ""
+    },
+    {
+      "name": "existing-candidate-repair-rollback-1",
+      "exit_code": 0,
+      "stdout": "Beta candidate staged; plugin loading is still inactive.\nLaunch beta to the main menu, wait about 10 seconds, quit, then run 2-Enable-Beta.cmd.\nBeta candidate enabled. Local IdentifyExpanded was migrated; its Workshop copy remains enabled.\nLaunch beta and test F11 costs/history, debrief, preparation, Contacts and Formation pop-out/return.\nAfter quitting, run 3-Capture-Test-Results.cmd. Run Restore-Previous-SEST.cmd to restore the prior code.\nCandidate is already enabled. No files changed.\nR3 campaign/scenario API repair installed and enabled; original backups and Identify data retained.\nExtended Guidance, Automatic SAR and Osprey mechanics/deck code are held inactive on this captured beta set.\nCampaign file lookup/battle calls, Sub Ammunition/Second Thrust INI calls and the Enhanced Decoy contact exit are adapted.\nIdentify navigation and its enemy-hail guard are adapted; Workshop DLLs/assets are preserved.\nLaunch beta, open Campaigns and test a campaign, then test the same standalone scenario. Quit and run Capture-Repair-Results.cmd.\nR3 campaign/scenario API repair installed and enabled; original backups and Identify data retained.\nExtended Guidance, Automatic SAR and Osprey mechanics/deck code are held inactive on this captured beta set.\nCampaign file lookup/battle calls, Sub Ammunition/Second Thrust INI calls and the Enhanced Decoy contact exit are adapted.\nIdentify navigation and its enemy-hail guard are adapted; Workshop DLLs/assets are preserved.\nLaunch beta, open Campaigns and test a campaign, then test the same standalone scenario. Quit and run Capture-Repair-Results.cmd.\nR3 campaign/scenario API repair installed and enabled; original backups and Identify data retained.\nExtended Guidance, Automatic SAR and Osprey mechanics/deck code are held inactive on this captured beta set.\nCampaign file lookup/battle calls, Sub Ammunition/Second Thrust INI calls and the Enhanced Decoy contact exit are adapted.\nIdentify navigation and its enemy-hail guard are adapted; Workshop DLLs/assets are preserved.\nLaunch beta, open Campaigns and test a campaign, then test the same standalone scenario. Quit and run Capture-Repair-Results.cmd.\nOriginal SEST code restored. Migrated Identify data is retained outside the game.\nBackups retained: <FIXTURE>\nOriginal SEST code restored. Migrated Identify data is retained outside the game.\nBackups retained: <FIXTURE>\nBeta installer fixture passed: 61 assertions. No real game files changed; no Windows/Unity gameplay claim.",
+      "stderr": ""
+    },
+    {
+      "name": "existing-candidate-repair-rollback-2",
+      "exit_code": 0,
+      "stdout": "Beta candidate staged; plugin loading is still inactive.\nLaunch beta to the main menu, wait about 10 seconds, quit, then run 2-Enable-Beta.cmd.\nBeta candidate enabled. Local IdentifyExpanded was migrated; its Workshop copy remains enabled.\nLaunch beta and test F11 costs/history, debrief, preparation, Contacts and Formation pop-out/return.\nAfter quitting, run 3-Capture-Test-Results.cmd. Run Restore-Previous-SEST.cmd to restore the prior code.\nCandidate is already enabled. No files changed.\nR3 campaign/scenario API repair installed and enabled; original backups and Identify data retained.\nExtended Guidance, Automatic SAR and Osprey mechanics/deck code are held inactive on this captured beta set.\nCampaign file lookup/battle calls, Sub Ammunition/Second Thrust INI calls and the Enhanced Decoy contact exit are adapted.\nIdentify navigation and its enemy-hail guard are adapted; Workshop DLLs/assets are preserved.\nLaunch beta, open Campaigns and test a campaign, then test the same standalone scenario. Quit and run Capture-Repair-Results.cmd.\nR3 campaign/scenario API repair installed and enabled; original backups and Identify data retained.\nExtended Guidance, Automatic SAR and Osprey mechanics/deck code are held inactive on this captured beta set.\nCampaign file lookup/battle calls, Sub Ammunition/Second Thrust INI calls and the Enhanced Decoy contact exit are adapted.\nIdentify navigation and its enemy-hail guard are adapted; Workshop DLLs/assets are preserved.\nLaunch beta, open Campaigns and test a campaign, then test the same standalone scenario. Quit and run Capture-Repair-Results.cmd.\nR3 campaign/scenario API repair installed and enabled; original backups and Identify data retained.\nExtended Guidance, Automatic SAR and Osprey mechanics/deck code are held inactive on this captured beta set.\nCampaign file lookup/battle calls, Sub Ammunition/Second Thrust INI calls and the Enhanced Decoy contact exit are adapted.\nIdentify navigation and its enemy-hail guard are adapted; Workshop DLLs/assets are preserved.\nLaunch beta, open Campaigns and test a campaign, then test the same standalone scenario. Quit and run Capture-Repair-Results.cmd.\nOriginal SEST code restored. Migrated Identify data is retained outside the game.\nBackups retained: <FIXTURE>\nOriginal SEST code restored. Migrated Identify data is retained outside the game.\nBackups retained: <FIXTURE>\nBeta installer fixture passed: 61 assertions. No real game files changed; no Windows/Unity gameplay claim.",
+      "stderr": ""
+    },
+    {
+      "name": "loader-source-contracts",
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": "test_aborts_if_no_progress (__main__.BetaSourceContract.test_aborts_if_no_progress) ... ok\ntest_beta_hash_gate_and_safe_fork_only (__main__.BetaSourceContract.test_beta_hash_gate_and_safe_fork_only) ... ok\ntest_bootstrap_does_not_auto_activate (__main__.BetaSourceContract.test_bootstrap_does_not_auto_activate) ... ok\ntest_bootstrap_uses_netstandard_sdk_not_framework_csc (__main__.BetaSourceContract.test_bootstrap_uses_netstandard_sdk_not_framework_csc) ... ok\ntest_bounded_loader_entry (__main__.BetaSourceContract.test_bounded_loader_entry) ... ok\ntest_build_is_non_installing (__main__.BetaSourceContract.test_build_is_non_installing) ... ok\ntest_failed_plugin_never_retries (__main__.BetaSourceContract.test_failed_plugin_never_retries) ... ok\ntest_finite_load_budget (__main__.BetaSourceContract.test_finite_load_budget) ... ok\ntest_fork_keeps_original_assembly_identity (__main__.BetaSourceContract.test_fork_keeps_original_assembly_identity) ... ok\ntest_game_particle_system_reference (__main__.BetaSourceContract.test_game_particle_system_reference) ... ok\ntest_metadata_preparation_precedes_clr_loading (__main__.BetaSourceContract.test_metadata_preparation_precedes_clr_loading) ... ok\ntest_staging_requires_separate_enable (__main__.BetaSourceContract.test_staging_requires_separate_enable) ... ok\n\n----------------------------------------------------------------------\nRan 12 tests in 0.001s\n\nOK"
+    }
+  ],
+  "tested_files": {
+    "AnchorChain.dll": "d34f1ca6138e2ad3be35a63ef53ea3e5956655dafe94b2f14a13142e912ac571",
+    "SEST.BetaSafeBootstrap.dll": "3fdd159404503b96e5de8d27fbf8d4002b606c54a977c38cb31267665843b0dd",
+    "SEST.RuntimeFixes.dll": "a0fb4279f65c872887f71e3123e4c45efecb86456342e70c9250cc44196e32a6",
+    "SEST.ContactsFix.dll": "d60e662b165e491a01790bdc2a0b93cbdb05295baf01a32561331c412c0e66b6",
+    "SEST.IdentifyDataPaths.dll": "06cce8af5f52b9d4742f4b89033ef0e19a50f1a558ae04a747a7f748c0fd3c29"
+  }
+}

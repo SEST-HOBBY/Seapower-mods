@@ -50,7 +50,11 @@ public class AnchorChainLoader : BaseUnityPlugin, Preloader.IPluginLoader
 
 			foreach (string asmPath in dllFiles) {
 				try {
-					Assembly loaded = Assembly.LoadFile(asmPath);
+					string prepared = BetaAssemblyPolicy.Prepare(asmPath, typeof(ObjectBase).Assembly.Location,
+						Path.Combine(BepInEx.Paths.ConfigPath, "SEST-BetaAnchorChain"),
+						message => Logger.LogWarning("[Beta compatibility] " + message));
+					if (prepared == null) continue;
+					Assembly loaded = Assembly.LoadFile(prepared);
 					Logger.LogInfo("Loaded assembly " + loaded.FullName);
 
 					foreach (Type plugin in (from x in loaded.GetExportedTypes() where x.GetInterfaces().Contains(typeof(IAnchorChainMod)) select x))
@@ -142,6 +146,16 @@ public class AnchorChainLoader : BaseUnityPlugin, Preloader.IPluginLoader
 		}
 		if (circularLoad) { return; }
 
+		RunPending(recognizedPlugins, message => Logger.LogInfo(message), message => Logger.LogError(message));
+
+		Logger.LogInfo($"Loaded AnchorChain V{((BepInPlugin)Attribute.GetCustomAttribute(typeof(AnchorChainLoader), typeof(BepInPlugin))).Version}!");
+	}
+
+
+	// Kept separate so failures and dependency ordering can be exercised without Unity.
+	internal static void RunPending(Dictionary<string, (ACPlugin, IAnchorChainMod)> recognizedPlugins,
+		Action<string> logInfo, Action<string> logError)
+	{
 		// Get first "level" of plugins with no preloads
 		HashSet<string> currentLevel = (from x in recognizedPlugins.Values where x.Item1.After.Count == 0 select x.Item1.GUID).ToHashSet() ?? new();
 		HashSet<string> alreadyLoaded = new();
@@ -151,7 +165,7 @@ public class AnchorChainLoader : BaseUnityPlugin, Preloader.IPluginLoader
 		while (true) {
 			if (currentLevel.Count == 0) { break; }
 			if (--levelBudget < 0) {
-				Logger.LogError("Aborting chainload: bounded progress budget exhausted.");
+				logError("Aborting chainload: bounded progress budget exhausted.");
 				break;
 			}
 
@@ -162,7 +176,7 @@ public class AnchorChainLoader : BaseUnityPlugin, Preloader.IPluginLoader
 				if (pluginData.After.IsSubsetOf(alreadyLoaded)) {
 					try {
 						plugin.TriggerEntryPoint();
-						Logger.LogInfo($"Loaded plugin {pluginData.Name} ({pluginData.GUID})");
+						logInfo($"Loaded plugin {pluginData.Name} ({pluginData.GUID})");
 						toLoad.UnionWith(pluginData.Before);
 						alreadyLoaded.Add(pluginData.GUID);
 						loadedOne = true;
@@ -171,7 +185,7 @@ public class AnchorChainLoader : BaseUnityPlugin, Preloader.IPluginLoader
 						// No retries in this process. A plugin can apply Harmony patches
 						// before throwing, so invoking it again is unsafe.
 						failedPlugins.Add(guid);
-						Logger.LogError($"Error loading plugin {pluginData.Name} ({pluginData.GUID}); skipped for this run: {e}");
+						logError($"Error loading plugin {pluginData.Name} ({pluginData.GUID}); skipped for this run: {e}");
 					}
 				}
 			}
@@ -180,12 +194,11 @@ public class AnchorChainLoader : BaseUnityPlugin, Preloader.IPluginLoader
 			currentLevel.RemoveWhere(x => alreadyLoaded.Contains(x) || failedPlugins.Contains(x));
 
 			if (!loadedOne && currentLevel.Count != 0) {
-				Logger.LogError($"Aborting chainload; no further progress possible: loaded={alreadyLoaded.Count}, failed={failedPlugins.Count}, pending={currentLevel.Count}");
+				logError($"Aborting chainload; no further progress possible: loaded={alreadyLoaded.Count}, failed={failedPlugins.Count}, pending={currentLevel.Count}");
 				break;
 			}
 		}
 
-		Logger.LogInfo($"Loaded AnchorChain V{((BepInPlugin)Attribute.GetCustomAttribute(typeof(AnchorChainLoader), typeof(BepInPlugin))).Version}!");
 	}
 
 

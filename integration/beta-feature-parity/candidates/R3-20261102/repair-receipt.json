@@ -1,0 +1,19 @@
+{
+  "format": 1,
+  "base_files": {
+    "AnchorChain.dll": "c92199ecd5a9c48572779b3472af3ea0d5f454f24541fcea0637bf3d732e2c91",
+    "SEST.BetaSafeBootstrap.dll": "3fdd159404503b96e5de8d27fbf8d4002b606c54a977c38cb31267665843b0dd",
+    "SEST.RuntimeFixes.dll": "a0fb4279f65c872887f71e3123e4c45efecb86456342e70c9250cc44196e32a6",
+    "SEST.ContactsFix.dll": "d60e662b165e491a01790bdc2a0b93cbdb05295baf01a32561331c412c0e66b6",
+    "SEST.IdentifyDataPaths.dll": "c41426014980d1650c3e3562eb1b91ae8633acc775595a4ae5a9f7d3ac015ea0"
+  },
+  "previous_files": [
+    {
+      "AnchorChain.dll": "9dad5a01133a112379809f22ce82f748ee609eab5f06fa02eedaf7fbba8314f4",
+      "SEST.BetaSafeBootstrap.dll": "3fdd159404503b96e5de8d27fbf8d4002b606c54a977c38cb31267665843b0dd",
+      "SEST.RuntimeFixes.dll": "a0fb4279f65c872887f71e3123e4c45efecb86456342e70c9250cc44196e32a6",
+      "SEST.ContactsFix.dll": "d60e662b165e491a01790bdc2a0b93cbdb05295baf01a32561331c412c0e66b6",
+      "SEST.IdentifyDataPaths.dll": "06cce8af5f52b9d4742f4b89033ef0e19a50f1a558ae04a747a7f748c0fd3c29"
+    }
+  ]
+}
