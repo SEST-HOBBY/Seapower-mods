@@ -1,0 +1,43 @@
+R12 STEELFIN FOLLOW-UP REVIEW
+9 November 2026
+
+CAPTURE
+SEST-Steelfin-Review-20261109-213719.zip, captured 21:37-21:39 Brisbane.
+Review baseline: c6fd9d2db30780c1ae7755aa1f922049a2ba399d.
+
+UPSTREAM DELTA - WORKSHOP 3820576916
+Removed: missions/Steelfin/_info.ini
+Removed: missions/Steelfin/steelfin_range.ini
+20 exported text files become 18 (17,840 bytes becomes 14,974).
+All retained files are byte-identical. No weapon, launcher, cruiser or system
+changed. The two removed files were the author's own demonstration scenario.
+The other 202 supporting Workshop mods match the prior capture exactly.
+
+INTEGRATION
+The two stale exported demo files are removed from the source baseline.
+The export manifest and Steelfin content fingerprint match the PC capture.
+All 203 locally rebuilt fingerprints equal the uploaded live fingerprints.
+No SEST override, mission, world data or compiled feature needs rebuilding.
+All 4,337 canonical upload files and all five beta DLL hashes are unchanged.
+The supported Runtime 1.6.1 / UI 1.4.11 pair remains included.
+
+WORKSHOP COPY
+STEAM-PAGE-DESCRIPTION.txt updates the main page for the four campaigns,
+Global Maritime Operations 2028, 196 bases, eight command stages, F11 and
+bundled beta SETUP support. It is Steam BBCode with one line per paragraph.
+Short and collection descriptions are included separately. No Steam text
+has been posted by this workflow. Publish after the PC acceptance checks.
+
+INSTALL
+Keep SEST installed/subscribed. Extract the complete refreshed toolkit to a
+new folder and run Prepare-PC.cmd. The previously stopped run made its source
+checkout but did not perform beta code or world-data installation. The new
+baseline resolves the captured Steelfin check; it still checks for subsequent
+author updates. Start a new world campaign for the revised base layout.
+
+VALIDATION
+Inventory, dependency resolution and all 203 fingerprints checked.
+All 4,337 canonical files verified against the release inventory.
+Four Steam listing checks passed, including BBCode balance and length.
+Earlier world-operations managed, installer and world-data checks are retained
+because their tested payload is byte-identical. PC gameplay remains pending.

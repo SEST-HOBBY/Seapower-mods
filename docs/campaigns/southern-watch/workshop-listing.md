@@ -1,9 +1,9 @@
 # Workshop listing — paste-ready copy
 
 The reference copy for the Steam page of SEST Integration Pack - Modernised
-Campaigns (3812461539) and its collection (3812390790). The live page was
-last rewritten on Steam on 4 Oct 2026 and is not in this repository: check it
-before pasting. Nothing here is generated; when the campaigns change, edit it
+Campaigns (3812461539) and its collection (3812390790). The 9 November R12 draft below is prepared for the updated
+release; it has not been posted to Steam by this workflow. Complete the PC
+acceptance checks before publishing the updated listing. Nothing here is generated; when the campaigns change, edit it
 by hand.
 
 Every block below is ready to paste: Steam BBCode (`[h1]`-`[h3]`, `[b]`,
@@ -43,54 +43,74 @@ SEST Integration Pack - Modernised Campaigns
 ## Short description
 
 ```
-Four Task Force Mode campaigns (Southern Watch, Southern Reach / Tasman Shield, Red Line, Sulu Line) and every SEST fix in one Mod Manager entry. Needs the 203 Workshop mods in the 'SEST - Modernised Campaign Collection' (3812390790): subscribe to it, then run SETUP.
+Four connected naval campaigns and Global Maritime Operations 2028: 196 bases, eight command stages, persistent logistics, F11 operations and combat costs. Requires the SEST collection. Subscribe to all, then run SETUP from the pack folder.
 ```
 
 ## Description
 
 ```
 [h1]SEST Integration Pack - Modernised Campaigns[/h1]
-Four Task Force Mode campaigns, two world campaigns for the Dynamic Campaign Mod, combat costs for every unit and every SEST fix in one Mod Manager entry.
+Four connected Task Force Mode campaigns and a persistent global campaign for Sea Power, supported by integrated logistics, combat cost reporting and interface refinements.
 
 [h2]The campaigns[/h2]
 [list]
-[*][b]Southern Watch[/b] (October–November 2028). Twelve connected missions keeping Australia's northern sea routes open as a coercion campaign becomes a limited regional war. It opens small - one frigate, a Seahawk, a lane full of traffic, weapons tight - and does not stay small. Plus ten optional operations (six flown by somebody else's force), two contingencies and eleven standalone dispatches.
-[*][b]Southern Reach / Tasman Shield[/b] (December 2028 – March 2029). Twenty-six missions, from the Antarctic resupply at 60°S to a ceasefire. A boat sunk in the Tasman is missing later; an approach not held reinforces the enemy off Sydney.
-[*][b]Red Line[/b] (November 2028 – February 2029). Six missions and an epilogue as the Chinese carrier group commander, against missile craft, Q-ships and intercepting fighters on short clocks, where restraint still wins as often as firepower. Plus two optional operations and a contingency: a submarine nobody has claimed, the Japanese escorts coming south, and a pilot in the water.
-[*][b]Sulu Line[/b] (October–November 2028). Seven missions with a Philippine-led task group. No free rearm: ammunition comes from supply ships you bought or the convoy you escort. Three optional side operations change later missions.
-[*][b]World Sandbox 2028[/b] (draft, Dynamic Campaign Mod). One persistent 2028 world on the strategic map: real bases, finite fleets, patrols, purchases and replenishment, and every contact becomes a battle. The [b]Regional Expansion[/b] (preview) adds 15 bases and 26 RED forces from the Baltic to Iran, with their own supply ships. Start either as a new campaign; neither has been played through yet.
+[*][b]Southern Watch[/b] - Twelve connected missions defending Australia's northern sea routes as maritime coercion develops into a regional conflict. Begin with a frigate, a helicopter and uncertain contacts; progress to coordinated air and naval operations. Optional operations, contingencies and standalone dispatches expand the campaign.
+[*][b]Southern Reach / Tasman Shield[/b] - Twenty-six missions across the Tasman, South Pacific and Antarctic approaches. Protect resupply routes, manage a growing force and carry the consequences of earlier operations towards a ceasefire.
+[*][b]Red Line[/b] - Six missions and an epilogue commanding a Chinese carrier group. Counter missile craft, submarines, disguised threats and intercepting aircraft while balancing identification, restraint and force protection. Optional operations add reconnaissance and recovery tasks.
+[*][b]Sulu Line[/b] - Seven missions with a Philippine-led task group. Build the force you can afford, protect your supply ships and manage ammunition across successive operations. Three optional operations affect later missions.
 [/list]
 
-[h2]How it plays[/h2]
+[h2]Global Maritime Operations 2028[/h2]
+A single worldwide campaign for [b]Dynamic Campaign Mod[/b], combining the original world and its regional expansion. Command either coalition across the Atlantic, Mediterranean, Indian Ocean and Pacific, moving forces on the strategic map and fighting engagements in Sea Power.
 [list]
-[*]You buy the force. Losses and expenditure carry forward. Partners arrive on their own terms. Partway through Southern Watch and Southern Reach, and in Red Line from the start, every force allocation offers the whole roster with the allied fleet, or the PLAN's supply ships. In Sulu Line the Thai detachment and one RAN frigate are bought into the task group.
-[*]Finding things matters more often than fleet battles. Civilian traffic is everywhere, and neutral losses end operations.
-[*]Each mission has a planned time and is lost at 1.5 times it; the briefing states both.
+[*][b]196 bases, 293 force groups, 54 patrol routes and 1,586 recruitment entries.[/b] The expanded network includes 40 additional real-world airfields; existing airfield positions have been reviewed, including Muharraq, Souda and Diego Garcia.
+[*][b]Eight command stages[/b] provide earlier milestones and progressive access to recruitment. Renown measures command progress; accepted Admiralty assignments can reward escort, surveillance, area control and multi-phase operations as well as combat, when those tasks are offered.
+[*][b]Operational logistics[/b] use finite fuel and ammunition. Depots produce supplies, convoys deliver them, airlifts move ammunition and replenishment ships sustain forces at sea. Set priorities and protect the routes your forward bases depend on.
+[*][b]Clear battle preparation and return.[/b] World engagements open with a paused preparation checklist. Arrange aircraft and initial orders before unpausing. Use Esc > End battle... and return through the debrief when you need to disengage; victory is not required, and the campaign's outcome assessment still applies.
 [/list]
+[b]Start a new world campaign for the complete revised base layout and progression.[/b] The added facilities are operating locations; constructing new bases during play is not included.
 
-[h2]Combat costs[/h2]
-With the Combat Cost Tracker from the collection, every weapon, ship, aircraft and land unit has a price, historical and current. Estimates are labelled, and chaff, flares, sonobuoys, drop tanks and pods count.
+[h2]Operations, service and combat costs[/h2]
 [list]
-[*]F11 in a mission shows what the mission has cost so far.
-[*]F11 in the Task Force menu shows the campaign's totals and every completed mission, in a window you can move and resize; the task-force debrief adds the mission's and the campaign's cost.
-[*]Weapons fired, units lost and the stores lost with them carry through the campaign.
+[*][b]F11 World Operations[/b] brings together Overview, Forces, Costs and Service. Check your next command milestone, recruitment unlocks, and offered or active Admiralty task rewards and deadlines.
+[*][b]Cumulative Combat Costs[/b] records available evidence of weapons expenditure, platform losses and stores lost with destroyed units. View mission and campaign reports through F11, with cost summaries in the Task Force debrief.
+[*]Historical and current price bases are labelled. Missing prices remain identified as unknown. [b]Estimated USD costs are separate from campaign credits and physical supplies.[/b]
+[*]Native completion ribbons recognise the four authored campaigns. A separate world service record tracks completed manual engagements and theatre service.
+[*]Coordinated Strike refinements add shared styling and planned/remaining weapon-cost estimates, alongside the original planning and launch controls.
 [/list]
 
-[h2]What it needs - read this[/h2]
-The campaigns name units from 166 Workshop mods. Subscribe to the collection [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3812390790]SEST - Modernised Campaign Collection[/url]: all 203 of its mods in one press. Then Mod Manager → Open Folder on this pack, quit the game and double-click [b]SETUP - double-click me.cmd[/b]. It checks the subscriptions, installs the Anchor Chain preloader and writes the 204-entry load order with this pack at the top. It is safe to run again.
+[h2]Installation and updates[/h2]
+[b]This pack requires the collection's original Workshop mods.[/b]
+[olist]
+[*]Subscribe to this pack and use [b]Subscribe to all[/b] on the [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3812390790]SEST - Modernised Campaign Collection[/url]. The current load order contains 203 supporting Workshop mods plus this pack.
+[*]In Mod Manager, open this pack's folder. Close Sea Power, then run [b]SETUP - double-click me.cmd[/b]. It checks the required subscriptions, installs the preloader and sets the load order with SEST at the top.
+[*]On the supported beta build, a fresh installation needs SETUP, a launch to the main menu for about ten seconds, quitting, then a second SETUP run. An already enabled SEST beta installation updates in one run.
+[*]After Steam updates this item, close the game and rerun SETUP to reapply its bundled features. If Mod Manager offers to move the dependencies above SEST, keep SEST at the top.
+[/olist]
+The world campaign also requires Dynamic Campaign Mod from the collection. REQUIRED-MODS.txt, LOAD-ORDER.txt and the setup instructions are included in the pack.
+
+[h2]Compatibility and scenario scope[/h2]
+Built for Sea Power 0.8.7. R12 includes reviewed compatibility code for public beta build 261107; SETUP checks the installed game and required plugin versions. Normal-release plugins remain available for their supported build. New or unsupported versions may require another compatibility update.
+
+The campaigns are fictional 2028-2029 operations using real and modded equipment. Coalition alignments, access agreements, deployments and stocks are scenario assumptions, not statements of current national policy or readiness. World placement and balance remain subject to playtesting. English language.
+
+[h2]Credits[/h2]
+The original Workshop creators supply the units, models and supporting systems this pack integrates. Keep those mods subscribed. CREDITS.txt identifies contributions, compatibility work and credited media. Feedback with the mission name, game build and a clear reproduction is welcome.
+```
+
+## Change log: R12 world operations and Steelfin refresh, 9 Nov 2026
+
+Prepared for the current release candidate; publish after PC acceptance.
+
+```
+[b]Global Maritime Operations 2028[/b]
 [list]
-[*]If the Mod Manager offers to move this pack's dependencies above it, answer no: that undoes every fix in it. SETUP puts the order back.
-[*]Some mods still name SeaLifter as a requirement. It is not needed; they run without it.
-[*]A missing mod means a missing unit at best and a mission that will not load at worst. Without the collection and SETUP, this is not the download for you.
-[*]Mods made for an older game version load and play; SETUP marks them compatible, so the Mod Manager stops warning about them.
+[*]Expanded the world to 196 bases, including 40 additional airfields, and reviewed existing airfield positions.
+[*]Added eight command stages, progressive recruitment bands, operational briefings and live task rewards/milestones in F11 Overview.
+[*]Added paused world-battle preparation and a clear End battle... action; victory is not required to return through the debrief.
+[*]Included the supported beta feature installer in the Workshop pack: rerun SETUP after Steam updates the item.
+[*]Refreshed against the 9 November Steelfin export: its removed demo mission does not change the SEST campaigns, weapons or launcher.
 [/list]
-In the folder: SETUP, REQUIRED-MODS.txt (every mod the campaigns name), LOAD-ORDER.txt and CREDITS.txt.
-
-[h2]Credit[/h2]
-A Sea Power unit file is a whole-file override, so 538 files here are other authors' files with edits, each 90% or more unchanged, from 65 Workshop mods. CREDITS.txt lists every one, measured by diffing against the collection. Every photograph is real and credited. If you wrote one of those mods and would rather this pack did not carry your file, say so and it will change.
-
-[h2]Fiction, language, status[/h2]
-Every nation, unit, ship name, incident and date is invented; the campaigns take no position on any real dispute. English only. Built for Sea Power 0.8.7: every unit, squadron, loadout and weapon in every mission is checked to resolve on every build, but balance is not, and most missions have not been played to completion. SEST's code (the Tomahawk terrain fix, the debrief, the combat cost windows, the towed-sonar guard and, with Contact Log, the UI follow-up, which moves Quick Load from F9 to Ctrl+F9) runs on Sea Power 0.8.7 Build 261021, the stable game, and switches itself off on the public beta (Build 261026) and any other build. Ordinary Workshop installation on the public beta has no full code support and a modifier-file limitation; the separate R6 repair is a beta test candidate and is not installed by this upload. Feedback on difficulty and pacing is wanted.
 ```
 
 ## Change log: November release candidate, 7 Nov 2026
@@ -416,17 +436,19 @@ collection stay as they are.
 Keep the pinned "Read first" discussion's install steps in step with it.
 
 ```
-Everything the SEST Integration Pack's campaigns need: 203 Workshop mods plus the pack itself, [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3812461539]SEST Integration Pack - Modernised Campaigns[/url].
+[h1]SEST - Modernised Campaign Collection[/h1]
+The supporting Workshop mods for [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3812461539]SEST Integration Pack - Modernised Campaigns[/url]: 203 dependencies plus the integration pack.
 
 [olist]
-[*]Subscribe to all.
-[*]In the Mod Manager, open the SEST Integration Pack's folder, quit the game and double-click [b]SETUP - double-click me.cmd[/b]. It checks the subscriptions, installs the Anchor Chain preloader and writes the load order, with the pack at the top.
-[*]If the Mod Manager offers to move the pack's dependencies above it, say no. Running SETUP again puts the order back.
+[*]Use [b]Subscribe to all[/b] and allow Steam to finish downloading.
+[*]In Mod Manager, open the SEST Integration Pack's folder. Close Sea Power and run [b]SETUP - double-click me.cmd[/b] to check subscriptions and set the load order.
+[*]For a fresh installation on the supported beta, launch to the main menu for about ten seconds, quit, then run SETUP again. Existing enabled beta installations update in one run.
+[*]Rerun SETUP after Steam updates the integration pack. Keep SEST above its dependencies in Mod Manager.
 [/olist]
 
-Nothing needs a manual install: some mods still name SeaLifter, but they run without it.
+Includes Southern Watch, Southern Reach / Tasman Shield, Red Line and Sulu Line, plus Global Maritime Operations 2028 with 196 bases and eight command stages. Start a new world campaign for the complete revised layout and progression.
 
-Campaigns: Southern Watch, Southern Reach / Tasman Shield, Red Line and Sulu Line, plus two draft world campaigns for the Dynamic Campaign Mod. All fiction, set in 2028-29.
+Campaign operations, coalition alignments and deployments are fictional. The collection retains each creator's original mod; the integration pack supplies the campaigns, compatibility work and shared setup.
 ```
 
 ## Tags, images, and what to leave off

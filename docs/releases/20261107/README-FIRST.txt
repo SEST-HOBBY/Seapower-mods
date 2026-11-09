@@ -1,6 +1,17 @@
 SEST R12 - WORLD OPERATIONS UPDATE
 9 November 2026 | SEST-DEV
 
+STEELFIN FOLLOW-UP - 9 NOVEMBER 2026
+The 21:37 capture contains only removal of Steelfin's demo mission and its
+menu file. The 18 retained author files, SEST world data and all five beta
+DLLs are unchanged. The recorded author baseline is refreshed. Keep SEST
+subscribed; the update checker correctly excludes SEST's own Workshop item.
+
+Extract this refreshed toolkit to a NEW folder and run Prepare-PC.cmd.
+The previous stopped run did not install the new world or code.
+STEAM-PAGE-DESCRIPTION.txt contains the new page description in Steam BBCode;
+STEAM-CHANGE-NOTE.txt is the separate update/change-log text.
+
 START HERE
 Close Sea Power. Extract this complete toolkit to a NEW folder, then run
 Prepare-PC.cmd. This installs the revised world data and the paired code.

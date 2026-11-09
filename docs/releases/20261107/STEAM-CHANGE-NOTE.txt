@@ -9,3 +9,5 @@ Forty new airfields start at quarter stock without extra forces, income or produ
 Includes paused world-battle preparation and a clear End battle... pause-menu action. Victory is not required to return through the debrief; the campaign's consequence assessment remains in effect.
 
 Also includes campaign completion ribbons, F11 Forces/Costs/Service, campaign costing and Coordinated Strike styling and weapon estimates. On the supported beta build, run SETUP from the pack folder after Steam finishes downloading. Existing enabled installations update in one run; a fresh installation needs a main-menu launch and second SETUP run. Rerun SETUP after Steam updates this item.
+
+Refreshed against the latest Steelfin export: its removed demo mission and menu file do not change the weapons, launcher or SEST scenarios.
