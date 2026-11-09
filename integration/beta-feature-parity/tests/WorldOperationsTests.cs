@@ -98,6 +98,34 @@ static class WorldOperationsTests
             string dcmPath = Path.Combine(workshop, "3813157776", "DynamicCampaignMod.dll");
             var dcm = Assembly.LoadFrom(dcmPath);
             Call(rt.GetType("Sest.RuntimeFixes.WorldOperations", true), "Bind");
+            var world = rt.GetType("Sest.RuntimeFixes.WorldOperations", true);
+            var sessionType = dcm.GetType("DynamicCampaignMod.Game.Session.CampaignSession", true);
+            var battleType = dcm.GetType("DynamicCampaignMod.Game.Battle.BattleSession", true);
+            Check(battleType.GetField("Plan", All) == null && battleType.GetProperty("Plan", All) != null, "Captured battle plan is a property, not a field");
+            object sim = System.Runtime.Serialization.FormatterServices.GetUninitializedObject(dcm.GetType("DynamicCampaignMod.Core.Sim.CampaignSim", true));
+            object fakeState = System.Runtime.Serialization.FormatterServices.GetUninitializedObject(dcm.GetType("DynamicCampaignMod.Core.State.CampaignState", true));
+            object def = System.Runtime.Serialization.FormatterServices.GetUninitializedObject(dcm.GetType("DynamicCampaignMod.Core.Data.CampaignDefinition", true));
+            object plan = System.Runtime.Serialization.FormatterServices.GetUninitializedObject(dcm.GetType("DynamicCampaignMod.Core.State.BattlePlan", true));
+            object engagement = System.Runtime.Serialization.FormatterServices.GetUninitializedObject(dcm.GetType("DynamicCampaignMod.Core.State.Engagement", true));
+            Set(sim, "State", fakeState); Set(plan, "Engagement", engagement); Set(engagement, "Id", 1559); Set(engagement, "At", new DateTime(2028, 10, 1));
+            sessionType.GetProperty("Sim", All).GetSetMethod(true).Invoke(null, new[] { sim });
+            sessionType.GetField("_definition", All).SetValue(null, def);
+            sessionType.GetProperty("Active", All).GetSetMethod(true).Invoke(null, new object[] { true });
+            Check((bool)Call(world, "ReadContext") && (bool)world.GetProperty("StrategicActive", All).GetValue(null, null), "Real captured session getters expose the strategic context");
+            sessionType.GetProperty("Active", All).GetSetMethod(true).Invoke(null, new object[] { false });
+            battleType.GetProperty("Plan", All).GetSetMethod(true).Invoke(null, new[] { plan });
+            Check((bool)Call(world, "ReadContext") && !(bool)world.GetProperty("StrategicActive", All).GetValue(null, null), "Battle context survives the author closing the strategic scene");
+            world.GetField("scope", All).SetValue(null, scope);
+            object stamped = Activator.CreateInstance(recordType, true); Call(world, "Stamp", stamped);
+            Check((int)Field(stamped, "MissionIndex") == 1559 && ((string)Field(stamped, "Source")).StartsWith("DCM:" + scope + ":"), "Live battle costs are stamped through the actual Plan property");
+            battleType.GetProperty("Plan", All).GetSetMethod(true).Invoke(null, new object[] { null });
+            Check((bool)Call(world, "ReadContext") && !(bool)world.GetProperty("StrategicActive", All).GetValue(null, null), "Completed-battle evidence survives the gap before the strategy scene reloads");
+            sessionType.GetProperty("Active", All).GetSetMethod(true).Invoke(null, new object[] { true });
+            Check((bool)Call(world, "ReadContext") && (bool)world.GetProperty("StrategicActive", All).GetValue(null, null), "Returning to the world map restores Operations context");
+            sessionType.GetProperty("Active", All).GetSetMethod(true).Invoke(null, new object[] { false });
+            sessionType.GetProperty("Sim", All).GetSetMethod(true).Invoke(null, new object[] { null });
+            sessionType.GetField("_definition", All).SetValue(null, null);
+            Check(!(bool)Call(world, "ReadContext"), "Campaign teardown releases the retained context");
             foreach (var spec in new[] {
                 Tuple.Create("Core.State.CampaignState", "Now,PlayerSideId,Points,Renown,Ranks,Reports,BaseOwner,TaskForces,Squadrons,BuildOrders,AdmiraltyOrders,Operations"),
                 Tuple.Create("Core.State.BattleReport", "EngagementId,Where,At,AutoResolved,PlayerSideId"),

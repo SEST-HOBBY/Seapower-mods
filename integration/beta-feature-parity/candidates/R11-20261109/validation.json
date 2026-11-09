@@ -71,7 +71,7 @@
     {
       "name": "world-service-and-strike-bindings",
       "exit_code": 0,
-      "stdout": "[SEST Runtime] world service record is read-only; existing file preserved: InvalidDataException: unknown service record format\n[SEST Runtime] World Operations attached to Dynamic Campaign Mod 0.25.0.1\nWorld service, lifecycle, UI model and optional-mod binding checks passed: 51",
+      "stdout": "[SEST Runtime] world service record is read-only; existing file preserved: InvalidDataException: unknown service record format\n[SEST Runtime] World Operations attached to Dynamic Campaign Mod 0.25.0.1\nWorld service, lifecycle, UI model and optional-mod binding checks passed: 58",
       "stderr": ""
     },
     {
@@ -102,8 +102,8 @@
   "tested_files": {
     "AnchorChain.dll": "7137ff42f68046854b3cda85a16176407bf78ce1a302d8f76bfee30f110d05d0",
     "SEST.BetaSafeBootstrap.dll": "268462fa2f7e8553f42994da8357a89106cd80f47ae6d810e6c55446fc24a5df",
-    "SEST.RuntimeFixes.dll": "3e7f7a3bfec09dc7a497524b30c40d775131beda81738149d5ae21be5b043b88",
-    "SEST.ContactsFix.dll": "7fad8a3b6c716f2df7edd6ff375d211a07012c13ddcbc53af71067b52c1d57fa",
-    "SEST.IdentifyDataPaths.dll": "a8783110311b050745ef00522a6df94c9d1cb743ba4368a7045ab93ce0c3cd6a"
+    "SEST.RuntimeFixes.dll": "4634d30f10b7b0a5b40d8894d1914ad5a897682e4911d6292bb8fa55ff6640b8",
+    "SEST.ContactsFix.dll": "ef009436f813021028b8f06103fa4fb3eb8822c148f0795dd7fa8ee136bc5d42",
+    "SEST.IdentifyDataPaths.dll": "9782ea2b339c81437be4f8b3b3238843365646ba20c94f0f30330370cbbf0eff"
   }
 }

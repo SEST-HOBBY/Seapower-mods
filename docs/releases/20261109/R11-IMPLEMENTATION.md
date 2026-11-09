@@ -24,6 +24,11 @@ New content requires a new campaign.
 | Topography | Author 1.5.1 option fallback retained, remaining shoreline constant corrected; 1.5.0 recipe retained | Both captured versions checked, including all 65,536 DEM values; current PC capture already shows author map use |
 | Pop-outs | Current captured Pop-Out image admitted alongside the older inspected version | Bindings and existing bridge tests; second monitor needs PC check |
 
+The DCM bridge reads its actual Plan property and retains Sim context while
+the strategic scene is closed for battle and during the return-loading gap.
+A captured-getter fixture checks map, battle, return gap, map and teardown,
+including cost stamping through the real Plan property.
+
 World service is a profile record for a campaign/coalition across saves. It
 does not write native commander or campaign saves. Meridian Accord requires
 three completed manual battles; Iron Meridian requires ten. Theatre ribbons

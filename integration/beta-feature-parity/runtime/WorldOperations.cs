@@ -22,7 +22,7 @@ internal static class WorldOperations
     private static bool stopped, shown, wasStrategic;
     private static double nextBind, nextSample, nextView;
     private static CampaignCosts.CostView report;
-    private static object state, definition;
+    private static object state, definition, currentPlan;
     private static string scope = "", campaignName = "", side = "";
     private static readonly Dictionary<int, Tuple<long, string>> positions = new Dictionary<int, Tuple<long, string>>();
     internal static int Tab { get; private set; }
@@ -87,15 +87,33 @@ internal static class WorldOperations
         Api.Log("World Operations attached to Dynamic Campaign Mod 0.25.0.1");
     }
 
+    internal static bool ReadContext()
+    {
+        // DCM sets CampaignSession.Active=false when unloading its strategy
+        // scene for battle. Sim/definition survive; BattleSession.Plan is a
+        // PROPERTY and remains the authoritative live-battle context.
+        bool onMap = session != null && (bool)Prop(session, "Active");
+        currentPlan = battle == null ? null : Prop(battle, "Plan");
+        object sim = session == null ? null : Prop(session, "Sim");
+        // Sim is cleared by Teardown, not by temporary scene unloading.
+        // Keep evidence through the return gap after Plan resets and before
+        // the strategic scene has finished loading.
+        bool active = sim != null;
+        state = active ? Get(sim, "State") : null;
+        definition = active ? Prop(session, "Definition") : null;
+        active = active && state != null && definition != null;
+        StrategicActive = active && onMap && currentPlan == null;
+        return active;
+    }
+
     internal static void Poll()
     {
         if (stopped || ledger == null) return;
         try
         {
             Bind();
-            bool active = session != null && (bool)Prop(session, "Active");
-            bool inBattle = active && (bool)Prop(battle, "Active");
-            StrategicActive = active && !inBattle;
+            bool active = ReadContext();
+            bool inBattle = currentPlan != null;
             if (StrategicActive != wasStrategic)
             {
                 shown = false; report = null; nextSample = 0;
@@ -107,13 +125,11 @@ internal static class WorldOperations
             if (Now >= nextSample)
             {
                 nextSample = Now + 1;
-                state = Get(Prop(session, "Sim"), "State");
-                definition = Prop(session, "Definition");
                 side = S(state, "PlayerSideId");
                 string nextScope = S(definition, "id") + ":" + side;
                 if (nextScope != scope) { scope = nextScope; positions.Clear(); report = null; }
                 campaignName = Clean(Get(definition, "name"));
-                RememberEngagement(inBattle ? Get(battle, "Plan") : null);
+                RememberEngagement(inBattle ? currentPlan : null);
                 UpdateService();
             }
             if (!StrategicActive || !NativeCombatSurface.EnsureReady(true)) return;
@@ -163,7 +179,7 @@ internal static class WorldOperations
     internal static void Stamp(CombatGameRecord record)
     {
         if (stopped || state == null || battle == null || !(bool)Prop(battle, "Active")) return;
-        var e = Get(Get(battle, "Plan"), "Engagement");
+        var e = Get(Prop(battle, "Plan"), "Engagement");
         if (e != null)
         {
             record.Source = "DCM:" + scope + ":" + ((DateTime)Get(e, "At")).Ticks.ToString(CultureInfo.InvariantCulture);
