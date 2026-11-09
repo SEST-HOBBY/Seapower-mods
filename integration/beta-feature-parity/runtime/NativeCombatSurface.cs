@@ -27,6 +27,7 @@ internal static class NativeCombatSurface
 	private static StackPanel summaryPanel;
 
 	private static StackPanel detailPanel;
+    private static StackPanel worldTabs;
 
 	private static int renderedRevision = -1;
 
@@ -60,7 +61,7 @@ internal static class NativeCombatSurface
 
 	private static readonly UiStartupGate startup = new UiStartupGate();
 
-	private const string Xaml = "<ResourceDictionary xmlns='http://schemas.microsoft.com/winfx/2006/xaml/presentation' xmlns:x='http://schemas.microsoft.com/winfx/2006/xaml' xmlns:local='clr-namespace:SeapowerUI' xmlns:sest='clr-namespace:Sest.RuntimeFixes;assembly=SEST.RuntimeFixes'>\n<DataTemplate DataType='{x:Type sest:CumulativeCombatCostsViewModel}'>\n<local:Window x:Name='SestCostWindow' Header='{Binding Title}' Width='570' Height='560' MinWidth='100' MinHeight='100' X='12' Y='170' AnchorRight='False' AnchorBottom='False' Draggable='True' CanResize='True' HorizontalAlignment='Left' VerticalAlignment='Top' HorizontalContentAlignment='Stretch' VerticalContentAlignment='Stretch' Background='#ED151D24'>\n<Grid Margin='10' Background='#ED151D24'><Grid.RowDefinitions><RowDefinition Height='Auto'/><RowDefinition Height='Auto'/><RowDefinition Height='*'/><RowDefinition Height='Auto'/></Grid.RowDefinitions>\n<TextBlock Text='{Binding Subtitle}' Foreground='#9BAEBB' FontSize='11' TextWrapping='Wrap' Margin='0,0,0,8'/>\n<StackPanel x:Name='SestCostSummary' Grid.Row='1' Margin='0,0,0,10'/>\n<ScrollViewer x:Name='SestCostScroll' Grid.Row='2' VerticalScrollBarVisibility='Auto' HorizontalScrollBarVisibility='Disabled' Background='Transparent' CanContentScroll='False'>\n<StackPanel x:Name='SestCostDetails' Margin='0,0,10,0'/></ScrollViewer>\n<TextBlock Grid.Row='3' Text='{Binding Notes}' Foreground='#A8B6C2' FontSize='11' TextWrapping='Wrap' Margin='0,10,0,0'/>\n</Grid></local:Window></DataTemplate></ResourceDictionary>";
+	private const string Xaml = "<ResourceDictionary xmlns='http://schemas.microsoft.com/winfx/2006/xaml/presentation' xmlns:x='http://schemas.microsoft.com/winfx/2006/xaml' xmlns:local='clr-namespace:SeapowerUI' xmlns:sest='clr-namespace:Sest.RuntimeFixes;assembly=SEST.RuntimeFixes'>\n<DataTemplate DataType='{x:Type sest:CumulativeCombatCostsViewModel}'>\n<local:Window x:Name='SestCostWindow' Header='{Binding Title}' Width='570' Height='560' MinWidth='100' MinHeight='100' X='12' Y='170' AnchorRight='False' AnchorBottom='False' Draggable='True' CanResize='True' HorizontalAlignment='Left' VerticalAlignment='Top' HorizontalContentAlignment='Stretch' VerticalContentAlignment='Stretch' Background='#ED151D24'>\n<Grid Margin='10' Background='#ED151D24'><Grid.RowDefinitions><RowDefinition Height='Auto'/><RowDefinition Height='Auto'/><RowDefinition Height='Auto'/><RowDefinition Height='*'/><RowDefinition Height='Auto'/></Grid.RowDefinitions>\n<TextBlock Text='{Binding Subtitle}' Foreground='#9BAEBB' FontSize='11' TextWrapping='Wrap' Margin='0,0,0,8'/>\n<StackPanel x:Name='SestWorldTabs' Grid.Row='1' Orientation='Horizontal' Margin='0,0,0,8' Visibility='Collapsed'/>\n<StackPanel x:Name='SestCostSummary' Grid.Row='2' Margin='0,0,0,10'/>\n<ScrollViewer x:Name='SestCostScroll' Grid.Row='3' VerticalScrollBarVisibility='Auto' HorizontalScrollBarVisibility='Disabled' Background='Transparent' CanContentScroll='False'>\n<StackPanel x:Name='SestCostDetails' Margin='0,0,10,0'/></ScrollViewer>\n<TextBlock Grid.Row='4' Text='{Binding Notes}' Foreground='#A8B6C2' FontSize='11' TextWrapping='Wrap' Margin='0,10,0,0'/>\n</Grid></local:Window></DataTemplate></ResourceDictionary>";
 
 	internal static bool Ready => startup.Ready && !NoesisTeardown.InProgress;
 
@@ -68,6 +69,7 @@ internal static class NativeCombatSurface
 
 	internal static void Bind()
 	{
+        if (uiInitialized != null) return;
 		using (FileStream inputStream = File.OpenRead(typeof(GUI).Assembly.Location))
 		{
 			using SHA256 sHA = SHA256.Create();
@@ -102,7 +104,7 @@ internal static class NativeCombatSurface
 	private static void InitializeReady()
 	{
 		GUI.RegisterType(typeof(CumulativeCombatCostsViewModel));
-		templates = GUI.ParseXaml("<ResourceDictionary xmlns='http://schemas.microsoft.com/winfx/2006/xaml/presentation' xmlns:x='http://schemas.microsoft.com/winfx/2006/xaml' xmlns:local='clr-namespace:SeapowerUI' xmlns:sest='clr-namespace:Sest.RuntimeFixes;assembly=SEST.RuntimeFixes'>\n<DataTemplate DataType='{x:Type sest:CumulativeCombatCostsViewModel}'>\n<local:Window x:Name='SestCostWindow' Header='{Binding Title}' Width='570' Height='560' MinWidth='100' MinHeight='100' X='12' Y='170' AnchorRight='False' AnchorBottom='False' Draggable='True' CanResize='True' HorizontalAlignment='Left' VerticalAlignment='Top' HorizontalContentAlignment='Stretch' VerticalContentAlignment='Stretch' Background='#ED151D24'>\n<Grid Margin='10' Background='#ED151D24'><Grid.RowDefinitions><RowDefinition Height='Auto'/><RowDefinition Height='Auto'/><RowDefinition Height='*'/><RowDefinition Height='Auto'/></Grid.RowDefinitions>\n<TextBlock Text='{Binding Subtitle}' Foreground='#9BAEBB' FontSize='11' TextWrapping='Wrap' Margin='0,0,0,8'/>\n<StackPanel x:Name='SestCostSummary' Grid.Row='1' Margin='0,0,0,10'/>\n<ScrollViewer x:Name='SestCostScroll' Grid.Row='2' VerticalScrollBarVisibility='Auto' HorizontalScrollBarVisibility='Disabled' Background='Transparent' CanContentScroll='False'>\n<StackPanel x:Name='SestCostDetails' Margin='0,0,10,0'/></ScrollViewer>\n<TextBlock Grid.Row='3' Text='{Binding Notes}' Foreground='#A8B6C2' FontSize='11' TextWrapping='Wrap' Margin='0,10,0,0'/>\n</Grid></local:Window></DataTemplate></ResourceDictionary>") as ResourceDictionary;
+		templates = GUI.ParseXaml(Xaml) as ResourceDictionary;
 		if (templates == null)
 		{
 			throw new InvalidOperationException("native cost-window template could not be parsed; original tracker retained");
@@ -237,6 +239,7 @@ internal static class NativeCombatSurface
 				NativeCombatSurface.window = null;
 				scroll = null;
 				summaryPanel = (detailPanel = null);
+                worldTabs = null;
 				renderedRevision = -1;
 				if (closed != null)
 				{
@@ -265,6 +268,19 @@ internal static class NativeCombatSurface
 				{
 					throw new MissingMemberException("native cost report text panels");
 				}
+                worldTabs = Walk(NativeCombatSurface.window).OfType<StackPanel>().FirstOrDefault(p => p.Name == "SestWorldTabs");
+                if (worldTabs != null)
+                {
+                    worldTabs.Children.Clear();
+                    string[] labels = { "Overview", "Forces", "Costs", "Service" };
+                    for (int i = 0; i < labels.Length; i++)
+                    {
+                        int index = i;
+                        var button = new Button { Content = labels[i], Padding = new Thickness(8f, 4f, 8f, 4f), Margin = new Thickness(0f, 0f, 5f, 0f) };
+                        button.Click += (sender, args) => { WorldOperations.SelectTab(index); args.Handled = true; };
+                        worldTabs.Children.Add(button);
+                    }
+                }
 				renderedRevision = -1;
 				NativeCombatSurface.window.PreviewMouseWheel += OnWheel;
 				if (!PopOutBridge.Contains(model))
@@ -275,7 +291,13 @@ internal static class NativeCombatSurface
 			}
 			if (renderedRevision != model.Revision)
 			{
-				NativeCostTypography.Render(summaryPanel, model.SummaryRows);
+				if (worldTabs != null)
+                {
+                    worldTabs.Visibility = model.World ? Visibility.Visible : Visibility.Collapsed;
+                    for (int i = 0; i < worldTabs.Children.Count; i++)
+                        ((Button)worldTabs.Children[i]).FontWeight = i == WorldOperations.Tab ? FontWeight.Bold : FontWeight.Normal;
+                }
+                NativeCostTypography.Render(summaryPanel, model.SummaryRows);
 				NativeCostTypography.Render(detailPanel, model.DetailRows);
 				renderedRevision = model.Revision;
 			}
@@ -449,6 +471,7 @@ internal static class NativeCombatSurface
 				window = null;
 				scroll = null;
 				summaryPanel = (detailPanel = null);
+                worldTabs = null;
 				renderedRevision = -1;
 			}
 			finally
@@ -466,6 +489,7 @@ internal static class NativeCombatSurface
 		home = null;
 		root = null;
 		summaryPanel = (detailPanel = null);
+                worldTabs = null;
 		renderedRevision = -1;
 	}
 }

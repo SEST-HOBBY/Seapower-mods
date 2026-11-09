@@ -13,5 +13,6 @@ internal enum CostLineKind
 	Time,
 	Category,
 	Spacer,
-	Item
+	Item,
+    Ribbon
 }

@@ -18,21 +18,24 @@ static partial class BetaApiTests
         string source = Path.Combine(context.Workshop, "3826122523", "SeaPowerTopo.dll");
         string flat = Path.Combine(context.Workshop, "3826122523", "SeaPowerTopoFlat.dll");
         byte[] original = File.ReadAllBytes(source), flatOriginal = File.ReadAllBytes(flat);
+        string hash; using (var sha = System.Security.Cryptography.SHA256.Create()) hash = BitConverter.ToString(sha.ComputeHash(original)).Replace("-", "").ToLowerInvariant();
+        bool current = hash == "a6e75159c3bd0ddffe1db304380ff329736bb76ab9c7e21544d5d69a2dce6017";
+        Check(current || hash == "cba22efb544775821c5f5d461a90059225bd5526228d7d6f76e708eeef299619", "Topography fixture is an inspected author image");
         var messages = new List<string>();
         string prepared = BetaAssemblyPolicy.Prepare(source, context.Native, context.Cache, messages.Add);
         Check(prepared != null && prepared != source && File.Exists(prepared), "Globe Topography is admitted through a private adapter");
         Check(original.SequenceEqual(File.ReadAllBytes(source)), "Original globe Topography DLL retained byte for byte");
-        Check(messages.Single().Contains("depth-scale=2, land-scale=2, shallow-threshold=1"), "Topography audit covers exactly the inspected fixes");
+        Check(messages.Single().Contains(current ? "shallow-threshold=1" : "depth-scale=2, land-scale=2, shallow-threshold=1"), "Topography audit covers exactly the inspected fixes");
         Check(BetaAssemblyPolicy.Prepare(flat, context.Native, context.Cache, Console.WriteLine) == null,
-            "Flat-map-only Topography remains excluded on the globe game before CLR load");
+            "Both inspected flat-map images are held on the globe build; their native APIs do not resolve");
         Check(flatOriginal.SequenceEqual(File.ReadAllBytes(flat)), "Flat-map author DLL retained");
         Check(!AppDomain.CurrentDomain.GetAssemblies().Any(a => a.GetName().Name == "SeaPowerTopoFlat"), "Flat-map image did not enter CLR");
         using (var before = ModuleDefinition.ReadModule(source, new ReaderParameters { AssemblyResolver = context.Resolver }))
         using (var after = ModuleDefinition.ReadModule(prepared, new ReaderParameters { AssemblyResolver = context.Resolver })) {
-            Check(TopoMissingOperands(before) == 4, "Captured globe DLL reproduces exactly four removed native field reads");
+            Check(TopoMissingOperands(before) == (current ? 0 : 4), "Native operand scan distinguishes legacy removed fields from author 1.5.1 fallbacks");
             Check(TopoMissingOperands(after) == 0, "Every adapted Topography native operand resolves");
-            var oldCtor = before.GetType("SeaPowerTopo.Terrain.HeightReader").Methods.Single(m => m.IsConstructor);
-            var newCtor = after.GetType("SeaPowerTopo.Terrain.HeightReader").Methods.Single(m => m.IsConstructor);
+            var oldCtor = before.GetType("SeaPowerTopo.Terrain.HeightReader").Methods.Single(m => m.IsConstructor && !m.IsStatic);
+            var newCtor = after.GetType("SeaPowerTopo.Terrain.HeightReader").Methods.Single(m => m.IsConstructor && !m.IsStatic);
             Check(newCtor.Body.Instructions.Count == oldCtor.Body.Instructions.Count, "Height-reader control flow and allocation count retained");
             foreach (string setting in new[] { "_heightMultiplier", "_underWaterDepthFactor" })
                 Check(!newCtor.Body.Instructions.Any(i => i.Operand is FieldReference f && f.Name == setting), "Retired setting is absent from adapted constructor: " + setting);
@@ -53,7 +56,14 @@ static partial class BetaApiTests
         Check(BetaAssemblyPolicy.OriginalLocation(assembly) == source, "Topography original asset provenance retained");
         TopoBindings(assembly);
         TopoScaling(assembly);
-        TopoRejectChangedShape(source, context);
+        TopoRejectChangedShape(source, context, current);
+    }
+
+    static void R6_Topography151(R6Context context)
+    {
+        using var module = ModuleDefinition.ReadModule(Path.Combine(context.Workshop, "3826122523", "SeaPowerTopo.dll"));
+        var ctor = module.GetType("SeaPowerTopo.Terrain.HeightReader").Methods.Single(m => m.IsConstructor && !m.IsStatic);
+        Check(ctor.Body.CodeSize == 115 || ctor.Body.CodeSize == 133, "Each Topography author recipe has an exact constructor contract");
     }
 
     static int TopoMissingOperands(ModuleDefinition module)
@@ -153,9 +163,9 @@ static partial class BetaApiTests
         Console.WriteLine("Topography native scaling: all 65536 int16 samples; maximum float round-trip difference " + maxError + " m.");
     }
 
-    static void TopoRejectChangedShape(string source, R6Context context)
+    static void TopoRejectChangedShape(string source, R6Context context, bool current)
     {
-        var factory = typeof(BetaAssemblyPolicy).GetMethod("TopographyAdapter", BindingFlags.NonPublic | BindingFlags.Static);
+        var factory = typeof(BetaAssemblyPolicy).GetMethod(current ? "Topography151Adapter" : "TopographyAdapter", BindingFlags.NonPublic | BindingFlags.Static);
         object adapter = factory.Invoke(null, null);
         var rewrite = (Delegate)adapter.GetType().GetField("RewriteMethod", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(adapter);
         Type scopeType = rewrite.Method.GetParameters()[0].ParameterType;
@@ -164,7 +174,10 @@ static partial class BetaApiTests
             using var native = ModuleDefinition.ReadModule(context.Native);
             var method = module.GetType(constructor ? "SeaPowerTopo.Terrain.HeightReader" : "SeaPowerTopo.Render.Raster").Methods
                 .Single(m => m.Name == (constructor ? ".ctor" : "SimHeight"));
-            if (constructor) method.Body.Instructions.Single(i => i.Offset == 0x003e).OpCode = Mono.Cecil.Cil.OpCodes.Nop;
+            if (constructor) {
+                if (current) method.Body.Instructions.RemoveAt(0);
+                else method.Body.Instructions.Single(i => i.Offset == 0x003e).OpCode = Mono.Cecil.Cil.OpCodes.Nop;
+            }
             else method.Body.Instructions.Single(i => i.Offset == 0x0011).Operand = -47f;
             object scope = Activator.CreateInstance(scopeType, true);
             scopeType.GetField("Module", TopoAll).SetValue(scope, module);

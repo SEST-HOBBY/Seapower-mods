@@ -61,6 +61,7 @@ internal static class F11CombatCosts
 	{
 		CampaignCosts.BindMenu(native);
 		CombatHistory.Open(historyPath);
+        WorldOperations.Install(Path.Combine(Path.GetDirectoryName(historyPath), "world-service-v1.txt"));
 		// Beta moved this value from a field to a property. Bind the exact
 		// inspected getter instead of weakening the native-build guard.
 		missionPath = BindMissionPath(native);
@@ -113,6 +114,8 @@ internal static class F11CombatCosts
 
 	internal static void Poll()
 	{
+        WorldOperations.Poll();
+        CoordinatedStrikeRefinements.Poll();
 		if (attached || stopped || Now < nextAttach)
 		{
 			return;
@@ -212,6 +215,7 @@ internal static class F11CombatCosts
 
 	internal static void AfterUpdate(object __instance)
 	{
+        if (WorldOperations.StrategicActive) return;
 		if (!attached || stopped || !(bool)ready.GetValue(__instance))
 		{
 			return;
@@ -259,7 +263,8 @@ internal static class F11CombatCosts
 
 	internal static bool BeforeGUI(object __instance)
 	{
-		return !attached || stopped || !(bool)ready.GetValue(__instance) || !NativeCombatSurface.Ready;
+		if (WorldOperations.StrategicActive && NativeCombatSurface.Ready) return false;
+        return !attached || stopped || !(bool)ready.GetValue(__instance) || !NativeCombatSurface.Ready;
 	}
 
 	private static void SyncWindow(object owner, bool live)

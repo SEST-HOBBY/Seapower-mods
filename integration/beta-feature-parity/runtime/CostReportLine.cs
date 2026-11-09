@@ -5,10 +5,13 @@ internal sealed class CostReportLine
 	internal readonly CostLineKind Kind;
 
 	internal readonly string Text;
+    internal readonly string[] Colours;
 
 	internal CostReportLine(CostLineKind kind, string text)
-	{
-		Kind = kind;
-		Text = text;
-	}
+	    : this(kind, text, null) { }
+
+    internal CostReportLine(CostLineKind kind, string text, string[] colours)
+    {
+        Kind = kind; Text = text; Colours = colours;
+    }
 }

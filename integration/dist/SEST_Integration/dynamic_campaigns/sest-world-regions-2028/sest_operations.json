@@ -1,0 +1,102 @@
+{
+  "schema": "sest.world-operations.v1",
+  "campaign_id": "sest.world_sandbox_2028.regional",
+  "display_name": "SEST Modernised Worldwide Campaign 2028",
+  "combined_sources": [
+    "original-world",
+    "regional-expansion-2028"
+  ],
+  "legacy_original_id": "sest.world_sandbox_2028",
+  "legacy_original_definition": "legacy_campaigns/sest-world-sandbox/campaign.json",
+  "save_policy": "Keep native saves unchanged. Expanded identity retained; new content requires a new game.",
+  "economy": {
+    "campaign_values": "game credits",
+    "combat_catalogue": "USD estimates; catalogue basis shown in UI"
+  },
+  "counts": {
+    "bases": 156,
+    "forces": 293,
+    "patrols": 54,
+    "catalogue": 1586
+  },
+  "bounds": {
+    "latMin": -62.0,
+    "latMax": 74.0,
+    "lonMin": -100.0,
+    "lonMax": 258.0
+  },
+  "longitude_policy": "Continuous engine interval; wrap only for geographic display.",
+  "theatres": [
+    {
+      "id": "europe",
+      "name": "European Waters",
+      "bounds": [
+        30,
+        74,
+        -25,
+        45
+      ]
+    },
+    {
+      "id": "middle-east",
+      "name": "Middle East and Indian Ocean",
+      "bounds": [
+        -5,
+        32,
+        30,
+        100
+      ]
+    },
+    {
+      "id": "africa",
+      "name": "African and Cape Routes",
+      "bounds": [
+        -40,
+        30,
+        -25,
+        55
+      ]
+    },
+    {
+      "id": "americas",
+      "name": "Americas and Southern Ocean",
+      "bounds": [
+        -62,
+        74,
+        -130,
+        -25
+      ]
+    },
+    {
+      "id": "southern",
+      "name": "Allied Southern Flank",
+      "bounds": [
+        -62,
+        -5,
+        100,
+        180
+      ]
+    },
+    {
+      "id": "pacific",
+      "name": "Pacific and East Asia",
+      "bounds": [
+        -5,
+        74,
+        100,
+        258
+      ]
+    }
+  ],
+  "features": [
+    "replenishment",
+    "tankers",
+    "convoys",
+    "ground",
+    "spyShips",
+    "traffic",
+    "ranks",
+    "catalogue"
+  ],
+  "service_policy": "Fictional service awards from completed manual battle reports; never inferred from USD spending."
+}

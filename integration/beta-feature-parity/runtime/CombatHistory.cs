@@ -85,6 +85,10 @@ internal static class CombatHistory
 			}
 			else
 			{
+                if (string.IsNullOrEmpty(pending.Source) && capture.Source.StartsWith("DCM:", StringComparison.Ordinal))
+                {
+                    pending.Source = capture.Source; pending.MissionIndex = capture.MissionIndex;
+                }
 				capture.Id = pending.Id;
 				capture.Source = pending.Source;
 				capture.MissionIndex = pending.MissionIndex;

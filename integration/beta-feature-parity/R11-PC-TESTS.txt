@@ -1,0 +1,81 @@
+R11 MODERNISED WORLD, SERVICE RIBBONS AND STRIKE PRESENTATION
+9 November 2026 | SEST-DEV | beta 0.8.7-261107, native SHA 499675cd
+
+For the existing R10 beta installation: close Sea Power, extract the full
+release toolkit into a new folder, then run Prepare-PC.cmd at its root.
+That imports the reviewed source, checks author config updates, repairs
+the beta code and installs the backed-up campaign data. It prints separate
+data backup and canonical upload paths. It never submits anything to Steam.
+
+Run the root Prepare-PC.cmd once. R11\Repair-Beta-Startup.cmd alone changes
+code only; the root command also installs the new world and ribbon data.
+If a check stops, retain its report and send the error. Do not print a
+success message or continue installing after a failed author-update check.
+
+WORLD CAMPAIGN
+- One menu entry: SEST Modernised Worldwide Campaign 2028. The original
+  world plus all regional additions are combined: 156 bases, 293 forces,
+  54 patrols and 1,586 catalogue entries. Check Europe, Indian Ocean,
+  Australia, the Americas and both sides of the date line on the beta map.
+- Start a NEW game to receive the updated definition. The previous regional
+  save ID is retained; existing saves keep their own units and base state.
+- On the strategic map, F11 opens World Campaign Operations. Test Overview,
+  Forces, Costs and Service; drag, resize, scroll, close and pop out/return.
+  Scrolling the window should not zoom the map. Test smaller resolutions.
+- Credits are native campaign points. USD is an independent catalogue
+  estimate, with price basis and unknown items displayed. It is not deducted
+  from the campaign budget. Fleet subtotal excludes embarked aircraft,
+  stores, cargo and ground units; no zero-cost assumption for unknown prices.
+- Launch and complete a battle; return to the world map, then save/load.
+  Confirm the itemised battle cost appears once. Reloading the same completed
+  report should not earn duplicate ribbons or duplicate battle totals.
+
+RIBBONS
+- Native completion ribbons are defined for Southern Watch, Southern Reach,
+  Red Line and Sulu Line. Complete the final playable mission and inspect
+  the native Task Force Service Record and citation. Existing third-party
+  ribbon definitions, including Baltic Approaches, are preserved.
+- World service is a separate profile record: Meridian Accord after three
+  completed manual battles, Iron Meridian after ten, theatre service after
+  two battles with recorded engagement positions. Auto-resolves do not count.
+  Older reports without positions count globally only. Awards are fictional.
+- World service persists under LocalLow/Triassic Games/Sea Power/SEST/
+  world-service-v1.txt. It belongs to this profile/campaign/coalition across
+  saves. Native commander records and native campaign saves are unchanged.
+  An unknown saved format becomes read-only and is preserved.
+- Specialist logistics/ROE/performance awards are not granted from spending.
+  They need additional gameplay evidence before implementation.
+
+COORDINATED STRIKE TOOL
+- Open the existing author's tool during a battle. Verify its original unit,
+  target, timing, readiness, salvo, guidance, arm, cancel and launch controls.
+- SEST adds shared colours and a strike summary: planned rounds, leg notices,
+  planned weapon value and remaining-to-launch value. Prices are estimates,
+  separate from the F11 record of actual expenditure. Missing prices show ?.
+- This iteration refines the author's IMGUI presentation. It does not replace
+  the planner with a Noesis window or change its scheduling/launch algorithms.
+
+COMPATIBILITY AND REGRESSION CHECKS
+- Current Topography 1.5.1 keeps the author's option fallbacks and gets the
+  inspected 50 m shoreline correction. Old 1.5.0 support is retained. Both
+  inspected flat-only images remain held on this globe build.
+- Current Pop-Out Windows is recognised by its inspected hash. Check Contacts,
+  Group Manager and F11 windows on the main and secondary display.
+- DCM's automatic anti-ship salvo-hold patch targets the current beta method;
+  the author's anti-ship-only predicate and existing native blocks remain.
+- Recheck Identify sends, native F11 mission costs, debrief, campaign
+  continuation, terrain clearance, SAR, Osprey and second-mission startup.
+
+LEGACY ORIGINAL SAVE
+The original definition is archived outside the new-game menu. Only if you
+need a save made under sest.world_sandbox_2028, use tools/select-legacy-world.ps1
+from the imported source checkout with -PackPath pointing at Workshop item
+3812461539. This temporarily exposes its original menu entry. -Disable returns
+to one world entry. It never rewrites a save. Your current regional saves do
+not require this activation.
+
+After testing, quit and run R11\Capture-Repair-Results.cmd; send the new capture.
+Managed and installer checks cannot verify native Noesis rendering, Steam
+upload behavior or a complete world campaign. Treat this as a beta candidate
+until those PC checks pass. The canonical stable upload keeps stable code;
+the new Operations/strike code is in the separate beta payload.

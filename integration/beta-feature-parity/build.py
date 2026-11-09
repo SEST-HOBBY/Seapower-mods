@@ -18,7 +18,7 @@ PINS = {
     'AnchorChain.dll': 'e272811050698640a8936834363da91769dbc83e017637e3629c21bca6bea764',
     'AnchorChain.Preloader.dll': '1ee1570f1e7f457ffa63c24ee4085b2cdea8069ea8cebf146de5ef027eaa3984',
     'IdentifyExpanded.dll': '9f0ec630e9d7659082bdce61743a87895de14f1903a44c68395f8f158af8afd7',
-    'SeaPowerPopOut.dll': '5709ed68af4623fceee3f3badc8e06bdb9b98f8e095fb0deac2685a9ebc5fc36',
+    'SeaPowerPopOut.dll': 'a8f1092ac247032219ebf00aa773b91d14f4bb4a7f2575ca1a4594da57abd882',
     'ContactLog.dll': 'a1b8b450df0933df61984651fe2b19138acd605aa4b526bbfc23565d8295015e',
     'SeaPowerSquadPanel.dll': '6230e8e78e2ba7ba222241d0c3dcc881d2507ebeeb4eab24b6401cc9144283dd',
     'CombatCosts.dll': '8f7195ff1540d1901446b3783789c84e1f76bebe943da7606afd85f9dd3d78bc',
@@ -119,23 +119,25 @@ def main():
     compile('SEST.ContactsFix.dll', sorted((HERE / 'ui').glob('*.cs')) + [pins('Sest.UiFixes')])
     compile('SEST.IdentifyDataPaths.dll', list((HERE / 'identify').glob('*.cs')) + [pins('Sest.IdentifyDataPaths')])
     compile('NativeBindingTests.exe', [HERE / 'tests/NativeBindingTests.cs'])
-    compile('CatalogueRuntimeTests.exe', [HERE.parent / 'ui-followup/source/CatalogueRuntimeTests.cs'])
+    compile('CatalogueRuntimeTests.exe', [HERE / 'tests/CatalogueRuntimeTests.cs'])
     compile('PathTests.exe', [HERE / 'tests/PathTests.cs'] + list((HERE / 'identify').glob('*.cs')) + [pins('Sest.IdentifyDataPaths')])
     compile('LoaderTests.exe', [HERE / 'tests/LoaderTests.cs'])
     compile('RuntimeParityTests.exe', [HERE / 'tests/RuntimeParityTests.cs'])
     compile('HookTests.exe', [HERE / 'tests/HookTests.cs'])
     compile('AssemblyPolicyTests.exe', [HERE / 'tests/AssemblyPolicyTests.cs'])
-    compile('BetaApiTests.exe', [HERE / 'tests/BetaApiTests.cs'])
+    compile('BetaApiTests.exe', sorted((HERE / 'tests').glob('BetaApiTests*.cs')))
     compile('CostRowsTests.exe', [HERE / 'tests/CostRowsTests.cs'])
+    compile('WorldOperationsTests.exe', [HERE / 'tests/WorldOperationsTests.cs'])
     outputs = ['AnchorChain.dll', 'SEST.BetaSafeBootstrap.dll', 'SEST.RuntimeFixes.dll',
                'SEST.ContactsFix.dll', 'SEST.IdentifyDataPaths.dll']
     source_files = runtime_sources + list((HERE / 'ui').glob('*.cs')) + list((HERE / 'identify').glob('*.cs'))
     source_files += anchor_sources + [HERE.parent / 'beta-anchorchain/SEST.BetaSafeBootstrap.cs', Path(__file__)]
     source_files += list((HERE / 'tests').glob('*.cs')) + list((HERE / 'tests').glob('*.ps1'))
+    source_files += [HERE / 'README.md', HERE / 'R11-PC-TESTS.txt', ROOT / 'tools/capture-beta-references.ps1']
     source_files += [HERE / 'Install-SEST-Beta.ps1', HERE / 'Repair-SEST-Beta-Startup.ps1', HERE / 'tests/check_runtime_contract.py', HERE / 'verify.py', HERE / 'package.py']
     manifest = {
         'format': 1, 'status': 'compiled-candidate-needs-pc-gameplay-test',
-        'candidate_revision': 'R10-20261108-topography-499675cd',
+        'candidate_revision': 'R11-20261109-world-service-499675cd',
         'target_game_sha256': PINS['Seapower-Scripts.dll'], 'target_noesis_sha256': PINS['Noesis.NoesisGUI.dll'],
         'runtime_source': 'reconstructed-from-captured-1.5.0; original-project-not-recovered',
         'original_runtime_sha256': sha(original), 'captured_references': PINS,

@@ -16,7 +16,7 @@ differ from a build.py build; the receipt records which compiler produced them.
 param(
     [Parameter(Mandatory)][string]$Capture,
     [Parameter(Mandatory)][string]$Output,
-    [string]$Revision = 'R10-20261108-topography-499675cd'
+    [string]$Revision = 'R11-20261109-world-service-499675cd'
 )
 Set-StrictMode -Version Latest
 $ErrorActionPreference = 'Stop'
@@ -30,7 +30,7 @@ $pins = @{
     'AnchorChain.dll' = 'e272811050698640a8936834363da91769dbc83e017637e3629c21bca6bea764'
     'AnchorChain.Preloader.dll' = '1ee1570f1e7f457ffa63c24ee4085b2cdea8069ea8cebf146de5ef027eaa3984'
     'IdentifyExpanded.dll' = '9f0ec630e9d7659082bdce61743a87895de14f1903a44c68395f8f158af8afd7'
-    'SeaPowerPopOut.dll' = '5709ed68af4623fceee3f3badc8e06bdb9b98f8e095fb0deac2685a9ebc5fc36'
+    'SeaPowerPopOut.dll' = 'a8f1092ac247032219ebf00aa773b91d14f4bb4a7f2575ca1a4594da57abd882'
     'ContactLog.dll' = 'a1b8b450df0933df61984651fe2b19138acd605aa4b526bbfc23565d8295015e'
     'SeaPowerSquadPanel.dll' = '6230e8e78e2ba7ba222241d0c3dcc881d2507ebeeb4eab24b6401cc9144283dd'
     'CombatCosts.dll' = '8f7195ff1540d1901446b3783789c84e1f76bebe943da7606afd85f9dd3d78bc'
@@ -151,7 +151,7 @@ $identifySources = SortedCs (J $here 'identify')
 Compile 'SEST.ContactsFix.dll' ($uiSources + @((Pins 'Sest.UiFixes')))
 Compile 'SEST.IdentifyDataPaths.dll' ($identifySources + @((Pins 'Sest.IdentifyDataPaths')))
 Compile 'NativeBindingTests.exe' @((J $here 'tests' 'NativeBindingTests.cs'))
-Compile 'CatalogueRuntimeTests.exe' @((J $here '..' 'ui-followup' 'source' 'CatalogueRuntimeTests.cs'))
+Compile 'CatalogueRuntimeTests.exe' @((J $here 'tests' 'CatalogueRuntimeTests.cs'))
 Compile 'PathTests.exe' (@((J $here 'tests' 'PathTests.cs')) + $identifySources + @((Pins 'Sest.IdentifyDataPaths')))
 Compile 'LoaderTests.exe' @((J $here 'tests' 'LoaderTests.cs'))
 Compile 'RuntimeParityTests.exe' @((J $here 'tests' 'RuntimeParityTests.cs'))
@@ -161,11 +161,14 @@ Compile 'AssemblyPolicyTests.exe' @((J $here 'tests' 'AssemblyPolicyTests.cs'))
 Compile 'BetaApiTests.exe' @(Get-ChildItem -LiteralPath (J $here 'tests') -Filter 'BetaApiTests*.cs' -File | Sort-Object -Property Name -Culture '' | ForEach-Object { $_.FullName })
 if (Test-Path -LiteralPath (J $here 'tests' 'CostRowsTests.cs')) { Compile 'CostRowsTests.exe' @((J $here 'tests' 'CostRowsTests.cs')) }
 
+Compile 'WorldOperationsTests.exe' @((J $here 'tests' 'WorldOperationsTests.cs'))
+
 $outputs = 'AnchorChain.dll', 'SEST.BetaSafeBootstrap.dll', 'SEST.RuntimeFixes.dll', 'SEST.ContactsFix.dll', 'SEST.IdentifyDataPaths.dll'
 $sourceFiles = @($runtimeSources) + @(Get-ChildItem -LiteralPath (J $here 'ui') -Filter '*.cs' -File | ForEach-Object { $_.FullName })
 $sourceFiles += @(Get-ChildItem -LiteralPath (J $here 'identify') -Filter '*.cs' -File | ForEach-Object { $_.FullName })
 $sourceFiles += @($anchorSources) + @((J $anchorDir 'SEST.BetaSafeBootstrap.cs'), (J $here 'build.py'), $PSCommandPath)
 $sourceFiles += @(Get-ChildItem -LiteralPath (J $here 'tests') -File | Where-Object { $_.Name -like '*.cs' -or $_.Name -like '*.ps1' } | ForEach-Object { $_.FullName })
+$sourceFiles += @((J $here 'R11-PC-TESTS.txt'), (J $here 'README.md'), (J $root 'tools' 'capture-beta-references.ps1'))
 $sourceFiles += @((J $here 'Install-SEST-Beta.ps1'), (J $here 'Repair-SEST-Beta-Startup.ps1'), (J $here 'tests' 'check_runtime_contract.py'), (J $here 'verify.py'), (J $here 'package.py'))
 
 $files = [ordered]@{}

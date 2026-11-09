@@ -35,6 +35,13 @@ internal static class NativeCostTypography
 				});
 				continue;
 			}
+            if (row.Kind == CostLineKind.Ribbon && row.Colours != null)
+            {
+                var band = new StackPanel { Orientation = Orientation.Horizontal };
+                foreach (string colour in row.Colours)
+                    band.Children.Add(new Border { Width = 20f, Height = 20f, Background = Ink(colour) });
+                panel.Children.Add(new Border { Child = band, BorderBrush = Ink("#B0B8BC"), BorderThickness = new Thickness(1f), HorizontalAlignment = HorizontalAlignment.Left, Margin = new Thickness(0f, 10f, 0f, 4f) });
+            }
 			TextBlock textBlock = new TextBlock();
 			textBlock.Text = row.Text.TrimStart();
 			textBlock.TextWrapping = TextWrapping.Wrap;
@@ -68,7 +75,8 @@ internal static class NativeCostTypography
 				textBlock2.Foreground = Ink("#B6C8D4");
 				textBlock2.Margin = new Thickness(0f, 10f, 0f, 5f);
 				break;
-			case CostLineKind.Mission:
+			case CostLineKind.Ribbon:
+            case CostLineKind.Mission:
 				textBlock2.FontWeight = FontWeight.DemiBold;
 				textBlock2.Foreground = Ink("#F0F3F5");
 				textBlock2.Margin = new Thickness(0f, 0f, 0f, 4f);

@@ -19,7 +19,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[2]
 HERE = ROOT / "integration/world-sandbox"
 PACK = HERE / "SEST_World_Campaign"
-CAMPAIGN = PACK / "dynamic_campaigns/sest-world-sandbox/campaign.json"
+CAMPAIGN = PACK / "legacy_campaigns/sest-world-sandbox/campaign.json"
 REPORT = HERE / "draft/conversion.json"
 
 # Runs in its own interpreter: the builder puts three folders on sys.path and

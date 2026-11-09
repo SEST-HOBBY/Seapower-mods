@@ -1,12 +1,7 @@
-[b]November integration update[/b]
+Modernised Worldwide Campaign 2028
 
-[list]
-[*]Refreshed against the Workshop configurations captured on 8 November, including Modern US Navy, Mogami, PLAN, South Korea, India, Hyundai export ships and Modern RAN.
-[*]Rebuilt helicopter model/rotor definitions, Mogami ammunition and flight-deck changes, PLAN geometry/sensor changes and the authors' ship-signature revisions.
-[*]Captured the RAN's newly promoted NASAMS, CEAOPS and Mogami definitions and removed retired testing/legacy paths.
-[*]Retained campaign dependency and cost-accounting corrections, including saved-campaign Chilean hull prices and inherited squadron nation detection.
-[*]Updated the stable UI companion for Pop-Out Windows 1.1.3 and Combat Cost Tracker 0.8.0 while retaining Runtime 1.5.0.
-[*]Retained the tactical-map settings, Redback helicopter night-vision declarations and normal-release CIWS tuning.
-[/list]
+The original World Sandbox and complete Regional Expansion are combined into one worldwide campaign entry: 156 bases, 293 force groups, 54 patrols and 1,586 catalogue entries.
 
-[b]Compatibility:[/b] The public payload targets stable Build 261021. The separate R8 beta repair targets the game assembly captured on 8 November and remains a gameplay-test candidate. Its DLLs are not included in this upload. Clipped tabs and Global Hawk behavior are not advertised as fixed. Workshop dependencies remain required.
+The existing regional campaign identity is retained. New content applies to new games; existing saves keep their own state. The original definition and an optional legacy-save selection helper are retained in the pack.
+
+Southern Watch, Southern Reach, Red Line and Sulu Line gain fictional campaign-completion ribbons with artwork and citations in the native Task Force Service Record. Existing third-party ribbon definitions are preserved.

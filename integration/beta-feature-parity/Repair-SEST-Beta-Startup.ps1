@@ -132,7 +132,7 @@ try {
     Copy-Verified (J $backup 'current-before-repair.json') $statePath
     throw $failure
 }
-Write-Host 'R8 beta repair installed for the 8 November captured game assembly 499675cd; original backups and Identify data retained.' -ForegroundColor Green
-Write-Host 'Runtime 1.5.5 and UI 1.4.8 beta support the captured Combat Cost Tracker 0.8 and Pop-Out Windows 1.1.3.'
-Write-Host 'EnhancedDecoyMod, Topographic Map and MultiStageMissiles remain inactive pending native API ports. ExtendedGuidance stays disabled by the SEST profile.'
-Write-Host 'Launch beta, test F11, debrief, campaign continuation, formation/Contacts, SAR and Osprey fuel use, then Capture-Repair-Results.cmd.'
+Write-Host ('Reviewed beta code installed: '+$new.candidate_revision+'. Original restore journal and Identify data retained.') -ForegroundColor Green
+Write-Host 'R11 includes World Operations, service progress and Coordinated Strike presentation. The root Prepare-PC command also installs the combined world and native ribbon data.'
+Write-Host 'Follow R11-PC-TESTS in README-FIRST: check the world map, F11 tabs, strike controls, native service records, Topography, pop-outs and campaign continuation.'
+Write-Host 'Quit and run Capture-Repair-Results.cmd after testing. Steam publication remains a separate step.'

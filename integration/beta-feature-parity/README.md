@@ -1,3 +1,39 @@
+# R11 — modernised worldwide campaign, service ribbons and strike refinements
+
+Target: the owner's 9 November 13:50 Brisbane capture, Sea Power
+0.8.7-261107 (`499675cd…`). Runtime is 1.6.0; paired UI is 1.4.9.
+The original world and complete regional expansion ship as one new-game
+entry. Expanded-save ID `sest.world_sandbox_2028.regional` stays unchanged.
+The original definition is archived for reversible legacy-save activation.
+New campaign content requires a new game; existing saves keep their state.
+
+F11 on the DCM strategic map offers Overview, Forces, Costs and Service in
+a native movable/resizable/pop-out window. Campaign credits stay separate
+from USD catalogue estimates. Service uses a versioned, atomic, independent
+profile ledger; native DCM saves and commander records are not rewritten.
+Native final-mission ribbons are added to the four authored SEST campaigns.
+Existing third-party ribbons are retained. Auto-resolves do not earn manual
+service, and theatre progress requires a recorded engagement position.
+
+The current Coordinated Strike Tool keeps its own IMGUI controls and launch
+logic. SEST adds shared colours and planned/remaining weapon-cost estimates.
+A full native-window migration is a later UI task, not claimed in this build.
+
+Topography 1.5.1 retains the author's removed-option fallbacks; only its
+remaining shallow-water threshold is changed. The older 1.5.0 recipe remains
+supported. Both inspected flat-only DLLs are held on this globe build.
+Current Pop-Out Windows is hash-reviewed. DCM's salvo-hold patch targets the
+new automatic-fire method and preserves the author's anti-ship-only filter
+and the game's existing blocks. Original author DLLs remain unchanged.
+
+See [R11-PC-TESTS.txt](R11-PC-TESTS.txt) for installation, limitations and PC
+acceptance checks. This is a private beta candidate. No Unity or Noesis native
+rendering, full campaign progression or Steam publication occurred here.
+The canonical stable upload continues to carry stable code; the new beta UI
+is delivered separately. Earlier implementation records follow for provenance.
+
+## Historical R10 record
+
 # R10 — Topographic Map restored for the captured globe beta
 
 The 23:53 Brisbane capture confirms R9 is installed on 0.8.7-261107

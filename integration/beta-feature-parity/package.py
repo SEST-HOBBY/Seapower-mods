@@ -27,7 +27,7 @@ for name, expected_hash in receipt['files'].items():
     assert hashlib.sha256((candidate / name).read_bytes()).hexdigest() == expected_hash, name
 for name, expected_hash in receipt['source_files'].items():
     assert hashlib.sha256((root / name).read_bytes()).hexdigest() == expected_hash, 'Source changed after verification: ' + name
-readme = '''SEST BETA FUNCTIONALITY TEST — CAPTURED ASSEMBLY 499675cd, 8 NOVEMBER 2026
+readme = '''SEST BETA FUNCTIONALITY TEST — CAPTURED ASSEMBLY 499675cd, 9 NOVEMBER 2026
 
 Stay on the beta game build. This is a beta compatibility test candidate,
 with the complete pre-beta Runtime feature implementation; it is not yet
@@ -89,29 +89,7 @@ commands = {
 }
 repair_commands = {}
 if a.repair_base:
-    readme = '''R10 TOPOGRAPHIC MAP BETA REPAIR — 8 NOVEMBER 2026
-
-For the existing R9 installation on 0.8.7-261107 (game hash 499675cd).
-Close Sea Power, extract into a NEW folder, run Repair-Beta-Startup.cmd.
-Original candidate backups, Identify data, campaigns and settings are kept.
-Only the bounded loader changes from R9. Runtime/UI remain 1.5.5 / 1.4.8.
-
-The captured SeaPowerTopo 1.5.0 globe DLL is adapted in the private cache:
-four removed terrain-option reads use native land/depth factors, and the
-metre-based shallow-water boundary matches this game. Original author DLLs
-stay unchanged. The flat-map DLL stays held on the globe game.
-
-In a mission, turn on Map Layers > Topography (or the title-bar mountain
-button; default F6). Check land relief, sea depths, cursor height, aircraft
-clearance and submarine overlays. Pan/zoom, switch day/night looks, try the
-mission editor and start a second mission. Check errors and responsiveness.
-Quit and run Capture-Repair-Results.cmd. No map was rendered by managed tests.
-
-Other R9 feature holds stay in place. This is a private beta playtest repair;
-the separate canonical stable Steam upload is unchanged. See
-BETA-FEATURE-PARITY.md for scope, source attribution and prior limitations.
-
-''' + readme
+    readme = (here / 'R11-PC-TESTS.txt').read_text(encoding='utf-8') + "\n\n" + readme
     repair_commands = {'Repair-Beta-Startup.cmd':'Repair', 'Disable-Beta-Test.cmd':'Disable',
                        'Capture-Repair-Results.cmd':'Collect'}
 a.output.parent.mkdir(parents=True, exist_ok=True)

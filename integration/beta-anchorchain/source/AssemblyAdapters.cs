@@ -95,6 +95,7 @@ public static partial class BetaAssemblyPolicy
         adapter?.RequireNative?.Invoke(native);
         var counts = new SortedDictionary<string, int>(StringComparer.Ordinal);
         void Count(string name) => counts[name] = counts.TryGetValue(name, out int value) ? value + 1 : 1;
+        if (campaign) CampaignSalvoTarget(module, native, Count);
         var scope = adapter == null ? null : new AdapterScope { Module = module, Native = native, Count = Count };
         MethodReference Bridge(string name) => module.ImportReference(typeof(BetaCompatibilityCalls).GetMethod(name));
         var location = module.ImportReference(typeof(BetaAssemblyPolicy).GetMethod(nameof(OriginalLocation)));
@@ -291,7 +292,7 @@ public static partial class BetaAssemblyPolicy
         // version. Unexpected counts reject the private image before CLR load.
         string audit = String.Join(", ", counts.Select(x => x.Key + "=" + x.Value));
         string expected = adapter != null ? adapter.ExpectedAudit : identify ? "bearings=10, hail-guard=1, locations=2, sender-guard=3, ui=5" :
-            campaign ? "Acquisition=1, DoUnload=1, GetDirectories=1, GetFiles=1, HasNightCapableSensors=1, SetAttackAtWaypointTask=2, attack-property=14, attack-reflection=1, bearing-reflection=1, bearings=1, facts-property=1, fuel-refresh=1, mission-get=3, mission-set=1, secondary-side=6, speed-make=1, speed-set=1, terrain-height=1, ui=24" :
+            campaign ? "Acquisition=1, DoUnload=1, GetDirectories=1, GetFiles=1, HasNightCapableSensors=1, SetAttackAtWaypointTask=2, attack-property=14, attack-reflection=1, bearing-reflection=1, bearings=1, facts-property=1, fuel-refresh=1, mission-get=3, mission-set=1, salvo-applied=1, salvo-target=1, secondary-side=6, speed-make=1, speed-set=1, terrain-height=1, ui=24" :
             decoy ? "contact-color=1, contact-exit=1, locations=2, ui=1, vehicle-view=4" : thrust ? "ini=1, locations=1" :
             launcherEffects ? "launch-reflection=2, launch-result=1, locations=2" :
             stabilization ? "locations=2, result-argument=1, target-method=1" :

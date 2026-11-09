@@ -64,6 +64,7 @@ run('bounded-loader-scheduler', [a.mono, out / 'LoaderTests.exe'])
 run('assembly-preload-policy-and-identify-geometry', [a.mono, out / 'AssemblyPolicyTests.exe', workshop, flat / 'Seapower-Scripts.dll'])
 run('campaign-scenario-beta-api-regressions', [a.mono, out / 'BetaApiTests.exe', workshop, flat / 'Seapower-Scripts.dll'])
 run('cost-rows-and-sest-catalog-fallback', [a.mono, out / 'CostRowsTests.exe', flat, runtime])
+run('world-service-and-strike-bindings', [a.mono, out / 'WorldOperationsTests.exe', flat, runtime, workshop])
 run('installer-rollback', [a.powershell, '-NoLogo', '-NoProfile', '-File', here / 'tests/Test-Installer.ps1', '-Capture', capture, '-Candidate', out])
 if len(a.previous_package) != len(a.previous_payload):
     raise SystemExit('Pair every previous package with its matching payload.')

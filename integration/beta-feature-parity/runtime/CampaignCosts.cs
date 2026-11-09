@@ -14,6 +14,8 @@ internal static class CampaignCosts
 {
 	internal sealed class CostView
 	{
+        internal string Title, Subtitle;
+        internal bool World;
 		internal readonly List<string> Summary = new List<string>();
 
 		internal readonly List<string> Details = new List<string>();
@@ -370,6 +372,7 @@ internal static class CampaignCosts
 			RawStores(combatSideRecord2, CampaignInventory.Current(value));
 			combatGameRecord2.Sides.Add(combatSideRecord2);
 		}
+        WorldOperations.Stamp(combatGameRecord2);
 		return combatGameRecord2;
 	}
 
@@ -824,6 +827,8 @@ internal static class CampaignCosts
 	{
 		return Data(openVirtual.Invoke(null, new object[4] { folder, name, name, false }));
 	}
+
+    internal static CombatPrices Catalogue() => Prices();
 
 	private static CombatPrices Prices()
 	{

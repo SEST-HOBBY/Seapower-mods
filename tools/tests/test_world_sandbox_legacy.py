@@ -8,7 +8,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[2]
 WORLD = Path("integration/world-sandbox/SEST_World_Campaign")
 DIST = Path("integration/dist/SEST_Integration")
-CAMPAIGN = Path("dynamic_campaigns/sest-world-sandbox/campaign.json")
+CAMPAIGN = Path("legacy_campaigns/sest-world-sandbox/campaign.json")
 LEGACY = "ch_ffg_jvh"
 CURRENT = "ch_ffg_jacob_van_heemskerck"
 HISTORICAL = "197000000"

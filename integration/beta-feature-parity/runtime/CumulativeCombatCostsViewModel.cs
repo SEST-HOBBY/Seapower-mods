@@ -12,7 +12,10 @@ public sealed class CumulativeCombatCostsViewModel : INotifyPropertyChanged
 
 	private string notes = string.Empty;
 
-	public string Title => "CUMULATIVE COMBAT COSTS";
+	private string title = "CUMULATIVE COMBAT COSTS";
+
+    public string Title => title;
+    internal bool World { get; private set; }
 
 	public string Subtitle => subtitle;
 
@@ -34,7 +37,10 @@ public sealed class CumulativeCombatCostsViewModel : INotifyPropertyChanged
 
 	internal void Set(CampaignCosts.CostView report, bool live)
 	{
-		bool flag = Change(ref subtitle, ((!live) ? "Campaign" : "Current mission") + " | F11 closes | Drag the title bar to move", "Subtitle");
+		bool flag = Change(ref title, report.Title ?? "CUMULATIVE COMBAT COSTS", "Title");
+        flag |= World != report.World;
+        World = report.World;
+        flag |= Change(ref subtitle, report.Subtitle ?? (((!live) ? "Campaign" : "Current mission") + " | F11 closes | Drag the title bar to move"), "Subtitle");
 		flag |= Change(ref summary, string.Join("\n", report.Summary), "Summary");
 		flag |= Change(ref details, string.Join("\n", report.Details), "Details");
 		if (flag | Change(ref notes, string.Join("\n", report.Notes), "Notes"))

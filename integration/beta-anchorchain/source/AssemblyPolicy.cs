@@ -107,6 +107,7 @@ public static partial class BetaAssemblyPolicy
         }
         if ((hash == TopographyHash && adapter == null) ||
             hash == "7b8cdabcf94112d10a7dc1a737358a0d1ceccdcce3fff9b77bae62c5bc53991c" ||
+            hash == "4169d3e94484cc6d3064fab05891f6770da2db5f90c7e7a9bf6e31ca318eb2dc" ||
             hash == "e3af7a715b260dd6cdac4af6163d873edd86c62f5934324e4e85e53887064177") {
             log("SKIPPED before CLR load: " + Path.GetFileName(source) + "; captured native APIs changed in Build 261106. Awaiting an author port; data retained.");
             return null;

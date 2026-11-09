@@ -1,260 +1,98 @@
 {
   "format": 1,
+  "release_revision": "R11",
   "status": "candidate-needs-gameplay",
   "results": [
     {
       "name": "campaign-tests",
-      "command": [
-        "-m",
-        "unittest",
-        "integration/campaign/test_build_pack.py",
-        "integration/campaign/test_playtest_revision.py"
-      ],
       "exit_code": 0,
-      "seconds": 49.32
+      "log_sha256": "2b9f0116e3ad2cfdac5244a88a7ab92760757518a39192d95b3dc1786e4cc185",
+      "result": "Ran 334 tests"
     },
     {
       "name": "tools-tests",
-      "command": [
-        "-m",
-        "unittest",
-        "discover",
-        "-s",
-        "tools/tests",
-        "-p",
-        "test_*.py"
-      ],
       "exit_code": 0,
-      "seconds": 125.32
+      "log_sha256": "ca69feee2d5b1fecde6ed2c14901280e40ca5e88a869dcd6ae64e43773da24e2",
+      "result": "OK (skipped=16)"
     },
     {
-      "name": "check_pack_fidelity",
-      "command": [
-        "tools/check_pack_fidelity.py"
-      ],
+      "name": "world-merge-preservation",
       "exit_code": 0,
-      "seconds": 2.58
+      "log_sha256": "014881452d20e1dc8055119f4569115da723b3c829592fa3a80d8bf456f994d4",
+      "result": "OK"
     },
     {
-      "name": "check_campaign_coverage",
-      "command": [
-        "tools/check_campaign_coverage.py"
-      ],
+      "name": "replenishment-fidelity",
       "exit_code": 0,
-      "seconds": 16.52
+      "log_sha256": "afdb5119fc29c20a942a35132fb335b023e028115a68be585c1adbfd748129d5",
+      "result": "every byte difference is an intended insertion"
     },
     {
-      "name": "check_dependencies",
-      "command": [
-        "tools/check_dependencies.py"
-      ],
+      "name": "campaign-coverage",
       "exit_code": 0,
-      "seconds": 14.78
+      "log_sha256": "b89faa8fb70e897bc76c0ee0058146bccedfb5e931a3c8cefc34f99d251b01f4",
+      "result": "all 228 enabled mods and SEST packs accounted for"
     },
     {
-      "name": "check_load_order",
-      "command": [
-        "tools/check_load_order.py"
-      ],
+      "name": "dependencies",
       "exit_code": 0,
-      "seconds": 0.36
+      "log_sha256": "19c29d12db70270e29e84319a6a87aeaa6afa975b047b2de7687d2197c02e823",
+      "result": "every SEST pack has its upstream mods exported and ordered"
     },
     {
-      "name": "preflight",
-      "command": [
-        "tools/preflight.py",
-        "--all"
-      ],
+      "name": "load-order",
       "exit_code": 0,
-      "seconds": 117.29
+      "log_sha256": "de3e0495cf9dae3a6537ecaedd283d61b754ea0b855b8ee037a3c587d83ab8e3",
+      "result": "every SEST override still outranks its target"
     },
     {
-      "name": "check_weapon_employment",
-      "command": [
-        "tools/check_weapon_employment.py"
-      ],
+      "name": "scenario-preflight",
       "exit_code": 0,
-      "seconds": 11.88
+      "log_sha256": "8c6d07191fccb2963a1d9263bdb4f27445bca204ac8e7ba815c9dea4b0b7aec6",
+      "result": "every unit, air group, loadout variant, hull variant and pylon store resolves"
     },
     {
-      "name": "check_alias_bases",
-      "command": [
-        "tools/check_alias_bases.py"
-      ],
+      "name": "workshop-data-install-and-restore",
       "exit_code": 0,
-      "seconds": 13.41
+      "log_sha256": "f35e8f032adfd49a4856605e01a3d1c64b33eef21a5490b8b0dbf214e38a76f5",
+      "result": "restore (24)"
     },
     {
-      "name": "check_scenarios",
-      "command": [
-        "tools/check_scenarios.py"
-      ],
+      "name": "upload-preparation-fixture",
       "exit_code": 0,
-      "seconds": 0.03
+      "log_sha256": "33f28062cf59f201edfd899592582e07bef86a6594536d764df705db62b6c858",
+      "result": "preparation (7)"
     },
     {
-      "name": "check_stale_phrases",
-      "command": [
-        "tools/check_stale_phrases.py"
-      ],
+      "name": "legacy-world-selection",
       "exit_code": 0,
-      "seconds": 1.19
+      "log_sha256": "2fce56d6a6571168c4a26272334cbd466c65db007e8703a4300b9f2360680290",
+      "result": "selection (6)"
     },
     {
-      "name": "check_inventory",
-      "command": [
-        "tools/check_inventory.py"
-      ],
+      "name": "canonical-upload-manifest",
       "exit_code": 0,
-      "seconds": 0.63
+      "log_sha256": "d32b4455b243db3c66a34bef2bb9ed50ec684869971ee6513de24c13061979b4",
+      "result": "all 4333 canonical upload files match"
     },
     {
-      "name": "check_game_version",
-      "command": [
-        "tools/check_game_version.py"
-      ],
+      "name": "canonical-git-bytes-and-windows-checkout",
       "exit_code": 0,
-      "seconds": 0.12
-    },
-    {
-      "name": "check_vanilla_drift",
-      "command": [
-        "tools/check_vanilla_drift.py",
-        "--since",
-        "1bda58a6"
-      ],
-      "exit_code": 0,
-      "seconds": 1.95
-    },
-    {
-      "name": "check_combat_costs",
-      "command": [
-        "tools/check_combat_costs.py"
-      ],
-      "exit_code": 0,
-      "seconds": 7.76
-    },
-    {
-      "name": "world",
-      "command": [
-        "integration/world-sandbox/check_dynamic_campaign.py",
-        "integration/world-sandbox/SEST_World_Campaign/dynamic_campaigns/sest-world-sandbox/campaign.json"
-      ],
-      "exit_code": 0,
-      "seconds": 3.89
-    },
-    {
-      "name": "regional",
-      "command": [
-        "integration/world-sandbox/check_dynamic_campaign.py",
-        "integration/world-sandbox/SEST_World_Campaign/dynamic_campaigns/sest-world-regions-2028/campaign.json"
-      ],
-      "exit_code": 0,
-      "seconds": 3.93
+      "result": "All 4333 canonical files match staged Git blobs; no generated text file converts to CRLF on checkout."
     }
   ],
-  "gameplay": "not run",
-  "full_from_scratch_build": "All 25 packs rebuilt and consolidated from the 8 November configuration capture. Final startup profile copied byte-for-byte from its source, as the campaign builder does.",
-  "source_capture": "SEST-Workshop-Capture-20261108-200546-FULL.zip",
-  "source_capture_date": "2026-11-08",
-  "capture_stage_problems": 0,
-  "changed_or_new_files": 94,
-  "explicit_deletions": 14,
-  "unchanged_dll_hash_records": 110,
-  "canonical_files": 4326,
-  "test_suites": {
-    "tools-tests": 335,
-    "campaign-tests": 334
-  },
-  "canonical_code": {
-    "runtime": "1.5.0",
-    "ui": "1.4.6",
-    "unchanged_from_previous_release": true,
-    "native_rendering": "not run"
-  },
-  "r8": {
-    "source_commit": "1026fbfa15d1e6a48970e69fc09b1cc8dc110068",
-    "target_game_sha256": "499675cda59912054924ae42297bce7a82b12ca00957dabd684105a24aa353a9",
-    "native_steam_build_id": "26502734",
-    "noesis_sha256": "7b1fd6a6b90d0692297906f5907a1b4a2072bf3bf25a983b36aaa5b5c043ebdd",
-    "runtime": "1.5.5",
-    "ui": "1.4.8",
-    "verification_groups": 14,
-    "admitted_author_images": 64,
-    "resolved_native_operands": 11504,
-    "api_regression_assertions": 347,
-    "r3_upgrade_rollback_assertions": 65,
-    "r7_upgrade_rollback_assertions": 65,
-    "data_install_restore_assertions": 24,
-    "held_plugins": [
-      "EnhancedDecoyMod",
-      "SeaPowerTopo",
-      "SeaPowerTopoFlat",
-      "MultiStageMissiles"
-    ],
-    "profile_disabled": "ExtendedGuidance",
-    "gameplay": "not run"
-  },
-  "r9_follow_up": {
-    "source_commit": "ffec5d5b2cda8fe66b52b41d90dbaf5f446657e7",
-    "source_capture": "SEST-Beta-References-20261108-222324-bde4bd.zip",
-    "source_capture_created_utc": "2026-11-08T12:23:24.3950953Z",
-    "pc_game_label": "0.8.7-261107",
-    "game_hash_unchanged_from_r8": true,
-    "verified_reference_files": 331,
-    "managed_and_upgrade_groups": 13,
-    "all_managed_and_upgrade_groups_passed": true,
-    "api_assertions": 419,
-    "r8_upgrade_rollback_assertions": 65,
-    "data_install_restore_fixture": "PASS, 24 assertions with R9 receipt",
-    "canonical_upload_verification": "PASS, all 4326 files; canonical data/code unchanged",
-    "prior_data_gates": "The 17 data-release gates and 335/334 test suites above are the preserved R8 results; not rerun for the unchanged data snapshot.",
-    "changed_payload_files": [
-      "AnchorChain.dll",
-      "SEST.BetaSafeBootstrap.dll"
-    ],
-    "unchanged_payload_files": [
-      "SEST.RuntimeFixes.dll",
-      "SEST.ContactsFix.dll",
-      "SEST.IdentifyDataPaths.dll"
-    ],
-    "feature_holds": [
-      "Exterior Cameras",
-      "K5 Kraken contact strike",
-      "XQ-58 shadow contacts",
-      "Alpine scoped runtime fixes",
-      "MV-75/Cheyenne II systems",
-      "EC-2 comms jamming",
-      "MV-75 crew escape"
-    ],
-    "optional_feature_hold": "Optimal Target Distance AAW interception; Ready=false, native target rules retained",
-    "r9_gameplay": "not run",
-    "steam_published": false,
-    "github_pushed": false
-  },
-  "r10_topography": {
-    "source_commit": "2e9c129acd67a2ac85a039b93335249479daadc3",
-    "capture": "SEST-Beta-References-20261108-235339-dedf89.zip",
-    "game_hash_unchanged": true,
-    "managed_and_upgrade_groups": 13,
-    "all_passed": true,
-    "api_assertions": 901,
-    "topography_assertions": 481,
-    "native_dem_values_checked": 65536,
-    "maximum_float_round_trip_difference_metres": 0.00390625,
-    "other_topography_method_bodies_unchanged": 388,
-    "upgrade_rollback_assertions": 65,
-    "data_install_restore_assertions": 24,
-    "canonical_upload_files_verified": 4326,
-    "canonical_data_and_code": "unchanged from reviewed 8 November snapshot",
-    "data_gates": "The 17 original data gates and 335/334 test suites are the preserved R8 results, not rerun for unchanged data.",
-    "restored": "Topographic Map 1.5.0 globe variant through a private, exact-hash adapter",
-    "still_held": "flat-map Topography and all other R9 feature holds",
-    "changed_payload_files": [
-      "AnchorChain.dll"
-    ],
-    "map_rendering": "not run; requires PC map check",
-    "steam_published": false,
-    "github_pushed": false
-  }
+  "beta_managed_groups": 15,
+  "beta_validation": "integration/beta-feature-parity/candidates/R11-20261109/validation.json",
+  "canonical_files": 4333,
+  "configuration_capture": "SEST-Workshop-Capture-20261108-200546-FULL.zip",
+  "code_capture": "SEST-Beta-References-20261109-135048-eef2e9.zip",
+  "limitations": [
+    "No Unity/game launch for R11",
+    "No Noesis native rendering or second-monitor execution",
+    "No full world-campaign progression",
+    "No stable-game R11 acceptance test",
+    "No Steam publication or GitHub push"
+  ],
+  "steam_published": false,
+  "github_pushed": false
 }

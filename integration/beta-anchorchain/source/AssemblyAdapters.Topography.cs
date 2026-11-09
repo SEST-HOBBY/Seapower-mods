@@ -12,6 +12,28 @@ namespace AnchorChain;
 public static partial class BetaAssemblyPolicy
 {
     internal const string TopographyHash = "cba22efb544775821c5f5d461a90059225bd5526228d7d6f76e708eeef299619";
+    internal const string Topography151Hash = "a6e75159c3bd0ddffe1db304380ff329736bb76ab9c7e21544d5d69a2dce6017";
+
+    // The author fixed removed-option reads in 1.5.1. Retain those fallbacks;
+    // only its remaining metre-domain shoreline constant needs adaptation.
+    private static ImageAdapter Topography151Adapter() => new ImageAdapter {
+        Name = "Topography151", Hashes = new[] { Topography151Hash },
+        RequireNative = TopographyRequireNative,
+        RewriteMethod = Topography151Rewrite,
+        ExpectedAudit = "shallow-threshold=1",
+    };
+
+    private static bool Topography151Rewrite(AdapterScope scope, TypeDefinition type, MethodDefinition method)
+    {
+        if (type.FullName == "SeaPowerTopo.Terrain.HeightReader" && method.Name == ".ctor") {
+            if (method.Body.CodeSize != 115 || method.Body.Instructions[0].OpCode != OpCodes.Ldarg_0 || !ParameterTypes(method, "System.Collections.Generic.HashSet`1<System.String>") ||
+                method.Body.Instructions.Any(i => i.Operand is FieldReference f && f.DeclaringType.FullName == "SeaPower.Globals"))
+                throw new InvalidOperationException("Inspected 1.5.1 author option fallback changed");
+        }
+        if (type.FullName == "SeaPowerTopo.Render.Raster" && method.Name == "SimHeight")
+            return TopographyRewrite(scope, type, method);
+        return false;
+    }
 
     private static ImageAdapter TopographyAdapter() => new ImageAdapter {
         Name = "Topography", Hashes = new[] { TopographyHash },

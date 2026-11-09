@@ -71,6 +71,8 @@ from common import quotes  # noqa: E402
 from common import flags  # noqa: E402
 
 HERE = Path(__file__).resolve().parent
+sys.path.insert(0, str(HERE))
+import service_awards
 OUT = HERE / "SEST_Campaign"
 SLUG = "sest-southern-watch"
 # The campaign's own name, and the only place it is spelled. It drives the
@@ -7387,6 +7389,8 @@ def campaign_ini(missions, events, placements):
                 # Stock marks its final mission so the campaign can be
                 # replayed in sandbox afterwards.
                 L.append("TaskForceModeFinalMission=True")
+                if service_awards.award_id(SLUG):
+                    L.append("TaskForceModeRibbonAwards=" + service_awards.award_id(SLUG))
             L.append(f"TaskForceModeCompletionPoints={mission.get('points', 0)}")
             # Zero cap increment for this first balance pass: a reward is not a
             # reason to raise the ceiling on unspent points.
@@ -8592,7 +8596,8 @@ def main():
         (camp / "player_task_force_roster.ini").write_text(c["roster_text"],
                                                            encoding="utf-8")
         (camp / "enemy_theater_roster.ini").write_text(c["enemy_text"], encoding="utf-8")
-        (camp / "commander_settings.ini").write_text(spec["COMMANDER"], encoding="utf-8")
+        (camp / "commander_settings.ini").write_text(service_awards.commander_settings(spec["COMMANDER"], SLUG), encoding="utf-8")
+        service_awards.render(camp, SLUG)
         write_emblems(spec["COMMANDER"])
         (camp / "campaign_rules_en.xml").write_text(c["rules_text"], encoding="utf-8")
         for folder, desc in folders.items():

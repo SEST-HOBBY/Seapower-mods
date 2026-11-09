@@ -1,0 +1,34 @@
+SEST MODERNISED WORLDWIDE CAMPAIGN 2028
+
+One new-game entry combines the original World Sandbox and the complete
+regional expansion: 156 bases, 293 forces, 54 patrols and 1,586 buy entries.
+This is a fictional scenario; deployments and alliances are design choices.
+Requires Dynamic Campaign Mod and the SEST collection. Start a new game for
+new content; existing saves retain their own state.
+
+REGIONAL EXPANSION SAVES
+The campaign ID sest.world_sandbox_2028.regional and its folder are retained.
+Your existing regional campaign uses that identity. No conversion is run.
+
+ORIGINAL WORLD SANDBOX SAVES
+The original definition is retained under legacy_campaigns/sest-world-sandbox.
+It is outside the new-game menu so there is one primary world campaign.
+To expose the original entry for an old original save, close the game, open
+PowerShell in this Workshop item folder and paste:
+
+  powershell -NoProfile -ExecutionPolicy Bypass -File .\tools\select-legacy-world.ps1 -PackPath .
+
+To remove that optional original entry again, with the game closed:
+
+  powershell -NoProfile -ExecutionPolicy Bypass -File .\tools\select-legacy-world.ps1 -PackPath . -Disable
+
+The helper only copies/removes the matching definition. It refuses to remove
+a locally edited definition and never edits native save files. Steam may
+restore the default single-entry layout when the mod receives an update.
+
+UI AND COSTS
+Native campaign credits remain separate from estimated USD combat prices.
+The R11 beta test payload adds an F11 Operations window with Overview, Forces,
+Costs and Service; it is separate from the canonical stable Workshop code.
+Its PC rendering and gameplay checks must pass before a wider beta release.
+Native completion ribbons for the four authored campaigns use Service Record.

@@ -1,7 +1,7 @@
 {
   "id": "sest.world_sandbox_2028.regional",
-  "name": "SEST World Sandbox 2028 - Regional Expansion (preview)",
-  "description": "Optional 2028 world-sandbox expansion with stronger RED forces in European waters, Africa and the Middle East: 15 more bases and 26 more RED forces, with Russian and Iranian supply ships that replenish their regional groups. The same starting world and rules. Host-base access, numbers and assignments are fictional scenario choices. New campaign slot; not yet tested in game.",
+  "name": "SEST Modernised Worldwide Campaign 2028",
+  "description": "One fictional worldwide campaign combining the original World Sandbox and its complete regional expansion. October 2028: command a multinational coalition across the Atlantic, European waters, the Middle East, Indian Ocean and Pacific. Regional ports, forward air detachments, replenishment groups and patrols are part of this world. The scenario's deployments, alliances and quantities are game design choices, not a statement of actual readiness or national policy.<LineBreak/><LineBreak/>Use the Dynamic Campaign panels for orders, recruitment, supplies, ground operations and convoys. SEST's F11 Operations window adds campaign overview, forces, recorded combat costs and a separate service-ribbon record on the inspected beta build. Campaign points are game credits; USD catalogue estimates in the cost report remain a separate measure.<LineBreak/><LineBreak/>Requires the SEST collection and Dynamic Campaign Mod. Beta map and topographic layers follow the installed game's map mode. Existing Regional Expansion saves retain their campaign identity; new world content is applied when starting a new campaign.",
   "start": "2028-10-01T00:00:00Z",
   "bounds": {
     "latMin": -62.0,
