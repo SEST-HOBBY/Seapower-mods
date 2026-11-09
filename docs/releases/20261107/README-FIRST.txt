@@ -1,6 +1,15 @@
 SEST R12 — FULL WORKSHOP FEATURE UPDATE
 9 November 2026 | SEST-DEV
 
+R12 CONFIGURATION REFRESH - 9 NOVEMBER, 17:33 CAPTURE
+The BetterTacMap hotkey comments and Pop-Out Windows English/German menu
+labels are now included in the author-update baseline. All 15 recorded R12
+build references match the new capture, including Topographic Map 1.6.0 and
+Pop-Out Windows 1.2.0. The five beta payload DLLs are unchanged. Extract this
+refreshed toolkit into a new folder and run Prepare-PC.cmd with Sea Power
+closed. Follow the PC checks before preparing or submitting the Steam upload.
+See R12-REFRESH-REVIEW.txt for the exact findings and validation limits.
+
 THIS STEAM UPDATE INCLUDES THE NEW UI FEATURES
 The verified SEST_Integration upload now includes the Modernised Worldwide
 Campaign, native ribbons and the installer for F11 World Operations, world

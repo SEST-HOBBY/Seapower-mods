@@ -1,0 +1,49 @@
+SEST R12 CONFIGURATION REFRESH REVIEW
+9 November 2026 | SEST-DEV
+
+RESULT
+The 17:33 review capture supplies the text changes that stopped Prepare-PC.
+R12 already supports the exact captured author DLLs. No beta DLL rebuild is
+needed for these changes. This refresh reconciles the exported text baseline
+and preserves the existing hash checks and installation/rollback behavior.
+
+CHANGES REVIEWED
+- BetterTacMap 3768036424: eight documentation blocks added above hotkeys;
+  all setting values and the DLL are unchanged.
+- Pop-Out Windows 3826396311: menu_tip and back labels added to en.ini/de.ini.
+- Updated exact export byte totals and the fingerprints for those two mods.
+
+BINARY COMPATIBILITY
+- Topographic Map 3826122523 is 1.6.0, both globe and flat-map DLLs. Their
+  exact hashes are already recognised by R12. The flat-only image remains
+  held on the globe build by the existing policy.
+- Pop-Out Windows is 1.2.0. Its exact captured DLL hash is already recognised
+  by R12's window bridge and matches the original R12 build reference.
+- All 15 recorded R12 build references match this capture.
+- All 331 supplied reference files match their recorded sizes and hashes.
+- The five beta payload DLLs and the 4,337 canonical upload files are unchanged.
+
+LOG REVIEW
+The captured logs predate R12 installation and still identify Topography 1.5.1
+and Pop-Out Windows 1.1.3. They cannot establish new-candidate acceptance.
+DCM's failed SalvoHoldPatch is addressed by the existing R12 adapter, which
+still needs in-game confirmation. An AI simulation pause recovered after
+7.4 seconds. Native fallback messages are not evidence of a launch crash.
+The 205th live Mod Manager row is disabled ACConfigs; no duplicate SEST row
+was found. Canonical inventory remains 203 external Workshop mods plus SEST.
+
+NEXT PC STEP
+Close Sea Power. Extract the complete refreshed toolkit to a new folder and
+run Prepare-PC.cmd. Keep the printed checkout and backup/upload paths.
+If preparation stops, retain the report and capture the error.
+
+Test a new world and existing regional save; complete and return from a
+battle; save/load; check F11 tabs, service records, strike planning, Contacts,
+Group Manager and pop-out/return on both screens. Quit, then run
+R12\Capture-Repair-Results.cmd and attach its new capture for review.
+Upload-PC.cmd and Steam submission follow successful gameplay checks.
+
+VALIDATION
+REFRESH-VALIDATION.json records checks rerun for this refresh. VALIDATION.json
+and R12/VALIDATION.json preserve the original R12 results for unchanged code.
+Fresh Windows/Unity execution and Steam publication have not occurred here.
