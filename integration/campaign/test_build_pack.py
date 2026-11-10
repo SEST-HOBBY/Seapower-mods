@@ -1560,6 +1560,14 @@ class PlayTest18Oct(unittest.TestCase):
         _name, text = bp.render(m, *small_placement())
         n = _trigger_numbers(text)
         self.assertIn(f"Action_EnableTriggers=Trigger{n['Stage held']}", triggers["Stage"])
+        # Enabled AND reactivated, in that order, as 04 Chagos Gambit arms its
+        # rain loop: enabling alone leaves the Time condition counting from
+        # mission start (step-3 design, finding 1; 10 Nov 2026).
+        stage = triggers["Stage"]
+        reactivate = f"Action_ReactivateTriggers=Trigger{n['Stage held']}"
+        self.assertIn(reactivate, stage)
+        self.assertLess(stage.index(f"Action_EnableTriggers=Trigger{n['Stage held']}"),
+                        stage.index(reactivate))
         held = triggers["Stage held"]
         self.assertIn("Disabled=True", held)
         self.assertIn("Condition_Condition2_Time=180", held)
@@ -1568,6 +1576,39 @@ class PlayTest18Oct(unittest.TestCase):
         self.assertIn(f"Action_EnableTriggers=Trigger{n['Objective met']}", held)
         self.assertIn("Disabled=True", triggers["Objective met"])
         self.assertIn("StageHeldMessage=<color=yellow>Loaded.</color>|All aboard.", text)
+
+    def test_a_held_stage_starts_its_clock_at_the_arrival(self):
+        # The stock pattern this follows: 04 Chagos Gambit's Trigger3 arms
+        # its disabled Time= trigger with both actions, enable then
+        # reactivate (lines 510-526 of the stock file).
+        chagos = (bp.ROOT / "mods-source" / "_vanilla" / "original" / "campaigns"
+                  / "strike-group-molniya-campaign" / "missions" / "04 Chagos Gambit.ini"
+                  ).read_text(encoding="utf-8", errors="replace")
+        rain = re.search(r"^\[Trigger3\]\n(.*?)(?=^\[)", chagos, re.M | re.S).group(1)
+        self.assertIn("Condition_Condition1_Type=Time", rain)
+        self.assertRegex(rain, r"Action_EnableTriggers=Trigger4\nAction_ReactivateTriggers=Trigger4\n")
+        # And every built mission with a held stage (SW03 Rig Seventeen and
+        # RLC1 Pilot in the Water, in the campaign and mission-browser
+        # copies) arms its held trigger the same way.
+        pack = bp.ROOT / "integration" / "campaign" / "SEST_Campaign"
+        found = []
+        for ini in sorted(pack.rglob("*.ini")):
+            text = ini.read_text(encoding="utf-8", errors="replace")
+            if "\nName=Stage held\n" not in text:
+                continue
+            n = _trigger_numbers(text)
+            stage = re.search(rf"^\[Trigger{n['Stage']}\][^\n]*\n(.*?)(?=^\[|\Z)", text,
+                              re.M | re.S).group(1)
+            held = n["Stage held"]
+            with self.subTest(mission=ini.name):
+                self.assertIn(f"Action_EnableTriggers=Trigger{held}\n"
+                              f"Action_ReactivateTriggers=Trigger{held}\n", stage)
+            found.append(ini.stem)
+        if not found:
+            self.skipTest("pack not built")
+        self.assertEqual(sorted(set(found)), ["Red Line C1 - Pilot in the Water",
+                                              "Southern Watch 03 - Rig Seventeen"])
+        self.assertEqual(len(found), 4)
 
     def test_a_held_stage_needs_its_message(self):
         v = dict(small_mission()["victory"],
@@ -2176,7 +2217,10 @@ class SameNationDiscount(unittest.TestCase):
     # apply_reserve): eleven classes of five navies in Southern Watch and
     # three in Southern Reach on 20 Oct 2026, the whole allied fleet of
     # eleven navies in both since 21 Oct. Red Line's reserve is its own
-    # navy's.
+    # navy's. New Zealand (10 Nov 2026) sells an aircraft only, the RNZAF
+    # P-8A, which the build judges before it reaches the roster
+    # (AlliedReserve); no class is registered to Canada (the RCAF CC-330, a
+    # tanker, was dropped the same day).
     ALLIED_NAVIES = {"us", "uk", "france", "germany", "italy", "spain", "netherlands",
                      "norway", "denmark", "japan", "south_korea"}
     PARTNER_NATIONS = {"sest-sulu-line": {"thailand", "australia", "us"},
@@ -2220,25 +2264,87 @@ class SameNationDiscount(unittest.TestCase):
         self.assertNotIn("No national purchase discount", page)
 
     def test_every_offered_commander_nation_is_named_with_its_classes(self):
-        # Southern Watch offers an Australian (default), American, British or
-        # Japanese commander (service_awards.NATIONS). The game's discount
-        # follows the committed nation, so the page gives each its classes
-        # (review of 7be336cb, TF-1).
+        # Southern Watch offers an Australian (default) commander or one of
+        # thirteen allied navies' (service_awards.NATIONS; ten fewer until
+        # 10 Nov 2026). The game's discount follows the committed nation, so
+        # the page gives each its classes (review of 7be336cb, TF-1): one
+        # class is singular, and a nation with none says so.
+        #
+        # The spec's ROSTER holds no reserve aircraft: apply_reserve holds
+        # them (RESERVE_AIR) until main() judges them on the built missions
+        # and admit_aircraft() puts the ones that fly on the roster. New
+        # Zealand's one class is an aircraft, the RNZAF P-8A, so the page
+        # built here from the spec has none for it. The built pages, below,
+        # carry the P-8A and give New Zealand its one class.
         spec = dict(bp.campaign_specs()[0])
+        self.assertIn("rnzaf_p8", [e["unit"] for e in spec["RESERVE_AIR"]])
+        self.assertNotIn("rnzaf_p8", [e["unit"] for e in spec["ROSTER"]])
         counts = collections.Counter(bp.roster_nations(spec["ROSTER"]).values())
         page = bp.campaign_rules(spec)
+        self.assertEqual(counts["Norway"], 1)
+        self.assertEqual(counts["NewZealand"], 0)
+        self.assertEqual(counts["Canada"], 0)
         self.assertIn(f"It covers the {counts['Australia']} classes registered to Australia for "
                       f"an Australian commander, the {counts['US']} classes registered to the "
                       f"USA for an American commander, the {counts['UK']} classes registered "
-                      f"to the United Kingdom for a British commander and the "
+                      f"to the United Kingdom for a British commander, the "
                       f"{counts['Japan']} classes registered to Japan for a Japanese "
-                      "commander. Every other class costs its listed price; no commander's "
-                      "discount covers the classes registered to ", page)
+                      "commander, ", page)
+        self.assertIn(f"the {counts['Italy']} classes registered to Italy for an Italian commander", page)
+        # A count of one is a word (review of 10 Nov 2026).
+        self.assertIn("the one class registered to Norway for a Norwegian commander and the one "
+                      "class registered to Denmark for a Danish commander. Every other class costs "
+                      "its listed price.", page)
+        self.assertIn("no class for a New Zealand commander (none is registered to New Zealand)", page)
+        self.assertNotRegex(page, r"\b1 classes|\bthe 1 class\b")
+        # Which commanders the campaign's national awards go to, and that the
+        # others receive the fictional ribbons and the host's unit award only.
+        self.assertIn("Australian, American, British, Japanese, New Zealand, French, Canadian, "
+                      "South Korean, Spanish, German and Danish commanders receive their own "
+                      "nation's awards; Italian, Dutch and Norwegian commanders receive the "
+                      "fictional ribbons and the group's Australian Meritorious Unit Citation "
+                      "only.", page)
         self.assertIn("The commander is Australian by default; you can instead appoint an "
-                      "American, a British or a Japanese officer", page)
+                      "American, a British, a Japanese, a New Zealand, a French, a Canadian, a "
+                      "South Korean, a Spanish, an Italian, a German, a Dutch, a Norwegian or a "
+                      "Danish officer", page)
         self.assertNotIn("The commander's nation is fixed.", page)
         self.assertNotIn("without the same-nation discount", page)
         self.assertNotIn("The discount covers the", page)
+        # As built, both Australian-led campaigns sell the P-8A, so New
+        # Zealand has its one class; no class is registered to Canada (the
+        # RCAF CC-330 was dropped on 10 Nov 2026).
+        for slug in ("sest-southern-watch", "sest-southern-reach"):
+            built = PACK / "campaigns" / slug / "campaign_rules_en.xml"
+            if not built.is_file():
+                self.skipTest("pack not built")
+            text = built.read_text(encoding="utf-8")
+            with self.subTest(campaign=slug):
+                self.assertIn("the one class registered to New Zealand for a New Zealand commander, ",
+                              text)
+                self.assertNotIn("no class for a New Zealand commander", text)
+                self.assertIn("no class for a Canadian commander (none is registered to Canada)", text)
+
+    def test_sulu_line_offers_its_partners_commanders(self):
+        # Sulu Line's page left the one-nation branch on 10 Nov 2026: a Thai
+        # or Australian officer may command the Philippine-led group.
+        spec = next(s for s in bp.campaign_specs() if s["SLUG"] == "sest-sulu-line")
+        counts = collections.Counter(bp.roster_nations(spec["ROSTER"]).values())
+        page = bp.campaign_rules(spec)
+        self.assertIn("The commander is Philippine by default; you can instead appoint a Thai "
+                      "or an Australian officer in command of the group.", page)
+        self.assertIn(f"It covers the {counts['Philippines']} classes registered to the Philippines "
+                      f"for a Philippine commander, the {counts['Thailand']} classes registered to "
+                      f"Thailand for a Thai commander and the {counts['Australia']} classes "
+                      "registered to Australia for an Australian commander. Every other class "
+                      "costs its listed price; no commander's discount covers the classes "
+                      "registered to the USA (1).", page)
+        self.assertNotIn("The commander's nation is fixed.", page)
+        # Sulu Line's national awards are Philippine, for a Philippine
+        # commander only.
+        self.assertIn("Philippine awards go to a Philippine commander only; Thai and Australian "
+                      "commanders receive the fictional ribbons and the group's Philippine Republic "
+                      "Presidential Unit Citation only.", page)
 
     def test_no_discount_says_so(self):
         spec = dict(bp.campaign_specs()[0])
@@ -2255,7 +2361,7 @@ class SameNationDiscount(unittest.TestCase):
         own = [e for e in spec["ROSTER"] if nations[e["unit"]] == "China"]
         spec["ROSTER"] = own + [dict(unit="ran_ffh_anzac", picks=["Variant3"], points=240)]
         page = bp.campaign_rules(spec)
-        self.assertIn(f"The discount covers the {len(own)} classes registered to China. The 1 "
+        self.assertIn(f"The discount covers the {len(own)} classes registered to China. The one "
                       "class registered to other nations - from Australia (1) - costs its "
                       "listed price.", page)
 
@@ -3192,6 +3298,43 @@ class AlliedReserve(unittest.TestCase):
         with self.assertRaisesRegex(SystemExit, "which is not one of its missions"):
             self.md.apply_reserve([spec(windows, copy.deepcopy(fleet), whole="M9")])
 
+    def test_a_squadron_a_mission_places_stays_on_sale(self):
+        # The named-hull rule is about ships: a variant is one hull. A
+        # squadron names a type - Southern Watch O2 places Kiwi 01 from No. 5
+        # Squadron RNZAF, and the reserve still sells the squadron's P-8A
+        # (10 Nov 2026), as the RAN's own roster sells the RAAF squadrons
+        # its missions place. A placed hull variant still comes off sale,
+        # whether the placement names its variant or its squadron.
+        missions = [dict(code=c, num=c, key=f"Mission {c}", group="core", date=(2028, 10, n + 1),
+                         units=[], window=dict(buy=True, allow=["ran_ffh_anzac"]))
+                    for n, c in enumerate(("M1", "M2"))]
+        missions[0]["units"] = [dict(type="rnzaf_p8", squadron="Squadron1"),
+                                dict(type="rnzaf_p8", variant="Squadron1"),
+                                dict(type="js_ffg_mogami", variant="Variant1")]
+        fleet = [dict(unit="rnzaf_p8", picks=["Squadron1"], points=55,
+                      note="New Zealand - P-8A Poseidon"),
+                 dict(unit="js_ffg_mogami", picks=["Variant1", "Variant2"], points=300,
+                      note="Japan - Mogami-class")]
+        s = dict(TITLE="Test", COMMANDER="CommanderNations=Australia\n", MISSIONS=missions,
+                 ALLIED_FLEET=copy.deepcopy(fleet), RESERVE_FLEET=dict(opens="M2"),
+                 ROSTER=[dict(unit="ran_ffh_anzac", picks=["Variant3"], points=240)])
+        self.md.apply_reserve([s])
+        self.assertEqual([(e["unit"], e["picks"]) for e in s["RESERVE_AIR"]],
+                         [("rnzaf_p8", ["Squadron1"])])
+        self.assertEqual(s["RESERVE_LEFT_OUT"], [])
+        self.assertEqual(next(e for e in s["ROSTER"] if e["unit"] == "js_ffg_mogami")["picks"],
+                         ["Variant2"])
+        # And in the build: the P-8A is on sale in both campaigns though O2
+        # flies one, and sells to a New Zealand commander at the discount.
+        for slug in ("sest-southern-watch", "sest-southern-reach"):
+            self.assertEqual(self.built_roster(slug).get("rnzaf_p8"), ["Squadron1"], slug)
+        self.assertEqual(bp.pick_nation("rnzaf_p8", "Squadron1"), "NewZealand")
+        # The RCAF CC-330 is not: a tanker with no search sensor, it passed
+        # the patrol rows only as the mod's Role=AEW (dropped 10 Nov 2026).
+        self.assertNotIn("ca_a330_mrtt", {e["unit"] for e in self.af.ALLIED})
+        for slug in ("sest-southern-watch", "sest-southern-reach"):
+            self.assertNotIn("ca_a330_mrtt", self.built_roster(slug), slug)
+
     def test_no_reserve_hull_is_one_a_mission_places(self):
         # Southern Reach sold JS Mogami (Variant1; Common Sea, The Other
         # Picture) and Daegu (Variant1; O3) until 20 Oct 2026: the filter
@@ -3268,10 +3411,12 @@ class AlliedReserve(unittest.TestCase):
             counts[slug] = (len(sold) - len(own) - air, air)
         # Ships: the fleet's less Choules and the Supply-class AOR. Aircraft:
         # the 19 and 10 the twins sold (their "63 and 62 allied units on sale"
-        # less the 44 and 52 ships beyond the reserve they had).
+        # less the 44 and 52 ships beyond the reserve they had), and since 10
+        # Nov 2026 the RNZAF P-8A, which both campaigns' rows launch and
+        # recover.
         ships = sum(1 for e in self.af.ALLIED if not self.md.is_aircraft(e)) - 2
-        self.assertEqual(counts, {"sest-southern-watch": (ships, 19),
-                                  "sest-southern-reach": (ships, 10),
+        self.assertEqual(counts, {"sest-southern-watch": (ships, 20),
+                                  "sest-southern-reach": (ships, 11),
                                   "sest-red-line": (2, 0)})
 
     def test_the_aircraft_judgement_is_usable_allieds(self):
@@ -3943,6 +4088,91 @@ class RedSidePresentation(unittest.TestCase):
         self.assertNotIn("snorkel", mission_depth.REPORTS["RL05"])
         for code in ("SL01", "SL05", "SL07"):
             self.assertTrue(mission_depth.REPORTS[code].startswith("MANALO:"), code)
+
+
+class RedLineReleaseTerms(unittest.TestCase):
+    """Red Line text fixes of 10 Nov 2026 (step 1 of the builder-grammar
+    design): briefs that state the release terms the victory triggers test,
+    RL04's withdrawal as the five-mile circle it is, victory-required
+    objectives flagged Main and labelled "Also required" (not "Required",
+    which made the primary lines beside them read as optional), and RLC1's
+    one-mile race. Victory logic is unchanged."""
+
+    PACK = bp.ROOT / "integration" / "campaign" / "SEST_Campaign" / "campaigns" / "sest-red-line"
+
+    def setUp(self):
+        rl = next(s for s in bp.campaign_specs() if s["SLUG"] == "sest-red-line")
+        self.m = {m["code"]: m for m in rl["MISSIONS"]}
+
+    def brief(self, code):
+        b = self.m[code]["brief"]
+        return " ".join(b) if isinstance(b, (tuple, list)) else b
+
+    def test_minute_gates_are_in_the_briefs(self):
+        # RL03's minute-nine gate is not in its brief yet: step 3 reworks
+        # that victory (an alternative path), and its text with it.
+        for code, radius in (("RL02", "two"), ("RL04", "five"), ("RL06", "four")):
+            v, brief = self.m[code]["victory"], self.brief(code)
+            terms = list(v.get("also", [])) + ([v["after"]] if v.get("after") else [])
+            with self.subTest(mission=code):
+                self.assertIn(f"within {radius} miles", brief)
+                self.assertEqual(bp.number_words(v["radius"]), radius)
+                for term in terms:
+                    if "after_minutes" in term:
+                        self.assertIn(f"minute {bp.number_words(term['after_minutes'])}", brief)
+                    if term.get("kind") == "no_incoming":
+                        self.assertIn("no incoming weapon", brief)
+        self.assertIn("(within eight miles of it)", self.brief("RL06"))
+        # The stage is the circle AND Time=480, so it passes whenever the
+        # screen is there at or after minute eight, not only at minute eight.
+        self.assertIn("at or after minute eight", self.brief("RL06"))
+        self.assertNotIn("has been on the decoy station", self.brief("RL06"))
+        self.assertEqual(self.m["RL06"]["victory"]["after"]["radius"], 8)
+
+    def test_the_withdrawal_is_a_circle(self):
+        m = self.m["RL04"]
+        v = m["victory"]
+        self.assertEqual((v["radius"], v["min_units"], v["units"]), (5, 2, ["group#1", "group#2"]))
+        self.assertIn("within five miles of the withdrawal point", self.brief("RL04"))
+        for text in [self.brief("RL04"), m["win"], m["timeout"]] + [t for _o, t, _s in m["objectives"]]:
+            self.assertNotRegex(text, r"\bthe line\b")
+        self.assertIn("MERIDIAN HARMONY is sunk", self.brief("RL04"))
+        self.assertTrue(any(t.get("kind") == "destroyed" and t["units"] == ["spoiler"]
+                            for t in v["also"]))
+
+    def test_required_objectives_say_so(self):
+        for code, oid in (("RL01", "Raiders"), ("RL03", "Fighters"), ("RL04", "Spoiler"),
+                          ("RL06", "Qship")):
+            m = self.m[code]
+            text, spec = next((t, s) for o, t, s in m["objectives"] if o == oid)
+            with self.subTest(mission=code, objective=oid):
+                self.assertIn("Main", spec.split(",")[3:])
+                self.assertTrue(text.startswith("Also required: "), text)
+                # Required because the victory trigger needs it destroyed.
+                self.assertTrue(any(t.get("kind") == "destroyed" for t in m["victory"]["also"]))
+                ini = next(self.PACK.glob(f"missions/Red Line {m['num']} - *.ini"), None)
+                if ini is None:
+                    self.skipTest("pack not built")
+                self.assertIn(f"\n{oid}={spec}\n", ini.read_text(encoding="utf-8"))
+        # No objective anywhere in the campaign keeps the bare prefix.
+        for code, m in self.m.items():
+            for oid, text, _spec in m["objectives"]:
+                self.assertFalse(text.startswith("Required:"), (code, oid))
+        # RL04's coaster has to be sunk (UnitDestroyed), so the line says so.
+        spoiler = next(t for o, t, _s in self.m["RL04"]["objectives"] if o == "Spoiler")
+        self.assertEqual(spoiler, "Also required: sink Meridian Harmony before she clears the screen")
+
+    def test_the_patrol_vessels_mile_is_stated(self):
+        m = self.m["RLC1"]
+        denied = m["denied"][0]
+        self.assertEqual(denied["radius"], 1)
+        self.assertEqual(m["victory"]["after"]["radius"], 0.3)
+        pilot = next(t for o, t, _s in m["objectives"] if o == "Pilot")
+        for text in (self.brief("RLC1"), pilot, denied["message"]):
+            self.assertIn("within a mile", text)
+        self.assertIn("within three cables of the raft", pilot)
+        self.assertNotIn("alongside him first", self.brief("RLC1"))
+        self.assertNotIn("alongside\n", self.brief("RLC1"))
 
 
 class RedLineSideOperations(unittest.TestCase):

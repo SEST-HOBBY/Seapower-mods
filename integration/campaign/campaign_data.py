@@ -930,8 +930,9 @@ MISSIONS.append(dict(
                  # spawn. Both lifters now, and held there: the play test of
                  # 18 Oct 2026 asked for the crew to be loaded by both
                  # aircraft over time, with a pop-up saying so. The arrival at
-                 # the rig enables a held trigger whose clock starts then
-                 # (hold_minutes); it shows the pop-up and arms the win.
+                 # the rig enables and reactivates a held trigger, so its
+                 # clock starts then (hold_minutes; reactivated since 10 Nov
+                 # 2026); it shows the pop-up and arms the win.
                  after=dict(kind="area", units="lift", at_unit="rig", radius=3,
                             min_units=2, hold_minutes=3,
                             intel=(

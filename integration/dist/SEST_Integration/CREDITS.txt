@@ -36,10 +36,29 @@ Australian Operational Service Medal - Indo-Pacific ribbon
 (sest_aosm_indo_pacific.png) by Nford24, CC0 1.0, from Wikimedia
 Commons, copied unchanged.
 
-The Royal Navy commander emblem (ui/campaign/navy_emblems/
-sest_rn_emblem.png) is the White Ensign from the SEST gallery
-flag set (Wikimedia Commons, public domain), credited in
-Gallery/VISUAL_CREDITS.txt.
+The commander emblems in ui/campaign/navy_emblems/ named
+sest_*.png are naval ensigns and national flags from the SEST
+gallery flag set (Wikimedia Commons, public domain), credited in
+Gallery/VISUAL_CREDITS.txt; each campaign's SOURCES.txt says
+which flag each one shows:
+      sest_armada_emblem.png
+      sest_dm_emblem.png
+      sest_km_emblem.png
+      sest_mm_emblem.png
+      sest_mn_emblem.png
+      sest_plan_emblem.png
+      sest_pn_emblem.png
+      sest_rcn_emblem.png
+      sest_rdn_emblem.png
+      sest_rn_emblem.png
+      sest_rnon_emblem.png
+      sest_rnzn_emblem.png
+      sest_rokn_emblem.png
+      sest_rtn_emblem.png
+
+language_en/sest_name_pools.ini adds commander name pools for
+nations the game has none for: common given names and surnames
+from public name statistics, which the game combines at random.
 
 542 of the unit files here are another author's file with
 changes made to it. A Sea Power unit file is a whole-file

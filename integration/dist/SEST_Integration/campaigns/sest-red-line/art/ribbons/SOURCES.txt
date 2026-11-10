@@ -7,5 +7,10 @@ proportions closely enough to be recognised; they are representations.
   sest_contact_intelligence.png - Contact Intelligence Ribbon: fictional SEST design
   sest_undersea_operations.png - Undersea Operations Ribbon: fictional SEST design
 
+Commander emblem in ui/campaign/navy_emblems/, scaled by build_pack.py from the SEST
+gallery flag set (Wikimedia Commons, public domain; credited in Gallery/VISUAL_CREDITS.txt):
+  sest_plan_emblem.png - People's Liberation Army Navy: the Chinese naval ensign.
+    Source: File:Naval Ensign of China.svg
+
 Every real-award citation says it is a game award for a fictional operation,
 not a real honour.

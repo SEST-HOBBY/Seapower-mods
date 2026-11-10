@@ -10,6 +10,16 @@ proportions closely enough to be recognised; they are representations.
   ph_distinguished_service_star.png - Distinguished Service Star: representation of the Philippine award
   ph_presidential_unit_citation.png - Philippine Republic Presidential Unit Citation: representation of the Philippine award
 
+Commander emblems in ui/campaign/navy_emblems/, scaled by build_pack.py from the SEST
+gallery flag set (Wikimedia Commons, public domain; credited in Gallery/VISUAL_CREDITS.txt):
+  sest_pn_emblem.png - Philippine Navy: the Philippine national flag, which the
+    Philippine Navy flies as its ensign.
+    Source: File:Flag of the Philippines.svg
+  sest_rtn_emblem.png - Royal Thai Navy: the Thai national flag. The Royal Thai Navy's
+    ensign adds a white elephant on a red disc at its centre; the gallery set has no
+    file for it.
+    Source: File:Flag of Thailand.svg
+
 Award facts (criteria, ribbon design, precedence):
   Military Merit Medal: https://en.wikipedia.org/wiki/Military_Merit_Medal_(Philippines)
   Distinguished Service Star: https://en.wikipedia.org/wiki/Distinguished_Service_Star

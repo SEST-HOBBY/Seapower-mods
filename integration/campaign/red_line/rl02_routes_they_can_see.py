@@ -19,7 +19,10 @@ MISSION = dict(
     blue_nation="China", red_nation="Australia",
     brief=("BIAK APPROACHES, 2310. HAI YANG 7 is already on the final leg into the northern roads, "
            "about eleven miles from the holding point. She makes twelve knots: keep her moving "
-           "while the escort clears the approaches. There is no need to sail the earlier open-water leg.\n\n"
+           "while the escort clears the approaches. There is no need to sail the earlier open-water leg. "
+           "The run is complete when HAI YANG 7 is within two miles of the holding point, no "
+           "earlier than minute twenty, and with no incoming weapon still tracked against the "
+           "force.\n\n"
            "Contact GOLF is east of the route and closing across it. Expect her first torpedo "
            "attack at about minute ten if she is not stopped, with a second attack window at "
            "eighteen. The allocated Z-18F, DIPPER 23, is already ahead of the tanker; use it for "

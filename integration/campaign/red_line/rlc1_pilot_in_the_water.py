@@ -45,8 +45,8 @@ MISSION = dict(
             "about seven miles north-west of him: closer than she is, and faster. Short of "
             "your best speed she is there first. Get the lead ship close alongside, inside "
             "three cables, stopped, put the boat in the water and hold there until he is "
-            "aboard: about four minutes. If the patrol vessel is alongside "
-            "him first, he goes home on the Australians' timetable, and the coalition has a "
+            "aboard: about four minutes. If the patrol vessel comes within a mile "
+            "of him first, he goes home on the Australians' timetable, and the coalition has a "
             "photograph of a Chinese pilot on an Australian deck.\\n\\nYour ships and the "
             "ship's flight start at weapons Hold. Two Banda fishing boats are on the water."
         )),
@@ -56,8 +56,8 @@ MISSION = dict(
         "a RAAF P-8A. Neutral: two fishing boats."
     ),
     objectives=[
-        ("Pilot", "Get the lead ship alongside the pilot and hold there until he is aboard, "
-                  "before the patrol vessel reaches him", "35,-35,Fail,Main"),
+        ("Pilot", "Hold the lead ship within three cables of the raft until the pilot is aboard, "
+                  "before the patrol vessel is within a mile of him", "35,-35,Fail,Main"),
         ("Restraint", "Fire on nothing: not the patrol vessel, not the aircraft",
          "15,-40,Complete"),
         ("Watchers", "Classify the patrol vessel and the aircraft over her", "10,0,None"),
@@ -77,8 +77,8 @@ MISSION = dict(
                                   "talking. The boat is coming back to the davit."))),
     denied=[dict(units=["opv"], at=(-5.05, 129.05), radius=1, objective="Pilot",
                  message=(
-                     "The Australian patrol vessel is alongside the raft and her boat has the "
-                     "pilot. He goes home when Canberra says so, and the coalition has the "
+                     "The Australian patrol vessel is within a mile of the raft and her boat is "
+                     "away for the pilot. He goes home when Canberra says so, and the coalition has the "
                      "photograph."
                  ))],
     fatal=[F("Restraint", ["opv", "red_air"])],

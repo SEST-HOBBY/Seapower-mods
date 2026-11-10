@@ -12,7 +12,7 @@ Highest-risk checks:
 4. RL04/RL06's Q-ship attacks and torpedo reach. The tender/supplier is a real protection task; report failed launches rather than assuming a scripted order is a shot.
 5. RL05's shorter quiet passage and retained unseen fatal. RL06 instead scores concealment separately and continues after classification.
 6. RLO1's 900-second bare-position benefit in RL02, `RL02GolfSunk` suppressing GOLF in RL04, and the still-held `RLO2EscortsNamed` reveal. No unrelated campaign outcome is changed.
-7. RLC1's original four-minute pickup condition from the closer start. Test the fast-response and slow/delayed cases in game; static feasibility does not verify the native hold clock.
+7. RLC1's four-minute pickup hold now runs from arrival (10 Nov 2026): the stage enables and reactivates the held trigger, as stock Chagos Gambit arms its rain loop, so "Pilot aboard." should come about four minutes after the lead ship is within three cables of the raft, not the moment she gets there. Note the minute she arrives and the minute of "Pilot aboard."; "Pilot aboard." at once means the game does not restart a Time condition on `Action_ReactivateTriggers`. Test the fast-response and slow/delayed cases in game; static feasibility does not verify the native hold clock.
 8. All protected-contact loss conditions, air recovery, Task Force buying/rearming and mission exit/replay behaviour.
 
 Old restraint-only timings, GOLF's automatic weapons-free search and thirty-minute decoy guidance have been superseded. The campaign bible's dated revision describes current goals. Return mission, step, time, outcome and Player.log for any failure.

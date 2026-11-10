@@ -23,6 +23,7 @@ spec.loader.exec_module(awards)
 PACK = ROOT / "integration/campaign/SEST_Campaign"
 STOCK_MEDIA = ROOT / "data/install-snapshot/streaming-media.txt"
 UI = ROOT / "mods-source/_vanilla/original/language_en/ui.ini"
+NATION_KEYS = ROOT / "mods-source/_vanilla/original/language_en/nations.ini"
 STOCK_EMBLEMS = {"ui/campaign/navy_emblems/ran_emblem.png", "ui/campaign/navy_emblems/usn_emblem.png",
                  "ui/campaign/navy_emblems/jmsdf_emblem.png"}
 # Every award id the ribbon expansion (4d342e31) shipped, by campaign. An id
@@ -102,7 +103,9 @@ class CampaignServiceAwards(unittest.TestCase):
                   "CommanderStartingRankLevel=5\nCommanderNameDefaultUS=Kept Name\n\n[OfficerRanks]\nAustralia=unchanged\n")
         text = awards.commander_settings(source, "sest-southern-watch")
         values = section(text, "CommanderSettings")
-        self.assertEqual(values["CommanderNations"], "Australia|US|UK|Japan")
+        self.assertEqual(values["CommanderNations"], "Australia|US|UK|Japan|NewZealand|France|Canada|"
+                                                     "South_Korea|Spain|Italy|Germany|Netherlands|"
+                                                     "Norway|Denmark")
         self.assertEqual(values["CommanderDefaultNation"], "Australia")
         self.assertEqual(values["CommanderStartingRankLevel"], "5")
         self.assertEqual(values["CommanderNameDefaultUS"], "Kept Name")     # never overwritten
@@ -112,14 +115,22 @@ class CampaignServiceAwards(unittest.TestCase):
         self.assertEqual(ranks["US"], native["US"])
         self.assertEqual(ranks["Japan"], native["Japan"])
         self.assertEqual(ranks["UK"], awards.UK_RANKS)
-        for nation in ("US", "UK", "Japan"):
+        self.assertEqual(ranks["NewZealand"], awards.NEWZEALAND_RANKS)
+        self.assertEqual(ranks["South_Korea"], awards.SOUTH_KOREA_RANKS)
+        for nation in awards.NATIONS["sest-southern-watch"][1:]:
             for key in ("CommanderNameDefault", "CommanderNamePool", "NavyName", "NavyEmblem"):
                 self.assertTrue(values.get(key + nation), key + nation)
         self.assertEqual(text, awards.commander_settings(text, "sest-southern-watch"))
         red = awards.commander_settings("[CommanderSettings]\nCommanderNations=China\n", "sest-red-line")
         self.assertIn("CommanderNations=China\n", red)
+        # Sulu Line offers a Thai or Australian officer beside its Philippine
+        # default; the Australian is the stock one, ladder and emblem.
         sulu = awards.commander_settings("[CommanderSettings]\nCommanderNations=Philippines\n", "sest-sulu-line")
-        self.assertIn("CommanderNations=Philippines\n", sulu)
+        self.assertIn("CommanderNations=Philippines|Thailand|Australia\n", sulu)
+        self.assertEqual(section(sulu, "OfficerRanks")["Australia"], native["Australia"])
+        self.assertEqual(section(sulu, "CommanderSettings")["NavyEmblemAustralia"],
+                         "ui/campaign/navy_emblems/ran_emblem.png")
+        self.assertEqual(section(sulu, "OfficerRanks")["Thailand"], awards.THAILAND_RANKS)
 
     def test_national_grants_use_native_id_nation_grammar(self):
         specs = awards.mission_awards("sest-southern-watch",
@@ -209,6 +220,219 @@ class CampaignServiceAwards(unittest.TestCase):
                     self.assertIn(nation, awards.NATIONS[slug], rid)
             self.assertFalse(set(awards.grants(slug)) & set(awards.RETIRED), slug)
 
+    def test_canada_and_new_zealand_awards_follow_the_other_nations(self):
+        # 10 Nov 2026: a lesser decoration at SW08 and SR12, the senior one at
+        # SW12 and TS09, the operational service medal at SR10.
+        expected = {
+            "sest-southern-watch": {"ca_meritorious_service_medal_military": "SW08",
+                                    "nz_distinguished_service_decoration": "SW08",
+                                    "ca_meritorious_service_cross_military": "SW12",
+                                    "nz_member_order_of_merit": "SW12"},
+            "sest-southern-reach": {"ca_general_campaign_star_expedition": "SR10",
+                                    "nz_operational_service_medal": "SR10",
+                                    "ca_meritorious_service_medal_military": "SR12",
+                                    "nz_distinguished_service_decoration": "SR12",
+                                    "ca_meritorious_service_cross_military": "TS09",
+                                    "nz_member_order_of_merit": "TS09"},
+        }
+        for slug, rows in expected.items():
+            granted = awards.grants(slug)
+            for rid, code in rows.items():
+                self.assertEqual(granted[rid], code, (slug, rid))
+        specs = awards.mission_awards("sest-southern-reach", {"code": "SR10", "key": "Southern Line",
+                                                              "date": (2029, 1, 6)})
+        self.assertIn("ca_general_campaign_star_expedition,Canada", specs)
+        self.assertIn("nz_operational_service_medal,NewZealand", specs)
+        self.assertEqual(awards.REAL["ca_general_campaign_star_expedition"]["service_days"], 14)
+        self.assertEqual(awards.REAL["nz_operational_service_medal"]["service_days"], 7)
+        # Official GCS-EXPEDITION widths: red 8, white 2, light grey 12, from
+        # the DND medal page, which is its source (the owner's researcher
+        # read it on 10 Nov 2026), with the 14-day rule.
+        gcs_row = awards.REAL["ca_general_campaign_star_expedition"]
+        self.assertEqual([w for _c, w in gcs_row["art"]], [8, 2, 12, 2, 8])
+        self.assertEqual(gcs_row["source"], "https://www.canada.ca/en/department-national-defence/services/"
+                                            "medals/medals-chart-index/general-campaign-star-expedition-gcs-exp.html")
+        self.assertIn("widths as specified by Canada (DND medal page); colours sampled from a Commons image",
+                      " ".join(awards.sources_text("sest-southern-reach").split()))
+        for slug in ("sest-southern-watch", "sest-southern-reach"):
+            catalogue = awards.catalogue(slug)
+            text = awards.sources_text(slug)
+            for rid in expected[slug]:
+                row = catalogue[rid]
+                with self.subTest(campaign=slug, award=rid):
+                    self.assertEqual(row["reference"], awards.REAL[rid]["nation"])
+                    self.assertTrue(row["source"].startswith("https://"))
+                    self.assertAlmostEqual(sum(w for _c, w in row["stripes"]),
+                                           1 if len(row["stripes"]) == 1 else 32, places=1)
+                    self.assertIn(rid, awards.ART_NOTES)
+                    self.assertIn(f"{rid}.png - {row['name']}", text)
+            if slug == "sest-southern-reach":
+                gcs = catalogue["ca_general_campaign_star_expedition"]["citation"]
+                self.assertTrue(gcs.startswith("For 14 days of service in the presence of an armed "
+                                               "enemy with {TaskForceName}"), gcs)
+                # No real designated or specified theatre is claimed.
+                self.assertNotRegex(gcs, r"(?i)designated|specified|theatre|operation [A-Z]")
+        self.assertIn("proportions measured from an image", awards.sources_text("sest-southern-watch"))
+        self.assertIn("approved\n12 January 2025", awards.sources_text("sest-southern-reach"))
+        for slug in awards.CAMPAIGNS:
+            self.assertFalse({"nz_antarctic_medal", "nz_officer_order_of_merit"} & set(awards.grants(slug)))
+
+    def test_french_korean_spanish_german_and_danish_awards(self):
+        # 10 Nov 2026, second pass: the same pattern, from verified sources.
+        # Italy, the Netherlands and Norway stay on the fictional ribbons.
+        lesser = {"France": "fr_chevalier_ordre_national_du_merite",
+                  "South_Korea": "kr_national_security_medal",
+                  "Spain": "es_cruz_merito_naval_distintivo_blanco",
+                  "Germany": "de_ehrenkreuz_der_bundeswehr_gold",
+                  "Denmark": "dk_defence_medal_meritorious_service"}
+        senior = {"France": "fr_chevalier_legion_d_honneur",
+                  "South_Korea": "kr_order_of_national_security_merit_samil",
+                  "Spain": "es_cruz_merito_naval_distintivo_rojo",
+                  "Germany": "de_verdienstkreuz_am_bande",
+                  "Denmark": "dk_defence_medal_excellent_service"}
+        service = {"Spain": "es_medalla_de_campana", "Germany": "de_einsatzmedaille_bundeswehr_bronze"}
+        watch, reach = awards.grants("sest-southern-watch"), awards.grants("sest-southern-reach")
+        for nation in lesser:
+            with self.subTest(nation=nation):
+                self.assertEqual((watch[lesser[nation]], watch[senior[nation]]), ("SW08", "SW12"))
+                self.assertEqual((reach[lesser[nation]], reach[senior[nation]]), ("SR12", "TS09"))
+                for rid in (lesser[nation], senior[nation], service.get(nation)):
+                    if rid:
+                        self.assertEqual(awards.REAL[rid]["nation"], nation)
+                        self.assertIn(rid, awards.ART_NOTES)
+        for nation, rid in service.items():
+            self.assertEqual(reach[rid], "SR10")
+            self.assertNotIn(rid, watch)
+            self.assertEqual(awards.REAL[rid]["service_days"], 30)
+            # No real named operation or designated theatre is claimed.
+            self.assertNotRegex(awards.REAL[rid]["merit"], r"(?i:designated|specified|theatre)|[Oo]peration [A-Z]")
+        for slug in ("sest-southern-watch", "sest-southern-reach"):
+            nations, _unit = awards.award_nations(slug)
+            self.assertEqual(set(awards.NATIONS[slug]) - set(nations), {"Italy", "Netherlands", "Norway"})
+        # Widths as the sources give them: Spain's 30 mm and Korea's 38 mm
+        # ribbons in millimetres, the drawing-measured ones scaled to 32.
+        width = lambda rid: round(sum(w for _c, w in awards.REAL[rid]["art"]), 3)
+        for rid in ("es_cruz_merito_naval_distintivo_blanco", "es_cruz_merito_naval_distintivo_rojo",
+                    "es_medalla_de_campana"):
+            self.assertEqual(width(rid), 30, rid)
+        for rid in ("kr_national_security_medal", "kr_order_of_national_security_merit_samil"):
+            self.assertEqual(width(rid), 38, rid)
+            self.assertEqual(awards.REAL[rid]["device"], "taegeuk")
+            self.assertIn(("#FFFFFF", 3 if "medal" in rid else 1.5), awards.REAL[rid]["art"])
+        for rid in ("de_ehrenkreuz_der_bundeswehr_gold", "de_verdienstkreuz_am_bande",
+                    "de_einsatzmedaille_bundeswehr_bronze", "dk_defence_medal_meritorious_service",
+                    "dk_defence_medal_excellent_service"):
+            self.assertAlmostEqual(width(rid), 32, places=1, msg=rid)
+        self.assertEqual([c for c, _w in awards.REAL["es_cruz_merito_naval_distintivo_rojo"]["art"]],
+                         ["#AF0B19", "#FCBD00", "#AF0B19"])
+        self.assertEqual(awards.REAL["es_cruz_merito_naval_distintivo_rojo"]["art"][1][1], 3.75)
+        self.assertEqual(awards.REAL["fr_chevalier_legion_d_honneur"]["art"], (("#AD1710", 1),))
+        # Denmark's meritorious ribbon has red edges, not white.
+        self.assertEqual(awards.REAL["dk_defence_medal_meritorious_service"]["art"][0][0], "#C02020")
+        self.assertEqual(awards.REAL["de_ehrenkreuz_der_bundeswehr_gold"]["device"], "gold_cross")
+        text = " ".join(awards.sources_text("sest-southern-reach").split())
+        self.assertIn("drawn without the operation's silver rectangle, as the operation is fictional", text)
+        self.assertIn("drawn without the clasp, as the deployment is fictional", text)
+        self.assertIn("measured from a public-domain drawing (Wikimedia Commons)", text)
+
+    def test_every_offered_nation_is_a_game_key_with_settings_and_a_ladder(self):
+        # The discount and the award selectors compare the key with the
+        # units' Nation=, so it must be the game's own (nations.ini), and a
+        # nation the campaign's own text does not define needs a row.
+        keys = {line.partition("=")[0].strip() for line in NATION_KEYS.read_text(
+            encoding="utf-8-sig").splitlines() if "=" in line}
+        for slug, nations in awards.NATIONS.items():
+            for nation in nations:
+                with self.subTest(campaign=slug, nation=nation):
+                    self.assertIn(nation, keys)
+                    self.assertIn(nation, awards.ADJECTIVE)
+                    self.assertFalse(awards.describe(nation).startswith(("a A", "a E", "a I", "a O", "an B")))
+        for nation, row in awards.NATION_SETTINGS.items():
+            with self.subTest(nation=nation):
+                if row["ranks"] is None:
+                    continue
+                ranks = [r.split(",") for r in row["ranks"].split("|")]
+                self.assertEqual(len(ranks), 10)
+                self.assertTrue(all(len(r) == 5 and r[4] == "" for r in ranks))
+                levels = {int(r[3]): r[2] for r in ranks}
+                self.assertEqual(sorted(levels), list(range(1, 11)))
+                self.assertEqual((levels[5], levels[6], levels[7]), ("OF-4", "OF-5", "OF-6"))
+                # Latin-1 accents only: the game font has no Hangul or Thai.
+                for text in (row["ranks"], row["navy"], row["name"]):
+                    self.assertTrue(all(ord(c) < 256 for c in text), text)
+
+    def test_sest_emblems_are_registered_and_credited(self):
+        sys.path.insert(0, str(ROOT / "integration/campaign"))
+        import build_pack as bp
+        credits = (ROOT / "integration/gallery/source/VISUAL_CREDITS.txt").read_text(encoding="utf-8")
+        rows = [(nation, row["emblem"].rsplit("/", 1)[1], row)
+                for nation, row in awards.NATION_SETTINGS.items()]
+        # The campaigns' own emblems (Sulu Line's Philippine Navy, Red Line's
+        # PLA Navy) are credited the same way.
+        rows += [(name, name, row) for name, row in awards.CAMPAIGN_EMBLEMS.items()]
+        for nation, name, row in rows:
+            if not name.startswith("sest_"):
+                self.assertIn(row["emblem"], STOCK_EMBLEMS, nation)
+                continue
+            with self.subTest(nation=nation):
+                self.assertIn(name, bp.SEST_EMBLEMS)
+                flag = bp.SEST_EMBLEMS[name]
+                self.assertTrue((ROOT / "integration/gallery/source/visuals/flags/png" / flag).is_file())
+                entry = re.search(r"^visuals/flags/source/" + re.escape(flag.rsplit(".", 1)[0])
+                                  + r"\.(?:svg|png)\n(File:[^\n]+)\n(?:.*\n){2}Licence: Public domain",
+                                  credits, re.M)
+                self.assertTrue(entry, flag)
+                self.assertEqual(entry[1], row["commons"])
+        for slug in ("sest-southern-watch", "sest-southern-reach", "sest-sulu-line"):
+            text = awards.sources_text(slug)
+            for nation in awards.NATIONS[slug]:
+                row = awards.NATION_SETTINGS.get(nation, {})
+                if row.get("commons"):
+                    self.assertIn(row["emblem"].rsplit("/", 1)[1], text)
+                    self.assertIn("Source: " + row["commons"], text)
+        # Where the file is a national flag and the navy's ensign is not, the
+        # SOURCES text says so.
+        for nation in ("Germany", "Norway", "Denmark", "Thailand"):
+            self.assertIn("gallery set has no file for it", awards.NATION_SETTINGS[nation]["about"])
+
+    def test_sest_name_pools_add_to_the_stock_pools_and_replace_none(self):
+        stock = set(re.findall(r"^\[(Names_\w+)\]", UI.read_text(encoding="utf-8-sig"), re.M))
+        text = awards.name_pools_text()
+        sections = re.findall(r"^\[(\w+)\]$", text, re.M)
+        self.assertEqual(sections, list(awards.NAME_POOLS))
+        self.assertFalse(set(sections) & stock)
+        for pool, lists in awards.NAME_POOLS.items():
+            with self.subTest(pool=pool):
+                for key, value in zip(("FirstNames", "MiddleNames", "LastNames"), lists):
+                    self.assertIn(f"{key}={value}\n", text)
+                    names = value.split(",")
+                    if value != "_":
+                        self.assertEqual(len(names), 50, key)
+                    self.assertEqual(len(names), len(set(names)), key)
+                    self.assertTrue(value.isascii() and " " not in value, key)
+        for nation, row in awards.NATION_SETTINGS.items():
+            self.assertTrue(row["pool"] in stock or row["pool"] in awards.NAME_POOLS, nation)
+            # A SEST pool's default name reads as the pool builds one: given
+            # name first, surname last ('Seongjin Han', as stock's 'Hiroshi
+            # Watanabe'), so randomising does not flip the order.
+            if row["pool"] in awards.NAME_POOLS:
+                first, _middle, last = (v.split(",") for v in awards.NAME_POOLS[row["pool"]])
+                words = row["name"].split()
+                with self.subTest(nation=nation, name=row["name"]):
+                    self.assertIn(words[0], first)
+                    self.assertIn(words[-1], last)
+        self.assertEqual(awards.NATION_SETTINGS["South_Korea"]["name"], "Seongjin Han")
+        self.assertEqual(awards.unknown_pools("CommanderNamePoolX=Names_Nowhere\nCommanderNamePoolY=Names_UK\n"
+                                              "CommanderNamePoolZ=Names_Thailand\n"), ["Names_Nowhere"])
+        saved = dict(awards.NAME_POOLS)
+        try:
+            awards.NAME_POOLS["Names_Australia"] = ("A", "_", "B")
+            with self.assertRaisesRegex(ValueError, "stock pool"):
+                awards.name_pools_text()
+        finally:
+            awards.NAME_POOLS.clear()
+            awards.NAME_POOLS.update(saved)
+
 
 class BuiltCampaigns(unittest.TestCase):
     """What the builder wrote, read the way the game reads it."""
@@ -264,7 +488,8 @@ class BuiltCampaigns(unittest.TestCase):
             self.assertEqual(len(ids), len(set(ids)), f"{slug}: an award is granted twice")
 
     def test_every_selector_is_an_offered_nation_with_native_settings(self):
-        ui = UI.read_text(encoding="utf-8-sig")
+        # A pool is the game's (ui.ini) or one the pack adds (sest_name_pools.ini).
+        ui = UI.read_text(encoding="utf-8-sig") + (PACK / awards.NAME_POOL_FILE).read_text(encoding="utf-8")
         for slug in awards.CAMPAIGNS:
             commander = self.campaigns[slug]["commander"]
             values = section(commander, "CommanderSettings")
@@ -286,6 +511,30 @@ class BuiltCampaigns(unittest.TestCase):
             for _mission, rid, nations in self.granted(slug):
                 for nation in nations:
                     self.assertIn(nation, offered, f"{slug}: {rid},{nation}")
+
+    def test_the_pack_ships_the_sest_name_pools_for_the_dist(self):
+        built = (PACK / awards.NAME_POOL_FILE).read_text(encoding="utf-8")
+        self.assertEqual(built, awards.name_pools_text())
+        # The consolidator stages every file of every integration/*/SEST_*
+        # pack; a path only one pack ships is carried into the dist as it
+        # is. No other pack ships it, or any [Names_X] section a language
+        # merge could set against it.
+        spec = importlib.util.spec_from_file_location("consolidate_packs", ROOT / "tools/consolidate_packs.py")
+        consolidate = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(consolidate)
+        packs = consolidate.source_packs()
+        self.assertIn(PACK, packs)
+        owners = [p for p in packs if (p / awards.NAME_POOL_FILE).is_file()]
+        self.assertEqual(owners, [PACK])
+        for pack in packs:
+            for f in pack.glob("language_*/*.ini"):
+                if f != PACK / awards.NAME_POOL_FILE:
+                    self.assertNotRegex(f.read_text(encoding="utf-8", errors="replace"), r"(?m)^\[Names_",
+                                        f)
+        staged = {"ui/campaign/navy_emblems/sest_rn_emblem.png": b"", awards.NAME_POOL_FILE: b""}
+        credits = consolidate.credits_text(staged)
+        self.assertIn("sest_rn_emblem.png", credits)
+        self.assertIn(awards.NAME_POOL_FILE, credits)
 
     def test_each_citation_names_its_mission_and_date(self):
         for slug in awards.CAMPAIGNS:
@@ -327,7 +576,8 @@ class BuiltCampaigns(unittest.TestCase):
             page = (folder / "campaign_rules_en.xml").read_text(encoding="utf-8")
             roster = []
             for raw in (folder / "player_task_force_roster.ini").read_text(encoding="utf-8").splitlines():
-                m = re.match(r"^([A-Za-z0-9_\-]+)=([^|]+)\|\d+", raw)
+                # Unit ids may carry an apostrophe (fr_fdi_amiral_ronarc'h).
+                m = re.match(r"^([^;\[\s=]+)=([^|]+)\|\d+", raw)
                 if m:
                     roster.append(dict(unit=m[1], picks=m[2].split(",")))
             counts = {}
@@ -344,10 +594,65 @@ class BuiltCampaigns(unittest.TestCase):
                 self.assertIn("The discount follows the commander's nation", page)
                 for nation in offered:
                     name = bp.nation_name(nation)
-                    name = ("the " if name in ("USA", "United Kingdom", "Netherlands") else "") + name
+                    name = ("the " if name in ("USA", "United Kingdom", "Netherlands", "Philippines")
+                            else "") + name
                     adjective, article = awards.ADJECTIVE[nation]
-                    self.assertIn(f"the {counts[nation.lower()]} classes registered to {name} "
-                                  f"for {article} {adjective} commander", page)
+                    count = counts.get(nation.lower(), 0)
+                    # One class reads singular, in a word (Norway's Skjold,
+                    # Denmark's Iver Huitfeldt, New Zealand's P-8A); none says
+                    # so.
+                    words = "one" if count == 1 else str(count)
+                    self.assertIn(f"the {words} class{'es' if count != 1 else ''} registered to {name} "
+                                  f"for {article} {adjective} commander" if count else
+                                  f"no class for {article} {adjective} commander (none is registered "
+                                  f"to {name})", page)
+                self.assertNotRegex(page, r"\bthe 1 class\b")
+                # Every offered nation is named once in the awards sentence:
+                # with its own nation's awards, or with the fictional ribbons
+                # and the host's unit award only.
+                awarded, unit = awards.award_nations(slug)
+                m = re.search(r"commander can receive\. (.*?)(?: commanders? receives? their own "
+                              r"nation's awards| awards go to an? [\w ]+ commander only); (.*?) "
+                              r"commanders? receives? the fictional ribbons and the group's (.*?) only\.",
+                              page)
+                self.assertTrue(m, slug)
+                rest = [n for n in offered if n not in awarded]
+                self.assertEqual(re.split(r", | and ", m[1]), [awards.ADJECTIVE[n][0] for n in awarded])
+                self.assertEqual(re.split(r", | and ", m[2]), [awards.ADJECTIVE[n][0] for n in rest])
+                self.assertEqual(m[3], " and ".join(unit))
+
+    def test_sources_credit_every_sest_emblem_the_commander_file_names(self):
+        # Review of 10 Nov 2026: SOURCES.txt listed only the NATION_SETTINGS
+        # emblems, so Sulu Line's default sest_pn_emblem.png (philippines.png)
+        # and Red Line's sest_plan_emblem.png (china_naval.png) were missing.
+        sys.path.insert(0, str(ROOT / "integration/campaign"))
+        import build_pack as bp
+        credits = (ROOT / "integration/gallery/source/VISUAL_CREDITS.txt").read_text(encoding="utf-8")
+        for slug in awards.CAMPAIGNS:
+            commander = self.campaigns[slug]["commander"]
+            sources = (self.campaigns[slug]["folder"] / "art/ribbons/SOURCES.txt").read_text(encoding="utf-8")
+            values = section(commander, "CommanderSettings")
+            named = [(k[len("NavyEmblem"):], v.rsplit("/", 1)[1]) for k, v in values.items()
+                     if k.startswith("NavyEmblem") and v.rsplit("/", 1)[1].startswith("sest_")]
+            self.assertTrue(named, slug)
+            with self.subTest(campaign=slug):
+                self.assertEqual(sources, awards.sources_text(slug, commander))
+                for nation, name in named:
+                    flag = bp.SEST_EMBLEMS[name].rsplit(".", 1)[0]
+                    commons = re.search(r"^visuals/flags/source/" + re.escape(flag) + r"\.(?:svg|png)\n(File:[^\n]+)\n",
+                                        credits, re.M)[1]
+                    entry = re.search(r"^  " + re.escape(name) + r" - ([^:]+):(?:.*\n)*?    Source: (File:[^\n]+)$",
+                                      sources, re.M)
+                    self.assertTrue(entry, name)
+                    self.assertEqual(entry[1], values["NavyName" + nation])
+                    self.assertEqual(entry[2], commons, name)
+        self.assertIn("sest_pn_emblem.png - Philippine Navy:",
+                      (self.campaigns["sest-sulu-line"]["folder"] / "art/ribbons/SOURCES.txt").read_text(encoding="utf-8"))
+        self.assertIn("sest_plan_emblem.png - People's Liberation Army Navy:",
+                      (self.campaigns["sest-red-line"]["folder"] / "art/ribbons/SOURCES.txt").read_text(encoding="utf-8"))
+        with self.assertRaisesRegex(ValueError, "credits"):
+            awards.emblem_credits("sest-red-line", "[CommanderSettings]\nCommanderNations=China\n"
+                                                   "NavyEmblemChina=ui/campaign/navy_emblems/sest_nowhere.png\n")
 
     def test_the_builder_reproduces_the_commander_files(self):
         sys.path.insert(0, str(ROOT / "integration/campaign"))

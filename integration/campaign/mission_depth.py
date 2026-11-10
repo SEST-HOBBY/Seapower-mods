@@ -83,7 +83,7 @@ REPORTS = {
     "RL03": "AIR OPERATIONS: The allocated J-15 pair protects Dragon Eye even without a purchased CAP. Break the intercept, keep the radar aircraft covered and recover it to the north-west. Naval classification is a bonus, not an exit gate.",
     "RL04": "GROUP STAFF: The coaster is escaping while the Q-ship threatens Hulunhu. Split assignments without stripping the supplier of its screen. The grey coalition observers are protected by the ceasefire.",
     "RL05": "BOAT CONTROL: Cross the compact patrol line quietly. HOTEL is approaching from the north during this window, so waiting at the start is not a solution. The forward box is beyond the patrol, not an ocean transit away.",
-    "RL06": "TENDER CONTROL: Austral Warden is the Q-ship threatening the tender. Hull 334 can counter it while the screen covers the decoy station at minute eight. Classification costs the stealth bonus; it no longer ends the operation.",
+    "RL06": "TENDER CONTROL: Austral Warden is the Q-ship threatening the tender. Hull 334 can counter it while the screen covers the decoy station at or after minute eight. Classification costs the stealth bonus; it no longer ends the operation.",
     "RLO1": "AIR OPERATIONS: A class is a buoy pattern and patience. Lay the field ahead of her drift, keep the aircraft off the Poseidon's track, and log what the buoys hear for the escort tomorrow night.",
     "RLO2": "AIR OPERATIONS: The F-2s have orders to attack the Y-9 after minute eight. Keep the J-15s between them and Sea Ear 31, engage the interceptors and preserve the Japanese ships for their announced convoy.",
     "RLC1": "SEA BOAT: The beacon is the datum. Run straight at it, put the flight overhead to mark him, and stop the ship upwind of the raft. Do not cross the patrol vessel's bow; she has the same right to be there that we do.",
@@ -452,7 +452,17 @@ def apply_reserve(specs):
                                  "the allied fleet its commander calls on (allied_fleet.py)")
             e = deepcopy(fleet[r["unit"]])
             aircraft = is_aircraft(e)
-            e["picks"] = [p for p in e["picks"] if (e["unit"], p) not in placed]
+            # Hulls only. The rule is about named ships: a variant is one
+            # hull, and the game tracks it as that ship. A squadron is not
+            # an airframe: a mission placing Kiwi 01 from No. 5 Squadron
+            # (Southern Watch O2) names one aircraft, and more of the type
+            # can be bought, as the campaigns' own rosters sell the RAAF
+            # F-35A and P-8A squadrons their missions place. Placements
+            # name an aircraft by squadron= and the set above by variant,
+            # so until 10 Nov 2026 a squadron pick never matched by
+            # accident; now it is the rule.
+            if not aircraft:
+                e["picks"] = [p for p in e["picks"] if (e["unit"], p) not in placed]
             if not e["picks"]:
                 left_out.append((e, "every hull it prices is placed by a mission"))
             elif aircraft:

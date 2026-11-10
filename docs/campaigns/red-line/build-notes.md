@@ -551,10 +551,12 @@ its centre in four minutes at 30 knots, so an 054A could win without
 stopping; three cables' circle is 0.6 NM across, nine knots for four
 minutes at most. And 20.1 NM put her an hour from the raft, which left the
 race a second timeout. The held trigger's clock starts on the ship's first
-arrival, and nothing restarts it (the arrival enables it once): a ship that
+arrival (since 10 Nov 2026, when the arrival began reactivating it as well as
+enabling it; before, its Time condition counted from mission start and
+"Pilot aboard." came at once), and nothing restarts it again: a ship that
 leaves before the four minutes and comes back after them gets the pop-up at
 once if a Time condition stays met after its minute, or never if it is met
-only at that minute. The test card's 8B.7 records which; SW03's lifters hold
+only at that minute. The test card's highest-risk check 7 records which; SW03's lifters hold
 the same way.
 
 **Positions.** All three are proved against the Banda coastline extract
@@ -596,7 +598,8 @@ OPERATIONS (twice) and SEA BOAT.
 - That a Y-9 at weapons Hold can classify a dived Virginia with buoys inside
   ninety minutes; and that JASDF F-2As at Tight shadow and do not fire.
 - The patrol vessel's speed at telegraph 4, and what the held stage does
-  with a ship that leaves the three cables and comes back (8B.7).
+  with a ship that leaves the three cables and comes back (the test card's
+  highest-risk check 7).
 - Who opens first in *The Ships from the North* when both fighter pairs are
   at Tight (8B.3a): no objective scores it.
 - Whether the J-15 pair, 315 NM from its field, has the fuel for eighty

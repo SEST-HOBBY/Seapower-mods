@@ -41,7 +41,7 @@ MISSION = dict(
             "three Australian surveillance aircraft. Civil traffic remains protected."),
     objectives=[
         ("Contact", "Destroy both missile craft and bring Fujian to the morning station", "35,-35,Fail,Main"),
-        ("Raiders", "Stop both hostile missile craft", "20,0,None"),
+        ("Raiders", "Also required: sink both hostile missile craft", "20,0,None,Main"),
         ("Restraint", "Do not attack the trailing submarine or surveillance aircraft", "15,-40,Complete"),
         ("Carrier", "Keep Fujian afloat", "10,-30,Complete"),
         ("Trail", "Classify ALPHA if the screen can spare the search", "15,0,None"),

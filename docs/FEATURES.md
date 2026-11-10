@@ -73,7 +73,7 @@ experience carry forward from mission to mission.
   that window every force allocation offers the whole roster and the allied
   fleet at its own navies' prices - 52 ship classes from eleven navies
   (carriers, amphibious and replenishment ships, destroyers and frigates)
-  and the RAN's second Canberra-class LHD, with 19 allied aircraft types
+  and the RAN's second Canberra-class LHD, with 20 allied aircraft types
   where a mission can launch and recover them. Allied escorts only on 20
   October; the rest, and the whole roster at every window from *Weapons
   Free*, on 21 October, when the Open Allocation version was retired.
@@ -93,7 +93,7 @@ experience carry forward from mission to mission.
   missing later; an approach you lose or skip reinforces the enemy.
 - Open Allocation from *Tasman Crossing*: every force allocation offers the
   whole roster and the same 52 ship classes and the Canberra-class LHD, with
-  the 10 allied aircraft types its missions can fly; the windows before it
+  the 11 allied aircraft types its missions can fly; the windows before it
   keep the story's own lists *(20 and 21 October 2026; allied escorts only
   on the 20th)*.
 - An optional defector escort (*The Twelve-Mile Line*).

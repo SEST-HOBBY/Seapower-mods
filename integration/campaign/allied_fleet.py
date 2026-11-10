@@ -87,6 +87,7 @@ ALLIED = [
        'USA - E-3G'),
     _e('usaf_f-22_s6', ['Squadron1', 'Squadron2', 'Squadron3', 'Squadron4', 'Squadron5', 'Squadron6', 'Squadron7'], 70,
        'USA - F-22A(S-6)'),
+    # No SEST row tasks a tanker, so usable_allied leaves the KC-46A out; the RCAF CC-330 Husky (ca_a330_mrtt), a tanker with no search sensor that passed only as the mod's Role=AEW, is not sold (dropped 10 Nov 2026).
     _e('usaf_kc-46a_warp', ['Squadron1', 'Squadron2'], 70,
        'USA - KC-46 Pegasus (WARPs)'),
     _e('usn_e-2d', ['Squadron1', 'Squadron2', 'Squadron3', 'Squadron4', 'Squadron5', 'Squadron6', 'Squadron7', 'Squadron8', 'Squadron9'], 70,
@@ -244,6 +245,20 @@ ALLIED = [
        'South Korea - Incheon Class'),
     _e('ko_ddh-971', ['Variant1', 'Variant2', 'Variant3'], 220,
        'South Korea - Gwanggaeto the Great Class'),
+    # --- New Zealand -------------------------------------------------
+    # Added 10 Nov 2026 so a New Zealand commander has a class of their
+    # own. The collection has no modern RNZN hull (Southern Reach does not
+    # invent one), so it is No. 5 Squadron's P-8A, Euromod Modern RAN's
+    # (3820759806), whose one squadron is registered NewZealand; priced as
+    # the US P-8A (2027) and the RAAF P-8A. Southern Watch O2 places Kiwi 01
+    # from the same squadron: apply_reserve keeps a squadron a mission
+    # places on sale, as a squadron names a type, not one airframe. Kept by
+    # usable_allied in both campaigns (10 Nov 2026): Southern Watch's
+    # Maritime Patrol (Recon) rows and the Weapons Free and Fujian's Shadow
+    # strike rows, Southern Reach's Recon rows and the Approaches and
+    # Southern Convoy strike rows, each with a field in reach.
+    _e('rnzaf_p8', ['Squadron1'], 55,
+       'New Zealand - P-8A Poseidon'),
     # --- Australia ---------------------------------------------------
     _e('ran_lhd_canberra', ['Variant1', 'Variant2'], 500,
        'Australia - Canberra-class LHD'),

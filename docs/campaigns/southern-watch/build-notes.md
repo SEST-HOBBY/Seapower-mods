@@ -3235,8 +3235,13 @@ back to the amphibious group. A Time condition counts from when its trigger
 is enabled: 04 Chagos Gambit's rain loop (Trigger3 and Trigger4, each Time=
 and each re-enabling the other) only works that way. So the arrival at the
 rig enables a held trigger (`hold_minutes`) whose clock starts then; it shows
-"Rig crew loaded." as a pop-up and arms the win. Losing either lifter ends
-the mission. Canberra had no aircraft of her own in the mission: every stock
+"Rig crew loaded." as a pop-up and arms the win. *Corrected 10 Nov 2026
+(step-3 design, finding 1):* enabling a trigger does not restart its Time
+condition, which counts from mission start, so the held trigger fired as soon
+as both lifters arrived. The Chagos loop works because each trigger also
+reactivates the other (`Action_EnableTriggers` then
+`Action_ReactivateTriggers`), and the arrival now does both. Losing either
+lifter ends the mission. Canberra had no aircraft of her own in the mission: every stock
 Task Force Mode mission writes `CustomAirGroup=True` and a
 `type=SquadronN,count` line on each player ship with a flight, and this
 builder never had. A unit's `air_group` now writes them, checked against the

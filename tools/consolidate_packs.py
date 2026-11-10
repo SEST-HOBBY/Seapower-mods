@@ -284,11 +284,22 @@ def credits_text(staged):
         L += ["", "Australian Operational Service Medal - Indo-Pacific ribbon",
               "(sest_aosm_indo_pacific.png) by Nford24, CC0 1.0, from Wikimedia",
               "Commons, copied unchanged."]
-    if "ui/campaign/navy_emblems/sest_rn_emblem.png" in staged:
-        L += ["", "The Royal Navy commander emblem (ui/campaign/navy_emblems/",
-              "sest_rn_emblem.png) is the White Ensign from the SEST gallery",
-              "flag set (Wikimedia Commons, public domain), credited in",
-              "Gallery/VISUAL_CREDITS.txt."]
+    # The commander emblems SEST draws (build_pack.SEST_EMBLEMS): naval
+    # ensigns and national flags from the gallery flag set. Each campaign's
+    # art/ribbons/SOURCES.txt says which flag each one is.
+    emblems = sorted(rel.rsplit("/", 1)[1] for rel in staged
+                     if rel.startswith("ui/campaign/navy_emblems/sest_"))
+    if emblems:
+        L += ["", "The commander emblems in ui/campaign/navy_emblems/ named",
+              "sest_*.png are naval ensigns and national flags from the SEST",
+              "gallery flag set (Wikimedia Commons, public domain), credited in",
+              "Gallery/VISUAL_CREDITS.txt; each campaign's SOURCES.txt says",
+              "which flag each one shows:"]
+        L += [f"      {name}" for name in emblems]
+    if "language_en/sest_name_pools.ini" in staged:
+        L += ["", "language_en/sest_name_pools.ini adds commander name pools for",
+              "nations the game has none for: common given names and surnames",
+              "from public name statistics, which the game combines at random."]
     L += [""]
     if rows:
         by_mod = {}

@@ -38,15 +38,15 @@
             <TextBlock Text="Commander Rules" FontSize="24" FontWeight="Bold" Foreground="White" TextWrapping="Wrap" Margin="0,0,0,14"/>
 
             <TextBlock Text="Command" FontSize="17" FontWeight="Bold" Foreground="White" TextWrapping="Wrap" Margin="0,0,0,6"/>
-            <TextBlock Text="You command the Philippine Navy task force for the whole campaign. The commander's nation is fixed." FontSize="15" Foreground="#D8DDE8" TextWrapping="Wrap" Margin="0,0,0,14"/>
-            <TextBlock Text="Commander nationality does not change mission rules, ship performance, aircraft performance, or combat capability." FontSize="15" Foreground="#D8DDE8" TextWrapping="Wrap" Margin="0,0,0,14"/>
+            <TextBlock Text="You command the Philippine Navy task force for the whole campaign. The commander is Philippine by default; you can instead appoint a Thai or an Australian officer in command of the group. Choose the nation in the Service Record when the campaign starts; it is then locked for the campaign." FontSize="15" Foreground="#D8DDE8" TextWrapping="Wrap" Margin="0,0,0,14"/>
+            <TextBlock Text="Commander nationality does not change mission rules, ship performance, aircraft performance, or combat capability. It decides which classes the purchase discount covers and which national awards the commander can receive. Philippine awards go to a Philippine commander only; Thai and Australian commanders receive the fictional ribbons and the group's Philippine Republic Presidential Unit Citation only." FontSize="15" Foreground="#D8DDE8" TextWrapping="Wrap" Margin="0,0,0,14"/>
             <Border Height="1" Background="{StaticResource Brush.Glyph.Normal}" Opacity="0.45" Margin="0,0,0,14"/>
 
             <TextBlock Text="National Purchase Discount" FontSize="17" FontWeight="Bold" Foreground="White" TextWrapping="Wrap" Margin="0,0,0,6"/>
             <TextBlock FontSize="15" Foreground="#D8DDE8" TextWrapping="Wrap" Margin="0,0,0,5">
               <Run Text="- Commanders receive a "/><Run Text="{Binding SameNationDiscountPercentText}"/><Run Text="% point discount when purchasing units from their own nation."/>
             </TextBlock>
-            <TextBlock Text="- The discount covers the 7 classes registered to Philippines. The 6 classes registered to other nations - from Thailand (3), Australia (2), USA (1) - cost their listed price." FontSize="15" Foreground="#D8DDE8" TextWrapping="Wrap" Margin="0,0,0,5"/>
+            <TextBlock Text="- The discount follows the commander's nation. It covers the 7 classes registered to the Philippines for a Philippine commander, the 3 classes registered to Thailand for a Thai commander and the 2 classes registered to Australia for an Australian commander. Every other class costs its listed price; no commander's discount covers the classes registered to the USA (1)." FontSize="15" Foreground="#D8DDE8" TextWrapping="Wrap" Margin="0,0,0,5"/>
             <TextBlock Text="- In the game's Unrestricted mode the Service Record also offers a Faction discount nation, All nations by default, and that setting decides the discount instead." FontSize="15" Foreground="#D8DDE8" TextWrapping="Wrap" Margin="0,0,0,14"/>
             <Border Height="1" Background="{StaticResource Brush.Glyph.Normal}" Opacity="0.45" Margin="0,0,0,14"/>
 
