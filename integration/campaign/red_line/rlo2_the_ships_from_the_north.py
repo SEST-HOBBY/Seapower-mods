@@ -48,7 +48,10 @@ MISSION = dict(
             "the intercept develops, keep the Y-9 covered and engage the fighters, not the ships - by "
             "direct order: fighters left free will go for the ships, and that ends the "
             "operation. Nothing afloat is a target.\\n\\nClassify both escorts, then take SEA "
-            "EAR 31 back east towards the field. A Misool fishing boat and a coaster bound "
+            "EAR 31 back east towards the field. The operation is complete when both escorts "
+            "are classified and SEA EAR 31 is then within ten miles of the return point east, "
+            "no earlier than minute fourteen, with no incoming weapon still tracked against "
+            "the force. A Misool fishing boat and a coaster bound "
             "for Sorong are in the same water."
         )),
     forces=(

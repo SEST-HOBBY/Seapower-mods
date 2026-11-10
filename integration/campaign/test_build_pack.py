@@ -4375,8 +4375,13 @@ class RedLineReleaseTerms(unittest.TestCase):
     def test_minute_gates_are_in_the_briefs(self):
         # Every term of every way to win, any_of paths' own minutes included
         # (RL03's Disengage opens at eighteen, step 3).
-        for code, radius in (("RL02", "two"), ("RL03", "eight"), ("RL04", "five"),
-                             ("RL06", "four")):
+        # All six combat exits (the ones that wait for no incoming weapon):
+        # RL01 and RLO2's terms were added to their briefs on 10 Nov 2026.
+        exits = [c for c, m in self.m.items()
+                 if {"kind": "no_incoming"} in m["victory"].get("also", [])]
+        self.assertEqual(sorted(exits), ["RL01", "RL02", "RL03", "RL04", "RL06", "RLO2"])
+        for code, radius in (("RL01", "three"), ("RL02", "two"), ("RL03", "eight"),
+                             ("RL04", "five"), ("RL06", "four"), ("RLO2", "ten")):
             v, brief = self.m[code]["victory"], self.brief(code)
             terms = (bp.victory_terms(v) + ([v["after"]] if v.get("after") else [])
                      + [p for p in v.get("any_of", []) if p.get("after_minutes")])
