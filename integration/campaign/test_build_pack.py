@@ -1560,6 +1560,14 @@ class PlayTest18Oct(unittest.TestCase):
         _name, text = bp.render(m, *small_placement())
         n = _trigger_numbers(text)
         self.assertIn(f"Action_EnableTriggers=Trigger{n['Stage held']}", triggers["Stage"])
+        # Enabled AND reactivated, in that order, as 04 Chagos Gambit arms its
+        # rain loop: enabling alone leaves the Time condition counting from
+        # mission start (step-3 design, finding 1; 10 Nov 2026).
+        stage = triggers["Stage"]
+        reactivate = f"Action_ReactivateTriggers=Trigger{n['Stage held']}"
+        self.assertIn(reactivate, stage)
+        self.assertLess(stage.index(f"Action_EnableTriggers=Trigger{n['Stage held']}"),
+                        stage.index(reactivate))
         held = triggers["Stage held"]
         self.assertIn("Disabled=True", held)
         self.assertIn("Condition_Condition2_Time=180", held)
@@ -1568,6 +1576,39 @@ class PlayTest18Oct(unittest.TestCase):
         self.assertIn(f"Action_EnableTriggers=Trigger{n['Objective met']}", held)
         self.assertIn("Disabled=True", triggers["Objective met"])
         self.assertIn("StageHeldMessage=<color=yellow>Loaded.</color>|All aboard.", text)
+
+    def test_a_held_stage_starts_its_clock_at_the_arrival(self):
+        # The stock pattern this follows: 04 Chagos Gambit's Trigger3 arms
+        # its disabled Time= trigger with both actions, enable then
+        # reactivate (lines 510-526 of the stock file).
+        chagos = (bp.ROOT / "mods-source" / "_vanilla" / "original" / "campaigns"
+                  / "strike-group-molniya-campaign" / "missions" / "04 Chagos Gambit.ini"
+                  ).read_text(encoding="utf-8", errors="replace")
+        rain = re.search(r"^\[Trigger3\]\n(.*?)(?=^\[)", chagos, re.M | re.S).group(1)
+        self.assertIn("Condition_Condition1_Type=Time", rain)
+        self.assertRegex(rain, r"Action_EnableTriggers=Trigger4\nAction_ReactivateTriggers=Trigger4\n")
+        # And every built mission with a held stage (SW03 Rig Seventeen and
+        # RLC1 Pilot in the Water, in the campaign and mission-browser
+        # copies) arms its held trigger the same way.
+        pack = bp.ROOT / "integration" / "campaign" / "SEST_Campaign"
+        found = []
+        for ini in sorted(pack.rglob("*.ini")):
+            text = ini.read_text(encoding="utf-8", errors="replace")
+            if "\nName=Stage held\n" not in text:
+                continue
+            n = _trigger_numbers(text)
+            stage = re.search(rf"^\[Trigger{n['Stage']}\][^\n]*\n(.*?)(?=^\[|\Z)", text,
+                              re.M | re.S).group(1)
+            held = n["Stage held"]
+            with self.subTest(mission=ini.name):
+                self.assertIn(f"Action_EnableTriggers=Trigger{held}\n"
+                              f"Action_ReactivateTriggers=Trigger{held}\n", stage)
+            found.append(ini.stem)
+        if not found:
+            self.skipTest("pack not built")
+        self.assertEqual(sorted(set(found)), ["Red Line C1 - Pilot in the Water",
+                                              "Southern Watch 03 - Rig Seventeen"])
+        self.assertEqual(len(found), 4)
 
     def test_a_held_stage_needs_its_message(self):
         v = dict(small_mission()["victory"],

@@ -5218,12 +5218,17 @@ def render(mission, placed, members):
         else:
             # hold_minutes: the stage is not done on arrival but after the
             # units have been there that long - SW03's lifters loading thirty
-            # people. A Time condition counts from when its trigger is
-            # enabled, which is what 04 Chagos Gambit's rain loop (Trigger3
-            # and Trigger4, each Time= and each re-enabling the other) only
-            # works by; so the arrival enables a held trigger whose clock
-            # starts then, and that trigger shows the pop-up and arms the
-            # win. Its area test is the arrival's again.
+            # people, RLC1's pilot coming aboard. Enabling a trigger does not
+            # restart its Time condition, which counts from mission start:
+            # until 10 Nov 2026 the held trigger was only enabled, so it
+            # fired as soon as the arrival did once the mission was older
+            # than the hold (step-3 design, finding 1). 04 Chagos Gambit's
+            # rain loop (Trigger3 and Trigger4, each Time= and each arming
+            # the other) gives both actions, Action_EnableTriggers and then
+            # Action_ReactivateTriggers, and so does the arrival here: the
+            # held trigger's clock starts at the arrival, and that trigger
+            # shows the pop-up and arms the win. Its area test is the
+            # arrival's again.
             hold = stage.get("hold_minutes")
             # Trigger numbers, in the order they are written: the stage, the
             # held trigger, then the arrival that wins.
@@ -5237,6 +5242,8 @@ def render(mission, placed, members):
             # would not stop (play test, 18 Oct 2026).
             sunk = f",Trigger{met_no + 1}" if victory.get("or_destroyed") else ""
             s_cond.append(f"Action_EnableTriggers=Trigger{held_no or met_no}{sunk}")
+            if hold:
+                s_cond.append(f"Action_ReactivateTriggers=Trigger{held_no}")
             trigger("Stage", s_cond)
             if hold:
                 if stage["kind"] != "area" or not stage.get("held") or stage.get("lost"):
