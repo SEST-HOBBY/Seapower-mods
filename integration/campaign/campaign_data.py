@@ -128,6 +128,19 @@ def S(lat, lon, label, heading=90, alt=None):
     return st
 
 
+# The game's "Unit damage state" trigger condition (language_en/ui.ini lines
+# 1149-1158: UnitDamageState, DamageConditionMode, DamageThresholdPercent and
+# the seven DamageConditionMode... labels) is in no stock mission, so the
+# keys and values a mission file carries for it are not known. Off until PC
+# check P1 (docs/campaigns/red-line/test-card.md) saves one from the Mission
+# Editor; then this becomes dict(type=, mode_key=, threshold_key=, modes={
+# "integrity_below", "propulsion_all", "propulsion_any", "weapons_all",
+# "sensors_all": the value the editor writes}). While it is None, a 'damaged'
+# victory term or a turn_back's or_damaged stops the build, and RL04 offers
+# no "stop her engines" outcome.
+DAMAGE_STATE = None
+
+
 # Mods with nothing a mission can name. The builder rejects an excuse that has
 # become untrue, so this list can only shrink.
 EXCUSES = {

@@ -3185,6 +3185,11 @@ PATH_NAME = re.compile(r"^[A-Z][A-Za-z0-9]{1,23}$")
 CLEAR_AFTER_ATTACK_MIN = 2
 
 
+def path_trigger(i, path):
+    """The Name= of any_of path i's victory trigger."""
+    return "Objective met" if i == 0 else f"Objective met: {path['name']}"
+
+
 def path_refreshed(path):
     return any(isinstance(t, dict) and term_kind(t) == "clear_of" for t in path["also"])
 
@@ -3261,9 +3266,7 @@ def victory_alternatives(mission, cond, expr, n, members, placed, trigger, done,
     (lines 1334-1339): Time=5 reactivating the path and itself."""
     victory = mission["victory"]
     paths = victory["any_of"]
-
-    def met(i, p):
-        return "Objective met" if i == 0 else f"Objective met: {p['name']}"
+    met = path_trigger
 
     def gate(p):
         return f"Opens at minute {p['after_minutes']}: {p['name']}"
@@ -3296,7 +3299,7 @@ def victory_alternatives(mission, cond, expr, n, members, placed, trigger, done,
         if p.get("after_minutes"):
             # A Time trigger that enables another: 05A Operation Blockbuster -
             # Blue, "Victor III warning message Datum A01" (Time=3300,
-            # Action_EnableTriggers=Trigger8, lines 925-930).
+            # Action_EnableTriggers=Trigger8, lines 924-930).
             trigger(gate(p), [
                 "Condition_Condition1_Type=Time",
                 f"Condition_Condition1_Time={p['after_minutes'] * 60}",
@@ -3308,6 +3311,199 @@ def victory_alternatives(mission, cond, expr, n, members, placed, trigger, done,
                 "Condition_Condition1_Type=Time", "Condition_Condition1_Time=5",
                 "ConditionsCompleted=<Condition1>",
                 "Action_ReactivateTriggers=" + trigger_marks(met(i, p), refresh(p))])
+
+
+# turn_back: an opposing ship that heaves to when a warship of the player's
+# closes her - RL04's coaster, which the ceasefire would rather see stopped
+# than sunk (step 4 of the builder-grammar design). Only stock pieces: a
+# chain of challenge circles along her own placed route, each two
+# UnitsInTheArea conditions joined with AND - the area test as the lift and
+# the victory write it, and two conditions of one type in one trigger as 05A
+# Operation Blockbuster - Blue's Trigger11 joins two UnitsAreOutOfAmmo
+# (lines 943-949); no stock trigger has two area tests, which the victory's
+# own area terms already ship (RL06) - enabling one Disabled=True Generic
+# trigger, as Caron at Grenada 1983's Trigger4 enables its Trigger10 (lines
+# 534 and 588-595), that moves her to Neutral, re-routes her and sets her
+# telegraph (Caron 591-593; Blockbuster's Trigger11, lines 940-942: Units,
+# UnitWaypoints, UnitTelegraph). The challenged ship is tested in a small
+# circle on her own track
+# and the warship in a circle of `radius` round the same point, so the
+# challenge comes at about `radius` from her whichever side the warship
+# closes from.
+TURN_BACK_KEYS = frozenset({"name", "units", "by", "radius", "to", "telegraph", "transfer",
+                            "objective", "intel", "protected", "or_damaged"})
+TRACK_NM = 0.75             # the challenged ship's circle on her own track
+TRACK_STEP_NM = 1.0         # its spacing along the track: the circles overlap
+
+
+def turn_back_units(mission, members, tb):
+    where = f"{mission['key']}: turn_back {tb.get('name')!r}"
+    units = [t for r in tb.get("units", []) for t in refs(members, r)]
+    by = [t for r in tb.get("by", []) for t in refs(members, r)]
+    if len(units) != 1 or not units[0].startswith("Taskforce2"):
+        raise SystemExit(f"{where}: units names {units}; a turn_back is one opposing "
+                         "ship that heaves to")
+    if not by or not all(re.match(r"Taskforce1(Vessel|Submarine)\d+$", t) for t in by):
+        raise SystemExit(f"{where}: by names {by}; the challenge is made by the player's "
+                         "warships, not by aircraft or the other side")
+    return units, by
+
+
+def check_turn_back(mission, members):
+    key = mission["key"]
+    objectives = {o[0] for o in mission["objectives"]}
+    names = set()
+    for tb in mission.get("turn_back", []):
+        where = f"{key}: turn_back {tb.get('name')!r}"
+        stray = sorted(set(tb) - TURN_BACK_KEYS)
+        missing = sorted({"name", "units", "by", "radius", "to", "objective"} - set(tb))
+        if stray or missing:
+            raise SystemExit(f"{where}: " + (f"does not read {stray} " if stray else "")
+                             + (f"needs {missing} " if missing else "")
+                             + f"- it reads {', '.join(sorted(TURN_BACK_KEYS))}")
+        if not PATH_NAME.match(str(tb["name"])) or tb["name"] in names:
+            raise SystemExit(f"{where}: the name is a unique capitalised identifier")
+        names.add(tb["name"])
+        units, _by = turn_back_units(mission, members, tb)
+        for term in mission["victory"].get("also", []):
+            if (isinstance(term, dict) and term_kind(term) == "destroyed"
+                    and set(units) & {x for r in ([term["units"]] if isinstance(term["units"], str)
+                                                  else term["units"]) for x in refs(members, r)}):
+                raise SystemExit(f"{where}: every win waits for {units[0]} destroyed, and "
+                                 "once she heaves to she is protected - give the sinking "
+                                 "its own any_of path")
+        radius = tb["radius"]
+        if isinstance(radius, bool) or not isinstance(radius, (int, float)) or radius <= 0:
+            raise SystemExit(f"{where}: radius {radius!r} is not a distance")
+        if tb.get("transfer") not in (None, "Neutral"):
+            raise SystemExit(f"{where}: transfer={tb['transfer']!r}; only Neutral, as Caron "
+                             "at Grenada transfers its checked-out aircraft")
+        tel = tb.get("telegraph")
+        if tel is not None and (isinstance(tel, bool) or tel not in range(6)):
+            raise SystemExit(f"{where}: telegraph {tel!r} is not 0-5")
+        if tb["objective"] not in objectives:
+            raise SystemExit(f"{where}: objective {tb['objective']!r} is not one here")
+        guard = tb.get("protected")
+        if guard is not None:
+            if not tb.get("transfer"):
+                raise SystemExit(f"{where}: protected needs transfer - a ship still on the "
+                                 "other side is no protected neutral")
+            if (not isinstance(guard, dict) or set(guard) != {"objective", "message"}
+                    or guard["objective"] not in objectives):
+                raise SystemExit(f"{where}: protected is dict(objective=, message=) on "
+                                 "one of this mission's objectives")
+        if tb.get("or_damaged") is not None:
+            damage_state()
+            if not isinstance(tb["or_damaged"], dict) or set(tb["or_damaged"]) - {"mode", "threshold"}:
+                raise SystemExit(f"{where}: or_damaged is dict(mode=, threshold=)")
+
+
+def turn_back_corridor(mission, placed, members, tb):
+    """The challenge circles' centres, (x, z) in the mission's NM frame: every
+    TRACK_STEP_NM along the ship's placed route (her spawn, then her
+    waypoints) until she enters the `denied` circle that names her - past
+    that the mission is already lost."""
+    where = f"{mission['key']}: turn_back {tb['name']!r}"
+    centre = mission["centre"]
+    units, by = turn_back_units(mission, members, tb)
+    deny = next((d for d in mission.get("denied", [])
+                 if {t for r in d["units"] for t in refs(members, r)} == set(units)), None)
+    if deny is None:
+        raise SystemExit(f"{where}: no denied race names {units[0]}, so nothing says "
+                         "where she has got away and the challenges end")
+    dx, dz = (deny["at"][1] - centre[1]) * 60, (deny["at"][0] - centre[0]) * 60
+    sections = {tag: keys for entries in placed.values() for tag, keys, _n, _x in entries}
+    route = route_points(sections[units[0]])
+
+    def along():
+        walked, k = 0.0, 0
+        for (ax, az), (bx, bz) in zip(route, route[1:]):
+            seg = math.hypot(bx - ax, bz - az)
+            while seg and k * TRACK_STEP_NM <= walked + seg + 1e-9:
+                f = min(1.0, (k * TRACK_STEP_NM - walked) / seg)
+                yield ax + (bx - ax) * f, az + (bz - az) * f
+                k += 1
+            walked += seg
+    out = []
+    for x, z in along():
+        if math.hypot(x - dx, z - dz) < deny["radius"]:
+            break
+        out.append((round(x, 2), round(z, 2)))
+    spawns = [route_points(sections[t])[:1] for t in by]
+    for x, z in out:
+        if math.hypot(x - route[0][0], z - route[0][1]) <= TRACK_NM and any(
+                math.hypot(x - s[0][0], z - s[0][1]) <= tb["radius"] for s in spawns if s):
+            raise SystemExit(f"{where}: a warship starts within {tb['radius']:g} NM of the "
+                             "ship's own start, so the challenge is met at spawn")
+    if len(out) < 2:
+        raise SystemExit(f"{where}: her route gives {len(out)} challenge point(s) before "
+                         "the denied circle - there is no water to challenge her in")
+    return out
+
+
+def turn_back_triggers(mission, placed, members, tb, trigger, terminal, progress_names):
+    """The challenge chain, the turn-back and the loss that follows it."""
+    centre = mission["centre"]
+    name = tb["name"]
+    units, by = turn_back_units(mission, members, tb)
+    deny = next(d for d in mission.get("denied", [])
+                if {t for r in d["units"] for t in refs(members, r)} == set(units))
+    turns, disabled = f"Turns back: {name}", f"Disabled: {name}"
+    challenges = []
+    for k, (x, z) in enumerate(turn_back_corridor(mission, placed, members, tb), 1):
+        at = (centre[0] + z / 60.0, centre[1] + x / 60.0)
+        challenges.append(f"Challenge {name} {k}")
+        trigger(challenges[-1],
+                area_condition(1, centre, at, TRACK_NM, units, 1, side="None")
+                + area_condition(2, centre, at, tb["radius"], by, 1, side="None")
+                + ["ConditionsCompleted=<Condition1> AND <Condition2>",
+                   "Action_EnableTriggers=" + trigger_marks(turns)])
+    # Once she has turned, her loss ends the mission: a path that wins by
+    # sinking her, and her objective's own destroy trigger, are switched off
+    # with the challenges and the race she can no longer win.
+    sinking = [path_trigger(i, p) for i, p in enumerate(mission["victory"].get("any_of") or [])
+               if any(term_kind(x) == "destroyed" and set(units) & {
+                   u for r in ([x["units"]] if isinstance(x["units"], str) else x["units"])
+                   for u in refs(members, r)} for x in p["also"])]
+    how = mission.get("resolve", {}).get(tb["objective"])
+    own = [f"{tb['objective']} met"] if isinstance(how, tuple) and how[0] == "destroy" else []
+    stop = (challenges + [f"{deny['objective']} denied"] + sinking + own
+            + list(progress_names))
+    to_x, to_z = (tb["to"][1] - centre[1]) * 60, (tb["to"][0] - centre[0]) * 60
+    lines = ["Disabled=True", "Condition_Condition1_Type=Generic",
+             "ConditionsCompleted=<Condition1>", f"Action_Units={','.join(units)}"]
+    if tb.get("transfer"):
+        lines.append(f"Action_UnitTransferToTaskforce={tb['transfer']}")
+    lines.append(f"Action_UnitWaypoints={to_x:.2f},0,{to_z:.2f}")
+    if tb.get("telegraph") is not None:
+        lines.append(f"Action_UnitTelegraph={tb['telegraph']}")
+    if tb.get("intel"):
+        lines.append(f"Action_Taskforce1_Intel=TurnBack{name}Intel")
+    lines.append(f"Action_ObjectivesCompleted={tb['objective']}")
+    lines.append("Action_DisableTriggers=" + trigger_marks(
+        *stop + ([disabled] if tb.get("or_damaged") else [])))
+    if tb.get("protected"):
+        lines.append("Action_EnableTriggers=" + trigger_marks(f"{name} sunk after turning"))
+    trigger(turns, lines)
+    if tb.get("or_damaged"):
+        # Behind DAMAGE_STATE (PC check P1): no stock mission writes the
+        # condition, so its keys come from a Mission Editor save.
+        trigger(disabled, damaged_condition(1, units, tb["or_damaged"])
+                + ["ConditionsCompleted=<Condition1>",
+                   f"Action_ObjectivesCompleted={tb['objective']}",
+                   "Action_DisableTriggers=" + trigger_marks(*stop + [turns])])
+    if tb.get("protected"):
+        # A ship transferred to Neutral is not in the mission's neutral
+        # list, so her loss would end nothing: this terminal keeps the
+        # protected-neutral rule for her, on the tag she keeps (stock PLAN 04
+        # Escape from the Sulu Sea transfers NeutralSubmarine1 at Trigger6,
+        # lines 592-593, and its Trigger7 still waits for NeutralSubmarine1
+        # destroyed, lines 604-606).
+        terminal(f"{name} sunk after turning",
+                 ["Disabled=True"] + destroyed_condition(1, units, 1)
+                 + ["ConditionsCompleted=<Condition1>"],
+                 failed=[tb["protected"]["objective"]], keep=[tb["objective"]],
+                 message=f"TurnBack{name}LostMessage", victor="Taskforce2")
 
 
 # Conservative transit speeds for the reachability check, in knots. They are
@@ -4294,6 +4490,8 @@ def check_coast_geometry(mission, placer):
             placer.point(how[2], f"{key} {oid} arrival")
     for lift in mission.get("lift", []):
         placer.point(lift["at"], f"{key} {lift['objective']} lift area")
+    for tb in mission.get("turn_back", []):
+        placer.point(tb["to"], f"{key} turn_back {tb['name']} destination")
 
 
 def check_geometry(mission, placed, members):
@@ -4399,6 +4597,12 @@ def message_texts(mission):
         out.append((f"discoveries[{find['objective']}].intel", find["intel"]))
     for lift in mission.get("lift", []):
         out.append((f"lift[{lift['objective']}].intel", lift["intel"]))
+    for tb in mission.get("turn_back", []):
+        if tb.get("intel"):
+            out.append((f"turn_back[{tb.get('name')}].intel", tb["intel"]))
+        if isinstance(tb.get("protected"), dict) and tb["protected"].get("message"):
+            out.append((f"turn_back[{tb.get('name')}].protected.message",
+                        tb["protected"]["message"]))
     return out
 
 
@@ -4668,6 +4872,11 @@ def deployment_areas(mission, placed, members):
     for lift in mission.get("lift", []):
         if isinstance(lift, dict) and lift.get("at") and lift.get("radius") is not None:
             out.append(area(lift["at"], lift["radius"], tags(lift.get("units"))))
+    # A turn_back's challenge circles complete it when one of the warships
+    # gets there, so boxes are held back from them as from any goal.
+    for tb in mission.get("turn_back", []):
+        for x, z in turn_back_corridor(mission, placed, members, tb):
+            out.append(dict(x=x, z=z, r=float(tb["radius"]), counted=tags(tb["by"])))
     # one circle, however many conditions name it: the units any of them counts
     merged = {}
     for a in out:
@@ -5253,6 +5462,7 @@ def render(mission, placed, members):
     check_message_texts(mission)
     check_victory_keys(mission)
     check_any_of(mission)
+    check_turn_back(mission, members)
     check_required_objectives(mission, members)
     name = mission_name(mission)
     centre = mission["centre"]
@@ -5326,6 +5536,12 @@ def render(mission, placed, members):
     for flag in mission.get("flags", []):
         if flag.get("intel"):
             L.append(f"{flag['name']}Intel={ini_text(flag['intel'])}")
+    for tb in mission.get("turn_back", []):
+        if tb.get("intel"):
+            L.append(f"TurnBack{tb['name']}Intel={ini_text(tb['intel'])}")
+        if tb.get("protected"):
+            L.append(f"TurnBack{tb['name']}LostMessage=<color=red>Operation failed.</color>|"
+                     + ini_text(tb["protected"]["message"]))
     for find in mission.get("discoveries", []):
         L.append(f"{find['objective']}Intel={ini_text(find['intel'])}")
     for lift in mission.get("lift", []):
@@ -6014,6 +6230,12 @@ def render(mission, placed, members):
                  + ["ConditionsCompleted=<Condition1>"],
                  failed=[oid], message=f"Denied{i}Message",
                  victor="Taskforce2")
+
+    # turn_back: the challenge chain along the ship's route, the Generic
+    # trigger that turns her and, once she is Neutral, her loss as a
+    # protected neutral's (turn_back_triggers).
+    for tb in mission.get("turn_back", []):
+        turn_back_triggers(mission, placed, members, tb, trigger, terminal, ())
 
     # Losing a support asset costs something the player can read at the time,
     # and - where `sets` names a campaign flag - something a later mission

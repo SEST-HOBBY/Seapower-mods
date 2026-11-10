@@ -95,6 +95,13 @@ class RedLinePacing(unittest.TestCase):
         qship=next(u for u in m['units'] if u['station']=='qship')
         self.assertEqual(qship['attacks'][0][2],'group#2')
         self.assertIn('Supply',{f['objective'] for f in m['fatal']})
+        # Sunk, or hove to when the screen's lead ship closes her (step 4);
+        # the ship's flight does not count.
+        tb=m['turn_back'][0]
+        self.assertEqual((tb['units'],tb['by'],tb['transfer']),(['spoiler'],['escort'],'Neutral'))
+        self.assertEqual(next(u for u in m['units'] if u['station']=='escort')['type'],'plan_type_054a_p5')
+        self.assertEqual([p['name'] for p in m['victory']['any_of']],['Sunk','HoveTo'])
+        self.assertEqual(tb['protected']['objective'],'Restraint')
 
     def test_one_compact_stealth_crossing_is_retained(self):
         m=self.missions['RL05']
