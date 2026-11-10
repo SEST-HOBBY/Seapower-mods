@@ -97,15 +97,16 @@ them (orders from 1.6.3, operations from 1.6.4).
 
 New verify group `runtime-mission-awards` (`tests/MissionAwardsTests.cs`):
 Cecil contracts on the captured game and DCM images (the snapshot's call
-order and gate, the award overloads' callers and size, the ribbon-rule
-helpers by signature, the INI comment separators, the objective, result,
-survivor and weapon-report members, Admiralty.Queue/Read/Paper/OnCaptured
-and the sim-before-UI order) and behaviour on the captured types (grammar
-and fail-closed parsing, native nation filtering, all 32 objective flag
-combinations, nolaunch counting, merge order and the native row round trip,
-the persistent set, the real Harmony postfix, the void finalizer's
-rethrow with the original stack, and the grant against an in-memory
-`IniHandler`). `native-bindings` binds `MissionAwards`;
+order and the gate's branch targets, the award overloads' callers and size,
+the player's weapon-report row and the counters each report lambda sets,
+the ribbon-rule helpers by signature, the INI comment separators, the
+objective, result, survivor and weapon-report members,
+Admiralty.Queue/Read/Paper/OnCaptured and the sim-before-UI order) and
+behaviour on the captured types (grammar and fail-closed parsing, native
+nation filtering, all 32 objective flag combinations, nolaunch counting,
+merge order and the native row round trip, the persistent set, the real
+Harmony postfix, the void finalizer's rethrow with the original stack, the
+mission-index guard, and the grant against an in-memory `IniHandler`). `native-bindings` binds `MissionAwards`;
 `world-service-and-strike-bindings` drives DCM's real Queue, Read and
 OnCaptured and checks that Runtime 1.6.4 (R12 Final) reads the record.
 `build-workshop-support.py` accepts R12 and R13 revisions; the repair note

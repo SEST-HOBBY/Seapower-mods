@@ -125,6 +125,17 @@ static partial class MissionAwardsTests
             Calls("SeaPower.LinearCampaign", "SaveCampaignPersistentData"),
             Calls(Debrief, "PersistDebriefSectionsToCurrentCampaignSave"));
         Check(snapshot.Body.Instructions.Count(Calls(Rules, "ApplyMissionRibbonAwards")) == 1, "SaveDebriefSnapshot grants mission ribbons once");
+        // The gate's branches: an incomplete event jumps to the block that
+        // saves and returns, MissionResult >= RequiredResult jumps past that
+        // block's ret, and any lower result falls into it.
+        var complete = snapshot.Body.Instructions.First(Calls("SeaPower.LinearCampaignEvent", "get_IsComplete"));
+        var atLeast = snapshot.Body.Instructions.First(Calls(Mission, "get_RequiredResult")).Next;
+        var stop = new List<Instruction>();
+        for (var i = atLeast.Next; i != null; i = i.Next) { stop.Add(i); if (i.OpCode.FlowControl != FlowControl.Next && i.OpCode.FlowControl != FlowControl.Call) break; }
+        Check((complete.Next.OpCode.Code == Code.Brfalse || complete.Next.OpCode.Code == Code.Brfalse_S) && complete.Next.Operand == atLeast.Next &&
+            (atLeast.OpCode.Code == Code.Bge || atLeast.OpCode.Code == Code.Bge_S) && stop.Last().OpCode.Code == Code.Ret && atLeast.Operand == stop.Last().Next &&
+            stop.Count(Calls(Ini, "saveFile")) == 1,
+            "the completion gate: brfalse after IsComplete to the saveFile/ret block, bge after RequiredResult past that ret");
         Check(Callers(game, Debrief, "SaveDebriefSnapshot", Sig(snapshot)).SequenceEqual(new[] {
             MissionDebrief + "/<WriteTaskForceMissionDebrief>d__120::MoveNext", MissionDebrief + "::ButtonExit_Click" }),
             "SaveDebriefSnapshot is called only by the debrief exit and the post-mission debrief load action");
@@ -254,9 +265,18 @@ static partial class MissionAwardsTests
         Check(kinds["Noisemaker"] == 6 && kinds["Chaff"] == 7 && kinds["Sonobuoy"] == 11 && kinds["MOSS"] == 14 && kinds["Paratrooper"] == 15 && kinds["Fueltank"] == 16 && kinds["Torpedo"] == 5,
             "Ammunition.Type keeps the countermeasure, sonobuoy, paratrooper and fuel-tank values the runtime exempts by name");
         var write = Method(debrief, "WriteWeaponReports", "System.Void(" + Ini + ",System.Int32)");
-        Check(write.Body.Instructions.Any(i => i.OpCode.Code == Code.Ldsfld && ((FieldReference)i.Operand).Name == "_playerTaskforce") &&
-            write.Body.Instructions.Any(i => i.OpCode.Code == Code.Ldfld && ((FieldReference)i.Operand).Name == "_weaponReport"),
-            "WriteWeaponReports saves the same live Globals._playerTaskforce._weaponReport the runtime reads");
+        Method(debrief, "WriteWeaponReport", "System.Void(" + Ini + ",System.Int32,System.String,SeaPower.TaskforceWeaponReport)");
+        Func<Instruction, bool> playerRow = i => i.OpCode.Code == Code.Ldstr && (string)i.Operand == "PlayerWeaponReport";
+        InOrder(write, "WriteWeaponReports saves the same live Globals._playerTaskforce._weaponReport the runtime reads, as PlayerWeaponReport",
+            playerRow,
+            i => i.OpCode.Code == Code.Ldsfld && ((FieldReference)i.Operand).DeclaringType.FullName == "SeaPower.Globals" && ((FieldReference)i.Operand).Name == "_playerTaskforce",
+            i => i.OpCode.Code == Code.Ldfld && ((FieldReference)i.Operand).DeclaringType.FullName == "SeaPower.Taskforce" && ((FieldReference)i.Operand).Name == "_weaponReport",
+            Calls(Debrief, "WriteWeaponReport"));
+        var rowFields = new List<string>();
+        for (var i = write.Body.Instructions.First(playerRow); i != null && !Calls(Debrief, "WriteWeaponReport")(i); i = i.Next)
+            if (i.Operand is FieldReference f) rowFields.Add(i.OpCode.Code + " " + f.DeclaringType.FullName + "::" + f.Name);
+        Check(rowFields.SequenceEqual(new[] { "Ldsfld SeaPower.Globals::_playerTaskforce", "Ldfld SeaPower.Taskforce::_weaponReport" }),
+            "the PlayerWeaponReport row reads only Globals._playerTaskforce._weaponReport before its WriteWeaponReport call");
         var extensions = Type(game, "SeaPower.TaskforceWeaponReportExtensions");
         var ignored = Method(extensions, "IsIgnoredAmmo", "System.Boolean(SeaPower.Ammunition/Type,SeaPower.Ammunition/Type)");
         Check(ignored.Body.Instructions.Where(i => i.OpCode.Code == Code.Ldc_I4_S).All(i => (sbyte)i.Operand == 16) && ignored.Body.Instructions.Count(i => i.OpCode.Code == Code.Ldc_I4_S) == 2,
@@ -267,6 +287,11 @@ static partial class MissionAwardsTests
         var launch = Type(game, "SeaPower.TaskforceWeaponReportExtensions/<>c__DisplayClass1_0").Methods.Single(m => m.Name == "<RecordWeaponLaunch>b__0");
         Check(launch.Body.Instructions.Count(Calls("SeaPower.WeaponReportAmmoData", "set_Launched")) == 1 && launch.Body.Instructions.Count(i => i.Operand is MethodReference r && r.Name.StartsWith("set_")) == 1,
             "RecordWeaponLaunch adds only to Launched");
+        var gun = Type(game, "SeaPower.TaskforceWeaponReportExtensions/<>c__DisplayClass3_0").Methods.Single(m => m.Name == "<RecordProjectileFired>b__0");
+        Check(Method(Type(game, "SeaPower.TaskforceWeaponReportExtensions"), "RecordProjectileFired", "System.Void(SeaPower.Taskforce,SeaPower.Projectile,System.Int32)").Body.Instructions
+                .Any(i => i.OpCode.Code == Code.Ldftn && ((MethodReference)i.Operand).Name == gun.Name && Owner((MethodReference)i.Operand) == gun.DeclaringType.FullName) &&
+            gun.Body.Instructions.Count(Calls("SeaPower.WeaponReportAmmoData", "set_ProjectileFired")) == 1 && gun.Body.Instructions.Count(i => i.Operand is MethodReference r && r.Name.StartsWith("set_")) == 1,
+            "RecordProjectileFired's report lambda adds gun rounds only to ProjectileFired (once, no other setter)");
         Check(Callers(game, "SeaPower.TaskforceWeaponReportExtensions", "RecordProjectileFired", "System.Void(SeaPower.Taskforce,SeaPower.Projectile,System.Int32)").SequenceEqual(new[] { "SeaPower.Projectile::fire" }) &&
             Callers(game, "SeaPower.Projectile", "fire", "System.Void(UnityEngine.Vector3,UnityEngine.Vector3)").SequenceEqual(new[] { "SeaPower.GunBarrel::LaunchProjectile" }) &&
             Callers(game, "SeaPower.TaskforceWeaponReportExtensions", "RecordCiwsRoundsFired", "System.Void(SeaPower.Taskforce,SeaPower.WeaponSystemCIWS,System.Int32)").SequenceEqual(new[] { "SeaPower.WeaponSystemCIWS::OnFixedUpdate" }) &&
@@ -698,10 +723,13 @@ static partial class MissionAwardsTests
         object[] args = { ini, 15, "", plain };
         awards.GetMethod("AfterApply", All).Invoke(null, args);
         Check(ReferenceEquals(args[3], plain), "outside SaveDebriefSnapshot (no snapshot context) the native result is returned untouched");
-        Invoke(awards, "BeforeSnapshot", missionAt(14), MakeDebrief(11, 0, Report()));
+        // The mission-14 debrief would qualify for mission 15's ribbon, so only
+        // the index guard keeps it out.
+        Invoke(awards, "BeforeSnapshot", missionAt(14), MakeDebrief(11, 0, Report(), Objective("Passage", 4), Objective("Unseen", 4)));
         awards.GetMethod("AfterApply", All).Invoke(null, args);
         Invoke(awards, "AfterSnapshot");
-        Check(ReferenceEquals(args[3], plain), "a snapshot for another mission index adds nothing");
+        Check(ReferenceEquals(args[3], plain) && data["TaskForceCommanderRibbons"] == "sest_undersea_operations,sest_rl05_passage,sest_rl05_us",
+            "a snapshot for another mission index adds nothing, though its debrief would qualify");
         Check(Grant(ini, 16, "", MakeDebrief(11, 0, Report()), NativeRows()) == "", "a key with an invalid spec grants nothing (fail closed)");
         Check(Grant(ini, 17, "RL17", MakeDebrief(11, 0, Report()), NativeRows()) == "sest_rl05_passage", "the key is also read from the mission event's own section, as natively");
         Check(Grant(ini, 18, "", MakeDebrief(11, 0, Report()), NativeRows()) == "", "a mission without the key is untouched");
