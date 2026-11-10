@@ -1,8 +1,11 @@
 using System;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 using System.Runtime.Serialization;
 using System.Windows.Input;
+using Mono.Cecil;
+using Mono.Cecil.Cil;
 
 static class WorldBattleFlowTests
 {
@@ -38,7 +41,7 @@ static class WorldBattleFlowTests
         Check(!offer(new object(), false, true, 0, true), "Ordinary missions and the strategy map are untouched");
         Check(offer(first, true, true, 0, true), "A later world battle is offered preparation after map return");
         object resumed = new object();
-        Check(!offer(resumed, true, true, 400, true), "A paused mid-battle save must not be interrupted");
+        Check(!offer(resumed, true, true, 400, true), "A battle paused after minutes of play must not be interrupted");
         Check(!offer(resumed, true, true, 0, true), "Later clock changes cannot invent a new opening");
         object unpaused = new object();
         Check(!offer(unpaused, true, true, 0, false), "An explicit player unpause is respected");
@@ -47,6 +50,34 @@ static class WorldBattleFlowTests
         Check(!offer(new object(), true, true, double.NaN, true), "Invalid mission time cannot create an opening");
         Call(gate, "Reset");
         Check(offer(first, true, true, 0, true), "Scene teardown clears the one-time opening gate");
+        // The owner's 9 Nov world battle never showed the checklist: the gate
+        // needed the process-wide mission clock to be <= 0.01 s.
+        Check(offer(new object(), true, true, 0.75, true), "A paused opening is still offered after a realistic load with non-zero mission time");
+        Check(offer(new object(), true, true, 5, true), "The opening allowance includes its five-second boundary");
+        Check(!offer(new object(), true, true, 5.5, true), "A battle already played past the opening allowance is not interrupted");
+        Check(!offer(new object(), true, true, -1, true), "A negative mission time cannot create an opening");
+
+        // The gate is fed the per-mission clock. Native IL: missionSessionTime
+        // is reset on every mission load; missionElapsedTime is only ever
+        // incremented after start-up, so it cannot mark a battle's opening.
+        using (var game = AssemblyDefinition.ReadAssembly(Path.Combine(refs, "Seapower-Scripts.dll")))
+        using (var own = AssemblyDefinition.ReadAssembly(Path.GetFullPath(args[1])))
+        {
+            Func<string, string, MethodDefinition> method = (type, name) => game.MainModule.GetType(type).Methods.Single(m => m.Name == name && m.HasBody);
+            Func<MethodDefinition, string, bool> calls = (m, target) => m.Body.Instructions.Any(i => (i.OpCode == OpCodes.Call || i.OpCode == OpCodes.Callvirt) && i.Operand is MethodReference r && r.DeclaringType.FullName + "::" + r.Name == target);
+            Func<MethodDefinition, string, bool> stores = (m, field) => m.Body.Instructions.Any(i => i.OpCode == OpCodes.Stsfld && ((FieldReference)i.Operand).Name == field);
+            Check(stores(method("SeaPower.GameTime", "InitGameTimes"), "missionSessionTime") && calls(method("SeaPower.GameTime", "OnStart"), "SeaPower.GameTime::InitGameTimes") &&
+                calls(method("SeaPower.GameInitializer", "init"), "SeaPower.GameTime::OnStart") && calls(method("SeaPower.GameMain", "Start"), "SeaPower.GameInitializer::init"),
+                "Captured game resets the per-mission clock whenever a mission starts");
+            var writers = game.MainModule.Types.SelectMany(t => t.Methods.Concat(t.NestedTypes.SelectMany(n => n.Methods))).Where(m => m.HasBody)
+                .Where(m => stores(m, "<missionElapsedTime>k__BackingField") || calls(m, "SeaPower.GameTime::set_missionElapsedTime")).Select(m => m.Name).OrderBy(n => n, StringComparer.Ordinal).ToArray();
+            Check(writers.SequenceEqual(new[] { ".cctor", "OnUpdateUnpaused", "set_missionElapsedTime" }), "Captured game never resets missionElapsedTime per mission: " + string.Join(",", writers));
+            Check(game.MainModule.GetType("SeaPower.SceneCreator").NestedTypes.Where(t => t.Name.StartsWith("<LoadMission>", StringComparison.Ordinal))
+                .SelectMany(t => t.Methods).Any(m => m.HasBody && calls(m, "SeaPower.GameTime::Pause")), "Captured mission load opens paused");
+            var tick = own.MainModule.GetType("Sest.UiFixes.WorldBattleFlow").Methods.Single(m => m.Name == "Tick");
+            Check(tick.Body.Instructions.Any(i => i.OpCode == OpCodes.Ldsfld && ((FieldReference)i.Operand).FullName == "System.Single SeaPower.GameTime::missionSessionTime") &&
+                !calls(tick, "SeaPower.GameTime::get_missionElapsedTime"), "Preparation gate reads the per-mission clock, not the process-wide one");
+        }
 
         var flow = ui.GetType("Sest.UiFixes.WorldBattleFlow", true);
         var campaign = Assembly.LoadFrom(Path.GetFullPath(args[2]));

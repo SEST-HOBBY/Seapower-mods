@@ -11,17 +11,26 @@ using SeapowerUI.ViewModels;
 
 namespace Sest.UiFixes
 {
-    // A new GameMain is also created for a replay. Never interrupt a loaded
-    // mid-battle save, or someone who has already chosen to unpause.
+    // A new GameMain is also created for a replay. Offer once per battle, at
+    // its first ready tick, and only while still paused at the opening; never
+    // interrupt someone who has already unpaused and played on.
     internal sealed class WorldBattleOpeningGate
     {
+        // Unpaused mission seconds still counted as the opening. The native
+        // mission load pauses the clock (SceneCreator.LoadMission), so a fresh
+        // battle is normally at or near 0 when the UI becomes ready.
+        internal const double OpeningSeconds = 5;
         object observed;
-        internal bool Offer(object game, bool worldBattle, bool ready, double elapsed, bool paused)
+        // sessionSeconds is GameTime.missionSessionTime: unpaused time in this
+        // mission, reset on every mission load (GameInitializer.init ->
+        // GameTime.OnStart -> InitGameTimes). GameTime.missionElapsedTime is
+        // never reset after start-up, so it cannot identify an opening.
+        internal bool Offer(object game, bool worldBattle, bool ready, double sessionSeconds, bool paused)
         {
             if (!worldBattle) { Reset(); return false; }
             if (game == null || !ready || ReferenceEquals(observed, game)) return false;
             observed = game;
-            return paused && elapsed >= 0 && elapsed <= 0.01;
+            return paused && sessionSeconds >= 0 && sessionSeconds <= OpeningSeconds;
         }
         internal void Reset() { observed = null; }
     }
@@ -131,7 +140,7 @@ namespace Sest.UiFixes
                 if (!Singleton<GameMain>.InstanceExists() || MainGameView.Instance == null) return;
                 var game = Singleton<GameMain>.Instance;
                 bool ready = (bool)initialized.GetValue(game) && !(bool)closing.GetValue(game);
-                if (!opening.Offer(game, true, ready, GameTime.missionElapsedTime, GameTime.IsPaused())) return;
+                if (!opening.Offer(game, true, ready, GameTime.missionSessionTime, GameTime.IsPaused())) return;
                 // The game's message-box model is internal in the inspected
                 // beta. Use its native host/template, as DCM itself does.
                 var box = Activator.CreateInstance(messageBox, true);
