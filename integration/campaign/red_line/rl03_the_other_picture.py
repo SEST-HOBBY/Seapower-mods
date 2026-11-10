@@ -5,6 +5,13 @@ purchased. The F-35 pair joins at minute eight with weapons free. Protected
 convoy ships and observers are non-belligerents on the neutral task force.
 Ship classification is a bonus; breaking the intercept and recovering the
 KJ-500 is the main task, so another long recognition search cannot stall it.
+
+10 Nov 2026 (step 3 of the builder-grammar design): the intercept breaks
+either way. Intercept: an F-35 down, the exit from minute nine. Disengage:
+from minute eighteen, after both attack orders, no F-35 within its missiles'
+reach of the box (the builder's air_reach, 70 NM for the JATM pack's
+AIM-120C7), in 08 Defense of North Borneo's shape. Both share the exit and
+no incoming weapon; Fighters is a bonus again, earned only by the kill.
 """
 from campaign_data import U, F, S
 from .tables import HELO, RECON, CAP, NORTH_HULLS, NORTH_AIR, CARRIER_AIR
@@ -14,7 +21,7 @@ MISSION = dict(
     group="core", num="03", key="The Other Picture", place="Eastern Banda Sea",
     intro="Escort Dragon Eye through a fighter intercept, then bring it back with the picture it collected.",
     sender="Fleet headquarters",
-    intent="Protect Dragon Eye and defeat the intercepting fighters. The merchants, Japanese ships, Growler and Rivet Joint are protected non-belligerents; none is a strike target. Record their classes if the tactical picture permits.",
+    intent="Protect Dragon Eye and break the intercept: shoot down a fighter, or keep the radar aircraft covered until the F-35s break off. The merchants, Japanese ships, Growler and Rivet Joint are protected non-belligerents; none is a strike target. Record their classes if the tactical picture permits.",
     date=(2028, 11, 19), time=(10, 30), sea=3, clouds="Scattered_2", wind="SE",
     difficulty=4, minutes=45, centre=(-5.6, 131.5),
     blue_nation="China", red_nation="Australia",
@@ -27,8 +34,13 @@ MISSION = dict(
            "allocated. Use the first minutes to establish the escort and ready the screen's "
            "air defence. Stay between the interceptors and the KJ-500; do not send every fighter "
            "after a retreating contact and leave the radar aircraft bare.\n\n"
-           "Break the intercept by destroying at least one fighter, then bring DRAGON EYE into "
-           "the return box north-west, with no incoming weapons still threatening the force. "
+           "Break the intercept, then bring DRAGON EYE into the return box north-west, within "
+           "eight miles of its centre. Expect their missile attacks at about minutes ten and "
+           "sixteen. Shooting down one F-35 breaks the intercept, and the exit then opens from "
+           "minute nine. Without a kill it opens from minute eighteen, after both attack "
+           "windows, once no F-35 is within seventy miles of the box's centre, the reach of "
+           "their missiles. Either way it waits until no incoming weapon is still tracked "
+           "against the force. "
            "Classifying CORAL PIONEER, MOGAMI and MAYA earns a separate intelligence bonus and "
            "does not block the exit. The three merchants, both Japanese escorts, the Growler "
            "and Rivet Joint use neutral tactical symbols: their protection is real and "
@@ -40,13 +52,22 @@ MISSION = dict(
         ("Picture","Break the fighter intercept and bring Dragon Eye to the return box","35,-35,Fail,Main"),
         ("Restraint","Do not attack the convoy or protected surveillance aircraft","15,-40,Complete"),
         ("Eye","Keep Dragon Eye 05 alive","10,-30,Complete"),
-        ("Fighters","Also required: destroy at least one intercepting fighter","20,0,None,Main"),
+        ("Fighters","Destroy at least one intercepting fighter: the quicker way to break the intercept","20,0,None"),
         ("Names","Classify Coral Pioneer and both Japanese escorts if practicable","20,0,None"),
         ("Traffic","Harm no protected non-belligerent or civil contact","0,-30,Complete"),
     ],
     victory=dict(kind="arrive",station="eye",at=(-4.15,130.60),radius=8,min_units=1,objective="Picture",
-                 also=[dict(kind="destroyed",units=["red_air"],min_units=1),
-                       dict(kind="time",after_minutes=9),dict(kind="no_incoming")]),
+                 also=[dict(kind="no_incoming")],
+                 any_of=[
+                     dict(name="Intercept",
+                          also=[dict(kind="destroyed",units=["red_air"],min_units=1),
+                                dict(kind="time",after_minutes=9)]),
+                     dict(name="Disengage", after_minutes=18,
+                          also=[dict(kind="clear_of",units=["red_air"])],
+                          win=("Dragon Eye is back in the return box and the F-35s have broken "
+                               "off, neither of them shot down. Its recordings are going to "
+                               "headquarters. The convoy and its protected escorts remain "
+                               "intact for tomorrow."))]),
     fatal=[F("Restraint",["convoy","jmsdf","growler","rivet"]),F("Eye")],
     neutral_objective="Traffic",
     win="Dragon Eye is back in the return box, the intercept is broken and its recordings are going to headquarters. The convoy and its protected escorts remain intact for tomorrow.",

@@ -1,4 +1,5 @@
 """Red Line must offer real engagements without sacrificing protected units."""
+import math
 import unittest
 
 import build_pack as bp
@@ -76,6 +77,17 @@ class RedLinePacing(unittest.TestCase):
         self.assertEqual(m['victory']['station'],'eye')
         self.assertNotIn('after',m['victory'])
         self.assertEqual(m['resolve']['Names'],('classify',['convoy#1','jmsdf#1','jmsdf#2'],3))
+        # Two ways to break the intercept (step 3): a kill, or the F-35s gone
+        # beyond their missiles' reach of the box once both orders are spent.
+        paths={p['name']:p for p in m['victory']['any_of']}
+        self.assertEqual(set(paths),{'Intercept','Disengage'})
+        last=max(a[0] for u in m['units'] if u['station']=='red_air' for a in u['attacks'])
+        self.assertGreaterEqual(paths['Disengage']['after_minutes'],last+2)
+        clear=next(t for t in paths['Disengage']['also'] if t['kind']=='clear_of')
+        reach=bp.air_reach('raaf_f-35a','AirToAir')
+        self.assertGreaterEqual(clear.get('radius',math.ceil(reach)),reach)
+        fighters=next(s for o,_t,s in m['objectives'] if o=='Fighters')
+        self.assertNotIn('Main',fighters.split(',')[3:])
 
     def test_withdrawal_has_two_simultaneous_problems(self):
         m=self.missions['RL04']

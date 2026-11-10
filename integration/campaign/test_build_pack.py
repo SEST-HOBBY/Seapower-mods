@@ -592,6 +592,148 @@ class BuilderFoundations(unittest.TestCase):
                         self.assertIn("Main", line.split(",")[3:], (m["key"], oid))
 
 
+class VictoryAlternatives(unittest.TestCase):
+    """victory any_of (step 3 of the builder-grammar design): one victory
+    trigger per path, sharing the exit. A path that waits for units to have
+    LEFT a circle is North Borneo's: TriggerCompleted/area AND NOT
+    UnitsInTheArea, refreshed every 5 seconds, opened at a minute."""
+
+    def placement(self):
+        placed, members = small_placement()
+        # An F-35 pair on a racetrack 85-91 NM from the box at -18,0,18:
+        # outside its 70 NM AIM-120C7 reach all the way round.
+        placed["Taskforce2Aircraft"] += [
+            ("Taskforce2Aircraft2", _keys("raaf_f-35a", 60, 60, LoadoutVariant="AirToAir",
+                                          Waypoints="40,25000,80|70,25000,40|Loop"), None, False),
+            ("Taskforce2Aircraft3", _keys("raaf_f-35a", 61, 60, LoadoutVariant="AirToAir",
+                                          Waypoints="40,25000,80|70,25000,40|Loop"), None, False)]
+        members["fighters"] = ["Taskforce2Aircraft2", "Taskforce2Aircraft3"]
+        return placed, members
+
+    def mission(self, paths=None, **victory):
+        objectives = small_mission()["objectives"] + [("Kill", "Down a fighter", "10,0,None")]
+        if paths is None:
+            paths = [dict(name="Kill", bonus=["Kill"],
+                          also=[dict(kind="destroyed", units=["fighters"], min_units=1)]),
+                     dict(name="Clear", after_minutes=30, win="They broke off.",
+                          also=[dict(kind="clear_of", units=["fighters"])])]
+        v = dict(small_mission()["victory"], also=[dict(kind="no_incoming")],
+                 any_of=paths, **victory)
+        stations = dict(small_mission()["stations"],
+                        fighters=S(-3.6, 129.9, "Fighters", alt=25000))
+        return small_mission(victory=v, objectives=objectives, stations=stations,
+                             resolve=dict(small_mission()["resolve"],
+                                          Kill=("destroy", "fighters", 1)))
+
+    def render(self, m):
+        placed, members = self.placement()
+        _name, text = bp.render(m, placed, members)
+        return rendered(m, placed, members), _trigger_numbers(text), text
+
+    def test_each_path_is_a_victory_sharing_the_exit(self):
+        triggers, n, text = self.render(self.mission())
+        kill, clear = triggers["Objective met"], triggers["Objective met: Clear"]
+        for lines in (kill, clear):
+            self.assertIn("Action_Victory=Taskforce1", lines)
+            self.assertIn("Action_EnableTriggers=Trigger1", lines)
+        self.assertIn("Action_DisableTriggers=" + ",".join(
+            f"Trigger{n[c]}" for c in ("Objective met: Clear", "Opens at minute 30: Clear",
+                                       "Refresh: Clear")), kill)
+        self.assertIn(f"Action_DisableTriggers=Trigger{n['Objective met']},"
+                      f"Trigger{n['Refresh: Clear']}", clear)
+        # The bonus is the path's own.
+        self.assertIn("Action_ObjectivesCompleted=Withdrawal,Kill", kill)
+        self.assertIn("Action_ObjectivesCompleted=Withdrawal", clear)
+        self.assertIn("Action_Taskforce1_Message=Taskforce1VictoryMessage", kill)
+        self.assertIn("Action_Taskforce1_Message=PathClearVictoryMessage", clear)
+        self.assertIn("PathClearVictoryMessage=<color=lime>Operation complete.</color>|"
+                      "They broke off.", text)
+
+    def test_the_clear_path_is_north_borneos(self):
+        triggers, n, _text = self.render(self.mission())
+        clear = triggers["Objective met: Clear"]
+        self.assertEqual(clear[0], "Disabled=True")
+        for line in ("Condition_Condition3_Type=UnitsInTheArea",
+                     "Condition_Condition3_PositionNM=-18.00,0,18.00",
+                     "Condition_Condition3_AreaRadiusNM=70",
+                     "Condition_Condition3_AreaDisplaySide=None",
+                     "Condition_Condition3_Taskforce=Taskforce2",
+                     "Condition_Condition3_Units=Taskforce2Aircraft2,Taskforce2Aircraft3",
+                     "Condition_Condition3_MinimumUnits=1",
+                     "Condition_Condition3_UnitType=Aircraft",
+                     "ConditionsCompleted=<Condition1> AND <Condition2> AND NOT <Condition3>"):
+            self.assertIn(line, clear)
+        self.assertFalse(any(l.endswith("_Type=Time") for l in clear))
+        self.assertEqual(triggers["Opens at minute 30: Clear"], [
+            "Condition_Condition1_Type=Time", "Condition_Condition1_Time=1800",
+            "ConditionsCompleted=<Condition1>",
+            f"Action_EnableTriggers=Trigger{n['Objective met: Clear']},Trigger{n['Refresh: Clear']}"])
+        self.assertEqual(triggers["Refresh: Clear"], [
+            "Disabled=True", "Condition_Condition1_Type=Time", "Condition_Condition1_Time=5",
+            "ConditionsCompleted=<Condition1>",
+            f"Action_ReactivateTriggers=Trigger{n['Objective met: Clear']},"
+            f"Trigger{n['Refresh: Clear']}"])
+
+    def test_the_refresh_is_stocks(self):
+        borneo = (bp.ROOT / "mods-source" / "_vanilla" / "original" / "campaigns"
+                  / "pacific-strike-task-force" / "missions" / "08 Defense of North Borneo.ini"
+                  ).read_text(encoding="utf-8", errors="replace")
+        victory = re.search(r"^\[Trigger3\]\n(.*?)(?=^\[)", borneo, re.M | re.S).group(1)
+        self.assertIn("ConditionsCompleted=<Condition1> AND NOT <Condition2>", victory)
+        self.assertIn("Condition_Condition2_AreaDisplaySide=None\n"
+                      "Condition_Condition2_Taskforce=Taskforce2\n", victory)
+        refresh = re.search(r"^\[Trigger10\]\n(.*?)(?=^\[)", borneo, re.M | re.S).group(1)
+        self.assertIn("Condition_Condition1_Time=5\n", refresh)
+        self.assertIn("Action_ReactivateTriggers=Trigger3,Trigger10", refresh)
+
+    def test_without_any_of_the_win_is_as_before(self):
+        triggers = rendered(small_mission())
+        self.assertNotIn("Action_DisableTriggers", " ".join(triggers["Objective met"]))
+        self.assertFalse([k for k in triggers if k.startswith(("Refresh:", "Opens at"))])
+
+    def test_paths_that_cannot_work_stop_the_build(self):
+        kill = dict(name="Kill", also=[dict(kind="destroyed", units=["fighters"], min_units=1)])
+
+        def clear(**over):
+            return dict(dict(name="Clear", after_minutes=30, win="Gone.",
+                             also=[dict(kind="clear_of", units=["fighters"])]), **over)
+        cases = [
+            ([kill, clear(also=[dict(kind="clear_of", units=["fighters"]),
+                                dict(kind="time", after_minutes=40)])], "time term"),
+            ([kill, clear(also=[dict(kind="clear_of", units=["group"])])], "Taskforce1Vessel2"),
+            ([kill, clear(also=[dict(kind="clear_of", units=["fighters"], radius=40)])],
+             "anti-air reach is 70"),
+            ([kill, clear(also=[dict(kind="clear_of", units=["fighters"], radius=200)])],
+             "never be clear"),
+            ([kill], "two or more"),
+            ([kill, clear(name="Kill")], "unique"),
+            ([kill, clear(name="clear way")], "unique"),
+            ([kill, clear(win=None)], "its own win"),
+            ([kill, clear(bonus=["Nothing"])], "not objectives"),
+            ([kill, clear(after_minutes=80)], "inside the window"),
+            ([kill, clear(also=[])], "at least one"),
+            ([kill, clear(sets="Var")], "'sets'"),
+        ]
+        for paths, why in cases:
+            with self.subTest(why=why), self.assertRaisesRegex(SystemExit, why):
+                self.render(self.mission(paths))
+        for other in (dict(after=dict(kind="classify", units="spoiler")),
+                      dict(or_destroyed="Sunk.")):
+            with self.assertRaisesRegex(SystemExit, "any_of with"):
+                self.render(self.mission(**other))
+        m = self.mission()
+        m["victory"]["also"].append(dict(kind="clear_of", units=["fighters"]))
+        with self.assertRaisesRegex(SystemExit, "belongs to an any_of path"):
+            self.render(m)
+        # Attack= orders are unconditional: the path waits them out.
+        m = self.mission([kill, clear(after_minutes=11)])
+        m["units"] = [dict(station="fighters", attacks=[(10, "usaf_aim-120c7", "group", 1)])]
+        with self.assertRaisesRegex(SystemExit, "no earlier than minute 12"):
+            self.render(m)
+        m["victory"]["any_of"][1]["after_minutes"] = 12
+        self.assertIn("Objective met: Clear", self.render(m)[0])
+
+
 class ExpressionIntegrity(unittest.TestCase):
     """trigger_integrity() parses ConditionsCompleted (step 2 (e))."""
 
@@ -4231,11 +4373,13 @@ class RedLineReleaseTerms(unittest.TestCase):
         return " ".join(b) if isinstance(b, (tuple, list)) else b
 
     def test_minute_gates_are_in_the_briefs(self):
-        # RL03's minute-nine gate is not in its brief yet: step 3 reworks
-        # that victory (an alternative path), and its text with it.
-        for code, radius in (("RL02", "two"), ("RL04", "five"), ("RL06", "four")):
+        # Every term of every way to win, any_of paths' own minutes included
+        # (RL03's Disengage opens at eighteen, step 3).
+        for code, radius in (("RL02", "two"), ("RL03", "eight"), ("RL04", "five"),
+                             ("RL06", "four")):
             v, brief = self.m[code]["victory"], self.brief(code)
-            terms = list(v.get("also", [])) + ([v["after"]] if v.get("after") else [])
+            terms = (bp.victory_terms(v) + ([v["after"]] if v.get("after") else [])
+                     + [p for p in v.get("any_of", []) if p.get("after_minutes")])
             with self.subTest(mission=code):
                 self.assertIn(f"within {radius} miles", brief)
                 self.assertEqual(bp.number_words(v["radius"]), radius)
@@ -4263,8 +4407,7 @@ class RedLineReleaseTerms(unittest.TestCase):
                             for t in v["also"]))
 
     def test_required_objectives_say_so(self):
-        for code, oid in (("RL01", "Raiders"), ("RL03", "Fighters"), ("RL04", "Spoiler"),
-                          ("RL06", "Qship")):
+        for code, oid in (("RL01", "Raiders"), ("RL04", "Spoiler"), ("RL06", "Qship")):
             m = self.m[code]
             text, spec = next((t, s) for o, t, s in m["objectives"] if o == oid)
             with self.subTest(mission=code, objective=oid):
@@ -4276,6 +4419,11 @@ class RedLineReleaseTerms(unittest.TestCase):
                 if ini is None:
                     self.skipTest("pack not built")
                 self.assertIn(f"\n{oid}={spec}\n", ini.read_text(encoding="utf-8"))
+        # RL03's intercept also breaks without a kill (the Disengage path,
+        # step 3), so Fighters is a bonus again and says how it helps.
+        text, spec = next((t, s) for o, t, s in self.m["RL03"]["objectives"] if o == "Fighters")
+        self.assertEqual(spec, "20,0,None")
+        self.assertNotIn("required", text.lower())
         # No objective anywhere in the campaign keeps the bare prefix.
         for code, m in self.m.items():
             for oid, text, _spec in m["objectives"]:
@@ -4295,6 +4443,40 @@ class RedLineReleaseTerms(unittest.TestCase):
         self.assertIn("within three cables of the raft", pilot)
         self.assertNotIn("alongside him first", self.brief("RLC1"))
         self.assertNotIn("alongside\n", self.brief("RLC1"))
+
+
+class RedLineVictoryPaths(unittest.TestCase):
+    """The built missions' any_of paths (steps 3 and 4 of the builder-grammar
+    design), read from the pack."""
+
+    PACK = RedLineReleaseTerms.PACK
+
+    def mission(self, num):
+        ini = next(self.PACK.glob(f"missions/Red Line {num} - *.ini"), None)
+        if ini is None:
+            self.skipTest("pack not built")
+        text = ini.read_text(encoding="utf-8")
+        return text, coverage_check.blocks(text), _trigger_numbers(text)
+
+    def test_rl03_breaks_the_intercept_either_way(self):
+        _text, parsed, n = self.mission("03")
+        intercept = parsed[f"Trigger{n['Objective met']}"]
+        disengage = parsed[f"Trigger{n['Objective met: Disengage']}"]
+        self.assertEqual(parsed[f"Trigger{n['Opens at minute 18: Disengage']}"]
+                         ["Condition_Condition1_Time"], "1080")
+        refresh = parsed[f"Trigger{n['Refresh: Disengage']}"]
+        self.assertEqual(refresh["Condition_Condition1_Time"], "5")
+        self.assertEqual(refresh["Action_ReactivateTriggers"],
+                         f"Trigger{n['Objective met: Disengage']},Trigger{n['Refresh: Disengage']}")
+        self.assertEqual(disengage["ConditionsCompleted"],
+                         "<Condition1> AND <Condition2> AND NOT <Condition3>")
+        self.assertEqual(disengage["Condition_Condition3_AreaRadiusNM"], "70")
+        self.assertEqual(disengage["Condition_Condition3_Taskforce"], "Taskforce2")
+        self.assertNotIn("Fighters", disengage["Action_ObjectivesCompleted"].split(","))
+        self.assertNotIn("Fighters", intercept["Action_ObjectivesCompleted"].split(","))
+        for lines in (intercept, disengage):
+            self.assertEqual(lines["Action_EnableTriggers"], "Trigger1")
+            self.assertEqual(lines["Condition_Condition2_Type"], "NoIncomingWeapons")
 
 
 class RedLineSideOperations(unittest.TestCase):

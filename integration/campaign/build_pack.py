@@ -2028,7 +2028,6 @@ def resolve_trigger_marks(key, triggers):
             if "\x00trigger:" in line:
                 lines[j] = re.sub("\x00trigger:(.*?)\x00", number, line)
 
-
 # U(..., disable=(...)): a unit's systems switched off at mission start, the
 # way 08 Defense of North Borneo's Trigger4 does it, key for key.
 DISABLE_ACTIONS = {"weapons": "WeaponSystems", "sensors": "SensorSystems",
@@ -2849,7 +2848,16 @@ ALSO_TERMS = {
     "area": ({"units"}, {"kind", "units", "at", "radius", "min_units"}),
     "destroyed": ({"units"}, {"kind", "units", "min_units"}),
     "no_incoming": (set(), {"kind"}),
+    # Step 3 of the builder-grammar design (any_of paths and turn_back):
+    # none of the units in a circle, a turn_back's trigger having fired,
+    # the units still afloat - and a damage state, behind DAMAGE_STATE.
+    "clear_of": ({"units"}, {"kind", "units", "at", "radius"}),
+    "event": ({"event"}, {"kind", "event"}),
+    "afloat": ({"units"}, {"kind", "units"}),
+    "damaged": ({"units", "mode"}, {"kind", "units", "mode", "threshold", "min_units"}),
 }
+# A clear_of term needs its path's 5-second refresh, so it is a path's own.
+PATH_ONLY_TERMS = frozenset({"clear_of"})
 
 
 # Every key a victory and its stage are read for. ALSO_TERMS has done this
@@ -2891,6 +2899,14 @@ def check_victory_keys(mission):
 SOFT_WORDS = ("if practicable", "if possible", "bonus", "optional")
 
 
+def victory_terms(victory):
+    """Every term dict a victory names: the common `also` terms and each
+    any_of path's."""
+    return [t for terms in [victory.get("also", [])] + [
+                p.get("also", []) for p in victory.get("any_of") or [] if isinstance(p, dict)]
+            for t in terms if isinstance(t, dict)]
+
+
 def victory_paths(victory):
     """The term lists of every way to win: the common `also` terms, plus
     each any_of path's own when the victory has alternatives."""
@@ -2924,7 +2940,7 @@ def required_objectives(mission, members):
         need = {}
         for term in terms:
             if not isinstance(term, dict):
-                continue                    # also_condition() refuses it
+                continue                    # term_condition() refuses it
             if term.get("kind") == "destroyed" and term.get("units"):
                 units = units_of(term["units"])
                 least = term.get("min_units", len(units))
@@ -2957,14 +2973,72 @@ def check_required_objectives(mission, members):
                 f"text says {', '.join(map(repr, soft))}: {text!r}")
 
 
+def route_points(keys):
+    """(x, z) in the mission's NM frame: the spawn, then each waypoint."""
+    out = []
+    for s in [keys.get("RelativePositionInNM", "")] + [
+            w.split("/")[0] for w in keys.get("Waypoints", "").split("|") if w]:
+        bits = s.split(",")
+        try:
+            out.append((float(bits[0]), float(bits[2])))
+        except (ValueError, IndexError):
+            continue                        # "Loop", or no position
+    return out
+
+
+def term_kind(extra):
+    return extra.get("kind") or ("time" if "after_minutes" in extra else "area")
+
+
+def damage_state():
+    """campaign_data.DAMAGE_STATE, or a stop naming the PC check that fills it."""
+    import campaign_data
+    table = getattr(campaign_data, "DAMAGE_STATE", None)
+    if not table:
+        raise SystemExit(
+            "a UnitDamageState condition (a 'damaged' term or a turn_back's "
+            "or_damaged) needs campaign_data.DAMAGE_STATE, which stays None until "
+            "PC check P1 reads the keys a Mission Editor save writes for it: no "
+            "stock mission uses the condition, so its INI spelling is not known")
+    return table
+
+
+def damaged_condition(n, units, extra):
+    """UnitDamageState, spelled from DAMAGE_STATE: dict(type=, mode_key=,
+    threshold_key=, modes={builder mode: the value the editor writes})."""
+    table = damage_state()
+    mode = extra["mode"]
+    if mode not in table["modes"]:
+        raise SystemExit(f"a damaged term has mode {mode!r}; DAMAGE_STATE knows "
+                         f"{', '.join(sorted(table['modes']))}")
+    lines = [f"Condition_Condition{n}_Type={table['type']}",
+             f"Condition_Condition{n}_Units={','.join(units)}",
+             f"Condition_Condition{n}_MinimumUnits={extra.get('min_units', len(units))}",
+             f"Condition_Condition{n}_{table['mode_key']}={table['modes'][mode]}"]
+    if mode == "integrity_below":
+        lines.append(f"Condition_Condition{n}_{table['threshold_key']}={extra['threshold']}")
+    return lines
+
+
 def also_condition(mission, n, extra, members):
-    """Condition n of the victory trigger, from one `also` term.
+    """Condition n of the victory trigger, from one `also` term (the lines
+    only; term_condition() gives the expression fragment too)."""
+    return term_condition(mission, n, extra, members)[0]
+
+
+def term_condition(mission, n, extra, members, placed=None, in_path=False):
+    """Condition n of a victory trigger, from one `also` term, as (lines,
+    the fragment ConditionsCompleted joins with AND).
 
     `time`: the clock has reached after_minutes. `area`: min_units of the
     units are in a box (the victory's own unless `at`/`radius` say
     otherwise). `destroyed`: min_units of them are gone. Without a `kind`
     a term is `time` if it sets after_minutes and `area` if not, which is
     how every term written before the kinds existed reads.
+
+    Path terms (step 3 of the builder-grammar design): `clear_of`, none of
+    the units inside a circle; `event`, a turn_back's trigger has fired;
+    `afloat`, none of the units destroyed; `damaged`, behind DAMAGE_STATE.
 
     A term the engine would accept and the player could never meet stops
     the build as well: one that names no unit (`Units=` with
@@ -2976,7 +3050,7 @@ def also_condition(mission, n, extra, members):
     if not isinstance(extra, dict):
         raise SystemExit(f"{mission['key']}: a victory also-term is a dict, "
                          f"not {extra!r}")
-    kind = extra.get("kind") or ("time" if "after_minutes" in extra else "area")
+    kind = term_kind(extra)
     if kind not in ALSO_TERMS:
         raise SystemExit(f"{mission['key']}: victory also-term has kind {kind!r}; "
                          f"the builder knows {', '.join(ALSO_TERMS)}")
@@ -2989,6 +3063,11 @@ def also_condition(mission, n, extra, members):
             + (" and " if stray and missing else "")
             + (f"needs {', '.join(map(repr, missing))}" if missing else "")
             + f" - {kind} reads {', '.join(sorted(reads))}")
+    if kind in PATH_ONLY_TERMS and not in_path:
+        raise SystemExit(f"{mission['key']}: a {kind} term belongs to an any_of path, "
+                         "whose refresh tests it again every 5 seconds; in the common "
+                         "also it would be tested once")
+    here = f"<Condition{n}>"
     if kind == "time":
         after = extra["after_minutes"]
         if (not isinstance(after, int) or isinstance(after, bool)
@@ -2999,12 +3078,28 @@ def also_condition(mission, n, extra, members):
                 f"{mission['minutes']} - a time term is whole minutes inside "
                 "the window")
         return [f"Condition_Condition{n}_Type=Time",
-                f"Condition_Condition{n}_Time={after * 60}"]
+                f"Condition_Condition{n}_Time={after * 60}"], here
     if kind == "no_incoming":
         # Task-force-wide, as native NoIncomingWeapons reads it. This is
         # combined with an earned win/elapsed-attack gate, never used alone.
         return [f"Condition_Condition{n}_Type=NoIncomingWeapons",
-                f"Condition_Condition{n}_Taskforce=Taskforce1"]
+                f"Condition_Condition{n}_Taskforce=Taskforce1"], here
+    if kind == "event":
+        # A turn_back's trigger has fired: TriggerCompleted, key for key as
+        # 08 Defense of North Borneo's Trigger3 waits for Trigger9 (lines
+        # 1272-1273). '<name>Disabled' is the turn_back's or_damaged trigger.
+        turns = {t.get("name"): t for t in mission.get("turn_back", []) if isinstance(t, dict)}
+        event = extra["event"]
+        base = event[:-len("Disabled")] if event.endswith("Disabled") else None
+        if event in turns:
+            target = f"Turns back: {event}"
+        elif base in turns and turns[base].get("or_damaged"):
+            target = f"Disabled: {base}"
+        else:
+            raise SystemExit(f"{mission['key']}: an event term waits for {event!r}, "
+                             "which no turn_back in this mission is called")
+        return [f"Condition_Condition{n}_Type=TriggerCompleted",
+                f"Condition_Condition{n}_Triggers={TRIGGER_MARK.format(target)}"], here
     wanted = [extra["units"]] if isinstance(extra["units"], str) else extra["units"]
     units = [tag for r in wanted for tag in refs(members, r)]
     least = extra.get("min_units", len(units))
@@ -3021,10 +3116,198 @@ def also_condition(mission, n, extra, members):
                 f"{mission['key']}: a victory also-term of kind 'destroyed' "
                 f"names the player's own {', '.join(own)} - the win would wait "
                 "for the player to lose them")
-        return destroyed_condition(n, units, least)
+        return destroyed_condition(n, units, least), here
+    if kind == "afloat":
+        # NOT a loss. Destruction is permanent, so this needs no refresh.
+        return destroyed_condition(n, units, 1), f"NOT {here}"
+    if kind == "damaged":
+        return damaged_condition(n, units, extra), here
+    if kind == "clear_of":
+        return clear_of_condition(mission, n, extra, units, placed or {}), f"NOT {here}"
     return area_condition(n, mission["centre"], extra.get("at", victory.get("at")),
                           extra.get("radius", victory.get("radius", 20)),
-                          units, least)
+                          units, least), here
+
+
+def clear_of_condition(mission, n, extra, units, placed):
+    """None of `units` inside a circle, written as the area test the path's
+    ConditionsCompleted negates: 08 Defense of North Borneo, Trigger3 lines
+    1274-1281, key for key (UnitsInTheArea, AreaDisplaySide=None,
+    Taskforce=Taskforce2, MinimumUnits=1 and UnitType when the units are of
+    one kind). The circle is the victory's point unless `at` says otherwise,
+    and its radius is at least the units' anti-air reach (air_reach), the
+    default: a fighter outside it cannot shoot at anything in the box."""
+    key, centre = mission["key"], mission["centre"]
+    ours = [t for t in units if not t.startswith("Taskforce2")]
+    if ours:
+        raise SystemExit(f"{key}: a clear_of term names {', '.join(ours)}; it tests "
+                         "that opposing units have left, as North Borneo's victory "
+                         "tests Taskforce2's aircraft")
+    sections = {tag: keys for entries in placed.values() for tag, keys, _n, _x in entries}
+    reach = max((air_reach(sections[t]["Type"], sections[t].get("LoadoutVariant"))
+                 for t in units if t in sections), default=0.0)
+    radius = extra.get("radius", math.ceil(reach))
+    if (isinstance(radius, bool) or not isinstance(radius, (int, float))
+            or radius <= 0 or radius < reach):
+        raise SystemExit(f"{key}: a clear_of term has radius {radius!r}, and the units' "
+                         f"anti-air reach is {reach:g} NM - a unit inside that reach "
+                         "has not broken off")
+    at = extra.get("at", mission["victory"].get("at"))
+    if not at:
+        raise SystemExit(f"{key}: a clear_of term needs `at` when the victory has none")
+    cx, cz = (at[1] - centre[1]) * 60, (at[0] - centre[0]) * 60
+    for t in units:
+        spots = route_points(sections.get(t, {}))
+        if spots and all(math.hypot(x - cx, z - cz) <= radius for x, z in spots):
+            raise SystemExit(f"{key}: a clear_of term waits for {t} to leave a "
+                             f"{radius:g} NM circle that its spawn and every waypoint "
+                             "are inside - it would never be clear")
+    families = {re.match(r"Taskforce2([A-Za-z]+?)\d+$", t).group(1) for t in units}
+    lines = area_condition(n, centre, at, radius, units, 1, side="None")
+    lines.insert(4, f"Condition_Condition{n}_Taskforce=Taskforce2")
+    if len(families) == 1:
+        lines.append(f"Condition_Condition{n}_UnitType={families.pop()}")
+    return lines
+
+
+# victory any_of: more than one way to win, each its own trigger sharing the
+# one exit (step 3 of the builder-grammar design). One OR expression would
+# be stock too (Gulf of Sidra line 629), but a path that waits for units to
+# LEAVE an area needs North Borneo's 5-second refresh, and reactivating a
+# trigger restarts its Time conditions (04 Chagos Gambit's rain loop runs on
+# that), so a minute-nine term in the same trigger would never come. Apart,
+# each path also shows its own debrief text and completes its own bonus.
+PATH_KEYS = frozenset({"name", "also", "after_minutes", "win", "bonus"})
+PATH_NAME = re.compile(r"^[A-Z][A-Za-z0-9]{1,23}$")
+# The orders a clear_of path waits out: Attack= is unconditional
+# (MissionFileInformation.ini; timed_attacks), so the path opens only once
+# the last order's missiles have had two minutes to be tracked.
+CLEAR_AFTER_ATTACK_MIN = 2
+
+
+def path_refreshed(path):
+    return any(isinstance(t, dict) and term_kind(t) == "clear_of" for t in path["also"])
+
+
+def check_any_of(mission):
+    victory = mission["victory"]
+    paths = victory.get("any_of")
+    if paths is None:
+        return
+    key = mission["key"]
+    if (not isinstance(paths, list) or len(paths) < 2
+            or not all(isinstance(p, dict) for p in paths)):
+        raise SystemExit(f"{key}: any_of is a list of two or more path dicts; one "
+                         "way to win is the victory's own also")
+    for other in ("after", "or_destroyed"):
+        if victory.get(other):
+            raise SystemExit(f"{key}: any_of with {other}= - a staged or sunk win "
+                             "is one path, and the two do not combine")
+    objectives = {o[0] for o in mission["objectives"]}
+    names = set()
+    for i, p in enumerate(paths):
+        stray = sorted(set(p) - PATH_KEYS)
+        where = f"{key}: any_of path {p.get('name', i + 1)!r}"
+        if stray:
+            raise SystemExit(f"{where} carries {', '.join(map(repr, stray))}; a path "
+                             f"reads {', '.join(sorted(PATH_KEYS))}")
+        name = p.get("name")
+        if not isinstance(name, str) or not PATH_NAME.match(name) or name in names:
+            raise SystemExit(f"{where}: a path's name is a unique identifier, "
+                             "capitalised (it names the path's message key)")
+        names.add(name)
+        if not isinstance(p.get("also"), list) or not p["also"]:
+            raise SystemExit(f"{where} needs at least one also term of its own")
+        after = p.get("after_minutes")
+        if after is not None and (isinstance(after, bool) or not isinstance(after, int)
+                                  or not 0 < after < mission["minutes"]):
+            raise SystemExit(f"{where}: after_minutes={after!r} is not a whole minute "
+                             "inside the window")
+        if i == 0 and p.get("win"):
+            raise SystemExit(f"{where}: the first path's text is the mission's own win")
+        if i and not p.get("win"):
+            raise SystemExit(f"{where} needs its own win text")
+        odd = [o for o in p.get("bonus", []) if o not in objectives]
+        if odd:
+            raise SystemExit(f"{where}: bonus names {odd}, not objectives here")
+        if not path_refreshed(p):
+            continue
+        if any(isinstance(t, dict) and term_kind(t) == "time" for t in p["also"]):
+            raise SystemExit(f"{where}: a time term in a path its refresh reactivates "
+                             "every 5 seconds would never come - give the path "
+                             "after_minutes instead")
+        for term in p["also"]:
+            if not (isinstance(term, dict) and term_kind(term) == "clear_of"):
+                continue
+            wanted = [term.get("units")] if isinstance(term.get("units"), str) else term.get("units") or []
+            stations = {r.partition("#")[0] for r in wanted}
+            last = max((a[0] for u in mission["units"] if u.get("station") in stations
+                        for a in u.get("attacks", [])), default=None)
+            if last is not None and (after or 0) < last + CLEAR_AFTER_ATTACK_MIN:
+                raise SystemExit(
+                    f"{where}: its units have an attack order at minute {last:g}, which "
+                    "nothing cancels, so the path opens no earlier than minute "
+                    f"{last + CLEAR_AFTER_ATTACK_MIN:g} (after_minutes={after!r})")
+
+
+def victory_alternatives(mission, cond, expr, n, members, placed, trigger, done, exit_line):
+    """One victory trigger per any_of path, after the shared arrival and the
+    common terms (`cond`, `expr`, conditions 1..n). The first path is the
+    mission's own win, 'Objective met'; the others are 'Objective met:
+    <name>' with their own message. Each disables its siblings and, as North
+    Borneo's victory disables its refresh (Trigger3, line 1286), its own.
+    A path with after_minutes ships Disabled=True and a Time trigger opens
+    it; a path with a clear_of term has North Borneo's refresh, Trigger10
+    (lines 1334-1339): Time=5 reactivating the path and itself."""
+    victory = mission["victory"]
+    paths = victory["any_of"]
+
+    def met(i, p):
+        return "Objective met" if i == 0 else f"Objective met: {p['name']}"
+
+    def gate(p):
+        return f"Opens at minute {p['after_minutes']}: {p['name']}"
+
+    def refresh(p):
+        return f"Refresh: {p['name']}"
+    own = [[met(i, p)] + ([gate(p)] if p.get("after_minutes") else [])
+           + ([refresh(p)] if path_refreshed(p) else []) for i, p in enumerate(paths)]
+    for i, p in enumerate(paths):
+        lines, p_expr, pn = list(cond), expr, n
+        for extra in p["also"]:
+            pn += 1
+            c, fragment = term_condition(mission, pn, extra, members, placed, in_path=True)
+            lines += c
+            p_expr += f" AND {fragment}"
+        stop = [c for j, names in enumerate(own) if j != i for c in names]
+        stop += [refresh(p)] if path_refreshed(p) else []
+        body = (["Disabled=True"] if p.get("after_minutes") else []) + lines + [
+            f"ConditionsCompleted={p_expr}",
+            "Action_Taskforce1_Message="
+            + ("Taskforce1VictoryMessage" if i == 0 else f"Path{p['name']}VictoryMessage"),
+            "Action_Taskforce2_Message=Taskforce2DefeatMessage",
+            "Action_Victory=Taskforce1",
+            "Action_ObjectivesCompleted=" + ",".join(
+                done + victory.get("bonus", []) + list(p.get("bonus", [])))]
+        if victory.get("sets"):
+            body.append(f"Action_VariableSet={victory['sets']},True")
+        body += ["Action_DisableTriggers=" + trigger_marks(*stop), exit_line]
+        trigger(met(i, p), body)
+        if p.get("after_minutes"):
+            # A Time trigger that enables another: 05A Operation Blockbuster -
+            # Blue, "Victor III warning message Datum A01" (Time=3300,
+            # Action_EnableTriggers=Trigger8, lines 925-930).
+            trigger(gate(p), [
+                "Condition_Condition1_Type=Time",
+                f"Condition_Condition1_Time={p['after_minutes'] * 60}",
+                "ConditionsCompleted=<Condition1>",
+                "Action_EnableTriggers=" + trigger_marks(
+                    met(i, p), *([refresh(p)] if path_refreshed(p) else []))])
+        if path_refreshed(p):
+            trigger(refresh(p), (["Disabled=True"] if p.get("after_minutes") else []) + [
+                "Condition_Condition1_Type=Time", "Condition_Condition1_Time=5",
+                "ConditionsCompleted=<Condition1>",
+                "Action_ReactivateTriggers=" + trigger_marks(met(i, p), refresh(p))])
 
 
 # Conservative transit speeds for the reachability check, in knots. They are
@@ -4000,8 +4283,8 @@ def check_coast_geometry(mission, placer):
     v = mission.get("victory", {})
     if v.get("kind") == "arrive" and v.get("at"):
         placer.point(v["at"], f"{key} arrival box")
-    for extra in v.get("also", []):
-        if extra.get("at"):
+    for extra in victory_terms(v):
+        if term_kind(extra) == "area" and extra.get("at"):
             placer.point(extra["at"], f"{key} arrival box (also)")
     stage = v.get("after")
     if stage and stage.get("kind") == "area" and stage.get("at"):
@@ -4085,6 +4368,9 @@ def message_texts(mission):
            if mission.get(k)]
     if mission.get("victory", {}).get("or_destroyed"):
         out.append(("victory.or_destroyed", mission["victory"]["or_destroyed"]))
+    for path in mission.get("victory", {}).get("any_of") or []:
+        if isinstance(path, dict) and path.get("win"):
+            out.append((f"victory.any_of[{path.get('name')}].win", path["win"]))
     after = mission.get("victory", {}).get("after", {})
     if after.get("lost"):
         out.append(("victory.after.lost (stage lost)", after["lost"]))
@@ -4310,8 +4596,8 @@ def deployment_goals(mission, members):
     v = mission.get("victory", {})
     if v.get("kind") == "arrive" and v.get("at"):
         points.append(v["at"])
-    points += [extra["at"] for extra in v.get("also", [])
-               if isinstance(extra, dict) and extra.get("at")]
+    points += [extra["at"] for extra in victory_terms(v)
+               if term_kind(extra) == "area" and extra.get("at")]
     if isinstance(v.get("after"), dict) and v["after"].get("at"):
         points.append(v["after"]["at"])
     points += [lift["at"] for lift in mission.get("lift", [])
@@ -4360,10 +4646,8 @@ def deployment_areas(mission, placed, members):
         else:
             counted = tags(v["units"]) if v.get("units") else tags(v.get("station"))
         out.append(area(v["at"], v.get("radius", 20), counted))
-    for extra in v.get("also", []):
-        if not isinstance(extra, dict):
-            continue
-        kind = extra.get("kind") or ("time" if "after_minutes" in extra else "area")
+    for extra in victory_terms(v):
+        kind = term_kind(extra)
         at = extra.get("at") or v.get("at")
         if kind == "area" and at:
             out.append(area(at, extra.get("radius", v.get("radius", 20)), tags(extra.get("units"))))
@@ -4968,6 +5252,7 @@ def mark_supplied(mission, placed):
 def render(mission, placed, members):
     check_message_texts(mission)
     check_victory_keys(mission)
+    check_any_of(mission)
     check_required_objectives(mission, members)
     name = mission_name(mission)
     centre = mission["centre"]
@@ -4995,6 +5280,9 @@ def render(mission, placed, members):
                  "before unpausing; the operation clock and enemy action then begin.|Start preparation")
     L.append("Taskforce1VictoryMessage=<color=lime>Operation complete.</color>|"
              f"{ini_text(mission['win'])}")
+    for path in mission["victory"].get("any_of", [])[1:]:
+        L.append(f"Path{path['name']}VictoryMessage=<color=lime>Operation complete.</color>|"
+                 f"{ini_text(path['win'])}")
     if mission.get("victory", {}).get("or_destroyed"):
         L.append("SunkVictoryMessage=<color=lime>Operation complete.</color>|"
                  + ini_text(mission["victory"]["or_destroyed"]))
@@ -5271,8 +5559,9 @@ def render(mission, placed, members):
     expr, n = "<Condition1>", 1
     for extra in victory.get("also", []):
         n += 1
-        cond += also_condition(mission, n, extra, members)
-        expr += f" AND <Condition{n}>"
+        lines, fragment = term_condition(mission, n, extra, members, placed)
+        cond += lines
+        expr += f" AND {fragment}"
     win_lines = [f"ConditionsCompleted={expr}",
                  "Action_Taskforce1_Message=Taskforce1VictoryMessage",
                  "Action_Taskforce2_Message=Taskforce2DefeatMessage",
@@ -5369,8 +5658,9 @@ def render(mission, placed, members):
                 w_expr, wn = "<Condition1>", 1
                 for extra in victory.get("also", []):
                     wn += 1
-                    w_cond += also_condition(mission, wn, extra, members)
-                    w_expr += f" AND <Condition{wn}>"
+                    lines, fragment = term_condition(mission, wn, extra, members, placed)
+                    w_cond += lines
+                    w_expr += f" AND {fragment}"
                 w_lines = [x for x in win_lines if not x.startswith("ConditionsCompleted=")]
                 trigger(f"Objective met by {tag}",
                         ["Disabled=True"] + w_cond
@@ -5425,7 +5715,10 @@ def render(mission, placed, members):
                     "Action_Taskforce1_Message=StageHeldMessage",
                     f"Action_EnableTriggers=Trigger{met_no}"])
             cond.insert(0, "Disabled=True")
-    if not per_unit:
+    if victory.get("any_of"):
+        victory_alternatives(mission, cond, expr, n, members, placed, trigger,
+                             [main] + [o for o in held if o != main], EXIT)
+    elif not per_unit:
         trigger("Objective met", cond + win_lines)
     if victory.get("or_destroyed"):
         if not stage or per_unit or hold:
