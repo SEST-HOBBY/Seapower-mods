@@ -1,81 +1,81 @@
 [
  {
   "out": "../source/visuals/steam/pack-1-latest-update.jpg",
-  "bg": "../source/images/ships/ford.jpg",
-  "pos": "center 60%",
-  "kicker": "LATEST UPDATE  ·  OCTOBER 2026",
-  "head": "The allied fleet, Red Line side operations, Ford F-35Cs.",
+  "bg": "../../media-pack/source/images/command/caoc.jpg",
+  "pos": "center 40%",
+  "kicker": "LATEST UPDATE  ·  R12  ·  10 NOVEMBER 2026",
+  "head": "A world campaign, national commanders, F11 operations.",
   "cols": [
    {
-    "label": "CAMPAIGNS",
+    "label": "GLOBAL MARITIME OPS 2028",
     "items": [
      [
-      "Broken Wake, deeper",
-      "Sheean; sink the relay by min 25"
+      "196 bases worldwide",
+      "40 more real airfields"
      ],
      [
-      "O10 field team",
-      "an RQ-7 team on Yapen"
+      "Eight command stages",
+      "renown unlocks recruitment"
      ],
      [
-      "Open Allocation built in",
-      "the whole roster, the allied fleet"
+      "Supply you can cut",
+      "depots, convoys, airlift, oilers"
      ],
      [
-      "Red Line side operations",
-      "Datum, Ships from the North, Pilot"
+      "Battle preparation (beta)",
+      "paused checklist, End battle..."
      ]
     ]
    },
    {
-    "label": "SHIPS AND WEAPONS",
+    "label": "COMMANDERS & AWARDS",
     "items": [
      [
-      "Ford's F-35Cs",
-      "16 in a 70-aircraft US wing"
+      "14 navies to command",
+      "Southern Watch and Southern Reach"
      ],
      [
-      "SM-6 flight time",
-      "300 s kept, Euromod's own figure"
+      "Your nation's awards",
+      "at your commander's rank"
      ],
      [
-      "J-20A close in",
-      "6 NM visual, stronger IR"
+      "Sulu Line commanders",
+      "Philippine, Thai or Australian"
      ],
      [
-      "AIM-9L fixed",
-      "on the stock game's figures"
+      "Unit citations",
+      "Australian MUC, Philippine PUC"
      ]
     ]
    },
    {
-    "label": "ALSO IN THIS UPDATE",
+    "label": "ALSO IN R12",
     "items": [
      [
-      "Two mods in, one out",
-      "Combat Cost Tracker, Group Manager"
+      "F11 Operations (beta)",
+      "overview, forces, costs, service"
      ],
      [
-      "Sea Power 0.8.7",
-      "packs and runtime fixes matched"
+      "Combat costs",
+      "estimated USD, in the debrief"
      ],
      [
-      "More briefing photos",
-      "54 more classes pictured"
+      "25 world ribbons (beta)",
+      "battles, theatres, Admiralty orders"
      ],
      [
-      "Latest mod updates",
-      "Chile, Wasp, MH-60R, Spain, JMSDF"
+      "Growler flights",
+      "HARM, AARGM and AARGM-ER"
      ]
     ]
    }
   ],
   "foot": [
-   "Open Allocation built into the campaigns. Start a new campaign to get it.",
-   "Subscribe to all again, then close the game and run SETUP."
+   "(beta): public beta 0.8.7-261107 only; SETUP installs it there and nowhere else.",
+   "Start a new world campaign for the full map. After updating, run SETUP again."
   ],
   "credit": [
-   "Photo: U.S. Navy, MC2 Ridge Leoni · Public domain · adapted",
+   "Photo: U.S. Air Force, TSgt Joshua Strang · Public domain · adapted",
    "via Wikimedia Commons"
   ]
  },
@@ -107,51 +107,51 @@
     ]
    },
    {
-    "label": "FORCES & WEAPONS",
+    "label": "WORLD & COMMAND",
+    "items": [
+     [
+      "A world campaign",
+      "Global Maritime Operations 2028"
+     ],
+     [
+      "National commanders",
+      "14 navies, their own ranks"
+     ],
+     [
+      "National awards",
+      "at the commander's rank"
+     ],
+     [
+      "F11 World Operations",
+      "forces, costs, service (beta)"
+     ]
+    ]
+   },
+   {
+    "label": "FORCES & FIXES",
     "items": [
      [
       "Australian forces",
       "RAN · 15 RAAF bases · E-7A · MQ-4C"
      ],
      [
-      "RAAF F-35A + JATM",
-      "F-35A, F-35C and F-16CM"
+      "Growler, F-15EX, Redback",
+      "NGJ, AIM-424, Rafale F5, ARRW"
      ],
-     [
-      "Growler NGJ + MALICE",
-      "NGJ pods, AIM-424 fits"
-     ],
-     [
-      "AGR-30 Redback",
-      "plus F-15EX, Rafale F5, ARRW"
-     ]
-    ]
-   },
-   {
-    "label": "FIXES",
-    "items": [
      [
       "Replenishment at sea",
       "2,200 launchers made reloadable"
      ],
      [
-      "Cross-mod fixes",
-      "where two mods clash"
-     ],
-     [
-      "Intercept table restored",
-      "the game's own values back"
-     ],
-     [
       "Photos, flags, names",
-      "729 unit photos · 11 more flags"
+      "729 unit photos · cross-mod fixes"
      ]
     ]
    }
   ],
   "foot": [
    "Open Allocation from Weapons Free, Tasman Crossing and Red Line's first mission.",
-   "Needs the 199 mods in the collection. Built for Sea Power 0.8.7."
+   "Needs the 203 mods in the collection. Built for Sea Power 0.8.7."
   ],
   "credit": [
    "Photo: U.S. Navy, JO2 Patrick Reilly · Public domain · adapted",
@@ -167,7 +167,7 @@
   "steps": [
    [
     "Subscribe",
-    "Press Subscribe on the SEST Integration Pack and subscribe to all its required items (about 24 GB). Let Steam finish."
+    "Press Subscribe on the SEST Integration Pack and subscribe to all its required items. Let Steam finish."
    ],
    [
     "Open the pack's folder",
@@ -175,16 +175,16 @@
    ],
    [
     "Double-click SETUP",
-    "It checks every mod is downloaded, installs the Anchor Chain preloader if missing, and sets the load order."
+    "It checks every mod is downloaded, installs the preloader and sets the load order, SEST at the top."
    ],
    [
     "Pick a campaign",
-    "Southern Watch, Southern Reach, Red Line or Sulu Line. Red Line sells its whole roster at once, the rest part-way in."
+    "Southern Watch, Southern Reach, Red Line, Sulu Line, or Global Maritime Operations 2028 (Dynamic Campaign)."
    ]
   ],
   "footTop": 930,
   "foot": [
-   "Windows may ask for permission once, for the preloader.",
+   "On public beta 0.8.7-261107, a first install is SETUP, ten seconds at the main menu, quit, SETUP again.",
    "If the Mod Manager offers to move dependencies above the pack, say no.",
    "Run SETUP again (game closed) after the pack or a mod updates."
   ],
@@ -265,11 +265,30 @@
   "counts": "7 missions and 3 side operations.\nSupply ships are sold three times.",
   "mapLabel": "IN-GAME CAMPAIGN MAP",
   "map": "../../dist/SEST_Integration/campaigns/sest-sulu-line/art/00_campaign_background.png",
-  "note": "",
+  "note": "A Philippine, Thai or Australian commander.",
   "credit": [
    "Photo: Philippine Navy Public Affairs Office · Public domain · adapted",
    "Map: BRP Tarlac, U.S. Navy, MC1 Daniel Barker · CC BY-SA 4.0 · adapted",
    "creativecommons.org/licenses/by-sa/4.0 · via Wikimedia Commons"
+  ]
+ },
+ {
+  "layout": "campaign",
+  "out": "../source/visuals/steam/pack-8-world.jpg",
+  "bg": "../source/images/ships/nimitz.jpg",
+  "photoX": 444,
+  "kicker": "WORLD CAMPAIGN  ·  DYNAMIC CAMPAIGN MOD",
+  "title": "GLOBAL MARITIME",
+  "subtitle": "Operations 2028",
+  "meta": "Two coalitions  ·  from October 2028",
+  "desc": "Command either coalition across the Atlantic, Mediterranean, Indian Ocean and Pacific. Fuel and ammunition are physical: guard the convoys.",
+  "counts": "196 bases, 293 force groups, 54 patrols;\n8 command stages, 1,586 recruitment entries.",
+  "mapLabel": "EVERY BASE, BOTH COALITIONS",
+  "map": "world-map.png",
+  "note": "Needs Dynamic Campaign Mod, in the collection.",
+  "credit": [
+   "Photo: U.S. Navy, PH3 Kristi Earl · Public domain · adapted",
+   "via Wikimedia Commons"
   ]
  },
  {
@@ -279,7 +298,7 @@
   "title": "SEST",
   "title2": "INTEGRATION PACK",
   "sub": "MODERNISED CAMPAIGNS",
-  "line": "4 campaigns  ·  80 missions  ·  photo gallery  ·  one-click SETUP",
+  "line": "4 campaigns  ·  a world campaign  ·  one-click SETUP",
   "credit": [
    "Photo: U.S. Air Force, SrA J. Michael Peña · Public domain · adapted",
    "via Wikimedia Commons"
@@ -292,7 +311,7 @@
   "pos": "55% center",
   "title": "SEST",
   "sub": "MODERNISED CAMPAIGN COLLECTION",
-  "line": "4 campaigns  ·  80 missions  ·  2028–29",
+  "line": "4 campaigns  ·  a world campaign  ·  2028–29",
   "credit": [
    "Photo: Japan Maritime Self-Defense Force · CC BY 4.0 · adapted",
    "creativecommons.org/licenses/by/4.0 · via Wikimedia Commons"
@@ -317,15 +336,15 @@
   "pos": "center 55%",
   "title": "SEST",
   "kicker": "MODERNISED CAMPAIGN COLLECTION",
-  "sub": "Four Task Force campaigns  ·  2028–29",
+  "sub": "Four campaigns and a world campaign  ·  2028–29",
   "stats": [
-   [
-    "4",
-    "CAMPAIGNS"
-   ],
    [
     "80",
     "MISSIONS"
+   ],
+   [
+    "196",
+    "WORLD BASES"
    ],
    [
     "729",
@@ -362,7 +381,7 @@
     "count": "10 missions  ·  no free rearm"
    }
   ],
-  "install": "Subscribe to all (about 24 GB)  ·  open the SEST Integration Pack's folder  ·  double-click SETUP  ·  play",
+  "install": "Subscribe to all  ·  open the SEST Integration Pack's folder  ·  double-click SETUP  ·  play",
   "credit": [
    "Photos via Wikimedia Commons, adapted (cropped, darkened, text added). Hobart class: Japan Maritime Self-Defense Force, CC BY 4.0 (creativecommons.org/licenses/by/4.0).",
    "Background, Collins class and Type 054A: U.S. Navy, public domain. Miguel Malvar class: Philippine Navy, public domain."

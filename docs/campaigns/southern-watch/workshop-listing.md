@@ -480,6 +480,13 @@ inside the pack: `00_campaign_background.png`, `southern_watch_01_sheet.png`,
 `00_opening_image.png`, `southern_watch_08_sheet.png`, then an in-game shot of
 the campaign map that you take yourself.
 
+Steam artwork (redone 10 Nov 2026 for R12): `Gallery/visuals/steam/` in the
+pack, made by `integration/gallery/steam_art/render.js` from `cards.json`.
+The item's cover (`pack-preview.jpg`) and eight cards, `pack-1` to `pack-8`
+(`pack-8-world.jpg`, Global Maritime Operations 2028, is new), plus the
+collection's `collection-cover.jpg` and `collection-background.jpg`. Every
+photo's credit is printed on its image and listed in `VISUAL_CREDITS.txt`.
+
 Leave off the page: the repository and how the pack is built, any claim that
 it is balanced or play-tested, and any promise of translations or of support
 for another mod list.
