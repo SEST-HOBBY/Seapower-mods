@@ -58,8 +58,8 @@ MISSION = dict(
                  after=dict(kind="area", units="decoy", at=(-46.32, 166.15), radius=8,
                             min_units=1, after_minutes=8,
                             intel=(
-                                "DECOY REPORT: The screen is on the decoy station at minute eight. The "
-                                "rendezvous is cleared to proceed."
+                                "DECOY REPORT: The screen is on the decoy station. The rendezvous is "
+                                "cleared to proceed."
                             ))),
     fatal=[F("Restraint", ["red_air"]),F("Tender"),F("Boat")],
     neutral_objective="Traffic",
