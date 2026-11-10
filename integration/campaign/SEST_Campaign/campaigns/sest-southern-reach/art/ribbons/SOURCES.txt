@@ -8,8 +8,8 @@ proportions closely enough to be recognised; they are representations.
   sest_southern_convoy.png - Southern Convoy Ribbon: fictional SEST design
   armed_forces_expeditionary_medal.png - Armed Forces Expeditionary Medal: representation of the American award
   ca_general_campaign_star_expedition.png - General Campaign Star - Expedition: representation of the Canadian award
-    widths as published (8, 2, 12, 2 and 8 mm); colours sampled from the Wikimedia
-    Commons ribbon image, as the official DND page could not be read.
+    widths as specified by Canada (DND medal page); colours sampled from a Commons
+    image.
   nz_operational_service_medal.png - New Zealand Operational Service Medal: representation of the New Zealand award
     proportions measured from an image (the official NZDF photograph); black and white
     as the NZDF names them.
@@ -84,7 +84,7 @@ gallery flag set (Wikimedia Commons, public domain; credited in Gallery/VISUAL_C
 Award facts (criteria, ribbon design, precedence):
   Australian Operational Service Medal - Indo-Pacific: https://www.defence.gov.au/adf-members-families/honours-awards/australian-awards/australian-operational-service-medal-indo-pacific
   Armed Forces Expeditionary Medal: https://www.archives.gov/federal-register/codification/executive-order/10977.html
-  General Campaign Star - Expedition: https://en.wikipedia.org/wiki/General_Campaign_Star
+  General Campaign Star - Expedition: https://www.canada.ca/en/department-national-defence/services/medals/medals-chart-index/general-campaign-star-expedition-gcs-exp.html
   New Zealand Operational Service Medal: https://www.nzdf.mil.nz/medals-and-service-records/medals-and-awards/explore-medals-and-awards/new-zealand-operational-service-medal-nzosm/
   Commendation for Distinguished Service: https://www.defence.gov.au/adf-members-families/honours-awards/australian-awards/commendation-distinguished-service
   Navy and Marine Corps Commendation Medal: https://www.secnav.navy.mil/doni/SECNAV%20Manuals1/1650.1.pdf

@@ -518,16 +518,19 @@ REAL = {
               'high standard that brought considerable benefit and great honour to the Canadian Armed Forces '
               'as commander of {TaskForceName}',
         source='https://www.gg.ca/en/honours/canadian-honours/meritorious-service-decorations-civil-division/regulations'),
-    # The campaign star for service in a theatre in the presence of an armed
-    # enemy, granted as the AFEM and the AOSM-IP are: a representation for
-    # the fictional operation, after its qualifying period (14 days). No
-    # real theatre or operation is named.
+    # The campaign star, granted at SR10 as the AFEM and the AOSM-IP are (the
+    # owner's decision of 10 Nov 2026): a representation for the fictional
+    # operation. The DND medal page gives the ribbon, red 8 | white 2 |
+    # light grey 12 | white 2 | red 8 mm, and the current rule, 14 days of
+    # approved service in a specified theatre in the presence of an armed
+    # enemy. The citation names no real theatre or operation.
     'ca_general_campaign_star_expedition': dict(
         nation='Canada', name='General Campaign Star - Expedition', type='ServiceAward', precedence=43,
         art=(('#8C1B1D', 8), ('#FFFFFF', 2), ('#BFB7AA', 12), ('#FFFFFF', 2), ('#8C1B1D', 8)), ranks=(1, 10),
         service_days=14,
-        merit="For 14 days' service in the presence of an armed enemy with {TaskForceName}",
-        source='https://en.wikipedia.org/wiki/General_Campaign_Star'),
+        merit='For 14 days of service in the presence of an armed enemy with {TaskForceName}',
+        source='https://www.canada.ca/en/department-national-defence/services/medals/medals-chart-index/'
+               'general-campaign-star-expedition-gcs-exp.html'),
     # --- New Zealand (NZDF honours pages and order of wear) ---------------
     # The DSD recognises command and leadership in an operational
     # environment, for all ranks and for allied members serving alongside
@@ -591,8 +594,7 @@ ART_NOTES = {
         'widths from the Regulations, s.4(5)(a); the blue sampled from the official gg.ca '
         'photograph of the cross'),
     'ca_general_campaign_star_expedition': (
-        'widths as published (8, 2, 12, 2 and 8 mm); colours sampled from the Wikimedia Commons '
-        'ribbon image, as the official DND page could not be read'),
+        'widths as specified by Canada (DND medal page); colours sampled from a Commons image'),
     'nz_distinguished_service_decoration': (
         'proportions measured from an image (the official NZDF photograph), as the Royal Warrant '
         'could not be read; colours sampled from it'),

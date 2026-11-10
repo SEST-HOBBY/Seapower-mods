@@ -98,7 +98,8 @@ Southern Reach / Tasman Shield (a Captain, OF-5 / O-6)
 - Task group: Australian Meritorious Unit Citation, TS12.
 The service medals need their real qualifying periods: 30 days for the
 AOSM-IP and the AFEM, 14 days in the presence of an armed enemy for the
-General Campaign Star, 7 days at sea for the NZ Operational Service Medal.
+General Campaign Star (its citation names no real theatre), 7 days at sea
+for the NZ Operational Service Medal.
 SR01 is 6 December 2028 and SR10 6 January 2029; the builder stops if SR10
 moves earlier. The New Zealand Antarctic Medal is not granted: it is for an
 outstanding Antarctic contribution, not for service there.
@@ -125,10 +126,11 @@ cordon's colours could not be checked. Every other strip is code-drawn from
 the published stripe order. The Canadian decorations use the Regulations'
 widths; the NZ Distinguished Service Decoration's and Operational Service
 Medal's proportions are measured from official NZDF photographs, as the
-Royal Warrants could not be read; the General Campaign Star's colours are
-sampled from a Commons image. The Royal Navy emblem is the White Ensign from
-the SEST gallery flag set (public domain). Each campaign's art/ribbons/
-SOURCES.txt lists its pictures and sources. No AI imagery is used.
+Royal Warrants could not be read; the General Campaign Star uses the
+widths Canada specifies (DND medal page), its colours sampled from a
+Commons image. The Royal Navy emblem is the White Ensign from the SEST
+gallery flag set (public domain). Each campaign's art/ribbons/SOURCES.txt
+lists its pictures and sources. No AI imagery is used.
 
 PC CHECKS
 On the beta, load an existing world and check Service progress, wrapping

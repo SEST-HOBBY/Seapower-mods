@@ -245,9 +245,15 @@ class CampaignServiceAwards(unittest.TestCase):
         self.assertIn("nz_operational_service_medal,NewZealand", specs)
         self.assertEqual(awards.REAL["ca_general_campaign_star_expedition"]["service_days"], 14)
         self.assertEqual(awards.REAL["nz_operational_service_medal"]["service_days"], 7)
-        # Official GCS-EXPEDITION widths: red 8, white 2, light grey 12.
-        self.assertEqual([w for _c, w in awards.REAL["ca_general_campaign_star_expedition"]["art"]],
-                         [8, 2, 12, 2, 8])
+        # Official GCS-EXPEDITION widths: red 8, white 2, light grey 12, from
+        # the DND medal page, which is its source (the owner's researcher
+        # read it on 10 Nov 2026), with the 14-day rule.
+        gcs_row = awards.REAL["ca_general_campaign_star_expedition"]
+        self.assertEqual([w for _c, w in gcs_row["art"]], [8, 2, 12, 2, 8])
+        self.assertEqual(gcs_row["source"], "https://www.canada.ca/en/department-national-defence/services/"
+                                            "medals/medals-chart-index/general-campaign-star-expedition-gcs-exp.html")
+        self.assertIn("widths as specified by Canada (DND medal page); colours sampled from a Commons image",
+                      " ".join(awards.sources_text("sest-southern-reach").split()))
         for slug in ("sest-southern-watch", "sest-southern-reach"):
             catalogue = awards.catalogue(slug)
             text = awards.sources_text(slug)
@@ -262,8 +268,10 @@ class CampaignServiceAwards(unittest.TestCase):
                     self.assertIn(f"{rid}.png - {row['name']}", text)
             if slug == "sest-southern-reach":
                 gcs = catalogue["ca_general_campaign_star_expedition"]["citation"]
-                self.assertIn("in the presence of an armed enemy", gcs)
-                self.assertNotRegex(gcs, r"(?i)designated|operation [A-Z]")
+                self.assertTrue(gcs.startswith("For 14 days of service in the presence of an armed "
+                                               "enemy with {TaskForceName}"), gcs)
+                # No real designated or specified theatre is claimed.
+                self.assertNotRegex(gcs, r"(?i)designated|specified|theatre|operation [A-Z]")
         self.assertIn("proportions measured from an image", awards.sources_text("sest-southern-watch"))
         self.assertIn("approved\n12 January 2025", awards.sources_text("sest-southern-reach"))
         for slug in awards.CAMPAIGNS:
