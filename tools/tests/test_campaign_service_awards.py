@@ -220,6 +220,55 @@ class CampaignServiceAwards(unittest.TestCase):
                     self.assertIn(nation, awards.NATIONS[slug], rid)
             self.assertFalse(set(awards.grants(slug)) & set(awards.RETIRED), slug)
 
+    def test_canada_and_new_zealand_awards_follow_the_other_nations(self):
+        # 10 Nov 2026: a lesser decoration at SW08 and SR12, the senior one at
+        # SW12 and TS09, the operational service medal at SR10.
+        expected = {
+            "sest-southern-watch": {"ca_meritorious_service_medal_military": "SW08",
+                                    "nz_distinguished_service_decoration": "SW08",
+                                    "ca_meritorious_service_cross_military": "SW12",
+                                    "nz_member_order_of_merit": "SW12"},
+            "sest-southern-reach": {"ca_general_campaign_star_expedition": "SR10",
+                                    "nz_operational_service_medal": "SR10",
+                                    "ca_meritorious_service_medal_military": "SR12",
+                                    "nz_distinguished_service_decoration": "SR12",
+                                    "ca_meritorious_service_cross_military": "TS09",
+                                    "nz_member_order_of_merit": "TS09"},
+        }
+        for slug, rows in expected.items():
+            granted = awards.grants(slug)
+            for rid, code in rows.items():
+                self.assertEqual(granted[rid], code, (slug, rid))
+        specs = awards.mission_awards("sest-southern-reach", {"code": "SR10", "key": "Southern Line",
+                                                              "date": (2029, 1, 6)})
+        self.assertIn("ca_general_campaign_star_expedition,Canada", specs)
+        self.assertIn("nz_operational_service_medal,NewZealand", specs)
+        self.assertEqual(awards.REAL["ca_general_campaign_star_expedition"]["service_days"], 14)
+        self.assertEqual(awards.REAL["nz_operational_service_medal"]["service_days"], 7)
+        # Official GCS-EXPEDITION widths: red 8, white 2, light grey 12.
+        self.assertEqual([w for _c, w in awards.REAL["ca_general_campaign_star_expedition"]["art"]],
+                         [8, 2, 12, 2, 8])
+        for slug in ("sest-southern-watch", "sest-southern-reach"):
+            catalogue = awards.catalogue(slug)
+            text = awards.sources_text(slug)
+            for rid in expected[slug]:
+                row = catalogue[rid]
+                with self.subTest(campaign=slug, award=rid):
+                    self.assertEqual(row["reference"], awards.REAL[rid]["nation"])
+                    self.assertTrue(row["source"].startswith("https://"))
+                    self.assertAlmostEqual(sum(w for _c, w in row["stripes"]),
+                                           1 if len(row["stripes"]) == 1 else 32, places=1)
+                    self.assertIn(rid, awards.ART_NOTES)
+                    self.assertIn(f"{rid}.png - {row['name']}", text)
+            if slug == "sest-southern-reach":
+                gcs = catalogue["ca_general_campaign_star_expedition"]["citation"]
+                self.assertIn("in the presence of an armed enemy", gcs)
+                self.assertNotRegex(gcs, r"(?i)designated|operation [A-Z]")
+        self.assertIn("proportions measured from an image", awards.sources_text("sest-southern-watch"))
+        self.assertIn("approved\n12 January 2025", awards.sources_text("sest-southern-reach"))
+        for slug in awards.CAMPAIGNS:
+            self.assertFalse({"nz_antarctic_medal", "nz_officer_order_of_merit"} & set(awards.grants(slug)))
+
     def test_every_offered_nation_is_a_game_key_with_settings_and_a_ladder(self):
         # The discount and the award selectors compare the key with the
         # units' Nation=, so it must be the game's own (nations.ini), and a

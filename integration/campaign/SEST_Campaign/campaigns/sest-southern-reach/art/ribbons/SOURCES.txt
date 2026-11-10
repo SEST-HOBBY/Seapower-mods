@@ -7,10 +7,27 @@ proportions closely enough to be recognised; they are representations.
   sest_antarctic_lifeline.png - Antarctic Resupply Ribbon: fictional SEST design
   sest_southern_convoy.png - Southern Convoy Ribbon: fictional SEST design
   armed_forces_expeditionary_medal.png - Armed Forces Expeditionary Medal: representation of the American award
+  ca_general_campaign_star_expedition.png - General Campaign Star - Expedition: representation of the Canadian award
+    widths as published (8, 2, 12, 2 and 8 mm); colours sampled from the Wikimedia
+    Commons ribbon image, as the official DND page could not be read.
+  nz_operational_service_medal.png - New Zealand Operational Service Medal: representation of the New Zealand award
+    proportions measured from an image (the official NZDF photograph); black and white
+    as the NZDF names them.
   australian_commendation_distinguished_service.png - Commendation for Distinguished Service: representation of the Australian award
   uk_obe_military.png - Officer of the Order of the British Empire (Military): representation of the British award
+  ca_meritorious_service_medal_military.png - Meritorious Service Medal (Military Division): representation of the Canadian award
+    widths from the Regulations, s.4(5)(b); the blue sampled from the official gg.ca
+    photograph of the cross.
+  nz_distinguished_service_decoration.png - New Zealand Distinguished Service Decoration: representation of the New Zealand award
+    proportions measured from an image (the official NZDF photograph), as the Royal
+    Warrant could not be read; colours sampled from it.
   legion_of_merit.png - Legion of Merit: representation of the American award
   uk_distinguished_service_order.png - Distinguished Service Order: representation of the British award
+  ca_meritorious_service_cross_military.png - Meritorious Service Cross (Military Division): representation of the Canadian award
+    widths from the Regulations, s.4(5)(a); the blue sampled from the official gg.ca
+    photograph of the cross.
+  nz_member_order_of_merit.png - Member of the New Zealand Order of Merit: representation of the New Zealand award
+    plain red ochre, sampled from the official NZDF photograph.
   australian_meritorious_unit_citation.png - Australian Meritorious Unit Citation: representation of the Australian award
 
 Installed Sea Power pictures referenced by path, not copied into this pack:
@@ -25,7 +42,9 @@ sest_aosm_indo_pacific.png - Australian Operational Service Medal - Indo-Pacific
 Author: Nford24. CC0 1.0 Universal Public Domain Dedication.
 Source: https://commons.wikimedia.org/wiki/File:Australian_Operational_Service_Medal_-_Indo-Pacific.png
 Copied without modification (897 bytes). Its stripes - deep blue edges as wide as the
-green, light blue, green, a yellow centre - match the Defence description.
+green, light blue, green, a yellow centre - match the Defence description and the
+Australian Operational Service Medal (Indo-Pacific) Instrument 2024, approved
+12 January 2025.
 
 Commander emblems in ui/campaign/navy_emblems/, scaled by build_pack.py from the SEST
 gallery flag set (Wikimedia Commons, public domain; credited in Gallery/VISUAL_CREDITS.txt):
@@ -65,13 +84,19 @@ gallery flag set (Wikimedia Commons, public domain; credited in Gallery/VISUAL_C
 Award facts (criteria, ribbon design, precedence):
   Australian Operational Service Medal - Indo-Pacific: https://www.defence.gov.au/adf-members-families/honours-awards/australian-awards/australian-operational-service-medal-indo-pacific
   Armed Forces Expeditionary Medal: https://www.archives.gov/federal-register/codification/executive-order/10977.html
+  General Campaign Star - Expedition: https://en.wikipedia.org/wiki/General_Campaign_Star
+  New Zealand Operational Service Medal: https://www.nzdf.mil.nz/medals-and-service-records/medals-and-awards/explore-medals-and-awards/new-zealand-operational-service-medal-nzosm/
   Commendation for Distinguished Service: https://www.defence.gov.au/adf-members-families/honours-awards/australian-awards/commendation-distinguished-service
   Navy and Marine Corps Commendation Medal: https://www.secnav.navy.mil/doni/SECNAV%20Manuals1/1650.1.pdf
   Officer of the Order of the British Empire (Military): https://www.royalnavy.mod.uk/news/2024/december/30/20241230-new-years-and-op-honours
+  Meritorious Service Medal (Military Division): https://www.gg.ca/en/honours/canadian-honours/meritorious-service-decorations-civil-division/regulations
+  New Zealand Distinguished Service Decoration: https://www.nzdf.mil.nz/medals-and-service-records/medals-and-awards/explore-medals-and-awards/the-new-zealand-distinguished-service-decoration/
   Australian Distinguished Service Cross: https://www.defence.gov.au/sites/default/files/2025-01/Fact-Sheet-Distinguished-Service-Cross.pdf
   Legion of Merit: https://www.govinfo.gov/content/pkg/CFR-2002-title32-vol3/html/CFR-2002-title32-vol3-sec578-8.htm
   Distinguished Service Order: https://www.thegazette.co.uk/London/issue/62529/supplement/326/data.pdf
   1st Class Commendation (Defense Memorial Cordon): http://www.clearing.mod.go.jp/kunrei_data/a_fd/1955/ax19550810_00049_000.pdf
+  Meritorious Service Cross (Military Division): https://www.gg.ca/en/honours/canadian-honours/meritorious-service-decorations-civil-division/regulations
+  Member of the New Zealand Order of Merit: https://www.nzdf.mil.nz/medals-and-service-records/medals-and-awards/explore-medals-and-awards/member-of-the-new-zealand-order-of-merit-mnzm/
   Australian Meritorious Unit Citation: https://www.pmc.gov.au/honours-and-symbols/list-australian-honours/meritorious-unit-citation
   Navy and Marine Corps Achievement Medal: https://www.secnav.navy.mil/doni/SECNAV%20Manuals1/1650.1.pdf
   Navy Unit Commendation: https://www.secnav.navy.mil/doni/SECNAV%20Manuals1/1650.1.pdf

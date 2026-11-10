@@ -495,6 +495,73 @@ REAL = {
         art='stock:ribbons/jmsdf_defense_memorial_cordon_ribbon.png', ranks=(1, 10),
         merit='For conspicuous merit as commander of {TaskForceName}',
         source='http://www.clearing.mod.go.jp/kunrei_data/a_fd/1955/ax19550810_00049_000.pdf'),
+    # --- Canada (Meritorious Service Decorations Regulations; gg.ca order
+    # of precedence) ---------------------------------------------------------
+    # Both decorations are open to members of allied forces serving with or
+    # in conjunction with the Canadian Forces, with no rank limit; the cross
+    # is the higher. Widths are the Regulations' (s.4(5)), the blue sampled
+    # from the official gg.ca photograph (ART_NOTES).
+    'ca_meritorious_service_medal_military': dict(
+        nation='Canada', name='Meritorious Service Medal (Military Division)', type='PersonalDecoration',
+        precedence=35,
+        art=(('#023A9C', 2.333), ('#FFFFFF', 2.5), ('#023A9C', 1), ('#FFFFFF', 2.5), ('#023A9C', 15.333),
+             ('#FFFFFF', 2.5), ('#023A9C', 1), ('#FFFFFF', 2.5), ('#023A9C', 2.333)), ranks=(1, 10),
+        merit='For a military activity performed in a highly professional manner and to a very high standard '
+              'that brought benefit and honour to the Canadian Armed Forces as commander of {TaskForceName}',
+        source='https://www.gg.ca/en/honours/canadian-honours/meritorious-service-decorations-civil-division/regulations'),
+    'ca_meritorious_service_cross_military': dict(
+        nation='Canada', name='Meritorious Service Cross (Military Division)', type='PersonalDecoration',
+        precedence=32,
+        art=(('#023A9C', 2.333), ('#FFFFFF', 6), ('#023A9C', 15.333), ('#FFFFFF', 6), ('#023A9C', 2.333)),
+        ranks=(1, 10),
+        merit='For a military activity performed in an outstandingly professional manner and to an uncommonly '
+              'high standard that brought considerable benefit and great honour to the Canadian Armed Forces '
+              'as commander of {TaskForceName}',
+        source='https://www.gg.ca/en/honours/canadian-honours/meritorious-service-decorations-civil-division/regulations'),
+    # The campaign star for service in a theatre in the presence of an armed
+    # enemy, granted as the AFEM and the AOSM-IP are: a representation for
+    # the fictional operation, after its qualifying period (14 days). No
+    # real theatre or operation is named.
+    'ca_general_campaign_star_expedition': dict(
+        nation='Canada', name='General Campaign Star - Expedition', type='ServiceAward', precedence=43,
+        art=(('#8C1B1D', 8), ('#FFFFFF', 2), ('#BFB7AA', 12), ('#FFFFFF', 2), ('#8C1B1D', 8)), ranks=(1, 10),
+        service_days=14,
+        merit="For 14 days' service in the presence of an armed enemy with {TaskForceName}",
+        source='https://en.wikipedia.org/wiki/General_Campaign_Star'),
+    # --- New Zealand (NZDF honours pages and order of wear) ---------------
+    # The DSD recognises command and leadership in an operational
+    # environment, for all ranks and for allied members serving alongside
+    # the NZDF; the MNZM, above every decoration in the NZ order of wear,
+    # is the climax award. `ranks` is OF-3 to OF-5, the grades military
+    # MNZMs go to in practice (the research's 4-6 are game levels). The
+    # NZOSM's qualifying service includes seven days on a ship in an
+    # operational area against a credible military threat. The NZ Antarctic
+    # Medal (not for general service in Antarctica) and the Officer grade
+    # are not granted.
+    'nz_distinguished_service_decoration': dict(
+        nation='NewZealand', name='New Zealand Distinguished Service Decoration', type='PersonalDecoration',
+        precedence=59,
+        art=(('#2A3D58', 6.33), ('#ECC662', 2.13), ('#B7313E', 15.08), ('#ECC662', 2.13), ('#2A3D58', 6.33)),
+        ranks=(1, 10),
+        merit='For distinguished military service through exceptional devotion to duty, judgement and '
+              'leadership in the conduct of a military operation as commander of {TaskForceName}',
+        source='https://www.nzdf.mil.nz/medals-and-service-records/medals-and-awards/explore-medals-and-awards/'
+               'the-new-zealand-distinguished-service-decoration/'),
+    'nz_member_order_of_merit': dict(
+        nation='NewZealand', name='Member of the New Zealand Order of Merit', type='PersonalDecoration',
+        precedence=35, art=(('#C74F4E', 1),), ranks=(3, 5),
+        merit='For meritorious service to the Crown and the nation as commander of {TaskForceName}',
+        source='https://www.nzdf.mil.nz/medals-and-service-records/medals-and-awards/explore-medals-and-awards/'
+               'member-of-the-new-zealand-order-of-merit-mnzm/'),
+    'nz_operational_service_medal': dict(
+        nation='NewZealand', name='New Zealand Operational Service Medal', type='ServiceAward', precedence=81,
+        art=(('#FFFFFF', 2.72), ('#000000', 1.58), ('#FFFFFF', 2.21), ('#000000', 6.47), ('#FFFFFF', 2.21),
+             ('#000000', 1.61), ('#FFFFFF', 2.21), ('#000000', 6.47), ('#FFFFFF', 2.21), ('#000000', 1.58),
+             ('#FFFFFF', 2.72)), ranks=(1, 10), service_days=7,
+        merit="For seven days' operational service at sea against a credible military threat with "
+              "{TaskForceName}",
+        source='https://www.nzdf.mil.nz/medals-and-service-records/medals-and-awards/explore-medals-and-awards/'
+               'new-zealand-operational-service-medal-nzosm/'),
     # --- Philippines (AFP Awards and Decorations Manual, AFPR G 131-054) ---
     'ph_distinguished_service_star': dict(
         nation='Philippines', name='Distinguished Service Star', type='PersonalDecoration', precedence=12,
@@ -513,6 +580,28 @@ REAL = {
         merit='For extraordinary meritorious service by {TaskForceName}',
         source='https://www.afpc.af.mil/Fact-Sheets/Display/Article/421896/philippine-presidential-unit-citation/'),
 }
+# How each code-drawn real-award strip was measured, where SOURCES.txt
+# should say more than the published stripe order. Colours are sampled from
+# images; a white or black the source names is drawn pure.
+ART_NOTES = {
+    'ca_meritorious_service_medal_military': (
+        'widths from the Regulations, s.4(5)(b); the blue sampled from the official gg.ca '
+        'photograph of the cross'),
+    'ca_meritorious_service_cross_military': (
+        'widths from the Regulations, s.4(5)(a); the blue sampled from the official gg.ca '
+        'photograph of the cross'),
+    'ca_general_campaign_star_expedition': (
+        'widths as published (8, 2, 12, 2 and 8 mm); colours sampled from the Wikimedia Commons '
+        'ribbon image, as the official DND page could not be read'),
+    'nz_distinguished_service_decoration': (
+        'proportions measured from an image (the official NZDF photograph), as the Royal Warrant '
+        'could not be read; colours sampled from it'),
+    'nz_member_order_of_merit': 'plain red ochre, sampled from the official NZDF photograph',
+    'nz_operational_service_medal': (
+        'proportions measured from an image (the official NZDF photograph); black and white as '
+        'the NZDF names them'),
+}
+
 # Definitions an earlier test build granted and this one does not (the NAM is
 # for O-4 and below; the US unit citations do not belong to an Australian
 # group). Kept so a record earned with that build still shows; never granted.
@@ -543,15 +632,20 @@ RETIRED = {
 # has a service period, and the host nation's unit award to the group.
 GRANTS = {
     'sest-southern-watch': {
-        'SW08': ('australian_commendation_distinguished_service', 'navy_commendation_medal', 'uk_obe_military'),
+        'SW08': ('australian_commendation_distinguished_service', 'navy_commendation_medal', 'uk_obe_military',
+                 'ca_meritorious_service_medal_military', 'nz_distinguished_service_decoration'),
         'SW12': ('australian_distinguished_service_cross', 'bronze_star_medal', 'uk_distinguished_service_order',
-                 'jmsdf_first_class_commendation', 'australian_meritorious_unit_citation'),
+                 'jmsdf_first_class_commendation', 'ca_meritorious_service_cross_military',
+                 'nz_member_order_of_merit', 'australian_meritorious_unit_citation'),
     },
     'sest-southern-reach': {
-        'SR10': ('sest_aosm_indo_pacific', 'armed_forces_expeditionary_medal'),
-        'SR12': ('australian_commendation_distinguished_service', 'navy_commendation_medal', 'uk_obe_military'),
+        'SR10': ('sest_aosm_indo_pacific', 'armed_forces_expeditionary_medal',
+                 'ca_general_campaign_star_expedition', 'nz_operational_service_medal'),
+        'SR12': ('australian_commendation_distinguished_service', 'navy_commendation_medal', 'uk_obe_military',
+                 'ca_meritorious_service_medal_military', 'nz_distinguished_service_decoration'),
         'TS09': ('australian_distinguished_service_cross', 'legion_of_merit', 'uk_distinguished_service_order',
-                 'jmsdf_first_class_commendation'),
+                 'jmsdf_first_class_commendation', 'ca_meritorious_service_cross_military',
+                 'nz_member_order_of_merit'),
         'TS12': ('australian_meritorious_unit_citation',),
     },
     'sest-sulu-line': {
@@ -801,6 +895,9 @@ def sources_text(slug):
             kind = ('fictional SEST design' if row['reference'] == 'Fictional' else
                     f'representation of the {ADJECTIVE.get(row["reference"], (row["reference"], ""))[0]} award')
             lines.append(f'  {rid}.png - {row["name"]}: {kind}')
+            if rid in ART_NOTES:
+                lines += textwrap.wrap(ART_NOTES[rid] + '.', width=88, initial_indent='    ',
+                                       subsequent_indent='    ')
     stock = [(rid, row) for rid, row in rows.items() if row.get('image')]
     if stock:
         lines += ['', 'Installed Sea Power pictures referenced by path, not copied into this pack:']
@@ -811,7 +908,9 @@ def sources_text(slug):
                   'Author: Nford24. CC0 1.0 Universal Public Domain Dedication.',
                   'Source: https://commons.wikimedia.org/wiki/File:Australian_Operational_Service_Medal_-_Indo-Pacific.png',
                   'Copied without modification (897 bytes). Its stripes - deep blue edges as wide as the',
-                  'green, light blue, green, a yellow centre - match the Defence description.']
+                  'green, light blue, green, a yellow centre - match the Defence description and the',
+                  'Australian Operational Service Medal (Indo-Pacific) Instrument 2024, approved',
+                  '12 January 2025.']
     emblems = [NATION_SETTINGS[n] for n in NATIONS.get(slug, ())
                if NATION_SETTINGS.get(n, {}).get('commons')]
     if emblems:

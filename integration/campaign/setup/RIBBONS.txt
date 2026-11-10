@@ -78,6 +78,10 @@ Southern Watch (the commander is a Commander, OF-4 / O-5)
 - US: Navy and Marine Corps Commendation Medal, SW08; Bronze Star, SW12.
 - UK: OBE (Military), SW08; Distinguished Service Order, SW12.
 - Japan: 1st Class Commendation, SW12.
+- Canada: Meritorious Service Medal (Military Division), SW08;
+  Meritorious Service Cross (Military Division), SW12.
+- New Zealand: Distinguished Service Decoration, SW08; Member of the New
+  Zealand Order of Merit, SW12.
 - Task group: Australian Meritorious Unit Citation, SW12.
 
 Southern Reach / Tasman Shield (a Captain, OF-5 / O-6)
@@ -87,9 +91,18 @@ Southern Reach / Tasman Shield (a Captain, OF-5 / O-6)
   Commendation Medal, SR12; Legion of Merit, TS09.
 - UK: OBE (Military), SR12; Distinguished Service Order, TS09.
 - Japan: 1st Class Commendation, TS09.
+- Canada: General Campaign Star - Expedition, SR10; Meritorious Service
+  Medal (Military Division), SR12; Meritorious Service Cross (Military
+  Division), TS09.
+- New Zealand: Operational Service Medal, SR10; Distinguished Service
+  Decoration, SR12; Member of the New Zealand Order of Merit, TS09.
 - Task group: Australian Meritorious Unit Citation, TS12.
-The two service medals need 30 days: SR01 is 6 December 2028 and SR10
-6 January 2029. The builder stops if SR10 moves earlier.
+The service medals need their real qualifying periods: 30 days for the
+AOSM-IP and the AFEM, 14 days in the presence of an armed enemy for the
+General Campaign Star, 7 days at sea for the NZ Operational Service Medal.
+SR01 is 6 December 2028 and SR10 6 January 2029; the builder stops if SR10
+moves earlier. The New Zealand Antarctic Medal is not granted: it is for an
+outstanding Antarctic contribution, not for service there.
 
 Sulu Line (a Commodore, OF-6)
 - Philippines: Military Merit Medal, SL05; Distinguished Service Star, SL07.
@@ -110,7 +123,11 @@ The Distinguished Service Cross, Bronze Star, Commendation Medal and JMSDF
 cordon pictures are installed Sea Power pictures, referenced by path; the
 JMSDF one is the game's own Defense Memorial Cordon art, as the exact
 cordon's colours could not be checked. Every other strip is code-drawn from
-the published stripe order. The Royal Navy emblem is the White Ensign from
+the published stripe order. The Canadian decorations use the Regulations'
+widths; the NZ Distinguished Service Decoration's and Operational Service
+Medal's proportions are measured from official NZDF photographs, as the
+Royal Warrants could not be read; the General Campaign Star's colours are
+sampled from a Commons image. The Royal Navy emblem is the White Ensign from
 the SEST gallery flag set (public domain). Each campaign's art/ribbons/
 SOURCES.txt lists its pictures and sources. No AI imagery is used.
 
