@@ -468,7 +468,11 @@ class VictoryAlsoTerms(unittest.TestCase):
 
     def win(self, also, **victory):
         v = dict(small_mission()["victory"], also=also, **victory)
-        return rendered(small_mission(victory=v))
+        # A win that waits for the coaster sunk needs her objective, so it
+        # is flagged Main (check_required_objectives).
+        objectives = [small_mission()["objectives"][0],
+                      ("Spoiler", "Stop the coaster", "20,-40,Fail,Main")]
+        return rendered(small_mission(victory=v, objectives=objectives))
 
     def test_destroyed_term_is_a_kill(self):
         lines = self.win([dict(kind="destroyed", units=["spoiler"])])["Objective met"]
@@ -524,6 +528,124 @@ class VictoryAlsoTerms(unittest.TestCase):
         self.assertIn("Condition_Condition2_Type=UnitDestroyed", lines)
         with self.assertRaisesRegex(SystemExit, "kind 'sunk'"):
             self.win([dict(kind="sunk", units=["spoiler"])], after=stage)
+
+
+class BuilderFoundations(unittest.TestCase):
+    """Step 2 of the builder-grammar design: victory and stage keys are
+    whitelisted, trigger marks resolve or stop the build, and an objective
+    every way to win needs is flagged Main and not called optional."""
+
+    def test_a_misspelt_victory_or_stage_key_stops_the_build(self):
+        v = dict(small_mission()["victory"], any_off=[])
+        with self.assertRaisesRegex(SystemExit, "'any_off'"):
+            rendered(small_mission(victory=v))
+        v = dict(small_mission()["victory"],
+                 after=dict(kind="area", units="group", at=(-4.40, 128.70), hold_minute=3))
+        with self.assertRaisesRegex(SystemExit, "'hold_minute'"):
+            rendered(small_mission(victory=v))
+
+    def test_marks_resolve_to_numbers_or_stop_the_build(self):
+        T = [("Alpha", ["Action_EnableTriggers=" + bp.trigger_marks("Bravo", "Alpha")]),
+             ("Bravo", ["Condition_Type=Time"])]
+        bp.resolve_trigger_marks("T", T)
+        self.assertEqual(T[0][1], ["Action_EnableTriggers=Trigger2,Trigger1"])
+        with self.assertRaisesRegex(SystemExit, "'Charlie', which no trigger is called"):
+            bp.resolve_trigger_marks("T", [("Alpha", [bp.trigger_marks("Charlie")])])
+        with self.assertRaisesRegex(SystemExit, "2 triggers are called"):
+            bp.resolve_trigger_marks("T", [("Alpha", [bp.trigger_marks("Bravo")]),
+                                           ("Bravo", []), ("Bravo", [])])
+
+    def required(self, spec, text="Stop the coaster"):
+        v = dict(small_mission()["victory"],
+                 also=[dict(kind="destroyed", units=["spoiler"], min_units=1)])
+        return rendered(small_mission(
+            victory=v, objectives=[small_mission()["objectives"][0],
+                                   ("Spoiler", text, spec)]))
+
+    def test_a_required_objective_is_flagged_main(self):
+        with self.assertRaisesRegex(SystemExit, "Spoiler is required.*not flagged Main"):
+            self.required("20,-40,Fail")
+        self.assertIn("Objective met", self.required("20,-40,Fail,Main"))
+        with self.assertRaisesRegex(SystemExit, "'if practicable'"):
+            self.required("20,-40,Fail,Main", text="Stop the coaster if practicable")
+
+    def test_a_term_the_objective_does_not_decide_requires_nothing(self):
+        # Two coasters to sink for the objective, one for the win: the win
+        # can come without the objective, so it is not required.
+        m = small_mission(victory=dict(small_mission()["victory"],
+                                       also=[dict(kind="destroyed", units=["spoiler"])]),
+                          resolve={"Withdrawal": "victory",
+                                   "Spoiler": ("destroy", ["spoiler", "red_air"], 2)})
+        self.assertEqual(bp.required_objectives(m, small_placement()[1]), {})
+        self.assertIn("Objective met", rendered(m))
+
+    def test_every_shipped_required_objective_is_main(self):
+        for spec in bp.campaign_specs():
+            for m in spec["MISSIONS"]:
+                if m.get("victory"):
+                    # stations only: refs() needs the placed tags, and a
+                    # station's own name stands in for its units here
+                    members = {s: [f"{s}/{i}" for i in range(1, 10)]
+                               for s in m["stations"]}
+                    for oid in bp.required_objectives(m, members):
+                        line = next(s for o, _t, s in m["objectives"] if o == oid)
+                        self.assertIn("Main", line.split(",")[3:], (m["key"], oid))
+
+
+class ExpressionIntegrity(unittest.TestCase):
+    """trigger_integrity() parses ConditionsCompleted (step 2 (e))."""
+
+    def problems(self, *triggers):
+        text = "".join(f"[Trigger{i}]\nName=T{i}\n{body}\n"
+                       for i, body in enumerate(triggers, 1))
+        return coverage_check.trigger_integrity(HERE / "test.ini", text,
+                                                coverage_check.blocks(text))
+
+    AREA = ("Condition_Condition{n}_Type=UnitsInTheArea\n"
+            "Condition_Condition{n}_Units=\n")
+
+    def test_a_malformed_expression_is_a_problem(self):
+        two = ("Condition_Condition1_Type=Time\nCondition_Condition1_Time=5\n"
+               "Condition_Condition2_Type=Time\nCondition_Condition2_Time=6\n")
+        three = two + "Condition_Condition3_Type=Time\nCondition_Condition3_Time=7\n"
+        self.assertEqual(self.problems(two + "ConditionsCompleted=<Condition1> AND <Condition2>"), [])
+        self.assertRegex(" ".join(self.problems(
+            two + "ConditionsCompleted=<Condition1> AND (<Condition2>")), "does not parse")
+        # Stock's own typo, 01 Red Sea Breakout 1988 line 273.
+        self.assertRegex(" ".join(self.problems(
+            three + "ConditionsCompleted=<Condition1> OR (<Condition2> AND <Condition>3)")),
+            "'<Condition>3\\)' is not")
+        self.assertRegex(" ".join(self.problems(
+            two + "ConditionsCompleted=<Condition1> AND <Condition3>")),
+            "no Condition_Condition3_Type")
+        self.assertRegex(" ".join(self.problems(two + "ConditionsCompleted=<Condition1>")),
+                         "Condition2 \\(Time\\) is never used")
+        self.assertEqual(self.problems(three + "ConditionsCompleted=(<Condition1> AND "
+                                       "<Condition2>) OR NOT <Condition3>"), [])
+
+    def test_a_trigger_condition_names_a_trigger_here(self):
+        waits = ("Condition_Condition1_Type=TriggerCompleted\n"
+                 "Condition_Condition1_Triggers={}\nConditionsCompleted=<Condition1>")
+        self.assertRegex(" ".join(self.problems(waits.format("Trigger99"))),
+                         "waits for 'Trigger99'")
+        self.assertEqual(self.problems(waits.format("Trigger1")), [])
+
+    def test_not_in_an_area_needs_the_refresh(self):
+        lone = (self.AREA.format(n=2) + "Condition_Condition1_Type=Time\n"
+                "Condition_Condition1_Time=60\n"
+                "ConditionsCompleted=<Condition1> AND NOT <Condition2>")
+        self.assertRegex(" ".join(self.problems(lone)), "no trigger reactivates")
+        refresh = ("Condition_Condition1_Type=Time\nCondition_Condition1_Time=5\n"
+                   "ConditionsCompleted=<Condition1>\n"
+                   "Action_ReactivateTriggers=Trigger1,Trigger2")
+        self.assertEqual(self.problems(lone, refresh), [])
+
+    def test_not_on_a_time_or_a_loss_needs_nothing(self):
+        for kind in ("Time\nCondition_Condition2_Time=60",
+                     "UnitDestroyed\nCondition_Condition2_Units="):
+            body = (self.AREA.format(n=1) + f"Condition_Condition2_Type={kind}\n"
+                    "ConditionsCompleted=<Condition1> AND NOT <Condition2>")
+            self.assertEqual(self.problems(body), [], kind)
 
 
 STOCK = bp.ROOT / "mods-source" / "_vanilla" / "original" / "missions"

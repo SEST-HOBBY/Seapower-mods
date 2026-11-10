@@ -1996,6 +1996,38 @@ def stock_folders():
 # ship and at nothing else.
 WAYPOINT_ORDERS = ("SetTelegraph", "SetWeaponStatus", "AttackAtWaypoint")
 TARGET_MARK = "\x00target:{}\x00"
+# The same idea for triggers: a line may name another trigger by its comment
+# (its Name=), and render() writes the number once every trigger is in -
+# Trigger{n} arithmetic only works while the triggers it counts are written
+# in one place, and a victory path, its gate and its refresh are not.
+TRIGGER_MARK = "\x00trigger:{}\x00"
+
+
+def trigger_marks(*names):
+    return ",".join(TRIGGER_MARK.format(n) for n in names)
+
+
+def resolve_trigger_marks(key, triggers):
+    """Write each mark in [(comment, lines)] as Trigger{n}, in place, once
+    every trigger is in the list. A mark naming no trigger, or a name two
+    triggers share, stops the build: either is a reference to the wrong
+    trigger or to none."""
+    numbered = collections.defaultdict(list)
+    for i, (comment, _lines) in enumerate(triggers, 1):
+        numbered[comment].append(i)
+
+    def number(match):
+        hits = numbered.get(match.group(1), [])
+        if len(hits) != 1:
+            raise SystemExit(f"{key}: a trigger line names trigger {match.group(1)!r}, "
+                             "which " + ("no trigger is called" if not hits else
+                                         f"{len(hits)} triggers are called"))
+        return f"Trigger{hits[0]}"
+    for _comment, lines in triggers:
+        for j, line in enumerate(lines):
+            if "\x00trigger:" in line:
+                lines[j] = re.sub("\x00trigger:(.*?)\x00", number, line)
+
 
 # U(..., disable=(...)): a unit's systems switched off at mission start, the
 # way 08 Defense of North Borneo's Trigger4 does it, key for key.
@@ -2818,6 +2850,111 @@ ALSO_TERMS = {
     "destroyed": ({"units"}, {"kind", "units", "min_units"}),
     "no_incoming": (set(), {"kind"}),
 }
+
+
+# Every key a victory and its stage are read for. ALSO_TERMS has done this
+# for a term since the destroyed-term bug; the victory dict and its `after`
+# stage had no such table, so `any_off=[...]` or `hold_minute=4` was a path
+# or a hold the builder never saw, and the mission built clean without it
+# (step-3 design, finding 3). A key outside these sets stops the build.
+VICTORY_KEYS = frozenset({
+    "kind", "station", "stations", "units", "at", "radius", "min_units",
+    "objective", "also", "after", "bearing", "transit", "sets", "bonus",
+    "or_destroyed", "any_of"})
+STAGE_KEYS = frozenset({
+    "kind", "units", "at", "at_unit", "radius", "min_units", "after_minutes",
+    "hold_minutes", "per_unit", "intel", "held", "lost", "sets"})
+
+
+def check_victory_keys(mission):
+    victory = mission.get("victory") or {}
+    for where, value, known in (("victory", victory, VICTORY_KEYS),
+                                ("victory stage (after=)", victory.get("after"), STAGE_KEYS)):
+        if not isinstance(value, dict):
+            continue
+        stray = sorted(set(value) - known)
+        if stray:
+            raise SystemExit(
+                f"{mission['key']}: the {where} carries {', '.join(map(repr, stray))}, "
+                "which the builder does not read - a misspelt key is a term the "
+                f"mission would be built without. It reads {', '.join(sorted(known))}")
+
+
+# An objective every way to win depends on is required, and the game's own
+# word for that is the fifth field: stock Action in the Gulf of Sidra 1986
+# flags all three of the objectives its victory trigger completes `Main`
+# ([Taskforce1_Objectives], lines 649-651), and nothing in SEST reads the
+# field. Red Line's four "Also required" objectives were scored as bonuses
+# (`20,0,None`) and read as optional until 10 Nov 2026 (step-3 design,
+# finding 5). A required objective is flagged Main and its text does not
+# call it optional.
+SOFT_WORDS = ("if practicable", "if possible", "bonus", "optional")
+
+
+def victory_paths(victory):
+    """The term lists of every way to win: the common `also` terms, plus
+    each any_of path's own when the victory has alternatives."""
+    common = list(victory.get("also", []))
+    paths = victory.get("any_of")
+    if not paths:
+        return [common]
+    return [common + list(p.get("also", [])) for p in paths if isinstance(p, dict)]
+
+
+def required_objectives(mission, members):
+    """{objective id: why} for each objective every way to win needs.
+
+    A path needs an objective when one of its terms can only be met by
+    completing it: a `destroyed` term on exactly the units of a `destroy`
+    resolver whose count the term's minimum reaches, or an `event` term on
+    a turn_back that completes the objective. Across any_of paths the
+    answer is what every path needs."""
+    def units_of(ref_or_list):
+        wanted = [ref_or_list] if isinstance(ref_or_list, str) else list(ref_or_list or [])
+        return {t for r in wanted for t in refs(members, r)}
+
+    destroys = {}
+    for oid, how in mission.get("resolve", {}).items():
+        if isinstance(how, tuple) and len(how) > 2 and how[0] == "destroy":
+            destroys[oid] = (units_of(how[1]), how[2])
+    turns = {t.get("name"): t.get("objective") for t in mission.get("turn_back", [])
+             if isinstance(t, dict)}
+    out = None
+    for terms in victory_paths(mission["victory"]):
+        need = {}
+        for term in terms:
+            if not isinstance(term, dict):
+                continue                    # also_condition() refuses it
+            if term.get("kind") == "destroyed" and term.get("units"):
+                units = units_of(term["units"])
+                least = term.get("min_units", len(units))
+                for oid, (theirs, n) in destroys.items():
+                    if theirs == units and isinstance(least, int) and n <= least:
+                        need[oid] = (f"the win waits for {', '.join(sorted(units))} "
+                                     "destroyed, which completes it")
+            elif term.get("kind") == "event" and turns.get(term.get("event")):
+                need[turns[term["event"]]] = (f"the win waits for {term['event']}, "
+                                              "which completes it")
+        out = need if out is None else {k: v for k, v in out.items() if k in need}
+    return out or {}
+
+
+def check_required_objectives(mission, members):
+    lines = {oid: (text, spec) for oid, text, spec in mission["objectives"]}
+    for oid, why in sorted(required_objectives(mission, members).items()):
+        if oid not in lines:
+            continue                        # render() names the missing objective
+        text, spec = lines[oid]
+        if "Main" not in spec.split(",")[3:]:
+            raise SystemExit(
+                f"{mission['key']}: objective {oid} is required - {why} - but its "
+                f"line {spec!r} is not flagged Main. Stock Gulf of Sidra flags every "
+                "objective its victory needs Main; add ',Main'")
+        soft = [w for w in SOFT_WORDS if w in text.lower()]
+        if soft:
+            raise SystemExit(
+                f"{mission['key']}: objective {oid} is required - {why} - but its "
+                f"text says {', '.join(map(repr, soft))}: {text!r}")
 
 
 def also_condition(mission, n, extra, members):
@@ -4726,7 +4863,7 @@ def check_zone_areas(mission, placed, zones, text):
     circles = {}
     for block in re.findall(r"^\[Trigger\d+\][^\n]*\n(.*?)(?=^\[|\Z)", text, re.S | re.M):
         name = re.search(r"^Name=(.*)$", block, re.M)
-        for n in re.findall(r"^Condition_Condition(\d)_Type=UnitsInTheArea", block, re.M):
+        for n in re.findall(r"^Condition_Condition(\d+)_Type=UnitsInTheArea", block, re.M):
             pos = re.search(rf"^Condition_Condition{n}_PositionNM=([-\d.]+),[-\d.]+,([-\d.]+)", block, re.M)
             rad = re.search(rf"^Condition_Condition{n}_AreaRadiusNM=([\d.]+)", block, re.M)
             units = re.search(rf"^Condition_Condition{n}_Units=(.*)$", block, re.M)
@@ -4830,6 +4967,8 @@ def mark_supplied(mission, placed):
 
 def render(mission, placed, members):
     check_message_texts(mission)
+    check_victory_keys(mission)
+    check_required_objectives(mission, members)
     name = mission_name(mission)
     centre = mission["centre"]
     victory = mission["victory"]
@@ -5756,6 +5895,7 @@ def render(mission, placed, members):
                 "trigger depends on it - grant it with join=True instead"
                 for t in clash))
 
+    resolve_trigger_marks(mission["key"], T)
     L.append(f"NumberOfTriggers={len(T)}")
     L.append("")
 

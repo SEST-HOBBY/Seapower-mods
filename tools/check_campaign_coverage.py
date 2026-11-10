@@ -95,6 +95,101 @@ def blocks(text):
     return out
 
 
+_TOKEN = re.compile(r"\s*(?:<Condition(\d+)>|(\()|(\))|(AND|OR|NOT)(?![\w>])|(\S+))")
+
+
+def expression_problems(rel, tag, keys, blocks):
+    """A trigger's ConditionsCompleted, read as the game reads it.
+
+    Stock writes AND, OR, AND NOT and brackets (Action in the Gulf of Sidra
+    1986 line 629, `<Condition1> AND (<Condition2> OR <Condition3>)`), and it
+    also ships `<Condition1> OR (<Condition2> AND <Condition>3)` (01 Red Sea
+    Breakout 1988 line 273), which loads and is malformed: nothing read the
+    expression, so a typo there was silent. Each <N> must be a numbered
+    condition of the trigger and each numbered condition must be used; a
+    TriggerCompleted condition names a trigger in this mission. NOT on a
+    UnitsInTheArea condition is the North Borneo shape (08 Defense of North
+    Borneo, Trigger3 lines 1270-1286), and it needs that mission's refresh
+    loop - a trigger whose Action_ReactivateTriggers names it, Trigger10 at
+    lines 1334-1339 - so the area is tested again. A trigger without numbered
+    conditions (the un-numbered Condition_Type= form) is not read here.
+    """
+    numbered = {}
+    for key, value in keys.items():
+        m = re.fullmatch(r"Condition_Condition(\d+)_Type", key)
+        if m:
+            numbered[int(m.group(1))] = value
+    expr = keys.get("ConditionsCompleted")
+    if expr is None:
+        return ([f"{rel}: [{tag}] has numbered conditions and no ConditionsCompleted"]
+                if numbered else [])
+    out = []
+    tokens, pos = [], 0
+    while pos < len(expr):
+        m = _TOKEN.match(expr, pos)
+        if not m or m.end() == pos:
+            break
+        pos = m.end()
+        if m.group(1):
+            tokens.append(("cond", int(m.group(1))))
+        elif m.group(2) or m.group(3):
+            tokens.append((m.group(2) or m.group(3), None))
+        elif m.group(4):
+            tokens.append((m.group(4), None))
+        elif m.group(5):
+            out.append(f"{rel}: [{tag}] ConditionsCompleted={expr}: {m.group(5)!r} is "
+                       "not <ConditionN>, AND, OR, NOT or a bracket")
+            return out
+    negated, used = set(), set()
+
+    def term(i, neg=False):
+        if i < len(tokens) and tokens[i][0] == "NOT":
+            return term(i + 1, not neg)
+        if i < len(tokens) and tokens[i][0] == "(":
+            i = expression(i + 1, neg)
+            if i is None or i >= len(tokens) or tokens[i][0] != ")":
+                return None
+            return i + 1
+        if i < len(tokens) and tokens[i][0] == "cond":
+            used.add(tokens[i][1])
+            if neg:
+                negated.add(tokens[i][1])
+            return i + 1
+        return None
+
+    def expression(i, neg=False):
+        i = term(i, neg)
+        while i is not None and i < len(tokens) and tokens[i][0] in ("AND", "OR"):
+            i = term(i + 1, neg)
+        return i
+
+    end = expression(0)
+    if end is None or end != len(tokens):
+        out.append(f"{rel}: [{tag}] ConditionsCompleted={expr} does not parse: "
+                   "an operator without a condition, or unbalanced brackets")
+        return out
+    for n in sorted(used - set(numbered)):
+        out.append(f"{rel}: [{tag}] ConditionsCompleted uses <Condition{n}>, "
+                   f"and the trigger has no Condition_Condition{n}_Type")
+    for n in sorted(set(numbered) - used):
+        out.append(f"{rel}: [{tag}] Condition{n} ({numbered[n]}) is never used "
+                   "in ConditionsCompleted")
+    for n, kind in sorted(numbered.items()):
+        if kind == "TriggerCompleted":
+            for ref in keys.get(f"Condition_Condition{n}_Triggers", "").split(","):
+                if not ref.strip() or ref.strip() not in blocks:
+                    out.append(f"{rel}: [{tag}] Condition{n} waits for {ref.strip()!r}, "
+                               "which is not a trigger in this mission")
+    reactivated = any(tag in [r.strip() for r in k.get("Action_ReactivateTriggers", "").split(",")]
+                      for t, k in blocks.items() if t.startswith("Trigger"))
+    for n in sorted(negated):
+        if numbered.get(n) == "UnitsInTheArea" and not reactivated:
+            out.append(f"{rel}: [{tag}] NOT <Condition{n}> tests that no unit is in an "
+                       "area, and no trigger reactivates this one - the North Borneo "
+                       "shape refreshes it every 5 seconds")
+    return out
+
+
 def trigger_integrity(path, text, blocks):
     """Every reference a trigger makes must resolve inside its own mission.
 
@@ -147,6 +242,10 @@ def trigger_integrity(path, text, blocks):
                     if ref and ref not in blocks:
                         problems.append(f"{rel}: [{tag}] {key} names {ref}, "
                                         "which is not a trigger in this mission")
+
+    for tag, keys in blocks.items():
+        if tag.startswith("Trigger"):
+            problems += expression_problems(rel, tag, keys, blocks)
 
     # A scripted attack names its target inside the shooter's Waypoints
     # (`x,alt,z/AttackAtWaypoint,ammo,Taskforce1Vessel2,2`): a target that is
