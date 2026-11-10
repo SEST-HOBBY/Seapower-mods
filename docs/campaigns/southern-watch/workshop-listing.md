@@ -43,7 +43,7 @@ SEST Integration Pack - Modernised Campaigns
 ## Short description
 
 ```
-Four connected naval campaigns and Global Maritime Operations 2028: 196 bases, eight command stages, persistent logistics, F11 operations and combat costs. Requires the SEST collection. Subscribe to all, then run SETUP from the pack folder.
+Four connected naval campaigns with national commander awards, and Global Maritime Operations 2028: 196 bases, eight command stages, persistent logistics. Requires the SEST collection. Subscribe to all, then run SETUP from the pack folder.
 ```
 
 ## Description
@@ -66,18 +66,19 @@ A single worldwide campaign for [b]Dynamic Campaign Mod[/b], combining the origi
 [*][b]196 bases, 293 force groups, 54 patrol routes and 1,586 recruitment entries.[/b] The expanded network includes 40 additional real-world airfields; existing airfield positions have been reviewed, including Muharraq, Souda and Diego Garcia.
 [*][b]Eight command stages[/b] provide earlier milestones and progressive access to recruitment. Renown measures command progress; accepted Admiralty assignments can reward escort, surveillance, area control and multi-phase operations as well as combat, when those tasks are offered.
 [*][b]Operational logistics[/b] use finite fuel and ammunition. Depots produce supplies, convoys deliver them, airlifts move ammunition and replenishment ships sustain forces at sea. Set priorities and protect the routes your forward bases depend on.
-[*][b]Clear battle preparation and return.[/b] World engagements open with a paused preparation checklist. Arrange aircraft and initial orders before unpausing. Use Esc > End battle... and return through the debrief when you need to disengage; victory is not required, and the campaign's outcome assessment still applies.
+[*][b]Clear battle preparation and return[/b] (public beta 0.8.7-261107). World engagements open with a paused preparation checklist. Arrange aircraft and initial orders before unpausing. Use Esc > End battle... and return through the debrief when you need to disengage; victory is not required, and the campaign's outcome assessment still applies.
 [/list]
-[b]Start a new world campaign for the complete revised base layout and progression.[/b] The added facilities are operating locations; constructing new bases during play is not included.
+[b]Start a new world campaign for the complete revised base layout and progression.[/b] It replaces the earlier world entry in the campaign menu. The added facilities are operating locations; constructing new bases during play is not included.
 
 [h2]Operations, service and combat costs[/h2]
+Items marked [b](beta)[/b] need public beta 0.8.7-261107, where SETUP installs them; the rest work on both builds.
 [list]
-[*][b]F11 World Operations[/b] brings together Overview, Forces, Costs and Service. Use F11 or Combat Costs beside Economy to open cumulative combat costs. Overview shows your next command milestone, recruitment unlocks, and Admiralty task rewards and deadlines.
+[*][b]F11 World Operations[/b] (beta) brings together Overview, Forces, Costs and Service. Use F11 or Combat Costs beside Economy to open cumulative combat costs. Overview shows your next command milestone, recruitment unlocks, and Admiralty task rewards and deadlines.
 [*][b]Cumulative Combat Costs[/b] records available evidence of weapons expenditure, platform losses and stores lost with destroyed units. View mission and campaign reports through F11, with cost summaries in the Task Force debrief.
 [*]Historical and current price bases are labelled. Missing prices remain identified as unknown. [b]Estimated USD costs are separate from campaign credits and physical supplies.[/b]
-[*][b]Expanded service ribbons[/b] include 25 fictional world awards for manual battles, campaign-day and theatre milestones, and successful Admiralty duties. The authored campaigns retain their completion ribbons and add eight operation awards.
-[*][b]Six real-award representations[/b] use Australian or US commander filters and explicit fictional-operation qualifications in Southern Watch and Southern Reach. Read citations in the native Task Force Service Record; these are game awards, not real government honours.
-[*]Coordinated Strike refinements add shared styling and planned/remaining weapon-cost estimates, alongside the original planning and launch controls.
+[*][b]National commander awards.[/b] Southern Watch and Southern Reach offer Australian (default), US, British and Japanese commanders, each earning their own nation's awards at the commander's rank, and the task group earns the Australian Meritorious Unit Citation. Sulu Line adds Philippine awards. Every campaign keeps its completion ribbon and adds operation ribbons. Read citations in the native Task Force Service Record; these are game awards for fictional operations, not real honours.
+[*][b]World service ribbons[/b] (beta): 25 fictional awards for manual battles, campaign days, theatres and completed Admiralty orders and operations.
+[*]Coordinated Strike refinements (beta) add shared styling and planned/remaining weapon-cost estimates, alongside the original planning and launch controls.
 [*]Starting airborne Growler flights in Southern Watch and Southern Reach offer [b]HARM, AARGM and AARGM-ER[/b] loadouts, with AIM-120D self-defence missiles, NGJ pods and two external tanks.
 [/list]
 
@@ -86,18 +87,34 @@ A single worldwide campaign for [b]Dynamic Campaign Mod[/b], combining the origi
 [olist]
 [*]Subscribe to this pack and use [b]Subscribe to all[/b] on the [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3812390790]SEST - Modernised Campaign Collection[/url]. The current load order contains 203 supporting Workshop mods plus this pack.
 [*]In Mod Manager, open this pack's folder. Close Sea Power, then run [b]SETUP - double-click me.cmd[/b]. It checks the required subscriptions, installs the preloader and sets the load order with SEST at the top.
-[*]On the supported beta build, a fresh installation needs SETUP, a launch to the main menu for about ten seconds, quitting, then a second SETUP run. An already enabled SEST beta installation updates in one run.
+[*]On the supported beta build, a fresh installation needs SETUP, a launch to the main menu for about ten seconds, quitting, then a second SETUP run. An already enabled SEST beta installation updates in one run. To keep the beta features off, run [b]SEST beta features - turn off.cmd[/b] from the pack folder; SETUP then leaves them off until you run [b]SEST beta features - turn on.cmd[/b].
 [*]After Steam updates this item, close the game and rerun SETUP to reapply its bundled features. If Mod Manager offers to move the dependencies above SEST, keep SEST at the top.
 [/olist]
 The world campaign also requires Dynamic Campaign Mod from the collection. REQUIRED-MODS.txt, LOAD-ORDER.txt and the setup instructions are included in the pack.
 
 [h2]Compatibility and scenario scope[/h2]
-Built for Sea Power 0.8.7. R12 includes reviewed compatibility code for public beta build 261107; SETUP checks the installed game and required plugin versions. Normal-release plugins remain available for their supported build. New or unsupported versions may require another compatibility update.
+Built for Sea Power 0.8.7. R12 includes reviewed compatibility code for public beta build 261107; SETUP checks the installed game and required plugin versions, installs the beta features only on that build and keeps the normal plugins on any other. Normal-release plugins remain available for their supported build. New or unsupported versions may require another compatibility update.
 
 The campaigns are fictional 2028-2029 operations using real and modded equipment. Coalition alignments, access agreements, deployments and stocks are scenario assumptions, not statements of current national policy or readiness. World placement and balance remain subject to playtesting. English language.
 
 [h2]Credits[/h2]
 The original Workshop creators supply the units, models and supporting systems this pack integrates. Keep those mods subscribed. CREDITS.txt identifies contributions, compatibility work and credited media. Feedback with the mission name, game build and a clear reproduction is welcome.
+```
+
+## Change log: R12 final, national awards and SETUP opt-out, 10 Nov 2026
+
+```
+SEST R12 - National awards, World Operations fixes and SETUP opt-out
+
+Campaign awards (both game builds): Southern Watch and Southern Reach now offer Australian (default), US, British and Japanese commanders, each earning their own nation's awards at the commander's rank; the task group earns the Australian Meritorious Unit Citation. Sulu Line adds Philippine awards and the Philippine Republic Presidential Unit Citation. Every citation carries its mission's 2028-2029 date. These are game awards for fictional operations, not real honours. Existing earned awards, commanders and saves are unchanged.
+
+World campaign: Global Maritime Operations 2028 has 196 bases, including 40 additional real airfields, and eight command stages. It replaces the earlier world entry in the campaign menu; start a new world campaign for the full layout.
+
+On public beta 0.8.7-261107 only (installed by SETUP; Runtime 1.6.4 / UI 1.4.14): F11 World Operations with Overview, Forces, Combat Costs and Service; the Combat Costs button beside Economy; 25 fictional world service awards, now including completed multi-phase Admiralty operations and Route Security; a paused battle preparation checklist and Esc > End battle...; Coordinated Strike refinements. The opening briefing now keeps Dynamic Campaign Mod's own situation report, the world window only redraws when its data changes, and Contacts, Formation and compass refinements work with Pop-Out Windows 1.2.0.
+
+SETUP: it installs the beta features only on the build they were reviewed for and puts the normal plugins back on any other build. Use "SEST beta features - turn off.cmd" to opt out (SETUP then leaves them off) and "turn on" to re-enable; a changed author file now shows a warning instead of stopping SETUP.
+
+Growler starting flights in Southern Watch and Southern Reach offer HARM, AARGM and AARGM-ER loadouts.
 ```
 
 ## Change log: R12 world operations and Steelfin refresh, 9 Nov 2026

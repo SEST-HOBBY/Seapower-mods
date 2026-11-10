@@ -1,8 +1,10 @@
 SEST R12 - RIBBONS AND NATIONAL AWARDS
 10 November 2026 | SEST-DEV
 
-WORLD OPERATIONS - F11 > SERVICE
-25 fictional world awards now recognise manual battle service, distinct
+WORLD OPERATIONS - F11 > SERVICE (BETA)
+World Operations needs public beta 0.8.7-261107 and SEST SETUP; on the
+standard build the world map has no SEST window and these awards do not
+appear. 25 fictional world awards recognise manual battle service, distinct
 campaign battle days, theatre experience and successful Admiralty duties.
 Original awards and v1 service records are preserved. New task records use
 separate compatible event keys and never inflate manual battle or USD totals.
@@ -13,10 +15,18 @@ battles in each of six theatres; expeditionary/global command: service in
 3 / all 6 theatres. These are evidenced service milestones, not assumed
 continuous deployments or certificates of unrecorded combat performance.
 
-Admiralty awards: 5 completed accepted orders; 3 different completed order
-kinds; 3 convoy-cover, shadowing or route-clearance orders for each specialist
-ribbon. Failed, cancelled, declined, lapsed, unaccepted, other-side and moot
-outcomes are excluded. Native task conditions and rewards remain in effect.
+Admiralty awards: 5 completed accepted tasks; 3 different task types; 3
+for each specialist ribbon. A task is a standalone order, or a whole
+multi-phase operation counted once when its final phase completes (its phases
+do not count separately). Convoy Protection counts convoy-escort orders and
+convoy-run operations; Maritime Surveillance counts shadowing orders and
+fleet-action operations; Route Security counts convoy-run operations, which
+open by clearing the route. Failed, cancelled, declined, lapsed, unaccepted
+and other-side outcomes are excluded, and a completion replayed after
+reloading a save counts once. SEST records a result while its paper waits
+unread in the Admiralty queue: orders read before Runtime 1.6.3 and
+operations completed before Runtime 1.6.4 were not recorded and do not count
+retroactively. Native task conditions and rewards remain in effect.
 Ribbons add no renown, credits or supplies. Auto-resolved battles do not
 qualify for manual battle awards; task awards use their own native outcomes.
 
@@ -84,13 +94,13 @@ the SEST gallery flag set (public domain). Each campaign's art/ribbons/
 SOURCES.txt lists its pictures and sources. No AI imagery is used.
 
 PC CHECKS
-Load an existing world and check Service progress, wrapping and scrolling.
-Complete an accepted task, return to the map and compare task/battle counts.
+On the beta, load an existing world and check Service progress, wrapping
+and scrolling. Complete an accepted task, return to the map and compare
+task/battle counts.
 Start a new Southern Watch campaign: the Service Record offers Australia,
 Japan, United Kingdom and USA. Compare one Anzac and one Burke price as an
 Australian and as a US commander. Check the British commander's empty rank
 insignia and the White Ensign emblem. Open a citation: its date is the
 mission's, not 1985. Load an existing save: its commander, nation and earned
-ribbons are unchanged. Existing saves are preserved. New data applies
-through Prepare-PC; starting a new commander is needed to choose another
-nationality.
+ribbons are unchanged. Existing saves are preserved; start a new
+commander to choose another nationality.

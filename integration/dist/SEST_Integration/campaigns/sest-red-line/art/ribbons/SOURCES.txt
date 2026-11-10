@@ -1,0 +1,11 @@
+SEST award artwork - Red Line
+
+Code-drawn strips (integration/campaign/service_awards.py). No AI imagery;
+nothing traced. Real-award strips follow the published stripe order and
+proportions closely enough to be recognised; they are representations.
+  sest_red_line_service.png - Red Line Service Ribbon: fictional SEST design
+  sest_contact_intelligence.png - Contact Intelligence Ribbon: fictional SEST design
+  sest_undersea_operations.png - Undersea Operations Ribbon: fictional SEST design
+
+Every real-award citation says it is a game award for a fictional operation,
+not a real honour.

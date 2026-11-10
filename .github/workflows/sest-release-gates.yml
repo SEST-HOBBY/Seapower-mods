@@ -5,7 +5,7 @@
 # artifact upload, no release, no Workshop or Steam step, and no game is
 # installed. The jobs build in a throwaway checkout and report pass or
 # fail. The gates job is the same sequence as a session's gate run: the
-# from-scratch build, the 15 checks, the two test suites, then a clean
+# from-scratch build, the 14 checks, the two test suites, then a clean
 # git status, which proves the committed pack output is what the builders
 # produce.
 name: SEST release gates
@@ -70,9 +70,9 @@ jobs:
         run: python tools/check_vanilla_drift.py --since 1bda58a6
       - name: Combat costs
         run: python tools/check_combat_costs.py
-      - name: World Sandbox campaign
-        run: python integration/world-sandbox/check_dynamic_campaign.py integration/world-sandbox/SEST_World_Campaign/dynamic_campaigns/sest-world-sandbox/campaign.json
-      - name: Regional campaign
+      # The original World Sandbox left the menu in R11 (it is kept under
+      # legacy_campaigns/ for select-legacy-world.ps1); this is the one world.
+      - name: World campaign (Global Maritime Operations 2028)
         run: python integration/world-sandbox/check_dynamic_campaign.py integration/world-sandbox/SEST_World_Campaign/dynamic_campaigns/sest-world-regions-2028/campaign.json
       - name: Tools tests (the PowerShell tests run under pwsh)
         run: python -m unittest discover -s tools/tests -p 'test_*.py'
