@@ -25,6 +25,10 @@ namespace Sest.UiFixes
         static FieldInfo barField, barWindowField, controllerMainField, squadsField, enabledField, stateField, toolbarField;
         static MethodInfo detach, setVisible, findButtons, decorate, contains;
         static PropertyInfo popRoot, popInstance;
+        // Pop-Out 1.2.0 only: its pop-out control is the "popout" entry of the
+        // title bar's SmartWindowsMenuButton, kept in TitleMenu.Entries.
+        static FieldInfo titleEntries, titleEntryId;
+        static MethodInfo titleLookup;
         static bool loaded, reported;
         static float nextUiTick;
         static string preferencePath;
@@ -96,7 +100,8 @@ namespace Sest.UiFixes
                 var bar = ContactsFix.Find("SeaPowerSquadPanel.SquadBarController");
                 var tools = ContactsFix.Find("SeaPowerSquadPanel.SquadBarTools");
                 var pop = ContactsFix.Find("SeaPowerPopOut.PopOutScreen");
-                ContactsFix.Require(pop.Assembly, ContactsSurfaceFix.PopOutHash);
+                titleEntries = titleEntryId = null; titleLookup = null;
+                if (ContactsSurfaceFix.RequirePopOut(pop.Assembly) == ContactsSurfaceFix.PopOut120Hash) BindTitleMenu(pop.Assembly);
                 ready = ContactsFix.Find("Sest.RuntimeFixes.NativeCombatSurface").GetProperty("Ready", All);
                 barField = controller.GetField("_bar", All);
                 controllerMainField = controller.GetField("_main", All);
@@ -132,6 +137,42 @@ namespace Sest.UiFixes
                 harmony.UnpatchSelf();
                 ContactsFix.Log("Formation UI mode inactive; original Group Manager retained: " + error.Message);
             }
+        }
+
+        // Pop-Out 1.2.0 PopOutScreen.AddButton calls TitleMenu.Set(window,
+        // "popout", ...), which reuses or creates the panel's Button named
+        // SmartWindowsMenuButton and keeps its entries in the static
+        // ConditionalWeakTable<Button, List<TitleMenu.Entry>> Entries.
+        internal static void BindTitleMenu(Assembly pop)
+        {
+            var menu = pop.GetType("SeaPowerPopOut.SmartWindows.TitleMenu", false);
+            var entry = menu?.GetNestedType("Entry", All);
+            var table = entry == null ? null : typeof(ConditionalWeakTable<,>).MakeGenericType(typeof(Button), typeof(List<>).MakeGenericType(entry));
+            titleEntries = menu?.GetField("Entries", All);
+            titleEntryId = entry?.GetField("Id", All);
+            titleLookup = table?.GetMethod("TryGetValue", new[] { typeof(Button), typeof(List<>).MakeGenericType(entry).MakeByRefType() });
+            if (titleEntries == null || !titleEntries.IsStatic || titleEntries.FieldType != table || titleEntryId == null ||
+                titleEntryId.IsStatic || titleEntryId.FieldType != typeof(string) || titleLookup == null)
+            {
+                titleEntries = titleEntryId = null; titleLookup = null;
+                throw new MissingMemberException("Inspected Pop-Out 1.2.0 title menu");
+            }
+        }
+
+        // Whether the Pop-Out control is in the stock title bar: 1.1.3 adds a
+        // PopOutButton; 1.2.0 adds a "popout" entry to SmartWindowsMenuButton.
+        internal static bool HasPopOutControl(Panel tools)
+        {
+            foreach (var element in tools.Children.Cast<UIElement>().OfType<FrameworkElement>())
+            {
+                if (titleEntries == null) { if (element.Name == "PopOutButton") return true; continue; }
+                if (!(element is Button menu) || element.Name != "SmartWindowsMenuButton") continue;
+                var args = new object[] { menu, null };
+                if ((bool)titleLookup.Invoke(titleEntries.GetValue(null), args) && args[1] is System.Collections.IList items)
+                    foreach (var item in items)
+                        if ((string)titleEntryId.GetValue(item) == "popout") return true;
+            }
+            return false;
         }
 
         static void LoadPreference()
@@ -272,7 +313,7 @@ namespace Sest.UiFixes
                     // restored header differs from the game's cached one.
                     var header = entry.Header;
                     if (header != null && header != window.HeaderThumb) window.OnInitialized();
-                    if (!tools.Children.Cast<UIElement>().OfType<FrameworkElement>().Any(b => b.Name == "PopOutButton"))
+                    if (!HasPopOutControl(tools))
                     {
                         var screen = popInstance.GetValue(null, null);
                         if (screen != null) decorate.Invoke(screen, new object[] { window });
@@ -288,7 +329,7 @@ namespace Sest.UiFixes
                         entry.Button.Click += OnToggle;
                         int index = 0;
                         for (int i = 0; i < tools.Children.Count; i++)
-                            if (tools.Children[i] is FrameworkElement f && (f.Name == "SestFormationPopOut" || f.Name == "PopOutButton"))
+                            if (tools.Children[i] is FrameworkElement f && (f.Name == "SestFormationPopOut" || f.Name == "PopOutButton" || f.Name == "SmartWindowsMenuButton"))
                             { index = i + 1; break; }
                         tools.Children.Insert(index, entry.Button);
                     }

@@ -12,7 +12,18 @@ namespace Sest.UiFixes
     internal static class ContactsSurfaceFix
     {
         const BindingFlags All = ContactsFix.All;
+        // Pop-Out Windows 1.1.3 (3 Nov 2026 capture) and 1.2.0 (9 Nov 2026
+        // capture). Every PopOutScreen member the UI and Runtime bind (root,
+        // host, hint, windows, Instance, DisplayAvailable, HostOpening,
+        // Decorate, Move, Place, Remember, Open, UpdateScreen, Flatten,
+        // FindButtonsPanel) has identical IL in both. 1.2.0 changes only the
+        // title-bar controls: its pop-out button became the "popout" entry of
+        // a shared SmartWindowsMenuButton (FormationUiMode handles that), plus
+        // one settings default and its version text.
         internal const string PopOutHash = "5709ed68af4623fceee3f3badc8e06bdb9b98f8e095fb0deac2685a9ebc5fc36";
+        internal const string PopOut120Hash = "a8f1092ac247032219ebf00aa773b91d14f4bb4a7f2575ca1a4594da57abd882";
+        internal static readonly string[] PopOutHashes = { PopOutHash, PopOut120Hash };
+        internal static string RequirePopOut(Assembly pop) { return ContactsFix.RequireAny(pop, PopOutHashes); }
         static MethodInfo getRoot;
         static FieldInfo trackedWindows;
         static FieldInfo hint;
@@ -25,7 +36,7 @@ namespace Sest.UiFixes
             try
             {
                 var screen = ContactsFix.Find("SeaPowerPopOut.PopOutScreen");
-                ContactsFix.Require(screen.Assembly, PopOutHash);
+                RequirePopOut(screen.Assembly);
                 var bridge = ContactsFix.Find("Sest.RuntimeFixes.PopOutBridge");
                 getRoot = bridge.GetProperty("Root", All).GetGetMethod(true);
                 ready = ContactsFix.Find("Sest.RuntimeFixes.NativeCombatSurface").GetProperty("Ready", All);
