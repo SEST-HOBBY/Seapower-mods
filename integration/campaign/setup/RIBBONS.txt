@@ -23,10 +23,11 @@ convoy-run operations; Maritime Surveillance counts shadowing orders and
 fleet-action operations; Route Security counts convoy-run operations, which
 open by clearing the route. Failed, cancelled, declined, lapsed, unaccepted
 and other-side outcomes are excluded, and a completion replayed after
-reloading a save counts once. SEST records a result while its paper waits
-unread in the Admiralty queue: orders read before Runtime 1.6.3 and
-operations completed before Runtime 1.6.4 were not recorded and do not count
-retroactively. Native task conditions and rewards remain in effect.
+reloading a save counts once. From Runtime 1.6.5 SEST records each result
+when Dynamic Campaign Mod files it, whether or not its paper has been read.
+Earlier results count only if their paper was still unread under a Runtime
+that recorded them (orders from 1.6.3, operations from 1.6.4); they do not
+count retroactively. Native task conditions and rewards remain in effect.
 Ribbons add no renown, credits or supplies. Auto-resolved battles do not
 qualify for manual battle awards; task awards use their own native outcomes.
 

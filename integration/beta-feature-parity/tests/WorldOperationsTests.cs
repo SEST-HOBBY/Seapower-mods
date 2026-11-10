@@ -271,7 +271,7 @@ static class WorldOperationsTests
                 "A valid 1.6.3 order line counts once; tick mismatches, unknown kinds or templates, short keys, ids of 0 and acceptance after completion do not");
             // Older binaries keep reading the extended file safely.
             string current = Path.Combine(dir, "expanded.txt");
-            foreach (var old in new[] { "R12-Ribbons-20261110", "R12-WorldMapCosts-20261109" })
+            foreach (var old in new[] { "R12-Final-20261110", "R12-Ribbons-20261110", "R12-WorldMapCosts-20261109" })
             {
                 var prior = Assembly.Load(File.ReadAllBytes(Path.Combine("integration/beta-feature-parity/candidates", old, "SEST.RuntimeFixes.dll")));
                 var priorLedger = prior.GetType("Sest.RuntimeFixes.WorldServiceLedger", true);
@@ -281,6 +281,104 @@ static class WorldOperationsTests
                 Check(!(bool)priorLedger.GetProperty("ReadOnly", All).GetValue(read, null) && priorProgress("iron-meridian") == 26 && ((IEnumerable)priorLedger.GetProperty("Entries", All).GetValue(read, null)).Cast<object>().Count() == ((IEnumerable)ledger.GetProperty("Entries", All).GetValue(expanded, null)).Cast<object>().Count(),
                     "Previous Runtime " + old + " reads the extended record without read-only mode, keeps every line and counts the same manual battles");
             }
+            // R13: each result is recorded when DCM files it (a postfix on the
+            // real Admiralty.Queue), so a paper read within one sample counts.
+            Assembly.LoadFrom(Path.Combine(refs, "0Harmony.dll"));
+            Call(world, "AttachOutcomeObserver");
+            var filedList = (IList)world.GetField("filed", All).GetValue(null);
+            Check(HarmonyLib.Harmony.GetPatchInfo(admiraltyType.GetMethod("Queue", All))?.Postfixes.Select(x => x.owner).SequenceEqual(new[] { "io.github.sest-hobby.world-admiralty-outcome" }) == true,
+                "World Operations observes DCM's real Admiralty.Queue");
+            Func<object, List<object>> outcomesOf = live => ((IList)Field(live, "Outcomes")).Cast<object>().ToList();
+            Func<object, List<string>> keysOf = store => ((IEnumerable)ledger.GetProperty("Entries", All).GetValue(store, null)).Cast<object>().Where(e => !(bool)Field(e, "Manual")).Select(e => (string)Field(e, "Key")).OrderBy(k => k, StringComparer.Ordinal).ToList();
+            Action<object> fixture = live => {
+                foreach (var spec in new[] { Tuple.Create("CoverConvoy", 41), Tuple.Create("CoverConvoy", 42), Tuple.Create("CoverConvoy", 43), Tuple.Create("Shadow", 44) })
+                    endOrder(live, addOrder(live, spec.Item1, spec.Item2, 0, 0, "Active", accepted0), "Completed");
+                endOrder(live, addOrder(live, "Intercept", 45, 0, 0, "Active", accepted0), "Failed");
+                runOperation(live, 60, "ConvoyRun", new[] { "ClearRoute", "CoverConvoy", "DefendBase" }, "Completed", accepted0);
+                runOperation(live, 70, "FleetAction", new[] { "Shadow", "FleetAction" }, "Completed", accepted0);
+                runOperation(live, 80, "SeaControl", new[] { "Barrier", "Interdict", "Blockade" }, "Completed", accepted0);
+                runOperation(live, 90, "ConvoyRun", new[] { "ClearRoute", "CoverConvoy", "DefendBase" }, "Failed", accepted0);
+            };
+            Action<object, object> useState = (live, store) => {
+                world.GetField("state", All).SetValue(null, live); world.GetField("ledger", All).SetValue(null, store);
+                world.GetField("scope", All).SetValue(null, scope); world.GetField("side", All).SetValue(null, "blue");
+                world.GetField("serviceSignature", All).SetValue(null, null); world.GetField("nextMerge", All).SetValue(null, 0d);
+            };
+            var readPaper = admiraltyType.GetMethod("Read", All);
+            filedList.Clear();
+            object filedCampaign = campaignAt(500, new DateTime(2028, 10, 3, 6, 0, 0));
+            Set(filedCampaign, "Definition", revised);
+            fixture(filedCampaign);
+            var filedPapers = outcomesOf(filedCampaign);
+            Check(filedList.Count == 9 && filedList.Cast<object>().Select(f => Field(f, "Outcome")).SequenceEqual(filedPapers) && filedList.Cast<object>().All(f => (string)Field(f, "Scope") == scope && (string)Field(f, "Side") == "blue"),
+                "every filed result reaches SEST by reference, with its campaign and coalition");
+            var unreadKeys = filedPapers.Select(o => evidenceFor(o, "blue")).Where(e => e != null).Select(e => (string)Field(e, "Key")).OrderBy(k => k, StringComparer.Ordinal).ToList();
+            foreach (var filedPaper in filedPapers) readPaper.Invoke(admiraltyOf(filedCampaign), new[] { filedPaper });
+            Check(outcomesOf(filedCampaign).Count == 0, "the real Admiralty.Read removes each paper before SEST samples");
+            object filedStore = Open(Path.Combine(dir, "filed.txt"));
+            useState(filedCampaign, filedStore);
+            Call(world, "UpdateService");
+            Check(keysOf(filedStore).SequenceEqual(unreadKeys) && unreadKeys.Count == 7 && filedList.Count == 0 && Progress(filedStore, scope, "admiralty-service") == 7 && Progress(filedStore, scope, "route-security") == 1,
+                "papers read before the next sample are recorded, key for key as the unread scan records them, and released once merged");
+            // Unread and filed copies of the same results: each counts once.
+            object both = campaignAt(700, new DateTime(2028, 10, 3, 7, 0, 0));
+            Set(both, "Definition", revised);
+            fixture(both);
+            var evidenceBoth = (IList)Call(world, "AdmiraltyEvidence", outcomesOf(both), scope, "blue", filedList);
+            Check(evidenceBoth.Count == 7 && filedList.Count == 9, "an outcome both unread and filed is evaluated once (7 entries, not 14)");
+            useState(both, filedStore);
+            Call(world, "UpdateService");
+            Check(keysOf(filedStore).SequenceEqual(unreadKeys) && filedList.Count == 0, "the same orders and acceptance times from another save count once");
+            // An order captured while only on offer: OnCaptured resets Issued
+            // after Queue returns; the deferred evaluation excludes it.
+            object captured = campaignAt(800, new DateTime(2028, 10, 3, 8, 0, 0));
+            Set(captured, "Definition", revised);
+            object offered = addOrder(captured, "CapturePort", 46, 0, 0, "Offered", accepted0);
+            Set(offered, "BaseId", "sest-test-port"); Set(offered, "WarPlan", 1);
+            object port = Activator.CreateInstance(dcm.GetType("DynamicCampaignMod.Core.Data.BaseDefinition", true), true);
+            Set(port, "id", "sest-test-port"); Set(port, "name", "Test Port");
+            admiraltyType.GetMethod("OnCaptured", All).Invoke(admiraltyOf(captured), new object[] { port, "blue" });
+            Check(filedList.Count == 1 && outcomesOf(captured).Count == 1 && (DateTime)Field(Field(filedList[0], "Outcome"), "Issued") == DateTime.MinValue,
+                "DCM's real OnCaptured files the order taken while on offer, then resets its Issued");
+            Check(((IList)Call(world, "AdmiraltyEvidence", new List<object>(), scope, "blue", filedList)).Count == 0, "that result is not counted: SEST keeps the reference and evaluates it after OnCaptured returns");
+            filedList.Clear();
+            // A paper filed and read within one sample still changes the evidence signature.
+            useState(captured, filedStore);
+            var signature = world.GetMethod("EvidenceSignature", All);
+            Func<string> evidenceSignature = () => (string)signature.Invoke(null, new object[] { new List<object>(), outcomesOf(captured) });
+            string quiet = evidenceSignature();
+            endOrder(captured, addOrder(captured, "Shadow", 47, 0, 0, "Active", accepted0), "Completed");
+            foreach (var quickPaper in outcomesOf(captured)) readPaper.Invoke(admiraltyOf(captured), new[] { quickPaper });
+            Check(outcomesOf(captured).Count == 0 && evidenceSignature() != quiet, "a result filed and read between two samples still triggers a merge");
+            // A write failure keeps the filed results for the 30 s retry.
+            string blocker = Path.Combine(dir, "blocker");
+            File.WriteAllText(blocker, "not a directory");
+            object blocked = Open(Path.Combine(blocker, "service.txt"));
+            useState(captured, blocked);
+            Call(world, "UpdateService");
+            Check(filedList.Count == 1 && (double)world.GetField("nextMerge", All).GetValue(null) > 0, "an unwritable record keeps the filed result and schedules a retry");
+            File.Delete(blocker);
+            world.GetField("nextMerge", All).SetValue(null, 0d);
+            Call(world, "UpdateService");
+            Check(filedList.Count == 0 && File.Exists(Path.Combine(blocker, "service.txt")) && Progress(Open(Path.Combine(blocker, "service.txt")), scope, "surveillance-service") == 1,
+                "after the record becomes writable the result is written once and released");
+            // Legacy 1.6.3 evidence still suppresses re-adding a filed result.
+            endOrder(captured, addOrder(captured, "CoverConvoy", 501, 0, 0, "Active", new DateTime(2028, 10, 1)), "Completed");
+            object legacyFiled = Field(filedList[filedList.Count - 1], "Outcome");
+            Set(legacyFiled, "Id", 501); Set(legacyFiled, "At", new DateTime(at163));
+            world.GetField("ledger", All).SetValue(null, legacyStore);
+            Check(((IList)Call(world, "AdmiraltyEvidence", new List<object>(), scope, "blue", filedList)).Count == 0, "a filed result Runtime 1.6.3 already recorded under its outcome key is not added again");
+            // Closing the campaign before the next sample still records what was filed.
+            filedList.Clear();
+            object closing = campaignAt(900, new DateTime(2028, 10, 3, 9, 0, 0));
+            Set(closing, "Definition", revised);
+            endOrder(closing, addOrder(closing, "HuntSubmarine", 48, 0, 0, "Active", accepted0), "Completed");
+            object closingStore = Open(Path.Combine(dir, "closing.txt"));
+            useState(null, closingStore);
+            world.GetMethod("FlushFiled", All).Invoke(null, null);
+            Check(filedList.Count == 0 && keysOf(closingStore).Count == 1 && keysOf(closingStore)[0].StartsWith(scope + ":admiralty-order:HuntSubmarine:48:", StringComparison.Ordinal),
+                "results filed just before the campaign closes are recorded under their own campaign");
+            world.GetField("state", All).SetValue(null, null);
             var opening = rt.GetType("Sest.RuntimeFixes.WorldOpeningBriefing", true);
             var paperType = dcm.GetType("DynamicCampaignMod.Core.Sim.Briefing", true);
             Set(fakeState, "Definition", revised);
@@ -414,6 +512,8 @@ static class WorldOperationsTests
             string serviceText = string.Join("\n", ((IEnumerable)Field(servicePage, "Summary")).Cast<string>().Concat(((IEnumerable)Field(servicePage, "Details")).Cast<string>()));
             Check(serviceText.Contains("7 qualifying Admiralty tasks (4 orders, 3 operations)") && serviceText.Contains("each multi-phase operation once when its final phase completes") &&
                 serviceText.Contains("Route Security counts convoy-run operations") && !serviceText.Contains("non-moot"), "Service text states exactly which Admiralty results count");
+            Check(serviceText.Contains("SEST records each result when Dynamic Campaign Mod files it, whether or not its paper has been read (Runtime 1.6.5 and later).") &&
+                serviceText.Contains("orders from 1.6.3, operations from 1.6.4") && !serviceText.Contains("waits unread"), "Service text says results are recorded when filed, not only while their paper is unread");
             Call(world, "SelectTab", 2);
             sessionType.GetProperty("Active", All).GetSetMethod(true).Invoke(null, new object[] { false });
             battleType.GetProperty("Plan", All).GetSetMethod(true).Invoke(null, new[] { plan });
