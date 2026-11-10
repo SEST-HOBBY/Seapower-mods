@@ -601,8 +601,14 @@ internal static class CampaignCosts
 
 	internal static CostView CampaignView(List<CombatGameRecord> games)
 	{
+		return PricedCampaignView(games, Prices());
+	}
+
+	// The world map reuses one catalogue per map visit (no mission scope
+	// exists there for the UI cache); missions keep calling Prices().
+	internal static CostView PricedCampaignView(List<CombatGameRecord> games, CombatPrices combatPrices)
+	{
 		CostView costView = new CostView();
-		CombatPrices combatPrices = Prices();
 		if (combatPrices == null)
 		{
 			costView.AddSummary(CostLineKind.Body, "Enable Combat Cost Tracker and restart to load prices.");

@@ -7,6 +7,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Security.Cryptography;
+using System.Text;
 using AnchorChain;
 
 namespace Sest.RuntimeFixes;
@@ -22,12 +23,22 @@ internal static class WorldOperations
     private static bool tickAttached;
     private static int lastFrame = int.MinValue;
     private static WorldServiceLedger ledger;
-    private static bool stopped, shown, wasStrategic;
-    private static double nextBind, nextSample, nextView;
+    private static bool stopped, shown, wasStrategic, mergeReported;
+    private static double nextBind, nextSample, nextView, nextMerge;
     private static CampaignCosts.CostView report;
     private static object state, definition, currentPlan;
     private static string scope = "", campaignName = "", side = "";
+    // The evidence last merged, and the view last built: a view is rebuilt
+    // only when the data its tab shows has changed (RU-5).
+    private static string serviceSignature, viewSignature;
+    // One price catalogue per world-map visit. The UI cache is mission-scoped
+    // and returns nothing on the map, where each build took up to ~300 ms.
+    private static CombatPrices mapPrices;
+    private static string[] integrations;
     private static readonly Dictionary<int, Tuple<long, string>> positions = new Dictionary<int, Tuple<long, string>>();
+    // Manual reports in the loaded save. They also link Combat Costs when the
+    // profile service record is read-only or could not be written.
+    private static readonly List<WorldServiceLedger.Entry> liveReports = new List<WorldServiceLedger.Entry>();
     internal static int Tab { get; private set; }
     internal static bool StrategicActive { get; private set; }
     private static double Now => (double)Stopwatch.GetTimestamp() / Stopwatch.Frequency;
@@ -36,12 +47,13 @@ internal static class WorldOperations
     {
         ledger = new WorldServiceLedger(file);
         NativeCombatSurface.Bind();
-        Api.Log("World Operations enabled: F11 overview, forces, costs and independent service record; native saves remain unchanged");
+        Api.Log("World Operations enabled: F11 overview, forces, costs and independent service record; Dynamic Campaign Mod state and saves are read, never written");
     }
 
+    // Selecting the open tab again refreshes it (Forces is a snapshot).
     internal static void SelectTab(int value)
     {
-        if (value < 0 || value > 3 || value == Tab) return;
+        if (value < 0 || value > 3) return;
         Tab = value; report = null; nextView = 0;
     }
 
@@ -147,19 +159,19 @@ internal static class WorldOperations
             bool inBattle = currentPlan != null;
             if (StrategicActive != wasStrategic)
             {
-                shown = false; report = null; nextSample = 0;
+                shown = false; report = null; nextSample = 0; mapPrices = null; integrations = null;
                 WorldMapCostsButton.Remove();
                 if (StrategicActive) CombatHistory.Observe(null, null);
                 if (wasStrategic) NativeCombatSurface.Close();
                 wasStrategic = StrategicActive;
             }
-            if (!active) { state = null; scope = ""; positions.Clear(); return; }
+            if (!active) { state = null; scope = ""; positions.Clear(); liveReports.Clear(); serviceSignature = null; mapPrices = null; return; }
             if (Now >= nextSample)
             {
                 nextSample = Now + 1;
                 side = S(state, "PlayerSideId");
                 string nextScope = S(definition, "id") + ":" + side;
-                if (nextScope != scope) { scope = nextScope; positions.Clear(); report = null; }
+                if (nextScope != scope) { scope = nextScope; positions.Clear(); liveReports.Clear(); serviceSignature = null; report = null; mapPrices = null; }
                 campaignName = Clean(Get(definition, "name"));
                 RememberEngagement(inBattle ? currentPlan : null);
                 UpdateService();
@@ -170,7 +182,12 @@ internal static class WorldOperations
                 ToggleMapReport();
             if (shown && (report == null || Now >= nextView))
             {
-                report = View(); nextView = Now + (Tab == 1 || Tab == 3 ? 5 : 2);
+                nextView = Now + 1;
+                string signature = Signature();
+                if (report == null || signature != viewSignature) { report = View(); viewSignature = Signature(); }
+                // The clock is a bound line: updating it never rebuilds rows.
+                string subtitle = Subtitle();
+                if (report.Subtitle != subtitle) report.Subtitle = subtitle;
             }
             NativeCombatSurface.Tick(false, shown, report, "world:" + scope + ":" + Tab, () => shown = false, Now);
         }
@@ -205,37 +222,90 @@ internal static class WorldOperations
 
     private static void UpdateService()
     {
+        var reports = Rows(Get(state, "Reports"));
+        var outcomes = Rows(Get(state, "Outcomes"));
+        // Merge only when DCM's reports, unread results or observed positions
+        // change, and retry a failed write later instead of every second.
+        if (EvidenceSignature(reports, outcomes) == serviceSignature || Now < nextMerge) return;
         var events = new List<WorldServiceLedger.Entry>();
-        foreach (var r in Rows(Get(state, "Reports")))
+        liveReports.Clear();
+        foreach (var r in reports)
         {
             if (S(r, "PlayerSideId") != side) continue;
             int id = Convert.ToInt32(Get(r, "EngagementId"));
             var at = (DateTime)Get(r, "At");
             string theatre = positions.TryGetValue(id, out var p) && p.Item1 == at.Ticks ? p.Item2 : "";
-            events.Add(new WorldServiceLedger.Entry { Scope = scope, Key = scope + ":" + id + ":" + at.Ticks, At = at.Ticks, Where = Clean(Get(r, "Where"), 512), Manual = !(bool)Get(r, "AutoResolved"), Theatre = theatre });
+            var entry = new WorldServiceLedger.Entry { Scope = scope, Key = scope + ":" + id + ":" + at.Ticks, At = at.Ticks, Where = Clean(Get(r, "Where"), 512), Manual = !(bool)Get(r, "AutoResolved"), Theatre = theatre };
+            events.Add(entry);
+            if (entry.Manual) liveReports.Add(entry);
         }
-        foreach (var outcome in Rows(Get(state, "Outcomes")))
+        foreach (var outcome in outcomes)
         {
-            var entry = CompletedOrder(outcome, scope, side);
-            if (entry != null) events.Add(entry);
+            var entry = CompletedOrder(outcome, scope, side) ?? CompletedOperation(outcome, scope, side);
+            // A result Runtime 1.6.3 already recorded under its outcome key
+            // keeps that single entry.
+            if (entry != null && !ledger.Contains(LegacyOrderKey(outcome, scope))) events.Add(entry);
         }
-        ledger.Merge(events);
+        try
+        {
+            ledger.Merge(events);
+            serviceSignature = EvidenceSignature(reports, outcomes);
+            mergeReported = false;
+        }
+        catch (Exception ex)
+        {
+            // The record is profile data, not a reason to close World
+            // Operations: keep the window, costs and live evidence.
+            nextMerge = Now + 30;
+            if (!mergeReported) { mergeReported = true; Api.LogFailure("world service record not updated; World Operations stays open and retries in 30 s", ex); }
+        }
     }
 
+    private static string EvidenceSignature(List<object> reports, List<object> outcomes)
+    {
+        var last = reports.Count == 0 ? null : reports[reports.Count - 1];
+        return scope + "|" + reports.Count + "|" + (last == null ? "" : S(last, "EngagementId") + ":" + ((DateTime)Get(last, "At")).Ticks) + "|" +
+            outcomes.Count + "|" + (outcomes.Count == 0 ? "" : S(outcomes[outcomes.Count - 1], "Id")) + "|" + positions.Count + "|" + ledger.Revision + "|" + ledger.ReadOnly;
+    }
+
+    // A standalone Admiralty order's result: DCM's Paper(AdmiraltyOrder) sets
+    // OrderId and leaves OperationId 0. Phases of an operation are never
+    // papered (Admiralty.End skips Paper when OperationId != 0).
     internal static WorldServiceLedger.Entry CompletedOrder(object outcome, string campaignScope, string playerSide)
     {
-        if (outcome == null || S(outcome, "SideId") != playerSide ||
-            S(outcome, "Status") != "Completed" || (bool)Get(outcome, "Moot") ||
-            Convert.ToInt32(Get(outcome, "OrderId")) <= 0 || Convert.ToInt32(Get(outcome, "Id")) <= 0) return null;
-        var issued = (DateTime)Get(outcome, "Issued");
-        var at = (DateTime)Get(outcome, "At");
-        if (issued == DateTime.MinValue || at < issued) return null;
-        return new WorldServiceLedger.Entry {
-            Scope = campaignScope,
-            Key = campaignScope + ":admiralty:" + S(outcome, "Kind") + ":" + Convert.ToInt32(Get(outcome, "Id")) + ":" + at.Ticks,
-            At = at.Ticks, Manual = false, Where = Clean(Get(outcome, "Title"), 512), Theatre = ""
-        };
+        if (!Completed(outcome, playerSide) || Convert.ToInt32(Get(outcome, "OrderId")) <= 0 || Convert.ToInt32(Get(outcome, "OperationId")) != 0) return null;
+        return TaskEvidence(outcome, campaignScope, WorldServiceLedger.OrderPrefix, S(outcome, "Kind"), Convert.ToInt32(Get(outcome, "OrderId")));
     }
+
+    // A whole multi-phase operation's result: Paper(AdmiraltyOperation) sets
+    // OperationId and Template and leaves OrderId 0. It is papered once, when
+    // the final phase completes, so each operation counts once.
+    internal static WorldServiceLedger.Entry CompletedOperation(object outcome, string campaignScope, string playerSide)
+    {
+        if (!Completed(outcome, playerSide) || Convert.ToInt32(Get(outcome, "OrderId")) != 0 || Convert.ToInt32(Get(outcome, "OperationId")) <= 0) return null;
+        return TaskEvidence(outcome, campaignScope, WorldServiceLedger.OperationPrefix, S(outcome, "Template"), Convert.ToInt32(Get(outcome, "OperationId")));
+    }
+
+    private static bool Completed(object outcome, string playerSide)
+    {
+        if (outcome == null || S(outcome, "SideId") != playerSide || S(outcome, "Status") != "Completed" || (bool)Get(outcome, "Moot") ||
+            Convert.ToInt32(Get(outcome, "Id")) <= 0) return false;
+        var issued = (DateTime)Get(outcome, "Issued");
+        // Accepting sets Issued; an order DCM completed while still only on
+        // offer has its Issued reset to default (Admiralty.OnCaptured).
+        return issued != DateTime.MinValue && (DateTime)Get(outcome, "At") >= issued;
+    }
+
+    // Keyed on the order or operation and its acceptance time, both kept in
+    // saves, so a completion replayed after reloading counts once (WSA-6).
+    private static WorldServiceLedger.Entry TaskEvidence(object outcome, string campaignScope, string prefix, string kind, int id) => new WorldServiceLedger.Entry {
+        Scope = campaignScope,
+        Key = campaignScope + prefix + kind + ":" + id + ":" + ((DateTime)Get(outcome, "Issued")).Ticks,
+        At = ((DateTime)Get(outcome, "At")).Ticks, Manual = false, Where = Clean(Get(outcome, "Title"), 512), Theatre = ""
+    };
+
+    internal static string LegacyOrderKey(object outcome, string campaignScope) =>
+        campaignScope + WorldServiceLedger.LegacyOrderPrefix + S(outcome, "Kind") + ":" + Convert.ToInt32(Get(outcome, "Id")) + ":" + ((DateTime)Get(outcome, "At")).Ticks;
 
     internal static void Stamp(CombatGameRecord record)
     {
@@ -248,13 +318,49 @@ internal static class WorldOperations
         }
     }
 
+    private static string Subtitle() => campaignName + " | " + ((DateTime)Get(state, "Now")).ToString("d MMM yyyy HH:mm", CultureInfo.InvariantCulture) + " | F11 closes | Drag title bar to move";
+
+    // What the open tab shows, without building it. The campaign clock is
+    // excluded: it is shown in the bound subtitle.
+    internal static string Signature()
+    {
+        var b = new StringBuilder(scope).Append('|').Append(Tab).Append('|').Append(campaignName);
+        int Size(string field) => (Get(state, field) as ICollection)?.Count ?? -1;
+        switch (Tab)
+        {
+            case 0:
+                b.Append('|').Append(Dict(Get(state, "Points"), side)).Append('|').Append(Lookup(Get(state, "Renown"), side)).Append('|').Append(Lookup(Get(state, "Ranks"), side));
+                var owners = Get(state, "BaseOwner") as IDictionary;
+                b.Append('|').Append(owners == null ? 0 : owners.Values.Cast<object>().Count(x => Convert.ToString(x) == side));
+                b.Append('|').Append(Size("TaskForces")).Append('|').Append(Size("Squadrons")).Append('|').Append(Size("BuildOrders")).Append('|').Append(Size("Operations"));
+                foreach (var order in Rows(Get(state, "AdmiraltyOrders"))) b.Append('|').Append(S(order, "Id")).Append(':').Append(S(order, "Status"));
+                break;
+            case 1:
+                // A snapshot: rebuilt when task forces or squadrons are added
+                // or removed, or when Forces is selected again.
+                b.Append('|').Append(Size("TaskForces")).Append('|').Append(Size("Squadrons")).Append('|').Append(mapPrices != null);
+                break;
+            case 2:
+                var games = CombatHistory.Games;
+                b.Append('|').Append(Dict(Get(state, "Points"), side)).Append('|').Append(ledger.Revision).Append('|').Append(ledger.ReadOnly).Append('|').Append(liveReports.Count)
+                 .Append('|').Append(games.Count).Append('|').Append(games.Count == 0 ? "" : games[0].Id + ":" + games[0].EndedUtc).Append('|').Append(mapPrices != null);
+                break;
+            case 3:
+                b.Append('|').Append(ledger.Revision).Append('|').Append(ledger.ReadOnly);
+                break;
+        }
+        return b.ToString();
+    }
+
+    private static CombatPrices MapPrices() => mapPrices ?? (mapPrices = CampaignCosts.Catalogue());
+
     private static CampaignCosts.CostView View()
     {
-        var v = new CampaignCosts.CostView { Title = Tab == 2 ? "CUMULATIVE COMBAT COSTS" : "WORLD CAMPAIGN OPERATIONS", Subtitle = campaignName + " | F11 closes | Drag title bar to move", World = true };
+        var v = new CampaignCosts.CostView { Title = Tab == 2 ? "CUMULATIVE COMBAT COSTS" : "WORLD CAMPAIGN OPERATIONS", Subtitle = Subtitle(), World = true };
         v.Notes[0] = "Campaign credits and USD catalogue estimates are separate. Orders and purchases stay in the native campaign panels.";
         v.Notes[1] = "Service record belongs to this profile and coalition across saves. Native commander records and saves are unchanged.";
         v.Notes[2] = "";
-        v.AddSummary(CostLineKind.Basis, ((DateTime)Get(state, "Now")).ToString("d MMM yyyy HH:mm", CultureInfo.InvariantCulture) + " | Coalition " + side + " | " + new[] { "Overview", "Forces", "Combat Costs", "Service" }[Tab]);
+        v.AddSummary(CostLineKind.Basis, "Coalition " + side + " | " + new[] { "Overview", "Forces", "Combat Costs", "Service" }[Tab]);
         switch (Tab) {
             case 0: Overview(v); break;
             case 1: Forces(v); break;
@@ -277,16 +383,16 @@ internal static class WorldOperations
         v.AddDetail(CostLineKind.Body, Rows(Get(state, "BuildOrders")).Count + " build orders | " + Rows(Get(state, "AdmiraltyOrders")).Count + " admiralty orders | " + Rows(Get(state, "Operations")).Count + " operations (all recorded sides)");
         v.AddDetail(CostLineKind.Body, "Use the campaign's forces, base and supply panels for routing, replenishment, convoys and ground operations. Changing the displayed USD basis does not change campaign prices.");
         v.AddDetail(CostLineKind.Section, "ENABLED INTEGRATIONS");
-        string[] types = { "WeaponCostsMod.Overlay", "SeaPowerTopo.Plugin", "IdentifyExpanded.Plugin" };
-        string[] names = { "Combat Cost Tracker", "Topographic Map", "Identify Expanded" };
-        var assemblies = AppDomain.CurrentDomain.GetAssemblies();
         v.AddDetail(CostLineKind.Body, "Dynamic Campaign Mod: connected | Campaign map integration: active");
-        for (int i = 0; i < types.Length; i++)
+        if (integrations == null)
         {
-            bool found = assemblies.Any(a => a.GetType(types[i], false) != null);
+            string[] types = { "WeaponCostsMod.Overlay", "SeaPowerTopo.Plugin", "IdentifyExpanded.Plugin" };
+            string[] names = { "Combat Cost Tracker", "Topographic Map", "Identify Expanded" };
+            var assemblies = AppDomain.CurrentDomain.GetAssemblies();
             // A loaded assembly alone does not prove the author's entrypoint ran.
-            v.AddDetail(CostLineKind.Item, names[i] + ": " + (found ? "assembly detected; check its in-game controls" : "not detected by this panel"));
+            integrations = types.Select((t, i) => names[i] + ": " + (assemblies.Any(a => a.GetType(t, false) != null) ? "assembly detected; check its in-game controls" : "not detected by this panel")).ToArray();
         }
+        foreach (var line in integrations) v.AddDetail(CostLineKind.Item, line);
         v.AddDetail(CostLineKind.Section, "CAMPAIGN CONTENT");
         v.AddDetail(CostLineKind.Body, "Global Maritime Operations 2028 uses hypothetical coalition access, forces and stocks. Revised facilities and command stages apply to new campaigns. Start a new campaign for the complete revised layout; existing saves keep their saved forces and stocks.");
     }
@@ -312,7 +418,7 @@ internal static class WorldOperations
             }
             else v.AddDetail(CostLineKind.Body, "Final command stage reached. Continue operations to build renown and sustain your force.");
         }
-        v.AddDetail(CostLineKind.Body, "RENOWN AND BUDGET: battle results and completed, accepted Admiralty tasks. Look for escort, area-control, shadowing and multi-phase assignments when offered. Read each task's conditions; routine movement or ending a battle alone earns no task reward.");
+        v.AddDetail(CostLineKind.Body, "RENOWN AND BUDGET: battle results and completed, accepted Admiralty tasks. Look for escort, area-control, shadowing and multi-phase assignments when offered. Read each task's conditions; routine movement or ending a battle alone earns no task reward. SEST's Admiralty service ribbons (Service tab) count each completed standalone order, and each whole operation once its final phase completes.");
         v.AddDetail(CostLineKind.Body, "SUPPLIES: depot production feeds convoys; airlift moves urgent ammunition; loaded replenishment ships support forces at sea. Protect deliveries and raise a short base's supply priority. Credits fund purchases and are separate from physical stocks.");
         v.AddDetail(CostLineKind.Section, "CURRENT ADMIRALTY TASKS");
         var orders = Rows(Get(gameState, "AdmiraltyOrders")).Where(x => S(x, "SideId") == ours && (S(x, "Status") == "Offered" || S(x, "Status") == "Active")).OrderBy(x => (DateTime)Get(x, "Deadline")).ToList();
@@ -330,9 +436,10 @@ internal static class WorldOperations
 
     private static void Forces(CampaignCosts.CostView v)
     {
-        var prices = CampaignCosts.Catalogue();
+        var prices = MapPrices();
         var total = new CombatAmount();
         int ships = 0, airframes = 0;
+        v.AddDetail(CostLineKind.Basis, "Snapshot at " + ((DateTime)Get(state, "Now")).ToString("d MMM yyyy HH:mm", CultureInfo.InvariantCulture) + ". Select Forces again to refresh fuel, damage and readiness.");
         v.AddDetail(CostLineKind.Section, "COALITION FLEET");
         foreach (var force in Rows(Get(state, "TaskForces")).Where(x => S(x, "SideId") == side).OrderBy(x => S(x, "Name")))
         {
@@ -368,10 +475,14 @@ internal static class WorldOperations
     private static void Costs(CampaignCosts.CostView v)
     {
         v.AddDetail(CostLineKind.Basis, "Campaign budget: " + Dict(Get(state, "Points"), side) + " credits (separate from USD combat costs)");
-        var completed = ledger.Entries.Where(e => e.Scope == scope && e.Manual).ToList();
+        // Profile record plus the loaded save's own reports: a read-only or
+        // unwritable record cannot hide this campaign's costs (RU-7).
+        var completed = ledger.Entries.Where(e => e.Scope == scope && e.Manual).Concat(liveReports.Where(e => e.Scope == scope))
+            .GroupBy(e => e.Key, StringComparer.Ordinal).Select(g => g.First()).ToList();
         var games = RecordedGames(CombatHistory.Games, completed, scope);
+        if (ledger.ReadOnly) v.AddDetail(CostLineKind.Body, "The profile service record is read-only because its saved format could not be validated; the file is kept unchanged. Costs below use this save's battle reports.");
         v.AddDetail(CostLineKind.Basis, completed.Count + " completed manual battle reports | " + games.Count + " with SEST itemised cost history. Reloaded attempts use the latest record for the same engagement.");
-        var costs = CampaignCosts.CampaignView(games);
+        var costs = CampaignCosts.PricedCampaignView(games, MapPrices());
         foreach (var row in costs.SummaryRows) v.AddSummary(row.Kind, row.Text);
         foreach (var row in costs.DetailRows) v.AddDetail(row.Kind, row.Text);
         v.Notes[0] = "USD totals cover SEST-recorded battles for this campaign and coalition across saves. Older battles and auto-resolved battles may lack itemised USD evidence.";
@@ -381,7 +492,9 @@ internal static class WorldOperations
     internal static List<CombatGameRecord> RecordedGames(IEnumerable<CombatGameRecord> history, IEnumerable<WorldServiceLedger.Entry> reports, string scope)
     {
         var keys = new HashSet<string>(reports.Where(e => e.Scope == scope && e.Manual).Select(e => e.Key), StringComparer.Ordinal);
-        var games = history.Where(g => g.Source.StartsWith("DCM:" + scope + ":", StringComparison.Ordinal))
+        // A record with no sides is a fragment (restart, or End battle while
+        // loading); it must not outrank the attempt that has costs (RU-12).
+        var games = history.Where(g => g.Sides.Count > 0 && g.Source.StartsWith("DCM:" + scope + ":", StringComparison.Ordinal))
             .Where(g => keys.Contains(scope + ":" + g.MissionIndex + ":" + g.Source.Substring(g.Source.LastIndexOf(':') + 1)))
             .GroupBy(g => g.Source + ":" + g.MissionIndex).Select(g => g.OrderByDescending(x => x.EndedUtc).First()).ToList();
         foreach (var game in games)
@@ -397,7 +510,9 @@ internal static class WorldOperations
         var ribbons = ledger.Ribbons(scope);
         int earned = ribbons.Count(r => r.Earned);
         v.AddSummary(CostLineKind.PlayerTotal, earned + " service ribbons earned");
-        v.AddSummary(CostLineKind.Basis, "Fictional SEST profile awards | " + ledger.Entries.Count(e => e.Scope == scope && e.Manual) + " manual battles | " + ledger.CompletedOrders(scope).Count() + " qualifying Admiralty orders");
+        var tasks = ledger.AdmiraltyTasks(scope);
+        int operations = tasks.Count(t => t.Operation);
+        v.AddSummary(CostLineKind.Basis, "Fictional SEST profile awards | " + ledger.Entries.Count(e => e.Scope == scope && e.Manual) + " manual battles | " + tasks.Count + " qualifying Admiralty tasks (" + (tasks.Count - operations) + " orders, " + operations + " operations)");
         if (ledger.ReadOnly) v.AddDetail(CostLineKind.Body, "Service record is read-only because its saved format could not be validated. The existing file has been retained.");
         foreach (var r in ribbons.OrderByDescending(r => r.Earned))
         {
@@ -407,7 +522,9 @@ internal static class WorldOperations
             v.AddDetail(CostLineKind.Breakdown, r.Citation);
         }
         v.AddDetail(CostLineKind.Section, "CITATION AND EVIDENCE");
-        v.AddDetail(CostLineKind.Body, "Battle service counts completed manual reports; auto-resolved battles do not qualify. Theatre awards require observed battle coordinates. Watch ribbons count distinct evidenced campaign days. Admiralty ribbons count accepted, completed, non-moot orders and retain the native task conditions.");
+        v.AddDetail(CostLineKind.Body, "Battle service counts completed manual reports; auto-resolved battles do not qualify. Theatre awards require observed battle coordinates. Watch ribbons count distinct campaign calendar days with a manual battle.");
+        v.AddDetail(CostLineKind.Body, "Admiralty ribbons count accepted tasks that Dynamic Campaign Mod reports as completed: each standalone order once, and each multi-phase operation once when its final phase completes (its phases are not counted separately). Convoy Protection counts convoy-escort orders and convoy-run operations; Route Security counts convoy-run operations, whose first phase clears the convoy's route; Maritime Surveillance counts shadowing orders and fleet-action operations, which open with a shadowing phase. Sea-control and amphibious operations count towards the Commendation and Versatility. Failed, lapsed, declined and cancelled tasks do not count.");
+        v.AddDetail(CostLineKind.Body, "SEST records a result while its paper waits unread in the Admiralty queue; papers read before these awards existed were not recorded. A completion replayed after reloading a save counts once.");
         v.AddDetail(CostLineKind.Body, "Campaign, operation and real national award representations appear in Task Force Service Records. National awards use scenario qualifications and commander-nation filters. World service awards do not add renown, credits or supplies. Unrecorded bravery, logistics or ROE conditions are not inferred from spending.");
     }
 }

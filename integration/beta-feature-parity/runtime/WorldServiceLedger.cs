@@ -25,11 +25,33 @@ internal sealed class WorldServiceLedger
         internal bool Earned => Progress >= Required;
     }
 
+    // One completed Admiralty task. Duty is the order kind, or "operation:"
+    // plus the operation template; each counts once for versatility.
+    internal sealed class AdmiraltyTask
+    {
+        internal string Kind;
+        internal bool Operation;
+        internal string Duty => Operation ? "operation:" + Kind : Kind;
+    }
+
     private const string Header = "SEST-WORLD-SERVICE-1";
+    // Admiralty evidence keys inside the unchanged six-field v1 line:
+    //   <scope>:admiralty:<Kind>:<outcome id>:<completion ticks>     Runtime 1.6.3, still counted
+    //   <scope>:admiralty-order:<Kind>:<order id>:<accepted ticks>   standalone order
+    //   <scope>:admiralty-operation:<Template>:<operation id>:<accepted ticks>
+    // The order and operation ids and their acceptance time survive reloading
+    // a save, so replaying a completion does not count it twice. Older
+    // binaries ignore every non-manual line except their own legacy keys.
+    internal const string LegacyOrderPrefix = ":admiralty:", OrderPrefix = ":admiralty-order:", OperationPrefix = ":admiralty-operation:";
+    private static readonly string[] Kinds = { "Intercept", "CoverConvoy", "HuntSubmarine", "Interdict", "Blockade", "CapturePort", "DefendBase", "Shadow", "Barrier", "ClearRoute", "FleetAction" };
+    private static readonly string[] Templates = { "SeaControl", "Amphibious", "ConvoyRun", "FleetAction" };
     private readonly string path;
     private readonly Dictionary<string, Entry> entries = new Dictionary<string, Entry>(StringComparer.Ordinal);
     internal bool ReadOnly { get; private set; }
+    // Changes whenever the in-memory record changes; views rebuild on it.
+    internal int Revision { get; private set; }
     internal IEnumerable<Entry> Entries => entries.Values;
+    internal bool Contains(string key) => entries.ContainsKey(key);
 
     internal WorldServiceLedger(string file)
     {
@@ -96,6 +118,7 @@ internal sealed class WorldServiceLedger
             File.WriteAllLines(temp, new[] { Header }.Concat(next.Values.OrderBy(e => e.Key, StringComparer.Ordinal).Select(Encode)), new UTF8Encoding(false));
             if (File.Exists(path)) File.Replace(temp, path, null); else File.Move(temp, path);
             entries.Clear(); foreach (var pair in next) entries.Add(pair.Key, pair.Value);
+            Revision++;
         }
         finally { if (File.Exists(temp)) File.Delete(temp); }
     }
@@ -103,7 +126,8 @@ internal sealed class WorldServiceLedger
     internal List<Ribbon> Ribbons(string scope)
     {
         var manual = entries.Values.Where(e => e.Scope == scope && e.Manual).ToList();
-        var orders = CompletedOrders(scope).ToList();
+        var tasks = AdmiraltyTasks(scope);
+        int Count(string order, string operation) => tasks.Count(t => t.Operation ? t.Kind == operation : t.Kind == order);
         int days = manual.Where(e => e.At > 0).Select(e => new DateTime(e.At).Date).Distinct().Count();
         var regions = new[] { "europe", "middle-east", "africa", "americas", "southern", "pacific" };
         int theatres = manual.Where(e => regions.Contains(e.Theatre)).Select(e => e.Theatre).Distinct().Count();
@@ -116,11 +140,11 @@ internal sealed class WorldServiceLedger
             Make("enduring-watch", "Enduring Watch Ribbon", 15, days, "Commanded manual battles on fifteen distinct campaign calendar days.", "#243B65|#D9B65B|#5B858A|#D9B65B|#243B65"),
             Make("expeditionary-command", "Expeditionary Command Ribbon", 3, theatres, "Completed positioned manual battles in three different service theatres.", "#35564C|#D7C593|#DCE6E8|#D7C593|#35564C"),
             Make("global-command", "Global Maritime Command Ribbon", 6, theatres, "Completed positioned manual battles in all six service theatres.", "#233C5B|#D9B65B|#4E9192|#D9B65B|#233C5B"),
-            Make("admiralty-service", "Admiralty Service Commendation", 5, orders.Count, "Completed five accepted Admiralty orders. Failed, lapsed, declined, cancelled and moot outcomes do not qualify.", "#174B52|#DCE6E8|#D9B65B|#DCE6E8|#174B52"),
-            Make("operational-versatility", "Operational Versatility Ribbon", 3, orders.Select(OrderKind).Distinct().Count(), "Completed accepted Admiralty orders of three different kinds.", "#174B52|#8EA8C3|#D9B65B|#8EA8C3|#174B52"),
-            Make("convoy-protection", "Convoy Protection Ribbon", 3, orders.Count(e => OrderKind(e) == "CoverConvoy"), "Completed three accepted convoy-cover orders.", "#255A72|#DCE6E8|#4E9192|#DCE6E8|#255A72"),
-            Make("surveillance-service", "Maritime Surveillance Ribbon", 3, orders.Count(e => OrderKind(e) == "Shadow"), "Completed three accepted shadowing orders.", "#344A6E|#B6C8D4|#35564C|#B6C8D4|#344A6E"),
-            Make("route-security", "Route Security Ribbon", 3, orders.Count(e => OrderKind(e) == "ClearRoute"), "Completed three accepted route-clearance orders.", "#35564C|#D7C593|#255A72|#D7C593|#35564C")
+            Make("admiralty-service", "Admiralty Service Commendation", 5, tasks.Count, "Completed five accepted Admiralty tasks: standalone orders, or whole multi-phase operations counted once each. Failed, lapsed, declined and cancelled tasks do not qualify.", "#174B52|#DCE6E8|#D9B65B|#DCE6E8|#174B52"),
+            Make("operational-versatility", "Operational Versatility Ribbon", 3, tasks.Select(t => t.Duty).Distinct().Count(), "Completed accepted Admiralty tasks of three different types; each order kind and each operation type counts once.", "#174B52|#8EA8C3|#D9B65B|#8EA8C3|#174B52"),
+            Make("convoy-protection", "Convoy Protection Ribbon", 3, Count("CoverConvoy", "ConvoyRun"), "Completed three accepted convoy-escort orders or convoy-run operations.", "#255A72|#DCE6E8|#4E9192|#DCE6E8|#255A72"),
+            Make("surveillance-service", "Maritime Surveillance Ribbon", 3, Count("Shadow", "FleetAction"), "Completed three accepted shadowing orders or fleet-action operations, which open with a shadowing phase.", "#344A6E|#B6C8D4|#35564C|#B6C8D4|#344A6E"),
+            Make("route-security", "Route Security Ribbon", 3, Count(null, "ConvoyRun"), "Completed three accepted convoy-run operations, each clearing the convoy's route of submarines before the escort.", "#35564C|#D7C593|#255A72|#D7C593|#35564C")
         };
         foreach (var t in regions)
         {
@@ -131,20 +155,32 @@ internal sealed class WorldServiceLedger
     }
 
     // Typed keys are additive within the existing six-field v1 record. Old
-    // battle entries and old binaries ignore these non-manual order events.
-    internal IEnumerable<Entry> CompletedOrders(string scope) => entries.Values.Where(e => e.Scope == scope && IsCompletedOrder(e));
-
-    private static bool IsCompletedOrder(Entry e)
+    // battle entries and old binaries ignore these non-manual task events.
+    internal List<AdmiraltyTask> AdmiraltyTasks(string scope)
     {
-        string prefix = e.Scope + ":admiralty:";
-        if (e.Manual || !e.Key.StartsWith(prefix, StringComparison.Ordinal)) return false;
-        var parts = e.Key.Substring(prefix.Length).Split(':');
-        return parts.Length == 3 && new[] { "Intercept", "CoverConvoy", "HuntSubmarine", "Interdict", "Blockade", "CapturePort", "DefendBase", "Shadow", "Barrier", "ClearRoute", "FleetAction" }.Contains(parts[0]) &&
-            int.TryParse(parts[1], NumberStyles.None, CultureInfo.InvariantCulture, out var id) && id > 0 &&
-            long.TryParse(parts[2], NumberStyles.None, CultureInfo.InvariantCulture, out var at) && at == e.At;
+        var tasks = new List<AdmiraltyTask>();
+        foreach (var e in entries.Values)
+            if (e.Scope == scope && TryTask(e, out var task)) tasks.Add(task);
+        return tasks;
     }
 
-    private static string OrderKind(Entry e) => e.Key.Substring((e.Scope + ":admiralty:").Length).Split(':')[0];
+    internal static bool TryTask(Entry e, out AdmiraltyTask task)
+    {
+        task = null;
+        if (e == null || e.Manual || e.Scope == null || e.Key == null) return false;
+        bool legacy = e.Key.StartsWith(e.Scope + LegacyOrderPrefix, StringComparison.Ordinal);
+        bool order = e.Key.StartsWith(e.Scope + OrderPrefix, StringComparison.Ordinal);
+        bool operation = e.Key.StartsWith(e.Scope + OperationPrefix, StringComparison.Ordinal);
+        if (!legacy && !order && !operation) return false;
+        var parts = e.Key.Substring(e.Scope.Length + (legacy ? LegacyOrderPrefix : order ? OrderPrefix : OperationPrefix).Length).Split(':');
+        if (parts.Length != 3 || !(operation ? Templates : Kinds).Contains(parts[0]) ||
+            !int.TryParse(parts[1], NumberStyles.None, CultureInfo.InvariantCulture, out var id) || id <= 0 ||
+            !long.TryParse(parts[2], NumberStyles.None, CultureInfo.InvariantCulture, out var ticks)) return false;
+        // Legacy keys carry the completion time; the others the acceptance time.
+        if (legacy ? ticks != e.At : ticks > e.At) return false;
+        task = new AdmiraltyTask { Kind = parts[0], Operation = operation };
+        return true;
+    }
 
     private static Ribbon Make(string id, string name, int required, int progress, string citation, string colours) => new Ribbon { Id = id, Name = name, Required = required, Progress = progress, Citation = citation, Colours = colours.Split('|') };
     internal static string TheatreName(string id)

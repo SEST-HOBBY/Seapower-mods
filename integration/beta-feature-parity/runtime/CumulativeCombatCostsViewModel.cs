@@ -35,12 +35,34 @@ public sealed class CumulativeCombatCostsViewModel : INotifyPropertyChanged
 
 	public event PropertyChangedEventHandler PropertyChanged;
 
+	private CampaignCosts.CostView shownReport;
+
+	private bool shownLive;
+
+	private string shownSubtitle;
+
+	// Called every frame with the current report. A report is built once and
+	// never changed afterwards, except that the world map may replace its
+	// Subtitle (the campaign clock). The bound subtitle is not part of the
+	// rendered panels, so it never bumps Revision or rebuilds the rows.
 	internal void Set(CampaignCosts.CostView report, bool live)
 	{
+		if (ReferenceEquals(report, shownReport) && live == shownLive)
+		{
+			if (!ReferenceEquals(report.Subtitle, shownSubtitle))
+			{
+				shownSubtitle = report.Subtitle;
+				Change(ref subtitle, report.Subtitle ?? (((!live) ? "Campaign" : "Current mission") + " | F11 closes | Drag the title bar to move"), "Subtitle");
+			}
+			return;
+		}
+		shownReport = report;
+		shownLive = live;
+		shownSubtitle = report.Subtitle;
+		Change(ref subtitle, report.Subtitle ?? (((!live) ? "Campaign" : "Current mission") + " | F11 closes | Drag the title bar to move"), "Subtitle");
 		bool flag = Change(ref title, report.Title ?? "CUMULATIVE COMBAT COSTS", "Title");
         flag |= World != report.World;
         World = report.World;
-        flag |= Change(ref subtitle, report.Subtitle ?? (((!live) ? "Campaign" : "Current mission") + " | F11 closes | Drag the title bar to move"), "Subtitle");
 		flag |= Change(ref summary, string.Join("\n", report.Summary), "Summary");
 		flag |= Change(ref details, string.Join("\n", report.Details), "Details");
 		if (flag | Change(ref notes, string.Join("\n", report.Notes), "Notes"))
