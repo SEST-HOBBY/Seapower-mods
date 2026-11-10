@@ -122,6 +122,19 @@ public sealed class RuntimeFixesMod : IAnchorChainMod
 					Api.LogFailure("combat cost inventory capture not installed", error6);
 				}
 			}
+			// Beta only, default on: MissionAwards=0 in [Runtime] turns the
+			// runtime mission ribbons off; native awards are unaffected.
+			if (Policy.TextOption(lines, "MissionAwards", "1") == "1")
+			{
+				try
+				{
+					MissionAwards.Install(assembly);
+				}
+				catch (Exception error11)
+				{
+					Api.LogFailure("runtime mission awards not installed", error11);
+				}
+			}
 			if (!Policy.OptionEnabled(lines, "CumulativeCombatCosts"))
 			{
 				return;

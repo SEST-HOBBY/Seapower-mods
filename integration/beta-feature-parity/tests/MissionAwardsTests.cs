@@ -332,13 +332,416 @@ static partial class MissionAwardsTests
             Field(outcome, f.Split(':')[0], f.Substring(f.IndexOf(':') + 1));
     }
 
+    // ---- Runtime 1.6.5 behaviour, on the captured native types ----
+
+    static Assembly game, rt;
+    static Type awards;
+    static object Invoke(Type type, string name, params object[] args)
+    {
+        try { return type.GetMethod(name, All).Invoke(null, args); }
+        catch (TargetInvocationException e) { throw e.InnerException; }
+    }
+    static void SetField(object target, string name, object value)
+    {
+        Type type = target as Type ?? target.GetType();
+        FieldInfo field = null;
+        for (Type t = type; field == null && t != null; t = t.BaseType) field = t.GetField(name, All);
+        if (field == null) throw new MissingFieldException(type.FullName, name);
+        field.SetValue(target is Type ? null : target, value);
+    }
+    // Fixtures without constructors; their finalizers (Noesis, Unity) must not run.
+    static object Uninitialized(string type)
+    {
+        object value = System.Runtime.Serialization.FormatterServices.GetUninitializedObject(game.GetType(type, true));
+        GC.SuppressFinalize(value);
+        return value;
+    }
+    static object EnumValue(string type, string name) => System.Enum.Parse(game.GetType(type, true), name);
+    static IList Specs(out string error, params string[] values)
+    {
+        object[] args = { values.ToList(), null };
+        var specs = (IList)awards.GetMethod("ParseSpecs", All).Invoke(null, args);
+        error = (string)args[1];
+        return specs;
+    }
+    static object F(object o, string name) => o.GetType().GetField(name, All).GetValue(o);
+
+    // The value a campaign.ini line yields through IniHandler.ReadFileToIni,
+    // whose rules the contracts above pin: cut at ';', '//' or '#', trim, split
+    // on '=' and rejoin the trimmed parts after the key.
+    static string AsRead(string line)
+    {
+        string text = line.Split(new[] { ";", "//", "#" }, StringSplitOptions.None)[0].Trim();
+        var parts = text.Split('=');
+        return string.Join("=", parts.Skip(1).Select(p => p.Trim()));
+    }
+
+    static object Ammo(string type, int launch, int rounds, int ciws, string subType = "None")
+    {
+        object row = Activator.CreateInstance(game.GetType("SeaPower.WeaponReportAmmoData", true));
+        foreach (var p in new[] { Tuple.Create("AmmoType", EnumValue("SeaPower.Ammunition+Type", type)), Tuple.Create("AmmoSubType", EnumValue("SeaPower.Ammunition+Type", subType)),
+            Tuple.Create("Launched", (object)launch), Tuple.Create("ProjectileFired", (object)rounds), Tuple.Create("CiwsRoundsFired", (object)ciws), Tuple.Create("AmmoRef", (object)(type + launch + rounds)) })
+            row.GetType().GetProperty(p.Item1).SetValue(row, p.Item2, null);
+        return row;
+    }
+    static object Report(params object[] ammo)
+    {
+        object report = Activator.CreateInstance(game.GetType("SeaPower.TaskforceWeaponReport", true));
+        var units = (IDictionary)report.GetType().GetProperty("UnitsByReportId").GetValue(report, null);
+        object unit = Activator.CreateInstance(game.GetType("SeaPower.WeaponReportUnitData", true));
+        var rows = (IDictionary)unit.GetType().GetProperty("Ammo").GetValue(unit, null);
+        if (rows == null) { rows = (IDictionary)Activator.CreateInstance(unit.GetType().GetProperty("Ammo").PropertyType); unit.GetType().GetProperty("Ammo").SetValue(unit, rows, null); }
+        for (int i = 0; i < ammo.Length; i++) rows.Add("ammo" + i, ammo[i]);
+        units.Add("unit", unit);
+        return report;
+    }
+    static object Weapons(object report)
+    {
+        object evidence = Activator.CreateInstance(awards.GetNestedType("Evidence", All), true);
+        Invoke(awards, "CountWeapons", report, evidence);
+        return evidence;
+    }
+    static bool NoLaunch(object evidence) => (bool)evidence.GetType().GetProperty("NoLaunch", All).GetValue(evidence, null);
+
+    static object Objective(string id, int flags)
+    {
+        object o = Activator.CreateInstance(game.GetType("SeaPower.MissionManager+MissionObjective", true));
+        SetField(o, "_id", id);
+        string[] names = { "_isCanceled", "_isFailed", "_isCompleted", "_failOnMissionEnd", "_completeOnMissionEnd" };
+        for (int n = 0; n < names.Length; n++) SetField(o, names[n], (flags & (1 << n)) != 0);
+        return o;
+    }
+
+    static object MakeDefinition(string id, string name, int precedence)
+    {
+        var ctor = game.GetType("SeapowerUI.ViewModels.LinearCampaignTaskForceRibbonRules+LinearCampaignTaskForceRibbonDefinition", true).GetConstructors(All).Single();
+        var p = ctor.GetParameters();
+        var args = new object[p.Length];
+        for (int i = 0; i < p.Length; i++)
+            args[i] = p[i].ParameterType == typeof(int) ? (object)precedence : p[i].ParameterType == typeof(string) ? (i == 0 ? id : i == 1 ? name : "") : (object)new Dictionary<string, string>();
+        return ctor.Invoke(args);
+    }
+    static object RowOf(object definition, int mission) => definition.GetType().GetMethod("ToAwardRow", All).Invoke(definition, new object[] { 1, mission, "Commander", "" });
+    static string Id(object row) => (string)row.GetType().GetProperty("Id").GetValue(row, null);
+
+    static object MakeDebrief(int result, int rescued, object report, params object[] objectives)
+    {
+        object debrief = Uninitialized("SeapowerUI.ViewModels.MissionDebriefViewModel");
+        SetField(debrief, "<MissionResult>k__BackingField", System.Enum.ToObject(game.GetType("SeapowerUI.ViewModels.MissionDebriefViewModel+Result", true), result));
+        SetField(debrief, "<PlayerSurvivorsRescued>k__BackingField", rescued);
+        var list = (IList)Activator.CreateInstance(typeof(List<>).MakeGenericType(game.GetType("SeaPower.MissionManager+MissionObjective", true)));
+        foreach (var o in objectives) list.Add(o);
+        SetField(debrief, "<MissionObjectives>k__BackingField", list);
+        fixtureReport = report;
+        return debrief;
+    }
+    static object Evidence(string nation, int result, int rescued, object report, params object[] objectives) =>
+        Invoke(awards, "Collect", 15, MakeDebrief(result, rescued, report, objectives), nation, report);
+
+    // Globals' static constructor needs Unity, so the native grant test feeds
+    // the player's weapon report through a Harmony prefix on the runtime's reader.
+    static object fixtureReport;
+    static string streamingAssets;
+    static bool UseTempStreamingAssets(ref string __result) { __result = streamingAssets; return false; }
+    static bool UseFixtureReport(ref object __result) { __result = fixtureReport; return false; }
+    // The debrief view model's static constructor needs native Noesis, so its
+    // auto-property values are read from their backing fields here instead.
+    static bool UseDebriefFields(object debrief, object evidence, ref IEnumerable __result)
+    {
+        if (!(debrief is string))
+        {
+            object result = F(debrief, "<MissionResult>k__BackingField");
+            SetField(evidence, "Result", System.Convert.ToInt32(result));
+            SetField(evidence, "ResultName", result.ToString());
+            SetField(evidence, "Rescued", Math.Max(0, (int)F(debrief, "<PlayerSurvivorsRescued>k__BackingField")));
+            __result = (IEnumerable)F(debrief, "<MissionObjectives>k__BackingField");
+            return false;
+        }
+        return true;
+    }
+
+    static List<string> Evaluate(IList specs, IList native, object evidence, Func<string, object> rowFor, List<string> log)
+    {
+        var method = awards.GetMethod("Evaluate", All);
+        var extra = (IEnumerable)method.Invoke(null, new object[] { specs, native, evidence, RowFactory(method.GetParameters()[3].ParameterType, rowFor), new Action<string>(log.Add) });
+        return extra.Cast<object>().Select(Id).ToList();
+    }
+    // Func<string, LinearCampaignTaskForceRibbonAwardRow> from Func<string, object>.
+    static Delegate RowFactory(Type delegateType, Func<string, object> f)
+    {
+        var arg = System.Linq.Expressions.Expression.Parameter(typeof(string), "id");
+        var call = System.Linq.Expressions.Expression.Convert(System.Linq.Expressions.Expression.Invoke(System.Linq.Expressions.Expression.Constant(f), arg), delegateType.GetGenericArguments()[1]);
+        return System.Linq.Expressions.Expression.Lambda(delegateType, call, arg).Compile();
+    }
+    static IList NativeRows(params object[] rows)
+    {
+        var list = (IList)Activator.CreateInstance(typeof(List<>).MakeGenericType(game.GetType("SeapowerUI.ViewModels.LinearCampaignTaskForceRibbonAwardRow", true)));
+        foreach (var r in rows) list.Add(r);
+        return list;
+    }
+
+    static void Behaviour(string refs, string runtime)
+    {
+        game = Assembly.LoadFrom(Path.Combine(refs, "Seapower-Scripts.dll"));
+        rt = Assembly.LoadFrom(runtime);
+        Assembly.LoadFrom(Path.Combine(refs, "0Harmony.dll"));
+        awards = rt.GetType("Sest.RuntimeFixes.MissionAwards", true);
+        Invoke(awards, "Bind", game);
+        Check((bool)awards.GetField("active", All).GetValue(null), "MissionAwards binds every member on the captured image");
+        new HarmonyLib.Harmony("sest.tests.mission-awards-fixture").Patch(awards.GetMethod("ReadDebrief", All), prefix: new HarmonyLib.HarmonyMethod(typeof(MissionAwardsTests).GetMethod("UseDebriefFields", All)));
+        Check((string)awards.GetField("Key", All).GetValue(null) == "SestRuntimeRibbonAwards", "the campaign key is SestRuntimeRibbonAwards");
+
+        // Grammar.
+        string error;
+        var one = Specs(out error, "sest_rl05_passage?objective:Passage=completed&objective:Unseen=completed&nolaunch");
+        Check(error == null && one.Count == 1 && (string)F(one[0], "RibbonId") == "sest_rl05_passage" && ((IList)F(one[0], "Terms")).Count == 3, "a spec is <native>?<term>&<term>...");
+        var two = Specs(out error, " a?nolaunch | | b,China?rescued>=1 ", "c?result>=MajorVictory");
+        Check(error == null && two.Count == 3 && (string)F(two[1], "RibbonId") == "b", "specs join with '|', across rule sources; blanks are ignored");
+        var mixed = Specs(out error, "A:3,US?NoLaunch&Objective:Pilot=COMPLETED&Result>=majorvictory&RESCUED>=2&objective: Boat = notfailed");
+        var terms = mixed.Count == 1 ? ((IList)F(mixed[0], "Terms")).Cast<object>().ToList() : new List<object>();
+        Check(error == null && (string)F(mixed[0], "RibbonId") == "A" && terms.Count == 5 && (string)F(terms[2], "Id") == "MajorVictory" && (int)F(terms[2], "Number") == 16 &&
+            (int)F(terms[3], "Number") == 2 && (string)F(terms[4], "Id") == "Boat" && (bool)F(terms[4], "NotFailed"), "terms ignore case and spaces; the id is the native one, cut before ':'");
+        foreach (var bad in new[] { "a", "a?", "a?nofire", "a?nolaunch&", "?nolaunch", " ,?nolaunch", "a?rescued>=0", "a?rescued>=1000", "a?rescued>=x", "a?rescued>=-1", "a?rescued>=+1",
+            "a?objective:x=done", "a?objective:=completed", "a?objective:x", "a?result>=Win", "a?result>=11", "a?launched<=0" })
+        {
+            var rejected = Specs(out error, "ok?nolaunch|" + bad);
+            Check(rejected.Count == 0 && error != null, "an invalid spec rejects the whole key (fail closed): " + bad);
+        }
+        Check(Specs(out error, new string('x', 4097) + "?nolaunch").Count == 0 && error != null, "an over-long value is rejected");
+        Check(Specs(out error, string.Join("|", Enumerable.Range(0, 33).Select(n => "r" + n + "?nolaunch"))).Count == 0 && error != null, "more than 32 specs are rejected");
+        // The INI reader: the delivered grammar survives it; the design draft's
+        // ';' separator would have been cut to a bare id and never granted.
+        string line = "SestRuntimeRibbonAwards = sest_rl05_passage?objective:Passage = completed&objective:Unseen=completed&nolaunch|sest_rlc1_recovery,US?objective:Pilot=completed&rescued>=1";
+        var read = Specs(out error, AsRead(line));
+        Check(error == null && read.Count == 2 && (string)F(read[1], "RibbonId") == "sest_rlc1_recovery", "the key survives IniHandler's '=' rejoin");
+        Check(AsRead("SestRuntimeRibbonAwards=sest_x;objective:Passage=completed") == "sest_x" && Specs(out error, AsRead("SestRuntimeRibbonAwards=sest_x;objective:Passage=completed")).Count == 0 && error != null,
+            "a ';' in the value starts an INI comment; such a key fails closed");
+
+        // Commander nations through the native parser and filter.
+        Func<object, string, bool> allows = (spec, nation) => (bool)F(spec, "Native").GetType().GetMethod("AllowsCommanderNation").Invoke(F(spec, "Native"), new object[] { nation });
+        var nations = Specs(out error, "any?nolaunch", "cn,China?nolaunch", "two,China,US?nolaunch");
+        Check(allows(nations[0], "") && allows(nations[0], "Australia") && allows(nations[1], "China") && !allows(nations[1], "US") && !allows(nations[1], "") &&
+            allows(nations[2], "US") && !allows(nations[2], "Japan"), "nation selectors use the native AllowsCommanderNation: none means any commander, otherwise only those nations");
+        Check(allows(nations[1], "china") == (bool)game.GetType("SeapowerUI.ViewModels.LinearCampaignTaskForceCommanderManager", true).GetMethod("IsSameNation", All).Invoke(null, new object[] { "China", "china" }),
+            "nation case follows the native IsSameNation");
+
+        // Objective precedence, all 32 combinations.
+        for (int flags = 0; flags < 32; flags++)
+        {
+            string expected = (flags & 1) != 0 ? "Cancelled" : (flags & 2) != 0 ? "Failed" : (flags & 4) != 0 ? "Completed" : (flags & 8) != 0 ? "Failed" : (flags & 16) != 0 ? "Completed" : "InProgress";
+            Check(Invoke(awards, "StateOf", Objective("o", flags)).ToString() == expected, "objective precedence cancelled, failed, completed, fail-at-end, complete-at-end: flags " + flags);
+        }
+
+        // Weapons: the owner's nolaunch rule on the real report types.
+        Check(NoLaunch(Weapons(Report())), "an empty report is no launch");
+        Check(!NoLaunch(Weapons(Report(Ammo("Torpedo", 1, 0, 0)))), "a torpedo launch disqualifies");
+        Check(!NoLaunch(Weapons(Report(Ammo("Missile", 2, 0, 0)))), "a missile launch disqualifies");
+        Check(!NoLaunch(Weapons(Report(Ammo("Projectile", 0, 10, 0)))), "gun rounds disqualify");
+        foreach (var counter in new[] { "Noisemaker", "Chaff", "MOSS", "Sonobuoy", "Paratrooper", "Fueltank" })
+        {
+            object e = Weapons(Report(Ammo(counter, 4, 4, 0), Ammo("Projectile", 0, 300, 300)));
+            Check(NoLaunch(e) && (long)F(e, "AllLaunched") == 4 && (long)F(e, "AllRounds") == 304, counter + " and CIWS rounds do not disqualify, and are still counted in the totals");
+        }
+        Check(NoLaunch(Weapons(Report(Ammo("Missile", 2, 0, 0, "Chaff")))), "a launcher's chaff sub-type is a countermeasure");
+        Check(!NoLaunch(Weapons(Report(Ammo("Projectile", 0, 310, 300)))), "gun rounds beyond the CIWS rounds disqualify");
+        object unknown = Weapons(Report(Ammo("Projectile", 0, 5, 9)));
+        Check(!NoLaunch(unknown) && !(bool)F(unknown, "WeaponsKnown"), "more CIWS rounds than rounds fired makes the report unknown (fail closed)");
+        Check(!NoLaunch(Weapons(Report(Ammo("Noisemaker", -1, 0, 0)))), "a negative count makes the report unknown");
+        Check(!NoLaunch(Weapons(null)) && !(bool)F(Weapons(null), "WeaponsKnown"), "no weapon report fails nolaunch");
+        Check(!NoLaunch(Weapons(Report(Ammo("Torpedo", int.MaxValue, 0, 0), Ammo("Torpedo", int.MaxValue, 0, 0), Ammo("Torpedo", 0, int.MaxValue, 0)))), "large counts stay counted");
+
+        // Evidence and evaluation, with rows from the native definition type.
+        var definitions = new Dictionary<string, object> { { "sest_rl05_passage", MakeDefinition("sest_rl05_passage", "Undersea Passage", 40) },
+            { "sest_rlc1_recovery", MakeDefinition("sest_rlc1_recovery", "Personnel Recovery", 45) }, { "sest_undersea_operations", MakeDefinition("sest_undersea_operations", "Undersea Operations", 50) },
+            { "alpha", MakeDefinition("alpha", "alpha", 40) } };
+        Func<string, object> rowFor = id => definitions.TryGetValue(id, out var d) ? RowOf(d, 15) : null;
+        var native = NativeRows(RowOf(definitions["sest_undersea_operations"], 15));
+        var passage = Specs(out error, "sest_rl05_passage?objective:Passage=completed&objective:Unseen=completed&nolaunch");
+        var log = new List<string>();
+        object clean = Evidence("Australia", 11, 0, Report(Ammo("Noisemaker", 2, 2, 0)), Objective("Passage", 4), Objective("Unseen", 4), Objective("Boat", 16));
+        Check(Evaluate(passage, native, clean, rowFor, log).SequenceEqual(new[] { "sest_rl05_passage" }) && log.Count == 1 && log[0].Contains("AWARDED") && log[0].Contains("launched=0"),
+            "RL05: both objectives completed and nothing launched grants the ribbon, with one log line");
+        Check(Evaluate(passage, native, Evidence("Australia", 11, 0, Report(Ammo("Torpedo", 1, 0, 0)), Objective("Passage", 4), Objective("Unseen", 4)), rowFor, log).Count == 0 && log.Last().Contains("not met: nolaunch"),
+            "one torpedo launched: no runtime ribbon");
+        Check(Evaluate(passage, native, Evidence("Australia", 11, 0, Report(), Objective("Passage", 4), Objective("Unseen", 2)), rowFor, log).Count == 0 && log.Last().Contains("objective:Unseen=completed (Failed)"),
+            "a failed objective: no runtime ribbon");
+        Check(Evaluate(passage, native, Evidence("Australia", 11, 0, Report(), Objective("Passage", 4)), rowFor, log).Count == 0 && log.Last().Contains("not in this mission"),
+            "an objective missing from the mission evaluates false");
+        var recovery = Specs(out error, "sest_rlc1_recovery?objective:Pilot=completed&rescued>=1");
+        Check(Evaluate(recovery, native, Evidence("US", 14, 2, Report(Ammo("Missile", 4, 0, 0)), Objective("Pilot", 4)), rowFor, log).SequenceEqual(new[] { "sest_rlc1_recovery" }) && log.Last().Contains("rescued=2"),
+            "RLC1: pilot recovered (rescued >= 1) grants, whatever was fired");
+        Check(Evaluate(recovery, native, Evidence("US", 14, 0, Report(), Objective("Pilot", 4)), rowFor, log).Count == 0, "no survivor recovered: no recovery ribbon");
+        Check(Evaluate(recovery, native, Evidence("US", 14, -3, Report(), Objective("Pilot", 4)), rowFor, log).Count == 0 && log.Last().Contains("rescued=0"), "a negative count is clamped to 0 as natively");
+        var threshold = Specs(out error, "alpha?result>=MajorVictory");
+        Check(Evaluate(threshold, native, Evidence("", 16, 0, Report()), rowFor, log).Count == 1 && Evaluate(threshold, native, Evidence("", 15, 0, Report()), rowFor, log).Count == 0,
+            "result>= compares the native Result value");
+        Check(Evaluate(Specs(out error, "sest_undersea_operations?nolaunch"), native, clean, rowFor, log).Count == 0 && log.Last().Contains("already awarded"),
+            "a ribbon the native rules already granted is not added twice");
+        Check(Evaluate(Specs(out error, "sest_rl05_passage?rescued>=1|sest_rl05_passage?nolaunch|sest_rl05_passage?nolaunch"), native, clean, rowFor, log).SequenceEqual(new[] { "sest_rl05_passage" }),
+            "alternative specs for one ribbon: the first that qualifies grants it, once");
+        Check(Evaluate(Specs(out error, "sest_rl05_passage,China?nolaunch"), native, clean, rowFor, log).Count == 0 && log.Last().Contains("commander nation") &&
+            Evaluate(Specs(out error, "sest_rl05_passage,Australia?nolaunch"), native, clean, rowFor, log).Count == 1 &&
+            Evaluate(Specs(out error, "sest_rl05_passage,US?nolaunch"), native, Evidence("", 11, 0, Report()), rowFor, log).Count == 0, "the commander nation selector is honoured; an empty nation gets only unselected specs");
+        Check(Evaluate(Specs(out error, "undefined?nolaunch"), native, clean, rowFor, log).Count == 0 && log.Last().Contains("no [Ribbon_undefined] definition"), "a ribbon without a definition is not granted");
+        log.Clear();
+        Evaluate(Specs(out error, "a?nolaunch|b?nolaunch|c,China?nolaunch"), native, clean, rowFor, log);
+        Check(log.Count == 3, "one log line per evaluated spec");
+
+        // Merge order and the native row round trip.
+        var merged = (IList)Invoke(awards, "Merge", NativeRows(RowOf(definitions["sest_undersea_operations"], 15), RowOf(definitions["sest_rl05_passage"], 15)), NativeRows(RowOf(definitions["alpha"], 15)));
+        Check(merged.Cast<object>().Select(Id).SequenceEqual(new[] { "alpha", "sest_rl05_passage", "sest_undersea_operations" }), "merged rows follow the native order: Precedence, then DisplayName ignoring case");
+        var debriefType = game.GetType("SeapowerUI.ViewModels.LinearCampaignTaskForceDebriefViewModel", true);
+        string serialized = (string)debriefType.GetMethod("SerializeRibbonAwardRows", All).Invoke(null, new object[] { merged });
+        var parsed = ((IEnumerable)debriefType.GetMethod("ParseRibbonAwardRows", All).Invoke(null, new object[] { serialized })).Cast<object>().Select(Id).ToList();
+        Check(parsed.SequenceEqual(new[] { "alpha", "sest_rl05_passage", "sest_undersea_operations" }), "the native debrief rows serialize and parse the runtime ribbon like a native one");
+
+        // The persistent commander set: the native union, idempotent.
+        var data = new Dictionary<string, string> { { "TaskForceCommanderRibbons", "sest_undersea_operations" } };
+        var rules = game.GetType("SeapowerUI.ViewModels.LinearCampaignTaskForceRibbonRules", true);
+        var addRows = rules.GetMethod("AddPersistentCommanderRibbonRows", All);
+        addRows.Invoke(null, new object[] { data, NativeRows(RowOf(definitions["sest_rl05_passage"], 15)) });
+        addRows.Invoke(null, new object[] { data, NativeRows(RowOf(definitions["sest_rl05_passage"], 15)) });
+        Check(data["TaskForceCommanderRibbons"] == "sest_undersea_operations,sest_rl05_passage", "the Service Record set gains the runtime ribbon once, however often it is granted");
+        addRows.Invoke(null, new object[] { null, NativeRows(RowOf(definitions["sest_rl05_passage"], 15)) });
+
+        NativeGrant(definitions);
+    }
+
+    // The real install against the captured assembly with HarmonyLib, then the
+    // real native ApplyMissionRibbonAwards with an in-memory campaign ini.
+    static void NativeGrant(Dictionary<string, object> definitions)
+    {
+        var rules = game.GetType("SeapowerUI.ViewModels.LinearCampaignTaskForceRibbonRules", true);
+        var iniType = game.GetType("SeaPower.IniHandler", true);
+        var apply3 = rules.GetMethods(All).Single(m => m.Name == "ApplyMissionRibbonAwards" && m.GetParameters().Length == 3);
+        // Install's own hook calls, as Cecil reads them: the prefix and finalizer
+        // on SaveDebriefSnapshot and the postfix on the 3-argument grant. Under
+        // mono only the grant can be patched (JIT of the snapshot body needs
+        // Globals' Unity-only static constructor); its patch is the real one.
+        using (var candidate = AssemblyDefinition.ReadAssembly(rt.Location))
+        {
+            var install = candidate.MainModule.GetType("Sest.RuntimeFixes.MissionAwards").Methods.Single(m => m.Name == "Install");
+            InOrder(install, "MissionAwards.Install: Bind, SaveDebriefSnapshot prefix and finalizer, ApplyMissionRibbonAwards postfix",
+                Calls("Sest.RuntimeFixes.MissionAwards", "Bind"),
+                i => i.OpCode.Code == Code.Ldsfld && ((FieldReference)i.Operand).Name == "snapshotTarget", i => i.OpCode.Code == Code.Ldstr && (string)i.Operand == "BeforeSnapshot",
+                i => i.OpCode.Code == Code.Ldstr && (string)i.Operand == "io.github.sest-hobby.mission-awards", i => i.OpCode.Code == Code.Ldstr && (string)i.Operand == "AfterSnapshot", Calls("Sest.RuntimeFixes.Api", "Hooks"),
+                i => i.OpCode.Code == Code.Ldsfld && ((FieldReference)i.Operand).Name == "applyTarget", i => i.OpCode.Code == Code.Ldstr && (string)i.Operand == "AfterApply", Calls("Sest.RuntimeFixes.Api", "Postfix"));
+        }
+        var before = awards.GetMethod("BeforeSnapshot", All); var after = awards.GetMethod("AfterSnapshot", All); var post = awards.GetMethod("AfterApply", All);
+        Check(before.GetParameters().Select(p => p.Name).SequenceEqual(new[] { "__0", "__1" }) && after.ReturnType == typeof(Exception) && after.GetParameters().Single().Name == "__exception" &&
+            post.GetParameters().Select(p => p.Name).SequenceEqual(new[] { "__0", "__1", "__2", "__result" }) && post.GetParameters()[3].ParameterType == apply3.ReturnType.MakeByRefType(),
+            "the hook signatures are Harmony's positional arguments, the exception-preserving finalizer and the native result by reference");
+        Invoke(rt.GetType("Sest.RuntimeFixes.Api", true), "Postfix", apply3, awards, "AfterApply", "io.github.sest-hobby.mission-awards");
+        new HarmonyLib.Harmony("sest.tests.mission-awards-fixture").Patch(awards.GetMethod("PlayerWeaponReport", All), prefix: new HarmonyLib.HarmonyMethod(typeof(MissionAwardsTests).GetMethod("UseFixtureReport", All)));
+        Func<MethodBase, string, List<string>> owners = (m, kind) => {
+            var info = HarmonyLib.Harmony.GetPatchInfo(m);
+            var patches = info == null ? null : kind == "Prefixes" ? info.Prefixes : kind == "Postfixes" ? info.Postfixes : info.Finalizers;
+            return patches == null ? new List<string>() : patches.Select(p => p.owner).ToList();
+        };
+        Check(owners(apply3, "Postfixes").SequenceEqual(new[] { "io.github.sest-hobby.mission-awards" }), "Harmony accepts the by-ref result postfix on the 3-argument ApplyMissionRibbonAwards");
+
+        // A campaign ini held in IniHandler's own cache (no file is read). Its
+        // and Log's static constructors ask Unity for the StreamingAssets and
+        // data paths, which a Harmony prefix answers with a temporary folder.
+        streamingAssets = Path.Combine(Path.GetTempPath(), "SEST-MissionAwards-" + Guid.NewGuid().ToString("N"));
+        var application = AppDomain.CurrentDomain.GetAssemblies().Select(a => a.GetType("UnityEngine.Application", false)).First(t => t != null);
+        foreach (var path in new[] { "streamingAssetsPath", "dataPath" })
+            new HarmonyLib.Harmony("sest.tests.mission-awards-fixture").Patch(application.GetProperty(path).GetGetMethod(), prefix: new HarmonyLib.HarmonyMethod(typeof(MissionAwardsTests).GetMethod("UseTempStreamingAssets", All)));
+        // Native logging (SeaPower.Log) is then quiet: no Unity log handler here.
+        SetField(game.GetType("SeaPower.Log", true), "_logLevel", System.Enum.ToObject(game.GetType("SeaPower.LogLevel", true), 0));
+        object ini = Activator.CreateInstance(iniType, All, null, new object[] { "sest-mission-awards-test.ini" }, null);
+        Action<string, Dictionary<string, string>> section = (name, values) => iniType.GetMethod("AddSection", All).Invoke(ini, new object[] { name, new Dictionary<string, string>(values, StringComparer.OrdinalIgnoreCase) });
+        section("Mission15", new Dictionary<string, string> { { "TaskForceModeRibbonAwards", "sest_undersea_operations" },
+            { "SestRuntimeRibbonAwards", AsRead("SestRuntimeRibbonAwards=sest_rl05_passage?objective:Passage=completed&objective:Unseen=completed&nolaunch|sest_rl05_us,US?nolaunch") } });
+        section("Mission16", new Dictionary<string, string> { { "SestRuntimeRibbonAwards", "sest_rl05_passage?nolaunch|broken" } });
+        section("RL17", new Dictionary<string, string> { { "SestRuntimeRibbonAwards", "sest_rl05_passage?nolaunch" } });
+        foreach (var r in new[] { Tuple.Create("sest_undersea_operations", "Undersea Operations", "50"), Tuple.Create("sest_rl05_passage", "Undersea Passage", "40"), Tuple.Create("sest_rl05_us", "US Passage", "41") })
+            section("Ribbon_" + r.Item1, new Dictionary<string, string> { { "DisplayName", r.Item2 }, { "Precedence", r.Item3 }, { "ImagePath", "ribbons/" + r.Item1 + ".png" } });
+        // The campaign singleton the grant reads (its static _instance field),
+        // with the commander's persistent data.
+        object campaign = Uninitialized("SeaPower.LinearCampaign");
+        var data = new Dictionary<string, string> { { "TaskForceCommanderNation", "Australia" }, { "TaskForceCommanderRibbons", "sest_undersea_operations" } };
+        SetField(campaign, "<PersistentData>k__BackingField", data);
+        SetField(game.GetType("SeaPower.Singleton`1", true).MakeGenericType(game.GetType("SeaPower.LinearCampaign", true)), "_instance", campaign);
+        Func<int, object> missionAt = index => { object m = Uninitialized("SeaPower.LinearCampaignMission"); SetField(m, "_index", index); return m; };
+        // The native grant's own row for mission 15, read by the native rules
+        // from the same ini. (Running the native body itself needs Unity's
+        // Singleton lookup; the contracts above pin it.)
+        object nativeDefinition = rules.GetMethod("ReadRibbonDefinition", All).Invoke(null, new object[] { ini, "sest_undersea_operations" });
+        Check(nativeDefinition != null, "the native rules read [Ribbon_<id>] from the in-memory campaign ini");
+        Func<IList> native15 = () => NativeRows(nativeDefinition.GetType().GetMethod("ToAwardRow", All).Invoke(nativeDefinition, new object[] { 1, 15, "", "" }));
+        Func<object, string> run = report => Grant(ini, 15, "", MakeDebrief(11, 0, report, Objective("Passage", 4), Objective("Unseen", 4)), native15());
+        string granted = run(Report(Ammo("Noisemaker", 3, 3, 0)));
+        Check(granted == "sest_rl05_passage,sest_undersea_operations" && data["TaskForceCommanderRibbons"] == "sest_undersea_operations,sest_rl05_passage",
+            "the runtime ribbon joins the native one in the debrief rows and the commander's Service Record set; the US-only spec is skipped for an Australian commander (" + granted + ")");
+        Check(run(Report(Ammo("Noisemaker", 3, 3, 0))) == granted && data["TaskForceCommanderRibbons"] == "sest_undersea_operations,sest_rl05_passage", "a replayed completion rewrites the same rows and keeps the set unchanged");
+        Check(run(Report(Ammo("Torpedo", 1, 0, 0))) == "sest_undersea_operations", "a torpedo launch leaves only the native award");
+        data["TaskForceCommanderNation"] = "US";
+        Check(run(Report()) == "sest_rl05_passage,sest_rl05_us,sest_undersea_operations" && data["TaskForceCommanderRibbons"] == "sest_undersea_operations,sest_rl05_passage,sest_rl05_us",
+            "a US commander (TaskForceCommanderNation) also receives the US-only runtime ribbon");
+        data["TaskForceCommanderNation"] = "Australia";
+        // Outside a debrief snapshot, or for another mission, nothing changes.
+        IList plain = native15();
+        object[] args = { ini, 15, "", plain };
+        awards.GetMethod("AfterApply", All).Invoke(null, args);
+        Check(ReferenceEquals(args[3], plain), "outside SaveDebriefSnapshot (no snapshot context) the native result is returned untouched");
+        Invoke(awards, "BeforeSnapshot", missionAt(14), MakeDebrief(11, 0, Report()));
+        awards.GetMethod("AfterApply", All).Invoke(null, args);
+        Invoke(awards, "AfterSnapshot", (object)null);
+        Check(ReferenceEquals(args[3], plain), "a snapshot for another mission index adds nothing");
+        Check(Grant(ini, 16, "", MakeDebrief(11, 0, Report()), NativeRows()) == "", "a key with an invalid spec grants nothing (fail closed)");
+        Check(Grant(ini, 17, "RL17", MakeDebrief(11, 0, Report()), NativeRows()) == "sest_rl05_passage", "the key is also read from the mission event's own section, as natively");
+        Check(Grant(ini, 18, "", MakeDebrief(11, 0, Report()), NativeRows()) == "", "a mission without the key is untouched");
+        Check((bool)awards.GetField("active", All).GetValue(null), "parse problems do not disable the feature for other missions");
+        // A fault inside the evaluation: native result kept, feature off.
+        plain = native15(); args = new object[] { ini, 15, "", plain };
+        Invoke(awards, "BeforeSnapshot", missionAt(15), "not a debrief");
+        awards.GetMethod("AfterApply", All).Invoke(null, args);
+        Invoke(awards, "AfterSnapshot", (object)null);
+        Check(ReferenceEquals(args[3], plain) && !(bool)awards.GetField("active", All).GetValue(null), "an evaluation fault keeps the native result and disables runtime awards for the session");
+        Check(Grant(ini, 15, "", MakeDebrief(11, 0, Report(), Objective("Passage", 4), Objective("Unseen", 4)), native15()) == "sest_undersea_operations", "once disabled, native awards are unchanged");
+        Invoke(awards, "Bind", game);
+        // The finalizer ends the snapshot context and returns the native
+        // exception unchanged (null when the snapshot completed).
+        Invoke(awards, "BeforeSnapshot", missionAt(15), MakeDebrief(11, 0, Report()));
+        var failure = new InvalidOperationException("native");
+        Check(ReferenceEquals(Invoke(awards, "AfterSnapshot", failure), failure) && awards.GetField("current", All).GetValue(null) == null && Invoke(awards, "AfterSnapshot", (object)null) == null,
+            "the finalizer clears the snapshot context and rethrows exactly the native exception");
+        // The switch: MissionAwards=0 in [Runtime] turns the grants off; default on.
+        var policy = rt.GetType("Sest.RuntimeFixes.Policy", true);
+        Check((string)Invoke(policy, "TextOption", new[] { "[Runtime]", "MissionAwards=0" }, "MissionAwards", "1") == "0" &&
+            (string)Invoke(policy, "TextOption", new[] { "[Runtime]", "TowedSensorGuard=1" }, "MissionAwards", "1") == "1", "MissionAwards=0 reads as off; a file without it leaves the awards on");
+        using (var candidate = AssemblyDefinition.ReadAssembly(rt.Location))
+            InOrder(candidate.MainModule.GetType("Sest.RuntimeFixes.RuntimeFixesMod").Methods.Single(m => m.Name == "TriggerEntryPoint"), "RuntimeFixesMod installs mission awards only after the native image check and only when MissionAwards is not 0",
+                i => i.OpCode.Code == Code.Ldstr && (string)i.Operand == "499675cda59912054924ae42297bce7a82b12ca00957dabd684105a24aa353a9", i => i.OpCode.Code == Code.Ldstr && (string)i.Operand == "MissionAwards",
+                Calls("Sest.RuntimeFixes.Policy", "TextOption"), Calls("Sest.RuntimeFixes.MissionAwards", "Install"));
+        try { Directory.Delete(streamingAssets, true); } catch (DirectoryNotFoundException) { }
+    }
+
+    // The postfix as Harmony calls it, inside a snapshot for that mission.
+    static string Grant(object ini, int index, string section, object debrief, IList native)
+    {
+        object mission = Uninitialized("SeaPower.LinearCampaignMission");
+        SetField(mission, "_index", index);
+        Invoke(awards, "BeforeSnapshot", mission, debrief);
+        try
+        {
+            object[] args = { ini, index, section, native };
+            awards.GetMethod("AfterApply", All).Invoke(null, args);
+            return string.Join(",", ((IEnumerable)args[3]).Cast<object>().Select(Id));
+        }
+        finally { Invoke(awards, "AfterSnapshot", (object)null); }
+    }
+
     static int Main(string[] args)
     {
         string refs = Path.GetFullPath(args[0]), runtime = Path.GetFullPath(args[1]), workshop = Path.GetFullPath(args[2]);
         AppDomain.CurrentDomain.AssemblyResolve += (s, e) => { string p = Path.Combine(refs, new AssemblyName(e.Name).Name + ".dll"); return File.Exists(p) ? Assembly.LoadFrom(p) : null; };
         string dcm = Path.Combine(workshop, "3813157776", "DynamicCampaignMod.dll");
         Contracts(refs, dcm);
-        Console.WriteLine("Native debrief award and DCM filing contracts passed: " + checks);
+        int contracts = checks;
+        Behaviour(refs, runtime);
+        Console.WriteLine("Mission award and Admiralty filing checks passed: " + contracts + " native/DCM contracts, " + (checks - contracts) + " runtime behaviour assertions");
         return 0;
     }
 }
