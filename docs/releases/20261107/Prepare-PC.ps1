@@ -18,7 +18,9 @@ $bundle=J $PSScriptRoot $bundleName
 if((Get-FileHash -LiteralPath $bundle -Algorithm SHA256).Hash.ToLowerInvariant() -ne $receipt.workshop_bundle.sha256){throw 'Release bundle hash differs; extract the complete toolkit again.'}
 $branch=[string]$receipt.release_branch
 $betaName=if($receipt.PSObject.Properties['beta_directory']){[string]$receipt.beta_directory}else{'R7'}
-if($branch -notmatch '^release/[A-Za-z0-9._/-]+$' -or $betaName -notmatch '^R\d+$'){throw 'Unrecognised release receipt.'}
+# The release branch may be a release/ branch or one of the owner's feature/,
+# fix/ or chore/ branches (the finalised R12 is fix/r12-finalise-20261110).
+if($branch -notmatch '^(release|feature|fix|chore)/[A-Za-z0-9._/-]+$' -or $betaName -notmatch '^R\d+$'){throw 'Unrecognised release receipt.'}
 G bundle verify $bundle
 G fetch $bundle $branch
 $checkout=J (Split-Path -Parent $MainRepository) ('Seapower-Workshop-'+$betaName+'-'+(Get-Date -Format 'yyyyMMdd-HHmmss'))
@@ -40,7 +42,9 @@ $options=@{};if($GameRoot){$options.GameRoot=$GameRoot};if($WorkshopContentRoot)
 $dataOptions=@{RepositoryRoot=$checkout;BetaPackageRoot=$beta}
 if($GameRoot){$dataOptions.GameDirectory=$GameRoot};if($WorkshopContentRoot){$dataOptions.WorkshopContentRoot=$WorkshopContentRoot}
 & (J $checkout 'tools' 'install-workshop-release-data.ps1') @dataOptions
-& (J $checkout 'tools' 'prepare-workshop-upload.ps1') -RepositoryRoot $checkout
+# Verify the canonical upload only: the game's uploader cannot pick a copy
+# outside StreamingAssets, and Upload-PC.cmd makes the publishing copy there.
+& (J $checkout 'tools' 'prepare-workshop-upload.ps1') -RepositoryRoot $checkout -VerifyOnly
 [ordered]@{format=1;repository_root=$checkout;release_commit=$actualCommit;game_root=$GameRoot;workshop_content_root=$WorkshopContentRoot;prepared_utc=[DateTime]::UtcNow.ToString('o')} | ConvertTo-Json | Set-Content -LiteralPath (J $PSScriptRoot 'PREPARED-PC.json') -Encoding UTF8
 Write-Host ('Beta playtest prepared. Launch the game, test the README items, quit and run '+$betaName+'\Capture-Repair-Results.cmd.') -ForegroundColor Green
 Write-Host 'The verified Workshop folder includes the new feature installer. After gameplay checks, quit and run Upload-PC.cmd.'

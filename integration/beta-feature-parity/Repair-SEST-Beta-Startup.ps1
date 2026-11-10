@@ -1,15 +1,21 @@
 <# Upgrade the staged Nov 1 candidate without replacing its original backups.
    Default action disables activation first, verifies inputs, applies the repair,
-   updates the restore journal and re-enables only after all copies verify. #>
+   updates the restore journal and re-enables only after all copies verify.
+   Disable records the player's opt-out (BetaCompatibility\features-off.json),
+   which the pack's SETUP respects; a successful Repair clears it.
+   -Quiet (from the pack's SETUP) prints none of the owner-toolkit lines;
+   -Automatic is passed through to Restore (no opt-out recorded). #>
 [CmdletBinding()]
 param(
     [ValidateSet('Repair','Disable','Restore','Collect')][string]$Action = 'Repair',
     [string]$GameRoot = '', [string]$WorkshopContentRoot = '',
-    [string]$PlayerDataRoot = '', [string]$AppDataRoot = '', [string]$OutDirectory = ''
+    [string]$PlayerDataRoot = '', [string]$AppDataRoot = '', [string]$OutDirectory = '',
+    [switch]$Quiet, [switch]$Automatic
 )
 $ErrorActionPreference = 'Stop'
 Set-StrictMode -Version Latest
 function J { $p=[string]$args[0]; for ($i=1;$i -lt $args.Count;$i++) { $p=[IO.Path]::Combine($p,[string]$args[$i]) }; return $p }
+function Note([string]$Text,[string]$Color='') { if ($Quiet) { return }; if ($Color) { Write-Host $Text -ForegroundColor $Color } else { Write-Host $Text } }
 function Hash([string]$Path) { if (Test-Path -LiteralPath $Path -PathType Leaf) { return (Get-FileHash -LiteralPath $Path -Algorithm SHA256).Hash.ToLowerInvariant() }; return '' }
 function Write-Atomic([string]$Path,[string]$Text) {
     New-Item -ItemType Directory -Path (Split-Path -Parent $Path) -Force | Out-Null
@@ -41,6 +47,7 @@ if (!$PlayerDataRoot) { $PlayerDataRoot=J ([Environment]::GetFolderPath('UserPro
 $loader=J $GameRoot 'BepInEx' 'config' 'SEST-BetaAnchorChain'
 $flag=J $loader 'enable.flag'
 $statePath=J $AppDataRoot 'BetaCompatibility' 'current.json'
+$optOutPath=J $AppDataRoot 'BetaCompatibility' 'features-off.json'
 $payload=J $PSScriptRoot 'payload'
 $common=@{ GameRoot=$GameRoot; WorkshopContentRoot=$WorkshopContentRoot; PlayerDataRoot=$PlayerDataRoot; AppDataRoot=$AppDataRoot }
 if ($Action -eq 'Collect') {
@@ -48,11 +55,22 @@ if ($Action -eq 'Collect') {
     & (J $PSScriptRoot 'Install-SEST-Beta.ps1') @common -Action Collect
     return
 }
-if ($Action -eq 'Restore') { & (J $PSScriptRoot 'Install-SEST-Beta.ps1') @common -Action Restore; return }
+if ($Action -eq 'Restore') {
+    if ($Quiet) { $common.Quiet=$true }
+    if ($Automatic) { $common.Automatic=$true }
+    & (J $PSScriptRoot 'Install-SEST-Beta.ps1') @common -Action Restore
+    return
+}
 # Leave the old, failing activation disabled even when preflight rejects a
 # changed installation. No author/plugin settings or data are moved here.
 if (Test-Path -LiteralPath $flag) { Move-Item -LiteralPath $flag -Destination ($flag+'.disabled') -Force }
-if ($Action -eq 'Disable') { Write-Host 'Beta test activation disabled. Game branch and data retained.'; return }
+if ($Action -eq 'Disable') {
+    # The player's choice: the pack's SETUP leaves activation off until a
+    # Repair, Stage or Enable is run on purpose.
+    Write-Atomic $optOutPath (([ordered]@{ format=1; action='Disable'; created_utc=[DateTime]::UtcNow.ToString('o') }) | ConvertTo-Json)
+    Note 'Beta test activation disabled. Game branch and data retained. SETUP leaves it off until it is switched on again.'
+    return
+}
 $new=Get-Content -LiteralPath (J $payload 'build-receipt.json') -Raw | ConvertFrom-Json
 $repair=Get-Content -LiteralPath (J $PSScriptRoot 'repair-receipt.json') -Raw | ConvertFrom-Json
 if (!(Test-Path -LiteralPath $statePath)) { throw 'This repair requires the previously staged beta test. Use the full installer for a new installation.' }
@@ -160,8 +178,9 @@ try {
     Copy-Verified (J $backup 'current-before-repair.json') $statePath
     throw $failure
 }
-Write-Host ('Reviewed beta code installed: '+$new.candidate_revision+'. Original restore journal and Identify data retained.') -ForegroundColor Green
-if ($steamRefresh) { Write-Host 'Steam-refreshed Workshop plugins recognised and beta features reapplied; original restore backups retained.' }
-Write-Host 'R12 includes World Operations, service progress and Coordinated Strike presentation. The root Prepare-PC command also installs the combined world and native ribbon data.'
-Write-Host 'Follow the PC checks in README-FIRST: check the world map, F11 tabs, strike controls, native service records, Topography, pop-outs and campaign continuation.'
-Write-Host 'Quit and run Capture-Repair-Results.cmd after testing. Steam publication remains a separate step.'
+if (Test-Path -LiteralPath $optOutPath) { Remove-Item -LiteralPath $optOutPath -Force }
+Note ('Reviewed beta code installed: '+$new.candidate_revision+'. Original restore journal and Identify data retained.') 'Green'
+if ($steamRefresh) { Note 'Steam-refreshed Workshop plugins recognised and beta features reapplied; original restore backups retained.' }
+Note 'R12 includes World Operations, service progress and Coordinated Strike presentation. The root Prepare-PC command also installs the combined world and native ribbon data.'
+Note 'Follow the PC checks in README-FIRST: check the world map, F11 tabs, strike controls, native service records, Topography, pop-outs and campaign continuation.'
+Note 'Quit and run Capture-Repair-Results.cmd after testing. Steam publication remains a separate step.'

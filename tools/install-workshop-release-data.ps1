@@ -19,6 +19,17 @@ function Entries([string]$root) {
         [pscustomobject]@{path=$_.FullName.Substring($prefix.Length).Replace('\','/');bytes=$_.Length;sha256=(Hash $_.FullName)}
     } | Sort-Object path)
 }
+# Windows' limits without long-path support: 259 characters for a file, 247
+# for a folder. Checked for every destination before anything is copied.
+function Assert-Fits([string]$root,$files,[string]$what) {
+    $base=[IO.Path]::GetFullPath($root).TrimEnd([char[]]'\/')
+    foreach($e in $files){
+        $rel=[string]$e.path
+        $file=$base.Length+1+$rel.Length
+        $folder=$base.Length+1+[Math]::Max(0,$rel.LastIndexOf('/'))
+        if($file -gt 259 -or $folder -gt 247){throw ('Windows path limit: the '+$what+' would need '+$file+' characters for '+$rel+' under '+$base+' (Windows allows 259 for a file and 247 for a folder). Nothing was copied; use a shorter -BackupDirectory.')}
+    }
+}
 function Verify([string]$root,$files) {
     $prefix=[IO.Path]::GetFullPath($root).TrimEnd([char[]]'\/')+[IO.Path]::DirectorySeparatorChar
     $actual=@(Get-ChildItem -LiteralPath $root -File -Recurse -Force)
@@ -41,7 +52,7 @@ if($Action -eq 'Restore'){
     Verify $destination $record.installed_files
     $previous=J $BackupDirectory 'previous'
     if(!(Test-Path -LiteralPath $previous -PathType Container)){throw 'Previous data backup is missing or already restored.'}
-    $retired=J $BackupDirectory ('replaced-'+[guid]::NewGuid().ToString('N'))
+    $retired=J $BackupDirectory ('replaced-'+[guid]::NewGuid().ToString('N').Substring(0,8))
     Move-Item -LiteralPath $destination -Destination $retired
     try { Move-Item -LiteralPath $previous -Destination $destination }
     catch { Move-Item -LiteralPath $retired -Destination $destination;throw }
@@ -79,6 +90,9 @@ if(!$BackupDirectory){$BackupDirectory=J $steamapps 'SEST-release-backups' ((Get
 $BackupDirectory=[IO.Path]::GetFullPath($BackupDirectory)
 if(Test-Path -LiteralPath $BackupDirectory){throw 'Backup directory already exists; choose a fresh one.'}
 $ready=J $BackupDirectory 'ready';$previous=J $BackupDirectory 'previous'
+Assert-Fits $ready $manifest.files 'ready copy'
+Assert-Fits (J $BackupDirectory 'replaced-00000000') $manifest.files 'restore copy'
+Assert-Fits $destination $manifest.files 'Workshop item folder'
 New-Item -ItemType Directory -Path $BackupDirectory | Out-Null
 Copy-Item -LiteralPath $source -Destination $ready -Recurse
 Verify $ready $manifest.files

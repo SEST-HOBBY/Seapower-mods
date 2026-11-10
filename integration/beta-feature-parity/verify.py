@@ -46,7 +46,7 @@ def run(name, command):
     result = subprocess.run([str(x) for x in command], cwd=root, env=os.environ.copy(), capture_output=True, text=True)
     stdout = result.stdout
     stderr = result.stderr
-    stdout = re.sub(r'[/\\]tmp[/\\]SEST-Beta-Installer-Test-[^\s]+', '<FIXTURE>', stdout)
+    stdout = re.sub(r'[/\\]tmp[/\\]SEST-(?:Beta-Installer-Test|Workshop-Features)-[^\s]+', '<FIXTURE>', stdout)
     results.append({'name': name, 'exit_code': result.returncode, 'stdout': stdout.strip(), 'stderr': stderr.strip()})
     if result.returncode:
         print(name, 'FAILED\n', stdout, stderr)
@@ -67,6 +67,20 @@ run('cost-rows-and-sest-catalog-fallback', [a.mono, out / 'CostRowsTests.exe', f
 run('world-service-and-strike-bindings', [a.mono, out / 'WorldOperationsTests.exe', flat, runtime, workshop])
 run('world-battle-preparation-and-exit', [a.mono, out / 'WorldBattleFlowTests.exe', flat, ui, workshop / '3813157776/DynamicCampaignMod.dll'])
 run('installer-rollback', [a.powershell, '-NoLogo', '-NoProfile', '-File', here / 'tests/Test-Installer.ps1', '-Capture', capture, '-Candidate', out])
+# The pack's SETUP feature step with this source's installer and payload:
+# opt-out after Disable/Remove, another game build, author-file drift and a
+# Steam refresh while staged. The previously published stable UI (the release
+# base commit's) checks that a Restore keeps Steam's newer normal-release copy.
+published_ui = out.parent / (out.name + '.published-ui.dll')
+shown = subprocess.run(['git', '-C', str(root), 'show', '72129cb45d3ec49d145ab323f16111089d868edb:integration/ui-followup/SEST.ContactsFix.dll'], capture_output=True)
+feature_step = [a.powershell, '-NoLogo', '-NoProfile', '-File', here / 'tests/Test-WorkshopFeatures.ps1', '-Capture', capture, '-Candidate', out]
+if shown.returncode == 0 and hashlib.sha256(shown.stdout).hexdigest() == '51b56f5efb4c32dcd7f9d71633564613707e6484c3cffdea1adc891b589588f7':
+    published_ui.write_bytes(shown.stdout)
+    feature_step += ['-PublishedUi', published_ui]
+try:
+    run('workshop-setup-feature-step', feature_step)
+finally:
+    published_ui.unlink(missing_ok=True)
 if len(a.previous_package) != len(a.previous_payload):
     raise SystemExit('Pair every previous package with its matching payload.')
 if len(previous_captures) not in (1, len(a.previous_package)) and a.previous_package:
