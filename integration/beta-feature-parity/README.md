@@ -799,3 +799,22 @@ not the tactical mission RootControl or the linear Task Force menu.
 Combat Costs beside Economy and F11 open Cumulative Combat Costs.
 The world opening paper uses concise sections and wrapped body text;
 other DCM briefings and the native close/guide commands are retained.
+# R12 ribbon expansion - 10 November 2026
+
+Runtime 1.6.3 / UI 1.4.13 adds 25 fictional world service awards, including
+accepted/completed Admiralty duties, campaign-day and theatre milestones.
+The existing v1 service ledger and all old award IDs are retained. Failed,
+cancelled, unaccepted, moot and other-side orders cannot earn task ribbons.
+Task evidence does not inflate manual-battle counts or USD history.
+
+Authored campaigns add eight operation ribbons and six real-award
+representations. Southern Watch and Southern Reach retain Australian defaults
+and offer US commander nationality at native onboarding. National grants use
+the captured native pipe/comma grammar and the commander's committed nation.
+The native debrief requires mission completion and the required result before
+granting its mission awards. All real-award citations explain their fictional
+scenario qualification; they are separate from world battle-count awards.
+
+Check F11 Service scroll/progress, completed convoy/shadow/route assignments,
+native campaign ribbon racks/citations and both commander nationalities. Keep
+the previously accepted opening brief, Combat Costs sidebar and direct F11.

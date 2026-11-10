@@ -1,0 +1,13 @@
+SEST real-award artwork
+
+Australian Operational Service Medal - Indo-Pacific ribbon:
+Author: Nford24. CC0 1.0 Universal Public Domain Dedication.
+Source: https://commons.wikimedia.org/wiki/File:Australian_Operational_Service_Medal_-_Indo-Pacific.png
+Original: https://upload.wikimedia.org/wikipedia/commons/c/cf/Australian_Operational_Service_Medal_-_Indo-Pacific.png
+Copied without modification. Ribbon design checked against the Australian
+Operational Service Medal (Indo-Pacific) Instrument 2024, section 8:
+https://www.gg.gov.au/sites/default/files/2025-02/Australian%20Operational%20Service%20Medal%20%28Indo-Pacific%29%20Instrument%202024.pdf
+
+Other real-award ribbon/medal images reference installed Sea Power assets
+through the captured Pacific Strike Task Force catalogue. They are not copied
+from the game into this pack. Fictional SEST ribbon strips are code-drawn.

@@ -70,6 +70,17 @@ static class WorldOperationsTests
             Call(unknown, "Merge", Events(scope, 0, 1));
             Check(preserved.SequenceEqual(File.ReadAllBytes(future)), "Unknown-format record is preserved byte for byte");
             Check(!Directory.EnumerateFiles(dir, "*.tmp").Any(), "Atomic updates leave no temporary files");
+            Check(Ribbons(store, scope).Count == 25 && Ribbons(store, scope).Select(x => Field(x, "Id")).Distinct().Count() == 25, "Expanded world catalogue has 25 stable unique awards");
+            var expanded = Open(Path.Combine(dir, "expanded.txt"));
+            var activeDays = Events(scope, 100, 20, true, "europe");
+            for (int n = 0; n < activeDays.Count; n++) Set(activeDays[n], "At", new DateTime(2028, 10, 1).AddDays(n).Ticks);
+            Call(expanded, "Merge", activeDays);
+            Check(Progress(expanded, scope, "joint-command") == 20 && Progress(expanded, scope, "enduring-watch") == 20, "Command and watch progress use manual reports and distinct campaign days");
+            Check(Progress(expanded, scope, "europe-veteran") == 20, "Theatre veteran retains the original positioned evidence rule");
+            var regions = new[] { "middle-east", "africa", "americas", "southern", "pacific" };
+            for (int n = 0; n < regions.Length; n++) Call(expanded, "Merge", Events(scope, 200 + n, 1, true, regions[n]));
+            Call(expanded, "Merge", Events(scope, 300, 1, true, "unknown-region"));
+            Check(Progress(expanded, scope, "global-command") == 6, "Cross-theatre service counts six known regions and ignores unknown labels");
 
             var recordType = rt.GetType("Sest.RuntimeFixes.CombatGameRecord", true);
             var historyRows = (IList)Activator.CreateInstance(typeof(List<>).MakeGenericType(recordType));
@@ -100,6 +111,47 @@ static class WorldOperationsTests
             var dcm = Assembly.LoadFrom(dcmPath);
             Call(rt.GetType("Sest.RuntimeFixes.WorldOperations", true), "Bind");
             var world = rt.GetType("Sest.RuntimeFixes.WorldOperations", true);
+            var outcomeType = dcm.GetType("DynamicCampaignMod.Core.State.OrderOutcome", true);
+            object outcome = System.Runtime.Serialization.FormatterServices.GetUninitializedObject(outcomeType);
+            Set(outcome, "Id", 501); Set(outcome, "OrderId", 41); Set(outcome, "SideId", "blue");
+            Set(outcome, "Status", Enum.Parse(outcomeType.GetField("Status").FieldType, "Completed"));
+            Set(outcome, "Kind", Enum.Parse(outcomeType.GetField("Kind").FieldType, "CoverConvoy"));
+            Set(outcome, "Issued", new DateTime(2028, 10, 1)); Set(outcome, "At", new DateTime(2028, 10, 2));
+            Set(outcome, "Title", "Escort completed"); Set(outcome, "Moot", false);
+            object completed = Call(world, "CompletedOrder", outcome, scope, "blue");
+            Check(completed != null && !(bool)Field(completed, "Manual"), "Captured successful accepted Admiralty outcomes become separate non-battle evidence");
+            var orderEvents = (IList)Activator.CreateInstance(typeof(List<>).MakeGenericType(entry));
+            foreach (var kind in new[] { "CoverConvoy", "CoverConvoy", "CoverConvoy", "Shadow", "ClearRoute" })
+            {
+                Set(outcome, "Kind", Enum.Parse(outcomeType.GetField("Kind").FieldType, kind));
+                Set(outcome, "Id", 501 + orderEvents.Count);
+                orderEvents.Add(Call(world, "CompletedOrder", outcome, scope, "blue"));
+            }
+            Call(expanded, "Merge", orderEvents); Call(expanded, "Merge", orderEvents);
+            Check(Progress(expanded, scope, "admiralty-service") == 5 && Progress(expanded, scope, "convoy-protection") == 3 && Progress(expanded, scope, "operational-versatility") == 3, "Admiralty, convoy and varied-duty awards use deduplicated completed native orders");
+            Check(Progress(expanded, scope, "joint-command") == 26, "Admiralty evidence does not inflate manual battle counts");
+            expanded = Open(Path.Combine(dir, "expanded.txt"));
+            Check(Progress(expanded, scope, "admiralty-service") == 5, "New order evidence survives restart in the compatible v1 record");
+            Check(Call(world, "CompletedOrder", outcome, scope, "red") == null, "Other-side orders cannot earn this coalition's awards");
+            foreach (string status in new[] { "Offered", "Active", "Failed", "Declined", "Lapsed", "Cancelled", "Pending" })
+            {
+                Set(outcome, "Status", Enum.Parse(outcomeType.GetField("Status").FieldType, status));
+                Check(Call(world, "CompletedOrder", outcome, scope, "blue") == null, "Non-completed order excluded: " + status);
+            }
+            Set(outcome, "Status", Enum.Parse(outcomeType.GetField("Status").FieldType, "Completed"));
+            Set(outcome, "Moot", true); Check(Call(world, "CompletedOrder", outcome, scope, "blue") == null, "Moot completion is not player service");
+            Set(outcome, "Moot", false); Set(outcome, "Issued", DateTime.MinValue);
+            Check(Call(world, "CompletedOrder", outcome, scope, "blue") == null, "Unaccepted order without issued time is excluded");
+            Set(outcome, "Issued", new DateTime(2028, 10, 3));
+            Check(Call(world, "CompletedOrder", outcome, scope, "blue") == null, "Completion before issue is rejected");
+            Set(outcome, "Issued", new DateTime(2028, 10, 1)); Set(outcome, "OrderId", 0);
+            Check(Call(world, "CompletedOrder", outcome, scope, "blue") == null, "Operation summary cannot count again as a phase order");
+            var nativeRules = typeof(SeaPower.GameMain).Assembly.GetType("SeapowerUI.ViewModels.LinearCampaignTaskForceRibbonRules", true);
+            var specs = ((IEnumerable)Call(nativeRules, "SplitPipeList", "fictional|real_a,Australia|real_b,US")).Cast<object>().ToList();
+            Check(specs.Count == 3, "Captured native outer award grammar separates pipe-delimited specs");
+            object parsed = Call(nativeRules, "TryParseMissionRibbonAwardSpec", "real_a,Australia");
+            Check((string)parsed.GetType().GetProperty("RibbonId", All).GetValue(parsed, null) == "real_a" &&
+                ((IEnumerable)parsed.GetType().GetProperty("Nations", All).GetValue(parsed, null)).Cast<string>().SequenceEqual(new[] { "Australia" }), "Captured native award parser retains the commander-nation selector");
             Check((bool)Call(world, "EnterFrame", 101) && !(bool)Call(world, "EnterFrame", 101) && (bool)Call(world, "EnterFrame", 102), "Tactical, tracker and strategic callbacks cannot toggle F11 twice in one frame");
             var sessionType = dcm.GetType("DynamicCampaignMod.Game.Session.CampaignSession", true);
             var battleType = dcm.GetType("DynamicCampaignMod.Game.Battle.BattleSession", true);

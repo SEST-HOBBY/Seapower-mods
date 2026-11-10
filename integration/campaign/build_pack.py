@@ -7389,8 +7389,9 @@ def campaign_ini(missions, events, placements):
                 # Stock marks its final mission so the campaign can be
                 # replayed in sandbox afterwards.
                 L.append("TaskForceModeFinalMission=True")
-                if service_awards.award_id(SLUG):
-                    L.append("TaskForceModeRibbonAwards=" + service_awards.award_id(SLUG))
+            ribbon_awards = service_awards.mission_awards(SLUG, mission, i == last_playable)
+            if ribbon_awards:
+                L.append("TaskForceModeRibbonAwards=" + "|".join(ribbon_awards))
             L.append(f"TaskForceModeCompletionPoints={mission.get('points', 0)}")
             # Zero cap increment for this first balance pass: a reward is not a
             # reason to raise the ceiling on unspent points.

@@ -1,0 +1,65 @@
+SEST R12 - RIBBONS AND NATIONAL AWARDS
+10 November 2026 | SEST-DEV
+
+WORLD OPERATIONS - F11 > SERVICE
+25 fictional world awards now recognise manual battle service, distinct
+campaign battle days, theatre experience and successful Admiralty duties.
+Original awards and v1 service records are preserved. New task records use
+separate compatible event keys and never inflate manual battle or USD totals.
+
+Manual battle awards: 3 / 10 / 20 / 50 battles; watch awards: battles on
+5 / 15 distinct campaign days; theatre service/veteran: 2 / 5 positioned
+battles in each of six theatres; expeditionary/global command: service in
+3 / all 6 theatres. These are evidenced service milestones, not assumed
+continuous deployments or certificates of unrecorded combat performance.
+
+Admiralty awards: 5 completed accepted orders; 3 different completed order
+kinds; 3 convoy-cover, shadowing or route-clearance orders for each specialist
+ribbon. Failed, cancelled, declined, lapsed, unaccepted, other-side and moot
+outcomes are excluded. Native task conditions and rewards remain in effect.
+Ribbons add no renown, credits or supplies. Auto-resolved battles do not
+qualify for manual battle awards; task awards use their own native outcomes.
+
+AUTHORED CAMPAIGNS - TASK FORCE SERVICE RECORD
+The four original completion ribbons remain. Eight new fictional operation
+ribbons recognise SW05, SW08, SR12, TS09, RL03, RL05, SL04 and SL06 after the
+native required mission result. They do not claim zero losses or perfect ROE.
+
+Southern Watch and Southern Reach keep Australia as the default commander
+nation. New commanders may also choose US through the existing onboarding
+screen. Committed commanders and national discounts retain native behaviour.
+The fleet/scenario stays the same; national awards use the committed nation.
+
+Six real-award representations use national selectors and modern scenario
+citations. Their names/art refer to real awards; these are fictional-operation
+qualifications in the game, not actual government honours or declarations:
+
+- Australian Distinguished Service Cross: Australia; SW12 / TS09.
+- Australian Operational Service Medal - Indo-Pacific: Australia; SR10.
+  The authored assignment begins 6 December 2028; SR10 is 6 January 2029,
+  over 30 campaign days later. Real eligibility also requires a declared
+  qualifying operation. The SEST operation is fictional.
+- Navy and Marine Corps Achievement Medal: US; SW05 / SR04.
+- Navy and Marine Corps Commendation Medal: US; SW08 / SR12.
+- Navy Unit Commendation: US; SW12 / TS09; unit recipient.
+- Meritorious Unit Commendation: US; TS12; unit recipient.
+
+Native completion and required-result checks guard mission grants. Native
+service records retain citations and repeated-award counts. Existing earned
+IDs are retained. Chinese and Philippine campaigns receive their own fictional
+operation awards, without importing an unrelated country's national awards.
+
+ART AND SOURCE NOTES
+The AOSM-IP ribbon is Nford24's CC0 artwork, copied without modification.
+Other real-award images reference installed Sea Power assets. Fictional SEST
+strips are code-drawn. Campaign art/ribbons/SOURCES.txt provides credits.
+Official criteria and scenario implementation are documented in the release
+review; the citations identify the fictional scenario qualification.
+
+PC CHECKS
+Load an existing world and check Service progress, wrapping and scrolling.
+Complete an accepted task, return to the map and compare task/battle counts.
+Check a new Australian and US commander, native ribbon slots and citations.
+The previously accepted opening brief, Combat Costs sidebar and direct F11
+remain. Existing saves are preserved. New data applies through Prepare-PC;
+starting a new commander is needed to choose another nationality.

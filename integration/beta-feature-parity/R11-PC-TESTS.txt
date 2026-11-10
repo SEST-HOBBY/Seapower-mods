@@ -129,3 +129,13 @@ On the strategic map, click Combat Costs beside Economy, then try F11.
 The title must say Cumulative Combat Costs. Check scroll, resize, close,
 return from battle and reload; existing and new world saves need the map
 button once only. Completed battle USD totals must be in the summary.
+R12 RIBBON EXPANSION - 10 NOVEMBER 2026
+- F11 Service: 25 world ribbons; scroll, progress, text and coloured strips.
+- Complete an accepted Admiralty order; compare qualifying task count. Failed,
+  cancelled or moot orders and auto-resolved battles must not add manual service.
+- Existing v1 records retain the old eight awards and manual battle progress.
+- New Southern Watch/Reach commander: Australia remains default; US is an option.
+- Check a native operation milestone in Service Records, then a nation's real
+  award and its scenario citation. Other nationalities must not receive it.
+- Confirm the opening brief, sidebar Combat Costs, direct F11, paused battle
+  preparation, end-battle return, Contacts/Formation and strike controls remain.

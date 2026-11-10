@@ -1,73 +1,80 @@
-SEST R12 - FINAL POSTING PACKAGE
-9 November 2026 | SEST-DEV
-Runtime 1.6.2 / UI 1.4.12
+SEST R12 - RIBBON EXPANSION
+10 November 2026 | SEST-DEV
+Runtime 1.6.3 / UI 1.4.13
 
-CONFIRMED ON THE PC
-The opening briefing's headings and wrapped text, world-map Combat Costs
-button, direct F11 cumulative USD costs and revised Steam description were
-confirmed working by the owner. This follow-up retains that exact code.
+WHAT IS NEW
+The catalogue now contains 43 distinct awards across the world and authored
+campaigns: 37 fictional SEST awards and six real-award representations.
+Not every award belongs to every campaign or commander nationality.
 
-FINAL GROWLER CORRECTION
-The starting-flight selector previously allowed only SEST_SEAD120D for the
-RAAF Growler. Southern Watch and Southern Reach now offer three conventional
-choices: HARM (AGM-88C), AARGM (AGM-88E) and AARGM-ER (AGM-88G). Each carries
-two anti-radiation missiles, two AIM-120Ds, NGJ pods and both wing tanks.
-The first two are also available on the modern US Navy Growler. Existing
-loadout IDs, aircraft defaults and campaign saves have not been rewritten.
+- World Operations has 25 fictional awards for battle service, distinct
+  battle days, theatre experience and completed accepted Admiralty duties.
+  Open the world report, then Service. F11 still opens Combat Costs first.
+- Native Task Force Service Records retain the four completion ribbons and
+  add eight fictional operation ribbons across the authored campaigns.
+- Southern Watch and Southern Reach add six Australian/US real-award
+  representations, nation filters and modern fictional-operation citations.
+  Australia remains the default. New commanders can also select US through
+  native onboarding. Existing committed commanders keep their nationality.
+- Existing world service progress and earned native award IDs are retained.
+  The service file stays v1. Task service does not increase battle or USD
+  counts, or add credits, renown or supplies.
 
-PREPARE AND POST
+RIBBONS.txt lists every qualification and where the awards appear.
+R12-RIBBON-EXPANSION.txt contains the implementation and validation review.
+The new displays and national award grants still need PC gameplay checks.
+
+PREPARE AND CHECK
 1. Close Sea Power. Keep SEST and the collection subscribed. Extract this
    COMPLETE toolkit into a NEW folder and run Prepare-PC.cmd. Keep the
    printed release checkout, backup path and verified UPLOAD FOLDER.
-   Use Prepare-PC, since Repair-PC alone only installs code, not loadout data.
-2. Open Starting Airborne Flights in Southern Watch or Southern Reach.
-   Select the RAAF E/A-18G and check the three loadouts above. The briefing
-   and world costs do not need their acceptance tests repeated for this
-   data-only follow-up. Quit the game after the check.
-3. Run Upload-PC.cmd. It creates a verified publishing copy under
+   Prepare-PC installs both code and campaign/loadout data; Repair-PC alone
+   only repairs code. The author-update guard and original restore journal
+   remain in place. Steam branch, subscriptions and saves are unchanged.
+2. Load an existing world. Open the report and select Service. Check the
+   existing awards/progress, longer ribbon list, scrolling and citations.
+   Complete an accepted Admiralty order and return to the map. The order
+   count should rise once; the battle count and combat USD totals must not.
+3. Check new Australian and US commanders in Southern Watch or Southern
+   Reach. The default stays Australian. Confirm the native Service Record
+   shows the appropriate awards/citations after a qualifying mission result.
+   A failed mission must not grant the mission award. Reopen the campaign
+   to check persistence. Full mission mappings are in RIBBONS.txt.
+4. Recheck the retained opening brief, world Combat Costs sidebar and direct
+   F11 totals. In Starting Airborne Flights select the RAAF E/A-18G and
+   confirm HARM (AGM-88C), AARGM (AGM-88E) and AARGM-ER (AGM-88G) choices.
+   These three loadouts were data-tested previously; the revised selector
+   still awaits an owner PC check. Quit the game after testing.
+5. Run R12\Capture-Repair-Results.cmd and retain the capture. The automated
+   checks passed; they do not establish native Noesis rendering or gameplay.
+
+POST AFTER THE PC CHECKS
+6. Run Upload-PC.cmd. It creates a verified publishing copy under
    StreamingAssets and puts STEAM-CHANGE-NOTE.txt on the clipboard. Keep
-   this temporary local mod disabled.
-4. Open Sea Power > Mod Manager > Create Mod > Update Existing. Select
+   this temporary Local mod disabled.
+7. Open Sea Power > Mod Manager > Create Mod > Update Existing. Select
    Workshop item 3812461539 and the EXACT folder printed by Upload-PC.cmd.
    Paste the change note and submit. Confirm success and a non-zero size.
-5. Update the page description with STEAM-PAGE-DESCRIPTION.txt (Steam BBCode).
-   STEAM-SHORT-DESCRIPTION.txt and STEAM-COLLECTION-DESCRIPTION.txt contain
-   the separate short and collection copy if needed.
-6. Quit and run Finish-Upload.cmd to move the temporary publishing copy out
+8. Update the page description with STEAM-PAGE-DESCRIPTION.txt (Steam BBCode).
+   Separate short and collection copy is included if needed.
+9. Quit and run Finish-Upload.cmd to move the temporary publishing copy out
    of the game. After Steam downloads the update, open the subscribed pack
-   folder and run SETUP - double-click me.cmd with the game closed.
+   and run SETUP - double-click me.cmd with the game closed. This restores
+   the reviewed features if Steam refreshed the normal plugin files.
 
 RETAINED FEATURES
 - Global Maritime Operations 2028: 196 bases, 293 force groups, 54 patrols
   and 1,586 recruitment entries; 40 added airfields and 37 reviewed positions.
-- Eight coalition command stages at 0 / 300 / 800 / 1,600 / 2,800 / 4,500 /
-  7,000 / 10,500 renown, with progressive recruitment access.
-- Native Admiralty assignments and battle outcomes reward command progress.
-  Fuel and ammunition use depots, convoys, airlifts and replenishment ships.
-- Paused world-battle preparation and Esc > End battle... return through the
-  debrief without requiring victory; campaign consequences still apply.
-- F11 Overview, Forces, Combat Costs and Service; campaign completion ribbons;
-  independent world service records; Coordinated Strike styling and estimates;
-  Topography, Pop-Out support and DCM salvo hold.
+- Eight coalition command stages, varied native Admiralty rewards and
+  recruitment progression; no new base-construction mechanic is claimed.
+- Paused battle preparation, clear native end-battle/debrief flow, readable
+  opening brief, world-map Combat Costs and direct cumulative F11 USD totals.
+- Three conventional Growler starting-flight fits, coordinated strike
+  presentation, current Topography/Pop-Out support and Identify preservation.
+- Reviewed beta features inside the normal Workshop SETUP flow, upgrade
+  recovery and rollback. Normal active release plugins stay in the upload;
+  the installer selects the five reviewed files for the supported beta.
 
-Existing worlds can use the tested UI fixes. A world created before the
-196-base expansion needs a new campaign for that full layout and progression.
-The expanded network is scenario data; building bases during play is not
-included. Coalition access, deployments and stocks are hypothetical 2028
-assumptions. Campaign credits and estimated USD costs are separate.
-
-The reviewed Steelfin baseline is retained. Preparation checks author
-configuration updates and makes backed-up code/data changes. It does not
-submit to Steam, switch Steam branches, edit native game DLLs or write saves.
-If an upstream check stops, keep its error/report for review.
-
-SUBSCRIBER INSTALLATION
-Subscribe to this pack and all collection items. In Mod Manager, open this
-pack's folder, close Sea Power and run SETUP - double-click me.cmd. On the
-supported beta, an enabled installation updates in one run. A fresh install
-needs SETUP, a main-menu launch for about ten seconds, quitting and a second
-SETUP run. Rerun SETUP after Steam refreshes this item. Keep SEST at the top.
-Original backups, settings, Identify data and saves are retained.
-
-To collect a later issue, quit and run R12\Capture-Repair-Results.cmd.
-Validation details are in VALIDATION.json and R12-POSTING-REVIEW.txt.
+The owner accepted the previous four briefing/costs/page changes on
+9 November. This ribbon revision has not been played on that PC yet.
+No Steam upload or GitHub push has been performed for this revision.

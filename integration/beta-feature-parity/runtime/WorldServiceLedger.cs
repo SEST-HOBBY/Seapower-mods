@@ -103,14 +103,48 @@ internal sealed class WorldServiceLedger
     internal List<Ribbon> Ribbons(string scope)
     {
         var manual = entries.Values.Where(e => e.Scope == scope && e.Manual).ToList();
+        var orders = CompletedOrders(scope).ToList();
+        int days = manual.Where(e => e.At > 0).Select(e => new DateTime(e.At).Date).Distinct().Count();
+        var regions = new[] { "europe", "middle-east", "africa", "americas", "southern", "pacific" };
+        int theatres = manual.Where(e => regions.Contains(e.Theatre)).Select(e => e.Theatre).Distinct().Count();
         var all = new List<Ribbon> {
             Make("meridian", "Meridian Accord Service Ribbon", 3, manual.Count, "Completed three manually commanded world-campaign battles.", "#233C5B|#D8E4E8|#4E9192|#D1B46B|#4E9192|#D8E4E8|#233C5B"),
-            Make("iron-meridian", "Iron Meridian Service Ribbon", 10, manual.Count, "Completed ten manually commanded world-campaign battles.", "#343C49|#BFAD78|#6D818C|#BFAD78|#343C49")
+            Make("iron-meridian", "Iron Meridian Service Ribbon", 10, manual.Count, "Completed ten manually commanded world-campaign battles.", "#343C49|#BFAD78|#6D818C|#BFAD78|#343C49"),
+            Make("joint-command", "Joint Maritime Command Ribbon", 20, manual.Count, "Completed twenty manually commanded world-campaign battles.", "#233C5B|#D1B46B|#E0E8E8|#D1B46B|#233C5B"),
+            Make("sustained-command", "Sustained Command Service Ribbon", 50, manual.Count, "Completed fifty manually commanded world-campaign battles.", "#293A48|#D1B46B|#4E9192|#D1B46B|#293A48"),
+            Make("operational-watch", "Operational Watch Ribbon", 5, days, "Commanded manual battles on five distinct campaign calendar days. This counts evidenced battle days, not assumed deployment time.", "#243B65|#DCE6E8|#5B858A|#DCE6E8|#243B65"),
+            Make("enduring-watch", "Enduring Watch Ribbon", 15, days, "Commanded manual battles on fifteen distinct campaign calendar days.", "#243B65|#D9B65B|#5B858A|#D9B65B|#243B65"),
+            Make("expeditionary-command", "Expeditionary Command Ribbon", 3, theatres, "Completed positioned manual battles in three different service theatres.", "#35564C|#D7C593|#DCE6E8|#D7C593|#35564C"),
+            Make("global-command", "Global Maritime Command Ribbon", 6, theatres, "Completed positioned manual battles in all six service theatres.", "#233C5B|#D9B65B|#4E9192|#D9B65B|#233C5B"),
+            Make("admiralty-service", "Admiralty Service Commendation", 5, orders.Count, "Completed five accepted Admiralty orders. Failed, lapsed, declined, cancelled and moot outcomes do not qualify.", "#174B52|#DCE6E8|#D9B65B|#DCE6E8|#174B52"),
+            Make("operational-versatility", "Operational Versatility Ribbon", 3, orders.Select(OrderKind).Distinct().Count(), "Completed accepted Admiralty orders of three different kinds.", "#174B52|#8EA8C3|#D9B65B|#8EA8C3|#174B52"),
+            Make("convoy-protection", "Convoy Protection Ribbon", 3, orders.Count(e => OrderKind(e) == "CoverConvoy"), "Completed three accepted convoy-cover orders.", "#255A72|#DCE6E8|#4E9192|#DCE6E8|#255A72"),
+            Make("surveillance-service", "Maritime Surveillance Ribbon", 3, orders.Count(e => OrderKind(e) == "Shadow"), "Completed three accepted shadowing orders.", "#344A6E|#B6C8D4|#35564C|#B6C8D4|#344A6E"),
+            Make("route-security", "Route Security Ribbon", 3, orders.Count(e => OrderKind(e) == "ClearRoute"), "Completed three accepted route-clearance orders.", "#35564C|#D7C593|#255A72|#D7C593|#35564C")
         };
-        foreach (var t in new[] { "europe", "middle-east", "africa", "americas", "southern", "pacific" })
+        foreach (var t in regions)
+        {
             all.Add(Make(t, TheatreName(t) + " Service Ribbon", 2, manual.Count(e => e.Theatre == t), "Completed two manually commanded battles with a recorded engagement position in " + TheatreName(t) + ".", TheatreColours(t)));
+            all.Add(Make(t + "-veteran", TheatreName(t) + " Veteran Ribbon", 5, manual.Count(e => e.Theatre == t), "Completed five manually commanded battles with a recorded engagement position in " + TheatreName(t) + ".", "#D9B65B|" + TheatreColours(t) + "|#D9B65B"));
+        }
         return all;
     }
+
+    // Typed keys are additive within the existing six-field v1 record. Old
+    // battle entries and old binaries ignore these non-manual order events.
+    internal IEnumerable<Entry> CompletedOrders(string scope) => entries.Values.Where(e => e.Scope == scope && IsCompletedOrder(e));
+
+    private static bool IsCompletedOrder(Entry e)
+    {
+        string prefix = e.Scope + ":admiralty:";
+        if (e.Manual || !e.Key.StartsWith(prefix, StringComparison.Ordinal)) return false;
+        var parts = e.Key.Substring(prefix.Length).Split(':');
+        return parts.Length == 3 && new[] { "Intercept", "CoverConvoy", "HuntSubmarine", "Interdict", "Blockade", "CapturePort", "DefendBase", "Shadow", "Barrier", "ClearRoute", "FleetAction" }.Contains(parts[0]) &&
+            int.TryParse(parts[1], NumberStyles.None, CultureInfo.InvariantCulture, out var id) && id > 0 &&
+            long.TryParse(parts[2], NumberStyles.None, CultureInfo.InvariantCulture, out var at) && at == e.At;
+    }
+
+    private static string OrderKind(Entry e) => e.Key.Substring((e.Scope + ":admiralty:").Length).Split(':')[0];
 
     private static Ribbon Make(string id, string name, int required, int progress, string citation, string colours) => new Ribbon { Id = id, Name = name, Required = required, Progress = progress, Citation = citation, Colours = colours.Split('|') };
     internal static string TheatreName(string id)

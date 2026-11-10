@@ -1,0 +1,116 @@
+SEST R12 - RIBBON EXPANSION REVIEW
+10 November 2026 | SEST-DEV
+Runtime 1.6.3 / UI 1.4.13
+
+BASE AND SCOPE
+Follows posting release 7dab359163ea4ca16bf94da9f001823605e959d5.
+Target game assembly remains
+499675cda59912054924ae42297bce7a82b12ca00957dabd684105a24aa353a9.
+Native API references are the 9 November capture, DCM 0.25.0.1. The 203-item
+author-configuration baseline, Steelfin refresh and Growler data are retained.
+Steam publication and GitHub push have not been performed.
+
+CATALOGUE
+43 unique awards across separate contexts: 25 fictional world awards,
+12 fictional native campaign/operation awards, and six real-award
+representations in the two allied authored campaigns. The earlier catalogue
+had eight world awards and four native completion ribbons; 31 were added.
+
+World: retain Meridian, Iron Meridian and six theatre service IDs. Add
+20/50-battle command awards, 5/15 distinct battle-day watch awards, 3/6-theatre
+command awards, six theatre-veteran awards, an Admiralty commendation,
+variety award and three specialist order ribbons. New ribbons progress from
+evidenced native reports/outcomes. Manual service is not assumed victory,
+continuous deployment, zero losses, rescue work or perfect ROE.
+
+Native fictional milestones: SW05 Northern Lifeline; SW08 Archipelago
+Operations; SR12 Antarctic Lifeline; TS09 Southern Convoy; RL03 Contact
+Intelligence; RL05 Undersea Operations; SL04 Fleet Sustainment; SL06 Littoral
+Operations. Original four completion IDs, final-mission flags and art remain.
+
+Real-award representations:
+  Australia - Distinguished Service Cross: SW12 / TS09.
+  Australia - Operational Service Medal, Indo-Pacific: SR10.
+  US - Navy and Marine Corps Achievement Medal: SW05 / SR04.
+  US - Navy and Marine Corps Commendation Medal: SW08 / SR12.
+  US - Navy Unit Commendation: SW12 / TS09.
+  US - Meritorious Unit Commendation: TS12.
+The US unit citations name the task force; personal/service awards name the
+commander. Australia is still the default. New allied commanders may select
+US through native onboarding; existing committed commanders are untouched.
+Chinese and Philippine campaigns receive their own fictional milestones.
+
+NATIVE GRANT CONTRACT
+Captured SaveDebriefSnapshot checks IsComplete and the mission's RequiredResult
+before ApplyMissionRibbonAwards. The authored required result remains
+CostlyVictory. Native parser inspection and tests confirm pipe-separated
+award specifications, with comma-separated national selectors, for example:
+  sest_southern_watch_service|australian_distinguished_service_cross,Australia|navy_unit_commendation,US
+The catalogue retains native award/citation storage and repeated-award counts.
+The generator merges existing definitions/IDs idempotently. Real-award images
+use installed native asset paths except for the attributed AOSM-IP ribbon.
+Old stock citation-sheet images with 1985 text are omitted from these modern
+definitions; scenario citations name the SEST Scenario Awards Board.
+
+WORLD PERSISTENCE AND QUALIFICATION
+SEST-WORLD-SERVICE-1 and its six fields are unchanged. Accepted completed
+orders are added as non-manual entries with typed admiralty keys. Old binaries
+ignore them for manual service. Original manual entries and unknown-schema
+read-only handling are retained. Deduplication uses the native outcome ID and
+timestamp within the existing campaign-definition/side scope. Cross-save
+profile scope remains unchanged; no native save is rewritten.
+
+Only same-side Completed outcomes with positive OrderId/outcome Id, a valid
+Issued date, At >= Issued, and Moot=false qualify. OrderId=0 operation
+summaries do not count a second time. Declined, failed, lapsed, cancelled,
+unaccepted and moot outcomes are excluded. Specialist ribbons use CoverConvoy,
+Shadow and ClearRoute; variety uses the captured native order-kind enum.
+Task entries do not inflate recorded manual games or combat-cost totals.
+Ribbons add no economy or promotion rewards. Service refreshes every five
+seconds while open; existing direct F11 Combat Costs routing is retained.
+
+REAL-AWARD CONTEXT AND ART
+These are in-game representations with fictional scenario qualifications,
+not actual government awards or claims that SEST operations are declared
+eligible. The DSC represents distinguished command and leadership. AOSM-IP
+uses its service-period context: the authored assignment begins 6 December
+2028 and SR10 is dated 6 January 2029. The builder rejects this grant if moved
+before 30 campaign days. Actual eligibility also requires declared qualifying
+duty. US definitions identify personal decorations versus unit citations;
+mission completion is explicitly the game's scenario qualification.
+
+Australian Defence sources:
+https://www.defence.gov.au/adf-members-families/honours-awards/australian-awards/distinguished-service-cross
+https://www.defence.gov.au/adf-members-families/honours-awards/australian-awards/australian-operational-service-medal-indo-pacific
+Australian Operational Service Medal (Indo-Pacific) Instrument 2024:
+https://www.gg.gov.au/sites/default/files/2025-02/Australian%20Operational%20Service%20Medal%20%28Indo-Pacific%29%20Instrument%202024.pdf
+US Navy awards manual index (SECNAV M-1650.1):
+https://www.secnav.navy.mil/DONi/manuals-secnav.aspx
+
+AOSM-IP artwork: Nford24, CC0 1.0, copied unchanged (897 bytes).
+https://commons.wikimedia.org/wiki/File:Australian_Operational_Service_Medal_-_Indo-Pacific.png
+Source/licence notes are included under campaign art/ribbons/SOURCES.txt.
+Other real-award artwork references installed Sea Power assets; no game art
+is redistributed. Fictional strips are drawn by code; no AI imagery is used.
+
+VALIDATION
+- All 15 managed/installer groups passed, including 102 world service/strike
+  checks, 24 battle-flow checks and 65 previous-1.6.2 upgrade/rollback checks.
+- Authored campaign suite: 315 passed; service-award tests: 10 passed;
+  listing tests: four passed; Growler loadout tests: six passed.
+- Workshop feature install, Steam-refresh repair and restore: 40 assertions.
+- Data install/restore: 24 assertions; upload preparation: seven;
+  publisher staging/finish: 10 assertions. All fixtures use temporary files.
+- Rebuilt campaigns contain 80 missions; consolidated payload: 4,349 files.
+- The final upload manifest verifies every path, length and SHA-256.
+Detailed receipts and logs are included with the toolkit. No Unity process,
+native Noesis rendering or Steam uploader was executed in this environment.
+
+PC ACCEPTANCE REMAINING
+Use Prepare-PC.cmd so both the ribbon catalogue and reviewed code install.
+Check old world progress, long-list scrolling, task grants and unchanged costs.
+Check Australian/US onboarding and native award slots/citations after a valid
+result, failure exclusion, and a campaign reload. Check the retained world
+brief/costs and the previously unconfirmed three-choice Growler selector.
+Quit and run R12\Capture-Repair-Results.cmd before posting. The existing owner
+acceptance covered the four earlier briefing/costs/page changes only.

@@ -75,7 +75,8 @@ A single worldwide campaign for [b]Dynamic Campaign Mod[/b], combining the origi
 [*][b]F11 World Operations[/b] brings together Overview, Forces, Costs and Service. Use F11 or Combat Costs beside Economy to open cumulative combat costs. Overview shows your next command milestone, recruitment unlocks, and Admiralty task rewards and deadlines.
 [*][b]Cumulative Combat Costs[/b] records available evidence of weapons expenditure, platform losses and stores lost with destroyed units. View mission and campaign reports through F11, with cost summaries in the Task Force debrief.
 [*]Historical and current price bases are labelled. Missing prices remain identified as unknown. [b]Estimated USD costs are separate from campaign credits and physical supplies.[/b]
-[*]Native completion ribbons recognise the four authored campaigns. A separate world service record tracks completed manual engagements and theatre service.
+[*][b]Expanded service ribbons[/b] include 25 fictional world awards for manual battles, campaign-day and theatre milestones, and successful Admiralty duties. The authored campaigns retain their completion ribbons and add eight operation awards.
+[*][b]Six real-award representations[/b] use Australian or US commander filters and explicit fictional-operation qualifications in Southern Watch and Southern Reach. Read citations in the native Task Force Service Record; these are game awards, not real government honours.
 [*]Coordinated Strike refinements add shared styling and planned/remaining weapon-cost estimates, alongside the original planning and launch controls.
 [*]Starting airborne Growler flights in Southern Watch and Southern Reach offer [b]HARM, AARGM and AARGM-ER[/b] loadouts, with AIM-120D self-defence missiles, NGJ pods and two external tanks.
 [/list]

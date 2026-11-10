@@ -170,7 +170,7 @@ internal static class WorldOperations
                 ToggleMapReport();
             if (shown && (report == null || Now >= nextView))
             {
-                report = View(); nextView = Now + (Tab == 1 ? 5 : 2);
+                report = View(); nextView = Now + (Tab == 1 || Tab == 3 ? 5 : 2);
             }
             NativeCombatSurface.Tick(false, shown, report, "world:" + scope + ":" + Tab, () => shown = false, Now);
         }
@@ -214,7 +214,27 @@ internal static class WorldOperations
             string theatre = positions.TryGetValue(id, out var p) && p.Item1 == at.Ticks ? p.Item2 : "";
             events.Add(new WorldServiceLedger.Entry { Scope = scope, Key = scope + ":" + id + ":" + at.Ticks, At = at.Ticks, Where = Clean(Get(r, "Where"), 512), Manual = !(bool)Get(r, "AutoResolved"), Theatre = theatre });
         }
+        foreach (var outcome in Rows(Get(state, "Outcomes")))
+        {
+            var entry = CompletedOrder(outcome, scope, side);
+            if (entry != null) events.Add(entry);
+        }
         ledger.Merge(events);
+    }
+
+    internal static WorldServiceLedger.Entry CompletedOrder(object outcome, string campaignScope, string playerSide)
+    {
+        if (outcome == null || S(outcome, "SideId") != playerSide ||
+            S(outcome, "Status") != "Completed" || (bool)Get(outcome, "Moot") ||
+            Convert.ToInt32(Get(outcome, "OrderId")) <= 0 || Convert.ToInt32(Get(outcome, "Id")) <= 0) return null;
+        var issued = (DateTime)Get(outcome, "Issued");
+        var at = (DateTime)Get(outcome, "At");
+        if (issued == DateTime.MinValue || at < issued) return null;
+        return new WorldServiceLedger.Entry {
+            Scope = campaignScope,
+            Key = campaignScope + ":admiralty:" + S(outcome, "Kind") + ":" + Convert.ToInt32(Get(outcome, "Id")) + ":" + at.Ticks,
+            At = at.Ticks, Manual = false, Where = Clean(Get(outcome, "Title"), 512), Theatre = ""
+        };
     }
 
     internal static void Stamp(CombatGameRecord record)
@@ -377,7 +397,7 @@ internal static class WorldOperations
         var ribbons = ledger.Ribbons(scope);
         int earned = ribbons.Count(r => r.Earned);
         v.AddSummary(CostLineKind.PlayerTotal, earned + " service ribbons earned");
-        v.AddSummary(CostLineKind.Basis, "Fictional SEST profile awards | " + ledger.Entries.Count(e => e.Scope == scope && e.Manual) + " completed manual battles recorded");
+        v.AddSummary(CostLineKind.Basis, "Fictional SEST profile awards | " + ledger.Entries.Count(e => e.Scope == scope && e.Manual) + " manual battles | " + ledger.CompletedOrders(scope).Count() + " qualifying Admiralty orders");
         if (ledger.ReadOnly) v.AddDetail(CostLineKind.Body, "Service record is read-only because its saved format could not be validated. The existing file has been retained.");
         foreach (var r in ribbons.OrderByDescending(r => r.Earned))
         {
@@ -387,7 +407,7 @@ internal static class WorldOperations
             v.AddDetail(CostLineKind.Breakdown, r.Citation);
         }
         v.AddDetail(CostLineKind.Section, "CITATION AND EVIDENCE");
-        v.AddDetail(CostLineKind.Body, "Issued by Joint Maritime Campaign Headquarters. Completion comes from DCM battle reports. Auto-resolves do not count. Theatre awards require an engagement position observed during battle; an older report without coordinates earns global service progress only.");
-        v.AddDetail(CostLineKind.Body, "Native Southern Watch, Southern Reach, Red Line and Sulu Line completion ribbons appear in their Task Force Service Records. Logistics, ROE and specialist performance awards require additional evidence and are not inferred from spending.");
+        v.AddDetail(CostLineKind.Body, "Battle service counts completed manual reports; auto-resolved battles do not qualify. Theatre awards require observed battle coordinates. Watch ribbons count distinct evidenced campaign days. Admiralty ribbons count accepted, completed, non-moot orders and retain the native task conditions.");
+        v.AddDetail(CostLineKind.Body, "Campaign, operation and real national award representations appear in Task Force Service Records. National awards use scenario qualifications and commander-nation filters. World service awards do not add renown, credits or supplies. Unrecorded bravery, logistics or ROE conditions are not inferred from spending.");
     }
 }

@@ -1,4 +1,8 @@
-Global Maritime Operations 2028 - Bases and Command Progress
+SEST R12 - Ribbon Expansion and World Operations
+
+Ribbon expansion: 25 fictional world awards now cover manual battle service, operational days, theatre experience and successful Admiralty duties. Added eight authored-operation ribbons and six nationally filtered real-award representations with scenario citations. Southern Watch and Southern Reach retain Australian defaults and offer a US commander option. Existing earned awards, saves, cost history and v1 service records are retained.
+
+Runtime 1.6.3 / UI 1.4.13. Run Prepare-PC for the complete local test update, or the pack SETUP after the Workshop update is installed.
 
 Expanded the world to 196 bases with 40 additional real airfields. Reviewed 37 existing airfield placements and orientations, including Muharraq, Chambers Field, Souda, Longtian and Severomorsk-3. Existing force groups, patrols and recruitment platforms are retained.
 
@@ -14,4 +18,4 @@ Refreshed against the latest Steelfin export: its removed demo mission and menu 
 
 World-map UI follow-up: F11 and the new Combat Costs sidebar button open Cumulative Combat Costs directly. Corrected the campaign-view/window-host connection and strategic update path. USD totals now appear in the report summary. The opening world briefing uses concise, wrapped sections and normal-weight body text; native close and guide controls remain.
 
-Corrected the Growler starting-flight loadout selection in Southern Watch and Southern Reach. HARM (AGM-88C) and AARGM (AGM-88E) options now appear alongside AARGM-ER (AGM-88G); each keeps AIM-120D self-defence missiles, NGJ pods and both wing tanks. Existing loadout IDs and the tested Runtime 1.6.2 / UI 1.4.12 code are retained.
+Corrected the Growler starting-flight loadout selection in Southern Watch and Southern Reach. HARM (AGM-88C) and AARGM (AGM-88E) options now appear alongside AARGM-ER (AGM-88G); each keeps AIM-120D self-defence missiles, NGJ pods and both wing tanks. Existing loadout IDs are retained.
