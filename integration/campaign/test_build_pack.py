@@ -2281,11 +2281,18 @@ class SameNationDiscount(unittest.TestCase):
                       f"{counts['Japan']} classes registered to Japan for a Japanese "
                       "commander, ", page)
         self.assertIn(f"the {counts['Italy']} classes registered to Italy for an Italian commander", page)
-        self.assertIn("the 1 class registered to Norway for a Norwegian commander and the 1 class "
-                      "registered to Denmark for a Danish commander. Every other class costs its "
-                      "listed price.", page)
+        # A count of one is a word (review of 10 Nov 2026).
+        self.assertIn("the one class registered to Norway for a Norwegian commander and the one "
+                      "class registered to Denmark for a Danish commander. Every other class costs "
+                      "its listed price.", page)
         self.assertIn("no class for a New Zealand commander (none is registered to New Zealand)", page)
-        self.assertNotRegex(page, r"\b1 classes")
+        self.assertNotRegex(page, r"\b1 classes|\bthe 1 class\b")
+        # Which commanders the campaign's national awards go to, and that the
+        # others receive the fictional ribbons and the host's unit award only.
+        self.assertIn("Australian, American, British, Japanese, New Zealand and Canadian commanders "
+                      "receive their own nation's awards; French, South Korean, Spanish, Italian, "
+                      "German, Dutch, Norwegian and Danish commanders receive the fictional ribbons "
+                      "and the group's Australian Meritorious Unit Citation only.", page)
         self.assertIn("The commander is Australian by default; you can instead appoint an "
                       "American, a British, a Japanese, a New Zealand, a French, a Canadian, a "
                       "South Korean, a Spanish, an Italian, a German, a Dutch, a Norwegian or a "
@@ -2309,6 +2316,11 @@ class SameNationDiscount(unittest.TestCase):
                       "costs its listed price; no commander's discount covers the classes "
                       "registered to the USA (1).", page)
         self.assertNotIn("The commander's nation is fixed.", page)
+        # Sulu Line's national awards are Philippine, for a Philippine
+        # commander only.
+        self.assertIn("Philippine awards go to a Philippine commander only; Thai and Australian "
+                      "commanders receive the fictional ribbons and the group's Philippine Republic "
+                      "Presidential Unit Citation only.", page)
 
     def test_no_discount_says_so(self):
         spec = dict(bp.campaign_specs()[0])
@@ -2325,7 +2337,7 @@ class SameNationDiscount(unittest.TestCase):
         own = [e for e in spec["ROSTER"] if nations[e["unit"]] == "China"]
         spec["ROSTER"] = own + [dict(unit="ran_ffh_anzac", picks=["Variant3"], points=240)]
         page = bp.campaign_rules(spec)
-        self.assertIn(f"The discount covers the {len(own)} classes registered to China. The 1 "
+        self.assertIn(f"The discount covers the {len(own)} classes registered to China. The one "
                       "class registered to other nations - from Australia (1) - costs its "
                       "listed price.", page)
 

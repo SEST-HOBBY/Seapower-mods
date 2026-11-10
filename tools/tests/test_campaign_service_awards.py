@@ -526,12 +526,28 @@ class BuiltCampaigns(unittest.TestCase):
                             else "") + name
                     adjective, article = awards.ADJECTIVE[nation]
                     count = counts.get(nation.lower(), 0)
-                    # One class reads singular (Norway's Skjold, Denmark's
-                    # Iver Huitfeldt); none says so.
-                    self.assertIn(f"the {count} class{'es' if count != 1 else ''} registered to {name} "
+                    # One class reads singular, in a word (Norway's Skjold,
+                    # Denmark's Iver Huitfeldt, New Zealand's P-8A); none says
+                    # so.
+                    words = "one" if count == 1 else str(count)
+                    self.assertIn(f"the {words} class{'es' if count != 1 else ''} registered to {name} "
                                   f"for {article} {adjective} commander" if count else
                                   f"no class for {article} {adjective} commander (none is registered "
                                   f"to {name})", page)
+                self.assertNotRegex(page, r"\bthe 1 class\b")
+                # Every offered nation is named once in the awards sentence:
+                # with its own nation's awards, or with the fictional ribbons
+                # and the host's unit award only.
+                awarded, unit = awards.award_nations(slug)
+                m = re.search(r"commander can receive\. (.*?)(?: commanders? receives? their own "
+                              r"nation's awards| awards go to an? [\w ]+ commander only); (.*?) "
+                              r"commanders? receives? the fictional ribbons and the group's (.*?) only\.",
+                              page)
+                self.assertTrue(m, slug)
+                rest = [n for n in offered if n not in awarded]
+                self.assertEqual(re.split(r", | and ", m[1]), [awards.ADJECTIVE[n][0] for n in awarded])
+                self.assertEqual(re.split(r", | and ", m[2]), [awards.ADJECTIVE[n][0] for n in rest])
+                self.assertEqual(m[3], " and ".join(unit))
 
     def test_the_builder_reproduces_the_commander_files(self):
         sys.path.insert(0, str(ROOT / "integration/campaign"))

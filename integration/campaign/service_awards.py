@@ -149,9 +149,10 @@ UK_RANKS = ('Midshipman,MID,OF-D,1,|Sub-Lieutenant,SLT,OF-1,2,|Lieutenant,LT,OF-
 # official accents (Latin-1, which the English UI draws: stock unit names
 # ship 'Andalucía F72' and 'Snøgg'). Korea and Thailand publish English
 # titles; the game font has no Hangul or Thai. The Royal Thai Navy has no
-# OF-6 rank: a Captain on the special grade, which ranks above a Captain,
-# takes level 7, the Sulu Line starting level. Several abbreviations are the
-# navies' conventional forms, not read from an official list.
+# one-star rank: a Captain on the special grade, which ranks above a
+# Captain, is placed at OF-6, level 7, the Sulu Line starting level. Several
+# abbreviations are the navies' conventional forms, not read from an
+# official list.
 NEWZEALAND_RANKS = _ladder(
     'Midshipman,MID', 'Sub Lieutenant,SLT', 'Lieutenant,LT', 'Lieutenant Commander,LTCDR',
     'Commander,CDR', 'Captain,CAPT', 'Commodore,CDRE', 'Rear Admiral,RADM', 'Vice Admiral,VADM',
@@ -675,6 +676,19 @@ def commander_nations(slug, commander=''):
         if nation not in nations:
             nations.append(nation)
     return tuple(nations)
+
+
+def award_nations(slug):
+    """(nations, unit awards): the offered nations whose commanders a
+    campaign grants national awards, in its offer order, and the names of
+    the host's unit awards every commander's group receives. The rules
+    page and RIBBONS.txt say the other offered nations' commanders receive
+    the fictional ribbons and the unit award only."""
+    slug = base_slug(slug)
+    granted = [REAL[rid] for rid in grants(slug) if rid in REAL]
+    nations = {row['nation'] for row in granted if row['nation']}
+    return ([n for n in NATIONS.get(slug, ()) if n in nations],
+            [row['name'] for row in granted if not row['nation']])
 
 
 def describe(nation):

@@ -40,20 +40,20 @@ detachment and frigate serve in its group. Red Line stays Chinese. Choose
 the nation in the Service Record when a campaign starts; a commander
 already in a save keeps its nation and name.
 
-Each nation has its navy's name, officer ranks and an emblem. Ranks use
-the navy's own titles: English for the Commonwealth navies, Korea and
-Thailand; French, Spanish, Italian, German, Dutch, Norwegian and Danish
-titles with their accents for the others. Commander is OF-4, Captain OF-5
-and a commodore's grade OF-6 in every navy; Thailand has no OF-6 rank, so
-Sulu Line's Thai commander is a Captain on the special grade. Australia,
-the US and Japan use the game's own ranks and emblems. Other emblems come
-from the SEST gallery flag set: a naval ensign where the set has one (the
-UK, New Zealand, Italy), otherwise the national flag, which is the ensign
-itself for France, Canada, South Korea, the Netherlands and Spain. The
-German, Norwegian, Danish and Thai ensigns differ from the national flag,
-and SOURCES.txt says so. New Zealand, South Korea, the Netherlands,
-Denmark and Thailand get SEST name pools (language_en/sest_name_pools.ini);
-the other nations use the game's own.
+Each nation has its navy's name, officer ranks and an emblem. Ranks use the
+navy's own titles: English for the Commonwealth navies, Korea and Thailand;
+French, Spanish, Italian, German, Dutch, Norwegian and Danish titles with
+their accents for the others. Commander is OF-4, Captain OF-5 and a
+commodore's grade OF-6 in every ladder SEST adds. Thailand has no one-star
+rank, so Captain (Special Grade) is placed at OF-6, level 7, and Sulu Line's
+Thai commander holds it. Australia, the US and Japan use the game's own
+ranks and emblems. Other emblems come from the SEST gallery flag set: a
+naval ensign where the set has one (the UK, New Zealand, Italy), otherwise
+the national flag, which is the ensign itself for France, Canada, South
+Korea, the Netherlands and Spain. The German, Norwegian, Danish and Thai
+ensigns differ from the national flag, and SOURCES.txt says so. New Zealand,
+South Korea, the Netherlands, Denmark and Thailand get SEST name pools
+(language_en/sest_name_pools.ini); the other nations use the game's own.
 
 The game's same-nation purchase discount follows the commander's nation:
 an Australian commander keeps it on the Australian classes; an allied
@@ -70,6 +70,13 @@ Littoral Operations. Each needs the mission's required result.
 
 Real-award representations. Personal and service awards go to a commander
 of that nation; the unit award goes to the task group whoever commands it.
+In Southern Watch and Southern Reach, Australian, US, British, Japanese,
+Canadian and New Zealand commanders receive their own nation's awards;
+French, South Korean, Spanish, Italian, German, Dutch, Norwegian and Danish
+commanders receive the fictional ribbons and the group's Australian
+Meritorious Unit Citation only. In Sulu Line, the Philippine awards go to
+a Philippine commander only; a Thai or Australian commander receives the
+fictional ribbons and the Philippine Republic Presidential Unit Citation.
 
 Southern Watch (the commander is a Commander, OF-4 / O-5)
 - Australia: Commendation for Distinguished Service, SW08; Distinguished
@@ -136,16 +143,17 @@ PC CHECKS
 On the beta, load an existing world and check Service progress, wrapping
 and scrolling. Complete an accepted task, return to the map and compare
 task/battle counts.
-Start a new Southern Watch campaign: the Service Record offers the
-fourteen nations. Compare one Anzac and one Burke price as an Australian
-and as a US commander. Check the British commander's empty rank insignia
-and the White Ensign emblem. Pick New Zealand, South Korea and Thailand
-(Sulu Line): each shows a name from its SEST pool, not a blank, and its
-emblem. As a New Zealand commander in Southern Watch, buy the P-8A at
-Weapons Free at the discounted price; fly it in a Maritime Patrol slot and
-note whether it launches, patrols and lands. Pick Germany or Norway: the rank title's accented letter (the
-a-umlaut of Kapitan zur See, the o-slash of Kommandor) draws on the
+Start a new Southern Watch campaign: the Service Record offers the fourteen
+nations. Compare one Anzac and one Burke price as an Australian and as a US
+commander. Check the British commander's empty rank insignia and the White
+Ensign emblem. Pick New Zealand, South Korea and Thailand (Sulu Line): each
+shows a name from its SEST pool, not a blank, and its emblem. As a New
+Zealand commander in Southern Watch, buy the P-8A at Weapons Free at the
+discounted price; fly it in a Maritime Patrol slot and note whether it
+launches, patrols and lands. Pick Germany or Norway: the rank title's
+accented letter (the a-umlaut of Fregattenkapitan, the o-slash of
+Kommandorkaptein, the level-5 ranks Southern Watch starts at) draws on the
 commander screen and in a citation. Open a citation: its date is the
 mission's, not 1985. Load an existing save: its commander, nation and earned
-ribbons are unchanged. Existing saves are preserved; start a new
-commander to choose another nationality.
+ribbons are unchanged. Existing saves are preserved; start a new commander
+to choose another nationality.

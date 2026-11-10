@@ -254,6 +254,10 @@ def campaign_rules(spec, open_allocation=False, allied=0):
                          "rebase campaign_rules()")
     discount = same_nation_discount(spec["COMMANDER"])
     nation = re.search(r"^CommanderNations=(.+)$", spec["COMMANDER"], re.M).group(1).strip()
+
+    def count_word(c):
+        """'the one class', not 'the 1 class'; digits from two."""
+        return number_words(c) if c == 1 else str(c)
     # The commander nations the campaign offers (service_awards.NATIONS adds
     # them to the commander_settings.ini it writes). The game's discount
     # follows the committed commander's nation, so with more than one the
@@ -273,16 +277,39 @@ def campaign_rules(spec, open_allocation=False, allied=0):
                    f"is {adjectives[0]} by default; you can instead appoint {choice} officer "
                    "in command of the group. Choose the nation in the Service Record when the "
                    "campaign starts; it is then locked for the campaign.")
+    # Which offered nations' commanders the campaign's national awards go
+    # to, and what the others receive (review of 10 Nov 2026: a French or
+    # Danish commander, or a Thai one in Sulu Line, was not told that no
+    # national award is granted to them).
+    def joined(words, last="and"):
+        return words[0] if len(words) == 1 else ", ".join(words[:-1]) + f" {last} " + words[-1]
+
+    awarded, unit_awards = service_awards.award_nations(spec.get("SLUG", ""))
+    rest = [a for n, a in zip(offered, adjectives) if n not in awarded]
+    own = [a for n, a in zip(offered, adjectives) if n in awarded]
+    if not awarded:
+        who = "No commander here receives a national award"
+    elif len(awarded) == 1:
+        article = service_awards.ADJECTIVE.get(awarded[0], ("", "a"))[1]
+        who = f"{own[0]} awards go to {article} {own[0]} commander only"
+    else:
+        who = f"{joined(own)} commanders receive their own nation's awards"
+    if rest:
+        who += (f"; {joined(rest)} commander{'s' if len(rest) > 1 else ''} receive"
+                f"{'' if len(rest) > 1 else 's'} the fictional ribbons"
+                + (f" and the group's {joined(unit_awards)}" if unit_awards else "")
+                + " only")
     lines = [
         '<TextBlock Text="Command" FontSize="17" FontWeight="Bold" Foreground="White" '
         'TextWrapping="Wrap" Margin="0,0,0,6"/>',
         line.format(_xml_text(command), 14),
-        line.format("Commander nationality does not change mission rules, ship "
+        line.format(_xml_text(
+                    "Commander nationality does not change mission rules, ship "
                     "performance, aircraft performance, or combat capability."
                     + ((" It decides which classes the purchase discount covers and which "
                         "national awards the commander can receive." if discount else
                         " It decides which national awards the commander can receive.")
-                       if len(offered) > 1 else ""),
+                       + f" {who}." if len(offered) > 1 else "")),
                     14),
     ]
     unrestricted = ("- In the game's Unrestricted mode the Service Record also offers a "
@@ -300,7 +327,7 @@ def campaign_rules(spec, open_allocation=False, allied=0):
         for n, adjective in zip(offered, adjectives):
             c = counts.get(n.lower(), 0)
             article = service_awards.ADJECTIVE.get(n, ("", "a"))[1]
-            each.append(f"the {c} class{'es' if c != 1 else ''} registered to {the(n)} for "
+            each.append(f"the {count_word(c)} class{'es' if c != 1 else ''} registered to {the(n)} for "
                         f"{article} {adjective} commander" if c else
                         f"no class for {article} {adjective} commander (none is registered "
                         f"to {the(n)})")
@@ -335,8 +362,8 @@ def campaign_rules(spec, open_allocation=False, allied=0):
                       f"- Every unit on this campaign's roster is registered to {nation} "
                       "by its squadron or hull variant, so the discount applies to all "
                       "of it." if not foreign else
-                      f"- The discount covers the {own} class{'es' if own != 1 else ''} "
-                      f"registered to {nation}. The {sum(foreign.values())} "
+                      f"- The discount covers the {count_word(own)} class{'es' if own != 1 else ''} "
+                      f"registered to {nation}. The {count_word(sum(foreign.values()))} "
                       f"class{'es' if sum(foreign.values()) != 1 else ''} registered to "
                       "other nations - from "
                       + ", ".join(f"{n} ({c})" for n, c in sorted(

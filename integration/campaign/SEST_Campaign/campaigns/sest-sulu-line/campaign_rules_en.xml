@@ -39,7 +39,7 @@
 
             <TextBlock Text="Command" FontSize="17" FontWeight="Bold" Foreground="White" TextWrapping="Wrap" Margin="0,0,0,6"/>
             <TextBlock Text="You command the Philippine Navy task force for the whole campaign. The commander is Philippine by default; you can instead appoint a Thai or an Australian officer in command of the group. Choose the nation in the Service Record when the campaign starts; it is then locked for the campaign." FontSize="15" Foreground="#D8DDE8" TextWrapping="Wrap" Margin="0,0,0,14"/>
-            <TextBlock Text="Commander nationality does not change mission rules, ship performance, aircraft performance, or combat capability. It decides which classes the purchase discount covers and which national awards the commander can receive." FontSize="15" Foreground="#D8DDE8" TextWrapping="Wrap" Margin="0,0,0,14"/>
+            <TextBlock Text="Commander nationality does not change mission rules, ship performance, aircraft performance, or combat capability. It decides which classes the purchase discount covers and which national awards the commander can receive. Philippine awards go to a Philippine commander only; Thai and Australian commanders receive the fictional ribbons and the group's Philippine Republic Presidential Unit Citation only." FontSize="15" Foreground="#D8DDE8" TextWrapping="Wrap" Margin="0,0,0,14"/>
             <Border Height="1" Background="{StaticResource Brush.Glyph.Normal}" Opacity="0.45" Margin="0,0,0,14"/>
 
             <TextBlock Text="National Purchase Discount" FontSize="17" FontWeight="Bold" Foreground="White" TextWrapping="Wrap" Margin="0,0,0,6"/>
