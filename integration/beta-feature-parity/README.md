@@ -39,9 +39,12 @@ file and its `File`/`Base` definition).
   ID the mission does not have is false. `result>=` compares the native
   `Result` value (Incomplete 0 to DecisiveVictory 17). `rescued>=` uses the
   debrief's `PlayerSurvivorsRescued`, clamped at 0 as natively.
-- `nolaunch` (the owner's RL05 rule): no player weapon was launched and no gun
-  round fired, read from the live `Globals._playerTaskforce._weaponReport`,
-  which the snapshot writes to the campaign only after the awards.
+- `nolaunch` (the owner's RL05 rule): no weapon launched and no gun round
+  fired by any unit of the player's task force (failed launches count), read
+  from the live `Globals._playerTaskforce._weaponReport`, which the snapshot
+  writes to the campaign only after the awards. That includes AI-controlled
+  escorts and allied units in the player's task force: one that engages on
+  its own makes the term false even if the player's own boat fired nothing.
   Noisemakers, chaff, MOSS decoys, sonobuoys, paratroopers, fuel tanks and
   CIWS rounds (`ProjectileFired − CiwsRoundsFired`) do not count. A missing
   report or an inconsistent count makes it false.
@@ -114,6 +117,8 @@ using only countermeasures: the log line says AWARDED with launched=0 and
 rounds=0, the debrief awards row and the Service Record show the ribbon with
 its citation, date and rank; repeat with one torpedo (not met: nolaunch, the
 native award still granted) and with only noisemakers or decoys (eligible).
+Confirm RL05's task force has no AI escort that could fire, or that one
+firing correctly disqualifies the mission.
 Recover the pilot in RLC1 (`[Mission11]`): rescued=N matches the debrief's
 survivors. Replay a completed mission and reload saves: the ribbon shows
 once. A commander nation selector grants only that nation. `MissionAwards=0`

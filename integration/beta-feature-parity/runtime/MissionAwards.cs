@@ -19,8 +19,9 @@ namespace Sest.RuntimeFixes;
 //   <spec>  = <ribbonId>[,<NationKey>...]?<term>[&<term>...]
 //   <term>  = objective:<ObjectiveId>=completed|failed|cancelled|notfailed
 //           | result>=<MissionDebriefViewModel.Result name>   e.g. result>=CostlyVictory
-//           | nolaunch     no player weapon launched and no gun round fired;
-//                          noisemakers, chaff, decoys (MOSS), sonobuoys and CIWS rounds excepted
+//           | nolaunch     no weapon launched and no gun round fired by any unit of the
+//                          player's task force (failed launches count); noisemakers, chaff,
+//                          decoys (MOSS), sonobuoys and CIWS rounds excepted
 //           | rescued>=<1-999>   survivors recovered by the player's task force
 //
 // The part before '?' is parsed by the native TryParseMissionRibbonAwardSpec
@@ -456,7 +457,8 @@ internal static class MissionAwards
     }
 
     // The live Globals._playerTaskforce._weaponReport, which the native
-    // snapshot writes to the campaign only after the awards.
+    // snapshot writes to the campaign only after the awards. It has a row for
+    // every unit of the player's task force, AI-controlled escorts included.
     [MethodImpl(MethodImplOptions.NoInlining)]
     internal static object PlayerWeaponReport()
     {
