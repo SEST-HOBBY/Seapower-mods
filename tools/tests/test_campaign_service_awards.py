@@ -350,6 +350,16 @@ class CampaignServiceAwards(unittest.TestCase):
                     self.assertTrue(value.isascii() and " " not in value, key)
         for nation, row in awards.NATION_SETTINGS.items():
             self.assertTrue(row["pool"] in stock or row["pool"] in awards.NAME_POOLS, nation)
+            # A SEST pool's default name reads as the pool builds one: given
+            # name first, surname last ('Seongjin Han', as stock's 'Hiroshi
+            # Watanabe'), so randomising does not flip the order.
+            if row["pool"] in awards.NAME_POOLS:
+                first, _middle, last = (v.split(",") for v in awards.NAME_POOLS[row["pool"]])
+                words = row["name"].split()
+                with self.subTest(nation=nation, name=row["name"]):
+                    self.assertIn(words[0], first)
+                    self.assertIn(words[-1], last)
+        self.assertEqual(awards.NATION_SETTINGS["South_Korea"]["name"], "Seongjin Han")
         self.assertEqual(awards.unknown_pools("CommanderNamePoolX=Names_Nowhere\nCommanderNamePoolY=Names_UK\n"
                                               "CommanderNamePoolZ=Names_Thailand\n"), ["Names_Nowhere"])
         saved = dict(awards.NAME_POOLS)

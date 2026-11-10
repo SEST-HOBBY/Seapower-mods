@@ -147,13 +147,14 @@ Start a new Southern Watch campaign: the Service Record offers the fourteen
 nations. Compare one Anzac and one Burke price as an Australian and as a US
 commander. Check the British commander's empty rank insignia and the White
 Ensign emblem. Pick New Zealand, South Korea and Thailand (Sulu Line): each
-shows a name from its SEST pool, not a blank, and its emblem. As a New
-Zealand commander in Southern Watch, buy the P-8A at Weapons Free at the
-discounted price; fly it in a Maritime Patrol slot and note whether it
-launches, patrols and lands. Pick Germany or Norway: the rank title's
-accented letter (the a-umlaut of Fregattenkapitan, the o-slash of
-Kommandorkaptein, the level-5 ranks Southern Watch starts at) draws on the
-commander screen and in a citation. Open a citation: its date is the
-mission's, not 1985. Load an existing save: its commander, nation and earned
-ribbons are unchanged. Existing saves are preserved; start a new commander
-to choose another nationality.
+shows a name from its SEST pool, not a blank, with the given name first as
+in the defaults (Seongjin Han), and its emblem. As a New Zealand commander
+in Southern Watch, buy the P-8A at Weapons Free at the discounted price; fly
+it in a Maritime Patrol slot and note whether it launches, patrols and
+lands. Pick Germany or Norway: the rank title's accented letter (the
+a-umlaut of Fregattenkapitan, the o-slash of Kommandorkaptein, the level-5
+ranks Southern Watch starts at) draws on the commander screen and in a
+citation. Open a citation: its date is the mission's, not 1985. Load an
+existing save: its commander, nation and earned ribbons are unchanged.
+Existing saves are preserved; start a new commander to choose another
+nationality.

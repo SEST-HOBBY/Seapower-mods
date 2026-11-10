@@ -234,7 +234,9 @@ NATION_SETTINGS = {
                    emblem=_EMBLEMS + 'sest_rcn_emblem.png', ranks=CANADA_RANKS,
                    commons='File:Flag of Canada.svg',
                    about='the Canadian national flag, which the Royal Canadian Navy flies as its ensign'),
-    'South_Korea': dict(name='Han Seongjin', pool='Names_South_Korea', navy='Republic of Korea Navy',
+    # Given name first, as the pool generates it and as stock writes
+    # 'Hiroshi Watanabe' (10 Nov 2026; it was 'Han Seongjin').
+    'South_Korea': dict(name='Seongjin Han', pool='Names_South_Korea', navy='Republic of Korea Navy',
                         emblem=_EMBLEMS + 'sest_rokn_emblem.png', ranks=SOUTH_KOREA_RANKS,
                         commons='File:Flag of South Korea.svg',
                         about='the South Korean national flag, which the Republic of Korea Navy flies '
