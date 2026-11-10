@@ -6436,6 +6436,8 @@ def flagship(uid):
 # (integration/gallery/source/visuals/flags, credited in its
 # VISUAL_CREDITS.txt). A commander_settings.ini path under
 # ui/campaign/navy_emblems/sest_* must have an entry here.
+# Each campaign's art/ribbons/SOURCES.txt credits every one its commander
+# file names (service_awards.emblem_credits).
 SEST_EMBLEMS = {"sest_plan_emblem.png": "china_naval.png",
                 "sest_pn_emblem.png": "philippines.png",
                 # The White Ensign, for a Royal Navy commander in the two
@@ -8738,7 +8740,7 @@ def main():
                              f"{', '.join(unknown)}, which neither the game's ui.ini nor "
                              "service_awards.NAME_POOLS defines")
         (camp / "commander_settings.ini").write_text(commander_text, encoding="utf-8")
-        service_awards.render(camp, SLUG)
+        service_awards.render(camp, SLUG, commander_text)
         write_emblems(commander_text)
         (camp / "campaign_rules_en.xml").write_text(c["rules_text"], encoding="utf-8")
         for folder, desc in folders.items():

@@ -275,6 +275,43 @@ NATION_SETTINGS = {
                            'elephant on a red disc at its centre; the gallery set has no file for it'),
 }
 
+# Emblems a campaign's own COMMANDER text names rather than a row above
+# (Sulu Line's Philippine Navy, Red Line's PLA Navy), credited the same way
+# in SOURCES.txt: build_pack.SEST_EMBLEMS draws them from the gallery set.
+CAMPAIGN_EMBLEMS = {
+    'sest_pn_emblem.png': dict(commons='File:Flag of the Philippines.svg',
+                               about='the Philippine national flag, which the Philippine Navy flies as '
+                                     'its ensign'),
+    'sest_plan_emblem.png': dict(commons='File:Naval Ensign of China.svg',
+                                 about='the Chinese naval ensign'),
+}
+
+
+def emblem_credits(slug, commander=''):
+    """[(file, navy, about, commons)] for every SEST emblem (sest_*) a
+    NavyEmblem key of the campaign's commander text names, in the order the
+    text names them: what build_pack.write_emblems draws. The text is the
+    campaign's commander_settings.ini; without one, the nations
+    NATION_SETTINGS adds. An emblem with no credit stops the build."""
+    text = _nations(commander or '', base_slug(slug))
+    values = _section(text, 'CommanderSettings')
+    credits = {row['emblem'].rsplit('/', 1)[1]: row for row in NATION_SETTINGS.values() if row.get('commons')}
+    credits.update(CAMPAIGN_EMBLEMS)
+    out, seen = [], set()
+    # The pattern build_pack.write_emblems draws from.
+    for nation, path in re.findall(r'^NavyEmblem(\w+)=(ui/campaign/navy_emblems/sest_[^\s]+)$', text, re.M):
+        name = path.rsplit('/', 1)[1]
+        if name in seen:
+            continue
+        seen.add(name)
+        if name not in credits:
+            raise ValueError(f'{slug}: NavyEmblem{nation} names {name}, which no NATION_SETTINGS row '
+                             'or CAMPAIGN_EMBLEMS entry credits')
+        row = credits[name]
+        out.append((name, values.get('NavyName' + nation, '').strip(), row['about'], row['commons']))
+    return out
+
+
 # SEST name pools for the nations the game ships none for (stock
 # language_en/ui.ini has [Names_X] for Argentina, Australia, Canada, China,
 # France, Germany, India, Iran, Iraq, Italy, Japan, Norway, Pakistan, South
@@ -899,8 +936,10 @@ def _strip(stripes, device=None):
     return Image.alpha_composite(image, overlay)
 
 
-def sources_text(slug):
-    """This campaign's art/ribbons/SOURCES.txt: what each picture is."""
+def sources_text(slug, commander=''):
+    """This campaign's art/ribbons/SOURCES.txt: what each picture is.
+    `commander` is the campaign's commander_settings.ini text, whose SEST
+    emblems the file credits (emblem_credits)."""
     slug = base_slug(slug)
     rows = catalogue(slug)
     title = CAMPAIGNS[slug][2]
@@ -929,16 +968,15 @@ def sources_text(slug):
                   'green, light blue, green, a yellow centre - match the Defence description and the',
                   'Australian Operational Service Medal (Indo-Pacific) Instrument 2024, approved',
                   '12 January 2025.']
-    emblems = [NATION_SETTINGS[n] for n in NATIONS.get(slug, ())
-               if NATION_SETTINGS.get(n, {}).get('commons')]
+    emblems = emblem_credits(slug, commander)
     if emblems:
         lines += ['', f'Commander emblem{"s" if len(emblems) != 1 else ""} in {_EMBLEMS}, scaled by '
                   'build_pack.py from the SEST', 'gallery flag set (Wikimedia Commons, public domain; '
                   'credited in Gallery/VISUAL_CREDITS.txt):']
-        for row in emblems:
-            lines += textwrap.wrap(f'{row["emblem"].rsplit("/", 1)[1]} - {row["navy"]}: {row["about"]}.',
+        for name, navy, about, commons in emblems:
+            lines += textwrap.wrap(f'{name} - {navy}: {about}.',
                                    width=88, initial_indent='  ', subsequent_indent='    ')
-            lines.append(f'    Source: {row["commons"]}')
+            lines.append(f'    Source: {commons}')
     real = [(rid, row) for rid, row in rows.items() if row['reference'] != 'Fictional' and row.get('source')]
     if real:
         lines += ['', 'Award facts (criteria, ribbon design, precedence):']
@@ -948,9 +986,10 @@ def sources_text(slug):
     return '\n'.join(lines) + '\n'
 
 
-def render(campaign_directory, slug):
+def render(campaign_directory, slug, commander=''):
     """Draw the strips, copy the sourced AOSM strip unaltered and write the
-    campaign's SOURCES.txt."""
+    campaign's SOURCES.txt, crediting the emblems `commander` (the
+    campaign's commander_settings.ini text) names."""
     slug = base_slug(slug)
     folder = Path(campaign_directory) / 'art/ribbons'
     folder.mkdir(parents=True, exist_ok=True)
@@ -962,7 +1001,7 @@ def render(campaign_directory, slug):
             shutil.copyfile(HERE / 'assets/ribbons/aosm_indo_pacific.png', path)
             continue
         _strip(row['stripes'], row.get('device')).save(path)
-    (folder / 'SOURCES.txt').write_text(sources_text(slug), encoding='utf-8')
+    (folder / 'SOURCES.txt').write_text(sources_text(slug, commander), encoding='utf-8')
 
 
 def mission_awards(slug, mission, final=False):

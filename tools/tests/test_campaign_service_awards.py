@@ -307,8 +307,12 @@ class CampaignServiceAwards(unittest.TestCase):
         sys.path.insert(0, str(ROOT / "integration/campaign"))
         import build_pack as bp
         credits = (ROOT / "integration/gallery/source/VISUAL_CREDITS.txt").read_text(encoding="utf-8")
-        for nation, row in awards.NATION_SETTINGS.items():
-            name = row["emblem"].rsplit("/", 1)[1]
+        rows = [(nation, row["emblem"].rsplit("/", 1)[1], row)
+                for nation, row in awards.NATION_SETTINGS.items()]
+        # The campaigns' own emblems (Sulu Line's Philippine Navy, Red Line's
+        # PLA Navy) are credited the same way.
+        rows += [(name, name, row) for name, row in awards.CAMPAIGN_EMBLEMS.items()]
+        for nation, name, row in rows:
             if not name.startswith("sest_"):
                 self.assertIn(row["emblem"], STOCK_EMBLEMS, nation)
                 continue
@@ -558,6 +562,39 @@ class BuiltCampaigns(unittest.TestCase):
                 self.assertEqual(re.split(r", | and ", m[1]), [awards.ADJECTIVE[n][0] for n in awarded])
                 self.assertEqual(re.split(r", | and ", m[2]), [awards.ADJECTIVE[n][0] for n in rest])
                 self.assertEqual(m[3], " and ".join(unit))
+
+    def test_sources_credit_every_sest_emblem_the_commander_file_names(self):
+        # Review of 10 Nov 2026: SOURCES.txt listed only the NATION_SETTINGS
+        # emblems, so Sulu Line's default sest_pn_emblem.png (philippines.png)
+        # and Red Line's sest_plan_emblem.png (china_naval.png) were missing.
+        sys.path.insert(0, str(ROOT / "integration/campaign"))
+        import build_pack as bp
+        credits = (ROOT / "integration/gallery/source/VISUAL_CREDITS.txt").read_text(encoding="utf-8")
+        for slug in awards.CAMPAIGNS:
+            commander = self.campaigns[slug]["commander"]
+            sources = (self.campaigns[slug]["folder"] / "art/ribbons/SOURCES.txt").read_text(encoding="utf-8")
+            values = section(commander, "CommanderSettings")
+            named = [(k[len("NavyEmblem"):], v.rsplit("/", 1)[1]) for k, v in values.items()
+                     if k.startswith("NavyEmblem") and v.rsplit("/", 1)[1].startswith("sest_")]
+            self.assertTrue(named, slug)
+            with self.subTest(campaign=slug):
+                self.assertEqual(sources, awards.sources_text(slug, commander))
+                for nation, name in named:
+                    flag = bp.SEST_EMBLEMS[name].rsplit(".", 1)[0]
+                    commons = re.search(r"^visuals/flags/source/" + re.escape(flag) + r"\.(?:svg|png)\n(File:[^\n]+)\n",
+                                        credits, re.M)[1]
+                    entry = re.search(r"^  " + re.escape(name) + r" - ([^:]+):(?:.*\n)*?    Source: (File:[^\n]+)$",
+                                      sources, re.M)
+                    self.assertTrue(entry, name)
+                    self.assertEqual(entry[1], values["NavyName" + nation])
+                    self.assertEqual(entry[2], commons, name)
+        self.assertIn("sest_pn_emblem.png - Philippine Navy:",
+                      (self.campaigns["sest-sulu-line"]["folder"] / "art/ribbons/SOURCES.txt").read_text(encoding="utf-8"))
+        self.assertIn("sest_plan_emblem.png - People's Liberation Army Navy:",
+                      (self.campaigns["sest-red-line"]["folder"] / "art/ribbons/SOURCES.txt").read_text(encoding="utf-8"))
+        with self.assertRaisesRegex(ValueError, "credits"):
+            awards.emblem_credits("sest-red-line", "[CommanderSettings]\nCommanderNations=China\n"
+                                                   "NavyEmblemChina=ui/campaign/navy_emblems/sest_nowhere.png\n")
 
     def test_the_builder_reproduces_the_commander_files(self):
         sys.path.insert(0, str(ROOT / "integration/campaign"))
