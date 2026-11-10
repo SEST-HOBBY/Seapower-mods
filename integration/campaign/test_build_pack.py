@@ -4008,6 +4008,79 @@ class RedSidePresentation(unittest.TestCase):
             self.assertTrue(mission_depth.REPORTS[code].startswith("MANALO:"), code)
 
 
+class RedLineReleaseTerms(unittest.TestCase):
+    """Red Line text fixes of 10 Nov 2026 (step 1 of the builder-grammar
+    design): briefs that state the release terms the victory triggers test,
+    RL04's withdrawal as the five-mile circle it is, victory-required
+    objectives flagged Main and labelled Required, and RLC1's one-mile race.
+    Victory logic is unchanged."""
+
+    PACK = bp.ROOT / "integration" / "campaign" / "SEST_Campaign" / "campaigns" / "sest-red-line"
+
+    def setUp(self):
+        rl = next(s for s in bp.campaign_specs() if s["SLUG"] == "sest-red-line")
+        self.m = {m["code"]: m for m in rl["MISSIONS"]}
+
+    def brief(self, code):
+        b = self.m[code]["brief"]
+        return " ".join(b) if isinstance(b, (tuple, list)) else b
+
+    def test_minute_gates_are_in_the_briefs(self):
+        # RL03's minute-nine gate is not in its brief yet: step 3 reworks
+        # that victory (an alternative path), and its text with it.
+        for code, radius in (("RL02", "two"), ("RL04", "five"), ("RL06", "four")):
+            v, brief = self.m[code]["victory"], self.brief(code)
+            terms = list(v.get("also", [])) + ([v["after"]] if v.get("after") else [])
+            with self.subTest(mission=code):
+                self.assertIn(f"within {radius} miles", brief)
+                self.assertEqual(bp.number_words(v["radius"]), radius)
+                for term in terms:
+                    if "after_minutes" in term:
+                        self.assertIn(f"minute {bp.number_words(term['after_minutes'])}", brief)
+                    if term.get("kind") == "no_incoming":
+                        self.assertIn("no incoming weapon", brief)
+        self.assertIn("(within eight miles of it)", self.brief("RL06"))
+        self.assertEqual(self.m["RL06"]["victory"]["after"]["radius"], 8)
+
+    def test_the_withdrawal_is_a_circle(self):
+        m = self.m["RL04"]
+        v = m["victory"]
+        self.assertEqual((v["radius"], v["min_units"], v["units"]), (5, 2, ["group#1", "group#2"]))
+        self.assertIn("within five miles of the withdrawal point", self.brief("RL04"))
+        for text in [self.brief("RL04"), m["win"], m["timeout"]] + [t for _o, t, _s in m["objectives"]]:
+            self.assertNotRegex(text, r"\bthe line\b")
+        self.assertIn("MERIDIAN HARMONY is sunk", self.brief("RL04"))
+        self.assertTrue(any(t.get("kind") == "destroyed" and t["units"] == ["spoiler"]
+                            for t in v["also"]))
+
+    def test_required_objectives_say_so(self):
+        for code, oid in (("RL01", "Raiders"), ("RL03", "Fighters"), ("RL04", "Spoiler"),
+                          ("RL06", "Qship")):
+            m = self.m[code]
+            text, spec = next((t, s) for o, t, s in m["objectives"] if o == oid)
+            with self.subTest(mission=code, objective=oid):
+                self.assertIn("Main", spec.split(",")[3:])
+                self.assertTrue(text.startswith("Required: "), text)
+                # Required because the victory trigger needs it destroyed.
+                self.assertTrue(any(t.get("kind") == "destroyed" for t in m["victory"]["also"]))
+                ini = next(self.PACK.glob(f"missions/Red Line {m['num']} - *.ini"), None)
+                if ini is None:
+                    self.skipTest("pack not built")
+                self.assertIn(f"\n{oid}={spec}\n", ini.read_text(encoding="utf-8"))
+
+    def test_the_patrol_vessels_mile_is_stated(self):
+        m = self.m["RLC1"]
+        denied = m["denied"][0]
+        self.assertEqual(denied["radius"], 1)
+        self.assertEqual(m["victory"]["after"]["radius"], 0.3)
+        pilot = next(t for o, t, _s in m["objectives"] if o == "Pilot")
+        for text in (self.brief("RLC1"), pilot, denied["message"]):
+            self.assertIn("within a mile", text)
+        self.assertIn("within three cables of the raft", pilot)
+        self.assertNotIn("alongside him first", self.brief("RLC1"))
+        self.assertNotIn("alongside\n", self.brief("RLC1"))
+
+
 class RedLineSideOperations(unittest.TestCase):
     """Red Line's step RL-1 (campaign-upgrade-plan.md section 4.2, 20 Oct
     2026): two optionals flown by the enclave field's own aircraft and a

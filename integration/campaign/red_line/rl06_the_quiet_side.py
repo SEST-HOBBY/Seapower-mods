@@ -29,7 +29,11 @@ MISSION = dict(
            "nearby combat unit and can counter the Q-ship while the screen holds the patrol's "
            "attention. Keep enough time for a torpedo to reach the Q-ship before its own shot "
            "reaches the slow tender.\n\n"
-           "Destroy the Q-ship and bring the tender and boat together in the holding box. "
+           "Destroy the Q-ship and bring the tender and boat together in the holding box, "
+           "within four miles of the holding point. The rendezvous completes once the screen "
+           "has been on the decoy station (within eight miles of it) at minute eight, the "
+           "Q-ship is sunk, AUSTRAL COMPLIANCE and HULL 334 are both in the box, and no incoming "
+           "weapon is still tracked against the group. "
            "KIWI 05 remains a protected patrol aircraft. Leave it alone. Keep HULL 334 quiet "
            "where possible: classification loses the concealment bonus but does not end the "
            "mission. Report the compromise and continue the defence and rendezvous.\n\n"
@@ -45,7 +49,7 @@ MISSION = dict(
         ("Frigate", "Bring the screen off the decoy station intact", "10,-20,Complete"),
         ("Tender", "Keep Austral Compliance afloat", "10,-30,Complete"),
         ("Boat", "Keep Hull 334 afloat", "10,-30,Complete"),
-        ("Qship", "Destroy the hostile Q-ship threatening the tender", "20,0,None"),
+        ("Qship", "Required: destroy the hostile Q-ship threatening the tender", "20,0,None,Main"),
         ("Traffic", "Harm no cruise ship or fishing boat", "0,-30,Complete"),
     ],
     victory=dict(kind="arrive", station="tender", at=(-46.38, 165.45), radius=4,

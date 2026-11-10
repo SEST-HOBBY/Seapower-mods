@@ -242,6 +242,9 @@ STALE = [
      r"|MH-60R[^.\n]*\b(pods?|LAU-3s?|19-tubes?)\b(, which)?[^.,;:\n]{0,30}\b(on|from|in) "
      r"(the|each|its) (inboard|inner) pylons?\b",
      REDBACK_TEXT + PLAYER_TEXT + ["docs/campaigns/*/test-card.md"], REDBACK_LAUNCHER, WRAPPED),
+    (r"across the line north-west|north-west (across|of) the line|south of the line",
+     ["integration/campaign/red_line/rl04_the_order_to_withdraw.py", "docs/campaigns/red-line/*.md"],
+     "RL04's exit is a five-mile circle both ships must enter, not a line"),
     (r"seeker[^.\n]{0,30}\b(switch\w*|turns?|turning|searching)\b[^.\n]{0,12}\b[38] (NM|nautical miles?)\b"
      r"|TerminalApproachDist=[38]\b",
      REDBACK_TEXT + PLAYER_TEXT + ["docs/campaigns/*/test-card.md"], REDBACK_SWITCH_ON, WRAPPED),

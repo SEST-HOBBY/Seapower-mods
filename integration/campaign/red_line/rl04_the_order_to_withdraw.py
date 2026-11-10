@@ -48,8 +48,11 @@ MISSION = dict(
             "coalition Poseidon is overhead, recording the withdrawal, and a submarine may be "
             "astern. Neither is to be touched. Your frigate and its flight start at "
             "defensive settings: engage only the two Meridian vessels. The protected observers "
-            "are non-belligerents. Stop the coaster before she clears the screen, then take "
-            "LIAONING and the replenishment ship across the line north-west.\\n\\nA Banda "
+            "are non-belligerents. Stop the coaster before she reaches the marked circle "
+            "south-east, where she clears the screen. Then bring LIAONING and HULUNHU both "
+            "within five miles of the withdrawal point north-west. The order is complete when "
+            "both are inside that circle, MERIDIAN HARMONY is sunk and no incoming weapon is "
+            "still tracked against the group.\\n\\nA Banda "
             "fishing boat and the Banda Neira ferry are on the water."
         )),
     forces=(
@@ -58,9 +61,9 @@ MISSION = dict(
         "coalition P-8A, and possibly a submarine astern. Neutral: a fishing boat and a ferry."
     ),
     objectives=[
-        ("Withdrawal", "Take Liaoning and the replenishment ship north-west across the line",
+        ("Withdrawal", "Bring Liaoning and Hulunhu inside the withdrawal circle north-west",
          "35,-35,Fail,Main"),
-        ("Spoiler", "Stop Meridian Harmony before she clears the screen", "20,-40,Fail"),
+        ("Spoiler", "Required: stop Meridian Harmony before she clears the screen", "20,-40,Fail,Main"),
         ("Restraint", "Engage only the two declared hostile Meridian vessels", "15,-40,Complete"),
         ("Boat", "Leave the boat astern alone, if she is there", "0,-40,None"),
         ("Carrier", "Bring Liaoning through intact", "10,-30,Complete"),
@@ -80,16 +83,16 @@ MISSION = dict(
     fatal=[F("Restraint", ["red_air"]), F("Carrier"), F("Supply")],
     neutral_objective="Traffic",
     win=(
-        "LIAONING and the replenishment ship are north-west of the line, and MERIDIAN HARMONY "
-        "is stopped short of the lane. The ship's flight is searching for her crew. The "
-        "group's report will say what was done and why; the Poseidon has the same account."
+        "LIAONING and HULUNHU are inside the withdrawal circle, and MERIDIAN HARMONY is sunk "
+        "short of the lane. The ship's flight is searching for her crew. The group's report "
+        "will say what was done and why; the Poseidon has the same account."
     ),
     lose=(
         "The withdrawal has failed: LIAONING or HULUNHU is lost, or the Poseidon is down. "
         "The ceasefire is hours old, and the group is in its first violation report."
     ),
-    timeout="{deadline_clock}, and the group is still south of the line. The withdrawal order had a "
-            "time on it, and the coalition's aircraft has recorded the group missing it.",
+    timeout="{deadline_clock}, and the group is still short of the withdrawal circle. The withdrawal "
+            "order had a time on it, and the coalition's aircraft has recorded the group missing it.",
     stations={
         "escort": S(-4.45, 128.85, "Escort", heading=300),
         "flight": S(-4.47, 128.83, "Ship's flight", heading=300, alt=500),
