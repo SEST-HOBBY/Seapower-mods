@@ -89,9 +89,12 @@ internal static class PopOutBridge
 		}
 	}
 
+	// R12 adapts the Group Manager into the loader's private cache. Hash the
+	// Workshop file the loader recorded for it (an unadapted image is its own
+	// location), exactly as ContactsFix.Require and WorldOperations do.
 	private static bool HashMatches(Assembly assembly, string expected)
 	{
-		using FileStream inputStream = File.OpenRead(assembly.Location);
+		using FileStream inputStream = File.OpenRead(AnchorChain.BetaAssemblyPolicy.OriginalLocation(assembly));
 		using SHA256 sHA = SHA256.Create();
 		return BitConverter.ToString(sHA.ComputeHash(inputStream)).Replace("-", string.Empty).ToLowerInvariant() == expected;
 	}

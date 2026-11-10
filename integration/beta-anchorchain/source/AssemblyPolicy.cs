@@ -98,18 +98,18 @@ public static partial class BetaAssemblyPolicy
             log("SKIPPED before CLR load: " + Path.GetFileName(source) + "; captured beta patch failure with partial initialization. Awaiting a port.");
             return null;
         }
-        // Build 261106 replaces the single chaff attacher with multiple
+        // Beta 0.8.7 (261106 and the pinned 261107) replaces the single chaff attacher with multiple
         // band-specific rounds. Neither captured author image implements that
         // model; do not partially patch countermeasure behavior.
         if (hash == DecoyHash || hash == "700c7f97fa580af150a043c3510353de2da053eca9bc5bfff375ec9aebdffb3c") {
-            log("SKIPPED before CLR load: EnhancedDecoyMod; Build 261106 uses multiple countermeasure rounds and removed the single _chaff attacher. Awaiting an author port; native countermeasures and data retained.");
+            log("SKIPPED before CLR load: EnhancedDecoyMod; beta 0.8.7-261107 uses multiple countermeasure rounds and removed the single _chaff attacher. Awaiting an author port; native countermeasures and data retained.");
             return null;
         }
         if ((hash == TopographyHash && adapter == null) ||
             hash == "7b8cdabcf94112d10a7dc1a737358a0d1ceccdcce3fff9b77bae62c5bc53991c" ||
             hash == "4169d3e94484cc6d3064fab05891f6770da2db5f90c7e7a9bf6e31ca318eb2dc" ||
             hash == "e3af7a715b260dd6cdac4af6163d873edd86c62f5934324e4e85e53887064177") {
-            log("SKIPPED before CLR load: " + Path.GetFileName(source) + "; captured native APIs changed in Build 261106. Awaiting an author port; data retained.");
+            log("SKIPPED before CLR load: " + Path.GetFileName(source) + "; captured native APIs changed on beta 0.8.7-261107. Awaiting an author port; data retained.");
             return null;
         }
         if (hash == "5a5bfd39230d2450b49c304a013cfc8c68e05677ad9de6b91a9b121ae1b08d98") {
@@ -118,7 +118,7 @@ public static partial class BetaAssemblyPolicy
                 log("SKIPPED duplicate before CLR load: LoadoutManagerForLive.dll; the captured beta LoadoutManager.dll is present.");
                 return null;
             }
-            log("SKIPPED before CLR load: LoadoutManagerForLive.dll; stable-only API on Build 261106.");
+            log("SKIPPED before CLR load: LoadoutManagerForLive.dll; stable-only API on beta 0.8.7-261107.");
             return null;
         }
         using var resolver = new DefaultAssemblyResolver();
@@ -143,7 +143,7 @@ public static partial class BetaAssemblyPolicy
         nativePath = Path.GetFullPath(nativePath);
         if (!nativeModules.TryGetValue(nativePath, out var native)) {
             if (Hash(nativePath) != "499675cda59912054924ae42297bce7a82b12ca00957dabd684105a24aa353a9")
-                throw new InvalidDataException("Assembly adapters require the inspected beta Build 261106.");
+                throw new InvalidDataException("Assembly adapters require the inspected beta 0.8.7-261107 (499675cd).");
             native = ModuleDefinition.ReadModule(nativePath, new ReaderParameters { InMemory = true });
             nativeModules[nativePath] = native;
         }

@@ -72,7 +72,7 @@ namespace Sest.UiFixes
                     if (assembly == null) continue;
                     try
                     {
-                        ContactsFix.Require(assembly, known[1]);
+                        ContactsFix.RequireAny(assembly, known.Skip(1).ToArray());
                         foreach (var type in assembly.GetTypes())
                             if (typeof(MonoBehaviour).IsAssignableFrom(type))
                                 foreach (var method in type.GetMethods(ContactsFix.All | BindingFlags.DeclaredOnly))

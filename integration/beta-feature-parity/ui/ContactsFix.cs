@@ -30,12 +30,16 @@ namespace Sest.UiFixes
             return AppDomain.CurrentDomain.GetAssemblies().Select(a => a.GetType(name, false)).FirstOrDefault(t => t != null)
                 ?? throw new MissingMemberException(name);
         }
-        internal static void Require(Assembly a, string expected)
+        internal static void Require(Assembly a, string expected) { RequireAny(a, expected); }
+        // Returns which inspected image is loaded; any other hash throws.
+        internal static string RequireAny(Assembly a, params string[] expected)
         {
+            string actual;
             using (var stream = File.OpenRead(BetaAssemblyPolicy.OriginalLocation(a)))
             using (var sha = SHA256.Create())
-                if (BitConverter.ToString(sha.ComputeHash(stream)).Replace("-", "").ToLowerInvariant() != expected)
-                    throw new InvalidOperationException("Uninspected assembly: " + a.GetName().Name);
+                actual = BitConverter.ToString(sha.ComputeHash(stream)).Replace("-", "").ToLowerInvariant();
+            if (Array.IndexOf(expected, actual) < 0) throw new InvalidOperationException("Uninspected assembly: " + a.GetName().Name);
+            return actual;
         }
         internal static void Log(string text) { Debug.Log("[SEST UI Follow-up] " + text); }
 

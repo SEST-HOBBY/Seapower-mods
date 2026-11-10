@@ -1,4 +1,5 @@
-// R10: Sea Power Topographic Map 1.5.0 globe image, Workshop 3826122523.
+// R10: Sea Power Topographic Map globe images, Workshop 3826122523: the
+// 1.5.0 image cba22efb and the installed 1.6.0 image a6e75159.
 // The captured 261107 game removed the two world scaling options. Preserve
 // the author's map renderer in metres, with the current native fixed factors
 // and the native 50 m shallow-water boundary. The flat-map DLL stays held.
@@ -14,7 +15,8 @@ public static partial class BetaAssemblyPolicy
     internal const string TopographyHash = "cba22efb544775821c5f5d461a90059225bd5526228d7d6f76e708eeef299619";
     internal const string Topography151Hash = "a6e75159c3bd0ddffe1db304380ff329736bb76ab9c7e21544d5d69a2dce6017";
 
-    // The author fixed removed-option reads in 1.5.1. Retain those fallbacks;
+    // The author fixed removed-option reads in 1.6.0 (a6e75159; the identifiers
+    // below keep their original 151 names). Retain those fallbacks;
     // only its remaining metre-domain shoreline constant needs adaptation.
     private static ImageAdapter Topography151Adapter() => new ImageAdapter {
         Name = "Topography151", Hashes = new[] { Topography151Hash },
@@ -28,7 +30,7 @@ public static partial class BetaAssemblyPolicy
         if (type.FullName == "SeaPowerTopo.Terrain.HeightReader" && method.Name == ".ctor") {
             if (method.Body.CodeSize != 115 || method.Body.Instructions[0].OpCode != OpCodes.Ldarg_0 || !ParameterTypes(method, "System.Collections.Generic.HashSet`1<System.String>") ||
                 method.Body.Instructions.Any(i => i.Operand is FieldReference f && f.DeclaringType.FullName == "SeaPower.Globals"))
-                throw new InvalidOperationException("Inspected 1.5.1 author option fallback changed");
+                throw new InvalidOperationException("Inspected Topographic Map 1.6.0 author option fallback changed");
         }
         if (type.FullName == "SeaPowerTopo.Render.Raster" && method.Name == "SimHeight")
             return TopographyRewrite(scope, type, method);

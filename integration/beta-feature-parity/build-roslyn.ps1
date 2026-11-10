@@ -46,7 +46,7 @@ function Sha([string]$path) { (Get-FileHash -LiteralPath $path -Algorithm SHA256
 function J { $p = [string]$args[0]; for ($i = 1; $i -lt $args.Count; $i++) { $p = [IO.Path]::Combine($p, [string]$args[$i]) }; $p }
 
 $receiptIn = Get-Content -LiteralPath (J $capture 'capture.json') -Raw | ConvertFrom-Json
-if ($receiptIn.native_sha256 -ne $pins['Seapower-Scripts.dll']) { throw 'This candidate targets beta Build 261106 only.' }
+if ($receiptIn.native_sha256 -ne $pins['Seapower-Scripts.dll']) { throw 'This candidate targets beta 0.8.7-261107 (499675cd) only.' }
 foreach ($ref in $receiptIn.references) {
     if ((Sha (J $capture $ref.path)) -ne $ref.sha256) { throw ('Capture integrity failure: ' + $ref.path) }
 }
