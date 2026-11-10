@@ -195,6 +195,11 @@ def _xml_text(s):
              .replace("<", "&lt;").replace(">", "&gt;"))
 
 
+# The nations whose names take an article in a sentence ("registered to the
+# Philippines"), by their nations.ini display names.
+_THE_NATIONS = ("USA", "United Kingdom", "Netherlands", "Philippines")
+
+
 def campaign_rules(spec, open_allocation=False, allied=0):
     """This campaign's campaign_rules_en.xml, built from the stock page.
 
@@ -289,7 +294,7 @@ def campaign_rules(spec, open_allocation=False, allied=0):
 
         def the(n):
             name = nation_name(n)
-            return ("the " if name in ("USA", "United Kingdom", "Netherlands") else "") + name
+            return ("the " if name in _THE_NATIONS else "") + name
 
         each = []
         for n, adjective in zip(offered, adjectives):
@@ -305,7 +310,7 @@ def campaign_rules(spec, open_allocation=False, allied=0):
                 + ", ".join(each[:-1]) + " and " + each[-1]
                 + ". Every other class costs its listed price")
         if others:
-            never = [f"{('the ' if n in ('USA', 'United Kingdom', 'Netherlands') else '')}{n} ({c})"
+            never = [f"{('the ' if n in _THE_NATIONS else '')}{n} ({c})"
                      for n, c in sorted(others.items(), key=lambda x: (-x[1], x[0]))]
             said += ("; no commander's discount covers the classes registered to "
                      + (never[0] if len(never) == 1 else ", ".join(never[:-1]) + " or " + never[-1]))
@@ -6401,7 +6406,23 @@ SEST_EMBLEMS = {"sest_plan_emblem.png": "china_naval.png",
                 "sest_pn_emblem.png": "philippines.png",
                 # The White Ensign, for a Royal Navy commander in the two
                 # Australian-led campaigns (service_awards.NATION_SETTINGS).
-                "sest_rn_emblem.png": "uk_naval.png"}
+                "sest_rn_emblem.png": "uk_naval.png",
+                # The other allied commanders (10 Nov 2026): a naval ensign
+                # where the set has one, else the national flag. Which is
+                # the navy's real ensign, and which is not, is said in each
+                # campaign's art/ribbons/SOURCES.txt (NATION_SETTINGS
+                # 'about').
+                "sest_rnzn_emblem.png": "new_zealand_naval.png",
+                "sest_mn_emblem.png": "france.png",
+                "sest_rcn_emblem.png": "canada.png",
+                "sest_rokn_emblem.png": "south_korea.png",
+                "sest_armada_emblem.png": "spain.png",
+                "sest_mm_emblem.png": "italy_naval.png",
+                "sest_dm_emblem.png": "germany.png",
+                "sest_km_emblem.png": "netherlands.png",
+                "sest_rnon_emblem.png": "norway.png",
+                "sest_rdn_emblem.png": "denmark.png",
+                "sest_rtn_emblem.png": "thailand.png"}
 
 
 def write_emblems(commander):
@@ -6419,6 +6440,17 @@ def write_emblems(commander):
         out = OUT / path
         out.parent.mkdir(parents=True, exist_ok=True)
         canvas.save(out, "PNG", optimize=True)
+
+
+def write_name_pools(out):
+    """The commander name pools SEST adds for nations the game ships none
+    for (service_awards.NAME_POOLS), as a language_en file of the pack's
+    own. Language files merge key by key across the load order, so the
+    sections add to the game's [Names_X] pools; name_pools_text() stops on
+    one that would overwrite a stock pool."""
+    path = out / service_awards.NAME_POOL_FILE
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(service_awards.name_pools_text(), encoding="utf-8")
 
 
 def enemy_roster_ini(missions, placements):
@@ -8666,6 +8698,11 @@ def main():
         # the nations service_awards offers beside it and the award
         # definitions. Its emblems are drawn from what it names.
         commander_text = service_awards.commander_settings(spec["COMMANDER"], SLUG)
+        unknown = service_awards.unknown_pools(commander_text)
+        if unknown:
+            raise SystemExit(f"{TITLE}: the commander file names name pool(s) "
+                             f"{', '.join(unknown)}, which neither the game's ui.ini nor "
+                             "service_awards.NAME_POOLS defines")
         (camp / "commander_settings.ini").write_text(commander_text, encoding="utf-8")
         service_awards.render(camp, SLUG)
         write_emblems(commander_text)
@@ -8753,6 +8790,7 @@ def main():
     if support.is_dir():
         import shutil
         shutil.copytree(support, OUT / "beta-support", dirs_exist_ok=True)
+    write_name_pools(OUT)
     write_menu_background(OUT)
     write_runtime_fixes(OUT)
     write_contacts_fix(OUT)

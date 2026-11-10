@@ -4,7 +4,8 @@ The game's own rules, read from Seapower-Scripts.dll (0.8.7-261107) as IL:
 
 - [CommanderSettings] CommanderNations is split on '|'. For each nation key N
   the commander screen reads CommanderNameDefaultN, CommanderNamePoolN (a
-  Names_ section of language_<xx>/ui.ini), NavyNameN, NavyEmblemN and
+  Names_ section of language_<xx>/ui.ini; SEST adds pools for the nations
+  the game has none for, NAME_POOLS), NavyNameN, NavyEmblemN and
   [OfficerRanks] N (rank,abbreviation,grade,level,insignia; five fields, an
   empty insignia allowed). CommanderDefaultNation is listed first.
 - CommitCommander writes TaskForceCommanderNation and refuses once
@@ -37,6 +38,7 @@ from datetime import date
 from pathlib import Path
 import re
 import shutil
+import textwrap
 
 HERE = Path(__file__).resolve().parent
 ROOT = HERE.parents[1]
@@ -86,43 +88,300 @@ FINAL = {'sest-southern-watch': 'SW12', 'sest-southern-reach': 'TS12',
 FIRST = {'sest-southern-reach': 'SR01'}
 
 # Commander nations each campaign offers: its own default first, then every
-# nation the story can put in command of the group whose ships the player can
-# buy and whose ranks, names, emblem and awards could be sourced. Southern
-# Watch and Southern Reach are Australian-led coalition groups; the allied
-# fleet sells US, British and Japanese hulls and Japan's ASW group is in the
-# story (SW10). Red Line is a PLAN group and Sulu Line a Philippine-led one;
-# the Thai detachment and the single RAN frigate there serve under it.
+# nation the story can put in command of the group. Southern Watch and
+# Southern Reach are Australian-led coalition groups. They offer the navies
+# whose hulls the allied fleet sells (allied_fleet.py) and Japan's, whose ASW
+# group is in the story (SW10), and since the owner's plan of 10 Nov 2026
+# New Zealand's, the Tasman story's own navy, and Canada's. Keys are the
+# game's own (language_en/nations.ini): the discount and the award selectors
+# compare them with the units' Nation=, so 'New Zealand' or 'South Korea'
+# with a space would match nothing. Red Line is a PLAN group. Sulu Line is
+# Philippine-led; the Thai detachment and the single RAN frigate serve under
+# it, and a Thai or Australian officer may be appointed to command it.
 NATIONS = {
-    'sest-southern-watch': ('Australia', 'US', 'UK', 'Japan'),
-    'sest-southern-reach': ('Australia', 'US', 'UK', 'Japan'),
+    'sest-southern-watch': ('Australia', 'US', 'UK', 'Japan', 'NewZealand', 'France', 'Canada',
+                            'South_Korea', 'Spain', 'Italy', 'Germany', 'Netherlands', 'Norway',
+                            'Denmark'),
+    'sest-southern-reach': ('Australia', 'US', 'UK', 'Japan', 'NewZealand', 'France', 'Canada',
+                            'South_Korea', 'Spain', 'Italy', 'Germany', 'Netherlands', 'Norway',
+                            'Denmark'),
     'sest-red-line': ('China',),
-    'sest-sulu-line': ('Philippines',),
+    'sest-sulu-line': ('Philippines', 'Thailand', 'Australia'),
 }
 # Adjective and article for a citation, the rules page and RIBBONS.txt.
 ADJECTIVE = {'Australia': ('Australian', 'an'), 'US': ('American', 'an'), 'UK': ('British', 'a'),
-             'Japan': ('Japanese', 'a'), 'China': ('Chinese', 'a'), 'Philippines': ('Philippine', 'a')}
+             'Japan': ('Japanese', 'a'), 'China': ('Chinese', 'a'), 'Philippines': ('Philippine', 'a'),
+             'NewZealand': ('New Zealand', 'a'), 'France': ('French', 'a'), 'Canada': ('Canadian', 'a'),
+             'South_Korea': ('South Korean', 'a'), 'Spain': ('Spanish', 'a'), 'Italy': ('Italian', 'an'),
+             'Germany': ('German', 'a'), 'Netherlands': ('Dutch', 'a'), 'Norway': ('Norwegian', 'a'),
+             'Denmark': ('Danish', 'a'), 'Thailand': ('Thai', 'a')}
 
-# Royal Navy officer ranks with NATO grades, at the levels the Australian
-# ladder uses for the same grades (Commander 5, Captain 6, Commodore 7). The
-# game ships no Royal Navy insignia, so the image field is empty, as in Red
+# Every SEST ladder puts the NATO grades OF-D..OF-9 at levels 1-10, the levels
+# the Australian ladder uses for the same grades: Commander (OF-4) 5, Captain
+# (OF-5) 6, Commodore (OF-6) 7. The campaigns start at 5 (Southern Watch), 6
+# (Southern Reach), 7 (Sulu Line) and 8 (Red Line). The game ships rank
+# insignia for three navies only, so the image field is empty, as in Red
 # Line and Sulu Line.
+GRADES = ('OF-D', 'OF-1', 'OF-2', 'OF-3', 'OF-4', 'OF-5', 'OF-6', 'OF-7', 'OF-8', 'OF-9')
+
+
+def _ladder(*ranks):
+    """Ten 'Title,ABBR' strings, junior first -> an [OfficerRanks] value:
+    title, abbreviation, grade, level and an empty insignia."""
+    if len(ranks) != len(GRADES):
+        raise ValueError(f'a ladder has {len(GRADES)} ranks, not {len(ranks)}')
+    return '|'.join(f'{rank},{grade},{level},' for level, (rank, grade) in enumerate(zip(ranks, GRADES), 1))
+
+
+# Royal Navy officer ranks.
 UK_RANKS = ('Midshipman,MID,OF-D,1,|Sub-Lieutenant,SLT,OF-1,2,|Lieutenant,LT,OF-2,3,|'
             'Lieutenant Commander,LT CDR,OF-3,4,|Commander,CDR,OF-4,5,|Captain,CAPT,OF-5,6,|'
             'Commodore,CDRE,OF-6,7,|Rear Admiral,RADM,OF-7,8,|Vice Admiral,VADM,OF-8,9,|'
             'Admiral,ADM,OF-9,10,')
+# The other navies' ladders were researched for the owner's plan of 10 Nov
+# 2026 from each navy's published titles: NZDF 'Our ranks'; Ley 39/2007 art.
+# 21.2 for the Armada; the German presidential order of 30 Aug 2021; Danish
+# order no. 294 of 24 March 2010; the ROK Military Personnel Management Act,
+# art. 3; and for the rest Wikipedia's NATO rank tables, which cite each
+# navy's own pages. Where a navy has no OF-D rank the nearest cadet title
+# fills level 1, and where it lists two OF-1 ranks the senior one takes level
+# 2. Navies that use only their own language keep their own titles and
+# official accents (Latin-1, which the English UI draws: stock unit names
+# ship 'Andalucía F72' and 'Snøgg'). Korea and Thailand publish English
+# titles; the game font has no Hangul or Thai. The Royal Thai Navy has no
+# OF-6 rank: a Captain on the special grade, which ranks above a Captain,
+# takes level 7, the Sulu Line starting level. Several abbreviations are the
+# navies' conventional forms, not read from an official list.
+NEWZEALAND_RANKS = _ladder(
+    'Midshipman,MID', 'Sub Lieutenant,SLT', 'Lieutenant,LT', 'Lieutenant Commander,LTCDR',
+    'Commander,CDR', 'Captain,CAPT', 'Commodore,CDRE', 'Rear Admiral,RADM', 'Vice Admiral,VADM',
+    'Admiral,ADM')
+FRANCE_RANKS = _ladder(
+    'Aspirant,ASP', 'Enseigne de vaisseau de 1re classe,EV1', 'Lieutenant de vaisseau,LV',
+    'Capitaine de corvette,CC', 'Capitaine de frégate,CF', 'Capitaine de vaisseau,CV',
+    'Contre-amiral,CA', 'Vice-amiral,VA', "Vice-amiral d'escadre,VAE", 'Amiral,AL')
+CANADA_RANKS = _ladder(
+    'Naval Cadet,NCdt', 'Sub-Lieutenant,SLt', 'Lieutenant(N),Lt(N)', 'Lieutenant-Commander,LCdr',
+    'Commander,Cdr', 'Captain(N),Capt(N)', 'Commodore,Cmdre', 'Rear-Admiral,RAdm',
+    'Vice-Admiral,VAdm', 'Admiral,Adm')
+SOUTH_KOREA_RANKS = _ladder(
+    'Midshipman,MIDN', 'Lieutenant Junior Grade,LTJG', 'Lieutenant,LT', 'Lieutenant Commander,LCDR',
+    'Commander,CDR', 'Captain,CAPT', 'Rear Admiral (Lower Half),RDML', 'Rear Admiral,RADM',
+    'Vice Admiral,VADM', 'Admiral,ADM')
+SPAIN_RANKS = _ladder(
+    'Guardiamarina,GM', 'Alférez de navío,AN', 'Teniente de navío,TN', 'Capitán de corbeta,CC',
+    'Capitán de fragata,CF', 'Capitán de navío,CN', 'Contralmirante,CA', 'Vicealmirante,VA',
+    'Almirante,ALM', 'Almirante general,AG')
+ITALY_RANKS = _ladder(
+    'Aspirante guardiamarina,ASP GM', 'Sottotenente di vascello,STV', 'Tenente di vascello,TV',
+    'Capitano di corvetta,CC', 'Capitano di fregata,CF', 'Capitano di vascello,CV',
+    'Contrammiraglio,CA', 'Ammiraglio di divisione,AMM DIV', 'Ammiraglio di squadra,AMM SQ',
+    'Ammiraglio,AMM')
+GERMANY_RANKS = _ladder(
+    'Oberfähnrich zur See,OFähnr zS', 'Oberleutnant zur See,OLt zS', 'Kapitänleutnant,KptLt',
+    'Korvettenkapitän,KKpt', 'Fregattenkapitän,FKpt', 'Kapitän zur See,Kpt zS',
+    'Flottillenadmiral,FltlAdm', 'Konteradmiral,KAdm', 'Vizeadmiral,VAdm', 'Admiral,Adm')
+NETHERLANDS_RANKS = _ladder(
+    'Adelborst,ADB', 'Luitenant ter zee der 2de klasse,LTZ2',
+    'Luitenant ter zee der 2de klasse oudste categorie,LTZ2OC', 'Luitenant ter zee der 1ste klasse,LTZ1',
+    'Kapitein-luitenant ter zee,KLTZ', 'Kapitein ter zee,KTZ', 'Commandeur,CDR', 'Schout-bij-nacht,SBN',
+    'Vice-admiraal,VADM', 'Luitenant-admiraal,LADM')
+NORWAY_RANKS = _ladder(
+    'Kadett,KAD', 'Løytnant,LT', 'Kapteinløytnant,KLT', 'Orlogskaptein,OK', 'Kommandørkaptein,KK',
+    'Kommandør,KOM', 'Flaggkommandør,FKOM', 'Kontreadmiral,KADM', 'Viseadmiral,VADM', 'Admiral,ADM')
+DENMARK_RANKS = _ladder(
+    'Kadet,KAD', 'Premierløjtnant,PL', 'Kaptajnløjtnant,KL', 'Orlogskaptajn,OK', 'Kommandørkaptajn,KK',
+    'Kommandør,KD', 'Flotilleadmiral,FLADM', 'Kontreadmiral,KADM', 'Viceadmiral,VADM', 'Admiral,ADM')
+THAILAND_RANKS = _ladder(
+    'Naval Cadet,NCDT', 'Lieutenant Junior Grade,LTJG', 'Lieutenant,LT', 'Lieutenant Commander,LCDR',
+    'Commander,CDR', 'Captain,CAPT', 'Captain (Special Grade),CAPT (SG)', 'Rear Admiral,RADM',
+    'Vice Admiral,VADM', 'Admiral,ADM')
+
 # The settings a nation needs when a campaign's own COMMANDER text does not
-# define it. US and Japan are the stock Pacific Strike values (its default
-# Japanese name, pools, navies, emblems and rank ladders). The UK uses the
-# stock [Names_UK] pool and the Royal Navy's White Ensign, drawn by
-# build_pack.write_emblems from the SEST gallery's public-domain flag set.
+# define it. US, Japan and Australia are the stock Pacific Strike values (its
+# default names, pools, navies, emblems and rank ladders; Australia's row
+# serves Sulu Line, whose own text defines only the Philippines). The others
+# use a stock [Names_X] pool where the game ships one, or a SEST pool
+# (NAME_POOLS below), and an emblem build_pack.write_emblems draws from the
+# SEST gallery's public-domain flag set (build_pack.SEST_EMBLEMS): `commons`
+# names the file it came from and `about` says what it shows, for SOURCES.txt.
+# A naval ensign where the set has one; otherwise the national flag, which is
+# the ensign itself for France, Canada, South Korea, the Netherlands and Spain
+# (flown with the arms), and is said not to be for Germany, Norway, Denmark
+# and Thailand. Default names are the research's: built from the nation's
+# pool and searched against serving officers, or the game's own (Germany's
+# Moritz Ehlers is the stock file's unused default).
+_EMBLEMS = 'ui/campaign/navy_emblems/'
 NATION_SETTINGS = {
     'US': dict(name='Alex Morgan', pool='Names_USA', navy='United States Navy',
-               emblem='ui/campaign/navy_emblems/usn_emblem.png', ranks=None),
+               emblem=_EMBLEMS + 'usn_emblem.png', ranks=None),
     'UK': dict(name='Julian Northcott', pool='Names_UK', navy='Royal Navy',
-               emblem='ui/campaign/navy_emblems/sest_rn_emblem.png', ranks=UK_RANKS),
+               emblem=_EMBLEMS + 'sest_rn_emblem.png', ranks=UK_RANKS,
+               commons='File:Naval ensign of the United Kingdom.svg', about='the White Ensign'),
     'Japan': dict(name='Hiroshi Watanabe', pool='Names_Japan', navy='Japan Maritime Self-Defense Force',
-                  emblem='ui/campaign/navy_emblems/jmsdf_emblem.png', ranks=None),
+                  emblem=_EMBLEMS + 'jmsdf_emblem.png', ranks=None),
+    'Australia': dict(name='Grant Morrison', pool='Names_Australia', navy='Royal Australian Navy',
+                      emblem=_EMBLEMS + 'ran_emblem.png', ranks=None),
+    'NewZealand': dict(name='Rawiri Tipene', pool='Names_NewZealand', navy='Royal New Zealand Navy',
+                       emblem=_EMBLEMS + 'sest_rnzn_emblem.png', ranks=NEWZEALAND_RANKS,
+                       commons='File:Naval Ensign of New Zealand.svg', about='the New Zealand naval ensign'),
+    'France': dict(name='Arnaud Vasseur', pool='Names_France', navy='Marine nationale',
+                   emblem=_EMBLEMS + 'sest_mn_emblem.png', ranks=FRANCE_RANKS,
+                   commons='File:Flag of France.svg',
+                   about='the French national flag, which the Marine nationale flies as its ensign'),
+    'Canada': dict(name='Denis Arsenault', pool='Names_Canada', navy='Royal Canadian Navy',
+                   emblem=_EMBLEMS + 'sest_rcn_emblem.png', ranks=CANADA_RANKS,
+                   commons='File:Flag of Canada.svg',
+                   about='the Canadian national flag, which the Royal Canadian Navy flies as its ensign'),
+    'South_Korea': dict(name='Han Seongjin', pool='Names_South_Korea', navy='Republic of Korea Navy',
+                        emblem=_EMBLEMS + 'sest_rokn_emblem.png', ranks=SOUTH_KOREA_RANKS,
+                        commons='File:Flag of South Korea.svg',
+                        about='the South Korean national flag, which the Republic of Korea Navy flies '
+                              'as its ensign'),
+    'Spain': dict(name='Gonzalo Iglesias Prieto', pool='Names_Spain', navy='Armada Española',
+                  emblem=_EMBLEMS + 'sest_armada_emblem.png', ranks=SPAIN_RANKS,
+                  commons='File:Flag of Spain.svg',
+                  about='the Spanish national flag with the arms, which the Armada flies as its ensign'),
+    'Italy': dict(name='Corrado Mariani', pool='Names_Italy', navy='Marina Militare',
+                  emblem=_EMBLEMS + 'sest_mm_emblem.png', ranks=ITALY_RANKS,
+                  commons='File:Naval ensign of Italy.svg', about='the Italian naval ensign'),
+    'Germany': dict(name='Moritz Ehlers', pool='Names_Germany', navy='Deutsche Marine',
+                    emblem=_EMBLEMS + 'sest_dm_emblem.png', ranks=GERMANY_RANKS,
+                    commons='File:Flag of Germany.svg',
+                    about='the German national flag. The Deutsche Marine\'s ensign is the federal '
+                          'service flag, with the federal arms, swallow-tailed; the gallery set has no '
+                          'file for it'),
+    'Netherlands': dict(name='Joost Brouwer', pool='Names_Netherlands', navy='Koninklijke Marine',
+                        emblem=_EMBLEMS + 'sest_km_emblem.png', ranks=NETHERLANDS_RANKS,
+                        commons='File:Flag of the Netherlands.svg',
+                        about='the Dutch national flag, which the Koninklijke Marine flies as its ensign'),
+    'Norway': dict(name='Eivind Brekke', pool='Names_Norway', navy='Sjøforsvaret',
+                   emblem=_EMBLEMS + 'sest_rnon_emblem.png', ranks=NORWAY_RANKS,
+                   commons='File:Flag of Norway.svg',
+                   about='the Norwegian national flag. The naval ensign is its swallow-tailed form '
+                         'with a tongue; the gallery set has no file for it'),
+    'Denmark': dict(name='Mads Holm Kristensen', pool='Names_Denmark', navy='Søværnet',
+                    emblem=_EMBLEMS + 'sest_rdn_emblem.png', ranks=DENMARK_RANKS,
+                    commons='File:Flag of Denmark.svg',
+                    about='the Danish national flag. The naval ensign, the Orlogsflag, is its '
+                          'swallow-tailed form in a deeper red; the gallery set has no file for it'),
+    'Thailand': dict(name='Suphachai Kaeokham', pool='Names_Thailand', navy='Royal Thai Navy',
+                     emblem=_EMBLEMS + 'sest_rtn_emblem.png', ranks=THAILAND_RANKS,
+                     commons='File:Flag of Thailand.svg',
+                     about='the Thai national flag. The Royal Thai Navy\'s ensign adds a white '
+                           'elephant on a red disc at its centre; the gallery set has no file for it'),
 }
+
+# SEST name pools for the nations the game ships none for (stock
+# language_en/ui.ini has [Names_X] for Argentina, Australia, Canada, China,
+# France, Germany, India, Iran, Iraq, Italy, Japan, Norway, Pakistan, South
+# Africa, Soviet, Spain, UK and USA). build_pack writes them to
+# language_en/sest_name_pools.ini in the campaign pack. The game merges
+# language files key by key across the load order whatever the file is
+# called (Southern Watch build notes, the loading-screen tips), so these
+# sections add to the stock pools and replace none: a section stock already
+# has stops the build (name_pools_text). The stock format: three
+# comma-separated lists with no spaces, ASCII, male names, 50 each; '_' for
+# no middle names, as stock Names_Japan. From the research of 10 Nov 2026:
+# Korean given names in Revised Romanization, surnames in their customary
+# passport forms (2015 census top 50, Kim first); New Zealand English names
+# with Maori names, macrons dropped as stock drops diacritics; Dutch
+# particles joined in the stock South African style (vanDerMerwe); Danish
+# letters folded as stock Names_Norway folds them; Thai names in the Royal
+# Thai General System. Whether a pool the commander screen draws from comes
+# out given name or surname first is a PC check.
+NAME_POOLS = {
+    'Names_NewZealand': (
+        'James,Christopher,Benjamin,Aaron,Luke,Adam,Peter,Joseph,Thomas,William,John,Michael,Daniel,David,'
+        'Matthew,Andrew,Mark,Richard,Scott,Craig,Shane,Nathan,Hayden,Bradley,Jamie,Samuel,Nicholas,Jonathan,'
+        'Timothy,Simon,Paul,Grant,Brendon,Blair,Hamish,Cameron,Duncan,Kieran,Wiremu,Rawiri,Hemi,Tamati,Tane,'
+        'Mikaere,Matiu,Ihaia,Kahu,Manaia,Hone,Rangi',
+        'James,John,Michael,David,Andrew,Peter,Robert,William,Thomas,Richard,Paul,Mark,Daniel,Matthew,'
+        'Christopher,Stephen,Alexander,Edward,George,Charles,Ian,Scott,Craig,Grant,Hamish,Alan,Bruce,Graham,'
+        'Kenneth,Murray,Neil,Ross,Stuart,Malcolm,Anthony,Joseph,Patrick,Francis,Henry,Lee,Wiremu,Rawiri,Hemi,'
+        'Tamati,Hone,Rangi,Matiu,Tane,Mikaere,Ihaia',
+        'Smith,Williams,Wilson,Brown,Taylor,Jones,Thompson,Anderson,Walker,Campbell,Stewart,Robinson,Clark,'
+        'Mitchell,Scott,Young,King,Martin,White,Harris,Hall,Wright,Watson,Edwards,Hughes,Kelly,Ryan,Murray,'
+        'Reid,Fraser,Ross,Robertson,Johnston,Cameron,Ngata,Parata,Tipene,Henare,Tamihana,Hohepa,Rewiti,'
+        'Herewini,Paki,Karaka,Kereama,Nikora,Waaka,Tomoana,Leota,Fifita'),
+    'Names_South_Korea': (
+        'Jihun,Hyeonu,Seongmin,Seonghyeon,Minsu,Junyeong,Junho,Mingyu,Donghyeon,Seunghyeon,Jeonghun,'
+        'Seonghun,Jinho,Minho,Seongho,Seongjin,Jeongho,Sanghun,Yeongjin,Hyeonjun,Junhyeok,Seungmin,Minjae,'
+        'Sangmin,Jaehun,Jaehyeon,Jaeho,Sangho,Taehun,Taeho,Jongmin,Jonghyeon,Yongjun,Sanghyeon,Jaeyeong,'
+        'Hyeongjun,Seungho,Donghun,Daehyeon,Jeongmin,Minseok,Hyeonseok,Wonseok,Changmin,Seokjin,Jaemin,Jinu,'
+        'Taehyeon,Junseok,Jaewon',
+        '_',
+        'Kim,Lee,Park,Jung,Choi,Cho,Kang,Jang,Yoon,Lim,Shin,Yoo,Han,Oh,Seo,Jeon,Kwon,Hwang,Ahn,Song,Hong,'
+        'Yang,Ko,Moon,Son,Bae,Baek,Heo,Noh,Nam,Shim,Ha,Joo,Koo,Kwak,Sung,Woo,Cha,Jin,Min,Ryu,Na,Ji,Um,Byun,'
+        'Chae,Won,Bang,Cheon,Kong'),
+    'Names_Netherlands': (
+        'Jeroen,Dennis,Martijn,Mark,Robert,Michael,Kevin,Jan,Johan,Sander,Bas,Niels,Thijs,Joost,Wouter,'
+        'Maarten,Pieter,Bart,Koen,Joris,Arjen,Remco,Erik,Marco,Rob,Ruben,Stefan,Tim,Thomas,Patrick,Richard,'
+        'Vincent,Edwin,Rick,Jasper,Gijs,Ivo,Frank,Michiel,Rutger,Sjoerd,Willem,Hugo,Tom,Menno,Floris,Laurens,'
+        'Peter,Paul,Erwin',
+        'Johannes,Hendrik,Willem,Jan,Pieter,Cornelis,Jacobus,Gerardus,Adrianus,Antonius,Petrus,Franciscus,'
+        'Hubertus,Theodorus,Wilhelmus,Marinus,Arie,Dirk,Klaas,Gerrit,Hendrikus,Johan,Martinus,Nicolaas,'
+        'Paulus,Bernardus,Leonardus,Josephus,Albert,Frederik,Karel,Maarten,Jeroen,Thomas,Michiel,Robert,Erik,'
+        'Frank,Marc,Bart,Sander,Joost,Floris,Laurens,Rutger,Arjen,Wouter,Bas,Koen,Daan',
+        'deJong,Jansen,deVries,vanDenBerg,vanDijk,Bakker,Janssen,Visser,Smit,Meijer,deBoer,Mulder,deGroot,'
+        'Bos,Vos,Peters,Hendriks,vanLeeuwen,Dekker,Brouwer,deWit,Dijkstra,Smits,deGraaf,vanDerMeer,Kok,'
+        'Jacobs,deHaan,Vermeulen,vanDenHeuvel,vanDerVeen,vanDenBroek,deBruijn,vanDerHeijden,Schouten,vanBeek,'
+        'Willems,vanVliet,vanDeVen,Hoekstra,Maas,Verhoeven,Koster,vanDam,Prins,Blom,Huisman,Kramer,Postma,'
+        'Kuipers'),
+    'Names_Denmark': (
+        'Peter,Michael,Lars,Jens,Thomas,Henrik,Soren,Christian,Martin,Jan,Niels,Anders,Morten,Jesper,Mads,'
+        'Rasmus,Mikkel,Kasper,Jacob,Jonas,Simon,Nicolai,Kristian,Daniel,Brian,Kenneth,Allan,Dennis,Claus,Kim,'
+        'Rene,Bo,Steen,Torben,Ole,Per,Hans,Poul,Erik,Klaus,Carsten,Frank,Bjarne,Lasse,Esben,Troels,Rune,'
+        'Jeppe,Ulrik,Steffen',
+        'Peter,Michael,Lars,Jens,Thomas,Henrik,Soren,Christian,Martin,Niels,Anders,Morten,Mads,Rasmus,'
+        'Mikkel,Jacob,Kristian,Erik,Hans,Ole,Per,Poul,Frederik,Emil,Johan,Carl,Aksel,Bo,Kim,Jan,Steen,Claus,'
+        'Kasper,Simon,Ulrik,Holm,Skov,Lund,Bach,Dahl,Krogh,Juul,Friis,Bech,Kjaer,Damgaard,Toft,Lykke,Bruun,'
+        'Munk',
+        'Nielsen,Jensen,Hansen,Pedersen,Andersen,Christensen,Larsen,Sorensen,Rasmussen,Jorgensen,Petersen,'
+        'Madsen,Kristensen,Olsen,Thomsen,Christiansen,Poulsen,Johansen,Moller,Mortensen,Knudsen,Jakobsen,'
+        'Jacobsen,Mikkelsen,Olesen,Frederiksen,Laursen,Henriksen,Lund,Schmidt,Eriksen,Holm,Kristiansen,'
+        'Clausen,Simonsen,Svendsen,Andreasen,Iversen,Ostergaard,Jeppesen,Vestergaard,Lauridsen,Nissen,'
+        'Mogensen,Jespersen,Kjaer,Norgaard,Dahl,Skov,Bach'),
+    'Names_Thailand': (
+        'Somchai,Prasoet,Sombun,Somsak,Narong,Wichai,Suchat,Anan,Chatchai,Kittisak,Natthaphong,Thanakon,'
+        'Worawut,Phongsak,Surasak,Sutthiphong,Wirot,Aphichat,Ekkachai,Chakkrit,Kriangkrai,Nopphadon,Phairot,'
+        'Sakda,Suphachai,Surachai,Thawatchai,Thirawat,Thanawat,Wanchai,Wirachai,Yutthana,Anucha,Prasit,'
+        'Pricha,Sarawut,Chaiwat,Sombat,Somphong,Chaloemchai,Sitthichai,Thiraphong,Wirayut,Phonchai,Chirawat,'
+        'Siriphong,Watcharaphon,Kittiphong,Chanchai,Thongchai',
+        '_',
+        'Sisuk,Thongdi,Bunma,Kaeokham,Chanthong,Saengthong,Phromma,Suksawat,Charoensuk,Thongkham,Wongkham,'
+        'Suwannarat,Rungrueang,Kaeomani,Bunyuen,Chaiyasit,Sukprasoet,Thongsuk,Siwong,Inthawong,Saengsuwan,'
+        'Bunrueang,Chaiwong,Sirisuk,Duangdi,Kongkaeo,Phuangmali,Suksombun,Charoenrat,Panyasiri,Wongkaeo,'
+        'Rueangsi,Khamsuk,Bunsong,Saisuwan,Chuenchom,Thongprasoet,Rattanaphon,Siriwat,Phongphan,Chantharat,'
+        'Kaeosai,Prasoetsuk,Sukkasem,Thongyu,Bunthong,Saengchan,Wongthai,Inkaeo,Chaisiri'),
+}
+NAME_POOL_FILE = 'language_en/sest_name_pools.ini'
+STOCK_UI = ROOT / 'mods-source/_vanilla/original/language_en/ui.ini'
+
+
+def name_pools_text():
+    """language_en/sest_name_pools.ini: the SEST [Names_X] sections. A
+    section the stock ui.ini already has would overwrite the game's own pool
+    key by key, so it stops the build."""
+    stock = set(re.findall(r'^\[(Names_\w+)\]', STOCK_UI.read_text(encoding='utf-8-sig'), re.M))
+    lines = ['# SEST commander name pools for the nations the game ships none for.',
+             '# Language files merge key by key across the load order, so these',
+             '# sections add to the game\'s own [Names_X] pools and replace none.',
+             '# integration/campaign/service_awards.py (NAME_POOLS) writes this file.']
+    for section, (first, middle, last) in NAME_POOLS.items():
+        if section in stock:
+            raise ValueError(f'{section} is a stock pool; a SEST file must not overwrite it')
+        lines += ['', f'[{section}]', f'FirstNames={first}', f'MiddleNames={middle}', f'LastNames={last}']
+    return '\n'.join(lines) + '\n'
+
+
+def unknown_pools(commander):
+    """The CommanderNamePool values a commander_settings text names that
+    neither the stock ui.ini nor NAME_POOLS defines."""
+    stock = set(re.findall(r'^\[(Names_\w+)\]', STOCK_UI.read_text(encoding='utf-8-sig'), re.M))
+    named = re.findall(r'^CommanderNamePool\w+=(.+?)\s*$', commander, re.M)
+    return sorted({p for p in named if p not in stock and p not in NAME_POOLS})
+
 
 # Fictional operation ribbons: code -> (id, name, citation, stripes). The
 # ids are stable; each strip has its own centre colour so the rack reads.
@@ -553,11 +812,16 @@ def sources_text(slug):
                   'Source: https://commons.wikimedia.org/wiki/File:Australian_Operational_Service_Medal_-_Indo-Pacific.png',
                   'Copied without modification (897 bytes). Its stripes - deep blue edges as wide as the',
                   'green, light blue, green, a yellow centre - match the Defence description.']
-    if any(n in NATION_SETTINGS and NATION_SETTINGS[n]['emblem'].rsplit('/', 1)[1].startswith('sest_')
-           for n in NATIONS.get(slug, ())):
-        lines += ['', 'Royal Navy emblem (ui/campaign/navy_emblems/sest_rn_emblem.png): the White Ensign,',
-                  'from the SEST gallery flag set (File:Naval ensign of the United Kingdom.svg, Wikimedia',
-                  'Commons, public domain; credited in Gallery/VISUAL_CREDITS.txt), scaled by build_pack.py.']
+    emblems = [NATION_SETTINGS[n] for n in NATIONS.get(slug, ())
+               if NATION_SETTINGS.get(n, {}).get('commons')]
+    if emblems:
+        lines += ['', f'Commander emblem{"s" if len(emblems) != 1 else ""} in {_EMBLEMS}, scaled by '
+                  'build_pack.py from the SEST', 'gallery flag set (Wikimedia Commons, public domain; '
+                  'credited in Gallery/VISUAL_CREDITS.txt):']
+        for row in emblems:
+            lines += textwrap.wrap(f'{row["emblem"].rsplit("/", 1)[1]} - {row["navy"]}: {row["about"]}.',
+                                   width=88, initial_indent='  ', subsequent_indent='    ')
+            lines.append(f'    Source: {row["commons"]}')
     real = [(rid, row) for rid, row in rows.items() if row['reference'] != 'Fictional' and row.get('source')]
     if real:
         lines += ['', 'Award facts (criteria, ribbon design, precedence):']

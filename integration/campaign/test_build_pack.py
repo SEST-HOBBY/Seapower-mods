@@ -2220,25 +2220,51 @@ class SameNationDiscount(unittest.TestCase):
         self.assertNotIn("No national purchase discount", page)
 
     def test_every_offered_commander_nation_is_named_with_its_classes(self):
-        # Southern Watch offers an Australian (default), American, British or
-        # Japanese commander (service_awards.NATIONS). The game's discount
-        # follows the committed nation, so the page gives each its classes
-        # (review of 7be336cb, TF-1).
+        # Southern Watch offers an Australian (default) commander or one of
+        # thirteen allied navies' (service_awards.NATIONS; ten until 10 Nov
+        # 2026 fewer). The game's discount follows the committed nation, so
+        # the page gives each its classes (review of 7be336cb, TF-1): one
+        # class is singular, and a nation with none says so.
         spec = dict(bp.campaign_specs()[0])
         counts = collections.Counter(bp.roster_nations(spec["ROSTER"]).values())
         page = bp.campaign_rules(spec)
+        self.assertEqual(counts["Norway"], 1)
+        self.assertEqual(counts["NewZealand"], 0)
         self.assertIn(f"It covers the {counts['Australia']} classes registered to Australia for "
                       f"an Australian commander, the {counts['US']} classes registered to the "
                       f"USA for an American commander, the {counts['UK']} classes registered "
-                      f"to the United Kingdom for a British commander and the "
+                      f"to the United Kingdom for a British commander, the "
                       f"{counts['Japan']} classes registered to Japan for a Japanese "
-                      "commander. Every other class costs its listed price; no commander's "
-                      "discount covers the classes registered to ", page)
+                      "commander, ", page)
+        self.assertIn(f"the {counts['Italy']} classes registered to Italy for an Italian commander", page)
+        self.assertIn("the 1 class registered to Norway for a Norwegian commander and the 1 class "
+                      "registered to Denmark for a Danish commander. Every other class costs its "
+                      "listed price.", page)
+        self.assertIn("no class for a New Zealand commander (none is registered to New Zealand)", page)
+        self.assertNotRegex(page, r"\b1 classes")
         self.assertIn("The commander is Australian by default; you can instead appoint an "
-                      "American, a British or a Japanese officer", page)
+                      "American, a British, a Japanese, a New Zealand, a French, a Canadian, a "
+                      "South Korean, a Spanish, an Italian, a German, a Dutch, a Norwegian or a "
+                      "Danish officer", page)
         self.assertNotIn("The commander's nation is fixed.", page)
         self.assertNotIn("without the same-nation discount", page)
         self.assertNotIn("The discount covers the", page)
+
+    def test_sulu_line_offers_its_partners_commanders(self):
+        # Sulu Line's page left the one-nation branch on 10 Nov 2026: a Thai
+        # or Australian officer may command the Philippine-led group.
+        spec = next(s for s in bp.campaign_specs() if s["SLUG"] == "sest-sulu-line")
+        counts = collections.Counter(bp.roster_nations(spec["ROSTER"]).values())
+        page = bp.campaign_rules(spec)
+        self.assertIn("The commander is Philippine by default; you can instead appoint a Thai "
+                      "or an Australian officer in command of the group.", page)
+        self.assertIn(f"It covers the {counts['Philippines']} classes registered to the Philippines "
+                      f"for a Philippine commander, the {counts['Thailand']} classes registered to "
+                      f"Thailand for a Thai commander and the {counts['Australia']} classes "
+                      "registered to Australia for an Australian commander. Every other class "
+                      "costs its listed price; no commander's discount covers the classes "
+                      "registered to the USA (1).", page)
+        self.assertNotIn("The commander's nation is fixed.", page)
 
     def test_no_discount_says_so(self):
         spec = dict(bp.campaign_specs()[0])

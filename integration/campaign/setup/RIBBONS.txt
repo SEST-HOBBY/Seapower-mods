@@ -32,15 +32,34 @@ qualify for manual battle awards; task awards use their own native outcomes.
 
 AUTHORED CAMPAIGNS - TASK FORCE SERVICE RECORD
 Commander nations. Southern Watch and Southern Reach keep Australia as the
-default and also offer a US, British or Japanese commander: an allied
-officer in command of the Australian-led group. Red Line stays Chinese and
-Sulu Line Philippine. Choose the nation in the Service Record when a
-campaign starts; a commander already in a save keeps its nation and name.
+default and also offer an allied officer in command of the Australian-led
+group: US, UK, Japan, New Zealand, France, Canada, South Korea, Spain,
+Italy, Germany, the Netherlands, Norway or Denmark. Sulu Line keeps the
+Philippines as the default and also offers Thailand or Australia, whose
+detachment and frigate serve in its group. Red Line stays Chinese. Choose
+the nation in the Service Record when a campaign starts; a commander
+already in a save keeps its nation and name.
+
+Each nation has its navy's name, officer ranks and an emblem. Ranks use
+the navy's own titles: English for the Commonwealth navies, Korea and
+Thailand; French, Spanish, Italian, German, Dutch, Norwegian and Danish
+titles with their accents for the others. Commander is OF-4, Captain OF-5
+and a commodore's grade OF-6 in every navy; Thailand has no OF-6 rank, so
+Sulu Line's Thai commander is a Captain on the special grade. Australia,
+the US and Japan use the game's own ranks and emblems. Other emblems come
+from the SEST gallery flag set: a naval ensign where the set has one (the
+UK, New Zealand, Italy), otherwise the national flag, which is the ensign
+itself for France, Canada, South Korea, the Netherlands and Spain. The
+German, Norwegian, Danish and Thai ensigns differ from the national flag,
+and SOURCES.txt says so. New Zealand, South Korea, the Netherlands,
+Denmark and Thailand get SEST name pools (language_en/sest_name_pools.ini);
+the other nations use the game's own.
 
 The game's same-nation purchase discount follows the commander's nation:
-an Australian commander keeps it on the Australian classes; a US, British or
-Japanese commander gets it on that nation's classes instead. Each campaign's
-rules page gives the class counts. Ribbons add no points, renown or supplies.
+an Australian commander keeps it on the Australian classes; an allied
+commander gets it on that nation's classes instead. Each campaign's rules
+page gives the class counts; a nation with no class on sale is named as
+such. Ribbons add no points, renown or supplies.
 
 Fictional ribbons, any commander: the four completion ribbons (unchanged)
 and eight operation ribbons - SW05 Timor Corridor, SW08 Archipelago
@@ -97,10 +116,14 @@ PC CHECKS
 On the beta, load an existing world and check Service progress, wrapping
 and scrolling. Complete an accepted task, return to the map and compare
 task/battle counts.
-Start a new Southern Watch campaign: the Service Record offers Australia,
-Japan, United Kingdom and USA. Compare one Anzac and one Burke price as an
-Australian and as a US commander. Check the British commander's empty rank
-insignia and the White Ensign emblem. Open a citation: its date is the
+Start a new Southern Watch campaign: the Service Record offers the
+fourteen nations. Compare one Anzac and one Burke price as an Australian
+and as a US commander. Check the British commander's empty rank insignia
+and the White Ensign emblem. Pick New Zealand, South Korea and Thailand
+(Sulu Line): each shows a name from its SEST pool, not a blank, and its
+emblem. Pick Germany or Norway: the rank title's accented letter (the
+a-umlaut of Kapitan zur See, the o-slash of Kommandor) draws on the
+commander screen and in a citation. Open a citation: its date is the
 mission's, not 1985. Load an existing save: its commander, nation and earned
 ribbons are unchanged. Existing saves are preserved; start a new
 commander to choose another nationality.

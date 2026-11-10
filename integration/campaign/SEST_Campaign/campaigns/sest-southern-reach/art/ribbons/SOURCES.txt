@@ -27,9 +27,40 @@ Source: https://commons.wikimedia.org/wiki/File:Australian_Operational_Service_M
 Copied without modification (897 bytes). Its stripes - deep blue edges as wide as the
 green, light blue, green, a yellow centre - match the Defence description.
 
-Royal Navy emblem (ui/campaign/navy_emblems/sest_rn_emblem.png): the White Ensign,
-from the SEST gallery flag set (File:Naval ensign of the United Kingdom.svg, Wikimedia
-Commons, public domain; credited in Gallery/VISUAL_CREDITS.txt), scaled by build_pack.py.
+Commander emblems in ui/campaign/navy_emblems/, scaled by build_pack.py from the SEST
+gallery flag set (Wikimedia Commons, public domain; credited in Gallery/VISUAL_CREDITS.txt):
+  sest_rn_emblem.png - Royal Navy: the White Ensign.
+    Source: File:Naval ensign of the United Kingdom.svg
+  sest_rnzn_emblem.png - Royal New Zealand Navy: the New Zealand naval ensign.
+    Source: File:Naval Ensign of New Zealand.svg
+  sest_mn_emblem.png - Marine nationale: the French national flag, which the Marine
+    nationale flies as its ensign.
+    Source: File:Flag of France.svg
+  sest_rcn_emblem.png - Royal Canadian Navy: the Canadian national flag, which the Royal
+    Canadian Navy flies as its ensign.
+    Source: File:Flag of Canada.svg
+  sest_rokn_emblem.png - Republic of Korea Navy: the South Korean national flag, which
+    the Republic of Korea Navy flies as its ensign.
+    Source: File:Flag of South Korea.svg
+  sest_armada_emblem.png - Armada Española: the Spanish national flag with the arms,
+    which the Armada flies as its ensign.
+    Source: File:Flag of Spain.svg
+  sest_mm_emblem.png - Marina Militare: the Italian naval ensign.
+    Source: File:Naval ensign of Italy.svg
+  sest_dm_emblem.png - Deutsche Marine: the German national flag. The Deutsche Marine's
+    ensign is the federal service flag, with the federal arms, swallow-tailed; the
+    gallery set has no file for it.
+    Source: File:Flag of Germany.svg
+  sest_km_emblem.png - Koninklijke Marine: the Dutch national flag, which the
+    Koninklijke Marine flies as its ensign.
+    Source: File:Flag of the Netherlands.svg
+  sest_rnon_emblem.png - Sjøforsvaret: the Norwegian national flag. The naval ensign is
+    its swallow-tailed form with a tongue; the gallery set has no file for it.
+    Source: File:Flag of Norway.svg
+  sest_rdn_emblem.png - Søværnet: the Danish national flag. The naval ensign, the
+    Orlogsflag, is its swallow-tailed form in a deeper red; the gallery set has no file
+    for it.
+    Source: File:Flag of Denmark.svg
 
 Award facts (criteria, ribbon design, precedence):
   Australian Operational Service Medal - Indo-Pacific: https://www.defence.gov.au/adf-members-families/honours-awards/australian-awards/australian-operational-service-medal-indo-pacific
