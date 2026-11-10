@@ -40,7 +40,7 @@ MISSION = dict(
         ("Picture","Break the fighter intercept and bring Dragon Eye to the return box","35,-35,Fail,Main"),
         ("Restraint","Do not attack the convoy or protected surveillance aircraft","15,-40,Complete"),
         ("Eye","Keep Dragon Eye 05 alive","10,-30,Complete"),
-        ("Fighters","Required: destroy at least one intercepting fighter","20,0,None,Main"),
+        ("Fighters","Also required: destroy at least one intercepting fighter","20,0,None,Main"),
         ("Names","Classify Coral Pioneer and both Japanese escorts if practicable","20,0,None"),
         ("Traffic","Harm no protected non-belligerent or civil contact","0,-30,Complete"),
     ],

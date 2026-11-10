@@ -4017,8 +4017,9 @@ class RedLineReleaseTerms(unittest.TestCase):
     """Red Line text fixes of 10 Nov 2026 (step 1 of the builder-grammar
     design): briefs that state the release terms the victory triggers test,
     RL04's withdrawal as the five-mile circle it is, victory-required
-    objectives flagged Main and labelled Required, and RLC1's one-mile race.
-    Victory logic is unchanged."""
+    objectives flagged Main and labelled "Also required" (not "Required",
+    which made the primary lines beside them read as optional), and RLC1's
+    one-mile race. Victory logic is unchanged."""
 
     PACK = bp.ROOT / "integration" / "campaign" / "SEST_Campaign" / "campaigns" / "sest-red-line"
 
@@ -4045,6 +4046,10 @@ class RedLineReleaseTerms(unittest.TestCase):
                     if term.get("kind") == "no_incoming":
                         self.assertIn("no incoming weapon", brief)
         self.assertIn("(within eight miles of it)", self.brief("RL06"))
+        # The stage is the circle AND Time=480, so it passes whenever the
+        # screen is there at or after minute eight, not only at minute eight.
+        self.assertIn("at or after minute eight", self.brief("RL06"))
+        self.assertNotIn("has been on the decoy station", self.brief("RL06"))
         self.assertEqual(self.m["RL06"]["victory"]["after"]["radius"], 8)
 
     def test_the_withdrawal_is_a_circle(self):
@@ -4065,13 +4070,20 @@ class RedLineReleaseTerms(unittest.TestCase):
             text, spec = next((t, s) for o, t, s in m["objectives"] if o == oid)
             with self.subTest(mission=code, objective=oid):
                 self.assertIn("Main", spec.split(",")[3:])
-                self.assertTrue(text.startswith("Required: "), text)
+                self.assertTrue(text.startswith("Also required: "), text)
                 # Required because the victory trigger needs it destroyed.
                 self.assertTrue(any(t.get("kind") == "destroyed" for t in m["victory"]["also"]))
                 ini = next(self.PACK.glob(f"missions/Red Line {m['num']} - *.ini"), None)
                 if ini is None:
                     self.skipTest("pack not built")
                 self.assertIn(f"\n{oid}={spec}\n", ini.read_text(encoding="utf-8"))
+        # No objective anywhere in the campaign keeps the bare prefix.
+        for code, m in self.m.items():
+            for oid, text, _spec in m["objectives"]:
+                self.assertFalse(text.startswith("Required:"), (code, oid))
+        # RL04's coaster has to be sunk (UnitDestroyed), so the line says so.
+        spoiler = next(t for o, t, _s in self.m["RL04"]["objectives"] if o == "Spoiler")
+        self.assertEqual(spoiler, "Also required: sink Meridian Harmony before she clears the screen")
 
     def test_the_patrol_vessels_mile_is_stated(self):
         m = self.m["RLC1"]

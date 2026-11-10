@@ -63,7 +63,7 @@ MISSION = dict(
     objectives=[
         ("Withdrawal", "Bring Liaoning and Hulunhu inside the withdrawal circle north-west",
          "35,-35,Fail,Main"),
-        ("Spoiler", "Required: stop Meridian Harmony before she clears the screen", "20,-40,Fail,Main"),
+        ("Spoiler", "Also required: sink Meridian Harmony before she clears the screen", "20,-40,Fail,Main"),
         ("Restraint", "Engage only the two declared hostile Meridian vessels", "15,-40,Complete"),
         ("Boat", "Leave the boat astern alone, if she is there", "0,-40,None"),
         ("Carrier", "Bring Liaoning through intact", "10,-30,Complete"),
