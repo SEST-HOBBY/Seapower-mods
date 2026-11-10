@@ -2265,15 +2265,25 @@ class SameNationDiscount(unittest.TestCase):
 
     def test_every_offered_commander_nation_is_named_with_its_classes(self):
         # Southern Watch offers an Australian (default) commander or one of
-        # thirteen allied navies' (service_awards.NATIONS; ten until 10 Nov
-        # 2026 fewer). The game's discount follows the committed nation, so
+        # thirteen allied navies' (service_awards.NATIONS; ten fewer until
+        # 10 Nov 2026). The game's discount follows the committed nation, so
         # the page gives each its classes (review of 7be336cb, TF-1): one
         # class is singular, and a nation with none says so.
+        #
+        # The spec's ROSTER holds no reserve aircraft: apply_reserve holds
+        # them (RESERVE_AIR) until main() judges them on the built missions
+        # and admit_aircraft() puts the ones that fly on the roster. New
+        # Zealand's one class is an aircraft, the RNZAF P-8A, so the page
+        # built here from the spec has none for it. The built pages, below,
+        # carry the P-8A and give New Zealand its one class.
         spec = dict(bp.campaign_specs()[0])
+        self.assertIn("rnzaf_p8", [e["unit"] for e in spec["RESERVE_AIR"]])
+        self.assertNotIn("rnzaf_p8", [e["unit"] for e in spec["ROSTER"]])
         counts = collections.Counter(bp.roster_nations(spec["ROSTER"]).values())
         page = bp.campaign_rules(spec)
         self.assertEqual(counts["Norway"], 1)
         self.assertEqual(counts["NewZealand"], 0)
+        self.assertEqual(counts["Canada"], 0)
         self.assertIn(f"It covers the {counts['Australia']} classes registered to Australia for "
                       f"an Australian commander, the {counts['US']} classes registered to the "
                       f"USA for an American commander, the {counts['UK']} classes registered "
@@ -2300,6 +2310,19 @@ class SameNationDiscount(unittest.TestCase):
         self.assertNotIn("The commander's nation is fixed.", page)
         self.assertNotIn("without the same-nation discount", page)
         self.assertNotIn("The discount covers the", page)
+        # As built, both Australian-led campaigns sell the P-8A, so New
+        # Zealand has its one class; no class is registered to Canada (the
+        # RCAF CC-330 was dropped on 10 Nov 2026).
+        for slug in ("sest-southern-watch", "sest-southern-reach"):
+            built = PACK / "campaigns" / slug / "campaign_rules_en.xml"
+            if not built.is_file():
+                self.skipTest("pack not built")
+            text = built.read_text(encoding="utf-8")
+            with self.subTest(campaign=slug):
+                self.assertIn("the one class registered to New Zealand for a New Zealand commander, ",
+                              text)
+                self.assertNotIn("no class for a New Zealand commander", text)
+                self.assertIn("no class for a Canadian commander (none is registered to Canada)", text)
 
     def test_sulu_line_offers_its_partners_commanders(self):
         # Sulu Line's page left the one-nation branch on 10 Nov 2026: a Thai
