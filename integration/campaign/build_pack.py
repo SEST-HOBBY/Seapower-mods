@@ -249,15 +249,74 @@ def campaign_rules(spec, open_allocation=False, allied=0):
                          "rebase campaign_rules()")
     discount = same_nation_discount(spec["COMMANDER"])
     nation = re.search(r"^CommanderNations=(.+)$", spec["COMMANDER"], re.M).group(1).strip()
+    # The commander nations the campaign offers (service_awards.NATIONS adds
+    # them to the commander_settings.ini it writes). The game's discount
+    # follows the committed commander's nation, so with more than one the
+    # page says what each nation's commander gets (review of 7be336cb,
+    # TF-1: the page had said only Australian classes were discounted while
+    # a US commander was offered).
+    offered = service_awards.commander_nations(spec.get("SLUG", ""), spec["COMMANDER"])
+    adjectives = [service_awards.ADJECTIVE.get(n, (nation_name(n), "a"))[0] for n in offered]
+    if len(offered) == 1:
+        command = (f"You command the {navy} task force for the whole campaign. The "
+                   "commander's nation is fixed.")
+    else:
+        others = [f"{service_awards.ADJECTIVE.get(n, ('', 'a'))[1]} {a}"
+                  for n, a in zip(offered[1:], adjectives[1:])]
+        choice = others[0] if len(others) == 1 else ", ".join(others[:-1]) + " or " + others[-1]
+        command = (f"You command the {navy} task force for the whole campaign. The commander "
+                   f"is {adjectives[0]} by default; you can instead appoint {choice} officer "
+                   "in command of the group. Choose the nation in the Service Record when the "
+                   "campaign starts; it is then locked for the campaign.")
     lines = [
         '<TextBlock Text="Command" FontSize="17" FontWeight="Bold" Foreground="White" '
         'TextWrapping="Wrap" Margin="0,0,0,6"/>',
-        line.format(_xml_text(f"You command the {navy} task force for the whole "
-                              "campaign. The commander's nation is fixed."), 14),
+        line.format(_xml_text(command), 14),
         line.format("Commander nationality does not change mission rules, ship "
-                    "performance, aircraft performance, or combat capability.", 14),
+                    "performance, aircraft performance, or combat capability."
+                    + ((" It decides which classes the purchase discount covers and which "
+                        "national awards the commander can receive." if discount else
+                        " It decides which national awards the commander can receive.")
+                       if len(offered) > 1 else ""),
+                    14),
     ]
-    if discount:
+    unrestricted = ("- In the game's Unrestricted mode the Service Record also offers a "
+                    "Faction discount nation, All nations by default, and that setting "
+                    "decides the discount instead.")
+    if discount and len(offered) > 1:
+        nations = roster_nations(spec["ROSTER"])
+        counts = collections.Counter(n.lower() for n in nations.values())
+
+        def the(n):
+            name = nation_name(n)
+            return ("the " if name in ("USA", "United Kingdom", "Netherlands") else "") + name
+
+        each = []
+        for n, adjective in zip(offered, adjectives):
+            c = counts.get(n.lower(), 0)
+            article = service_awards.ADJECTIVE.get(n, ("", "a"))[1]
+            each.append(f"the {c} class{'es' if c != 1 else ''} registered to {the(n)} for "
+                        f"{article} {adjective} commander" if c else
+                        f"no class for {article} {adjective} commander (none is registered "
+                        f"to {the(n)})")
+        others = collections.Counter(nation_name(n) for n in nations.values()
+                                     if n.lower() not in {o.lower() for o in offered})
+        said = ("- The discount follows the commander's nation. It covers "
+                + ", ".join(each[:-1]) + " and " + each[-1]
+                + ". Every other class costs its listed price")
+        if others:
+            never = [f"{('the ' if n in ('USA', 'United Kingdom', 'Netherlands') else '')}{n} ({c})"
+                     for n, c in sorted(others.items(), key=lambda x: (-x[1], x[0]))]
+            said += ("; no commander's discount covers the classes registered to "
+                     + (never[0] if len(never) == 1 else ", ".join(never[:-1]) + " or " + never[-1]))
+        lines += [separator + "\n",
+                  '<TextBlock Text="National Purchase Discount" FontSize="17" '
+                  'FontWeight="Bold" Foreground="White" TextWrapping="Wrap" '
+                  'Margin="0,0,0,6"/>',
+                  stock_discount.group(0),
+                  line.format(_xml_text(said + "."), 5),
+                  line.format(_xml_text(unrestricted), 14)]
+    elif discount:
         nations = roster_nations(spec["ROSTER"])
         own = sum(1 for n in nations.values() if n.lower() == nation.lower())
         foreign = collections.Counter(nation_name(n) for n in nations.values()
@@ -278,7 +337,8 @@ def campaign_rules(spec, open_allocation=False, allied=0):
                       + ", ".join(f"{n} ({c})" for n, c in sorted(
                           foreign.items(), key=lambda x: (-x[1], x[0])))
                       + (" - cost their listed price." if sum(foreign.values()) != 1
-                         else " - costs its listed price.")), 14)]
+                         else " - costs its listed price.")), 5),
+                  line.format(_xml_text(unrestricted), 14)]
     else:
         lines.append(line.format("- No national purchase discount applies: every unit "
                                  "costs its listed price.", 14))
@@ -307,7 +367,9 @@ def campaign_rules(spec, open_allocation=False, allied=0):
         notes = []
         if any(mission_depth._navy(priced[u]) != nation for u in units):
             notes.append("Allied classes cost their own navies' listed prices, without "
-                         "the same-nation discount.")
+                         "the same-nation discount." if len(offered) == 1 else
+                         "Allied classes cost their listed price unless they are "
+                         "registered to the commander's nation.")
         # A deck of more than four is a carrier's or an amphibious ship's
         # (Galicia 6 to Ford 90); an escort's flight is one to three.
         if any(unit_type(u) == "Vessel" and deck_size(u) > 4 for u in units):
@@ -6336,7 +6398,10 @@ def flagship(uid):
 # VISUAL_CREDITS.txt). A commander_settings.ini path under
 # ui/campaign/navy_emblems/sest_* must have an entry here.
 SEST_EMBLEMS = {"sest_plan_emblem.png": "china_naval.png",
-                "sest_pn_emblem.png": "philippines.png"}
+                "sest_pn_emblem.png": "philippines.png",
+                # The White Ensign, for a Royal Navy commander in the two
+                # Australian-led campaigns (service_awards.NATION_SETTINGS).
+                "sest_rn_emblem.png": "uk_naval.png"}
 
 
 def write_emblems(commander):
@@ -8597,9 +8662,13 @@ def main():
         (camp / "player_task_force_roster.ini").write_text(c["roster_text"],
                                                            encoding="utf-8")
         (camp / "enemy_theater_roster.ini").write_text(c["enemy_text"], encoding="utf-8")
-        (camp / "commander_settings.ini").write_text(service_awards.commander_settings(spec["COMMANDER"], SLUG), encoding="utf-8")
+        # The commander file the game reads: the campaign's own commander,
+        # the nations service_awards offers beside it and the award
+        # definitions. Its emblems are drawn from what it names.
+        commander_text = service_awards.commander_settings(spec["COMMANDER"], SLUG)
+        (camp / "commander_settings.ini").write_text(commander_text, encoding="utf-8")
         service_awards.render(camp, SLUG)
-        write_emblems(spec["COMMANDER"])
+        write_emblems(commander_text)
         (camp / "campaign_rules_en.xml").write_text(c["rules_text"], encoding="utf-8")
         for folder, desc in folders.items():
             (OUT / "missions" / folder / "_info.ini").write_text(info(folder, desc),
