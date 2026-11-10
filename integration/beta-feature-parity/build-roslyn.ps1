@@ -24,7 +24,9 @@ $ErrorActionPreference = 'Stop'
 $here = $PSScriptRoot
 $root = (Resolve-Path (Join-Path $here '..' '..')).Path
 $capture = (Resolve-Path $Capture).Path
-$pins = @{
+# Ordered, so captured_references keeps this order and build-receipt.json
+# is byte-reproducible (a plain hashtable enumerates in a varying order).
+$pins = [ordered]@{
     'Seapower-Scripts.dll' = '499675cda59912054924ae42297bce7a82b12ca00957dabd684105a24aa353a9'
     'Noesis.NoesisGUI.dll' = '7b1fd6a6b90d0692297906f5907a1b4a2072bf3bf25a983b36aaa5b5c043ebdd'
     'AnchorChain.dll' = 'e272811050698640a8936834363da91769dbc83e017637e3629c21bca6bea764'
