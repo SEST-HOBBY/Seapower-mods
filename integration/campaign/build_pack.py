@@ -4589,7 +4589,8 @@ def check_coast_geometry(mission, placer):
     for lift in mission.get("lift", []):
         placer.point(lift["at"], f"{key} {lift['objective']} lift area")
     for tb in mission.get("turn_back", []):
-        placer.point(tb["to"], f"{key} turn_back {tb['name']} destination")
+        if isinstance(tb, dict) and tb.get("to"):
+            placer.point(tb["to"], f"{key} turn_back {tb.get('name')} destination")
 
 
 def check_geometry(mission, placed, members):

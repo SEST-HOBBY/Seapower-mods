@@ -8,6 +8,93 @@ RL01 is 40-minute carrier defence against two hostile missile craft; ALPHA class
 
 Protected coalition observers in RL01–04 are neutral non-belligerents, so defensive player units and unrelated hostile raiders do not share them as combatants. Protected-loss rules, reserved hull variants, the 17-entry spine, calendar, `RL02GolfSunk`, `RLO1GolfDatum` and the held RLO2 reveal remain. No missile/weapon performance changes are part of this revision.
 
+## 10 November 2026: alternative victories, the heave-to and progress reports
+
+The step-3 builder-grammar design, steps 2 to 6. Its step 1 (the release
+terms and the Main flags) and the held-stage clock fix shipped first. Every
+trigger shape below is copied from a stock mission, cited in the code
+where it is written.
+
+- **Foundations.** The builder refuses a victory or stage key it does not
+  read (`VICTORY_KEYS`, `STAGE_KEYS`), so a misspelt key stops the build.
+  An objective every way to win depends on must be flagged `Main`, as stock
+  *Action in the Gulf of Sidra 1986* flags its three (lines 649-651), and
+  its text may not call it optional (`check_required_objectives`). A trigger
+  line may name another trigger by its `Name=`; the mark becomes
+  `Trigger{n}` once all triggers are written, and an unknown or shared name
+  stops the build. `check_zone_areas` reads condition numbers of 10 and
+  above. `tools/check_campaign_coverage.py` parses every `ConditionsCompleted`
+  and checks that it holds only `<ConditionN>`, AND, OR, NOT and brackets,
+  balanced, that each condition is defined and used, that a TriggerCompleted
+  condition names a trigger in the mission, and that NOT on an area test is
+  refreshed. Stock's own *01 Red Sea Breakout 1988* line 273 fails the first
+  check.
+- **`any_of` (RL03).** A victory may list paths. Each is its own victory
+  trigger after the shared arrival and the common terms, with its own
+  message (`Path<Name>VictoryMessage`) and bonus. Each enables the shared
+  exit and disables the others. A `clear_of` term (none of the units inside
+  a circle, which defaults to their anti-air reach) is *08 Defense of North
+  Borneo*'s victory: `UnitsInTheArea`, `Taskforce=Taskforce2`, under
+  `AND NOT` (Trigger3, lines 1270-1286), with a refresh trigger that
+  reactivates the path and itself every 5 seconds (Trigger10, lines
+  1334-1339). Reactivation restarts a Time condition, so a refreshed path
+  takes `after_minutes` and a Time trigger opens it (*05A Operation
+  Blockbuster - Blue*, Trigger9). RL03's Disengage path waits for the
+  F-35s' last `Attack=` order plus two minutes, which is minute 18. Its
+  circle is 70 NM: the builder reads AIM-120C7 `MaxLaunchRange=70` from the
+  RAAF F-35A JATM pack, the winning copy. The design's 65 NM came from the
+  Workshop copy below it. The owner chose the full reach. Fighters is a bonus
+  again, completed only by the kill. No path sets a campaign variable: the
+  awards stay keyed on objectives (owner).
+- **`turn_back` (RL04).** Challenge circles every mile along the coaster's
+  placed route, from her spawn to the edge of the denied circle where she
+  clears the screen. Each challenge is two area tests at one point: her
+  within 0.75 NM of it on her own track, and the screen's lead ship within
+  3 NM. That makes the challenge "about three miles" (2.25 to 3.75) from
+  any side; the ship's flight is not counted (owner). A challenge enables
+  one disabled Generic trigger, as *Caron at Grenada 1983*'s Trigger4
+  enables its checkout Trigger10 (lines 534, 588-595). That trigger moves
+  her to Neutral, gives her a waypoint north-west and telegraph 2 (*Caron*
+  591-593; *Blockbuster* Trigger11, lines 940-942) and completes Spoiler. It
+  switches off the challenges, the denied race, the Sunk path, Spoiler's
+  destroy trigger and the *Progress: Running* report. A disabled terminal
+  then waits for her loss on the tag she keeps, as *PLAN 04 Escape from the
+  Sulu Sea* does after its transfer (lines 592-593, 604-606), and fails
+  Restraint. A transferred ship is not in the mission's neutral list. The
+  victory's HoveTo path waits for the turn-back with TriggerCompleted (North
+  Borneo lines 1272-1273) AND NOT her loss.
+- **`DAMAGE_STATE`.** "Unit damage state" is in the game's editor
+  (`language_en/ui.ini` lines 1149-1158) and in no stock mission, so its
+  keys are unknown. `campaign_data.DAMAGE_STATE` is None until PC check P1.
+  While it is None, a `damaged` term or a turn_back's `or_damaged` stops the
+  build, and RL04 neither offers nor mentions a "stop her engines" outcome.
+  With the table set, the module adds the Crippled path.
+- **`progress`.** Information-only triggers named `Progress: <name>`. Each
+  is an area test with the circle not shown, optionally AND a Time (*03
+  Lifeline at the Edge of the World*'s Trigger8) or AND NOT a Time (the
+  form of Broken Wake's reinforcement cutoff; stock writes AND NOT on an
+  area or a classification, North Borneo line 1282 and *04 Sunda Strait*
+  line 721), plus one intel line. A chained entry is enabled and
+  reactivated by its parent, as *04 Chagos Gambit* arms its rain loop
+  (lines 515-516). `check_zone_areas` skips them and refuses one that does
+  more than report. RL02 *Early*, RL03 *EyeHome*, RL04 *Halfway*, *FirstIn*
+  and *Running*, RL06 *TenderIn*.
+- **Release terms.** RL01 and RLO2's briefs now state their exits as RL02,
+  RL04 and RL06's do. `RedLineReleaseTerms` holds all six combat exits.
+
+Where this departs from the design: the challenge is two radii (her track,
+the warship's distance), not one 1.5 NM circle for both. One circle would
+need the warship on her track, and the owner asked for about three miles.
+No challenge circle is dropped near the player's spawn: the deployment box
+is held off them like any goal, and `check_zone_areas` passes. Dropping
+them would have left the first six miles of her run unchallengeable. The
+corridor reach report is left out: at the builder's conservative 18 kn for
+both ships no chase closes, so it would always fire, and her real speed is
+check P7. RLC1 has no return leg, by the owner's choice. A
+return-leg progress report could never show either: the win at the pickup
+ends the mission through the shared exit within seconds. Its win and
+timeout texts misstate nothing and are unchanged.
+
 The notes below describe earlier authoring decisions. Their blanket restraint-only wording and earlier mission windows are historical where superseded by this dated revision.
 
 
