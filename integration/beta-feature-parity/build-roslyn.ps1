@@ -163,6 +163,7 @@ if (Test-Path -LiteralPath (J $here 'tests' 'CostRowsTests.cs')) { Compile 'Cost
 
 Compile 'WorldOperationsTests.exe' @((J $here 'tests' 'WorldOperationsTests.cs'))
 Compile 'WorldBattleFlowTests.exe' @((J $here 'tests' 'WorldBattleFlowTests.cs'))
+Compile 'MissionAwardsTests.exe' @((J $here 'tests' 'MissionAwardsTests.cs'))
 
 $outputs = 'AnchorChain.dll', 'SEST.BetaSafeBootstrap.dll', 'SEST.RuntimeFixes.dll', 'SEST.ContactsFix.dll', 'SEST.IdentifyDataPaths.dll'
 $sourceFiles = @($runtimeSources) + @(Get-ChildItem -LiteralPath (J $here 'ui') -Filter '*.cs' -File | ForEach-Object { $_.FullName })

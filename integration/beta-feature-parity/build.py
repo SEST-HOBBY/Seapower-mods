@@ -129,6 +129,7 @@ def main():
     compile('CostRowsTests.exe', [HERE / 'tests/CostRowsTests.cs'])
     compile('WorldOperationsTests.exe', [HERE / 'tests/WorldOperationsTests.cs'])
     compile('WorldBattleFlowTests.exe', [HERE / 'tests/WorldBattleFlowTests.cs'])
+    compile('MissionAwardsTests.exe', [HERE / 'tests/MissionAwardsTests.cs'])
     outputs = ['AnchorChain.dll', 'SEST.BetaSafeBootstrap.dll', 'SEST.RuntimeFixes.dll',
                'SEST.ContactsFix.dll', 'SEST.IdentifyDataPaths.dll']
     source_files = runtime_sources + list((HERE / 'ui').glob('*.cs')) + list((HERE / 'identify').glob('*.cs'))
