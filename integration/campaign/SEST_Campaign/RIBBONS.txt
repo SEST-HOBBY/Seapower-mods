@@ -58,8 +58,10 @@ the other nations use the game's own.
 The game's same-nation purchase discount follows the commander's nation:
 an Australian commander keeps it on the Australian classes; an allied
 commander gets it on that nation's classes instead. Each campaign's rules
-page gives the class counts; a nation with no class on sale is named as
-such. Ribbons add no points, renown or supplies.
+page gives the class counts. New Zealand and Canada have one class each,
+an aircraft sold with the allied fleet: the RNZAF P-8A and the RCAF CC-330
+Husky. The CC-330 flies only in the Maritime Patrol flight, without a
+search radar. Ribbons add no points, renown or supplies.
 
 Fictional ribbons, any commander: the four completion ribbons (unchanged)
 and eight operation ribbons - SW05 Timor Corridor, SW08 Archipelago
@@ -121,7 +123,9 @@ fourteen nations. Compare one Anzac and one Burke price as an Australian
 and as a US commander. Check the British commander's empty rank insignia
 and the White Ensign emblem. Pick New Zealand, South Korea and Thailand
 (Sulu Line): each shows a name from its SEST pool, not a blank, and its
-emblem. Pick Germany or Norway: the rank title's accented letter (the
+emblem. As a New Zealand and a Canadian commander in Southern Watch, buy
+the P-8A and the CC-330 at Weapons Free at the discounted price; fly each
+in a Maritime Patrol slot and note whether it launches, patrols and lands. Pick Germany or Norway: the rank title's accented letter (the
 a-umlaut of Kapitan zur See, the o-slash of Kommandor) draws on the
 commander screen and in a citation. Open a citation: its date is the
 mission's, not 1985. Load an existing save: its commander, nation and earned

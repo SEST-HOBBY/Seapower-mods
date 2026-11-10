@@ -2176,7 +2176,9 @@ class SameNationDiscount(unittest.TestCase):
     # apply_reserve): eleven classes of five navies in Southern Watch and
     # three in Southern Reach on 20 Oct 2026, the whole allied fleet of
     # eleven navies in both since 21 Oct. Red Line's reserve is its own
-    # navy's.
+    # navy's. New Zealand and Canada (10 Nov 2026) sell aircraft only, the
+    # RNZAF P-8A and the RCAF CC-330, which the build judges before they
+    # reach the roster (AlliedReserve).
     ALLIED_NAVIES = {"us", "uk", "france", "germany", "italy", "spain", "netherlands",
                      "norway", "denmark", "japan", "south_korea"}
     PARTNER_NATIONS = {"sest-sulu-line": {"thailand", "australia", "us"},
@@ -3218,6 +3220,39 @@ class AlliedReserve(unittest.TestCase):
         with self.assertRaisesRegex(SystemExit, "which is not one of its missions"):
             self.md.apply_reserve([spec(windows, copy.deepcopy(fleet), whole="M9")])
 
+    def test_a_squadron_a_mission_places_stays_on_sale(self):
+        # The named-hull rule is about ships: a variant is one hull. A
+        # squadron names a type - Southern Watch O2 places Kiwi 01 from No. 5
+        # Squadron RNZAF, and the reserve still sells the squadron's P-8A
+        # (10 Nov 2026), as the RAN's own roster sells the RAAF squadrons
+        # its missions place. A placed hull variant still comes off sale,
+        # whether the placement names its variant or its squadron.
+        missions = [dict(code=c, num=c, key=f"Mission {c}", group="core", date=(2028, 10, n + 1),
+                         units=[], window=dict(buy=True, allow=["ran_ffh_anzac"]))
+                    for n, c in enumerate(("M1", "M2"))]
+        missions[0]["units"] = [dict(type="rnzaf_p8", squadron="Squadron1"),
+                                dict(type="rnzaf_p8", variant="Squadron1"),
+                                dict(type="js_ffg_mogami", variant="Variant1")]
+        fleet = [dict(unit="rnzaf_p8", picks=["Squadron1"], points=55,
+                      note="New Zealand - P-8A Poseidon"),
+                 dict(unit="js_ffg_mogami", picks=["Variant1", "Variant2"], points=300,
+                      note="Japan - Mogami-class")]
+        s = dict(TITLE="Test", COMMANDER="CommanderNations=Australia\n", MISSIONS=missions,
+                 ALLIED_FLEET=copy.deepcopy(fleet), RESERVE_FLEET=dict(opens="M2"),
+                 ROSTER=[dict(unit="ran_ffh_anzac", picks=["Variant3"], points=240)])
+        self.md.apply_reserve([s])
+        self.assertEqual([(e["unit"], e["picks"]) for e in s["RESERVE_AIR"]],
+                         [("rnzaf_p8", ["Squadron1"])])
+        self.assertEqual(s["RESERVE_LEFT_OUT"], [])
+        self.assertEqual(next(e for e in s["ROSTER"] if e["unit"] == "js_ffg_mogami")["picks"],
+                         ["Variant2"])
+        # And in the build: the P-8A is on sale in both campaigns though O2
+        # flies one, and sells to a New Zealand commander at the discount.
+        for slug in ("sest-southern-watch", "sest-southern-reach"):
+            self.assertEqual(self.built_roster(slug).get("rnzaf_p8"), ["Squadron1"], slug)
+        self.assertEqual(bp.pick_nation("rnzaf_p8", "Squadron1"), "NewZealand")
+        self.assertEqual(bp.pick_nation("ca_a330_mrtt", "Squadron1"), "Canada")
+
     def test_no_reserve_hull_is_one_a_mission_places(self):
         # Southern Reach sold JS Mogami (Variant1; Common Sea, The Other
         # Picture) and Daegu (Variant1; O3) until 20 Oct 2026: the filter
@@ -3294,10 +3329,12 @@ class AlliedReserve(unittest.TestCase):
             counts[slug] = (len(sold) - len(own) - air, air)
         # Ships: the fleet's less Choules and the Supply-class AOR. Aircraft:
         # the 19 and 10 the twins sold (their "63 and 62 allied units on sale"
-        # less the 44 and 52 ships beyond the reserve they had).
+        # less the 44 and 52 ships beyond the reserve they had), and since 10
+        # Nov 2026 the RNZAF P-8A and RCAF CC-330, which both campaigns'
+        # rows launch and recover.
         ships = sum(1 for e in self.af.ALLIED if not self.md.is_aircraft(e)) - 2
-        self.assertEqual(counts, {"sest-southern-watch": (ships, 19),
-                                  "sest-southern-reach": (ships, 10),
+        self.assertEqual(counts, {"sest-southern-watch": (ships, 21),
+                                  "sest-southern-reach": (ships, 12),
                                   "sest-red-line": (2, 0)})
 
     def test_the_aircraft_judgement_is_usable_allieds(self):

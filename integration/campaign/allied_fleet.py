@@ -244,6 +244,34 @@ ALLIED = [
        'South Korea - Incheon Class'),
     _e('ko_ddh-971', ['Variant1', 'Variant2', 'Variant3'], 220,
        'South Korea - Gwanggaeto the Great Class'),
+    # --- New Zealand -------------------------------------------------
+    # Added 10 Nov 2026 so a New Zealand commander has a class of their
+    # own. The collection has no modern RNZN hull (Southern Reach does not
+    # invent one), so it is No. 5 Squadron's P-8A, Euromod Modern RAN's
+    # (3820759806), whose one squadron is registered NewZealand; priced as
+    # the US P-8A (2027) and the RAAF P-8A. Southern Watch O2 places Kiwi 01
+    # from the same squadron: apply_reserve keeps a squadron a mission
+    # places on sale, as a squadron names a type, not one airframe. Kept by
+    # usable_allied in both campaigns (10 Nov 2026): Southern Watch's
+    # Maritime Patrol (Recon) rows and the Weapons Free and Fujian's Shadow
+    # strike rows, Southern Reach's Recon rows and the Approaches and
+    # Southern Convoy strike rows, each with a field in reach.
+    _e('rnzaf_p8', ['Squadron1'], 55,
+       'New Zealand - P-8A Poseidon'),
+    # --- Canada ------------------------------------------------------
+    # The owner's condition (10 Nov 2026): the CC-330 Husky, 437 Squadron,
+    # French Air Force mod (3758943352), only where usable_allied finds a
+    # row that launches and recovers it. It does in both campaigns, and
+    # only in the Maritime Patrol (Recon) rows: the mod gives the A330 MRTT
+    # AI Role=AEW and no AvailableLoadouts, so the row's role filter takes
+    # it and check_flights exempts it from the fits rule (as the E-7A and
+    # MQ-4C). It carries no search radar (its one sensor is the cockpit),
+    # and no SEST row tasks a tanker (the KC-46A is left out for that): it
+    # flies and recovers, but adds nothing to a patrol. It is the one
+    # Canadian class for a Canadian commander's discount; a PC check of a
+    # bought one in a Recon slot is on RIBBONS.txt. Priced as the KC-46A.
+    _e('ca_a330_mrtt', ['Squadron1'], 70,
+       'Canada - CC-330 Husky'),
     # --- Australia ---------------------------------------------------
     _e('ran_lhd_canberra', ['Variant1', 'Variant2'], 500,
        'Australia - Canberra-class LHD'),

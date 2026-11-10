@@ -452,7 +452,17 @@ def apply_reserve(specs):
                                  "the allied fleet its commander calls on (allied_fleet.py)")
             e = deepcopy(fleet[r["unit"]])
             aircraft = is_aircraft(e)
-            e["picks"] = [p for p in e["picks"] if (e["unit"], p) not in placed]
+            # Hulls only. The rule is about named ships: a variant is one
+            # hull, and the game tracks it as that ship. A squadron is not
+            # an airframe: a mission placing Kiwi 01 from No. 5 Squadron
+            # (Southern Watch O2) names one aircraft, and more of the type
+            # can be bought, as the campaigns' own rosters sell the RAAF
+            # F-35A and P-8A squadrons their missions place. Placements
+            # name an aircraft by squadron= and the set above by variant,
+            # so until 10 Nov 2026 a squadron pick never matched by
+            # accident; now it is the rule.
+            if not aircraft:
+                e["picks"] = [p for p in e["picks"] if (e["unit"], p) not in placed]
             if not e["picks"]:
                 left_out.append((e, "every hull it prices is placed by a mission"))
             elif aircraft:
