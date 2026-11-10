@@ -2176,9 +2176,10 @@ class SameNationDiscount(unittest.TestCase):
     # apply_reserve): eleven classes of five navies in Southern Watch and
     # three in Southern Reach on 20 Oct 2026, the whole allied fleet of
     # eleven navies in both since 21 Oct. Red Line's reserve is its own
-    # navy's. New Zealand and Canada (10 Nov 2026) sell aircraft only, the
-    # RNZAF P-8A and the RCAF CC-330, which the build judges before they
-    # reach the roster (AlliedReserve).
+    # navy's. New Zealand (10 Nov 2026) sells an aircraft only, the RNZAF
+    # P-8A, which the build judges before it reaches the roster
+    # (AlliedReserve); no class is registered to Canada (the RCAF CC-330, a
+    # tanker, was dropped the same day).
     ALLIED_NAVIES = {"us", "uk", "france", "germany", "italy", "spain", "netherlands",
                      "norway", "denmark", "japan", "south_korea"}
     PARTNER_NATIONS = {"sest-sulu-line": {"thailand", "australia", "us"},
@@ -3251,7 +3252,11 @@ class AlliedReserve(unittest.TestCase):
         for slug in ("sest-southern-watch", "sest-southern-reach"):
             self.assertEqual(self.built_roster(slug).get("rnzaf_p8"), ["Squadron1"], slug)
         self.assertEqual(bp.pick_nation("rnzaf_p8", "Squadron1"), "NewZealand")
-        self.assertEqual(bp.pick_nation("ca_a330_mrtt", "Squadron1"), "Canada")
+        # The RCAF CC-330 is not: a tanker with no search sensor, it passed
+        # the patrol rows only as the mod's Role=AEW (dropped 10 Nov 2026).
+        self.assertNotIn("ca_a330_mrtt", {e["unit"] for e in self.af.ALLIED})
+        for slug in ("sest-southern-watch", "sest-southern-reach"):
+            self.assertNotIn("ca_a330_mrtt", self.built_roster(slug), slug)
 
     def test_no_reserve_hull_is_one_a_mission_places(self):
         # Southern Reach sold JS Mogami (Variant1; Common Sea, The Other
@@ -3330,11 +3335,11 @@ class AlliedReserve(unittest.TestCase):
         # Ships: the fleet's less Choules and the Supply-class AOR. Aircraft:
         # the 19 and 10 the twins sold (their "63 and 62 allied units on sale"
         # less the 44 and 52 ships beyond the reserve they had), and since 10
-        # Nov 2026 the RNZAF P-8A and RCAF CC-330, which both campaigns'
-        # rows launch and recover.
+        # Nov 2026 the RNZAF P-8A, which both campaigns' rows launch and
+        # recover.
         ships = sum(1 for e in self.af.ALLIED if not self.md.is_aircraft(e)) - 2
-        self.assertEqual(counts, {"sest-southern-watch": (ships, 21),
-                                  "sest-southern-reach": (ships, 12),
+        self.assertEqual(counts, {"sest-southern-watch": (ships, 20),
+                                  "sest-southern-reach": (ships, 11),
                                   "sest-red-line": (2, 0)})
 
     def test_the_aircraft_judgement_is_usable_allieds(self):

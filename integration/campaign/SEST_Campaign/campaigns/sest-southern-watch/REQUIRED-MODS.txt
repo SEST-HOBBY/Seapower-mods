@@ -52,7 +52,7 @@ across every campaign in the pack.
   3430135740    a squadron a flight comes from   F/A-18 Murder Hornet with AIM-174B
   3673703427    a unit a mission places          Fattah-1
   3672497668    a unit a mission places          Fattah-2
-  3758943352    a unit the player can buy        French Air Force
+  3758943352    a squadron a flight comes from   French Air Force
   3736147136    a model a unit draws             French Army Vehicles
   3567228449    a weapon a loadout hangs         French Helicopter Package
   3503670861    a squadron a flight comes from   General Atomics MQ-9 Reaper

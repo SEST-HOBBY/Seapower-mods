@@ -1,6 +1,6 @@
 Southern Reach - Workshop mods this campaign reaches (reference only)
 
-63 items, in canonical load order. NOT the Workshop item's
+62 items, in canonical load order. NOT the Workshop item's
 Required Items list. All four campaigns ship in one item, the SEST
 Integration Pack (3812461539), whose Required Items - like the
 collection 'SEST - Modernised Campaign Collection' (3812390790) -
@@ -71,7 +71,6 @@ https://steamcommunity.com/sharedfiles/filedetails/?id=3717610332    # IL-78 TAN
 https://steamcommunity.com/sharedfiles/filedetails/?id=3722749887    # KC-135 STRATOTANKER
 https://steamcommunity.com/sharedfiles/filedetails/?id=3571718093    # Road Mobile ICBMs (Topol-M, DF-41)
 https://steamcommunity.com/sharedfiles/filedetails/?id=3732654992    # THE REDFOR MOD
-https://steamcommunity.com/sharedfiles/filedetails/?id=3758943352    # French Air Force
 https://steamcommunity.com/sharedfiles/filedetails/?id=3413868677    # Red Storm Arsenal
 https://steamcommunity.com/sharedfiles/filedetails/?id=3752415457    # Philippines: The Luzon Line
 https://steamcommunity.com/sharedfiles/filedetails/?id=3605013271    # RE-power: the resupply mod

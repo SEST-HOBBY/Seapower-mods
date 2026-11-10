@@ -87,6 +87,7 @@ ALLIED = [
        'USA - E-3G'),
     _e('usaf_f-22_s6', ['Squadron1', 'Squadron2', 'Squadron3', 'Squadron4', 'Squadron5', 'Squadron6', 'Squadron7'], 70,
        'USA - F-22A(S-6)'),
+    # No SEST row tasks a tanker, so usable_allied leaves the KC-46A out; the RCAF CC-330 Husky (ca_a330_mrtt), a tanker with no search sensor that passed only as the mod's Role=AEW, is not sold (dropped 10 Nov 2026).
     _e('usaf_kc-46a_warp', ['Squadron1', 'Squadron2'], 70,
        'USA - KC-46 Pegasus (WARPs)'),
     _e('usn_e-2d', ['Squadron1', 'Squadron2', 'Squadron3', 'Squadron4', 'Squadron5', 'Squadron6', 'Squadron7', 'Squadron8', 'Squadron9'], 70,
@@ -258,20 +259,6 @@ ALLIED = [
     # Southern Convoy strike rows, each with a field in reach.
     _e('rnzaf_p8', ['Squadron1'], 55,
        'New Zealand - P-8A Poseidon'),
-    # --- Canada ------------------------------------------------------
-    # The owner's condition (10 Nov 2026): the CC-330 Husky, 437 Squadron,
-    # French Air Force mod (3758943352), only where usable_allied finds a
-    # row that launches and recovers it. It does in both campaigns, and
-    # only in the Maritime Patrol (Recon) rows: the mod gives the A330 MRTT
-    # AI Role=AEW and no AvailableLoadouts, so the row's role filter takes
-    # it and check_flights exempts it from the fits rule (as the E-7A and
-    # MQ-4C). It carries no search radar (its one sensor is the cockpit),
-    # and no SEST row tasks a tanker (the KC-46A is left out for that): it
-    # flies and recovers, but adds nothing to a patrol. It is the one
-    # Canadian class for a Canadian commander's discount; a PC check of a
-    # bought one in a Recon slot is on RIBBONS.txt. Priced as the KC-46A.
-    _e('ca_a330_mrtt', ['Squadron1'], 70,
-       'Canada - CC-330 Husky'),
     # --- Australia ---------------------------------------------------
     _e('ran_lhd_canberra', ['Variant1', 'Variant2'], 500,
        'Australia - Canberra-class LHD'),
