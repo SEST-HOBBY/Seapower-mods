@@ -21,13 +21,14 @@ A campaign can name extra mission ribbons in a key the game ignores:
             | rescued>=<1-999>
 
 Example: `sest_x?objective:Passage=completed&objective:Unseen=completed&nolaunch`.
-Keys and values ignore case and spaces around tokens. `;`, `#` and `//` must
-not appear: the game's `IniHandler` cuts a value at them (the design draft's
-`;` separator would have reduced every spec to a bare ID), so `?` separates
-the ribbon from its conditions. The key is read as the native
-`TaskForceModeRibbonAwards` is: `[Mission<N>]` first, then the mission
-event's own section, in every campaign rule source (the campaign file and
-its `File`/`Base` definition).
+Keys and values ignore case. Spaces are ignored around `|`, `?`, `&`, `=`,
+the `:` of `objective:` and `>=` (written as one token: `> =` is invalid).
+`;`, `#` and `//` must not appear: the game's `IniHandler` cuts a value at
+them (the design draft's `;` separator would have reduced every spec to a
+bare ID), so `?` separates the ribbon from its conditions. The key is read
+as the native `TaskForceModeRibbonAwards` is: `[Mission<N>]` first, then the
+mission event's own section, in every campaign rule source (the campaign
+file and its `File`/`Base` definition).
 
 - The part before `?` goes through the native `TryParseMissionRibbonAwardSpec`
   and `AllowsCommanderNation`, so nation selectors test the committed

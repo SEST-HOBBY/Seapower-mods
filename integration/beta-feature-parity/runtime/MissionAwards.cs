@@ -6,6 +6,7 @@ using System.Linq;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Text;
+using System.Text.RegularExpressions;
 using SeapowerUI.ViewModels;
 
 namespace Sest.RuntimeFixes;
@@ -25,6 +26,8 @@ namespace Sest.RuntimeFixes;
 // The part before '?' is parsed by the native TryParseMissionRibbonAwardSpec
 // and filtered by the native AllowsCommanderNation, so nation selectors mean
 // exactly what they mean in TaskForceModeRibbonAwards (TaskForceCommanderNation).
+// Case is ignored, and spaces may surround '|', '?', '&', '=', the ':' of
+// 'objective:' and '>=' ('>=' itself has no space inside).
 // ';', '#' and '//' start an INI comment and must not appear in the value.
 // Several specs may name one ribbon: the first that qualifies grants it.
 //
@@ -361,13 +364,17 @@ internal static class MissionAwards
         return new RuntimeSpec { Raw = raw, Native = native, RibbonId = id, Terms = terms };
     }
 
+    // The operator prefixes, ignoring case and any spaces before ':' or '>='.
+    private static readonly Regex ObjectivePrefix = new Regex(@"^objective\s*:", RegexOptions.IgnoreCase | RegexOptions.CultureInvariant);
+    private static readonly Regex AtLeastPrefix = new Regex(@"^(?<name>result|rescued)\s*>=", RegexOptions.IgnoreCase | RegexOptions.CultureInvariant);
+
     private static Term ParseTerm(string text)
     {
-        string lower = text.ToLowerInvariant();
-        if (lower == "nolaunch") return new Term { Kind = TermKind.NoLaunch, Text = "nolaunch" };
-        if (lower.StartsWith("objective:", StringComparison.Ordinal))
+        if (string.Equals(text, "nolaunch", StringComparison.OrdinalIgnoreCase)) return new Term { Kind = TermKind.NoLaunch, Text = "nolaunch" };
+        Match objective = ObjectivePrefix.Match(text);
+        if (objective.Success)
         {
-            string rest = text.Substring("objective:".Length);
+            string rest = text.Substring(objective.Length);
             int eq = rest.IndexOf('=');
             if (eq <= 0) return null;
             string id = rest.Substring(0, eq).Trim();
@@ -384,19 +391,17 @@ internal static class MissionAwards
             }
             return term;
         }
-        if (lower.StartsWith("result>=", StringComparison.Ordinal))
+        Match atLeast = AtLeastPrefix.Match(text);
+        if (!atLeast.Success) return null;
+        string value = text.Substring(atLeast.Length).Trim();
+        if (string.Equals(atLeast.Groups["name"].Value, "result", StringComparison.OrdinalIgnoreCase))
         {
-            string name = text.Substring("result>=".Length).Trim();
-            string match = Enum.GetNames(resultType).FirstOrDefault(n => string.Equals(n, name, StringComparison.OrdinalIgnoreCase));
+            string match = Enum.GetNames(resultType).FirstOrDefault(n => string.Equals(n, value, StringComparison.OrdinalIgnoreCase));
             if (match == null) return null;
             return new Term { Kind = TermKind.ResultAtLeast, Number = Convert.ToInt32(Enum.Parse(resultType, match), CultureInfo.InvariantCulture), Id = match, Text = "result>=" + match };
         }
-        if (lower.StartsWith("rescued>=", StringComparison.Ordinal))
-        {
-            if (!int.TryParse(text.Substring("rescued>=".Length).Trim(), NumberStyles.None, CultureInfo.InvariantCulture, out int count) || count < 1 || count > 999) return null;
-            return new Term { Kind = TermKind.RescuedAtLeast, Number = count, Text = "rescued>=" + count };
-        }
-        return null;
+        if (!int.TryParse(value, NumberStyles.None, CultureInfo.InvariantCulture, out int count) || count < 1 || count > 999) return null;
+        return new Term { Kind = TermKind.RescuedAtLeast, Number = count, Text = "rescued>=" + count };
     }
 
     internal static bool Qualifies(List<Term> terms, Evidence evidence, out string unmet)

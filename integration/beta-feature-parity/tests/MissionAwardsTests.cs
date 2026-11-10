@@ -501,8 +501,17 @@ static partial class MissionAwardsTests
         var terms = mixed.Count == 1 ? ((IList)F(mixed[0], "Terms")).Cast<object>().ToList() : new List<object>();
         Check(error == null && (string)F(mixed[0], "RibbonId") == "A" && terms.Count == 5 && (string)F(terms[2], "Id") == "MajorVictory" && (int)F(terms[2], "Number") == 16 &&
             (int)F(terms[3], "Number") == 2 && (string)F(terms[4], "Id") == "Boat" && (bool)F(terms[4], "NotFailed"), "terms ignore case and spaces; the id is the native one, cut before ':'");
+        // Spaces before 'objective:''s ':' and around '>=' are accepted too;
+        // the logged term is the normalised one.
+        var spaced = Specs(out error, "s ? objective :Passage=completed & Objective : Boat = NotFailed & result >= CostlyVictory & RESCUED >=2 & rescued>= 3 & Result\t>=\tdraw");
+        var spacedTerms = spaced.Count == 1 ? ((IList)F(spaced[0], "Terms")).Cast<object>().ToList() : new List<object>();
+        Check(error == null && spacedTerms.Count == 6 && (string)F(spacedTerms[0], "Id") == "Passage" && (string)F(spacedTerms[1], "Id") == "Boat" && (bool)F(spacedTerms[1], "NotFailed") &&
+            (int)F(spacedTerms[2], "Number") == 11 && (int)F(spacedTerms[3], "Number") == 2 && (int)F(spacedTerms[4], "Number") == 3 && (int)F(spacedTerms[5], "Number") == 10 &&
+            spacedTerms.Select(x => (string)F(x, "Text")).SequenceEqual(new[] { "objective:Passage=completed", "objective:Boat=notfailed", "result>=CostlyVictory", "rescued>=2", "rescued>=3", "result>=Draw" }),
+            "spaces around 'objective:''s ':' and around '>=' are ignored; the logged term is normalised");
         foreach (var bad in new[] { "a", "a?", "a?nofire", "a?nolaunch&", "?nolaunch", " ,?nolaunch", "a?rescued>=0", "a?rescued>=1000", "a?rescued>=x", "a?rescued>=-1", "a?rescued>=+1",
-            "a?objective:x=done", "a?objective:=completed", "a?objective:x", "a?result>=Win", "a?result>=11", "a?launched<=0" })
+            "a?objective:x=done", "a?objective:=completed", "a?objective:x", "a?result>=Win", "a?result>=11", "a?launched<=0",
+            "a?result> =Draw", "a?result > = Draw", "a?rescued> =1", "a?objectives:x=completed", "a?objective x=completed", "a?results>=Draw", "a?no launch" })
         {
             var rejected = Specs(out error, "ok?nolaunch|" + bad);
             Check(rejected.Count == 0 && error != null, "an invalid spec rejects the whole key (fail closed): " + bad);
@@ -514,6 +523,10 @@ static partial class MissionAwardsTests
         string line = "SestRuntimeRibbonAwards = sest_rl05_passage?objective:Passage = completed&objective:Unseen=completed&nolaunch|sest_rlc1_recovery,US?objective:Pilot=completed&rescued>=1";
         var read = Specs(out error, AsRead(line));
         Check(error == null && read.Count == 2 && (string)F(read[1], "RibbonId") == "sest_rlc1_recovery", "the key survives IniHandler's '=' rejoin");
+        string spacedLine = "SestRuntimeRibbonAwards = sest_rlc1_recovery ? objective : Pilot = completed & rescued >= 1 & result >= CostlyVictory";
+        var spacedRead = Specs(out error, AsRead(spacedLine));
+        Check(AsRead(spacedLine) == "sest_rlc1_recovery ? objective : Pilot=completed & rescued >=1 & result >=CostlyVictory" && error == null && spacedRead.Count == 1 &&
+            ((IList)F(spacedRead[0], "Terms")).Count == 3, "spaced operators survive IniHandler's '=' rejoin, which keeps the space before '>='");
         Check(AsRead("SestRuntimeRibbonAwards=sest_x;objective:Passage=completed") == "sest_x" && Specs(out error, AsRead("SestRuntimeRibbonAwards=sest_x;objective:Passage=completed")).Count == 0 && error != null,
             "a ';' in the value starts an INI comment; such a key fails closed");
 
