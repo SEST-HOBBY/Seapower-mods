@@ -21,45 +21,76 @@ Ribbons add no renown, credits or supplies. Auto-resolved battles do not
 qualify for manual battle awards; task awards use their own native outcomes.
 
 AUTHORED CAMPAIGNS - TASK FORCE SERVICE RECORD
-The four original completion ribbons remain. Eight new fictional operation
-ribbons recognise SW05, SW08, SR12, TS09, RL03, RL05, SL04 and SL06 after the
-native required mission result. They do not claim zero losses or perfect ROE.
+Commander nations. Southern Watch and Southern Reach keep Australia as the
+default and also offer a US, British or Japanese commander: an allied
+officer in command of the Australian-led group. Red Line stays Chinese and
+Sulu Line Philippine. Choose the nation in the Service Record when a
+campaign starts; a commander already in a save keeps its nation and name.
 
-Southern Watch and Southern Reach keep Australia as the default commander
-nation. New commanders may also choose US through the existing onboarding
-screen. Committed commanders and national discounts retain native behaviour.
-The fleet/scenario stays the same; national awards use the committed nation.
+The game's same-nation purchase discount follows the commander's nation:
+an Australian commander keeps it on the Australian classes; a US, British or
+Japanese commander gets it on that nation's classes instead. Each campaign's
+rules page gives the class counts. Ribbons add no points, renown or supplies.
 
-Six real-award representations use national selectors and modern scenario
-citations. Their names/art refer to real awards; these are fictional-operation
-qualifications in the game, not actual government honours or declarations:
+Fictional ribbons, any commander: the four completion ribbons (unchanged)
+and eight operation ribbons - SW05 Timor Corridor, SW08 Archipelago
+Operations, SR12 Antarctic Resupply, TS09 Southern Convoy, RL03 Contact
+Intelligence, RL05 Undersea Operations, SL04 Fleet Sustainment and SL06
+Littoral Operations. Each needs the mission's required result.
 
-- Australian Distinguished Service Cross: Australia; SW12 / TS09.
-- Australian Operational Service Medal - Indo-Pacific: Australia; SR10.
-  The authored assignment begins 6 December 2028; SR10 is 6 January 2029,
-  over 30 campaign days later. Real eligibility also requires a declared
-  qualifying operation. The SEST operation is fictional.
-- Navy and Marine Corps Achievement Medal: US; SW05 / SR04.
-- Navy and Marine Corps Commendation Medal: US; SW08 / SR12.
-- Navy Unit Commendation: US; SW12 / TS09; unit recipient.
-- Meritorious Unit Commendation: US; TS12; unit recipient.
+Real-award representations. Personal and service awards go to a commander
+of that nation; the unit award goes to the task group whoever commands it.
 
-Native completion and required-result checks guard mission grants. Native
-service records retain citations and repeated-award counts. Existing earned
-IDs are retained. Chinese and Philippine campaigns receive their own fictional
-operation awards, without importing an unrelated country's national awards.
+Southern Watch (the commander is a Commander, OF-4 / O-5)
+- Australia: Commendation for Distinguished Service, SW08; Distinguished
+  Service Cross, SW12.
+- US: Navy and Marine Corps Commendation Medal, SW08; Bronze Star, SW12.
+- UK: OBE (Military), SW08; Distinguished Service Order, SW12.
+- Japan: 1st Class Commendation, SW12.
+- Task group: Australian Meritorious Unit Citation, SW12.
+
+Southern Reach / Tasman Shield (a Captain, OF-5 / O-6)
+- Australia: Operational Service Medal - Indo-Pacific, SR10; Commendation
+  for Distinguished Service, SR12; Distinguished Service Cross, TS09.
+- US: Armed Forces Expeditionary Medal, SR10; Navy and Marine Corps
+  Commendation Medal, SR12; Legion of Merit, TS09.
+- UK: OBE (Military), SR12; Distinguished Service Order, TS09.
+- Japan: 1st Class Commendation, TS09.
+- Task group: Australian Meritorious Unit Citation, TS12.
+The two service medals need 30 days: SR01 is 6 December 2028 and SR10
+6 January 2029. The builder stops if SR10 moves earlier.
+
+Sulu Line (a Commodore, OF-6)
+- Philippines: Military Merit Medal, SL05; Distinguished Service Star, SL07.
+- Task group: Philippine Republic Presidential Unit Citation, SL07.
+
+Red Line keeps its fictional ribbons only: the PLA's ribbon designs could
+not be checked, so none is drawn.
+
+Every citation carries its mission's date and names the mission. Real-award
+citations end: "Game award for a fictional operation; not a real honour."
+The Navy and Marine Corps Achievement Medal (O-4 and below) and the US Navy
+Unit and Meritorious Unit Commendations are no longer granted; a record
+earned with an earlier test build still shows.
 
 ART AND SOURCE NOTES
 The AOSM-IP ribbon is Nford24's CC0 artwork, copied without modification.
-Other real-award images reference installed Sea Power assets. Fictional SEST
-strips are code-drawn. Campaign art/ribbons/SOURCES.txt provides credits.
-Official criteria and scenario implementation are documented in the release
-review; the citations identify the fictional scenario qualification.
+The Distinguished Service Cross, Bronze Star, Commendation Medal and JMSDF
+cordon pictures are installed Sea Power pictures, referenced by path; the
+JMSDF one is the game's own Defense Memorial Cordon art, as the exact
+cordon's colours could not be checked. Every other strip is code-drawn from
+the published stripe order. The Royal Navy emblem is the White Ensign from
+the SEST gallery flag set (public domain). Each campaign's art/ribbons/
+SOURCES.txt lists its pictures and sources. No AI imagery is used.
 
 PC CHECKS
 Load an existing world and check Service progress, wrapping and scrolling.
 Complete an accepted task, return to the map and compare task/battle counts.
-Check a new Australian and US commander, native ribbon slots and citations.
-The previously accepted opening brief, Combat Costs sidebar and direct F11
-remain. Existing saves are preserved. New data applies through Prepare-PC;
-starting a new commander is needed to choose another nationality.
+Start a new Southern Watch campaign: the Service Record offers Australia,
+Japan, United Kingdom and USA. Compare one Anzac and one Burke price as an
+Australian and as a US commander. Check the British commander's empty rank
+insignia and the White Ensign emblem. Open a citation: its date is the
+mission's, not 1985. Load an existing save: its commander, nation and earned
+ribbons are unchanged. Existing saves are preserved. New data applies
+through Prepare-PC; starting a new commander is needed to choose another
+nationality.

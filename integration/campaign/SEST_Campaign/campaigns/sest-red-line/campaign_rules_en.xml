@@ -46,7 +46,8 @@
             <TextBlock FontSize="15" Foreground="#D8DDE8" TextWrapping="Wrap" Margin="0,0,0,5">
               <Run Text="- Commanders receive a "/><Run Text="{Binding SameNationDiscountPercentText}"/><Run Text="% point discount when purchasing units from their own nation."/>
             </TextBlock>
-            <TextBlock Text="- Every unit on this campaign's roster is registered to China by its squadron or hull variant, so the discount applies to all of it." FontSize="15" Foreground="#D8DDE8" TextWrapping="Wrap" Margin="0,0,0,14"/>
+            <TextBlock Text="- Every unit on this campaign's roster is registered to China by its squadron or hull variant, so the discount applies to all of it." FontSize="15" Foreground="#D8DDE8" TextWrapping="Wrap" Margin="0,0,0,5"/>
+            <TextBlock Text="- In the game's Unrestricted mode the Service Record also offers a Faction discount nation, All nations by default, and that setting decides the discount instead." FontSize="15" Foreground="#D8DDE8" TextWrapping="Wrap" Margin="0,0,0,14"/>
             <Border Height="1" Background="{StaticResource Brush.Glyph.Normal}" Opacity="0.45" Margin="0,0,0,14"/>
 
             <TextBlock Text="Awards and Promotions" FontSize="17" FontWeight="Bold" Foreground="White" TextWrapping="Wrap" Margin="0,0,0,6"/>

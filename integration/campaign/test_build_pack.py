@@ -2206,14 +2206,39 @@ class SameNationDiscount(unittest.TestCase):
             self.assertEqual(bp.pick_nation(uid, pick), "Australia", uid)
 
     def test_the_page_carries_the_games_binding_and_the_cover(self):
-        spec = dict(bp.campaign_specs()[0])
+        # A campaign with one commander nation (Red Line's PLAN): the page
+        # names that nation's cover.
+        spec = dict(next(s for s in bp.campaign_specs() if s["SLUG"] == "sest-red-line"))
         nations = bp.roster_nations(spec["ROSTER"])
-        spec["ROSTER"] = [e for e in spec["ROSTER"] if nations[e["unit"]] == "Australia"]
+        spec["ROSTER"] = [e for e in spec["ROSTER"] if nations[e["unit"]] == "China"]
         page = bp.campaign_rules(spec)
         self.assertIn("{Binding SameNationDiscountPercentText}", page)
-        self.assertIn("registered to Australia by its squadron or hull variant, so the "
+        self.assertIn("registered to China by its squadron or hull variant, so the "
                       "discount applies to all of it", page)
+        self.assertIn("The commander's nation is fixed.", page)
+        self.assertIn("Unrestricted mode", page)
         self.assertNotIn("No national purchase discount", page)
+
+    def test_every_offered_commander_nation_is_named_with_its_classes(self):
+        # Southern Watch offers an Australian (default), American, British or
+        # Japanese commander (service_awards.NATIONS). The game's discount
+        # follows the committed nation, so the page gives each its classes
+        # (review of 7be336cb, TF-1).
+        spec = dict(bp.campaign_specs()[0])
+        counts = collections.Counter(bp.roster_nations(spec["ROSTER"]).values())
+        page = bp.campaign_rules(spec)
+        self.assertIn(f"It covers the {counts['Australia']} classes registered to Australia for "
+                      f"an Australian commander, the {counts['US']} classes registered to the "
+                      f"USA for an American commander, the {counts['UK']} classes registered "
+                      f"to the United Kingdom for a British commander and the "
+                      f"{counts['Japan']} classes registered to Japan for a Japanese "
+                      "commander. Every other class costs its listed price; no commander's "
+                      "discount covers the classes registered to ", page)
+        self.assertIn("The commander is Australian by default; you can instead appoint an "
+                      "American, a British or a Japanese officer", page)
+        self.assertNotIn("The commander's nation is fixed.", page)
+        self.assertNotIn("without the same-nation discount", page)
+        self.assertNotIn("The discount covers the", page)
 
     def test_no_discount_says_so(self):
         spec = dict(bp.campaign_specs()[0])
@@ -2224,16 +2249,14 @@ class SameNationDiscount(unittest.TestCase):
         self.assertNotIn("SameNationDiscountPercentText", page)
 
     def test_a_foreign_unit_is_named_at_its_listed_price(self):
-        spec = dict(bp.campaign_specs()[0])
+        # One commander nation (Red Line's PLAN) and one foreign class.
+        spec = dict(next(s for s in bp.campaign_specs() if s["SLUG"] == "sest-red-line"))
         nations = bp.roster_nations(spec["ROSTER"])
-        # The campaign's own ten: the reserve's Canberra-class LHD is
-        # Australian too (21 Oct 2026).
-        spec["ROSTER"] = [e for e in spec["ROSTER"] if nations[e["unit"]] == "Australia"
-                          and e["unit"] not in spec["RESERVE_OPENS"]] + [
-            dict(unit="plan_j-15", picks=["Squadron1"], points=40)]
+        own = [e for e in spec["ROSTER"] if nations[e["unit"]] == "China"]
+        spec["ROSTER"] = own + [dict(unit="ran_ffh_anzac", picks=["Variant3"], points=240)]
         page = bp.campaign_rules(spec)
-        self.assertIn("The discount covers the 10 classes registered to Australia. The 1 "
-                      "class registered to other nations - from China (1) - costs its "
+        self.assertIn(f"The discount covers the {len(own)} classes registered to China. The 1 "
+                      "class registered to other nations - from Australia (1) - costs its "
                       "listed price.", page)
 
     def _squadrons(self, text):
@@ -4274,9 +4297,11 @@ class RulesPage(unittest.TestCase):
                          "and recover it.",
                          "- and the Royal Australian Navy's Canberra-class LHD."):
                 self.assertIn(said, line, spec["SLUG"])
+            # Both offer an American, British or Japanese commander, whose
+            # own navy's classes the discount covers (service_awards.NATIONS).
             self.assertEqual(after, "- The Unit Catalog lists all of it from the start. Allied "
-                                    "classes cost their own navies' listed prices, without the "
-                                    "same-nation discount. No hull a mission names is sold.")
+                                    "classes cost their listed price unless they are registered "
+                                    "to the commander's nation. No hull a mission names is sold.")
             # The airwing line is every campaign's: no bought ship brings one.
             self.assertIn("Ships purchased in Task Force Builder come without aircraft", page)
 

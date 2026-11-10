@@ -1,0 +1,19 @@
+SEST award artwork - Sulu Line
+
+Code-drawn strips (integration/campaign/service_awards.py). No AI imagery;
+nothing traced. Real-award strips follow the published stripe order and
+proportions closely enough to be recognised; they are representations.
+  sest_sulu_line_service.png - Sulu Line Service Ribbon: fictional SEST design
+  sest_fleet_sustainment.png - Fleet Sustainment Ribbon: fictional SEST design
+  sest_littoral_operations.png - Littoral Operations Ribbon: fictional SEST design
+  ph_military_merit_medal.png - Military Merit Medal: representation of the Philippine award
+  ph_distinguished_service_star.png - Distinguished Service Star: representation of the Philippine award
+  ph_presidential_unit_citation.png - Philippine Republic Presidential Unit Citation: representation of the Philippine award
+
+Award facts (criteria, ribbon design, precedence):
+  Military Merit Medal: https://en.wikipedia.org/wiki/Military_Merit_Medal_(Philippines)
+  Distinguished Service Star: https://en.wikipedia.org/wiki/Distinguished_Service_Star
+  Philippine Republic Presidential Unit Citation: https://www.afpc.af.mil/Fact-Sheets/Display/Article/421896/philippine-presidential-unit-citation/
+
+Every real-award citation says it is a game award for a fictional operation,
+not a real honour.
