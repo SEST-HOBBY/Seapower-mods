@@ -2299,10 +2299,11 @@ class SameNationDiscount(unittest.TestCase):
         self.assertNotRegex(page, r"\b1 classes|\bthe 1 class\b")
         # Which commanders the campaign's national awards go to, and that the
         # others receive the fictional ribbons and the host's unit award only.
-        self.assertIn("Australian, American, British, Japanese, New Zealand and Canadian commanders "
-                      "receive their own nation's awards; French, South Korean, Spanish, Italian, "
-                      "German, Dutch, Norwegian and Danish commanders receive the fictional ribbons "
-                      "and the group's Australian Meritorious Unit Citation only.", page)
+        self.assertIn("Australian, American, British, Japanese, New Zealand, French, Canadian, "
+                      "South Korean, Spanish, German and Danish commanders receive their own "
+                      "nation's awards; Italian, Dutch and Norwegian commanders receive the "
+                      "fictional ribbons and the group's Australian Meritorious Unit Citation "
+                      "only.", page)
         self.assertIn("The commander is Australian by default; you can instead appoint an "
                       "American, a British, a Japanese, a New Zealand, a French, a Canadian, a "
                       "South Korean, a Spanish, an Italian, a German, a Dutch, a Norwegian or a "

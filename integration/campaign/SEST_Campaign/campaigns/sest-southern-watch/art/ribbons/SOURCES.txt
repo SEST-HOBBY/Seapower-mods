@@ -14,12 +14,48 @@ proportions closely enough to be recognised; they are representations.
   nz_distinguished_service_decoration.png - New Zealand Distinguished Service Decoration: representation of the New Zealand award
     proportions measured from an image (the official NZDF photograph), as the Royal
     Warrant could not be read; colours sampled from it.
+  fr_chevalier_ordre_national_du_merite.png - Knight of the National Order of Merit: representation of the French award
+    plain blue, the median of a Commons photograph of a Chevalier ribbon, as France
+    publishes no colour value.
+  kr_national_security_medal.png - National Security Medal: representation of the South Korean award
+    widths from the Enforcement Decree, Annex 2 (38 mm); the yellow sampled from the
+    official Ministry of the Interior and Safety photograph, the white drawn pure as the
+    Annex names it; the ribbon bar's taegeuk drawn in the national flag's red and blue,
+    about 8.6 mm, its size measured from that photograph.
+  es_cruz_merito_naval_distintivo_blanco.png - Cross of Naval Merit with White Distinction: representation of the Spanish award
+    the national colours in the flag's order and proportions, RD 1040/2003 art. 53.5, on
+    the 30 mm ribbon; colours from the flag's official values, RD 441/1981.
+  de_ehrenkreuz_der_bundeswehr_gold.png - Cross of Honour of the Bundeswehr in Gold: representation of the German award
+    proportions and colours measured from a drawing (Wikimedia Commons), as no official
+    widths are published; the gold miniature cross on the ribbon bar drawn plain.
+  dk_defence_medal_meritorious_service.png - Defence Medal for Meritorious Service: representation of the Danish award
+    red with two narrow white stripes each side, as the circular (CIR1H 9077, s. 2)
+    gives it; proportions and the red measured from a public-domain drawing (Wikimedia
+    Commons), as no official image could be reached; white drawn pure.
   uk_distinguished_service_order.png - Distinguished Service Order: representation of the British award
   ca_meritorious_service_cross_military.png - Meritorious Service Cross (Military Division): representation of the Canadian award
     widths from the Regulations, s.4(5)(a); the blue sampled from the official gg.ca
     photograph of the cross.
   nz_member_order_of_merit.png - Member of the New Zealand Order of Merit: representation of the New Zealand award
     plain red ochre, sampled from the official NZDF photograph.
+  fr_chevalier_legion_d_honneur.png - Knight of the Legion of Honour: representation of the French award
+    plain red, the median of the public-domain Commons photograph of the Chevalier
+    insignia.
+  kr_order_of_national_security_merit_samil.png - Order of National Security Merit, Samil Medal: representation of the South Korean award
+    widths from the Enforcement Decree, Annex 2 (38 mm); the light yellow sampled from
+    the official Ministry of the Interior and Safety photograph, the white drawn pure as
+    the Annex names it; the ribbon bar's taegeuk drawn in the national flag's red and
+    blue.
+  es_cruz_merito_naval_distintivo_rojo.png - Cross of Naval Merit with Red Distinction: representation of the Spanish award
+    widths from RD 1040/2003 art. 53.2, the yellow one eighth of the 30 mm ribbon; the
+    decree gives no colours, so the flag's official values (RD 441/1981) are used.
+  de_verdienstkreuz_am_bande.png - Federal Cross of Merit on Ribbon: representation of the German award
+    red with a gold-black-gold edge, as the statute (art. 3(2)) gives it; proportions
+    and colours measured from a drawing (Wikimedia Commons).
+  dk_defence_medal_excellent_service.png - Defence Medal for Excellent Service: representation of the Danish award
+    white with two broad red stripes, as the circular (CIR1H 9074, s. 2) gives it;
+    proportions and the red measured from a public-domain drawing (Wikimedia Commons),
+    as no official image could be reached; white drawn pure.
   australian_meritorious_unit_citation.png - Australian Meritorious Unit Citation: representation of the Australian award
 
 Installed Sea Power pictures referenced by path, not copied into this pack:
@@ -71,12 +107,22 @@ Award facts (criteria, ribbon design, precedence):
   Officer of the Order of the British Empire (Military): https://www.royalnavy.mod.uk/news/2024/december/30/20241230-new-years-and-op-honours
   Meritorious Service Medal (Military Division): https://www.gg.ca/en/honours/canadian-honours/meritorious-service-decorations-civil-division/regulations
   New Zealand Distinguished Service Decoration: https://www.nzdf.mil.nz/medals-and-service-records/medals-and-awards/explore-medals-and-awards/the-new-zealand-distinguished-service-decoration/
+  Knight of the National Order of Merit: https://en.wikipedia.org/wiki/Ordre_national_du_M%C3%A9rite
+  National Security Medal: https://www.sanghun.go.kr/nation/pojangDetail.html
+  Cross of Naval Merit with White Distinction: https://www.boe.es/buscar/act.php?id=BOE-A-2003-17107
+  Cross of Honour of the Bundeswehr in Gold: https://en.wikipedia.org/wiki/Badge_of_Honour_of_the_Bundeswehr
+  Defence Medal for Meritorious Service: https://www.retsinformation.dk/eli/retsinfo/2010/9077
   Australian Distinguished Service Cross: https://www.defence.gov.au/sites/default/files/2025-01/Fact-Sheet-Distinguished-Service-Cross.pdf
   Bronze Star Medal: https://uscode.house.gov/us/usc/t10/s1133/
   Distinguished Service Order: https://www.thegazette.co.uk/London/issue/62529/supplement/326/data.pdf
   1st Class Commendation (Defense Memorial Cordon): http://www.clearing.mod.go.jp/kunrei_data/a_fd/1955/ax19550810_00049_000.pdf
   Meritorious Service Cross (Military Division): https://www.gg.ca/en/honours/canadian-honours/meritorious-service-decorations-civil-division/regulations
   Member of the New Zealand Order of Merit: https://www.nzdf.mil.nz/medals-and-service-records/medals-and-awards/explore-medals-and-awards/member-of-the-new-zealand-order-of-merit-mnzm/
+  Knight of the Legion of Honour: https://en.wikipedia.org/wiki/Legion_of_Honour
+  Order of National Security Merit, Samil Medal: https://www.sanghun.go.kr/nation/hunjangDetail.html
+  Cross of Naval Merit with Red Distinction: https://www.boe.es/buscar/act.php?id=BOE-A-2003-17107
+  Federal Cross of Merit on Ribbon: https://www.gesetze-im-internet.de/verdordenstat/
+  Defence Medal for Excellent Service: https://www.retsinformation.dk/eli/retsinfo/2010/9074
   Australian Meritorious Unit Citation: https://www.pmc.gov.au/honours-and-symbols/list-australian-honours/meritorious-unit-citation
   Navy and Marine Corps Achievement Medal: https://www.secnav.navy.mil/doni/SECNAV%20Manuals1/1650.1.pdf
   Navy Unit Commendation: https://www.secnav.navy.mil/doni/SECNAV%20Manuals1/1650.1.pdf

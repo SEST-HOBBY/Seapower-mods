@@ -605,6 +605,111 @@ REAL = {
               "{TaskForceName}",
         source='https://www.nzdf.mil.nz/medals-and-service-records/medals-and-awards/explore-medals-and-awards/'
                'new-zealand-operational-service-medal-nzosm/'),
+    # --- France (Grande Chancellerie; Legifrance could not be opened) ------
+    # Chevalier is the entry grade of both orders and keeps the strip a
+    # plain ribbon. The ONM normally comes after about 15 years' service, the
+    # Legion of Honour after about 20; appointments for military personnel
+    # in operations abroad are made outside the quota.
+    'fr_chevalier_ordre_national_du_merite': dict(
+        nation='France', name='Knight of the National Order of Merit', type='PersonalDecoration',
+        precedence=25, art=(('#5E8DBA', 1),), ranks=(3, 5),
+        merit='For distinguished merit in the service of the nation as commander of {TaskForceName}',
+        source='https://en.wikipedia.org/wiki/Ordre_national_du_M%C3%A9rite'),
+    'fr_chevalier_legion_d_honneur': dict(
+        nation='France', name='Knight of the Legion of Honour', type='PersonalDecoration',
+        precedence=10, art=(('#AD1710', 1),), ranks=(4, 5),
+        merit='For eminent merit in the service of the nation as commander of {TaskForceName}',
+        source='https://en.wikipedia.org/wiki/Legion_of_Honour'),
+    # --- South Korea (Decorations Act; Enforcement Decree, Annex 2) --------
+    # Annex 2 gives the widths of a 38 mm ribbon and names the white; the
+    # ribbon bar of both carries a taegeuk. The Samil Medal is the order
+    # grade colonels and lieutenant colonels receive. The Act bars two
+    # awards for one merit; a medal and an order in one campaign is the
+    # game's convention.
+    'kr_national_security_medal': dict(
+        nation='South_Korea', name='National Security Medal', type='PersonalDecoration', precedence=30,
+        art=(('#E6A947', 17.5), ('#FFFFFF', 3), ('#E6A947', 17.5)), device='taegeuk', ranks=(1, 5),
+        merit='For distinguished merit in the cause of national security as commander of {TaskForceName}',
+        source='https://www.sanghun.go.kr/nation/pojangDetail.html'),
+    'kr_order_of_national_security_merit_samil': dict(
+        nation='South_Korea', name='Order of National Security Merit, Samil Medal', type='PersonalDecoration',
+        precedence=15,
+        art=(('#DEB389', 2), ('#FFFFFF', 1.5), ('#DEB389', 2), ('#FFFFFF', 1.5), ('#DEB389', 24),
+             ('#FFFFFF', 1.5), ('#DEB389', 2), ('#FFFFFF', 1.5), ('#DEB389', 2)), device='taegeuk',
+        ranks=(4, 5),
+        merit='For outstanding meritorious service in the interest of national security as commander of '
+              '{TaskForceName}',
+        source='https://www.sanghun.go.kr/nation/hunjangDetail.html'),
+    # --- Spain (RD 1040/2003; RD 336/2018; Orden DEF/1315/2021) ------------
+    # The Cruz class is for every grade below oficial general. The white
+    # distinction rewards extraordinary merit outside a UN or international
+    # organisation's mandate, as in this ad-hoc coalition; the red needs
+    # valour and command in an operation involving armed force, so it is the
+    # climax award. The campaign medal needs 30 days in the zone of
+    # operations of a coalition operation abroad.
+    'es_cruz_merito_naval_distintivo_blanco': dict(
+        nation='Spain', name='Cross of Naval Merit with White Distinction', type='PersonalDecoration',
+        precedence=32, art=(('#AF0B19', 7.5), ('#FCBD00', 15), ('#AF0B19', 7.5)), ranks=(1, 5),
+        merit='For distinguished services of extraordinary merit in the performance of military duties '
+              'as commander of {TaskForceName}',
+        source='https://www.boe.es/buscar/act.php?id=BOE-A-2003-17107'),
+    'es_cruz_merito_naval_distintivo_rojo': dict(
+        nation='Spain', name='Cross of Naval Merit with Red Distinction', type='PersonalDecoration',
+        precedence=20, art=(('#AF0B19', 13.125), ('#FCBD00', 3.75), ('#AF0B19', 13.125)), ranks=(1, 5),
+        merit='For valour and significant qualities of command in the skilful direction and employment of '
+              'own forces in an armed operation as commander of {TaskForceName}',
+        source='https://www.boe.es/buscar/act.php?id=BOE-A-2003-17107'),
+    'es_medalla_de_campana': dict(
+        nation='Spain', name='Spanish Campaign Medal', type='ServiceAward', precedence=95,
+        art=(('#1D256E', 3), ('#D12424', 1.25), ('#FBE307', 2.5), ('#D12424', 1.25), ('#1D256E', 14),
+             ('#D12424', 1.25), ('#FBE307', 2.5), ('#D12424', 1.25), ('#1D256E', 3)), ranks=(1, 10),
+        service_days=30,
+        merit="For 30 days' service in the zone of operations of a coalition operation abroad with "
+              "{TaskForceName}",
+        source='https://www.boe.es/buscar/act.php?id=BOE-A-2018-7834'),
+    # --- Germany (VerdOrdenStat; StiftEinsatzMedBWErl 2025) ----------------
+    # The Cross of Honour in Gold is the Bundeswehr's merit award after 20
+    # years' service (an officer of 25 years may already hold it; a grade is
+    # not given twice). The Federal Cross of Merit on Ribbon is the Federal
+    # President's order, senior to it. The bronze deployment medal needs 30
+    # days abroad on a deployment; its clasp would name the deployment.
+    'de_ehrenkreuz_der_bundeswehr_gold': dict(
+        nation='Germany', name='Cross of Honour of the Bundeswehr in Gold', type='PersonalDecoration',
+        precedence=38, art=(('#DDA61C', 3.6), ('#C1382B', 3.6), ('#414141', 17.6), ('#C1382B', 3.6),
+                            ('#DDA61C', 3.6)), device='gold_cross', ranks=(3, 6),
+        merit='For loyal service and exemplary fulfilment of duty as commander of {TaskForceName}',
+        source='https://en.wikipedia.org/wiki/Badge_of_Honour_of_the_Bundeswehr'),
+    'de_verdienstkreuz_am_bande': dict(
+        nation='Germany', name='Federal Cross of Merit on Ribbon', type='PersonalDecoration', precedence=12,
+        art=(('#B7A967', 1.41), ('#2A2A2A', 1.18), ('#B7A967', 1.41), ('#B10303', 24), ('#B7A967', 1.41),
+             ('#2A2A2A', 1.18), ('#B7A967', 1.41)), ranks=(1, 10),
+        merit='For outstanding services to the Federal Republic of Germany as commander of {TaskForceName}',
+        source='https://www.gesetze-im-internet.de/verdordenstat/'),
+    'de_einsatzmedaille_bundeswehr_bronze': dict(
+        nation='Germany', name='Bundeswehr Deployment Medal in Bronze', type='ServiceAward', precedence=90,
+        art=(('#1F1F22', 2.69), ('#A32636', 3.17), ('#CAAF63', 3.17), ('#A32636', 13.94), ('#CAAF63', 3.17),
+             ('#A32636', 3.17), ('#1F1F22', 2.69)), ranks=(1, 10), service_days=30,
+        merit="For 30 days' service abroad on a deployment of the Bundeswehr with {TaskForceName}",
+        source='https://www.gesetze-im-internet.de/stifteinsatzmedbwerl_2025/'),
+    # --- Denmark (Chief of Defence circulars CIR1H 9077 and 9074, 2010) ----
+    # Both medals are the Chief of Defence's, for defence personnel and, on
+    # a special effort, foreigners; no grade limit or service period. The
+    # Excellent Service medal is the higher.
+    'dk_defence_medal_meritorious_service': dict(
+        nation='Denmark', name='Defence Medal for Meritorious Service', type='PersonalDecoration',
+        precedence=40,
+        art=(('#C02020', 1.6), ('#FFFFFF', 1.6), ('#C02020', 1.6), ('#FFFFFF', 1.6), ('#C02020', 19.2),
+             ('#FFFFFF', 1.6), ('#C02020', 1.6), ('#FFFFFF', 1.6), ('#C02020', 1.6)), ranks=(1, 10),
+        merit='For a meritorious effort for the Danish Defence as commander of {TaskForceName}',
+        source='https://www.retsinformation.dk/eli/retsinfo/2010/9077'),
+    'dk_defence_medal_excellent_service': dict(
+        nation='Denmark', name='Defence Medal for Excellent Service', type='PersonalDecoration',
+        precedence=30,
+        art=(('#FFFFFF', 5.12), ('#C02020', 7.04), ('#FFFFFF', 7.68), ('#C02020', 7.04), ('#FFFFFF', 5.12)),
+        ranks=(1, 10),
+        merit='For an extraordinary effort in the service of the Danish Defence as commander of '
+              '{TaskForceName}',
+        source='https://www.retsinformation.dk/eli/retsinfo/2010/9074'),
     # --- Philippines (AFP Awards and Decorations Manual, AFPR G 131-054) ---
     'ph_distinguished_service_star': dict(
         nation='Philippines', name='Distinguished Service Star', type='PersonalDecoration', precedence=12,
@@ -642,6 +747,48 @@ ART_NOTES = {
     'nz_operational_service_medal': (
         'proportions measured from an image (the official NZDF photograph); black and white as '
         'the NZDF names them'),
+    'fr_chevalier_ordre_national_du_merite': (
+        'plain blue, the median of a Commons photograph of a Chevalier ribbon, as France publishes '
+        'no colour value'),
+    'fr_chevalier_legion_d_honneur': (
+        'plain red, the median of the public-domain Commons photograph of the Chevalier insignia'),
+    'kr_national_security_medal': (
+        'widths from the Enforcement Decree, Annex 2 (38 mm); the yellow sampled from the official '
+        'Ministry of the Interior and Safety photograph, the white drawn pure as the Annex names it; '
+        'the ribbon bar\'s taegeuk drawn in the national flag\'s red and blue, about 8.6 mm, its '
+        'size measured from that photograph'),
+    'kr_order_of_national_security_merit_samil': (
+        'widths from the Enforcement Decree, Annex 2 (38 mm); the light yellow sampled from the '
+        'official Ministry of the Interior and Safety photograph, the white drawn pure as the Annex '
+        'names it; the ribbon bar\'s taegeuk drawn in the national flag\'s red and blue'),
+    'es_cruz_merito_naval_distintivo_blanco': (
+        'the national colours in the flag\'s order and proportions, RD 1040/2003 art. 53.5, on the '
+        '30 mm ribbon; colours from the flag\'s official values, RD 441/1981'),
+    'es_cruz_merito_naval_distintivo_rojo': (
+        'widths from RD 1040/2003 art. 53.2, the yellow one eighth of the 30 mm ribbon; the decree '
+        'gives no colours, so the flag\'s official values (RD 441/1981) are used'),
+    'es_medalla_de_campana': (
+        'widths from RD 336/2018 art. 6.1.d; colours sampled from the official annex drawing '
+        '(BOE-A-2024-24344); drawn without the operation\'s silver rectangle, as the operation is '
+        'fictional'),
+    'de_ehrenkreuz_der_bundeswehr_gold': (
+        'proportions and colours measured from a drawing (Wikimedia Commons), as no official widths '
+        'are published; the gold miniature cross on the ribbon bar drawn plain'),
+    'de_verdienstkreuz_am_bande': (
+        'red with a gold-black-gold edge, as the statute (art. 3(2)) gives it; proportions and '
+        'colours measured from a drawing (Wikimedia Commons)'),
+    'de_einsatzmedaille_bundeswehr_bronze': (
+        'black, red and gold as the decree names them, in the order en.wikipedia describes; '
+        'proportions and colours measured from a drawing (Wikimedia Commons); drawn without the '
+        'clasp, as the deployment is fictional'),
+    'dk_defence_medal_meritorious_service': (
+        'red with two narrow white stripes each side, as the circular (CIR1H 9077, s. 2) gives '
+        'it; proportions and the red measured from a public-domain drawing (Wikimedia Commons), as '
+        'no official image could be reached; white drawn pure'),
+    'dk_defence_medal_excellent_service': (
+        'white with two broad red stripes, as the circular (CIR1H 9074, s. 2) gives it; proportions '
+        'and the red measured from a public-domain drawing (Wikimedia Commons), as no official image '
+        'could be reached; white drawn pure'),
 }
 
 # Definitions an earlier test build granted and this one does not (the NAM is
@@ -675,19 +822,31 @@ RETIRED = {
 GRANTS = {
     'sest-southern-watch': {
         'SW08': ('australian_commendation_distinguished_service', 'navy_commendation_medal', 'uk_obe_military',
-                 'ca_meritorious_service_medal_military', 'nz_distinguished_service_decoration'),
+                 'ca_meritorious_service_medal_military', 'nz_distinguished_service_decoration',
+                 'fr_chevalier_ordre_national_du_merite', 'kr_national_security_medal',
+                 'es_cruz_merito_naval_distintivo_blanco', 'de_ehrenkreuz_der_bundeswehr_gold',
+                 'dk_defence_medal_meritorious_service'),
         'SW12': ('australian_distinguished_service_cross', 'bronze_star_medal', 'uk_distinguished_service_order',
                  'jmsdf_first_class_commendation', 'ca_meritorious_service_cross_military',
-                 'nz_member_order_of_merit', 'australian_meritorious_unit_citation'),
+                 'nz_member_order_of_merit', 'fr_chevalier_legion_d_honneur',
+                 'kr_order_of_national_security_merit_samil', 'es_cruz_merito_naval_distintivo_rojo',
+                 'de_verdienstkreuz_am_bande', 'dk_defence_medal_excellent_service',
+                 'australian_meritorious_unit_citation'),
     },
     'sest-southern-reach': {
         'SR10': ('sest_aosm_indo_pacific', 'armed_forces_expeditionary_medal',
-                 'ca_general_campaign_star_expedition', 'nz_operational_service_medal'),
+                 'ca_general_campaign_star_expedition', 'nz_operational_service_medal',
+                 'es_medalla_de_campana', 'de_einsatzmedaille_bundeswehr_bronze'),
         'SR12': ('australian_commendation_distinguished_service', 'navy_commendation_medal', 'uk_obe_military',
-                 'ca_meritorious_service_medal_military', 'nz_distinguished_service_decoration'),
+                 'ca_meritorious_service_medal_military', 'nz_distinguished_service_decoration',
+                 'fr_chevalier_ordre_national_du_merite', 'kr_national_security_medal',
+                 'es_cruz_merito_naval_distintivo_blanco', 'de_ehrenkreuz_der_bundeswehr_gold',
+                 'dk_defence_medal_meritorious_service'),
         'TS09': ('australian_distinguished_service_cross', 'legion_of_merit', 'uk_distinguished_service_order',
                  'jmsdf_first_class_commendation', 'ca_meritorious_service_cross_military',
-                 'nz_member_order_of_merit'),
+                 'nz_member_order_of_merit', 'fr_chevalier_legion_d_honneur',
+                 'kr_order_of_national_security_merit_samil', 'es_cruz_merito_naval_distintivo_rojo',
+                 'de_verdienstkreuz_am_bande', 'dk_defence_medal_excellent_service'),
         'TS12': ('australian_meritorious_unit_citation',),
     },
     'sest-sulu-line': {
@@ -924,6 +1083,24 @@ def _strip(stripes, device=None):
             draw.polygon([(x, 3), (x + 4, 0), (x + 8, 3)], fill=silver, outline=edge)
             draw.polygon([(x, 32), (x + 4, 35), (x + 8, 32)], fill=silver, outline=edge)
         _star(draw, 70, 17.5, 8, 3.7, silver, edge)
+    elif device == 'taegeuk':
+        # The red-over-blue taegeuk of the Korean ribbon bars, 26 of the
+        # bar's 30 px (about 8.6 of its 10 mm), in the flag's colours.
+        red, blue, r = '#CD2E3A', '#0047A0', 13
+        draw.pieslice((70 - r, 17.5 - r, 70 + r, 17.5 + r), 180, 360, fill=red)
+        draw.pieslice((70 - r, 17.5 - r, 70 + r, 17.5 + r), 0, 180, fill=blue)
+        h = r / 2
+        draw.ellipse((70 - r, 17.5 - h, 70, 17.5 + h), fill=red)
+        draw.ellipse((70, 17.5 - h, 70 + r, 17.5 + h), fill=blue)
+        draw.ellipse((70 - r, 17.5 - r, 70 + r, 17.5 + r), outline='#8A6D14', width=1)
+    elif device == 'gold_cross':
+        # The gold miniature Cross of Honour on the black centre: a cross
+        # pattee 20 px across, its arms widening to the ends.
+        gold, edge, cx, cy, a, w0, w1 = '#D9B44A', '#8A6D14', 70, 17.5, 10, 2, 6
+        draw.polygon([(cx - w0, cy - w0), (cx - w1, cy - a), (cx + w1, cy - a), (cx + w0, cy - w0),
+                      (cx + a, cy - w1), (cx + a, cy + w1), (cx + w0, cy + w0), (cx + w1, cy + a),
+                      (cx - w1, cy + a), (cx - w0, cy + w0), (cx - a, cy + w1), (cx - a, cy - w1)],
+                     fill=gold, outline=edge)
     elif device == 'gold_frame':
         draw.rectangle((2, 3, 138, 32), outline='#C9A227', width=3)
         draw.rectangle((2, 3, 138, 32), outline='#8A6D14', width=1)

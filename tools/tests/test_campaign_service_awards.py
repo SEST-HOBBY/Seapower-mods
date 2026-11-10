@@ -277,6 +277,64 @@ class CampaignServiceAwards(unittest.TestCase):
         for slug in awards.CAMPAIGNS:
             self.assertFalse({"nz_antarctic_medal", "nz_officer_order_of_merit"} & set(awards.grants(slug)))
 
+    def test_french_korean_spanish_german_and_danish_awards(self):
+        # 10 Nov 2026, second pass: the same pattern, from verified sources.
+        # Italy, the Netherlands and Norway stay on the fictional ribbons.
+        lesser = {"France": "fr_chevalier_ordre_national_du_merite",
+                  "South_Korea": "kr_national_security_medal",
+                  "Spain": "es_cruz_merito_naval_distintivo_blanco",
+                  "Germany": "de_ehrenkreuz_der_bundeswehr_gold",
+                  "Denmark": "dk_defence_medal_meritorious_service"}
+        senior = {"France": "fr_chevalier_legion_d_honneur",
+                  "South_Korea": "kr_order_of_national_security_merit_samil",
+                  "Spain": "es_cruz_merito_naval_distintivo_rojo",
+                  "Germany": "de_verdienstkreuz_am_bande",
+                  "Denmark": "dk_defence_medal_excellent_service"}
+        service = {"Spain": "es_medalla_de_campana", "Germany": "de_einsatzmedaille_bundeswehr_bronze"}
+        watch, reach = awards.grants("sest-southern-watch"), awards.grants("sest-southern-reach")
+        for nation in lesser:
+            with self.subTest(nation=nation):
+                self.assertEqual((watch[lesser[nation]], watch[senior[nation]]), ("SW08", "SW12"))
+                self.assertEqual((reach[lesser[nation]], reach[senior[nation]]), ("SR12", "TS09"))
+                for rid in (lesser[nation], senior[nation], service.get(nation)):
+                    if rid:
+                        self.assertEqual(awards.REAL[rid]["nation"], nation)
+                        self.assertIn(rid, awards.ART_NOTES)
+        for nation, rid in service.items():
+            self.assertEqual(reach[rid], "SR10")
+            self.assertNotIn(rid, watch)
+            self.assertEqual(awards.REAL[rid]["service_days"], 30)
+            # No real named operation or designated theatre is claimed.
+            self.assertNotRegex(awards.REAL[rid]["merit"], r"(?i:designated|specified|theatre)|[Oo]peration [A-Z]")
+        for slug in ("sest-southern-watch", "sest-southern-reach"):
+            nations, _unit = awards.award_nations(slug)
+            self.assertEqual(set(awards.NATIONS[slug]) - set(nations), {"Italy", "Netherlands", "Norway"})
+        # Widths as the sources give them: Spain's 30 mm and Korea's 38 mm
+        # ribbons in millimetres, the drawing-measured ones scaled to 32.
+        width = lambda rid: round(sum(w for _c, w in awards.REAL[rid]["art"]), 3)
+        for rid in ("es_cruz_merito_naval_distintivo_blanco", "es_cruz_merito_naval_distintivo_rojo",
+                    "es_medalla_de_campana"):
+            self.assertEqual(width(rid), 30, rid)
+        for rid in ("kr_national_security_medal", "kr_order_of_national_security_merit_samil"):
+            self.assertEqual(width(rid), 38, rid)
+            self.assertEqual(awards.REAL[rid]["device"], "taegeuk")
+            self.assertIn(("#FFFFFF", 3 if "medal" in rid else 1.5), awards.REAL[rid]["art"])
+        for rid in ("de_ehrenkreuz_der_bundeswehr_gold", "de_verdienstkreuz_am_bande",
+                    "de_einsatzmedaille_bundeswehr_bronze", "dk_defence_medal_meritorious_service",
+                    "dk_defence_medal_excellent_service"):
+            self.assertAlmostEqual(width(rid), 32, places=1, msg=rid)
+        self.assertEqual([c for c, _w in awards.REAL["es_cruz_merito_naval_distintivo_rojo"]["art"]],
+                         ["#AF0B19", "#FCBD00", "#AF0B19"])
+        self.assertEqual(awards.REAL["es_cruz_merito_naval_distintivo_rojo"]["art"][1][1], 3.75)
+        self.assertEqual(awards.REAL["fr_chevalier_legion_d_honneur"]["art"], (("#AD1710", 1),))
+        # Denmark's meritorious ribbon has red edges, not white.
+        self.assertEqual(awards.REAL["dk_defence_medal_meritorious_service"]["art"][0][0], "#C02020")
+        self.assertEqual(awards.REAL["de_ehrenkreuz_der_bundeswehr_gold"]["device"], "gold_cross")
+        text = " ".join(awards.sources_text("sest-southern-reach").split())
+        self.assertIn("drawn without the operation's silver rectangle, as the operation is fictional", text)
+        self.assertIn("drawn without the clasp, as the deployment is fictional", text)
+        self.assertIn("measured from a public-domain drawing (Wikimedia Commons)", text)
+
     def test_every_offered_nation_is_a_game_key_with_settings_and_a_ladder(self):
         # The discount and the award selectors compare the key with the
         # units' Nation=, so it must be the game's own (nations.ini), and a
