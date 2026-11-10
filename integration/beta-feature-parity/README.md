@@ -4,9 +4,10 @@ Runtime 1.6.5 / UI 1.4.15, revision `R13-20261110-mission-awards-499675cd`,
 for the same beta 0.8.7-261107 (`499675cd…`) and Dynamic Campaign Mod
 0.25.0.1 (`eacdb9a4…`) as R12 Final. On any other game build nothing binds:
 the native image gate in `RuntimeFixesMod` is unchanged. The loader sources
-are unchanged (AnchorChain `8692ecf9…`, Bootstrap `268462fa…`); the UI and
-Identify DLLs change only because they embed the new runtime hash. All
-game, author and reference pins are unchanged.
+are unchanged (AnchorChain `8692ecf9…`, Bootstrap `268462fa…`). Identify
+changes only because it embeds the new runtime hash; the UI also bumps to
+1.4.15 and logs the new pairing (`full Runtime 1.6.5 paired`). All game,
+author and reference pins are unchanged.
 
 ## Mission ribbons granted at the debrief (`runtime/MissionAwards.cs`)
 
