@@ -912,6 +912,24 @@ class DamageStateFlag(unittest.TestCase):
             "Condition_Condition2_DamageConditionMode=IntegrityBelow",
             "Condition_Condition2_DamageThresholdPercent=50"])
 
+    def test_a_disabled_ship_can_still_be_sunk_for_the_win(self):
+        import campaign_data
+        from unittest import mock
+        m = TurnBack().mission(or_damaged=dict(mode="propulsion_all"))
+        with mock.patch.object(campaign_data, "DAMAGE_STATE", self.TABLE):
+            triggers, n, _text = TurnBack().render(m)
+        off = next(l for l in triggers["Disabled: HeaveTo"]
+                   if l.startswith("Action_DisableTriggers=")).split("=")[1].split(",")
+        self.assertIn(f"Trigger{n['Turns back: HeaveTo']}", off)
+        self.assertIn(f"Trigger{n['Spoiler denied']}", off)
+        self.assertNotIn(f"Trigger{n['Objective met']}", off)
+        self.assertIn("Condition_Condition1_DamageConditionMode=AllPropulsionInoperable",
+                      triggers["Disabled: HeaveTo"])
+        turn = next(l for l in triggers["Turns back: HeaveTo"]
+                    if l.startswith("Action_DisableTriggers=")).split("=")[1].split(",")
+        self.assertIn(f"Trigger{n['Disabled: HeaveTo']}", turn)
+        self.assertIn(f"Trigger{n['Objective met']}", turn)
+
     def test_rl04_offers_no_engines_outcome_while_it_is_off(self):
         rl04 = importlib.import_module("red_line.rl04_the_order_to_withdraw")
         m = rl04.MISSION
@@ -1009,7 +1027,7 @@ class ProgressReports(unittest.TestCase):
         triggers, n, _text = TurnBack().render(m)
         off = next(l for l in triggers["Turns back: HeaveTo"]
                    if l.startswith("Action_DisableTriggers="))
-        self.assertTrue(off.endswith(f",Trigger{n['Progress: Running']}"), off)
+        self.assertIn(f"Trigger{n['Progress: Running']}", off.split("=")[1].split(","))
 
 
 class ExpressionIntegrity(unittest.TestCase):

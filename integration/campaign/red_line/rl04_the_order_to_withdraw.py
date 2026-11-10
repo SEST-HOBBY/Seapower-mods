@@ -65,8 +65,8 @@ MISSION = dict(
             + ("Sink her, stop her engines, or close her" if _ENGINES else "Sink her, or close her")
             + " with the screen's lead ship to within about three miles: she will heave to "
             "and follow the group, and from then she is a protected neutral whose loss ends "
-            "the operation. Set the lead ship's weapons to Hold before closing, or she may open "
-            "fire first. "
+            "the operation. Set the lead ship's weapons to Hold before closing: at Tight she may "
+            "engage the coaster on the way in. "
             "Then bring LIAONING and HULUNHU both within five miles of the withdrawal point "
             "north-west. The order is complete when both are inside that circle, MERIDIAN "
             "HARMONY is sunk" + (", stopped" if _ENGINES else "") + " or has hove to, and no "

@@ -2028,6 +2028,7 @@ def resolve_trigger_marks(key, triggers):
             if "\x00trigger:" in line:
                 lines[j] = re.sub("\x00trigger:(.*?)\x00", number, line)
 
+
 # U(..., disable=(...)): a unit's systems switched off at mission start, the
 # way 08 Defense of North Borneo's Trigger4 does it, key for key.
 DISABLE_ACTIONS = {"weapons": "WeaponSystems", "sensors": "SensorSystems",
@@ -3467,8 +3468,10 @@ def turn_back_triggers(mission, placed, members, tb, trigger, terminal, progress
                    for u in refs(members, r)} for x in p["also"])]
     how = mission.get("resolve", {}).get(tb["objective"])
     own = [f"{tb['objective']} met"] if isinstance(how, tuple) and how[0] == "destroy" else []
-    stop = (challenges + [f"{deny['objective']} denied"] + sinking + own
-            + list(progress_names))
+    # Stopped either way, she is no longer racing: the challenges, the race
+    # and the reports on her go. Only the turn to Neutral protects her, so
+    # only it also switches off the ways to win by sinking her.
+    stop = challenges + [f"{deny['objective']} denied"] + list(progress_names)
     to_x, to_z = (tb["to"][1] - centre[1]) * 60, (tb["to"][0] - centre[0]) * 60
     lines = ["Disabled=True", "Condition_Condition1_Type=Generic",
              "ConditionsCompleted=<Condition1>", f"Action_Units={','.join(units)}"]
@@ -3481,7 +3484,7 @@ def turn_back_triggers(mission, placed, members, tb, trigger, terminal, progress
         lines.append(f"Action_Taskforce1_Intel=TurnBack{name}Intel")
     lines.append(f"Action_ObjectivesCompleted={tb['objective']}")
     lines.append("Action_DisableTriggers=" + trigger_marks(
-        *stop + ([disabled] if tb.get("or_damaged") else [])))
+        *stop + sinking + own + ([disabled] if tb.get("or_damaged") else [])))
     if tb.get("protected"):
         lines.append("Action_EnableTriggers=" + trigger_marks(f"{name} sunk after turning"))
     trigger(turns, lines)
@@ -3492,6 +3495,7 @@ def turn_back_triggers(mission, placed, members, tb, trigger, terminal, progress
                 + ["ConditionsCompleted=<Condition1>",
                    f"Action_ObjectivesCompleted={tb['objective']}",
                    "Action_DisableTriggers=" + trigger_marks(*stop + [turns])])
+        # She is still the other side's: sinking her stays a win.
     if tb.get("protected"):
         # A ship transferred to Neutral is not in the mission's neutral
         # list, so her loss would end nothing: this terminal keeps the
