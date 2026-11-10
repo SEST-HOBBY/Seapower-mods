@@ -16,9 +16,19 @@
 # anything, and it backs up the game's settings and every mod file it changes
 # first.
 #
+# Last, on the public beta build the pack's beta features were reviewed for,
+# it installs or updates them (sest-workshop-features.ps1 beside this file);
+# on any other build it puts the normal SEST plugins back if SEST's beta files
+# are installed. A refusal there is one [!!] warning, never a stop.
+#
 # From a console:  powershell -ExecutionPolicy Bypass -File .\sest-setup.ps1
 # Put the marked mods' own files back:  ... -File .\sest-setup.ps1 -RestoreModFiles
-param([switch]$Pause, [switch]$FromCmd, [switch]$Elevated, [string]$SteamRoot, [string]$Settings, [switch]$RestoreModFiles, [string]$KeepDir)
+# The beta features (the "SEST beta features - ..." launchers beside this
+# file):  ... -BetaFeatures Off     their loader off; SETUP leaves them off
+#         ... -BetaFeatures Remove  normal SEST code back, beta files removed;
+#                                   SETUP leaves them off
+#         ... -BetaFeatures On      switched on again, then the normal SETUP
+param([switch]$Pause, [switch]$FromCmd, [switch]$Elevated, [string]$SteamRoot, [string]$Settings, [switch]$RestoreModFiles, [string]$KeepDir, [string]$BetaFeatures)
 # -FromCmd: the launcher passes it; the window stays open at the end (the
 #   launcher itself pauses after a failure, so Fail does not pause twice).
 # -Elevated, -SteamRoot, -Settings, -KeepDir: the administrator relaunch
@@ -66,6 +76,13 @@ function KeepDir {
 }
 function IsPack([string]$dir) {
     return $dir -and (Test-Path -LiteralPath (J $dir 'LOAD-ORDER.txt')) -and (Test-Path -LiteralPath (J $dir 'campaigns' 'sest-southern-watch' 'campaign.ini'))
+}
+# The game's settings file: -Settings (the administrator relaunch passes it),
+# SEST_SETTINGS, or the player's own.
+function SettingsPath {
+    if ($Settings) { return $Settings }
+    if ($env:SEST_SETTINGS) { return $env:SEST_SETTINGS }
+    return (J $env:USERPROFILE 'AppData' 'LocalLow' 'Triassic Games' 'Sea Power' 'usersettings.ini')
 }
 
 # --- the game's own compatibility rule (step 3) ------------------------------
@@ -308,6 +325,11 @@ function CompatIsUtf8([byte[]]$b) {
 $AppId = '1286220'
 try {
     Say 'SEST setup - checking your PC...' 'Cyan'
+    $featureAction = ''
+    if ($BetaFeatures) {
+        $featureAction = @{ 'off' = 'Disable'; 'remove' = 'Restore'; 'on' = 'Enable' }[$BetaFeatures.ToLowerInvariant()]
+        if (-not $featureAction) { Fail ('-BetaFeatures ' + $BetaFeatures + ' is not Off, Remove or On.'); return }
+    }
 
     # -KeepDir as a full path, once: the administrator relaunch starts in
     # another folder, so it is passed this full path. A relative one is read
@@ -424,6 +446,22 @@ try {
     if ($mode -eq 'workshop') { Say ('  SEST pack : Workshop item ' + $pack.Name + ', built against ' + $ids.Count + ' mods') }
     else { Say ('  SEST pack : ' + $pack.FullName + ' (local copy), built against ' + $ids.Count + ' mods') }
 
+    # --- the beta features: the "SEST beta features - ..." launchers --------
+    # Off and Remove change only SEST's own beta files (through the reviewed
+    # installer's journal) and record the player's choice, which the feature
+    # step below respects; nothing else in SETUP runs. On clears that choice
+    # and carries on with the normal SETUP, whose last step installs them.
+    $featureSetup = J $pack.FullName 'sest-workshop-features.ps1'
+    $featureArgs = @{ GameRoot = $game; WorkshopContentRoot = $content; PlayerDataRoot = (Split-Path -Parent (SettingsPath)); AppDataRoot = (Split-Path -Parent (KeepDir)) }
+    if ($featureAction) {
+        if ($mode -ne 'workshop' -or -not (Test-Path -LiteralPath $featureSetup)) { Fail 'The SEST beta features belong to the subscribed Workshop item. Run this from the Workshop copy of the pack (Mod Manager > Open Folder).'; return }
+        Say ''
+        try { [void](@(& $featureSetup @featureArgs -Action $featureAction)) }
+        catch { Fail ('SEST beta features: ' + $_.Exception.Message); return }
+        if ($featureAction -ne 'Enable') { Hold; return }
+        Say 'Running the normal SETUP now, which installs them...' 'Cyan'
+    }
+
     $missing = @($ids | Where-Object {
         $d = J $content $_
         -not ((Test-Path -LiteralPath $d) -and (Get-ChildItem -LiteralPath $d -Force | Select-Object -First 1))
@@ -437,9 +475,7 @@ try {
     Say ('  all ' + $ids.Count + ' mods are downloaded') 'Green'
 
     # --- the game's settings file ------------------------------------------
-    $settings = $Settings
-    if (-not $settings) { $settings = $env:SEST_SETTINGS }
-    if (-not $settings) { $settings = J $env:USERPROFILE 'AppData' 'LocalLow' 'Triassic Games' 'Sea Power' 'usersettings.ini' }
+    $settings = SettingsPath
     if (-not (Test-Path -LiteralPath $settings)) {
         Fail ('No game settings yet (' + $settings + '). Start Sea Power once, wait for the main menu, quit, then run SETUP again. If Windows asked you for a different account''s password a moment ago, run SETUP from your own account instead.'); return
     }
@@ -751,6 +787,26 @@ try {
     Say ('  [done] mod order set: SEST pack first, then the ' + $ids.Count + ' mods (' + $turnedOn + ' switched on or added)') 'Green'
     if ($others.Count) { Say ('         your ' + $others.Count + ' other mod(s) moved to the bottom, on/off as you had them') }
     Say ('         settings backup: ' + $backup)
+
+    # 6. The beta features: the Workshop item carries the reviewed installer
+    # itself (sest-workshop-features.ps1, $featureSetup above). It decides by
+    # the game build, respects a player's Off or Remove, and reports a
+    # refusal as [!!] warnings it counts; anything it throws is one warning
+    # here, so SETUP always finishes. The invoking player's settings and cache
+    # paths are kept through UAC elevation ($featureArgs above). A local copy
+    # in the game folder has no Workshop item for them to go into.
+    if (Test-Path -LiteralPath $featureSetup) {
+        if ($mode -ne 'workshop') {
+            Say '  [note] beta features: they install only into the subscribed Workshop item; this local copy leaves them out'
+        } else {
+            try { $warnings += [int](@(& $featureSetup @featureArgs -PassThru) | Select-Object -Last 1) }
+            catch {
+                $warnings++
+                Say ('  [!!]   SEST beta features were not installed or updated: ' + $_.Exception.Message) 'Yellow'
+                Say '         Nothing was forced, and the rest of SETUP is done. Keep this message for review.' 'Yellow'
+            }
+        }
+    }
 
     Say ''
     if ($warnings) { Say ('Done, but read the ' + $warnings + ' [!!] warning(s) above first. Then start Sea Power:') 'Yellow' }

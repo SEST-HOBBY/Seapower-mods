@@ -127,6 +127,8 @@ def providers(root):
     registry = json.loads((root / "data/mod-catalog.json").read_text(encoding="utf-8"))
     out = [(p["folder"], root / p["source"] / p["folder"])
            for p in registry["local_packs"] if p["folder"] != "SEST_Combat_Costs"]
+    out += [(p["folder"], root / p["compatibility_source"])
+            for p in registry["local_packs"] if p.get("compatibility_source")]
     out += [(t.strip(), root / "mods-source" / t.strip())
             for t in (root / "data/load-order.tokens.txt").read_text().splitlines() if t.strip().isdigit()]
     return out + [("vanilla", root / "mods-source/_vanilla/original")]

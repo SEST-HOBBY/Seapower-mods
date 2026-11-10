@@ -1,0 +1,125 @@
+{
+  "format": 1,
+  "release_revision": "R12-configuration-refresh",
+  "review_date": "2026-11-09",
+  "status": "refresh-checks-passed-needs-pc-gameplay",
+  "base_release_commit": "a62acb2b45d9458b21817af9241d42e92dc53122",
+  "results": [
+    {
+      "name": "export-inventory",
+      "exit_code": 0,
+      "log": "export-inventory.log",
+      "log_sha256": "442268de45ad69bb89b46b0b98288d960b08831da28e3b2ec17a1770fd83bc72",
+      "summary": "Workshop IDs: manifest=203, folders=203, catalog=203, order=203\nMod Manager entries: 203 Workshop + 1 SEST = 204\nSteam account subscription total: not measured by this export\nLegacy manifest: file counts/bytes checked; per-file hashes unavailable\nInventory audit: PASS\n"
+    },
+    {
+      "name": "mod-fingerprints",
+      "exit_code": 0,
+      "log": "mod-fingerprints.log",
+      "log_sha256": "e594cc22e7bec626a9ed4d14ef54e8138badc13935587d5f39e18c886dee7822",
+      "summary": "all 203 mod fingerprints match the baseline\n"
+    },
+    {
+      "name": "campaign-tests",
+      "exit_code": 0,
+      "log": "campaign-tests.log",
+      "log_sha256": "b2cb53dd7e530cc83fcc0ee9590255039a513e69852d26e821b1aa33e87ae08a",
+      "summary": "..............................................................................................................................................................................................................................................................................................................................................\n----------------------------------------------------------------------\nRan 334 tests in 53.935s\n\nOK\n"
+    },
+    {
+      "name": "red-line-pacing",
+      "exit_code": 0,
+      "log": "red-line-pacing.log",
+      "log_sha256": "ef7bd469883761eda6ce700233d1e76db03416a81582a08bcfb8ebd864457817",
+      "summary": "................\n----------------------------------------------------------------------\nRan 16 tests in 4.255s\n\nOK\n"
+    },
+    {
+      "name": "tools-tests",
+      "exit_code": 0,
+      "log": "tools-tests.log",
+      "log_sha256": "cdde5adc32c02074733e1690097345822f9fce9b132d9d5d15a32e82ecded75d",
+      "summary": "took in 1 approved photo(s); commons-photos.csv holds 1\napplied 1 Commons photo(s)\ntook in 0 approved photo(s); commons-photos.csv holds 0\ntook in 1 approved photo(s); commons-photos.csv holds 1\napplied 1 Commons photo(s)\ntook in 1 approved photo(s); commons-photos.csv holds 1\napplied 1 Commons photo(s)\napplied 1 Commons photo(s)\ntook in 1 approved photo(s); commons-photos.csv holds 1\n..............................................................................................................................................................................................................s..................................ssssssssssssssss................................s..................................................\n----------------------------------------------------------------------\nRan 340 tests in 83.266s\n\nOK (skipped=18)\n"
+    },
+    {
+      "name": "loader-source-contracts",
+      "exit_code": 0,
+      "log": "loader-source-contracts.log",
+      "log_sha256": "9a2365b52e13b615cd963bf4a9715a4465cefa5ed5b3dbe4149e760988def14d",
+      "summary": "strap_uses_netstandard_sdk_not_framework_csc) ... ok\ntest_bounded_loader_entry (__main__.BetaSourceContract.test_bounded_loader_entry) ... ok\ntest_build_is_non_installing (__main__.BetaSourceContract.test_build_is_non_installing) ... ok\ntest_failed_plugin_never_retries (__main__.BetaSourceContract.test_failed_plugin_never_retries) ... ok\ntest_finite_load_budget (__main__.BetaSourceContract.test_finite_load_budget) ... ok\ntest_fork_keeps_original_assembly_identity (__main__.BetaSourceContract.test_fork_keeps_original_assembly_identity) ... ok\ntest_game_particle_system_reference (__main__.BetaSourceContract.test_game_particle_system_reference) ... ok\ntest_metadata_preparation_precedes_clr_loading (__main__.BetaSourceContract.test_metadata_preparation_precedes_clr_loading) ... ok\ntest_staging_requires_separate_enable (__main__.BetaSourceContract.test_staging_requires_separate_enable) ... ok\n\n----------------------------------------------------------------------\nRan 12 tests in 0.001s\n\nOK\n"
+    },
+    {
+      "name": "dependencies",
+      "exit_code": 0,
+      "log": "dependencies.log",
+      "log_sha256": "347f1878ab3df0ca63fec01f63dec3c88fc8c2d6d97cd4d1004f18b565c4d999",
+      "summary": "0                       plan_ddg_type956e_early\n      MP-401                       plan_em_sovremenny\n      Mk20_EOSS                    usn_lcs_freedom_suw_early, usn_lcs_freedom_suw_late\n      Mk36                         usn_ssn_los_angeles_flight2, usn_ssn_los_angeles_flight3 (+4 more)\n      RJL-726_ESM                  plan_type_052_2011\n      RJZ-928_RWR                  plan_type_052_2004\n      SS-N-14_Aft                  plan_ddg_luda_typ_051, plan_ddg_luda_typ_051d (+1 more)\n      SS-N-14_Amidship             plan_ddg_luda_typ_051, plan_ddg_luda_typ_051d (+1 more)\n      WLR-9                        usn_ssn_virginia_2027, usn_ssn_virginia_seal_2027\n      WP_Aircraft_ESM              plaaf_jh7a\n      WingHardpoint                usn_p8, usn_p8_2027\n      YJ-12                        plan_cg_type1164e\n      eu_NSM_dual_launcher         usn_ffg_oliver_hazard_perry_mlu\n      eu_Vigile_APX                rnn_ffg_karel_mlu\n\nevery SEST pack has its upstream mods exported and ordered\n"
+    },
+    {
+      "name": "load-order",
+      "exit_code": 0,
+      "log": "load-order.log",
+      "log_sha256": "de3e0495cf9dae3a6537ecaedd283d61b754ea0b855b8ee037a3c587d83ab8e3",
+      "summary": "checked 107 pack/mod file overlaps across 204 load-order entries, and every global registry key\n\nevery SEST pack outranks every mod it shares an override file with\n\nlive order (data/install-snapshot/load-order.live.txt, captured 2026-11-08T20:06:06, 205 entries):\n   canonical but not live (1): SEST_Integration\n   live but not canonical (2): 3812461539, ACConfigs\n   order of shared entries: same as canonical\n   disabled in game (1): ACConfigs\n   SEST in the live order: 3812461539 at #1 (SEST's own Workshop item stands in for SEST_Integration)\n   every SEST override still outranks its target in the live order\n"
+    },
+    {
+      "name": "runtime-api-preservation",
+      "exit_code": 0,
+      "log": "runtime-api-preservation.log",
+      "log_sha256": "2fe2fd69cf23839dd8200000de30f3ad880cd78e6ca24b76caa8a4dc02c42514",
+      "summary": "Runtime API preservation passed: 314 type/method contracts across 40 types; no gameplay claim.\n"
+    }
+  ],
+  "campaign_tests": {
+    "main_modules": 334,
+    "red_line_pacing": 16,
+    "total": 350,
+    "failed": 0
+  },
+  "tools_tests": {
+    "total": 340,
+    "skipped": 18,
+    "failed": 0
+  },
+  "runtime_api_contracts": 314,
+  "compiled_source_records": {
+    "total": 114,
+    "exact_working_bytes": 111,
+    "exact_git_blob_and_lf_normalised_working_bytes": [
+      "integration/beta-feature-parity/build-roslyn.ps1",
+      "integration/beta-feature-parity/Repair-SEST-Beta-Startup.ps1",
+      "integration/beta-feature-parity/tests/Test-WorkshopFeatures.ps1"
+    ],
+    "mismatches": 0
+  },
+  "capture_integrity": {
+    "references_checked": 331,
+    "mismatches": 0
+  },
+  "recorded_build_references_match": 15,
+  "canonical_upload": {
+    "files": 4337,
+    "sizes_and_sha256_match": true,
+    "unchanged_from_original_r12": true
+  },
+  "payload_files_unchanged": {
+    "AnchorChain.dll": "7137ff42f68046854b3cda85a16176407bf78ce1a302d8f76bfee30f110d05d0",
+    "SEST.BetaSafeBootstrap.dll": "268462fa2f7e8553f42994da8357a89106cd80f47ae6d810e6c55446fc24a5df",
+    "SEST.RuntimeFixes.dll": "4634d30f10b7b0a5b40d8894d1914ad5a897682e4911d6292bb8fa55ff6640b8",
+    "SEST.ContactsFix.dll": "ef009436f813021028b8f06103fa4fb3eb8822c148f0795dd7fa8ee136bc5d42",
+    "SEST.IdentifyDataPaths.dll": "9782ea2b339c81437be4f8b3b3238843365646ba20c94f0f30330370cbbf0eff"
+  },
+  "original_validation": {
+    "root": "VALIDATION.json",
+    "beta": "R12/VALIDATION.json",
+    "retained_for_identical_payload": true,
+    "managed_groups_rerun": false,
+    "installer_fixtures_rerun": false
+  },
+  "limitations": [
+    "Fresh Unity/Windows gameplay, native rendering, second-monitor behavior and campaign progression are not tested here.",
+    "Original R12 managed/installer results are retained for the identical payload and matching reference hashes; those groups were not rerun in this refresh.",
+    "18 tools cases are skipped because required local test capabilities are unavailable."
+  ],
+  "github_pushed": false,
+  "steam_published": false
+}

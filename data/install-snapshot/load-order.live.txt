@@ -1,4 +1,4 @@
-# The [LoadOrder] Sea Power is actually using, captured 2026-11-03T23:22:26.
+# The [LoadOrder] Sea Power is actually using, captured 2026-11-08T20:06:06.
 # Compare against data\load-order.tokens.txt - the canonical order.
 
 NumberOfModFiles=205   entries parsed: 205
@@ -39,7 +39,7 @@ NumberOfModFiles=205   entries parsed: 205
   34. 3567256221   on     Charles De Gaulle & Modern French Navy
   35. 3628201887   on     Clemenceau -class Aircraft Carrier
   36. 3695809489   on     Euromod-(Japan)JMSDF Modern navy
-  37. 3575847216   on     Euromod-Addon Modern German Navy
+  37. 3575847216   on     Euromod - Modern German Navy
   38. 3444379330   on     Euromod - Modern Dutch Navy
   39. 3789208859   on     Euromod-South Korea Navy
   40. 3642656500   on     Euromod-Scandinavian Navy
@@ -66,7 +66,7 @@ NumberOfModFiles=205   entries parsed: 205
   61. 3399699218   on     Project 2498 Zyetseth Class Assault Vessel
   62. 3468260539   on     Russian Submarines
   63. 3403661005   on     S-70B-2 Seahawk with AGM-114 'Hellfire' Missiles
-  64. 3820576916   on     Steelfin
+  64. 3820576916   on     Steelfin (Alpine)
   65. 3766210676   on     Saronic Corsair ASV
   66. 3819522350   on     Anduril Maritime Drones
   67. 3630495619   on     Spanish Navy Mod (Cold War)

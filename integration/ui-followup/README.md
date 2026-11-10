@@ -1,3 +1,31 @@
+# 7 November 2026: refreshed author interfaces
+
+UI Follow-up 1.4.6 retains the captured stable Runtime 1.5.0 unchanged. It bridges the actual Pop-Out Windows 1.1.3 image and Combat Cost Tracker 0.8.0. The tracker now owns an OverlayVisibility object; the bridge forwards the runtime's old visible field reads and close writes to its Expanded state. The author's HUD-aware Toggle behavior remains in charge of opening the overlay.
+
+Both bridges validate exact hashes and field/method contracts before installing. Unknown builds remain inactive. Local checks use captured author DLLs and real runtime IL; PC gameplay and Unity rendering still require a playtest.
+
+# 7 November 2026 release candidate: UI Follow-up 1.4.6
+
+This supersedes the 1.4.2 binary described in the historical notes below.
+The new companion is built from `source/`; `plugin-build.json` records its
+hash and all sources. Runtime 1.5.0 stays byte-identical (`7ba6d6d9...`).
+
+`PopOutCompatibility.cs` changes only the old Pop-Out hash literal and its
+success log in Runtime's in-memory `PopOutBridge.EnsureBound`. It installs
+only after the existing exact runtime/game/Noesis/Contact Log gates, the
+captured Pop-Out 1.1.3 hash and every reflected screen contract pass.
+An unexpected runtime body or author API leaves the bridge inactive.
+No on-disk Runtime or third-party DLL is patched.
+
+The current checks use the captured Pop-Out 1.1.3 and Tracker 0.8.0 binaries:
+1,085 bridge checks cover actual Runtime IL, the screen contracts and forwarded
+tracker visibility reads/writes. Five policy suites and 1,454 captured price-cache
+checks also pass. Unity rendering and PC pop-out/return still require a playtest.
+The stable companion remains inactive on beta Build 261106; its separate R7
+candidate is on `beta/r7-20261107`. Ship only one companion in a pack.
+
+## Historical 1.4.2 implementation record
+
 # SEST UI Follow-up - developer notes
 
 `SEST.ContactsFix.dll` is SEST's third Anchor Chain plugin: **SEST UI
@@ -94,7 +122,7 @@ With any of them missing or different it logs `inactive; original behavior
 retained` (or `inactive: owning pack is disabled`) and patches nothing, so a
 player without Contact Log, on another game build or beside another runtime
 DLL gets the pack exactly as without it. Single parts carry their own pins
-(Combat Cost Tracker 0.7.1, Pop-Out Windows 1.0.1, Group Manager 0.2.17,
+(Combat Cost Tracker 0.8.0, Pop-Out Windows 1.1.3, Group Manager 0.2.17,
 SEST.MenuBackground.dll `9dfd561d...`, CV16; `module_pins` in
 `plugin-build.json`); a mismatch there turns off that part only.
 

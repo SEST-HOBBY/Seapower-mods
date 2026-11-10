@@ -1,26 +1,3 @@
 # Lines from Player.log matching Exception/Error/not found/missing/failed.
-# 23 hit(s) - the first place to look when something did not load.
+# 0 hit(s) - the first place to look when something did not load.
 
-     54: [SEST Runtime] task-force debrief correction installed: append explicitly destroyed launch-snapshot hulls missing from section 3
-     68: [MissileControlMod] Disabled; native behavior retained: System.Exception: Native steering limit hook shape changed: 0/0/2
-     74: [MultiStageMissiles] Initialization failed; vanilla missile behavior remains active: System.MissingMethodException: Unsupported stage propulsion API: MissileSimulator.BuildAltitudeNodes
-     80: [OptimalTargetDist] SystemGroup launch sharing disabled; original name-based behavior retained: System.NotSupportedException: Unrecognized launch layout: 1/1/1/4
-     87: [SubModelStabilization] Initialization failed; all vessels retain their original behavior: System.Reflection.TargetInvocationException: Exception has been thrown by the target of an invocation. ---> HarmonyLib.HarmonyException: Patching exception in method static System.Reflection.MethodBase SubModelStabilizationAnchorChain.VesselLoaderStabilizationPatch::TargetMethod() ---> System.Exception: Method static System.Reflection.MethodBase SubModelStabilizationAnchorChain.VesselLoaderStabilizationPatch::TargetMethod() returned an unexpected result: null
-     89:    --- End of inner exception stack trace ---
-     90:   at HarmonyLib.PatchClassProcessor.ReportException (System.Exception exception, System.Reflection.MethodBase original) [0x00045] in <474744d65d8e460fa08cd5fd82b5d65f>:0 
-     95:   at (wrapper managed-to-native) System.Reflection.RuntimeMethodInfo.InternalInvoke(System.Reflection.RuntimeMethodInfo,object,object[],System.Exception&)
-     97:    --- End of inner exception stack trace ---
-    101: [TestRange] Initialization failed: System.MissingMethodException: Method 'SeaPower.ECM.CombinedJamUnit' not found.
-    106: [UiWorkerProbe 0.2.0] Native fallback: MissingMethodException: Method not found: SeapowerUI.GizmoLayerManager SeapowerUI.GizmoLayerManager.get_Instance()
-    108: [WeaponLauncherEffects] Initialization failed; vanilla weapon behavior remains active: System.Reflection.TargetInvocationException: Exception has been thrown by the target of an invocation. ---> HarmonyLib.HarmonyException: Patching exception in method static System.Reflection.MethodBase WeaponLauncherEffectsAnchorChain.WeaponContainerLaunchLauncherEffectsPatch::TargetMethod() ---> System.Exception: Method static System.Reflection.MethodBase WeaponLauncherEffectsAnchorChain.WeaponContainerLaunchLauncherEffectsPatch::TargetMethod() returned an unexpected result: null
-    110:    --- End of inner exception stack trace ---
-    111:   at HarmonyLib.PatchClassProcessor.ReportException (System.Exception exception, System.Reflection.MethodBase original) [0x00045] in <474744d65d8e460fa08cd5fd82b5d65f>:0 
-    116:   at (wrapper managed-to-native) System.Reflection.RuntimeMethodInfo.InternalInvoke(System.Reflection.RuntimeMethodInfo,object,object[],System.Exception&)
-    118:    --- End of inner exception stack trace ---
-    123: [BetterTacMap] Harmony patching failed: HarmonyLib.HarmonyException: Patching exception in method null ---> System.ArgumentException: Undefined target method for patch method static void BetterTacMap.Patches.GizmoLayerManagerConstructorPatch::Postfix(SeapowerUI.GizmoLayerManager __instance)
-    126:    --- End of inner exception stack trace ---
-    127:   at HarmonyLib.PatchClassProcessor.ReportException (System.Exception exception, System.Reflection.MethodBase original) [0x0006c] in <474744d65d8e460fa08cd5fd82b5d65f>:0 
-    191: [WorkerExpansion 0.12.0] FALLBACK: Method 'SeaPower.SensorSystemRadar.GetRangeInternal' not found.
-    194: [IDX][Localization.cs:42 Load] [IDX] localization ini not found for language 'en' or en
-    265: [SEST UI Follow-up] Stutter counter availability: Gfx.WaitForRenderThread [TimeNanoseconds], Gfx.WaitForPresentOnGfxThread [TimeNanoseconds], GC.Collect [TimeNanoseconds], Main Thread [TimeNanoseconds], PlayerLoop [TimeNanoseconds], WaitForTargetFPS [TimeNanoseconds], GC Used Memory [Bytes], GC Reserved Memory [Bytes], CPU Main Thread Frame Time [TimeNanoseconds], CPU Render Thread Frame Time [TimeNanoseconds], GPU Frame Time [TimeNanoseconds]; incremental GC=True. Missing counters are unavailable, not zero. First window includes diagnostic startup.
-    379: [WeaponCosts] Missing WeaponCosts: sest_agr-30 (ASM)

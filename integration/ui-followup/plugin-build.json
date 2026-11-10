@@ -2,23 +2,19 @@
   "format": 1,
   "binary": "SEST.ContactsFix.dll",
   "status": "built-off-repo",
-  "status_meaning": "The DLL was compiled outside this repository from source/ below and is committed as built. It cannot be compiled here: it needs the game's own Noesis.NoesisGUI.dll and other game assemblies, which are never committed. tools/tests/test_contacts_fix.py holds the DLL, the sources and the pinned hashes to this record.",
+  "status_meaning": "The DLL is built from source/ with source/build.py and external captured stable-game references. Native game DLLs are not committed. The recorded sources, exact pins and shipped payload hashes are held by tools/tests/test_contacts_fix.py.",
   "plugin": {
     "id": "io.github.sest-hobby.contacts-input-fix",
     "name": "SEST UI Follow-up",
-    "version": "1.4.2"
+    "version": "1.4.6"
   },
-  "sha256": "51b56f5efb4c32dcd7f9d71633564613707e6484c3cffdea1adc891b589588f7",
-  "bytes": 79360,
+  "sha256": "6db6de221336fc46a7e85d1aec37e1ff202b1f6872ff2af29b2ec76e530baaff",
+  "bytes": 87552,
   "provenance": {
-    "origin": "The owner's gaming PC: plugins/ of its Steam Workshop copy of the SEST Integration Pack (item 3812461539), where the 27 Oct 2026 UI follow-up 1.4.2 update installed it beside SEST Runtime Fixes 1.5.0",
-    "captured": "27 Oct 2026, 13:18 Brisbane",
-    "same_bytes_in": [
-      "handoff-20261027b: review/pc-playtest-20261027/pc-baseline/pack/plugins/SEST.ContactsFix.dll",
-      "PR #50 head 0776fa50: integration/dist/SEST_Integration/plugins/SEST.ContactsFix.dll (git blob 83af10bc)"
-    ],
-    "sources_from": "PR #50 head 0776fa50: integration/ui-followup/source/ (32 files, byte-identical to handoff-20261027b's integration/ui-followup/source/)",
-    "not_carried": "The handoff's installer (Apply-SEST-142.ps1), capture scripts, release ZIP, payload/ folder, validation.json and its decompiled Runtime 1.5.0 reference are not in this repository."
+    "origin": "Compiled 7 November 2026 from source/ using captured stable Build 261021 game references. Runtime 1.5.0 remains unchanged.",
+    "previous_version": "1.4.2",
+    "previous_sha256": "51b56f5efb4c32dcd7f9d71633564613707e6484c3cffdea1adc891b589588f7",
+    "compiler": "Microsoft.Net.Compilers.Toolset Roslyn csc, .NET host 8.0.15; same build.py flags as 1.4.2"
   },
   "sources": {
     "integration/ui-followup/source/AnchorChain.Reference.cs": "e5a75ceda2bf9f2cad2a184cc7d0a52576c9642820292b51c5a4045c7e08b872",
@@ -26,10 +22,10 @@
     "integration/ui-followup/source/CatalogueRuntimeTests.cs": "fdbf1dbebe147355b839a8127e05c159f88d2a4f4ec85ae77173aefae0a4adad",
     "integration/ui-followup/source/CleanupBatchGate.cs": "d4211e6642d35813c93b84a70f2e6f6db0f4d6f11b9f9d1ea8d7c65c81af13d4",
     "integration/ui-followup/source/CompassRouting.cs": "ccdafe679606f218c1a90018efbb8525438979277aef752029d4ff5cf45d744e",
-    "integration/ui-followup/source/ContactsFix.cs": "29b9347a6e52cf3530930f6ae615869797816d2283ef66cf764c088e6efd1610",
-    "integration/ui-followup/source/ContactsSurfaceFix.cs": "ab2eb092d7883ab09f8e682a2f8856d4e7f8070111d1a937f58a7c9022f51e44",
-    "integration/ui-followup/source/CostCatalogueCache.cs": "8afa2e555dc66e8d6ee2009e5c59bbaed1a0dcd9840a451ce74ca3a09439b4a2",
-    "integration/ui-followup/source/DiagnosticModules.cs": "300d7ffefd6435a3bbdf91ad77d95908b9a2a763008262e1bb464b3edfb7c737",
+    "integration/ui-followup/source/ContactsFix.cs": "72cda342aa236690c0d481f136d4e63ca7c6f3a68a83f7a24a5c128d2041e338",
+    "integration/ui-followup/source/ContactsSurfaceFix.cs": "f3b06aedccd25b2352f550c5235fae56bb286bc5ea02ca4194cef9ac2256e868",
+    "integration/ui-followup/source/CostCatalogueCache.cs": "7e8581ba660a3f32d242265500f60b183b431df28ee20c1ac5f4d91d46d569f3",
+    "integration/ui-followup/source/DiagnosticModules.cs": "f0f4f84aa9728eb6b0108750d039c3a4dfe6e52150b3050adfd5854674a84ded",
     "integration/ui-followup/source/FlightFlagReader.cs": "576a7e2790487e3121bc0d1a755d8850f98c916523ff7f3e4c02727c39aeaf7e",
     "integration/ui-followup/source/FormationBoundsGate.cs": "951536df7b9019ae4c0822e5b489d03ea4c8a4b24ca627b5404404166c751486",
     "integration/ui-followup/source/FormationModeState.cs": "b6b683a75d78c093683a46f19000963c634a64d8980ca43a26c589158d4fe7bf",
@@ -43,15 +39,18 @@
     "integration/ui-followup/source/LookupCache.cs": "2e245a82cb12530f901020d23d00686ee75b0dacfe388d2e4fcb6fadd78d9e73",
     "integration/ui-followup/source/PerformancePolicyTests.cs": "9db829f50f2de2a928b72bf996666fe3d0307636d82c1cb5db8b82f45d28f63f",
     "integration/ui-followup/source/PerformanceReview.cs": "10d1969de015e663e00df0bbcdbece4bbd3fc7208de030ea915f983239412b0c",
+    "integration/ui-followup/source/PopOutCompatibility.cs": "bdeeba72636867b722c8d6ba14df4c7053938342676961431bbf265277e202b1",
+    "integration/ui-followup/source/PopOutCompatibilityTests.cs": "267ae47ea40d5dc65d35db39d5e66ac43ecf450f06ce57348483179c9506b9c8",
     "integration/ui-followup/source/ScopeValueCache.cs": "0674cde78328213b771c0a82365938073dacb53eb38494591270b76953d839e5",
     "integration/ui-followup/source/StutterDiagnostics.cs": "e3435629b01e167253f399f649f653f15cd23c2f01f7bc3b801bc140dee7a3bf",
     "integration/ui-followup/source/StutterPolicyTests.cs": "5be39729ed665d63602926d92f431e42642efa55257032890ac1cea00023f41b",
     "integration/ui-followup/source/TerrainCleanup.cs": "e561745477ecbaf82d76eb3ead60ca0efd89ebd73162fb7e829380da03e4ce9c",
+    "integration/ui-followup/source/TrackerCompatibility.cs": "fda28907a6ebf4d9d29358adabc78778ce75190fff0cd43f3f5a97fdc2bec9d7",
     "integration/ui-followup/source/UiRefinementTests.cs": "b1edb0bb33da96b684b9335a9ccaccb803ffe13e6ec4a6ea8b4e591e20b49439",
     "integration/ui-followup/source/UiRefinements.cs": "d6ac47e7e39a365d60287c4229730773192c8f22f2bc55d67e0c26d3330531f1",
     "integration/ui-followup/source/UiRefreshGate.cs": "284115159f831abe47e17c5e3a8e927d06e5eda1bbe69bbdfdba8847c26f4a3e",
     "integration/ui-followup/source/UiText.cs": "0c43d188822643daff113df1fb4aa2ee1bde789697f515ae5f509238f784e4e4",
-    "integration/ui-followup/source/build.py": "6719a80a6267fae3168e2683f694906c8aa66229cf648a88867c51fb8e94f5a7",
+    "integration/ui-followup/source/build.py": "8d5bf6ea7d28502653a19c0c81c90b3c340d031cc3196bee9d8397406485bad1",
     "integration/ui-followup/source/verify_capture.py": "0b026b9832347d668dcca5f62ce2887e9cbc671f77ad4e80f094ec8af7c32fcf"
   },
   "pins": {
@@ -96,21 +95,23 @@
     "note": "A module whose own pin does not match logs its own 'inactive' line and leaves the rest running.",
     "combat_cost_tracker": {
       "assembly": "CombatCosts",
-      "sha256": "74afa9028fc0c52b93f415263504f51ecf8d056a624feaebcc8053ba5a1c0ac3",
+      "sha256": "8f7195ff1540d1901446b3783789c84e1f76bebe943da7606afd85f9dd3d78bc",
       "where": [
-        "source/CostCatalogueCache.cs"
+        "source/CostCatalogueCache.cs",
+        "source/TrackerCompatibility.cs"
       ],
-      "module": "cost catalogue cache",
-      "is": "Combat Cost Tracker 0.7.1, Workshop 3807187341"
+      "module": "cost catalogue cache and stable Runtime 1.5.0 F11 compatibility bridge",
+      "is": "Combat Cost Tracker 0.8.0, Workshop 3807187341, 7 November 2026 capture"
     },
     "pop_out_windows": {
       "assembly": "SeaPowerPopOut",
-      "sha256": "d0027215eb78e95e4cb45f5e132a4ad50acd03606c681ba0996ece1f92434a63",
+      "sha256": "5709ed68af4623fceee3f3badc8e06bdb9b98f8e095fb0deac2685a9ebc5fc36",
       "where": [
-        "source/ContactsSurfaceFix.cs PopOutHash"
+        "source/ContactsSurfaceFix.cs PopOutHash",
+        "source/PopOutCompatibility.cs (only after the exact runtime/native/author gates and screen contracts pass)"
       ],
-      "module": "Contacts pop-out surface fix",
-      "is": "Pop-Out Windows 1.0.1, Workshop 3826396311/SeaPowerPopOut.dll"
+      "module": "Contacts surface, Formation UI, camera compass and the stable Runtime 1.5.0 bridge compatibility",
+      "is": "Pop-Out Windows 1.1.3, the 7 November 2026 capture; newer versions fail closed pending inspection"
     },
     "group_manager": {
       "assembly": "SeaPowerSquadPanel",
@@ -148,5 +149,15 @@
     "formation_ui_mode": "FormationUiMode writes the Group Manager Stock UI / Enhanced UI choice to %USERPROFILE%\\AppData\\LocalLow\\Triassic Games\\Sea Power\\SEST\\formation-ui-mode-v1.txt."
   },
   "toolchain": "Compiled outside the repository with source/build.py: Roslyn csc run by dotnet with -langversion:9 -deterministic+ -optimize+ -nostdlib+, against NETStandard.Library.Ref 2.1.0 ref/netstandard2.1, AnchorChain.Reference.cs compiled as AnchorChain.dll, and the game's own 0Harmony, BepInEx, Noesis.NoesisGUI, Seapower-Scripts, UnityEngine.CoreModule, UnityEngine.IMGUIModule and UnityEngine.InputLegacyModule. The Roslyn and .NET SDK versions were not recorded, so a rebuild may not reproduce these bytes; with the same compiler and references it should (-deterministic+). Mono mcs cannot compile the plugin here: it stops on the missing Noesis types.",
-  "validation": "In this repository (27 Oct 2026) the five pure-logic suites compile with Mono mcs 6.8.0.105 and pass 45 / 112 / 3768 / 41 / 12 checks (InputPolicy, FormationMode, PerformancePolicy, UiRefinement, StutterPolicy); tools/tests/test_contacts_fix.py reruns them when Mono is available. Not runnable here: CatalogueRuntimeTests (needs 0Harmony and dotnet) and verify_capture.py's capture checks. On the owner's PC, per the 27 Oct 2026 handoff (not reproduced here): Space and plus/minus change time without toggling Contacts, Contacts pop-out and return work, Formation Manager has its Stock UI / Enhanced UI controls, and the 1.4.2 capture shows the cost cache reused; a crash that day is unresolved, its cause unknown."
+  "validation": "7 Nov 2026: pure logic 45/112/3768/41/12 checks; captured Runtime price factory/cache 1454 checks; 1085 stable bridge checks using actual Runtime 1.5.0 IL, captured PopOut 1.1.3 and Combat Cost Tracker 0.8.0. Includes forwarded visibility reads/writes and HUD-aware author toggles. Native Unity rendering and PC gameplay are not exercised.",
+  "previous_capture": {
+    "origin": "The owner's gaming PC: plugins/ of its Steam Workshop copy of the SEST Integration Pack (item 3812461539), where the 27 Oct 2026 UI follow-up 1.4.2 update installed it beside SEST Runtime Fixes 1.5.0",
+    "captured": "27 Oct 2026, 13:18 Brisbane",
+    "same_bytes_in": [
+      "handoff-20261027b: review/pc-playtest-20261027/pc-baseline/pack/plugins/SEST.ContactsFix.dll",
+      "PR #50 head 0776fa50: integration/dist/SEST_Integration/plugins/SEST.ContactsFix.dll (git blob 83af10bc)"
+    ],
+    "sources_from": "PR #50 head 0776fa50: integration/ui-followup/source/ (32 files, byte-identical to handoff-20261027b's integration/ui-followup/source/)",
+    "not_carried": "The handoff's installer (Apply-SEST-142.ps1), capture scripts, release ZIP, payload/ folder, validation.json and its decompiled Runtime 1.5.0 reference are not in this repository."
+  }
 }

@@ -201,6 +201,8 @@ LOADOUT_NAMES = {
         "SEST_Escort260": "SEST Escort260 (4x AIM-260, 3 tanks)",
         "SEST_SEAD260": "SEST SEAD260 (AGM-88G + AIM-260)",
         "SEST_SEAD120D": "SEST SEAD120D (AGM-88G + AIM-120D, 2 tanks)",
+        "SEST_SEAD88C": "SEST HARM (AGM-88C + AIM-120D, 2 tanks)",
+        "SEST_SEAD88E": "SEST AARGM (AGM-88E + AIM-120D, 2 tanks)",
     },
     "cn": {
         "SEST_MaliceNGJ": "SEST NGJ MALICE (2x AIM-424)",
@@ -211,12 +213,14 @@ LOADOUT_NAMES = {
         "SEST_Escort260": "SEST Escort260 (4x AIM-260, 3 tanks)",
         "SEST_SEAD260": "SEST SEAD260 (AGM-88G + AIM-260)",
         "SEST_SEAD120D": "SEST SEAD120D (AGM-88G + AIM-120D, 2 tanks)",
+        "SEST_SEAD88C": "SEST HARM (AGM-88C + AIM-120D, 2 tanks)",
+        "SEST_SEAD88E": "SEST AARGM (AGM-88E + AIM-120D, 2 tanks)",
     },
 }
 
 INFO_INI = """[Language_en]
 Name=SEST Growler NGJ + MALICE
-Description=Adds functional AN/ALQ-249 Next Generation Jammer equipment and an AIM-424 MALICE fit to the modern EA-18G Growlers, a conventional SEAD fit (AGM-88G with AIM-120D, no AIM-260 or AIM-424) to the U.S. Navy 2027 Growler, plus a four-MALICE counter-air fit for every AN/APG-79 Super Hornet (F/A-18F Block III, F/A-18F and F/A-18E), whose anti-ship fits now carry LRASM in place of the AGM-84N Harpoon. Requires U.S. Navy 2027 Capabilities, F/A-18E/F, and US Naval Aviation. US Naval Aviation supplies the AGM-88G model used by MALICE. Place this patch ABOVE all three required mods.
+Description=Adds functional AN/ALQ-249 Next Generation Jammer equipment and an AIM-424 MALICE fit to the modern EA-18G Growlers, conventional HARM/AARGM choices for both Growlers and an AARGM-ER fit for the U.S. Navy 2027 Growler (all with AIM-120D, no AIM-260 or AIM-424), plus a four-MALICE counter-air fit for every AN/APG-79 Super Hornet (F/A-18F Block III, F/A-18F and F/A-18E), whose anti-ship fits now carry LRASM in place of the AGM-84N Harpoon. Requires U.S. Navy 2027 Capabilities, F/A-18E/F, and US Naval Aviation. US Naval Aviation supplies the AGM-88G model used by MALICE. Place this patch ABOVE all three required mods.
 
 [Compatibility]
 ApproximateVersion=0.8.7
@@ -470,11 +474,16 @@ GROWLER_FIT_PLAN = {
 # Tanks visible: no SubModelsToHide line, as in SEST_NGJLongRange.
 CONVENTIONAL_KEY = "SEST_SEAD120D"
 CONVENTIONAL_AAM = "usn_aim-120d-3"      # upstream's own round on 11/12
+CONVENTIONAL_ALTERNATIVES = {
+    "SEST_SEAD88C": "usn_agm-88c",
+    "SEST_SEAD88E": "usn_agm-88e",
+}
 
 
-def conventional_loadout() -> str:
+def conventional_loadout(key=CONVENTIONAL_KEY, arm="usn_agm-88g") -> str:
     _why, plan = GROWLER_FIT_PLAN["MurderHornetLightsOut"]
-    seats = [(s, CONVENTIONAL_AAM if a == "dts_aim-260" else a) for s, a in plan]
+    seats = [(s, CONVENTIONAL_AAM if a == "dts_aim-260" else
+              arm if a == "usn_agm-88g" else a) for s, a in plan]
     if sum(1 for _s, a in seats if a == CONVENTIONAL_AAM) != 2:
         sys.exit("SEST_SEAD120D: the LightsOut plan no longer hangs two AIM-260 "
                  "to replace - re-check the conventional fit")
@@ -482,10 +491,10 @@ def conventional_loadout() -> str:
     for banned in ("dts_aim-260", AIM424_ID):
         if banned in body:
             sys.exit(f"SEST_SEAD120D: {banned} is in the conventional fit")
-    return ("[--------------------------- SEST SEAD120D ---------------------------]\n"
+    return (f"[--------------------------- {key} ---------------------------]\n"
             "# Conventional EW/SEAD: MurderHornetLightsOut's seats with the AIM-120D\n"
             "# upstream hangs on 11/12. No AIM-260, no AIM-424.\n\n"
-            f"[WeaponSystem1{CONVENTIONAL_KEY}]\n"
+            f"[WeaponSystem1{key}]\n"
             "ReadyUpTime=25               // minutes to refuel and rearm before takeoff\n"
             "CoolDownTime=60              // minutes of maintenance after landing\n"
             + body + "\n")
@@ -651,6 +660,8 @@ def verify_ammunition() -> None:
         "usn_aim-9x",
         "usn_tank_610_f-18",
         "usn_tank_1200_f-18",
+        "usn_agm-88g",
+        *CONVENTIONAL_ALTERNATIVES.values(),
     }
     found = {path.stem for path in (ROOT / "mods-source").rglob("*.ini") if path.parent.name == "ammunition"}
     found.add(AIM424_ID)  # this pack writes it below
@@ -688,6 +699,15 @@ def build_growler(source: Path, destination_name: str, *, upgrade_ngj: bool,
         verify_station_geometry(text, extra, source.name)
         verify_tank_points(extra, source.name)
         keys.append(CONVENTIONAL_KEY)
+        sections += extra
+    # Both modern airframes get standard HARM/AARGM choices. The 2020
+    # airframe already has its native AGM-88G/AIM-120D SEAD fit. Append only;
+    # preserve the first/default fit and every previously saved loadout id.
+    for key, arm in CONVENTIONAL_ALTERNATIVES.items():
+        extra = conventional_loadout(key, arm)
+        verify_station_geometry(text, extra, source.name)
+        verify_tank_points(extra, source.name)
+        keys.append(key)
         sections += extra
     sections = sections.replace('__WING_TANK__', wing_tank)
     text = extend_loadouts(text, keys, source.name)
@@ -1099,9 +1119,9 @@ def main() -> None:
     print(
         f"built {OUT.relative_to(ROOT)}: {n_growlers} NGJ Growlers, "
         f"{n_hornets} APG-79 Super Hornets, "
-        f"{len(GROWLER_KEYS) + len(BLOCK_III_KEYS) + 2} new loadouts "
+        f"{len(GROWLER_KEYS) + len(BLOCK_III_KEYS) + 2 + len(CONVENTIONAL_ALTERNATIVES)} new loadouts "
         f"(NGJ Long Range on every Growler, two wing tanks; "
-        f"{CONVENTIONAL_KEY} on usn_ea-18g), "
+        f"HARM/AARGM on both; {CONVENTIONAL_KEY} on usn_ea-18g), "
         f"{len(outputs)} files"
     )
 

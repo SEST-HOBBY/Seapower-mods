@@ -268,6 +268,27 @@ def credits_text(staged):
               "photographs from the SEST gallery. Each carries its photographer",
               "and licence on the picture; the full credits, with sources, are",
               "in Gallery/PHOTO_CREDITS.txt."]
+    # Read off what is staged, like the rest of this file: a campaign that
+    # ships ribbon art ships its SOURCES.txt beside it.
+    ribbon_notes = sorted(rel for rel in staged if rel.startswith("campaigns/")
+                          and rel.endswith("/art/ribbons/SOURCES.txt"))
+    if ribbon_notes:
+        L += ["", "SEST's campaign ribbon strips are drawn by code: no AI imagery,",
+              "nothing traced. Real-award strips represent the published",
+              "designs; they are game awards, not real honours. Other award",
+              "pictures are the game's own, referenced by path and not copied.",
+              "Each campaign lists its strips, those references and the award",
+              "sources in:"]
+        L += [f"      {rel}" for rel in ribbon_notes]
+    if any(rel.endswith("/art/ribbons/sest_aosm_indo_pacific.png") for rel in staged):
+        L += ["", "Australian Operational Service Medal - Indo-Pacific ribbon",
+              "(sest_aosm_indo_pacific.png) by Nford24, CC0 1.0, from Wikimedia",
+              "Commons, copied unchanged."]
+    if "ui/campaign/navy_emblems/sest_rn_emblem.png" in staged:
+        L += ["", "The Royal Navy commander emblem (ui/campaign/navy_emblems/",
+              "sest_rn_emblem.png) is the White Ensign from the SEST gallery",
+              "flag set (Wikimedia Commons, public domain), credited in",
+              "Gallery/VISUAL_CREDITS.txt."]
     L += [""]
     if rows:
         by_mod = {}

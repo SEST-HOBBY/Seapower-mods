@@ -4,7 +4,7 @@ namespace Sest.UiFixes
     {
         // Hashes from the 27 October 11:13 Brisbane capture. Timing hooks only.
         internal static readonly string[][] Known = {
-            new[] { "CombatCosts", "74afa9028fc0c52b93f415263504f51ecf8d056a624feaebcc8053ba5a1c0ac3" },
+            new[] { "CombatCosts", "8f7195ff1540d1901446b3783789c84e1f76bebe943da7606afd85f9dd3d78bc" },
             new[] { "ContactLog", "a1b8b450df0933df61984651fe2b19138acd605aa4b526bbfc23565d8295015e" },
             new[] { "EnhancedUIMod", "37b9301de2f6d19cd5bd7e16f5042aca6eb80979313b3c84a3a26be106ec6f95" },
             new[] { "IdentifyExpanded", "9f0ec630e9d7659082bdce61743a87895de14f1903a44c68395f8f158af8afd7" },

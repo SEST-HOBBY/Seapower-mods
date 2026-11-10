@@ -1,0 +1,11 @@
+SEST R12 - National awards, World Operations fixes and SETUP opt-out
+
+Campaign awards (both game builds): Southern Watch and Southern Reach now offer Australian (default), US, British and Japanese commanders, each earning their own nation's awards at the commander's rank; the task group earns the Australian Meritorious Unit Citation. Sulu Line adds Philippine awards and the Philippine Republic Presidential Unit Citation. Every citation carries its mission's 2028-2029 date. These are game awards for fictional operations, not real honours. Existing earned awards, commanders and saves are unchanged.
+
+World campaign: Global Maritime Operations 2028 has 196 bases, including 40 additional real airfields, and eight command stages. It replaces the earlier world entry in the campaign menu; start a new world campaign for the full layout.
+
+On public beta 0.8.7-261107 only (installed by SETUP; Runtime 1.6.4 / UI 1.4.14): F11 World Operations with Overview, Forces, Combat Costs and Service; the Combat Costs button beside Economy; 25 fictional world service awards, now including completed multi-phase Admiralty operations and Route Security; a paused battle preparation checklist and Esc > End battle...; Coordinated Strike refinements. The opening briefing now keeps Dynamic Campaign Mod's own situation report, the world window only redraws when its data changes, and Contacts, Formation and compass refinements work with Pop-Out Windows 1.2.0.
+
+SETUP: it installs the beta features only on the build they were reviewed for and puts the normal plugins back on any other build. Use "SEST beta features - turn off.cmd" to opt out (SETUP then leaves them off) and "turn on" to re-enable; a changed author file now shows a warning instead of stopping SETUP.
+
+Growler starting flights in Southern Watch and Southern Reach offer HARM, AARGM and AARGM-ER loadouts.

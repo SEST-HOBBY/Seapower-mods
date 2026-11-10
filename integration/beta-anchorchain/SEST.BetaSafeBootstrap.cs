@@ -14,11 +14,11 @@ using UnityEngine;
 
 namespace SEST.BetaAnchor
 {
-    [BepInPlugin("io.sest.beta.safeanchor", "SEST Beta Safe Anchor Chain", "0.2.0")]
+    [BepInPlugin("io.sest.beta.safeanchor", "SEST Beta Safe Anchor Chain", "0.5.0")]
     public sealed class Bootstrap : BaseUnityPlugin
     {
         private const string TargetGameSha256 =
-            "3005bc6d4221a921008778a18dec06515d98c63d3afb6a3a2835b985ab2e7d62";
+            "499675cda59912054924ae42297bce7a82b12ca00957dabd684105a24aa353a9";
         private const string TargetPreloaderSha256 =
             "1ee1570f1e7f457ffa63c24ee4085b2cdea8069ea8cebf146de5ef027eaa3984";
         private const int MaxTicks = 120; // sixty seconds
@@ -44,7 +44,7 @@ namespace SEST.BetaAnchor
                     return;
                 }
                 _payloadDirectory = Path.Combine(gameRoot, "BepInEx", "config", "SEST-BetaAnchorChain");
-                Logger.LogInfo("Beta 261026 verified. Startup probe only until explicit enable.flag is present.");
+                Logger.LogInfo("Beta 0.8.7-261107 verified (499675cd). Startup probe only until explicit enable.flag is present.");
                 StartCoroutine(ProbeDirectories());
             }
             catch (Exception ex)
@@ -82,7 +82,7 @@ namespace SEST.BetaAnchor
                     {
                         string flag = Path.Combine(_payloadDirectory, "enable.flag");
                         enabled = File.Exists(flag)
-                            && String.Equals(File.ReadAllText(flag).Trim(), "enable-beta-261026",
+                            && String.Equals(File.ReadAllText(flag).Trim(), "enable-beta-261106-499675cd",
                                 StringComparison.Ordinal);
                     }
                     catch (Exception ex)
@@ -91,6 +91,7 @@ namespace SEST.BetaAnchor
                     }
                     Logger.LogInfo("BETA SAFE BOOTSTRAP READY; enable=" + enabled
                         + " roots=" + roots.Count + " workshopRegistered=" + registered);
+                    WriteProbeReceipt(enabled);
                     if (enabled)
                     {
                         _attempted = true;
@@ -102,6 +103,28 @@ namespace SEST.BetaAnchor
                 yield return new WaitForSecondsRealtime(0.5f);
             }
             Logger.LogWarning("Safe bootstrap never observed a stable, registered Workshop directory. Not loading any plugin.");
+        }
+
+        private void WriteProbeReceipt(bool enabled)
+        {
+            // The installer supplies a fresh token. An old launch log cannot
+            // accidentally authorize activation of a newly staged candidate.
+            try
+            {
+                string tokenPath = Path.Combine(_payloadDirectory, "probe-token.txt");
+                if (!File.Exists(tokenPath)) return;
+                string token = File.ReadAllText(tokenPath).Trim();
+                if (!Regex.IsMatch(token, "^[0-9a-f]{32}$")) return;
+                string json = "{\"format\":1,\"token\":\"" + token
+                    + "\",\"native_sha256\":\"" + TargetGameSha256
+                    + "\",\"enabled\":" + (enabled ? "true" : "false")
+                    + ",\"created_utc\":\"" + DateTime.UtcNow.ToString("o") + "\"}";
+                File.WriteAllText(Path.Combine(_payloadDirectory, "probe-ready.json"), json);
+            }
+            catch (Exception ex)
+            {
+                Logger.LogWarning("Probe receipt could not be saved: " + ex.Message);
+            }
         }
 
         private List<string> GetModDirectories(out string status)

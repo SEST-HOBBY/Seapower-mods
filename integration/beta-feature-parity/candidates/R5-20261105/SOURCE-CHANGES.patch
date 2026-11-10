@@ -1,0 +1,627 @@
+diff --git a/integration/beta-anchorchain/source/AssemblyAdapters.cs b/integration/beta-anchorchain/source/AssemblyAdapters.cs
+index 97b684aa..a15c5e3f 100644
+--- a/integration/beta-anchorchain/source/AssemblyAdapters.cs
++++ b/integration/beta-anchorchain/source/AssemblyAdapters.cs
+@@ -13,12 +13,24 @@ public static partial class BetaAssemblyPolicy
+     internal const string SubAmmoHash = "f16f9fc4a0ce9f37173af742a15876774f119c1affffb2288ab3b9e92fa0e3a4";
+     internal const string SubAmmoDuplicateHash = "f4d7ddb5b54c53718dcfcda1135e4518f85779a9b7a88b6a3487ff13b7808a9e";
+     internal const string SecondThrustHash = "5d8c362ec9c35ab5e054c52b2b2f766426700b8d8d9e1a4f4edd5ba4ae7b0a04";
++    // R5 (5 Nov 2026): Euromod's Anchor Chain Expansion Pack (Workshop
++    // 3784474738) as captured on 3 Nov 2026. WeaponLauncherEffects 1.0.18 and
++    // SubModelStabilization 1.1.2 stop themselves on the beta because their
++    // Harmony TargetMethod lookups use the stable parameter lists.
++    internal const string LauncherEffectsHash = "e79113f4a38f7a034ed8ab42da2e14f931382d77fc522e2cd6d86d4d09dbf717";
++    internal const string StabilizationHash = "09f6ec0eff66c6b09ae1565c5eaf797a579be2cc04b22bfccb0a7ef9e57a8eda";
++    private const string LaunchPatch = "WeaponLauncherEffectsAnchorChain.WeaponContainerLaunchLauncherEffectsPatch";
++    private const string MagazinePatch = "WeaponLauncherEffectsAnchorChain.WeaponContainerMagazineLaunchLauncherEffectsPatch";
++    private const string StabilizationPatch = "SubModelStabilizationAnchorChain.VesselLoaderStabilizationPatch";
+ 
+     private static string AdaptCapturedImage(ModuleDefinition module, ModuleDefinition native, string hash)
+     {
+         bool identify = hash == IdentifyHash, campaign = hash == CampaignHash, decoy = hash == DecoyHash,
+-            subAmmo = hash == SubAmmoHash || hash == SubAmmoDuplicateHash, thrust = hash == SecondThrustHash;
+-        if (!(identify || campaign || decoy || subAmmo || thrust)) return null;
++            subAmmo = hash == SubAmmoHash || hash == SubAmmoDuplicateHash, thrust = hash == SecondThrustHash,
++            launcherEffects = hash == LauncherEffectsHash, stabilization = hash == StabilizationHash;
++        if (!(identify || campaign || decoy || subAmmo || thrust || launcherEffects || stabilization)) return null;
++        if (launcherEffects) RequireLauncherSignatures(native);
++        if (stabilization) RequireVesselLoaderSignature(native);
+         var counts = new SortedDictionary<string, int>(StringComparer.Ordinal);
+         void Count(string name) => counts[name] = counts.TryGetValue(name, out int value) ? value + 1 : 1;
+         MethodReference Bridge(string name) => module.ImportReference(typeof(BetaCompatibilityCalls).GetMethod(name));
+@@ -36,6 +48,34 @@ public static partial class BetaAssemblyPolicy
+                 il.Append(Instruction.Create(OpCodes.Ret)); Count("facts-property");
+                 continue;
+             }
++            // Beta's WeaponContainer.launch returns false for a failed launch
++            // and still removes the dud from _weapons. The author's launch
++            // postfix spawns effects for whichever weapon left the container,
++            // so it is gated on the launch result, as the author's own
++            // magazine postfix already is.
++            if (launcherEffects && type.FullName == LaunchPatch && method.Name == "Postfix") {
++                if (!method.IsStatic || method.Parameters.Count != 2 || method.Parameters[0].Name != "__instance" ||
++                    method.Parameters[1].Name != "__state" || method.Body.ExceptionHandlers.Count != 0)
++                    throw new InvalidOperationException("Inspected WeaponLauncherEffects launch postfix changed");
++                method.Parameters.Add(new ParameterDefinition("__result", Mono.Cecil.ParameterAttributes.None, module.TypeSystem.Boolean));
++                var gate = method.Body.GetILProcessor(); var first = method.Body.Instructions[0];
++                gate.InsertBefore(first, Instruction.Create(OpCodes.Ldarg_2));
++                gate.InsertBefore(first, Instruction.Create(OpCodes.Brtrue, first));
++                gate.InsertBefore(first, Instruction.Create(OpCodes.Ret));
++                Count("launch-result");
++            }
++            // Beta's loadShipFromInternalResources is void and takes the
++            // caller's VesselParameters first, as vp. HarmonyX binds a patch
++            // parameter by the original's parameter name, so the postfix's
++            // __result (the stable return value) becomes vp: the same object.
++            if (stabilization && type.FullName == StabilizationPatch && method.Name == "Postfix") {
++                if (!method.IsStatic || method.Parameters.Count != 2 || method.Parameters[0].Name != "vesselIniName" ||
++                    method.Parameters[1].Name != "__result" || method.Parameters[1].ParameterType.FullName != "SeaPower.VesselParameters")
++                    throw new InvalidOperationException("Inspected SubModelStabilization postfix changed");
++                method.Parameters[1].Name = "vp"; Count("result-argument");
++            }
++            bool launcherTarget = launcherEffects && method.Name == "TargetMethod" && (type.FullName == LaunchPatch || type.FullName == MagazinePatch);
++            bool stabilizationTarget = stabilization && method.Name == "TargetMethod" && type.FullName == StabilizationPatch;
+             bool attackLookup = campaign && method.Body.Instructions.Any(i => i.OpCode == OpCodes.Ldstr && Equals(i.Operand, "SetAttackAtWaypointTask"));
+             // Insertions can extend existing short-branch distances. Expand all
+             // short branches once; instruction targets and EH bounds stay valid.
+@@ -65,6 +105,12 @@ public static partial class BetaAssemblyPolicy
+                 if (owner == "System.Reflection.Assembly" && call.Name == "get_Location" && call.Parameters.Count == 0) {
+                     instruction.OpCode = OpCodes.Call; instruction.Operand = location; Count("locations");
+                 }
++                else if ((launcherTarget || stabilizationTarget) && owner == "HarmonyLib.AccessTools" && call.Name == "Method" &&
++                    call.Parameters.Count == 4 && !call.HasThis) {
++                    instruction.OpCode = OpCodes.Call;
++                    instruction.Operand = Bridge(launcherTarget ? nameof(BetaCompatibilityCalls.LauncherEffectsMethod) : nameof(BetaCompatibilityCalls.StabilizationMethod));
++                    Count(launcherTarget ? "launch-reflection" : "target-method");
++                }
+                 else if (owner == "SeaPower.UI_Parameters" && call.Name.StartsWith("get_TM_") && !call.HasThis && call.Parameters.Count == 0 &&
+                     (call.ReturnType.FullName == "Noesis.Color" || call.ReturnType.FullName == "Noesis.SolidColorBrush" || call.ReturnType.FullName == "System.Single")) {
+                     string key=call.Name.Substring(7);
+@@ -129,11 +175,37 @@ public static partial class BetaAssemblyPolicy
+         string audit = String.Join(", ", counts.Select(x => x.Key + "=" + x.Value));
+         string expected = identify ? "bearings=10, hail-guard=1, locations=2, ui=5" :
+             campaign ? "Acquisition=1, DoUnload=1, GetDirectories=1, GetFiles=1, SetAttackAtWaypointTask=2, attack-reflection=1, bearing-reflection=1, bearings=1, facts-property=1, mission-get=3, mission-set=1, secondary-side=6, speed-make=1, speed-set=1, ui=24" :
+-            decoy ? "contact-color=1, contact-exit=1, locations=2, ui=1, vehicle-view=4" : thrust ? "ini=1, locations=1" : "file=1, ini=5, locations=1, offset-grid=2";
++            decoy ? "contact-color=1, contact-exit=1, locations=2, ui=1, vehicle-view=4" : thrust ? "ini=1, locations=1" :
++            launcherEffects ? "launch-reflection=2, launch-result=1, locations=2" :
++            stabilization ? "locations=2, result-argument=1, target-method=1" : "file=1, ini=5, locations=1, offset-grid=2";
+         if (audit != expected) throw new InvalidOperationException(module.Assembly.Name.Name + " beta rewrite audit changed: " + audit);
+         return audit;
+     }
+ 
++    // The two shapes the R5 bridges rely on, asserted on the pinned native
++    // image before any rewrite; a different beta fails closed.
++    private static void RequireLauncherSignatures(ModuleDefinition native)
++    {
++        var container = native.GetType("SeaPower.WeaponContainer");
++        foreach (var (name, count) in new[] { ("launch", 6), ("LaunchFromMagazine", 7) }) {
++            var method = container.Methods.Single(m => m.Name == name);
++            var last = method.Parameters.LastOrDefault();
++            if (method.Parameters.Count != count || method.ReturnType.FullName != "System.Boolean" || last == null ||
++                last.Name != "failedLaunch" || last.ParameterType.FullName != "System.Boolean" || !last.IsOptional ||
++                !last.HasConstant || !Equals(last.Constant, false))
++                throw new InvalidOperationException("Inspected beta WeaponContainer." + name + " shape changed");
++        }
++    }
++
++    private static void RequireVesselLoaderSignature(ModuleDefinition native)
++    {
++        var load = native.GetType("SeaPower.VesselLoader").Methods.Single(m => m.Name == "loadShipFromInternalResources");
++        if (load.Parameters.Count != 11 || load.ReturnType.FullName != "System.Void" || load.Parameters[0].Name != "vp" ||
++            load.Parameters[0].ParameterType.FullName != "SeaPower.VesselParameters" || load.Parameters[3].Name != "vesselIniName" ||
++            load.Parameters[3].ParameterType.FullName != "System.String")
++            throw new InvalidOperationException("Inspected beta VesselLoader.loadShipFromInternalResources shape changed");
++    }
++
+     private static bool ParameterTypes(MethodReference method, params string[] names)
+         => method.Parameters.Select(p => p.ParameterType.FullName).SequenceEqual(names);
+ 
+diff --git a/integration/beta-anchorchain/source/BetaCompatibilityCalls.cs b/integration/beta-anchorchain/source/BetaCompatibilityCalls.cs
+index 975d0171..a9475d77 100644
+--- a/integration/beta-anchorchain/source/BetaCompatibilityCalls.cs
++++ b/integration/beta-anchorchain/source/BetaCompatibilityCalls.cs
+@@ -67,6 +67,37 @@ public static class BetaCompatibilityCalls
+         return AccessTools.Method(type, name, parameters, generics);
+     }
+ 
++    // WeaponLauncherEffects 1.0.18 finds WeaponContainer.launch and
++    // LaunchFromMagazine by their stable parameter lists. Beta Build 261026
++    // appended "bool failedLaunch = false" to both and left a successful
++    // launch unchanged, so exactly those two lists gain the flag; any other
++    // lookup passes through and fails or succeeds as the author wrote it.
++    private static readonly string[] StableLaunch = { "SeaPower.ObjectBase", "UnityEngine.Vector3", "UnityEngine.Vector3", "System.Single", "System.String" };
++    private static readonly string[] StableMagazineLaunch = { "System.String", "SeaPower.ObjectBase", "UnityEngine.Vector3", "UnityEngine.Vector3", "System.Single", "System.Single" };
++
++    public static MethodInfo LauncherEffectsMethod(Type type, string name, Type[] parameters, Type[] generics)
++    {
++        if (type == typeof(WeaponContainer) && parameters != null && parameters.All(p => p != null) &&
++            ((name == "launch" && parameters.Select(p => p.FullName).SequenceEqual(StableLaunch)) ||
++             (name == "LaunchFromMagazine" && parameters.Select(p => p.FullName).SequenceEqual(StableMagazineLaunch))))
++            parameters = parameters.Concat(new[] { typeof(bool) }).ToArray();
++        return AccessTools.Method(type, name, parameters, generics);
++    }
++
++    // SubModelStabilization 1.1.2 finds VesselLoader.loadShipFromInternalResources
++    // by its ten stable parameters. Beta Build 261026 made it void and passes
++    // the caller's VesselParameters first (vp); the adapted postfix takes vp.
++    private static readonly string[] StableVesselLoad = { "System.String", "System.String", "System.String", "System.Int32",
++        "SeaPower.GeoPosition", "SeaPower.GeoPosition", "SeaPower.Taskforce", "SeaPower.ResourceLoader+ResourceBatch", "System.String", "System.Boolean" };
++
++    public static MethodInfo StabilizationMethod(Type type, string name, Type[] parameters, Type[] generics)
++    {
++        if (type == typeof(VesselLoader) && name == "loadShipFromInternalResources" && parameters != null &&
++            parameters.All(p => p != null) && parameters.Select(p => p.FullName).SequenceEqual(StableVesselLoad))
++            parameters = new[] { typeof(VesselParameters) }.Concat(parameters).ToArray();
++        return AccessTools.Method(type, name, parameters, generics);
++    }
++
+     // A not-yet-assigned/pooled unit is ineligible for an enemy hail. Returning
+     // true preserves the caller's existing skip branch before IsEnemyUnit runs.
+     public static bool SkipEnemyHailCandidate(ObjectBase unit)
+diff --git a/integration/beta-feature-parity/README.md b/integration/beta-feature-parity/README.md
+index a8fa2849..8dddbb34 100644
+--- a/integration/beta-feature-parity/README.md
++++ b/integration/beta-feature-parity/README.md
+@@ -5,6 +5,77 @@ SEST Workshop item (`3812461539`). It restores the Runtime/UI feature code for
+ beta testing. It does not change the Steam branch or replace campaign/data packs.
+ The earlier stable restore ZIP is superseded for this task.
+ 
++## R5: Weapon Launcher Effects, SubModel Stabilization, Pop-Out Windows 1.1.3
++
++Built on 5 November 2026 from the owner's 3 November 23:09 capture. That
++capture still holds R3 (`SEST.RuntimeFixes.dll` a0fb4279): the R4 repair had
++not been run, so R5's repair accepts an installed R1, R2, R3 or R4. Runtime
++1.5.3 beta and UI 1.4.4 beta are R4's sources with the Pop-Out pin moved; the
++loader gains two adapters for Euromod's Anchor Chain Expansion Pack
++(Workshop 3784474738); the bootstrap and Identify shim are unchanged R4
++sources.
++
++- **Pop-Out Windows 1.1.3.** The PC has Pop-Out Windows 1.1.3 (`5709ed68`);
++  R4 pinned 1.1.1 (`9be4003d`), so in the 3 November session the Contacts,
++  formation and compass bridges logged `Uninspected assembly: SeaPowerPopOut`
++  and stayed off. The eleven members the bridges bind (`PopOutScreen`'s
++  `Instance`, `DisplayAvailable`, `root`, `host`, `windows`, `hint`,
++  `HostOpening`, `Decorate`, `Move`, `Place`, `Open`, `Remember`,
++  `UpdateScreen`, `Flatten`, `FindButtonsPanel`) have identical IL in both
++  builds. 1.1.3 changes window snapping, geometry and the settings panels,
++  adds a popup-tracking method, and gives popped-out windows its settings
++  gear and look when they load. R5 pins 1.1.3.
++- **WeaponLauncherEffects 1.0.18** (`e79113f4`). Its Harmony `TargetMethod`s
++  look up `WeaponContainer.launch` and `LaunchFromMagazine` by their stable
++  parameter lists; the beta appended `bool failedLaunch = false` to both, so
++  the lookups return null and HarmonyX stops `PatchAll` after the first two
++  patch classes. Those two had already suppressed the game's own launch
++  smoke and dust on the six mapped systems (Mk 41, Mk 41 quad, SA-N-9, Mk 35,
++  ExLS, ExLS quad), so on the beta those launchers fired with no launch
++  effect at all. The adapter routes both lookups through
++  `BetaCompatibilityCalls.LauncherEffectsMethod`, which appends the flag for
++  exactly those two stable lists, and gates the author's launch postfix on
++  the beta's launch result, as the author's magazine postfix already is, so
++  a failed launch spawns nothing. Audit: `launch-reflection=2,
++  launch-result=1, locations=2`.
++- **SubModelStabilization 1.1.2** (`09f6ec0e`). Its postfix on
++  `VesselLoader.loadShipFromInternalResources` looks up the stable
++  ten-parameter method that returned `VesselParameters`; the beta's method is
++  void and takes the caller's `VesselParameters vp` first. The adapter routes
++  the lookup through `BetaCompatibilityCalls.StabilizationMethod`, which
++  prepends `VesselParameters` for exactly that list, and renames the
++  postfix's `__result` parameter to `vp`, which HarmonyX binds by name to the
++  same object at the same point. It restores the stabilised radar platforms
++  and flight-deck horizon bars on the 26 configured vessels (German F123 and
++  K130, the Modern US Navy Burkes, the Korean LPH, Dutch, Chilean and Indian
++  hulls). Audit: `locations=2, result-argument=1, target-method=1`.
++
++Both adapters are pinned to the captured author hashes and to the beta's
++game hash, assert the beta signatures they rely on before any rewrite, and
++leave the Workshop files byte-identical; a new author DLL loads as its author
++wrote it. `tests/BetaApiTests.cs` checks the private images, the bridges
++against the real beta methods and the name binding of every adapted patch
++parameter, by reflection only.
++
++Not in R5. The other author plugins that stop on the beta stay as R4 left
++them, each reporting its own failure and leaving the game's behaviour in
++place: MissileControlMod (steering-limit transpiler pattern now inside
++`WeaponBase.GLimitedTurnRate`), MultiStageMissiles (`MissileSimulator.BuildAltitudeNodes`
++now takes the beta's native flyout buffers), OptimalTargetDist's launch
++sharing (launch layout 1/1/1/4; its name-based logic still runs), TestRange
++(`SeaPower.ECM.CombinedJamUnit` is gone), BetterTacMap and UiWorkerProbe
++(`GizmoLayerManager` is now a static catalogue; the layers live in
++`MapDisplayState.Tactical`) and parts of ParallelRangeProbe. ExtendedGuidance
++0.9.7, AutomaticSAR and OspreyMechanics stay held back before load. CombatWorker
++0.2.0 stays held back too, and nothing is lost by it: it only moved the
++game's own range arithmetic onto worker threads with bit-exact audits, it was
++already off on the stable build through its own conflict check with
++SecondThrustMod, and the beta computes those ranges in parallel itself
++(`KinematicRangeBatch`). None of the nine self-stopping plugins had a new
++build in the 3 November capture, and none of the authors publishes source;
++the fixes for WeaponLauncherEffects and SubModelStabilization are a few
++lines each and are worth reporting to the Euromod team.
++
+ ## R4: version watermark, the beta's #!extend scan, cost item rows
+ 
+ Built on 3 November 2026 from the 2 November 22:26 capture, which recorded
+diff --git a/integration/beta-feature-parity/Repair-SEST-Beta-Startup.ps1 b/integration/beta-feature-parity/Repair-SEST-Beta-Startup.ps1
+index 22029566..9451242a 100644
+--- a/integration/beta-feature-parity/Repair-SEST-Beta-Startup.ps1
++++ b/integration/beta-feature-parity/Repair-SEST-Beta-Startup.ps1
+@@ -124,7 +124,7 @@ try {
+     Copy-Verified (J $backup 'current-before-repair.json') $statePath
+     throw $failure
+ }
+-Write-Host 'R4 beta repair installed and enabled; original backups and Identify data retained.' -ForegroundColor Green
+-Write-Host 'Runtime 1.5.2 beta: the build text over the game view is hidden, the game''s #!extend scan is repaired once the Workshop folders are registered, and the cost windows price SEST rounds from SEST''s own catalog with item rows.'
+-Write-Host 'The loader, bootstrap, UI follow-up and Identify shim are the R3 sources rebuilt with this candidate''s compiler.'
+-Write-Host 'Launch beta, play a mission that fires an AGR-30 Redback, open F11 in the campaign menu, then quit and run Capture-Repair-Results.cmd.'
++Write-Host 'R5 beta repair installed and enabled; original backups and Identify data retained.' -ForegroundColor Green
++Write-Host 'Runtime 1.5.3 and UI 1.4.4 beta: R4''s watermark hide, #!extend rescan and cost rows, with the pop-out bridges pinned to Pop-Out Windows 1.1.3.'
++Write-Host 'The loader adapts WeaponLauncherEffects 1.0.18 and SubModelStabilization 1.1.2 to the beta in a private cache; their Workshop files are unchanged.'
++Write-Host 'Launch beta, watch a Mk 41 launch and a stabilised radar in a seaway, fire an AGR-30 Redback, open F11 in the campaign menu, then quit and run Capture-Repair-Results.cmd.'
+diff --git a/integration/beta-feature-parity/build-roslyn.ps1 b/integration/beta-feature-parity/build-roslyn.ps1
+index 771da476..9d90d772 100644
+--- a/integration/beta-feature-parity/build-roslyn.ps1
++++ b/integration/beta-feature-parity/build-roslyn.ps1
+@@ -16,7 +16,7 @@ differ from a build.py build; the receipt records which compiler produced them.
+ param(
+     [Parameter(Mandatory)][string]$Capture,
+     [Parameter(Mandatory)][string]$Output,
+-    [string]$Revision = 'R4-20261103-watermark-costs-modifier-registry'
++    [string]$Revision = 'R5-20261105-launcher-effects-stabilization-popout-113'
+ )
+ Set-StrictMode -Version Latest
+ $ErrorActionPreference = 'Stop'
+@@ -30,7 +30,7 @@ $pins = @{
+     'AnchorChain.dll' = 'e272811050698640a8936834363da91769dbc83e017637e3629c21bca6bea764'
+     'AnchorChain.Preloader.dll' = '1ee1570f1e7f457ffa63c24ee4085b2cdea8069ea8cebf146de5ef027eaa3984'
+     'IdentifyExpanded.dll' = '9f0ec630e9d7659082bdce61743a87895de14f1903a44c68395f8f158af8afd7'
+-    'SeaPowerPopOut.dll' = '9be4003d26fe2a02120963ce1b94272a34d74d13fa793d9ef0e9242aaaf4fc8d'
++    'SeaPowerPopOut.dll' = '5709ed68af4623fceee3f3badc8e06bdb9b98f8e095fb0deac2685a9ebc5fc36'
+     'ContactLog.dll' = 'a1b8b450df0933df61984651fe2b19138acd605aa4b526bbfc23565d8295015e'
+     'SeaPowerSquadPanel.dll' = '6230e8e78e2ba7ba222241d0c3dcc881d2507ebeeb4eab24b6401cc9144283dd'
+     'CombatCosts.dll' = '74afa9028fc0c52b93f415263504f51ecf8d056a624feaebcc8053ba5a1c0ac3'
+diff --git a/integration/beta-feature-parity/build.py b/integration/beta-feature-parity/build.py
+index e84557fb..ddd764d4 100644
+--- a/integration/beta-feature-parity/build.py
++++ b/integration/beta-feature-parity/build.py
+@@ -18,7 +18,7 @@
+     'AnchorChain.dll': 'e272811050698640a8936834363da91769dbc83e017637e3629c21bca6bea764',
+     'AnchorChain.Preloader.dll': '1ee1570f1e7f457ffa63c24ee4085b2cdea8069ea8cebf146de5ef027eaa3984',
+     'IdentifyExpanded.dll': '9f0ec630e9d7659082bdce61743a87895de14f1903a44c68395f8f158af8afd7',
+-    'SeaPowerPopOut.dll': '9be4003d26fe2a02120963ce1b94272a34d74d13fa793d9ef0e9242aaaf4fc8d',
++    'SeaPowerPopOut.dll': '5709ed68af4623fceee3f3badc8e06bdb9b98f8e095fb0deac2685a9ebc5fc36',
+     'ContactLog.dll': 'a1b8b450df0933df61984651fe2b19138acd605aa4b526bbfc23565d8295015e',
+     'SeaPowerSquadPanel.dll': '6230e8e78e2ba7ba222241d0c3dcc881d2507ebeeb4eab24b6401cc9144283dd',
+     'CombatCosts.dll': '74afa9028fc0c52b93f415263504f51ecf8d056a624feaebcc8053ba5a1c0ac3',
+diff --git a/integration/beta-feature-parity/package.py b/integration/beta-feature-parity/package.py
+index 3febd7fb..1cb0127f 100644
+--- a/integration/beta-feature-parity/package.py
++++ b/integration/beta-feature-parity/package.py
+@@ -89,46 +89,62 @@
+ }
+ repair_commands = {}
+ if a.repair_base:
+-    readme = '''R4 BETA REPAIR: WATERMARK, #!EXTEND SCAN, COST ROWS. 3 NOVEMBER 2026
++    readme = '''R5 BETA REPAIR: LAUNCH EFFECTS, STABILISATION, POP-OUT 1.1.3. 5 NOVEMBER 2026
+ 
+-For the installed R3 candidate (R1 and R2 are accepted too):
++Your PC still runs R3 (the 3 November capture shows it); R5 includes all
++of R4, so run this one. It accepts an installed R1, R2, R3 or R4.
+ 1. Close Sea Power and extract this NEW ZIP into a fresh folder.
+ 2. Run Repair-Beta-Startup.cmd. It replaces all five candidate files, keeps
+    the original backups and re-enables only after every copy verifies.
+ 3. Launch beta and check:
+    - no "Sea Power v0.8.7-261026" text over the game view;
+    - Player.log holds a "[SEST Runtime] modifier files repaired" line (or
+-     "nothing to repair");
+-   - play a mission that fires an AGR-30 Redback, then open the campaign
+-     menu's F11 window: the mission lists each round with its quantity,
+-     unit price, line total and catalog section (sest_agr-30 at $70,000
+-     from sest_weapon_costs.ini).
++     "nothing to repair") and "native window bridge attached to Pop-Out
++     Windows 1.1.3";
++   - BepInEx.log holds "ADAPTED WeaponLauncherEffects" and "ADAPTED
++     SubModelStabilization" lines, and neither plugin reports
++     "Initialization failed";
++   - in a mission, a Mk 41 or ExLS ship's missile launch shows its launch
++     flame and smoke, and a German F123 or a Burke's stabilised radar
++     platform or horizon bar stays level in a seaway;
++   - fire an AGR-30 Redback, then open the campaign menu's F11 window: the
++     mission lists each round with quantity, unit price, line total and
++     catalog section (sest_agr-30 at $70,000 from sest_weapon_costs.ini);
++   - Contacts and the formation window pop out to the second monitor.
+ 4. Quit, run Capture-Repair-Results.cmd and attach its ZIP.
+ 
+ Disable-Beta-Test.cmd stops this test activation. Restore-Previous-SEST.cmd
+ restores the original backed-up code; the repair updates that restore journal.
+ 
+-What R4 changes (Runtime 1.5.2 beta; the loader, bootstrap, UI 1.4.3 beta
+-and Identify shim are the R3 sources rebuilt with this candidate's compiler):
+-- The beta's version watermark (SeaPower.VersionWatermark) is hidden after
+-  it starts; nothing else on the HUD changes. HideVersionWatermark=0 in
+-  plugins/sest_runtime.ini keeps it.
+-- Beta 261026 scans #!extend files once. On this PC that scan runs before
+-  the Workshop folders are registered, because Anchor Chain's preloader and
+-  the SEST bootstrap read FileManager.Directories early, so every Workshop
+-  mod's #!extend, #!prepend and #!copy file was ignored all session: SEST's
+-  cost catalogs, Cross-Deck stubs and the Collection and Allied Fixes
+-  extends. The Runtime rescans once the Workshop folders are registered and
+-  clears the ini cache, as the Mod Manager's Apply does.
+-- Cumulative Combat Costs reads SEST's own catalog files where the merged
+-  catalog lacks a section, and lists every expended round per mission with
+-  quantity, unit price, line total and the section the price came from.
+-
+-Not in R4: the clipped tab borders (no screenshot received), the Global
+-Hawk range (its data is unchanged; see BETA-FEATURE-PARITY.md) and the
+-author plugins that stop on beta APIs (MissileControlMod, MultiStageMissiles,
+-OptimalTargetDist, SubModelStabilization, TestRange, UiWorkerProbe,
+-WeaponLauncherEffects, BetterTacMap): those need their authors' ports.
++What R5 changes over R4 (Runtime 1.5.3 beta, UI 1.4.4 beta, the loader;
++the bootstrap and Identify shim are R4's sources):
++- Pop-Out Windows 1.1.3: the members the Contacts, formation and compass
++  bridges use are unchanged from 1.1.1, so R5 pins 1.1.3, the version on
++  your PC. With R4's pin those bridges stayed off.
++- WeaponLauncherEffects 1.0.18 (Euromod's Anchor Chain Expansion Pack):
++  the beta added a failed-launch flag to the two launch methods it hooks,
++  so it stopped half-installed and the Mk 41, SA-N-9, Mk 35 and ExLS
++  launchers fired with no launch effect at all. The loader now feeds it the
++  beta methods and skips its effect when a launch fails.
++- SubModelStabilization 1.1.2 (same pack): the beta changed the vessel
++  loader it hooks, so stabilised radar platforms and horizon bars rode with
++  the hull. The loader now feeds it the beta method and the same vessel.
++Both are pinned to the exact author DLLs; the Workshop files are unchanged.
++
++What R4 changed (included):
++- The beta's version watermark is hidden.
++- Beta 261026 scans #!extend files once, before the Workshop folders are
++  registered, so every Workshop mod's #!extend file was ignored all
++  session: SEST's cost catalogs and Cross-Deck stubs among them. The
++  Runtime rescans once the Workshop folders are registered.
++- Cumulative Combat Costs reads SEST's own catalogs where the merged
++  catalog lacks a section and lists every expended round with its price.
++
++Not in R5: the clipped tab borders (send a full-window screenshot and your
++Windows display scaling), the Global Hawk range (its data is unchanged; it
++needs the same mission tried on both Steam branches) and the author plugins
++that still stop on beta APIs; BETA-FEATURE-PARITY.md lists each with the
++reason.
+ 
+ --------------------------------------------------------------------------
+ 
+diff --git a/integration/beta-feature-parity/runtime/PopOutBridge.cs b/integration/beta-feature-parity/runtime/PopOutBridge.cs
+index bd1c0399..ece8b3c6 100644
+--- a/integration/beta-feature-parity/runtime/PopOutBridge.cs
++++ b/integration/beta-feature-parity/runtime/PopOutBridge.cs
+@@ -23,7 +23,7 @@ internal static class PopOutBridge
+ 		internal bool Initialized;
+ 	}
+ 
+-	private const string PopHash = "9be4003d26fe2a02120963ce1b94272a34d74d13fa793d9ef0e9242aaaf4fc8d";
++	private const string PopHash = "5709ed68af4623fceee3f3badc8e06bdb9b98f8e095fb0deac2685a9ebc5fc36";
+ 
+ 	private const string FormationHash = "6230e8e78e2ba7ba222241d0c3dcc881d2507ebeeb4eab24b6401cc9144283dd";
+ 
+@@ -113,7 +113,7 @@ internal static class PopOutBridge
+ 		{
+ 			if (screenType == null && !popRejected && assembly.GetType("SeaPowerPopOut.PopOutScreen", throwOnError: false) != null)
+ 			{
+-				if (!HashMatches(assembly, "9be4003d26fe2a02120963ce1b94272a34d74d13fa793d9ef0e9242aaaf4fc8d"))
++				if (!HashMatches(assembly, "5709ed68af4623fceee3f3badc8e06bdb9b98f8e095fb0deac2685a9ebc5fc36"))
+ 				{
+ 					popRejected = true;
+ 					Api.Log("pop-out bridge inactive for an uninspected Pop-Out DLL");
+@@ -139,7 +139,7 @@ internal static class PopOutBridge
+ 				{
+ 					throw new MissingMemberException("captured pop-out window host");
+ 				}
+-				Api.Log("native window bridge attached to Pop-Out Windows 1.1.1");
++				Api.Log("native window bridge attached to Pop-Out Windows 1.1.3");
+ 			}
+ 			if (!formationBound && !formationRejected && assembly.GetType("SeaPowerSquadPanel.SquadManagerController", throwOnError: false) != null)
+ 			{
+diff --git a/integration/beta-feature-parity/runtime/RuntimeFixesMod.cs b/integration/beta-feature-parity/runtime/RuntimeFixesMod.cs
+index 3ca7e9b3..cdea4560 100644
+--- a/integration/beta-feature-parity/runtime/RuntimeFixesMod.cs
++++ b/integration/beta-feature-parity/runtime/RuntimeFixesMod.cs
+@@ -6,7 +6,7 @@ using AnchorChain;
+ 
+ namespace Sest.RuntimeFixes;
+ 
+-[ACPlugin("io.github.sest-hobby.runtime-fixes", "SEST Runtime Fixes Beta", "1.5.2", null, null)]
++[ACPlugin("io.github.sest-hobby.runtime-fixes", "SEST Runtime Fixes Beta", "1.5.3", null, null)]
+ public sealed class RuntimeFixesMod : IAnchorChainMod
+ {
+ 	public void TriggerEntryPoint()
+diff --git a/integration/beta-feature-parity/tests/BetaApiTests.cs b/integration/beta-feature-parity/tests/BetaApiTests.cs
+index 4bca6f62..758774eb 100644
+--- a/integration/beta-feature-parity/tests/BetaApiTests.cs
++++ b/integration/beta-feature-parity/tests/BetaApiTests.cs
+@@ -38,7 +38,8 @@ static class BetaApiTests
+         try {
+             var paths=new Dictionary<string,string>();
+             foreach (string relative in new[] { "3813157776/DynamicCampaignMod.dll", "3784474738/EnhancedDecoyMod.dll",
+-                "3789188689/SubAmmunitionMod.dll", "3789188689/SecondThrustMod.dll", "3790594162/IdentifyExpanded.dll" }) {
++                "3789188689/SubAmmunitionMod.dll", "3789188689/SecondThrustMod.dll", "3790594162/IdentifyExpanded.dll",
++                "3784474738/WeaponLauncherEffects.dll", "3784474738/SubModelStabilization.dll" }) {
+                 string source=Path.Combine(workshop,relative); byte[] bytes=File.ReadAllBytes(source);
+                 string adapted=BetaAssemblyPolicy.Prepare(source,native,cache,Console.WriteLine);
+                 Check(adapted != source && File.Exists(adapted), "Private API image generated: "+relative);
+@@ -65,7 +66,7 @@ static class BetaApiTests
+                 }
+             }
+             foreach (string failure in missing) Console.WriteLine("MISSING "+failure);
+-            Check(missing.Count==0 && resolved>100, "All active direct native method/field operands resolve across five adapted images");
++            Check(missing.Count==0 && resolved>100, "All active direct native method/field operands resolve across seven adapted images");
+             Console.WriteLine("Resolved native operands: "+resolved);
+             using (var ammo=ModuleDefinition.ReadModule(paths["SubAmmunitionMod"],new ReaderParameters { AssemblyResolver=resolver })) {
+                 var calls=Types(ammo.Types).SelectMany(t=>t.Methods).Where(m=>m.HasBody).SelectMany(m=>m.Body.Instructions)
+@@ -95,7 +96,8 @@ static class BetaApiTests
+                 var loaded=Assembly.LoadFile(pair.Value);
+                 Check(BetaAssemblyPolicy.OriginalLocation(loaded)==Path.Combine(workshop,
+                     pair.Key=="DynamicCampaignMod" ? "3813157776/DynamicCampaignMod.dll" :
+-                    pair.Key=="IdentifyExpanded" ? "3790594162/IdentifyExpanded.dll" : "3789188689/"+pair.Key+".dll"),
++                    pair.Key=="IdentifyExpanded" ? "3790594162/IdentifyExpanded.dll" :
++                    pair.Key=="WeaponLauncherEffects" || pair.Key=="SubModelStabilization" ? "3784474738/"+pair.Key+".dll" : "3789188689/"+pair.Key+".dll"),
+                     "Original asset provenance: "+pair.Key);
+                 if (pair.Key=="DynamicCampaignMod") {
+                     var postfix=loaded.GetType("DynamicCampaignMod.Game.Patches.CampaignMenuPatch",true).GetMethod("Postfix",BindingFlags.NonPublic|BindingFlags.Static);
+@@ -122,11 +124,82 @@ static class BetaApiTests
+             Check(typeof(Taskforce).GetProperty("Relations")?.PropertyType==typeof(SideRelations) &&
+                 typeof(SideRelations).GetProperty("Sides")?.PropertyType==typeof(IReadOnlyList<Taskforce>),
+                 "Secondary-side bridge binds beta's real registered-side types");
++            LauncherAndStabilizationChecks(paths, resolver);
+             // Taskforce's static profiler initialization needs the game Mono
+             // intrinsics. Live registry evaluation remains part of the PC test.
+             Console.WriteLine("Campaign/scenario beta API checks passed: "+checks+"; managed fixtures only, no Unity gameplay.");
+         } finally { if (Directory.Exists(cache)) Directory.Delete(cache,true); }
+     }
++    // R5: WeaponLauncherEffects 1.0.18 and SubModelStabilization 1.1.2 from
++    // Euromod's Anchor Chain Expansion Pack. Metadata and reflection only; no
++    // Harmony patch is applied and no plugin or game code runs.
++    static void LauncherAndStabilizationChecks(Dictionary<string,string> paths, DefaultAssemblyResolver resolver)
++    {
++        const BindingFlags all=BindingFlags.NonPublic|BindingFlags.Public|BindingFlags.Static|BindingFlags.Instance;
++        using (var effects=ModuleDefinition.ReadModule(paths["WeaponLauncherEffects"],new ReaderParameters { AssemblyResolver=resolver })) {
++            var post=effects.GetType("WeaponLauncherEffectsAnchorChain.WeaponContainerLaunchLauncherEffectsPatch").Methods.Single(m=>m.Name=="Postfix");
++            var il=post.Body.Instructions;
++            Check(post.Parameters.Count==3 && post.Parameters[2].Name=="__result" && post.Parameters[2].ParameterType.FullName=="System.Boolean",
++                "Launcher postfix receives the beta launch result");
++            Check(il[0].OpCode==Mono.Cecil.Cil.OpCodes.Ldarg_2 && il[1].OpCode==Mono.Cecil.Cil.OpCodes.Brtrue && il[2].OpCode==Mono.Cecil.Cil.OpCodes.Ret &&
++                ReferenceEquals(il[1].Operand,il[3]), "A failed launch returns before the author's effect code");
++            foreach (string name in new[] { "WeaponContainerLaunchLauncherEffectsPatch", "WeaponContainerMagazineLaunchLauncherEffectsPatch" }) {
++                var target=effects.GetType("WeaponLauncherEffectsAnchorChain."+name).Methods.Single(m=>m.Name=="TargetMethod").Body.Instructions;
++                Check(target.Count(i=>(i.Operand as MethodReference)?.Name=="LauncherEffectsMethod")==1 &&
++                    !target.Any(i=>(i.Operand as MethodReference)?.DeclaringType.FullName=="HarmonyLib.AccessTools"),
++                    "Launcher lookup goes through the bridge: "+name);
++            }
++            foreach (string name in new[] { "WeaponSystemLaunchNativeEffectsPatch", "WeaponContainerInitLauncherEffectsPatch" }) {
++                var target=effects.GetType("WeaponLauncherEffectsAnchorChain."+name).Methods.Single(m=>m.Name=="TargetMethod").Body.Instructions;
++                Check(target.Any(i=>(i.Operand as MethodReference)?.DeclaringType.FullName=="HarmonyLib.AccessTools") &&
++                    !target.Any(i=>(i.Operand as MethodReference)?.Name=="LauncherEffectsMethod"), "Unchanged lookup keeps the author's call: "+name);
++            }
++        }
++        var vector=typeof(UnityEngine.Vector3);
++        var launch5=new[] { typeof(ObjectBase), vector, vector, typeof(float), typeof(string) };
++        var magazine6=new[] { typeof(string), typeof(ObjectBase), vector, vector, typeof(float), typeof(float) };
++        Check(AccessTools.Method(typeof(WeaponContainer),"launch",launch5,null)==null && AccessTools.Method(typeof(WeaponContainer),"LaunchFromMagazine",magazine6,null)==null,
++            "The author's stable launcher lookups fail on the beta, as captured");
++        var launch=BetaCompatibilityCalls.LauncherEffectsMethod(typeof(WeaponContainer),"launch",launch5,null);
++        var magazine=BetaCompatibilityCalls.LauncherEffectsMethod(typeof(WeaponContainer),"LaunchFromMagazine",magazine6,null);
++        Check(launch!=null && launch.ReturnType==typeof(bool) && launch.GetParameters().Length==6 && launch.GetParameters()[5].Name=="failedLaunch",
++            "Bridge resolves beta WeaponContainer.launch with failedLaunch");
++        Check(magazine!=null && magazine.ReturnType==typeof(bool) && magazine.GetParameters().Length==7 && magazine.GetParameters()[6].Name=="failedLaunch",
++            "Bridge resolves beta WeaponContainer.LaunchFromMagazine with failedLaunch");
++        Check(BetaCompatibilityCalls.LauncherEffectsMethod(typeof(WeaponContainer),"launch",new[] { typeof(int) },null)==null,
++            "Any other launcher lookup passes through unchanged");
++        using (var stabilizer=ModuleDefinition.ReadModule(paths["SubModelStabilization"],new ReaderParameters { AssemblyResolver=resolver })) {
++            var patch=stabilizer.GetType("SubModelStabilizationAnchorChain.VesselLoaderStabilizationPatch");
++            var post=patch.Methods.Single(m=>m.Name=="Postfix");
++            Check(post.Parameters.Count==2 && post.Parameters[0].Name=="vesselIniName" && post.Parameters[1].Name=="vp" &&
++                post.Parameters[1].ParameterType.FullName=="SeaPower.VesselParameters", "Stabilization postfix takes the caller's VesselParameters vp");
++            var target=patch.Methods.Single(m=>m.Name=="TargetMethod").Body.Instructions;
++            Check(target.Count(i=>(i.Operand as MethodReference)?.Name=="StabilizationMethod")==1 &&
++                !target.Any(i=>(i.Operand as MethodReference)?.DeclaringType.FullName=="HarmonyLib.AccessTools"), "Vessel loader lookup goes through the bridge");
++        }
++        var batch=typeof(ResourceLoader).GetNestedType("ResourceBatch",all);
++        var ten=new[] { typeof(string), typeof(string), typeof(string), typeof(int), typeof(GeoPosition), typeof(GeoPosition), typeof(Taskforce), batch, typeof(string), typeof(bool) };
++        Check(batch!=null && AccessTools.Method(typeof(VesselLoader),"loadShipFromInternalResources",ten,null)==null,
++            "The author's stable vessel loader lookup fails on the beta, as captured");
++        var load=BetaCompatibilityCalls.StabilizationMethod(typeof(VesselLoader),"loadShipFromInternalResources",ten,null);
++        Check(load!=null && load.ReturnType==typeof(void) && load.GetParameters().Length==11 && load.GetParameters()[0].Name=="vp" &&
++            load.GetParameters()[0].ParameterType==typeof(VesselParameters) && load.GetParameters()[3].Name=="vesselIniName",
++            "Bridge resolves the beta vessel loader with vp first");
++        // HarmonyX binds a patch parameter by the original's parameter name, or
++        // as __instance, __state or __result. Check the adapted patches against
++        // the real beta targets by reflection.
++        var launchPost=Assembly.LoadFile(paths["WeaponLauncherEffects"])
++            .GetType("WeaponLauncherEffectsAnchorChain.WeaponContainerLaunchLauncherEffectsPatch",true).GetMethod("Postfix",all);
++        Check(launchPost.GetParameters().Select(p=>p.Name).SequenceEqual(new[] { "__instance", "__state", "__result" }) &&
++            launchPost.GetParameters()[0].ParameterType==typeof(WeaponContainer) && launchPost.GetParameters()[2].ParameterType==launch.ReturnType,
++            "Launcher postfix binds __instance and __result to the beta launch");
++        var stabilizerPost=Assembly.LoadFile(paths["SubModelStabilization"])
++            .GetType("SubModelStabilizationAnchorChain.VesselLoaderStabilizationPatch",true).GetMethod("Postfix",all);
++        foreach (var parameter in stabilizerPost.GetParameters()) {
++            var match=load.GetParameters().SingleOrDefault(p=>p.Name==parameter.Name);
++            Check(match!=null && match.ParameterType==parameter.ParameterType, "Stabilization postfix parameter binds by name: "+parameter.Name);
++        }
++    }
+     static void HailGuardFixture()
+     {
+         // ObjectBase's static initializer needs Unity/newer game Mono intrinsics.
+diff --git a/integration/beta-feature-parity/ui/ContactsFix.cs b/integration/beta-feature-parity/ui/ContactsFix.cs
+index 45067e27..51d53239 100644
+--- a/integration/beta-feature-parity/ui/ContactsFix.cs
++++ b/integration/beta-feature-parity/ui/ContactsFix.cs
+@@ -12,7 +12,7 @@ using UnityEngine;
+ 
+ namespace Sest.UiFixes
+ {
+-    [ACPlugin("io.github.sest-hobby.contacts-input-fix", "SEST UI Follow-up Beta", "1.4.3", null, new[] { "io.github.sest-hobby.runtime-fixes" })]
++    [ACPlugin("io.github.sest-hobby.contacts-input-fix", "SEST UI Follow-up Beta", "1.4.4", null, new[] { "io.github.sest-hobby.runtime-fixes" })]
+     public sealed class ContactsFix : IAnchorChainMod
+     {
+         internal const BindingFlags All = BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static | BindingFlags.Instance;
+@@ -71,7 +71,7 @@ namespace Sest.UiFixes
+                 harmony.Patch(matches, prefix: new HarmonyMethod(typeof(ContactsFix), nameof(BeforeMatches)));
+                 harmony.Patch(tick, transpiler: new HarmonyMethod(typeof(ContactsFix), nameof(LogicalParents)));
+                 installed = true;
+-                Log("1.4.3 beta input fix installed; full Runtime 1.5.1 paired; Contacts time-control behavior retained.");
++                Log("1.4.4 beta input fix installed; full Runtime 1.5.3 paired; Contacts time-control behavior retained.");
+             }
+             catch (Exception error)
+             {
+diff --git a/integration/beta-feature-parity/ui/ContactsSurfaceFix.cs b/integration/beta-feature-parity/ui/ContactsSurfaceFix.cs
+index 1d5f9765..7de6eb5e 100644
+--- a/integration/beta-feature-parity/ui/ContactsSurfaceFix.cs
++++ b/integration/beta-feature-parity/ui/ContactsSurfaceFix.cs
+@@ -12,7 +12,7 @@ namespace Sest.UiFixes
+     internal static class ContactsSurfaceFix
+     {
+         const BindingFlags All = ContactsFix.All;
+-        internal const string PopOutHash = "9be4003d26fe2a02120963ce1b94272a34d74d13fa793d9ef0e9242aaaf4fc8d";
++        internal const string PopOutHash = "5709ed68af4623fceee3f3badc8e06bdb9b98f8e095fb0deac2685a9ebc5fc36";
+         static MethodInfo getRoot;
+         static FieldInfo trackedWindows;
+         static FieldInfo hint;
+diff --git a/integration/beta-feature-parity/ui/DiagnosticModules.cs b/integration/beta-feature-parity/ui/DiagnosticModules.cs
+index a3b3dd58..69064040 100644
+--- a/integration/beta-feature-parity/ui/DiagnosticModules.cs
++++ b/integration/beta-feature-parity/ui/DiagnosticModules.cs
+@@ -10,7 +10,7 @@ namespace Sest.UiFixes
+             new[] { "IdentifyExpanded", "9f0ec630e9d7659082bdce61743a87895de14f1903a44c68395f8f158af8afd7" },
+             new[] { "SEST.MenuBackground", "9dfd561db256aaa2455ff0039783b46cfbaf113b641c97f0815121d3a4502515" },
+             new[] { "SEST.RuntimeFixes", BuildPins.RuntimeSha256 },
+-            new[] { "SeaPowerPopOut", "9be4003d26fe2a02120963ce1b94272a34d74d13fa793d9ef0e9242aaaf4fc8d" },
++            new[] { "SeaPowerPopOut", "5709ed68af4623fceee3f3badc8e06bdb9b98f8e095fb0deac2685a9ebc5fc36" },
+             new[] { "SeaPowerSquadPanel", "6230e8e78e2ba7ba222241d0c3dcc881d2507ebeeb4eab24b6401cc9144283dd" },
+             new[] { "SeaPowerTopo", "25d42e53de90b0e0e1d0b47acd9708d6b24334c681e7f5735a504e147d79989e" },
+             new[] { "UiWorkerProbe", "b87d7a1b2b97b2f717be8303ebf4c9fca29d730715bb6283ecbe4a2df594b7b7" },
+diff --git a/integration/beta-feature-parity/verify.py b/integration/beta-feature-parity/verify.py
+index f4ab36cf..e60f09de 100644
+--- a/integration/beta-feature-parity/verify.py
++++ b/integration/beta-feature-parity/verify.py
+@@ -17,11 +17,17 @@
+ p.add_argument('--previous-package', type=Path, action='append', default=[])
+ p.add_argument('--previous-payload', type=Path, action='append', default=[])
+ p.add_argument('--repair-package', type=Path)
++p.add_argument('--previous-capture', type=Path, help='Capture the previous candidates were reviewed and staged against; defaults to --capture')
+ p.add_argument('--workshop-references', type=Path, help='Newer captured Workshop DLL tree for compatibility checks')
+ a = p.parse_args()
+ here = Path(__file__).resolve().parent
+ root = here.parents[1]
+ capture = a.capture.resolve()
++# A previous candidate's own installer refuses author DLLs newer than its
++# review (Pop-Out Windows 1.1.1 became 1.1.3 on 3 Nov 2026), while the repair
++# checks only the game, BepInEx and Identify references, which both captures
++# share. So an upgrade test stages the previous candidate on its own capture.
++previous_capture = a.previous_capture.resolve() if a.previous_capture else capture
+ out = a.candidate.resolve()
+ flat = a.flat_references.resolve()
+ workshop = a.workshop_references.resolve() if a.workshop_references else capture / 'references/workshop/library-1'
+@@ -64,7 +70,7 @@ def run(name, command):
+ if a.repair_package:
+     for index, (package, payload) in enumerate(zip(a.previous_package, a.previous_payload), 1):
+         run('existing-candidate-repair-rollback-' + str(index), [a.powershell, '-NoLogo', '-NoProfile', '-File', here / 'tests/Test-Installer.ps1',
+-            '-Capture', capture, '-Candidate', payload.resolve(), '-RepairPackage', a.repair_package.resolve(), '-PreviousPackage', package.resolve()])
++            '-Capture', previous_capture, '-Candidate', payload.resolve(), '-RepairPackage', a.repair_package.resolve(), '-PreviousPackage', package.resolve()])
+ run('loader-source-contracts', [sys.executable, here.parent / 'beta-anchorchain/test_source_contract.py'])
+ report = {
+     'format': 1, 'status': 'managed-and-fixture-checks-passed-needs-pc-gameplay',

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Generate an optional 2028 regional expansion without changing the base campaign.
+"""Generate the single modernised world from the original and regional expansion.
 
 The original campaign ID and save files remain untouched. All new places,
 activities, access permissions and quantities are explicitly scenario choices.
@@ -12,7 +12,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[2]
 HERE = Path(__file__).resolve().parent
 PACK = HERE / "SEST_World_Campaign" / "dynamic_campaigns"
-ORIGINAL = PACK / "sest-world-sandbox" / "campaign.json"
+ORIGINAL = PACK.parent / "legacy_campaigns" / "sest-world-sandbox" / "campaign.json"
 SPEC = HERE / "regions-2028.json"
 VALIDATOR = HERE / "check_dynamic_campaign.py"
 OLD = "ch_ffg_jvh"
@@ -87,15 +87,24 @@ def render(campaign):
 def main():
     cfg = json.loads(SPEC.read_text(encoding="utf-8"))
     new = build(json.loads(ORIGINAL.read_text(encoding="utf-8")), cfg)
+    from modern_world import modernise, operations_manifest
+    new = modernise(new)
     output = PACK / cfg["campaign"]["folder"] / "campaign.json"
     output.parent.mkdir(parents=True, exist_ok=True)
     output.write_text(render(new), encoding="utf-8")
+    (output.parent / "sest_operations.json").write_text(render(operations_manifest(new)), encoding="utf-8")
+    # Remove only our superseded generated menu entry. Never touch player saves.
+    old_entry = PACK / "sest-world-sandbox" / "campaign.json"
+    if old_entry.exists():
+        old_entry.unlink()
+        if not any(old_entry.parent.iterdir()):
+            old_entry.parent.rmdir()
     # The same validator used by the base campaign must also accept the variant.
     result = subprocess.run([sys.executable, str(VALIDATOR), str(output)],
                             capture_output=True, text=True)
     if result.returncode:
         raise ValueError(result.stdout + result.stderr)
-    print(f"regional preview: {len(new['bases'])} bases; {len(new['forces'])} forces; "
+    print(f"modernised worldwide campaign: {len(new['bases'])} bases; {len(new['forces'])} forces; "
           f"{len(new['patrols'])} patrols; {len(new['catalogue'])} buy entries")
 
 

@@ -1,0 +1,110 @@
+{
+  "format": 1,
+  "status": "managed-and-fixture-checks-passed-needs-pc-gameplay",
+  "limitations": [
+    "No Unity/game launch",
+    "No Noesis native rendering",
+    "No second-monitor test",
+    "PowerShell installer fixture used the available host; Windows PowerShell 5.1 execution still needs PC testing"
+  ],
+  "results": [
+    {
+      "name": "runtime-api-preservation",
+      "exit_code": 0,
+      "stdout": "Runtime API preservation passed: 314 type/method contracts across 40 types; no gameplay claim.",
+      "stderr": ""
+    },
+    {
+      "name": "native-bindings",
+      "exit_code": 0,
+      "stdout": "PASS TowedSensorGuard.Bind\nPASS TerrainClearance.Bind\nPASS TaskForceDebrief.Bind\nPASS PreparationMap.Bind\nPASS CampaignCosts.Bind\nPASS CampaignCosts.BindLive\nPASS CampaignCosts.BindMenu\nPASS CampaignInventory.Bind\n[SEST Runtime] native cost UI deferred until Noesis is initialized and a game view is attached\nPASS NativeCombatSurface.Bind\nPASS F11CombatCosts.BindMissionPath\nPASS VersionWatermark.Bind\nPASS ModifierRegistry.Bind\nPASS F11CombatCosts.Bind Tracker 0.8 visibility\nPASS tracker GameApi\nPASS tracker VesselApi\nPASS deferred hook SeaPower.GameMain.Update\nPASS deferred hook SeaPower.GameMain.OnDestroy\nPASS deferred hook SeaPower.MissionManager.ResetData\nPASS deferred hook SeaPower.CameraManager.OnLateUpdate\nPASS deferred map wheel hook",
+      "stderr": ""
+    },
+    {
+      "name": "native-plugin-transpilers",
+      "exit_code": 0,
+      "stdout": "Native/plugin hook checks passed: 18 assertions using beta IL and current Pop-Out metadata; no Unity gameplay execution.",
+      "stderr": ""
+    },
+    {
+      "name": "runtime-history-policy-parity",
+      "exit_code": 0,
+      "stdout": "Runtime 1.5.0/beta reconstruction parity passed: 857 assertions; numerical policy and cross-readable saved history/inventories; no game execution.",
+      "stderr": ""
+    },
+    {
+      "name": "price-factory-caching",
+      "exit_code": 0,
+      "stdout": "Captured Runtime factory/transpiler checks passed: 1455; identical changing-quantity results across 180 refreshes; successful factory catalogue opens reduced from 180 builds to one in that sequence. No game/native execution.",
+      "stderr": ""
+    },
+    {
+      "name": "identify-path-detours",
+      "exit_code": 0,
+      "stdout": "PASS ModDir moves outside StreamingAssets\nPASS RootDir follows data path\nPASS StreamingAssets retains its original meaning\nPASS data root cannot create a local mod entry\nPASS upstream audio creation uses the new data root\nPASS unpatch restores original getter\nPASS missing API is rejected without partial patches\nPASS Anchor Chain before-Identify metadata retained\nPASS captured Identify Expanded ModDir getter redirects\nPASS captured Identify Expanded RootDir redirects\nPASS captured Identify Expanded StreamingAssets is preserved\nManaged path regressions passed; Unity gameplay not tested.",
+      "stderr": ""
+    },
+    {
+      "name": "bounded-loader-scheduler",
+      "exit_code": 0,
+      "stdout": "Bounded loader regressions passed: 9 assertions against the compiled fork scheduler; no Unity execution.",
+      "stderr": ""
+    },
+    {
+      "name": "assembly-preload-policy-and-identify-geometry",
+      "exit_code": 0,
+      "stdout": "cant resolve internal call to \"UnityEngine.Time::get_unscaledTime\" (tested without signature also)\nMetadata discovery: 83 other DLLs inspected, 59 plugin assemblies admitted; no plugin entrypoints executed.\nAssembly pre-load/Identify beta geometry checks passed: 16; no Unity gameplay.\n\nYour mono runtime and class libraries are out of sync.\nThe out of sync library is: /workspace/scratch/bc8d2c64ae38/r11-refs/UnityEngine.CoreModule.dll\n\nWhen you update one from git you need to update, compile and install\nthe other too.\nDo not report this as a bug unless you're sure you have updated correctly:\nyou probably have a broken mono install.\nIf you see other errors or faults after this message they are probably related\nand you need to fix your mono install first.",
+      "stderr": ""
+    },
+    {
+      "name": "campaign-scenario-beta-api-regressions",
+      "exit_code": 0,
+      "stdout": "ADAPTED DynamicCampaignMod in private cache: Acquisition=1, DoUnload=1, GetDirectories=1, GetFiles=1, HasNightCapableSensors=1, SetAttackAtWaypointTask=2, attack-property=14, attack-reflection=1, bearing-reflection=1, bearings=1, facts-property=1, fuel-refresh=1, mission-get=3, mission-set=1, salvo-applied=1, salvo-target=1, secondary-side=6, speed-make=1, speed-set=1, terrain-height=1, ui=24; original Workshop DLL and asset paths preserved.\nADAPTED SubAmmunitionMod in private cache: file=1, ini=5, locations=1, offset-grid=2, terrain-height=1; original Workshop DLL and asset paths preserved.\nADAPTED SecondThrustMod in private cache: ini=1, locations=1; original Workshop DLL and asset paths preserved.\nADAPTED IdentifyExpanded in private cache: bearings=10, hail-guard=1, locations=2, sender-guard=3, ui=5; original Workshop DLL and asset paths preserved.\nSKIPPED duplicate before CLR load: SubAmmunitionMod.fixed.dll; canonical SubAmmunitionMod.dll is present and will receive the beta API adapter.\nResolved native operands: 5717\nSKIPPED before CLR load: EnhancedDecoyMod; Build 261106 uses multiple countermeasure rounds and removed the single _chaff attacher. Awaiting an author port; native countermeasures and data retained.\nSKIPPED duplicate before CLR load: LoadoutManagerForLive.dll; the captured beta LoadoutManager.dll is present.\nADAPTED BetterTacMap in private cache: attr-load-overload=1, attr-scene-ctor=1, attr-tactical-getter=2, layer-ctor=1, layers-by-id=3, layers-by-name=1, layers-list=1, line3-refresh=1, locations=1, retype-display-state=4; original Workshop DLL and asset paths preserved.\nADAPTED AutomaticSAR in private cache: bearings=1, generic-filter=1, lerp-body=1, local-retype=2, mach-make=1, speed-interface=2, speed-kind=2, speed-make=2, speed-read=2, speed-set=3, sub-speed=1, terrain-height=5, ui-forwarder=1; original Workshop DLL and asset paths preserved.\nSKIPPED before CLR load: EnhancedDecoyMod; Build 261106 uses multiple countermeasure rounds and removed the single _chaff attacher. Awaiting an author port; native countermeasures and data retained.\nSKIPPED before CLR load: ExtendedGuidance; disabled by the SEST profile. Data files retained.\nADAPTED MissileControlMod in private cache: locations=2, steering-g-load=1; original Workshop DLL and asset paths preserved.\nSKIPPED before CLR load: MultiStageMissiles.dll; captured native APIs changed in Build 261106. Awaiting an author port; data retained.\nADAPTED OptimalTargetDist in private cache: aaw-native-fallback=1, launch-layout=1, locations=2; original Workshop DLL and asset paths preserved.\nADAPTED TestRange in private cache: locations=2, sensor-range-argument=1; original Workshop DLL and asset paths preserved.\nADAPTED SecondThrustMod in private cache: ini=1, locations=1; original Workshop DLL and asset paths preserved.\nADAPTED SubAmmunitionMod in private cache: file=1, ini=5, locations=1, offset-grid=2, terrain-height=1; original Workshop DLL and asset paths preserved.\nSKIPPED duplicate before CLR load: SubAmmunitionMod.fixed.dll; canonical SubAmmunitionMod.dll is present and will receive the beta API adapter.\nADAPTED IdentifyExpanded in private cache: bearings=10, hail-guard=1, locations=2, sender-guard=3, ui=5; original Workshop DLL and asset paths preserved.\nSKIPPED before CLR load: AlpineSeaPower.dll; Alpine scoped runtime fixes: CheckFiringConstraints hook body changed. Data retained; this feature awaits a verified author port.\nSKIPPED before CLR load: AlpineSeaPower.dll; Alpine scoped runtime fixes: CheckFiringConstraints hook body changed. Data retained; this feature awaits a verified author port.\nSKIPPED before CLR load: XQ58Shadow.dll; XQ-58 shadow contacts: author game-assembly guard rejected. Data retained; this feature awaits a verified author port.\nADAPTED OspreyMechanics in private cache: fuel-distance=1, hook-argument=2, hook-load=4, speed-field=2, speed-knots=2, speed-local=1, speed-make=5, speed-read=6, speed-set=5, speed-snapshot=1, speed-target=2; original Workshop DLL and asset paths preserved.\nADAPTED CoordinatedStrikeTool in private cache: engagement-ranges=1, ui=4; original Workshop DLL and asset paths preserved.\nSKIPPED before CLR load: BellSystemsFixtureTilt.dll; MV-75/Cheyenne II systems: FollowCamera.lateUpdate hook body changed. Data retained; this feature awaits a verified author port.\nSKIPPED before CLR load: MV75CrewEscape.dll; MV-75 crew escape: author game-assembly guard rejected. Data retained; this feature awaits a verified author port.\nSKIPPED before CLR load: EC2CommsJamming.dll; EC-2 comms jamming: AI.MaintainMPA hook body changed. Data retained; this feature awaits a verified author port.\nADAPTED DynamicCampaignMod in private cache: Acquisition=1, DoUnload=1, GetDirectories=1, GetFiles=1, HasNightCapableSensors=1, SetAttackAtWaypointTask=2, attack-property=14, attack-reflection=1, bearing-reflection=1, bearings=1, facts-property=1, fuel-refresh=1, mission-get=3, mission-set=1, salvo-applied=1, salvo-target=1, secondary-side=6, speed-make=1, speed-set=1, terrain-height=1, ui=24; original Workshop DLL and asset paths preserved.\nADAPTED SeaPowerSquadPanel in private cache: formation-membership=1; original Workshop DLL and asset paths preserved.\nSKIPPED before CLR load: AlpineExteriorCameras.dll; Exterior Cameras: author camera contract rejected. Data retained; this feature awaits a verified author port.\nSKIPPED before CLR load: K5KrakenContactStrike.dll; K5 Kraken contact strike: ObjectsManager.removeObject hook body changed. Data retained; this feature awaits a verified author port.\nSKIPPED before CLR load: AlpineExteriorCameras.dll; Exterior Cameras: author camera contract rejected. Data retained; this feature awaits a verified author port.\nADAPTED SeaPowerTopo in private cache: shallow-threshold=1; original Workshop DLL and asset paths preserved.\nSKIPPED before CLR load: SeaPowerTopoFlat.dll; captured native APIs changed in Build 261106. Awaiting an author port; data retained.\nCurrent capture metadata scan: 56 admitted images, 10360 resolved native operands; no plugin entrypoints executed.\nADAPTED AutomaticSAR in private cache: bearings=1, generic-filter=1, lerp-body=1, local-retype=2, mach-make=1, speed-interface=2, speed-kind=2, speed-make=2, speed-read=2, speed-set=3, sub-speed=1, terrain-height=5, ui-forwarder=1; original Workshop DLL and asset paths preserved.\nAutomaticSAR resolved native operands: 242\nAutomaticSAR checks passed: 101\nADAPTED BetterTacMap in private cache: attr-load-overload=1, attr-scene-ctor=1, attr-tactical-getter=2, layer-ctor=1, layers-by-id=3, layers-by-name=1, layers-list=1, line3-refresh=1, locations=1, retype-display-state=4; original Workshop DLL and asset paths preserved.\nBetterTacMap checks passed: 101\nADAPTED DynamicCampaignMod in private cache: Acquisition=1, DoUnload=1, GetDirectories=1, GetFiles=1, HasNightCapableSensors=1, SetAttackAtWaypointTask=2, attack-property=14, attack-reflection=1, bearing-reflection=1, bearings=1, facts-property=1, fuel-refresh=1, mission-get=3, mission-set=1, salvo-applied=1, salvo-target=1, secondary-side=6, speed-make=1, speed-set=1, terrain-height=1, ui=24; original Workshop DLL and asset paths preserved.\nCampaignSalvo checks passed: 5\nADAPTED IdentifyExpanded in private cache: bearings=10, hail-guard=1, locations=2, sender-guard=3, ui=5; original Workshop DLL and asset paths preserved.\nIdentifySender checks passed: 2\nADAPTED MissileControlMod in private cache: locations=2, steering-g-load=1; original Workshop DLL and asset paths preserved.\nMissileControlCurrent checks passed: 7\nADAPTED MissileControlMod in private cache: locations=2, steering-g-load=1; original Workshop DLL and asset paths preserved.\nMissileControlMod legacy fixture superseded; current image receives its own startup checks.\nADAPTED OptimalTargetDist in private cache: aaw-native-fallback=1, launch-layout=1, locations=2; original Workshop DLL and asset paths preserved.\nOptimalTargetCurrent checks passed: 47\nADAPTED OptimalTargetDist in private cache: aaw-native-fallback=1, launch-layout=1, locations=2; original Workshop DLL and asset paths preserved.\nOptimalTargetDist legacy fixture superseded; current image receives its own startup checks.\nADAPTED OspreyMechanics in private cache: fuel-distance=1, hook-argument=2, hook-load=4, speed-field=2, speed-knots=2, speed-local=1, speed-make=5, speed-read=6, speed-set=5, speed-snapshot=1, speed-target=2; original Workshop DLL and asset paths preserved.\nOspreyMechanics checks passed: 78\nParallelRangeProbe legacy fixture superseded; current image receives its own startup checks.\nADAPTED TestRange in private cache: locations=2, sensor-range-argument=1; original Workshop DLL and asset paths preserved.\nTestRange legacy fixture superseded; current image receives its own startup checks.\nADAPTED TestRange in private cache: locations=2, sensor-range-argument=1; original Workshop DLL and asset paths preserved.\nTestRangeCurrent checks passed: 8\nSKIPPED before CLR load: SeaPowerTopoFlat.dll; captured native APIs changed in Build 261106. Awaiting an author port; data retained.\nTopography unchanged method bodies: 395\nTopography native scaling: all 65536 int16 samples; maximum float round-trip difference 0.00390625 m.\nTopography checks passed: 489\nTopography151 checks passed: 1\nCampaign/scenario beta API checks passed: 916; managed fixtures only, no Unity gameplay.",
+      "stderr": ""
+    },
+    {
+      "name": "cost-rows-and-sest-catalog-fallback",
+      "exit_code": 0,
+      "stdout": "[SEST Runtime] combat costs: weapon nothing: no reference-year price\nCost row and SEST catalog fallback checks passed: 17 assertions on in-memory catalogs; no game execution.",
+      "stderr": ""
+    },
+    {
+      "name": "world-service-and-strike-bindings",
+      "exit_code": 0,
+      "stdout": "[SEST Runtime] world service record is read-only; existing file preserved: InvalidDataException: unknown service record format\n[SEST Runtime] World Operations attached to Dynamic Campaign Mod 0.25.0.1\nWorld service, lifecycle, UI model and optional-mod binding checks passed: 58",
+      "stderr": ""
+    },
+    {
+      "name": "installer-rollback",
+      "exit_code": 0,
+      "stdout": "Beta candidate staged; plugin loading is still inactive.\nLaunch beta to the main menu, wait about 10 seconds, quit, then run 2-Enable-Beta.cmd.\nBeta candidate enabled. Local IdentifyExpanded was migrated; its Workshop copy remains enabled.\nLaunch beta and test F11 costs/history, debrief, preparation, Contacts and Formation pop-out/return.\nAfter quitting, run 3-Capture-Test-Results.cmd. Run Restore-Previous-SEST.cmd to restore the prior code.\nCandidate is already enabled. No files changed.\nOriginal SEST code restored. Migrated Identify data is retained outside the game.\nBackups retained: <FIXTURE>\nOriginal SEST code restored. Migrated Identify data is retained outside the game.\nBackups retained: <FIXTURE>\nBeta installer fixture passed: 46 assertions. No real game files changed; no Windows/Unity gameplay claim.",
+      "stderr": ""
+    },
+    {
+      "name": "loader-source-contracts",
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": "test_aborts_if_no_progress (__main__.BetaSourceContract.test_aborts_if_no_progress) ... ok\ntest_beta_hash_gate_and_safe_fork_only (__main__.BetaSourceContract.test_beta_hash_gate_and_safe_fork_only) ... ok\ntest_bootstrap_does_not_auto_activate (__main__.BetaSourceContract.test_bootstrap_does_not_auto_activate) ... ok\ntest_bootstrap_uses_netstandard_sdk_not_framework_csc (__main__.BetaSourceContract.test_bootstrap_uses_netstandard_sdk_not_framework_csc) ... ok\ntest_bounded_loader_entry (__main__.BetaSourceContract.test_bounded_loader_entry) ... ok\ntest_build_is_non_installing (__main__.BetaSourceContract.test_build_is_non_installing) ... ok\ntest_failed_plugin_never_retries (__main__.BetaSourceContract.test_failed_plugin_never_retries) ... ok\ntest_finite_load_budget (__main__.BetaSourceContract.test_finite_load_budget) ... ok\ntest_fork_keeps_original_assembly_identity (__main__.BetaSourceContract.test_fork_keeps_original_assembly_identity) ... ok\ntest_game_particle_system_reference (__main__.BetaSourceContract.test_game_particle_system_reference) ... ok\ntest_metadata_preparation_precedes_clr_loading (__main__.BetaSourceContract.test_metadata_preparation_precedes_clr_loading) ... ok\ntest_staging_requires_separate_enable (__main__.BetaSourceContract.test_staging_requires_separate_enable) ... ok\n\n----------------------------------------------------------------------\nRan 12 tests in 0.001s\n\nOK"
+    },
+    {
+      "name": "workshop-bundled-features-stage-enable-steam-refresh-rollback",
+      "exit_code": 0,
+      "stdout": "The bundled beta features are for a different game build. The normal Workshop plugins remain selected; no beta files were installed.\nBeta candidate staged; plugin loading is still inactive.\nLaunch beta to the main menu, wait about 10 seconds, quit, then run 2-Enable-Beta.cmd.\nFEATURE SETUP: launch Sea Power to the main menu, wait about 10 seconds, quit, then run SETUP once more.\nCandidate is already staged. No files changed.\nBeta candidate enabled. Local IdentifyExpanded was migrated; its Workshop copy remains enabled.\nLaunch beta and test F11 costs/history, debrief, preparation, Contacts and Formation pop-out/return.\nAfter quitting, run 3-Capture-Test-Results.cmd. Run Restore-Previous-SEST.cmd to restore the prior code.\nWorkshop features enabled. Start Sea Power and check F11 World Operations and Coordinated Strike.\nReviewed beta code installed: R12-20261109-workshop-features-499675cd. Original restore journal and Identify data retained.\nSteam-refreshed Workshop plugins recognised and beta features reapplied; original restore backups retained.\nR11 includes World Operations, service progress and Coordinated Strike presentation. The root Prepare-PC command also installs the combined world and native ribbon data.\nFollow R11-PC-TESTS in README-FIRST: check the world map, F11 tabs, strike controls, native service records, Topography, pop-outs and campaign continuation.\nQuit and run Capture-Repair-Results.cmd after testing. Steam publication remains a separate step.\nWorkshop feature update ready: F11 World Operations, service progress and Coordinated Strike refinements.\nReviewed beta code installed: R12-20261109-workshop-features-499675cd. Original restore journal and Identify data retained.\nSteam-refreshed Workshop plugins recognised and beta features reapplied; original restore backups retained.\nR11 includes World Operations, service progress and Coordinated Strike presentation. The root Prepare-PC command also installs the combined world and native ribbon data.\nFollow R11-PC-TESTS in README-FIRST: check the world map, F11 tabs, strike controls, native service records, Topography, pop-outs and campaign continuation.\nQuit and run Capture-Repair-Results.cmd after testing. Steam publication remains a separate step.\nWorkshop feature update ready: F11 World Operations, service progress and Coordinated Strike refinements.\nOriginal SEST code restored. Migrated Identify data is retained outside the game.\nBackups retained: <FIXTURE>\nWorkshop-included feature fixture passed: 40 assertions; no Unity gameplay.\n",
+      "stderr": ""
+    },
+    {
+      "name": "r11-r12-upgrade-and-rollback",
+      "exit_code": 0,
+      "stdout": "Beta repair upgrade/rollback fixture passed: 65 assertions; no Unity gameplay.",
+      "stderr": "",
+      "log_sha256": "010d49377bbcc43ddd676ee8ad32f1b8d1ee14e4c55bd7bb10ab21a5439188f7"
+    }
+  ],
+  "tested_files": {
+    "AnchorChain.dll": "7137ff42f68046854b3cda85a16176407bf78ce1a302d8f76bfee30f110d05d0",
+    "SEST.BetaSafeBootstrap.dll": "268462fa2f7e8553f42994da8357a89106cd80f47ae6d810e6c55446fc24a5df",
+    "SEST.RuntimeFixes.dll": "4634d30f10b7b0a5b40d8894d1914ad5a897682e4911d6292bb8fa55ff6640b8",
+    "SEST.ContactsFix.dll": "ef009436f813021028b8f06103fa4fb3eb8822c148f0795dd7fa8ee136bc5d42",
+    "SEST.IdentifyDataPaths.dll": "9782ea2b339c81437be4f8b3b3238843365646ba20c94f0f30330370cbbf0eff"
+  }
+}

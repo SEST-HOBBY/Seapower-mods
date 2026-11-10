@@ -1,0 +1,1927 @@
+{
+  "schema": 1,
+  "policy": "Public airfield geometry. 2028 coalition access, stocks and forces are hypothetical. New facilities add operating locations, not aircraft, ships, income or production depots. Shared civil/military runways do not imply civil operators join either coalition. Geometry checks use a geographic mask, not native game terrain.",
+  "sources": {
+    "ourairports": {
+      "url": "https://ourairports.com/data/",
+      "airports_url": "https://raw.githubusercontent.com/davidmegginson/ourairports-data/main/airports.csv",
+      "runways_url": "https://raw.githubusercontent.com/davidmegginson/ourairports-data/main/runways.csv",
+      "retrieved": "2026-11-09",
+      "license": "Public domain",
+      "airports_sha256": "1b46b6c1bd27d12c50ace581130faf7c69f7a2df5268dcb4ebaaa06d530d2d28",
+      "runways_sha256": "bb0e928bce53e70bc41e61b3e6fcf79652ee879b6ca06e733008cb81ba8d78aa"
+    },
+    "bahrain-aip": {
+      "url": "https://aim.mtt.gov.bh/eAIP/2025-07-10-AIRAC/html/eAIP/OB-AD-2.OBBI-en-BH.html",
+      "arp": "261615N 0503801E",
+      "runway_12l_true_bearing": "122 degrees 37 minutes 02 seconds"
+    }
+  },
+  "corrections": [
+    {
+      "id": "usp_coronado_nas_north_island",
+      "airport": "KNZY",
+      "point": [
+        32.6992,
+        -117.214996
+      ],
+      "heading": 195.5,
+      "orientation_evidence": "OurAirports runway record."
+    },
+    {
+      "id": "usa_norfolk_naval_station_norfolk_air",
+      "airport": "KNGU",
+      "point": [
+        36.937599,
+        -76.289299
+      ],
+      "heading": 90.0,
+      "orientation_evidence": "OurAirports runway record."
+    },
+    {
+      "id": "usa_jacksonville_nas_jacksonville",
+      "airport": "KNIP",
+      "point": [
+        30.2358,
+        -81.680603
+      ],
+      "heading": 101.0,
+      "orientation_evidence": "OurAirports runway record."
+    },
+    {
+      "id": "wpac_guam_andersen_afb",
+      "airport": "PGUA",
+      "point": [
+        13.584,
+        144.929998
+      ],
+      "heading": 66.0,
+      "orientation_evidence": "OurAirports runway record."
+    },
+    {
+      "id": "io_diego_garcia_nsf",
+      "airport": "FJDG",
+      "point": [
+        -7.31327,
+        72.411102
+      ],
+      "heading": 121.7,
+      "orientation_evidence": "OurAirports runway record."
+    },
+    {
+      "id": "aus_tindal_raaf",
+      "airport": "YPTN",
+      "point": [
+        -14.5211,
+        132.378006
+      ],
+      "heading": 139.0,
+      "orientation_evidence": "OurAirports runway record."
+    },
+    {
+      "id": "med_sigonella_nas_sigonella",
+      "airport": "LICZ",
+      "point": [
+        37.401699,
+        14.9224
+      ],
+      "heading": 98.0,
+      "orientation_evidence": "OurAirports runway record."
+    },
+    {
+      "id": "med_souda_bay_nsa_air",
+      "airport": "LGSA",
+      "point": [
+        35.531207,
+        24.150673
+      ],
+      "heading": 111.0,
+      "orientation_evidence": "OurAirports runway record."
+    },
+    {
+      "id": "med_akrotiri_raf",
+      "airport": "LCRA",
+      "point": [
+        34.590401,
+        32.9879
+      ],
+      "heading": 108.0,
+      "orientation_evidence": "OurAirports runway record."
+    },
+    {
+      "id": "chn_hainan_lingshui_airbase",
+      "airport": "CN-0072",
+      "point": [
+        18.4944,
+        109.987999
+      ],
+      "heading": 0,
+      "orientation_evidence": "Existing model heading retained; airport dataset has no usable runway-direction record."
+    },
+    {
+      "id": "hn_kola_olenya_airbase",
+      "airport": "RU-4464",
+      "point": [
+        68.151802,
+        33.463902
+      ],
+      "heading": 0,
+      "orientation_evidence": "Existing model heading retained; airport dataset has no usable runway-direction record."
+    },
+    {
+      "id": "rus_engels2_airbase",
+      "airport": "RU-8602",
+      "point": [
+        51.480499,
+        46.215
+      ],
+      "heading": 0,
+      "orientation_evidence": "Existing model heading retained; airport dataset has no usable runway-direction record."
+    },
+    {
+      "id": "rus_ukrainka_airbase",
+      "airport": "RU-2244",
+      "point": [
+        51.169997,
+        128.445007
+      ],
+      "heading": 0,
+      "orientation_evidence": "Existing model heading retained; airport dataset has no usable runway-direction record."
+    },
+    {
+      "id": "rus_belaya_airbase",
+      "airport": "UIIB",
+      "point": [
+        52.91487,
+        103.575499
+      ],
+      "heading": 0,
+      "orientation_evidence": "Existing model heading retained; airport dataset has no usable runway-direction record."
+    },
+    {
+      "id": "hn_evenes_air_station",
+      "airport": "ENEV",
+      "point": [
+        68.491302,
+        16.678101
+      ],
+      "heading": 177.6,
+      "orientation_evidence": "OurAirports runway record."
+    },
+    {
+      "id": "jpn_kanoya_air_base",
+      "airport": "RJFY",
+      "point": [
+        31.36672,
+        130.838805
+      ],
+      "heading": 79.4,
+      "orientation_evidence": "OurAirports runway record."
+    },
+    {
+      "id": "jpn_atsugi_naf",
+      "airport": "RJTA",
+      "point": [
+        35.454601,
+        139.449997
+      ],
+      "heading": 359.2,
+      "orientation_evidence": "OurAirports runway record."
+    },
+    {
+      "id": "jpn_okinawa_naha",
+      "airport": "ROAH",
+      "point": [
+        26.192437,
+        127.639804
+      ],
+      "heading": 177.0,
+      "placement": [
+        26.2,
+        127.65
+      ],
+      "reason": "Retain land-side JMSDF apron placement within 1.4 km of the reference point; updated ARP falls in the gap between coastal runways in the geographic mask.",
+      "orientation_evidence": "OurAirports runway record."
+    },
+    {
+      "id": "satl_falklands_raf_mount_pleasant",
+      "airport": "EGYP",
+      "point": [
+        -51.822642,
+        -58.445777
+      ],
+      "heading": 105.0,
+      "orientation_evidence": "OurAirports runway record."
+    },
+    {
+      "id": "home_esp_torrejon",
+      "airport": "LETO",
+      "point": [
+        40.487875,
+        -3.456808
+      ],
+      "heading": 43.0,
+      "orientation_evidence": "OurAirports runway record."
+    },
+    {
+      "id": "home_dnk_karup",
+      "airport": "EKKA",
+      "point": [
+        56.297139,
+        9.104311
+      ],
+      "heading": 89.0,
+      "orientation_evidence": "OurAirports runway record."
+    },
+    {
+      "id": "home_chn_longtian",
+      "airport": "CN-0158",
+      "point": [
+        25.5728,
+        119.459999
+      ],
+      "heading": 30,
+      "orientation_evidence": "Existing model heading retained; airport dataset has no usable runway-direction record."
+    },
+    {
+      "id": "home_chn_wugong",
+      "airport": "CN-0134",
+      "point": [
+        34.275907,
+        108.2658
+      ],
+      "heading": 80,
+      "orientation_evidence": "Existing model heading retained; airport dataset has no usable runway-direction record."
+    },
+    {
+      "id": "home_rus_severomorsk3",
+      "airport": "RU-10058",
+      "point": [
+        68.866669,
+        33.716667
+      ],
+      "heading": 10,
+      "orientation_evidence": "Existing model heading retained; airport dataset has no usable runway-direction record."
+    },
+    {
+      "id": "home_idn_natuna",
+      "airport": "WION",
+      "point": [
+        3.90871,
+        108.388
+      ],
+      "heading": 182.2,
+      "placement": [
+        3.92,
+        108.37
+      ],
+      "reason": "Retain land-side field position within 2.4 km of airport reference point; coastal mask classifies the reference pixel as sea.",
+      "orientation_evidence": "OurAirports runway record."
+    },
+    {
+      "id": "reg_rus_chernyakhovsk",
+      "airport": "RU-0060",
+      "point": [
+        54.601676,
+        21.782375
+      ],
+      "heading": 260,
+      "orientation_evidence": "Existing model heading retained; airport dataset has no usable runway-direction record."
+    },
+    {
+      "id": "reg_rus_krymsk",
+      "airport": "RU-0089",
+      "point": [
+        44.962905,
+        37.999071
+      ],
+      "heading": 40,
+      "orientation_evidence": "Existing model heading retained; airport dataset has no usable runway-direction record."
+    },
+    {
+      "id": "reg_rus_pskov",
+      "airport": "ULOO",
+      "point": [
+        57.781316,
+        28.39384
+      ],
+      "heading": 18.0,
+      "orientation_evidence": "OurAirports runway record."
+    },
+    {
+      "id": "reg_rus_alkhadim",
+      "airport": "HL59",
+      "point": [
+        31.998501,
+        21.191799
+      ],
+      "heading": 150.0,
+      "orientation_evidence": "OurAirports runway record."
+    },
+    {
+      "id": "reg_rus_aljufra",
+      "airport": "HL69",
+      "point": [
+        29.198099,
+        16.000999
+      ],
+      "heading": 140.7,
+      "orientation_evidence": "OurAirports runway record."
+    },
+    {
+      "id": "reg_rus_bamako",
+      "airport": "GABS",
+      "point": [
+        12.5335,
+        -7.94994
+      ],
+      "heading": 57.0,
+      "orientation_evidence": "OurAirports runway record."
+    },
+    {
+      "id": "reg_rus_niamey",
+      "airport": "DRRN",
+      "point": [
+        13.4815,
+        2.18361
+      ],
+      "heading": 87.0,
+      "orientation_evidence": "OurAirports runway record."
+    },
+    {
+      "id": "reg_rus_bangui",
+      "airport": "FEFF",
+      "point": [
+        4.39848,
+        18.518801
+      ],
+      "heading": 165.0,
+      "orientation_evidence": "OurAirports runway record."
+    },
+    {
+      "id": "reg_rus_hmeimim",
+      "airport": "OSLK",
+      "point": [
+        35.4011,
+        35.9487
+      ],
+      "heading": 177.0,
+      "orientation_evidence": "OurAirports runway record."
+    },
+    {
+      "id": "reg_irn_konarak",
+      "airport": "OIZC",
+      "point": [
+        25.44319,
+        60.382167
+      ],
+      "heading": 90.9,
+      "orientation_evidence": "OurAirports runway record."
+    },
+    {
+      "id": "reg_irn_shiraz",
+      "airport": "OISS",
+      "point": [
+        29.5392,
+        52.589802
+      ],
+      "heading": 114.4,
+      "orientation_evidence": "OurAirports runway record."
+    },
+    {
+      "id": "me_bahrain_muharraq_airfield",
+      "airport": "OBBI",
+      "point": [
+        26.270833,
+        50.633611
+      ],
+      "heading": 122.62,
+      "source": "bahrain-aip",
+      "reason": "Replace one-decimal offshore position with published aerodrome reference point; true runway 12L bearing.",
+      "orientation_evidence": "Published Bahrain AIP true bearing."
+    }
+  ],
+  "display_names": {
+    "usa_norfolk_naval_station_norfolk_air": "Chambers Field",
+    "hoa_djibouti_fr_ba188_heron": "Heron Naval Facility",
+    "hoa_djibouti_fr_ba188_heron_air": "BA 188 Djibouti",
+    "hoa_djibouti_jp_base": "JMSDF Djibouti Air Facility",
+    "hoa_djibouti_it_base": "Italian Support Base Djibouti",
+    "jpn_okinawa_naha": "JMSDF Naha Air Base",
+    "reg_rus_tobruk": "Tobruk Forward Operating Port",
+    "reg_rus_bamako": "Bamako Air Detachment",
+    "reg_rus_niamey": "Niamey Air Detachment",
+    "reg_rus_bangui": "Bangui Training Detachment",
+    "reg_rus_tartus": "Tartus Forward Operating Port"
+  },
+  "sites": [
+    {
+      "airport": "YPDN",
+      "base": {
+        "id": "ops_aus_darwin",
+        "name": "RAAF Base Darwin",
+        "side": "blue",
+        "nation": "Australia",
+        "kind": "AirBase",
+        "lat": -12.41497,
+        "lon": 130.88185,
+        "income": 0,
+        "startShare": 0.25,
+        "field": {
+          "unit": "nato_small_airbase",
+          "heading": 109.0,
+          "lat": -12.41497,
+          "lon": 130.88185
+        },
+        "supplyFrom": "aus_stirling_hmas_stirling"
+      },
+      "orientation_evidence": "OurAirports runway record."
+    },
+    {
+      "airport": "YPED",
+      "base": {
+        "id": "ops_aus_edinburgh",
+        "name": "RAAF Base Edinburgh",
+        "side": "blue",
+        "nation": "Australia",
+        "kind": "AirBase",
+        "lat": -34.705705,
+        "lon": 138.615564,
+        "income": 0,
+        "startShare": 0.25,
+        "field": {
+          "unit": "nato_small_airbase",
+          "heading": 189.0,
+          "lat": -34.705705,
+          "lon": 138.615564
+        },
+        "supplyFrom": "aus_stirling_hmas_stirling"
+      },
+      "orientation_evidence": "OurAirports runway record."
+    },
+    {
+      "airport": "YAMB",
+      "base": {
+        "id": "ops_aus_amberley",
+        "name": "RAAF Base Amberley",
+        "side": "blue",
+        "nation": "Australia",
+        "kind": "AirBase",
+        "lat": -27.635381,
+        "lon": 152.711223,
+        "income": 0,
+        "startShare": 0.25,
+        "field": {
+          "unit": "nato_small_airbase",
+          "heading": 159.0,
+          "lat": -27.635381,
+          "lon": 152.711223
+        },
+        "supplyFrom": "aus_stirling_hmas_stirling"
+      },
+      "orientation_evidence": "OurAirports runway record."
+    },
+    {
+      "airport": "YWLM",
+      "base": {
+        "id": "ops_aus_williamtown",
+        "name": "RAAF Base Williamtown",
+        "side": "blue",
+        "nation": "Australia",
+        "kind": "AirBase",
+        "lat": -32.796114,
+        "lon": 151.835025,
+        "income": 0,
+        "startShare": 0.25,
+        "field": {
+          "unit": "nato_small_airbase",
+          "heading": 130.0,
+          "lat": -32.796114,
+          "lon": 151.835025
+        },
+        "supplyFrom": "aus_stirling_hmas_stirling"
+      },
+      "orientation_evidence": "OurAirports runway record."
+    },
+    {
+      "airport": "YPLM",
+      "base": {
+        "id": "ops_aus_learmonth",
+        "name": "RAAF Base Learmonth",
+        "side": "blue",
+        "nation": "Australia",
+        "kind": "AirBase",
+        "lat": -22.235201,
+        "lon": 114.090024,
+        "income": 0,
+        "startShare": 0.25,
+        "field": {
+          "unit": "nato_small_airbase",
+          "heading": 184.0,
+          "lat": -22.235201,
+          "lon": 114.090024
+        },
+        "supplyFrom": "aus_stirling_hmas_stirling"
+      },
+      "orientation_evidence": "OurAirports runway record."
+    },
+    {
+      "airport": "YBSG",
+      "base": {
+        "id": "ops_aus_scherger",
+        "name": "RAAF Base Scherger",
+        "side": "blue",
+        "nation": "Australia",
+        "kind": "AirBase",
+        "lat": -12.6239,
+        "lon": 142.087006,
+        "income": 0,
+        "startShare": 0.25,
+        "field": {
+          "unit": "nato_small_airbase",
+          "heading": 125.0,
+          "lat": -12.6239,
+          "lon": 142.087006
+        },
+        "supplyFrom": "aus_stirling_hmas_stirling"
+      },
+      "orientation_evidence": "OurAirports runway record."
+    },
+    {
+      "airport": "RODN",
+      "base": {
+        "id": "ops_usa_kadena",
+        "name": "Kadena Air Base",
+        "side": "blue",
+        "nation": "US",
+        "kind": "AirBase",
+        "lat": 26.351667,
+        "lon": 127.769444,
+        "income": 0,
+        "startShare": 0.25,
+        "field": {
+          "unit": "nato_small_airbase",
+          "heading": 51.0,
+          "lat": 26.351667,
+          "lon": 127.769444
+        },
+        "supplyFrom": "wpac_yokosuka_naval_base"
+      },
+      "orientation_evidence": "OurAirports runway record."
+    },
+    {
+      "airport": "RJSM",
+      "base": {
+        "id": "ops_usa_misawa",
+        "name": "Misawa Air Base",
+        "side": "blue",
+        "nation": "US",
+        "kind": "AirBase",
+        "lat": 40.703201,
+        "lon": 141.367996,
+        "income": 0,
+        "startShare": 0.25,
+        "field": {
+          "unit": "nato_small_airbase",
+          "heading": 95.1,
+          "lat": 40.703201,
+          "lon": 141.367996
+        },
+        "supplyFrom": "wpac_yokosuka_naval_base"
+      },
+      "orientation_evidence": "OurAirports runway record."
+    },
+    {
+      "airport": "RKSO",
+      "base": {
+        "id": "ops_usa_osan",
+        "name": "Osan Air Base",
+        "side": "blue",
+        "nation": "US",
+        "kind": "AirBase",
+        "lat": 37.091457,
+        "lon": 127.029448,
+        "income": 0,
+        "startShare": 0.25,
+        "field": {
+          "unit": "nato_small_airbase",
+          "heading": 84.0,
+          "lat": 37.091457,
+          "lon": 127.029448
+        },
+        "supplyFrom": "wpac_yokosuka_naval_base"
+      },
+      "orientation_evidence": "OurAirports runway record."
+    },
+    {
+      "airport": "RKJK",
+      "base": {
+        "id": "ops_usa_kunsan",
+        "name": "Kunsan Air Base",
+        "side": "blue",
+        "nation": "US",
+        "kind": "AirBase",
+        "lat": 35.903801,
+        "lon": 126.615997,
+        "income": 0,
+        "startShare": 0.25,
+        "field": {
+          "unit": "nato_small_airbase",
+          "heading": 169.0,
+          "lat": 35.903801,
+          "lon": 126.615997
+        },
+        "supplyFrom": "wpac_yokosuka_naval_base"
+      },
+      "orientation_evidence": "OurAirports runway record."
+    },
+    {
+      "airport": "PHIK",
+      "base": {
+        "id": "ops_usa_hickam",
+        "name": "Hickam Airfield",
+        "side": "blue",
+        "nation": "US",
+        "kind": "AirBase",
+        "lat": 21.335278,
+        "lon": -157.948333,
+        "income": 0,
+        "startShare": 0.25,
+        "field": {
+          "unit": "nato_small_airbase",
+          "heading": 90,
+          "lat": 21.335278,
+          "lon": -157.948333
+        },
+        "supplyFrom": "usp_sandiego_naval_base_san_diego"
+      },
+      "orientation_evidence": "Shared Honolulu runway 08L true bearing from OurAirports PHNL record."
+    },
+    {
+      "airport": "EGUL",
+      "base": {
+        "id": "ops_usa_lakenheath",
+        "name": "RAF Lakenheath",
+        "side": "blue",
+        "nation": "US",
+        "kind": "AirBase",
+        "lat": 52.40954,
+        "lon": 0.561161,
+        "income": 0,
+        "startShare": 0.25,
+        "field": {
+          "unit": "nato_small_airbase",
+          "heading": 56.0,
+          "lat": 52.40954,
+          "lon": 0.561161
+        },
+        "supplyFrom": "med_sigonella_nas_sigonella"
+      },
+      "orientation_evidence": "OurAirports runway record."
+    },
+    {
+      "airport": "EGUN",
+      "base": {
+        "id": "ops_usa_mildenhall",
+        "name": "RAF Mildenhall",
+        "side": "blue",
+        "nation": "US",
+        "kind": "AirBase",
+        "lat": 52.3619,
+        "lon": 0.486406,
+        "income": 0,
+        "startShare": 0.25,
+        "field": {
+          "unit": "nato_small_airbase",
+          "heading": 103.0,
+          "lat": 52.3619,
+          "lon": 0.486406
+        },
+        "supplyFrom": "med_sigonella_nas_sigonella"
+      },
+      "orientation_evidence": "OurAirports runway record."
+    },
+    {
+      "airport": "KNUW",
+      "base": {
+        "id": "ops_usa_whidbey",
+        "name": "NAS Whidbey Island",
+        "side": "blue",
+        "nation": "US",
+        "kind": "AirBase",
+        "lat": 48.351799,
+        "lon": -122.655998,
+        "income": 0,
+        "startShare": 0.25,
+        "field": {
+          "unit": "nato_small_airbase",
+          "heading": 155.0,
+          "lat": 48.351799,
+          "lon": -122.655998
+        },
+        "supplyFrom": "usp_sandiego_naval_base_san_diego"
+      },
+      "orientation_evidence": "OurAirports runway record."
+    },
+    {
+      "airport": "KNTU",
+      "base": {
+        "id": "ops_usa_oceana",
+        "name": "NAS Oceana",
+        "side": "blue",
+        "nation": "US",
+        "kind": "AirBase",
+        "lat": 36.820702,
+        "lon": -76.033501,
+        "income": 0,
+        "startShare": 0.25,
+        "field": {
+          "unit": "nato_small_airbase",
+          "heading": 42.1,
+          "lat": 36.820702,
+          "lon": -76.033501
+        },
+        "supplyFrom": "usa_norfolk_naval_station_norfolk"
+      },
+      "orientation_evidence": "OurAirports runway record."
+    },
+    {
+      "airport": "EGYM",
+      "base": {
+        "id": "ops_uk_marham",
+        "name": "RAF Marham",
+        "side": "blue",
+        "nation": "UK",
+        "kind": "AirBase",
+        "lat": 52.648395,
+        "lon": 0.550692,
+        "income": 0,
+        "startShare": 0.25,
+        "field": {
+          "unit": "nato_small_airbase",
+          "heading": 55.0,
+          "lat": 52.648395,
+          "lon": 0.550692
+        },
+        "supplyFrom": "home_uk_portsmouth"
+      },
+      "orientation_evidence": "OurAirports runway record."
+    },
+    {
+      "airport": "EGVN",
+      "base": {
+        "id": "ops_uk_brize_norton",
+        "name": "RAF Brize Norton",
+        "side": "blue",
+        "nation": "UK",
+        "kind": "AirBase",
+        "lat": 51.75,
+        "lon": -1.58362,
+        "income": 0,
+        "startShare": 0.25,
+        "field": {
+          "unit": "nato_small_airbase",
+          "heading": 74.0,
+          "lat": 51.75,
+          "lon": -1.58362
+        },
+        "supplyFrom": "home_uk_portsmouth"
+      },
+      "orientation_evidence": "OurAirports runway record."
+    },
+    {
+      "airport": "LFRJ",
+      "base": {
+        "id": "ops_fra_landivisiau",
+        "name": "BAN Landivisiau",
+        "side": "blue",
+        "nation": "France",
+        "kind": "AirBase",
+        "lat": 48.5303,
+        "lon": -4.15164,
+        "income": 0,
+        "startShare": 0.25,
+        "field": {
+          "unit": "nato_small_airbase",
+          "heading": 73.0,
+          "lat": 48.5303,
+          "lon": -4.15164
+        },
+        "supplyFrom": "home_fra_toulon"
+      },
+      "orientation_evidence": "OurAirports runway record."
+    },
+    {
+      "airport": "LIBA",
+      "base": {
+        "id": "ops_ita_amendola",
+        "name": "Amendola Air Base",
+        "side": "blue",
+        "nation": "Italy",
+        "kind": "AirBase",
+        "lat": 41.538443,
+        "lon": 15.717181,
+        "income": 0,
+        "startShare": 0.25,
+        "field": {
+          "unit": "nato_small_airbase",
+          "heading": 114.0,
+          "lat": 41.538443,
+          "lon": 15.717181
+        },
+        "supplyFrom": "home_ita_taranto"
+      },
+      "orientation_evidence": "OurAirports runway record."
+    },
+    {
+      "airport": "ETMN",
+      "base": {
+        "id": "ops_deu_nordholz",
+        "name": "Nordholz Naval Air Base",
+        "side": "blue",
+        "nation": "Germany",
+        "kind": "AirBase",
+        "lat": 53.767689,
+        "lon": 8.659201,
+        "income": 0,
+        "startShare": 0.25,
+        "field": {
+          "unit": "nato_small_airbase",
+          "heading": 78.0,
+          "lat": 53.767689,
+          "lon": 8.659201
+        },
+        "supplyFrom": "home_deu_wilhelmshaven"
+      },
+      "orientation_evidence": "OurAirports runway record."
+    },
+    {
+      "airport": "CYZX",
+      "base": {
+        "id": "ops_can_greenwood",
+        "name": "CFB Greenwood",
+        "side": "blue",
+        "nation": "Canada",
+        "kind": "AirBase",
+        "lat": 44.984402,
+        "lon": -64.916901,
+        "income": 0,
+        "startShare": 0.25,
+        "field": {
+          "unit": "nato_small_airbase",
+          "heading": 64.0,
+          "lat": 44.984402,
+          "lon": -64.916901
+        },
+        "supplyFrom": "usa_norfolk_naval_station_norfolk"
+      },
+      "orientation_evidence": "OurAirports runway record."
+    },
+    {
+      "airport": "CYQQ",
+      "base": {
+        "id": "ops_can_comox",
+        "name": "CFB Comox",
+        "side": "blue",
+        "nation": "Canada",
+        "kind": "AirBase",
+        "lat": 49.7108,
+        "lon": -124.887001,
+        "income": 0,
+        "startShare": 0.25,
+        "field": {
+          "unit": "nato_small_airbase",
+          "heading": 135.0,
+          "lat": 49.7108,
+          "lon": -124.887001
+        },
+        "supplyFrom": "usp_sandiego_naval_base_san_diego"
+      },
+      "orientation_evidence": "OurAirports runway record."
+    },
+    {
+      "airport": "VOPB",
+      "base": {
+        "id": "ops_ind_utkrosh",
+        "name": "INS Utkrosh",
+        "side": "blue",
+        "nation": "India",
+        "kind": "AirBase",
+        "lat": 11.640194,
+        "lon": 92.72902,
+        "income": 0,
+        "startShare": 0.25,
+        "field": {
+          "unit": "nato_small_airbase",
+          "heading": 36.0,
+          "lat": 11.640194,
+          "lon": 92.72902
+        },
+        "supplyFrom": "home_ind_mumbai"
+      },
+      "orientation_evidence": "OurAirports runway record."
+    },
+    {
+      "airport": "RJOI",
+      "base": {
+        "id": "ops_jpn_iwakuni",
+        "name": "Iwakuni Air Base",
+        "side": "blue",
+        "nation": "Japan",
+        "kind": "AirBase",
+        "lat": 34.146333,
+        "lon": 132.247238,
+        "income": 0,
+        "startShare": 0.25,
+        "field": {
+          "unit": "nato_small_airbase",
+          "heading": 9.0,
+          "lat": 34.146333,
+          "lon": 132.247238
+        },
+        "supplyFrom": "home_jpn_kure"
+      },
+      "orientation_evidence": "OurAirports runway record."
+    },
+    {
+      "airport": "CN-0190",
+      "base": {
+        "id": "ops_chn_dingxin",
+        "name": "Dingxin Air Base",
+        "side": "red",
+        "nation": "China",
+        "kind": "AirBase",
+        "lat": 40.401402,
+        "lon": 99.789398,
+        "income": 0,
+        "startShare": 0.25,
+        "field": {
+          "unit": "airfield_small_1",
+          "heading": 0,
+          "lat": 40.401402,
+          "lon": 99.789398
+        },
+        "supplyFrom": "home_chn_qingdao"
+      },
+      "orientation_evidence": "Generic model heading; no usable runway-direction record in the source dataset."
+    },
+    {
+      "airport": "ZYAS",
+      "base": {
+        "id": "ops_chn_anshan",
+        "name": "Anshan Air Base",
+        "side": "red",
+        "nation": "China",
+        "kind": "AirBase",
+        "lat": 41.105301,
+        "lon": 122.853996,
+        "income": 0,
+        "startShare": 0.25,
+        "field": {
+          "unit": "airfield_small_1",
+          "heading": 0,
+          "lat": 41.105301,
+          "lon": 122.853996
+        },
+        "supplyFrom": "home_chn_qingdao"
+      },
+      "orientation_evidence": "Generic model heading; no usable runway-direction record in the source dataset."
+    },
+    {
+      "airport": "CN-0090",
+      "base": {
+        "id": "ops_chn_cangxian",
+        "name": "Cangxian Air Base",
+        "side": "red",
+        "nation": "China",
+        "kind": "AirBase",
+        "lat": 38.403025,
+        "lon": 116.930924,
+        "income": 0,
+        "startShare": 0.25,
+        "field": {
+          "unit": "airfield_small_1",
+          "heading": 0,
+          "lat": 38.403025,
+          "lon": 116.930924
+        },
+        "supplyFrom": "home_chn_qingdao"
+      },
+      "orientation_evidence": "Generic model heading; no usable runway-direction record in the source dataset."
+    },
+    {
+      "airport": "CN-0183",
+      "base": {
+        "id": "ops_chn_zhangzhou",
+        "name": "Zhangzhou Air Base",
+        "side": "red",
+        "nation": "China",
+        "kind": "AirBase",
+        "lat": 24.561543,
+        "lon": 117.656374,
+        "income": 0,
+        "startShare": 0.25,
+        "field": {
+          "unit": "airfield_small_1",
+          "heading": 0,
+          "lat": 24.561543,
+          "lon": 117.656374
+        },
+        "supplyFrom": "chn_zhejiang_ningbo_naval_base"
+      },
+      "orientation_evidence": "Generic model heading; no usable runway-direction record in the source dataset."
+    },
+    {
+      "airport": "CN-0080",
+      "base": {
+        "id": "ops_chn_suixi",
+        "name": "Suixi Air Base",
+        "side": "red",
+        "nation": "China",
+        "kind": "AirBase",
+        "lat": 21.3958,
+        "lon": 110.199997,
+        "income": 0,
+        "startShare": 0.25,
+        "field": {
+          "unit": "airfield_small_1",
+          "heading": 105.0,
+          "lat": 21.3958,
+          "lon": 110.199997
+        },
+        "supplyFrom": "home_chn_zhanjiang"
+      },
+      "orientation_evidence": "OurAirports runway record."
+    },
+    {
+      "airport": "CN-0376",
+      "base": {
+        "id": "ops_chn_ledong",
+        "name": "Ledong Naval Air Base",
+        "side": "red",
+        "nation": "China",
+        "kind": "AirBase",
+        "lat": 18.49391,
+        "lon": 108.83202,
+        "income": 0,
+        "startShare": 0.25,
+        "field": {
+          "unit": "airfield_small_1",
+          "heading": 0,
+          "lat": 18.49391,
+          "lon": 108.83202
+        },
+        "supplyFrom": "chn_hainan_yulin_naval_base"
+      },
+      "orientation_evidence": "Generic model heading; no usable runway-direction record in the source dataset."
+    },
+    {
+      "airport": "RU-1110",
+      "base": {
+        "id": "ops_rus_monchegorsk",
+        "name": "Monchegorsk Air Base",
+        "side": "red",
+        "nation": "Russia",
+        "kind": "AirBase",
+        "lat": 67.986702,
+        "lon": 33.018299,
+        "income": 0,
+        "startShare": 0.25,
+        "field": {
+          "unit": "airfield_small_1",
+          "heading": 0,
+          "lat": 67.986702,
+          "lon": 33.018299
+        },
+        "supplyFrom": "hn_kola_olenya_airbase"
+      },
+      "orientation_evidence": "Generic model heading; no usable runway-direction record in the source dataset."
+    },
+    {
+      "airport": "RU-9942",
+      "base": {
+        "id": "ops_rus_shaykovka",
+        "name": "Shaykovka Air Base",
+        "side": "red",
+        "nation": "Russia",
+        "kind": "AirBase",
+        "lat": 54.2267,
+        "lon": 34.3717,
+        "income": 0,
+        "startShare": 0.25,
+        "field": {
+          "unit": "airfield_small_1",
+          "heading": 0,
+          "lat": 54.2267,
+          "lon": 34.3717
+        },
+        "supplyFrom": "home_rus_baltiysk"
+      },
+      "orientation_evidence": "Generic model heading; no usable runway-direction record in the source dataset."
+    },
+    {
+      "airport": "UHKG",
+      "base": {
+        "id": "ops_rus_mongokhto",
+        "name": "Kamenny Ruchey Naval Air Base",
+        "side": "red",
+        "nation": "Russia",
+        "kind": "AirBase",
+        "lat": 49.235703,
+        "lon": 140.1931,
+        "income": 0,
+        "startShare": 0.25,
+        "field": {
+          "unit": "airfield_small_1",
+          "heading": 0,
+          "lat": 49.235703,
+          "lon": 140.1931
+        },
+        "supplyFrom": "home_rus_vladivostok"
+      },
+      "orientation_evidence": "Generic model heading; no usable runway-direction record in the source dataset."
+    },
+    {
+      "airport": "UHWW",
+      "base": {
+        "id": "ops_rus_knevichi",
+        "name": "Knevichi Airfield",
+        "side": "red",
+        "nation": "Russia",
+        "kind": "AirBase",
+        "lat": 43.396256,
+        "lon": 132.148155,
+        "income": 0,
+        "startShare": 0.25,
+        "field": {
+          "unit": "airfield_small_1",
+          "heading": 61.1,
+          "lat": 43.396256,
+          "lon": 132.148155
+        },
+        "supplyFrom": "home_rus_vladivostok"
+      },
+      "orientation_evidence": "OurAirports runway record."
+    },
+    {
+      "airport": "OIKB",
+      "base": {
+        "id": "ops_irn_bandar_abbas_air",
+        "name": "Bandar Abbas Air Base",
+        "side": "red",
+        "nation": "Iran",
+        "kind": "AirBase",
+        "lat": 27.2183,
+        "lon": 56.3778,
+        "income": 0,
+        "startShare": 0.25,
+        "field": {
+          "unit": "airfield_small_1",
+          "heading": 27.8,
+          "lat": 27.2183,
+          "lon": 56.3778
+        },
+        "supplyFrom": "home_irn_bandar_abbas"
+      },
+      "orientation_evidence": "OurAirports runway record."
+    },
+    {
+      "airport": "OIHS",
+      "base": {
+        "id": "ops_irn_nojeh",
+        "name": "Shahid Nojeh Air Base",
+        "side": "red",
+        "nation": "Iran",
+        "kind": "AirBase",
+        "lat": 35.211601,
+        "lon": 48.6534,
+        "income": 0,
+        "startShare": 0.25,
+        "field": {
+          "unit": "airfield_small_1",
+          "heading": 129.7,
+          "lat": 35.211601,
+          "lon": 48.6534
+        },
+        "supplyFrom": "home_irn_bandar_abbas"
+      },
+      "orientation_evidence": "OurAirports runway record."
+    },
+    {
+      "airport": "OPRQ",
+      "base": {
+        "id": "ops_pak_rafiqui",
+        "name": "PAF Base Rafiqui",
+        "side": "red",
+        "nation": "Pakistan",
+        "kind": "AirBase",
+        "lat": 30.758101,
+        "lon": 72.282501,
+        "income": 0,
+        "startShare": 0.25,
+        "field": {
+          "unit": "airfield_small_1",
+          "heading": 150.0,
+          "lat": 30.758101,
+          "lon": 72.282501
+        },
+        "supplyFrom": "home_pak_karachi"
+      },
+      "orientation_evidence": "OurAirports runway record."
+    },
+    {
+      "airport": "VVDN",
+      "base": {
+        "id": "ops_vnm_da_nang",
+        "name": "Da Nang Air Base",
+        "side": "red",
+        "nation": "Vietnam",
+        "kind": "AirBase",
+        "lat": 16.0439,
+        "lon": 108.198997,
+        "income": 0,
+        "startShare": 0.25,
+        "field": {
+          "unit": "airfield_small_1",
+          "heading": 172.0,
+          "lat": 16.0439,
+          "lon": 108.198997
+        },
+        "supplyFrom": "home_vnm_cam_ranh"
+      },
+      "orientation_evidence": "OurAirports runway record."
+    },
+    {
+      "airport": "WAAA",
+      "base": {
+        "id": "ops_idn_hasanuddin",
+        "name": "Sultan Hasanuddin Air Base",
+        "side": "red",
+        "nation": "Indonesia",
+        "kind": "AirBase",
+        "lat": -5.075539,
+        "lon": 119.553702,
+        "income": 0,
+        "startShare": 0.25,
+        "field": {
+          "unit": "airfield_small_1",
+          "heading": 29.0,
+          "lat": -5.075539,
+          "lon": 119.553702
+        },
+        "supplyFrom": "home_idn_surabaya"
+      },
+      "orientation_evidence": "OurAirports runway record."
+    },
+    {
+      "airport": "ZKHM",
+      "base": {
+        "id": "ops_prk_orang",
+        "name": "Orang Air Base",
+        "side": "red",
+        "nation": "North_Korea",
+        "kind": "AirBase",
+        "lat": 41.428538,
+        "lon": 129.647555,
+        "income": 0,
+        "startShare": 0.25,
+        "field": {
+          "unit": "airfield_small_1",
+          "heading": 34.0,
+          "lat": 41.428538,
+          "lon": 129.647555
+        },
+        "supplyFrom": "home_prk_nampo"
+      },
+      "orientation_evidence": "OurAirports runway record."
+    }
+  ],
+  "terrain_exceptions": [
+    {
+      "id": "home_chn_fiery_cross_air",
+      "reason": "Reclaimed reef absent from geographic land mask; retain existing island airbase model and real reef location. Native terrain acceptance pending."
+    },
+    {
+      "id": "home_chn_woody_island",
+      "reason": "Small island below geographic mask resolution; retain existing island airbase model and location. Native terrain acceptance pending."
+    }
+  ],
+  "selected_airports": [
+    {
+      "ident": "CN-0072",
+      "name": "Lingshui Air Base",
+      "latitude_deg": "18.4944",
+      "longitude_deg": "109.987999",
+      "iso_country": "CN",
+      "type": "medium_airport"
+    },
+    {
+      "ident": "CN-0080",
+      "name": "Suixi Air Base",
+      "latitude_deg": "21.3958",
+      "longitude_deg": "110.199997",
+      "iso_country": "CN",
+      "type": "medium_airport"
+    },
+    {
+      "ident": "CN-0090",
+      "name": "Cangxian Air Base",
+      "latitude_deg": "38.403025",
+      "longitude_deg": "116.930924",
+      "iso_country": "CN",
+      "type": "medium_airport"
+    },
+    {
+      "ident": "CN-0134",
+      "name": "Wugong Air Base",
+      "latitude_deg": "34.275907",
+      "longitude_deg": "108.2658",
+      "iso_country": "CN",
+      "type": "medium_airport"
+    },
+    {
+      "ident": "CN-0158",
+      "name": "Longtian Air Base",
+      "latitude_deg": "25.5728",
+      "longitude_deg": "119.459999",
+      "iso_country": "CN",
+      "type": "medium_airport"
+    },
+    {
+      "ident": "CN-0183",
+      "name": "Zhangzhou Longxi Airport",
+      "latitude_deg": "24.561543",
+      "longitude_deg": "117.656374",
+      "iso_country": "CN",
+      "type": "small_airport"
+    },
+    {
+      "ident": "CN-0190",
+      "name": "Dingxin-Shuangchengzi Air Base",
+      "latitude_deg": "40.401402",
+      "longitude_deg": "99.789398",
+      "iso_country": "CN",
+      "type": "medium_airport"
+    },
+    {
+      "ident": "CN-0376",
+      "name": "Ledong Naval Air Base",
+      "latitude_deg": "18.49391",
+      "longitude_deg": "108.83202",
+      "iso_country": "CN",
+      "type": "closed"
+    },
+    {
+      "ident": "CYQQ",
+      "name": "Comox Valley International Airport / CFB Comox",
+      "latitude_deg": "49.7108",
+      "longitude_deg": "-124.887001",
+      "iso_country": "CA",
+      "type": "medium_airport"
+    },
+    {
+      "ident": "CYZX",
+      "name": "CFB Greenwood",
+      "latitude_deg": "44.98440170288086",
+      "longitude_deg": "-64.91690063476562",
+      "iso_country": "CA",
+      "type": "medium_airport"
+    },
+    {
+      "ident": "DRRN",
+      "name": "Diori Hamani International Airport",
+      "latitude_deg": "13.4815",
+      "longitude_deg": "2.18361",
+      "iso_country": "NE",
+      "type": "large_airport"
+    },
+    {
+      "ident": "EGUL",
+      "name": "RAF Lakenheath",
+      "latitude_deg": "52.40954",
+      "longitude_deg": "0.561161",
+      "iso_country": "GB",
+      "type": "medium_airport"
+    },
+    {
+      "ident": "EGUN",
+      "name": "RAF Mildenhall",
+      "latitude_deg": "52.3619",
+      "longitude_deg": "0.486406",
+      "iso_country": "GB",
+      "type": "medium_airport"
+    },
+    {
+      "ident": "EGVN",
+      "name": "RAF Brize Norton",
+      "latitude_deg": "51.75",
+      "longitude_deg": "-1.58362",
+      "iso_country": "GB",
+      "type": "medium_airport"
+    },
+    {
+      "ident": "EGYM",
+      "name": "RAF Marham",
+      "latitude_deg": "52.648395",
+      "longitude_deg": "0.550692",
+      "iso_country": "GB",
+      "type": "medium_airport"
+    },
+    {
+      "ident": "EGYP",
+      "name": "Mount Pleasant Airport / RAF Mount Pleasant",
+      "latitude_deg": "-51.822642",
+      "longitude_deg": "-58.445777",
+      "iso_country": "FK",
+      "type": "medium_airport"
+    },
+    {
+      "ident": "EKKA",
+      "name": "Midtjyllands Airport / Air Base Karup",
+      "latitude_deg": "56.297139",
+      "longitude_deg": "9.104311",
+      "iso_country": "DK",
+      "type": "medium_airport"
+    },
+    {
+      "ident": "ENEV",
+      "name": "Harstad/Narvik Airport",
+      "latitude_deg": "68.491302",
+      "longitude_deg": "16.678101",
+      "iso_country": "NO",
+      "type": "large_airport"
+    },
+    {
+      "ident": "ETMN",
+      "name": "Sea-Airport Cuxhaven/Nordholz / Nordholz Naval Airbase",
+      "latitude_deg": "53.767689",
+      "longitude_deg": "8.659201",
+      "iso_country": "DE",
+      "type": "medium_airport"
+    },
+    {
+      "ident": "FEFF",
+      "name": "Bangui M'Poko International Airport",
+      "latitude_deg": "4.39848",
+      "longitude_deg": "18.518801",
+      "iso_country": "CF",
+      "type": "large_airport"
+    },
+    {
+      "ident": "FJDG",
+      "name": "Naval Support Facility Diego Garcia",
+      "latitude_deg": "-7.31327",
+      "longitude_deg": "72.411102",
+      "iso_country": "IO",
+      "type": "medium_airport"
+    },
+    {
+      "ident": "GABS",
+      "name": "Modibo Keita International Airport",
+      "latitude_deg": "12.5335",
+      "longitude_deg": "-7.94994",
+      "iso_country": "ML",
+      "type": "large_airport"
+    },
+    {
+      "ident": "HL59",
+      "name": "Al Khadim Airport",
+      "latitude_deg": "31.998501",
+      "longitude_deg": "21.191799",
+      "iso_country": "LY",
+      "type": "small_airport"
+    },
+    {
+      "ident": "HL69",
+      "name": "Al Jufra Airport",
+      "latitude_deg": "29.198099",
+      "longitude_deg": "16.000999",
+      "iso_country": "LY",
+      "type": "small_airport"
+    },
+    {
+      "ident": "KNGU",
+      "name": "Norfolk Naval Station (Chambers Field)",
+      "latitude_deg": "36.937599",
+      "longitude_deg": "-76.289299",
+      "iso_country": "US",
+      "type": "medium_airport"
+    },
+    {
+      "ident": "KNIP",
+      "name": "Jacksonville Naval Air Station (Towers Field)",
+      "latitude_deg": "30.2358",
+      "longitude_deg": "-81.680603",
+      "iso_country": "US",
+      "type": "medium_airport"
+    },
+    {
+      "ident": "KNTU",
+      "name": "Oceana Naval Air Station",
+      "latitude_deg": "36.820702",
+      "longitude_deg": "-76.033501",
+      "iso_country": "US",
+      "type": "medium_airport"
+    },
+    {
+      "ident": "KNUW",
+      "name": "Whidbey Island Naval Air Station (Ault Field)",
+      "latitude_deg": "48.351799",
+      "longitude_deg": "-122.655998",
+      "iso_country": "US",
+      "type": "medium_airport"
+    },
+    {
+      "ident": "KNZY",
+      "name": "North Island Naval Air Station-Halsey Field",
+      "latitude_deg": "32.69919968",
+      "longitude_deg": "-117.2149963",
+      "iso_country": "US",
+      "type": "medium_airport"
+    },
+    {
+      "ident": "LCRA",
+      "name": "RAF Akrotiri",
+      "latitude_deg": "34.590401",
+      "longitude_deg": "32.9879",
+      "iso_country": "CY",
+      "type": "medium_airport"
+    },
+    {
+      "ident": "LETO",
+      "name": "Madrid\u2013Torrej\u00f3n Airport / Torrej\u00f3n Air Base",
+      "latitude_deg": "40.487875",
+      "longitude_deg": "-3.456808",
+      "iso_country": "ES",
+      "type": "medium_airport"
+    },
+    {
+      "ident": "LFRJ",
+      "name": "Landivisiau Air Base",
+      "latitude_deg": "48.5303",
+      "longitude_deg": "-4.15164",
+      "iso_country": "FR",
+      "type": "medium_airport"
+    },
+    {
+      "ident": "LGSA",
+      "name": "Chania International Airport",
+      "latitude_deg": "35.531207",
+      "longitude_deg": "24.150673",
+      "iso_country": "GR",
+      "type": "large_airport"
+    },
+    {
+      "ident": "LIBA",
+      "name": "Amendola Air Base",
+      "latitude_deg": "41.538443",
+      "longitude_deg": "15.717181",
+      "iso_country": "IT",
+      "type": "medium_airport"
+    },
+    {
+      "ident": "LICZ",
+      "name": "Sigonella Navy Air Base",
+      "latitude_deg": "37.401699",
+      "longitude_deg": "14.9224",
+      "iso_country": "IT",
+      "type": "medium_airport"
+    },
+    {
+      "ident": "OBBI",
+      "name": "Bahrain International Airport",
+      "latitude_deg": "26.267295",
+      "longitude_deg": "50.63764",
+      "iso_country": "BH",
+      "type": "large_airport"
+    },
+    {
+      "ident": "OIHS",
+      "name": "Nojeh Air Base",
+      "latitude_deg": "35.211601",
+      "longitude_deg": "48.6534",
+      "iso_country": "IR",
+      "type": "medium_airport"
+    },
+    {
+      "ident": "OIKB",
+      "name": "Bandar Abbas International Airport",
+      "latitude_deg": "27.2183",
+      "longitude_deg": "56.3778",
+      "iso_country": "IR",
+      "type": "large_airport"
+    },
+    {
+      "ident": "OISS",
+      "name": "Shiraz Shahid Dastghaib International Airport",
+      "latitude_deg": "29.5392",
+      "longitude_deg": "52.589802",
+      "iso_country": "IR",
+      "type": "large_airport"
+    },
+    {
+      "ident": "OIZC",
+      "name": "Chabahar Konarak International Airport",
+      "latitude_deg": "25.44319",
+      "longitude_deg": "60.382167",
+      "iso_country": "IR",
+      "type": "medium_airport"
+    },
+    {
+      "ident": "OPRQ",
+      "name": "Rafiqui Air Base",
+      "latitude_deg": "30.758100509643555",
+      "longitude_deg": "72.28250122070312",
+      "iso_country": "PK",
+      "type": "medium_airport"
+    },
+    {
+      "ident": "OSLK",
+      "name": "Latakia International Airport",
+      "latitude_deg": "35.4011",
+      "longitude_deg": "35.9487",
+      "iso_country": "SY",
+      "type": "medium_airport"
+    },
+    {
+      "ident": "PGUA",
+      "name": "Andersen Air Force Base",
+      "latitude_deg": "13.584",
+      "longitude_deg": "144.929998",
+      "iso_country": "GU",
+      "type": "medium_airport"
+    },
+    {
+      "ident": "PHIK",
+      "name": "Hickam Air Force Base",
+      "latitude_deg": "21.335278",
+      "longitude_deg": "-157.948333",
+      "iso_country": "US",
+      "type": "medium_airport"
+    },
+    {
+      "ident": "RJFY",
+      "name": "JMSDF Kanoya Air Base",
+      "latitude_deg": "31.36672",
+      "longitude_deg": "130.838805",
+      "iso_country": "JP",
+      "type": "medium_airport"
+    },
+    {
+      "ident": "RJOI",
+      "name": "Iwakuni Kintaikyo Airport",
+      "latitude_deg": "34.146333",
+      "longitude_deg": "132.247238",
+      "iso_country": "JP",
+      "type": "medium_airport"
+    },
+    {
+      "ident": "RJSM",
+      "name": "Misawa Airport / Misawa Air Base",
+      "latitude_deg": "40.703201",
+      "longitude_deg": "141.367996",
+      "iso_country": "JP",
+      "type": "medium_airport"
+    },
+    {
+      "ident": "RJTA",
+      "name": "JMSDF Atsugi Air Base / Naval Air Facility Atsugi",
+      "latitude_deg": "35.454601",
+      "longitude_deg": "139.449997",
+      "iso_country": "JP",
+      "type": "medium_airport"
+    },
+    {
+      "ident": "RKJK",
+      "name": "Gunsan Airport / Gunsan Air Base",
+      "latitude_deg": "35.903801",
+      "longitude_deg": "126.615997",
+      "iso_country": "KR",
+      "type": "medium_airport"
+    },
+    {
+      "ident": "RKSO",
+      "name": "Osan Air Base",
+      "latitude_deg": "37.091457",
+      "longitude_deg": "127.029448",
+      "iso_country": "KR",
+      "type": "medium_airport"
+    },
+    {
+      "ident": "ROAH",
+      "name": "Naha International Airport",
+      "latitude_deg": "26.192437",
+      "longitude_deg": "127.639804",
+      "iso_country": "JP",
+      "type": "large_airport"
+    },
+    {
+      "ident": "RODN",
+      "name": "Kadena Air Base",
+      "latitude_deg": "26.351667",
+      "longitude_deg": "127.769444",
+      "iso_country": "JP",
+      "type": "large_airport"
+    },
+    {
+      "ident": "RU-0060",
+      "name": "Chernyakhovsk Naval Air Base",
+      "latitude_deg": "54.601676",
+      "longitude_deg": "21.782375",
+      "iso_country": "RU",
+      "type": "medium_airport"
+    },
+    {
+      "ident": "RU-0089",
+      "name": "Krymsk Air Base",
+      "latitude_deg": "44.962905",
+      "longitude_deg": "37.999071",
+      "iso_country": "RU",
+      "type": "medium_airport"
+    },
+    {
+      "ident": "RU-10058",
+      "name": "Severomorsk-3 Naval Air Base",
+      "latitude_deg": "68.866669",
+      "longitude_deg": "33.716667",
+      "iso_country": "RU",
+      "type": "medium_airport"
+    },
+    {
+      "ident": "RU-1110",
+      "name": "Monchegorsk Air Base",
+      "latitude_deg": "67.986702",
+      "longitude_deg": "33.018299",
+      "iso_country": "RU",
+      "type": "small_airport"
+    },
+    {
+      "ident": "RU-2244",
+      "name": "Ukrainka Air Base",
+      "latitude_deg": "51.169997",
+      "longitude_deg": "128.445007",
+      "iso_country": "RU",
+      "type": "small_airport"
+    },
+    {
+      "ident": "RU-4464",
+      "name": "Olenya Air Base",
+      "latitude_deg": "68.151802",
+      "longitude_deg": "33.463902",
+      "iso_country": "RU",
+      "type": "medium_airport"
+    },
+    {
+      "ident": "RU-8602",
+      "name": "Engels Air Base",
+      "latitude_deg": "51.480499",
+      "longitude_deg": "46.215",
+      "iso_country": "RU",
+      "type": "medium_airport"
+    },
+    {
+      "ident": "RU-9942",
+      "name": "Shaykovka Air Base",
+      "latitude_deg": "54.2267",
+      "longitude_deg": "34.3717",
+      "iso_country": "RU",
+      "type": "medium_airport"
+    },
+    {
+      "ident": "UHKG",
+      "name": "Kamenny Ruchey Naval Air Base",
+      "latitude_deg": "49.235703",
+      "longitude_deg": "140.1931",
+      "iso_country": "RU",
+      "type": "medium_airport"
+    },
+    {
+      "ident": "UHWW",
+      "name": "Vladivostok International Airport",
+      "latitude_deg": "43.396256",
+      "longitude_deg": "132.148155",
+      "iso_country": "RU",
+      "type": "large_airport"
+    },
+    {
+      "ident": "UIIB",
+      "name": "Belaya Air Base",
+      "latitude_deg": "52.91487",
+      "longitude_deg": "103.575499",
+      "iso_country": "RU",
+      "type": "small_airport"
+    },
+    {
+      "ident": "ULOO",
+      "name": "Princess Olga Pskov International Airport",
+      "latitude_deg": "57.781316",
+      "longitude_deg": "28.39384",
+      "iso_country": "RU",
+      "type": "medium_airport"
+    },
+    {
+      "ident": "VOPB",
+      "name": "Veer Savarkar International Airport / INS Utkrosh",
+      "latitude_deg": "11.640194",
+      "longitude_deg": "92.72902",
+      "iso_country": "IN",
+      "type": "large_airport"
+    },
+    {
+      "ident": "VVDN",
+      "name": "Da Nang International Airport",
+      "latitude_deg": "16.0439",
+      "longitude_deg": "108.198997",
+      "iso_country": "VN",
+      "type": "large_airport"
+    },
+    {
+      "ident": "WAAA",
+      "name": "Sultan Hasanuddin International Airport",
+      "latitude_deg": "-5.075539",
+      "longitude_deg": "119.553702",
+      "iso_country": "ID",
+      "type": "large_airport"
+    },
+    {
+      "ident": "WION",
+      "name": "Ranai Airport",
+      "latitude_deg": "3.90871",
+      "longitude_deg": "108.388",
+      "iso_country": "ID",
+      "type": "medium_airport"
+    },
+    {
+      "ident": "YAMB",
+      "name": "RAAF Base Amberley",
+      "latitude_deg": "-27.635381",
+      "longitude_deg": "152.711223",
+      "iso_country": "AU",
+      "type": "medium_airport"
+    },
+    {
+      "ident": "YBSG",
+      "name": "RAAF Base Scherger",
+      "latitude_deg": "-12.6239",
+      "longitude_deg": "142.087006",
+      "iso_country": "AU",
+      "type": "small_airport"
+    },
+    {
+      "ident": "YPDN",
+      "name": "Darwin International Airport / RAAF Darwin",
+      "latitude_deg": "-12.41497",
+      "longitude_deg": "130.88185",
+      "iso_country": "AU",
+      "type": "large_airport"
+    },
+    {
+      "ident": "YPED",
+      "name": "RAAF Base Edinburgh",
+      "latitude_deg": "-34.705705",
+      "longitude_deg": "138.615564",
+      "iso_country": "AU",
+      "type": "medium_airport"
+    },
+    {
+      "ident": "YPLM",
+      "name": "Learmonth Airport",
+      "latitude_deg": "-22.235201",
+      "longitude_deg": "114.090024",
+      "iso_country": "AU",
+      "type": "medium_airport"
+    },
+    {
+      "ident": "YPTN",
+      "name": "Tindal Airport",
+      "latitude_deg": "-14.521100044250488",
+      "longitude_deg": "132.3780059814453",
+      "iso_country": "AU",
+      "type": "medium_airport"
+    },
+    {
+      "ident": "YWLM",
+      "name": "Newcastle Airport",
+      "latitude_deg": "-32.796114",
+      "longitude_deg": "151.835025",
+      "iso_country": "AU",
+      "type": "large_airport"
+    },
+    {
+      "ident": "ZKHM",
+      "name": "Orang (Chongjin) Airport",
+      "latitude_deg": "41.428538",
+      "longitude_deg": "129.647555",
+      "iso_country": "KP",
+      "type": "medium_airport"
+    },
+    {
+      "ident": "ZYAS",
+      "name": "Anshan Teng'ao Airport / Anshan Air Base",
+      "latitude_deg": "41.105301",
+      "longitude_deg": "122.853996",
+      "iso_country": "CN",
+      "type": "medium_airport"
+    }
+  ]
+}

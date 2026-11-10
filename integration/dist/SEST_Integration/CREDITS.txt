@@ -21,14 +21,34 @@ photographs from the SEST gallery. Each carries its photographer
 and licence on the picture; the full credits, with sources, are
 in Gallery/PHOTO_CREDITS.txt.
 
-538 of the unit files here are another author's file with
+SEST's campaign ribbon strips are drawn by code: no AI imagery,
+nothing traced. Real-award strips represent the published
+designs; they are game awards, not real honours. Other award
+pictures are the game's own, referenced by path and not copied.
+Each campaign lists its strips, those references and the award
+sources in:
+      campaigns/sest-red-line/art/ribbons/SOURCES.txt
+      campaigns/sest-southern-reach/art/ribbons/SOURCES.txt
+      campaigns/sest-southern-watch/art/ribbons/SOURCES.txt
+      campaigns/sest-sulu-line/art/ribbons/SOURCES.txt
+
+Australian Operational Service Medal - Indo-Pacific ribbon
+(sest_aosm_indo_pacific.png) by Nford24, CC0 1.0, from Wikimedia
+Commons, copied unchanged.
+
+The Royal Navy commander emblem (ui/campaign/navy_emblems/
+sest_rn_emblem.png) is the White Ensign from the SEST gallery
+flag set (Wikimedia Commons, public domain), credited in
+Gallery/VISUAL_CREDITS.txt.
+
+542 of the unit files here are another author's file with
 changes made to it. A Sea Power unit file is a whole-file
 override - there is no way to alter one line of somebody's
 aircraft without shipping the whole aircraft - so this is how a
 patch has to work, and this list is what it patches.
 
 Measured, not declared: every shipped unit file is diffed against
-every file of its kind in the collection, and the 538 below
+every file of its kind in the collection, and the 542 below
 came back 90% or more alike. The percentage is how much of the
 file is unchanged.
 Files carried for a mod that was removed from the Workshop are
@@ -233,6 +253,8 @@ listed whatever the percentage: they are still that author's.
       100%  vessels/ko_ffg-471.ini
       100%  vessels/ko_hdf-3600.ini
       100%  vessels/ko_kddx.ini
+      100%  vessels/ko_ocean-4300.ini
+      100%  vessels/ko_ocean-4300_pn.ini
       100%  vessels/ko_opv.ini
       100%  vessels/ko_pkg-711_scl.ini
       100%  vessels/pn_ffg-06.ini
@@ -241,8 +263,8 @@ listed whatever the percentage: they are still that author's.
 
   Euromod-South Korea Navy  (workshop 3789208859)
       100%  ammunition/ko_Antiship_2.ini
-      100%  ammunition/ko_Antiship_2_ship.ini
       100%  ammunition/rok_L-sam.ini
+      100%  ammunition/rok_harm-II.ini
       100%  ammunition/rok_hgv.ini
       100%  ammunition/rok_hyunmoo_4_2.ini
        98%  ammunition/rok_k-sam-II.ini
@@ -400,8 +422,10 @@ listed whatever the percentage: they are still that author's.
       100%  vessels/usn_ssn_virginia_block5.ini
 
   Mogami-class Frigate  (workshop 3456859157)
-      100%  ammunition/usn_rgm-84d.ini
+      100%  ammunition/js_type23_asam.ini
       100%  vessels/js_ffg_mogami.ini
+      100%  vessels/js_ffg_mogami_improved.ini
+      100%  vessels/ran_ffg_mogami_improved.ini
 
   Nimitz Expanded  (workshop 3432592449)
        99%  vessels/usn_cvn_nimitz_variants.ini
@@ -660,6 +684,7 @@ listed whatever the percentage: they are still that author's.
       100%  vessels/plan_cvn_004.ini
 
   U.S. Navy 2027 Capabilities mod  (workshop 3606774881)
+       90%  aircraft/usn_ea-18g.ini
        97%  aircraft/usn_fa-18e.ini
        96%  aircraft/usn_fa-18f.ini
        96%  aircraft/usn_fa-18f_blk3.ini
@@ -683,13 +708,12 @@ listed whatever the percentage: they are still that author's.
       100%  vessels/usn_ssn_virginia_seal_2027.ini
 
   United States Naval Aviation  (workshop 3737267013)
-       92%  aircraft/usn_ea-18g.ini
-       97%  aircraft/usn_ea-18g_2020.ini
+       96%  aircraft/usn_ea-18g_2020.ini
        96%  aircraft/usn_f-35c_squadrons.ini
       100%  aircraft/usn_hh-60_squadrons.ini from usn_hh-60h_squadrons.ini
        97%  aircraft/usn_mh-60r_squadrons.ini
        98%  ammunition/usn_aim-9l.ini
-       98%  ammunition/usn_gbu-12d.ini
+       99%  ammunition/usn_gbu-12d.ini
        97%  ammunition/usn_gbu-39.ini
 
   Virginia-, Seawolf-, and Ohio-class Submarines  (workshop 3433957933)

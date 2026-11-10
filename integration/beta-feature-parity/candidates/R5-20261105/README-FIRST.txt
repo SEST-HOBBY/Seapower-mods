@@ -1,0 +1,114 @@
+﻿R5 BETA REPAIR: LAUNCH EFFECTS, STABILISATION, POP-OUT 1.1.3. 5 NOVEMBER 2026
+
+Your PC still runs R3 (the 3 November capture shows it); R5 includes all
+of R4, so run this one. It accepts an installed R1, R2, R3 or R4.
+1. Close Sea Power and extract this NEW ZIP into a fresh folder.
+2. Run Repair-Beta-Startup.cmd. It replaces all five candidate files, keeps
+   the original backups and re-enables only after every copy verifies.
+3. Launch beta and check:
+   - no "Sea Power v0.8.7-261026" text over the game view;
+   - Player.log holds a "[SEST Runtime] modifier files repaired" line (or
+     "nothing to repair") and "native window bridge attached to Pop-Out
+     Windows 1.1.3";
+   - BepInEx.log holds "ADAPTED WeaponLauncherEffects" and "ADAPTED
+     SubModelStabilization" lines, and neither plugin reports
+     "Initialization failed";
+   - in a mission, a Mk 41 or ExLS ship's missile launch shows its launch
+     flame and smoke, and a German F123 or a Burke's stabilised radar
+     platform or horizon bar stays level in a seaway;
+   - fire an AGR-30 Redback, then open the campaign menu's F11 window: the
+     mission lists each round with quantity, unit price, line total and
+     catalog section (sest_agr-30 at $70,000 from sest_weapon_costs.ini);
+   - Contacts and the formation window pop out to the second monitor.
+4. Quit, run Capture-Repair-Results.cmd and attach its ZIP.
+
+Disable-Beta-Test.cmd stops this test activation. Restore-Previous-SEST.cmd
+restores the original backed-up code; the repair updates that restore journal.
+
+What R5 changes over R4 (Runtime 1.5.3 beta, UI 1.4.4 beta, the loader;
+the bootstrap and Identify shim are R4's sources):
+- Pop-Out Windows 1.1.3: the members the Contacts, formation and compass
+  bridges use are unchanged from 1.1.1, so R5 pins 1.1.3, the version on
+  your PC. With R4's pin those bridges stayed off.
+- WeaponLauncherEffects 1.0.18 (Euromod's Anchor Chain Expansion Pack):
+  the beta added a failed-launch flag to the two launch methods it hooks,
+  so it stopped half-installed and the Mk 41, SA-N-9, Mk 35 and ExLS
+  launchers fired with no launch effect at all. The loader now feeds it the
+  beta methods and skips its effect when a launch fails.
+- SubModelStabilization 1.1.2 (same pack): the beta changed the vessel
+  loader it hooks, so stabilised radar platforms and horizon bars rode with
+  the hull. The loader now feeds it the beta method and the same vessel.
+Both are pinned to the exact author DLLs; the Workshop files are unchanged.
+
+What R4 changed (included):
+- The beta's version watermark is hidden.
+- Beta 261026 scans #!extend files once, before the Workshop folders are
+  registered, so every Workshop mod's #!extend file was ignored all
+  session: SEST's cost catalogs and Cross-Deck stubs among them. The
+  Runtime rescans once the Workshop folders are registered.
+- Cumulative Combat Costs reads SEST's own catalogs where the merged
+  catalog lacks a section and lists every expended round with its price.
+
+Not in R5: the clipped tab borders (send a full-window screenshot and your
+Windows display scaling), the Global Hawk range (its data is unchanged; it
+needs the same mission tried on both Steam branches) and the author plugins
+that still stop on beta APIs; BETA-FEATURE-PARITY.md lists each with the
+reason.
+
+--------------------------------------------------------------------------
+
+SEST BETA FUNCTIONALITY TEST — 2 NOVEMBER 2026
+
+Stay on the beta game build. This is a beta compatibility test candidate,
+with the complete pre-beta Runtime feature implementation; it is not yet
+a gameplay-verified Steam release. Do not use the earlier stable restore ZIP.
+
+PC STEPS (close Sea Power before each command)
+
+1. Extract this ZIP into Downloads, then double-click 1-Stage-Beta.cmd.
+2. Launch beta to the MAIN MENU. Wait about 10 seconds, then quit the game.
+   This first launch only checks startup readiness; plugins remain inactive.
+3. Double-click 2-Enable-Beta.cmd. It requires the successful menu probe,
+   migrates local Identify data, removes its Local row and enables the loader.
+4. Launch beta again and test the features listed below. Quit when finished.
+5. Double-click 3-Capture-Test-Results.cmd and attach the resulting
+   SEST-Beta-References-*.zip from Downloads to the chat.
+
+If the first probe or Enable stops, run 3-Capture-Test-Results.cmd and send
+the ZIP/error. Do not skip the probe by creating flags manually.
+
+WHAT TO CHECK
+
+- Mod Manager: Identify Expanded appears once, as Workshop; no Local entry.
+- F11: Cumulative Combat Costs opens; current, last-game and campaign totals,
+  quantities, loss values and history are present.
+- Finish a mission: debrief cost rows and mission completion time display.
+- Continue to a second mission: preparation map/units, preparation and start.
+- Contacts: shortcut/opening; Space and +/- control time; pop out and return.
+- Formation: original/enhanced controls, pop out/return and responsiveness.
+- Compass: hidden on the tactical map, retained on unit video.
+
+RESTORE
+
+With the game closed, run Restore-Previous-SEST.cmd. Original SEST code is
+backed up before staging, and local Identify data is backed up before moving.
+New/migrated Identify data remains under %LOCALAPPDATA%\SEST\IdentifyExpanded.
+Backups remain under %LOCALAPPDATA%\SEST\BetaCompatibility\backups.
+Settings restore byte for byte if unchanged since Enable; later edits are kept.
+
+This candidate updates code inside your existing SEST Workshop item 3812461539.
+It preserves campaign/data packs and saves, keeps the Workshop Identify DLL,
+and does not change the Steam branch, game DLLs or original AnchorChain files.
+
+The standard Steam game location is used directly. For another installation,
+open PowerShell here and run, replacing the example path:
+
+powershell -NoProfile -ExecutionPolicy Bypass -File .\Install-SEST-Beta.ps1 -Action Stage -GameRoot "D:\SteamLibrary\steamapps\common\Sea Power"
+
+Use the same -GameRoot for Enable, Collect or Restore. For Workshop content in
+a separate Steam library, also supply -WorkshopContentRoot pointing directly
+to that library's steamapps\workshop\content\1286220 folder.
+
+See BETA-FEATURE-PARITY.md for implementation, source provenance and build notes.
+VALIDATION.json records the managed and fixture checks. In-game rendering,
+second-monitor behavior and campaign progression remain to be verified on PC.

@@ -30,7 +30,7 @@ namespace Sest.UiFixes
                 if (target == null || !target.IsStatic || target.ReturnType != priceType || target.GetMethodBody().ExceptionHandlingClauses.Count != 0)
                     throw new MissingMethodException("Inspected price-catalogue factory");
                 var overlay = ContactsFix.Find("WeaponCostsMod.Overlay");
-                ContactsFix.Require(overlay.Assembly, "74afa9028fc0c52b93f415263504f51ecf8d056a624feaebcc8053ba5a1c0ac3");
+                ContactsFix.Require(overlay.Assembly, "8f7195ff1540d1901446b3783789c84e1f76bebe943da7606afd85f9dd3d78bc");
                 var reload = overlay.GetMethod("LoadConfig", ContactsFix.All, null, new[] { typeof(bool) }, null);
                 if (reload == null || reload.ReturnType != typeof(void)) throw new MissingMethodException("Inspected tracker config reload");
                 hooks.Patch(target, transpiler: new HarmonyMethod(typeof(CostCatalogueCache), nameof(Reuse)));

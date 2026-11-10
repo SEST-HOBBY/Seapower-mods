@@ -10,7 +10,8 @@ Campaign Mod (Workshop 3813157776, plugin 0.24.0; 0.24.3 on the PC on 13 Oct):
 
     integration/world-sandbox/SEST_World_Campaign/      the pack tools/build_all.py
         _info.ini                                       builds and consolidates
-        dynamic_campaigns/sest-world-sandbox/campaign.json
+        legacy_campaigns/sest-world-sandbox/campaign.json (preserved original)
+        dynamic_campaigns/sest-world-regions-2028/campaign.json (combined modern world)
     integration/world-sandbox/draft/conversion.json   every register row,
                                                        converted or skipped
 
@@ -44,7 +45,7 @@ ROOT = Path(__file__).resolve().parents[2]
 REGISTER = ROOT / "docs" / "world-sandbox" / "register" / "packages.json"
 OUT = Path(__file__).resolve().parent / "draft"
 PACK = Path(__file__).resolve().parent / "SEST_World_Campaign"
-CAMPAIGN_DIR = PACK / "dynamic_campaigns" / "sest-world-sandbox"
+CAMPAIGN_DIR = PACK / "legacy_campaigns" / "sest-world-sandbox"
 
 sys.path.insert(0, str(ROOT / "integration" / "campaign"))
 sys.path.insert(0, str(ROOT / "integration" / "mission-seeds"))
@@ -105,7 +106,11 @@ def write_legacy_hull_compatibility():
         hull_out.parent.mkdir(parents=True, exist_ok=True)
         names_out.parent.mkdir(parents=True, exist_ok=True)
         # The game resolves an alias from the mod root, so it names the folder.
-        hull_out.write_text(f"#!alias vessels/{current}.ini\n", encoding="utf-8")
+        compatibility = ROOT / "integration/world-sandbox/compatibility/vessels" / f"{legacy}.ini"
+        alias = compatibility.read_text(encoding="utf-8")
+        if alias != f"#!alias vessels/{current}.ini\n":
+            sys.exit(f"legacy save compatibility: source alias changed for {legacy}")
+        hull_out.write_text(alias, encoding="utf-8")
         # Copy the two named variants: variant files are not guaranteed to
         # follow #!alias in every engine path, unlike vessel definitions.
         variants_out.write_text(bp.read(variant_source).replace("\r\n", "\n").rstrip() + "\n",
@@ -1454,13 +1459,17 @@ def main():
     write_legacy_aircraft_compatibility()
     CAMPAIGN_DIR.mkdir(parents=True, exist_ok=True)
     (CAMPAIGN_DIR / "campaign.json").write_text(campaign_text(campaign), encoding="utf-8")
+    import shutil
+    (PACK / "tools").mkdir(parents=True, exist_ok=True)
+    shutil.copyfile(ROOT / "tools/select-legacy-world.ps1", PACK / "tools/select-legacy-world.ps1")
+    shutil.copyfile(Path(__file__).resolve().parent / "WORLD-CAMPAIGN-READ-ME.txt", PACK / "WORLD-CAMPAIGN-READ-ME.txt")
     (PACK / "_info.ini").write_text(
         "[Language_en]\n"
-        "Name=SEST World Campaign\n"
-        "Description=DRAFT, not tested in game. A campaign for Bungalow's Dynamic Campaign Mod "
-        "(Workshop 3813157776): the SEST 2028 world - bases, fleets, air groups, supply ships and "
-        "patrols from the SEST research - as a persistent campaign, listed in the Campaign menu "
-        "marked [Dynamic]. Ships inside the SEST Integration Pack.\n\n"
+        "Name=Global Maritime Operations 2028\n"
+        "Description=The original SEST 2028 world and complete regional expansion combined into "
+        "one fictional worldwide campaign for Bungalow's Dynamic Campaign Mod (Workshop 3813157776). "
+        "Bases, fleets, air groups, supply ships, patrols and multinational recruitment; listed "
+        "in the Campaign menu marked [Dynamic]. R12 world operations update; PC acceptance checks pending.\n\n"
         "[Compatibility]\nApproximateVersion=0.8.7\n",
         encoding="utf-8")
     (OUT / "conversion.json").write_text(report_text(report), encoding="utf-8")
@@ -1479,7 +1488,8 @@ def main():
     if check.returncode:
         sys.exit(check.stdout + check.stderr + "\ncheck_dynamic_campaign.py failed - the world "
                  "campaign is not shipped like this")
-    # Independent regional variant; never overwrite the original save identity.
+    # Combine the original and regional source definitions into one new-game entry.
+    # The archived original remains available for a deliberate legacy-save activation.
     regional = subprocess.run([sys.executable, str(Path(__file__).resolve().parent /
                                                        "build_regions.py")],
                             capture_output=True, text=True)

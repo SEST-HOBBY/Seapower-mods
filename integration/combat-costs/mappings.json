@@ -3378,7 +3378,7 @@
     {
       "target": "ch_ffg_jvh",
       "source": "rnn_ffg_van_heemskerck",
-      "basis": "Same Jacob van Heemskerck class: Chile's L class is the two Dutch hulls it bought in 2005; retain the tracker's Dutch estimate and reference basis"
+      "basis": "Saved-campaign compatibility alias for the renamed Chilean Jacob van Heemskerck hull; retain the same reviewed Dutch tracker estimate as its current id"
     },
     {
       "target": "ch_ffg_jacob_van_heemskerck",

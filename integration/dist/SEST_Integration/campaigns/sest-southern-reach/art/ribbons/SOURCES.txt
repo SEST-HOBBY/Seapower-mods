@@ -1,0 +1,50 @@
+SEST award artwork - Southern Reach / Tasman Shield
+
+Code-drawn strips (integration/campaign/service_awards.py). No AI imagery;
+nothing traced. Real-award strips follow the published stripe order and
+proportions closely enough to be recognised; they are representations.
+  sest_southern_reach_service.png - Southern Reach Service Ribbon: fictional SEST design
+  sest_antarctic_lifeline.png - Antarctic Resupply Ribbon: fictional SEST design
+  sest_southern_convoy.png - Southern Convoy Ribbon: fictional SEST design
+  armed_forces_expeditionary_medal.png - Armed Forces Expeditionary Medal: representation of the American award
+  australian_commendation_distinguished_service.png - Commendation for Distinguished Service: representation of the Australian award
+  uk_obe_military.png - Officer of the Order of the British Empire (Military): representation of the British award
+  legion_of_merit.png - Legion of Merit: representation of the American award
+  uk_distinguished_service_order.png - Distinguished Service Order: representation of the British award
+  australian_meritorious_unit_citation.png - Australian Meritorious Unit Citation: representation of the Australian award
+
+Installed Sea Power pictures referenced by path, not copied into this pack:
+  campaigns/pacific-strike-task-force/art/ribbons/navy_commendation_medal_ribbon.png - Navy and Marine Corps Commendation Medal
+  campaigns/pacific-strike-task-force/art/ribbons/australian_distinguished_service_cross_ribbon.png - Australian Distinguished Service Cross
+  campaigns/pacific-strike-task-force/art/ribbons/jmsdf_defense_memorial_cordon_ribbon.png - 1st Class Commendation (Defense Memorial Cordon)
+  campaigns/pacific-strike-task-force/art/ribbons/navy_achievement_medal_ribbon.png - Navy and Marine Corps Achievement Medal (no longer granted)
+  campaigns/pacific-strike-task-force/art/ribbons/navy_unit_commendation_ribbon.png - Navy Unit Commendation (no longer granted)
+  campaigns/pacific-strike-task-force/art/ribbons/meritorious_unit_commendation_ribbon.png - Meritorious Unit Commendation (no longer granted)
+
+sest_aosm_indo_pacific.png - Australian Operational Service Medal - Indo-Pacific
+Author: Nford24. CC0 1.0 Universal Public Domain Dedication.
+Source: https://commons.wikimedia.org/wiki/File:Australian_Operational_Service_Medal_-_Indo-Pacific.png
+Copied without modification (897 bytes). Its stripes - deep blue edges as wide as the
+green, light blue, green, a yellow centre - match the Defence description.
+
+Royal Navy emblem (ui/campaign/navy_emblems/sest_rn_emblem.png): the White Ensign,
+from the SEST gallery flag set (File:Naval ensign of the United Kingdom.svg, Wikimedia
+Commons, public domain; credited in Gallery/VISUAL_CREDITS.txt), scaled by build_pack.py.
+
+Award facts (criteria, ribbon design, precedence):
+  Australian Operational Service Medal - Indo-Pacific: https://www.defence.gov.au/adf-members-families/honours-awards/australian-awards/australian-operational-service-medal-indo-pacific
+  Armed Forces Expeditionary Medal: https://www.archives.gov/federal-register/codification/executive-order/10977.html
+  Commendation for Distinguished Service: https://www.defence.gov.au/adf-members-families/honours-awards/australian-awards/commendation-distinguished-service
+  Navy and Marine Corps Commendation Medal: https://www.secnav.navy.mil/doni/SECNAV%20Manuals1/1650.1.pdf
+  Officer of the Order of the British Empire (Military): https://www.royalnavy.mod.uk/news/2024/december/30/20241230-new-years-and-op-honours
+  Australian Distinguished Service Cross: https://www.defence.gov.au/sites/default/files/2025-01/Fact-Sheet-Distinguished-Service-Cross.pdf
+  Legion of Merit: https://www.govinfo.gov/content/pkg/CFR-2002-title32-vol3/html/CFR-2002-title32-vol3-sec578-8.htm
+  Distinguished Service Order: https://www.thegazette.co.uk/London/issue/62529/supplement/326/data.pdf
+  1st Class Commendation (Defense Memorial Cordon): http://www.clearing.mod.go.jp/kunrei_data/a_fd/1955/ax19550810_00049_000.pdf
+  Australian Meritorious Unit Citation: https://www.pmc.gov.au/honours-and-symbols/list-australian-honours/meritorious-unit-citation
+  Navy and Marine Corps Achievement Medal: https://www.secnav.navy.mil/doni/SECNAV%20Manuals1/1650.1.pdf
+  Navy Unit Commendation: https://www.secnav.navy.mil/doni/SECNAV%20Manuals1/1650.1.pdf
+  Meritorious Unit Commendation: https://www.secnav.navy.mil/doni/SECNAV%20Manuals1/1650.1.pdf
+
+Every real-award citation says it is a game award for a fictional operation,
+not a real honour.

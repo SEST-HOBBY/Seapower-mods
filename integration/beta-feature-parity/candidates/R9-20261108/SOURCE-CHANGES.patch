@@ -1,0 +1,670 @@
+diff --git a/integration/beta-anchorchain/SEST.BetaSafeBootstrap.cs b/integration/beta-anchorchain/SEST.BetaSafeBootstrap.cs
+index 51c6192d..88373941 100644
+--- a/integration/beta-anchorchain/SEST.BetaSafeBootstrap.cs
++++ b/integration/beta-anchorchain/SEST.BetaSafeBootstrap.cs
+@@ -44,7 +44,7 @@ namespace SEST.BetaAnchor
+                     return;
+                 }
+                 _payloadDirectory = Path.Combine(gameRoot, "BepInEx", "config", "SEST-BetaAnchorChain");
+-                Logger.LogInfo("Beta 261106 verified. Startup probe only until explicit enable.flag is present.");
++                Logger.LogInfo("Beta 0.8.7-261107 verified (499675cd). Startup probe only until explicit enable.flag is present.");
+                 StartCoroutine(ProbeDirectories());
+             }
+             catch (Exception ex)
+diff --git a/integration/beta-anchorchain/source/AssemblyAdapters.CapturedStartup.cs b/integration/beta-anchorchain/source/AssemblyAdapters.CapturedStartup.cs
+new file mode 100644
+index 00000000..cffd42cd
+--- /dev/null
++++ b/integration/beta-anchorchain/source/AssemblyAdapters.CapturedStartup.cs
+@@ -0,0 +1,148 @@
++// R9: fixes for the exact author images which failed in the 8 November
++// 22:23 Brisbane capture. Original Workshop images and assets are retained.
++using System;
++using System.Linq;
++using Mono.Cecil;
++using Mono.Cecil.Cil;
++
++namespace AnchorChain;
++
++public static partial class BetaAssemblyPolicy
++{
++    internal const string CurrentMissileHash = "3c4fd15290f1b403ab5fa4663656d75125ad47f44ff8e90cb63ac78ecdaa06a5";
++    internal const string CurrentTestRangeHash = "f1639294f24ffb7c89723ea8a42a1ab6d35147bee503395f87dad3759a5a981c";
++    internal const string CurrentOptimalHash = "61068dd0863501dacf1217250b3f4702f3778d6c6bcad38ab4be46eaa0c7375a";
++
++    private static ImageAdapter MissileControlCurrentAdapter() => new ImageAdapter {
++        Name = "MissileControlCurrent", Hashes = new[] { CurrentMissileHash },
++        RequireNative = CurrentSteeringNative,
++        RewriteMethod = CurrentSteeringRewrite,
++        ExpectedAudit = "locations=2, steering-g-load=1",
++    };
++
++    private static ImageAdapter TestRangeCurrentAdapter() => new ImageAdapter {
++        Name = "TestRangeCurrent", Hashes = new[] { CurrentTestRangeHash },
++        RequireNative = CurrentSensorNative,
++        RewriteMethod = CurrentSensorRewrite,
++        ExpectedAudit = "locations=2, sensor-range-argument=1",
++    };
++
++    private static ImageAdapter OptimalTargetCurrentAdapter() => new ImageAdapter {
++        Name = "OptimalTargetCurrent", Hashes = new[] { CurrentOptimalHash },
++        RequireNative = CurrentLaunchNative,
++        RewriteMethod = CurrentLaunchRewrite,
++        ExpectedAudit = "aaw-native-fallback=1, launch-layout=1, locations=2",
++    };
++
++    private static void CurrentNativeSnapshot(ModuleDefinition native)
++    {
++        if (Hash(native.FileName) != "499675cda59912054924ae42297bce7a82b12ca00957dabd684105a24aa353a9")
++            throw new InvalidOperationException("R9 requires the inspected 0.8.7-261107 game image");
++    }
++
++    private static void CurrentSteeringNative(ModuleDefinition native)
++    {
++        CurrentNativeSnapshot(native);
++        var weapon = native.GetType("SeaPower.WeaponBase");
++        var course = weapon.Methods.Single(m => m.Name == "setCourseTowardsPosition");
++        int Loads(string field) => course.Body.Instructions.Count(i => i.OpCode == OpCodes.Ldfld &&
++            i.Operand is FieldReference f && f.DeclaringType.FullName == "SeaPower.AmmunitionParameters" && f.Name == field);
++        // The new native far-field path loads max G once. The author's 0.1.18
++        // already replaces GLimitedTurnRate; no synthetic steering body is used.
++        if (Loads("_maxTurnG") != 1 || Loads("_maxTurnRateDegrees") != 0 || Loads("_terminalVerticalTurnRate") != 2 ||
++            course.Body.Instructions.Count(i => i.Operand is MethodReference m && m.Name == "GLimitedTurnRate") != 1 ||
++            course.Body.Instructions.Count(i => i.Operand is MethodReference m && m.Name == "FarFieldTurnRate") != 1 ||
++            !MissileControlModBody(weapon.Methods.Single(m => m.Name == "GLimitedTurnRate")).SequenceEqual(MissileControlModNativeGLimit))
++            throw new InvalidOperationException("Inspected current steering contract changed");
++    }
++
++    private static bool CurrentSteeringRewrite(AdapterScope scope, TypeDefinition type, MethodDefinition method)
++    {
++        if (type.FullName != "MissileControlMod.Hooks" || method.Name != "SteeringLimits") return false;
++        var il = method.Body.Instructions;
++        var count = il.Single(i => i.Offset == 0x0028);
++        if (method.Body.CodeSize != 268 || count.OpCode != OpCodes.Ldc_I4_0 || count.Previous.OpCode != OpCodes.Ldarg_0 ||
++            count.Next.OpCode != OpCodes.Ldc_I4_0 || count.Next.Next.OpCode != OpCodes.Ldc_I4_2 ||
++            count.Next.Next.Next.Operand is not MethodReference call || call.Name != "PatchSteeringLimits")
++            throw new InvalidOperationException("Inspected current MissileControl steering validator changed");
++        count.OpCode = OpCodes.Ldc_I4_1;
++        scope.Count("steering-g-load");
++        return false;
++    }
++
++    private static void CurrentSensorNative(ModuleDefinition native)
++    {
++        CurrentNativeSnapshot(native);
++        var sensor = native.GetType("SeaPower.ObjectBase").Methods.Single(m => m.Name == "GetSensorRange");
++        var last = sensor.Parameters.Last();
++        if (!sensor.HasThis || sensor.ReturnType.FullName != "SeaPower.ObjectBase/EstimatedSensorRangeData" ||
++            !ParameterTypes(sensor, "SeaPower.ObjectBase", "SeaPower.Ammunition", "SeaPower.ObjectBase/SensorRangeOptions", "System.Boolean") ||
++            last.Name != "rangeOnly" || !last.IsOptional || !last.HasConstant || !Equals(last.Constant, false))
++            throw new InvalidOperationException("Inspected current sensor-range contract changed");
++    }
++
++    private static bool CurrentSensorRewrite(AdapterScope scope, TypeDefinition type, MethodDefinition method)
++    {
++        if (type.FullName != "TestRange.ResultApi" || method.Name != "Validate") return false;
++        // Extend the reflection signature, not a game call. The existing
++        // postfix uses only __instance, __0, __1 and __result, all unchanged.
++        var il = method.Body.Instructions;
++        var length = il.Single(i => i.Offset == 0x0329);
++        var bind = il.Single(i => i.Offset == 0x0356);
++        if (length.OpCode != OpCodes.Ldc_I4_3 || length.Next.OpCode != OpCodes.Newarr ||
++            bind.OpCode != OpCodes.Call || bind.Operand is not MethodReference call ||
++            call.FullName != "System.Void TestRange.ResultApi::Bind(System.Type,System.String,System.String,System.String,System.Type,System.Type[])" ||
++            il.Single(i => i.Offset == 0x0310).Operand as string != "GetSensorRange" ||
++            bind.Previous.OpCode != OpCodes.Stelem_Ref)
++            throw new InvalidOperationException("Inspected current TestRange sensor registration changed");
++        length.OpCode = OpCodes.Ldc_I4_4;
++        var getType = (MethodReference)il.Single(i => i.Offset == 0x0350).Operand;
++        var writer = method.Body.GetILProcessor();
++        foreach (var extra in new[] { Instruction.Create(OpCodes.Dup), Instruction.Create(OpCodes.Ldc_I4_3),
++            Instruction.Create(OpCodes.Ldtoken, scope.Module.TypeSystem.Boolean), Instruction.Create(OpCodes.Call, getType),
++            Instruction.Create(OpCodes.Stelem_Ref) }) writer.InsertBefore(bind, extra);
++        scope.Count("sensor-range-argument");
++        return false;
++    }
++
++    private static void CurrentLaunchNative(ModuleDefinition native)
++    {
++        CurrentNativeSnapshot(native);
++        var launcher = native.GetType("SeaPower.WeaponSystemLauncher");
++        var update = launcher.Methods.Single(m => m.Name == "OnUpdate" && !m.HasParameters);
++        var il = update.Body.Instructions;
++        int Writes(string field) => il.Count(i => i.Operand is FieldReference f && f.Name == field &&
++            f.DeclaringType.FullName == "SeaPower.ObjectBase");
++        // The author checks and rewrites each individual dictionary access.
++        // This native layout adds a fourth timer write on failed launch.
++        if (Writes("_sharedLaunchTimers") != 5 || Writes("_sharedLaunchIntervals") != 2)
++            throw new InvalidOperationException("Inspected current shared-launch accesses changed");
++    }
++
++    private static bool CurrentLaunchRewrite(AdapterScope scope, TypeDefinition type, MethodDefinition method)
++    {
++        if (type.FullName == "OptimalTargetDistAnchorChain.SharedLaunchGroups" && method.Name == "Transpiler") {
++            var count = method.Body.Instructions.Single(i => i.Offset == 0x03bc);
++            if (method.Body.CodeSize != 1062 || count.OpCode != OpCodes.Ldc_I4_3 ||
++                count.Previous.OpCode != OpCodes.Ldloc_S || count.Previous.Operand is not VariableDefinition v || v.Index != 7 ||
++                count.Next.OpCode != OpCodes.Beq_S)
++                throw new InvalidOperationException("Inspected current OptimalTarget shared-launch validator changed");
++            count.OpCode = OpCodes.Ldc_I4_4;
++            scope.Count("launch-layout");
++        }
++        if (type.FullName == "OptimalTargetDistAnchorChain.AawInterception" && method.Name == "Install") {
++            if (!method.IsStatic || method.HasParameters || method.ReturnType.FullName != "System.Void" || method.Body.CodeSize != 150)
++                throw new InvalidOperationException("Inspected current AAW feature initializer changed");
++            // This optional subfeature rejects the native target-validation
++            // control flow. Leave it uninstalled; Ready stays false. Other
++            // OptimalTarget features, including launch sharing, remain active.
++            method.Body.Instructions.Clear();
++            method.Body.ExceptionHandlers.Clear();
++            method.Body.Variables.Clear();
++            method.Body.Instructions.Add(Instruction.Create(OpCodes.Ret));
++            scope.Count("aaw-native-fallback");
++            return true;
++        }
++        return false;
++    }
++}
+diff --git a/integration/beta-anchorchain/source/AssemblyAdapters.cs b/integration/beta-anchorchain/source/AssemblyAdapters.cs
+index 0bbbabac..06dbaf9d 100644
+--- a/integration/beta-anchorchain/source/AssemblyAdapters.cs
++++ b/integration/beta-anchorchain/source/AssemblyAdapters.cs
+@@ -280,13 +280,17 @@ public static partial class BetaAssemblyPolicy
+                     owner == "SeaPower.ObjectBase" && call.Name == "get_IsPlayerUnit") {
+                     instruction.OpCode = OpCodes.Call; instruction.Operand = Bridge(nameof(BetaCompatibilityCalls.SkipEnemyHailCandidate)); Count("hail-guard");
+                 }
++                else if (identify && type.FullName == "IdentifyExpanded.BroadcastService" && method.Name == "FindSender" &&
++                    owner == "SeaPower.ObjectBase" && call.Name == "get_IsPlayerUnit") {
++                    instruction.OpCode = OpCodes.Call; instruction.Operand = Bridge(nameof(BetaCompatibilityCalls.IsInitializedPlayerUnit)); Count("sender-guard");
++                }
+             }
+         }
+         adapter?.Finish?.Invoke(scope);
+         // Audits are against the captured images, not guesses about filename or
+         // version. Unexpected counts reject the private image before CLR load.
+         string audit = String.Join(", ", counts.Select(x => x.Key + "=" + x.Value));
+-        string expected = adapter != null ? adapter.ExpectedAudit : identify ? "bearings=10, hail-guard=1, locations=2, ui=5" :
++        string expected = adapter != null ? adapter.ExpectedAudit : identify ? "bearings=10, hail-guard=1, locations=2, sender-guard=3, ui=5" :
+             campaign ? "Acquisition=1, DoUnload=1, GetDirectories=1, GetFiles=1, HasNightCapableSensors=1, SetAttackAtWaypointTask=2, attack-property=14, attack-reflection=1, bearing-reflection=1, bearings=1, facts-property=1, fuel-refresh=1, mission-get=3, mission-set=1, secondary-side=6, speed-make=1, speed-set=1, terrain-height=1, ui=24" :
+             decoy ? "contact-color=1, contact-exit=1, locations=2, ui=1, vehicle-view=4" : thrust ? "ini=1, locations=1" :
+             launcherEffects ? "launch-reflection=2, launch-result=1, locations=2" :
+diff --git a/integration/beta-anchorchain/source/AssemblyPolicy.cs b/integration/beta-anchorchain/source/AssemblyPolicy.cs
+index 8b80dd68..f32437ae 100644
+--- a/integration/beta-anchorchain/source/AssemblyPolicy.cs
++++ b/integration/beta-anchorchain/source/AssemblyPolicy.cs
+@@ -71,6 +71,11 @@ public static partial class BetaAssemblyPolicy
+     public static string Prepare(string source, string nativePath, string cacheRoot, Action<string> log)
+     {
+         string hash = Hash(source);
++        if (HoldRejectedStartup(hash, source, log)) return null;
++        if (IsNativePeLibrary(source)) {
++            log("SKIPPED native library before CLR metadata scan: " + Path.GetFileName(source) + "; original file retained.");
++            return null;
++        }
+         // R6: a held-back image loads only when an adapter is pinned to it.
+         var adapter = AdapterFor(hash);
+         // Both captured files declare the same plugin/assembly identity. Pick
+@@ -149,7 +154,7 @@ public static partial class BetaAssemblyPolicy
+         }
+         string audit = AdaptCapturedImage(module, native, hash);
+         if (audit == null) return source;
+-        string directory = Path.Combine(cacheRoot, "beta-api-r7-261106", hash);
++        string directory = Path.Combine(cacheRoot, "beta-api-r9-261107", hash);
+         Directory.CreateDirectory(directory);
+         string target = Path.Combine(directory, module.Assembly.Name.Name + ".dll");
+         string temporary = target + ".tmp";
+diff --git a/integration/beta-anchorchain/source/BetaCompatibilityCalls.cs b/integration/beta-anchorchain/source/BetaCompatibilityCalls.cs
+index 2eac8a91..cf994411 100644
+--- a/integration/beta-anchorchain/source/BetaCompatibilityCalls.cs
++++ b/integration/beta-anchorchain/source/BetaCompatibilityCalls.cs
+@@ -119,6 +119,12 @@ public static partial class BetaCompatibilityCalls
+     public static bool SkipEnemyHailCandidate(ObjectBase unit)
+         => ReferenceEquals(unit, null) || ReferenceEquals(unit._taskforce, null) || unit.IsPlayerUnit;
+ 
++    // Identify's sender search also enumerates pooled/unassigned objects.
++    // They cannot send a player broadcast; do not enter the native getter
++    // until a taskforce exists. Assigned units retain the native decision.
++    public static bool IsInitializedPlayerUnit(ObjectBase unit)
++        => !ReferenceEquals(unit, null) && !ReferenceEquals(unit._taskforce, null) && unit.IsPlayerUnit;
++
+     // Beta's constructor branches to _sources.Add(this), rather than directly
+     // to ret. Reuse that real merge label and keep the new registration epilogue.
+     // The original transpiler and its one-argument validation remain intact.
+diff --git a/integration/beta-anchorchain/source/StartupPolicy.cs b/integration/beta-anchorchain/source/StartupPolicy.cs
+new file mode 100644
+index 00000000..c661f8a8
+--- /dev/null
++++ b/integration/beta-anchorchain/source/StartupPolicy.cs
+@@ -0,0 +1,57 @@
++using System;
++using System.Collections.Generic;
++using System.IO;
++
++namespace AnchorChain;
++
++public static partial class BetaAssemblyPolicy
++{
++    // Each entry is an exact captured image whose own startup guard rejected
++    // this native game. Changed author images are not matched by filename.
++    private static readonly Dictionary<string, string> StartupHolds = new(StringComparer.Ordinal) {
++        ["2247e384050029b671ec0673849688d735ed6e76127ec6ae3c37f63f92a33169"] = "Exterior Cameras: author camera contract rejected",
++        ["262669de6ea1b320724126d111c2a43dcfe42b93866e74fb1812da2ffcfd7937"] = "K5 Kraken contact strike: ObjectsManager.removeObject hook body changed",
++        ["1138dccfd42a630a17aa6e0131ce95497281265915b88d694ca5ce916ebe7b81"] = "XQ-58 shadow contacts: author game-assembly guard rejected",
++        ["ab546e6b0134c5a46c8f4ad3e347537e205a9da419088a53373097c70c813df2"] = "Alpine scoped runtime fixes: CheckFiringConstraints hook body changed",
++        ["5c10a344f5fba730cae191110e58dcd14d55e959f7bd67b50017765928de4f41"] = "MV-75/Cheyenne II systems: FollowCamera.lateUpdate hook body changed",
++        ["f933cec252c0c2ba99192e3f14b0f333d11456005c496a49d8b532d3e3187f81"] = "EC-2 comms jamming: AI.MaintainMPA hook body changed",
++        ["3c0b3b8fb9b01d16a8df2e085372ad04d95f611e6e378dedbd01e0c1d9f80aaa"] = "MV-75 crew escape: author game-assembly guard rejected",
++    };
++
++    private static bool HoldRejectedStartup(string hash, string source, Action<string> log)
++    {
++        if (!StartupHolds.TryGetValue(hash, out var reason)) return false;
++        log("SKIPPED before CLR load: " + Path.GetFileName(source) + "; " + reason + ". Data retained; this feature awaits a verified author port.");
++        return true;
++    }
++
++    // Native helper DLLs (such as DllInjector's version.dll) have a valid PE
++    // header but no CLR directory. They are dependencies, not CLR plugins.
++    // Malformed files still reach Cecil's existing error path.
++    private static bool IsNativePeLibrary(string source)
++    {
++        using var stream = File.OpenRead(source);
++        using var reader = new BinaryReader(stream);
++        if (stream.Length < 64 || reader.ReadUInt16() != 0x5a4d) return false;
++        stream.Position = 0x3c;
++        int pe = reader.ReadInt32();
++        if (pe < 64 || pe > stream.Length - 24) return false;
++        stream.Position = pe;
++        if (reader.ReadUInt32() != 0x00004550) return false;
++        stream.Position = pe + 20;
++        int optionalSize = reader.ReadUInt16();
++        long optional = pe + 24;
++        if (optionalSize < 96 || optional + optionalSize > stream.Length) return false;
++        stream.Position = optional;
++        int magic = reader.ReadUInt16();
++        int directory = magic == 0x10b ? 96 : magic == 0x20b ? 112 : 0;
++        if (directory == 0 || optionalSize < directory) return false;
++        stream.Position = optional + directory - 4;
++        uint count = reader.ReadUInt32();
++        if (count <= 14) return true;
++        if (optionalSize < directory + 15 * 8) return false;
++        stream.Position = optional + directory + 14 * 8;
++        uint cliAddress = reader.ReadUInt32(), cliSize = reader.ReadUInt32();
++        return cliAddress == 0 && cliSize == 0;
++    }
++}
+diff --git a/integration/beta-feature-parity/README.md b/integration/beta-feature-parity/README.md
+index e3acf299..99987b60 100644
+--- a/integration/beta-feature-parity/README.md
++++ b/integration/beta-feature-parity/README.md
+@@ -1,3 +1,56 @@
++# R9 — startup and Identify broadcast repair, 8 November 2026
++
++The 22:23 Brisbane PC capture confirms R8 was installed and the game is
++0.8.7-261107 (`499675cd…`), the same assembly R8 targets. The combat-cost
++screenshot shows current-mission weapon and lost-store prices, including
++AGR-30 at USD 70,000. It does not verify all other gameplay checks.
++
++R9 updates the bounded loader and its private author-image adapters. Runtime
++1.5.5 and UI 1.4.8 retain their existing feature implementation. Original
++Workshop DLLs and data remain unchanged. The canonical stable Steam payload
++is still separate.
++
++- Missile Control 0.1.18: accept the native far-field G-limit field load. The
++  author's full startup validator and its real steering transpiler are run
++  in the managed checks.
++- Test Range 0.2.4: bind the new fourth `GetSensorRange` argument. Its existing
++  sensor postfix receives the same instance, target, ammunition and result.
++  Both real author countermeasure/result validators are checked.
++- Optimal Target Distance 1.2.2: group all seven native shared-launch accesses,
++  including the fourth timer write after failed launch. The incompatible
++  optional AAW interception subfeature stays uninstalled (`Ready=false`);
++  native target rules remain and the other plugin features are retained.
++- Identify Expanded: all three sender-selection player checks reject an
++  unassigned object before reaching the native taskforce getter. This fixes
++  the captured `FindSender` null-reference path for stop/surrender broadcasts.
++- Native Windows helper DLLs are excluded before CLR metadata discovery.
++
++## Features held on this exact game image
++
++These exact captured author images reject the game's hook contracts and are
++held before CLR load: Exterior Cameras (both duplicate copies), K5 Kraken
++contact strike, XQ-58 shadow contacts, Alpine scoped runtime fixes (both copies),
++MV-75/Cheyenne II systems, EC-2 comms jamming and MV-75 crew escape. Their data
++and models remain installed. These are unavailable features, not repaired
++feature ports. R9 does not bypass their author compatibility validators.
++
++The preceding holds also remain: EnhancedDecoyMod, both Topographic Map DLLs
++and MultiStageMissiles. ExtendedGuidance remains off by the SEST profile.
++Original author files, saves, campaigns and Identify data are retained.
++
++## PC test
++
++Close Sea Power, extract R9 into a fresh folder and run Repair-Beta-Startup.cmd
++for the existing R8 installation. Test startup, then select an owned unit and
++use Identify stop/surrender orders on a contact. Check Test Range and missile
++control as well as F11 current/previous/campaign costs, debrief, continuation,
++preparation, Contacts/formation pop-out, compass, SAR and Osprey fuel.
++Quit and run Capture-Repair-Results.cmd. The managed checks execute no Unity
++launch, Noesis rendering or flight. This repair is a private beta playtest;
++Steam uses the separate canonical stable upload after its gameplay checks.
++
++## Historical R8 implementation record
++
+ # R8 — game assembly captured 8 November 2026
+ 
+ R8 supersedes R7 for the newly captured `Seapower-Scripts.dll` (`499675cd…`, Steam build 26502734). Noesis (`7b1fd6a6…`) and the 110 recorded plugin/game DLL entries are unchanged. The assembly hash, rather than a possibly stale Player.log version label, identifies this target.
+diff --git a/integration/beta-feature-parity/build-roslyn.ps1 b/integration/beta-feature-parity/build-roslyn.ps1
+index 51163ba9..54de6ff0 100644
+--- a/integration/beta-feature-parity/build-roslyn.ps1
++++ b/integration/beta-feature-parity/build-roslyn.ps1
+@@ -16,7 +16,7 @@ differ from a build.py build; the receipt records which compiler produced them.
+ param(
+     [Parameter(Mandatory)][string]$Capture,
+     [Parameter(Mandatory)][string]$Output,
+-    [string]$Revision = 'R8-20261108-native-499675cd'
++    [string]$Revision = 'R9-20261108-startup-499675cd'
+ )
+ Set-StrictMode -Version Latest
+ $ErrorActionPreference = 'Stop'
+diff --git a/integration/beta-feature-parity/build.py b/integration/beta-feature-parity/build.py
+index a3146b62..a6c54deb 100644
+--- a/integration/beta-feature-parity/build.py
++++ b/integration/beta-feature-parity/build.py
+@@ -135,7 +135,7 @@ def pins(namespace):
+     source_files += [HERE / 'Install-SEST-Beta.ps1', HERE / 'Repair-SEST-Beta-Startup.ps1', HERE / 'tests/check_runtime_contract.py', HERE / 'verify.py', HERE / 'package.py']
+     manifest = {
+         'format': 1, 'status': 'compiled-candidate-needs-pc-gameplay-test',
+-        'candidate_revision': 'R8-20261108-native-499675cd',
++        'candidate_revision': 'R9-20261108-startup-499675cd',
+         'target_game_sha256': PINS['Seapower-Scripts.dll'], 'target_noesis_sha256': PINS['Noesis.NoesisGUI.dll'],
+         'runtime_source': 'reconstructed-from-captured-1.5.0; original-project-not-recovered',
+         'original_runtime_sha256': sha(original), 'captured_references': PINS,
+diff --git a/integration/beta-feature-parity/package.py b/integration/beta-feature-parity/package.py
+index f96525ca..97452b89 100644
+--- a/integration/beta-feature-parity/package.py
++++ b/integration/beta-feature-parity/package.py
+@@ -89,26 +89,30 @@
+ }
+ repair_commands = {}
+ if a.repair_base:
+-    readme = '''R8 BETA REPAIR — CAPTURED ASSEMBLY 499675cd. 8 NOVEMBER 2026
+-
+-Use this for the game assembly captured on 8 November (499675cd). Earlier
+-R3/R6/R7 repairs do not target this new assembly. Existing candidate backups and Identify data
+-are kept. Close Sea Power, extract into a NEW folder, and run
+-Repair-Beta-Startup.cmd. Then test in game and Capture-Repair-Results.cmd.
+-
+-Runtime 1.5.5 and UI 1.4.8 target Combat Cost Tracker 0.8 and Pop-Out Windows
+-1.1.3. Updated author plugins use their own current beta fixes. The repair
+-also updates debrief rows, campaign/terrain bindings, formation's retired
+-label lookup, Osprey fuel conversion and the new night-sensor nation argument. Check all of these on the PC.
+-
+-Held pending author ports: EnhancedDecoyMod, Topographic Map and
+-MultiStageMissiles. Their data is retained. ExtendedGuidance stays disabled
+-by the SEST profile. Native countermeasures and missile staging remain.
+-
+-This ZIP is for a private beta playtest. The Steam upload uses the separate
+-canonical stable payload prepared by prepare-workshop-upload.ps1. Do not
+-upload these beta DLLs. BETA-FEATURE-PARITY.md lists the current limitations
+-and historical implementation notes.
++    readme = '''R9 BETA STARTUP / IDENTIFY REPAIR — 8 NOVEMBER 2026
++
++For the existing R8 installation on 0.8.7-261107 (game hash 499675cd).
++Close Sea Power, extract into a NEW folder, run Repair-Beta-Startup.cmd.
++Original candidate backups, Identify data and campaign/data files are kept.
++Runtime 1.5.5 and UI 1.4.8 retain their existing feature implementation.
++
++Fixed: Missile Control 0.1.18 far-field G-limit validator; Test Range 0.2.4
++sensor hook signature; Optimal Target Distance 1.2.2 shared-launch layout;
++Identify stop/surrender sender-selection null references; native helper DLL
++misidentification during plugin discovery.
++
++Optimal Target Distance's incompatible optional AAW subfeature stays off.
++The exact captured Exterior Cameras, K5 contact strike, XQ-58 shadow,
++Alpine runtime fixes, MV-75/Cheyenne II systems, EC-2 comms jamming and
++MV-75 crew escape DLLs are held before CLR load because their author
++contracts reject this game. Their models/data remain installed. Prior
++EnhancedDecoyMod/Topographic Map/MultiStageMissiles holds and the
++ExtendedGuidance-off profile remain. These held features await verified ports.
++
++Test startup and Identify stop/surrender broadcasts, then the checks below.
++Quit and run Capture-Repair-Results.cmd. This is a beta playtest repair;
++use the separate canonical stable upload after the required gameplay checks.
++BETA-FEATURE-PARITY.md explains the verified scope and held features.
+ 
+ ''' + readme
+     repair_commands = {'Repair-Beta-Startup.cmd':'Repair', 'Disable-Beta-Test.cmd':'Disable',
+diff --git a/integration/beta-feature-parity/tests/BetaApiTests.CurrentStartup.cs b/integration/beta-feature-parity/tests/BetaApiTests.CurrentStartup.cs
+new file mode 100644
+index 00000000..e08d85b2
+--- /dev/null
++++ b/integration/beta-feature-parity/tests/BetaApiTests.CurrentStartup.cs
+@@ -0,0 +1,154 @@
++using System;
++using System.Collections.Generic;
++using System.IO;
++using System.Linq;
++using System.Reflection;
++using System.Reflection.Emit;
++using AnchorChain;
++using HarmonyLib;
++using Mono.Cecil;
++using SeaPower;
++
++static partial class BetaApiTests
++{
++    const BindingFlags CurrentAll = BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static | BindingFlags.Instance;
++
++    static Assembly CurrentPrepared(R6Context context, string name, out string prepared)
++    {
++        string source = Path.Combine(context.Workshop, "3784474738", name + ".dll");
++        byte[] before = File.ReadAllBytes(source);
++        prepared = BetaAssemblyPolicy.Prepare(source, context.Native, context.Cache, Console.WriteLine);
++        Check(prepared != null && prepared != source && File.Exists(prepared), "Current " + name + " gets a private compatibility image");
++        Check(before.SequenceEqual(File.ReadAllBytes(source)), "Current author bytes retained: " + name);
++        var assembly = Assembly.LoadFile(prepared);
++        Check(BetaAssemblyPolicy.OriginalLocation(assembly) == source, "Current asset/config provenance retained: " + name);
++        return assembly;
++    }
++
++    static void CurrentInvoke(Type type, string method, params object[] arguments)
++    {
++        try { type.GetMethod(method, CurrentAll).Invoke(null, arguments); }
++        catch (TargetInvocationException ex) { throw new Exception(type.FullName + "." + method + " failed: " + ex.InnerException); }
++    }
++
++    static void R6_MissileControlCurrent(R6Context context)
++    {
++        var assembly = CurrentPrepared(context, "MissileControlMod", out string image);
++        var compatibility = assembly.GetType("MissileControlMod.Compatibility", true);
++        // Runs the author's complete real startup dry run, not a reimplementation
++        // of its count check. It installs no Harmony patch and starts no Unity object.
++        CurrentInvoke(compatibility, "ValidateGame");
++        Check(true, "Missile Control 0.1.18 full author startup validator passes");
++        var hooks = assembly.GetType("MissileControlMod.Hooks", true);
++        var course = typeof(WeaponBase).GetMethod("setCourseTowardsPosition", CurrentAll);
++        var source = PatchProcessor.GetOriginalInstructions(course, (ILGenerator)null);
++        var rewritten = ((IEnumerable<CodeInstruction>)hooks.GetMethod("SteeringLimits", CurrentAll).Invoke(null, new object[] { source })).ToList();
++        Check(rewritten.Count(i => i.operand is MethodInfo m && m.Name == "EffectiveGLimitedRate") == 1,
++            "Actual current steering transpiler replaces exactly one native G-limited helper");
++        Check(rewritten.Count(i => i.operand is MethodInfo m && m.Name == "EffectiveG") == 1,
++            "Actual far-field max-G site receives the author's effective-G behavior");
++        Check(rewritten.Count(i => i.operand is MethodInfo m && m.Name == "FarFieldTurnRate") == 1,
++            "Native far-field turn calculation remains in the real instruction stream");
++    }
++
++    static void R6_TestRangeCurrent(R6Context context)
++    {
++        var assembly = CurrentPrepared(context, "TestRange", out string image);
++        CurrentInvoke(assembly.GetType("TestRange.CountermeasureApi", true), "Validate");
++        Check(true, "Current Test Range countermeasure reflection validator passes");
++        CurrentInvoke(assembly.GetType("TestRange.ResultApi", true), "Validate");
++        Check(true, "Current Test Range full result-hook validator passes, including new sensor signature");
++        var native = typeof(ObjectBase).GetMethod("GetSensorRange", CurrentAll);
++        Check(native.GetParameters().Length == 4 && native.GetParameters().Last().Name == "rangeOnly" &&
++            native.GetParameters().Last().IsOptional && Equals(native.GetParameters().Last().DefaultValue, false),
++            "Native range-only argument is optional false and does not change postfix arguments");
++        var postfix = assembly.GetType("TestRange.ResultHooks", true).GetMethod("Sensor", CurrentAll);
++        Check(postfix.GetParameters().Select(p => p.Name).SequenceEqual(new[] { "__instance", "__0", "__1", "__result" }),
++            "Existing sensor postfix binds unchanged source, target, ammunition and result");
++        Check(PatchProcessor.GetOriginalInstructions(postfix, (ILGenerator)null).Count > 0,
++            "Real sensor result hook resolves under Mono");
++    }
++
++    static void R6_IdentifySender(R6Context context)
++    {
++        string source = Path.Combine(context.Workshop, "3790594162", "IdentifyExpanded.dll");
++        string prepared = BetaAssemblyPolicy.Prepare(source, context.Native, context.Cache, Console.WriteLine);
++        var assembly = Assembly.LoadFile(prepared);
++        var sender = assembly.GetType("IdentifyExpanded.BroadcastService", true).GetMethod("FindSender", CurrentAll);
++        var body = PatchProcessor.GetOriginalInstructions(sender, (ILGenerator)null);
++        Check(body.Count(i => i.operand is MethodInfo m && m.Name == "IsInitializedPlayerUnit" && m.DeclaringType == typeof(BetaCompatibilityCalls)) == 3,
++            "All three real Identify sender player checks use the taskforce-safe predicate");
++        Check(!body.Any(i => i.operand is MethodInfo m && m.DeclaringType == typeof(ObjectBase) && m.Name == "get_IsPlayerUnit"),
++            "Identify sender selection and its diagnostic cannot call the unsafe native getter directly");
++    }
++
++    static void R6_OptimalTargetCurrent(R6Context context)
++    {
++        var assembly = CurrentPrepared(context, "OptimalTargetDist", out string image);
++        var shared = assembly.GetType("OptimalTargetDistAnchorChain.SharedLaunchGroups", true);
++        var update = typeof(WeaponSystemLauncher).GetMethod("OnUpdate", CurrentAll);
++        var original = PatchProcessor.GetOriginalInstructions(update, (ILGenerator)null);
++        var rewritten = ((IEnumerable<CodeInstruction>)shared.GetMethod("Transpiler", CurrentAll).Invoke(null, new object[] { original })).ToList();
++        Check(rewritten.Count(i => i.operand is MethodInfo m && m.Name == "GetKey" && m.DeclaringType == shared) == 7,
++            "Author transpiler accepts and groups all seven actual shared-launch accesses, including failed launch");
++        var aaw = assembly.GetType("OptimalTargetDistAnchorChain.AawInterception", true);
++        CurrentInvoke(aaw, "Install");
++        Check(!(bool)aaw.GetProperty("Ready", CurrentAll).GetValue(null),
++            "Incompatible optional AAW feature stays uninstalled and advertises Ready=false");
++        Check(PatchProcessor.GetOriginalInstructions(aaw.GetMethod("Install", CurrentAll), (ILGenerator)null)
++            .All(i => i.opcode == OpCodes.Ret), "Held AAW initializer cannot install a partial patch or report an exception");
++        CurrentStartupHolds(context);
++        NativePeDiscovery(context);
++    }
++
++    static void CurrentStartupHolds(R6Context context)
++    {
++        string[] held = {
++            "3820576916/AlpineExteriorCameras.dll", "3819522350/AlpineExteriorCameras.dll",
++            "3819522350/K5KrakenContactStrike.dll", "3804868806/XQ58Shadow.dll",
++            "3804868806/AlpineSeaPower.dll", "3796349767/AlpineSeaPower.dll",
++            "3810611344/BellSystemsFixtureTilt.dll", "3813033771/EC2CommsJamming.dll",
++            "3810611344/MV75CrewEscape.dll",
++        };
++        foreach (string relative in held) {
++            string source = Path.Combine(context.Workshop, relative);
++            byte[] before = File.ReadAllBytes(source);
++            var messages = new List<string>();
++            Check(BetaAssemblyPolicy.Prepare(source, context.Native, context.Cache, messages.Add) == null,
++                "Captured rejected image held before registration: " + relative);
++            Check(before.SequenceEqual(File.ReadAllBytes(source)), "Held author image retained: " + relative);
++            Check(messages.Count == 1 && messages[0].Contains("before CLR load") && messages[0].Contains("Data retained"),
++                "Held image explains feature availability: " + relative);
++            using var metadata = ModuleDefinition.ReadModule(source);
++            Check(!AppDomain.CurrentDomain.GetAssemblies().Any(a => a.GetName().Name == metadata.Assembly.Name.Name),
++                "Rejected image never entered CLR: " + relative);
++        }
++    }
++
++    static void NativePeDiscovery(R6Context context)
++    {
++        foreach (bool pe64 in new[] { false, true }) {
++            string path = Path.Combine(context.Cache, pe64 ? "native64.dll" : "native32.dll");
++            byte[] header = new byte[512];
++            using (var stream = new MemoryStream(header)) using (var w = new BinaryWriter(stream)) {
++                w.Write((ushort)0x5a4d); stream.Position = 0x3c; w.Write(0x80);
++                stream.Position = 0x80; w.Write(0x00004550);
++                stream.Position = 0x80 + 20; w.Write((ushort)(pe64 ? 240 : 224));
++                stream.Position = 0x80 + 24; w.Write((ushort)(pe64 ? 0x20b : 0x10b));
++                stream.Position = 0x80 + 24 + (pe64 ? 108 : 92); w.Write(16);
++            }
++            File.WriteAllBytes(path, header);
++            var messages = new List<string>();
++            Check(BetaAssemblyPolicy.Prepare(path, context.Native, context.Cache, messages.Add) == null,
++                "Native PE helper excluded before Cecil metadata discovery: " + pe64);
++            Check(messages.Single().Contains("native library") && header.SequenceEqual(File.ReadAllBytes(path)),
++                "Native helper retained with a clear discovery status: " + pe64);
++        }
++        string corrupt = Path.Combine(context.Cache, "corrupt-managed.dll");
++        File.WriteAllText(corrupt, "This is not a valid DLL");
++        bool rejected = false;
++        try { BetaAssemblyPolicy.Prepare(corrupt, context.Native, context.Cache, Console.WriteLine); }
++        catch (BadImageFormatException) { rejected = true; }
++        Check(rejected, "Malformed input still raises the existing metadata error instead of silently passing as native");
++    }
++}
+diff --git a/integration/beta-feature-parity/tests/BetaApiTests.cs b/integration/beta-feature-parity/tests/BetaApiTests.cs
+index f48ef8cf..11f6e7f3 100644
+--- a/integration/beta-feature-parity/tests/BetaApiTests.cs
++++ b/integration/beta-feature-parity/tests/BetaApiTests.cs
+@@ -163,9 +163,10 @@ static partial class BetaApiTests
+             if (new[] { "R6_MissileControlMod", "R6_OptimalTargetDist", "R6_ParallelRangeProbe", "R6_TestRange" }.Contains(method.Name)) {
+                 string relative = "3784474738/" + method.Name.Substring(3) + ".dll";
+                 string source = Path.Combine(context.Workshop, relative);
+-                Check(BetaAssemblyPolicy.Prepare(source, context.Native, context.Cache, Console.WriteLine) == source,
+-                    "Updated author image supersedes the old pinned adapter: " + relative);
+-                Console.WriteLine(method.Name.Substring(3) + " uses current author beta release; obsolete adapter not applied.");
++                string prepared = BetaAssemblyPolicy.Prepare(source, context.Native, context.Cache, Console.WriteLine);
++                Check(prepared != null && (method.Name == "R6_ParallelRangeProbe" ? prepared == source : prepared != source),
++                    "Current author image has the reviewed R9 policy: " + relative);
++                Console.WriteLine(method.Name.Substring(3) + " legacy fixture superseded; current image receives its own startup checks.");
+                 continue;
+             }
+             int before=checks;
+@@ -247,13 +248,18 @@ static partial class BetaApiTests
+         }
+     }
+     static void HailGuardFixture()
++    {
++        PlayerGuardFixture("SkipEnemyHailCandidate", true, true, false);
++        PlayerGuardFixture("IsInitializedPlayerUnit", false, true, false);
++    }
++    static void PlayerGuardFixture(string bridge, bool unassigned, bool player, bool nonplayer)
+     {
+         // ObjectBase's static initializer needs Unity/newer game Mono intrinsics.
+         // Execute the ACTUAL compiled bridge IL with only its two native member
+         // operands rebound to plain test candidates. No fake game DLL is used.
+-        var method=new DynamicMethod("HailGuardFixture",typeof(bool),new[] { typeof(HailCandidate) },typeof(BetaApiTests),true);
++        var method=new DynamicMethod(bridge+"Fixture",typeof(bool),new[] { typeof(HailCandidate) },typeof(BetaApiTests),true);
+         var il=method.GetILGenerator(); int rebound=0;
+-        var body=PatchProcessor.GetOriginalInstructions(typeof(BetaCompatibilityCalls).GetMethod("SkipEnemyHailCandidate"),il);
++        var body=PatchProcessor.GetOriginalInstructions(typeof(BetaCompatibilityCalls).GetMethod(bridge),il);
+         foreach (var instruction in body) {
+             foreach (var label in instruction.labels) il.MarkLabel(label);
+             object operand=instruction.operand;
+@@ -274,10 +280,10 @@ static partial class BetaApiTests
+         }
+         Check(rebound==2,"Hail fixture rebinds exactly the native taskforce member and player-unit getter (actual="+rebound+")");
+         var skip=(Func<HailCandidate,bool>)method.CreateDelegate(typeof(Func<HailCandidate,bool>));
+-        Check(skip(new HailCandidate()),"Real guard IL skips an unassigned candidate before its unsafe getter");
+-        Check(skip(null),"Real guard IL skips a null candidate");
+-        Check(skip(new HailCandidate { Taskforce=new object(),Player=true }),"Real guard IL skips a player unit");
+-        Check(!skip(new HailCandidate { Taskforce=new object(),Player=false }),"Real guard IL preserves an eligible non-player unit");
++        Check(skip(new HailCandidate())==unassigned,bridge+": unassigned candidate does not reach the unsafe getter");
++        Check(skip(null)==unassigned,bridge+": null candidate is handled");
++        Check(skip(new HailCandidate { Taskforce=new object(),Player=true })==player,bridge+": native player decision retained");
++        Check(skip(new HailCandidate { Taskforce=new object(),Player=false })==nonplayer,bridge+": native non-player decision retained");
+     }
+     static void FileLayerFixture(string root)
+     {
+diff --git a/integration/beta-feature-parity/tests/Test-Installer.ps1 b/integration/beta-feature-parity/tests/Test-Installer.ps1
+index 422ee45b..11aeb64b 100644
+--- a/integration/beta-feature-parity/tests/Test-Installer.ps1
++++ b/integration/beta-feature-parity/tests/Test-Installer.ps1
+@@ -83,7 +83,13 @@ try {
+     & $installer @options -Action Enable
+     $state = Get-Content -LiteralPath $stateFile -Raw | ConvertFrom-Json
+     Assert ($state.phase -eq 'enabled') 'Enable did not complete'
+-    Assert ([IO.File]::ReadAllText((J $loader 'enable.flag')) -eq $(if (!$PreviousPackage) {'enable-beta-261106-499675cd'} elseif ($receipt.target_game_sha256 -eq '9b35a7aa4f0bd3c78211fb9cf1e3d6398d0dbbc0f787674e843cc9563fd93f53') {'enable-beta-261106'} else {'enable-beta-261026'})) 'Enable flag mismatch'
++    $expectedFlag = switch ($receipt.target_game_sha256) {
++        '499675cda59912054924ae42297bce7a82b12ca00957dabd684105a24aa353a9' { 'enable-beta-261106-499675cd' }
++        '9b35a7aa4f0bd3c78211fb9cf1e3d6398d0dbbc0f787674e843cc9563fd93f53' { 'enable-beta-261106' }
++        '3005bc6d4221a921008778a18dec06515d98c63d3afb6a3a2835b985ab2e7d62' { 'enable-beta-261026' }
++        default { throw 'Unknown native fixture target.' }
++    }
++    Assert ([IO.File]::ReadAllText((J $loader 'enable.flag')) -eq $expectedFlag) 'Enable flag mismatch'
+     Assert (!(Test-Path -LiteralPath $local)) 'Local Identify folder remains discoverable'
+     Assert ([IO.File]::ReadAllText($redirected) -eq 'LOCAL AUDIO') 'Local audio was not migrated'
+     Assert ([IO.File]::ReadAllText((J $backup 'IdentifyExpanded-previous-data' 'audio' 'broadcast' 'track.mp3')) -eq 'OLDER REDIRECTED AUDIO') 'Conflicting pre-existing redirected data was lost'

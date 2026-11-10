@@ -12,7 +12,7 @@ $plugin = Join-Path $GameRoot "BepInEx\plugins\AnchorChain.Preloader.dll"
 $source = Join-Path $PSScriptRoot "source\Main.cs"
 $project = Join-Path $PSScriptRoot "source\AnchorChain.csproj"
 $particleModule = Join-Path $GameRoot "Sea Power_Data\Managed\UnityEngine.ParticleSystemModule.dll"
-$knownBeta = "3005bc6d4221a921008778a18dec06515d98c63d3afb6a3a2835b985ab2e7d62"
+$knownBeta = "499675cda59912054924ae42297bce7a82b12ca00957dabd684105a24aa353a9"
 $knownPreloader = "1ee1570f1e7f457ffa63c24ee4085b2cdea8069ea8cebf146de5ef027eaa3984"
 $knownWorkshop = "e272811050698640a8936834363da91769dbc83e017637e3629c21bca6bea764"
 

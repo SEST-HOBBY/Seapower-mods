@@ -1,0 +1,1289 @@
+diff --git a/integration/beta-feature-parity/README.md b/integration/beta-feature-parity/README.md
+index 33a20ac0..a6c72ef0 100644
+--- a/integration/beta-feature-parity/README.md
++++ b/integration/beta-feature-parity/README.md
+@@ -5,6 +5,71 @@ SEST Workshop item (`3812461539`). It restores the Runtime/UI feature code for
+ beta testing. It does not change the Steam branch or replace campaign/data packs.
+ The earlier stable restore ZIP is superseded for this task.
+ 
++## R4: version watermark, the beta's #!extend scan, cost item rows
++
++Built on 3 November 2026 from the 2 November 22:26 capture, which recorded
++R3 playing its first campaign mission. Runtime 1.5.2 beta; the loader,
++bootstrap, UI 1.4.3 beta and Identify shim are R3's sources rebuilt with the
++same compiler as the Runtime (see the build section). GPT had described these
++three fixes on 2 November but its R4 build was never delivered; this is a new
++implementation from the same evidence.
++
++- **Version watermark.** `SeaPower.VersionWatermark.OnStart` keeps its text
++  active whenever `SteamApps.GetCurrentBetaName` succeeds, whatever the
++  player's `[Debug] ShowVersionWatermark` option says; only the game's own
++  config.ini could turn it off. `runtime/VersionWatermark.cs` postfixes
++  `OnStart` and deactivates that one object, and deactivates any instance
++  that started before the plugin loaded. `HideVersionWatermark=0` in
++  `plugins/sest_runtime.ini` keeps it; the key defaults to on when missing.
++- **The beta ignores every Workshop `#!extend` file.** Read from the IL of
++  Build 261026: `FileManager.Directories` is built lazily, and when a BepInEx
++  plugin reads it before SteamManager has initialised (Anchor Chain's
++  preloader does, to find the chainloader; the SEST bootstrap probe does
++  too) it holds the game's own three folders. `FileManager.OnStart` rebuilds
++  the list, but every `SearchDirectory` it constructs opens its `_info.ini`
++  through `IniHandler.open`, whose one-shot `ScanForModifierFiles` then runs
++  against the stale list, because the rebuilt list is published only after
++  all directories exist. Nothing rescans until the Mod Manager's Apply, so
++  SEST's cost catalogs, the 129 Cross-Deck stubs and the Collection and
++  Allied Fixes extends never applied in the 2 November session. That is why
++  `[WeaponCosts] Missing WeaponCosts: sest_agr-30 (ASM)` and the Runtime's
++  `no reference-year price` both appear although the published item's
++  `sest_weapon_costs.ini` carries the section. `runtime/ModifierRegistry.cs`
++  checks the registry for the pack's own modifier files once the Workshop
++  folders are registered and, only when none is there, does what Apply does:
++  `invalidateModifierRegistry`, a rescan, then `invalidateCache`. It logs the
++  counts before and after. `ModifierRegistry=0` turns it off.
++- **Cost rows.** `CombatPrices` now also reads `sest_weapon_costs.ini`,
++  `sest_vessel_costs.ini` and `sest_aircraft_costs.ini` by their own names
++  and uses them for a section the merged catalog lacks; the merged catalog
++  still wins where it has the section. Every price records its source. The
++  campaign window lists each expended round per mission, and the live window
++  lists them under the categories: quantity, unit price, line total and the
++  catalog section or unit file the price came from, sorted by line total.
++  Saved quantity records are not changed. `tests/CostRowsTests.cs` covers the
++  fallback, precedence, sources and rows against in-memory catalogs, and the
++  shared catalogue cache test now measures the catalogue reads per build.
++
++Checked but not changed: the MQ-4C Triton's `AN/ZPY-3` (430 km, Gain 60,
++900 kW, `RadarsActive=True` in the missions that place it) is identical on
++both builds, and no vanilla radar changed between the two exports; what did
++change is the game's horizon and look-down geometry (`SensorSystem.IsInLookDown`
++now uses a curvature-aware dip with a 4/3 radar Earth radius, and `GetRange`,
++`RangeReaches` and `Radar.IsDetectableTarget_Conditional` are new), so any
++range difference is the beta's code, to be compared in game on both builds.
++Not done: the clipped tab borders (no screenshot was attached) and ports of
++the author plugins that stop on beta APIs; their failures are their own
++validations refusing changed native signatures (`MissileControlMod` steering
++limits 0/0/2, `MultiStageMissiles` `MissileSimulator.BuildAltitudeNodes`,
++`OptimalTargetDist` launch layout 1/1/1/4, `TestRange`
++`SeaPower.ECM.CombinedJamUnit`, `UiWorkerProbe` and `BetterTacMap`
++`GizmoLayerManager.Instance`, `SubModelStabilization` and
++`WeaponLauncherEffects` null target methods), which an adapter cannot supply.
++
++The repair script now replaces all five candidate files and accepts the
++installed R1, R2 or R3 set as a whole; `Restore-Previous-SEST.cmd` still
++restores the original backups.
++
+ ## R3: campaign menu and scenario errors
+ 
+ The 2 November 00:50 capture verifies the R2 scenario can initialize, but its
+@@ -141,6 +206,23 @@ The AnchorChain fork retains its MIT license.
+ 
+ ## Build and validation
+ 
++With PowerShell 7.4 alone, using the Roslyn compiler it ships (C# 12):
++
++```sh
++pwsh -NoProfile -File integration/beta-feature-parity/build-roslyn.ps1 \
++  -Capture /path/to/extracted-beta-capture -Output /path/to/separate-candidate-output
++```
++
++That is the same build as build.py (same checks, sources, generated files
++and switches) without a .NET SDK; the receipt names the compiler. R3's sources
++rebuilt this way are IL-identical to R3's payload in every Runtime, loader
++and bootstrap method; only the UI and shim pins differ, as they hash the
++Runtime. A capture taken after a candidate was installed holds that candidate
++in the Workshop folder; both scripts then take the preserved 1.5.0 from
++`integration/runtime-fixes` for the provenance and parity checks.
++
++With a .NET 8 host and Roslyn 4.12:
++
+ ```sh
+ python integration/beta-feature-parity/build.py \
+   --capture /path/to/extracted-beta-capture \
+diff --git a/integration/beta-feature-parity/Repair-SEST-Beta-Startup.ps1 b/integration/beta-feature-parity/Repair-SEST-Beta-Startup.ps1
+index 6af5b6c2..22029566 100644
+--- a/integration/beta-feature-parity/Repair-SEST-Beta-Startup.ps1
++++ b/integration/beta-feature-parity/Repair-SEST-Beta-Startup.ps1
+@@ -72,17 +72,16 @@ $checks=[ordered]@{
+ foreach ($name in $checks.Keys) {
+     if ((Hash $checks[$name]) -ne $new.captured_references.PSObject.Properties[$name].Value) { throw "Reference changed: $name. Activation remains disabled." }
+ }
++# Every candidate file is replaced: the loader, the bootstrap, the Runtime, the
++# UI follow-up and the Identify data shim. The installed set must be one reviewed
++# candidate as a whole (the first candidate, any earlier repair or this one), and
++# the original Stage backups are kept untouched.
+ $map=[ordered]@{
+     'AnchorChain.dll'=(J $loader 'AnchorChain.dll')
+-    'SEST.IdentifyDataPaths.dll'=(J $WorkshopContentRoot '3812461539' 'plugins' 'SEST.IdentifyDataPaths.dll')
+-}
+-$untouched=[ordered]@{
++    'SEST.BetaSafeBootstrap.dll'=(J $GameRoot 'BepInEx' 'plugins' 'SEST.BetaSafeBootstrap.dll')
+     'SEST.RuntimeFixes.dll'=(J $WorkshopContentRoot '3812461539' 'plugins' 'SEST.RuntimeFixes.dll')
+     'SEST.ContactsFix.dll'=(J $WorkshopContentRoot '3812461539' 'plugins' 'SEST.ContactsFix.dll')
+-    'SEST.BetaSafeBootstrap.dll'=(J $GameRoot 'BepInEx' 'plugins' 'SEST.BetaSafeBootstrap.dll')
+-}
+-foreach ($name in $untouched.Keys) {
+-    if ((Hash $untouched[$name]) -ne $repair.base_files.PSObject.Properties[$name].Value) { throw "Unexpected installed candidate: $name. Activation remains disabled." }
++    'SEST.IdentifyDataPaths.dll'=(J $WorkshopContentRoot '3812461539' 'plugins' 'SEST.IdentifyDataPaths.dll')
+ }
+ $known=@($repair.base_files, $new.files)
+ if ($repair.PSObject.Properties['previous_files']) { $known+=@($repair.previous_files) }
+@@ -96,7 +95,7 @@ foreach ($version in $known) {
+     }
+     if ($matches) { $accepted=$true; break }
+ }
+-if (!$accepted) { throw 'Installed loader/shim pair is not a reviewed beta candidate. Activation remains disabled.' }
++if (!$accepted) { throw 'Installed candidate files are not a reviewed beta candidate. Activation remains disabled.' }
+ foreach ($name in $map.Keys) {
+     if ((Hash (J $payload $name)) -ne $new.files.PSObject.Properties[$name].Value) { throw "Repair payload failed verification: $name" }
+     $entries=@($state.files | Where-Object { $_.name -eq $name -and $_.is_code })
+@@ -113,7 +112,7 @@ try {
+         if ($map.Contains($entry.name)) { $entry.installed_sha256=$new.files.PSObject.Properties[$entry.name].Value }
+     }
+     # Original backup locations/hashes are retained. Restore now recognizes the
+-    # repaired pair instead of treating it as an unrelated external overwrite.
++    # repaired files instead of treating them as an unrelated external overwrite.
+     $state.phase='enabled'
+     Write-Atomic $statePath ($state | ConvertTo-Json -Depth 8)
+     Write-Atomic $flag 'enable-beta-261026'
+@@ -125,8 +124,7 @@ try {
+     Copy-Verified (J $backup 'current-before-repair.json') $statePath
+     throw $failure
+ }
+-Write-Host 'R3 campaign/scenario API repair installed and enabled; original backups and Identify data retained.' -ForegroundColor Green
+-Write-Host 'Extended Guidance, Automatic SAR and Osprey mechanics/deck code are held inactive on this captured beta set.'
+-Write-Host 'Campaign file lookup/battle calls, Sub Ammunition/Second Thrust INI calls and the Enhanced Decoy contact exit are adapted.'
+-Write-Host 'Identify navigation and its enemy-hail guard are adapted; Workshop DLLs/assets are preserved.'
+-Write-Host 'Launch beta, open Campaigns and test a campaign, then test the same standalone scenario. Quit and run Capture-Repair-Results.cmd.'
++Write-Host 'R4 beta repair installed and enabled; original backups and Identify data retained.' -ForegroundColor Green
++Write-Host 'Runtime 1.5.2 beta: the build text over the game view is hidden, the game''s #!extend scan is repaired once the Workshop folders are registered, and the cost windows price SEST rounds from SEST''s own catalog with item rows.'
++Write-Host 'The loader, bootstrap, UI follow-up and Identify shim are the R3 sources rebuilt with this candidate''s compiler.'
++Write-Host 'Launch beta, play a mission that fires an AGR-30 Redback, open F11 in the campaign menu, then quit and run Capture-Repair-Results.cmd.'
+diff --git a/integration/beta-feature-parity/build-roslyn.ps1 b/integration/beta-feature-parity/build-roslyn.ps1
+new file mode 100644
+index 00000000..771da476
+--- /dev/null
++++ b/integration/beta-feature-parity/build-roslyn.ps1
+@@ -0,0 +1,193 @@
++#Requires -Version 7.4
++<#
++Build the beta candidate with the Roslyn compiler that PowerShell 7 itself
++ships (Microsoft.CodeAnalysis.CSharp, C# 12), from the owner's captured beta
++references. It never installs a game file.
++
++This is the same build as build.py, without a .NET SDK: the same captured
++reference checks, the same source sets, the same generated files, the same
++compiler switches (no standard library, no config, deterministic, optimised,
++C# 12) and the same receipt. Only the compiler differs, so the output hashes
++differ from a build.py build; the receipt records which compiler produced them.
++
++    pwsh -NoProfile -File integration/beta-feature-parity/build-roslyn.ps1 `
++        -Capture <extracted SEST-Beta-References-*> -Output <separate folder>
++#>
++param(
++    [Parameter(Mandatory)][string]$Capture,
++    [Parameter(Mandatory)][string]$Output,
++    [string]$Revision = 'R4-20261103-watermark-costs-modifier-registry'
++)
++Set-StrictMode -Version Latest
++$ErrorActionPreference = 'Stop'
++
++$here = $PSScriptRoot
++$root = (Resolve-Path (Join-Path $here '..' '..')).Path
++$capture = (Resolve-Path $Capture).Path
++$pins = @{
++    'Seapower-Scripts.dll' = '3005bc6d4221a921008778a18dec06515d98c63d3afb6a3a2835b985ab2e7d62'
++    'Noesis.NoesisGUI.dll' = 'ed875dca0b45729f85b54c13d0c8b2b8e39c20c9403dd96bfd9eec2625940125'
++    'AnchorChain.dll' = 'e272811050698640a8936834363da91769dbc83e017637e3629c21bca6bea764'
++    'AnchorChain.Preloader.dll' = '1ee1570f1e7f457ffa63c24ee4085b2cdea8069ea8cebf146de5ef027eaa3984'
++    'IdentifyExpanded.dll' = '9f0ec630e9d7659082bdce61743a87895de14f1903a44c68395f8f158af8afd7'
++    'SeaPowerPopOut.dll' = '9be4003d26fe2a02120963ce1b94272a34d74d13fa793d9ef0e9242aaaf4fc8d'
++    'ContactLog.dll' = 'a1b8b450df0933df61984651fe2b19138acd605aa4b526bbfc23565d8295015e'
++    'SeaPowerSquadPanel.dll' = '6230e8e78e2ba7ba222241d0c3dcc881d2507ebeeb4eab24b6401cc9144283dd'
++    'CombatCosts.dll' = '74afa9028fc0c52b93f415263504f51ecf8d056a624feaebcc8053ba5a1c0ac3'
++    '0Harmony.dll' = '1a21cc03424fc82c3dd1346905d16494536b9595ae4162228d99fb7c285c1031'
++    'BepInEx.dll' = 'c65b42034bc8ffb9f0b336e416dc3884e3f99fc5a5a89eb1f2ff7868412322cd'
++    'Mono.Cecil.dll' = '7ae470288fff4a402899c254d0a76cefef55877f5c54f96e83c797cc5bb6e2f6'
++    'UnityEngine.CoreModule.dll' = 'e59403b80679d6200746b4132466acec651e225cd8e687ce2b96787a393d8c69'
++    'UnityEngine.InputLegacyModule.dll' = '89c49ce8f2e25366a07f2d2fd56dc75c20066a0ed8c62fb19bb0ff5ce63fb3ac'
++    'UnityEngine.IMGUIModule.dll' = '1f671635c05cfeecdac0e24fe26f9ebe26f182e6a1ba3c3b1031b1e8145a865d'
++}
++
++function Sha([string]$path) { (Get-FileHash -LiteralPath $path -Algorithm SHA256).Hash.ToLowerInvariant() }
++function J { $p = [string]$args[0]; for ($i = 1; $i -lt $args.Count; $i++) { $p = [IO.Path]::Combine($p, [string]$args[$i]) }; $p }
++
++$receiptIn = Get-Content -LiteralPath (J $capture 'capture.json') -Raw | ConvertFrom-Json
++if ($receiptIn.native_sha256 -ne $pins['Seapower-Scripts.dll']) { throw 'This candidate targets beta Build 261026 only.' }
++foreach ($ref in $receiptIn.references) {
++    if ((Sha (J $capture $ref.path)) -ne $ref.sha256) { throw ('Capture integrity failure: ' + $ref.path) }
++}
++$refs = J $capture 'references'
++$managed = J $refs 'managed'
++$core = J $refs 'bepinex' 'core'
++$preloader = J $refs 'bepinex' 'plugins' 'AnchorChain.Preloader.dll'
++$workshop = J $refs 'workshop' 'library-1'
++$inputs = @{
++    'AnchorChain.dll' = (J $workshop '3380210757' 'AnchorChain.dll')
++    'IdentifyExpanded.dll' = (J $workshop '3790594162' 'IdentifyExpanded.dll')
++    'SeaPowerPopOut.dll' = (J $workshop '3826396311' 'SeaPowerPopOut.dll')
++    'ContactLog.dll' = (J $workshop '3819427362' 'ContactLog.dll')
++    'SeaPowerSquadPanel.dll' = (J $workshop '3818251045' 'SeaPowerSquadPanel.dll')
++    'CombatCosts.dll' = (J $workshop '3807187341' 'CombatCosts.dll')
++    'AnchorChain.Preloader.dll' = $preloader
++    '0Harmony.dll' = (J $core '0Harmony.dll')
++    'BepInEx.dll' = (J $core 'BepInEx.dll')
++    'Mono.Cecil.dll' = (J $core 'Mono.Cecil.dll')
++}
++foreach ($n in 'Seapower-Scripts.dll', 'Noesis.NoesisGUI.dll', 'UnityEngine.CoreModule.dll', 'UnityEngine.InputLegacyModule.dll', 'UnityEngine.IMGUIModule.dll') { $inputs[$n] = J $managed $n }
++foreach ($name in $inputs.Keys) {
++    if ((Sha $inputs[$name]) -ne $pins[$name]) { throw ('Uninspected reference: ' + $name) }
++}
++# The reconstruction's baseline is the owner's captured Runtime 1.5.0. A capture
++# taken after a beta candidate was installed holds that candidate in the
++# Workshop folder instead, so the repository's preserved copy of the same
++# binary is accepted in its place; either way the hash must be 1.5.0's.
++$originalHash = '7ba6d6d9c58b6c3db31d731e951ed7ea3979925bdff054c9b92482dbe69c9986'
++$original = J $workshop '3812461539' 'plugins' 'SEST.RuntimeFixes.dll'
++if ((Sha $original) -ne $originalHash) {
++    $original = J $root 'integration' 'runtime-fixes' 'SEST.RuntimeFixes.dll'
++    if ((Sha $original) -ne $originalHash) { throw 'Runtime source provenance does not match the captured 1.5.0.' }
++    Write-Host 'captured Workshop runtime is a candidate build; using the preserved 1.5.0 binary from integration/runtime-fixes'
++}
++
++$out = [IO.Path]::GetFullPath($Output)
++foreach ($source in $capture, $here) { if ($out -eq $source) { throw 'Choose a separate build output directory.' } }
++New-Item -ItemType Directory -Force -Path $out | Out-Null
++$generated = J $out 'generated'
++New-Item -ItemType Directory -Force -Path $generated | Out-Null
++
++# Match Unity's actual Mono profile, as build.py does.
++$names = 'mscorlib.dll', 'netstandard.dll', 'System.dll', 'System.Core.dll', 'System.Xml.dll', 'System.Numerics.dll',
++    'Seapower-Scripts.dll', 'Noesis.NoesisGUI.dll', 'UnityEngine.dll', 'UnityEngine.CoreModule.dll',
++    'UnityEngine.IMGUIModule.dll', 'UnityEngine.InputLegacyModule.dll', 'UnityEngine.ParticleSystemModule.dll'
++$references = @($names | ForEach-Object { J $managed $_ })
++$references += (J $core '0Harmony.dll'), (J $core 'BepInEx.dll'), (J $core 'Mono.Cecil.dll'), $preloader
++
++$compilerAssembly = [Microsoft.CodeAnalysis.CSharp.CSharpCompilation].Assembly
++$compilerInfo = [System.Diagnostics.FileVersionInfo]::GetVersionInfo($compilerAssembly.Location)
++$parse = [Microsoft.CodeAnalysis.CSharp.CSharpParseOptions]::Default.WithLanguageVersion([Microsoft.CodeAnalysis.CSharp.LanguageVersion]::CSharp12)
++
++function Compile([string]$name, [string[]]$sources, [bool]$anchor = $true) {
++    $extra = @($references)
++    if ($anchor) { $extra += (J $out 'AnchorChain.dll') }
++    $trees = foreach ($src in $sources) {
++        $text = [IO.File]::ReadAllText($src)
++        [Microsoft.CodeAnalysis.CSharp.CSharpSyntaxTree]::ParseText($text, $parse, $src)
++    }
++    $metadata = foreach ($r in $extra) { [Microsoft.CodeAnalysis.MetadataReference]::CreateFromFile($r) }
++    $kind = if ($name.EndsWith('.exe')) { [Microsoft.CodeAnalysis.OutputKind]::ConsoleApplication } else { [Microsoft.CodeAnalysis.OutputKind]::DynamicallyLinkedLibrary }
++    $options = [Microsoft.CodeAnalysis.CSharp.CSharpCompilationOptions]::new($kind)
++    $options = $options.WithOptimizationLevel([Microsoft.CodeAnalysis.OptimizationLevel]::Release).WithDeterministic($true).WithPlatform([Microsoft.CodeAnalysis.Platform]::AnyCpu)
++    $compilation = [Microsoft.CodeAnalysis.CSharp.CSharpCompilation]::Create([IO.Path]::GetFileNameWithoutExtension($name),
++        [Microsoft.CodeAnalysis.SyntaxTree[]]@($trees), [Microsoft.CodeAnalysis.MetadataReference[]]@($metadata), $options)
++    $target = J $out $name
++    $stream = [IO.File]::Create($target)
++    try { $result = $compilation.Emit($stream) } finally { $stream.Dispose() }
++    foreach ($d in $result.Diagnostics) {
++        if ($d.Severity -eq [Microsoft.CodeAnalysis.DiagnosticSeverity]::Error) { Write-Host ('  ' + $d.ToString()) }
++    }
++    if (-not $result.Success) { Remove-Item -LiteralPath $target -ErrorAction SilentlyContinue; throw ('Compilation failed: ' + $name) }
++    Write-Host ('compiled ' + $name)
++}
++
++$globalUsings = J $generated 'GlobalUsings.cs'
++[IO.File]::WriteAllText($globalUsings, "global using System;`nglobal using System.IO;`nglobal using System.Linq;`nglobal using System.Collections.Generic;`n")
++$version = J $generated 'AnchorVersion.cs'
++[IO.File]::WriteAllText($version, "[assembly:System.Reflection.AssemblyVersion(`"1.1.0.0`")]`n[assembly:System.Reflection.AssemblyFileVersion(`"1.1.0.0`")]`n")
++
++function SortedCs([string]$folder) {
++    # The unary comma keeps a one-file folder an array when the function returns.
++    $list = @(Get-ChildItem -LiteralPath $folder -Filter '*.cs' -File | Sort-Object -Property Name -Culture '' | ForEach-Object { $_.FullName })
++    return ,$list
++}
++$anchorDir = J $here '..' 'beta-anchorchain'
++$anchorSources = SortedCs (J $anchorDir 'source')
++Compile 'AnchorChain.dll' ($anchorSources + @($globalUsings, $version)) $false
++Compile 'SEST.BetaSafeBootstrap.dll' @((J $anchorDir 'SEST.BetaSafeBootstrap.cs')) $false
++$runtimeSources = SortedCs (J $here 'runtime')
++Compile 'SEST.RuntimeFixes.dll' $runtimeSources
++$runtimeHash = Sha (J $out 'SEST.RuntimeFixes.dll')
++
++function Pins([string]$namespace) {
++    $path = J $generated ($namespace + '.Pins.cs')
++    [IO.File]::WriteAllText($path, ('namespace ' + $namespace + ' { internal static class BuildPins { internal const string RuntimeSha256 = "' + $runtimeHash + '"; } }' + "`n"))
++    $path
++}
++$uiSources = SortedCs (J $here 'ui')
++$identifySources = SortedCs (J $here 'identify')
++Compile 'SEST.ContactsFix.dll' ($uiSources + @((Pins 'Sest.UiFixes')))
++Compile 'SEST.IdentifyDataPaths.dll' ($identifySources + @((Pins 'Sest.IdentifyDataPaths')))
++Compile 'NativeBindingTests.exe' @((J $here 'tests' 'NativeBindingTests.cs'))
++Compile 'CatalogueRuntimeTests.exe' @((J $here '..' 'ui-followup' 'source' 'CatalogueRuntimeTests.cs'))
++Compile 'PathTests.exe' (@((J $here 'tests' 'PathTests.cs')) + $identifySources + @((Pins 'Sest.IdentifyDataPaths')))
++Compile 'LoaderTests.exe' @((J $here 'tests' 'LoaderTests.cs'))
++Compile 'RuntimeParityTests.exe' @((J $here 'tests' 'RuntimeParityTests.cs'))
++Compile 'HookTests.exe' @((J $here 'tests' 'HookTests.cs'))
++Compile 'AssemblyPolicyTests.exe' @((J $here 'tests' 'AssemblyPolicyTests.cs'))
++Compile 'BetaApiTests.exe' @((J $here 'tests' 'BetaApiTests.cs'))
++if (Test-Path -LiteralPath (J $here 'tests' 'CostRowsTests.cs')) { Compile 'CostRowsTests.exe' @((J $here 'tests' 'CostRowsTests.cs')) }
++
++$outputs = 'AnchorChain.dll', 'SEST.BetaSafeBootstrap.dll', 'SEST.RuntimeFixes.dll', 'SEST.ContactsFix.dll', 'SEST.IdentifyDataPaths.dll'
++$sourceFiles = @($runtimeSources) + @(Get-ChildItem -LiteralPath (J $here 'ui') -Filter '*.cs' -File | ForEach-Object { $_.FullName })
++$sourceFiles += @(Get-ChildItem -LiteralPath (J $here 'identify') -Filter '*.cs' -File | ForEach-Object { $_.FullName })
++$sourceFiles += @($anchorSources) + @((J $anchorDir 'SEST.BetaSafeBootstrap.cs'), (J $here 'build.py'), $PSCommandPath)
++$sourceFiles += @(Get-ChildItem -LiteralPath (J $here 'tests') -File | Where-Object { $_.Name -like '*.cs' -or $_.Name -like '*.ps1' } | ForEach-Object { $_.FullName })
++$sourceFiles += @((J $here 'Install-SEST-Beta.ps1'), (J $here 'Repair-SEST-Beta-Startup.ps1'), (J $here 'tests' 'check_runtime_contract.py'), (J $here 'verify.py'), (J $here 'package.py'))
++
++$files = [ordered]@{}
++foreach ($n in $outputs) { $files[$n] = Sha (J $out $n) }
++$sourceHashes = [ordered]@{}
++foreach ($p in ($sourceFiles | ForEach-Object { [IO.Path]::GetFullPath($_) } | Sort-Object -Unique)) {
++    $rel = [IO.Path]::GetRelativePath($root, $p).Replace('\', '/')
++    $sourceHashes[$rel] = Sha $p
++}
++$manifest = [ordered]@{
++    format = 1
++    status = 'compiled-candidate-needs-pc-gameplay-test'
++    candidate_revision = $Revision
++    target_game_sha256 = $pins['Seapower-Scripts.dll']
++    target_noesis_sha256 = $pins['Noesis.NoesisGUI.dll']
++    runtime_source = 'reconstructed-from-captured-1.5.0; original-project-not-recovered'
++    original_runtime_sha256 = (Sha $original)
++    original_runtime_path = [IO.Path]::GetRelativePath($root, $original).Replace('\', '/')
++    captured_references = $pins
++    compiler = ('PowerShell ' + $PSVersionTable.PSVersion + ' bundled Microsoft.CodeAnalysis.CSharp ' + $compilerInfo.ProductVersion + ' (C# 12, deterministic, optimised, no standard library)')
++    compiler_sha256 = (Sha $compilerAssembly.Location)
++    files = $files
++    source_files = $sourceHashes
++}
++[IO.File]::WriteAllText((J $out 'build-receipt.json'), (($manifest | ConvertTo-Json -Depth 5) + "`n"))
++Write-Host 'Beta candidate compiled. No game or Workshop files installed.'
+diff --git a/integration/beta-feature-parity/build.py b/integration/beta-feature-parity/build.py
+index d1f11f1d..e84557fb 100644
+--- a/integration/beta-feature-parity/build.py
++++ b/integration/beta-feature-parity/build.py
+@@ -126,6 +126,7 @@ def pins(namespace):
+     compile('HookTests.exe', [HERE / 'tests/HookTests.cs'])
+     compile('AssemblyPolicyTests.exe', [HERE / 'tests/AssemblyPolicyTests.cs'])
+     compile('BetaApiTests.exe', [HERE / 'tests/BetaApiTests.cs'])
++    compile('CostRowsTests.exe', [HERE / 'tests/CostRowsTests.cs'])
+     outputs = ['AnchorChain.dll', 'SEST.BetaSafeBootstrap.dll', 'SEST.RuntimeFixes.dll',
+                'SEST.ContactsFix.dll', 'SEST.IdentifyDataPaths.dll']
+     source_files = runtime_sources + list((HERE / 'ui').glob('*.cs')) + list((HERE / 'identify').glob('*.cs'))
+diff --git a/integration/beta-feature-parity/package.py b/integration/beta-feature-parity/package.py
+index d6a12f0d..3febd7fb 100644
+--- a/integration/beta-feature-parity/package.py
++++ b/integration/beta-feature-parity/package.py
+@@ -89,42 +89,46 @@
+ }
+ repair_commands = {}
+ if a.repair_base:
+-    readme = '''R3 CAMPAIGN / SCENARIO ERROR REPAIR — 2 NOVEMBER 2026
++    readme = '''R4 BETA REPAIR: WATERMARK, #!EXTEND SCAN, COST ROWS. 3 NOVEMBER 2026
+ 
+-For the already installed R1 or R2 Nov 1 beta candidate:
++For the installed R3 candidate (R1 and R2 are accepted too):
+ 1. Close Sea Power and extract this NEW ZIP into a fresh folder.
+-2. Run Repair-Beta-Startup.cmd. It updates the loader and Identify data shim,
+-   preserves the original backups and re-enables only after verified copies.
+-3. Launch beta and open Campaigns. Start/continue the failing campaign and,
+-   where possible, enter/leave a battle. Then load the same standalone scenario.
+-   Check that the expected units appear and the two reported errors are gone.
++2. Run Repair-Beta-Startup.cmd. It replaces all five candidate files, keeps
++   the original backups and re-enables only after every copy verifies.
++3. Launch beta and check:
++   - no "Sea Power v0.8.7-261026" text over the game view;
++   - Player.log holds a "[SEST Runtime] modifier files repaired" line (or
++     "nothing to repair");
++   - play a mission that fires an AGR-30 Redback, then open the campaign
++     menu's F11 window: the mission lists each round with its quantity,
++     unit price, line total and catalog section (sest_agr-30 at $70,000
++     from sest_weapon_costs.ini).
+ 4. Quit, run Capture-Repair-Results.cmd and attach its ZIP.
+ 
+ Disable-Beta-Test.cmd stops this test activation. Restore-Previous-SEST.cmd
+ restores the original backed-up code; the repair updates that restore journal.
+ 
+-This repair adapts Dynamic Campaign's directory/file lookups and other changed
+-beta APIs used in its battle path: bearings, mission-path read/write, unload,
+-ASW attack defaults, reaction time, constant-speed requests and the legacy
+-secondary enemy taskforce. Native beta defaults and mission mounts are kept.
+-It also adapts Sub Ammunition and Second Thrust's old INI calls, chooses one
+-captured Sub Ammunition image before loading, and fixes Enhanced Decoy's
+-constructor branch to retain beta's contact-registration epilogue. Identify's
+-enemy-hail scan now skips units whose taskforce is not assigned. Author DLLs
+-remain unchanged; the loader creates inspected private compatibility images.
+-
+-The earlier mission-load failure is ExtendedGuidance 0.9.7's incompatible
+-SensorDistanceData field layout, encountered by Unity ECS type discovery.
+-That captured DLL is now rejected BEFORE CLR loading. Automatic SAR and
+-Osprey mechanics/deck code with confirmed beta patch failures are held inactive.
+-Their Workshop files and data are kept. Full pre-beta parity is still unfinished.
+-
+-Identify Expanded stays active: all 10 old CourseTo calls are adapted to beta's
+-HeadingToPosition in a private cache. Its Workshop DLL and asset paths stay
+-unchanged, and Local data remains redirected outside StreamingAssets.
+-
+-For a FRESH install or after restoring the old candidate, use Stage/menu/Enable
+-below instead of Repair. Keep Steam on beta throughout.
++What R4 changes (Runtime 1.5.2 beta; the loader, bootstrap, UI 1.4.3 beta
++and Identify shim are the R3 sources rebuilt with this candidate's compiler):
++- The beta's version watermark (SeaPower.VersionWatermark) is hidden after
++  it starts; nothing else on the HUD changes. HideVersionWatermark=0 in
++  plugins/sest_runtime.ini keeps it.
++- Beta 261026 scans #!extend files once. On this PC that scan runs before
++  the Workshop folders are registered, because Anchor Chain's preloader and
++  the SEST bootstrap read FileManager.Directories early, so every Workshop
++  mod's #!extend, #!prepend and #!copy file was ignored all session: SEST's
++  cost catalogs, Cross-Deck stubs and the Collection and Allied Fixes
++  extends. The Runtime rescans once the Workshop folders are registered and
++  clears the ini cache, as the Mod Manager's Apply does.
++- Cumulative Combat Costs reads SEST's own catalog files where the merged
++  catalog lacks a section, and lists every expended round per mission with
++  quantity, unit price, line total and the section the price came from.
++
++Not in R4: the clipped tab borders (no screenshot received), the Global
++Hawk range (its data is unchanged; see BETA-FEATURE-PARITY.md) and the
++author plugins that stop on beta APIs (MissileControlMod, MultiStageMissiles,
++OptimalTargetDist, SubModelStabilization, TestRange, UiWorkerProbe,
++WeaponLauncherEffects, BetterTacMap): those need their authors' ports.
+ 
+ --------------------------------------------------------------------------
+ 
+diff --git a/integration/beta-feature-parity/runtime/CampaignCosts.cs b/integration/beta-feature-parity/runtime/CampaignCosts.cs
+index ce16e163..c8d9598e 100644
+--- a/integration/beta-feature-parity/runtime/CampaignCosts.cs
++++ b/integration/beta-feature-parity/runtime/CampaignCosts.cs
+@@ -628,6 +628,13 @@ internal static class CampaignCosts
+ 			}
+ 			list.Add(new CostReportLine(CostLineKind.Mission, Clip(item.Name, 256)));
+ 			list.Add(new CostReportLine(CostLineKind.Amount, "   " + string.Join(" | ", list2)));
++			foreach (CombatSideRecord side4 in item.Sides)
++			{
++				if (side4.Name == "Player" || side4.Name == "Enemy")
++				{
++					list.AddRange(Items(side4.Name + " weapons expended", side4.Spent, combatPrices));
++				}
++			}
+ 			list.Add(new CostReportLine(CostLineKind.Time, "   Completed: " + ((!item.CompletedAt.HasValue) ? "Not recorded" : item.CompletedAt.Value.ToString("d MMM yyyy HH:mm'Z'", CultureInfo.InvariantCulture))));
+ 		}
+ 		costView.AddSummary(CostLineKind.Basis, Basis(combatPrices) + " | " + games.Count + " completed mission" + ((games.Count != 1) ? "s" : string.Empty) + ".");
+@@ -663,6 +670,50 @@ internal static class CampaignCosts
+ 		return "$" + amount.Known.ToString("#,0.##", CultureInfo.InvariantCulture) + ((!amount.Incomplete) ? string.Empty : " + ?");
+ 	}
+ 
++	private static string Exact(decimal amount)
++	{
++		return "$" + amount.ToString("#,0.##", CultureInfo.InvariantCulture);
++	}
++
++	// One row per weapon reference in a ledger: quantity, unit price, line
++	// total and the catalog section (or unit file) the price came from. Reads
++	// only; the saved quantity records are not changed.
++	internal static List<CostReportLine> Items(string label, InventoryLedger ledger, CombatPrices prices)
++	{
++		List<KeyValuePair<decimal, string>> rows = new List<KeyValuePair<decimal, string>>();
++		foreach (KeyValuePair<string, long> item in ledger.Ammo)
++		{
++			if (item.Value <= 0)
++			{
++				continue;
++			}
++			CombatPrice combatPrice = Price(prices, "weapon", item.Key, "ammunition");
++			if (combatPrice.Ignored)
++			{
++				continue;
++			}
++			decimal total = ((!combatPrice.Amount.HasValue) ? (-1m) : (combatPrice.Amount.Value * (decimal)item.Value));
++			string text = "      " + item.Key + " ×" + item.Value.ToString("N0", CultureInfo.InvariantCulture) + " @ " + ((!combatPrice.Amount.HasValue) ? "?" : Exact(combatPrice.Amount.Value)) + " = " + ((!combatPrice.Amount.HasValue) ? "?" : Exact(total)) + " | " + (combatPrice.Source ?? "no price");
++			rows.Add(new KeyValuePair<decimal, string>(total, text));
++		}
++		List<CostReportLine> list = new List<CostReportLine>();
++		if (rows.Count == 0)
++		{
++			return list;
++		}
++		rows.Sort(delegate(KeyValuePair<decimal, string> a, KeyValuePair<decimal, string> b)
++		{
++			int num = b.Key.CompareTo(a.Key);
++			return (num != 0) ? num : string.Compare(a.Value, b.Value, StringComparison.OrdinalIgnoreCase);
++		});
++		list.Add(new CostReportLine(CostLineKind.Category, "   " + label));
++		foreach (KeyValuePair<decimal, string> row in rows)
++		{
++			list.Add(new CostReportLine(CostLineKind.Item, row.Value));
++		}
++		return list;
++	}
++
+ 	private static void Categories(CostView view, InventoryLedger ledger, CombatPrices prices, string noun)
+ 	{
+ 		SortedDictionary<string, CombatAmount> sortedDictionary = new SortedDictionary<string, CombatAmount>(StringComparer.OrdinalIgnoreCase);
+@@ -708,11 +759,19 @@ internal static class CampaignCosts
+ 				costView.AddDetail(CostLineKind.Section, side2.Name + " - expenditure and losses");
+ 				costView.AddDetail(CostLineKind.Body, "Weapons expended: " + Full(side.Weapons));
+ 				Categories(costView, side2.Spent, combatPrices, "expended");
++				foreach (CostReportLine row in Items("Items", side2.Spent, combatPrices))
++				{
++					costView.AddDetail(row.Kind, row.Text);
++				}
+ 				costView.AddDetail(CostLineKind.Body, "Ships & submarines destroyed: " + side.Ships.Count + " | " + Full(side.Ships));
+ 				costView.AddDetail(CostLineKind.Body, "Aircraft destroyed: " + side.Air.Count + " | " + Full(side.Air));
+ 				costView.AddDetail(CostLineKind.Body, "Land units destroyed: " + side.Land.Count + " | " + Full(side.Land));
+ 				costView.AddDetail(CostLineKind.Body, "Stores lost with destroyed units: " + Full(side.Stores));
+ 				Categories(costView, side2.Stores, combatPrices, "lost");
++				foreach (CostReportLine row2 in Items("Items", side2.Stores, combatPrices))
++				{
++					costView.AddDetail(row2.Kind, row2.Text);
++				}
+ 				costView.AddDetail(CostLineKind.Spacer, string.Empty);
+ 			}
+ 		}
+@@ -779,6 +838,13 @@ internal static class CampaignCosts
+ 			}
+ 		}
+ 		dictionary["land"] = Catalog("sest_land_costs");
++		// SEST's own catalog files, for sections the merged catalogs lack when
++		// the game's modifier scan missed the pack's #!extend files (beta).
++		Dictionary<string, Dictionary<string, Dictionary<string, string>>> ownLists = new Dictionary<string, Dictionary<string, Dictionary<string, string>>>();
++		foreach (string text2 in array)
++		{
++			ownLists[text2] = Catalog("sest_" + text2 + "_costs");
++		}
+ 		return new CombatPrices(dictionary, Catalog("config", "systems/combatcosts"), delegate(string folder, string reference)
+ 		{
+ 			object ini = openUnit.Invoke(null, new object[4]
+@@ -789,7 +855,7 @@ internal static class CampaignCosts
+ 				true
+ 			});
+ 			return CombatPrices.Section(Data(ini), "General");
+-		});
++		}, ownLists);
+ 	}
+ 
+ 	private static CombatPrice Price(CombatPrices prices, string kind, string reference, string folder, string type = null)
+diff --git a/integration/beta-feature-parity/runtime/CombatPrice.cs b/integration/beta-feature-parity/runtime/CombatPrice.cs
+index 723b077d..f59cee58 100644
+--- a/integration/beta-feature-parity/runtime/CombatPrice.cs
++++ b/integration/beta-feature-parity/runtime/CombatPrice.cs
+@@ -7,4 +7,7 @@ internal sealed class CombatPrice
+ 	internal string Category;
+ 
+ 	internal bool Ignored;
++
++	// Which catalog section or unit file supplied the amount, for the item rows.
++	internal string Source;
+ }
+diff --git a/integration/beta-feature-parity/runtime/CombatPrices.cs b/integration/beta-feature-parity/runtime/CombatPrices.cs
+index a464f2c8..b9e92a30 100644
+--- a/integration/beta-feature-parity/runtime/CombatPrices.cs
++++ b/integration/beta-feature-parity/runtime/CombatPrices.cs
+@@ -11,6 +11,14 @@ internal sealed class CombatPrices
+ 
+ 	private readonly Dictionary<string, Dictionary<string, Dictionary<string, string>>> catalogs;
+ 
++	// SEST's own catalog files, read by their own file names. On the public
++	// beta the game's one-shot modifier scan can miss every Workshop #!extend
++	// file (see ModifierRegistry), so the merged weaponcosts.ini may lack the
++	// sections that sest_weapon_costs.ini extends into it. These are the same
++	// sections read without the merge; the merged catalog wins where it has
++	// the section.
++	private readonly Dictionary<string, Dictionary<string, Dictionary<string, string>>> own;
++
+ 	private readonly Func<string, string, Dictionary<string, string>> readUnit;
+ 
+ 	private readonly Dictionary<string, CombatPrice> cache = new Dictionary<string, CombatPrice>(StringComparer.OrdinalIgnoreCase);
+@@ -20,8 +28,14 @@ internal sealed class CombatPrices
+ 	internal readonly string Basis;
+ 
+ 	internal CombatPrices(Dictionary<string, Dictionary<string, Dictionary<string, string>>> lists, Dictionary<string, Dictionary<string, string>> config, Func<string, string, Dictionary<string, string>> unitReader)
++		: this(lists, config, unitReader, null)
++	{
++	}
++
++	internal CombatPrices(Dictionary<string, Dictionary<string, Dictionary<string, string>>> lists, Dictionary<string, Dictionary<string, string>> config, Func<string, string, Dictionary<string, string>> unitReader, Dictionary<string, Dictionary<string, Dictionary<string, string>>> ownLists)
+ 	{
+ 		catalogs = lists;
++		own = ownLists ?? new Dictionary<string, Dictionary<string, Dictionary<string, string>>>();
+ 		readUnit = unitReader;
+ 		Dictionary<string, string> data = Section(lists["weapon"], "Costs");
+ 		Dictionary<string, string> data2 = Section(config, "Costs");
+@@ -62,15 +76,28 @@ internal sealed class CombatPrices
+ 	}
+ 
+ 	internal static string Resolve(Dictionary<string, string> own, Dictionary<string, string> global, Dictionary<string, string> entry, string field, string inlineField = null)
++	{
++		return Resolve(own, global, entry, field, inlineField, out bool _);
++	}
++
++	// fromEntry says whether the catalog section, rather than the unit's own
++	// file, supplied the value.
++	internal static string Resolve(Dictionary<string, string> own, Dictionary<string, string> global, Dictionary<string, string> entry, string field, string inlineField, out bool fromEntry)
+ 	{
+ 		bool fallback = Preference(global, "OverrideInline", fallback: false);
+ 		fallback = Preference(entry, "OverrideInline", fallback);
+ 		fallback = Preference(entry, "Override" + field, fallback);
+ 		string text = Get(own, inlineField ?? field);
+ 		string text2 = Get(entry, field);
++		fromEntry = ((!fallback) ? (text == null && text2 != null) : (text2 != null));
+ 		return (!fallback) ? (text ?? text2) : (text2 ?? text);
+ 	}
+ 
++	internal static string CatalogName(string kind)
++	{
++		return (kind == "land") ? "sest_land_costs.ini" : (kind + "costs.ini");
++	}
++
+ 	internal static decimal? Parse(string value)
+ 	{
+ 		decimal result;
+@@ -142,6 +169,12 @@ internal sealed class CombatPrices
+ 		Dictionary<string, Dictionary<string, string>> data = catalogs[kind];
+ 		Dictionary<string, string> global = Section(data, "Costs");
+ 		Dictionary<string, string> entry = Section(data, reference);
++		string catalog = CatalogName(kind);
++		if (entry.Count == 0 && own.TryGetValue(kind, out var ownData))
++		{
++			entry = Section(ownData, reference);
++			catalog = "sest_" + kind + "_costs.ini";
++		}
+ 		string text = kind switch
+ 		{
+ 			"weapon" => "WeaponCosts",
+@@ -150,7 +183,8 @@ internal sealed class CombatPrices
+ 			_ => "LandCosts",
+ 		};
+ 		CombatPrice combatPrice = new CombatPrice();
+-		combatPrice.Amount = Parse(Resolve(dictionary, global, entry, (!Current) ? text : "CurrentYearCost"));
++		combatPrice.Amount = Parse(Resolve(dictionary, global, entry, (!Current) ? text : "CurrentYearCost", null, out bool fromEntry));
++		combatPrice.Source = ((!combatPrice.Amount.HasValue) ? ("no " + Basis + " price") : ((!fromEntry) ? (folder + "/" + reference + ".ini") : (catalog + " [" + reference + "]")));
+ 		value = combatPrice;
+ 		if (kind == "weapon")
+ 		{
+diff --git a/integration/beta-feature-parity/runtime/CostLineKind.cs b/integration/beta-feature-parity/runtime/CostLineKind.cs
+index accffdb6..1cffef57 100644
+--- a/integration/beta-feature-parity/runtime/CostLineKind.cs
++++ b/integration/beta-feature-parity/runtime/CostLineKind.cs
+@@ -12,5 +12,6 @@ internal enum CostLineKind
+ 	Amount,
+ 	Time,
+ 	Category,
+-	Spacer
++	Spacer,
++	Item
+ }
+diff --git a/integration/beta-feature-parity/runtime/ModifierRegistry.cs b/integration/beta-feature-parity/runtime/ModifierRegistry.cs
+new file mode 100644
+index 00000000..5f574bcc
+--- /dev/null
++++ b/integration/beta-feature-parity/runtime/ModifierRegistry.cs
+@@ -0,0 +1,158 @@
++using System;
++using System.Collections;
++using System.Collections.Generic;
++using System.IO;
++using System.Reflection;
++
++namespace Sest.RuntimeFixes;
++
++// Beta Build 261026 builds FileManager.Directories lazily. When a BepInEx
++// plugin reads it before SteamManager has initialised (Anchor Chain's
++// preloader and SEST's beta bootstrap both do, to find the chainloader), the
++// list holds only the game's own folders. FileManager.OnStart later rebuilds
++// it, but each SearchDirectory it constructs opens its mod's _info.ini through
++// IniHandler.open, whose one-shot IniHandler.ScanForModifierFiles then runs
++// against the stale three-folder list, because the rebuilt list is published
++// only after every directory is constructed. The scan never runs again, so
++// every #!extend, #!prepend and #!copy file of every Workshop mod is ignored
++// for the whole session: SEST's cost catalogs, its Cross-Deck stubs and its
++// Collection and Allied Fixes extends among them. The 2 Nov 2026 capture shows
++// the result: neither cost reader found [sest_agr-30], which SEST's
++// sest_weapon_costs.ini extends into weaponcosts.ini.
++//
++// The game's own Mod Manager "apply" calls IniHandler.invalidateCache and
++// IniHandler.invalidateModifierRegistry before reloading the menu. This does
++// the same once the Workshop folders are registered, which is when this
++// plugin runs, and only when the registry really lacks the pack's own
++// modifier files. Everything is read through the game's methods; no file is
++// written and no scene is reloaded.
++internal static class ModifierRegistry
++{
++	private static FieldInfo scanComplete;
++
++	private static FieldInfo extendRegistry;
++
++	private static FieldInfo prependRegistry;
++
++	private static MethodInfo invalidateCache;
++
++	private static MethodInfo invalidateRegistry;
++
++	private static MethodInfo scan;
++
++	private static PropertyInfo fileManager;
++
++	private static PropertyInfo directories;
++
++	internal static void Bind(Assembly game)
++	{
++		Type ini = Api.Type(game, "SeaPower.IniHandler");
++		scanComplete = Field(ini, "_modifierScanComplete", typeof(bool));
++		extendRegistry = Field(ini, "_extendRegistry", typeof(Dictionary<string, List<string>>));
++		prependRegistry = Field(ini, "_prependRegistry", typeof(Dictionary<string, List<string>>));
++		invalidateCache = Api.Method(ini, "invalidateCache", typeof(void));
++		invalidateRegistry = Api.Method(ini, "invalidateModifierRegistry", typeof(void));
++		scan = Api.Method(ini, "ScanForModifierFiles", typeof(void));
++		if (!invalidateCache.IsStatic || !invalidateRegistry.IsStatic || !scan.IsStatic)
++		{
++			throw new MissingMethodException("SeaPower.IniHandler", "static invalidation");
++		}
++		Type manager = Api.Type(game, "SeaPower.FileManager");
++		fileManager = Api.Type(game, "SeaPower.Singleton`1").MakeGenericType(manager).GetProperty("Instance", BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic);
++		if (fileManager == null)
++		{
++			throw new MissingMemberException("SeaPower.Singleton<FileManager>.Instance");
++		}
++		directories = manager.GetProperty("Directories", BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
++		if (directories == null || !typeof(IEnumerable).IsAssignableFrom(directories.PropertyType))
++		{
++			throw new MissingMemberException("SeaPower.FileManager.Directories");
++		}
++	}
++
++	private static FieldInfo Field(Type type, string name, Type expected)
++	{
++		FieldInfo field = type.GetField(name, BindingFlags.Static | BindingFlags.NonPublic | BindingFlags.Public);
++		if (field == null || field.FieldType != expected)
++		{
++			throw new MissingFieldException(type.FullName, name);
++		}
++		return field;
++	}
++
++	internal static void Install(Assembly game, string packFolder)
++	{
++		Bind(game);
++		int roots = Roots();
++		if (!(bool)scanComplete.GetValue(null))
++		{
++			Api.Log("modifier files: the game has not scanned for #!extend files yet; " + roots + " search directories registered, nothing to repair");
++			return;
++		}
++		int before = Registered(packFolder, out int targetsBefore);
++		if (before > 0)
++		{
++			Api.Log("modifier files: the game's registry already holds " + before + " of this pack's #!extend and #!prepend files among " + targetsBefore + " targets; nothing to repair");
++			return;
++		}
++		// The order matters: a new registry first, so that anything cached after
++		// the clear was read with the complete list of mods.
++		invalidateRegistry.Invoke(null, null);
++		scan.Invoke(null, null);
++		invalidateCache.Invoke(null, null);
++		int after = Registered(packFolder, out int targetsAfter);
++		Api.Log("modifier files repaired: the game's one-shot #!extend scan had run before the Workshop folders were registered (" + targetsBefore + " targets, none from this pack); rescanned " + roots + " search directories: " + targetsAfter + " targets, " + after + " files from this pack, ini cache cleared");
++		if (after == 0)
++		{
++			Api.Log("modifier files: the rescan still holds none of this pack's #!extend files; its catalogs and stubs will not apply this session");
++		}
++	}
++
++	private static int Roots()
++	{
++		object manager = fileManager.GetValue(null, null);
++		if (manager == null)
++		{
++			return 0;
++		}
++		int count = 0;
++		foreach (object item in (IEnumerable)directories.GetValue(manager, null))
++		{
++			count++;
++		}
++		return count;
++	}
++
++	internal static int Registered(string packFolder, out int targets)
++	{
++		targets = 0;
++		int count = 0;
++		string prefix = Normalize(packFolder);
++		FieldInfo[] registries = new FieldInfo[2] { extendRegistry, prependRegistry };
++		foreach (FieldInfo registry in registries)
++		{
++			if (!(registry.GetValue(null) is Dictionary<string, List<string>> entries))
++			{
++				continue;
++			}
++			targets += entries.Count;
++			foreach (List<string> files in entries.Values)
++			{
++				foreach (string file in files)
++				{
++					if (!string.IsNullOrEmpty(file) && Normalize(file).StartsWith(prefix, StringComparison.OrdinalIgnoreCase))
++					{
++						count++;
++					}
++				}
++			}
++		}
++		return count;
++	}
++
++	private static string Normalize(string path)
++	{
++		string text = Path.GetFullPath(path).Replace('\\', '/');
++		return text.EndsWith("/") ? text : (text + "/");
++	}
++}
+diff --git a/integration/beta-feature-parity/runtime/NativeCostTypography.cs b/integration/beta-feature-parity/runtime/NativeCostTypography.cs
+index ab22e5dd..4332f9fc 100644
+--- a/integration/beta-feature-parity/runtime/NativeCostTypography.cs
++++ b/integration/beta-feature-parity/runtime/NativeCostTypography.cs
+@@ -87,6 +87,11 @@ internal static class NativeCostTypography
+ 				textBlock2.Foreground = Ink("#B6C4CE");
+ 				textBlock2.Margin = new Thickness(16f, 0f, 0f, 3f);
+ 				break;
++			case CostLineKind.Item:
++				textBlock2.FontSize = 12f;
++				textBlock2.Foreground = Ink("#A3B3BF");
++				textBlock2.Margin = new Thickness(26f, 0f, 0f, 2f);
++				break;
+ 			}
+ 			if (row.Kind == CostLineKind.Mission)
+ 			{
+diff --git a/integration/beta-feature-parity/runtime/RuntimeFixesMod.cs b/integration/beta-feature-parity/runtime/RuntimeFixesMod.cs
+index 33cf6561..3ca7e9b3 100644
+--- a/integration/beta-feature-parity/runtime/RuntimeFixesMod.cs
++++ b/integration/beta-feature-parity/runtime/RuntimeFixesMod.cs
+@@ -6,7 +6,7 @@ using AnchorChain;
+ 
+ namespace Sest.RuntimeFixes;
+ 
+-[ACPlugin("io.github.sest-hobby.runtime-fixes", "SEST Runtime Fixes Beta", "1.5.1", null, null)]
++[ACPlugin("io.github.sest-hobby.runtime-fixes", "SEST Runtime Fixes Beta", "1.5.2", null, null)]
+ public sealed class RuntimeFixesMod : IAnchorChainMod
+ {
+ 	public void TriggerEntryPoint()
+@@ -33,6 +33,29 @@ public sealed class RuntimeFixesMod : IAnchorChainMod
+ 				return;
+ 			}
+ 			string[] lines = File.ReadAllLines(Path.Combine(fullName, "plugins", "sest_runtime.ini"));
++			// Beta only: both default to on when the pack's options file predates them.
++			if (Policy.TextOption(lines, "ModifierRegistry", "1") == "1")
++			{
++				try
++				{
++					ModifierRegistry.Install(assembly, fullName);
++				}
++				catch (Exception error9)
++				{
++					Api.LogFailure("modifier file check not installed", error9);
++				}
++			}
++			if (Policy.TextOption(lines, "HideVersionWatermark", "1") == "1")
++			{
++				try
++				{
++					VersionWatermark.Install(assembly);
++				}
++				catch (Exception error10)
++				{
++					Api.LogFailure("version watermark not hidden", error10);
++				}
++			}
+ 			if (Policy.OptionEnabled(lines, "TowedSensorGuard"))
+ 			{
+ 				try
+diff --git a/integration/beta-feature-parity/runtime/VersionWatermark.cs b/integration/beta-feature-parity/runtime/VersionWatermark.cs
+new file mode 100644
+index 00000000..8754b04b
+--- /dev/null
++++ b/integration/beta-feature-parity/runtime/VersionWatermark.cs
+@@ -0,0 +1,107 @@
++using System;
++using System.Reflection;
++
++namespace Sest.RuntimeFixes;
++
++// Beta Build 261026 draws "Sea Power v0.8.7-261026" over the game view.
++// SeaPower.VersionWatermark.OnStart keeps that text active whenever Steam
++// reports a beta branch (SteamApps.GetCurrentBetaName), whatever the player's
++// own [Debug] ShowVersionWatermark option says; only the game's config.ini
++// can turn it off, and the game does not ship one that does. This hides that
++// one object again after every OnStart, and any instance that started before
++// the plugin loaded. Nothing else on the HUD is touched.
++internal static class VersionWatermark
++{
++	private static Type watermark;
++
++	private static MethodInfo gameObject;
++
++	private static MethodInfo setActive;
++
++	private static MethodInfo findObjects;
++
++	private static object[] findArguments;
++
++	private static bool reported;
++
++	internal static MethodInfo Bind(Assembly game)
++	{
++		watermark = Api.Type(game, "SeaPower.VersionWatermark");
++		MethodInfo target = Api.Method(watermark, "OnStart", typeof(void));
++		Type component = watermark;
++		while (component != null && component.FullName != "UnityEngine.Component")
++		{
++			component = component.BaseType;
++		}
++		if (component == null)
++		{
++			throw new MissingMemberException("SeaPower.VersionWatermark is not a UnityEngine.Component");
++		}
++		PropertyInfo property = component.GetProperty("gameObject", BindingFlags.Instance | BindingFlags.Public);
++		if (property == null || property.GetGetMethod() == null)
++		{
++			throw new MissingMemberException("UnityEngine.Component.gameObject");
++		}
++		gameObject = property.GetGetMethod();
++		setActive = Api.Method(property.PropertyType, "SetActive", typeof(void), typeof(bool));
++		Type unityObject = component.BaseType;
++		Type sortMode = unityObject.Assembly.GetType("UnityEngine.FindObjectsSortMode", throwOnError: false);
++		findObjects = ((sortMode != null) ? unityObject.GetMethod("FindObjectsByType", BindingFlags.Static | BindingFlags.Public, null, new Type[2] { typeof(Type), sortMode }, null) : null);
++		if (findObjects != null)
++		{
++			findArguments = new object[2] { watermark, Enum.ToObject(sortMode, 0) };
++		}
++		else
++		{
++			findObjects = unityObject.GetMethod("FindObjectsOfType", BindingFlags.Static | BindingFlags.Public, null, new Type[1] { typeof(Type) }, null);
++			findArguments = new object[1] { watermark };
++		}
++		if (findObjects == null)
++		{
++			throw new MissingMethodException("UnityEngine.Object", "FindObjectsByType");
++		}
++		return target;
++	}
++
++	internal static void Install(Assembly game)
++	{
++		MethodInfo target = Bind(game);
++		Api.Postfix(target, typeof(VersionWatermark), "AfterStart", "io.github.sest-hobby.version-watermark");
++		int hidden = 0;
++		foreach (object instance in (Array)findObjects.Invoke(null, findArguments))
++		{
++			if (instance != null && Hide(instance))
++			{
++				hidden++;
++			}
++		}
++		Api.Log("version watermark hidden: the beta's own build text over the game view (" + hidden + " already present); HideVersionWatermark=0 in plugins/sest_runtime.ini keeps it");
++	}
++
++	public static void AfterStart(object __instance)
++	{
++		try
++		{
++			Hide(__instance);
++		}
++		catch (Exception error)
++		{
++			if (!reported)
++			{
++				reported = true;
++				Api.LogFailure("version watermark stays visible", error);
++			}
++		}
++	}
++
++	private static bool Hide(object instance)
++	{
++		object target = gameObject.Invoke(instance, null);
++		if (target == null)
++		{
++			return false;
++		}
++		setActive.Invoke(target, new object[1] { false });
++		return true;
++	}
++}
+diff --git a/integration/beta-feature-parity/tests/CostRowsTests.cs b/integration/beta-feature-parity/tests/CostRowsTests.cs
+new file mode 100644
+index 00000000..51eb5fc9
+--- /dev/null
++++ b/integration/beta-feature-parity/tests/CostRowsTests.cs
+@@ -0,0 +1,98 @@
++using System;
++using System.Collections;
++using System.Collections.Generic;
++using System.IO;
++using System.Linq;
++using System.Reflection;
++
++// Prices and item rows against in-memory catalogs: SEST's own catalog file
++// supplies a section the merged catalog lacks, the merged catalog still wins
++// where it has the section, every row names its source, and the saved
++// quantity record is not changed by building the rows. No game execution.
++static class CostRowsTests
++{
++    const BindingFlags All = BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static | BindingFlags.Instance;
++    static int checks;
++    static void Check(bool ok, string why) { checks++; if (!ok) throw new Exception(why); }
++    static Dictionary<string, Dictionary<string, string>> Ini(params KeyValuePair<string, Dictionary<string, string>>[] sections)
++    {
++        var ini = new Dictionary<string, Dictionary<string, string>>();
++        foreach (var s in sections) ini[s.Key] = s.Value;
++        return ini;
++    }
++    static KeyValuePair<string, Dictionary<string, string>> Section(string name, params string[] pairs)
++    {
++        var keys = new Dictionary<string, string>();
++        for (int i = 0; i + 1 < pairs.Length; i += 2) keys[pairs[i]] = pairs[i + 1];
++        return new KeyValuePair<string, Dictionary<string, string>>(name, keys);
++    }
++    static object Prices(Assembly runtime, bool current)
++    {
++        var lists = new Dictionary<string, Dictionary<string, Dictionary<string, string>>> {
++            ["weapon"] = Ini(Section("Costs", "UseCurrentYearCosts", current.ToString(), "CurrentYear", "2026"),
++                             Section("usn_agm-114l", "WeaponCosts", "100000", "CurrentYearCost", "200000", "Category", "ATGM")),
++            ["vessel"] = Ini(Section("Costs")), ["aircraft"] = Ini(Section("Costs")), ["land"] = Ini(),
++        };
++        var own = new Dictionary<string, Dictionary<string, Dictionary<string, string>>> {
++            ["weapon"] = Ini(Section("sest_agr-30", "WeaponCosts", "70000", "CurrentYearCost", "150000", "Category", "ATGM"),
++                             Section("usn_agm-114l", "WeaponCosts", "1", "CurrentYearCost", "1", "Category", "Wrong")),
++            ["vessel"] = Ini(), ["aircraft"] = Ini(),
++        };
++        // Every round has a readable unit file (an anti-ship missile); only one
++        // carries its own inline price. A round with no unit file at all is
++        // Ignored by the existing category rule, as in Runtime 1.5.0.
++        Func<string, string, Dictionary<string, string>> unit = (folder, reference) =>
++            reference == "inline_round" ? new Dictionary<string, string> { ["WeaponCosts"] = "42", ["CurrentYearCost"] = "84", ["Type"] = "Missile", ["TargetType"] = "ASuW" }
++                                        : new Dictionary<string, string> { ["Type"] = "Missile", ["TargetType"] = "ASuW" };
++        Type type = runtime.GetType("Sest.RuntimeFixes.CombatPrices", true);
++        var ctor = type.GetConstructors(All).Single(c => c.GetParameters().Length == 4);
++        return ctor.Invoke(new object[] { lists, Ini(Section("Costs")), unit, own });
++    }
++    static object Read(object prices, string reference)
++    {
++        return prices.GetType().GetMethod("Read", All).Invoke(prices, new object[] { "weapon", reference, "ammunition", null });
++    }
++    static T Get<T>(object o, string field) { return (T)o.GetType().GetField(field, All).GetValue(o); }
++    static void Main(string[] args)
++    {
++        string refs = Path.GetFullPath(args[0]);
++        AppDomain.CurrentDomain.AssemblyResolve += (s, e) => {
++            string p = Path.Combine(refs, new AssemblyName(e.Name).Name + ".dll");
++            return File.Exists(p) ? Assembly.LoadFrom(p) : null;
++        };
++        var runtime = Assembly.LoadFrom(Path.GetFullPath(args[1]));
++        object reference = Prices(runtime, false);
++        object agr = Read(reference, "sest_agr-30");
++        Check(Get<decimal?>(agr, "Amount") == 70000m, "SEST's own catalog prices the round the merged catalog lacks");
++        Check(Get<string>(agr, "Source") == "sest_weapon_costs.ini [sest_agr-30]", "The row names SEST's catalog section: " + Get<string>(agr, "Source"));
++        Check(Get<string>(agr, "Category") == "ATGM" && !Get<bool>(agr, "Ignored"), "Category comes with the fallback section");
++        object hellfire = Read(reference, "usn_agm-114l");
++        Check(Get<decimal?>(hellfire, "Amount") == 100000m && Get<string>(hellfire, "Source") == "weaponcosts.ini [usn_agm-114l]", "The merged catalog wins where it has the section");
++        Check(Get<string>(hellfire, "Category") == "ATGM", "The merged section's category is kept");
++        object unknown = Read(reference, "nothing");
++        Check(!Get<decimal?>(unknown, "Amount").HasValue && Get<string>(unknown, "Source") == "no reference-year price", "An unpriced round says so: " + Get<string>(unknown, "Source"));
++        Check(Get<string>(unknown, "Category") == "ASM" && !Get<bool>(unknown, "Ignored"), "An unpriced anti-ship missile keeps the tracker's fallback category and counts as unknown");
++        object inline = Read(reference, "inline_round");
++        Check(Get<decimal?>(inline, "Amount") == 42m && Get<string>(inline, "Source") == "ammunition/inline_round.ini", "A unit file's own price names that file: " + Get<string>(inline, "Source"));
++        object current = Prices(runtime, true);
++        Check(Get<decimal?>(Read(current, "sest_agr-30"), "Amount") == 150000m, "Current-year value from SEST's own catalog");
++        Check(Get<string>(Read(current, "nothing"), "Source") == "no 2026 price", "The catalog year is the basis in the missing-price note: " + Get<string>(Read(current, "nothing"), "Source"));
++
++        Type ledgerType = runtime.GetType("Sest.RuntimeFixes.InventoryLedger", true);
++        object ledger = Activator.CreateInstance(ledgerType, true);
++        var ammo = (Dictionary<string, long>)ledgerType.GetField("Ammo", All).GetValue(ledger);
++        ammo["sest_agr-30"] = 3; ammo["nothing"] = 2; ammo["usn_agm-114l"] = 1; ammo["empty"] = 0;
++        string before = (string)ledgerType.GetMethod("Serialize", All).Invoke(ledger, null);
++        var rows = (IList)runtime.GetType("Sest.RuntimeFixes.CampaignCosts", true).GetMethod("Items", All).Invoke(null, new object[] { "Player weapons expended", ledger, reference });
++        var texts = rows.Cast<object>().Select(r => Get<string>(r, "Text")).ToList();
++        var kinds = rows.Cast<object>().Select(r => Get<object>(r, "Kind").ToString()).ToList();
++        Check(texts.Count == 4, "A heading and three item rows, the zero-quantity key skipped: " + texts.Count);
++        Check(texts[0].Trim() == "Player weapons expended" && kinds[0] == "Category", "The heading row");
++        Check(texts[1].Trim() == "sest_agr-30 ×3 @ $70,000 = $210,000 | sest_weapon_costs.ini [sest_agr-30]", "Three AGR-30 rounds at the existing reference-year estimate: " + texts[1].Trim());
++        Check(texts[2].Trim() == "usn_agm-114l ×1 @ $100,000 = $100,000 | weaponcosts.ini [usn_agm-114l]", "Rows are sorted by line total: " + texts[2].Trim());
++        Check(texts[3].Trim() == "nothing ×2 @ ? = ? | no reference-year price" && kinds[3] == "Item", "An unpriced round shows ? and its note: " + texts[3].Trim());
++        Check(before == (string)ledgerType.GetMethod("Serialize", All).Invoke(ledger, null), "Building rows leaves the saved quantity record unchanged");
++        Check(Enum.GetNames(runtime.GetType("Sest.RuntimeFixes.CostLineKind", true)).Contains("Item"), "Item row kind exists for the native typography");
++        Console.WriteLine("Cost row and SEST catalog fallback checks passed: " + checks + " assertions on in-memory catalogs; no game execution.");
++    }
++}
+diff --git a/integration/beta-feature-parity/tests/NativeBindingTests.cs b/integration/beta-feature-parity/tests/NativeBindingTests.cs
+index 1899bd07..c27e6043 100644
+--- a/integration/beta-feature-parity/tests/NativeBindingTests.cs
++++ b/integration/beta-feature-parity/tests/NativeBindingTests.cs
+@@ -14,7 +14,7 @@ class Probe {
+   };
+   var game=Assembly.LoadFrom(Path.Combine(args[0],"Seapower-Scripts.dll"));
+   var rt=Assembly.LoadFrom(args[1]);int fails=0;
+-  foreach(string entry in new[]{"TowedSensorGuard.Bind","TerrainClearance.Bind","TaskForceDebrief.Bind","PreparationMap.Bind","CampaignCosts.Bind","CampaignCosts.BindLive","CampaignCosts.BindMenu","CampaignInventory.Bind","NativeCombatSurface.Bind","F11CombatCosts.BindMissionPath"}) {
++  foreach(string entry in new[]{"TowedSensorGuard.Bind","TerrainClearance.Bind","TaskForceDebrief.Bind","PreparationMap.Bind","CampaignCosts.Bind","CampaignCosts.BindLive","CampaignCosts.BindMenu","CampaignInventory.Bind","NativeCombatSurface.Bind","F11CombatCosts.BindMissionPath","VersionWatermark.Bind","ModifierRegistry.Bind"}) {
+    try {
+     int dot=entry.LastIndexOf('.');var t=rt.GetType("Sest.RuntimeFixes."+entry.Substring(0,dot),true);
+     var m=t.GetMethod(entry.Substring(dot+1),BindingFlags.Static|BindingFlags.NonPublic|BindingFlags.Public);
+diff --git a/integration/beta-feature-parity/tests/Test-Installer.ps1 b/integration/beta-feature-parity/tests/Test-Installer.ps1
+index 2ff4236a..ba6be854 100644
+--- a/integration/beta-feature-parity/tests/Test-Installer.ps1
++++ b/integration/beta-feature-parity/tests/Test-Installer.ps1
+@@ -92,8 +92,18 @@ try {
+     Assert ($same.token -eq $state.token) 'Staging the enabled candidate was not idempotent'
+     if ($RepairPackage) {
+         $repairScript=J $RepairPackage 'Repair-SEST-Beta-Startup.ps1'
+-        $oldLoaderHash=Hash (J $loader 'AnchorChain.dll')
+-        $oldShimHash=Hash (J $plugins 'SEST.IdentifyDataPaths.dll')
++        $newReceipt=Get-Content -LiteralPath (J $RepairPackage 'payload' 'build-receipt.json') -Raw | ConvertFrom-Json
++        # A repair replaces every candidate file; the shim is copied last, so a
++        # failure there must roll the four earlier copies back.
++        $codePaths=[ordered]@{
++            'AnchorChain.dll'=(J $loader 'AnchorChain.dll')
++            'SEST.BetaSafeBootstrap.dll'=(J $game 'BepInEx' 'plugins' 'SEST.BetaSafeBootstrap.dll')
++            'SEST.RuntimeFixes.dll'=(J $plugins 'SEST.RuntimeFixes.dll')
++            'SEST.ContactsFix.dll'=(J $plugins 'SEST.ContactsFix.dll')
++            'SEST.IdentifyDataPaths.dll'=(J $plugins 'SEST.IdentifyDataPaths.dll')
++        }
++        $beforeRepair=@{}
++        foreach ($name in $codePaths.Keys) { $beforeRepair[$name]=Hash $codePaths[$name] }
+         $fault=[pscustomobject]@{ Fired=$false; PayloadPath=(J $RepairPackage 'payload' 'SEST.IdentifyDataPaths.dll') }
+         try {
+             function Copy-Item {
+@@ -105,17 +115,16 @@ try {
+             try { & $repairScript @options } catch { $blocked=$_.Exception.Message -match 'Synthetic repair-copy failure' }
+             Assert ($blocked -and $fault.Fired) 'Repair failure was not injected'
+         } finally { Remove-Item -LiteralPath 'Function:\Copy-Item' }
+-        Assert ((Hash (J $loader 'AnchorChain.dll')) -eq $oldLoaderHash -and (Hash (J $plugins 'SEST.IdentifyDataPaths.dll')) -eq $oldShimHash) 'Failed repair did not restore the previous pair'
++        foreach ($name in $codePaths.Keys) { Assert ((Hash $codePaths[$name]) -eq $beforeRepair[$name]) "Failed repair did not restore $name" }
+         Assert (!(Test-Path -LiteralPath (J $loader 'enable.flag'))) 'Failed repair reactivated the crashing setup'
+         & $repairScript @options
+-        $newReceipt=Get-Content -LiteralPath (J $RepairPackage 'payload' 'build-receipt.json') -Raw | ConvertFrom-Json
+         $repaired=Get-Content -LiteralPath $stateFile -Raw | ConvertFrom-Json
+-        Assert ((Hash (J $loader 'AnchorChain.dll')) -eq $newReceipt.files.PSObject.Properties['AnchorChain.dll'].Value) 'Repaired loader hash mismatch'
+-        Assert ((Hash (J $plugins 'SEST.IdentifyDataPaths.dll')) -eq $newReceipt.files.PSObject.Properties['SEST.IdentifyDataPaths.dll'].Value) 'Repaired data shim hash mismatch'
+-        Assert ((Hash (J $plugins 'SEST.RuntimeFixes.dll')) -eq $receipt.files.PSObject.Properties['SEST.RuntimeFixes.dll'].Value) 'Repair replaced the already working Runtime'
+-        Assert ((Hash (J $plugins 'SEST.ContactsFix.dll')) -eq $receipt.files.PSObject.Properties['SEST.ContactsFix.dll'].Value) 'Repair replaced the already working UI'
++        foreach ($name in $codePaths.Keys) {
++            Assert ((Hash $codePaths[$name]) -eq $newReceipt.files.PSObject.Properties[$name].Value) "Repaired file hash mismatch: $name"
++            Assert (@($repaired.files | Where-Object { $_.name -eq $name -and $_.installed_sha256 -eq $newReceipt.files.PSObject.Properties[$name].Value }).Count -eq 1) "Restore journal does not recognize the repaired $name"
++        }
++        Assert ([IO.File]::ReadAllText((J $loader 'AnchorChain.sha256')) -eq $newReceipt.files.PSObject.Properties['AnchorChain.dll'].Value) 'Loader hash file was not updated'
+         Assert ($repaired.token -eq $state.token -and $repaired.files.Count -eq $state.files.Count) 'Repair replaced the original restore journal'
+-        Assert (@($repaired.files | Where-Object { $_.name -eq 'AnchorChain.dll' -and $_.installed_sha256 -eq $newReceipt.files.PSObject.Properties['AnchorChain.dll'].Value }).Count -eq 1) 'Restore journal does not recognize the repaired loader'
+         Assert ([IO.File]::ReadAllText($settings) -ceq $newText -and !(Test-Path -LiteralPath $local)) 'Repair changed settings or recreated Local Identify'
+         & $repairScript @options
+         $again=Get-Content -LiteralPath $stateFile -Raw | ConvertFrom-Json
+diff --git a/integration/beta-feature-parity/verify.py b/integration/beta-feature-parity/verify.py
+index e8952e5f..f4ab36cf 100644
+--- a/integration/beta-feature-parity/verify.py
++++ b/integration/beta-feature-parity/verify.py
+@@ -26,6 +26,11 @@
+ flat = a.flat_references.resolve()
+ workshop = a.workshop_references.resolve() if a.workshop_references else capture / 'references/workshop/library-1'
+ original = capture / 'references/workshop/library-1/3812461539/plugins/SEST.RuntimeFixes.dll'
++# A capture taken after a candidate was installed holds that candidate in the
++# Workshop folder; the parity checks then use the repository's preserved 1.5.0.
++if hashlib.sha256(original.read_bytes()).hexdigest() != '7ba6d6d9c58b6c3db31d731e951ed7ea3979925bdff054c9b92482dbe69c9986':
++    original = root / 'integration/runtime-fixes/SEST.RuntimeFixes.dll'
++    assert hashlib.sha256(original.read_bytes()).hexdigest() == '7ba6d6d9c58b6c3db31d731e951ed7ea3979925bdff054c9b92482dbe69c9986', 'preserved Runtime 1.5.0 missing'
+ runtime, ui = out / 'SEST.RuntimeFixes.dll', out / 'SEST.ContactsFix.dll'
+ results = []
+ (out / 'validation.json').unlink(missing_ok=True)
+@@ -52,6 +57,7 @@ def run(name, command):
+ run('bounded-loader-scheduler', [a.mono, out / 'LoaderTests.exe'])
+ run('assembly-preload-policy-and-identify-geometry', [a.mono, out / 'AssemblyPolicyTests.exe', workshop, flat / 'Seapower-Scripts.dll'])
+ run('campaign-scenario-beta-api-regressions', [a.mono, out / 'BetaApiTests.exe', workshop, flat / 'Seapower-Scripts.dll'])
++run('cost-rows-and-sest-catalog-fallback', [a.mono, out / 'CostRowsTests.exe', flat, runtime])
+ run('installer-rollback', [a.powershell, '-NoLogo', '-NoProfile', '-File', here / 'tests/Test-Installer.ps1', '-Capture', capture, '-Candidate', out])
+ if len(a.previous_package) != len(a.previous_payload):
+     raise SystemExit('Pair every previous package with its matching payload.')
+diff --git a/integration/campaign/SEST_Campaign/plugins/sest_runtime.ini b/integration/campaign/SEST_Campaign/plugins/sest_runtime.ini
+index 5be1ec16..946f1cce 100644
+--- a/integration/campaign/SEST_Campaign/plugins/sest_runtime.ini
++++ b/integration/campaign/SEST_Campaign/plugins/sest_runtime.ini
+@@ -9,3 +9,9 @@ CumulativeCombatCosts=1
+ TerrainClearance=1
+ TaskForceDebrief=1
+ PreparationMap=1
++; Beta runtime (1.5.2 beta, Build 261026) only; the 261021 plugin ignores these.
++; Both default to 1 when the key is missing. ModifierRegistry rescans the
++; game's #!extend files once the Workshop folders are registered;
++; HideVersionWatermark hides the beta's own build text over the game view.
++ModifierRegistry=1
++HideVersionWatermark=1
+diff --git a/integration/dist/SEST_Integration/plugins/sest_runtime.ini b/integration/dist/SEST_Integration/plugins/sest_runtime.ini
+index 5be1ec16..946f1cce 100644
+--- a/integration/dist/SEST_Integration/plugins/sest_runtime.ini
++++ b/integration/dist/SEST_Integration/plugins/sest_runtime.ini
+@@ -9,3 +9,9 @@ CumulativeCombatCosts=1
+ TerrainClearance=1
+ TaskForceDebrief=1
+ PreparationMap=1
++; Beta runtime (1.5.2 beta, Build 261026) only; the 261021 plugin ignores these.
++; Both default to 1 when the key is missing. ModifierRegistry rescans the
++; game's #!extend files once the Workshop folders are registered;
++; HideVersionWatermark hides the beta's own build text over the game view.
++ModifierRegistry=1
++HideVersionWatermark=1
+diff --git a/integration/runtime-fixes/sest_runtime.ini b/integration/runtime-fixes/sest_runtime.ini
+index 5be1ec16..946f1cce 100644
+--- a/integration/runtime-fixes/sest_runtime.ini
++++ b/integration/runtime-fixes/sest_runtime.ini
+@@ -9,3 +9,9 @@ CumulativeCombatCosts=1
+ TerrainClearance=1
+ TaskForceDebrief=1
+ PreparationMap=1
++; Beta runtime (1.5.2 beta, Build 261026) only; the 261021 plugin ignores these.
++; Both default to 1 when the key is missing. ModifierRegistry rescans the
++; game's #!extend files once the Workshop folders are registered;
++; HideVersionWatermark hides the beta's own build text over the game view.
++ModifierRegistry=1
++HideVersionWatermark=1
+diff --git a/integration/ui-followup/source/CatalogueRuntimeTests.cs b/integration/ui-followup/source/CatalogueRuntimeTests.cs
+index 0e2ab69b..107fa370 100644
+--- a/integration/ui-followup/source/CatalogueRuntimeTests.cs
++++ b/integration/ui-followup/source/CatalogueRuntimeTests.cs
+@@ -151,6 +151,10 @@ static class CatalogueRuntimeTests
+         Func<object> cached = () => dynamic.Invoke(null, null);
+         Action clear = () => cache.GetMethod("Clear", All).Invoke(null, null);
+         var life = new Life(); Context(life); clear();
++        // How many virtual catalogues one build opens: 5 on the captured 1.5.0
++        // factory, 8 once the beta factory also reads SEST's own catalog files.
++        int perBuild = catalogReads; original.Invoke(null, null); perBuild = catalogReads - perBuild;
++        Check(perBuild == 5 || perBuild == 8, "Factory opens the expected virtual catalogues per build");
+         string[] kinds = { "weapon", "vessel", "aircraft", "land", "weapon", "weapon" };
+         string[] refs = { "test-missile", "test-ship", "test-air", "test-land", "missing-price", "ignored-price" };
+         object first = null;
+@@ -159,18 +163,18 @@ static class CatalogueRuntimeTests
+             object expected = original.Invoke(null, null); int before = catalogReads; object actual = cached();
+             if (report == 0) first = actual;
+             Check(ReferenceEquals(first, actual), "Reuse same successful pricing object within mission");
+-            Check(catalogReads - before == (report == 0 ? 5 : 0), "No repeated virtual catalogue opens");
++            Check(catalogReads - before == (report == 0 ? perBuild : 0), "No repeated virtual catalogue opens");
+             for (int i = 0; i < refs.Length; i++)
+                 Check(Describe(ReadPrice(expected, kinds[i], refs[i]), report + 1) == Describe(ReadPrice(actual, kinds[i], refs[i]), report + 1), "Live quantities and all price/missing/ignored results agree");
+         }
+-        Check(catalogReads == 180 * 5 + 5, "180 original builds versus one cached build");
++        Check(catalogReads == 182 * perBuild, "181 original builds versus one cached build");
+         clear(); currentYear = true; object current = cached();
+         Check(!ReferenceEquals(first, current), "Tracker reload invalidates cached price basis");
+         Check((bool)current.GetType().GetField("Current", All).GetValue(current), "New config basis is observed");
+         Check(Describe(ReadPrice(current, "weapon", "test-missile"), 3).StartsWith("600/"), "Reloaded current-year amount and live quantity");
+         Context(new Life()); object nextMission = cached(); Check(!ReferenceEquals(current, nextMission), "New mission invalidates cache");
+-        Context(new Life { Closing = true }); int outside = catalogReads; cached(); cached(); Check(catalogReads - outside == 10, "Closing/menu path uses original fresh factory");
+-        Context(new Life { Initialized = false }); outside = catalogReads; cached(); cached(); Check(catalogReads - outside == 10, "Loading path does not reuse mission catalogues");
++        Context(new Life { Closing = true }); int outside = catalogReads; cached(); cached(); Check(catalogReads - outside == 2 * perBuild, "Closing/menu path uses original fresh factory");
++        Context(new Life { Initialized = false }); outside = catalogReads; cached(); cached(); Check(catalogReads - outside == 2 * perBuild, "Loading path does not reuse mission catalogues");
+         Context(new Life()); clear(); missing = true; outside = catalogReads;
+         Check(cached() == null && cached() == null && catalogReads - outside == 2, "Missing catalogue results retry instead of becoming sticky nulls");
+         missing = false; Check(cached() != null, "Recovery from missing catalogue");
+@@ -178,8 +182,8 @@ static class CatalogueRuntimeTests
+         try { cached(); } catch (TargetInvocationException) { threw = true; }
+         Check(threw, "Reader exception is propagated unchanged through the factory");
+         fail = false; Check(cached() != null, "Failed load does not poison next attempt");
+-        clear(); Context(null); outside = catalogReads; cached(); cached(); Check(catalogReads - outside == 10, "No live mission means no cached catalogue");
+-        Console.WriteLine("Captured Runtime factory/transpiler checks passed: " + checks + "; identical changing-quantity results across 180 refreshes; successful catalogue opens reduced from 900 to 5 in that sequence. No game/native execution.");
++        clear(); Context(null); outside = catalogReads; cached(); cached(); Check(catalogReads - outside == 2 * perBuild, "No live mission means no cached catalogue");
++        Console.WriteLine("Captured Runtime factory/transpiler checks passed: " + checks + "; identical changing-quantity results across 180 refreshes; successful catalogue opens reduced from " + (180 * perBuild) + " to " + perBuild + " in that sequence. No game/native execution.");
+     }
+     static void Main(string[] args)
+     {

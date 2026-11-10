@@ -22,7 +22,7 @@ WORLD = HERE / "SEST_World_Campaign/dynamic_campaigns"
 DIST = ROOT / "integration/dist/SEST_Integration/dynamic_campaigns"
 REPORT = HERE / "draft/conversion.json"
 UNIT = "aus_a330_mrtt"
-WORLD_VARIANTS = ("sest-world-sandbox", "sest-world-regions-2028")
+WORLD_VARIANTS = ("../legacy_campaigns/sest-world-sandbox", "sest-world-regions-2028")
 
 # Facts only the builder can answer (its resolver and value rule), from a
 # separate interpreter: it imports build_pack, home_bases and submarines by

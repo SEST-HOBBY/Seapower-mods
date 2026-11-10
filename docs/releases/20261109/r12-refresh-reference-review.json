@@ -1,0 +1,153 @@
+{
+  "format": 1,
+  "review_date": "2026-11-09",
+  "target": "R12 configuration refresh",
+  "release_base_commit": "a62acb2b45d9458b21817af9241d42e92dc53122",
+  "configuration_capture": "SEST-R12-Update-Review-20261109-173106.zip / Workshop.zip",
+  "reference_capture": "SEST-Beta-References-20261109-173353-4d7063.zip",
+  "captured_at_utc": "2026-11-09T07:33:53.4252861Z",
+  "capture_integrity": {
+    "references_checked": 331,
+    "mismatches": 0
+  },
+  "recorded_build_references_match": [
+    {
+      "name": "CombatCosts.dll",
+      "capture_path": "references/workshop/library-1/3807187341/CombatCosts.dll",
+      "sha256": "8f7195ff1540d1901446b3783789c84e1f76bebe943da7606afd85f9dd3d78bc"
+    },
+    {
+      "name": "BepInEx.dll",
+      "capture_path": "references/bepinex/core/BepInEx.dll",
+      "sha256": "c65b42034bc8ffb9f0b336e416dc3884e3f99fc5a5a89eb1f2ff7868412322cd"
+    },
+    {
+      "name": "SeaPowerSquadPanel.dll",
+      "capture_path": "references/workshop/library-1/3818251045/SeaPowerSquadPanel.dll",
+      "sha256": "6230e8e78e2ba7ba222241d0c3dcc881d2507ebeeb4eab24b6401cc9144283dd"
+    },
+    {
+      "name": "UnityEngine.InputLegacyModule.dll",
+      "capture_path": "references/managed/UnityEngine.InputLegacyModule.dll",
+      "sha256": "89c49ce8f2e25366a07f2d2fd56dc75c20066a0ed8c62fb19bb0ff5ce63fb3ac"
+    },
+    {
+      "name": "Noesis.NoesisGUI.dll",
+      "capture_path": "references/managed/Noesis.NoesisGUI.dll",
+      "sha256": "7b1fd6a6b90d0692297906f5907a1b4a2072bf3bf25a983b36aaa5b5c043ebdd"
+    },
+    {
+      "name": "AnchorChain.Preloader.dll",
+      "capture_path": "references/bepinex/plugins/AnchorChain.Preloader.dll",
+      "sha256": "1ee1570f1e7f457ffa63c24ee4085b2cdea8069ea8cebf146de5ef027eaa3984"
+    },
+    {
+      "name": "IdentifyExpanded.dll",
+      "capture_path": "references/workshop/library-1/3790594162/IdentifyExpanded.dll",
+      "sha256": "9f0ec630e9d7659082bdce61743a87895de14f1903a44c68395f8f158af8afd7"
+    },
+    {
+      "name": "Seapower-Scripts.dll",
+      "capture_path": "references/managed/Seapower-Scripts.dll",
+      "sha256": "499675cda59912054924ae42297bce7a82b12ca00957dabd684105a24aa353a9"
+    },
+    {
+      "name": "ContactLog.dll",
+      "capture_path": "references/workshop/library-1/3819427362/ContactLog.dll",
+      "sha256": "a1b8b450df0933df61984651fe2b19138acd605aa4b526bbfc23565d8295015e"
+    },
+    {
+      "name": "0Harmony.dll",
+      "capture_path": "references/bepinex/core/0Harmony.dll",
+      "sha256": "1a21cc03424fc82c3dd1346905d16494536b9595ae4162228d99fb7c285c1031"
+    },
+    {
+      "name": "SeaPowerPopOut.dll",
+      "capture_path": "references/workshop/library-1/3826396311/SeaPowerPopOut.dll",
+      "sha256": "a8f1092ac247032219ebf00aa773b91d14f4bb4a7f2575ca1a4594da57abd882"
+    },
+    {
+      "name": "UnityEngine.IMGUIModule.dll",
+      "capture_path": "references/managed/UnityEngine.IMGUIModule.dll",
+      "sha256": "1f671635c05cfeecdac0e24fe26f9ebe26f182e6a1ba3c3b1031b1e8145a865d"
+    },
+    {
+      "name": "UnityEngine.CoreModule.dll",
+      "capture_path": "references/managed/UnityEngine.CoreModule.dll",
+      "sha256": "e59403b80679d6200746b4132466acec651e225cd8e687ce2b96787a393d8c69"
+    },
+    {
+      "name": "AnchorChain.dll",
+      "capture_path": "references/workshop/library-1/3380210757/AnchorChain.dll",
+      "sha256": "e272811050698640a8936834363da91769dbc83e017637e3629c21bca6bea764"
+    },
+    {
+      "name": "Mono.Cecil.dll",
+      "capture_path": "references/bepinex/core/Mono.Cecil.dll",
+      "sha256": "7ae470288fff4a402899c254d0a76cefef55877f5c54f96e83c797cc5bb6e2f6"
+    }
+  ],
+  "upstream_text_changes": {
+    "3768036424/settings.cfg": "Eight hotkey documentation blocks added; all parsed setting values unchanged.",
+    "3826396311/lang/en.ini": "Added menu_tip and back translations.",
+    "3826396311/lang/de.ini": "Added menu_tip and back translations."
+  },
+  "workshop_versions": {
+    "3826122523": {
+      "name": "Sea Power Topographic Map",
+      "version": "1.6.0",
+      "dlls": [
+        {
+          "path": "references/workshop/library-1/3826122523/SeaPowerTopo.dll",
+          "sha256": "a6e75159c3bd0ddffe1db304380ff329736bb76ab9c7e21544d5d69a2dce6017",
+          "bytes": 158208,
+          "assembly": "SeaPowerTopo, Version=1.6.0.0, Culture=neutral, PublicKeyToken=null"
+        },
+        {
+          "path": "references/workshop/library-1/3826122523/SeaPowerTopoFlat.dll",
+          "sha256": "4169d3e94484cc6d3064fab05891f6770da2db5f90c7e7a9bf6e31ca318eb2dc",
+          "bytes": 157184,
+          "assembly": "SeaPowerTopoFlat, Version=1.6.0.0, Culture=neutral, PublicKeyToken=null"
+        }
+      ]
+    },
+    "3826396311": {
+      "name": "Sea Power Pop-Out Windows",
+      "version": "1.2.0",
+      "dlls": [
+        {
+          "path": "references/workshop/library-1/3826396311/SeaPowerPopOut.dll",
+          "sha256": "a8f1092ac247032219ebf00aa773b91d14f4bb4a7f2575ca1a4594da57abd882",
+          "bytes": 265216,
+          "assembly": "SeaPowerPopOut, Version=1.2.0.0, Culture=neutral, PublicKeyToken=null"
+        }
+      ]
+    },
+    "3768036424": {
+      "name": "BetterTacMap",
+      "version": "1.0.0",
+      "dll_sha256": "f1bdd2c2e5cec7579c3e47750950b1cb5521b5e4e630138aec8c483b6737ac08",
+      "binary_changed": false
+    }
+  },
+  "payload_files_unchanged": {
+    "AnchorChain.dll": "7137ff42f68046854b3cda85a16176407bf78ce1a302d8f76bfee30f110d05d0",
+    "SEST.BetaSafeBootstrap.dll": "268462fa2f7e8553f42994da8357a89106cd80f47ae6d810e6c55446fc24a5df",
+    "SEST.RuntimeFixes.dll": "4634d30f10b7b0a5b40d8894d1914ad5a897682e4911d6292bb8fa55ff6640b8",
+    "SEST.ContactsFix.dll": "ef009436f813021028b8f06103fa4fb3eb8822c148f0795dd7fa8ee136bc5d42",
+    "SEST.IdentifyDataPaths.dll": "9782ea2b339c81437be4f8b3b3238843365646ba20c94f0f30330370cbbf0eff"
+  },
+  "observed_log_versions": {
+    "topography": "1.5.1",
+    "pop_out": "1.1.3",
+    "installed_runtime_sha256": "2fdc0251524a092d5c36580d847762b5184294201836d2e9449ac0e0aae3fe9a"
+  },
+  "old_log_findings": [
+    "DCM SalvoHoldPatch failed on the pre-R12 installation; the R12 adapter already addresses this target.",
+    "One AI simulation watchdog pause recovered after 7.4 seconds; new R12 gameplay is untested.",
+    "CombatWorker, TrajectoryPreview and UiWorkerProbe used native fallbacks; this is not evidence of a crash."
+  ],
+  "native_gameplay_tested": false,
+  "steam_published": false,
+  "github_pushed": false
+}

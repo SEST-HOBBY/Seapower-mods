@@ -43,8 +43,7 @@ NAME_KEY = re.compile(r"^(Type|Default|Variant\d+|Squadron\d+|Callsigns)$")
 
 # (file, section, key): (the winning text today, the correction)
 EXPLICIT = {
-    ("vessel_names.ini", "[js_ffg_mogami]", "Variant4"):
-        ("FFM-4 JS Mikuma,Mikma", "FFM-4 JS Mikuma,Mikuma"),
+    # 7 Nov capture: Mogami now ships the corrected Mikuma spelling.
     ("vessel_names.ini", "[ko_ddg-991]", "Variant2"):
         ("Yulgok YiYi DDG-992 ,Sejong the Great", "Yulgok Yi I DDG-992,Sejong the Great"),
     ("aircraft_names.ini", "[usaf_f-15e_SE]", "Squadron3"):
@@ -203,7 +202,7 @@ def transliterate(value):
 
 INFO = """[Language_en]
 Name=SEST Name Fixes
-Description=Corrects unit and squadron display names one key at a time: typos (Rocketeers, Mikuma, Desert, David's Sling), the Anzac's short name, full-width brackets and commas the game's font cannot show, and Russian names written in Cyrillic in English text (transliterated).
+Description=Corrects unit and squadron display names one key at a time: typos (Rocketeers, Desert, David's Sling), the Anzac's short name, full-width brackets and commas the game's font cannot show, and Russian names written in Cyrillic in English text (transliterated).
 
 [Compatibility]
 ApproximateVersion=0.8.7

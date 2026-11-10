@@ -35,6 +35,12 @@ integration/*/SEST_*/*.cmd          -text
 integration/dist/SEST_Integration/*.ps1  -text
 integration/dist/SEST_Integration/*.cmd  -text
 
+# The mirrored world-save helper is release-hashed and generated with LF.
+# Pin its source and nested pack copies so Windows checkout/rebuild agrees.
+tools/select-legacy-world.ps1 text eol=lf
+integration/world-sandbox/SEST_World_Campaign/tools/select-legacy-world.ps1 text eol=lf
+integration/dist/SEST_Integration/tools/select-legacy-world.ps1 text eol=lf
+
 # --- Build output -------------------------------------------------------------
 # Reproduced byte-for-byte by the builders; collapsed by default in reviews.
 integration/*/SEST_*/**     linguist-generated=true

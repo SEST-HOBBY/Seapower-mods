@@ -1,0 +1,397 @@
+diff --git a/integration/beta-anchorchain/SEST.BetaSafeBootstrap.cs b/integration/beta-anchorchain/SEST.BetaSafeBootstrap.cs
+index ebdc7cf0b..51c6192d2 100644
+--- a/integration/beta-anchorchain/SEST.BetaSafeBootstrap.cs
++++ b/integration/beta-anchorchain/SEST.BetaSafeBootstrap.cs
+@@ -14,11 +14,11 @@ using UnityEngine;
+ 
+ namespace SEST.BetaAnchor
+ {
+-    [BepInPlugin("io.sest.beta.safeanchor", "SEST Beta Safe Anchor Chain", "0.4.0")]
++    [BepInPlugin("io.sest.beta.safeanchor", "SEST Beta Safe Anchor Chain", "0.5.0")]
+     public sealed class Bootstrap : BaseUnityPlugin
+     {
+         private const string TargetGameSha256 =
+-            "9b35a7aa4f0bd3c78211fb9cf1e3d6398d0dbbc0f787674e843cc9563fd93f53";
++            "499675cda59912054924ae42297bce7a82b12ca00957dabd684105a24aa353a9";
+         private const string TargetPreloaderSha256 =
+             "1ee1570f1e7f457ffa63c24ee4085b2cdea8069ea8cebf146de5ef027eaa3984";
+         private const int MaxTicks = 120; // sixty seconds
+@@ -82,7 +82,7 @@ namespace SEST.BetaAnchor
+                     {
+                         string flag = Path.Combine(_payloadDirectory, "enable.flag");
+                         enabled = File.Exists(flag)
+-                            && String.Equals(File.ReadAllText(flag).Trim(), "enable-beta-261106",
++                            && String.Equals(File.ReadAllText(flag).Trim(), "enable-beta-261106-499675cd",
+                                 StringComparison.Ordinal);
+                     }
+                     catch (Exception ex)
+diff --git a/integration/beta-anchorchain/build.ps1 b/integration/beta-anchorchain/build.ps1
+index 2f386fa01..2109d3adf 100644
+--- a/integration/beta-anchorchain/build.ps1
++++ b/integration/beta-anchorchain/build.ps1
+@@ -12,7 +12,7 @@ $plugin = Join-Path $GameRoot "BepInEx\plugins\AnchorChain.Preloader.dll"
+ $source = Join-Path $PSScriptRoot "source\Main.cs"
+ $project = Join-Path $PSScriptRoot "source\AnchorChain.csproj"
+ $particleModule = Join-Path $GameRoot "Sea Power_Data\Managed\UnityEngine.ParticleSystemModule.dll"
+-$knownBeta = "9b35a7aa4f0bd3c78211fb9cf1e3d6398d0dbbc0f787674e843cc9563fd93f53"
++$knownBeta = "499675cda59912054924ae42297bce7a82b12ca00957dabd684105a24aa353a9"
+ $knownPreloader = "1ee1570f1e7f457ffa63c24ee4085b2cdea8069ea8cebf146de5ef027eaa3984"
+ $knownWorkshop = "e272811050698640a8936834363da91769dbc83e017637e3629c21bca6bea764"
+ 
+diff --git a/integration/beta-anchorchain/source/AssemblyAdapters.cs b/integration/beta-anchorchain/source/AssemblyAdapters.cs
+index 18e2b63f6..0bbbabacc 100644
+--- a/integration/beta-anchorchain/source/AssemblyAdapters.cs
++++ b/integration/beta-anchorchain/source/AssemblyAdapters.cs
+@@ -255,6 +255,9 @@ public static partial class BetaAssemblyPolicy
+                 else if (campaign && ((owner == "SeaPower.FileManager" && (call.Name == "GetDirectories" || call.Name == "GetFiles") && call.Parameters.Count == 1) ||
+                     (owner == "SeaPower.MissionManager" && call.Name == "DoUnload" && call.Parameters.Count == 0) ||
+                     (owner == "SeaPower.ReactionTime" && call.Name == "Acquisition" && call.Parameters.Count == 2) ||
++                    // 8 Nov image adds nation=null; retain native INI-based nation inference.
++                    (owner == "SeaPower.LoadoutSummary" && call.Name == "HasNightCapableSensors" &&
++                        ParameterTypes(call, "SeaPower.IniHandler", "System.String", "System.Boolean")) ||
+                     (owner == "SeaPower.ObjectBase" && call.Name == "SetAttackAtWaypointTask" && call.Parameters.Count == 10))) {
+                     AppendDefaults(module, native, method, instruction, call, call.Name); Count(call.Name);
+                 }
+@@ -284,7 +287,7 @@ public static partial class BetaAssemblyPolicy
+         // version. Unexpected counts reject the private image before CLR load.
+         string audit = String.Join(", ", counts.Select(x => x.Key + "=" + x.Value));
+         string expected = adapter != null ? adapter.ExpectedAudit : identify ? "bearings=10, hail-guard=1, locations=2, ui=5" :
+-            campaign ? "Acquisition=1, DoUnload=1, GetDirectories=1, GetFiles=1, SetAttackAtWaypointTask=2, attack-property=14, attack-reflection=1, bearing-reflection=1, bearings=1, facts-property=1, fuel-refresh=1, mission-get=3, mission-set=1, secondary-side=6, speed-make=1, speed-set=1, terrain-height=1, ui=24" :
++            campaign ? "Acquisition=1, DoUnload=1, GetDirectories=1, GetFiles=1, HasNightCapableSensors=1, SetAttackAtWaypointTask=2, attack-property=14, attack-reflection=1, bearing-reflection=1, bearings=1, facts-property=1, fuel-refresh=1, mission-get=3, mission-set=1, secondary-side=6, speed-make=1, speed-set=1, terrain-height=1, ui=24" :
+             decoy ? "contact-color=1, contact-exit=1, locations=2, ui=1, vehicle-view=4" : thrust ? "ini=1, locations=1" :
+             launcherEffects ? "launch-reflection=2, launch-result=1, locations=2" :
+             stabilization ? "locations=2, result-argument=1, target-method=1" :
+diff --git a/integration/beta-anchorchain/source/AssemblyPolicy.cs b/integration/beta-anchorchain/source/AssemblyPolicy.cs
+index d2966683b..8b80dd686 100644
+--- a/integration/beta-anchorchain/source/AssemblyPolicy.cs
++++ b/integration/beta-anchorchain/source/AssemblyPolicy.cs
+@@ -136,7 +136,7 @@ public static partial class BetaAssemblyPolicy
+         if (!Types(module.Types).Any(t => t.CustomAttributes.Any(a => a.AttributeType.FullName == "AnchorChain.ACPlugin"))) return null;
+         nativePath = Path.GetFullPath(nativePath);
+         if (!nativeModules.TryGetValue(nativePath, out var native)) {
+-            if (Hash(nativePath) != "9b35a7aa4f0bd3c78211fb9cf1e3d6398d0dbbc0f787674e843cc9563fd93f53")
++            if (Hash(nativePath) != "499675cda59912054924ae42297bce7a82b12ca00957dabd684105a24aa353a9")
+                 throw new InvalidDataException("Assembly adapters require the inspected beta Build 261106.");
+             native = ModuleDefinition.ReadModule(nativePath, new ReaderParameters { InMemory = true });
+             nativeModules[nativePath] = native;
+diff --git a/integration/beta-anchorchain/test.ps1 b/integration/beta-anchorchain/test.ps1
+index 1e13e34d5..8cf8e1f7b 100644
+--- a/integration/beta-anchorchain/test.ps1
++++ b/integration/beta-anchorchain/test.ps1
+@@ -26,7 +26,7 @@ $log = Join-Path $bepinex "LogOutput.log"
+ $player = Join-Path $env:USERPROFILE "AppData\LocalLow\Triassic Games\Sea Power\Player.log"
+ $outDir = Join-Path $PSScriptRoot "out"
+ $outReceipt = Join-Path $outDir "build-receipt.json"
+-$knownBeta = "9b35a7aa4f0bd3c78211fb9cf1e3d6398d0dbbc0f787674e843cc9563fd93f53"
++$knownBeta = "499675cda59912054924ae42297bce7a82b12ca00957dabd684105a24aa353a9"
+ 
+ function Hash-File([string]$path) {
+     return (Get-FileHash -LiteralPath $path -Algorithm SHA256).Hash.ToLowerInvariant()
+@@ -127,13 +127,13 @@ elseif ($Action -eq "Enable") {
+         throw "Ready/inactive probe not confirmed in last BepInEx log. No files changed."
+     }
+     if (Test-Path -LiteralPath $flag -PathType Leaf) {
+-        if ((Get-Content -LiteralPath $flag -Raw).Trim() -eq "enable-beta-261106") {
++        if ((Get-Content -LiteralPath $flag -Raw).Trim() -eq "enable-beta-261106-499675cd") {
+             Write-Host "Bounded beta loader already enabled." -ForegroundColor Yellow
+             return
+         }
+         throw "Unknown existing enable.flag. Refusing to overwrite."
+     }
+-    Set-Content -LiteralPath $flag -Encoding ASCII -Value "enable-beta-261106"
++    Set-Content -LiteralPath $flag -Encoding ASCII -Value "enable-beta-261106-499675cd"
+     Write-Host "BOUNDED LOADER ENABLED FOR NEXT LAUNCH" -ForegroundColor Yellow
+     Write-Host "This test can still expose other third-party mod incompatibilities."
+     Write-Host "If game hangs, quit it and run test.ps1 -Action Disable (or Remove)."
+@@ -144,7 +144,7 @@ elseif ($Action -eq "Disable") {
+         Write-Host "Loader already inactive; no enable.flag."
+         return
+     }
+-    if ((Get-Content -LiteralPath $flag -Raw).Trim() -ne "enable-beta-261106") {
++    if ((Get-Content -LiteralPath $flag -Raw).Trim() -ne "enable-beta-261106-499675cd") {
+         throw "Unexpected enable.flag contents. No file removed."
+     }
+     Remove-Item -LiteralPath $flag -Force
+@@ -153,7 +153,7 @@ elseif ($Action -eq "Disable") {
+ elseif ($Action -eq "Remove") {
+     Game-Closed
+     if (Test-Path -LiteralPath $flag -PathType Leaf) {
+-        if ((Get-Content -LiteralPath $flag -Raw).Trim() -ne "enable-beta-261106") {
++        if ((Get-Content -LiteralPath $flag -Raw).Trim() -ne "enable-beta-261106-499675cd") {
+             throw "Unexpected enable.flag; refusing to remove any file."
+         }
+     }
+diff --git a/integration/beta-anchorchain/test_source_contract.py b/integration/beta-anchorchain/test_source_contract.py
+index 5c95b0263..2726fb4d2 100644
+--- a/integration/beta-anchorchain/test_source_contract.py
++++ b/integration/beta-anchorchain/test_source_contract.py
+@@ -52,12 +52,12 @@ def test_finite_load_budget(self):
+ 
+     def test_bootstrap_does_not_auto_activate(self):
+         self.assertIn('"enable.flag"', self.boot)
+-        self.assertIn('"enable-beta-261106"', self.boot)
++        self.assertIn('"enable-beta-261106-499675cd"', self.boot)
+         self.assertIn("if (enabled)", self.boot)
+         self.assertIn('Logger.LogInfo("BETA SAFE BOOTSTRAP READY; enable="', self.boot)
+ 
+     def test_beta_hash_gate_and_safe_fork_only(self):
+-        self.assertIn("9b35a7aa4f0bd3c78211fb9cf1e3d6398d0dbbc0f787674e843cc9563fd93f53", self.boot)
++        self.assertIn("499675cda59912054924ae42297bce7a82b12ca00957dabd684105a24aa353a9", self.boot)
+         self.assertIn('Path.Combine(_payloadDirectory, "AnchorChain.dll")', self.boot)
+         self.assertIn('GetField("_startOnce"', self.boot)
+         self.assertIn("Sha256(payload), expected", self.boot)
+diff --git a/integration/beta-feature-parity/Install-SEST-Beta.ps1 b/integration/beta-feature-parity/Install-SEST-Beta.ps1
+index 329bc7f88..147fa7974 100644
+--- a/integration/beta-feature-parity/Install-SEST-Beta.ps1
++++ b/integration/beta-feature-parity/Install-SEST-Beta.ps1
+@@ -315,7 +315,7 @@ try {
+     $state.settings_after_sha256 = [BitConverter]::ToString(([Security.Cryptography.SHA256]::Create()).ComputeHash([Text.Encoding]::UTF8.GetBytes($updated))).Replace('-', '').ToLowerInvariant()
+     Save-State
+     Write-Atomic $settings $updated
+-    Write-Atomic $support['enable.flag'] 'enable-beta-261106'
++    Write-Atomic $support['enable.flag'] 'enable-beta-261106-499675cd'
+     $state.phase = 'enabled'; Save-State
+ } catch {
+     $failure = $_
+diff --git a/integration/beta-feature-parity/README.md b/integration/beta-feature-parity/README.md
+index 582afbc94..e3acf2999 100644
+--- a/integration/beta-feature-parity/README.md
++++ b/integration/beta-feature-parity/README.md
+@@ -1,3 +1,15 @@
++# R8 — game assembly captured 8 November 2026
++
++R8 supersedes R7 for the newly captured `Seapower-Scripts.dll` (`499675cd…`, Steam build 26502734). Noesis (`7b1fd6a6…`) and the 110 recorded plugin/game DLL entries are unchanged. The assembly hash, rather than a possibly stale Player.log version label, identifies this target.
++
++Runtime 1.5.5, UI 1.4.8 and the bounded loader are compiled against these captured references. The Dynamic Campaign Mod night-sensor call appends the new native `nation=null` default, retaining native nation inference. The exact rewritten call and the new method contract have managed regression checks. Unknown game hashes remain inactive.
++
++R8 retains the preceding feature implementation and exact-hash author adapters. EnhancedDecoyMod, both Topographic Map DLLs and MultiStageMissiles remain held for the compatibility reasons below; ExtendedGuidance remains disabled by the SEST profile. No new author plugin binary was substituted.
++
++Close Sea Power and use the R8 repair with the original candidate journal/backups retained. Test startup, F11 costs/history, mission debrief/continuation, preparation, Contacts/formation pop-out, compass, SAR and Osprey fuel use. Managed and installer checks do not execute Unity gameplay or native Noesis rendering. Stable UI Follow-up 1.4.6 is a separate canonical payload and requires its own stable-build rendering check.
++
++## Historical R7 implementation record
++
+ # R7 — beta Build 261106, captured 7 November 2026
+ 
+ This candidate supersedes R6 for the captured 0.8.7-261106 game. It keeps the owner's beta branch selected and upgrades the five-file candidate in place with verified backups and rollback. It is a managed-test candidate requiring a PC gameplay test, separate from the canonical stable Workshop payload.
+diff --git a/integration/beta-feature-parity/Repair-SEST-Beta-Startup.ps1 b/integration/beta-feature-parity/Repair-SEST-Beta-Startup.ps1
+index 947094472..ceb843fa1 100644
+--- a/integration/beta-feature-parity/Repair-SEST-Beta-Startup.ps1
++++ b/integration/beta-feature-parity/Repair-SEST-Beta-Startup.ps1
+@@ -123,7 +123,7 @@ try {
+     # repaired files instead of treating them as an unrelated external overwrite.
+     $state.phase='enabled'
+     Write-Atomic $statePath ($state | ConvertTo-Json -Depth 8)
+-    Write-Atomic $flag 'enable-beta-261106'
++    Write-Atomic $flag 'enable-beta-261106-499675cd'
+ } catch {
+     $failure=$_
+     if (Test-Path -LiteralPath $flag) { Remove-Item -LiteralPath $flag -Force }
+@@ -132,7 +132,7 @@ try {
+     Copy-Verified (J $backup 'current-before-repair.json') $statePath
+     throw $failure
+ }
+-Write-Host 'R7 beta repair installed for Build 261106; original backups and Identify data retained.' -ForegroundColor Green
+-Write-Host 'Runtime 1.5.4 and UI 1.4.7 beta support the captured Combat Cost Tracker 0.8 and Pop-Out Windows 1.1.3.'
++Write-Host 'R8 beta repair installed for the 8 November captured game assembly 499675cd; original backups and Identify data retained.' -ForegroundColor Green
++Write-Host 'Runtime 1.5.5 and UI 1.4.8 beta support the captured Combat Cost Tracker 0.8 and Pop-Out Windows 1.1.3.'
+ Write-Host 'EnhancedDecoyMod, Topographic Map and MultiStageMissiles remain inactive pending native API ports. ExtendedGuidance stays disabled by the SEST profile.'
+ Write-Host 'Launch beta, test F11, debrief, campaign continuation, formation/Contacts, SAR and Osprey fuel use, then Capture-Repair-Results.cmd.'
+diff --git a/integration/beta-feature-parity/build-roslyn.ps1 b/integration/beta-feature-parity/build-roslyn.ps1
+index 7d6d0cd1b..51163ba9a 100644
+--- a/integration/beta-feature-parity/build-roslyn.ps1
++++ b/integration/beta-feature-parity/build-roslyn.ps1
+@@ -16,7 +16,7 @@ differ from a build.py build; the receipt records which compiler produced them.
+ param(
+     [Parameter(Mandatory)][string]$Capture,
+     [Parameter(Mandatory)][string]$Output,
+-    [string]$Revision = 'R7-20261107-beta-261106'
++    [string]$Revision = 'R8-20261108-native-499675cd'
+ )
+ Set-StrictMode -Version Latest
+ $ErrorActionPreference = 'Stop'
+@@ -25,7 +25,7 @@ $here = $PSScriptRoot
+ $root = (Resolve-Path (Join-Path $here '..' '..')).Path
+ $capture = (Resolve-Path $Capture).Path
+ $pins = @{
+-    'Seapower-Scripts.dll' = '9b35a7aa4f0bd3c78211fb9cf1e3d6398d0dbbc0f787674e843cc9563fd93f53'
++    'Seapower-Scripts.dll' = '499675cda59912054924ae42297bce7a82b12ca00957dabd684105a24aa353a9'
+     'Noesis.NoesisGUI.dll' = '7b1fd6a6b90d0692297906f5907a1b4a2072bf3bf25a983b36aaa5b5c043ebdd'
+     'AnchorChain.dll' = 'e272811050698640a8936834363da91769dbc83e017637e3629c21bca6bea764'
+     'AnchorChain.Preloader.dll' = '1ee1570f1e7f457ffa63c24ee4085b2cdea8069ea8cebf146de5ef027eaa3984'
+diff --git a/integration/beta-feature-parity/build.py b/integration/beta-feature-parity/build.py
+index c9ef62eb2..a3146b622 100644
+--- a/integration/beta-feature-parity/build.py
++++ b/integration/beta-feature-parity/build.py
+@@ -13,7 +13,7 @@
+ HERE = Path(__file__).resolve().parent
+ ROOT = HERE.parents[1]
+ PINS = {
+-    'Seapower-Scripts.dll': '9b35a7aa4f0bd3c78211fb9cf1e3d6398d0dbbc0f787674e843cc9563fd93f53',
++    'Seapower-Scripts.dll': '499675cda59912054924ae42297bce7a82b12ca00957dabd684105a24aa353a9',
+     'Noesis.NoesisGUI.dll': '7b1fd6a6b90d0692297906f5907a1b4a2072bf3bf25a983b36aaa5b5c043ebdd',
+     'AnchorChain.dll': 'e272811050698640a8936834363da91769dbc83e017637e3629c21bca6bea764',
+     'AnchorChain.Preloader.dll': '1ee1570f1e7f457ffa63c24ee4085b2cdea8069ea8cebf146de5ef027eaa3984',
+@@ -135,7 +135,7 @@ def pins(namespace):
+     source_files += [HERE / 'Install-SEST-Beta.ps1', HERE / 'Repair-SEST-Beta-Startup.ps1', HERE / 'tests/check_runtime_contract.py', HERE / 'verify.py', HERE / 'package.py']
+     manifest = {
+         'format': 1, 'status': 'compiled-candidate-needs-pc-gameplay-test',
+-        'candidate_revision': 'R7-20261107-beta-261106',
++        'candidate_revision': 'R8-20261108-native-499675cd',
+         'target_game_sha256': PINS['Seapower-Scripts.dll'], 'target_noesis_sha256': PINS['Noesis.NoesisGUI.dll'],
+         'runtime_source': 'reconstructed-from-captured-1.5.0; original-project-not-recovered',
+         'original_runtime_sha256': sha(original), 'captured_references': PINS,
+diff --git a/integration/beta-feature-parity/identify/IdentifyDataPaths.cs b/integration/beta-feature-parity/identify/IdentifyDataPaths.cs
+index c0e3adbd0..4bbc9e51d 100644
+--- a/integration/beta-feature-parity/identify/IdentifyDataPaths.cs
++++ b/integration/beta-feature-parity/identify/IdentifyDataPaths.cs
+@@ -15,7 +15,7 @@ namespace Sest.IdentifyDataPaths
+     public sealed class Plugin : IAnchorChainMod
+     {
+         internal const string HarmonyId = "io.github.sest-hobby.identify-data-paths";
+-        internal const string GameHash = "9b35a7aa4f0bd3c78211fb9cf1e3d6398d0dbbc0f787674e843cc9563fd93f53";
++        internal const string GameHash = "499675cda59912054924ae42297bce7a82b12ca00957dabd684105a24aa353a9";
+         internal const string IdentifyHash = "9f0ec630e9d7659082bdce61743a87895de14f1903a44c68395f8f158af8afd7";
+         internal const string HarmonyHash = "1a21cc03424fc82c3dd1346905d16494536b9595ae4162228d99fb7c285c1031";
+         private static string dataPath;
+diff --git a/integration/beta-feature-parity/package.py b/integration/beta-feature-parity/package.py
+index c0747fee7..f96525ca2 100644
+--- a/integration/beta-feature-parity/package.py
++++ b/integration/beta-feature-parity/package.py
+@@ -27,7 +27,7 @@
+     assert hashlib.sha256((candidate / name).read_bytes()).hexdigest() == expected_hash, name
+ for name, expected_hash in receipt['source_files'].items():
+     assert hashlib.sha256((root / name).read_bytes()).hexdigest() == expected_hash, 'Source changed after verification: ' + name
+-readme = '''SEST BETA FUNCTIONALITY TEST — BUILD 261106, 7 NOVEMBER 2026
++readme = '''SEST BETA FUNCTIONALITY TEST — CAPTURED ASSEMBLY 499675cd, 8 NOVEMBER 2026
+ 
+ Stay on the beta game build. This is a beta compatibility test candidate,
+ with the complete pre-beta Runtime feature implementation; it is not yet
+@@ -89,17 +89,17 @@
+ }
+ repair_commands = {}
+ if a.repair_base:
+-    readme = '''R7 BETA REPAIR — BUILD 261106. 7 NOVEMBER 2026
++    readme = '''R8 BETA REPAIR — CAPTURED ASSEMBLY 499675cd. 8 NOVEMBER 2026
+ 
+-Use this for the 0.8.7-261106 game captured today. Earlier R3/R6 repairs do
+-not target this new build. Existing candidate backups and Identify data
++Use this for the game assembly captured on 8 November (499675cd). Earlier
++R3/R6/R7 repairs do not target this new assembly. Existing candidate backups and Identify data
+ are kept. Close Sea Power, extract into a NEW folder, and run
+ Repair-Beta-Startup.cmd. Then test in game and Capture-Repair-Results.cmd.
+ 
+-Runtime 1.5.4 and UI 1.4.7 target Combat Cost Tracker 0.8 and Pop-Out Windows
++Runtime 1.5.5 and UI 1.4.8 target Combat Cost Tracker 0.8 and Pop-Out Windows
+ 1.1.3. Updated author plugins use their own current beta fixes. The repair
+ also updates debrief rows, campaign/terrain bindings, formation's retired
+-label lookup and Osprey fuel conversion. Check all of these on the PC.
++label lookup, Osprey fuel conversion and the new night-sensor nation argument. Check all of these on the PC.
+ 
+ Held pending author ports: EnhancedDecoyMod, Topographic Map and
+ MultiStageMissiles. Their data is retained. ExtendedGuidance stays disabled
+diff --git a/integration/beta-feature-parity/runtime/RuntimeFixesMod.cs b/integration/beta-feature-parity/runtime/RuntimeFixesMod.cs
+index 11c7fdc0b..f5b3ea4c4 100644
+--- a/integration/beta-feature-parity/runtime/RuntimeFixesMod.cs
++++ b/integration/beta-feature-parity/runtime/RuntimeFixesMod.cs
+@@ -6,7 +6,7 @@ using AnchorChain;
+ 
+ namespace Sest.RuntimeFixes;
+ 
+-[ACPlugin("io.github.sest-hobby.runtime-fixes", "SEST Runtime Fixes Beta", "1.5.4", null, null)]
++[ACPlugin("io.github.sest-hobby.runtime-fixes", "SEST Runtime Fixes Beta", "1.5.5", null, null)]
+ public sealed class RuntimeFixesMod : IAnchorChainMod
+ {
+ 	public void TriggerEntryPoint()
+@@ -20,7 +20,7 @@ public sealed class RuntimeFixesMod : IAnchorChainMod
+ 				using SHA256 sHA = SHA256.Create();
+ 				text = BitConverter.ToString(sHA.ComputeHash(inputStream)).Replace("-", string.Empty).ToLowerInvariant();
+ 			}
+-			if (text != "9b35a7aa4f0bd3c78211fb9cf1e3d6398d0dbbc0f787674e843cc9563fd93f53")
++			if (text != "499675cda59912054924ae42297bce7a82b12ca00957dabd684105a24aa353a9")
+ 			{
+ 				Api.Log("inactive: uninspected native assembly " + text);
+ 				return;
+diff --git a/integration/beta-feature-parity/tests/BetaApiTests.cs b/integration/beta-feature-parity/tests/BetaApiTests.cs
+index 9b5b43b4a..f48ef8cf0 100644
+--- a/integration/beta-feature-parity/tests/BetaApiTests.cs
++++ b/integration/beta-feature-parity/tests/BetaApiTests.cs
+@@ -69,7 +69,7 @@ static partial class BetaApiTests
+                 }
+             }
+             foreach (string failure in missing) Console.WriteLine("MISSING "+failure);
+-            Check(missing.Count==0 && resolved>100, "All active direct native method/field operands resolve across seven adapted images");
++            Check(missing.Count==0 && resolved>100, "All active direct native method/field operands resolve across the current fixtures");
+             Console.WriteLine("Resolved native operands: "+resolved);
+             using (var ammo=ModuleDefinition.ReadModule(paths["SubAmmunitionMod"],new ReaderParameters { AssemblyResolver=resolver })) {
+                 var calls=Types(ammo.Types).SelectMany(t=>t.Methods).Where(m=>m.HasBody).SelectMany(m=>m.Body.Instructions)
+@@ -79,6 +79,14 @@ static partial class BetaApiTests
+                     "All five real sub-ammunition INI sites append forceDisk=false");
+             }
+ 
++            using (var campaignImage=ModuleDefinition.ReadModule(paths["DynamicCampaignMod"],new ReaderParameters { AssemblyResolver=resolver })) {
++                var nightCalls=Types(campaignImage.Types).SelectMany(t=>t.Methods).Where(m=>m.HasBody)
++                    .SelectMany(m=>m.Body.Instructions).Where(i=>i.Operand is MethodReference c &&
++                    c.DeclaringType.FullName=="SeaPower.LoadoutSummary" && c.Name=="HasNightCapableSensors").ToList();
++                Check(nightCalls.Count==1 && ((MethodReference)nightCalls[0].Operand).Parameters.Count==4 &&
++                    nightCalls[0].Previous.OpCode==Mono.Cecil.Cil.OpCodes.Ldnull,
++                    "Exactly one real campaign night query supplies the new native default nation=null");
++            }
+             string decoySource=Path.Combine(workshop,"3784474738/EnhancedDecoyMod.dll");
+             byte[] decoyBytes=File.ReadAllBytes(decoySource);
+             Check(BetaAssemblyPolicy.Prepare(decoySource,native,cache,Console.WriteLine)==null,
+@@ -100,6 +108,12 @@ static partial class BetaApiTests
+                         instructions.Where(i=>(i.operand as MethodInfo)?.Name=="GetDirectories" || (i.operand as MethodInfo)?.Name=="GetFiles")
+                             .All(i=>((MethodInfo)i.operand).GetParameters().Last().ParameterType==typeof(LayerKind)),
+                         "Real campaign menu IL resolves the beta layer-aware lookups");
++                    var night=typeof(LoadoutSummary).GetMethods(BindingFlags.Public|BindingFlags.NonPublic|BindingFlags.Static)
++                        .Single(m=>m.Name=="HasNightCapableSensors");
++                    var nation=night.GetParameters().Last();
++                    Check(night.GetParameters().Length==4 && nation.Name=="nation" && nation.ParameterType==typeof(string) &&
++                        nation.IsOptional && nation.DefaultValue==null,
++                        "Current night-sensor query has the inspected optional nation=null inference contract");
+                     var battle=loaded.GetType("DynamicCampaignMod.Game.Battle.BattleSession",true);
+                     foreach (string name in new[] { "LookTurn", "BackToMap", "Prepare", "OnSceneLoaded", "TablesOf", "Enemy" }) {
+                         foreach (var method in battle.GetMethods(BindingFlags.NonPublic|BindingFlags.Public|BindingFlags.Static).Where(m=>m.Name==name))
+diff --git a/integration/beta-feature-parity/tests/Test-Installer.ps1 b/integration/beta-feature-parity/tests/Test-Installer.ps1
+index 1a4879d1f..422ee45bd 100644
+--- a/integration/beta-feature-parity/tests/Test-Installer.ps1
++++ b/integration/beta-feature-parity/tests/Test-Installer.ps1
+@@ -83,7 +83,7 @@ try {
+     & $installer @options -Action Enable
+     $state = Get-Content -LiteralPath $stateFile -Raw | ConvertFrom-Json
+     Assert ($state.phase -eq 'enabled') 'Enable did not complete'
+-    Assert ([IO.File]::ReadAllText((J $loader 'enable.flag')) -eq $(if ($PreviousPackage) {'enable-beta-261026'} else {'enable-beta-261106'})) 'Enable flag mismatch'
++    Assert ([IO.File]::ReadAllText((J $loader 'enable.flag')) -eq $(if (!$PreviousPackage) {'enable-beta-261106-499675cd'} elseif ($receipt.target_game_sha256 -eq '9b35a7aa4f0bd3c78211fb9cf1e3d6398d0dbbc0f787674e843cc9563fd93f53') {'enable-beta-261106'} else {'enable-beta-261026'})) 'Enable flag mismatch'
+     Assert (!(Test-Path -LiteralPath $local)) 'Local Identify folder remains discoverable'
+     Assert ([IO.File]::ReadAllText($redirected) -eq 'LOCAL AUDIO') 'Local audio was not migrated'
+     Assert ([IO.File]::ReadAllText((J $backup 'IdentifyExpanded-previous-data' 'audio' 'broadcast' 'track.mp3')) -eq 'OLDER REDIRECTED AUDIO') 'Conflicting pre-existing redirected data was lost'
+diff --git a/integration/beta-feature-parity/ui/ContactsFix.cs b/integration/beta-feature-parity/ui/ContactsFix.cs
+index 5122c0a50..31fbfd88d 100644
+--- a/integration/beta-feature-parity/ui/ContactsFix.cs
++++ b/integration/beta-feature-parity/ui/ContactsFix.cs
+@@ -12,14 +12,14 @@ using UnityEngine;
+ 
+ namespace Sest.UiFixes
+ {
+-    [ACPlugin("io.github.sest-hobby.contacts-input-fix", "SEST UI Follow-up Beta", "1.4.7", null, new[] { "io.github.sest-hobby.runtime-fixes" })]
++    [ACPlugin("io.github.sest-hobby.contacts-input-fix", "SEST UI Follow-up Beta", "1.4.8", null, new[] { "io.github.sest-hobby.runtime-fixes" })]
+     public sealed class ContactsFix : IAnchorChainMod
+     {
+         internal const BindingFlags All = BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static | BindingFlags.Instance;
+         const string ContactHash = "a1b8b450df0933df61984651fe2b19138acd605aa4b526bbfc23565d8295015e";
+         const string RuntimeHash = BuildPins.RuntimeSha256;
+         static readonly string[] NativeHashes = {
+-            "9b35a7aa4f0bd3c78211fb9cf1e3d6398d0dbbc0f787674e843cc9563fd93f53",
++            "499675cda59912054924ae42297bce7a82b12ca00957dabd684105a24aa353a9",
+             "7b1fd6a6b90d0692297906f5907a1b4a2072bf3bf25a983b36aaa5b5c043ebdd"
+         };
+         static bool installed;
+@@ -71,7 +71,7 @@ namespace Sest.UiFixes
+                 harmony.Patch(matches, prefix: new HarmonyMethod(typeof(ContactsFix), nameof(BeforeMatches)));
+                 harmony.Patch(tick, transpiler: new HarmonyMethod(typeof(ContactsFix), nameof(LogicalParents)));
+                 installed = true;
+-                Log("1.4.7 beta input fix installed; full Runtime 1.5.4 paired; Contacts time-control behavior retained.");
++                Log("1.4.8 beta input fix installed; full Runtime 1.5.5 paired; Contacts time-control behavior retained.");
+             }
+             catch (Exception error)
+             {

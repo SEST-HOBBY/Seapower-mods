@@ -52,12 +52,12 @@ class BetaSourceContract(unittest.TestCase):
 
     def test_bootstrap_does_not_auto_activate(self):
         self.assertIn('"enable.flag"', self.boot)
-        self.assertIn('"enable-beta-261026"', self.boot)
+        self.assertIn('"enable-beta-261106-499675cd"', self.boot)
         self.assertIn("if (enabled)", self.boot)
         self.assertIn('Logger.LogInfo("BETA SAFE BOOTSTRAP READY; enable="', self.boot)
 
     def test_beta_hash_gate_and_safe_fork_only(self):
-        self.assertIn("3005bc6d4221a921008778a18dec06515d98c63d3afb6a3a2835b985ab2e7d62", self.boot)
+        self.assertIn("499675cda59912054924ae42297bce7a82b12ca00957dabd684105a24aa353a9", self.boot)
         self.assertIn('Path.Combine(_payloadDirectory, "AnchorChain.dll")', self.boot)
         self.assertIn('GetField("_startOnce"', self.boot)
         self.assertIn("Sha256(payload), expected", self.boot)
@@ -87,6 +87,13 @@ class BetaSourceContract(unittest.TestCase):
         self.assertIn('Join-Path $OutDir "SEST.BetaSafeBootstrap.dll"', self.build)
         self.assertNotIn("Copy-Item -LiteralPath $dest -Destination $plugins", self.build)
         self.assertNotIn("Copy-Item -LiteralPath $dest -Destination $upstream", self.build)
+
+    def test_metadata_preparation_precedes_clr_loading(self):
+        self.assertLess(self.main.index("BetaAssemblyPolicy.Prepare(asmPath"), self.main.index("Assembly.LoadFile(prepared)"))
+        policy = (HERE / 'source' / 'AssemblyPolicy.cs').read_text()
+        self.assertIn('ExtendedHash', policy)
+        self.assertIn('SKIPPED before CLR load', policy)
+        self.assertIn('InvalidNativeFields', policy)
 
 if __name__ == "__main__":
     unittest.main(verbosity=2)

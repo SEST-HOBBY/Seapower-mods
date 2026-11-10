@@ -3,6 +3,89 @@ Change log
 
 ===============================================================================
 
+07-Nov-2026: 0.8.7 Build 261107
+-------------------------------
+[FIX] Aircraft: maximum range issues
+[FIX] Aircraft: bomb drops from low altitude could fail
+[FIX] Aircraft: wingmen flew without any angle of attack
+[FIX] Unguided bombs jumped sideways on release
+[FIX] Wrong anchor for formations made up of stationary units
+[FIX] Seconds of the game clock did not tick correctly
+[FIX] Audio clipping caused by comb filtering
+[FIX] Mods could not bake models
+[FIX] Campaign: Pacific Strike: underwater land units in 04 Sunda Strait and 09 Shadows off Palawan
+
+[UPD] Aircraft: improved dogfight logic, especially in two-circle fights
+[UPD] Sensors: very slight night vision for the 'Eyes' and 'Optics' visual sensors
+[UPD] Rolling Replay performance
+[UPD] Tidied up the F10 maneuver menu, the standing orders UI and the mission timer display
+
+[NEW] Mission Editor: basic campaign management: "Campaign Mission" checkbox on the scenarios tab with fields for scenario and groups (a full campaign editor will come later)
+
+===============================================================================
+
+06-Nov-2026: 0.8.7 Build 261106
+-------------------------------
+[FIX] Ships and submarines did not react to straight-running torpedoes
+[FIX] Wire-guided torpedoes: wire-guidance limitations were implemented incorrectly, and the launching unit did not attack or slow down while above wire break speed
+[FIX] Torpedo fans and multi-attachment torpedo tubes
+[FIX] Bombs dropped from low altitude could miss their target
+[FIX] Fix for missiles dragging after being dropped from aircraft
+[FIX] Passive sonar underperformed in the MF/HF bands
+[FIX] Whales: depth changes and states could be off in some cases
+[FIX] Exception during unit metadata loading
+[FIX] XAML parse error in the main menu news window
+[FIX] Missing tactical map settings when a mod overrides the default UI ini
+[FIX] More file checks that did not work with CrossOver on macOS
+[FIX] Positions of stations on rotated parent objects
+[FIX] Map: group placement, display around the poles and the 180 degree line, shorelines and terrain mapping with the LCC projection
+[FIX] Diamonds appeared over sonobuoy waypoints
+[FIX] Callsigns could use the wrong squadron
+[FIX] Weapon names show the English text instead of "MISSING TEXT" when a translation is missing
+[FIX] Mission Editor: trigger zones centered on a unit passed wrong coordinates to the new globe system
+[FIX] Mission Editor: campaign variables could be applied to other missions
+[FIX] Triggers: disabled units could satisfy out-of-ammo conditions
+[FIX] Campaign: formations created by dynamic unit generation spawned on top of each other
+[FIX] Campaign: Pacific Strike: underwater land units in mission 06
+
+[UPD] Aircraft keep their climb or dive rate during the death animation
+[UPD] Aircraft cannons: muzzle gas effect and louder firing sound
+[UPD] Cleaned up missile afterburner animation
+[UPD] Weapons: dramatically reduced minimum range for most AAMs
+[UPD] Units: increased turn rates for MiG-17, J-5, F-5 (PLA) and Lim-6
+[UPD] Units: civilian airliners, transports and airliner-derived aircraft (E-3, Il-38, KC-10) received a generic weather radar with limited surface search
+[UPD] Units: unique dud eject angles for US ships with Terrier and Tartar arm launchers
+[UPD] Units: submarine and whale speeds standardized, so submarines are harder to tell apart from whales at a glance
+[UPD] Units: Gearing FRAM II overhauled model, different bridge and Hedgehog mortars
+[UPD] Map: allied formations are collapsed, unit paths follow geographic paths better, faster map rendering
+[UPD] Mission Editor: improved sides editor, now with a relation matrix view
+[UPD] Mission Editor: UnitTypes now override UnitType in trigger conditions
+[UPD] Encyclopedia shows variant and squadron descriptions even if the class description is empty
+[UPD] Campaign: Task Force Mode: commander and awards tab in the F10 panel, custom XAML templates for commander citations
+[UPD] Scenarios: removed some broken or outdated scenarios, to be replaced with updated versions later
+[UPD] Scenarios: 01A Senkaku Run: reworked enemy setup for the mechanics changes
+[UPD] Reformatted weapon and sensor texts
+[UPD] Credits
+[UPD] Translations
+
+[NEW] EXPERIMENTAL: Rolling Replay: rewind and spectate the last minutes of a mission, with camera shots, a keyframe timeline with key curves and lens effects (off by default, up to 30 minutes or 512 MB)
+[NEW] EXPERIMENTAL: Complete aircraft physics and behavior overhaul - unrestricted rolling and pitching, AOA, sustain and instant turn rates, stores add drag and reduce aircraft performance, air density is properly simulated
+[NEW] Aircraft and certain supersonic cruise missiles now have new shader-based afterburner effects, with color and intensity depending on local light level
+[NEW] Full Air-to-air refueling integration and a new Tanker role
+[NEW] Weapon doctrine panel for missile launch conditions
+[NEW] Torpedo fan aim tool and adjustable salvo spread for straight-running torpedoes
+[NEW] "Guiding weapon" status for submarines
+[NEW] UI: rudder display with a popout for ordered and actual rudder angle of ships and submarines
+[NEW] Automatic attack waypoints can now also be set up during a mission
+[NEW] Mission Editor: mission timer that can be set up and shown via triggers, e.g. as "Time Remaining" below the time controls
+[NEW] Campaign: autosave
+[NEW] Campaign: ground forces as transportable cargo, with triggers to detect their presence
+[NEW] Weapons: Hedgehog ASW projector
+[NEW] Weapons: Remodeled Mk 44 and A.244/S torpedoes, added ship-launch A.244
+[NEW] Modding: weapon attachments can be rotated
+
+===============================================================================
+
 26-Oct-2026: 0.8.7 Build 261026
 -------------------------------
 [FIX] Initial camera at mission start always faced north, so it could look at the first unit straight from behind or ahead; it now looks at it from behind and to the side

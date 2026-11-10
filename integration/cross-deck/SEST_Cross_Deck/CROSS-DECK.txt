@@ -79,31 +79,27 @@ ger_ffg_f123_2012_MVP (germany, SEST_Replenishment): +12
     Lynx / Wildcat: rn_wildcat, rn_lynx, rn_sea_lynx, rn_sea_lynx_3, rn_sea_lynx_has3, rn_sea_lynx_mk8, rn_lynx_has2, rn_lynx_has3, nl_sea_lynx, nl_sea_lynx_D, fr_sea_lynx, fr_sea_lynx_4
 ger_ffg_f123_2015_essm (germany, SEST_Replenishment): +12
     Lynx / Wildcat: rn_wildcat, rn_lynx, rn_sea_lynx, rn_sea_lynx_3, rn_sea_lynx_has3, rn_sea_lynx_mk8, rn_lynx_has2, rn_lynx_has3, nl_sea_lynx, nl_sea_lynx_D, fr_sea_lynx, fr_sea_lynx_4
-ger_ffg_f123_2025_mlu (germany, SEST_Replenishment): +12
+ger_ffg_f124 (germany, SEST_Replenishment): +17
+    NH90 NFH: fr_nh90, nl_nh90, ita_sh90, be_nh90, sp_nh90_mspt
     Lynx / Wildcat: rn_wildcat, rn_lynx, rn_sea_lynx, rn_sea_lynx_3, rn_sea_lynx_has3, rn_sea_lynx_mk8, rn_lynx_has2, rn_lynx_has3, nl_sea_lynx, nl_sea_lynx_D, fr_sea_lynx, fr_sea_lynx_4
-ger_ffg_f123_2030_mlu_high (germany, SEST_Replenishment): +12
+ger_ffg_f124_ASMD (germany, SEST_Replenishment): +17
+    NH90 NFH: fr_nh90, nl_nh90, ita_sh90, be_nh90, sp_nh90_mspt
     Lynx / Wildcat: rn_wildcat, rn_lynx, rn_sea_lynx, rn_sea_lynx_3, rn_sea_lynx_has3, rn_sea_lynx_mk8, rn_lynx_has2, rn_lynx_has3, nl_sea_lynx, nl_sea_lynx_D, fr_sea_lynx, fr_sea_lynx_4
-ger_ffg_f124 (germany, SEST_Replenishment): +19
-    NH90 NFH: fr_nh90, de_nh90, nl_nh90, ita_sh90, be_nh90, sp_nh90_mspt
-    Lynx / Wildcat: rn_wildcat, rn_lynx, rn_sea_lynx, rn_sea_lynx_3, rn_sea_lynx_has3, rn_sea_lynx_mk8, rn_lynx_has2, rn_lynx_has3, de_sea_lynx_mk88, nl_sea_lynx, nl_sea_lynx_D, fr_sea_lynx, fr_sea_lynx_4
-ger_ffg_f124_ASMD (germany, SEST_Replenishment): +19
-    NH90 NFH: fr_nh90, de_nh90, nl_nh90, ita_sh90, be_nh90, sp_nh90_mspt
-    Lynx / Wildcat: rn_wildcat, rn_lynx, rn_sea_lynx, rn_sea_lynx_3, rn_sea_lynx_has3, rn_sea_lynx_mk8, rn_lynx_has2, rn_lynx_has3, de_sea_lynx_mk88, nl_sea_lynx, nl_sea_lynx_D, fr_sea_lynx, fr_sea_lynx_4
-ger_ffg_f124_MLU (germany, SEST_Replenishment): +19
-    NH90 NFH: fr_nh90, de_nh90, nl_nh90, ita_sh90, be_nh90, sp_nh90_mspt
-    Lynx / Wildcat: rn_wildcat, rn_lynx, rn_sea_lynx, rn_sea_lynx_3, rn_sea_lynx_has3, rn_sea_lynx_mk8, rn_lynx_has2, rn_lynx_has3, de_sea_lynx_mk88, nl_sea_lynx, nl_sea_lynx_D, fr_sea_lynx, fr_sea_lynx_4
-ger_ffg_f125 (germany, SEST_Replenishment): +19
-    NH90 NFH: fr_nh90, de_nh90, nl_nh90, ita_sh90, be_nh90, sp_nh90_mspt
-    Lynx / Wildcat: rn_wildcat, rn_lynx, rn_sea_lynx, rn_sea_lynx_3, rn_sea_lynx_has3, rn_sea_lynx_mk8, rn_lynx_has2, rn_lynx_has3, de_sea_lynx_mk88, nl_sea_lynx, nl_sea_lynx_D, fr_sea_lynx, fr_sea_lynx_4
-ger_ffg_f125_MLU (germany, SEST_Replenishment): +19
-    NH90 NFH: fr_nh90, de_nh90, nl_nh90, ita_sh90, be_nh90, sp_nh90_mspt
-    Lynx / Wildcat: rn_wildcat, rn_lynx, rn_sea_lynx, rn_sea_lynx_3, rn_sea_lynx_has3, rn_sea_lynx_mk8, rn_lynx_has2, rn_lynx_has3, de_sea_lynx_mk88, nl_sea_lynx, nl_sea_lynx_D, fr_sea_lynx, fr_sea_lynx_4
-ger_ffg_f127 (germany, SEST_Replenishment): +19
-    NH90 NFH: fr_nh90, de_nh90, nl_nh90, ita_sh90, be_nh90, sp_nh90_mspt
-    Lynx / Wildcat: rn_wildcat, rn_lynx, rn_sea_lynx, rn_sea_lynx_3, rn_sea_lynx_has3, rn_sea_lynx_mk8, rn_lynx_has2, rn_lynx_has3, de_sea_lynx_mk88, nl_sea_lynx, nl_sea_lynx_D, fr_sea_lynx, fr_sea_lynx_4
-ger_ffg_f127_batch2 (germany, SEST_Replenishment): +19
-    NH90 NFH: fr_nh90, de_nh90, nl_nh90, ita_sh90, be_nh90, sp_nh90_mspt
-    Lynx / Wildcat: rn_wildcat, rn_lynx, rn_sea_lynx, rn_sea_lynx_3, rn_sea_lynx_has3, rn_sea_lynx_mk8, rn_lynx_has2, rn_lynx_has3, de_sea_lynx_mk88, nl_sea_lynx, nl_sea_lynx_D, fr_sea_lynx, fr_sea_lynx_4
+ger_ffg_f124_MLU (germany, SEST_Replenishment): +17
+    NH90 NFH: fr_nh90, nl_nh90, ita_sh90, be_nh90, sp_nh90_mspt
+    Lynx / Wildcat: rn_wildcat, rn_lynx, rn_sea_lynx, rn_sea_lynx_3, rn_sea_lynx_has3, rn_sea_lynx_mk8, rn_lynx_has2, rn_lynx_has3, nl_sea_lynx, nl_sea_lynx_D, fr_sea_lynx, fr_sea_lynx_4
+ger_ffg_f125 (germany, SEST_Replenishment): +17
+    NH90 NFH: fr_nh90, nl_nh90, ita_sh90, be_nh90, sp_nh90_mspt
+    Lynx / Wildcat: rn_wildcat, rn_lynx, rn_sea_lynx, rn_sea_lynx_3, rn_sea_lynx_has3, rn_sea_lynx_mk8, rn_lynx_has2, rn_lynx_has3, nl_sea_lynx, nl_sea_lynx_D, fr_sea_lynx, fr_sea_lynx_4
+ger_ffg_f125_MLU (germany, SEST_Replenishment): +17
+    NH90 NFH: fr_nh90, nl_nh90, ita_sh90, be_nh90, sp_nh90_mspt
+    Lynx / Wildcat: rn_wildcat, rn_lynx, rn_sea_lynx, rn_sea_lynx_3, rn_sea_lynx_has3, rn_sea_lynx_mk8, rn_lynx_has2, rn_lynx_has3, nl_sea_lynx, nl_sea_lynx_D, fr_sea_lynx, fr_sea_lynx_4
+ger_ffg_f127 (germany, SEST_Replenishment): +17
+    NH90 NFH: fr_nh90, nl_nh90, ita_sh90, be_nh90, sp_nh90_mspt
+    Lynx / Wildcat: rn_wildcat, rn_lynx, rn_sea_lynx, rn_sea_lynx_3, rn_sea_lynx_has3, rn_sea_lynx_mk8, rn_lynx_has2, rn_lynx_has3, nl_sea_lynx, nl_sea_lynx_D, fr_sea_lynx, fr_sea_lynx_4
+ger_ffg_f127_batch2 (germany, SEST_Replenishment): +17
+    NH90 NFH: fr_nh90, nl_nh90, ita_sh90, be_nh90, sp_nh90_mspt
+    Lynx / Wildcat: rn_wildcat, rn_lynx, rn_sea_lynx, rn_sea_lynx_3, rn_sea_lynx_has3, rn_sea_lynx_mk8, rn_lynx_has2, rn_lynx_has3, nl_sea_lynx, nl_sea_lynx_D, fr_sea_lynx, fr_sea_lynx_4
 hdms_iver_huitfeldt (denmark, SEST_Replenishment): +16
     Seahawk (S-70B / SH-60 / MH-60): usn_mh-60r, ran_mh-60r, usn_mh-60r_p2, usn_sh-60b, usn_sh-60f, usn_hh-60h, S-70B-2_Seahawk, ran_S-70B-2_Seahawk, jmsdf_sh-60j, jmsdf_sh-60k, spa_sh-60b, spa_sh-60b_block1, spa_sh-60bv1, spa_sh-60bv1_block1, tha_S-70B-7_Seahawk, rok_mh60
 hdms_iver_huitfeldt_mlu (denmark, SEST_Replenishment): +16
@@ -163,10 +159,14 @@ jmsdf_ddh_ise (japan, 3802216383): +13
 js_ffg_mogami (japan, SEST_JMSDF_Mogami): +17
     Seahawk (S-70B / SH-60 / MH-60): usn_mh-60r, ran_mh-60r, usn_mh-60r_p2, usn_sh-60b, usn_sh-60f, usn_hh-60h, S-70B-2_Seahawk, ran_S-70B-2_Seahawk, spa_sh-60b, spa_sh-60b_block1, spa_sh-60bv1, spa_sh-60bv1_block1, dk_mh-60r, tha_S-70B-7_Seahawk, rok_mh60
     Seasprite: usn_sh-2g, rnzn_sh-2gi
+js_ffg_mogami_improved (japan, SEST_Replenishment): +16
+    Seahawk (S-70B / SH-60 / MH-60): usn_mh-60r, ran_mh-60r, usn_mh-60r_p2, usn_sh-60b, usn_sh-60f, usn_hh-60h, S-70B-2_Seahawk, ran_S-70B-2_Seahawk, jmsdf_sh-60j, spa_sh-60b, spa_sh-60b_block1, spa_sh-60bv1, spa_sh-60bv1_block1, dk_mh-60r, tha_S-70B-7_Seahawk, rok_mh60
 ko_ddg-995 (south_korea, SEST_Replenishment): +16
     Seahawk (S-70B / SH-60 / MH-60): usn_mh-60r, ran_mh-60r, usn_mh-60r_p2, usn_sh-60b, usn_sh-60f, usn_hh-60h, S-70B-2_Seahawk, ran_S-70B-2_Seahawk, jmsdf_sh-60j, jmsdf_sh-60k, spa_sh-60b, spa_sh-60b_block1, spa_sh-60bv1, spa_sh-60bv1_block1, dk_mh-60r, tha_S-70B-7_Seahawk
 ko_kddx (south_korea, SEST_Replenishment): +16
     Seahawk (S-70B / SH-60 / MH-60): usn_mh-60r, ran_mh-60r, usn_mh-60r_p2, usn_sh-60b, usn_sh-60f, usn_hh-60h, S-70B-2_Seahawk, ran_S-70B-2_Seahawk, jmsdf_sh-60j, jmsdf_sh-60k, spa_sh-60b, spa_sh-60b_block1, spa_sh-60bv1, spa_sh-60bv1_block1, dk_mh-60r, tha_S-70B-7_Seahawk
+ko_ocean-4300_pn (philippines, SEST_Replenishment): +13
+    Lynx / Wildcat: rn_wildcat, rn_lynx, rn_sea_lynx_3, rn_sea_lynx_has3, rn_sea_lynx_mk8, rn_lynx_has2, rn_lynx_has3, de_sea_lynx_mk88, ger_sea_lynx_mk88, nl_sea_lynx, nl_sea_lynx_D, fr_sea_lynx, fr_sea_lynx_4
 mm_cgh_andrea_doria (italy, 3505420313): +3
     AB 212 / Bell 212: spa_ab212, mm_ab212_91, tha_ab212
 mm_cgh_vittorio_veneto (italy, 3505420313): +17
@@ -212,13 +212,13 @@ phl_lpd_tarlac (philippines, SEST_Replenishment): +19
     Seasprite: usn_sh-2g, rnzn_sh-2gi
     Campaign deck fits: tha_S-70B-7_Seahawk, ran_mh-60r
 pn_ffg-06 (philippines, SEST_Replenishment): +14
-    Lynx / Wildcat: rn_wildcat, rn_lynx, rn_sea_lynx, rn_sea_lynx_has3, rn_sea_lynx_mk8, rn_lynx_has2, rn_lynx_has3, de_sea_lynx_mk88, ger_sea_lynx_mk88, nl_sea_lynx, nl_sea_lynx_D, fr_sea_lynx, fr_sea_lynx_4
+    Lynx / Wildcat: rn_wildcat, rn_lynx, rn_sea_lynx_3, rn_sea_lynx_has3, rn_sea_lynx_mk8, rn_lynx_has2, rn_lynx_has3, de_sea_lynx_mk88, ger_sea_lynx_mk88, nl_sea_lynx, nl_sea_lynx_D, fr_sea_lynx, fr_sea_lynx_4
     Campaign deck fits: phl_h-76
 pn_ffg-150 (philippines, SEST_Replenishment): +14
-    Lynx / Wildcat: rn_wildcat, rn_lynx, rn_sea_lynx, rn_sea_lynx_has3, rn_sea_lynx_mk8, rn_lynx_has2, rn_lynx_has3, de_sea_lynx_mk88, ger_sea_lynx_mk88, nl_sea_lynx, nl_sea_lynx_D, fr_sea_lynx, fr_sea_lynx_4
+    Lynx / Wildcat: rn_wildcat, rn_lynx, rn_sea_lynx_3, rn_sea_lynx_has3, rn_sea_lynx_mk8, rn_lynx_has2, rn_lynx_has3, de_sea_lynx_mk88, ger_sea_lynx_mk88, nl_sea_lynx, nl_sea_lynx_D, fr_sea_lynx, fr_sea_lynx_4
     Campaign deck fits: phl_h-76
 pn_ffg-150_2 (philippines, SEST_Replenishment): +13
-    Lynx / Wildcat: rn_wildcat, rn_lynx, rn_sea_lynx, rn_sea_lynx_has3, rn_sea_lynx_mk8, rn_lynx_has2, rn_lynx_has3, de_sea_lynx_mk88, ger_sea_lynx_mk88, nl_sea_lynx, nl_sea_lynx_D, fr_sea_lynx, fr_sea_lynx_4
+    Lynx / Wildcat: rn_wildcat, rn_lynx, rn_sea_lynx_3, rn_sea_lynx_has3, rn_sea_lynx_mk8, rn_lynx_has2, rn_lynx_has3, de_sea_lynx_mk88, ger_sea_lynx_mk88, nl_sea_lynx, nl_sea_lynx_D, fr_sea_lynx, fr_sea_lynx_4
 ran_ddg_hobart (australia, SEST_RAN_Fleet): +13
     Seahawk (S-70B / SH-60 / MH-60): usn_mh-60r_p2, usn_sh-60b, usn_sh-60f, usn_hh-60h, jmsdf_sh-60j, jmsdf_sh-60k, spa_sh-60b, spa_sh-60b_block1, spa_sh-60bv1, spa_sh-60bv1_block1, dk_mh-60r, tha_S-70B-7_Seahawk, rok_mh60
 ran_ffg_adelaide (australia, 3455404959): +21
@@ -238,6 +238,8 @@ ran_ffg_adelaide_shorthull (australia, _vanilla): +21
     Alouette / Ecureuil: fr_sa-319, ran_as350, ran_as350_recon
 ran_ffg_adelaide_upgrade (australia, 3820759806): +15
     Seahawk (S-70B / SH-60 / MH-60): usn_mh-60r, usn_mh-60r_p2, usn_sh-60b, usn_sh-60f, usn_hh-60h, S-70B-2_Seahawk, jmsdf_sh-60j, jmsdf_sh-60k, spa_sh-60b, spa_sh-60b_block1, spa_sh-60bv1, spa_sh-60bv1_block1, dk_mh-60r, tha_S-70B-7_Seahawk, rok_mh60
+ran_ffg_mogami_improved (australia, SEST_Replenishment): +16
+    Seahawk (S-70B / SH-60 / MH-60): usn_mh-60r, usn_mh-60r_p2, usn_sh-60b, usn_sh-60f, usn_hh-60h, S-70B-2_Seahawk, ran_S-70B-2_Seahawk, jmsdf_sh-60j, jmsdf_sh-60k, spa_sh-60b, spa_sh-60b_block1, spa_sh-60bv1, spa_sh-60bv1_block1, dk_mh-60r, tha_S-70B-7_Seahawk, rok_mh60
 ran_ffh_anzac (australia, SEST_RAN_Fleet): +14
     Seahawk (S-70B / SH-60 / MH-60): usn_mh-60r_p2, usn_sh-60b, usn_sh-60f, usn_hh-60h, jmsdf_sh-60j, jmsdf_sh-60k, spa_sh-60b, spa_sh-60b_block1, spa_sh-60bv1, spa_sh-60bv1_block1, dk_mh-60r, tha_S-70B-7_Seahawk, rok_mh60
     Campaign deck fits: phl_h-76

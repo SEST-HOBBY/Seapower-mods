@@ -8,7 +8,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[2]
 WORLD = Path("integration/world-sandbox/SEST_World_Campaign")
 DIST = Path("integration/dist/SEST_Integration")
-CAMPAIGN = Path("dynamic_campaigns/sest-world-sandbox/campaign.json")
+CAMPAIGN = Path("legacy_campaigns/sest-world-sandbox/campaign.json")
 LEGACY = "ch_ffg_jvh"
 CURRENT = "ch_ffg_jacob_van_heemskerck"
 HISTORICAL = "197000000"
@@ -66,6 +66,19 @@ class WorldHullCompatibilityTests(unittest.TestCase):
             self.assertIn("[Squadron1]", squadrons)
             names = (ROOT / pack / "language_en/aircraft_names.ini").read_text(encoding="utf-8")
             self.assertRegex(names, r"(?m)^\[usn_hh-60\]$")
+
+    def test_reviewed_legacy_target_exists_before_generated_output(self):
+        import sys
+        from unittest.mock import patch
+        sys.path.insert(0, str(ROOT / "integration"))
+        from common import costs
+        generated = ROOT / WORLD
+        original = costs.providers
+        with patch.object(costs, "providers", side_effect=lambda root: [
+                (owner, folder) for owner, folder in original(root) if folder != generated]):
+            legacy = costs.inventory(ROOT)["vessel"][LEGACY]
+        self.assertEqual(legacy["owner"], "SEST_World_Campaign")
+        self.assertEqual(legacy["alias"], f"vessels/{CURRENT}.ini")
 
     def test_build_order_declared(self):
         entries = json.loads((ROOT / "data/mod-catalog.json").read_text(encoding="utf-8"))["local_packs"]

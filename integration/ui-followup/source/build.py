@@ -10,6 +10,8 @@ p.add_argument('--framework', required=True, help='NETStandard.Library.Ref 2.1.0
 p.add_argument('--references', required=True, help='Captured game/BepInEx DLL folder')
 p.add_argument('--output', required=True)
 p.add_argument('--runtime', help='Captured SEST.RuntimeFixes.dll; run factory/transpiler differential checks when supplied')
+p.add_argument('--popout', help='Captured Pop-Out DLL; run bridge IL/contract checks when supplied with --runtime')
+p.add_argument('--tracker', help='Current Combat Cost Tracker DLL for bridge binding checks')
 a = p.parse_args()
 here = pathlib.Path(__file__).resolve().parent
 out = pathlib.Path(a.output).resolve()
@@ -29,7 +31,7 @@ compile(['-target:library', '-out:' + str(out / 'SEST.ContactsFix.dll'), '-r:' +
         + ['-r:' + str(refs / n) for n in assemblies]
         + [str(here / n) for n in ['InputPolicy.cs', 'ContactsFix.cs', 'ContactsSurfaceFix.cs', 'FormationModeState.cs', 'FormationUiMode.cs',
                                   'LookupCache.cs', 'UiRefreshGate.cs', 'FlightFlagReader.cs', 'PerformanceReview.cs',
-                                  'UiText.cs', 'UiRefinements.cs', 'FormationPerformance.cs', 'FormationBoundsGate.cs', 'CameraCompass.cs', 'CompassRouting.cs',
+                                  'UiText.cs', 'UiRefinements.cs', 'FormationPerformance.cs', 'FormationBoundsGate.cs', 'CameraCompass.cs', 'CompassRouting.cs', 'PopOutCompatibility.cs', 'TrackerCompatibility.cs',
                                   'CleanupBatchGate.cs', 'TerrainCleanup.cs', 'FrameWindow.cs', 'FramePacing.cs', 'StutterDiagnostics.cs', 'DiagnosticModules.cs', 'ScopeValueCache.cs', 'CostCatalogueCache.cs']])
 compile(['-target:exe', '-out:' + str(out / 'InputPolicyTests.dll'), str(here / 'InputPolicy.cs'), str(here / 'InputPolicyTests.cs')])
 (out / 'InputPolicyTests.runtimeconfig.json').write_text('{"runtimeOptions":{"tfm":"net8.0","framework":{"name":"Microsoft.NETCore.App","version":"8.0.0"}}}')
@@ -55,4 +57,11 @@ if a.runtime:
     (out / 'CatalogueRuntimeTests.runtimeconfig.json').write_text((out / 'InputPolicyTests.runtimeconfig.json').read_text())
     subprocess.run([a.dotnet, str(out / 'CatalogueRuntimeTests.dll'), str(refs), str(pathlib.Path(a.runtime).resolve()),
                     str(out / 'SEST.ContactsFix.dll')], check=True)
+    if a.popout:
+        compile(['-target:exe', '-out:' + str(out / 'PopOutCompatibilityTests.dll'), '-r:' + str(refs / '0Harmony.dll'),
+                 str(here / 'PopOutCompatibilityTests.cs')])
+        (out / 'PopOutCompatibilityTests.runtimeconfig.json').write_text((out / 'InputPolicyTests.runtimeconfig.json').read_text())
+        subprocess.run([a.dotnet, str(out / 'PopOutCompatibilityTests.dll'), str(refs), str(pathlib.Path(a.runtime).resolve()),
+                        str(out / 'SEST.ContactsFix.dll'), str(pathlib.Path(a.popout).resolve())]
+                       + ([str(pathlib.Path(a.tracker).resolve())] if a.tracker else []), check=True)
 print('Build and regression checks passed. Install SEST.ContactsFix.dll only.')

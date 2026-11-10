@@ -580,22 +580,16 @@ how to check each.
   a ship sunk there is listed without a Lost status (Undamaged), and the
   correction cannot add one either. None of the three corrections has been
   watched working in a mission yet.
-- **SEST UI Follow-up** (`plugins/SEST.ContactsFix.dll`, 1.4.2, 28 Oct
-  2026): for players of Contact Log 1.0.1, which the load order names since
-  the 28 Oct capture and the collection will carry once the owner adds it. Space and +/- no longer open or
-  close Contacts; its pop-out is fixed and Group Manager gets a Stock UI /
-  Enhanced UI switch (both need Pop-Out Windows 1.0.1, the pop-out a second
-  monitor too; with Pop-Out Windows 1.0.2 the Contacts
-  pop-out surface fix, the Formation UI mode switch and the camera compass
-  log `inactive` and stay off until the plugin is re-pinned, while the input
-  fix stays on); and the live F11 window reuses its price lists per
-  mission instead of rebuilding them twice a second (stalls of 253-494 ms on
-  the owner's PC). It also moves the game's Quick Load from F9 alone to
-  Ctrl+F9, which Options > Accept saves into controls.ini; nothing in the
-  pack binds F9 to Contacts. It runs only beside Runtime 1.5.0, Contact Log
-  1.0.1 and Sea Power 0.8.7 Build 261021; anywhere else it logs `inactive;
-  original behavior retained` and does nothing. The owner's PC crashed once
-  on 27 Oct with both plugins on; the cause is not known yet.
+- **SEST UI Follow-up** (`plugins/SEST.ContactsFix.dll`, 1.4.5 candidate,
+  7 Nov 2026): the 1.4.2 input, F11 price cache, preparation, formation and
+  compass behavior is retained. A narrow in-memory bridge update accepts
+  the captured Pop-Out Windows 1.1.3 only after exact hashes and reflected
+  contracts pass. Runtime 1.5.0 stays unchanged. The original runtime IL
+  checks pass; the installed 1.1.3 DLL and pop-out rendering still need the
+  PC checks in `releases/20261107/README-FIRST.txt`. Quick Load still moves
+  from plain F9 to Ctrl+F9 where this companion is active; no Contacts key
+  is assigned by the pack. It is inactive on beta; R6 remains a separate
+  test candidate. The 27 Oct crash's cause has not been established.
 
 ---
 

@@ -22,7 +22,7 @@ DIST = ROOT / "integration/dist/SEST_Integration/dynamic_campaigns"
 REPORT = HERE / "draft/conversion.json"
 OLD = "usn_p_8a"
 CURRENT = "usn_p8_2027"
-WORLD_VARIANTS = ("sest-world-sandbox", "sest-world-regions-2028")
+WORLD_VARIANTS = ("../legacy_campaigns/sest-world-sandbox", "sest-world-regions-2028")
 
 # Facts only the builder can answer (its resolver, value rule and quantity
 # parser), from a separate interpreter: it imports build_pack, home_bases and

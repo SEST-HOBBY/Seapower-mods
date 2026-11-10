@@ -1,0 +1,150 @@
+SEST R12 FINAL - RIBBONS, NATIONAL AWARDS AND REVIEW FOLLOW-UP
+10 November 2026 | SEST-DEV
+Beta 0.8.7-261107: Runtime 1.6.4 / UI 1.4.14
+
+BASE AND SCOPE
+Branch fix/r12-finalise-20261110. It carries the R12 posting (7dab3591) and
+ribbon test build (7be336cb) with their trees unchanged and their commits
+re-authored as SEST-DEV, then one commit per review area: loader, world,
+ribbons and SETUP, merged and rebuilt together.
+Target game assembly remains
+499675cda59912054924ae42297bce7a82b12ca00957dabd684105a24aa353a9.
+Native API references are the 9 November capture, DCM 0.25.0.1. The 203-item
+author-configuration baseline, Steelfin refresh and Growler data are retained.
+Nothing has been uploaded to Steam.
+
+CATALOGUE
+51 awards in separate contexts:
+- 25 fictional world awards (World Operations, beta only).
+- 12 fictional native campaign ribbons: the four completion ribbons and
+  eight operation ribbons (SW05 Timor Corridor, SW08 Archipelago Operations,
+  SR12 Antarctic Resupply, TS09 Southern Convoy, RL03 Contact Intelligence,
+  RL05 Undersea Operations, SL04 Fleet Sustainment, SL06 Littoral
+  Operations). The completion ribbons keep their ids, flags and art.
+- 14 real-award representations, in the authored campaigns only.
+Three US definitions from the test build (Navy and Marine Corps Achievement
+Medal, Navy Unit Commendation, Meritorious Unit Commendation) are no longer
+granted; they stay defined so a record already earned still shows.
+
+COMMANDER NATIONS
+Southern Watch and Southern Reach: Australia (default), US, UK, Japan, each
+with the game's rank ladder, name pool, navy name and emblem settings (stock
+US and Japan data; a Royal Navy ladder, the stock UK name pool and the White
+Ensign from the gallery's public-domain flag set). Red Line: China. Sulu
+Line: Philippines. A committed commander keeps its nation; the game refuses
+to change it. The same-nation discount is the native rule: it follows the
+commander's nation (or the Unrestricted-mode discount-nation setting), so an
+Australian commander keeps it on the Australian classes. Each rules page
+gives the per-nation class counts.
+
+REAL-AWARD REPRESENTATIONS
+Personal and service awards go to a commander of that nation and fit the
+campaign's rank (Southern Watch OF-4, Southern Reach OF-5, Sulu Line OF-6).
+The host nation's unit award goes to the task group whoever commands it.
+  Southern Watch: SW08 Commendation for Distinguished Service / Navy and
+    Marine Corps Commendation Medal / OBE (Military); SW12 Distinguished
+    Service Cross / Bronze Star Medal / Distinguished Service Order /
+    1st Class Commendation; task group Australian Meritorious Unit Citation.
+  Southern Reach / Tasman Shield: SR10 AOSM Indo-Pacific / Armed Forces
+    Expeditionary Medal; SR12 Commendation for Distinguished Service / Navy
+    and Marine Corps Commendation Medal / OBE (Military); TS09 Distinguished
+    Service Cross / Legion of Merit / Distinguished Service Order /
+    1st Class Commendation; TS12 task group Australian Meritorious Unit
+    Citation.
+  Sulu Line: SL05 Military Merit Medal; SL07 Distinguished Service Star;
+    task group Philippine Republic Presidential Unit Citation.
+  Red Line: fictional ribbons only; the PLA designs could not be checked.
+Every citation carries its granting mission's date and name and is two
+sentences, the second: "Game award for a fictional operation; not a real
+honour." The builder stops if a granting mission's title or date drifts,
+or if SR10 moves within 30 days of SR01 (the service medals need 30 days).
+
+NATIVE GRANT CONTRACT
+Captured SaveDebriefSnapshot checks IsComplete and the mission's
+RequiredResult before ApplyMissionRibbonAwards. Awards are pipe-separated,
+with comma-separated nation selectors compared with the committed nation,
+for example:
+  sest_southern_watch_service|australian_distinguished_service_cross,Australia|bronze_star_medal,US
+CommanderNations is split on '|', default first. The generator merges
+existing definitions and ids idempotently.
+
+WORLD PERSISTENCE AND QUALIFICATION (BETA)
+SEST-WORLD-SERVICE-1 and its six fields are unchanged; Runtime 1.6.2 and
+1.6.3 read the new record. A task is a standalone order, or a whole
+multi-phase operation counted once from DCM's operation result
+(OperationId > 0, OrderId 0); phases are not counted. ConvoyRun counts for
+Convoy Protection and Route Security, FleetAction for Maritime
+Surveillance. Orders and operations are keyed on their id and acceptance
+time, so a completion replayed after a reload counts once. Only same-side
+Completed results of accepted tasks qualify. Task entries never add to
+manual battles, combat USD totals, credits, renown or supplies. A result is
+recorded while its paper is unread in the Admiralty queue, so older read
+papers are not counted retroactively. Service-record write failures are
+logged and retried instead of closing World Operations.
+
+REAL-AWARD CONTEXT AND ART
+In-game representations with fictional scenario qualifications, not actual
+government awards or claims that SEST operations are declared eligible.
+Fictional and most real-award strips are drawn by code from the published
+stripe order; no AI imagery, nothing traced. The DSC, Bronze Star,
+Commendation Medal and JMSDF cordon use installed Sea Power pictures by
+path. AOSM-IP artwork: Nford24, CC0 1.0, copied unchanged (897 bytes),
+https://commons.wikimedia.org/wiki/File:Australian_Operational_Service_Medal_-_Indo-Pacific.png
+Each campaign's art/ribbons/SOURCES.txt lists its pictures and the award
+sources; CREDITS.txt credits the AOSM-IP strip and the White Ensign emblem.
+Some ribbon facts came from search extracts because the official sites
+could not be reached here; medium-confidence items are the Philippine
+colours, the OBE and DSO stripe widths and the Japanese cordon colours.
+
+REVIEW FOLLOW-UP
+Fixed in this branch:
+- Loader: DCM's salvo-hold fact entry adapted (the hold had switched itself
+  off); the formation pop-out bridge hashes the Group Manager's Workshop
+  file; Pop-Out 1.2.0 accepted after a full IL comparison; Formation UI
+  mode recognises 1.2.0's title-menu entry; loader text names 261107.
+- World: DCM's opening report kept (SEST brief first, render-only); tabs
+  rebuild only on change and the price catalogue once per map visit; the
+  battle checklist reads the per-mission clock; whole operations count;
+  replayed completions count once; Combat Costs read the loaded save's
+  reports; write failures retried.
+- Ribbons: national racks per offered nation, rank fit, unit awards to the
+  group, dated two-sentence citations, RL05 names Under the Convergence,
+  distinct milestone names and colours, per-campaign SOURCES.txt, rules
+  pages true for every nation.
+- SETUP: the feature step is build-aware, non-fatal and opt-out-able; another
+  build restores the normal plugins; a Steam refresh while staged restages;
+  short publishing paths checked against 259 characters before copying;
+  build-workshop-support.py uses explicit checks and LF UTF-8 output;
+  Prepare-PC accepts fix/ branches and its launchers are in the repo, with
+  tools/build_pc_toolkit.py to rebuild this toolkit from source.
+- Text: beta-only items marked "(beta)" on the Steam page and change note;
+  RIBBONS.txt, CREDITS.txt, the listing and these notes match the build;
+  the release-gates workflow no longer checks the retired World Sandbox.
+Still open (minor, not blocking this test):
+- WSA-3: no retroactive credit for papers read before these awards, and a
+  paper closed within about a second may be missed.
+- RU-8 theatre regions miss Diego Garcia and the central Indian Ocean;
+  RU-9 World Operations is not scoped to SEST's campaign; RU-10 per-frame
+  reflection once DCM is loaded; RU-11 new postfixes run unguarded inside
+  DCM paths; RU-13 no separate kill switch for the world features (the
+  SETUP opt-out turns all beta features off); RU-14 F11 and window insets
+  are fixed.
+- S6 Prepare-PC's Repair turns the working beta features off before its
+  checks; S7 Enable rewrites the whole [LoadOrder] block; S8 each
+  prepare/upload cycle leaves about 4.4 GB of copies; S12 SETUP installs
+  the preloader from GitHub 'latest' without a hash pin; S15 saves from the
+  original world are hidden while it is out of the menu.
+- The standard-build UI 1.4.6 still accepts only Pop-Out 1.1.3. Windows
+  PowerShell 5.1 runs only in the GitHub workflow, not here.
+
+VALIDATION
+See VALIDATION.json (validation.json in the repo) for exit codes and counts.
+No Unity process, native Noesis rendering or Steam uploader was run here.
+
+PC ACCEPTANCE REMAINING
+Follow README-FIRST.txt steps 1-5: old world progress and the longer list,
+a standalone order and a whole operation, the four commander nations with
+their prices, insignia, emblem and citations, failure exclusion, campaign
+reload, the brief/costs and Growler selector, Pop-Out 1.2.0, and the SETUP
+turn-off/turn-on launchers. Capture with R12\Capture-Repair-Results.cmd
+before posting.

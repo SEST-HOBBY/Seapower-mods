@@ -33,6 +33,15 @@ The pack includes the same `sest_aim-424` definition used by the existing SEST
 F-35 and F-15EX patches. US Naval Aviation supplies its AGM-88G AARGM-ER 3D
 model.
 
+The R12 posting follow-up adds **HARM** (`SEST_SEAD88C`, AGM-88C) and
+**AARGM** (`SEST_SEAD88E`, AGM-88E) to both modern Growler airframes. Each
+carries two anti-radiation missiles, two AIM-120Ds and both wing tanks, with
+the existing NGJ pods and pylon geometry retained. Southern Watch and
+Southern Reach explicitly allow these alongside the AARGM-ER fit in the
+starting-flight CAP and strike selectors. Speculative AIM-260/MALICE fits
+remain outside the core campaign selection. Existing loadout IDs and defaults
+are preserved.
+
 ## Build
 
 From the repository root:
@@ -124,6 +133,8 @@ such, so they are re-cut to differ by fuel instead of by weapon count:
 | `SEST_MaliceNGJ` | 2× AIM-424 | 2× AIM-260 | 2× tank | EW |
 | `SEST_NGJLongRange` | 2× AIM-260 | 2× AIM-260 | 2× tank | EW |
 | `SEST_SEAD120D` | 2× AGM-88G | 2× AIM-120D | 2× tank | EW |
+| `SEST_SEAD88C` | 2× AGM-88C | 2× AIM-120D | 2× tank | EW |
+| `SEST_SEAD88E` | 2× AGM-88E | 2× AIM-120D | 2× tank | EW |
 
 The build **fails** if any Growler loadout puts a store on the mid-wing pylon.
 

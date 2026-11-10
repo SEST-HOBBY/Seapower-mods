@@ -278,10 +278,12 @@ EXCUSES = {
         "external", "US, Philippine and Aeronavale Crusaders, the last retired in 1999, "
         "which no 2028 mission fields; the Clemenceau's 1970-1990 air "
         "groups embark them"),
-    # "the-royal-navy" left this table on 5 Nov 2026: Euromod-HD Hyundai's
-    # 3 Nov update embarks its rn_sea_lynx_3 on the PN FFG-150 (in place of
-    # Euromod South Korea's rok_mk99_a), and every Sulu Line mission fields
-    # that frigate, so the campaign now reaches The Royal Navy.
+    # 7 Nov capture: the PN frigates now embark Euromod Main's rn_sea_lynx,
+    # replacing The Royal Navy's rn_sea_lynx_3. The Cold War pack is no
+    # longer reached through those air groups.
+    "the-royal-navy": (
+        "external", "Cold War Royal Navy outside the campaigns' 2028 service window; "
+        "PN frigates now embark Euromod Main's rn_sea_lynx instead"),
     "euromod-brazil": (
         "external", "Brazilian Navy and naval air arm (service 1976-2029) outside every "
         "SEST theatre; placed by no installed campaign"),
@@ -5248,11 +5250,12 @@ for _doc in DOCUMENTS:
 #
 # The speculative fits are deliberately absent: the F-35A's Malice424 and
 # Intercept260*, and the Growler's SEST_MaliceNGJ, belong to Future Front.
-# So does every other Growler fit on usn_ea-18g - MurderHornetSEADHeavy,
+# So do the older Growler fits on usn_ea-18g - MurderHornetSEADHeavy,
 # MurderHornetSEADHeavyTanks, MurderHornetLightsOut and SEST_NGJLongRange all
 # hang the AIM-260 on the fuselage seats, and the rows used to offer three of
-# them. The Growler pack now builds SEST_SEAD120D - LightsOut's seats with the
-# AIM-120D in place of the AIM-260 - and it is the only Growler fit here.
+# them. The conventional Growler choices use AIM-120D with HARM, AARGM or
+# AARGM-ER. Keep all three explicitly in both rows: automatic CAP widening
+# correctly excludes anti-radiation stores, so it cannot add these EW escorts.
 # Air-tasking rows. The role field is matched against the aircraft file's own
 # top-level `Role=` line and the fit field against its `AvailableLoadouts`;
 # build_pack.check_flights() proves every row against the roster before a
@@ -5262,9 +5265,10 @@ for _doc in DOCUMENTS:
 # the Growler from the two fighters: a CAP flight can always draw one. Offering
 # it nothing would be the worse answer, so the row carries its escort fit -
 # AARGM-ER x2 and AIM-120D x2 - which is how a Growler flies with a CAP anyway.
+GROWLER_CONVENTIONAL = "SEST_SEAD120D/SEST_SEAD88C/SEST_SEAD88E"
 CAP = ("CAP|Combat Air Patrol|Fighter|2|"
        "AirToAir/AirToAirStealth/MurderHornetCAP/MurderHornetInterceptor/"
-       "SEST_SEAD120D")
+       + GROWLER_CONVENTIONAL)
 # `Recon` and `AEW` are stock fit names carried by the P-3C and E-2C. Nothing
 # in this roster defines either: the P-8 offers only ASW and AntiShip, and the
 # Wedgetail and Triton declare no AvailableLoadouts line at all. They still
@@ -5283,7 +5287,7 @@ HELO = ("HeloRecon|Ship's Flight|SAR|1|"
         "ASW/ASWLongRange/ASWHunter/AntiShip/SEST_REDBACK")
 STRIKE = ("Attack|Maritime Strike|Bomber/SEAD|2|"
           "Strike/StrikeLongRange/StrikePrecision/AntiShip/AntiShipHeavy/"
-          "MurderHornetSEAD/MurderHornetAntiShip/SEST_SEAD120D")
+          "MurderHornetSEAD/MurderHornetAntiShip/" + GROWLER_CONVENTIONAL)
 # Fujian's Shadow's Attack cockpit is the one Growler that is not the RAAF's:
 # Ford's usn_ea-18g_2020, whose own SEAD fit hangs the AIM-120D. It matched
 # the shared row only through SEST_NGJLongRange (AIM-260), so that window's

@@ -13,8 +13,13 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Main.cs" />
+    <Compile Include="AssemblyPolicy.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Reference Include="Mono.Cecil">
+      <HintPath>$(SESTGameRoot)/BepInEx/core/Mono.Cecil.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="AnchorChain.Preloader">
       <HintPath>$(SESTGameRoot)/BepInEx/plugins/AnchorChain.Preloader.dll</HintPath>
       <Private>False</Private>

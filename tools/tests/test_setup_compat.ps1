@@ -44,6 +44,13 @@ $repo = Split-Path -Parent (Split-Path -Parent $PSScriptRoot)
 $src = Join-Path (Join-Path (Join-Path $repo "integration") "campaign") "setup"
 $root = Join-Path ([IO.Path]::GetTempPath()) ("sest-setup-test-" + [Guid]::NewGuid().ToString("N").Substring(0, 8))
 $exe = (Get-Process -Id $PID).Path
+# Process.Path can be blank in containers whose process metadata is hidden.
+if (!$exe) {
+    $name = if ([Environment]::OSVersion.Platform -eq 'Win32NT') {
+        if ($PSVersionTable.PSEdition -eq 'Desktop') { 'powershell.exe' } else { 'pwsh.exe' }
+    } else { 'pwsh' }
+    $exe = Join-Path $PSHOME $name
+}
 $failed = 0
 $enc = New-Object Text.UTF8Encoding($false)
 $marker = '; SEST marked this mod compatible'
@@ -178,7 +185,7 @@ function AllAsShipped {
     return ''
 }
 
-$saved = @{ SEST_STEAM_ROOT = $env:SEST_STEAM_ROOT; SEST_SETTINGS = $env:SEST_SETTINGS; LOCALAPPDATA = $env:LOCALAPPDATA }
+$saved = @{ SEST_STEAM_ROOT = $env:SEST_STEAM_ROOT; SEST_SETTINGS = $env:SEST_SETTINGS; LOCALAPPDATA = $env:LOCALAPPDATA; SEST_FEATURE_TEST = $env:SEST_FEATURE_TEST; SEST_FEATURE_MODE = $env:SEST_FEATURE_MODE }
 try {
     $env:SEST_STEAM_ROOT = $steam; $env:SEST_SETTINGS = $settings; $env:LOCALAPPDATA = J $root "appdata"
 
@@ -426,6 +433,10 @@ try {
     # passed for the stable or the beta one).
     $r = BuildCheck @('-StableSha256', $h)
     Check ($r.Code -eq 0 -and $r.Count -eq '0' -and $r.Out -match '\[ok\]   game build: Sea Power 0\.8\.7 Build 261021, the stable build this pack targets' -and $r.Out -match 'SEST Runtime Fixes 1\.5\.0 and SEST UI Follow-up can start, each only if its own SHA-256 checks pass') "stable hash: Build 261021, the plugins may start under their own checks, no warning"
+    $r = BuildCheck @('-CurrentBetaSha256', $h)
+    Check ($r.Count -eq '0' -and $r.Out -match '9 November 2026' -and $r.Out -match 'R12') 'reviewed assembly: R12 bundled-feature profile recognised without a warning'
+    $r = BuildCheck @('-PreviousBetaSha256', $h)
+    Check ($r.Count -eq '0' -and $r.Out -match '7 November 2026' -and $r.Out -match 'R7') 'previous captured assembly: R7 profile retained'
     $r = BuildCheck @('-BetaSha256', $h)
     Check ($r.Code -eq 0 -and $r.Count -eq '0' -and $r.Out -match '\[note\] game build: Sea Power 0\.8\.7 Build 261026, the public beta\. This pack targets the stable Build 261021\.' -and $r.Out -match 'stay off under their SHA-256 checks' -and $r.Out -match 'Anchor Chain preloader finds no chainloader, so no Anchor Chain mod loads' -and $r.Out -match 'test candidate only; nothing installs it') "beta hash: Build 261026, plugins off under their SHA checks, no chainloader, the fork a test candidate, a note not a warning"
     $r = BuildCheck @()
@@ -475,6 +486,74 @@ try {
     $r = Setup @()
     Check ($r.Code -eq 0 -and $r.Out -match 'All done' -and $r.Out -notmatch 'game build') "no sest-profile.ps1: nothing said, no warning"
     Put (J $pack 'sest-profile.ps1') ([IO.File]::ReadAllBytes($profileTool))
+    # 15. The beta feature step (sest-workshop-features.ps1, a stand-in
+    # here that logs each call): normal SETUP hands it the resolved game and
+    # invoking-player paths (kept through an elevated relaunch) and counts
+    # the warnings it returns; anything it throws is one warning and SETUP
+    # still finishes; -BetaFeatures Off and Remove run only it; On clears the
+    # choice first and then runs the normal SETUP.
+    $env:SEST_FEATURE_TEST = J $root 'feature-calls.txt'
+    $featureStub = @'
+param([string]$GameRoot,[string]$WorkshopContentRoot,[string]$PlayerDataRoot,[string]$AppDataRoot,[string]$Action='Setup',[switch]$PassThru)
+Add-Content -LiteralPath $env:SEST_FEATURE_TEST -Value (@($Action,[string][bool]$PassThru,$GameRoot,$WorkshopContentRoot,$PlayerDataRoot,$AppDataRoot) -join '|')
+if ($env:SEST_FEATURE_MODE -eq 'throw') { throw 'simulated feature refusal' }
+if ($PassThru) { if ($env:SEST_FEATURE_MODE -eq 'warn') { Write-Host '  [!!]   simulated feature warning'; 1 } else { 0 } }
+'@
+    Put (J $pack 'sest-workshop-features.ps1') (Bytes $featureStub)
+    function FeatureCalls {
+        if (-not (Test-Path -LiteralPath $env:SEST_FEATURE_TEST)) { return ,@() }
+        $c = @(Get-Content -LiteralPath $env:SEST_FEATURE_TEST | ForEach-Object { ,($_ -split '\|') })
+        Remove-Item -LiteralPath $env:SEST_FEATURE_TEST
+        return ,$c
+    }
+    $r = Setup @()
+    $calls = FeatureCalls
+    Check ($r.Code -eq 0 -and $r.Out -match 'All done' -and $calls.Count -eq 1 -and $calls[0][0] -eq 'Setup' -and $calls[0][1] -eq 'True' -and $calls[0][2] -eq $game -and $calls[0][3] -eq $content) 'normal SETUP routes to the bundled feature installer with the discovered Steam paths, counting its warnings'
+    Check ($calls.Count -eq 1 -and $calls[0][4] -eq (Split-Path -Parent $settings) -and $calls[0][5] -notlike ($game+'*')) 'feature setup receives the invoking player settings and external cache paths'
+    $env:SEST_FEATURE_MODE = 'warn'
+    $r = Setup @()
+    Check ($r.Code -eq 0 -and $r.Out -match 'simulated feature warning' -and $r.Out -match 'read the 1 \[!!\] warning') 'a warning from the feature step is counted in SETUP''s total'
+    $env:SEST_FEATURE_MODE = 'throw'
+    $r = Setup @()
+    Check ($r.Code -eq 0 -and $r.Out -match '\[!!\]   SEST beta features were not installed or updated: simulated feature refusal' -and $r.Out -match 'read the 1 \[!!\] warning' -and $r.Out -notmatch 'STOPPED' -and $r.Out -notmatch 'Unexpected error' -and (Text ([IO.File]::ReadAllBytes($settings))) -match 'Mod1Directory=3812461539,True') 'a feature step that throws is one warning; SETUP still finishes with the mod order written'
+    Remove-Item -Path 'Env:SEST_FEATURE_MODE'
+    [void](FeatureCalls)
+    Put $settings (Bytes "[General]`r`nX=1`r`n[LoadOrder]`r`nNumberOfModFiles=1`r`nMod1Directory=9000001,True`r`n")
+    $settingsBefore = Hex ([IO.File]::ReadAllBytes($settings))
+    $r = Setup @('-BetaFeatures', 'Off')
+    $calls = FeatureCalls
+    Check ($r.Code -eq 0 -and $calls.Count -eq 1 -and $calls[0][0] -eq 'Disable' -and $calls[0][1] -eq 'False' -and $calls[0][2] -eq $game -and (Hex ([IO.File]::ReadAllBytes($settings))) -eq $settingsBefore -and $r.Out -notmatch 'mod order set') '-BetaFeatures Off runs only the feature step''s Disable; the mod order is left alone'
+    $r = Setup @('-BetaFeatures', 'remove')
+    $calls = FeatureCalls
+    Check ($r.Code -eq 0 -and $calls.Count -eq 1 -and $calls[0][0] -eq 'Restore' -and (Hex ([IO.File]::ReadAllBytes($settings))) -eq $settingsBefore) '-BetaFeatures Remove runs only the feature step''s Restore'
+    $r = Setup @('-BetaFeatures', 'On')
+    $calls = FeatureCalls
+    Check ($r.Code -eq 0 -and $r.Out -match 'All done' -and $calls.Count -eq 2 -and $calls[0][0] -eq 'Enable' -and $calls[1][0] -eq 'Setup' -and $calls[1][1] -eq 'True' -and (Text ([IO.File]::ReadAllBytes($settings))) -match 'Mod1Directory=3812461539,True') '-BetaFeatures On clears the choice, then runs the normal SETUP and its feature step'
+    $r = Setup @('-BetaFeatures', 'Sideways')
+    Check ($r.Code -eq 1 -and $r.Out -match 'STOPPED: -BetaFeatures Sideways is not Off, Remove or On' -and (FeatureCalls).Count -eq 0) 'an unknown -BetaFeatures value stops before anything runs'
+    $env:SEST_FEATURE_MODE = 'throw'
+    $r = Setup @('-BetaFeatures', 'Off')
+    Check ($r.Code -eq 1 -and $r.Out -match 'STOPPED: SEST beta features: simulated feature refusal') 'a failing -BetaFeatures Off says so and stops'
+    Remove-Item -Path 'Env:SEST_FEATURE_MODE'
+    [void](FeatureCalls)
+    Remove-Item -LiteralPath (J $pack 'sest-workshop-features.ps1')
+    Remove-Item -Path 'Env:SEST_FEATURE_TEST'
+    # The three launchers at the pack root, and the names the feature step
+    # tells players to run.
+    $featureText = [IO.File]::ReadAllText((J $src 'sest-workshop-features.ps1'))
+    foreach ($pair in @(@('SEST beta features - turn off.cmd', 'Off'), @('SEST beta features - remove.cmd', 'Remove'), @('SEST beta features - turn on.cmd', 'On'))) {
+        $launcher = J $src $pair[0]
+        $t = ''; if (Test-Path -LiteralPath $launcher) { $t = [IO.File]::ReadAllText($launcher) }
+        Check ($t -match ('"%~dp0sest-setup\.ps1" -FromCmd -BetaFeatures ' + $pair[1] + '\r\n')) ($pair[0] + ' runs SETUP with -BetaFeatures ' + $pair[1])
+    }
+    Check ($featureText.Contains('"SEST beta features - turn on.cmd"') -and $featureText.Contains('"SEST beta features - remove.cmd"')) 'the feature step names the launchers that ship beside it'
+    # The real feature step takes the parameters SETUP passes the stand-in.
+    $ast = [System.Management.Automation.Language.Parser]::ParseFile((J $src 'sest-workshop-features.ps1'), [ref]$null, [ref]$null)
+    $declared = @($ast.ParamBlock.Parameters | ForEach-Object { $_.Name.VariablePath.UserPath })
+    $actionSet = @($ast.ParamBlock.Parameters | Where-Object { $_.Name.VariablePath.UserPath -eq 'Action' } | ForEach-Object { $_.Attributes } | Where-Object { $_.TypeName.Name -eq 'ValidateSet' } | ForEach-Object { $_.PositionalArguments } | ForEach-Object { $_.Value })
+    $missingParams = @('GameRoot', 'WorkshopContentRoot', 'PlayerDataRoot', 'AppDataRoot', 'Action', 'PassThru') | Where-Object { $declared -notcontains $_ }
+    $missingActions = @('Setup', 'Disable', 'Restore', 'Enable') | Where-Object { $actionSet -notcontains $_ }
+    Check (@($missingParams).Count -eq 0 -and @($missingActions).Count -eq 0) ('sest-workshop-features.ps1 takes every parameter and action SETUP passes (missing: ' + ((@($missingParams) + @($missingActions)) -join ', ') + ')')
     Remove-Item -LiteralPath $scriptsDll -Force
     Setup @('-RestoreModFiles') | Out-Null
 } finally {

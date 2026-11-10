@@ -8,7 +8,7 @@ ROOT = Path(__file__).resolve().parents[2]
 PACK = ROOT / "integration/world-sandbox/SEST_World_Campaign/dynamic_campaigns"
 DIST = ROOT / "integration/dist/SEST_Integration/dynamic_campaigns"
 SPEC = ROOT / "integration/world-sandbox/regions-2028.json"
-ORIGINAL = "sest-world-sandbox/campaign.json"
+ORIGINAL = "../legacy_campaigns/sest-world-sandbox/campaign.json"
 VARIANT = "sest-world-regions-2028/campaign.json"
 
 
@@ -27,18 +27,27 @@ class RegionalExpansionTest(unittest.TestCase):
         cls.variant = json.loads((PACK / VARIANT).read_text(encoding="utf-8"))
         cls.cfg = json.loads(SPEC.read_text(encoding="utf-8"))
 
-    def test_original_and_variant_remain_independent(self):
+    def test_original_is_archived_and_full_union_is_the_only_menu_entry(self):
         shipped = json.loads((DIST / VARIANT).read_text(encoding="utf-8"))
         self.assertEqual(self.variant, shipped)
         self.assertEqual(json.loads((DIST / ORIGINAL).read_text(encoding="utf-8")), self.original)
+        self.assertEqual([p.parent.name for p in PACK.glob("*/campaign.json")], ["sest-world-regions-2028"])
+        self.assertEqual(self.variant["name"], "Global Maritime Operations 2028")
         self.assertNotEqual(self.original["id"], self.variant["id"])
         self.assertEqual(self.original["id"], "sest.world_sandbox_2028")
         self.assertEqual(self.variant["id"], "sest.world_sandbox_2028.regional")
-        self.assertEqual(len(self.variant["bases"]), len(self.original["bases"]) + 15)
+        self.assertEqual(len(self.variant["bases"]), len(self.original["bases"]) + 55)
         self.assertEqual(len(self.variant["forces"]), len(self.original["forces"]) + 26)
         self.assertEqual(len(self.variant["patrols"]), len(self.original["patrols"]) + 5)
         self.assertEqual(len(self.variant["catalogue"]), len(self.original["catalogue"]))
-        self.assertEqual(len(self.variant["values"]), len(self.original["values"]))
+        for field in ("forces", "patrols"):
+            self.assertEqual(self.variant[field][:len(self.original[field])], self.original[field],
+                             "Combined campaign must retain every original " + field + " entry")
+        self.assertEqual({b["id"] for b in self.variant["bases"][:len(self.original["bases"])]},
+                         {b["id"] for b in self.original["bases"]})
+        self.assertEqual([{k:v for k,v in r.items() if k != "tier"} for r in self.variant["catalogue"]],
+                         [{k:v for k,v in r.items() if k != "tier"} for r in self.original["catalogue"]])
+        self.assertEqual(self.variant["values"], self.original["values"])
         self.assertNotIn("ch_ffg_jvh", self.variant["values"])
         self.assertEqual(sum(f["side"] == "red" for f in self.variant["forces"]), 123)
 
@@ -46,7 +55,10 @@ class RegionalExpansionTest(unittest.TestCase):
         # The JSON is generated, never hand-patched: the same builder and
         # serialisation on the same inputs give the same bytes.
         builder = load_builder()
-        text = builder.render(builder.build(self.original, self.cfg))
+        import sys
+        sys.path.insert(0, str(SPEC.parent))
+        from modern_world import modernise
+        text = builder.render(modernise(builder.build(self.original, self.cfg)))
         self.assertEqual(text, (PACK / VARIANT).read_text(encoding="utf-8"))
 
     def test_regional_supply_ships_replenish_without_changing_the_original(self):
