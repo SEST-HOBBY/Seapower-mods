@@ -32,7 +32,7 @@ static partial class BetaApiTests
         Check(!AppDomain.CurrentDomain.GetAssemblies().Any(a => a.GetName().Name == "SeaPowerTopoFlat"), "Flat-map image did not enter CLR");
         using (var before = ModuleDefinition.ReadModule(source, new ReaderParameters { AssemblyResolver = context.Resolver }))
         using (var after = ModuleDefinition.ReadModule(prepared, new ReaderParameters { AssemblyResolver = context.Resolver })) {
-            Check(TopoMissingOperands(before) == (current ? 0 : 4), "Native operand scan distinguishes legacy removed fields from author 1.5.1 fallbacks");
+            Check(TopoMissingOperands(before) == (current ? 0 : 4), "Native operand scan distinguishes legacy removed fields from author 1.6.0 fallbacks");
             Check(TopoMissingOperands(after) == 0, "Every adapted Topography native operand resolves");
             var oldCtor = before.GetType("SeaPowerTopo.Terrain.HeightReader").Methods.Single(m => m.IsConstructor && !m.IsStatic);
             var newCtor = after.GetType("SeaPowerTopo.Terrain.HeightReader").Methods.Single(m => m.IsConstructor && !m.IsStatic);

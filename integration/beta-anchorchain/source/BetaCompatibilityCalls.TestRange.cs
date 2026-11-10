@@ -64,6 +64,6 @@ public static partial class BetaCompatibilityCalls
         var combined = type.GetMethods(TestRangeLookup).Where(m => m.Name == name).ToArray();
         if (combined.Length != 1 || !combined[0].IsStatic || combined[0].GetParameters().Length != 9 ||
             TestRangeTypeName(combined[0].GetParameters()[0].ParameterType) != "System.Double" || combined[0].GetParameters()[0].Name != "supportNoiseFactor")
-            throw new InvalidOperationException("Inspected beta ECM.CombinedJamUnit changed: this adapter is for beta Build 261106 only");
+            throw new InvalidOperationException("Inspected beta ECM.CombinedJamUnit changed: this adapter is for beta 0.8.7-261107 only");
     }
 }

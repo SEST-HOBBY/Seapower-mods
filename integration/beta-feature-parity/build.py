@@ -45,7 +45,7 @@ def main():
     capture = a.capture.resolve()
     receipt = json.loads((capture / 'capture.json').read_text(encoding='utf-8-sig'))
     if receipt['native_sha256'] != PINS['Seapower-Scripts.dll']:
-        raise SystemExit('This candidate targets beta Build 261106 only.')
+        raise SystemExit('This candidate targets beta 0.8.7-261107 (499675cd) only.')
     for ref in receipt['references']:
         if sha(capture / ref['path']) != ref['sha256']:
             raise SystemExit('Capture integrity failure: ' + ref['path'])

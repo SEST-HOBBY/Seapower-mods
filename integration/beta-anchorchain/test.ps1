@@ -41,7 +41,7 @@ function Require-Beta {
         throw "Game assembly not found. No files changed."
     }
     if ((Hash-File $native) -ne $knownBeta) {
-        throw "This test supports only verified Sea Power beta Build 261106. No files changed."
+        throw "This test supports only verified Sea Power beta 0.8.7-261107 (499675cd). No files changed."
     }
 }
 function Read-Stage-Receipt {
