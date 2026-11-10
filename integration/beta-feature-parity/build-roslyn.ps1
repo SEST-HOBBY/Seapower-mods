@@ -16,7 +16,7 @@ differ from a build.py build; the receipt records which compiler produced them.
 param(
     [Parameter(Mandatory)][string]$Capture,
     [Parameter(Mandatory)][string]$Output,
-    [string]$Revision = 'R12-20261109-workshop-features-499675cd'
+    [string]$Revision = 'R13-20261110-mission-awards-499675cd'
 )
 Set-StrictMode -Version Latest
 $ErrorActionPreference = 'Stop'

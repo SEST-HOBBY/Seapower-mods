@@ -17,6 +17,8 @@ import zipfile
 
 HERE = Path(__file__).resolve().parent
 ROOT = HERE.parents[1]
+# The candidate revisions a bundle may carry (R12 Final, then R13 onwards).
+REVISIONS = ("R12-", "R13-")
 # The game builds a bundle may target, as players read them in Player.log.
 GAME_LABELS = {
     "499675cda59912054924ae42297bce7a82b12ca00957dabd684105a24aa353a9": "0.8.7-261107",
@@ -59,7 +61,7 @@ with zipfile.ZipFile(a.package) as z:
     check(bool(results) and all(r.get("exit_code") == 0 for r in results), "VALIDATION.json records a failed or missing check")
     check(any(r.get("name") == "workshop-setup-feature-step" for r in results),
           "VALIDATION.json has no workshop-setup-feature-step result (run verify.py from this source)")
-    check(str(receipt.get("candidate_revision", "")).startswith("R12-"), "the receipt is not an R12 revision")
+    check(str(receipt.get("candidate_revision", "")).startswith(REVISIONS), "the receipt is not an R12 or R13 revision")
     for name in sorted(EXPECTED):
         check(hashlib.sha256(z.read("payload/" + name)).hexdigest() == receipt["files"][name],
               name + " differs from its build receipt")
