@@ -32,15 +32,35 @@ qualify for manual battle awards; task awards use their own native outcomes.
 
 AUTHORED CAMPAIGNS - TASK FORCE SERVICE RECORD
 Commander nations. Southern Watch and Southern Reach keep Australia as the
-default and also offer a US, British or Japanese commander: an allied
-officer in command of the Australian-led group. Red Line stays Chinese and
-Sulu Line Philippine. Choose the nation in the Service Record when a
-campaign starts; a commander already in a save keeps its nation and name.
+default and also offer an allied officer in command of the Australian-led
+group: US, UK, Japan, New Zealand, France, Canada, South Korea, Spain,
+Italy, Germany, the Netherlands, Norway or Denmark. Sulu Line keeps the
+Philippines as the default and also offers Thailand or Australia, whose
+detachment and frigate serve in its group. Red Line stays Chinese. Choose
+the nation in the Service Record when a campaign starts; a commander
+already in a save keeps its nation and name.
+
+Each nation has its navy's name, officer ranks and an emblem. Ranks use the
+navy's own titles: English for the Commonwealth navies, Korea and Thailand;
+French, Spanish, Italian, German, Dutch, Norwegian and Danish titles with
+their accents for the others. Commander is OF-4, Captain OF-5 and a
+commodore's grade OF-6 in every ladder SEST adds. The Royal Thai Navy has no
+commodore's grade, so Captain (Special Grade) is placed at OF-6, level 7, and
+Sulu Line's Thai commander holds it. Australia, the US and Japan use the game's own
+ranks and emblems. Other emblems come from the SEST gallery flag set: a
+naval ensign where the set has one (the UK, New Zealand, Italy), otherwise
+the national flag, which is the ensign itself for France, Canada, South
+Korea, the Netherlands and Spain. The German, Norwegian, Danish and Thai
+ensigns differ from the national flag, and SOURCES.txt says so. New Zealand,
+South Korea, the Netherlands, Denmark and Thailand get SEST name pools
+(language_en/sest_name_pools.ini); the other nations use the game's own.
 
 The game's same-nation purchase discount follows the commander's nation:
-an Australian commander keeps it on the Australian classes; a US, British or
-Japanese commander gets it on that nation's classes instead. Each campaign's
-rules page gives the class counts. Ribbons add no points, renown or supplies.
+an Australian commander keeps it on the Australian classes; an allied
+commander gets it on that nation's classes instead. Each campaign's rules
+page gives the class counts. New Zealand has one class, an aircraft sold
+with the allied fleet: the RNZAF P-8A. No class is registered to Canada.
+Ribbons add no points, renown or supplies.
 
 Fictional ribbons, any commander: the four completion ribbons (unchanged)
 and eight operation ribbons - SW05 Timor Corridor, SW08 Archipelago
@@ -50,6 +70,14 @@ Littoral Operations. Each needs the mission's required result.
 
 Real-award representations. Personal and service awards go to a commander
 of that nation; the unit award goes to the task group whoever commands it.
+In Southern Watch and Southern Reach, Australian, US, British, Japanese,
+New Zealand, French, Canadian, South Korean, Spanish, German and Danish
+commanders receive their own nation's awards; Italian, Dutch and Norwegian
+commanders receive the fictional ribbons and the group's Australian
+Meritorious Unit Citation only, as their awards' ribbons and criteria could
+not be checked against official sources. In Sulu Line, the Philippine awards go to
+a Philippine commander only; a Thai or Australian commander receives the
+fictional ribbons and the Philippine Republic Presidential Unit Citation.
 
 Southern Watch (the commander is a Commander, OF-4 / O-5)
 - Australia: Commendation for Distinguished Service, SW08; Distinguished
@@ -57,6 +85,20 @@ Southern Watch (the commander is a Commander, OF-4 / O-5)
 - US: Navy and Marine Corps Commendation Medal, SW08; Bronze Star, SW12.
 - UK: OBE (Military), SW08; Distinguished Service Order, SW12.
 - Japan: 1st Class Commendation, SW12.
+- Canada: Meritorious Service Medal (Military Division), SW08;
+  Meritorious Service Cross (Military Division), SW12.
+- New Zealand: Distinguished Service Decoration, SW08; Member of the New
+  Zealand Order of Merit, SW12.
+- France: Knight of the National Order of Merit, SW08; Knight of the
+  Legion of Honour, SW12.
+- South Korea: National Security Medal, SW08; Order of National Security
+  Merit, Samil Medal, SW12.
+- Spain: Cross of Naval Merit with White Distinction, SW08; with Red
+  Distinction, SW12.
+- Germany: Cross of Honour of the Bundeswehr in Gold, SW08; Federal Cross
+  of Merit on Ribbon, SW12.
+- Denmark: Defence Medal for Meritorious Service, SW08; Defence Medal for
+  Excellent Service, SW12.
 - Task group: Australian Meritorious Unit Citation, SW12.
 
 Southern Reach / Tasman Shield (a Captain, OF-5 / O-6)
@@ -66,9 +108,30 @@ Southern Reach / Tasman Shield (a Captain, OF-5 / O-6)
   Commendation Medal, SR12; Legion of Merit, TS09.
 - UK: OBE (Military), SR12; Distinguished Service Order, TS09.
 - Japan: 1st Class Commendation, TS09.
+- Canada: General Campaign Star - Expedition, SR10; Meritorious Service
+  Medal (Military Division), SR12; Meritorious Service Cross (Military
+  Division), TS09.
+- New Zealand: Operational Service Medal, SR10; Distinguished Service
+  Decoration, SR12; Member of the New Zealand Order of Merit, TS09.
+- France: Knight of the National Order of Merit, SR12; Knight of the
+  Legion of Honour, TS09.
+- South Korea: National Security Medal, SR12; Order of National Security
+  Merit, Samil Medal, TS09.
+- Spain: Spanish Campaign Medal, SR10; Cross of Naval Merit with White
+  Distinction, SR12; with Red Distinction, TS09.
+- Germany: Bundeswehr Deployment Medal in Bronze, SR10; Cross of Honour of
+  the Bundeswehr in Gold, SR12; Federal Cross of Merit on Ribbon, TS09.
+- Denmark: Defence Medal for Meritorious Service, SR12; Defence Medal for
+  Excellent Service, TS09.
 - Task group: Australian Meritorious Unit Citation, TS12.
-The two service medals need 30 days: SR01 is 6 December 2028 and SR10
-6 January 2029. The builder stops if SR10 moves earlier.
+The service medals need their real qualifying periods: 30 days for the
+AOSM-IP, the AFEM, the Spanish Campaign Medal and the Bundeswehr
+Deployment Medal, 14 days in the presence of an armed enemy for the
+General Campaign Star (its citation names no real theatre), 7 days at sea
+for the NZ Operational Service Medal.
+SR01 is 6 December 2028 and SR10 6 January 2029; the builder stops if SR10
+moves earlier. The New Zealand Antarctic Medal is not granted: it is for an
+outstanding Antarctic contribution, not for service there.
 
 Sulu Line (a Commodore, OF-6)
 - Philippines: Military Merit Medal, SL05; Distinguished Service Star, SL07.
@@ -89,18 +152,42 @@ The Distinguished Service Cross, Bronze Star, Commendation Medal and JMSDF
 cordon pictures are installed Sea Power pictures, referenced by path; the
 JMSDF one is the game's own Defense Memorial Cordon art, as the exact
 cordon's colours could not be checked. Every other strip is code-drawn from
-the published stripe order. The Royal Navy emblem is the White Ensign from
-the SEST gallery flag set (public domain). Each campaign's art/ribbons/
-SOURCES.txt lists its pictures and sources. No AI imagery is used.
+the published stripe order. The Canadian decorations use the Regulations'
+widths; the NZ Distinguished Service Decoration's and Operational Service
+Medal's proportions are measured from official NZDF photographs, as the
+Royal Warrants could not be read; the General Campaign Star uses the
+widths Canada specifies (DND medal page), its colours sampled from a
+Commons image. The Korean ribbons use the Enforcement Decree's widths and
+carry the ribbon bar's taegeuk; the Spanish ones use the decrees' widths
+and the flag's official colours, the campaign medal's colours sampled from
+the official annex drawing. The French ribbons are plain, their colours
+sampled from Commons photographs. The German and Danish ribbons follow the
+layout their statutes and circulars give, with proportions measured from
+Commons drawings, as no official widths were found; the Cross of Honour
+carries its gold miniature cross. The Spanish Campaign Medal and the
+Bundeswehr Deployment Medal are drawn without the device naming the
+operation, which is fictional. The Royal Navy emblem is the White Ensign from the SEST
+gallery flag set (public domain). Each campaign's art/ribbons/SOURCES.txt
+lists its pictures and sources. No AI imagery is used.
 
 PC CHECKS
 On the beta, load an existing world and check Service progress, wrapping
 and scrolling. Complete an accepted task, return to the map and compare
 task/battle counts.
-Start a new Southern Watch campaign: the Service Record offers Australia,
-Japan, United Kingdom and USA. Compare one Anzac and one Burke price as an
-Australian and as a US commander. Check the British commander's empty rank
-insignia and the White Ensign emblem. Open a citation: its date is the
-mission's, not 1985. Load an existing save: its commander, nation and earned
-ribbons are unchanged. Existing saves are preserved; start a new
-commander to choose another nationality.
+Start a new Southern Watch campaign: the Service Record offers the fourteen
+nations. Compare one Anzac and one Burke price as an Australian and as a US
+commander. Check the British commander's empty rank insignia and the White
+Ensign emblem. Pick New Zealand, South Korea and Thailand (Sulu Line): each
+shows a name from its SEST pool, not a blank, with the given name first as
+in the defaults (Seongjin Han), and its emblem. As a New Zealand commander
+in Southern Watch, buy the P-8A at Weapons Free at the discounted price; fly
+it in a Maritime Patrol slot and note whether it launches, patrols and
+lands. Pick Germany or Norway: the rank title's accented letter (the
+a-umlaut of Fregattenkapitan, the o-slash of Kommandorkaptein, the level-5
+ranks Southern Watch starts at) draws on the commander screen and in a
+citation. Open a citation: its date is the mission's, not 1985. As a South
+Korean commander, complete SW08: the National Security Medal shows its
+taegeuk; as a German one, the Cross of Honour shows its gold cross. Load an
+existing save: its commander, nation and earned ribbons are unchanged.
+Existing saves are preserved; start a new commander to choose another
+nationality.
