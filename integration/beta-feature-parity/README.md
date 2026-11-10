@@ -45,8 +45,9 @@ its `File`/`Base` definition).
   CIWS rounds (`ProjectileFired − CiwsRoundsFired`) do not count. A missing
   report or an inconsistent count makes it false.
 
-A prefix and an exception-preserving finalizer on `SaveDebriefSnapshot`
-hold the mission and debrief; a postfix on the 3-argument
+A prefix and a void finalizer on `SaveDebriefSnapshot` hold the mission
+and debrief and then release them (being void, the finalizer lets HarmonyX
+rethrow a native fault with its original stack); a postfix on the 3-argument
 `ApplyMissionRibbonAwards` runs after the native completion gate and the
 native awards. Each qualifying ribbon becomes one more native row
 (`ReadRibbonDefinition`, `ToAwardRow(1, N, rank, "")`), merged in the native
@@ -98,8 +99,9 @@ survivor and weapon-report members, Admiralty.Queue/Read/Paper/OnCaptured
 and the sim-before-UI order) and behaviour on the captured types (grammar
 and fail-closed parsing, native nation filtering, all 32 objective flag
 combinations, nolaunch counting, merge order and the native row round trip,
-the persistent set, the real Harmony postfix and the grant against an
-in-memory `IniHandler`). `native-bindings` binds `MissionAwards`;
+the persistent set, the real Harmony postfix, the void finalizer's
+rethrow with the original stack, and the grant against an in-memory
+`IniHandler`). `native-bindings` binds `MissionAwards`;
 `world-service-and-strike-bindings` drives DCM's real Queue, Read and
 OnCaptured and checks that Runtime 1.6.4 (R12 Final) reads the record.
 `build-workshop-support.py` accepts R12 and R13 revisions; the repair note

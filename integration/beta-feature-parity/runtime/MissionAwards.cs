@@ -220,10 +220,12 @@ internal static class MissionAwards
         }
     }
 
-    internal static Exception AfterSnapshot(Exception __exception)
+    // A void finalizer: HarmonyX then rethrows a native fault with its own
+    // stack trace (a finalizer that returns the exception makes it throw the
+    // object again from the patch frame).
+    internal static void AfterSnapshot()
     {
         current = null;
-        return __exception;
     }
 
     internal static void AfterApply(object __0, int __1, string __2, ref IReadOnlyList<LinearCampaignTaskForceRibbonAwardRow> __result)

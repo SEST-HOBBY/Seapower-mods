@@ -628,9 +628,9 @@ static partial class MissionAwardsTests
                 i => i.OpCode.Code == Code.Ldsfld && ((FieldReference)i.Operand).Name == "applyTarget", i => i.OpCode.Code == Code.Ldstr && (string)i.Operand == "AfterApply", Calls("Sest.RuntimeFixes.Api", "Postfix"));
         }
         var before = awards.GetMethod("BeforeSnapshot", All); var after = awards.GetMethod("AfterSnapshot", All); var post = awards.GetMethod("AfterApply", All);
-        Check(before.GetParameters().Select(p => p.Name).SequenceEqual(new[] { "__0", "__1" }) && after.ReturnType == typeof(Exception) && after.GetParameters().Single().Name == "__exception" &&
+        Check(before.GetParameters().Select(p => p.Name).SequenceEqual(new[] { "__0", "__1" }) && after.ReturnType == typeof(void) && after.GetParameters().Length == 0 &&
             post.GetParameters().Select(p => p.Name).SequenceEqual(new[] { "__0", "__1", "__2", "__result" }) && post.GetParameters()[3].ParameterType == apply3.ReturnType.MakeByRefType(),
-            "the hook signatures are Harmony's positional arguments, the exception-preserving finalizer and the native result by reference");
+            "the hook signatures are Harmony's positional arguments, a void finalizer (HarmonyX rethrows with the native stack) and the native result by reference");
         Invoke(rt.GetType("Sest.RuntimeFixes.Api", true), "Postfix", apply3, awards, "AfterApply", "io.github.sest-hobby.mission-awards");
         new HarmonyLib.Harmony("sest.tests.mission-awards-fixture").Patch(awards.GetMethod("PlayerWeaponReport", All), prefix: new HarmonyLib.HarmonyMethod(typeof(MissionAwardsTests).GetMethod("UseFixtureReport", All)));
         Func<MethodBase, string, List<string>> owners = (m, kind) => {
@@ -687,7 +687,7 @@ static partial class MissionAwardsTests
         Check(ReferenceEquals(args[3], plain), "outside SaveDebriefSnapshot (no snapshot context) the native result is returned untouched");
         Invoke(awards, "BeforeSnapshot", missionAt(14), MakeDebrief(11, 0, Report()));
         awards.GetMethod("AfterApply", All).Invoke(null, args);
-        Invoke(awards, "AfterSnapshot", (object)null);
+        Invoke(awards, "AfterSnapshot");
         Check(ReferenceEquals(args[3], plain), "a snapshot for another mission index adds nothing");
         Check(Grant(ini, 16, "", MakeDebrief(11, 0, Report()), NativeRows()) == "", "a key with an invalid spec grants nothing (fail closed)");
         Check(Grant(ini, 17, "RL17", MakeDebrief(11, 0, Report()), NativeRows()) == "sest_rl05_passage", "the key is also read from the mission event's own section, as natively");
@@ -697,16 +697,27 @@ static partial class MissionAwardsTests
         plain = native15(); args = new object[] { ini, 15, "", plain };
         Invoke(awards, "BeforeSnapshot", missionAt(15), "not a debrief");
         awards.GetMethod("AfterApply", All).Invoke(null, args);
-        Invoke(awards, "AfterSnapshot", (object)null);
+        Invoke(awards, "AfterSnapshot");
         Check(ReferenceEquals(args[3], plain) && !(bool)awards.GetField("active", All).GetValue(null), "an evaluation fault keeps the native result and disables runtime awards for the session");
         Check(Grant(ini, 15, "", MakeDebrief(11, 0, Report(), Objective("Passage", 4), Objective("Unseen", 4)), native15()) == "sest_undersea_operations", "once disabled, native awards are unchanged");
         Invoke(awards, "Bind", game);
-        // The finalizer ends the snapshot context and returns the native
-        // exception unchanged (null when the snapshot completed).
-        Invoke(awards, "BeforeSnapshot", missionAt(15), MakeDebrief(11, 0, Report()));
-        var failure = new InvalidOperationException("native");
-        Check(ReferenceEquals(Invoke(awards, "AfterSnapshot", failure), failure) && awards.GetField("current", All).GetValue(null) == null && Invoke(awards, "AfterSnapshot", (object)null) == null,
-            "the finalizer clears the snapshot context and rethrows exactly the native exception");
+        // The prefix and finalizer, installed by Api.Hooks as Install installs
+        // them, on a stand-in with SaveDebriefSnapshot's shape: the snapshot
+        // context lasts only for the call, and a native fault leaves with its
+        // type, message and original stack (HarmonyX rethrows past a void
+        // finalizer; one that returns the exception throws it from the patch).
+        Invoke(rt.GetType("Sest.RuntimeFixes.Api", true), "Hooks", typeof(MissionAwardsTests).GetMethod("SnapshotStandIn", All), awards, "BeforeSnapshot", null,
+            "sest.tests.mission-awards-finalizer", "AfterSnapshot", null);
+        snapshotSeen = null;
+        SnapshotStandIn(missionAt(15), MakeDebrief(11, 0, Report()));
+        Check(snapshotSeen != null && awards.GetField("current", All).GetValue(null) == null, "the prefix holds the snapshot context during the call and the finalizer clears it");
+        Exception fault = null;
+        snapshotSeen = null;
+        try { SnapshotStandIn(missionAt(15), "fault"); }
+        catch (Exception e) { fault = e; }
+        Check(fault is InvalidOperationException && fault.Message == "native snapshot fault" && (fault.StackTrace ?? "").Contains("NativeFault") &&
+            snapshotSeen != null && awards.GetField("current", All).GetValue(null) == null,
+            "a native fault passes the void finalizer with its type, message and original stack, and the snapshot context is cleared");
         // The switch: MissionAwards=0 in [Runtime] turns the grants off; default on.
         var policy = rt.GetType("Sest.RuntimeFixes.Policy", true);
         Check((string)Invoke(policy, "TextOption", new[] { "[Runtime]", "MissionAwards=0" }, "MissionAwards", "1") == "0" &&
@@ -716,6 +727,18 @@ static partial class MissionAwardsTests
                 i => i.OpCode.Code == Code.Ldstr && (string)i.Operand == "499675cda59912054924ae42297bce7a82b12ca00957dabd684105a24aa353a9", i => i.OpCode.Code == Code.Ldstr && (string)i.Operand == "MissionAwards",
                 Calls("Sest.RuntimeFixes.Policy", "TextOption"), Calls("Sest.RuntimeFixes.MissionAwards", "Install"));
         try { Directory.Delete(streamingAssets, true); } catch (DirectoryNotFoundException) { }
+    }
+
+    // SaveDebriefSnapshot's shape (its own body cannot be compiled under mono):
+    // records the context the prefix set, and faults when the debrief is a string.
+    static object snapshotSeen;
+    [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.NoInlining)]
+    static void NativeFault() { throw new InvalidOperationException("native snapshot fault"); }
+    [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.NoInlining)]
+    static void SnapshotStandIn(object mission, object debrief)
+    {
+        snapshotSeen = awards.GetField("current", All).GetValue(null);
+        if (debrief is string) NativeFault();
     }
 
     // The postfix as Harmony calls it, inside a snapshot for that mission.
@@ -730,7 +753,7 @@ static partial class MissionAwardsTests
             awards.GetMethod("AfterApply", All).Invoke(null, args);
             return string.Join(",", ((IEnumerable)args[3]).Cast<object>().Select(Id));
         }
-        finally { Invoke(awards, "AfterSnapshot", (object)null); }
+        finally { Invoke(awards, "AfterSnapshot"); }
     }
 
     static int Main(string[] args)
