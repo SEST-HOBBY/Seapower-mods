@@ -204,6 +204,21 @@ MISSION = dict(
                     "nothing else. There is no rearming and no reinforcement before the "
                     "withdrawal."
                 )),
+    # Information only (step 5): the group halfway and the first ship in, and
+    # the coaster halfway to clearing the screen on her own route (the
+    # heave-to switches that one off).
+    progress=[
+        dict(name="Halfway", units=["group#1", "group#2"], at=(-4.45, 128.60), radius=2,
+             min_units=2, intel=(
+                 "GROUP STAFF: LIAONING and HULUNHU are halfway to the withdrawal point. Keep "
+                 "the screen between them and the Q-ship.")),
+        dict(name="FirstIn", units=["group#1", "group#2"], min_units=1, intel=(
+            "GROUP STAFF: The first of LIAONING and HULUNHU is inside the withdrawal circle. The "
+            "order is complete when both are, MERIDIAN HARMONY is stopped and nothing is inbound.")),
+        dict(name="Running", units=["spoiler"], at=(-4.70, 128.84), radius=2, intel=(
+            "GROUP STAFF: MERIDIAN HARMONY is halfway to clearing the screen. Sink her or close "
+            "her now.")),
+    ],
     reports=[dict(minute=2,intel="GROUP STAFF: The coaster is the escape problem; the Q-ship is the immediate threat to Hulunhu. Use separate assignments, and do not send the whole screen away from the replenishment ship.")],
     role="escort",
 )

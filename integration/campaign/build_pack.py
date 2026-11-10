@@ -3506,6 +3506,104 @@ def turn_back_triggers(mission, placed, members, tb, trigger, terminal, progress
                  message=f"TurnBack{name}LostMessage", victor="Taskforce2")
 
 
+# progress: information-only reports on the way to the release terms
+# ("Progress: <name>", step 5 of the builder-grammar design). Each is an area
+# test with the circle not shown (AreaDisplaySide=None, the lift's shape),
+# optionally AND a Time - 03 Lifeline at the Edge of the World's Trigger8,
+# area AND Time - or AND NOT a Time, the reinforcement cutoff's form (stock
+# writes AND NOT on an area and a classification, 08 Defense of North Borneo
+# line 1282 and 04 Sunda Strait line 721, and on a Time only in SW C2's
+# cutoff), and one Action_Taskforce1_Intel. A chained entry ships disabled
+# and its parent enables and reactivates it, as 04 Chagos Gambit's Trigger3
+# arms its Trigger4 (lines 515-516). It completes, fails or ends nothing,
+# so check_zone_areas() does not hold the deployment boxes off its circle.
+PROGRESS_KEYS = frozenset({"name", "units", "at", "at_unit", "radius", "min_units",
+                           "after_minutes", "before_minutes", "after", "intel"})
+PROGRESS_PREFIX = "Progress: "
+
+
+def progress_circle(mission, placed, members, entry):
+    """(at, radius, units, least) of one progress entry: `at`, or the placed
+    position of `at_unit`, or the victory's point; its radius or the
+    victory's."""
+    centre, victory = mission["centre"], mission["victory"]
+    wanted = [entry["units"]] if isinstance(entry["units"], str) else entry["units"]
+    units = [t for r in wanted for t in refs(members, r)]
+    at = entry.get("at")
+    if entry.get("at_unit"):
+        ref = refs(members, entry["at_unit"])[0]
+        keys = {tag: k for entries in placed.values() for tag, k, _n, _x in entries}[ref]
+        x, z = route_points(keys)[0]
+        at = (centre[0] + z / 60.0, centre[1] + x / 60.0)
+    at = at or victory.get("at")
+    radius = entry.get("radius", victory.get("radius", 20))
+    return at, radius, units, entry.get("min_units", 1)
+
+
+def check_progress(mission, placed, members):
+    key = mission["key"]
+    names = []
+    for entry in mission.get("progress", []):
+        where = f"{key}: progress {entry.get('name')!r}"
+        stray = sorted(set(entry) - PROGRESS_KEYS)
+        missing = sorted({"name", "units", "intel"} - set(entry))
+        if stray or missing:
+            raise SystemExit(f"{where}: " + (f"does not read {stray} " if stray else "")
+                             + (f"needs {missing} " if missing else "")
+                             + f"- it reads {', '.join(sorted(PROGRESS_KEYS))}")
+        if not PATH_NAME.match(str(entry["name"])) or entry["name"] in names:
+            raise SystemExit(f"{where}: the name is a unique capitalised identifier")
+        if entry.get("after") is not None and entry["after"] not in names:
+            raise SystemExit(f"{where}: after={entry['after']!r} is not an earlier entry")
+        names.append(entry["name"])
+        for k in ("after_minutes", "before_minutes"):
+            m = entry.get(k)
+            if m is not None and (isinstance(m, bool) or not isinstance(m, int)
+                                  or not 0 < m < mission["minutes"]):
+                raise SystemExit(f"{where}: {k}={m!r} is not a whole minute inside the window")
+        at, radius, units, least = progress_circle(mission, placed, members, entry)
+        if (not at or isinstance(radius, bool) or not isinstance(radius, (int, float))
+                or radius <= 0):
+            raise SystemExit(f"{where}: needs a circle - at, at_unit or the victory's point, "
+                             "and a radius above 0")
+        if (not units or isinstance(least, bool) or not isinstance(least, int)
+                or not 1 <= least <= len(units)):
+            raise SystemExit(f"{where}: asks for {least!r} of {units}")
+        if entry.get("after_minutes") or entry.get("after"):
+            continue
+        cx, cz = (at[1] - mission["centre"][1]) * 60, (at[0] - mission["centre"][0]) * 60
+        sections = {tag: k for entries in placed.values() for tag, k, _n, _x in entries}
+        inside = [t for t in units if route_points(sections.get(t, {}))[:1]
+                  and math.hypot(route_points(sections[t])[0][0] - cx,
+                                 route_points(sections[t])[0][1] - cz) < radius]
+        if len(inside) >= least:
+            raise SystemExit(f"{where}: {', '.join(inside)} start inside its {radius:g} NM "
+                             "circle, so the report would come at the first second")
+
+
+def progress_triggers(mission, placed, members, trigger):
+    centre = mission["centre"]
+    entries = mission.get("progress", [])
+    for entry in entries:
+        at, radius, units, least = progress_circle(mission, placed, members, entry)
+        lines = (["Disabled=True"] if entry.get("after") else []) + area_condition(
+            1, centre, at, radius, units, least, side="None")
+        expr, n = "<Condition1>", 1
+        for k, op in (("after_minutes", "AND"), ("before_minutes", "AND NOT")):
+            if entry.get(k):
+                n += 1
+                lines += [f"Condition_Condition{n}_Type=Time",
+                          f"Condition_Condition{n}_Time={entry[k] * 60}"]
+                expr += f" {op} <Condition{n}>"
+        lines += [f"ConditionsCompleted={expr}",
+                  f"Action_Taskforce1_Intel=Progress{entry['name']}Intel"]
+        children = [PROGRESS_PREFIX + e["name"] for e in entries if e.get("after") == entry["name"]]
+        if children:
+            lines += ["Action_EnableTriggers=" + trigger_marks(*children),
+                      "Action_ReactivateTriggers=" + trigger_marks(*children)]
+        trigger(PROGRESS_PREFIX + entry["name"], lines)
+
+
 # Conservative transit speeds for the reachability check, in knots. They are
 # deliberately below what the hulls can do: the question is whether an arrival
 # objective is possible at all, not whether it is comfortable.
@@ -4586,6 +4684,9 @@ def message_texts(mission):
         if not 0 < report["minute"] < mission["minutes"]:
             raise SystemExit(f"{mission['key']}: report {i} falls outside the mission")
         out.append((f"reports[{i}].intel", report["intel"]))
+    for entry in mission.get("progress", []):
+        if isinstance(entry, dict) and entry.get("intel"):
+            out.append((f"progress[{entry.get('name')}].intel", entry["intel"]))
     for reveal in mission.get("reveal_if", []):
         out.append((f"reveal_if[{reveal['variable']}].intel", reveal["intel"]))
     for flag in mission.get("flags", []):
@@ -5354,8 +5455,24 @@ def check_zone_areas(mission, placed, zones, text):
     # chain writes one "Objective met by" trigger per unit on one circle):
     # the units any of them counts
     circles = {}
+    named = dict(re.findall(r"^\[(Trigger\d+)\][^\n]*\nName=(.*)$", text, re.M))
     for block in re.findall(r"^\[Trigger\d+\][^\n]*\n(.*?)(?=^\[|\Z)", text, re.S | re.M):
         name = re.search(r"^Name=(.*)$", block, re.M)
+        # A progress report completes, fails and ends nothing, so its circle
+        # is not an objective a box must keep off - and the build makes sure
+        # that is all it is.
+        if name and name.group(1).startswith(PROGRESS_PREFIX):
+            acts = re.findall(r"^(Action_\w+)=(.*)$", block, re.M)
+            bad = [k for k, _v in acts if k.startswith(("Action_Objectives", "Action_Victory",
+                                                         "Action_EndMission"))]
+            bad += [named.get(r.strip(), r.strip()) for k, v in acts
+                    if k in ("Action_EnableTriggers", "Action_ReactivateTriggers")
+                    for r in v.split(",")
+                    if not named.get(r.strip(), "").startswith(PROGRESS_PREFIX)]
+            if bad:
+                raise SystemExit(f"{mission['key']}: '{name.group(1)}' is a progress report "
+                                 f"and carries {', '.join(bad)}; a report reports")
+            continue
         for n in re.findall(r"^Condition_Condition(\d+)_Type=UnitsInTheArea", block, re.M):
             pos = re.search(rf"^Condition_Condition{n}_PositionNM=([-\d.]+),[-\d.]+,([-\d.]+)", block, re.M)
             rad = re.search(rf"^Condition_Condition{n}_AreaRadiusNM=([\d.]+)", block, re.M)
@@ -5463,6 +5580,7 @@ def render(mission, placed, members):
     check_victory_keys(mission)
     check_any_of(mission)
     check_turn_back(mission, members)
+    check_progress(mission, placed, members)
     check_required_objectives(mission, members)
     name = mission_name(mission)
     centre = mission["centre"]
@@ -5518,6 +5636,8 @@ def render(mission, placed, members):
         L.append(f"SupportLoss{i}Intel={ini_text(loss['intel'])}")
     for i, report in enumerate(mission.get("reports", []), 1):
         L.append(f"SituationReport{i}Intel={ini_text(report['intel'])}")
+    for entry in mission.get("progress", []):
+        L.append(f"Progress{entry['name']}Intel={ini_text(entry['intel'])}")
     for i, cutoff in enumerate(mission.get("reinforcement_cutoffs", []), 1):
         L.append(f"ReinforcementCancelled{i}Intel={ini_text(cutoff['intel'])}")
     if mission.get("victory", {}).get("after", {}).get("intel"):
@@ -6234,8 +6354,14 @@ def render(mission, placed, members):
     # turn_back: the challenge chain along the ship's route, the Generic
     # trigger that turns her and, once she is Neutral, her loss as a
     # protected neutral's (turn_back_triggers).
+    # A progress report on her stops with the challenges: it was written
+    # for a ship still running for the lane.
     for tb in mission.get("turn_back", []):
-        turn_back_triggers(mission, placed, members, tb, trigger, terminal, ())
+        turned = set(turn_back_units(mission, members, tb)[0])
+        reports = [PROGRESS_PREFIX + e["name"] for e in mission.get("progress", [])
+                   if turned & set(progress_circle(mission, placed, members, e)[2])]
+        turn_back_triggers(mission, placed, members, tb, trigger, terminal, reports)
+    progress_triggers(mission, placed, members, trigger)
 
     # Losing a support asset costs something the player can read at the time,
     # and - where `sets` names a campaign flag - something a later mission

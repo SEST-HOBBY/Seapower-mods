@@ -931,6 +931,87 @@ class DamageStateFlag(unittest.TestCase):
             importlib.reload(rl04)
 
 
+class ProgressReports(unittest.TestCase):
+    """progress (step 5 of the builder-grammar design): "Progress: <name>"
+    triggers that report and do nothing else, which the zone check leaves
+    alone."""
+
+    def render(self, progress, **over):
+        m = small_mission(progress=progress, **over)
+        placed, members = small_placement()
+        _name, text = bp.render(m, placed, members)
+        return rendered(m, placed, members), _trigger_numbers(text), text, m, placed
+
+    NEAR = dict(name="Near", units=["group"], intel="GROUP STAFF: The carrier is in the box.")
+
+    def test_a_report_is_an_unshown_area_and_an_intel_line(self):
+        triggers, _n, text, _m, _p = self.render([dict(self.NEAR)])
+        lines = triggers["Progress: Near"]
+        self.assertEqual(lines, [
+            "Condition_Condition1_Type=UnitsInTheArea",
+            "Condition_Condition1_PositionNM=-18.00,0,18.00",
+            "Condition_Condition1_AreaRadiusNM=12",
+            "Condition_Condition1_AreaDisplaySide=None",
+            "Condition_Condition1_Units=Taskforce1Vessel2",
+            "Condition_Condition1_MinimumUnits=1",
+            "ConditionsCompleted=<Condition1>",
+            "Action_Taskforce1_Intel=ProgressNearIntel"])
+        self.assertIn("ProgressNearIntel=GROUP STAFF: The carrier is in the box.", text)
+
+    def test_before_a_minute_and_after_another_report(self):
+        later = dict(name="Later", units=["group"], after="Near", after_minutes=10,
+                     intel="GROUP STAFF: Ten minutes in the box.")
+        triggers, n, _text, _m, _p = self.render(
+            [dict(self.NEAR, before_minutes=20), later])
+        near = triggers["Progress: Near"]
+        self.assertIn("Condition_Condition2_Type=Time", near)
+        self.assertIn("Condition_Condition2_Time=1200", near)
+        self.assertIn("ConditionsCompleted=<Condition1> AND NOT <Condition2>", near)
+        self.assertIn(f"Action_EnableTriggers=Trigger{n['Progress: Later']}", near)
+        self.assertIn(f"Action_ReactivateTriggers=Trigger{n['Progress: Later']}", near)
+        self.assertEqual(triggers["Progress: Later"][0], "Disabled=True")
+        self.assertIn("ConditionsCompleted=<Condition1> AND <Condition2>",
+                      triggers["Progress: Later"])
+
+    def test_a_report_that_cannot_mean_anything_stops_the_build(self):
+        start = dict(name="Start", units=["group"], at=(-4.50, 128.70), radius=2,
+                     intel="GROUP STAFF: Here.")
+        for entries, why in (([start], "start inside"),
+                             ([dict(self.NEAR, after="Nowhere")], "not an earlier entry"),
+                             ([dict(self.NEAR, intel="STAFF|Close")], "progress\\[Near\\].intel"),
+                             ([dict(self.NEAR, before_minutes=80)], "inside the window"),
+                             ([dict(self.NEAR), dict(self.NEAR)], "unique"),
+                             ([dict(self.NEAR, radius=0)], "radius above 0")):
+            with self.subTest(why=why), self.assertRaisesRegex(SystemExit, why):
+                self.render(entries)
+        # Met at spawn is no report - unless it waits for a minute.
+        self.assertIn("Progress: Start", self.render([dict(start, after_minutes=5)])[0])
+
+    def test_the_zone_check_leaves_a_report_alone_and_holds_it_to_reporting(self):
+        # Two miles off the escort's start: an objective circle there would
+        # have to be kept clear of the escort's box; a report's need not.
+        close = dict(name="Close", units=["escort"], at=(-4.383, 128.90), radius=2,
+                     intel="BRIDGE: On station.")
+        _t, _n, text, m, placed = self.render([close])
+        with self.assertRaisesRegex(SystemExit, "Progress: Close|'Close'"):
+            bp.check_zone_areas(m, placed, m["_zones"],
+                                text.replace("Name=Progress: Close", "Name=Close"))
+        bad = text.replace("Action_Taskforce1_Intel=ProgressCloseIntel",
+                           "Action_Taskforce1_Intel=ProgressCloseIntel\n"
+                           "Action_ObjectivesCompleted=Withdrawal")
+        with self.assertRaisesRegex(SystemExit, "a report reports"):
+            bp.check_zone_areas(m, placed, m["_zones"], bad)
+
+    def test_a_turn_back_silences_the_reports_on_her(self):
+        m = TurnBack().mission()
+        m["progress"] = [dict(name="Running", units=["spoiler"], at=(-4.70, 128.90), radius=2,
+                              intel="GROUP STAFF: She is running.")]
+        triggers, n, _text = TurnBack().render(m)
+        off = next(l for l in triggers["Turns back: HeaveTo"]
+                   if l.startswith("Action_DisableTriggers="))
+        self.assertTrue(off.endswith(f",Trigger{n['Progress: Running']}"), off)
+
+
 class ExpressionIntegrity(unittest.TestCase):
     """trigger_integrity() parses ConditionsCompleted (step 2 (e))."""
 
@@ -4705,6 +4786,22 @@ class RedLineVictoryPaths(unittest.TestCase):
         self.assertTrue(0 <= edge <= bp.TRACK_STEP_NM, edge)
         lost = parsed[f"Trigger{n['HeaveTo sunk after turning']}"]
         self.assertEqual(lost["Action_ObjectivesFailed"], "Restraint")
+
+
+    def test_progress_reports_only_report(self):
+        rl = next(s for s in bp.campaign_specs() if s["SLUG"] == "sest-red-line")
+        names = {m["code"]: [e["name"] for e in m.get("progress", [])] for m in rl["MISSIONS"]}
+        self.assertEqual({c: v for c, v in names.items() if v},
+                         {"RL02": ["Early"], "RL03": ["EyeHome"],
+                          "RL04": ["Halfway", "FirstIn", "Running"], "RL06": ["TenderIn"]})
+        for num in ("02", "03", "04", "06"):
+            _text, parsed, n = self.mission(num)
+            reports = [parsed[f"Trigger{v}"] for k, v in n.items() if k.startswith("Progress: ")]
+            self.assertTrue(reports, num)
+            for keys in reports:
+                self.assertEqual(keys["Condition_Condition1_AreaDisplaySide"], "None")
+                self.assertEqual(sorted(k for k in keys if k.startswith("Action_")),
+                                 ["Action_Taskforce1_Intel"])
 
 
 class RedLineSideOperations(unittest.TestCase):
