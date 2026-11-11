@@ -12,15 +12,21 @@ Protected coalition observers in RL01–04 are neutral non-belligerents, so defe
 
 The step-3 builder-grammar design, steps 2 to 6. Its step 1 (the release
 terms and the Main flags) and the held-stage clock fix shipped first. Every
-trigger piece below is stock, cited in the code where it is written. Three
+trigger piece below is stock, cited in the code where it is written. Five
 combinations have no exact stock line, and the code says so where it writes
 them: AND NOT on a Time (a progress report's `before_minutes`, which no Red
 Line report uses now; SEST's own *Southern Watch C2 Broken Wake* cutoff,
 Trigger11, writes it), two area tests in one trigger (RL04's challenges and
-RL03's Disengage, as SEST's own RL06 victory has), and, behind the OFF
-`DAMAGE_STATE` flag, `Action_UnitTelegraph=0` on `Action_Units` with no
-waypoint (*05A Operation Blockbuster - Blue*'s Trigger11 sets the three
-together, at telegraph 5).
+RL03's Disengage, as SEST's own RL06 victory has), AND NOT on a
+UnitDestroyed (an `afloat` term: RL03's Disengage and RL04's HoveTo path),
+two NOTs in one expression (RL03's Disengage writes its `afloat` NOT beside
+its area NOT), and, behind the OFF `DAMAGE_STATE` flag,
+`Action_UnitTelegraph=0` on `Action_Units` with no waypoint (*05A Operation
+Blockbuster - Blue*'s Trigger11 sets the three together, at telegraph 5).
+Stock 0.8.7 and the beta-261026 baseline negate only an area test (*08
+Defense of North Borneo* Trigger3, *05 Shadow of the Enterprise* Trigger6)
+or, in uppercase tokens, a classification (*04 Sunda Strait* Trigger5), and
+only once in an expression.
 
 - **Foundations.** The builder refuses a victory or stage key it does not
   read (`VICTORY_KEYS`, `STAGE_KEYS`), so a misspelt key stops the build,
@@ -61,8 +67,12 @@ together, at telegraph 5).
   starts from the common terms. A `clear_of` path over units that join
   later (`enter=`) opens only after they have joined. RL03's Disengage path
   waits for the F-35s' last `Attack=` order plus two minutes, which is
-  minute 18, and for neither F-35 down (an `afloat` term), so after a kill
-  only the Intercept path can win and the two are never met in one tick.
+  minute 18, and for neither F-35 down (an `afloat` term, AND NOT on a
+  UnitDestroyed), so after a kill only the Intercept path can win and the
+  two are never met in one tick. That makes its expression
+  `<Condition1> AND <Condition2> AND NOT <Condition3> AND NOT <Condition4>`:
+  no stock trigger negates a UnitDestroyed or writes two NOTs in one
+  expression (PC checks P2 and P9).
   Its circle is 70 NM round the box's centre: the builder reads AIM-120C7
   `MaxLaunchRange=70` from the RAAF F-35A JATM pack, the winning copy. The
   design's 65 NM came from the Workshop copy below it. The owner chose the
@@ -89,7 +99,8 @@ together, at telegraph 5).
   Sulu Sea* does after its transfer (lines 592-593, 604-606), and fails
   Restraint. A transferred ship is not in the mission's neutral list. The
   victory's HoveTo path waits for the turn-back with TriggerCompleted (North
-  Borneo lines 1272-1273) AND NOT her loss. Sunk before she turns, she
+  Borneo lines 1272-1273) AND NOT her loss (an `afloat` term; no stock
+  trigger negates a UnitDestroyed, PC check P3). Sunk before she turns, she
   can no longer heave to: Spoiler's destroy trigger switches off the
   challenges, the turn-back, the race and the report on her, as stock *04
   Sunda Strait*'s Trigger8 "Deactivate RNZAF checkout if lost" switches off

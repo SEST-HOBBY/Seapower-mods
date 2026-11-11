@@ -3156,6 +3156,12 @@ def term_condition(mission, n, extra, members, placed=None, in_path=False):
         return destroyed_condition(n, units, least), here
     if kind == "afloat":
         # NOT a loss. Destruction is permanent, so this needs no refresh.
+        # No exact stock line: stock 0.8.7 and beta-261026 negate only an
+        # area test (08 Defense of North Borneo Trigger3, 05 Shadow of the
+        # Enterprise Trigger6) or a classification (04 Sunda Strait
+        # Trigger5), never a UnitDestroyed, and never twice in one
+        # expression, which a path with a clear_of term and an afloat term
+        # (RL03's Disengage) writes. PC checks P2, P3 and P9 cover it.
         return destroyed_condition(n, units, 1), f"NOT {here}"
     if kind == "damaged":
         return damaged_condition(n, units, extra), here
