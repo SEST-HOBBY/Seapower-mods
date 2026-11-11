@@ -3,14 +3,14 @@ SEST R12 FINAL + COMMANDER NATIONS + RED LINE STEP 3 - COMBINED PC ACCEPTANCE
 Beta 0.8.7-261107: Runtime 1.6.4 / UI 1.4.14
 Standard 0.8.7-261021: Runtime 1.5.0 / UI 1.4.6 (unchanged)
 
-This is R12 Final (merged as PR #58) together with the commander nations
-and national awards (merged as PR #59) and Red Line's victory paths, the
-heave-to and progress reports (step 3 of the builder grammar, on
-feature/builder-grammar-20261111, not merged), checked once on the PC and
-posted as one update. RIBBONS.txt has every award mapping.
-R12-RIBBON-EXPANSION.txt describes R12 Final before the commander nations:
-use it only for the R12 review findings fixed and the minor ones still
-open, and this file and RIBBONS.txt for the award counts, nations and PC
+This is R12 Final (merged as PR #58) together with the commander nations and
+national awards (merged as PR #59), the combined release notes (merged as PR
+#60) and Red Line's victory paths, the heave-to and progress reports (step 3
+of the builder grammar, on feature/builder-grammar-20261111, in review),
+checked once on the PC and posted as one update. RIBBONS.txt has every award
+mapping. R12-RIBBON-EXPANSION.txt describes R12 Final before the commander
+nations: use it only for the R12 review findings fixed and the minor ones
+still open, and this file and RIBBONS.txt for the award counts, nations and PC
 steps. None of the three parts has been played on the owner's PC yet.
 
 WHAT IS NEW SINCE THE R12 RIBBON TEST BUILD
@@ -164,8 +164,7 @@ RETAINED FEATURES
   reviewed files for the supported beta.
 
 The owner accepted the four briefing/costs/page changes on 9 November.
-None of the three parts has been played on that PC yet. The two merged
-parts are on the GitHub deploy branch sest-dev/jolly-ride-rptj4t. This
-toolkit's branch, feature/builder-grammar-20261111, adds Red Line step 3 to
-fix/combined-acceptance-20261111, which adds these release notes, the
-Steam texts and validation.json. Nothing has been uploaded to Steam.
+None of the three parts has been played on that PC yet. PRs #58, #59 and
+#60 are merged on the GitHub deploy branch sest-dev/jolly-ride-rptj4t. This
+toolkit's branch, feature/builder-grammar-20261111, adds Red Line step 3 on
+top of them and is in review on GitHub. Nothing has been uploaded to Steam.
