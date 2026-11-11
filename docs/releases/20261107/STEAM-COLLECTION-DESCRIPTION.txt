@@ -1,13 +1,22 @@
 [h1]SEST - Modernised Campaign Collection[/h1]
-The supporting Workshop mods for [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3812461539]SEST Integration Pack - Modernised Campaigns[/url]: 203 dependencies plus the integration pack.
+The 203 supporting Workshop mods for [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3812461539]SEST Integration Pack - Modernised Campaigns[/url], and the pack itself. The original creators supply the ships, submarines, aircraft, weapons, facilities and supporting tools; the integration pack adds the campaigns, compatibility work, shared setup, service records and combat cost reporting.
 
+[h2]What the collection and pack offer[/h2]
+[list]
+[*][b]Four Task Force Mode campaigns[/b] - Southern Watch, Southern Reach / Tasman Shield, Red Line and Sulu Line. Each opens its whole roster as the story allows, and Southern Watch and Southern Reach add an allied fleet of 52 ship classes.
+[*][b]Global Maritime Operations 2028[/b] - A worldwide Dynamic Campaign Mod scenario with 196 bases, eight command stages, recruitment progression and finite logistics.
+[*][b]National command[/b] - Fourteen commander nations in Southern Watch and Southern Reach and three in Sulu Line, each with its navy's ranks, a name pool and an emblem, the game's same-nation discount on that nation's classes (none is Canadian) and dated service records with national awards for twelve nations.
+[*][b]Supporting tools[/b] - Combat Cost Tracker, Contact Log, Topographic Map, Group Manager, Pop-Out Windows and Coordinated Strike Tool, several with SEST refinements.
+[/list]
+World Operations, world service ribbons and several interface features need the supported public beta (0.8.7-261107); the integration pack's page lists them.
+
+[h2]Installation[/h2]
 [olist]
-[*]Use [b]Subscribe to all[/b] and allow Steam to finish downloading.
+[*]Use [b]Subscribe to all[/b] and let Steam finish downloading. Make sure the SEST Integration Pack is subscribed too.
 [*]In Mod Manager, open the SEST Integration Pack's folder. Close Sea Power and run [b]SETUP - double-click me.cmd[/b] to check subscriptions and set the load order.
 [*]For a fresh installation on the supported beta, launch to the main menu for about ten seconds, quit, then run SETUP again. Existing enabled beta installations update in one run.
 [*]Rerun SETUP after Steam updates the integration pack. Keep SEST above its dependencies in Mod Manager.
 [/olist]
+Start a new world campaign for the complete revised layout and progression; existing saves keep their own world.
 
-Includes Southern Watch, Southern Reach / Tasman Shield, Red Line and Sulu Line, plus Global Maritime Operations 2028 with 196 bases and eight command stages. Start a new world campaign for the complete revised layout and progression.
-
-Campaign operations, coalition alignments and deployments are fictional. The collection retains each creator's original mod; the integration pack supplies the campaigns, compatibility work and shared setup.
+Campaign operations, coalition alignments and deployments are fictional. Each creator keeps credit for their original mod; keep them subscribed.
