@@ -2333,6 +2333,7 @@ class CoastExtracts(unittest.TestCase):
         self.assertEqual(name(dict(centre=(-47.5, 140.5))), "southern_theatre_coast.json")
         self.assertEqual(name(dict(centre=(5.62, 120.05))), "sulu_theatre_coast.json")
         self.assertEqual(name(dict(centre=(-6.5, 131.5))), "banda_theatre_coast.json")
+        self.assertEqual(name(dict(centre=(24.62, 66.65))), "arabian_theatre_coast.json")
         # Nothing holds the North Atlantic: the southern default, whose box
         # check then names the positions.
         self.assertEqual(name(dict(centre=(50.0, -20.0))), "southern_theatre_coast.json")
@@ -2352,6 +2353,130 @@ class CoastExtracts(unittest.TestCase):
         c = bp.coast_data(dict(centre=(6.0, 121.0)))
         self.assertTrue(c.on_land(6.03, 121.05))      # Jolo island
         self.assertFalse(c.on_land(5.70, 120.35))     # the Sulu Sea north of Tawi-Tawi
+
+
+class MakranLineTheatre(unittest.TestCase):
+    """Makran Line's water (design step P1, 11 Nov 2026). The proven-point
+    pool has 24 sea points off Karachi, from three files, and none off
+    Gwadar, so the campaign is proved against the coastline, as Southern
+    Reach is: geo/arabian_theatre_coast.json, Natural Earth 1:10m land and
+    minor islands clipped to 56-69E, 20-26.5N and simplified at 0.006
+    degrees by tools/make_coast_extract.py - Pakistan's Makran and Sindh
+    coasts, Iran's Makran coast, Oman from the Strait of Hormuz to Masirah
+    and the western edge of Kutch. Every position the campaign design
+    names is checked here with the builder's own CoastPlacer, so a station
+    that would stop the build is caught before a mission is written round
+    it. The Natural Earth coast against the game's terrain at Karachi and
+    Gwadar is a PC check (coast.py)."""
+
+    EXTRACT = "arabian_theatre_coast.json"
+    # Offshore stations: at sea with OFFSHORE_MIN (2 NM) of water round them.
+    OFFSHORE = {
+        "Karachi pilot station": (24.74, 66.93),
+        "Karachi outer anchorage": (24.55, 66.70),
+        "Port Qasim outer anchorage": (24.55, 67.05),
+        "Gwadar anchorage": (25.00, 62.30),
+        "off Gwadar": (24.85, 62.30),
+        "MK01 convoy start": (24.48, 66.40),
+        "MK01 start": (24.45, 66.40),
+        "MK01 arrival": (24.70, 66.88),
+        "MK01 Meridian escorts": (24.60, 65.95),
+        "MK02 armed merchant": (24.88, 62.20),
+        "MK02 Meridian raiders": (24.55, 61.95),
+        "MK03 trail start": (24.00, 62.20),
+        "MK03 mothership": (24.30, 61.40),
+        "MK03 trail datum": (24.30, 62.60),
+        "MK04 convoy start": (24.35, 66.75),
+        "MK04 arrival": (24.60, 67.08),
+    }
+    # A coastal station (coastal=True: a berth or a channel) need only be
+    # at sea: the Port Qasim channel is 1.5 NM off the Natural Earth coast.
+    COASTAL = {"Port Qasim channel": (24.70, 67.15)}
+    # Land units stand on the fields' own coordinates.
+    LAND = {"PAF Base Masroor": (24.894, 66.939), "Gwadar airport": (25.23, 62.33)}
+    # Mission centres, which the builder uses as trigger-area centres.
+    CENTRES = {"MK01": (24.62, 66.65), "MK02": (25.00, 62.35), "MK04": (24.55, 67.00)}
+    # Convoy legs, each sailed leg checked at the 0.5 NM shore margin.
+    ROUTES = {"MK01 convoy": ((24.48, 66.40), [(24.70, 66.88)]),
+              "MK04 convoy": ((24.35, 66.75), [(24.60, 67.08)])}
+
+    def setUp(self):
+        self.saved = list(bp.PLACEMENT_PROBLEMS), list(bp.COAST_CHECKED)
+        del bp.PLACEMENT_PROBLEMS[:]
+
+    def tearDown(self):
+        bp.PLACEMENT_PROBLEMS[:], bp.COAST_CHECKED[:] = self.saved
+
+    def every_position(self):
+        for group in (self.OFFSHORE, self.COASTAL, self.LAND, self.CENTRES):
+            yield from group.items()
+        for name, (start, legs) in self.ROUTES.items():
+            for n, at in enumerate([start] + legs):
+                yield f"{name} point {n}", at
+
+    def test_the_extract_is_the_one_its_box_names(self):
+        coast = __import__("coast")
+        data = json.loads((HERE / "geo" / self.EXTRACT).read_text(encoding="utf-8"))
+        self.assertEqual(data["box"], [56.0, 20.0, 69.0, 26.5])
+        self.assertEqual(data["tolerance_deg"], 0.006)
+        self.assertIn("Natural Earth 1:10m", data["source"])
+        # Its box overlaps no other theatre's, so covering() has one answer.
+        w, s, e, n = data["box"]
+        for f in sorted((HERE / "geo").glob("*.json")):
+            if f.name == self.EXTRACT:
+                continue
+            ow, os_, oe, on = json.loads(f.read_text(encoding="utf-8"))["box"]
+            self.assertTrue(oe < w or ow > e or on < s or os_ > n, f.name)
+        for where, at in self.every_position():
+            with self.subTest(where=where):
+                self.assertIs(coast.covering(*at), coast.coast(self.EXTRACT))
+                self.assertIs(bp.coast_data(dict(centre=at)), coast.coast(self.EXTRACT))
+
+    def test_every_station_passes_the_builders_checks(self):
+        mission = dict(key="Makran Line stations", centre=self.CENTRES["MK01"],
+                       stations={})
+        placer = bp.CoastPlacer(bp.coast_data(mission), mission)
+        for where, at in self.OFFSHORE.items():
+            placer.offshore(at, where)
+        for where, at in self.COASTAL.items():
+            placer.take("sea", at, where=where)
+        for where, at in self.LAND.items():
+            placer.take("land", at, where=where)
+        for where, at in self.CENTRES.items():
+            placer.point(at, f"{where} centre")
+        for where, (start, legs) in self.ROUTES.items():
+            placer.waypoint(legs[-1], where)
+            placer.route(start, legs, where)
+        self.assertEqual(bp.PLACEMENT_PROBLEMS, [])
+
+    def test_the_checks_have_teeth_here(self):
+        # The same checks refuse a ship on the Karachi shore, a channel berth
+        # taken for an offshore station, a field at sea and a leg across the
+        # Jiwani headland (both ends at sea; the shore margin stops it on the
+        # way in).
+        mission = dict(key="Makran Line refusals", centre=self.CENTRES["MK02"], stations={})
+        placer = bp.CoastPlacer(bp.coast_data(mission), mission)
+        placer.offshore((24.86, 67.01), "Karachi city")
+        placer.offshore(self.COASTAL["Port Qasim channel"], "channel as offshore")
+        placer.take("land", (24.55, 66.70), where="field at sea")
+        placer.route((25.00, 61.90), [(25.13, 61.60)], "across Jiwani")
+        problems = "\n".join(bp.PLACEMENT_PROBLEMS)
+        self.assertEqual(len(bp.PLACEMENT_PROBLEMS), 4, problems)
+        self.assertIn("Karachi city: station at (24.86, 67.01) is ashore", problems)
+        self.assertIn("channel as offshore: station at (24.7, 67.15) is 1.5 NM off", problems)
+        self.assertIn("field at sea: a land unit at (24.55, 66.7) is at sea", problems)
+        self.assertIn("across Jiwani: leg 1 crosses", problems)
+        self.assertTrue(placer.coast.on_land(25.05, 61.78))    # the headland it crosses
+
+    def test_the_coast_is_where_the_charts_put_it(self):
+        c = bp.coast_data(dict(centre=self.CENTRES["MK01"]))
+        self.assertTrue(c.on_land(24.86, 67.01))       # Karachi
+        self.assertTrue(c.on_land(25.12, 62.33))       # Gwadar town, on its isthmus
+        self.assertTrue(c.on_land(26.10, 56.25))       # Musandam
+        self.assertTrue(c.on_land(20.40, 58.80))       # Masirah island
+        self.assertFalse(c.on_land(26.30, 56.60))      # the Strait of Hormuz
+        self.assertFalse(c.on_land(22.00, 64.00))      # the open Arabian Sea
+        self.assertFalse(c.on_land(25.00, 58.00))      # the Gulf of Oman
 
 
 def _trigger_numbers(text):

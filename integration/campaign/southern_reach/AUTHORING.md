@@ -112,7 +112,8 @@ file; the builder refuses a unit whose stated mod the game would not read.
 Every mission here is `geography="coast"` (the package sets it). The builder
 proves each position against `geo/southern_theatre_coast.json` (a coast
 mission elsewhere is proved on the extract whose box holds its centre:
-`sulu_theatre_coast.json`, `banda_theatre_coast.json`):
+`sulu_theatre_coast.json`, `banda_theatre_coast.json`,
+`arabian_theatre_coast.json` for the North Arabian Sea, 56-69E, 20-26.5N):
 
 - an offshore station must be on water **2 NM or more** from any coast;
 - a `coastal=True` station, and a `snap="sea"` unit, must be on water (any distance);
