@@ -190,7 +190,7 @@ class RussianRegistration(unittest.TestCase):
     def test_one_stub_per_allowed_hull(self):
         self.assertEqual(sorted(self.stubs),
                          sorted(uid + self.b.RU_STUB_SUFFIX for uid in self.b.RU_REREGISTER))
-        self.assertEqual(len(self.stubs), 15)
+        self.assertEqual(len(self.stubs), 16)
 
     def test_the_two_lists_are_apart_and_the_pashin_is_in_neither(self):
         self.assertFalse(set(self.b.RU_REREGISTER) & set(self.b.RU_LEFT_SOVIET))
@@ -198,6 +198,17 @@ class RussianRegistration(unittest.TestCase):
             self.assertNotIn(uid + self.b.RU_STUB_SUFFIX, self.stubs)
         self.assertNotIn("rfn_aor_pashin", self.b.RU_REREGISTER)
         self.assertNotIn("rfn_aor_pashin", self.b.RU_LEFT_SOVIET)
+
+    def test_every_listed_uid_names_a_mods_file_as_spelt_on_disk(self):
+        # Both lists are keyed by the winning file's uid, spelt as the file
+        # is: a key in the wrong case names no file on a case-sensitive
+        # checkout, so the left-Soviet record would silently cover nothing
+        # (wp_rkr_slavaLU, once keyed wp_rkr_slavalu).
+        for uid in list(self.b.RU_REREGISTER) + list(self.b.RU_LEFT_SOVIET):
+            with self.subTest(uid=uid):
+                mod, path = self.winner(uid)
+                self.assertNotEqual(mod, "_vanilla/original")
+                self.assertIn(path.name, [p.name for p in path.parent.iterdir()])
 
     def test_each_stub_extends_its_winner(self):
         for uid in self.b.RU_REREGISTER:
