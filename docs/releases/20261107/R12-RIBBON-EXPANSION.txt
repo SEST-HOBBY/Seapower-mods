@@ -2,6 +2,11 @@ SEST R12 FINAL - RIBBONS, NATIONAL AWARDS AND REVIEW FOLLOW-UP
 10 November 2026 | SEST-DEV
 Beta 0.8.7-261107: Runtime 1.6.4 / UI 1.4.14
 
+NOTE, 11 November 2026: this describes R12 Final as merged in PR #58, before
+the commander nations (PR #59). Its branch, award counts, nation lists and PC
+steps are superseded: use README-FIRST.txt and RIBBONS.txt for those, and
+this file for the R12 review findings fixed and the minor ones still open.
+
 BASE AND SCOPE
 Branch fix/r12-finalise-20261110. It carries the R12 posting (7dab3591) and
 ribbon test build (7be336cb) with their trees unchanged and their commits
