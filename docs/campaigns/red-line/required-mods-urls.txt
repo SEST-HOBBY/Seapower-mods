@@ -1,7 +1,7 @@
 Red Line - Workshop mods this campaign reaches (reference only)
 
 51 items, in canonical load order. NOT the Workshop item's
-Required Items list. All four campaigns ship in one item, the SEST
+Required Items list. All the SEST campaigns ship in one item, the SEST
 Integration Pack (3812461539), whose Required Items - like the
 collection 'SEST - Modernised Campaign Collection' (3812390790) -
 hold every Workshop mod in the load order, more than any one

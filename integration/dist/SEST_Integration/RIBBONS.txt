@@ -36,9 +36,10 @@ default and also offer an allied officer in command of the Australian-led
 group: US, UK, Japan, New Zealand, France, Canada, South Korea, Spain,
 Italy, Germany, the Netherlands, Norway or Denmark. Sulu Line keeps the
 Philippines as the default and also offers Thailand or Australia, whose
-detachment and frigate serve in its group. Red Line stays Chinese. Choose
-the nation in the Service Record when a campaign starts; a commander
-already in a save keeps its nation and name.
+detachment and frigate serve in its group. Red Line stays Chinese, and
+Makran Line, a Pakistan Navy task group with no partner navy, stays
+Pakistani. Choose the nation in the Service Record when a campaign starts; a
+commander already in a save keeps its nation and name.
 
 Each nation has its navy's name, officer ranks and an emblem. Ranks use the
 navy's own titles: English for the Commonwealth navies, Korea and Thailand;
@@ -46,7 +47,13 @@ French, Spanish, Italian, German, Dutch, Norwegian and Danish titles with
 their accents for the others. Commander is OF-4, Captain OF-5 and a
 commodore's grade OF-6 in every ladder SEST adds. The Royal Thai Navy has no
 commodore's grade, so Captain (Special Grade) is placed at OF-6, level 7, and
-Sulu Line's Thai commander holds it. Australia, the US and Japan use the game's own
+Sulu Line's Thai commander holds it. Makran Line's Pakistan Navy ladder uses
+the Navy's ten English ranks, Midshipman to Admiral, with Commodore (OF-6) at
+level 7; its abbreviations (MID, SLT, LT, LT CDR, CDR, CAPT, CDRE, R ADM,
+V ADM, ADM) are NOT verified: the Navy's official site could not be read
+when they were written, so they follow the Royal Navy's pattern. Its emblem
+is the national flag of Pakistan; the Navy's own ensign is not in the
+gallery set. Australia, the US and Japan use the game's own
 ranks and emblems. Other emblems come from the SEST gallery flag set: a
 naval ensign where the set has one (the UK, New Zealand, Italy), otherwise
 the national flag, which is the ensign itself for France, Canada, South
@@ -73,11 +80,13 @@ fictional variants and every Russian aircraft stay Soviet, as stock Cold War
 missions use them. The SEST missions fly the Russian flag on all of them, as
 before.
 
-Fictional ribbons, any commander: the four completion ribbons (unchanged)
-and eight operation ribbons - SW05 Timor Corridor, SW08 Archipelago
-Operations, SR12 Antarctic Resupply, TS09 Southern Convoy, RL03 Contact
-Intelligence, RL05 Undersea Operations, SL04 Fleet Sustainment and SL06
-Littoral Operations. Each needs the mission's required result.
+Fictional ribbons, any commander: the five completion ribbons (Makran
+Line's is new; the other four unchanged) and ten operation ribbons - SW05
+Timor Corridor, SW08 Archipelago Operations, SR12 Antarctic Resupply, TS09
+Southern Convoy, RL03 Contact Intelligence, RL05 Undersea Operations, SL04
+Fleet Sustainment, SL06 Littoral Operations, and Makran Line's MK02 Arabian
+Sea Security and MK03 Trailing Operations. Each needs the mission's required
+result.
 
 Real-award representations. Personal and service awards go to a commander
 of that nation; the unit award goes to the task group whoever commands it.
@@ -151,6 +160,12 @@ Sulu Line (a Commodore, OF-6)
 Red Line keeps its fictional ribbons only: the PLA's ribbon designs could
 not be checked, so none is drawn.
 
+Makran Line (a Commodore, OF-6) keeps its fictional ribbons only - the
+completion ribbon after MK04 Port Qasim, Arabian Sea Security after MK02
+Gwadar Roads and Trailing Operations after MK03 Hangor. No real Pakistani
+award is represented: none is drawn until its ribbon and criteria are
+sourced.
+
 Every citation carries its mission's date and names the mission. Real-award
 citations end: "Game award for a fictional operation; not a real honour."
 The Navy and Marine Corps Achievement Medal (O-4 and below) and the US Navy
@@ -219,6 +234,11 @@ taegeuk; as a German one, the Cross of Honour shows its gold cross. Load an
 existing save: its commander, nation and earned ribbons are unchanged.
 Existing saves are preserved; start a new commander to choose another
 nationality.
+Start Makran Line: the Service Record offers Pakistan only; the commander
+screen shows the Pakistan Navy, the flag of Pakistan as its emblem, rank
+Commodore and a name from the game's own Pakistani pool. Note how the rank
+abbreviations read. Complete MK02 Gwadar Roads and MK03 Hangor: each
+operation ribbon appears in the Service Record with its mission's date.
 Russian Federation (SEST Collection Fixes' Nation stubs, not yet seen in
 game): in a new Southern Watch campaign the Situation window's Russia block
 shows the Project 20380 corvette under the Russian Federation flag and the

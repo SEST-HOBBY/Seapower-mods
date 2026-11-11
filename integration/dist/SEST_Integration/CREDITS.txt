@@ -27,6 +27,7 @@ designs; they are game awards, not real honours. Other award
 pictures are the game's own, referenced by path and not copied.
 Each campaign lists its strips, those references and the award
 sources in:
+      campaigns/sest-makran-line/art/ribbons/SOURCES.txt
       campaigns/sest-red-line/art/ribbons/SOURCES.txt
       campaigns/sest-southern-reach/art/ribbons/SOURCES.txt
       campaigns/sest-southern-watch/art/ribbons/SOURCES.txt
@@ -46,6 +47,7 @@ which flag each one shows:
       sest_km_emblem.png
       sest_mm_emblem.png
       sest_mn_emblem.png
+      sest_pakn_emblem.png
       sest_plan_emblem.png
       sest_pn_emblem.png
       sest_rcn_emblem.png
