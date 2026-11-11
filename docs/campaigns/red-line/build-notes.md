@@ -12,11 +12,21 @@ Protected coalition observers in RL01–04 are neutral non-belligerents, so defe
 
 The step-3 builder-grammar design, steps 2 to 6. Its step 1 (the release
 terms and the Main flags) and the held-stage clock fix shipped first. Every
-trigger shape below is copied from a stock mission, cited in the code
-where it is written.
+trigger piece below is stock, cited in the code where it is written. Three
+combinations have no exact stock line, and the code says so where it writes
+them: AND NOT on a Time (a progress report's `before_minutes`, which no Red
+Line report uses now; SEST's own *Southern Watch C2 Broken Wake* cutoff,
+Trigger11, writes it), two area tests in one trigger (RL04's challenges and
+RL03's Disengage, as SEST's own RL06 victory has), and, behind the OFF
+`DAMAGE_STATE` flag, `Action_UnitTelegraph=0` on `Action_Units` with no
+waypoint (*05A Operation Blockbuster - Blue*'s Trigger11 sets the three
+together, at telegraph 5).
 
 - **Foundations.** The builder refuses a victory or stage key it does not
-  read (`VICTORY_KEYS`, `STAGE_KEYS`), so a misspelt key stops the build.
+  read (`VICTORY_KEYS`, `STAGE_KEYS`), so a misspelt key stops the build,
+  and one the victory's or the stage's kind or mode does not read: an
+  arrival's `stations`, a destroy victory's `bearing`, a classify stage's
+  `after_minutes`, a per_unit stage's `hold_minutes`.
   An objective every way to win depends on must be flagged `Main`, as stock
   *Action in the Gulf of Sidra 1986* flags its three (lines 649-651), and
   its text may not call it optional (`check_required_objectives`). A trigger
@@ -24,11 +34,18 @@ where it is written.
   `Trigger{n}` once all triggers are written, and an unknown or shared name
   stops the build. `check_zone_areas` reads condition numbers of 10 and
   above. `tools/check_campaign_coverage.py` parses every `ConditionsCompleted`
-  and checks that it holds only `<ConditionN>`, AND, OR, NOT and brackets,
-  balanced, that each condition is defined and used, that a TriggerCompleted
-  condition names a trigger in the mission, and that NOT on an area test is
-  refreshed. Stock's own *01 Red Sea Breakout 1988* line 273 fails the first
-  check.
+  and holds it to the shapes stock writes: `<ConditionN>` with no leading
+  zero, AND, OR and balanced brackets, NOT only as `AND NOT <ConditionN>`,
+  and AND and OR never mixed at one bracket level. It checks that each
+  condition is defined and used, that a TriggerCompleted condition (and an
+  enable, disable or reactivate) names a `[TriggerN]` of the mission, and
+  that NOT on an area test has a refresh loop that can run: a Time trigger,
+  not left disabled, that reactivates it and itself. Two stock lines fail
+  the first check: *01 Red Sea Breakout 1988* line 273, and *04 Sunda
+  Strait* line 721, whose uppercase `<CONDITION2>` tokens the checker does
+  not read (whether the game does is unconfirmed). *05 Shadow of the
+  Enterprise*'s one-shot Trigger6 (Time AND NOT an area, never reactivated)
+  fails the last: that rule is SEST's, stricter than stock.
 - **`any_of` (RL03).** A victory may list paths. Each is its own victory
   trigger after the shared arrival and the common terms, with its own
   message (`Path<Name>VictoryMessage`) and bonus. Each enables the shared
@@ -39,13 +56,22 @@ where it is written.
   reactivates the path and itself every 5 seconds (Trigger10, lines
   1334-1339). Reactivation restarts a Time condition, so a refreshed path
   takes `after_minutes` and a Time trigger opens it (*05A Operation
-  Blockbuster - Blue*, Trigger9). RL03's Disengage path waits for the
-  F-35s' last `Attack=` order plus two minutes, which is minute 18. Its
-  circle is 70 NM: the builder reads AIM-120C7 `MaxLaunchRange=70` from the
-  RAAF F-35A JATM pack, the winning copy. The design's 65 NM came from the
-  Workshop copy below it. The owner chose the full reach. Fighters is a bonus
-  again, completed only by the kill. No path sets a campaign variable: the
-  awards stay keyed on objectives (owner).
+  Blockbuster - Blue*, Trigger9). A time term in the victory's common
+  `also` is refused next to a refreshed path too: every path's trigger
+  starts from the common terms. A `clear_of` path over units that join
+  later (`enter=`) opens only after they have joined. RL03's Disengage path
+  waits for the F-35s' last `Attack=` order plus two minutes, which is
+  minute 18, and for neither F-35 down (an `afloat` term), so after a kill
+  only the Intercept path can win and the two are never met in one tick.
+  Its circle is 70 NM round the box's centre: the builder reads AIM-120C7
+  `MaxLaunchRange=70` from the RAAF F-35A JATM pack, the winning copy. The
+  design's 65 NM came from the Workshop copy below it. The owner chose the
+  full reach. An F-35 just outside the circle can still be 62 NM from a
+  Dragon Eye on the box's near edge. Fighters is a bonus again, completed
+  only by the kill. Each path has its own text for both sides
+  (`Path<Name>Taskforce2DefeatMessage` too), and every victory trigger
+  switches off the mission's progress reports. No path sets a campaign
+  variable: the awards stay keyed on objectives (owner).
 - **`turn_back` (RL04).** Challenge circles every mile along the coaster's
   placed route, from her spawn to the edge of the denied circle where she
   clears the screen. Each challenge is two area tests at one point: her
@@ -57,30 +83,54 @@ where it is written.
   her to Neutral, gives her a waypoint north-west and telegraph 2 (*Caron*
   591-593; *Blockbuster* Trigger11, lines 940-942) and completes Spoiler. It
   switches off the challenges, the denied race, the Sunk path, Spoiler's
-  destroy trigger and the *Progress: Running* report. A disabled terminal
+  destroy trigger and the *Progress: Running* report, and a sinking path's
+  minute gate and refresh when it has them. A disabled terminal
   then waits for her loss on the tag she keeps, as *PLAN 04 Escape from the
   Sulu Sea* does after its transfer (lines 592-593, 604-606), and fails
   Restraint. A transferred ship is not in the mission's neutral list. The
   victory's HoveTo path waits for the turn-back with TriggerCompleted (North
-  Borneo lines 1272-1273) AND NOT her loss.
+  Borneo lines 1272-1273) AND NOT her loss. Sunk before she turns, she
+  can no longer heave to: Spoiler's destroy trigger switches off the
+  challenges, the turn-back, the race and the report on her, as stock *04
+  Sunda Strait*'s Trigger8 "Deactivate RNZAF checkout if lost" switches off
+  its transfer to Neutral (lines 740-745). Without that, a challenge met
+  after her loss (her spawn is Challenge 1's centre) would turn a wreck
+  Neutral, switch off the Sunk win and lose the mission. Two area tests in
+  one trigger have no stock line (above).
 - **`DAMAGE_STATE`.** "Unit damage state" is in the game's editor
   (`language_en/ui.ini` lines 1149-1158) and in no stock mission, so its
   keys are unknown. `campaign_data.DAMAGE_STATE` is None until PC check P1.
   While it is None, a `damaged` term or a turn_back's `or_damaged` stops the
   build, and RL04 neither offers nor mentions a "stop her engines" outcome.
-  With the table set, the module adds the Crippled path.
+  With the table set, the module adds the Crippled path, and the trigger
+  that sees her engines out also stops her (`Action_Units`,
+  `Action_UnitTelegraph=0`, no exact stock line) and leaves her race armed,
+  so a coaster whose damage control restores her engines and who reaches
+  the lane still loses the mission. An event on `<name>Disabled` counts as
+  completing the turn_back's objective, so Spoiler stays required.
 - **`progress`.** Information-only triggers named `Progress: <name>`. Each
   is an area test with the circle not shown, optionally AND a Time (*03
   Lifeline at the Edge of the World*'s Trigger8) or AND NOT a Time (the
-  form of Broken Wake's reinforcement cutoff; stock writes AND NOT on an
-  area or a classification, North Borneo line 1282 and *04 Sunda Strait*
+  form of Broken Wake's reinforcement cutoff, in no stock mission; stock
+  writes AND NOT on an area, North Borneo line 1282, and, in uppercase
+  tokens the checker does not read, on a classification, *04 Sunda Strait*
   line 721), plus one intel line. A chained entry is enabled and
   reactivated by its parent, as *04 Chagos Gambit* arms its rain loop
-  (lines 515-516). `check_zone_areas` skips them and refuses one that does
-  more than report. RL02 *Early*, RL03 *EyeHome*, RL04 *Halfway*, *FirstIn*
-  and *Running*, RL06 *TenderIn*.
+  (lines 515-516). `check_zone_areas` does not hold the boxes off their
+  circles. It refuses a report with any action but its intel line and
+  the enable and reactivate of the reports chained after it, and one that
+  does not wait (`after`, `after_minutes`) on a unit a Deployment zone
+  holds when that zone reaches into its circle, since the report would
+  then come at the first second. A win switches the reports off. RL02
+  *Closing* (the tanker five miles from the holding point), RL03
+  *EyeHome*, RL04 *Halfway*, *FirstIn* and *Running*, RL06 *TenderIn*.
+  RL02's first report, *Early*, waited for the tanker in the roads before
+  minute twenty, which she cannot reach: eleven miles out, she needs 33
+  minutes at her 16.5 knots.
 - **Release terms.** RL01 and RLO2's briefs now state their exits as RL02,
-  RL04 and RL06's do. `RedLineReleaseTerms` holds all six combat exits.
+  RL04 and RL06's do. `RedLineReleaseTerms` holds all six combat exits, and
+  RL03's seventy miles to the builder's AIM-120C7 reach. RL04's timeout
+  names both of its terms, the circle and the coaster.
 
 Where this departs from the design: the challenge is two radii (her track,
 the warship's distance), not one 1.5 NM circle for both. One circle would

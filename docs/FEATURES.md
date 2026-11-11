@@ -116,7 +116,8 @@ experience carry forward from mission to mission.
   *(10 November 2026)*: break the intercept on the radar aircraft by shooting
   down a fighter or by outlasting both F-35s, and stop the coaster that wants
   the war back by sinking her or by closing her until she heaves to. Progress
-  reports say what still holds an exit.
+  reports mark the way to an exit and, where it helps, say what still holds
+  it.
 - A submarine mission lost the moment the enemy classifies your boat.
 - The briefings and the Situation window leave the trailing submarines'
   class and navy for you to find, and label the coalition units you must not

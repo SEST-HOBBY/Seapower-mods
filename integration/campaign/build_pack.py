@@ -3171,9 +3171,12 @@ def clear_of_condition(mission, n, extra, units, placed):
     ConditionsCompleted negates: 08 Defense of North Borneo, Trigger3 lines
     1274-1281, key for key (UnitsInTheArea, AreaDisplaySide=None,
     Taskforce=Taskforce2, MinimumUnits=1 and UnitType when the units are of
-    one kind). The circle is the victory's point unless `at` says otherwise,
-    and its radius is at least the units' anti-air reach (air_reach), the
-    default: a fighter outside it cannot shoot at anything in the box."""
+    one kind). The circle is centred on the victory's point unless `at` says
+    otherwise, and its radius is at least the units' anti-air reach
+    (air_reach) measured from that point, the default. A fighter just
+    outside it can still reach the near edge of a victory circle of radius r
+    from up to its reach minus r away: RL03's F-35 at 70.1 NM from the box's
+    centre is 62.1 NM from a Dragon Eye on the box's near edge."""
     key, centre = mission["key"], mission["centre"]
     ours = [t for t in units if not t.startswith("Taskforce2")]
     if ours:
@@ -3624,10 +3627,13 @@ def turn_back_triggers(mission, placed, members, tb, trigger, terminal, progress
 # ("Progress: <name>", step 5 of the builder-grammar design). Each is an area
 # test with the circle not shown (AreaDisplaySide=None, the lift's shape),
 # optionally AND a Time - 03 Lifeline at the Edge of the World's Trigger8,
-# area AND Time - or AND NOT a Time, the reinforcement cutoff's form (stock
-# writes AND NOT on an area and a classification, 08 Defense of North Borneo
-# line 1282 and 04 Sunda Strait line 721, and on a Time only in SW C2's
-# cutoff), and one Action_Taskforce1_Intel. A chained entry ships disabled
+# area AND Time - or AND NOT a Time, the reinforcement cutoff's form. Stock
+# writes AND NOT on an area (08 Defense of North Borneo line 1282) and, in
+# uppercase tokens, on a classification (04 Sunda Strait line 721,
+# `<CONDITION2> AND NOT <CONDITION1>`, which the pack's checker reads as
+# malformed, so whether the game honours it is unconfirmed). AND NOT on a
+# Time is in no stock mission: only in SEST's own SW C2 Broken Wake cutoff
+# (Trigger11). Then one Action_Taskforce1_Intel. A chained entry ships disabled
 # and its parent enables and reactivates it, as 04 Chagos Gambit's Trigger3
 # arms its Trigger4 (lines 515-516). It completes, fails or ends nothing,
 # so check_zone_areas() does not hold the deployment boxes off its circle.
