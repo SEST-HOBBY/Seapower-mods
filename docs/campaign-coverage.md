@@ -10,8 +10,8 @@ This campaign reaches 223 of the enabled mods and packs; the 5 it does not are l
 
 | class | meaning | mods |
 |---|---|---|
-| `unit` | places the unit; this mod wins its file | 141 |
-| `variant` | supplies the hull variant a placed or sold unit uses | 12 |
+| `unit` | places the unit; this mod wins its file | 144 |
+| `variant` | supplies the hull variant a placed or sold unit uses | 9 |
 | `squadron` | supplies the squadron a placed or sold airframe flies from | 9 |
 | `store` | supplies a round a placed or sold unit's loadout hangs | 9 |
 | `asset` | supplies a model folder a placed or sold unit's file draws from | 7 |
@@ -68,19 +68,19 @@ Sea and land positions in 23 of the 35 missions are snapped to points already us
 | `eurofighter-typhoon` | Eurofighter Typhoon | `unit` | raf_ef2000_fgr4_late | Western Passage |
 | `euromod-anchorchain-expansion` | Euromod - Anchorchain Expansion Pack | `library` | well-deck and effects framework: the effects library, `systems/` mappings and ammunition overwrites that the EuroMod hulls in WESTERN PASSAGE and THE RELIEF SHIP resolve through | - |
 | `euromod-brazil` | Euromod-Brazilian Armed Forces(2000) | `external` | Brazilian Navy and naval air arm (service 1976-2029) outside every SEST theatre; placed by no installed campaign | - |
-| `euromod-british` | Euromod - Modern British Navy | `unit` | rn_merlin_hm2 | Western Passage |
+| `euromod-british` | Euromod - Modern British Navy | `unit` | rn_ddg_type45 deck / rn_merlin_hm2 | Western Passage |
 | `euromod-chile` | EUROMOD-Armada de Chile | `external` | Chilean Navy and Air Force of 2005-2021 outside every SEST theatre; the world campaign's Chilean bases field it, and its Thomson-class boats stand in for four navies' Type 209s | - |
 | `euromod-dutch` | Euromod - Modern Dutch navy | `variant` | rnn_ffg_karel_mlu | Western Passage |
-| `euromod-german` | Euromod - Modern German Navy | `unit` | ger_sea_lynx_mk88 | Western Passage |
+| `euromod-german` | Euromod - Modern German Navy | `unit` | ger_ffg_f124 deck / ger_sea_lynx_mk88 | Western Passage |
 | `euromod-india` | Euromod-India-Navy | `external` | two Indian Navy destroyers (2006-2025) that no SEST mission or installed campaign places | - |
-| `euromod-italian-modern` | Euromod - Modern Italian Navy | `variant` | ita_ffg_fremm_asw | Western Passage |
+| `euromod-italian-modern` | Euromod - Modern Italian Navy | `unit` | ita_ffg_fremm_asw deck / ita_sh90 | Western Passage |
 | `euromod-jmsdf` | Euromod - Modern Japanese Maritime Self Defence Force | `unit` | js_ffg_mogami deck / jmsdf_sh-60k | Common Sea |
 | `euromod-main` | Euromod - Main Pack | `store` | ran_ffh_anzac / eu_mu_90_ship | White Water |
-| `euromod-nordic` | Euromod - Modern Nordic Navy | `variant` | hdms_iver_huitfeldt | Western Passage |
+| `euromod-nordic` | Euromod - Modern Nordic Navy | `unit` | hdms_iver_huitfeldt deck / dk_mh-60r | Western Passage |
 | `euromod-ran` | Euromod - Modern Royal Australian Navy Mod | `unit` | rnzaf_p8 | Southern Cross |
-| `euromod-south-korea` | Euromod-South Korea Navy | `unit` | rok_mk99_a | Borrowed Shield |
+| `euromod-south-korea` | Euromod-South Korea Navy | `unit` | ko_ddg-991 deck / rok_mk99_a | Blind Horizon |
 | `euromod-spanish-cold-war` | Euromod - Cold War Spanish Navy | `unit` | ae_lhd_juan_carlos deck / spa_ab212 | The Relief Ship |
-| `euromod-spanish-modern` | Euromod - Modern Spanish Navy | `unit` | spa_av-8b_plus | The Relief Ship |
+| `euromod-spanish-modern` | Euromod - Modern Spanish Navy | `unit` | ae_lhd_juan_carlos deck / spa_av-8b_plus | The Relief Ship |
 | `f-117` | F-117 Nighthawk | `unit` | usaf_f-117 | Before the Lifeline |
 | `f-15e-strike-eagle` | F-15E StrikeEagle | `unit` | usaf_f-15e_SE | The Long Perimeter |
 | `f-15ex` | F-15 EX Eagle II | `store` | airbase_raaf_darwin deck / usaf_f-15ex_SEII / dts_anaaq-13 | White Water |
@@ -97,7 +97,7 @@ Sea and land positions in 23 of the 35 missions are snapped to points already us
 | `ford-cvn` | Gerald R. Ford-class CVN Aircraft Carrier (Updated Dependencies) | `variant` | usn_cvn_ford_jsf | Long Reach |
 | `formation-manager-replacement` | Group Manager | `library` | compact formation UI and aircraft map grouping through Anchor Chain; no unit or ammunition a mission can place | - |
 | `fq-44-fury-carrier-wingmen` | Anduril FQ-44 Fury US Navy Carrier Wingmen | `unit` | usn_fury_escort | Long Reach |
-| `french-air-force` | French Air Force | `unit` | fr_rafale_m | The Relief Ship |
+| `french-air-force` | French Air Force | `unit` | fr_cvn_charles-de-gaulle deck / fr_rafale_m_tanker | The Relief Ship |
 | `french-army-vehicles` | French Army Vehicles | `unit` | fr_apc_vab_top | The Relief Ship |
 | `french-helicopter-package` | French Helicopter Package | `unit` | rnn_ffg_karel_mlu deck / nl_nh90 | Western Passage |
 | `ground-upgrade-ifv` | Ground Upgrade: IFV | `external` | IFV pack the Second Northern War places (Marder, BMP-2 in Tallinn Gate); its stale 25 mm and TOW-1 game rounds are restored by SEST Collection Fixes | - |
@@ -113,10 +113,10 @@ Sea and land positions in 23 of the 35 missions are snapped to points already us
 | `iskander-tbm` | Iskander TBM | `unit` | wp_ss-26_tel | Range Week |
 | `italian-navy-cold-war` | Italian Navy Mod | `unit` | am_tornado_ids | Before the Lifeline |
 | `j-10c` | ChengDu J-10C Vigorous Dragon | `unit` | pla_airbase_modern deck / plaaf_j10c | The Open Door |
-| `j-11` | Shenyang J-11 | `unit` | plaaf_j-11bg | Common Sea |
+| `j-11` | Shenyang J-11 | `unit` | pla_airbase_modern deck / plaaf_j-11 | The Open Door |
 | `j-11bs` | PLA Shenyang J-11BS | `unit` | pla_airbase_modern deck / plaaf_j-11bs | The Open Door |
 | `j-16-multirole` | Rebuilt J-16 / J-16D | `unit` | plaaf_j16 | Blind Horizon |
-| `j-16a` | Shenyang J-16A (歼-16A 潜龙) | `unit` | plaf_j16d | Return Passage |
+| `j-16a` | Shenyang J-16A (歼-16A 潜龙) | `unit` | pla_airbase_modern deck / plaf_j16a | The Open Door |
 | `j-20` | J-20 (歼-20 威龙) | `squadron` | pla_airbase_modern deck / plaaf_j-20a | The Open Door |
 | `j-36-tailless` | J-36 Tailless Fighter | `unit` | plaaf_j36 | Long Reach |
 | `j-50` | Shenyang J-50 (沈阳航空工业 歼-50) | `unit` | plan_j-50 | Long Reach |
@@ -129,7 +129,7 @@ Sea and land positions in 23 of the 35 missions are snapped to points already us
 | `kc-135` | KC-135 STRATOTANKER | `unit` | airbase_raaf_tindal deck / usaf_stratotanker | Blind Horizon |
 | `kc-46a` | KC-46A Pegasus - Strategic Tanker | `unit` | airbase_raaf_darwin deck / usaf_kc-46a_warp | White Water |
 | `kirov-pyotr-velikiy` | Kirov-class (Pyotr Velikiy Upgrade) | `variant` | wp_rkr_kirov_improved | Return Passage |
-| `kuznetsov-1143-5` | 1143.5 Kuznetsov | `unit` | wp_su-33 | Return Passage |
+| `kuznetsov-1143-5` | 1143.5 Kuznetsov | `unit` | ru_cv_kuznetsov deck / wp_su-33 | Return Passage |
 | `liaoning-type-001` | PLAN Type 001 Aircraft Carrier Liaoning | `unit` | plan_type_001 | Fujian's Shadow |
 | `mare-nostrum-28` | Mare Nostrum '28 | `external` | a third-party Task Force Mode campaign (11 missions, Mediterranean 2028) that ships no unit, round or system; its missions place other mods' units, all of them in the order | - |
 | `merchants-expanded` | Merchants Expanded | `unit` | civ_ms_mairangi_bay | White Water |
@@ -139,7 +139,7 @@ Sea and land positions in 23 of the 35 missions are snapped to points already us
 | `mi-8ew` | Mi-8EW | `unit` | wp_mi-8ew | The Open Door |
 | `mig-29-family` | MIG-29 Family | `unit` | wp_airbase_modern deck / wp_mig-29a | The Open Door |
 | `mig-31-foxhound` | MiG-31 Foxhound | `unit` | wp_mig-31bm | Long Way Home |
-| `mig-35` | MiG-35 Fulcrum-F (米格-35 支点-F) | `unit` | wp_mig-35 | Western Passage |
+| `mig-35` | MiG-35 Fulcrum-F (米格-35 支点-F) | `unit` | wp_airbase_modern deck / wp_mig-35 | The Open Door |
 | `modern-chinese-airbase` | Modern Chinese Airbase (Large) | `variant` | pla_airbase_modern | The Open Door |
 | `modern-plan-systems` | Modern PLAN Systems | `unit` | plan_ss_type_039b | Steel Highway |
 | `modern-russian-airbase` | Modern Russian Airbase (Large) | `variant` | wp_airbase_modern | The Open Door |
@@ -208,8 +208,8 @@ Sea and land positions in 23 of the 35 missions are snapped to points already us
 | `tu-95-as-15` | Tu-95 With AS-15 (Kh-55) ALCM (more realistic nuke) | `unit` | wp_tu-95ms | Return Passage |
 | `tu-95k-22` | Tu-95K-22 Bear G MOD | `unit` | wp_tu-95_bearg | Before the Lifeline |
 | `tu-95ms-x-101` | Tu-95MS (X-101) | `unit` | wp_tu95ms | Return Passage |
-| `type-003-004-maneuverwarfare` | Type 003 Fujian / Type 004 CVN Aircraft Carriers | `unit` | plan_j-15d | Fujian's Shadow |
-| `type-071-lpd` | PLAN Type 071 Amphibious Transport Dock | `variant` | plan_lpd_type_071 | Weapons Free |
+| `type-003-004-maneuverwarfare` | Type 003 Fujian / Type 004 CVN Aircraft Carriers | `unit` | pla_airbase_modern deck / plan_j-15 | The Open Door |
+| `type-071-lpd` | PLAN Type 071 Amphibious Transport Dock | `unit` | plan_lpd_type_071 deck / planaf_z-20j | Weapons Free |
 | `type-12-ssm` | Type 12 SSM-ER Anti-Ship Missile System | `unit` | jp_12ssmht | Range Week |
 | `u-2` | U-2 "Dragon Lady" | `unit` | usaf_u-2_1960 | Before the Lifeline |
 | `ultimate-missile-workshop` | Ultimate Missile Workshop | `external` | a missile rebalance placed below every mod it duplicates on the player's call: its 95 contested rounds load from the mods that field them, and no unit in the collection hangs the 16 rounds only it ships | - |
@@ -225,7 +225,7 @@ Sea and land positions in 23 of the 35 missions are snapped to points already us
 | `SEST_A10C_Plus` | SEST A-10C+ | `unit` | usaf_a-10c_plus | Range Week |
 | `SEST_ADF_Persistent_ISR` | SEST ADF Persistent ISR | `unit` | raaf_mq-4c_triton | White Water |
 | `SEST_Allied_Fixes` | SEST Allied Fixes | `unit` | ran_ffh_anzac deck / ran_S-70B-2_Seahawk | White Water |
-| `SEST_B52_ARRW` | SEST B-52 ARRW | `unit` | dts_b-52h | The Open Door |
+| `SEST_B52_ARRW` | SEST B-52 ARRW | `unit` | airbase_raaf_tindal deck / dts_b-52h | Blind Horizon |
 | `SEST_Campaign` | SEST Southern Watch Campaign | `campaign` | this pack: it ships the campaign, its missions, its requisition roster and their briefings. It is what the coverage below is measured on, so it cannot place a unit to reach itself | - |
 | `SEST_Collection_Fixes` | SEST Collection Fixes | `unit` | plaaf_jh7a | Weapons Free |
 | `SEST_Combat_Costs` | SEST Combat Cost Compatibility | `library` | three Combat Cost Tracker catalog extensions: spelling corrections, reviewed airframe/hull/weapon-family estimates and SEST researched estimates with their sources; no performance or mission changes | - |

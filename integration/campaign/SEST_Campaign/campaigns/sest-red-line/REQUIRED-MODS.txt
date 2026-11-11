@@ -6,7 +6,7 @@ units its roster sells with their variants and rounds. The pack-level
 REQUIRED-MODS.txt two folders up, at the pack's root, is the union
 across every campaign in the pack.
 
-1. HARD REQUIRED (51): a mission or the roster names a file of theirs, or a mod above says it cannot run without them.
+1. HARD REQUIRED (58): a mission or the roster names a file of theirs, or a mod above says it cannot run without them.
 
   3438479626    a weapon a loadout hangs         1143.5 Kuznetsov
   3499239964    a unit a mission places          [DEPRECATED] E-7A Wedgetail
@@ -50,8 +50,8 @@ across every campaign in the pack.
   3413868677    a model a unit draws             Red Storm Arsenal
   3571718093    a model a unit draws             Road Mobile ICBMs (Topol-M, DF-41)
   3455404959    a hull variant in use            Royal Australian Defence Forces
-  3436170138    a weapon a loadout hangs         Shenyang J-11
-  3506979898    a weapon a loadout hangs         Shenyang J-16A (歼-16A 潜龙)
+  3436170138    a unit a mission places          Shenyang J-11
+  3506979898    a unit a mission places          Shenyang J-16A (歼-16A 潜龙)
   3670643788    a weapon a loadout hangs         Shenyang J-50 (沈阳航空工业 歼-50)
   3433577445    a unit a mission places          Shenyang J-8
   3434072450    a weapon a loadout hangs         Sukhoi Flanker Family (苏霍伊侧卫家族)
@@ -59,6 +59,20 @@ across every campaign in the pack.
   3606774881    a hull variant in use            U.S. Navy 2027 Capabilities mod
   3737267013    a weapon a loadout hangs         United States Naval Aviation
   3433957933    a hull variant in use            Virginia-, Seawolf-, and Ohio-class Submarines
+  3380210757    required by another mod          Anchor Chain
+                                                   asked for by: PLA & PLAN & PLAAF AEP, Type 003 Fujian / Type 004 CVN Aircraft Carriers
+  3606134711    required by another mod          Custom Loadout Editor
+                                                   asked for by: Royal Australian Defence Forces
+  3776730617    required by another mod          EUROMOD-Armada de Chile
+                                                   asked for by: Royal Australian Defence Forces
+  3789208859    required by another mod          Euromod-South Korea Navy
+                                                   asked for by: The Royal Navy
+  3505420313    required by another mod          Italian Navy Mod
+                                                   asked for by: The Royal Navy
+  3455931957    required by another mod          Sea Lynx
+                                                   asked for by: The Royal Navy
+  3491248180    required by another mod          The Royal Navy
+                                                   asked for by: Royal Australian Defence Forces
 
 2. SEST INTEGRATION PACKS (9): this project's own patches, already inside this pack (SEST Integration Pack, Workshop 3812461539);
 there is nothing more to subscribe to.
@@ -78,7 +92,7 @@ LOAD-ORDER.txt is missing. (Anchor Chain is one a mod in list 1 asks
 for; the map, salvo and rescue tools are conveniences.)
 
 
-4. NOT USED BY THIS CAMPAIGN (168): enabled while it was built, and left in the order because removing one changes which copy of a
+4. NOT USED BY THIS CAMPAIGN (161): enabled while it was built, and left in the order because removing one changes which copy of a
 shared file wins for the mods above.
 
   3587091564    3M25 <<МЕТЕОРИТ>> (AS-X-19 Koala)
@@ -88,7 +102,6 @@ shared file wins for the mods above.
   3414146266    A-10A Thunderbolt II
   3425450153    AH-64 Apache
   3461091581    Air Deck Operations Upgrade - Nimitz (2000s)
-  3380210757    Anchor Chain
   3804868806    Anduril FQ-44 Fury US Navy Carrier Wingmen
   3819522350    Anduril Maritime Drones
   3416372890    Apex Predators MIG-29A & F-16A
@@ -112,7 +125,6 @@ shared file wins for the mods above.
   3807187341    Combat Cost Tracker
   3819427362    Contact Log
   3806686336    Coordinated Strike Tool
-  3606134711    Custom Loadout Editor
   3558173926    David's Sling
   3760871384    Dingtools Weapon Pack
   3813157776    Dynamic Campaign Mod
@@ -125,11 +137,9 @@ shared file wins for the mods above.
   3575847216    Euromod - Modern German Navy
   3488139470    Euromod - Modern Italian Navy
   3642656500    Euromod - Modern Nordic Navy
-  3776730617    EUROMOD-Armada de Chile
   3678767059    Euromod-Brazilian Armed Forces(2000)
   3812454152    Euromod-HD Hyundai Export Ships Mod
   3807164392    Euromod-India-Navy
-  3789208859    Euromod-South Korea Navy
   3448845252    F-117 Nighthawk
   3636386513    F-15 EX Eagle II
   3553116604    F-15E StrikeEagle
@@ -154,7 +164,6 @@ shared file wins for the mods above.
   3408662804    Iskander TBM
   3569219326    ISKANDER-K
   3681748718    ISKANDER-M
-  3505420313    Italian Navy Mod
   3520352434    JAS-39 Gripen
   3802216383    JMSDF Hyūga Class — Hyūga & Ise
   3776340577    Ka-27RLD
@@ -201,7 +210,6 @@ shared file wins for the mods above.
   3437105712    SAM Pack
   3766210676    Saronic Corsair ASV
   3461519690    SCUD-B
-  3455931957    Sea Lynx
   3826396311    Sea Power Pop-Out Windows
   3826122523    Sea Power Topographic Map
   3628247436    Sea Venom - Aquilon
@@ -232,7 +240,6 @@ shared file wins for the mods above.
   3683253079    Terminal High Altitude Area Defense (T.H.A.A.D) System (AN/TPY-2 Radar System included)
   3711297532    Thailand: The Siam Shield
   3732654992    THE REDFOR MOD
-  3491248180    The Royal Navy
   3709961172    The Second Northern War
   3509329205    TU-160 Blackjack
   3780118683    Tu-214R Family (图-214R家族)

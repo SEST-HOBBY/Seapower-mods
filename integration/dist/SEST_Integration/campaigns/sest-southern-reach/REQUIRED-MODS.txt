@@ -6,7 +6,7 @@ units its roster sells with their variants and rounds. The pack-level
 REQUIRED-MODS.txt two folders up, at the pack's root, is the union
 across every campaign in the pack.
 
-1. HARD REQUIRED (62): a mission or the roster names a file of theirs, or a mod above says it cannot run without them.
+1. HARD REQUIRED (64): a mission or the roster names a file of theirs, or a mod above says it cannot run without them.
 
   3438479626    a squadron a flight comes from   1143.5 Kuznetsov
   3781062859    a model a unit draws             <<E-3G>>
@@ -70,6 +70,10 @@ across every campaign in the pack.
   3486502935    a unit a mission places          Type 003 Fujian / Type 004 CVN Aircraft Carriers
   3606774881    a hull variant in use            U.S. Navy 2027 Capabilities mod
   3737267013    a unit a mission places          United States Naval Aviation
+  3380210757    required by another mod          Anchor Chain
+                                                   asked for by: PLA & PLAN & PLAAF AEP, Type 003 Fujian / Type 004 CVN Aircraft Carriers
+  3434072450    required by another mod          Sukhoi Flanker Family (苏霍伊侧卫家族)
+                                                   asked for by: THE REDFOR MOD
 
 2. SEST INTEGRATION PACKS (14): this project's own patches, already inside this pack (SEST Integration Pack, Workshop 3812461539);
 there is nothing more to subscribe to.
@@ -94,7 +98,7 @@ LOAD-ORDER.txt is missing. (Anchor Chain is one a mod in list 1 asks
 for; the map, salvo and rescue tools are conveniences.)
 
 
-4. NOT USED BY THIS CAMPAIGN (152): enabled while it was built, and left in the order because removing one changes which copy of a
+4. NOT USED BY THIS CAMPAIGN (150): enabled while it was built, and left in the order because removing one changes which copy of a
 shared file wins for the mods above.
 
   3587091564    3M25 <<МЕТЕОРИТ>> (AS-X-19 Koala)
@@ -103,7 +107,6 @@ shared file wins for the mods above.
   3414146266    A-10A Thunderbolt II
   3425450153    AH-64 Apache
   3461091581    Air Deck Operations Upgrade - Nimitz (2000s)
-  3380210757    Anchor Chain
   3804868806    Anduril FQ-44 Fury US Navy Carrier Wingmen
   3819522350    Anduril Maritime Drones
   3416372890    Apex Predators MIG-29A & F-16A
@@ -229,7 +232,6 @@ shared file wins for the mods above.
   3451166840    Su-25 Frogfoot
   3762023575    Su-30SM2
   3503594612    SU-57 Felon (重刑犯)
-  3434072450    Sukhoi Flanker Family (苏霍伊侧卫家族)
   3683253079    Terminal High Altitude Area Defense (T.H.A.A.D) System (AN/TPY-2 Radar System included)
   3711297532    Thailand: The Siam Shield
   3491248180    The Royal Navy

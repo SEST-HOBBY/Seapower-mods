@@ -64,9 +64,9 @@ Workshop id   supplies                         mod
 3599752717    a unit a mission places          Euromod - Modern British Navy
 3444379330    a hull variant in use            Euromod - Modern Dutch navy
 3575847216    a unit a mission places          Euromod - Modern German Navy
-3488139470    a hull variant in use            Euromod - Modern Italian Navy
+3488139470    a unit a mission places          Euromod - Modern Italian Navy
 3695809489    a unit a mission places          Euromod - Modern Japanese Maritime Self Defence Force
-3642656500    a hull variant in use            Euromod - Modern Nordic Navy
+3642656500    a unit a mission places          Euromod - Modern Nordic Navy
 3820759806    a unit a mission places          Euromod - Modern Royal Australian Navy Mod
 3731208477    a unit a mission places          Euromod - Modern Spanish Navy
 3812454152    a hull variant in use            Euromod-HD Hyundai Export Ships Mod
@@ -134,7 +134,7 @@ Workshop id   supplies                         mod
 3812111085    a unit a mission places          PLAAF Aircraft Pack
 3594891803    a unit a mission places          PLAN Submarines
 3774859959    a unit a mission places          PLAN Type 001 Aircraft Carrier Liaoning
-3774572038    a hull variant in use            PLAN Type 071 Amphibious Transport Dock
+3774572038    a unit a mission places          PLAN Type 071 Amphibious Transport Dock
 3399699218    a unit a mission places          Project 2498 Zyetseth Class Assault Vessel
 3808882954    a unit a mission places          RC-135V/W Rivet Joint
 3605013271    a unit a mission places          RE-power: the resupply mod
@@ -194,11 +194,17 @@ above does, in its own description. Skipping one breaks the mod
 that asked for it.
 
 3380210757    required by another mod          Anchor Chain
-                                                 asked for by: Anduril FQ-44 Fury US Navy Carrier Wingmen, Anduril Maritime Drones, B-2 Spirit, EC-2 Stand Off Jammer, V-22 Osprey / SV-22 2024 ASW prototype, YF-23 Black Widow II
+                                                 asked for by: Anduril FQ-44 Fury US Navy Carrier Wingmen, Anduril Maritime Drones, B-2 Spirit, EC-2 Stand Off Jammer, MV-75 Cheyenne II, PLA & PLAN & PLAAF AEP, Pakistani Pack, Saronic Corsair ASV, Type 003 Fujian / Type 004 CVN Aircraft Carriers, V-22 Osprey / SV-22 2024 ASW prototype, YF-23 Black Widow II
+3776730617    required by another mod          EUROMOD-Armada de Chile
+                                                 asked for by: Royal Australian Defence Forces
+3491248180    required by another mod          The Royal Navy
+                                                 asked for by: Royal Australian Defence Forces
+3637954857    required by another mod          Y-8/Y-9 Special Mission Aircraft Family
+                                                 asked for by: Pakistani Pack
 
 --------------------------------------------------------------------------
 
-Also enabled while this was built (16), and left in the order
+Also enabled while this was built (15), and left in the order
 because removing one changes which file wins: these ship systems,
 effects or UI rather than anything a mission names, or are outranked
 by something above them. The campaign does not call for them.
@@ -218,11 +224,10 @@ by something above them. The campaign does not call for them.
 3826396311    library                          Sea Power Pop-Out Windows
 3826122523    library                          Sea Power Topographic Map
 3636213685    shadowed                         wp_sattelite_center
-3637954857    shadowed                         Y-8/Y-9 Special Mission Aircraft Family
 
 --------------------------------------------------------------------------
 
-In the collection for other campaigns and scenarios (21):
+In the collection for other campaigns and scenarios (19):
 the third-party campaigns the collection carries, the mods they
 place, and content none of the SEST campaigns uses. They are in
 LOAD-ORDER.txt, so SETUP still requires them.
@@ -231,7 +236,6 @@ LOAD-ORDER.txt, so SETUP still requires them.
 3628203171    other campaigns                  Bréguet Br.1050 Alizé
 3628201887    other campaigns                  Clemenceau-class Aircraft Carrier
 3555361900    other campaigns                  Etendard Family Jets
-3776730617    other campaigns                  EUROMOD-Armada de Chile
 3678767059    other campaigns                  Euromod-Brazilian Armed Forces(2000)
 3807164392    other campaigns                  Euromod-India-Navy
 3434693420    other campaigns                  F-15J Peace Eagle
@@ -245,7 +249,6 @@ LOAD-ORDER.txt, so SETUP still requires them.
 3731931836    other campaigns                  Prithvi TBM (大地弹道导弹)
 3496055699    other campaigns                  S-500
 3628247436    other campaigns                  Sea Venom - Aquilon
-3491248180    other campaigns                  The Royal Navy
 3709961172    other campaigns                  The Second Northern War
 3672072359    other campaigns                  Ultimate Missile Workshop
 

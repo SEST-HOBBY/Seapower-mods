@@ -6,7 +6,7 @@ units its roster sells with their variants and rounds. The pack-level
 REQUIRED-MODS.txt two folders up, at the pack's root, is the union
 across every campaign in the pack.
 
-1. HARD REQUIRED (30): a mission or the roster names a file of theirs, or a mod above says it cannot run without them.
+1. HARD REQUIRED (39): a mission or the roster names a file of theirs, or a mod above says it cannot run without them.
 
   3432668460    a unit a mission places          Auxilliary Merchant Pack
   3746453639    a unit a mission places          Civil Aircraft Mod (Airbus Family)
@@ -38,6 +38,24 @@ across every campaign in the pack.
   3486502935    a weapon a loadout hangs         Type 003 Fujian / Type 004 CVN Aircraft Carriers
   3737267013    a weapon a loadout hangs         United States Naval Aviation
   3526982088    a weapon a loadout hangs         XIAN JH-7A (歼轰-7A 飞豹)
+  3380210757    required by another mod          Anchor Chain
+                                                   asked for by: PLA & PLAN & PLAAF AEP, Type 003 Fujian / Type 004 CVN Aircraft Carriers
+  3567256221    required by another mod          Charles De Gaulle & Modern French Navy Pack (WIP)
+                                                   asked for by: Euromod-HD Hyundai Export Ships Mod
+  3606134711    required by another mod          Custom Loadout Editor
+                                                   asked for by: Royal Australian Defence Forces
+  3776730617    required by another mod          EUROMOD-Armada de Chile
+                                                   asked for by: Royal Australian Defence Forces
+  3758943352    required by another mod          French Air Force
+                                                   asked for by: Euromod-HD Hyundai Export Ships Mod
+  3567228449    required by another mod          French Helicopter Package
+                                                   asked for by: EUROMOD-Armada de Chile, Euromod - Modern Royal Australian Navy Mod
+  3505420313    required by another mod          Italian Navy Mod
+                                                   asked for by: The Royal Navy
+  3437105712    required by another mod          SAM Pack
+                                                   asked for by: Euromod-HD Hyundai Export Ships Mod
+  3491248180    required by another mod          The Royal Navy
+                                                   asked for by: Royal Australian Defence Forces
 
 2. SEST INTEGRATION PACKS (4): this project's own patches, already inside this pack (SEST Integration Pack, Workshop 3812461539);
 there is nothing more to subscribe to.
@@ -52,7 +70,7 @@ LOAD-ORDER.txt is missing. (Anchor Chain is one a mod in list 1 asks
 for; the map, salvo and rescue tools are conveniences.)
 
 
-4. NOT USED BY THIS CAMPAIGN (194): enabled while it was built, and left in the order because removing one changes which copy of a
+4. NOT USED BY THIS CAMPAIGN (185): enabled while it was built, and left in the order because removing one changes which copy of a
 shared file wins for the mods above.
 
   3438479626    1143.5 Kuznetsov
@@ -65,7 +83,6 @@ shared file wins for the mods above.
   3459682829    A-10C
   3425450153    AH-64 Apache
   3461091581    Air Deck Operations Upgrade - Nimitz (2000s)
-  3380210757    Anchor Chain
   3804868806    Anduril FQ-44 Fury US Navy Carrier Wingmen
   3819522350    Anduril Maritime Drones
   3416372890    Apex Predators MIG-29A & F-16A
@@ -84,14 +101,12 @@ shared file wins for the mods above.
   3600788156    Buildings and Targets for Missions
   3564792549    BUK-M3
   3801363152    CH-53E Standalone v0.1.0
-  3567256221    Charles De Gaulle & Modern French Navy Pack (WIP)
   3481228992    ChengDu J-10C Vigorous Dragon
   3417801942    Chinese Navy (PLAN)
   3628201887    Clemenceau-class Aircraft Carrier
   3807187341    Combat Cost Tracker
   3819427362    Contact Log
   3806686336    Coordinated Strike Tool
-  3606134711    Custom Loadout Editor
   3558173926    David's Sling
   3760871384    Dingtools Weapon Pack
   3813157776    Dynamic Campaign Mod
@@ -108,7 +123,6 @@ shared file wins for the mods above.
   3695809489    Euromod - Modern Japanese Maritime Self Defence Force
   3642656500    Euromod - Modern Nordic Navy
   3731208477    Euromod - Modern Spanish Navy
-  3776730617    EUROMOD-Armada de Chile
   3678767059    Euromod-Brazilian Armed Forces(2000)
   3807164392    Euromod-India-Navy
   3448845252    F-117 Nighthawk
@@ -124,9 +138,7 @@ shared file wins for the mods above.
   3673703427    Fattah-1
   3672497668    Fattah-2
   3373960386    Flight Deck Ops
-  3758943352    French Air Force
   3736147136    French Army Vehicles
-  3567228449    French Helicopter Package
   3503670861    General Atomics MQ-9 Reaper
   3461044389    Gerald R. Ford-class CVN Aircraft Carrier (Updated Dependencies)
   3412480633    Ground Upgrade: IFV
@@ -139,7 +151,6 @@ shared file wins for the mods above.
   3408662804    Iskander TBM
   3569219326    ISKANDER-K
   3681748718    ISKANDER-M
-  3505420313    Italian Navy Mod
   3591563716    J-20 (歼-20 威龙)
   3801549552    J-36 Tailless Fighter
   3520352434    JAS-39 Gripen
@@ -192,7 +203,6 @@ shared file wins for the mods above.
   3496055699    S-500
   3392434750    SA-21/S-400 SAM
   3673250557    SAAB AEW&C PACK
-  3437105712    SAM Pack
   3766210676    Saronic Corsair ASV
   3461519690    SCUD-B
   3826396311    Sea Power Pop-Out Windows
@@ -231,7 +241,6 @@ shared file wins for the mods above.
   3434072450    Sukhoi Flanker Family (苏霍伊侧卫家族)
   3683253079    Terminal High Altitude Area Defense (T.H.A.A.D) System (AN/TPY-2 Radar System included)
   3732654992    THE REDFOR MOD
-  3491248180    The Royal Navy
   3709961172    The Second Northern War
   3509329205    TU-160 Blackjack
   3780118683    Tu-214R Family (图-214R家族)

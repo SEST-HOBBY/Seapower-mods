@@ -10,10 +10,10 @@ This campaign reaches 60 of the enabled mods and packs; the 168 it does not are 
 
 | class | meaning | mods |
 |---|---|---|
-| `unit` | places the unit; this mod wins its file | 27 |
+| `unit` | places the unit; this mod wins its file | 29 |
 | `variant` | supplies the hull variant a placed or sold unit uses | 6 |
 | `squadron` | supplies the squadron a placed or sold airframe flies from | 2 |
-| `store` | supplies a round a placed or sold unit's loadout hangs | 16 |
+| `store` | supplies a round a placed or sold unit's loadout hangs | 14 |
 | `asset` | supplies a model folder a placed or sold unit's file draws from | 9 |
 
 Sea and land positions in 4 of the 9 missions are snapped to points already used by a loading mission (the furthest any anchor had to move is 6.7 NM); the other 5 use them as authored, checked against the coastline extract.
@@ -39,9 +39,9 @@ Sea and land positions in 4 of the 9 missions are snapped to points already used
 | `french-helicopter-package` | French Helicopter Package | `store` | plan_type_001 deck / plan_z-18j / fr_l3 | The Order to Withdraw |
 | `humpback-whale` | Humpback Whale | `unit` | civ_humpback | Under the Convergence |
 | `j-10c` | ChengDu J-10C Vigorous Dragon | `unit` | pla_airbase_modern deck / plaaf_j10c | Datum |
-| `j-11` | Shenyang J-11 | `store` | plan_cv_type_003 deck / plan_j-35 / plaaf_pl-10 | Trailing Contact |
+| `j-11` | Shenyang J-11 | `unit` | pla_airbase_modern deck / plaaf_j-11 | Datum |
 | `j-11bs` | PLA Shenyang J-11BS | `unit` | pla_airbase_modern deck / plaaf_j-11bs | Datum |
-| `j-16a` | Shenyang J-16A (歼-16A 潜龙) | `store` | plan_cv_type_003 deck / plan_j-35 / plaaf_ls-6_500_zc | Trailing Contact |
+| `j-16a` | Shenyang J-16A (歼-16A 潜龙) | `unit` | pla_airbase_modern deck / plaf_j16a | Datum |
 | `j-20` | J-20 (歼-20 威龙) | `squadron` | pla_airbase_modern deck / plaaf_j-20a | Datum |
 | `j-36-tailless` | J-36 Tailless Fighter | `store` | plan_cv_type_003 deck / plan_j-35 / plaaf_4xgj | Trailing Contact |
 | `j-50` | Shenyang J-50 (沈阳航空工业 歼-50) | `store` | plan_cv_type_003 deck / plan_j-15t / plan_yj-15 | Trailing Contact |
@@ -51,7 +51,7 @@ Sea and land positions in 4 of the 9 missions are snapped to points already used
 | `merchants-expanded` | Merchants Expanded | `unit` | civ_ms_mairangi_bay | The Other Picture |
 | `mig-29-family` | MIG-29 Family | `store` | pla_airbase_modern deck / plaaf_j-11a / wp_aa-12 | Datum |
 | `modern-chinese-airbase` | Modern Chinese Airbase (Large) | `variant` | pla_airbase_modern | Datum |
-| `modern-plan-systems` | Modern PLAN Systems | `unit` | plan_z-9c | Trailing Contact |
+| `modern-plan-systems` | Modern PLAN Systems | `unit` | plan_type_054a_p5 deck / plan_z-9f | Trailing Contact |
 | `mogami-frigate` | Mogami-class Frigate | `variant` | js_ffg_mogami | The Ships from the North |
 | `mq-9-reaper` | General Atomics MQ-9 Reaper | `asset` | raaf_mq-4c_triton / assets/models/vechicle/aircraft/mq-9 | Trailing Contact |
 | `nato-e-3a-sentry` | NATO E-3A Sentry | `asset` | plan_j-15 / assets/aircraft/materials | The Ships from the North |
@@ -67,7 +67,7 @@ Sea and land positions in 4 of the 9 missions are snapped to points already used
 | `road-mobile-icbms` | Road Mobile ICBMs (Topol-M, DF-41) | `asset` | jmsdf_ddg_maya / ships/materials/shared | The Ships from the North |
 | `royal-australian-defence-forces` | Royal Australian Defence Forces | `variant` | wp_ptg_komar | Routes They Can See |
 | `su-27ubk` | PLA Sukhoi Su-27UBK | `unit` | pla_airbase_modern deck / plaaf_su-27ubk | Datum |
-| `type-003-004-maneuverwarfare` | Type 003 Fujian / Type 004 CVN Aircraft Carriers | `unit` | plan_j-15 | The Ships from the North |
+| `type-003-004-maneuverwarfare` | Type 003 Fujian / Type 004 CVN Aircraft Carriers | `unit` | pla_airbase_modern deck / plan_j-15 | Datum |
 | `us-naval-aviation` | United States Naval Aviation | `store` | js_ffg_mogami deck / jmsdf_sh-60k / usn_sh60_tank | The Ships from the North |
 | `us-navy-2027` | U.S. Navy 2027 Capabilities mod | `variant` | usn_ssn_virginia_2027 | Datum |
 | `us-submarines` | Virginia-, Seawolf-, and Ohio-class Submarines | `variant` | usn_ssn_virginia | Under the Convergence |

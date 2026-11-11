@@ -1,6 +1,6 @@
 Southern Watch - Workshop mods this campaign reaches (reference only)
 
-161 items, in canonical load order. NOT the Workshop item's
+162 items, in canonical load order. NOT the Workshop item's
 Required Items list. All the SEST campaigns ship in one item, the SEST
 Integration Pack (3812461539), whose Required Items - like the
 collection 'SEST - Modernised Campaign Collection' (3812390790) -
@@ -21,6 +21,7 @@ https://steamcommunity.com/sharedfiles/filedetails/?id=3760871384    # Dingtools
 https://steamcommunity.com/sharedfiles/filedetails/?id=3606774881    # U.S. Navy 2027 Capabilities mod
 https://steamcommunity.com/sharedfiles/filedetails/?id=3629144864    # Euromod - Main Pack
 https://steamcommunity.com/sharedfiles/filedetails/?id=3775128499    # Modern PLAN Systems
+https://steamcommunity.com/sharedfiles/filedetails/?id=3637954857    # Y-8/Y-9 Special Mission Aircraft Family
 https://steamcommunity.com/sharedfiles/filedetails/?id=3607989779    # F-35C Lightning II Alt. Loadouts
 https://steamcommunity.com/sharedfiles/filedetails/?id=3430135740    # F/A-18 Murder Hornet with AIM-174B
 https://steamcommunity.com/sharedfiles/filedetails/?id=3394781441    # B-52G with AGM-86 (realistic nuke)

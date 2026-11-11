@@ -61,7 +61,7 @@ Sea and land positions are used as authored and checked against the coastline ex
 | `kuznetsov-1143-5` | 1143.5 Kuznetsov | `squadron` | rfn_cvt_20380_7-12 deck / wp_ka-27 | Beneath the South |
 | `liaoning-type-001` | PLAN Type 001 Aircraft Carrier Liaoning | `unit` | plan_type_001 | Cold Route |
 | `merchants-expanded` | Merchants Expanded | `unit` | civ_ms_mairangi_bay | Southern Departure |
-| `modern-plan-systems` | Modern PLAN Systems | `unit` | plan_ka-31 | Empty Horizon |
+| `modern-plan-systems` | Modern PLAN Systems | `unit` | plan_type_054a_p5 deck / plan_z-9f | Southern Departure |
 | `modern-us-navy` | Modern US Navy | `roster` | usn_ddg-1000_cps at 480 points | requisition roster |
 | `mogami-frigate` | Mogami-class Frigate | `variant` | js_ffg_mogami Variant2 | requisition roster |
 | `mq-9-reaper` | General Atomics MQ-9 Reaper | `squadron` | airbase_raaf_edinburgh deck / usaf_mq-9a | Southern Departure |
@@ -154,7 +154,7 @@ Not sold (30):
 | `mm_av-8b_plus` | no field or deck in reach in Southern Cross CAP, Tasman Crossing CAP |
 | `ita_sh-101a` | no field or deck in reach in Beneath the South Recon, Cold Route Recon, Macquarie Passage Recon, Search Datum Recon, Southern Cross Recon, Tasman Crossing Recon |
 | `ita_sh90` | no field or deck in reach in Beneath the South Recon, Cold Route Recon, Macquarie Passage Recon, Search Datum Recon, Southern Cross Recon, Tasman Crossing Recon |
-| `spa_ef2000` | no field or deck in reach in Southern Cross CAP, Tasman Crossing CAP |
+| `spa_ef2000` | a row takes its role but offers none of its fits: Attack: sells spa_ef2000 into this flight, and it defines none of Strike/StrikeLongRange/AntiShip/AntiShipHeavy/MurderHornetSEAD/MurderHornetAntiShip/SEST_SEAD120D/SEST_SEAD88C/SEST_SEAD88E/StrikeStealth/StrikeLongRangeStealth/MH_AntiShipEF/MH_LRASM/MH_QCSK31/MH_QCSK31EF/MH_QCSK38/MH_QCSK38EF/MH_GBU-75/MH_JASSM/MH_AGM-154JSOW/MH_AGM-154EF/MH_AGM-154JSOWclus/MH_AGM-154clusEF/MurderHornetStrikeJDAM/MH_GBU-31EF/MurderHornetStrikeGBU/MH_GBU-24EF/MurderHornetCASAGM/MH_CASAGMEF/MurderHornetCASSDB/MH_CASSDBEF/SEST_REDBACK (has: AirToAir, AirToAirIntercept, AirToAirLongRange, StrikePrecision) |
 | `spa_av-8b_plus` | no field or deck in reach in Southern Cross CAP, Tasman Crossing CAP |
 | `nl_nh90` | no field or deck in reach in Beneath the South Recon, Cold Route Recon, Macquarie Passage Recon, Search Datum Recon, Southern Cross Recon, Tasman Crossing Recon |
 | `jp_f-2a_late` | no field or deck in reach in Southern Cross CAP, Tasman Crossing CAP |

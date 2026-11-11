@@ -49,8 +49,8 @@ commodore's grade OF-6 in every ladder SEST adds. The Royal Thai Navy has no
 commodore's grade, so Captain (Special Grade) is placed at OF-6, level 7, and
 Sulu Line's Thai commander holds it. Makran Line's Pakistan Navy ladder uses
 the Navy's ten English ranks, Midshipman to Admiral, with Commodore (OF-6) at
-level 7; its abbreviations (MID, SLT, LT, LT CDR, CDR, CAPT, CDRE, R ADM,
-V ADM, ADM) are NOT verified: the Navy's official site could not be read
+level 7; its abbreviations (MID, SLT, LT, LT CDR, CDR, CAPT, CDRE, RADM,
+VADM, ADM) are NOT verified: the Navy's official site could not be read
 when they were written, so they follow the Royal Navy's pattern. Its emblem
 is the national flag of Pakistan; the Navy's own ensign is not in the
 gallery set. Australia, the US and Japan use the game's own
