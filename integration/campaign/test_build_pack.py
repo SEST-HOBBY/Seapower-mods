@@ -1015,6 +1015,31 @@ class TurnBack(unittest.TestCase):
         with self.assertRaisesRegex(SystemExit, "no turn_back in this mission is called"):
             self.render(m)
 
+    def test_one_chain_per_ship(self):
+        # A second turn_back on the same ship would write a second
+        # Action_DisableTriggers line on "Spoiler met"; an INI reader keeps
+        # one value of a repeated key, so one chain would stay armed after
+        # her loss. check_turn_back refuses it, and render() refuses any
+        # trigger that writes a key twice should anything else get that far.
+        from unittest import mock
+        m = self.mission()
+        second = copy.deepcopy(m["turn_back"][0])
+        second["name"] = "Halt"
+        for key in ("protected", "intel"):
+            second.pop(key)
+        m["turn_back"].append(second)
+        with self.subTest("check_turn_back"), self.assertRaisesRegex(
+                SystemExit, "already has turn_back 'HeaveTo' - one challenge chain per ship"):
+            self.render(m)
+        with self.subTest("render"), mock.patch.object(bp, "check_turn_back", lambda *_a: None), \
+                self.assertRaisesRegex(SystemExit, "'Spoiler met' writes Action_DisableTriggers "
+                                                   "more than once"):
+            self.render(m)
+        # More warships go on the one chain: `by` takes a list.
+        triggers, _n, _text = self.render(self.mission(by=["escort", "group"]))
+        self.assertIn("Condition_Condition2_Units=Taskforce1Vessel1,Taskforce1Vessel2",
+                      triggers["Challenge HeaveTo 1"])
+
 
 class DamageStateFlag(unittest.TestCase):
     """UnitDamageState is in no stock mission, so its INI spelling waits for a

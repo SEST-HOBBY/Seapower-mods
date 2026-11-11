@@ -3427,7 +3427,7 @@ def turn_back_units(mission, members, tb):
 def check_turn_back(mission, members):
     key = mission["key"]
     objectives = {o[0] for o in mission["objectives"]}
-    names = set()
+    names, ships = set(), {}
     for tb in mission.get("turn_back", []):
         where = f"{key}: turn_back {tb.get('name')!r}"
         stray = sorted(set(tb) - TURN_BACK_KEYS)
@@ -3440,6 +3440,16 @@ def check_turn_back(mission, members):
             raise SystemExit(f"{where}: the name is a unique capitalised identifier")
         names.add(tb["name"])
         units, _by = turn_back_units(mission, members, tb)
+        # One chain per ship. A second would write a second
+        # Action_DisableTriggers line on her objective's destroy trigger,
+        # and an INI reader keeps one value of a repeated key, so one chain
+        # would stay armed after her loss; nor would either turn-back switch
+        # off the other's challenges. More warships go in `by`.
+        if units[0] in ships:
+            raise SystemExit(f"{where}: {units[0]} already has turn_back "
+                             f"{ships[units[0]]!r} - one challenge chain per ship; "
+                             "by takes a list of warships")
+        ships[units[0]] = tb["name"]
         for term in mission["victory"].get("also", []):
             if (isinstance(term, dict) and term_kind(term) == "destroyed"
                     and set(units) & {x for r in ([term["units"]] if isinstance(term["units"], str)
@@ -6747,6 +6757,15 @@ def render(mission, placed, members):
         L.append("")
 
     for i, (comment, lines) in enumerate(T, 1):
+        # A key written twice in one trigger: an INI reader keeps one value
+        # for it (which one the game keeps is not known), so the other
+        # line is lost - two Action_DisableTriggers lines leave one list
+        # armed. No built mission writes one.
+        keys = [l.split("=", 1)[0] for l in ["Name="] + lines]
+        twice = sorted({k for k in keys if keys.count(k) > 1})
+        if twice:
+            raise SystemExit(f"{mission['key']}: trigger {comment!r} writes "
+                             f"{', '.join(twice)} more than once; one line would be lost")
         L.append(f"[Trigger{i}]  #{comment}")
         L.append(f"Name={comment}")
         L += lines
