@@ -2,8 +2,9 @@
 
 Two Pakistani tankers with Gwadar's fuel have been at anchor in the roads
 for three days, among merchants waiting for a berth. One of the ships at
-anchor is not a merchant: a Meridian freighter with a pair of SS-N-2
-launchers under her hatch covers, anchored there last night. At dawn three
+anchor is not a merchant: a Meridian freighter with eight SS-N-2
+containers under her hatch covers (the armed Poltava's StyxCarrier fit),
+anchored there last night. At dawn three
 Meridian armed trawlers come out of the west for the anchorage.
 
 The second window releases the Air Force: JF-17 Block II and III strike and
@@ -92,7 +93,10 @@ MISSION = dict(
         "raiders": S(24.62, 62.02, "Meridian trawlers", heading=40),
         "dhows": S(24.90, 62.40, "Fishing dhows", heading=120),
         # Ashore at Gwadar: the field, the air-defence site and the battery.
-        "home": S(25.233, 62.329, "Gwadar airport"),
+        # The old airport. It closed to civil traffic in January 2025, when New
+        # Gwadar International opened 26 km north-east; that the Air Force flies
+        # from it in 2028 is a campaign assumption (bible, section 1).
+        "home": S(25.233, 62.329, "Gwadar airfield (old airport)"),
         "sam": dict(S(25.21, 62.36, "HQ-16AE site"), coastal=True),
         "battery": dict(S(25.24, 62.28, "Coastal battery"), coastal=True),
         "strike": S(25.30, 62.60, "Strike flight", heading=225, alt=3000),
@@ -100,7 +104,10 @@ MISSION = dict(
         "aew": S(25.40, 62.80, "ZDK-03", heading=225, alt=25000),
     },
     units=[
-        U("blue", "pakistani-pack", "pns_type_054a_p", "screen", variant="Variant2"),
+        # air_group=[]: the pack's file embarks the PLAN's Z-9F (China), which
+        # would fill her one deck slot when the mission is launched as authored.
+        U("blue", "pakistani-pack", "pns_type_054a_p", "screen", variant="Variant2",
+          air_group=[]),
         U("blue", "pakistani-pack", "plan_z-9ce", "flight", squadron="Squadron1",
           alt=500, loadout="ASWHunter", slot="HeloRecon"),
         U("blue", "pakistani-pack", "paf_jf-17_blk_iii", "strike", squadron="Squadron1",
@@ -117,22 +124,23 @@ MISSION = dict(
           nation="Pakistan", weapons="Hold"),
         U("blue", "_vanilla", "civ_ms_ritina", "anchorage", name="MT Hab River",
           nation="Pakistan", weapons="Hold"),
-        U("blue", "_vanilla", "airfield_small_1", "home", name="Gwadar airport",
+        U("blue", "_vanilla", "airfield_small_1", "home", name="Gwadar airfield (old airport)",
           nation="Pakistan", weapons="Hold", air_group=[]),
         U("blue", "pakistani-pack", "pla_sam_site_hq-16ae", "sam",
           name="HQ-16AE site, Gwadar", nation="Pakistan", weapons="Hold"),
         U("blue", "pakistani-pack", "pla_c-602_tel", "battery",
           name="Coastal battery, Gwadar", nation="Pakistan", weapons="Hold"),
         # Anchored among the merchants, weapons held until her two scripted
-        # salvoes: a Styx at each tanker.
+        # salvoes: a Styx at each tanker. StyxCarrier is the fit that carries
+        # the SS-N-2 (WeaponSystem3StyxCarrier); Default is machine guns only.
         U("red", "armed-merchantmen", "wp_ms_poltava_armed", "launcher",
-          name="MV Sea Venture", nation="Meridian", weapons="Hold",
+          name="MV Sea Venture", nation="Meridian", weapons="Hold", loadout="StyxCarrier",
           attacks=[(14, "wp_ss-n-2c", "anchorage#1", 1), (32, "wp_ss-n-2c", "anchorage#2", 1)]),
         U("red", "armed-merchantmen", "civ_fv_okean_armed", "raiders", variant="Variant4",
-          name="Meridian Escort 31", nation="Meridian", route=[(24.98, 62.28, 0)],
+          loadout="Bofors", name="Meridian Escort 31", nation="Meridian", route=[(24.98, 62.28, 0)],
           telegraph=4),
         U("red", "armed-merchantmen", "civ_fv_okean_armed", "raiders", variant="Variant5",
-          name="Meridian Escort 32", nation="Meridian", route=[(24.97, 62.31, 0)],
+          loadout="Bofors", name="Meridian Escort 32", nation="Meridian", route=[(24.97, 62.31, 0)],
           telegraph=4),
         U("red", "armed-merchantmen", "civ_fv_sidetrawler_armed", "raiders",
           name="Meridian Escort 33", nation="Meridian", route=[(24.99, 62.33, 0)],

@@ -226,8 +226,8 @@ station, clears the Gwadar anchorage of three armed trawlers and an armed
 freighter hidden among the merchants, trails Meridian's mothership with the
 submarine PNS Hangor, and brings the last convoy into Port Qasim while the
 mothership is sunk or made to heave to. The roster is the Pakistani Pack's
-(the Tughril class, PNS Alamgir, the Z-9CE and Sea King, the JF-17 and
-ZDK-03); there is no Pakistani supply ship in the collection, so every force
+(the Tughril class, PNS Alamgir, the Z-9CE and the pack's Sea King, the
+JF-17 and ZDK-03); there is no Pakistani supply ship in the collection, so every force
 allocation rearms. `docs/campaigns/makran-line/` holds its bible and test card.
 
 All five run on the game's **native Task Force Mode**, the same system the stock

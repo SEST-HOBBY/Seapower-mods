@@ -10,6 +10,10 @@ Pakistan Navy's real Gwadar task force (formed in December 2016) and the
 Regional Maritime Security Patrol its real patrol programme (2018); their
 2028 operations here are fiction. No Indian or Iranian state unit and no
 insurgency ashore is in the story: the opponent is Meridian alone.
+
+The intelligence summary carries the fleet's own marking, not the
+coalition's RELEASABLE TO COALITION PARTNERS: the task group has no partner
+navy, as Red Line's carries its headquarters' own.
 """
 
 EVENTS = [
@@ -46,7 +50,7 @@ EVENTS = [
          headline="TANKERS WAIT OFF GWADAR AS INSURERS STAY AWAY",
          body=[
              "Two tankers carrying fuel for Gwadar have been at anchor off the port for "
-             "three days, waiting for a pilot and a berth. Port officials say the "
+             "three days, waiting for a pilot. Port officials say the "
              "anchorage now holds more ships than it has room for, and that two of "
              "them do not answer on the port's working channel.",
              "Fishermen from Pishukan and Jiwani say armed trawlers have been working "
@@ -62,6 +66,7 @@ EVENTS = [
          sub="Fleet intelligence summary",
          org="Commander Pakistan Fleet, Karachi", ref="INTSUM 28-061",
          date="5 November 2028", subject="Meridian's tender off the Makran coast",
+         marking="SECRET  //  PAKISTAN NAVY ONLY",
          body=[
              "1. The armed trawlers that attacked the Gwadar anchorage did not come "
              "from a port. They were fuelled and armed at sea.",

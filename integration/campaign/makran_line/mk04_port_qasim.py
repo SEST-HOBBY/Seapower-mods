@@ -44,10 +44,11 @@ MISSION = dict(
             "Meridian armed trawlers are coming in from the south-west, and an armed ro-ro, MV "
             "SEA FALCON, from the south.\\n\\n"
             "MV MERIDIAN SENTINEL, their mothership, was off the Indus mouths at midnight. She "
-            "is now running south for the open sea. If she clears the marked circle south of "
-            "the delta, Meridian keeps the ship that fuels its boats.\\n\\n"
+            "is now running south for the open sea. If she reaches the marked circle south of "
+            "the delta, she is clear to sea and Meridian keeps the ship that fuels its "
+            "boats.\\n\\n"
             "Bring at least two of the three tankers within four miles of the Port Qasim "
-            "anchorage. Stop SENTINEL before she clears to sea: sink her, or close her with "
+            "anchorage. Stop SENTINEL before she reaches that circle: sink her, or close her with "
             "the screen's lead ship to within about three miles, and she will heave to and "
             "follow your orders into the Karachi roads. From then she is a protected neutral; "
             "her loss ends the operation. Set the lead ship's weapons to Hold before closing "
@@ -70,8 +71,9 @@ MISSION = dict(
     objectives=[
         ("Convoy", "Bring two of the three tankers within four miles of the Port Qasim "
                    "anchorage", "35,-35,Fail,Main"),
-        ("Mothership", "Also required: stop Meridian Sentinel before she clears to sea, by "
-                       "sinking her or closing her until she heaves to", "20,-40,Fail,Main"),
+        ("Mothership", "Also required: stop Meridian Sentinel before she reaches the marked "
+                       "circle south of the delta, by sinking her or closing her until she "
+                       "heaves to", "20,-40,Fail,Main"),
         ("Ships", "Lose none of the three tankers", "15,-30,Complete"),
         ("Raiders", "Sink three of the four Meridian boats coming for the convoy",
          "10,0,None"),
@@ -169,7 +171,10 @@ MISSION = dict(
         "aew": S(24.90, 67.10, "ZDK-03", heading=200, alt=25000),
     },
     units=[
-        U("blue", "pakistani-pack", "pns_type_054a_p", "escort", variant="Variant3"),
+        # air_group=[]: the pack's file embarks the PLAN's Z-9F (China), which
+        # would fill her one deck slot when the mission is launched as authored.
+        U("blue", "pakistani-pack", "pns_type_054a_p", "escort", variant="Variant3",
+          air_group=[]),
         U("blue", "pakistani-pack", "plan_z-9ce", "flight", squadron="Squadron1",
           alt=500, loadout="ASWHunter", slot="HeloRecon"),
         U("blue", "pakistani-pack", "paf_jf-17_blk_iii", "strike", squadron="Squadron2",
@@ -194,10 +199,10 @@ MISSION = dict(
           name="MV Meridian Sentinel", nation="Meridian", weapons="Hold",
           route=[(24.10, 67.05, 0), (23.80, 66.95, 0)], telegraph=3),
         U("red", "armed-merchantmen", "civ_fv_okean_armed", "raiders", variant="Variant4",
-          name="Meridian Escort 51", nation="Meridian", route=[(24.42, 66.86, 0)],
+          loadout="Bofors", name="Meridian Escort 51", nation="Meridian", route=[(24.42, 66.86, 0)],
           telegraph=4),
         U("red", "armed-merchantmen", "civ_fv_okean_armed", "raiders", variant="Variant5",
-          name="Meridian Escort 52", nation="Meridian", route=[(24.45, 66.90, 0)],
+          loadout="Bofors", name="Meridian Escort 52", nation="Meridian", route=[(24.45, 66.90, 0)],
           telegraph=4),
         U("red", "armed-merchantmen", "civ_fv_sidetrawler_armed", "raiders",
           name="Meridian Escort 53", nation="Meridian", route=[(24.40, 66.82, 0)],

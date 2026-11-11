@@ -2418,7 +2418,7 @@ class MakranLineTheatre(unittest.TestCase):
     # at sea: the Port Qasim channel is 1.5 NM off the Natural Earth coast.
     COASTAL = {"Port Qasim channel": (24.70, 67.15)}
     # Land units stand on the fields' own coordinates.
-    LAND = {"PAF Base Masroor": (24.894, 66.939), "Gwadar airport": (25.23, 62.33)}
+    LAND = {"PAF Base Masroor": (24.894, 66.939), "Gwadar airfield (old airport)": (25.23, 62.33)}
     # Mission centres, which the builder uses as trigger-area centres.
     CENTRES = {"MK01": (24.62, 66.65), "MK02": (25.00, 62.35), "MK04": (24.55, 67.00)}
     # Convoy legs, each sailed leg checked at the 0.5 NM shore margin.
@@ -2773,6 +2773,93 @@ class MakranLineTaskGroup(unittest.TestCase):
         for name in names:
             self.assertEqual((self.CAMP / "missions" / name).read_bytes(),
                              (self.BROWSE / name).read_bytes(), name)
+
+
+class MakranLineReview(unittest.TestCase):
+    """The review of 11 Nov 2026: the fits the Meridian hulls sail in, the
+    Tughril's own air group, the INTSUM's marking, the briefing banners and
+    the required-mods lists."""
+
+    CAMP = MakranLineTaskGroup.CAMP
+
+    @classmethod
+    def setUpClass(cls):
+        cls.spec = next(s for s in bp.campaign_specs() if s["SLUG"] == "sest-makran-line")
+        cls.m = {m["code"]: m for m in cls.spec["MISSIONS"]}
+
+    def built(self, code):
+        m = self.m[code]
+        ini = self.CAMP / "missions" / f"Makran Line {m['num']} - {m['key']}.ini"
+        if not ini.is_file():
+            self.skipTest("pack not built")
+        return coverage_check.blocks(ini.read_text(encoding="utf-8"))
+
+    def test_the_armed_freighter_sails_in_the_fit_that_carries_the_styx(self):
+        poltava = [u for u in self.m["MK02"]["units"] if u["type"] == "wp_ms_poltava_armed"]
+        self.assertEqual([u.get("loadout") for u in poltava], ["StyxCarrier"])
+        vessel = next(b for k, b in self.built("MK02").items()
+                      if b.get("Type") == "wp_ms_poltava_armed")
+        self.assertEqual(vessel["LoadoutVariant"], "StyxCarrier")
+        self.assertIn("wp_ss-n-2c", vessel["Attack"])
+
+    def test_every_okean_sails_with_its_bofors(self):
+        # The MK01 brief's "burst of 40 mm": Variant4 and Variant5 are the
+        # Bofors liveries, and the fit is what the mission writes.
+        for code in ("MK01", "MK02", "MK03", "MK04"):
+            okeans = [b for b in self.built(code).values() if b.get("Type") == "civ_fv_okean_armed"]
+            with self.subTest(mission=code):
+                self.assertTrue(okeans)
+                self.assertEqual({b["LoadoutVariant"] for b in okeans}, {"Bofors"})
+
+    def test_the_tughril_carries_no_plan_helicopter_of_her_own(self):
+        # Launched from the browser the authored hull keeps its file's air
+        # group: the pack's 054A/P embarks the PLAN's China-registered Z-9F.
+        for code in ("MK01", "MK02", "MK04"):
+            anchor = self.built(code)["Taskforce1Vessel1"]
+            with self.subTest(mission=code):
+                self.assertEqual(anchor["Type"], "pns_type_054a_p")
+                self.assertEqual(anchor.get("CustomAirGroup"), "True")
+                self.assertFalse([k for k in anchor if k.startswith("plan_z-9f")])
+
+    def test_the_intsum_carries_the_fleets_own_marking(self):
+        import makran_line.lore as lore
+        intsum = next(e for e in lore.EVENTS if e.get("form") == "intsum")
+        self.assertIn("PAKISTAN NAVY", intsum["marking"])
+        self.assertNotIn("COALITION", intsum["marking"])
+
+    def test_the_banners_say_family_reference(self):
+        self.assertNotIn("seaking", bp.BANNER_POOL["sest-makran-line"])
+        captions = {}
+        for d in sorted((self.CAMP / "missions").glob("*_briefing")):
+            text = (d / "BriefingText_en.xml").read_text(encoding="utf-8")
+            stem = re.search(r"sest_banner_([a-z0-9_]+)", text).group(1)
+            captions[stem] = text
+        if not captions:
+            self.skipTest("pack not built")
+        self.assertEqual(sorted(captions), ["jf17", "perry", "type054a", "z9"])
+        for stem, text in captions.items():
+            with self.subTest(banner=stem):
+                if stem == "jf17":
+                    self.assertNotIn("family reference", text)
+                else:
+                    self.assertIn(bp.xml_escape(bp.BANNER_FAMILY["sest-makran-line"][stem]), text)
+                    self.assertIn("family reference", text)
+
+    def test_the_pakistani_packs_own_requirements_are_required(self):
+        # Red Storm Arsenal (the Z-9CE's H/KLC-3B and H/SKD-143), Y-8/Y-9
+        # (the ZDK-03's RWR), Type 12 SSM-ER (the C-602 launcher's
+        # animation) and Anchor Chain, from the catalog's `requires`.
+        self.assertEqual(set(bp.catalog_requires("pakistani-pack")) >=
+                         {"3413868677", "3637954857", "3470643173", "3380210757"}, True)
+        text = self.CAMP / "REQUIRED-MODS.txt"
+        if not text.is_file():
+            self.skipTest("pack not built")
+        hard, _sep, rest = text.read_text(encoding="utf-8").partition("\n2. ")
+        for title in ("Red Storm Arsenal", "Y-8/Y-9 Special Mission Aircraft Family",
+                      "Type 12 SSM-ER Anti-Ship Missile System", "Anchor Chain"):
+            with self.subTest(mod=title):
+                self.assertIn(title, hard)
+                self.assertNotIn(title, rest.partition("4. NOT USED")[2])
 
 
 class CatalogRequires(unittest.TestCase):

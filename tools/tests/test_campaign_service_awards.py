@@ -50,8 +50,9 @@ ART = {
     "sest-southern-watch/art/ribbons/sest_southern_watch_service.png": "7714b93ac05e69756483c77b7a33141d2af794cf1d4c90fbf1811990acab90d4",
     "sest-sulu-line/art/ribbons/sest_sulu_line_service.png": "1259be4279650a72d650ae677c4b0fae78bc750c9607d676d957edece356ce69",
     "sest-southern-reach/art/ribbons/sest_aosm_indo_pacific.png": "89be086bb2b1b169f53ed29269d01505c950c60cda1fbdf0a86ed92e2423d5de",
-    # Makran Line's completion strip, pinned when it was first drawn (11 Nov 2026).
-    "sest-makran-line/art/ribbons/sest_makran_line_service.png": "ceca933ba1e81c8be901770366d5037776c4844a7e75a8267c42da5bd9ca9802",
+    # Makran Line's completion strip, pinned when it was redrawn in Pakistan
+    # green and white off Sulu Line's layout (11 Nov 2026 review).
+    "sest-makran-line/art/ribbons/sest_makran_line_service.png": "66f013ff4aced00a555e75530e74895d95e69c35344c27620e25e3b5bdfcca75",
 }
 DEVELOPER_WORDS = ("required native result", "Scenario qualification", "as a Australia", "as a US commander",
                    "SEST fictional-operation representation", "1985", "John Lehman", "no unrecorded")
@@ -213,16 +214,44 @@ class CampaignServiceAwards(unittest.TestCase):
     def test_milestones_have_distinct_names_and_centres(self):
         names, centres = set(), set()
         for slug, rows in awards.MILESTONES.items():
-            service = awards.CAMPAIGNS[slug]
+            service = awards.stripes_of(awards.CAMPAIGNS[slug][3])
             for code, (rid, name, why, stripes) in rows.items():
                 self.assertNotIn(name, names)
                 self.assertNotIn("Lifeline", name)          # the SW subtitle and SW09's title
                 names.add(name)
                 centre = stripes[len(stripes) // 2][0]
-                self.assertNotEqual(centre, service[3][len(service[3]) // 2], rid)
+                self.assertNotEqual(centre, service[len(service) // 2][0], rid)
                 self.assertNotIn(centre, centres, rid)
                 centres.add(centre)
                 self.assertIn(awards.MISSIONS[slug][code][0], why, rid)
+
+    def test_fictional_strips_of_one_layout_look_different(self):
+        """Two fictional SEST strips with the same stripe widths must differ by
+        a mean CIE76 delta E above 25, weighted by width. Distinct centre hex
+        strings were not enough: Makran's first Trailing Operations Ribbon was
+        Red Line's Undersea Operations Ribbon at a mean delta E of 14, and its
+        completion strip Sulu Line's at 16 (11 Nov 2026)."""
+        def lab(colour):
+            rgb = [int(colour[i:i + 2], 16) / 255 for i in (1, 3, 5)]
+            r, g, b = [((c + 0.055) / 1.055) ** 2.4 if c > 0.04045 else c / 12.92 for c in rgb]
+            xyz = ((0.4124 * r + 0.3576 * g + 0.1805 * b) / 0.95047,
+                   0.2126 * r + 0.7152 * g + 0.0722 * b,
+                   (0.0193 * r + 0.1192 * g + 0.9505 * b) / 1.08883)
+            fx, fy, fz = [t ** (1 / 3) if t > 0.008856 else 7.787 * t + 16 / 116 for t in xyz]
+            return 116 * fy - 16, 500 * (fx - fy), 200 * (fy - fz)
+
+        strips = []
+        for slug in awards.CAMPAIGNS:
+            for rid, row in awards.catalogue(slug).items():
+                if row.get("reference") == "Fictional" and (rid, row["stripes"]) not in strips:
+                    strips.append((rid, tuple(row["stripes"])))
+        for i, (one, a) in enumerate(strips):
+            for two, b in strips[i + 1:]:
+                if one == two or [w for _c, w in a] != [w for _c, w in b]:
+                    continue
+                mean = sum(w * sum((p - q) ** 2 for p, q in zip(lab(x), lab(y))) ** 0.5
+                           for (x, w), (y, _w) in zip(a, b)) / sum(w for _c, w in a)
+                self.assertGreater(mean, 25, f"{one} and {two} look alike")
 
     def test_each_grant_is_one_mission_and_an_offered_nation(self):
         for slug in awards.CAMPAIGNS:

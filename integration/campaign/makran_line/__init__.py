@@ -3,8 +3,8 @@
 
 Four Task Force Mode missions, 24 October to 14 November 2028, in the North
 Arabian Sea: inside Southern Watch's six weeks, at the other end of the
-Indian Ocean. With America's ready combat power drawn north, insurers are
-refusing cover on the tanker road from the Gulf to Karachi, and the
+Indian Ocean. With America's ready combat power drawn east to the western
+Pacific, insurers are refusing cover on the tanker road from the Gulf to Karachi, and the
 fictional Meridian Maritime Group - the same network of freight companies
 and security contractors Southern Watch fights in the Arafura - is offering
 the tankers its "escorts". A Pakistan Navy task group, Task Force 88, keeps
@@ -133,7 +133,7 @@ if MISSING:
 
 INFO_DESC = (
     "MAKRAN LINE - The Fuel Road. October 2028. With America's ready combat power drawn "
-    "north, insurers are refusing cover on the tanker road from the Gulf to Karachi, and the"
+    "east to the western Pacific, insurers are refusing cover on the tanker road from the Gulf to Karachi, and the"
     " Meridian Maritime Group is offering the tankers its own armed escorts. A Pakistan Navy"
     " task group, Task Force 88, is sent to keep the road open: the Karachi approaches, the "
     "Gwadar anchorage, a submarine trail off the Makran coast and the last convoy into Port "

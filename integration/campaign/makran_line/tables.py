@@ -25,8 +25,9 @@ MODULES = [
 #
 # Inside Southern Watch's six weeks (18 October to 28 November 2028), at the
 # other end of the Indian Ocean: the same withdrawal of American combat
-# power to the north and the same Meridian network, here on the tanker road
-# from the Gulf to Karachi. MK03 is a detached submarine operation, flown
+# power to the east (Southern Watch's "north" is seen from Australia) and
+# the same Meridian network, here on the tanker road from the Gulf to
+# Karachi. MK03 is a detached submarine operation, flown
 # by an authored boat (generation None), the way Red Line's Under the
 # Convergence is: the roster sells no submarine.
 CALENDAR = {
@@ -88,11 +89,12 @@ ROSTER = [
               "lands on her deck through SEST Cross-Deck"),
     dict(unit="pns_ffg_oliver_hazard_perry_longhull", picks=["Variant1"], points=160,
          note="PNS Alamgir (F-260), the Perry long hull; kept in service for 2028 as a "
-              "scenario assumption; her deck takes the SH-3H and the Z-9CE"),
+              "scenario assumption; her deck takes the Z-9CE (SEST Cross-Deck) and the "
+              "pack's Sea King, which her deck list takes"),
     dict(unit="plan_z-9ce", picks=["Squadron1"], points=20,
          note="the frigates' Z-9CE flight; ASW and search"),
     dict(unit="pns_sh-3h", picks=["Squadron1"], points=25,
-         note="Navy Sea King flight, on Alamgir's deck; ASW"),
+         note="the pack's Sea King, which the Alamgir's deck list takes; ASW"),
     dict(unit="paf_jf-17_blk_ii", picks=["Squadron1", "Squadron2"], points=40,
          note="Air Force JF-17 Block II out of Masroor or Gwadar; anti-ship and air "
               "defence fits"),
@@ -143,8 +145,9 @@ WHOLE = OPENING + AIR
 # "Pakistan Navy ranks and insignia" lists them (citing the Navy's own
 # 2013 ranks page). The abbreviations are NOT verified: the Navy's official
 # site could not be read from the build environment, and the Wikipedia page
-# gives none. They follow the Royal Navy's pattern and are marked unverified
-# in RIBBONS.txt and the campaign's docs. The game ships rank insignia for
+# gives none. They follow the Royal Navy's pattern - the ladder matches
+# SEST's Royal Navy one, service_awards.UK_RANKS, letter for letter - and
+# are marked unverified in RIBBONS.txt and the campaign's docs. The game ships rank insignia for
 # three navies only, so every image field is empty. The navy emblem is the
 # flag of Pakistan from the SEST gallery's flag set (public domain), which
 # build_pack.py writes (SEST_EMBLEMS). Level 7 is Commodore, the rank a task
@@ -163,5 +166,5 @@ NavyNamePakistan=Pakistan Navy
 NavyEmblemPakistan=ui/campaign/navy_emblems/sest_pakn_emblem.png
 
 [OfficerRanks]
-Pakistan=Midshipman,MID,OF-D,1,|Sub-Lieutenant,SLT,OF-1,2,|Lieutenant,LT,OF-2,3,|Lieutenant Commander,LT CDR,OF-3,4,|Commander,CDR,OF-4,5,|Captain,CAPT,OF-5,6,|Commodore,CDRE,OF-6,7,|Rear Admiral,R ADM,OF-7,8,|Vice Admiral,V ADM,OF-8,9,|Admiral,ADM,OF-9,10,
+Pakistan=Midshipman,MID,OF-D,1,|Sub-Lieutenant,SLT,OF-1,2,|Lieutenant,LT,OF-2,3,|Lieutenant Commander,LT CDR,OF-3,4,|Commander,CDR,OF-4,5,|Captain,CAPT,OF-5,6,|Commodore,CDRE,OF-6,7,|Rear Admiral,RADM,OF-7,8,|Vice Admiral,VADM,OF-8,9,|Admiral,ADM,OF-9,10,
 """

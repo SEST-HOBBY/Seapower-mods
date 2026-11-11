@@ -2869,8 +2869,8 @@ the Corsair (no 2028 SEST mission has an uncrewed-vehicle role). Its
 its README's "Mission Editor includes years through 2031" is done, a
 collection-wide side effect on the editor's year list.
 
-Not demonstrated: all three repairs in game (the play-test guide, section 6,
-has the editor checks); the Buk-M3's two-minute reload rests on the game
+Not demonstrated: all three repairs in game (the play-test guide's "Pack
+features to check while playing" section has the editor checks); the Buk-M3's two-minute reload rests on the game
 reading a launcher section this pack adds under a new name.
 
 ## A box for every playable unit (14 October)

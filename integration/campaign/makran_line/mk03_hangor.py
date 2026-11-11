@@ -45,7 +45,7 @@ MISSION = dict(
             "rendezvous. The trail is complete when SENTINEL has been classified and HANGOR "
             "is inside that circle afterwards. If any Meridian ship classifies HANGOR, the "
             "trail is blown and the operation has failed. Nothing is fired: the boat starts "
-            "at weapons Hold, and a torpedo on any ship here ends the operation.\\n\\n"
+            "at weapons Hold, and sinking any ship here ends the operation.\\n\\n"
             "Dhows and a tanker bound for the Gulf are in the sonar picture. Use them."
         )),
     forces=(
@@ -83,7 +83,7 @@ MISSION = dict(
         "it hears her."
     ),
     lose=(
-        "HANGOR has been seen, or has fired, or is lost. Meridian knows the Navy has a boat on "
+        "HANGOR has been seen, or has sunk a ship, or is lost. Meridian knows the Navy has a boat on "
         "its mothership, and SENTINEL will not come this way again."
     ),
     timeout="{deadline_clock}, and the trail is not complete. SENTINEL is past the rendezvous "
@@ -104,7 +104,7 @@ MISSION = dict(
           name="MV Meridian Sentinel", nation="Meridian", weapons="Hold",
           route=[(24.31, 62.20, 0), (24.33, 62.44, 0)], telegraph=2),
         U("red", "armed-merchantmen", "civ_fv_okean_armed", "raiders", variant="Variant4",
-          name="Meridian Escort 41", nation="Meridian", weapons="Hold"),
+          loadout="Bofors", name="Meridian Escort 41", nation="Meridian", weapons="Hold"),
         U("red", "armed-merchantmen", "civ_fv_sidetrawler_armed", "raiders",
           name="Meridian Escort 42", nation="Meridian", weapons="Hold"),
         U("neutral", "_vanilla", "civ_fv_dhow", "dhows", name="Dhow Gwadar Moon",

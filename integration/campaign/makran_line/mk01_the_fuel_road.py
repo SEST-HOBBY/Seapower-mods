@@ -106,7 +106,10 @@ MISSION = dict(
         "home": S(24.894, 66.939, "PAF Base Masroor"),
     },
     units=[
-        U("blue", "pakistani-pack", "pns_type_054a_p", "escort", variant="Variant1"),
+        # air_group=[]: the pack's file embarks the PLAN's Z-9F (China), which
+        # would fill her one deck slot when the mission is launched as authored.
+        U("blue", "pakistani-pack", "pns_type_054a_p", "escort", variant="Variant1",
+          air_group=[]),
         U("blue", "pakistani-pack", "plan_z-9ce", "flight", squadron="Squadron1",
           alt=500, loadout="ASWHunter", slot="HeloRecon"),
         U("blue", "_vanilla", "civ_ms_ritina", "convoy", name="MT Sindh Voyager",
@@ -116,10 +119,10 @@ MISSION = dict(
         U("blue", "_vanilla", "airfield_small_1", "home", name="PAF Base Masroor",
           nation="Pakistan", weapons="Hold", air_group=[]),
         U("red", "armed-merchantmen", "civ_fv_okean_armed", "raiders", variant="Variant4",
-          name="Meridian Escort 21", nation="Meridian", route=[(24.55, 66.45, 0)],
+          loadout="Bofors", name="Meridian Escort 21", nation="Meridian", route=[(24.55, 66.45, 0)],
           telegraph=4),
         U("red", "armed-merchantmen", "civ_fv_okean_armed", "raiders", variant="Variant5",
-          name="Meridian Escort 22", nation="Meridian", route=[(24.52, 66.42, 0)],
+          loadout="Bofors", name="Meridian Escort 22", nation="Meridian", route=[(24.52, 66.42, 0)],
           telegraph=4),
         U("red", "armed-merchantmen", "civ_fv_sidetrawler_armed", "picket",
           name="Trawler Al-Noor 7", nation="Meridian", weapons="Hold",

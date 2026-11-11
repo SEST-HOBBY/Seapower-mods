@@ -40,7 +40,7 @@ source only (`integration/beta-anchorchain/`); neither is shipped.
 
 ## 1. The campaigns
 
-All four use the game's own **Task Force Mode**, the same system as the stock
+All five use the game's own **Task Force Mode**, the same system as the stock
 Pacific Strike campaign. You buy your force from a priced roster, the story
 releases more of it as you go, and losses, damage, ammunition and crew
 experience carry forward from mission to mission.
@@ -174,7 +174,7 @@ experience carry forward from mission to mission.
   ashore.
 - Task Force 88 as the collection can field it: the Tughril-class (Type
   054A/P) frigates, PNS Alamgir (the long-hull Perry, kept in service for
-  2028 as a stated assumption), their Z-9CE and Sea King flights, and from
+  2028 as a stated assumption), the Z-9CE and the pack's Sea King, and from
   the second mission the Air Force's JF-17 Block II and III and ZDK-03. Every
   class takes the same-nation discount. No submarine is sold: PNS Hangor is
   placed in its own mission. What the collection lacks for 2028 - the Babur

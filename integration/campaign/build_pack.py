@@ -7118,10 +7118,22 @@ BANNER_POOL = {
     # Makran Line's own forces. Only jf17 is a Pakistani photo. The others
     # are the same classes and families, not Pakistani airframes or hulls:
     # type054a is the PLAN's Huangshan (for the Tughril class), perry the
-    # USS Oliver Hazard Perry (for PNS Alamgir), seaking a US Navy SH-3 and
-    # z9 a PLAN Z-9 (for the Navy's Sea Kings and Z-9CEs). The caption under
-    # the strip gives the class and the photographer, not the navy.
-    "sest-makran-line": ["jf17", "perry", "z9", "seaking", "type054a"],
+    # USS Oliver Hazard Perry (for PNS Alamgir) and z9 a PLAN Z-9 (for the
+    # Navy's Z-9CEs), and BANNER_FAMILY captions each as a family reference.
+    # No Sea King: the gallery's is a US Navy SH-3 recovering Apollo 17, and
+    # no mission places one.
+    "sest-makran-line": ["jf17", "perry", "z9", "type054a"],
+}
+# A pool photo that stands in for a class it is not, captioned so on the
+# briefing in place of the gallery's label (the photo credit follows).
+BANNER_FAMILY = {
+    "sest-makran-line": {
+        "perry": "Oliver Hazard Perry class, the class of PNS Alamgir (family reference: "
+                 "US Navy photo, 1977)",
+        "type054a": "Type 054A, the design of the Tughril class (family reference: a PLAN "
+                    "ship, CNS Huangshan)",
+        "z9": "Z-9 family; the Navy flies the Z-9CE (family reference: a PLAN airframe)",
+    },
 }
 # Photos that are fine at encyclopedia size but not as a strip across the
 # top of a briefing: a hull behind a roof, a helicopter in a museum hall.
@@ -7319,8 +7331,10 @@ def banner_xml(mission):
         stem, asset = b
         img = (f'<Image Source="{{Binding Assets[{stem}]}}" Width="{BANNER_SIZE[0]}" '
                'HorizontalAlignment="Left"/>')
+        label = BANNER_FAMILY.get(SLUG.removesuffix("-open"), {}).get(
+            asset["asset_id"], asset["label"])
         credit = (f'<TextBlock FontSize="12" Opacity="0.7" TextWrapping="Wrap" '
-                  f'Text="{xml_escape(asset["label"] + ". " + photo_credit(asset).replace(" · resized", " · cropped"))}"/>')
+                  f'Text="{xml_escape(label + ". " + photo_credit(asset).replace(" · resized", " · cropped"))}"/>')
     return ('<Border BorderBrush="#3D8FC9" BorderThickness="0,0,0,2" Margin="0,0,0,12" Padding="0,0,0,8">'
             f'<StackPanel>{img}<WrapPanel Margin="0,8,0,0">{row}</WrapPanel>{credit}</StackPanel></Border>')
 

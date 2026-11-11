@@ -231,16 +231,16 @@ and trawlers. The test card is `docs/campaigns/makran-line/test-card.md`.
 
 | Mission | What to check |
 |---|---|
-| **1 The Fuel Road** | Two tankers sail from the outer roads for the Karachi pilot station, 26 NM north-east; two Meridian armed trawlers come from the west, and a third shadows the convoy at Hold. Win = both tankers inside the six-mile circle. Every Meridian unit flies the Meridian flag **(2.1, 2.2)**. PAF Base Masroor holds only what you bought **(1.6)** |
-| **2 Gwadar Roads** | The JF-17s and ZDK-03 are on sale from here. Two tankers at anchor off Gwadar, two merchants and an armed freighter anchored among them; three armed trawlers from the south-west. The freighter launches an SS-N-2 at a tanker at minute 14 and again at 32: say whether each launch happens and what engages it **(2.3)**. The HQ-16AE site and the C-602 battery ashore start at Hold **(2.4)**. Win = the three trawlers and the freighter sunk **(2.5)** |
-| **3 Hangor** | No force allocation: PNS Hangor, dived, at Hold. Classify Meridian Sentinel, then take the boat into the three-mile circle on the trail datum. Being classified by any Meridian ship ends it **(3.1-3.3)** |
-| **4 Port Qasim** | Three tankers for Port Qasim; three trawlers and an armed ro-ro attack. Meridian Sentinel runs south from the delta: with the lead ship at **Hold**, close her to about three miles and she heaves to and turns neutral; sinking her afterwards ends the mission. Win = two tankers in the four-mile anchorage circle, Sentinel sunk or hove to, nothing inbound **(4.1-4.4)**. After winning Hangor, her position is on the plot for fifteen minutes **(4.5)** |
+| **1 The Fuel Road** | Two tankers sail from the outer roads for the Karachi pilot station, 26 NM north-east; two Meridian armed trawlers come from the west, and a third shadows the convoy at Hold. Win = both tankers inside the six-mile circle. Every Meridian unit shows the Meridian flag on its unit panel (the mast flag is the hull's own) **(2.1, 2.2)**. The Okeans carry the 40 mm Bofors **(2.6)**. PAF Base Masroor holds only what you bought **(1.6)** |
+| **2 Gwadar Roads** | The JF-17s and ZDK-03 are on sale from here. Two tankers at anchor off Gwadar, two merchants and an armed freighter anchored among them; three armed trawlers from the south-west. The freighter, in her StyxCarrier fit, launches an SS-N-2 at a tanker at minute 14 and again at 32: say whether each launch happens and what engages it **(2.3)**. The HQ-16AE site and the C-602 battery ashore start at Hold **(2.4)**. Win = the three trawlers and the freighter sunk **(2.5)** |
+| **3 Hangor** | No force allocation: PNS Hangor, dived, at Hold. Classify Meridian Sentinel, then take the boat into the three-mile circle on the trail datum. Being classified by any Meridian ship ends it, and so does sinking any ship; a launch alone does not **(3.1-3.4)** |
+| **4 Port Qasim** | Three tankers for Port Qasim; three trawlers and an armed ro-ro attack. Meridian Sentinel runs south from the delta: with the lead ship at **Hold**, close her to about three miles and she heaves to and turns neutral; sinking her afterwards ends the mission. Win = two tankers in the four-mile anchorage circle, Sentinel sunk or hove to, nothing inbound **(4.1-4.4)**. After winning Hangor, her position is on the plot for fifteen minutes **(4.5)**. Lose one tanker and bring two in: the debrief shows *Lose none of the three tankers* Failed **(4.7)** |
 
 ### 6C. Bring back
 
 Mission results; whether the SS-N-2s launched in mission 2; the range at
 which Sentinel hove to and her speed; whether Hangor could be classified at
-all; the discount prices; and the ribbons after missions 2, 3 and 4 **(4.7)**.
+all; the discount prices; and the ribbons after missions 2, 3 and 4 **(4.8)**.
 
 ---
 

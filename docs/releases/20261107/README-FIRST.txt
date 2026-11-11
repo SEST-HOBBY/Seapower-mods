@@ -92,8 +92,8 @@ WHAT IS NEW SINCE THE R12 RIBBON TEST BUILD
   The opponent is the fictional Meridian network alone, in armed merchants
   and trawlers; no Indian or Iranian state unit is placed. The roster is the
   Pakistani Pack's (the Tughril class, PNS Alamgir - kept for 2028 as a
-  stated assumption - the Z-9CE, the Sea King, the JF-17 Block II and III
-  and the ZDK-03), every class with the same-nation discount; no submarine,
+  stated assumption - the Z-9CE, the pack's Sea King, the JF-17 Block II
+  and III and the ZDK-03), every class with the same-nation discount; no submarine,
   no J-10CE. With no Pakistani supply ship in the collection, every force
   allocation rearms. Port Qasim's mothership is sunk or made to heave to,
   as Red Line's RL04 coaster is. The commander is a Pakistan Navy Commodore

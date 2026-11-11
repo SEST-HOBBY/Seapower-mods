@@ -50,7 +50,10 @@ CAMPAIGNS = {
     'sest-southern-reach': ('southern_reach_service', 'Southern Reach Service Ribbon', 'Southern Reach / Tasman Shield', ('#243B65', '#E1E8EF', '#87B4CE', '#E1E8EF', '#243B65')),
     'sest-red-line': ('red_line_service', 'Red Line Service Ribbon', 'Red Line', ('#2A3244', '#B94A48', '#D8BD6D', '#B94A48', '#2A3244')),
     'sest-sulu-line': ('sulu_line_service', 'Sulu Line Service Ribbon', 'Sulu Line', ('#164B4D', '#E5D7A6', '#405D86', '#E5D7A6', '#164B4D')),
-    'sest-makran-line': ('makran_line_service', 'Makran Line Service Ribbon', 'Makran Line', ('#0B3D2E', '#E8E4D8', '#2F6E8E', '#E8E4D8', '#0B3D2E')),
+    # Broad Pakistan-green edges, narrow white and a sand centre (the Makran
+    # coast): a stripe may carry its own width, and this one does, so it does
+    # not read as Sulu Line's five equal teal, cream and blue bands.
+    'sest-makran-line': ('makran_line_service', 'Makran Line Service Ribbon', 'Makran Line', (('#01411C', 30), ('#F2F2EC', 8), ('#D2B98A', 24), ('#F2F2EC', 8), ('#01411C', 30))),
 }
 
 # The missions that grant an award: code -> (title, date, how a citation
@@ -485,7 +488,7 @@ MILESTONES = {
                  (('#0B3D2E', 4), ('#E8E4D8', 2), ('#2F6E8E', 4), ('#C9A54A', 8), ('#2F6E8E', 4), ('#E8E4D8', 2), ('#0B3D2E', 4))),
         'MK03': ('sest_trailing_operations', 'Trailing Operations Ribbon',
                  'For completing Hangor and its detached submarine trail in command of {TaskForceName}',
-                 (('#0B1E2D', 6), ('#E8E4D8', 2), ('#3B6E5A', 12), ('#E8E4D8', 2), ('#0B1E2D', 6))),
+                 (('#01411C', 5), ('#F2F2EC', 2), ('#01411C', 2), ('#1F3A68', 10), ('#01411C', 2), ('#F2F2EC', 2), ('#01411C', 5))),
     },
 }
 # Runtime mission ribbons. SEST's beta runtime grants these, the game never
@@ -1057,6 +1060,13 @@ def runtime_grants(slug):
     return out
 
 
+def stripes_of(colours):
+    """A completion strip's (colour, width) pairs: a bare colour is 20 wide,
+    the original four strips' equal bands; a (colour, width) pair keeps its
+    own width."""
+    return tuple(c if isinstance(c, tuple) else (c, 20) for c in colours)
+
+
 def catalogue(slug):
     """Every definition a campaign carries: what it grants, then what earlier
     builds granted (RETIRED), then the runtime ribbons (RUNTIME), keyed by
@@ -1068,7 +1078,7 @@ def catalogue(slug):
     final = _mission(slug, FINAL[slug])
     out = {award_id(slug): dict(
         name=name, type='CampaignAward', precedence=120, reference='Fictional', recipient='commander',
-        stripes=tuple((c, 20) for c in colours), mission=FINAL[slug],
+        stripes=stripes_of(colours), mission=FINAL[slug],
         citation=COMPLETION.format(operation=operation.replace(' / ', ' and '), final=final[0]) + '. ' + FICTIONAL)}
     for code, (rid, title, why, stripes) in MILESTONES[slug].items():
         out[rid] = dict(name=title, type='CampaignAward', precedence=130, reference='Fictional',
