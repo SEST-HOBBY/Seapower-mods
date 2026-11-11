@@ -1,4 +1,4 @@
-SEST R12 FINAL + COMMANDER NATIONS + RED LINE STEPS 3-4 - PC ACCEPTANCE
+SEST R12 FINAL + COMMANDER NATIONS + RED LINE 3-4 + RUSSIA - PC ACCEPTANCE
 11 November 2026 | SEST-DEV
 Beta 0.8.7-261107: Runtime 1.6.4 / UI 1.4.14
 Standard 0.8.7-261021: Runtime 1.5.0 / UI 1.4.6 (unchanged)
@@ -8,14 +8,16 @@ national awards (merged as PR #59), the combined release notes (merged as PR
 #60) and Red Line's victory paths, the heave-to and progress reports (step 3
 of the builder grammar, on feature/builder-grammar-20261111, in review as PR
 #61), with step 4's two Red Line runtime ribbons prepared and inert until R13
-(on feature/runtime-awards-campaign-20261111, in review, stacked on PR #61),
-checked once on the PC and posted as one update. RIBBONS.txt has every award
-mapping. R12-RIBBON-EXPANSION.txt describes R12 Final before the commander
-nations: use it only for the R12 review findings fixed and the minor ones
-still open, and this file and RIBBONS.txt for the award counts, nations and PC
-steps. None of the four parts has been played on the owner's PC yet; step 4
-has nothing to play before R13 except the Red Line test card's checks R5 and
-R6.
+(on feature/runtime-awards-campaign-20261111, in review as PR #62, stacked on
+PR #61) and step 5's Russian Federation registration of the modern Russian
+hulls (on feature/russia-registration-20261111, not pushed, stacked on PR
+#62), checked once on the PC and posted as one update. RIBBONS.txt has every
+award mapping. R12-RIBBON-EXPANSION.txt describes R12 Final before the
+commander nations: use it only for the R12 review findings fixed and the
+minor ones still open, and this file and RIBBONS.txt for the award counts,
+nations and PC steps. None of the five parts has been played on the owner's
+PC yet; step 4 has nothing to play before R13 except the Red Line test card's
+checks R5 and R6.
 
 WHAT IS NEW SINCE THE R12 RIBBON TEST BUILD
 - Commander nations: Southern Watch and Southern Reach offer Australia (the
@@ -67,6 +69,19 @@ WHAT IS NEW SINCE THE R12 RIBBON TEST BUILD
   Until R13 is installed the checks are that neither appears and that the
   developer ribbon menu offers neither (the Red Line test card's R5 and R6;
   R1 to R4 need R13, and RIBBONS.txt says what each ribbon needs).
+- Russian Federation (step 5, on feature/russia-registration-20261111, not
+  pushed): SEST Collection Fixes registers 15 post-1991, Russian-built ship
+  and submarine classes (the Gorshkov and Grigorovich frigates, the
+  Steregushchiy, Gremyashchiy and Buyan-M corvettes, the Yasen, Borei and
+  Improved Kilo boats) to the game's Russia nation, which it names Russian
+  Federation, instead of the USSR. One #!extend stub per hull sets only the
+  Nation of its mod's variants file; no author's file is copied. SEST's
+  Akademik Pashin registers Russia in its own file. Soviet-built hulls,
+  fictional variants and every Russian aircraft, helicopter and transport
+  stay Soviet, as stock Cold War missions use them. The SEST missions fly
+  the Russian flag on the same units as before. No mod has used an #!extend
+  on a variants file before, so it is checked once in step 3; no campaign
+  offers a Russian commander, so the discount is not.
 - World Operations (beta): DCM's own SITREP 001 is kept, with the short SEST
   brief shown first. Completed multi-phase Admiralty operations now count
   once each, and a completion replayed after a reload counts once. Tabs
@@ -89,7 +104,7 @@ PREPARE AND CHECK
 1. Close Sea Power. Keep SEST and the collection subscribed. Extract this
    COMPLETE toolkit into a NEW folder and run Prepare-PC.cmd. Keep the
    printed release checkout, the backup path and the line "VERIFIED: all
-   4414 canonical upload files match the release manifest." Upload-PC.cmd
+   4429 canonical upload files match the release manifest." Upload-PC.cmd
    prints the folder to upload (step 6).
    Prepare-PC installs both code and campaign/loadout data; Repair-PC alone
    only repairs code. The author-update guard and original restore journal
@@ -126,7 +141,14 @@ PREPARE AND CHECK
    heave-to (with a run where she is sunk first) and the damage condition's
    spelling; report what each shows. Red Line step 4: checks R5 and R6 on
    the same card (the developer ribbon menu offers neither runtime ribbon,
-   and neither is granted on this build). If time allows, as a New Zealand
+   and neither is granted on this build). Russian Federation (step 5): in
+   the new Southern Watch campaign's Situation window the Project 20380
+   corvette shows the Russian Federation flag and the Akula the USSR's; in
+   the Mission Editor Russian Navy 21's Admiral Gorshkov shows Russian
+   Federation and the game's own Sovremenny USSR; Pacific Strike's 02 Action
+   in the Taiwan Strait still generates its Soviet force (the release
+   checkout's docs/campaigns/southern-watch/test-card.md, 6K, rows RU.1 to
+   RU.6). If time allows, as a New Zealand
    commander buy the P-8A in the force allocation before Weapons Free (SW05)
    at the discounted price and fly it in the Maritime Patrol slot of 06
    Blind Horizon (Weapons Free has no patrol slot).
@@ -179,10 +201,11 @@ RETAINED FEATURES
   reviewed files for the supported beta.
 
 The owner accepted the four briefing/costs/page changes on 9 November.
-None of the four parts has been played on that PC yet. PRs #58, #59 and
+None of the five parts has been played on that PC yet. PRs #58, #59 and
 #60 are merged on the GitHub deploy branch sest-dev/jolly-ride-rptj4t. This
-toolkit's branch, feature/runtime-awards-campaign-20261111 (in review),
-adds Red Line step 4's campaign side. It builds on
-feature/builder-grammar-20261111 (PR #61, in review on GitHub), which adds
-Red Line step 3 on top of PRs #58 to #60. Nothing has been uploaded to
-Steam.
+toolkit's branch, feature/russia-registration-20261111 (not pushed), adds
+step 5's Russian Federation registration. It builds on
+feature/runtime-awards-campaign-20261111 (PR #62, in review), which adds Red
+Line step 4's campaign side on feature/builder-grammar-20261111 (PR #61, in
+review on GitHub), which adds Red Line step 3 on top of PRs #58 to #60.
+Nothing has been uploaded to Steam.

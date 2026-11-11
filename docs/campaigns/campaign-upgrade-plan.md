@@ -186,7 +186,7 @@ Every place where the planners and reviewers disagreed, I followed the reviewers
 - **PLAN: deep.** Type 055, 052D, 052C, 054A/B, 056A, two carriers, Type 071, Y-9/KQ-100, KJ-500/600, J-15/16/35, Z-9/18/20. Source: the engine inventory at `/tmp/claude-0/-home-user-Seapower-mods/cb2a533c-0bb4-50d5-9069-2002ad35f1f1/scratchpad/inv.json`.
 - **Priced for a reserve:** only `PLAN_SUPPORT`, the Type 901 and 903A (AF:251-258). The escort tier has no prices anywhere (reviewer A5).
 - **Gaps:** no Type 075, no purpose-built China Coast Guard hull, and no Chinese research ship (Nan Hai 27 is the Soviet-registered `wp_agi_okean`).
-- **Russia:** broad surface and air, but logistics is one Pashin and ASW helicopters are only the Ka-27 family. The Tu-160 cannot be sold (no nation in its file). Every modern file registers `Soviet`, so a bought hull would fly the USSR flag (ASSUMPTION).
+- **Russia:** broad surface and air, but logistics is one Pashin and ASW helicopters are only the Ka-27 family. The Tu-160 cannot be sold (no nation in its file). Every modern file registered `Soviet`, so a bought hull would fly the USSR flag (ASSUMPTION). Since 11 Nov 2026 SEST Collection Fixes re-registers the 15 post-1991, Russian-built ship and submarine classes to `Russia` by `#!extend` Nation stubs, and the Pashin registers Russia in its own file; Soviet-built and fictional hulls and every aircraft stay `Soviet` (`RU_REREGISTER` and `RU_LEFT_SOVIET` in `integration/collection-fixes/build_patch.py`; not yet seen in game, Southern Watch test card 6K).
 - **Iran and North Korea:** no modern navy.
 - **Pakistan:** the best modern partner in the collection, but unrealistic in either theatre.
 

@@ -429,6 +429,31 @@ game.
 | J.2 | Mission editor: place a Maya (jmsdf_ddg_maya) and give it an Australian S-70B-2 Seahawk; a Horizon (fr_ddg_horizon) with a German NH90; a Nimitz (usn_cvn_nimitz_2027s_adou) with a Rafale M | Each embarks, launches and recovers | Note which pairing fails |
 | J.3 | Mission editor: a Type 23 with an MH-60R | Refused: the Type 23 lists no Seahawk family, so it gains none (Lynx/Wildcat, Merlin, Cougar only) | Accepted = the deck takes everything, not the families: report it |
 
+## 6K — the Russian Federation, not the USSR (11 November)
+
+SEST Collection Fixes registers 15 post-1991, Russian-built ship and
+submarine classes to the game's `Russia` nation, which its `nations.ini`
+names *Russian Federation*, through one `#!extend` stub per hull on the
+mod's variants file (`vessels_overwrite/<hull>_variants_RU_SEST.ini`; the
+list and the hulls left Soviet, with the reason for each, are
+`RU_REREGISTER` and `RU_LEFT_SOVIET` in
+`integration/collection-fixes/build_patch.py`). SEST's Akademik Pashin
+registers Russia in its own file. Soviet-built hulls, fictional variants and
+every aircraft, helicopter and transport stay `Soviet`. No mod has used an
+`#!extend` on a variants file before, so RU.1 is the first test of it. The
+missions do not depend on it: every SEST mission still writes
+`Nation=Russia` on its Russian units, as before. No campaign offers a
+Russian commander, so the same-nation discount is not checked here.
+
+| # | Do | Expect | If not |
+|---|---|---|---|
+| RU.1 | Start the game; in `Player.log` find the line `IniHandler.ScanForModifierFiles() scanned ... found ... extend ... targets` | It loads with no IniHandler error naming a `_variants_RU_SEST.ini` file | An error naming one = say which; the stubs come out before the next upload |
+| RU.2 | Mission editor: place Russian Navy 21's Admiral Gorshkov (`rfn_ffg_22350_1-4`), a Yasen and the game's own Sovremenny (`wp_em_sovremenny`); open each one's unit panel and encyclopedia entry | The Gorshkov and the Yasen show *Russian Federation* and the Russian flag; the Sovremenny shows *USSR*. In the editor's nation list the first two sit under Russian Federation | The Gorshkov still USSR = the game does not apply `#!extend` to a variants file: bring back Player.log. The campaigns are unaffected (above) |
+| RU.3 | A new Southern Watch campaign: the Situation button (H.6) | The Russia block lists the Project 20380 corvette (Merkury) under the Russian Federation flag and the Akula under the USSR's; no unknown flag | An unknown flag on the corvette = the stub's nation has no flag entry: bring back the screen |
+| RU.4 | D4 Return Passage | Every Russian ship and aircraft flies the Russian flag, the Admiral Grigorovich (stubbed) and Pyotr Velikiy (not stubbed) alike | A USSR flag on any = say which unit |
+| RU.5 | Soviet stock: start a new Pacific Strike campaign and play 02 *Action in the Taiwan Strait* to its first contact; if installed, load Mare Nostrum '28's 10A *Pilares - El Silencio* | Pacific Strike generates its Soviet force with the USSR flag, as before; Mare Nostrum's Russian units keep the USSR flag their author set | A Pacific Strike mission with no Soviet units = the generator filtered on the new key: bring back the save and Player.log |
+| RU.6 | An existing save with a Russian Navy 21 hull in it | It loads, and the hull keeps the nation the save stored | A load failure = bring back the save |
+
 ## 7 — the review's engine tests
 
 The independent review of `057405fe` listed the runs that no static check
