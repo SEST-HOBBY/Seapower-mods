@@ -98,7 +98,10 @@ WHAT IS NEW SINCE THE R12 RIBBON TEST BUILD
   allocation rearms. Port Qasim's mothership is sunk or made to heave to,
   as Red Line's RL04 coaster is. The commander is a Pakistan Navy Commodore
   with the Navy's ten ranks (abbreviations not verified) and fictional
-  ribbons only. Nothing in it has been run in the game.
+  ribbons only. Nothing in it has been run in the game. The STEAM-*.txt
+  files and the Steam images do not mention it yet, because which update
+  ships it is still your decision: the change note and page description
+  pasted in steps 7 and 8 describe four campaigns.
 - World Operations (beta): DCM's own SITREP 001 is kept, with the short SEST
   brief shown first. Completed multi-phase Admiralty operations now count
   once each, and a completion replayed after a reload counts once. Tabs

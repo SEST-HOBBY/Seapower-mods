@@ -15,7 +15,11 @@ What is fiction (*campaign assumption*):
 
 - The **Meridian Maritime Group**, its ships (MV Meridian Sentinel, MV Sea Venture, MV Sea Falcon, the "Meridian Escort" trawlers) and its operations.
 - Every named merchant, tanker and dhow, and the 2028 war-risk listing of the North Arabian Sea.
-- The **commander**. The default name, *Kamran Aziz Durrani*, is built from the game's own `[Names_Pakistan]` pool; it was searched for on 11 Nov 2026 (the full name, and "Kamran Durrani" with "Commodore" and "Pakistan Navy", and the English Wikipedia's list of serving Pakistan Navy admirals) and no naval officer of that name was found. The prose never uses it: the commander is "the task group commander" throughout.
+- The **commander**. The default name, *Kamran Aziz Durrani*, is built from the game's own `[Names_Pakistan]` pool (first Kamran, middle Aziz, last Durrani). It was checked twice on 11 Nov 2026 before it shipped, and no naval officer of that name was found:
+  - web searches for the full name, and for "Kamran Durrani" with Commodore, Admiral or Captain and "Pakistan Navy";
+  - the English Wikipedia's "List of serving admirals of the Pakistan Navy", as last edited on 5 Nov 2026. It has no Durrani and no Aziz; its one Kamran is Rear Admiral Kamran Ahmed.
+
+  The nearest namesake the searches found is not a naval officer: Kamran Shah Durrani, the nineteenth-century ruler of Herat. The Navy's own site could not be searched from the build environment, so an officer below flag rank with this name cannot be ruled out. The player can change the name on the commander screen, and the prose never uses it: the commander is "the task group commander" throughout.
 - Task Force 88's 2028 operations, and the Regional Maritime Security Patrol resuming in the epilogue.
 
 What is not in the story, on the owner's decisions of 11 Nov 2026:
@@ -24,11 +28,11 @@ What is not in the story, on the owner's decisions of 11 Nov 2026:
 - **No Baloch insurgency** and no fighting ashore.
 - No Chinese or Russian unit: the Z-9CE registers Pakistan in the Pakistani Pack, and every placed unit's nation is checked by the campaign tests (`MakranLineTaskGroup`).
 
-Documented (sources to be completed in the next revision of this bible):
+Documented. The news pages below could not be opened from the build environment: on 11 Nov 2026 each was found by a web search, and the facts are those the search gave for it. Read each page before quoting it anywhere else.
 
-- **Task Force 88** was formed by the Pakistan Navy in December 2016 for the maritime security of Gwadar port and its sea lanes (Dawn, 13 Dec 2016, <https://www.dawn.com/news/1302102>).
-- The **Regional Maritime Security Patrol** (RMSP) is the Pakistan Navy's own patrol programme, announced in 2018, along the North Arabian Sea, Horn of Africa and Central Indian Ocean axes (Dawn, 2018, <https://www.dawn.com/news/1419714>).
-- **PNS Moawin**, the Navy's fleet tanker, was commissioned in October 2018; the campaign has no supply ship because the collection has none (section 3).
+- **Task Force 88** was assembled by the Pakistan Navy for the seaward security of Gwadar port and its sea lanes (Dawn, 12 Dec 2016, "Special force set up to guard Gwadar port's sea lanes", <https://www.dawn.com/news/1301970>). It was inaugurated at Gwadar on 13 Dec 2016 (Voice of America through GlobalSecurity.org, <https://www.globalsecurity.org/wmd/library/news/pakistan/2016/pakistan-161213-voa01.htm>; Dawn's report of the ceremony, <https://www.dawn.com/news/1302102>). At the ceremony the command telescope went to its first commander, a Commodore (The Express Tribune, <https://tribune.com.pk/story/1262606>; Business Recorder, <https://www.brecorder.com/news/331446>). That is the campaign's reason for starting the commander as a Commodore (section 4).
+- The **Regional Maritime Security Patrol** (RMSP) is the Pakistan Navy's own patrol programme, begun in 2018 in place of its earlier reliance on the combined task forces 150 and 151 (Business Recorder, July 2018, "PN plans regional maritime patrols in Indian Ocean", <https://brecorder.com/news/4616246>; Daily Pakistan, 12 Jul 2018, on the first RMSP deployment, <https://en.dailypakistan.com.pk/12-Jul-2018/pakistan-deploys-its-first-ever-navy-ship-in-gulf-of-aden-southern-red-sea-region>).
+- **PNS Moawin** (A39), the Navy's fleet tanker, was commissioned on 16 October 2018 (English Wikipedia, "PNS Moawin (A39)", read on 11 Nov 2026). The campaign has no supply ship because the collection has none (section 3).
 
 ## 2. The four missions
 
@@ -77,7 +81,7 @@ Not sold, on purpose:
 
 ## 4. The commander and the awards
 
-- `CommanderNations=Pakistan` only; the default nation is Pakistan; the game's own `[Names_Pakistan]` pool; starting rank level 7, **Commodore** (OF-6), the rank Task Force 88's first commander held.
+- `CommanderNations=Pakistan` only; the default nation is Pakistan; the game's own `[Names_Pakistan]` pool; starting rank level 7, **Commodore** (OF-6), the rank Task Force 88's first commander held (section 1).
 - The ladder is the Pakistan Navy's ten commissioned ranks in their English Commonwealth form — Midshipman, Sub-Lieutenant, Lieutenant, Lieutenant Commander, Commander, Captain, Commodore, Rear Admiral, Vice Admiral, Admiral — as the English Wikipedia's "Pakistan Navy ranks and insignia" lists them (citing the Navy's own 2013 ranks page). **The abbreviations are not verified**: the Navy's official site could not be read when they were written, and they follow the Royal Navy's pattern. RIBBONS.txt says so too.
 - The navy emblem is the national flag of Pakistan from the SEST gallery's flag set (public domain), written as `sest_pakn_emblem.png`. The Navy's own ensign is not in the gallery set.
 - Awards are **fictional SEST ribbons only**: the Makran Line Service Ribbon (completing MK04), the Arabian Sea Security Ribbon (MK02) and the Trailing Operations Ribbon (MK03). No real Pakistani award is represented until its ribbon and criteria are sourced.

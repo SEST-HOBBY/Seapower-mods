@@ -216,11 +216,11 @@ On 23 Oct 2026 the owner's export
   with `minAltOverSea`; the sampler reaches 1.08 nm; `WeaponBase` still
   calls it with `isWeapon` true in cruise; all ten stage names exist. The
   correction stands. Debrief: the native `ReadUnitRows` now has two paths.
-  A Generated or Replaced mission (52 of the 69 in SEST's four campaigns)
+  A Generated or Replaced mission (55 of the 73 in SEST's five campaigns)
   shows the rows saved at mission end from the post-mission snapshot, which
   drops every destroyed surface hull: the lost ships are still missing, so
   `TaskForceDebrief` stays on (option 1) rather than retiring. A mission
-  played as authored (the other 17) lists its player units from the mission
+  played as authored (the other 18) lists its player units from the mission
   file and marks one Lost only from a `Mission_<i>_<tag>` `IsDestroyed`
   record, the record the plugin reads too. The game writes that record only
   for a unit with a `CampaignTag` (`SavePersistentDataFromMission` skips an

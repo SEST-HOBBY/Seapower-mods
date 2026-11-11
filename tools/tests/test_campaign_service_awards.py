@@ -1,7 +1,7 @@
 """Native campaign ribbons, commander nations and real-award representations.
 
 The unit tests drive integration/campaign/service_awards.py directly. The
-BuiltCampaigns tests read the four campaigns build_pack.py wrote under
+BuiltCampaigns tests read the five campaigns build_pack.py wrote under
 integration/campaign/SEST_Campaign the way the game reads them: awards from
 [MissionN] TaskForceModeRibbonAwards ('|' between awards, ',' before nation
 selectors), definitions from commander_settings.ini Ribbon_<id> sections,
@@ -383,7 +383,7 @@ class CampaignServiceAwards(unittest.TestCase):
         rows = [(nation, row["emblem"].rsplit("/", 1)[1], row)
                 for nation, row in awards.NATION_SETTINGS.items()]
         # The campaigns' own emblems (Sulu Line's Philippine Navy, Red Line's
-        # PLA Navy) are credited the same way.
+        # PLA Navy, Makran Line's Pakistan Navy) are credited the same way.
         rows += [(name, name, row) for name, row in awards.CAMPAIGN_EMBLEMS.items()]
         for nation, name, row in rows:
             if not name.startswith("sest_"):

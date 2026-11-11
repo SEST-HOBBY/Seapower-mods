@@ -472,8 +472,9 @@ def campaign_rules(spec, open_allocation=False, allied=0):
          'Text="- Ships purchased in Task Force Builder come without aircraft. Helicopters '
          'and aircraft are bought separately, and replacements must be bought if aircraft '
          'are lost."', "airwing line")
-    # All four campaigns sell a helicopter in their first window and added
-    # fixed-wing types from the second (checked 27 Sep), so the stock
+    # The first four campaigns sold a helicopter in their first window and
+    # added fixed-wing types from the second (checked 27 Sep), and Makran Line
+    # does the same (the Z-9CE and Sea King, then the JF-17s), so the stock
     # helicopter and fixed-wing lines stood as written. Red Line's first
     # window offers the whole roster since 21 Oct 2026, the Y-9, KJ-500,
     # J-15 and J-15D with it, so the fixed-wing line is read off the first

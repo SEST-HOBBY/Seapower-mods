@@ -129,9 +129,14 @@ WHOLE = OPENING + AIR
 # "Kamran Durrani" with "Commodore" and "Pakistan Navy" - and checked against
 # the English Wikipedia's list of serving admirals of the Pakistan Navy: no
 # naval officer of that name was found (the one Kamran on that list is Rear
-# Admiral Kamran Ahmed). The player can change it on the commander screen,
-# and the prose never uses it: the commander is "the task group commander"
-# on every page.
+# Admiral Kamran Ahmed). Checked again later that day: a web search for the
+# full name, and for "Kamran Durrani" with Commodore, Admiral or Captain and
+# "Pakistan Navy", found no naval officer; and the same Wikipedia list, as
+# last edited on 5 Nov 2026, has no Durrani and no Aziz, and the same one
+# Kamran. The nearest namesake found is not a naval officer: Kamran Shah
+# Durrani, the nineteenth-century ruler of Herat. The player can change it
+# on the commander screen, and the prose never uses it: the commander is
+# "the task group commander" on every page.
 #
 # The ladder is the Pakistan Navy's ten commissioned ranks in their English
 # Commonwealth form, Midshipman to Admiral, as the English Wikipedia's
@@ -143,7 +148,9 @@ WHOLE = OPENING + AIR
 # three navies only, so every image field is empty. The navy emblem is the
 # flag of Pakistan from the SEST gallery's flag set (public domain), which
 # build_pack.py writes (SEST_EMBLEMS). Level 7 is Commodore, the rank a task
-# group of this size is given - as Task Force 88's first commander was.
+# group of this size is given: Task Force 88's first commander, at its
+# inauguration at Gwadar on 13 Dec 2016, was a Commodore (the bible's
+# section 1 has the reports).
 COMMANDER = """[CommanderSettings]
 CommanderNations=Pakistan
 CommanderDefaultNation=Pakistan

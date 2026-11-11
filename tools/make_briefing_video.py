@@ -56,8 +56,8 @@ SLIDES = [
     ("supply_us", "There is no strong defence"),
 ]
 TITLE_LINES = ["SEST INTEGRATION PACK",
-               "Southern Watch  ·  Southern Reach  ·  Red Line  ·  Sulu Line"]
-TITLE_SUB = "Four campaigns, 57 missions, the Indo-Pacific of 2028"
+               "Southern Watch  ·  Southern Reach  ·  Red Line  ·  Sulu Line  ·  Makran Line"]
+TITLE_SUB = "Five campaigns, 73 missions, the Indo-Pacific of 2028"
 
 
 def assets():

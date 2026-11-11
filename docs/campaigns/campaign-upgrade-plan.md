@@ -653,7 +653,7 @@ Total about 47 sessions.
 | R5 | New Southern Reach | Mogami Variant1 never offered; allied escorts first appear at *Tasman Crossing* |
 | R6 | Sulu Line, standard (the twin retired 21 Oct 2026), *Fire Mission Jolo* window | No supply ship |
 | R7 | A pre-update standard Southern Watch save, mid-campaign | It loads. Record whether the reserve appears (expected: maybe not) |
-| R8 | `NEW TEST 1.sav` | Since 21 Oct 2026: cannot be continued, the twin being retired; note what the game shows, and that the campaign menu lists four campaigns |
+| R8 | `NEW TEST 1.sav` | Since 21 Oct 2026: cannot be continued, the twin being retired; note what the game shows, and that the campaign menu lists each campaign once (four campaigns; five on a build with Makran Line) |
 | R9 | Red Line 01 and 02 briefings and the Situation window | No Collins or Virginia photo or entry; protected units labelled |
 | R10 | Sulu *Service at Sea*: let Sulu Provider be sunk and complete the rendezvous | Mission won; *The Aborlan Battery* starts without her |
 | R11 | Fly O5 and O2, then *The Quiet Passenger* | Both datums appear |

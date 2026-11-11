@@ -48,7 +48,7 @@ shows — and `data/mod-catalog.json` is the table that joins them, including th
 | `data/active-mission.txt` | The mission the tooling works on when you do not name one |
 | `data/raw-workshop-list.txt` | The raw subscription list as pasted on 23 Aug 2026 (109 items); the catalog and the load order are current |
 | `docs/` | Generated catalog and load-order docs, conflict watchlist, design notes, setup runbook |
-| `docs/campaigns/<campaign>/` | One folder per campaign (`southern-watch/`, `southern-reach/`, `red-line/`, `sulu-line/`): the design bible, the build notes — including what the campaign has **not** been shown to do — the play-test card and, for `southern-watch/` and `southern-reach/`, the procedure that lines the gaming PC up with the branch; `southern-watch/` also holds the Workshop publishing procedure |
+| `docs/campaigns/<campaign>/` | One folder per campaign (`southern-watch/`, `southern-reach/`, `red-line/`, `sulu-line/`, `makran-line/`): the design bible, the build notes — including what the campaign has **not** been shown to do — the play-test card and, for `southern-watch/` and `southern-reach/`, the procedure that lines the gaming PC up with the branch; `southern-watch/` also holds the Workshop publishing procedure |
 | `integration/<pack>/` | One SEST pack per topic: a builder plus its generated `SEST_*` output |
 | `integration/dist/SEST_Integration/` | **The deployable** — all packs merged by `tools/consolidate_packs.py`; the only thing the installer copies into the game |
 | `integration/mission-seeds/` | The early scenarios, editor saves and sandboxes the side operations are refined from, and the scripts that refine them. Never installed: every mission SEST ships is in the campaign pack |
