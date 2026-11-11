@@ -554,5 +554,24 @@
     "canonical_upload": "prepare-workshop-upload.ps1 -VerifyOnly: 4412 files match the manifest",
     "pc_checks": "docs/campaigns/red-line/test-card.md P1-P9; README-FIRST step 3",
     "status": "compiled-and-unit-tested-pc-checks-pending"
+  },
+  "red_line_runtime_awards": {
+    "branch": "feature/runtime-awards-campaign-20261111",
+    "base": "feature/builder-grammar-20261111 (PR #61) at 2af82f06",
+    "pushed": false,
+    "merged": false,
+    "scope": "campaign side only: Red Line's [Mission15] (RL05) and [Mission11] (RLC1) carry SestRuntimeRibbonAwards, and commander_settings.ini defines both ribbons outside [TaskForceRibbons] RibbonIds; the runtime (MissionAwards.cs on feature/runtime-mission-awards-20261110, 77abfbfe) is not merged and R13 is not packaged",
+    "awards": {
+      "sest_silent_passage": "RL05 Silent Passage Ribbon: sest_silent_passage?objective:Passage=completed&nolaunch, granted beside the native sest_undersea_operations",
+      "sest_personnel_recovery": "RLC1 Personnel Recovery Ribbon: sest_personnel_recovery?objective:Pilot=completed&rescued>=1; the citation says survivors were recovered and names no one"
+    },
+    "granted_by": "the beta runtime R13 (Runtime 1.6.5) only, after the native completion gate; Runtime 1.6.4 (R12), the standard build and MissionAwards=0 grant neither",
+    "counted_in_ribbon_totals": false,
+    "upload_files_changed_since_builder_grammar": 6,
+    "build": "tools/build_all.py --from-scratch twice; the second left the tree clean",
+    "release_gates": "14 checks passed; 391 tools tests (2 skipped) with pwsh 7.4.6; 398 campaign tests (test_build_pack, test_playtest_revision, test_red_line_pacing)",
+    "canonical_upload": "prepare-workshop-upload.ps1 -VerifyOnly: 4414 files match the manifest",
+    "pc_checks": "docs/campaigns/red-line/test-card.md R6 now, R1-R5 once R13 is installed; RIBBONS.txt PC CHECKS; README-FIRST",
+    "status": "compiled-and-unit-tested-inert-until-r13"
   }
 }
