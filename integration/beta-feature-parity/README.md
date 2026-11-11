@@ -23,7 +23,9 @@ A campaign can name extra mission ribbons in a key the game ignores:
 
 Example: `sest_x?objective:Passage=completed&objective:Unseen=completed&nolaunch`.
 Keys and values ignore case. Spaces are ignored around `|`, `?`, `&`, `=`,
-the `:` of `objective:` and `>=` (written as one token: `> =` is invalid).
+the `:` of `objective:` and `>=`. The parser takes `>=` as one token, but in
+campaign.ini the game's `IniHandler` trims the spaces on both sides of every
+`=` before the runtime reads the value, so `> =` reaches the runtime as `>=`.
 `;`, `#` and `//` must not appear: the game's `IniHandler` cuts a value at
 them (the design draft's `;` separator would have reduced every spec to a
 bare ID), so `?` separates the ribbon from its conditions. The key is read

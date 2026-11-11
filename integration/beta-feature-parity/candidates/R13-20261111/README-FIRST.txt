@@ -26,7 +26,7 @@ On an existing enabled installation, SETUP upgrades in one run. Run SETUP
 after Steam updates the item to reapply its bundled features. Original restore
 backups and Identify data are retained; unknown code is not overwritten.
 
-PUBLISHER: run Prepare-PC.cmd from the full R12 toolkit. Upload only the
+PUBLISHER: run Prepare-PC.cmd from the full release toolkit. Upload only the
 verified SEST_Integration folder it prints. That folder includes the feature
 archive, normal SETUP integration and all campaign/ribbon data. Complete the
 PC checks below before Submit Mod. No Steam publication has occurred here.
@@ -40,7 +40,7 @@ That imports the reviewed source, checks author config updates, repairs
 the beta code and installs the backed-up campaign data. It prints separate
 data backup and canonical upload paths. It never submits anything to Steam.
 
-Run the root Prepare-PC.cmd once. R12\Repair-Beta-Startup.cmd alone changes
+Run the root Prepare-PC.cmd once. R13\Repair-Beta-Startup.cmd alone changes
 code only; the root command also installs the new world and ribbon data.
 If a check stops, retain its report and send the error. Do not print a
 success message or continue installing after a failed author-update check.
@@ -107,7 +107,7 @@ from the imported source checkout with -PackPath pointing at Workshop item
 to one world entry. It never rewrites a save. Your current regional saves do
 not require this activation.
 
-After testing, quit and run R12\Capture-Repair-Results.cmd; send the new capture.
+After testing, quit and run R13\Capture-Repair-Results.cmd; send the new capture.
 Managed and installer checks cannot verify native Noesis rendering, Steam
 upload behavior or a complete world campaign. Treat this as a beta candidate
 until those PC checks pass. The canonical upload keeps normal-release active plugins and carries the
@@ -183,8 +183,10 @@ ribbon, or a third line, is a fault.
   empty nation receives only specs without a selector.
 - Stable build or feature off. On the stable game build, or with
   MissionAwards=0 under [Runtime] in plugins/sest_runtime.ini, no runtime
-  ribbon is granted and native awards are unchanged. The developer ribbon
-  catalogue may still list the definitions; that is expected.
+  ribbon is granted and native awards are unchanged. On the beta, with or
+  without R13, the developer ribbon menu offers neither runtime ribbon: the
+  game lists only [TaskForceRibbons] RibbonIds from commander_settings.ini
+  (Red Line test card R5).
 - Admiralty filing. Complete an accepted standalone Admiralty order and an
   operation's final phase, close each paper at once (within one second),
   and open F11 Service: each counts once. A result filed and read

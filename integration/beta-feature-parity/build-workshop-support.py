@@ -66,6 +66,8 @@ with zipfile.ZipFile(a.package) as z:
         check(hashlib.sha256(z.read("payload/" + name)).hexdigest() == receipt["files"][name],
               name + " differs from its build receipt")
     target = receipt.get("target_game_sha256", "")
+    # R13 adds the debrief mission ribbons (runtime/MissionAwards.cs).
+    mission_ribbons = receipt["candidate_revision"].startswith("R13-")
     check(target in GAME_LABELS, "no player-facing label for target game " + target[:12] + "; add it to GAME_LABELS")
     manifest = {
         "format": 1, "workshop_item_id": "3812461539",
@@ -75,7 +77,8 @@ with zipfile.ZipFile(a.package) as z:
         "target_game_sha256": target,
         "target_game_label": GAME_LABELS[target],
         "files": {name: hashlib.sha256(z.read(name)).hexdigest() for name in sorted(names)},
-        "features": ["World Operations", "world service ribbons", "Coordinated Strike styling and weapon estimates"],
+        "features": ["World Operations", "world service ribbons", "Coordinated Strike styling and weapon estimates"]
+                    + (["debrief mission ribbons"] if mission_ribbons else []),
     }
 setup_dir = ROOT / "integration/campaign/setup"
 for launcher in LAUNCHERS:
@@ -84,11 +87,16 @@ source = setup_dir / "beta-support"
 source.mkdir(parents=True, exist_ok=True)
 (source / manifest["archive"]).write_bytes(raw)
 write_text(source / "manifest.json", json.dumps(manifest, indent=2) + "\n")
+if mission_ribbons:
+    included = ("The F11 World Operations, service progress, Coordinated Strike refinements\n"
+                "and debrief mission ribbons (for campaigns that define them) are included in\n"
+                "this Workshop item for the public beta\n")
+else:
+    included = ("The F11 World Operations, service progress and Coordinated Strike\n"
+                "refinements are included in this Workshop item for the public beta\n")
 write_text(source / "README.txt", """SEST WORKSHOP FEATURE UPDATE
 
-The F11 World Operations, service progress and Coordinated Strike
-refinements are included in this Workshop item for the public beta
-""" + manifest["target_game_label"] + """ only. The stable game uses the normal plugins in plugins/.
+""" + included + manifest["target_game_label"] + """ only. The stable game uses the normal plugins in plugins/.
 
 With Sea Power closed, run SETUP - double-click me.cmd at the pack root.
 On that beta build a fresh installation stages the features: launch to the
