@@ -1,10 +1,18 @@
-"""Red Line must offer real engagements without sacrificing protected units."""
-import math
-import unittest
+"""Red Line must offer real engagements without sacrificing protected units.
 
-import build_pack as bp
-import test_build_pack as fixtures
-from test_build_pack import small_mission, rendered
+    python3 -m unittest integration/campaign/test_red_line_pacing.py
+"""
+import math
+import sys
+import unittest
+from pathlib import Path
+
+# Run on its own as well as after test_build_pack.py (the release gates'
+# campaign step), which is what used to put this folder on the path.
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import build_pack as bp  # noqa: E402
+import test_build_pack as fixtures  # noqa: E402
+from test_build_pack import small_mission, rendered  # noqa: E402
 
 
 class RedLinePacing(unittest.TestCase):
