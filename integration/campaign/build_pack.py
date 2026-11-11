@@ -1460,9 +1460,10 @@ def pick_nation(uid, pick):
     Nation= is undeclared, and falls through to [Default].
 
     A SEST #!extend stub on the file comes first, as in the game: SEST
-    Collection Fixes re-registers the post-1991 Russian hulls to Russia with
-    a Nation= stub per section (integration/common/nation_stubs.py), and the
-    game reads an extend's keys before the file's.
+    Collection Fixes re-registers the post-1991 Russian hulls, refits and
+    aircraft to Russia with a Nation= stub per section or squadron
+    (integration/common/nation_stubs.py), and the game reads an extend's keys
+    before the file's.
     """
     kind, _path = unit_file(uid)
     rel = f"{kind}/{uid}_{'squadrons' if kind == 'aircraft' else 'variants'}.ini"
@@ -2342,7 +2343,12 @@ def place(mission, snapper):
             # a nation this war does not have (integration/common/flags.py):
             # Soviet-registered Russian hulls and aircraft fly the Russian
             # Federation's, Iran-registered Meridian hulls the company's.
-            pick = next((keys[k] for k in ("VariantReference", "Squadron") if k in keys), "Default")
+            # An aircraft's pick is its SquadronReference (resolve() writes
+            # no "Squadron" key; until 11 Nov 2026 this read one, so every
+            # aircraft fell back to [Default] and a squadron's own nation, or
+            # its SEST Nation stub, was never read).
+            pick = next((keys[k] for k in ("VariantReference", "SquadronReference") if k in keys),
+                        "Default")
             remapped = flags.flag_for(pick_nation(spec["type"], pick), spec["type"])
             if remapped:
                 keys["Nation"] = remapped

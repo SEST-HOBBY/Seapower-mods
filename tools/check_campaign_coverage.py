@@ -471,15 +471,23 @@ def nations(rel, parsed):
                             ("_variants", keys.get("VariantReference") or "Default")):
             if nation or not ref:
                 continue
-            hit = bp.index().get(f"{kind_dir}/{uid}{suffix}.ini".lower())
+            table_rel = f"{kind_dir}/{uid}{suffix}.ini"
+            hit = bp.index().get(table_rel.lower())
             if not hit:
                 continue
             table = blocks(Path(hit[1]).read_text(encoding="utf-8-sig", errors="replace"))
-            value = table.get(ref, {}).get("Nation") or table.get("Default", {}).get("Nation")
-            if value:
-                nation, source = value, f"{ref} of {uid}{suffix}.ini ({hit[0]})"
+            # SEST's #!extend Nation stub on the file comes first, section by
+            # section, as the game reads it (common/nation_stubs.py).
+            for section in (ref, "Default"):
+                stubbed = bp.nation_stubs.nation(table_rel, section)
+                value = stubbed or table.get(section, {}).get("Nation")
+                if value:
+                    nation = value
+                    source = (f"SEST's Nation stub on {section} of {uid}{suffix}.ini" if stubbed
+                              else f"{ref} of {uid}{suffix}.ini ({hit[0]})")
+                    break
         if nation:
-            nation = re.split(r"\s*(?://|#|;)", nation, 1)[0].strip()
+            nation = re.split(r"\s*(?://|#|;)", nation, maxsplit=1)[0].strip()
         # "Unknown" is a deliberate no-flag (the humpback whale declares it)
         if nation and nation.lower() not in _GAME_NATIONS | {"unknown"}:
             out.append(f"{rel}: [{tag}] {uid} flies Nation={nation!r} from {source} - "

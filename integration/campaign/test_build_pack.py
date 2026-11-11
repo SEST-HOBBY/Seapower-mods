@@ -6083,6 +6083,57 @@ class RussianRegistration(unittest.TestCase):
         self.assertEqual({keys["Type"]: keys.get("Nation") for _t, keys, _n, _f in rows},
                          {self.HULL: "Russia", "wp_ssn_akula": "Russia"})
 
+    def test_a_refit_registers_only_its_modern_fit(self):
+        if not bp.nation_stubs.sections("vessels/ru_cv_kuznetsov_variants.ini"):
+            self.skipTest("SEST Collection Fixes not built")
+        self.assertEqual(bp.pick_nation("ru_cv_kuznetsov", "Variant2"), "Russia")   # her 2016 fit
+        self.assertEqual(bp.pick_nation("ru_cv_kuznetsov", "Variant1"), "Soviet")   # her 1991 fit
+        self.assertEqual(bp.pick_nation("ru_cv_kuznetsov", "Default"), "Soviet")
+        self.assertEqual(bp.pick_nation("wp_ssn_akula", "Variant13"), "Russia")     # K-335 Gepard
+        self.assertEqual(bp.pick_nation("wp_ssn_akula", "Default"), "Soviet")
+
+    def test_a_post_1991_aircraft_reads_russia_squadron_by_squadron(self):
+        rel = "aircraft/wp_su-35s_squadrons.ini"
+        if not bp.nation_stubs.sections(rel):
+            self.skipTest("SEST Collection Fixes not built")
+        self.assertRegex(bp.read(bp.winning(rel)), r"(?m)^Nation=Soviet\s*$")
+        self.assertEqual(bp.pick_nation("wp_su-35s", "Squadron1"), "Russia")
+        self.assertEqual(bp.pick_nation("wp_su-35s", "Default"), "Russia")
+        self.assertEqual(bp.pick_nation("wp_su-35s", "Squadron4"), "China")         # the Su-35SK
+        self.assertEqual(bp.pick_nation("wp_su-27", "Squadron1"), "Soviet")         # Cold War
+        self.assertEqual(bp.pick_nation("wp_su_33", "Squadron1"), "Russia")         # the 279th
+        self.assertEqual(bp.pick_nation("wp_su_33", "Squadron3"), "Soviet")         # RSA's '98 carriers
+        # The credit is unchanged: the squadrons file is still the Flanker family's.
+        self.assertEqual(bp.owner(rel), "3434072450")
+
+    def test_a_roster_can_not_sell_one_unit_under_two_nations(self):
+        if not bp.nation_stubs.sections("aircraft/wp_su_33_squadrons.ini"):
+            self.skipTest("SEST Collection Fixes not built")
+        self.assertEqual(bp.roster_nations([{"unit": "wp_su-57", "picks": ["Squadron1"]}]),
+                         {"wp_su-57": "Russia"})
+        with self.assertRaises(SystemExit) as caught:
+            bp.roster_nations([{"unit": "wp_su_33", "picks": ["Squadron1", "Squadron3"]}])
+        self.assertIn("no single declared nation", str(caught.exception))
+
+    def test_a_placed_aircraft_flies_by_its_squadron(self):
+        """The flag is the squadron's (SquadronReference), not [Default]'s:
+        a Russian squadron flies Russia whether its file or a SEST stub
+        registers it, and the Su-35S's Chinese squadron keeps China."""
+        m = dict(key="Test Russian flags", num="01", group="core", centre=(-30.0, 110.0),
+                 minutes=60, blue_nation="Australia", red_nation="Russia",
+                 stations={"a": S(-30.0, 110.0, "A"), "b": S(-30.05, 110.05, "B")},
+                 units=[U("red", "flanker-family", "wp_su-35s", "a", squadron="Squadron1",
+                          route=[(-30.2, 110.2, 20000)]),
+                        U("red", "flanker-family", "wp_su-35s", "a", squadron="Squadron4",
+                          route=[(-30.2, 110.2, 20000)]),
+                        U("red", "flanker-family", "wp_su-27", "b", route=[(-30.2, 110.2, 20000)])])
+        placed, _members, _credits, _far = bp.place(m, bp.CoastPlacer(bp.coast_data(), m))
+        rows = [(keys["Type"], keys.get("SquadronReference"), keys.get("Nation"))
+                for _t, keys, _n, _f in placed["Taskforce2Aircraft"]]
+        self.assertEqual(rows, [("wp_su-35s", "Squadron1", "Russia"),
+                                ("wp_su-35s", "Squadron4", None),
+                                ("wp_su-27", "Squadron1", "Russia")])
+
     def test_the_russian_federation_is_named(self):
         self.assertEqual(bp.nation_name("Russia"), "Russian Federation")
         self.assertEqual(bp.nation_name("Meridian"), "Meridian Maritime Group")

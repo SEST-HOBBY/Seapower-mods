@@ -65,8 +65,8 @@ def index():
 def registered(idx, uid, pick):
     """The nation the game reads for a unit: the section the mission names,
     else [Default], each from SEST's #!extend Nation stub first (SEST
-    Collection Fixes' Russian registrations, common/nation_stubs.py) and then
-    the winning file. The *_overwrite stubs are not in index(): they are not
+    Collection Fixes' Russian registrations of hulls, refits and aircraft,
+    common/nation_stubs.py) and then the winning file. The *_overwrite stubs are not in index(): they are not
     variants files, they layer onto one."""
     for kind, suffix in (("vessels", "variants"), ("land_units", "variants"),
                          ("aircraft", "squadrons")):
@@ -97,7 +97,11 @@ def rewrite(text, idx):
         m = re.match(r"\[(Taskforce2(?:Vessel|Submarine|Aircraft|Helicopter|LandUnit)\d+)\]", head)
         if m and not re.search(r"^Nation=", block, re.M):
             ty = re.search(r"^Type=(\S+)", block, re.M)
-            pick = re.search(r"^(?:VariantReference|Squadron)=(\S+)", block, re.M)
+            # An aircraft names its squadron as SquadronReference= (every
+            # stock and SEST mission does); until 11 Nov 2026 this read
+            # Squadron=, which no mission writes, so an aircraft always fell
+            # back to [Default] and a per-squadron stub was never seen.
+            pick = re.search(r"^(?:VariantReference|SquadronReference|Squadron)=(\S+)", block, re.M)
             if ty:
                 flag = flags.flag_for(registered(idx, ty.group(1), pick.group(1) if pick else "Default"),
                                       ty.group(1))
