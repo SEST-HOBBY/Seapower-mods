@@ -2875,17 +2875,32 @@ class SuluLineCoalition(unittest.TestCase):
                                      ini.name)
         self.assertEqual(seen, {"generated": 7, "authored": 2})
 
+    # Makran Line's two fits (the Z-9CE on the Pakistan Navy's Tughril and
+    # Alamgir decks, design step P2) are committed before the campaign's
+    # package and roster. Until a roster sells them they are held here; the
+    # day one does, the test below fails until this set is emptied.
+    AHEAD_OF_ROSTER = {("pns_type_054a_p", "plan_z-9ce"),
+                       ("pns_ffg_oliver_hazard_perry_longhull", "plan_z-9ce")}
+
     def test_deck_fit_takes_each_campaign_deck_type(self):
         cd = cross_deck()
         pairs = [(deck, a) for deck, types in cd.CAMPAIGN_DECK_TYPES.items() for a in types]
-        self.assertEqual(len(pairs), 8)
+        self.assertEqual(len(pairs), 10)
+        self.assertLessEqual(self.AHEAD_OF_ROSTER, set(pairs))
         rosters = [{e["unit"] for e in s["ROSTER"]} for s in bp.campaign_specs()]
         for deck, a in pairs:
             # Each is a deck and an aircraft one campaign sells together.
-            self.assertTrue(any({deck, a} <= units for units in rosters), (deck, a))
+            sold = any({deck, a} <= units for units in rosters)
+            if (deck, a) in self.AHEAD_OF_ROSTER:
+                self.assertFalse(sold, f"{a} on {deck} is sold now: drop it from AHEAD_OF_ROSTER")
+            else:
+                self.assertTrue(sold, (deck, a))
         if not any(bp.CROSS_DECK.glob("*_CrossDeck_SEST.ini")):
             self.skipTest("SEST Cross-Deck not built")
         for deck, a in pairs:
+            if (deck, a) in self.AHEAD_OF_ROSTER and not bp.CROSS_DECK.joinpath(
+                    cd.stub_name(deck)).is_file():
+                continue          # its stub comes with the next rebuild
             self.assertEqual(bp.deck_fit(a, bp.unit_type(a), deck, True), 0, f"{a} on {deck}")
 
     def test_a_campaign_fit_is_called_one_in_the_stub(self):

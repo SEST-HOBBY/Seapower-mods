@@ -327,7 +327,7 @@ When two mods change the same unit, weapon or text, the result is usually
 broken. These are the fixes.
 
 **Allied decks for allied aircraft** *(SEST Cross-Deck, 13 October 2026)*
-- 130 flight decks of 13 allied navies operate the similar allied aircraft
+- 136 flight decks of 13 allied navies operate the similar allied aircraft
   their mod did not list: a deck that already flies one Seahawk, NH90, Lynx
   or Wildcat, Merlin, Sea King, AB 212, Panther, Seasprite, Cougar, Wasp,
   Alouette, CH-53, Osprey, Harrier, AV-8B/F-35B or catapult type takes the
@@ -340,6 +340,11 @@ broken. These are the fixes.
   leave out *(28 October 2026)*: the H-76 on the Jose Rizal, Miguel Malvar,
   Naresuan and Anzac, and the Thai Seahawk and MH-60R on Naresuan and BRP
   Tarlac. Not yet confirmed in game.
+- Two Pakistan Navy decks, the Tughril (Type 054A/P) and the Alamgir (the
+  long-hull Perry), also take the Pakistani Pack's Z-9CE, which Makran Line
+  flies from them *(11 November 2026)*. Their own lists leave it out.
+  Pakistan is not one of the allied navies, so they gain nothing else. Not
+  yet confirmed in game.
 
 **Air-to-ground weapons**
 - HARM back to its stock values.
