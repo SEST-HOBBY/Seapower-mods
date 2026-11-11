@@ -72,6 +72,7 @@ MISSIONS = {
     },
     'sest-red-line': {
         'RL03': ('The Other Picture', (2028, 11, 19), 'in The Other Picture'),
+        'RLC1': ('Pilot in the Water', (2028, 11, 24), 'in Pilot in the Water'),
         'RL05': ('Under the Convergence', (2028, 12, 27), 'in Under the Convergence'),
         'RL06': ('The Quiet Side', (2029, 1, 19), 'during Red Line, through The Quiet Side'),
     },
@@ -459,6 +460,54 @@ MILESTONES = {
                  (('#405D86', 4), ('#E5D7A6', 2), ('#164B4D', 4), ('#C9643B', 8), ('#164B4D', 4), ('#E5D7A6', 2), ('#405D86', 4))),
     },
 }
+# Runtime mission ribbons. SEST's beta runtime grants these, the game never
+# does: MissionAwards.cs (Runtime 1.6.5, beta R13, on
+# feature/runtime-mission-awards-20261110) reads a key the game ignores,
+#   [Mission<N>] SestRuntimeRibbonAwards=<spec>[|<spec>...]
+#   <spec> = <ribbonId>[,<NationKey>...]?<term>[&<term>...]
+#   <term> = objective:<ObjectiveId>=completed|failed|cancelled|notfailed
+#          | result>=<MissionDebriefViewModel.Result name> | nolaunch | rescued>=<1-999>
+# so Runtime 1.6.4 (R12) and the standard build never grant them, and
+# MissionAwards=0 in plugins/sest_runtime.ini switches them off. The runtime
+# adds its rows after the native completion gate, so every runtime ribbon
+# also needs the mission complete at its RequiredResult, as the native ones
+# do; a spec repeats no result term for that. nolaunch: no weapon launched
+# and no gun round fired by any unit of the player's task force, failed
+# launches included; noisemakers, chaff, decoys (MOSS), sonobuoys, CIWS
+# rounds, paratroopers and fuel tanks do not count. rescued: the debrief's
+# survivors rescued, which counts anyone the task force lifts from a raft,
+# so a citation says survivors, never whom. Each id has a [Ribbon_<id>]
+# definition, which the runtime reads, and stays out of [TaskForceRibbons]
+# RibbonIds, which the developer ribbon catalogue and its grant read.
+# The owner's decisions of 11 Nov 2026: Red Line only, its own fictional
+# ribbons, any commander, two awards. RL05's is the stricter companion of
+# its completion ribbon (sest_undersea_operations), granted beside it.
+# code -> (dict(id, name, why, stripes, terms[, nations]), ...)
+RUNTIME = {
+    'sest-red-line': {
+        'RL05': (dict(id='sest_silent_passage', name='Silent Passage Ribbon',
+                      terms=(('objective', 'Passage', 'completed'), ('nolaunch',)),
+                      why='For taking the submarine through the barrier to the forward box in Under the '
+                          'Convergence without launching a weapon, in command of {TaskForceName}',
+                      stripes=(('#0E1A2B', 6), ('#B94A48', 1), ('#2F5D50', 3), ('#9AA7B0', 8), ('#2F5D50', 3),
+                               ('#B94A48', 1), ('#0E1A2B', 6))),),
+        'RLC1': (dict(id='sest_personnel_recovery', name='Personnel Recovery Ribbon',
+                      terms=(('objective', 'Pilot', 'completed'), ('rescued', 1)),
+                      why='For completing Pilot in the Water with survivors recovered from the sea, in '
+                          'command of {TaskForceName}',
+                      stripes=(('#2A3244', 4), ('#B94A48', 2), ('#E8E4D8', 2), ('#D9773A', 12), ('#E8E4D8', 2),
+                               ('#B94A48', 2), ('#2A3244', 4))),),
+    },
+}
+RUNTIME_KEY = 'SestRuntimeRibbonAwards'
+# MissionDebriefViewModel.Result in value order, Incomplete (0) to
+# DecisiveVictory (17), as MissionAwardsTests.cs:237-240 pins it on the beta
+# (language_en/ui.ini lists the same 18 Result_ names, best first).
+RESULTS = ('Incomplete', 'CompleteDefeat', 'CrushingDefeat', 'DecisiveDefeat', 'MajorDefeat', 'Defeat',
+           'MinorDefeat', 'MarginalDefeat', 'TechnicalDefeat', 'PyrrhicVictory', 'Draw', 'CostlyVictory',
+           'MarginalVictory', 'MinorVictory', 'Victory', 'SignificantVictory', 'MajorVictory',
+           'DecisiveVictory')
+OBJECTIVE_STATES = ('completed', 'failed', 'cancelled', 'notfailed')
 COMPLETION = 'For completing the {operation} campaign in command of {{TaskForceName}}, through {final}'
 FICTIONAL = 'Fictional SEST campaign award.'
 REAL_NOTE = 'Game award for a fictional operation; not a real honour.'
@@ -963,9 +1012,27 @@ def grants(slug):
     return out
 
 
+def runtime_grants(slug):
+    """{award id: mission code} for the runtime ribbons (RUNTIME). An id is
+    granted at one mission, and never by the game as well."""
+    slug = base_slug(slug)
+    native, out = grants(slug), {}
+    for code, rows in RUNTIME.get(slug, {}).items():
+        _mission(slug, code)
+        for row in rows:
+            rid = row['id']
+            if rid in native:
+                raise ValueError(f'{slug}: {rid} is a native award; a runtime ribbon must not repeat one')
+            if rid in out:
+                raise ValueError(f'{slug}: {rid} is granted twice')
+            out[rid] = code
+    return out
+
+
 def catalogue(slug):
     """Every definition a campaign carries: what it grants, then what earlier
-    builds granted (RETIRED), keyed by id."""
+    builds granted (RETIRED), then the runtime ribbons (RUNTIME), keyed by
+    id."""
     slug = base_slug(slug)
     if slug not in CAMPAIGNS:
         return {}
@@ -985,6 +1052,15 @@ def catalogue(slug):
     for rid, row in RETIRED.items():
         if slug in row['missions'] and rid not in out:
             out[rid] = dict(_real(slug, rid, row, row['missions'][slug]), retired=True)
+    # A performance ribbon ranks after the campaign's completion ribbon (120)
+    # and before its operation ribbons (130).
+    for rid, code in runtime_grants(slug).items():
+        if rid in out:
+            raise ValueError(f'{slug}: {rid} is already defined')
+        row = next(r for r in RUNTIME[slug][code] if r['id'] == rid)
+        out[rid] = dict(name=row['name'], type='CampaignAward', precedence=125, reference='Fictional',
+                        recipient='commander', stripes=row['stripes'], mission=code,
+                        citation=row['why'] + '. ' + FICTIONAL, runtime=True)
     return out
 
 
@@ -1016,7 +1092,12 @@ def commander_settings(text, slug):
     text = _nations(text, slug)
     current = _section(text, 'TaskForceRibbons').get('RibbonIds', '')
     ids = [i.strip() for i in re.split(r'[|,]', current) if i.strip()]
-    ids.extend(rid for rid in definitions if rid not in ids)
+    # A runtime ribbon is defined but not listed: RibbonIds is the developer
+    # catalogue, whose grant would hand it out on any build.
+    listed = [rid for rid in ids if definitions.get(rid, {}).get('runtime')]
+    if listed:
+        raise ValueError(f'{slug}: RibbonIds lists the runtime ribbon {", ".join(listed)}')
+    ids.extend(rid for rid, row in definitions.items() if rid not in ids and not row.get('runtime'))
     text = _set(text, 'TaskForceRibbons', 'RibbonIds', '|'.join(ids))
     for rid, row in definitions.items():
         if _section(text, 'Ribbon_' + rid):
@@ -1211,6 +1292,60 @@ def mission_awards(slug, mission, final=False):
         if nation and nation not in NATIONS.get(slug, ()):
             raise ValueError(f'{slug}: {rid} is for {nation}, which the campaign does not offer')
         out.append(rid + (',' + nation if nation else ''))
+    return out
+
+
+def _runtime_term(term, objectives, where):
+    """One condition as MissionAwards.ParseTerm reads it. An objective must
+    be one of the mission's own, spelt as it is."""
+    kind, *args = term
+    if kind == 'objective' and len(args) == 2:
+        oid, state = args
+        if oid not in objectives:
+            raise ValueError(f'{where}: the mission has no objective {oid!r} ({", ".join(objectives) or "none"})')
+        if state not in OBJECTIVE_STATES:
+            raise ValueError(f'{where}: an objective is {"|".join(OBJECTIVE_STATES)}, not {state!r}')
+        return f'objective:{oid}={state}'
+    if kind == 'result' and len(args) == 1 and args[0] in RESULTS:
+        return f'result>={args[0]}'
+    if kind == 'nolaunch' and not args:
+        return 'nolaunch'
+    if kind == 'rescued' and len(args) == 1 and type(args[0]) is int and 1 <= args[0] <= 999:
+        return f'rescued>={args[0]}'
+    raise ValueError(f'{where}: {term!r} is not a runtime award condition')
+
+
+def runtime_mission_awards(slug, mission):
+    """The specs of a mission's SestRuntimeRibbonAwards key, in RUNTIME's
+    grammar. The build stops on an objective the mission does not have, an
+    unknown condition, an id the game grants too, a nation the campaign
+    does not offer, or a value the game's ini reader would cut."""
+    slug = base_slug(slug)
+    code = mission.get('code', 'SW' + mission.get('num', ''))
+    rows = RUNTIME.get(slug, {}).get(code, ())
+    if not rows:
+        return []
+    granted = runtime_grants(slug)
+    objectives = [row[0] for row in mission.get('objectives', ())]
+    out = []
+    for row in rows:
+        rid, where = row['id'], f'{slug} {code} {row["id"]}'
+        if granted.get(rid) != code or not re.fullmatch(r'[a-z0-9_]+', rid):
+            raise ValueError(f'{where}: not a runtime ribbon of this mission')
+        nations = tuple(row.get('nations', ()))
+        for nation in nations:
+            if nation not in NATIONS.get(slug, ()):
+                raise ValueError(f'{where}: {nation} is not a nation the campaign offers')
+        if not row['terms']:
+            raise ValueError(f'{where}: a spec needs a condition')
+        terms = [_runtime_term(term, objectives, where) for term in row['terms']]
+        out.append(rid + ''.join(',' + n for n in nations) + '?' + '&'.join(terms))
+    value = '|'.join(out)
+    # IniHandler ends a value at ';', and '#' and '//' open comments too
+    # (MissionAwards.cs:32); the runtime refuses more than 32 specs or 4096
+    # characters (:47).
+    if any(mark in value for mark in (';', '#', '//')) or len(value) > 4096 or len(out) > 32:
+        raise ValueError(f'{slug} {code}: {RUNTIME_KEY} value would not reach the runtime whole: {value!r}')
     return out
 
 

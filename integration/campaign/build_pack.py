@@ -8342,6 +8342,7 @@ def campaign_ini(missions, events, placements):
     # follows SW12 is a story card, and flagging it would tell the game the
     # campaign ends on something the player never flies.
     last_playable = max(index_of.values())
+    runtime_written = set()
     L += ["[Missions]", f"NumberOfMissions={len(entries)}", ""]
     for i, entry in enumerate(entries, 1):
         L.append(f"[Mission{i}]  #{entry['comment']}")
@@ -8499,6 +8500,12 @@ def campaign_ini(missions, events, placements):
             ribbon_awards = service_awards.mission_awards(SLUG, mission, i == last_playable)
             if ribbon_awards:
                 L.append("TaskForceModeRibbonAwards=" + "|".join(ribbon_awards))
+            # SEST's beta runtime (1.6.5) grants these after the native
+            # completion gate; the game and earlier runtimes ignore the key.
+            runtime_awards = service_awards.runtime_mission_awards(SLUG, mission)
+            if runtime_awards:
+                L.append(f"{service_awards.RUNTIME_KEY}=" + "|".join(runtime_awards))
+                runtime_written.update(s.split("?")[0].split(",")[0] for s in runtime_awards)
             L.append(f"TaskForceModeCompletionPoints={mission.get('points', 0)}")
             # Zero cap increment for this first balance pass: a reward is not a
             # reason to raise the ceiling on unspent points.
@@ -8549,6 +8556,11 @@ def campaign_ini(missions, events, placements):
             for key, value in local:
                 L.append(f"{key}_{lang}={value}")
         L.append("")
+    # A runtime ribbon whose mission is not in the spine would be defined
+    # and never keyed.
+    unkeyed = sorted(set(service_awards.runtime_grants(SLUG)) - runtime_written)
+    if unkeyed:
+        raise SystemExit(f"{SLUG}: no mission keys the runtime ribbon(s) " + ", ".join(unkeyed))
     return "\n".join(L)
 
 
