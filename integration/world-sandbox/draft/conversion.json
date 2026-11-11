@@ -7883,8 +7883,8 @@
    "boats": 11,
    "quality": "exact",
    "stands_for": "Improved Kilo (Project 636.3)",
-   "flag": "Soviet",
-   "note": ""
+   "flag": "Russia",
+   "note": "registered to Russia by SEST Collection Fixes' Nation stub"
   },
   {
    "nation": "Russia",
@@ -7892,8 +7892,8 @@
    "boats": 7,
    "quality": "exact",
    "stands_for": "Borei class",
-   "flag": "Soviet",
-   "note": "wp_ hulls register Soviet; SEST's Russian-flag fix reaches missions only"
+   "flag": "Russia",
+   "note": "registered to Russia by SEST Collection Fixes' Nation stub"
   },
   {
    "nation": "Russia",
@@ -7902,7 +7902,7 @@
    "quality": "exact",
    "stands_for": "Delta IV class",
    "flag": "Soviet",
-   "note": ""
+   "note": "a Soviet class: its file's Soviet registration stands"
   },
   {
    "nation": "Russia",
@@ -7911,7 +7911,7 @@
    "quality": "exact",
    "stands_for": "Oscar II class",
    "flag": "Soviet",
-   "note": ""
+   "note": "a Soviet class: its file's Soviet registration stands"
   },
   {
    "nation": "Russia",
@@ -7919,8 +7919,8 @@
    "boats": 3,
    "quality": "exact",
    "stands_for": "Yasen class",
-   "flag": "Soviet",
-   "note": ""
+   "flag": "Russia",
+   "note": "registered to Russia by SEST Collection Fixes' Nation stub"
   },
   {
    "nation": "Russia",
@@ -7929,7 +7929,7 @@
    "quality": "exact",
    "stands_for": "Akula class",
    "flag": "Soviet",
-   "note": ""
+   "note": "a Soviet class: its file's Soviet registration stands"
   },
   {
    "nation": "Russia",
@@ -7938,7 +7938,7 @@
    "quality": "exact",
    "stands_for": "Sierra II class",
    "flag": "Soviet",
-   "note": ""
+   "note": "a Soviet class: its file's Soviet registration stands"
   },
   {
    "nation": "South_Korea",
@@ -8059,8 +8059,8 @@
    "boats": 6,
    "quality": "same class",
    "stands_for": "Hanoi class (Project 636.1)",
-   "flag": "Soviet",
-   "note": ""
+   "flag": "Russia",
+   "note": "the stand-in flies its Russian donor's flag"
   }
  ],
  "submarines_unusable": [

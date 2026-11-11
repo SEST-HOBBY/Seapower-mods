@@ -62,6 +62,16 @@ page gives the class counts. New Zealand has one class, an aircraft sold
 with the allied fleet: the RNZAF P-8A. No class is registered to Canada.
 Ribbons add no points, renown or supplies.
 
+No campaign offers a Russian commander. SEST Collection Fixes now registers
+15 post-1991, Russian-built ship and submarine classes (the Gorshkov and
+Grigorovich frigates, the Steregushchiy, Gremyashchiy and Buyan-M corvettes,
+the Yasen, Borei and Improved Kilo boats) and SEST's Akademik Pashin to the
+game's Russia nation, named Russian Federation, instead of the USSR, so a
+future Russian commander's discount would cover them. Soviet-built hulls,
+fictional variants and every Russian aircraft stay Soviet, as stock Cold War
+missions use them. The SEST missions fly the Russian flag on all of them, as
+before.
+
 Fictional ribbons, any commander: the four completion ribbons (unchanged)
 and eight operation ribbons - SW05 Timor Corridor, SW08 Archipelago
 Operations, SR12 Antarctic Resupply, TS09 Southern Convoy, RL03 Contact
@@ -208,6 +218,13 @@ taegeuk; as a German one, the Cross of Honour shows its gold cross. Load an
 existing save: its commander, nation and earned ribbons are unchanged.
 Existing saves are preserved; start a new commander to choose another
 nationality.
+Russian Federation (SEST Collection Fixes' Nation stubs, not yet seen in
+game): in a new Southern Watch campaign the Situation window's Russia block
+shows the Project 20380 corvette under the Russian Federation flag and the
+Akula under the USSR's. In the Mission Editor, Russian Navy 21's Admiral
+Gorshkov shows Russian Federation and the game's own Sovremenny USSR. Pacific
+Strike's Action in the Taiwan Strait still generates its Soviet force. The
+Southern Watch test card's RU rows have the detail.
 On this build, neither Red Line runtime ribbon appears after RL05 or RLC1
 and the developer ribbon menu offers neither (the Red Line test card's
 checks R5 and R6); that is expected. Once R13 (Runtime 1.6.5) is installed:
