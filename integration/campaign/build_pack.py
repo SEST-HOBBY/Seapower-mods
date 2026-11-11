@@ -3195,6 +3195,17 @@ def path_refreshed(path):
     return any(isinstance(t, dict) and term_kind(t) == "clear_of" for t in path["also"])
 
 
+def path_triggers(i, path):
+    """Every trigger any_of path i writes: its victory trigger, the Time
+    trigger that opens it (after_minutes) and its refresh (a clear_of
+    term). Switching a path off switches off all three, or the gate turns
+    it back on."""
+    return ([path_trigger(i, path)]
+            + ([f"Opens at minute {path['after_minutes']}: {path['name']}"]
+               if path.get("after_minutes") else [])
+            + ([f"Refresh: {path['name']}"] if path_refreshed(path) else []))
+
+
 def check_any_of(mission):
     victory = mission["victory"]
     paths = victory.get("any_of")
@@ -3210,6 +3221,10 @@ def check_any_of(mission):
             raise SystemExit(f"{key}: any_of with {other}= - a staged or sunk win "
                              "is one path, and the two do not combine")
     objectives = {o[0] for o in mission["objectives"]}
+    # The common also is copied into every path's trigger (victory_
+    # alternatives starts each from it), a refreshed path's included.
+    common_time = [t for t in victory.get("also", [])
+                   if isinstance(t, dict) and term_kind(t) == "time"]
     names = set()
     for i, p in enumerate(paths):
         stray = sorted(set(p) - PATH_KEYS)
@@ -3242,6 +3257,11 @@ def check_any_of(mission):
             raise SystemExit(f"{where}: a time term in a path its refresh reactivates "
                              "every 5 seconds would never come - give the path "
                              "after_minutes instead")
+        if common_time:
+            raise SystemExit(f"{where}: a time term in the victory's common also is "
+                             "copied into this path, which its refresh reactivates every "
+                             "5 seconds, so it would never come - move it into the other "
+                             "paths' also, and give this path after_minutes")
         for term in p["also"]:
             if not (isinstance(term, dict) and term_kind(term) == "clear_of"):
                 continue
@@ -3254,6 +3274,16 @@ def check_any_of(mission):
                     f"{where}: its units have an attack order at minute {last:g}, which "
                     "nothing cancels, so the path opens no earlier than minute "
                     f"{last + CLEAR_AFTER_ATTACK_MIN:g} (after_minutes={after!r})")
+            # Units held back to a minute (enter=) are not in the mission
+            # before it, so the circle is clear of them then: the path opens
+            # only after they have joined, not in the tick they do.
+            entry = max((u["enter"] for u in mission["units"] if u.get("station") in stations
+                         and u.get("enter") is not None), default=None)
+            if entry is not None and (after or 0) <= entry:
+                raise SystemExit(
+                    f"{where}: its units join at minute {entry:g}, and before then the "
+                    "circle is clear because they are not in the mission - give the "
+                    f"path after_minutes above {entry:g} (after_minutes={after!r})")
 
 
 def victory_alternatives(mission, cond, expr, n, members, placed, trigger, done, exit_line):
@@ -3274,8 +3304,7 @@ def victory_alternatives(mission, cond, expr, n, members, placed, trigger, done,
 
     def refresh(p):
         return f"Refresh: {p['name']}"
-    own = [[met(i, p)] + ([gate(p)] if p.get("after_minutes") else [])
-           + ([refresh(p)] if path_refreshed(p) else []) for i, p in enumerate(paths)]
+    own = [path_triggers(i, p) for i, p in enumerate(paths)]
     for i, p in enumerate(paths):
         lines, p_expr, pn = list(cond), expr, n
         for extra in p["also"]:
@@ -3285,11 +3314,17 @@ def victory_alternatives(mission, cond, expr, n, members, placed, trigger, done,
             p_expr += f" AND {fragment}"
         stop = [c for j, names in enumerate(own) if j != i for c in names]
         stop += [refresh(p)] if path_refreshed(p) else []
+        # A win ends the progress reports: each is written after the victory
+        # triggers, so one met in the same tick no longer posts with the win.
+        stop += progress_names(mission)
         body = (["Disabled=True"] if p.get("after_minutes") else []) + lines + [
             f"ConditionsCompleted={p_expr}",
             "Action_Taskforce1_Message="
             + ("Taskforce1VictoryMessage" if i == 0 else f"Path{p['name']}VictoryMessage"),
-            "Action_Taskforce2_Message=Taskforce2DefeatMessage",
+            # Each path's own text for the other side too: the first
+            # path's is the mission's win, which says how that path won.
+            "Action_Taskforce2_Message="
+            + ("Taskforce2DefeatMessage" if i == 0 else f"Path{p['name']}Taskforce2DefeatMessage"),
             "Action_Victory=Taskforce1",
             "Action_ObjectivesCompleted=" + ",".join(
                 done + victory.get("bonus", []) + list(p.get("bonus", [])))]
@@ -3524,6 +3559,15 @@ def turn_back_triggers(mission, placed, members, tb, trigger, terminal, progress
 PROGRESS_KEYS = frozenset({"name", "units", "at", "at_unit", "radius", "min_units",
                            "after_minutes", "before_minutes", "after", "intel"})
 PROGRESS_PREFIX = "Progress: "
+# The only actions a report carries (check_zone_areas holds it to them).
+PROGRESS_ACTIONS = frozenset({"Action_Taskforce1_Intel", "Action_EnableTriggers",
+                              "Action_ReactivateTriggers"})
+
+
+def progress_names(mission):
+    """The Name= of every progress report the mission writes."""
+    return [PROGRESS_PREFIX + e["name"] for e in mission.get("progress", [])
+            if isinstance(e, dict) and e.get("name")]
 
 
 def progress_circle(mission, placed, members, entry):
@@ -5625,6 +5669,9 @@ def render(mission, placed, members):
              f"{ini_text(mission['lose'])}")
     L.append("Taskforce2DefeatMessage=<color=red>Opposing force defeated.</color>|"
              f"{ini_text(mission['win'])}")
+    for path in mission["victory"].get("any_of", [])[1:]:
+        L.append(f"Path{path['name']}Taskforce2DefeatMessage=<color=red>Opposing force "
+                 f"defeated.</color>|{ini_text(path['win'])}")
     L.append("TimeoutMessage=<color=red>Operational window closed.</color>|"
              f"{ini_text(clock_text(mission, mission['timeout']))}")
     L.append("BehindScheduleMessage=<color=yellow>Behind schedule.</color>|"
@@ -5912,6 +5959,11 @@ def render(mission, placed, members):
                             + victory.get("bonus", []))]
     if victory.get("sets"):
         win_lines.append(f"Action_VariableSet={victory['sets']},True")
+    # A win ends the progress reports, written after it, so one met in the
+    # same tick does not post with the win (victory_alternatives does the
+    # same for each any_of path).
+    if progress_names(mission):
+        win_lines.append("Action_DisableTriggers=" + trigger_marks(*progress_names(mission)))
     win_lines.append(EXIT)
 
     # A win the player has to EARN. Two missions scored their arrival with

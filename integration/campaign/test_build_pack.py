@@ -648,6 +648,11 @@ class VictoryAlternatives(unittest.TestCase):
         self.assertIn("Action_Taskforce1_Message=PathClearVictoryMessage", clear)
         self.assertIn("PathClearVictoryMessage=<color=lime>Operation complete.</color>|"
                       "They broke off.", text)
+        # The other side's text is the path's own too, not the first path's.
+        self.assertIn("Action_Taskforce2_Message=Taskforce2DefeatMessage", kill)
+        self.assertIn("Action_Taskforce2_Message=PathClearTaskforce2DefeatMessage", clear)
+        self.assertIn("PathClearTaskforce2DefeatMessage=<color=red>Opposing force "
+                      "defeated.</color>|They broke off.", text)
 
     def test_the_clear_path_is_north_borneos(self):
         triggers, n, _text = self.render(self.mission())
@@ -685,6 +690,25 @@ class VictoryAlternatives(unittest.TestCase):
         refresh = re.search(r"^\[Trigger10\]\n(.*?)(?=^\[)", borneo, re.M | re.S).group(1)
         self.assertIn("Condition_Condition1_Time=5\n", refresh)
         self.assertIn("Action_ReactivateTriggers=Trigger3,Trigger10", refresh)
+
+    def test_a_win_ends_the_progress_reports(self):
+        # A report met in the tick of the win would post with it: every
+        # victory trigger switches the reports off, and is written first.
+        m = self.mission()
+        m["progress"] = [dict(name="Near", units=["group"],
+                              intel="GROUP STAFF: The carrier is in the box.")]
+        triggers, n, _text = self.render(m)
+        report = f"Trigger{n['Progress: Near']}"
+        for path in ("Objective met", "Objective met: Clear"):
+            off = next(l for l in triggers[path] if l.startswith("Action_DisableTriggers="))
+            self.assertIn(report, off.split("=")[1].split(","), path)
+            self.assertLess(n[path], n["Progress: Near"])
+        def near():
+            return small_mission(progress=[dict(name="Near", units=["group"],
+                                                intel="GROUP STAFF: The carrier is in the box.")])
+        n = _trigger_numbers(bp.render(near(), *small_placement())[1])
+        self.assertIn(f"Action_DisableTriggers=Trigger{n['Progress: Near']}",
+                      rendered(near())["Objective met"])
 
     def test_without_any_of_the_win_is_as_before(self):
         triggers = rendered(small_mission())
@@ -725,6 +749,28 @@ class VictoryAlternatives(unittest.TestCase):
         m["victory"]["also"].append(dict(kind="clear_of", units=["fighters"]))
         with self.assertRaisesRegex(SystemExit, "belongs to an any_of path"):
             self.render(m)
+        # A time term in the common also is copied into the refreshed path,
+        # whose refresh would restart it every 5 seconds.
+        m = self.mission()
+        m["victory"]["also"].append(dict(kind="time", after_minutes=9))
+        with self.assertRaisesRegex(SystemExit, "time term in the victory's common also"):
+            self.render(m)
+        # ...where a mission without a refreshed path keeps it.
+        m = self.mission([kill, dict(name="Late", win="Late.",
+                                     also=[dict(kind="afloat", units=["fighters"])])])
+        m["victory"]["also"].append(dict(kind="time", after_minutes=9))
+        self.assertIn("Objective met: Late", self.render(m)[0])
+        # Units held back to a minute are not in the mission before it, so
+        # the circle is clear of them: the path opens after they join.
+        m = self.mission([kill, clear(after_minutes=30)])
+        m["units"] = [dict(station="fighters", enter=30)]
+        with self.assertRaisesRegex(SystemExit, "join at minute 30"):
+            self.render(m)
+        m["victory"]["any_of"][1].pop("after_minutes")
+        with self.assertRaisesRegex(SystemExit, "join at minute 30"):
+            self.render(m)
+        m["victory"]["any_of"][1]["after_minutes"] = 31
+        self.assertIn("Objective met: Clear", self.render(m)[0])
         # Attack= orders are unconditional: the path waits them out.
         m = self.mission([kill, clear(after_minutes=11)])
         m["units"] = [dict(station="fighters", attacks=[(10, "usaf_aim-120c7", "group", 1)])]
@@ -4772,9 +4818,24 @@ class RedLineVictoryPaths(unittest.TestCase):
         self.assertEqual(refresh["Condition_Condition1_Time"], "5")
         self.assertEqual(refresh["Action_ReactivateTriggers"],
                          f"Trigger{n['Objective met: Disengage']},Trigger{n['Refresh: Disengage']}")
+        # Neither F-35 down: after a kill only the Intercept path can win,
+        # so the two are never met in one tick.
         self.assertEqual(disengage["ConditionsCompleted"],
-                         "<Condition1> AND <Condition2> AND NOT <Condition3>")
+                         "<Condition1> AND <Condition2> AND NOT <Condition3> AND NOT <Condition4>")
+        self.assertEqual(disengage["Condition_Condition4_Type"], "UnitDestroyed")
+        self.assertEqual(disengage["Condition_Condition4_Units"],
+                         intercept["Condition_Condition3_Units"])
+        self.assertEqual(disengage["Condition_Condition4_MinimumUnits"], "1")
         self.assertEqual(disengage["Condition_Condition3_AreaRadiusNM"], "70")
+        # The radius is the builder's AIM-120C7 reach, and the brief and the
+        # report say it in words.
+        self.assertEqual(int(disengage["Condition_Condition3_AreaRadiusNM"]),
+                         math.ceil(bp.air_reach("raaf_f-35a", "AirToAir")))
+        # A win ends the report on Dragon Eye, which is written after both.
+        for lines in (intercept, disengage):
+            self.assertIn(f"Trigger{n['Progress: EyeHome']}",
+                          lines["Action_DisableTriggers"].split(","))
+            self.assertLess(n["Objective met"], n["Progress: EyeHome"])
         self.assertEqual(disengage["Condition_Condition3_Taskforce"], "Taskforce2")
         self.assertNotIn("Fighters", disengage["Action_ObjectivesCompleted"].split(","))
         self.assertNotIn("Fighters", intercept["Action_ObjectivesCompleted"].split(","))

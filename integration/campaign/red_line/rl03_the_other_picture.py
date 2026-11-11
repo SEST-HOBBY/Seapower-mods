@@ -9,9 +9,10 @@ KJ-500 is the main task, so another long recognition search cannot stall it.
 10 Nov 2026 (step 3 of the builder-grammar design): the intercept breaks
 either way. Intercept: an F-35 down, the exit from minute nine. Disengage:
 from minute eighteen, after both attack orders, no F-35 within its missiles'
-reach of the box (the builder's air_reach, 70 NM for the JATM pack's
-AIM-120C7), in 08 Defense of North Borneo's shape. Both share the exit and
-no incoming weapon; Fighters is a bonus again, earned only by the kill.
+reach of the box's centre (the builder's air_reach, 70 NM for the JATM
+pack's AIM-120C7) and neither F-35 down, in 08 Defense of North Borneo's
+shape. Both share the exit and no incoming weapon; Fighters is a bonus
+again, earned only by the kill.
 """
 from campaign_data import U, F, S
 from .tables import HELO, RECON, CAP, NORTH_HULLS, NORTH_AIR, CARRIER_AIR
@@ -62,8 +63,12 @@ MISSION = dict(
                      dict(name="Intercept",
                           also=[dict(kind="destroyed",units=["red_air"],min_units=1),
                                 dict(kind="time",after_minutes=9)]),
+                     # Neither F-35 down: after a kill the Intercept path
+                     # is the one that wins, so the two never meet in one
+                     # tick and the text below stays true.
                      dict(name="Disengage", after_minutes=18,
-                          also=[dict(kind="clear_of",units=["red_air"])],
+                          also=[dict(kind="clear_of",units=["red_air"]),
+                                dict(kind="afloat",units=["red_air"])],
                           win=("Dragon Eye is back in the return box and the F-35s have broken "
                                "off, neither of them shot down. Its recordings are going to "
                                "headquarters. The convoy and its protected escorts remain "
