@@ -1,5 +1,7 @@
 # Southern Watch — first play test
 
+> **Branches since 11 November 2026** (docs/BRANCHES.md): the PC installs and tests `beta`, which `data/deploy-branch.txt` names; work merges into `dev` by pull request; `steam` is what is live on the Workshop. Where this guide names `sest-dev/jolly-ride-rptj4t` for a pull or install, use `beta`; push changes to a feature branch and open a pull request into `dev` instead of pushing to it.
+
 Only parts of this campaign have been watched in the game (the first installs
 and play tests recorded below). Everything else below is a claim the build
 makes about files it wrote; this card is the order to falsify them in,
@@ -86,8 +88,8 @@ The short version, game **closed** (it rewrites `usersettings.ini` on exit),
 on the branch named in `data\deploy-branch.txt` (`sest-dev/jolly-ride-rptj4t`):
 
 ```powershell
-git checkout sest-dev/jolly-ride-rptj4t      # the branch data\deploy-branch.txt names
-git pull origin sest-dev/jolly-ride-rptj4t
+git checkout beta      # the branch data\deploy-branch.txt names
+git pull origin beta
 powershell -ExecutionPolicy Bypass -File .\tools\sync-sest.ps1
 ```
 

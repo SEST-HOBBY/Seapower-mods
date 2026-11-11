@@ -6,18 +6,16 @@ Standard 0.8.7-261021: Runtime 1.5.0 / UI 1.4.6 (unchanged)
 This is R12 Final (merged as PR #58) together with the commander nations and
 national awards (merged as PR #59), the combined release notes (merged as PR
 #60) and Red Line's victory paths, the heave-to and progress reports (step 3
-of the builder grammar, on feature/builder-grammar-20261111, in review as PR
-#61), with step 4's two Red Line runtime ribbons prepared and inert until R13
-(on feature/runtime-awards-campaign-20261111, in review as PR #62, stacked on
-PR #61) and step 5's Russian Federation registration of the modern Russian
-hulls (on feature/russia-registration-20261111, not pushed, stacked on PR
-#62), checked once on the PC and posted as one update. RIBBONS.txt has every
-award mapping. R12-RIBBON-EXPANSION.txt describes R12 Final before the
-commander nations: use it only for the R12 review findings fixed and the
-minor ones still open, and this file and RIBBONS.txt for the award counts,
-nations and PC steps. None of the five parts has been played on the owner's
-PC yet; step 4 has nothing to play before R13 except the Red Line test card's
-checks R5 and R6.
+of the builder grammar, merged as PR #61), with step 4's two Red Line runtime
+ribbons prepared and inert until R13 (merged as PR #62) and step 5's Russian
+Federation registration of the modern Russian ships and aircraft (on
+feature/russia-registration-20261111, in review), checked once on the PC and
+posted as one update. RIBBONS.txt has every award mapping.
+R12-RIBBON-EXPANSION.txt describes R12 Final before the commander nations: use
+it only for the R12 review findings fixed and the minor ones still open, and
+this file and RIBBONS.txt for the award counts, nations and PC steps. None of
+the five parts has been played on the owner's PC yet; step 4 has nothing to
+play before R13 except the Red Line test card's checks R5 and R6.
 
 WHAT IS NEW SINCE THE R12 RIBBON TEST BUILD
 - Commander nations: Southern Watch and Southern Reach offer Australia (the
@@ -60,8 +58,8 @@ WHAT IS NEW SINCE THE R12 RIBBON TEST BUILD
 - Held stages: RLC1's and SW03's held stages now reactivate their held
   trigger at the arrival, so the four- and three-minute holds should count
   from then; not yet checked in game (step 3).
-- Red Line runtime ribbons, prepared for R13 (step 4, campaign side, on
-  feature/runtime-awards-campaign-20261111, in review): RL05 Silent
+- Red Line runtime ribbons, prepared for R13 (step 4, campaign side,
+  merged as PR #62): RL05 Silent
   Passage and RLC1 Personnel Recovery are defined in the Red Line campaign
   and keyed for the beta runtime R13 (Runtime 1.6.5). This update ships
   Runtime 1.6.4, which ignores the key as the game and the standard build
@@ -105,7 +103,7 @@ PREPARE AND CHECK
 1. Close Sea Power. Keep SEST and the collection subscribed. Extract this
    COMPLETE toolkit into a NEW folder and run Prepare-PC.cmd. Keep the
    printed release checkout, the backup path and the line "VERIFIED: all
-   4430 canonical upload files match the release manifest." Upload-PC.cmd
+   4415 canonical upload files match the release manifest." Upload-PC.cmd
    prints the folder to upload (step 6).
    Prepare-PC installs both code and campaign/loadout data; Repair-PC alone
    only repairs code. The author-update guard and original restore journal
@@ -206,11 +204,10 @@ RETAINED FEATURES
   reviewed files for the supported beta.
 
 The owner accepted the four briefing/costs/page changes on 9 November.
-None of the five parts has been played on that PC yet. PRs #58, #59 and
-#60 are merged on the GitHub deploy branch sest-dev/jolly-ride-rptj4t. This
-toolkit's branch, feature/russia-registration-20261111 (not pushed), adds
-step 5's Russian Federation registration. It builds on
-feature/runtime-awards-campaign-20261111 (PR #62, in review), which adds Red
-Line step 4's campaign side on feature/builder-grammar-20261111 (PR #61, in
-review on GitHub), which adds Red Line step 3 on top of PRs #58 to #60.
+None of the five parts has been played on that PC yet. PRs #58 to #65 are
+merged on dev, with the Steam images for R12 and the world campaign; step 5's
+Russian Federation registration is on feature/russia-registration-20261111, in
+review. This toolkit's branch, beta, is the branch the PC installs, tests and
+posts from (docs/BRANCHES.md); it carries what dev holds when the toolkit is
+built.
 Nothing has been uploaded to Steam.
