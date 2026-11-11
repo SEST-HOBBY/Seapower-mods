@@ -63,9 +63,12 @@ award. Rows are rewritten for each completion and the set is distinct, so a
 replay or reload never holds a ribbon twice; a ribbon the native rules
 already granted is not added. Several specs may name one ribbon: the first
 that qualifies grants it. The definition is the campaign's `[Ribbon_<id>]`;
-runtime-only IDs are not listed in `[TaskForceRibbons] RibbonIds`. No
-campaign in this source emits the key yet; the campaign builder adds it
-with the definitions.
+runtime-only IDs are not listed in `[TaskForceRibbons] RibbonIds`. Red
+Line emits the key (RL05 Silent Passage in `[Mission15]`, RLC1 Personnel
+Recovery in `[Mission11]`) with both definitions in its
+`commander_settings.ini`. Its `campaign.ini` names itself as its `[File]
+Base`, so the key is read twice and each debrief logs two lines per runtime
+ribbon: the verdict, then "already awarded" or the same "not met" line.
 
 The log has one line per evaluated spec (`debrief mission N: runtime ribbon
 <id> AWARDED | not met: <term> (<actual>) | ...` with result, objectives,

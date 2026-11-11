@@ -141,14 +141,19 @@ R12 RIBBON EXPANSION - 10 NOVEMBER 2026
   preparation, end-battle return, Contacts/Formation and strike controls remain.
 
 R13 MISSION RIBBONS AND ADMIRALTY FILING - 10 NOVEMBER 2026
-Runtime 1.6.5 / UI 1.4.15 on beta 0.8.7-261107 (499675cd). The ribbon checks
-need a Red Line build whose RL05 [Mission15] and RLC1 [Mission11] carry the
-SestRuntimeRibbonAwards key and its [Ribbon_<id>] definitions (the campaign
-builder adds them; this source has none yet). Without one, check only that
-native awards and the debrief are unchanged. Read each result in Player.log:
-one '[SEST Runtime] debrief mission N: runtime ribbon <id> ...' line per spec.
+Runtime 1.6.5 / UI 1.4.15 on beta 0.8.7-261107 (499675cd). Red Line's
+campaign.ini now carries the SestRuntimeRibbonAwards key: RL05 Silent Passage
+in [Mission15] and RLC1 Personnel Recovery in [Mission11], with both
+[Ribbon_<id>] definitions in its commander_settings.ini. Read each result in
+Player.log: each debrief logs two '[SEST Runtime] debrief mission N: runtime
+ribbon <id> ...' lines per runtime ribbon. Judge by the first, the verdict.
+The second says 'already awarded' after an award, or repeats the first's
+'not met: ...'. It is expected: Red Line's campaign.ini names itself as its
+[File] Base, so the game yields it as the open campaign ini and again as its
+base, and the runtime reads the key twice. A second AWARDED for the same
+ribbon, or a third line, is a fault.
 - Debrief grant. Complete RL05 at CostlyVictory or better without firing.
-  The log line says AWARDED with launched=0 and rounds=0. The native 'Task
+  The first line says AWARDED with launched=0 and rounds=0. The native 'Task
   force debrief snapshot saved: ... Ribbons=N' line counts it, the debrief
   awards row shows it, and the Task Force Service Record shows it with its
   citation, date and rank. The log's objective states match the debrief's

@@ -153,7 +153,10 @@ campaign and keyed for SEST's beta runtime R13 (Runtime 1.6.5), which grants
 them at the debrief. The game itself ignores the key: R12 (Runtime 1.6.4)
 and the standard build never grant them, and neither does R13 with
 MissionAwards=0 under [Runtime] in plugins/sest_runtime.ini. Like every
-ribbon here, each also needs the mission's required result.
+ribbon here, each also needs the mission's required result. This update's
+beta features are R13: on public beta 0.8.7-261107, once SEST SETUP has
+installed them, both ribbons are granted. On the standard 0.8.7-261021
+build SEST keeps Runtime 1.5.0 and neither is granted.
 - RL05 Silent Passage: Under the Convergence's Passage objective completed
   with no weapon launched and no gun round fired by any unit of the task
   force. A failed launch counts as a launch; noisemakers, chaff, decoys,
@@ -209,11 +212,12 @@ taegeuk; as a German one, the Cross of Honour shows its gold cross. Load an
 existing save: its commander, nation and earned ribbons are unchanged.
 Existing saves are preserved; start a new commander to choose another
 nationality.
-On this build, neither Red Line runtime ribbon appears after RL05 or RLC1
-and the developer ribbon menu offers neither (the Red Line test card's
-checks R5 and R6); that is expected. Once R13 (Runtime 1.6.5) is installed:
+On the beta with this update's R13 (Runtime 1.6.5) installed by SETUP:
 complete RL05 without launching anything and RLC1 with its pilot recovered,
-and read each runtime ribbon's lines in Player.log (checks R1 to R4). Each
+and read each runtime ribbon's lines in Player.log (checks R1 to R4). The
+developer ribbon menu still offers neither ribbon, and with MissionAwards=0
+or on the standard build neither is granted (the Red Line test card's
+checks R5 and R6); that is expected. Each
 debrief logs two lines per runtime ribbon: judge by the first, the verdict.
 The second says "already awarded" after an award, or otherwise repeats the
 first. It is expected: Red Line's campaign.ini names itself as its [File]

@@ -1,9 +1,9 @@
-"""Build the owner's PC toolkit for the R12 Workshop release from this checkout.
+"""Build the owner's PC toolkit for the R12 Workshop release (beta R13) from this checkout.
 
 The toolkit is what Prepare-PC.cmd, Repair-PC.cmd, Upload-PC.cmd and
 Finish-Upload.cmd run against on the gaming PC: the release docs and
 launchers from docs/releases/20261107, RIBBONS.txt, the reviewed beta package
-extracted as R12/, a git bundle of the release branch and SOURCE-RECEIPT.json,
+extracted as R13/, a git bundle of the release branch and SOURCE-RECEIPT.json,
 which Prepare-PC.ps1 and Upload-PC.ps1 read. Nothing here touches a game,
 Steam or a remote.
 
@@ -22,7 +22,7 @@ from pathlib import Path, PurePosixPath
 
 ROOT = Path(__file__).resolve().parents[1]
 RELEASE = ROOT / 'docs' / 'releases' / '20261107'
-BETA_DIRECTORY = 'R12'
+BETA_DIRECTORY = 'R13'
 SUPPORT = ROOT / 'integration' / 'dist' / 'SEST_Integration' / 'beta-support'
 LAUNCHERS = ('Prepare-PC.cmd', 'Prepare-PC.ps1', 'Repair-PC.cmd', 'Upload-PC.cmd',
              'Upload-PC.ps1', 'Finish-Upload.cmd')
