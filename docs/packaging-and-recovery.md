@@ -1,5 +1,7 @@
 # Packaging, dependencies and recovery
 
+> **Branches since 11 November 2026** (docs/BRANCHES.md): the PC installs and tests `beta`, which `data/deploy-branch.txt` names; work merges into `dev` by pull request; `steam` is what is live on the Workshop. Where this guide names `sest-dev/jolly-ride-rptj4t` for a pull or install, use `beta`; push changes to a feature branch and open a pull request into `dev` instead of pushing to it.
+
 Two questions this answers: how the SEST packs coexist with 195 workshop mods
 (196 Mod Manager entries with `SEST_Integration`), and what you actually need
 to be able to recover if the game install goes bad.
@@ -429,9 +431,9 @@ press Enter once more.
   if (Get-Process -Name 'Sea Power', 'SeaPower' -ErrorAction SilentlyContinue) { throw 'Sea Power is running - exit it first' }
   Set-Location -LiteralPath 'C:\Users\rolyl\Seapower-mods'
   if (git status --short) { throw 'The clone has uncommitted changes - stop and report them' }
-  git checkout sest-dev/jolly-ride-rptj4t
+  git checkout beta
   if ($LASTEXITCODE) { throw 'checkout failed' }
-  git pull --ff-only origin sest-dev/jolly-ride-rptj4t
+  git pull --ff-only origin beta
   if ($LASTEXITCODE) { throw 'pull refused - stop and report it' }
   powershell -ExecutionPolicy Bypass -File .\tools\export-mod-configs.ps1 -IncludeVanilla
   if ($LASTEXITCODE) { throw 'export failed - read its last lines; nothing has been committed' }
@@ -564,7 +566,7 @@ quit it, then:
   git commit -m "chore: capture workshop refresh $(Get-Date -Format yyyy-MM-dd)"
   git push -u origin $b
   if ($LASTEXITCODE) { throw 'push failed' }
-  git checkout sest-dev/jolly-ride-rptj4t                 # back to the deploy branch for play
+  git checkout beta                 # back to the deploy branch for play
 }
 ```
 
@@ -629,7 +631,7 @@ lists the stage that failed, so send the ZIP either way:
   git commit -m "chore: capture workshop refresh $(Get-Date -Format yyyy-MM-dd)"
   git push -u origin $b
   if ($LASTEXITCODE) { throw 'push failed' }
-  git checkout sest-dev/jolly-ride-rptj4t                 # back to the deploy branch for play
+  git checkout beta                 # back to the deploy branch for play
 }
 ```
 

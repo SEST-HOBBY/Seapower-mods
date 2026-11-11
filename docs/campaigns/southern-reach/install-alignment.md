@@ -1,5 +1,7 @@
 # Aligning the gaming PC with this branch — and with the other sessions
 
+> **Branches since 11 November 2026** (docs/BRANCHES.md): the PC installs and tests `beta`, which `data/deploy-branch.txt` names; work merges into `dev` by pull request; `steam` is what is live on the Workshop. Where this guide names `sest-dev/jolly-ride-rptj4t` for a pull or install, use `beta`; push changes to a feature branch and open a pull request into `dev` instead of pushing to it.
+
 This is the procedure for bringing a Sea Power install up to a build that
 carries **the three campaigns** (Southern Watch, Southern Reach and Red Line)
 together with every fix the other sessions have pushed, and the work ported
@@ -45,7 +47,7 @@ line by line, and an empty line would end the block early. If it stops at a
   if (Get-Process -Name 'Sea Power', 'SeaPower' -ErrorAction SilentlyContinue) { throw 'Sea Power is running - exit it first' }
   Set-Location -LiteralPath 'C:\Users\rolyl\Seapower-mods'
   if (git status --short) { throw 'The clone has uncommitted changes - stop and report them' }
-  git checkout sest-dev/jolly-ride-rptj4t
+  git checkout beta
   if ($LASTEXITCODE) { throw 'checkout failed' }
   powershell -ExecutionPolicy Bypass -File .\tools\sync-sest.ps1
   if ($LASTEXITCODE) { throw 'sync failed - read its last lines' }
@@ -505,8 +507,8 @@ reads `<` as a redirection operator.
 cd C:\Users\<you>\Seapower-mods
 git status --short                       # must be EMPTY - see below if not
 git fetch origin
-git checkout sest-dev/jolly-ride-rptj4t     # the branch data\deploy-branch.txt names
-git pull origin sest-dev/jolly-ride-rptj4t
+git checkout beta     # the branch data\deploy-branch.txt names
+git pull origin beta
 ```
 
 If `git status --short` prints anything, the PC has local changes (usually a
@@ -562,9 +564,9 @@ overwrite anything.
 Check, and do not skip:
 
 ```powershell
-git branch --show-current            # sest-dev/jolly-ride-rptj4t
+git branch --show-current            # beta
 git log --oneline -1                 # note the short hash: the IN LINE line must name it
-Get-Content data\deploy-branch.txt   # sest-dev/jolly-ride-rptj4t
+Get-Content data\deploy-branch.txt   # beta
 git merge-base --is-ancestor fa692245 HEAD; $?   # True: the 4 Oct build (the one on Workshop item 3812461539) or later
 ```
 
