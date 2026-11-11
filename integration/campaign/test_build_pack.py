@@ -1108,6 +1108,8 @@ class DamageStateFlag(unittest.TestCase):
             with mock.patch.object(campaign_data, "DAMAGE_STATE", self.TABLE):
                 on = importlib.reload(rl04).MISSION
             self.assertIn("stop her engines", on["brief"])
+            first_in = next(e for e in on["progress"] if e["name"] == "FirstIn")
+            self.assertIn("MERIDIAN HARMONY is sunk, stopped or has hove to", first_in["intel"])
             self.assertEqual([p["name"] for p in on["victory"]["any_of"]],
                              ["Sunk", "HoveTo", "Crippled"])
             self.assertEqual(on["turn_back"][0]["or_damaged"], dict(mode="propulsion_all"))
@@ -4950,6 +4952,25 @@ class RedLineReleaseTerms(unittest.TestCase):
         self.assertIn("MERIDIAN HARMONY is sunk or has hove to", self.brief("RL04"))
         self.assertTrue(any(t.get("kind") == "destroyed" and t["units"] == ["spoiler"]
                             for t in bp.victory_terms(v)))
+        # The first ship in is told the whole release term, and the timeout
+        # names every term that can be missing, not only the circle.
+        first_in = next(e for e in m["progress"] if e["name"] == "FirstIn")
+        self.assertIn("MERIDIAN HARMONY is sunk or has hove to", first_in["intel"])
+        self.assertNotIn("is stopped", first_in["intel"])
+        self.assertIn("LIAONING and HULUNHU are not both inside the circle", m["timeout"])
+        self.assertIn("MERIDIAN HARMONY is neither sunk nor hove to", m["timeout"])
+
+    def test_rl03s_disengage_radius_is_in_the_words(self):
+        # The Disengage circle is the F-35s' AIM-120C7 reach as the builder
+        # derives it (70 NM, the winning pack copy): the brief and the
+        # Dragon Eye report state that figure, measured from the centre.
+        words = bp.number_words(math.ceil(bp.air_reach("raaf_f-35a", "AirToAir")))
+        self.assertEqual(words, "seventy")
+        self.assertIn(f"within {words} miles of the box's centre", self.brief("RL03"))
+        eye = next(e for e in self.m["RL03"]["progress"] if e["name"] == "EyeHome")
+        self.assertIn(f"within {words} miles of the box's centre", eye["intel"])
+        self.assertIn("from minute nine", eye["intel"])
+        self.assertIn("from minute eighteen", eye["intel"])
 
     def test_required_objectives_say_so(self):
         for code, oid in (("RL01", "Raiders"), ("RL04", "Spoiler"), ("RL06", "Qship")):
@@ -5081,7 +5102,7 @@ class RedLineVictoryPaths(unittest.TestCase):
         rl = next(s for s in bp.campaign_specs() if s["SLUG"] == "sest-red-line")
         names = {m["code"]: [e["name"] for e in m.get("progress", [])] for m in rl["MISSIONS"]}
         self.assertEqual({c: v for c, v in names.items() if v},
-                         {"RL02": ["Early"], "RL03": ["EyeHome"],
+                         {"RL02": ["Closing"], "RL03": ["EyeHome"],
                           "RL04": ["Halfway", "FirstIn", "Running"], "RL06": ["TenderIn"]})
         for num in ("02", "03", "04", "06"):
             _text, parsed, n = self.mission(num)

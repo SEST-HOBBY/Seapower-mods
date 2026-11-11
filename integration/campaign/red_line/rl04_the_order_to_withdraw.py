@@ -145,8 +145,10 @@ MISSION = dict(
         "The withdrawal has failed: LIAONING or HULUNHU is lost, or the Poseidon is down. "
         "The ceasefire is hours old, and the group is in its first violation report."
     ),
-    timeout="{deadline_clock}, and the group is still short of the withdrawal circle. The withdrawal "
-            "order had a time on it, and the coalition's aircraft has recorded the group missing it.",
+    timeout=("{deadline_clock}, and the withdrawal is not complete: LIAONING and HULUNHU are not "
+             "both inside the circle, or MERIDIAN HARMONY is neither sunk"
+             + (", stopped" if _ENGINES else "") + " nor hove to. The withdrawal "
+             "order had a time on it, and the coalition's aircraft has recorded the group missing it."),
     stations={
         "escort": S(-4.45, 128.85, "Escort", heading=300),
         "flight": S(-4.47, 128.83, "Ship's flight", heading=300, alt=500),
@@ -214,7 +216,8 @@ MISSION = dict(
                  "the screen between them and the Q-ship.")),
         dict(name="FirstIn", units=["group#1", "group#2"], min_units=1, intel=(
             "GROUP STAFF: The first of LIAONING and HULUNHU is inside the withdrawal circle. The "
-            "order is complete when both are, MERIDIAN HARMONY is stopped and nothing is inbound.")),
+            "order is complete when both are, MERIDIAN HARMONY is sunk"
+            + (", stopped" if _ENGINES else "") + " or has hove to, and nothing is inbound.")),
         dict(name="Running", units=["spoiler"], at=(-4.70, 128.84), radius=2, intel=(
             "GROUP STAFF: MERIDIAN HARMONY is halfway to clearing the screen. Sink her or close "
             "her now.")),

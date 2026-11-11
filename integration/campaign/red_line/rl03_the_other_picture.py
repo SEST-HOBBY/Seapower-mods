@@ -172,8 +172,9 @@ MISSION = dict(
     # Information only (step 5): Dragon Eye in the box, and what still holds the exit.
     progress=[dict(name="EyeHome", units=["eye"], intel=(
         "AIR OPERATIONS: DRAGON EYE is in the return box. The exit opens when the intercept is "
-        "broken: an F-35 down, or from minute eighteen no F-35 within seventy miles of the box, "
-        "with no incoming weapon tracked."))],
+        "broken: an F-35 down, from minute nine; or with neither down, from minute eighteen "
+        "once no F-35 is within seventy miles of the box's centre. Either way no incoming "
+        "weapon may be tracked."))],
     reports=[dict(minute=3,intel="AIR OPERATIONS: Keep the allocated J-15s with Dragon Eye. The intercept enters at minute eight; the grey convoy and surveillance aircraft are protected. The north-west return box is the exit, not another ship-classification gate.")],
     role="recon",
 )
