@@ -26,8 +26,8 @@ source only (`integration/beta-anchorchain/`); neither is shipped.
 |---|---|
 | Workshop mods integrated | 203 (the download size has not been re-measured since 190) |
 | SEST source packs | 25, merged into one deployable folder |
-| Campaigns | 4, plus two world campaigns for the Dynamic Campaign Mod (a draft and a preview) |
-| Campaign missions | 69, plus 11 single missions (Southern Watch - Dispatches) |
+| Campaigns | 5, plus two world campaigns for the Dynamic Campaign Mod (a draft and a preview) |
+| Campaign missions | 73, plus 11 single missions (Southern Watch - Dispatches) |
 | Story pages | Press pages, signals, ship's logs and intelligence summaries between missions |
 | Units with a real encyclopedia photo | 729 |
 | Photos in the offline gallery | 555, every one credited |
@@ -163,6 +163,36 @@ experience carry forward from mission to mission.
   with a hidden torpedo tube (*The Okean*) and an FA-50 strike on a Shahed 238
   drone yard (*The Drone Yard*). Each one changes a later core mission.
 - The Philippine flag as navy emblem; Philippine Navy rank ladder.
+
+### Makran Line — The Fuel Road *(new, November 2026)*
+*Pakistan Navy, October–November 2028*
+- 4 missions in the North Arabian Sea, inside Southern Watch's six weeks:
+  tanker convoys into Karachi and Port Qasim, the Gwadar anchorage and a
+  submarine trail off the Makran coast.
+- The opponent is the fictional Meridian Maritime Group alone, in armed
+  merchants and trawlers. No Indian or Iranian state unit, and no fighting
+  ashore.
+- Task Force 88 as the collection can field it: the Tughril-class (Type
+  054A/P) frigates, PNS Alamgir (the long-hull Perry, kept in service for
+  2028 as a stated assumption), their Z-9CE and Sea King flights, and from
+  the second mission the Air Force's JF-17 Block II and III and ZDK-03. Every
+  class takes the same-nation discount. No submarine is sold: PNS Hangor is
+  placed in its own mission. What the collection lacks for 2028 - the Babur
+  and Zulfiquar classes, a Yarmook OPV, a supply ship, an Agosta 90B and the
+  P-3C, ATR and Sea Sultan patrol aircraft - is stated in the campaign
+  bible, not stood in by another navy's ship.
+- Rearm is free at every force allocation: there is no Pakistani supply ship
+  in the collection, so the ships rearm at Karachi between missions.
+- The missions:
+  1. *The Fuel Road*: two tankers to the Karachi pilot station.
+  2. *Gwadar Roads*: three armed trawlers, and an armed freighter hidden in
+     the anchorage with SS-N-2 launchers.
+  3. *Hangor*: a detached submarine trail on Meridian's mothership, unseen.
+  4. *Port Qasim*: the last convoy, and the mothership sunk or made to heave
+     to. What Hangor learned puts her on the plot.
+- The flag of Pakistan as navy emblem; the Pakistan Navy's ten ranks, from
+  Commodore (abbreviations not yet verified). Fictional ribbons only. Not
+  yet run in game.
 
 ### In every campaign
 - **Open Allocation versions retired** *(21 October 2026)*: each campaign is
@@ -608,7 +638,7 @@ how to check each.
   link. Player.log should show three `[SEST Runtime] ... correction
   installed` lines (terrain, debrief, towed sensor). The debrief
   correction fills in the generated and
-  replaced missions, 52 of the 69 in the four campaigns. In the other 17,
+  replaced missions, 55 of the 73 in the five campaigns. In the other 18,
   played as written, SEST's mission files give the player's ships no
   `CampaignTag`, so the game keeps no loss record for them: by 0.8.7's code
   a ship sunk there is listed without a Lost status (Undamaged), and the
