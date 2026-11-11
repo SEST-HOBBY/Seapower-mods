@@ -431,7 +431,7 @@ game.
 
 ## 6K — the Russian Federation, not the USSR (11 November)
 
-SEST Collection Fixes registers 15 post-1991, Russian-built ship and
+SEST Collection Fixes registers 16 post-1991, Russian-built ship and
 submarine classes to the game's `Russia` nation, which its `nations.ini`
 names *Russian Federation*, through one `#!extend` stub per hull on the
 mod's variants file (`vessels_overwrite/<hull>_variants_RU_SEST.ini`; the
@@ -440,15 +440,18 @@ list and the hulls left Soviet, with the reason for each, are
 `integration/collection-fixes/build_patch.py`). SEST's Akademik Pashin
 registers Russia in its own file. Soviet-built hulls, fictional variants and
 every aircraft, helicopter and transport stay `Soviet`. No mod has used an
-`#!extend` on a variants file before, so RU.1 is the first test of it. The
-missions do not depend on it: every SEST mission still writes
-`Nation=Russia` on its Russian units, as before. No campaign offers a
-Russian commander, so the same-nation discount is not checked here.
+`#!extend` on a variants file before, so RU.2 is the first test of it. On
+the beta the stubs, like every `#!extend` file in the pack, apply only where
+SEST's beta Runtime repairs the game's modifier scan (`ModifierRegistry`,
+not turned off), so RU.1 reads that first. The missions do not depend on
+it: every SEST mission still writes `Nation=Russia` on its Russian units, as
+before. No campaign offers a Russian commander, so the same-nation discount
+is not checked here.
 
 | # | Do | Expect | If not |
 |---|---|---|---|
-| RU.1 | Start the game; in `Player.log` find the line `IniHandler.ScanForModifierFiles() scanned ... found ... extend ... targets` | It loads with no IniHandler error naming a `_variants_RU_SEST.ini` file | An error naming one = say which; the stubs come out before the next upload |
-| RU.2 | Mission editor: place Russian Navy 21's Admiral Gorshkov (`rfn_ffg_22350_1-4`), a Yasen and the game's own Sovremenny (`wp_em_sovremenny`); open each one's unit panel and encyclopedia entry | The Gorshkov and the Yasen show *Russian Federation* and the Russian flag; the Sovremenny shows *USSR*. In the editor's nation list the first two sit under Russian Federation | The Gorshkov still USSR = the game does not apply `#!extend` to a variants file: bring back Player.log. The campaigns are unaffected (above) |
+| RU.1 | Start the game (on the beta, with the beta features on); in `Player.log` find SEST Runtime's modifier-file line: `[SEST Runtime] modifier files repaired: ... N files from this pack, ini cache cleared`, or `[SEST Runtime] modifier files: the game's registry already holds N of this pack's #!extend and #!prepend files ...` | N = 190 (174 before this branch's 16 stubs), and no IniHandler error naming a `_variants_RU_SEST.ini` file. `the game has not scanned for #!extend files yet` gives no count, and on the standard build Runtime 1.5.0 writes no such line: go on to RU.2. Do not look for the game's own `IniHandler.ScanForModifierFiles() scanned ...` line: none of the captured Player.logs has it | No such line, `the rescan still holds none of this pack's #!extend files`, `modifier file check not installed`, or N below 190 = the stubs did not register this session; that is no verdict on variants files: bring back Player.log. An error naming a stub = say which; the stubs come out before the next upload |
+| RU.2 | Mission editor: place Russian Navy 21's Admiral Gorshkov (`rfn_ffg_22350_1-4`), a Yasen and the game's own Sovremenny (`wp_em_sovremenny`); open each one's unit panel and encyclopedia entry | The Gorshkov and the Yasen show *Russian Federation* and the Russian flag; the Sovremenny shows *USSR*. In the editor's nation list the first two sit under Russian Federation | The Gorshkov still USSR: first rule out RU.1 (a missing or failed rescan, or the beta features turned off). Then, if J.1 to J.3 (the Cross-Deck `#!extend` stubs) did apply this session but the Gorshkov is still USSR, the game does not apply `#!extend` to a variants file: bring back Player.log. The campaigns are unaffected (above) |
 | RU.3 | A new Southern Watch campaign: the Situation button (H.6) | The Russia block lists the Project 20380 corvette (Merkury) under the Russian Federation flag and the Akula under the USSR's; no unknown flag | An unknown flag on the corvette = the stub's nation has no flag entry: bring back the screen |
 | RU.4 | D4 Return Passage | Every Russian ship and aircraft flies the Russian flag, the Admiral Grigorovich (stubbed) and Pyotr Velikiy (not stubbed) alike | A USSR flag on any = say which unit |
 | RU.5 | Soviet stock: start a new Pacific Strike campaign and play 02 *Action in the Taiwan Strait* to its first contact; if installed, load Mare Nostrum '28's 10A *Pilares - El Silencio* | Pacific Strike generates its Soviet force with the USSR flag, as before; Mare Nostrum's Russian units keep the USSR flag their author set | A Pacific Strike mission with no Soviet units = the generator filtered on the new key: bring back the save and Player.log |

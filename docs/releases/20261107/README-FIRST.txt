@@ -70,18 +70,19 @@ WHAT IS NEW SINCE THE R12 RIBBON TEST BUILD
   developer ribbon menu offers neither (the Red Line test card's R5 and R6;
   R1 to R4 need R13, and RIBBONS.txt says what each ribbon needs).
 - Russian Federation (step 5, on feature/russia-registration-20261111, not
-  pushed): SEST Collection Fixes registers 15 post-1991, Russian-built ship
+  pushed): SEST Collection Fixes registers 16 post-1991, Russian-built ship
   and submarine classes (the Gorshkov and Grigorovich frigates, the
-  Steregushchiy, Gremyashchiy and Buyan-M corvettes, the Yasen, Borei and
-  Improved Kilo boats) to the game's Russia nation, which it names Russian
-  Federation, instead of the USSR. One #!extend stub per hull sets only the
-  Nation of its mod's variants file; no author's file is copied. SEST's
-  Akademik Pashin registers Russia in its own file. Soviet-built hulls,
-  fictional variants and every Russian aircraft, helicopter and transport
-  stay Soviet, as stock Cold War missions use them. The SEST missions fly
-  the Russian flag on the same units as before. No mod has used an #!extend
-  on a variants file before, so it is checked once in step 3; no campaign
-  offers a Russian commander, so the discount is not.
+  Steregushchiy, Gremyashchiy and Buyan-M corvettes, the Yasen, Belgorod,
+  Borei and Improved Kilo boats) to the game's Russia nation, which it
+  names Russian Federation, instead of the USSR. One #!extend stub per hull
+  sets only the Nation of its mod's variants file; no author's file is
+  copied. SEST's Akademik Pashin registers Russia in its own file.
+  Soviet-built hulls, fictional variants and every Russian aircraft,
+  helicopter and transport stay Soviet, as stock Cold War missions use
+  them. The SEST missions fly the Russian flag on the same units as before.
+  No mod has used an #!extend on a variants file before, so it is checked
+  once in step 3; no campaign offers a Russian commander, so the discount
+  is not.
 - World Operations (beta): DCM's own SITREP 001 is kept, with the short SEST
   brief shown first. Completed multi-phase Admiralty operations now count
   once each, and a completion replayed after a reload counts once. Tabs
@@ -148,10 +149,14 @@ PREPARE AND CHECK
    Federation and the game's own Sovremenny USSR; Pacific Strike's 02 Action
    in the Taiwan Strait still generates its Soviet force (the release
    checkout's docs/campaigns/southern-watch/test-card.md, 6K, rows RU.1 to
-   RU.6). If time allows, as a New Zealand
-   commander buy the P-8A in the force allocation before Weapons Free (SW05)
-   at the discounted price and fly it in the Maritime Patrol slot of 06
-   Blind Horizon (Weapons Free has no patrol slot).
+   RU.6). On the beta the stubs, like every #!extend file in the pack,
+   apply only where SEST's beta Runtime repairs the game's modifier scan
+   (ModifierRegistry, not turned off), so not with the beta features off
+   (step 5): first read Player.log's "[SEST Runtime] modifier files" line,
+   which should count 190 files from this pack (RU.1). If time allows, as a
+   New Zealand commander buy the P-8A in the force allocation before Weapons
+   Free (SW05) at the discounted price and fly it in the Maritime Patrol slot
+   of 06 Blind Horizon (Weapons Free has no patrol slot).
 4. Recheck the opening brief, world Combat Costs sidebar and direct F11
    totals. In Starting Airborne Flights select the RAAF E/A-18G and confirm
    HARM (AGM-88C), AARGM (AGM-88E) and AARGM-ER (AGM-88G) choices. The three

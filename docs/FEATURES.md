@@ -454,22 +454,24 @@ checked automatically.
   `integration/mission-seeds/set_enemy_flags.py`. An explicit flag in the mission
   always wins; the Baltic chapters are left alone.
 - **The Russian Federation in the unit files too** *(11 November 2026, not
-  yet seen in game)*. SEST Collection Fixes registers 15 post-1991,
+  yet seen in game)*. SEST Collection Fixes registers 16 post-1991,
   Russian-built ship and submarine classes to the game's Russia nation,
   named Russian Federation, instead of the USSR: Russian Navy 21's
   Steregushchiy, Gremyashchiy and Buyan-M corvettes and its Grigorovich and
   Gorshkov frigates, Red Storm Arsenal's Gorshkov, Gorshkov-M and Grigorovich
-  and Improved Kilo, and the Yasen and Borei boats. One `#!extend` stub per
-  hull sets only its Nation; the authors' files are not copied. SEST's
-  Akademik Pashin registers Russia in its own file. Soviet-built hulls, the
-  fictional variants (the '98 refits, Kirov II, Ulyanovsk and the files that
-  call themselves fictional) and every Russian aircraft, helicopter and
-  transport stay Soviet, as stock Cold War missions use them; the builder
-  records each one left Soviet and why. The SEST missions fly the Russian
-  flag exactly as before. What changes is what the unit panel, the editor
-  and the Situation window show, and the flag of these hulls in other
-  authors' missions that set none (The Second Northern War's 20380s and
-  Buyan-Ms among them).
+  and Improved Kilo, and the Yasen, Belgorod and Borei boats. One `#!extend`
+  stub per hull sets only its Nation; the authors' files are not copied.
+  SEST's Akademik Pashin registers Russia in its own file. Soviet-built
+  hulls, the fictional variants (the '98 refits, Kirov II, Ulyanovsk and the
+  files that call themselves fictional) and every Russian aircraft,
+  helicopter and transport stay Soviet, as stock Cold War missions use them;
+  the builder records each candidate it leaves Soviet, and why. The SEST
+  missions fly the Russian flag exactly as before. What changes is what the
+  unit panel, the editor and the Situation window show, and the flag of
+  these hulls in other authors' missions that set none (The Second Northern
+  War's 20380s and Buyan-Ms among them). On the beta the stubs, like every
+  `#!extend` file in the pack, apply only where SEST's beta Runtime repairs
+  the game's modifier scan (`ModifierRegistry`, not turned off).
 
 ## 6. Readability and presentation
 
@@ -559,7 +561,7 @@ how to check each.
 - **The Meridian flag:** that a nation the game's own list does not name
   shows its flag from the flag table and its name from nations.ini.
 - **The Russian Federation registration:** that the game applies an
-  `#!extend` stub to a variants file (no mod had done it before), so the 15
+  `#!extend` stub to a variants file (no mod had done it before), so the 16
   re-registered hull classes show the Russian Federation; Southern Watch's
   test card, 6K.
 - **Deployment zones:** that the game lets a unit be moved inside its box

@@ -217,7 +217,7 @@ started before the side operations must be **started again** (17 entries, not
 |---|---|---|
 | Encyclopedia photos | Encyclopedia → any campaign ship (e.g. Anzac, Collins, Supply, Spruance, Tarlac) | A real photograph with its credit |
 | New flags | Any unit of Peru, Ireland, Bahrain, Lebanon, Greenland, Hong Kong, Uzbekistan… | A flag, not a missing-flag icon |
-| Russian Federation (editor) | Place Russian Navy 21's Admiral Gorshkov, a Yasen and the game's own Sovremenny; open each unit panel and encyclopedia entry (Southern Watch test card 6K) | *Russian Federation* and the Russian flag on the Gorshkov and the Yasen; *USSR* on the Sovremenny. Both still USSR = the game did not apply the Nation stubs: bring back Player.log |
+| Russian Federation (editor) | Place Russian Navy 21's Admiral Gorshkov, a Yasen and the game's own Sovremenny; open each unit panel and encyclopedia entry (Southern Watch test card 6K) | *Russian Federation* and the Russian flag on the Gorshkov and the Yasen; *USSR* on the Sovremenny. Both still USSR = the game did not apply the Nation stubs: bring back Player.log and its `[SEST Runtime] modifier files` line (6K, RU.1) |
 | Readable names | Russian ships | Names in English letters, not Cyrillic |
 | Spruance | Encyclopedia → Spruance class (VLS, LAMPS III) | Named, no "Missing Class"; places on the map without an error |
 | Apache AH Mk 1 | Default loadout on the ground and in flight | Rocket pods no longer drawn over the Brimstones |
