@@ -812,7 +812,7 @@ try {
     if ($warnings) { Say ('Done, but read the ' + $warnings + ' [!!] warning(s) above first. Then start Sea Power:') 'Yellow' }
     else { Say 'All done. Start Sea Power:' 'Cyan' }
     Say '  - Mod Manager: the SEST Integration Pack is at the top and ticked. If it offers to move or fix dependencies, say no.'
-    Say '  - Campaigns: Southern Watch, Southern Reach - Tasman Shield, Red Line - The Other Watch, or Sulu Line - The Island Road.'
+    Say '  - Campaigns: Southern Watch, Southern Reach - Tasman Shield, Red Line - The Other Watch, Sulu Line - The Island Road, or Makran Line - The Fuel Road.'
     Say '  - Dynamic campaigns (Dynamic Campaign Mod): in the Campaign menu, marked [Dynamic].'
     Say 'Run SETUP again (game closed) whenever the pack updates, or after Steam updates your mods (if a mission freezes, or the not-compatible warning is back).'
     Hold

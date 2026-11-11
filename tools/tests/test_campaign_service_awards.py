@@ -38,14 +38,20 @@ SHIPPED = {
                             "meritorious_unit_commendation"},
     "sest-red-line": {"sest_red_line_service", "sest_contact_intelligence", "sest_undersea_operations"},
     "sest-sulu-line": {"sest_sulu_line_service", "sest_fleet_sustainment", "sest_littoral_operations"},
+    # Makran Line's, added 11 Nov 2026: fictional only.
+    "sest-makran-line": {"sest_makran_line_service", "sest_arabian_sea_security",
+                         "sest_trailing_operations"},
 }
-# The four original completion strips (4727e4e0) and the CC0 AOSM-IP strip.
+# The four original completion strips (4727e4e0), the CC0 AOSM-IP strip and
+# Makran Line's completion strip.
 ART = {
     "sest-red-line/art/ribbons/sest_red_line_service.png": "a057977e528b620ab6bd17df47c75b2bca50b3748e5a301f676248e84f618cd4",
     "sest-southern-reach/art/ribbons/sest_southern_reach_service.png": "e7ff281a75e2cf01bc7c042d1999f3384f9159a71601db72e364a6763b03b1d0",
     "sest-southern-watch/art/ribbons/sest_southern_watch_service.png": "7714b93ac05e69756483c77b7a33141d2af794cf1d4c90fbf1811990acab90d4",
     "sest-sulu-line/art/ribbons/sest_sulu_line_service.png": "1259be4279650a72d650ae677c4b0fae78bc750c9607d676d957edece356ce69",
     "sest-southern-reach/art/ribbons/sest_aosm_indo_pacific.png": "89be086bb2b1b169f53ed29269d01505c950c60cda1fbdf0a86ed92e2423d5de",
+    # Makran Line's completion strip, pinned when it was first drawn (11 Nov 2026).
+    "sest-makran-line/art/ribbons/sest_makran_line_service.png": "ceca933ba1e81c8be901770366d5037776c4844a7e75a8267c42da5bd9ca9802",
 }
 DEVELOPER_WORDS = ("required native result", "Scenario qualification", "as a Australia", "as a US commander",
                    "SEST fictional-operation representation", "1985", "John Lehman", "no unrecorded")
@@ -131,6 +137,15 @@ class CampaignServiceAwards(unittest.TestCase):
         self.assertEqual(section(sulu, "CommanderSettings")["NavyEmblemAustralia"],
                          "ui/campaign/navy_emblems/ran_emblem.png")
         self.assertEqual(section(sulu, "OfficerRanks")["Thailand"], awards.THAILAND_RANKS)
+        # Makran Line is a Pakistan Navy group with no partner navy: the
+        # commander file offers Pakistan alone and adds no nation's rows.
+        makran = awards.commander_settings("[CommanderSettings]\nCommanderNations=Pakistan\n",
+                                           "sest-makran-line")
+        self.assertIn("CommanderNations=Pakistan\n", makran)
+        self.assertNotIn("[OfficerRanks]", makran)
+        self.assertEqual(awards.describe("Pakistan"), "a Pakistani commander")
+        self.assertEqual(awards.NATIONS["sest-makran-line"], ("Pakistan",))
+        self.assertNotIn("sest-makran-line", awards.GRANTS)        # no real award until sourced
 
     def test_national_grants_use_native_id_nation_grammar(self):
         specs = awards.mission_awards("sest-southern-watch",

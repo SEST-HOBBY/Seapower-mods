@@ -358,28 +358,53 @@ class CampaignRegistry(unittest.TestCase):
 
     def setUp(self):
         self.saved = sys.modules.get("red_line", _ABSENT)
-        # Sulu Line registers the same way, after Red Line. These tests are
-        # about the red_line slot, so the fourth package is held absent
-        # unless a test puts it back.
+        # Sulu Line registers the same way, after Red Line, and Makran Line
+        # after Sulu Line. These tests are about the red_line slot, so the
+        # fourth and fifth packages are held absent unless a test puts them
+        # back.
         self.saved_sl = sys.modules.get("sulu_line", _ABSENT)
+        self.saved_ml = sys.modules.get("makran_line", _ABSENT)
         sys.modules["sulu_line"] = None
+        sys.modules["makran_line"] = None
 
     def tearDown(self):
-        for name, saved in (("red_line", self.saved), ("sulu_line", self.saved_sl)):
+        for name, saved in (("red_line", self.saved), ("sulu_line", self.saved_sl),
+                            ("makran_line", self.saved_ml)):
             if saved is _ABSENT:
                 sys.modules.pop(name, None)
             else:
                 sys.modules[name] = saved
 
-    def test_sulu_line_is_appended_after_red_line(self):
-        if self.saved_sl is _ABSENT:
-            sys.modules.pop("sulu_line", None)
+    def restore(self, name, saved):
+        if saved is _ABSENT:
+            sys.modules.pop(name, None)
         else:
-            sys.modules["sulu_line"] = self.saved_sl
+            sys.modules[name] = saved
+
+    def test_sulu_line_is_appended_after_red_line(self):
+        self.restore("sulu_line", self.saved_sl)
         sys.modules["red_line"] = self.fake_red_line()
         self.assertEqual([s["SLUG"] for s in bp.campaign_specs()],
                          ["sest-southern-watch", "sest-southern-reach", "sest-red-line",
                           "sest-sulu-line"])
+
+    def test_makran_line_is_appended_after_sulu_line(self):
+        self.restore("sulu_line", self.saved_sl)
+        self.restore("makran_line", self.saved_ml)
+        sys.modules["red_line"] = self.fake_red_line()
+        self.assertEqual([s["SLUG"] for s in bp.campaign_specs()],
+                         ["sest-southern-watch", "sest-southern-reach", "sest-red-line",
+                          "sest-sulu-line", "sest-makran-line"])
+
+    def test_makran_line_is_optional(self):
+        # Absent (the import raises, named makran_line), the four build as
+        # they did; a folder left holding only __pycache__ counts as absent.
+        self.restore("sulu_line", self.saved_sl)
+        sys.modules["red_line"] = self.fake_red_line()
+        four = ["sest-southern-watch", "sest-southern-reach", "sest-red-line", "sest-sulu-line"]
+        self.assertEqual([s["SLUG"] for s in bp.campaign_specs()], four)
+        sys.modules["makran_line"] = types.ModuleType("makran_line")      # no __file__
+        self.assertEqual([s["SLUG"] for s in bp.campaign_specs()], four)
 
     @staticmethod
     def fake_red_line(**spec):
@@ -2479,6 +2504,277 @@ class MakranLineTheatre(unittest.TestCase):
         self.assertFalse(c.on_land(25.00, 58.00))      # the Gulf of Oman
 
 
+class MakranLineTaskGroup(unittest.TestCase):
+    """Makran Line's force and opponent (design steps P3-P5, 11 Nov 2026),
+    on the owner's decisions of that day: a Pakistan Navy task group whose
+    every bought unit registers Pakistan; Meridian the only opponent, in
+    armed merchants and trawlers, with no Peykaap or other Iran-registered
+    hull, and no Indian, Iranian, Chinese or Russian unit anywhere; PNS
+    Alamgir sold for 2028 as a stated assumption; the J-10CE, every
+    submarine and SEST Replenishment's duplicate _rsa Tughrils off the
+    roster; the Z-9CE on the Pakistan Navy's decks through Cross-Deck."""
+
+    SLUG = "sest-makran-line"
+    CAMP = PACK / "campaigns" / "sest-makran-line"
+    BROWSE = PACK / "missions" / "Makran Line"
+    BARRED_NATIONS = {"india", "iran", "china", "russia", "soviet", "ussr"}
+
+    @classmethod
+    def setUpClass(cls):
+        cls.spec = next(s for s in bp.campaign_specs() if s["SLUG"] == cls.SLUG)
+        cls.m = {m["code"]: m for m in cls.spec["MISSIONS"]}
+        cls.roster = {e["unit"]: e for e in cls.spec["ROSTER"]}
+
+    def tearDown(self):
+        bp.set_campaign(bp.campaign_specs()[0])
+
+    def brief(self, code):
+        b = self.m[code]["brief"]
+        return " ".join(b) if isinstance(b, (tuple, list)) else b
+
+    def built(self, code):
+        m = self.m[code]
+        ini = self.CAMP / "missions" / f"Makran Line {m['num']} - {m['key']}.ini"
+        if not ini.is_file():
+            self.skipTest("pack not built")
+        return ini.read_text(encoding="utf-8")
+
+    def test_the_roster_is_pakistans_and_takes_the_discount(self):
+        # (a) one nation, the commander's, on every class.
+        self.assertEqual(set(bp.roster_nations(self.spec["ROSTER"]).values()), {"Pakistan"})
+        self.assertEqual(sorted(self.roster),
+                         sorted(["pns_type_054a_p", "pns_ffg_oliver_hazard_perry_longhull",
+                                 "plan_z-9ce", "pns_sh-3h", "paf_jf-17_blk_ii",
+                                 "paf_jf-17_blk_iii", "paf_zdk-03"]))
+        self.assertEqual(self.roster["pns_type_054a_p"]["picks"],
+                         ["Variant1", "Variant2", "Variant3", "Variant4"])
+        self.assertEqual(self.roster["pns_ffg_oliver_hazard_perry_longhull"]["picks"],
+                         ["Variant1"])
+        self.assertIn("scenario assumption",
+                      self.roster["pns_ffg_oliver_hazard_perry_longhull"]["note"])
+        for barred in ("paf_j-10ce", "plan_ffg_type_054a_rsa", "plan_ffg_type_054a_late_rsa"):
+            self.assertNotIn(barred, self.roster)
+        self.assertEqual(bp.same_nation_discount(self.spec["COMMANDER"]), 0.2)
+
+    def test_no_submarine_is_sold_and_hangor_is_authored(self):
+        # (b) the boat is placed in Hangor only, with generation None.
+        self.assertFalse([u for u in self.roster if bp.unit_type(u) == "Submarine"])
+        placed = [(code, u["type"]) for code, m in self.m.items() for u in m["units"]
+                  if bp.unit_type(u["type"]) == "Submarine"]
+        self.assertEqual(placed, [("MK03", "pns_ss_s-26p")])
+        self.assertIsNone(self.m["MK03"]["generation"])
+        self.assertEqual(self.m["MK03"]["window"], {})
+
+    def test_every_blue_field_says_what_it_holds(self):
+        # (c) the stock airfield_small_1's 1970s U.S. wing is never handed out.
+        ml = importlib.import_module("makran_line")
+        fields = [(code, u) for code, m in self.m.items() for u in m["units"]
+                  if u["side"] == "blue" and "airfield" in u["type"]]
+        self.assertEqual(sorted(c for c, _u in fields), ["MK01", "MK02", "MK04"])
+        for code, u in fields:
+            self.assertEqual(u["air_group"], [], code)
+        field = U("blue", "_vanilla", "airfield_small_1", "home", name="Field")
+        with self.assertRaisesRegex(SystemExit, "MKX: airfield_small_1 inherits"):
+            ml.check_fields(dict(code="MKX", units=[field]))
+        if self.CAMP.joinpath("campaign.ini").is_file():
+            for code in ("MK01", "MK02", "MK04"):
+                text = self.built(code)
+                field_blocks = [b for b in re.split(r"\n(?=\[)", text)
+                                if b.startswith("[Taskforce1LandUnit")
+                                and "\nType=airfield_small_1\n" in b]
+                self.assertEqual(len(field_blocks), 1, code)
+                self.assertIn("\nCustomAirGroup=True\n", field_blocks[0], code)
+
+    def test_no_state_force_is_placed_and_meridian_is_the_opponent(self):
+        # (d) explicit nation, or the one flags.py would fly: never India,
+        # Iran, China or Russia. Player units are Pakistan's, every opponent
+        # Meridian's, and no Iran-registered hull (the Peykaap) is placed.
+        flags = bp.flags
+        for code, m in self.m.items():
+            self.assertEqual((m["blue_nation"], m["red_nation"]), ("Pakistan", "Meridian"), code)
+            for u in m["units"]:
+                pick = u.get("variant") or u.get("squadron") or "Default"
+                registered = bp.pick_nation(u["type"], pick)
+                flown = u.get("nation") or flags.flag_for(registered, u["type"]) or registered
+                where = (code, u["type"], u["station"])
+                self.assertNotIn(str(flown).lower(), self.BARRED_NATIONS, where)
+                self.assertNotEqual(str(registered).lower(), "iran", where)
+                self.assertFalse(u["type"].startswith(("ir_", "plan_ptg", "rfn_")), where)
+                if u["side"] == "red":
+                    self.assertEqual(u.get("nation"), "Meridian", where)
+                    # Armed merchants and trawlers only.
+                    self.assertTrue(u["type"].endswith("_armed"), where)
+                if u["side"] == "blue":
+                    self.assertEqual(flown, "Pakistan", where)
+        ml = importlib.import_module("makran_line")
+        stray = U("red", "armed-merchantmen", "civ_fv_okean_armed", "raiders")
+        with self.assertRaisesRegex(SystemExit, "every opponent here is Meridian's"):
+            ml.check_opponent(dict(code="MKX", units=[stray]))
+        if self.CAMP.joinpath("campaign.ini").is_file():
+            for code in self.m:
+                text = self.built(code)
+                for block in re.split(r"\n(?=\[)", text):
+                    if block.startswith("[Taskforce2"):
+                        self.assertIn("\nNation=Meridian", block, code)
+                self.assertNotRegex(text, r"(?m)^Nation=(Russia|Soviet|Iran|India|China)$", code)
+
+    def test_the_trail_is_the_only_variable_and_hangor_writes_it(self):
+        # (e)
+        self.assertEqual(self.m["MK03"]["declares"], ["MK03MotherNamed"])
+        self.assertEqual(self.m["MK03"]["victory"]["after"]["sets"], "MK03MotherNamed")
+        reads = [r["variable"] for m in self.m.values() for r in m.get("reveal_if", [])]
+        self.assertEqual(reads, ["MK03MotherNamed"])
+        self.assertEqual(self.m["MK04"]["reveal_if"][0]["units"], ["mother"])
+        self.assertEqual([c for c, m in self.m.items() if m.get("declares")], ["MK03"])
+
+    def test_the_commander_is_a_pakistan_navy_commodore(self):
+        # (f) ten ranks, Commander/Captain/Commodore at OF-4/5/6 on levels
+        # 5/6/7, the start at 7; the game's own pool; SEST's emblem.
+        text = self.spec["COMMANDER"]
+        settings = dict(re.findall(r"^(\w+)=(.*)$", text.split("[OfficerRanks]")[0], re.M))
+        self.assertEqual(settings["CommanderNations"], "Pakistan")
+        self.assertEqual(settings["CommanderDefaultNation"], "Pakistan")
+        self.assertEqual(settings["CommanderStartingRankLevel"], "7")
+        self.assertEqual(settings["NavyNamePakistan"], "Pakistan Navy")
+        ladder = re.search(r"^Pakistan=(.*)$", text.split("[OfficerRanks]")[1], re.M).group(1)
+        ranks = [r.split(",") for r in ladder.split("|")]
+        self.assertEqual(len(ranks), 10)
+        self.assertTrue(all(len(r) == 5 and r[4] == "" for r in ranks))
+        levels = {int(r[3]): (r[0], r[2]) for r in ranks}
+        self.assertEqual(sorted(levels), list(range(1, 11)))
+        self.assertEqual((levels[5], levels[6], levels[7]),
+                         (("Commander", "OF-4"), ("Captain", "OF-5"), ("Commodore", "OF-6")))
+        self.assertEqual([levels[n][0] for n in (1, 2, 10)],
+                         ["Midshipman", "Sub-Lieutenant", "Admiral"])
+        self.assertTrue(ladder.isascii())
+        ui = (bp.ROOT / "mods-source" / "_vanilla" / "original" / "language_en" /
+              "ui.ini").read_text(encoding="utf-8-sig")
+        pool = re.search(r"^\[Names_Pakistan\]\n(.*?)(?=^\[|\Z)", ui, re.M | re.S).group(1)
+        lists = dict(re.findall(r"^(\w+Names)=(.*)$", pool, re.M))
+        first, middle, last = settings["CommanderNameDefaultPakistan"].split()
+        self.assertIn(first, lists["FirstNames"].split(","))
+        self.assertIn(middle, lists["MiddleNames"].split(","))
+        self.assertIn(last, lists["LastNames"].split(","))
+        self.assertEqual(settings["CommanderNamePoolPakistan"], "Names_Pakistan")
+        emblem = settings["NavyEmblemPakistan"].rsplit("/", 1)[1]
+        self.assertEqual(bp.SEST_EMBLEMS[emblem], "pakistan.png")
+        self.assertEqual(bp.SERVICE["Pakistan"], "Pakistan Navy")
+        # The prose never uses the default name.
+        for m in self.m.values():
+            for _where, words in bp.message_texts(m):
+                self.assertNotIn("Durrani", words)
+
+    def test_the_pakistan_navy_decks_take_the_z9ce(self):
+        # (g) the 054A/P and the Alamgir fly the Z-9CE, not the PLAN Z-9F.
+        cd = cross_deck()
+        for deck in ("pns_type_054a_p", "pns_ffg_oliver_hazard_perry_longhull"):
+            self.assertIn("plan_z-9ce", cd.CAMPAIGN_DECK_TYPES[deck])
+        helos = {u["type"] for m in self.m.values() for u in m["units"]
+                 if bp.unit_type(u["type"]) == "Helicopter"}
+        self.assertEqual(helos, {"plan_z-9ce"})
+        if bp.CROSS_DECK.joinpath(cd.stub_name("pns_type_054a_p")).is_file():
+            for deck in ("pns_type_054a_p", "pns_ffg_oliver_hazard_perry_longhull"):
+                self.assertEqual(bp.deck_fit("plan_z-9ce", "Helicopter", deck, True), 0, deck)
+            self.assertEqual(bp.deck_fit("pns_sh-3h", "Helicopter",
+                                         "pns_ffg_oliver_hazard_perry_longhull", True), 0)
+
+    def test_every_window_rearms_and_the_air_force_waits_for_gwadar(self):
+        windows = {c: m["window"] for c, m in self.m.items()}
+        self.assertEqual([c for c, w in windows.items() if w.get("buy")], ["MK01", "MK02", "MK04"])
+        for code, w in windows.items():
+            if w.get("buy"):
+                self.assertTrue(w.get("rearm"), code)
+        fixed_wing = {"paf_jf-17_blk_ii", "paf_jf-17_blk_iii", "paf_zdk-03"}
+        self.assertFalse(set(windows["MK01"]["allow"]) & fixed_wing)
+        self.assertEqual(set(windows["MK02"]["allow"]), set(self.roster))
+        self.assertEqual(set(windows["MK04"]["allow"]), set(self.roster))
+        self.assertIn("Rearm: free at every force allocation", self.spec["REARM_RULES"][0])
+
+    def test_the_briefs_state_the_release_terms(self):
+        # What each victory trigger tests, in the brief's own words: the
+        # circle's radius, how many units, and every other term.
+        for code, radius, count in (("MK01", "six", "both tankers"),
+                                    ("MK03", "three", "HANGOR"),
+                                    ("MK04", "four", "two of the three tankers")):
+            v, brief = self.m[code]["victory"], self.brief(code)
+            with self.subTest(mission=code):
+                self.assertEqual(bp.number_words(v["radius"]), radius)
+                self.assertIn(f"within {radius} miles", brief)
+                self.assertIn(count, brief)
+        self.assertEqual(self.m["MK01"]["victory"]["min_units"], 2)
+        self.assertEqual(self.m["MK04"]["victory"]["min_units"], 2)
+        self.assertIn("classified", self.brief("MK03"))
+        self.assertIn("inside that circle afterwards", self.brief("MK03"))
+        mk02 = self.m["MK02"]["victory"]
+        self.assertEqual((mk02["kind"], mk02["stations"], mk02["min_units"]),
+                         ("destroy", ["raiders"], 3))
+        self.assertIn("complete when all four are sunk", self.brief("MK02"))
+        mk04 = self.m["MK04"]["victory"]
+        self.assertIn({"kind": "no_incoming"}, mk04["also"])
+        self.assertEqual([p["name"] for p in mk04["any_of"]], ["Sunk", "HoveTo"])
+        for text in (self.brief("MK04"), self.m["MK04"]["timeout"],
+                     next(e["intel"] for e in self.m["MK04"]["progress"]
+                          if e["name"] == "FirstIn")):
+            self.assertIn("sunk", text)
+            self.assertIn("hove to", text)
+        self.assertIn("no incoming weapon", self.brief("MK04"))
+        self.assertIn("within about three miles", self.brief("MK04"))
+        self.assertEqual(self.m["MK04"]["turn_back"][0]["radius"], 3)
+
+    def test_required_objectives_are_main_and_say_so(self):
+        for code, oid in (("MK02", "Launcher"), ("MK04", "Mothership")):
+            m = self.m[code]
+            text, spec = next((t, s) for o, t, s in m["objectives"] if o == oid)
+            with self.subTest(mission=code, objective=oid):
+                self.assertEqual(set(bp.required_objectives(m, {s: [s] for s in m["stations"]})),
+                                 {oid})
+                self.assertIn("Main", spec.split(",")[3:])
+                self.assertTrue(text.startswith("Also required: "), text)
+        for code, m in self.m.items():
+            victory = next(o for o, how in m["resolve"].items() if how == "victory")
+            spec = next(s for o, _t, s in m["objectives"] if o == victory)
+            self.assertEqual(spec.split(",")[2:], ["Fail", "Main"], code)
+        if self.CAMP.joinpath("campaign.ini").is_file():
+            text = self.built("MK04")
+            self.assertIn("\nMothership=20,-40,Fail,Main\n", text)
+            self.assertIn("\nLauncher=20,-30,Fail,Main\n", self.built("MK02"))
+
+    def test_port_qasim_stops_the_mothership_sunk_or_hove_to(self):
+        text = self.built("MK04")
+        parsed, n = coverage_check.blocks(text), _trigger_numbers(text)
+        turn = parsed[f"Trigger{n['Turns back: HeaveTo']}"]
+        self.assertEqual(turn["Action_UnitTransferToTaskforce"], "Neutral")
+        self.assertEqual(turn["Action_UnitTelegraph"], "2")
+        self.assertEqual(turn["Action_ObjectivesCompleted"], "Mothership")
+        lost = parsed[f"Trigger{n['HeaveTo sunk after turning']}"]
+        self.assertEqual(lost["Action_ObjectivesFailed"], "Traffic")
+        self.assertTrue(any(k.startswith("Challenge HeaveTo ") for k in n))
+        for name in ("Objective met", "Objective met: HoveTo"):
+            with self.subTest(name=name):
+                self.assertEqual(parsed[f"Trigger{n[name]}"]["Condition_Condition2_Type"],
+                                 "NoIncomingWeapons")
+        reveal = [b for b in parsed.values() if b.get("Condition_Condition1_Variable",
+                                                       b.get("Condition_Variable")) == "MK03MotherNamed"]
+        self.assertTrue(reveal)
+
+    def test_the_reports_name_no_one_and_keep_the_trail(self):
+        import mission_depth
+        for code in self.m:
+            speaker = mission_depth.REPORTS[code].split(":", 1)[0]
+            self.assertFalse(re.search(r"\b[A-Z][a-z]+\b", speaker), code)
+        for word in ("datum", "rendezvous", "east", "west", "north", "south"):
+            self.assertNotIn(word, mission_depth.REPORTS["MK03"].lower())
+
+    def test_the_campaign_and_browser_copies_are_the_same_bytes(self):
+        if not self.CAMP.joinpath("campaign.ini").is_file():
+            self.skipTest("pack not built")
+        names = sorted(p.name for p in (self.CAMP / "missions").glob("*.ini"))
+        self.assertEqual(len(names), 4)
+        for name in names:
+            self.assertEqual((self.CAMP / "missions" / name).read_bytes(),
+                             (self.BROWSE / name).read_bytes(), name)
+
+
 def _trigger_numbers(text):
     """{trigger name: its number} in a rendered mission."""
     return {m.group(2): int(m.group(1)) for m in
@@ -2875,12 +3171,11 @@ class SuluLineCoalition(unittest.TestCase):
                                      ini.name)
         self.assertEqual(seen, {"generated": 7, "authored": 2})
 
-    # Makran Line's two fits (the Z-9CE on the Pakistan Navy's Tughril and
-    # Alamgir decks, design step P2) are committed before the campaign's
-    # package and roster. Until a roster sells them they are held here; the
-    # day one does, the test below fails until this set is emptied.
-    AHEAD_OF_ROSTER = {("pns_type_054a_p", "plan_z-9ce"),
-                       ("pns_ffg_oliver_hazard_perry_longhull", "plan_z-9ce")}
+    # A campaign fit committed before the roster that sells it is held here
+    # until a roster does; the day one does, the test below fails until it
+    # leaves the set. Makran Line's two (the Z-9CE on the Tughril and
+    # Alamgir decks, design step P2) left it when its roster arrived.
+    AHEAD_OF_ROSTER = set()
 
     def test_deck_fit_takes_each_campaign_deck_type(self):
         cd = cross_deck()
@@ -4588,11 +4883,12 @@ class OpenAllocationStandard(unittest.TestCase):
                                  bp.ini_text(story[code]["situation"])
                                  if story[code]["situation"] else None, (slug, code))
                 checked["buy" if story[code]["buy"] else "no builder"] += 1
-        # Southern Watch's three, Southern Reach's eight and Sulu Line's four
-        # buy windows; Red Line opens at its first.
-        self.assertEqual(checked["buy"], 3 + 8 + 4)
+        # Southern Watch's three, Southern Reach's eight, Sulu Line's four and
+        # Makran Line's three buy windows; Red Line opens at its first.
+        self.assertEqual(checked["buy"], 3 + 8 + 4 + 3)
         self.assertTrue(checked["no builder"])
         self.assertIsNone(self.md.open_from(self.specs["sest-sulu-line"]))
+        self.assertIsNone(self.md.open_from(self.specs["sest-makran-line"]))
 
     def test_the_story_lists_are_replaced_not_extended(self):
         # campaign_data's windows share their lists (BUY_03 is BUY_02, BUY_09

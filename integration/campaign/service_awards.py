@@ -50,6 +50,7 @@ CAMPAIGNS = {
     'sest-southern-reach': ('southern_reach_service', 'Southern Reach Service Ribbon', 'Southern Reach / Tasman Shield', ('#243B65', '#E1E8EF', '#87B4CE', '#E1E8EF', '#243B65')),
     'sest-red-line': ('red_line_service', 'Red Line Service Ribbon', 'Red Line', ('#2A3244', '#B94A48', '#D8BD6D', '#B94A48', '#2A3244')),
     'sest-sulu-line': ('sulu_line_service', 'Sulu Line Service Ribbon', 'Sulu Line', ('#164B4D', '#E5D7A6', '#405D86', '#E5D7A6', '#164B4D')),
+    'sest-makran-line': ('makran_line_service', 'Makran Line Service Ribbon', 'Makran Line', ('#0B3D2E', '#E8E4D8', '#2F6E8E', '#E8E4D8', '#0B3D2E')),
 }
 
 # The missions that grant an award: code -> (title, date, how a citation
@@ -82,9 +83,14 @@ MISSIONS = {
         'SL06': ('The Aborlan Battery', (2028, 11, 16), 'in The Aborlan Battery'),
         'SL07': ('Balabac Strait', (2028, 11, 23), 'during Sulu Line, through Balabac Strait'),
     },
+    'sest-makran-line': {
+        'MK02': ('Gwadar Roads', (2028, 10, 31), 'in Gwadar Roads'),
+        'MK03': ('Hangor', (2028, 11, 6), 'in Hangor'),
+        'MK04': ('Port Qasim', (2028, 11, 14), 'during Makran Line, through Port Qasim'),
+    },
 }
 FINAL = {'sest-southern-watch': 'SW12', 'sest-southern-reach': 'TS12',
-         'sest-red-line': 'RL06', 'sest-sulu-line': 'SL07'}
+         'sest-red-line': 'RL06', 'sest-sulu-line': 'SL07', 'sest-makran-line': 'MK04'}
 # The first day of the authored operation, for the two 30-day service medals.
 FIRST = {'sest-southern-reach': 'SR01'}
 
@@ -99,6 +105,7 @@ FIRST = {'sest-southern-reach': 'SR01'}
 # with a space would match nothing. Red Line is a PLAN group. Sulu Line is
 # Philippine-led; the Thai detachment and the single RAN frigate serve under
 # it, and a Thai or Australian officer may be appointed to command it.
+# Makran Line is a Pakistan Navy group with no partner navy in it.
 NATIONS = {
     'sest-southern-watch': ('Australia', 'US', 'UK', 'Japan', 'NewZealand', 'France', 'Canada',
                             'South_Korea', 'Spain', 'Italy', 'Germany', 'Netherlands', 'Norway',
@@ -108,6 +115,7 @@ NATIONS = {
                             'Denmark'),
     'sest-red-line': ('China',),
     'sest-sulu-line': ('Philippines', 'Thailand', 'Australia'),
+    'sest-makran-line': ('Pakistan',),
 }
 # Adjective and article for a citation, the rules page and RIBBONS.txt.
 ADJECTIVE = {'Australia': ('Australian', 'an'), 'US': ('American', 'an'), 'UK': ('British', 'a'),
@@ -116,6 +124,7 @@ ADJECTIVE = {'Australia': ('Australian', 'an'), 'US': ('American', 'an'), 'UK': 
              'South_Korea': ('South Korean', 'a'), 'Spain': ('Spanish', 'a'), 'Italy': ('Italian', 'an'),
              'Germany': ('German', 'a'), 'Netherlands': ('Dutch', 'a'), 'Norway': ('Norwegian', 'a'),
              'Denmark': ('Danish', 'a'), 'Thailand': ('Thai', 'a'),
+             'Pakistan': ('Pakistani', 'a'),
              # No campaign offers a Russian commander yet; the key is the game's
              # Russia, which SEST Collection Fixes now registers modern Russian
              # hulls to (its RU_REREGISTER), so a future one reads 'a Russian commander'.
@@ -281,7 +290,8 @@ NATION_SETTINGS = {
 }
 
 # Emblems a campaign's own COMMANDER text names rather than a row above
-# (Sulu Line's Philippine Navy, Red Line's PLA Navy), credited the same way
+# (Sulu Line's Philippine Navy, Red Line's PLA Navy, Makran Line's Pakistan
+# Navy), credited the same way
 # in SOURCES.txt: build_pack.SEST_EMBLEMS draws them from the gallery set.
 CAMPAIGN_EMBLEMS = {
     'sest_pn_emblem.png': dict(commons='File:Flag of the Philippines.svg',
@@ -289,6 +299,9 @@ CAMPAIGN_EMBLEMS = {
                                      'its ensign'),
     'sest_plan_emblem.png': dict(commons='File:Naval Ensign of China.svg',
                                  about='the Chinese naval ensign'),
+    'sest_pakn_emblem.png': dict(commons='File:Flag of Pakistan.svg',
+                                 about="the national flag of Pakistan. The Pakistan Navy's own "
+                                       "ensign is not in the gallery set"),
 }
 
 
@@ -462,6 +475,17 @@ MILESTONES = {
         'SL06': ('sest_littoral_operations', 'Littoral Operations Ribbon',
                  'For completing The Aborlan Battery and reopening the island road in command of {TaskForceName}',
                  (('#405D86', 4), ('#E5D7A6', 2), ('#164B4D', 4), ('#C9643B', 8), ('#164B4D', 4), ('#E5D7A6', 2), ('#405D86', 4))),
+    },
+    # Makran Line's two (11 Nov 2026), fictional like every ribbon above. No
+    # real Pakistani award is represented until its ribbon and criteria are
+    # sourced.
+    'sest-makran-line': {
+        'MK02': ('sest_arabian_sea_security', 'Arabian Sea Security Ribbon',
+                 'For completing Gwadar Roads and clearing the Gwadar anchorage in command of {TaskForceName}',
+                 (('#0B3D2E', 4), ('#E8E4D8', 2), ('#2F6E8E', 4), ('#C9A54A', 8), ('#2F6E8E', 4), ('#E8E4D8', 2), ('#0B3D2E', 4))),
+        'MK03': ('sest_trailing_operations', 'Trailing Operations Ribbon',
+                 'For completing Hangor and its detached submarine trail in command of {TaskForceName}',
+                 (('#0B1E2D', 6), ('#E8E4D8', 2), ('#3B6E5A', 12), ('#E8E4D8', 2), ('#0B1E2D', 6))),
     },
 }
 # Runtime mission ribbons. SEST's beta runtime grants these, the game never

@@ -188,6 +188,10 @@ RULES_WELCOME = {
         "October 2028. With the Seventh Fleet drawn north, the Philippine Navy holds the "
         "island supply road alone. You command its Sulu Sea task group, and nothing it "
         "fires is replaced except by the supply ships you buy and keep afloat."),
+    "sest-makran-line": (
+        "October 2028. With the coalition's ships drawn east, the tanker road from the Gulf "
+        "to Karachi is closing. You command the Pakistan Navy task group sent to keep it "
+        "open."),
 }
 
 
@@ -781,6 +785,15 @@ def campaign_specs():
     else:
         if getattr(sl, "__file__", None):
             specs.append(sl.CAMPAIGN)
+    # Makran Line, the same way: optional, appended after Sulu Line.
+    try:
+        import makran_line as ml                    # noqa: E402
+    except ModuleNotFoundError as exc:
+        if exc.name != "makran_line":
+            raise
+    else:
+        if getattr(ml, "__file__", None):
+            specs.append(ml.CAMPAIGN)
     # Two campaigns sharing a pack folder or a report overwrite each other in
     # build order, silently. Southern Watch's own paths are set_campaign()'s
     # to guard; this is every other pair.
@@ -7018,7 +7031,8 @@ def recognition_png(asset_file):
 # centre (banner_png), so a hull or an airframe is not cut in half by a
 # fixed centre crop.
 CAMPAIGN_BANNER = {"sest-southern-watch": "hobart", "sest-southern-reach": "canberra",
-                   "sest-red-line": "type054a", "sest-sulu-line": "tarlac"}
+                   "sest-red-line": "type054a", "sest-sulu-line": "tarlac",
+                   "sest-makran-line": "jf17"}
 # Photos of each campaign's own forces and theatre to draw on once the units
 # a mission places have all been used on an earlier briefing. Every id must
 # be in the gallery; the build stops on one that is not.
@@ -7031,6 +7045,13 @@ BANNER_POOL = {
                       "kj500", "jh7a"],
     "sest-sulu-line": ["miguel_malvar", "tarlac", "jacinto", "naresuan", "chakri", "rizal_old",
                        "type056a", "type054a", "type052c", "kj500", "jh7a"],
+    # Makran Line's own forces. Only jf17 is a Pakistani photo. The others
+    # are the same classes and families, not Pakistani airframes or hulls:
+    # type054a is the PLAN's Huangshan (for the Tughril class), perry the
+    # USS Oliver Hazard Perry (for PNS Alamgir), seaking a US Navy SH-3 and
+    # z9 a PLAN Z-9 (for the Navy's Sea Kings and Z-9CEs). The caption under
+    # the strip gives the class and the photographer, not the navy.
+    "sest-makran-line": ["jf17", "perry", "z9", "seaking", "type054a"],
 }
 # Photos that are fine at encyclopedia size but not as a strip across the
 # top of a briefing: a hull behind a roof, a helicopter in a museum hall.
@@ -7043,7 +7064,7 @@ BANNER_PLAN = {}      # mission key -> asset id, for the campaign set_campaign()
 CAMPAIGN_BACKDROP = {"sest-southern-watch": "mh60r", "sest-red-line": "type003"}
 BANNER_SIZE = (900, 320)
 SERVICE = {"Australia": "Royal Australian Navy", "China": "People's Liberation Army Navy",
-           "Philippines": "Philippine Navy"}
+           "Philippines": "Philippine Navy", "Pakistan": "Pakistan Navy"}
 
 
 @functools.lru_cache(maxsize=None)
@@ -7457,7 +7478,11 @@ SEST_EMBLEMS = {"sest_plan_emblem.png": "china_naval.png",
                 "sest_km_emblem.png": "netherlands.png",
                 "sest_rnon_emblem.png": "norway.png",
                 "sest_rdn_emblem.png": "denmark.png",
-                "sest_rtn_emblem.png": "thailand.png"}
+                "sest_rtn_emblem.png": "thailand.png",
+                # Makran Line's Pakistan Navy commander (11 Nov 2026): the
+                # national flag of Pakistan. The Navy's own ensign is not in
+                # the gallery's flag set.
+                "sest_pakn_emblem.png": "pakistan.png"}
 
 
 def write_emblems(commander):
@@ -9031,7 +9056,7 @@ def requirements(rows):
         L += ["", "-" * 74, "",
               f"In the collection for other campaigns and scenarios ({len(external)}):",
               "the third-party campaigns the collection carries, the mods they",
-              "place, and content none of these four campaigns uses. They are in",
+              "place, and content none of the SEST campaigns uses. They are in",
               "LOAD-ORDER.txt, so SETUP still requires them.", ""]
         for _mid, title, how, _detail, _mission, token in sorted(external, key=key):
             L.append(f"{token:<13} {'other campaigns':<32} {title}")
@@ -9078,7 +9103,7 @@ def required_urls(rows):
     both.sort(key=lambda r: rank.get(r[5], 10**6))
     L = [f"{TITLE} - Workshop mods this campaign reaches (reference only)", "",
          f"{len(both)} items, in canonical load order. NOT the Workshop item's",
-         "Required Items list. All four campaigns ship in one item, the SEST",
+         "Required Items list. All the SEST campaigns ship in one item, the SEST",
          "Integration Pack (3812461539), whose Required Items - like the",
          "collection 'SEST - Modernised Campaign Collection' (3812390790) -",
          "hold every Workshop mod in the load order, more than any one",
