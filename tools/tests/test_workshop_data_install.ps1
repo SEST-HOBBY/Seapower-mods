@@ -61,5 +61,26 @@ try {
     } finally {Remove-Item -LiteralPath 'Function:\Move-Item'}
     Assert ((Get-Content -LiteralPath (J $pack 'retired.ini') -Raw) -eq 'OLD DATA') 'Failed swap did not restore previous data'
     foreach($n in $code.Keys){Assert ((Sha $code[$n]) -eq $hashes[$n]) "Rollback changed beta code: $n"}
+    # The revision gate: the installer accepts the beta package this upload
+    # ships (the one the PC toolkit extracts) and refuses unreviewed revisions.
+    Add-Type -AssemblyName System.IO.Compression.FileSystem
+    $shippedZip=J (Split-Path -Parent (Split-Path -Parent $PSScriptRoot)) 'integration' 'dist' 'SEST_Integration' 'beta-support' 'SEST-Beta-Features.zip'
+    $zip=[IO.Compression.ZipFile]::OpenRead($shippedZip)
+    try{$reader=New-Object IO.StreamReader($zip.GetEntry('payload/build-receipt.json').Open());$shipped=($reader.ReadToEnd()|ConvertFrom-Json).candidate_revision;$reader.Dispose()}finally{$zip.Dispose()}
+    Assert ($shipped -match '^R[0-9]+-') "The shipped package has no candidate revision: $shipped"
+    foreach($revision in @('R6-fixture','R14-fixture')){
+        $receipt.candidate_revision=$revision;Put (J $package 'payload' 'build-receipt.json') ($receipt|ConvertTo-Json -Depth 5)
+        $refused=J $root ('refused-'+$revision);$why=''
+        try{& $installer @options -BackupDirectory $refused|Out-Null}catch{$why=$_.Exception.Message}
+        Assert ($why -match 'requires a reviewed') "Unreviewed revision accepted: $revision"
+        Assert (!(Test-Path -LiteralPath $refused)) "Refused revision wrote files: $revision"
+    }
+    $receipt.candidate_revision=$shipped;Put (J $package 'payload' 'build-receipt.json') ($receipt|ConvertTo-Json -Depth 5)
+    $shippedBackup=J $root 'backup-shipped'
+    & $installer @options -BackupDirectory $shippedBackup
+    Assert ((Get-Content -LiteralPath (J $pack 'new-data.ini') -Raw) -eq 'REFRESHED') "The shipped package's revision was refused: $shipped"
+    foreach($n in $code.Keys){Assert ((Sha $code[$n]) -eq $hashes[$n]) "Beta code changed under ${shipped}: $n"}
+    & $installer -Action Restore -BackupDirectory $shippedBackup
+    Assert ((Get-Content -LiteralPath (J $pack 'retired.ini') -Raw) -eq 'OLD DATA') "Previous data did not restore after the $shipped update"
     Write-Host "all checks passed: Workshop data update and restore ($checks)"
 } finally {if(Test-Path -LiteralPath $root){Remove-Item -LiteralPath $root -Recurse -Force}}
