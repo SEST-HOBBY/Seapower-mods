@@ -1377,8 +1377,8 @@ MISSING_LOADOUT_NAMES = {
     "Steelfin": "Steelfin",
     # The Pakistani Pack's JF-17 Block II and III (3812140001), sold in Makran
     # Line from 11 Nov 2026, offer three long-range strike alternates no mod
-    # names; the PLAAF pack's J-10A and J-10C, the J-10CE and the JAS-39 use
-    # the same keys with other stores, so the names say only which alternate.
+    # names; the PLAAF pack's J-10A and J-10C and the J-10CE use the first two
+    # keys with other stores, so the names say only which alternate.
     "StrikeLongRange1": "Strike Long Range (alt 1)",
     "StrikeLongRange2": "Strike Long Range (alt 2)",
     "StrikeLongRange3": "Strike Long Range (alt 3)",
