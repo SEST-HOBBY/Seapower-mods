@@ -22,7 +22,7 @@
     "New native award rendering, long-list scrolling, nation selection and mission grants await owner PC checks; automated tests do not run Unity."
   ],
   "steam_published": false,
-  "github_pushed": true,
+  "github_pushed": "fix/combined-acceptance-20261111 only; feature/builder-grammar-20261111 is local",
   "configuration_follow_up": {
     "capture": "SEST-Steelfin-Review-20261109-213719.zip",
     "capture_sha256": "61ba5b53f1e1c7a56ca30a6c4750ec16e1190d2452be3f2f7beceaf151e9071d",
@@ -535,6 +535,7 @@
   },
   "red_line_builder_grammar": {
     "branch": "feature/builder-grammar-20261111",
+    "pushed": false,
     "merged": false,
     "scope": "RL03's Intercept and Disengage paths (Disengage: from minute 18, neither F-35 down, none within 70 NM of the return box's centre, the AIM-120C7 MaxLaunchRange the builder reads from the winning pack copy); RL04's heave-to (the lead ship within about 3 NM, the helicopter not counted; she turns Neutral and her loss after that ends the mission; her loss first switches the challenges off); progress reports in RL02, RL03, RL04 and RL06; release terms in all six combat briefings, RL01 and RLO2's added",
     "damage_state": "off: campaign_data.DAMAGE_STATE is None until PC check P1, so RL04 has no engines-stopped path",
@@ -549,7 +550,7 @@
       "RLO2"
     ],
     "build": "tools/build_all.py --from-scratch twice; the second left the tree clean",
-    "release_gates": "14 checks passed; 374 tools tests (2 skipped) with pwsh 7.4.6; 397 campaign tests (test_build_pack, test_playtest_revision, test_red_line_pacing)",
+    "release_gates": "14 checks passed; 374 tools tests (2 skipped) with pwsh 7.4.6; 398 campaign tests (test_build_pack, test_playtest_revision, test_red_line_pacing)",
     "canonical_upload": "prepare-workshop-upload.ps1 -VerifyOnly: 4412 files match the manifest",
     "pc_checks": "docs/campaigns/red-line/test-card.md P1-P9; README-FIRST step 3",
     "status": "compiled-and-unit-tested-pc-checks-pending"
