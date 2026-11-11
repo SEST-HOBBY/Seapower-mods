@@ -874,7 +874,54 @@ class TurnBack(unittest.TestCase):
         self.assertIn("TurnBackHeaveToLostMessage=<color=red>Operation failed.</color>|"
                       "She was sunk.", text)
 
+    def test_sunk_before_she_turns_the_challenges_stop(self):
+        # Her loss switches off every challenge and the turn-back (stock 04
+        # Sunda Strait's Trigger8 shape), so a challenge met after she is
+        # sunk cannot turn a wreck Neutral, switch off the Sunk win and arm
+        # the loss after turning.
+        triggers, n, _text = self.render(self.mission())
+        challenges = [k for k in n if k.startswith("Challenge HeaveTo ")]
+        self.assertEqual(len(challenges), 9)
+        sunk = triggers["Spoiler met"]
+        self.assertEqual(sunk[:4], ["Condition_Condition1_Type=UnitDestroyed",
+                                    "Condition_Condition1_Units=Taskforce2Vessel1",
+                                    "Condition_Condition1_MinimumUnits=1",
+                                    "ConditionsCompleted=<Condition1>"])
+        off = next(l for l in sunk if l.startswith("Action_DisableTriggers=")).split("=")[1]
+        for name in challenges + ["Turns back: HeaveTo", "Spoiler denied"]:
+            self.assertIn(f"Trigger{n[name]}", off.split(","), name)
+        self.assertLess(n["Spoiler met"], min(n[c] for c in challenges))
+        self.assertNotIn("HeaveTo sunk before turning", triggers)
+        # Her objective scored another way: a trigger of her own does it,
+        # written before the challenges.
+        m = self.mission()
+        m["resolve"]["Spoiler"] = ("destroy", ["spoiler", "red_air"], 2)
+        triggers, n, _text = self.render(m)
+        own = triggers["HeaveTo sunk before turning"]
+        self.assertIn("Condition_Condition1_Units=Taskforce2Vessel1", own)
+        off = next(l for l in own if l.startswith("Action_DisableTriggers=")).split("=")[1]
+        for name in [k for k in n if k.startswith("Challenge HeaveTo ")] + ["Turns back: HeaveTo"]:
+            self.assertIn(f"Trigger{n[name]}", off.split(","), name)
+        self.assertNotIn("Action_DisableTriggers", " ".join(triggers["Spoiler met"]))
+        self.assertLess(n["HeaveTo sunk before turning"], n["Challenge HeaveTo 1"])
+
+    def test_a_heave_to_switches_off_a_gated_sinking_path(self):
+        # A gate would turn the Sunk win back on after she is Neutral.
+        m = self.mission()
+        m["victory"]["any_of"][0]["after_minutes"] = 30
+        triggers, n, _text = self.render(m)
+        off = next(l for l in triggers["Turns back: HeaveTo"]
+                   if l.startswith("Action_DisableTriggers=")).split("=")[1].split(",")
+        for name in ("Objective met", "Opens at minute 30: Sunk"):
+            self.assertIn(f"Trigger{n[name]}", off, name)
+
     def test_the_shapes_are_stocks(self):
+        sunda = (bp.ROOT / "mods-source" / "_vanilla" / "original" / "campaigns"
+                 / "pacific-strike-task-force" / "missions" / "04 Sunda Strait.ini").read_text(
+            encoding="utf-8", errors="replace")
+        guard = re.search(r"^\[Trigger8\]\n(.*?)(?=^\[)", sunda, re.M | re.S).group(1)
+        self.assertIn("Condition_Condition1_Type=UnitDestroyed\n", guard)
+        self.assertIn("ConditionsCompleted=<Condition1>\nAction_DisableTriggers=Trigger7\n", guard)
         caron = (STOCK / "NATO" / "Caron at Grenada 1983.ini").read_text(
             encoding="utf-8", errors="replace")
         checkout = re.search(r"^\[Trigger10\]\n(.*?)(?=^\[)", caron, re.M | re.S).group(1)
@@ -967,14 +1014,43 @@ class DamageStateFlag(unittest.TestCase):
         off = next(l for l in triggers["Disabled: HeaveTo"]
                    if l.startswith("Action_DisableTriggers=")).split("=")[1].split(",")
         self.assertIn(f"Trigger{n['Turns back: HeaveTo']}", off)
-        self.assertIn(f"Trigger{n['Spoiler denied']}", off)
         self.assertNotIn(f"Trigger{n['Objective met']}", off)
         self.assertIn("Condition_Condition1_DamageConditionMode=AllPropulsionInoperable",
                       triggers["Disabled: HeaveTo"])
+        # Stopped where she lies, and her race still armed: a coaster whose
+        # damage control restores her engines and who reaches the lane still
+        # loses the mission.
+        for line in ("Action_Units=Taskforce2Vessel1", "Action_UnitTelegraph=0"):
+            self.assertIn(line, triggers["Disabled: HeaveTo"])
+        self.assertNotIn(f"Trigger{n['Spoiler denied']}", off)
+        # Sunk before she turns, the damage trigger goes with the chain.
+        sunk = next(l for l in triggers["Spoiler met"]
+                    if l.startswith("Action_DisableTriggers=")).split("=")[1].split(",")
+        self.assertIn(f"Trigger{n['Disabled: HeaveTo']}", sunk)
         turn = next(l for l in triggers["Turns back: HeaveTo"]
                     if l.startswith("Action_DisableTriggers=")).split("=")[1].split(",")
         self.assertIn(f"Trigger{n['Disabled: HeaveTo']}", turn)
         self.assertIn(f"Trigger{n['Objective met']}", turn)
+
+    def test_the_damage_event_still_requires_the_objective(self):
+        # '<name>Disabled' completes the turn_back's objective as the
+        # turn-back does, so a path waiting for it needs that objective.
+        import campaign_data
+        from unittest import mock
+        m = TurnBack().mission(or_damaged=dict(mode="propulsion_all"))
+        m["victory"]["any_of"].append(dict(
+            name="Crippled", win="She is dead in the water.",
+            also=[dict(kind="event", event="HeaveToDisabled"), dict(kind="afloat", units=["spoiler"])]))
+        _placed, members = TurnBack().placement()
+        with mock.patch.object(campaign_data, "DAMAGE_STATE", self.TABLE):
+            self.assertEqual(set(bp.required_objectives(m, members)), {"Spoiler"})
+            rl04 = importlib.import_module("red_line.rl04_the_order_to_withdraw")
+            try:
+                on = importlib.reload(rl04).MISSION
+                self.assertEqual(set(bp.required_objectives(
+                    on, {s: [s] for s in on["stations"]})), {"Spoiler"})
+            finally:
+                importlib.reload(rl04)
 
     def test_rl04_offers_no_engines_outcome_while_it_is_off(self):
         rl04 = importlib.import_module("red_line.rl04_the_order_to_withdraw")
@@ -4865,6 +4941,18 @@ class RedLineVictoryPaths(unittest.TestCase):
         self.assertTrue(0 <= edge <= bp.TRACK_STEP_NM, edge)
         lost = parsed[f"Trigger{n['HeaveTo sunk after turning']}"]
         self.assertEqual(lost["Action_ObjectivesFailed"], "Restraint")
+        # Sunk before she turns: 'Spoiler met' switches off every challenge
+        # and the turn-back, so no challenge can turn the wreck Neutral.
+        sunk = parsed[f"Trigger{n['Spoiler met']}"]
+        self.assertEqual(sunk["Condition_Condition1_Type"], "UnitDestroyed")
+        self.assertEqual(sunk["Condition_Condition1_Units"], lost["Condition_Condition1_Units"])
+        off = sunk["Action_DisableTriggers"].split(",")
+        for c in challenges + [n["Turns back: HeaveTo"]]:
+            self.assertIn(f"Trigger{c}", off)
+        self.assertLess(n["Spoiler met"], challenges[0])
+        # The other side's text for the HoveTo path is the HoveTo path's.
+        hove = parsed[f"Trigger{n['Objective met: HoveTo']}"]
+        self.assertEqual(hove["Action_Taskforce2_Message"], "PathHoveToTaskforce2DefeatMessage")
 
 
     def test_progress_reports_only_report(self):

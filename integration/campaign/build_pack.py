@@ -2934,8 +2934,14 @@ def required_objectives(mission, members):
     for oid, how in mission.get("resolve", {}).items():
         if isinstance(how, tuple) and len(how) > 2 and how[0] == "destroy":
             destroys[oid] = (units_of(how[1]), how[2])
-    turns = {t.get("name"): t.get("objective") for t in mission.get("turn_back", [])
-             if isinstance(t, dict)}
+    # A turn_back's own trigger completes its objective, and so does its
+    # or_damaged trigger, which an event term names '<name>Disabled'.
+    turns = {}
+    for t in mission.get("turn_back", []):
+        if isinstance(t, dict):
+            turns[t.get("name")] = t.get("objective")
+            if t.get("or_damaged"):
+                turns[f"{t.get('name')}Disabled"] = t.get("objective")
     out = None
     for terms in victory_paths(mission["victory"]):
         need = {}
@@ -3477,36 +3483,66 @@ def turn_back_corridor(mission, placed, members, tb):
     return out
 
 
-def turn_back_triggers(mission, placed, members, tb, trigger, terminal, progress_names):
-    """The challenge chain, the turn-back and the loss that follows it."""
+def turn_back_triggers(mission, placed, members, tb, trigger, terminal, progress_names,
+                       lines_of=lambda _name: None):
+    """The challenge chain, the turn-back and the loss that follows it.
+
+    `lines_of(name)` gives the lines of a trigger already written (render()
+    passes its own lookup), so her objective's destroy trigger can be given
+    the chain to switch off."""
     centre = mission["centre"]
     name = tb["name"]
     units, by = turn_back_units(mission, members, tb)
     deny = next(d for d in mission.get("denied", [])
                 if {t for r in d["units"] for t in refs(members, r)} == set(units))
     turns, disabled = f"Turns back: {name}", f"Disabled: {name}"
-    challenges = []
-    for k, (x, z) in enumerate(turn_back_corridor(mission, placed, members, tb), 1):
+    corridor = turn_back_corridor(mission, placed, members, tb)
+    challenges = [f"Challenge {name} {k}" for k in range(1, len(corridor) + 1)]
+    denied = f"{deny['objective']} denied"
+    # Stopped either way, she is no longer racing: the challenges, the race
+    # and the reports on her go. Only the turn to Neutral protects her, so
+    # only it also switches off the ways to win by sinking her.
+    stop = challenges + [denied] + list(progress_names)
+    # Sunk before she turns, she can no longer heave to. Nothing else would
+    # switch the chain off, and a challenge met after her loss (her own
+    # spawn is Challenge 1's centre, met at the first second if an area test
+    # stays met) would fire the turn-back on a wreck: the Sunk win switched
+    # off and the loss after turning armed on a ship already destroyed. Her
+    # loss switches off the challenges, the turn-back and the rest of the
+    # chain, as stock 04 Sunda Strait's Trigger8 "Deactivate RNZAF checkout
+    # if lost" (UnitDestroyed -> Action_DisableTriggers=Trigger7, its
+    # transfer to Neutral, lines 740-745) does. The line goes on her
+    # objective's own destroy trigger when that trigger waits for exactly
+    # her, else on a trigger of its own written before the challenges.
+    gone = stop + [turns] + ([disabled] if tb.get("or_damaged") else [])
+    how = mission.get("resolve", {}).get(tb["objective"])
+    own = [f"{tb['objective']} met"] if isinstance(how, tuple) and how[0] == "destroy" else []
+    sunk_lines = None
+    if own and how[2] == 1 and {t for r in ([how[1]] if isinstance(how[1], str) else how[1])
+                                for t in refs(members, r)} == set(units):
+        sunk_lines = lines_of(own[0])
+    if sunk_lines is not None:
+        sunk_lines.append("Action_DisableTriggers=" + trigger_marks(*gone))
+    else:
+        trigger(f"{name} sunk before turning", destroyed_condition(1, units, 1) + [
+            "ConditionsCompleted=<Condition1>",
+            "Action_DisableTriggers=" + trigger_marks(*gone)])
+    for k, (x, z) in enumerate(corridor, 1):
         at = (centre[0] + z / 60.0, centre[1] + x / 60.0)
-        challenges.append(f"Challenge {name} {k}")
-        trigger(challenges[-1],
+        trigger(challenges[k - 1],
                 area_condition(1, centre, at, TRACK_NM, units, 1, side="None")
                 + area_condition(2, centre, at, tb["radius"], by, 1, side="None")
                 + ["ConditionsCompleted=<Condition1> AND <Condition2>",
                    "Action_EnableTriggers=" + trigger_marks(turns)])
     # Once she has turned, her loss ends the mission: a path that wins by
-    # sinking her, and her objective's own destroy trigger, are switched off
-    # with the challenges and the race she can no longer win.
-    sinking = [path_trigger(i, p) for i, p in enumerate(mission["victory"].get("any_of") or [])
+    # sinking her (its victory trigger, and the gate and refresh that could
+    # turn it back on), and her objective's own destroy trigger, are
+    # switched off with the challenges and the race she can no longer win.
+    sinking = [c for i, p in enumerate(mission["victory"].get("any_of") or [])
                if any(term_kind(x) == "destroyed" and set(units) & {
                    u for r in ([x["units"]] if isinstance(x["units"], str) else x["units"])
-                   for u in refs(members, r)} for x in p["also"])]
-    how = mission.get("resolve", {}).get(tb["objective"])
-    own = [f"{tb['objective']} met"] if isinstance(how, tuple) and how[0] == "destroy" else []
-    # Stopped either way, she is no longer racing: the challenges, the race
-    # and the reports on her go. Only the turn to Neutral protects her, so
-    # only it also switches off the ways to win by sinking her.
-    stop = challenges + [f"{deny['objective']} denied"] + list(progress_names)
+                   for u in refs(members, r)} for x in p["also"])
+               for c in path_triggers(i, p)]
     to_x, to_z = (tb["to"][1] - centre[1]) * 60, (tb["to"][0] - centre[0]) * 60
     lines = ["Disabled=True", "Condition_Condition1_Type=Generic",
              "ConditionsCompleted=<Condition1>", f"Action_Units={','.join(units)}"]
@@ -3525,11 +3561,20 @@ def turn_back_triggers(mission, placed, members, tb, trigger, terminal, progress
     trigger(turns, lines)
     if tb.get("or_damaged"):
         # Behind DAMAGE_STATE (PC check P1): no stock mission writes the
-        # condition, so its keys come from a Mission Editor save.
+        # condition, so its keys come from a Mission Editor save. Her engines
+        # out, she is stopped where she lies: Action_Units and
+        # Action_UnitTelegraph=0. No stock trigger writes exactly that pair:
+        # 05A Operation Blockbuster - Blue's Trigger11 (lines 940-942) sets
+        # Units, UnitWaypoints and UnitTelegraph=5 together, and no stock
+        # line sets telegraph 0. Her race stays armed, so a coaster whose
+        # damage control restores her engines and who reaches the lane still
+        # loses the mission.
         trigger(disabled, damaged_condition(1, units, tb["or_damaged"])
                 + ["ConditionsCompleted=<Condition1>",
+                   f"Action_Units={','.join(units)}", "Action_UnitTelegraph=0",
                    f"Action_ObjectivesCompleted={tb['objective']}",
-                   "Action_DisableTriggers=" + trigger_marks(*stop + [turns])])
+                   "Action_DisableTriggers=" + trigger_marks(
+                       *[c for c in stop if c != denied] + [turns])])
         # She is still the other side's: sinking her stays a win.
     if tb.get("protected"):
         # A ship transferred to Neutral is not in the mission's neutral
@@ -6417,7 +6462,8 @@ def render(mission, placed, members):
         turned = set(turn_back_units(mission, members, tb)[0])
         reports = [PROGRESS_PREFIX + e["name"] for e in mission.get("progress", [])
                    if turned & set(progress_circle(mission, placed, members, e)[2])]
-        turn_back_triggers(mission, placed, members, tb, trigger, terminal, reports)
+        turn_back_triggers(mission, placed, members, tb, trigger, terminal, reports,
+                           lambda wanted: next((l for c, l in T if c == wanted), None))
     progress_triggers(mission, placed, members, trigger)
 
     # Losing a support asset costs something the player can read at the time,
