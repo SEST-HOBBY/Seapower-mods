@@ -208,7 +208,13 @@ taegeuk; as a German one, the Cross of Honour shows its gold cross. Load an
 existing save: its commander, nation and earned ribbons are unchanged.
 Existing saves are preserved; start a new commander to choose another
 nationality.
-Once R13 (Runtime 1.6.5) is installed: complete RL05 without launching
-anything and RLC1 with its pilot recovered, and read each runtime ribbon's
-line in Player.log (the Red Line test card's checks R1 to R6). Before then,
-neither ribbon appears; that is expected.
+On this build, neither Red Line runtime ribbon appears after RL05 or RLC1
+and the developer ribbon menu offers neither (the Red Line test card's
+checks R5 and R6); that is expected. Once R13 (Runtime 1.6.5) is installed:
+complete RL05 without launching anything and RLC1 with its pilot recovered,
+and read each runtime ribbon's lines in Player.log (checks R1 to R4). Each
+debrief logs two lines per runtime ribbon: judge by the first, the verdict.
+The second says "already awarded" after an award, or otherwise repeats the
+first. It is expected: Red Line's campaign.ini names itself as its [File]
+Base, and the game yields that file once as the open campaign and again as
+its base, so R13 reads the key twice.
