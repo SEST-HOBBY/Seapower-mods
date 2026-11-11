@@ -117,6 +117,11 @@ MISSION = dict(
                     "tasking, and no operation follows this one: a fixed-wing aircraft "
                     "allocated here will not fly."
                 )),
+    # Information only (step 5): the tender in the box, and what is still to come.
+    progress=[dict(name="TenderIn", units=["tender"], intel=(
+        "TENDER CONTROL: AUSTRAL COMPLIANCE is in the holding box. The rendezvous completes "
+        "when HULL 334 is with her, the Q-ship is sunk, the screen's decoy report is in and no "
+        "incoming weapon is tracked."))],
     reports=[dict(minute=2,intel="TENDER CONTROL: Austral Warden is the hostile Q-ship, west of the tender. Hull 334 can engage it; the frigate should not abandon the decoy station before minute eight. Losing concealment costs points, not the whole operation.")],
     role="escort",
 )

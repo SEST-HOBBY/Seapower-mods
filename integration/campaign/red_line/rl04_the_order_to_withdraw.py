@@ -3,9 +3,21 @@
 24 Oct 2026: a separate Meridian Q-ship attacks Hulunhu during the chase.
 The Poseidon and any surviving GOLF are non-belligerents; the ceasefire
 still protects them. GOLF remains conditional and is never a fatal target.
+
+10 Nov 2026 (step 4 of the builder-grammar design): the coaster need not be
+sunk. Closed to about three miles by the screen's lead ship (the ship's
+flight does not count) she heaves to: a turn_back moves her to the neutral
+task force, sends her after the group and slows her to telegraph 2, and
+sinking her after that ends the mission as any protected neutral's loss
+does. The victory has two paths, Sunk and HoveTo. A third, her engines
+stopped, waits for campaign_data.DAMAGE_STATE (PC check P1) and is off.
 """
-from campaign_data import U, F, S
+from campaign_data import U, F, S, DAMAGE_STATE
 from .tables import HELO
+
+# The engines-stopped outcome needs the UnitDamageState condition, whose INI
+# keys no stock mission shows; it is offered only once DAMAGE_STATE is set.
+_ENGINES = bool(DAMAGE_STATE)
 
 MISSION = dict(
     code="RL04", series="Red Line", seq="RED LINE  ·  MISSION 4",
@@ -49,10 +61,16 @@ MISSION = dict(
             "astern. Neither is to be touched. Your frigate and its flight start at "
             "defensive settings: engage only the two Meridian vessels. The protected observers "
             "are non-belligerents. Stop the coaster before she reaches the marked circle "
-            "south-east, where she clears the screen. Then bring LIAONING and HULUNHU both "
-            "within five miles of the withdrawal point north-west. The order is complete when "
-            "both are inside that circle, MERIDIAN HARMONY is sunk and no incoming weapon is "
-            "still tracked against the group.\\n\\nA Banda "
+            "south-east, where she clears the screen. "
+            + ("Sink her, stop her engines, or close her" if _ENGINES else "Sink her, or close her")
+            + " with the screen's lead ship to within about three miles: she will heave to "
+            "and follow the group, and from then she is a protected neutral whose loss ends "
+            "the operation. Set the lead ship's weapons to Hold before closing: at Tight she may "
+            "engage the coaster on the way in. "
+            "Then bring LIAONING and HULUNHU both within five miles of the withdrawal point "
+            "north-west. The order is complete when both are inside that circle, MERIDIAN "
+            "HARMONY is sunk" + (", stopped" if _ENGINES else "") + " or has hove to, and no "
+            "incoming weapon is still tracked against the group.\\n\\nA Banda "
             "fishing boat and the Banda Neira ferry are on the water."
         )),
     forces=(
@@ -63,8 +81,10 @@ MISSION = dict(
     objectives=[
         ("Withdrawal", "Bring Liaoning and Hulunhu inside the withdrawal circle north-west",
          "35,-35,Fail,Main"),
-        ("Spoiler", "Also required: sink Meridian Harmony before she clears the screen", "20,-40,Fail,Main"),
-        ("Restraint", "Engage only the two declared hostile Meridian vessels", "15,-40,Complete"),
+        ("Spoiler", "Also required: stop Meridian Harmony before she clears the screen, by "
+                    "sinking her or closing her until she heaves to", "20,-40,Fail,Main"),
+        ("Restraint", "Engage only the two declared hostile Meridian vessels, and not Meridian "
+                      "Harmony once she has hove to", "15,-40,Complete"),
         ("Boat", "Leave the boat astern alone, if she is there", "0,-40,None"),
         ("Carrier", "Bring Liaoning through intact", "10,-30,Complete"),
         ("Supply", "Keep Hulunhu afloat during the withdrawal", "10,-30,Complete"),
@@ -73,7 +93,41 @@ MISSION = dict(
     ],
     victory=dict(kind="arrive", units=["group#1", "group#2"], at=(-4.40, 128.50),
                  radius=5, min_units=2, objective="Withdrawal", transit=12,
-                 also=[dict(kind="destroyed", units=["spoiler"], min_units=1),dict(kind="no_incoming")]),
+                 also=[dict(kind="no_incoming")],
+                 any_of=[
+                     dict(name="Sunk", also=[dict(kind="destroyed", units=["spoiler"], min_units=1)]),
+                     dict(name="HoveTo",
+                          also=[dict(kind="event", event="HeaveTo"),
+                                dict(kind="afloat", units=["spoiler"])],
+                          win=(
+                              "LIAONING and HULUNHU are inside the withdrawal circle, and MERIDIAN "
+                              "HARMONY has hove to and is following the group north-west. The "
+                              "group's report will say what was done and why; the Poseidon has "
+                              "the same account."
+                          )),
+                 ] + ([dict(name="Crippled",
+                            also=[dict(kind="event", event="HeaveToDisabled"),
+                                  dict(kind="afloat", units=["spoiler"])],
+                            win=(
+                                "LIAONING and HULUNHU are inside the withdrawal circle, and MERIDIAN "
+                                "HARMONY is dead in the water short of the lane, her engines "
+                                "stopped. The group's report will say what was done and why; the "
+                                "Poseidon has the same account."
+                            ))] if _ENGINES else [])),
+    # The heave-to: the screen's lead ship (escort, the anchor) inside three
+    # miles of her on her own track, the helicopter not counted.
+    turn_back=[dict(
+        name="HeaveTo", units=["spoiler"], by=["escort"], radius=3,
+        to=(-4.45, 128.60), telegraph=2, transfer="Neutral", objective="Spoiler",
+        intel=(
+            "BRIDGE: MERIDIAN HARMONY has answered at last. She has hove to and is turning to "
+            "follow the group north-west. She is no longer a declared hostile; do not fire on her."
+        ),
+        protected=dict(objective="Restraint", message=(
+            "MERIDIAN HARMONY had hove to and was following the group when she was sunk. Under "
+            "the ceasefire that is the group's violation, and the Poseidon has it recorded."
+        )),
+        **(dict(or_damaged=dict(mode="propulsion_all")) if _ENGINES else {}))],
     denied=[dict(units=["spoiler"], at=(-4.84, 128.92), radius=4, objective="Spoiler",
                  message=(
                      "MERIDIAN HARMONY has cleared the screen and is running south for the "
@@ -91,8 +145,10 @@ MISSION = dict(
         "The withdrawal has failed: LIAONING or HULUNHU is lost, or the Poseidon is down. "
         "The ceasefire is hours old, and the group is in its first violation report."
     ),
-    timeout="{deadline_clock}, and the group is still short of the withdrawal circle. The withdrawal "
-            "order had a time on it, and the coalition's aircraft has recorded the group missing it.",
+    timeout=("{deadline_clock}, and the withdrawal is not complete: LIAONING and HULUNHU are not "
+             "both inside the circle, or MERIDIAN HARMONY is neither sunk"
+             + (", stopped" if _ENGINES else "") + " nor hove to. The withdrawal "
+             "order had a time on it, and the coalition's aircraft has recorded the group missing it."),
     stations={
         "escort": S(-4.45, 128.85, "Escort", heading=300),
         "flight": S(-4.47, 128.83, "Ship's flight", heading=300, alt=500),
@@ -150,6 +206,22 @@ MISSION = dict(
                     "nothing else. There is no rearming and no reinforcement before the "
                     "withdrawal."
                 )),
+    # Information only (step 5): the group halfway and the first ship in, and
+    # the coaster halfway to clearing the screen on her own route (the
+    # heave-to switches that one off).
+    progress=[
+        dict(name="Halfway", units=["group#1", "group#2"], at=(-4.45, 128.60), radius=2,
+             min_units=2, intel=(
+                 "GROUP STAFF: LIAONING and HULUNHU are halfway to the withdrawal point. Keep "
+                 "the screen between them and the Q-ship.")),
+        dict(name="FirstIn", units=["group#1", "group#2"], min_units=1, intel=(
+            "GROUP STAFF: The first of LIAONING and HULUNHU is inside the withdrawal circle. The "
+            "order is complete when both are, MERIDIAN HARMONY is sunk"
+            + (", stopped" if _ENGINES else "") + " or has hove to, and nothing is inbound.")),
+        dict(name="Running", units=["spoiler"], at=(-4.70, 128.84), radius=2, intel=(
+            "GROUP STAFF: MERIDIAN HARMONY is halfway to clearing the screen. Sink her or close "
+            "her now.")),
+    ],
     reports=[dict(minute=2,intel="GROUP STAFF: The coaster is the escape problem; the Q-ship is the immediate threat to Hulunhu. Use separate assignments, and do not send the whole screen away from the replenishment ship.")],
     role="escort",
 )

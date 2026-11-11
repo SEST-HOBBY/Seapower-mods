@@ -468,7 +468,11 @@ class VictoryAlsoTerms(unittest.TestCase):
 
     def win(self, also, **victory):
         v = dict(small_mission()["victory"], also=also, **victory)
-        return rendered(small_mission(victory=v))
+        # A win that waits for the coaster sunk needs her objective, so it
+        # is flagged Main (check_required_objectives).
+        objectives = [small_mission()["objectives"][0],
+                      ("Spoiler", "Stop the coaster", "20,-40,Fail,Main")]
+        return rendered(small_mission(victory=v, objectives=objectives))
 
     def test_destroyed_term_is_a_kill(self):
         lines = self.win([dict(kind="destroyed", units=["spoiler"])])["Objective met"]
@@ -524,6 +528,819 @@ class VictoryAlsoTerms(unittest.TestCase):
         self.assertIn("Condition_Condition2_Type=UnitDestroyed", lines)
         with self.assertRaisesRegex(SystemExit, "kind 'sunk'"):
             self.win([dict(kind="sunk", units=["spoiler"])], after=stage)
+
+
+class BuilderFoundations(unittest.TestCase):
+    """Step 2 of the builder-grammar design: victory and stage keys are
+    whitelisted, trigger marks resolve or stop the build, and an objective
+    every way to win needs is flagged Main and not called optional."""
+
+    def test_a_misspelt_victory_or_stage_key_stops_the_build(self):
+        v = dict(small_mission()["victory"], any_off=[])
+        with self.assertRaisesRegex(SystemExit, "'any_off'"):
+            rendered(small_mission(victory=v))
+        v = dict(small_mission()["victory"],
+                 after=dict(kind="area", units="group", at=(-4.40, 128.70), hold_minute=3))
+        with self.assertRaisesRegex(SystemExit, "'hold_minute'"):
+            rendered(small_mission(victory=v))
+
+    def test_a_key_the_kind_does_not_read_stops_the_build(self):
+        base = small_mission()["victory"]
+        area = dict(kind="area", units="group", at=(-4.40, 128.70))
+        cases = [
+            # a classify stage has no clock and no circle
+            (dict(base, after=dict(kind="classify", units="spoiler", after_minutes=25)),
+             "'after_minutes'"),
+            (dict(base, after=dict(kind="classify", units="spoiler", radius=3)), "'radius'"),
+            # one chain per unit has no hold, and only it reads `lost`
+            (dict(base, after=dict(area, per_unit=True, hold_minutes=4,
+                                   held=("Held", "Held."))), "'held', 'hold_minutes'"),
+            (dict(base, after=dict(area, lost="Lost.")), "'lost'"),
+            # bearing, transit and the arrival's units belong to an arrival
+            (dict(kind="destroy", stations=["spoiler"], objective="Withdrawal", bearing=315),
+             "'bearing'"),
+            (dict(kind="destroy", stations=["spoiler"], objective="Withdrawal",
+                  units=["spoiler"]), "'units'"),
+            (dict(base, stations=["group"]), "'stations'"),
+        ]
+        for v, why in cases:
+            with self.subTest(why=why), self.assertRaisesRegex(SystemExit, why + ".*kind does not read"):
+                rendered(small_mission(victory=v))
+        # A destroy victory keeps `at` and `radius`: its area terms read them.
+        keys, _stage = bp.victory_keys_read(dict(kind="destroy"))
+        self.assertTrue({"at", "radius"} <= keys)
+
+    def test_marks_resolve_to_numbers_or_stop_the_build(self):
+        T = [("Alpha", ["Action_EnableTriggers=" + bp.trigger_marks("Bravo", "Alpha")]),
+             ("Bravo", ["Condition_Type=Time"])]
+        bp.resolve_trigger_marks("T", T)
+        self.assertEqual(T[0][1], ["Action_EnableTriggers=Trigger2,Trigger1"])
+        with self.assertRaisesRegex(SystemExit, "'Charlie', which no trigger is called"):
+            bp.resolve_trigger_marks("T", [("Alpha", [bp.trigger_marks("Charlie")])])
+        with self.assertRaisesRegex(SystemExit, "2 triggers are called"):
+            bp.resolve_trigger_marks("T", [("Alpha", [bp.trigger_marks("Bravo")]),
+                                           ("Bravo", []), ("Bravo", [])])
+
+    def required(self, spec, text="Stop the coaster"):
+        v = dict(small_mission()["victory"],
+                 also=[dict(kind="destroyed", units=["spoiler"], min_units=1)])
+        return rendered(small_mission(
+            victory=v, objectives=[small_mission()["objectives"][0],
+                                   ("Spoiler", text, spec)]))
+
+    def test_a_required_objective_is_flagged_main(self):
+        with self.assertRaisesRegex(SystemExit, "Spoiler is required.*not flagged Main"):
+            self.required("20,-40,Fail")
+        self.assertIn("Objective met", self.required("20,-40,Fail,Main"))
+        with self.assertRaisesRegex(SystemExit, "'if practicable'"):
+            self.required("20,-40,Fail,Main", text="Stop the coaster if practicable")
+
+    def test_a_term_the_objective_does_not_decide_requires_nothing(self):
+        # Two coasters to sink for the objective, one for the win: the win
+        # can come without the objective, so it is not required.
+        m = small_mission(victory=dict(small_mission()["victory"],
+                                       also=[dict(kind="destroyed", units=["spoiler"])]),
+                          resolve={"Withdrawal": "victory",
+                                   "Spoiler": ("destroy", ["spoiler", "red_air"], 2)})
+        self.assertEqual(bp.required_objectives(m, small_placement()[1]), {})
+        self.assertIn("Objective met", rendered(m))
+
+    def test_every_shipped_required_objective_is_main(self):
+        for spec in bp.campaign_specs():
+            for m in spec["MISSIONS"]:
+                if m.get("victory"):
+                    # stations only: refs() needs the placed tags, and a
+                    # station's own name stands in for its units here
+                    members = {s: [f"{s}/{i}" for i in range(1, 10)]
+                               for s in m["stations"]}
+                    for oid in bp.required_objectives(m, members):
+                        line = next(s for o, _t, s in m["objectives"] if o == oid)
+                        self.assertIn("Main", line.split(",")[3:], (m["key"], oid))
+
+
+class VictoryAlternatives(unittest.TestCase):
+    """victory any_of (step 3 of the builder-grammar design): one victory
+    trigger per path, sharing the exit. A path that waits for units to have
+    LEFT a circle is North Borneo's: TriggerCompleted/area AND NOT
+    UnitsInTheArea, refreshed every 5 seconds, opened at a minute."""
+
+    def placement(self):
+        placed, members = small_placement()
+        # An F-35 pair on a racetrack 85-91 NM from the box at -18,0,18:
+        # outside its 70 NM AIM-120C7 reach all the way round.
+        placed["Taskforce2Aircraft"] += [
+            ("Taskforce2Aircraft2", _keys("raaf_f-35a", 60, 60, LoadoutVariant="AirToAir",
+                                          Waypoints="40,25000,80|70,25000,40|Loop"), None, False),
+            ("Taskforce2Aircraft3", _keys("raaf_f-35a", 61, 60, LoadoutVariant="AirToAir",
+                                          Waypoints="40,25000,80|70,25000,40|Loop"), None, False)]
+        members["fighters"] = ["Taskforce2Aircraft2", "Taskforce2Aircraft3"]
+        return placed, members
+
+    def mission(self, paths=None, **victory):
+        objectives = small_mission()["objectives"] + [("Kill", "Down a fighter", "10,0,None")]
+        if paths is None:
+            paths = [dict(name="Kill", bonus=["Kill"],
+                          also=[dict(kind="destroyed", units=["fighters"], min_units=1)]),
+                     dict(name="Clear", after_minutes=30, win="They broke off.",
+                          also=[dict(kind="clear_of", units=["fighters"])])]
+        v = dict(small_mission()["victory"], also=[dict(kind="no_incoming")],
+                 any_of=paths, **victory)
+        stations = dict(small_mission()["stations"],
+                        fighters=S(-3.6, 129.9, "Fighters", alt=25000))
+        return small_mission(victory=v, objectives=objectives, stations=stations,
+                             resolve=dict(small_mission()["resolve"],
+                                          Kill=("destroy", "fighters", 1)))
+
+    def render(self, m):
+        placed, members = self.placement()
+        _name, text = bp.render(m, placed, members)
+        return rendered(m, placed, members), _trigger_numbers(text), text
+
+    def test_each_path_is_a_victory_sharing_the_exit(self):
+        triggers, n, text = self.render(self.mission())
+        kill, clear = triggers["Objective met"], triggers["Objective met: Clear"]
+        for lines in (kill, clear):
+            self.assertIn("Action_Victory=Taskforce1", lines)
+            self.assertIn("Action_EnableTriggers=Trigger1", lines)
+        self.assertIn("Action_DisableTriggers=" + ",".join(
+            f"Trigger{n[c]}" for c in ("Objective met: Clear", "Opens at minute 30: Clear",
+                                       "Refresh: Clear")), kill)
+        self.assertIn(f"Action_DisableTriggers=Trigger{n['Objective met']},"
+                      f"Trigger{n['Refresh: Clear']}", clear)
+        # The bonus is the path's own.
+        self.assertIn("Action_ObjectivesCompleted=Withdrawal,Kill", kill)
+        self.assertIn("Action_ObjectivesCompleted=Withdrawal", clear)
+        self.assertIn("Action_Taskforce1_Message=Taskforce1VictoryMessage", kill)
+        self.assertIn("Action_Taskforce1_Message=PathClearVictoryMessage", clear)
+        self.assertIn("PathClearVictoryMessage=<color=lime>Operation complete.</color>|"
+                      "They broke off.", text)
+        # The other side's text is the path's own too, not the first path's.
+        self.assertIn("Action_Taskforce2_Message=Taskforce2DefeatMessage", kill)
+        self.assertIn("Action_Taskforce2_Message=PathClearTaskforce2DefeatMessage", clear)
+        self.assertIn("PathClearTaskforce2DefeatMessage=<color=red>Opposing force "
+                      "defeated.</color>|They broke off.", text)
+
+    def test_the_clear_path_is_north_borneos(self):
+        triggers, n, _text = self.render(self.mission())
+        clear = triggers["Objective met: Clear"]
+        self.assertEqual(clear[0], "Disabled=True")
+        for line in ("Condition_Condition3_Type=UnitsInTheArea",
+                     "Condition_Condition3_PositionNM=-18.00,0,18.00",
+                     "Condition_Condition3_AreaRadiusNM=70",
+                     "Condition_Condition3_AreaDisplaySide=None",
+                     "Condition_Condition3_Taskforce=Taskforce2",
+                     "Condition_Condition3_Units=Taskforce2Aircraft2,Taskforce2Aircraft3",
+                     "Condition_Condition3_MinimumUnits=1",
+                     "Condition_Condition3_UnitType=Aircraft",
+                     "ConditionsCompleted=<Condition1> AND <Condition2> AND NOT <Condition3>"):
+            self.assertIn(line, clear)
+        self.assertFalse(any(l.endswith("_Type=Time") for l in clear))
+        self.assertEqual(triggers["Opens at minute 30: Clear"], [
+            "Condition_Condition1_Type=Time", "Condition_Condition1_Time=1800",
+            "ConditionsCompleted=<Condition1>",
+            f"Action_EnableTriggers=Trigger{n['Objective met: Clear']},Trigger{n['Refresh: Clear']}"])
+        self.assertEqual(triggers["Refresh: Clear"], [
+            "Disabled=True", "Condition_Condition1_Type=Time", "Condition_Condition1_Time=5",
+            "ConditionsCompleted=<Condition1>",
+            f"Action_ReactivateTriggers=Trigger{n['Objective met: Clear']},"
+            f"Trigger{n['Refresh: Clear']}"])
+
+    def test_the_refresh_is_stocks(self):
+        borneo = (bp.ROOT / "mods-source" / "_vanilla" / "original" / "campaigns"
+                  / "pacific-strike-task-force" / "missions" / "08 Defense of North Borneo.ini"
+                  ).read_text(encoding="utf-8", errors="replace")
+        victory = re.search(r"^\[Trigger3\]\n(.*?)(?=^\[)", borneo, re.M | re.S).group(1)
+        self.assertIn("ConditionsCompleted=<Condition1> AND NOT <Condition2>", victory)
+        self.assertIn("Condition_Condition2_AreaDisplaySide=None\n"
+                      "Condition_Condition2_Taskforce=Taskforce2\n", victory)
+        refresh = re.search(r"^\[Trigger10\]\n(.*?)(?=^\[)", borneo, re.M | re.S).group(1)
+        self.assertIn("Condition_Condition1_Time=5\n", refresh)
+        self.assertIn("Action_ReactivateTriggers=Trigger3,Trigger10", refresh)
+
+    def test_a_win_ends_the_progress_reports(self):
+        # A report met in the tick of the win would post with it: every
+        # victory trigger switches the reports off, and is written first.
+        m = self.mission()
+        m["progress"] = [dict(name="Near", units=["group"],
+                              intel="GROUP STAFF: The carrier is in the box.")]
+        triggers, n, _text = self.render(m)
+        report = f"Trigger{n['Progress: Near']}"
+        for path in ("Objective met", "Objective met: Clear"):
+            off = next(l for l in triggers[path] if l.startswith("Action_DisableTriggers="))
+            self.assertIn(report, off.split("=")[1].split(","), path)
+            self.assertLess(n[path], n["Progress: Near"])
+        def near():
+            return small_mission(progress=[dict(name="Near", units=["group"],
+                                                intel="GROUP STAFF: The carrier is in the box.")])
+        n = _trigger_numbers(bp.render(near(), *small_placement())[1])
+        self.assertIn(f"Action_DisableTriggers=Trigger{n['Progress: Near']}",
+                      rendered(near())["Objective met"])
+
+    def test_without_any_of_the_win_is_as_before(self):
+        triggers = rendered(small_mission())
+        self.assertNotIn("Action_DisableTriggers", " ".join(triggers["Objective met"]))
+        self.assertFalse([k for k in triggers if k.startswith(("Refresh:", "Opens at"))])
+
+    def test_paths_that_cannot_work_stop_the_build(self):
+        kill = dict(name="Kill", also=[dict(kind="destroyed", units=["fighters"], min_units=1)])
+
+        def clear(**over):
+            return dict(dict(name="Clear", after_minutes=30, win="Gone.",
+                             also=[dict(kind="clear_of", units=["fighters"])]), **over)
+        cases = [
+            ([kill, clear(also=[dict(kind="clear_of", units=["fighters"]),
+                                dict(kind="time", after_minutes=40)])], "time term"),
+            ([kill, clear(also=[dict(kind="clear_of", units=["group"])])], "Taskforce1Vessel2"),
+            ([kill, clear(also=[dict(kind="clear_of", units=["fighters"], radius=40)])],
+             "anti-air reach is 70"),
+            ([kill, clear(also=[dict(kind="clear_of", units=["fighters"], radius=200)])],
+             "never be clear"),
+            ([kill], "two or more"),
+            ([kill, clear(name="Kill")], "unique"),
+            ([kill, clear(name="clear way")], "unique"),
+            ([kill, clear(win=None)], "its own win"),
+            ([kill, clear(bonus=["Nothing"])], "not objectives"),
+            ([kill, clear(after_minutes=80)], "inside the window"),
+            ([kill, clear(also=[])], "at least one"),
+            ([kill, clear(sets="Var")], "'sets'"),
+        ]
+        for paths, why in cases:
+            with self.subTest(why=why), self.assertRaisesRegex(SystemExit, why):
+                self.render(self.mission(paths))
+        for other in (dict(after=dict(kind="classify", units="spoiler")),
+                      dict(or_destroyed="Sunk.")):
+            with self.assertRaisesRegex(SystemExit, "any_of with"):
+                self.render(self.mission(**other))
+        m = self.mission()
+        m["victory"]["also"].append(dict(kind="clear_of", units=["fighters"]))
+        with self.assertRaisesRegex(SystemExit, "belongs to an any_of path"):
+            self.render(m)
+        # A time term in the common also is copied into the refreshed path,
+        # whose refresh would restart it every 5 seconds.
+        m = self.mission()
+        m["victory"]["also"].append(dict(kind="time", after_minutes=9))
+        with self.assertRaisesRegex(SystemExit, "time term in the victory's common also"):
+            self.render(m)
+        # ...where a mission without a refreshed path keeps it.
+        m = self.mission([kill, dict(name="Late", win="Late.",
+                                     also=[dict(kind="afloat", units=["fighters"])])])
+        m["victory"]["also"].append(dict(kind="time", after_minutes=9))
+        self.assertIn("Objective met: Late", self.render(m)[0])
+        # Units held back to a minute are not in the mission before it, so
+        # the circle is clear of them: the path opens after they join.
+        m = self.mission([kill, clear(after_minutes=30)])
+        m["units"] = [dict(station="fighters", enter=30)]
+        with self.assertRaisesRegex(SystemExit, "join at minute 30"):
+            self.render(m)
+        m["victory"]["any_of"][1].pop("after_minutes")
+        with self.assertRaisesRegex(SystemExit, "join at minute 30"):
+            self.render(m)
+        m["victory"]["any_of"][1]["after_minutes"] = 31
+        self.assertIn("Objective met: Clear", self.render(m)[0])
+        # Attack= orders are unconditional: the path waits them out.
+        m = self.mission([kill, clear(after_minutes=11)])
+        m["units"] = [dict(station="fighters", attacks=[(10, "usaf_aim-120c7", "group", 1)])]
+        with self.assertRaisesRegex(SystemExit, "no earlier than minute 12"):
+            self.render(m)
+        m["victory"]["any_of"][1]["after_minutes"] = 12
+        self.assertIn("Objective met: Clear", self.render(m)[0])
+
+
+class TurnBack(unittest.TestCase):
+    """turn_back (step 4 of the builder-grammar design): the coaster heaves to
+    when the escort closes her on her own track, built from Caron at
+    Grenada 1983's checkout trigger (a Disabled Generic trigger enabled by
+    another, transfer to Neutral, new waypoints) and Blockbuster's
+    UnitTelegraph."""
+
+    DENIED = dict(units=["spoiler"], at=(-4.80, 128.90), radius=3, objective="Spoiler",
+                  message="She is through.")
+
+    def placement(self, waypoints="0,0,-12|0,0,-30"):
+        placed, members = small_placement()
+        keys = placed["Taskforce2Vessel"][0][1]
+        if waypoints:
+            keys["Waypoints"] = waypoints
+        return placed, members
+
+    def mission(self, **over):
+        tb = dict(dict(name="HeaveTo", units=["spoiler"], by=["escort"], radius=3,
+                       to=(-4.45, 128.60), telegraph=2, transfer="Neutral",
+                       objective="Spoiler", intel="BRIDGE: She has hove to.",
+                       protected=dict(objective="Restraint", message="She was sunk.")), **over)
+        tb = {k: v for k, v in tb.items() if v is not None}
+        objectives = [small_mission()["objectives"][0],
+                      ("Spoiler", "Stop the coaster", "20,-40,Fail,Main"),
+                      ("Restraint", "Leave her once she stops", "15,-40,Complete")]
+        v = dict(small_mission()["victory"], also=[dict(kind="no_incoming")], any_of=[
+            dict(name="Sunk", also=[dict(kind="destroyed", units=["spoiler"])]),
+            dict(name="HoveTo", win="She stopped.",
+                 also=[dict(kind="event", event="HeaveTo"), dict(kind="afloat", units=["spoiler"])])])
+        return small_mission(victory=v, objectives=objectives, turn_back=[tb],
+                             denied=[dict(self.DENIED)],
+                             resolve=dict(small_mission()["resolve"],
+                                          Restraint=("spare", "red_air")))
+
+    def render(self, m, placed=None):
+        placed, members = placed or self.placement()
+        _name, text = bp.render(m, placed, members)
+        return rendered(m, placed, members), _trigger_numbers(text), text
+
+    def test_the_challenges_follow_her_track(self):
+        triggers, n, _text = self.render(self.mission())
+        challenges = [k for k in triggers if k.startswith("Challenge HeaveTo ")]
+        # every mile from her start (0,-1) until she is inside the 3 NM
+        # denied circle round 0,-12: z=-1 ... -9
+        self.assertEqual(len(challenges), 9)
+        for k, name in enumerate(challenges):
+            lines = triggers[name]
+            at = f"0.00,0,{-1 - k:.2f}"
+            self.assertEqual([l for l in lines if l.endswith("_PositionNM=" + at)],
+                             [f"Condition_Condition1_PositionNM={at}",
+                              f"Condition_Condition2_PositionNM={at}"])
+            for line in ("Condition_Condition1_AreaRadiusNM=0.75",
+                         "Condition_Condition1_Units=Taskforce2Vessel1",
+                         "Condition_Condition2_AreaRadiusNM=3",
+                         "Condition_Condition2_Units=Taskforce1Vessel1",
+                         "Condition_Condition1_AreaDisplaySide=None",
+                         "Condition_Condition2_AreaDisplaySide=None",
+                         "ConditionsCompleted=<Condition1> AND <Condition2>",
+                         f"Action_EnableTriggers=Trigger{n['Turns back: HeaveTo']}"):
+                self.assertIn(line, lines)
+
+    def test_she_turns_neutral_and_her_loss_ends_it(self):
+        triggers, n, text = self.render(self.mission())
+        turn = triggers["Turns back: HeaveTo"]
+        for line in ("Disabled=True", "Condition_Condition1_Type=Generic",
+                     "Action_Units=Taskforce2Vessel1",
+                     "Action_UnitTransferToTaskforce=Neutral",
+                     "Action_UnitWaypoints=-18.00,0,9.00", "Action_UnitTelegraph=2",
+                     "Action_Taskforce1_Intel=TurnBackHeaveToIntel",
+                     "Action_ObjectivesCompleted=Spoiler",
+                     f"Action_EnableTriggers=Trigger{n['HeaveTo sunk after turning']}"):
+            self.assertIn(line, turn)
+        off = next(l for l in turn if l.startswith("Action_DisableTriggers=")).split("=")[1]
+        want = [k for k in n if k.startswith("Challenge HeaveTo ")] + [
+            "Spoiler denied", "Objective met", "Spoiler met"]
+        self.assertEqual(off.split(","), [f"Trigger{n[k]}" for k in want])
+        lost = triggers["HeaveTo sunk after turning"]
+        self.assertEqual(lost[0], "Disabled=True")
+        self.assertIn("Action_ObjectivesFailed=Restraint", lost)
+        self.assertIn("Action_Victory=Taskforce2", lost)
+        self.assertNotIn("Spoiler", next(l for l in lost if l.startswith("Action_ObjectivesCancel")))
+        enablers = [k for k, lines in triggers.items()
+                    if f"Trigger{n['HeaveTo sunk after turning']}" in " ".join(
+                        l for l in lines if l.startswith("Action_EnableTriggers="))]
+        self.assertEqual(enablers, ["Turns back: HeaveTo"])
+        hove = triggers["Objective met: HoveTo"]
+        self.assertIn("Condition_Condition3_Type=TriggerCompleted", hove)
+        self.assertIn(f"Condition_Condition3_Triggers=Trigger{n['Turns back: HeaveTo']}", hove)
+        self.assertIn("ConditionsCompleted=<Condition1> AND <Condition2> AND <Condition3> "
+                      "AND NOT <Condition4>", hove)
+        self.assertIn("TurnBackHeaveToLostMessage=<color=red>Operation failed.</color>|"
+                      "She was sunk.", text)
+
+    def test_sunk_before_she_turns_the_challenges_stop(self):
+        # Her loss switches off every challenge and the turn-back (stock 04
+        # Sunda Strait's Trigger8 shape), so a challenge met after she is
+        # sunk cannot turn a wreck Neutral, switch off the Sunk win and arm
+        # the loss after turning.
+        triggers, n, _text = self.render(self.mission())
+        challenges = [k for k in n if k.startswith("Challenge HeaveTo ")]
+        self.assertEqual(len(challenges), 9)
+        sunk = triggers["Spoiler met"]
+        self.assertEqual(sunk[:4], ["Condition_Condition1_Type=UnitDestroyed",
+                                    "Condition_Condition1_Units=Taskforce2Vessel1",
+                                    "Condition_Condition1_MinimumUnits=1",
+                                    "ConditionsCompleted=<Condition1>"])
+        off = next(l for l in sunk if l.startswith("Action_DisableTriggers=")).split("=")[1]
+        for name in challenges + ["Turns back: HeaveTo", "Spoiler denied"]:
+            self.assertIn(f"Trigger{n[name]}", off.split(","), name)
+        self.assertLess(n["Spoiler met"], min(n[c] for c in challenges))
+        self.assertNotIn("HeaveTo sunk before turning", triggers)
+        # Her objective scored another way: a trigger of her own does it,
+        # written before the challenges.
+        m = self.mission()
+        m["resolve"]["Spoiler"] = ("destroy", ["spoiler", "red_air"], 2)
+        triggers, n, _text = self.render(m)
+        own = triggers["HeaveTo sunk before turning"]
+        self.assertIn("Condition_Condition1_Units=Taskforce2Vessel1", own)
+        off = next(l for l in own if l.startswith("Action_DisableTriggers=")).split("=")[1]
+        for name in [k for k in n if k.startswith("Challenge HeaveTo ")] + ["Turns back: HeaveTo"]:
+            self.assertIn(f"Trigger{n[name]}", off.split(","), name)
+        self.assertNotIn("Action_DisableTriggers", " ".join(triggers["Spoiler met"]))
+        self.assertLess(n["HeaveTo sunk before turning"], n["Challenge HeaveTo 1"])
+
+    def test_a_heave_to_switches_off_a_gated_sinking_path(self):
+        # A gate would turn the Sunk win back on after she is Neutral.
+        m = self.mission()
+        m["victory"]["any_of"][0]["after_minutes"] = 30
+        triggers, n, _text = self.render(m)
+        off = next(l for l in triggers["Turns back: HeaveTo"]
+                   if l.startswith("Action_DisableTriggers=")).split("=")[1].split(",")
+        for name in ("Objective met", "Opens at minute 30: Sunk"):
+            self.assertIn(f"Trigger{n[name]}", off, name)
+
+    def test_the_shapes_are_stocks(self):
+        sunda = (bp.ROOT / "mods-source" / "_vanilla" / "original" / "campaigns"
+                 / "pacific-strike-task-force" / "missions" / "04 Sunda Strait.ini").read_text(
+            encoding="utf-8", errors="replace")
+        guard = re.search(r"^\[Trigger8\]\n(.*?)(?=^\[)", sunda, re.M | re.S).group(1)
+        self.assertIn("Condition_Condition1_Type=UnitDestroyed\n", guard)
+        self.assertIn("ConditionsCompleted=<Condition1>\nAction_DisableTriggers=Trigger7\n", guard)
+        caron = (STOCK / "NATO" / "Caron at Grenada 1983.ini").read_text(
+            encoding="utf-8", errors="replace")
+        checkout = re.search(r"^\[Trigger10\]\n(.*?)(?=^\[)", caron, re.M | re.S).group(1)
+        for line in ("Disabled=True", "Action_UnitTransferToTaskforce=Neutral",
+                     "Condition_Condition1_Type=Generic", "ConditionsCompleted=<Condition1>"):
+            self.assertIn(line + "\n", checkout)
+        self.assertRegex(checkout, r"Action_UnitWaypoints=-?[\d.]+,\d+,-?[\d.]+\n")
+        self.assertRegex(caron, r"Action_EnableTriggers=Trigger8,Trigger10\n")
+        blockbuster = (bp.ROOT / "mods-source" / "_vanilla" / "original" / "campaigns"
+                       / "linear-campaign-proto-1" / "missions"
+                       / "05A Operation Blockbuster - Blue.ini").read_text(
+            encoding="utf-8", errors="replace")
+        self.assertIn("Action_UnitWaypoints=1593.158,0,439.3281\nAction_UnitTelegraph=5\n",
+                      blockbuster)
+
+    def test_the_escorts_box_keeps_off_the_challenges(self):
+        m = self.mission()
+        placed, members = self.placement()
+        bp.render(m, placed, members)             # check_zone_areas passed
+        circles = [a for a in bp.deployment_areas(m, placed, members) if a["r"] == 3.0
+                   and a["counted"] == {"Taskforce1Vessel1"}]
+        self.assertEqual(len(circles), 9)
+
+    def test_the_coast_check_takes_a_turn_back_without_a_destination(self):
+        # check_turn_back() names a missing `to`; the coast check, which
+        # runs on its own in main(), must not trip on it first.
+        class Placer(bp.CoastPlacer):
+            def __init__(self):
+                self.points = []
+
+            def point(self, at, where):
+                self.points.append(where)
+        placer = Placer()
+        m = self.mission()
+        bp.check_coast_geometry(m, placer)
+        self.assertIn("Test Withdrawal turn_back HeaveTo destination", placer.points)
+        del m["turn_back"][0]["to"]
+        placer.points.clear()
+        bp.check_coast_geometry(m, placer)
+        self.assertFalse([p for p in placer.points if "turn_back" in p])
+
+    def test_a_turn_back_that_cannot_work_stops_the_build(self):
+        cases = [(dict(by=["spoiler"]), "warships"), (dict(by=["red_air"]), "warships"),
+                 (dict(units=["escort"]), "one opposing"), (dict(radius=0), "not a distance"),
+                 (dict(transfer="Taskforce1"), "only Neutral"),
+                 (dict(transfer=None), "protected needs transfer"),
+                 (dict(objective="Nothing"), "not one here"),
+                 (dict(name="heave to"), "identifier"), (dict(telegraph=7), "0-5"),
+                 (dict(or_damaged=dict(mode="propulsion_all")), "P1")]
+        for over, why in cases:
+            with self.subTest(why=why), self.assertRaisesRegex(SystemExit, why):
+                self.render(self.mission(**over))
+        m = self.mission()
+        m["denied"] = []
+        with self.assertRaisesRegex(SystemExit, "no denied race"):
+            self.render(m)
+        with self.assertRaisesRegex(SystemExit, "no water to challenge"):
+            self.render(self.mission(), self.placement(waypoints=None))
+        m = self.mission()
+        m["victory"]["also"].append(dict(kind="destroyed", units=["spoiler"]))
+        with self.assertRaisesRegex(SystemExit, "its own any_of path"):
+            self.render(m)
+        m = self.mission()
+        m["victory"]["any_of"][1]["also"][0]["event"] = "Stops"
+        with self.assertRaisesRegex(SystemExit, "no turn_back in this mission is called"):
+            self.render(m)
+
+    def test_one_chain_per_ship(self):
+        # A second turn_back on the same ship would write a second
+        # Action_DisableTriggers line on "Spoiler met"; an INI reader keeps
+        # one value of a repeated key, so one chain would stay armed after
+        # her loss. check_turn_back refuses it, and render() refuses any
+        # trigger that writes a key twice should anything else get that far.
+        from unittest import mock
+        m = self.mission()
+        second = copy.deepcopy(m["turn_back"][0])
+        second["name"] = "Halt"
+        for key in ("protected", "intel"):
+            second.pop(key)
+        m["turn_back"].append(second)
+        with self.subTest("check_turn_back"), self.assertRaisesRegex(
+                SystemExit, "already has turn_back 'HeaveTo' - one challenge chain per ship"):
+            self.render(m)
+        with self.subTest("render"), mock.patch.object(bp, "check_turn_back", lambda *_a: None), \
+                self.assertRaisesRegex(SystemExit, "'Spoiler met' writes Action_DisableTriggers "
+                                                   "more than once"):
+            self.render(m)
+        # More warships go on the one chain: `by` takes a list.
+        triggers, _n, _text = self.render(self.mission(by=["escort", "group"]))
+        self.assertIn("Condition_Condition2_Units=Taskforce1Vessel1,Taskforce1Vessel2",
+                      triggers["Challenge HeaveTo 1"])
+
+
+class DamageStateFlag(unittest.TestCase):
+    """UnitDamageState is in no stock mission, so its INI spelling waits for a
+    Mission Editor save (PC check P1); campaign_data.DAMAGE_STATE is None
+    until then and anything that needs it stops the build."""
+
+    TABLE = dict(type="UnitDamageState", mode_key="DamageConditionMode",
+                 threshold_key="DamageThresholdPercent",
+                 modes={"integrity_below": "IntegrityBelow",
+                        "propulsion_all": "AllPropulsionInoperable"})
+
+    def win(self, term):
+        v = dict(small_mission()["victory"], also=[term])
+        return rendered(small_mission(victory=v))
+
+    def test_off_until_p1(self):
+        import campaign_data
+        self.assertIsNone(campaign_data.DAMAGE_STATE)
+        with self.assertRaisesRegex(SystemExit, "P1"):
+            self.win(dict(kind="damaged", units=["spoiler"], mode="propulsion_all"))
+
+    def test_the_table_spells_the_condition(self):
+        import campaign_data
+        from unittest import mock
+        with mock.patch.object(campaign_data, "DAMAGE_STATE", self.TABLE):
+            lines = self.win(dict(kind="damaged", units=["spoiler"], mode="integrity_below",
+                                  threshold=50))["Objective met"]
+        self.assertEqual(lines[6:11], [
+            "Condition_Condition2_Type=UnitDamageState",
+            "Condition_Condition2_Units=Taskforce2Vessel1",
+            "Condition_Condition2_MinimumUnits=1",
+            "Condition_Condition2_DamageConditionMode=IntegrityBelow",
+            "Condition_Condition2_DamageThresholdPercent=50"])
+
+    def test_a_disabled_ship_can_still_be_sunk_for_the_win(self):
+        import campaign_data
+        from unittest import mock
+        m = TurnBack().mission(or_damaged=dict(mode="propulsion_all"))
+        with mock.patch.object(campaign_data, "DAMAGE_STATE", self.TABLE):
+            triggers, n, _text = TurnBack().render(m)
+        off = next(l for l in triggers["Disabled: HeaveTo"]
+                   if l.startswith("Action_DisableTriggers=")).split("=")[1].split(",")
+        self.assertIn(f"Trigger{n['Turns back: HeaveTo']}", off)
+        self.assertNotIn(f"Trigger{n['Objective met']}", off)
+        self.assertIn("Condition_Condition1_DamageConditionMode=AllPropulsionInoperable",
+                      triggers["Disabled: HeaveTo"])
+        # Stopped where she lies, and her race still armed: a coaster whose
+        # damage control restores her engines and who reaches the lane still
+        # loses the mission.
+        for line in ("Action_Units=Taskforce2Vessel1", "Action_UnitTelegraph=0"):
+            self.assertIn(line, triggers["Disabled: HeaveTo"])
+        self.assertNotIn(f"Trigger{n['Spoiler denied']}", off)
+        # Sunk before she turns, the damage trigger goes with the chain.
+        sunk = next(l for l in triggers["Spoiler met"]
+                    if l.startswith("Action_DisableTriggers=")).split("=")[1].split(",")
+        self.assertIn(f"Trigger{n['Disabled: HeaveTo']}", sunk)
+        turn = next(l for l in triggers["Turns back: HeaveTo"]
+                    if l.startswith("Action_DisableTriggers=")).split("=")[1].split(",")
+        self.assertIn(f"Trigger{n['Disabled: HeaveTo']}", turn)
+        self.assertIn(f"Trigger{n['Objective met']}", turn)
+
+    def test_the_damage_event_still_requires_the_objective(self):
+        # '<name>Disabled' completes the turn_back's objective as the
+        # turn-back does, so a path waiting for it needs that objective.
+        import campaign_data
+        from unittest import mock
+        m = TurnBack().mission(or_damaged=dict(mode="propulsion_all"))
+        m["victory"]["any_of"].append(dict(
+            name="Crippled", win="She is dead in the water.",
+            also=[dict(kind="event", event="HeaveToDisabled"), dict(kind="afloat", units=["spoiler"])]))
+        _placed, members = TurnBack().placement()
+        with mock.patch.object(campaign_data, "DAMAGE_STATE", self.TABLE):
+            self.assertEqual(set(bp.required_objectives(m, members)), {"Spoiler"})
+            rl04 = importlib.import_module("red_line.rl04_the_order_to_withdraw")
+            try:
+                on = importlib.reload(rl04).MISSION
+                self.assertEqual(set(bp.required_objectives(
+                    on, {s: [s] for s in on["stations"]})), {"Spoiler"})
+            finally:
+                importlib.reload(rl04)
+
+    def test_rl04_offers_no_engines_outcome_while_it_is_off(self):
+        rl04 = importlib.import_module("red_line.rl04_the_order_to_withdraw")
+        m = rl04.MISSION
+        self.assertNotIn("engines", m["brief"])
+        self.assertEqual([p["name"] for p in m["victory"]["any_of"]], ["Sunk", "HoveTo"])
+        self.assertNotIn("or_damaged", m["turn_back"][0])
+        import campaign_data
+        from unittest import mock
+        try:
+            with mock.patch.object(campaign_data, "DAMAGE_STATE", self.TABLE):
+                on = importlib.reload(rl04).MISSION
+            self.assertIn("stop her engines", on["brief"])
+            first_in = next(e for e in on["progress"] if e["name"] == "FirstIn")
+            self.assertIn("MERIDIAN HARMONY is sunk, stopped or has hove to", first_in["intel"])
+            self.assertEqual([p["name"] for p in on["victory"]["any_of"]],
+                             ["Sunk", "HoveTo", "Crippled"])
+            self.assertEqual(on["turn_back"][0]["or_damaged"], dict(mode="propulsion_all"))
+        finally:
+            importlib.reload(rl04)
+
+
+class ProgressReports(unittest.TestCase):
+    """progress (step 5 of the builder-grammar design): "Progress: <name>"
+    triggers that report and do nothing else, which the zone check leaves
+    alone."""
+
+    def render(self, progress, **over):
+        m = small_mission(progress=progress, **over)
+        placed, members = small_placement()
+        _name, text = bp.render(m, placed, members)
+        return rendered(m, placed, members), _trigger_numbers(text), text, m, placed
+
+    NEAR = dict(name="Near", units=["group"], intel="GROUP STAFF: The carrier is in the box.")
+
+    def test_a_report_is_an_unshown_area_and_an_intel_line(self):
+        triggers, _n, text, _m, _p = self.render([dict(self.NEAR)])
+        lines = triggers["Progress: Near"]
+        self.assertEqual(lines, [
+            "Condition_Condition1_Type=UnitsInTheArea",
+            "Condition_Condition1_PositionNM=-18.00,0,18.00",
+            "Condition_Condition1_AreaRadiusNM=12",
+            "Condition_Condition1_AreaDisplaySide=None",
+            "Condition_Condition1_Units=Taskforce1Vessel2",
+            "Condition_Condition1_MinimumUnits=1",
+            "ConditionsCompleted=<Condition1>",
+            "Action_Taskforce1_Intel=ProgressNearIntel"])
+        self.assertIn("ProgressNearIntel=GROUP STAFF: The carrier is in the box.", text)
+
+    def test_before_a_minute_and_after_another_report(self):
+        later = dict(name="Later", units=["group"], after="Near", after_minutes=10,
+                     intel="GROUP STAFF: Ten minutes in the box.")
+        triggers, n, _text, _m, _p = self.render(
+            [dict(self.NEAR, before_minutes=20), later])
+        near = triggers["Progress: Near"]
+        self.assertIn("Condition_Condition2_Type=Time", near)
+        self.assertIn("Condition_Condition2_Time=1200", near)
+        self.assertIn("ConditionsCompleted=<Condition1> AND NOT <Condition2>", near)
+        self.assertIn(f"Action_EnableTriggers=Trigger{n['Progress: Later']}", near)
+        self.assertIn(f"Action_ReactivateTriggers=Trigger{n['Progress: Later']}", near)
+        self.assertEqual(triggers["Progress: Later"][0], "Disabled=True")
+        self.assertIn("ConditionsCompleted=<Condition1> AND <Condition2>",
+                      triggers["Progress: Later"])
+
+    def test_a_report_that_cannot_mean_anything_stops_the_build(self):
+        start = dict(name="Start", units=["group"], at=(-4.50, 128.70), radius=2,
+                     intel="GROUP STAFF: Here.")
+        for entries, why in (([start], "start inside"),
+                             ([dict(self.NEAR, after="Nowhere")], "not an earlier entry"),
+                             ([dict(self.NEAR, intel="STAFF|Close")], "progress\\[Near\\].intel"),
+                             ([dict(self.NEAR, before_minutes=80)], "inside the window"),
+                             ([dict(self.NEAR), dict(self.NEAR)], "unique"),
+                             ([dict(self.NEAR, radius=0)], "radius above 0")):
+            with self.subTest(why=why), self.assertRaisesRegex(SystemExit, why):
+                self.render(entries)
+        # Met at spawn is no report - unless it waits for a minute.
+        self.assertIn("Progress: Start", self.render([dict(start, after_minutes=5)])[0])
+
+    def test_the_zone_check_leaves_a_report_alone_and_holds_it_to_reporting(self):
+        # Two miles off the escort's start: an objective circle there would
+        # have to be kept clear of the escort's box; a report's need not,
+        # once it waits for a minute.
+        close = dict(name="Close", units=["escort"], at=(-4.383, 128.90), radius=2,
+                     after_minutes=5, intel="BRIDGE: On station.")
+        _t, _n, text, m, placed = self.render([close])
+        with self.assertRaisesRegex(SystemExit, "Progress: Close|'Close'"):
+            bp.check_zone_areas(m, placed, m["_zones"],
+                                text.replace("Name=Progress: Close", "Name=Close"))
+        # A report reports: one intel line, and enabling and reactivating
+        # the reports after it. Anything else is refused.
+        for extra in ("Action_ObjectivesCompleted=Withdrawal", "Action_Victory=Taskforce1",
+                      "Action_EndMission=True", "Action_EnableTriggers=Trigger1",
+                      "Action_DisableTriggers=Trigger1", "Action_VariableSet=X,True",
+                      "Action_Units=Taskforce1Vessel1"):
+            bad = text.replace("Action_Taskforce1_Intel=ProgressCloseIntel",
+                               f"Action_Taskforce1_Intel=ProgressCloseIntel\n{extra}")
+            with self.subTest(extra=extra), self.assertRaisesRegex(SystemExit, "a report reports"):
+                bp.check_zone_areas(m, placed, m["_zones"], bad)
+        # Without the minute, the escort set down inside the circle from its
+        # box would bring the report at the first second.
+        with self.assertRaisesRegex(SystemExit, "first second"):
+            self.render([dict(close, after_minutes=None)])
+        # The report on a unit no box holds is left alone.
+        self.assertIn("Progress: Close", self.render([dict(close, after_minutes=None,
+                                                           units=["spoiler"])])[0])
+
+    def test_a_turn_back_silences_the_reports_on_her(self):
+        m = TurnBack().mission()
+        m["progress"] = [dict(name="Running", units=["spoiler"], at=(-4.70, 128.90), radius=2,
+                              intel="GROUP STAFF: She is running.")]
+        triggers, n, _text = TurnBack().render(m)
+        off = next(l for l in triggers["Turns back: HeaveTo"]
+                   if l.startswith("Action_DisableTriggers="))
+        self.assertIn(f"Trigger{n['Progress: Running']}", off.split("=")[1].split(","))
+
+
+class ExpressionIntegrity(unittest.TestCase):
+    """trigger_integrity() parses ConditionsCompleted (step 2 (e))."""
+
+    def problems(self, *triggers):
+        text = "".join(f"[Trigger{i}]\nName=T{i}\n{body}\n"
+                       for i, body in enumerate(triggers, 1))
+        return coverage_check.trigger_integrity(HERE / "test.ini", text,
+                                                coverage_check.blocks(text))
+
+    AREA = ("Condition_Condition{n}_Type=UnitsInTheArea\n"
+            "Condition_Condition{n}_Units=\n")
+
+    def test_a_malformed_expression_is_a_problem(self):
+        two = ("Condition_Condition1_Type=Time\nCondition_Condition1_Time=5\n"
+               "Condition_Condition2_Type=Time\nCondition_Condition2_Time=6\n")
+        three = two + "Condition_Condition3_Type=Time\nCondition_Condition3_Time=7\n"
+        self.assertEqual(self.problems(two + "ConditionsCompleted=<Condition1> AND <Condition2>"), [])
+        self.assertRegex(" ".join(self.problems(
+            two + "ConditionsCompleted=<Condition1> AND (<Condition2>")), "does not parse")
+        # Stock's own typo, 01 Red Sea Breakout 1988 line 273.
+        self.assertRegex(" ".join(self.problems(
+            three + "ConditionsCompleted=<Condition1> OR (<Condition2> AND <Condition>3)")),
+            "'<Condition>3\\)' is not")
+        self.assertRegex(" ".join(self.problems(
+            two + "ConditionsCompleted=<Condition1> AND <Condition3>")),
+            "no Condition_Condition3_Type")
+        self.assertRegex(" ".join(self.problems(two + "ConditionsCompleted=<Condition1>")),
+                         "Condition2 \\(Time\\) is never used")
+        # Stock's shapes: Gulf of Sidra's bracketed mix, and AND NOT.
+        self.assertEqual(self.problems(three + "ConditionsCompleted=<Condition1> AND "
+                                       "(<Condition2> OR <Condition3>)"), [])
+        self.assertEqual(self.problems(three + "ConditionsCompleted=(<Condition1> AND "
+                                       "<Condition2>) OR <Condition3>"), [])
+        self.assertEqual(self.problems(three + "ConditionsCompleted=<Condition1> AND NOT "
+                                       "<Condition2> AND NOT <Condition3>"), [])
+        # Shapes stock never writes, whose reading in game is unknown.
+        for expr, why in (("<Condition1> OR <Condition2> AND <Condition3>", "share a bracket"),
+                          ("<Condition1> AND <Condition2> OR <Condition3>", "share a bracket"),
+                          ("NOT <Condition1> AND <Condition2> AND <Condition3>", "AND NOT"),
+                          ("(<Condition1> AND <Condition2>) OR NOT <Condition3>", "AND NOT"),
+                          ("<Condition1> AND NOT (<Condition2> OR <Condition3>)", "AND NOT"),
+                          ("<Condition1> AND NOT NOT <Condition2> AND <Condition3>", "AND NOT"),
+                          ("<Condition01> AND <Condition2> AND <Condition3>", "'<Condition01>'")):
+            with self.subTest(expr=expr):
+                self.assertRegex(" ".join(self.problems(three + f"ConditionsCompleted={expr}")), why)
+        self.assertRegex(" ".join(self.problems(
+            "Condition_Condition01_Type=Time\nCondition_Condition01_Time=5\n"
+            "ConditionsCompleted=<Condition1>")), "leading zero")
+        # Numbered conditions with nothing to join them.
+        self.assertRegex(" ".join(self.problems("Condition_Condition1_Type=Time\n"
+                                                "Condition_Condition1_Time=5\n")),
+                         "no ConditionsCompleted")
+
+    def test_a_trigger_condition_names_a_trigger_here(self):
+        waits = ("Condition_Condition1_Type=TriggerCompleted\n"
+                 "Condition_Condition1_Triggers={}\nConditionsCompleted=<Condition1>")
+        self.assertRegex(" ".join(self.problems(waits.format("Trigger99"))),
+                         "waits for 'Trigger99'")
+        self.assertEqual(self.problems(waits.format("Trigger1")), [])
+        # A section that is not a trigger never completes.
+        text = ("[Mission]\nName=M\n[Taskforce1Vessel1]\nType=x\n[Trigger1]\nName=T1\n"
+                + waits.format("{}") + "\n")
+        for ref in ("Taskforce1Vessel1", "Mission"):
+            body = text.format(ref)
+            got = coverage_check.trigger_integrity(HERE / "test.ini", body,
+                                                   coverage_check.blocks(body))
+            self.assertRegex(" ".join(got), f"waits for '{ref}'", ref)
+        body = text.format("Trigger1") + "Action_EnableTriggers=Taskforce1Vessel1\n"
+        got = coverage_check.trigger_integrity(HERE / "test.ini", body, coverage_check.blocks(body))
+        self.assertRegex(" ".join(got), "EnableTriggers names Taskforce1Vessel1")
+
+    def test_not_in_an_area_needs_the_refresh(self):
+        # Time=60 AND NOT an area, never reactivated: stock 05 Shadow of the
+        # Enterprise's Trigger6 one-shot, refused on purpose (a SEST rule
+        # stricter than stock). SEST has no one-shot NOT-area form: one that
+        # must start late is a disabled refresh loop a Time trigger enables
+        # (the opener below).
+        lone = (self.AREA.format(n=2) + "Condition_Condition1_Type=Time\n"
+                "Condition_Condition1_Time=60\n"
+                "ConditionsCompleted=<Condition1> AND NOT <Condition2>")
+        self.assertRegex(" ".join(self.problems(lone)), "no trigger refreshes")
+        refresh = ("Condition_Condition1_Type=Time\nCondition_Condition1_Time=5\n"
+                   "ConditionsCompleted=<Condition1>\n"
+                   "Action_ReactivateTriggers=Trigger1,Trigger2")
+        self.assertEqual(self.problems(lone, refresh), [])
+        # A refresh that never runs, never loops or has no clock is none.
+        never = "Disabled=True\n" + refresh
+        once = refresh.replace("Trigger1,Trigger2", "Trigger1")
+        untimed = refresh.replace("Condition_Condition1_Type=Time\nCondition_Condition1_Time=5",
+                                  self.AREA.format(n=1).rstrip("\n"))
+        for why, other in (("disabled and never enabled", never), ("one-shot", once),
+                           ("no Time condition", untimed)):
+            with self.subTest(why=why):
+                self.assertRegex(" ".join(self.problems(lone, other)), "no trigger refreshes")
+        # ...and a disabled refresh another trigger enables is one.
+        opener = ("Condition_Condition1_Type=Time\nCondition_Condition1_Time=60\n"
+                  "ConditionsCompleted=<Condition1>\nAction_EnableTriggers=Trigger2")
+        self.assertEqual(self.problems(lone, never, opener), [])
+
+    def test_not_on_a_time_or_a_loss_needs_nothing(self):
+        for kind in ("Time\nCondition_Condition2_Time=60",
+                     "UnitDestroyed\nCondition_Condition2_Units="):
+            body = (self.AREA.format(n=1) + f"Condition_Condition2_Type={kind}\n"
+                    "ConditionsCompleted=<Condition1> AND NOT <Condition2>")
+            self.assertEqual(self.problems(body), [], kind)
 
 
 STOCK = bp.ROOT / "mods-source" / "_vanilla" / "original" / "missions"
@@ -2856,6 +3673,22 @@ class DeploymentZones(unittest.TestCase):
         self.assertIn("placed into an objective", str(cm.exception))
         self.assertIn("Zone1 (Deployment Zone)", str(cm.exception))
 
+    def test_the_gate_reads_condition_numbers_of_ten_and_above(self):
+        # The same circle as the tenth condition of a trigger: '(\d)' read
+        # only Condition1-9 and would let this box through.
+        mission = self.mission(victory=self.arrive(0, 30, 12))
+        placed = self.placement([("plan_type_054a_p5", 0, 0)])
+        zones = bp.deployment_zones(mission, placed, self.HULL)
+        text = ("[Trigger1]\nName=Objective met\nCondition_Condition1_Type=Time\n"
+                "Condition_Condition1_Time=60\nCondition_Condition10_Type=UnitsInTheArea\n"
+                "Condition_Condition10_PositionNM=0.00,0,30.00\nCondition_Condition10_AreaRadiusNM=12\n"
+                "Condition_Condition10_Units=Taskforce1Vessel1\n")
+        bp.check_zone_areas(mission, placed, zones, text)
+        zones[0]["height"] += 20
+        zones[0]["at"] = (zones[0]["at"][0] + 10 / 60.0, zones[0]["at"][1])
+        with self.assertRaisesRegex(SystemExit, "placed into an objective"):
+            bp.check_zone_areas(mission, placed, zones, text)
+
     # --- generated missions: the stock pattern (15 October) ---------------
 
     def generated(self):
@@ -4109,11 +4942,18 @@ class RedLineReleaseTerms(unittest.TestCase):
         return " ".join(b) if isinstance(b, (tuple, list)) else b
 
     def test_minute_gates_are_in_the_briefs(self):
-        # RL03's minute-nine gate is not in its brief yet: step 3 reworks
-        # that victory (an alternative path), and its text with it.
-        for code, radius in (("RL02", "two"), ("RL04", "five"), ("RL06", "four")):
+        # Every term of every way to win, any_of paths' own minutes included
+        # (RL03's Disengage opens at eighteen, step 3).
+        # All six combat exits (the ones that wait for no incoming weapon):
+        # RL01 and RLO2's terms were added to their briefs on 10 Nov 2026.
+        exits = [c for c, m in self.m.items()
+                 if {"kind": "no_incoming"} in m["victory"].get("also", [])]
+        self.assertEqual(sorted(exits), ["RL01", "RL02", "RL03", "RL04", "RL06", "RLO2"])
+        for code, radius in (("RL01", "three"), ("RL02", "two"), ("RL03", "eight"),
+                             ("RL04", "five"), ("RL06", "four"), ("RLO2", "ten")):
             v, brief = self.m[code]["victory"], self.brief(code)
-            terms = list(v.get("also", [])) + ([v["after"]] if v.get("after") else [])
+            terms = (bp.victory_terms(v) + ([v["after"]] if v.get("after") else [])
+                     + [p for p in v.get("any_of", []) if p.get("after_minutes")])
             with self.subTest(mission=code):
                 self.assertIn(f"within {radius} miles", brief)
                 self.assertEqual(bp.number_words(v["radius"]), radius)
@@ -4136,31 +4976,57 @@ class RedLineReleaseTerms(unittest.TestCase):
         self.assertIn("within five miles of the withdrawal point", self.brief("RL04"))
         for text in [self.brief("RL04"), m["win"], m["timeout"]] + [t for _o, t, _s in m["objectives"]]:
             self.assertNotRegex(text, r"\bthe line\b")
-        self.assertIn("MERIDIAN HARMONY is sunk", self.brief("RL04"))
+        self.assertIn("MERIDIAN HARMONY is sunk or has hove to", self.brief("RL04"))
         self.assertTrue(any(t.get("kind") == "destroyed" and t["units"] == ["spoiler"]
-                            for t in v["also"]))
+                            for t in bp.victory_terms(v)))
+        # The first ship in is told the whole release term, and the timeout
+        # names every term that can be missing, not only the circle.
+        first_in = next(e for e in m["progress"] if e["name"] == "FirstIn")
+        self.assertIn("MERIDIAN HARMONY is sunk or has hove to", first_in["intel"])
+        self.assertNotIn("is stopped", first_in["intel"])
+        self.assertIn("LIAONING and HULUNHU are not both inside the circle", m["timeout"])
+        self.assertIn("MERIDIAN HARMONY is neither sunk nor hove to", m["timeout"])
+
+    def test_rl03s_disengage_radius_is_in_the_words(self):
+        # The Disengage circle is the F-35s' AIM-120C7 reach as the builder
+        # derives it (70 NM, the winning pack copy): the brief and the
+        # Dragon Eye report state that figure, measured from the centre.
+        words = bp.number_words(math.ceil(bp.air_reach("raaf_f-35a", "AirToAir")))
+        self.assertEqual(words, "seventy")
+        self.assertIn(f"within {words} miles of the box's centre", self.brief("RL03"))
+        eye = next(e for e in self.m["RL03"]["progress"] if e["name"] == "EyeHome")
+        self.assertIn(f"within {words} miles of the box's centre", eye["intel"])
+        self.assertIn("from minute nine", eye["intel"])
+        self.assertIn("from minute eighteen", eye["intel"])
 
     def test_required_objectives_say_so(self):
-        for code, oid in (("RL01", "Raiders"), ("RL03", "Fighters"), ("RL04", "Spoiler"),
-                          ("RL06", "Qship")):
+        for code, oid in (("RL01", "Raiders"), ("RL04", "Spoiler"), ("RL06", "Qship")):
             m = self.m[code]
             text, spec = next((t, s) for o, t, s in m["objectives"] if o == oid)
             with self.subTest(mission=code, objective=oid):
                 self.assertIn("Main", spec.split(",")[3:])
                 self.assertTrue(text.startswith("Also required: "), text)
-                # Required because the victory trigger needs it destroyed.
-                self.assertTrue(any(t.get("kind") == "destroyed" for t in m["victory"]["also"]))
+                # Required because every way to win needs it: destroyed, or
+                # (RL04's HoveTo path) the turn_back that completes it.
+                self.assertEqual(set(bp.required_objectives(m, {s: [s] for s in m["stations"]})),
+                                 {oid})
                 ini = next(self.PACK.glob(f"missions/Red Line {m['num']} - *.ini"), None)
                 if ini is None:
                     self.skipTest("pack not built")
                 self.assertIn(f"\n{oid}={spec}\n", ini.read_text(encoding="utf-8"))
+        # RL03's intercept also breaks without a kill (the Disengage path,
+        # step 3), so Fighters is a bonus again and says how it helps.
+        text, spec = next((t, s) for o, t, s in self.m["RL03"]["objectives"] if o == "Fighters")
+        self.assertEqual(spec, "20,0,None")
+        self.assertNotIn("required", text.lower())
         # No objective anywhere in the campaign keeps the bare prefix.
         for code, m in self.m.items():
             for oid, text, _spec in m["objectives"]:
                 self.assertFalse(text.startswith("Required:"), (code, oid))
-        # RL04's coaster has to be sunk (UnitDestroyed), so the line says so.
+        # RL04's coaster is sunk or hove to (step 4), and the line says both.
         spoiler = next(t for o, t, _s in self.m["RL04"]["objectives"] if o == "Spoiler")
-        self.assertEqual(spoiler, "Also required: sink Meridian Harmony before she clears the screen")
+        self.assertEqual(spoiler, "Also required: stop Meridian Harmony before she clears the "
+                                  "screen, by sinking her or closing her until she heaves to")
 
     def test_the_patrol_vessels_mile_is_stated(self):
         m = self.m["RLC1"]
@@ -4173,6 +5039,107 @@ class RedLineReleaseTerms(unittest.TestCase):
         self.assertIn("within three cables of the raft", pilot)
         self.assertNotIn("alongside him first", self.brief("RLC1"))
         self.assertNotIn("alongside\n", self.brief("RLC1"))
+
+
+class RedLineVictoryPaths(unittest.TestCase):
+    """The built missions' any_of paths (steps 3 and 4 of the builder-grammar
+    design), read from the pack."""
+
+    PACK = RedLineReleaseTerms.PACK
+
+    def mission(self, num):
+        ini = next(self.PACK.glob(f"missions/Red Line {num} - *.ini"), None)
+        if ini is None:
+            self.skipTest("pack not built")
+        text = ini.read_text(encoding="utf-8")
+        return text, coverage_check.blocks(text), _trigger_numbers(text)
+
+    def test_rl03_breaks_the_intercept_either_way(self):
+        _text, parsed, n = self.mission("03")
+        intercept = parsed[f"Trigger{n['Objective met']}"]
+        disengage = parsed[f"Trigger{n['Objective met: Disengage']}"]
+        self.assertEqual(parsed[f"Trigger{n['Opens at minute 18: Disengage']}"]
+                         ["Condition_Condition1_Time"], "1080")
+        refresh = parsed[f"Trigger{n['Refresh: Disengage']}"]
+        self.assertEqual(refresh["Condition_Condition1_Time"], "5")
+        self.assertEqual(refresh["Action_ReactivateTriggers"],
+                         f"Trigger{n['Objective met: Disengage']},Trigger{n['Refresh: Disengage']}")
+        # Neither F-35 down: after a kill only the Intercept path can win,
+        # so the two are never met in one tick.
+        self.assertEqual(disengage["ConditionsCompleted"],
+                         "<Condition1> AND <Condition2> AND NOT <Condition3> AND NOT <Condition4>")
+        self.assertEqual(disengage["Condition_Condition4_Type"], "UnitDestroyed")
+        self.assertEqual(disengage["Condition_Condition4_Units"],
+                         intercept["Condition_Condition3_Units"])
+        self.assertEqual(disengage["Condition_Condition4_MinimumUnits"], "1")
+        self.assertEqual(disengage["Condition_Condition3_AreaRadiusNM"], "70")
+        # The radius is the builder's AIM-120C7 reach, and the brief and the
+        # report say it in words.
+        self.assertEqual(int(disengage["Condition_Condition3_AreaRadiusNM"]),
+                         math.ceil(bp.air_reach("raaf_f-35a", "AirToAir")))
+        # A win ends the report on Dragon Eye, which is written after both.
+        for name in ("Objective met", "Objective met: Disengage"):
+            with self.subTest(name=name):
+                self.assertIn(f"Trigger{n['Progress: EyeHome']}",
+                              parsed[f"Trigger{n[name]}"]["Action_DisableTriggers"].split(","))
+                self.assertLess(n[name], n["Progress: EyeHome"])
+        self.assertEqual(disengage["Condition_Condition3_Taskforce"], "Taskforce2")
+        self.assertNotIn("Fighters", disengage["Action_ObjectivesCompleted"].split(","))
+        self.assertNotIn("Fighters", intercept["Action_ObjectivesCompleted"].split(","))
+        for lines in (intercept, disengage):
+            self.assertEqual(lines["Action_EnableTriggers"], "Trigger1")
+            self.assertEqual(lines["Condition_Condition2_Type"], "NoIncomingWeapons")
+
+
+    def test_rl04_stops_the_coaster_sunk_or_hove_to(self):
+        _text, parsed, n = self.mission("04")
+        challenges = sorted((v for k, v in n.items() if k.startswith("Challenge HeaveTo ")))
+        self.assertGreaterEqual(len(challenges), 2)
+        turn = parsed[f"Trigger{n['Turns back: HeaveTo']}"]
+        self.assertEqual(turn["Action_UnitTransferToTaskforce"], "Neutral")
+        self.assertEqual(turn["Action_UnitTelegraph"], "2")
+        off = turn["Action_DisableTriggers"].split(",")
+        for name in ("Spoiler denied", "Objective met", "Spoiler met"):
+            self.assertIn(f"Trigger{n[name]}", off)
+        self.assertEqual(off[:len(challenges)], [f"Trigger{c}" for c in challenges])
+        # The chain runs along her route to the edge of the circle where she
+        # clears the screen: the last challenge is within a step of it.
+        denied = parsed[f"Trigger{n['Spoiler denied']}"]
+        dx, _y, dz = map(float, denied["Condition_Condition1_PositionNM"].split(","))
+        last = parsed[f"Trigger{challenges[-1]}"]
+        x, _y, z = map(float, last["Condition_Condition1_PositionNM"].split(","))
+        edge = math.hypot(x - dx, z - dz) - float(denied["Condition_Condition1_AreaRadiusNM"])
+        self.assertTrue(0 <= edge <= bp.TRACK_STEP_NM, edge)
+        lost = parsed[f"Trigger{n['HeaveTo sunk after turning']}"]
+        self.assertEqual(lost["Action_ObjectivesFailed"], "Restraint")
+        # Sunk before she turns: 'Spoiler met' switches off every challenge
+        # and the turn-back, so no challenge can turn the wreck Neutral.
+        sunk = parsed[f"Trigger{n['Spoiler met']}"]
+        self.assertEqual(sunk["Condition_Condition1_Type"], "UnitDestroyed")
+        self.assertEqual(sunk["Condition_Condition1_Units"], lost["Condition_Condition1_Units"])
+        off = sunk["Action_DisableTriggers"].split(",")
+        for c in challenges + [n["Turns back: HeaveTo"]]:
+            self.assertIn(f"Trigger{c}", off)
+        self.assertLess(n["Spoiler met"], challenges[0])
+        # The other side's text for the HoveTo path is the HoveTo path's.
+        hove = parsed[f"Trigger{n['Objective met: HoveTo']}"]
+        self.assertEqual(hove["Action_Taskforce2_Message"], "PathHoveToTaskforce2DefeatMessage")
+
+
+    def test_progress_reports_only_report(self):
+        rl = next(s for s in bp.campaign_specs() if s["SLUG"] == "sest-red-line")
+        names = {m["code"]: [e["name"] for e in m.get("progress", [])] for m in rl["MISSIONS"]}
+        self.assertEqual({c: v for c, v in names.items() if v},
+                         {"RL02": ["Closing"], "RL03": ["EyeHome"],
+                          "RL04": ["Halfway", "FirstIn", "Running"], "RL06": ["TenderIn"]})
+        for num in ("02", "03", "04", "06"):
+            _text, parsed, n = self.mission(num)
+            reports = [parsed[f"Trigger{v}"] for k, v in n.items() if k.startswith("Progress: ")]
+            self.assertTrue(reports, num)
+            for keys in reports:
+                self.assertEqual(keys["Condition_Condition1_AreaDisplaySide"], "None")
+                self.assertEqual(sorted(k for k in keys if k.startswith("Action_")),
+                                 ["Action_Taskforce1_Intel"])
 
 
 class RedLineSideOperations(unittest.TestCase):

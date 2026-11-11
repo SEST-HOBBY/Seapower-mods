@@ -1,9 +1,18 @@
-"""Red Line must offer real engagements without sacrificing protected units."""
-import unittest
+"""Red Line must offer real engagements without sacrificing protected units.
 
-import build_pack as bp
-import test_build_pack as fixtures
-from test_build_pack import small_mission, rendered
+    python3 -m unittest integration/campaign/test_red_line_pacing.py
+"""
+import math
+import sys
+import unittest
+from pathlib import Path
+
+# Run on its own as well as after test_build_pack.py (the release gates'
+# campaign step), which is what used to put this folder on the path.
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import build_pack as bp  # noqa: E402
+import test_build_pack as fixtures  # noqa: E402
+from test_build_pack import small_mission, rendered  # noqa: E402
 
 
 class RedLinePacing(unittest.TestCase):
@@ -76,6 +85,17 @@ class RedLinePacing(unittest.TestCase):
         self.assertEqual(m['victory']['station'],'eye')
         self.assertNotIn('after',m['victory'])
         self.assertEqual(m['resolve']['Names'],('classify',['convoy#1','jmsdf#1','jmsdf#2'],3))
+        # Two ways to break the intercept (step 3): a kill, or the F-35s gone
+        # beyond their missiles' reach of the box once both orders are spent.
+        paths={p['name']:p for p in m['victory']['any_of']}
+        self.assertEqual(set(paths),{'Intercept','Disengage'})
+        last=max(a[0] for u in m['units'] if u['station']=='red_air' for a in u['attacks'])
+        self.assertGreaterEqual(paths['Disengage']['after_minutes'],last+2)
+        clear=next(t for t in paths['Disengage']['also'] if t['kind']=='clear_of')
+        reach=bp.air_reach('raaf_f-35a','AirToAir')
+        self.assertGreaterEqual(clear.get('radius',math.ceil(reach)),reach)
+        fighters=next(s for o,_t,s in m['objectives'] if o=='Fighters')
+        self.assertNotIn('Main',fighters.split(',')[3:])
 
     def test_withdrawal_has_two_simultaneous_problems(self):
         m=self.missions['RL04']
@@ -83,6 +103,13 @@ class RedLinePacing(unittest.TestCase):
         qship=next(u for u in m['units'] if u['station']=='qship')
         self.assertEqual(qship['attacks'][0][2],'group#2')
         self.assertIn('Supply',{f['objective'] for f in m['fatal']})
+        # Sunk, or hove to when the screen's lead ship closes her (step 4);
+        # the ship's flight does not count.
+        tb=m['turn_back'][0]
+        self.assertEqual((tb['units'],tb['by'],tb['transfer']),(['spoiler'],['escort'],'Neutral'))
+        self.assertEqual(next(u for u in m['units'] if u['station']=='escort')['type'],'plan_type_054a_p5')
+        self.assertEqual([p['name'] for p in m['victory']['any_of']],['Sunk','HoveTo'])
+        self.assertEqual(tb['protected']['objective'],'Restraint')
 
     def test_one_compact_stealth_crossing_is_retained(self):
         m=self.missions['RL05']

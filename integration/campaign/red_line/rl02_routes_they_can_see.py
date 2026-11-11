@@ -132,6 +132,14 @@ MISSION = dict(
                     " aircraft can be allocated from the enclave field's detachment for the "
                     "night's escort. Hai Yang 7 is chartered and allocated to this operation."
                 )),
+    # Information only (step 5 of the builder-grammar design): the tanker
+    # five miles from the holding point, about half her run. (A report of her
+    # in the roads before minute twenty could never come: from eleven miles
+    # out she needs 33 minutes at her 16.5 knots, 45 at the brief's twelve.)
+    progress=[dict(name="Closing", units=["tanker"], radius=5, intel=(
+        "GROUP STAFF: HAI YANG 7 is five miles from the holding point. The run completes when "
+        "she is within two miles of it, no earlier than minute twenty, with no incoming weapon "
+        "tracked; keep the screen on GOLF and the missile craft until then."))],
     reports=[dict(minute=2,intel="ASW CONTROL: Dipper 23 is already ahead of the tanker. GOLF is east of the route; start the search before her ten-minute attack window. The missile craft north of the lane is a separate threat. The grey Poseidon is protected, not its spotter.")],
     role="escort",
 )

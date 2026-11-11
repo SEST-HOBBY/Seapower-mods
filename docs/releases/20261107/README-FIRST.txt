@@ -1,15 +1,17 @@
-SEST R12 FINAL + COMMANDER NATIONS - COMBINED PC ACCEPTANCE
+SEST R12 FINAL + COMMANDER NATIONS + RED LINE STEP 3 - COMBINED PC ACCEPTANCE
 11 November 2026 | SEST-DEV
 Beta 0.8.7-261107: Runtime 1.6.4 / UI 1.4.14
 Standard 0.8.7-261021: Runtime 1.5.0 / UI 1.4.6 (unchanged)
 
-This is R12 Final (merged as PR #58) together with the commander nations
-and national awards (merged as PR #59), checked once on the PC and posted as
-one update. RIBBONS.txt has every award mapping. R12-RIBBON-EXPANSION.txt
-describes R12 Final before the commander nations: use it only for the R12
-review findings fixed and the minor ones still open, and this file and
-RIBBONS.txt for the award counts, nations and PC steps. Neither part has
-been played on the owner's PC yet.
+This is R12 Final (merged as PR #58) together with the commander nations and
+national awards (merged as PR #59), the combined release notes (merged as PR
+#60) and Red Line's victory paths, the heave-to and progress reports (step 3
+of the builder grammar, on feature/builder-grammar-20261111, in review),
+checked once on the PC and posted as one update. RIBBONS.txt has every award
+mapping. R12-RIBBON-EXPANSION.txt describes R12 Final before the commander
+nations: use it only for the R12 review findings fixed and the minor ones
+still open, and this file and RIBBONS.txt for the award counts, nations and PC
+steps. None of the three parts has been played on the owner's PC yet.
 
 WHAT IS NEW SINCE THE R12 RIBBON TEST BUILD
 - Commander nations: Southern Watch and Southern Reach offer Australia (the
@@ -35,10 +37,20 @@ WHAT IS NEW SINCE THE R12 RIBBON TEST BUILD
   undated. The nation filter on the native awards is read from the beta's
   code; on standard 0.8.7-261021 it has not been checked. The Korean strips
   carry the taegeuk and the German Cross of Honour its gold cross.
-- Red Line: the RL02, RL04, RL06 and RLC1 briefings give the terms their
-  victory checks test (distance, minute, no incoming weapon); RL01, RL03,
-  RL04 and RL06 mark the extra objective victory needs "Also required";
-  RL04's texts describe the withdrawal as its 5 NM circle.
+- Red Line: the six combat briefings (RL01, RL02, RL03, RL04, RL06 and
+  RLO2) and RLC1's give the terms their victory checks test (distance,
+  minute, no incoming weapon); RL01, RL04 and RL06 mark the extra objective
+  victory needs "Also required"; RL04's texts describe the withdrawal as its
+  5 NM circle.
+- Red Line victory paths (builder-grammar step 3): RL03's intercept breaks
+  by an F-35 down (exit from minute 9) or, with neither down, from minute
+  18 once no F-35 is within 70 NM of the return box's centre (the AIM-120C7
+  reach the builder reads). RL04's Meridian Harmony is sunk or, closed to
+  about 3 NM by the lead ship (not the helicopter), heaves to, turns
+  neutral and follows the group; sinking her after that loses the mission,
+  and sinking her first switches the heave-to off. RL02, RL03, RL04 and
+  RL06 send progress reports. The engines-stopped outcome stays off until
+  a Mission Editor save gives the damage condition's keys (check P1).
 - Held stages: RLC1's and SW03's held stages now reactivate their held
   trigger at the arrival, so the four- and three-minute holds should count
   from then; not yet checked in game (step 3).
@@ -96,10 +108,13 @@ PREPARE AND CHECK
    four minutes later); in Southern Watch 03 Rig Seventeen note the minute the
    second lifter is over the rig and the minute "Rig crew loaded." appears
    (about three minutes later). If either appears at once, say so before
-   posting. If time allows, as a New Zealand commander buy the P-8A in the
-   force allocation before Weapons Free (SW05) at the discounted price and fly
-   it in the Maritime Patrol slot of 06 Blind Horizon (Weapons Free has no
-   patrol slot).
+   posting. Red Line step 3: the checks P1 to P9 in the release checkout's
+   docs/campaigns/red-line/test-card.md cover RL03's two exits, RL04's
+   heave-to (with a run where she is sunk first) and the damage condition's
+   spelling; report what each shows. If time allows, as a New Zealand
+   commander buy the P-8A in the force allocation before Weapons Free (SW05)
+   at the discounted price and fly it in the Maritime Patrol slot of 06
+   Blind Horizon (Weapons Free has no patrol slot).
 4. Recheck the opening brief, world Combat Costs sidebar and direct F11
    totals. In Starting Airborne Flights select the RAAF E/A-18G and confirm
    HARM (AGM-88C), AARGM (AGM-88E) and AARGM-ER (AGM-88G) choices. The three
@@ -149,7 +164,7 @@ RETAINED FEATURES
   reviewed files for the supported beta.
 
 The owner accepted the four briefing/costs/page changes on 9 November.
-Neither merged part has been played on that PC yet. Both are on the GitHub
-deploy branch sest-dev/jolly-ride-rptj4t; this toolkit's branch,
-fix/combined-acceptance-20261111, adds only these release notes, the Steam
-texts and validation.json. Nothing has been uploaded to Steam.
+None of the three parts has been played on that PC yet. PRs #58, #59 and
+#60 are merged on the GitHub deploy branch sest-dev/jolly-ride-rptj4t. This
+toolkit's branch, feature/builder-grammar-20261111, adds Red Line step 3 on
+top of them and is in review on GitHub. Nothing has been uploaded to Steam.
