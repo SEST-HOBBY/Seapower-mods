@@ -54,6 +54,15 @@ WHAT IS NEW SINCE THE R12 RIBBON TEST BUILD
 - Held stages: RLC1's and SW03's held stages now reactivate their held
   trigger at the arrival, so the four- and three-minute holds should count
   from then; not yet checked in game (step 3).
+- Red Line runtime ribbons, prepared for R13 (step 4, campaign side, on
+  feature/runtime-awards-campaign-20261111, not pushed): RL05 Silent
+  Passage and RLC1 Personnel Recovery are defined in the Red Line campaign
+  and keyed for the beta runtime R13 (Runtime 1.6.5). This update ships
+  Runtime 1.6.4, which ignores the key as the game and the standard build
+  do, so neither ribbon is granted and neither is counted in the 72 above.
+  Until R13 is installed the only check is that neither appears (the Red
+  Line test card's R6; R1 to R5 need R13, and RIBBONS.txt says what each
+  ribbon needs).
 - World Operations (beta): DCM's own SITREP 001 is kept, with the short SEST
   brief shown first. Completed multi-phase Admiralty operations now count
   once each, and a completion replayed after a reload counts once. Tabs
@@ -76,7 +85,7 @@ PREPARE AND CHECK
 1. Close Sea Power. Keep SEST and the collection subscribed. Extract this
    COMPLETE toolkit into a NEW folder and run Prepare-PC.cmd. Keep the
    printed release checkout, the backup path and the line "VERIFIED: all
-   4412 canonical upload files match the release manifest." Upload-PC.cmd
+   4414 canonical upload files match the release manifest." Upload-PC.cmd
    prints the folder to upload (step 6).
    Prepare-PC installs both code and campaign/loadout data; Repair-PC alone
    only repairs code. The author-update guard and original restore journal
