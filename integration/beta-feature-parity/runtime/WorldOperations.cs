@@ -39,6 +39,28 @@ internal static class WorldOperations
     // Manual reports in the loaded save. They also link Combat Costs when the
     // profile service record is read-only or could not be written.
     private static readonly List<WorldServiceLedger.Entry> liveReports = new List<WorldServiceLedger.Entry>();
+    // Admiralty results as Dynamic Campaign Mod files them (a postfix on
+    // Admiralty.Queue, the only place a result is added). Kept by reference and
+    // evaluated at the next service sample: Admiralty.OnCaptured resets an
+    // unaccepted order's Issued after Queue returns. The unread-paper scan
+    // stays as the fallback, so a result read within one sample still counts.
+    internal sealed class Filed
+    {
+        internal object Outcome;
+        internal string Scope, Side;
+    }
+    private sealed class SameObject : IEqualityComparer<object>
+    {
+        internal static readonly SameObject Instance = new SameObject();
+        public new bool Equals(object x, object y) => ReferenceEquals(x, y);
+        public int GetHashCode(object value) => System.Runtime.CompilerServices.RuntimeHelpers.GetHashCode(value);
+    }
+    private const int FiledLimit = 512;
+    private static readonly List<Filed> filed = new List<Filed>();
+    private static readonly object filedLock = new object();
+    private static int filedRevision;
+    private static bool filedDropReported, filedFailureReported, queueAttached;
+    private static MethodInfo admiraltyQueue;
     internal static int Tab { get; private set; }
     internal static bool StrategicActive { get; private set; }
     private static double Now => (double)Stopwatch.GetTimestamp() / Stopwatch.Frequency;
@@ -120,6 +142,19 @@ internal static class WorldOperations
         WorldOpeningBriefing.Bind(a);
         campaignTick = a.GetType("DynamicCampaignMod.UI.CampaignUI", true).GetMethod("Tick", Api.All, null, Type.EmptyTypes, null);
         if (campaignTick?.ReturnType != typeof(void)) throw new MissingMemberException("captured strategic UI update");
+        try
+        {
+            var admiralty = a.GetType("DynamicCampaignMod.Core.Sim.Admiralty", true);
+            var queue = admiralty.GetMethod("Queue", Api.All, null, new[] { a.GetType("DynamicCampaignMod.Core.State.OrderOutcome", true) }, null);
+            if (queue == null || queue.IsStatic || queue.ReturnType != typeof(void) || admiralty.GetField("_state", Api.All)?.FieldType != a.GetType("DynamicCampaignMod.Core.State.CampaignState", true))
+                throw new MissingMemberException("captured DCM Admiralty.Queue(OrderOutcome)");
+            admiraltyQueue = queue;
+        }
+        catch (Exception ex)
+        {
+            admiraltyQueue = null;
+            Api.LogFailure("Admiralty filing observation unavailable; unread papers are still recorded", ex);
+        }
         Api.Log("World Operations attached to Dynamic Campaign Mod 0.25.0.1");
     }
 
@@ -154,6 +189,11 @@ internal static class WorldOperations
                 Api.Postfix(campaignTick, typeof(WorldOperations), nameof(Poll), "io.github.sest-hobby.world-map-update");
                 tickAttached = true;
             }
+            if (!queueAttached && admiraltyQueue != null)
+            {
+                queueAttached = true;
+                AttachOutcomeObserver();
+            }
             bool active = ReadContext();
             if (active && !EnterFrame(UnityEngine.Time.frameCount)) return;
             bool inBattle = currentPlan != null;
@@ -165,7 +205,7 @@ internal static class WorldOperations
                 if (wasStrategic) NativeCombatSurface.Close();
                 wasStrategic = StrategicActive;
             }
-            if (!active) { state = null; scope = ""; positions.Clear(); liveReports.Clear(); serviceSignature = null; mapPrices = null; return; }
+            if (!active) { FlushFiled(); state = null; scope = ""; positions.Clear(); liveReports.Clear(); serviceSignature = null; mapPrices = null; return; }
             if (Now >= nextSample)
             {
                 nextSample = Now + 1;
@@ -224,8 +264,8 @@ internal static class WorldOperations
     {
         var reports = Rows(Get(state, "Reports"));
         var outcomes = Rows(Get(state, "Outcomes"));
-        // Merge only when DCM's reports, unread results or observed positions
-        // change, and retry a failed write later instead of every second.
+        // Merge only when DCM's reports, unread or filed results or observed
+        // positions change, and retry a failed write later instead of every second.
         if (EvidenceSignature(reports, outcomes) == serviceSignature || Now < nextMerge) return;
         var events = new List<WorldServiceLedger.Entry>();
         liveReports.Clear();
@@ -239,16 +279,12 @@ internal static class WorldOperations
             events.Add(entry);
             if (entry.Manual) liveReports.Add(entry);
         }
-        foreach (var outcome in outcomes)
-        {
-            var entry = CompletedOrder(outcome, scope, side) ?? CompletedOperation(outcome, scope, side);
-            // A result Runtime 1.6.3 already recorded under its outcome key
-            // keeps that single entry.
-            if (entry != null && !ledger.Contains(LegacyOrderKey(outcome, scope))) events.Add(entry);
-        }
+        var taken = TakeFiled();
+        events.AddRange(AdmiraltyEvidence(outcomes, scope, side, taken));
         try
         {
             ledger.Merge(events);
+            ReleaseFiled(taken);
             serviceSignature = EvidenceSignature(reports, outcomes);
             mergeReported = false;
         }
@@ -264,8 +300,108 @@ internal static class WorldOperations
     private static string EvidenceSignature(List<object> reports, List<object> outcomes)
     {
         var last = reports.Count == 0 ? null : reports[reports.Count - 1];
+        int revision, count;
+        lock (filedLock) { revision = filedRevision; count = filed.Count; }
         return scope + "|" + reports.Count + "|" + (last == null ? "" : S(last, "EngagementId") + ":" + ((DateTime)Get(last, "At")).Ticks) + "|" +
-            outcomes.Count + "|" + (outcomes.Count == 0 ? "" : S(outcomes[outcomes.Count - 1], "Id")) + "|" + positions.Count + "|" + ledger.Revision + "|" + ledger.ReadOnly;
+            outcomes.Count + "|" + (outcomes.Count == 0 ? "" : S(outcomes[outcomes.Count - 1], "Id")) + "|" + positions.Count + "|" + ledger.Revision + "|" + ledger.ReadOnly +
+            "|" + revision + "|" + count;
+    }
+
+    internal static void AttachOutcomeObserver()
+    {
+        try
+        {
+            Api.Postfix(admiraltyQueue, typeof(WorldOperations), nameof(Queued), "io.github.sest-hobby.world-admiralty-outcome");
+            Api.Log("World Operations records each Admiralty result when Dynamic Campaign Mod files it; unread papers are also scanned");
+        }
+        catch (Exception ex)
+        {
+            Api.LogFailure("Admiralty filing observation unavailable; unread papers are still recorded", ex);
+        }
+    }
+
+    // Postfix on DCM's Admiralty.Queue(OrderOutcome). Only the reference and
+    // its campaign are kept; nothing of the outcome is read here. Never throws
+    // into DCM's simulation.
+    internal static void Queued(object __instance, object __0)
+    {
+        try
+        {
+            if (stopped || __instance == null || __0 == null) return;
+            object filedState = Get(__instance, "_state");
+            if (filedState == null) return;
+            string filedSide = S(filedState, "PlayerSideId");
+            // The current campaign's own definition when it is the live one,
+            // so these keys match the unread scan's exactly.
+            object filedDefinition = ReferenceEquals(filedState, state) && definition != null ? definition : Get(filedState, "Definition");
+            var entry = new Filed { Outcome = __0, Scope = S(filedDefinition, "id") + ":" + filedSide, Side = filedSide };
+            lock (filedLock)
+            {
+                if (filed.Count >= FiledLimit)
+                {
+                    filed.RemoveAt(0);
+                    if (!filedDropReported) { filedDropReported = true; Api.Log("World Operations: more than " + FiledLimit + " Admiralty results waiting; the oldest is left to the unread-paper scan"); }
+                }
+                filed.Add(entry);
+                filedRevision++;
+            }
+        }
+        catch (Exception ex)
+        {
+            if (!filedFailureReported) { filedFailureReported = true; Api.LogFailure("Admiralty result not observed; unread papers are still recorded", ex); }
+        }
+    }
+
+    private static List<Filed> TakeFiled()
+    {
+        lock (filedLock) return filed.ToList();
+    }
+
+    private static void ReleaseFiled(List<Filed> taken)
+    {
+        if (taken.Count == 0) return;
+        var done = new HashSet<object>(taken, SameObject.Instance);
+        lock (filedLock) filed.RemoveAll(f => done.Contains(f));
+    }
+
+    // When the campaign closes before the next sample: record what was filed,
+    // each under the campaign it was filed in.
+    private static void FlushFiled()
+    {
+        int count;
+        lock (filedLock) count = filed.Count;
+        if (count == 0 || ledger == null || Now < nextMerge) return;
+        var taken = TakeFiled();
+        try
+        {
+            ledger.Merge(AdmiraltyEvidence(new List<object>(), "", "", taken));
+            ReleaseFiled(taken);
+            mergeReported = false;
+        }
+        catch (Exception ex)
+        {
+            nextMerge = Now + 30;
+            if (!mergeReported) { mergeReported = true; Api.LogFailure("world service record not updated; filed Admiralty results are retried in 30 s", ex); }
+        }
+    }
+
+    // The unread papers in this save, then every result filed since the last
+    // merge, each outcome once and under the unchanged keys and rules.
+    internal static List<WorldServiceLedger.Entry> AdmiraltyEvidence(IEnumerable<object> unread, string campaignScope, string playerSide, IEnumerable<Filed> taken)
+    {
+        var seen = new HashSet<object>(SameObject.Instance);
+        var events = new List<WorldServiceLedger.Entry>();
+        void Add(object outcome, string inScope, string inSide)
+        {
+            if (outcome == null || !seen.Add(outcome)) return;
+            var entry = CompletedOrder(outcome, inScope, inSide) ?? CompletedOperation(outcome, inScope, inSide);
+            // A result Runtime 1.6.3 already recorded under its outcome key
+            // keeps that single entry.
+            if (entry != null && !ledger.Contains(LegacyOrderKey(outcome, inScope))) events.Add(entry);
+        }
+        foreach (var outcome in unread) Add(outcome, campaignScope, playerSide);
+        foreach (var f in taken) Add(f.Outcome, f.Scope, f.Side);
+        return events;
     }
 
     // A standalone Admiralty order's result: DCM's Paper(AdmiraltyOrder) sets
@@ -524,7 +660,7 @@ internal static class WorldOperations
         v.AddDetail(CostLineKind.Section, "CITATION AND EVIDENCE");
         v.AddDetail(CostLineKind.Body, "Battle service counts completed manual reports; auto-resolved battles do not qualify. Theatre awards require observed battle coordinates. Watch ribbons count distinct campaign calendar days with a manual battle.");
         v.AddDetail(CostLineKind.Body, "Admiralty ribbons count accepted tasks that Dynamic Campaign Mod reports as completed: each standalone order once, and each multi-phase operation once when its final phase completes (its phases are not counted separately). Convoy Protection counts convoy-escort orders and convoy-run operations; Route Security counts convoy-run operations, whose first phase clears the convoy's route; Maritime Surveillance counts shadowing orders and fleet-action operations, which open with a shadowing phase. Sea-control and amphibious operations count towards the Commendation and Versatility. Failed, lapsed, declined and cancelled tasks do not count.");
-        v.AddDetail(CostLineKind.Body, "SEST records a result while its paper waits unread in the Admiralty queue; papers read before these awards existed were not recorded. A completion replayed after reloading a save counts once.");
+        v.AddDetail(CostLineKind.Body, "SEST records each result when Dynamic Campaign Mod files it, whether or not its paper has been read (Runtime 1.6.5 and later). Earlier results count only if their paper was still unread under a Runtime that recorded them (orders from 1.6.3, operations from 1.6.4). A completion replayed after reloading a save counts once.");
         v.AddDetail(CostLineKind.Body, "Campaign, operation and real national award representations appear in Task Force Service Records. National awards use scenario qualifications and commander-nation filters. World service awards do not add renown, credits or supplies. Unrecorded bravery, logistics or ROE conditions are not inferred from spending.");
     }
 }
