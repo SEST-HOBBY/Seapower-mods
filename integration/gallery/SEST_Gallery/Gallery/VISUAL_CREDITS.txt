@@ -784,7 +784,7 @@ File:USS Gerald R. Ford (CVN-78) underway on 8 April 2017.JPG
 Creator: U.S. Navy photo by Mass Communication Specialist 2nd Class Ridge Leoni
 Source: https://commons.wikimedia.org/wiki/File:USS_Gerald_R._Ford_(CVN-78)_underway_on_8_April_2017.JPG
 Licence: Public domain
-Used in: Latest update (20 Oct 2026)
+Used in: Latest update from 20 Oct to 10 Nov 2026
 
 MH-60R Seahawk
 File:MH-60R Seahawk from HSM-37 during counterdrug operations (200713-N-FA490-1857).jpg
@@ -820,6 +820,25 @@ Creator: U.S. Air Force photo by Lawrence Crespo
 Source: https://commons.wikimedia.org/wiki/File:Royal_Australian_Air_Force_E-7A_at_Red_Flag_Feb_2013.jpg
 Licence: Public domain
 Used in: Installing
+
+Combined Air Operations Center
+File:Combined Air Operations Center 151007-F-MS415-019.jpg
+Creator: U.S. Air Force photo by Tech. Sgt. Joshua Strang
+Source: https://commons.wikimedia.org/wiki/File:Combined_Air_Operations_Center_151007-F-MS415-019.jpg
+Licence: Public domain
+Used in: Latest update (R12, 10 Nov 2026). The same photograph is in the SEST media pack (integration/media-pack/ATTRIBUTION.md).
+
+Nimitz class (underway replenishment with USS Bridge and USS Princeton)
+File:USS Nimitz USS Bridge and USS Princeton participate in an underway replenishment.jpg
+Creator: U.S. Navy photo by Photographer's Mate 3rd Class Kristi Earl
+Source: https://commons.wikimedia.org/wiki/File:USS_Nimitz_USS_Bridge_and_USS_Princeton_participate_in_an_underway_replenishment.jpg
+Licence: Public domain
+Used in: Global Maritime Operations 2028 (world campaign card)
+
+World campaign chart (the world campaign card's inset)
+Creator: SEST, drawn by integration/gallery/steam_art/world_map.py from the campaign's own file (every base and patrol, by coalition) over the global-land-mask 1 km land grid (NOAA GLOBE elevation data, public domain)
+Licence: CC0 - a SEST original
+Changes: None. No generative AI.
 
 visuals/flags/png/meridian.png
 Meridian Maritime Group (fictional company flag, SEST campaigns)
