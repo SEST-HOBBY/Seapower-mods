@@ -67,20 +67,28 @@ WHAT IS NEW SINCE THE R12 RIBBON TEST BUILD
   Until R13 is installed the checks are that neither appears and that the
   developer ribbon menu offers neither (the Red Line test card's R5 and R6;
   R1 to R4 need R13, and RIBBONS.txt says what each ribbon needs).
-- Russian Federation (step 5, on feature/russia-registration-20261111, not
-  pushed): SEST Collection Fixes registers 16 post-1991, Russian-built ship
-  and submarine classes (the Gorshkov and Grigorovich frigates, the
-  Steregushchiy, Gremyashchiy and Buyan-M corvettes, the Yasen, Belgorod,
-  Borei and Improved Kilo boats) to the game's Russia nation, which it
-  names Russian Federation, instead of the USSR. One #!extend stub per hull
-  sets only the Nation of its mod's variants file; no author's file is
-  copied. SEST's Akademik Pashin registers Russia in its own file.
-  Soviet-built hulls, fictional variants and every Russian aircraft,
-  helicopter and transport stay Soviet, as stock Cold War missions use
-  them. The SEST missions fly the Russian flag on the same units as before.
-  No mod has used an #!extend on a variants file before, so it is checked
-  once in step 3; no campaign offers a Russian commander, so the discount
-  is not.
+- Russian Federation (step 5, on feature/russia-registration-20261111, in
+  review): SEST Collection Fixes registers to the game's Russia nation,
+  which it names Russian Federation, instead of the USSR: 16 post-1991,
+  Russian-built ship and submarine classes (the Gorshkov and Grigorovich
+  frigates, the Steregushchiy, Gremyashchiy and Buyan-M corvettes, the
+  Yasen, Belgorod, Borei and Improved Kilo boats); the modern refits of
+  Soviet-built ships in their modern fit only (the Kuznetsov's 2016 fit,
+  not her 1991 one, Admiral Nakhimov's refit, Marshal Ustinov 2016, the
+  Nanuchka IIIs of 2019, the Tarantul R-60 of 2005) and the Akulas, Oscar
+  IIs, Grishas and Admiral Chabanenko completed after 1991;
+  and 32 aircraft of post-1991 Russian types and upgrades (the Su-57,
+  Su-35S, Su-30SM, Su-33, MiG-31BM, MiG-35, MiG-29K 9.41, A-50U, Tu-214R
+  and their like). One #!extend stub per unit sets only the Nation of its
+  mod's variants or squadrons file; no author's file is copied. SEST's
+  Akademik Pashin registers Russia in its own file. The Soviet-era fits,
+  Cold War aircraft (the Su-27, MiG-31, MiG-29 9.12, Tu-160 as built,
+  Tu-95MS, Il-76MD, Il-78, Ka-27PL, Mi-8, Mi-24), fictional variants and
+  hulls never built stay Soviet, as stock Cold War missions use them. The
+  SEST missions fly the Russian flag on the same units as before. No mod
+  has used an #!extend on a variants or squadrons file before, so it is
+  checked once in step 3; no campaign offers a Russian commander, so the
+  discount is not.
 - World Operations (beta): DCM's own SITREP 001 is kept, with the short SEST
   brief shown first. Completed multi-phase Admiralty operations now count
   once each, and a completion replayed after a reload counts once. Tabs
@@ -143,15 +151,17 @@ PREPARE AND CHECK
    and neither is granted on this build). Russian Federation (step 5): in
    the new Southern Watch campaign's Situation window the Project 20380
    corvette shows the Russian Federation flag and the Akula the USSR's; in
-   the Mission Editor Russian Navy 21's Admiral Gorshkov shows Russian
-   Federation and the game's own Sovremenny USSR; Pacific Strike's 02 Action
-   in the Taiwan Strait still generates its Soviet force (the release
-   checkout's docs/campaigns/southern-watch/test-card.md, 6K, rows RU.1 to
-   RU.6). On the beta the stubs, like every #!extend file in the pack,
-   apply only where SEST's beta Runtime repairs the game's modifier scan
+   the Mission Editor Russian Navy 21's Admiral Gorshkov and a Su-35S show
+   Russian Federation and the game's own Sovremenny and a Cold War Su-27
+   the USSR, and the Kuznetsov's 2016 fit shows Russian Federation and her
+   1991 fit the USSR; Pacific Strike's 02 Action in the Taiwan Strait still
+   generates its Soviet force (the release checkout's
+   docs/campaigns/southern-watch/test-card.md, 6K, rows RU.1 to RU.8). On
+   the beta the stubs, like every #!extend file in the pack, apply only
+   where SEST's beta Runtime repairs the game's modifier scan
    (ModifierRegistry, not turned off), so not with the beta features off
    (step 5): first read Player.log's "[SEST Runtime] modifier files" line,
-   which should count 190 files from this pack (RU.1). If time allows, as a
+   which should count 232 files from this pack (RU.1). If time allows, as a
    New Zealand commander buy the P-8A in the force allocation before Weapons
    Free (SW05) at the discounted price and fly it in the Maritime Patrol slot
    of 06 Blind Horizon (Weapons Free has no patrol slot).
