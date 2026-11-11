@@ -1,4 +1,4 @@
-SEST R12 FINAL + COMMANDER NATIONS + RED LINE STEPS 3-4 - PC ACCEPTANCE
+SEST R12 FINAL + COMMANDER NATIONS + RED LINE STEPS 3-4 + R13 - PC ACCEPTANCE
 11 November 2026 | SEST-DEV
 Beta 0.8.7-261107: Runtime 1.6.5 / UI 1.4.15 (R13)
 Standard 0.8.7-261021: Runtime 1.5.0 / UI 1.4.6 (unchanged)
@@ -11,9 +11,11 @@ ribbons (merged as PR #62) and the beta runtime R13 that grants them, checked
 once on the PC and posted as one update. RIBBONS.txt has every award mapping.
 R12-RIBBON-EXPANSION.txt describes R12 Final before the commander nations: use
 it only for the R12 review findings fixed and the minor ones still open, and
-this file and RIBBONS.txt for the award counts, nations and PC steps. None of
-the five parts has been played on the owner's PC yet; with R13, step 4's PC
-checks R1 to R4 on the Red Line test card now apply as well as R5 and R6.
+this file and RIBBONS.txt for the award counts, nations and PC steps. The
+R12-*.txt notes are records of the R12 builds; where they say R12\, this
+toolkit's beta folder is R13\. None of the five parts has been played on the
+owner's PC yet; with R13, step 4's PC checks R1 to R4 on the Red Line test
+card now apply as well as R5 and R6.
 
 WHAT IS NEW SINCE THE R12 RIBBON TEST BUILD
 - Beta runtime R13 (Runtime 1.6.5 / UI 1.4.15, the merged
@@ -193,8 +195,10 @@ RETAINED FEATURES
 
 The owner accepted the four briefing/costs/page changes on 9 November.
 None of the five parts has been played on that PC yet. PRs #58 to #63 are
-merged on dev, with the Steam images for R12 and the world campaign; R13 is
-merged with dev and packaged on release/r13-20261111 (not yet on dev). This
-toolkit's branch, beta, is the branch the PC installs, tests and posts from
-(docs/BRANCHES.md); it carries what dev holds when the toolkit is built.
-Nothing has been uploaded to Steam.
+merged on dev, with the Steam images for R12 and the world campaign. R13 is
+on release/r13-20261111: dev at a0721c18 with the R13 runtime merged
+(00bca642) and packaged; it is not yet on dev or beta. This toolkit's
+branch, release/r13-20261111, is the one its SOURCE-RECEIPT.json names. Once
+R13 is merged into dev and dev into beta, the toolkit is built from beta, the
+branch the PC installs, tests and posts from (docs/BRANCHES.md). Nothing has
+been uploaded to Steam.
