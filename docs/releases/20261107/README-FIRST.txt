@@ -87,21 +87,22 @@ WHAT IS NEW SINCE THE R12 RIBBON TEST BUILD
   once in step 3; no campaign offers a Russian commander, so the discount
   is not.
 - Makran Line (step 5, on feature/makran-line-20261111, not pushed): a
-  fifth authored campaign, four Pakistan Navy missions in the North Arabian
-  Sea, 24 October to 14 November 2028, inside Southern Watch's six weeks.
-  The opponent is the fictional Meridian network alone, in armed merchants
-  and trawlers; no Indian or Iranian state unit is placed. The roster is the
-  Pakistani Pack's (the Tughril class, PNS Alamgir - kept for 2028 as a
-  stated assumption - the Z-9CE, the pack's Sea King, the JF-17 Block II
-  and III and the ZDK-03), every class with the same-nation discount; no submarine,
-  no J-10CE. With no Pakistani supply ship in the collection, every force
-  allocation rearms. Port Qasim's mothership is sunk or made to heave to,
-  as Red Line's RL04 coaster is. The commander is a Pakistan Navy Commodore
-  with the Navy's ten ranks (abbreviations not verified) and fictional
-  ribbons only. Nothing in it has been run in the game. The STEAM-*.txt
-  files and the Steam images do not mention it yet, because which update
-  ships it is still your decision: the change note and page description
-  pasted in steps 7 and 8 describe four campaigns.
+  fifth authored campaign, four Pakistan Navy missions in the North
+  Arabian Sea, 24 October to 14 November 2028, inside Southern Watch's six
+  weeks. The opponent is the fictional Meridian network alone, in armed
+  merchants and trawlers; no Indian or Iranian state unit is placed. The
+  roster is the Pakistani Pack's (the Tughril class, PNS Alamgir - kept
+  for 2028 as a stated assumption - the Z-9CE, the pack's Sea King, the
+  JF-17 Block II and III and the ZDK-03), every class with the same-nation
+  discount; no submarine, no J-10CE. With no Pakistani supply ship in the
+  collection, every force allocation rearms. Port Qasim's mothership is
+  sunk or made to heave to, as Red Line's RL04 coaster is. The commander
+  is a Pakistan Navy Commodore with the Navy's ten ranks (abbreviations
+  not verified) and fictional ribbons only. Nothing in it has been run in
+  the game. The STEAM-*.txt files and the Steam images do not mention it
+  yet, because which update ships it is still your decision: the change
+  note and page description pasted in steps 7 and 8 describe four
+  campaigns.
 - World Operations (beta): DCM's own SITREP 001 is kept, with the short SEST
   brief shown first. Completed multi-phase Admiralty operations now count
   once each, and a completion replayed after a reload counts once. Tabs
