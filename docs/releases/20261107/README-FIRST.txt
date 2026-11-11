@@ -87,7 +87,7 @@ PREPARE AND CHECK
 1. Close Sea Power. Keep SEST and the collection subscribed. Extract this
    COMPLETE toolkit into a NEW folder and run Prepare-PC.cmd. Keep the
    printed release checkout, the backup path and the line "VERIFIED: all
-   4414 canonical upload files match the release manifest." Upload-PC.cmd
+   4415 canonical upload files match the release manifest." Upload-PC.cmd
    prints the folder to upload (step 6).
    Prepare-PC installs both code and campaign/loadout data; Repair-PC alone
    only repairs code. The author-update guard and original restore journal
@@ -177,8 +177,8 @@ RETAINED FEATURES
   reviewed files for the supported beta.
 
 The owner accepted the four briefing/costs/page changes on 9 November.
-None of the four parts has been played on that PC yet. PRs #58 to #62 are
-merged on the GitHub deploy branch sest-dev/jolly-ride-rptj4t. This
-toolkit's branch, fix/acceptance-status-20261111, adds only these status
-lines and validation.json's to the deploy branch. Nothing has been uploaded
-to Steam.
+None of the four parts has been played on that PC yet. PRs #58 to #63 are
+merged on dev, with the Steam images for R12 and the world campaign. This
+toolkit's branch, beta, is the branch the PC installs, tests and posts from
+(docs/BRANCHES.md); it carries what dev holds when the toolkit is built.
+Nothing has been uploaded to Steam.
