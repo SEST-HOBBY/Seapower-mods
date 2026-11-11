@@ -63,10 +63,11 @@ with the allied fleet: the RNZAF P-8A. No class is registered to Canada.
 Ribbons add no points, renown or supplies.
 
 No campaign offers a Russian commander. SEST Collection Fixes now registers
-15 post-1991, Russian-built ship and submarine classes (the Gorshkov and
+16 post-1991, Russian-built ship and submarine classes (the Gorshkov and
 Grigorovich frigates, the Steregushchiy, Gremyashchiy and Buyan-M corvettes,
-the Yasen, Borei and Improved Kilo boats) and SEST's Akademik Pashin to the
-game's Russia nation, named Russian Federation, instead of the USSR, so a
+the Yasen, Belgorod, Borei and Improved Kilo boats) to the game's Russia
+nation, named Russian Federation, instead of the USSR, and SEST
+Replenishment's Akademik Pashin registers Russia in its own file, so a
 future Russian commander's discount would cover them. Soviet-built hulls,
 fictional variants and every Russian aircraft stay Soviet, as stock Cold War
 missions use them. The SEST missions fly the Russian flag on all of them, as
