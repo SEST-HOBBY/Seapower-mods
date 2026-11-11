@@ -95,35 +95,52 @@ def blocks(text):
     return out
 
 
-_TOKEN = re.compile(r"\s*(?:<Condition(\d+)>|(\()|(\))|(AND|OR|NOT)(?![\w>])|(\S+))")
+_TOKEN = re.compile(r"\s*(?:<Condition([1-9]\d*)>|(\()|(\))|(AND|OR|NOT)(?![\w>])|(\S+))")
 
 
 def expression_problems(rel, tag, keys, blocks):
-    """A trigger's ConditionsCompleted, read as the game reads it.
+    """A trigger's ConditionsCompleted, held to the shapes stock writes.
 
     Stock writes AND, OR, AND NOT and brackets (Action in the Gulf of Sidra
-    1986 line 629, `<Condition1> AND (<Condition2> OR <Condition3>)`), and it
-    also ships `<Condition1> OR (<Condition2> AND <Condition>3)` (01 Red Sea
-    Breakout 1988 line 273), which loads and is malformed: nothing read the
-    expression, so a typo there was silent. Each <N> must be a numbered
-    condition of the trigger and each numbered condition must be used; a
-    TriggerCompleted condition names a trigger in this mission. NOT on a
-    UnitsInTheArea condition is the North Borneo shape (08 Defense of North
-    Borneo, Trigger3 lines 1270-1286), and it needs that mission's refresh
-    loop - a trigger whose Action_ReactivateTriggers names it, Trigger10 at
-    lines 1334-1339 - so the area is tested again. A trigger without numbered
-    conditions (the un-numbered Condition_Type= form) is not read here.
+    1986 line 629, `<Condition1> AND (<Condition2> OR <Condition3>)`). NOT
+    comes only as `AND NOT <ConditionN>`, never leading, after OR or before
+    a bracket, and AND and OR never share a bracket level unbracketed: how
+    the game reads any other shape is not known, so this parser refuses it.
+    Two stock lines fail the first check: 01 Red Sea Breakout 1988 line 273,
+    `<Condition1> OR (<Condition2> AND <Condition>3)`, which loads and is
+    malformed (nothing read the expression, so a typo there was silent), and
+    04 Sunda Strait line 721, `<CONDITION2> AND NOT <CONDITION1>`, whose
+    uppercase tokens this parser does not read: whether the game does is
+    unconfirmed. Each <N> must be a numbered condition of the trigger, with
+    no leading zero, and each numbered condition must be used; a
+    TriggerCompleted condition names a [TriggerN] section of this mission.
+
+    NOT on a UnitsInTheArea condition is the North Borneo shape (08 Defense
+    of North Borneo, Trigger3 lines 1270-1286), and here it needs that
+    mission's refresh loop, Trigger10 at lines 1334-1339: a trigger with a
+    Time condition that can run (not Disabled=True, or enabled by another)
+    and whose Action_ReactivateTriggers names this trigger and itself, so
+    the area is tested again every 5 seconds. That is a deliberate SEST
+    rule, stricter than stock: 05 Shadow of the Enterprise's Trigger6
+    (lines 760-773) ships an unrefreshed `<Condition2> AND NOT <Condition1>`
+    (Time=60 AND NOT an area) as a one-shot, which, since an area condition
+    stays met once met, means "never in the area before minute one". SEST
+    writes that as a held stage instead: a Time trigger that enables and
+    reactivates the NOT-area trigger. A trigger without numbered conditions
+    (the un-numbered Condition_Type= form) is not read here.
     """
-    numbered = {}
+    numbered, out = {}, []
     for key, value in keys.items():
         m = re.fullmatch(r"Condition_Condition(\d+)_Type", key)
         if m:
+            if m.group(1).startswith("0"):
+                out.append(f"{rel}: [{tag}] {key}: a condition number has no leading zero")
+                continue
             numbered[int(m.group(1))] = value
     expr = keys.get("ConditionsCompleted")
     if expr is None:
-        return ([f"{rel}: [{tag}] has numbered conditions and no ConditionsCompleted"]
-                if numbered else [])
-    out = []
+        return out + ([f"{rel}: [{tag}] has numbered conditions and no ConditionsCompleted"]
+                      if numbered else [])
     tokens, pos = [], 0
     while pos < len(expr):
         m = _TOKEN.match(expr, pos)
@@ -140,13 +157,11 @@ def expression_problems(rel, tag, keys, blocks):
             out.append(f"{rel}: [{tag}] ConditionsCompleted={expr}: {m.group(5)!r} is "
                        "not <ConditionN>, AND, OR, NOT or a bracket")
             return out
-    negated, used = set(), set()
+    negated, used, shape = set(), set(), []
 
     def term(i, neg=False):
-        if i < len(tokens) and tokens[i][0] == "NOT":
-            return term(i + 1, not neg)
         if i < len(tokens) and tokens[i][0] == "(":
-            i = expression(i + 1, neg)
+            i = expression(i + 1)
             if i is None or i >= len(tokens) or tokens[i][0] != ")":
                 return None
             return i + 1
@@ -155,15 +170,30 @@ def expression_problems(rel, tag, keys, blocks):
             if neg:
                 negated.add(tokens[i][1])
             return i + 1
+        if i < len(tokens) and tokens[i][0] == "NOT":
+            shape.append("NOT is written only as 'AND NOT <ConditionN>', as stock writes it")
         return None
 
-    def expression(i, neg=False):
-        i = term(i, neg)
+    def expression(i):
+        i, ops = term(i), set()
         while i is not None and i < len(tokens) and tokens[i][0] in ("AND", "OR"):
-            i = term(i + 1, neg)
+            op, i, neg = tokens[i][0], i + 1, False
+            ops.add(op)
+            if i < len(tokens) and tokens[i][0] == "NOT":
+                if op != "AND" or not (i + 1 < len(tokens) and tokens[i + 1][0] == "cond"):
+                    shape.append("NOT is written only as 'AND NOT <ConditionN>', "
+                                 "as stock writes it")
+                    return None
+                i, neg = i + 1, True
+            i = term(i, neg)
+        if len(ops) > 1:
+            shape.append("AND and OR share a bracket level - stock brackets one of them")
         return i
 
     end = expression(0)
+    if shape:
+        out.append(f"{rel}: [{tag}] ConditionsCompleted={expr}: {shape[0]}")
+        return out
     if end is None or end != len(tokens):
         out.append(f"{rel}: [{tag}] ConditionsCompleted={expr} does not parse: "
                    "an operator without a condition, or unbalanced brackets")
@@ -177,17 +207,42 @@ def expression_problems(rel, tag, keys, blocks):
     for n, kind in sorted(numbered.items()):
         if kind == "TriggerCompleted":
             for ref in keys.get(f"Condition_Condition{n}_Triggers", "").split(","):
-                if not ref.strip() or ref.strip() not in blocks:
+                if not is_trigger(ref, blocks):
                     out.append(f"{rel}: [{tag}] Condition{n} waits for {ref.strip()!r}, "
                                "which is not a trigger in this mission")
-    reactivated = any(tag in [r.strip() for r in k.get("Action_ReactivateTriggers", "").split(",")]
-                      for t, k in blocks.items() if t.startswith("Trigger"))
     for n in sorted(negated):
-        if numbered.get(n) == "UnitsInTheArea" and not reactivated:
+        if numbered.get(n) == "UnitsInTheArea" and not refreshed(tag, blocks):
             out.append(f"{rel}: [{tag}] NOT <Condition{n}> tests that no unit is in an "
-                       "area, and no trigger reactivates this one - the North Borneo "
-                       "shape refreshes it every 5 seconds")
+                       "area, and no trigger refreshes this one - the North Borneo shape "
+                       "is a Time trigger that can run and reactivates this one and "
+                       "itself every 5 seconds")
     return out
+
+
+def is_trigger(ref, blocks):
+    """A reference to a [TriggerN] section this mission has."""
+    ref = ref.strip()
+    return bool(re.fullmatch(r"Trigger\d+", ref)) and ref in blocks
+
+
+def _names(value):
+    return [r.strip() for r in value.split(",")]
+
+
+def refreshed(tag, blocks):
+    """Does a refresh loop test trigger `tag` again: a trigger with a Time
+    condition whose Action_ReactivateTriggers names `tag` and itself, and
+    which runs - it is not Disabled=True, or a trigger enables it."""
+    triggers = {t: k for t, k in blocks.items() if t.startswith("Trigger")}
+    enabled = {r for k in triggers.values() for r in _names(k.get("Action_EnableTriggers", ""))}
+    for t, k in triggers.items():
+        again = _names(k.get("Action_ReactivateTriggers", ""))
+        timed = any(re.fullmatch(r"Condition_Condition\d+_Type", key) and v == "Time"
+                    for key, v in k.items()) or k.get("Condition_Type") == "Time"
+        if tag in again and t in again and timed and (k.get("Disabled") != "True"
+                                                      or t in enabled):
+            return True
+    return False
 
 
 def trigger_integrity(path, text, blocks):
@@ -239,7 +294,7 @@ def trigger_integrity(path, text, blocks):
                          "Action_ReactivateTriggers"):
                 for ref in value.split(","):
                     ref = ref.strip()
-                    if ref and ref not in blocks:
+                    if ref and not is_trigger(ref, blocks):
                         problems.append(f"{rel}: [{tag}] {key} names {ref}, "
                                         "which is not a trigger in this mission")
 

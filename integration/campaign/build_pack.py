@@ -2875,18 +2875,48 @@ STAGE_KEYS = frozenset({
     "hold_minutes", "per_unit", "intel", "held", "lost", "sets"})
 
 
+def victory_keys_read(victory):
+    """The keys this victory's kind reads, and its stage's, by the stage's
+    kind and mode. An arrival reads its unit and box (`station` or `units`,
+    `bearing`, `transit`); a destroy or survive victory reads `stations`
+    instead, and keeps `at` and `radius` as the defaults of its area terms
+    and progress circles. A classify stage has no circle and no clock; a
+    per_unit stage has no hold (one chain per unit, no held trigger) and is
+    the only one that reads `lost`."""
+    keys = set(VICTORY_KEYS) - ({"stations"} if victory.get("kind") == "arrive"
+                                else {"station", "units", "bearing", "transit"})
+    stage = victory.get("after")
+    skeys = set(STAGE_KEYS)
+    if isinstance(stage, dict):
+        if stage.get("kind") == "classify":
+            skeys -= {"at", "at_unit", "radius", "after_minutes", "hold_minutes", "held"}
+        skeys -= {"hold_minutes", "held"} if stage.get("per_unit") else {"lost"}
+    return keys, skeys
+
+
 def check_victory_keys(mission):
     victory = mission.get("victory") or {}
-    for where, value, known in (("victory", victory, VICTORY_KEYS),
-                                ("victory stage (after=)", victory.get("after"), STAGE_KEYS)):
+    v_keys, s_keys = victory_keys_read(victory)
+    for where, value, known, every in (
+            ("victory", victory, v_keys, VICTORY_KEYS),
+            ("victory stage (after=)", victory.get("after"), s_keys, STAGE_KEYS)):
         if not isinstance(value, dict):
             continue
-        stray = sorted(set(value) - known)
+        stray = sorted(set(value) - every)
         if stray:
             raise SystemExit(
                 f"{mission['key']}: the {where} carries {', '.join(map(repr, stray))}, "
                 "which the builder does not read - a misspelt key is a term the "
-                f"mission would be built without. It reads {', '.join(sorted(known))}")
+                f"mission would be built without. It reads {', '.join(sorted(every))}")
+        unread = sorted(set(value) - known)
+        if unread:
+            kind = value.get("kind")
+            mode = " per_unit" if value.get("per_unit") else ""
+            raise SystemExit(
+                f"{mission['key']}: the {where} of kind {kind!r}{mode} carries "
+                f"{', '.join(map(repr, unread))}, which that kind does not read - the "
+                "mission would be built without it. It reads "
+                f"{', '.join(sorted(known))}")
 
 
 # An objective every way to win depends on is required, and the game's own
@@ -5545,6 +5575,10 @@ def check_zone_areas(mission, placed, zones, text):
             m = re.match(r"Taskforce1(Vessel|Submarine|Aircraft|Helicopter|LandUnit)\d+$", tag)
             if m and unit_spot(keys):
                 spots[tag], family[tag] = unit_spot(keys), DEPLOY_TYPE[m.group(1)]
+    # the units a zone can hold, and the AllowedUnitTypes word it needs
+    movable = {tag: deploy_type(tag, keys) for entries in placed.values()
+               for tag, keys, _n, _x in entries
+               if tag in family and deploy_type(tag, keys)}
     # one circle, whichever conditions and triggers name it (the per-unit
     # chain writes one "Objective met by" trigger per unit on one circle):
     # the units any of them counts
@@ -5554,11 +5588,12 @@ def check_zone_areas(mission, placed, zones, text):
         name = re.search(r"^Name=(.*)$", block, re.M)
         # A progress report completes, fails and ends nothing, so its circle
         # is not an objective a box must keep off - and the build makes sure
-        # that is all it is.
+        # that is all it is: one intel line, and enabling and reactivating
+        # the reports chained after it. Any other action (disabling a
+        # trigger, a unit or variable action) is refused.
         if name and name.group(1).startswith(PROGRESS_PREFIX):
             acts = re.findall(r"^(Action_\w+)=(.*)$", block, re.M)
-            bad = [k for k, _v in acts if k.startswith(("Action_Objectives", "Action_Victory",
-                                                         "Action_EndMission"))]
+            bad = [k for k, _v in acts if k not in PROGRESS_ACTIONS]
             bad += [named.get(r.strip(), r.strip()) for k, v in acts
                     if k in ("Action_EnableTriggers", "Action_ReactivateTriggers")
                     for r in v.split(",")
@@ -5566,6 +5601,30 @@ def check_zone_areas(mission, placed, zones, text):
             if bad:
                 raise SystemExit(f"{mission['key']}: '{name.group(1)}' is a progress report "
                                  f"and carries {', '.join(bad)}; a report reports")
+            # check_progress() refuses a report its units start inside, but a
+            # unit the player sets down from a Deployment zone starts where it
+            # is put: a report that does not wait (no Disabled=True, no AND
+            # Time) on a unit a zone holds, whose circle that zone reaches
+            # into, could come at the first second.
+            waits = (re.search(r"^Disabled=True$", block, re.M)
+                     or re.search(r"^ConditionsCompleted=.*\bAND <Condition\d+>", block, re.M))
+            pos = re.search(r"^Condition_Condition1_PositionNM=([-\d.]+),[-\d.]+,([-\d.]+)",
+                            block, re.M)
+            rad = re.search(r"^Condition_Condition1_AreaRadiusNM=([\d.]+)", block, re.M)
+            units = re.search(r"^Condition_Condition1_Units=(.*)$", block, re.M)
+            if not waits and pos and rad and units:
+                ax, az, r = float(pos.group(1)), float(pos.group(2)), float(rad.group(1))
+                boxed = [u.strip() for u in units.group(1).split(",") if u.strip() in movable]
+                if mission.get("_holders") is not None:
+                    boxed = [u for u in boxed if u in mission["_holders"]]
+                reach = [f"{u} (Zone{i})" for u in boxed for i, zone in enumerate(zones, 1)
+                         if movable[u] in zone["types"].split(",")
+                         and rect_nm(zone_box(zone, centre), ax, az) < r]
+                if reach:
+                    raise SystemExit(
+                        f"{mission['key']}: '{name.group(1)}' counts {', '.join(reach)}, "
+                        "which a player can set down inside its circle, so the report "
+                        "would come at the first second - give it after_minutes or after")
             continue
         for n in re.findall(r"^Condition_Condition(\d+)_Type=UnitsInTheArea", block, re.M):
             pos = re.search(rf"^Condition_Condition{n}_PositionNM=([-\d.]+),[-\d.]+,([-\d.]+)", block, re.M)

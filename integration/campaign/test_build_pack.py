@@ -544,6 +544,32 @@ class BuilderFoundations(unittest.TestCase):
         with self.assertRaisesRegex(SystemExit, "'hold_minute'"):
             rendered(small_mission(victory=v))
 
+    def test_a_key_the_kind_does_not_read_stops_the_build(self):
+        base = small_mission()["victory"]
+        area = dict(kind="area", units="group", at=(-4.40, 128.70))
+        cases = [
+            # a classify stage has no clock and no circle
+            (dict(base, after=dict(kind="classify", units="spoiler", after_minutes=25)),
+             "'after_minutes'"),
+            (dict(base, after=dict(kind="classify", units="spoiler", radius=3)), "'radius'"),
+            # one chain per unit has no hold, and only it reads `lost`
+            (dict(base, after=dict(area, per_unit=True, hold_minutes=4,
+                                   held=("Held", "Held."))), "'held', 'hold_minutes'"),
+            (dict(base, after=dict(area, lost="Lost.")), "'lost'"),
+            # bearing, transit and the arrival's units belong to an arrival
+            (dict(kind="destroy", stations=["spoiler"], objective="Withdrawal", bearing=315),
+             "'bearing'"),
+            (dict(kind="destroy", stations=["spoiler"], objective="Withdrawal",
+                  units=["spoiler"]), "'units'"),
+            (dict(base, stations=["group"]), "'stations'"),
+        ]
+        for v, why in cases:
+            with self.subTest(why=why), self.assertRaisesRegex(SystemExit, why + ".*kind does not read"):
+                rendered(small_mission(victory=v))
+        # A destroy victory keeps `at` and `radius`: its area terms read them.
+        keys, _stage = bp.victory_keys_read(dict(kind="destroy"))
+        self.assertTrue({"at", "radius"} <= keys)
+
     def test_marks_resolve_to_numbers_or_stop_the_build(self):
         T = [("Alpha", ["Action_EnableTriggers=" + bp.trigger_marks("Bravo", "Alpha")]),
              ("Bravo", ["Condition_Type=Time"])]
@@ -945,6 +971,24 @@ class TurnBack(unittest.TestCase):
                    and a["counted"] == {"Taskforce1Vessel1"}]
         self.assertEqual(len(circles), 9)
 
+    def test_the_coast_check_takes_a_turn_back_without_a_destination(self):
+        # check_turn_back() names a missing `to`; the coast check, which
+        # runs on its own in main(), must not trip on it first.
+        class Placer(bp.CoastPlacer):
+            def __init__(self):
+                self.points = []
+
+            def point(self, at, where):
+                self.points.append(where)
+        placer = Placer()
+        m = self.mission()
+        bp.check_coast_geometry(m, placer)
+        self.assertIn("Test Withdrawal turn_back HeaveTo destination", placer.points)
+        del m["turn_back"][0]["to"]
+        placer.points.clear()
+        bp.check_coast_geometry(m, placer)
+        self.assertFalse([p for p in placer.points if "turn_back" in p])
+
     def test_a_turn_back_that_cannot_work_stops_the_build(self):
         cases = [(dict(by=["spoiler"]), "warships"), (dict(by=["red_air"]), "warships"),
                  (dict(units=["escort"]), "one opposing"), (dict(radius=0), "not a distance"),
@@ -1129,18 +1173,31 @@ class ProgressReports(unittest.TestCase):
 
     def test_the_zone_check_leaves_a_report_alone_and_holds_it_to_reporting(self):
         # Two miles off the escort's start: an objective circle there would
-        # have to be kept clear of the escort's box; a report's need not.
+        # have to be kept clear of the escort's box; a report's need not,
+        # once it waits for a minute.
         close = dict(name="Close", units=["escort"], at=(-4.383, 128.90), radius=2,
-                     intel="BRIDGE: On station.")
+                     after_minutes=5, intel="BRIDGE: On station.")
         _t, _n, text, m, placed = self.render([close])
         with self.assertRaisesRegex(SystemExit, "Progress: Close|'Close'"):
             bp.check_zone_areas(m, placed, m["_zones"],
                                 text.replace("Name=Progress: Close", "Name=Close"))
-        bad = text.replace("Action_Taskforce1_Intel=ProgressCloseIntel",
-                           "Action_Taskforce1_Intel=ProgressCloseIntel\n"
-                           "Action_ObjectivesCompleted=Withdrawal")
-        with self.assertRaisesRegex(SystemExit, "a report reports"):
-            bp.check_zone_areas(m, placed, m["_zones"], bad)
+        # A report reports: one intel line, and enabling and reactivating
+        # the reports after it. Anything else is refused.
+        for extra in ("Action_ObjectivesCompleted=Withdrawal", "Action_Victory=Taskforce1",
+                      "Action_EndMission=True", "Action_EnableTriggers=Trigger1",
+                      "Action_DisableTriggers=Trigger1", "Action_VariableSet=X,True",
+                      "Action_Units=Taskforce1Vessel1"):
+            bad = text.replace("Action_Taskforce1_Intel=ProgressCloseIntel",
+                               f"Action_Taskforce1_Intel=ProgressCloseIntel\n{extra}")
+            with self.subTest(extra=extra), self.assertRaisesRegex(SystemExit, "a report reports"):
+                bp.check_zone_areas(m, placed, m["_zones"], bad)
+        # Without the minute, the escort set down inside the circle from its
+        # box would bring the report at the first second.
+        with self.assertRaisesRegex(SystemExit, "first second"):
+            self.render([dict(close, after_minutes=None)])
+        # The report on a unit no box holds is left alone.
+        self.assertIn("Progress: Close", self.render([dict(close, after_minutes=None,
+                                                           units=["spoiler"])])[0])
 
     def test_a_turn_back_silences_the_reports_on_her(self):
         m = TurnBack().mission()
@@ -1180,8 +1237,30 @@ class ExpressionIntegrity(unittest.TestCase):
             "no Condition_Condition3_Type")
         self.assertRegex(" ".join(self.problems(two + "ConditionsCompleted=<Condition1>")),
                          "Condition2 \\(Time\\) is never used")
+        # Stock's shapes: Gulf of Sidra's bracketed mix, and AND NOT.
+        self.assertEqual(self.problems(three + "ConditionsCompleted=<Condition1> AND "
+                                       "(<Condition2> OR <Condition3>)"), [])
         self.assertEqual(self.problems(three + "ConditionsCompleted=(<Condition1> AND "
-                                       "<Condition2>) OR NOT <Condition3>"), [])
+                                       "<Condition2>) OR <Condition3>"), [])
+        self.assertEqual(self.problems(three + "ConditionsCompleted=<Condition1> AND NOT "
+                                       "<Condition2> AND NOT <Condition3>"), [])
+        # Shapes stock never writes, whose reading in game is unknown.
+        for expr, why in (("<Condition1> OR <Condition2> AND <Condition3>", "share a bracket"),
+                          ("<Condition1> AND <Condition2> OR <Condition3>", "share a bracket"),
+                          ("NOT <Condition1> AND <Condition2> AND <Condition3>", "AND NOT"),
+                          ("(<Condition1> AND <Condition2>) OR NOT <Condition3>", "AND NOT"),
+                          ("<Condition1> AND NOT (<Condition2> OR <Condition3>)", "AND NOT"),
+                          ("<Condition1> AND NOT NOT <Condition2> AND <Condition3>", "AND NOT"),
+                          ("<Condition01> AND <Condition2> AND <Condition3>", "'<Condition01>'")):
+            with self.subTest(expr=expr):
+                self.assertRegex(" ".join(self.problems(three + f"ConditionsCompleted={expr}")), why)
+        self.assertRegex(" ".join(self.problems(
+            "Condition_Condition01_Type=Time\nCondition_Condition01_Time=5\n"
+            "ConditionsCompleted=<Condition1>")), "leading zero")
+        # Numbered conditions with nothing to join them.
+        self.assertRegex(" ".join(self.problems("Condition_Condition1_Type=Time\n"
+                                                "Condition_Condition1_Time=5\n")),
+                         "no ConditionsCompleted")
 
     def test_a_trigger_condition_names_a_trigger_here(self):
         waits = ("Condition_Condition1_Type=TriggerCompleted\n"
@@ -1189,16 +1268,43 @@ class ExpressionIntegrity(unittest.TestCase):
         self.assertRegex(" ".join(self.problems(waits.format("Trigger99"))),
                          "waits for 'Trigger99'")
         self.assertEqual(self.problems(waits.format("Trigger1")), [])
+        # A section that is not a trigger never completes.
+        text = ("[Mission]\nName=M\n[Taskforce1Vessel1]\nType=x\n[Trigger1]\nName=T1\n"
+                + waits.format("{}") + "\n")
+        for ref in ("Taskforce1Vessel1", "Mission"):
+            body = text.format(ref)
+            got = coverage_check.trigger_integrity(HERE / "test.ini", body,
+                                                   coverage_check.blocks(body))
+            self.assertRegex(" ".join(got), f"waits for '{ref}'", ref)
+        body = text.format("Trigger1") + "Action_EnableTriggers=Taskforce1Vessel1\n"
+        got = coverage_check.trigger_integrity(HERE / "test.ini", body, coverage_check.blocks(body))
+        self.assertRegex(" ".join(got), "EnableTriggers names Taskforce1Vessel1")
 
     def test_not_in_an_area_needs_the_refresh(self):
+        # Time=60 AND NOT an area, never reactivated: stock 05 Shadow of the
+        # Enterprise's Trigger6 one-shot, refused on purpose (a SEST rule
+        # stricter than stock; the held stage writes the one-shot).
         lone = (self.AREA.format(n=2) + "Condition_Condition1_Type=Time\n"
                 "Condition_Condition1_Time=60\n"
                 "ConditionsCompleted=<Condition1> AND NOT <Condition2>")
-        self.assertRegex(" ".join(self.problems(lone)), "no trigger reactivates")
+        self.assertRegex(" ".join(self.problems(lone)), "no trigger refreshes")
         refresh = ("Condition_Condition1_Type=Time\nCondition_Condition1_Time=5\n"
                    "ConditionsCompleted=<Condition1>\n"
                    "Action_ReactivateTriggers=Trigger1,Trigger2")
         self.assertEqual(self.problems(lone, refresh), [])
+        # A refresh that never runs, never loops or has no clock is none.
+        never = "Disabled=True\n" + refresh
+        once = refresh.replace("Trigger1,Trigger2", "Trigger1")
+        untimed = refresh.replace("Condition_Condition1_Type=Time\nCondition_Condition1_Time=5",
+                                  self.AREA.format(n=1).rstrip("\n"))
+        for why, other in (("disabled and never enabled", never), ("one-shot", once),
+                           ("no Time condition", untimed)):
+            with self.subTest(why=why):
+                self.assertRegex(" ".join(self.problems(lone, other)), "no trigger refreshes")
+        # ...and a disabled refresh another trigger enables is one.
+        opener = ("Condition_Condition1_Type=Time\nCondition_Condition1_Time=60\n"
+                  "ConditionsCompleted=<Condition1>\nAction_EnableTriggers=Trigger2")
+        self.assertEqual(self.problems(lone, never, opener), [])
 
     def test_not_on_a_time_or_a_loss_needs_nothing(self):
         for kind in ("Time\nCondition_Condition2_Time=60",
@@ -3537,6 +3643,22 @@ class DeploymentZones(unittest.TestCase):
             bp.check_zone_areas(mission, placed, zones, text)
         self.assertIn("placed into an objective", str(cm.exception))
         self.assertIn("Zone1 (Deployment Zone)", str(cm.exception))
+
+    def test_the_gate_reads_condition_numbers_of_ten_and_above(self):
+        # The same circle as the tenth condition of a trigger: '(\d)' read
+        # only Condition1-9 and would let this box through.
+        mission = self.mission(victory=self.arrive(0, 30, 12))
+        placed = self.placement([("plan_type_054a_p5", 0, 0)])
+        zones = bp.deployment_zones(mission, placed, self.HULL)
+        text = ("[Trigger1]\nName=Objective met\nCondition_Condition1_Type=Time\n"
+                "Condition_Condition1_Time=60\nCondition_Condition10_Type=UnitsInTheArea\n"
+                "Condition_Condition10_PositionNM=0.00,0,30.00\nCondition_Condition10_AreaRadiusNM=12\n"
+                "Condition_Condition10_Units=Taskforce1Vessel1\n")
+        bp.check_zone_areas(mission, placed, zones, text)
+        zones[0]["height"] += 20
+        zones[0]["at"] = (zones[0]["at"][0] + 10 / 60.0, zones[0]["at"][1])
+        with self.assertRaisesRegex(SystemExit, "placed into an objective"):
+            bp.check_zone_areas(mission, placed, zones, text)
 
     # --- generated missions: the stock pattern (15 October) ---------------
 
