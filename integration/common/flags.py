@@ -16,6 +16,15 @@ respectively, so the builders and the mission pass set Nation= to say so:
                               SEST Collection Fixes registers (ui/flag/sest/
                               meridian.png, nations.ini name)
 
+Russia -> Russia is an identity entry (11 Nov 2026). SEST Collection Fixes
+now re-registers the post-1991, Russian-built hulls to the game's Russia key
+through #!extend Nation stubs on their variants files (integration/
+collection-fixes/build_patch.py, RU_REREGISTER), and the builders read those
+stubs. Without the entry, a hull that registers Russia would get no Nation=
+in the mission and would depend on the game applying the stub; with it, every
+SEST mission keeps writing Nation=Russia for the same units as before,
+whatever the unit file says.
+
 Nothing else is remapped: a unit that registers China, Vietnam, Terrorists or
 Pirates keeps it, and an explicit Nation= in the mission data always wins
 (Sulu Line files the Meridian hulls under Panama on purpose: a flag of
@@ -24,7 +33,7 @@ on the enemy side; none of its hulls register Soviet or Iran, so the rule
 touches nothing there.
 """
 
-FLAG_FOR = {"soviet": "Russia", "ussr": "Russia", "iran": "Meridian"}
+FLAG_FOR = {"soviet": "Russia", "ussr": "Russia", "russia": "Russia", "iran": "Meridian"}
 
 # Units whose own flag says less than the story does, whatever their file
 # registers: the Shahed and Sejjil launchers register Soviet in one copy and
