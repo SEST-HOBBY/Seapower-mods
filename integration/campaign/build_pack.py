@@ -55,6 +55,7 @@ Usage (repo root):
 import argparse
 import collections
 import functools
+import itertools
 import math
 import pathlib
 import re
@@ -1130,6 +1131,26 @@ REL_POSITION = re.compile(r"RelativePositionInNM=(-?[\d.]+),([^,]*),(-?[\d.]+)\s
 GEO_POSITION = re.compile(r"GeoPosition=(-?[\d.]+),(-?[\d.]+)(?:,[^,]*)?\s*$")
 
 
+def ini_header(line):
+    """The section name one INI line opens, or None.
+
+    Shipped files put comments after their headers - every weapon section of
+    the armed Poltava reads `[WeaponSystem3StyxCarrier]  #SS-N-2`, and
+    Tachikaze's `[WeaponSystem1Late] #MK13` - so a header is tested with its
+    `#` or `//` tail cut off. Testing the raw line for a closing bracket read
+    every one of those as a line of the section before it: the Poltava's bare
+    [WeaponSystems] then held every fit's rounds, and MK02 scripted two Styx
+    launches from a Default fit that carries only machine guns."""
+    s = re.split(r"#|//", line, maxsplit=1)[0].strip()
+    if s.startswith("[") and s.endswith("]"):
+        return s[1:-1]
+    return None
+
+
+# A magazine section's header, comment tail allowed (see ini_header()).
+HEADER_TAIL = r"\][ \t\r]*(?:(?:#|//)[^\n]*)?$"
+
+
 def mission_positions(text):
     """(section, lat, lon) for every unit spawn point in one mission file.
 
@@ -1145,8 +1166,9 @@ def mission_positions(text):
     out, section = [], None
     for line in text.splitlines():
         s = line.strip()
-        if s.startswith("[") and s.endswith("]"):
-            section = s[1:-1]
+        header = ini_header(s)
+        if header is not None:
+            section = header
             continue
         if not section:
             continue
@@ -1601,7 +1623,9 @@ def alias_target(path):
 def loadouts(path, depth=0):
     m = re.search(r"^AvailableLoadouts=(.+)$", read(path), re.M)
     if m:
-        return [x.strip() for x in m.group(1).split(",") if x.strip()]
+        # A trailing comment is not a fit: the dhow's list ends `Empty\t//`.
+        offered = re.split(r"#|//", m.group(1), maxsplit=1)[0]
+        return [x.strip() for x in offered.split(",") if x.strip()]
     base = alias_target(path) if depth < 4 else None
     return loadouts(base, depth + 1) if base else []
 
@@ -1658,8 +1682,9 @@ def stores(uid, kind, path, loadout):
     known = set(loadouts(path))
     for line in text.splitlines():
         s = line.strip()
-        if s.startswith("[") and s.endswith("]"):
-            section = s[1:-1]
+        header = ini_header(s)
+        if header is not None:
+            section = header
             continue
         if not section.startswith(("WeaponSystem", "WeaponMagazine")):
             continue
@@ -1812,7 +1837,10 @@ def resolve(spec, year=None):
     keys, credit = {}, {}
 
     def note(token, how, detail):
-        if token and token not in credit:
+        # The strongest reason wins, the first of equals: a deck's F-35A
+        # hanging an F-15EX Revamp round used to hide the F-15EX on the same
+        # deck, so Southern Reach listed that mod for a weapon, not a unit.
+        if token and (token not in credit or STRENGTH[how] < STRENGTH[credit[token][0]]):
             credit[token] = (how, detail)
 
     note(owner(f"{kind_dir}/{uid}.ini"), "unit", uid)
@@ -2080,7 +2108,7 @@ def scripted_stores(uid, keys):
     held = set(stores(uid, kind, path, keys.get("LoadoutVariant")))
     body = read(path)
     for magazine in set(re.findall(r"^AssociatedMagazine=\s*([\w-]+)", body, re.M)):
-        section = re.search(r"^\[" + re.escape(magazine) + r"\]\s*$(.*?)(?=^\[|\Z)", body, re.M | re.S)
+        section = re.search(r"^\[" + re.escape(magazine) + HEADER_TAIL + r"(.*?)(?=^\[|\Z)", body, re.M | re.S)
         if section:
             held.update(re.findall(r"^Ammunition\d*=([^\s#/|]+)", section.group(1), re.M))
     return held
@@ -2931,6 +2959,45 @@ def victory_keys_read(victory):
             skeys -= {"at", "at_unit", "radius", "after_minutes", "hold_minutes", "held"}
         skeys -= {"hold_minutes", "held"} if stage.get("per_unit") else {"lost"}
     return keys, skeys
+
+
+def held_objectives(mission, members):
+    """The protect/survive objectives a win line may complete: those that no
+    loss can fail without also ending the mission.
+
+    An objective's own trigger fails it when `own` of its units are lost - a
+    protect resolver's count (1 unless it names one), a survive resolver's
+    whole list. Each fatal entry on it ends the mission when `minimum` of
+    the units it watches are lost. If some `own` of the objective's units
+    can go down and trip no fatal entry, the objective is failed by its own
+    trigger in a mission that goes on, and completing it on the win would
+    flip that failure back on the debrief: so it is left to its own
+    StatusAtMissionEnd. Searched outright, because the sets are small (three
+    tankers, two transports) and a subset fatal - the one hull whose loss
+    alone ends it - makes the count arithmetic easy to get wrong."""
+    out = []
+    for oid, how in mission.get("resolve", {}).items():
+        if not (isinstance(how, tuple) and how[0] in ("protect", "survive")):
+            continue
+        entries = [f for f in mission.get("fatal", [])
+                   if f["objective"] == oid and f.get("kind", "destroyed") == "destroyed"]
+        if not entries:
+            continue
+        mine = [t for r in how[1:] if isinstance(r, str) for t in refs(members, r)]
+        own = (len(mine) if how[0] == "survive" else
+               next((x for x in how[1:] if isinstance(x, int)), 1))
+        trips = []
+        for f in entries:
+            refs_ = f.get("units") or [r for r in how[1:] if isinstance(r, str)]
+            watched = {t for r in refs_ for t in refs(members, r)}
+            least = f.get("minimum", 1)
+            if f.get("units") is None and how[0] == "survive":
+                least = None
+            trips.append((watched, least or len(watched)))
+        if not any(all(len(set(lost) & watched) < least for watched, least in trips)
+                   for lost in itertools.combinations(mine, min(own, len(mine)))):
+            out.append(oid)
+    return out
 
 
 def check_victory_keys(mission):
@@ -4317,7 +4384,7 @@ def ship_reach(uid, fit):
         held = set(stores(uid, kind_dir, path, fit))
         body = read(path)
         for mag in set(re.findall(r"^AssociatedMagazine=\s*([\w-]+)", body, re.M)):
-            sec = re.search(r"^\[" + re.escape(mag) + r"\]\s*$(.*?)(?=^\[|\Z)", body, re.M | re.S)
+            sec = re.search(r"^\[" + re.escape(mag) + HEADER_TAIL + r"(.*?)(?=^\[|\Z)", body, re.M | re.S)
             if sec:
                 held |= set(re.findall(r"^Ammunition\d*=([^\s#/|]+)", sec.group(1), re.M))
         for store in sorted(held):
@@ -4348,7 +4415,7 @@ def air_reach(uid, fit):
         held = set(stores(uid, kind_dir, path, fit))
         body = read(path)
         for mag in set(re.findall(r"^AssociatedMagazine=\s*([\w-]+)", body, re.M)):
-            sec = re.search(r"^\[" + re.escape(mag) + r"\]\s*$(.*?)(?=^\[|\Z)", body, re.M | re.S)
+            sec = re.search(r"^\[" + re.escape(mag) + HEADER_TAIL + r"(.*?)(?=^\[|\Z)", body, re.M | re.S)
             if sec:
                 held |= set(re.findall(r"^Ammunition\d*=([^\s#/|]+)", sec.group(1), re.M))
         for store in sorted(held):
@@ -6015,10 +6082,12 @@ def render(mission, placed, members):
     # objective failed by its own trigger, and the win line would flip it
     # back to complete on the same debrief. StatusAtMissionEnd=Complete
     # resolves the held case on its own.
-    ends = {f["objective"] for f in mission.get("fatal", [])}
-    held = [oid for oid, how in mission.get("resolve", {}).items()
-            if isinstance(how, tuple) and how[0] in ("protect", "survive")
-            and oid in ends]
+    # And "ends the mission" has to mean every loss that fails it does.
+    # Ending on SOME loss is not enough: MK04 failed Ships on the first tanker
+    # and ended on the second, so one tanker sunk and two in wrote Ships
+    # complete on the win (SW07's Package the same). held_objectives() keeps
+    # out any objective a loss can fail while the mission sails on.
+    held = held_objectives(mission, members)
 
     # Condition_Time is SECONDS. The planned window closes at `minutes` with
     # a message and nothing else; the mission is lost at DEADLINE_FACTOR
@@ -8864,7 +8933,8 @@ def campaign_requirements(rows, missing, title, dispatches=(), dispatch_folder=N
     shadowed = [r for r in rows if r[2] == "shadowed"]
     external = [r for r in rows if r[2] == "external" and r[5].isdigit()]
     promoted, elsewhere = prerequisites(
-        need, [r for r in rows if r[2] not in NEEDED and r[5].isdigit()])
+        need, [r for r in rows if r[2] not in NEEDED and r[5].isdigit()], missing)
+    asked = {row[5] for row in promoted}
     key = lambda r: r[1].lower()
     L = [f"{title.upper()} - what this campaign needs", "",
          "Derived from the units its missions place, the squadrons and hull",
@@ -8910,8 +8980,8 @@ def campaign_requirements(rows, missing, title, dispatches=(), dispatch_folder=N
             L.append(f"  {token:<13} {'other campaigns':<32} {t}")
     dispatch_tokens = {r[5] for r in dispatches}
     unused = [(mid, token, t) for _w, mid, token, t in missing
-              if token not in dispatch_tokens] + \
-             [(r[0], r[5], r[1]) for r in shadowed]
+              if token not in dispatch_tokens and token not in asked] + \
+             [(r[0], r[5], r[1]) for r in shadowed if r[5] not in asked]
     L += ["", f"4. NOT USED BY THIS CAMPAIGN ({len(unused)}): enabled while it was built, "
           "and left in the order because removing one changes which copy of a",
           "shared file wins for the mods above.", ""]
@@ -8946,8 +9016,32 @@ def _squash(s):
     return re.sub(r"[^a-z0-9]", "", s.lower())
 
 
-def prerequisites(need, rest):
-    """What the REQUIRED mods say they need, read out of their own _info.ini.
+def catalog_requires(mid):
+    """Workshop ids catalog mod `mid` is recorded as requiring
+    (data/mod-catalog.json `requires`), guesses left out.
+
+    An entry is a Workshop id, a catalog slug ('anchor-chain'), either with
+    a note in brackets, or free text. A note that says the dependency was
+    presumed or inferred is a guess and is skipped, as is free text and a
+    slug the catalog does not carry (SeaLifter): only what a mod, its page or
+    its README states is promoted to a requirement."""
+    data = catalog()
+    by_id = {m["id"]: m for m in data["mods"]}
+    slug_to_ws = {m["id"]: str(m["workshop_id"]) for m in data["mods"] if m.get("workshop_id")}
+    out = []
+    for entry in (by_id.get(mid) or {}).get("requires") or []:
+        m = re.match(r"^\s*([\w.-]+)\s*(?:\((.*)\))?\s*$", str(entry), re.S)
+        if not m or re.search(r"presum|infer", m.group(2) or "", re.I):
+            continue
+        token = m.group(1) if m.group(1).isdigit() else slug_to_ws.get(m.group(1))
+        if token and token not in out:
+            out.append(token)
+    return out
+
+
+def prerequisites(need, rest, missing=()):
+    """What the REQUIRED mods say they need, read out of their own _info.ini
+    and out of the catalog's record of what each requires.
 
     A mod reached by nothing the campaign places is not a mod the player can
     skip if something the campaign DOES place asks for it. Anchor Chain is the
@@ -8959,6 +9053,15 @@ def prerequisites(need, rest):
 
     Matched on squashed titles because a mod spells its dependency however it
     likes: "AnchorChain", "Anchor Chain", "the Anchor Chain mod".
+
+    The catalog is the second source (catalog_requires()), because an
+    _info.ini Description can be empty: the Pakistani Pack's is, while its
+    Z-9CE's H/KLC-3B and H/SKD-143 sensors are Red Storm Arsenal's, its
+    ZDK-03's RWR the Y-8/Y-9 family's and its C-602 launcher's animation
+    Type 12 SSM-ER's. Makran Line listed all three as not used. A catalog
+    requirement is followed from every required mod, and from every mod it
+    promotes, into `rest` or into `missing` (coverage()'s unreached mods,
+    which this turns into rows).
 
     Returns (promoted, elsewhere): rows to move into the required list, and
     names that are required but are in no part of this collection at all.
@@ -8993,6 +9096,21 @@ def prerequisites(need, rest):
         for key, name in OUTSIDE.items():
             if key in flat:
                 elsewhere.setdefault(name, []).append(row[1])
+    by_token = {r[5]: r for r in rest}
+    by_token.update({token: (mid, title, "required", "", "-", token)
+                     for _what, mid, token, title in missing
+                     if token not in by_token and token.isdigit()})
+    have = {r[5] for r in need}
+    queue = list(need)
+    while queue:
+        row = queue.pop(0)
+        for token in catalog_requires(row[0]):
+            other = by_token.get(token)
+            if other is None or token in have:
+                continue
+            if other not in promoted:
+                queue.append(other)
+            promoted.setdefault(other, []).append(row[1])
     return promoted, elsewhere
 
 
@@ -9081,7 +9199,7 @@ def requirements(rows):
     return "\n".join(L) + "\n"
 
 
-def required_urls(rows):
+def required_urls(rows, missing=()):
     """Every mod one campaign reaches (its Dispatches included), as a Workshop
     URL, in load-order sequence: the ones its missions reach, plus any a
     reached mod says it cannot run without.
@@ -9098,7 +9216,7 @@ def required_urls(rows):
     need = [r for r in rows if r[2] in NEEDED and r[5].isdigit()]
     promoted, elsewhere = prerequisites(need, [r for r in rows
                                                if r[2] not in NEEDED
-                                               and r[5].isdigit()])
+                                               and r[5].isdigit()], missing)
     rank = {t: i for i, t in enumerate(load_order())}
     both = need + list(promoted)
     both.sort(key=lambda r: rank.get(r[5], 10**6))
@@ -9800,7 +9918,7 @@ def main():
         # the collection 3812390790) hold every Workshop mod in the load
         # order; SETUP, not the Mod Manager's dependency fix, sets the order.
         DOCS_DIR.mkdir(parents=True, exist_ok=True)
-        (DOCS_DIR / "required-mods-urls.txt").write_text(required_urls(c["rows"]),
+        (DOCS_DIR / "required-mods-urls.txt").write_text(required_urls(c["rows"], c["missing"]),
                                                          encoding="utf-8")
         files = sum(1 for f in camp.rglob("*") if f.is_file())
         total_files += files

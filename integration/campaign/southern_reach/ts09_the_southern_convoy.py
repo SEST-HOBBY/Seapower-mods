@@ -6,7 +6,7 @@ with its flagship destroyer in the line for the first time, its air wing,
 and whichever boats the chapter left alive - ROMEO if Under the Tasman
 missed her, SIERRA-TWO if the Bight did.
 """
-from campaign_data import U, F, S, HELO, RECON, CAP, STRIKE
+from campaign_data import U, F, S, HELO, RECON, CAP, STRIKE_SR
 
 MISSION = dict(
     code="TS09", series="Tasman Shield", seq="TASMAN SHIELD  ·  MISSION 9",
@@ -221,7 +221,7 @@ MISSION = dict(
                 allow=["ran_ffh_anzac", "ran_ddg_hobart", "ran_opv_arafura",
                        "ran_mh-60r", "usn_p8", "raaf_mq-4c_triton", "E7A_Wedgetail",
                        "raaf_f-35a", "usn_fa-18f_blk3", "usn_ea-18g"],
-                flights=[HELO, RECON, CAP, STRIKE],
+                flights=[HELO, RECON, CAP, STRIKE_SR],
                 situation=(
                     (
                         "Adelaide, before the Southern Convoy. Force allocation, repairs and "

@@ -2775,6 +2775,141 @@ class MakranLineTaskGroup(unittest.TestCase):
                              (self.BROWSE / name).read_bytes(), name)
 
 
+class CatalogRequires(unittest.TestCase):
+    """catalog_requires(): what the catalog records a mod as needing, with
+    its guesses left out."""
+
+    def test_a_guess_is_not_a_requirement(self):
+        # "anchor-chain (presumed - ...)" and "(inferred ...)" are skipped;
+        # "anchor-chain (stated: ...)" and a bare slug are kept.
+        self.assertEqual(bp.catalog_requires("custom-loadout-editor"), [])
+        self.assertEqual(bp.catalog_requires("contact-log"), [])
+        self.assertEqual(bp.catalog_requires("mv-22b-osprey"), ["3380210757"])
+        self.assertEqual(bp.catalog_requires("euromod-dutch"), ["3629144864"])
+        # A slug the catalog does not carry (SeaLifter) is not promoted.
+        self.assertEqual(bp.catalog_requires("a-10a"), [])
+
+    def test_a_missing_mod_a_required_one_asks_for_is_promoted(self):
+        need = [("pakistani-pack", "Pakistani Pack", "unit", "x", "m", "3812140001")]
+        missing = [("mod", "red-storm-arsenal", "3413868677", "Red Storm Arsenal")]
+        promoted, _elsewhere = bp.prerequisites(need, [], missing)
+        self.assertEqual({row[5]: askers for row, askers in promoted.items()},
+                         {"3413868677": ["Pakistani Pack"]})
+
+
+class IniHeaderComments(unittest.TestCase):
+    """A section header with a comment after it is still a header, and a
+    loadout list ends at its comment (11 Nov 2026). MK02's armed freighter
+    was Default, machine guns only, and its two scripted Styx launches
+    passed the fit check because every Poltava weapon header carries a
+    comment and the parser read them all as lines of [WeaponSystems]."""
+
+    def test_a_commented_header_opens_its_section(self):
+        self.assertEqual(bp.ini_header("[WeaponSystem3StyxCarrier]  #SS-N-2"),
+                         "WeaponSystem3StyxCarrier")
+        self.assertEqual(bp.ini_header("[WeaponSystem1Late] #MK13"), "WeaponSystem1Late")
+        self.assertEqual(bp.ini_header("[Cargo] // holds"), "Cargo")
+        self.assertIsNone(bp.ini_header("Ammunition=wp_ss-n-2c"))
+        self.assertEqual(bp.mission_positions(
+            "MapCenterLatitude=0\nMapCenterLongitude=0\n[A]\n[B] #x\nGeoPosition=1.5,2.5,0\n"),
+            [("B", 1.5, 2.5)])
+
+    def test_the_poltava_carries_the_styx_only_in_the_fits_that_have_it(self):
+        if bp.unit_file("wp_ms_poltava_armed")[1] is None:
+            self.skipTest("Moloti's Armed Merchantmen not exported")
+        default = bp.scripted_stores("wp_ms_poltava_armed", {"LoadoutVariant": "Default"})
+        self.assertNotIn("wp_ss-n-2c", default)
+        self.assertIn("usn_cal_05in", default)
+        for fit in ("StyxCarrier", "Everything"):
+            with self.subTest(fit=fit):
+                self.assertIn("wp_ss-n-2c",
+                              bp.scripted_stores("wp_ms_poltava_armed", {"LoadoutVariant": fit}))
+        with self.assertRaises(SystemExit):
+            bp.timed_attacks(dict(key="t", minutes=60), dict(
+                type="wp_ms_poltava_armed", station="s", side="red",
+                attacks=[(14, "wp_ss-n-2c", "x#1", 1)]), {"LoadoutVariant": "Default",
+                                                          "WeaponStatus": "Hold"}, [], "t")
+
+    def test_a_loadout_list_ends_at_its_comment(self):
+        kind, path = bp.unit_file("civ_fv_dhow")
+        self.assertEqual(bp.loadouts(path), ["Empty"])
+        kind, path = bp.unit_file("raaf_f-35a")
+        if path is not None:
+            offered = bp.loadouts(path)
+            self.assertNotIn("StrikePrecision", offered)
+            self.assertFalse([f for f in offered if "#" in f or "/" in f])
+
+
+class HeldObjectives(unittest.TestCase):
+    """held_objectives(): a protect or survive objective the win line may
+    complete is one no loss can fail while the mission goes on. MK04 failed
+    Ships on the first tanker and ended on the second, so one tanker sunk and
+    two in wrote Ships complete on the win; SW07's Package the same."""
+
+    MEMBERS = {"convoy": ["Taskforce1Vessel2", "Taskforce1Vessel3", "Taskforce1Vessel4"],
+               "pair": ["Taskforce1Vessel5", "Taskforce1Vessel6"]}
+
+    def held(self, resolve, fatal):
+        return bp.held_objectives(dict(resolve=resolve, fatal=fatal), self.MEMBERS)
+
+    def test_a_loss_the_mission_survives_is_not_completed_on_the_win(self):
+        three = ("protect", "convoy#1", "convoy#2", "convoy#3")
+        self.assertEqual(self.held({"Ships": three},
+                                   [F("Ships", ["convoy#1", "convoy#2", "convoy#3"], 2)]), [])
+        self.assertEqual(self.held({"Ships": three}, [F("Ships")]), ["Ships"])
+        self.assertEqual(self.held({"Ships": three}, []), [])
+
+    def test_a_subset_fatal_holds_only_when_the_rest_cannot_fail_it(self):
+        # One hull whose loss alone ends it: held only if the objective
+        # tolerates losing the other.
+        self.assertEqual(self.held({"Pair": ("protect", "pair#1", "pair#2")},
+                                   [F("Pair", ["pair#1"])]), [])
+        self.assertEqual(self.held({"Pair": ("protect", "pair#1", "pair#2", 2)},
+                                   [F("Pair", ["pair#1"])]), ["Pair"])
+
+    def test_a_survive_objective_fails_only_when_all_are_lost(self):
+        self.assertEqual(self.held({"Group": ("survive", "convoy")}, [F("Group")]), ["Group"])
+
+    def test_no_built_win_completes_an_objective_a_loss_already_failed(self):
+        # Over every built mission: a Taskforce1 victory may complete an
+        # objective a non-terminal trigger fails only if a defeat trigger
+        # fails it on any loss that trigger counts.
+        files = sorted(set(PACK.glob("campaigns/*/missions/*.ini")) |
+                       set(PACK.glob("missions/*/*.ini")))
+        if not files:
+            self.skipTest("pack not built")
+
+        def split(v):
+            return set(filter(None, (v or "").split(",")))
+
+        def loss(b):
+            if b.get("Condition_Condition1_Type") != "UnitDestroyed":
+                return None
+            return (split(b["Condition_Condition1_Units"]),
+                    int(b.get("Condition_Condition1_MinimumUnits", "1")))
+
+        bad = []
+        for f in files:
+            trig = {k: b for k, b in coverage_check.blocks(f.read_text(encoding="utf-8")).items()
+                    if re.match(r"Trigger\d+$", k)}
+            defeats = [b for b in trig.values() if b.get("Action_Victory") == "Taskforce2"]
+            for name, win in trig.items():
+                if win.get("Action_Victory") != "Taskforce1":
+                    continue
+                for oid in split(win.get("Action_ObjectivesCompleted")):
+                    for other, b in trig.items():
+                        if "Action_Victory" in b or oid not in split(b.get("Action_ObjectivesFailed")):
+                            continue
+                        c = loss(b)
+                        ends = c is not None and any(
+                            d is not None and len(c[0] - d[0]) + d[1] - 1 < c[1]
+                            for d in (loss(x) for x in defeats
+                                      if oid in split(x.get("Action_ObjectivesFailed"))))
+                        if not ends:
+                            bad.append(f"{f.name}: {name} completes {oid}, which {other} fails")
+        self.assertEqual(bad, [])
+
+
 def _trigger_numbers(text):
     """{trigger name: its number} in a rendered mission."""
     return {m.group(2): int(m.group(1)) for m in

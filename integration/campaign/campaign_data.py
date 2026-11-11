@@ -5308,6 +5308,12 @@ STRIKE = ("Attack|Maritime Strike|Bomber/SEAD|2|"
 # row adds `SEAD`. Only that one: Southern Reach imports STRIKE and places no
 # such Growler, and a fit nothing in the flight defines fails check_flights.
 STRIKE_FORD = STRIKE + "/SEAD"
+# Southern Reach's strike windows take STRIKE without StrikePrecision. Its one
+# claimant there was the RAAF F-35A, whose AvailableLoadouts line ends in a
+# commented-out `#,StrikePrecision,,,,Ferry`. The game reads that tail as a
+# comment, and since 11 Nov 2026 so does the builder (loadouts()), so in
+# Southern Reach the name was a fit nothing in the flight could fly.
+STRIKE_SR = STRIKE.replace("/StrikePrecision/", "/")
 # There is no tanker row. `ui.ini` localises exactly six air-tasking roles -
 # AirTaskingRole_SuCAP, _CAP, _Recon, _HeloRecon, _Attack and _AEW, lines
 # 3032-3037 - and Tanker is not among them. A seventh label would be a role
