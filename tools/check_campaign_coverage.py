@@ -125,8 +125,10 @@ def expression_problems(rel, tag, keys, blocks):
     (lines 760-773) ships an unrefreshed `<Condition2> AND NOT <Condition1>`
     (Time=60 AND NOT an area) as a one-shot, which, since an area condition
     stays met once met, means "never in the area before minute one". SEST
-    writes that as a held stage instead: a Time trigger that enables and
-    reactivates the NOT-area trigger. A trigger without numbered conditions
+    has no one-shot NOT-area form: a NOT on an area test takes the North
+    Borneo refresh loop, and one that must start late is that loop shipped
+    Disabled=True and enabled by a Time trigger at minute N (a refresh
+    another trigger enables counts). A trigger without numbered conditions
     (the un-numbered Condition_Type= form) is not read here.
     """
     numbered, out = {}, []

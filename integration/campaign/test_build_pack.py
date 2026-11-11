@@ -1310,7 +1310,9 @@ class ExpressionIntegrity(unittest.TestCase):
     def test_not_in_an_area_needs_the_refresh(self):
         # Time=60 AND NOT an area, never reactivated: stock 05 Shadow of the
         # Enterprise's Trigger6 one-shot, refused on purpose (a SEST rule
-        # stricter than stock; the held stage writes the one-shot).
+        # stricter than stock). SEST has no one-shot NOT-area form: one that
+        # must start late is a disabled refresh loop a Time trigger enables
+        # (the opener below).
         lone = (self.AREA.format(n=2) + "Condition_Condition1_Type=Time\n"
                 "Condition_Condition1_Time=60\n"
                 "ConditionsCompleted=<Condition1> AND NOT <Condition2>")
@@ -5076,10 +5078,11 @@ class RedLineVictoryPaths(unittest.TestCase):
         self.assertEqual(int(disengage["Condition_Condition3_AreaRadiusNM"]),
                          math.ceil(bp.air_reach("raaf_f-35a", "AirToAir")))
         # A win ends the report on Dragon Eye, which is written after both.
-        for lines in (intercept, disengage):
-            self.assertIn(f"Trigger{n['Progress: EyeHome']}",
-                          lines["Action_DisableTriggers"].split(","))
-            self.assertLess(n["Objective met"], n["Progress: EyeHome"])
+        for name in ("Objective met", "Objective met: Disengage"):
+            with self.subTest(name=name):
+                self.assertIn(f"Trigger{n['Progress: EyeHome']}",
+                              parsed[f"Trigger{n[name]}"]["Action_DisableTriggers"].split(","))
+                self.assertLess(n[name], n["Progress: EyeHome"])
         self.assertEqual(disengage["Condition_Condition3_Taskforce"], "Taskforce2")
         self.assertNotIn("Fighters", disengage["Action_ObjectivesCompleted"].split(","))
         self.assertNotIn("Fighters", intercept["Action_ObjectivesCompleted"].split(","))
