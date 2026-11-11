@@ -146,6 +146,23 @@ The Navy and Marine Corps Achievement Medal (O-4 and below) and the US Navy
 Unit and Meritorious Unit Commendations are no longer granted; a record
 earned with an earlier test build still shows.
 
+RED LINE RUNTIME RIBBONS - BETA RUNTIME R13 ONLY
+Two more fictional Red Line ribbons, for any commander, are defined in the
+campaign and keyed for SEST's beta runtime R13 (Runtime 1.6.5), which grants
+them at the debrief. The game itself ignores the key: R12 (Runtime 1.6.4)
+and the standard build never grant them, and neither does R13 with
+MissionAwards=0 under [Runtime] in plugins/sest_runtime.ini. Like every
+ribbon here, each also needs the mission's required result.
+- RL05 Silent Passage: Under the Convergence's Passage objective completed
+  with no weapon launched and no gun round fired by any unit of the task
+  force. A failed launch counts as a launch; noisemakers, chaff, decoys,
+  sonobuoys and CIWS rounds do not. It is granted beside RL05 Undersea
+  Operations, which completing the mission earns on its own.
+- RLC1 Personnel Recovery: Pilot in the Water's Pilot objective completed
+  and at least one survivor recovered, as the debrief's survivors-rescued
+  count gives it. The game counts anyone the task force lifts from a raft,
+  so the citation says survivors were recovered and names no one.
+
 ART AND SOURCE NOTES
 The AOSM-IP ribbon is Nford24's CC0 artwork, copied without modification.
 The Distinguished Service Cross, Bronze Star, Commendation Medal and JMSDF
@@ -191,3 +208,7 @@ taegeuk; as a German one, the Cross of Honour shows its gold cross. Load an
 existing save: its commander, nation and earned ribbons are unchanged.
 Existing saves are preserved; start a new commander to choose another
 nationality.
+Once R13 (Runtime 1.6.5) is installed: complete RL05 without launching
+anything and RLC1 with its pilot recovered, and read each runtime ribbon's
+line in Player.log (the Red Line test card's checks R1 to R6). Before then,
+neither ribbon appears; that is expected.
