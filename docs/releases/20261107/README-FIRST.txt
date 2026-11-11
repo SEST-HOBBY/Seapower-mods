@@ -1,21 +1,30 @@
 SEST R12 FINAL + COMMANDER NATIONS + RED LINE STEPS 3-4 - PC ACCEPTANCE
 11 November 2026 | SEST-DEV
-Beta 0.8.7-261107: Runtime 1.6.4 / UI 1.4.14
+Beta 0.8.7-261107: Runtime 1.6.5 / UI 1.4.15 (R13)
 Standard 0.8.7-261021: Runtime 1.5.0 / UI 1.4.6 (unchanged)
 
 This is R12 Final (merged as PR #58) together with the commander nations and
 national awards (merged as PR #59), the combined release notes (merged as PR
 #60) and Red Line's victory paths, the heave-to and progress reports (step 3
 of the builder grammar, merged as PR #61), with step 4's two Red Line runtime
-ribbons prepared and inert until R13 (merged as PR #62), checked once on the
-PC and posted as one update. RIBBONS.txt has every award mapping.
+ribbons (merged as PR #62) and the beta runtime R13 that grants them, checked
+once on the PC and posted as one update. RIBBONS.txt has every award mapping.
 R12-RIBBON-EXPANSION.txt describes R12 Final before the commander nations: use
 it only for the R12 review findings fixed and the minor ones still open, and
 this file and RIBBONS.txt for the award counts, nations and PC steps. None of
-the four parts has been played on the owner's PC yet; step 4 has nothing to
-play before R13 except the Red Line test card's checks R5 and R6.
+the five parts has been played on the owner's PC yet; with R13, step 4's PC
+checks R1 to R4 on the Red Line test card now apply as well as R5 and R6.
 
 WHAT IS NEW SINCE THE R12 RIBBON TEST BUILD
+- Beta runtime R13 (Runtime 1.6.5 / UI 1.4.15, the merged
+  feature/runtime-mission-awards-20261110): a campaign can name extra
+  mission ribbons in SestRuntimeRibbonAwards, which R13 grants at the
+  debrief as native award rows, after the game's own completion gate and
+  awards. World Operations now records an Admiralty result when Dynamic
+  Campaign Mod files it, whether or not its paper is read. MissionAwards=0
+  under [Runtime] in plugins/sest_runtime.ini turns the ribbons off. The
+  repair accepts every earlier test build; repair and rollback over the
+  1.6.2, 1.6.3 and 1.6.4 (R12 Final) packages passed the fixture checks.
 - Commander nations: Southern Watch and Southern Reach offer Australia (the
   default), US, UK, Japan, New Zealand, France, Canada, South Korea, Spain,
   Italy, Germany, the Netherlands, Norway and Denmark. Sulu Line offers the
@@ -56,15 +65,17 @@ WHAT IS NEW SINCE THE R12 RIBBON TEST BUILD
 - Held stages: RLC1's and SW03's held stages now reactivate their held
   trigger at the arrival, so the four- and three-minute holds should count
   from then; not yet checked in game (step 3).
-- Red Line runtime ribbons, prepared for R13 (step 4, campaign side,
-  merged as PR #62): RL05 Silent
-  Passage and RLC1 Personnel Recovery are defined in the Red Line campaign
-  and keyed for the beta runtime R13 (Runtime 1.6.5). This update ships
-  Runtime 1.6.4, which ignores the key as the game and the standard build
-  do, so neither ribbon is granted and neither is counted in the 72 above.
-  Until R13 is installed the checks are that neither appears and that the
-  developer ribbon menu offers neither (the Red Line test card's R5 and R6;
-  R1 to R4 need R13, and RIBBONS.txt says what each ribbon needs).
+- Red Line runtime ribbons (step 4, campaign side, merged as PR #62): RL05
+  Silent Passage and RLC1 Personnel Recovery are defined in the Red Line
+  campaign and keyed for the beta runtime R13 (Runtime 1.6.5), which this
+  update ships: on the beta, once SETUP has installed R13, it grants each at
+  the debrief when its terms are met. The game, R12 (Runtime 1.6.4) and the
+  standard build ignore the key; neither ribbon is counted in the 72 above.
+  Each debrief logs two Player.log lines per runtime ribbon: the first is the
+  verdict; the second says "already awarded" or repeats it, as Red Line's
+  campaign.ini is its own [File] Base and is read twice. The developer ribbon
+  menu offers neither (the Red Line test card's R5 and R6; R1 to R4 need R13,
+  which SETUP now installs, and RIBBONS.txt says what each needs).
 - World Operations (beta): DCM's own SITREP 001 is kept, with the short SEST
   brief shown first. Completed multi-phase Admiralty operations now count
   once each, and a completion replayed after a reload counts once. Tabs
@@ -97,8 +108,9 @@ PREPARE AND CHECK
    citations. Complete an accepted Admiralty order and return to the map.
    The task count should rise once; the battle count and combat USD totals
    must not. If you can, complete a multi-phase operation as well: it should
-   add one task. A world started on 1.6.2 or 1.6.3 keeps SEST's text as its
-   saved SITREP 001; a new world shows DCM's report with the SEST brief first.
+   add one task. With R13 a task counts even if you close its paper at once.
+   A world started on 1.6.2 or 1.6.3 keeps SEST's text as its saved SITREP
+   001; a new world shows DCM's report with the SEST brief first.
 3. Start a new Southern Watch or Southern Reach campaign. The Service Record
    offers the fourteen nations; Australia is the default. Compare one Anzac
    and one Burke price as an Australian and as a US commander. Check the
@@ -123,8 +135,11 @@ PREPARE AND CHECK
    docs/campaigns/red-line/test-card.md cover RL03's two exits, RL04's
    heave-to (with a run where she is sunk first) and the damage condition's
    spelling; report what each shows. Red Line step 4: checks R5 and R6 on
-   the same card (the developer ribbon menu offers neither runtime ribbon,
-   and neither is granted on this build). If time allows, as a New Zealand
+   the same card (the developer ribbon menu offers neither runtime ribbon;
+   with MissionAwards=0 neither is granted) and, with R13, R1 to R4: win
+   RL05 without launching anything and RLC1 with its pilot recovered, and
+   judge each ribbon by the first of its two Player.log lines
+   (RIBBONS.txt explains both). If time allows, as a New Zealand
    commander buy the P-8A in the force allocation before Weapons Free (SW05)
    at the discounted price and fly it in the Maritime Patrol slot of 06
    Blind Horizon (Weapons Free has no patrol slot).
@@ -138,7 +153,7 @@ PREPARE AND CHECK
    mods load only through SEST's beta loader, so SEST's plugins, Dynamic
    Campaign Mod and the other code mods should not load then; data mods and
    the Task Force campaigns should. Quit and run
-   "SEST beta features - turn on.cmd". Then run R12\Capture-Repair-Results.cmd
+   "SEST beta features - turn on.cmd". Then run R13\Capture-Repair-Results.cmd
    and keep the capture. The automated checks passed; they do not establish
    native Noesis rendering or gameplay.
 
@@ -172,13 +187,14 @@ RETAINED FEATURES
   fleet (52 ship classes, and 20 and 11 aircraft types) from Weapons Free and
   Tasman Crossing; Red Line from the start and Sulu Line from Service at Sea.
 - Reviewed beta features inside the normal Workshop SETUP flow, upgrade
-  recovery and rollback over the 1.6.2 and 1.6.3 test builds. Normal active
-  release plugins stay in the upload; the installer selects the five
-  reviewed files for the supported beta.
+  recovery and rollback over the 1.6.2, 1.6.3 and 1.6.4 test builds.
+  Normal active release plugins stay in the upload; the installer selects
+  the five reviewed files for the supported beta.
 
 The owner accepted the four briefing/costs/page changes on 9 November.
-None of the four parts has been played on that PC yet. PRs #58 to #63 are
-merged on dev, with the Steam images for R12 and the world campaign. This
+None of the five parts has been played on that PC yet. PRs #58 to #63 are
+merged on dev, with the Steam images for R12 and the world campaign; R13 is
+merged with dev and packaged on release/r13-20261111 (not yet on dev). This
 toolkit's branch, beta, is the branch the PC installs, tests and posts from
 (docs/BRANCHES.md); it carries what dev holds when the toolkit is built.
 Nothing has been uploaded to Steam.
