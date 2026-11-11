@@ -69,6 +69,7 @@ import fix_land_positions  # noqa: E402  (firm ground for land units; needs glob
 sys.path.insert(0, str(ROOT / "integration"))
 from common import quotes  # noqa: E402
 from common import flags  # noqa: E402
+from common import nation_stubs  # noqa: E402
 
 HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE))
@@ -1457,26 +1458,37 @@ def pick_nation(uid, pick):
     `usn_fa-18a=Squadron7,Squadron8` to an Australian commander, and its
     squadrons file registers both to Australia. An empty or comment-only
     Nation= is undeclared, and falls through to [Default].
+
+    A SEST #!extend stub on the file comes first, as in the game: SEST
+    Collection Fixes re-registers the post-1991 Russian hulls to Russia with
+    a Nation= stub per section (integration/common/nation_stubs.py), and the
+    game reads an extend's keys before the file's.
     """
     kind, _path = unit_file(uid)
-    f = winning(f"{kind}/{uid}_{'squadrons' if kind == 'aircraft' else 'variants'}.ini")
+    rel = f"{kind}/{uid}_{'squadrons' if kind == 'aircraft' else 'variants'}.ini"
+    f = winning(rel)
     if f is None:
         return None
     # Author squadron files can be thin aliases that only change dates.
     # Merge each section's Nation through the alias chain before falling
     # back from the selected squadron/variant to [Default].
     for section in (pick, "Default"):
-        current, seen = f, set()
+        current, here, seen = f, rel, set()
         while current is not None:
             if current in seen:
                 raise SystemExit(f"roster: alias cycle reading {uid} {pick}")
             seen.add(current)
+            stubbed = nation_stubs.nation(here, section)
+            if stubbed:
+                return stubbed
             text = read(current)
             m = re.search(rf"^\[{re.escape(section)}\][^\n]*\n(.*?)(?=^\[|\Z)", text, re.M | re.S)
             n = m and re.search(r"^[ \t]*Nation[ \t]*=[ \t]*(.*?)[ \t]*\r?$", m.group(1), re.M)
-            value = n and re.split(r"\s*(?://|#|;)", n.group(1), 1)[0].strip()
+            value = n and re.split(r"\s*(?://|#|;)", n.group(1), maxsplit=1)[0].strip()
             if value:
                 return value
+            a = re.search(r"#!alias\s+(\S+)", text)
+            here = a.group(1) if a else None
             current = alias_target(current)
     return None
 
@@ -1511,15 +1523,28 @@ def roster_nations(roster):
 
 
 def nation_name(key):
-    """The game's display name for a nation key (language_en/nations.ini)."""
+    """The game's display name for a nation key (language_en/nations.ini).
+
+    language_en merges key by key and the SEST packs sit above every mod, so
+    a key a SEST pack names is shown as the pack names it: SEST Collection
+    Fixes names the Russian Federation (Russia=, a key the game's file does
+    not carry) and the Meridian Maritime Group. Every other key is the
+    game's own; no exported mod renames one SEST uses.
+    """
     global _NATION_NAMES
     if _NATION_NAMES is None:
-        f = ROOT / "mods-source" / "_vanilla" / "original" / "language_en" / "nations.ini"
+        files = [p / "language_en" / "nations.ini" for p in nation_stubs.packs(ROOT)]
+        files.append(ROOT / "mods-source" / "_vanilla" / "original" / "language_en" / "nations.ini")
         _NATION_NAMES = {}
-        for raw in f.read_text(encoding="utf-8-sig").splitlines():
-            k, sep, v = raw.partition("=")
-            if sep:
-                _NATION_NAMES[k.strip().lower()] = v.strip()
+        for f in files:
+            if not f.is_file():
+                continue
+            for raw in f.read_text(encoding="utf-8-sig").splitlines():
+                if raw.lstrip().startswith(("#", ";", "//", "[")):
+                    continue
+                k, sep, v = raw.partition("=")
+                if sep:
+                    _NATION_NAMES.setdefault(k.strip().lower(), v.strip())
     return _NATION_NAMES.get(key.lower(), key)
 
 

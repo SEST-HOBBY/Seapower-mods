@@ -115,7 +115,11 @@ ADJECTIVE = {'Australia': ('Australian', 'an'), 'US': ('American', 'an'), 'UK': 
              'NewZealand': ('New Zealand', 'a'), 'France': ('French', 'a'), 'Canada': ('Canadian', 'a'),
              'South_Korea': ('South Korean', 'a'), 'Spain': ('Spanish', 'a'), 'Italy': ('Italian', 'an'),
              'Germany': ('German', 'a'), 'Netherlands': ('Dutch', 'a'), 'Norway': ('Norwegian', 'a'),
-             'Denmark': ('Danish', 'a'), 'Thailand': ('Thai', 'a')}
+             'Denmark': ('Danish', 'a'), 'Thailand': ('Thai', 'a'),
+             # No campaign offers a Russian commander yet; the key is the game's
+             # Russia, which SEST Collection Fixes now registers modern Russian
+             # hulls to (its RU_REREGISTER), so a future one reads 'a Russian commander'.
+             'Russia': ('Russian', 'a')}
 
 # Every SEST ladder puts the NATO grades OF-D..OF-9 at levels 1-10, the levels
 # the Australian ladder uses for the same grades: Commander (OF-4) 5, Captain

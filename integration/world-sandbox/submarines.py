@@ -172,6 +172,9 @@ PATROL_CENTRE = {
     "home_usa_bangor": (47.3, -126.5, "off the shelf beyond Juan de Fuca: a deterrent patrol"),
 }
 
+RU_STUB = "registered to Russia by SEST Collection Fixes' Nation stub"
+SOVIET_CLASS = "a Soviet class: its file's Soviet registration stands"
+
 # (nation, unit): (quality, the real class it stands for, the flag the hull
 # flies, note). Quality, best first: exact, same class, same family,
 # representative (a modern boat of another class), proxy (stands in only).
@@ -223,16 +226,18 @@ MAPPINGS = {
     ("China", "plan_ss_type_039a"): ("exact", "Type 039A (Yuan)", "China", ""),
     ("China", "plan_ss_type_039b"): ("exact", "Type 039B (Yuan)", "China", ""),
     ("China", "plan_ss_kilo"): ("exact", "Kilo class (Project 636)", "China", ""),
-    ("Russia", "wp_ssbn_borei"): ("exact", "Borei class", "Soviet",
-                                  "wp_ hulls register Soviet; SEST's Russian-flag fix reaches "
-                                  "missions only"),
-    ("Russia", "wp_ssbn_delta4"): ("exact", "Delta IV class", "Soviet", ""),
-    ("Russia", "wp_ssgn_yasen"): ("exact", "Yasen class", "Soviet", ""),
-    ("Russia", "wp_ssgn_oscar2"): ("exact", "Oscar II class", "Soviet", ""),
-    ("Russia", "wp_ssn_akula"): ("exact", "Akula class", "Soviet", ""),
-    ("Russia", "wp_ssn_sierra2"): ("exact", "Sierra II class", "Soviet", ""),
-    ("Russia", "wp_ss_improved_kilo"): ("exact", "Improved Kilo (Project 636.3)", "Soviet", ""),
-    ("Vietnam", "wp_ss_improved_kilo"): ("same class", "Hanoi class (Project 636.1)", "Soviet", ""),
+    # The post-1991, Russian-built boats register Russia through SEST
+    # Collection Fixes' #!extend Nation stubs (its RU_REREGISTER, Nov 2026);
+    # the Soviet classes keep their files' Soviet registration.
+    ("Russia", "wp_ssbn_borei"): ("exact", "Borei class", "Russia", RU_STUB),
+    ("Russia", "wp_ssbn_delta4"): ("exact", "Delta IV class", "Soviet", SOVIET_CLASS),
+    ("Russia", "wp_ssgn_yasen"): ("exact", "Yasen class", "Russia", RU_STUB),
+    ("Russia", "wp_ssgn_oscar2"): ("exact", "Oscar II class", "Soviet", SOVIET_CLASS),
+    ("Russia", "wp_ssn_akula"): ("exact", "Akula class", "Soviet", SOVIET_CLASS),
+    ("Russia", "wp_ssn_sierra2"): ("exact", "Sierra II class", "Soviet", SOVIET_CLASS),
+    ("Russia", "wp_ss_improved_kilo"): ("exact", "Improved Kilo (Project 636.3)", "Russia", RU_STUB),
+    ("Vietnam", "wp_ss_improved_kilo"): ("same class", "Hanoi class (Project 636.1)", "Russia",
+                                         "the stand-in flies its Russian donor's flag"),
     ("North_Korea", "plan_ss_romeo"): ("same class", "Romeo class", "China",
                                        "North Korea's Sang-O and Sinpo boats are MISSING"),
 }

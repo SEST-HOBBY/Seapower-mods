@@ -6007,5 +6007,91 @@ class LoadingScreens(unittest.TestCase):
         self.assertTrue((self.tmp / "LOADING-SCREEN-CREDITS.txt").is_file())
 
 
+class RussianRegistration(unittest.TestCase):
+    """Step 5, R0-R3 (11 Nov 2026): SEST Collection Fixes re-registers the
+    post-1991, Russian-built hulls to the game's Russia key by #!extend Nation
+    stubs, and the builder reads the stub before the winning file, as the
+    game does. The identity entry in common/flags.py keeps every SEST mission
+    writing the same Nation=Russia whatever the file registers."""
+
+    HULL = "rfn_ffg_22350_1-4"
+    REL = f"vessels/{HULL}_variants.ini"
+
+    def test_flags_map_russia_to_itself_and_keep_the_rest(self):
+        self.assertEqual(bp.flags.flag_for("Russia"), "Russia")
+        self.assertEqual(bp.flags.flag_for("russia"), "Russia")
+        self.assertEqual(bp.flags.flag_for("Soviet"), "Russia")
+        self.assertEqual(bp.flags.flag_for("USSR"), "Russia")
+        self.assertEqual(bp.flags.flag_for("Iran"), "Meridian")
+        self.assertIsNone(bp.flags.flag_for("China"))
+        self.assertIsNone(bp.flags.flag_for("RU"))
+
+    def test_a_stubbed_hull_reads_russia_while_its_winner_still_says_soviet(self):
+        if not bp.nation_stubs.sections(self.REL):
+            self.skipTest("SEST Collection Fixes not built")
+        winner = bp.winning(self.REL)
+        text = bp.read(winner)
+        own = re.search(r"^\[Variant1\][^\n]*\n(.*?)(?=^\[|\Z)", text, re.M | re.S).group(1)
+        self.assertRegex(own, r"(?m)^Nation=Soviet\s*$")
+        self.assertEqual(bp.pick_nation(self.HULL, "Variant1"), "Russia")
+        self.assertEqual(bp.pick_nation(self.HULL, "Default"), "Russia")
+        # The credit is unchanged: the variants file is still Russian Navy 21's.
+        self.assertEqual(bp.owner(self.REL), "3597650470")
+        self.assertIn("mods-source", winner.parts)
+
+    def test_a_hull_the_rule_leaves_soviet_still_reads_soviet(self):
+        for uid in ("wp_ssn_akula", "ru_cv_kuznetsov", "wp_rkr_kirov_improved", "wp_em_sovremenny"):
+            self.assertEqual(bp.pick_nation(uid, "Variant1"), "Soviet", uid)
+
+    def test_the_pashin_registers_russia_in_its_own_file(self):
+        f = bp.winning("vessels/rfn_aor_pashin_variants.ini")
+        if f is None or "SEST_Replenishment" not in f.parts:
+            self.skipTest("SEST Replenishment not built")
+        self.assertEqual(bp.pick_nation("rfn_aor_pashin", "Variant1"), "Russia")
+        self.assertFalse(bp.nation_stubs.sections("vessels/rfn_aor_pashin_variants.ini"))
+
+    def test_a_stub_comes_before_the_file_section_by_section(self):
+        """The game reads the stub's keys before the file's, per section: a
+        stub that names only [Default] does not override a section that
+        declares its own nation, and does override the [Default] it falls
+        back to."""
+        tmp = Path(tempfile.mkdtemp()) / "u_variants.ini"
+        tmp.write_text("[General]\nNumberOfVariants=2\n[Default]\nNation=Soviet\n"
+                       "[Variant1]\nNation=India\n[Variant2]\nName=x\n", encoding="utf-8")
+        saved = bp.unit_file, bp.winning, bp.nation_stubs.nation
+        bp.unit_file = lambda uid: ("vessels", tmp)
+        bp.winning = lambda rel: tmp
+        bp.nation_stubs.nation = (lambda rel, section, root=None:
+                                  "Russia" if (rel, section) == ("vessels/u_variants.ini", "Default")
+                                  else None)
+        try:
+            self.assertEqual(bp.pick_nation("u", "Variant1"), "India")
+            self.assertEqual(bp.pick_nation("u", "Variant2"), "Russia")
+            self.assertEqual(bp.pick_nation("u", "Default"), "Russia")
+        finally:
+            bp.unit_file, bp.winning, bp.nation_stubs.nation = saved
+            shutil.rmtree(tmp.parent, ignore_errors=True)
+
+    def test_a_placed_hull_flies_russia_whether_or_not_it_is_stubbed(self):
+        m = dict(key="Test Russian flags", num="01", group="core", centre=(-30.0, 110.0),
+                 minutes=60, blue_nation="Australia", red_nation="Russia",
+                 stations={"a": S(-30.0, 110.0, "A"), "b": S(-30.05, 110.05, "B")},
+                 units=[U("red", "russian-navy-21", self.HULL, "a"),
+                        U("red", "russian-submarines", "wp_ssn_akula", "b")])
+        placed, _members, _credits, _far = bp.place(m, bp.CoastPlacer(bp.coast_data(), m))
+        rows = placed["Taskforce2Vessel"] + placed["Taskforce2Submarine"]
+        self.assertEqual({keys["Type"]: keys.get("Nation") for _t, keys, _n, _f in rows},
+                         {self.HULL: "Russia", "wp_ssn_akula": "Russia"})
+
+    def test_the_russian_federation_is_named(self):
+        self.assertEqual(bp.nation_name("Russia"), "Russian Federation")
+        self.assertEqual(bp.nation_name("Meridian"), "Meridian Maritime Group")
+        self.assertEqual(bp.nation_name("Soviet"), "USSR")
+        self.assertEqual(bp.nation_name("Australia"), "Australia")
+        self.assertEqual(bp.nation_name("NoSuchNation"), "NoSuchNation")
+
+    def test_a_russian_commander_has_an_adjective(self):
+        self.assertEqual(bp.service_awards.describe("Russia"), "a Russian commander")
+
 if __name__ == "__main__":
     unittest.main(verbosity=2)
