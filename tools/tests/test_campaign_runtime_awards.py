@@ -32,6 +32,7 @@ must have its [Ribbon_<id>] definition, which the runtime reads
 not be a native award, and may name only the mission's own objectives.
 """
 import importlib.util
+import json
 from datetime import date
 from pathlib import Path
 import re
@@ -499,7 +500,9 @@ def centre_of(row):
 
 
 class RuntimeAwardDocs(unittest.TestCase):
-    """RIBBONS.txt and the Red Line cards say the two ribbons need R13."""
+    """RIBBONS.txt and the Red Line cards say the two ribbons need R13, what
+    R13 will log, which checks run now, and the release notes name the tree
+    whose manifest they count."""
 
     def test_ribbons_txt_says_r13_only(self):
         text = (ROOT / "integration/campaign/setup/RIBBONS.txt").read_text(encoding="utf-8")
@@ -518,6 +521,91 @@ class RuntimeAwardDocs(unittest.TestCase):
         for name, text in (("test card", card), ("play-test guide", guide)):
             for phrase in ("Silent Passage", "Personnel Recovery", "R13"):
                 self.assertTrue(phrase in text, f"the {name} does not say {phrase!r}")
+
+    def test_the_cards_expect_as_many_log_lines_as_the_runtime_reads_values(self):
+        # The game's EnumerateCampaignRuleSources (beta 499675cd
+        # Seapower-Scripts.dll, <EnumerateCampaignRuleSources>d__33) yields
+        # the open campaign ini, its #!alias files, then
+        # OpenCampaignDefinitionIni([File] Base), and does not skip a file
+        # it has already yielded. ReadValues (MissionAwards.cs:253-266) adds
+        # one value per source, ParseSpecs (:329-348) keeps every spec, and
+        # Evaluate logs one line per spec (:320); a repeat after an award
+        # says "already awarded" (:306). Red Line names itself as its base.
+        ini = PACK / "campaigns/sest-red-line/campaign.ini"
+        text = ini.read_text(encoding="utf-8")
+        self.assertNotIn("#!alias", text)
+        base = section(text, "File").get("Base", "").strip()
+        sources = [ini] + ([PACK / base] if base else [])
+        lines = set()
+        for (slug, name, _code), rows in EXPECTED.items():
+            values = [as_read(KEY + "=" + v).strip() for src in sources
+                      for v in [section(src.read_text(encoding="utf-8"), name).get(KEY, "")] if v.strip()]
+            specs, error = parse_specs(values)
+            self.assertIsNone(error, name)
+            per_ribbon = {rid: [s.ribbon_id for s in specs].count(rid) for rid, _n, _t in rows}
+            lines.update(per_ribbon.values())
+        self.assertEqual(len(lines), 1, lines)
+        count = {1: "one", 2: "two"}[lines.pop()]
+        docs = {
+            "test card": ROOT / "docs/campaigns/red-line/test-card.md",
+            "play-test guide": ROOT / "docs/play-test-guide.md",
+            "RIBBONS.txt": ROOT / "integration/campaign/setup/RIBBONS.txt",
+        }
+        for name, path in docs.items():
+            flat = " ".join(path.read_text(encoding="utf-8").replace("`", "").split())
+            with self.subTest(doc=name):
+                said = re.compile(r"(\w+) (?:Player\.log )?lines? (?:for each|per) (?:runtime )?ribbon")
+                self.assertEqual(set(said.findall(flat)), {count}, f"the {name} must expect {count} lines per ribbon")
+                self.assertFalse("runtime ribbon's line in" in flat, name)
+                if count == "two":
+                    self.assertTrue("already awarded" in flat, f"the {name} does not say what the second line says")
+                    self.assertTrue(re.search(r"\[File\] Base|its own base", flat),
+                                    f"the {name} does not say why there are two lines")
+
+    def test_r5_and_r6_are_run_now_and_r1_to_r4_wait_for_r13(self):
+        # R5 is the game's own developer catalogue (ReadCampaignRibbonCatalog
+        # reads only [TaskForceRibbons] RibbonIds), and R6 is R12's silence:
+        # both run on this build. R1 to R4 need R13 to grant anything.
+        def flat(path):
+            return " ".join((ROOT / path).read_text(encoding="utf-8").split())
+        card = flat("docs/campaigns/red-line/test-card.md")
+        guide = flat("docs/play-test-guide.md")
+        readme = flat("docs/releases/20261107/README-FIRST.txt")
+        ribbons = flat("integration/campaign/setup/RIBBONS.txt")
+        for name, text, phrase in (("test card", card, "R5 and R6 can be run now"),
+                                   ("test card", card, "R1 to R4 need R13"),
+                                   ("play-test guide", guide, "R1-R4 need beta runtime R13"),
+                                   ("README-FIRST", readme, "R5 and R6; R1 to R4 need R13"),
+                                   ("README-FIRST", readme, "Red Line step 4: checks R5 and R6"),
+                                   ("RIBBONS.txt", ribbons, "checks R5 and R6"),
+                                   ("RIBBONS.txt", ribbons, "(checks R1 to R4)")):
+            self.assertTrue(phrase in text, f"the {name} does not say {phrase!r}")
+        pc_checks = json.loads((ROOT / "docs/releases/20261107/validation.json").read_text(
+            encoding="utf-8"))["red_line_runtime_awards"]["pc_checks"]
+        self.assertTrue(pc_checks.startswith("docs/campaigns/red-line/test-card.md R5-R6 now, R1-R4 once R13"),
+                        pc_checks)
+        for name, text in (("test card", card), ("play-test guide", guide), ("README-FIRST", readme),
+                           ("RIBBONS.txt", ribbons)):
+            for stale in ("run R6 only", "R1 to R5", "R1-R5", "checks R1 to R6"):
+                self.assertFalse(stale in text, f"the {name} still says {stale!r}")
+
+    def test_the_release_notes_name_the_tree_whose_manifest_they_count(self):
+        # The toolkit README-FIRST names is built from one branch; the file
+        # count it promises must be that branch's, as validation.json
+        # records it, and the manifest in this tree.
+        release = ROOT / "docs/releases/20261107"
+        manifest = json.loads((release / "upload-manifest.json").read_text(encoding="utf-8"))
+        validation = json.loads((release / "validation.json").read_text(encoding="utf-8"))
+        readme = " ".join((release / "README-FIRST.txt").read_text(encoding="utf-8").split())
+        count = len(manifest["files"])
+        self.assertEqual(manifest["file_count"], count)
+        self.assertTrue(f"VERIFIED: all {count} canonical upload files match the release manifest." in readme,
+                        f"README-FIRST step 1 does not promise the manifest's {count} files")
+        branch = re.search(r"This toolkit's branch, ([\w./-]+)", readme)[1]
+        self.assertEqual(validation["release_branch"].split()[0], branch)
+        entries = [v for v in validation.values() if isinstance(v, dict) and v.get("branch") == branch]
+        self.assertEqual(len(entries), 1, branch)
+        self.assertIn(f": {count} files match the manifest", entries[0]["canonical_upload"])
 
 
 if __name__ == "__main__":
