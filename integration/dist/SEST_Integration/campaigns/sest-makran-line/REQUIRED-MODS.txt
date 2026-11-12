@@ -6,7 +6,7 @@ units its roster sells with their variants and rounds. The pack-level
 REQUIRED-MODS.txt two folders up, at the pack's root, is the union
 across every campaign in the pack.
 
-1. HARD REQUIRED (15): a mission or the roster names a file of theirs, or a mod above says it cannot run without them.
+1. HARD REQUIRED (13): a mission or the roster names a file of theirs, or a mod above says it cannot run without them.
 
   3746453639    a unit a mission places          Civil Aircraft Mod (Airbus Family)
   3775128499    a weapon a loadout hangs         Modern PLAN Systems
@@ -16,7 +16,6 @@ across every campaign in the pack.
   3733719765    a weapon a loadout hangs         PLA Land Unit Pack
   3812111085    a weapon a loadout hangs         PLAAF Aircraft Pack
   3605013271    a unit a mission places          RE-power: the resupply mod
-  3436170138    a weapon a loadout hangs         Shenyang J-11
   3506979898    a weapon a loadout hangs         Shenyang J-16A (歼-16A 潜龙)
   3737267013    a weapon a loadout hangs         United States Naval Aviation
   3380210757    required by another mod          Anchor Chain
@@ -25,8 +24,6 @@ across every campaign in the pack.
                                                    asked for by: Pakistani Pack
   3470643173    required by another mod          Type 12 SSM-ER Anti-Ship Missile System
                                                    asked for by: Pakistani Pack
-  3637954857    required by another mod          Y-8/Y-9 Special Mission Aircraft Family
-                                                   asked for by: Modern PLAN Systems, Pakistani Pack
 
 2. SEST INTEGRATION PACKS (3): this project's own patches, already inside this pack (SEST Integration Pack, Workshop 3812461539);
 there is nothing more to subscribe to.
@@ -40,7 +37,7 @@ LOAD-ORDER.txt is missing. (The map, salvo and rescue tools are
 conveniences.)
 
 
-4. NOT USED BY THIS CAMPAIGN (210): enabled while it was built, and left in the order because removing one changes which copy of a
+4. NOT USED BY THIS CAMPAIGN (209): enabled while it was built, and left in the order because removing one changes which copy of a
 shared file wins for the mods above.
 
   3438479626    1143.5 Kuznetsov
@@ -224,7 +221,6 @@ shared file wins for the mods above.
   (local)       SEST World Campaign (Dynamic Campaign Mod)
   3497601759    Shahed-136 Kamikaze Drone (Geran-2)
   3670643788    Shenyang J-50 (沈阳航空工业 歼-50)
-  3433577445    Shenyang J-8
   3601891050    Small and Medium-Sized UAV Series [WIP] (中小型无人机系列)
   3524112296    Soviet AEW&C + Transport Aircraft (A-50 / Il-76)
   3820576916    Steelfin

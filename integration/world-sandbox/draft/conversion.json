@@ -8334,16 +8334,16 @@
   },
   "catalogue_by_side_nation": {
    "blue US": {
-    "ships": 257,
-    "aircraft": 168
+    "ships": 258,
+    "aircraft": 169
    },
    "blue Australia": {
     "ships": 46,
     "aircraft": 51
    },
    "blue Japan": {
-    "ships": 24,
-    "aircraft": 19
+    "ships": 27,
+    "aircraft": 20
    },
    "blue France": {
     "ships": 39,
@@ -8363,7 +8363,7 @@
    },
    "blue Spain": {
     "ships": 36,
-    "aircraft": 30
+    "aircraft": 32
    },
    "blue Germany": {
     "ships": 23,
@@ -8455,7 +8455,7 @@
    },
    "red China": {
     "ships": 96,
-    "aircraft": 106
+    "aircraft": 105
    },
    "red Russia": {
     "ships": 111,
@@ -8896,6 +8896,7 @@
   "jmsdf_us-1": "Role MPA",
   "jp_f-2a": "Role Fighter",
   "jp_f-2a_late": "Role Fighter",
+  "js_sh-60l": "Role ASW",
   "Mirage_III": "Role Fighter",
   "mm_ab212": "Role ASW",
   "mm_ab212_91": "Role ASW",
@@ -9015,7 +9016,6 @@
   "planaf_z-20j": "Role ASW",
   "pns_sh-3h": "Role ASW",
   "pol_a330_mrtt": "Role AEW",
-  "profile_": "Role Fighter",
   "qeaf_m2k-5dda": "Role Fighter",
   "qeaf_m2k-5dda_late": "Role Fighter",
   "qeaf_m2k-5eda": "Role Fighter",
@@ -9124,6 +9124,7 @@
   "spa_a400m_airdroop-para": "Role AEW",
   "spa_a400m_tankers": "Role AEW",
   "spa_ab212": "Role ASW",
+  "spa_ab212v1": "Role ASW",
   "spa_ah-1g": "Role Attack",
   "spa_av-8a": "Role Fighter",
   "spa_av-8b": "Role Fighter",
@@ -9140,6 +9141,7 @@
   "spa_s-55": "Role ASW",
   "spa_sh-3d": "Role ASW",
   "spa_sh-3d_AEW": "Role AEW",
+  "spa_sh-3dv1": "Role ASW",
   "spa_sh-60b": "Role ASW",
   "spa_sh-60b_block1": "Role ASW",
   "spa_sh-60bv1": "Role ASW",
@@ -9283,6 +9285,7 @@
   "usn_fury_strike": "Role Bomber",
   "usn_ka-3b": "Role EW",
   "usn_mh-60r_p2": "Role ASW",
+  "usn_mh-60s": "Role ASuW",
   "usn_Mugin5705": "Role Recon",
   "usn_orlan10705": "Role Recon",
   "usn_p-2h": "Role MPA",
@@ -9509,6 +9512,7 @@
   "ita_lhd_trieste": "Displacement 38000 t",
   "ita_lhd_trieste_saam16": "Displacement 38000 t",
   "ita_lhd_trieste_saam32": "Displacement 38000 t",
+  "jmsdf_cg_asev": "Displacement 14000 t",
   "jmsdf_cv_shokaku_late": "Displacement 83000 t",
   "jmsdf_cvn_yamato": "Displacement 100000 t",
   "jmsdf_dd_hatsuyuki": "Displacement 3050 t",
@@ -9520,6 +9524,8 @@
   "jmsdf_ddg_tachikaze_84": "Displacement 4800 t",
   "jmsdf_ddh_fuso": "Displacement 39000 t",
   "jmsdf_ddh_haruna": "Displacement 6900 t",
+  "jmsdf_ffg_mogami": "Displacement 5500 t",
+  "jmsdf_ffg_mogami_improved": "Displacement 6200 t",
   "jmsdf_ss_asashio": "Displacement 2150 t",
   "jmsdf_ss_uzushio": "Displacement 3600 t",
   "jmsdf_ss_yushio": "Displacement 2900 t",
@@ -9808,6 +9814,7 @@
   "usn_cvn_ford_jsf": "Displacement 100000 t",
   "usn_cvn_ford_legacy": "Displacement 100000 t",
   "usn_cvn_gerald_r_ford": "Displacement 100000 t",
+  "usn_cvn_gerald_r_ford_easr": "Displacement 100000 t",
   "usn_cvn_nimitz_2000s": "Displacement 100000 t",
   "usn_cvn_nimitz_2000s_adou": "Displacement 100000 t",
   "usn_cvn_nimitz_2027s_adou": "Displacement 100000 t",
@@ -10099,8 +10106,8 @@
    "Air": 107
   },
   "patrols": 49,
-  "catalogue": 1586,
-  "values": 1586,
+  "catalogue": 1593,
+  "values": 1593,
   "lanes_kept": 11,
   "lanes_authored": 11,
   "skipped_nodes": 34

@@ -8064,6 +8064,7 @@
     "jmsdf_us-1": 89,
     "jp_f-2a": 46,
     "jp_f-2a_late": 46,
+    "js_sh-60l": 39,
     "Mirage_III": 46,
     "mm_ab212": 39,
     "mm_ab212_91": 39,
@@ -8183,7 +8184,6 @@
     "planaf_z-20j": 39,
     "pns_sh-3h": 39,
     "pol_a330_mrtt": 242,
-    "profile_": 46,
     "qeaf_m2k-5dda": 46,
     "qeaf_m2k-5dda_late": 46,
     "qeaf_m2k-5eda": 46,
@@ -8292,6 +8292,7 @@
     "spa_a400m_airdroop-para": 242,
     "spa_a400m_tankers": 242,
     "spa_ab212": 39,
+    "spa_ab212v1": 39,
     "spa_ah-1g": 25,
     "spa_av-8a": 46,
     "spa_av-8b": 46,
@@ -8308,6 +8309,7 @@
     "spa_s-55": 39,
     "spa_sh-3d": 39,
     "spa_sh-3d_AEW": 242,
+    "spa_sh-3dv1": 39,
     "spa_sh-60b": 39,
     "spa_sh-60b_block1": 39,
     "spa_sh-60bv1": 39,
@@ -8451,6 +8453,7 @@
     "usn_fury_strike": 78,
     "usn_ka-3b": 118,
     "usn_mh-60r_p2": 39,
+    "usn_mh-60s": 39,
     "usn_Mugin5705": 28,
     "usn_orlan10705": 28,
     "usn_p-2h": 89,
@@ -8677,6 +8680,7 @@
     "ita_lhd_trieste": 617,
     "ita_lhd_trieste_saam16": 617,
     "ita_lhd_trieste_saam32": 617,
+    "jmsdf_cg_asev": 314,
     "jmsdf_cv_shokaku_late": 1047,
     "jmsdf_cvn_yamato": 1187,
     "jmsdf_dd_hatsuyuki": 112,
@@ -8688,6 +8692,8 @@
     "jmsdf_ddg_tachikaze_84": 152,
     "jmsdf_ddh_fuso": 628,
     "jmsdf_ddh_haruna": 194,
+    "jmsdf_ffg_mogami": 167,
+    "jmsdf_ffg_mogami_improved": 181,
     "jmsdf_ss_asashio": 88,
     "jmsdf_ss_uzushio": 125,
     "jmsdf_ss_yushio": 108,
@@ -8976,6 +8982,7 @@
     "usn_cvn_ford_jsf": 1187,
     "usn_cvn_ford_legacy": 1187,
     "usn_cvn_gerald_r_ford": 1187,
+    "usn_cvn_gerald_r_ford_easr": 1187,
     "usn_cvn_nimitz_2000s": 1187,
     "usn_cvn_nimitz_2000s_adou": 1187,
     "usn_cvn_nimitz_2027s_adou": 1187,
@@ -10736,6 +10743,13 @@
       "days": 20
     },
     {
+      "unit": "usn_cvn_gerald_r_ford_easr",
+      "side": "blue",
+      "nation": "US",
+      "tier": 7,
+      "days": 20
+    },
+    {
       "unit": "usn_cvn_nimitz",
       "side": "blue",
       "nation": "US",
@@ -11703,6 +11717,13 @@
     },
     {
       "unit": "usn_mh-60r_p2",
+      "side": "blue",
+      "nation": "US",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "usn_mh-60s",
       "side": "blue",
       "nation": "US",
       "tier": 0,
@@ -12700,6 +12721,18 @@
       "tier": 2
     },
     {
+      "unit": "jmsdf_ffg_mogami",
+      "side": "blue",
+      "nation": "Japan",
+      "tier": 2
+    },
+    {
+      "unit": "jmsdf_ffg_mogami_improved",
+      "side": "blue",
+      "nation": "Japan",
+      "tier": 2
+    },
+    {
       "unit": "jmsdf_ss_uzushio",
       "side": "blue",
       "nation": "Japan",
@@ -12728,6 +12761,12 @@
       "side": "blue",
       "nation": "Japan",
       "tier": 2
+    },
+    {
+      "unit": "jmsdf_cg_asev",
+      "side": "blue",
+      "nation": "Japan",
+      "tier": 4
     },
     {
       "unit": "jmsdf_ddg_maya",
@@ -12895,6 +12934,13 @@
     },
     {
       "unit": "jp_f-2a_late",
+      "side": "blue",
+      "nation": "Japan",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "js_sh-60l",
       "side": "blue",
       "nation": "Japan",
       "tier": 0,
@@ -14759,6 +14805,13 @@
       "aircraft": true
     },
     {
+      "unit": "spa_ab212v1",
+      "side": "blue",
+      "nation": "Spain",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
       "unit": "spa_ah-1g",
       "side": "blue",
       "nation": "Spain",
@@ -14865,6 +14918,13 @@
     },
     {
       "unit": "spa_sh-3d",
+      "side": "blue",
+      "nation": "Spain",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "spa_sh-3dv1",
       "side": "blue",
       "nation": "Spain",
       "tier": 0,
@@ -17602,13 +17662,6 @@
     },
     {
       "unit": "planaf_z-20j",
-      "side": "red",
-      "nation": "China",
-      "tier": 0,
-      "aircraft": true
-    },
-    {
-      "unit": "profile_",
       "side": "red",
       "nation": "China",
       "tier": 0,

@@ -8,7 +8,7 @@ listed in subscribes you to all of them in one press. If that
 works you do not need the list below at all, and it is here to
 check against rather than to work through by hand.
 
-165 mods. Each supplies a file a mission names directly - by
+163 mods. Each supplies a file a mission names directly - by
 Type=, SquadronReference=, VariantReference=, a loadout's store,
 or a model folder a placed unit's own file draws from.
 
@@ -158,10 +158,8 @@ Workshop id   supplies                         mod
 3455931957    a unit a mission places          Sea Lynx
 3551676319    a unit a mission places          SEJJIL (Iran Ballistic Missiles)
 3497601759    a unit a mission places          Shahed-136 Kamikaze Drone (Geran-2)
-3436170138    a unit a mission places          Shenyang J-11
 3506979898    a unit a mission places          Shenyang J-16A (歼-16A 潜龙)
 3670643788    a unit a mission places          Shenyang J-50 (沈阳航空工业 歼-50)
-3433577445    a unit a mission places          Shenyang J-8
 3601891050    a unit a mission places          Small and Medium-Sized UAV Series [WIP] (中小型无人机系列)
 3524112296    a unit a mission places          Soviet AEW&C + Transport Aircraft (A-50 / Il-76)
 3820576916    a unit a mission places          Steelfin
@@ -195,13 +193,11 @@ in what data/mod-catalog.json records of it. Skipping one breaks
 the mod that asked for it.
 
 3380210757    required by another mod          Anchor Chain
-                                                 asked for by: Anduril FQ-44 Fury US Navy Carrier Wingmen, Anduril Maritime Drones, B-2 Spirit, EC-2 Stand Off Jammer, Euromod - Anchorchain Expansion Pack, MV-75 Cheyenne II, PLA & PLAN & PLAAF AEP, Saronic Corsair ASV, Type 003 Fujian / Type 004 CVN Aircraft Carriers, V-22 Osprey / SV-22 2024 ASW prototype, YF-23 Black Widow II
+                                                 asked for by: Anduril FQ-44 Fury US Navy Carrier Wingmen, Anduril Maritime Drones, B-2 Spirit, EC-2 Stand Off Jammer, Euromod - Anchorchain Expansion Pack, MV-75 Cheyenne II, PLA & PLAN & PLAAF AEP, Saronic Corsair ASV, Type 003 Fujian / Type 004 CVN Aircraft Carriers, V-22 Osprey / SV-22 2024 ASW prototype
 3784474738    required by another mod          Euromod - Anchorchain Expansion Pack
                                                  asked for by: Euromod - Modern Royal Australian Navy Mod, Modern US Navy
 3491248180    required by another mod          The Royal Navy
                                                  asked for by: Royal Australian Defence Forces
-3637954857    required by another mod          Y-8/Y-9 Special Mission Aircraft Family
-                                                 asked for by: Modern PLAN Systems, Pakistani Pack
 
 --------------------------------------------------------------------------
 

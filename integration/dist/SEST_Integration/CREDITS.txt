@@ -62,14 +62,14 @@ language_en/sest_name_pools.ini adds commander name pools for
 nations the game has none for: common given names and surnames
 from public name statistics, which the game combines at random.
 
-542 of the unit files here are another author's file with
+545 of the unit files here are another author's file with
 changes made to it. A Sea Power unit file is a whole-file
 override - there is no way to alter one line of somebody's
 aircraft without shipping the whole aircraft - so this is how a
 patch has to work, and this list is what it patches.
 
 Measured, not declared: every shipped unit file is diffed against
-every file of its kind in the collection, and the 542 below
+every file of its kind in the collection, and the 545 below
 came back 90% or more alike. The percentage is how much of the
 file is unchanged.
 Files carried for a mod that was removed from the Workshop are
@@ -235,9 +235,13 @@ listed whatever the percentage: they are still that author's.
       100%  vessels/ita_lhd_trieste_saam32.ini
 
   Euromod - Modern Japanese Maritime Self Defence Force  (workshop 3695809489)
+      100%  ammunition/js_type23_asam.ini
+      100%  vessels/jmsdf_cg_asev.ini
       100%  vessels/jmsdf_dd_asahi.ini
       100%  vessels/jmsdf_ddg_atago.ini
       100%  vessels/jmsdf_ddg_maya.ini
+      100%  vessels/jmsdf_ffg_mogami.ini
+      100%  vessels/jmsdf_ffg_mogami_improved.ini
 
   Euromod - Modern Nordic Navy  (workshop 3642656500)
       100%  vessels/hdms_iver_huitfeldt.ini
@@ -310,21 +314,21 @@ listed whatever the percentage: they are still that author's.
        99%  ammunition/usn_agm-88.ini
 
   F-22 Raptor  (workshop 3418252667)
-       97%  land_units/airbase_raaf_amberley.ini from airfield_us_large.ini
-       97%  land_units/airbase_raaf_butterworth.ini from airfield_us_large.ini
-       97%  land_units/airbase_raaf_curtin.ini from airfield_us_large.ini
-       97%  land_units/airbase_raaf_darwin.ini from airfield_us_large.ini
+       96%  land_units/airbase_raaf_amberley.ini from airfield_us_large.ini
+       96%  land_units/airbase_raaf_butterworth.ini from airfield_us_large.ini
+       96%  land_units/airbase_raaf_curtin.ini from airfield_us_large.ini
+       96%  land_units/airbase_raaf_darwin.ini from airfield_us_large.ini
        97%  land_units/airbase_raaf_east_sale.ini from airfield_us_large.ini
-       97%  land_units/airbase_raaf_edinburgh.ini from airfield_us_large.ini
+       96%  land_units/airbase_raaf_edinburgh.ini from airfield_us_large.ini
        97%  land_units/airbase_raaf_gingin.ini from airfield_us_large.ini
-       97%  land_units/airbase_raaf_learmonth.ini from airfield_us_large.ini
+       96%  land_units/airbase_raaf_learmonth.ini from airfield_us_large.ini
        97%  land_units/airbase_raaf_pearce.ini from airfield_us_large.ini
        97%  land_units/airbase_raaf_richmond.ini from airfield_us_large.ini
-       97%  land_units/airbase_raaf_scherger.ini from airfield_us_large.ini
-       97%  land_units/airbase_raaf_tindal.ini from airfield_us_large.ini
-       97%  land_units/airbase_raaf_townsville.ini from airfield_us_large.ini
-       97%  land_units/airbase_raaf_williamtown.ini from airfield_us_large.ini
-       97%  land_units/airbase_raaf_woomera.ini from airfield_us_large.ini
+       96%  land_units/airbase_raaf_scherger.ini from airfield_us_large.ini
+       96%  land_units/airbase_raaf_tindal.ini from airfield_us_large.ini
+       96%  land_units/airbase_raaf_townsville.ini from airfield_us_large.ini
+       96%  land_units/airbase_raaf_williamtown.ini from airfield_us_large.ini
+       96%  land_units/airbase_raaf_woomera.ini from airfield_us_large.ini
        97%  land_units/airbase_rnzaf_auckland.ini from airfield_us_large.ini
        97%  land_units/airbase_rnzaf_ohakea.ini from airfield_us_large.ini
 
@@ -406,6 +410,8 @@ listed whatever the percentage: they are still that author's.
 
   Modern US Navy  (workshop 3390330875)
       100%  vessels/usn_cg_bunker_hill_vls_2004.ini
+      100%  vessels/usn_cvn_gerald_r_ford.ini
+      100%  vessels/usn_cvn_gerald_r_ford_easr.ini
       100%  vessels/usn_cvn_nimitz_2025.ini
       100%  vessels/usn_dd_spruance_mk71.ini
       100%  vessels/usn_ddg_arleigh_concept.ini
@@ -443,10 +449,8 @@ listed whatever the percentage: they are still that author's.
       100%  vessels/usn_ssn_virginia_block5.ini
 
   Mogami-class Frigate  (workshop 3456859157)
-      100%  ammunition/js_type23_asam.ini
       100%  vessels/js_ffg_mogami.ini
       100%  vessels/js_ffg_mogami_improved.ini
-      100%  vessels/ran_ffg_mogami_improved.ini
 
   Nimitz Expanded  (workshop 3432592449)
        99%  vessels/usn_cvn_nimitz_variants.ini
@@ -563,7 +567,6 @@ listed whatever the percentage: they are still that author's.
       100%  vessels/usn_cgn_alaska_vls.ini
       100%  vessels/usn_cgn_california_alt.ini
       100%  vessels/usn_cgn_virginia_vls_refit.ini
-      100%  vessels/usn_cvn_gerald_r_ford.ini
       100%  vessels/usn_cvn_nimitz_alt.ini
       100%  vessels/usn_cvn_united_states.ini
       100%  vessels/usn_cvn_united_states_early.ini
