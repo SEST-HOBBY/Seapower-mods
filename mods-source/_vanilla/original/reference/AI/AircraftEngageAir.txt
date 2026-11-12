@@ -1,0 +1,83 @@
+Define AircraftEngageAir
+
+Set ControlLaw ($Combat)
+
+If TargetHasDecoys = True
+
+	Set SalvoSize = 2; LaunchInterval = 2
+
+If GuidanceType = 1
+
+Close Range < MaxLaunchRange * 0.75
+
+Check ($IsRearAspectOnly)
+
+	If IsRearAspectOnly = True
+	
+		Maintain TargetAspectForShot = TargetRearCone
+	
+			When TargetBearing < SeekerFOV
+			
+				WaitForLock
+	
+					LaunchWeapon
+	
+	If $TargetKilled = False
+	
+		Reattack
+		
+	Else
+	
+	Return
+	
+If GuidanceType = 2	
+
+	Close Range < MaxLaunchRange * 0.75
+	
+		Set FireControlRadar On
+	
+			WaitForLock
+			
+				LaunchWeapon
+				
+					Maintain TargetBearing < FOV
+					
+	If $TargetKilled = False
+	
+		Reattack
+		
+	Else
+
+	Return
+			
+If GuidanceType = 3	
+
+	Close Range < MaxLaunchRange * 0.75
+	
+		Set FireControlRadar On
+	
+			WaitForLock
+			
+				LaunchWeapon
+	
+	SetCourse $TargetBearing +/- 90 //This is preemptive evasive manuever to open range vs counterfire
+					
+	If $TargetKilled = False
+	
+		Reattack
+		
+	Else
+
+	Return
+	
+If WeaponType = Gun
+
+	Close Range < 1
+	
+		Maintain TargetAspectForShot = TargetRearCone 
+	
+			Maintain TargetBearing = Boresight
+	
+	If $TargetKilled = False
+	
+		Reattack

@@ -1,0 +1,40 @@
+Define SubmarineEvadeWeapon
+
+If DetectTorpedo = True
+
+	If TorpedoWireGuided = True
+	
+	SetCourse ($BearingToDetectedTorpedo)+180(ClosestTurn)
+	
+	SetTelegraph 5
+	
+	Else
+
+	SetCourse ($BearingToDetectedTorpedo)+100(ClosestTurn)
+
+Sample ($DepthUnderKeel)
+
+If ($DepthUnderKeel) > $VeryDeep
+
+	SetDepth ($VeryDeep)
+	
+	Else
+	
+	SetDepth ($DepthUnderKeel)+100
+	
+	Launch Noisemaker
+	
+	Begin Timer
+	
+	If TorpedoStatus = Closing
+	
+		Begin SubmarineEvadeWeapon
+	
+	Else
+	
+		When Timer = 5
+	
+		SetTelegraph 1
+		
+		Begin SubmarineSprintAndDrift
+		

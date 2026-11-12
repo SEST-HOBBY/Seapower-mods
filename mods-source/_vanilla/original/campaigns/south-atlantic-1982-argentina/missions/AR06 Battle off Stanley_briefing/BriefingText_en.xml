@@ -1,0 +1,61 @@
+<Border xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Tag="FullBleedBriefing" BorderBrush="#92968C" BorderThickness="1" HorizontalAlignment="Stretch">
+  <Border.Resources>
+    <Style TargetType="{x:Type TextBlock}">
+      <Setter Property="FontFamily" Value="/Assets/Resources/ui/fonts/#Special Elite"/>
+      <Setter Property="Foreground" Value="#49677F"/>
+      <Setter Property="FontSize" Value="18"/>
+      <Setter Property="FontWeight" Value="Normal"/>
+      <Setter Property="TextWrapping" Value="Wrap"/>
+      <Setter Property="LineHeight" Value="24"/>
+      <Setter Property="LineStackingStrategy" Value="BlockLineHeight"/>
+    </Style>
+  </Border.Resources>
+  <Border.Background>
+    <LinearGradientBrush StartPoint="0,0" EndPoint="1,0.8">
+      <GradientStop Color="#DADCD5" Offset="0"/>
+      <GradientStop Color="#F0F0E8" Offset="0.32"/>
+      <GradientStop Color="#E7E9E2" Offset="0.76"/>
+      <GradientStop Color="#D4D8D1" Offset="1"/>
+    </LinearGradientBrush>
+  </Border.Background>
+  <Grid>
+    <Canvas IsHitTestVisible="False" ClipToBounds="True">
+      <Ellipse Canvas.Left="13" Canvas.Top="39" Width="10" Height="13" Fill="#616456"/>
+      <Path Stroke="#9A9F94" StrokeThickness="1" Data="M 18,39 L 14,28 15,14 11,2"/>
+      <Ellipse Canvas.Left="13" Canvas.Top="76" Width="10" Height="13" Fill="#616456"/>
+      <Path Stroke="#D3D6CA" StrokeThickness="1.5" Data="M 13,83 C 14,89 20,90 24,85"/>
+    </Canvas>
+    <Border Width="2" Background="#9A9F94" Opacity="0.09" HorizontalAlignment="Center" IsHitTestVisible="False"/>
+    <Border Width="1" Background="#FFFFFF" Opacity="0.32" HorizontalAlignment="Center" Margin="4,0,0,0" IsHitTestVisible="False"/>
+    <Border Height="1" Background="#9A9F94" Opacity="0.12" VerticalAlignment="Center" IsHitTestVisible="False"/>
+    <StackPanel Margin="38,30,28,30">
+      <Border BorderBrush="#A24F4E" BorderThickness="1.5" Padding="14,7" Margin="0,0,5,22"
+              HorizontalAlignment="Right" Opacity="0.8" RenderTransformOrigin="0.5,0.5">
+        <Border.RenderTransform><RotateTransform Angle="-2"/></Border.RenderTransform>
+        <TextBlock Text="SECRET" Foreground="#A24F4E" FontSize="20" TextAlignment="Center"/>
+      </Border>
+      <TextBlock FontSize="20" LineHeight="26" Margin="0,0,0,20">FLASH<LineBreak/>MENSAJE "OPERACIONES" GFH 121330<LineBreak/>12 MAY 1982</TextBlock>
+      <Grid Margin="0,0,0,20">
+        <Grid.ColumnDefinitions><ColumnDefinition Width="54"/><ColumnDefinition Width="*"/></Grid.ColumnDefinitions>
+        <Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/></Grid.RowDefinitions>
+        <TextBlock Grid.Row="0" Text="FM" Margin="0,0,8,6"/>
+        <TextBlock Grid.Row="0" Grid.Column="1" Text="COMANDANTE DE OPERACIONES NAVALES" Margin="0,0,0,6"/>
+        <TextBlock Grid.Row="1" Text="TO" Margin="0,0,8,6"/>
+        <TextBlock Grid.Row="1" Grid.Column="1" Text="COMANDANTE GRUPO DE ESCOLTA DEL CONVOY" Margin="0,0,0,6"/>
+        <TextBlock Grid.Row="2" Text="SUBJ" Margin="0,0,8,6"/>
+        <TextBlock Grid.Row="2" Grid.Column="1" Text="PUERTO ARGENTINO CONVOY OPERATIONS" Margin="0,0,0,6"/>
+      </Grid>
+      <Border Height="1" Background="#7F939E" Opacity="0.45" Margin="0,0,0,20"/>
+      <!-- Urgent convoy signal follows the campaign's concise numbered orders. -->
+      <TextBlock Margin="0,0,0,16">1. ESCORT THE SUPPLY CONVOY INTO PORT WILLIAM AND COVER UNLOADING. PROTECT THE TRANSPORTS AND SUPPLY STORES ASHORE.</TextBlock>
+      <TextBlock Margin="0,0,0,16">2. BRITISH FORCES HAVE BEEN DETACHING GUN GROUPS TO BOMBARD STANLEY AND GOOSE GREEN. THESE SHIPS MAY BE ENCOUNTERED DURING THE APPROACH. SINK OR DRIVE OFF ANY GROUP THREATENING THE CONVOY OR UNLOADING AREA.</TextBlock>
+      <TextBlock Margin="0,0,0,16">3. EXPECT EXOCET-ARMED WARSHIPS AND POSSIBLE CARRIER AIR ATTACKS. A BRITISH SUBMARINE MAY BE ON THE CONVOY ROUTE. MAINTAIN AN ANTI-SUBMARINE SCREEN.</TextBlock>
+      <TextBlock Margin="0,0,0,16">4. THE SHIPS CARRY RUNWAY MATTING, AIRCRAFT SPARES, GROUND EQUIPMENT AND AVIATION FUEL. DELIVERY OF THESE CARGOES WILL ALLOW A-4 SKYHAWKS TO BASE AT STANLEY AND SUPPORT FURTHER OPERATIONS FROM THE ISLANDS.</TextBlock>
+      <TextBlock Margin="0,0,0,16">5. REMARKS: BAD WEATHER OVER THE MAINLAND HAS GROUNDED ALL MAINLAND AIRCRAFT. ISLAND-BASED ATTACK AIRCRAFT AT STANLEY AND GOOSE GREEN ARE AVAILABLE TO SUPPORT YOUR GROUP.</TextBlock>
+      <Border Height="1" Background="#7F939E" Opacity="0.35" Margin="0,4,0,18"/>
+      <TextBlock Text="SECRET" TextAlignment="Center" FontSize="16" Foreground="#617A8C"/>
+    </StackPanel>
+  </Grid>
+</Border>

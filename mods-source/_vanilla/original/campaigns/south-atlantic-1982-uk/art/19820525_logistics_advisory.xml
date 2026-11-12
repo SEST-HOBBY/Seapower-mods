@@ -1,0 +1,34 @@
+<!-- Original campaign correspondence. Pacific Strike supplies the scrollable document layout;
+UK operational briefings supply the classification, addressees and numbered-message style.
+Outcome-dependent assessments stay conditional; the campaign shell supplies navigation. -->
+<ScrollViewer xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+              HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
+  <Border Width="900" HorizontalAlignment="Center" VerticalAlignment="Top" Padding="45"
+          Background="#F1EBD9" TextElement.Foreground="#171714"
+          TextElement.FontFamily="Courier New" TextElement.FontSize="20">
+    <Border.Effect><DropShadowEffect/></Border.Effect>
+    <StackPanel>
+      <StackPanel HorizontalAlignment="Center" Margin="0,0,0,28">
+        <TextBlock Text="SECRET" FontFamily="Arial" FontSize="36" Foreground="#676767" TextAlignment="Center"/>
+        <TextBlock Text="EXCLUSIVE" FontFamily="Arial" FontSize="36" Foreground="#676767" TextAlignment="Center"/>
+      </StackPanel>
+      <Grid Margin="0,0,0,28">
+        <Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="30"/><ColumnDefinition Width="*"/></Grid.ColumnDefinitions>
+        <TextBlock TextWrapping="Wrap" TextDecorations="Underline">OPERATION CORPORATE<LineBreak/>LOGISTICS ADVISORY</TextBlock>
+        <TextBlock Grid.Column="2" TextWrapping="Wrap">FROM: CINCFLEET NORTHWOOD<LineBreak/>TO: CTG 317.8<LineBreak/>INFO: AMPHIBIOUS FORCE COMMANDER<LineBreak/>25 MAY 1982</TextBlock>
+      </Grid>
+      <Rectangle Height="1" Fill="#676767" Margin="0,0,0,22"/>
+      <TextBlock Text="Time zone: ZULU." Margin="0,0,0,22"/>
+      <TextBlock TextWrapping="Wrap" Margin="0,0,0,22"><Run Text="1. SITUATION:" TextDecorations="Underline"/> The defence of San Carlos and the offshore carrier group has ended. Continued operations ashore depend upon the surviving shipping and its cargo. Submit a consolidated return of ships lost, damaged or still capable of unloading.</TextBlock>
+      <TextBlock TextWrapping="Wrap" Margin="0,0,0,22"><Run Text="2. ATLANTIC CONVEYOR:" TextDecorations="Underline"/> Confirm the fate of ATLANTIC CONVEYOR separately. If lost, report the cargo shortfall and redistribute the surviving supplies. The San Carlos defence commitment has been completed. Prepare the surviving force for onward operations.</TextBlock>
+      <TextBlock TextWrapping="Wrap" Margin="0,0,0,22"><Run Text="3. AMPHIBIOUS LIFT:" TextDecorations="Underline"/> Protect the remaining landing ships and transports. A local tactical success cannot compensate for the loss of the lift required to sustain the force ashore. Escort and air-defence dispositions are to reflect that priority.</TextBlock>
+      <TextBlock TextWrapping="Wrap" Margin="0,0,0,22"><Run Text="4. SERVICE SUPPORT:" TextDecorations="Underline"/> No repair or ammunition replenishment is available before the next operation. Report remaining anti-aircraft ammunition, damage and unloading capability. Allocate the ships still fit for the task. Avoid exposing scarce transports unnecessarily.</TextBlock>
+      <TextBlock Text="CINCFLEET NORTHWOOD" Margin="0,0,0,28"/>
+      <StackPanel HorizontalAlignment="Center">
+        <TextBlock Text="SECRET" FontFamily="Arial" FontSize="36" Foreground="#676767" TextAlignment="Center"/>
+        <TextBlock Text="EXCLUSIVE" FontFamily="Arial" FontSize="36" Foreground="#676767" TextAlignment="Center"/>
+      </StackPanel>
+    </StackPanel>
+  </Border>
+</ScrollViewer>

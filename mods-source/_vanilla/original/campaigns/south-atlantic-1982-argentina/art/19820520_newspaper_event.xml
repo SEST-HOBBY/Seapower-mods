@@ -1,0 +1,58 @@
+<!-- Front page after AR07. Covers both winning results (carrier sunk or driven off) by
+reporting the carrier "hit" and the Task Force pulling back. -->
+<Viewbox xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Stretch="Uniform" StretchDirection="DownOnly">
+  <Border Width="1040" HorizontalAlignment="Center" VerticalAlignment="Top" Padding="44,30,44,40"
+          Background="#ECE5D0" TextElement.Foreground="#161512"
+          TextElement.FontFamily="Times New Roman" TextElement.FontSize="19">
+    <Border.Effect><DropShadowEffect/></Border.Effect>
+    <StackPanel>
+      <Grid Margin="0,0,0,4">
+        <TextBlock Text="Buenos Aires, jueves 20 de mayo de 1982" FontFamily="Arial" FontSize="13" HorizontalAlignment="Left"/>
+        <TextBlock Text="Año XXXVII · N° 13.130" FontFamily="Arial" FontSize="13" HorizontalAlignment="Center"/>
+        <TextBlock Text="Precio: $ 7.000" FontFamily="Arial" FontSize="13" HorizontalAlignment="Right"/>
+      </Grid>
+      <Rectangle Height="1" Fill="#161512"/>
+      <TextBlock Text="Diario de la Plata" FontSize="88" FontWeight="Bold" FontStyle="Italic" HorizontalAlignment="Center" Margin="0,-4,0,-6"/>
+      <TextBlock Text="UN DIARIO INDEPENDIENTE DE LA MAÑANA" FontFamily="Arial" FontSize="12" HorizontalAlignment="Center" Margin="0,0,0,6"/>
+      <Rectangle Height="4" Fill="#161512" Margin="0,0,0,2"/>
+      <Rectangle Height="1" Fill="#161512" Margin="0,0,0,14"/>
+
+      <Border Background="#161512" Padding="10,4" HorizontalAlignment="Left" Margin="0,0,0,6">
+        <TextBlock Text="GOLPE A LA FLOTA BRITÁNICA" FontFamily="Arial" FontWeight="Bold" FontSize="18" Foreground="#ECE5D0"/>
+      </Border>
+      <TextBlock Text="BRITISH CARRIER HIT: THE TASK FORCE PULLS BACK" FontFamily="Arial Narrow Bold" FontSize="64" TextWrapping="Wrap" LineHeight="62" Margin="0,0,0,8"/>
+      <TextBlock Text="Exocet and bombs strike the enemy flagship group. The carrier last seen burning and steaming east." FontStyle="Italic" FontSize="25" TextWrapping="Wrap" Margin="0,0,0,16"/>
+
+      <Image Source="{Binding Assets[sa1982_photo_rn_destroyers]}" Stretch="Uniform" MaxHeight="360" HorizontalAlignment="Center"/>
+      <TextBlock Text="Warships of the British Task Force. Archive photograph." FontFamily="Arial" FontSize="13" FontStyle="Italic" Margin="0,6,0,16"/>
+      <Rectangle Height="1" Fill="#161512" Margin="0,0,0,14"/>
+
+      <Grid>
+        <Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="28"/><ColumnDefinition Width="*"/></Grid.ColumnDefinitions>
+        <StackPanel Grid.Column="0">
+          <Border BorderBrush="#161512" BorderThickness="2" Padding="14,10" Margin="0,0,0,14">
+            <StackPanel>
+              <TextBlock Text="COMUNICADO N° 71" FontFamily="Arial" FontWeight="Bold" FontSize="17" Margin="0,0,0,6"/>
+              <TextBlock TextWrapping="Wrap" LineHeight="24" FontSize="18"><Run Text="El Estado Mayor Conjunto comunica que" FontStyle="Italic"/> on 19 May aircraft of the Armada and the Fuerza Aérea attacked the British carrier group east of the Malvinas. An aircraft carrier was hit by missiles and bombs and left the area with serious damage. Other ships of the group were also hit.</TextBlock>
+              <TextBlock Text="Hasta el presente, las fuerzas argentinas mantienen la iniciativa." TextWrapping="Wrap" FontStyle="Italic" FontSize="18" Margin="0,8,0,0"/>
+            </StackPanel>
+          </Border>
+          <TextBlock TextWrapping="Wrap" LineHeight="26">Military sources in Buenos Aires said last night that without its full air group the British fleet can no longer hold its position close to the islands. Reconnaissance flights report the enemy formation opening its distance to the east.</TextBlock>
+        </StackPanel>
+        <Rectangle Grid.Column="1" Width="1" Fill="#161512" HorizontalAlignment="Center"/>
+        <StackPanel Grid.Column="2">
+          <TextBlock Text="New York: the mediation fails" FontFamily="Arial" FontWeight="Bold" FontSize="20" Margin="0,0,0,6"/>
+          <TextBlock TextWrapping="Wrap" LineHeight="26" Margin="0,0,0,12"><Run Text="NUEVA YORK (ANN). —" FontWeight="Bold"/> The Secretary-General of the United Nations informed the Security Council last night that his efforts to bring the two sides to an agreement have not succeeded. The Council will meet again tomorrow.</TextBlock>
+          <TextBlock TextWrapping="Wrap" LineHeight="26">Western diplomats expect London to answer the failure of the talks with a landing on the islands within days. "They have to do it now, or not at all," said one.</TextBlock>
+        </StackPanel>
+      </Grid>
+
+      <Rectangle Height="1" Fill="#161512" Margin="0,18,0,6"/>
+      <Grid>
+        <TextBlock Text="El tiempo: Buenos Aires, frío y despejado. Mínima 4°, máxima 13°." FontFamily="Arial" FontSize="12" HorizontalAlignment="Left"/>
+        <TextBlock Text="Deportes 20 · Espectáculos 24 · Clasificados 28" FontFamily="Arial" FontSize="12" HorizontalAlignment="Right"/>
+      </Grid>
+    </StackPanel>
+  </Border>
+</Viewbox>

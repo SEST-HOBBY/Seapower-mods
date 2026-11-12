@@ -1,0 +1,8 @@
+<Viewbox xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+         Stretch="Uniform" StretchDirection="DownOnly">
+  <!-- Preserve the supplied document scan, including handwritten amendments and signatures. -->
+  <Image Width="1080" Height="1455"
+         Source="{Binding Assets[19820614_instrument_of_surrender]}"
+         Stretch="Uniform" />
+</Viewbox>

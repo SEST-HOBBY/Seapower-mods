@@ -1,0 +1,66 @@
+<!-- Matches the 2 May Diario de la Plata edition: portrait sheet, Impact headlines,
+archive photograph, narrow official-report sidebar and three article columns.
+The Télam photograph and its archive caption are reused from that edition.
+This campaign newspaper is fictional editorial content, not a historical front-page transcription. -->
+<Viewbox xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Stretch="Uniform" StretchDirection="DownOnly">
+ <Grid Width="1000" Height="1420">
+  <Border Width="1000" Height="1420" Padding="38,25,38,30" TextElement.Foreground="#211F1B" TextElement.FontFamily="Times New Roman">
+   <Border.Background><LinearGradientBrush StartPoint="0,0" EndPoint="1,1"><GradientStop Color="#E9E2CE" Offset="0"/><GradientStop Color="#F1ECD9" Offset="0.45"/><GradientStop Color="#E9E2CE" Offset="1"/></LinearGradientBrush></Border.Background>
+   <Grid>
+    <Grid.RowDefinitions><RowDefinition Height="*"/><RowDefinition Height="32"/></Grid.RowDefinitions>
+    <StackPanel x:Name="PageContent">
+     <Grid Height="24">
+      <TextBlock x:Name="EditionDate" Text="Buenos Aires, martes 15 de junio de 1982" FontFamily="Arial" FontSize="13"/>
+      <TextBlock x:Name="EditionNumber" Text="Año XXXVII · N° 13.156" FontFamily="Arial" FontSize="13" HorizontalAlignment="Center"/>
+      <TextBlock x:Name="EditionPrice" Text="Precio: $ 7.000" FontFamily="Arial" FontSize="13" HorizontalAlignment="Right"/>
+     </Grid>
+     <Border Height="1" Background="#211F1B"/>
+     <Viewbox Height="105" Stretch="Fill"><TextBlock x:Name="Masthead" Text="Diario de la Plata" FontSize="100" FontWeight="Bold" FontStyle="Italic"/></Viewbox>
+     <TextBlock x:Name="MastheadTagline" Text="UN DIARIO INDEPENDIENTE DE LA MAÑANA" HorizontalAlignment="Center" FontFamily="Arial" FontSize="12" Margin="0,0,0,9"/>
+     <Border Height="4" Background="#211F1B"/><Border Height="1" Background="#211F1B" Margin="0,3,0,12"/>
+     <TextBlock x:Name="Kicker" Text="EL COMBATE DE PUERTO ARGENTINO HA FINALIZADO" FontFamily="Arial" FontWeight="Bold" FontSize="18" Margin="0,0,0,8"/>
+     <!-- Edit each headline line as a whole. The margins follow the 2 May Impact template. -->
+     <StackPanel Margin="0,6,0,0">
+      <Viewbox Height="112" Stretch="Fill"><TextBlock x:Name="HeadlineLine1" Text="ALTO EL FUEGO EN" FontFamily="Impact" FontStyle="Normal" FontSize="80" Margin="0,-12,0,-14"/></Viewbox>
+      <Viewbox Height="112" Stretch="Fill"><TextBlock x:Name="HeadlineLine2" Text="PUERTO ARGENTINO" FontFamily="Impact" FontStyle="Normal" FontSize="80" Margin="0,-12,0,-14"/></Viewbox>
+     </StackPanel>
+     <TextBlock x:Name="MainDeck" Text="La guarnición depone las armas tras tres semanas de combates, desde la cabeza de playa de San Carlos hasta las alturas que rodean la localidad." FontSize="24" FontWeight="Bold" TextWrapping="Wrap" LineHeight="27" Margin="0,12,0,14"/>
+     <Border Height="2" Background="#211F1B" Margin="0,0,0,14"/>
+     <Grid Height="420">
+      <Grid.ColumnDefinitions><ColumnDefinition Width="610"/><ColumnDefinition Width="22"/><ColumnDefinition Width="*"/></Grid.ColumnDefinitions>
+      <Image x:Name="MainPhotograph" Source="{Binding Assets[sa1982_photo_argentine_garrison]}" Stretch="UniformToFill"/>
+      <StackPanel x:Name="OfficialReport" Grid.Column="2">
+       <TextBlock x:Name="SideHeadline" Text="COMUNICADO N° 163" FontFamily="Impact" FontSize="30" TextWrapping="Wrap" Margin="0,0,0,13"/>
+       <TextBlock x:Name="SideBody" Text="El Estado Mayor Conjunto comunica que a las 16.00 de ayer se reunieron en Puerto Argentino el comandante de las fuerzas argentinas en las Malvinas y el comandante de las fuerzas británicas. Como resultado, rige un alto el fuego en la zona." FontSize="20" LineHeight="24" TextWrapping="Wrap"/>
+      </StackPanel>
+     </Grid>
+     <TextBlock x:Name="PhotoCaption" Text="Soldados argentinos leen diarios en las islas. Fotografía: Télam. Imagen de archivo." FontFamily="Arial" FontSize="13" TextWrapping="Wrap" Margin="0,7,0,15"/>
+     <Border Height="2" Background="#211F1B" Margin="0,0,0,15"/>
+     <Grid x:Name="Articles">
+      <Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="24"/><ColumnDefinition Width="*"/><ColumnDefinition Width="24"/><ColumnDefinition Width="*"/></Grid.ColumnDefinitions>
+      <StackPanel x:Name="ArticleLeft">
+       <TextBlock x:Name="SurrenderReport" Text="El comunicado no empleó la palabra rendición. Las agencias extranjeras sí. Según sus informaciones, la guarnición, de más de diez mil hombres, será desarmada y repatriada por mar." FontSize="18" LineHeight="22" TextWrapping="Wrap" TextAlignment="Justify" Margin="0,0,0,12"/>
+       <TextBlock x:Name="CampaignAssessment" Text="Una vez consolidado el desembarco en San Carlos, el desenlace dependía de que la flota y la aviación interrumpieran su abastecimiento. Con los portaaviones británicos aún en el mar y la cabeza de playa abastecida de noche, el Ejército en las islas quedó librado a combatir solo." FontSize="18" LineHeight="22" TextWrapping="Wrap" TextAlignment="Justify"/>
+      </StackPanel>
+      <Border Grid.Column="1" Width="1" Background="#211F1B"/>
+      <StackPanel x:Name="ArticleMiddle" Grid.Column="2">
+       <TextBlock x:Name="AngerHeadline" Text="Indignación en la Plaza de Mayo" FontSize="24" FontWeight="Bold" TextWrapping="Wrap" Margin="0,0,0,10"/>
+       <TextBlock x:Name="AngerBody" Text="La misma plaza que había celebrado en abril volvió a llenarse anoche, primero en silencio y luego con indignación. La policía utilizó gases lacrimógenos para dispersar a la multitud frente a la Casa Rosada. Hubo vidrieras rotas a lo largo de la Avenida de Mayo." FontSize="18" LineHeight="22" TextWrapping="Wrap" TextAlignment="Justify"/>
+      </StackPanel>
+      <Border Grid.Column="3" Width="1" Background="#211F1B"/>
+      <StackPanel x:Name="ArticleRight" Grid.Column="4">
+       <TextBlock x:Name="MotherQuote" Text="«Nos decían que estábamos ganando», declaró en la esquina de Bolívar una mujer cuyo hijo se encuentra en las islas. «Nos lo decían todos los días»." FontSize="22" LineHeight="26" FontWeight="Bold" TextWrapping="Wrap" Margin="0,0,0,12"/>
+       <TextBlock x:Name="FamiliesBody" Text="En las provincias, las familias comenzaron a reunirse ante las puertas de los regimientos en busca de noticias de sus conscriptos." FontSize="18" LineHeight="22" TextWrapping="Wrap" TextAlignment="Justify"/>
+      </StackPanel>
+     </Grid>
+    </StackPanel>
+    <Grid x:Name="Footer" Grid.Row="1" VerticalAlignment="Bottom">
+     <Border Height="1" Background="#211F1B" VerticalAlignment="Top"/>
+     <TextBlock x:Name="Weather" Text="El tiempo: Buenos Aires, frío. Mínima 2°, máxima 10°." FontFamily="Arial" FontSize="11" Margin="0,8,0,0"/>
+     <TextBlock x:Name="Contents" Text="Deportes 18 · Espectáculos 22 · Clasificados 26" FontFamily="Arial" FontSize="11" HorizontalAlignment="Right" Margin="0,8,0,0"/>
+    </Grid>
+   </Grid>
+  </Border>
+  <Image x:Name="PaperWear" Source="{Binding Assets[moon_paper_wear]}" Stretch="Fill" Opacity="0.65" IsHitTestVisible="False"/>
+ </Grid>
+</Viewbox>

@@ -1,0 +1,252 @@
+<Viewbox xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Stretch="Uniform" StretchDirection="DownOnly">
+  <!-- EDITING THIS PAGE
+       Change the words in Text values or between TextBlock tags.
+       Change the row heights below to give a section more room.
+       Change column widths to give the headlines or articles more room.
+       The text styles below set the fonts. ArticleText sets the small print size.
+       Viewbox fits a heading into its space. Longer headings may look narrower.
+       Negative margins remove empty space around large letters. Check accents after editing.
+       Keep the three PNG files with this XAML and render a preview after changes. -->
+  <Border x:Name="Paper" Width="1000" Height="1210" TextElement.Foreground="#3C3D35">
+    <Border.Background>
+      <LinearGradientBrush StartPoint="0,0" EndPoint="1,0.6">
+        <GradientStop Color="#C7C2AA" Offset="0" />
+        <GradientStop Color="#E0DBC5" Offset="0.25" />
+        <GradientStop Color="#DAD5BF" Offset="0.72" />
+        <GradientStop Color="#C8C1A9" Offset="1" />
+      </LinearGradientBrush>
+    </Border.Background>
+    <Border.Resources>
+      <Style x:Key="BigHeadline" TargetType="TextBlock">
+        <Setter Property="FontFamily" Value="Arial Black" />
+        <Setter Property="FontSize" Value="100" />
+        <Setter Property="Margin" Value="0,-20,0,-22" />
+      </Style>
+      <Style x:Key="BoldHeading" TargetType="TextBlock">
+        <Setter Property="FontFamily" Value="Impact" />
+        <Setter Property="FontSize" Value="100" />
+        <Setter Property="Margin" Value="0,-20,0,-10" />
+      </Style>
+      <Style x:Key="ArticleText" TargetType="TextBlock">
+        <Setter Property="FontFamily" Value="Times New Roman" />
+        <Setter Property="FontSize" Value="10.8" />
+        <Setter Property="TextWrapping" Value="Wrap" />
+        <Setter Property="TextAlignment" Value="Justify" />
+        <Setter Property="LineHeight" Value="11.4" />
+        <Setter Property="LineStackingStrategy" Value="BlockLineHeight" />
+      </Style>
+    </Border.Resources>
+    <Grid>
+      <Grid x:Name="PageLayout" Margin="26,33,57,35">
+        <!-- Rows: top of page, main headline, news below, bottom banner. -->
+        <Grid.RowDefinitions>
+          <RowDefinition Height="206" />
+          <RowDefinition Height="570" />
+          <RowDefinition Height="300" />
+          <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <!-- Columns: headlines on the left, photograph on the right. -->
+        <Grid.ColumnDefinitions>
+          <ColumnDefinition Width="677" />
+          <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <!-- Simple borders around the story and the photograph. -->
+        <Border Grid.Row="1" Grid.RowSpan="2" Grid.ColumnSpan="2" BorderBrush="#3C3D35" BorderThickness="4,0,4,0" />
+        <Border Grid.Row="1" Width="525" Height="4" HorizontalAlignment="Left" VerticalAlignment="Top" Background="#3C3D35" />
+        <Border Grid.Column="1" Grid.RowSpan="2" BorderBrush="#3C3D35" BorderThickness="0,4,4,0" />
+        <!-- Paper name, date, price and special issue label. -->
+        <Grid Grid.Row="0" Grid.Column="0">
+          <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="525" />
+            <ColumnDefinition Width="*" />
+          </Grid.ColumnDefinitions>
+          <Grid Margin="2,1,21,8">
+            <Grid.RowDefinitions>
+              <RowDefinition Height="166" />
+              <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Border Background="#B45543">
+              <Grid Margin="10,9,27,9">
+                <!-- Change this one Text value to edit the paper name. -->
+                <Viewbox Stretch="Fill" Margin="0,0,0,3">
+                  <TextBlock x:Name="PaperName" Style="{StaticResource BigHeadline}" Text="Moon" Foreground="#E7E1CB" Margin="-7,-20,0,-22">
+                    <TextBlock.RenderTransform>
+                      <SkewTransform AngleX="-12" CenterY="100" />
+                    </TextBlock.RenderTransform>
+                  </TextBlock>
+                </Viewbox>
+                <Viewbox Width="252" Height="27" Stretch="Fill" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,3,0,0">
+                  <TextBlock Style="{StaticResource BoldHeading}" Text="GRAND NATIONAL" Foreground="#E7E1CB" FontStyle="Italic" />
+                </Viewbox>
+              </Grid>
+            </Border>
+            <Grid Grid.Row="1" Margin="0,5,0,0">
+              <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="176" />
+                <ColumnDefinition Width="57" />
+                <ColumnDefinition Width="*" />
+              </Grid.ColumnDefinitions>
+              <TextBlock FontFamily="Times New Roman" FontSize="10" FontWeight="Bold" VerticalAlignment="Center" Text="Saturday, April 3, 1982" />
+              <TextBlock Grid.Column="1" FontFamily="Impact" FontSize="15" VerticalAlignment="Center" Text="14p" />
+              <Viewbox Grid.Column="2" Stretch="Fill" Height="13" VerticalAlignment="Center">
+                <TextBlock Style="{StaticResource BoldHeading}" Text="FOUR-PAGE NATIONAL PULL-OUT INSIDE" />
+              </Viewbox>
+            </Grid>
+          </Grid>
+          <Border Grid.Column="1" BorderBrush="#3C3D35" BorderThickness="4,4,0,0" Padding="10,12,1,13">
+            <Border Background="#3C3D35" Padding="10,10,10,8" TextElement.Foreground="#DED9C3">
+              <Grid>
+                <Grid.RowDefinitions>
+                  <RowDefinition />
+                  <RowDefinition />
+                  <RowDefinition />
+                </Grid.RowDefinitions>
+                <Border BorderBrush="#B6B39F" BorderThickness="0,0,0,2" Margin="0,0,0,7" Padding="0,0,0,6">
+                  <Viewbox Stretch="Fill">
+                    <TextBlock Style="{StaticResource BoldHeading}" Text="Special" />
+                  </Viewbox>
+                </Border>
+                <Border Grid.Row="1" BorderBrush="#B6B39F" BorderThickness="0,0,0,2" Margin="0,0,15,7" Padding="0,3,0,6">
+                  <Viewbox Stretch="Fill">
+                    <TextBlock Style="{StaticResource BoldHeading}" Text="crisis" />
+                  </Viewbox>
+                </Border>
+                <Border Grid.Row="2" BorderBrush="#B6B39F" BorderThickness="0,0,0,2" Margin="0,0,25,0" Padding="0,3,0,6">
+                  <Viewbox Stretch="Fill">
+                    <TextBlock Style="{StaticResource BoldHeading}" Text="issue" />
+                  </Viewbox>
+                </Border>
+              </Grid>
+            </Border>
+          </Border>
+        </Grid>
+        <!-- Photo and caption. The last row grows if the caption needs more lines. -->
+        <Grid Grid.RowSpan="2" Grid.Column="1" Margin="16,16,14,-3">
+          <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+          </Grid.RowDefinitions>
+          <Image Source="{Binding Assets[moon_thatcher_halftone]}" Stretch="Fill" Opacity="0.94" />
+          <TextBlock Grid.Row="1" FontFamily="Times New Roman" FontSize="10.5" FontStyle="Italic" TextAlignment="Center" TextWrapping="Wrap" Margin="0,8,0,0">
+            THE PREMIER: Margaret Thatcher.<LineBreak />Library photograph, February 1981.
+          </TextBlock>
+        </Grid>
+        <!-- Two headline rows. Change these heights to move space between the lines. -->
+        <Grid Grid.Row="1" Margin="7,24,8,0">
+          <Grid.RowDefinitions>
+            <RowDefinition Height="258" />
+            <RowDefinition Height="30" />
+            <RowDefinition Height="*" />
+          </Grid.RowDefinitions>
+          <Grid>
+            <Grid.ColumnDefinitions>
+              <ColumnDefinition Width="255" />
+              <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <!-- MAP BADGE START. Remove or comment out the whole Grid below to hide the badge. -->
+            <Grid x:Name="FalklandsCrisisBadge" Width="190" Height="220" HorizontalAlignment="Left" Margin="20,0,0,0" RenderTransformOrigin="0.5,0.5">
+              <Grid.RenderTransform>
+                <RotateTransform Angle="-6" />
+              </Grid.RenderTransform>
+              <Image Source="{Binding Assets[moon_falklands_map]}" Width="210" Height="155" VerticalAlignment="Top" Margin="-10,25,-10,0" Stretch="Uniform" />
+              <StackPanel VerticalAlignment="Bottom" Margin="0,0,0,15">
+                <Border Background="#3C3D35" Padding="4,5" Margin="0,0,0,5">
+                  <Viewbox Height="32" Stretch="Fill">
+                    <TextBlock FontFamily="Impact" FontSize="100" Margin="0,-20,0,-10" Foreground="#DED9C3" Text="FALKLANDS" />
+                  </Viewbox>
+                </Border>
+                <Border Background="#3C3D35" Padding="6,5" Margin="12,0,12,10">
+                  <Viewbox Height="51" Stretch="Fill">
+                    <TextBlock FontFamily="Impact" FontSize="100" Margin="0,-20,0,-10" Foreground="#DED9C3" Text="CRISIS" />
+                  </Viewbox>
+                </Border>
+                <Border BorderBrush="#3C3D35" BorderThickness="0,0,0,2" Margin="18,0" />
+              </StackPanel>
+            </Grid>
+            <!-- MAP BADGE END. -->
+            <Viewbox Grid.Column="1" Stretch="Fill">
+              <TextBlock x:Name="HeadlineLine1" Style="{StaticResource BigHeadline}" Text="IT'S" Margin="-8,-19,-4,-22" />
+            </Viewbox>
+          </Grid>
+          <Viewbox Grid.Row="2" Stretch="Fill">
+            <TextBlock x:Name="HeadlineLine2" Style="{StaticResource BigHeadline}" Text="WAR!" Margin="0,-21,-6,-23" />
+          </Viewbox>
+        </Grid>
+        <!-- News below the headline. Give the articles more width here if needed. -->
+        <Grid Grid.Row="2" Grid.ColumnSpan="2" Margin="12,12,14,0">
+          <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="486" />
+            <ColumnDefinition Width="24" />
+            <ColumnDefinition Width="*" />
+          </Grid.ColumnDefinitions>
+          <Grid>
+            <Grid.RowDefinitions>
+              <RowDefinition />
+              <RowDefinition />
+              <RowDefinition />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+              <ColumnDefinition Width="43" />
+              <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Ellipse Width="23" Height="23" Fill="#3C3D35" VerticalAlignment="Center" Margin="0,0,0,14" />
+            <Border Grid.Column="1" BorderBrush="#3C3D35" BorderThickness="0,0,0,11" Margin="0,0,0,4" Padding="0,6,0,14">
+              <Viewbox Stretch="Fill">
+                <TextBlock Style="{StaticResource BoldHeading}" Text="40 warships ready" />
+              </Viewbox>
+            </Border>
+            <Ellipse Grid.Row="1" Width="23" Height="23" Fill="#3C3D35" VerticalAlignment="Center" Margin="0,0,0,14" />
+            <Border Grid.Row="1" Grid.Column="1" BorderBrush="#3C3D35" BorderThickness="0,0,0,11" Margin="0,0,0,4" Padding="0,6,0,14">
+              <Viewbox Stretch="Fill">
+                <TextBlock Style="{StaticResource BoldHeading}" Text="Paras are called up" />
+              </Viewbox>
+            </Border>
+            <Ellipse Grid.Row="2" Width="23" Height="23" Fill="#3C3D35" VerticalAlignment="Center" Margin="0,0,0,14" />
+            <Border Grid.Row="2" Grid.Column="1" BorderBrush="#3C3D35" BorderThickness="0,0,0,11" Margin="0,0,0,4" Padding="0,6,0,14">
+              <Viewbox Stretch="Fill">
+                <TextBlock Style="{StaticResource BoldHeading}" Text="Randy Andy to go" />
+              </Viewbox>
+            </Border>
+          </Grid>
+          <Grid Grid.Column="2">
+            <Grid.RowDefinitions>
+              <RowDefinition Height="19" />
+              <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <TextBlock FontFamily="Times New Roman" FontSize="10.5" FontWeight="Bold" TextAlignment="Center" Text="By OUR DEFENCE STAFF" />
+            <Grid Grid.Row="1">
+              <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition Width="24" />
+                <ColumnDefinition />
+              </Grid.ColumnDefinitions>
+              <StackPanel x:Name="ArticleLeft">
+                <TextBlock Style="{StaticResource ArticleText}" FontSize="16" FontWeight="Bold" LineHeight="16.3" Margin="0,0,0,4">BRITAIN was last night preparing to send a naval task force south after Argentine forces landed on the Falkland Islands.</TextBlock>
+                <TextBlock Style="{StaticResource ArticleText}" xml:space="preserve">    In dockyards across the country, sailors worked through the night to ready ships for the long voyage south.<LineBreak />    Stores, fuel and ammunition were brought alongside as crews waited for their sailing orders.</TextBlock>
+                <TextBlock Style="{StaticResource ArticleText}" FontFamily="Arial" FontSize="11.5" TextAlignment="Center" TextDecorations="Underline" Margin="0,5,0,3">ON STANDBY</TextBlock>
+                <TextBlock Style="{StaticResource ArticleText}" xml:space="preserve">    Ministers held urgent talks while service families waited for news. Britain faced a weekend of grave decisions.<LineBreak />    Dockyard workers stayed at their posts as lorries arrived in a steady stream. There was no word on when the fleet would sail.</TextBlock>
+              </StackPanel>
+              <Border Grid.Column="1" BorderBrush="#3C3D35" BorderThickness="1,0,0,0" Margin="11,0,12,10" />
+              <StackPanel Grid.Column="2">
+                <StackPanel x:Name="ArticleRight">
+                  <TextBlock Style="{StaticResource ArticleText}" xml:space="preserve">    Aircraft carriers and their escorts could form the heart of a task force able to operate thousands of miles from home.<LineBreak />    Preparations gathered pace as diplomats pressed for an answer to the island crisis. At bases around the country, leave plans were being put aside.<LineBreak />    The days ahead would test the fleet and its men.</TextBlock>
+                  <TextBlock Style="{StaticResource ArticleText}" FontFamily="Arial" FontSize="11.5" TextAlignment="Center" TextDecorations="Underline" Margin="0,5,0,3">HELICOPTERS</TextBlock>
+                  <TextBlock Style="{StaticResource ArticleText}" xml:space="preserve">    Naval air crews checked their aircraft as stores arrived by road and rail. Every hour was being used to prepare.<LineBreak />    Prince Andrew, a serving Royal Navy helicopter pilot, could sail with his squadron.<LineBreak />    At the dockyard gates, families waited as another working day became a sleepless night.</TextBlock>
+                </StackPanel>
+                <TextBlock FontFamily="Times New Roman" FontSize="10.4" FontStyle="Italic" FontWeight="Bold" TextAlignment="Center" Margin="0,4,0,0" Text="Continued on Page Two" />
+              </StackPanel>
+            </Grid>
+          </Grid>
+        </Grid>
+        <!-- Bottom banner. -->
+        <Border Grid.Row="3" Grid.ColumnSpan="2" Background="#3C3D35" Margin="50,8,50,0" Padding="11,6,18,6">
+          <Viewbox Stretch="Fill">
+            <TextBlock Style="{StaticResource BoldHeading}" FontStyle="Italic" Foreground="#DDD7BF" Text="FULL STORY: PAGES 2, 3, 4, 5 &amp; 6" />
+          </Viewbox>
+        </Border>
+      </Grid>
+      <!-- Optional paper marks. Remove this Image for clean paper. -->
+      <Image Source="{Binding Assets[moon_paper_wear]}" Stretch="Fill" IsHitTestVisible="False" />
+    </Grid>
+  </Border>
+</Viewbox>

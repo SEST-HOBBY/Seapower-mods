@@ -1,0 +1,214 @@
+﻿Orel Class:
+
+TALLIN					ТАЛЛИНН					113
+RIGA					РИГА					114
+VILNIUS					ВИЛЬНЮС					115
+
+Kiev Class:
+
+KIEV					КИЕВ					069
+MINSK					МИНСК					025
+NOVOROSSIYSK			НОВОРОССИЙСК			137
+
+Moskva Class:
+
+MOSKVA					МОСКВА					106
+LENINGRAD				ЛЕНИНГРАД				107
+
+Slava Class:
+
+SLAVA					СЛАВА					103
+MARSHAL USTINOV			МАРШАЛ УСТИНОВ			088
+CHERVONA UKRAYINA		ЧЕРВОНА УКРАИНА			119
+
+Sovremenny Class:
+
+SOVREMENNYY				СОВРЕМЕННЫЙ				680
+OTCHAYANNYY				ОТЧАЯННЫЙ				684
+OTLICHNYY				ОТЛИЧНЫЙ				671
+OSMOTRITELNYY			ОСМОТРИТЕЛЬНЫЙ			672
+BEZUPRECHNYY			БЕЗУПРЕЧНЫЙ				820	
+BOEVOY					БОЕВОЙ					678
+STOYKIY					СТОЙКИЙ					679			
+OKRYLYONNYY				ОКРЫЛЁННЫЙ				670
+BURNYY					БУРНЫЙ					677
+VEDUSCHIY				ГРЕМЯЩИЙ				683
+BYSTRYY					БЫСТРЫЙ					676
+RASTOROPNYY				РАСТОРОПНЫЙ				447
+BEZBOYAZNENNYY			БЕЗБОЯЗНЕННЫЙ			682
+BEZUDERZHNYY			БЕЗУДЕРЖНЫЙ				620
+NASTOYCHIVYY			НАСТОЙЧИВЫЙ				810
+BESSTRASHNYY			БЕССТРАШНЫЙ				694
+
+Udaloy Class:
+
+UDALOY					УДАЛОЙ					444
+VICE-ADMIRAL KULAKOV	ВИЦЕ-АДМИРАЛ КУЛАКОВ	401
+MARSHAL VASILYEVSKY		МАРШАЛ ВАСИЛЕВСКИЙ		412	
+ADMIRAL ZAKHAROV		АДМИРАЛ ЗАХАРОВ			443
+ADMIRAL SPIRIDONOV		АДМИРАЛ СПИРИДОНОВ		409
+ADMIRAL TRIBUTS			АДМИРАЛ ТРИБУЦ			415
+MARSHAL SHAPOSHNIKOV	МАРШАЛ ШАПОШНИКОВ 		430
+SEVEROMORSK				СИМФЕРОПОЛЬ				487
+ADMIRAL LEVCHENKO		АДМИРАЛ ЛЕВЧЕНКО		405
+ADMIRAL VINOGRADOV		АДМИРАЛ ВИНОГРАДОВ		493
+ADMIRAL KHARLAMOV		АДМИРАЛ ХАРЛАМОВ		498
+ADMIRAL PANTELEYEV		АДМИРАЛ ПАНТЕЛЕЕВ		461
+
+Kara Class:
+
+NIKOLAYEV				НИКОЛАЕВ				707
+OCHAKOV					ОЧАКОВ					530
+KERCH					КЕРЧЬ					708
+PETROPAVLOVSK			ПЕТРОПАВЛОВСК			591
+TASHKENT				ТАШКЕНТ					712
+TALLIN					ТАЛЛИН					597
+
+Kresta 2 Class:
+
+KRONSTADT				КРОНШТАДТ				662
+ADMIRAL ISAKOV			АДМИРАЛ ИСАКОВ			675
+ADMIRAL NAKHIMOV		АДМИРАЛ НАХИМОВ			544
+ADMIRAL MAKAROV			АДМИРАЛ МАКАРОВ			648
+MARSHAL VOROSHILOV		МАРШАЛ ВОРОШИЛОВ
+ADMIRAL OKTYABRSKY		АДМИРАЛ ОКТЯБЬСКИЙ
+ADMIRAL ISACHENKOV		АДМИРАЛ ИСАЧЕНКОВ		686
+MARSHAL TIMOSHENKO		МАРШАЛ ТИМОШЕНКО		690
+VASILY CHAPAEV			ВАСИЛИЙ ЧАПАЕВ
+ADMIRAL YUMASHEV		АДМИРАЛ ЮМАШЕВ			657
+
+Kresta 1 Class:
+
+ADMIRAL ZOLULYA			АДМИРАЛ ЗОЗУЛЯ			060
+VLADIVOSTOK				ВЛАДИВОСТОК				097
+VICE-ADMIRAL DROZD		ВИЦЕ-АДМИРАЛ ДРОЗД		072
+SEVASTOPOL				СЕВАСТОПОЛЬ				048
+
+Kynda Class:
+
+Groznyy					ГРОЗНЫЙ					121
+Admiral Fokin			АДМИРАЛ ФОКИН			118
+Admiral Golovko			АДМИРАЛ ГОЛОВКО			043
+Varyag					ВАРЯГ					120
+
+
+Kashin Class:
+
+KOMSOMOLETS UKRAINY		КОМСОМОЛЕЦ УКРАИНЫ		714
+KRASNY KAVKAZ			КРАСНЫЙ КАВКАЗ			710
+KRASNY KRYM				КРАСНЫЙ КРЫМ			711
+OBRAZTSOVYY 			ОБРАЗЦОВЫЙ				446
+OGNEVOY					ОГНЕВОЙ					296
+ODARENNYY				ОДАРЁННЫЙ				583
+OTVAZHNYY				ОТВАЖНЫЙ				530
+PROVORNYY 				ПРОВОРНЫЙ				724
+RESHITELNYY				РЕШИТЕЛЬНЫЙ				722
+SDERZHANNY				СДЕРЖАННЫЙ				737
+SKORYY					СКОРЫЙ					729
+SLAVNYY					СЛАВНЫЙ					462
+SMELYY					СМЕЛЫЙ					739
+SMETLIVY				СМЕТЛИВЫЙ				745
+SMYSHLENYY				СМЫШЛЁНЫЙ				648
+SOOBRAZITELNYY 			СООБРАЗИТЕЛЬНЫЙ			717
+SPOSOBNYY				СПОСОБНЫЙ				522
+STEREGUSHCHIY			СТЕРЕГУЩИЙ				563
+STROGIY					СТРОГИЙ					574
+STROYNYY				СТРОЙНЫЙ				610
+
+Kanin Class:
+
+GREMYASHCHIY			ГРЕМЯЩИЙ				673		
+ZHGUCHIY				ЖГУЧИЙ§					559
+ZORKIY					ЗОРКИЙ					546
+DERZKIY					ДЕРЗКИЙ					555
+GNEVNYY					ГНЕВНЫЙ					567
+UPORNYY					УПОРНЫЙ					518
+BOYKIY					БОЙКИЙ					609
+GORDYY					ГОРДЫЙ					556
+
+Krivak 2 Class:
+
+Rezvy					РЕЗВЫЙ					942
+Rezky					РЕЗКИЙ					620
+Razitelny				РАЗИТЕЛЬНЫЙ 			804
+Grozyashchy				ГРОЗЯЩИЙ				695
+Neukrotimy				НЕУКРОТИМЫЙ				733
+Gromky					ГРОМКИЙ					916
+Bessmenny				БЕССМЕННЫЙ				913
+Gordelivy				ГОРДЕЛИВЫЙ				621
+Ryavny					РЬЯНЫЙ					628
+Revnostny				РЕВНОСТНЫЙ				671
+Pytlivy					ПЫТЛИВЫЙ				759
+
+Krivak 1 Class:
+
+Bditelnyy				БДИТЕЛЬНЫЙ				744
+Bodryy					БОДРЫЙ					724
+Dostoynyy				ДОСТОЙНЫЙ				503	
+Svirepyy				СВИРЕПЫЙ				742
+Silnyy					СИЛЬНЫЙ					754
+Doblestnyy				ДОБЛЕСТНЫЙ				983
+Storozhevoy				СТОРОЖЕВОЙ				682
+Razumnyy				РАЗУМНЫЙ				640
+Razyashchiy				РАЗЯЩИЙ					692
+Druzhnyy				ДРУЖНЫЙ					510
+Deyatelnyy				ДЕЯТЕЛЬНЫЙ				814
+Retivy					РЕТИВЫЙ					616
+Bezzavetnyy				БЕЗЗАВЕТНЫЙ				817
+Zadornyy				ЗАДОРНЫЙ				937
+Bezukoriznennyy			БЕЗУКОРИЗНЕННЫЙ			813
+Ladnyy					ЛАДНЫЙ					824
+Poryvistyy				ПОРЫВИСТЫЙ				806
+
+Krivak 2 Class:
+
+Rezvyy					РЕЗВЫЙ					958
+Rezkiy					РЕЗКИЙ					660
+Razitelnyy				РАЗИТЕЛЬНЫЙ				812			
+Grozyashchiy			ГРОЗЯЩИЙ				695
+Neukrotimyy				НЕУКРОТИМЫЙ				317
+Gromkiy					ГРОМКИЙ					757
+Bessmennyy				БЕССМЕННЫЙ				931
+Gordelivy				ГОРДЕЛИВЫЙ				758
+Ryavnyy					РЬЯНЫЙ					628
+Revnostnyy				РЕВНОСТНЫЙ				782
+Pytlivyy				ПЫТЛИВЫЙ				942
+
+Boris Chilikin Class:
+
+Boris Chilikin			БОРИС ЧИЛИКИН
+Vladimir Kolechitskiy	ВЛАДИМИР КОЛЕЧИЦКИЙ
+Dnestr					ДНЕСТР
+Ivan Bubnov				ИВАН БУБНОВ
+Genrikh Gasanov			ГЕНРИХ ГАСАНОВ
+Boris Butoma			БОРИС БУТОМА
+
+Ropucha Class:
+
+SDK-47											125
+SDK-48											061
+SDK-55											037
+SDK-63											088							
+SDK-90											069
+SDK-91											045
+SDK-181											053
+SDK-182											014
+SDK-183											034
+SDK-197											051
+SDK-200											043
+
+BDK-14											081
+BDK-32											046
+BDK-43											135
+BDK-45											123
+BDK-46											108
+BDK-54											151
+BDK-56											112
+BDK-58											122
+BDK-60											128
+BDK-61											130
+BDK-64											127
+BDK-67											137
+BDK-98											079
+BDK-101											086
+BDK-105											103

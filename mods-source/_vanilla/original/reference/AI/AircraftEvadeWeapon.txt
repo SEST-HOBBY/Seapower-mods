@@ -1,0 +1,107 @@
+Define AircraftEvadeWeapon
+
+Set ControlLaw ($Combat)
+
+If DetectLaunchType = SAM
+
+	If HasOffensiveECM = True
+	
+	Jam LaunchPlatform
+	
+	If HasARM = True
+	
+	Engage $LaunchPlatform
+	
+	Else
+	
+	Begin Timer
+	
+	Drop Decoy
+	
+	SetSpeed ($Max)
+	
+	SetCourse ($BearingToDetectedMissile)+90(ClosestTurn)	
+	
+	When Timer = 5
+	
+	If MissileStatus = Acquired
+	
+	Drop Decoy
+	
+	If PlaneType = Heavy
+	
+	Maintain Altitude
+		
+	Else
+	
+	SetAltitude ($VeryLow)
+	
+	SetCourse ($BearingToDetectedMissile)+120(ClosestTurn)
+	
+	MissileStatus = Acquired
+	
+	Drop Decoy
+	
+	Else
+	
+	Return
+	
+If DetectLaunchType = AAM
+
+	If ThreatRange > 15
+
+	Begin Timer
+	
+	Drop Decoy
+	
+	SetSpeed ($Max)
+	
+	SetCourse ($BearingToDetectedMissile)+90(ClosestTurn)	
+	
+	When Timer = 5
+	
+	If MissileStatus = Acquired
+	
+	Drop Decoy
+	
+	If PlaneType = Heavy
+	
+	Maintain Altitude
+		
+	Else
+	
+	SetAltitude ($VeryLow)
+	
+	SetCourse ($BearingToDetectedMissile)+120(ClosestTurn)
+	
+	MissileStatus = Acquired
+	
+	Drop Decoy
+	
+	If IsFighter = True
+	
+	Engage $LaunchPlatform
+	
+	Else
+	
+	Return
+	
+If DetectLaunchType = AAA
+	
+	SetSpeed ($Max)
+	
+	Define Jinking
+	
+		Begin Timer
+	
+		Perform EvasiveManeuvering	
+	
+	When Timer = 5
+	
+	If GunStatus = Acquired
+	
+	Begin Jinking
+	
+	Else
+	
+	Return

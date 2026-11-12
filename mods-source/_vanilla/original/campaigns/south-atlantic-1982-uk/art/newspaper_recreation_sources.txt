@@ -1,0 +1,64 @@
+SOURCES AND IMAGE TREATMENTS - checked 15 October 2026
+
+EMPIRE COVER
+Reference: user-supplied 19820426_newspaper_original_playtest_empire_strikes_back.png.
+hermes_clean_background.png was made with the built-in image editing tool, using that cover as the edit target. The edit removed printed text, price, registration mark and barcode and reconstructed the image behind them. The original photograph's composition was retained as closely as the tool allowed; this is an AI-edited derivative, not a pixel-identical recovered photograph. It has not been halftoned. The underlying photograph's rights were not independently established.
+See HERMES-EDIT-BRIEF.txt for the editing instructions.
+All main text, secondary text and lower-left caption are overlaid as editable XAML. The only replacement title is the paper name, supplied in two versions. The barcode and registration mark were omitted.
+Printed date retained from the reference: April 19, 1982. The campaign filename date is April 26.
+The other two supplied Hermes photographs were supporting references and are not bundled or used in the final artwork.
+
+GOTCHA
+Reference: user-supplied 19820503_newspaper_original_playtest_gotcha.png, 278 x 360 pixels.
+gotcha_gunboat.png: photo crop at x=13 y=165 width=133 height=42.
+gotcha_cruiser.png: photo crop at x=13 y=224 width=133 height=42.
+These small crops retain the low resolution of the supplied scan. Their rights have not been independently established; they are not described as public-domain photographs.
+Major headlines and ship labels follow the reference's initial reporting. The small articles and captions are newly written period-style copy, not transcriptions or independent historical evidence.
+Printed date: Tuesday May 4, 1982. The existing campaign filename date is May 3.
+
+VICTORY: THATCHER
+Source: https://commons.wikimedia.org/wiki/File:Margaret_Thatcher_1981.jpg
+Original: https://upload.wikimedia.org/wikipedia/commons/0/09/Margaret_Thatcher_1981.jpg
+Creator: Williams, U.S. military/Department of Defense photograph.
+Date: 12 March 1981.
+Commons identifies this as public domain in the United States as an official U.S. military work.
+Original download is in sources/thatcher_portrait.jpg, 889 x 1034 pixels.
+Crop: x=0 y=32 width=889 height=928. Converted to a diagonal black-dot halftone on transparency, saved as victory_thatcher_halftone.png, 1800 x 1880 pixels.
+Library photograph, not a photograph of the victory announcement. No AI face editing.
+
+VICTORY: QUEEN ELIZABETH II
+Source: https://commons.wikimedia.org/wiki/File:President_Ronald_Reagan,_Queen_Elizabeth_II,_Nancy_Reagan,_and_Prince_Philip_(cropped).jpg
+Original: https://upload.wikimedia.org/wikipedia/commons/6/60/President_Ronald_Reagan%2C_Queen_Elizabeth_II%2C_Nancy_Reagan%2C_and_Prince_Philip_%28cropped%29.jpg
+Archival source: https://catalog.archives.gov/id/75856889
+Creator/collection: White House Photographic Office / Reagan White House Photographs.
+Date and place: 8 June 1982, Windsor Castle.
+Commons identifies this as public domain in the United States as official U.S. federal government work and displays a Public Domain Mark.
+Original download is in sources/queen_portrait.jpg, 739 x 1276 pixels.
+Crop: x=105 y=45 width=520 height=543. Converted to a diagonal black-dot halftone on transparency, saved as victory_queen_halftone.png, 1800 x 1880 pixels.
+Library photograph, not a photograph of the victory announcement. No AI face editing.
+Neither portrait from the watermarked supplied Daily Express scan was reused.
+Printed date retained from that scan: June 16, 1982. The campaign filename date is June 13.
+The main quotation and victory lettering follow the reference; the small article text is newly written.
+
+HALFTONE METHOD
+Both portraits use a 450 x 470 logical drawing, rendered at 4x resolution. Dot pitch is 2.7 logical pixels on a diagonal square grid. Dot radius varies with grayscale luminance. The dots are in separate PNG images, not thousands of XAML shapes.
+
+MAP AND PAPER
+moon_falklands_map.png is reused from the completed Moon example.
+Underlying outlines: Natural Earth 1:10m Admin 0 countries, public domain.
+Source: https://github.com/nvkelso/natural-earth-vector/blob/master/geojson/ne_10m_admin_0_countries.geojson
+Terms: https://www.naturalearthdata.com/about/terms-of-use/
+FALKLANDS CRISIS remains editable XAML over the map image.
+moon_paper_wear.png is the original procedural paper-mark image from the Moon example; it contains no scan or words.
+
+CAMPAIGN INSTALLATION
+The approved layouts replace the four original newspaper scan wrappers in south-atlantic-1982-uk/art.
+19820403_newspaper_event.xml: Moon ITS WAR (from 19820403_moon_its_war.xml).
+19820426_newspaper_event.xml: The Daily Empire cover.
+19820503_newspaper_event.xml: Moon GOTCHA.
+19820613_newspaper_event.xml: Current News victory.
+19820426_headline_empire.xml is an unconnected alternate masthead.
+Existing campaign FilePath entries, event IDs and XML metadata GUIDs were preserved.
+Original reference scans remain in the art folder but none of the four newspaper layouts binds to them.
+The installed files and destination images were rendered in WPF. Unity/Noesis font resolution and appearance still need an in-game check.
+Fonts: Arial Black, Arial, Impact, Georgia, Times New Roman. Font binaries are not included.

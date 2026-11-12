@@ -1,0 +1,28 @@
+Event tile PNGs rendered from the Spanish campaign XAML with Windows WPF.
+128 x 128 RGBA. Each complete front page fits within 92 x 108 pixels, retaining its aspect ratio. Two offset, rotated backing sheets and transparent outer margins preserve a clear stack silhouette.
+Intro and outcome slideshows use the existing south-atlantic-1982-uk/art/bkg_tile_message.png.
+The final-results thumbnail uses the static Spanish book cover, not player statistics.
+Photo credits and licenses remain in the original XML comments and art/ar_photo_sources.txt.
+Regenerate from the listed source when its artwork changes. These are WPF renders, not Unity/Noesis captures.
+
+Mission1 | campaigns/south-atlantic-1982-uk/art/bkg_tile_message.png | shared intel icon
+Mission2 | campaigns/south-atlantic-1982-argentina/art/tiles/19820404_clarin_es_tile.png | campaigns/south-atlantic-1982-argentina/art/19820404_clarin_es.xml
+Mission4 | campaigns/south-atlantic-1982-argentina/art/tiles/19820426_comunicado_event_es_tile.png | campaigns/south-atlantic-1982-argentina/art/19820426_comunicado_event_es.xml
+Mission6 | campaigns/south-atlantic-1982-argentina/art/tiles/19820502_newspaper_event_es_tile.png | campaigns/south-atlantic-1982-argentina/art/19820502_newspaper_event_es.xml
+Mission9 | campaigns/south-atlantic-1982-argentina/art/tiles/19820503_extra_carrier_event_es_tile.png | campaigns/south-atlantic-1982-argentina/art/19820503_extra_carrier_event_es.xml
+Mission11 | campaigns/south-atlantic-1982-argentina/art/tiles/19820504_newspaper_belgrano_event_es_tile.png | campaigns/south-atlantic-1982-argentina/art/19820504_newspaper_belgrano_event_es.xml
+Mission12 | campaigns/south-atlantic-1982-argentina/art/tiles/19820503_belgrano_signal_event_es_tile.png | campaigns/south-atlantic-1982-argentina/art/19820503_belgrano_signal_event_es.xml
+Mission14 | campaigns/south-atlantic-1982-argentina/art/tiles/19820506_magazine_event_es_tile.png | campaigns/south-atlantic-1982-argentina/art/19820506_magazine_event_es.xml
+Mission16 | campaigns/south-atlantic-1982-argentina/art/tiles/19820512_cable_event_es_tile.png | campaigns/south-atlantic-1982-argentina/art/19820512_cable_event_es.xml
+Mission19 | campaigns/south-atlantic-1982-argentina/art/tiles/19820516_intel_event_es_tile.png | campaigns/south-atlantic-1982-argentina/art/19820516_intel_event_es.xml
+Mission24 | campaigns/south-atlantic-1982-argentina/art/tiles/19820521_flash_event_es_tile.png | campaigns/south-atlantic-1982-argentina/art/19820521_flash_event_es.xml
+Mission26 | campaigns/south-atlantic-1982-argentina/art/tiles/END_D_newspaper_es_tile.png | campaigns/south-atlantic-1982-argentina/art/END_D_newspaper_es.xml
+Mission27 | campaigns/south-atlantic-1982-argentina/art/tiles/END_V_gente_es_tile.png | campaigns/south-atlantic-1982-argentina/art/END_V_gente_es.xml
+Mission28 | campaigns/south-atlantic-1982-argentina/art/tiles/END_V_gente_carriers_es_tile.png | campaigns/south-atlantic-1982-argentina/art/END_V_gente_carriers_es.xml
+Mission29 | campaigns/south-atlantic-1982-uk/art/bkg_tile_message.png | shared intel icon
+Mission30 | campaigns/south-atlantic-1982-uk/art/bkg_tile_message.png | shared intel icon
+Mission31 | campaigns/south-atlantic-1982-uk/art/bkg_tile_message.png | shared intel icon
+Mission32 | campaigns/south-atlantic-1982-argentina/art/tiles/final_results_0_es_tile.png | campaigns/south-atlantic-1982-argentina/art/final_results_0_es.xml
+Mission33 | campaigns/south-atlantic-1982-argentina/art/tiles/ar06_stanley_skyhawks_event_es_tile.png | campaigns/south-atlantic-1982-argentina/art/ar06_stanley_skyhawks_event_es.xml
+Mission25 | END_N_newspaper_en_tile.png | campaigns/south-atlantic-1982-argentina/art/END_N_newspaper_en.xml
+Mission25 | END_N_newspaper_es_tile.png | campaigns/south-atlantic-1982-argentina/art/END_N_newspaper_es.xml

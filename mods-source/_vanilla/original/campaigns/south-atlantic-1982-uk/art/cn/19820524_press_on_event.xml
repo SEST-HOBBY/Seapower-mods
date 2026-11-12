@@ -1,0 +1,129 @@
+<Viewbox xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+         Stretch="Uniform" StretchDirection="DownOnly">
+  <!-- Editable signal, transcribed from DEFE 68/630 f55. Preserve its 24 May date. -->
+  <Border Width="1000" Height="1062" BorderBrush="#777C72" BorderThickness="1"
+          TextElement.Foreground="#363A35" TextElement.FontSize="19"
+          TextElement.FontFamily="/Assets/Resources/ui/fonts/#Special Elite">
+    <Border.Background>
+      <LinearGradientBrush StartPoint="0,0" EndPoint="1,0.8">
+        <GradientStop Color="#D8DCD2" Offset="0"/>
+        <GradientStop Color="#E7E9DF" Offset="0.35"/>
+        <GradientStop Color="#DADFD5" Offset="0.78"/>
+        <GradientStop Color="#C9CEC5" Offset="1"/>
+      </LinearGradientBrush>
+    </Border.Background>
+    <Grid>
+    <Border Width="2" Background="#9A9F94" Opacity="0.13" HorizontalAlignment="Center" Margin="0,0,0,0"/>
+    <Border Width="1" Background="#F3F4E9" Opacity="0.6" HorizontalAlignment="Center" Margin="4,0,0,0"/>
+    <Border Height="1" Background="#919989" Opacity="0.10" VerticalAlignment="Top" Margin="0,515,0,0"/>
+    <Grid Margin="58,42,38,30">
+      <Grid.RowDefinitions>
+        <RowDefinition Height="160"/>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="*"/>
+        <RowDefinition Height="214"/>
+      </Grid.RowDefinitions>
+
+      <!-- Filing holes and circulation notes sit apart from the signal text. -->
+      <Ellipse Width="12" Height="19" Fill="#444940" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="259,5,0,0"/>
+      <Ellipse Width="8" Height="14" Fill="#444940" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="622,2,0,0"/>
+      <TextBlock x:Name="Circulation" HorizontalAlignment="Right" VerticalAlignment="Top"
+                 Margin="0,-9,64,0" FontFamily="Segoe Print" FontSize="17" LineHeight="25"
+                 LineStackingStrategy="BlockLineHeight" Foreground="#4F5148">
+        Deputy  ✓<LineBreak/>
+        Comd 5 Bde  ✓<LineBreak/>
+        Col AQ<LineBreak/>
+        G1 Ops  ✓<LineBreak/>
+        G1 Plans  ✓<LineBreak/>
+        Capt James ✓
+      </TextBlock>
+      <Border Width="46" Height="51" CornerRadius="24" BorderBrush="#AA282A" BorderThickness="3"
+              HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,-3,1,0">
+        <TextBlock Text="4" FontFamily="Segoe Print" FontSize="35" Foreground="#AA282A" HorizontalAlignment="Center" Margin="0,-7,0,0"/>
+      </Border>
+
+      <!-- Edit the routing and body here. Each paragraph remains ordinary XAML text. -->
+      <StackPanel Grid.Row="1" Margin="57,0,44,0" Opacity="0.84">
+        <TextBlock x:Name="RoutingFlags" Text="Y      HH" Margin="137,0,0,0" FontSize="14.5"/>
+        <TextBlock x:Name="Routing" LineHeight="22" LineStackingStrategy="BlockLineHeight">
+          <Run Text="Z "/><Run Text="241354Z" Background="#C8DD8A"/><Run Text=" MAY 82"/><LineBreak/>
+          <Run Text="FM CTF 317" Background="#C8DD8A"/><LineBreak/>
+          <Run Text="TO CTG 317.8" Background="#C8DD8A"/><LineBreak/>
+          CTG 317.1<LineBreak/>
+          CTG 317.0<LineBreak/>
+          CTU 317.1.1<LineBreak/>
+          BT<LineBreak/>
+          S E C R E T EXCLUSIVE UK EYES BRAVO<LineBreak/>
+          SIC AAA/I9F
+        </TextBlock>
+        <!-- Use the saved commander surname while retaining this signal's authored RADM rank.
+             Wrap long surnames so the complete addressee list stays on the sheet. -->
+        <TextBlock x:Name="Exclusive" TextWrapping="Wrap"
+                   Background="#C8DD8A" HorizontalAlignment="Left"><Run Text="EXCLUSIVE FOR RADM "/><Run Text="{Binding DataSource.PersistentData[TaskForceCommanderLastName], Converter={StaticResource UppercaseConverter}, FallbackValue=WOODWARD}"/><Run Text=" MGEN MOORE BRIG THOMPSON CDRE CLAPP"/></TextBlock>
+        <TextBlock x:Name="Paragraph1" TextWrapping="Wrap" LineHeight="22" LineStackingStrategy="BlockLineHeight"
+                   Text="1.  WITH THE BENEFIT OF A RELATIVELY CALM OVERVIEW OF THE LAST&#10;FEW DAYS OF BATTLE I CONCLUDE THAT NO ONE SHOULD BE IN ANY DOUBT&#10;WHATSOEVER THAT DESPITE SOME SEVERE PAIN WE ARE WINNING AND FURTHER&#10;MORE CLEARLY HOLD THE INITIATIVE.  INCREASING SIGNS OF DESPERATION&#10;FROM YOUR LOCAL ENEMY ALL SERVE TO CONFIRM."/>
+        <TextBlock x:Name="Paragraph2" TextWrapping="Wrap" LineHeight="22" LineStackingStrategy="BlockLineHeight"
+                   Text="2.  MY CONCERN IS TO TAKE FULL AND EARLY ADVANTAGE OF THIS SITUATION&#10;BEFORE THE INTERNATIONAL CALL FOR CEASE FIRE BECOMES UNBEARABLE.&#10;IT IS THEREFORE VITAL THAT WITH PROPER CONCERN FOR BRITISH LIVES&#10;YOU PRESS ON SINGLE MINDEDLY FOR STANLEY BEFORE THE OPPORTUNITY"/>
+        <StackPanel Orientation="Horizontal">
+          <TextBlock Text="FOR MILITARY "/>
+          <Grid Height="22" VerticalAlignment="Top">
+            <TextBlock x:Name="OriginalAction" Text="ACTION"/>
+            <Border Height="2" Background="#254D88" VerticalAlignment="Top" Margin="0,9,0,0" RenderTransformOrigin="0.5,0.5">
+              <Border.RenderTransform><RotateTransform Angle="-4"/></Border.RenderTransform>
+            </Border>
+            <Border Height="1.3" Background="#254D88" VerticalAlignment="Top" Margin="0,11,0,0"/>
+            <TextBlock x:Name="VictoryCorrection" Text="VICTORY" FontFamily="Segoe Print" FontSize="23"
+                       Foreground="#254D88" Margin="-6,14,-23,-30" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.5">
+              <TextBlock.RenderTransform><RotateTransform Angle="-3"/></TextBlock.RenderTransform>
+            </TextBlock>
+          </Grid>
+          <TextBlock Text=" IS WITHDRAWN."/>
+        </StackPanel>
+        <TextBlock Text="BT"/>
+      </StackPanel>
+
+      <TextBlock Grid.Row="2" Text="NNNNX" Opacity="0.75" VerticalAlignment="Bottom" Margin="57,0,0,20"/>
+
+      <!-- Remove or comment out the whole Grid below to hide the registry stamp. -->
+      <Grid x:Name="RegistryStamp" Grid.Row="3" Width="315" Height="200" HorizontalAlignment="Right" VerticalAlignment="Bottom"
+            TextElement.Foreground="#AE2F36" TextElement.FontFamily="Arial" RenderTransformOrigin="0.5,0.5">
+        <Grid.RenderTransform><RotateTransform Angle="0.6"/></Grid.RenderTransform>
+        <Grid.OpacityMask>
+          <LinearGradientBrush StartPoint="0,0" EndPoint="0.25,1">
+            <GradientStop Color="#F0000000" Offset="0"/>
+            <GradientStop Color="#C0000000" Offset="0.16"/>
+            <GradientStop Color="#E8000000" Offset="0.18"/>
+            <GradientStop Color="#AC000000" Offset="0.22"/>
+            <GradientStop Color="#F0000000" Offset="0.24"/>
+            <GradientStop Color="#CF000000" Offset="0.46"/>
+            <GradientStop Color="#F0000000" Offset="0.49"/>
+            <GradientStop Color="#B8000000" Offset="0.71"/>
+            <GradientStop Color="#ED000000" Offset="0.73"/>
+            <GradientStop Color="#F0000000" Offset="1"/>
+          </LinearGradientBrush>
+        </Grid.OpacityMask>
+        <Border BorderBrush="#AE2F36" BorderThickness="3" Padding="10,8,10,8">
+          <Grid>
+            <Grid.RowDefinitions>
+              <RowDefinition Height="40"/>
+              <RowDefinition Height="39"/>
+              <RowDefinition Height="36"/>
+              <RowDefinition Height="36"/>
+              <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <TextBlock x:Name="StampHQRM" Text="HQRM" FontWeight="Bold" FontSize="30" HorizontalAlignment="Center"/>
+            <TextBlock x:Name="StampTitle" Grid.Row="1" Text="TOP SECRET REGISTRY" FontWeight="Bold" FontSize="21" HorizontalAlignment="Center"/>
+            <TextBlock Grid.Row="2" Text="MOD FORM 102 No. ....................." FontSize="18"/>
+            <TextBlock Grid.Row="3" Text="SERIAL NUMBER.........................." FontSize="18"/>
+            <TextBlock x:Name="StampSerial" Grid.Row="3" Text="4" FontFamily="Segoe Print" Foreground="#35342F" FontSize="22" Margin="186,-8,0,0"/>
+            <TextBlock Grid.Row="4" Text="DATE..........................................." FontSize="18"/>
+            <TextBlock x:Name="StampDate" Grid.Row="4" Text="25 may 82" FontFamily="Segoe Print" Foreground="#35342F" FontSize="20" Margin="66,-8,0,0"/>
+          </Grid>
+        </Border>
+      </Grid>
+      <!-- End of registry stamp. -->
+    </Grid>
+    </Grid>
+  </Border>
+</Viewbox>

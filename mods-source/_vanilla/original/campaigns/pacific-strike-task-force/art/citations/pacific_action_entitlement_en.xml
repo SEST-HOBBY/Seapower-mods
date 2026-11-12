@@ -1,0 +1,48 @@
+<Viewbox xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Stretch="Uniform" StretchDirection="DownOnly">
+  <!-- Fictional Pacific campaign medal entitlement using the existing forwarding-letter layout.
+       This is a serving commander's letter, not a transcript of the discharge enclosure.
+       The host supplies navigation. Names and command always come from the current award context. -->
+  <Border Width="850" Height="1100" Background="#F5F3EB" TextElement.Foreground="#383730" TextElement.FontFamily="/Assets/Resources/ui/fonts/#Special Elite">
+    <Grid Margin="78,90,78,90">
+      <Grid.Resources>
+        <Style x:Key="LetterText" TargetType="TextBlock">
+          <Setter Property="FontSize" Value="20"/>
+          <Setter Property="LineHeight" Value="29"/>
+          <Setter Property="LineStackingStrategy" Value="BlockLineHeight"/>
+          <Setter Property="TextWrapping" Value="Wrap"/>
+        </Style>
+      </Grid.Resources>
+      <StackPanel>
+        <Grid Height="170">
+          <StackPanel Width="300" HorizontalAlignment="Left" VerticalAlignment="Center">
+            <TextBlock Style="{StaticResource LetterText}" FontSize="15" Text="Please address any reply to:"/>
+            <TextBlock Style="{StaticResource LetterText}" FontSize="17" Margin="28,12,0,0" Text="The Commodore&#10;HMS CENTURION"/>
+          </StackPanel>
+          <StackPanel Width="270" HorizontalAlignment="Right">
+            <TextBlock Style="{StaticResource LetterText}" Text="HMS CENTURION"/>
+            <TextBlock Style="{StaticResource LetterText}" FontSize="17" Margin="0,12,0,0" Text="Grange Road&#10;GOSPORT&#10;Hampshire"/>
+          </StackPanel>
+        </Grid>
+        <Grid Margin="0,24,0,38">
+          <Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="160"/></Grid.ColumnDefinitions>
+          <StackPanel>
+            <TextBlock Style="{StaticResource LetterText}" Text="{Binding CommanderDisplayName}"/>
+            <TextBlock Style="{StaticResource LetterText}" Text="{Binding TaskForceName}"/>
+            <TextBlock Style="{StaticResource LetterText}" Text="{Binding NavyName}"/>
+          </StackPanel>
+          <!-- The entitlement records the campaign year. -->
+          <TextBlock Grid.Column="1" Style="{StaticResource LetterText}" Text="{Binding PresentationDate}" HorizontalAlignment="Right" VerticalAlignment="Bottom"/>
+        </Grid>
+        <TextBlock Style="{StaticResource LetterText}" xml:space="preserve"><Run Text="Dear "/><Run Text="{Binding CommanderRank}"/><Run Text=" "/><Run Text="{Binding CommanderLastName}"/><Run Text=","/></TextBlock>
+        <TextBlock Style="{StaticResource LetterText}" Text="PACIFIC ACTION MEDAL" TextDecorations="Underline" Margin="0,28,0,24"/>
+        <TextBlock Style="{StaticResource LetterText}" Text="{Binding CitationBody}"/>
+        <!-- An appointment block avoids inventing a named official or copying a historical signature. -->
+        <StackPanel Width="270" HorizontalAlignment="Right" Margin="0,38,0,0">
+          <TextBlock Style="{StaticResource LetterText}" Text="Yours sincerely,"/>
+          <TextBlock Style="{StaticResource LetterText}" Text="{Binding SignatureName}" Margin="0,38,0,0"/>
+          <TextBlock Style="{StaticResource LetterText}" Text="{Binding SignatureTitle}" FontSize="17"/>
+        </StackPanel>
+      </StackPanel>
+    </Grid>
+  </Border>
+</Viewbox>
