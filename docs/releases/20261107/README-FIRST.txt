@@ -151,7 +151,7 @@ PREPARE AND CHECK
 1. Close Sea Power. Keep SEST and the collection subscribed. Extract this
    COMPLETE toolkit into a NEW folder and run Prepare-PC.cmd. Keep the
    printed release checkout, the backup path and the line "VERIFIED: all
-   4531 canonical upload files match the release manifest." Upload-PC.cmd
+   4576 canonical upload files match the release manifest." Upload-PC.cmd
    prints the folder to upload (step 6).
    Prepare-PC installs both code and campaign/loadout data; Repair-PC alone
    only repairs code. The author-update guard and original restore journal
