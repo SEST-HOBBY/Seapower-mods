@@ -1,0 +1,31 @@
+SEST R13 — COMBINED WORKSHOP RELEASE REVIEW
+12 November 2026 | SEST-DEV
+
+RELEASE SOURCE
+Branch: release/r13-integration-20261112
+Development base: a0721c18f08b6e7fe3021e740854d326939d189c
+Combined source merge: d03b6909dbef158b1ecef5dcd7b820c5069dcfc5
+Included sources: R12 Final and Workshop images (#58–#65); Russia registration (feature/russia-registration-20261111); Makran Line (feature/makran-line-20261111); R13 runtime/UI sources (feature/runtime-mission-awards-20261110).
+No Steam publishing operation was performed by this branch.
+
+RELEASE CONTENT
+Five Task Force campaigns: Southern Watch, Southern Reach, Red Line, Sulu Line and Makran Line (four Pakistan Navy missions). Global Maritime Operations 2028 world campaign, 196 bases and eight command stages. Russian Federation registrations for selected post-1991 Russian-built vessels. Fourteen Southern Watch/Southern Reach commander nations (11 with national award criteria), three Sulu options and Pakistan commander for Makran. F11 World Operations, combat costs, national and fictional ribbons. R13 runtime source: Runtime 1.6.5 / UI 1.4.15 on the pinned 0.8.7-261107 beta only.
+
+NOT YET VERIFIED IN THIS COMBINED BRANCH
+- The source tree has been assembled through GitHub; no complete from-scratch local rebuild has run in this ChatGPT session.
+- The inherited R12 beta-support/SEST-Beta-Features.zip, runtime DLLs, installer/package receipts, R12 tooling and release upload-manifest.json have not yet been replaced with an R13 package.
+- Makran's inherited 4,531-file manifest was produced before this combined source merge. Do not treat it as final.
+- Steam images remain the previously generated R12 images until the cards are re-rendered for the combined release.
+- No native game execution, Windows installer verification, save/reload or Steam submission was performed here. Owner has authorised assuming gameplay acceptance as a release-planning condition, NOT fabricating execution logs.
+
+RELEASE GATES BEFORE PUBLISH
+1. Rebuild R13 beta payload with pinned captures, publish-support bundle and receipts; check Runtime 1.6.5 / UI 1.4.15; preserve stable-game plugin behaviour and opt-out.
+2. Rebuild all SEST packs from scratch, twice for reproducibility; pass repository 14 checks, Python/PowerShell suites, package validation, checksum and SHA pin checks.
+3. Refresh full Workshop images using integration/gallery/steam_art/cards.json from verified final counts; retain only genuine credited media and code-drawn charts. Record any Makran card.
+4. Regenerate docs/releases/20261107/upload-manifest.json and the current package's README-FIRST, validation.json and SETUP/Upload-PC toolchain to describe R13; the current Upload-PC.ps1 explicitly rejects non-R12.
+5. Confirm the combined accepted version in SOURCE-RECEIPT.json and TOOLKIT-INTEGRITY.json; stage and verify the canonical Workshop folder.
+6. Promote the final integrated commit through dev -> beta; use beta for the PC install and upload. Update steam only AFTER Workshop item 3812461539 is confirmed uploaded.
+7. Change GitHub default to dev and handle old branch cleanup separately; do not delete active review branches or release references prior to protected archive checks.
+
+HANDOFF
+The owner may accept the in-game results as a condition for release. Do not claim those tests have run unless actual PC capture evidence is attached.
