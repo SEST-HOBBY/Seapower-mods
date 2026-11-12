@@ -45,7 +45,7 @@ EVENTS = [
     # --- before MK02: the press, Gwadar -----------------------------------
     dict(file="01_gwadar", before="Gwadar Roads",
          title="The roads off Gwadar\\n30 October 2028",
-         sub="Ships wait at anchor for fuel and a berth",
+         sub="Tankers wait for a pilot, merchants for a berth",
          dateline="30 OCTOBER 2028  |  GWADAR",
          headline="TANKERS WAIT OFF GWADAR AS INSURERS STAY AWAY",
          body=[
@@ -72,7 +72,7 @@ EVENTS = [
              "from a port. They were fuelled and armed at sea.",
              "2. A Meridian-chartered merchant, MV MERIDIAN SENTINEL, has been seen "
              "three times south of Gwadar, each time at night and each time with "
-             "trawlers alongside. She carries a gun forward and does not transmit.",
+             "trawlers alongside. She mounts two heavy machine guns, one firing to each beam.",
              "3. PNS HANGOR is on passage in the area. She will be detached to trail "
              "the merchant to her next rendezvous and classify her, unseen.",
              "4. Assess that Meridian will try once more, against the Port Qasim "

@@ -65,7 +65,7 @@ What the collection fields (Pakistani Pack, Workshop 3812140001, every unit `Nat
 |---|---|---|---|
 | Type 054A/P (Tughril class) `pns_type_054a_p` | Variant1–4 | 280 | F-261 to F-264; the Z-9CE lands through SEST Cross-Deck |
 | PNS Alamgir (F-260), Perry long hull | Variant1 | 160 | **Kept in service for 2028 as a stated scenario assumption.** She was commissioned in 2011; her retirement date is not public |
-| Z-9CE `plan_z-9ce` | Squadron1 | 20 | on the 054A/P and the Alamgir (Cross-Deck campaign fit). The Alamgir is reported to have sailed with a Z-9EC: a Pakistan Navy press release of 18 Nov 2016 on exercise Mavi Balina-16 (<https://pid.gov.pk/site/press_detail/5626>), found by web search on 11 Nov 2026; page not opened |
+| Z-9CE `plan_z-9ce` | Squadron1 | 20 | on the 054A/P and the Alamgir (Cross-Deck campaign fit). The Alamgir is reported to have sailed with a Z-9EC: a Pakistan Navy press release of 18 Nov 2016 on exercise Mavi Balina-16 (<https://pid.gov.pk/site/press_detail/5626>), found by web search on 11 Nov 2026; page not opened. `plan_z-9ce` "Z-9CE" is the Pakistani Pack's name for the Navy's Z-9EC; the MK01 banner caption names both |
 | SH-3H `pns_sh-3h` | Squadron1 | 25 | on the Alamgir, *mod approximation*: the Pakistani Pack's deck list, which gives her two Sea Kings in place of the US SH-60B her hangar was built for (English Wikipedia, "USS McInerney", read on 11 Nov 2026). The Navy's Sea Kings are not documented aboard her. The pack files the airframe as a US SH-3H |
 | JF-17 Block II / III | Squadron1, 2 | 40 / 50 | released from MK02 |
 | ZDK-03 | Squadron1 | 70 | released from MK02 |

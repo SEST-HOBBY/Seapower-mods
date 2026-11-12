@@ -29,8 +29,9 @@ MISSION = dict(
     sender="Commander Pakistan Fleet, Karachi",
     intent=((
         "Bring the convoy in, and stop the mothership. SENTINEL is the trawlers' fuel and "
-        "ammunition; if she stops, Meridian's boats have nowhere to go. A warship close aboard "
-        "is enough to make her heave to, and a ship that has hove to is not fired on."
+        "ammunition; if she stops, Meridian's boats have nowhere to go. The screen's lead ship "
+        "close aboard, within about three miles, is enough to make her heave to, and a ship "
+        "that has hove to is not fired on."
     )),
     date=(2028, 11, 14), time=(5, 0), sea=3, clouds="Scattered_1", wind="NE",
     difficulty=4, minutes=120, centre=(24.40, 66.95),
