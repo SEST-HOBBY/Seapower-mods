@@ -202,8 +202,9 @@ class WorldSandbox(unittest.TestCase):
         self.assertEqual(ops[SPLIT].count("Soviet"), 12)
         # A squadron registered elsewhere keeps its own nation.
         self.assertEqual(ops["wp_mig-29k_941"], ["Russia", "Russia", "India"])
-        # Red Storm Arsenal's Su-33: [Default] and the 279th's two squadrons.
-        self.assertEqual(ops["wp_su_33"], ["Russia"] * 3 + ["Soviet"] * 8)
+        # Red Storm Arsenal's Su-33, a post-1991 type: every squadron, the
+        # 279th's and those of its fictional carriers alike.
+        self.assertEqual(ops["wp_su_33"], ["Russia"] * 11)
         self.assertEqual(set(ops["wp_su-27"]), {"Soviet"})
 
     def test_both_keys_still_fold_into_one_buy_list_nation(self):

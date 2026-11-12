@@ -462,30 +462,42 @@ checked automatically.
   and Improved Kilo, and the Yasen, Belgorod and Borei boats); the modern
   refits of Soviet-built ships, in their modern fit only (the Kuznetsov's
   2016 fit, not her 1991 one, Admiral Nakhimov's refit, Marshal Ustinov
-  2016, Red Storm Arsenal's Nanuchka IIIs of 2019 and the Tarantul R-60 of
-  2005; the REDFOR mod's 2017 Nanuchka III ships no hull, so it is left),
-  and the Akulas, Oscar IIs, Grishas and Admiral Chabanenko completed after
-  1991; and 32 aircraft of post-1991 Russian types and upgrades (the Su-57,
+  2016, Red Storm Arsenal's Nanuchka III Smerch in her 2019 refit, the
+  Tarantul R-60 of 2005 and the REDFOR mod's Smetlivy in her Project 01090
+  refit of 1995; the REDFOR mod's 2017 Nanuchka III ships no hull, so it is
+  left), and the Akulas, Oscar IIs and Grishas launched after 1991, the
+  Sierra II Pskov and Admiral Chabanenko (launched in 1992 and 1994); and
+  32 aircraft of post-1991 Russian types and upgrades (the Su-57,
   Su-35S, Su-30SM and SM2, Su-30M, Su-27SM, Su-33, MiG-31BM and K, MiG-35,
   MiG-29K 9.41 and KUB, the new MiG-29M, MiG-29SMT, Su-24M2, Su-25SM3, the
   Su-47, A-50U, Tu-214R, Ka-31 and the Forpost-R and Orlan-10 drones). One
   `#!extend` stub per unit sets only the Nation of the sections it names in
-  the mod's variants or squadrons file; the authors' files are not copied,
-  and a squadron registered to another nation (China's Su-35SK, India's
-  MiG-29K) keeps it. SEST's Akademik Pashin registers Russia in its own
-  file. The Soviet-era fits, the Cold War aircraft (the Su-27, Su-24M,
-  MiG-31, MiG-29 9.12, the Tu-160 as built, Tu-95MS, Il-76MD, Il-78, Ka-27PL,
-  Ka-25, Mi-8, Mi-24), the fictional variants (the '98 refits and aircraft,
-  Kirov II, Ulyanovsk, the files that call themselves fictional, the
-  Su-24SM3 and the Tu-214RF and RM) and the hulls never built stay Soviet,
-  as stock Cold War missions use them; the builder records each candidate
-  it leaves Soviet, and why. The SEST missions fly the Russian flag exactly
-  as before. What changes is what the unit panel, the editor and the
-  Situation window show, and the flag of these units in other authors'
-  missions that set none (The Second Northern War's 20380s and Buyan-Ms
-  among them). On the beta the stubs, like every `#!extend` file in the
-  pack, apply only where SEST's beta Runtime repairs the game's modifier
-  scan (`ModifierRegistry`, not turned off).
+  the mod's variants or squadrons file, and lists the file's earlier
+  sections empty so the game keeps the author's variant order (the Mission
+  Editor saves a variant by its place in that order); the authors' files
+  are not copied, and a squadron registered to another nation (China's
+  Su-35SK, India's MiG-29K) keeps it. SEST's Akademik Pashin registers
+  Russia in its own file. The Soviet-era fits, the Cold War aircraft (the
+  Su-27, Su-24M, MiG-31, MiG-29 9.12, the Tu-160 as built, Tu-95MS, Il-76MD,
+  Il-78, Ka-27PL, Ka-25, Mi-8, Mi-24), the fictional variants (Red Storm
+  Arsenal's '98 fits and aircraft, Kirov II, Ulyanovsk, the files that call
+  themselves fictional, the Nanuchka IIIs other than Smerch in her 2019 fit,
+  the Su-24SM3 and the Tu-214RF and RM) and the hulls never built stay
+  Soviet, as stock Cold War missions use them; the builder records each
+  candidate it leaves Soviet, and why. Every unit a SEST mission places
+  still carries `Nation=Russia` and flies the Russian flag, as before. An
+  aircraft a Russian deck or airbase launches flies its own squadron's
+  registration: the Su-33 off the Kuznetsov, and the Su-57, Su-35S,
+  MiG-31BM, A-50U and the other post-1991 types off the Modern Russian
+  airbase, now launch under the Russian Federation flag; the Ka-27 off the
+  Kuznetsov, Pyotr Velikiy and Admiral Grigorovich, and the Su-27, MiG-31,
+  Tu-160, Tu-95MS, Tu-22M3 and Su-24M off the airbase, under the USSR's.
+  What changes is what the unit panel, the editor and the Situation window
+  show, and the flag of these units in other authors' missions that set
+  none (The Second Northern War's 20380s and Buyan-Ms among them). On the
+  beta the stubs, like every `#!extend` file in the pack, apply only where
+  SEST's beta Runtime repairs the game's modifier scan (`ModifierRegistry`,
+  not turned off).
 
 ## 6. Readability and presentation
 

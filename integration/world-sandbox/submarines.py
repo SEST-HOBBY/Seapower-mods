@@ -231,8 +231,8 @@ MAPPINGS = {
     # The post-1991, Russian-built boats register Russia through SEST
     # Collection Fixes' #!extend Nation stubs (its RU_REREGISTER, Nov 2026);
     # the Soviet classes keep their files' Soviet registration, but for the
-    # Akula and Oscar II boats launched after 1991 (its RU_BY_SECTION). The
-    # flag column is the class's, its [Default]'s.
+    # Akula, Oscar II and Sierra II boats launched after 1991 (its
+    # RU_BY_SECTION). The flag column is the class's, its [Default]'s.
     ("Russia", "wp_ssbn_borei"): ("exact", "Borei class", "Russia", RU_STUB),
     ("Russia", "wp_ssbn_delta4"): ("exact", "Delta IV class", "Soviet", SOVIET_CLASS),
     ("Russia", "wp_ssgn_yasen"): ("exact", "Yasen class", "Russia", RU_STUB),
@@ -241,7 +241,7 @@ MAPPINGS = {
     ("Russia", "wp_ssn_akula"): ("exact", "Akula class", "Soviet",
                                  RU_BOATS.format("Leopard, Tigr, Vepr, Kuzbass, Gepard, Samara "
                                                  "and Nerpa")),
-    ("Russia", "wp_ssn_sierra2"): ("exact", "Sierra II class", "Soviet", SOVIET_CLASS),
+    ("Russia", "wp_ssn_sierra2"): ("exact", "Sierra II class", "Soviet", RU_BOATS.format("Pskov")),
     ("Russia", "wp_ss_improved_kilo"): ("exact", "Improved Kilo (Project 636.3)", "Russia", RU_STUB),
     ("Vietnam", "wp_ss_improved_kilo"): ("same class", "Hanoi class (Project 636.1)", "Russia",
                                          "the stand-in flies its Russian donor's flag"),

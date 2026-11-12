@@ -6102,17 +6102,20 @@ class RussianRegistration(unittest.TestCase):
         self.assertEqual(bp.pick_nation("wp_su-35s", "Squadron4"), "China")         # the Su-35SK
         self.assertEqual(bp.pick_nation("wp_su-27", "Squadron1"), "Soviet")         # Cold War
         self.assertEqual(bp.pick_nation("wp_su_33", "Squadron1"), "Russia")         # the 279th
-        self.assertEqual(bp.pick_nation("wp_su_33", "Squadron3"), "Soviet")         # RSA's '98 carriers
+        self.assertEqual(bp.pick_nation("wp_su_33", "Squadron3"), "Russia")         # a post-1991 type
         # The credit is unchanged: the squadrons file is still the Flanker family's.
         self.assertEqual(bp.owner(rel), "3434072450")
 
     def test_a_roster_can_not_sell_one_unit_under_two_nations(self):
-        if not bp.nation_stubs.sections("aircraft/wp_su_33_squadrons.ini"):
+        if not bp.nation_stubs.sections("aircraft/wp_su-35s_squadrons.ini"):
             self.skipTest("SEST Collection Fixes not built")
         self.assertEqual(bp.roster_nations([{"unit": "wp_su-57", "picks": ["Squadron1"]}]),
                          {"wp_su-57": "Russia"})
+        self.assertEqual(bp.roster_nations([{"unit": "wp_su_33", "picks": ["Squadron1", "Squadron3"]}]),
+                         {"wp_su_33": "Russia"})
+        # The stub's Squadron1 says Russia; the Su-35SK's Squadron4 is China's.
         with self.assertRaises(SystemExit) as caught:
-            bp.roster_nations([{"unit": "wp_su_33", "picks": ["Squadron1", "Squadron3"]}])
+            bp.roster_nations([{"unit": "wp_su-35s", "picks": ["Squadron1", "Squadron4"]}])
         self.assertIn("no single declared nation", str(caught.exception))
 
     def test_a_placed_aircraft_flies_by_its_squadron(self):
