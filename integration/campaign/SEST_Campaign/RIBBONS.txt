@@ -68,16 +68,20 @@ to the game's Russia nation, named Russian Federation, instead of the USSR:
 Grigorovich frigates, the Steregushchiy, Gremyashchiy and Buyan-M corvettes,
 the Yasen, Belgorod, Borei and Improved Kilo boats); the modern refits of
 Soviet-built ships in their modern fit only (the Kuznetsov's 2016 fit,
-Admiral Nakhimov's refit, Marshal Ustinov 2016, the Nanuchka IIIs, the
-Tarantul R-60) and the Akulas, Oscar IIs, Grishas and Admiral Chabanenko
-completed after 1991; and 32 aircraft of post-1991 Russian types and
-upgrades (the Su-57, Su-35S, Su-30SM, Su-33, MiG-31BM, MiG-35, MiG-29K 9.41,
-A-50U and their like). SEST Replenishment's Akademik Pashin registers Russia
-in its own file. A future Russian commander's discount would cover them.
-The Soviet-era fits, Cold War aircraft (the Su-27, MiG-31, Tu-160 as built,
-Tu-95MS, Il-76MD, Ka-27PL, Mi-8), fictional variants and hulls never built
-stay Soviet, as stock Cold War missions use them. The SEST missions fly the
-Russian flag on all of them, as before.
+Admiral Nakhimov's refit, Marshal Ustinov 2016, the Nanuchka III Smerch's
+2019 refit, the Tarantul R-60, the REDFOR mod's Smetlivy) and the Akulas,
+Oscar IIs and Grishas launched after 1991, the Sierra II Pskov and Admiral
+Chabanenko (launched in 1992 and 1994); and 32 aircraft of post-1991
+Russian types and upgrades (the Su-57, Su-35S, Su-30SM, Su-33, MiG-31BM,
+MiG-35, MiG-29K 9.41, A-50U and their like). SEST Replenishment's Akademik
+Pashin registers Russia in its own file. A future Russian commander's
+discount would cover them. The Soviet-era fits, Cold War aircraft (the
+Su-27, MiG-31, Tu-160 as built, Tu-95MS, Il-76MD, Ka-27PL, Mi-8), fictional
+variants and hulls never built stay Soviet, as stock Cold War missions use
+them. The SEST missions fly the Russian flag on every unit they place, as
+before; an aircraft a Russian deck or airbase launches flies its own
+squadron's registration, so a launched Su-33 or Su-57 shows the Russian
+Federation and a launched Ka-27, Su-27 or Tu-160 the USSR.
 
 Fictional ribbons, any commander: the four completion ribbons (unchanged)
 and eight operation ribbons - SW05 Timor Corridor, SW08 Archipelago
