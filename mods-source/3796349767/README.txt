@@ -12,10 +12,9 @@ The anti-ship loadout uses the full bay and carries no air-to-air missiles.
 Empty and Ferry are also available. Select the loadout in the mission editor
 or when preparing aircraft for launch.
 
-Southern Watch contains four longer scenarios.
 
 The operational aircraft and its weapon integration are imagined.
-Requires Sea Power and Anchor Chain with its one-time preloader setup. See START HERE.txt. This version replaces the separate decade aircraft.
+Requires Sea Power and Alpine Mod Loader. See START HERE.txt. This version replaces the separate decade aircraft.
 Existing saves containing those retired aircraft require the previous version.
 
 The Intercept loadout uses the full bay and carries no Sidewinders. AIM-424

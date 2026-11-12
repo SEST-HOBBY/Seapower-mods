@@ -1,4 +1,4 @@
-# Player-prev.log - last 218 of 218 line(s), captured 2026-11-03T23:22:34.
+# Player-prev.log - last 451 of 451 line(s), captured 2026-11-12T22:42:19.
 # Unity writes this fresh each launch; -prev is the session before.
 
 Mono path[0] = 'C:/Program Files (x86)/Steam/steamapps/common/Sea Power/Sea Power_Data/Managed'
@@ -17,7 +17,7 @@ Direct3D:
     VRAM:     7989 MB
     Driver:   32.0.16.1088
 Begin MonoManager ReloadAssembly
-- Loaded All Assemblies, in  0.222 seconds
+- Loaded All Assemblies, in  0.229 seconds
 - Finished resetting the current domain, in  0.002 seconds
 [Physics::Module] Selected backend.
 [Physics::Module] Name: PhysX
@@ -32,7 +32,7 @@ Using Windows.Gaming.Input
 <RI> Input initialized.
 
 [3D WebView] Using Vuplex 3D WebView for Windows v4.15.2 
-UnloadTime: 3.374700 ms
+UnloadTime: 1.849800 ms
 [3D WebView] System info (used by Vuplex support):
 Unity version: 6000.0.84f1
 Development build: False
@@ -42,7 +42,7 @@ Graphics API: Direct3D11
 Rendering threading mode: LegacyJobified
 Render pipeline: default
 SRP Batcher: False
-0.8.7-261026 (C) Triassic Games 2024-2026
+0.8.7-261107 (C) Triassic Games 2024-2026
 Global logging level set to: <b>Info</b>
 Noesis logging level set to: <b>Trace</b>
 FileManager.OnStart(Game) Subscribed Items = [(3821992229, k_EItemStateSubscribed, k_EItemStateInstalled), (3499239964, k_EItemStateSubscribed, k_EItemStateInstalled), (3403661005, k_EItemStateSubscribed, k_EItemStateInstalled), (3413868677, k_EItemStateSubscribed, k_EItemStateInstalled), (3781062859, k_EItemStateSubscribed, k_EItemStateInstalled), (3652906664, k_EItemStateSubscribed, k_EItemStateInstalled), (3496055699, k_EItemStateSubscribed, k_EItemStateInstalled), (3673908868, k_EItemStateSubscribed, k_EItemStateInstalled), (3438479626, k_EItemStateSubscribed, k_EItemStateInstalled), (3587091564, k_EItemStateSubscribed, k_EItemStateInstalled), (3551621846, k_EItemStateSubscribed, k_EItemStateInstalled), (3681748718, k_EItemStateSubscribed, k_EItemStateInstalled), (3414146266, k_EItemStateSubscribed, k_EItemStateInstalled), (3459682829, k_EItemStateSubscribed, k_EItemStateInstalled), (3425450153, k_EItemStateSubscribed, k_EItemStateInstalled), (3461091581, k_EItemStateSubscribed, k_EItemStateInstalled), (3380210757, k_EItemStateSubscribed, k_EItemStateInstalled), (3804868806, k_EItemStateSubscribed, k_EItemStateInstalled), (3819522350, k_EItemStateSubscribed, k_EItemStateInstalled), (3820576916, k_EItemStateSubscribed, k_EItemStateInstalled), (3416372890, k_EItemStateSubscribed, k_EItemStateInstalled), (3403993583, k_EItemStateSubscribed, k_EItemStateInstalled), (3774105087, k_EItemStateSubscribed, k_EItemStateInstalled), (3432668460, k_EItemStateSubscribed, k_EItemStateInstalled), (3801549552, k_EItemStateSubscribed, k_EItemStateInstalled), (3774746803, k_EItemStateSubscribed, k_EItemStateInstalled), (3652097318, k_EItemStateSubscribed, k_EItemStateInstalled), (3480965706, k_EItemStateSubscribed, k_EItemStateInstalled), (3394781441, k_EItemStateSubscribed, k_EItemStateInstalled), (3741944366, k_EItemStateSubscribed, k_EItemStateInstalled), (3768036424, k_EItemStateSubscribed, k_EItemStateInstalled), (3602046770, k_EItemStateSubscribed, k_EItemStateInstalled), (3808882954, k_EItemStateSubscribed, k_EItemStateInstalled), (3628203171, k_EItemStateSubscribed, k_EItemStateInstalled), (3600788156, k_EItemStateSubscribed, k_EItemStateInstalled), (3813157776, k_EItemStateSubscribed, k_EItemStateInstalled), (3801363152, k_EItemStateSubscribed, k_EItemStateInstalled), (3567256221, k_EItemStateSubscribed, k_EItemStateInstalled), (3481228992, k_EItemStateSubscribed, k_EItemStateInstalled), (3417801942, k_EItemStateSubscribed, k_EItemStateInstalled), (3746453639, k_EItemStateSubscribed, k_EItemStateInstalled), (3628201887, k_EItemStateSubscribed, k_EItemStateInstalled), (3807187341, k_EItemStateSubscribed, k_EItemStateInstalled), (3806686336, k_EItemStateSubscribed, k_EItemStateInstalled), (3606134711, k_EItemStateSubscribed, k_EItemStateInstalled), (3558173926, k_EItemStateSubscribed, k_EItemStateInstalled), (3760871384, k_EItemStateSubscribed, k_EItemStateInstalled), (3493115616, k_EItemStateSubscribed, k_EItemStateInstalled), (3555361900, k_EItemStateSubscribed, k_EItemStateInstalled), (3587877691, k_EItemStateSubscribed, k_EItemStateInstalled), (3784474738, k_EItemStateSubscribed, k_EItemStateInstalled), (3678767059, k_EItemStateSubscribed, k_EItemStateInstalled), (3630495619, k_EItemStateSubscribed, k_EItemStateInstalled), (3629144864, k_EItemStateSubscribed, k_EItemStateInstalled), (3599752717, k_EItemStateSubscribed, k_EItemStateInstalled), (3776730617, k_EItemStateSubscribed, k_EItemStateInstalled), (3444379330, k_EItemStateSubscribed, k_EItemStateInstalled), (3575847216, k_EItemStateSubscribed, k_EItemStateInstalled), (3807164392, k_EItemStateSubscribed, k_EItemStateInstalled), (3488139470, k_EItemStateSubscribed, k_EItemStateInstalled), (3695809489, k_EItemStateSubscribed, k_EItemStateInstalled), (3642656500, k_EItemStateSubscribed, k_EItemStateInstalled), (3820759806, k_EItemStateSubscribed, k_EItemStateInstalled), (3731208477, k_EItemStateSubscribed, k_EItemStateInstalled), (3390330875, k_EItemStateSubscribed, k_EItemStateInstalled), (3812454152, k_EItemStateSubscribed, k_EItemStateInstalled), (3789208859, k_EItemStateSubscribed, k_EItemStateInstalled), (3448845252, k_EItemStateSubscribed, k_EItemStateInstalled), (3636386513, k_EItemStateSubscribed, k_EItemStateInstalled), (3553116604, k_EItemStateSubscribed, k_EItemStateInstalled), (3758320372, k_EItemStateSubscribed, k_EItemStateInstalled), (3418252667, k_EItemStateSubscribed, k_EItemStateInstalled), (3607989779, k_EItemStateSubscribed, k_EItemStateInstalled), (3591820675, k_EItemStateSubscribed, k_EItemStateInstalled), (3430135740, k_EItemStateSubscribed, k_EItemStateInstalled), (3673703427, k_EItemStateSubscribed, k_EItemStateInstalled), (3672497668, k_EItemStateSubscribed, k_EItemStateInstalled), (3373960386, k_EItemStateSubscribed, k_EItemStateInstalled), (3818251045, k_EItemStateSubscribed, k_EItemStateInstalled), (3758943352, k_EItemStateSubscribed, k_EItemStateInstalled), (3736147136, k_EItemStateSubscribed, k_EItemStateInstalled), (3567228449, k_EItemStateSubscribed, k_EItemStateInstalled), (3503670861, k_EItemStateSubscribed, k_EItemStateInstalled), (3461044389, k_EItemStateSubscribed, k_EItemStateInstalled), (3412480633, k_EItemStateSubscribed, k_EItemStateInstalled), (3410473695, k_EItemStateSubscribed, k_EItemStateInstalled), (3508275114, k_EItemStateSubscribed, k_EItemStateInstalled), (3384079999, k_EItemStateSubscribed, k_EItemStateInstalled), (3556629790, k_EItemStateSubscribed, k_EItemStateInstalled), (3790594162, k_EItemStateSubscribed, k_EItemStateInstalled), (3717610332, k_EItemStateSubscribed, k_EItemStateInstalled), (3549377308, k_EItemStateSubscribed, k_EItemStateInstalled), (3686449681, k_EItemStateSubscribed, k_EItemStateInstalled), (3408662804, k_EItemStateSubscribed, k_EItemStateInstalled), (3505420313, k_EItemStateSubscribed, k_EItemStateInstalled), (3520352434, k_EItemStateSubscribed, k_EItemStateInstalled), (3802216383, k_EItemStateSubscribed, k_EItemStateInstalled), (3776340577, k_EItemStateSubscribed, k_EItemStateInstalled), (3813033771, k_EItemStateSubscribed, k_EItemStateInstalled), (3722749887, k_EItemStateSubscribed, k_EItemStateInstalled), (3744475027, k_EItemStateSubscribed, k_EItemStateInstalled), (3406985435, k_EItemStateSubscribed, k_EItemStateInstalled), (3559495372, k_EItemStateSubscribed, k_EItemStateInstalled), (3502273861, k_EItemStateSubscribed, k_EItemStateInstalled), (3759042728, k_EItemStateSubscribed, k_EItemStateInstalled), (3740293822, k_EItemStateSubscribed, k_EItemStateInstalled), (3430106996, k_EItemStateSubscribed, k_EItemStateInstalled), (3590477166, k_EItemStateSubscribed, k_EItemStateInstalled), (3465256032, k_EItemStateSubscribed, k_EItemStateInstalled), (3458148344, k_EItemStateSubscribed, k_EItemStateInstalled), (3417446309, k_EItemStateSubscribed, k_EItemStateInstalled), (3799742828, k_EItemStateSubscribed, k_EItemStateInstalled), (3513571010, k_EItemStateSubscribed, k_EItemStateInstalled), (3434693420, k_EItemStateSubscribed, k_EItemStateInstalled), (3755769170, k_EItemStateSubscribed, k_EItemStateInstalled), (3631042692, k_EItemStateSubscribed, k_EItemStateInstalled), (3812111085, k_EItemStateSubscribed, k_EItemStateInstalled), (3775128499, k_EItemStateSubscribed, k_EItemStateInstalled), (3629269283, k_EItemStateSubscribed, k_EItemStateInstalled), (3592460366, k_EItemStateSubscribed, k_EItemStateInstalled), (3456859157, k_EItemStateSubscribed, k_EItemStateInstalled), (3485917612, k_EItemStateSubscribed, k_EItemStateInstalled), (3806197116, k_EItemStateSubscribed, k_EItemStateInstalled), (3716049886, k_EItemStateSubscribed, k_EItemStateInstalled), (3810611344, k_EItemStateSubscribed, k_EItemStateInstalled), (3595014060, k_EItemStateSubscribed, k_EItemStateInstalled), (3432592449, k_EItemStateSubscribed, k_EItemStateInstalled), (3812140001, k_EItemStateSubscribed, k_EItemStateInstalled), (3752415457, k_EItemStateSubscribed, k_EItemStateInstalled), (3681873198, k_EItemStateSubscribed, k_EItemStateInstalled), (3789188689, k_EItemStateSubscribed, k_EItemStateInstalled), (3733719765, k_EItemStateSubscribed, k_EItemStateInstalled), (3729578404, k_EItemStateSubscribed, k_EItemStateInstalled), (3729579342, k_EItemStateSubscribed, k_EItemStateInstalled), (3769142422, k_EItemStateSubscribed, k_EItemStateInstalled), (3594891803, k_EItemStateSubscribed, k_EItemStateInstalled), (3774859959, k_EItemStateSubscribed, k_EItemStateInstalled), (3774572038, k_EItemStateSubscribed, k_EItemStateInstalled), (3731931836, k_EItemStateSubscribed, k_EItemStateInstalled), (3399699218, k_EItemStateSubscribed, k_EItemStateInstalled), (3605013271, k_EItemStateSubscribed, k_EItemStateInstalled), (3796706214, k_EItemStateSubscribed, k_EItemStateInstalled), (3571718093, k_EItemStateSubscribed, k_EItemStateInstalled), (3455404959, k_EItemStateSubscribed, k_EItemStateInstalled), (3378409795, k_EItemStateSubscribed, k_EItemStateInstalled), (3373356293, k_EItemStateSubscribed, k_EItemStateInstalled), (3796113927, k_EItemStateSubscribed, k_EItemStateInstalled), (3597650470, k_EItemStateSubscribed, k_EItemStateInstalled), (3468260539, k_EItemStateSubscribed, k_EItemStateInstalled), (3524446392, k_EItemStateSubscribed, k_EItemStateInstalled), (3392434750, k_EItemStateSubscribed, k_EItemStateInstalled), (3673250557, k_EItemStateSubscribed, k_EItemStateInstalled), (3437105712, k_EItemStateSubscribed, k_EItemStateInstalled), (3766210676, k_EItemStateSubscribed, k_EItemStateInstalled), (3636213685, k_EItemStateSubscribed, k_EItemStateInstalled), (3461519690, k_EItemStateSubscribed, k_EItemStateInstalled), (3455931957, k_EItemStateSubscribed, k_EItemStateInstalled), (3628247436, k_EItemStateSubscribed, k_EItemStateInstalled), (3551676319, k_EItemStateSubscribed, k_EItemStateInstalled), (3812461539, k_EItemStateSubscribed, k_EItemStateInstalled), (3497601759, k_EItemStateSubscribed, k_EItemStateInstalled), (3436170138, k_EItemStateSubscribed, k_EItemStateInstalled), (3433577445, k_EItemStateSubscribed, k_EItemStateInstalled), (3524112296, k_EItemStateSubscribed, k_EItemStateInstalled), (3779799226, k_EItemStateSubscribed, k_EItemStateInstalled), (3451166840, k_EItemStateSubscribed, k_EItemStateInstalled), (3762023575, k_EItemStateSubscribed, k_EItemStateInstalled), (3503594612, k_EItemStateSubscribed, k_EItemStateInstalled), (3683253079, k_EItemStateSubscribed, k_EItemStateInstalled), (3711297532, k_EItemStateSubscribed, k_EItemStateInstalled), (3732654992, k_EItemStateSubscribed, k_EItemStateInstalled), (3491248180, k_EItemStateSubscribed, k_EItemStateInstalled), (3709961172, k_EItemStateSubscribed, k_EItemStateInstalled), (3509329205, k_EItemStateSubscribed, k_EItemStateInstalled), (3395022688, k_EItemStateSubscribed, k_EItemStateInstalled), (3411341227, k_EItemStateSubscribed, k_EItemStateInstalled), (3715323261, k_EItemStateSubscribed, k_EItemStateInstalled), (3486502935, k_EItemStateSubscribed, k_EItemStateInstalled), (3468959181, k_EItemStateSubscribed, k_EItemStateInstalled), (3606774881, k_EItemStateSubscribed, k_EItemStateInstalled), (3672072359, k_EItemStateSubscribed, k_EItemStateInstalled), (3737267013, k_EItemStateSubscribed, k_EItemStateInstalled), (3806466625, k_EItemStateSubscribed, k_EItemStateInstalled), (3478767194, k_EItemStateSubscribed, k_EItemStateInstalled), (3433957933, k_EItemStateSubscribed, k_EItemStateInstalled), (3782020901, k_EItemStateSubscribed, k_EItemStateInstalled), (3637954857, k_EItemStateSubscribed, k_EItemStateInstalled), (3796349767, k_EItemStateSubscribed, k_EItemStateInstalled), (3564792549, k_EItemStateSubscribed, k_EItemStateInstalled), (3569219326, k_EItemStateSubscribed, k_EItemStateInstalled), (3601891050, k_EItemStateSubscribed, k_EItemStateInstalled), (3603306548, k_EItemStateSubscribed, k_EItemStateInstalled), (3603367264, k_EItemStateSubscribed, k_EItemStateInstalled), (3780118683, k_EItemStateSubscribed, k_EItemStateInstalled), (3470643173, k_EItemStateSubscribed, k_EItemStateInstalled), (3591563716, k_EItemStateSubscribed, k_EItemStateInstalled), (3526982088, k_EItemStateSubscribed, k_EItemStateInstalled), (3506979898, k_EItemStateSubscribed, k_EItemStateInstalled), (3670643788, k_EItemStateSubscribed, k_EItemStateInstalled), (3659742367, k_EItemStateSubscribed, k_EItemStateInstalled), (3434072450, k_EItemStateSubscribed, k_EItemStateInstalled), (3826122523, k_EItemStateSubscribed, k_EItemStateInstalled), (3826396311, k_EItemStateSubscribed, k_EItemStateInstalled), (3819427362, k_EItemStateSubscribed, k_EItemStateInstalled)]
@@ -52,117 +52,66 @@ FileManager.CheckForUpdates(): The following files require update []
 [SEST TileGuard] guarding Seapower.SceneEditor.SeapowerTileMap.LoadTile(Tile) -> Void
 [SEST Backdrops] ready: 80 SEST photographs from C:\Program Files (x86)\Steam\steamapps\workshop\content\1286220\3812461539\ui\backgrounds; backdrops only, campaign and mission pictures left alone
 [SEST Menu] ready: C:\Program Files (x86)\Steam\steamapps\workshop\content\1286220\3812461539\plugins\sest_menu.mp4 for clip 'main_menu'
+[SEST Runtime] modifier files repaired: the game's one-shot #!extend scan had run before the Workshop folders were registered (0 targets, none from this pack); rescanned 207 search directories: 595 targets, 174 files from this pack, ini cache cleared
+[SEST Runtime] version watermark hidden: the beta's own build text over the game view (0 already present); HideVersionWatermark=0 in plugins/sest_runtime.ini keeps it
 [SEST Runtime] towed sensor correction installed: guarded native active-sonar retraction, mechanical behavior retained
 [SEST Runtime] MST terrain correction installed: RGM/UGM-109E5a cruise only, 500 ft over land ahead; native terminal profile retained
 [SEST Runtime] task-force debrief correction installed: append explicitly destroyed launch-snapshot hulls missing from section 3
 [SEST Runtime] preparation map refresh installed: own units only, native preparation queue, restart cleanup, no simulation step
 [SEST Runtime] campaign combat costs installed: saved debrief weapons, ship, air and land losses; independent of tracker display
 [SEST Runtime] combat inventory capture installed: raw remaining quantities in versioned SEST keys; hull, airframe and land costs remain separate
-[SEST Runtime] F11 campaign panel awaiting the enabled Combat Cost Tracker
 [SEST Runtime] native cost UI deferred until Noesis is initialized and a game view is attached
+[SEST Runtime] World Operations enabled: F11 overview, forces, costs and independent service record; native saves remain unchanged
+[SEST Runtime] F11 campaign panel awaiting the enabled Combat Cost Tracker
+[SEST Runtime] World Operations attached to Dynamic Campaign Mod 0.25.0.1
+[SEST Runtime] world opening brief installed: short sections, wrapped paragraphs and native close/guide controls
+[SEST Runtime] Coordinated Strike refinements attached: shared SEST colours, readable sections and planned/remaining weapon estimates; author controls retained
 [SEST Runtime] F11 campaign combat costs installed: native movable windows, mission detail and complete scrollable campaign history
 [ACPackSettings] loaded successfully.
 [CustomAudioLoader] loaded successfully.
-[EnhancedDecoyMod] loaded successfully.
 [Euromod-Welldeck] loaded successfully.
 [HighAltitudeSkyFix] loaded successfully.
 [HullDamage] loaded successfully.
 [MeshCutOut] loaded successfully.
-[MissileControlMod] Disabled; native behavior retained: System.Exception: Native steering limit hook shape changed: 0/0/2
-  at MissileControlMod.Hooks.PatchSteeringLimits (System.Collections.Generic.IEnumerable`1[T] source, System.Int32 expectedG, System.Int32 expectedRate, System.Int32 expectedTerminal) [0x001a6] in <703df634a5434d42b263a60cea7c9675>:0 
-  at MissileControlMod.Hooks.SteeringLimits (System.Collections.Generic.IEnumerable`1[T] source) [0x0000d] in <703df634a5434d42b263a60cea7c9675>:0 
-  at MissileControlMod.Compatibility.ValidateGame () [0x0038a] in <703df634a5434d42b263a60cea7c9675>:0 
-  at MissileControlMod.Plugin.InitializeWhenModEnabled () [0x00013] in <703df634a5434d42b263a60cea7c9675>:0 
+[MissileControlMod] loaded successfully.
 [MissileControlSurfaces] loaded successfully.
-[MultiStageMissiles] Initialization failed; vanilla missile behavior remains active: System.MissingMethodException: Unsupported stage propulsion API: MissileSimulator.BuildAltitudeNodes
-  at MultiStageMissilesAnchorChain.PropulsionApi.Require (System.Type t, System.String name, System.Boolean isStatic, System.Type result, System.Type[] args) [0x0004c] in <22996371a1154758b343a0c9c70e6eba>:0 
-  at MultiStageMissilesAnchorChain.StageFlyout.BindAltitudeNodes (System.Type simulator) [0x00126] in <22996371a1154758b343a0c9c70e6eba>:0 
-  at MultiStageMissilesAnchorChain.StageFlyout.Validate (System.Type simulator) [0x000cb] in <22996371a1154758b343a0c9c70e6eba>:0 
-  at MultiStageMissilesAnchorChain.PropulsionApi.Validate () [0x003af] in <22996371a1154758b343a0c9c70e6eba>:0 
-  at MultiStageMissilesAnchorChain.MultiStageMissilesMod.InitializeWhenModEnabled () [0x0002c] in <22996371a1154758b343a0c9c70e6eba>:0 
-[OptimalTargetDist] SystemGroup launch sharing disabled; original name-based behavior retained: System.NotSupportedException: Unrecognized launch layout: 1/1/1/4
-  at OptimalTargetDistAnchorChain.SharedLaunchGroups.Transpiler (System.Collections.Generic.IEnumerable`1[T] instructions) [0x0041e] in <e8cbcdcc7c0049dfb36a214ab390f280>:0 
-  at OptimalTargetDistAnchorChain.SharedLaunchGroups.Install () [0x0003a] in <e8cbcdcc7c0049dfb36a214ab390f280>:0 
-[DatalinkReuse 0.12.0] ACTIVE; Contacts=True (runtime job dependency contract); RangeReuse=False (Missile/radar signatures changed); Prediction=False (Expected reference type but got type kind 17). Independent native fallbacks; no recording.
+[OptimalTargetDist] loaded successfully.
+[DatalinkReuse 0.13.1] ACTIVE; Contacts=True (runtime job dependency contract); RangeReuse=False (Conflicting hook at Update); Prediction=True (native result audits). Independent native fallbacks; no recording.
 [ProfileImage1024] loaded successfully.
 [SATCOM] loaded successfully.
 [SmokeParticleLOD] loaded successfully.
-[SubModelStabilization] Initialization failed; all vessels retain their original behavior: System.Reflection.TargetInvocationException: Exception has been thrown by the target of an invocation. ---> HarmonyLib.HarmonyException: Patching exception in method static System.Reflection.MethodBase SubModelStabilizationAnchorChain.VesselLoaderStabilizationPatch::TargetMethod() ---> System.Exception: Method static System.Reflection.MethodBase SubModelStabilizationAnchorChain.VesselLoaderStabilizationPatch::TargetMethod() returned an unexpected result: null
-  at HarmonyLib.PatchClassProcessor.RunMethod[S,T] (T defaultIfNotExisting, T defaultIfFailing, System.Func`2[T,TResult] failOnResult, System.Object[] parameters) [0x0010d] in <474744d65d8e460fa08cd5fd82b5d65f>:0 
-   --- End of inner exception stack trace ---
-  at HarmonyLib.PatchClassProcessor.ReportException (System.Exception exception, System.Reflection.MethodBase original) [0x00045] in <474744d65d8e460fa08cd5fd82b5d65f>:0 
-  at HarmonyLib.PatchClassProcessor.Patch () [0x00095] in <474744d65d8e460fa08cd5fd82b5d65f>:0 
-  at HarmonyLib.Harmony.<PatchAll>b__11_0 (System.Type type) [0x00007] in <474744d65d8e460fa08cd5fd82b5d65f>:0 
-  at HarmonyLib.CollectionExtensions.Do[T] (System.Collections.Generic.IEnumerable`1[T] sequence, System.Action`1[T] action) [0x00014] in <474744d65d8e460fa08cd5fd82b5d65f>:0 
-  at HarmonyLib.Harmony.PatchAll (System.Reflection.Assembly assembly) [0x00006] in <474744d65d8e460fa08cd5fd82b5d65f>:0 
-  at (wrapper managed-to-native) System.Reflection.RuntimeMethodInfo.InternalInvoke(System.Reflection.RuntimeMethodInfo,object,object[],System.Exception&)
-  at System.Reflection.RuntimeMethodInfo.Invoke (System.Object obj, System.Reflection.BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x0006a] in <0bf5fd6723884ebdacdfd1f46b78d44f>:0 
-   --- End of inner exception stack trace ---
-  at System.Reflection.RuntimeMethodInfo.Invoke (System.Object obj, System.Reflection.BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x00083] in <0bf5fd6723884ebdacdfd1f46b78d44f>:0 
-  at System.Reflection.MethodBase.Invoke (System.Object obj, System.Object[] parameters) [0x00000] in <0bf5fd6723884ebdacdfd1f46b78d44f>:0 
-  at SubModelStabilizationAnchorChain.SubModelStabilizationMod.InitializeWhenModEnabled () [0x00069] in <6ae01846c5ac438db7911214161acb2b>:0 
-[TestRange] Initialization failed: System.MissingMethodException: Method 'SeaPower.ECM.CombinedJamUnit' not found.
-  at TestRange.CountermeasureApi.Add (System.Type type, System.String name, System.Type result, System.Boolean isStatic, System.String hook, System.Boolean postfix, System.Boolean optional, System.Type[] args) [0x0006e] in <3189f5793c994d449bc92cea3fefd735>:0 
-  at TestRange.CountermeasureApi.Validate () [0x0016e] in <3189f5793c994d449bc92cea3fefd735>:0 
-  at TestRange.Api.Validate () [0x00000] in <3189f5793c994d449bc92cea3fefd735>:0 
-  at TestRange.Plugin.InitializeWhenModEnabled () [0x0000c] in <3189f5793c994d449bc92cea3fefd735>:0 
-[UiWorkerProbe 0.2.0] Native fallback: MissingMethodException: Method not found: SeapowerUI.GizmoLayerManager SeapowerUI.GizmoLayerManager.get_Instance()
+[SubModelStabilization] loaded successfully.
+[TestRange] loaded successfully.
+[UiWorkerProbe] loaded successfully.
 [V22Tiltrotor] loaded successfully.
-[WeaponLauncherEffects] Initialization failed; vanilla weapon behavior remains active: System.Reflection.TargetInvocationException: Exception has been thrown by the target of an invocation. ---> HarmonyLib.HarmonyException: Patching exception in method static System.Reflection.MethodBase WeaponLauncherEffectsAnchorChain.WeaponContainerLaunchLauncherEffectsPatch::TargetMethod() ---> System.Exception: Method static System.Reflection.MethodBase WeaponLauncherEffectsAnchorChain.WeaponContainerLaunchLauncherEffectsPatch::TargetMethod() returned an unexpected result: null
-  at HarmonyLib.PatchClassProcessor.RunMethod[S,T] (T defaultIfNotExisting, T defaultIfFailing, System.Func`2[T,TResult] failOnResult, System.Object[] parameters) [0x0010d] in <474744d65d8e460fa08cd5fd82b5d65f>:0 
-   --- End of inner exception stack trace ---
-  at HarmonyLib.PatchClassProcessor.ReportException (System.Exception exception, System.Reflection.MethodBase original) [0x00045] in <474744d65d8e460fa08cd5fd82b5d65f>:0 
-  at HarmonyLib.PatchClassProcessor.Patch () [0x00095] in <474744d65d8e460fa08cd5fd82b5d65f>:0 
-  at HarmonyLib.Harmony.<PatchAll>b__11_0 (System.Type type) [0x00007] in <474744d65d8e460fa08cd5fd82b5d65f>:0 
-  at HarmonyLib.CollectionExtensions.Do[T] (System.Collections.Generic.IEnumerable`1[T] sequence, System.Action`1[T] action) [0x00014] in <474744d65d8e460fa08cd5fd82b5d65f>:0 
-  at HarmonyLib.Harmony.PatchAll (System.Reflection.Assembly assembly) [0x00006] in <474744d65d8e460fa08cd5fd82b5d65f>:0 
-  at (wrapper managed-to-native) System.Reflection.RuntimeMethodInfo.InternalInvoke(System.Reflection.RuntimeMethodInfo,object,object[],System.Exception&)
-  at System.Reflection.RuntimeMethodInfo.Invoke (System.Object obj, System.Reflection.BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x0006a] in <0bf5fd6723884ebdacdfd1f46b78d44f>:0 
-   --- End of inner exception stack trace ---
-  at System.Reflection.RuntimeMethodInfo.Invoke (System.Object obj, System.Reflection.BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x00083] in <0bf5fd6723884ebdacdfd1f46b78d44f>:0 
-  at System.Reflection.MethodBase.Invoke (System.Object obj, System.Object[] parameters) [0x00000] in <0bf5fd6723884ebdacdfd1f46b78d44f>:0 
-  at WeaponLauncherEffectsAnchorChain.WeaponLauncherEffectsMod.InitializeWhenModEnabled () [0x00069] in <2918dc045d154620bcaca29271a571ba>:0 
+[WeaponLauncherEffects] loaded successfully.
 Harmony.Loadoutmanager active
-[BetterTacMap] Harmony patching failed: HarmonyLib.HarmonyException: Patching exception in method null ---> System.ArgumentException: Undefined target method for patch method static void BetterTacMap.Patches.GizmoLayerManagerConstructorPatch::Postfix(SeapowerUI.GizmoLayerManager __instance)
-  at HarmonyLib.PatchClassProcessor.PatchWithAttributes (System.Reflection.MethodBase& lastOriginal) [0x00047] in <474744d65d8e460fa08cd5fd82b5d65f>:0 
-  at HarmonyLib.PatchClassProcessor.Patch () [0x0006a] in <474744d65d8e460fa08cd5fd82b5d65f>:0 
-   --- End of inner exception stack trace ---
-  at HarmonyLib.PatchClassProcessor.ReportException (System.Exception exception, System.Reflection.MethodBase original) [0x0006c] in <474744d65d8e460fa08cd5fd82b5d65f>:0 
-  at HarmonyLib.PatchClassProcessor.Patch () [0x00095] in <474744d65d8e460fa08cd5fd82b5d65f>:0 
-  at HarmonyLib.Harmony.<PatchAll>b__11_0 (System.Type type) [0x00007] in <474744d65d8e460fa08cd5fd82b5d65f>:0 
-  at HarmonyLib.CollectionExtensions.Do[T] (System.Collections.Generic.IEnumerable`1[T] sequence, System.Action`1[T] action) [0x00014] in <474744d65d8e460fa08cd5fd82b5d65f>:0 
-  at HarmonyLib.Harmony.PatchAll (System.Reflection.Assembly assembly) [0x00006] in <474744d65d8e460fa08cd5fd82b5d65f>:0 
-  at HarmonyLib.Harmony.PatchAll () [0x0001b] in <474744d65d8e460fa08cd5fd82b5d65f>:0 
-  at BetterTacMap.BetterTacMapMod.TriggerEntryPoint () [0x00050] in C:\Users\thsch\Documents\_Projects\SeaPower\betterMinimap-main\BetterTacMap\BetterTacMapMod.cs:47 
-[WeaponCosts] v0.7.1: weapon, vessel, onboard aircraft and save/load capabilities validated; awaiting mod selection.
+[AutomaticSAR] Loaded.
 [ACC CV16 Ski-Jump Fix] v1.7.0 mass-aware ski-jump pitch/contact patch applied; runway wait=True.
 [ACC CV16 Ski-Jump Fix] Fixed-wing deflector binding patch applied.
-[K5Kraken] Harmony lifecycle hooks installed: 8; owner alpine.seapower.k5.contact.orders.
-[K5Kraken] Contact controller 1.0.0 loaded; K5 one-way attack variant only.
 [FuryFormation] The game version differs from the tested one, but everything this mod uses in the game is unchanged, so it stays on.
 [AlpineFormation] Formation repair on.
 [FuryLights] The game version differs from the tested one, but everything this mod uses in the game is unchanged, so it stays on.
 [Fury Lights] on: build check UnchangedContract.
+[FuryVoice.Harmony] The game version differs from the tested one, but everything this mod uses in the game is unchanged, so it stays on.
 [FuryLoss] Native loss observer loaded.
-[XQ58Shadow] Loaded; native optics, shadow contact and tracking enabled.
 [B-21 Ejection] loaded.
 [B21Formation] The game version differs from the tested one, but everything this mod uses in the game is unchanged, so it stays on.
 [B21Lights] The game version differs from the tested one, but everything this mod uses in the game is unchanged, so it stays on.
 [B-21 Lights] on: build check UnchangedContract.
-[EC2 Comms] on: verdict ExactBuild, 37 of 37 patches installed.
+[EC2 Comms] on: verdict ExactBuild, 36 of 36 patches installed.
 [EC-2 Ejection] loaded.
 [EC2Formation] The game version differs from the tested one, but everything this mod uses in the game is unchanged, so it stays on.
 [EC2Lights] The game version differs from the tested one, but everything this mod uses in the game is unchanged, so it stays on.
 [EC-2 Lights] on: build check UnchangedContract.
 [J36 Config] lights=True afterburner=True vectorFlight=True highSpeedDrag=True centralNozzle=True
 [J36 Systems] initializing modular patches
-[BellSystemsFixtureTilt] 0.5.1 initialized; scope Navy and Army Cheyenne II.
 [MV75Formation] The game version differs from the tested one, but everything this mod uses in the game is unchanged, so it stays on.
 [YF-23 Ejection] 1.1.0 loaded.
 [YF23Formation] The game version differs from the tested one, but everything this mod uses in the game is unchanged, so it stays on.
 [YF23Lights] The game version differs from the tested one, but everything this mod uses in the game is unchanged, so it stays on.
 [YF-23 Lights] on: build check UnchangedContract.
-[SEST UI Follow-up] 1.4.3 beta input fix installed; full Runtime 1.5.1 paired; Contacts time-control behavior retained.
+[SEST UI Follow-up] 1.4.12 beta input fix installed; full Runtime 1.6.2 paired; Contacts time-control behavior retained.
 [SEST UI Follow-up] Contacts surface fix inactive; keyboard fix retained: Uninspected assembly: SeaPowerPopOut
 [SEST UI Follow-up] Formation UI mode inactive; original Group Manager retained: Uninspected assembly: SeaPowerPopOut
 [SEST UI Follow-up] Performance: picture diagnostics disabled; background texture/video discovery suspended during initialized missions and resumed for loading/menus.
@@ -175,24 +124,24 @@ Harmony.Loadoutmanager active
 [SEST UI Follow-up] Formation performance: idle discovery no longer forces a full fitting search; actual size/content/drag invalidation retained. Pop-out chrome capped at 5 Hz.
 [SEST UI Follow-up] Terrain cleanup: mission texture-array requests batched after 350 ms quiet or 2 s maximum; loading/menu/scene-exit cleanup retained.
 [SEST UI Follow-up] Cost catalogues: reuse successful price factory results within each mission; clear on mission changes and tracker config reload. Live expenditure, losses, history and refresh cadence retained.
-[SEST UI Follow-up] Stutter observations skipped IdentifyExpanded: Uninspected assembly: IdentifyExpanded
+[SEST UI Follow-up] Stutter observations skipped EnhancedUIMod: Uninspected assembly: EnhancedUIMod
 [SEST UI Follow-up] Stutter observations skipped SeaPowerPopOut: Uninspected assembly: SeaPowerPopOut
 [SEST UI Follow-up] Stutter observations skipped SeaPowerTopo: Uninspected assembly: SeaPowerTopo
-[SEST UI Follow-up] Stutter observations installed: 19 timing hooks; main-thread allocation counter unavailable. Original methods and GC policy retained.
+[SEST UI Follow-up] Stutter observations skipped UiWorkerProbe: Uninspected assembly: UiWorkerProbe
+[SEST UI Follow-up] Stutter observations installed: 18 timing hooks; main-thread allocation counter unavailable. Original methods and GC policy retained.
 [SEST Identify Paths] active: settings/audio use <USER>\AppData\Local\SEST\IdentifyExpanded; Workshop DLL unchanged.
+[MV-22 Deck Operations] 1.1.36 loaded; shared cached identity lookup; deck routing and native armed loadouts preserved.
 [IDX][Patches_CampaignPrize.cs:94 Resolve] [IDX-Prize] vanilla API resolved: True (write=True merge=True itemCtor=14 snapCtor=True)
 [IDX][Patches_CampaignPrize.cs:46 Apply] [IDX-Prize] hooked WriteCurrentTaskForceSnapshot for prize injection
 [IDX][Plugin.cs:61 TriggerEntryPoint] [IDX] Sections Patched and Methods Initialized: 13 patched, 13 methods
 [IDX][Plugin.cs:68 TriggerEntryPoint] [IDX] build stamp: 2026-10-27 10:54:15 (IdentifyExpanded.dll)
 [SEST Backdrops] watching the loading screen's picture (LoadScreen.BackgroundImage) every frame; its members: ScaleValueX:Single, ScaleValueY:Single, CoroutineWeight:Single, CurrentIndex:Int32, CurrentSubStep:Int32, BackgroundImage:TextureSource, LoadText:String, LoadPercent:Single, LoadingTipHeader:String, LoadingTip:String, HasLoadingTip:Boolean, ShowWarningPSE:Boolean, WarningPSE:String, WindowHost:WindowHost, LoadScreenView:NoesisView, destroyCancellationToken:CancellationToken, useGUILayout:Boolean, didStart:Boolean, didAwake:Boolean, enabled:Boolean, isActiveAndEnabled:Boolean, transform:Transform, gameObject:GameObject, tag:String, name:String, hideFlags:HideFlags
-[SEST Backdrops] SEST photo loading_screen_57.png in place of C:\Program Files (x86)\Steam\steamapps\common\Sea Power\Sea Power_Data\StreamingAssets\original\ui/backgrounds\loading_screen_52.png (1920x1080); 1 so far
-launchangles installed
-salute installed
-deckstate installed
+[SEST Backdrops] SEST photo loading_screen_9.png in place of C:\Program Files (x86)\Steam\steamapps\common\Sea Power\Sea Power_Data\StreamingAssets\original\ui/backgrounds\loading_screen_4.png (1920x1080); 1 so far
+[CombatWorker 0.3.1] Native fallback: NotSupportedException: Conflicting hook: io.github.yourname.second-thrust / Single CalculateThrustOverTime(SeaPower.AmmunitionParameters, Boolean, Single, Single)
+[CombatWorker 0.3.1] numerical=False batch=False pipeline=False; workers=6
 Fury voice routing 1.5.0 installed through the speaker voice path; optional-content marker respected.
 [EnhancedUIMod] loaded successfully.
-[WorkerExpansion 0.12.0] FALLBACK: Method 'SeaPower.SensorSystemRadar.GetRangeInternal' not found.
-[WeaponCosts] Ready; F11 toggles the overlay. Ship losses and remaining inventories are tracked while hidden too.
+[CombatCosts] loaded successfully.
 [IDX][CampaignCapture.cs:76 Load] [IDX-Prize] Loaded prize roster: 7 prize(s)
 [IDX][Localization.cs:42 Load] [IDX] localization ini not found for language 'en' or en
 [IDX][TensionConfig.cs:62 SetRaw] [IDX-Tension] set to TENSE -> Tense (DEFCON 3)
@@ -203,16 +152,300 @@ Fury voice routing 1.5.0 installed through the speaker voice path; optional-cont
 [IDX][AmbienceConfig.cs:53 Load] [IDX-Ambience] config: watch=True 240min pools=[Japan] chatter=True 180-480s@35 %
 [IDX][NamePool.cs:33 Load] [IDX-Ambience] NamePool loaded 18 pools
 [IDX][AmbienceService.cs:315 LoadLines] [IDX-Ambience] lines: generic=8 anchored=3 ship=3 sub=3 air=3
-[IDX][AmbienceService.cs:112 Initialize] [IDX-Ambience] started, OOW Tamotsu Hayashi
+[IDX][AmbienceService.cs:112 Initialize] [IDX-Ambience] started, OOW Yuji Ito
 [IDX][AudioBroadcastService.cs:225 Initialize] [IDX-Audio] ready, 0 tracks
 [IDX][AdvisorBridge.cs:142 CheckInstallation] [IDX-Advisor] AI Advisor is not installed; comms bridge disabled. Identify Expanded runs normally.
-[SEST Backdrops] SEST photo loading_screen_65.png in place of C:\Program Files (x86)\Steam\steamapps\workshop\content\1286220\3732654992\ui/backgrounds\loading_screen_21.png (1920x1080); 2 so far
-[2101 - HTTPRequestCompleted] - 5 -- 1 -- True -- k_EHTTPStatusCode200OK -- 3869
+LoadMaterialFromFile(effects/explosions/emitters/kinetic_kill_hit_pac3/materials/ejecta_shell.ini): SetColor(_TintColor, white)
+LoadMaterialFromFile(effects/explosions/emitters/kinetic_kill_hit_pac3/materials/ejecta_shell.ini): SetFloat(_InvFade, 1)
+'dts_b-52h': the range needs a bypass ratio past 8.0; range, fuel or drag is likely wrong (or author BypassRatio)
+'fr_rafale_b_l': MaxPitchRate 29 deg/s sustained is out of reach of the drag model (turn drag factor held at 0.2)
+'fr_rafale_c_l': MaxPitchRate 29 deg/s sustained is out of reach of the drag model (turn drag factor held at 0.2)
+'fr_rafale_m_l': MaxPitchRate 29 deg/s sustained is out of reach of the drag model (turn drag factor held at 0.2)
+'plaaf_j-20a': the range needs a bypass ratio past 1.5; range, fuel or drag is likely wrong (or author BypassRatio)
+'plaaf_jh7a': the range needs a bypass ratio past 1.5; range, fuel or drag is likely wrong (or author BypassRatio)
+[2101 - HTTPRequestCompleted] - 18 -- 1 -- True -- k_EHTTPStatusCode200OK -- 3869
 [SEST Menu] video player 'MediaPlayer' in scene 'background': source=VideoClip clip='main_menu' url='' render=APIOnly loop=False playing=False audio=Direct tracks=0
 [SEST Menu] menu film now C:\Program Files (x86)\Steam\steamapps\workshop\content\1286220\3812461539\plugins\sest_menu.mp4
+[SEST Backdrops] SEST photo loading_screen_32.png in place of C:\Program Files (x86)\Steam\steamapps\common\Sea Power\Sea Power_Data\StreamingAssets\original\ui/backgrounds\loading_screen_28.png (1920x1080); 2 so far
 Unexpected timestamp values detected. This can occur in H.264 videos not encoded with the baseline profile. Timestamps will be skewed to correct the playback for C:\Program Files (x86)\Steam\steamapps\workshop\content\1286220\3812461539\plugins\sest_menu.mp4
-Unexpected timestamp values detected. This can occur in H.264 videos not encoded with the baseline profile. Timestamps will be skewed to correct the playback for C:\Program Files (x86)\Steam\steamapps\common\Sea Power\Sea Power_Data\sharedassets1.resource
 Color primaries 0 is unknown or unsupported by WindowsMediaFoundation. Falling back to default may result in color shift. C:\Program Files (x86)\Steam\steamapps\workshop\content\1286220\3812461539\plugins\sest_menu.mp4
+Unexpected timestamp values detected. This can occur in H.264 videos not encoded with the baseline profile. Timestamps will be skewed to correct the playback for C:\Program Files (x86)\Steam\steamapps\common\Sea Power\Sea Power_Data\sharedassets1.resource
+'usaf_a-10c_plus': the range needs a bypass ratio past 8.0; range, fuel or drag is likely wrong (or author BypassRatio)
+'usaf_b-52h_419_flts': the range needs a bypass ratio past 8.0; range, fuel or drag is likely wrong (or author BypassRatio)
+'usaf_mq-9a': cruise range implies SFC 2.35 lb/hp/h; range, drag and thrust disagree
+'usaf_mq-9_er': cruise range implies SFC 2.35 lb/hp/h; range, drag and thrust disagree
+'usa_a-10a': the range needs a bypass ratio past 8.0; range, fuel or drag is likely wrong (or author BypassRatio)
+'usa_a-10c': the range needs a bypass ratio past 8.0; range, fuel or drag is likely wrong (or author BypassRatio)
+'plaaf_kj-500': the range needs a bypass ratio past 8.0; range, fuel or drag is likely wrong (or author BypassRatio)
+'plaaf_kj-500': cruise range implies SFC 0.01 lb/lbf/h at full dry power; range, drag and thrust disagree
+'plaaf_kj-500a': the range needs a bypass ratio past 8.0; range, fuel or drag is likely wrong (or author BypassRatio)
+'plaaf_kj-500a': cruise range implies SFC 0.01 lb/lbf/h at full dry power; range, drag and thrust disagree
+'plaaf_y-9dz': the range needs a bypass ratio past 8.0; range, fuel or drag is likely wrong (or author BypassRatio)
+'plaaf_y-9dz': cruise range implies SFC 0.01 lb/lbf/h at full dry power; range, drag and thrust disagree
+'plaaf_y-9jz': the range needs a bypass ratio past 8.0; range, fuel or drag is likely wrong (or author BypassRatio)
+'plaaf_y-9jz': cruise range implies SFC 0.01 lb/lbf/h at full dry power; range, drag and thrust disagree
+'plaaf_y-9lg': the range needs a bypass ratio past 8.0; range, fuel or drag is likely wrong (or author BypassRatio)
+'plaaf_y-9lg': cruise range implies SFC 0.01 lb/lbf/h at full dry power; range, drag and thrust disagree
+'plan_j-35': the range needs a bypass ratio past 1.5; range, fuel or drag is likely wrong (or author BypassRatio)
+'plan_y-8fq': the range needs a bypass ratio past 8.0; range, fuel or drag is likely wrong (or author BypassRatio)
+'plan_y-8fq': cruise range implies SFC 0.01 lb/lbf/h at full dry power; range, drag and thrust disagree
+'plan_y-9fq': the range needs a bypass ratio past 8.0; range, fuel or drag is likely wrong (or author BypassRatio)
+'plan_y-9fq': cruise range implies SFC 0.01 lb/lbf/h at full dry power; range, drag and thrust disagree
+'usaf_b-52g': the range needs a bypass ratio past 8.0; range, fuel or drag is likely wrong (or author BypassRatio)
+'raaf_e-7a': the range needs a bypass ratio past 8.0; range, fuel or drag is likely wrong (or author BypassRatio)
+[SEST Backdrops] SEST photo loading_screen_73.png in place of C:\Program Files (x86)\Steam\steamapps\workshop\content\1286220\3732654992\ui/backgrounds\loading_screen_15.png (1920x1080); 3 so far
+'fr_aliaca': cruise range implies SFC 8.87 lb/hp/h; range, drag and thrust disagree
+'rok_f15k': MaxPitchRate 26 deg/s sustained is out of reach of the drag model (turn drag factor held at 0.2)
+'am_f104g': MaxPitchRate 16 deg/s sustained is out of reach of the drag model (turn drag factor held at 0.2)
+'am_f104s': MaxPitchRate 16 deg/s sustained is out of reach of the drag model (turn drag factor held at 0.2)
+'am_f104sasa': MaxPitchRate 16 deg/s sustained is out of reach of the drag model (turn drag factor held at 0.2)
+'wp_mig-29a': MaxPitchRate 28 deg/s sustained is out of reach of the drag model (turn drag factor held at 0.2)
+'wp_mig-29k': MaxPitchRate 24 deg/s sustained is out of reach of the drag model (turn drag factor held at 0.2)
+'wp_mig-29k_941': MaxPitchRate 24 deg/s sustained is out of reach of the drag model (turn drag factor held at 0.2)
+'wp_mig-29k_941': the range needs a bypass ratio past 1.5; range, fuel or drag is likely wrong (or author BypassRatio)
+'wp_mig-29k_947': MaxPitchRate 22 deg/s sustained is out of reach of the drag model (turn drag factor held at 0.2)
+'wp_mig-29k_947': the range needs a bypass ratio past 1.5; range, fuel or drag is likely wrong (or author BypassRatio)
+'wp_mig-29m2_967': MaxPitchRate 24 deg/s sustained is out of reach of the drag model (turn drag factor held at 0.2)
+'wp_mig-29m2_967': the range needs a bypass ratio past 1.5; range, fuel or drag is likely wrong (or author BypassRatio)
+'wp_mig-29m_915': MaxPitchRate 28 deg/s sustained is out of reach of the drag model (turn drag factor held at 0.2)
+'wp_mig-29m_915': the range needs a bypass ratio past 1.5; range, fuel or drag is likely wrong (or author BypassRatio)
+'wp_mig-29m_961': MaxPitchRate 24 deg/s sustained is out of reach of the drag model (turn drag factor held at 0.2)
+'wp_mig-29m_961': the range needs a bypass ratio past 1.5; range, fuel or drag is likely wrong (or author BypassRatio)
+'wp_mig-29smt_918': MaxPitchRate 28 deg/s sustained is out of reach of the drag model (turn drag factor held at 0.2)
+'wp_mig-29smt_918': the range needs a bypass ratio past 1.5; range, fuel or drag is likely wrong (or author BypassRatio)
+[SEST Backdrops] SEST photo loading_screen_50.png in place of C:\Program Files (x86)\Steam\steamapps\workshop\content\1286220\3629144864\ui/backgrounds\eu_zeran_101.png (2097x1172); 4 so far
+'plaaf_j-11': the range needs a bypass ratio past 1.5; range, fuel or drag is likely wrong (or author BypassRatio)
+'plaaf_j-11a': the range needs a bypass ratio past 1.5; range, fuel or drag is likely wrong (or author BypassRatio)
+'plaaf_j-11b': the range needs a bypass ratio past 1.5; range, fuel or drag is likely wrong (or author BypassRatio)
+'plaaf_j-11bg': the range needs a bypass ratio past 1.5; range, fuel or drag is likely wrong (or author BypassRatio)
+'plan_j-15d': the range needs a bypass ratio past 1.5; range, fuel or drag is likely wrong (or author BypassRatio)
+'spa_av-8a': MaxInstantPitchRate 20 deg/s is below what StallSpeed's low-speed lift already gives (43)
+'spa_f104g': MaxPitchRate 16 deg/s sustained is out of reach of the drag model (turn drag factor held at 0.2)
+'spa_ef2000': MaxPitchRate 30 deg/s sustained is out of reach of the drag model (turn drag factor held at 0.2)
+'usn_f-14b': the range needs a bypass ratio past 1.5; range, fuel or drag is likely wrong (or author BypassRatio)
+'usaf_b-2_spirit': the range needs a bypass ratio past 8.0; range, fuel or drag is likely wrong (or author BypassRatio)
+'civ_a380': the range needs a bypass ratio past 8.0; range, fuel or drag is likely wrong (or author BypassRatio)
+'usaf_e-3g': the range needs a bypass ratio past 8.0; range, fuel or drag is likely wrong (or author BypassRatio)
+'nato_e-3a': the range needs a bypass ratio past 8.0; range, fuel or drag is likely wrong (or author BypassRatio)
+'jasdf_ec-2': the range needs a bypass ratio past 8.0; range, fuel or drag is likely wrong (or author BypassRatio)
+'eu_ef2000_fgr4': MaxPitchRate 29 deg/s sustained is out of reach of the drag model (turn drag factor held at 0.2)
+'eu_ef2000_fgr4': the range needs a bypass ratio past 1.5; range, fuel or drag is likely wrong (or author BypassRatio)
+'eu_ef2000_fgr4_late': MaxPitchRate 29 deg/s sustained is out of reach of the drag model (turn drag factor held at 0.2)
+'eu_ef2000_fgr4_late': the range needs a bypass ratio past 1.5; range, fuel or drag is likely wrong (or author BypassRatio)
+'raf_ef2000_fgr4': MaxPitchRate 29 deg/s sustained is out of reach of the drag model (turn drag factor held at 0.2)
+'raf_ef2000_fgr4': the range needs a bypass ratio past 1.5; range, fuel or drag is likely wrong (or author BypassRatio)
+'raf_ef2000_fgr4_late': MaxPitchRate 29 deg/s sustained is out of reach of the drag model (turn drag factor held at 0.2)
+'raf_ef2000_fgr4_late': the range needs a bypass ratio past 1.5; range, fuel or drag is likely wrong (or author BypassRatio)
+'usaf_f-15e_SE': the range needs a bypass ratio past 1.5; range, fuel or drag is likely wrong (or author BypassRatio)
+'usaf_f-22': MaxPitchRate 39 deg/s sustained is out of reach of the drag model (turn drag factor held at 0.2)
+'usaf_f-22': the range needs a bypass ratio past 1.5; range, fuel or drag is likely wrong (or author BypassRatio)
+'usaf_f-22_s5': MaxPitchRate 39 deg/s sustained is out of reach of the drag model (turn drag factor held at 0.2)
+'usaf_f-22_s5': the range needs a bypass ratio past 1.5; range, fuel or drag is likely wrong (or author BypassRatio)
+'usaf_f-22_s6': MaxPitchRate 39 deg/s sustained is out of reach of the drag model (turn drag factor held at 0.2)
+'usaf_f-22_s6': the range needs a bypass ratio past 1.5; range, fuel or drag is likely wrong (or author BypassRatio)
+'plaf_j16a block3': the range needs a bypass ratio past 1.5; range, fuel or drag is likely wrong (or author BypassRatio)
+'plaf_j16a': the range needs a bypass ratio past 1.5; range, fuel or drag is likely wrong (or author BypassRatio)
+'plaf_j16d': the range needs a bypass ratio past 1.5; range, fuel or drag is likely wrong (or author BypassRatio)
+'plaaf_j36': MaxPitchRate 52 deg/s sustained is out of reach of the drag model (turn drag factor held at 0.2)
+'plaaf_j36': the range needs a bypass ratio past 1.5; range, fuel or drag is likely wrong (or author BypassRatio)
+'plan_j-50': the range needs a bypass ratio past 1.5; range, fuel or drag is likely wrong (or author BypassRatio)
+'plaaf_j10c': the range needs a bypass ratio past 1.5; range, fuel or drag is likely wrong (or author BypassRatio)
+'plaaf_j10c': cruise range implies SFC 0.31 lb/lbf/h at full dry power; range, drag and thrust disagree
+'iaf_netz': the range needs a bypass ratio past 1.5; range, fuel or drag is likely wrong (or author BypassRatio)
+'usaf_f-16a': the range needs a bypass ratio past 1.5; range, fuel or drag is likely wrong (or author BypassRatio)
+'jgsdf_mv22b_osprey': the range needs a bypass ratio past 8.0; range, fuel or drag is likely wrong (or author BypassRatio)
+'jgsdf_mv22b_osprey': cruise range implies SFC 0.29 lb/lbf/h at full dry power; range, drag and thrust disagree
+'mv22b_osprey': the range needs a bypass ratio past 8.0; range, fuel or drag is likely wrong (or author BypassRatio)
+'mv22b_osprey': cruise range implies SFC 0.29 lb/lbf/h at full dry power; range, drag and thrust disagree
+'sv22_2024_osprey': the range needs a bypass ratio past 8.0; range, fuel or drag is likely wrong (or author BypassRatio)
+'sv22_2024_osprey': cruise range implies SFC 0.33 lb/lbf/h at full dry power; range, drag and thrust disagree
+'usaf_rq-180': MaxPitchRate 22 deg/s sustained is out of reach of the drag model (turn drag factor held at 5)
+'dts_saab_ge': the range needs a bypass ratio past 8.0; range, fuel or drag is likely wrong (or author BypassRatio)
+'wp_su-57': the range needs a bypass ratio past 1.5; range, fuel or drag is likely wrong (or author BypassRatio)
+'wp_su-27': MaxPitchRate 30 deg/s sustained is out of reach of the drag model (turn drag factor held at 0.2)
+'wp_su-27sm': MaxPitchRate 30 deg/s sustained is out of reach of the drag model (turn drag factor held at 0.2)
+'wp_su-30m': MaxPitchRate 30 deg/s sustained is out of reach of the drag model (turn drag factor held at 0.2)
+'wp_su-30m': the range needs a bypass ratio past 1.5; range, fuel or drag is likely wrong (or author BypassRatio)
+'wp_su-30sm': MaxPitchRate 30 deg/s sustained is out of reach of the drag model (turn drag factor held at 0.2)
+'wp_su-35s': MaxPitchRate 30 deg/s sustained is out of reach of the drag model (turn drag factor held at 0.2)
+'wp_tu-160': the range needs a bypass ratio past 1.5; range, fuel or drag is likely wrong (or author BypassRatio)
+'msdvd_tu-214r': the range needs a bypass ratio past 8.0; range, fuel or drag is likely wrong (or author BypassRatio)
+'msdvd_tu-214r_F': the range needs a bypass ratio past 8.0; range, fuel or drag is likely wrong (or author BypassRatio)
+'msdvd_tu-214_AEW': the range needs a bypass ratio past 8.0; range, fuel or drag is likely wrong (or author BypassRatio)
+AircraftPerformance: thrust cannot overcome induced drag at the INI top speed; drag calibrated without it
+'pla_spy_balloon': cruise range implies SFC 1349.39 lb/hp/h; range, drag and thrust disagree
+'plaaf_kj-3000': the range needs a bypass ratio past 8.0; range, fuel or drag is likely wrong (or author BypassRatio)
+'plaaf_y-20b': the range needs a bypass ratio past 8.0; range, fuel or drag is likely wrong (or author BypassRatio)
+'plaaf_y-20b_albm': the range needs a bypass ratio past 8.0; range, fuel or drag is likely wrong (or author BypassRatio)
+'usaf_yf-23_black_widow_ii': the range needs a bypass ratio past 1.5; range, fuel or drag is likely wrong (or author BypassRatio)
+'usaf_yf-23_black_widow_ii': cruise range implies SFC 0.36 lb/lbf/h at full dry power; range, drag and thrust disagree
+'usn_ForpostR705': cruise range implies SFC 2.11 lb/hp/h; range, drag and thrust disagree
+'usn_Mugin5705': cruise range implies SFC 3.53 lb/hp/h; range, drag and thrust disagree
+'usn_orlan10705': cruise range implies SFC 1.00 lb/hp/h; range, drag and thrust disagree
+'usn_rq7705': cruise range implies SFC 2.74 lb/hp/h; range, drag and thrust disagree
+'bel_a400m_airdroop-para': the range needs a bypass ratio past 8.0; range, fuel or drag is likely wrong (or author BypassRatio)
+'bel_a400m_airdroop-para': cruise range implies SFC 0.34 lb/lbf/h at full dry power; range, drag and thrust disagree
+'bel_a400m_tankers': the range needs a bypass ratio past 8.0; range, fuel or drag is likely wrong (or author BypassRatio)
+'bel_a400m_tankers': cruise range implies SFC 0.34 lb/lbf/h at full dry power; range, drag and thrust disagree
+'exp_rafale_b': MaxPitchRate 29 deg/s sustained is out of reach of the drag model (turn drag factor held at 0.2)
+'exp_rafale_b_l': MaxPitchRate 29 deg/s sustained is out of reach of the drag model (turn drag factor held at 0.2)
+'exp_rafale_c': MaxPitchRate 29 deg/s sustained is out of reach of the drag model (turn drag factor held at 0.2)
+'exp_rafale_c_l': MaxPitchRate 29 deg/s sustained is out of reach of the drag model (turn drag factor held at 0.2)
+'exp_rafale_m': MaxPitchRate 29 deg/s sustained is out of reach of the drag model (turn drag factor held at 0.2)
+'exp_rafale_m_l': MaxPitchRate 29 deg/s sustained is out of reach of the drag model (turn drag factor held at 0.2)
+'fr_a400m_airdroop-para': the range needs a bypass ratio past 8.0; range, fuel or drag is likely wrong (or author BypassRatio)
+'fr_a400m_airdroop-para': cruise range implies SFC 0.34 lb/lbf/h at full dry power; range, drag and thrust disagree
+'fr_a400m_sf': the range needs a bypass ratio past 8.0; range, fuel or drag is likely wrong (or author BypassRatio)
+'fr_a400m_sf': cruise range implies SFC 0.34 lb/lbf/h at full dry power; range, drag and thrust disagree
+'fr_a400m_tankers': the range needs a bypass ratio past 8.0; range, fuel or drag is likely wrong (or author BypassRatio)
+'fr_a400m_tankers': cruise range implies SFC 0.34 lb/lbf/h at full dry power; range, drag and thrust disagree
+'fr_mq-9a': cruise range implies SFC 2.35 lb/hp/h; range, drag and thrust disagree
+'fr_rafale_b': MaxPitchRate 29 deg/s sustained is out of reach of the drag model (turn drag factor held at 0.2)
+'fr_rafale_b_l_nuclear': MaxPitchRate 29 deg/s sustained is out of reach of the drag model (turn drag factor held at 0.2)
+'fr_rafale_c': MaxPitchRate 29 deg/s sustained is out of reach of the drag model (turn drag factor held at 0.2)
+'fr_rafale_m': MaxPitchRate 29 deg/s sustained is out of reach of the drag model (turn drag factor held at 0.2)
+'fr_rafale_m_tanker': MaxPitchRate 29 deg/s sustained is out of reach of the drag model (turn drag factor held at 0.2)
+'ger_a400m_airdroop-para': the range needs a bypass ratio past 8.0; range, fuel or drag is likely wrong (or author BypassRatio)
+'ger_a400m_airdroop-para': cruise range implies SFC 0.34 lb/lbf/h at full dry power; range, drag and thrust disagree
+'ger_a400m_tankers': the range needs a bypass ratio past 8.0; range, fuel or drag is likely wrong (or author BypassRatio)
+'ger_a400m_tankers': cruise range implies SFC 0.34 lb/lbf/h at full dry power; range, drag and thrust disagree
+'ind_a400m_airdroop-para': the range needs a bypass ratio past 8.0; range, fuel or drag is likely wrong (or author BypassRatio)
+'ind_a400m_airdroop-para': cruise range implies SFC 0.34 lb/lbf/h at full dry power; range, drag and thrust disagree
+'ind_a400m_tankers': the range needs a bypass ratio past 8.0; range, fuel or drag is likely wrong (or author BypassRatio)
+'ind_a400m_tankers': cruise range implies SFC 0.34 lb/lbf/h at full dry power; range, drag and thrust disagree
+'kaz_a400m_airdroop-para': the range needs a bypass ratio past 8.0; range, fuel or drag is likely wrong (or author BypassRatio)
+'kaz_a400m_airdroop-para': cruise range implies SFC 0.34 lb/lbf/h at full dry power; range, drag and thrust disagree
+'kaz_a400m_tankers': the range needs a bypass ratio past 8.0; range, fuel or drag is likely wrong (or author BypassRatio)
+'kaz_a400m_tankers': cruise range implies SFC 0.34 lb/lbf/h at full dry power; range, drag and thrust disagree
+'mal_a400m_airdroop-para': the range needs a bypass ratio past 8.0; range, fuel or drag is likely wrong (or author BypassRatio)
+'mal_a400m_airdroop-para': cruise range implies SFC 0.34 lb/lbf/h at full dry power; range, drag and thrust disagree
+'mal_a400m_tankers': the range needs a bypass ratio past 8.0; range, fuel or drag is likely wrong (or author BypassRatio)
+'mal_a400m_tankers': cruise range implies SFC 0.34 lb/lbf/h at full dry power; range, drag and thrust disagree
+'spa_a400m_airdroop-para': the range needs a bypass ratio past 8.0; range, fuel or drag is likely wrong (or author BypassRatio)
+'spa_a400m_airdroop-para': cruise range implies SFC 0.34 lb/lbf/h at full dry power; range, drag and thrust disagree
+'spa_a400m_tankers': the range needs a bypass ratio past 8.0; range, fuel or drag is likely wrong (or author BypassRatio)
+'spa_a400m_tankers': cruise range implies SFC 0.34 lb/lbf/h at full dry power; range, drag and thrust disagree
+'tur_a400m_airdroop-para': the range needs a bypass ratio past 8.0; range, fuel or drag is likely wrong (or author BypassRatio)
+'tur_a400m_airdroop-para': cruise range implies SFC 0.34 lb/lbf/h at full dry power; range, drag and thrust disagree
+'tur_a400m_tankers': the range needs a bypass ratio past 8.0; range, fuel or drag is likely wrong (or author BypassRatio)
+'tur_a400m_tankers': cruise range implies SFC 0.34 lb/lbf/h at full dry power; range, drag and thrust disagree
+'uk_a400m_airdroop-para': the range needs a bypass ratio past 8.0; range, fuel or drag is likely wrong (or author BypassRatio)
+'uk_a400m_airdroop-para': cruise range implies SFC 0.34 lb/lbf/h at full dry power; range, drag and thrust disagree
+'uk_a400m_tankers': the range needs a bypass ratio past 8.0; range, fuel or drag is likely wrong (or author BypassRatio)
+'uk_a400m_tankers': cruise range implies SFC 0.34 lb/lbf/h at full dry power; range, drag and thrust disagree
+'plaaf_h-6j': the range needs a bypass ratio past 8.0; range, fuel or drag is likely wrong (or author BypassRatio)
+'plaaf_h-6j': cruise range implies SFC 0.29 lb/lbf/h at full dry power; range, drag and thrust disagree
+'plaaf_h-6k_early': the range needs a bypass ratio past 8.0; range, fuel or drag is likely wrong (or author BypassRatio)
+'plaaf_h-6k_early': cruise range implies SFC 0.23 lb/lbf/h at full dry power; range, drag and thrust disagree
+'plaaf_h-6k_late': the range needs a bypass ratio past 8.0; range, fuel or drag is likely wrong (or author BypassRatio)
+'plaaf_h-6k_late': cruise range implies SFC 0.21 lb/lbf/h at full dry power; range, drag and thrust disagree
+'plaaf_h-6n': the range needs a bypass ratio past 8.0; range, fuel or drag is likely wrong (or author BypassRatio)
+'plaaf_h-6n': cruise range implies SFC 0.29 lb/lbf/h at full dry power; range, drag and thrust disagree
+'plaaf_j-10a': MaxPitchRate 32 deg/s sustained is out of reach of the drag model (turn drag factor held at 0.2)
+'plaaf_j-10a': the range needs a bypass ratio past 1.5; range, fuel or drag is likely wrong (or author BypassRatio)
+'plaaf_j-10a': cruise range implies SFC 0.32 lb/lbf/h at full dry power; range, drag and thrust disagree
+'plaaf_j-10c': MaxPitchRate 32 deg/s sustained is out of reach of the drag model (turn drag factor held at 0.2)
+'plaaf_j-10c': the range needs a bypass ratio past 1.5; range, fuel or drag is likely wrong (or author BypassRatio)
+'plaaf_j-10c': cruise range implies SFC 0.32 lb/lbf/h at full dry power; range, drag and thrust disagree
+'plaaf_j-11bgh': MaxPitchRate 29 deg/s sustained is out of reach of the drag model (turn drag factor held at 0.2)
+'plaaf_j-11bgh': the range needs a bypass ratio past 1.5; range, fuel or drag is likely wrong (or author BypassRatio)
+'plaaf_j-11bh': MaxPitchRate 29 deg/s sustained is out of reach of the drag model (turn drag factor held at 0.2)
+'plaaf_j-11bh': the range needs a bypass ratio past 1.5; range, fuel or drag is likely wrong (or author BypassRatio)
+'profile_': the range needs a bypass ratio past 8.0; range, fuel or drag is likely wrong (or author BypassRatio)
+'china_tianlong_satellite': cruise range implies SFC 2118475000000000.00 lb/lbf/h at full dry power; range, drag and thrust disagree
+[SEST Backdrops] SEST photo loading_screen_56.png in place of C:\Program Files (x86)\Steam\steamapps\common\Sea Power\Sea Power_Data\StreamingAssets\original\ui/backgrounds\loading_screen_75.png (1920x1080); 5 so far
+[SEST Backdrops] SEST photo loading_screen_56.png in place of C:\Program Files (x86)\Steam\steamapps\workshop\content\1286220\3812454152\ui/backgrounds\HDF.png (1920x1080); 6 so far
+'usaf_rc_135': the range needs a bypass ratio past 8.0; range, fuel or drag is likely wrong (or author BypassRatio)
+'usa_thor_satellite': cruise range implies SFC 2118475000000000.00 lb/lbf/h at full dry power; range, drag and thrust disagree
+Unloading 6 Unused Serialized files (Serialized files now loaded: 7)
+Unloading 8 unused Assets to reduce memory usage. Loaded Objects now: 9688.
+Total: 503.792300 ms (FindLiveObjects: 0.325700 ms CreateObjectMapping: 0.252100 ms MarkObjects: 503.050700 ms  DeleteObjects: 0.163300 ms)
+
+PauseMenu_performed bound
+WARNING: No city contains the port Port Ream Naval Base (Cambodia, PLA support)
+INFO: Loaded Mission file with reference transitBuiltInMission
+[SEST Runtime] native cost UI initialized after the game attached its Noesis view; map input guards installed
+[SEST Runtime] world-map Combat Costs button attached beside Economy; F11 opens cumulative combat costs
+[SEST Runtime] formation pop-out bridge inactive for an uninspected Group Manager DLL
+[SEST Runtime] native window bridge attached to the inspected Pop-Out Windows image
+[SEST Runtime] Contact Log 1.0.1 bridge installed: main-view host lookup, shared Contacts/Rules pop-out and return, separate placement
+'usn_p_8a': the range needs a bypass ratio past 8.0; range, fuel or drag is likely wrong (or author BypassRatio)
+'wp_perun_satellite': cruise range implies SFC 2118475000000000.00 lb/lbf/h at full dry power; range, drag and thrust disagree
+'wp_su_27p': MaxPitchRate 26 deg/s sustained is out of reach of the drag model (turn drag factor held at 0.2)
+'wp_su_27sm': MaxPitchRate 26 deg/s sustained is out of reach of the drag model (turn drag factor held at 0.2)
+'wp_su_27sm': the range needs a bypass ratio past 1.5; range, fuel or drag is likely wrong (or author BypassRatio)
+'wp_su_30m': MaxPitchRate 26 deg/s sustained is out of reach of the drag model (turn drag factor held at 0.2)
+'wp_su_30m': the range needs a bypass ratio past 1.5; range, fuel or drag is likely wrong (or author BypassRatio)
+'wp_su_30mkk': MaxPitchRate 30 deg/s sustained is out of reach of the drag model (turn drag factor held at 0.2)
+'wp_su_30mkk': the range needs a bypass ratio past 1.5; range, fuel or drag is likely wrong (or author BypassRatio)
+'wp_su_30sm': MaxPitchRate 26 deg/s sustained is out of reach of the drag model (turn drag factor held at 0.2)
+'wp_su_35s': MaxPitchRate 26 deg/s sustained is out of reach of the drag model (turn drag factor held at 0.2)
+'paf_j-10ce': the range needs a bypass ratio past 1.5; range, fuel or drag is likely wrong (or author BypassRatio)
+'paf_j-10ce': cruise range implies SFC 0.32 lb/lbf/h at full dry power; range, drag and thrust disagree
+'paf_jf-17_blk_iii': the range needs a bypass ratio past 1.5; range, fuel or drag is likely wrong (or author BypassRatio)
+'paf_zdk-03': the range needs a bypass ratio past 8.0; range, fuel or drag is likely wrong (or author BypassRatio)
+'paf_zdk-03': cruise range implies SFC 0.01 lb/lbf/h at full dry power; range, drag and thrust disagree
+'raaf_winjeel': cruise range implies SFC 0.24 lb/hp/h; range, drag and thrust disagree
+'ran_sea_gannet': the range needs a bypass ratio past 8.0; range, fuel or drag is likely wrong (or author BypassRatio)
+'ran_sea_gannet': cruise range implies SFC 0.00 lb/lbf/h at full dry power; range, drag and thrust disagree
+'ran_sea_gannet_aew': the range needs a bypass ratio past 8.0; range, fuel or drag is likely wrong (or author BypassRatio)
+'ran_sea_gannet_aew': cruise range implies SFC 0.00 lb/lbf/h at full dry power; range, drag and thrust disagree
+'rn_sea_gannet': the range needs a bypass ratio past 8.0; range, fuel or drag is likely wrong (or author BypassRatio)
+'rn_sea_gannet': cruise range implies SFC 0.00 lb/lbf/h at full dry power; range, drag and thrust disagree
+'rn_sea_gannet_aew': the range needs a bypass ratio past 8.0; range, fuel or drag is likely wrong (or author BypassRatio)
+'rn_sea_gannet_aew': cruise range implies SFC 0.00 lb/lbf/h at full dry power; range, drag and thrust disagree
+'rn_sea_gannet_aew_7': the range needs a bypass ratio past 8.0; range, fuel or drag is likely wrong (or author BypassRatio)
+'rn_sea_gannet_aew_7': cruise range implies SFC 0.00 lb/lbf/h at full dry power; range, drag and thrust disagree
+'rn_sea_gannet_ecm': the range needs a bypass ratio past 8.0; range, fuel or drag is likely wrong (or author BypassRatio)
+'rn_sea_gannet_ecm': cruise range implies SFC 0.00 lb/lbf/h at full dry power; range, drag and thrust disagree
+'usn_a-4c': cruise range implies SFC 3.73 lb/lbf/h at full dry power; range, drag and thrust disagree
+'ch_e3d': the range needs a bypass ratio past 8.0; range, fuel or drag is likely wrong (or author BypassRatio)
+'phl_t28': cruise range implies SFC 0.28 lb/hp/h; range, drag and thrust disagree
+'iriaf_f-14a': MaxInstantPitchRate 24 deg/s needs more lift than StallSpeed allows (21.6 reached)
+'usn_a-7e': MaxPitchRate 19 deg/s sustained is out of reach of the drag model (turn drag factor held at 0.2)
+'usn_f-14a': MaxInstantPitchRate 24 deg/s needs more lift than StallSpeed allows (21.6 reached)
+'usn_p-2h': cruise range implies SFC 1.00 lb/hp/h; range, drag and thrust disagree
+'wp_mig-27': MaxInstantPitchRate 18 deg/s needs more lift than StallSpeed allows (16.1 reached)
+'wp_yak-38': MaxInstantPitchRate 18 deg/s is below what StallSpeed's low-speed lift already gives (21.6)
+[SEST Runtime] native cumulative-cost window opened in campaign; draggable, resizable, native scrolling
+PauseMenu_performed({ action=Campaign/PauseMenu[/Keyboard/escape] phase=Performed time=323.0193131 control=Key:/Keyboard/escape value=1 interaction=UnityEngine.InputSystem.Interactions.PressInteraction }) CurrentWindow is Blank = True
+[SEST Backdrops] SEST photo loading_screen_43.png in place of C:\Program Files (x86)\Steam\steamapps\workshop\content\1286220\3732654992\ui/backgrounds\loading_screen_1.png (1920x1080); 7 so far
+[SEST Backdrops] SEST photo loading_screen_62.png in place of C:\Program Files (x86)\Steam\steamapps\common\Sea Power\Sea Power_Data\StreamingAssets\original\ui/backgrounds\loading_screen_50.png (1920x1080); 8 so far
+[SEST Backdrops] SEST photo loading_screen_74.png in place of C:\Program Files (x86)\Steam\steamapps\workshop\content\1286220\3775128499\ui/backgrounds\plan_loading_screen_13.png (1920x1080); 9 so far
+[SEST Backdrops] SEST photo loading_screen_24.png in place of C:\Program Files (x86)\Steam\steamapps\common\Sea Power\Sea Power_Data\StreamingAssets\original\ui/backgrounds\loading_screen_1.png (1920x1080); 10 so far
+[SEST Backdrops] SEST photo loading_screen_56.png in place of C:\Program Files (x86)\Steam\steamapps\workshop\content\1286220\3491248180\ui/backgrounds\loading_screen_14.png (1920x1080); 11 so far
+[SEST Backdrops] SEST photo loading_screen_4.png in place of C:\Program Files (x86)\Steam\steamapps\common\Sea Power\Sea Power_Data\StreamingAssets\original\ui/backgrounds\loading_screen_20.png (1920x1080); 12 so far
+[SEST Backdrops] SEST photo loading_screen_32.png in place of C:\Program Files (x86)\Steam\steamapps\common\Sea Power\Sea Power_Data\StreamingAssets\original\ui/backgrounds\loading_screen_28.png (1920x1080); 13 so far
+[SEST Backdrops] SEST photo loading_screen_13.png in place of C:\Program Files (x86)\Steam\steamapps\workshop\content\1286220\3820759806\ui/backgrounds\au_bg8.png (1920x1080); 14 so far
+Unloading 7 Unused Serialized files (Serialized files now loaded: 7)
+Unloading 23 unused Assets to reduce memory usage. Loaded Objects now: 10264.
+Total: 432.703400 ms (FindLiveObjects: 0.821700 ms CreateObjectMapping: 0.326400 ms MarkObjects: 431.442600 ms  DeleteObjects: 0.112300 ms)
+
+First video frame not zero: 1 (0.016667s). Result may be out of sync. Please make sure tracks all start at 0 in C:\Program Files (x86)\Steam\steamapps\common\Sea Power\Sea Power_Data\sharedassets1.resource
+[SEST Menu] video player 'MediaPlayer' in scene 'background': source=VideoClip clip='main_menu' url='' render=APIOnly loop=False playing=False audio=Direct tracks=0
+[SEST Menu] menu film now C:\Program Files (x86)\Steam\steamapps\workshop\content\1286220\3812461539\plugins\sest_menu.mp4
+[SEST Backdrops] SEST photo loading_screen_27.png in place of C:\Program Files (x86)\Steam\steamapps\workshop\content\1286220\3820759806\ui/backgrounds\au_bg10.png (1920x1080); 15 so far
+[SEST Menu] video player 'MediaPlayer' in scene 'background': source=VideoClip clip='main_menu' url='' render=APIOnly loop=False playing=False audio=Direct tracks=0
+[SEST Menu] menu film now C:\Program Files (x86)\Steam\steamapps\workshop\content\1286220\3812461539\plugins\sest_menu.mp4
+[SEST Backdrops] SEST photo loading_screen_66.png in place of C:\Program Files (x86)\Steam\steamapps\common\Sea Power\Sea Power_Data\StreamingAssets\original\ui/backgrounds\loading_screen_32.png (1920x1080); 16 so far
+[SEST Menu] video player 'MediaPlayer' in scene 'background': source=VideoClip clip='main_menu' url='' render=APIOnly loop=False playing=True audio=Direct tracks=0
+[SEST Menu] menu film now C:\Program Files (x86)\Steam\steamapps\workshop\content\1286220\3812461539\plugins\sest_menu.mp4
+[SEST Backdrops] SEST photo loading_screen_19.png in place of C:\Program Files (x86)\Steam\steamapps\common\Sea Power\Sea Power_Data\StreamingAssets\original\ui/backgrounds\loading_screen_69.png (1920x1080); 17 so far
+[SEST Backdrops] SEST photo loading_screen_80.png in place of C:\Program Files (x86)\Steam\steamapps\common\Sea Power\Sea Power_Data\StreamingAssets\original\ui/backgrounds\loading_screen_21.png (1920x1080); 18 so far
+[SEST Backdrops] SEST photo loading_screen_9.png in place of C:\Program Files (x86)\Steam\steamapps\common\Sea Power\Sea Power_Data\StreamingAssets\original\ui/backgrounds\loading_screen_4.png (1920x1080); 19 so far
+[IDX][TensionConfig.cs:80 SetLevel] [IDX-Tension] level set to Tense (TENSE) DEFCON 3
+[IDX][EditorTensionDropdown.cs:338 StoreSelection] [IDX-Tension] MissionEditor set TENSE DEFCON 3 via dropdown
+[IDX][EditorTensionDropdown.cs:260 TryInjectInternal] [IDX-Tension] Mission Editor DEFCON dropdown injected next to StackPanel (baseSettings) val=TENSE DEFCON 3
+[SEST Menu] video player 'MediaPlayer' in scene 'background': source=VideoClip clip='main_menu' url='' render=APIOnly loop=False playing=False audio=Direct tracks=0
+[SEST Menu] menu film now C:\Program Files (x86)\Steam\steamapps\workshop\content\1286220\3812461539\plugins\sest_menu.mp4
+[SEST Backdrops] SEST photo loading_screen_77.png in place of C:\Program Files (x86)\Steam\steamapps\workshop\content\1286220\3732654992\ui/backgrounds\loading_screen_20.png (1920x1080); 20 so far
+[SEST Backdrops] SEST photo loading_screen_49.png in place of C:\Program Files (x86)\Steam\steamapps\workshop\content\1286220\3629144864\ui/backgrounds\eu_zeran_Sea_Power.exe_Screenshot_2026.08.24_-_19.39.41.47.png (3703x2083); 21 so far
+[SEST Menu] video player 'MediaPlayer' in scene 'background': source=VideoClip clip='main_menu' url='' render=APIOnly loop=False playing=False audio=Direct tracks=0
+[SEST Menu] menu film now C:\Program Files (x86)\Steam\steamapps\workshop\content\1286220\3812461539\plugins\sest_menu.mp4
+[SEST Backdrops] SEST photo loading_screen_72.png in place of C:\Program Files (x86)\Steam\steamapps\workshop\content\1286220\3820759806\ui/backgrounds\au_bg3.png (1920x1080); 22 so far
+[SEST Backdrops] SEST photo loading_screen_74.png in place of C:\Program Files (x86)\Steam\steamapps\workshop\content\1286220\3775128499\ui/backgrounds\plan_loading_screen_13.png (1920x1080); 23 so far
+[SEST Menu] video player 'MediaPlayer' in scene 'background': source=VideoClip clip='main_menu' url='' render=APIOnly loop=False playing=True audio=Direct tracks=0
+[SEST Menu] menu film now C:\Program Files (x86)\Steam\steamapps\workshop\content\1286220\3812461539\plugins\sest_menu.mp4
 [3D WebView] [StandaloneWebView.TerminateBrowserProcess] Terminating the browser process.
 [Physics::Module] Cleanup current backned.
 [Physics::Module] Id: 0xf2b8ea05

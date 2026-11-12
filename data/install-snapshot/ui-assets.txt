@@ -1,10 +1,10 @@
 # Names in Sea Power's Unity data and code that read like background, loading, splash
 # or menu pictures (tools\scan-ui-assets.ps1) - what a plugin must find to swap one.
-# files: globalgamemanagers=11229524;globalgamemanagers.assets=1265292;level0=3052;level1=1736;level2=76872;level3=3360;level4=1608;level5=1640;level6=1828;resources.assets=2531962992;sharedassets0.assets=55280;sharedassets1.assets=2692884;sharedassets2.assets=1603080;sharedassets3.assets=793;sharedassets4.assets=7976;sharedassets5.assets=177520;sharedassets6.assets=959872;AmplifyBloom.dll=3584;AmplifyColor.dll=3584;andywiecko.BurstTriangulator.dll=66048;Assets.dll=865280;AstarPathfindingProject.dll=1204736;Clipper2Lib.dll=87040;com.bartofzo.nativetrees.dll=32768;com.bartofzo.nativetrees.samples.dll=18944;com.rlabrecque.steamworks.net.dll=399360;CommunityToolkit.Mvvm.dll=113960;Drawing.dll=123904;GUPS.EasyPerformanceMonitor.Demo.dll=20480;GUPS.EasyPerformanceMonitor.dll=57856;Humanizer.dll=718000;io.sentry.unity.runtime.dll=7680;Libraries.dll=728576;MathNet.Numerics.dll=1590272;MCPForUnity.Runtime.dll=30208;MessagePack.Annotations.dll=11776;MessagePack.dll=338432;Nerdbank.Streams.dll=218808;Nito.AsyncEx.Context.dll=13824;Nito.AsyncEx.Tasks.dll=35840;Nito.Disposables.dll=22528;Noesis.NoesisGUI.dll=1513472;PackageTools.dll=7168;ParadoxNotion.dll=453120;Pathfinding.ClipperLib.dll=58880;Pathfinding.Ionic.Zip.Reduced.dll=240640;Pathfinding.Poly2Tri.dll=36352;Plugins.dll=437760;Seapower-Scripts.dll=10157568;Sentry.dll=796160;Sentry.Microsoft.Bcl.AsyncInterfaces.dll=16384;Sentry.System.Collections.Immutable.dll=178688;Sentry.System.Reflection.Metadata.dll=451584;Sentry.System.Runtime.CompilerServices.Unsafe.dll=8704;Sentry.System.Text.Encodings.Web.dll=68608;Sentry.System.Text.Json.dll=595456;Sentry.Unity.dll=165888;Sentry.Unity.Native.dll=28160;ShapesRuntime.dll=371712;ShapesSamples.dll=22528;SingularityGroup.HotReload.Runtime.Public.dll=5120;SQLitePCLRaw.batteries_v2.dll=11776;SQLitePCLRaw.core.dll=51200;SQLitePCLRaw.provider.dynamic_cdecl.dll=68096;StreamJsonRpc.dll=355880;StreamJsonShim.dll=5120;UniRx.dll=424448;Vectrosity.dll=122368;Vuplex.WebView.dll=848384;Vuplex.WebViewDemos.dll=43520;websocket-sharp.dll=250368
+# files: globalgamemanagers=12181956;globalgamemanagers.assets=1898508;level0=3052;level1=1736;level2=76872;level3=3360;level4=1608;level5=1640;level6=1828;resources.assets=2670604128;sharedassets0.assets=55280;sharedassets1.assets=2806324;sharedassets2.assets=1766152;sharedassets3.assets=793;sharedassets4.assets=7976;sharedassets5.assets=183472;sharedassets6.assets=1049552;AmplifyBloom.dll=3584;AmplifyColor.dll=3584;andywiecko.BurstTriangulator.dll=66048;Assets.dll=865280;AstarPathfindingProject.dll=1204736;Clipper2Lib.dll=87040;com.bartofzo.nativetrees.dll=32768;com.bartofzo.nativetrees.samples.dll=18944;com.rlabrecque.steamworks.net.dll=399360;CommunityToolkit.Mvvm.dll=113960;Drawing.dll=123904;GUPS.EasyPerformanceMonitor.Demo.dll=20480;GUPS.EasyPerformanceMonitor.dll=57856;Humanizer.dll=718000;io.sentry.unity.runtime.dll=7680;Libraries.dll=728576;MathNet.Numerics.dll=1590272;MCPForUnity.Runtime.dll=30208;MessagePack.Annotations.dll=11776;MessagePack.dll=338432;Nerdbank.Streams.dll=218808;Nito.AsyncEx.Context.dll=13824;Nito.AsyncEx.Tasks.dll=35840;Nito.Disposables.dll=22528;Noesis.NoesisGUI.dll=1513472;PackageTools.dll=7168;ParadoxNotion.dll=453120;Pathfinding.ClipperLib.dll=58880;Pathfinding.Ionic.Zip.Reduced.dll=240640;Pathfinding.Poly2Tri.dll=36352;Plugins.dll=437760;Seapower-Scripts.dll=11647488;Sentry.dll=796160;Sentry.Microsoft.Bcl.AsyncInterfaces.dll=16384;Sentry.System.Collections.Immutable.dll=178688;Sentry.System.Reflection.Metadata.dll=451584;Sentry.System.Runtime.CompilerServices.Unsafe.dll=8704;Sentry.System.Text.Encodings.Web.dll=68608;Sentry.System.Text.Json.dll=595456;Sentry.Unity.dll=165888;Sentry.Unity.Native.dll=28160;ShapesRuntime.dll=371712;ShapesSamples.dll=22528;SingularityGroup.HotReload.Runtime.Public.dll=5120;SQLitePCLRaw.batteries_v2.dll=11776;SQLitePCLRaw.core.dll=51200;SQLitePCLRaw.provider.dynamic_cdecl.dll=68096;StreamJsonRpc.dll=355880;StreamJsonShim.dll=5120;UniRx.dll=424448;Vectrosity.dll=122368;Vuplex.WebView.dll=848384;Vuplex.WebViewDemos.dll=43520;websocket-sharp.dll=250368
 
 Data folder: C:\program files (x86)\steam\steamapps\common\Sea Power\Sea Power_Data
 
-== globalgamemanagers  (11 MB)  62 name(s)
+== globalgamemanagers  (12 MB)  62 name(s)
   Assets/Scenes/background.unity
   audio/splashes/splash_large
   audio/splashes/splash_medium
@@ -68,7 +68,7 @@ Data folder: C:\program files (x86)\steam\steamapps\common\Sea Power\Sea Power_D
   ui/debugpanel/background
   ui/loading/background1
 
-== globalgamemanagers.assets  (1 MB)  178 name(s)
+== globalgamemanagers.assets  (2 MB)  180 name(s)
   </Border.Background>
   <Border Background="{DynamicResource Brush.Window.Background}" BorderBrush="{DynamicResource Brush.Border.Popup}" BorderThickness="1" CornerRadius="{DynamicResource Corner.Border1.Bottom}" Padding="8">
   <Border Background="{DynamicResource Brush.Window.Background}" BorderBrush="{DynamicResource Brush.Border.Popup}" BorderThickness="1" CornerRadius="{DynamicResource Corner.Border1}">
@@ -132,7 +132,9 @@ Data folder: C:\program files (x86)\steam\steamapps\common\Sea Power\Sea Power_D
   <Grid Background="Transparent">
   <Grid x:Name="Root" Background="Transparent" Tag="0">
   <Grid x:Name="TemplateRoot" Background="Transparent">
+  <LinearGradientBrush x:Key="Brush.RadioSubtitle.Background" StartPoint="0,0" EndPoint="0,1">
   <local:BoolToBackgroundBrushConverter x:Key="BoolToBackgroundBrushConverter"/>
+  <Rectangle Width="{TemplateBinding Width}" Height="{TemplateBinding Height}" Fill="{TemplateBinding Background}"/>
   <RepeatButton x:Name="DecreaseButton" Command="Slider.DecreaseLarge" Padding="0,9" Margin="0,0,-1,0" Background="{TemplateBinding Foreground}" Style="{StaticResource Style.Slider.RepeatButton}"/>
   <RepeatButton x:Name="DecreaseButton" Command="Slider.DecreaseLarge" Padding="9,0" Margin="0,-1,0,0" Background="{TemplateBinding Foreground}" Style="{StaticResource Style.Slider.RepeatButton}"/>
   <RepeatButton x:Name="IncreaseButton" Command="Slider.IncreaseLarge" Padding="0,9" Background="Transparent" Style="{StaticResource Style.Slider.RepeatButton}"/>
@@ -255,7 +257,7 @@ Data folder: C:\program files (x86)\steam\steamapps\common\Sea Power\Sea Power_D
 == level2  (0 MB)  1 name(s)
   Background - Image
 
-== resources.assets  (2,415 MB)  109 name(s)
+== resources.assets  (2,547 MB)  109 name(s)
   background
   background1
   CameraFilterPack/Retro_Loading
@@ -387,15 +389,15 @@ Data folder: C:\program files (x86)\steam\steamapps\common\Sea Power\Sea Power_D
   Text="{Binding LoadingTip}"
   Visibility="{Binding HasLoadingTip, Converter={StaticResource CollapsedConverter}}">
 
-== sharedassets1.assets  (3 MB)  287 name(s)
+== sharedassets1.assets  (3 MB)  307 name(s)
   " Command="{Binding RemoveBackgroundAirportCommand}" CommandParameter="{Binding ElementName=ListBoxAirportItems, Path=SelectedItem}">
   " Command="{Binding RemoveBackgroundCityCommand}" CommandParameter="{Binding ElementName=ListBoxCityItems, Path=SelectedItem}">
   " Command="{Binding RemoveBackgroundInstallationCommand}" CommandParameter="{Binding ElementName=ListBoxInstallationItems, Path=SelectedItem}">
   " Command="{Binding RemoveBackgroundPortCommand}" CommandParameter="{Binding ElementName=ListBoxPortItems, Path=SelectedItem}">
   " Command="{Binding RemoveBackgroundSceneryCommand}" CommandParameter="{Binding ElementName=ListBoxSceneryItems, Path=SelectedItem}">
   <!-- No background on this layer: the editor and map remain usable outside the floating window. -->
-  <!-- Optional rules retain spacing without splitting the shared setup background. -->
   <!-- Spreadsheet cell: width per column, heat background, hover breakdown -->
+  <!-- Use the standard checkbox content layout to match the background-data control. -->
   <!--Rectangle Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="3" Grid.RowSpan="2" Fill="{StaticResource Brush.Window.BackgroundDark}" /-->
   </Border.Background>
   </local:MenuPage.BackgroundPane>
@@ -404,6 +406,7 @@ Data folder: C:\program files (x86)\steam\steamapps\common\Sea Power\Sea Power_D
   <Border Background="#30363A">
   <Border Background="#33cccccc"/>
   <Border Background="{Binding RelativeSource={RelativeSource AncestorType={x:Type Button}}, Path=Foreground}" Width="40" Height="10">
+  <Border Background="{StaticResource Brush.TextBox.Background}" MinHeight="24">
   <Border Background="{StaticResource Brush.TextBox.Background}">
   <Border Background="{StaticResource Brush.Window.Background}" Padding="5">
   <Border Background="{StaticResource Brush.Window.Background}" VerticalAlignment="Stretch">
@@ -424,6 +427,8 @@ Data folder: C:\program files (x86)\steam\steamapps\common\Sea Power\Sea Power_D
   <Border Background="Transparent" Margin="0,0,0,4">
   <Border Background="Transparent" Width="16" Height="16"
   <Border Background="Transparent" Width="18" Height="18"
+  <Border BorderBrush="{StaticResource Brush.NavalMessage.Argentina.Button}" BorderThickness="1" Background="Transparent">
+  <Border BorderBrush="{StaticResource Brush.NavalMessage.USSR.Ink}" BorderThickness="1" Background="Transparent">
   <Border BorderBrush="{TemplateBinding Thumb.BorderBrush}" BorderThickness="1" Background="{TemplateBinding Thumb.Background}"/>
   <Border BorderThickness="1" Grid.Column="2" Width="35" Background="{StaticResource Brush.Background.Normal}">
   <Border Canvas.Left="16" Canvas.Top="16" Background="#66000000" CornerRadius="2" Padding="2,0" IsHitTestVisible="False">
@@ -431,25 +436,35 @@ Data folder: C:\program files (x86)\steam\steamapps\common\Sea Power\Sea Power_D
   <Border DockPanel.Dock="Right" Width="40" Height="28" Margin="10,0,0,0" Background="{Binding SideEditorColorBrush}" BorderBrush="{StaticResource Brush.Border.Normal}" BorderThickness="1"/>
   <Border Grid.Column="0" Background="{StaticResource Brush.Button.Background}" BorderBrush="{StaticResource Brush.Glyph.Normal}" BorderThickness="1">
   <Border Grid.Column="0" Background="Transparent" Cursor="SizeAll" local:ModListReorderBehavior.IsDragHandle="True" Visibility="{Binding IsEnabled, Converter={StaticResource CollapsedConverter}}">
+  <Border Grid.Column="1" Height="30" Background="{StaticResource Brush.Background.Normal}">
   <Border Grid.Column="1" Height="30" BorderThickness="1" Background="{StaticResource Brush.Background.Normal}">
+  <Border Grid.Column="1" MinHeight="30" Padding="8,4" Background="{StaticResource Brush.Background.Normal}" Visibility="{Binding IsHistoricalUnitAcquisition, Converter={StaticResource CollapsedConverter}}">
   <Border Grid.Column="2" BorderThickness="1" Width="35" Background="{StaticResource Brush.Background.Normal}">
-  <Border Grid.Column="2" Padding="10" Background="Transparent" BorderBrush="{StaticResource Brush.Border.Normal}" BorderThickness="1">
-  <Border Grid.Column="4" Padding="10" Background="Transparent" BorderBrush="{StaticResource Brush.Border.Normal}" BorderThickness="1">
   <Border Grid.Column="4" Width="18" Height="18" CornerRadius="9" Background="Transparent" BorderThickness="1" VerticalAlignment="Center" Visibility="{Binding IsDllMod, Converter={StaticResource CollapsedConverter}}">
-  <Border Grid.Column="6" Padding="10" Background="Transparent" BorderBrush="{StaticResource Brush.Border.Normal}" BorderThickness="1">
   <Border Grid.Row="0" Background="#343B40" Padding="10,6">
   <Border Grid.Row="0" Background="{StaticResource Brush.Window.Background}"/>
   <Border Grid.Row="1" Background="Transparent" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Padding="{TemplateBinding Padding}">
   <Border Grid.Row="1" Grid.Column="1" Width="728" Height="952" MaxWidth="{Binding ActualWidth, ElementName=Container}" MaxHeight="{Binding ActualHeight, ElementName=Container}" Background="#F2E7CB" BorderBrush="#1A1A1A" BorderThickness="1" Padding="42" TextElement.FontFamily="Courier New" TextElement.Foreground="Black">
+  <Border Grid.Row="1" Grid.ColumnSpan="2" Margin="0,0,0,6" Padding="6" BorderThickness="1" BorderBrush="#30FFFFFF" Background="#14FFFFFF"
+  <Border Grid.Row="5" Padding="6" Margin="0,8,0,0" Background="{StaticResource Brush.Window.BackgroundDark}"
+  <Border Height="1" Background="{StaticResource Brush.NavalMessage.Argentina.Rule}" Opacity="0.45" Margin="0,0,0,18"/>
+  <Border Height="1" Background="{StaticResource Brush.NavalMessage.Argentina.Rule}" Opacity="0.45" Margin="0,0,0,22"/>
   <Border Height="42" Background="{Binding SideEditorDarkMapPreviewBackground}" BorderBrush="{StaticResource Brush.Border.Normal}" BorderThickness="1" Padding="8">
   <Border Height="42" Background="{Binding SideEditorLightMapPreviewBackground}" BorderBrush="{StaticResource Brush.Border.Normal}" BorderThickness="1" Padding="8">
+  <Border Margin="5" Padding="12" Background="Transparent" BorderBrush="{StaticResource Brush.Border.Normal}" BorderThickness="1" Visibility="{Binding HasRepairMethodSettings, Converter={StaticResource CollapsedConverter}}">
+  <Border Margin="5" Padding="12" Background="Transparent" BorderBrush="{StaticResource Brush.Border.Normal}" BorderThickness="1" Visibility="{Binding UsesPointEconomy, Converter={StaticResource CollapsedConverter}}">
+  <Border Margin="5" Padding="12" Background="Transparent" BorderBrush="{StaticResource Brush.Border.Normal}" BorderThickness="1">
   <Border MinHeight="60" MaxHeight="220" BorderBrush="{DynamicResource Brush.Border.Normal}" BorderThickness="1" Background="{DynamicResource Brush.Item.Normal}">
-  <Border Padding="10" Background="Transparent" BorderBrush="{StaticResource Brush.Border.Normal}" BorderThickness="1">
+  <Border Visibility="{Binding IsMirror, Converter={StaticResource CollapsedConverter}}" Opacity="0.35" Background="{Binding Pair.Background}" BorderBrush="{StaticResource Brush.Border.Normal}" BorderThickness="1" ToolTip="{Binding Pair.ToolTip}">
   <Border Width="{Binding BarTotalWidth}" Height="16" Background="#22FFFFFF">
   <Border Width="{Binding Width}" Background="{Binding Background}" ToolTip="{Binding Tooltip}">
   <Border Width="1920" Height="1080" Background="Black">
+  <Border Width="22" Background="Transparent" Cursor="SizeAll" local:ModListReorderBehavior.IsDragHandle="True" ToolTip="Drag to move">
   <Border Width="28" Height="16" Background="{Binding Brush}" BorderBrush="{StaticResource Brush.Border.Normal}" BorderThickness="1" Margin="0,0,10,0"/>
+  <Border x:Name="Band" Height="20" BorderThickness="0,0,0,1" BorderBrush="#18FFFFFF" Background="Transparent">
   <Border x:Name="Border" Background="Green">
+  <Border x:Name="CellBorder" Background="{Binding Pair.Background}" BorderBrush="{StaticResource Brush.Border.Normal}" BorderThickness="1">
+  <Border x:Name="ChoiceBorder" Padding="12" BorderThickness="1" BorderBrush="{StaticResource Brush.Border.Normal}" Background="{StaticResource Brush.Window.Background}">
   <Border x:Name="MessagePanel" Grid.Row="1" Grid.Column="1" MaxWidth="1220" Padding="34,28,34,24" Background="#BF000000" BorderBrush="#7C858C" BorderThickness="1">
   <Border x:Name="NotificationPanel" Width="640" MaxWidth="{Binding ActualWidth, ElementName=Container}" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="20,20,45,95" BorderBrush="#4B555C" BorderThickness="1" Background="#252B30">
   <Border x:Name="PART_Indicator" HorizontalAlignment="Left" Background="{TemplateBinding Foreground}" Clip="{StaticResource Stars}"/>
@@ -489,15 +504,16 @@ Data folder: C:\program files (x86)\steam\steamapps\common\Sea Power\Sea Power_D
   <Grid Grid.Column="0" Background="{StaticResource Brush.Window.BackgroundDark}">
   <Grid Grid.Column="1" Background="{StaticResource Brush.Window.BackgroundDark}"
   <Grid Grid.Column="1" Background="{StaticResource Brush.Window.BackgroundDark}">
-  <Grid mapControl:MapPanel.Position="{Binding RadiusHandle}" HorizontalAlignment="Center" VerticalAlignment="Center" Width="22" Height="22" Background="Transparent"
+  <Grid mapControl:MapPanel.Position="{Binding AutoAreaRadiusHandle}" HorizontalAlignment="Center" VerticalAlignment="Center" Width="28" Height="28" Background="Transparent"
+  <Grid mapControl:MapPanel.Position="{Binding RadiusHandle}" HorizontalAlignment="Center" VerticalAlignment="Center" Width="28" Height="28" Background="Transparent"
   <Grid Margin="0,1,0,1" Background="Transparent" ToolTip="{Binding CarriersTooltip}">
   <Grid Margin="6,0,0,0" Width="14" Height="13" VerticalAlignment="Center" Background="Transparent"
   <Image Source="{Binding BackgroundImage}" Stretch="UniformToFill" Visibility="{Binding BackgroundImageVisible, Converter={StaticResource CollapsedConverter}}"/>
   <ItemsControl ItemsSource="{Binding BackgroundElements}">
   <ItemsControl ItemsSource="{Binding CustomVehiclesOnBoard}" Background="Transparent">
+  <ListBox BorderBrush="{DynamicResource Brush.Border.Normal}" BorderThickness="1" Background="{DynamicResource Brush.Item.Normal}" ItemsSource="{Binding SideEditorDrafts}" DisplayMemberPath="Name" SelectedItem="{Binding SelectedSideDraft, Mode=TwoWay}" ScrollViewer.VerticalScrollBarVisibility="Auto"/>
   <ListBox Grid.Column="0" MinHeight="35" MaxHeight="50" BorderBrush="{DynamicResource Brush.Border.Normal}" BorderThickness="1" Background="{DynamicResource Brush.Item.Normal}" ItemsSource="{Binding EditorAttackTargetUnits}" DisplayMemberPath="TriggerUnitDisplayName" ToolTip="{Binding Source={StaticResource LanguageResourceInterface}, Path=LanguageDictionary[missioneditortriggertargetselectedtooltip]}"/>
   <ListBox ItemsSource="{Binding Filters}" SelectedItem="{Binding SelectedFilter}" ItemTemplate="{StaticResource AutoAttackFilterRowTemplate}" ItemContainerStyle="{StaticResource AutoAttackFilterItemStyle}" MinHeight="90" MaxHeight="180" BorderBrush="{StaticResource Brush.Border.Normal}" BorderThickness="1" Background="{StaticResource Brush.ListBox.Background}" ScrollViewer.HorizontalScrollBarVisibility="Disabled"/>
-  <ListBox ItemsSource="{Binding Modes}" SelectedItem="{Binding SelectedMode}" DisplayMemberPath="Name" Background="Transparent" BorderThickness="0" Margin="0,0,0,12" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Disabled">
   <ListBox ItemsSource="{Binding PickerFilters}" SelectedItem="{Binding SelectedPickerFilter}" ItemTemplate="{StaticResource AutoAttackFilterRowTemplate}" ItemContainerStyle="{StaticResource AutoAttackFilterItemStyle}" Height="260" BorderBrush="{StaticResource Brush.Border.Normal}" BorderThickness="1" Background="{StaticResource Brush.ListBox.Background}" ScrollViewer.HorizontalScrollBarVisibility="Disabled"/>
   <ListBox MinHeight="100" MaxHeight="200" BorderBrush="{DynamicResource Brush.Border.Normal}" BorderThickness="1" Background="{DynamicResource Brush.Item.Normal}" SelectedItem="{Binding SelectedTriggerInDisableTriggersList}" ItemsSource="{Binding TriggersToDisable}" DisplayMemberPath="Name" ScrollViewer.VerticalScrollBarVisibility="Visible" ToolTip="{Binding Source={StaticResource LanguageResourceInterface}, Path=LanguageDictionary[missioneditordisabletriggerslisttooltip]}"/>
   <ListBox MinHeight="100" MaxHeight="200" BorderBrush="{DynamicResource Brush.Border.Normal}" BorderThickness="1" Background="{DynamicResource Brush.Item.Normal}" SelectedItem="{Binding SelectedTriggerInEnableTriggersList}" ItemsSource="{Binding TriggersToEnable}" DisplayMemberPath="Name" ScrollViewer.VerticalScrollBarVisibility="Visible" ToolTip="{Binding Source={StaticResource LanguageResourceInterface}, Path=LanguageDictionary[missioneditorenabletriggerslisttooltip]}"/>
@@ -525,7 +541,7 @@ Data folder: C:\program files (x86)\steam\steamapps\common\Sea Power\Sea Power_D
   <ListBox x:Name="conditionUnitTypes" Grid.Column="0" MinHeight="60" MaxHeight="120" BorderBrush="{DynamicResource Brush.Border.Normal}" BorderThickness="1" Background="{DynamicResource Brush.Item.Normal}" ItemsSource="{Binding ConditionUnitTypes}" DisplayMemberPath="DisplayableNameWithIniName" ScrollViewer.VerticalScrollBarVisibility="Visible" ToolTip="{Binding Source={StaticResource LanguageResourceInterface}, Path=LanguageDictionary[missioneditorconditionspecificunittypestooltip]}"/>
   <ListBox x:Name="objectivesListForTrigger" Grid.Column="0" Grid.Row="0" MinHeight="100" MaxHeight="200" BorderBrush="{DynamicResource Brush.Border.Normal}" BorderThickness="1" Background="{DynamicResource Brush.Item.Normal}" ItemsSource="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}, Path=DataContext.Objectives}" DisplayMemberPath="Id" ScrollViewer.VerticalScrollBarVisibility="Visible" ToolTip="{Binding Source={StaticResource LanguageResourceInterface}, Path=LanguageDictionary[missioneditoractionobjectivestooltip]}"/>
   <ListBox x:Name="triggerUnitsInGroup" Grid.Column="0" Grid.Row="0" MinHeight="100" MaxHeight="200" BorderBrush="{DynamicResource Brush.Border.Normal}" BorderThickness="1" Background="{DynamicResource Brush.Item.Normal}" ItemsSource="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}, Path=DataContext.SelectedGroup.TriggerSelectableUnits}" DisplayMemberPath="TriggerUnitDisplayName" ScrollViewer.VerticalScrollBarVisibility="Visible" ToolTip="{Binding Source={StaticResource LanguageResourceInterface}, Path=LanguageDictionary[missioneditoractionunitsingrouptooltip]}"/>
-  <ListView Grid.Row="9" Grid.Column="0" Grid.ColumnSpan="5" ItemsSource="{Binding FlightDeck.FlightDeckTasks}" Background="{StaticResource Brush.Window.BackgroundDark}">
+  <ListView Grid.Row="10" Grid.Column="0" Grid.ColumnSpan="5" ItemsSource="{Binding FlightDeck.FlightDeckTasks}" Background="{StaticResource Brush.Window.BackgroundDark}">
   <local:MenuPage Background="Transparent">
   <local:MenuPage.BackgroundPane>
   <local:Window Header="{Binding Path=LanguageDictionary[mainmenucreatemod], Source={StaticResource LanguageResourceInterface}, Converter={StaticResource UppercaseConverter}}" Template="{StaticResource WindowLayoutNoScroll}" MinHeight="400" MinWidth="600" MaxHeight="800" MaxWidth="1200" Height="600" Width="900">
@@ -536,6 +552,7 @@ Data folder: C:\program files (x86)\steam\steamapps\common\Sea Power\Sea Power_D
   <Path Data="M 0,0 L 12,-12" Stroke="{StaticResource Brush.Window.BackgroundDark}" StrokeThickness="4" StrokeStartLineCap="Round" StrokeEndLineCap="Round"/>
   <Path Data="M 4 0 L 4 6 M 8 0 L 8 3 M 12 0 L 12 6 M 16 0 L 16 3 M 20 0 L 20 6 M 24 0 L 24 3 M 28 0 L 28 6 M 32 0 L 32 3 M 36 0 L 36 6" Stroke="{StaticResource Brush.Window.Background}" StrokeThickness="1.2"/>
   <Path Fill="{StaticResource Brush.Button.BackgroundOver}" Canvas.Left="0" Canvas.Top="0">
+  <Path Width="18" Height="18" Stretch="Fill" Data="{StaticResource Geometry.MissionEditor.AreaRadiusHandle}" Stroke="{StaticResource Brush.MissionEditor.Attack}" StrokeThickness="2" Fill="{StaticResource Brush.Window.Background}" IsHitTestVisible="False"/>
   <Rectangle Fill="{StaticResource Brush.Window.BackgroundDark}" Opacity="0.1"/>
   <Rectangle Fill="{StaticResource Brush.Window.BackgroundDark}"/>
   <Rectangle Grid.Column="0" Grid.Row="0" Grid.RowSpan="2" Fill="{StaticResource Brush.Window.BackgroundDark}" Opacity="0.75"/>
@@ -543,7 +560,6 @@ Data folder: C:\program files (x86)\steam\steamapps\common\Sea Power\Sea Power_D
   <Rectangle Grid.Row="2" Grid.ColumnSpan="7" Fill="{StaticResource Brush.Window.BackgroundDark}"/>
   <Rectangle Grid.Row="3" Grid.RowSpan="3" Fill="{StaticResource Brush.Window.Background}"/>
   <Rectangle Margin="0,33,0,33" Height="1" Fill="{StaticResource Brush.Button.BackgroundOver}"/>
-  <Rectangle Width="10" Height="10" Stroke="{DynamicResource Map_OnMapAreaActive}" StrokeThickness="2" Fill="{StaticResource Brush.Background.Checked}"/>
   <ScrollViewer Background="Transparent" VerticalScrollBarVisibility="Visible" Padding="0,0,15,0">
   <ScrollViewer Background="Transparent" VerticalScrollBarVisibility="Visible">
   <ScrollViewer Background="Transparent" x:Name="scrollViewerGroups" VerticalScrollBarVisibility="Visible">
@@ -579,18 +595,20 @@ Data folder: C:\program files (x86)\steam\steamapps\common\Sea Power\Sea Power_D
   <Setter Property="Background" Value="Transparent"/>
   <Setter Property="Fill" Value="{StaticResource Brush.Background.Checked}"/>
   <Setter Property="Template"><Setter.Value><ControlTemplate TargetType="MenuItem"><Border Height="1" Margin="6,4" Background="{StaticResource Brush.Foreground.Normal}"/></ControlTemplate></Setter.Value></Setter>
+  <Setter TargetName="Band" Property="Background" Value="#16FFFFFF"/>
   <StackPanel Background="Transparent" PreviewMouseWheel="ListBox_PreviewMouseWheel"  Margin="30,0,30,0">
   <StackPanel Background="Transparent" PreviewMouseWheel="ListBox_PreviewMouseWheel"/>
   <StackPanel Orientation="Horizontal" Background="Transparent" Margin="0,0,5,0">
   <TabItem ToolTip="{Binding Source={StaticResource LanguageResourceInterface}, Path=LanguageDictionary[missioneditorbackgroundtabtooltip]}" x:Name="backgroundDataTab"
   <TabPanel x:Name="HeaderPanel" Grid.Row="0" IsItemsHost="True" Panel.ZIndex="1" Background="Transparent"/>
   <TextBlock Grid.Column="0" Text="{Binding Path=LanguageResourceHandler.LanguageDictionary[mainmenumoddependencies], FallbackValue='Required Workshop IDs'}" VerticalAlignment="Center"/>
+  <TextBlock Grid.Column="0" Text="{Binding Path=LanguageResourceHandler.LanguageDictionary[mainmenumodengagementpresets], FallbackValue='Engagement presets'}" VerticalAlignment="Center"/>
   <TextBlock Grid.Column="0" Text="{Binding Path=LanguageResourceHandler.LanguageDictionary[mainmenumodvisibility], FallbackValue='Mod Name'}" VerticalAlignment="Center"/>
   <TextBlock Grid.Column="4" Text="{Binding Path=LanguageResourceHandler.LanguageDictionary[mainmenumodcategory], FallbackValue='Mod Name'}" VerticalAlignment="Center"/>
   <TextBlock Grid.Row="0" Grid.Column="0" Text="{Binding Source={StaticResource LanguageResourceInterface}, Path=LanguageDictionary[missioneditorbackgrounddatafilepath], FallbackValue='File Path:'} "/>
   <TextBlock Grid.Row="0" Grid.Column="2" Text="{Binding Path=LanguageResourceHandler.LanguageDictionary[mainmenumodname], FallbackValue='Mod Name'}"/>
   <TextBlock Grid.Row="0" Text="{Binding Path=LanguageDictionary[mainmenumods], Converter={StaticResource UppercaseConverter}, Source={StaticResource LanguageResourceInterface}}" HorizontalAlignment="Center"/>
-  <TextBlock Grid.Row="0" Text="{Binding Path=LanguageResourceHandler.LanguageDictionary[mainmenucampaign], Converter={StaticResource UppercaseConverter}, FallbackValue=CAMPAIGNS}" HorizontalAlignment="Center"/>
+  <TextBlock Grid.Row="0" Text="{Binding Path=LanguageResourceHandler.LanguageDictionary[mainmenucampaign], Converter={StaticResource UppercaseConverter}, FallbackValue=CAMPAIGNS}" HorizontalAlignment="Center" TextWrapping="Wrap"/>
   <TextBlock Grid.Row="0" Text="{Binding Path=LanguageResourceHandler.LanguageDictionary[mainmenuchangelog], FallbackValue='Change Log'}"/>
   <TextBlock Grid.Row="0" Text="{Binding Path=LanguageResourceHandler.LanguageDictionary[mainmenuinstantaction], FallbackValue='Instant Action'}" FontSize="{StaticResource Font.Size.Header}"/>
   <TextBlock Grid.Row="0" Text="{Binding Path=LanguageResourceHandler.LanguageDictionary[mainmenuoptions], Converter={StaticResource UppercaseConverter}, FallbackValue=OPTIONS}" HorizontalAlignment="Center"/>
@@ -622,6 +640,7 @@ Data folder: C:\program files (x86)\steam\steamapps\common\Sea Power\Sea Power_D
   <ToolTip Content="{Binding Source={StaticResource LanguageResourceInterface}, Path=LanguageDictionary[missioneditorbackgrounddataremovesceneryfile], FallbackValue='Remove Scenery File'}"/>
   <TreeView Grid.Row="0" Margin="30,0,30,0" Background="Transparent"
   <TreeView Grid.Row="0" Margin="30,0,30,0" Background="Transparent" ItemsSource="{Binding Missions}" BorderThickness="0" BorderBrush="Transparent" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+  <Trigger Property="IsMouseOver" Value="True"><Setter TargetName="ChoiceBorder" Property="Background" Value="{StaticResource Brush.Button.Background}"/></Trigger>
   <UserControl x:Class="SeapowerUI.MainMenuView"
   <viewModels:MainMenuViewModel/>
   <WrapPanel Grid.Row="1" MinHeight="30" Background="{StaticResource Brush.Window.Background}">
@@ -642,6 +661,8 @@ Data folder: C:\program files (x86)\steam\steamapps\common\Sea Power\Sea Power_D
   Background="{StaticResource Brush.Border.Normal}"
   Background="{StaticResource Brush.Button.Background}">
   Background="{StaticResource Brush.Foreground.Highlight}"
+  Background="{StaticResource Brush.NavalMessage.Argentina.Paper}"
+  Background="{StaticResource Brush.NavalMessage.USSR.Paper}"
   Background="{StaticResource Brush.Window.Background}"
   Background="{StaticResource Brush.Window.Background}" x:Name="scrollViewer" VerticalScrollBarVisibility="Visible" IsEnabled="{Binding DialogDisplayed, Converter={StaticResource InverseBooleanConverter}}" Padding="0,15,0,0">
   Background="{StaticResource Brush.Window.BackgroundDark}"
@@ -654,6 +675,7 @@ Data folder: C:\program files (x86)\steam\steamapps\common\Sea Power\Sea Power_D
   Background="Transparent" BorderThickness="1" CornerRadius="9" Visibility="Collapsed" IsHitTestVisible="False">
   Background="Transparent" HorizontalAlignment="Center" VerticalAlignment="Center">
   Background="Transparent">
+  BorderBrush="{StaticResource Brush.Border.Normal}" BorderThickness="1" Background="{StaticResource Brush.ListBox.Background}"
   BorderBrush="{StaticResource Brush.Window.BackgroundDark}"
   BorderBrush="{StaticResource Brush.Window.BackgroundDark}" BorderThickness="1"
   Command="{Binding NextLoadingTipCommand}">
@@ -676,13 +698,19 @@ Data folder: C:\program files (x86)\steam\steamapps\common\Sea Power\Sea Power_D
   Visibility="{Binding DialogDisplayed, Converter={StaticResource CollapsedConverter}}" Width="500" Height="200" Background="{DynamicResource Brush.Background.Normal}" Opacity="0.9" >
   Visibility="{Binding HasLoadingTips, Converter={StaticResource CollapsedConverter}}">
 
-== sharedassets2.assets  (2 MB)  76 name(s)
+== sharedassets2.assets  (2 MB)  106 name(s)
   <!--  The Background Rectangle that spans the bottom bar  -->
+  <!-- Background alpha affects only the backdrop, keeping names and dialogue fully opaque. -->
   <!--Button Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="7" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center" Padding="2.5" Content="{Binding EnvironmentInstance.DisplayTime}" Command="{Binding ToggleTime}" Background="{StaticResource Brush.TextBox.Background}"/-->
   <!--local:ZoomBorder x:Name="border" ClipToBounds="True" Background="Gray">
+  <Border Background="#55FFC020" Margin="-2,-1" IsHitTestVisible="False"
   <Border Background="{Binding RelativeSource={RelativeSource AncestorType={x:Type Button}}, Path=Foreground}" Width="40" Height="10">
+  <Border Background="{DynamicResource Brush.Window.Background}" Padding="8,4">
   <Border Background="{StaticResource Brush.Foreground.DisabledPlaceholder}" Height="1" Margin="0,0,0,4" />
+  <Border Background="{StaticResource Brush.Foreground.DisabledPlaceholder}" Height="1" Margin="0,4,0,3" />
+  <Border Background="{StaticResource Brush.Glyph.SeaPowerRed}" Grid.Column="4" />
   <Border Background="{StaticResource Brush.Window.Background}" Margin="0,0,3,0">
+  <Border Background="{StaticResource Brush.Window.Background}" Padding="12" IsHitTestVisible="False">
   <Border Background="{StaticResource Brush.Window.Background}" Padding="4">
   <Border Background="{StaticResource Brush.Window.Background}" Padding="4,0,4,0">
   <Border Background="{StaticResource Brush.Window.Background}" Visibility="{Binding CeaseFireItems.Count, Converter={StaticResource CountToVisibility}}">
@@ -693,20 +721,26 @@ Data folder: C:\program files (x86)\steam\steamapps\common\Sea Power\Sea Power_D
   <Border Background="{StaticResource Brush.Window.BackgroundDark}" x:Name="CardBack">
   <Border Background="Transparent" BorderThickness="0" Padding="12,10">
   <Border Background="Transparent">
+  <Border Canvas.Left="16" Canvas.Top="16" Background="#66000000" CornerRadius="2" Padding="2,0" IsHitTestVisible="False">
   <Border Grid.Column="0" Width="20" Height="20" Background="#33AA3333" BorderBrush="#33AA3333" BorderThickness="1" ToolTip="{Binding DataContext.LanguageResourceHandler.LanguageDictionary[damagecontroldestroyedtooltip], RelativeSource={RelativeSource AncestorType=UserControl}, FallbackValue='System is destroyed and cannot be repaired'}">
   <Border Grid.Column="0" Width="20" Height="20" Background="{StaticResource Brush.Button.BackgroundOver}" BorderBrush="{StaticResource Brush.Border.Normal}" BorderThickness="1" ToolTip="{Binding DataContext.LanguageResourceHandler.LanguageDictionary[damagecontrolrepairingtooltip], RelativeSource={RelativeSource AncestorType=UserControl}, FallbackValue='This system is being repaired'}">
   <Border Grid.Column="2" Background="{StaticResource Brush.Window.BackgroundDark}" BorderBrush="{StaticResource Brush.Border.Normal}" BorderThickness="1" Padding="12">
   <Border Grid.ColumnSpan="4" Background="#55FFC020" Margin="-2,-1" IsHitTestVisible="False"
   <Border Grid.Row="2" Margin="0,0,0,6" Background="{StaticResource Brush.TextBox.Background}" BorderBrush="{StaticResource Brush.Border.Normal}" BorderThickness="1">
   <Border Grid.Row="3" Padding="6,4" Background="{StaticResource Brush.TextBox.Background}" BorderBrush="{StaticResource Brush.Border.Normal}" BorderThickness="1">
+  <Border Height="2" Margin="0,0,0,2" Background="{StaticResource Brush.Glyph.SeaPowerRed}" Visibility="{Binding IsDropAbove, Converter={StaticResource CollapsedConverter}}"/>
+  <Border Height="2" Margin="0,2,0,0" Background="{StaticResource Brush.Glyph.SeaPowerRed}" Visibility="{Binding IsDropBelow, Converter={StaticResource CollapsedConverter}}"/>
+  <Border Padding="4" Margin="0,2" Background="#55FFC020" Visibility="{Binding IsArmed, Converter={StaticResource CollapsedConverter}}">
   <Border Padding="6" Margin="0,4,0,0" Background="{StaticResource Brush.Window.BackgroundDark}"
   <Border Style="{StaticResource RowBorder}" BorderThickness="1,1,0,1" Background="{StaticResource Brush.Window.Background}">
+  <Border x:Name="Body" Background="{DynamicResource Brush.Button.Background}" BorderBrush="{StaticResource Brush.Border.Normal}" BorderThickness="1" Padding="12,5">
   <Border x:Name="Header" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Padding="{TemplateBinding Padding}">
+  <Border x:Name="Hover" Background="{DynamicResource Brush.Item.BackgroundOver}" Opacity="0"/>
   <Button Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="7" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center" Padding="2.5" Command="{Binding ToggleTime}" Background="{StaticResource Brush.TextBox.Background}">
   <Grid Background="{DynamicResource Brush.Background.Normal}" Visibility="{Binding ShowSecondMonitorMap, Converter={StaticResource CollapsedConverter}}">
   <Grid Background="Transparent" Height="22" Width="22">
   <Grid Background="Transparent">
-  <Grid Canvas.Top="0" Canvas.Right="0" Background="{StaticResource Brush.Window.Background}" Opacity="0.95">
+  <Grid x:Name="TimeCompressionControls" Canvas.Top="0" Canvas.Right="0" Background="{StaticResource Brush.Window.Background}" Opacity="0.95">
   <ItemsControl Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="3" HorizontalAlignment="Stretch" ItemsSource="{Binding DetectedBy}" Background="{StaticResource Brush.Window.BackgroundDark}" Padding="5">
   <ListBox x:Name="IntelLog_ListView" ItemsSource="{Binding Intelligence}" Background="{StaticResource Brush.Window.BackgroundDark}" Width="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType={x:Type Border}}}" Height="{Binding ActualHeight, RelativeSource={RelativeSource AncestorType={x:Type Border}}}" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
   <ListBox x:Name="MessageLog_ListView" ItemsSource="{Binding Alerts}" Background="{StaticResource Brush.Window.BackgroundDark}" Width="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType={x:Type Border}}}" Height="{Binding ActualHeight, RelativeSource={RelativeSource AncestorType={x:Type Border}}}" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
@@ -718,22 +752,34 @@ Data folder: C:\program files (x86)\steam\steamapps\common\Sea Power\Sea Power_D
   <ScrollViewer Grid.Row="1" Background="Transparent" x:Name="scrollViewerDescription">
   <Setter Property="Background" TargetName="CardBack" Value="{StaticResource Brush.Button.Background}" />
   <Setter Property="Background" TargetName="TabBorder" Value="{StaticResource Brush.Window.Background}" />
+  <Setter Property="Background" Value="#C060D0" />
   <Setter Property="Background" Value="{DynamicResource Brush.Item.BackgroundOver}" />
   <Setter Property="Background" Value="{DynamicResource Brush.Item.BackgroundOver}" TargetName="Header"/>
   <Setter Property="Background" Value="{DynamicResource Brush.Window.Background}"/>
   <Setter Property="Background" Value="{StaticResource Brush.Background.Checked}"/>
+  <Setter Property="Background" Value="{StaticResource Brush.Border.Normal}" />
+  <Setter Property="Background" Value="{StaticResource Brush.Damage.Light}" />
   <Setter Property="Background" Value="{StaticResource Brush.Foreground.DisabledPlaceholder}" />
   <Setter Property="Background" Value="{StaticResource Brush.Foreground.Emphasis}" />
+  <Setter Property="Background" Value="{StaticResource Brush.Foreground.Highlight}" />
   <Setter Property="Background" Value="{StaticResource Brush.Glyph.SeaPowerBlue}" />
+  <Setter Property="Background" Value="{StaticResource Brush.Glyph.SeaPowerGreen}" />
   <Setter Property="Background" Value="{StaticResource Brush.Glyph.SeaPowerRed}" />
   <Setter Property="Background" Value="{StaticResource Brush.TextBox.Background}"/>
+  <Setter Property="Background" Value="{StaticResource Brush.Window.Background}" />
   <Setter Property="Background" Value="{StaticResource Brush.Window.Background}"/>
+  <Setter Property="Background" Value="{StaticResource Brush.Window.BackgroundDark}"/>
   <Setter Property="Background" Value="{StaticResource Brush.Window.Header}"/>
   <Setter Property="Background" Value="Transparent" />
   <Setter Property="Background" Value="Transparent"/>
   <Setter Property="Fill" Value="{StaticResource Brush.Background.Checked}"/>
+  <Setter Property="Foreground" Value="{DynamicResource Brush.Button.Background}"/>
+  <Setter Property="Foreground" Value="{StaticResource Brush.Window.BackgroundDark}" />
+  <Setter TargetName="Body" Property="Background" Value="{DynamicResource Brush.Button.BackgroundOver}"/>
+  <Setter TargetName="Body" Property="Background" Value="{DynamicResource Brush.Button.Checked}"/>
   <SolidColorBrush x:Key="Brush.Item.BackgroundOver" Color="{StaticResource Color.SeaPowerRed}" />
   <StackPanel Orientation="Horizontal" Background="{StaticResource Brush.Window.Background}">
+  <StackPanel Orientation="Vertical" Background="{StaticResource Brush.Window.Background}">
   <TextBlock Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Right" Padding="5,0" Background="{StaticResource Brush.TextBox.Background}" Text="{Binding Compartments.FloodingPercentage, Converter={StaticResource FloodingPercentageToDamageControlStringConverter}}">
   <TextBlock Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Right" Padding="5,0" Background="{StaticResource Brush.TextBox.Background}" Text="{Binding Compartments.IntegrityPercentage, Converter={StaticResource IntegrityToDamageControlConverter}}">
   <TextBlock Grid.Row="0" Grid.Column="2" IsEnabled="False" Background="{StaticResource Brush.TextBox.Background}" Padding="5,0">
@@ -746,20 +792,27 @@ Data folder: C:\program files (x86)\steam\steamapps\common\Sea Power\Sea Power_D
   Background="{StaticResource Brush.Foreground.DisabledPlaceholder}"
   Background="{StaticResource Brush.Foreground.Emphasis}"
   Background="{StaticResource Brush.Foreground.Normal}"
+  Background="{StaticResource Brush.Glyph.SeaPowerGreen}"
+  Background="{StaticResource Brush.Glyph.SeaPowerRed}"
+  Background="{StaticResource Brush.ProgressBar.Background}"
+  Background="{StaticResource Brush.RadioSubtitle.Background}">
   Background="{StaticResource Brush.TextBox.Background}"
   Background="{StaticResource Brush.Window.Background}"
+  Background="{StaticResource Brush.Window.Background}" Opacity="0.95" Padding="5"
   Background="{StaticResource Brush.Window.BackgroundDark}"
   Background="{StaticResource Brush.Window.Header}"
   Background="Transparent"
+  Background="Transparent" Panel.ZIndex="20"
   Fill="{DynamicResource Brush.Window.Background}"
   x:Name="BackgroundRectangle" />
 
 == sharedassets4.assets  (0 MB)  1 name(s)
   <Grid Background="DimGray">
 
-== sharedassets5.assets  (0 MB)  25 name(s)
+== sharedassets5.assets  (0 MB)  27 name(s)
   <!-- The Background Rectangle that spans the bottom bar -->
   <Border Background="{DynamicResource Brush.Window.Header}" Opacity="0.32"/>
+  <Border Background="{StaticResource Brush.ListBox.Background}" BorderBrush="{StaticResource Brush.Border.Normal}"
   <Border Background="{StaticResource Brush.ListBox.Background}" BorderBrush="{StaticResource Brush.Border.Normal}" BorderThickness="1" Padding="10,8" Margin="0,0,0,5">
   <Border Grid.Column="2" Grid.RowSpan="2" Background="{StaticResource Brush.Window.BackgroundDark}">
   <Border VerticalAlignment="Bottom" Background="{DynamicResource Brush.Window.Header}" Padding="8,5">
@@ -776,6 +829,7 @@ Data folder: C:\program files (x86)\steam\steamapps\common\Sea Power\Sea Power_D
   <Rectangle Grid.Row="6" Grid.ColumnSpan="3" Fill="{StaticResource Brush.Window.BackgroundDark}"/>
   <Setter Property="Background" Value="#dee7f0"/>
   <Setter Property="Background" Value="{Binding UnitColorBrush}"/>
+  <Setter Property="Background" Value="{StaticResource Brush.Border.Normal}"/>
   <Setter Property="Background" Value="{StaticResource Brush.ListBox.Background}"/>
   <TreeView Background="{StaticResource Brush.ListBox.Background}">
   <TreeView Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Grid.RowSpan="5" Background="{StaticResource Brush.ListBox.Background}">
@@ -784,8 +838,9 @@ Data folder: C:\program files (x86)\steam\steamapps\common\Sea Power\Sea Power_D
   <TreeView Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Grid.RowSpan="5" Height="250" ScrollViewer.CanContentScroll="True" Background="{StaticResource Brush.ListBox.Background}" ItemsSource="{Binding LandUnits}">
   Background="{StaticResource Brush.Border.Normal}" Foreground="{StaticResource Brush.Foreground.Emphasis}"/>
 
-== sharedassets6.assets  (1 MB)  90 name(s)
+== sharedassets6.assets  (1 MB)  110 name(s)
   <!-- F10-only authoring affordance for reloading edited FreeEvent XML without reopening the campaign. -->
+  <!-- Register redistributable document fonts before loading campaign-authored citation XML. -->
   <!-- Text hyperlinks retain the reference action without inheriting Button hover/selection backgrounds. -->
   </Border.Background>
   <Border Background="#50000000"
@@ -794,6 +849,7 @@ Data folder: C:\program files (x86)\steam\steamapps\common\Sea Power\Sea Power_D
   <Border Background="#FF1E1F22"/>
   <Border Background="{Binding CrewSkill, Converter={StaticResource CrewSkillToBrushConverter}}"
   <Border Background="{Binding RelativeSource={RelativeSource AncestorType={x:Type Button}}, Path=Foreground}" Width="24" Height="6">
+  <Border Background="{DynamicResource Brush.Window.Header}" Opacity="0.32" />
   <Border Background="{StaticResource Brush.Border.Normal}"
   <Border Background="{StaticResource Brush.Button.Background}"
   <Border Background="{StaticResource Brush.Button.Background}" BorderBrush="{StaticResource Brush.Border.Normal}" BorderThickness="0,0,0,1">
@@ -807,25 +863,36 @@ Data folder: C:\program files (x86)\steam\steamapps\common\Sea Power\Sea Power_D
   <Border Background="{StaticResource LinearCampaign.Brush.HeaderOverlay}"/>
   <Border Background="{StaticResource TaskForceStatus.Brush.LogisticsReady}"
   <Border Background="{TemplateBinding Background}"
+  <Border Background="{TemplateBinding Background}" Padding="{TemplateBinding Padding}"><ContentPresenter HorizontalAlignment="Stretch" VerticalAlignment="Center"/></Border>
+  <Border Background="Transparent" BorderBrush="{StaticResource Brush.Border.Normal}" BorderThickness="0,0,0,1" Padding="0,5">
   <Border Background="White"
   <Border BorderBrush="Transparent" BorderThickness="0" Background="{TemplateBinding Background}">
   <Border DockPanel.Dock="Right" Background="{StaticResource Brush.Background.Normal}" Padding="6,1">
+  <Border Grid.Column="1" Background="#D9D9D9" BorderBrush="#D9D9D9" BorderThickness="1"
+  <Border Grid.Column="1" Background="{Binding CrewSkill, Converter={StaticResource CrewSkillToBrushConverter}}"
   <Border Grid.Column="1" Background="{StaticResource Brush.Border.Normal}" Opacity="0.8"/>
   <Border Grid.Column="1" Width="1" Margin="4,0" Background="{StaticResource Brush.Border.Normal}"/>
+  <Border Grid.Row="2" Background="{StaticResource Brush.Window.Background}" Padding="8,5" Margin="0,0,18,0">
   <Border Height="1" Background="{StaticResource Brush.Border.Normal}"/>
-  <Border Padding="10" Background="{StaticResource Brush.Window.Background}"
+  <Border Margin="0,3" BorderBrush="{StaticResource Brush.Border.Normal}" BorderThickness="1" Background="{StaticResource Brush.Window.BackgroundDark}">
+  <Border Padding="10" Background="{StaticResource Brush.Window.Background}">
   <Border Padding="10" Margin="0,0,0,8" Background="{StaticResource Brush.Window.BackgroundDark}"
   <Border Padding="10,8" Margin="0,3,0,3" Background="{StaticResource Brush.Window.BackgroundDark}"
+  <Border Padding="7,5" Width="154" Background="{StaticResource Brush.Window.BackgroundDark}"
+  <Border Padding="8" Margin="0,0,0,10" Background="{StaticResource Brush.Window.Background}"
+  <Border VerticalAlignment="Bottom" Background="{DynamicResource Brush.Window.Header}" Padding="8,5">
   <Border Width="390" Padding="12" Background="{StaticResource Brush.Window.BackgroundDark}" BorderBrush="{StaticResource Brush.Border.Normal}" BorderThickness="1">
   <Border x:Name="ButtonSurface" Background="{TemplateBinding Background}"
   <Border x:Name="MissionDetailsContent" Grid.Column="1" Background="{StaticResource Brush.Window.BackgroundDark}"
   <Border.Background>
+  <Grid Background="{StaticResource Brush.Window.Background}">
   <Grid Grid.Row="0" Background="{StaticResource Brush.Window.BackgroundDark}">
   <Grid Grid.Row="3" Background="{DynamicResource Brush.Window.Background}"
   <Grid x:Name="AssignedAircraftProfileRow" ContextMenuOpening="TaskForceManagerRow_ContextMenuOpening" Margin="0,2,0,0" Background="Transparent">
   <ImageBrush ImageSource="{Binding PaperBackgroundImage}"
-  <ListView Grid.Row="4" Visibility="{Binding HasAirTasking, Converter={StaticResource CollapsedConverter}}" ItemsSource="{Binding AirTaskingRows}" Background="{StaticResource Brush.Window.BackgroundDark}">
+  <ListView Grid.Row="4" Visibility="{Binding HasAirTasking, Converter={StaticResource CollapsedConverter}}" ItemsSource="{Binding AirTaskingRows}" Background="{StaticResource Brush.Window.BackgroundDark}"
   <Path Fill="{StaticResource Brush.Button.BackgroundOver}" Canvas.Left="0" Canvas.Top="0">
+  <ProgressBar Minimum="0" Maximum="100" Value="{Binding Progress, Mode=OneWay}" Height="5" Margin="0,16,0,12" BorderThickness="0" Foreground="{StaticResource Brush.Foreground.Emphasis}" Background="{StaticResource Brush.Border.Normal}" />
   <Rectangle Grid.Row="3" Fill="{StaticResource Brush.Window.BackgroundDark}"/>
   <Setter Property="Background" Value="#01000000"/>
   <Setter Property="Background" Value="{DynamicResource Brush.Item.BackgroundOver}"/>
@@ -837,6 +904,8 @@ Data folder: C:\program files (x86)\steam\steamapps\common\Sea Power\Sea Power_D
   <Setter Property="Background" Value="{StaticResource Brush.Damage.Lost}"/>
   <Setter Property="Background" Value="{StaticResource Brush.Damage.Moderate}"/>
   <Setter Property="Background" Value="{StaticResource Brush.Damage.Undamaged}"/>
+  <Setter Property="Background" Value="{StaticResource Brush.ListBox.Background}" />
+  <Setter Property="Background" Value="{StaticResource Brush.Window.Background}" />
   <Setter Property="Background" Value="{StaticResource Brush.Window.Background}"/>
   <Setter Property="Background" Value="{StaticResource Brush.Window.BackgroundDark}"/>
   <Setter Property="Background" Value="{StaticResource Brush.Window.Header}"/>
@@ -845,9 +914,13 @@ Data folder: C:\program files (x86)\steam\steamapps\common\Sea Power\Sea Power_D
   <Setter Property="Background" Value="Transparent"/>
   <Setter TargetName="ButtonSurface" Property="Background" Value="{StaticResource Brush.Button.BackgroundDisabled}"/>
   <Setter TargetName="ButtonSurface" Property="Background" Value="{StaticResource Brush.Button.BackgroundOver}"/>
-  <Setter TargetName="SelectionFrame" Property="Background" Value="{StaticResource Brush.Window.Background}"/>
   <Setter TargetName="TimelineRowButton" Property="Background" Value="{StaticResource Brush.Item.BackgroundSelected}"/>
   <StackPanel Background="#01000000">
+  <Style.Triggers><DataTrigger Binding="{Binding IsSelected}" Value="True"><Setter Property="Background" Value="{StaticResource Brush.Window.Background}"/></DataTrigger></Style.Triggers>
+  <TextBlock Text="{Binding LoadingText}" TextWrapping="Wrap" Foreground="{StaticResource Brush.Foreground.Normal}" FontSize="11" Margin="0,10,0,0" Visibility="{Binding HasLoading, Converter={StaticResource CollapsedConverter}}" />
+  <TextBlock Text="{Binding StartText}" TextWrapping="Wrap" Foreground="{StaticResource Brush.Foreground.Normal}" FontSize="11" Margin="0,10,0,0" Visibility="{Binding HasLoading, Converter={StaticResource InverseCollapsedConverter}}" />
+  <ToggleButton IsChecked="{Binding IsExpanded, Mode=TwoWay}" HorizontalContentAlignment="Stretch" Padding="8,6" Background="{StaticResource Brush.Window.Header}" BorderThickness="0">
+  <Trigger Property="IsMouseOver" Value="True"><Setter Property="Background" Value="{StaticResource Brush.Window.Background}"/></Trigger>
   Background="#2C3133"
   Background="#C81619"
   Background="#C9C3B5"
@@ -871,6 +944,7 @@ Data folder: C:\program files (x86)\steam\steamapps\common\Sea Power\Sea Power_D
   Background="Transparent">
   BorderBrush="{StaticResource Brush.Border.Normal}" Background="{StaticResource Brush.Window.Background}"
   BorderThickness="0" Background="Transparent" HorizontalContentAlignment="Stretch">
+  every overlay clear of the artwork, on the inspector's own background. -->
   Fill="{StaticResource Brush.Background.Checked}"
   Fill="{StaticResource Brush.Window.BackgroundDark}"/>
   loading them back through the stores editor costs. Ships/subs with priceable stores
@@ -970,11 +1044,12 @@ Data folder: C:\program files (x86)\steam\steamapps\common\Sea Power\Sea Power_D
   SpawnPool {0} ({1}): Preloading over-time is on but the frame duration is greater than the number of instances to preload. The minimum spawned per frame is 1, so the maximum time is the same as the number of instances. Changing the preloadFrames value...
   SpawnPool {0}: Preloading {1} {2}
 
-== Managed\Seapower-Scripts.dll  (code)  578 name(s)
+== Managed\Seapower-Scripts.dll  (code)  608 name(s)
   ---------- Loading
   ' Loading default airwing and ammunition from unit file
   ' Loading default airwing from vessel file
   #UI/Extensions/Primitives/UI Polygon
+  (unloading)
   ,SeaPower.LoadScreen+<ExecuteLoadScreen>d__69
   . Skipping unit loading.
   . Skipping weapon loading.
@@ -984,11 +1059,11 @@ Data folder: C:\program files (x86)\steam\steamapps\common\Sea Power\Sea Power_D
   /Assets/Resources/ui/fonts/#Special Elite
   /original/audio/music/original/0_mainmenu
   /original/ui/backgrounds
-  /SeaPower.SceneCreator+<LoadBackgroundData>d__90
+  /SeaPower.SceneCreator+<LoadBackgroundData>d__89
   /SeaPower.SceneCreator+<WaitForLoadingDone>d__69
   /ui/
   :E:\projects\seapower\Assets\Scripts\UI\ConsoleView.xaml.cs
-  ;SeaPower.SceneCreator+<ProcessLandUnitsFromBackground>d__93
+  ;SeaPower.SceneCreator+<ProcessLandUnitsFromBackground>d__92
   [{0}<{1}>] Instance will not be created because the mission scene is unloading.
   ]: failed to spawn debris splash effect
   _backgroundImagePath
@@ -1004,6 +1079,7 @@ Data folder: C:\program files (x86)\steam\steamapps\common\Sea Power\Sea Power_D
   _loading
   _loadingParams
   _loadingShip
+  _loadingSideDraft
   _loadingStarted
   _loadingState
   _loadingStep
@@ -1016,6 +1092,7 @@ Data folder: C:\program files (x86)\steam\steamapps\common\Sea Power\Sea Power_D
   _splashed
   _torpedoSplashClass
   _torpedoSurfaceSplashEffect
+  _unloading
   _useBackgroundData
   _valuesForLoadingCampaign
   _waterEntrySplashEffect
@@ -1026,7 +1103,7 @@ Data folder: C:\program files (x86)\steam\steamapps\common\Sea Power\Sea Power_D
   <AddBackgroundPortCommand>k__BackingField
   <AddBackgroundSceneryCommand>k__BackingField
   <Background>k__BackingField
-  <BackgroundCityItems_CollectionChanged>b__833_0
+  <BackgroundCityItems_CollectionChanged>b__901_0
   <BackgroundElements>k__BackingField
   <Border xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Background="#D8D0BE" Padding="18" TextElement.Foreground="#000000" TextElement.FontFamily="Courier New" TextElement.FontWeight="Bold"><Border.Resources><Style TargetType="{x:Type TextBlock}"><Setter Property="Foreground" Value="#000000"/><Setter Property="FontFamily" Value="Courier New"/><Setter Property="FontWeight" Value="Bold"/></Style></Border.Resources><ScrollViewer HorizontalScrollBarVisibility="Disabled">
   <Border xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:noesis="clr-namespace:NoesisGUIExtensions;assembly=Noesis.GUI.Extensions" Background="#D8D0BE" Padding="18" TextElement.Foreground="#000000" TextElement.FontFamily="Courier New" TextElement.FontSize="18" TextElement.FontWeight="Normal"><Border.Resources><Style TargetType="{x:Type TextBlock}"><Setter Property="Foreground" Value="#000000"/><Setter Property="FontFamily" Value="Courier New"/><Setter Property="FontSize" Value="18"/><Setter Property="FontWeight" Value="Normal"/></Style></Border.Resources><ScrollViewer HorizontalScrollBarVisibility="Disabled">
@@ -1045,15 +1122,15 @@ Data folder: C:\program files (x86)\steam\steamapps\common\Sea Power\Sea Power_D
   <IsLoading>k__BackingField
   <IsLoadingDone>k__BackingField
   <IsPoolLoading>k__BackingField
-  <LoadBackgroundData>d__90
-  <LoadBackgroundDataPart>d__91
-  <LoadBackgroundLandUnit>d__94
+  <LoadBackgroundData>d__89
+  <LoadBackgroundDataPart>d__90
+  <LoadBackgroundLandUnit>d__93
   <NextLoadingTipCommand>k__BackingField
   <OverwriteBackgroundCommand>k__BackingField
   <PreviousLoadingTipCommand>k__BackingField
-  <ProcessCityMarkersFromBackground>d__92
-  <ProcessLandUnitsFromBackground>d__93
-  <ProcessSceneryItemsFromBackground>d__95
+  <ProcessCityMarkersFromBackground>d__91
+  <ProcessLandUnitsFromBackground>d__92
+  <ProcessSceneryItemsFromBackground>d__94
   <PurgeLoadingBackgroundCaches>b__76_0
   <RemoveBackgroundAirportCommand>k__BackingField
   <RemoveBackgroundCityCommand>k__BackingField
@@ -1062,13 +1139,15 @@ Data folder: C:\program files (x86)\steam\steamapps\common\Sea Power\Sea Power_D
   <RemoveBackgroundSceneryCommand>k__BackingField
   <RestoreBackgroundCommand>k__BackingField
   <WaitForLoadingDone>d__69
-  =SeaPower.SceneCreator+<ProcessCityMarkersFromBackground>d__92
-  >SeaPower.SceneCreator+<ProcessSceneryItemsFromBackground>d__95
+  =SeaPower.SceneCreator+<ProcessCityMarkersFromBackground>d__91
+  >SeaPower.SceneCreator+<ProcessSceneryItemsFromBackground>d__94
   0_mainmenu
   0Assets/Scripts/UI/Game/Views/UnitStatusView.xamlCE:\projects\seapower\Assets\Scripts\UI\Game\Views\UnitStatusView.cs
+  24-hour loading
   2Assets/Scripts/UI/Game/Views/SeekerStatusView.xamlJE:\projects\seapower\Assets\Scripts\UI\Game\Views\SeekerStatusView.xaml.cs
-  3SeaPower.SceneCreator+<LoadBackgroundDataPart>d__91
-  3SeaPower.SceneCreator+<LoadBackgroundLandUnit>d__94
+  3SeaPower.SceneCreator+<LoadBackgroundDataPart>d__90
+  3SeaPower.SceneCreator+<LoadBackgroundLandUnit>d__93
+  4Assets/Scripts/UI/Game/Views/SuppliesStatusView.xamlLE:\projects\seapower\Assets\Scripts\UI\Game\Views\SuppliesStatusView.xaml.cs
   5SeaPower.BackgroundSceneController+<WaitWarning>d__17
   6SeaPower.BackgroundSceneController+<CheckWarning>d__18
   8SeaPower.BackgroundSceneController+<ShowPseWarning>d__16
@@ -1096,8 +1175,10 @@ Data folder: C:\program files (x86)\steam\steamapps\common\Sea Power\Sea Power_D
   Assets/Scripts/UI/Game/Views/MapScreenView.xaml
   Assets/Scripts/UI/Game/Views/MapThemeMenu.xaml
   Assets/Scripts/UI/Game/Views/OpticalOverlayView.xaml
+  Assets/Scripts/UI/Game/Views/RollingReplayTimelineView.xaml
   Assets/Scripts/UI/Game/Views/SeekerStatusView.xaml
   Assets/Scripts/UI/Game/Views/SensorInfoContentView.xaml
+  Assets/Scripts/UI/Game/Views/SuppliesStatusView.xaml
   Assets/Scripts/UI/Game/Views/TacticalDoctrineContentView.xaml
   Assets/Scripts/UI/Game/Views/TimeOnTargetView.xaml
   Assets/Scripts/UI/Game/Views/UnitStatusView.xaml
@@ -1144,6 +1225,7 @@ Data folder: C:\program files (x86)\steam\steamapps\common\Sea Power\Sea Power_D
   BackgroundData
   BackgroundDataItem
   BackgroundDataTab
+  BackgroundFor
   backgroundImage
   BackgroundImagePath
   backgroundImageResourceKey
@@ -1168,6 +1250,7 @@ Data folder: C:\program files (x86)\steam\steamapps\common\Sea Power\Sea Power_D
   BackgroundTraffic
   BackgroundVoiceVolume
   backgroundWasOn
+  before loading another unit?
   BoolToBackgroundBrushConverter
   Brush.Background.DropOver
   Brush.Window.Background
@@ -1176,6 +1259,7 @@ Data folder: C:\program files (x86)\steam\steamapps\common\Sea Power\Sea Power_D
   Buy this unit without its own weapon stores. The price is reduced by exactly what loading the standard munitions through the stores editor would cost, and no early-production premium is charged until scarce rounds are actually bought; standard gun rounds, countermeasures, and flight-deck ordnance stay aboard.
   CalculateSplashDamage
   canAbortLoading
+  CBackground
   ChangeBackground
   ChangeLoadingTip
   ClearLoadingTip
@@ -1184,6 +1268,7 @@ Data folder: C:\program files (x86)\steam\steamapps\common\Sea Power\Sea Power_D
   dark: splashes unseen without radar
   DarkMapBackgroundHex
   DebrisSplash
+  DiscLoadingK
   Downloading {0}...
   DownloadingDependencies
   DrawingTextEditBackground
@@ -1199,16 +1284,19 @@ Data folder: C:\program files (x86)\steam\steamapps\common\Sea Power\Sea Power_D
   E:\projects\seapower\Assets\Scripts\UI\Game\ViewModels\MainGameViewModel.cs
   E:\projects\seapower\Assets\Scripts\UI\Game\ViewModels\ObjectBaseViewModel.cs
   E:\projects\seapower\Assets\Scripts\UI\Game\ViewModels\ObjectEffectorsViewModel.cs
+  E:\projects\seapower\Assets\Scripts\UI\Game\ViewModels\TacticalDoctrineViewModel.cs
   E:\projects\seapower\Assets\Scripts\UI\Game\ViewModels\UnitStatusViewModel.cs
   E:\projects\seapower\Assets\Scripts\UI\Game\ViewModels\WeaponBaseViewModel.cs
   E:\projects\seapower\Assets\Scripts\UI\Game\Views\MainGameView.xaml.cs
   E:\projects\seapower\Assets\Scripts\UI\Linear Campaign\LinearCampaign.cs
   E:\projects\seapower\Assets\Scripts\UI\Linear Campaign\ViewModels\LinearCampaignAirbaseRuntime.cs
   E:\projects\seapower\Assets\Scripts\UI\Linear Campaign\ViewModels\LinearCampaignMapViewModel.cs
+  E:\projects\seapower\Assets\Scripts\UI\Linear Campaign\ViewModels\LinearCampaignPorts.cs
   E:\projects\seapower\Assets\Scripts\UI\Linear Campaign\ViewModels\LinearCampaignSettings.cs
   E:\projects\seapower\Assets\Scripts\UI\Linear Campaign\ViewModels\LinearCampaignTaskForceDebriefViewModel.cs
   E:\projects\seapower\Assets\Scripts\UI\Linear Campaign\ViewModels\LinearCampaignTaskForceDifficultyRules.cs
   E:\projects\seapower\Assets\Scripts\UI\Linear Campaign\ViewModels\LinearCampaignTaskForceGeneratedMissionBriefViewModel.cs
+  E:\projects\seapower\Assets\Scripts\UI\Linear Campaign\ViewModels\LinearCampaignTaskForceRepairs.cs
   E:\projects\seapower\Assets\Scripts\UI\Linear Campaign\ViewModels\LinearCampaignTaskForceSaveManager.cs
   E:\projects\seapower\Assets\Scripts\UI\Linear Campaign\ViewModels\LinearCampaignTaskForceServiceRecordViewModel.cs
   E:\projects\seapower\Assets\Scripts\UI\Linear Campaign\ViewModels\LinearCampaignTaskForceStoresStore.cs
@@ -1224,10 +1312,12 @@ Data folder: C:\program files (x86)\steam\steamapps\common\Sea Power\Sea Power_D
   E:\projects\seapower\Assets\Scripts\UI\Main Menu\ViewModels\MissionEditorClasses\GroupOfUnits.cs
   E:\projects\seapower\Assets\Scripts\UI\Main Menu\ViewModels\MissionEditorViewModel.cs
   E:\projects\seapower\Assets\Scripts\UI\Main Menu\ViewModels\ObjectInformationViewModel.cs
+  E:\projects\seapower\Assets\Scripts\UI\Main Menu\ViewModels\ObjectInformationViewModel.Performance.cs
   E:\projects\seapower\Assets\Scripts\UI\Main Menu\ViewModels\OptionsMenuViewModel.cs
   E:\projects\seapower\Assets\Scripts\UI\Main Menu\ViewModels\PauseMenuViewModel.cs
   E:\projects\seapower\Assets\Scripts\UI\Main Menu\ViewModels\ScenarioMenuViewModel.cs
   E:\projects\seapower\Assets\Scripts\UI\Main Menu\ViewModels\SilhouetteBakerViewModel.cs
+  E:\projects\seapower\Assets\Scripts\UI\Main Menu\ViewModels\StallSpeedFitViewModel.cs
   E:\projects\seapower\Assets\Scripts\UI\Main Menu\ViewModels\WeaponReportViewModel.cs
   E:\projects\seapower\Assets\Scripts\UI\Main Menu\Views\MainMenuView.xaml.cs
   Encountered exception while loading annotations.
@@ -1250,6 +1340,7 @@ Data folder: C:\program files (x86)\steam\steamapps\common\Sea Power\Sea Power_D
   ExecuteLoadScreen completed after: {0}s
   ExitToMainMenu
   ExplosionOverwaterSplash
+  FactWingLoading
   Failure in loading Flight Deck data for
   Failure in loading Flight Deck data for {0}. The stationed vehicle {1} has no {2}.ini file
   Failure in loading Flight Deck data for {0}. The stationed vehicle {1} has no {2}_squadrons.ini file
@@ -1275,10 +1366,12 @@ Data folder: C:\program files (x86)\steam\steamapps\common\Sea Power\Sea Power_D
   get_BackgroundImagePath
   get_BackgroundImageVisible
   get_BackgroundInstallationItems
+  get_backgroundLoadingPriority
   get_BackgroundPane
   get_BackgroundPortItems
   get_BackgroundProperty
   get_BackgroundSceneryItems
+  get_HasLoading
   get_HasLoadingTip
   get_HasLoadingTips
   get_IsBackgroundTrafficGroup
@@ -1289,6 +1382,7 @@ Data folder: C:\program files (x86)\steam\steamapps\common\Sea Power\Sea Power_D
   get_IsPoolLoading
   get_IsUnloadingAfterFailure
   get_LoadingProgress
+  get_LoadingText
   get_LoadingTip
   get_LoadingTipHeader
   get_LoadingTipText
@@ -1307,6 +1401,7 @@ Data folder: C:\program files (x86)\steam\steamapps\common\Sea Power\Sea Power_D
   get_RestoreBackgroundCommand
   get_SideEditorDarkMapPreviewBackground
   get_SideEditorLightMapPreviewBackground
+  get_Unloading
   get_UseBackgroundData
   GetBackgroundAirportItems
   GetBackgroundCityItems
@@ -1349,6 +1444,7 @@ Data folder: C:\program files (x86)\steam\steamapps\common\Sea Power\Sea Power_D
   Loading aircraft '
   Loading Ammunition Metadata...
   Loading and executing order subtree: {
+  Loading complete {0}
   Loading DEM chunk
   Loading file: {0}, session mode: {1}
   Loading helicopter '
@@ -1376,6 +1472,7 @@ Data folder: C:\program files (x86)\steam\steamapps\common\Sea Power\Sea Power_D
   Loading System Libraries...
   Loading target points from ini file
   Loading Unit Metadata...
+  Loading: 24 hours.
   loadingBackgroundCacheKeys
   loadingProgress
   LoadingProgressProperty
@@ -1393,7 +1490,7 @@ Data folder: C:\program files (x86)\steam\steamapps\common\Sea Power\Sea Power_D
   LoadScreenErrors
   loadScreenView
   LSeapowerUI.MainMenuView+<<ButtonEncyclopedia_Click>g__OpenEncyclopedia|6_1>d
-  mainmenu
+  MainMenu
   MainMenuView
   MainMenuViewModel
   Map background
@@ -1437,6 +1534,8 @@ Data folder: C:\program files (x86)\steam\steamapps\common\Sea Power\Sea Power_D
   PE:\projects\seapower\Assets\Scripts\UI\Main Menu\Views\InstantActionView.xaml.cs
   PE:\projects\seapower\Assets\Scripts\UI\Main Menu\Views\MissionEditorView.xaml.cs
   PlaceBackgroundSceneryObject
+  PortLoadingCycle
+  PortLoadingEnds
   Preloading Virtual Ini for cargo ...
   Preloading Virtual Ini for modules ...
   Preloading Virtual Ini for sensors ...
@@ -1453,12 +1552,13 @@ Data folder: C:\program files (x86)\steam\steamapps\common\Sea Power\Sea Power_D
   RE:\projects\seapower\Assets\Scripts\UI\Main Menu\Views\UnitTreeBrowserView.xaml.cs
   RefreshLoadingTip
   ReleaseLoadingBackgrounds
-  Reloading
+  reloading
   Reloading Autogen parameters...
   Reloading: {0} ({1})
   ReloadingLower
   RemoveBackgroundElement
   RunInBackground
+  SE:\projects\seapower\Assets\Scripts\UI\Game\Views\RollingReplayTimelineView.xaml.cs
   SE:\projects\seapower\Assets\Scripts\UI\Main Menu\Views\InstantActionMapView.xaml.cs
   SE:\projects\seapower\Assets\Scripts\UI\Main Menu\Views\MissionEditorMapView.xaml.cs
   SeaPower.BackgroundSceneController
@@ -1471,6 +1571,7 @@ Data folder: C:\program files (x86)\steam\steamapps\common\Sea Power\Sea Power_D
   set_BackgroundImage
   set_BackgroundImagePath
   set_BackgroundImageVisible
+  set_backgroundLoadingPriority
   set_BackgroundPane
   set_HasLoadingTip
   set_HasLoadingTips
@@ -1489,6 +1590,7 @@ Data folder: C:\program files (x86)\steam\steamapps\common\Sea Power\Sea Power_D
   set_runInBackground
   set_UseBackgroundData
   SetLoadScreenText
+  SetUnloading
   SetupBackground
   splash spotting only
   Splash: Invalid decal placement: {0} on {1}
@@ -1512,6 +1614,7 @@ Data folder: C:\program files (x86)\steam\steamapps\common\Sea Power\Sea Power_D
   ui/bottom/flag_missing
   ui/bottom/flag_unknown
   UI/Default
+  ui/Default/Settings_UI_Tactical.ini
   ui/hud/binoculars
   ui/minimap/map_gradient
   ui/minimap/map_gradient_night
@@ -1522,6 +1625,7 @@ Data folder: C:\program files (x86)\steam\steamapps\common\Sea Power\Sea Power_D
   ui/profiles
   ui/weapon_profiles/
   Unknown. _createSplash = {0}
+  unloading
   UnloadingDone
   UpdateBackground
   UpdateSubLoadingStep

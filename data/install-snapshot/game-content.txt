@@ -7,10 +7,10 @@ changelog copied to changelog.live.txt; head:
     
     ===============================================================================
     
-    26-Oct-2026: 0.8.7 Build 261026
-    -------------------------------
-    [FIX] Initial camera at mission start always faced north, so it could look at the first unit straight from behind or ahead; it now looks at it from behind and to the side
-    [FIX] Vessels could get a strong push and roll heavily right at the mission start
-    [FIX] Torpedoes could hit the ship that launched them
-    [FIX] Aircraft turn rate physics
-    [FIX] CIWS used flat hit rolls instead of its ballistics
+    11-Nov-2026: 0.9.0 Build 261111 Public Release
+    ----------------------------------------------
+    [FIX] Campaign: damaged units from dynamic generation were sometimes reported as kills
+    [FIX] Campaign: destroyed task forces remained in the campaign roster
+    [FIX] Campaign: player task force could be reset by the mission briefing
+    [FIX] Campaign: moving a CAP on the campaign map only moved its leader in the mission
+    [FIX] Campaign: formations created by dynamic unit generation spawned on top of each other

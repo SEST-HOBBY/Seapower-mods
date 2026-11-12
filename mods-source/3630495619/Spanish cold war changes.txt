@@ -1,5 +1,33 @@
 SPANISH MOD (#coldwar)  CHANGELOG
 
+v3.71 - 20261112
+
+	- Added support for game update 0.9.0
+	- R01: Changed the LandingInterval value to 50 for aircraft landing points.
+	- R01: Changed the LandingInterval value to 60 for helicopter landing points.
+	- R01: Updated Marshal Paths to avoid issues in the latest beta.
+	- R11: Changed the LandingInterval value to 50 for aircraft landing points.
+	- R11: Changed the LandingInterval value to 60 for helicopter landing points.
+	- R11: Updated Marshal Paths to avoid issues in the latest beta.
+
+v3.70 - 20261110 - Happy Birthday Inma Edition.
+
+	NEW: Sky Jump operational, following the takeoff runway.
+
+	- AB-212: Adjusted Y-axis position on the flight deck.
+	- MD-500: Adjusted Y-axis position on the flight deck.
+	- AIM-9JuLi: Added new value `DropEjectVelocity=0`.
+	- R01 Dedalo (Early): Adjusted positions and paths on the flight deck.
+	- R01 Dedalo (Early): Changed static models to SH-3D.
+	- R01 Dedalo (Late): Adjusted positions and paths on the flight deck.
+	- R11 Príncipe de Asturias: Ski-jump operational, utilizing the new takeoff curve introduced in the game.
+	- R11 Príncipe de Asturias: Two Harrier takeoff positions, allowing for consecutive takeoffs without interference.
+	- D65 Churruca: Modifications implemented to account for recent changes to the game's Gearing FRAM II-class ships.
+	- F80-class: Added `DudDiscardAngles` to the MK13 missile launcher.
+	- L20 Castilla: Adjusted AB-212 takeoff position.
+	- L31 Galicia: Adjusted AB-212 takeoff position.
+	- L40 Hernán Cortés: Adjusted AB-212 takeoff position.
+
 v3.66 - 20261102
 
 	- Review of the version of chaff used on aircraft and ships.

@@ -1,4 +1,4 @@
-# The [LoadOrder] Sea Power is actually using, captured 2026-11-08T20:06:06.
+# The [LoadOrder] Sea Power is actually using, captured 2026-11-12T22:40:30.
 # Compare against data\load-order.tokens.txt - the canonical order.
 
 NumberOfModFiles=205   entries parsed: 205
@@ -11,8 +11,8 @@ NumberOfModFiles=205   entries parsed: 205
    6. 3768036424   on     BetterTacMap
    7. 3818251045   on     Group Manager
    8. 3819427362   on     Contact Log
-   9. 3826122523   on     Sea Power Topographic Map
-  10. 3826396311   on     Sea Power Pop-Out Windows
+   9. 3826122523   on     R.A.T.S. Topographic Map
+  10. 3826396311   on     R.A.T.S. Pop-Out Windows
   11. 3807187341   on     Combat Cost Tracker
   12. 3806686336   on     Coordinated Strike Tool
   13. 3774105087   on     Automatic SAR
@@ -25,7 +25,7 @@ NumberOfModFiles=205   entries parsed: 205
   20. 3606774881   on     U.S. Navy 2027 Capabilities
   21. 3629144864   on     Euromod - Main Pack
   22. 3775128499   on     PLAN Pack
-  23. 3637954857   on     KJ-500
+  23. 3637954857   on     
   24. 3607989779   on     F-35C Lightning II Alt. Loadouts
   25. 3430135740   on     Murder Hornet with AIM-174B
   26. 3394781441   on     B-52G with AGM-86 ALCM(more realistic nuke)
@@ -59,7 +59,7 @@ NumberOfModFiles=205   entries parsed: 205
   54. 3594891803   on     PLAN Submarines (039, 039A/B/C, 093/093A/093B, 094/094A)
   55. 3774859959   on     PLAN Type 001 Aircraft Carrier Liaoning
   56. 3774572038   on     PLAN Type 071 LPD
-  57. 3436170138   on     PLAAF J-11
+  57. 3436170138   on     
   58. 3486502935   on     Type 003 CV / future Type 004 CVN aircraft carriers
   59. 3417801942   on     PRC Chinese Navy (PLAN)
   60. 3597650470   on     Russian Navy 21
@@ -139,7 +139,7 @@ NumberOfModFiles=205   entries parsed: 205
  134. 3412480633   on     Ground upgrade: IFV
  135. 3774746803   on     PLA Z-21
  136. 3729578404   on     PLAAF J-11BS
- 137. 3433577445   on     PLAAF J-8
+ 137. 3433577445   on     
  138. 3729579342   on     PLAAF Su-27UBK
  139. 3731931836   on     大地弹道导弹
  140. 3796113927   on     RQ-180 White Bat Airframe

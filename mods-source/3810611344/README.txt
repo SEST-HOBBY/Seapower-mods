@@ -22,5 +22,5 @@ Use mission 06 to check cabin lighting, EMCON and save/reload.
 Use mission 08 for Army airfield operations. Rotor movement begins with engine startup and reaches full speed in about 12 seconds.
 The two miniguns use rotary barrel motion, muzzle flash and looping firing audio.
 
-Requires the existing compatible Anchor Chain and Harmony loading arrangement.
+Requires Alpine Mod Loader.
 Disable MV-75 Cheyenne II in the mod list to remove these aircraft and trials from the active session.
