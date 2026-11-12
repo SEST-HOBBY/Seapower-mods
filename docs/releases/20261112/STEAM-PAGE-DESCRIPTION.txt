@@ -1,0 +1,40 @@
+[h1]SEST Integration Pack - Modernised Campaigns[/h1]
+Five connected Task Force Mode campaigns and a persistent global campaign for Sea Power. Fictional 2028–29 maritime operations with integrated Workshop units, fleet management, national command, logistics, service records and combat costs.
+
+[h2]Task Force campaigns[/h2]
+[list]
+[*][b]Southern Watch[/b] — Twelve connected Royal Australian Navy missions protecting the northern sea routes, with optional operations, contingencies and standalone dispatches. Escalates from uncertain contacts to coordinated maritime and air combat.
+[*][b]Southern Reach / Tasman Shield[/b] — Twenty-six missions through Antarctic resupply, the South Pacific, Tasman Sea and Australian approaches. Earlier outcomes have later consequences.
+[*][b]Red Line[/b] — Six core missions and associated operations from a PLA Navy perspective. Revised alternative victories, heave-to behaviour, objectives and progress reports reward identification, deception and restraint.
+[*][b]Sulu Line[/b] — Seven core missions and three side operations with a Philippine-led task group. Manage ship purchases, reloads and supply ships across successive operations.
+[*][b]Makran Line — The Fuel Road[/b] — Four connected Pakistan Navy missions: The Fuel Road, Gwadar Roads, Hangor and Port Qasim. Escort tankers, defend Gwadar and track a fictional armed maritime group. The campaign uses the available Pakistan Navy frigates, Z-9CE and Sea King helicopters, and later JF-17/ZDK-03 support. Ships rearm at force allocation because the collection has no suitable Pakistani replenishment ship.
+[/list]
+
+[h2]Global Maritime Operations 2028[/h2]
+A persistent worldwide scenario for Dynamic Campaign Mod, with [b]196 bases, 293 force groups, 54 patrol routes, 1,586 recruitment entries and eight command stages[/b]. Operate across the Atlantic, Mediterranean, Indian Ocean and Pacific. Finite fuel and ammunition, supply depots, convoys, airlift and replenishment vessels turn logistics into an operational consideration.
+
+[b]Start a new world campaign for the full revised map and progression.[/b] Existing saves retain their saved world; guidance for older World Sandbox saves is provided in the pack.
+
+[h2]Commanders and awards[/h2]
+Southern Watch and Southern Reach offer 14 commander nations; 11 have national award rules, while all can earn applicable fictional campaign ribbons. Sulu Line offers Philippine, Thai or Australian commanders; Makran Line uses a Pakistan Navy commander and fictional awards. The native same-nation purchase discount follows the selected commander's nation. Citations depict fictional operations, not real-world honours.
+
+[h2]Operations and interoperability[/h2]
+[list]
+[*]Cumulative Combat Costs record estimated USD weapon and loss costs, separately from campaign credits and actual supplies.
+[*]The [b]F11 World Operations[/b] interface covers overview, forces, costs and service progress on the supported public beta.
+[*]R13 beta runtime (Runtime 1.6.5 / UI 1.4.15) provides Red Line mission ribbon evaluation and records qualifying Admiralty results when filed.
+[*]Selected post-1991 Russian-built ships now register under Russia; Soviet-built ships and aircraft retain their existing registration.
+[*]Integrated fixes and additions span Growler loadouts, cross-deck aircraft, formations, contact information, pop-out windows and coordinated-strike interfaces.
+[/list]
+
+[h2]Installation[/h2]
+[olist]
+[*]Subscribe to this pack and use [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3812390790][b]Subscribe to all[/b] on the SEST collection[/url]. Allow Steam to download the required Workshop items.
+[*]Open SEST Integration Pack in the game's Mod Manager, choose Open Folder, then close Sea Power.
+[*]Run [b]SETUP - double-click me.cmd[/b] with Sea Power closed. It validates subscriptions and load order and installs compatible features, keeping SEST at the top.
+[*]On the supported public beta's first install: run SETUP, launch to the main menu briefly, quit, then run SETUP again. Re-run SETUP after this pack or supporting mods update.
+[/olist]
+Beta runtime features target [b]Sea Power 0.8.7-261107[/b] only and are withheld on unknown game/plugin builds. Stable 0.8.7 support uses the normal compatible plugins. Beta feature on/off launchers are available at the pack root. Turning off SEST's beta loader on that beta can also disable other Workshop code mods, including Dynamic Campaign Mod; data campaigns remain available.
+
+[h2]Scope and credits[/h2]
+These are fictional scenarios, not claims about current real deployments, national policy or readiness. Third-party Workshop authors retain credit for their original models, units and tools; keep their mods installed. See CREDITS.txt and media credits in the pack. Report problems with the campaign/mission, game build and reproducible steps.
