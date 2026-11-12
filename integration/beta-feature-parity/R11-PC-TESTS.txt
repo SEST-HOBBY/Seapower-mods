@@ -139,3 +139,56 @@ R12 RIBBON EXPANSION - 10 NOVEMBER 2026
   award and its scenario citation. Other nationalities must not receive it.
 - Confirm the opening brief, sidebar Combat Costs, direct F11, paused battle
   preparation, end-battle return, Contacts/Formation and strike controls remain.
+
+R13 MISSION RIBBONS AND ADMIRALTY FILING - 10 NOVEMBER 2026
+Runtime 1.6.5 / UI 1.4.15 on beta 0.8.7-261107 (499675cd). The ribbon checks
+need a Red Line build whose RL05 [Mission15] and RLC1 [Mission11] carry the
+SestRuntimeRibbonAwards key and its [Ribbon_<id>] definitions (the campaign
+builder adds them; this source has none yet). Without one, check only that
+native awards and the debrief are unchanged. Read each result in Player.log:
+one '[SEST Runtime] debrief mission N: runtime ribbon <id> ...' line per spec.
+- Debrief grant. Complete RL05 at CostlyVictory or better without firing.
+  The log line says AWARDED with launched=0 and rounds=0. The native 'Task
+  force debrief snapshot saved: ... Ribbons=N' line counts it, the debrief
+  awards row shows it, and the Task Force Service Record shows it with its
+  citation, date and rank. The log's objective states match the debrief's
+  objectives list (the mission was still loaded when the award ran).
+- nolaunch negatives. nolaunch means no weapon launched and no gun round
+  fired by any unit of the player's task force (failed launches count).
+  Repeat RL05 with one torpedo: 'not met: nolaunch', and the native
+  sest_undersea_operations ribbon is still awarded. Repeat using only
+  countermeasures (noisemakers, decoys): eligible; note whether the boat's
+  countermeasure reports as Noisemaker or MOSS. Check whether RL05's task
+  force has an AI escort that could fire; if one fires, the mission must not
+  qualify even though the player's own boat fired nothing.
+- Mid-mission save. Launch a weapon, save, reload and finish clean: still
+  not eligible. Reload a save from before the launch and finish clean:
+  eligible. This confirms the weapon report survives the mission save.
+- Personnel recovery. In RLC1, recover the pilot by helicopter. The log's
+  rescued=N matches the debrief's SurvivorsRescued and CSAR points, and the
+  ribbon needs N of 1 or more. Note when the count rises (at pickup or at
+  landing) and whether other-side or neutral raft occupants also count.
+- Idempotency. After an award, save, quit, reload and open the Service
+  Record: the ribbon shows once. Replay the completed mission through the
+  normal path: the debrief rows are rewritten and the Service Record still
+  shows it once. A TaskForceModeReplay mission writes nothing. A failed
+  attempt (below the mission's RequiredResult) grants nothing.
+- Nation filter. A spec with a nation selector is granted only to a
+  commander of that nation (TaskForceCommanderNation). An uncommitted or
+  empty nation receives only specs without a selector.
+- Stable build or feature off. On the stable game build, or with
+  MissionAwards=0 under [Runtime] in plugins/sest_runtime.ini, no runtime
+  ribbon is granted and native awards are unchanged. The developer ribbon
+  catalogue may still list the definitions; that is expected.
+- Admiralty filing. Complete an accepted standalone Admiralty order and an
+  operation's final phase, close each paper at once (within one second),
+  and open F11 Service: each counts once. A result filed and read
+  immediately still counts once. Save, reload and let the service sample
+  run again: each still counts once. A port captured while its order is
+  only on offer is not counted. world-service-v1.txt keeps its
+  SEST-WORLD-SERVICE-1 header and six-field lines, and Runtime 1.6.4 reopens
+  it without going read-only.
+- Upgrade. From an installed R12 Final (Runtime 1.6.4), SETUP's feature step
+  updates to R13 in one run, Repair-Beta-Startup recognises 1.6.4, and a
+  Steam refresh is reapplied. The UI logs 'full Runtime 1.6.5 paired'.
+  Afterwards run Capture-Repair-Results.cmd and send the new capture.

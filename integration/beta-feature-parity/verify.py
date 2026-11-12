@@ -66,6 +66,7 @@ run('campaign-scenario-beta-api-regressions', [a.mono, out / 'BetaApiTests.exe',
 run('cost-rows-and-sest-catalog-fallback', [a.mono, out / 'CostRowsTests.exe', flat, runtime])
 run('world-service-and-strike-bindings', [a.mono, out / 'WorldOperationsTests.exe', flat, runtime, workshop])
 run('world-battle-preparation-and-exit', [a.mono, out / 'WorldBattleFlowTests.exe', flat, ui, workshop / '3813157776/DynamicCampaignMod.dll'])
+run('runtime-mission-awards', [a.mono, out / 'MissionAwardsTests.exe', flat, runtime, workshop])
 run('installer-rollback', [a.powershell, '-NoLogo', '-NoProfile', '-File', here / 'tests/Test-Installer.ps1', '-Capture', capture, '-Candidate', out])
 # The pack's SETUP feature step with this source's installer and payload:
 # opt-out after Disable/Remove, another game build, author-file drift and a

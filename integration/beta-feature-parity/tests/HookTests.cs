@@ -18,7 +18,7 @@ static class HookTests
         using (var stream = File.OpenRead(path)) using (var sha = System.Security.Cryptography.SHA256.Create())
             return BitConverter.ToString(sha.ComputeHash(stream)).Replace("-", "").ToLowerInvariant();
     }
-    // UI 1.4.14 accepts Pop-Out Windows 1.1.3 and the captured 1.2.0. 1.2.0
+    // UI 1.4.15 accepts Pop-Out Windows 1.1.3 and the captured 1.2.0. 1.2.0
     // moved its pop-out control into a shared title menu; the stock Formation
     // Manager must recognise that entry instead of a PopOutButton.
     static void PopOutTitleMenu(Assembly ui, Assembly pop)
