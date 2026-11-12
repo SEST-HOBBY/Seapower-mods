@@ -1,0 +1,21 @@
+[h1]SEST - Modernised Campaign Collection[/h1]
+The supporting Workshop collection for [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3812461539]SEST Integration Pack - Modernised Campaigns[/url]. The latest reviewed baseline lists [b]203 items in total: 202 supporting mods and the SEST pack[/b]. Recheck the item count on Steam before publication.
+
+[h2]What the pack adds[/h2]
+[list]
+[*][b]Five Task Force Mode campaigns[/b] — Southern Watch, Southern Reach / Tasman Shield, Red Line, Sulu Line and Makran Line (four Pakistan Navy missions).
+[*][b]Global Maritime Operations 2028[/b] — Worldwide Dynamic Campaign Mod scenario with 196 bases, eight command stages and finite logistics.
+[*][b]National command[/b] — Fourteen Southern Watch/Southern Reach commander nations, eleven with national award rules; Philippine/Thai/Australian commanders in Sulu Line; Pakistan Navy command in Makran Line.
+[*][b]Service records and costs[/b] — Native and fictional ribbons, mission citations, cumulative estimated combat costs and F11 World Operations on the supported beta.
+[*][b]Compatibility[/b] — Selected Russian Federation vessel registrations, cross-deck and aircraft refinements, contact displays, Topographic Map, formation and pop-out integration.
+[/list]
+Original Workshop creators provide the ships, aircraft, weapons, facilities and supporting tools. SEST integrates them; it does not replace their subscriptions.
+
+[h2]Install[/h2]
+[olist]
+[*]Choose [b]Subscribe to all[/b], including the SEST Integration Pack, and allow Steam downloads to finish.
+[*]Open the SEST pack folder from Mod Manager, close the game and run [b]SETUP - double-click me.cmd[/b].
+[*]On a fresh supported beta install, briefly open the game to the main menu, quit and run SETUP a second time.
+[*]Run SETUP again whenever the pack or its dependencies update. Keep SEST at the top of the load order.
+[/olist]
+The R13 runtime features target public beta 0.8.7-261107 only. Other compatible builds retain the normal plugins. World saves keep their previous map; start a new world to use all revised locations. Operations and coalition alignments are fictional.
