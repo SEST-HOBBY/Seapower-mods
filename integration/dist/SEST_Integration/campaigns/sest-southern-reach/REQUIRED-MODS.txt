@@ -6,7 +6,7 @@ units its roster sells with their variants and rounds. The pack-level
 REQUIRED-MODS.txt two folders up, at the pack's root, is the union
 across every campaign in the pack.
 
-1. HARD REQUIRED (64): a mission or the roster names a file of theirs, or a mod above says it cannot run without them.
+1. HARD REQUIRED (67): a mission or the roster names a file of theirs, or a mod above says it cannot run without them.
 
   3438479626    a squadron a flight comes from   1143.5 Kuznetsov
   3781062859    a model a unit draws             <<E-3G>>
@@ -71,17 +71,24 @@ across every campaign in the pack.
   3606774881    a hull variant in use            U.S. Navy 2027 Capabilities mod
   3737267013    a unit a mission places          United States Naval Aviation
   3380210757    required by another mod          Anchor Chain
-                                                   asked for by: PLA & PLAN & PLAAF AEP, Type 003 Fujian / Type 004 CVN Aircraft Carriers
+                                                   asked for by: Euromod - Anchorchain Expansion Pack, PLA & PLAN & PLAAF AEP, Type 003 Fujian / Type 004 CVN Aircraft Carriers
+  3784474738    required by another mod          Euromod - Anchorchain Expansion Pack
+                                                   asked for by: Euromod - Modern Royal Australian Navy Mod, Modern US Navy
   3434072450    required by another mod          Sukhoi Flanker Family (苏霍伊侧卫家族)
                                                    asked for by: THE REDFOR MOD
+  3433957933    required by another mod          Virginia-, Seawolf-, and Ohio-class Submarines
+                                                   asked for by: U.S. Navy 2027 Capabilities mod
+  3637954857    required by another mod          Y-8/Y-9 Special Mission Aircraft Family
+                                                   asked for by: Modern PLAN Systems
 
-2. SEST INTEGRATION PACKS (14): this project's own patches, already inside this pack (SEST Integration Pack, Workshop 3812461539);
+2. SEST INTEGRATION PACKS (15): this project's own patches, already inside this pack (SEST Integration Pack, Workshop 3812461539);
 there is nothing more to subscribe to.
 
   (local)       a unit a mission places          SEST ADF Persistent ISR
   (local)       a unit a mission places          SEST Allied Fixes
   (local)       a weapon a loadout hangs         SEST B-52 ARRW
   (local)       a hull variant in use            SEST Collection Fixes
+  (local)       a deck a flight lands on         SEST Cross-Deck
   (local)       a unit a mission places          SEST F-15EX Revamp
   (local)       a unit the player can buy        SEST F-35C JATM
   (local)       a unit a mission places          SEST Growler NGJ + MALICE
@@ -94,11 +101,11 @@ there is nothing more to subscribe to.
   (local)       a unit a mission places          SEST Replenishment At Sea
 
 3. INSTALL-WIDE LIBRARIES AND UI (0): ship no file a mission names. Keep them installed anyway: SETUP stops if any mod in
-LOAD-ORDER.txt is missing. (Anchor Chain is one a mod in list 1 asks
-for; the map, salvo and rescue tools are conveniences.)
+LOAD-ORDER.txt is missing. (The map, salvo and rescue tools are
+conveniences.)
 
 
-4. NOT USED BY THIS CAMPAIGN (150): enabled while it was built, and left in the order because removing one changes which copy of a
+4. NOT USED BY THIS CAMPAIGN (146): enabled while it was built, and left in the order because removing one changes which copy of a
 shared file wins for the mods above.
 
   3587091564    3M25 <<МЕТЕОРИТ>> (AS-X-19 Koala)
@@ -134,7 +141,6 @@ shared file wins for the mods above.
   3813033771    EC-2 Stand Off Jammer
   3493115616    EMAD
   3555361900    Etendard Family Jets
-  3784474738    Euromod - Anchorchain Expansion Pack
   3776730617    EUROMOD-Armada de Chile
   3678767059    Euromod-Brazilian Armed Forces(2000)
   3812454152    Euromod-HD Hyundai Export Ships Mod
@@ -214,7 +220,6 @@ shared file wins for the mods above.
   3551676319    SEJJIL (Iran Ballistic Missiles)
   (local)       SEST A-10C+
   (local)       SEST Combat Cost Compatibility
-  (local)       SEST Cross-Deck
   (local)       SEST F-16CM JATM
   (local)       SEST Gallery
   (local)       SEST Intercept Model
@@ -245,10 +250,8 @@ shared file wins for the mods above.
   3672072359    Ultimate Missile Workshop
   3806466625    V-22 Osprey / SV-22 2024 ASW prototype
   3478767194    VH-3D Marine One MOD
-  3433957933    Virginia-, Seawolf-, and Ohio-class Submarines
   3636213685    wp_sattelite_center
   3526982088    XIAN JH-7A (歼轰-7A 飞豹)
   3782020901    Y-20 / KJ-3000
-  3637954857    Y-8/Y-9 Special Mission Aircraft Family
   3796349767    YF-23 Black Widow II
 

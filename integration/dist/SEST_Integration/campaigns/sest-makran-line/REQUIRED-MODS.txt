@@ -20,26 +20,27 @@ across every campaign in the pack.
   3506979898    a weapon a loadout hangs         Shenyang J-16A (歼-16A 潜龙)
   3737267013    a weapon a loadout hangs         United States Naval Aviation
   3380210757    required by another mod          Anchor Chain
-                                                   asked for by: PLA & PLAN & PLAAF AEP, Pakistani Pack
+                                                   asked for by: PLA & PLAN & PLAAF AEP
   3413868677    required by another mod          Red Storm Arsenal
                                                    asked for by: Pakistani Pack
   3470643173    required by another mod          Type 12 SSM-ER Anti-Ship Missile System
                                                    asked for by: Pakistani Pack
   3637954857    required by another mod          Y-8/Y-9 Special Mission Aircraft Family
-                                                   asked for by: Pakistani Pack
+                                                   asked for by: Modern PLAN Systems, Pakistani Pack
 
-2. SEST INTEGRATION PACKS (2): this project's own patches, already inside this pack (SEST Integration Pack, Workshop 3812461539);
+2. SEST INTEGRATION PACKS (3): this project's own patches, already inside this pack (SEST Integration Pack, Workshop 3812461539);
 there is nothing more to subscribe to.
 
   (local)       a weapon a loadout hangs         SEST Collection Fixes
+  (local)       a deck a flight lands on         SEST Cross-Deck
   (local)       a weapon a loadout hangs         SEST Replenishment At Sea
 
 3. INSTALL-WIDE LIBRARIES AND UI (0): ship no file a mission names. Keep them installed anyway: SETUP stops if any mod in
-LOAD-ORDER.txt is missing. (Anchor Chain is one a mod in list 1 asks
-for; the map, salvo and rescue tools are conveniences.)
+LOAD-ORDER.txt is missing. (The map, salvo and rescue tools are
+conveniences.)
 
 
-4. NOT USED BY THIS CAMPAIGN (211): enabled while it was built, and left in the order because removing one changes which copy of a
+4. NOT USED BY THIS CAMPAIGN (210): enabled while it was built, and left in the order because removing one changes which copy of a
 shared file wins for the mods above.
 
   3438479626    1143.5 Kuznetsov
@@ -204,7 +205,6 @@ shared file wins for the mods above.
   (local)       SEST Allied Fixes
   (local)       SEST B-52 ARRW
   (local)       SEST Combat Cost Compatibility
-  (local)       SEST Cross-Deck
   (local)       SEST F-15EX Revamp
   (local)       SEST F-16CM JATM
   (local)       SEST F-35C JATM

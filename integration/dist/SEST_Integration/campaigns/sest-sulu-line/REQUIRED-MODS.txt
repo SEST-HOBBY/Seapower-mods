@@ -6,7 +6,7 @@ units its roster sells with their variants and rounds. The pack-level
 REQUIRED-MODS.txt two folders up, at the pack's root, is the union
 across every campaign in the pack.
 
-1. HARD REQUIRED (39): a mission or the roster names a file of theirs, or a mod above says it cannot run without them.
+1. HARD REQUIRED (38): a mission or the roster names a file of theirs, or a mod above says it cannot run without them.
 
   3432668460    a unit a mission places          Auxilliary Merchant Pack
   3746453639    a unit a mission places          Civil Aircraft Mod (Airbus Family)
@@ -39,35 +39,34 @@ across every campaign in the pack.
   3737267013    a weapon a loadout hangs         United States Naval Aviation
   3526982088    a weapon a loadout hangs         XIAN JH-7A (歼轰-7A 飞豹)
   3380210757    required by another mod          Anchor Chain
-                                                   asked for by: PLA & PLAN & PLAAF AEP, Type 003 Fujian / Type 004 CVN Aircraft Carriers
+                                                   asked for by: Euromod - Anchorchain Expansion Pack, PLA & PLAN & PLAAF AEP, Type 003 Fujian / Type 004 CVN Aircraft Carriers
   3567256221    required by another mod          Charles De Gaulle & Modern French Navy Pack (WIP)
                                                    asked for by: Euromod-HD Hyundai Export Ships Mod
-  3606134711    required by another mod          Custom Loadout Editor
-                                                   asked for by: Royal Australian Defence Forces
-  3776730617    required by another mod          EUROMOD-Armada de Chile
-                                                   asked for by: Royal Australian Defence Forces
+  3784474738    required by another mod          Euromod - Anchorchain Expansion Pack
+                                                   asked for by: Euromod - Modern Royal Australian Navy Mod
   3758943352    required by another mod          French Air Force
                                                    asked for by: Euromod-HD Hyundai Export Ships Mod
   3567228449    required by another mod          French Helicopter Package
-                                                   asked for by: EUROMOD-Armada de Chile, Euromod - Modern Royal Australian Navy Mod
-  3505420313    required by another mod          Italian Navy Mod
-                                                   asked for by: The Royal Navy
+                                                   asked for by: Euromod - Modern Royal Australian Navy Mod
   3437105712    required by another mod          SAM Pack
                                                    asked for by: Euromod-HD Hyundai Export Ships Mod
   3491248180    required by another mod          The Royal Navy
                                                    asked for by: Royal Australian Defence Forces
+  3637954857    required by another mod          Y-8/Y-9 Special Mission Aircraft Family
+                                                   asked for by: Modern PLAN Systems
 
-2. SEST INTEGRATION PACKS (4): this project's own patches, already inside this pack (SEST Integration Pack, Workshop 3812461539);
+2. SEST INTEGRATION PACKS (5): this project's own patches, already inside this pack (SEST Integration Pack, Workshop 3812461539);
 there is nothing more to subscribe to.
 
   (local)       a unit a mission places          SEST Allied Fixes
   (local)       a unit a mission places          SEST Collection Fixes
+  (local)       a deck a flight lands on         SEST Cross-Deck
   (local)       a unit a mission places          SEST RAN Fleet
   (local)       a unit a mission places          SEST Replenishment At Sea
 
 3. INSTALL-WIDE LIBRARIES AND UI (0): ship no file a mission names. Keep them installed anyway: SETUP stops if any mod in
-LOAD-ORDER.txt is missing. (Anchor Chain is one a mod in list 1 asks
-for; the map, salvo and rescue tools are conveniences.)
+LOAD-ORDER.txt is missing. (The map, salvo and rescue tools are
+conveniences.)
 
 
 4. NOT USED BY THIS CAMPAIGN (185): enabled while it was built, and left in the order because removing one changes which copy of a
@@ -107,6 +106,7 @@ shared file wins for the mods above.
   3807187341    Combat Cost Tracker
   3819427362    Contact Log
   3806686336    Coordinated Strike Tool
+  3606134711    Custom Loadout Editor
   3558173926    David's Sling
   3760871384    Dingtools Weapon Pack
   3813157776    Dynamic Campaign Mod
@@ -114,7 +114,6 @@ shared file wins for the mods above.
   3493115616    EMAD
   3555361900    Etendard Family Jets
   3587877691    Eurofighter Typhoon
-  3784474738    Euromod - Anchorchain Expansion Pack
   3630495619    Euromod - Cold War Spanish Navy
   3599752717    Euromod - Modern British Navy
   3444379330    Euromod - Modern Dutch navy
@@ -123,6 +122,7 @@ shared file wins for the mods above.
   3695809489    Euromod - Modern Japanese Maritime Self Defence Force
   3642656500    Euromod - Modern Nordic Navy
   3731208477    Euromod - Modern Spanish Navy
+  3776730617    EUROMOD-Armada de Chile
   3678767059    Euromod-Brazilian Armed Forces(2000)
   3807164392    Euromod-India-Navy
   3448845252    F-117 Nighthawk
@@ -151,6 +151,7 @@ shared file wins for the mods above.
   3408662804    Iskander TBM
   3569219326    ISKANDER-K
   3681748718    ISKANDER-M
+  3505420313    Italian Navy Mod
   3591563716    J-20 (歼-20 威龙)
   3801549552    J-36 Tailless Fighter
   3520352434    JAS-39 Gripen
@@ -213,7 +214,6 @@ shared file wins for the mods above.
   (local)       SEST ADF Persistent ISR
   (local)       SEST B-52 ARRW
   (local)       SEST Combat Cost Compatibility
-  (local)       SEST Cross-Deck
   (local)       SEST F-15EX Revamp
   (local)       SEST F-16CM JATM
   (local)       SEST F-35C JATM
@@ -256,6 +256,5 @@ shared file wins for the mods above.
   3433957933    Virginia-, Seawolf-, and Ohio-class Submarines
   3636213685    wp_sattelite_center
   3782020901    Y-20 / KJ-3000
-  3637954857    Y-8/Y-9 Special Mission Aircraft Family
   3796349767    YF-23 Black Widow II
 
