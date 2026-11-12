@@ -18,9 +18,10 @@ $bundle=J $PSScriptRoot $bundleName
 if((Get-FileHash -LiteralPath $bundle -Algorithm SHA256).Hash.ToLowerInvariant() -ne $receipt.workshop_bundle.sha256){throw 'Release bundle hash differs; extract the complete toolkit again.'}
 $branch=[string]$receipt.release_branch
 $betaName=if($receipt.PSObject.Properties['beta_directory']){[string]$receipt.beta_directory}else{'R7'}
-# The release branch may be a release/ branch or one of the owner's feature/,
-# fix/ or chore/ branches (the finalised R12 is fix/r12-finalise-20261110).
-if($branch -notmatch '^(release|feature|fix|chore)/[A-Za-z0-9._/-]+$' -or $betaName -notmatch '^R\d+$'){throw 'Unrecognised release receipt.'}
+# The release branch is normally beta, the branch the PC installs and tests
+# (docs/BRANCHES.md); dev, a release/ branch or one of the owner's feature/,
+# fix/ or chore/ branches is accepted too.
+if($branch -notmatch '^((release|feature|fix|chore)/[A-Za-z0-9._/-]+|beta|dev)$' -or $betaName -notmatch '^R\d+$'){throw 'Unrecognised release receipt.'}
 G bundle verify $bundle
 G fetch $bundle $branch
 $checkout=J (Split-Path -Parent $MainRepository) ('Seapower-Workshop-'+$betaName+'-'+(Get-Date -Format 'yyyyMMdd-HHmmss'))

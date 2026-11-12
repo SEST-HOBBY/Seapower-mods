@@ -79,6 +79,8 @@ MODS = ROOT / "mods-source"
 
 sys.path.insert(0, str(ROOT / "integration" / "mission-seeds"))
 from refine_civ_traffic import load_order  # noqa: E402
+sys.path.insert(0, str(ROOT / "integration"))
+from common import nation_stubs  # noqa: E402
 
 INFO_INI = """\
 [Language_en]
@@ -263,12 +265,18 @@ def section_value(text, sections, key):
 
 def nation(kind, uid):
     """The navy a unit is registered to, from its squadrons/variants file's
-    first pick or [Default], else the unit file's own Nation=, lower-cased."""
-    table = winning_file(f"{kind}/{uid}_{'squadrons' if kind == 'aircraft' else 'variants'}.ini")
+    first pick or [Default], else the unit file's own Nation=, lower-cased.
+    Each section reads SEST's #!extend Nation stub first, as the game does
+    (SEST Collection Fixes' Russian registrations: common/nation_stubs.py);
+    no stubbed unit is allied, so no deck or family changes on it."""
+    rel = f"{kind}/{uid}_{'squadrons' if kind == 'aircraft' else 'variants'}.ini"
+    table = winning_file(rel)
     if table:
-        n = section_value(read(table), ("Squadron1", "Variant1", "Default"), "Nation")
-        if n:
-            return n.lower()
+        text = read(table)
+        for section in ("Squadron1", "Variant1", "Default"):
+            n = nation_stubs.nation(rel, section) or section_value(text, (section,), "Nation")
+            if n:
+                return n.lower()
     f = winning_file(f"{kind}/{uid}.ini")
     if f:
         m = re.search(r"^Nation=\s*([^\s/#]+)", read(f), re.M)

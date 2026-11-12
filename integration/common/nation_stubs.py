@@ -1,17 +1,23 @@
 """The nation SEST's #!extend stubs give a variant or squadron section.
 
-SEST Collection Fixes re-registers the post-1991, Russian-built hulls to the
-game's Russia key with one #!extend stub per hull on its winning
-`vessels/<uid>_variants.ini` (integration/collection-fixes/build_patch.py,
-RU_REREGISTER). The game applies such a stub before the file it names: an
-extend's keys come first and the first value of a key wins (IniHandler.open),
-so a section's Nation= is the stub's where the stub sets one, else the file's.
+SEST Collection Fixes re-registers the post-1991, Russian-built hulls, the
+modern Russian refits of Soviet-built ships and the aircraft of post-1991
+Russian types to the game's Russia key, with one #!extend stub per unit on
+its winning `vessels/<uid>_variants.ini` or `aircraft/<uid>_squadrons.ini`
+(integration/collection-fixes/build_patch.py: RU_REREGISTER, RU_BY_SECTION
+and RU_AIRCRAFT; the stubs sit in its vessels_overwrite/ and
+aircraft_overwrite/). The game applies such a stub before the file it names:
+an extend's keys come first and the first value of a key wins
+(IniHandler.open), so a section's Nation= is the stub's where the stub sets
+one, else the file's.
 
 Anything in this repo that reads a unit's registered nation from its winning
 variants or squadrons file has to read the same layer, or it disagrees with
-the game: the campaign builder's pick_nation, the mission-seed pass's
-registered() and the world builder's operators(). This is the one reader all
-three share.
+the game: the campaign builder's pick_nation (and through it the rosters,
+the rules pages' discount counts and the Situation tables), the mission-seed
+pass's registered(), the world builder's operators(), the Cross-Deck
+builder's nation() and check_campaign_coverage's flag check. This is the one
+reader they share.
 
 Only SEST's own packs are indexed. No exported mod ships an #!extend onto a
 variants or squadrons file (the collection-fixes builder refuses to stub a

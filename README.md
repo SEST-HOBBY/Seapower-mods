@@ -266,8 +266,10 @@ recover, that a replenishment transfer moves what it is tuned to — is listed i
 
 ## Keeping the gaming PC in line
 
-The PC deploys from the branch `data/deploy-branch.txt` names; `sync-sest.ps1`
-refuses any other. The whole update loop is one command with the game closed:
+The PC deploys from the branch `data/deploy-branch.txt` names, `beta`;
+`sync-sest.ps1` refuses any other. Work lands on `dev` and moves to `beta` for
+the PC check and the Workshop upload; `steam` is what is live
+(`docs/BRANCHES.md`). The whole update loop is one command with the game closed:
 
 ```powershell
 powershell -ExecutionPolicy Bypass -File .\tools\sync-sest.ps1

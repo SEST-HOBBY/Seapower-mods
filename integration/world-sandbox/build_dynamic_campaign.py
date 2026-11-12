@@ -1190,7 +1190,8 @@ SIDE_ORDER = {n: i for i, n in enumerate(BLUE + RED)}
 def operators(kind, uid):
     """The Nation= of every variant or squadron section of the winning file,
     with SEST's #!extend Nation stubs read first as the game reads them (SEST
-    Collection Fixes' Russian registrations: common/nation_stubs.py)."""
+    Collection Fixes' Russian registrations of hulls, refits and aircraft:
+    common/nation_stubs.py)."""
     rel = f"{kind}/{uid}_{'squadrons' if kind == 'aircraft' else 'variants'}.ini"
     f = bp.winning(rel)
     if f is None:

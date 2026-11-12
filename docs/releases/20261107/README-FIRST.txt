@@ -6,16 +6,14 @@ Standard 0.8.7-261021: Runtime 1.5.0 / UI 1.4.6 (unchanged)
 This is R12 Final (merged as PR #58) together with the commander nations and
 national awards (merged as PR #59), the combined release notes (merged as PR
 #60) and Red Line's victory paths, the heave-to and progress reports (step 3
-of the builder grammar, on feature/builder-grammar-20261111, in review as PR
-#61), with step 4's two Red Line runtime ribbons prepared and inert until R13
-(on feature/runtime-awards-campaign-20261111, in review as PR #62, stacked on
-PR #61), step 5's Russian Federation registration of the modern Russian
-hulls (on feature/russia-registration-20261111, not pushed, stacked on PR
-#62) and step 5's Makran Line campaign (on feature/makran-line-20261111, not
-pushed, stacked on the Russian registration), checked once on the PC and
-posted as one update. RIBBONS.txt has every
-award mapping. R12-RIBBON-EXPANSION.txt describes R12 Final before the
-commander nations: use it only for the R12 review findings fixed and the
+of the builder grammar, merged as PR #61), with step 4's two Red Line runtime
+ribbons prepared and inert until R13 (merged as PR #62), step 5's Russian
+Federation registration of the modern Russian ships and aircraft (on
+feature/russia-registration-20261111, in review) and step 5's Makran Line
+campaign (on feature/makran-line-20261111, not pushed, built on the Russian
+registration), checked once on the PC and posted as one update. RIBBONS.txt
+has every award mapping. R12-RIBBON-EXPANSION.txt describes R12 Final before
+the commander nations: use it only for the R12 review findings fixed and the
 minor ones still open, and this file and RIBBONS.txt for the award counts,
 nations and PC steps. None of the six parts has been played on the owner's
 PC yet; step 4 has nothing to play before R13 except the Red Line test card's
@@ -34,18 +32,19 @@ WHAT IS NEW SINCE THE R12 RIBBON TEST BUILD
   Zealand's one class is the RNZAF P-8A, sold with the allied fleet; no
   class is Canadian.
 - Awards: 75 definitions. 25 fictional world awards (beta), 15 fictional
-  native campaign ribbons (Makran Line's three are new), and 32 real-award representations for 12 nations:
-  30 personal and service awards matched to the commander's starting rank and
-  2 host-nation unit awards to the task group (plus 3 retired US definitions
-  kept so an earlier record still shows). In Southern Watch and Southern
-  Reach, commanders of every offered nation except Italy, the Netherlands and
-  Norway earn their own nation's awards; Sulu Line's Philippine awards go to a
-  Philippine commander. The task group receives the host nation's unit award.
-  Every native campaign citation carries its granting mission's date and two
-  plain sentences; the world awards' citations state their criteria and are
-  undated. The nation filter on the native awards is read from the beta's
-  code; on standard 0.8.7-261021 it has not been checked. The Korean strips
-  carry the taegeuk and the German Cross of Honour its gold cross.
+  native campaign ribbons (Makran Line's three are new), and 32 real-award
+  representations for 12 nations: 30 personal and service awards matched to
+  the commander's starting rank and 2 host-nation unit awards to the task
+  group (plus 3 retired US definitions kept so an earlier record still shows).
+  In Southern Watch and Southern Reach, commanders of every offered nation
+  except Italy, the Netherlands and Norway earn their own nation's awards;
+  Sulu Line's Philippine awards go to a Philippine commander. The task group
+  receives the host nation's unit award. Every native campaign citation
+  carries its granting mission's date and two plain sentences; the world
+  awards' citations state their criteria and are undated. The nation filter on
+  the native awards is read from the beta's code; on standard 0.8.7-261021 it
+  has not been checked. The Korean strips carry the taegeuk and the German
+  Cross of Honour its gold cross.
 - Red Line: the six combat briefings (RL01, RL02, RL03, RL04, RL06 and
   RLO2) and RLC1's give the terms their victory checks test (distance,
   minute, no incoming weapon); RL01, RL04 and RL06 mark the extra objective
@@ -63,8 +62,8 @@ WHAT IS NEW SINCE THE R12 RIBBON TEST BUILD
 - Held stages: RLC1's and SW03's held stages now reactivate their held
   trigger at the arrival, so the four- and three-minute holds should count
   from then; not yet checked in game (step 3).
-- Red Line runtime ribbons, prepared for R13 (step 4, campaign side, on
-  feature/runtime-awards-campaign-20261111, in review): RL05 Silent
+- Red Line runtime ribbons, prepared for R13 (step 4, campaign side,
+  merged as PR #62): RL05 Silent
   Passage and RLC1 Personnel Recovery are defined in the Red Line campaign
   and keyed for the beta runtime R13 (Runtime 1.6.5). This update ships
   Runtime 1.6.4, which ignores the key as the game and the standard build
@@ -72,20 +71,34 @@ WHAT IS NEW SINCE THE R12 RIBBON TEST BUILD
   Until R13 is installed the checks are that neither appears and that the
   developer ribbon menu offers neither (the Red Line test card's R5 and R6;
   R1 to R4 need R13, and RIBBONS.txt says what each ribbon needs).
-- Russian Federation (step 5, on feature/russia-registration-20261111, not
-  pushed): SEST Collection Fixes registers 16 post-1991, Russian-built ship
-  and submarine classes (the Gorshkov and Grigorovich frigates, the
-  Steregushchiy, Gremyashchiy and Buyan-M corvettes, the Yasen, Belgorod,
-  Borei and Improved Kilo boats) to the game's Russia nation, which it
-  names Russian Federation, instead of the USSR. One #!extend stub per hull
-  sets only the Nation of its mod's variants file; no author's file is
-  copied. SEST's Akademik Pashin registers Russia in its own file.
-  Soviet-built hulls, fictional variants and every Russian aircraft,
-  helicopter and transport stay Soviet, as stock Cold War missions use
-  them. The SEST missions fly the Russian flag on the same units as before.
-  No mod has used an #!extend on a variants file before, so it is checked
-  once in step 3; no campaign offers a Russian commander, so the discount
-  is not.
+- Russian Federation (step 5, on feature/russia-registration-20261111, in
+  review): SEST Collection Fixes registers to the game's Russia nation,
+  which it names Russian Federation, instead of the USSR: 16 post-1991,
+  Russian-built ship and submarine classes (the Gorshkov and Grigorovich
+  frigates, the Steregushchiy, Gremyashchiy and Buyan-M corvettes, the
+  Yasen, Belgorod, Borei and Improved Kilo boats); the modern refits of
+  Soviet-built ships in their modern fit only (the Kuznetsov's 2016 fit,
+  not her 1991 one, Admiral Nakhimov's refit, Marshal Ustinov 2016, the
+  Nanuchka III Smerch in her 2019 refit, the Tarantul R-60 of 2005, the
+  REDFOR mod's Smetlivy in her 1995 Project 01090 refit) and the Akulas,
+  Oscar IIs and Grishas launched after 1991, the Sierra II Pskov and
+  Admiral Chabanenko (launched in 1992 and 1994); and 32 aircraft of
+  post-1991 Russian types and upgrades (the Su-57, Su-35S, Su-30SM, Su-33,
+  MiG-31BM, MiG-35, MiG-29K 9.41, A-50U, Tu-214R and their like). One
+  #!extend stub per unit sets only the Nation of its mod's variants or
+  squadrons file, listing the file's earlier sections empty so the game
+  keeps the author's variant order; no author's file is copied. SEST's
+  Akademik Pashin registers Russia in its own file. The Soviet-era fits,
+  Cold War aircraft (the Su-27, MiG-31, MiG-29 9.12, Tu-160 as built,
+  Tu-95MS, Il-76MD, Il-78, Ka-27PL, Mi-8, Mi-24), fictional variants and
+  hulls never built stay Soviet, as stock Cold War missions use them.
+  Every unit a SEST mission places still flies the Russian flag, as
+  before; an aircraft a Russian deck or airbase launches flies its own
+  squadron's registration, so a launched Su-33 or Su-57 now shows the
+  Russian Federation and a launched Ka-27, Su-27 or Tu-160 the USSR. No mod
+  has used an #!extend on a variants or squadrons file before, so it is
+  checked once in step 3; no campaign offers a Russian commander, so the
+  discount is not.
 - Makran Line (step 5, on feature/makran-line-20261111, not pushed): a
   fifth authored campaign, four Pakistan Navy missions in the North
   Arabian Sea, 24 October to 14 November 2028, inside Southern Watch's six
@@ -165,15 +178,19 @@ PREPARE AND CHECK
    and neither is granted on this build). Russian Federation (step 5): in
    the new Southern Watch campaign's Situation window the Project 20380
    corvette shows the Russian Federation flag and the Akula the USSR's; in
-   the Mission Editor Russian Navy 21's Admiral Gorshkov shows Russian
-   Federation and the game's own Sovremenny USSR; Pacific Strike's 02 Action
-   in the Taiwan Strait still generates its Soviet force (the release
-   checkout's docs/campaigns/southern-watch/test-card.md, 6K, rows RU.1 to
-   RU.6). On the beta the stubs, like every #!extend file in the pack,
-   apply only where SEST's beta Runtime repairs the game's modifier scan
+   the Mission Editor Russian Navy 21's Admiral Gorshkov and a Su-35S show
+   Russian Federation and the game's own Sovremenny and a Cold War Su-27
+   the USSR, and the Kuznetsov's 2016 fit shows Russian Federation and her
+   1991 fit the USSR; a mission saved with the Kuznetsov's 2016 fit and the
+   Akula Gepard holds VariantReference=Variant2 and Variant13 (RU.8);
+   Pacific Strike's 02 Action in the Taiwan Strait still
+   generates its Soviet force (the release checkout's
+   docs/campaigns/southern-watch/test-card.md, 6K, rows RU.1 to RU.8). On
+   the beta the stubs, like every #!extend file in the pack, apply only
+   where SEST's beta Runtime repairs the game's modifier scan
    (ModifierRegistry, not turned off), so not with the beta features off
    (step 5): first read Player.log's "[SEST Runtime] modifier files" line,
-   which should count 192 files from this pack (RU.1). Makran Line: start
+   which should count 236 files from this pack (RU.1). Makran Line: start
    a new campaign; the Service Record offers Pakistan only, as a Commodore,
    with the flag of Pakistan as emblem. Buy a Tughril, PNS Alamgir and the
    Z-9CE, and assign the Z-9CE to both decks; play The Fuel Road and note
@@ -235,12 +252,11 @@ RETAINED FEATURES
   reviewed files for the supported beta.
 
 The owner accepted the four briefing/costs/page changes on 9 November.
-None of the six parts has been played on that PC yet. PRs #58, #59 and
-#60 are merged on the GitHub deploy branch sest-dev/jolly-ride-rptj4t. This
-toolkit's branch, feature/makran-line-20261111 (not pushed), adds step 5's
-Makran Line campaign. It builds on feature/russia-registration-20261111 (not
-pushed), which adds step 5's Russian Federation registration on
-feature/runtime-awards-campaign-20261111 (PR #62, in review), which adds Red
-Line step 4's campaign side on feature/builder-grammar-20261111 (PR #61, in
-review on GitHub), which adds Red Line step 3 on top of PRs #58 to #60.
+None of the six parts has been played on that PC yet. PRs #58 to #65 are
+merged on dev, with the Steam images for R12 and the world campaign; step 5's
+Russian Federation registration is on feature/russia-registration-20261111, in
+review, and step 5's Makran Line on feature/makran-line-20261111 (not
+pushed), which builds on it. This toolkit's branch, beta, is the branch the
+PC installs, tests and posts from (docs/BRANCHES.md); it carries what dev
+holds when the toolkit is built.
 Nothing has been uploaded to Steam.

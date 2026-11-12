@@ -1,5 +1,7 @@
 # Aligning a Sea Power install with this branch
 
+> **Branches since 11 November 2026** (docs/BRANCHES.md): the PC installs and tests `beta`, which `data/deploy-branch.txt` names; work merges into `dev` by pull request; `steam` is what is live on the Workshop. Where this guide names `sest-dev/jolly-ride-rptj4t` for a pull or install, use `beta`; push changes to a feature branch and open a pull request into `dev` instead of pushing to it.
+
 > The current procedure, with the counts for a pack that carries all three
 > campaigns, is `../southern-reach/install-alignment.md`. This file is kept
 > for the failure it records and the checks it explains; its step counts are
@@ -43,17 +45,17 @@ Then use the path it prints:
 
 ```powershell
 cd C:\Users\<you>\Seapower-mods      # the real path, no angle brackets
-git fetch origin sest-dev/jolly-ride-rptj4t
-git checkout sest-dev/jolly-ride-rptj4t
-git pull origin sest-dev/jolly-ride-rptj4t
+git fetch origin beta
+git checkout beta
+git pull origin beta
 ```
 
 Check, and do not skip this:
 
 ```powershell
-git branch --show-current          # sest-dev/jolly-ride-rptj4t
+git branch --show-current          # beta
 git log --oneline -1               # note the short hash
-Get-Content data\deploy-branch.txt # sest-dev/jolly-ride-rptj4t
+Get-Content data\deploy-branch.txt # beta
 ```
 
 `data\deploy-branch.txt` is what `sync-sest.ps1` refuses to run against a

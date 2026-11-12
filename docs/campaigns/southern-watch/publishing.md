@@ -1,5 +1,7 @@
 # Publishing the SEST Integration Pack to the Steam Workshop
 
+> **Branches since 11 November 2026** (docs/BRANCHES.md): the PC installs and tests `beta`, which `data/deploy-branch.txt` names; work merges into `dev` by pull request; `steam` is what is live on the Workshop. Where this guide names `sest-dev/jolly-ride-rptj4t` for a pull or install, use `beta`; push changes to a feature branch and open a pull request into `dev` instead of pushing to it.
+
 Open this before every upload. The pack is live and Public, so an update that
 goes up broken reaches every subscriber at once, and the comments arrive
 before the patch does.

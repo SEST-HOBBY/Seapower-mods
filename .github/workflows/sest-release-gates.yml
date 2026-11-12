@@ -13,7 +13,9 @@ name: SEST release gates
 on:
   pull_request:
     branches:
-      - sest-dev/jolly-ride-rptj4t
+      - dev
+      - beta
+      - steam
   workflow_dispatch:
 
 permissions:
