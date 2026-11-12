@@ -3,69 +3,69 @@
   "out": "../source/visuals/steam/pack-1-latest-update.jpg",
   "bg": "../../media-pack/source/images/command/caoc.jpg",
   "pos": "center 40%",
-  "kicker": "LATEST UPDATE  ·  R12  ·  10 NOVEMBER 2026",
-  "head": "A world campaign, national commanders, F11 operations.",
+  "kicker": "LATEST UPDATE  ·  R13  ·  NOVEMBER 2026",
+  "head": "A Pakistan Navy campaign, the Russian Federation, R13.",
   "cols": [
    {
-    "label": "GLOBAL MARITIME OPS 2028",
+    "label": "MAKRAN LINE (NEW)",
     "items": [
      [
-      "196 bases worldwide",
-      "40 more real airfields"
+      "Four new missions",
+      "Pakistan Navy, North Arabian Sea"
      ],
      [
-      "Eight command stages",
-      "renown unlocks recruitment"
+      "Hold the tanker road",
+      "Gwadar Roads, Hangor, Port Qasim"
      ],
      [
-      "Supply you can cut",
-      "depots, convoys, airlift, oilers"
+      "Tughril frigates, JF-17s",
+      "Z-9CE, Sea King, ZDK-03"
      ],
      [
-      "Battle preparation (beta)",
-      "paused checklist, End battle..."
+      "Pakistan Navy command",
+      "Commodore, fictional ribbons"
      ]
     ]
    },
    {
-    "label": "COMMANDERS & AWARDS",
+    "label": "RUSSIAN FEDERATION",
     "items": [
      [
-      "14 navies to command",
-      "Southern Watch and Southern Reach"
+      "Post-1991 Russian ships",
+      "Gorshkov, Yasen, Borei, Buyan-M"
      ],
      [
-      "Your nation's awards",
-      "at your commander's rank"
+      "Modern refits only",
+      "Kuznetsov 2016, Ustinov 2016"
      ],
      [
-      "Sulu Line commanders",
-      "Philippine, Thai or Australian"
+      "Post-1991 aircraft",
+      "Su-57, Su-35S, MiG-31BM, Su-33"
      ],
      [
-      "Unit citations",
-      "Australian MUC, Philippine PUC"
+      "Cold War stays Soviet",
+      "stock missions unchanged"
      ]
     ]
    },
    {
-    "label": "ALSO IN R12",
+    "label": "ALSO IN R13",
     "items": [
      [
-      "F11 Operations (beta)",
-      "overview, forces, costs, service"
+      "Mission ribbons (beta)",
+      "Red Line: Silent Passage, Recovery"
      ],
      [
-      "Combat costs",
-      "estimated USD, in the debrief"
+      "Runtime 1.6.5 / UI 1.4.15",
+      "SETUP repairs earlier beta installs"
      ],
      [
-      "25 world ribbons (beta)",
-      "battles, theatres, Admiralty orders"
+      "Failed stays failed",
+      "a defeat no longer cancels a loss"
      ],
      [
-      "Growler flights",
-      "HARM, AARGM and AARGM-ER"
+      "Commanders & awards",
+      "14 nations, 11 with own awards"
      ]
     ]
    }
@@ -86,7 +86,7 @@
   "head": "One mod folder. One entry at the top of your Mod Manager.",
   "cols": [
    {
-    "label": "FOUR CAMPAIGNS",
+    "label": "FIVE CAMPAIGNS",
     "items": [
      [
       "Southern Watch",
@@ -101,8 +101,8 @@
       "PLA Navy · 9 missions · Nov 2028 on"
      ],
      [
-      "Sulu Line",
-      "Philippine Navy · 10 missions"
+      "Sulu Line · Makran Line",
+      "Philippine 10 · Pakistan 4 missions"
      ]
     ]
    },
@@ -150,8 +150,8 @@
    }
   ],
   "foot": [
-   "Open Allocation from Weapons Free, Tasman Crossing and Red Line's first mission.",
-   "Needs the 203 mods in the collection. Built for Sea Power 0.8.7."
+   "Allied fleet of 52 ship classes from Weapons Free and Tasman Crossing.",
+   "Needs the 201 mods in the collection. Built for Sea Power 0.8.7."
   ],
   "credit": [
    "Photo: U.S. Navy, JO2 Patrick Reilly · Public domain · adapted",
@@ -298,7 +298,7 @@
   "title": "SEST",
   "title2": "INTEGRATION PACK",
   "sub": "MODERNISED CAMPAIGNS",
-  "line": "4 campaigns  ·  a world campaign  ·  one-click SETUP",
+  "line": "5 campaigns  ·  a world campaign  ·  one-click SETUP",
   "credit": [
    "Photo: U.S. Air Force, SrA J. Michael Peña · Public domain · adapted",
    "via Wikimedia Commons"
@@ -311,7 +311,7 @@
   "pos": "55% center",
   "title": "SEST",
   "sub": "MODERNISED CAMPAIGN COLLECTION",
-  "line": "4 campaigns  ·  a world campaign  ·  2028–29",
+  "line": "5 campaigns  ·  a world campaign  ·  2028–29",
   "credit": [
    "Photo: Japan Maritime Self-Defense Force · CC BY 4.0 · adapted",
    "creativecommons.org/licenses/by/4.0 · via Wikimedia Commons"
@@ -336,10 +336,10 @@
   "pos": "center 55%",
   "title": "SEST",
   "kicker": "MODERNISED CAMPAIGN COLLECTION",
-  "sub": "Four campaigns and a world campaign  ·  2028–29",
+  "sub": "Five campaigns and a world campaign  ·  2028–29",
   "stats": [
    [
-    "80",
+    "84",
     "MISSIONS"
    ],
    [
