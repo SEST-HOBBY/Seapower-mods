@@ -146,12 +146,21 @@ WHAT IS NEW SINCE THE R12 RIBBON TEST BUILD
   Turning off writes %LOCALAPPDATA%\SEST\BetaCompatibility\features-off.json,
   which SETUP respects. The publishing copy now uses a short folder,
   StreamingAssets\SEST_UP_<8 hex>.
+- Workshop capture of 12 Nov 2026 (b362b5cf): 42 author updates taken in.
+  The standalone J-8, J-11 and Y-8/Y-9 family left the Workshop and the
+  load order (200 Workshop mods: the collection's 199 and the B-21
+  Raider); the PLAAF Aircraft Pack flies Southern Watch's J-11BG and
+  J-8Fs. Collection Fixes defines the KQT-8 MAD of the PLAN Pack's Y-8FQ
+  and Y-9FQ and the ZDK-03's RWR, and restores the game's R-27T/ER/ET.
+  The capture's game is 0.9.0 Build 261111 (buildid 26599367); this
+  update still targets 0.8.7, and the Anchorchain Expansion now declares
+  0.9.0 to 0.10.0 only (validation.json).
 
 PREPARE AND CHECK
 1. Close Sea Power. Keep SEST and the collection subscribed. Extract this
    COMPLETE toolkit into a NEW folder and run Prepare-PC.cmd. Keep the
    printed release checkout, the backup path and the line "VERIFIED: all
-   4576 canonical upload files match the release manifest." Upload-PC.cmd
+   4583 canonical upload files match the release manifest." Upload-PC.cmd
    prints the folder to upload (step 6).
    Prepare-PC installs both code and campaign/loadout data; Repair-PC alone
    only repairs code. The author-update guard and original restore journal
