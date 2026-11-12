@@ -125,3 +125,20 @@ checked offline against the installed public build and available historical
 release/beta assemblies, including four-thread tests with the installed workers,
 MultiStage API checks and MissileControl waypoint composition. In-game flight
 acceptance remains pending.
+Version 1.2.1: launcher range comparisons convert the native horizontal kinematic range to slant range. The native flyout model continues to account for altitude separately. Failed inbound intercept searches receive a bounded interior search, preserving subsequent native speed, lifetime and arrival-margin checks. The same recovery hooks apply to both supported numerical workers. Unknown layouts disable this correction with a diagnostic.
+No new INI keys are needed. No fixed installation folder is required; owner activation supports local and numeric Workshop folders. Diagnostics/settings remain in the game user-data directory.
+Offline evidence and exact artifact: X:\Modding\Sea Power Modding\SM6RangeFix-20261025. This is not an in-game interception guarantee.
+
+## Manual AAW missile interception (1.2.2)
+
+With OptimalTargetDist enabled, missiles attacking air targets can be selected for
+manual engagement with suitable anti-air weapons. The native seeker can also
+accept them. No additional INI key or ExtendedGuidance update is required.
+
+Weapon exclusions, target tracking, sensor/illumination requirements, range,
+altitude and launcher checks still apply. This does not guarantee a hit.
+Automatic target priorities and IsInterceptable flags remain native.
+The target missile keeps its original guidance, flight state and fuze behavior.
+
+Both target-validation hooks are checked before installation; unknown game layouts
+disable this feature with an English diagnostic. Restart the game after updating.

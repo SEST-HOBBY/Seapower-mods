@@ -1,4 +1,45 @@
-v3.49 - 20261025
+v1.61 - 20261112
+
+	- Added support for game update 0.9.0
+	- L61: Changed the LandingInterval value to 50 for aircraft landing points.
+	- L61: Changed the LandingInterval value to 60 for helicopter landing points.
+	- L61: Updated Marshal Paths to avoid issues in the latest beta.
+
+v1.60 - 20261110 - Happy Birthday Inma Edition.
+
+
+	NEW: Ski-jump operational, following the takeoff curve
+
+	- New versions of the AB212 and SH3D, specific to the L51 Galicia and L52 Castilla due to the unique angle of their flight decks.
+	- AV-8B and AV-8B+: Adjusted `GroundedPitchAngle`.
+	- AV-8B and AV-8B+: `StallSpeed` set to 125.
+	- AV-8B+: New "AirToAirLight" loadout, featuring two AIM-9L missiles and a 30mm cannon.
+	- SH-60B: Adjusted Y-axis position on the flight deck.
+	- Adjusted `MinLaunchRange` values ​​for missiles to align with vanilla game values.
+	- IRIS-T, Meteor: Added `DropEjectVelocity=0`.
+	- F110: Adjusted flight deck elevator positions and their associated waypoints.
+	- L50: Adjusted flight deck elevator positions and waypoints.
+	- L61 Juan Carlos I: Ski-jump operational, utilizing the new takeoff curve introduced in the game.
+	- L61 Juan Carlos I: Completely redesigned flight operations for greater realism, mirroring the actual procedures used by the Spanish Armada.
+
+v1.51 - 20261102
+
+	- Review of the version of chaff used on aircraft and ships.
+
+v1.50 - 20261101
+
+	- Added the MinTakeoffDistance value to airplanes and helicopters.
+	- Review of LOD values.
+	- Reviewed the MaxClimbPitch, MaxCombatClimbPitch, MaxDescentPitch, and MaxCombatDescentPitch values ​​for the aircrafts.
+	- Added values ​​for FCSolutionGainRate, FCMinSolution, and FCTracksRounds to the radars that require them.
+	- Updated ECM/ECCM/Chaff values.
+	- Updated CombatSystems values.
+	- AB-8B and AV-8B+: Fixed the explosive cord texture on the cockpit canopy.
+	- C.15: Revised the nose landing gear and its corresponding animation.
+	- C.16: Landing gear animations revised.
+	- L61: Holding point modified following helicopter take-offs.
+
+v1.49 - 20261025
 
 	- Added missing Spanish translations for weapons.
 

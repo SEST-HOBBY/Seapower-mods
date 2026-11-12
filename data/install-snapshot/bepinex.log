@@ -1,7 +1,7 @@
-# BepInEx\LogOutput.log - whole file, 18 line(s), 0.0 MB, last written 2026-10-28T22:40:10. 
+# BepInEx\LogOutput.log - whole file, 20 line(s), 0.0 MB, last written 2026-11-12T22:31:26. 
 [Error  :   BepInEx] Unable to start Unity log writer
-[Message:   BepInEx] BepInEx 5.4.23.2 - Sea Power (15/10/2026 4:59:12 PM)
-[Info   :   BepInEx] Running under Unity v6000.0.84.7908207
+[Message:   BepInEx] BepInEx 5.4.23.2 - Sea Power (12/11/2026 10:29:37 PM)
+[Info   :   BepInEx] Running under Unity v6000.0.85.11544624
 [Info   :   BepInEx] CLR runtime version: 4.0.30319.42000
 [Info   :   BepInEx] Supports SRE: True
 [Info   :   BepInEx] System platform: Bits64, Windows
@@ -12,8 +12,10 @@
 [Message:   BepInEx] Preloader finished
 [Message:   BepInEx] Chainloader ready
 [Message:   BepInEx] Chainloader started
-[Info   :   BepInEx] 1 plugin to load
+[Info   :   BepInEx] 2 plugins to load
 [Info   :   BepInEx] Loading [AnchorChain Preloader 1.0.0]
 [Info   :AnchorChain Preloader] AnchorChain Preloader started!
 [Error  :AnchorChain Preloader] Could not find AnchorChain chainloader
+[Info   :   BepInEx] Loading [SEST Beta Safe Anchor Chain 0.5.0]
+[Warning:SEST Beta Safe Anchor Chain] Beta safe loader INACTIVE: uninspected game/preloader build.
 [Message:   BepInEx] Chainloader startup complete

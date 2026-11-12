@@ -1,7 +1,7 @@
 # Pictures and films under StreamingAssets\original, and Workshop pictures named
 # for loading screens, backgrounds or menus. Relative path, size in KB.
 
-original\: 558 picture/film file(s)
+original\: 704 picture/film file(s)
 
 [campaigns\linear-campaign-proto-1\art]  48 file(s)
   00_campaign_background.png                                      2,448
@@ -148,7 +148,7 @@ original\: 558 picture/film file(s)
   presidential_unit_citation.png                                     21
   silver_star_medal_citation.png                                     90
 
-[campaigns\pacific-strike-task-force\art\ribbons]  18 file(s)
+[campaigns\pacific-strike-task-force\art\ribbons]  20 file(s)
   australian_distinguished_service_cross_ribbon.png                   1
   bronze_star_medal_ribbon.png                                        3
   combat_action_ribbon.png                                            3
@@ -162,6 +162,8 @@ original\: 558 picture/film file(s)
   navy_distinguished_service_medal_ribbon.png                         3
   navy_expeditionary_medal_ribbon.png                                 3
   navy_unit_commendation_ribbon.png                                   3
+  order_of_the_bath_kcb.png                                           1
+  pacific_action_medal_rosette.png                                    4
   presidential_unit_citation_ribbon.png                               3
   silver_star_medal_ribbon.png                                        3
   task_group_commendation_ribbon.png                                  3
@@ -238,6 +240,163 @@ original\: 558 picture/film file(s)
   10_WestLuzon_Close.png                                            132
   WesternPacificFar.png                                             574
 
+[campaigns\south-atlantic-1982-argentina\art]  45 file(s)
+  19820503_belgrano_sinking_playtest.jpg                            132
+  ar_end_argentine_flag.jpg                                         330
+  ar_end_argentine_pilots.jpg                                       166
+  ar_end_argentine_prisoners.jpg                                    185
+  ar_end_darwin_cemetery.jpg                                         79
+  ar_end_exeter_homeward.jpg                                        231
+  ar_end_norland_repatriation.jpg                                   146
+  ar_end_perez_de_cuellar.jpg                                       326
+  ar_end_san_julian_pilots.jpg                                      191
+  ar_end_stanley_waterfront.jpg                                     148
+  ar_photo_25_de_mayo.jpg                                           320
+  ar_photo_bahia_buen_suceso.jpg                                    287
+  ar_photo_belgrano.jpg                                             249
+  ar_photo_fearless_san_carlos.jpg                                  151
+  ar_photo_guerrico.jpg                                             114
+  ar_photo_hms_arrow.jpg                                            287
+  ar_photo_kh9_san_carlos.jpg                                       194
+  ar_photo_monsunen.jpg                                             171
+  ar_photo_rfa_olmeda.jpg                                            92
+  ar_reagan_haig_cabinet_1981.jpg                                   342
+  clarin_reference.png                                            1,296
+  costa_mendez_scan.png                                              15
+  cronica_source.png                                              1,668
+  galtieri_balcony.jpg                                              209
+  gente_carriers_sunk_photo.jpg                                      48
+  gente_victory_finish.png                                        2,204
+  gente_victory_photo.png                                         3,396
+  harwich_times_masthead.png                                        355
+  moon_paper_wear.png                                             2,759
+  pebble_pucara_1982.jpg                                            272
+  port_mar_del_plata.jpg                                            177
+  port_puerto_belgrano.jpg                                          523
+  south_atlantic_ar01_sheet.png                                     859
+  south_atlantic_ar02_sheet.png                                     839
+  south_atlantic_ar02a_sheet.png                                    300
+  south_atlantic_ar03_sheet.png                                     628
+  south_atlantic_ar03a_sheet.png                                    593
+  south_atlantic_ar04_sheet.png                                     655
+  south_atlantic_ar05_sheet.png                                     371
+  south_atlantic_ar05a_sheet.png                                    909
+  south_atlantic_ar06_sheet.png                                     735
+  south_atlantic_ar06a_sheet.png                                    736
+  south_atlantic_ar06b_sheet.png                                    352
+  south_atlantic_ar07_sheet.png                                     762
+  umbra_print_grain.png                                           4,660
+
+[campaigns\south-atlantic-1982-argentina\art\citations]  2 file(s)
+  congress-diploma.png                                              349
+  naval-diploma-source.jpg                                          222
+
+[campaigns\south-atlantic-1982-argentina\art\ribbons]  2 file(s)
+  al_esfuerzo_y_abnegacion.png                                      722
+  honor_al_valor_en_combate.png                                   1,052
+
+[campaigns\south-atlantic-1982-argentina\art\tiles]  22 file(s)
+  19820404_clarin_es_tile.png                                        27
+  19820426_comunicado_event_es_tile.png                              10
+  19820502_newspaper_event_es_tile.png                               29
+  19820503_belgrano_signal_event_es_tile.png                         11
+  19820503_extra_carrier_event_es_tile.png                           28
+  19820504_newspaper_belgrano_event_es_tile.png                      28
+  19820506_magazine_event_es_tile.png                                32
+  19820512_cable_event_es_tile.png                                   18
+  19820516_intel_event_es_tile.png                                   23
+  19820521_flash_event_es_tile.png                                   17
+  AR00_intro_es_tile.png                                              7
+  ar06_stanley_skyhawks_event_es_tile.png                            15
+  END_D_0_es_tile.png                                                 7
+  END_D_newspaper_en_tile.png                                        22
+  END_D_newspaper_es_tile.png                                        20
+  END_N_0_es_tile.png                                                 4
+  END_N_newspaper_en_tile.png                                        23
+  END_N_newspaper_es_tile.png                                        24
+  END_V_0_es_tile.png                                                 5
+  END_V_gente_carriers_es_tile.png                                   24
+  END_V_gente_es_tile.png                                            29
+  final_results_0_es_tile.png                                        19
+
+[campaigns\south-atlantic-1982-uk\art]  46 file(s)
+  19820403_newspaper_original_playtest_its_war.png                  463
+  19820426_newspaper_original_playtest_empire_strikes_back.png    1,584
+  19820503_newspaper_original_playtest_gotcha.png                   172
+  19820613_newspaper_original_playtest_victory.png                1,198
+  19820614_instrument_of_surrender.png                            2,055
+  ar_photo_25_de_mayo.jpg                                           320
+  bkg_tile_message.png                                               21
+  bkg_tile_newspaper.png                                             34
+  gotcha_cruiser.png                                              1,225
+  gotcha_gunboat.png                                                767
+  hermes_clean_background.png                                     3,255
+  hermes_screenshot_background.png                                3,415
+  moon_falklands_map.png                                             49
+  moon_paper_wear.png                                             2,759
+  moon_thatcher_halftone.png                                      2,806
+  port_trala.jpg                                                     26
+  raf-wideawake-1982.png                                            818
+  sa1982_campaign_title.png                                           5
+  sa1982_photo_argentine_garrison.jpg                               440
+  sa1982_photo_atlantic_conveyor_aircraft.jpg                       123
+  sa1982_photo_c130_stanley.png                                     710
+  sa1982_photo_falklands.jpg                                        145
+  sa1982_photo_galtieri.jpg                                          38
+  sa1982_photo_hermes_broadsword.jpg                                136
+  sa1982_photo_rn_destroyers.jpg                                    179
+  sa1982_photo_south_georgia_alouette.jpg                            35
+  sa1982_photo_stanley_surrender.png                                678
+  sa1982_photo_super_etendards.png                                  881
+  sa1982_photo_thatcher.png                                         441
+  south_atlantic_uk01_sheet.png                                     570
+  south_atlantic_uk02_sheet.png                                     755
+  south_atlantic_uk02a_sheet.png                                    484
+  south_atlantic_uk02b_sheet.png                                    405
+  south_atlantic_uk03_sheet.png                                     872
+  south_atlantic_uk04_sheet.png                                     582
+  south_atlantic_uk04a_sheet.png                                    286
+  south_atlantic_uk04b_sheet.png                                    405
+  south_atlantic_uk05_sheet.png                                     541
+  south_atlantic_uk06_sheet.png                                     669
+  south_atlantic_uk07_sheet.png                                     591
+  south_atlantic_uk07a_sheet.png                                    440
+  south_atlantic_uk08_sheet.png                                     671
+  south_atlantic_ukNN_sheet.png                                     655
+  umbra_print_grain.png                                           4,660
+  victory_queen_halftone.png                                      1,638
+  victory_thatcher_halftone.png                                   2,169
+
+[campaigns\south-atlantic-1982-uk\art\citations]  1 file(s)
+  royal-arms-1955.png                                                58
+
+[campaigns\south-atlantic-1982-uk\art\ribbons]  9 file(s)
+  argentine_congress_combatants_medal.png                         1,061
+  argentine_navy_combat_operations.png                              912
+  distinguished_service_cross.png                                     0
+  distinguished_service_order.png                                     0
+  distinguished_service_order_bar.png                                 2
+  order_of_the_bath_kcb.png                                           1
+  order_of_the_british_empire_cbe.png                                 0
+  south_atlantic_medal_mid.png                                        3
+  south_atlantic_medal_rosette.png                                   14
+
+[campaigns\south-atlantic-1982-uk\art\tiles]  14 file(s)
+  19820403_newspaper_event_tile.png                                  29
+  19820425_rejoice_event_tile.png                                    12
+  19820426_newspaper_event_tile.png                                  31
+  19820502_fco_sitrep_event_tile.png                                 18
+  19820502_intel_event_tile.png                                      12
+  19820503_newspaper_event_tile.png                                  31
+  19820504_belgrano_guidance_event_tile.png                          14
+  19820506_intel_event_tile.png                                      17
+  19820524_press_on_event_tile.png                                   15
+  19820527_vigour_event_tile.png                                     15
+  19820529_umbra_event_tile.png                                      17
+  19820613_newspaper_event_tile.png                                  28
+  19820614_surrender_event_tile.png                                  20
+  final_results_en_tile.png                                          11
+
 [campaigns\strike-group-molniya-campaign\art]  29 file(s)
   00_campaign_background.png                                      2,448
   01_container_ship_photo.jpg                                        81
@@ -301,6 +460,9 @@ original\: 558 picture/film file(s)
 [missions\Campaign Scenarios\Pacific Strike\01A Senkaku Run_briefing]  2 file(s)
   01A_Senkakus_Close.png                                             69
   WesternPacificFar.png                                             574
+
+[missions\Campaign Scenarios\South Atlantic 1982\Operation Blackbuck 1_briefing]  1 file(s)
+  Attachment_A_Tanker_Plan.png                                      273
 
 [missions\Intro\01 Red Sea Breakout 1988_briefing]  3 file(s)
   Bab_al_Mandab_Close.png                                           280
@@ -459,8 +621,10 @@ original\: 558 picture/film file(s)
   MapClose.png                                                      673
   MapFar.png                                                        765
 
-[reference]  2 file(s)
+[reference]  4 file(s)
+  cw_ceto.png                                                       143
   Earnest_Will_map.png                                               81
+  ngss_ssao_settings_24_05_22.png                                   148
   praying_mantis.jpg                                                594
 
 [scripts\script_infrastructure~\packages\cbor-x\assets]  1 file(s)
@@ -634,7 +798,7 @@ original\: 558 picture/film file(s)
   ... and 58 more
 
 --- Workshop pictures named for loading screens, backgrounds or menus ---
-201 file(s) in 14 mod(s): 3491248180 (30), 3629144864 (10), 3630495619 (4), 3711297532 (2), 3732654992 (24), 3752415457 (2), 3758943352 (1), 3766210676 (3), 3775128499 (15), 3784474738 (1), 3789208859 (8), 3807164392 (1), 3812454152 (2), 3812461539 (98)
+230 file(s) in 15 mod(s): 3491248180 (30), 3629144864 (10), 3630495619 (4), 3711297532 (2), 3732654992 (25), 3752415457 (2), 3758943352 (1), 3766210676 (3), 3775128499 (15), 3784474738 (1), 3789208859 (8), 3807164392 (1), 3812454152 (2), 3812461539 (98), 3820759806 (28)
   3491248180\ui\backgrounds\loading_screen_1.png                                                1,057
   3491248180\ui\backgrounds\loading_screen_10.png                                               2,341
   3491248180\ui\backgrounds\loading_screen_11.png                                               1,038
@@ -698,6 +862,7 @@ original\: 558 picture/film file(s)
   3732654992\ui\backgrounds\loading_screen_22.png                                               2,201
   3732654992\ui\backgrounds\loading_screen_23.png                                               2,947
   3732654992\ui\backgrounds\loading_screen_24.png                                               2,699
+  3732654992\ui\backgrounds\loading_screen_25.png                                                 722
   3732654992\ui\backgrounds\loading_screen_3.png                                                1,942
   3732654992\ui\backgrounds\loading_screen_4.png                                                2,699
   3732654992\ui\backgrounds\loading_screen_5.png                                                2,867
@@ -736,8 +901,8 @@ original\: 558 picture/film file(s)
   3789208859\ui\backgrounds\Euromod - South Korea Navy_loading_screen7.png                      1,951
   3789208859\ui\backgrounds\Euromod - South Korea Navy_loading_screen8.png                      1,289
   3807164392\ui\backgrounds\1.png                                                               1,839
-  3812454152\ui\backgrounds\background_1.png                                                    2,005
-  3812454152\ui\backgrounds\background_2.png                                                    2,888
+  3812454152\ui\backgrounds\HDF.png                                                             2,008
+  3812454152\ui\backgrounds\HDF_2.png                                                           2,164
   3812461539\campaigns\sest-red-line\art\00_campaign_background.png                             1,062
   3812461539\campaigns\sest-southern-reach\art\00_campaign_background.png                       1,713
   3812461539\campaigns\sest-southern-watch\art\00_campaign_background.png                         941
@@ -836,3 +1001,31 @@ original\: 558 picture/film file(s)
   3812461539\ui\backgrounds\loading_screen_8.png                                                  279
   3812461539\ui\backgrounds\loading_screen_80.png                                                 386
   3812461539\ui\backgrounds\loading_screen_9.png                                                  345
+  3820759806\ui\backgrounds\au_bg1.png                                                          1,306
+  3820759806\ui\backgrounds\au_bg10.png                                                         2,504
+  3820759806\ui\backgrounds\au_bg11.png                                                         1,508
+  3820759806\ui\backgrounds\au_bg12.png                                                         1,385
+  3820759806\ui\backgrounds\au_bg13.png                                                         1,763
+  3820759806\ui\backgrounds\au_bg14.png                                                         2,648
+  3820759806\ui\backgrounds\au_bg15.png                                                         2,421
+  3820759806\ui\backgrounds\au_bg16.png                                                         1,384
+  3820759806\ui\backgrounds\au_bg17.png                                                         1,842
+  3820759806\ui\backgrounds\au_bg18.png                                                         2,014
+  3820759806\ui\backgrounds\au_bg19.png                                                         4,372
+  3820759806\ui\backgrounds\au_bg2.png                                                          1,965
+  3820759806\ui\backgrounds\au_bg20.png                                                           999
+  3820759806\ui\backgrounds\au_bg21.png                                                         1,330
+  3820759806\ui\backgrounds\au_bg22.png                                                         2,624
+  3820759806\ui\backgrounds\au_bg23.png                                                         1,644
+  3820759806\ui\backgrounds\au_bg24.png                                                         2,804
+  3820759806\ui\backgrounds\au_bg25.png                                                         2,888
+  3820759806\ui\backgrounds\au_bg26.png                                                         4,261
+  3820759806\ui\backgrounds\au_bg27.png                                                         3,551
+  3820759806\ui\backgrounds\au_bg28.png                                                         3,351
+  3820759806\ui\backgrounds\au_bg3.png                                                          2,608
+  3820759806\ui\backgrounds\au_bg4.png                                                          1,686
+  3820759806\ui\backgrounds\au_bg5.png                                                          2,577
+  3820759806\ui\backgrounds\au_bg6.png                                                          3,493
+  3820759806\ui\backgrounds\au_bg7.png                                                          1,991
+  3820759806\ui\backgrounds\au_bg8.png                                                          1,489
+  3820759806\ui\backgrounds\au_bg9.png                                                          1,504

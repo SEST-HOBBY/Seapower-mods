@@ -1,8 +1,6 @@
 # Lines from Player-prev.log matching Exception/Error/not found/missing/failed.
-# 5 hit(s) - the first place to look when something did not load.
+# 3 hit(s) - the first place to look when something did not load.
 
-     45: [SEST Runtime] task-force debrief correction installed: append explicitly destroyed launch-snapshot hulls missing from section 3
-    130: [CombatWorker 0.2.0] Native fallback: NotSupportedException: Conflicting hook: io.github.yourname.second-thrust / Single CalculateThrustOverTime(SeaPower.AmmunitionParameters, Boolean, Single, Single)
-    142: [IDX][Localization.cs:42 Load] [IDX] localization ini not found for language 'en' or en
-    312: [SEST UI Follow-up] Stutter counter availability: Gfx.WaitForRenderThread [TimeNanoseconds], Gfx.WaitForPresentOnGfxThread [TimeNanoseconds], GC.Collect [TimeNanoseconds], Main Thread [TimeNanoseconds], PlayerLoop [TimeNanoseconds], WaitForTargetFPS [TimeNanoseconds], GC Used Memory [Bytes], GC Reserved Memory [Bytes], CPU Main Thread Frame Time [TimeNanoseconds], CPU Render Thread Frame Time [TimeNanoseconds], GPU Frame Time [TimeNanoseconds]; incremental GC=True. Missing counters are unavailable, not zero. First window includes diagnostic startup.
-    774: [SEST UI Follow-up] Stutter counter availability: Gfx.WaitForRenderThread [TimeNanoseconds], Gfx.WaitForPresentOnGfxThread [TimeNanoseconds], GC.Collect [TimeNanoseconds], Main Thread [TimeNanoseconds], PlayerLoop [TimeNanoseconds], WaitForTargetFPS [TimeNanoseconds], GC Used Memory [Bytes], GC Reserved Memory [Bytes], CPU Main Thread Frame Time [TimeNanoseconds], CPU Render Thread Frame Time [TimeNanoseconds], GPU Frame Time [TimeNanoseconds]; incremental GC=True. Missing counters are unavailable, not zero. First window includes diagnostic startup.
+     56: [SEST Runtime] task-force debrief correction installed: append explicitly destroyed launch-snapshot hulls missing from section 3
+    137: [CombatWorker 0.3.1] Native fallback: NotSupportedException: Conflicting hook: io.github.yourname.second-thrust / Single CalculateThrustOverTime(SeaPower.AmmunitionParameters, Boolean, Single, Single)
+    143: [IDX][Localization.cs:42 Load] [IDX] localization ini not found for language 'en' or en

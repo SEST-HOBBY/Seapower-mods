@@ -1,6 +1,6 @@
 Anduril Maritime Drones
 
-Requires Anchor Chain and its preloader setup. Enable Anduril Maritime Drones in the mod menu and restart Sea Power.
+Requires Alpine Mod Loader. Enable Anduril Maritime Drones in the mod menu and restart Sea Power.
 
 Included vehicles
 Dive-LD: survey, mine countermeasures and a variant with two Copperhead-100M torpedoes.
@@ -8,8 +8,6 @@ Dive-XL: variants with four Copperhead-500M or 24 Copperhead-100M torpedoes.
 Copperhead-100 and Copperhead-500: unarmed survey vehicles.
 K5 KRAKEN: reconnaissance, a strike variant with two Copperhead-100M torpedoes, and one-way attack.
 
-Scenarios
-Find all four missions under Anduril Maritime Trials: Dive-LD Mine Clearance, Copperhead Strike, K5 KRAKEN One-Way Attack and Anduril Showcase. The showcase brings all ten variants onto one daylight range.
 
 Controls and tips
 Give survey vehicles waypoints. Without a route they remain near their starting position.

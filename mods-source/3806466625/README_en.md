@@ -1,14 +1,14 @@
-# V-22 Osprey / SV-22 2024 — 1.1.45
+# V-22 Osprey / SV-22 2024 — 1.1.46
 
 Includes the US MV-22B, Japanese V-22B and fictional SV-22 2024 ASW variant under the Naval tiltrotor category. On 2026-10-12, the user confirmed that continuous SV-22 dipping-sonar tasks work in game.
 
 ## Installation and updates
 
-1. Install and enable Anchor Chain (Workshop ID 3380210757) and its required loader.
+1. Install and enable Anchor Chain 1.2.0 (Workshop ID 3380210757), and manually update the preloader from its official 1.2.0 release. Updating the Workshop subscription alone is insufficient for Sea Power 0.9.0.
 2. Place the `V-22` folder in `Sea Power_Data/StreamingAssets/`, with `_info.ini` at the mod root.
 3. Enable the mod. After updating plugins, fully exit and restart the game. Avoid enabling another Osprey copy at the same time.
 
-Current plugins: mechanics 1.1.45 and deck operations 1.1.36, for the installed Sea Power 0.8.5 Build 261008. This cleanup retains the working plugin binaries and resources.
+Current plugins: mechanics 1.1.46 and deck operations 1.1.37, for Sea Power 0.9.0 Build 261111. Mechanics now uses the speed-request API, tracks order ownership by revision and request value, and snapshots the previous request before sonar control. Deck operations is rebuilt against the updated game with its existing behavior preserved.
 
 ## Aircraft and functions
 
