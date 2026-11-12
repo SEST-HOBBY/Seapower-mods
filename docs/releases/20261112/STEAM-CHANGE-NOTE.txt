@@ -1,0 +1,11 @@
+SEST R13 - Five campaigns, national command, world operations and refinements
+
+MAKRAN LINE: Four new Pakistan Navy missions — The Fuel Road, Gwadar Roads, Hangor and Port Qasim. Escort and protect merchant traffic, defend Gwadar and track the fictional Meridian Maritime Group. Pakistan Navy frigates, helicopters and later Air Force assets use the available collection roster; ships rearm between missions.
+
+RUSSIA: Selected post-1991 Russian-built hulls now register as the Russian Federation. Soviet-built hulls, their later refits and aircraft retain their existing registrations.
+
+BETA R13: Runtime 1.6.5 and UI 1.4.15 on supported Sea Power public beta 0.8.7-261107. Two Red Line mission ribbons use the runtime's debrief evaluation, and qualifying Admiralty outcomes can be recorded when filed.
+
+ALSO INCLUDED: Four earlier Task Force campaigns, 14 Southern Watch/Southern Reach commander nations (11 with national awards), Sulu Line commander options, F11 World Operations, Cumulative Combat Costs, the 196-base worldwide Dynamic Campaign and refinements to Red Line victory paths, air/naval operations and interoperability.
+
+INSTALL: Subscribe to the required collection, close Sea Power and rerun SETUP after the Workshop update. New beta installs need SETUP, a brief main-menu launch, quit and SETUP again. Start a new world campaign for the complete updated map. Older game versions use their normal compatible plugins.
