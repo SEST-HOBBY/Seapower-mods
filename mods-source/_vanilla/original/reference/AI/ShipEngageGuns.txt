@@ -1,0 +1,49 @@
+Define ShipEngageGuns
+
+If TargetType = Surface
+
+	Close Range < MaxRange * 0.5 //Effective Range
+	
+			Set FireControlRadar On
+	
+			Maintain TargetBearing = Broadside
+			
+			Set FiringMode = Spot
+			
+			If TargetHit = True
+			
+			Set FiringMode = Continuous
+	
+	If $TargetKilled = False
+	
+		Reattack
+		
+If TargetType = Air
+
+	Maintain TargetBearing = Broadside
+
+	Check Range < MaxRange * 0.35 //Effective Range vs Air 
+	
+			Set FireControlRadar On
+			
+			Set FiringMode = Continuous
+	
+	If $TargetKilled = False
+	
+		Reattack
+
+If TargetType = Land
+
+	Maintain TargetBearing = Broadside
+
+	Check Range < MaxRange //Effective Range vs Land 
+	
+			Set FiringMode = Spot
+			
+			If TargetHit = True
+			
+			Reattack
+	
+	If $TargetKilled = False
+	
+		Reattack			

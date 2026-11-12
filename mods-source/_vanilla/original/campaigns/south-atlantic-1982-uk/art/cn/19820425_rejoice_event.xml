@@ -1,0 +1,62 @@
+<Viewbox xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+              Stretch="Uniform" StretchDirection="DownOnly">
+  <!-- Fit the complete sheet within the FreeEvent viewport, preserving its aspect ratio. -->
+  <Border Width="900" Height="1280" HorizontalAlignment="Center" VerticalAlignment="Top"
+          BorderBrush="#777C72" BorderThickness="1" TextElement.Foreground="#363A35"
+          TextElement.FontFamily="/Assets/Resources/ui/fonts/#Special Elite" TextElement.FontSize="20">
+    <Border.Background>
+      <LinearGradientBrush StartPoint="0,0" EndPoint="1,0.8">
+        <GradientStop Color="#D8DCD2" Offset="0"/>
+        <GradientStop Color="#E7E9DF" Offset="0.35"/>
+        <GradientStop Color="#DADFD5" Offset="0.78"/>
+        <GradientStop Color="#C9CEC5" Offset="1"/>
+      </LinearGradientBrush>
+    </Border.Background>
+    <Canvas ClipToBounds="True">
+      <!-- Filing damage and uneven stamp impression -->
+      <Path Fill="#333832" Data="M 41,57 C 53,57 62,65 65,77 C 62,89 52,94 44,88 L 39,77 Z"/>
+      <Path Stroke="#70776B" StrokeThickness="1.1" Data="M 42,62 L 31,45 29,29 23,19 21,5 M 35,48 L 43,52 44,65"/>
+      <Path Stroke="#83887D" Opacity="0.35" Data="M 1,3 L 179,1 331,4 503,1 738,3 897,1 M 895,2 L 897,297 894,575 898,881 896,1278 M 57,1243 L 67,1239 79,1241 M 82,1233 L 92,1227"/>
+
+      <!-- Typed precedence stamp -->
+      <Canvas Canvas.Left="538" Canvas.Top="22" RenderTransformOrigin="0.5,0.5" Opacity="0.52">
+        <Canvas.RenderTransform><RotateTransform Angle="-2"/></Canvas.RenderTransform>
+        <Path Stroke="#74776D" StrokeThickness="1.5" StrokeDashArray="3,1,1,2"
+              Data="M 0,0 L 219,0 221,54 0,56 Z"/>
+        <TextBlock Canvas.Left="12" Canvas.Top="13" Text="IMMEDIATE" FontSize="32" Foreground="#73776D"/>
+        <Path Stroke="#E2E6DC" StrokeThickness="2.5" Opacity="0.9"
+              Data="M 7,25 L 208,21 M 15,39 L 211,35 M 52,8 L 56,48 M 150,6 L 155,48"/>
+        <TextBlock Canvas.Left="-16" Canvas.Top="65" Text="ADVANCE COPY" FontSize="27" Foreground="#77796F" Opacity="0.8"/>
+        <Path Stroke="#E2E6DC" StrokeThickness="2" Data="M -15,83 L 240,78 M -9,89 L 215,92"/>
+      </Canvas>
+
+      <Canvas Canvas.Left="92" Canvas.Top="204">
+        <Canvas.RenderTransform><RotateTransform Angle="-0.3"/></Canvas.RenderTransform>
+        <TextBlock Width="722" TextWrapping="Wrap" LineHeight="28" LineStackingStrategy="BlockLineHeight">
+          ZNY CCCCC<LineBreak/>
+          Z 251735Z APR 82<LineBreak/>
+          FM HMS ANTRIM<LineBreak/>
+          TO RBDEC/CINCFLEET<LineBreak/>
+          INFO RBDWC/MODUK NAVY<LineBreak/>
+          RBDWDFA/FCO LONDON<LineBreak/>
+          RBDWDFA/HMA BUENOS AIRES<LineBreak/>
+          BT<LineBreak/>
+          C O N F I D E N T I A L<LineBreak/>
+		  <LineBreak/>
+		  <LineBreak/>
+		  SOUTH GEORGIA 251100Z<LineBreak/>
+		  <LineBreak/>
+		  1. BE PLEASED TO INFORM HER MAJESTY THAT THE WHITE ENSIGN FLIES ALONGSIDE THE UNION JACK IN SOUTH GEORGIA.
+		  <LineBreak/>
+		  <LineBreak/>
+		  2. GOD SAVE THE QUEEN.
+		  <LineBreak/>
+		  <LineBreak/>
+		  BT
+        </TextBlock>
+      </Canvas>
+      <TextBlock Canvas.Left="91" Canvas.Top="1121" Text="NNNN"/>
+    </Canvas>
+  </Border>
+</Viewbox>

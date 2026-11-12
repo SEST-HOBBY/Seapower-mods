@@ -1889,7 +1889,7 @@
       "requires": [
         "anchor-chain (presumed — UI code mod; verify)"
       ],
-      "notes": "VERIFIED: pure code mod (settings.cfg only in export) — Anchor Chain family UI overhaul. 19 Oct 2026 update: BetterTacMap.dll rebuilt (51,712 -> 64,000 bytes): closest point of approach, contact age, an optional exact enemy depth (off by default) and map-layer hotkeys. Seen loading in the 19 Oct log. 3 Nov 2026: settings.cfg lost its 24 description comments on the PC; every value is unchanged and Steam shows no Workshop update, so this is the plugin rewriting its own config."
+      "notes": "VERIFIED: pure code mod (settings.cfg only in export) — Anchor Chain family UI overhaul. 19 Oct 2026 update: BetterTacMap.dll rebuilt (51,712 -> 64,000 bytes): closest point of approach, contact age, an optional exact enemy depth (off by default) and map-layer hotkeys. Seen loading in the 19 Oct log. 3 Nov 2026: settings.cfg lost its 24 description comments on the PC; every value is unchanged and Steam shows no Workshop update, so this is the plugin rewriting its own config. 12 Nov 2026: updated by its author between the day's Workshop capture and the export of the game's 0.9.0 files (8f3e4bc6). _info.ini now declares ApproximateVersion 0.9.1 (it was 0.8.5), above the game's 0.9.0, so the Mod Manager lists it as not compatible and SETUP names it and leaves it alone. settings.cfg is no longer in the folder: the plugin writes that file when it runs, and no code mod loaded on 0.9.0 in that capture. The updated DLL has not been captured (plugin-dlls.txt still lists the 19 Oct build, f1bdd2c2)."
     },
     {
       "id": "arrw",

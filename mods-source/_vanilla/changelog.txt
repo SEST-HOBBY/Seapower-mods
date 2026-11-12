@@ -3,6 +3,394 @@ Change log
 
 ===============================================================================
 
+11-Nov-2026: 0.9.0 Build 261111 Public Release
+----------------------------------------------
+[FIX] Campaign: damaged units from dynamic generation were sometimes reported as kills
+[FIX] Campaign: destroyed task forces remained in the campaign roster
+[FIX] Campaign: player task force could be reset by the mission briefing
+[FIX] Campaign: moving a CAP on the campaign map only moved its leader in the mission
+[FIX] Campaign: formations created by dynamic unit generation spawned on top of each other
+[FIX] Campaign: Pacific Strike: underwater land units in mission 06
+[FIX] Campaign: Pacific Strike: underwater land units in 04 Sunda Strait and 09 Shadows off Palawan
+[FIX] Task Force Mode: campaigns did not always grant reward aircraft, e.g. after 04 Sunda Strait (Pacific Strike)
+[FIX] Mission Editor: wrong number of ready aircraft in the flight deck
+[FIX] Mission Editor: Disabled aircraft reverted to the nearest base on load instead of their assigned home base
+[FIX] Mission Editor: aircraft formations fell back to Individual, so followers did not pick up attack waypoints
+[FIX] Mission Editor: trigger zones centered on a unit passed wrong coordinates to the new globe system
+[FIX] Mission Editor: campaign variables could be applied to other missions
+[FIX] Triggers: disabled units could satisfy out-of-ammo conditions
+[FIX] Helicopters: helicopter code ran at twice the intended speed
+[FIX] Helicopters: terrain checks and vertical angle limits for engagements
+[FIX] Dive attacks could be impossible in certain cases
+[FIX] Leader attack cancelled the attack of a wingman in MoveToEngage state (aircraft)
+[FIX] VTOL and STOL leaders did not wait for their wingmen
+[FIX] Aircraft could get stuck in the DisembarkElevator state
+[FIX] Aircraft groups without an explicit control mode now default to Follow Leader
+[FIX] Propellers were shown after an aircraft was destroyed
+[FIX] Torpedoes could hit the ship that launched them
+[FIX] CIWS used flat hit rolls instead of its ballistics
+[FIX] Shell and CIWS spherecast data piled up when raycast commands were off
+[FIX] Weapons: R-40RD/TD seeker type mix-up in localization
+[FIX] Wire-guided torpedoes: wire-guidance limitations were implemented incorrectly, and the launching unit did not attack or slow down while above wire break speed
+[FIX] Torpedo fans and multi-attachment torpedo tubes
+[FIX] Bombs dropped from low altitude could miss their target
+[FIX] Fix for missiles dragging after being dropped from aircraft
+[FIX] Unguided bombs jumped sideways on release
+[FIX] Gunnery against aircraft and missiles was more inaccurate than expected
+[FIX] Radar lookdown could ignore targets at long range or count ships as being in lookdown
+[FIX] Passive sonar underperformed in the MF/HF bands
+[FIX] Vessels could get a strong push and roll heavily right at the mission start
+[FIX] Units: Soviet sonar frequencies
+[FIX] Units: LOD and damage model fixes for several aircraft and large caliber guns, Mirage III pivots, S-2 depth bomb pylon placement
+[FIX] Ships and submarines did not react to straight-running torpedoes
+[FIX] Whales: depth changes and states could be off in some cases
+[FIX] Units: F-15A/C: 20mm ammo count (675 -> 940)
+[FIX] Units: F-15A: removed DECM and countermeasures, neither were common in service in the 80s
+[FIX] Initial camera at mission start always faced north, so it could look at the first unit straight from behind or ahead. It now looks at it from behind and to the side
+[FIX] Unit icons in formations could disappear. Possible fix for units that could not be selected or controlled after a formation was disbanded
+[FIX] Missing tactical map settings when a mod overrides the default UI ini
+[FIX] Positions of stations on rotated parent objects
+[FIX] Map: group placement, display round the poles and the 180 degree line, shorelines and terrain mapping with the LCC projection
+[FIX] Diamonds appeared over sonobuoy waypoints
+[FIX] Wrong anchor for formations made up of stationary units
+[FIX] Seconds of the game clock did not tick correctly
+[FIX] Mods could not bake models
+[FIX] Voiceovers: removed unnecessary "track" from "Birds Away" for uk_male_1
+[FIX] Audio clipping caused by comb filtering
+[FIX] Rolling Replay: jitter of weapons attached to aircraft and stuttering shells
+[FIX] Certain weapons could not be used for attack waypoint generation and Engage from the context menu
+[FIX] Exception when quitting the game
+[FIX] Exception during unit metadata loading
+[FIX] XAML parse error in the main menu news window
+[FIX] More file checks that did not work with CrossOver on macOS
+[FIX] Escape could resume a mission that had already ended
+[FIX] Mission scripts could stop running after a long frame
+[FIX] Campaign map reacted to the mouse while the pause menu was open
+[FIX] Callsigns could use the wrong squadron
+[FIX] Weapon names show the English text instead of "MISSING TEXT" when a translation is missing
+
+[UPD] Campaign: Task Force Mode: commander and awards tab in the F10 panel, custom XAML templates for commander citations
+[UPD] Campaign: Dynamic Unit Generation supports prioritized slots and fallback types, e.g. to prefer certain units while always being able to fill a slot
+[UPD] Scenarios: removed some broken or outdated scenarios, to be replaced with updated versions later
+[UPD] Scenarios: 01A Senkaku Run: reworked enemy setup for the mechanics changes
+[UPD] Mission Editor: Load and Save As now open in the current mission folder
+[UPD] Mission Editor: despawned units (e.g. leaving the battle area) are no longer counted as destroyed
+[UPD] Mission Editor: improved sides editor, now with a relation matrix view
+[UPD] Mission Editor: UnitTypes now override UnitType in trigger conditions
+[UPD] Mission Editor: patrol zones are no longer removed from missions when saving (full UI editing will follow)
+[UPD] AI: populated Soviet OODA systems. SA-N-4 and Sea Sparrow now work independently of the OODA systems
+[UPD] Aircraft keep their climb or dive rate during the death animation
+[UPD] Aircraft cannons: muzzle gas effect and louder firing sound
+[UPD] Weapon report now lists weapon failures
+[UPD] EXPERIMENTAL: Weapons: terminal loft for non-kinematic missiles
+[UPD] Weapons: reworked launch, seeker and warhead reliability, pitch rates, armor and bombing values for many missiles and bombs
+[UPD] Weapons: rebalanced CIWS
+[UPD] Weapons: HE rounds now ignore half of the target's armor
+[UPD] Weapons: dramatically reduced minimum range for most AAMs
+[UPD] Weapons: rebalanced cannon hit rates against air targets
+[UPD] Weapons: increased accuracy of the Mk 45 5"/54 gun
+[UPD] Weapons: increased damage of Terrier, Tartar, Standard, SA-N-6 and SA-N-7 in ASuW mode
+[UPD] Weapons: slightly improved low-altitude performance of Aspide Mk.1, SA-11 and SA-N-6
+[UPD] Weapons: Mk 112 ASROC launcher horizontal turn rate increased (30 -> 45)
+[UPD] Weapons: new rocket motor effects for most weapons, new volumetric rocket plumes for larger SAMs and AAMs
+[UPD] Weapons: turbojet-powered missiles (e.g. Harpoon, TLAM) have turbine cruise sounds, rocket sustainer cruise missiles (e.g. Exocet) have rocket sounds
+[UPD] Sensors: improved sonar and narrowband handling
+[UPD] Sensors: very slight night vision for the 'Eyes' and 'Optics' visual sensors
+[UPD] Units: revised damage points and fire control of AAA, coastal artillery and Rapier
+[UPD] Units: AH-1J (IRIAF) received an anti-ship loadout with AGM-65B
+[UPD] Units: increased turn rates for MiG-17, J-5, F-5 (PLA) and Lim-6
+[UPD] Units: civilian airliners, transports and airliner-derived aircraft (E-3, Il-38, KC-10) received a generic weather radar with limited surface search
+[UPD] Units: unique dud eject angles for US ships with Terrier and Tartar arm launchers
+[UPD] Units: submarine and whale speeds standardized, so submarines are harder to tell apart from whales at a glance
+[UPD] Units: Gearing FRAM II overhauled model, different bridge and Hedgehog mortars
+[UPD] Units: F-15A/C: added a forward-looking 'Optics' sensor (representing rifle scopes commonly mounted in cockpits)
+[UPD] Units: F-111C: TF30 engine sound
+[UPD] Event Log: clicking track numbers snaps the map view to them
+[UPD] Map: allied formations are collapsed, unit paths follow geographic paths better, faster map rendering
+[UPD] Encyclopedia shows variant and squadron descriptions even if the class description is empty
+[UPD] Tidied up the F10 maneuver menu, the standing orders UI and the mission timer display
+[UPD] UI: removed the direction arrow from the rudder display
+[UPD] Performance: batched missile simulations for aircraft, cheaper sensor and seeker raycasts and several AI optimizations
+[UPD] Updated NoesisGUI to 4.0.1
+[UPD] Rolling Replay performance
+[UPD] Updated Unity to 6000.0.85f2
+[UPD] Cleaned up missile afterburner animation
+[UPD] Reformatted weapon and sensor texts
+[UPD] Credits
+[UPD] Translations
+
+[NEW] Map: new Lambert Conformal Conic (LCC) projection for map and terrain, with play area display, new vector map rendering, automatic label placement and day/night terminator. Existing missions are migrated automatically
+[NEW] Multiple configurable sides are now possible, with side relations and sensor sharing options (Allied NPC, or multiple hostile sides with varied relations to each other, etc)
+[NEW] Automatic attack waypoints can now also be set up during a mission
+[NEW] Patrol zones: CAP and SAR zones (work in progress)
+[NEW] Torpedo fan aim tool and adjustable salvo spread for straight-running torpedoes
+[NEW] "Guiding weapon" status for submarines
+[NEW] UI: rudder display with a popout for ordered and actual rudder angle of ships and submarines
+[NEW] Option to turn the rudder angle display on or off
+[NEW] EXPERIMENTAL: Rolling Replay: rewind and spectate the last minutes of a mission, with camera shots, a keyframe timeline with key curves and lens effects (off by default, up to 30 minutes or 512 MB)
+[NEW] Aircraft and certain supersonic cruise missiles now have new shader-based afterburner effects, with color and intensity depending on local light level
+[NEW] Spatial sounds: sounds now play based on distance from camera to sound emitter
+[NEW] D3D12 renderer can be selected via the -force-d3d12 command line option
+[NEW] Mission Editor: multiple configurable sides with relations, optional sensor picture sharing, localized side names and map colors
+[NEW] Mission Editor: "Set Relation" trigger action and scripting API to change side relations at runtime. Allied victory, score and AAR section
+[NEW] Mission Editor: automatic attack waypoints with specific-target and area attacks, filterable by category, type, class, role and variant
+[NEW] Mission Editor: "Attack Target" trigger action to attack a unit with a selected weapon and salvo count
+[NEW] Mission Editor: Trigger action to edit unit waypoints with a map-based editing tool
+[NEW] Mission Editor: Condition for exact unit types, variants and squadrons in areas
+[NEW] Mission Editor: "Repeatable" checkbox for triggers and "Units matching condition" for action units
+[NEW] Mission Editor: New initial ROE setting in the Air Operations tab
+[NEW] Mission Editor: Save, save as and load buttons on every tab
+[NEW] Mission Editor: mission timer that can be set up and shown via triggers, e.g. as "Time Remaining" below the time controls
+[NEW] Mission Editor: basic campaign management: "Campaign Mission" checkbox on the scenarios tab with fields for scenario and groups (a full campaign editor will come later)
+[NEW] Mission Editor: air return points with a radius can be set up for units, acting as virtual airfields aircraft can return to instead of despawn triggers, distant airbases or unlimited fuel
+[NEW] Mission Editor: campaign commander awards can be triggered by campaign variables
+[NEW] Mission Editor: raw text entry of campaign values in triggers
+[NEW] Campaign: Task Force Air Ops window to manage aircraft preparation across all ships of a task force, with configurable Ready/Partial Ready aircraft and deck utilization info
+[NEW] Campaign: campaign airbases can be provisioned with persistent air groups, installation status, supplies, runways and fuel
+[NEW] Campaign: Situation panel now includes player forces, reserves, embarked aircraft, airbase inventories and enemy aircraft losses
+[NEW] Campaign: autosave
+[NEW] Campaign: ground forces as transportable cargo, with triggers to detect their presence
+[NEW] Modding: file layers allow mods and user files to selectively overwrite game files, also per mission
+[NEW] Modding: weapon attachments can be rotated
+[NEW] Weapons can now fail at launch. Launchers eject failed rounds overboard
+[NEW] Weapons: Hedgehog ASW projector
+[NEW] Weapons: Remodeled Mk 44 and A.244/S torpedoes, added ship-launch A.244
+[NEW] Units: Added Centaur-class aircraft carrier HMS Hermes
+[NEW] Units: Added Invincible-class aircraft carriers
+[NEW] Units: Added County-class Batch 1 guided-missile destroyers
+[NEW] Units: Added County-class Batch 2 guided-missile destroyers, original configuration
+[NEW] Units: Added County-class Batch 2 guided-missile destroyers, Exocet refit
+[NEW] Units: Added Type 42 Batch 0 guided-missile destroyer HMS Sheffield
+[NEW] Units: Added Type 42 Batch 1 guided-missile destroyers
+[NEW] Units: Added Type 42 Batch 2 guided-missile destroyers
+[NEW] Units: Added Type 82 destroyer HMS Bristol, 1973 configuration
+[NEW] Units: Added Type 82 destroyer HMS Bristol, 1979 configuration
+[NEW] Units: Added Type 21 Amazon-class frigates
+[NEW] Units: Added Type 22 Batch 1 Broadsword-class frigates
+[NEW] Units: Added Leander-class frigates, original gun configuration
+[NEW] Units: Added Leander-class Batch 1 frigates, Ikara conversion
+[NEW] Units: Added Leander-class Batch 2 frigates, Exocet conversion
+[NEW] Units: Added Rothesay-class frigates
+[NEW] Units: Added Fearless-class landing platform docks
+[NEW] Units: Added Round Table-class landing ships
+[NEW] Units: Added Leaf-class replenishment tankers
+[NEW] Units: Added Oberon-class submarines
+[NEW] Units: Added Porpoise-class submarines
+[NEW] Units: Added Churchill-class nuclear submarines, early configuration
+[NEW] Units: Added Churchill-class nuclear submarines, late configuration
+[NEW] Units: Added Valiant-class nuclear submarines
+[NEW] Units: Added Swiftsure-class nuclear submarines
+[NEW] Units: Added Trafalgar-class nuclear submarines
+[NEW] Units: Added Colossus-class aircraft carrier ARA Veinticinco de Mayo
+[NEW] Units: Added Argentine Brooklyn-class cruisers
+[NEW] Units: Added Hércules-class Type 42 guided-missile destroyers
+[NEW] Units: Added Comodoro Py-class FRAM II destroyer
+[NEW] Units: Added Argentine Allen M. Sumner-class FRAM II destroyers
+[NEW] Units: Added Drummond-class corvettes
+[NEW] Units: Added Santa Fe-class submarine
+[NEW] Units: Added Salta-class Type 209/1200 submarines
+[NEW] Units: Added Intelligence trawler Narwal
+[NEW] Units: Added Searunner-class roll-on/roll-off ships
+[NEW] Units: Added Modified Searunner-class roll-on/roll-off ships
+[NEW] Units: Added Roll-on/roll-off passenger ferries, including Norland and Norstar
+[NEW] Units: Added Sea Harrier FRS.1
+[NEW] Units: Added Harrier GR.1
+[NEW] Units: Added Harrier GR.3
+[NEW] Units: Added Vulcan B.2
+[NEW] Units: Added Victor B.2
+[NEW] Units: Added Victor K.2
+[NEW] Units: Added Canberra bombers, including Argentine B.62 variants
+[NEW] Units: Added Nimrod MR.1
+[NEW] Units: Added Nimrod MR.2
+[NEW] Units: Added A-4P Skyhawk
+[NEW] Units: Added A-4Q Skyhawk
+[NEW] Units: Added Dagger A
+[NEW] Units: Added Mirage IIIEA
+[NEW] Units: Added Super Étendard
+[NEW] Units: Added IA-58A Pucará
+[NEW] Units: Added S-2E Tracker
+[NEW] Units: Added EMB-111A maritime patrol aircraft
+[NEW] Units: Added Argentine Boeing 707 maritime patrol aircraft
+[NEW] Units: Added British and Argentine C-130 Hercules variants
+[NEW] Units: Added SC.7 Skyvan
+[NEW] Units: Added C-95 transport aircraft
+[NEW] Units: Added Civilian EMB-100
+[NEW] Units: Added Lynx HAS.2
+[NEW] Units: Added Argentine Lynx Mk.23
+[NEW] Units: Added Wasp HAS.1
+[NEW] Units: Added Scout AH.1
+[NEW] Units: Added Wessex HAS.1
+[NEW] Units: Added Wessex HAS.3
+[NEW] Units: Added Wessex HU.5
+[NEW] Units: Added Sea King HAS.5
+[NEW] Units: Added Argentine S-61D Sea King
+[NEW] Units: Added Alouette III
+[NEW] Units: Added ITB Exocet coastal missile battery
+[NEW] Units: Added OTO Melara Mod 56 105 mm howitzer
+[NEW] Units: Added Skyguard fire-control radar
+[NEW] Units: Added M2HB heavy machine-gun emplacement
+[NEW] Units: Added Roland SAM launcher
+[NEW] Units: Added Oerlikon KCB anti-aircraft gun
+[NEW] Units: Added Goose Green airstrip
+[NEW] Units: Added Pebble Island airstrip
+[NEW] Units: Added San Carlos forward operating base
+
+===============================================================================
+
+07-Nov-2026: 0.8.7 Build 261107
+-------------------------------
+[FIX] Aircraft: maximum range issues
+[FIX] Aircraft: bomb drops from low altitude could fail
+[FIX] Aircraft: wingmen flew without any angle of attack
+[FIX] Unguided bombs jumped sideways on release
+[FIX] Wrong anchor for formations made up of stationary units
+[FIX] Seconds of the game clock did not tick correctly
+[FIX] Audio clipping caused by comb filtering
+[FIX] Mods could not bake models
+[FIX] Campaign: Pacific Strike: underwater land units in 04 Sunda Strait and 09 Shadows off Palawan
+
+[UPD] Aircraft: improved dogfight logic, especially in two-circle fights
+[UPD] Sensors: very slight night vision for the 'Eyes' and 'Optics' visual sensors
+[UPD] Rolling Replay performance
+[UPD] Tidied up the F10 maneuver menu, the standing orders UI and the mission timer display
+
+[NEW] Mission Editor: basic campaign management: "Campaign Mission" checkbox on the scenarios tab with fields for scenario and groups (a full campaign editor will come later)
+
+===============================================================================
+
+06-Nov-2026: 0.8.7 Build 261106
+-------------------------------
+[FIX] Ships and submarines did not react to straight-running torpedoes
+[FIX] Wire-guided torpedoes: wire-guidance limitations were implemented incorrectly, and the launching unit did not attack or slow down while above wire break speed
+[FIX] Torpedo fans and multi-attachment torpedo tubes
+[FIX] Bombs dropped from low altitude could miss their target
+[FIX] Fix for missiles dragging after being dropped from aircraft
+[FIX] Passive sonar underperformed in the MF/HF bands
+[FIX] Whales: depth changes and states could be off in some cases
+[FIX] Exception during unit metadata loading
+[FIX] XAML parse error in the main menu news window
+[FIX] Missing tactical map settings when a mod overrides the default UI ini
+[FIX] More file checks that did not work with CrossOver on macOS
+[FIX] Positions of stations on rotated parent objects
+[FIX] Map: group placement, display around the poles and the 180 degree line, shorelines and terrain mapping with the LCC projection
+[FIX] Diamonds appeared over sonobuoy waypoints
+[FIX] Callsigns could use the wrong squadron
+[FIX] Weapon names show the English text instead of "MISSING TEXT" when a translation is missing
+[FIX] Mission Editor: trigger zones centered on a unit passed wrong coordinates to the new globe system
+[FIX] Mission Editor: campaign variables could be applied to other missions
+[FIX] Triggers: disabled units could satisfy out-of-ammo conditions
+[FIX] Campaign: formations created by dynamic unit generation spawned on top of each other
+[FIX] Campaign: Pacific Strike: underwater land units in mission 06
+
+[UPD] Aircraft keep their climb or dive rate during the death animation
+[UPD] Aircraft cannons: muzzle gas effect and louder firing sound
+[UPD] Cleaned up missile afterburner animation
+[UPD] Weapons: dramatically reduced minimum range for most AAMs
+[UPD] Units: increased turn rates for MiG-17, J-5, F-5 (PLA) and Lim-6
+[UPD] Units: civilian airliners, transports and airliner-derived aircraft (E-3, Il-38, KC-10) received a generic weather radar with limited surface search
+[UPD] Units: unique dud eject angles for US ships with Terrier and Tartar arm launchers
+[UPD] Units: submarine and whale speeds standardized, so submarines are harder to tell apart from whales at a glance
+[UPD] Units: Gearing FRAM II overhauled model, different bridge and Hedgehog mortars
+[UPD] Map: allied formations are collapsed, unit paths follow geographic paths better, faster map rendering
+[UPD] Mission Editor: improved sides editor, now with a relation matrix view
+[UPD] Mission Editor: UnitTypes now override UnitType in trigger conditions
+[UPD] Encyclopedia shows variant and squadron descriptions even if the class description is empty
+[UPD] Campaign: Task Force Mode: commander and awards tab in the F10 panel, custom XAML templates for commander citations
+[UPD] Scenarios: removed some broken or outdated scenarios, to be replaced with updated versions later
+[UPD] Scenarios: 01A Senkaku Run: reworked enemy setup for the mechanics changes
+[UPD] Reformatted weapon and sensor texts
+[UPD] Credits
+[UPD] Translations
+
+[NEW] EXPERIMENTAL: Rolling Replay: rewind and spectate the last minutes of a mission, with camera shots, a keyframe timeline with key curves and lens effects (off by default, up to 30 minutes or 512 MB)
+[NEW] EXPERIMENTAL: Complete aircraft physics and behavior overhaul - unrestricted rolling and pitching, AOA, sustain and instant turn rates, stores add drag and reduce aircraft performance, air density is properly simulated
+[NEW] Aircraft and certain supersonic cruise missiles now have new shader-based afterburner effects, with color and intensity depending on local light level
+[NEW] Full Air-to-air refueling integration and a new Tanker role
+[NEW] Weapon doctrine panel for missile launch conditions
+[NEW] Torpedo fan aim tool and adjustable salvo spread for straight-running torpedoes
+[NEW] "Guiding weapon" status for submarines
+[NEW] UI: rudder display with a popout for ordered and actual rudder angle of ships and submarines
+[NEW] Automatic attack waypoints can now also be set up during a mission
+[NEW] Mission Editor: mission timer that can be set up and shown via triggers, e.g. as "Time Remaining" below the time controls
+[NEW] Campaign: autosave
+[NEW] Campaign: ground forces as transportable cargo, with triggers to detect their presence
+[NEW] Weapons: Hedgehog ASW projector
+[NEW] Weapons: Remodeled Mk 44 and A.244/S torpedoes, added ship-launch A.244
+[NEW] Modding: weapon attachments can be rotated
+
+===============================================================================
+
+26-Oct-2026: 0.8.7 Build 261026
+-------------------------------
+[FIX] Initial camera at mission start always faced north, so it could look at the first unit straight from behind or ahead; it now looks at it from behind and to the side
+[FIX] Vessels could get a strong push and roll heavily right at the mission start
+[FIX] Torpedoes could hit the ship that launched them
+[FIX] Aircraft turn rate physics
+[FIX] CIWS used flat hit rolls instead of its ballistics
+[FIX] Radar lookdown could ignore targets at long range or count ships as being in lookdown
+[FIX] Helicopters: helicopter code ran at twice the intended speed
+[FIX] Helicopters: terrain checks and vertical angle limits for engagements
+[FIX] Dive attacks could be impossible in certain cases
+[FIX] Leader attack cancelled the attack of a wingman in MoveToEngage state (aircraft)
+[FIX] VTOL and STOL leaders did not wait for their wingmen
+[FIX] Certain weapons could not be used for attack waypoint generation and Engage from the context menu
+[FIX] Aircraft could get stuck in the DisembarkElevator state
+[FIX] Aircraft groups without an explicit control mode now default to Follow Leader
+[FIX] Propellers were shown after an aircraft was destroyed
+[FIX] Unit icons in formations could disappear; possible fix for units that could not be selected or controlled after a formation was disbanded
+[FIX] Shell and CIWS spherecast data piled up when raycast commands were off
+[FIX] Exception when quitting the game
+[FIX] Mission Editor: wrong number of ready aircraft in the flight deck
+[FIX] Mission Editor: Disabled aircraft reverted to the nearest base on load instead of their assigned home base
+[FIX] Mission Editor: aircraft formations fell back to Individual, so followers did not pick up attack waypoints
+[FIX] Campaign: damaged units from dynamic generation were sometimes reported as kills
+[FIX] Campaign: destroyed task forces remained in the campaign roster
+[FIX] Campaign: player task force could be reset by the mission briefing
+[FIX] Campaign: moving a CAP on the campaign map only moved its leader in the mission
+[FIX] Voiceovers: removed unnecessary "track" from "Birds Away" for uk_male_1
+[FIX] Weapons: R-40RD/TD seeker type mix-up in localization
+[FIX] Units: Soviet sonar frequencies
+[FIX] Units: LOD and damage model fixes for several aircraft and large caliber guns, Mirage III pivots, S-2 depth bomb pylon placement
+
+[UPD] Weapon report now lists weapon failures
+[UPD] EXPERIMENTAL: Weapons: terminal loft for non-kinematic missiles
+[UPD] AI: populated Soviet OODA systems; SA-N-4 and Sea Sparrow now work independently of the OODA systems
+[UPD] Weapons: reworked launch, seeker and warhead reliability, pitch rates, armor and bombing values for many missiles and bombs
+[UPD] Weapons: rebalanced CIWS, one Phalanx is now roughly equal to two AK-630
+[UPD] Weapons: HE rounds now ignore half of the target's armor
+[UPD] Sensors: improved sonar and narrowband handling
+[UPD] Units: revised damage points and fire control of AAA, coastal artillery and Rapier
+[UPD] Units: AH-1J (IRIAF) received an anti-ship loadout with AGM-65B
+[UPD] Mission Editor: Load and Save As now open in the current mission folder
+[UPD] Mission Editor: despawned units (e.g. leaving the battle area) are no longer counted as destroyed
+[UPD] Event Log: clicking track numbers snaps the map view to them
+[UPD] Performance: batched missile simulations for aircraft, cheaper sensor and seeker raycasts and several AI optimizations
+[UPD] Updated NoesisGUI to 4.0.1
+[UPD] Translations
+
+[NEW] Map: new Lambert Conformal Conic (LCC) projection for map and terrain, with play area display, new vector map rendering, automatic label placement and day/night terminator; existing missions are migrated automatically
+[NEW] Multiple configurable sides are now possible, with side relations and sensor sharing options (Allied NPC, or multiple hostile sides with varied relations to each other, etc)
+[NEW] Spatial sounds: sounds now play based on distance from camera to sound emitter
+[NEW] Modding: file layers allow mods and user files to selectively overwrite game files, also per mission
+[NEW] Mission Editor: multiple configurable sides with relations, optional sensor picture sharing, localized side names and map colors
+[NEW] Mission Editor: "Set Relation" trigger action and scripting API to change side relations at runtime; allied victory, score and AAR section
+[NEW] Mission Editor: automatic attack waypoints with specific-target and area attacks, filterable by category, type, class, role and variant
+[NEW] Mission Editor: "Attack Target" trigger action to attack a unit with a selected weapon and salvo count
+[NEW] Mission Editor: Trigger action to edit unit waypoints with a map-based editing tool
+[NEW] Mission Editor: Condition for exact unit types, variants and squadrons in areas
+[NEW] Mission Editor: "Repeatable" checkbox for triggers and "Units matching condition" for action units
+[NEW] Mission Editor: New initial ROE setting in the Air Operations tab
+[NEW] Mission Editor: Save, save as and load buttons on every tab
+[NEW] Campaign: Task Force Air Ops window to manage aircraft preparation across all ships of a task force, with configurable Ready/Partial Ready aircraft and deck utilization info
+[NEW] Campaign: WIP campaign airbases can be provisioned with persistent air groups, installation status, supplies, runways and fuel
+[NEW] Campaign: WIP campaign settings menu, "Attach To" for task forces, info on what is missing when the play button is disabled, and single attempt missions
+[NEW] Campaign: Situation panel now includes player forces, reserves, embarked aircraft, airbase inventories and enemy aircraft losses
+[NEW] Weapons can now fail at launch; launchers eject failed rounds overboard
+[NEW] Patrol zones: CAP and SAR zones (work in progress)
+[NEW] D3D12 renderer can be selected via the -force-d3d12 command line option
+
+===============================================================================
+
 21-Oct-2026: 0.8.7 Build 261021 Public Release
 ----------------------------------------------
 [FIX] Null ref when spawning a unit whose CIWS magazine has no ammunition (e.g. when swapping units in the museum)
@@ -19,6 +407,7 @@ Change log
 [FIX] Null ref spam from autogen cities when they were reloaded before the terrain biome was known
 [FIX] Null ref when destroying units without materials
 [FIX] Null ref when rotating launchers with a missing mount or container object
+[FIX] Missing terrain water masks and potential loading or saving problems on macOS with CrossOver, caused by file existence checks that reported missing files as existing
 
 [UPD] Translations
 

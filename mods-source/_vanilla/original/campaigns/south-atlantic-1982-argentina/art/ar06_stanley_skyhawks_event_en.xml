@@ -1,0 +1,41 @@
+<!-- Original alternate-history campaign report, not a historical transcription.
+     Uses the Army operations chronology format. The event requires all three AR06 cargoes. -->
+<Viewbox xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Stretch="Uniform" StretchDirection="DownOnly">
+ <Border Width="1140" Height="1000" Background="#EFEDDF" TextElement.Foreground="#28271F">
+  <Border.Resources><Style TargetType="{x:Type TextBlock}">
+   <Setter Property="FontFamily" Value="/Assets/Resources/ui/fonts/#Special Elite"/>
+   <Setter Property="FontSize" Value="22"/><Setter Property="TextWrapping" Value="Wrap"/>
+   <Setter Property="LineHeight" Value="30"/><Setter Property="LineStackingStrategy" Value="BlockLineHeight"/>
+  </Style></Border.Resources>
+  <Grid>
+   <Grid Margin="74,48,46,35">
+    <Grid.RowDefinitions><RowDefinition Height="112"/><RowDefinition Height="*"/><RowDefinition Height="65"/></Grid.RowDefinitions>
+    <StackPanel HorizontalAlignment="Left">
+     <TextBlock x:Name="Office" Text="ARMY GENERAL STAFF" FontFamily="Times New Roman" FontSize="21" TextAlignment="Center"/>
+     <TextBlock x:Name="Branch" Text="OPERATIONS BRANCH" FontFamily="Times New Roman" FontSize="21" TextAlignment="Center"/>
+    </StackPanel>
+    <Border Grid.Row="1" BorderBrush="#302F28" BorderThickness="2">
+     <Grid><Grid.ColumnDefinitions><ColumnDefinition Width="174"/><ColumnDefinition Width="*"/></Grid.ColumnDefinitions>
+      <Grid.RowDefinitions><RowDefinition Height="43"/><RowDefinition Height="*"/></Grid.RowDefinitions>
+      <Border BorderBrush="#302F28" BorderThickness="0,0,1.5,1.5"><TextBlock x:Name="DateHeader" Text="DATE / TIME" FontFamily="Times New Roman" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center"/></Border>
+      <Border Grid.Column="1" BorderBrush="#302F28" BorderThickness="0,0,0,1.5"><TextBlock x:Name="EventsHeader" Text="EVENTS" FontFamily="Times New Roman" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center"/></Border>
+      <Border Grid.Row="1" BorderBrush="#302F28" BorderThickness="0,0,1.5,0"><TextBlock x:Name="DateTime" Text="160800ZMay82" FontSize="18" Margin="12,22,5,0"/></Border>
+      <StackPanel x:Name="MessageBody" Grid.Row="1" Grid.Column="1" Margin="22,22,22,16">
+       <TextBlock x:Name="MessageTitle" Text="Report from the Commander, BAM MALVINAS:" Margin="0,0,0,22"/>
+       <TextBlock x:Name="Subject" Text="STANLEY AIRFIELD — SKYHAWKS OPERATIONAL" Margin="0,0,0,22"/>
+       <TextBlock x:Name="Paragraph1" Text="Runway materials, aircraft spares and aviation fuel delivered by the convoy have been received at BAM MALVINAS." Margin="0,0,0,17"/>
+       <TextBlock x:Name="Paragraph2" Text="Runway work is complete. The airfield is now operable for A-4P Skyhawk operations." Margin="0,0,0,17"/>
+       <TextBlock x:Name="Paragraph3" Text="Eight A-4P aircraft have arrived from the mainland and are available for tasking from this base." Margin="0,0,0,17"/>
+      </StackPanel>
+     </Grid>
+    </Border>
+    <StackPanel Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Bottom">
+     <TextBlock x:Name="PageNumber" Text="Page 1 – 1" FontSize="18" TextAlignment="Center"/>
+     <TextBlock x:Name="Classification" Text="SECRET" FontSize="19" TextAlignment="Center"/>
+    </StackPanel>
+   </Grid>
+   <Border IsHitTestVisible="False"><Border.Background><LinearGradientBrush StartPoint="0,0" EndPoint="1,0"><GradientStop Color="#187E704F" Offset="0"/><GradientStop Color="#007E704F" Offset="0.08"/><GradientStop Color="#007E704F" Offset="0.93"/><GradientStop Color="#147E704F" Offset="1"/></LinearGradientBrush></Border.Background></Border>
+  <Border Height="8" VerticalAlignment="Center" IsHitTestVisible="False"><Border.Background><LinearGradientBrush StartPoint="0,0" EndPoint="0,1"><GradientStop Color="#00766E57" Offset="0"/><GradientStop Color="#12766E57" Offset="0.48"/><GradientStop Color="#20FFFFFF" Offset="0.55"/><GradientStop Color="#00FFFFFF" Offset="1"/></LinearGradientBrush></Border.Background></Border><Image Source="{Binding Assets[moon_paper_wear]}" Stretch="Fill" Opacity="0.12" IsHitTestVisible="False"/>
+  </Grid>
+ </Border>
+</Viewbox>

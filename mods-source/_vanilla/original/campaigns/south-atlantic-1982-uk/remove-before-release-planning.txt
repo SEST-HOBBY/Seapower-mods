@@ -1,0 +1,261 @@
+SOUTH ATLANTIC 1982 - BRITISH CAMPAIGN
+
+- INTRO SLIDESHOW
+
+Campaign variables at start:
+- UK_HermesLost=False
+- UK_InvincibleLost=False
+- UK_BelgranoSunk=False
+- UK_DeMayoSunk=False
+- UK_SantaFeSunk=False
+- UK_SanLuisSunk=False
+- UK_SurvivingAmphibiousLift=1
+
+Potential difficulty options:
+- AR_AirExocetStock=5
+- AR_ShipExocetStock=15
+- AR_Submarines=4 (Santa Fe + Santiago Del Estero, San Luis + Salta - historical = 2)
+
+Player defeat campaign-level trigger:
+- ForceFlagshipLost=True. Historical Reinforcements locks Hermes on arrival. Points Based and Unrestricted allow a player-selected surface ship.
+- Remaining planned condition: UK_SurvivingAmphibiousLift<0.5
+
+Player victory campaign-level trigger:
+- (campaign completed)
+
+---
+
+- Opening forces available: Antrim, Plymouth, Brilliant, Tidespring; helos
+-- UK01 Operation Paraquet - 25 Apr
+	|- removes ARA Santa Fe; captures South Georgia for the player. Not optional mission, serves as intro (especially for new and returning players)
+	|- on complete: Margaret Thatcher "Rejoice" event
+	|- on complete: "EMPIRE STRIKES BACK" newspaper
+	
+- First reinforcement wave delivered with carrier group
+
+-- UK02 Opening off Stanley - 1 May
+	|- includes: Black Buck 1 (single Vulcan bombing run on the Stanley airfield)
+	|- Difficulty: 2 star (easy)
+	|- Rearm/repair: No
+	|- Player controls the detached bombardment group (3 ships); SHAR strike and CAP from the carriers. 
+	|- Win by destroying a percentage (60%) of the shore installations and withdrawing the bombardment group east to new trigger zone appearing after shore installations destroyed.
+	|- Opposition: shore batteries, then paired Dagger and Mirage air raids against the CAP and surface bombardment group.
+	|- No requirement to keep the bombardment group alive; if lost, the mission can be completed by aircraft and the player must exit manually.
+	|- Lose the campaign if the designated force flagship is lost. Historical mode requires Hermes to survive. Invincible is a supporting carrier
+	|- Unlocks: UK02A, UK02B
+	
+-- UK02A Gotcha! - 2 May
+	|- Difficulty: 3 star (moderate)
+	|- Reinforcements: 3 x SSN
+	|- Player controls single submarine (HMS Conqueror by default) to sink Belgrano
+	|- Win by sinking Belgrano and reaching withdrawal zone, OR by sinking all 3 Argentine ships (Belgrano + Bouchard + Piedra Buena)
+	|- Opposition: Belgrano + Bouchard + Piedra Buena; add in SP-2H Neptune for air support, and Alouette III off Belgrano with ASW torpedoes (intentionally counterfactual. Otherwise the mission isn't challenging)
+	|- Lose by getting yourself sunk
+	|- If skipped: Belgrano escapes and will reappear in later missions
+	|- on complete: "GOTCHA" newspaper
+	|- on complete: sets "UK_BelgranoSunk=True"
+	
+-- UK02B Raid on Fox Bay - 2 May
+	|- Difficulty: 4 star (hard - positioning and counter-detection risk, Exocet vs Exocet)
+	|- Rearm/repair: No
+	|- Player controls 2 x surface combatants to raid the reinforcement convoy unloading at Fox Bay
+	|- Win by destroying the 2 blockade runners and the supply dump ashore, then withdrawing south
+	|- Opposition: patrol boats, Neptune overhead, and surprise Drummond to the west
+	|- Lose by losing both ships
+	|- Skipping this mission should allow the blockade runners to unload and increase the amount of Pucaras and shore batteries in the next missions
+	|- on complete: medal for the player (TBD)
+
+-- UK03 Carriers at War - 2 May
+	|- Difficulty: 4 star (hard - management and overall risk)
+	|- Rearm/repair: No
+	|- Classic war at sea mission between De Mayo and the British carriers.
+	|- Win by surviving the A-4Q strike against the carriers and reaching the withdrawal zone to the east; goal is to survive and retain the Task Force's striking power, not win the battle of midway
+	|- Opposition: entire Argentine fleet in historical force allocation (check existing UK03 for positioning)
+	|- Scripting needed: 
+		- if the A-4Q strike kills enough of the player force (40%+), OR kills a carrier, then surface units will attack - otherwise all Argentine forces will retreat to withdrawal zones (player should not have time to go kill everything in this mode). Idea is that this mission can literally defeat the player's entire campaign attempt if not managed correctly. We want Stealth17 to lose when playing this one
+		- if the A-4Q strike fails (all are destroyed), all Argentine forces retire immediately. DeMayo (if it survives) will replenish airwing from shore group for later operations
+	|- Player decision is to either commit Harriers to CAP, OR try to strike the DeMayo
+	|- Belgrano group will appear and attempt to pincer the player if not sunk in UK02A
+	|- Lose by losing the designated force flagship. Invincible may be lost without campaign defeat unless selected as flagship in points mode
+	|- If DeMayo survives this mission and escapes, unlocks UK04B
+	|- on complete: Northwood intel event about carrier action; enemy major units sunk should create sections of this intel report
+	
+-- UK04 Raid on Goose Green - 5 May
+	|- Difficulty: 3 star (moderate - aircraft management)
+	|- Rearm/repair: No
+	|- Similar to UK02; use the carriers to destroy the installations around Goose Green - carriers are in closer this time to allow enough sorties
+	|- Win by destroying 60% of the shore installations to suppress the airfield
+	|- Opposition: Pucaras, shore batteries, then coordinated A-4, Mirage, and then Super Etendard attacks (first Exocet attacks)
+	|- Lose by losing the designated force flagship
+	|- Success reduces overall Pucara/shore based air threat in later missions
+	|- Unlocks: UK04A
+
+-- UK04A The Deseado Trap - 6 May
+	|- Difficulty: 4 star (hard)
+	|- Rearm/repair: No
+	|- Command one player submarine (not the one used in UK02A) to escape heavy ASW prosecution off Patagonian coast
+	|- Win by reaching escape zone; killing enemy forces is optional
+	|- Opposition: Trackers, Sea Kings, Neptunes, single DD (Segui) - ties out with the Argentine AR05A, but not featuring De Mayo - this is based on the Argentine account in "Carriers at Risk" of hunting HMS Splendid (unsuccessfully)
+	|- If skipped: submarine is lost (whichever is assigned by default, or reassigned by the player)
+	|- Lose by getting yourself sunk
+	|- on complete: Northwood intel event on total enemy aircraft remaining and estimated Exocet stocks
+	|- on failure: Northwood intel event "HMS <submarine> has missed four check-ins"
+	|- unlocks UK04B, but only if DeMayo survived UK03!
+	
+-- UK04B Patagonian Intercept - 8 May
+	|- Difficulty: 4 star (hard)
+	|- Rearm/repair: No
+	|- Command the player submarine from UK04A (hard locked choice) to track and sink De Mayo.
+	|- Win by sinking De Mayo
+	|- Opposition: De Mayo's surviving GT 79 from UK03; 1 x Neptune MPA; De Mayo's ASW airgroup minus any Trackers shot down in UK03
+	|- Lose by getting yourself sunk
+	|- Surviving enemy aircraft need to be translated to shore groups vs being lost at sea
+	|- on complete: alt-history "navy sinks flattop" newspaper
+
+-- UK05 Falkland Sound - 11 May
+	|- Difficulty: 4 star (hard)
+	|- Rearm/repair: Yes
+	|- Command a single ship (frigate or DD) to sweep Falkland Sound ahead of the planned San Carlos landings. Run north from Fox Bay, determine the remaining defences and engage as necessary, then clear the northern exit.
+	|- Win by escaping the sound and reaching the exit zone at the north end
+	|- Opposition: 2 x Argentine cargo ships, patrol boats, Pucaras towards the end (daylight), and a small mined area (use the actual sea mine objects and mark it on the map), observation post at NW end of sound, then ARA San Luis at the north end of the sound
+	|- Before reaching the end of the sound, intel warning of submarine contact should appear. Sinking submarine is Optional objective
+	|- Lose by getting yourself sunk
+	|- on complete: medal for the player (Mention in Despatches)
+
+-- Reinforcements: Antelope, Ardent, Argonaut, Ambuscade; 8 x SHAR 809 NAS; 6 x GR.3
+
+-- UK06 San Carlos Water Part 1 - 21 May
+	|- Difficulty: 3 star (moderate)
+	|- Rearm/repair: Yes
+	|- Bring the amphibious ships first wave into San Carlos Water. This is an escort mission; defend the transports in wave 1 against 
+	|- Win by getting the amphibs to the marked zone for unloading
+	|- Opposition: A-4/Dagger/Mirage air attack, Pucaras, and limited shore batteries (small arms, MGs, etc - nuclearstonk is making)
+	|- Lose by losing 50% of the landing force ships before they reach the zone
+	|- Individual ships must be tracked: losing ships should reduce an overall supply meter
+	|- on complete: newspaper of British forces landing on the islands
+
+-- UK07 Counterattack at Sea - 25 May
+	|- Difficulty: 3 star (moderate)
+	|- Rearm/repair: No
+	|- Conveyor action - Exocet attacks by Super Etendards, additional A-4 and Mirage attacks - the attacks need to be cued specifically onto the Conveyor standin (RoRo A for now) - multi-axis raid, need to setup Pucaras from Goose Green and Stanley as diversions
+	|- Win by surviving the air attack. This mission is not one that can be "lost"; if the Conveyor is sunk, the mission ends with a Pyrrhic Victory
+	|- Losing Conveyor removes your helicopter and GR.3 reinforcements, and forces to complete UK08 to advance the campaign
+	|- on complete: intel event with the burning Conveyor photo; photo of British forces marching overland
+
+-- UK08 San Carlos Water Pt 2 - 26 May
+	|- Difficulty: 3 star (moderate)
+	|- Rearm/repair: No
+	|- Protect the amphibs from further air attack; straightforward continuation of UK06
+	|- Win by surviving the air attacks; like UK07, this one would be hard to "lose" but can result in most of your supply becoming untenable (like Black Tide)
+	|- Campaign defeat applies if surviving amphibious lift falls below 50%; no separate all-ships-lost exception for this mission
+	|- Player gameplay here is to use the escorts strategically to stop the air attacks as they come in, and use SHAR to search for the incoming air raids, and to fight off Pucara torpedo attacks (!)
+	
+-- UK08 Final Approach - 8 June
+	|- Difficulty: 3 star (moderate)
+	|- Rearm/repair: No
+	|- Bring the Welsh Guards to Fitzroy aboard the LSLs and protect their landing against air attack. Bring LSLs to zone; fight off air attack.
+	|- Win by bringing LSLs into the zone and preserving enough of them to complete the mission (50%)
+	|- Opposition: A-4, Mirage, Dagger raids - Pucaras from Stanley
+	|- Lose by losing more than 50% of the LSLs
+
+-- UK09 Night Action off Stanley - 12 June
+	|- Difficulty: 4 star (hard)
+	|- Rearm/repair: No
+	|- Finale off Stanley - gunfire support against shore positions by a bombardment group, danger of the shore-based Exocet launcher, and final sortie by the Argentine Navy to attack the player. 
+	|- Win by destroying enough of the shore installations to allow the ground war to advance
+	|- Opposition: Shore-based Exocets, shore batteries, Roland, any remaining Argentine navy units with Exocets (at least 2 units required)
+	|- on complete: victory, mission accomplished screen - newspaper of the British task force returning home at the end of conflict
+	
+---
+
+BLACK BUCK MISSION NOTES - for later integration into tactical missions:
+- Black Buck 1: Vulcan strike against Stanley Airfield (included in UK02)
+- Black Buck 2: runway bombing
+- Black Buck 5: Shrike SEAD against the Stanley TPS-43 radar
+- Black Buck 7: bombing Stanley positions and stores
+
+UNIT DISPOSITION - for deciding how and when units become available:
+- Hermes, Invincible
+- Escorts
+- STUFT
+- LPD/LSL
+- Vulcans
+- Submarines
+
+TABLED:
+-- UK05A Pebble Island Raid - 14 May (assignment)
+	|- on complete: AAR of raid intel event
+-- UK05B SBS at Grantham Sound - 15 May (assignment)
+-- UK05C Strike on the Supply Lines - 16 May
+-- UK06A Operation Mikado - 22 May (assignment)
+---
+
+ROYAL NAVY AT THE FALKLANDS READ THROUGH NOTES
+
+- UK02B Raid on Fox Bay - turns out is plausible that a Drummond may have been in the area, even if not 100% confirmed
+- bad weather on 3 May/4 May precluded most action by aircraft
+- Nimrod and 707 MPA were used extensively. Every action should feature 707s. Shooting them down should reduce your political meter. We need to add a system to allow a "go away" radio call.
+
+---
+
+ARGENTINA CAMPAIGN SINGLE BRANCH NOTES
+
+- Argentina campaign is deliberately ahistorical as the player will play the role of Anaya/Lombardo in controlling their forces
+- Argentina campaign roughly runs late April to May 21 (continuing into June doesn't make sense in this context)
+- Objectives for Argentina would be to find and sink the British carriers, OR destroy enough amphibious lift to make the invasion too politically costly to proceed
+- Through line here is that the Argentine player should receive intel expecting the British to land at Stanley (as in real life the Argentines thought the Brits would do a USMC style forced landing), and San Carlos should be somewhat "unexpected" in terms of player force composition and location
+- Overall rule for proper missions: missions that ONLY feature aircraft should be avoided - actions should center around ships or submarines, and where control of ships is not really possible (such as the bombing raids against San Carlos) should feature many aircraft that must be managed. Still these types of missions should be avoided if possible - they do not really work in the scale of SP.
+- We need a mission that allows limited A-4s to base at Stanley. Perhaps a convoy protection mission that brings the supplies needed to re-grade the airstrip and brings in the supplies to operate A-4s and Canberras
+
+TIMELINE
+
+AR00 Operation Rosario - 2 April
+- Command Santa Fe to deliver divers, control Santisima Trinidad to cover landing ships into Port William - as the only opposition would be land-based, perhaps this mission is better done as a prologue slide (or set of slides)
+
+AR01 Grytviken Convoy - 25 April
+- Escort Bahia Buen Suceso and Rio Carcaranas to Grytviken to secure South Georgia with a larger presence - player fights off the South Georgia task force (Antrim, Plymouth, Brilliant, Tidespring). Player assets: Hercules, Py, Drummond or similar + helos, 707 MPA
+
+AR02 First Blows - 1 May
+- Defend Stanley against the encroaching British bombardment group; sink one bombardment group ship to force the others to retreat. Win by keeping part of the shore installations intact and driving off the bombardment group. This will rely on despawn zones for the Mirage/Dagger/A-4 flights which cannot land at Stanley; player will have the shore batteries, Roland, Pucaras at the airfield. Super Etendards could be introduced here if the player wants to expend some of their missiles (TBD)
+
+AR02A San Luis Patrol - 2 May
+- Control ARA San Luis to attack a British escort group of 2 ships north of the islands - sink one escort to win and withdraw, sink both to win outright. If San Luis is lost here then it should remain lost for the entire campaign - we need a method to force players to win OR lose scenarios without allowing total restarts?
+
+AR03 Carriers at War - 2 May
+- Reverse of the UK03 scenario, not much to it - objective is to sink or damage Hermes or Invincible (as we do not yet have Hermes, use Illustrious as standin). Perhaps a time limit can be placed on this mission to allow one strike by the player's A-4Q, Belgrano will not be involved here (it will come later). Sinking a carrier here will not end the campaign just remove it from later missions
+
+AR03A Breaking Contact - 2 May
+- Reverse of the HMS Conqueror/Belgrano mission - bring Belgrano west to Staten Island/Ushuaia without being sunk by the submarine. We need better submarine AI for this to work (!) - if this mission is skipped, Belgrano is lost assumed sunk by the HMS Conqueror - if this mission is won, unlocks AR04. State prominently: "Warning: if you advance without completing this mission, Belgrano may be lost."
+
+AR04 Attack on the Screen - 4 May
+- Exocet day against Sheffield - With the carrier requiring replenishment after AR03, the airforce is used to strike the remaining battlegroup SE of the islands - objective is to sink an escort, but the player can always try to hit other groups (RFAs or even carriers). If Belgrano survived, its group can be used here
+
+AR05 Night in the Sound - 10 May
+- 2 ship maximum, stop a surface sweep through the Falkland Sound - compact night action, 2 ship max - win by sinking the British frigate attempting to force the sound, neutral contacts are the Argentine blockade runners trying to unload and must not be targeted
+
+AR05A Hunter off the Coast - 11 May
+- DeMayo has moved back towards the coast but is being tracked by at least 2 submarines. Use Trackers, Sea Kings, and the destroyers to locate and sink both. Success removes the enemy submarines; failure loses the carrier; skipping has no effect.
+
+AR06 Stanley Convoy - 12 May
+- Escort a freighter carrying runway building supplies to the islands - fight through a British interception force (get the convoy to a trigger zone) - individual ships must be tracked, one carries A-4 spares, one carries runway supplies, one fuel etc - losing them deducts capability from the followign missions
+
+AR07 Battle off Stanley - 15 May
+- Fight off a concerted attack by the enemy carrier(s) against Stanley and Goose Green - use Pebble Island airstrip with Pucaras and mainland bomb attacks, OR the improved runway at Stanley to destroy two British bombardment groups. Use a small surface force here, Belgrano, etc depending on what is alive.
+
+AR07A RFA Raid - 16 May
+- Command either ARA San Luis or ARA Santa Fe to ambush a tanker pumpover rendezvous - needs a victory consequence beyond just blowing things up
+
+AR07B Fuel for the Fleet - 17 May
+- Defend the Argentine tanker and receiving ships from a British submarine; success removes the submarine and should affect the available surface forces in the next main missions (as their fuel is lost)
+
+AR07C The Outer Picket Station - 19 May 0300L
+- Requirement: 2 x Drummond class corvette, Argentine accounts mention these small ships were hard to find on radar - Corvettes close to destroy the a picket destroyer and then withdraw before first light (TBD if we keep this one)
+
+AR08 Attack on the Task Force - 19 May
+- Decisive coordinated strike to remove the carrier(s) and their threat - should use almost all of the player's available strike assets, ships and aircraft, Belgrano group. If neither carrier has already been sunk, sinking one is the main objective. If AR03 achieved it, this becomes an operation to sink the remaining carrier OR drive it away (need to understand how we do this)
+
+AR09 Amphibious Approach - 20 May
+- The British are attempting to land at San Carlos Water, an unexpected development as Argentina planned to defend Stanley. Find and attack the remaining invasion convoy before it can enter Falkland Sound. Command aircraft and a surface task force to attack the incoming amphibious ships - need to track the losses carefully to determine how many troops get ashore in these missions
+
+AR10 Settlement at San Carlos - 21 May
+- Roughly X amount of the landing force made it ashore. Command all available Argentine forces in the area to perform a final counterattack against San Carlos and force a British surrender.

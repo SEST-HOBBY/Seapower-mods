@@ -1,0 +1,1374 @@
+###civ_ms_large_split_tanker (Larger than T2/Kazbek, around 225m
+Edson Baltimore
+Edson Boston
+Edson Chester
+Edson Florence
+Edson Gettysburg
+Edson Huntington
+Edson Jamestown
+Edson Lexington
+Edson Miami
+Edson Newark
+Edson Puerto Rico
+Edson Seattle
+Edson Washington
+
+###civ_ms_sealift_pacific (1970's era medium carrier)
+
+//Maritime Sealift Command - Grey
+Sealift Pacific Ocean T-AOT-168
+Sealift Arabian Sea T-AOT-169
+Sealift China Sea T-AOT-170
+Sealift Indian Ocean T-AOT-171
+Sealift Atlantic T-AOT-172
+Sealift Mediterranean T-AOT-173
+Sealift Caribbean Sea T-AOT-174
+Sealift Arctic T-AOT-175
+Sealift Antarctic T-AOT-176
+
+//Ensign Oil - Black/Tan
+Ensign Oregon
+Ensign Jupiter 
+Ensign Washington
+Ensign Colorado
+Ensign Louisiana
+Ensign Arizona
+
+//Black - Blue Funnel, Yellow Masts, Red Deck
+New York Sun
+Philadelphia Sun
+
+//Black - Red Funnel, Grey Masts, Grey Deck
+Blue Ridge
+Coast Range
+
+//Black - Black/Red Funnel, White Masts, Tan Deck
+Ogre Dynachem
+Ogre Hudson
+
+//Black - White Funnel, Yellow Masts, Sea-Green Deck
+Edson Baton Rouge
+Edson Baytown
+Edson Charleston
+Edson Houston
+Edson New Orleans
+Edson Princeton
+Edson Philadelphia
+Edson San Francisco
+Edson Wilmington
+Edson Yorktown
+
+//Clam Oil - Black Hull, Red Funnel, White Masts, Sea-Green Deck
+Cellana
+Eburna
+Ervilia
+Euplecta
+Ebalina
+
+Gas Prince = Gas al Minagish
+Bridgeton = Al Rekkah
+Sea Isle City = Umm al Maradem
+Chesapeake City = Umm Matrabah
+Ocean City = Casbah
+Surf City = Umm Al Aish
+Middletown = Al Funtas 2
+Townsend = Kazimah
+Gas Princess = Gas al Ahmadi
+Gas Queen = Gas al Kuwait
+Gas King = Gas al Burgan
+
+
+###civ_ms_car_carrier_a (1970's era SEABEE-type barge carrier
+
+//Wallenius Lines - Green/White, Yellow Funnel, Green Band
+Don Carlos
+Don Juan
+Don Quijote
+Rigoletto
+Traviata
+Falstaff
+Parsifal
+Medea
+Tosca
+Turandot
+Salome
+Tristan
+
+//K-Line - Grey Hull, White Superstructure, Red Funnel, Grey Masts
+Scandinavian Highway
+Pacific Highway
+Atlantic Highway
+European Highway
+
+Ibishu Maru No 10
+Ibishu Maru No 11
+Ibishu Maru No 12
+Ibishu Maru No 15
+Ibishu Maru No 18
+
+//Red Hull, White Superstructure, Red Funnel
+Univenture No 1
+Southern Cross
+
+//Krautwagen - Grey Hull, White Superstructure, Black Funnel, White band
+
+Dyvi Skagerak
+Dyvi Kattegat
+Dyvi Oceanic
+Dyvi Pacific
+Dyvi Atlantic
+
+//Gröen Autoliners - Blue Grey Hull, White Superstructure, White Funnel, Blue band
+
+Gröen Talon
+Gröen Target
+Gröen Trapper
+Gröen Traveller
+Gröen Trigger
+Gröen Trotter
+
+//Nopal - Orange Hull, White Superstructure, White Funnel, Blue band
+Nopal Sel
+Nopal Argus
+Nopal Verde
+Nopal Branco
+Nopal Mascot
+
+Yokohama Maru
+Suzukasan Maru
+Prince Maru
+
+Olive Ace
+Orange Ace
+
+Laurita
+Savonita
+Torinita
+
+Uranus Avra
+Uranus Galene
+Uranus Hellas
+Uranus Iliad
+Uranus Ithaki
+Uranus Kefalonia
+Uranus Odyssey
+
+###civ_ms_seabee (1970's era SEABEE-type barge carrier
+
+DOCTOR LUKAS
+ALMERIA LUKAS
+TILLIE LUKAS
+
+YULIUS FUCHIK		ЮЛИУС ФУЧИК
+TIBOR SZAMUELY		ТИБОР САМУЭЛИ
+
+###civ_ms_c8 (1970's era LASH barge carrier)
+
+//Waterman - Black hull, Cream superstructure, Yellow gantry and funnels
+STONEWALL JACKSON
+ROBERT E. LEE
+SAM HOUSTON
+BENJAMIN HARRISON
+EDWARD RUTLEDGE
+
+GREEN VALLEY
+GREEN ISLAND
+GREEN HARBOUR
+
+LASH ATLANTICO
+LASH ITALIA
+LASH PACIFICO
+
+AUSTRAL LIGHTNING
+AUSTRAL MOON
+
+DELTA MAR
+DELTA SUD
+DELTA NORTE
+DELTA CARIBE
+
+ACADIA FOREST
+ATLANTIC FOREST
+RHINE FOREST
+
+BILDERDYK
+MÜNCHEN
+
+//US Navy
+CAPE FEAR
+CAPE FLATTERY
+CAPE FLORIDA
+CAPE FAREWELL
+
+//Soviet - Black hull, Cream superstructure, Grey crane, White funnels w/ red trim
+Indira Gandhi
+
+
+
+
+###civ_ms_roro_a (1970's era roll-on roll-off ship, stern quarter ramp)
+
+//Lykes Lines
+TYSON LYKES
+CHARLES LYKES
+ILLINOIS
+
+//Scancarriers
+BARRANDUNA
+LALANDIA
+TARAGO
+TOMBARRA
+TRICOLOR
+
+//US Navy
+CAPE DUCATO
+CAPE DOUGLAS
+CAPE DOMINGO
+CAPE DECISION
+CAPE DIAMOND
+JUPITER
+
+//Australian
+IRON MONARCH
+IRON DUKE
+
+Lysaght Enterprise
+Lysaght Endeavour
+
+//Swedish
+ATLANTIC SAGA
+ATLANTIC SPAN
+ATLANTIC SONG
+ATLANTIC STAR
+ATLANTIC PREMIER
+ATLANTIC PRELUDE
+
+KAPRIFOL
+VALLMO
+LINNE
+
+Merzario Gallia
+
+//Soviet
+МАГНИТОГОРСК					MAGNITOGORSK
+КОМСОМОЛЬСК						KOMSOMOLSK
+АНАТОЛИЙ ВАСИЛЬЕВ				ANATOLIY VASILYEV
+
+###civ_ms_roro_b (Ivan Skuridin-type roll-on roll-off ship, bow doors, 20 units)
+
+ИВАН СКУРИДИН					IVAN SKURIDIN
+ГАВРИЛ КИРДЫШЕВ					GAVRIL KIRDISHEV
+ЮРИЙ СМИРНОВ					YURIY SMIRNOV
+ЗНАМЯ ОКТЯБРЯ					ZNAMYA OKTYABRYA
+БОРИС БУВИН						BORIS BUVIN
+ИВАН ДЕРБЕНЬЕВ					IVAN DERBENYEV
+НИКОЛАЙ ВИЛКОВ					NIKOLAY VILKOV
+АЛЕКСАНДР ОСИПОВ				ALEXSANDR OSIPOV
+ТИМУР ФРУНЗЕ					TIMUR FRUNZE
+КАТЯ ЗЕЛЕНКО					KATYA ZELENKO
+ВЕРА ХОРУЖАЯ					VERA KHORUZHAYA
+ВИКТОР ТАЛАЛИХИН				VIKTOR TALALIKHIN
+ШЕСТИДЕСЯТИЛЕТНИЕ СССР			SHESTIDESYATILEYE SSSR
+ДЕВЯТНАДЦАТЫЙ СЬЕЗД ВЛКСМ		DEVYATNADTSATYY SYEZD VLKSM
+ЮРИЙ АВОЛЬ						YURIY AVOL
+НИКОЛАЙ ПРЖЕВАЛЬСКИЙ			NIKOLAY PRZHEVALSKIY
+ДОНЕЦК							DONETSK
+КУЗМА ГНИДАШ					KUZMA GNIDASH
+НИКОЛАЙ ЯНСОН					NIKOLAY YANSON
+АЛЕКСАНДР СТАРОСТЕНКО			ALEKSANDR STAROSTENKO
+
+###civ_ms_bulk (1970's era very large bulk carrier)
+
+UNIVERSE KURE
+MOSEL ORE
+SAAR ORE
+TSURUMI MARU
+HAMPTON MARU
+PACIFIC MARU
+TAIKO MARU
+USA MARU
+GOLDEN CLOVER
+AMAZON MARU
+WAKAZURA MARU
+YAMAZURA MARU
+ZUIHO MARU
+ARAFURA MARU
+ADRIA MARU
+
+//British flag
+
+//Cast - Black Hull, Blue Funnel w/ White C
+CAST FULMAR
+CAST HERON
+CAST NARWHAL
+CAST OSPREY
+CAST SKUA
+CAST GANNET
+CAST PETREL
+CAST GULL
+CAST PUFFIN
+CAST KITTIWAKE
+ENGLISH BRIDGE
+FURNESS BRIDGE
+TYNE BRIDGE
+ERSKINE BRIDGE
+LONDON BRIDGE
+STERLING BRIDGE
+LAUDERDALE
+SIR ALEXANDER GLEN
+
+//SeaTeam - Red Hull, Red Funnel w/ White ST
+LONDON TEAM
+SCANDIA TEAM
+SEVONIA TEAM
+
+//Black Hull, Light Blue Funnel w/ Black Top
+TANTALUS
+
+//West German flag
+CARSTEN RUSS
+JACOB RUSS
+FUERTE VENTURA
+
+//Taiwanese flag
+MIAN ZHU HAI
+
+//Indian flag
+BELLARY
+BARUNI
+BAILADILA
+
+//Netherlands flag
+TAGELUS
+
+//Greek flag
+ATHENIC
+GLORIC
+PLATONIC
+ATOMIC
+DORIC
+HARMONIC
+IONIC
+TROPIC
+THETIS
+MELETE
+NAIAD
+SYMPHONIC
+CLASSIC
+AUTHENTIC
+KONKAR DINOS
+ARCHONTISSA KATINGO
+DIAMANTIS PATERAS
+
+//Liberian flag
+LAKE ALMANOR
+GOLDEN CAMEO
+RECIFE
+YEMANJA
+CEDROS
+MOZART
+BALBINA
+WORLD ERA
+WORLD LADY
+DOCECANYON
+TRIPHAROS
+LARINA
+LAUREL WREATH
+GOLDEN RAIN
+GOLDEN TULIP
+WORLD SPLENDOUR
+EASTERN SPIRIT
+WORLD RECOVERY
+LAKE MENDOCINO
+
+
+
+//Italian flag
+ITALMARE
+MARE LIGURE
+MARE TIRRENO
+
+DONAU MARU
+VOLGA MARU
+CASPIAN TRADER
+MOSTUN SANKO
+REGENT PIMPERNEL
+SPRING ODESSA
+CAUCASUS MARU
+EASTERN HAZEL
+
+###civ_ms_ritina (1970's era supertanker)
+
+//AGIP - Black Hull, Yellow Funnel
+
+AGIP SICILIA
+AGIP SARDEGNA
+AGIP ABRUZZO
+AGIP CAMPANIA
+AGIP LAZIO
+AGIP MARCHE
+
+//NAI
+
+NAI MARIO PERRONE
+NAI DI STEFANO
+NAI MATTEINI
+NAI ROCCO PIAGGIO
+
+//
+PARAGGI
+RITINA
+VOLERE
+OCEANIA
+PRIMAROSA
+
+//Sunrise - Black Hull, Red Funnel
+MELPO LEMOS
+IRENE LEMOS
+CHRYSANTHY M LEMOS
+MICHAEL C LEMOS
+
+//Japan Line - Black Hull, Light Blue Funnel, Red Deck
+JAPAN ADONIS
+JAPAN ASTER
+JAPAN CANNA
+JAPAN CARNATION
+JAPAN COSMOS
+JAPAN DAISY
+JAPAN GALANTHUS
+JAPAN IRIS
+JAPAN ITOCHU
+JAPAN LUPINUS
+JAPAN MARGUERITE
+JAPAN ORCHID
+JAPAN VIOLET
+WORLD ADMIRAL
+WORLD AZALEA
+WORLD BERMUDA
+WORLD BRIGADIER
+WORLD DUCHESS
+WORLD EMPIRE
+WORLD GENERAL
+
+MOBIL SWIFT
+
+//Idemitsu Tanker - Black Hull, Buff Funnel, Light Grey Deck
+MIYATA MARU
+IDEMITSU MARU
+
+//Kawasaki Kisen - Ghost Grey Hull, Tan Deck, Red Funnel
+ISUZUGAWA MARU
+WORLD CROWN
+
+//Liberian Stag Tpts - Black Hull, Blue Funnel w/ Red Band, White W logo, Red Deck
+WORLD ACHIEVEMENT
+WORLD BARONESS
+WORLD BRASILIA
+WORLD AMBASSADOR
+WORLD CAVALIER
+WORLD CHIEF
+WORLD COMET
+WORLD CONQUEROR
+WORLD DIGNITY
+WORLD DIPLOMAT
+WORLD DUKE
+WORLD DYNASTY
+WORLD EMINENCE
+WORLD HAPPINESS
+
+//Meiji Kaiun - Grey Hull, White Funnel
+MEIGEN MARU
+
+//Mitsui OSK - Black Hull, White, Red Top Funnel
+IZUSAN MARU
+KAIEN MARU
+KASHIMASAN MARU
+KATORISAN MARU
+
+
+//SANKO LINE - Mint green hull, black funnel
+NICHIO MARU
+EIKO MARU
+SHIN-EN MARU
+KYOKKO MARU
+KEIYO MARU
+TOHO MARU
+YOKO MARU
+JUKO MARU
+WORLD CANADA
+
+//Showa Kaiun - Grey Hull, Black White Band Funnel, Red Deck
+KINKO MARU
+
+//Taiyo Shosen - Grey Hull, Black Funnel
+IKUYO MARU
+
+//Yamashita-Shinnihon Kisen - Black Hull, Red Funnel
+MITSUTAMA MARU
+
+//French flag
+Latona
+Leda
+Lucina
+Latirus
+Latia
+Labiosa
+Chambord
+Chaumont
+Chenonceaux
+Chinon
+Brissac
+Blois
+Beaugency
+
+//Kuwaiti flag
+Al Rawdatain
+
+//British flag
+British Renown
+British Norness
+British Ranger
+British Reliance
+British Resolution
+British Resource
+British Trident
+
+British Explorer
+British Inventor
+British Navigator
+British Patience
+British Pioneer
+British Pride
+British Progress
+British Promise
+British Prospector
+British Purpose
+British Renown
+British Respect
+British Scientist
+British Surveyor
+
+//Liberian flag
+Al Quasim
+Paul L Fahrneyu
+J.R. Grey
+United Overseas
+Laurel
+Universe Burmah
+Universe Explorer
+Acadia
+Peconic
+Moselle
+Menantic
+Hamlet
+
+Edson Benicia
+Edson Long Beach
+Edson North Slope
+Edson Valdez
+
+###civ_ss_encounter (Based on OCL Encounter Bay design, rear superstructure containership, 8 units)
+
+//OCL - Cream over Dark Green, Dark Green funnel
+ENCOUNTER BAY
+DISCOVERY BAY
+JERVIS BAY
+BOTANY BAY
+FLINDERS BAY
+MORETON BAY
+PALLINGER BAY
+
+
+Melbourne Express
+
+###civ_ss_act-1 (Based on ACT ACT-1 design, rear superstructure containership, 6 units)
+
+//ACT - Cream over Grey, White funnel
+ACT-1
+ACT-2
+ACT-6
+
+//Australian National Line - Cream over Black, Blue funnel, Yellow masts
+AUSTRALIAN ENDEAVOUR
+
+//Generic Black Hull, Black Funnel
+TRANS AMERICA
+
+//Spanish Line - Black Hull, Black Funnel
+GUADALUPE 1
+
+###civ_ms_freighter_a (MarAd Type C-4 lookalike, 40 units)
+
+//Moore-McCormack Lines - Cream over Grey, Green funnel
+MORMACARGO
+MORMACVEGA
+MORMACLYNX
+MORMACRIGEL
+MORMACALTAIR
+MORMACDRACO
+
+//United States Lines - Cream over Black, Red/White/Blue funnel, Cream masts
+PIONEER MOON
+
+AMERICAN CHALLENGER
+AMERICAN CHARGER
+AMERICAN CHAMPION
+AMERICAN CHIEFTAIN
+AMERICAN COURIER
+AMERICAN COMMANDER
+AMERICAN CORSAIR
+AMERICAN CONTRACTOR
+AMERICAN CONTENDER
+AMERICAN CRUSADER 
+
+AMERICAN ROVER
+AMERICAN RACER
+AMERICAN RANGER
+AMERICAN RELIANCE
+AMERICAN RESOLUTE
+
+//Grace Lines - Cream over Grey, Green/White/Black funnel
+SANTA LUCIA
+SANTA CRUZ
+SANTA CLARA
+SANTA ELENA
+SANTA BARBARA
+SANTA ISABEL
+
+//Lykes Lines - Cream over Black, White funnel, Cream masts
+LOUISE LYKES
+ELIZABETH LYKES
+RUTH LYKES
+LETITIA LYKES
+GENEVIEVE LYKES
+MASON LYKES
+MALLORY LYKES
+STELLA LYKES
+FREDERICK LYKES
+HOWELL LYKES
+DOLLY TURMAN
+VELMA LYKES
+
+//New Hailee Navigation - Black hull, White superstructure amidships, Cream masts, Red funnel, Green deck
+NEW HAI LEE
+
+//Maritime Sealift COMMAND
+
+CAPE ANN
+CAPE ALEXANDER
+CAPE ARCHWAY
+CAPE ALAVA
+CAPE AVINOFF
+
+CAPE GIBSON
+CAPE BRETON
+CAPE BOVER
+CAPE BORDA
+CAPE BON
+CAPE BLANCO
+
+CAPE CHALMERS
+CAPE CANSO
+CAPE CHARLES
+CAPE CLEAR
+CAPE CANAVERAL
+CAPE COD
+CAPE CARTHAGE
+CAPE CATOCHE
+
+
+CAPE JACOB
+CAPE JOHNSON
+CAPE JUBY
+
+
+###civ_ms_freighter_b (MarAd Type C4-S-69a, lookalike, 12 units)
+
+//American President Lines - Cream over Black, Red/Blue funnel, Cream masts
+PRESIDENT VAN BUREN
+PRESIDENT GRANT
+PRESIDENT TAFT
+PRESIDENT MCKINLEY
+PRESIDENT FILLMORE
+
+PRESIDENT JEFFERSON
+PRESIDENT MADISON
+PRESIDENT PIERCE
+PRESIDENT JOHNSON
+
+PRESIDENT POLK
+PRESIDENT MONROE
+PRESIDENT HARRISON
+
+PRESIDENT HAYES
+PRESIDENT JACKSON
+PRESIDENT ADAMS
+PRESIDENT COOLIDGE
+
+###civ_ms_freighter_c (MarAd Type C7-S-68c, lookalike, 20 units)
+
+//United States Lines - Cream over Black, Red/White/Blue funnel, Grey masts
+AMERICAN LANCER
+AMERICAN LEGION
+AMERICAN LIBERTY
+AMERICAN LYNX
+AMERICAN LARK
+AMERICAN ASTRONAUT
+AMERICAN APOLLO
+AMERICAN AQUARIUS
+
+AMERICAN ARCHER
+AMERICAN ARGOSY
+AMERICAN ACCORD
+AMERICAN ACE
+AMERICAN ALLIANCE
+AMERICAN LEGEND
+AMERICAN LEADER
+AMERICAN LEGACY
+
+
+AUSTRAL ENVOY
+AUSTRAL ENSIGN
+AUSTRAL ENDURANCE
+AUSTRAL ENTENTE
+
+###civ_ms_freighter_d (Modern rear-superstructure lookalike, 40 units)
+
+//Kiki Lines - Cream over Dark Blue, Yellow funnel
+
+Jiji Maru
+Tombo Maru
+Mei Maru
+Satsuki Maru
+Totoro Maru
+Kanta Maru
+Rei Maru
+Okino Maru
+Ketto Maru
+Maki Mar
+
+//Generics - Cream over Grey, Red funnel
+
+Zambeze
+Zeebrugge
+Zelande
+
+//Japan flagged
+CORINTO MARU
+CURACAO MARU
+BREMEN MARU
+FUTAMI MARU
+BARCELONA MARU
+BERGEN MARU
+FUSHIMI MARU
+FUSO MARU
+
+//Nedlloyd - Cream over Black, Black funnel with Orange band
+NEDERLLOYD NAGASAKI
+NEDERLLOYD NAGOYA
+NEDERLLOYD NAPIER
+NEDERLLOYD NASSAU
+NEDERLLOYD KEMBLA
+NEDERLLOYD KIMBERLY
+NEDERLLOYD KINGSTON
+NEDERLLOYD KYOTO
+NEDERLLOYD KATWIJK
+
+//Spanish flagged - Cream over Black, White funnel with Blue compass wheel
+CIUDAD DE MANIZALES
+CIUDAD DE MEDELLIN
+
+//Myanmar flagged - Cream over Grey, Blue funnel with Red/White band
+BUNGA ORKID
+BUNGA TANJONG
+BUNGA MELATI
+BUNGA SEROJA
+BUNGA RAYA
+BUNGA MELOR
+
+//Brazil flagged Cream over Black, Yellow funnel
+CORABANK
+CLYDEBANK
+FORTHBANK
+IVYBANK
+MEADOWBANK
+MORAYBANK
+GAIETY
+ARAB DABBOR
+WILD MARLIN
+WILD MALLARD
+DACEBANK
+PIKEBANK
+ROACHBANK
+RUDDBANK
+TENCHBANK
+TROUTBANK
+CRESTBANK
+FENBANK
+
+//Netherlands flagged - Cream over Grey, Yellow funnel with Blue band w/ White star
+ALDABI
+ALHENA
+ALNATI
+ALPHACCA
+
+//Denmark flagged
+HEL
+CHARLOTTENBORG
+CHRISTIANSBORG
+
+//Polish flagged
+JASTARNIA-BOR
+JURATA
+WLADYSLAWOWO
+KUZNICA
+
+
+
+
+###civ_mv_mairangi_bay (OCL Mairangi Bay type large center superstructure container ship, 29 units)
+
+//OCL - Cream over Dark Green, Dark Green funnel
+MAIRANGI BAY
+RESOLUTION BAY
+LIVERPOOL BAY
+CARDIGAN BAY
+KOWLOON BAY
+OSAKA BAY
+TOKYO BAY
+
+//P&O - Cream over Dark Grey, Blue funnel
+PEGASUS BAY
+LARGS BAY
+TALISKER BAY
+TABLE BAY
+
+//ACT - Grey, Cream Funnel
+ACT-7
+CITY OF DURBAN
+
+KITANO MARU
+KURAMA MARU
+RHINE MARU
+
+//ANL - Cream over Black, Blue funnel
+AUSTRALIAN VENTURE
+
+//Nedlloyd - Light Grey, Black/Orange/Black funnel
+NEDERLLOYD HOORN
+
+//Ben Lines - Cream over Grey - Yellow Funnel
+CITY OF EDINBURGH
+BENALDER
+BENAVON
+
+//Seatrain Lines - Black, Cream Funnel
+SEATRAIN SARATOGA
+EUROFREIGHTER
+EUROLINER
+ASIAFREIGHTER
+ASIALINER
+
+//Zim Line - Black, Blue funnel
+ZIM KEELUNG
+ZIM SAVANNAH
+ZIM BARCELONA
+
+//Hapag-Lloyd
+Berlin Express
+Bremen Express
+Düsseldorf Express
+Köln Express
+Rotterdam Express
+Stuttgart Express
+Tokio Express
+
+//Sea-Land
+Sea-Line Achiever
+Sea-Line Atlantic
+Sea-Line Express
+Sea-Line Integrity
+Sea-Line Motivator
+Sea-Line Patriot
+Sea-Line Performance
+Sea-Line Pride
+Sea-Line Quality
+Sea-Line Value
+
+
+###civ_ms_super-p (Large-size Cargo, crane/crane/stulcken derrick/crane, 6 hatches
+
+//Blue Star Line
+PATROCLUS
+PHEMIUS
+PHRONTIS
+PERSEUS
+PROTESILAUS
+PEISANDER
+
+//Overseas Oriental
+ORIENTAL CHAMPION
+ORIENTAL MERCHANT
+
+//Venezuela flagged
+TACHIRA
+TRUJILLO
+ARAGUA
+FALCON
+
+###civ_ms_amra (Medium-size Reefer, crane/crane/stulcken derrick/crane, 4 hatches, 19 units)
+
+STRATHCARROL
+STRATHCARRON
+
+STRATHMAY
+STRATHMEIGLE
+STRATHMORE
+STRATHMUIR
+
+MANORA
+MERKARA
+MORVADA
+MULBERA
+
+ASKA
+AMRA
+HALLA PILOT
+HALLA PRIDE
+
+LLOYD HUMAITA
+LLOYD CUIABA
+LLOYD MARABA
+LLOYD ALTAMIRA
+LLOYD SANTAREM
+
+###civ_mv_slavyansk (Soviet Slavyansk-type general cargo, 33 units)
+
+САРНЫ 						SARNY
+СЛАВЯНСК					SLAVYANSK
+СОЧИ						SOCHI
+ИЛЬЯ КУЛИК					ILYA KULIK
+КОМСОМОЛЬСКАЯ СЛАВА			KOMSOMOLSKAYA SLAVA
+СВАНЕТИЯ					SVANETIYA
+СЫЗРАНЬ 					SYZRAN
+КОМАНДАРМ МАТВЕЕВ			KOMANDARM MATVEYEV
+СЕРЕБРЯНСК					SEREBRYANSK
+СЕРОВ						SEROV
+СЕВАН 						SEVAN
+СЕВЕРОДОНЕЦК 				SEVERODONETSK
+СОКОЛ						SOKOL
+СОСНОГОРСК					SOSNOGORSK
+СУЗДАЛЬ 					SUZDAL
+АКАДЕМИК Е.ПАТОН			AKADEMIK YEVGENIY PATON
+АЛЕКСАНДР ЦЮРУПА			ALEKSANDR TSYURUPA
+КАПИТАН ЛУХМАНОВ			KAPITAN LUKHAMANOV
+СВЕТЛОГОРСК					SVETLOGORSK
+КАПИТАН ПЛАУШЕВСКИЙ			KAPITAN PLAUSHEVSKIY
+КАПИТАН ШАНЦБЕРГ			KAPITAN SHANTSBERG
+КЛИМ ВОРОШИЛОВ				KLIM VOROSHILOV
+СИДОР КОВПАК				SIDOR KOVPAK
+ВАЛЕНТИН ХУТОРСКИЙ			VALENTIN KHUTORSKIY		
+АКАДЕМИК ЯНГЕЛЬ				AKADEMIK YANGEL
+ИВАН КОРОБЦОВ				IVAN KOROBTSOV
+АНДРЕЙ ЛАВРОВ				ANDREY LAVROV
+ГЕНЕРАЛ ВЛАДИМИР ЗАИМОВ		GENERAL VLADIMIR ZAIMOV
+СУЭЦ						SUEZ
+ПРОФЕССОР БУЗНИК			PROFESSOR BUZNIK
+ВАЛЕРИЙ МЕЖЛАУК				VALERIY MEZHLAUK
+ИСМАИЛИЯ					ISMAILIYA
+ПОРТ САИД					PORT SAID
+
+###civ_mv_irkutsk (Soviet Irkutsk-type general cargo - also resembles Waarnemünde, 23 units)
+
+ИРКУТСК						IRKUTSK
+АКАДЕМИК ФИЛАТОВ			AKADEMIK FILATOV
+АКАДЕМИК РЫКАЧЕВ			AKADEMIK RYKACHEV		
+АКАДЕМИК ШУХОВ				AKADEMIK SHUKHOV
+АКАДЕМИК ЮРЬЕВ				AKADEMIK YURYEV
+САНТЬЯГО ДЕ КУБА			SANTIAGO DE CUBA
+АКАДЕМИК ОРБЕЛИ				AKADEMIK ORBELI
+ПРОФЕССОР БАРАНСКИЙ			PROFESSOR BARANSKIY
+ПРОФЕССОР БЛИБОРГ			PROFESSOR BLYBORG
+АЛЕКСАНДР УЛЬЯНОВ			ALEKSANDR ULYANOV
+ДМИТРИЙ УЛЬЯНОВ				DMITRIY ULYANOV
+ИЛЬЯ УЛЬЯНОВ				ILYA ULYANOV
+ОЛЬГА УЛЬЯНОВА				OLGA ULYANOVA
+ВЛАДИМИР ИЛЬИЧ				VLADIMIR ILYICH
+АНАТОЛИЙ ЛУНАЧАРСКИЙ		ANATOLIY LUNACHARSKIY
+АННА УЛЬЯНОВА				ANNA ULYANOVA
+ГАРРИ ПОЛЛИТ				HARRY POLLIT
+НИКОЛАЙ ПОГОДИН				NIKOLAY POGODIN
+ВАЛЕРИАН КУЙБЫШЕВ			VALERIAN KUYBYSHEV
+УИЛЬЯМ ФОСТЕР				WILLIAM FOSTER
+БОРИС ЖЕМЧУЖИН				BORIS ZHEMCHUZHIN
+НИКОЛАЙ КРЫЛЕНКО			NIKOLAY KRYLENKO
+НИКОЛАЙ ТУЛПИН 				NIKOLAY TULPIN
+
+###civ_mv_kommunist (Soviet Kommunist-type general cargo, 20 units)
+
+БЕЛА КУН					BELA KUN
+50 ЛЕТ СОВЕТСКОЙ УКРАИНЫ	50 LET SOVIETSKOY UKRAINY
+ИГНАТИЙ СЕРГЕЕВ				IGNATIY SERGEYEV
+ИНЕССА АРМАНД				INESSA ARMAND
+ЖАННА ЛЯБУРБ				JEANNE LABOURBE
+КОММУНИСТ					KOMMUNIST
+КОММУНИСТИЧЕСКОЕ ЗНАМЯ		KOMMUNISTICHESKOYE ZNAMYA
+НИКОЛАЙ КРЕМЛЯНСКИЙ			NIKOLAY KREMLYANSKIY
+ДМИТРИЙ ПОЛУЯН				DMITRIY POLUYAN
+ФРИДРИХ ЭНГЕЛЬС				FRIEDRICH ENGELS
+ГЕОРГИЙ ЧИЧЕРИН				GEORGIY CHICHERIN
+ГЕОРГИЙ ДИМИТРОВ			GEORGIY DIMITROV
+ДЖУЗЕППЕ ДИ ВИТТОРИО		GIUSEPPE DI VITTORIO
+ИОНА ЯКИР					IONA YAKIR
+КАРЛ ЛИБКНЕХТ				KARL LIEBKNECHT
+РОЗА ЛЮКСЕМБУРГ				ROSA LUXEMBURG
+ЭРНСТ ТЕЛЬМАН				ERNST THALMANN
+ФРАНЦ БОГУШ					FRANZ BOGUSH
+ХО ШИ МИН					HO CHI MINH
+ТОЙВО АНТИКАЙНЕН			TOYVO ANTIKAYNEN
+
+###civ_ms_murom (Soviet Murom-type general cargo, 30 units)
+
+МУРОМ						MUROM
+МОЗДОК						MOZDOK
+МОЛОЧАНСК 					MOLOCHANSK
+МОЖАЙСК						MOZHAYSK
+МАЦЕСТА 					MATSESTA
+МИНСК						MINSK
+МОРШАНСК 					MORSHANSK
+МЦЕНСК 						MTSENSK
+МАРГЕЛАН					MARGELAN
+МАРИИНСК 					MARIINSK
+МЕДЫНЬ 						MEDYN
+МЕЖДУРЕЧЕНСК				MEZHDURECHENSK
+МЕЖГОРЬЕ 					MEZHGORYE
+МУКАЧЕВО					MUKACHEVO
+АЛЕКСЕЙ ТОЛСТОЙ				ALEKSEY TOLSTOY
+ДМИТРИЙ ФУРМАНОВ			DMITRIY FURMANTOV
+ИВАН ГОНЧАРОВ				IVAN GONCHAROV
+МИЛЛЕРОВО					MILLEROVO
+МОЗЫРЬ						MOZYR
+МЫТИЩИ						MYTISHCHI
+НИКОЛАЙ НЕКРАСОВ			NIKOLAY NEKRASOV
+САМУИЛ МАРШАК				SAMUIL MARSHAK
+АНТОН МАКАРЕНКО				ANTON MAKARENKO
+БОРИС ГОРБАТОВ				BORIS GORBATOV
+БОРИС ЛАВРЕНЕВ				BORIS LAVRENYOV
+ФЕДОР ГЛАДКОВ				FEDOR GLADKOV
+МАРНЕУЛИ					MARNEULI
+МИЧУРИН						MITCHURIN
+МОЛОДОГВАРДЕЙСК				MOLODOGVARDEYSK
+РОМЕН РОЛАН					ROMEN ROLLAN
+
+###civ_ms_poltava (Soviet Poltava-type rear superstructure general cargo, 77 units)
+
+Soviet Union:
+
+ПОЛТАВА						POLTAVA
+ПОЛОЦК						POLOTSK
+ПЕРЕКОП						PEREKOP
+БЕЖИЦА						BEZHITSA
+ПРИДНЕПРОВСК				PRIDNEPROVSK
+НИКОЛАЕВ					NIKOLAIEV
+БРЯНСКИЙ РАБОЧИЙ			BRYANSK WORKER
+ПАВЛОВСК					PAVLOVSK
+БАЙМАК						BAYMAK
+БАКУРИАНИ					BAKURIANI
+БАБУШКИН					BABUSHKIN
+БАЛАШИХА					BALASHIKHA
+БРАЦЛАВ						BRATSLAV
+БЕЛГОРОД-ДНЕСТРОВСКИЙ		BELOGOROD-DNESTROVSKY
+ПАРТИЗАНСКАЯ ИСКРА			PARTISAN SPARK
+БЕРИСЛАВ					BERISLAV
+ГЕНИЧЕСК					GENICHESK
+ПАРТИЗАНСКАЯ СЛАВА			PARTISAN GLORY
+БЕРЕЗОВКА					BEREZOVKA
+КАПИТАН ВИСЛОБОКОВ			CAPTAIN VISLOBOKOV
+ОКТЯБРЬСКАЯ РЕВОЛЮЦИЯ		OCTOBER REVOLUTION
+
+Greece - Grey/Cream hull, cream superstructure/masts, yellow funnel
+
+EFTYHIA
+KLAVDIA
+EVGENIA
+OAKLAND STAR
+PEBANE
+
+//Pakistan
+
+AL ABEDIN
+
+//Kuwait - Grey/Cream hull, cream superstructure, yellow masts, black funnel, red/white band
+
+AL KADISIAH
+AL SABAHIAH
+AL JABIRIAH
+AL MANSOURIAH
+AL ODAILIAH
+AL GURAINIAH
+AL KHALIDIAH
+AL OMARIAH
+AL ARIDHIAH
+AL SOLAIBIAH
+AL FARWANIAH
+AL SHIDADIAH
+AL SALEHIAH
+
+//Iraq: - Grey/Cream hull, cream superstructure, grey masts, white funnel
+
+BAGHDAD
+BASRAH
+BABYLON
+SINDBAD
+
+Hungary: - Grey hull, cream superstructure, yellow masts, black funnel
+
+ADY
+PETOFI
+
+India: - Black hull, cream superstructure, yellow masts, black funnel
+
+VISHVA UMANG
+VISHVA TARANG
+VISHVA ASHA
+VISHVA ABHA
+
+West Germany: - Grey hull, cream superstructure, yellow masts, black funnel
+
+BRUNSWICK
+BRUNSKAMP
+BRUNSHAGEN
+BRUNSHORST
+BRUNSTORF
+BRUNSHAIN
+BRUNSBROCK
+
+Panama: - Black/Cream hull, cream superstructure, yellow masts, yellow funnel
+
+BALSTAD
+UNION HAMBURG
+DOLLY II
+NORTHERN TRADER
+ALEXA II
+AN LUNG
+
+Singapore:
+
+WESTGATE
+ALBANY
+
+Liberia:
+
+ARMONIA
+PELINDABA
+XIN TONG
+HAI SHENG
+
+Cyprus:
+
+NEW FAITH
+GREGORIOS D
+PENA
+PEBAN
+NEW FAME
+ANESTO D
+PROSPERITAS
+
+Malta:
+
+WHITLEY BAY
+POLYXENI
+
+
+###civ_ms_metallurg_anosov (Soviet Leninskiy Komsomol-type center superstructure general cargo, 23 units) 
+
+МЕТАЛЛУРГ КУРАКО 			METALLURG KURAKO
+ЮРИЙ ГАГАРИН 				YURIY GAGARIN
+МЕТАЛЛУРГ БАРДИН 			METALLURG BARDIN
+ХИРУРГ ВИШНЕВСКИЙ 			KHIRURG VISHNEVSKY
+ХИМИК ЗЕЛИНСКИЙ 			KHIMIK ZELINSKY
+ФИЗИК КУРЧАТОВ 				FIZIK KURCHATOV
+МЕТАЛЛУРГ АНОСОВ 			METALLURG ANOSOV
+КРАСНАЯ ПРЕСНЯ 				KRASNAY PRESNYA
+ТРАНСБАЛТ 					TRANSBALT
+КРАСНЫЙ ОКТЯБРЬ 			KRASNYI OKTYABR
+ВАЛЕНТИНА ТЕРЕШКОВА 		VALENTINA TERESHKOVA
+РАВЕНСТВО 					RAVENSTVO
+БРАТСТВО 					BRATSTVO
+СВОБОДА 					SVOBODA
+АКАДЕМИК ШИМАНСКИЙ 			AKADEMIK SHIMANSKY
+КРЕМЛЬ 						KREML
+ПАРИЖСКАЯ КОММУНА 			PARIZHSKAYA KOMMUNA
+ЮНЫЙ ЛЕНИНЕЦ 				YUNIY LENINETS
+ФИЗИК ВАВИЛОВ 				FIZIK VAVILOV
+ФИЗИК ЛЕБЕДЕВ 				FIZIK LEBEDEV
+ФРЕДЕРИК ЖОЛИО-КЮРИ 		FREDERIK JOLIO-KYURI
+ЛЕНИНСКИЙ ПИОНЕР 			LENINSKY PIONER
+КРАСНОЕ ЗНАМЯ 				KRASNOE ZNAMYA
+
+###civ_ms_mercur (Soviet Mercur-type rear superstructure container, 10 units) 
+
+Художник Сарян				Khudozhnik Saryan
+Художник Иогансон			Khudozhnik Ioganson
+Художник Жуков				Khudozhnik Zhukov
+Художник Пахомов			Khudozhnik Pakhomov
+Художник Пророков			Khudozhnik Prorokov
+Художник Репин				Khudozhnik Repin
+Художник Ромас				Khudozhnik Romas
+Максим Михайлов				Maksim Mikhaylov
+Надежда Обухова				Nadezhda Obukhova
+Николай Голованов			Nikolay Golovanov
+
+###civ_ms_andizhan (Soviet Andizhan-type mid superstructure general cargo, 46 units) 
+
+РАЗЛИВ						Razliv
+КОВЕЛЬ						Kovel
+ДАУГАВА						Daugava
+САРАНСК						Saransk
+САЛЬСК						Salsk
+ЗАЙСАН						Zaysan
+ТУРУХАНСК					Turukhansk
+ЛОКСА						Loksa
+РЕВДА						Revda
+ИЖМА						Izhma
+ЛУДЗА						Ludza
+БАРАБИНСК					Barabinsk
+БОЦМАН ЗОТОВ				Botzman Zotov
+ДАЛЬНИЙ						Dalnyi
+НАГАЕВО						Nagaevo
+БИКИН						Bikin
+ЧЕЛЯБИНСК					Chelyabinsk
+РАЗДОЛЬНОЕ					Razdolnoye
+ХОРОЛЬ						Horol
+ЯСНОМОРСК					Yasnomorsk
+МУРМАШИ						Murmashi
+ВАНИНО						Vanino
+РЕПИНО						Repino
+КАПИТАН ВООЛЕНС				Kapitan Voolens
+МАХТРА						Mahtra
+МГА							Mga
+ЛАЗАРЕВ						Lazarev
+ШЕНКУРСК					Shenkursk
+СИГУЛДА						Sigulda
+КЯРДЛА						Kardla
+ХОЛМОГОРЫ					Kholmogory
+СОБОЛЕВО					Sobolevo
+ПОЛЯРНЫЙ					Polyarnyi
+ДАЛЬНЕРЕЧЕНСК 				Dalnerechensk
+ЕЙСК						Yeisk
+РЕНИ						Reni
+РАКВЕРЕ						Rakvere
+СЫРВЕ						Sòrve
+
+ОНДА						Onda
+ПОСЬЕТ						Posyet
+ИЖМА						Vilyi
+ВЕНТА						Venta
+
+
+SONG HAN					Song Han
+HONG HA 2					Hong Ha 2
+SONG DA 02					Song Da 02
+SONG KHAN					Song Khan
+
+###civ_ms_yuniy_partizan (Soviet Yuniy Partizan-type aft superstructure general cargo, 20 units) 
+
+
+Soviet Navy: - Grey Hull, Cream Superstructure
+
+TURGAY						ТУРГАЙ
+PINEGA						ПИНЕГА
+PECHORA						ПЕЧОРА
+UFA							УФА
+
+Soviet Flag: - Black/Cream, Cream Superstructure
+
+ANTON GUBARYEV				АНТОН ГУБАРЬЕВ
+DZHEMS BANKOVICH			ДЖЕМС БАНКОВИЧ
+GRISHA PODOBEDOV			ГРИША ПОДОБЕДОВ
+KHENDRIK					ХЕНДРИК
+KUYVAS						КУЙВАС
+LIDA DEMESH					ЛИДА ДЕМЕШ
+MALDIS SKREYA				МАЛДИС СКРЕЯ
+MARAT KOZLOV				МАРАТ КОЗЛОВ
+NADE RIBAKOVAYTE			НАДЕ РИБАКОВАЙТЕ
+NYURA KIZHEVATOVA			НЮРА КИЖЕВАТОВА
+PETYA KOVALYENKO			ПЕТЯ КОВАЛЕНКО
+PETYA SHITIKOV				ПЕТЯ ШИТИКОВ
+RICHARDAS BUKAUSKAS			РИЧАРДАС БУКАУСКАС
+TANYA KARPINSKAYA			ТАНЯ КАРПИНСКАЯ
+VALYA KURAKINA				ВАЛЯ КУРАКИНА
+VANYA KOVALYEV				ВАНЯ КОВАЛЬЕВ
+VASHA GORDIYENKO			ВАША ГОРДИЕНКО
+VASYA STABROVSKIY			ВАСЯ СТАБРОВСКИЙ		
+VASYA KURKA					ВАСЯ КУРКА
+VITYA NOVITSKIY				ВИТЯ НОВИЦКИЙ
+YUNYY PARTIZAN				ЮНЫЙ ПАРТИЗАН
+
+Lookalikes:
+
+Poseidon Class:
+
+ROSTOK						РОСТОК
+CHITA						ЧИТА
+KHASAN						ХАСАН
+NOVOCHERKASSK				НОВОЧЕРКАССК
+RYSHKANY					РЫШКАНИ
+RUSHANY						РУШАНЫ
+RUBEZHNOYE					РУБЕЖНОЕ
+RUDNYY						РУДНЫЙ
+ROMNY						РОМНИ
+RZHEV						РЖЕВ
+RAKHOV						РАХОВ
+REUTOV						РЕУТОВ
+RATNO						РАТНО
+RADOMYSHI					РАДОМЫШИ
+RYAZAN						РЯЗАНЬ
+ROSLAVL						РОСЛАВЛ
+RYBINSK						РЫБИНСК
+MAGO						МАГО
+
+Norwegian flagged
+
+ARUNTO
+AVANT
+ANGLO
+HIRMA
+SPES
+
+Netherlands flagged
+
+ANTARES
+CAREBEKA I
+JAN
+
+Swedish flagged
+
+NORDÖN
+HOLMÖN
+
+French flagged
+
+LE GOELO
+
+Italian flagged
+
+ANTONIO M
+DIEGO DE BLASIO
+DOMENICO PALUMBRO
+ELVIRA
+MAIK
+RIBICONE
+TIBANIA
+
+Greece flagged
+
+PELTI
+
+Brazil flagged
+
+STIRLINGBROOK
+SOLENTBROOK
+SOMERSETBROOK
+SURREYBROOK
+SUSSEXBROOK

@@ -1,0 +1,129 @@
+Define ShipEngageShipASM
+
+Set Posture = WeaponsTight
+
+If $Target AAW_Capability < 3
+	Set SalvoSize = 1;
+
+If $Target AAW_Capability > 3
+	Set SalvoSize = 2;
+	
+If $Target AAW_Capability > 6
+	Set SalvoSize = 4;
+		
+
+If ContactType = Link
+
+Set EMCON
+
+Set Telegraph 5
+
+Close Range < MaxLaunchRange * 0.75
+
+Check ($MidcourseGuidance)
+
+	If MidcourseGuidance = True
+	
+			Set FireControlRadar On
+	
+			When TargetBearing < SeekerFOV
+	
+					LaunchWeapon(SalvoSize)
+	
+	If $TargetKilled = False
+	
+		Reattack
+		
+	Else
+	
+	LaunchWeapon(SalvoSize)
+	
+	SetCourse +/- 100
+	
+	Set Telegraph 5
+	
+	Begin Timer
+	
+	When Timer = 5
+	
+	ReturnToCourse
+	
+If ContactType = ESM
+
+Set EMCON
+
+Set Telegraph 4
+
+Set Course = TargetBearing
+
+	Begin Timer
+
+		When Timer = 5
+		
+		Set SurfaceSearchRadar On
+		
+		Begin Timer
+		
+			If Target = Detected
+		
+				Close Range < MaxLaunchRange * 0.75
+
+Check ($MidcourseGuidance)
+
+	If MidcourseGuidance = True
+	
+			Set FireControlRadar On
+	
+					LaunchWeapon(SalvoSize)
+	
+	If $TargetKilled = False
+	
+		Reattack
+		
+	Else
+	
+	LaunchWeapon(SalvoSize)
+	
+	SetCourse +/- 100
+	
+	Set Telegraph 5
+	
+	Begin Timer
+	
+	When Timer = 5
+	
+	ReturnToCourse
+	
+If ContactType = Radar
+
+Set Telegraph 4
+
+Set Course = TargetBearing
+		
+	Close Range < MaxLaunchRange * 0.75
+
+Check ($MidcourseGuidance)
+
+	If MidcourseGuidance = True
+	
+			Set FireControlRadar On
+	
+					LaunchWeapon(SalvoSize)
+	
+	If $TargetKilled = False
+	
+		Reattack
+		
+	Else
+	
+	LaunchWeapon(SalvoSize)
+	
+	SetCourse +/- 100
+	
+	Set Telegraph 5
+	
+	Begin Timer
+	
+	When Timer = 5
+	
+	ReturnToCourse

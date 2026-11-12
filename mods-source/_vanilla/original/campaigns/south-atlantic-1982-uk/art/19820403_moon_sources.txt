@@ -1,0 +1,32 @@
+MOON NEWSPAPER - 3 APRIL 1982
+
+Layout: 19820403_moon_its_war.xml
+Images: moon_thatcher_halftone.png, moon_falklands_map.png, moon_paper_wear.png
+All wording remains editable in the XML. Edit the PaperName Text value for Moon.
+Adjust PageLayout row heights, column widths and shared font styles to fit translated text.
+The FalklandsCrisisBadge Grid includes the map and its editable labels.
+
+The small news stories are invented. The user-supplied newspaper scan was a composition reference and is not included in this artwork.
+
+THATCHER PHOTO
+White House Photographic Office, 28 February 1981.
+Source: https://commons.wikimedia.org/wiki/File:Reagan_Thatcher.jpg
+Original: https://upload.wikimedia.org/wikipedia/commons/a/ae/Reagan_Thatcher.jpg
+Source rights checked 14 October 2026: public domain in the United States as an official U.S. federal government work; Commons also displays a Public Domain Mark.
+Cropped from the original and converted to a transparent halftone image. No generated or retouched face.
+This is a library photograph, not a photograph of the April 1982 event.
+
+FALKLANDS MAP
+Natural Earth 1:10m Admin 0 country outlines, public domain.
+Source: https://github.com/nvkelso/natural-earth-vector/blob/master/geojson/ne_10m_admin_0_countries.geojson
+Terms: https://www.naturalearthdata.com/about/terms-of-use/
+The map shape was exported to PNG; the labels remain editable XML text.
+
+PAPER MARKS
+Original procedural paper marks exported from the authored XAML to a separate transparent PNG.
+No newspaper scan or words are included in this image.
+
+PREVIEW
+Checked with Windows WPF. Fonts: Arial Black, Arial, Impact and Times New Roman.
+Font files are not included. Unity/Noesis appearance and font resolution still need an in-game check.
+This file was added as a separate art version; campaign event references were not changed.

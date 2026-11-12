@@ -1,0 +1,47 @@
+Define SubmarineRegainSonarContact
+
+If ContactLevel < 5
+
+	SetCourse ($BearingToContact)
+
+	SetDepth ($BelowLayer)
+	
+	Begin Timer
+	
+	If ContactLevel > 5
+	
+		Begin SubmarineTrackContact
+	
+	Else
+	
+		When Timer = 2
+	
+		SetTelegraph 1
+		
+	Begin Timer
+	
+		If ContactLevel > 5
+	
+		Begin SubmarineTrackContact
+	
+	Else
+	
+		When Timer = 2
+		
+			SetTelegraph 3
+		
+			SetDepth ($AboveLayer)
+		
+			SetTelegraph 1
+		
+		Begin Timer
+		
+			If ContactLevel > 5
+	
+			Begin SubmarineTrackContact
+	
+		Else
+		
+			When Timer = 2
+			
+			Begin SubmarineSprintAndDrift

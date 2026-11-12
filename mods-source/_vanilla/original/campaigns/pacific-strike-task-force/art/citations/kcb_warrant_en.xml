@@ -1,0 +1,49 @@
+<Viewbox xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Stretch="Uniform" StretchDirection="DownOnly">
+  <!-- Campaign-authored KCB warrant. The citation host supplies the commander context and navigation. -->
+  <Border Width="1080" Height="1282" Background="#F3F2EC" TextElement.Foreground="#5B5953">
+    <Grid Margin="65,55,105,65">
+      <Grid.Resources>
+        <FontFamily x:Key="ScriptFont">/Assets/Resources/ui/fonts/#Pinyon Script</FontFamily>
+        <FontFamily x:Key="BlackletterFont">/Assets/Resources/ui/fonts/#UnifrakturMaguntia</FontFamily>
+        <Style x:Key="Body" TargetType="TextBlock">
+          <Setter Property="FontFamily" Value="{StaticResource ScriptFont}"/>
+          <Setter Property="FontSize" Value="31"/>
+          <Setter Property="LineHeight" Value="33"/>
+          <Setter Property="LineStackingStrategy" Value="BlockLineHeight"/>
+          <Setter Property="TextWrapping" Value="Wrap"/>
+        </Style>
+      </Grid.Resources>
+      <Grid.RowDefinitions><RowDefinition Height="120"/><RowDefinition Height="*"/><RowDefinition Height="150"/><RowDefinition Height="30"/></Grid.RowDefinitions>
+      <Grid x:Name="Seal" Grid.RowSpan="4" Width="180" Height="180" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="-10,-18,0,0">
+        <Ellipse Stroke="#D8D3C5" StrokeThickness="1.5" Margin="2"/>
+        <Ellipse Stroke="#FFFCF4" StrokeThickness="1.5" Margin="4"/>
+        <Ellipse Stroke="#D8D3C5" StrokeThickness="1" Margin="15"/>
+        <Ellipse Stroke="#FFFCF4" StrokeThickness="1" Margin="17"/>
+        <Grid Width="110" Height="112" HorizontalAlignment="Center" VerticalAlignment="Center">
+          <Path Data="M 0,0 L 7,8 L 13,0 L 19,8 L 26,0 L 23,19 L 3,19 Z M 3,23 L 23,23" Stroke="#CDC8BA" StrokeThickness="1.5" Width="28" Height="25" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,14,0,0"/>
+          <Path Data="M 0,0 L 7,8 L 13,0 L 19,8 L 26,0 L 23,19 L 3,19 Z M 3,23 L 23,23" Stroke="#CDC8BA" StrokeThickness="1.5" Width="28" Height="25" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="12,51,0,0"/>
+          <Path Data="M 0,0 L 7,8 L 13,0 L 19,8 L 26,0 L 23,19 L 3,19 Z M 3,23 L 23,23" Stroke="#CDC8BA" StrokeThickness="1.5" Width="28" Height="25" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,51,12,0"/>
+          <TextBlock Text="TRIA JUNCTA IN UNO" FontFamily="/Assets/Resources/ui/fonts/#Pinyon Script" FontSize="12" Foreground="#C9C4B8" HorizontalAlignment="Center" VerticalAlignment="Bottom"/>
+        </Grid>
+      </Grid>
+      
+
+      <!-- Typographic royal name, not a tracing of the sovereign's signature. -->
+      <TextBlock x:Name="RoyalName" Text="Elizabeth R" FontFamily="{StaticResource ScriptFont}" FontSize="57" HorizontalAlignment="Center" Margin="80,-8,0,0"/>
+      <StackPanel x:Name="DocumentColumn" Grid.Row="1" Margin="210,0,0,0">
+        <!-- Both name fields use the existing citation RecipientDisplay value: the selected commander and awarded rank. No historical-name override. -->
+        <TextBlock x:Name="Opening" Style="{StaticResource Body}" xml:space="preserve"><Run FontFamily="{StaticResource BlackletterFont}" FontSize="39">Elizabeth the Second</Run><Run>, Queen of the United Kingdom of Great Britain and Northern Ireland and of Her other Realms and Territories, Head of the Commonwealth, and Sovereign of the Most Honourable Order of the Bath.</Run></TextBlock>
+        <TextBlock x:Name="Recipient" Style="{StaticResource Body}" Margin="0,5,0,0" xml:space="preserve"><Run Text="To "/><Run x:Name="RecipientName" Text="{Binding CommanderDisplayName}"/><Run Text=", whose service in the Pacific has been commended to Us for recognition in Our Order."/></TextBlock>
+        <TextBlock x:Name="Greeting" Style="{StaticResource Body}" Text="Greeting" HorizontalAlignment="Right" Margin="0,0,0,0"/>
+        <TextBlock x:Name="Recognition" Style="{StaticResource Body}" Margin="0,20,0,0" xml:space="preserve"><Run FontFamily="{StaticResource BlackletterFont}" FontSize="34">Whereas</Run><Run> We have approved your appointment to Our Order in recognition of your service during the operations in the Pacific, it is Our pleasure that this distinction be recorded in your name.</Run></TextBlock>
+        <TextBlock x:Name="Appointment" Style="{StaticResource Body}" Margin="0,25,0,0" xml:space="preserve"><Run FontFamily="{StaticResource BlackletterFont}" FontSize="34">We do</Run><Run> appoint you an additional member of the Second Class in the Military Division of the Order of the Bath, with the rank and dignity of Knight Commander, and the style K.C.B. This appointment recognises the service for which you have been named in the Pacific honours.</Run></TextBlock>
+        <TextBlock x:Name="Authority" Style="{StaticResource Body}" Margin="0,27,0,0" xml:space="preserve"><Run FontFamily="{StaticResource BlackletterFont}" FontSize="34">Recorded</Run><Run> at St. James's Palace, London, by the Central Chancery of the Orders of Knighthood on </Run><Run Text="{Binding PresentationDate}"/><Run>.</Run></TextBlock>
+        <TextBlock x:Name="Command" Style="{StaticResource Body}" Text="By the Sovereign's Command" HorizontalAlignment="Right" Margin="0,20,0,0"/>
+      </StackPanel>
+      <Grid Grid.Row="2" Margin="25,0,0,0">
+        <TextBlock x:Name="Docket" Style="{StaticResource Body}" FontSize="27" LineHeight="29" Width="600" VerticalAlignment="Center" HorizontalAlignment="Left" xml:space="preserve"><Run Text="Appointment to the Second Class"/><LineBreak/><Run Text="(Military Division) of the Order of the Bath"/><LineBreak/><Run x:Name="DocketName" Text="{Binding CommanderDisplayName}"/><Run Text=", K.C.B."/></TextBlock>
+      </Grid>
+      <TextBlock x:Name="Provenance" Grid.Row="3" FontFamily="{StaticResource ScriptFont}" FontSize="17" Text="Fictional wartime appointment for the Pacific campaign of 1985" HorizontalAlignment="Right" VerticalAlignment="Bottom" Foreground="#77756E"/>
+    </Grid>
+  </Border>
+</Viewbox>

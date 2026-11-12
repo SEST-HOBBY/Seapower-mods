@@ -1,0 +1,124 @@
+Define SubmarineSprintDrift
+
+Begin SubSprintDrift
+
+SetCounter = 0
+
+	SetDepth ($Deep)
+
+	SetTelegraph 4
+
+If Counter = 0
+
+	BeginTimer
+
+		When Timer = 10
+
+		SetTelegraph 1
+		
+	BeginTimer
+
+		When Timer = 2
+		
+	ClearBaffles	
+		
+Else
+
+If Counter = 1	
+
+	SetTelegraph 4
+
+	SetDepth ($Deep)
+
+	BeginTimer
+
+		When Timer = 10
+		
+		SetTelegraph 3
+		
+		SetDepth ($DepthAboveLayer)	
+
+		SetTelegraph 1
+		
+	BeginTimer
+
+		When Timer = 2
+		
+	ClearBaffles		
+		
+If Counter = 2	
+
+	SetTelegraph 3
+
+	SetDepth ($DepthAboveLayer)
+
+	SetTelegraph 2
+	
+	SetDepth ($DepthShallow)
+	
+	SetTelegraph 1
+	
+	SetDepth ($DepthPeriscope)
+	
+	RaisePeriscope	
+		BeginTimer
+		When Timer = 0.5
+		LowerPeriscope
+	
+	RaiseESM	
+		BeginTimer
+		When Timer = 1
+		LowerESM
+	
+	RaiseRadio
+		BeginTimer
+		When Timer = 0.5
+		LowerRadio	
+
+	BeginTimer
+
+		When Timer = 8
+
+		SetTelegraph 2
+
+	SetDepth(&DepthAboveLayer);
+	
+	SetTelegraph 1
+		
+	BeginTimer
+
+		When Timer = 2
+
+		ClearBaffles
+		
+	End
+
+Begin ClearBaffles
+
+If HasTowedArray = TRUE
+
+	SetCourse (CurrentCourse)
+
+Else
+
+	SetTelegraph 3
+
+	SetCourse (CurrentCourse)+180
+
+		When (CurrentCourse) = SetCourse
+	
+		SetTelegraph 1
+
+	BeginTimer
+
+	If Timer > 2
+
+	SetTelegraph 3
+
+	SetCourse (CurrentCourse)+180
+	
+		When (CurrentCourse) = SetCourse
+	
+		SetTelegraph 1
+
+End

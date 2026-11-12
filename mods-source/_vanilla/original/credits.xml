@@ -21,6 +21,8 @@
 <LineBreak/>
 <Run FontSize="24">Nick Miller</Run>
 <LineBreak/>
+<Run FontSize="24">Barnaby Hughes</Run>
+<LineBreak/>
 <LineBreak/>
 <Run FontSize="36" Text="{Binding Path=LanguageResourceHandler.LanguageDictionary[credits3dandvisual], Converter={StaticResource UppercaseConverter}}"/>
 <LineBreak/>
@@ -33,6 +35,8 @@
 <Run FontSize="24">Olof Kjölstad</Run>
 <LineBreak/>
 <Run FontSize="24">Chris Kowald</Run>
+<LineBreak/>
+<Run FontSize="24">Luca Di Ruggiero</Run>
 <LineBreak/>
 <LineBreak/>
 <Run FontSize="36" Text="{Binding Path=LanguageResourceHandler.LanguageDictionary[creditsart], Converter={StaticResource UppercaseConverter}}"/>
@@ -70,6 +74,10 @@
 <LineBreak/>
 <Run FontSize="24">Alex Gitro</Run>
 <LineBreak/>
+<Run FontSize="24">CyclicRoF</Run>
+<LineBreak/>
+<Run FontSize="24">Barnaby Hughes</Run>
+<LineBreak/>
 <LineBreak/>
 <Run FontSize="36" Text="{Binding Path=LanguageResourceHandler.LanguageDictionary[creditssounddesign], Converter={StaticResource UppercaseConverter}}"/>
 <LineBreak/>
@@ -104,6 +112,8 @@
 <Run FontSize="24">Wei壹 (China)</Run>
 <LineBreak/>
 <Run FontSize="24">Moriyuki Hisida (Japan)</Run>
+<LineBreak/>
+<Run FontSize="24">Seba Vasconcellos (Argentina)</Run>
 <LineBreak/>
 <LineBreak/>
 <Run FontSize="36" Text="{Binding Path=LanguageResourceHandler.LanguageDictionary[creditstesting], Converter={StaticResource UppercaseConverter}}"/>
@@ -195,6 +205,8 @@
 <Run FontSize="24">Alejandro Aszenmil</Run>
 <LineBreak/>
 <Run FontSize="24">Armada Argentina</Run>
+<LineBreak/>
+<Run FontSize="24">ryu1940</Run>
 <LineBreak/>
 <LineBreak/>
 <Run FontSize="36" Text="{Binding Path=LanguageResourceHandler.LanguageDictionary[creditsmicroprose], Converter={StaticResource UppercaseConverter}}"/>

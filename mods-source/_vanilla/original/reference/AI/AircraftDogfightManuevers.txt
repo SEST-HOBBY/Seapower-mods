@@ -1,0 +1,77 @@
+Define AircraftACM
+
+Set ControlLaw ($Combat)
+
+Define BreakTurn
+
+	If ThreatAngle = 5,6,7
+
+		SetCourse $CurrentCourse +/- 90; MaxGForManeuver
+	
+	Return
+
+Define Split-S
+
+	SetCourse $CurrentCourse + 180;
+	
+		Roll Inverted
+		
+			If Evading = True
+			
+				ClimbToLevel
+				
+			Else
+			
+				FollowTarget
+				
+	Return
+
+Define Scissors
+
+	If RangeToTarget < MaxLaunchRange * 0.25 
+		& TargetAspect = TargetRearCone 
+			& If ClosureRate > MaxClosureRate
+	
+		Begin Snake Pattern -30/+30
+		
+			Until ClosureRate = 0
+			
+	Return
+	
+Define LowYoYo
+
+	DiveToAccelerate Until ClosureRate > 0
+	
+		Set Altitude $TargetAltitude
+		
+	Return
+	
+Define HighYoYo
+
+	ClimbToDecelerate Until ClosureRate < 0
+	
+		Set Altitude $TargetAltitude
+		
+	Return
+	
+Define LagPursuit	
+	
+	If RangeToTarget < MaxLaunchRange
+	
+		Maintain TargetAngle > Boresight Until RangeToTarget < MaxLaunchRange * 0.75
+		
+	Return
+	
+Define LeadPursuit
+
+	If RangeToTarget > MaxLaunchRange
+	
+		Maintain TargetAngle < Boresight Until RangeToTarget < MaxLaunchRange * 0.75
+		
+	Return
+	
+	
+	
+	
+		
+

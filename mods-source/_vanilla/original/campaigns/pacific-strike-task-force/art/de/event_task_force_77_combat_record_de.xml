@@ -188,5 +188,5 @@
       </StackPanel>
     </Border>
   </ScrollViewer>
-  <Button Grid.Row="1" Grid.Column="1" Content="Export PNG" Command="{Binding ExportPngCommand}" HorizontalAlignment="Right" VerticalAlignment="Center" Width="120" Height="38" Margin="0,0,18,0"/>
+  <Button Grid.Row="1" Grid.Column="1" Content="{Binding LanguageDictionary[freecontentexportpng], Source={StaticResource LanguageResourceInterface}}" Command="{Binding ExportPngCommand}" HorizontalAlignment="Right" VerticalAlignment="Center" Width="120" Height="38" Margin="0,0,18,0"/>
 </Grid>

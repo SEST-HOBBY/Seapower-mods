@@ -1,0 +1,66 @@
+<!-- Original campaign signal, not a historical transcription.
+     Layout reference: GCHQ Belgrano compilation, PDF page 72, figure 67.
+     Change each named paragraph as a whole. The shell supplies Continue/Skip.
+     A role address avoids naming a boat the player may not have used in UK04A.
+     Only the campaign date is supplied. No historical transmission time is claimed. -->
+<Viewbox xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+         Stretch="Uniform" StretchDirection="DownOnly">
+  <Border Width="900" Height="1040" TextElement.Foreground="#30322D"
+          TextElement.FontFamily="/Assets/Resources/ui/fonts/#Courier Prime" TextElement.FontSize="22">
+    <Border.Background>
+      <LinearGradientBrush StartPoint="0,0" EndPoint="1,0.7">
+        <GradientStop Color="#D1D0C7" Offset="0"/>
+        <GradientStop Color="#E0DFD6" Offset="0.16"/>
+        <GradientStop Color="#E6E5DC" Offset="0.65"/>
+        <GradientStop Color="#D8D8CF" Offset="1"/>
+      </LinearGradientBrush>
+    </Border.Background>
+    <Grid>
+      <Border Width="1" Background="#777A6C" Opacity="0.18" HorizontalAlignment="Left" Margin="35,0,0,0"/>
+      <Ellipse Width="22" Height="24" Fill="#35362F" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="22,119,0,0"/>
+      <Ellipse Width="22" Height="24" Fill="#35362F" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="22,481,0,0"/>
+      <Ellipse Width="22" Height="24" Fill="#35362F" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="22,842,0,0"/>
+      <TextBlock x:Name="TopClassification" Text="S E C R E T" FontSize="19" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,24,0,0"/>
+      <!-- Editable rubber-stamp impressions. No archival serials or signatures are copied. -->
+      <TextBlock x:Name="SecretStamp" Text="SECRET" FontFamily="/Assets/Resources/ui/fonts/#Special Elite" FontSize="48" Opacity="0.82" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,63,64,0">
+        <TextBlock.RenderTransform><RotateTransform Angle="7"/></TextBlock.RenderTransform>
+      </TextBlock>
+      <TextBlock x:Name="PrecedenceStamp" Text="PRIORITY" FontFamily="/Assets/Resources/ui/fonts/#Special Elite" FontSize="49" Opacity="0.85" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,178,67,0">
+        <TextBlock.RenderTransform><RotateTransform Angle="-2"/></TextBlock.RenderTransform>
+      </TextBlock>
+      <StackPanel Margin="74,138,65,0" VerticalAlignment="Top">
+        <TextBlock x:Name="Precedence" Text="PRIORITY  06 MAY 82" Margin="0,0,0,30"/>
+        <Grid Margin="0,0,0,29">
+          <Grid.ColumnDefinitions><ColumnDefinition Width="72"/><ColumnDefinition Width="*"/></Grid.ColumnDefinitions>
+          <StackPanel><TextBlock Text="FM"/><TextBlock Text="TO"/></StackPanel>
+          <StackPanel Grid.Column="1"><TextBlock x:Name="Originator" Text="FOSM"/><TextBlock x:Name="Addressee" Text="SUBMARINE COMMANDER"/></StackPanel>
+        </Grid>
+        <TextBlock x:Name="HandlingStamp" Text="UK EYES B" FontFamily="/Assets/Resources/ui/fonts/#Special Elite" FontSize="49" Opacity="0.86" HorizontalAlignment="Center" Margin="100,0,0,28">
+          <TextBlock.RenderTransform><RotateTransform Angle="-3"/></TextBlock.RenderTransform>
+        </TextBlock>
+        <TextBlock x:Name="HandlingLine" Text="S E C R E T  UK EYES BRAVO"/>
+        <TextBlock x:Name="Subject" Text="OPERATION CORPORATE - CONTINUATION OF PATROL" Margin="0,0,0,9"/>
+        <StackPanel x:Name="SignalBody">
+          <StackPanel.Resources>
+            <Style TargetType="{x:Type TextBlock}">
+              <Setter Property="TextWrapping" Value="Wrap"/>
+              <Setter Property="LineHeight" Value="26"/>
+              <Setter Property="LineStackingStrategy" Value="BlockLineHeight"/>
+              <Setter Property="Margin" Value="0,0,0,9"/>
+            </Style>
+          </StackPanel.Resources>
+          <TextBlock x:Name="Paragraph1" Text="1. YOUR REPORT RECEIVED. REMAIN IN DEEP WATER TO SEAWARD OF THE PATAGONIAN COAST PENDING FURTHER ORDERS."/>
+          <TextBlock x:Name="Paragraph2" Text="2. ENEMY ANTI-SUBMARINE SEARCHES MAY CONTINUE AFTER LOSS OF CONTACT. AVOID DISCLOSING YOUR POSITION. READ BROADCAST AS THE TACTICAL SITUATION PERMITS."/>
+          <TextBlock x:Name="Paragraph3" Text="3. AT NEXT REPORTING OPPORTUNITY STATE TORPEDO OUTFIT REMAINING AND ANY DAMAGE OR DEFECT LIMITING YOUR ABILITY TO CONTINUE PATROL."/>
+          <TextBlock x:Name="Paragraph4" Text="4. FURTHER TASKING WILL FOLLOW SEPARATELY. NO OPPORTUNITY FOR REPLENISHMENT IS ENVISAGED BEFORE YOUR NEXT OPERATION."/>
+        </StackPanel>
+        <TextBlock x:Name="EndOfSignal" Text="BT" Margin="0,8,0,0"/>
+      </StackPanel>
+      <TextBlock x:Name="BottomHandlingStamp" Text="UK EYES B" FontFamily="/Assets/Resources/ui/fonts/#Special Elite" FontSize="47" Opacity="0.86" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,78,104">
+        <TextBlock.RenderTransform><RotateTransform Angle="-4"/></TextBlock.RenderTransform>
+      </TextBlock>
+      <TextBlock x:Name="BottomClassification" Text="S E C R E T" FontSize="19" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,24"/>
+    </Grid>
+  </Border>
+</Viewbox>
