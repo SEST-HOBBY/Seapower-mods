@@ -1306,6 +1306,29 @@ MISSING_SENSORS = {
                 "RPM=60 and Bonus IRST range multipliers. Southern Watch D3 "
                 "places the carrier, the RAN campaigns' allied rosters sell it "
                 "and the World Sandbox fields both hulls."),
+    # The Y-8/Y-9 Special Mission Aircraft Family (3637954857) was the only
+    # mod that defined these two. Its author removed it from the Workshop
+    # and the owner unsubscribed it (12 Nov 2026 capture), so SEST defines
+    # them, modelled on the game's own sections. Nothing of that mod's file
+    # or values is used.
+    "KQT-8": ("_vanilla/original", "WP_MAD",
+              "KQT-8 MAD, the magnetic anomaly detector the PLAN Pack's own "
+              "plan_y-8fq and plan_y-9fq mount (SensorSystem5) and its "
+              "language files name \"KQT-8 MAD\". The Y-8/Y-9 family "
+              "(3637954857), removed from the Workshop on 12 Nov 2026, was "
+              "its only definer. SEST models it on the game's own airborne "
+              "MAD: [WP_MAD], the Il-38's and Tu-142M's, four-engine "
+              "turboprop patrol aircraft like the Y-8FQ and Y-9FQ (the stock "
+              "[AN/ASQ-81V2] of the P-3C has the same 1.0 nm datalinked "
+              "detection and no ModuleType). Red Line places the Y-9FQ in "
+              "four missions and sells it in its roster; Global Maritime "
+              "Operations 2028 fields both."),
+    "Morden_RWR": ("_vanilla/original", "AircraftRWR",
+                   "Radar warning receiver the Pakistani Pack's paf_zdk-03 "
+                   "mounts (SensorSystem3, #RWR). The Y-8/Y-9 family "
+                   "(3637954857), removed from the Workshop on 12 Nov 2026, "
+                   "was its only definer. SEST models it on the game's own "
+                   "generic aircraft RWR. Makran Line fields the ZDK-03."),
 }
 
 

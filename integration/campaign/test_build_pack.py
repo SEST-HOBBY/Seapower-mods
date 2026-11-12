@@ -2867,23 +2867,29 @@ class MakranLineReview(unittest.TestCase):
                     self.assertIn("family reference", text)
 
     def test_the_pakistani_packs_own_requirements_are_required(self):
-        # Red Storm Arsenal (the Z-9CE's H/KLC-3B and H/SKD-143), Y-8/Y-9
-        # (the ZDK-03's RWR) and Type 12 SSM-ER (the C-602 launcher's
-        # animation), from the catalog's `requires`. Anchor Chain is not the
-        # pack's (its one #!alias the game reads itself) but the PLA AEP's,
-        # which Hangor's S-26P reaches through its YJ-18E.
+        # Red Storm Arsenal (the Z-9CE's H/KLC-3B and H/SKD-143) and Type 12
+        # SSM-ER (the C-602 launcher's animation), from the catalog's
+        # `requires`. Anchor Chain is not the pack's (its one #!alias the game
+        # reads itself) but the PLA AEP's, which Hangor's S-26P reaches
+        # through its YJ-18E. The Y-8/Y-9 family, which alone defined the
+        # ZDK-03's RWR, left the Workshop on 12 Nov 2026; SEST Collection
+        # Fixes defines [Morden_RWR] since, so nothing requires it.
         self.assertEqual(set(bp.catalog_requires("pakistani-pack")) >=
-                         {"3413868677", "3637954857", "3470643173"}, True)
+                         {"3413868677", "3470643173"}, True)
         self.assertNotIn("3380210757", bp.catalog_requires("pakistani-pack"))
+        self.assertNotIn("3637954857", bp.catalog_requires("pakistani-pack"))
         text = self.CAMP / "REQUIRED-MODS.txt"
         if not text.is_file():
             self.skipTest("pack not built")
-        hard, _sep, rest = text.read_text(encoding="utf-8").partition("\n2. ")
-        for title in ("Red Storm Arsenal", "Y-8/Y-9 Special Mission Aircraft Family",
-                      "Type 12 SSM-ER Anti-Ship Missile System", "Anchor Chain"):
+        body = text.read_text(encoding="utf-8")
+        hard, _sep, rest = body.partition("\n2. ")
+        for title in ("Red Storm Arsenal", "Type 12 SSM-ER Anti-Ship Missile System",
+                      "Anchor Chain"):
             with self.subTest(mod=title):
                 self.assertIn(title, hard)
                 self.assertNotIn(title, rest.partition("4. NOT USED")[2])
+        self.assertNotIn("3637954857", body)
+        self.assertNotIn("Y-8/Y-9 Special Mission Aircraft Family", body)
 
 
 class CatalogRequires(unittest.TestCase):
@@ -3240,12 +3246,15 @@ class RequiredModsLists(unittest.TestCase):
                 self.assertEqual(sorted(needed - listed), [])
 
     def test_the_files_dependencies_are_required(self):
-        # Y-8/Y-9's [KQT-8] (Red Line's Y-9FQ), Anchorchain Expansion's
-        # eu_nulka_hatches (the Anzacs and Hobarts) and the US Submarines'
-        # Virginia animation and sonars (Approaches' usn_ssn_virginia_2027).
-        want = {"sest-red-line": ["3637954857"],
-                "sest-southern-reach": ["3784474738", "3433957933"]}
+        # Anchorchain Expansion's eu_nulka_hatches (the Anzacs and Hobarts)
+        # and the US Submarines' Virginia animation and sonars (Approaches'
+        # usn_ssn_virginia_2027). Red Line's Y-9FQ needed the Y-8/Y-9
+        # family's [KQT-8] until that mod left the Workshop on 12 Nov 2026;
+        # SEST Collection Fixes defines it since.
+        want = {"sest-southern-reach": ["3784474738", "3433957933"]}
         lists = self.lists()
+        if "sest-red-line" in lists:
+            self.assertNotIn("3637954857", lists["sest-red-line"].read_text(encoding="utf-8"))
         for slug, ids in want.items():
             if slug not in lists:
                 continue
@@ -3255,11 +3264,37 @@ class RequiredModsLists(unittest.TestCase):
                     self.assertIn(i, sections["1"])
                     self.assertNotIn(i, sections.get("4", []))
 
+    def test_no_list_names_a_mod_removed_from_the_workshop(self):
+        # The standalone J-8, J-11 and Y-8/Y-9 family left the Workshop and
+        # the owner's subscriptions on 12 Nov 2026: the PLAAF Aircraft Pack
+        # carries the J-8 and J-11, the PLAN Pack the Y-8/Y-9 family.
+        gone = ("3433577445", "3436170138", "3637954857")
+        order = (bp.ROOT / "data" / "load-order.tokens.txt").read_text(encoding="utf-8")
+        for i in gone:
+            with self.subTest(order=i):
+                self.assertNotIn(i, order)
+        lists = self.lists()
+        for slug, path in lists.items():
+            docs = bp.ROOT / "docs" / "campaigns" / self.SLUG_DOCS[slug]
+            report = (bp.ROOT / "docs" / "campaign-coverage.md" if slug == "sest-southern-watch"
+                      else docs / "coverage.md")
+            for text_path in (path, docs / "required-mods-urls.txt", report):
+                text = text_path.read_text(encoding="utf-8")
+                for i in gone:
+                    with self.subTest(campaign=slug, file=text_path.name, mod=i):
+                        self.assertNotIn(i, text)
+        for name in ("REQUIRED-MODS.txt", "LOAD-ORDER.txt"):
+            path = PACK / name
+            if path.is_file():
+                for i in gone:
+                    with self.subTest(file=name, mod=i):
+                        self.assertNotIn(i, path.read_text(encoding="utf-8"))
+
     def test_a_requirement_with_no_source_is_not_promoted(self):
         self.assertEqual(bp.catalog_requires("royal-australian-defence-forces"), ["3491248180"])
         self.assertNotIn("3505420313", bp.catalog_requires("the-royal-navy"))
         self.assertNotIn("3380210757", bp.catalog_requires("pakistani-pack"))
-        self.assertEqual(bp.catalog_requires("modern-plan-systems"), ["3637954857"])
+        self.assertEqual(bp.catalog_requires("modern-plan-systems"), [])
         self.assertIn("3784474738", bp.catalog_requires("euromod-ran"))
         self.assertIn("3784474738", bp.catalog_requires("modern-us-navy"))
         self.assertEqual(bp.catalog_requires("us-navy-2027"), ["3433957933"])

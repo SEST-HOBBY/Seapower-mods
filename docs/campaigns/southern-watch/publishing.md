@@ -19,7 +19,10 @@ The R6 beta repair remains separate and is not part of this Workshop payload.
 
 Public pages checked on 7 November show the collection now includes Contact
 Log, Topographic Map and Pop-Out Windows, but no B-21. Ensure B-21 3821992229
-is added and all 203 dependencies are in Required Items before Submit.
+is added and all 200 dependencies are in Required Items before Submit.
+The 12 Nov 2026 capture retired the standalone J-8 (3433577445), J-11
+(3436170138) and Y-8/Y-9 family (3637954857): their author removed them
+from the Workshop, so neither list may name them.
 The live item still shows 26 October as its last update. Historical counts
 and missing-dependency statements below record the earlier capture.
 
@@ -73,11 +76,13 @@ and missing-dependency statements below record the earlier capture.
   2028 to February 2029 dates), and the collection banner and pack images
   were redone.
 
-The counts come from the repo: `data/load-order.tokens.txt` has 204
-non-comment entries, 203 Workshop ids and `SEST_Integration`, since the 28
-Oct capture added Contact Log, Topographic Map, Pop-Out Windows and the B-21
-Raider (149 and 148 when the collection was published). The "135 mods"
-and "133-mod" figures in older notes are out of date.
+The counts come from the repo: `data/load-order.tokens.txt` has 201
+non-comment entries, 200 Workshop ids and `SEST_Integration`, since the 12
+Nov capture retired the J-8, J-11 and Y-8/Y-9 family standalones. The 28
+Oct capture had made them 204 and 203 by adding Contact Log, Topographic
+Map, Pop-Out Windows and the B-21 Raider (149 and 148 when the collection
+was published). The "135 mods" and "133-mod" figures in older notes are
+out of date.
 
 ### Correcting the 26 Oct upload
 
@@ -90,9 +95,9 @@ In this order:
    the collection again, then run SETUP again. B-21 Raider (3821992229) joins
    both at the next upload, which is the first build whose `LOAD-ORDER.txt`
    names it.
-2. **The next upload is this branch's build.** Its `LOAD-ORDER.txt` has 204
-   entries: 203 Workshop mods and the pack. Before Submit, make the
-   collection (those 203 plus the pack) and the Required Items (the 203)
+2. **The next upload is this branch's build.** Its `LOAD-ORDER.txt` has 201
+   entries: 200 Workshop mods and the pack. Before Submit, make the
+   collection (those 200 plus the pack) and the Required Items (the 200)
    match it, the B-21 included.
 3. **The pre-submit check on Build 261021, with Pop-Out Windows 1.0.2.** The
    collection now carries Pop-Out Windows 1.0.2, and Runtime 1.5.0 and UI
@@ -332,7 +337,7 @@ real, it goes into the load order and the collection like any other mod.
    commenter reported against it.
 3. **A fresh-install check, when SETUP, the load order or the collection
    changed.** Everything verified on the machine that built it is verified
-   where all 203 Workshop mods of the load order happen to be present. The
+   where all 200 Workshop mods of the load order happen to be present. The
    check that matters is to subscribe to the item 3812461539 (its Required
    Items bring the mods) or the collection 3812390790 on a clean profile, run
    SETUP, start the game, note whether the Mod Manager flags the pack (test

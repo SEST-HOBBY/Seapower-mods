@@ -239,6 +239,124 @@ class CharlesDeGaulleEomsNg(unittest.TestCase):
         self.assertEqual(lines(shipped), lines(built))
 
 
+PLAN = ROOT / "mods-source/3775128499"
+PAKISTAN = ROOT / "mods-source/3812140001"
+VANILLA = ROOT / "mods-source/_vanilla/original"
+RETIRED_Y8 = "3637954857"
+# Named by stock aircraft and defined in no systems/ file: the engine's own
+# (tools/check_dependencies.py, upstream_system_names).
+ENGINE_SYSTEMS = {"Hardpoint", "WingHardpoint", "BombBay"}
+
+
+def order_tokens():
+    text = read(ROOT / "data/load-order.tokens.txt")
+    return [t.strip() for t in text.splitlines() if t.strip() and not t.lstrip().startswith("#")]
+
+
+def defined_systems():
+    """Every systems/ section name the game reads with this load order: the
+    game's own, every Workshop mod in the order and the SEST pack."""
+    roots = [VANILLA] + [ROOT / "mods-source" / t for t in order_tokens() if t.isdigit()]
+    roots.append(DIST if (DIST / "systems").is_dir() else FIXES)
+    names = set()
+    for root in roots:
+        for f in sorted((root / "systems").glob("*.ini")):
+            names.update(h.strip() for h in headers(read(f)))
+    return names
+
+
+def mounted_systems(path):
+    """SystemName in each sensor, weapon and combat system section of a unit file."""
+    text = read(path)
+    out = []
+    for name in headers(text):
+        if re.fullmatch(r"(?:Sensor|Weapon|Combat)System\d+[A-Za-z]*", name.strip()):
+            m = re.search(r"(?m)^SystemName\s*=\s*([^\s/#;]+)", section(text, name) or "")
+            if m:
+                out.append((name.strip(), m.group(1)))
+    return out
+
+
+class RetiredY8Y9Sensors(unittest.TestCase):
+    """The Y-8/Y-9 Special Mission Aircraft Family (3637954857) left the
+    Workshop and the owner's subscriptions on 12 Nov 2026. It alone defined
+    [KQT-8], the MAD the PLAN Pack's own Y-8FQ and Y-9FQ mount (Red Line,
+    Global Maritime Operations 2028), and [Morden_RWR], the Pakistani Pack's ZDK-03 RWR
+    (Makran Line). Collection Fixes defines both, modelled on the game's own
+    sections (MISSING_SENSORS); nothing of the removed mod is used."""
+
+    MODELS = {"KQT-8": "WP_MAD", "Morden_RWR": "AircraftRWR"}
+
+    def test_the_removed_mod_is_gone(self):
+        self.assertFalse((ROOT / "mods-source" / RETIRED_Y8).exists())
+        self.assertNotIn(RETIRED_Y8, order_tokens())
+
+    def test_the_y8fq_and_y9fq_and_the_zdk03_still_mount_them(self):
+        # The day an author points them elsewhere, the entry retires.
+        for path, name in ((PLAN / "aircraft/plan_y-8fq.ini", "KQT-8"),
+                           (PLAN / "aircraft/plan_y-9fq.ini", "KQT-8"),
+                           (PAKISTAN / "aircraft/paf_zdk-03.ini", "Morden_RWR")):
+            with self.subTest(unit=path.stem):
+                self.assertIn(name, [n for _s, n in mounted_systems(path)])
+
+    def test_no_mod_defines_them(self):
+        # build_missing_sensors() stops the build then, rather than shadow it.
+        for name in self.MODELS:
+            definers = [f.relative_to(ROOT).as_posix()
+                        for f in sorted((ROOT / "mods-source").rglob("systems/*.ini"))
+                        if section(read(f), name) is not None]
+            with self.subTest(sensor=name):
+                self.assertEqual(definers, [])
+
+    def test_each_is_the_games_own_section_and_says_why(self):
+        built_text = read(FIXES / "systems" / "sensors.ini")
+        for name, model in self.MODELS.items():
+            with self.subTest(sensor=name):
+                donor = section(read(VANILLA / "systems" / "sensors.ini"), model)
+                built = section(built_text, name)
+                self.assertIsNotNone(donor)
+                self.assertIsNotNone(built)
+                self.assertEqual(lines(built), lines(donor))
+                why = re.search(rf"(?m)^# {re.escape(name)}: (.*)\n# Cloned from \[{re.escape(model)}\] "
+                                r"in _vanilla/original\.\n", built_text)
+                self.assertIsNotNone(why)
+                self.assertIn(RETIRED_Y8, why.group(1))
+                self.assertIn("removed from the Workshop", why.group(1))
+                self.assertIn("only definer", why.group(1))
+        kqt8 = section(built_text, "KQT-8")
+        self.assertRegex(kqt8, r"(?m)^Kind=MAD\b")
+        self.assertRegex(kqt8, r"(?m)^MaxDetectionRange=1\.0\b")
+        self.assertRegex(built_text, r"(?m)^# KQT-8: .*plan_y-8fq and plan_y-9fq.*\[WP_MAD\]")
+
+    def test_the_consolidated_pack_has_them(self):
+        for name in self.MODELS:
+            with self.subTest(sensor=name):
+                built = section(read(FIXES / "systems" / "sensors.ini"), name)
+                shipped = section(read(DIST / "systems" / "sensors.ini"), name)
+                self.assertIsNotNone(shipped)
+                self.assertEqual(lines(shipped), lines(built))
+
+    def test_every_system_the_y8fq_and_y9fq_mount_resolves(self):
+        defined = defined_systems()
+        stock = {n for f in VANILLA.glob("aircraft/*.ini") for _s, n in mounted_systems(f)}
+        self.assertTrue(ENGINE_SYSTEMS & stock)
+        for unit in ("plan_y-8fq", "plan_y-9fq"):
+            mounts = mounted_systems(PLAN / "aircraft" / f"{unit}.ini")
+            self.assertIn(("SensorSystem5", "KQT-8"), mounts)
+            for sec, name in mounts:
+                with self.subTest(unit=unit, section=sec, system=name):
+                    if name in ENGINE_SYSTEMS:
+                        self.assertIn(name, stock)
+                    else:
+                        self.assertIn(name, defined)
+
+    def test_every_system_the_zdk03_mounts_resolves(self):
+        defined = defined_systems()
+        for sec, name in mounted_systems(PAKISTAN / "aircraft/paf_zdk-03.ini"):
+            with self.subTest(section=sec, system=name):
+                self.assertTrue(name in ENGINE_SYSTEMS or name in defined)
+
+
 class RussianRegistration(unittest.TestCase):
     """The Russian Federation, not the USSR: one #!extend Nation stub per unit
     on its winning variants or squadrons file (the owner's rule of 11 Nov

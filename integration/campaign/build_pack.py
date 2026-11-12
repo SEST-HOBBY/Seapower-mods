@@ -9269,8 +9269,9 @@ def prerequisites(need, rest, missing=()):
     The catalog is the second source (catalog_requires()), because an
     _info.ini Description can be empty: the Pakistani Pack's is, while its
     Z-9CE's H/KLC-3B and H/SKD-143 sensors are Red Storm Arsenal's, its
-    ZDK-03's RWR the Y-8/Y-9 family's and its C-602 launcher's animation
-    Type 12 SSM-ER's. Makran Line listed all three as not used. A catalog
+    ZDK-03's RWR was the Y-8/Y-9 family's (SEST Collection Fixes' since that
+    mod left the Workshop on 12 Nov 2026) and its C-602 launcher's animation
+    is Type 12 SSM-ER's. Makran Line listed all three as not used. A catalog
     requirement is followed from every required mod, and from every mod it
     promotes, into `rest` or into `missing` (coverage()'s unreached mods,
     which this turns into rows).

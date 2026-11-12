@@ -1,7 +1,7 @@
 # SEST Integration Pack — feature list
 
 **SEST Integration Pack - Modernised Campaigns** (Steam Workshop 3812461539) turns
-203 Workshop mods for *Sea Power: Naval Combat in the Missile Age* into one
+200 Workshop mods for *Sea Power: Naval Combat in the Missile Age* into one
 modern game, set in 2028–29. It is one mod folder, sitting at the top of the
 Mod Manager, plus a SETUP file that does the ordering. Players subscribe to the
 collection *SEST - Modernised Campaign Collection* (3812390790), which brings the
@@ -24,7 +24,7 @@ source only (`integration/beta-anchorchain/`); neither is shipped.
 
 | | |
 |---|---|
-| Workshop mods integrated | 203 (the download size has not been re-measured since 190) |
+| Workshop mods integrated | 200 (the download size has not been re-measured since 190) |
 | SEST source packs | 25, merged into one deployable folder |
 | Campaigns | 5, plus two world campaigns for the Dynamic Campaign Mod (a draft and a preview) |
 | Campaign missions | 73, plus 11 single missions (Southern Watch - Dispatches) |
@@ -457,6 +457,18 @@ game's own values back. *Not yet confirmed in game.*
   H.25).
 - HMS Ocean can now operate the Apache.
 - RNZAF and ROKN P-8 squadrons named nations with no flag.
+
+**12 November fixes** *(not yet confirmed in game)*
+- The KQT-8 MAD of the PLAN Pack's Y-8FQ and Y-9FQ patrol aircraft (Red
+  Line, Global Maritime Operations 2028): only the Y-8/Y-9 family mod
+  defined it, and that mod has left the Workshop. SEST now defines it, modelled on the game's
+  own airborne MAD (the Il-38's and Tu-142M's), so the aircraft keep
+  their MAD.
+- The ZDK-03's radar warning receiver (Makran Line): the same mod alone
+  defined it. SEST now defines it as the game's generic aircraft RWR.
+- The standalone J-8, J-11 and Y-8/Y-9 family mods left the Workshop; the
+  PLAAF Aircraft Pack and the PLAN Pack carry those aircraft, and the
+  load order no longer names them.
 
 **Load order:** every SEST file outranks the mod it replaces, and this is
 checked automatically.

@@ -211,13 +211,6 @@ EXCUSES = {
         "library", "an offline photo gallery under `Gallery/` that the player "
         "opens in a web browser; the briefings' recognition photos are read "
         "from its source by the campaign builder, not from this pack"),
-    "y-8-y-9-family": (
-        "library", "its twelve airframes and its rounds are all outranked by "
-        "Modern PLAN Systems, which ships the same ids higher in the order; its "
-        "systems/sensors.ini still loads, since systems/ merges section by "
-        "section, and alone defines [KQT-8] (the MAD Modern PLAN Systems' "
-        "plan_y-8fq and plan_y-9fq mount), [Morden_RWR] (the Pakistani Pack's "
-        "paf_zdk-03 RWR) and [RKL-500B_OTH_ESM]"),
     "nimitz-expanded": (
         "shadowed", "ships one file, `vessels/usn_cvn_nimitz_variants.ini`, "
         "which SEST Collection Fixes replaces - that patch is why it exists"),
@@ -2028,7 +2021,9 @@ MISSIONS.append(dict(
         U("red", "plan-submarines", "plan_ss_type_039c", "red_sub",
           name="Contact SIERRA", depth="belowlayer",
           route=[(-6.75, 132.95, "belowlayer")], telegraph=3),
-        U("red", "j-11", "plaaf_j-11bg", "red_air", name="Flanker 31",
+        # The PLAAF Aircraft Pack's J-11BG since the standalone J-11 mod
+        # left the Workshop (12 Nov 2026).
+        U("red", "plaaf-aircraft-pack", "plaaf_j-11bg", "red_air", name="Flanker 31",
           route=[(-6.7, 132.9, 30000)], telegraph=3, enter=5),
         U("red", "j-11bs", "plaaf_j-11bs", "red_air", name="Flanker 32",
           route=[(-6.7, 132.9, 30000)], telegraph=3, enter=5),
@@ -3599,9 +3594,11 @@ MISSIONS.append(dict(
           weapons="Hold"),
         # Ahead of the Bear, then onto the strike detachment's station -
         # inside AA-7 reach of the CAP, which is where the sweep's job is.
-        U("red", "j-8", "plaaf_j-8f", "sweep", name="Aggressor 51",
+        # The PLAAF Aircraft Pack's J-8F since the standalone J-8 mod left
+        # the Workshop (12 Nov 2026).
+        U("red", "plaaf-aircraft-pack", "plaaf_j-8f", "sweep", name="Aggressor 51",
           route=_D7_SWEEP, telegraph=3),
-        U("red", "j-8", "plaaf_j-8f", "sweep", name="Aggressor 52",
+        U("red", "plaaf-aircraft-pack", "plaaf_j-8f", "sweep", name="Aggressor 52",
           route=_D7_SWEEP, telegraph=3),
         # The Custom Loadout Editor's own files are its ammunition and its
         # authoring UI; its patches/ folder is not a path the game loads. The
