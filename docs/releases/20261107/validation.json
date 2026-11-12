@@ -591,7 +591,7 @@
     "base": "dev at a0721c18 (PRs #58 to #65 merged)",
     "pushed": true,
     "merged": false,
-    "rule": "the owner's rule of 11 Nov 2026, widened the same day: a post-1991, Russian-built hull registers the game's Russia key (SEST Collection Fixes' nations.ini: Russian Federation), every section of its file that resolves to Soviet; a Soviet-built ship in a modern Russian refit registers only the refit's sections, and a class held boat by boat only its real boats completed in Russia after 1991 (launched after 1991); an aircraft of a post-1991 Russian type or upgrade designation, or a post-1991 prototype (the Su-47), registers its Soviet squadrons; not re-registered: Soviet-era fits, Cold War aircraft types and designations, fictional variants and types, and hulls never built",
+    "rule": "the owner's rule of 11 Nov 2026, widened the same day: a post-1991, Russian-built hull registers the game's Russia key (SEST Collection Fixes' nations.ini: Russian Federation), every section of its file that resolves to Soviet; a Soviet-built ship in a modern Russian refit registers only the refit's sections, and a class held boat by boat only its real boats launched after 1991, in Russia (a boat launched by 1991 stays Soviet, as K-456 Tver, launched in June 1991 and commissioned in 1992, does); an aircraft of a post-1991 Russian type or upgrade designation, or a post-1991 prototype (the Su-47), registers its Soviet squadrons; not re-registered: Soviet-era fits, Cold War aircraft types and designations, fictional variants and types, and hulls never built",
     "registered": {
       "rfn_cvt_20380_3-6": "Project 20380, Boikiy, Stoikiy, Sovershennyy and Gromkiy (2013-2018)",
       "rfn_cvt_20380_531": "Project 20380, Soobrazitelnyy (2011)",
@@ -623,7 +623,7 @@
           "Default",
           "Variant1"
         ],
-        "why": "Admiral Chabanenko, laid down at Yantar in 1989, launched in 1994 and commissioned in 1999 (Wikipedia, Russian destroyer Admiral Chabanenko): completed in Russia after 1991, as the Gepard was"
+        "why": "Admiral Chabanenko, laid down at Yantar in 1989, launched in 1994 and commissioned in 1999 (Wikipedia, Russian destroyer Admiral Chabanenko): launched in Russia after 1991, as the Gepard was"
       },
       "wp_mpk_grisha_mu": {
         "sections": [
@@ -631,26 +631,23 @@
           "Variant25"
         ],
         "why": "the two Grishas launched after 1991, both at Zelenodolsk (Wikipedia, Grisha-class corvette): MPK-59 Snezhnogorsk (1993) and MPK-14 Monchegorsk (1992)",
-        "left_soviet": "[Default] and the boats launched by 1991 stay Soviet; U205 Lutsk and U209 Ternopil were completed in Kyiv for Ukraine, not built in Russia, so they stay as the author has them"
+        "left_soviet": "[Default], the boats launched by 1991 and MPK-20, never completed, stay Soviet; U205 Lutsk and U209 Ternopil were completed in Kyiv for Ukraine, not built in Russia, so they stay as the author has them"
       },
       "wp_mrk_nanuchka3_rsa": {
         "sections": [
           "Default",
-          "Variant3",
-          "Variant4",
-          "Variant9",
-          "Variant11",
-          "Variant12",
-          "Variant13",
-          "Variant14",
-          "Variant16",
-          "Variant17",
-          "Variant18",
-          "Variant19",
-          "Variant20"
+          "Variant17"
         ],
-        "why": "the Nanuchka III class in its 2019 fit ([Default]) on the twelve ships still in Russian service in 2019 (Wikipedia, Nanuchka-class corvette): Shtil', Aysberg, Mirazh, Rassvyet, Zyb', Geyzer, Passat, Livien', Smerch, Iney, Moroz and Razliv",
-        "left_soviet": "Burun, Vyetyer, Tucha, Uragan, Priboy, Priliv and Meteor, decommissioned by 2005, and Perekat, never completed, would carry a fit they never had: those sections stay Soviet"
+        "why": "the Nanuchka III class in its 2019 fit ([Default]) and Smerch, the one ship refitted to it: four quad Uran and an AK-176MA in place of the triple SS-N-9, 2017 to 2019 (Wikipedia, Russian corvette Smerch)",
+        "left_soviet": "Shtil', Aysberg, Mirazh, Rassvyet, Zyb', Geyzer, Passat, Livien', Iney, Moroz and Razliv served Russia in 2019 but were never refitted with Uran (only Smerch was; Wikipedia, Nanuchka-class corvette), so in this fit they are fictional and stay as the author has them; Burun, Vyetyer, Tucha, Uragan, Priboy, Priliv and Meteor, decommissioned by 2005, and Perekat, never completed, stay Soviet too"
+      },
+      "wp_projekt61m": {
+        "sections": [
+          "Default",
+          "Variant1"
+        ],
+        "why": "Smetlivy in her Project 01090 refit, completed in Russian service in 1995 with SS-N-25 (its own text; Wikipedia, Russian destroyer Smetlivy): the sections the game offers are the refit",
+        "left_soviet": "Variant2 to Variant19 lie past the file's NumberOfVariants=1, so the game offers none of them; they are left as they are"
       },
       "wp_ptg_tarantul_r60": {
         "sections": [
@@ -665,7 +662,7 @@
           "Default",
           "Variant1"
         ],
-        "why": "Admiral Nakhimov, the Kirov Soviet-built as Kalinin (1988), in her Russian refit (in hand from 1997; ServiceDate 2027): the whole file is the refit"
+        "why": "Admiral Nakhimov, the Kirov Soviet-built as Kalinin (1988), in her Russian refit (last at sea under her own power in July 1997, at Sevmash for repair and refit since 1999; ServiceDate 2027): the whole file is the refit"
       },
       "wp_rkr_slavaLU": {
         "sections": [
@@ -681,7 +678,7 @@
           "Variant2",
           "Variant3"
         ],
-        "why": "the Slava class in its 2016 fit ([Default]) and the three Slavas Russia sailed after 1991: Slava (Moskva from 1995), Marshal Ustinov and Chervona Ukrayina (Varyag from 1996)",
+        "why": "the Slava class in its 2016 fit ([Default]) and the three Slavas Russia sailed after 1991: Slava (Moskva from 1995), Marshal Ustinov and Chervona Ukrayina (Varyag from December 1995)",
         "left_soviet": "Variant4 to Variant8 stay Soviet: Admiral Lobov was never completed for Russia (Ukraine's unfinished Ukrayina), and Oktyabrskaya Revolutsiya, Admiral Gorshkov, Vladivostok and Sevastopol were never built"
       },
       "wp_ssgn_oscar2": {
@@ -706,6 +703,13 @@
         ],
         "why": "the seven Akulas launched after 1991 (Wikipedia, Akula-class submarine): K-328 Leopard (1992), K-154 Tigr (1993), K-157 Vepr, the Akula II (1994), K-419 Kuzbass (1992), K-335 Gepard, the Akula III (1999), K-295 Samara (1994) and K-152 Nerpa (2006)",
         "left_soviet": "[Default] (the class, from 1984) and the eight boats launched by 1991, K-461 Volk (June 1991) the last, stay Soviet, as do Kuguar, Rys and Irbis, never completed"
+      },
+      "wp_ssn_sierra2": {
+        "sections": [
+          "Variant2"
+        ],
+        "why": "B-336 Pskov, the Sierra II launched after 1991 (Wikipedia, Sierra-class submarine): laid down on 29 June 1989, launched on 28 July 1992 and commissioned on 17 December 1993",
+        "left_soviet": "[Default] (the class, ServiceDate 1990) and B-534 Nizhny Novgorod, launched on 8 July 1989 and commissioned in 1990, stay Soviet"
       }
     },
     "registered_in_own_file": {
@@ -718,13 +722,14 @@
       "rfn_lha_11780": "an unrealised 1980s Soviet design (its own description)",
       "ru_cv_varyag": "never completed for Russia (she became China's Liaoning): a fictional Varyag",
       "wp_bpk_udaloy3": "the file's own name says Fictional",
-      "wp_bpk_udaloy_98": "Tier B: a 1998 refit of Soviet hulls",
+      "wp_bpk_udaloy_98": "Tier B: Red Storm Arsenal's fictional '98 world, which still sails these Soviet-built hulls as the USSR's in 1998",
       "wp_cv_orel_1991": "Tier B: a 1991 Soviet carrier, fictional",
-      "wp_em_sovremenny_98": "Tier B: a 1998 refit of Soviet hulls",
+      "wp_em_sovremenny_98": "Tier B: Red Storm Arsenal's fictional '98 world, which still sails these Soviet-built hulls as the USSR's in 1998",
       "wp_em_sovremenny_vls": "the file's own name says Fictional, on Soviet-built hulls",
       "wp_mrk_nanuchka_3": "the REDFOR mod's 2017 fit on Smerch, which the rule registers, but the mod ships no vessels/wp_mrk_nanuchka_3.ini: the game never reads this variants file",
+      "wp_ptg_tarantul_mr": "the Tarantul III (Project 1241.1M, built from 1987) as built, with no refit section; R-2 Chuvashiya and R-29 were commissioned in 2000 and 2003 (Wikipedia, List of active Russian Navy ships), but no source read gives a launch after 1991, the test the boat-by-boat files use, so every boat stays Soviet until one does",
       "wp_rkr_kirov_improved": "one fictional improved fit for three Kirovs, two under their Soviet names; Pyotr Velikiy, launched 1989, is Soviet-built too",
-      "wp_rkr_slava_98": "Tier B: a 1998 refit of Soviet hulls",
+      "wp_rkr_slava_98": "Tier B: Red Storm Arsenal's fictional '98 world, which still sails these Soviet-built hulls as the USSR's in 1998; its fit mounts SA-N-20, which no Slava carried",
       "wp_rkr_varyag_08": "Tier B: Kirov II, fictional",
       "wp_rkr_varyag_12": "Tier B: Kirov II, fictional",
       "wp_rkr_varyag_95": "Tier B: Kirov II, fictional",
@@ -822,13 +827,7 @@
         "why": "the Su-30SM in Red Storm Arsenal's file (ServiceDate 2013)"
       },
       "wp_su_33": {
-        "squadrons": [
-          "Default",
-          "Squadron1",
-          "Squadron2"
-        ],
-        "why": "the Su-33 in Red Storm Arsenal's file (ServiceDate 1998) and its two squadrons of the 279th OKIAP, the Su-33's real regiment",
-        "left_soviet": "Squadron3 to Squadron10, the 311th, 343rd, 375th and 407th OKIAP, are regiments Red Storm Arsenal gives its fictional carriers (Ulyanovsk, Orel II '98): fictional sections, so they stay Soviet"
+        "why": "the Su-33 in Red Storm Arsenal's file (ServiceDate 1998), the Su-27K that entered Russian Naval Aviation service as the Su-33 on 31 August 1998: a post-1991 type, so every squadron, the 279th's and those Red Storm Arsenal adds for its fictional carriers alike, as wp_su-33 on the fictional Varyag"
       },
       "wp_su_35s": {
         "why": "the Su-35S in Red Storm Arsenal's file (ServiceDate 2014)"
@@ -884,33 +883,34 @@
       "wp_yak_44": "the Yak-44, cancelled in 1992 before it flew: Red Storm Arsenal's '98 world, fictional"
     },
     "aircraft_stock": "the game's own aircraft are left as the game ships them: no stub touches a stock id (35 stock ids register a squadron Soviet, among them the Kuznetsov mod's wp_ka-27 squadrons)",
-    "mechanism": "one #!extend stub per unit on its winning file: vessels_overwrite/<uid>_variants_RU_SEST.ini or aircraft_overwrite/<uid>_squadrons_RU_SEST.ini, setting Nation=Russia on the sections it names (RU_REREGISTER: every section that resolves to Soviet; RU_BY_SECTION and RU_AIRCRAFT: the sections listed, each of which must resolve to Soviet, and every Soviet section left out is explained); no third-party file is copied, so every variant and squadron credit stays its author's",
-    "stub_files": 58,
+    "mechanism": "one #!extend stub per unit on its winning file: vessels_overwrite/<uid>_variants_RU_SEST.ini or aircraft_overwrite/<uid>_squadrons_RU_SEST.ini, setting Nation=Russia on the sections it names (RU_REREGISTER: every section that resolves to Soviet; RU_BY_SECTION and RU_AIRCRAFT: the sections listed, each of which must resolve to Soviet, and every Soviet section left out is explained); each stub also lists, in the target's order and with no keys, the target's other sections up to the last one it registers, because the game reads the stub first, adds a section where it first sees its header, and the Mission Editor saves a variant or squadron by its place in that order (SetupUnitNames, WriteUnitData), so the merged order stays the author's; no third-party file is copied, so every variant and squadron credit stays its author's",
+    "stub_files": 60,
     "stub_files_by_kind": {
-      "vessels": 26,
+      "vessels": 28,
       "aircraft": 32
     },
     "stub_sections": 231,
     "stub_sections_by_kind": {
-      "vessels": 148,
-      "aircraft": 83
+      "vessels": 140,
+      "aircraft": 91
     },
-    "readers": "build_pack.pick_nation (and through it the rosters, the rules pages' discount counts and the Situation tables), set_enemy_flags.registered, build_dynamic_campaign.operators, the Cross-Deck builder's nation() and check_campaign_coverage's flag check read the stub first through integration/common/nation_stubs.py, aircraft squadrons as well as hull variants; set_enemy_flags reads an aircraft's SquadronReference= (it read Squadron=, which no mission writes) and build_pack.place the same; build_pack.nation_name reads SEST's nations.ini over the game's; service_awards.ADJECTIVE has Russia; submarines.py MAPPINGS fly Russia on the Borei, Yasen and Improved Kilo and say which Akulas and Oscar IIs register Russia",
-    "missions_unchanged": "common/flags.py maps Russia to Russia, so every SEST campaign mission and seed writes the same Nation=Russia; the from-scratch builds changed no file under SEST_Campaign but its RIBBONS.txt copy, and in the world campaign only draft/conversion.json's Akula and Oscar II notes (campaign.json is unchanged); the rules pages' discount counts are unchanged (no campaign roster sells a Russian unit)",
+    "readers": "build_pack.pick_nation (and through it the rosters, the rules pages' discount counts and the Situation tables), set_enemy_flags.registered, build_dynamic_campaign.operators, the Cross-Deck builder's nation() and check_campaign_coverage's flag check read the stub first through integration/common/nation_stubs.py, aircraft squadrons as well as hull variants; set_enemy_flags reads an aircraft's SquadronReference= (it read Squadron=, which no mission writes) and build_pack.place the same; build_pack.nation_name reads SEST's nations.ini over the game's; service_awards.ADJECTIVE has Russia; submarines.py MAPPINGS fly Russia on the Borei, Yasen and Improved Kilo and say which Akula, Oscar II and Sierra II boats register Russia",
+    "missions_unchanged": "common/flags.py maps Russia to Russia, so every SEST campaign mission and seed writes the same Nation=Russia on the units it places (an aircraft a Russian deck or airbase launches flies its own squadron's registration: the Su-33 and the post-1991 types now launch as the Russian Federation, the Ka-27 and the Cold War types as the USSR); the from-scratch builds changed no file under SEST_Campaign but its RIBBONS.txt copy, and in the world campaign only draft/conversion.json's Akula and Oscar II notes (campaign.json is unchanged); the rules pages' discount counts are unchanged (no campaign roster sells a Russian unit)",
     "seed_report": "set_enemy_flags.py report mode lists the same 11 Banda units before and after; reading SquadronReference instead of Squadron changes none",
     "build": "tools/build_all.py --from-scratch twice; the second left the tree clean",
-    "release_gates": "14 checks passed; 428 tools tests (2 skipped) with pwsh 7.4.6; 410 campaign tests (test_build_pack, test_playtest_revision, test_red_line_pacing)",
-    "canonical_upload": "prepare-workshop-upload.ps1 -VerifyOnly: 4473 files match the manifest",
-    "pc_checks": "docs/campaigns/southern-watch/test-card.md 6K, RU.1-RU.8 (RU.1 reads SEST Runtime's '[SEST Runtime] modifier files' line on the beta: 232 files from this pack, 190 with the hull stubs alone, 174 before any; RU.7: a Su-35S shows the Russian Federation and a Cold War Su-27 the USSR; RU.8: the Kuznetsov's 2016 fit and the Akula Gepard show the Russian Federation and her 1991 fit and K-284 the USSR); RIBBONS.txt PC CHECKS; README-FIRST step 3",
+    "release_gates": "14 checks passed; 431 tools tests (2 skipped) with pwsh 7.4.6; 410 campaign tests (test_build_pack, test_playtest_revision, test_red_line_pacing)",
+    "canonical_upload": "prepare-workshop-upload.ps1 -VerifyOnly: 4475 files match the manifest",
+    "pc_checks": "docs/campaigns/southern-watch/test-card.md 6K, RU.1-RU.8 (RU.1 reads SEST Runtime's '[SEST Runtime] modifier files' line on the beta: 234 files from this pack, 232 before the Sierra II and Smetlivy stubs, 190 before the refit and aircraft stubs, 174 before any; RU.7: a Su-35S shows the Russian Federation and a Cold War Su-27 the USSR; RU.8: the Kuznetsov's 2016 fit and the Akula Gepard show the Russian Federation and her 1991 fit and K-284 the USSR, the variant lists open on [1143.5 Kuznetsov] and [Akula-class], and a mission saved with the 2016 fit and the Gepard holds VariantReference=Variant2 and Variant13 and reloads them; RU.4: placed units fly the Russian flag, a launched Su-33 the Russian Federation's and a launched Ka-27 the USSR's); RIBBONS.txt PC CHECKS; README-FIRST step 3",
     "review_fixes": "the Belgorod (wp_ssgn_belgorod, 3468260539) is registered: laid down at Sevmash on 24 Jul 1992 and delivered on 8 Jul 2022 (en.wikipedia.org, checked 11 Nov 2026), missed by the design's list because her file's ServiceDate is 1980|1996; the REDFOR mod's 2017 wp_mrk_nanuchka_3 is recorded left Soviet; the Slava key is spelt wp_rkr_slavaLU as its file is, and a test checks every listed uid names a mod's file as spelt on disk; RIBBONS.txt says SEST Replenishment registers the Pashin in its own file; test card RU.1 reads the Runtime's modifier-files line instead of a game line Player.log never carries, and RU.2's If-not rules out a missing rescan or beta features turned off first",
+    "review_fixes_12_nov": "second review, 12 Nov 2026: each stub now lists, empty and in the target's order, every section of the target up to the last one it registers, so the merged variant and squadron order stays the author's (before, the Kuznetsov, Grisha, Nanuchka III, Oscar II and Akula stubs put their named sections first, and the Mission Editor saved Variant<place> for another fit or boat); a test replays IniHandler.ReadFileToIni on every stub and its target and checks the offered order and that only Nation changes; the Nanuchka III 2019 fit registers Smerch only, the one ship refitted with Uran and the AK-176MA (Wikipedia, Russian corvette Smerch), and her eleven sisters' sections stay as the author has them; the Sierra II B-336 Pskov, launched 28 Jul 1992, and the REDFOR mod's Smetlivy (wp_projekt61m), the Project 01090 refit completed in Russian service in 1995, are registered; Red Storm Arsenal's Su-33 registers every squadron, as a post-1991 type, so no carrier's air wing is split between two nations; the REDFOR mod's Tarantul III (wp_ptg_tarantul_mr) is recorded left Soviet, no launch after 1991 being sourced for R-2 or R-29; the docs say 'launched after 1991', the test the code uses (K-456 Tver, launched June 1991, stays Soviet), and that an aircraft a Russian deck or airbase launches flies its own squadron's registration; Varyag's renaming (December 1995), Admiral Nakhimov's refit dates (laid up after July 1997, at Sevmash since 1999) and the Grisha MPK-20, never completed, are corrected; a test pins the boat each by-section section names; check_stale_phrases retires 'every Russian aircraft ... stay Soviet'; in the upload folder 2 files added (the Sierra II and Smetlivy stubs) and 9 stubs and RIBBONS.txt changed: 4475 files (SEST_Collection_Fixes/_info.ini changed too; the consolidated pack has its own)",
     "status": "compiled-and-unit-tested-pc-checks-pending",
-    "upload_files_changed_by_the_widening": "42 added (the 10 refit and per-boat hull stubs and the 32 aircraft stubs) and RIBBONS.txt changed, against the branch's 4430-file tree before the widening",
+    "upload_files_changed_by_the_widening": "42 added (the 10 refit and per-boat hull stubs and the 32 aircraft stubs) and RIBBONS.txt changed, against the 4431-file tree at b7c6ee05 (the branch's 4430 plus dev's Gallery/visuals/steam/pack-8-world.jpg)",
     "widened": "11 Nov 2026, the owner: aircraft 'Yes, post-1991 types'; refits 'Yes, modern refit variants only'. RU_BY_SECTION (10 files, the sections each names) and RU_AIRCRAFT (32 aircraft) added; the Kuznetsov, Nakhimov refit, Slava 2016, Slava LU, Nanuchka III 2019, Tarantul R-60, Akula, Oscar II, Grisha and Udaloy II files left RU_LEFT_SOVIET for RU_BY_SECTION; the REDFOR 2017 Nanuchka III stays recorded there, its mod shipping no hull; build_pack.place and set_enemy_flags read an aircraft's SquadronReference"
   },
   "beta_toolkit": {
     "branch": "beta",
     "base": "dev with the Steam images for R12 and the world campaign",
-    "canonical_upload": "prepare-workshop-upload.ps1 -VerifyOnly: 4473 files match the manifest",
+    "canonical_upload": "prepare-workshop-upload.ps1 -VerifyOnly: 4475 files match the manifest",
     "note": "the toolkit is built from beta; beta is created from dev once the branch cleanup has run"
   }
 }

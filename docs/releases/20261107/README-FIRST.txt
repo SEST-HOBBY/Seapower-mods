@@ -75,17 +75,23 @@ WHAT IS NEW SINCE THE R12 RIBBON TEST BUILD
   Yasen, Belgorod, Borei and Improved Kilo boats); the modern refits of
   Soviet-built ships in their modern fit only (the Kuznetsov's 2016 fit,
   not her 1991 one, Admiral Nakhimov's refit, Marshal Ustinov 2016, the
-  Nanuchka IIIs of 2019, the Tarantul R-60 of 2005) and the Akulas, Oscar
-  IIs, Grishas and Admiral Chabanenko completed after 1991;
-  and 32 aircraft of post-1991 Russian types and upgrades (the Su-57,
-  Su-35S, Su-30SM, Su-33, MiG-31BM, MiG-35, MiG-29K 9.41, A-50U, Tu-214R
-  and their like). One #!extend stub per unit sets only the Nation of its
-  mod's variants or squadrons file; no author's file is copied. SEST's
+  Nanuchka III Smerch in her 2019 refit, the Tarantul R-60 of 2005, the
+  REDFOR mod's Smetlivy in her 1995 Project 01090 refit) and the Akulas,
+  Oscar IIs and Grishas launched after 1991, the Sierra II Pskov and
+  Admiral Chabanenko (launched in 1992 and 1994); and 32 aircraft of
+  post-1991 Russian types and upgrades (the Su-57, Su-35S, Su-30SM, Su-33,
+  MiG-31BM, MiG-35, MiG-29K 9.41, A-50U, Tu-214R and their like). One
+  #!extend stub per unit sets only the Nation of its mod's variants or
+  squadrons file, listing the file's earlier sections empty so the game
+  keeps the author's variant order; no author's file is copied. SEST's
   Akademik Pashin registers Russia in its own file. The Soviet-era fits,
   Cold War aircraft (the Su-27, MiG-31, MiG-29 9.12, Tu-160 as built,
   Tu-95MS, Il-76MD, Il-78, Ka-27PL, Mi-8, Mi-24), fictional variants and
-  hulls never built stay Soviet, as stock Cold War missions use them. The
-  SEST missions fly the Russian flag on the same units as before. No mod
+  hulls never built stay Soviet, as stock Cold War missions use them.
+  Every unit a SEST mission places still flies the Russian flag, as
+  before; an aircraft a Russian deck or airbase launches flies its own
+  squadron's registration, so a launched Su-33 or Su-57 now shows the
+  Russian Federation and a launched Ka-27, Su-27 or Tu-160 the USSR. No mod
   has used an #!extend on a variants or squadrons file before, so it is
   checked once in step 3; no campaign offers a Russian commander, so the
   discount is not.
@@ -111,7 +117,7 @@ PREPARE AND CHECK
 1. Close Sea Power. Keep SEST and the collection subscribed. Extract this
    COMPLETE toolkit into a NEW folder and run Prepare-PC.cmd. Keep the
    printed release checkout, the backup path and the line "VERIFIED: all
-   4473 canonical upload files match the release manifest." Upload-PC.cmd
+   4475 canonical upload files match the release manifest." Upload-PC.cmd
    prints the folder to upload (step 6).
    Prepare-PC installs both code and campaign/loadout data; Repair-PC alone
    only repairs code. The author-update guard and original restore journal
@@ -154,14 +160,16 @@ PREPARE AND CHECK
    the Mission Editor Russian Navy 21's Admiral Gorshkov and a Su-35S show
    Russian Federation and the game's own Sovremenny and a Cold War Su-27
    the USSR, and the Kuznetsov's 2016 fit shows Russian Federation and her
-   1991 fit the USSR; Pacific Strike's 02 Action in the Taiwan Strait still
+   1991 fit the USSR; a mission saved with the Kuznetsov's 2016 fit and the
+   Akula Gepard holds VariantReference=Variant2 and Variant13 (RU.8);
+   Pacific Strike's 02 Action in the Taiwan Strait still
    generates its Soviet force (the release checkout's
    docs/campaigns/southern-watch/test-card.md, 6K, rows RU.1 to RU.8). On
    the beta the stubs, like every #!extend file in the pack, apply only
    where SEST's beta Runtime repairs the game's modifier scan
    (ModifierRegistry, not turned off), so not with the beta features off
    (step 5): first read Player.log's "[SEST Runtime] modifier files" line,
-   which should count 232 files from this pack (RU.1). If time allows, as a
+   which should count 234 files from this pack (RU.1). If time allows, as a
    New Zealand commander buy the P-8A in the force allocation before Weapons
    Free (SW05) at the discounted price and fly it in the Maritime Patrol slot
    of 06 Blind Horizon (Weapons Free has no patrol slot).
