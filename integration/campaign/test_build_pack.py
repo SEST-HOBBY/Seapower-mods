@@ -2147,15 +2147,21 @@ class RosterAndSeahawk(unittest.TestCase):
         self.assertEqual(credits[holder], ("variant", f"{uid} Variant1"))
 
     def test_a_sold_hull_credits_the_rounds_its_fit_hangs(self):
-        # The Ford's Default fit is read first; Red Storm Arsenal ships its
-        # RAM and ESSM.
-        uid = "usn_cvn_gerald_r_ford"
-        kind, path = bp.unit_file(uid)
-        self.assertEqual(bp.pick_loadout(uid, path, None)[0], "Default")
-        credits = self.sulu_credits((uid, ["Variant1"]))
-        ram = bp.chain_owners("ammunition/usn_rim_116c.ini")[0]
-        self.assertNotEqual(ram, bp.owner(f"vessels/{uid}.ini"))
-        self.assertEqual(credits[ram], ("store", f"{uid} / usn_rim_116c"))
+        # Red Storm Arsenal's Burke Flight IIA (2003), forked by SEST
+        # Replenishment, reads its Default fit first; Euromod Main ships the
+        # Mk 54 it carries. Until the 12 Nov 2026 capture the example was
+        # the Ford, whose Red Storm hull read a Default fit and hung Red
+        # Storm's RAM; Modern US Navy's Ford, which outranks it since,
+        # declares no fit, and its RAM is U.S. Navy 2027's usn_rim-116c.
+        for uid, fit, rid in (("usn_ddg_arleigh_burke_flight2a_2003", "Default", "usn_mk54_ship"),
+                              ("usn_cvn_gerald_r_ford", None, "usn_rim-116c")):
+            with self.subTest(hull=uid):
+                kind, path = bp.unit_file(uid)
+                self.assertEqual(bp.pick_loadout(uid, path, None)[0], fit)
+                credits = self.sulu_credits((uid, ["Variant1"]))
+                owner = bp.chain_owners(f"ammunition/{rid}.ini")[0]
+                self.assertNotEqual(owner, bp.owner(f"vessels/{uid}.ini"))
+                self.assertEqual(credits[owner], ("store", f"{uid} / {rid}"))
 
     def test_a_sold_hull_credits_its_variants_file_and_not_its_deck(self):
         # Modern German Navy writes the F124's variants file and the NH90 on
