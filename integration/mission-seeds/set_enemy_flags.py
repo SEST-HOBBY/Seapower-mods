@@ -27,6 +27,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT / "integration"))
 from common import flags  # noqa: E402
+from common import nation_stubs  # noqa: E402
 
 MODS = ROOT / "mods-source"
 HERE = Path(__file__).resolve().parent
@@ -62,16 +63,25 @@ def index():
 
 
 def registered(idx, uid, pick):
+    """The nation the game reads for a unit: the section the mission names,
+    else [Default], each from SEST's #!extend Nation stub first (SEST
+    Collection Fixes' Russian registrations, common/nation_stubs.py) and then
+    the winning file. The *_overwrite stubs are not in index(): they are not
+    variants files, they layer onto one."""
     for kind, suffix in (("vessels", "variants"), ("land_units", "variants"),
                          ("aircraft", "squadrons")):
-        f = idx.get(f"{kind}/{uid}_{suffix}.ini".lower())
+        rel = f"{kind}/{uid}_{suffix}.ini"
+        f = idx.get(rel.lower())
         if f is None:
             continue
         text = f.read_text(encoding="utf-8-sig", errors="replace")
         for section in (pick, "Default"):
+            stubbed = nation_stubs.nation(rel, section)
+            if stubbed:
+                return stubbed
             m = re.search(rf"^\[{re.escape(section)}\][^\n]*\n(.*?)(?=^\[|\Z)", text, re.M | re.S)
             n = m and re.search(r"^[ \t]*Nation[ \t]*=[ \t]*(.*?)[ \t]*\r?$", m.group(1), re.M)
-            value = n and re.split(r"\s*(?://|#|;)", n.group(1), 1)[0].strip()
+            value = n and re.split(r"\s*(?://|#|;)", n.group(1), maxsplit=1)[0].strip()
             if value:
                 return value
         return None

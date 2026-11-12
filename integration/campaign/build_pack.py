@@ -69,6 +69,7 @@ import fix_land_positions  # noqa: E402  (firm ground for land units; needs glob
 sys.path.insert(0, str(ROOT / "integration"))
 from common import quotes  # noqa: E402
 from common import flags  # noqa: E402
+from common import nation_stubs  # noqa: E402
 
 HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE))
@@ -187,6 +188,10 @@ RULES_WELCOME = {
         "October 2028. With the Seventh Fleet drawn north, the Philippine Navy holds the "
         "island supply road alone. You command its Sulu Sea task group, and nothing it "
         "fires is replaced except by the supply ships you buy and keep afloat."),
+    "sest-makran-line": (
+        "October 2028. With the coalition's ships drawn east, the tanker road from the Gulf "
+        "to Karachi is closing. You command the Pakistan Navy task group sent to keep it "
+        "open."),
 }
 
 
@@ -467,8 +472,9 @@ def campaign_rules(spec, open_allocation=False, allied=0):
          'Text="- Ships purchased in Task Force Builder come without aircraft. Helicopters '
          'and aircraft are bought separately, and replacements must be bought if aircraft '
          'are lost."', "airwing line")
-    # All four campaigns sell a helicopter in their first window and added
-    # fixed-wing types from the second (checked 27 Sep), so the stock
+    # The first four campaigns sold a helicopter in their first window and
+    # added fixed-wing types from the second (checked 27 Sep), and Makran Line
+    # does the same (the Z-9CE and Sea King, then the JF-17s), so the stock
     # helicopter and fixed-wing lines stood as written. Red Line's first
     # window offers the whole roster since 21 Oct 2026, the Y-9, KJ-500,
     # J-15 and J-15D with it, so the fixed-wing line is read off the first
@@ -780,6 +786,15 @@ def campaign_specs():
     else:
         if getattr(sl, "__file__", None):
             specs.append(sl.CAMPAIGN)
+    # Makran Line, the same way: optional, appended after Sulu Line.
+    try:
+        import makran_line as ml                    # noqa: E402
+    except ModuleNotFoundError as exc:
+        if exc.name != "makran_line":
+            raise
+    else:
+        if getattr(ml, "__file__", None):
+            specs.append(ml.CAMPAIGN)
     # Two campaigns sharing a pack folder or a report overwrite each other in
     # build order, silently. Southern Watch's own paths are set_campaign()'s
     # to guard; this is every other pair.
@@ -1457,26 +1472,37 @@ def pick_nation(uid, pick):
     `usn_fa-18a=Squadron7,Squadron8` to an Australian commander, and its
     squadrons file registers both to Australia. An empty or comment-only
     Nation= is undeclared, and falls through to [Default].
+
+    A SEST #!extend stub on the file comes first, as in the game: SEST
+    Collection Fixes re-registers the post-1991 Russian hulls to Russia with
+    a Nation= stub per section (integration/common/nation_stubs.py), and the
+    game reads an extend's keys before the file's.
     """
     kind, _path = unit_file(uid)
-    f = winning(f"{kind}/{uid}_{'squadrons' if kind == 'aircraft' else 'variants'}.ini")
+    rel = f"{kind}/{uid}_{'squadrons' if kind == 'aircraft' else 'variants'}.ini"
+    f = winning(rel)
     if f is None:
         return None
     # Author squadron files can be thin aliases that only change dates.
     # Merge each section's Nation through the alias chain before falling
     # back from the selected squadron/variant to [Default].
     for section in (pick, "Default"):
-        current, seen = f, set()
+        current, here, seen = f, rel, set()
         while current is not None:
             if current in seen:
                 raise SystemExit(f"roster: alias cycle reading {uid} {pick}")
             seen.add(current)
+            stubbed = nation_stubs.nation(here, section)
+            if stubbed:
+                return stubbed
             text = read(current)
             m = re.search(rf"^\[{re.escape(section)}\][^\n]*\n(.*?)(?=^\[|\Z)", text, re.M | re.S)
             n = m and re.search(r"^[ \t]*Nation[ \t]*=[ \t]*(.*?)[ \t]*\r?$", m.group(1), re.M)
-            value = n and re.split(r"\s*(?://|#|;)", n.group(1), 1)[0].strip()
+            value = n and re.split(r"\s*(?://|#|;)", n.group(1), maxsplit=1)[0].strip()
             if value:
                 return value
+            a = re.search(r"#!alias\s+(\S+)", text)
+            here = a.group(1) if a else None
             current = alias_target(current)
     return None
 
@@ -1511,15 +1537,28 @@ def roster_nations(roster):
 
 
 def nation_name(key):
-    """The game's display name for a nation key (language_en/nations.ini)."""
+    """The game's display name for a nation key (language_en/nations.ini).
+
+    language_en merges key by key and the SEST packs sit above every mod, so
+    a key a SEST pack names is shown as the pack names it: SEST Collection
+    Fixes names the Russian Federation (Russia=, a key the game's file does
+    not carry) and the Meridian Maritime Group. Every other key is the
+    game's own; no exported mod renames one SEST uses.
+    """
     global _NATION_NAMES
     if _NATION_NAMES is None:
-        f = ROOT / "mods-source" / "_vanilla" / "original" / "language_en" / "nations.ini"
+        files = [p / "language_en" / "nations.ini" for p in nation_stubs.packs(ROOT)]
+        files.append(ROOT / "mods-source" / "_vanilla" / "original" / "language_en" / "nations.ini")
         _NATION_NAMES = {}
-        for raw in f.read_text(encoding="utf-8-sig").splitlines():
-            k, sep, v = raw.partition("=")
-            if sep:
-                _NATION_NAMES[k.strip().lower()] = v.strip()
+        for f in files:
+            if not f.is_file():
+                continue
+            for raw in f.read_text(encoding="utf-8-sig").splitlines():
+                if raw.lstrip().startswith(("#", ";", "//", "[")):
+                    continue
+                k, sep, v = raw.partition("=")
+                if sep:
+                    _NATION_NAMES.setdefault(k.strip().lower(), v.strip())
     return _NATION_NAMES.get(key.lower(), key)
 
 
@@ -6993,7 +7032,8 @@ def recognition_png(asset_file):
 # centre (banner_png), so a hull or an airframe is not cut in half by a
 # fixed centre crop.
 CAMPAIGN_BANNER = {"sest-southern-watch": "hobart", "sest-southern-reach": "canberra",
-                   "sest-red-line": "type054a", "sest-sulu-line": "tarlac"}
+                   "sest-red-line": "type054a", "sest-sulu-line": "tarlac",
+                   "sest-makran-line": "jf17"}
 # Photos of each campaign's own forces and theatre to draw on once the units
 # a mission places have all been used on an earlier briefing. Every id must
 # be in the gallery; the build stops on one that is not.
@@ -7006,6 +7046,13 @@ BANNER_POOL = {
                       "kj500", "jh7a"],
     "sest-sulu-line": ["miguel_malvar", "tarlac", "jacinto", "naresuan", "chakri", "rizal_old",
                        "type056a", "type054a", "type052c", "kj500", "jh7a"],
+    # Makran Line's own forces. Only jf17 is a Pakistani photo. The others
+    # are the same classes and families, not Pakistani airframes or hulls:
+    # type054a is the PLAN's Huangshan (for the Tughril class), perry the
+    # USS Oliver Hazard Perry (for PNS Alamgir), seaking a US Navy SH-3 and
+    # z9 a PLAN Z-9 (for the Navy's Sea Kings and Z-9CEs). The caption under
+    # the strip gives the class and the photographer, not the navy.
+    "sest-makran-line": ["jf17", "perry", "z9", "seaking", "type054a"],
 }
 # Photos that are fine at encyclopedia size but not as a strip across the
 # top of a briefing: a hull behind a roof, a helicopter in a museum hall.
@@ -7018,7 +7065,7 @@ BANNER_PLAN = {}      # mission key -> asset id, for the campaign set_campaign()
 CAMPAIGN_BACKDROP = {"sest-southern-watch": "mh60r", "sest-red-line": "type003"}
 BANNER_SIZE = (900, 320)
 SERVICE = {"Australia": "Royal Australian Navy", "China": "People's Liberation Army Navy",
-           "Philippines": "Philippine Navy"}
+           "Philippines": "Philippine Navy", "Pakistan": "Pakistan Navy"}
 
 
 @functools.lru_cache(maxsize=None)
@@ -7432,7 +7479,11 @@ SEST_EMBLEMS = {"sest_plan_emblem.png": "china_naval.png",
                 "sest_km_emblem.png": "netherlands.png",
                 "sest_rnon_emblem.png": "norway.png",
                 "sest_rdn_emblem.png": "denmark.png",
-                "sest_rtn_emblem.png": "thailand.png"}
+                "sest_rtn_emblem.png": "thailand.png",
+                # Makran Line's Pakistan Navy commander (11 Nov 2026): the
+                # national flag of Pakistan. The Navy's own ensign is not in
+                # the gallery's flag set.
+                "sest_pakn_emblem.png": "pakistan.png"}
 
 
 def write_emblems(commander):
@@ -9006,7 +9057,7 @@ def requirements(rows):
         L += ["", "-" * 74, "",
               f"In the collection for other campaigns and scenarios ({len(external)}):",
               "the third-party campaigns the collection carries, the mods they",
-              "place, and content none of these four campaigns uses. They are in",
+              "place, and content none of the SEST campaigns uses. They are in",
               "LOAD-ORDER.txt, so SETUP still requires them.", ""]
         for _mid, title, how, _detail, _mission, token in sorted(external, key=key):
             L.append(f"{token:<13} {'other campaigns':<32} {title}")
@@ -9053,7 +9104,7 @@ def required_urls(rows):
     both.sort(key=lambda r: rank.get(r[5], 10**6))
     L = [f"{TITLE} - Workshop mods this campaign reaches (reference only)", "",
          f"{len(both)} items, in canonical load order. NOT the Workshop item's",
-         "Required Items list. All four campaigns ship in one item, the SEST",
+         "Required Items list. All the SEST campaigns ship in one item, the SEST",
          "Integration Pack (3812461539), whose Required Items - like the",
          "collection 'SEST - Modernised Campaign Collection' (3812390790) -",
          "hold every Workshop mod in the load order, more than any one",

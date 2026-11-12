@@ -97,6 +97,13 @@ REPORTS = {
     "SL05A": "VEGA / SHORE TEAM: Compare Tabak's first strike with a fresh observation pass. Mobile launchers do not owe you a second shot at yesterday's coordinate. Mapun has no friendly recovery strip; preserve the strike aircraft's fuel margin.",
     "SL06": "FIRE CONTROL: Silence the coastal battery without losing the convoy while you turn for a firing solution. The forward UAV's camera can check the radar and launchers separately.",
     "SL07": "MANALO: The patrol submarine is a coalition attachment for this battle only. Keep her clear of the convoy and your ASW weapons. The ships still have only the ammunition you brought or transferred at sea.",
+    # Makran Line's four (11 Nov 2026) speak as roles, as Red Line's do: the
+    # campaign names no Pakistani officer. Hangor's says nothing of where the
+    # mothership is going.
+    "MK01": "FLEET OPERATIONS / TF-88: The Meridian boats will offer an escort before they show a weapon. Keep the frigate between them and the tankers, and identify every dhow before you fire.",
+    "MK02": "TF-88 STAFF: One of the ships at anchor is not a merchant. Classify before you shoot into the anchorage, keep a missile defence over the two tankers, and let the JF-17s work the trawlers to the south-west.",
+    "MK03": "BOAT CONTROL: A trail is won by patience. Let the merchant's own noise bring her to you, classify her on passive sonar, and keep below the layer; nothing is fired on this patrol.",
+    "MK04": "TF-88 STAFF: The convoy and the mothership pull the screen two ways. Keep one ship with the tankers; Sentinel stops for a warship close aboard, and a ship that has hove to is protected.",
 }
 
 # code: (friendly recovery location, target station). The forward sites are

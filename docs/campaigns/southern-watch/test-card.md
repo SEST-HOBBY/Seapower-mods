@@ -1,7 +1,5 @@
 # Southern Watch — first play test
 
-> **Branches since 11 November 2026** (docs/BRANCHES.md): the PC installs and tests `beta`, which `data/deploy-branch.txt` names; work merges into `dev` by pull request; `steam` is what is live on the Workshop. Where this guide names `sest-dev/jolly-ride-rptj4t` for a pull or install, use `beta`; push changes to a feature branch and open a pull request into `dev` instead of pushing to it.
-
 Only parts of this campaign have been watched in the game (the first installs
 and play tests recorded below). Everything else below is a claim the build
 makes about files it wrote; this card is the order to falsify them in,
@@ -88,8 +86,8 @@ The short version, game **closed** (it rewrites `usersettings.ini` on exit),
 on the branch named in `data\deploy-branch.txt` (`sest-dev/jolly-ride-rptj4t`):
 
 ```powershell
-git checkout beta      # the branch data\deploy-branch.txt names
-git pull origin beta
+git checkout sest-dev/jolly-ride-rptj4t      # the branch data\deploy-branch.txt names
+git pull origin sest-dev/jolly-ride-rptj4t
 powershell -ExecutionPolicy Bypass -File .\tools\sync-sest.ps1
 ```
 
@@ -430,6 +428,34 @@ game.
 | J.1 | Southern Watch, the window before SW05 Weapons Free: buy a Mogami from the allied reserve and an MH-60R, assign the Seahawk to the Mogami in the Task Force Manager, and choose the Mogami as the one ship that sails Weapons Free. (Until 21 October this row used the Open Allocation version's Iver Huitfeldt; since that day it is on sale from Weapons Free with the rest of the allied fleet, and either ship will do.) | The assignment is accepted and the Seahawk launches from and recovers to the Mogami in the next mission | Refused = the deck fit did not take effect: bring back Player.log and the CROSS-DECK.txt line for js_ffg_mogami |
 | J.2 | Mission editor: place a Maya (jmsdf_ddg_maya) and give it an Australian S-70B-2 Seahawk; a Horizon (fr_ddg_horizon) with a German NH90; a Nimitz (usn_cvn_nimitz_2027s_adou) with a Rafale M | Each embarks, launches and recovers | Note which pairing fails |
 | J.3 | Mission editor: a Type 23 with an MH-60R | Refused: the Type 23 lists no Seahawk family, so it gains none (Lynx/Wildcat, Merlin, Cougar only) | Accepted = the deck takes everything, not the families: report it |
+
+## 6K — the Russian Federation, not the USSR (11 November)
+
+SEST Collection Fixes registers 16 post-1991, Russian-built ship and
+submarine classes to the game's `Russia` nation, which its `nations.ini`
+names *Russian Federation*, through one `#!extend` stub per hull on the
+mod's variants file (`vessels_overwrite/<hull>_variants_RU_SEST.ini`; the
+list and the hulls left Soviet, with the reason for each, are
+`RU_REREGISTER` and `RU_LEFT_SOVIET` in
+`integration/collection-fixes/build_patch.py`). SEST's Akademik Pashin
+registers Russia in its own file. Soviet-built hulls, fictional variants and
+every aircraft, helicopter and transport stay `Soviet`. No mod has used an
+`#!extend` on a variants file before, so RU.2 is the first test of it. On
+the beta the stubs, like every `#!extend` file in the pack, apply only where
+SEST's beta Runtime repairs the game's modifier scan (`ModifierRegistry`,
+not turned off), so RU.1 reads that first. The missions do not depend on
+it: every SEST mission still writes `Nation=Russia` on its Russian units, as
+before. No campaign offers a Russian commander, so the same-nation discount
+is not checked here.
+
+| # | Do | Expect | If not |
+|---|---|---|---|
+| RU.1 | Start the game (on the beta, with the beta features on); in `Player.log` find SEST Runtime's modifier-file line: `[SEST Runtime] modifier files repaired: ... N files from this pack, ini cache cleared`, or `[SEST Runtime] modifier files: the game's registry already holds N of this pack's #!extend and #!prepend files ...` | N = 192 (174 before the 16 Russian stubs, 190 before Makran Line's two Cross-Deck stubs for the Pakistan Navy's decks), and no IniHandler error naming a `_variants_RU_SEST.ini` file. `the game has not scanned for #!extend files yet` gives no count, and on the standard build Runtime 1.5.0 writes no such line: go on to RU.2. Do not look for the game's own `IniHandler.ScanForModifierFiles() scanned ...` line: none of the captured Player.logs has it | No such line, `the rescan still holds none of this pack's #!extend files`, `modifier file check not installed`, or N below 192 = the stubs did not register this session; that is no verdict on variants files: bring back Player.log. An error naming a stub = say which; the stubs come out before the next upload |
+| RU.2 | Mission editor: place Russian Navy 21's Admiral Gorshkov (`rfn_ffg_22350_1-4`), a Yasen and the game's own Sovremenny (`wp_em_sovremenny`); open each one's unit panel and encyclopedia entry | The Gorshkov and the Yasen show *Russian Federation* and the Russian flag; the Sovremenny shows *USSR*. In the editor's nation list the first two sit under Russian Federation | The Gorshkov still USSR: first rule out RU.1 (a missing or failed rescan, or the beta features turned off). Then, if J.1 to J.3 (the Cross-Deck `#!extend` stubs) did apply this session but the Gorshkov is still USSR, the game does not apply `#!extend` to a variants file: bring back Player.log. The campaigns are unaffected (above) |
+| RU.3 | A new Southern Watch campaign: the Situation button (H.6) | The Russia block lists the Project 20380 corvette (Merkury) under the Russian Federation flag and the Akula under the USSR's; no unknown flag | An unknown flag on the corvette = the stub's nation has no flag entry: bring back the screen |
+| RU.4 | D4 Return Passage | Every Russian ship and aircraft flies the Russian flag, the Admiral Grigorovich (stubbed) and Pyotr Velikiy (not stubbed) alike | A USSR flag on any = say which unit |
+| RU.5 | Soviet stock: start a new Pacific Strike campaign and play 02 *Action in the Taiwan Strait* to its first contact; if installed, load Mare Nostrum '28's 10A *Pilares - El Silencio* | Pacific Strike generates its Soviet force with the USSR flag, as before; Mare Nostrum's Russian units keep the USSR flag their author set | A Pacific Strike mission with no Soviet units = the generator filtered on the new key: bring back the save and Player.log |
+| RU.6 | An existing save with a Russian Navy 21 hull in it | It loads, and the hull keeps the nation the save stored | A load failure = bring back the save |
 
 ## 7 — the review's engine tests
 

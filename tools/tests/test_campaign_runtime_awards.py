@@ -24,7 +24,7 @@ runtime's reader to Python, line for line:
   before ':' and '>='.
 
 The port is held to the runtime's own grammar cases (MissionAwardsTests.cs:
-520-556), and then every value build_pack.py wrote into the four campaigns
+520-556), and then every value build_pack.py wrote into the five campaigns
 under integration/campaign/SEST_Campaign is parsed with it. Each awarded id
 must have its [Ribbon_<id>] definition, which the runtime reads
 (ReadRibbonDefinition, MissionAwards.cs:287), must not be listed in

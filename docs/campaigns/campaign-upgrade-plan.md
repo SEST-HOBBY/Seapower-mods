@@ -186,7 +186,7 @@ Every place where the planners and reviewers disagreed, I followed the reviewers
 - **PLAN: deep.** Type 055, 052D, 052C, 054A/B, 056A, two carriers, Type 071, Y-9/KQ-100, KJ-500/600, J-15/16/35, Z-9/18/20. Source: the engine inventory at `/tmp/claude-0/-home-user-Seapower-mods/cb2a533c-0bb4-50d5-9069-2002ad35f1f1/scratchpad/inv.json`.
 - **Priced for a reserve:** only `PLAN_SUPPORT`, the Type 901 and 903A (AF:251-258). The escort tier has no prices anywhere (reviewer A5).
 - **Gaps:** no Type 075, no purpose-built China Coast Guard hull, and no Chinese research ship (Nan Hai 27 is the Soviet-registered `wp_agi_okean`).
-- **Russia:** broad surface and air, but logistics is one Pashin and ASW helicopters are only the Ka-27 family. The Tu-160 cannot be sold (no nation in its file). Every modern file registers `Soviet`, so a bought hull would fly the USSR flag (ASSUMPTION).
+- **Russia:** broad surface and air, but logistics is one Pashin and ASW helicopters are only the Ka-27 family. The Tu-160 cannot be sold (no nation in its file). Every modern file registered `Soviet`, so a bought hull would fly the USSR flag (ASSUMPTION). Since 11 Nov 2026 SEST Collection Fixes re-registers the 16 post-1991, Russian-built ship and submarine classes to `Russia` by `#!extend` Nation stubs, and the Pashin registers Russia in its own file; Soviet-built and fictional hulls and every aircraft stay `Soviet` (`RU_REREGISTER` and `RU_LEFT_SOVIET` in `integration/collection-fixes/build_patch.py`; not yet seen in game, Southern Watch test card 6K).
 - **Iran and North Korea:** no modern navy.
 - **Pakistan:** the best modern partner in the collection, but unrealistic in either theatre.
 
@@ -653,7 +653,7 @@ Total about 47 sessions.
 | R5 | New Southern Reach | Mogami Variant1 never offered; allied escorts first appear at *Tasman Crossing* |
 | R6 | Sulu Line, standard (the twin retired 21 Oct 2026), *Fire Mission Jolo* window | No supply ship |
 | R7 | A pre-update standard Southern Watch save, mid-campaign | It loads. Record whether the reserve appears (expected: maybe not) |
-| R8 | `NEW TEST 1.sav` | Since 21 Oct 2026: cannot be continued, the twin being retired; note what the game shows, and that the campaign menu lists four campaigns |
+| R8 | `NEW TEST 1.sav` | Since 21 Oct 2026: cannot be continued, the twin being retired; note what the game shows, and that the campaign menu lists each campaign once (four campaigns; five on a build with Makran Line) |
 | R9 | Red Line 01 and 02 briefings and the Situation window | No Collins or Virginia photo or entry; protected units labelled |
 | R10 | Sulu *Service at Sea*: let Sulu Provider be sunk and complete the rendezvous | Mission won; *The Aborlan Battery* starts without her |
 | R11 | Fly O5 and O2, then *The Quiet Passenger* | Both datums appear |

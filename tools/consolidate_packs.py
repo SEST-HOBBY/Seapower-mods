@@ -146,8 +146,8 @@ def build_info(packs):
     # who has no repository and no per-pack sources to go and look at.
     # Kept short: the Mod Manager shows it in a small box. The pack list is
     # in the folder's own files, not here.
-    desc = ("Every SEST fix and the Southern Watch, Southern Reach, Red Line "
-            "and Sulu Line campaigns in one folder. Keep it at the TOP of the "
+    desc = ("Every SEST fix and the Southern Watch, Southern Reach, Red Line, "
+            "Sulu Line and Makran Line campaigns in one folder. Keep it at the TOP of the "
             "Mod Manager. To set up: Open Folder, quit the game, run "
             "\"SETUP - double-click me.cmd\".")
     return INFO_HEADER.format(desc=desc, version=version)

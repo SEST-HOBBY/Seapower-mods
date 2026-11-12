@@ -1,4 +1,4 @@
-# Play-test guide — all four campaigns
+# Play-test guide — all five campaigns
 
 A plain checklist for testing the SEST campaigns in the game. It covers what
 matters most, in the order to test it. Each campaign also has a detailed test
@@ -6,8 +6,9 @@ card (`docs/campaigns/<campaign>/test-card.md`) with every check numbered; this
 guide uses the same numbers in brackets where they apply, so a report can point
 at either.
 
-Nothing in Sulu Line has been run in the game yet. The other three have been
-loaded and partly played; their open questions are listed below.
+Nothing in Sulu Line or Makran Line has been run in the game yet. The other
+three have been loaded and partly played; their open questions are listed
+below.
 
 ---
 
@@ -56,10 +57,10 @@ depend on it.
 
 | Do | Expect | If not |
 |---|---|---|
-| Open **Campaigns** | Four entries: Southern Watch, Southern Reach - Tasman Shield, Red Line - The Other Watch, Sulu Line - The Island Road. No *Open Allocation* version: they were retired on 21 Oct 2026 | Name the ones missing, or any Open Allocation entry still listed |
+| Open **Campaigns** | Five entries: Southern Watch, Southern Reach - Tasman Shield, Red Line - The Other Watch, Sulu Line - The Island Road, Makran Line - The Fuel Road. No *Open Allocation* version: they were retired on 21 Oct 2026 | Name the ones missing, or any Open Allocation entry still listed |
 | Look at each campaign's background | A dark chart with numbered mission marks, the campaign name bottom-left | Blank or a stock picture: say which campaign |
-| Mission browser (single missions) | Folders: Southern Watch, Southern Watch - Dispatches, Southern Reach, Tasman Shield, Red Line, Sulu Line | A missing folder |
-| Load one mission from each folder from the browser: **Southern Watch 01 - White Water**, **Southern Reach 04 - Macquarie Passage**, **Red Line 01 - Trailing Contact**, **Sulu Line 01 - The Island Road** | Every ship and aircraft appears, flags shown, no ship on land | A missing or grounded unit: its name and the mission |
+| Mission browser (single missions) | Folders: Southern Watch, Southern Watch - Dispatches, Southern Reach, Tasman Shield, Red Line, Sulu Line, Makran Line | A missing folder |
+| Load one mission from each folder from the browser: **Southern Watch 01 - White Water**, **Southern Reach 04 - Macquarie Passage**, **Red Line 01 - Trailing Contact**, **Sulu Line 01 - The Island Road**, **Makran Line 01 - The Fuel Road** | Every ship and aircraft appears, flags shown, no ship on land | A missing or grounded unit: its name and the mission |
 | Open a briefing in each | Photo banner at the top, a chart in the right-hand pane, photos of your forces and the opposition at the end | Blank pane or no photos |
 | Read the line under the banner | A quotation in italics with its speaker; a different one in each mission of the campaign | Missing, or the same line twice in one campaign |
 | Watch the loading screen a few times | A SEST photograph behind it, and a panel headed QUOTATION with one of the 26 quotations and its speaker | A stock picture, a gameplay tip, or text in Chinese |
@@ -154,7 +155,7 @@ Dispatches*. Full card: `docs/campaigns/southern-watch/test-card.md`.
 | Allied aircraft **(G.13)** | Before mission 5, buy a Typhoon FGR.4; fly missions 5 and 6 | Offered the strike row in mission 5 and Combat Air Patrol in mission 6; it gets back to its field |
 | Old save **(2.12)** | Load a Southern Watch save from before this update, mid-campaign | It loads. Note what its windows offer: the whole roster and fleet, the story's list with the fleet or the escorts, or the story's list alone (a campaign under way may keep its old windows: start again to get this) |
 | Both datums **(6.6a)** | Do O2 and O5, then start mission 4, The Quiet Passenger | Two intel lines; the submarine **and** the passenger on the plot as fifteen-minute datums |
-| Orphaned save | Open `NEW TEST 1.sav`, a *Southern Watch - Open Allocation* save from before 21 Oct 2026 | It cannot be continued: the version it belongs to is retired. Note what the game does with it (hidden, an error, a broken menu). The campaign menu still opens and lists the four campaigns |
+| Orphaned save | Open `NEW TEST 1.sav`, a *Southern Watch - Open Allocation* save from before 21 Oct 2026 | It cannot be continued: the version it belongs to is retired. Note what the game does with it (hidden, an error, a broken menu). The campaign menu still opens and lists the five campaigns |
 
 ---
 
@@ -211,12 +212,45 @@ started before the side operations must be **started again** (17 entries, not
 
 ---
 
-## 6. Pack features to check while playing
+## 6. Makran Line — The Fuel Road (new, nothing tested yet)
+
+Pakistan Navy, four missions, 24 October to 14 November 2028, in the North
+Arabian Sea. The opponent is the Meridian network alone, in armed merchants
+and trawlers. The test card is `docs/campaigns/makran-line/test-card.md`.
+
+### 6A. Starting the campaign
+
+| Do | Expect | If not |
+|---|---|---|
+| Start Makran Line on **Standard** | Commander screen: nation **Pakistan** only, the flag of Pakistan as navy emblem, rank **Commodore**, the default name *Kamran Aziz Durrani* (editable). Rank pictures are blank on purpose; note how the abbreviations read **(1.2)** | The screen refuses the nation, shows a broken image, or won't continue |
+| Open the Task Force builder before mission 1 | 1,000 points. On sale: the Tughril class (Type 054A/P), PNS Alamgir, the Z-9CE and the Sea King, each 20% below its list price. **Not** on sale yet: the JF-17s and the ZDK-03. Never on sale: a submarine, the J-10CE **(1.3)** | Anything else on sale, or a class at full price |
+| Assign the Z-9CE to a Tughril or the Alamgir, and the Sea King to the Alamgir | Accepted **(1.4)** | Refused: bring back the `pns_type_054a_p` and `pns_ffg_oliver_hazard_perry_longhull` lines of the pack's `CROSS-DECK.txt` |
+| Fire some rounds in mission 1 and win, then open the Task Force screen | The green "Rearmed" icon and full magazines: every force allocation rearms, as the rules page says **(1.5)** | Rounds missing |
+
+### 6B. Mission by mission
+
+| Mission | What to check |
+|---|---|
+| **1 The Fuel Road** | Two tankers sail from the outer roads for the Karachi pilot station, 26 NM north-east; two Meridian armed trawlers come from the west, and a third shadows the convoy at Hold. Win = both tankers inside the six-mile circle. Every Meridian unit flies the Meridian flag **(2.1, 2.2)**. PAF Base Masroor holds only what you bought **(1.6)** |
+| **2 Gwadar Roads** | The JF-17s and ZDK-03 are on sale from here. Two tankers at anchor off Gwadar, two merchants and an armed freighter anchored among them; three armed trawlers from the south-west. The freighter launches an SS-N-2 at a tanker at minute 14 and again at 32: say whether each launch happens and what engages it **(2.3)**. The HQ-16AE site and the C-602 battery ashore start at Hold **(2.4)**. Win = the three trawlers and the freighter sunk **(2.5)** |
+| **3 Hangor** | No force allocation: PNS Hangor, dived, at Hold. Classify Meridian Sentinel, then take the boat into the three-mile circle on the trail datum. Being classified by any Meridian ship ends it **(3.1-3.3)** |
+| **4 Port Qasim** | Three tankers for Port Qasim; three trawlers and an armed ro-ro attack. Meridian Sentinel runs south from the delta: with the lead ship at **Hold**, close her to about three miles and she heaves to and turns neutral; sinking her afterwards ends the mission. Win = two tankers in the four-mile anchorage circle, Sentinel sunk or hove to, nothing inbound **(4.1-4.4)**. After winning Hangor, her position is on the plot for fifteen minutes **(4.5)** |
+
+### 6C. Bring back
+
+Mission results; whether the SS-N-2s launched in mission 2; the range at
+which Sentinel hove to and her speed; whether Hangor could be classified at
+all; the discount prices; and the ribbons after missions 2, 3 and 4 **(4.7)**.
+
+---
+
+## 7. Pack features to check while playing
 
 | Feature | Where | Expect |
 |---|---|---|
 | Encyclopedia photos | Encyclopedia → any campaign ship (e.g. Anzac, Collins, Supply, Spruance, Tarlac) | A real photograph with its credit |
 | New flags | Any unit of Peru, Ireland, Bahrain, Lebanon, Greenland, Hong Kong, Uzbekistan… | A flag, not a missing-flag icon |
+| Russian Federation (editor) | Place Russian Navy 21's Admiral Gorshkov, a Yasen and the game's own Sovremenny; open each unit panel and encyclopedia entry (Southern Watch test card 6K) | *Russian Federation* and the Russian flag on the Gorshkov and the Yasen; *USSR* on the Sovremenny. Both still USSR = the game did not apply the Nation stubs: bring back Player.log and its `[SEST Runtime] modifier files` line (6K, RU.1) |
 | Readable names | Russian ships | Names in English letters, not Cyrillic |
 | Spruance | Encyclopedia → Spruance class (VLS, LAMPS III) | Named, no "Missing Class"; places on the map without an error |
 | Apache AH Mk 1 | Default loadout on the ground and in flight | Rocket pods no longer drawn over the Brimstones |
@@ -231,7 +265,7 @@ started before the side operations must be **started again** (17 entries, not
 
 ---
 
-## 7. What to send back
+## 8. What to send back
 
 For each campaign you played, paste the notes from step 0, and put these
 first:
@@ -242,4 +276,6 @@ first:
 3. **Red Line 4.1:** did anything at Hold fire?
 4. **Southern Watch 2.4:** did your bought ship appear where it should?
 5. **Southern Reach 1A.2:** did any ship run aground?
-6. Any crash, freeze or red error text, with the mission name.
+6. **Makran Line 6B:** did the freighter's SS-N-2s launch in Gwadar Roads, and
+   did Meridian Sentinel heave to in Port Qasim?
+7. Any crash, freeze or red error text, with the mission name.

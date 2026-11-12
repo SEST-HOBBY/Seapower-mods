@@ -1,4 +1,4 @@
-SEST R12 FINAL + COMMANDER NATIONS + RED LINE STEPS 3-4 - PC ACCEPTANCE
+SEST R12 FINAL + COMMANDER NATIONS + RED LINE 3-4 + RUSSIA + MAKRAN LINE - PC ACCEPTANCE
 11 November 2026 | SEST-DEV
 Beta 0.8.7-261107: Runtime 1.6.4 / UI 1.4.14
 Standard 0.8.7-261021: Runtime 1.5.0 / UI 1.4.6 (unchanged)
@@ -6,28 +6,35 @@ Standard 0.8.7-261021: Runtime 1.5.0 / UI 1.4.6 (unchanged)
 This is R12 Final (merged as PR #58) together with the commander nations and
 national awards (merged as PR #59), the combined release notes (merged as PR
 #60) and Red Line's victory paths, the heave-to and progress reports (step 3
-of the builder grammar, merged as PR #61), with step 4's two Red Line runtime
-ribbons prepared and inert until R13 (merged as PR #62), checked once on the
-PC and posted as one update. RIBBONS.txt has every award mapping.
-R12-RIBBON-EXPANSION.txt describes R12 Final before the commander nations: use
-it only for the R12 review findings fixed and the minor ones still open, and
-this file and RIBBONS.txt for the award counts, nations and PC steps. None of
-the four parts has been played on the owner's PC yet; step 4 has nothing to
-play before R13 except the Red Line test card's checks R5 and R6.
+of the builder grammar, on feature/builder-grammar-20261111, in review as PR
+#61), with step 4's two Red Line runtime ribbons prepared and inert until R13
+(on feature/runtime-awards-campaign-20261111, in review as PR #62, stacked on
+PR #61), step 5's Russian Federation registration of the modern Russian
+hulls (on feature/russia-registration-20261111, not pushed, stacked on PR
+#62) and step 5's Makran Line campaign (on feature/makran-line-20261111, not
+pushed, stacked on the Russian registration), checked once on the PC and
+posted as one update. RIBBONS.txt has every
+award mapping. R12-RIBBON-EXPANSION.txt describes R12 Final before the
+commander nations: use it only for the R12 review findings fixed and the
+minor ones still open, and this file and RIBBONS.txt for the award counts,
+nations and PC steps. None of the six parts has been played on the owner's
+PC yet; step 4 has nothing to play before R13 except the Red Line test card's
+checks R5 and R6.
 
 WHAT IS NEW SINCE THE R12 RIBBON TEST BUILD
 - Commander nations: Southern Watch and Southern Reach offer Australia (the
   default), US, UK, Japan, New Zealand, France, Canada, South Korea, Spain,
   Italy, Germany, the Netherlands, Norway and Denmark. Sulu Line offers the
-  Philippines (default), Thailand and Australia. Red Line stays Chinese.
+  Philippines (default), Thailand and Australia. Red Line stays Chinese,
+  and Makran Line Pakistani.
   Each nation has its navy's officer ranks, a navy name and an emblem; New
   Zealand, South Korea, the Netherlands, Denmark and Thailand use SEST name
   pools. The same-nation discount is the game's own rule and follows the
   commander's nation; each campaign's rules page gives the count. New
   Zealand's one class is the RNZAF P-8A, sold with the allied fleet; no
   class is Canadian.
-- Awards: 72 definitions. 25 fictional world awards (beta), 12 fictional
-  native campaign ribbons, and 32 real-award representations for 12 nations:
+- Awards: 75 definitions. 25 fictional world awards (beta), 15 fictional
+  native campaign ribbons (Makran Line's three are new), and 32 real-award representations for 12 nations:
   30 personal and service awards matched to the commander's starting rank and
   2 host-nation unit awards to the task group (plus 3 retired US definitions
   kept so an earlier record still shows). In Southern Watch and Southern
@@ -56,15 +63,45 @@ WHAT IS NEW SINCE THE R12 RIBBON TEST BUILD
 - Held stages: RLC1's and SW03's held stages now reactivate their held
   trigger at the arrival, so the four- and three-minute holds should count
   from then; not yet checked in game (step 3).
-- Red Line runtime ribbons, prepared for R13 (step 4, campaign side,
-  merged as PR #62): RL05 Silent
+- Red Line runtime ribbons, prepared for R13 (step 4, campaign side, on
+  feature/runtime-awards-campaign-20261111, in review): RL05 Silent
   Passage and RLC1 Personnel Recovery are defined in the Red Line campaign
   and keyed for the beta runtime R13 (Runtime 1.6.5). This update ships
   Runtime 1.6.4, which ignores the key as the game and the standard build
-  do, so neither ribbon is granted and neither is counted in the 72 above.
+  do, so neither ribbon is granted and neither is counted in the 75 above.
   Until R13 is installed the checks are that neither appears and that the
   developer ribbon menu offers neither (the Red Line test card's R5 and R6;
   R1 to R4 need R13, and RIBBONS.txt says what each ribbon needs).
+- Russian Federation (step 5, on feature/russia-registration-20261111, not
+  pushed): SEST Collection Fixes registers 16 post-1991, Russian-built ship
+  and submarine classes (the Gorshkov and Grigorovich frigates, the
+  Steregushchiy, Gremyashchiy and Buyan-M corvettes, the Yasen, Belgorod,
+  Borei and Improved Kilo boats) to the game's Russia nation, which it
+  names Russian Federation, instead of the USSR. One #!extend stub per hull
+  sets only the Nation of its mod's variants file; no author's file is
+  copied. SEST's Akademik Pashin registers Russia in its own file.
+  Soviet-built hulls, fictional variants and every Russian aircraft,
+  helicopter and transport stay Soviet, as stock Cold War missions use
+  them. The SEST missions fly the Russian flag on the same units as before.
+  No mod has used an #!extend on a variants file before, so it is checked
+  once in step 3; no campaign offers a Russian commander, so the discount
+  is not.
+- Makran Line (step 5, on feature/makran-line-20261111, not pushed): a
+  fifth authored campaign, four Pakistan Navy missions in the North Arabian
+  Sea, 24 October to 14 November 2028, inside Southern Watch's six weeks.
+  The opponent is the fictional Meridian network alone, in armed merchants
+  and trawlers; no Indian or Iranian state unit is placed. The roster is the
+  Pakistani Pack's (the Tughril class, PNS Alamgir - kept for 2028 as a
+  stated assumption - the Z-9CE, the Sea King, the JF-17 Block II and III
+  and the ZDK-03), every class with the same-nation discount; no submarine,
+  no J-10CE. With no Pakistani supply ship in the collection, every force
+  allocation rearms. Port Qasim's mothership is sunk or made to heave to,
+  as Red Line's RL04 coaster is. The commander is a Pakistan Navy Commodore
+  with the Navy's ten ranks (abbreviations not verified) and fictional
+  ribbons only. Nothing in it has been run in the game. The STEAM-*.txt
+  files and the Steam images do not mention it yet, because which update
+  ships it is still your decision: the change note and page description
+  pasted in steps 7 and 8 describe four campaigns.
 - World Operations (beta): DCM's own SITREP 001 is kept, with the short SEST
   brief shown first. Completed multi-phase Admiralty operations now count
   once each, and a completion replayed after a reload counts once. Tabs
@@ -87,7 +124,7 @@ PREPARE AND CHECK
 1. Close Sea Power. Keep SEST and the collection subscribed. Extract this
    COMPLETE toolkit into a NEW folder and run Prepare-PC.cmd. Keep the
    printed release checkout, the backup path and the line "VERIFIED: all
-   4415 canonical upload files match the release manifest." Upload-PC.cmd
+   4531 canonical upload files match the release manifest." Upload-PC.cmd
    prints the folder to upload (step 6).
    Prepare-PC installs both code and campaign/loadout data; Repair-PC alone
    only repairs code. The author-update guard and original restore journal
@@ -124,10 +161,29 @@ PREPARE AND CHECK
    heave-to (with a run where she is sunk first) and the damage condition's
    spelling; report what each shows. Red Line step 4: checks R5 and R6 on
    the same card (the developer ribbon menu offers neither runtime ribbon,
-   and neither is granted on this build). If time allows, as a New Zealand
-   commander buy the P-8A in the force allocation before Weapons Free (SW05)
-   at the discounted price and fly it in the Maritime Patrol slot of 06
-   Blind Horizon (Weapons Free has no patrol slot).
+   and neither is granted on this build). Russian Federation (step 5): in
+   the new Southern Watch campaign's Situation window the Project 20380
+   corvette shows the Russian Federation flag and the Akula the USSR's; in
+   the Mission Editor Russian Navy 21's Admiral Gorshkov shows Russian
+   Federation and the game's own Sovremenny USSR; Pacific Strike's 02 Action
+   in the Taiwan Strait still generates its Soviet force (the release
+   checkout's docs/campaigns/southern-watch/test-card.md, 6K, rows RU.1 to
+   RU.6). On the beta the stubs, like every #!extend file in the pack,
+   apply only where SEST's beta Runtime repairs the game's modifier scan
+   (ModifierRegistry, not turned off), so not with the beta features off
+   (step 5): first read Player.log's "[SEST Runtime] modifier files" line,
+   which should count 192 files from this pack (RU.1). Makran Line: start
+   a new campaign; the Service Record offers Pakistan only, as a Commodore,
+   with the flag of Pakistan as emblem. Buy a Tughril, PNS Alamgir and the
+   Z-9CE, and assign the Z-9CE to both decks; play The Fuel Road and note
+   whether the ships are rearmed before Gwadar Roads, whether the armed
+   freighter's SS-N-2s launch there at minutes 14 and 32, and in Port Qasim
+   whether Meridian Sentinel heaves to when the lead ship (at Hold) closes
+   to about three miles (the release checkout's
+   docs/campaigns/makran-line/test-card.md). If time allows, as a
+   New Zealand commander buy the P-8A in the force allocation before Weapons
+   Free (SW05) at the discounted price and fly it in the Maritime Patrol slot
+   of 06 Blind Horizon (Weapons Free has no patrol slot).
 4. Recheck the opening brief, world Combat Costs sidebar and direct F11
    totals. In Starting Airborne Flights select the RAAF E/A-18G and confirm
    HARM (AGM-88C), AARGM (AGM-88E) and AARGM-ER (AGM-88G) choices. The three
@@ -170,15 +226,20 @@ RETAINED FEATURES
   presentation, current Topography/Pop-Out support and Identify preservation.
 - Southern Watch and Southern Reach open their whole rosters and the allied
   fleet (52 ship classes, and 20 and 11 aircraft types) from Weapons Free and
-  Tasman Crossing; Red Line from the start and Sulu Line from Service at Sea.
+  Tasman Crossing; Red Line from the start, Sulu Line from Service at Sea
+  and Makran Line from Gwadar Roads.
 - Reviewed beta features inside the normal Workshop SETUP flow, upgrade
   recovery and rollback over the 1.6.2 and 1.6.3 test builds. Normal active
   release plugins stay in the upload; the installer selects the five
   reviewed files for the supported beta.
 
 The owner accepted the four briefing/costs/page changes on 9 November.
-None of the four parts has been played on that PC yet. PRs #58 to #63 are
-merged on dev, with the Steam images for R12 and the world campaign. This
-toolkit's branch, beta, is the branch the PC installs, tests and posts from
-(docs/BRANCHES.md); it carries what dev holds when the toolkit is built.
+None of the six parts has been played on that PC yet. PRs #58, #59 and
+#60 are merged on the GitHub deploy branch sest-dev/jolly-ride-rptj4t. This
+toolkit's branch, feature/makran-line-20261111 (not pushed), adds step 5's
+Makran Line campaign. It builds on feature/russia-registration-20261111 (not
+pushed), which adds step 5's Russian Federation registration on
+feature/runtime-awards-campaign-20261111 (PR #62, in review), which adds Red
+Line step 4's campaign side on feature/builder-grammar-20261111 (PR #61, in
+review on GitHub), which adds Red Line step 3 on top of PRs #58 to #60.
 Nothing has been uploaded to Steam.

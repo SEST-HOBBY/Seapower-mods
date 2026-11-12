@@ -1,0 +1,17 @@
+SEST award artwork - Makran Line
+
+Code-drawn strips (integration/campaign/service_awards.py). No AI imagery;
+nothing traced. Real-award strips follow the published stripe order and
+proportions closely enough to be recognised; they are representations.
+  sest_makran_line_service.png - Makran Line Service Ribbon: fictional SEST design
+  sest_arabian_sea_security.png - Arabian Sea Security Ribbon: fictional SEST design
+  sest_trailing_operations.png - Trailing Operations Ribbon: fictional SEST design
+
+Commander emblem in ui/campaign/navy_emblems/, scaled by build_pack.py from the SEST
+gallery flag set (Wikimedia Commons, public domain; credited in Gallery/VISUAL_CREDITS.txt):
+  sest_pakn_emblem.png - Pakistan Navy: the national flag of Pakistan. The Pakistan
+    Navy's own ensign is not in the gallery set.
+    Source: File:Flag of Pakistan.svg
+
+Every real-award citation says it is a game award for a fictional operation,
+not a real honour.

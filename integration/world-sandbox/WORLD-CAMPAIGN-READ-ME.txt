@@ -31,7 +31,7 @@ Native campaign credits remain separate from estimated USD combat prices.
 The R12 beta test payload adds an F11 Operations window with Overview, Forces,
 Costs and Service; it is separate from the canonical stable Workshop code.
 Its PC rendering and gameplay checks must pass before a wider beta release.
-Native completion ribbons for the four authored campaigns use Service Record.
+Native completion ribbons for the five authored campaigns use Service Record.
 
 COMMAND PROGRESS AND SUPPLY
 Eight command stages use one renown total: 0, 300, 800, 1,600, 2,800,
