@@ -188,6 +188,15 @@ RUSSIAN_AIRCRAFT = ("retired by the owner's decision of 11 Nov 2026 ('russia is 
                     "register Russia (RU_AIRCRAFT and RU_BY_SECTION in "
                     "integration/collection-fixes/build_patch.py); only the Cold War types stay "
                     "Soviet")
+# The R13 Steam texts and cards (e62b0d27, 12 Nov 2026) counted 201
+# supporting mods with the Y-8/Y-9 family among them. That day's capture
+# found the family, the J-8 and the J-11 removed from the Workshop, and the
+# owner's decision the same day made the collection 199 and the B-21 Raider.
+STEAM_TEXT = PLAYER_TEXT + ["docs/releases/20261107/STEAM-*.txt",
+                            "docs/releases/20261107/README-FIRST.txt"]
+COLLECTION_200 = ("retired by the 12 Nov 2026 capture and the owner's decision that day: the "
+                  "standalone J-8, J-11 and Y-8/Y-9 family left the Workshop, so the collection "
+                  "is 200 supporting mods, 199 and the B-21 Raider (data/mod-catalog.json)")
 WHOLE_ROSTER_TEXT = PLAYER_TEXT + RULES_PAGES + [
     "integration/*/SEST_*/campaigns/*/campaign.ini",
     "integration/*/SEST_*/campaigns/*/player_task_force_roster.ini",
@@ -279,6 +288,9 @@ STALE = [
     (r"every (Russian )?aircraft,? (helicopter and transport )?stays? \W?Soviet"
      r"|every (Russian )?aircraft, helicopter and transport|helicopter and transport stays? \W?Soviet",
      RUSSIA_TEXT, RUSSIAN_AIRCRAFT, WRAPPED),
+    (r"\b201 (supporting )?(Workshop )?mods\b|Y-8/Y-9 family (is|are) (now )?part of the collection"
+     r"|the B-21 Raider and the Y-8/Y-9 family",
+     STEAM_TEXT, COLLECTION_200, WRAPPED),
 ]
 
 

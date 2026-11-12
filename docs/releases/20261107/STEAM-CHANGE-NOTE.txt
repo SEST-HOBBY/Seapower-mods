@@ -8,4 +8,4 @@ On public beta 0.8.7-261107 only (installed by SETUP; Runtime 1.6.5 / UI 1.4.15)
 
 Missions: when a mission ends in defeat, a protect objective that the same loss failed now shows Failed and costs its points instead of being cancelled. The required-mods lists in each campaign folder now include the mods those mods need.
 
-Collection: the B-21 Raider and the Y-8/Y-9 family are now part of the collection; the standalone J-8 and J-11 mods are no longer needed, because the PLAAF Aircraft Pack carries both aircraft. Rerun SETUP after this update.
+Collection: the B-21 Raider joins the collection. The standalone J-8, J-11 and Y-8/Y-9 family mods are no longer needed: they were removed from the Workshop, and the PLAAF Aircraft Pack and the PLAN Pack carry those aircraft. SEST now supplies the KQT-8 MAD sensor that the PLAN Pack's Y-8FQ and Y-9FQ mount. Rerun SETUP after this update.

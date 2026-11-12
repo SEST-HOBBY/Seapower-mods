@@ -18,6 +18,12 @@ The item's Required Items are the load order's Workshop mods, so Subscribe
 offers them all in one click, as the collection does; SETUP writes the order.
 `publishing.md` (*Dependencies*) has the detail.
 
+Counts (12 Nov 2026): 200 Workshop mods in `data/load-order.tokens.txt`
+(201 entries with the pack). The 12 Nov capture retired the standalone
+J-8, J-11 and Y-8/Y-9 family, which their author removed from the
+Workshop; the collection is 199 mods on Steam and the B-21 Raider joins
+it. The paragraph below is the 3 Nov record.
+
 Counts (3 Nov 2026, `release/consolidated-20261103` from `9b382fd8`): 203
 Workshop mods in `data/load-order.tokens.txt` (204 entries with the pack;
 the 28 Oct capture added Contact Log, Topographic Map, Pop-Out Windows and
@@ -120,7 +126,7 @@ On public beta 0.8.7-261107 only (installed by SETUP; Runtime 1.6.5 / UI 1.4.15)
 
 Missions: when a mission ends in defeat, a protect objective that the same loss failed now shows Failed and costs its points instead of being cancelled. The required-mods lists in each campaign folder now include the mods those mods need.
 
-Collection: the B-21 Raider and the Y-8/Y-9 family are now part of the collection; the standalone J-8 and J-11 mods are no longer needed, because the PLAAF Aircraft Pack carries both aircraft. Rerun SETUP after this update.
+Collection: the B-21 Raider joins the collection. The standalone J-8, J-11 and Y-8/Y-9 family mods are no longer needed: they were removed from the Workshop, and the PLAAF Aircraft Pack and the PLAN Pack carry those aircraft. SEST now supplies the KQT-8 MAD sensor that the PLAN Pack's Y-8FQ and Y-9FQ mount. Rerun SETUP after this update.
 ```
 
 ## Change log: R12 final with commander nations and national awards, 11 Nov 2026
@@ -480,7 +486,7 @@ Keep the pinned "Read first" discussion's install steps in step with it.
 
 ```
 [h1]SEST - Modernised Campaign Collection[/h1]
-The 201 supporting Workshop mods for [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3812461539]SEST Integration Pack - Modernised Campaigns[/url], and the pack itself. The original creators supply the ships, submarines, aircraft, weapons, facilities and supporting tools; the integration pack adds the campaigns, compatibility work, shared setup, service records and combat cost reporting.
+The 200 supporting Workshop mods for [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3812461539]SEST Integration Pack - Modernised Campaigns[/url], and the pack itself. The original creators supply the ships, submarines, aircraft, weapons, facilities and supporting tools; the integration pack adds the campaigns, compatibility work, shared setup, service records and combat cost reporting.
 
 [h2]What the collection and pack offer[/h2]
 [list]
