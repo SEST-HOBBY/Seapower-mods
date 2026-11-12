@@ -2821,6 +2821,27 @@ class MakranLineReview(unittest.TestCase):
                 self.assertEqual(anchor.get("CustomAirGroup"), "True")
                 self.assertFalse([k for k in anchor if k.startswith("plan_z-9f")])
 
+    def test_the_texts_say_what_the_build_does(self):
+        # Review of 11 Nov 2026. Only Taskforce1Vessel1, the screen's lead
+        # ship, makes Sentinel heave to; her fit is two beam-firing machine
+        # guns and her radars are on; no ship off Gwadar waits for fuel.
+        import makran_line.lore as lore
+        import mission_depth
+        heave = [l for k, b in self.built("MK04").items() if k.startswith("Trigger")
+                 and b.get("Name", "").startswith("Challenge HeaveTo")
+                 for l in [b.get("Condition_Condition2_Units")]]
+        self.assertEqual(set(heave), {"Taskforce1Vessel1"})
+        for text in (self.m["MK04"]["intent"], mission_depth.REPORTS["MK04"]):
+            with self.subTest(text=text[:40]):
+                self.assertNotIn("a warship close aboard", text)
+                self.assertIn("lead ship", text)
+        intsum = next(e for e in lore.EVENTS if e.get("form") == "intsum")
+        self.assertNotIn("gun forward", " ".join(intsum["body"]))
+        self.assertNotIn("does not transmit", " ".join(intsum["body"]))
+        gwadar = next(e for e in lore.EVENTS if e["file"] == "01_gwadar")
+        self.assertNotIn("fuel", gwadar["sub"])
+        self.assertIn("Z-9EC", bp.BANNER_FAMILY["sest-makran-line"]["z9"])
+
     def test_the_intsum_carries_the_fleets_own_marking(self):
         import makran_line.lore as lore
         intsum = next(e for e in lore.EVENTS if e.get("form") == "intsum")
@@ -2847,10 +2868,13 @@ class MakranLineReview(unittest.TestCase):
 
     def test_the_pakistani_packs_own_requirements_are_required(self):
         # Red Storm Arsenal (the Z-9CE's H/KLC-3B and H/SKD-143), Y-8/Y-9
-        # (the ZDK-03's RWR), Type 12 SSM-ER (the C-602 launcher's
-        # animation) and Anchor Chain, from the catalog's `requires`.
+        # (the ZDK-03's RWR) and Type 12 SSM-ER (the C-602 launcher's
+        # animation), from the catalog's `requires`. Anchor Chain is not the
+        # pack's (its one #!alias the game reads itself) but the PLA AEP's,
+        # which Hangor's S-26P reaches through its YJ-18E.
         self.assertEqual(set(bp.catalog_requires("pakistani-pack")) >=
-                         {"3413868677", "3637954857", "3470643173", "3380210757"}, True)
+                         {"3413868677", "3637954857", "3470643173"}, True)
+        self.assertNotIn("3380210757", bp.catalog_requires("pakistani-pack"))
         text = self.CAMP / "REQUIRED-MODS.txt"
         if not text.is_file():
             self.skipTest("pack not built")
@@ -2995,6 +3019,277 @@ class HeldObjectives(unittest.TestCase):
                         if not ends:
                             bad.append(f"{f.name}: {name} completes {oid}, which {other} fails")
         self.assertEqual(bad, [])
+
+
+def _built_missions():
+    return sorted(set(PACK.glob("campaigns/*/missions/*.ini")) |
+                  set(PACK.glob("missions/*/*.ini")))
+
+
+class DefeatCancels(unittest.TestCase):
+    """A defeat terminal fails, beside its own objective, every protect or
+    survive objective its own condition fails as well, and cancels only the
+    rest (failed_with()). Action_ObjectivesCancel wins over a failure in the
+    game, so Southern Watch O6 cancelled Flagship on the lead ship's loss,
+    the loss that had just failed it, and its -15 was never charged (review
+    of 11 Nov 2026). Stock 03 Lifeline Trigger2 and HuntersOrHunted
+    Trigger4 are the shapes."""
+
+    MEMBERS = {"escort": ["Taskforce1Vessel1"],
+               "convoy": ["Taskforce1Vessel2", "Taskforce1Vessel3", "Taskforce1Vessel4"],
+               "pair": ["Taskforce1Vessel5", "Taskforce1Vessel6"]}
+
+    def failed(self, resolve, lost, least):
+        return bp.failed_with(dict(resolve=resolve), self.MEMBERS, lost, least)
+
+    def test_the_loss_that_ends_it_fails_the_objective_it_is_about(self):
+        resolve = {"Convoy": "victory", "Flagship": ("protect", "escort"),
+                   "Ships": ("protect", "convoy", 2), "Pair": ("survive", "pair")}
+        self.assertEqual(self.failed(resolve, ["Taskforce1Vessel1"], 1), ["Flagship"])
+        # one of three tankers lost is not two
+        self.assertEqual(self.failed(resolve, self.MEMBERS["convoy"], 1), [])
+        self.assertEqual(self.failed(resolve, self.MEMBERS["convoy"], 2), ["Ships"])
+        # a survive objective fails only when all of its units are lost
+        self.assertEqual(self.failed(resolve, ["Taskforce1Vessel5"], 1), [])
+        self.assertEqual(self.failed(resolve, self.MEMBERS["pair"], 2), ["Pair"])
+        # every ship lost fails all three
+        ships = [t for g in self.MEMBERS.values() for t in g]
+        self.assertEqual(self.failed(resolve, ships, len(ships)), ["Flagship", "Ships", "Pair"])
+
+    def test_the_second_convoy_fails_flagship_with_the_mission(self):
+        f = PACK / "campaigns" / "sest-southern-watch" / "missions" / \
+            "Southern Watch O6 - The Second Convoy.ini"
+        if not f.is_file():
+            self.skipTest("pack not built")
+        trig = {b.get("Name"): b for k, b in coverage_check.blocks(
+            f.read_text(encoding="utf-8")).items() if re.match(r"Trigger\d+$", k)}
+        for name in ("Convoy lost - mission over", "Player force gone"):
+            with self.subTest(trigger=name):
+                self.assertEqual(trig[name]["Action_ObjectivesFailed"], "Convoy,Flagship")
+                self.assertEqual(trig[name]["Action_ObjectivesCancel"], "Vigilant,Decoy,Traffic")
+        # the convoy reaching the Banda Sea is no loss: Flagship is cancelled
+        self.assertEqual(trig["Convoy denied"]["Action_ObjectivesCancel"],
+                         "Vigilant,Decoy,Flagship,Traffic")
+
+    def test_no_built_defeat_cancels_a_failure_its_own_condition_writes(self):
+        files = _built_missions()
+        if not files:
+            self.skipTest("pack not built")
+
+        def split(v):
+            return [x for x in (v or "").split(",") if x]
+
+        def only(b):
+            conds = {}
+            for k, v in b.items():
+                m = re.match(r"Condition_(?:Condition(\d+)_)?(\w+)$", k)
+                if m:
+                    conds.setdefault(m.group(1) or "1", {})[m.group(2)] = v
+            return next(iter(conds.values())) if len(conds) == 1 else None
+
+        family = {"Vessel": "Taskforce1Vessel", "Submarine": "Taskforce1Submarine",
+                  "Aircraft": "Taskforce1Aircraft", "Helicopter": "Taskforce1Helicopter"}
+        bad = []
+        for f in files:
+            trig = {k: b for k, b in coverage_check.blocks(f.read_text(encoding="utf-8")).items()
+                    if re.match(r"Trigger\d+$", k)}
+            own = []
+            for b in trig.values():
+                c = only(b)
+                if "Action_Victory" in b or not c or c.get("Type") != "UnitDestroyed":
+                    continue
+                units = split(c.get("Units"))
+                own += [(o, set(units), int(c.get("MinimumUnits") or len(units)))
+                        for o in split(b.get("Action_ObjectivesFailed"))]
+            for name, t in trig.items():
+                c = only(t)
+                if t.get("Action_Victory") != "Taskforce2" or not c:
+                    continue
+                cancel = split(t.get("Action_ObjectivesCancel"))
+                for o, units, least in own:
+                    if o not in cancel:
+                        continue
+                    if c.get("Type") == "UnitDestroyed":
+                        lost = set(split(c.get("Units")))
+                        k = int(c.get("MinimumUnits") or len(lost))
+                        implied = max(0, k - len(lost - units)) >= least
+                    elif c.get("Type") == "HasNoUnitsOfType" and c.get("Taskforce") == "Taskforce1":
+                        stems = [family[x] for x in split(c.get("UnitType")) if x in family]
+                        gone = {u for u in units
+                                if any(re.fullmatch(s + r"\d+", u) for s in stems)}
+                        implied = len(gone) >= least
+                    else:
+                        continue
+                    if implied:
+                        bad.append(f"{f.name}: {name} ({t.get('Name')}) cancels {o}, "
+                                   f"which its own condition fails")
+        self.assertEqual(bad, [])
+
+
+class SouthernReachStrikeRow(unittest.TestCase):
+    """check_flights' first rule counts the allied reserve's held aircraft
+    until the reserve is settled (12 Nov 2026). On the base roster alone,
+    StrikePrecision read as an orphan once the RAAF F-35A's commented-out
+    tail stopped counting, and Southern Reach's strike rows dropped it while
+    the F-35C, F-15E SE and both FGR4s that TS09 and TS11 sell fly it."""
+
+    def test_a_fit_only_a_reserve_aircraft_defines_passes_rule_one(self):
+        kind, base = bp.unit_file("raaf_f-35a")
+        _k, other = bp.unit_file("usn_f-35c")
+        if base is None or other is None:
+            self.skipTest("the F-35s are not exported")
+        if "StrikePrecision" in bp.loadouts(base) or "StrikePrecision" not in bp.loadouts(other):
+            self.skipTest("the F-35s' fits have changed")
+        row = f"Attack|Maritime Strike|Bomber/SEAD|2|{bp.loadouts(base)[0]}/StrikePrecision"
+        roster = [dict(unit="raaf_f-35a")]
+        with self.assertRaises(SystemExit) as cm:
+            bp.check_flights([row], roster)
+        self.assertIn("'StrikePrecision', which nothing", str(cm.exception))
+        bp.check_flights([row], roster, reserve=["usn_f-35c"])
+        with self.assertRaises(SystemExit):
+            bp.check_flights([row], roster, reserve=["usn_fa-18f_blk3"])
+
+    def test_the_strike_windows_offer_strikeprecision(self):
+        text = PACK / "campaigns" / "sest-southern-reach" / "campaign.ini"
+        if not text.is_file():
+            self.skipTest("pack not built")
+        missions = coverage_check.blocks(text.read_text(encoding="utf-8"))
+        for key in ("The Southern Convoy", "Approaches"):
+            with self.subTest(mission=key):
+                block = next(b for k, b in missions.items() if k.startswith("Mission")
+                             and b.get("MissionFile", "").endswith(f" - {key}.ini"))
+                attack = [v for k, v in block.items()
+                          if k.startswith("TaskForceModeAirTaskingFlight")
+                          and v.startswith("Attack|")]
+                self.assertEqual(len(attack), 1)
+                self.assertIn("StrikePrecision", attack[0].split("|")[4].split("/"))
+                sold = {e.split(",")[0] for e in
+                        block["TaskForceModeAllowedRosterUnits"].split("|")}
+                self.assertLessEqual({"usn_f-35c", "usaf_f-15e_SE", "raf_ef2000_fgr4_late",
+                                      "eu_ef2000_fgr4_late"}, sold)
+
+
+def _required_sections(path):
+    """{section label ('1', '1b', '2', '3', '3b', '4'): [Workshop ids]} of a
+    built REQUIRED-MODS.txt."""
+    out, cur = {}, None
+    for line in path.read_text(encoding="utf-8").splitlines():
+        head = re.match(r"^(\d+b?)\. ", line)
+        if head:
+            cur = head.group(1)
+            out.setdefault(cur, [])
+            continue
+        row = re.match(r"^  (\d{6,})\s", line)
+        if row and cur:
+            out[cur].append(row.group(1))
+    return out
+
+
+class RequiredModsLists(unittest.TestCase):
+    """The generated lists agree with each other (review of 11 Nov 2026): a
+    mod a required mod asks for is in list 1 only, not again in the
+    Dispatches' list, and the url list, REQUIRED-MODS.txt and coverage.md
+    name the same mods as needed."""
+
+    SLUG_DOCS = {"sest-southern-watch": "southern-watch", "sest-southern-reach": "southern-reach",
+                 "sest-red-line": "red-line", "sest-sulu-line": "sulu-line",
+                 "sest-makran-line": "makran-line"}
+
+    def lists(self):
+        found = {slug: PACK / "campaigns" / slug / "REQUIRED-MODS.txt" for slug in self.SLUG_DOCS}
+        found = {k: v for k, v in found.items() if v.is_file()}
+        if not found:
+            self.skipTest("pack not built")
+        return found
+
+    def test_no_workshop_id_is_in_two_lists(self):
+        # List 3 is left out: Anchor Chain is a library a mod in list 1 asks
+        # for, and the list says so.
+        for slug, path in self.lists().items():
+            sections = _required_sections(path)
+            seen = collections.Counter(t for s in ("1", "1b", "3b", "4")
+                                       for t in set(sections.get(s, [])))
+            with self.subTest(campaign=slug):
+                self.assertEqual(sorted(t for t, n in seen.items() if n > 1), [])
+
+    def test_the_url_list_counts_lists_1_and_1b(self):
+        for slug, path in self.lists().items():
+            sections = _required_sections(path)
+            urls = (bp.ROOT / "docs" / "campaigns" / self.SLUG_DOCS[slug] /
+                    "required-mods-urls.txt").read_text(encoding="utf-8")
+            ids = re.findall(r"\?id=(\d+)", urls)
+            with self.subTest(campaign=slug):
+                self.assertIn(f"\n{len(ids)} items, in canonical load order", "\n" + urls)
+                self.assertEqual(sorted(ids), sorted(sections.get("1", []) + sections.get("1b", [])))
+                self.assertNotIn("cannot name a mod the campaign does", urls)
+
+    def test_coverage_never_calls_a_needed_mod_not_reached(self):
+        by_id = {str(m["workshop_id"]): m["id"] for m in bp.catalog()["mods"]
+                 if m.get("workshop_id")}
+        for slug in self.lists():
+            docs = bp.ROOT / "docs" / "campaigns" / self.SLUG_DOCS[slug]
+            urls = (docs / "required-mods-urls.txt").read_text(encoding="utf-8")
+            needed = {by_id[i] for i in re.findall(r"\?id=(\d+)", urls)}
+            report = (bp.ROOT / "docs" / "campaign-coverage.md" if slug == "sest-southern-watch"
+                      else docs / "coverage.md").read_text(encoding="utf-8")
+            tail = report.partition("## Enabled, and not reached by this campaign")[2]
+            unreached = set(re.findall(r"^\| `([^`]+)` \|", tail, re.M))
+            listed = set(re.findall(r"^\| `([^`]+)` \|", report, re.M)) - unreached
+            with self.subTest(campaign=slug):
+                self.assertEqual(sorted(needed & unreached), [])
+                self.assertEqual(sorted(needed - listed), [])
+
+    def test_the_files_dependencies_are_required(self):
+        # Y-8/Y-9's [KQT-8] (Red Line's Y-9FQ), Anchorchain Expansion's
+        # eu_nulka_hatches (the Anzacs and Hobarts) and the US Submarines'
+        # Virginia animation and sonars (Approaches' usn_ssn_virginia_2027).
+        want = {"sest-red-line": ["3637954857"],
+                "sest-southern-reach": ["3784474738", "3433957933"]}
+        lists = self.lists()
+        for slug, ids in want.items():
+            if slug not in lists:
+                continue
+            sections = _required_sections(lists[slug])
+            for i in ids:
+                with self.subTest(campaign=slug, mod=i):
+                    self.assertIn(i, sections["1"])
+                    self.assertNotIn(i, sections.get("4", []))
+
+    def test_a_requirement_with_no_source_is_not_promoted(self):
+        self.assertEqual(bp.catalog_requires("royal-australian-defence-forces"), ["3491248180"])
+        self.assertNotIn("3505420313", bp.catalog_requires("the-royal-navy"))
+        self.assertNotIn("3380210757", bp.catalog_requires("pakistani-pack"))
+        self.assertEqual(bp.catalog_requires("modern-plan-systems"), ["3637954857"])
+        self.assertIn("3784474738", bp.catalog_requires("euromod-ran"))
+        self.assertIn("3784474738", bp.catalog_requires("modern-us-navy"))
+        self.assertEqual(bp.catalog_requires("us-navy-2027"), ["3433957933"])
+
+
+class CrossDeckCredit(unittest.TestCase):
+    """SEST Cross-Deck is credited where a deck takes an airframe only
+    through its stub (cross_deck_credit()): the Tughril's own list has no
+    Z-9CE. Until 12 Nov 2026 Makran Line and Sulu Line listed the pack as
+    not used (review of 11 Nov 2026)."""
+
+    def test_only_a_stub_only_pair_is_credited(self):
+        if bp.unit_file("pns_type_054a_p")[1] is None:
+            self.skipTest("the Pakistani Pack is not exported")
+        self.assertEqual(bp.cross_deck_credit("pns_type_054a_p", ["plan_z-9ce"]),
+                         [("SEST_Cross_Deck", "deck", "pns_type_054a_p / plan_z-9ce")])
+        # her own list names the Z-9F: no stub needed
+        self.assertEqual(bp.cross_deck_credit("pns_type_054a_p", ["plan_z-9f"]), [])
+
+    def test_makran_and_sulu_list_it_as_a_pack_they_use(self):
+        for slug in ("sest-makran-line", "sest-sulu-line"):
+            path = PACK / "campaigns" / slug / "REQUIRED-MODS.txt"
+            if not path.is_file():
+                self.skipTest("pack not built")
+            text = path.read_text(encoding="utf-8")
+            packs = text.partition("\n2. ")[2].partition("\n3. ")[0]
+            with self.subTest(campaign=slug):
+                self.assertIn("a deck a flight lands on", packs)
+                self.assertIn("SEST Cross-Deck", packs)
+                self.assertNotIn("SEST Cross-Deck", text.partition("4. NOT USED")[2])
 
 
 def _trigger_numbers(text):
@@ -4937,8 +5232,11 @@ class AlliedReserve(unittest.TestCase):
                         placed[family.group(1)].append((tag, keys, None, None))
                 placements[m["key"]] = placed
             held = {e["unit"] for e in spec["RESERVE_AIR"]}
+            # rule 1 counts the reserve's held aircraft, as admit_reserve_aircraft
+            # passes them
             kept, dropped = bp.usable_allied(spec["RESERVE_AIR"], missions, placements, rows,
-                                             spec["ROSTER"], authored)
+                                             spec["ROSTER"], authored,
+                                             reserve=[e["unit"] for e in spec["RESERVE_AIR"]])
             self.assertEqual(sorted(e["unit"] for e in kept),
                              sorted(u for u in sold if u in held), slug)
             self.assertEqual({e["unit"]: why for e, why in dropped},

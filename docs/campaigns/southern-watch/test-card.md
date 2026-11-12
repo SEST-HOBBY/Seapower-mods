@@ -215,6 +215,7 @@ lowering — tell me the airframe and roughly when it went.
 | 5.3b | SW06, push the Triton north at once and classify the group before 5:00 | The J-16s join at 5:00 and come up **identified**, as the intel line says. Unidentified J-16s = a reveal fired on a held-back unit does not hold: say when the classification came |
 | 5.4 | SW06, ignore the recon entirely and just run the convoy | Win. The Airlift task never appears and scores nothing |
 | 5.5 | Any mission, win near the deadline | One outcome only — no double ending, no defeat after a victory |
+| 5.6 | O6 The Second Convoy, lose your lead ship | Defeat. The convoy task and "Bring your lead ship out" both show **failed**, and the debrief charges the -15; the other tasks show cancelled. "Bring your lead ship out" cancelled = the defeat line still cancels an objective its own trigger has failed |
 
 5.2 is the one I would bet against: it tests that cancelling works the way the
 shipped missions imply.

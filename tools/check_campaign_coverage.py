@@ -817,6 +817,11 @@ def main():
             for atype in embarked:
                 for token, how, detail in bp.aircraft_credit(atype):
                     note(token, how, f"{uid} deck / {detail}")
+            # An embarked airframe only SEST Cross-Deck's stub lets land on
+            # this deck: the builder's rule (cross_deck_credit).
+            if kind_dir == "vessels":
+                for token, how, detail in bp.cross_deck_credit(uid, embarked):
+                    note(token, how, detail)
             # Model folders the unit's own file loads from another mod's
             # assets/ tree - the same rule the builder credits by.
             for folder in sorted(set(bp.ASSET_FOLDER.findall(bp.read(path)))):
@@ -832,7 +837,7 @@ def main():
         if not roster.exists():
             problems.append(f"no player_task_force_roster.ini under campaigns/{slug}")
             continue
-        section = ""
+        section, sold = "", []
         for line in roster.read_text(encoding="utf-8").splitlines():
             line = line.strip()
             if line.startswith(";") or not line:
@@ -858,6 +863,12 @@ def main():
             token = bp.owner(f"{kind_dir}/{uid}.ini")
             if token and token not in credits:
                 credits[token] = ("roster", uid, "requisition roster")
+            sold.append({"unit": uid})
+        # A sold deck and a sold airframe only SEST Cross-Deck's stub pairs,
+        # as the builder credits them (roster_deck_credit).
+        for token, how, detail in bp.roster_deck_credit(sold):
+            if token not in credits:
+                credits[token] = (how, detail, "requisition roster")
 
     rows, missing = bp.coverage(credits, bp.pack_excuses(specs))
     print(f"{len(files)} mission file(s) - the campaign's own missions ship "

@@ -207,20 +207,17 @@ EXCUSES = {
         "the Task Force Mode campaigns place nothing from it, and its own units are "
         "checked against this load order by integration/world-sandbox/"
         "check_dynamic_campaign.py on every build"),
-    "SEST_Cross_Deck": (
-        "library", "one Anchor Chain `#!extend` stub per allied flight deck, "
-        "widening `AircraftSupported` to the allied members of the airframe "
-        "families the deck already lists; it ships no unit, and the campaign "
-        "reaches it through the decks it places (build_pack's deck_types reads "
-        "the same stubs)"),
     "SEST_Gallery": (
         "library", "an offline photo gallery under `Gallery/` that the player "
         "opens in a web browser; the briefings' recognition photos are read "
         "from its source by the campaign builder, not from this pack"),
     "y-8-y-9-family": (
-        "shadowed", "all twelve airframes are outranked by Modern PLAN "
-        "Systems, which ships the same ids higher in the order - it is an "
-        "intentional overlapping source, not a missing one"),
+        "library", "its twelve airframes and its rounds are all outranked by "
+        "Modern PLAN Systems, which ships the same ids higher in the order; its "
+        "systems/sensors.ini still loads, since systems/ merges section by "
+        "section, and alone defines [KQT-8] (the MAD Modern PLAN Systems' "
+        "plan_y-8fq and plan_y-9fq mount), [Morden_RWR] (the Pakistani Pack's "
+        "paf_zdk-03 RWR) and [RKL-500B_OTH_ESM]"),
     "nimitz-expanded": (
         "shadowed", "ships one file, `vessels/usn_cvn_nimitz_variants.ini`, "
         "which SEST Collection Fixes replaces - that patch is why it exists"),
@@ -5308,12 +5305,6 @@ STRIKE = ("Attack|Maritime Strike|Bomber/SEAD|2|"
 # row adds `SEAD`. Only that one: Southern Reach imports STRIKE and places no
 # such Growler, and a fit nothing in the flight defines fails check_flights.
 STRIKE_FORD = STRIKE + "/SEAD"
-# Southern Reach's strike windows take STRIKE without StrikePrecision. Its one
-# claimant there was the RAAF F-35A, whose AvailableLoadouts line ends in a
-# commented-out `#,StrikePrecision,,,,Ferry`. The game reads that tail as a
-# comment, and since 11 Nov 2026 so does the builder (loadouts()), so in
-# Southern Reach the name was a fit nothing in the flight could fly.
-STRIKE_SR = STRIKE.replace("/StrikePrecision/", "/")
 # There is no tanker row. `ui.ini` localises exactly six air-tasking roles -
 # AirTaskingRole_SuCAP, _CAP, _Recon, _HeloRecon, _Attack and _AEW, lines
 # 3032-3037 - and Tanker is not among them. A seventh label would be a role

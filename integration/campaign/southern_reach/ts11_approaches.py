@@ -5,7 +5,7 @@ while the last movement passes north-east. The flagship destroyer is the
 objective that pays; the carrier is the one that changes Southern Cross.
 Whichever optional priority was not held, that element is here.
 """
-from campaign_data import U, F, S, HELO, RECON, CAP, STRIKE_SR
+from campaign_data import U, F, S, HELO, RECON, CAP, STRIKE
 
 MISSION = dict(
     code="TS11", series="Tasman Shield", seq="TASMAN SHIELD  ·  MISSION 11",
@@ -245,7 +245,7 @@ MISSION = dict(
                 allow=["ran_ffh_anzac", "ran_ddg_hobart", "ran_opv_arafura",
                        "ran_mh-60r", "usn_p8", "raaf_mq-4c_triton", "E7A_Wedgetail",
                        "raaf_f-35a", "usn_fa-18f_blk3", "usn_ea-18g"],
-                flights=[HELO, RECON, CAP, STRIKE_SR],
+                flights=[HELO, RECON, CAP, STRIKE],
                 situation=(
                     "Sydney can repair, rearm and reinforce the force before Approaches. This "
                     "is the final ammunition resupply before Southern Cross; repairs and "
