@@ -1191,6 +1191,33 @@ STALE_VANILLA_FILES = {
         "The Luzon Line's copy is a pre-0.8.3 fork that drops the game's\n"
         "[CombatSystems] block; it is a player hull in the stock Pacific Strike\n"
         "campaign. The Luzon Line's own _variants file still wins and is kept."),
+    # The R-27 family (12 Nov 2026). The Shenyang J-11 mod (3436170138), which
+    # its author removed from the Workshop and the owner unsubscribed, shipped
+    # live-schema copies of all three and sat above every other copy (the
+    # catalog's j-11 entry). Since it left, J10C's copy wins, byte-identical
+    # to JH7A's; Ultimate Missile Workshop's, lowest, is a partial file.
+    "ammunition/wp_aa-10b.ini": (
+        ("3481228992", "3526982088", "3672072359"), "AmmoPoints",
+        "J10C's R-27T (byte-identical in JH7A) predates the supply system and\n"
+        "the kinematics model: no AmmoPoints or ApplyKinematics, MaxVelocity\n"
+        "2432 kt. It loads since the Shenyang J-11 mod (3436170138), whose copy\n"
+        "outranked it, left the Workshop on 12 Nov 2026. Every R-27 carrier\n"
+        "reads it."),
+    "ammunition/wp_aa-10c.ini": (
+        ("3481228992", "3526982088", "3672072359"), "AmmoPoints",
+        "J10C's R-27ER (byte-identical in JH7A) predates the supply system and\n"
+        "the kinematics model: no AmmoPoints or ApplyKinematics, MaxVelocity\n"
+        "2432 kt and MaxLaunchRange 91.89 NM for the game's 60. It loads since\n"
+        "the Shenyang J-11 mod (3436170138), whose copy (65 NM) outranked it,\n"
+        "left the Workshop on 12 Nov 2026. Every R-27 carrier reads it, Southern\n"
+        "Watch D7's MiG-23A (1987 fit) among them."),
+    "ammunition/wp_aa-10d.ini": (
+        ("3481228992", "3526982088", "3672072359"), "AmmoPoints",
+        "J10C's R-27ET (byte-identical in JH7A) predates the supply system and\n"
+        "the kinematics model: no AmmoPoints or ApplyKinematics, MaxVelocity\n"
+        "2432 kt. It loads since the Shenyang J-11 mod (3436170138), whose copy\n"
+        "outranked it, left the Workshop on 12 Nov 2026. Every R-27 carrier\n"
+        "reads it."),
 }
 
 
@@ -1804,9 +1831,18 @@ EXTENDS = {
     "rn_type23_refit": "SEST_CMS_SeaCeptor",
 }
 # Mod copies of vanilla hulls that dropped vanilla's block: they get vanilla's
-# own profile, read from vanilla's file (the deprecated Seahawk mod ships a
-# Spruance and a Perry).
-VANILLA_SAME = ("usn_dd_spruance", "usn_ffg_oliver_hazard_perry")
+# own profile, read from vanilla's file.
+# EMPTY SINCE 12 Nov 2026. It held the deprecated Seahawk mod's (3403661005)
+# Spruance and Perry, whose copies win over vanilla's and declare no combat
+# system, and gave them vanilla's NTDS_TAS and Mk92_CAS_Link14. The Euromod
+# Anchorchain Expansion (3784474738) updated on 12 Nov 2026 now extends both
+# hulls itself (vessels/Original/usn_dd_spruance_Mk15_OVWR.ini and
+# usn_ffg_oliver_hazard_perry_Mk15_OVWR.ini: a Mk15 radar per Phalanx mount),
+# and in what order two extends of one id apply has not been seen, so the
+# guard in build_extends() retired both. Until a single extend carries both,
+# the game derives their combat system from the service year, as it did
+# before this table. Restore an entry only when no mod extends the hull.
+VANILLA_SAME = ()
 
 
 # Nation flags. ui/Default/Settings_UI_General.ini is a whole file: the
