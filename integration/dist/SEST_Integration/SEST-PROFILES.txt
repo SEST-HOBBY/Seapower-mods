@@ -5,8 +5,9 @@ Sea Power_Data\Managed\Seapower-Scripts.dll. The build report in step 1
 changes nothing; the bundled feature installation runs at the end of SETUP.
 
 REVIEWED BETA: 0.8.7 Build 261107 (Seapower-Scripts.dll 499675cd...)
-- R12 includes F11 World Operations, world service progress, campaign costs,
-  Coordinated Strike styling/cost summaries and reviewed beta compatibility.
+- R13 includes F11 World Operations, world service progress, campaign costs,
+  Coordinated Strike styling/cost summaries, the debrief mission ribbons and
+  reviewed beta compatibility.
 - Existing enabled SEST beta installation: close the game and run SETUP once.
 - First installation: run SETUP, launch to the main menu, wait about ten
   seconds, quit, then run SETUP again. A successful menu probe is required.
@@ -21,7 +22,7 @@ REVIEWED BETA: 0.8.7 Build 261107 (Seapower-Scripts.dll 499675cd...)
 NORMAL RELEASE: 0.8.7 Build 261021 (Seapower-Scripts.dll eab2297b...)
 - The existing normal-release Runtime Fixes 1.5.0 and UI Follow-up remain
   selected, subject to their own game/author SHA-256 checks.
-- The R12 beta feature installer makes no code changes on this build.
+- The bundled R13 beta feature installer makes no code changes on this build.
 
 OLDER BETA AND OTHER BUILDS
 - Campaign/data files remain available, subject to game compatibility.

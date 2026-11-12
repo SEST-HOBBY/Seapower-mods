@@ -1,3 +1,138 @@
+# R13 — runtime mission ribbons and Admiralty filing, 10 November 2026
+
+Runtime 1.6.5 / UI 1.4.15, revision `R13-20261110-mission-awards-499675cd`,
+for the same beta 0.8.7-261107 (`499675cd…`) and Dynamic Campaign Mod
+0.25.0.1 (`eacdb9a4…`) as R12 Final. On any other game build nothing binds:
+the native image gate in `RuntimeFixesMod` is unchanged. The loader sources
+are unchanged (AnchorChain `8692ecf9…`, Bootstrap `268462fa…`). Identify
+changes only because it embeds the new runtime hash; the UI also bumps to
+1.4.15 and logs the new pairing (`full Runtime 1.6.5 paired`). All game,
+author and reference pins are unchanged.
+
+## Mission ribbons granted at the debrief (`runtime/MissionAwards.cs`)
+
+A campaign can name extra mission ribbons in a key the game ignores:
+
+    [Mission<N>]
+    SestRuntimeRibbonAwards=<spec>[|<spec>...]
+    <spec>  = <ribbonId>[,<NationKey>...]?<term>[&<term>...]
+    <term>  = objective:<ObjectiveId>=completed|failed|cancelled|notfailed
+            | result>=<Result name>       e.g. result>=CostlyVictory
+            | nolaunch
+            | rescued>=<1-999>
+
+Example: `sest_x?objective:Passage=completed&objective:Unseen=completed&nolaunch`.
+Keys and values ignore case. Spaces are ignored around `|`, `?`, `&`, `=`,
+the `:` of `objective:` and `>=`. The parser takes `>=` as one token, but in
+campaign.ini the game's `IniHandler` trims the spaces on both sides of every
+`=` before the runtime reads the value, so `> =` reaches the runtime as `>=`.
+`;`, `#` and `//` must not appear: the game's `IniHandler` cuts a value at
+them (the design draft's `;` separator would have reduced every spec to a
+bare ID), so `?` separates the ribbon from its conditions. The key is read
+as the native `TaskForceModeRibbonAwards` is: `[Mission<N>]` first, then the
+mission event's own section, in every campaign rule source (the campaign
+file and its `File`/`Base` definition).
+
+- The part before `?` goes through the native `TryParseMissionRibbonAwardSpec`
+  and `AllowsCommanderNation`, so nation selectors test the committed
+  `TaskForceCommanderNation` exactly as native awards do; no selector means
+  any commander.
+- `objective:` uses the native debrief precedence (cancelled, failed,
+  completed, fail at end, complete at end) over the mission's objectives; an
+  ID the mission does not have is false. `result>=` compares the native
+  `Result` value (Incomplete 0 to DecisiveVictory 17). `rescued>=` uses the
+  debrief's `PlayerSurvivorsRescued`, clamped at 0 as natively.
+- `nolaunch` (the owner's RL05 rule): no weapon launched and no gun round
+  fired by any unit of the player's task force (failed launches count), read
+  from the live `Globals._playerTaskforce._weaponReport`, which the snapshot
+  writes to the campaign only after the awards. That includes AI-controlled
+  escorts and allied units in the player's task force: one that engages on
+  its own makes the term false even if the player's own boat fired nothing.
+  Noisemakers, chaff, MOSS decoys, sonobuoys, paratroopers, fuel tanks and
+  CIWS rounds (`ProjectileFired − CiwsRoundsFired`) do not count. A missing
+  report or an inconsistent count makes it false.
+
+A prefix and a void finalizer on `SaveDebriefSnapshot` hold the mission
+and debrief and then release them (being void, the finalizer lets HarmonyX
+rethrow a native fault with its original stack); a postfix on the 3-argument
+`ApplyMissionRibbonAwards` runs after the native completion gate and the
+native awards. Each qualifying ribbon becomes one more native row
+(`ReadRibbonDefinition`, `ToAwardRow(1, N, rank, "")`), merged in the native
+order (Precedence, then DisplayName) and added to the commander's distinct
+`TaskForceCommanderRibbons` set. The native writers then put it in the
+debrief rows, the Task Force Service Record and the save as they do a native
+award. Rows are rewritten for each completion and the set is distinct, so a
+replay or reload never holds a ribbon twice; a ribbon the native rules
+already granted is not added. Several specs may name one ribbon: the first
+that qualifies grants it. The definition is the campaign's `[Ribbon_<id>]`;
+runtime-only IDs are not listed in `[TaskForceRibbons] RibbonIds`. Red
+Line emits the key (RL05 Silent Passage in `[Mission15]`, RLC1 Personnel
+Recovery in `[Mission11]`) with both definitions in its
+`commander_settings.ini`. Its `campaign.ini` names itself as its `[File]
+Base`, so the key is read twice and each debrief logs two lines per runtime
+ribbon: the verdict, then "already awarded" or the same "not met" line.
+
+The log has one line per evaluated spec (`debrief mission N: runtime ribbon
+<id> AWARDED | not met: <term> (<actual>) | ...` with result, objectives,
+launched, rounds, rescued and nation). A key with any invalid spec grants
+nothing for that mission (one line). A binding or evaluation fault disables
+the feature for the session with one line; native awards are always kept.
+`MissionAwards=0` in `[Runtime]` of `plugins/sest_runtime.ini` turns it
+off; it is on when the line is absent, so the shipped file is unchanged.
+
+## Admiralty results recorded when filed (`runtime/WorldOperations.cs`)
+
+A postfix on DCM's `Admiralty.Queue(OrderOutcome)`, the only place a result
+enters `CampaignState.Outcomes`, keeps the outcome reference with its
+campaign scope and coalition. The next service sample evaluates it, after
+`Admiralty.OnCaptured` has reset the `Issued` of an order taken while only
+on offer. Evaluation, the `SEST-WORLD-SERVICE-1` six-field line, the keys
+(order or operation ID plus acceptance ticks), the same-side, Completed,
+accepted and not-moot rules and the Runtime 1.6.3 legacy key are unchanged.
+The unread-paper scan remains as the fallback; an outcome both unread and
+filed counts once. Filed results are released only after a successful merge
+(kept for the 30 s retry), change the evidence signature so a paper read
+within one sample still merges, are flushed when the campaign closes, and
+at most 512 wait. If the hook cannot bind or attach, one line is logged and
+the unread scan continues. The Service tab and `setup/RIBBONS.txt` now say
+results are recorded when filed, read or not; results filed before 1.6.5
+count only if their paper was still unread under a Runtime that recorded
+them (orders from 1.6.3, operations from 1.6.4).
+
+## Checks
+
+New verify group `runtime-mission-awards` (`tests/MissionAwardsTests.cs`):
+Cecil contracts on the captured game and DCM images (the snapshot's call
+order and the gate's branch targets, the award overloads' callers and size,
+the player's weapon-report row and the counters each report lambda sets,
+the ribbon-rule helpers by signature, the INI comment separators, the
+objective, result, survivor and weapon-report members,
+Admiralty.Queue/Read/Paper/OnCaptured and the sim-before-UI order) and
+behaviour on the captured types (grammar and fail-closed parsing, native
+nation filtering, all 32 objective flag combinations, nolaunch counting,
+merge order and the native row round trip, the persistent set, the real
+Harmony postfix, the void finalizer's rethrow with the original stack, the
+mission-index guard, and the grant against an in-memory `IniHandler`). `native-bindings` binds `MissionAwards`;
+`world-service-and-strike-bindings` drives DCM's real Queue, Read and
+OnCaptured and checks that Runtime 1.6.4 (R12 Final) reads the record.
+`build-workshop-support.py` accepts R12 and R13 revisions; the repair note
+names R13. Under mono the patched native grant itself cannot run (Unity's
+`Singleton` lookup), so the grant is a PC check.
+
+PC checks: complete Red Line RL05 (`[Mission15]`) at CostlyVictory or better
+using only countermeasures: the log line says AWARDED with launched=0 and
+rounds=0, the debrief awards row and the Service Record show the ribbon with
+its citation, date and rank; repeat with one torpedo (not met: nolaunch, the
+native award still granted) and with only noisemakers or decoys (eligible).
+Confirm RL05's task force has no AI escort that could fire, or that one
+firing correctly disqualifies the mission.
+Recover the pilot in RLC1 (`[Mission11]`): rescued=N matches the debrief's
+survivors. Replay a completed mission and reload saves: the ribbon shows
+once. A commander nation selector grants only that nation. `MissionAwards=0`
+grants nothing. Complete an accepted Admiralty order and an operation's
+final phase, close each paper at once, and check F11 Service counts both; a
+port captured while its order is only on offer is not counted.
+
 # R12 — World Operations and strike features included in Workshop
 
 ## World-battle preparation and exit refinement, 9 November

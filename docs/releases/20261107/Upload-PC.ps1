@@ -83,7 +83,7 @@ $preparedPath=J $PSScriptRoot 'PREPARED-PC.json'
 if(!(Test-Path -LiteralPath $preparedPath -PathType Leaf)){throw 'Run Prepare-PC.cmd successfully before staging the Steam publishing copy.'}
 $prepared=Get-Content -LiteralPath $preparedPath -Raw | ConvertFrom-Json
 $receipt=Get-Content -LiteralPath (J $PSScriptRoot 'SOURCE-RECEIPT.json') -Raw | ConvertFrom-Json
-if($receipt.beta_directory -ne 'R12' -or $prepared.release_commit -ne $receipt.release_commit){throw 'Preparation belongs to another release; use the complete R12 toolkit.'}
+if($receipt.beta_directory -ne 'R13' -or $prepared.release_commit -ne $receipt.release_commit){throw 'Preparation belongs to another release; use the complete R13 toolkit.'}
 $repo=(Resolve-Path -LiteralPath $prepared.repository_root).ProviderPath
 $head=(& git -C $repo rev-parse HEAD).Trim()
 if($LASTEXITCODE -ne 0 -or $head -ne $receipt.release_commit){throw 'The prepared checkout has changed; run Prepare-PC.cmd again.'}

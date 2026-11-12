@@ -1,7 +1,8 @@
 SEST WORKSHOP FEATURE UPDATE
 
-The F11 World Operations, service progress and Coordinated Strike
-refinements are included in this Workshop item for the public beta
+The F11 World Operations, service progress, Coordinated Strike refinements
+and debrief mission ribbons (for campaigns that define them) are included in
+this Workshop item for the public beta
 0.8.7-261107 only. The stable game uses the normal plugins in plugins/.
 
 With Sea Power closed, run SETUP - double-click me.cmd at the pack root.

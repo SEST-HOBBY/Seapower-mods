@@ -16,7 +16,7 @@ differ from a build.py build; the receipt records which compiler produced them.
 param(
     [Parameter(Mandatory)][string]$Capture,
     [Parameter(Mandatory)][string]$Output,
-    [string]$Revision = 'R12-20261109-workshop-features-499675cd'
+    [string]$Revision = 'R13-20261110-mission-awards-499675cd'
 )
 Set-StrictMode -Version Latest
 $ErrorActionPreference = 'Stop'
@@ -24,7 +24,9 @@ $ErrorActionPreference = 'Stop'
 $here = $PSScriptRoot
 $root = (Resolve-Path (Join-Path $here '..' '..')).Path
 $capture = (Resolve-Path $Capture).Path
-$pins = @{
+# Ordered, so captured_references keeps this order and build-receipt.json
+# is byte-reproducible (a plain hashtable enumerates in a varying order).
+$pins = [ordered]@{
     'Seapower-Scripts.dll' = '499675cda59912054924ae42297bce7a82b12ca00957dabd684105a24aa353a9'
     'Noesis.NoesisGUI.dll' = '7b1fd6a6b90d0692297906f5907a1b4a2072bf3bf25a983b36aaa5b5c043ebdd'
     'AnchorChain.dll' = 'e272811050698640a8936834363da91769dbc83e017637e3629c21bca6bea764'
@@ -163,6 +165,7 @@ if (Test-Path -LiteralPath (J $here 'tests' 'CostRowsTests.cs')) { Compile 'Cost
 
 Compile 'WorldOperationsTests.exe' @((J $here 'tests' 'WorldOperationsTests.cs'))
 Compile 'WorldBattleFlowTests.exe' @((J $here 'tests' 'WorldBattleFlowTests.cs'))
+Compile 'MissionAwardsTests.exe' @((J $here 'tests' 'MissionAwardsTests.cs'))
 
 $outputs = 'AnchorChain.dll', 'SEST.BetaSafeBootstrap.dll', 'SEST.RuntimeFixes.dll', 'SEST.ContactsFix.dll', 'SEST.IdentifyDataPaths.dll'
 $sourceFiles = @($runtimeSources) + @(Get-ChildItem -LiteralPath (J $here 'ui') -Filter '*.cs' -File | ForEach-Object { $_.FullName })

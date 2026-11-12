@@ -12,7 +12,7 @@ using UnityEngine;
 
 namespace Sest.UiFixes
 {
-    [ACPlugin("io.github.sest-hobby.contacts-input-fix", "SEST UI Follow-up Beta", "1.4.14", null, new[] { "io.github.sest-hobby.runtime-fixes" })]
+    [ACPlugin("io.github.sest-hobby.contacts-input-fix", "SEST UI Follow-up Beta", "1.4.15", null, new[] { "io.github.sest-hobby.runtime-fixes" })]
     public sealed class ContactsFix : IAnchorChainMod
     {
         internal const BindingFlags All = BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static | BindingFlags.Instance;
@@ -75,7 +75,7 @@ namespace Sest.UiFixes
                 harmony.Patch(matches, prefix: new HarmonyMethod(typeof(ContactsFix), nameof(BeforeMatches)));
                 harmony.Patch(tick, transpiler: new HarmonyMethod(typeof(ContactsFix), nameof(LogicalParents)));
                 installed = true;
-                Log("1.4.14 beta input fix installed; full Runtime 1.6.4 paired; Contacts time-control behavior retained.");
+                Log("1.4.15 beta input fix installed; full Runtime 1.6.5 paired; Contacts time-control behavior retained.");
             }
             catch (Exception error)
             {

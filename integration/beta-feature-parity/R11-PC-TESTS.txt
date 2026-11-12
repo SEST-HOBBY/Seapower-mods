@@ -26,7 +26,7 @@ On an existing enabled installation, SETUP upgrades in one run. Run SETUP
 after Steam updates the item to reapply its bundled features. Original restore
 backups and Identify data are retained; unknown code is not overwritten.
 
-PUBLISHER: run Prepare-PC.cmd from the full R12 toolkit. Upload only the
+PUBLISHER: run Prepare-PC.cmd from the full release toolkit. Upload only the
 verified SEST_Integration folder it prints. That folder includes the feature
 archive, normal SETUP integration and all campaign/ribbon data. Complete the
 PC checks below before Submit Mod. No Steam publication has occurred here.
@@ -40,7 +40,7 @@ That imports the reviewed source, checks author config updates, repairs
 the beta code and installs the backed-up campaign data. It prints separate
 data backup and canonical upload paths. It never submits anything to Steam.
 
-Run the root Prepare-PC.cmd once. R12\Repair-Beta-Startup.cmd alone changes
+Run the root Prepare-PC.cmd once. R13\Repair-Beta-Startup.cmd alone changes
 code only; the root command also installs the new world and ribbon data.
 If a check stops, retain its report and send the error. Do not print a
 success message or continue installing after a failed author-update check.
@@ -107,7 +107,7 @@ from the imported source checkout with -PackPath pointing at Workshop item
 to one world entry. It never rewrites a save. Your current regional saves do
 not require this activation.
 
-After testing, quit and run R12\Capture-Repair-Results.cmd; send the new capture.
+After testing, quit and run R13\Capture-Repair-Results.cmd; send the new capture.
 Managed and installer checks cannot verify native Noesis rendering, Steam
 upload behavior or a complete world campaign. Treat this as a beta candidate
 until those PC checks pass. The canonical upload keeps normal-release active plugins and carries the
@@ -139,3 +139,63 @@ R12 RIBBON EXPANSION - 10 NOVEMBER 2026
   award and its scenario citation. Other nationalities must not receive it.
 - Confirm the opening brief, sidebar Combat Costs, direct F11, paused battle
   preparation, end-battle return, Contacts/Formation and strike controls remain.
+
+R13 MISSION RIBBONS AND ADMIRALTY FILING - 10 NOVEMBER 2026
+Runtime 1.6.5 / UI 1.4.15 on beta 0.8.7-261107 (499675cd). Red Line's
+campaign.ini now carries the SestRuntimeRibbonAwards key: RL05 Silent Passage
+in [Mission15] and RLC1 Personnel Recovery in [Mission11], with both
+[Ribbon_<id>] definitions in its commander_settings.ini. Read each result in
+Player.log: each debrief logs two '[SEST Runtime] debrief mission N: runtime
+ribbon <id> ...' lines per runtime ribbon. Judge by the first, the verdict.
+The second says 'already awarded' after an award, or repeats the first's
+'not met: ...'. It is expected: Red Line's campaign.ini names itself as its
+[File] Base, so the game yields it as the open campaign ini and again as its
+base, and the runtime reads the key twice. A second AWARDED for the same
+ribbon, or a third line, is a fault.
+- Debrief grant. Complete RL05 at CostlyVictory or better without firing.
+  The first line says AWARDED with launched=0 and rounds=0. The native 'Task
+  force debrief snapshot saved: ... Ribbons=N' line counts it, the debrief
+  awards row shows it, and the Task Force Service Record shows it with its
+  citation, date and rank. The log's objective states match the debrief's
+  objectives list (the mission was still loaded when the award ran).
+- nolaunch negatives. nolaunch means no weapon launched and no gun round
+  fired by any unit of the player's task force (failed launches count).
+  Repeat RL05 with one torpedo: 'not met: nolaunch', and the native
+  sest_undersea_operations ribbon is still awarded. Repeat using only
+  countermeasures (noisemakers, decoys): eligible; note whether the boat's
+  countermeasure reports as Noisemaker or MOSS. Check whether RL05's task
+  force has an AI escort that could fire; if one fires, the mission must not
+  qualify even though the player's own boat fired nothing.
+- Mid-mission save. Launch a weapon, save, reload and finish clean: still
+  not eligible. Reload a save from before the launch and finish clean:
+  eligible. This confirms the weapon report survives the mission save.
+- Personnel recovery. In RLC1, recover the pilot by helicopter. The log's
+  rescued=N matches the debrief's SurvivorsRescued and CSAR points, and the
+  ribbon needs N of 1 or more. Note when the count rises (at pickup or at
+  landing) and whether other-side or neutral raft occupants also count.
+- Idempotency. After an award, save, quit, reload and open the Service
+  Record: the ribbon shows once. Replay the completed mission through the
+  normal path: the debrief rows are rewritten and the Service Record still
+  shows it once. A TaskForceModeReplay mission writes nothing. A failed
+  attempt (below the mission's RequiredResult) grants nothing.
+- Nation filter. A spec with a nation selector is granted only to a
+  commander of that nation (TaskForceCommanderNation). An uncommitted or
+  empty nation receives only specs without a selector.
+- Stable build or feature off. On the stable game build, or with
+  MissionAwards=0 under [Runtime] in plugins/sest_runtime.ini, no runtime
+  ribbon is granted and native awards are unchanged. On the beta, with or
+  without R13, the developer ribbon menu offers neither runtime ribbon: the
+  game lists only [TaskForceRibbons] RibbonIds from commander_settings.ini
+  (Red Line test card R5).
+- Admiralty filing. Complete an accepted standalone Admiralty order and an
+  operation's final phase, close each paper at once (within one second),
+  and open F11 Service: each counts once. A result filed and read
+  immediately still counts once. Save, reload and let the service sample
+  run again: each still counts once. A port captured while its order is
+  only on offer is not counted. world-service-v1.txt keeps its
+  SEST-WORLD-SERVICE-1 header and six-field lines, and Runtime 1.6.4 reopens
+  it without going read-only.
+- Upgrade. From an installed R12 Final (Runtime 1.6.4), SETUP's feature step
+  updates to R13 in one run, Repair-Beta-Startup recognises 1.6.4, and a
+  Steam refresh is reapplied. The UI logs 'full Runtime 1.6.5 paired'.
+  Afterwards run Capture-Repair-Results.cmd and send the new capture.

@@ -225,6 +225,14 @@ class RuntimeGrammarPort(unittest.TestCase):
         self.assertEqual(as_read(spaced),
                          "sest_rlc1_recovery ? objective : Pilot=completed & rescued >=1 & result >=CostlyVictory")
         self.assertEqual(len(parse_specs([as_read(spaced)])[0][0].terms), 3)
+        # The parser refuses '> =' (the bad cases above), but a campaign.ini
+        # line never hands it over: the reader trims both sides of every '='
+        # (integration/beta-feature-parity/README.md says so).
+        for split, joined in (("SestRuntimeRibbonAwards=a?result> =Draw", "a?result>=Draw"),
+                              ("SestRuntimeRibbonAwards=a?rescued >\t= 1", "a?rescued >=1")):
+            with self.subTest(line=split):
+                self.assertEqual(as_read(split), joined)
+                self.assertIsNone(parse_specs([as_read(split)])[1])
         cut = "SestRuntimeRibbonAwards=sest_x;objective:Passage=completed"
         self.assertEqual(as_read(cut), "sest_x")
         self.assertEqual(parse_specs([as_read(cut)]), ([], "spec 'sest_x' has no '?' conditions"))
@@ -588,6 +596,23 @@ class RuntimeAwardDocs(unittest.TestCase):
                            ("RIBBONS.txt", ribbons)):
             for stale in ("run R6 only", "R1 to R5", "R1-R5", "checks R1 to R6"):
                 self.assertFalse(stale in text, f"the {name} still says {stale!r}")
+
+    def test_setup_names_the_r13_features_it_installs(self):
+        # SETUP prints the bundle's feature list and beta-support/README.txt
+        # describes it; sest-profile.ps1 names the bundle. Each pack copy must
+        # match the revision its beta-support manifest carries.
+        for pack in ("integration/campaign/setup", "integration/campaign/SEST_Campaign",
+                     "integration/dist/SEST_Integration"):
+            folder = ROOT / pack
+            manifest = json.loads((folder / "beta-support/manifest.json").read_text(encoding="utf-8"))
+            readme = " ".join((folder / "beta-support/README.txt").read_text(encoding="utf-8").split())
+            profile = (folder / "sest-profile.ps1").read_text(encoding="utf-8")
+            with self.subTest(pack=pack):
+                self.assertTrue(manifest["revision"].startswith("R13-"), manifest["revision"])
+                self.assertIn("debrief mission ribbons", manifest["features"])
+                self.assertIn("debrief mission ribbons", readme)
+                self.assertIn("bundled R13 beta features", profile)
+                self.assertNotIn("bundled R12 features", profile)
 
     def test_the_release_notes_name_the_tree_whose_manifest_they_count(self):
         # The toolkit README-FIRST names is built from one branch; the file

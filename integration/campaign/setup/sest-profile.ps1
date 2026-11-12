@@ -63,7 +63,7 @@ if ($build -eq 'stable') {
 } elseif ($build -eq 'beta-current') {
     Say '  [note] game assembly: 499675cd..., reviewed 9 November 2026 for the bundled Workshop feature update.'
     Say '         The Workshop pack targets stable Build 261021; its data loads, while the stable code plugins remain inactive.'
-    Say '         The R12 Workshop item includes World Operations and strike features; SETUP installs the reviewed bundle on this build.'
+    Say '         The R12 Workshop item bundles the R13 beta features (World Operations, strike features and the debrief mission ribbons); SETUP installs them on this build.'
 } elseif ($build -eq 'beta-previous') {
     Say '  [note] older beta assembly: 9b35a7aa..., captured 7 November 2026. R7 targets this image; the stable code plugins remain inactive.'
 } elseif ($hash) {
@@ -107,7 +107,7 @@ if (Test-Path -LiteralPath $log -PathType Leaf) {
             Say ('  [!!]   The code mods did not load at the last launch: BepInEx\LogOutput.log says ' + $why + '.') 'Yellow'
             Say '         Anchor Chain loaded none of its mods, so SEST Runtime Fixes, the combat costs and every other Anchor Chain mod were off.' 'Yellow'
             if ($build -eq 'beta') { Say '         This is known on the public beta (Build 261026); the campaigns and data still play. It needs no action from you.' 'Yellow' }
-            elseif ($build -eq 'beta-current') { Say '         This can occur with the stock beta preloader. This SETUP installs the bundled R12 features for the reviewed assembly.' 'Yellow' }
+            elseif ($build -eq 'beta-current') { Say '         This can occur with the stock beta preloader. This SETUP installs the bundled R13 beta features for the reviewed assembly.' 'Yellow' }
             elseif ($build -eq 'beta-previous') { Say '         This is the older 7 November beta image; use its matching R7 candidate for code testing.' 'Yellow' }
             else { Say '         Start the game once more and run SETUP again; if this is still here, reinstall the preloader from Anchor Chain''s Workshop page.' 'Yellow' }
         }

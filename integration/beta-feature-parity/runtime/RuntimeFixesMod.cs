@@ -6,7 +6,7 @@ using AnchorChain;
 
 namespace Sest.RuntimeFixes;
 
-[ACPlugin("io.github.sest-hobby.runtime-fixes", "SEST Runtime Fixes Beta", "1.6.4", null, null)]
+[ACPlugin("io.github.sest-hobby.runtime-fixes", "SEST Runtime Fixes Beta", "1.6.5", null, null)]
 public sealed class RuntimeFixesMod : IAnchorChainMod
 {
 	public void TriggerEntryPoint()
@@ -120,6 +120,19 @@ public sealed class RuntimeFixesMod : IAnchorChainMod
 				catch (Exception error6)
 				{
 					Api.LogFailure("combat cost inventory capture not installed", error6);
+				}
+			}
+			// Beta only, default on: MissionAwards=0 in [Runtime] turns the
+			// runtime mission ribbons off; native awards are unaffected.
+			if (Policy.TextOption(lines, "MissionAwards", "1") == "1")
+			{
+				try
+				{
+					MissionAwards.Install(assembly);
+				}
+				catch (Exception error11)
+				{
+					Api.LogFailure("runtime mission awards not installed", error11);
 				}
 			}
 			if (!Policy.OptionEnabled(lines, "CumulativeCombatCosts"))
