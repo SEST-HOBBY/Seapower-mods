@@ -205,7 +205,7 @@ Name=SEST Name Fixes
 Description=Corrects unit and squadron display names one key at a time: typos (Rocketeers, Desert, David's Sling), the Anzac's short name, full-width brackets and commas the game's font cannot show, and Russian names written in Cyrillic in English text (transliterated).
 
 [Compatibility]
-ApproximateVersion=0.8.7
+ApproximateVersion=0.9.0
 """
 
 

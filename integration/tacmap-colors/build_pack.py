@@ -91,7 +91,7 @@ Name=SEST TacMap Colors
 Description={desc}
 
 [Compatibility]
-ApproximateVersion=0.8.7
+ApproximateVersion=0.9.0
 """
 
 
