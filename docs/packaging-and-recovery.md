@@ -388,8 +388,10 @@ in `docs/campaigns/southern-watch/publishing.md`; the listing text is in
 A game update moves the one thing every pack and mission here is built on
 and nobody exports on purpose: the game's own files. Three things in this
 repo track them. `mods-source/_vanilla/original` is the vanilla export: since
-22 Oct 2026 (1bda58a6) 4,049 text files under 0.8.7 Build 261021 of 21 Oct
-2026, and before it 0.8.6 Build 261014 (729c5e97, 15 Oct) and 0.8.5 Build
+12 Nov 2026 (3a2c26944) 4,505 text files under 0.9.0 Build 261111 of 11 Nov
+2026 (*The 0.9.0 run* below; the pack is 4,592 files on it); before it, from
+22 Oct 2026 (1bda58a6), 4,049 text files under 0.8.7 Build 261021 of 21 Oct
+2026, and before that 0.8.6 Build 261014 (729c5e97, 15 Oct) and 0.8.5 Build
 261008 (7739076c, 11 Oct), none of whose drift needed a SEST change beyond
 the version bump (`docs/workshop-refresh-20261022-review.md`; on 0.8.7 SEST's
 runtime plugin, matched to one game build, switched itself off until the
@@ -469,10 +471,12 @@ lines it prints are the new changelog head, whose `dd-Mon-yyyy: X.Y.Z Build
 record. Report both. If a campaign is under way, add `-IncludeSaves` to the
 capture line before running it; the save paragraph below says why.
 
-**When the PC is on Steam's public beta.** The pack targets the stable
-game, 0.8.7 Build 261021, until the beta becomes the release on 11 Nov
-2026, and `mods-source/_vanilla` must keep holding that build: the builders
-fork it and the gates compare against it. An export with `-IncludeVanilla`
+**When the PC is on a Steam beta.** `mods-source/_vanilla` holds the
+released game the pack is built for, and must keep holding it while a beta
+is installed: the builders fork it and the gates compare against it. (From
+28 Oct to 11 Nov 2026 that was 0.8.7 Build 261021 beside the betas 261026
+to 261107; the beta became the release, 0.9.0 Build 261111, on 11 Nov, and
+the export of 12 Nov is that release.) An export with `-IncludeVanilla`
 on a beta PC writes the beta's files over it, which is what the 28 Oct 2026
 capture did (1,031 changed files, one added file and `changelog.txt`, put
 back by 9b382fd8). The
@@ -501,6 +505,8 @@ have it, as 9b382fd8 kept it; put any other one back with
 `git checkout -- <path>`. A beta export
 belongs to the beta work (the 28 Oct one is on the owner's
 `chore/workshop-refresh-20261028` at `f590fb8c`), never in `_vanilla`.
+The build names in that paragraph are of that time: since 0.9.0 the head of
+`changelog.live.txt` reads `0.9.0 Build 261111 Public Release`.
 
 **What the export cannot tell you: files the game removed.** The per-mod
 export mirrors deletions; the vanilla export does not.
@@ -760,7 +766,8 @@ ZIP too when the review needs the files without the branch.
    python3 tools/generate_load_order.py      # docs/load-order-full.md
    python3 tools/generate_catalog.py         # docs/mod-catalog.md
    python3 tools/fingerprint_mods.py         # data/mod-fingerprints.json, the -CheckUpdates baseline
-   find integration/dist/SEST_Integration -type f | wc -l   # the installed file count: 1266 on 4 Oct 2026
+   find integration/dist/SEST_Integration -type f | wc -l   # the installed file count: 1266 on 4 Oct 2026, 4,592 on 13 Nov
+   python3 tools/refresh_upload_manifest.py  # docs/releases/20261107/upload-manifest.json: the PC refuses an upload that differs from it
    ```
 
    By hand: the install guide's count, if it moved - the `IN LINE: all N
@@ -854,6 +861,102 @@ a mod that takes up a game feature itself retires the SEST stand-in, and the
 guards are what make that a build stop rather than a doubled block. The game
 was 0.8.4 Build 261002 by then (2 Oct, two fixes), caught by
 `check_game_version` on the export and bumped.
+
+### The 0.9.0 run, 13 November 2026
+
+The game went to 0.9.0 Build 261111 on 11 Nov. The PC's export came on a
+branch of its own (`chore/vanilla-export-090-pc`, `8f3e4bc6`), cut from the
+deploy branch, so its paths were taken in on top of the combined release
+(`3a2c26944`) rather than merged: 4,505 text files under
+`_vanilla/original` (4,049 before), 456 added, 1,113 changed. Steps 2 to 8
+followed on `claude/continue-previous-session-39wqwq`.
+
+The difference from 0.8.3 is the lesson. Then, five builders stopped where
+their own checks said. This time **no builder stopped**, the drift tool
+passed, and 13 of the 14 checks were green on the first rebuild; the one
+red check was the Workshop ranges no bump can fix (Coordinated Strike Tool
+and Dynamic Campaign Mod both end below 0.9.0). The builders' guards catch
+a donor that changes shape. They do not catch a game value that moves under
+somebody's old copy, or a key the game adds to its own files and nobody
+else's. Everything below was found by reading the game's diff against what
+depends on it, by eight read-only investigations run side by side:
+
+- **A stale whole-file copy, in another file.** The 0.8.3 run ended with
+  "when the drift tool reports a MERGED change in `systems/weapons.ini`,
+  look at who else defines the section". 0.9.0 did the same thing in
+  `systems/combatsystems.ini`: two mods ship the game's whole file, their
+  copies were the game's text until this update, and the ten profiles
+  0.9.0 changed would have stayed at the old values. Collection Fixes
+  restores them (`STALE_COMBAT_COPIES`), and one sensor section the same
+  way. The check to repeat is not per file: for every `systems/` file the
+  update changed, compare each mod's copy of a changed section with the
+  game's text at the *previous* export. A copy equal to the old text was
+  harmless yesterday and is a mask today.
+- **Typed-in figures set against the game's own.** The eleven retuned mod
+  CIWS are numbers written on 3 Oct beside the game's guns of that day;
+  0.9.0 rebalanced the game's guns and nothing compared the two. They are
+  deliberately not moved (Southern Watch build notes, *Sea Power 0.9.0*),
+  but the build now prints the difference every time
+  (`ciws_ladder_notice`). A table that says "vanilla's figures" should read
+  them at build time or check them.
+- **New game files under a mod's path.** Thirteen of the 103 new unit and
+  round files have a path a subscribed mod already ships, so the mod's
+  file loads. The drift report now marks them OUTRANKED.
+- **Keys the game added to its own campaigns.** The campaign builder passed
+  because nothing it writes was removed. Reading the stock campaigns' diff
+  found four keys worth writing as the game writes them (the map UI, the
+  single task force, the staging airfield, the Campaign Mission flag) and
+  the game's new Royal Navy insignia.
+- **A directive the game had not used before.** Three new stock units are
+  `#!copy` files with no `[General]` of their own; the cost inventory
+  passed over such files, as it had over nine mod units since October. It
+  reads the directive now. The world campaign's roster reader still does
+  not, so the three are not on its buy list.
+- **Prices by the wrong model.** New ships named like nothing the cost
+  rules knew were priced as merchant hulls or generic destroyers; 60
+  reviewed comparators and five rule fixes followed.
+- **Texts.** SETUP told every 0.9.0 player the game was "not recognised";
+  the shipped notes, the Steam texts and four Steam cards called 0.8.7 the
+  current game. The world campaign's read-me had said 1,586 buy entries
+  through two rebuilds that moved the number, and now takes it from the
+  build.
+
+What could not be done here, and waits for the PC:
+
+- **SEST's code.** Every SEST plugin is matched to a game file by SHA-256
+  and none is matched to 0.9.0, whose `Seapower-Scripts.dll` hash is in no
+  file in this repository. On the PC's one captured 0.9.0 launch nothing of
+  SEST's loaded. The way back starts with `tools\capture-beta-references.ps1`
+  on the 0.9.0 PC (it refuses only the old 0.8.7 release's file and a
+  running game, and changes nothing).
+- **The PC toolkit.** `Prepare-PC.cmd` of `docs/releases/20261107` imports
+  the release and then stops, at the latest inside the beta repair, whose
+  reference check starts with the game file it was built for, so it never
+  reaches the data install or the VERIFIED line; `Repair-PC.cmd` stops the
+  same way after renaming `enable.flag`. A data release for 0.9.0 needs a
+  toolkit path that does not go through the beta repair.
+- **Whether the game applies a Workshop mod's `#!extend` files on 0.9.0.**
+  On the 0.8.7 betas it did not while Anchor Chain's preloader was
+  installed, unless SEST's Runtime repaired the scan; that Runtime does not
+  load on 0.9.0. One Mission Editor look settles it (Southern Watch card,
+  RU.2).
+- **Files the game dropped.** The export overlays and deletes nothing, so
+  the block under *What the export cannot tell you* still has to be run on
+  the PC for 0.9.0. The changelog says scenarios were removed; the export
+  shows none gone.
+
+Two tools came out of it. `tools/refresh_upload_manifest.py` writes the
+release's upload manifest from the built pack, which until now no script in
+the repository did, and a test holds the committed manifest to the built
+pack. `tools/preflight.py` no longer reads a zone's `Type=Deployment` as a
+unit, so the single-mission check works on campaign missions.
+
+The pack after the run: 4,592 files (4,583 on the 12 Nov capture), 243 of
+them `#!extend` or `#!prepend` files; 1,633 entries on the world campaign's
+buy list (1,593); 4,547 cost rows (4,448). Thirteen of the 14 checks pass,
+and `check_game_version` is red on the two Workshop ranges and on nothing
+else. A second `build_all.py --from-scratch` left the tree clean. None of
+it has been run in the game.
 
 ### What the update does to a Task Force Mode save
 

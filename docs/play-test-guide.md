@@ -24,7 +24,12 @@ below.
    and find the `[SEST Runtime]` lines. Lines containing
    `correction installed` (the Tomahawk MST terrain clearance, the
    task-force debrief's lost-ship rows and the towed-sonar guard) mean SEST
-   Runtime Fixes 1.5.0 is on: on Sea Power 0.8.7 that is expected. `inactive:
+   Runtime Fixes 1.5.0 is on: on Sea Power 0.8.7 Build 261021 that is
+   expected. On Sea Power 0.9.0 expect no `[SEST Runtime]` line at all: SEST's
+   code is not matched to it yet, and in the 12 Nov 2026 capture
+   `BepInEx\LogOutput.log` has the Anchor Chain preloader's `Could not find
+   AnchorChain chainloader` and no SEST line in either log, so every SEST
+   correction is off and the game's own behaviour applies. `inactive:
    uninspected native assembly` means the game has updated past the build
    SEST checked, and all of them are off: the game's own behaviour applies,
    so do not report the MST over mountains or the debrief as SEST faults

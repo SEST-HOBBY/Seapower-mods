@@ -1,7 +1,110 @@
 SEST R12 FINAL + NATIONS + RED LINE 3-4 + RUSSIA + MAKRAN + R13: PC ACCEPTANCE
-11 November 2026 | SEST-DEV
-Beta 0.8.7-261107: Runtime 1.6.5 / UI 1.4.15 (R13)
-Standard 0.8.7-261021: Runtime 1.5.0 / UI 1.4.6 (unchanged)
+13 November 2026 | SEST-DEV
+Game: Sea Power 0.9.0 Build 261111 (released 11 November 2026)
+Pack data: rebuilt on the game's 0.9.0 files; every pack declares 0.9.0
+SEST code: matched to 0.8.7-261107 (Runtime 1.6.5 / UI 1.4.15, R13) and to
+0.8.7-261021 (Runtime 1.5.0 / UI 1.4.6) only; on 0.9.0 it does not load
+
+SEA POWER 0.9.0: READ THIS BEFORE ANYTHING BELOW
+This release was put together for the 0.8.7-261107 beta. The game then
+became 0.9.0, and your PC is on it (12 November capture). On 13 November
+the pack's data was rebuilt for 0.9.0, on branch
+claude/continue-previous-session-39wqwq, which sits on top of
+release/r13-combined-20261112. Nothing built for 0.9.0 has been run in the
+game: it cannot be run where the pack is built. What that means for you:
+
+- DO NOT RUN Prepare-PC.cmd or Repair-PC.cmd from this toolkit while the
+  game is 0.9.0. Prepare-PC imports the release and then stops, at the
+  latest inside the beta repair, whose first check is the game file it was
+  built for; the data is not installed and the VERIFIED line of step 1 is
+  never printed. Repair-PC stops the same way after renaming the beta
+  loader's enable.flag (harmless: that loader is inactive on 0.9.0 anyway).
+  Upload-PC and Finish-Upload then refuse for want of their receipts.
+  Steps 1 and 6 to 9 below therefore wait for a toolkit made for 0.9.0.
+- SEST's code is off on 0.9.0. Each SEST plugin checks the game's
+  Seapower-Scripts.dll by SHA-256 and none is matched to 0.9.0. In your 12
+  November capture BepInEx\LogOutput.log has "Could not find AnchorChain
+  chainloader" and "Beta safe loader INACTIVE: uninspected game/preloader
+  build", and Player.log has no SEST line. So World Operations and its
+  awards, the F11 cost totals and campaign costs, the Red Line runtime
+  ribbons and the runtime corrections are off until the code is matched to
+  0.9.0. The campaigns and data files do not depend on that code.
+- Dynamic Campaign Mod and Coordinated Strike Tool declare game versions
+  that end below 0.9.0, so the Mod Manager lists them as not compatible
+  and SETUP leaves them alone; Global Maritime Operations 2028 needs
+  Dynamic Campaign Mod. Only their authors can change that. Whether either
+  runs on 0.9.0 is not on file.
+
+WHAT TO DO ON THE PC NOW (game closed; these install and change nothing)
+A. Start Sea Power 0.9.0 once to the main menu and quit, so the logs are
+   from a launch after Steam finished the 12 November Workshop downloads
+   (Anchor Chain itself updated that day, after your capture's launch).
+B. In the repository clone run
+     powershell -NoProfile -ExecutionPolicy Bypass -File tools\capture-beta-references.ps1
+   It reads the game, BepInEx and the Workshop folders and writes
+   SEST-Beta-References-<date>-<6 hex>.zip to Downloads. It refuses only the
+   old 0.8.7 release's game file and a running game. That ZIP is what
+   matching SEST's code to 0.9.0 starts from: the hash of 0.9.0's
+   Seapower-Scripts.dll is in no file SEST has.
+C. One look in the Mission Editor (Southern Watch test card, RU.2): Russian
+   Navy 21's Admiral Gorshkov should show Russian Federation and the game's
+   own Sovremenny the USSR. On the 0.8.7 betas the game ignored every
+   Workshop mod's #!extend file while Anchor Chain's preloader was
+   installed, unless SEST's Runtime repaired it, and that Runtime does not
+   load on 0.9.0. If the Gorshkov shows the USSR, the pack's 243 #!extend
+   and #!prepend files (the cost catalogs, Cross-Deck, the combat-system
+   and Russian stubs) are not applied on 0.9.0: stop and report that before
+   judging anything else. If you can, look once more with
+   AnchorChain.Preloader.dll moved out of BepInEx\plugins, which separates
+   the two causes.
+D. The block under "What the export cannot tell you" in
+   docs/packaging-and-recovery.md lists game files 0.9.0 dropped; the export
+   cannot show them.
+
+WHAT CAN BE CHECKED ON 0.9.0 WITHOUT SEST'S CODE (step 3 below, in part)
+The commander nations, ranks, emblems and name pools; prices and the
+same-nation discount; the native awards and their citation dates; the two
+hold clocks; Red Line's P1 to P9 and R6's "neither ribbon is granted";
+Makran Line's four missions. They use campaign data and the game's own
+triggers only. The pack must first be on the PC, which this toolkit cannot
+do on 0.9.0 (above), so these wait for the 0.9.0 toolkit too.
+New for 0.9.0, to look at in the same pass: the British commander's rank
+insignia from Lieutenant up (the game's own images, new in 0.9.0); that
+Prepare Airbase opens in one mission with one player airfield and in
+Southern Watch 10 Common Sea, which has two (Darwin should be the host);
+that a mission of each campaign starts from the campaign map with the
+bought task force; and the F10 panel's new commander and awards tab with a
+Chinese or Pakistani commander, whose ranks name no image. Two looks the
+files ask for (Southern Watch build notes, "Ammunition and unit files"):
+after a Harpoon salvo, read the weapon report for launch failures, which
+0.9.0 lists; and ready the Rafale M of dispatch D3 The Relief Ship with its
+anti-ship fit, to see that the carrier arms the Exocet, which 0.9.0 gave a
+supply category no deck in the pack stocks.
+What needs SEST's code and so waits for it to be matched to 0.9.0: steps 2,
+4 (the brief, the Combat Costs sidebar, the F11 totals, Pop-Out) and 5, the
+Red Line checks R1 to R4, and RU.1.
+
+DECISIONS WAITING FOR YOU (docs/campaigns/southern-watch/build-notes.md,
+"Sea Power 0.9.0", has each with its figures)
+1. CIWS. 0.9.0 rebalanced the game's own guns (Phalanx Block 0 anchor 40 to
+   65, Block 1 50 to 70, AK-630 20 to 40; volleys cut, cooldowns raised).
+   The eleven mod CIWS SEST retuned on 3 October are still on the old
+   ladder, as is every other mod's. Move ours now, or wait for the authors?
+2. Sensors. The deprecated E-7A Wedgetail mod carries an old copy of the
+   game's whole sensors file and is the winning definition of 220 of the
+   game's sensors (the lookout, SPS-49, SPG-62, SQS-53 among them). This is
+   older than 0.9.0. Restore the game's sections, as SEST already does for
+   weapons? It would change detection in every mission.
+3. The Royal Navy mod. 0.9.0's own Hermes, Leanders, Rothesay, Lynx HAS.2,
+   Nimrods, Sea Dart and Sea Wolf have the ids of units and rounds mods
+   already ship, and the mods' files load. The game's South Atlantic
+   campaigns then fly the mods' versions. Keep, or restore the game's?
+4. Whether to post a data-only 0.9.0 update before the code is matched. The
+   live item (26 October upload) declares 0.8.7 and its LOAD-ORDER names
+   three mods their author has since removed from the Workshop.
+
+The rest of this file is the acceptance plan as written for 0.8.7-261107,
+corrected where 0.9.0 or the rebuild made a statement untrue.
 
 This is R12 Final (merged as PR #58) together with the commander nations and
 national awards (merged as PR #59), the combined release notes (merged as PR
@@ -11,8 +114,8 @@ ribbons (merged as PR #62), the beta runtime R13 that grants them (on
 release/r13-20261111), step 5's Russian Federation registration of the modern
 Russian ships and aircraft (on feature/russia-registration-20261111, in
 review) and step 5's Makran Line campaign (on feature/makran-line-20261111,
-not pushed, built on the Russian registration), checked once on the PC and
-posted as one update. RIBBONS.txt has every award mapping.
+built on the Russian registration), checked once on the PC and posted as one
+update. RIBBONS.txt has every award mapping.
 R12-RIBBON-EXPANSION.txt describes R12 Final before the commander nations: use
 it only for the R12 review findings fixed and the minor ones still open, and
 this file and RIBBONS.txt for the award counts, nations and PC steps. The
@@ -53,8 +156,10 @@ WHAT IS NEW SINCE THE R12 RIBBON TEST BUILD
   receives the host nation's unit award. Every native campaign citation
   carries its granting mission's date and two plain sentences; the world
   awards' citations state their criteria and are undated. The nation filter on
-  the native awards is read from the beta's code; on standard 0.8.7-261021 it
-  has not been checked. The Korean strips carry the taegeuk and the German
+  the native awards was read from the code of game build 0.8.7-261107, and
+  0.9.0's own campaigns now write it the same way (ribbon_id,NATION); it has
+  not been seen on 0.9.0, which adds a commander and awards tab to the F10
+  panel. The Korean strips carry the taegeuk and the German
   Cross of Honour its gold cross.
 - Red Line: the six combat briefings (RL01, RL02, RL03, RL04, RL06 and
   RLO2) and RLC1's give the terms their victory checks test (distance,
@@ -76,14 +181,16 @@ WHAT IS NEW SINCE THE R12 RIBBON TEST BUILD
 - Red Line runtime ribbons (step 4, campaign side, merged as PR #62): RL05
   Silent Passage and RLC1 Personnel Recovery are defined in the Red Line
   campaign and keyed for the beta runtime R13 (Runtime 1.6.5), which this
-  update ships: on the beta, once SETUP has installed R13, it grants each at
-  the debrief when its terms are met. The game, R12 (Runtime 1.6.4) and the
-  standard build ignore the key; neither ribbon is counted in the 75 above.
+  update ships and SETUP installs on game build 0.8.7-261107 only: there it
+  grants each at the debrief when its terms are met. The game itself, on
+  0.8.7 or 0.9.0, ignores the key, as R12 (Runtime 1.6.4) does; neither
+  ribbon is counted in the 75 above.
   Each debrief logs two Player.log lines per runtime ribbon: the first is the
   verdict; the second says "already awarded" or repeats it, as Red Line's
   campaign.ini is its own [File] Base and is read twice. The developer ribbon
   menu offers neither (the Red Line test card's R5 and R6; R1 to R4 need R13,
-  which SETUP now installs, and RIBBONS.txt says what each needs).
+  which SETUP installs on 0.8.7-261107 only, and RIBBONS.txt says what each
+  needs).
 - Russian Federation (step 5, on feature/russia-registration-20261111, in
   review): SEST Collection Fixes registers to the game's Russia nation,
   which it names Russian Federation, instead of the USSR: 16 post-1991,
@@ -112,7 +219,7 @@ WHAT IS NEW SINCE THE R12 RIBBON TEST BUILD
   has used an #!extend on a variants or squadrons file before, so it is
   checked once in step 3; no campaign offers a Russian commander, so the
   discount is not.
-- Makran Line (step 5, on feature/makran-line-20261111, not pushed): a
+- Makran Line (step 5, on feature/makran-line-20261111): a
   fifth authored campaign, four Pakistan Navy missions in the North
   Arabian Sea, 24 October to 14 November 2028, inside Southern Watch's six
   weeks. The opponent is the fictional Meridian network alone, in armed
@@ -139,8 +246,9 @@ WHAT IS NEW SINCE THE R12 RIBBON TEST BUILD
   accepted alongside 1.1.3 after a method-by-method IL comparison, so the
   Contacts fix, Formation UI mode and camera compass stay on with it. The
   formation pop-out bridge now recognises the inspected Group Manager.
-- SETUP: the beta feature step runs only on the supported beta. On any other
-  build it restores the normal Workshop plugins and continues, and problems
+- SETUP: the beta feature step runs only on game build 0.8.7-261107. On any
+  other build, 0.9.0 included, it restores the normal Workshop plugins and
+  continues, and problems
   are warnings, not errors. Three launchers sit beside SETUP:
   "SEST beta features - turn off.cmd", "- turn on.cmd" and "- remove.cmd".
   Turning off writes %LOCALAPPDATA%\SEST\BetaCompatibility\features-off.json,
@@ -152,16 +260,33 @@ WHAT IS NEW SINCE THE R12 RIBBON TEST BUILD
   Raider); the PLAAF Aircraft Pack flies Southern Watch's J-11BG and
   J-8Fs. Collection Fixes defines the KQT-8 MAD of the PLAN Pack's Y-8FQ
   and Y-9FQ and the ZDK-03's RWR, and restores the game's R-27T/ER/ET.
-  The capture's game is 0.9.0 Build 261111 (buildid 26599367); this
-  update still targets 0.8.7, and the Anchorchain Expansion now declares
-  0.9.0 to 0.10.0 only (validation.json).
+  The capture's game is 0.9.0 Build 261111 (buildid 26599367), and the
+  Anchorchain Expansion now declares 0.9.0 to 0.10.0 only (validation.json).
+- Sea Power 0.9.0 (13 Nov 2026): the game's 0.9.0 files are taken in and
+  all 25 packs are rebuilt on them and declare 0.9.0 (4,592 files in the
+  upload; 243 #!extend and #!prepend files; 1,633 recruitment entries in
+  the world campaign). Found by reading the update against the pack, and
+  changed: the game's ten changed combat-system profiles, its Western MAD
+  and its mini-map settings are restored over mods' stale copies; the
+  campaign files write the keys 0.9.0 added to its own campaigns (the map
+  UI, the single task force, the staging airfield of the 42 missions that
+  offer Prepare Airbase, the Campaign Mission flag); the British
+  commander's ranks from Lieutenant up name the game's new Royal Navy
+  insignia; 56 reviewed cost entries price 0.9.0's ships, aircraft and
+  rounds by class, and the cost list now covers units defined by #!copy,
+  which the game's own files use for the first time; SETUP's step 1 no
+  longer tells a 0.9.0 player the game is "not recognised". SEST Cross-Deck
+  extends six of the game's new Royal Navy hulls (Sheffield in three fits,
+  the Amazon, Broadsword and Leander classes). Not changed, and waiting for
+  you: the four decisions listed at the top.
 
 PREPARE AND CHECK
 1. Close Sea Power. Keep SEST and the collection subscribed. Extract this
    COMPLETE toolkit into a NEW folder and run Prepare-PC.cmd. Keep the
    printed release checkout, the backup path and the line "VERIFIED: all
-   4583 canonical upload files match the release manifest." Upload-PC.cmd
-   prints the folder to upload (step 6).
+   4592 canonical upload files match the release manifest." Upload-PC.cmd
+   prints the folder to upload (step 6). (On 0.9.0 this step does not
+   complete: see the top of this file.)
    Prepare-PC installs both code and campaign/loadout data; Repair-PC alone
    only repairs code. The author-update guard and original restore journal
    remain in place. Steam branch, subscriptions and saves are unchanged.
@@ -175,8 +300,9 @@ PREPARE AND CHECK
    001; a new world shows DCM's report with the SEST brief first.
 3. Start a new Southern Watch or Southern Reach campaign. The Service Record
    offers the fourteen nations; Australia is the default. Compare one Anzac
-   and one Burke price as an Australian and as a US commander. Check the
-   British commander's empty rank insignia and the White Ensign emblem. Pick
+   and one Burke price as an Australian and as a US commander. Check that
+   the British commander's ranks from Lieutenant up show the game's Royal
+   Navy insignia (new in 0.9.0) and the White Ensign emblem. Pick
    New Zealand and South Korea, and Thailand in Sulu Line: each shows its
    default name (Rawiri Tipene, Seongjin Han, Suphachai Kaeokham) and its
    emblem. Press the random-name button several times: the name should change
@@ -212,11 +338,14 @@ PREPARE AND CHECK
    Pacific Strike's 02 Action in the Taiwan Strait still generates its
    Soviet force (the release checkout's
    docs/campaigns/southern-watch/test-card.md, 6K, rows RU.1 to RU.8). On
-   the beta the stubs, like every #!extend file in the pack, apply only
+   0.8.7-261107 the stubs, like every #!extend file in the pack, apply only
    where SEST's beta Runtime repairs the game's modifier scan
    (ModifierRegistry, not turned off), so not with the beta features off
    (step 5): first read Player.log's "[SEST Runtime] modifier files" line,
-   which should count 236 files from this pack (RU.1). Makran Line: start
+   which should count 243 files from this pack (RU.1). On 0.9.0 that
+   Runtime does not load and no such line is written; whether 0.9.0 applies
+   the stubs unaided is what RU.2 shows (check C at the top). Makran Line:
+   start
    a new campaign; the Service Record offers Pakistan only, as a Commodore,
    with the flag of Pakistan as emblem. Buy a Tughril, PNS Alamgir and the
    Z-9CE, and assign the Z-9CE to both decks; play The Fuel Road and note
@@ -234,7 +363,7 @@ PREPARE AND CHECK
    loadouts were data-tested; the selector still awaits an owner PC check.
    With Pop-Out 1.2.0 installed, check that its windows open.
 5. Quit. Run "SEST beta features - turn off.cmd", start the game once and
-   confirm it starts with the beta features off. On the beta, Workshop code
+   confirm it starts with the beta features off. On 0.8.7-261107, Workshop code
    mods load only through SEST's beta loader, so SEST's plugins, Dynamic
    Campaign Mod and the other code mods should not load then; data mods and
    the Task Force campaigns should. Quit and run
@@ -258,7 +387,7 @@ POST AFTER THE PC CHECKS
 
 RETAINED FEATURES
 - Global Maritime Operations 2028, the one world in the campaign menu since
-  R11: 196 bases, 293 force groups, 54 patrols and 1,586 recruitment entries;
+  R11: 196 bases, 293 force groups, 54 patrols and 1,633 recruitment entries;
   40 added airfields and 37 reviewed positions. The original World Sandbox
   stays under legacy_campaigns/ for tools\select-legacy-world.ps1 (see
   WORLD-CAMPAIGN-READ-ME.txt).
@@ -283,9 +412,11 @@ commander nations and Red Line steps 3 and 4 are merged on dev (PRs #58 to
 #65, with the Steam images for R12 and the world campaign). This release
 combines three branches on release/r13-combined-20261112: step 5's Russian
 Federation registration (feature/russia-registration-20261111, in review),
-step 5's Makran Line (feature/makran-line-20261111, not pushed), which builds
-on it, and R13 (release/r13-20261111: dev at a0721c18 with the R13 runtime
-merged as 00bca642 and packaged). None of the three is on dev or beta yet.
+step 5's Makran Line (feature/makran-line-20261111), which builds on it, and
+R13 (release/r13-20261111: dev at a0721c18 with the R13 runtime merged as
+00bca642 and packaged). None of the three is on dev or beta yet. The 0.9.0
+rebuild of 13 November is on claude/continue-previous-session-39wqwq, on top
+of the combined branch, and is on neither.
 This toolkit's branch, beta, is the branch the PC installs, tests and posts
 from (docs/BRANCHES.md) and the one its SOURCE-RECEIPT.json names: once this
 release is merged into dev and dev into beta, beta carries dev, and the

@@ -16,15 +16,17 @@ pack's dependencies above it, the answer is no (that would undo every fix in it)
 run again puts the order back. Every upload is an update to the same item;
 `docs/campaigns/southern-watch/publishing.md` is the procedure.
 
-SETUP also names the game build it finds, by the hash of the game's
-`Seapower-Scripts.dll` (the stable Build 261021 and the public beta Build
-261026 both call themselves 0.8.7), and warns when the game's last launch
-loaded no code mod. The pack targets Build 261021 until the game's 11 Nov 2026
-release. SEST's code (Runtime 1.5.0 and UI Follow-up 1.4.2 in `plugins/`) runs
-there and switches itself off on any other build; on the public beta no mod's
-code loads at all, because the Workshop Anchor Chain preloader finds no
-chainloader there. A bounded Anchor Chain fork and an inert beta bootstrap are
-source-only test candidates in `integration/beta-anchorchain/`, not shipped.
+The pack's data is built for Sea Power 0.9.0 Build 261111, the release of 11
+Nov 2026: every pack declares 0.9.0 since 13 Nov 2026 (`docs/packaging-and-recovery.md`,
+*The 0.9.0 run*). SEST's code is a separate matter. Each plugin is matched to
+one game file by the SHA-256 of `Seapower-Scripts.dll` and switches itself off
+on any other: Runtime 1.5.0 and UI Follow-up in `plugins/` are matched to 0.8.7
+Build 261021, and the bundled beta features (Runtime 1.6.5, R13) to the
+0.8.7-261107 beta. None is matched to 0.9.0 yet, so there the campaigns and data
+load and SEST's code does not; matching it starts from a reference capture on
+the 0.9.0 PC (`tools\capture-beta-references.ps1`). SETUP reports which game file
+it finds, in those words, and warns when the game's last launch loaded no code
+mod.
 The load order names Pop-Out Windows 1.0.2 since the 28 Oct capture, and the
 collection will carry it once the owner adds it. With 1.0.2 the pop-out parts
 of both plugins stay off, since both are pinned to Pop-Out Windows 1.0.1.
@@ -71,7 +73,7 @@ ships, escorts, and the allied aircraft a mission can fly - or in Red Line the P
 901 and 903A supply ships; the windows before it keep the story's own lists. The Open
 Allocation twins that sold each campaign's whole roster from the first window were retired
 from the pack on 21 Oct 2026, the standard campaigns took on what they did, and the
-builder keeps them as an opt-in for a world-wide campaign). Consolidated, they are 4305 files in `integration/dist/SEST_Integration/`.
+builder keeps them as an opt-in for a world-wide campaign). Consolidated, they are 4,592 files in `integration/dist/SEST_Integration/` (13 Nov 2026, on the game's 0.9.0 files); `tools/refresh_upload_manifest.py` lists them in the release's upload manifest.
 `SEST_Zumwalt_CPS` was retired on 20 Sep 2026, when Modern US Navy fixed what it patched. `SEST_Rafale_F5` was retired for one build on
 3 Oct 2026, the Rafale mod it patched having left the collection, and rebuilt the same
 evening on the French Air Force mod, which ships the same Rafales (`docs/packaging-and-recovery.md`).

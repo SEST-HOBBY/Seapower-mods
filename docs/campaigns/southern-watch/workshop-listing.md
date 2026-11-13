@@ -72,13 +72,13 @@ From Weapons Free in Southern Watch and Tasman Crossing in Southern Reach, those
 [list]
 [*][b]Commander nations.[/b] Southern Watch and Southern Reach offer Australia (default), the United States, the United Kingdom, Japan, New Zealand, France, Canada, South Korea, Spain, Italy, Germany, the Netherlands, Norway and Denmark. Sulu Line offers the Philippines (default), Thailand and Australia; Red Line keeps its Chinese command and Makran Line a Pakistan Navy commander. Each nation has its navy's officer ranks, a name pool and an emblem. Choose it in the Service Record when you start a campaign; one already under way keeps its commander.
 [*][b]Purchase discount.[/b] The game's same-nation discount covers classes from the commander's own nation; each campaign's rules page gives the count.
-[*][b]Service Records.[/b] Every commander can earn each campaign's completion and operation ribbons. In Southern Watch and Southern Reach, commanders of every offered nation except Italy, the Netherlands and Norway also earn their own nation's awards at their rank, and the task group the Australian Meritorious Unit Citation; Sulu Line has Philippine awards for a Philippine commander. Makran Line has fictional ribbons only. Citations are dated and name the mission. These are game awards for fictional operations, not real honours; national award rules are verified on beta 0.8.7-261107.
+[*][b]Service Records.[/b] Every commander can earn each campaign's completion and operation ribbons. In Southern Watch and Southern Reach, commanders of every offered nation except Italy, the Netherlands and Norway also earn their own nation's awards at their rank, and the task group the Australian Meritorious Unit Citation; Sulu Line has Philippine awards for a Philippine commander. Makran Line has fictional ribbons only. Citations are dated and name the mission. These are game awards for fictional operations, not real honours; national award rules were read from game build 0.8.7-261107 and are not yet checked on 0.9.0.
 [/list]
 
 [h2]Global Maritime Operations 2028[/h2]
 A single worldwide campaign for [b]Dynamic Campaign Mod[/b]. Command either coalition across the Atlantic, Mediterranean, Indian Ocean and Pacific, moving forces on the strategic map and fighting engagements in Sea Power.
 [list]
-[*][b]196 bases, 293 force groups, 54 patrol routes and 1,586 recruitment entries[/b], including 40 additional real-world airfields.
+[*][b]196 bases, 293 force groups, 54 patrol routes and 1,633 recruitment entries[/b], including 40 additional real-world airfields.
 [*][b]Eight command stages[/b] give earlier milestones and progressive access to recruitment. Accepted Admiralty assignments reward escort, surveillance, area control and multi-phase operations as well as combat.
 [*][b]Operational logistics[/b] use finite fuel and ammunition. Depots produce supplies, convoys deliver them, airlifts move ammunition and replenishment ships sustain forces at sea.
 [*][b]Battle preparation and return[/b] (beta): engagements open with a paused checklist; Esc > End battle... returns through the debrief.
@@ -86,13 +86,13 @@ A single worldwide campaign for [b]Dynamic Campaign Mod[/b]. Command either coal
 [b]Start a new world campaign for the complete revised layout.[/b] Existing saves keep their own world; WORLD-CAMPAIGN-READ-ME.txt explains how to reopen an original World Sandbox save.
 
 [h2]Operations and combat costs[/h2]
-Items marked [b](beta)[/b] need public beta 0.8.7-261107, where SETUP installs SEST Runtime 1.6.5 / UI 1.4.15; the rest also work on standard 0.8.7-261021.
+Items marked [b](beta)[/b] need SEST's code, matched to game build 0.8.7-261107 (Runtime 1.6.5 / UI 1.4.15, installed by SETUP). On Sea Power 0.9.0 SEST's code is off for now: these items and the F11 cost totals wait; the campaigns and data do not.
 [list]
 [*][b]World Operations[/b] (beta): F11 brings together Overview, Forces, Combat Costs and Service, with your next command milestone, recruitment unlocks and Admiralty tasks.
 [*][b]Cumulative Combat Costs[/b] reports recorded weapons expenditure and losses per mission and campaign, through F11 and in the Task Force debrief. [b]Estimated USD costs are separate from campaign credits and physical supplies.[/b]
 [*][b]Service ribbons[/b] (beta): 25 fictional world awards for battles, campaign days, theatres and completed Admiralty tasks, and two Red Line mission ribbons granted at the debrief - Silent Passage for Under the Convergence's passage made without firing, Personnel Recovery for a survivor recovered in Pilot in the Water.
 [*]Coordinated Strike refinements (beta), and Contact Log, Group Manager and camera-compass refinements with Pop-Out Windows 1.2.0.
-[*][b]Russian Federation:[/b] post-1991 Russian-built ships and submarines, the modern refits of Soviet-built ships and post-1991 Russian aircraft types now show the Russian Federation instead of the USSR. Cold War types and fits stay Soviet, so stock missions are unchanged.
+[*][b]Russian Federation:[/b] post-1991 Russian-built ships and submarines, the modern refits of Soviet-built ships and post-1991 Russian aircraft types are now registered to the Russian Federation instead of the USSR. Cold War types and fits stay Soviet, so stock missions are unchanged.
 [/list]
 
 [h2]Installation and updates[/h2]
@@ -100,12 +100,12 @@ Items marked [b](beta)[/b] need public beta 0.8.7-261107, where SETUP installs S
 [olist]
 [*]Subscribe to this pack and use [b]Subscribe to all[/b] on the [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3812390790]SEST - Modernised Campaign Collection[/url].
 [*]In Mod Manager, open this pack's folder. Close Sea Power, then run [b]SETUP - double-click me.cmd[/b]. It checks the required subscriptions, installs the preloader and sets the load order with SEST at the top.
-[*]On the supported beta, a fresh installation needs SETUP, a launch to the main menu for about ten seconds, quitting, then a second SETUP run. To keep the beta features off, run [b]SEST beta features - turn off.cmd[/b] ([b]- turn on.cmd[/b] restores them); on the beta, code mods such as Dynamic Campaign Mod then stay off too.
+[*]On game build 0.8.7-261107, a fresh installation needs SETUP, a launch to the main menu for about ten seconds, quitting, then a second SETUP run. To keep the beta features off, run [b]SEST beta features - turn off.cmd[/b] ([b]- turn on.cmd[/b] restores them); on that build, code mods such as Dynamic Campaign Mod then stay off too.
 [*]After Steam updates this item, close the game and rerun SETUP. If Mod Manager offers to move the dependencies above SEST, keep SEST at the top.
 [/olist]
 
 [h2]Compatibility and scope[/h2]
-Built for Sea Power 0.8.7. SETUP installs the reviewed beta features only on public beta 0.8.7-261107 and keeps the normal plugins on any other build. Newer versions may need another compatibility update.
+Data built for Sea Power 0.9.0. SEST's code is matched to builds 0.8.7-261107 and 0.8.7-261021 only; on 0.9.0 SETUP changes no code and those features wait for a compatibility update. Dynamic Campaign Mod (needed by Global Maritime Operations 2028) and Coordinated Strike Tool declare versions below 0.9.0.
 
 The campaigns are fictional 2028-2029 operations using real and modded equipment. Coalition alignments, deployments and stocks are scenario assumptions, not statements of current national policy or readiness. English language.
 
@@ -113,16 +113,18 @@ The campaigns are fictional 2028-2029 operations using real and modded equipment
 The original Workshop creators supply the units, models and supporting systems this pack integrates; keep their mods subscribed. CREDITS.txt identifies contributions, compatibility work and credited media. Feedback with the mission name, game build and a clear reproduction is welcome.
 ```
 
-## Change log: R13 with Makran Line and the Russian Federation, Nov 2026
+## Change log: R13 on Sea Power 0.9.0, with Makran Line and the Russian Federation, Nov 2026
 
 ```
-SEST R13 - Makran Line, Russian Federation and beta runtime R13
+SEST R13 - Sea Power 0.9.0, Makran Line, Russian Federation and runtime R13
+
+Sea Power 0.9.0: every pack is rebuilt on the game's 0.9.0 files and declares 0.9.0. The game's rebalanced CIWS and its changed combat-system profiles, Western MAD and mini-map settings now reach the units that mods' older copies of those files were holding back. The five campaigns write the settings 0.9.0 added to its own campaigns, a British commander shows the game's new Royal Navy rank insignia, and 0.9.0's new ships, aircraft and rounds are priced in the cost list. SEST's own code (World Operations, the F11 cost totals, the Red Line mission ribbons and the runtime corrections) is not yet matched to 0.9.0 and stays off there; the campaigns and data do not need it. SETUP now says so plainly.
 
 Makran Line (new): a fifth Task Force campaign of four Pakistan Navy missions in the North Arabian Sea, 24 October to 14 November 2028 - The Fuel Road, Gwadar Roads, Hangor and Port Qasim. Keep the tanker road to Karachi open against the fictional Meridian network's armed merchants and trawlers; no Indian or Iranian state unit is placed. The roster is the Pakistani Pack's: Tughril-class frigates, PNS Alamgir (kept for 2028 as a scenario assumption), the Z-9CE, the pack's Sea King, the JF-17 Block II and III and the ZDK-03. The commander is a Pakistan Navy Commodore; the ribbons are fictional (a completion ribbon, Arabian Sea Security and Trailing Operations). With no Pakistani supply ship in the collection, every force allocation rearms.
 
 Russian Federation: SEST Collection Fixes now registers post-1991 Russian-built ships and submarines (the Gorshkov and Grigorovich frigates, the Steregushchiy, Gremyashchiy and Buyan-M corvettes, the Yasen, Belgorod, Borei and Improved Kilo boats and the Akulas and Oscar IIs launched after 1991), the modern refits of Soviet-built ships in their modern fit only (such as the Kuznetsov's 2016 fit and Marshal Ustinov 2016) and post-1991 Russian aircraft types (Su-57, Su-35S, Su-30SM, Su-33, MiG-31BM, MiG-35 and their like) to the Russian Federation. Cold War types and fits stay Soviet, so stock Cold War missions are unchanged. Only each unit's nation is set; no author's file is replaced.
 
-On public beta 0.8.7-261107 only (installed by SETUP; Runtime 1.6.5 / UI 1.4.15): two Red Line mission ribbons are granted at the debrief - Silent Passage for Under the Convergence's passage made with no weapon fired, and Personnel Recovery for a survivor recovered in Pilot in the Water. World Operations records an Admiralty result when Dynamic Campaign Mod files it. SETUP repairs and updates every earlier SEST beta installation.
+On game build 0.8.7-261107 only (installed by SETUP; Runtime 1.6.5 / UI 1.4.15): two Red Line mission ribbons are granted at the debrief - Silent Passage for Under the Convergence's passage made with no weapon fired, and Personnel Recovery for a survivor recovered in Pilot in the Water. World Operations records an Admiralty result when Dynamic Campaign Mod files it. SETUP repairs and updates every earlier SEST beta installation.
 
 Missions: when a mission ends in defeat, a protect objective that the same loss failed now shows Failed and costs its points instead of being cancelled. The required-mods lists in each campaign folder now include the mods those mods need.
 
@@ -495,13 +497,13 @@ The 200 supporting Workshop mods for [url=https://steamcommunity.com/sharedfiles
 [*][b]National command[/b] - Fourteen commander nations in Southern Watch and Southern Reach, three in Sulu Line and a Pakistan Navy commander in Makran Line, each with its navy's ranks, a name pool and an emblem, the game's same-nation discount on that nation's classes and dated service records with national awards for twelve nations.
 [*][b]Supporting tools[/b] - Combat Cost Tracker, Contact Log, Topographic Map, Group Manager, Pop-Out Windows and Coordinated Strike Tool, several with SEST refinements.
 [/list]
-World Operations, the world and Red Line mission ribbons and several interface features need the supported public beta (0.8.7-261107); the integration pack's page lists them.
+World Operations, the world and Red Line mission ribbons and several interface features need SEST's code, which is matched to game build 0.8.7-261107; they are off on Sea Power 0.9.0 until a compatibility update. The integration pack's page lists them.
 
 [h2]Installation[/h2]
 [olist]
 [*]Use [b]Subscribe to all[/b] and let Steam finish downloading. Make sure the SEST Integration Pack is subscribed too.
 [*]In Mod Manager, open the SEST Integration Pack's folder. Close Sea Power and run [b]SETUP - double-click me.cmd[/b] to check subscriptions and set the load order.
-[*]For a fresh installation on the supported beta, launch to the main menu for about ten seconds, quit, then run SETUP again. Existing enabled beta installations update in one run.
+[*]On game build 0.8.7-261107 only: for a fresh installation, launch to the main menu for about ten seconds, quit, then run SETUP again. Existing enabled beta installations update in one run.
 [*]Rerun SETUP after Steam updates the integration pack. Keep SEST above its dependencies in Mod Manager.
 [/olist]
 Start a new world campaign for the complete revised layout and progression; existing saves keep their own world.

@@ -888,3 +888,46 @@ written (RLO1, RLO2 and RL05 here) give the player's ships no `CampaignTag`,
 so the game keeps no loss record for them: by 0.8.7's code a ship sunk there
 is listed without a Lost status (Undamaged), and the correction cannot add
 one either. Not yet seen in game.
+
+## Sea Power 0.9.0 (13 November)
+
+Southern Watch build notes, "Sea Power 0.9.0 (13 November)", has the
+record: the game's 0.9.0 files taken in, every pack rebuilt and declaring
+0.9.0, the game's combat-system profiles and MAD restored over mods' stale
+copies, the CIWS retune left on its 3 October ladder as a decision for the
+owner, and SEST's code off on 0.9.0 until it is matched to it. None of it
+has been seen in the game. For this campaign:
+
+- **`campaign.ini`** says `CampaignMapUI=Standard` and
+  `EnableMultipleTaskForces=False`, as Pacific Strike now does, and the two
+  missions that offer Prepare Airbase (02 and 03) name their one player
+  airfield in `TaskForceModeAirbaseSection`.
+- **Mission files** carry `CampaignMission=True` under `[Mission]`, and
+  `False` in the mission-browser copy. Nothing else in them changed.
+- **The runtime ribbons are off on 0.9.0.** Silent Passage and Personnel
+  Recovery are granted by SEST's runtime R13, which is matched to game
+  build 0.8.7-261107 and does not load on 0.9.0. The game ignores the key,
+  so RL05 still grants Undersea Operations and nothing else changes. The
+  test card's R1 to R4 wait for the code to be matched to 0.9.0.
+- **Scripted shots and formations, which the pacing rests on.** 0.9.0
+  reworked automatic attack waypoints and says aircraft groups with no
+  stated control mode "now default to Follow Leader"; stock formation
+  lines gained a mode field ours do not write. 01 Trailing Contact times
+  two scripted launches (480 and 720 seconds), and 03 The Other Picture
+  switches on two covering fighters with a scripted shot each (600 and 960
+  seconds); the victory and held-stage checks wait on them. They are the
+  first thing to time on the PC (test card, P checks).
+- **Campaign variables.** 02 sets `RL02GolfSunk` and 04 reads it without
+  declaring it, the stock Pacific Strike pattern; 0.9.0 fixed variables
+  "applied to other missions". Sink the Golf in 02 and see that 04's
+  neutral submarine is absent, then the reverse.
+- **The new map.** Positions convert by the arcminute rule this builder
+  uses. Two missions sit above 35 degrees of latitude (05 Under the
+  Convergence at 47.5): if the map measures true distance, east-west
+  spacing there is about a third shorter than authored.
+- **The commander.** The Chinese ladder names no insignia image, as before.
+  0.9.0 adds a commander and awards tab to the F10 panel; how it draws an
+  empty insignia or a ribbon with no description has not been seen.
+- **No unit 0.9.0 added is placed**, sold or generated in this campaign.
+
+Every pack declares 0.9.0.
