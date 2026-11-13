@@ -39,6 +39,10 @@ sys.path.insert(0, str(CAMPAIGN))
 import build_pack as bp                      # noqa: E402
 
 
+CAMPAIGN_FLAG = b"[Mission]\nCampaignMission=True\n"
+BROWSER_FLAG = b"[Mission]\nCampaignMission=False\n"
+
+
 def missions():
     pack = CAMPAIGN / "SEST_Campaign"
     if not pack.is_dir():
@@ -50,8 +54,11 @@ def missions():
                                      "commander_settings.ini")
                    and not f.parent.name.endswith("_briefing"))
     # A campaign mission ships twice - once for the campaign, once for the
-    # mission browser - and the two copies must stay byte-identical, or the
-    # campaign and the browser quietly diverge. The browser folder is the
+    # mission browser - and the two copies must stay the same bytes, or the
+    # campaign and the browser quietly diverge. One line may differ, and
+    # must: Sea Power 0.9.0's Campaign Mission flag, True in the copy under
+    # campaigns/ and False in the browser's, as the game writes its own
+    # (CAMPAIGN_FLAG). The browser folder is the
     # campaign's own rule (Southern Reach files its two chapters apart), so
     # each campaign's spec says where its browser copy is.
     by_name = {}
@@ -69,8 +76,12 @@ def missions():
         twin = pack / "missions" / folder / f.name
         if not twin.exists():
             sys.exit(f"{f.name}: no browser copy under missions/{folder}")
-        if twin.read_bytes() != f.read_bytes():
-            sys.exit(f"{f.name}: the campaign copy and the browser copy differ")
+        ours = f.read_bytes()
+        if ours.count(CAMPAIGN_FLAG) != 1:
+            sys.exit(f"{f.name}: a campaign mission says CampaignMission=True once, under [Mission]")
+        if twin.read_bytes() != ours.replace(CAMPAIGN_FLAG, BROWSER_FLAG):
+            sys.exit(f"{f.name}: the campaign copy and the browser copy differ by more than "
+                     "the CampaignMission line")
     return found
 
 
