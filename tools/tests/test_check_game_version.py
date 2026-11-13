@@ -372,7 +372,7 @@ class GameVersionTests(unittest.TestCase):
                          "the snapshot lags the export)")
 
     def test_snapshot_and_export_on_different_builds_pass_with_an_info_line(self):
-        # The capture PC on the public beta, the export the pack builds from on the stable build.
+        # The capture PC on a beta, the export the pack builds from on the release before it.
         self.write(self.live, CHANGELOG.replace("20-Jul-2026: 0.8.2 Build #358 (23444) Public Release",
                                                 "26-Oct-2026: 0.8.2 Build 261026"))
         self.write(self.root / "mods-source/_vanilla/changelog.txt",
@@ -380,8 +380,8 @@ class GameVersionTests(unittest.TestCase):
                                      "21-Oct-2026: 0.8.2 Build 261021 Public Release"))
         lines, problems, found = audit(self.root, "0.8.2")
         self.assertEqual(problems, [])
-        self.assertIn("INFO: the capture PC runs Build 261026, the public beta; the pack targets Build 261021, "
-                      "the stable build (data/install-snapshot/changelog.live.txt says 0.8.2 Build 261026, "
+        self.assertIn("INFO: the capture PC runs Build 261026, a beta of October 2026; the pack targets Build 261021, "
+                      "the 0.8.7 release (data/install-snapshot/changelog.live.txt says 0.8.2 Build 261026, "
                       "mods-source/_vanilla/changelog.txt, which the build reads, 0.8.2 Build 261021)", lines)
         # A build the tool does not know is named by its number alone; the same build says nothing.
         self.write(self.live, CHANGELOG.replace("0.8.2 Build #358", "0.8.2 Build #359"))

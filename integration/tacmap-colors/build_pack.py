@@ -16,13 +16,16 @@ What CAN be separated is day vs night: the game swaps to the Night* set
 automatically, so black is used by day and white at night by default, which
 keeps the lines readable against both map backgrounds.
 
-The pack ships the whole file, so it also has to carry every key a newer
-game build reads. Sea Power's public beta Build 261026 added 32 tactical
-map keys (28 colours, 4 thicknesses) and logs "UI_Parameters:
-Settings_UI_Tactical.ini has no map setting '<key>'" for each one it cannot
-find in the pack's copy. BETA_KEYS holds them with the beta's own default
-values; the builder appends the ones the stable export lacks to the end of
-their sections. The stable Build 261021 ignores keys it does not know.
+The pack ships the whole file, so it also has to carry every key the game
+reads. It is built from the game's own current file, which is how it follows
+a game update. In October 2026 a beta, Build 261026, read 32 tactical map
+keys (28 colours, 4 thicknesses) that the released game's file did not have
+yet, and logged "UI_Parameters: Settings_UI_Tactical.ini has no map setting
+'<key>'" for each one missing from the pack's copy. BETA_KEYS holds them
+with that beta's default values, and the builder appends any the export
+lacks to the end of their sections. Since Sea Power 0.9.0 (11 Nov 2026) the
+game's file has all 32 itself, so none is appended and the table only
+guards an older export.
 
 Usage (repo root):
     python3 integration/tacmap-colors/build_pack.py                  # black day / white night
@@ -84,7 +87,7 @@ BETA_KEYS = {
         ("WeaponWireThickness", "1"),
     ],
 }
-BETA_NOTE = "#Keys the public beta Build 261026 reads, at the beta's defaults; Build 261021 ignores them"
+BETA_NOTE = "#Keys the beta Build 261026 read before the game's own file had them, at that beta's defaults"
 
 INFO = """[Language_en]
 Name=SEST TacMap Colors
@@ -174,9 +177,12 @@ def main():
               f"fully opaque, at {args.thickness:g}x thickness, with the selected route in red "
               "and formation tethers faded back. Note the game has only ONE waypoint line "
               "colour - air, surface and ground routes cannot be coloured separately through "
-              "data. Carries the 32 map keys the public beta (Build 261026) reads, at the "
-              "beta's defaults, so neither build logs a missing setting. Place ABOVE nothing "
-              "in particular; it only overrides the vanilla UI file.")),
+              "data. " + (
+                  f"Carries {beta_added} map keys a later game build reads, at that build's "
+                  "defaults, so it logs no missing setting. " if beta_added else
+                  "It is the game's current file with those colours changed, so it carries "
+                  "every map key the game reads. ")
+              + "Place ABOVE nothing in particular; it only overrides the vanilla UI file.")),
         encoding="utf-8")
 
     # Sanity: we shipped the whole file, not a fragment (unit inis are

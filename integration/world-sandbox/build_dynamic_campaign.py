@@ -1468,7 +1468,16 @@ def main():
     import shutil
     (PACK / "tools").mkdir(parents=True, exist_ok=True)
     shutil.copyfile(ROOT / "tools/select-legacy-world.ps1", PACK / "tools/select-legacy-world.ps1")
-    shutil.copyfile(Path(__file__).resolve().parent / "WORLD-CAMPAIGN-READ-ME.txt", PACK / "WORLD-CAMPAIGN-READ-ME.txt")
+    # The read-me's four counts are the built campaign's own. Typed in, the
+    # buy entries said 1,586 through two rebuilds that moved them (1,593 on the
+    # 12 Nov capture, 1,633 on the game's 0.9.0 units).
+    readme = (Path(__file__).resolve().parent / "WORLD-CAMPAIGN-READ-ME.txt").read_text(encoding="utf-8")
+    counts = {"bases": len(campaign["bases"]), "forces": len(campaign["forces"]),
+              "patrols": len(campaign["patrols"]), "catalogue": f"{len(campaign['catalogue']):,}"}
+    for name in counts:
+        if readme.count("{" + name + "}") != 1:
+            raise SystemExit(f"WORLD-CAMPAIGN-READ-ME.txt: expected one {{{name}}} placeholder")
+    (PACK / "WORLD-CAMPAIGN-READ-ME.txt").write_text(readme.format(**counts), encoding="utf-8")
     (PACK / "_info.ini").write_text(
         "[Language_en]\n"
         "Name=Global Maritime Operations 2028\n"

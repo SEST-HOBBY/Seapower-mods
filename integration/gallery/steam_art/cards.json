@@ -71,7 +71,7 @@
    }
   ],
   "foot": [
-   "(beta): public beta 0.8.7-261107 only; SETUP installs it there and nowhere else.",
+   "(beta): SEST's code, game build 0.8.7-261107 only; off on Sea Power 0.9.0 for now.",
    "Start a new world campaign for the full map. After updating, run SETUP again."
   ],
   "credit": [
@@ -151,7 +151,7 @@
   ],
   "foot": [
    "Allied fleet of 52 ship classes from Weapons Free and Tasman Crossing.",
-   "Needs the 200 mods in the collection. Built for Sea Power 0.8.7."
+   "Needs the 200 mods in the collection. Built for Sea Power 0.9.0."
   ],
   "credit": [
    "Photo: U.S. Navy, JO2 Patrick Reilly · Public domain · adapted",
@@ -184,7 +184,7 @@
   ],
   "footTop": 930,
   "foot": [
-   "On public beta 0.8.7-261107, a first install is SETUP, ten seconds at the main menu, quit, SETUP again.",
+   "On game build 0.8.7-261107, a first install is SETUP, ten seconds at the main menu, quit, SETUP again.",
    "If the Mod Manager offers to move dependencies above the pack, say no.",
    "Run SETUP again (game closed) after the pack or a mod updates."
   ],
@@ -282,7 +282,7 @@
   "subtitle": "Operations 2028",
   "meta": "Two coalitions  ·  from October 2028",
   "desc": "Command either coalition across the Atlantic, Mediterranean, Indian Ocean and Pacific. Fuel and ammunition are physical: guard the convoys.",
-  "counts": "196 bases, 293 force groups, 54 patrols;\n8 command stages, 1,586 recruitment entries.",
+  "counts": "196 bases, 293 force groups, 54 patrols;\n8 command stages, 1,633 recruitment entries.",
   "mapLabel": "EVERY BASE, BOTH COALITIONS",
   "map": "world-map.png",
   "note": "Needs Dynamic Campaign Mod, in the collection.",

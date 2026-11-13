@@ -1,10 +1,11 @@
 SEST R12 - RIBBONS AND NATIONAL AWARDS
-10 November 2026 | SEST-DEV
+13 November 2026 | SEST-DEV
 
 WORLD OPERATIONS - F11 > SERVICE (BETA)
-World Operations needs public beta 0.8.7-261107 and SEST SETUP; on the
-standard build the world map has no SEST window and these awards do not
-appear. 25 fictional world awards recognise manual battle service, distinct
+World Operations needs SEST's code, which SETUP installs on game build
+0.8.7-261107 only; on any other build, Sea Power 0.9.0 included, the world
+map has no SEST window and these awards do not appear. 25 fictional world
+awards recognise manual battle service, distinct
 campaign battle days, theatre experience and successful Admiralty duties.
 Original awards and v1 service records are preserved. New task records use
 separate compatible event keys and never inflate manual battle or USD totals.
@@ -190,9 +191,10 @@ them at the debrief. The game itself ignores the key: R12 (Runtime 1.6.4)
 and the standard build never grant them, and neither does R13 with
 MissionAwards=0 under [Runtime] in plugins/sest_runtime.ini. Like every
 ribbon here, each also needs the mission's required result. This update's
-beta features are R13: on public beta 0.8.7-261107, once SEST SETUP has
-installed them, both ribbons are granted. On the standard 0.8.7-261021
-build SEST keeps Runtime 1.5.0 and neither is granted.
+beta features are R13: on game build 0.8.7-261107, once SEST SETUP has
+installed them, R13 grants both ribbons when their terms are met. On
+0.8.7-261021 SEST keeps Runtime 1.5.0, and on Sea Power 0.9.0 SEST's code
+does not load; on neither is a runtime ribbon granted.
 - RL05 Silent Passage: Under the Convergence's Passage objective completed
   with no weapon launched and no gun round fired by any unit of the task
   force. A failed launch counts as a launch; noisemakers, chaff, decoys,
@@ -228,13 +230,16 @@ gallery flag set (public domain). Each campaign's art/ribbons/SOURCES.txt
 lists its pictures and sources. No AI imagery is used.
 
 PC CHECKS
-On the beta, load an existing world and check Service progress, wrapping
-and scrolling. Complete an accepted task, return to the map and compare
-task/battle counts.
+On game build 0.8.7-261107, load an existing world and check Service
+progress, wrapping and scrolling. Complete an accepted task, return to the
+map and compare task/battle counts. (World Operations is SEST's code; on
+Sea Power 0.9.0 it is off.)
 Start a new Southern Watch campaign: the Service Record offers the fourteen
 nations. Compare one Anzac and one Burke price as an Australian and as a US
-commander. Check the British commander's empty rank insignia and the White
-Ensign emblem. Pick New Zealand, South Korea and Thailand (Sulu Line): each
+commander. Check that the British commander's ranks from Lieutenant up
+show the game's Royal Navy insignia (new in Sea Power 0.9.0; Midshipman and
+Sub-Lieutenant have none) and the White Ensign emblem. Pick New Zealand,
+South Korea and Thailand (Sulu Line): each
 shows a name from its SEST pool, not a blank, with the given name first as
 in the defaults (Seongjin Han), and its emblem. As a New Zealand commander
 in Southern Watch, buy the P-8A at Weapons Free at the discounted price; fly
@@ -262,11 +267,12 @@ and a Cold War Su-27 the USSR; the Kuznetsov's 2016 fit shows Russian
 Federation and her 1991 fit the USSR. Pacific Strike's Action in the Taiwan
 Strait still generates its Soviet force. The Southern Watch test card's RU
 rows have the detail.
-On the beta with this update's R13 (Runtime 1.6.5) installed by SETUP:
+On game build 0.8.7-261107 with this update's R13 (Runtime 1.6.5)
+installed by SETUP:
 complete RL05 without launching anything and RLC1 with its pilot recovered,
 and read each runtime ribbon's lines in Player.log (checks R1 to R4). The
 developer ribbon menu still offers neither ribbon, and with MissionAwards=0
-or on the standard build neither is granted (the Red Line test card's
+or on any build without R13 neither is granted (the Red Line test card's
 checks R5 and R6); that is expected. Each
 debrief logs two lines per runtime ribbon: judge by the first, the verdict.
 The second says "already awarded" after an award, or otherwise repeats the
