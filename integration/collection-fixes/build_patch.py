@@ -1082,7 +1082,7 @@ def main():
     carried = build_carried_vessel_names()
     tips, own = build_loading_tips()
     renamed = build_english_store_names()
-    profiles = build_combat_systems()
+    profiles, restored_profiles = build_combat_systems()
     restored, tuned, skipped, added_launchers = build_ciws()
     extended = build_extends()
     russian = build_russian_registrations()
@@ -1105,10 +1105,15 @@ def main():
           + (f", over {', '.join(tips)}" if tips else ""))
     print(f"  + {len(renamed)} store name(s) given in English: {', '.join(renamed)}")
     print(f"  + {len(profiles)} combat-system profiles cloned under SEST names")
-    print(f"  + weapons.ini: {len(restored)} vanilla 0.8.3 sections restored over the stale "
+    print(f"  + combatsystems.ini: {len(restored_profiles)} of the game's own profiles restored "
+          f"over the stale copies"
+          + (f" ({', '.join(restored_profiles)})" if restored_profiles else ""))
+    print(f"  + weapons.ini: {len(restored)} of the game's own sections restored over the stale "
           f"copies, {len(tuned)} mod CIWS retuned, {len(added_launchers)} launcher "
           f"section(s) added under SEST names ({', '.join(added_launchers)})"
           + (f"; left to their winner: {', '.join(skipped)}" if skipped else ""))
+    for line in ciws_ladder_notice():
+        print("  ! " + line)
     print(f"  + {len(extended)} hulls given a combat system by #!extend")
     ships = [u for kind, u in russian if kind == "vessels"]
     planes = [u for kind, u in russian if kind == "aircraft"]
@@ -1253,6 +1258,17 @@ STALE_VANILLA_SENSORS = {
                  "The Royal Navy's [Type2031] cuts the towed array's PassiveRange from\n"
                  "90 km to 23 km and its Gain from 56 to 50 dB; the Type 23s SEST\n"
                  "fields tow it."),
+    # 0.9.0 (11 Nov 2026) halved the Western MAD, 1.0 to 0.5 nm. The PLAN mod
+    # carries the game's own section as it stood until then, key for key, so
+    # until 0.9.0 it changed nothing and since 0.9.0 it holds every aircraft
+    # that mounts the set at the old range. (The deprecated Wedgetail mod's
+    # older copy of the whole file names it too, below the PLAN mod; that copy
+    # is a larger matter, in docs/campaigns/southern-watch/build-notes.md.)
+    "AN/ASQ-81V2": (("3417801942", "3499239964"),
+                    "Sea Power 0.9.0 cut this MAD's MaxDetectionRange from 1.0 to 0.5 nm.\n"
+                    "The Chinese Navy (PLAN) mod restates the section as the game had it\n"
+                    "before, so the Sea Kings, the MV-75 and the other aircraft that\n"
+                    "mount it kept the old range."),
 }
 
 
@@ -1345,9 +1361,10 @@ MISSING_SENSORS = {
               "(3637954857), removed from the Workshop on 12 Nov 2026, was "
               "its only definer. SEST models it on the game's own airborne "
               "MAD: [WP_MAD], the Il-38's and Tu-142M's, four-engine "
-              "turboprop patrol aircraft like the Y-8FQ and Y-9FQ (the stock "
-              "[AN/ASQ-81V2] of the P-3C has the same 1.0 nm datalinked "
-              "detection and no ModuleType). Red Line places the Y-9FQ in "
+              "turboprop patrol aircraft like the Y-8FQ and Y-9FQ (1.0 nm "
+              "datalinked detection and no ModuleType; the P-3C's stock "
+              "[AN/ASQ-81V2] matched it until 0.9.0 cut that set to 0.5 nm). "
+              "Red Line places the Y-9FQ in "
               "four missions and sells it in its roster; Global Maritime "
               "Operations 2028 fields both."),
     "Morden_RWR": ("_vanilla/original", "AircraftRWR",
@@ -1648,8 +1665,10 @@ def build_carried_vessel_names():
 # Fleet and Mogami builders are in integration/common/combat.py; what this
 # pack adds is the collection-wide part, in three pieces:
 #
-#   build_combat_systems  systems/combatsystems.ini - the SEST_ profiles.
-#   build_ciws            systems/weapons.ini - (a) vanilla's 0.8.3 sections
+#   build_combat_systems  systems/combatsystems.ini - the SEST_ profiles, and
+#                         (since 0.9.0) the game's own profiles restored where
+#                         two mods' stale copies of the whole file shadow them.
+#   build_ciws            systems/weapons.ini - (a) the game's own sections
 #                         restored where four aircraft mods' stale copies of
 #                         the whole file shadow them, (b) the mod CIWS the
 #                         campaigns field, retuned onto the new keys.
@@ -1659,8 +1678,8 @@ def build_carried_vessel_names():
 # Four aircraft mods (Tu-95MS, MORE SU24M VARIANTS, KC-135 Stratotanker,
 # Su-30SM2) each ship a 213-section copy of the game's systems/weapons.ini
 # whose only addition is [SA-26]; the four copies are byte-identical on every
-# shared section. The copy predates 0.8.3, so 67 of its sections differ from
-# the current game by keys the game ADDED (the CIWS model on AK630, MK15 and
+# shared section. The copy predates 0.8.3, so 67 of its sections differed from
+# the 0.8.3 game by keys the game ADDED (the CIWS model on AK630, MK15 and
 # AK230; ForceMoveToLoadPosition on the Mk 10/11/13/22/26 and SA-N-1/3/4;
 # FireRate on ASROC and the Mk 13...) - none it removed, none it changed on
 # purpose. systems/ merges section by section, the copies outrank vanilla,
@@ -1669,12 +1688,43 @@ def build_carried_vessel_names():
 # game's own file; the builder checks the copies still agree with one
 # another, so a real edit by one of the authors stops the build instead of
 # being overwritten. A section some other mod deliberately redefines above
-# the copies is left alone: it already wins.
+# the copies is left alone: it already wins. The restore reads the game's
+# file at build time, so it follows a game update by itself: on 0.9.0 it is
+# 66 sections, the rebalanced AK-230, AK-630 and Phalanx among them. Since
+# 13 Nov 2026 two definitions are compared by their keys, not their comments
+# (keyed): three sections the copies word differently in a comment only are
+# no longer restated.
 STALE_VANILLA_COPIES = ("3715323261", "3716049886", "3722749887", "3762023575")
 
+# The same in systems/combatsystems.ini, which 0.9.0 (11 Nov 2026) made
+# matter. Euromod's Modern Royal Australian Navy mod and Royal Australian
+# Defence Forces each ship the game's whole file with their own profiles
+# added. Until 0.9.0 their copies of the game's 55 profiles were the game's
+# text, key for key, so they changed nothing. 0.9.0 then changed ten of the
+# profiles ("populated Soviet OODA systems": Alleya_2, BIP_Volna, CAAIS_64k,
+# Koren_1134A and B, More_U, Planshet_35, Titanit, WDS_Mk4_Tartar, ZKJ-3),
+# and the copies hold every hull on one of them at the old values - the two
+# Ludas this pack points at ZKJ-3 and the Peykaap boats at Titanit among
+# them. Restored by the same rule and under the same guards.
+STALE_COMBAT_COPIES = ("3820759806", "3455404959")
+
 # Mod CIWS the campaigns field, still on the pre-0.8.3 keys, retuned onto the
-# new model. Vanilla's calibration ladder, which these sit on: Phalanx Block
-# 0 anchor 40, Block 1 (APDS) 50, AK-630 20, AK-230 10, a hand-aimed 20 mm 2.
+# new model. Vanilla's calibration ladder of 0.8.3 to 0.8.7, which these sit
+# on: Phalanx Block 0 anchor 40, Block 1 (APDS) 50, AK-630 20, AK-230 10, a
+# hand-aimed 20 mm 2.
+#
+# 0.9.0 (11 Nov 2026) MOVED VANILLA'S LADDER and these entries have not
+# followed: "CIWS used flat hit rolls instead of its ballistics" was fixed
+# and the guns rebalanced, to Block 0 65, Block 1 70, AK-630 40 and AK-230
+# 20, with volleys cut (250, 375, 400 rounds) and cooldowns raised (10, 10
+# and 30 s). CIWS_LADDER below is the ladder the table was written on, and
+# the build prints the difference every time (ciws_ladder_notice). Every
+# figure here is still the 3 Oct one: where an entry says "vanilla's", read
+# "vanilla's of 0.8.3". Moving them is a balance decision nobody has played,
+# and every other mod's CIWS (the PLAN Pack's 730 and 1130, Euromod's
+# Goalkeeper and Phalanx, the Kuznetsov mod's Kashtan) sits on the same old
+# ladder until its author moves it; see the 0.9.0 section of
+# docs/campaigns/southern-watch/build-notes.md for the figures side by side.
 # "closed": a self-contained mount (dome radar or EO on the gun) -
 # FireControlMode=ClosedLoop, the Phalanx pattern. "director": an off-mount
 # director, the AK-630 pattern (no closed-loop key, slower burst resolution).
@@ -1684,6 +1734,14 @@ STALE_VANILLA_COPIES = ("3715323261", "3716049886", "3722749887", "3762023575")
 # adopts the new keys itself, so an entry is deleted the day its author
 # retunes.
 CLOSED = dict(ReactionTime="3.0", BurstTime="1.0")
+# Vanilla's own guns as CIWS_RETUNE was written against them (0.8.3 to 0.8.7).
+CIWS_LADDER = {
+    "MK15":      dict(MissileInterceptChance="40", VolleyMaxRounds="500", VolleyCooldown="3.0"),
+    "MK15_Blk1": dict(MissileInterceptChance="50", VolleyMaxRounds="1000", VolleyCooldown="6.0"),
+    "AK630":     dict(MissileInterceptChance="20", VolleyMaxRounds="1000", VolleyCooldown="5.0",
+                      VolleyRange="2000"),
+    "AK230":     dict(MissileInterceptChance="10", VolleyMaxRounds="100", VolleyCooldown="10.0"),
+}
 CIWS_RETUNE = {
     # 30 mm Gatling CIWS, on-mount tracking: one step above the APDS Phalanx.
     # The PLAN Pack's own Type 730 and 1130 were here from the morning of 3 Oct
@@ -1703,14 +1761,14 @@ CIWS_RETUNE = {
     # Phalanx Block 1A/1B as the US, Korean and Euromod packs define them.
     "MK15B":    ("closed", dict(MissileInterceptChance="50", AircraftInterceptChance="75",
                                 VolleyMaxRounds="1000", VolleyCooldown="6.0"),
-                 "Phalanx Block 1A: vanilla's Block 1 figures (was anchor 85)"),
+                 "Phalanx Block 1A: the figures vanilla's Block 1 had until 0.9.0 (was anchor 85)"),
     # eu_MK15B RETIRED 2026-10-09: Euromod Main's 9 Oct update moved it onto the
     # 0.8.3 keys (FireControlMode / VolleyMaxRounds / VolleyCooldown), so the
     # guard retired it as designed - retuning the author's own retune is not
     # this pack's business. Restore only if it reverts to the old keys.
     "MK15C":    ("closed", dict(MissileInterceptChance="55", AircraftInterceptChance="75",
                                 VolleyMaxRounds="1000", VolleyCooldown="6.0"),
-                 "Phalanx Block 1B: one step above vanilla's Block 1 (was anchor 90)"),
+                 "Phalanx Block 1B: one step above vanilla's Block 1 of 0.8.3 (was anchor 90)"),
     # eu_MK15C RETIRED 2026-10-09: Euromod Main's 9 Oct update moved it onto the
     # 0.8.3 keys (FireControlMode / VolleyMaxRounds / VolleyCooldown), so the
     # guard retired it as designed - retuning the author's own retune is not
@@ -1739,7 +1797,7 @@ CIWS_RETUNE = {
                                     ReactionTime="4.0", BurstTime="2.0", RangingBurstRounds="40",
                                     RangingBurstInterval="2.0", VolleyMaxRounds="1000",
                                     VolleyCooldown="5.0", VolleyRange="2000"),
-                   "Russian Navy 21's AK-630M (was anchor 80; vanilla's AK-630 is 20)"),
+                   "Russian Navy 21's AK-630M (was anchor 80; vanilla's AK-630 was 20 until 0.9.0)"),
     # 35 mm AHEAD gun, director-fed.
     # eu_Millennium_Gun RETIRED 2026-10-09: Euromod Main's 9 Oct update moved
     # it onto the 0.8.3 keys, like its Goalkeeper and both Phalanx blocks.
@@ -1762,7 +1820,7 @@ CIWS_RETUNE = {
     "eu_Mk38_Mod4":   ("anchor", dict(MissileInterceptChance="5", AircraftInterceptChance="15"),
                        "Euromod's 25 mm Mk 38 Mod 4 (was anchor 70)"),
 }
-# Key order of vanilla's own 0.8.3 CIWS sections, so the retuned ones read
+# Key order of vanilla's own CIWS sections, so the retuned ones read
 # like the game's. Keys the mod has that are not listed keep their place
 # after these.
 CIWS_ORDER = ("FireControlMode", "MissileInterceptChance", "ReactionTime",
@@ -1958,8 +2016,31 @@ def body_key(body):
     return "\n".join(l.rstrip() for l in body.replace("\r", "").split("\n") if l.strip())
 
 
+def keyed(body):
+    """A section body as the game reads it: its key lines, comments cut. Two
+    copies that differ only in a comment define the same thing - and the
+    comment lines at a body's end belong to the section that follows it."""
+    out = []
+    for line in body.replace("\r", "").split("\n"):
+        line = re.split(r"//|#|;", line)[0].strip()
+        if "=" in line:
+            key, value = line.split("=", 1)
+            out.append(key.strip() + "=" + value.strip())
+    return "\n".join(out)
+
+
+def own_lines(body):
+    """body_key() without the comment lines at its end, which introduce the
+    next section of the file the body was cut from."""
+    lines = body_key(body).split("\n")
+    while lines and lines[-1].lstrip().startswith(("#", "//", ";")):
+        lines.pop()
+    return "\n".join(lines)
+
+
 def build_combat_systems():
-    """systems/combatsystems.ini: the SEST profiles, cloned from Euromod."""
+    """systems/combatsystems.ini: the SEST profiles, cloned from Euromod, and
+    the game's own profiles where a stale copy of its file shadows them."""
     needed = sorted(set(EXTENDS.values()) | {"SEST_AEGIS_BL9", "SEST_9LV_MLU", "SEST_9LV_Compact",
                                              "SEST_OYQ_Integrated"})
     combat.check_profiles(needed)
@@ -1967,25 +2048,47 @@ def build_combat_systems():
         if name not in needed:
             sys.exit(f"{name} is defined in common/combat.py but no hull takes it - "
                      "drop it or assign it")
+    defs = system_definitions("combatsystems.ini")
+    restored, blocks, skipped = restore_vanilla_sections(defs, STALE_COMBAT_COPIES,
+                                                         "combatsystems.ini")
+    if skipped:
+        sys.exit(f"combatsystems.ini: {', '.join(skipped)} - a mod now redefines one of the "
+                 "game's profiles above the stale copies; look before building")
+    clash = sorted(set(restored) & set(combat.PROFILES))
+    if clash:
+        sys.exit(f"combatsystems.ini: {clash} is both a SEST profile and a game profile")
     text = ("# SEST Collection Fixes - combat-system (OODA) profiles for the hulls the\n"
             "# SEST packs assign one to (RAN Fleet, Mogami, and the #!extend files in\n"
             "# vessels_overwrite/). Each is a clone of a Euromod profile under a SEST\n"
             "# name, so nothing here depends on another mod's ids; systems/ merges\n"
-            "# section by section, so these add to the game's 55 without replacing\n"
+            "# section by section, so these add to the game's own without replacing\n"
             "# any. The one edited key is marked on its clone. See common/combat.py.\n\n"
             + combat.render_profiles())
+    if blocks:
+        text += ("\n# The game's own profiles, restored. Two mods ship the game's whole\n"
+                 "# combatsystems.ini with their profiles added (STALE_COMBAT_COPIES in\n"
+                 "# build_patch.py), and their copies of these profiles are the game's\n"
+                 "# text from before its last change to them, which the copies would\n"
+                 "# otherwise put back on every hull that names one.\n\n"
+                 + "\n".join(blocks))
     (OUT / "systems").mkdir(parents=True, exist_ok=True)
     (OUT / "systems" / "combatsystems.ini").write_text(text, encoding="utf-8")
-    return list(combat.PROFILES)
+    return list(combat.PROFILES), restored
 
 
 def weapon_definitions():
-    """name -> [(rank, mod, header, body)] from every mod's weapons.ini, best
-    rank first; vanilla last under rank 10**6."""
+    """system_definitions() of systems/weapons.ini."""
+    return system_definitions("weapons.ini")
+
+
+def system_definitions(filename):
+    """name -> [(rank, mod, header, body)] from every mod's systems/<filename>,
+    best rank first; vanilla last under rank 10**6."""
     rank = load_rank()
     defs = {}
-    files = [(m.parts[-3], m) for m in MODS.glob("*/systems/weapons.ini")]
-    files.append(("_vanilla", MODS / "_vanilla" / "original" / "systems" / "weapons.ini"))
+    files = [(m.parts[-3], m) for m in MODS.glob("*/systems/" + filename)
+             if m.parts[-3] != "_vanilla"]
+    files.append(("_vanilla", MODS / "_vanilla" / "original" / "systems" / filename))
     for mod, path in files:
         r = 10**6 if mod == "_vanilla" else rank.get(mod, 10**5)
         for name, header, body in ini_sections(read_file(path).replace("\r", "")):
@@ -1995,7 +2098,7 @@ def weapon_definitions():
     return defs
 
 
-def restore_vanilla_sections(defs):
+def restore_vanilla_sections(defs, stale=STALE_VANILLA_COPIES, filename="weapons.ini"):
     """(a): vanilla's current text for every section the stale copies shadow."""
     vanilla = {name: body for name, (r, mod, h, body) in
                ((n, c[-1]) for n, c in defs.items()) if mod == "_vanilla"}
@@ -2003,26 +2106,48 @@ def restore_vanilla_sections(defs):
     for name, cands in sorted(defs.items()):
         if name not in vanilla:
             continue
-        copies = [c for c in cands if c[1] in STALE_VANILLA_COPIES]
+        copies = [c for c in cands if c[1] in stale]
         if not copies:
             continue
-        bodies = {body_key(c[3]) for c in copies}
+        bodies = {keyed(c[3]) for c in copies}
         if len(bodies) > 1:
-            sys.exit(f"[{name}]: the stale weapons.ini copies no longer agree with one "
+            sys.exit(f"[{name}]: the stale {filename} copies no longer agree with one "
                      f"another ({sorted(c[1] for c in copies)}) - one author edited it; "
                      "look before restoring vanilla over it")
-        if bodies == {body_key(vanilla[name])}:
-            continue                       # the copy caught up with the game
+        if bodies == {keyed(vanilla[name])}:
+            continue                       # the copy says what the game says
         winner = cands[0]
-        if winner[1] not in STALE_VANILLA_COPIES:
+        if winner[1] not in stale:
             skipped.append(f"{name} ({winner[1]} wins)")   # a deliberate redefinition
             continue
         vh = [c for c in cands if c[1] == "_vanilla"][0]
-        blocks.append(f"# [{name}]: the game's 0.8.3 definition, restored over the stale "
+        blocks.append(f"# [{name}]: the game's own definition, restored over the stale "
                       f"copy in {', '.join(sorted(c[1] for c in copies))}.\n"
-                      f"{vh[2]}\n{body_key(vh[3])}\n")
+                      f"{vh[2]}\n{own_lines(vh[3])}\n")
         restored.append(name)
     return restored, blocks, skipped
+
+
+def ciws_ladder_notice():
+    """Lines to print when vanilla's own guns have left the ladder CIWS_RETUNE
+    was written on. A notice, not a stop: moving the entries is a decision."""
+    defs = system_definitions("weapons.ini")
+    moved = []
+    for name, was in CIWS_LADDER.items():
+        stock = [c for c in defs.get(name, []) if c[1] == "_vanilla"]
+        if not stock:
+            sys.exit(f"[{name}]: gone from the game's weapons.ini - CIWS_LADDER names it")
+        now = {k: (re.search(rf"^{k}\s*=\s*([^\s/#]+)", stock[0][3], re.M) or [None, None])[1]
+               for k in was}
+        diff = [f"{k} {was[k]} -> {now[k]}" for k in was
+                if now[k] is None or float(now[k]) != float(was[k])]
+        if diff:
+            moved.append(f"[{name}] {', '.join(diff)}")
+    if not moved:
+        return []
+    return ["CIWS_RETUNE is still on vanilla's 0.8.3 ladder; the game's own guns have moved: "
+            + "; ".join(moved) + f". The {len(CIWS_RETUNE)} retuned mod CIWS keep the older "
+            "figures until that is decided."]
 
 
 def retune_ciws(defs):
@@ -2070,8 +2195,8 @@ def retune_ciws(defs):
         changed = ", ".join(f"{k} {v}" for k, v in tune.items())
         dropped = "; MinimumMissileInterceptTime dropped" if any(
             k in order for k in DROPPED_KEYS) or pattern != "anchor" else ""
-        lines = [f"# [{name}]: {why}. SEST Collection Fixes retune onto the 0.8.3 CIWS",
-                 f"# model: {pattern} pattern; {changed}{dropped}.",
+        lines = [f"# [{name}]: {why}. SEST Collection Fixes retune onto the burst model",
+                 f"# of 0.8.3: {pattern} pattern; {changed}{dropped}.",
                  f"# Base: {mod}'s section; everything not named is its own."]
         lines += [c for c in comments if c.startswith("#")]
         lines.append(f"[{name}]")
@@ -2082,7 +2207,7 @@ def retune_ciws(defs):
 
 
 def build_ciws():
-    """systems/weapons.ini: vanilla's 0.8.3 sections restored, mod CIWS retuned."""
+    """systems/weapons.ini: vanilla's own sections restored, mod CIWS retuned."""
     defs = weapon_definitions()
     overlap = set(CIWS_RETUNE) & {n for n, c in defs.items() if any(m == "_vanilla" for _, m, _, _ in c)}
     if overlap:
@@ -2094,12 +2219,15 @@ def build_ciws():
     text = ("# SEST Collection Fixes - systems/weapons.ini. systems/ files merge section\n"
             "# by section across the load order, and the SEST pack sits on top, so each\n"
             "# section here is the one the game reads. Three kinds:\n"
-            "#   restored  the game's own 0.8.3 text for a section that four aircraft\n"
+            "#   restored  the game's own current text for a section that four aircraft\n"
             "#             mods' stale copies of the whole file otherwise shadow\n"
             "#             (STALE_VANILLA_COPIES in build_patch.py);\n"
-            "#   retuned   a mod's CIWS moved onto the 0.8.3 burst model\n"
+            "#   retuned   a mod's CIWS moved onto the burst model of 0.8.3\n"
             "#             (CIWS_RETUNE in build_patch.py), its own values kept\n"
-            "#             wherever the model did not change them;\n"
+            "#             wherever the model did not change them. Its figures are\n"
+            "#             those of 3 Oct 2026, set against the game's guns of that\n"
+            "#             day; 0.9.0 rebalanced the game's guns and these have not\n"
+            "#             been moved after them;\n"
             "#   added     a mod's own launcher section copied under a SEST name\n"
             "#             (ADDED_LAUNCHERS), for units LAND_UNIT_REPAIRS repoints.\n\n"
             + "\n".join(rblocks) + "\n" + "\n".join(tblocks) + "\n" + "\n".join(ablocks))

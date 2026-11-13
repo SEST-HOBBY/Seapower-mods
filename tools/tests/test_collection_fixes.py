@@ -357,6 +357,111 @@ class RetiredY8Y9Sensors(unittest.TestCase):
                 self.assertTrue(name in ENGINE_SYSTEMS or name in defined)
 
 
+class SystemsAfter090(unittest.TestCase):
+    """Sea Power 0.9.0 (11 Nov 2026) changed ten of the game's combat-system
+    profiles and halved the Western MAD. Two mods ship the game's whole
+    combatsystems.ini and one its [AN/ASQ-81V2], each as the game had it
+    before, so with the collection loaded the old values came back. Collection
+    Fixes restates the game's own text over them (STALE_COMBAT_COPIES,
+    STALE_VANILLA_SENSORS), as it has done for weapons.ini since 0.8.3. The
+    retuned mod CIWS are a different matter: they are still on the ladder of
+    0.8.3, and the build says so each time."""
+
+    CHANGED = ("Alleya_2", "BIP_Volna", "CAAIS_64k", "Koren_1134A", "Koren_1134B", "More_U",
+               "Planshet_35", "Titanit", "WDS_Mk4_Tartar", "ZKJ-3")
+
+    @classmethod
+    def setUpClass(cls):
+        cls.build = builder()
+        cls.game = read(VANILLA / "systems" / "combatsystems.ini")
+        cls.built = read(FIXES / "systems" / "combatsystems.ini")
+
+    def test_the_two_copies_still_hold_the_ten_profiles_at_the_old_values(self):
+        # The day both copies say what the game says, the restore is empty by itself.
+        for mod in self.build.STALE_COMBAT_COPIES:
+            theirs = read(ROOT / "mods-source" / mod / "systems" / "combatsystems.ini")
+            stale = [n for n in headers(self.game) if section(theirs, n) is not None
+                     and self.build.keyed(section(theirs, n)) != self.build.keyed(section(self.game, n))]
+            with self.subTest(mod=mod):
+                self.assertEqual(sorted(stale), sorted(self.CHANGED))
+        self.assertRegex(section(read(ROOT / "mods-source/3820759806/systems/combatsystems.ini"), "Titanit"),
+                         r"(?m)^DatalinkTier=1\b")
+
+    def test_the_built_file_restates_each_as_the_game_has_it(self):
+        for name in self.CHANGED:
+            with self.subTest(profile=name):
+                self.assertEqual(self.build.keyed(section(self.built, name)),
+                                 self.build.keyed(section(self.game, name)))
+                self.assertRegex(self.built, rf"(?m)^# \[{re.escape(name)}\]: the game's own definition, "
+                                             r"restored over the stale copy in 3455404959, 3820759806\.$")
+        # The two this pack points hulls at by #!extend: the Ludas' ZKJ-3 and the Peykaap's Titanit.
+        self.assertRegex(section(self.built, "ZKJ-3"), r"(?m)^CICSlots=15\b")
+        self.assertRegex(section(self.built, "Titanit"), r"(?m)^DatalinkTier=4\b")
+        # Nothing else of the game's is restated, and no SEST profile is one of the game's names.
+        restated = [n for n in headers(self.built) if not n.startswith("SEST_")]
+        self.assertEqual(sorted(restated), sorted(self.CHANGED))
+        self.assertEqual(lines(section(read(DIST / "systems" / "combatsystems.ini"), "Titanit")),
+                         lines(section(self.built, "Titanit")))
+
+    def test_a_comment_is_not_a_difference_and_a_trailing_banner_is_not_the_sections(self):
+        build = self.build
+        self.assertEqual(build.keyed("# old note\nReactionTime = Slow // a remark\n\n# ==== Next ====\n"),
+                         build.keyed("ReactionTime=Slow\n"))
+        self.assertNotEqual(build.keyed("ReactionTime=Slow\n"), build.keyed("ReactionTime=Medium\n"))
+        self.assertEqual(build.own_lines("# why\nCICSlots=4\n\n# ==== Royal Navy ====\n# next one\n"),
+                         "# why\nCICSlots=4")
+        # RLDN_P42 differs from the copies only in the banner that follows it in the game's file.
+        self.assertIsNone(section(self.built, "RLDN_P42"))
+
+    def test_a_copy_one_author_edits_stops_the_build(self):
+        build = self.build
+        defs = {"Titanit": [(37, "3820759806", "[Titanit]", "DatalinkTier=1\n"),
+                            (199, "3455404959", "[Titanit]", "DatalinkTier=2\n"),
+                            (10**6, "_vanilla", "[Titanit]", "DatalinkTier=4\n")]}
+        with contextlib.redirect_stdout(None), self.assertRaises(SystemExit) as stop:
+            build.restore_vanilla_sections(defs, build.STALE_COMBAT_COPIES, "combatsystems.ini")
+        self.assertIn("no longer agree", str(stop.exception))
+        defs["Titanit"][1] = (199, "3455404959", "[Titanit]", "DatalinkTier=1 // as before\n")
+        restored, blocks, skipped = build.restore_vanilla_sections(defs, build.STALE_COMBAT_COPIES,
+                                                                   "combatsystems.ini")
+        self.assertEqual((restored, skipped), (["Titanit"], []))
+        self.assertIn("[Titanit]\nDatalinkTier=4\n", blocks[0])
+        # A mod that redefines it above the copies keeps it.
+        defs["Titanit"].insert(0, (5, "111", "[Titanit]", "DatalinkTier=3\n"))
+        self.assertEqual(build.restore_vanilla_sections(defs, build.STALE_COMBAT_COPIES, "combatsystems.ini")[2],
+                         ["Titanit (111 wins)"])
+
+    def test_the_western_mad_is_the_games_again(self):
+        built = section(read(FIXES / "systems" / "sensors.ini"), "AN/ASQ-81V2")
+        game = section(read(VANILLA / "systems" / "sensors.ini"), "AN/ASQ-81V2")
+        self.assertEqual(self.build.keyed(built), self.build.keyed(game))
+        self.assertRegex(built, r"(?m)^MaxDetectionRange=0\.5\b")
+        self.assertRegex(section(read(ROOT / "mods-source/3417801942/systems/sensors.ini"), "AN/ASQ-81V2"),
+                         r"(?m)^MaxDetectionRange=1\.0\b")
+        self.assertEqual(lines(section(read(DIST / "systems" / "sensors.ini"), "AN/ASQ-81V2")), lines(built))
+
+    def test_the_build_says_the_retuned_ciws_are_on_the_old_ladder(self):
+        build = self.build
+        notice = build.ciws_ladder_notice()
+        self.assertEqual(len(notice), 1)
+        for said in ("[MK15] MissileInterceptChance 40 -> 65", "[MK15_Blk1] MissileInterceptChance 50 -> 70",
+                     "[AK630] MissileInterceptChance 20 -> 40", "[AK230] MissileInterceptChance 10 -> 20",
+                     f"The {len(build.CIWS_RETUNE)} retuned mod CIWS keep the older figures"):
+            self.assertIn(said, notice[0])
+        # On the ladder the table was written against it says nothing.
+        ladder = {name: [(10**6, "_vanilla", f"[{name}]", "".join(f"{k}={v}\n" for k, v in keys.items()))]
+                  for name, keys in build.CIWS_LADDER.items()}
+        with mock.patch.object(build, "system_definitions", return_value=ladder):
+            self.assertEqual(build.ciws_ladder_notice(), [])
+        # The shipped comments no longer call a 0.8.3 figure the game's.
+        shipped = read(FIXES / "systems" / "weapons.ini")
+        self.assertNotIn("0.8.3 definition", shipped)
+        self.assertNotIn("vanilla's Block 1 figures (", shipped)
+        self.assertIn("the figures vanilla's Block 1 had until 0.9.0", shipped)
+        self.assertRegex(section(shipped, "MK15"), r"(?m)^MissileInterceptChance=65\b")
+        self.assertRegex(section(shipped, "MK15B"), r"(?m)^MissileInterceptChance=50\b")
+
+
 class RussianRegistration(unittest.TestCase):
     """The Russian Federation, not the USSR: one #!extend Nation stub per unit
     on its winning variants or squadrons file (the owner's rule of 11 Nov
