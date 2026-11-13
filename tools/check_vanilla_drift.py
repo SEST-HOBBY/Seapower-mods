@@ -57,7 +57,15 @@ dependants:
                    campaign's mission modules included.
   5. NEW CONTENT   added unit files, as candidates to place, with their
                    UnitType and the nation and service date from the matching
-                   squadrons or variants file.
+                   squadrons or variants file. One that a Workshop mod already
+                   ships under the same path is marked OUTRANKED: the mod's
+                   file loads and the game's does not (every mod outranks the
+                   game), so whatever fields the id, the game's own new
+                   missions included, gets the mod's unit. 0.9.0 added HMS
+                   Hermes, two Leander batches, the Rothesay, the Lynx HAS.2,
+                   two Nimrods and the Sea Dart under ids The Royal Navy mod
+                   had shipped for a year. Listed, not a finding: which copy
+                   should load is a decision about that mod.
 
 Line-ending-only changes are set aside, since nothing here reads a file's
 line endings. The game version is read from the head of
@@ -83,6 +91,7 @@ import ast
 import collections
 import hashlib
 import io
+import json
 import os
 import re
 import subprocess
@@ -286,6 +295,55 @@ def shipped_by(root, rel):
     return found
 
 
+class ModFiles:
+    """Which Workshop mods ship a relative path, read as the game reads it.
+
+    The game runs on Windows, where a mod's vessels/RN_CV_Centaur.ini and the
+    game's vessels/rn_cv_centaur.ini are one path, so names are compared
+    without case. A mod's folder is listed once, when first asked about.
+    Mods come back in load order, the winner first (data/load-order.tokens.txt;
+    one the order does not list still outranks the game, and follows the
+    listed ones by id, as winning_file() in
+    integration/mission-seeds/refine_civ_traffic.py has it), each with its
+    title from data/mod-catalog.json where that file names it.
+    """
+
+    def __init__(self, root):
+        self.root = root
+        self.mods = sorted(mod for mod in (root / "mods-source").iterdir()
+                           if mod.is_dir() and not mod.name.startswith("_")) \
+            if (root / "mods-source").is_dir() else []
+        order = root / "data" / "load-order.tokens.txt"
+        tokens = [line.strip() for line in order.read_text(encoding="utf-8-sig").splitlines()
+                  if line.strip() and not line.startswith("#")] if order.is_file() else []
+        self.rank = {token: n for n, token in enumerate(tokens)}
+        self.titles = {}
+        catalog = root / "data" / "mod-catalog.json"
+        if catalog.is_file():
+            try:
+                for mod in json.loads(catalog.read_text(encoding="utf-8")).get("mods", []):
+                    if mod.get("workshop_id") and mod.get("title"):
+                        self.titles[str(mod["workshop_id"])] = mod["title"]
+            except (ValueError, AttributeError):
+                pass                             # an unreadable catalog costs the titles only
+        self._listed = {}
+
+    def _names(self, folder):
+        if folder not in self._listed:
+            self._listed[folder] = ({f.name.casefold() for f in folder.iterdir() if f.is_file()}
+                                    if folder.is_dir() else set())
+        return self._listed[folder]
+
+    def shipping(self, rel):
+        """Ids of the mods that ship <rel>, the load-order winner first."""
+        p = Path(rel)
+        found = [mod.name for mod in self.mods if p.name.casefold() in self._names(mod / p.parent)]
+        return sorted(found, key=lambda mod: (self.rank.get(mod, len(self.rank)), mod))
+
+    def label(self, mod):
+        return f"{mod} {self.titles[mod]}" if mod in self.titles else mod
+
+
 def unit_of(rel):
     """(unit id, companion kind or None) for a file in a unit folder, else None."""
     p = Path(rel)
@@ -483,6 +541,7 @@ class Report:
         self.overridden, self.merged, self.placed = [], [], []
         self.builder_read, self.new_content, self.other = [], [], []
         self.findings = []
+        self.mods = None
 
 
 def shared_keys(rel, pack_text, old_text, new_text):
@@ -541,7 +600,9 @@ def classify(root, drift):
     shipped = pack_files(sest_packs(root))
     builders = Builders(root)
     fielded = fielded_units(root)
+    mods = ModFiles(root)
     report = Report()
+    report.mods = mods
     for rel, change in drift.changed():
         seen = False
         # Every mod carries its own _info.ini; a pack's is not a copy of vanilla's.
@@ -592,7 +653,7 @@ def classify(root, drift):
                 kind = visible(general.get("UnitType") or general.get("Type") or "")
                 if rel.startswith("ammunition/") and general.get("TargetType"):
                     kind = f"{kind} {visible(general['TargetType'])}".strip()
-                report.new_content.append((rel, kind) + companion_facts(root, rel))
+                report.new_content.append((rel, kind) + companion_facts(root, rel) + (mods.shipping(rel),))
                 seen = True
             if change == "added" and via and f"{Path(rel).parent.as_posix()}/{uid}.ini" in drift.added:
                 seen = True                      # shown with its unit's candidate line
@@ -698,7 +759,8 @@ def render(root, since, since_rev, drift, report, old_version, new_version, defa
         print("   none")
 
     heading(5, "NEW CONTENT - added unit files, candidates to place", len(report.new_content))
-    for rel, kind, companion, nation, service in report.new_content:
+    outranked = 0
+    for rel, kind, companion, nation, service, above in report.new_content:
         facts = [f"UnitType={kind or '?'}"]
         if nation:
             facts.append(f"Nation={nation}")
@@ -706,6 +768,14 @@ def render(root, since, since_rev, drift, report, old_version, new_version, defa
             facts.append(f"ServiceDate={service}")
         source = f"  (from {companion})" if companion else "  (no squadrons/variants file)"
         print(f"   {rel}  " + "  ".join(facts) + source)
+        if above:
+            outranked += 1
+            also = f"; also shipped by {', '.join(above[1:])}" if above[1:] else ""
+            print(f"      OUTRANKED - {report.mods.label(above[0])} ships the same path, so its file loads "
+                  f"and the game's does not{also}")
+    if outranked:
+        print(f"   {outranked} of these {len(report.new_content)} are outranked by a Workshop mod's file of the "
+              "same path: whatever fields one, the game's own new missions included, gets the mod's unit")
     if not report.new_content:
         print("   none")
 
