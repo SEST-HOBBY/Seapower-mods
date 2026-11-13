@@ -2906,6 +2906,41 @@
       "target": "usaf_b21_gbu-38",
       "source": "usn_gbu-38_10",
       "basis": "GBU-38/B JDAM (Mk 82 body), B-21 Raider: the same GBU-38 500-lb JDAM as catalog usn_gbu-38_10; author JDAM complete-round model estimate, reference 2007"
+    },
+    {
+      "target": "rn_seadart_mod1",
+      "source": "rn_seadart",
+      "basis": "Sea Dart Mod 1 (game 0.9.0): the same GWS.30 round family as the author's rn_seadart estimate, which he also gives the Mod 2; no premium for the improved round"
+    },
+    {
+      "target": "rn_seaslug_mk2",
+      "source": "rn_seaslug_2",
+      "basis": "Same round: Sea Slug Mk 2 (GWS.2), added to the game in 0.9.0; the tracker author's catalog prices it under The Royal Navy mod's id rn_seaslug_2"
+    },
+    {
+      "target": "fr_roland_2",
+      "source": "brd_roland-3",
+      "basis": "Roland 2 (game 0.9.0): no Roland 2 entry in the catalog; valued as the author's Roland 3, the later round of the same missile family (author short-range SAM model estimate); not a Roland 2 quote"
+    },
+    {
+      "target": "rn_cal_30mm_gcm",
+      "source": "rn_cal_30mm",
+      "basis": "30 mm round of the twin Oerlikon GCM mount (game 0.9.0): the same calibre as the author's rn_cal_30mm per-round model estimate"
+    },
+    {
+      "target": "it_cal_40mm_apfsds",
+      "source": "mm_cal_40mm",
+      "basis": "Italian 40 mm armour-piercing round (game 0.9.0): the same calibre as the author's Italian mm_cal_40mm per-round model estimate; no premium for the round type"
+    },
+    {
+      "target": "it_cal_40mm_pfhe",
+      "source": "mm_cal_40mm",
+      "basis": "Italian 40 mm proximity-fuzed round (game 0.9.0): the same calibre as the author's Italian mm_cal_40mm per-round model estimate; no premium for the fuze"
+    },
+    {
+      "target": "usn_cal_105mm_howitzer",
+      "source": "usn_cal_105mm",
+      "basis": "105 mm howitzer round (game 0.9.0): the same calibre as the author's usn_cal_105mm per-round model estimate"
     }
   ],
   "aircraft": [
@@ -3252,6 +3287,76 @@
           "url": "file:mods-source/3821992229/aircraft/usaf_b-21_raider.ini"
         }
       ]
+    },
+    {
+      "target": "ara_a-4p",
+      "source": "ara_a-4q",
+      "basis": "A-4P, the Argentine Air Force's refurbished A-4B Skyhawk (game 0.9.0): the same rebuilt A-4B as the Navy's A-4Q, which the tracker author's catalog prices"
+    },
+    {
+      "target": "ara_b-707",
+      "source": "ara_civ_707",
+      "basis": "Argentine Air Force Boeing 707 used for maritime reconnaissance (game 0.9.0): the same airframe as the author's Argentine 707 entry; no mission equipment is priced"
+    },
+    {
+      "target": "ara_dagger",
+      "source": "ara_mirage_iiiea",
+      "basis": "Dagger A, the IAI Nesher copy of the Mirage 5 (game 0.9.0): valued as the Argentine Mirage IIIEA the tracker author's catalog prices; a Mirage III/5 family comparator, not a type quote"
+    },
+    {
+      "target": "ara_s-61d",
+      "source": "ara_s-61d-4",
+      "basis": "Same type: the Argentine Navy's S-61D-4 Sea King, added to the game in 0.9.0; the author's Sea King model estimate (reference year 1961)"
+    },
+    {
+      "target": "fr_alouette_III",
+      "source": "ara_alouette",
+      "basis": "Same type: SA.316 Alouette III, added to the game in 0.9.0; the tracker author's catalog prices the SA-316 under the id ara_alouette (author light utility helicopter model estimate, reference year 1963)"
+    },
+    {
+      "target": "raf_scout_ah1",
+      "source": "ran_scout",
+      "basis": "Same type: Westland Scout AH.1, added to the game in 0.9.0; the author's Wasp/Scout model estimate under the id ran_scout (reference year 1963)"
+    },
+    {
+      "target": "rn_canberra",
+      "source": "raf_canberra_bomber",
+      "basis": "Same type: English Electric Canberra bomber, added to the game in 0.9.0; the tracker author's catalog prices the Canberra under The Royal Navy mod's id raf_canberra_bomber"
+    },
+    {
+      "target": "rn_sea_king_has5",
+      "source": "rn_sea_king",
+      "basis": "Same type: Sea King HAS.5, added to the game in 0.9.0; the tracker author's catalog prices the HAS.5 under The Royal Navy mod's id rn_sea_king (author Sea King model estimate, reference year 1961)"
+    },
+    {
+      "target": "rn_wasp_has1",
+      "source": "rn_wasp",
+      "basis": "Same type: Wasp HAS.1, added to the game in 0.9.0; the tracker author's catalog prices it under The Royal Navy mod's id rn_wasp (author Wasp/Scout model estimate, reference year 1963)"
+    },
+    {
+      "target": "rn_wessex_has1",
+      "source": "rn_wessex",
+      "basis": "Wessex HAS.1 (game 0.9.0): the same Wessex airframe as the HU.5 the tracker author's catalog prices under rn_wessex (author Wessex model estimate, reference year 1961); the ASW fit is not priced"
+    },
+    {
+      "target": "rn_wessex_has3",
+      "source": "rn_wessex",
+      "basis": "Wessex HAS.3 (game 0.9.0): the same Wessex airframe as the HU.5 the tracker author's catalog prices under rn_wessex (author Wessex model estimate, reference year 1961); the ASW fit is not priced"
+    },
+    {
+      "target": "rn_wessex_hu5",
+      "source": "rn_wessex",
+      "basis": "Same type: Wessex HU.5, added to the game in 0.9.0; the tracker author's catalog prices the HU.5 under The Royal Navy mod's id rn_wessex (author Wessex model estimate, reference year 1961)"
+    },
+    {
+      "target": "usaf_c-130",
+      "source": "usmc_kc-130t",
+      "basis": "C-130 Hercules transport (game 0.9.0): no plain C-130 in the catalog; valued as the author's KC-130T, a tanker on the same C-130H airframe; an airframe-family comparator with no adjustment for the tanker kit"
+    },
+    {
+      "target": "usn_s-2e",
+      "source": "ran_s2",
+      "basis": "Same type: S-2E Tracker, added to the game in 0.9.0; the tracker author's catalog prices the S-2E under the id ran_s2 (author Tracker model estimate, reference year 1954)"
     }
   ],
   "vessel": [
@@ -3929,6 +4034,284 @@
       "target": "usn_bbg_ulysses_s_grant",
       "source": "usn_bbg_trump",
       "basis": "Red Storm Arsenal's fictional 2032 battleship (3 Nov 2026 export): valued as the same mod's usn_bbg_trump, the battleship the tracker author's catalog prices; not a design estimate"
+    },
+    {
+      "target": "rn_cvs_invincible",
+      "source": "rn_cv_invincible",
+      "basis": "Same class: Invincible-class carriers, added to the game in 0.9.0; the tracker author's catalog prices the class under The Royal Navy mod's id rn_cv_invincible (price year 1980)"
+    },
+    {
+      "target": "ara_cv_veinticinco_de_mayo",
+      "source": "ran_majestic",
+      "basis": "ARA Veinticinco de Mayo, a Colossus-class light fleet carrier (game 0.9.0): no Colossus entry in the catalog; valued as the Majestic class, the modified Colossus design, at the author's light-carrier model estimate (reference year 1960); a sister-design comparator, not a class quote"
+    },
+    {
+      "target": "ara_cl_belgrano",
+      "source": "wp_kr_sverdlov",
+      "category": "CL",
+      "basis": "Brooklyn-class gun cruisers in Argentine, Chilean and Brazilian service (game 0.9.0): no US gun cruiser in the catalog; valued as its only all-gun light cruiser, the Sverdlov class (author model estimate, price year 1952); a role comparator, not a class quote"
+    },
+    {
+      "target": "ara_dd_comodoro_py",
+      "source": "usn_dd_gearing_fram2",
+      "category": "DD",
+      "basis": "Same class: ARA Comodoro Py, the former USS Perkins, a Gearing-class FRAM II destroyer (game 0.9.0); the author's Gearing FRAM II estimate (reference year 1955); the MM38 Exocet fit is not priced"
+    },
+    {
+      "target": "ara_dd_sumner_fram2",
+      "source": "usn_dd_gearing_fram2",
+      "category": "DD",
+      "basis": "Allen M. Sumner-class FRAM II destroyers in Argentine service (game 0.9.0): no Sumner entry in the catalog; valued as the Gearing FRAM II, the lengthened sister design (author estimate, reference year 1955); the Exocet fit is not priced"
+    },
+    {
+      "target": "ara_ddg_hercules",
+      "source": "rn_ff_type42",
+      "category": "DDG",
+      "basis": "Same class: Argentina's two Type 42 destroyers, Hercules and Santisima Trinidad (game 0.9.0); the author's Type 42 Batch 1 estimate (reference year 1975); the MM38 Exocet fit is not priced"
+    },
+    {
+      "target": "ara_fs_drummond",
+      "source": "ara_drummond",
+      "category": "FS",
+      "basis": "Same class: Drummond-class (French A69) corvettes, added to the game in 0.9.0; the tracker author's catalog prices the class under the id ara_drummond (author corvette model estimate, reference year 1990)"
+    },
+    {
+      "target": "ara_ss_santa_fe",
+      "source": "ae_ss_s32",
+      "category": "SS",
+      "basis": "ARA Santa Fe, a Balao-class GUPPY II boat (game 0.9.0): valued as the catalog's GUPPY IIA boats of the Spanish Navy, a sister GUPPY conversion of the same fleet-boat family (author guppy model estimate, reference year 1950)"
+    },
+    {
+      "target": "usn_ss_balao_guppy_ii",
+      "source": "ae_ss_s32",
+      "category": "SS",
+      "basis": "Balao-class GUPPY II (game 0.9.0): valued as the catalog's GUPPY IIA boats of the Spanish Navy, a sister GUPPY conversion of the same fleet-boat family (author guppy model estimate, reference year 1950)"
+    },
+    {
+      "target": "fgs_ss_type_209-1200",
+      "source": "ara_209",
+      "category": "SS",
+      "basis": "Type 209 submarines the game names the Salta class, Salta and San Luis (game 0.9.0); the tracker author's catalog prices the Argentine Type 209 under the id ara_209 (author type209 model estimate, reference year 1971)"
+    },
+    {
+      "target": "civ_ms_roro_ferry",
+      "source": "civ_ms_roro_b",
+      "basis": "Stock ro-ro passenger ferry (Norland, Norstar), 152 m, added in 0.9.0: valued as the stock RORO B, the catalog's ro-ro of the author's smaller merchant model (reference year 1970); a same-type comparator, not a ship quote"
+    },
+    {
+      "target": "civ_ms_searunner",
+      "source": "civ_ms_roro_b",
+      "basis": "Stock Searunner-class ro-ro (Elk, Atlantic Prosper), 152 m, added in 0.9.0: valued as the stock RORO B, the catalog's ro-ro of the author's smaller merchant model (reference year 1970); a same-type comparator, not a ship quote"
+    },
+    {
+      "target": "civ_ms_searunner_mod",
+      "source": "civ_ms_roro_b",
+      "basis": "Stock modified Searunner-class ro-ro (Baltic Ferry, Nordic Ferry), 152 m, added in 0.9.0: valued as the stock RORO B, the catalog's ro-ro of the author's smaller merchant model (reference year 1970); a same-type comparator, not a ship quote"
+    },
+    {
+      "target": "rn_ddg_bristol",
+      "source": "rn_ff_type42",
+      "category": "DDG",
+      "basis": "Type 82 destroyer HMS Bristol (game 0.9.0): no Type 82 entry in the catalog; valued as the Type 42, the Royal Navy's Sea Dart destroyer of the same decade (author estimate, reference year 1975); a role comparator that understates the larger one-off ship"
+    },
+    {
+      "target": "rn_ddg_bristol_73",
+      "source": "rn_ff_type42",
+      "category": "DDG",
+      "basis": "Type 82 destroyer HMS Bristol in her 1973 fit (game 0.9.0): no Type 82 entry in the catalog; valued as the Type 42, the Royal Navy's Sea Dart destroyer of the same decade (author estimate, reference year 1975); a role comparator that understates the larger one-off ship"
+    },
+    {
+      "target": "rn_ddg_county_batch1",
+      "source": "rn_ddg_county-class_batch_1_75",
+      "basis": "Same class: County-class Batch 1 destroyers, added to the game in 0.9.0; the tracker author's catalog prices them under The Royal Navy mod's id (author county model estimate, reference year 1963)"
+    },
+    {
+      "target": "rn_ddg_county_batch2",
+      "source": "rn_ddg_county-class_batch_2_75",
+      "basis": "Same class: County-class Batch 2 destroyers in their Sea Slug and gun fit, added to the game in 0.9.0; the tracker author's catalog prices the batch under The Royal Navy mod's id, one County estimate for every fit (reference year 1963)"
+    },
+    {
+      "target": "rn_ddg_county_batch2_75",
+      "source": "rn_ddg_county-class_batch_2_75",
+      "basis": "Same class and fit: County-class Batch 2 destroyers with Exocet, added to the game in 0.9.0; the tracker author's catalog prices them under The Royal Navy mod's id (author county model estimate, reference year 1963)"
+    },
+    {
+      "target": "rn_ddg_sheffield",
+      "source": "rn_ff_type42",
+      "basis": "Same class: Type 42 Batch 1 destroyers, added to the game in 0.9.0; the tracker author's catalog prices them under The Royal Navy mod's id rn_ff_type42 (reference year 1975)"
+    },
+    {
+      "target": "rn_ddg_sheffield_batch0",
+      "source": "rn_ff_type42",
+      "basis": "HMS Sheffield, the Type 42 lead ship the game lists as Batch 0 (0.9.0): the same class as the Batch 1 ships the tracker author's catalog prices under rn_ff_type42 (reference year 1975)"
+    },
+    {
+      "target": "rn_ddg_sheffield_batch2",
+      "source": "rn_dd_type42_batch2",
+      "basis": "Same class: Type 42 Batch 2 destroyers, added to the game in 0.9.0; the tracker author's catalog prices them under The Royal Navy mod's id rn_dd_type42_batch2 (reference year 1975)"
+    },
+    {
+      "target": "rn_ff_amazon",
+      "source": "type_21+ACSL_lynx",
+      "basis": "Same class: Type 21 Amazon-class frigates, added to the game in 0.9.0; the tracker author's catalog prices the class under The Royal Navy mod's id type_21+ACSL_lynx (author type21 model estimate, reference year 1974)"
+    },
+    {
+      "target": "rn_ff_broadsword",
+      "source": "rn_type22b12",
+      "basis": "Same class: Type 22 Batch 1 Broadsword-class frigates, added to the game in 0.9.0; the tracker author's catalog prices them under The Royal Navy mod's id rn_type22b12 (price year 1979)"
+    },
+    {
+      "target": "rn_ff_leander",
+      "source": "rn_ff_leander_1963",
+      "basis": "Same class: Leander-class frigates in their original gun fit, added to the game in 0.9.0; the tracker author's catalog prices them under The Royal Navy mod's id rn_ff_leander_1963 (author leander model estimate, reference year 1963)"
+    },
+    {
+      "target": "rn_lpd_fearless",
+      "source": "usn_lpd_austin",
+      "category": "LPD",
+      "basis": "Fearless-class landing platform docks (game 0.9.0): no Fearless entry in the catalog; valued as the stock Austin-class LPD of the same year, the author's LPD model (reference year 1965); a role comparator for a smaller ship, not a class quote"
+    },
+    {
+      "target": "rn_lsl_roundtable",
+      "source": "ran_lsh_tobruk",
+      "category": "LST",
+      "basis": "Round Table-class landing ships logistic (game 0.9.0): valued as HMAS Tobruk, the Australian ship built to the Round Table design, at the author's landing-ship model estimate (reference year 1969); a derived-design comparator, not a class quote"
+    },
+    {
+      "target": "rn_ss_oberon",
+      "source": "ran_ss_oberon",
+      "basis": "Same class: Oberon-class submarines in Royal Navy, Brazilian and Chilean service, added to the game in 0.9.0; the author's stock Oberon (RAN) estimate (reference year 1965)"
+    },
+    {
+      "target": "rn_ss_porpoise",
+      "source": "ran_ss_oberon",
+      "basis": "Porpoise-class submarines (game 0.9.0): no Porpoise entry in the catalog; valued as the Oberon class, its improved follow-on (author model estimate, reference year 1965); a derived-design comparator, not a class quote"
+    },
+    {
+      "target": "rn_ssn_churchill",
+      "source": "rn_churchill_class_ssn",
+      "basis": "Same class: Churchill-class nuclear submarines, added to the game in 0.9.0; the tracker author's catalog prices the class under The Royal Navy mod's id (author model estimate, reference year 1975)"
+    },
+    {
+      "target": "rn_ssn_churchill_late",
+      "source": "rn_churchill_class_ssn",
+      "basis": "Same class: Churchill-class nuclear submarines in their late fit, added to the game in 0.9.0; the tracker author's catalog prices the class under The Royal Navy mod's id (author model estimate, reference year 1975); the refit is not priced"
+    },
+    {
+      "target": "rn_ssn_swiftsure",
+      "source": "rn_swiftsure_class_ssn",
+      "basis": "Same class: Swiftsure-class nuclear submarines, added to the game in 0.9.0; the tracker author's catalog prices the class under The Royal Navy mod's id (author model estimate, reference year 1975)"
+    },
+    {
+      "target": "rn_ssn_trafalgar",
+      "source": "rn_trafalgar_83",
+      "basis": "Same class: Trafalgar-class nuclear submarines, added to the game in 0.9.0; the tracker author's catalog prices the class under the id rn_trafalgar_83 (author model estimate, reference year 1975)"
+    },
+    {
+      "target": "rn_ssn_valiant",
+      "source": "rn_valiant_class_ssn",
+      "basis": "Same class: Valiant-class nuclear submarines, added to the game in 0.9.0; the tracker author's catalog prices the class under The Royal Navy mod's id (author model estimate, reference year 1975)"
+    },
+    {
+      "target": "rn_ao_leaf",
+      "source": "civ_ms_sealift_pacific",
+      "category": "AO",
+      "basis": "Leaf-class support tankers (game 0.9.0), which the game defines as a #!copy of its Medium Tanker with the replenishment role: valued as that tanker (author merchant model estimate, reference year 1970) and listed as the fleet auxiliary it is"
+    },
+    {
+      "target": "ara_agi_narwal",
+      "source": "civ_fv_sterntrawler_b",
+      "category": "AGI",
+      "basis": "The intelligence trawler Narwal (game 0.9.0), which the game defines as a #!copy of its Stern Trawler B with the spy role: valued as that trawler (author trawler model estimate, reference year 1970) and listed as the spy ship it is"
+    },
+    {
+      "target": "usn_usv_k5_kraken_owa",
+      "basis": "Kraken K5 One-Way Attack, which its mod defines as a #!copy of usn_usv_k5_kraken with another payload: the same boat, so SEST's reviewed K5 estimate, the Royal Navy's K3 Scout contract of GBP 12.3m (USD 16.5m) for 20 boats; no K5 price published",
+      "category": "USV",
+      "estimate": {
+        "historical": "830000",
+        "historical_year": "2026",
+        "historical_method": "model estimate",
+        "current": "830000",
+        "current_year": "2026",
+        "current_method": "model estimate",
+        "note": "16.5M / 20 = 825,000, rounded; no premium for the One-Way Attack payload"
+      },
+      "sources": [
+        {
+          "title": "SEST researched estimate usn_usv_k5_kraken (shipped)",
+          "url": "file:integration/combat-costs/mappings.json"
+        },
+        {
+          "title": "Royal Navy news, Navy to buy 20 uncrewed boats as testbeds for future operations (11 Mar 2026)",
+          "url": "https://www.royalnavy.mod.uk/news/2026/march/11/20260311-kraken-usv-procurement-announcement"
+        },
+        {
+          "title": "Tectonic Defense, Kraken Secures £12.3M USV Contract with the Royal Navy (12 Mar 2026)",
+          "url": "https://www.tectonicdefense.com/kraken-secures-12-3m-usv-contract-with-the-royal-navy/"
+        }
+      ]
+    },
+    {
+      "target": "usn_usv_k5_kraken_steelfin",
+      "basis": "Kraken K5 Steelfin, which its mod defines as a #!copy of usn_usv_k5_kraken with another payload: the same boat, so SEST's reviewed K5 estimate, the Royal Navy's K3 Scout contract of GBP 12.3m (USD 16.5m) for 20 boats; no K5 price published",
+      "category": "USV",
+      "estimate": {
+        "historical": "830000",
+        "historical_year": "2026",
+        "historical_method": "model estimate",
+        "current": "830000",
+        "current_year": "2026",
+        "current_method": "model estimate",
+        "note": "16.5M / 20 = 825,000, rounded; no premium for the Steelfin payload"
+      },
+      "sources": [
+        {
+          "title": "SEST researched estimate usn_usv_k5_kraken (shipped)",
+          "url": "file:integration/combat-costs/mappings.json"
+        },
+        {
+          "title": "Royal Navy news, Navy to buy 20 uncrewed boats as testbeds for future operations (11 Mar 2026)",
+          "url": "https://www.royalnavy.mod.uk/news/2026/march/11/20260311-kraken-usv-procurement-announcement"
+        },
+        {
+          "title": "Tectonic Defense, Kraken Secures £12.3M USV Contract with the Royal Navy (12 Mar 2026)",
+          "url": "https://www.tectonicdefense.com/kraken-secures-12-3m-usv-contract-with-the-royal-navy/"
+        }
+      ]
+    },
+    {
+      "target": "usn_usv_k5_kraken_strike",
+      "basis": "Kraken K5 Strike, which its mod defines as a #!copy of usn_usv_k5_kraken with another payload: the same boat, so SEST's reviewed K5 estimate, the Royal Navy's K3 Scout contract of GBP 12.3m (USD 16.5m) for 20 boats; no K5 price published",
+      "category": "USV",
+      "estimate": {
+        "historical": "830000",
+        "historical_year": "2026",
+        "historical_method": "model estimate",
+        "current": "830000",
+        "current_year": "2026",
+        "current_method": "model estimate",
+        "note": "16.5M / 20 = 825,000, rounded; no premium for the Strike payload"
+      },
+      "sources": [
+        {
+          "title": "SEST researched estimate usn_usv_k5_kraken (shipped)",
+          "url": "file:integration/combat-costs/mappings.json"
+        },
+        {
+          "title": "Royal Navy news, Navy to buy 20 uncrewed boats as testbeds for future operations (11 Mar 2026)",
+          "url": "https://www.royalnavy.mod.uk/news/2026/march/11/20260311-kraken-usv-procurement-announcement"
+        },
+        {
+          "title": "Tectonic Defense, Kraken Secures £12.3M USV Contract with the Royal Navy (12 Mar 2026)",
+          "url": "https://www.tectonicdefense.com/kraken-secures-12-3m-usv-contract-with-the-royal-navy/"
+        }
+      ]
+    },
+    {
+      "target": "usn_cg_steelfin",
+      "source": "usn_cg_ticonderogavls",
+      "basis": "The Steelfin mod's cruiser, which it defines as a #!copy of the stock Bunker Hill with Steelfin in its Mk 41 cells: valued as that ship is, at the author's Ticonderoga VLS estimate (price year 1983); the missile load is priced by the round"
     }
   ],
   "land": [

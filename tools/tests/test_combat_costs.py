@@ -171,7 +171,9 @@ class CompatibilityBuild(unittest.TestCase):
                 fields = entries[(kind, item["target"].casefold())]["fields"]
                 self.assertEqual(fields[KINDS[kind][2]], item["estimate"].get("historical", ""))
                 self.assertEqual(fields["CurrentYearCost"], item["estimate"]["current"])
-        self.assertEqual(count, 116)    # 28 Oct 2026: + usaf_b-21_raider
+        # 28 Oct 2026: + usaf_b-21_raider. 13 Nov 2026: + the three #!copy fits of the Kraken K5,
+        # which carry the K5's own reviewed estimate now that the inventory reads #!copy.
+        self.assertEqual(count, 119)
 
     def test_refuted_and_unshipped_research_carries_no_price(self):
         for item in self.research["items"]:

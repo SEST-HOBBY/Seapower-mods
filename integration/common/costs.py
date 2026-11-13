@@ -156,6 +156,35 @@ def land_inventory(root):
     return found
 
 
+def base_reference(text):
+    """The file a unit config is laid over: its #!alias base, else its #!copy source.
+
+    Both give a file with no [General] of its own a whole unit. The game
+    reads a file's own keys before its #!copy sources and before its #!alias
+    base, and never replaces a key it has read (IniHandler.open, as
+    integration/allied-fixes/build_patch.py records it), so for the fields the
+    cost inventory reads, the type and the dates, the two are the same
+    overlay. #!copy counts on the lines before the first section, in any
+    case, and may name several sources; the first is taken. Since 0.9.0 the
+    game's own files use it (the Leaf tanker, the Narwal, the Victor K.2).
+    """
+    alias = re.search(r"^#!alias\s+([^\r\n]+)", text, re.M)
+    if alias:
+        return alias[1].strip()
+    for line in text.splitlines():
+        line = line.strip()
+        if line.startswith("["):
+            break
+        copy = re.match(r"#!copy(?:\s+(.*))?$", line, re.I)
+        if copy and copy[1]:
+            # A comment is cut as on a key line; the game cuts none, so a
+            # commented line names no file there and this is the wider reading.
+            first = re.split(r";|//|#", copy[1].split(",")[0])[0].strip()
+            if first:
+                return first
+    return None
+
+
 def inventory(root):
     """Winning unit configs: SEST source packs, ordered Workshop mods, vanilla."""
     units = {kind: {} for kind in KINDS}
@@ -167,7 +196,7 @@ def inventory(root):
                     continue
                 data = read_ini(path)
                 text = path.read_text(encoding="utf-8-sig", errors="replace")
-                alias = re.search(r"^#!alias\s+([^\r\n]+)", text, re.M)
+                alias = base_reference(text)
                 if "general" not in data and not alias:
                     continue
                 if kind == "weapon" and not data.get("general", {}).get("type") and not alias:
@@ -175,7 +204,7 @@ def inventory(root):
                 units[kind].setdefault(uid.casefold(), {
                     "id": uid, "owner": owner, "path": path,
                     "general": data.get("general", {}),
-                    "alias": alias[1].strip() if alias else None,
+                    "alias": alias,
                 })
     return units
 
@@ -437,7 +466,7 @@ def fielded_units(root, units):
 
 
 def unit_sections(unit, units_kind, depth=0):
-    """A unit file's sections, laid over its #!alias base key by key."""
+    """A unit file's sections, laid over its #!alias base or #!copy source key by key."""
     sections = read_ini(unit["path"])
     if not unit["alias"] or depth > 4:
         return sections

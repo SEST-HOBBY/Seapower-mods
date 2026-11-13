@@ -159,6 +159,110 @@ class CompleteCatalog(unittest.TestCase):
         # Its byte-identical usn_steelfin_air loses to Steelfin's own copy, which keeps its price.
         self.assertEqual(self.rows['weapon','usn_steelfin_air']['owner'],'3820576916')
 
+    def test_090_units_take_their_class_from_the_catalog_not_a_wrong_model(self):
+        # Sea Power 0.9.0 (11 Nov 2026) added 103 units and rounds. With no carrier, cruiser or
+        # landing-ship rule under those names the merchant proxy ($75M) took Invincible, the
+        # Veinticinco de Mayo, the Belgrano and the Round Table ships, and the generic destroyer,
+        # frigate and submarine proxies took classes the tracker author's catalog already prices
+        # under The Royal Navy mod's ids.
+        for kind,uid,donor,category in [
+                ('vessel','rn_cvs_invincible','rn_cv_invincible','CVL'),
+                ('vessel','ara_cv_veinticinco_de_mayo','ran_majestic','CVL'),
+                ('vessel','ara_cl_belgrano','wp_kr_sverdlov','CL'),
+                ('vessel','rn_lsl_roundtable','ran_lsh_tobruk','LST'),
+                ('vessel','rn_ddg_sheffield','rn_ff_type42','DDG'),
+                ('vessel','rn_ff_broadsword','rn_type22b12','FF'),
+                ('vessel','rn_ssn_churchill','rn_churchill_class_ssn','SSN'),
+                ('vessel','usn_ss_balao_guppy_ii','ae_ss_s32','SS'),
+                ('aircraft','rn_sea_king_has5','rn_sea_king','Aircraft'),
+                ('aircraft','usn_s-2e','ran_s2','Aircraft'),
+                ('weapon','rn_seaslug_mk2','rn_seaslug_2','SAM')]:
+            row,source=self.rows[kind,uid],self.base['merged'][kind][donor.casefold()]
+            with self.subTest(item=uid):
+                self.assertEqual((row['historical'],row['current']),
+                                 (source[info(kind)[2].casefold()],source['currentyearcost']))
+                self.assertEqual(row['field_sources']['current'],'reviewed catalog mapping: '+donor)
+                self.assertEqual(row['category'],category)
+                self.assertIsNone(row['completion'])   # no proxy model had to fill a field
+
+    def test_a_copy_directive_unit_is_listed_and_priced(self):
+        # 0.9.0 is the first game version whose own files use #!copy: the Leaf tanker, the Narwal
+        # and the Victor K.2 have no [General] of their own, and until 13 Nov 2026 the inventory
+        # passed over such a file, so the tracker had no price for them or for nine mod units.
+        for uid,source,category,price in [('rn_ao_leaf','civ_ms_sealift_pacific','AO','117000000'),
+                                          ('ara_agi_narwal','civ_fv_sterntrawler_b','AGI','15400000')]:
+            row=self.rows['vessel',uid]
+            self.assertEqual((row['current'],row['category']),(price,category),uid)
+            self.assertEqual(row['field_sources']['current'],'reviewed catalog mapping: '+source,uid)
+        # A copy reads its source's type: the tanker Victor is the bomber's airframe.
+        tanker,bomber=self.rows['aircraft','raf_victor_k2'],self.rows['aircraft','raf_victor']
+        self.assertEqual((tanker['historical'],tanker['current']),(bomber['historical'],bomber['current']))
+        self.assertEqual(self.defs.sections('aircraft','raf_victor_k2')['general']['unittype'],'Aircraft')
+        self.assertEqual(self.defs.sections('aircraft','raf_victor_k2')['ai']['role'],'Tanker')
+        # The mods' copies cost what their sources cost.
+        k5=self.rows['vessel','usn_usv_k5_kraken']
+        for uid in ('usn_usv_k5_kraken_owa','usn_usv_k5_kraken_steelfin','usn_usv_k5_kraken_strike'):
+            self.assertEqual((self.rows['vessel',uid]['historical'],self.rows['vessel',uid]['current']),
+                             (k5['historical'],k5['current']),uid)
+        hill,steelfin=self.rows['vessel','usn_cg_bunker_hill'],self.rows['vessel','usn_cg_steelfin']
+        self.assertEqual((steelfin['historical'],steelfin['current']),(hill['historical'],hill['current']))
+        for uid,source in [('usn_uuv_dive_ld_mcm','usn_uuv_dive_ld'),('usn_uuv_dive_xl_100m','usn_uuv_dive_xl'),
+                           ('usn_asv_saronic_corsair_steelfin','usn_asv_saronic_corsair_missile')]:
+            self.assertEqual(self.rows['vessel',uid]['current'],self.rows['vessel',source]['current'],uid)
+        self.assertEqual(self.rows['weapon','usn_steelfin_boat']['current'],self.rows['weapon','usn_steelfin']['current'])
+
+    def test_a_copy_directive_is_read_as_the_game_reads_it(self):
+        base=costs.base_reference
+        self.assertEqual(base('#!copy vessels/civ_fv_sterntrawler_b.ini\n[AI]\nRole=Spy\n'),'vessels/civ_fv_sterntrawler_b.ini')
+        self.assertEqual(base('# note\n#!COPY vessels\\a.ini , vessels/b.ini\n[AI]\n'),'vessels\\a.ini')
+        self.assertEqual(base('#!copy vessels/a.ini   ; the hull\n'),'vessels/a.ini')
+        self.assertIsNone(base('[General]\nType=Missile\n#!copy ammunition/a.ini\n'))   # after a section: not a directive
+        self.assertIsNone(base('#!copy\n[General]\n'))
+        self.assertIsNone(base('#!copying vessels/a.ini\n'))
+        # An #!alias base, read from any line, still comes first.
+        self.assertEqual(base('#!copy vessels/a.ini\n[General]\n#!alias vessels/b.ini\n'),'vessels/b.ini')
+
+    def test_a_catalog_key_in_a_folder_is_named_by_its_file(self):
+        # [rn_harrier_gr3/rn_wessex] is the tracker author's Wessex ("Wessex / H-34", 600,000 and
+        # 6,700,000) kept in a folder named for a Harrier. The family rule read the whole key, so
+        # seven Harriers and AV-8As, the game's new GR.3 among them, cost what a Wessex costs.
+        catalog=self.base['merged']['aircraft']
+        self.assertIn('rn_harrier_gr3/rn_wessex',catalog)
+        self.assertFalse([key for key in catalog if re.search(r'harrier|av[-_]?8a',key.rsplit('/',1)[-1])])
+        for uid in ('raf_gr3','rn_harrier_gr3','rn_sea_harrier','rn_sea_harrier_early','ran_sea_harrier84','spa_av-8a','usmc_av-8a'):
+            row=self.rows['aircraft',uid]
+            with self.subTest(item=uid):
+                self.assertEqual((row['completion']['model'],row['field_methods']['current']),('fighter','rough model'))
+                self.assertIsNone(row['completion']['source'])
+        # A folder still does not hide the file: the Seahawk family finds its donor as before.
+        self.assertEqual(self.rows['aircraft','s-70b-2_seahawk']['field_sources']['current'],'reviewed catalog mapping: ran_s-70b-2_seahawk')
+
+    def test_090_names_the_rules_could_not_read(self):
+        for kind,uid,sections,model in [
+                # The wartime air-dropped Mark 13 weighs 1,000 kg, so the modern heavyweight proxy ($4M) took it.
+                ('weapon','usn_mk13',{'general':{'type':'Torpedo','mass':'1000'}},'ww2_torpedo'),
+                ('weapon','usn_mk-48',{'general':{'type':'Torpedo','mass':'1600'}},'heavy_torpedo'),
+                # Type 182 is a towed body like Nixie, not an expendable.
+                ('weapon','rn_type_182_decoy',{'general':{'type':'Noisemaker'}},'towed_decoy'),
+                # Matra Type 155: eighteen or twenty 68 mm tubes.
+                ('weapon','fr_type155_sneb',{'general':{'type':'Container'}},'large_pod'),
+                ('weapon','rn_type_155',{'general':{'type':'Container'}},'large_pod'),
+                # Bandeirante family and Skyvan: light utility twins, not combat aircraft.
+                ('aircraft','civ_e100',{'general':{'unittype':'Aircraft'}},'civil_light'),
+                ('aircraft','fab_c-95',{'general':{'unittype':'Aircraft'}},'civil_light'),
+                ('aircraft','ara_p-95',{'general':{'unittype':'Aircraft'}},'civil_light'),
+                ('aircraft','raf_sc-7',{'general':{'unittype':'Aircraft'}},'civil_light'),
+                ('aircraft','wp_tu-95',{'general':{'unittype':'Aircraft'}},'fighter'),
+                # Grass strips and a forward operating base are not full airbases.
+                ('land','flk_goose_green',{'general':{'landunitsubtype':'Airbase'}},'small_airbase'),
+                ('land','flk_pebble_island',{'general':{'landunitsubtype':'Airbase'}},'small_airbase'),
+                ('land','flk_san_carlos_fob',{'general':{'landunitsubtype':'Airbase'}},'small_airbase'),
+                ('land','flk_stanley',{'general':{'landunitsubtype':'Airbase'}},'airbase')]:
+            with self.subTest(item=uid):
+                self.assertEqual(select_model(kind,uid,sections)[0],model)
+        self.assertEqual(costs.price(self.rows['weapon','usn_mk13']['current']),250000)
+        self.assertEqual(costs.price(self.rows['land','flk_goose_green']['current']),50000000)
+
 
 class PriceParity(unittest.TestCase):
     def test_shared_csharp_and_python_precedence_cases(self):
