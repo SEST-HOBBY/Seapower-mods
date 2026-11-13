@@ -221,7 +221,10 @@ function Invoke-Step {
                 $package=Open-Package $manifest
                 & (J $package 'Repair-SEST-Beta-Startup.ps1') @options -Action Restore -Quiet -Automatic | Out-Null
                 Say ('  [done] beta features: this game build is not '+$label+', the build they were reviewed for, so SEST''s beta files were removed and the normal SEST plugins put back.') 'Green'
-                Say ('         Backups kept in '+(J $stateRoot 'backups' ([string]$state.token))+'. SETUP installs the features again when the game is on that build.')
+                $again=' SETUP installs the features again when the game is on that build.'
+                if(Test-Path -LiteralPath $optOutPath){$again=' They stay off, as you chose.'}
+                Say ('         Backups kept in '+(J $stateRoot 'backups' ([string]$state.token))+'.'+$again)
+                Say '         Left in place: SEST''s cache of adapted mod files under BepInEx\config\SEST-BetaAnchorChain, which nothing of SEST''s loads now.'
             } catch {
                 Warn ('SEST''s beta files are installed for another game build, and SETUP could not put the normal plugins back: '+$_.Exception.Message) @(
                     'The beta plugins do nothing on this build. With the game closed, run "SEST beta features - remove.cmd" in the pack folder; if that stops too, keep both messages for review.')
@@ -234,7 +237,7 @@ function Invoke-Step {
             if($betaRuntime -and (Sha (J $plugins 'SEST.RuntimeFixes.dll')) -eq $betaRuntime){
                 Warn ('The beta SEST plugins are in '+$plugins+', but no SEST restore journal was found, so SETUP cannot put the normal ones back.') @('They do nothing on this build. Steam puts the normal plugins back when it next updates the item.')
             } else {
-                Say ('  [ok]   beta features: for '+$label+' only; this game build uses the Workshop item''s own SEST plugins (no beta files installed)') 'Green'
+                Say ('  [ok]   beta features: reviewed for '+$label+' only, and this is another game build; SEST''s beta loader and plugins are not installed, and nothing was changed') 'Green'
             }
         }
         return

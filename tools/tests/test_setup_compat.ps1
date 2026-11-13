@@ -16,9 +16,11 @@
     full path, and one that is not a folder path stops SETUP; step 4
     runs sest-ui-keys.ps1 only when it and Contact Log's settings exist, a
     failure there is a warning, not a stop, and Contact Log downloaded with
-    no settings yet is one note; step 1's sest-profile.ps1 names the stable
-    build, the public beta or another build by Seapower-Scripts.dll's
-    SHA-256, makes the discontinued PR #53 SEST.BetaAnchorBootstrap.dll and
+    no settings yet is one note; step 1's sest-profile.ps1 names Build
+    261021, a beta or another game file by Seapower-Scripts.dll's SHA-256
+    (and, for another file, the version the game's changelog gives and the
+    one the pack's data declares), makes the discontinued PR #53
+    SEST.BetaAnchorBootstrap.dll and
     a last launch whose LogOutput.log shows Anchor Chain did not load one
     [!!] warning each, never a stop, and a failing one is one warning.
 
@@ -432,19 +434,33 @@ try {
     # 14a. The three builds, the tool on its own (a stand-in file's hash
     # passed for the stable or the beta one).
     $r = BuildCheck @('-StableSha256', $h)
-    Check ($r.Code -eq 0 -and $r.Count -eq '0' -and $r.Out -match '\[ok\]   game build: Sea Power 0\.8\.7 Build 261021, the stable build this pack targets' -and $r.Out -match 'SEST Runtime Fixes 1\.5\.0 and SEST UI Follow-up can start, each only if its own SHA-256 checks pass') "stable hash: Build 261021, the plugins may start under their own checks, no warning"
+    Check ($r.Code -eq 0 -and $r.Count -eq '0' -and $r.Out -match '\[ok\]   game code: Sea Power 0\.8\.7 Build 261021, the build SEST Runtime Fixes 1\.5\.0 and SEST UI Follow-up are matched to' -and $r.Out -notmatch 'this pack targets' -and $r.Out -match 'SEST Runtime Fixes 1\.5\.0 and SEST UI Follow-up can start, each only if its own SHA-256 checks pass') "stable hash: Build 261021, the plugins may start under their own checks, no warning"
     $r = BuildCheck @('-CurrentBetaSha256', $h)
     Check ($r.Count -eq '0' -and $r.Out -match '9 November 2026' -and $r.Out -match 'R12') 'reviewed assembly: R12 bundled-feature profile recognised without a warning'
     $r = BuildCheck @('-PreviousBetaSha256', $h)
     Check ($r.Count -eq '0' -and $r.Out -match '7 November 2026' -and $r.Out -match 'R7') 'previous captured assembly: R7 profile retained'
     $r = BuildCheck @('-BetaSha256', $h)
-    Check ($r.Code -eq 0 -and $r.Count -eq '0' -and $r.Out -match '\[note\] game build: Sea Power 0\.8\.7 Build 261026, the public beta\. This pack targets the stable Build 261021\.' -and $r.Out -match 'stay off under their SHA-256 checks' -and $r.Out -match 'Anchor Chain preloader finds no chainloader, so no Anchor Chain mod loads' -and $r.Out -match 'test candidate only; nothing installs it') "beta hash: Build 261026, plugins off under their SHA checks, no chainloader, the fork a test candidate, a note not a warning"
+    Check ($r.Code -eq 0 -and $r.Count -eq '0' -and $r.Out -match '\[note\] game code: Sea Power 0\.8\.7 Build 261026, a beta build of October 2026\.' -and $r.Out -notmatch 'This pack targets' -and $r.Out -match 'stay off under their SHA-256 checks' -and $r.Out -match 'Anchor Chain preloader finds no chainloader, so no Anchor Chain mod loads' -and $r.Out -match 'test candidate only; nothing installs it') "beta hash: Build 261026, plugins off under their SHA checks, no chainloader, the fork a test candidate, a note not a warning"
     $r = BuildCheck @()
-    Check ($r.Code -eq 0 -and $r.Count -eq '0' -and $r.Out -match ('\[note\] game build not recognised: Seapower-Scripts\.dll SHA-256 ' + $h.Substring(0, 16) + '\.\.\., neither Build 261021 nor Build 261026\.') -and $r.Out -match 'data only') "unknown hash: named by its first 16 digits, data only, no warning"
+    Check ($r.Code -eq 0 -and $r.Count -eq '0' -and $r.Out -match ('\[note\] game code: Seapower-Scripts\.dll SHA-256 ' + $h.Substring(0, 16) + '\.\.\. is not a file SEST''s own code plugins are matched to\.') -and $r.Out -match 'stay off on it\. The pack''s campaigns and data files do not depend on it\.' -and $r.Out -notmatch 'not recognised|data only|neither Build') "unknown hash: named by its first 16 digits as a file no SEST plugin is matched to, no warning"
+    # The game's own changelog names the version, and the pack's _info.ini
+    # (beside the script in a built pack, not in the source folder) what its
+    # data is built for.
+    $logWas = [IO.File]::ReadAllBytes((J $game 'changelog.txt'))
+    GameVersion '11-Nov-2026: 0.9.0 Build 261111 Public Release'
+    $r = BuildCheck @()
+    Check ($r.Count -eq '0' -and $r.Out -match 'are matched to\. The game''s changelog says Sea Power 0\.9\.0 Build 261111\.' -and $r.Out -notmatch 'data files are built for') "unknown hash: the note gives the version the game's changelog names; no pack beside the source script, so no built-for line"
+    Put (J $game 'changelog.txt') $logWas
+    $packTool = J $pack 'sest-profile.ps1'
+    $packInfoWas = $null; if (Test-Path -LiteralPath (J $pack '_info.ini')) { $packInfoWas = [IO.File]::ReadAllBytes((J $pack '_info.ini')) }
+    Put (J $pack '_info.ini') (Bytes "[Language_en]`r`nName=SEST`r`n[Compatibility]`r`nApproximateVersion=0.9.0`r`n")
+    $o = (& $exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -File $packTool -GameDir $game -PassThru 2>&1 | Out-String) -replace ([string][char]27 + '\[[0-9;]*m'), ''
+    Check ($o -match 'do not depend on it\. The pack''s data files are built for Sea Power 0\.9\.0\.') "unknown hash, run from a pack: the note says which game version the pack's data is built for"
+    if ($null -ne $packInfoWas) { Put (J $pack '_info.ini') $packInfoWas } else { Remove-Item -LiteralPath (J $pack '_info.ini') -Force }
     # 14b. SETUP on that unknown build: a note, no warning, the order written.
     Put $settings (Bytes "[General]`r`nX=1`r`n[LoadOrder]`r`nNumberOfModFiles=1`r`nMod1Directory=9000001,True`r`n")
     $r = Setup @()
-    Check ($r.Code -eq 0 -and $r.Out -match 'All done' -and $r.Out -match '\[note\] game build not recognised' -and (Text ([IO.File]::ReadAllBytes($settings))) -match 'Mod1Directory=3812461539,True') "SETUP on an unknown build: one note, no warning, the mod order written"
+    Check ($r.Code -eq 0 -and $r.Out -match 'All done' -and $r.Out -match '\[note\] game code: Seapower-Scripts\.dll SHA-256' -and (Text ([IO.File]::ReadAllBytes($settings))) -match 'Mod1Directory=3812461539,True') "SETUP on an unknown build: one note, no warning, the mod order written"
     # 14c. The discontinued PR #53 plugin: one warning that names the file
     # to delete, left in place, and SETUP still writes the mod order.
     $old53 = J $game 'BepInEx' 'plugins' 'SEST.BetaAnchorBootstrap.dll'
@@ -474,7 +490,11 @@ try {
     Check ($r.Code -eq 0 -and $r.Out -match 'All done' -and $r.Out -notmatch 'did not load at the last launch') "a log whose last run loaded Anchor Chain: no warning"
     Put $bepLog (Bytes ($started + "[Error  :AnchorChain Preloader] Could not find AnchorChain chainloader`r`n"))
     $r = BuildCheck @('-BetaSha256', $h)
-    Check ($r.Count -eq '1' -and $r.Out -match 'This is known on the public beta \(Build 261026\)') "on the beta the last-launch warning says it is known there, and counts one"
+    Check ($r.Count -eq '1' -and $r.Out -match 'This is known on the beta Build 261026') "on the beta the last-launch warning says it is known there, and counts one"
+    $r = BuildCheck @('-StableSha256', $h)
+    Check ($r.Count -eq '1' -and $r.Out -match 'reinstall the preloader from Anchor Chain''s Workshop page') "on Build 261021 the last-launch warning still advises reinstalling the preloader"
+    $r = BuildCheck @()
+    Check ($r.Count -eq '1' -and $r.Out -match 'SEST has no record of Anchor Chain loading on this game build' -and $r.Out -match 'campaigns and data files play without it' -and $r.Out -notmatch 'reinstall the preloader') "on a file no SEST plugin is matched to the last-launch warning says what is known and does not send the player to reinstall"
     Remove-Item -LiteralPath $bepLog -Force
     # 14e. A failing build check is one warning, not a stop; with none
     # beside SETUP nothing is said.
@@ -484,7 +504,7 @@ try {
     Check ($r.Code -eq 0 -and $r.Out -match '\[!!\]   Could not check the game build: simulated failure' -and $r.Out -match 'read the 1 \[!!\] warning' -and (Text ([IO.File]::ReadAllBytes($settings))) -match 'Mod1Directory=3812461539,True') "a failing build check is one warning; the mod order still written"
     Remove-Item -LiteralPath (J $pack 'sest-profile.ps1') -Force
     $r = Setup @()
-    Check ($r.Code -eq 0 -and $r.Out -match 'All done' -and $r.Out -notmatch 'game build') "no sest-profile.ps1: nothing said, no warning"
+    Check ($r.Code -eq 0 -and $r.Out -match 'All done' -and $r.Out -notmatch 'game code|game build') "no sest-profile.ps1: nothing said, no warning"
     Put (J $pack 'sest-profile.ps1') ([IO.File]::ReadAllBytes($profileTool))
     # 15. The beta feature step (sest-workshop-features.ps1, a stand-in
     # here that logs each call): normal SETUP hands it the resolved game and

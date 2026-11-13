@@ -106,7 +106,7 @@ try {
     # Another game build, nothing installed: an accurate line, no files.
     Put $native 'OTHER GAME BUILD'
     Assert ((Step) -eq 0) 'Unsupported game with nothing installed gave a warning'
-    Assert ($said -match 'this game build uses the Workshop item''s own SEST plugins' -and $said -notmatch 'remain selected') 'Unsupported build message is not accurate'
+    Assert ($said -match 'this is another game build; SEST''s beta loader and plugins are not installed, and nothing was changed' -and $said -notmatch 'remain selected' -and $said -notmatch 'uses the Workshop item') 'Unsupported build message is not accurate'
     Assert (!(Test-Path -LiteralPath $app)) 'Unsupported game wrote a feature cache'
     Assert ((Sha (J $pack 'plugins' 'SEST.RuntimeFixes.dll')) -eq $stableRuntime) 'Unsupported game replaced normal-release code'
     Seed (J $Capture 'references' 'managed' 'Seapower-Scripts.dll') $native
@@ -216,12 +216,12 @@ try {
     # SEST's beta files go, and no opt-out is recorded...
     Put $native 'OTHER GAME BUILD'
     Assert ((Step) -eq 0) 'Leaving the reviewed build warned'
-    Assert ($said -match 'normal SEST plugins put back') 'Leaving the reviewed build was not reported'
+    Assert ($said -match 'normal SEST plugins put back' -and $said -match 'SETUP installs the features again when the game is on that build' -and $said -match 'Left in place: SEST''s cache of adapted mod files') 'Leaving the reviewed build was not reported'
     Assert ((State).phase -eq 'restored' -and !(Test-Path -LiteralPath $optOut)) 'Automatic restore recorded an opt-out'
     Assert ((Sha (J $pack 'plugins' 'SEST.RuntimeFixes.dll')) -eq $stableRuntime -and (Sha (J $pack 'plugins' 'SEST.ContactsFix.dll')) -eq $stableUi) 'Other build kept the beta plugins'
     Assert (!(Test-Path -LiteralPath $bootstrap) -and !(Test-Path -LiteralPath (J $pack 'plugins' 'SEST.IdentifyDataPaths.dll')) -and !(Test-Path -LiteralPath $flag)) 'Other build kept SEST beta files'
     Assert ((Get-Content -LiteralPath (J $local 'audio' 'broadcast' 'keep.mp3') -Raw) -eq 'AUDIO') 'Other build did not return local Identify data'
-    Assert ((Step) -eq 0 -and $said -match 'own SEST plugins') 'Second SETUP on the other build was not quiet'
+    Assert ((Step) -eq 0 -and $said -match 'beta loader and plugins are not installed, and nothing was changed') 'Second SETUP on the other build was not quiet'
     # ...so back on the reviewed build SETUP installs the newest features again.
     Seed (J $Capture 'references' 'managed' 'Seapower-Scripts.dll') $native
     Assert ((Step) -eq 0 -and (State).phase -eq 'staged') 'Back on the reviewed build SETUP did not stage again'

@@ -397,7 +397,14 @@ class CampaignServiceAwards(unittest.TestCase):
                     continue
                 ranks = [r.split(",") for r in row["ranks"].split("|")]
                 self.assertEqual(len(ranks), 10)
-                self.assertTrue(all(len(r) == 5 and r[4] == "" for r in ranks))
+                for r in ranks:
+                    self.assertEqual(len(r), 5)
+                    if nation == "UK" and int(r[3]) >= 3:
+                        # Sea Power 0.9.0 ships Royal Navy insignia from Lieutenant (level 3) up,
+                        # and SEST's British ladder names the game's own images.
+                        self.assertRegex(r[4], r"^ui/campaign/officer_ranks/uk/insignia_[a-z]+\.png$")
+                    else:
+                        self.assertEqual(r[4], "", (nation, r[0]))
                 levels = {int(r[3]): r[2] for r in ranks}
                 self.assertEqual(sorted(levels), list(range(1, 11)))
                 self.assertEqual((levels[5], levels[6], levels[7]), ("OF-4", "OF-5", "OF-6"))
