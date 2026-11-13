@@ -1,10 +1,25 @@
 SEST INTEGRATION PACK - GAME BUILDS AND BUNDLED FEATURES
 
-SETUP identifies Sea Power by SHA-256 of
-Sea Power_Data\Managed\Seapower-Scripts.dll. The build report in step 1
-changes nothing; the bundled feature installation runs at the end of SETUP.
+SEST's code is matched, file by file, to particular game builds: SETUP
+identifies them by SHA-256 of Sea Power_Data\Managed\Seapower-Scripts.dll.
+The pack's campaigns and data files do not depend on that file; they are
+built for the game version the pack's _info.ini declares. The build report
+in step 1 changes nothing; the bundled feature installation runs at the end
+of SETUP.
 
-REVIEWED BETA: 0.8.7 Build 261107 (Seapower-Scripts.dll 499675cd...)
+CURRENT RELEASE: SEA POWER 0.9.0 Build 261111 (11 November 2026)
+- The pack's data is built for 0.9.0. SEST's code is not matched to it yet:
+  Runtime Fixes, UI Follow-up and the bundled beta features stay off under
+  their own checks, and SETUP makes no code changes. If SEST's beta files
+  are installed from an earlier build, SETUP puts the normal plugins back.
+- What is off without SEST's code: F11 World Operations and its awards, the
+  F11 cost totals and campaign costs panel, the Red Line runtime ribbons and
+  the runtime corrections. The campaigns, units and data load without them.
+- SETUP's step 1 reports this file as one no SEST plugin is matched to and
+  gives the version the game's own changelog names.
+
+REVIEWED BUILD: 0.8.7 Build 261107, the public beta before 0.9.0
+(Seapower-Scripts.dll 499675cd...)
 - R13 includes F11 World Operations, world service progress, campaign costs,
   Coordinated Strike styling/cost summaries, the debrief mission ribbons and
   reviewed beta compatibility.
@@ -19,12 +34,12 @@ REVIEWED BETA: 0.8.7 Build 261107 (Seapower-Scripts.dll 499675cd...)
   feature installation. Keep the error and diagnostic report for review.
 - Managed/fixture checks passed; native gameplay acceptance is still required.
 
-NORMAL RELEASE: 0.8.7 Build 261021 (Seapower-Scripts.dll eab2297b...)
-- The existing normal-release Runtime Fixes 1.5.0 and UI Follow-up remain
-  selected, subject to their own game/author SHA-256 checks.
+EARLIER RELEASE: 0.8.7 Build 261021 (Seapower-Scripts.dll eab2297b...)
+- Runtime Fixes 1.5.0 and UI Follow-up, which are matched to this build,
+  remain selected, subject to their own game/author SHA-256 checks.
 - The bundled R13 beta feature installer makes no code changes on this build.
 
-OLDER BETA AND OTHER BUILDS
+OLDER BETAS AND ANY OTHER BUILD
 - Campaign/data files remain available, subject to game compatibility.
 - The bundled feature installer makes no code changes on unrecognised builds.
   Active plugins keep their own compatibility checks. A matching capture

@@ -62,14 +62,14 @@ language_en/sest_name_pools.ini adds commander name pools for
 nations the game has none for: common given names and surnames
 from public name statistics, which the game combines at random.
 
-545 of the unit files here are another author's file with
+544 of the unit files here are another author's file with
 changes made to it. A Sea Power unit file is a whole-file
 override - there is no way to alter one line of somebody's
 aircraft without shipping the whole aircraft - so this is how a
 patch has to work, and this list is what it patches.
 
 Measured, not declared: every shipped unit file is diffed against
-every file of its kind in the collection, and the 545 below
+every file of its kind in the collection, and the 544 below
 came back 90% or more alike. The percentage is how much of the
 file is unchanged.
 Files carried for a mod that was removed from the Workshop are
@@ -118,7 +118,7 @@ listed whatever the percentage: they are still that author's.
        97%  aircraft/usn_p8_squadrons.ini
 
   Bréguet Br.1050 Alizé  (workshop 3628203171)
-       93%  ammunition/usn_ssq-47.ini
+       92%  ammunition/usn_ssq-47.ini
 
   BUK-M3  (workshop 3564792549)
        99%  land_units/wp_buk-m3.ini
@@ -348,7 +348,6 @@ listed whatever the percentage: they are still that author's.
        97%  aircraft/fr_rafale_m_l.ini
 
   French Helicopter Package  (workshop 3567228449)
-       96%  ammunition/sest_agr-30_pod19.ini from adf_lau-3a.ini
        98%  ammunition/usa_agm-114k.ini
 
   General Atomics MQ-9 Reaper  (workshop 3503670861)
@@ -479,15 +478,15 @@ listed whatever the percentage: they are still that author's.
 
   RE-power: the resupply mod  (workshop 3605013271)
        95%  vessels/civ_ms_sealift_pacific.ini
-       97%  vessels/ir_aor_delvar.ini
+       96%  vessels/ir_aor_delvar.ini
        94%  vessels/jmsdf_aoe_mashuu.ini from usn_aoe_sacramento.ini
-       94%  vessels/plan_aor_type901.ini from usn_aoe_sacramento.ini
-       95%  vessels/plan_aor_type903a.ini from wp_vt_boris_chilikin.ini
+       93%  vessels/plan_aor_type901.ini from usn_aoe_sacramento.ini
+       94%  vessels/plan_aor_type903a.ini from wp_vt_boris_chilikin.ini
        94%  vessels/rn_aor_tide.ini from usn_aoe_sacramento.ini
-       96%  vessels/usn_ae_kilauea.ini
-       96%  vessels/usn_ao_t2.ini
-       95%  vessels/usn_aoe_sacramento.ini
-       95%  vessels/usn_take_lewis_clark.ini from usn_ae_kilauea.ini
+       95%  vessels/usn_ae_kilauea.ini
+       95%  vessels/usn_ao_t2.ini
+       94%  vessels/usn_aoe_sacramento.ini
+       94%  vessels/usn_take_lewis_clark.ini from usn_ae_kilauea.ini
        96%  vessels/usn_takr_algol.ini
        94%  vessels/usn_taoe_supply.ini from usn_aoe_sacramento.ini
        97%  vessels/wp_pb_don.ini
@@ -519,7 +518,7 @@ listed whatever the percentage: they are still that author's.
       100%  ammunition/usn_ugm_109e_tactical.ini
       100%  ammunition/wp_sa_n_20.ini
       100%  ammunition/wp_sa_n_20b.ini
-       96%  ammunition/wp_ss-n-14b.ini from wp_ss_n_14b.ini
+       93%  ammunition/wp_ss-n-14b.ini from wp_ss_n_14b.ini
       100%  ammunition/wp_ss_n_14c.ini
        99%  land_units/china_large_airbase.ini
        99%  land_units/usa_airbase.ini
@@ -647,7 +646,7 @@ listed whatever the percentage: they are still that author's.
        90%  land_units/airbase_raaf_williamtown_variants.ini from raaf_small_base_late_variants.ini
        90%  land_units/airbase_raaf_woomera_variants.ini from raaf_small_base_late_variants.ini
        90%  land_units/sest_uav_forward_variants.ini from raaf_small_base_late_variants.ini
-       97%  vessels/rfn_aor_pashin.ini from idn_vt_uda.ini
+       96%  vessels/rfn_aor_pashin.ini from idn_vt_uda.ini
 
   Royal Navy Type 23 'Duke Class' Frigate [OLD]  (workshop 3378409795)
       100%  vessels/rn_type23.ini
@@ -694,8 +693,8 @@ listed whatever the percentage: they are still that author's.
       100%  vessels/tha_ptg_ratcharit.ini
 
   The Royal Navy  (workshop 3491248180)
-       94%  ammunition/knm_terne_shell.ini
-       92%  ammunition/rn_squid_shell.ini
+       92%  ammunition/knm_terne_shell.ini
+       91%  ammunition/rn_squid_shell.ini
 
   Tu-95 With AS-15 (Kh-55) ALCM (more realistic nuke)  (workshop 3395022688)
        91%  ammunition/damage.ini

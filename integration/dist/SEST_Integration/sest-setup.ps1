@@ -3,8 +3,9 @@
 # Double-click "SETUP - double-click me.cmd" beside this file (Mod Manager >
 # Open Folder on the pack gets you here). It checks that every Workshop mod
 # the campaigns were built against is downloaded, installs the Anchor Chain
-# preloader if it is missing, names the game build (stable or public beta)
-# and warns when the code mods did not load at the last launch, turns off
+# preloader if it is missing, says which game file SEST's own code plugins
+# would have to match and warns when the code mods did not load at the last
+# launch, turns off
 # one mod's debug logging that can
 # freeze a mission, marks the mods made for an older game version compatible
 # so the Mod Manager stops warning about them at start-up, unbinds Contact
@@ -16,8 +17,9 @@
 # anything, and it backs up the game's settings and every mod file it changes
 # first.
 #
-# Last, on the public beta build the pack's beta features were reviewed for,
-# it installs or updates them (sest-workshop-features.ps1 beside this file);
+# Last, on the one beta build the pack's beta features were reviewed for
+# (0.8.7-261107), it installs or updates them (sest-workshop-features.ps1
+# beside this file);
 # on any other build it puts the normal SEST plugins back if SEST's beta files
 # are installed. A refusal there is one [!!] warning, never a stop.
 #
@@ -459,7 +461,7 @@ try {
         try { [void](@(& $featureSetup @featureArgs -Action $featureAction)) }
         catch { Fail ('SEST beta features: ' + $_.Exception.Message); return }
         if ($featureAction -ne 'Enable') { Hold; return }
-        Say 'Running the normal SETUP now, which installs them...' 'Cyan'
+        Say 'Running the normal SETUP now; its last step installs them if this game build is the one they were reviewed for...' 'Cyan'
     }
 
     $missing = @($ids | Where-Object {
@@ -564,7 +566,9 @@ try {
         }
         finally { Remove-Item -LiteralPath $tmp -Recurse -Force -ErrorAction SilentlyContinue }
     } elseif ($hasDll -and $hasBep) {
-        if (@(Get-ChildItem -LiteralPath (J $game 'BepInEx') -Recurse -Force -Filter '*AnchorChain*' -ErrorAction SilentlyContinue).Count) {
+        # SEST's own BepInEx\config\SEST-BetaAnchorChain folder, which the beta
+        # features leave behind, is not the preloader.
+        if (@(Get-ChildItem -LiteralPath (J $game 'BepInEx') -Recurse -Force -Filter '*AnchorChain*' -ErrorAction SilentlyContinue | Where-Object { $_.FullName -notmatch 'SEST-BetaAnchorChain' }).Count) {
             Say '  [ok]   Anchor Chain preloader already installed' 'Green'
         } else {
             $warnings++
@@ -578,7 +582,8 @@ try {
     }
     # The game build, two beta test plugins and the last launch:
     # sest-profile.ps1, beside this file, reads Seapower-Scripts.dll's SHA-256
-    # (stable Build 261021, the public beta Build 261026, or another build),
+    # (Build 261021, one of three October and November betas, or another
+    # file, which is what Sea Power 0.9.0 is until its hash is captured),
     # BepInEx\plugins and BepInEx\LogOutput.log, and changes nothing. Its
     # [!!] lines (the discontinued PR #53 SEST.BetaAnchorBootstrap.dll is
     # installed; the code mods did not load at the last launch) count as
@@ -630,6 +635,7 @@ try {
     # the pack lists; Steam puts a mod's own file back when the mod updates.
     # A mod whose file cannot be read, judged, kept or written is one [!!]
     # warning, and the next mod is checked.
+    $dynamicListed = $false     # Dynamic Campaign Mod left as not declared for this game version
     try {
         $gameVer = $null
         foreach ($chg in @((J $game 'changelog.txt'), (J $game 'Sea Power_Data' 'changelog.txt'))) {
@@ -680,6 +686,7 @@ try {
                 if ($plan.Mark -and -not (CompatIsUtf8 ([IO.File]::ReadAllBytes($inf)))) { $plan.Mark = $false; $plan.What += ', not UTF-8 text' }
                 if (-not $plan.Mark) {
                     if ($plan.Why -eq 'newer') { $newer += ($names[$i] + ' (' + $plan.What + ')') } else { $left += ($names[$i] + ' (' + $plan.What + ')') }
+                    if ($i -eq '3813157776') { $dynamicListed = $true }
                     if ($plan.Why -eq 'older') { $leftOlder = $true }
                     continue
                 }
@@ -720,12 +727,12 @@ try {
             $warnings++
             Say ('  [!!]   Could not check or mark ' + $f) 'Yellow'
         }
-        if ($broken.Count) { Say '         Run SETUP again with the game closed. Until then the Mod Manager may list them as not compatible at start-up; they load and play anyway.' 'Yellow' }
+        if ($broken.Count) { Say '         Run SETUP again with the game closed. Until then the Mod Manager may list them as not compatible at start-up; the listing is a warning and does not switch them off.' 'Yellow' }
     }
     catch {
         $warnings++
         Say ('  [!!]   Could not mark the older mods compatible: ' + $_.Exception.Message) 'Yellow'
-        Say '         The Mod Manager will list them as not compatible at start-up. They load and play anyway.' 'Yellow'
+        Say '         The Mod Manager will list them as not compatible at start-up. The listing is a warning and does not switch them off.' 'Yellow'
     }
 
     # 4. Contact Log's default keys, if that mod is installed: its window key
@@ -813,7 +820,8 @@ try {
     else { Say 'All done. Start Sea Power:' 'Cyan' }
     Say '  - Mod Manager: the SEST Integration Pack is at the top and ticked. If it offers to move or fix dependencies, say no.'
     Say '  - Campaigns: Southern Watch, Southern Reach - Tasman Shield, Red Line - The Other Watch, Sulu Line - The Island Road, or Makran Line - The Fuel Road.'
-    Say '  - Dynamic campaigns (Dynamic Campaign Mod): in the Campaign menu, marked [Dynamic].'
+    if ($dynamicListed) { Say '  - Dynamic campaigns need Dynamic Campaign Mod, a code mod that SETUP listed above as not declared for this game version: its author''s page says when it is.' }
+    else { Say '  - Dynamic campaigns (Dynamic Campaign Mod): in the Campaign menu, marked [Dynamic].' }
     Say 'Run SETUP again (game closed) whenever the pack updates, or after Steam updates your mods (if a mission freezes, or the not-compatible warning is back).'
     Hold
 }

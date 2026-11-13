@@ -2,8 +2,9 @@ SEST WORKSHOP FEATURE UPDATE
 
 The F11 World Operations, service progress, Coordinated Strike refinements
 and debrief mission ribbons (for campaigns that define them) are included in
-this Workshop item for the public beta
-0.8.7-261107 only. The stable game uses the normal plugins in plugins/.
+this Workshop item for game build
+0.8.7-261107 only, the public beta before Sea Power 0.9.0. On every
+other game build, 0.9.0 included, SETUP installs none of it and changes no code.
 
 With Sea Power closed, run SETUP - double-click me.cmd at the pack root.
 On that beta build a fresh installation stages the features: launch to the
@@ -28,7 +29,7 @@ leaves the features off, also after Steam updates:
   SEST beta features - turn off.cmd   loader off, files kept
   SEST beta features - remove.cmd     normal SEST plugins back, beta files removed
   SEST beta features - turn on.cmd    on again (runs SETUP)
-On this beta build Workshop code mods load only through SEST's beta loader,
+On that beta build Workshop code mods load only through SEST's beta loader,
 so with the features off they stay off too; data mods and campaigns work.
 
 Native rendering and gameplay still require PC acceptance testing.

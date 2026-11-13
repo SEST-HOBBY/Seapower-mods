@@ -1,7 +1,7 @@
 GLOBAL MARITIME OPERATIONS 2028
 
 One new-game entry combines the original World Sandbox and the complete
-regional expansion: 196 bases, 293 forces, 54 patrols and 1,586 buy entries.
+regional expansion: 196 bases, 293 forces, 54 patrols and 1,633 buy entries.
 This is a fictional scenario; deployments and alliances are design choices.
 Requires Dynamic Campaign Mod and the SEST collection. Start a new game for
 new content; existing saves retain their own state.

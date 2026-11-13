@@ -13,10 +13,10 @@ Land prices are for SEST's own debrief accounting; Combat Cost Tracker itself do
 Ammunition, aircraft, ground losses and remaining inventories have separate accounting boundaries.
 See docs/combat-costs/README.md for runtime support and PC acceptance; a data audit is not a gameplay test.
 
-weapon: 2210 references, 2210 historical and 2210 current prices
-vessel: 964 references, 964 historical and 964 current prices
-aircraft: 769 references, 769 historical and 769 current prices
-land: 505 references, 505 historical and 505 current prices
+weapon: 2231 references, 2231 historical and 2231 current prices
+vessel: 1007 references, 1007 historical and 1007 current prices
+aircraft: 795 references, 795 historical and 795 current prices
+land: 514 references, 514 historical and 514 current prices
 
 The generated cost-list.md, cost-list.csv and coverage.json give every reference, price and provenance.
 Source policy: integration/combat-costs/coverage-policy.json. Rebuild after new Workshop/vanilla exports.

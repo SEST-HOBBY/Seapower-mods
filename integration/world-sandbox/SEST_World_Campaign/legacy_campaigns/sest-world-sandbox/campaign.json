@@ -6590,12 +6590,14 @@
     "exp_rafale_c": 46,
     "exp_rafale_m": 46,
     "exp_rafale_m_l": 46,
+    "fab_c-95": 23,
     "fr_a330_mrtt": 118,
     "fr_a400m_airdroop-para": 242,
     "fr_a400m_sf": 242,
     "fr_a400m_tankers": 118,
     "fr_aliaca": 28,
     "fr_alouette_II": 25,
+    "fr_alouette_III": 25,
     "fr_aquilon_202": 46,
     "fr_as-350": 23,
     "fr_as-565_sa": 39,
@@ -6850,6 +6852,12 @@
     "raaf_winjeel": 2,
     "raf_canberra_bomber": 2,
     "raf_ef2000_fgr4": 46,
+    "raf_gr1": 46,
+    "raf_gr3": 46,
+    "raf_sc-7": 2,
+    "raf_scout_ah1": 25,
+    "raf_victor": 2,
+    "raf_vulcan": 78,
     "ran_a-4g": 78,
     "ran_a-4g_early": 46,
     "ran_as350": 28,
@@ -6876,6 +6884,8 @@
     "rn_buccaneer_s1": 46,
     "rn_buccaneer_s2": 46,
     "rn_buccaneer_s2b": 46,
+    "rn_canberra": 78,
+    "rn_frs1": 46,
     "rn_harrier_gr3": 46,
     "rn_lynx": 39,
     "rn_lynx_has2": 39,
@@ -6894,6 +6904,7 @@
     "rn_sea_harrier_early": 46,
     "rn_sea_king": 39,
     "rn_sea_king_aew": 39,
+    "rn_sea_king_has5": 39,
     "rn_sea_king_has6": 39,
     "rn_sea_king_hc4": 23,
     "rn_sea_lynx": 39,
@@ -6902,7 +6913,11 @@
     "rn_sea_lynx_mk8": 39,
     "rn_sea_vixen": 46,
     "rn_wasp": 39,
+    "rn_wasp_has1": 39,
     "rn_wessex": 39,
+    "rn_wessex_has1": 39,
+    "rn_wessex_has3": 39,
+    "rn_wessex_hu5": 23,
     "rn_wildcat": 39,
     "rnzaf_a-4k": 78,
     "rnzaf_p8": 89,
@@ -6985,6 +7000,7 @@
     "usaf_b-52g": 172,
     "usaf_b-52h_419_flts": 172,
     "usaf_b-52o": 172,
+    "usaf_c-130": 23,
     "usaf_c-141b": 23,
     "usaf_e-3a": 242,
     "usaf_e-3g": 242,
@@ -7105,6 +7121,7 @@
     "usn_rf-8a": 28,
     "usn_rf-8g": 28,
     "usn_rq7705": 28,
+    "usn_s-2e": 242,
     "usn_s-3a": 89,
     "usn_s-3b": 89,
     "usn_sh-2f": 39,
@@ -7230,6 +7247,7 @@
     "ae_ssk_galerna": 78,
     "ae_ssk_galerna_mod": 78,
     "ae_ssk_s80_plus": 110,
+    "ara_cl_belgrano": 332,
     "bra_cv_Sao_Paulo": 558,
     "bra_ff_garcia": 120,
     "bra_ffg_niteroi": 567,
@@ -7517,16 +7535,28 @@
     "rn_cv_invincible_deckparks": 426,
     "rn_cv_invincible_refit": 426,
     "rn_cv_invincible_refit_deckparks": 426,
+    "rn_cvs_invincible": 426,
     "rn_dd_battle": 118,
     "rn_dd_c-class": 100,
     "rn_dd_type42_batch2": 123,
     "rn_dd_type42_refit": 123,
     "rn_dd_z-class": 100,
+    "rn_ddg_bristol": 198,
+    "rn_ddg_bristol_73": 198,
     "rn_ddg_county-class_batch_1_75": 181,
     "rn_ddg_county-class_batch_2_75": 181,
     "rn_ddg_county-class_batch_2_82": 181,
+    "rn_ddg_county_batch1": 181,
+    "rn_ddg_county_batch2": 181,
+    "rn_ddg_county_batch2_75": 181,
+    "rn_ddg_sheffield": 140,
+    "rn_ddg_sheffield_batch0": 140,
+    "rn_ddg_sheffield_batch2": 140,
     "rn_ddg_type45": 224,
     "rn_ddg_type45_22": 224,
+    "rn_ff_amazon": 137,
+    "rn_ff_broadsword": 137,
+    "rn_ff_leander": 108,
     "rn_ff_leander_1963": 98,
     "rn_ff_leander_1963_noVDS": 98,
     "rn_ff_leander_batch1": 98,
@@ -7536,12 +7566,21 @@
     "rn_ff_type23_early": 154,
     "rn_ff_type23_mlu": 154,
     "rn_ff_type42": 123,
+    "rn_lpd_fearless": 288,
     "rn_lph_ocean": 419,
     "rn_lph_ocean_09": 419,
     "rn_lph_ocean_asw": 419,
     "rn_lph_ocean_asw_00": 419,
     "rn_lph_ocean_asw_13": 419,
+    "rn_lsl_roundtable": 170,
     "rn_oberon_class": 95,
+    "rn_ss_oberon": 95,
+    "rn_ss_porpoise": 96,
+    "rn_ssn_churchill": 145,
+    "rn_ssn_churchill_late": 145,
+    "rn_ssn_swiftsure": 152,
+    "rn_ssn_trafalgar": 160,
+    "rn_ssn_valiant": 145,
     "rn_type22b12": 152,
     "rn_type22b2": 152,
     "rn_type23": 137,
@@ -7767,6 +7806,7 @@
     "usn_phm_pegasus": 20,
     "usn_phm_pegasus_rsa": 20,
     "usn_phm_pegasus_rsa_early": 20,
+    "usn_ss_balao_guppy_ii": 96,
     "usn_ssbn_columbia": 415,
     "usn_ssbn_franklin": 219,
     "usn_ssbn_franklin_late": 219,
@@ -7981,6 +8021,12 @@
     },
     {
       "unit": "usn_phm_pegasus_rsa_early",
+      "side": "blue",
+      "nation": "US",
+      "tier": 0
+    },
+    {
+      "unit": "usn_ss_balao_guppy_ii",
       "side": "blue",
       "nation": "US",
       "tier": 0
@@ -9648,6 +9694,13 @@
       "aircraft": true
     },
     {
+      "unit": "usaf_c-130",
+      "side": "blue",
+      "nation": "US",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
       "unit": "usaf_c-141b",
       "side": "blue",
       "nation": "US",
@@ -10643,6 +10696,13 @@
     },
     {
       "unit": "usn_e_2c_group2_plus",
+      "side": "blue",
+      "nation": "US",
+      "tier": 1,
+      "aircraft": true
+    },
+    {
+      "unit": "usn_s-2e",
       "side": "blue",
       "nation": "US",
       "tier": 1,
@@ -11855,6 +11915,13 @@
       "aircraft": true
     },
     {
+      "unit": "fr_alouette_III",
+      "side": "blue",
+      "nation": "France",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
       "unit": "fr_aquilon_202",
       "side": "blue",
       "nation": "France",
@@ -12606,6 +12673,12 @@
       "tier": 0
     },
     {
+      "unit": "rn_ff_leander",
+      "side": "blue",
+      "nation": "UK",
+      "tier": 0
+    },
+    {
       "unit": "rn_ff_leander_1963",
       "side": "blue",
       "nation": "UK",
@@ -12654,6 +12727,18 @@
       "tier": 0
     },
     {
+      "unit": "rn_ss_oberon",
+      "side": "blue",
+      "nation": "UK",
+      "tier": 0
+    },
+    {
+      "unit": "rn_ss_porpoise",
+      "side": "blue",
+      "nation": "UK",
+      "tier": 0
+    },
+    {
       "unit": "type_21+ACSL_lynx",
       "side": "blue",
       "nation": "UK",
@@ -12684,6 +12769,18 @@
       "tier": 1
     },
     {
+      "unit": "rn_ddg_bristol",
+      "side": "blue",
+      "nation": "UK",
+      "tier": 1
+    },
+    {
+      "unit": "rn_ddg_bristol_73",
+      "side": "blue",
+      "nation": "UK",
+      "tier": 1
+    },
+    {
       "unit": "rn_ddg_county-class_batch_1_75",
       "side": "blue",
       "nation": "UK",
@@ -12702,6 +12799,42 @@
       "tier": 1
     },
     {
+      "unit": "rn_ddg_county_batch1",
+      "side": "blue",
+      "nation": "UK",
+      "tier": 1
+    },
+    {
+      "unit": "rn_ddg_county_batch2",
+      "side": "blue",
+      "nation": "UK",
+      "tier": 1
+    },
+    {
+      "unit": "rn_ddg_county_batch2_75",
+      "side": "blue",
+      "nation": "UK",
+      "tier": 1
+    },
+    {
+      "unit": "rn_ddg_sheffield",
+      "side": "blue",
+      "nation": "UK",
+      "tier": 1
+    },
+    {
+      "unit": "rn_ddg_sheffield_batch0",
+      "side": "blue",
+      "nation": "UK",
+      "tier": 1
+    },
+    {
+      "unit": "rn_ddg_sheffield_batch2",
+      "side": "blue",
+      "nation": "UK",
+      "tier": 1
+    },
+    {
       "unit": "rn_ddg_type45",
       "side": "blue",
       "nation": "UK",
@@ -12715,6 +12848,18 @@
     },
     {
       "unit": "rn_ddg_type45_26",
+      "side": "blue",
+      "nation": "UK",
+      "tier": 1
+    },
+    {
+      "unit": "rn_ff_amazon",
+      "side": "blue",
+      "nation": "UK",
+      "tier": 1
+    },
+    {
+      "unit": "rn_ff_broadsword",
       "side": "blue",
       "nation": "UK",
       "tier": 1
@@ -12739,6 +12884,42 @@
     },
     {
       "unit": "rn_ff_type42",
+      "side": "blue",
+      "nation": "UK",
+      "tier": 1
+    },
+    {
+      "unit": "rn_lsl_roundtable",
+      "side": "blue",
+      "nation": "UK",
+      "tier": 1
+    },
+    {
+      "unit": "rn_ssn_churchill",
+      "side": "blue",
+      "nation": "UK",
+      "tier": 1
+    },
+    {
+      "unit": "rn_ssn_churchill_late",
+      "side": "blue",
+      "nation": "UK",
+      "tier": 1
+    },
+    {
+      "unit": "rn_ssn_swiftsure",
+      "side": "blue",
+      "nation": "UK",
+      "tier": 1
+    },
+    {
+      "unit": "rn_ssn_trafalgar",
+      "side": "blue",
+      "nation": "UK",
+      "tier": 1
+    },
+    {
+      "unit": "rn_ssn_valiant",
       "side": "blue",
       "nation": "UK",
       "tier": 1
@@ -12799,6 +12980,18 @@
     },
     {
       "unit": "rn_cv_invincible_refit_deckparks",
+      "side": "blue",
+      "nation": "UK",
+      "tier": 2
+    },
+    {
+      "unit": "rn_cvs_invincible",
+      "side": "blue",
+      "nation": "UK",
+      "tier": 2
+    },
+    {
+      "unit": "rn_lpd_fearless",
       "side": "blue",
       "nation": "UK",
       "tier": 2
@@ -12886,6 +13079,48 @@
       "aircraft": true
     },
     {
+      "unit": "raf_gr1",
+      "side": "blue",
+      "nation": "UK",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "raf_gr3",
+      "side": "blue",
+      "nation": "UK",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "raf_sc-7",
+      "side": "blue",
+      "nation": "UK",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "raf_scout_ah1",
+      "side": "blue",
+      "nation": "UK",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "raf_victor",
+      "side": "blue",
+      "nation": "UK",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "raf_vulcan",
+      "side": "blue",
+      "nation": "UK",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
       "unit": "rn_buccaneer_s1",
       "side": "blue",
       "nation": "UK",
@@ -12901,6 +13136,20 @@
     },
     {
       "unit": "rn_buccaneer_s2b",
+      "side": "blue",
+      "nation": "UK",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "rn_canberra",
+      "side": "blue",
+      "nation": "UK",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "rn_frs1",
       "side": "blue",
       "nation": "UK",
       "tier": 0,
@@ -13040,6 +13289,13 @@
       "aircraft": true
     },
     {
+      "unit": "rn_sea_king_has5",
+      "side": "blue",
+      "nation": "UK",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
       "unit": "rn_sea_king_has6",
       "side": "blue",
       "nation": "UK",
@@ -13096,7 +13352,35 @@
       "aircraft": true
     },
     {
+      "unit": "rn_wasp_has1",
+      "side": "blue",
+      "nation": "UK",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
       "unit": "rn_wessex",
+      "side": "blue",
+      "nation": "UK",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "rn_wessex_has1",
+      "side": "blue",
+      "nation": "UK",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "rn_wessex_has3",
+      "side": "blue",
+      "nation": "UK",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "rn_wessex_hu5",
       "side": "blue",
       "nation": "UK",
       "tier": 0,
@@ -14949,6 +15233,13 @@
       "aircraft": true
     },
     {
+      "unit": "fab_c-95",
+      "side": "blue",
+      "nation": "Brazil",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
       "unit": "br_a330_mrtt",
       "side": "blue",
       "nation": "Brazil",
@@ -15141,6 +15432,12 @@
       "side": "blue",
       "nation": "Chile",
       "tier": 1
+    },
+    {
+      "unit": "ara_cl_belgrano",
+      "side": "blue",
+      "nation": "Chile",
+      "tier": 2
     },
     {
       "unit": "ch_f-16",
