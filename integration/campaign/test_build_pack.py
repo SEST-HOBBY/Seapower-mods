@@ -104,6 +104,118 @@ def built_twin(slug, tmp):
     return twin
 
 
+def scenario_copy(campaign_bytes, name):
+    """A campaign mission's bytes as its mission-browser copy has them: the
+    same but for the one line Sea Power 0.9.0 added, the Mission Editor's
+    Campaign Mission flag, True under campaigns/ and False under missions/."""
+    flag = b"[Mission]\nCampaignMission=True\n"
+    if campaign_bytes.count(flag) != 1 or b"CampaignMission=False" in campaign_bytes:
+        raise AssertionError(f"{name}: a campaign mission says CampaignMission=True once, under [Mission]")
+    return campaign_bytes.replace(flag, b"[Mission]\nCampaignMission=False\n")
+
+
+class StockFormOf090(unittest.TestCase):
+    """What Sea Power 0.9.0 (11 Nov 2026) added to its own Task Force campaigns
+    and this builder now writes as the game does: the campaign map UI and the
+    single task force in the header, the staging airfield of every mission
+    that offers Prepare Airbase, the Campaign Mission flag, and the game's own
+    insignia on the British rank ladder."""
+
+    PACK = HERE / "SEST_Campaign"
+    GAME = HERE.parents[1] / "mods-source" / "_vanilla" / "original"
+    STOCK = GAME / "campaigns" / "pacific-strike-task-force"
+
+    @classmethod
+    def setUpClass(cls):
+        cls.campaigns = sorted(p for p in (cls.PACK / "campaigns").iterdir() if p.is_dir())
+
+    def setUp(self):
+        if len(self.campaigns) != 5 or not all((c / "campaign.ini").is_file() for c in self.campaigns):
+            self.skipTest("pack not built")
+
+    @staticmethod
+    def sections(text, prefix):
+        return re.findall(rf"(?ms)^\[({prefix}\d*)\][^\n]*\n(.*?)(?=^\[|\Z)", text)
+
+    def test_the_header_says_what_pacific_strike_says(self):
+        stock = (self.STOCK / "campaign.ini").read_text(encoding="utf-8-sig")
+        self.assertRegex(stock, r"(?m)^DisplayFormat=MapView\r?\nCampaignMapUI=Standard\r?$")
+        self.assertRegex(stock, r"(?m)^Enabled=True\r?\nEnableMultipleTaskForces=False\r?$")
+        for camp in self.campaigns:
+            text = (camp / "campaign.ini").read_text(encoding="utf-8")
+            with self.subTest(campaign=camp.name):
+                self.assertIn("DisplayFormat=MapView\nCampaignMapUI=Standard\n\n[TaskForceMode]\n"
+                              "Enabled=True\nEnableMultipleTaskForces=False\n", text)
+                self.assertEqual(text.count("CampaignMapUI="), 1)
+                self.assertEqual(text.count("EnableMultipleTaskForces="), 1)
+
+    def test_every_prepare_airbase_mission_names_a_player_airfield_as_its_host(self):
+        # Stock: the key sits directly above the prep keys in all five of its missions.
+        stock = (self.STOCK / "campaign.ini").read_text(encoding="utf-8-sig").replace("\r", "")
+        self.assertEqual(len(re.findall(r"(?m)^TaskForceModeAirbaseSection=Taskforce1LandUnit\d+\n"
+                                        r"TaskForceModeAirbasePrepAvailable=True$", stock)), 5)
+        hosts, several = 0, []
+        for camp in self.campaigns:
+            text = (camp / "campaign.ini").read_text(encoding="utf-8")
+            for name, body in self.sections(text, "Mission"):
+                host = re.findall(r"(?m)^TaskForceModeAirbaseSection=(.*)$", body)
+                prep = "TaskForceModeAirbasePrepAvailable=True" in body
+                with self.subTest(campaign=camp.name, mission=name):
+                    self.assertEqual(len(host), int(prep))
+                    if not prep:
+                        continue
+                    self.assertIn(f"TaskForceModeAirbaseSection={host[0]}\nTaskForceModeAirbasePrepAvailable=True\n", body)
+                    path = self.PACK / re.search(r"(?m)^MissionFile=(.*)$", body).group(1)
+                    fields = [tag for tag, unit in self.sections(path.read_text(encoding="utf-8"), "Taskforce1LandUnit")
+                              if re.search(r"(?mi)^Type=.*(airbase|airfield)", unit)]
+                    self.assertEqual(host[0], fields[0])        # the first player airfield in the file
+                    hosts += 1
+                    if len(fields) > 1:
+                        several.append(path.name)
+        self.assertEqual(hosts, 42)
+        self.assertEqual(sorted(several), ["Southern Reach 08 - The Gateway.ini",
+                                           "Southern Watch 10 - Common Sea.ini",
+                                           "Tasman Shield 11 - Approaches.ini",
+                                           "Tasman Shield 12 - Southern Cross.ini"])
+
+    def test_a_campaign_mission_is_flagged_and_its_browser_copy_is_not(self):
+        stock = list((self.STOCK / "missions").glob("*.ini"))
+        self.assertTrue(stock)
+        for path in stock:
+            self.assertRegex(path.read_text(encoding="utf-8-sig", errors="replace"),
+                             r"(?m)^\[Mission\]\r?\nCampaignMission=True\r?$", path.name)
+        scenario = self.GAME / "missions" / "NATO" / "Armilla Patrol 1980.ini"
+        self.assertRegex(scenario.read_text(encoding="utf-8-sig", errors="replace"), r"(?m)^CampaignMission=False\r?$")
+        under_campaigns = sorted((self.PACK / "campaigns").glob("*/missions/*.ini"))
+        browsed = sorted(p for p in (self.PACK / "missions").glob("*/*.ini") if p.name != "_info.ini")
+        self.assertEqual((len(under_campaigns), len(browsed)), (73, 84))
+        for path in under_campaigns:
+            self.assertIn("[Mission]\nCampaignMission=True\nDifficulty=", path.read_text(encoding="utf-8"), path.name)
+        for path in browsed:
+            self.assertIn("[Mission]\nCampaignMission=False\nDifficulty=", path.read_text(encoding="utf-8"), path.name)
+
+    def test_the_british_ladder_carries_the_games_insignia_from_lieutenant_up(self):
+        import service_awards
+        native = (self.STOCK / "commander_settings.ini").read_text(encoding="utf-8-sig")
+        stock = {row.split(",")[3]: row.split(",") for row in
+                 re.search(r"(?m)^UK=(.*?)\r?$", native).group(1).split("|")}
+        ours = [row.split(",") for row in service_awards.UK_RANKS.split("|")]
+        self.assertEqual([r[3] for r in ours], [str(n) for n in range(1, 11)])
+        self.assertEqual(sorted(stock, key=int), [str(n) for n in range(3, 11)])
+        for title, _abbr, grade, level, image in ours:
+            with self.subTest(rank=title):
+                if level in stock:
+                    self.assertEqual((title, grade, image), (stock[level][0], stock[level][2], stock[level][4]))
+                    self.assertTrue(image.startswith("ui/campaign/officer_ranks/uk/insignia_"))
+                else:
+                    self.assertEqual(image, "")       # the game draws none for the two junior ranks
+        for slug in ("sest-southern-watch", "sest-southern-reach"):
+            text = (self.PACK / "campaigns" / slug / "commander_settings.ini").read_text(encoding="utf-8")
+            self.assertIn("UK=" + service_awards.UK_RANKS + "\n", text)
+            start = int(re.search(r"(?m)^CommanderStartingRankLevel=(\d+)$", text).group(1))
+            self.assertGreaterEqual(start, 3)       # no British commander starts below the first insignia
+
+
 class ProvenPositionForms(unittest.TestCase):
     """The pool reads a unit's spawn point in the stable and the beta form."""
 
@@ -2777,7 +2889,7 @@ class MakranLineTaskGroup(unittest.TestCase):
         names = sorted(p.name for p in (self.CAMP / "missions").glob("*.ini"))
         self.assertEqual(len(names), 4)
         for name in names:
-            self.assertEqual((self.CAMP / "missions" / name).read_bytes(),
+            self.assertEqual(scenario_copy((self.CAMP / "missions" / name).read_bytes(), name),
                              (self.BROWSE / name).read_bytes(), name)
 
 
@@ -3781,7 +3893,7 @@ class SuluLineCoalition(unittest.TestCase):
         names = sorted(p.name for p in (camp / "missions").glob("*.ini"))
         self.assertEqual(len(names), len(self.spec["MISSIONS"]))
         for name in names:
-            self.assertEqual((camp / "missions" / name).read_bytes(),
+            self.assertEqual(scenario_copy((camp / "missions" / name).read_bytes(), name),
                              (self.BROWSE / name).read_bytes(), name)
             brief = camp / "missions" / f"{name[:-4]}_briefing"
             files = [f for f in sorted(brief.rglob("*")) if f.is_file()]

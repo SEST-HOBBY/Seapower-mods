@@ -137,8 +137,9 @@ ADJECTIVE = {'Australia': ('Australian', 'an'), 'US': ('American', 'an'), 'UK': 
 # the Australian ladder uses for the same grades: Commander (OF-4) 5, Captain
 # (OF-5) 6, Commodore (OF-6) 7. The campaigns start at 5 (Southern Watch), 6
 # (Southern Reach), 7 (Sulu Line) and 8 (Red Line). The game ships rank
-# insignia for three navies only, so the image field is empty, as in Red
-# Line and Sulu Line.
+# insignia for the US, Australian and Japanese navies and, since 0.9.0, the
+# Royal Navy and Argentina, so for every other navy the image field is empty,
+# as in Red Line and Sulu Line.
 GRADES = ('OF-D', 'OF-1', 'OF-2', 'OF-3', 'OF-4', 'OF-5', 'OF-6', 'OF-7', 'OF-8', 'OF-9')
 
 
@@ -150,11 +151,19 @@ def _ladder(*ranks):
     return '|'.join(f'{rank},{grade},{level},' for level, (rank, grade) in enumerate(zip(ranks, GRADES), 1))
 
 
-# Royal Navy officer ranks.
-UK_RANKS = ('Midshipman,MID,OF-D,1,|Sub-Lieutenant,SLT,OF-1,2,|Lieutenant,LT,OF-2,3,|'
-            'Lieutenant Commander,LT CDR,OF-3,4,|Commander,CDR,OF-4,5,|Captain,CAPT,OF-5,6,|'
-            'Commodore,CDRE,OF-6,7,|Rear Admiral,RADM,OF-7,8,|Vice Admiral,VADM,OF-8,9,|'
-            'Admiral,ADM,OF-9,10,')
+# Royal Navy officer ranks. From Lieutenant up the insignia are the game's
+# own: 0.9.0 gave its Pacific Strike and South Atlantic campaigns a British
+# ladder of eight ranks, levels 3 to 10, with these images. The titles, grades
+# and levels are the ones this ladder already had; the game has no image for
+# the two junior ranks, which no campaign starts at or below (Southern Watch
+# starts a Commander, Southern Reach a Captain), and they stay empty.
+_UK_INSIGNIA = 'ui/campaign/officer_ranks/uk/insignia_'
+UK_RANKS = ('Midshipman,MID,OF-D,1,|Sub-Lieutenant,SLT,OF-1,2,|'
+            f'Lieutenant,LT,OF-2,3,{_UK_INSIGNIA}lt.png|'
+            f'Lieutenant Commander,LT CDR,OF-3,4,{_UK_INSIGNIA}lcdr.png|'
+            f'Commander,CDR,OF-4,5,{_UK_INSIGNIA}cdr.png|Captain,CAPT,OF-5,6,{_UK_INSIGNIA}capt.png|'
+            f'Commodore,CDRE,OF-6,7,{_UK_INSIGNIA}cdre.png|Rear Admiral,RADM,OF-7,8,{_UK_INSIGNIA}radm.png|'
+            f'Vice Admiral,VADM,OF-8,9,{_UK_INSIGNIA}vadm.png|Admiral,ADM,OF-9,10,{_UK_INSIGNIA}adm.png')
 # The other navies' ladders were researched for the owner's plan of 10 Nov
 # 2026 from each navy's published titles: NZDF 'Our ranks'; Ley 39/2007 art.
 # 21.2 for the Armada; the German presidential order of 30 Aug 2021; Danish

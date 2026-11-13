@@ -6057,7 +6057,11 @@ def render(mission, placed, members):
           f"MapCenterLatitude={centre[0]}", f"MapCenterLongitude={centre[1]}",
           "LoadBackgroundData=False", ""]
 
-    L += ["[Mission]", f"Difficulty={mission.get('difficulty', 1)}",
+    # CampaignMission: the Mission Editor's "Campaign Mission" box, new in
+    # 0.9.0 ("Show campaign values for this mission and its group entries"),
+    # which the game ticked in every mission of every campaign it ships.
+    L += ["[Mission]", "CampaignMission=True",
+          f"Difficulty={mission.get('difficulty', 1)}",
           "PlayerTaskforce=Taskforce1", "EnemyTaskforce=Taskforce2",
           f"Taskforce1_Nation={mission['blue_nation']}",
           f"Taskforce2_Nation={mission['red_nation']}"]
@@ -8095,6 +8099,16 @@ def slot_ordinal(rows, role, where):
     return 1
 
 
+def staging_host(placed):
+    """The section of a mission's first player airfield: the host 0.9.0's
+    TaskForceModeAirbaseSection names. The same test of Type the
+    Prepare Airbase rule uses."""
+    for tag, keys, _name, _exempt in placed.get("Taskforce1LandUnit", []):
+        if "airbase" in keys["Type"].lower() or "airfield" in keys["Type"].lower():
+            return tag
+    raise SystemExit("staging_host: the mission has no player airfield")
+
+
 def tasking_rows(mission, placed):
     """The mission's air-tasking rows, with SlotCount taken from reality.
 
@@ -8592,10 +8606,19 @@ def campaign_ini(missions, events, placements):
          # is the 1988 linear prototype's, and this campaign shipped Legacy
          # for its first builds - the briefing panel drew no mission image.
          f"BackgroundImage=campaigns/{SLUG}/art/00_campaign_background.png",
-         "DisplayFormat=MapView", "",
+         "DisplayFormat=MapView",
+         # Sea Power 0.9.0 (11 Nov 2026) added this key and the one under
+         # Enabled below to all three of its Task Force campaigns, with no
+         # comment on what a campaign without them gets. These are the values
+         # of Pacific Strike, the one-task-force campaign this builder has
+         # always been modelled on (the two South Atlantic campaigns run
+         # several task forces and say True).
+         "CampaignMapUI=Standard", "",
          "[TaskForceMode]"]
     for key, value in TASKFORCE.items():
         L.append(f"{key}={value}")
+        if key == "Enabled" and "EnableMultipleTaskForces" not in TASKFORCE:
+            L.append("EnableMultipleTaskForces=False")
     L.append("")
     for name, points, cap, repair in DIFFICULTIES:
         L += [f"[TaskForceModeDifficulty_{name}]", f"Name={name}",
@@ -8656,13 +8679,19 @@ def campaign_ini(missions, events, placements):
             L.append(f"TaskForceModeIncludesTaskForce="
                      f"{'False' if detached else 'True' if placed.get('Taskforce1Vessel') else 'False'}")
             # The airwing sails only into a mission with air-tasking slots to
-            # put it in. Every stock mission with IncludesAirwing=True has at
-            # least one row, and every stock one whose Taskforce1 aircraft are
-            # authored set dressing (01, 02, 03B, 04) says False. Rig Seventeen
-            # said True over an authored Osprey and CH-53 and no row, and the
-            # game died loading it: NullReferenceException in
+            # put it in. Until 0.8.7 every stock mission with
+            # IncludesAirwing=True had at least one row, and every stock one
+            # whose Taskforce1 aircraft are authored set dressing (01, 02, 03B,
+            # 04) said False. Rig Seventeen said True over an authored Osprey
+            # and CH-53 and no row, and the game died loading it:
+            # NullReferenceException in
             # SceneCreator.ResolvePlacedCampaignAircraft (Player.log, install
-            # snapshot 9208d39e). So the flag is not display only.
+            # snapshot 9208d39e). So the flag was not display only.
+            # 0.9.0 turned those five stock missions to True with still no
+            # row, so stock no longer shows the rule; whether the crash went
+            # with it nobody has seen, and four Southern Watch missions (03,
+            # O3, O4, C2) say True/False, which no stock mission now does.
+            # The rule stays until one of them has been started on 0.9.0.
             flights, empty = tasking_rows(mission, placed)
             L.append(f"TaskForceModeIncludesAirwing="
                      f"{'True' if flights and not detached else 'False'}")
@@ -8771,7 +8800,16 @@ def campaign_ini(missions, events, placements):
                                  "player land unit whose Type contains "
                                  "airbase or airfield (the guide's rule)")
             if base and (window.get("airbase_prep") or (flights and not detached)):
-                L += ["TaskForceModeAirbasePrepAvailable=True",
+                # 0.9.0 names the airfield that stages the prepared flights:
+                # stock writes it above the prep keys of all five missions
+                # that offer Prepare Airbase ("Staging host in this mission"),
+                # and the game has a message for one that is not a player
+                # airfield. What a mission without the key gets is not
+                # written anywhere, so every mission names its host: the
+                # first player airfield in the file, which in all but four of
+                # them is the only one.
+                L += ["TaskForceModeAirbaseSection=" + staging_host(placed),
+                      "TaskForceModeAirbasePrepAvailable=True",
                       "TaskForceModeAirbasePrepReadySlots=4",
                       "TaskForceModeAirbasePrepInProgressSlots=2"]
             if i == last_playable:
@@ -9984,6 +10022,15 @@ def main():
         all. The campaign loads those by path, so there is nothing to describe.
         """
         base.mkdir(parents=True, exist_ok=True)
+        if browsed:
+            # The copy in the mission browser is a scenario, not a campaign
+            # mission: the game says False in its own four South Atlantic
+            # scenario copies and in Armilla Patrol, True in every mission
+            # under campaigns/. The one line the two copies differ by.
+            flag = "[Mission]\nCampaignMission=True\n"
+            if text.count(flag) != 1:
+                sys.exit(f"{name}: expected one CampaignMission=True under [Mission]")
+            text = text.replace(flag, "[Mission]\nCampaignMission=False\n")
         (base / f"{name}.ini").write_text(text, encoding="utf-8")
         brief = base / f"{name}_briefing"
         brief.mkdir(exist_ok=True)
@@ -10024,7 +10071,8 @@ def main():
 
         # The core missions ship twice: once under campaigns/, which is what
         # the linear campaign loads, and once under missions/, so they are
-        # also listed in the ordinary mission browser. Same bytes, one builder
+        # also listed in the ordinary mission browser. Same bytes but for the
+        # CampaignMission line (emit), one builder
         # - and it means the campaign is playable mission by mission even on
         # an install where the Mod Manager does not surface a mod-supplied
         # campaign.
