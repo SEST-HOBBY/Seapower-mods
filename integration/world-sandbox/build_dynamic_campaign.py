@@ -1468,16 +1468,6 @@ def main():
     import shutil
     (PACK / "tools").mkdir(parents=True, exist_ok=True)
     shutil.copyfile(ROOT / "tools/select-legacy-world.ps1", PACK / "tools/select-legacy-world.ps1")
-    # The read-me's four counts are the built campaign's own. Typed in, the
-    # buy entries said 1,586 through two rebuilds that moved them (1,593 on the
-    # 12 Nov capture, 1,633 on the game's 0.9.0 units).
-    readme = (Path(__file__).resolve().parent / "WORLD-CAMPAIGN-READ-ME.txt").read_text(encoding="utf-8")
-    counts = {"bases": len(campaign["bases"]), "forces": len(campaign["forces"]),
-              "patrols": len(campaign["patrols"]), "catalogue": f"{len(campaign['catalogue']):,}"}
-    for name in counts:
-        if readme.count("{" + name + "}") != 1:
-            raise SystemExit(f"WORLD-CAMPAIGN-READ-ME.txt: expected one {{{name}}} placeholder")
-    (PACK / "WORLD-CAMPAIGN-READ-ME.txt").write_text(readme.format(**counts), encoding="utf-8")
     (PACK / "_info.ini").write_text(
         "[Language_en]\n"
         "Name=Global Maritime Operations 2028\n"
@@ -1511,6 +1501,19 @@ def main():
     if regional.returncode:
         sys.exit(regional.stdout + regional.stderr + "\nRegional campaign build failed")
     print(regional.stdout.strip())
+    # The read-me's four counts are those of the one world the player starts,
+    # the combined campaign build_regions.py has just written. Typed in, the
+    # buy entries said 1,586 through two rebuilds that moved them (1,593 on the
+    # 12 Nov capture, 1,633 on the game's 0.9.0 units).
+    readme = (Path(__file__).resolve().parent / "WORLD-CAMPAIGN-READ-ME.txt").read_text(encoding="utf-8")
+    world = json.loads((PACK / "dynamic_campaigns" / "sest-world-regions-2028" / "campaign.json")
+                       .read_text(encoding="utf-8"))
+    counts = {"bases": len(world["bases"]), "forces": len(world["forces"]),
+              "patrols": len(world["patrols"]), "catalogue": f"{len(world['catalogue']):,}"}
+    for name in counts:
+        if readme.count("{" + name + "}") != 1:
+            sys.exit(f"WORLD-CAMPAIGN-READ-ME.txt: expected one {{{name}}} placeholder")
+    (PACK / "WORLD-CAMPAIGN-READ-ME.txt").write_text(readme.format(**counts), encoding="utf-8")
     if globe is None:
         print("  WARNING: global_land_mask not installed - water checks skipped "
               "(pip install global-land-mask numpy)")
