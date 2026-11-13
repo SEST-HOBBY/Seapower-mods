@@ -440,6 +440,19 @@ class SystemsAfter090(unittest.TestCase):
                          r"(?m)^MaxDetectionRange=1\.0\b")
         self.assertEqual(lines(section(read(DIST / "systems" / "sensors.ini"), "AN/ASQ-81V2")), lines(built))
 
+    def test_the_minimap_settings_are_the_games_again(self):
+        # Apex Predators' ui/minimap.ini is the 0.8.7 file; 0.9.0 added one key to the game's.
+        game = read(VANILLA / "ui" / "minimap.ini")
+        stale = read(ROOT / "mods-source/3416372890/ui/minimap.ini")
+        self.assertRegex(game, r"(?m)^SandMaxHeight=8\b")
+        self.assertNotIn("SandMaxHeight", stale)
+        self.assertEqual([p.parts[-3] for p in sorted((ROOT / "mods-source").glob("*/ui/minimap.ini"))],
+                         ["3416372890"])
+        built = read(FIXES / "ui" / "minimap.ini")
+        self.assertTrue(built.startswith("# SEST Collection Fixes - the game's own ui/minimap.ini, verbatim"))
+        self.assertEqual([x for x in built.splitlines() if not x.startswith("# ")], game.splitlines())
+        self.assertEqual(read(DIST / "ui" / "minimap.ini"), built)
+
     def test_the_build_says_the_retuned_ciws_are_on_the_old_ladder(self):
         build = self.build
         notice = build.ciws_ladder_notice()

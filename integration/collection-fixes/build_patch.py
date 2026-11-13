@@ -1223,6 +1223,14 @@ STALE_VANILLA_FILES = {
         "2432 kt. It loads since the Shenyang J-11 mod (3436170138), whose copy\n"
         "outranked it, left the Workshop on 12 Nov 2026. Every R-27 carrier\n"
         "reads it."),
+    # Not a round: the game's mini-map settings. The copy is the 0.8.7 file
+    # byte for byte, so it carries nothing of the mod's own and hid nothing
+    # until 0.9.0 added a key to the game's.
+    "ui/minimap.ini": (
+        ("3416372890",), "SandMaxHeight",
+        "Apex Predators ships the game's mini-map settings as they were before\n"
+        "Sea Power 0.9.0, which added SandMaxHeight (land below 8 m fades into\n"
+        "the sand colour at the coast). Nothing in the copy is the mod's own."),
 }
 
 
