@@ -13,7 +13,9 @@ different file now.
 
 So this walks the references instead of the files:
 
-  1. Type=<unit>            in the mission -> a winning unit file defines it
+  1. Type=<unit>            in a unit's section of the mission -> a winning
+                            unit file defines it (a zone, a station or an
+                            anchor has a Type too, and it names no unit)
   2. <unit>=Squadron1,12    air groups     -> a winning aircraft file defines it
   3. LoadoutVariant=<name>  -> listed in that unit's AvailableLoadouts
   4. VariantReference=<v>   -> declared by the winning <unit>_variants.ini
@@ -51,6 +53,13 @@ from fix_loadout_variants import deployed_missions  # noqa: E402
 from common.snapshot import stale_mods  # noqa: E402
 
 UNIT_DIRS = ("aircraft", "vessels", "submarines", "land_units", "biologic")
+# The sections of a mission that place a unit. Type= means a unit id only
+# there: [Zone3] says Type=Deployment or Spawn, a recovery point
+# Type=GameplayAnchor, a patrol zone Type=CAP, [General] Type=Scenario - and
+# every campaign mission this repository builds has a deployment zone, which
+# until 13 Nov 2026 was reported as a unit no mod defines.
+UNIT_SECTION = re.compile(r"^\[(?:Taskforce\d+|Neutral)"
+                          r"(?:Vessel|Submarine|Aircraft|Helicopter|LandUnit|Biologic)\d+\]")
 
 
 def find_unit(uid):
@@ -156,6 +165,7 @@ def check_mission(mission):
     pending = None          # (line, unit, file) awaiting a verdict
     saw_variant = False
     in_aircraft = False
+    in_unit = False
 
     def close_block():
         nonlocal pending, saw_variant
@@ -178,11 +188,12 @@ def check_mission(mission):
         if line.startswith("["):
             close_block()
             in_aircraft = bool(re.match(r"^\[Taskforce\d+(?:Aircraft|Helicopter)\d+\]", line))
+            in_unit = bool(UNIT_SECTION.match(line))
             cur_unit = cur_file = None
         # \S+ would miss ids with spaces ("plaf_j16a block3" is a real file)
         # and leave cur_unit stale - six J-16 variant errors were blamed on
         # the B-52O above them before this handled spaces.
-        if m := re.match(r"^Type=(.+?)\s*$", line):
+        if in_unit and (m := re.match(r"^Type=(.+?)\s*$", line)):
             cur_unit = m.group(1)
             cur_file = find_unit(cur_unit)
             checked += 1
