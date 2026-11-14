@@ -8,7 +8,7 @@ across every campaign in the pack.
 
 1. HARD REQUIRED (64): a mission or the roster names a file of theirs, or a mod above says it cannot run without them.
 
-  3438479626    a squadron a flight comes from   1143.5 Kuznetsov
+  3438479626    a weapon a loadout hangs         1143.5 Kuznetsov
   3781062859    a model a unit draws             <<E-3G>>
   3499239964    a unit a mission places          [DEPRECATED] E-7A Wedgetail
   3459682829    a model a unit draws             A-10C

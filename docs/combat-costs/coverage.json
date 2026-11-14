@@ -90903,9 +90903,9 @@
       "eligible": 2231,
       "historical_known": 2231,
       "current_known": 2231,
-      "sest_eligible": 143,
-      "sest_historical_known": 143,
-      "sest_current_known": 143,
+      "sest_eligible": 142,
+      "sest_historical_known": 142,
+      "sest_current_known": 142,
       "unknown": []
     },
     "vessel": {
@@ -121786,8 +121786,8 @@
       {
         "kind": "weapon",
         "id": "rok_hgv",
-        "owner": "SEST_Replenishment",
-        "path": "integration/replenishment/SEST_Replenishment/ammunition/rok_hgv.ini",
+        "owner": "3789208859",
+        "path": "mods-source/3789208859/ammunition/rok_hgv.ini",
         "category": "Land Attack",
         "type": "Missile",
         "historical": "2500000",

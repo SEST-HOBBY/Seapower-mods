@@ -12,9 +12,9 @@ This campaign reaches 75 of the enabled mods and packs; 4 more are required by a
 |---|---|---|
 | `unit` | places the unit; this mod wins its file | 26 |
 | `variant` | supplies the hull variant a placed or sold unit uses | 10 |
-| `squadron` | supplies the squadron a placed or sold airframe flies from | 6 |
+| `squadron` | supplies the squadron a placed or sold airframe flies from | 5 |
 | `roster` | the requisition roster prices it, so the player can buy it | 11 |
-| `store` | supplies a round a placed or sold unit's loadout hangs | 11 |
+| `store` | supplies a round a placed or sold unit's loadout hangs | 12 |
 | `asset` | supplies a model folder a placed or sold unit's file draws from | 10 |
 | `deck` | widens a placed or sold deck's AircraftSupported to an airframe the campaign flies from it | 1 |
 
@@ -57,7 +57,7 @@ Sea and land positions are used as authored and checked against the coastline ex
 | `italian-navy-cold-war` | Italian Navy Mod | `roster` | mm_ddgh_durand_de_la_penne_02 at 260 points | requisition roster |
 | `kc-135` | KC-135 STRATOTANKER | `asset` | wp_il-78 / materials/ships | Macquarie Passage |
 | `kc-46a` | KC-46A Pegasus - Strategic Tanker | `unit` | usaf_kc-46a_boom | Southern Air Bridge |
-| `kuznetsov-1143-5` | 1143.5 Kuznetsov | `squadron` | rfn_cvt_20380_7-12 deck / wp_ka-27 | Beneath the South |
+| `kuznetsov-1143-5` | 1143.5 Kuznetsov | `store` | plan_type_001 / su_rgb-12 | Cold Route |
 | `liaoning-type-001` | PLAN Type 001 Aircraft Carrier Liaoning | `unit` | plan_type_001 | Cold Route |
 | `merchants-expanded` | Merchants Expanded | `unit` | civ_ms_mairangi_bay | Southern Departure |
 | `modern-plan-systems` | Modern PLAN Systems | `unit` | plan_type_054a_p5 deck / plan_z-9f | Southern Departure |
