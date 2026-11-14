@@ -8,7 +8,7 @@
 3378409795   Type 23 Frigate                                      updated 2025-05-27 20:36  folder 2026-08-24 07:42
 3380210757   Anchor Chain                                         updated 2026-11-12 15:17  folder 2026-11-12 22:31
 3384079999   Humpback Whale                                       updated 2024-12-31 16:33  folder 2026-08-24 07:52
-3390330875   Euromod - Modern US Navy                             updated 2026-11-12 07:18  folder 2026-11-12 22:31
+3390330875   Euromod - Modern US Navy                             updated 2026-11-14 14:23  folder 2026-11-14 14:46
 3392434750   S-400 SAM                                            updated 2026-02-28 18:17  folder 2026-08-24 07:51
 3394781441   B-52G with AGM-86 ALCM(more realistic nuke)          updated 2026-02-15 18:24  folder 2026-08-16 22:50
 3395022688   Tu-95MS with AS-15 ALCM(more realistic nuke)         updated 2025-02-23 01:59  folder 2026-08-16 12:05
@@ -18,7 +18,7 @@
 3406985435   Kirov-class (Pyotr Velikiy Upgrade)                  updated 2026-11-12 04:46  folder 2026-11-12 22:31
 3408662804   伊斯坎德尔                                                updated 2026-02-22 00:41  folder 2026-08-24 07:52
 3410473695   Ground upgrade: MBT                                  updated 2026-06-01 00:38  folder 2026-10-04 20:27
-3411341227   Tu-95K-22                                            updated 2026-08-31 23:53  folder 2026-09-01 17:08
+3411341227   Tu-95K-22                                            updated 2026-11-14 02:26  folder 2026-11-14 04:01
 3412480633   Ground upgrade: IFV                                  updated 2026-06-01 00:34  folder 2026-10-04 20:27
 3413868677   Red Storm Arsenal                                    updated 2026-11-12 06:03  folder 2026-11-12 22:31
 3414146266   A-10                                                 updated 2026-02-21 18:07  folder 2026-08-16 12:07
@@ -32,10 +32,10 @@
 3432592449   Nimitz Expanded                                      updated 2025-02-23 16:00  folder 2026-08-16 11:44
 3432668460   Auxilliary Merchant Pack                             updated 2025-02-28 13:24  folder 2026-08-24 07:42
 3433957933   Virginia, Seawolf, and Ohio-class submarines         updated 2026-10-06 05:52  folder 2026-08-15 19:31
-3434072450   Sukhoi Su-27                                         updated 2026-10-08 23:29  folder 2026-08-15 19:40
-3434693420   F-15J Peace Eagle                                    updated 2026-08-07 07:45  folder 2026-10-04 20:33
+3434072450   Sukhoi Su-27                                         updated 2026-11-13 02:29  folder 2026-08-15 19:40
+3434693420   F-15J Peace Eagle                                    updated 2026-11-13 02:29  folder 2026-11-13 18:39
 3437105712   SAM Pack                                             updated 2026-08-16 01:25  folder 2026-09-06 08:24
-3438479626   1143.5 Kuznetsov                                     updated 2026-10-08 23:29  folder 2026-10-10 07:48
+3438479626   1143.5 Kuznetsov                                     updated 2026-11-13 02:40  folder 2026-11-13 18:39
 3444379330   Euromod - Modern Dutch Navy                          updated 2026-11-12 06:28  folder 2026-11-12 22:31
 3448845252   F-117                                                updated 2025-08-02 15:22  folder 2026-08-16 22:50
 3451166840   SU-25 Frogfoot                                       updated 2026-08-06 04:36  folder 2026-08-16 12:06
@@ -51,12 +51,12 @@
 3468260539   Russian Submarines                                   updated 2026-10-06 05:52  folder 2026-10-06 17:18
 3468959181   U-2 Dragon Lady                                      updated 2026-11-12 04:47  folder 2026-11-12 22:31
 3470643173   日本陆上自卫队12式岸舰导弹系统                                     updated 2025-04-26 16:42  folder 2026-08-16 12:07
-3478767194   VH-3D Marine One Mod                                 updated 2026-08-14 01:40  folder 2026-08-16 22:50
+3478767194   VH-3D Marine One Mod                                 updated 2026-11-13 08:41  folder 2026-11-13 18:39
 3480965706   B-2 Spirit                                           updated 2025-08-26 19:48  folder 2026-08-15 19:29
 3481228992   J10C                                                 updated 2025-11-30 20:09  folder 2026-08-16 12:03
 3485917612   Moloti's Armed Merchantmen                           updated 2026-08-31 02:27  folder 2026-10-03 17:06
 3486502935   Type 003 CV / future Type 004 CVN aircraft carriers  updated 2026-11-12 04:46  folder 2026-11-12 22:31
-3488139470   Euromod - Modern Italian Navy                        updated 2026-11-12 03:57  folder 2026-11-12 22:31
+3488139470   Euromod - Modern Italian Navy                        updated 2026-11-14 12:48  folder 2026-11-14 14:31
 3491248180   The Royal Navy                                       updated 2026-09-14 07:00  folder 2026-10-04 20:32
 3493115616   EMAD                                                 updated 2026-07-07 15:30  folder 2026-10-05 03:01
 3496055699   S-500                                                updated 2025-06-10 07:58  folder 2026-10-04 20:26
@@ -65,7 +65,7 @@
 3502273861   arrw                                                 updated 2025-11-09 04:10  folder 2026-08-25 09:23
 3503594612   SU-57                                                updated 2026-02-23 00:15  folder 2026-08-15 19:25
 3503670861   General Atomics MQ-9 Reaper                          updated 2026-05-29 16:17  folder 2026-08-15 19:40
-3505420313   Euromod - Cold War Italian Navy                      updated 2026-10-17 04:19  folder 2026-10-17 08:05
+3505420313   Italian Navy mod                                     updated 2026-11-14 12:45  folder 2026-11-14 14:31
 3506979898   J-16                                                 updated 2026-03-01 03:15  folder 2026-08-16 12:03
 3508275114   Ground upgrade: SPAA                                 updated 2026-08-16 01:22  folder 2026-08-16 12:00
 3509329205   TU-160                                               updated 2026-05-05 01:09  folder 2026-08-15 19:29
@@ -97,7 +97,7 @@
 3594891803   PLAN Submarines (039, 039A/B/C, 093/093A/093B, 094/094A) updated 2026-10-06 05:53  folder 2026-10-06 17:18
 3595014060   NATO E-3A Sentry                                     updated 2026-08-07 18:03  folder 2026-10-04 20:28
 3597650470   Russian Navy 21                                      updated 2026-09-28 03:36  folder 2026-08-31 18:22
-3599752717   Euromod - Modern British Navy                        updated 2026-10-17 12:08  folder 2026-10-17 15:18
+3599752717   Euromod - Modern British Navy                        updated 2026-11-14 11:45  folder 2026-11-14 14:31
 3600788156   Buildings and Objectives                             updated 2026-10-20 21:50  folder 2026-10-12 15:35
 3601891050   中小型无人机系列                                             updated 2026-07-09 01:03  folder 2026-08-15 19:40
 3602046770                                                        updated 2025-11-12 03:38  folder 2026-08-16 11:44
@@ -110,7 +110,7 @@
 3628201887   Clemenceau -class Aircraft Carrier                   updated 2026-03-04 08:36  folder 2026-10-04 20:32
 3628203171   Bréguet Br.1050 Alizé                                updated 2025-12-29 03:16  folder 2026-10-04 20:33
 3628247436   Sea Venom - Aquilon                                  updated 2026-01-03 05:11  folder 2026-10-04 20:33
-3629144864   Euromod - Main Pack                                  updated 2026-11-10 03:54  folder 2026-11-10 17:10
+3629144864   Euromod - Main Pack                                  updated 2026-11-14 11:42  folder 2026-11-14 14:31
 3629269283   Modern Russian Airbase                               updated 2026-09-13 08:50  folder 2026-08-16 12:05
 3630495619   Spanish Navy Mod (Cold War)                          updated 2026-11-12 19:57  folder 2026-11-12 22:31
 3631042692   Modern Chinese Airbase                               updated 2026-08-13 02:42  folder 2026-08-16 12:02
@@ -145,7 +145,7 @@
 3732654992   THE REDFOR MOD                                       updated 2026-11-04 22:06  folder 2026-11-02 21:37
 3733719765   中国地面单位包                                              updated 2026-10-04 19:54  folder 2026-10-03 06:32
 3736147136   French army vehicule                                 updated 2026-09-18 05:58  folder 2026-09-19 10:05
-3737267013   US Naval Aviation                                    updated 2026-11-11 08:19  folder 2026-11-11 20:25
+3737267013   US Naval Aviation                                    updated 2026-11-14 14:27  folder 2026-11-14 14:46
 3740293822   KC-10A Extender by ZeroTwo                           updated 2026-07-07 15:22  folder 2026-08-15 19:17
 3741944366   B-52H                                                updated 2026-06-10 23:26  folder 2026-09-13 19:52
 3744475027   Boeing KC-46 Pegasus by ZeroTwo                      updated 2026-07-20 16:40  folder 2026-08-15 19:20
@@ -153,68 +153,68 @@
 3752415457   Philippines: The Luzon Line [v0.8.3.03.10]           updated 2026-10-03 21:41  folder 2026-10-04 20:21
 3755769170   F-2A 'Viper Zero'                                    updated 2026-08-16 08:57  folder 2026-09-16 16:03
 3758320372   F-16C Fighting Falcon (by ZeroTwo)                   updated 2026-07-31 23:25  folder 2026-08-15 19:19
-3758943352   French Air Force                                     updated 2026-10-12 03:14  folder 2026-10-03 16:59
+3758943352   French Air Force                                     updated 2026-11-13 05:44  folder 2026-11-13 18:39
 3759042728   Mare Nostrum '28                                     updated 2026-08-25 21:39  folder 2026-10-04 20:23
 3760871384   Dingtools Weapon Pack                                updated 2026-08-23 23:29  folder 2026-08-15 19:29
 3762023575   Su-30SM2                                             updated 2026-07-11 06:26  folder 2026-08-16 11:51
-3766210676   Saronic Corsair ASV                                  updated 2026-11-09 19:01  folder 2026-11-09 19:09
-3768036424   BetterTacMap                                         updated 2026-10-19 07:11  folder 2026-10-19 07:30
+3766210676   Saronic Corsair ASV                                  updated 2026-11-13 09:02  folder 2026-11-13 18:39
+3768036424   BetterTacMap                                         updated 2026-11-12 23:13  folder 2026-11-12 23:56
 3769142422   Rebuilt J-16 / J-16D                                 updated 2026-10-03 06:10  folder 2026-10-03 06:32
-3774105087   Automatic SAR                                        updated 2026-10-31 19:35  folder 2026-11-01 14:10
+3774105087   Automatic SAR                                        updated 2026-11-13 11:04  folder 2026-11-13 18:39
 3774572038   PLAN Type 071 LPD                                    updated 2026-08-03 03:14  folder 2026-08-15 19:20
 3774746803   PLA Z-21                                             updated 2026-07-31 09:24  folder 2026-08-15 19:19
 3774859959   PLAN Type 001 Aircraft Carrier Liaoning              updated 2026-08-05 18:16  folder 2026-08-16 11:51
 3775128499   PLAN Pack                                            updated 2026-11-11 23:23  folder 2026-11-11 23:25
 3776340577   Ka-27RLD - Ka-31 AEW Helicopter                      updated 2026-08-03 00:39  folder 2026-08-16 12:06
-3776730617   Euromod - Modern Armada de Chile                     updated 2026-11-07 10:17  folder 2026-11-07 10:49
+3776730617   Euromod - Modern Armada de Chile                     updated 2026-11-14 12:35  folder 2026-11-14 14:31
 3779799226   Operation STEADFAST LANTERN                          updated 2026-08-15 01:30  folder 2026-10-04 20:22
 3780118683   Tu-214R Family Pack                                  updated 2026-10-03 22:20  folder 2026-10-04 11:22
 3781062859   E-3G AWAC                                            updated 2026-08-10 23:05  folder 2026-08-17 00:49
 3782020901   Y-20 / KJ-3000                                       updated 2026-11-12 04:47  folder 2026-11-12 22:31
 3784474738   Euromod - Anchorchain Expansion Pack                 updated 2026-11-12 06:26  folder 2026-11-12 22:31
 3789188689   PLA & PLAN & PLAAF AEP                               updated 2026-11-12 07:09  folder 2026-11-12 22:31
-3789208859   Euromod-South Korea Navy                             updated 2026-11-08 16:05  folder 2026-10-11 08:28
+3789208859   Euromod-South Korea Navy                             updated 2026-11-13 23:59  folder 2026-10-11 08:28
 3790594162   Identify Expanded                                    updated 2026-10-27 10:45  folder 2026-10-27 10:54
 3796113927   RQ-180 White Bat Airframe                            updated 2026-09-06 17:03  folder 2026-09-16 16:09
-3796349767   YF-23 Black Widow II                                 updated 2026-11-10 18:12  folder 2026-11-10 18:40
+3796349767   YF-23 Black Widow II                                 updated 2026-11-13 13:38  folder 2026-11-13 18:39
 3796706214   飞机与直升机的真实照片                                          updated 2026-11-12 13:04  folder 2026-11-12 22:31
 3799742828   MiG-31 Foxhound                                      updated 2026-11-12 04:46  folder 2026-11-12 22:31
 3801363152   CH-53E Standalone v0.1.0                             updated 2026-11-07 06:31  folder 2026-09-16 15:37
 3801549552   J-36 Tailless Fighter                                updated 2026-09-15 03:09  folder 2026-09-16 15:34
 3802216383   JMSDF Hyūga-class — Hyūga & Ise                      updated 2026-10-25 11:22  folder 2026-10-25 13:09
-3804868806   Anduril FQ-44 Fury US Navy Carrier Wingmen           updated 2026-11-10 18:13  folder 2026-11-10 18:40
+3804868806   Anduril FQ-44 Fury US Navy Carrier Wingmen           updated 2026-11-13 07:59  folder 2026-11-13 18:39
 3806197116   Civilian AS350 Ecureuil/AStar MOD                    updated 2026-11-12 19:21  folder 2026-11-12 22:31
 3806466625   V-22 Osprey / SV-22 2024 ASW prototype               updated 2026-11-12 22:00  folder 2026-11-12 22:31
 3806686336   Coordinated Strike Tool                              updated 2026-09-25 21:51  folder 2026-09-30 21:22
 3807164392   Euromod-India-Navy                                   updated 2026-11-11 20:38  folder 2026-10-18 21:44
 3807187341   Combat Cost Tracker                                  updated 2026-11-12 06:27  folder 2026-11-12 22:31
 3808882954   RC-135V/W Rivet Joint                                updated 2026-10-14 11:45  folder 2026-10-14 15:53
-3810611344   MV-75 Cheyenne II                                    updated 2026-11-10 18:46  folder 2026-11-10 19:25
+3810611344   MV-75 Cheyenne II                                    updated 2026-11-13 12:28  folder 2026-11-13 18:39
 3812111085   PLAAF Aircraft Pack                                  updated 2026-11-11 23:17  folder 2026-11-11 23:25
 3812140001   Pakistani Pack                                       updated 2026-11-11 23:16  folder 2026-11-11 23:25
-3812454152   Euromod-HD Hyundai Export Ships Mod                  updated 2026-11-11 20:53  folder 2026-11-05 22:58
-3812461539   SEST Integration Pack                                updated 2026-10-26 20:11  folder 2026-11-09 23:46
-3813033771   EC-2 Stand Off Jammer                                updated 2026-11-09 22:32  folder 2026-11-09 22:54
+3812454152   Euromod-HD Hyundai Export Ships Mod                  updated 2026-11-13 23:26  folder 2026-11-05 22:58
+3812461539                                                        updated unknown  folder 2026-11-14 02:40
+3813033771   EC-2 Stand Off Jammer                                updated 2026-11-13 13:38  folder 2026-11-13 18:39
 3813157776   Dynamic Campaign Mod                                 updated 2026-10-25 07:17  folder 2026-10-25 13:09
 3818251045   Group Manager                                        updated 2026-10-26 09:02  folder 2026-10-26 09:36
 3819427362   Contact Log                                          updated 2026-10-21 01:35  folder 2026-10-26 08:18
-3819522350   Anduril Maritime Drones                              updated 2026-11-10 18:04  folder 2026-11-10 18:40
-3820576916   Steelfin (Alpine)                                    updated 2026-11-10 18:03  folder 2026-11-10 18:40
+3819522350   Anduril Maritime Drones                              updated 2026-11-13 07:54  folder 2026-11-13 18:39
+3820576916   Steelfin (Alpine)                                    updated 2026-11-13 07:53  folder 2026-11-13 18:39
 3820759806   Euromod - Modern Royal Australian Navy Mod           updated 2026-11-07 16:13  folder 2026-11-07 16:50
-3821992229   B-21 Raider                                          updated 2026-11-02 14:15  folder 2026-11-02 21:37
+3821992229   B-21 Raider                                          updated 2026-11-13 07:52  folder 2026-11-13 18:39
 3826122523   R.A.T.S. Topographic Map                             updated 2026-11-12 20:13  folder 2026-11-12 22:31
 3826396311   R.A.T.S. Pop-Out Windows                             updated 2026-11-12 20:13  folder 2026-11-12 22:31
 
 subscribed but UNPLACED (1): 3812461539
-placed but NOT SUBSCRIBED (3): 3637954857, 3436170138, 3433577445
+placed but NOT SUBSCRIBED (0): 
 
 --- Steam client record (appworkshop_1286220.acf) ---
 acf file(s)              : c:\program files (x86)\steam\steamapps\workshop\appworkshop_1286220.acf
 folders on disk          : 201
-ids Steam tracks locally : 201
+ids Steam tracks locally : 200
 NeedsDownload / NeedsUpdate: 0 / 0
 tracked but NOT on disk (0): 
-on disk but NOT tracked (0): 
+on disk but NOT tracked (1): 3812461539
 
 If the Steam UI's subscribed count is HIGHER than both numbers above, the
 extras are server-side only and there is nothing on this PC to find: the

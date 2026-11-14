@@ -1,5 +1,5 @@
 # The live install's own changelog head and campaign list, against the
-# export this repo reasons from (0.8.3 Build 261001, 01-Oct-2026).
+# export this repository holds (11-Nov-2026: 0.9.0 Build 261111 Public Release).
 
 changelog copied to changelog.live.txt; head:
     Change log
@@ -7,10 +7,19 @@ changelog copied to changelog.live.txt; head:
     
     ===============================================================================
     
-    11-Nov-2026: 0.9.0 Build 261111 Public Release
+    13-Nov-2026: 0.9.2 Build 261113 Public Release
     ----------------------------------------------
-    [FIX] Campaign: damaged units from dynamic generation were sometimes reported as kills
-    [FIX] Campaign: destroyed task forces remained in the campaign roster
-    [FIX] Campaign: player task force could be reset by the mission briefing
-    [FIX] Campaign: moving a CAP on the campaign map only moved its leader in the mission
-    [FIX] Campaign: formations created by dynamic unit generation spawned on top of each other
+    [FIX] Campaign: objectives and scoring were sometimes not saved or loaded properly, which led to strange results
+    [FIX] Campaign: mission briefings could show a previously loaded briefing instead of the current mission
+    [FIX] Campaign: aircraft lost in previous missions could keep the current aircraft from spawning correctly
+    [FIX] Campaign: a high starting crew skill was demoted when advancing through the missions
+    [FIX] Campaign: Falklands War 1982 (Britain) and Guerra de Malvinas 1982 (Argentina): Air Tasking was often only available for certain aircraft types instead of roles
+
+campaign folders installed:
+    campaign-proto-1
+    linear-campaign-proto-1
+    pacific-strike-task-force
+    south-atlantic-1982-argentina
+    south-atlantic-1982-uk
+    strike-group-molniya-campaign
+    weather

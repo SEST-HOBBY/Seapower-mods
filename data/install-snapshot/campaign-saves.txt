@@ -3,9 +3,9 @@
 # only evidence of what survives between missions.
 
 root: <USER>\AppData\LocalLow\Triassic Games\Sea Power\Saves
-    steam_autocloud.vdf                                                52 bytes  2026-11-12 22:31
+    steam_autocloud.vdf                                                52 bytes  2026-11-14 14:32
+    campaigns\_AutoSave.sav                                        36,273 bytes  2026-11-14 04:01
     campaigns\linear_campaign_20261109T190851.sav                 186,216 bytes  2026-11-09 19:08
-    campaigns\_AutoSave.sav                                       185,668 bytes  2026-11-09 19:04
     campaigns\linear_campaign_20261109T123923.sav                 156,501 bytes  2026-11-09 12:39
     campaigns\linear_campaign_20261108T235259.sav                  82,124 bytes  2026-11-08 23:52
     campaigns\linear_campaign_20261108T222038.sav                  54,317 bytes  2026-11-08 22:20
@@ -31,9 +31,9 @@ root: <USER>\AppData\LocalLow\Triassic Games\Sea Power\Saves
     missions\asian op aus midgame.sav                           2,927,218 bytes  2026-02-08 22:02
     (listing only - re-run with -IncludeSaves to copy the campaign saves)
 root: <USER>\AppData\LocalLow\Triassic Games\Sea Power\saves
-    steam_autocloud.vdf                                                52 bytes  2026-11-12 22:31
+    steam_autocloud.vdf                                                52 bytes  2026-11-14 14:32
+    campaigns\_AutoSave.sav                                        36,273 bytes  2026-11-14 04:01
     campaigns\linear_campaign_20261109T190851.sav                 186,216 bytes  2026-11-09 19:08
-    campaigns\_AutoSave.sav                                       185,668 bytes  2026-11-09 19:04
     campaigns\linear_campaign_20261109T123923.sav                 156,501 bytes  2026-11-09 12:39
     campaigns\linear_campaign_20261108T235259.sav                  82,124 bytes  2026-11-08 23:52
     campaigns\linear_campaign_20261108T222038.sav                  54,317 bytes  2026-11-08 22:20
