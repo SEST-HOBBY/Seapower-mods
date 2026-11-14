@@ -6483,7 +6483,7 @@
         "CurrentYearCost": "951000000",
         "Category": "FFG"
       },
-      "ran_ffg_mogami_improved": {
+      "ran_ffg_mogami_yarra": {
         "VesselCosts": "700000000",
         "CurrentYearCost": "700000000",
         "Category": "FFG"
@@ -6901,6 +6901,10 @@
       "fr_alouette_iii": {
         "AircraftCosts": "210000",
         "CurrentYearCost": "2200000"
+      },
+      "fr_super-etendard": {
+        "AircraftCosts": "6500000",
+        "CurrentYearCost": "33300000"
       },
       "irinavy_bell-212": {
         "AircraftCosts": "1900000",
@@ -10995,6 +10999,17 @@
       "fields": {
         "AircraftCosts": "210000",
         "CurrentYearCost": "2200000"
+      }
+    },
+    {
+      "kind": "aircraft",
+      "target": "fr_super-etendard",
+      "source": "fr_super_etendard",
+      "origin": "normalized",
+      "basis": "Same catalog reference after path/punctuation normalization",
+      "fields": {
+        "AircraftCosts": "6500000",
+        "CurrentYearCost": "33300000"
       }
     },
     {
@@ -41788,7 +41803,7 @@
     },
     {
       "kind": "vessel",
-      "target": "ran_ffg_mogami_improved",
+      "target": "ran_ffg_mogami_yarra",
       "origin": "completion",
       "source": null,
       "basis": "fitted frigate replacement proxy, excluding ammunition and embarked aircraft",
@@ -118992,8 +119007,8 @@
       {
         "kind": "weapon",
         "id": "rn_as11",
-        "owner": "3455404959",
-        "path": "mods-source/3455404959/ammunition/rn_as11.ini",
+        "owner": "3491248180",
+        "path": "mods-source/3491248180/ammunition/rn_as11.ini",
         "category": "ASM",
         "type": "Missile",
         "historical": "2500",
@@ -119346,8 +119361,8 @@
       {
         "kind": "weapon",
         "id": "rn_gp_1000",
-        "owner": "3455404959",
-        "path": "mods-source/3455404959/ammunition/rn_gp_1000.ini",
+        "owner": "3491248180",
+        "path": "mods-source/3491248180/ammunition/rn_gp_1000.ini",
         "category": "Bomb",
         "type": "Bomb",
         "historical": "5436",
@@ -119736,8 +119751,8 @@
       {
         "kind": "weapon",
         "id": "rn_mark8_mod4",
-        "owner": "3455404959",
-        "path": "mods-source/3455404959/ammunition/rn_mark8_mod4.ini",
+        "owner": "3491248180",
+        "path": "mods-source/3491248180/ammunition/rn_mark8_mod4.ini",
         "category": "Torpedo",
         "type": "Torpedo",
         "historical": "1500000",
@@ -119874,8 +119889,8 @@
       {
         "kind": "weapon",
         "id": "rn_mk23",
-        "owner": "3455404959",
-        "path": "mods-source/3455404959/ammunition/rn_mk23.ini",
+        "owner": "3491248180",
+        "path": "mods-source/3491248180/ammunition/rn_mk23.ini",
         "category": "Torpedo",
         "type": "Torpedo",
         "historical": "1500000",
@@ -119912,8 +119927,8 @@
       {
         "kind": "weapon",
         "id": "rn_mk24",
-        "owner": "3455404959",
-        "path": "mods-source/3455404959/ammunition/rn_mk24.ini",
+        "owner": "3491248180",
+        "path": "mods-source/3491248180/ammunition/rn_mk24.ini",
         "category": "Torpedo",
         "type": "Torpedo",
         "historical": "1500000",
@@ -170141,9 +170156,9 @@
       },
       {
         "kind": "vessel",
-        "id": "ran_ffg_mogami_improved",
+        "id": "ran_ffg_mogami_yarra",
         "owner": "3820759806",
-        "path": "mods-source/3820759806/vessels/ran_ffg_mogami_improved.ini",
+        "path": "mods-source/3820759806/vessels/ran_ffg_mogami_yarra.ini",
         "category": "FFG",
         "type": "Vessel",
         "historical": "700000000",
@@ -188161,9 +188176,33 @@
       },
       {
         "kind": "aircraft",
-        "id": "fr_super_etendard",
+        "id": "fr_super-etendard",
         "owner": "3555361900",
-        "path": "mods-source/3555361900/aircraft/fr_super_etendard.ini",
+        "path": "mods-source/3555361900/aircraft/fr_super-etendard.ini",
+        "category": "Aircraft",
+        "type": "Aircraft",
+        "historical": "6500000",
+        "current": "33300000",
+        "field_methods": {
+          "historical": "existing usable value preserved",
+          "current": "existing usable value preserved"
+        },
+        "field_sources": {
+          "historical": "reviewed catalog mapping: fr_super_etendard",
+          "current": "reviewed catalog mapping: fr_super_etendard"
+        },
+        "completion": null,
+        "disposition": "counted",
+        "historical_basis": "reviewed catalog mapping: fr_super_etendard; original reference-year basis retained",
+        "historical_reference_year": null,
+        "current_low": null,
+        "current_high": null
+      },
+      {
+        "kind": "aircraft",
+        "id": "fr_super_etendard",
+        "owner": "vanilla",
+        "path": "mods-source/_vanilla/original/aircraft/fr_super_etendard.ini",
         "category": "Aircraft",
         "type": "Aircraft",
         "historical": "6500000",
@@ -194100,30 +194139,6 @@
         "type": "Aircraft",
         "historical": "36000000",
         "current": "70000000",
-        "field_methods": {
-          "historical": "existing usable value preserved",
-          "current": "existing usable value preserved"
-        },
-        "field_sources": {
-          "historical": "tracker author catalog",
-          "current": "tracker author catalog"
-        },
-        "completion": null,
-        "disposition": "counted",
-        "historical_basis": "tracker author catalog; original reference-year basis retained",
-        "historical_reference_year": null,
-        "current_low": null,
-        "current_high": null
-      },
-      {
-        "kind": "aircraft",
-        "id": "raaf_canberra_bomber",
-        "owner": "3455404959",
-        "path": "mods-source/3455404959/aircraft/raaf_canberra_bomber.ini",
-        "category": "Aircraft",
-        "type": "Aircraft",
-        "historical": "1000000",
-        "current": "12000000",
         "field_methods": {
           "historical": "existing usable value preserved",
           "current": "existing usable value preserved"

@@ -6649,6 +6649,7 @@
     "fr_sa_342_gazelle_special_forces": 39,
     "fr_sea_lynx": 39,
     "fr_sea_lynx_4": 39,
+    "fr_super-etendard": 46,
     "fr_super_etendard": 46,
     "fr_super_etendard_modernise": 46,
     "fr_vsr700": 39,
@@ -6832,7 +6833,6 @@
     "raac_ah_mk_1": 39,
     "raac_lynx_ah7": 25,
     "raaf_ap-3c": 89,
-    "raaf_canberra_bomber": 172,
     "raaf_e-7a": 242,
     "raaf_ea-18g": 46,
     "raaf_ea-18g_2026": 46,
@@ -7497,14 +7497,14 @@
     "ran_ffg_adelaide_ffg_upgrade": 137,
     "ran_ffg_adelaide_shorthull": 137,
     "ran_ffg_adelaide_upgrade": 137,
-    "ran_ffg_mogami_improved": 181,
+    "ran_ffg_mogami_yarra": 181,
     "ran_ffh_anzac_wartime": 125,
     "ran_lhd-cv_canberra": 487,
     "ran_lhd-cv_canberra_late": 487,
     "ran_lhd_canberra": 487,
     "ran_lhd_canberra_late": 487,
     "ran_lsd_choules": 311,
-    "ran_lsh_tobruk": 173,
+    "ran_lsh_tobruk": 170,
     "ran_lsm_lsm1": 35,
     "ran_majestic": 399,
     "ran_majestic_59": 399,
@@ -10892,7 +10892,7 @@
       "tier": 1
     },
     {
-      "unit": "ran_ffg_mogami_improved",
+      "unit": "ran_ffg_mogami_yarra",
       "side": "blue",
       "nation": "Australia",
       "tier": 1
@@ -11311,13 +11311,6 @@
     },
     {
       "unit": "S2",
-      "side": "blue",
-      "nation": "Australia",
-      "tier": 1,
-      "aircraft": true
-    },
-    {
-      "unit": "raaf_canberra_bomber",
       "side": "blue",
       "nation": "Australia",
       "tier": 1,
@@ -12255,6 +12248,13 @@
     },
     {
       "unit": "fr_sea_lynx_4",
+      "side": "blue",
+      "nation": "France",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "fr_super-etendard",
       "side": "blue",
       "nation": "France",
       "tier": 0,
