@@ -20,7 +20,7 @@
             HorizontalAlignment="Center" FontSize="16" FontWeight="Bold" Canvas.Left="100"
             Canvas.Top="475" />         <TextBlock Foreground="SteelBlue" Text="カリブ海"
             HorizontalAlignment="Center" FontSize="16" FontWeight="Bold" Canvas.Left="800"
-            Canvas.Top="500" /> 0 <TextBlock Foreground="SteelBlue" Text="メキシコ湾"
+            Canvas.Top="500" /> <TextBlock Foreground="SteelBlue" Text="メキシコ湾"
             HorizontalAlignment="Center" FontSize="16" FontWeight="Bold" Canvas.Left="550"
             Canvas.Top="50" />         <TextBlock Foreground="SteelBlue" Text="ユカタン海峡"
             HorizontalAlignment="Center" FontSize="16" FontWeight="Bold" Canvas.Left="375"

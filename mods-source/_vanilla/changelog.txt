@@ -3,6 +3,84 @@ Change log
 
 ===============================================================================
 
+13-Nov-2026: 0.9.2 Build 261113 Public Release
+----------------------------------------------
+[FIX] Campaign: objectives and scoring were sometimes not saved or loaded properly, which led to strange results
+[FIX] Campaign: mission briefings could show a previously loaded briefing instead of the current mission
+[FIX] Campaign: aircraft lost in previous missions could keep the current aircraft from spawning correctly
+[FIX] Campaign: a high starting crew skill was demoted when advancing through the missions
+[FIX] Campaign: Falklands War 1982 (Britain) and Guerra de Malvinas 1982 (Argentina): Air Tasking was often only available for certain aircraft types instead of roles
+[FIX] Campaign: Falklands War 1982 (Britain) and Guerra de Malvinas 1982 (Argentina): deploy zones were assigned to hull codes instead of ship types
+[FIX] Campaign: Despawning aircraft sometimes did not credit their ammunition points back to the airbase stock
+[FIX] Scenario: "NATO/Better Part of Valor (1988)": wrong map center, and a stray character in the Japanese text kept it from loading in the editor
+[FIX] Mods: modded sensors were not loaded properly
+[FIX] Ship wakes could disappear when the camera was moved
+[FIX] Units: Nimrod: depth charge salvo size
+[FIX] Units: Roland SAM: added the missing superelevation angle
+[FIX] Units: ARA Santa Fe (GUPPY IIA): test depth (980 -> 460 ft) and maximum submerged speed (18 -> 16 kn)
+[FIX] Units: Argentine 707 now uses proper optics
+[FIX] Voiceovers: Argentine Spanish sometimes used the ship kill message when an aircraft was shot down
+[FIX] Voiceovers: removed an unnecessary "track" from the British Greyhound away call
+
+[UPD] Campaign: Falklands War 1982 (Britain): 01 Operation Paraquet can now be lost and the campaign still advances, the event text was updated to match
+[UPD] Campaign: Falklands War 1982 (Britain): 01 Operation Paraquet weather now matches the real weather on that day
+[UPD] Campaign: Falklands War 1982 (Britain): 05 Falkland Sound: the submarine warning circle is hidden
+[UPD] Campaign: Pacific Strike: added the ROCN Hai Shih to the roster
+[UPD] Campaign: UK Falklands: Setup proper aircraft recovery zones for all Argentine aircraft and Ascension Vulcans/Nimrods
+[UPD] Scenario: "Warsaw Pact/Valuable Target (1985)" updated
+[UPD] Units: Nimrod: new 200 ft and 500 ft altitude settings
+[UPD] Options: removed the "New Terrain Enabled" option, the new terrain is always used. Autogen vegetation is re-enabled where the old option had turned it off
+
+[NEW] Options: Terrain Texture Resolution - lower settings need less memory usage
+[NEW] Units: KMT Hai Shih class submarine (GUPPY II)
+[NEW] Added bottom bar flags for Guyana and Oman (correct for 1970s-1980s timeframe)
+
+===============================================================================
+
+12-Nov-2026: 0.9.1 Build 261112 Public Beta
+-------------------------------------------
+[FIX] Aircraft turn rate physics
+[FIX] Aircraft: maximum range issues
+[FIX] Aircraft: wingmen flew without any angle of attack
+[FIX] Campaign: aircraft on their Default loadout were left out of the airbase ammunition and supply calculations
+[FIX] Weapons: Mk 13 aerial torpedo minimum launch range (0.5 -> 0.2 nm)
+
+[UPD] Aircraft: improved dogfight logic, especially in two-circle fights
+[UPD] Aircraft: air-dropped torpedoes are aimed ahead of moving ships and released within 0.3 nm, and aircraft move onto the target's beam before the attack run
+[UPD] Units: IA-58A Pucará: the AntiShip loadout (Mk 13 torpedo) can now be selected
+[UPD] Units: added more aircraft and vessel descriptions
+
+[NEW] EXPERIMENTAL: Complete aircraft physics and behavior overhaul - unrestricted rolling and pitching, AOA, sustain and instant turn rates, stores add drag and reduce aircraft performance, air density is properly simulated
+[NEW] Full Air-to-air refueling integration and a new Tanker role
+[NEW] Weapon doctrine panel for missile launch conditions
+[NEW] Units: C-130 Hercules: Strike loadout with 12 Mk 82 bombs, using the Pucará toss bombsight like the Argentine C-130s in 1982
+
+===============================================================================
+
+12-Nov-2026: 0.9.1 Build 261112 Public Release
+----------------------------------------------
+[FIX] Campaign: the after-action report could appear on top of the campaign UI and soft-lock the campaign progress
+[FIX] Campaign: rearmed submarines were wrongly sent to the reserve
+[FIX] Campaign: sections of the Commander Service Record were not localized
+[FIX] Campaign: expensive debug memory logging slowed the campaign down, it is now opt-in only
+[FIX] Task Force Mode: damaged units could be shown as kills, which was confusing when the damaged hulls reappeared
+[FIX] Task Force Mode: the same ship could be bought for several task forces
+[FIX] Task Force Mode: the airbase inventory kept aircraft from appearing in the task force builder
+[FIX] Campaign: Falklands War 1982 (Britain): the intel event could show Argentine carriers as afloat after they were sunk
+[FIX] Campaign: Falklands War 1982 (Britain): 01 Operation Paraquet: a 60 minute timer now allows completing the optional objectives
+[FIX] Campaign: Falklands War 1982 (Britain): 02 Opening off Stanley: moved the exit zone, the mission ended immediately once the objectives were complete
+[FIX] Campaign: Falklands War 1982 (Britain): 03 Carriers at War: misplaced despawn zones made Argentine ships vanish
+[FIX] Campaign: Falklands War 1982 (Britain): 04A The Deseado Trap: endlessly looping attack waypoints could crash the game
+[FIX] Campaign: Guerra de Malvinas 1982 (Argentina): the "Carrier Sunk" newspaper could unlock after its date had passed
+[FIX] Guns could lock up at the edges of their traverse. Mounts now keep training on the target while holding fire
+[FIX] Units: Victor K.2 tanker was overweight. It now offloads its own fuel instead of a separate cargo tank
+
+[UPD] Campaign: Falklands War 1982 (Britain): mission timers for 06 and 07 San Carlos Water
+[UPD] Units: added descriptions for Royal Navy and Argentine ships that were missing them, more to come
+[UPD] Terrain loading uses memory more efficiently
+
+===============================================================================
+
 11-Nov-2026: 0.9.0 Build 261111 Public Release
 ----------------------------------------------
 [FIX] Campaign: damaged units from dynamic generation were sometimes reported as kills

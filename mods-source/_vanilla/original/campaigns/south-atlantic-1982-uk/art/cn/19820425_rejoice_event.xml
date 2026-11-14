@@ -34,6 +34,21 @@
       <Canvas Canvas.Left="92" Canvas.Top="204">
         <Canvas.RenderTransform><RotateTransform Angle="-0.3"/></Canvas.RenderTransform>
         <TextBlock Width="722" TextWrapping="Wrap" LineHeight="28" LineStackingStrategy="BlockLineHeight">
+          <!-- Old saves without this flag retain the historical signal. -->
+          <TextBlock.Style>
+            <Style TargetType="TextBlock">
+              <Setter Property="Visibility" Value="Visible"/>
+              <Style.Triggers>
+                <MultiDataTrigger>
+                  <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding CampaignVariables[UK01Defeat].Exists}" Value="True"/>
+                    <Condition Binding="{Binding CampaignVariables[UK01Defeat].Bool}" Value="True"/>
+                  </MultiDataTrigger.Conditions>
+                  <Setter Property="Visibility" Value="Collapsed"/>
+                </MultiDataTrigger>
+              </Style.Triggers>
+            </Style>
+          </TextBlock.Style>
           ZNY CCCCC<LineBreak/>
           Z 251735Z APR 82<LineBreak/>
           FM HMS ANTRIM<LineBreak/>
@@ -54,6 +69,32 @@
 		  <LineBreak/>
 		  <LineBreak/>
 		  BT
+        </TextBlock>
+        <!-- Fictional defeat report, selected from the UK01 campaign-variable snapshot. -->
+        <TextBlock Width="722" TextWrapping="Wrap" LineHeight="28" LineStackingStrategy="BlockLineHeight">
+          <TextBlock.Style>
+            <Style TargetType="TextBlock">
+              <Setter Property="Visibility" Value="Collapsed"/>
+              <Style.Triggers>
+                <MultiDataTrigger>
+                  <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding CampaignVariables[UK01Defeat].Exists}" Value="True"/>
+                    <Condition Binding="{Binding CampaignVariables[UK01Defeat].Bool}" Value="True"/>
+                  </MultiDataTrigger.Conditions>
+                  <Setter Property="Visibility" Value="Visible"/>
+                </MultiDataTrigger>
+              </Style.Triggers>
+            </Style>
+          </TextBlock.Style>
+          CONFIDENTIAL<LineBreak/><LineBreak/>
+          SOUTH GEORGIA<LineBreak/>
+          25 APRIL 1982<LineBreak/><LineBreak/>
+          SITUATION REPORT<LineBreak/><LineBreak/>
+          1. THE FORCE SENT TO RECAPTURE SOUTH GEORGIA HAS FAILED TO SECURE THE ISLAND. ARGENTINE FORCES REMAIN IN CONTROL.
+          <LineBreak/><LineBreak/>
+          2. ARGENTINA IS BELIEVED TO BE REINFORCING ITS GARRISON. THE STRENGTH AND TIMING OF ANY REINFORCEMENTS REMAIN UNCONFIRMED.
+          <LineBreak/><LineBreak/>
+          3. THE MAIN TASK FORCE WILL CONTINUE OPERATIONS TOWARDS THE FALKLANDS/MALVINAS. FURTHER ACTION AT SOUTH GEORGIA REMAINS UNDER REVIEW.
         </TextBlock>
       </Canvas>
       <TextBlock Canvas.Left="91" Canvas.Top="1121" Text="NNNN"/>
