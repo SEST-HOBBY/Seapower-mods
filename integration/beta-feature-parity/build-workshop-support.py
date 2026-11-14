@@ -18,7 +18,7 @@ import zipfile
 HERE = Path(__file__).resolve().parent
 ROOT = HERE.parents[1]
 # The candidate revisions a bundle may carry (R12 Final, then R13 onwards).
-REVISIONS = ("R12-", "R13-")
+REVISIONS = ("R12-", "R13-", "R14-")
 # The game builds a bundle may target, as players read them in Player.log.
 GAME_LABELS = {
     "3f56861f09e867f315b194c81a7a2450154ccc6bb5afb769b4956dfd4a00503a": "0.9.2-261113",
@@ -61,13 +61,14 @@ with zipfile.ZipFile(a.package) as z:
     check(bool(results) and all(r.get("exit_code") == 0 for r in results), "VALIDATION.json records a failed or missing check")
     check(any(r.get("name") == "workshop-setup-feature-step" for r in results),
           "VALIDATION.json has no workshop-setup-feature-step result (run verify.py from this source)")
-    check(str(receipt.get("candidate_revision", "")).startswith(REVISIONS), "the receipt is not an R12 or R13 revision")
+    check(str(receipt.get("candidate_revision", "")).startswith(REVISIONS), "the receipt is not an R12, R13 or R14 revision")
     for name in sorted(EXPECTED):
         check(hashlib.sha256(z.read("payload/" + name)).hexdigest() == receipt["files"][name],
               name + " differs from its build receipt")
     target = receipt.get("target_game_sha256", "")
-    # R13 adds the debrief mission ribbons (runtime/MissionAwards.cs).
-    mission_ribbons = receipt["candidate_revision"].startswith("R13-")
+    # R13 added the debrief mission ribbons (runtime/MissionAwards.cs); R14
+    # keeps them (0.9.2's own ribbon rules cannot express their conditions).
+    mission_ribbons = receipt["candidate_revision"].startswith(("R13-", "R14-"))
     check(target in GAME_LABELS, "no player-facing label for target game " + target[:12] + "; add it to GAME_LABELS")
     manifest = {
         "format": 1, "workshop_item_id": "3812461539",
@@ -96,17 +97,17 @@ else:
                 "refinements are included in this Workshop item for game build\n")
 write_text(source / "README.txt", """SEST WORKSHOP FEATURE UPDATE
 
-""" + included + manifest["target_game_label"] + """ only, the public beta before Sea Power 0.9.0. On every
-other game build, 0.9.0 included, SETUP installs none of it and changes no code.
+""" + included + manifest["target_game_label"] + """ only (Sea Power 0.9.2 Build 261113). On every other
+game build SETUP installs none of it and changes no code.
 
 With Sea Power closed, run SETUP - double-click me.cmd at the pack root.
-On that beta build a fresh installation stages the features: launch to the
-main menu, wait about ten seconds, quit, then run SETUP again. An enabled
-installation is updated in one SETUP run; run SETUP again after Steam
-updates this item. On any other game build SETUP puts the normal SEST
-plugins back if the beta files are installed.
+On that game build a fresh installation stages the features: start Sea
+Power to the main menu, wait about ten seconds, quit, then run SETUP again.
+An enabled installation is updated in one SETUP run; run SETUP again after
+Steam updates this item. On any other game build SETUP puts the normal SEST
+plugins back if the bundled feature files are installed.
 
-What SETUP changes on that beta build: it adds SEST.BetaSafeBootstrap.dll to
+What SETUP changes on that game build: it adds SEST.BetaSafeBootstrap.dll to
 BepInEx\\plugins and SEST's modified Anchor Chain to
 BepInEx\\config\\SEST-BetaAnchorChain, replaces SEST's own plugins in this
 item's plugins/ folder, rewrites the Mod Manager order without the local
@@ -117,13 +118,20 @@ local StreamingAssets\\IdentifyExpanded folder to
 branch, native game DLLs or saves, and it does not force unknown game or
 author DLL versions: SETUP then says which file needs a SEST update.
 
+On 0.9.2 Anchor Chain's own preloader logs "Could not find AnchorChain
+chainloader": it looks before Steam has registered the Workshop folders.
+SEST's loader waits for them and then starts Anchor Chain itself, so that
+line alone is not a fault. Author plugins that still name game code 0.9.2
+removed, or whose own build check rejects 0.9.2, are held before they load
+and named in BepInEx\\LogOutput.log; their data is kept.
+
 To opt out, run one of these at the pack root (game closed); SETUP then
 leaves the features off, also after Steam updates:
   SEST beta features - turn off.cmd   loader off, files kept
-  SEST beta features - remove.cmd     normal SEST plugins back, beta files removed
+  SEST beta features - remove.cmd     normal SEST plugins back, feature files removed
   SEST beta features - turn on.cmd    on again (runs SETUP)
-On that beta build Workshop code mods load only through SEST's beta loader,
-so with the features off they stay off too; data mods and campaigns work.
+On that game build Workshop code mods load only through SEST's loader, so
+with the features off they stay off too; data mods and campaigns work.
 
 Native rendering and gameplay still require PC acceptance testing.
 """)

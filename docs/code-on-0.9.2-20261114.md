@@ -145,3 +145,33 @@ written for.
    trusted until the owner has run it.
 
 None of this has been run in the game.
+
+## Outcome: R14, 14 November 2026 (afternoon)
+
+The candidate the list above describes is built:
+`integration/beta-feature-parity/candidates/R14-20261114`, revision
+`R14-20261114-sea-power-092-3f56861f`, Runtime 1.7.0 / UI 1.5.0, bootstrap
+0.6.0. `integration/beta-feature-parity/README.md` has the details. In short:
+
+- Seven pins moved, not three: Anchor Chain 1.2.0 and the three Unity
+  modules changed too. All seven come from the capture, which matches its own
+  manifest file for file.
+- Every author image is now checked against the game's real members before it
+  loads, after any SEST rewrite. That holds the four files above, and Osprey
+  Deck Ops with Osprey Mechanics, by what they call rather than by hash. The
+  adapters and holds pinned to author files the capture no longer has are
+  retired with their tests.
+- Six Alpine-family plugins' own build guards reject 0.9.2. SEST holds them
+  before they load; the tests run each guard against the game.
+- Mission ribbons: the postfix still follows the native grant; the contract
+  test now pins the wrapper and the core, and the runtime adopts the core's
+  rule against granting a held or replaced ribbon again. Decision 6's ribbon
+  question is answered by the game's code: no trigger sees survivors rescued
+  or a mission without a launch (`AircraftRecovered` is flight-deck recovery),
+  so both Red Line ribbons stay in the runtime.
+
+`verify.py` passes all 16 managed and installer checks against the capture.
+The cross-build repair fixture (an installation enabled by R13 on 0.8.7,
+repaired to R14) needs the 0.8.7 reference capture, which is not here; R14's
+repair receipt still lists R13 and the fifteen earlier sets. Nothing has run
+in the game.

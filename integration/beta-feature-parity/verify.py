@@ -95,7 +95,8 @@ run('loader-source-contracts', [sys.executable, here.parent / 'beta-anchorchain/
 report = {
     'format': 1, 'status': 'managed-and-fixture-checks-passed-needs-pc-gameplay',
     'limitations': ['No Unity/game launch', 'No Noesis native rendering', 'No second-monitor test',
-                    'PowerShell installer fixture used the available host; Windows PowerShell 5.1 execution still needs PC testing'],
+                    'PowerShell installer fixture used the available host; Windows PowerShell 5.1 execution still needs PC testing']
+                   + ([] if a.repair_package else ['No cross-build repair fixture ran: an installation enabled by an earlier candidate is repaired only on the PC']),
     'results': results,
     'tested_files': {name: hashlib.sha256((out / name).read_bytes()).hexdigest()
                      for name in json.loads((out / 'build-receipt.json').read_text())['files']},

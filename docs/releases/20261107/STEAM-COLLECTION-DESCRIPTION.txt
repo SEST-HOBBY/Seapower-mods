@@ -8,13 +8,13 @@ The 200 supporting Workshop mods for [url=https://steamcommunity.com/sharedfiles
 [*][b]National command[/b] - Fourteen commander nations in Southern Watch and Southern Reach, three in Sulu Line and a Pakistan Navy commander in Makran Line, each with its navy's ranks, a name pool and an emblem, the game's same-nation discount on that nation's classes and dated service records with national awards for twelve nations.
 [*][b]Supporting tools[/b] - Combat Cost Tracker, Contact Log, Topographic Map, Group Manager, Pop-Out Windows and Coordinated Strike Tool, several with SEST refinements.
 [/list]
-World Operations, the world and Red Line mission ribbons and several interface features need SEST's code, which is matched to game build 0.8.7-261107; they are off on Sea Power 0.9.0 until a compatibility update. The integration pack's page lists them.
+World Operations, the world and Red Line mission ribbons and several interface features need SEST's code, which SETUP installs on Sea Power 0.9.2 Build 261113. The integration pack's page lists them.
 
 [h2]Installation[/h2]
 [olist]
 [*]Use [b]Subscribe to all[/b] and let Steam finish downloading. Make sure the SEST Integration Pack is subscribed too.
 [*]In Mod Manager, open the SEST Integration Pack's folder. Close Sea Power and run [b]SETUP - double-click me.cmd[/b] to check subscriptions and set the load order.
-[*]On game build 0.8.7-261107 only: for a fresh installation, launch to the main menu for about ten seconds, quit, then run SETUP again. Existing enabled beta installations update in one run.
+[*]On Sea Power 0.9.2: for a fresh installation, start the game to the main menu for about ten seconds, quit, then run SETUP again. Existing enabled installations update in one run.
 [*]Rerun SETUP after Steam updates the integration pack. Keep SEST above its dependencies in Mod Manager.
 [/olist]
 Start a new world campaign for the complete revised layout and progression; existing saves keep their own world.

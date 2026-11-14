@@ -1,3 +1,60 @@
+# R14 — Sea Power 0.9.2 Build 261113, 14 November 2026
+
+Runtime 1.7.0 / UI 1.5.0 / bootstrap 0.6.0, revision
+`R14-20261114-sea-power-092-3f56861f`, for the public release 0.9.2 Build
+261113 (`Seapower-Scripts.dll` `3f56861f…503a`) only. Built with
+`build-roslyn.ps1` against `SEST-Beta-References-20261114-145515-d8e3ce`, whose
+330 files match its own manifest; `verify.py` passes all 16 managed and
+installer checks. Nothing here has run in the game yet.
+
+**Pins.** Seven of the fifteen captured references moved: the game, Noesis
+(`c5f13e31…`), Anchor Chain 1.2.0 (`17abaf4b…`), Pop-Out Windows 1.2.3
+(`6f3668aa…`) and the three Unity modules. Anchor Chain's preloader, Identify,
+Contact Log, Squad Panel, Combat Costs, Harmony, BepInEx and Cecil are
+unchanged. SEST's Anchor Chain fork exports every public member of Anchor
+Chain 1.2.0, so plugins built against 1.2.0 bind to it. The enable flag is
+`enable-beta-261113-3f56861f`.
+
+**Loader.** `BetaAssemblyPolicy.Prepare` now checks every author image against
+the members the game really has, after any rewrite and before the CLR sees it
+(`UnresolvedNativeMembers`: types, fields, methods, signatures, locals and
+catch types). Mono fails a whole method when it compiles a missing member, so
+such an image is held with the member named instead of half-running. A plugin
+whose library beside it would be held is held too (`HeldDependency`). On the
+capture this holds Enhanced Decoy and Multi-Stage Missiles
+(`WeaponSystemChaff._ammoInUse`, gone in 0.9.2), Osprey Mechanics
+(`Aircraft.UpdateFuelConsumption(float)`) with Osprey Deck Ops, and the flat
+Topographic Map. The adapters, holds and bridges pinned to author files that
+no longer exist are retired with their tests: Automatic SAR, Better TacMap,
+both Missile Control adapters, Osprey, Parallel Range Probe, Topography, the
+old Test Range and Optimal Target images, and the inline Decoy, Sub
+Ammunition, Second Thrust and R5 rewrites. Their authors' current files load
+unchanged and every game member they name resolves. Still adapted: Dynamic
+Campaign Mod (same audit as before), Identify, Coordinated Strike, Squad
+Panel, and the current Test Range and Optimal Target images, whose native
+shapes 0.9.2 keeps.
+
+**Author build guards.** Sixteen Alpine-family DLLs carry the author's own
+build check. Run against 0.9.2, six reject it (`HookChanged`): Saronic Corsair
+USV and K5 Kraken (`ObjectsManager.removeObject`), Alpine Sea Power
+(`CheckFiringConstraints`), the MV-75 fixture tilt (`FollowCamera.lateUpdate`)
+and EC-2 jamming (`AI.MaintainMPA`). The startup holds are re-keyed to those
+files; `BetaApiTests` runs every guard against the captured game and requires
+SEST's decision to match the author's verdict.
+
+**Mission ribbons.** 0.9.2's `ApplyMissionRibbonAwards(ini, int, string)` reads
+the commander's nation and rank and returns `ApplyMissionRibbonAwardsCore`'s
+rows unchanged, so the postfix still follows the native grant and its
+persistent set. The core now skips a ribbon the commander holds, or holds a
+replacement of (`ReplacesRibbon`); the runtime does the same. The game's new
+`[RibbonAward_]` rules read campaign variables set by mission triggers, and no
+trigger sees survivors rescued or a mission without a launch, so Red Line's two
+runtime ribbons stay in the runtime.
+
+`build-roslyn.ps1`, `build.py` and `verify.py` fall back to the preserved
+Runtime 1.5.0 when the capture has no Workshop runtime file, instead of
+stopping on the missing file.
+
 # R13 — runtime mission ribbons and Admiralty filing, 10 November 2026
 
 Runtime 1.6.5 / UI 1.4.15, revision `R13-20261110-mission-awards-499675cd`,
