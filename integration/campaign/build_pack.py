@@ -173,6 +173,44 @@ _OWN_FILES = ("DOCS_DIR", "COVERAGE_DOC")
 # game has changed stops the build rather than shipping a half-edited page.
 RULES_TEMPLATE = (ROOT / "mods-source" / "_vanilla" / "original" / "campaigns"
                   / "pacific-strike-task-force" / "campaign_rules_en.xml")
+# Sea Power 0.9.2 (13 Nov 2026) gave Pacific Strike the acquisition-rule keys
+# its two South Atlantic campaigns already had - UnitAcquisitionRules,
+# DefaultUnitAcquisitionRule and CampaignLocalizationFile under
+# [TaskForceMode] - and the file the third one names, which holds the name and
+# the description of each rule the campaign offers. These campaigns offer the
+# one rule Pacific Strike does, "points", and ship its file: the stock text,
+# read at build time so that a file the game has changed stops the build.
+LOCALIZATION_FILE = "campaign_localizations.ini"
+LOCALIZATION_TEMPLATE = RULES_TEMPLATE.with_name(LOCALIZATION_FILE)
+ACQUISITION_KEYS = (("UnitAcquisitionRules", "points"),
+                    ("DefaultUnitAcquisitionRule", "points"),
+                    ("CampaignLocalizationFile", LOCALIZATION_FILE))
+_STOCK_POINTS_RULE = (
+    "[Language_en]\n"
+    "CampaignMode_points_Name=Points Based\n"
+    "CampaignMode_points_Description=Build and reinforce your task force using campaign "
+    "points. Available ships, aircraft, and loadouts expand as the campaign progresses.\n")
+_OPEN_POINTS_RULE = ("Build and reinforce your task force using campaign points. Every "
+                     "unit this campaign sells is on offer from the first force allocation.")
+_OPEN_POINTS_RULE_HELD = (_OPEN_POINTS_RULE[:-1] + ", except the few the story sells only "
+                          "at its own windows.")
+
+
+def campaign_localizations(open_allocation=False, held=False):
+    """A campaign's campaign_localizations.ini: the stock Pacific Strike file.
+
+    The stock sentence about the roster growing with the campaign is true of
+    every base campaign here and false of an Open Allocation twin, whose file
+    says what the twin does instead (`held`: the twin holds some units back,
+    spec OPEN_HOLD)."""
+    stock = LOCALIZATION_TEMPLATE.read_text(encoding="utf-8-sig").replace("\r\n", "\n")
+    if stock != _STOCK_POINTS_RULE:
+        raise SystemExit(f"campaign localisation: the stock {LOCALIZATION_FILE} has changed "
+                         "- read it and rebase campaign_localizations()")
+    if not open_allocation:
+        return stock
+    head, said = stock.rsplit("=", 1)
+    return f"{head}={_OPEN_POINTS_RULE_HELD if held else _OPEN_POINTS_RULE}\n"
 RULES_WELCOME = {
     "sest-southern-watch": (
         "October 2028. With most of America's ready combat power drawn north, the sea "
@@ -728,6 +766,9 @@ def write_open_twin(out, spec, twin, all_rows=()):
     folder.mkdir(parents=True)
     (folder / "campaign.ini").write_text(twin["campaign_text"], encoding="utf-8")
     (folder / "campaign_rules_en.xml").write_text(twin["rules_text"], encoding="utf-8")
+    (folder / LOCALIZATION_FILE).write_text(
+        campaign_localizations(open_allocation=True, held=bool(spec.get("OPEN_HOLD"))),
+        encoding="utf-8")
     (folder / "player_task_force_roster.ini").write_text(twin["roster_text"],
                                                          encoding="utf-8")
     (folder / "REQUIRED-MODS.txt").write_text(
@@ -8617,8 +8658,12 @@ def campaign_ini(missions, events, placements):
          "[TaskForceMode]"]
     for key, value in TASKFORCE.items():
         L.append(f"{key}={value}")
-        if key == "Enabled" and "EnableMultipleTaskForces" not in TASKFORCE:
-            L.append("EnableMultipleTaskForces=False")
+        if key == "Enabled":
+            # 0.9.2: the three acquisition-rule keys, where Pacific Strike
+            # has them (see ACQUISITION_KEYS).
+            L += [f"{k}={v}" for k, v in ACQUISITION_KEYS if k not in TASKFORCE]
+            if "EnableMultipleTaskForces" not in TASKFORCE:
+                L.append("EnableMultipleTaskForces=False")
     L.append("")
     for name, points, cap, repair in DIFFICULTIES:
         L += [f"[TaskForceModeDifficulty_{name}]", f"Name={name}",
@@ -10170,6 +10215,7 @@ def main():
         service_awards.render(camp, SLUG, commander_text)
         write_emblems(commander_text)
         (camp / "campaign_rules_en.xml").write_text(c["rules_text"], encoding="utf-8")
+        (camp / LOCALIZATION_FILE).write_text(campaign_localizations(), encoding="utf-8")
         for folder, desc in folders.items():
             (OUT / "missions" / folder / "_info.ini").write_text(info(folder, desc),
                                                                  encoding="utf-8")

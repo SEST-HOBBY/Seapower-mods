@@ -51,7 +51,8 @@ def missions():
                    if f.name not in ("_info.ini", "campaign.ini",
                                      "player_task_force_roster.ini",
                                      "enemy_theater_roster.ini",
-                                     "commander_settings.ini")
+                                     "commander_settings.ini",
+                                     "campaign_localizations.ini")
                    and not f.parent.name.endswith("_briefing"))
     # A campaign mission ships twice - once for the campaign, once for the
     # mission browser - and the two copies must stay the same bytes, or the
@@ -586,7 +587,7 @@ def open_twin(pack, slug, hold=()):
         out.append(f"campaigns/{name}/commander_settings.ini: missing, or not the base "
                    "campaign's file")
     for fn in ("campaign_rules_en.xml", "REQUIRED-MODS.txt", "player_task_force_roster.ini",
-               "enemy_theater_roster.ini"):
+               "enemy_theater_roster.ini", "campaign_localizations.ini"):
         if not (twin / fn).is_file():
             out.append(f"campaigns/{name}: no {fn}")
     if out:

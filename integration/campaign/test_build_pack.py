@@ -140,14 +140,45 @@ class StockFormOf090(unittest.TestCase):
     def test_the_header_says_what_pacific_strike_says(self):
         stock = (self.STOCK / "campaign.ini").read_text(encoding="utf-8-sig")
         self.assertRegex(stock, r"(?m)^DisplayFormat=MapView\r?\nCampaignMapUI=Standard\r?$")
-        self.assertRegex(stock, r"(?m)^Enabled=True\r?\nEnableMultipleTaskForces=False\r?$")
+        # 0.9.2 (13 Nov 2026) put the three acquisition-rule keys between the two.
+        rules = ("UnitAcquisitionRules=points\nDefaultUnitAcquisitionRule=points\n"
+                 "CampaignLocalizationFile=campaign_localizations.ini\n")
+        self.assertIn("\nEnabled=True\n" + rules + "EnableMultipleTaskForces=False\n",
+                      stock.replace("\r", ""))
         for camp in self.campaigns:
             text = (camp / "campaign.ini").read_text(encoding="utf-8")
             with self.subTest(campaign=camp.name):
                 self.assertIn("DisplayFormat=MapView\nCampaignMapUI=Standard\n\n[TaskForceMode]\n"
-                              "Enabled=True\nEnableMultipleTaskForces=False\n", text)
-                self.assertEqual(text.count("CampaignMapUI="), 1)
-                self.assertEqual(text.count("EnableMultipleTaskForces="), 1)
+                              "Enabled=True\n" + rules + "EnableMultipleTaskForces=False\n", text)
+                for key in ("CampaignMapUI=", "EnableMultipleTaskForces=", "UnitAcquisitionRules=",
+                            "DefaultUnitAcquisitionRule=", "CampaignLocalizationFile="):
+                    self.assertEqual(text.count(key), 1, key)
+
+    def test_the_acquisition_rule_is_named_by_the_file_the_header_names(self):
+        # The file is Pacific Strike's own, in this pack's line endings: the one
+        # rule the header offers, with the name and the description the game shows.
+        stock = (self.STOCK / "campaign_localizations.ini").read_bytes()
+        self.assertEqual(stock.count(b"\n"), 3)
+        for camp in self.campaigns:
+            with self.subTest(campaign=camp.name):
+                mine = (camp / "campaign_localizations.ini").read_bytes()
+                self.assertEqual(mine, stock.replace(b"\r\n", b"\n"))
+                header = (camp / "campaign.ini").read_text(encoding="utf-8")
+                offered = re.search(r"(?m)^UnitAcquisitionRules=(.*)$", header).group(1).split("|")
+                for rule in offered:
+                    self.assertIn(f"CampaignMode_{rule}_Name=".encode(), mine)
+                    self.assertIn(f"CampaignMode_{rule}_Description=".encode(), mine)
+
+    def test_an_open_allocation_file_says_what_the_twin_sells(self):
+        base = bp.campaign_localizations()
+        for held in (False, True):
+            twin = bp.campaign_localizations(open_allocation=True, held=held)
+            with self.subTest(held=held):
+                self.assertEqual(twin.splitlines()[:2], base.splitlines()[:2])
+                self.assertEqual(len(twin.splitlines()), 3)
+                self.assertNotIn("expand as the campaign progresses", twin)
+                self.assertIn("from the first force allocation", twin)
+                self.assertEqual("except the few" in twin, held)
 
     def test_every_prepare_airbase_mission_names_a_player_airfield_as_its_host(self):
         # Stock: the key sits directly above the prep keys in all five of its missions.
