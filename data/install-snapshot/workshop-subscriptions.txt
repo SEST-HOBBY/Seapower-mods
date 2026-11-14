@@ -8,7 +8,7 @@
 3378409795   Type 23 Frigate                                      updated 2025-05-27 20:36  folder 2026-08-24 07:42
 3380210757   Anchor Chain                                         updated 2026-11-12 15:17  folder 2026-11-12 22:31
 3384079999   Humpback Whale                                       updated 2024-12-31 16:33  folder 2026-08-24 07:52
-3390330875   Euromod - Modern US Navy                             updated 2026-11-14 14:23  folder 2026-11-14 14:46
+3390330875   Euromod - Modern US Navy                             updated 2026-11-14 17:21  folder 2026-11-14 17:46
 3392434750   S-400 SAM                                            updated 2026-02-28 18:17  folder 2026-08-24 07:51
 3394781441   B-52G with AGM-86 ALCM(more realistic nuke)          updated 2026-02-15 18:24  folder 2026-08-16 22:50
 3395022688   Tu-95MS with AS-15 ALCM(more realistic nuke)         updated 2025-02-23 01:59  folder 2026-08-16 12:05
@@ -193,7 +193,7 @@
 3812111085   PLAAF Aircraft Pack                                  updated 2026-11-11 23:17  folder 2026-11-11 23:25
 3812140001   Pakistani Pack                                       updated 2026-11-11 23:16  folder 2026-11-11 23:25
 3812454152   Euromod-HD Hyundai Export Ships Mod                  updated 2026-11-13 23:26  folder 2026-11-05 22:58
-3812461539                                                        updated unknown  folder 2026-11-14 02:40
+3812461539   SEST Integration Pack                                updated 2026-10-26 20:11  folder 2026-11-14 21:10
 3813033771   EC-2 Stand Off Jammer                                updated 2026-11-13 13:38  folder 2026-11-13 18:39
 3813157776   Dynamic Campaign Mod                                 updated 2026-10-25 07:17  folder 2026-10-25 13:09
 3818251045   Group Manager                                        updated 2026-10-26 09:02  folder 2026-10-26 09:36
@@ -211,10 +211,10 @@ placed but NOT SUBSCRIBED (0):
 --- Steam client record (appworkshop_1286220.acf) ---
 acf file(s)              : c:\program files (x86)\steam\steamapps\workshop\appworkshop_1286220.acf
 folders on disk          : 201
-ids Steam tracks locally : 200
+ids Steam tracks locally : 201
 NeedsDownload / NeedsUpdate: 0 / 0
 tracked but NOT on disk (0): 
-on disk but NOT tracked (1): 3812461539
+on disk but NOT tracked (0): 
 
 If the Steam UI's subscribed count is HIGHER than both numbers above, the
 extras are server-side only and there is nothing on this PC to find: the

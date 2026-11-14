@@ -1,15 +1,9 @@
   workshop : c:\program files (x86)\steam\steamapps\workshop\content\1286220
 
-unchanged since the last export : 193
+unchanged since the last export : 199
 skipped, SEST's own Workshop item: 3812461539
 
 UPDATED by their authors (re-export to pick the changes up):
   3390330875  Euromod - Modern US Navy
-  3488139470  Euromod - Modern Italian Navy
-  3505420313  Italian Navy mod
-  3599752717  Euromod - Modern British Navy
-  3629144864  Euromod - Main Pack
-  3737267013  US Naval Aviation
-  3776730617  Euromod - Modern Armada de Chile
 
 To capture: re-run this script without -CheckUpdates, then commit and push.
