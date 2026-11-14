@@ -8937,6 +8937,8 @@
     "rn_oberon_class": 95,
     "rn_ss_oberon": 95,
     "rn_ss_porpoise": 96,
+    "rn_ssbn_vanguard": 342,
+    "rn_ssn_astute": 204,
     "rn_ssn_churchill": 145,
     "rn_ssn_churchill_late": 145,
     "rn_ssn_swiftsure": 152,
@@ -8956,6 +8958,7 @@
     "rnzn_ff_leander_batch3": 117,
     "rnzn_ff_leander_batch3refit": 117,
     "rnzn_ff_rothesay": 99,
+    "rocn_ss_hai_shih": 96,
     "ru_cv_varyag": 910,
     "swe_fsg_visby_v5": 39,
     "tha_aor_chula": 19,
@@ -14256,6 +14259,12 @@
       "tier": 2
     },
     {
+      "unit": "rn_ssn_astute",
+      "side": "blue",
+      "nation": "UK",
+      "tier": 3
+    },
+    {
       "unit": "rn_ssn_churchill",
       "side": "blue",
       "nation": "UK",
@@ -14383,6 +14392,12 @@
     },
     {
       "unit": "rn_lph_ocean_asw_13",
+      "side": "blue",
+      "nation": "UK",
+      "tier": 4
+    },
+    {
+      "unit": "rn_ssbn_vanguard",
       "side": "blue",
       "nation": "UK",
       "tier": 4
@@ -16267,6 +16282,12 @@
       "nation": "NewZealand",
       "tier": 0,
       "aircraft": true
+    },
+    {
+      "unit": "rocn_ss_hai_shih",
+      "side": "blue",
+      "nation": "RoC",
+      "tier": 1
     },
     {
       "unit": "tw_m2k-5di",

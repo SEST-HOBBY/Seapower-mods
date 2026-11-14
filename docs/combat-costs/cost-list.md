@@ -8,12 +8,12 @@ Ammunition, embarked aircraft, removable pods and tank contents are excluded fro
 
 | Kind | References | Historical prices | Current prices |
 |---|---:|---:|---:|
-| weapon | 2231 | 2231 | 2231 |
-| vessel | 1007 | 1007 | 1007 |
+| weapon | 2234 | 2234 | 2234 |
+| vessel | 1010 | 1010 | 1010 |
 | aircraft | 795 | 795 | 795 |
-| land | 514 | 514 | 514 |
+| land | 513 | 513 | 513 |
 
-Preserved 5589 pre-existing usable price fields. Filled 3505 missing fields. No acquisition-point field was used as USD.
+Preserved 5589 pre-existing usable price fields. Filled 3515 missing fields. No acquisition-point field was used as USD.
 
 ## Weapon
 
@@ -94,7 +94,6 @@ Preserved 5589 pre-existing usable price fields. Filled 3505 missing fields. No 
 | `ch53sa_mk48_air` | Torpedo | 4220000 | 4220000 | historical: existing usable value preserved (SEST checked research: Fictional air-drop Mk 48 Mod 8: model estimate = USN FY2025 MK-48 gross weapon system unit cost $4,217K (PB2025 P-40 LI 3117; FY2025 buys 79 MOD 7 G&C/afterbody sets); air-drop kit not priced); current: existing usable value preserved (SEST checked research: Fictional air-drop Mk 48 Mod 8: model estimate = USN FY2025 MK-48 gross weapon system unit cost $4,217K (PB2025 P-40 LI 3117; FY2025 buys 79 MOD 7 G&C/afterbody sets); air-drop kit not priced) | counted |
 | `ch53sa_nsm_air` | ASM | 1860000 | 2710000 | historical: existing usable value preserved (reviewed catalog mapping: knm_nsm_1a); current: existing usable value preserved (reviewed catalog mapping: knm_nsm_1a) | counted |
 | `ch_barak` | SAM | 530000 | 1040000 | historical: existing usable value preserved (tracker author catalog); current: existing usable value preserved (tracker author catalog) | counted |
-| `ch_mm-40` | ASM | 380000 | 2360000 | historical: existing usable value preserved (tracker author catalog); current: existing usable value preserved (tracker author catalog) | counted |
 | `chaff_dircm` | Ignore | 0 | 0 | historical: rough model (non-procured helper, simulated process, personnel or transfer; cost included in its parent or not a material acquisition); current: rough model (non-procured helper, simulated process, personnel or transfer; cost included in its parent or not a material acquisition) | included or non-procured |
 | `de_pzh2000_155mm` | Gun | 480 | 4200 | historical: existing usable value preserved (tracker author catalog); current: existing usable value preserved (tracker author catalog) | counted |
 | `de_pzh2000_155mm_laser` | Gun | 43000 | 66000 | historical: existing usable value preserved (tracker author catalog); current: existing usable value preserved (tracker author catalog) | counted |
@@ -989,6 +988,7 @@ Preserved 5589 pre-existing usable price fields. Filled 3505 missing fields. No 
 | `rn_rp3_sap_rack_r` | Pod | 5000 | 5000 | historical: rough model (reusable launch rail, adapter or ejector-rack hardware proxy, excluding stores); current: rough model (reusable launch rail, adapter or ejector-rack hardware proxy, excluding stores) | counted |
 | `rn_rp_3_ap` | Rocket | 3000 | 3000 | historical: rough model (unguided aircraft rocket complete-round proxy); current: rough model (unguided aircraft rocket complete-round proxy) | counted |
 | `rn_rp_3_sap` | Rocket | 3000 | 3000 | historical: rough model (unguided aircraft rocket complete-round proxy); current: rough model (unguided aircraft rocket complete-round proxy) | counted |
+| `rn_scad_102_noisemaker` | Decoy | 8000 | 8000 | historical: rough model (expendable acoustic countermeasure proxy); current: rough model (expendable acoustic countermeasure proxy) | counted |
 | `rn_sea_eagle` | ASM | 305000 | 1060000 | historical: existing usable value preserved (tracker author catalog); current: existing usable value preserved (tracker author catalog) | counted |
 | `rn_sea_eagle_arm` | ARM | 100000 | 600000 | historical: existing usable value preserved (tracker author catalog); current: existing usable value preserved (tracker author catalog) | counted |
 | `rn_sea_eagle_asm` | ASM | 305000 | 1060000 | historical: existing usable value preserved (tracker author catalog); current: existing usable value preserved (tracker author catalog) | counted |
@@ -1010,6 +1010,7 @@ Preserved 5589 pre-existing usable price fields. Filled 3505 missing fields. No 
 | `rn_seawolf_GWS25` | SAM | 75000 | 345000 | historical: existing usable value preserved (tracker author catalog); current: existing usable value preserved (tracker author catalog) | counted |
 | `rn_seawolf_westminster` | SAM | 75000 | 345000 | historical: existing usable value preserved (tracker author catalog); current: existing usable value preserved (tracker author catalog) | counted |
 | `rn_skyflash` | AAM | 120000 | 400000 | historical: existing usable value preserved (tracker author catalog); current: existing usable value preserved (tracker author catalog) | counted |
+| `rn_spearfish` | Torpedo | 1761962 | 4000000 | historical: rough model (modern heavyweight guided torpedo replacement proxy); current: rough model (modern heavyweight guided torpedo replacement proxy) | counted |
 | `rn_squid_shell` | ASW | 20000 | 20000 | historical: rough model (ASW rocket/depth-charge complete-round proxy); current: rough model (ASW rocket/depth-charge complete-round proxy) | counted |
 | `rn_ssq-904` | Sonobuoy | 496 | 1800 | historical: rough model (passive sonobuoy allocation-derived family estimate); current: rough model (passive sonobuoy allocation-derived family estimate) | counted |
 | `rn_ssq-906` | Sonobuoy | 678 | 1800 | historical: rough model (passive sonobuoy allocation-derived family estimate); current: rough model (passive sonobuoy allocation-derived family estimate) | counted |
@@ -1039,6 +1040,8 @@ Preserved 5589 pre-existing usable price fields. Filled 3505 missing fields. No 
 | `rn_tank_425_s2` | Fuel tank | 25000 | 25000 | historical: rough model (external reusable fuel-tank hardware proxy, excluding fuel contents); current: rough model (external reusable fuel-tank hardware proxy, excluding fuel contents) | counted |
 | `rn_type_155` | Pod | 70000 | 70000 | historical: rough model (nineteen-tube reusable digital rocket-pod hardware, excluding rockets; PB2020 LAU-61 comparator rounded to 2026); current: rough model (nineteen-tube reusable digital rocket-pod hardware, excluding rockets; PB2020 LAU-61 comparator rounded to 2026) | counted |
 | `rn_type_182_decoy` | Decoy | 150000 | 150000 | historical: rough model (replaceable towed acoustic body; shipboard handling equipment remains in hull value); current: rough model (replaceable towed acoustic body; shipboard handling equipment remains in hull value) | counted |
+| `rn_type_2066_bandfish_noisemaker` | Decoy | 8000 | 8000 | historical: rough model (expendable acoustic countermeasure proxy); current: rough model (expendable acoustic countermeasure proxy) | counted |
+| `rn_type_2071_adc_mk2_mod1_noisemaker` | Decoy | 8000 | 8000 | historical: rough model (expendable acoustic countermeasure proxy); current: rough model (expendable acoustic countermeasure proxy) | counted |
 | `rn_wessex_2xM2HB` | Pod | 5000 | 5000 | historical: rough model (reusable launch rail, adapter or ejector-rack hardware proxy, excluding stores); current: rough model (reusable launch rail, adapter or ejector-rack hardware proxy, excluding stores) | counted |
 | `rok_harm-II` | ASM | 2000000 | 2000000 | historical: rough model (anti-ship missile complete-round proxy); current: rough model (anti-ship missile complete-round proxy) | counted |
 | `rok_hgv` | Land Attack | 2500000 | 3000000 | historical: existing usable value preserved (SEST checked research: ROK KVLS-II HGV (concept): forks rok_hyunmoo_4_2's config, whose catalog pair (reference 2021) is copied; a glide body likely costs more; not a published price; low confidence); current: existing usable value preserved (SEST checked research: ROK KVLS-II HGV (concept): forks rok_hyunmoo_4_2's config, whose catalog pair (reference 2021) is copied; a glide body likely costs more; not a published price; low confidence) | counted |
@@ -2819,6 +2822,8 @@ Preserved 5589 pre-existing usable price fields. Filled 3505 missing fields. No 
 | `rn_opv_river_batch2` | OPV | 60000000 | 103000000 | historical: existing usable value preserved (tracker author catalog); current: existing usable value preserved (tracker author catalog) | counted |
 | `rn_ss_oberon` | SS | 24000000 | 254000000 | historical: existing usable value preserved (reviewed catalog mapping: ran_ss_oberon); current: existing usable value preserved (reviewed catalog mapping: ran_ss_oberon) | counted |
 | `rn_ss_porpoise` | SS | 24000000 | 254000000 | historical: existing usable value preserved (reviewed catalog mapping: ran_ss_oberon); current: existing usable value preserved (reviewed catalog mapping: ran_ss_oberon) | counted |
+| `rn_ssbn_vanguard` | SSBN | 6000000000 | 6000000000 | historical: rough model (strategic submarine replacement proxy, excluding missiles/warheads); current: rough model (strategic submarine replacement proxy, excluding missiles/warheads) | counted |
+| `rn_ssn_astute` | SSN | 3500000000 | 3500000000 | historical: rough model (nuclear attack submarine replacement proxy, excluding weapons); current: rough model (nuclear attack submarine replacement proxy, excluding weapons) | counted |
 | `rn_ssn_churchill` | SSN | 231000000 | 1441000000 | historical: existing usable value preserved (reviewed catalog mapping: rn_churchill_class_ssn); current: existing usable value preserved (reviewed catalog mapping: rn_churchill_class_ssn) | counted |
 | `rn_ssn_churchill_late` | SSN | 231000000 | 1441000000 | historical: existing usable value preserved (reviewed catalog mapping: rn_churchill_class_ssn); current: existing usable value preserved (reviewed catalog mapping: rn_churchill_class_ssn) | counted |
 | `rn_ssn_swiftsure` | SSN | 231000000 | 1441000000 | historical: existing usable value preserved (reviewed catalog mapping: rn_swiftsure_class_ssn); current: existing usable value preserved (reviewed catalog mapping: rn_swiftsure_class_ssn) | counted |
@@ -2844,6 +2849,7 @@ Preserved 5589 pre-existing usable price fields. Filled 3505 missing fields. No 
 | `rnzn_ff_leander_batch3` | FF | 43000000 | 475000000 | historical: existing usable value preserved (tracker author catalog); current: existing usable value preserved (tracker author catalog) | counted |
 | `rnzn_ff_leander_batch3refit` | FF | 43000000 | 475000000 | historical: existing usable value preserved (tracker author catalog); current: existing usable value preserved (tracker author catalog) | counted |
 | `rnzn_ff_rothesay` | FF | 43000000 | 475000000 | historical: existing usable value preserved (tracker author catalog); current: existing usable value preserved (tracker author catalog) | counted |
+| `rocn_ss_hai_shih` | SS | 9100000 | 127000000 | historical: existing usable value preserved (reviewed catalog mapping: ae_ss_s32); current: existing usable value preserved (reviewed catalog mapping: ae_ss_s32) | counted |
 | `ru_cv_kuznetsov` | CV | 1754000000 | 4315000000 | historical: existing usable value preserved (tracker author catalog); current: existing usable value preserved (tracker author catalog) | counted |
 | `ru_cv_varyag` | CV | 1754000000 | 4315000000 | historical: existing usable value preserved (tracker author catalog); current: existing usable value preserved (tracker author catalog) | counted |
 | `sea_mine` | M | 50000 | 50000 | historical: rough model (small patrol/missile craft replacement proxy, excluding ammunition); current: rough model (small patrol/missile craft replacement proxy, excluding ammunition) | counted |
@@ -4200,7 +4206,6 @@ Preserved 5589 pre-existing usable price fields. Filled 3505 missing fields. No 
 | `ko_mbt_k2` | Vehicle | 1000000 | 1000000 | historical: rough model (generic mobile military platform hardware proxy, excluding ammunition); current: rough model (generic mobile military platform hardware proxy, excluding ammunition) | counted |
 | `kr_k9` | Artillery | 2180000 | 9120000 | historical: existing usable value preserved (SEST checked research: K9: current from India's Dec 2024 contract for 100 licence-built K9 Vajra-T (INR 7,628.70 crore); historical a CPI backcast to the 1999 IOC of the ROK Army's own reported unit price, about KRW 4bn (2020)); current: existing usable value preserved (SEST checked research: K9: current from India's Dec 2024 contract for 100 licence-built K9 Vajra-T (INR 7,628.70 crore); historical a CPI backcast to the 1999 IOC of the ROK Army's own reported unit price, about KRW 4bn (2020)) | counted |
 | `Liberty` | Installation | 5000000 | 5000000 | historical: rough model (one generic fixed installation/building replacement proxy); current: rough model (one generic fixed installation/building replacement proxy) | counted |
-| `mm_skyguard_sam` | AAA | 2500000 | 2500000 | historical: rough model (one air-defence gun platform hardware proxy, ammunition excluded); current: rough model (one air-defence gun platform hardware proxy, ammunition excluded) | counted |
 | `nato_aaa_gdf` | AAA | 2500000 | 2500000 | historical: rough model (one air-defence gun platform hardware proxy, ammunition excluded); current: rough model (one air-defence gun platform hardware proxy, ammunition excluded) | counted |
 | `nato_aaa_kcb` | AAA | 2500000 | 2500000 | historical: rough model (one air-defence gun platform hardware proxy, ammunition excluded); current: rough model (one air-defence gun platform hardware proxy, ammunition excluded) | counted |
 | `nato_ewr_station` | Radar | 25000000 | 25000000 | historical: rough model (one radar installation/vehicle hardware proxy, not the whole defence system); current: rough model (one radar installation/vehicle hardware proxy, not the whole defence system) | counted |

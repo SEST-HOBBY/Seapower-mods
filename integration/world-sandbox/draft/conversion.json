@@ -8359,7 +8359,7 @@
     "aircraft": 17
    },
    "blue UK": {
-    "ships": 65,
+    "ships": 67,
     "aircraft": 53
    },
    "blue Norway": {
@@ -8423,7 +8423,7 @@
     "aircraft": 4
    },
    "blue RoC": {
-    "ships": 0,
+    "ships": 1,
     "aircraft": 3
    },
    "blue Israel": {
@@ -9774,6 +9774,8 @@
   "rn_oberon_class": "Displacement 2410 t",
   "rn_ss_oberon": "Displacement 2410 t",
   "rn_ss_porpoise": "Displacement 2450 t",
+  "rn_ssbn_vanguard": "Displacement 15900 t",
+  "rn_ssn_astute": "Displacement 7400 t",
   "rn_ssn_churchill": "Displacement 4500 t",
   "rn_ssn_churchill_late": "Displacement 4500 t",
   "rn_ssn_swiftsure": "Displacement 4800 t",
@@ -9793,6 +9795,7 @@
   "rnzn_ff_leander_batch3": "Displacement 3245 t",
   "rnzn_ff_leander_batch3refit": "Displacement 3245 t",
   "rnzn_ff_rothesay": "Displacement 2560 t",
+  "rocn_ss_hai_shih": "Displacement 2440 t",
   "ru_cv_varyag": "Displacement 67500 t",
   "swe_fsg_visby_v5": "Displacement 640 t",
   "tha_aor_chula": "Displacement 1200 t, auxiliary x0.32",
@@ -10151,8 +10154,8 @@
    "Air": 107
   },
   "patrols": 49,
-  "catalogue": 1633,
-  "values": 1633,
+  "catalogue": 1636,
+  "values": 1636,
   "lanes_kept": 11,
   "lanes_authored": 11,
   "skipped_nodes": 34
