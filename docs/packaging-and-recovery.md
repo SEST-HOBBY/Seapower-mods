@@ -695,7 +695,8 @@ stands here, against a fixture:
 & { $ErrorActionPreference = 'Stop'
   if (Get-Process -Name 'Sea Power', 'SeaPower' -ErrorAction SilentlyContinue) { throw 'Sea Power is running - exit it first' }
   Set-Location -LiteralPath 'C:\Users\rolyl\Seapower-mods'
-  if (git status --short) { throw 'The clone has uncommitted changes - stop and report them' }
+  $own = @(git status --short)
+  if ($own.Count) { $own | Select-Object -First 40; throw "The clone has uncommitted changes ($($own.Count); the first are listed above) - stop and report them" }
   $base = 'claude/continue-previous-session-39wqwq'
   $was = "$(git branch --show-current)".Trim()
   $b = 'chore/workshop-refresh-' + (Get-Date -Format 'yyyyMMdd-HHmm')
@@ -725,8 +726,12 @@ stands here, against a fixture:
 ```
 
 It stops before anything is written if the game is running or the clone has
-changes of its own, and names the branch the clone is left on if it stops
-later. It commits and pushes what the capture wrote, partial or not (a
+changes of its own, which it lists (until 14 Nov 2026 it only said there
+were some, and the owner's first run stopped there with nothing to report
+but the sentence), and names the branch the clone is left on if it stops
+later. Changes of the owner's are the owner's to keep: `git stash push
+--include-untracked` sets them aside, and `git stash pop` on the same
+branch brings them back after the block has returned to it. It commits and pushes what the capture wrote, partial or not (a
 failed stage prints `SEST CAPTURE PARTIAL`). If the installed game is a
 public release newer than the export, it then exports the game's own files
 and pushes them as a second commit; with the same build or a beta installed

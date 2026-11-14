@@ -132,7 +132,8 @@ exit 0
     [IO.File]::WriteAllText((Join-Path $clone "README.txt"), "edited`n")
     $code = Invoke-Block $clone (Join-Path $root "run-dirty.txt")
     $log = Get-Content -LiteralPath (Join-Path $root "run-dirty.txt") -Raw
-    Check ($code -ne 0 -and $log -match "uncommitted changes") "refuses a clone with uncommitted changes"
+    Check ($code -ne 0 -and $log -match "uncommitted changes \(1;") "refuses a clone with uncommitted changes, and counts them"
+    Check ($log -match "(?m)^\s*M\s+README\.txt") "and lists them, so the refusal can be reported as it stands"
     Check (@(Invoke-Git $origin @("branch", "--list", "chore/*")).Count -eq 0) "and pushes nothing"
     Check ("$(Invoke-Git $clone @('branch', '--show-current'))".Trim() -eq "pc-own") "and leaves the clone on its branch"
     $null = Invoke-Git $clone @("checkout", "-q", "--", "README.txt")
