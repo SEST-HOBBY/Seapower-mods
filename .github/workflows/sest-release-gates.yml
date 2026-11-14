@@ -105,7 +105,7 @@ jobs:
         shell: powershell
         run: |
           $ErrorActionPreference = 'Stop'
-          foreach ($t in 'test_scripts_parse', 'test_capture_context', 'test_export_mod_configs', 'test_capture_all_mod_updates') {
+          foreach ($t in 'test_scripts_parse', 'test_common_helpers', 'test_capture_context', 'test_export_mod_configs', 'test_capture_all_mod_updates', 'test_capture_block') {
             Write-Host "== $t"
             powershell -NoProfile -ExecutionPolicy Bypass -File ".\tools\tests\$t.ps1"
             if ($LASTEXITCODE -ne 0) { throw "$t failed" }

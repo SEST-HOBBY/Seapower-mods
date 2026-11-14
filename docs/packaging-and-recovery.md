@@ -544,15 +544,31 @@ removed with what here forks or fields it, which is what its exit code is
 for. The exporter's `-DestDir` applies to vanilla too, so a clean export
 beside the repo (*Known red* above) is the other route.
 
+Since 13 Nov 2026 every capture writes that list itself:
+`data/install-snapshot/game-files-dropped.txt` (`capture-context.ps1`), with
+the export's build and the installed build in its first lines, and the
+refresh summary counts it under its `Sea Power` line. So the block above is
+for a clone whose scripts are older. The list is against whatever build is
+installed: with a beta on the PC it names what the beta dropped, and those
+files stay in `_vanilla` until the beta is the release. The session that
+takes the capture in deletes the listed files only when the installed build
+is the exported one.
+
 ### A Workshop refresh for review
 
 When the next development pass needs the collection as it is now - after
 Steam has updated mods, or before a large piece of work - the capture goes on
-its own branch, `chore/workshop-refresh-YYYYMMDD`, made from the deploy
-branch, so it can be reviewed against the SEST integration before anything is
-changed to follow it. Let Steam finish every Sea Power download, start the game
-to the main menu once (so Player.log and the BepInEx log record what loaded),
-quit it, then:
+its own branch, `chore/workshop-refresh-YYYYMMDD`, so it can be reviewed
+against the SEST integration before anything is changed to follow it. The
+branch is cut from the one that holds the newest export of the mods: the
+deploy branch when it is current, and the working branch while a release
+waits unmerged on it, as the 0.9.0 work did from 13 Nov 2026 (*The capture
+for 0.9.0* below). It matters because the update check and the summary
+compare the Workshop with what the branch holds. The 12 Nov 2026 capture ran
+on a branch whose export was of 1 Nov and listed 52 mods as updated; 42
+were. Let Steam finish every Sea Power download, start the game to the main
+menu once (so Player.log and the BepInEx log record what loaded), quit it,
+then:
 
 ```powershell
 & { $ErrorActionPreference = 'Stop'
@@ -643,6 +659,70 @@ lists the stage that failed, so send the ZIP either way:
 
 The push is the block's own last step, as above, not the script's. Send the
 ZIP too when the review needs the files without the branch.
+
+**What a capture says about the game.** It never exports the game's own
+files, so by itself it cannot show a game update. Since 13 Nov 2026 it says
+two things about the game all the same. `game-build.txt` carries the
+SHA-256 of `Sea Power_Data\Managed\Seapower-Scripts.dll` (`code sha256`),
+the value SETUP and SEST's plugins know a game build by; Sea Power 0.9.0 had
+reached the repository on 12 Nov with its changelog and Steam build id and
+without it. And the one-command capture compares the changelog it copied
+(`changelog.live.txt`) with the export's (`mods-source/_vanilla/changelog.txt`):
+when version or build differ it prints `THE INSTALLED GAME IS NOT THE
+EXPORTED ONE` at the end of its run and in the ZIP's README, and
+`workshop-refresh-summary.txt` says the same under its `Sea Power` line. A
+line that says `Public Release` is a new release, and the game export is due
+(*On the PC* above); one that does not is a beta, and `_vanilla` stays.
+
+**The capture for 0.9.0.** From 13 Nov 2026 the 0.9.0 work waits unmerged on
+`claude/continue-previous-session-39wqwq`. That branch holds the 12 Nov
+export of the mods and the tools as they are now; the branch the PC was on
+that week (`release/sest-workshop-20261101`) has an export of 1 Nov, an older
+capture script and no `tools\capture-beta-references.ps1` at all. So the
+block cuts the capture branch from the working branch itself, on the PC, and
+nobody has to make it first. Change `$base` when the work has moved to
+another branch. `tools/tests/test_capture_block.ps1` runs this block, as it
+stands here, against a fixture:
+
+<!-- capture-block -->
+```powershell
+& { $ErrorActionPreference = 'Stop'
+  if (Get-Process -Name 'Sea Power', 'SeaPower' -ErrorAction SilentlyContinue) { throw 'Sea Power is running - exit it first' }
+  Set-Location -LiteralPath 'C:\Users\rolyl\Seapower-mods'
+  if (git status --short) { throw 'The clone has uncommitted changes - stop and report them' }
+  $base = 'claude/continue-previous-session-39wqwq'
+  $was = "$(git branch --show-current)".Trim()
+  $b = 'chore/workshop-refresh-' + (Get-Date -Format 'yyyyMMdd-HHmm')
+  git fetch origin $base
+  if ($LASTEXITCODE) { throw 'fetch failed - is the base branch name right?' }
+  git checkout -B $b "origin/$base"
+  if ($LASTEXITCODE) { throw 'checkout failed - stop and report it' }
+  powershell -ExecutionPolicy Bypass -File .\tools\capture-all-mod-updates.ps1
+  if ($LASTEXITCODE) { throw "capture refused or failed - read its last lines; nothing is committed and the clone is on $b" }
+  git add -A mods-source data\install-snapshot data\mod-fingerprints.json
+  git commit -m "chore: capture workshop refresh $(Get-Date -Format yyyy-MM-dd)"
+  if ($LASTEXITCODE) { throw "nothing was committed - stop and report it; the clone is on $b" }
+  git push -u origin $b
+  if ($LASTEXITCODE) { throw "push failed - the capture is committed on $b; push that branch again later" }
+  powershell -ExecutionPolicy Bypass -File .\tools\capture-beta-references.ps1
+  if ($LASTEXITCODE) { Write-Warning 'The reference capture did not finish - report its last lines. The mod capture above is pushed.' }
+  if ($was) { git checkout $was }
+  "Captured and pushed: $b"
+}
+```
+
+It stops before anything is written if the game is running or the clone has
+changes of its own, and names the branch the clone is left on if it stops
+later. It commits and pushes what the capture wrote, partial or not (a
+failed stage prints `SEST CAPTURE PARTIAL`), then runs the reference
+capture, which writes only its ZIP, and returns the clone to the branch it
+was on. Two ZIPs land in Downloads. `SEST-Workshop-Capture-<date-time>.zip`
+is the review bundle of what the pushed branch already holds.
+`SEST-Beta-References-<date-time>-<6 hex>.zip` holds the game's and the
+mods' code as installed; it is what matching SEST's code to a new game build
+starts from, and it is not in the repository, so it has to be handed over.
+The reference capture refuses the 0.8.7 Build 261021 game file and a running
+game, and nothing else.
 
 ### In the repo: read the drift, bump the version, rebuild, gate, document, push
 

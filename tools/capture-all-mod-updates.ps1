@@ -22,7 +22,9 @@
     the game folder, BepInEx or the Workshop folders, which it only reads.
     It does not export the game's own files (no -IncludeVanilla), so
     mods-source\_vanilla keeps the build the pack targets even when the PC
-    is on Steam's public beta.
+    is on Steam's public beta. It does say, on the console and in the
+    bundle's README.txt, when the installed game is not the build that
+    export holds, so a game update is not missed for want of an export.
 
     A stage that fails is recorded in the bundle's README.txt and the next
     stage still runs, so a failed diagnostic does not lose the Workshop
@@ -168,6 +170,18 @@ try {
     $inventory.Lines | Set-Content -LiteralPath (Join-Path $bundle "inventory-gate.txt") -Encoding UTF8
     Write-Host "Inventory gate: $(if ($inventory.Exit -eq 0) { 'PASS' } else { 'drift found (report saved)' })"
 
+    # The game itself. Nothing above exports the game's own files, so by
+    # itself this capture cannot show that the game has updated: compare the
+    # changelog the live capture copied with the one the export holds.
+    $gameNote = @()
+    try {
+        $gameNote = @(Get-GameBuildNote -InstalledChangelog (Join-Path $repo "data\install-snapshot\changelog.live.txt") `
+                                        -ExportedChangelog (Join-Path $repo "mods-source\_vanilla\changelog.txt"))
+    }
+    catch { $gameNote = @("Installed game: not compared ($($_.Exception.Message))") }
+    $gameMoved = @($gameNote | Where-Object { $_ -like "THE INSTALLED GAME*" }).Count -gt 0
+    $gameNote | ForEach-Object { Write-Host $_ }
+
     Write-Host "[4/5] Collecting the changed and new mod files..."
     $changed = @(Invoke-Git @('-c', 'core.quotepath=off', 'diff', '--name-only', '--', 'mods-source'))
     $untracked = @(Invoke-Git @('-c', 'core.quotepath=off', 'ls-files', '--others', '--exclude-standard', '--', 'mods-source'))
@@ -197,6 +211,7 @@ try {
     foreach ($name in @("workshop-subscriptions.txt", "workshop-updates.txt",
                         "workshop-refresh-summary.txt", "plugin-dlls.txt",
                         "load-order.live.txt", "changelog.live.txt",
+                        "game-build.txt", "game-content.txt", "game-files-dropped.txt",
                         "player.problems.txt", "player-prev.problems.txt")) {
         $f = Join-Path $snapshot $name
         if (Test-Path -LiteralPath $f -PathType Leaf) {
@@ -223,6 +238,7 @@ try {
         "Inventory gate exit: $($inventory.Exit)",
         "Stage problems: $($issues.Count)"
     )
+    $readme += $gameNote
     foreach ($issue in $issues) { $readme += "PROBLEM: $issue" }
     $readme += @(
         "The game's own files were not exported (no -IncludeVanilla).",
@@ -241,6 +257,7 @@ try {
     }
     Write-Host "Workshop folders: $($dirs.Count)"
     Write-Host "Changed, new or deleted mod paths: $($delta.Count)"
+    if ($gameMoved) { $gameNote | ForEach-Object { Write-Host $_ -ForegroundColor Yellow } }
     Write-Host "Review ZIP: $zip" -ForegroundColor Green
     Write-Host "Nothing was committed or pushed. Review git status, then commit on this branch."
 }

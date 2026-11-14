@@ -2,8 +2,9 @@
 .SYNOPSIS
     capture-all-mod-updates.ps1 against a disposable Git clone and a fake
     Workshop folder: it refuses the deploy branch and a dirty clone, writes
-    the review ZIP, exports the mods into the clone, and never commits,
-    pushes or changes the Workshop folder.
+    the review ZIP, exports the mods into the clone, says when the
+    installed game is not the exported one, and never commits, pushes or
+    changes the Workshop folder.
 
 .DESCRIPTION
     The Python inventory tools are left out of the fixture on purpose, so
@@ -58,6 +59,11 @@ try {
     [IO.File]::WriteAllText((Join-Path $clone "data\load-order.tokens.txt"), "SEST_Integration`n3812454152`n")
     [IO.File]::WriteAllText((Join-Path $clone "data\mod-fingerprints.json"), '{"mods":{"3812454152":{"fingerprint":"old-hash"}}}')
     [IO.File]::WriteAllText((Join-Path $clone "mods-source\README.txt"), "fixture`n")
+    # The export holds 0.9.0 and the last capture found a newer release: the
+    # fixture has no game folder, so the live capture leaves this copy alone.
+    New-Item -ItemType Directory -Path (Join-Path $clone "mods-source\_vanilla"), (Join-Path $clone "data\install-snapshot") -Force | Out-Null
+    [IO.File]::WriteAllText((Join-Path $clone "mods-source\_vanilla\changelog.txt"), "11-Nov-2026: 0.9.0 Build 261111 Public Release`n")
+    [IO.File]::WriteAllText((Join-Path $clone "data\install-snapshot\changelog.live.txt"), "20-Nov-2026: 0.9.1 Build 261120 Public Release`n11-Nov-2026: 0.9.0 Build 261111 Public Release`n")
     [IO.File]::WriteAllText((Join-Path $profileDir "AppData\LocalLow\Triassic Games\Sea Power\usersettings.ini"),
         "[LoadOrder]`r`nNumberOfModFiles=1`r`nMod1Directory=SEST_Integration,True`r`n")
     [IO.File]::WriteAllText((Join-Path $profileDir "AppData\LocalLow\Triassic Games\Sea Power\Player.log"), "clean session`r`n")
@@ -97,6 +103,13 @@ try {
     $readme = Get-Content -LiteralPath (Join-Path $out "review\README.txt") -Raw
     Check ($readme.Contains("Nothing was committed, pushed or uploaded.")) "README says nothing was committed or pushed"
     Check ($readme -match "PROBLEM: fingerprint_mods\.py exited") "a failed Python stage is recorded, not fatal"
+    Check ($readme.Contains("Installed game: 20-Nov-2026: 0.9.1 Build 261120 Public Release") -and
+           $readme.Contains("Exported game (mods-source\_vanilla): 11-Nov-2026: 0.9.0 Build 261111 Public Release")) "README names the installed and the exported game"
+    Check ($readme.Contains("THE INSTALLED GAME IS NOT THE EXPORTED ONE") -and $readme.Contains("run the game export next")) "README says the game has moved and what to run"
+    Check ((Test-Path -LiteralPath (Join-Path $out "review\snapshot\game-build.txt") -PathType Leaf) -and
+           (Test-Path -LiteralPath (Join-Path $out "review\snapshot\game-files-dropped.txt") -PathType Leaf)) "the bundle carries the game build and the dropped-files list"
+    $console = Get-Content -LiteralPath (Join-Path $root "run.txt") -Raw
+    Check ($console.Contains("THE INSTALLED GAME IS NOT THE EXPORTED ONE")) "the console says it too"
     Check (Test-Path -LiteralPath (Join-Path $clone "mods-source\3819427362\_info.ini")) "exports the new mod into the clone"
     Check (Test-Path -LiteralPath (Join-Path $out "review\changed-mod-configs\mods-source\3819427362\_info.ini")) "copies the new mod's files into the bundle"
     $updates = Get-Content -LiteralPath (Join-Path $clone "data\install-snapshot\workshop-updates.txt") -Raw

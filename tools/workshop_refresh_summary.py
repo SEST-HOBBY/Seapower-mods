@@ -24,6 +24,17 @@ The four inventories, as the refresh procedure names them:
   D  the catalog's installed entries (status active, deprecated or wip)
 capture-context.ps1 writes A only as a count and its differences from B, so
 A is reported that way. Facts only: no compatibility judgement is made here.
+
+The header names two games: the one mods-source/_vanilla was exported from,
+which the pack and every check are built on, and the one installed when the
+capture ran (changelog.live.txt). The capture never exports the game, so
+when the two differ the header says so: that line is the only place a
+Workshop capture shows a game update. It also gives the SHA-256 of the
+game's own code (game-build.txt, "code sha256"), the value SEST's plugins
+and SETUP know a game build by, when the capture recorded it (captures
+before 13 Nov 2026 did not), and how many files of the export the install no
+longer ships (game-files-dropped.txt, from the same date): the export
+overlays and removes nothing, so that count is the only sign of them.
 """
 import argparse
 import csv
@@ -42,6 +53,9 @@ OUT = SNAP / "workshop-refresh-summary.txt"
 NOTES = SNAP / "workshop-change-notes.txt"   # authors' Steam change notes, pasted by the player
 INSTALLED = {"active", "deprecated", "wip"}
 DETAIL = 12          # changed files listed per mod; the rest are counted
+# A changelog's dated build line, as tools/check_game_version.py reads it:
+# "11-Nov-2026: 0.9.0 Build 261111 Public Release"; "Build #N" until 28 Sep 2026.
+BUILD_LINE = re.compile(r"^[ \t]*\d{1,2}-[A-Za-z]{3}-\d{4}:\s+(\d+(?:\.\d+)+)\s+Build\s+#?(\w+).*$", re.M)
 
 
 def git(*args):
@@ -131,6 +145,50 @@ def game_version():
     build = (SNAP / "game-build.txt").read_text(encoding="utf-8", errors="replace") \
         if (SNAP / "game-build.txt").is_file() else ""
     return line, field(build, "steam buildid"), field(build, "product version")
+
+
+def build_of(text):
+    """(line, version, build) of a changelog's first dated build line, or None."""
+    m = BUILD_LINE.search(text or "")
+    return (m.group(0).strip(), m.group(1), m.group(2)) if m else None
+
+
+def installed_game(exported_text, installed_text, build_text):
+    """The header's lines on the installed game and the game's code.
+
+    exported_text is the changelog of the export the pack is built on,
+    installed_text the one the capture copied from the install (None when it
+    copied none), build_text the capture's game-build.txt.
+    """
+    exported, installed = build_of(exported_text), build_of(installed_text)
+    lines = [f"  installed            : {installed[0] if installed else 'not captured'}"]
+    if exported and installed and exported[1:] != installed[1:]:
+        lines += ["  THE INSTALLED GAME IS NOT THE EXPORTED ONE: the pack and every check are built on",
+                  "  the export above. " + (
+                      "The installed build is a public release: if it is the newer, the game export is due"
+                      if "Public Release" in installed[0] else
+                      "The installed build's line does not say Public Release, so it is a beta, and the export stays"),
+                  "  (docs/packaging-and-recovery.md, After a Sea Power update)."]
+    sha = field(build_text, "code sha256")
+    lines.append("  game code            : " + (
+        f"Seapower-Scripts.dll SHA-256 {sha}" if sha != "not captured" else
+        "not captured (the capture's game-build.txt has no code sha256 line)"))
+    return lines
+
+
+def dropped_files(text):
+    """The header's line on the export files the installed game no longer ships."""
+    m = re.search(r"^no longer shipped \((\d+)\):[ \t]*$", text or "", re.M)
+    if m:
+        return (f"  export files the install no longer ships: {m.group(1)}"
+                + (" (data/install-snapshot/game-files-dropped.txt lists them)" if int(m.group(1)) else ""))
+    why = re.search(r"^not compared: (.*)$", text or "", re.M)
+    return "  export files the install no longer ships: not compared" + (f" ({why.group(1).strip()})" if why else
+                                                                         " (no game-files-dropped.txt in this capture)")
+
+
+def read(path):
+    return path.read_text(encoding="utf-8-sig", errors="replace") if path.is_file() else None
 
 
 def tokens():
@@ -230,6 +288,9 @@ def main():
          f"previous capture       : {since[:12] if since else 'none found'}",
          f"previous export        : {since_export[:12] if since_export else 'none found'}",
          f"Sea Power              : {changelog_line}",
+         *installed_game(read(ROOT / "mods-source" / "_vanilla" / "changelog.txt"),
+                         read(SNAP / "changelog.live.txt"), read(SNAP / "game-build.txt")),
+         dropped_files(read(SNAP / "game-files-dropped.txt")),
          f"  Steam build id       : {buildid}",
          f"  engine               : Unity {unity}", "",
          "COUNTS",
