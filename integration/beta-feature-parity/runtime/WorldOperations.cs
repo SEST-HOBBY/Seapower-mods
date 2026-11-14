@@ -611,17 +611,20 @@ internal static class WorldOperations
     private static void Costs(CampaignCosts.CostView v)
     {
         v.AddDetail(CostLineKind.Basis, "Campaign budget: " + Dict(Get(state, "Points"), side) + " credits (separate from USD combat costs)");
-        // Profile record plus the loaded save's own reports: a read-only or
-        // unwritable record cannot hide this campaign's costs (RU-7).
-        var completed = ledger.Entries.Where(e => e.Scope == scope && e.Manual).Concat(liveReports.Where(e => e.Scope == scope))
+        // The loaded save's own reports only. The profile record is keyed by
+        // world and coalition, and Dynamic Campaign Mod keeps no run id, so it
+        // also holds earlier campaigns' battles; those count towards Service,
+        // not towards this campaign's costs. A read-only or unwritable record
+        // still cannot hide them (RU-7).
+        var completed = liveReports.Where(e => e.Scope == scope)
             .GroupBy(e => e.Key, StringComparer.Ordinal).Select(g => g.First()).ToList();
         var games = RecordedGames(CombatHistory.Games, completed, scope);
         if (ledger.ReadOnly) v.AddDetail(CostLineKind.Body, "The profile service record is read-only because its saved format could not be validated; the file is kept unchanged. Costs below use this save's battle reports.");
-        v.AddDetail(CostLineKind.Basis, completed.Count + " completed manual battle reports | " + games.Count + " with SEST itemised cost history. Reloaded attempts use the latest record for the same engagement.");
+        v.AddDetail(CostLineKind.Basis, completed.Count + " manual battle reports in this campaign save | " + games.Count + " with SEST itemised cost history. Dynamic Campaign Mod keeps a save's latest 100 battle reports; reloaded attempts use the latest record for the same engagement.");
         var costs = CampaignCosts.PricedCampaignView(games, MapPrices());
         foreach (var row in costs.SummaryRows) v.AddSummary(row.Kind, row.Text);
         foreach (var row in costs.DetailRows) v.AddDetail(row.Kind, row.Text);
-        v.Notes[0] = "USD totals cover SEST-recorded battles for this campaign and coalition across saves. Older battles and auto-resolved battles may lack itemised USD evidence.";
+        v.Notes[0] = "USD totals cover SEST-recorded manual battles in this campaign save. Earlier campaigns of this world and coalition count towards the profile Service record only. Older and auto-resolved battles may lack itemised USD evidence.";
         v.Notes[1] = costs.Notes[1]; v.Notes[2] = costs.Notes[2];
     }
 

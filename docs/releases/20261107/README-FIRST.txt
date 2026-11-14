@@ -24,7 +24,14 @@ WHAT CHANGED SINCE THE LAST VERSION OF THIS FILE
   and its deck operations, the flat Topographic Map) and those whose own
   build check rejects 0.9.2 (the Alpine runtime fixes in two items, Saronic
   Corsair strike, MV-75 fixture tilt, EC-2 comms jamming, K5 Kraken contact
-  strike). ExtendedGuidance stays off by the SEST profile. Their data stays.
+  strike, Exterior Cameras in two items, XQ-58 Shadow, MV-75 crew escape).
+  ExtendedGuidance stays off by the SEST profile. Their data stays.
+- From your first 0.9.2 run (15 Nov): the three Exterior Cameras, XQ-58
+  Shadow and MV-75 crew escape files are now held as well, so their
+  "Unsupported game" lines go; the world Costs tab covers the loaded
+  campaign save only, so a new campaign no longer shows an earlier
+  campaign's battles; and Sulu Line's Night Market semi-submersible now
+  rides surfaced, as her brief says, so the patrol's guns can take her.
 - Decision 6 is answered by the game's code: 0.9.2's own [RibbonAward_]
   rules test campaign variables that mission triggers set, and no trigger
   sees survivors rescued or a mission with no launch. Red Line's two
@@ -120,8 +127,9 @@ PREPARE AND CHECK
    - [Beta compatibility] ADAPTED for exactly DynamicCampaignMod,
      IdentifyExpanded, CoordinatedStrikeTool, SeaPowerSquadPanel, TestRange,
      OptimalTargetDist, MissileControlMod and SeaPowerTopo;
-   - [Beta compatibility] SKIPPED before CLR load for exactly the twelve
-     named at the top of this file (AlpineSeaPower twice), each with its
+   - [Beta compatibility] SKIPPED before CLR load for exactly the sixteen
+     named at the top of this file (AlpineSeaPower and AlpineExteriorCameras
+     twice each), each with its
      reason, plus one expected line that is not one of them: "SKIPPED native
      library before CLR metadata scan: version.dll" (Saronic Corsair's own
      native helper);
@@ -134,7 +142,9 @@ PREPARE AND CHECK
    own lines are written there):
    - "[SEST Runtime] ... installed" lines and "[SEST UI Follow-up] 1.5.0 beta
      input fix installed; full Runtime 1.7.0 paired", and no "[SEST Runtime]
-     ... disabled for this session" line.
+     ... disabled for this session" line, and no "[Alpine Exterior Cameras]
+     Unsupported game contract", "[XQ58Shadow] Startup failed" or "[MV-75
+     Crew Escape] Game assembly changed" line.
    Any difference stops the run here: quit, run R14\Capture-Repair-Results.cmd
    and send the capture with both logs. If the lists match, run SETUP -
    double-click me.cmd from the Workshop item once (game closed): among the
@@ -233,7 +243,10 @@ PREPARE AND CHECK
    carrier arms the Exocet, which 0.9.0 gave a supply category no deck in
    the pack stocks.
 4. Recheck the opening brief, world Combat Costs sidebar and direct F11
-   totals. In Starting Airborne Flights select the RAAF E/A-18G and confirm
+   totals. Start a NEW Global Maritime Operations campaign as blue: Costs
+   shows 0 manual battle reports and no USD totals. In Sulu Line's Night
+   Market, the semi-submersible is surfaced and the Jacinto's 76 mm offers
+   her as a target once she is classified. In Starting Airborne Flights select the RAAF E/A-18G and confirm
    HARM (AGM-88C), AARGM (AGM-88E) and AARGM-ER (AGM-88G) choices. The three
    loadouts were data-tested; the selector still awaits an owner PC check.
    With Pop-Out Windows 1.2.3 installed, check Contacts, Formation and F11

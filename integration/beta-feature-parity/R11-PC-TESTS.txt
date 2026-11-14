@@ -37,9 +37,10 @@ With the features on, a full launch must show in BepInEx\LogOutput.log
 - [Beta compatibility] SKIPPED before CLR load, for exactly these, each with
   its reason: EnhancedDecoyMod, MultiStageMissiles, OspreyMechanics and
   SeaPowerTopoFlat (name a game member 0.9.2 does not have), OspreyDeckOps
-  (depends on OspreyMechanics), ExtendedGuidance (SEST profile), and the six
+  (depends on OspreyMechanics), ExtendedGuidance (SEST profile), and the ten
   whose own build check rejects 0.9.2: SaronicCorsairStrikeUSV, AlpineSeaPower
-  (two items), BellSystemsFixtureTilt, EC2CommsJamming, K5KrakenContactStrike.
+  (two items), BellSystemsFixtureTilt, EC2CommsJamming, K5KrakenContactStrike,
+  AlpineExteriorCameras (two items), XQ58Shadow, MV75CrewEscape.
 - Also expected, not one of these: "[Beta compatibility] SKIPPED native library
   before CLR metadata scan: version.dll; original file retained." (Saronic
   Corsair's own native helper).
@@ -132,6 +133,9 @@ WORLD CAMPAIGN
 - Launch and complete a battle; return to the world map, then save/load.
   Confirm the itemised battle cost appears once. Reloading the same completed
   report should not earn duplicate ribbons or duplicate battle totals.
+- Start a NEW campaign of a world and coalition you have played before. Costs
+  shows 0 manual battle reports and no USD totals: it covers the loaded
+  campaign save only. Service may still show the profile's earlier ribbons.
 
 RIBBONS
 - Native completion ribbons are defined for Southern Watch, Southern Reach,
@@ -143,8 +147,9 @@ RIBBONS
   two battles with recorded engagement positions. Auto-resolves do not count.
   Older reports without positions count globally only. Awards are fictional.
 - World service persists under LocalLow/Triassic Games/Sea Power/SEST/
-  world-service-v1.txt. It belongs to this profile/campaign/coalition across
-  saves. Native commander records and native campaign saves are unchanged.
+  world-service-v1.txt. It belongs to this profile and world/coalition across
+  saves and new campaigns; Costs does not read it. Native commander records
+  and native campaign saves are unchanged.
   An unknown saved format becomes read-only and is preserved.
 - Specialist logistics/ROE/performance awards are not granted from spending.
   They need additional gameplay evidence before implementation.

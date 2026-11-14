@@ -181,6 +181,6 @@ try {
 if (Test-Path -LiteralPath $optOutPath) { Remove-Item -LiteralPath $optOutPath -Force }
 Note ('Reviewed beta code installed: '+$new.candidate_revision+'. Original restore journal and Identify data retained.') 'Green'
 if ($steamRefresh) { Note 'Steam-refreshed Workshop plugins recognised and beta features reapplied; original restore backups retained.' }
-Note 'R13 adds debrief mission ribbons for campaigns that define them and records Admiralty results when Dynamic Campaign Mod files them; World Operations, service progress and Coordinated Strike presentation are retained. The root Prepare-PC command also installs the combined world and native ribbon data.'
+Note 'R14 is the SEST code for Sea Power 0.9.2 Build 261113: debrief mission ribbons, Admiralty results, World Operations, service progress and Coordinated Strike presentation are retained. The root Prepare-PC command also installs the combined world and native ribbon data.'
 Note 'Follow the PC checks in README-FIRST: check the world map, F11 tabs, strike controls, native service records, Topography, pop-outs and campaign continuation.'
 Note 'Quit and run Capture-Repair-Results.cmd after testing. Steam publication remains a separate step.'

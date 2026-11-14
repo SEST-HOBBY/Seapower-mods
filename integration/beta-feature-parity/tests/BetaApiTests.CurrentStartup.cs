@@ -98,6 +98,7 @@ static partial class BetaApiTests
         Check(PatchProcessor.GetOriginalInstructions(aaw.GetMethod("Install", CurrentAll), (ILGenerator)null)
             .All(i => i.opcode == OpCodes.Ret), "Held AAW initializer cannot install a partial patch or report an exception");
         CurrentStartupHolds(context);
+        CurrentGameHashGuards(context);
         NativePeDiscovery(context);
     }
 
@@ -147,6 +148,67 @@ static partial class BetaApiTests
             }
         }
         Check(rejected == 6 && accepted == 10, "Captured Alpine-family set: 6 author guards reject 0.9.2 and 10 accept it (actual " + rejected + "/" + accepted + ")");
+    }
+
+    // R14: Exterior Cameras, XQ-58 Shadow and MV-75 Crew Escape guard with a
+    // fixed list of accepted Seapower-Scripts.dll SHA-256 values instead of a
+    // build contract. Read each author's own list from its image, compare it
+    // with the captured game and require SEST's pre-load decision to match.
+    static void CurrentGameHashGuards(R6Context context)
+    {
+        string game;
+        using (var stream = File.OpenRead(context.Native)) using (var sha = System.Security.Cryptography.SHA256.Create())
+            game = BitConverter.ToString(sha.ComputeHash(stream)).Replace("-", "");
+        var rejected = new List<string>();
+        foreach (string source in Directory.GetFiles(context.Workshop, "*.dll", SearchOption.AllDirectories).OrderBy(x => x, StringComparer.Ordinal)) {
+            if (source.Contains(Path.DirectorySeparatorChar + "backups" + Path.DirectorySeparatorChar)) continue;
+            if (source.StartsWith(Path.Combine(context.Workshop, "3812461539") + Path.DirectorySeparatorChar, StringComparison.Ordinal)) continue;
+            string relative = source.Substring(context.Workshop.Length + 1).Replace('\\', '/');
+            var texts = new List<int>(); var lists = new List<int>();
+            try {
+                using (var metadata = ModuleDefinition.ReadModule(source)) {
+                    if (metadata.GetTypes().Any(t => t.FullName == "AlpineRuntimeInternal.BuildContract")) continue;
+                    foreach (var type in metadata.GetTypes()) foreach (var method in type.Methods.Where(m => m.HasBody)) {
+                        var body = method.Body.Instructions;
+                        if (!body.Any(i => i.Operand is MethodReference m && m.Name == "ComputeHash") ||
+                            !body.Any(i => i.Operand is TypeReference t && t.Scope is AssemblyNameReference s && s.Name == "Seapower-Scripts" &&
+                                i.Next?.Next?.Next?.Operand is MethodReference l && l.Name == "get_Location")) continue;
+                        foreach (var i in body) {
+                            if (i.Operand is MethodReference compare && compare.DeclaringType.FullName == "System.String" &&
+                                (compare.Name == "op_Equality" || compare.Name == "op_Inequality") &&
+                                i.Previous?.Operand is MethodReference text && !text.HasThis && !text.HasParameters && text.ReturnType.FullName == "System.String")
+                                texts.Add(text.Resolve().MetadataToken.ToInt32());
+                            if (i.Operand is MethodReference index && index.Name == "IndexOf" && index.DeclaringType.FullName == "System.Array" &&
+                                i.Previous?.Previous?.Operand is FieldReference list && list.FieldType.FullName == "System.String[]")
+                                lists.Add(list.Resolve().MetadataToken.ToInt32());
+                        }
+                    }
+                }
+            } catch (BadImageFormatException) { continue; }
+            if (texts.Count + lists.Count == 0) continue;
+            byte[] before = File.ReadAllBytes(source);
+            var messages = new List<string>();
+            string prepared = BetaAssemblyPolicy.Prepare(source, context.Native, context.Cache, messages.Add);
+            Check(before.SequenceEqual(File.ReadAllBytes(source)), "Author image retained: " + relative);
+            // Read the author's list in the test process only; SEST's loader
+            // never runs author code to make this decision.
+            var module = Assembly.LoadFrom(source).ManifestModule;
+            var allowed = texts.Select(t => (string)module.ResolveMethod(t).Invoke(null, null))
+                .Concat(lists.SelectMany(f => (string[])module.ResolveField(f).GetValue(null)))
+                .Where(h => h != null && h.Length == 64).Distinct(StringComparer.OrdinalIgnoreCase).ToList();
+            bool accepts = allowed.Contains(game, StringComparer.OrdinalIgnoreCase);
+            Console.WriteLine("Author game-hash guard " + relative + ": " + allowed.Count + " accepted builds; " + (accepts ? "accepts" : "rejects") + " 0.9.2");
+            Check(allowed.Count > 0, "Author game-hash list read: " + relative);
+            if (accepts) Check(prepared == source && messages.Count == 0, "Author game-hash guard accepts 0.9.2, so SEST admits the image unchanged: " + relative);
+            else {
+                rejected.Add(relative);
+                Check(prepared == null && messages.Count == 1 && messages[0].StartsWith("SKIPPED before CLR load: ") && messages[0].Contains("Data retained"),
+                    "Author game-hash guard rejects 0.9.2, so SEST holds the image before registration: " + relative);
+            }
+        }
+        Check(rejected.SequenceEqual(new[] { "3804868806/XQ58Shadow.dll", "3810611344/MV75CrewEscape.dll",
+            "3819522350/AlpineExteriorCameras.dll", "3820576916/AlpineExteriorCameras.dll" }),
+            "Captured game-hash guards: Exterior Cameras (two items), XQ-58 Shadow and MV-75 Crew Escape reject 0.9.2 (actual: " + String.Join(", ", rejected) + ")");
     }
 
     static void NativePeDiscovery(R6Context context)

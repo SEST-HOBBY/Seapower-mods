@@ -117,9 +117,12 @@ MISSION = dict(
           name="Tawi 21", alt=800, loadout="CAS"),
         U("blue", "_vanilla", "airfield_small_1", "home",
           name="Sanga-Sanga (Bongao)", nation="Philippines", weapons="Hold", air_group=[]),
+        # Surfaced, as the brief says: "a foot out of the water". The patrol
+        # has no sonar and no underwater weapon, so at periscope depth the
+        # only winning objective could not be met.
         U("red", "red-storm-arsenal", "_narco_narcosub_adv", "semisub",
-          name="Contact NOVEMBER", depth="periscope",
-          route=[(5.62, 119.96, "periscope"), (5.40, 120.08, "periscope")], telegraph=4),
+          name="Contact NOVEMBER", depth=0,
+          route=[(5.62, 119.96, 0), (5.40, 120.08, 0)], telegraph=4),
         # Unarmed hulls that wait for her; they run when the patrol comes.
         U("red", "red-storm-arsenal", "_narco_speedboat", "pickup", name="Pickup boat 1",
           weapons="Hold", route=[(5.40, 120.08, 0)], telegraph=2),

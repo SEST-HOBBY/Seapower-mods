@@ -45,7 +45,11 @@ USV and K5 Kraken (`ObjectsManager.removeObject`), Alpine Sea Power
 (`CheckFiringConstraints`), the MV-75 fixture tilt (`FollowCamera.lateUpdate`)
 and EC-2 jamming (`AI.MaintainMPA`). The startup holds are re-keyed to those
 files; `BetaApiTests` runs every guard against the captured game and requires
-SEST's decision to match the author's verdict.
+SEST's decision to match the author's verdict. Three more images guard with a
+fixed list of accepted `Seapower-Scripts.dll` SHA-256 values instead: Exterior
+Cameras (one image in two items), XQ-58 Shadow and MV-75 Crew Escape. None of
+the lists has 0.9.2's `3f56861f`, so they are held too; `BetaApiTests` reads
+each list from the image and requires the same match.
 
 **Mission ribbons.** 0.9.2's `ApplyMissionRibbonAwards(ini, int, string)` reads
 the commander's nation and rank and returns `ApplyMissionRibbonAwardsCore`'s
