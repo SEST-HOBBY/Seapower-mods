@@ -142,7 +142,7 @@ def main():
           "Description=Complete cost coverage for resolved collection weapons, expendables, pods, tanks, "
           "ships, aircraft and land platforms. Existing prices are preserved; missing prices use labelled "
           "SEST family comparisons and rough replacement estimates.\n\n"
-          "[Compatibility]\nApproximateVersion=0.9.0\n")
+          "[Compatibility]\nApproximateVersion=0.9.2\n")
     REPORT.mkdir(parents=True, exist_ok=True)
     write(REPORT / "coverage.json", json.dumps(result, indent=2) + "\n")
     write(OUT / "COST-COMPATIBILITY.txt", compatibility_text(result))

@@ -1475,7 +1475,7 @@ def main():
         "one fictional worldwide campaign for Bungalow's Dynamic Campaign Mod (Workshop 3813157776). "
         "Bases, fleets, air groups, supply ships, patrols and multinational recruitment; listed "
         "in the Campaign menu marked [Dynamic]. R12 world operations update; PC acceptance checks pending.\n\n"
-        "[Compatibility]\nApproximateVersion=0.9.0\n",
+        "[Compatibility]\nApproximateVersion=0.9.2\n",
         encoding="utf-8")
     (OUT / "conversion.json").write_text(report_text(report), encoding="utf-8")
     c = report["counts"]
@@ -1504,7 +1504,8 @@ def main():
     # The read-me's four counts are those of the one world the player starts,
     # the combined campaign build_regions.py has just written. Typed in, the
     # buy entries said 1,586 through two rebuilds that moved them (1,593 on the
-    # 12 Nov capture, 1,633 on the game's 0.9.0 units).
+    # 12 Nov capture, 1,633 on the game's 0.9.0 units, 1,636 on 0.9.2 and the
+    # mods of 14 Nov).
     readme = (Path(__file__).resolve().parent / "WORLD-CAMPAIGN-READ-ME.txt").read_text(encoding="utf-8")
     world = json.loads((PACK / "dynamic_campaigns" / "sest-world-regions-2028" / "campaign.json")
                        .read_text(encoding="utf-8"))

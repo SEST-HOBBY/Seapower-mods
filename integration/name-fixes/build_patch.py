@@ -79,15 +79,10 @@ VAR = lambda n, name: [f"Variant{i}={name}" for i in range(1, n + 1)]
 NOTE = "SEST: this unit ships with no English name; named by SEST Name Fixes."
 # id: (file, [lines of its section])
 MISSING_NAMES = {
-    # Reported in the Unit Reference, 19 Oct 2026 ("MISSING: mm_skyguard_sam
-    # name or squadron reference"). Euromod - Cold War Italian Navy places the
-    # Skyguard-Aspide launcher for Italy, Spain and Greece and names none.
-    "mm_skyguard_sam": ("land_units_names.ini", [
-        "Type=SAM,Surface-to-Air Missile Launcher", "Default=Skyguard-Aspide launcher,Skyguard",
-        "DefaultDescription=Towed Skyguard-Aspide launcher: four Aspide semi-active radar "
-        "homing missiles cued by the Skyguard fire-control radar. " + NOTE,
-        "Variant1=Skyguard-Aspide (Italy),Skyguard", "Variant2=Skyguard-Aspide (Spain),Skyguard",
-        "Variant3=Skyguard-Aspide (Greece),Skyguard"]),
+    # mm_skyguard_sam, the Skyguard-Aspide launcher of the Italian Navy mod
+    # (3505420313), was named here from 19 Oct 2026 until the mod's update of
+    # 14 Nov 2026 removed the unit; main() now stops on a name whose unit no
+    # mod ships.
     # Reported the same day as "Missing Type / Missing Class": Euromod - South
     # Korea Navy ships a USAF F-16C Block 40 with no name and no squadron
     # table (SEST Collection Fixes supplies the table); nothing places it.
@@ -205,7 +200,7 @@ Name=SEST Name Fixes
 Description=Corrects unit and squadron display names one key at a time: typos (Rocketeers, Desert, David's Sling), the Anzac's short name, full-width brackets and commas the game's font cannot show, and Russian names written in Cyrillic in English text (transliterated).
 
 [Compatibility]
-ApproximateVersion=0.9.0
+ApproximateVersion=0.9.2
 """
 
 
@@ -273,6 +268,12 @@ def main():
         import shutil
         shutil.rmtree(OUT)
     wrote, stale = 0, []
+    # A unit named here that no mod ships any more (in any folder of its kind:
+    # "Virginia" is a file a mod keeps in a backup folder) is a name for nothing.
+    shipped = {f.stem.lower() for tok in order for kind in KIND_FILE
+               if (MODS / tok / kind).is_dir() for f in (MODS / tok / kind).rglob("*.ini")}
+    stale += [f"MISSING_NAMES {uid}: no mod in the collection ships this unit any more"
+              for uid in MISSING_NAMES if uid.lower() not in shipped]
     for name in FILES:
         winners = {}
         for tok in order:
