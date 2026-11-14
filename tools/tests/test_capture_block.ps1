@@ -3,12 +3,13 @@
     The capture block the owner pastes (docs\packaging-and-recovery.md, the
     block under the "capture-block" marker), run as it stands against a
     disposable origin and clone: it cuts the capture branch from the base
-    branch, runs the two capture scripts, commits and pushes the capture, and
-    puts the clone back on the branch it was on. It refuses a clone with
-    changes of its own, and commits nothing when the capture fails.
+    branch, runs the capture scripts, commits and pushes the capture, adds
+    the game export as a second commit when the export script says it
+    exported, and puts the clone back on the branch it was on. It refuses a
+    clone with changes of its own, and commits nothing when the capture fails.
 
 .DESCRIPTION
-    The fixture's base branch carries stand-ins for the two capture scripts,
+    The fixture's base branch carries stand-ins for the three scripts it runs,
     so no Steam, game or Workshop folder is needed. Three lines of the block
     are rewritten for the fixture and nothing else: the clone's path, the
     base branch's name, and, away from Windows, the name of the PowerShell
@@ -76,6 +77,7 @@ function Invoke-Block([string]$CloneDir, [string]$Log) {
 
 $savedMarker = $env:SEST_TEST_REFERENCE_MARKER
 $savedFail = $env:SEST_TEST_CAPTURE_FAILS
+$savedExport = $env:SEST_TEST_GAME_EXPORT
 try {
     New-Item -ItemType Directory -Path $root -Force | Out-Null
     $null = Invoke-Git $root @("init", "-q", "--bare", "-b", "main", $origin)
@@ -100,6 +102,14 @@ $repo = Split-Path -Parent $PSScriptRoot
 Write-Host "stand-in capture: done"
 exit 0
 '@)
+    [IO.File]::WriteAllText((Join-Path $seed "tools\export-game.ps1"), @'
+if ($env:SEST_TEST_GAME_EXPORT -ne "release") { Write-Host "stand-in game export: nothing to do"; exit 3 }
+$repo = Split-Path -Parent $PSScriptRoot
+New-Item -ItemType Directory -Path (Join-Path $repo "mods-source/_vanilla") -Force | Out-Null
+[IO.File]::WriteAllText((Join-Path $repo "mods-source/_vanilla/changelog.txt"), "13-Nov-2026: 0.9.2 Build 261113 Public Release`n")
+Write-Host "stand-in game export: exported"
+exit 0
+'@)
     [IO.File]::WriteAllText((Join-Path $seed "tools\capture-beta-references.ps1"), @'
 [IO.File]::WriteAllText($env:SEST_TEST_REFERENCE_MARKER, "ran on " + (& git branch --show-current))
 exit 0
@@ -116,6 +126,7 @@ exit 0
     }
     $env:SEST_TEST_REFERENCE_MARKER = $marker
     $env:SEST_TEST_CAPTURE_FAILS = $null
+    $env:SEST_TEST_GAME_EXPORT = $null
 
     # --- a clone with changes of its own: refused, nothing made ----------------
     [IO.File]::WriteAllText((Join-Path $clone "README.txt"), "edited`n")
@@ -158,12 +169,35 @@ exit 0
     }
     Check ("$(Invoke-Git $clone @('branch', '--show-current'))".Trim() -eq "pc-own") "the clone is back on the branch it was on"
     Check (@(Invoke-Git $clone @("status", "--porcelain")).Count -eq 0) "and has no changes left in it"
+    # --- the same with a newer public release installed: the game export follows --
+    Remove-Item -LiteralPath $marker
+    $env:SEST_TEST_GAME_EXPORT = "release"
+    # A capture branch is named for the minute: wait for the next one, so the
+    # second run cannot reuse the first run's branch name.
+    while ((Get-Date -Format 'yyyyMMdd-HHmm') -eq ($pushed[0] -replace '^chore/workshop-refresh-', '')) { Start-Sleep -Seconds 2 }
+    $code = Invoke-Block $clone (Join-Path $root "run-export.txt")
+    $log = Get-Content -LiteralPath (Join-Path $root "run-export.txt") -Raw
+    Check ($code -eq 0) "with a newer release installed the block runs to its end (exit $code)"
+    if ($code -ne 0) { Write-Host $log }
+    $second = @(Invoke-Git $origin @("for-each-ref", "--format=%(refname:short)", "refs/heads/chore") | Where-Object { $_ -and $_ -ne $pushed[0] })
+    Check ($second.Count -eq 1) "a second capture branch is pushed ($($second -join ', '))"
+    if ($second.Count -eq 1) {
+        $b2 = $second[0]
+        Check ("$(Invoke-Git $origin @('rev-parse', "$b2~2"))".Trim() -eq $baseHead) "it is two commits on the base branch: the capture, then the game export"
+        Check ("$(Invoke-Git $origin @('log', '-1', '--format=%s', $b2))".Trim() -eq "Game export after the Sea Power update") "the second commit is the game export"
+        $names = @(Invoke-Git $origin @("show", "--name-only", "--format=", $b2) | Where-Object { $_ })
+        Check (($names -join "|") -eq "mods-source/_vanilla/changelog.txt") "and holds the exported game files only ($($names -join ', '))"
+        Check ((Test-Path -LiteralPath $marker) -and ((Get-Content -LiteralPath $marker -Raw) -eq "ran on $b2")) "the reference capture still ran after it"
+    }
+    Check ("$(Invoke-Git $clone @('branch', '--show-current'))".Trim() -eq "pc-own" -and
+           @(Invoke-Git $clone @("status", "--porcelain")).Count -eq 0) "and the clone is back on its branch, clean"
     Check ("$(Invoke-Git $origin @('rev-parse', 'base-test'))".Trim() -eq $baseHead -and
            "$(Invoke-Git $origin @('rev-parse', 'pc-own'))".Trim() -eq "$(Invoke-Git $seed @('rev-parse', 'pc-own'))".Trim()) "the base branch and the PC's branch are untouched on origin"
 }
 finally {
     $env:SEST_TEST_REFERENCE_MARKER = $savedMarker
     $env:SEST_TEST_CAPTURE_FAILS = $savedFail
+    $env:SEST_TEST_GAME_EXPORT = $savedExport
     Remove-Item -LiteralPath $root -Recurse -Force -ErrorAction SilentlyContinue
 }
 $global:LASTEXITCODE = 0

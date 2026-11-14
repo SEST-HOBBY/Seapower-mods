@@ -551,8 +551,9 @@ refresh summary counts it under its `Sea Power` line. So the block above is
 for a clone whose scripts are older. The list is against whatever build is
 installed: with a beta on the PC it names what the beta dropped, and those
 files stay in `_vanilla` until the beta is the release. The session that
-takes the capture in deletes the listed files only when the installed build
-is the exported one.
+takes the capture in removes the listed files with
+`python3 tools/apply_dropped_files.py`, which does it only when the export
+holds the build the list was taken against, and refuses otherwise.
 
 ### A Workshop refresh for review
 
@@ -673,8 +674,13 @@ EXPORTED ONE` at the end of its run and in the ZIP's README, and
 `workshop-refresh-summary.txt` says the same under its `Sea Power` line. A
 line that says `Public Release` is a new release, and the game export is due
 (*On the PC* above); one that does not is a beta, and `_vanilla` stays.
+`tools\export-game.ps1` applies that rule: it runs the exporter with
+`-IncludeVanilla` only when the installed build is a public release newer
+than the export, and otherwise says which case it found and exports nothing
+(exit 3 the same build, 4 a beta, 5 no game or no changelog, 6 an older
+build). The block below runs it after the capture.
 
-**The capture for 0.9.0.** From 13 Nov 2026 the 0.9.0 work waits unmerged on
+**The capture for 0.9.** From 13 Nov 2026 the 0.9 work waits unmerged on
 `claude/continue-previous-session-39wqwq`. That branch holds the 12 Nov
 export of the mods and the tools as they are now; the branch the PC was on
 that week (`release/sest-workshop-20261101`) has an export of 1 Nov, an older
@@ -704,6 +710,13 @@ stands here, against a fixture:
   if ($LASTEXITCODE) { throw "nothing was committed - stop and report it; the clone is on $b" }
   git push -u origin $b
   if ($LASTEXITCODE) { throw "push failed - the capture is committed on $b; push that branch again later" }
+  powershell -ExecutionPolicy Bypass -File .\tools\export-game.ps1
+  if ($LASTEXITCODE -eq 0) {
+    git add -A mods-source
+    git commit -m "Game export after the Sea Power update"
+    git push origin $b
+    if ($LASTEXITCODE) { throw "push failed - the game export is committed on $b; push that branch again later" }
+  }
   powershell -ExecutionPolicy Bypass -File .\tools\capture-beta-references.ps1
   if ($LASTEXITCODE) { Write-Warning 'The reference capture did not finish - report its last lines. The mod capture above is pushed.' }
   if ($was) { git checkout $was }
@@ -714,15 +727,50 @@ stands here, against a fixture:
 It stops before anything is written if the game is running or the clone has
 changes of its own, and names the branch the clone is left on if it stops
 later. It commits and pushes what the capture wrote, partial or not (a
-failed stage prints `SEST CAPTURE PARTIAL`), then runs the reference
-capture, which writes only its ZIP, and returns the clone to the branch it
-was on. Two ZIPs land in Downloads. `SEST-Workshop-Capture-<date-time>.zip`
+failed stage prints `SEST CAPTURE PARTIAL`). If the installed game is a
+public release newer than the export, it then exports the game's own files
+and pushes them as a second commit; with the same build or a beta installed
+that step says so and does nothing. Last it runs the reference capture,
+which writes only its ZIP, and returns the clone to the branch it was on. Two ZIPs land in Downloads. `SEST-Workshop-Capture-<date-time>.zip`
 is the review bundle of what the pushed branch already holds.
 `SEST-Beta-References-<date-time>-<6 hex>.zip` holds the game's and the
 mods' code as installed; it is what matching SEST's code to a new game build
 starts from, and it is not in the repository, so it has to be handed over.
 The reference capture refuses the 0.8.7 Build 261021 game file and a running
 game, and nothing else.
+
+**A capture by ZIP: 14 Nov 2026.** The owner's PC did not use the block. It
+ran a read-only comparison of its own against `data/mod-fingerprints.json`
+at `01cfa43b` and sent a report and the whole text of each mod it found
+changed, as three ZIPs (`data/install-snapshot/pc-report-20261114/` has the
+report and says what it is). Taking it in, for the next time one comes that
+way:
+
+1. Unpack each ZIP into its own empty folder outside the clone and compare
+   every file with `mods-source`, mod by mod, before copying anything.
+2. Set aside the mods whose only difference is `_info.ini` with the line
+   `; SEST marked this mod compatible`. SETUP writes that line and a new
+   `ApproximateVersion` into the installed file; `export-mod-configs.ps1`
+   reads the author's kept original instead, and a comparison of installed
+   files does not. On 14 Nov that was 59 of the 77 mods the report called
+   updated. Where a mod with real changes carries the mark too, keep the
+   `_info.ini` the export has.
+3. For the rest copy every uploaded file as it is (`mods-source` is stored
+   byte for byte) and remove the files the upload no longer has.
+4. Recount the taken mods' rows of `_export-manifest.csv` (files and bytes
+   of the folder; the other rows must still agree with their folders), run
+   `python3 tools/fingerprint_mods.py`, and compare the result with the
+   fingerprints the PC reported: a taken mod must equal the PC's, and so
+   must every mod the PC found unchanged. On 14 Nov 17 of 18 did, the
+   eighteenth by the kept `_info.ini`, and all 123 unchanged.
+5. Then the usual: rebuild, `python3 tools/refresh_upload_manifest.py`, the
+   checks, the tests, the notes.
+
+Such a capture brings no game files, no `changelog.live.txt` and no
+snapshot of the kind `capture-context.ps1` writes, so the files of
+`data/install-snapshot/` stay at the last full capture. That report showed
+the game at 0.9.2-261113b by its Player.log while the export here was 0.9.0;
+the pack stays on the export it has until the game's files come too.
 
 ### In the repo: read the drift, bump the version, rebuild, gate, document, push
 
