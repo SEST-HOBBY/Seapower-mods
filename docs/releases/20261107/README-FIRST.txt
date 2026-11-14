@@ -28,6 +28,10 @@ WHAT CHANGED SINCE THE LAST VERSION OF THIS FILE
   Corsair strike, MV-75 fixture tilt, EC-2 comms jamming, K5 Kraken contact
   strike, Exterior Cameras in two items, XQ-58 Shadow, MV-75 crew escape).
   ExtendedGuidance stays off by the SEST profile. Their data stays.
+- Steam updated eight mods on 15 Nov, Anchor Chain among them; the pack
+  is rebuilt on them and SEST's code is re-pinned to the new Anchor Chain.
+  Without that re-pin, SETUP or Repair would have switched SEST's features,
+  and with them every Workshop code mod, off.
 - From your first 0.9.2 run (15 Nov): the three Exterior Cameras, XQ-58
   Shadow and MV-75 crew escape files are now held as well, so their
   "Unsupported game" lines go; the world Costs tab covers the loaded
@@ -130,7 +134,10 @@ PREPARE AND CHECK
    - "SEST Beta Safe Anchor Chain 0.6.0", "Sea Power 0.9.2-261113 verified
      (3f56861f)", "BETA SAFE BOOTSTRAP READY; enable=True", "Starting
      bounded Anchor Chain 1.1.0 fork once.", "Loaded AnchorChain V1.1.0!"
-     and "Bounded Anchor Chain loader returned to bootstrap.";
+     and "Bounded Anchor Chain loader returned to bootstrap.", and no
+     "Started the Anchor Chain runtime.", "R.A.T.S. Keel" or "Anchor Chain
+     bootstrap" line (Steam's 15 November Anchor Chain ships a second
+     loader that SEST never starts);
    - [Beta compatibility] ADAPTED for exactly DynamicCampaignMod,
      IdentifyExpanded, CoordinatedStrikeTool, SeaPowerSquadPanel, TestRange,
      OptimalTargetDist, MissileControlMod and SeaPowerTopo;
@@ -344,9 +351,12 @@ test card apply as well as R5 and R6.
 WHAT IS NEW SINCE THE R12 RIBBON TEST BUILD
 - R14 for Sea Power 0.9.2 Build 261113 (14 Nov 2026; Runtime 1.7.0 / UI
   1.5.0, loader bootstrap 0.6.0, candidates/R14-20261114): SEST's code is
-  matched to 0.9.2 from your reference ZIP of 14 November. Seven of the
-  fifteen pinned references moved (the game, Noesis, Anchor Chain 1.2.0,
-  Pop-Out Windows 1.2.3 and three Unity modules). SEST's loader now checks
+  matched to 0.9.2 from your reference ZIPs of 14 and 15 November. Seven
+  of the fifteen pinned references moved (the game, Noesis, Anchor Chain
+  1.2.0, Pop-Out Windows 1.2.3 and three Unity modules); Anchor Chain moved
+  again with Steam's 15 November refresh, which keeps its API and adds a
+  second loader, AnchorChain.Runtime.dll 0.5.5 (R.A.T.S. Keel), that SEST
+  never starts. SEST's loader now checks
   every author plugin against the game's real members before it loads, and
   holds one that names code 0.9.2 removed, with the member named; the
   rewrites SEST made for author files that no longer exist are retired.

@@ -4,7 +4,9 @@ Runtime 1.7.0 / UI 1.5.0 / loader bootstrap 0.6.0, for Seapower-Scripts.dll
 
 What changed for 0.9.2
 - Pins moved to the 14 November capture: the game, Noesis, Anchor Chain 1.2.0,
-  Pop-Out Windows 1.2.3 and three Unity modules. The enable flag is new: an
+  Pop-Out Windows 1.2.3 and three Unity modules; Anchor Chain again to Steam's
+  15 November refresh (071df2d9), which ships a second loader,
+  AnchorChain.Runtime.dll 0.5.5 (R.A.T.S. Keel), that SEST never starts. The enable flag is new: an
   installation that was enabled before (journal 'enabled') is repaired to R14
   and switched on in one Prepare-PC or SETUP run; a fresh, restored or staged
   one is staged, started once to the menu (the probe) and then enabled.
@@ -41,6 +43,10 @@ With the features on, a full launch must show in BepInEx\LogOutput.log
   whose own build check rejects 0.9.2: SaronicCorsairStrikeUSV, AlpineSeaPower
   (two items), BellSystemsFixtureTilt, EC2CommsJamming, K5KrakenContactStrike,
   AlpineExteriorCameras (two items), XQ58Shadow, MV75CrewEscape.
+- After Steam's 15 November Anchor Chain refresh: still "Could not find
+  AnchorChain chainloader" and then "Starting bounded Anchor Chain 1.1.0 fork
+  once."; no "Started the Anchor Chain runtime." line and no "R.A.T.S. Keel"
+  or "Anchor Chain bootstrap" line.
 - Also expected, not one of these: "[Beta compatibility] SKIPPED native library
   before CLR metadata scan: version.dll; original file retained." (Saronic
   Corsair's own native helper).

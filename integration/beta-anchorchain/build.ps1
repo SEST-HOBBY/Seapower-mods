@@ -14,7 +14,7 @@ $project = Join-Path $PSScriptRoot "source\AnchorChain.csproj"
 $particleModule = Join-Path $GameRoot "Sea Power_Data\Managed\UnityEngine.ParticleSystemModule.dll"
 $knownBeta = "3f56861f09e867f315b194c81a7a2450154ccc6bb5afb769b4956dfd4a00503a"
 $knownPreloader = "1ee1570f1e7f457ffa63c24ee4085b2cdea8069ea8cebf146de5ef027eaa3984"
-$knownWorkshop = "17abaf4b006f2fe984807f62661cf8b78f7b01e60bb04ae16046bda0620dd614"
+$knownWorkshop = "071df2d98162ed7b6e51fc8141d49180dd5525a647c3bdb0f02d4480b7815f69"
 
 function Hash-File([string]$path) {
     return (Get-FileHash -LiteralPath $path -Algorithm SHA256).Hash.ToLowerInvariant()
@@ -36,7 +36,7 @@ if ((Hash-File $plugin) -ne $knownPreloader) {
     throw "Anchor Chain preloader changed since captured reference. Review before building."
 }
 if ((Hash-File $upstream) -ne $knownWorkshop) {
-    throw "Upstream Workshop AnchorChain.dll differs from inspected v1.1.0. Review before building."
+    throw "Upstream Workshop AnchorChain.dll differs from the inspected Anchor Chain 1.2.0 (15 Nov 2026 refresh). Review before building."
 }
 
 $dotnet = Get-Command "dotnet" -ErrorAction SilentlyContinue

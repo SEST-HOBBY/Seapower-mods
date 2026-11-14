@@ -15,7 +15,7 @@ ROOT = HERE.parents[1]
 PINS = {
     'Seapower-Scripts.dll': '3f56861f09e867f315b194c81a7a2450154ccc6bb5afb769b4956dfd4a00503a',
     'Noesis.NoesisGUI.dll': 'c5f13e31230b3bda9abc5df656b8956a6e5bc8d58cdcacfeadb2e004d2774082',
-    'AnchorChain.dll': '17abaf4b006f2fe984807f62661cf8b78f7b01e60bb04ae16046bda0620dd614',
+    'AnchorChain.dll': '071df2d98162ed7b6e51fc8141d49180dd5525a647c3bdb0f02d4480b7815f69',
     'AnchorChain.Preloader.dll': '1ee1570f1e7f457ffa63c24ee4085b2cdea8069ea8cebf146de5ef027eaa3984',
     'IdentifyExpanded.dll': '9f0ec630e9d7659082bdce61743a87895de14f1903a44c68395f8f158af8afd7',
     'SeaPowerPopOut.dll': '6f3668aaebe366f4fecc3de5af6a1479f1765d50f176b2bd68b3434191ce3ce5',
