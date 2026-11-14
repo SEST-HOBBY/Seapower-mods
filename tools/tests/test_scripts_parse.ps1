@@ -1,8 +1,9 @@
 <#
 .SYNOPSIS
-    Every tools\*.ps1, tools\lib\*.ps1 and tools\tests\*.ps1 parses: a syntax
-    error in a script that only runs on the gaming PC (capture-context.ps1,
-    fix-load-order.ps1) would otherwise surface there first.
+    Every tools\*.ps1, tools\lib\*.ps1, tools\tests\*.ps1 and the release
+    launchers' docs\releases\20261107\*.ps1 parses: a syntax error in a script
+    that only runs on the gaming PC (capture-context.ps1, fix-load-order.ps1,
+    Prepare-PC.ps1) would otherwise surface there first.
 
 .DESCRIPTION
     Parses each file with PowerShell's own parser and runs nothing. Exit
@@ -20,7 +21,8 @@ $tools = Split-Path -Parent $PSScriptRoot
 $failed = 0
 $files = @(Get-ChildItem -LiteralPath $tools -File -Filter *.ps1) +
          @(Get-ChildItem -LiteralPath (Join-Path $tools "lib") -File -Filter *.ps1) +
-         @(Get-ChildItem -LiteralPath (Join-Path $tools "tests") -File -Filter *.ps1)
+         @(Get-ChildItem -LiteralPath (Join-Path $tools "tests") -File -Filter *.ps1) +
+         @(Get-ChildItem -LiteralPath (Join-Path (Split-Path -Parent $tools) "docs/releases/20261107") -File -Filter *.ps1)
 foreach ($f in ($files | Sort-Object FullName)) {
     $tokens = $null; $errors = $null
     [System.Management.Automation.Language.Parser]::ParseFile($f.FullName, [ref]$tokens, [ref]$errors) | Out-Null

@@ -13,7 +13,7 @@ installer checks. Nothing here has run in the game yet.
 Contact Log, Squad Panel, Combat Costs, Harmony, BepInEx and Cecil are
 unchanged. SEST's Anchor Chain fork exports every public member of Anchor
 Chain 1.2.0, so plugins built against 1.2.0 bind to it. The enable flag is
-`enable-beta-261113-3f56861f`.
+`enable-092-261113-3f56861f`.
 
 **Loader.** `BetaAssemblyPolicy.Prepare` now checks every author image against
 the members the game really has, after any rewrite and before the CLR sees it

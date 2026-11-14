@@ -7,26 +7,23 @@ built for the game version the pack's _info.ini declares. The build report
 in step 1 changes nothing; the bundled feature installation runs at the end
 of SETUP.
 
-CURRENT RELEASE: SEA POWER 0.9.0 Build 261111 (11 November 2026)
-- The pack's data is built for 0.9.0. SEST's code is not matched to it yet:
-  Runtime Fixes, UI Follow-up and the bundled beta features stay off under
-  their own checks, and SETUP makes no code changes. If SEST's beta files
-  are installed from an earlier build, SETUP puts the normal plugins back.
-- What is off without SEST's code: F11 World Operations and its awards, the
-  F11 cost totals and campaign costs panel, the Red Line runtime ribbons and
-  the runtime corrections. The campaigns, units and data load without them.
-- SETUP's step 1 reports this file as one no SEST plugin is matched to and
-  gives the version the game's own changelog names.
-
-REVIEWED BUILD: 0.8.7 Build 261107, the public beta before 0.9.0
-(Seapower-Scripts.dll 499675cd...)
-- R13 includes F11 World Operations, world service progress, campaign costs,
-  Coordinated Strike styling/cost summaries, the debrief mission ribbons and
-  reviewed beta compatibility.
-- Existing enabled SEST beta installation: close the game and run SETUP once.
+CURRENT RELEASE: SEA POWER 0.9.2 Build 261113 (13 November 2026)
+(Seapower-Scripts.dll 3f56861f...)
+- The pack's data is built for 0.9.2, and the bundled features are R14
+  (SEST Runtime 1.7.0, UI 1.5.0), reviewed for this build: F11 World
+  Operations, world service progress, campaign costs, Coordinated Strike
+  styling/cost summaries and the debrief mission ribbons.
 - First installation: run SETUP, launch to the main menu, wait about ten
   seconds, quit, then run SETUP again. A successful menu probe is required.
-- After Steam updates the Workshop item, close the game and rerun SETUP.
+- Existing enabled SEST feature installation: close the game and run SETUP
+  once. After Steam updates the Workshop item, close the game and rerun
+  SETUP.
+- Anchor Chain's own preloader logs "Could not find AnchorChain chainloader"
+  on this build: it looks before the Workshop folders are registered.
+  SEST's bundled loader waits for them and starts Anchor Chain itself, and
+  SETUP's step 1 reports a last launch in which it ran to the end as [ok].
+- Runtime Fixes 1.5.0 and UI Follow-up, matched to Build 261021, stay off on
+  this build under their own checks; the bundled features replace them.
 - The feature archive ships inside this Workshop item. It extracts to an
   external user cache; the installer backs up code before replacing it.
 - Original native game and author DLLs, campaign saves and original restore
@@ -34,12 +31,17 @@ REVIEWED BUILD: 0.8.7 Build 261107, the public beta before 0.9.0
   feature installation. Keep the error and diagnostic report for review.
 - Managed/fixture checks passed; native gameplay acceptance is still required.
 
+EARLIER BETA: 0.8.7 Build 261107 (Seapower-Scripts.dll 499675cd...)
+- The earlier R13 features (Runtime 1.6.5, UI 1.4.15) were reviewed for
+  this beta. The bundled R14 installer makes no code changes on it; if
+  SEST's beta files are installed, SETUP puts the normal plugins back.
+
 EARLIER RELEASE: 0.8.7 Build 261021 (Seapower-Scripts.dll eab2297b...)
 - Runtime Fixes 1.5.0 and UI Follow-up, which are matched to this build,
   remain selected, subject to their own game/author SHA-256 checks.
-- The bundled R13 beta feature installer makes no code changes on this build.
+- The bundled R14 feature installer makes no code changes on this build.
 
-OLDER BETAS AND ANY OTHER BUILD
+OLDER BETAS AND ANY OTHER BUILD (Sea Power 0.9.0 included)
 - Campaign/data files remain available, subject to game compatibility.
 - The bundled feature installer makes no code changes on unrecognised builds.
   Active plugins keep their own compatibility checks. A matching capture

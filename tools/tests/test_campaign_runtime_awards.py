@@ -1,9 +1,10 @@
-"""Runtime mission ribbons, read the way SEST Runtime 1.6.5 reads them.
+"""Runtime mission ribbons, read the way SEST Runtime 1.7.0 (R14) reads them.
 
 The beta runtime R13 (MissionAwards.cs, integration/beta-feature-parity/
-runtime/ on feature/runtime-mission-awards-20261110 at 77abfbfe) grants the
-ribbons a campaign names in [Mission<N>] SestRuntimeRibbonAwards. The game,
-Runtime 1.6.4 and the standard build ignore the key. This file ports the
+runtime/ on feature/runtime-mission-awards-20261110 at 77abfbfe) first
+granted the ribbons a campaign names in [Mission<N>] SestRuntimeRibbonAwards,
+and R14 (Runtime 1.7.0, for Sea Power 0.9.2 Build 261113) keeps them. The
+game, Runtime 1.6.4 and the standard build ignore the key. This file ports the
 runtime's reader to Python, line for line:
 
 - MissionAwardsTests.cs:397-402 (AsRead): how IniHandler hands the value
@@ -508,16 +509,16 @@ def centre_of(row):
 
 
 class RuntimeAwardDocs(unittest.TestCase):
-    """RIBBONS.txt and the Red Line cards say the two ribbons need R13, what
-    R13 will log, which checks run now, and the release notes name the tree
+    """RIBBONS.txt and the Red Line cards say the two ribbons need R14, what
+    R14 will log, which checks run now, and the release notes name the tree
     whose manifest they count."""
 
-    def test_ribbons_txt_says_r13_only(self):
+    def test_ribbons_txt_says_r14_only(self):
         text = (ROOT / "integration/campaign/setup/RIBBONS.txt").read_text(encoding="utf-8")
         self.assertEqual((PACK / "RIBBONS.txt").read_bytes(),
                          (ROOT / "integration/campaign/setup/RIBBONS.txt").read_bytes())
         flat = " ".join(text.split())
-        for phrase in ("RL05 Silent Passage", "RLC1 Personnel Recovery", "beta runtime R13 (Runtime 1.6.5)",
+        for phrase in ("RL05 Silent Passage", "RLC1 Personnel Recovery", "beta runtime R14 (Runtime 1.7.0)",
                        "R12 (Runtime 1.6.4) and the standard build never grant them", "MissionAwards=0"):
             self.assertTrue(phrase in flat, f"RIBBONS.txt does not say {phrase!r}")
 
@@ -527,12 +528,13 @@ class RuntimeAwardDocs(unittest.TestCase):
         for rid in awards.runtime_grants("sest-red-line"):
             self.assertTrue(rid in card, f"the test card does not name {rid}")
         for name, text in (("test card", card), ("play-test guide", guide)):
-            for phrase in ("Silent Passage", "Personnel Recovery", "R13"):
+            for phrase in ("Silent Passage", "Personnel Recovery", "R14"):
                 self.assertTrue(phrase in text, f"the {name} does not say {phrase!r}")
 
     def test_the_cards_expect_as_many_log_lines_as_the_runtime_reads_values(self):
-        # The game's EnumerateCampaignRuleSources (beta 499675cd
-        # Seapower-Scripts.dll, <EnumerateCampaignRuleSources>d__33) yields
+        # The game's EnumerateCampaignRuleSources (0.9.2 3f56861f
+        # Seapower-Scripts.dll, <EnumerateCampaignRuleSources>d__38, as on
+        # beta 499675cd's d__33) yields
         # the open campaign ini, its #!alias files, then
         # OpenCampaignDefinitionIni([File] Base), and does not skip a file
         # it has already yielded. ReadValues (MissionAwards.cs:253-266) adds
@@ -570,10 +572,10 @@ class RuntimeAwardDocs(unittest.TestCase):
                     self.assertTrue(re.search(r"\[File\] Base|its own base", flat),
                                     f"the {name} does not say why there are two lines")
 
-    def test_r5_and_r6_are_run_now_and_r1_to_r4_wait_for_r13(self):
+    def test_r5_and_r6_are_run_now_and_r1_to_r4_wait_for_r14(self):
         # R5 is the game's own developer catalogue (ReadCampaignRibbonCatalog
         # reads only [TaskForceRibbons] RibbonIds), and R6 is R12's silence:
-        # both run on this build. R1 to R4 need R13 to grant anything.
+        # both run on this build. R1 to R4 need R14 to grant anything.
         def flat(path):
             return " ".join((ROOT / path).read_text(encoding="utf-8").split())
         card = flat("docs/campaigns/red-line/test-card.md")
@@ -581,26 +583,28 @@ class RuntimeAwardDocs(unittest.TestCase):
         readme = flat("docs/releases/20261107/README-FIRST.txt")
         ribbons = flat("integration/campaign/setup/RIBBONS.txt")
         for name, text, phrase in (("test card", card, "R5 and R6 can be run now"),
-                                   ("test card", card, "R1 to R4 need R13"),
-                                   ("play-test guide", guide, "R1-R4 need beta runtime R13"),
-                                   ("README-FIRST", readme, "R5 and R6; R1 to R4 need R13"),
+                                   ("test card", card, "R1 to R4 need R14"),
+                                   ("play-test guide", guide, "R1-R4 need beta runtime R14"),
+                                   ("README-FIRST", readme, "R5 and R6; R1 to R4 need R14"),
                                    ("README-FIRST", readme, "Red Line step 4: checks R5 and R6"),
                                    ("RIBBONS.txt", ribbons, "checks R5 and R6"),
                                    ("RIBBONS.txt", ribbons, "(checks R1 to R4)")):
             self.assertTrue(phrase in text, f"the {name} does not say {phrase!r}")
         pc_checks = json.loads((ROOT / "docs/releases/20261107/validation.json").read_text(
             encoding="utf-8"))["red_line_runtime_awards"]["pc_checks"]
-        self.assertTrue(pc_checks.startswith("docs/campaigns/red-line/test-card.md R5-R6 now, R1-R4 once R13"),
+        self.assertTrue(pc_checks.startswith("docs/campaigns/red-line/test-card.md R5-R6 now, R1-R4 once R14"),
                         pc_checks)
         for name, text in (("test card", card), ("play-test guide", guide), ("README-FIRST", readme),
                            ("RIBBONS.txt", ribbons)):
             for stale in ("run R6 only", "R1 to R5", "R1-R5", "checks R1 to R6"):
                 self.assertFalse(stale in text, f"the {name} still says {stale!r}")
 
-    def test_setup_names_the_r13_features_it_installs(self):
+    def test_setup_names_the_r14_features_it_installs(self):
         # SETUP prints the bundle's feature list and beta-support/README.txt
-        # describes it; sest-profile.ps1 names the bundle. Each pack copy must
-        # match the revision its beta-support manifest carries.
+        # describes it; sest-profile.ps1 names the bundle and the game build
+        # it is for. Each pack copy must match the revision and the target
+        # game file its beta-support manifest carries. R14 keeps R13's
+        # debrief mission ribbons.
         for pack in ("integration/campaign/setup", "integration/campaign/SEST_Campaign",
                      "integration/dist/SEST_Integration"):
             folder = ROOT / pack
@@ -608,11 +612,16 @@ class RuntimeAwardDocs(unittest.TestCase):
             readme = " ".join((folder / "beta-support/README.txt").read_text(encoding="utf-8").split())
             profile = (folder / "sest-profile.ps1").read_text(encoding="utf-8")
             with self.subTest(pack=pack):
-                self.assertTrue(manifest["revision"].startswith("R13-"), manifest["revision"])
+                self.assertTrue(manifest["revision"].startswith("R14-"), manifest["revision"])
                 self.assertIn("debrief mission ribbons", manifest["features"])
                 self.assertIn("debrief mission ribbons", readme)
-                self.assertIn("bundled R13 beta features", profile)
+                self.assertIn("bundled R14 features", profile)
+                self.assertNotIn("bundled R13 beta features", profile)
                 self.assertNotIn("bundled R12 features", profile)
+                release = re.search(r"\[string\]\$ReleaseSha256 = '([0-9a-f]{64})'", profile)
+                self.assertIsNotNone(release, "sest-profile.ps1 has no -ReleaseSha256 default")
+                self.assertEqual(release.group(1), manifest["target_game_sha256"],
+                                 "sest-profile.ps1 names another game file than the bundle targets")
 
     def test_the_release_notes_name_the_tree_whose_manifest_they_count(self):
         # The toolkit README-FIRST names is built from one branch; the file

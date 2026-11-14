@@ -68,7 +68,7 @@ try {
     $zip=[IO.Compression.ZipFile]::OpenRead($shippedZip)
     try{$reader=New-Object IO.StreamReader($zip.GetEntry('payload/build-receipt.json').Open());$shipped=($reader.ReadToEnd()|ConvertFrom-Json).candidate_revision;$reader.Dispose()}finally{$zip.Dispose()}
     Assert ($shipped -match '^R[0-9]+-') "The shipped package has no candidate revision: $shipped"
-    foreach($revision in @('R6-fixture','R14-fixture')){
+    foreach($revision in @('R6-fixture','R15-fixture')){
         $receipt.candidate_revision=$revision;Put (J $package 'payload' 'build-receipt.json') ($receipt|ConvertTo-Json -Depth 5)
         $refused=J $root ('refused-'+$revision);$why=''
         try{& $installer @options -BackupDirectory $refused|Out-Null}catch{$why=$_.Exception.Message}

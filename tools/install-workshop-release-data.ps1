@@ -68,7 +68,7 @@ $WorkshopContentRoot=(Resolve-Path -LiteralPath $WorkshopContentRoot).ProviderPa
 if((Split-Path -Leaf $WorkshopContentRoot) -ne '1286220'){throw 'WorkshopContentRoot must end in 1286220.'}
 if(!$BetaPackageRoot){throw 'Supply the extracted reviewed repair directory with -BetaPackageRoot.'}
 $receipt=Get-Content -LiteralPath (J $BetaPackageRoot 'payload' 'build-receipt.json') -Raw | ConvertFrom-Json
-if($receipt.candidate_revision -notmatch '^R(?:[789]|1[0-3])-'){throw 'This data playtest requires a reviewed R7, R8, R9, R10, R11, R12 or R13 beta repair.'}
+if($receipt.candidate_revision -notmatch '^R(?:[789]|1[0-4])-'){throw 'This data playtest requires a reviewed R7, R8, R9, R10, R11, R12, R13 or R14 beta repair.'}
 if((Hash (J $GameDirectory 'Sea Power_Data' 'Managed' 'Seapower-Scripts.dll')) -ne $receipt.target_game_sha256){throw 'Game build differs from the reviewed repair.'}
 $destination=J $WorkshopContentRoot '3812461539'
 $code=[ordered]@{

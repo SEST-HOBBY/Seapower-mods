@@ -2,9 +2,9 @@ SEST R12 - RIBBONS AND NATIONAL AWARDS
 13 November 2026 | SEST-DEV
 
 WORLD OPERATIONS - F11 > SERVICE (BETA)
-World Operations needs SEST's code, which SETUP installs on game build
-0.8.7-261107 only; on any other build, Sea Power 0.9.0 included, the world
-map has no SEST window and these awards do not appear. 25 fictional world
+World Operations needs SEST's code, which SETUP installs on Sea Power 0.9.2
+Build 261113 only; on any other build the world map has no SEST window and
+these awards do not appear. 25 fictional world
 awards recognise manual battle service, distinct
 campaign battle days, theatre experience and successful Admiralty duties.
 Original awards and v1 service records are preserved. New task records use
@@ -184,17 +184,22 @@ The Navy and Marine Corps Achievement Medal (O-4 and below) and the US Navy
 Unit and Meritorious Unit Commendations are no longer granted; a record
 earned with an earlier test build still shows.
 
-RED LINE RUNTIME RIBBONS - BETA RUNTIME R13 ONLY
+RED LINE RUNTIME RIBBONS - BETA RUNTIME R14 ONLY
 Two more fictional Red Line ribbons, for any commander, are defined in the
-campaign and keyed for SEST's beta runtime R13 (Runtime 1.6.5), which grants
-them at the debrief. The game itself ignores the key: R12 (Runtime 1.6.4)
-and the standard build never grant them, and neither does R13 with
-MissionAwards=0 under [Runtime] in plugins/sest_runtime.ini. Like every
-ribbon here, each also needs the mission's required result. This update's
-beta features are R13: on game build 0.8.7-261107, once SEST SETUP has
-installed them, R13 grants both ribbons when their terms are met. On
-0.8.7-261021 SEST keeps Runtime 1.5.0, and on Sea Power 0.9.0 SEST's code
-does not load; on neither is a runtime ribbon granted.
+campaign and keyed for SEST's beta runtime R14 (Runtime 1.7.0), which grants
+them at the debrief, as R13 (Runtime 1.6.5) did on the 0.8.7-261107 beta.
+The game itself ignores the key: R12 (Runtime 1.6.4) and the standard build
+never grant them, and neither does R14 with MissionAwards=0 under [Runtime]
+in plugins/sest_runtime.ini. Like every ribbon here, each also needs the
+mission's required result, and, as with the game's own ribbons on 0.9.2, a
+ribbon the commander already holds is not granted again. This update's
+features are R14: on Sea Power 0.9.2 Build 261113, once SEST SETUP has
+installed them, R14 grants both ribbons when their terms are met. On
+0.8.7-261021 SEST keeps Runtime 1.5.0, and on any other build SEST's code
+does not load; on neither is a runtime ribbon granted. The game's own
+[RibbonAward_] rules, new in 0.9.2, cannot replace them: they test campaign
+variables that mission triggers set, and no trigger sees survivors rescued
+or a mission with no launch.
 - RL05 Silent Passage: Under the Convergence's Passage objective completed
   with no weapon launched and no gun round fired by any unit of the task
   force. A failed launch counts as a launch; noisemakers, chaff, decoys,
@@ -230,10 +235,10 @@ gallery flag set (public domain). Each campaign's art/ribbons/SOURCES.txt
 lists its pictures and sources. No AI imagery is used.
 
 PC CHECKS
-On game build 0.8.7-261107, load an existing world and check Service
-progress, wrapping and scrolling. Complete an accepted task, return to the
-map and compare task/battle counts. (World Operations is SEST's code; on
-Sea Power 0.9.0 it is off.)
+On Sea Power 0.9.2 with SEST's features installed, load an existing world
+and check Service progress, wrapping and scrolling. Complete an accepted
+task, return to the map and compare task/battle counts. (World Operations
+is SEST's code; on any other build it is off.)
 Start a new Southern Watch campaign: the Service Record offers the fourteen
 nations. Compare one Anzac and one Burke price as an Australian and as a US
 commander. Check that the British commander's ranks from Lieutenant up
@@ -267,15 +272,15 @@ and a Cold War Su-27 the USSR; the Kuznetsov's 2016 fit shows Russian
 Federation and her 1991 fit the USSR. Pacific Strike's Action in the Taiwan
 Strait still generates its Soviet force. The Southern Watch test card's RU
 rows have the detail.
-On game build 0.8.7-261107 with this update's R13 (Runtime 1.6.5)
+On Sea Power 0.9.2 with this update's R14 (Runtime 1.7.0)
 installed by SETUP:
 complete RL05 without launching anything and RLC1 with its pilot recovered,
 and read each runtime ribbon's lines in Player.log (checks R1 to R4). The
 developer ribbon menu still offers neither ribbon, and with MissionAwards=0
-or on any build without R13 neither is granted (the Red Line test card's
+or on any build without R14 neither is granted (the Red Line test card's
 checks R5 and R6); that is expected. Each
 debrief logs two lines per runtime ribbon: judge by the first, the verdict.
 The second says "already awarded" after an award, or otherwise repeats the
 first. It is expected: Red Line's campaign.ini names itself as its [File]
 Base, and the game yields that file once as the open campaign and again as
-its base, so R13 reads the key twice.
+its base, so R14 reads the key twice.

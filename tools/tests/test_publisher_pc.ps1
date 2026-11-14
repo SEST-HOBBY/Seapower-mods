@@ -49,7 +49,7 @@ try{
     & git -C $repo -c user.name=SEST-DEV -c user.email=fixture@example.invalid commit --quiet -m 'Publisher fixture'
     if($LASTEXITCODE -ne 0){throw 'Cannot initialise fixture repository'}
     $head=(& git -C $repo rev-parse HEAD).Trim()
-    Json (J $toolkit 'SOURCE-RECEIPT.json') @{beta_directory='R13';release_commit=$head}
+    Json (J $toolkit 'SOURCE-RECEIPT.json') @{beta_directory='R14';release_commit=$head}
     $native=J $game 'Sea Power_Data' 'Managed' 'native.dll';Put $native 'NATIVE MUST STAY'
     $oldMod=J $stream 'OtherMod' '_info.ini';Put $oldMod 'OTHER MOD MUST STAY'
     Assert (Fails {& $scriptFile -GameRoot $game -WorkRoot $work}) 'Unprepared upload was accepted'
