@@ -33,6 +33,78 @@ static class WorldOperationsTests
     static List<object> Ribbons(object store, string scope) => ((IEnumerable)Call(store, "Ribbons", scope)).Cast<object>().ToList();
     static int Progress(object store, string scope, string id) => (int)Field(Ribbons(store, scope).Single(x => (string)Field(x, "Id") == id), "Progress");
 
+    // Coordinated Strike pop-out: the F8 panel is IMGUI and Pop-Out Windows
+    // moves only Noesis windows, so SEST routes the author's own OnGUI by
+    // display. These are binding, IL and state checks; no Unity GUI runs.
+    static void StrikePopOut(Assembly rt, Assembly strike, string strikePath, string dir)
+    {
+        var popOut = rt.GetType("Sest.RuntimeFixes.StrikePopOut", true);
+        Call(popOut, "Bind", strike);
+        Check(true, "Strike pop-out binds the inspected panel position, visibility, styles, title, capture and save members");
+        var routeMethod = popOut.GetMethod("Route", All);
+        var eventType = routeMethod.GetParameters()[5].ParameterType;
+        Func<bool, bool, bool, int, int, int, bool, bool> route = (popped, shown, open, display, index, type, keyed) =>
+            (bool)routeMethod.Invoke(null, new object[] { popped, shown, open, display, index, Enum.ToObject(eventType, type), keyed });
+        const int MouseDown = 0, KeyDown = 4, Repaint = 7, Layout = 8, ExecuteCommand = 14;
+        Check(route(false, true, false, -1, 0, Repaint, false) && route(false, true, false, -1, 1, MouseDown, false), "Without an open Pop-Out monitor every author IMGUI pass runs unchanged");
+        Check(route(false, true, true, 2, 0, Repaint, false) && route(false, true, true, 2, 1, Repaint, false) && !route(false, true, true, 2, 2, Repaint, false), "Docked: the panel stays off the open Pop-Out monitor only");
+        Check(!route(false, true, true, 2, 2, MouseDown, false) && !route(false, true, true, 2, 2, Layout, false) && route(false, true, true, 2, 2, KeyDown, true) && route(false, true, true, 2, 2, Layout, true),
+              "Docked: keys tagged with the Pop-Out monitor still reach the author's fields, as without the pop-out");
+        Check(route(true, true, true, 2, 2, Repaint, false) && route(true, true, true, 2, 2, MouseDown, false) && route(true, true, true, 2, 2, KeyDown, true), "Popped: the Pop-Out monitor gets drawing, clicks and keys");
+        Check(!route(true, true, true, 2, 0, Repaint, false) && !route(true, true, true, 2, 0, MouseDown, false) && !route(true, true, true, 2, 0, Layout, false), "Popped: no drawing, clicks or bare layout pass on the main screen");
+        Check(!route(true, true, true, 2, 1, Repaint, false) && !route(true, true, true, 2, 1, MouseDown, false), "Popped: no copy on any other monitor either (for example the game's world-view monitor)");
+        foreach (string hook in new[] { "AfterUpdate", "BeforeGUI", "AfterGUI", "BeforeWindow", "BeforeCapture", "BeforeSave", "AfterSave" })
+            Check(popOut.GetMethods(All).Count(m => m.Name == hook) == 1, "Api.Hooks finds strike pop-out callback by name alone: " + hook);
+        var captureHook = popOut.GetMethod("BeforeCapture", All).GetParameters();
+        Check(captureHook.Length == 2 && captureHook[1].Name == "__0" && captureHook[1].ParameterType == typeof(bool).MakeByRefType(), "The capture prefix rewrites SetMouseCapture's only argument by index");
+        Check(route(true, true, true, 2, 0, KeyDown, true) && route(true, true, true, 2, 0, Layout, true) && route(true, true, true, 2, 0, ExecuteCommand, true), "Popped: typing and copy/paste from the main window still reach the author's fields");
+        Check(route(true, false, true, 2, 0, Repaint, false) && !route(true, false, true, 2, 2, Repaint, false), "Hidden by F8 while popped: the alert banner and capture release stay on the main screen");
+
+        var stateType = rt.GetType("Sest.RuntimeFixes.StrikePopOutState", true);
+        object fresh = Call(stateType, "Parse", new object[] { null });
+        Check(!(bool)Field(fresh, "Detached") && (float)Field(fresh, "X") == 80f && (bool)Field(fresh, "Writable"), "No record: docked, default pop-out position, writable");
+        object saved = Activator.CreateInstance(stateType, true);
+        Set(saved, "Detached", true); Set(saved, "X", 1234.5f); Set(saved, "Y", 77f);
+        string statePath = Path.Combine(dir, "strike-popout-v1.txt");
+        Call(saved, "Save", statePath);
+        object read = Call(stateType, "Parse", File.ReadAllText(statePath));
+        Check((bool)Field(read, "Detached") && (float)Field(read, "X") == 1234.5f && (float)Field(read, "Y") == 77f && (bool)Field(read, "Writable"), "The pop-out choice and position survive a restart");
+        foreach (string bad in new[] { "SEST_STRIKE_1\n2\n1|1", "SEST_STRIKE_1\n1\nNaN|5", "SEST_STRIKE_1\n1\n-4|5", "SEST_STRIKE_2\n1\n4|5", "not ours" })
+            Check(!(bool)Field(Call(stateType, "Parse", bad), "Writable"), "A malformed or foreign strike pop-out record is not trusted: " + bad.Replace("\n", "/"));
+        File.WriteAllText(statePath, "not ours");
+        Call(saved, "Save", statePath);
+        Check(File.ReadAllText(statePath) == "not ours" && !(bool)Field(saved, "Writable"), "A foreign strike pop-out file is never overwritten");
+
+        var module = ModuleDefinition.ReadModule(strikePath);
+        var panel = module.GetType("CoordinatedStrikeTool.StrikePanel");
+        Func<string, Mono.Collections.Generic.Collection<Mono.Cecil.Cil.Instruction>> body = n => panel.Methods.Single(m => m.Name == n).Body.Instructions;
+        var gui = body("OnGUI");
+        Check(gui.Count(i => (i.Operand as MethodReference)?.FullName.StartsWith("UnityEngine.Rect UnityEngine.GUILayout::Window(") == true) == 1 &&
+              gui.Any(i => i.OpCode.Code == Mono.Cecil.Cil.Code.Ldc_I4 && (int)i.Operand == 0x5EA90) &&
+              gui.Any(i => i.OpCode.Code == Mono.Cecil.Cil.Code.Ldftn && ((MethodReference)i.Operand).Name == "DrawWindow"),
+              "The F8 panel is one IMGUI GUILayout.Window (id 0x5EA90) drawn by DrawWindow");
+        var titles = gui.Where(i => i.OpCode.Code == Mono.Cecil.Cil.Code.Ldstr).Select(i => (string)i.Operand).ToList();
+        Check(titles.Contains((string)popOut.GetField("Title", All).GetValue(null)) && titles.Contains((string)popOut.GetField("LockedTitle", All).GetValue(null)),
+              "The title-strip space check measures the author's exact title text");
+        var calls = body("DrawWindow").Where(i => i.OpCode.Code == Mono.Cecil.Cil.Code.Call || i.OpCode.Code == Mono.Cecil.Cil.Code.Callvirt).ToList();
+        Check(((MethodReference)calls.Last().Operand).FullName == "System.Void UnityEngine.GUI::DragWindow()",
+              "GUI.DragWindow() is the window function's last call, so a title button drawn first keeps its click");
+        Check(!module.Types.SelectMany(t => t.Methods.Concat(t.NestedTypes.SelectMany(n => n.Methods))).Where(m => m.HasBody)
+                  .SelectMany(m => m.Body.Instructions).Any(i => (i.Operand as MethodReference)?.Name == "get_displayIndex"),
+              "The author never filters IMGUI by display, so SEST's routing alone decides the monitor");
+        var save = body("SavePrefs");
+        Check(save.Any(i => i.OpCode.Code == Mono.Cecil.Cil.Code.Ldstr && (string)i.Operand == "CoordinatedStrikeTool.x") && save.Any(i => (i.Operand as FieldReference)?.Name == "_window"),
+              "The author's saved main-screen position is _window, which SEST swaps back while popped");
+        Check(body("Update").Any(i => (i.Operand as MethodReference)?.Name == "SavePrefs") && body("OnGUI").Any(i => (i.Operand as MethodReference)?.Name == "SetMouseCapture"),
+              "F8 hide saves through SavePrefs and OnGUI owns the game mouse capture that SEST redirects");
+        var capture = panel.Methods.Single(m => m.Name == "SetMouseCapture");
+        Check(capture.Parameters.Count == 1 && capture.Parameters[0].ParameterType.FullName == "System.Boolean", "SetMouseCapture takes one bool, the argument SEST replaces while popped");
+        Check(body("OnApplicationQuit").Any(i => (i.Operand as MethodReference)?.Name == "SavePrefs"), "Quitting runs SavePrefs, where SEST also records the Pop-Out position");
+        Check(gui.Any(i => (i.Operand as MethodReference)?.Name == "GetMouseButtonDown") && gui.Any(i => (i.Operand as MethodReference)?.FullName == "System.Boolean UnityEngine.Rect::Contains(UnityEngine.Vector2)") &&
+              gui.Any(i => (i.Operand as MethodReference)?.Name == "ReleaseFieldFocus") && gui.Any(i => (i.Operand as FieldReference)?.Name == "_fieldFocused"),
+              "OnGUI releases a focused field on an outside click; SEST applies the same release by pointer while popped");
+    }
+
     static void Main(string[] args)
     {
         string refs = Path.GetFullPath(args[0]), runtime = Path.GetFullPath(args[1]), workshop = Path.GetFullPath(args[2]);
@@ -545,6 +617,7 @@ static class WorldOperationsTests
             var strike = Assembly.LoadFrom(Path.Combine(workshop, "3806686336", "CoordinatedStrikeTool.dll"));
             Call(rt.GetType("Sest.RuntimeFixes.CoordinatedStrikeRefinements", true), "Bind", strike);
             Check(true, "Current strike style, plan and cost bindings resolve without applying GUI hooks");
+            StrikePopOut(rt, strike, Path.Combine(workshop, "3806686336", "CoordinatedStrikeTool.dll"), dir);
         }
         finally { Directory.Delete(dir, true); }
         Console.WriteLine("World service, lifecycle, UI model and optional-mod binding checks passed: " + checks);

@@ -99,5 +99,16 @@ class BetaSourceContract(unittest.TestCase):
         self.assertIn('SKIPPED before CLR load', policy)
         self.assertIn('InvalidNativeFields', policy)
 
+    def test_loader_honours_mod_manager_ticks(self):
+        # Anchor Chain 1.2.0 scans only ticked, existing Mod Manager folders,
+        # loads nothing when Anchor Chain itself is unticked, and still finds
+        # user configs in ACConfigs, which Mod Manager lists unticked.
+        self.assertIn("FileManager.Instance.Directories.Select(dir => (Directory: dir.DirectoryInfo, dir.IsChecked))", self.main)
+        self.assertIn("row.IsChecked && row.Directory is { Exists: true }", self.main)
+        self.assertIn('row.IsChecked && row.Directory?.Name == "3380210757"', self.main)
+        self.assertIn(".Append(Path.Join(configPath, fileName))", self.main)
+        self.assertNotIn("ConvertAll(dir => dir.DirectoryInfo)", self.main)
+        self.assertNotIn("_allDirectories.Add(new DirectoryInfo(_configPath))", self.main)
+
 if __name__ == "__main__":
     unittest.main(verbosity=2)

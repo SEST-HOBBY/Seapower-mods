@@ -139,6 +139,9 @@ public sealed class RuntimeFixesMod : IAnchorChainMod
 			{
 				return;
 			}
+			// Beta only, default on: StrikePopOut=0 in [Runtime] keeps the
+			// Coordinated Strike panel on the main screen without the button.
+			CoordinatedStrikeRefinements.PopOutEnabled = Policy.TextOption(lines, "StrikePopOut", "1") == "1";
 			try
 			{
 				F11CombatCosts.Install(assembly, Path.Combine(Path.GetDirectoryName(path), "SEST", "combat-history-v1.txt"));

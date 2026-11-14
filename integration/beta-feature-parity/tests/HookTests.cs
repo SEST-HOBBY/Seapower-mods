@@ -54,6 +54,30 @@ static class HookTests
             .SequenceEqual(M(pop, "SeaPowerPopOut.PopOutScreen", "FindButtonsPanel").GetMethodBody().GetILAsByteArray()),
             "TitleMenu uses the same title-bar panel the Formation UI reads");
     }
+    // Coordinated Strike pop-out: Pop-Out 1.2.3 cannot host the IMGUI F8
+    // panel, so the runtime uses only its monitor surface and these members.
+    static void StrikeSurface(Assembly runtime, Assembly pop)
+    {
+        var screen = pop.GetType("SeaPowerPopOut.PopOutScreen", true);
+        Check(!pop.GetReferencedAssemblies().Any(r => r.Name == "UnityEngine.IMGUIModule"), "Pop-Out Windows 1.2.3 has no IMGUI path to host the F8 panel");
+        Check(screen.GetField("screenDisplay", All)?.FieldType == typeof(int), "Pop-Out records the monitor it opened");
+        Check(screen.GetField("keep", All)?.FieldType.FullName.StartsWith("System.Collections.Generic.List`1[[UnityEngine.Rect,") == true, "Pop-Out's see-through region is a List<UnityEngine.Rect>");
+        Check(screen.GetField("hint", All)?.FieldType.FullName == "Noesis.TextBlock", "Pop-Out's empty-monitor hint is a TextBlock");
+        var late = Body(M(pop, "SeaPowerPopOut.PopOutScreen", "LateUpdate"));
+        int collect = late.FindIndex(i => (i.operand as MethodInfo)?.Name == "CollectShape"), shape = late.FindIndex(i => (i.operand as MethodInfo)?.Name == "Shape");
+        Check(collect >= 0 && shape > collect && late.Skip(collect).Take(shape - collect).Any(i => (i.operand as FieldInfo)?.Name == "keep"),
+            "The see-through region is applied from keep straight after CollectShape, so a CollectShape postfix can add the strike panel");
+        var update = Body(M(pop, "SeaPowerPopOut.PopOutScreen", "UpdateScreen"));
+        Check(update.Any(i => (i.operand as FieldInfo)?.Name == "hint") && update.Any(i => (i.operand as MethodInfo)?.Name == "set_Visibility"),
+            "UpdateScreen resets the hint each frame; a postfix hides it while the strike panel is there");
+        var claim = Body(M(pop, "SeaPowerPopOut.PopOutScreen", "ClaimMouse"));
+        Check(claim.Any(i => (i.operand as MethodInfo)?.Name == "RelativeMouseAt") && claim.Any(i => (i.operand as FieldInfo)?.Name == "screenDisplay"),
+            "Pop-Out claims the game mouse on its monitor through Display.RelativeMouseAt");
+        Check(M(pop, "SeaPowerPopOut.PopOutScreen", "Open").ReturnType == typeof(bool), "Pop-Out's Open reports whether its monitor surface is up");
+        var bridge = runtime.GetType("Sest.RuntimeFixes.PopOutBridge", true);
+        foreach (string member in new[] { "EnsureScreenBound", "HookStrikeSurface", "AfterCollectShape", "AfterUpdateScreen" })
+            Check(bridge.GetMethods(All).Count(m => m.Name == member) == 1, "Runtime strike surface member, unique for Api.Hooks' by-name lookup: " + member);
+    }
     static void Main(string[] args)
     {
         string refs = Path.GetFullPath(args[0]), workshop = Path.GetFullPath(args[3]);
@@ -88,6 +112,7 @@ static class HookTests
             Check(screen.GetField(field, All) != null, "Updated Pop-Out field: " + field);
         Check(screen.GetProperty("Instance", All) != null && screen.GetProperty("DisplayAvailable", All) != null, "Updated Pop-Out singleton/display accessors");
         PopOutTitleMenu(ui, pop);
+        StrikeSurface(runtime, pop);
         Console.WriteLine("Native/plugin hook checks passed: " + checks + " assertions using beta IL and current Pop-Out metadata; no Unity gameplay execution.");
     }
 }

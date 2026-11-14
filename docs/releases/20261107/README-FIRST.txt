@@ -36,10 +36,11 @@ WHAT CHANGED SINCE THE LAST VERSION OF THIS FILE
   Shadow and MV-75 crew escape files are now held as well, so their
   "Unsupported game" lines go; the world Costs tab covers the loaded
   campaign save only, so a new campaign no longer shows an earlier
-  campaign's battles. Known issue, not fixed: in Sulu Line's optional
-  Night Market, 0.9.2's submarine AI takes the semi-submersible to 25-60
-  ft whatever the mission says, and the patrol has no sonar or underwater
-  weapon, so she cannot be stopped yet.
+  campaign's battles. In Sulu Line's optional Night Market, 0.9.2's
+  submarine AI takes the semi-submersible to 25-60 ft whatever the
+  mission says, below anything a gun can hit; the corvette BRP Conrado
+  Yap now sails with the patrol, and her sonar and Mk 46 torpedoes reach
+  her there (to be confirmed on the PC, Sulu Line test card 7.1).
 - Decision 6 is answered by the game's code: 0.9.2's own [RibbonAward_]
   rules test campaign variables that mission triggers set, and no trigger
   sees survivors rescued or a mission with no launch. Red Line's two
@@ -58,8 +59,9 @@ WHAT CHANGED SINCE THE LAST VERSION OF THIS FILE
       R14 installs into that Workshop item (3812461539) and refuses to stage
       while it is out of the load order. Keep the collection on. If Mod
       Manager lists Dynamic Campaign Mod or Coordinated Strike Tool as not
-      compatible, switch them on anyway if it lets you, and say whether it
-      did: World Operations (step 2) needs Dynamic Campaign Mod. Quit.
+      compatible, click Ignore, not Disable mods: Disable mods switches them
+      off, World Operations (step 2) needs Dynamic Campaign Mod, and the
+      warning returns at every start until their authors update them. Quit.
    b. Keep SEST and the collection subscribed. Do not unsubscribe anything
       unless step 1 says so.
 

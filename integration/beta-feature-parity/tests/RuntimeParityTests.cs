@@ -65,6 +65,13 @@ static class RuntimeParityTests
             new[] { "[Other]", "Mod1Directory=3812461539,True" },
             new[] { "[LoadOrder]", " Mod1Directory = 3812461539, true " },
         }) Check(Equals(Call(before, null, "PackEnabled", settings, "3812461539"), Call(after, null, "PackEnabled", settings, "3812461539")), "Pack-selection policy parity");
+        // 0.9.2's Mod Manager saves three fields per row; the runtime must still see the pack.
+        Check((bool)Call(after, null, "PackEnabled", new[] { "[LoadOrder]", "Mod1Directory=3812461539,True,3812461539" }, "3812461539"),
+            "0.9.2 three-field LoadOrder row: pack enabled");
+        Check(!(bool)Call(after, null, "PackEnabled", new[] { "[LoadOrder]", "Mod1Directory=3812461539,False,3812461539" }, "3812461539"),
+            "0.9.2 three-field LoadOrder row: pack disabled");
+        Check(!(bool)Call(after, null, "PackEnabled", new[] { "[LoadOrder]", "Mod1Directory=3812461539,True,3812461539,x" }, "3812461539"),
+            "Unknown four-field LoadOrder row is not read as enabled");
         for (int i = 0; i < 30; i++)
         {
             object oldRecord = Record(old, i), newRecord = Record(candidate, i);

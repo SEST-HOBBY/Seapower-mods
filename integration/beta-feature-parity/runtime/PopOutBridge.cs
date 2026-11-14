@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -25,6 +26,8 @@ internal static class PopOutBridge
 
 	private const string PopHash = "5709ed68af4623fceee3f3badc8e06bdb9b98f8e095fb0deac2685a9ebc5fc36";
 
+	private const string Pop123Hash = "6f3668aaebe366f4fecc3de5af6a1479f1765d50f176b2bd68b3434191ce3ce5";
+
 	private const string FormationHash = "6230e8e78e2ba7ba222241d0c3dcc881d2507ebeeb4eab24b6401cc9144283dd";
 
 	private static Type screenType;
@@ -49,6 +52,20 @@ internal static class PopOutBridge
 
 	private static FieldInfo trackedWindows;
 
+	private static FieldInfo screenDisplay;
+
+	private static FieldInfo hintField;
+
+	private static FieldInfo keepField;
+
+	private static bool pop123;
+
+	private static bool strikeSurface;
+
+	private static bool strikeSurfaceRejected;
+
+	private static double screenRetry;
+
 	private static bool formationBound;
 
 	private static bool popRejected;
@@ -70,6 +87,19 @@ internal static class PopOutBridge
 	private static object Screen => (!(instance == null)) ? instance.GetValue(null, null) : null;
 
 	internal static bool CanOpenStandalone => Screen != null && displayAvailable != null && (bool)displayAvailable.GetValue(null, null);
+
+	internal static bool ScreenBound => strikeSurface && Screen != null;
+
+	internal static bool ScreenOpen => strikeSurface && Root != null;
+
+	internal static int ScreenDisplay
+	{
+		get
+		{
+			object screen = Screen;
+			return (screen != null && screenDisplay != null) ? ((int)screenDisplay.GetValue(screen)) : (-1);
+		}
+	}
 
 	internal static FrameworkElement Root
 	{
@@ -114,35 +144,9 @@ internal static class PopOutBridge
 		Assembly[] assemblies = AppDomain.CurrentDomain.GetAssemblies();
 		foreach (Assembly assembly in assemblies)
 		{
-			if (screenType == null && !popRejected && assembly.GetType("SeaPowerPopOut.PopOutScreen", throwOnError: false) != null)
+			if (!BindScreen(assembly))
 			{
-				if (!HashMatches(assembly, "5709ed68af4623fceee3f3badc8e06bdb9b98f8e095fb0deac2685a9ebc5fc36") && !HashMatches(assembly, "6f3668aaebe366f4fecc3de5af6a1479f1765d50f176b2bd68b3434191ce3ce5"))
-				{
-					popRejected = true;
-					Api.Log("pop-out bridge inactive for an uninspected Pop-Out DLL");
-					continue;
-				}
-				screenType = assembly.GetType("SeaPowerPopOut.PopOutScreen");
-				instance = screenType.GetProperty("Instance", BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Static);
-				root = screenType.GetField("root", BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Static);
-				host = screenType.GetField("host", BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Static);
-				opening = Api.Method(screenType, "HostOpening", typeof(bool), typeof(WindowHost), typeof(object));
-				decorate = Api.Method(screenType, "Decorate", typeof(void), typeof(Window));
-				move = Api.Method(screenType, "Move", typeof(void), typeof(object), typeof(bool), typeof(bool));
-				place = Api.Method(screenType, "Place", typeof(void), typeof(Window), typeof(string));
-				openStandalone = Api.Method(screenType, "Open", typeof(bool));
-				displayAvailable = screenType.GetProperty("DisplayAvailable", BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Static);
-				trackedWindows = screenType.GetField("windows", BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Static);
-				if (displayAvailable == null || displayAvailable.PropertyType != typeof(bool) || trackedWindows == null)
-				{
-					throw new MissingMemberException("captured standalone pop-out host");
-				}
-				Api.Hooks(Api.Method(screenType, "Remember", typeof(void), typeof(Window)), typeof(ContactWindowBridge), "BeforePopOutRemember", null, "io.github.sest-hobby.contacts-popout");
-				if (instance == null || root == null || host == null)
-				{
-					throw new MissingMemberException("captured pop-out window host");
-				}
-				Api.Log("native window bridge attached to the inspected Pop-Out Windows image");
+				continue;
 			}
 			if (!formationBound && !formationRejected && assembly.GetType("SeaPowerSquadPanel.SquadManagerController", throwOnError: false) != null)
 			{
@@ -168,6 +172,147 @@ internal static class PopOutBridge
 		catch (Exception error)
 		{
 			ContactWindowBridge.Disable(error);
+		}
+	}
+
+	// Binds PopOutScreen from one assembly. False only for an uninspected
+	// Pop-Out image (EnsureBound's former `continue`). A missing member leaves
+	// the bridge unbound (Screen null) instead of half bound, then rethrows.
+	private static bool BindScreen(Assembly assembly)
+	{
+		if (screenType != null || popRejected || assembly.GetType("SeaPowerPopOut.PopOutScreen", throwOnError: false) == null)
+		{
+			return true;
+		}
+		bool current = HashMatches(assembly, Pop123Hash);
+		if (!current && !HashMatches(assembly, PopHash))
+		{
+			popRejected = true;
+			Api.Log("pop-out bridge inactive for an uninspected Pop-Out DLL");
+			return false;
+		}
+		try
+		{
+			screenType = assembly.GetType("SeaPowerPopOut.PopOutScreen");
+			instance = screenType.GetProperty("Instance", BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Static);
+			root = screenType.GetField("root", BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Static);
+			host = screenType.GetField("host", BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Static);
+			opening = Api.Method(screenType, "HostOpening", typeof(bool), typeof(WindowHost), typeof(object));
+			decorate = Api.Method(screenType, "Decorate", typeof(void), typeof(Window));
+			move = Api.Method(screenType, "Move", typeof(void), typeof(object), typeof(bool), typeof(bool));
+			place = Api.Method(screenType, "Place", typeof(void), typeof(Window), typeof(string));
+			openStandalone = Api.Method(screenType, "Open", typeof(bool));
+			displayAvailable = screenType.GetProperty("DisplayAvailable", BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Static);
+			trackedWindows = screenType.GetField("windows", BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Static);
+			if (displayAvailable == null || displayAvailable.PropertyType != typeof(bool) || trackedWindows == null)
+			{
+				throw new MissingMemberException("captured standalone pop-out host");
+			}
+			Api.Hooks(Api.Method(screenType, "Remember", typeof(void), typeof(Window)), typeof(ContactWindowBridge), "BeforePopOutRemember", null, "io.github.sest-hobby.contacts-popout");
+			if (instance == null || root == null || host == null)
+			{
+				throw new MissingMemberException("captured pop-out window host");
+			}
+			pop123 = current;
+			Api.Log("native window bridge attached to the inspected Pop-Out Windows image");
+		}
+		catch
+		{
+			screenType = null;
+			instance = null;
+			popRejected = true;
+			throw;
+		}
+		return true;
+	}
+
+	// The Coordinated Strike pop-out needs only Pop-Out's monitor surface, not
+	// the native cost surface, so it binds without NativeCombatSurface.Ready.
+	// Formation and Contacts keep EnsureBound and its existing gate. Only the
+	// inspected 1.2.3 image is used: its screenDisplay, hint and keep members
+	// were not reviewed in 1.1.3.
+	internal static bool EnsureScreenBound()
+	{
+		if (strikeSurface || strikeSurfaceRejected || popRejected || NoesisTeardown.InProgress)
+		{
+			return strikeSurface;
+		}
+		double num = (double)Stopwatch.GetTimestamp() / (double)Stopwatch.Frequency;
+		if (num < screenRetry)
+		{
+			return false;
+		}
+		screenRetry = num + 2.0;
+		if (screenType == null)
+		{
+			foreach (Assembly assembly in AppDomain.CurrentDomain.GetAssemblies())
+			{
+				if (!BindScreen(assembly))
+				{
+					return false;
+				}
+			}
+		}
+		if (screenType == null)
+		{
+			return false;
+		}
+		if (!pop123)
+		{
+			strikeSurfaceRejected = true;
+			Api.Log("Coordinated Strike pop-out needs Pop-Out Windows 1.2.3; the F8 panel stays on the main screen");
+			return false;
+		}
+		screenDisplay = ScreenField("screenDisplay", typeof(int));
+		hintField = ScreenField("hint", typeof(TextBlock));
+		keepField = ScreenField("keep", typeof(List<UnityEngine.Rect>));
+		strikeSurface = true;
+		return true;
+	}
+
+	private static FieldInfo ScreenField(string name, Type type)
+	{
+		FieldInfo field = screenType.GetField(name, BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public);
+		if (field == null || field.FieldType != type)
+		{
+			throw new MissingFieldException(screenType.FullName, name);
+		}
+		return field;
+	}
+
+	internal static void HookStrikeSurface()
+	{
+		Api.Postfix(Api.Method(screenType, "CollectShape", typeof(void)), typeof(PopOutBridge), "AfterCollectShape", StrikePopOut.HarmonyId);
+		Api.Postfix(Api.Method(screenType, "UpdateScreen", typeof(void), typeof(bool)), typeof(PopOutBridge), "AfterUpdateScreen", StrikePopOut.HarmonyId);
+	}
+
+	internal static void AfterCollectShape(object __instance)
+	{
+		try
+		{
+			if (keepField.GetValue(__instance) is List<UnityEngine.Rect> keep)
+			{
+				StrikePopOut.AddShape(keep);
+			}
+		}
+		catch (Exception error)
+		{
+			StrikePopOut.Fail("strike pop-out see-through area", error);
+		}
+	}
+
+	internal static void AfterUpdateScreen(object __instance)
+	{
+		try
+		{
+			if (StrikePopOut.OnPopMonitor && hintField.GetValue(__instance) is TextBlock textBlock)
+			{
+				textBlock.Visibility = Visibility.Collapsed;
+			}
+		}
+		catch (Exception error)
+		{
+			StrikePopOut.Fail("strike pop-out monitor hint", error);
 		}
 	}
 

@@ -88,7 +88,7 @@ REPORTS = {
     "RLO2": "AIR OPERATIONS: The F-2s have orders to attack the Y-9 after minute eight. Keep the J-15s between them and Sea Ear 31, engage the interceptors and preserve the Japanese ships for their announced convoy.",
     "RLC1": "SEA BOAT: The beacon is the datum. Run straight at it, put the flight overhead to mark him, and stop the ship upwind of the raft. Do not cross the patrol vessel's bow; she has the same right to be there that we do.",
     "SL01": "MANALO: Keep a gun ship between the ferry lane and the fast craft. Your magazines will not refill at the debrief; leave enough for the next passage or bring the supply ship.",
-    "SL01A": "MARKET WATCH: Follow the semi-submersible while the patrol craft cover its exits. The helicopter over the boats may be the lookout, not the cargo. Classify before crossing fire through local traffic.",
+    "SL01A": "MARKET WATCH: Conrado Yap is the only ear in the group. Put her on the semi-submersible's track while the patrol craft cover its exits. The helicopter over the boats may be the lookout, not the cargo. Classify before crossing fire through local traffic.",
     "SL02": "MARINE LIAISON / VEGA: The forward UAV can distinguish the launchers from vehicles on the ridge. Give the gunline a current target report, then move it before answering every radio call.",
     "SL03": "AYUNGIN CONTROL: Our resupply boat needs room to pass, not a naval battle. Keep weapons held and watch the militia's courses. The cameras are part of this engagement.",
     "SL03A": "VEGA: Do not let the trawler's torpedo threat bring both patrol boats onto the same line. Keep a cross-bearing and enough separation to cover the speedboats.",

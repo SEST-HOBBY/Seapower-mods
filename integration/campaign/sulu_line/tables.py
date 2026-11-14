@@ -92,7 +92,7 @@ ROSTER = [
     dict(unit="phl_ff_hamilton", picks=["Variant1", "Variant2", "Variant3"], points=140,
          note="the Del Pilar class: old cutters, a 76 mm gun and a deck"),
     dict(unit="phl_fs_pohang", picks=["Variant1"], points=110,
-         note="BRP Conrado Yap; guns and nothing else"),
+         note="BRP Conrado Yap; two 76 mm, Mk 46 torpedoes, a hull sonar"),
     dict(unit="phl_lpd_tarlac", picks=["Variant1", "Variant2"], points=140,
          note="SUPPLY: Tarlac and Davao del Sur; 60,000-point pool, 2000-point ceiling"),
     # Squadron2 first: the mod's AW109E LAH, its AW109 livery on the H-76

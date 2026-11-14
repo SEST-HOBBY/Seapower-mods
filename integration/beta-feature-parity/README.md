@@ -262,8 +262,17 @@ Existing third-party ribbons are retained. Auto-resolves do not earn manual
 service, and theatre progress requires a recorded engagement position.
 
 The current Coordinated Strike Tool keeps its own IMGUI controls and launch
-logic. SEST adds shared colours and planned/remaining weapon-cost estimates.
-A full native-window migration is a later UI task, not claimed in this build.
+logic. SEST adds shared colours and planned/remaining weapon-cost estimates,
+and, with Pop-Out Windows 1.2.3, a "Pop out"/"Return" button in the F8
+panel's title bar. Pop-Out moves only Noesis windows, so SEST uses it for its
+monitor surface and draws the author's own IMGUI panel in that display's pass
+(Event.displayIndex); the plan, timing and launch logic stay the author's. On
+the first pop-out it checks itself on that monitor: if no draw pass or click
+arrives there, the button is withdrawn for the session with one log line and
+the panel never leaves the main screen; the Pop-Out monitor SEST opened then
+stays until the mission ends. SEST remembers a separate pop-out position.
+StrikePopOut=0 under [Runtime] turns it off. A full native-window migration is
+a later UI task, not claimed in this build.
 
 Topography 1.5.1 retains the author's removed-option fallbacks; only its
 remaining shallow-water threshold is changed. The older 1.5.0 recipe remains

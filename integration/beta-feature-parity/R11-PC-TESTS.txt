@@ -174,6 +174,20 @@ COMPATIBILITY AND REGRESSION CHECKS
   the 1.5/1.6 rewrites); the flat-only image is held on 0.9.2.
 - Current Pop-Out Windows 1.2.3 is recognised by its inspected hash. Check Contacts,
   Group Manager and F11 windows on the main and secondary display.
+- F8 strike panel pop-out (needs a second monitor and Pop-Out 1.2.3). In a
+  mission press F8: the title bar has a "Pop out" button. Click it: within
+  2 s the panel moves to the Pop-Out monitor with the plan unchanged and the
+  button reads "Return". There, drag it, click a time field and type 1234
+  (each character once), press Esc and Enter (each releases the field), and
+  press F8 twice (hides and shows it). Click the main map with a field
+  focused: the field releases and game hotkeys work. Click Return: the panel
+  is back at its old main-screen spot. Pop out again, drag, click once, quit
+  from the menu, restart and press F8 in a mission: it opens popped at the
+  dragged spot. With F11 or Contacts popped and the strike panel docked,
+  click the popped window, then type in a strike field on the main screen:
+  typing works, and no copy of the panel is on the Pop-Out monitor. If the
+  button disappears with a "[SEST Runtime] strike pop-out" line instead, send
+  BepInEx\LogOutput.log and Player.log: Unity did not draw IMGUI there.
 - DCM's automatic anti-ship salvo-hold patch targets the current beta method;
   the author's anti-ship-only predicate and existing native blocks remain.
 - Recheck Identify sends, native F11 mission costs, debrief, campaign

@@ -74,7 +74,8 @@ internal static class Policy
 				{
 					string[] array = text2.Substring(num + 1).Split(',');
 					bool result;
-					if (array.Length == 2 && string.Equals(array[0].Trim(), folder, StringComparison.OrdinalIgnoreCase))
+					// 0.9.2 writes "name,True,steamId" once Mod Manager saves; earlier builds "name,True".
+					if ((array.Length == 2 || array.Length == 3) && string.Equals(array[0].Trim(), folder, StringComparison.OrdinalIgnoreCase))
 					{
 						return bool.TryParse(array[1].Trim(), out result) && result;
 					}
