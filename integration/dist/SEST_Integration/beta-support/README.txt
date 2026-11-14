@@ -4,7 +4,8 @@ The F11 World Operations, service progress, Coordinated Strike refinements
 and debrief mission ribbons (for campaigns that define them) are included in
 this Workshop item for game build
 0.9.2-261113 only (Sea Power 0.9.2 Build 261113). On every other
-game build SETUP installs none of it and changes no code.
+game build SETUP installs none of it, and puts the normal SEST plugins back if
+it was installed.
 
 With Sea Power closed, run SETUP - double-click me.cmd at the pack root.
 On that game build a fresh installation stages the features: start Sea

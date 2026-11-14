@@ -41,10 +41,12 @@
 # gives one [!!] warning. If SEST's bundled loader ran to the end in that
 # launch ('BETA SAFE BOOTSTRAP READY; enable=True', then 'Bounded Anchor
 # Chain loader returned to bootstrap.', and no 'Bounded loader failed
-# closed' after the READY line), it started Anchor Chain itself: that is
-# one [ok] line, whatever Anchor Chain's own preloader logged. On 0.9.2 the
-# preloader always finds no chainloader, since it looks before the Workshop
-# folders are registered; SEST's bootstrap waits for them.
+# closed' after the READY line), and Anchor Chain logged 'Loaded AnchorChain
+# V' with no abort line after it, it started Anchor Chain itself: that is
+# one [ok] line, whatever Anchor Chain's own preloader logged. If Anchor
+# Chain stopped inside the bounded run, that is one [!!] naming the log
+# line. On 0.9.2 the preloader always finds no chainloader, since it looks
+# before the Workshop folders are registered; SEST's bootstrap waits for them.
 #
 # -PassThru: the number of [!!] warnings goes to the pipeline (SETUP adds
 # it to its own count). -ReleaseSha256, -StableSha256, -BetaSha256,
@@ -155,15 +157,27 @@ if (Test-Path -LiteralPath $log -PathType Leaf) {
         if ($run.IndexOf('Could not find AnchorChain chainloader', [StringComparison]::Ordinal) -ge 0) { $why = '''Could not find AnchorChain chainloader''' }
         elseif ($start -ge 0 -and $run.IndexOf('Loaded assembly AnchorChain,', [StringComparison]::Ordinal) -lt 0) { $why = 'the Anchor Chain preloader started but never loaded Anchor Chain' }
         # SEST's bundled loader (SEST.BetaSafeBootstrap.dll) in the same
-        # launch: switched on, then returned from Anchor Chain, or failed closed.
-        $bounded = $false; $closed = $false
+        # launch: switched on, then returned from Anchor Chain, or failed
+        # closed. It returns even when Anchor Chain stopped inside, so a run
+        # counts only with Anchor Chain's own completion line and no abort.
+        $bounded = $false; $closed = $false; $stopped = $false
         $ready = $run.LastIndexOf('BETA SAFE BOOTSTRAP READY; enable=True', [StringComparison]::Ordinal)
         if ($ready -ge 0) {
             $after = $run.Substring($ready)
             $closed = $after.IndexOf('Bounded loader failed closed', [StringComparison]::Ordinal) -ge 0
-            $bounded = (-not $closed) -and $after.IndexOf('Bounded Anchor Chain loader returned to bootstrap.', [StringComparison]::Ordinal) -ge 0
+            $returned = (-not $closed) -and $after.IndexOf('Bounded Anchor Chain loader returned to bootstrap.', [StringComparison]::Ordinal) -ge 0
+            $aborted = $false
+            foreach ($stop in @('Anchor Chain loader aborted safely', 'Anchor Chain setup failed', 'Aborting chainload')) {
+                if ($after.IndexOf($stop, [StringComparison]::Ordinal) -ge 0) { $aborted = $true }
+            }
+            $bounded = $returned -and (-not $aborted) -and $after.IndexOf('Loaded AnchorChain V', [StringComparison]::Ordinal) -ge 0
+            $stopped = $returned -and (-not $bounded)
         }
-        if ($bounded) {
+        if ($stopped) {
+            $warnings++
+            Say '  [!!]   The code mods did not all load at the last launch: SEST''s bundled loader started Anchor Chain, but Anchor Chain stopped before it finished loading its mods.' 'Yellow'
+            Say '         BepInEx\LogOutput.log gives the reason on its ''Anchor Chain loader aborted safely'', ''Anchor Chain setup failed'' or ''Aborting chainload'' line. Keep that log for review; the campaigns and data still play.' 'Yellow'
+        } elseif ($bounded) {
             Say '  [ok]   last launch: SEST''s bundled loader started Anchor Chain and ran its mod loading to the end (BepInEx\LogOutput.log).' 'Green'
             if ($why) { Say ('         Before it, the log says ' + $why + ': that is Anchor Chain''s own preloader, which looks before the Workshop folders are registered. That alone is not a fault.') }
         } elseif ($why) {
@@ -172,7 +186,17 @@ if (Test-Path -LiteralPath $log -PathType Leaf) {
             Say '         Anchor Chain loaded none of its mods, so SEST Runtime Fixes, the combat costs and every other Anchor Chain mod were off.' 'Yellow'
             if ($closed) { Say '         SEST''s bundled loader then stopped too: the log''s ''Bounded loader failed closed'' line gives the reason. Keep that log for review; the campaigns and data still play.' 'Yellow' }
             elseif ($ready -ge 0) { Say '         SEST''s bundled loader was on but never got back from Anchor Chain (the game may have closed while starting). Start it to the main menu once more, then run SETUP again; if this stays, keep that log for review.' 'Yellow' }
-            elseif ($build -eq 'release') { Say '         On 0.9.2 Anchor Chain''s own preloader always finds no chainloader; SEST''s bundled loader starts Anchor Chain instead once SETUP''s last step has switched the bundled features on.' 'Yellow' }
+            elseif ($build -eq 'release') {
+                if ($run.IndexOf('Safe bootstrap never observed a stable, registered Workshop directory', [StringComparison]::Ordinal) -ge 0) {
+                    Say '         SEST''s bundled loader was on but gave up after 60 seconds without seeing Anchor Chain''s Workshop folder registered (the log''s ''Safe bootstrap never observed'' line). Check that Anchor Chain is subscribed and on, start the game to the main menu and wait, then run SETUP again; if this stays, keep that log for review.' 'Yellow'
+                } elseif ($run.IndexOf('Beta safe loader failed closed during probe setup', [StringComparison]::Ordinal) -ge 0 -or $run.IndexOf('Beta safe loader INACTIVE', [StringComparison]::Ordinal) -ge 0) {
+                    Say '         SEST''s bundled loader stopped before it started: the log''s ''Beta safe loader'' line gives the reason. Keep that log for review; the campaigns and data still play.' 'Yellow'
+                } elseif ($run.IndexOf('BETA SAFE BOOTSTRAP READY; enable=False', [StringComparison]::Ordinal) -ge 0) {
+                    Say '         SEST''s bundled loader is installed but was not switched on at that launch: staged and waiting for SETUP to switch it on, or switched off by you. SETUP''s last step says which.' 'Yellow'
+                } else {
+                    Say '         On 0.9.2 Anchor Chain''s own preloader always finds no chainloader; SEST''s bundled loader starts Anchor Chain instead, once SETUP''s last step has installed and switched on the bundled features in the subscribed Workshop item.' 'Yellow'
+                }
+            }
             elseif ($build -eq 'beta') { Say '         This is known on the beta Build 261026; the campaigns and data still play. It needs no action from you.' 'Yellow' }
             elseif ($build -eq 'beta-current') { Say '         On this beta Anchor Chain''s own preloader finds no chainloader, and SEST''s bundled features, now for Sea Power 0.9.2 Build 261113 only, do not start it here.' 'Yellow' }
             elseif ($build -eq 'beta-previous') { Say '         This is the older 7 November beta image; use its matching R7 candidate for code testing.' 'Yellow' }
