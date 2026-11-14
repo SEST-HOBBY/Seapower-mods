@@ -686,58 +686,66 @@ export of the mods and the tools as they are now; the branch the PC was on
 that week (`release/sest-workshop-20261101`) has an export of 1 Nov, an older
 capture script and no `tools\capture-beta-references.ps1` at all. So the
 block cuts the capture branch from the working branch itself, on the PC, and
-nobody has to make it first. Change `$base` when the work has moved to
-another branch. `tools/tests/test_capture_block.ps1` runs this block, as it
-stands here, against a fixture:
+nobody has to make it first. It does so in a checkout of its own beside the
+clone (`git worktree`, a folder `sest-capture-<date-time>`), and never
+touches the clone's branch or files. Its first form switched the clone's own
+branch and refused a clone with uncommitted changes; on 14 Nov 2026 the
+owner's clone had fifteen, another session's work among them, and files the
+switch would have had to overwrite. Change `$base` when the work has moved
+to another branch. `tools/tests/test_capture_block.ps1` runs this block, as
+it stands here, against a fixture:
 
 <!-- capture-block -->
 ```powershell
 & { $ErrorActionPreference = 'Stop'
   if (Get-Process -Name 'Sea Power', 'SeaPower' -ErrorAction SilentlyContinue) { throw 'Sea Power is running - exit it first' }
   Set-Location -LiteralPath 'C:\Users\rolyl\Seapower-mods'
-  $own = @(git status --short)
-  if ($own.Count) { $own | Select-Object -First 40; throw "The clone has uncommitted changes ($($own.Count); the first are listed above) - stop and report them" }
   $base = 'claude/continue-previous-session-39wqwq'
-  $was = "$(git branch --show-current)".Trim()
-  $b = 'chore/workshop-refresh-' + (Get-Date -Format 'yyyyMMdd-HHmm')
+  $stamp = Get-Date -Format 'yyyyMMdd-HHmm'
+  $b = "chore/workshop-refresh-$stamp"
+  $dir = Join-Path (Split-Path -Parent (Get-Location).Path) "sest-capture-$stamp"
   git fetch origin $base
-  if ($LASTEXITCODE) { throw 'fetch failed - is the base branch name right?' }
-  git checkout -B $b "origin/$base"
-  if ($LASTEXITCODE) { throw 'checkout failed - stop and report it' }
+  if ($LASTEXITCODE) { throw 'fetch failed - is the base branch name right? Your clone is untouched.' }
+  git worktree add -b $b $dir "origin/$base"
+  if ($LASTEXITCODE) { throw 'the separate checkout was not made - stop and report it. Your clone is untouched.' }
+  Set-Location -LiteralPath $dir
   powershell -ExecutionPolicy Bypass -File .\tools\capture-all-mod-updates.ps1
-  if ($LASTEXITCODE) { throw "capture refused or failed - read its last lines; nothing is committed and the clone is on $b" }
+  if ($LASTEXITCODE) { throw "capture refused or failed - read its last lines; nothing is committed. The separate checkout is $dir" }
   git add -A mods-source data\install-snapshot data\mod-fingerprints.json
   git commit -m "chore: capture workshop refresh $(Get-Date -Format yyyy-MM-dd)"
-  if ($LASTEXITCODE) { throw "nothing was committed - stop and report it; the clone is on $b" }
+  if ($LASTEXITCODE) { throw "nothing was committed - stop and report it. The separate checkout is $dir" }
   git push -u origin $b
-  if ($LASTEXITCODE) { throw "push failed - the capture is committed on $b; push that branch again later" }
+  if ($LASTEXITCODE) { throw "push failed - the capture is committed on $b in $dir; push that branch from there later" }
   powershell -ExecutionPolicy Bypass -File .\tools\export-game.ps1
   if ($LASTEXITCODE -eq 0) {
     git add -A mods-source
     git commit -m "Game export after the Sea Power update"
     git push origin $b
-    if ($LASTEXITCODE) { throw "push failed - the game export is committed on $b; push that branch again later" }
+    if ($LASTEXITCODE) { throw "push failed - the game export is committed on $b in $dir; push that branch from there later" }
   }
   powershell -ExecutionPolicy Bypass -File .\tools\capture-beta-references.ps1
   if ($LASTEXITCODE) { Write-Warning 'The reference capture did not finish - report its last lines. The mod capture above is pushed.' }
-  if ($was) { git checkout $was }
+  Set-Location -LiteralPath 'C:\Users\rolyl\Seapower-mods'
+  git worktree remove $dir
+  if ($LASTEXITCODE) { Write-Warning "The separate checkout was left in place and can be deleted: $dir" }
   "Captured and pushed: $b"
 }
 ```
 
-It stops before anything is written if the game is running or the clone has
-changes of its own, which it lists (until 14 Nov 2026 it only said there
-were some, and the owner's first run stopped there with nothing to report
-but the sentence), and names the branch the clone is left on if it stops
-later. Changes of the owner's are the owner's to keep: `git stash push
---include-untracked` sets them aside, and `git stash pop` on the same
-branch brings them back after the block has returned to it. It commits and pushes what the capture wrote, partial or not (a
-failed stage prints `SEST CAPTURE PARTIAL`). If the installed game is a
-public release newer than the export, it then exports the game's own files
-and pushes them as a second commit; with the same build or a beta installed
-that step says so and does nothing. Last it runs the reference capture,
-which writes only its ZIP, and returns the clone to the branch it was on. Two ZIPs land in Downloads. `SEST-Workshop-Capture-<date-time>.zip`
-is the review bundle of what the pushed branch already holds.
+It stops before anything is written if the game is running. The clone may
+be on any branch and hold any uncommitted work: the block reads nothing of
+it and leaves it as it is. The separate checkout takes about 1.8 GB and a
+minute or two, and is removed at the end; if the block stops on the way it
+names the folder, which holds what was captured so far and can be deleted
+once that is reported. It commits and pushes what the capture wrote, partial
+or not (a failed stage prints `SEST CAPTURE PARTIAL`). If the installed game
+is a public release newer than the export, it then exports the game's own
+files and pushes them as a second commit; with the same build or a beta
+installed that step says so and does nothing. Last it runs the reference
+capture, which writes only its ZIP.
+
+Two ZIPs land in Downloads. `SEST-Workshop-Capture-<date-time>.zip` is the
+review bundle of what the pushed branch already holds.
 `SEST-Beta-References-<date-time>-<6 hex>.zip` holds the game's and the
 mods' code as installed; it is what matching SEST's code to a new game build
 starts from, and it is not in the repository, so it has to be handed over.

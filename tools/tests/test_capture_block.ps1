@@ -2,15 +2,16 @@
 .SYNOPSIS
     The capture block the owner pastes (docs\packaging-and-recovery.md, the
     block under the "capture-block" marker), run as it stands against a
-    disposable origin and clone: it cuts the capture branch from the base
-    branch, runs the capture scripts, commits and pushes the capture, adds
-    the game export as a second commit when the export script says it
-    exported, and puts the clone back on the branch it was on. It refuses a
-    clone with changes of its own, and commits nothing when the capture fails.
+    disposable origin and clone. It works in a checkout of its own beside
+    the clone: it cuts the capture branch there from the base branch, runs
+    the capture scripts, commits and pushes the capture, adds the game
+    export as a second commit when the export script says it exported, and
+    removes that checkout. The clone itself, with its branch and whatever
+    uncommitted work it holds, is left exactly as it was.
 
 .DESCRIPTION
     The fixture's base branch carries stand-ins for the three scripts it runs,
-    so no Steam, game or Workshop folder is needed. Three lines of the block
+    so no Steam, game or Workshop folder is needed. Three things in the block
     are rewritten for the fixture and nothing else: the clone's path, the
     base branch's name, and, away from Windows, the name of the PowerShell
     executable and the path separators git and it are given. Nothing outside
@@ -43,6 +44,7 @@ function Invoke-Git([string]$Dir, [string[]]$GitArgs) {
     finally { $ErrorActionPreference = $saved }
     return $out
 }
+function Get-Checkouts { return @(Get-ChildItem -LiteralPath $root -Directory | Where-Object { $_.Name -like "sest-capture-*" }) }
 
 # --- the block, from the document --------------------------------------------
 $doc = [IO.File]::ReadAllText((Join-Path $src "docs\packaging-and-recovery.md")).Replace("`r`n", "`n")
@@ -50,10 +52,10 @@ $m = [regex]::Match($doc, '(?s)<!-- capture-block -->\n```powershell\n(.*?)\n```
 if (-not $m.Success) { Write-Host "  FAILED the document has no block under the capture-block marker"; exit 1 }
 $block = $m.Groups[1].Value
 Check ($block -notmatch '(?m)^\s*$') "the block has no blank line (a pasted blank line would run it early)"
-Check ($block -match "Set-Location -LiteralPath 'C:\\Users\\rolyl\\Seapower-mods'") "the block goes to the owner's clone"
+Check ([regex]::Matches($block, "Set-Location -LiteralPath 'C:\\Users\\rolyl\\Seapower-mods'").Count -eq 2) "the block starts in the owner's clone and returns to it"
 Check ($block -match '(?m)^\s*\$base = ''[^'']+''') "the block names its base branch on a line of its own"
-Check ($block -notmatch 'IncludeVanilla') "the block never exports the game's own files"
-Check ($block -notmatch '(?i)\bforce\b|--hard|clean -') "the block forces, resets and cleans nothing"
+Check ($block -notmatch 'IncludeVanilla') "the block never exports the game's own files itself"
+Check ($block -notmatch '(?i)\bforce\b|--hard|clean -|\bstash\b|git checkout|git switch|git reset') "the block forces, resets, stashes and switches nothing in the clone"
 
 function Get-FixtureBlock([string]$CloneDir) {
     $text = $block.Replace("'C:\Users\rolyl\Seapower-mods'", "'" + $CloneDir.Replace("'", "''") + "'")
@@ -84,12 +86,20 @@ try {
     New-Item -ItemType Directory -Path (Join-Path $seed "tools"), (Join-Path $seed "data\install-snapshot"), (Join-Path $seed "mods-source\3812454152") -Force | Out-Null
     $null = Invoke-Git $seed @("init", "-q", "-b", "main")
     [IO.File]::WriteAllText((Join-Path $seed "README.txt"), "fixture`n")
+    [IO.File]::WriteAllText((Join-Path $seed ".gitignore"), "__pycache__/`n")
     $null = Invoke-Git $seed @("add", "-A")
     $null = Invoke-Git $seed @("commit", "-q", "-m", "root")
-    # The branch the PC lives on: no capture scripts, as on the owner's PC in November 2026.
-    $null = Invoke-Git $seed @("branch", "pc-own")
-    # The base branch: an export, and stand-ins for the two capture scripts.
-    $null = Invoke-Git $seed @("checkout", "-q", "-b", "base-test")
+    # The branch the PC lives on: no capture scripts, and a file of its own at a
+    # path the base branch also has, as on the owner's PC in November 2026.
+    $null = Invoke-Git $seed @("checkout", "-q", "-b", "pc-own")
+    [IO.File]::WriteAllText((Join-Path $seed "data\install-snapshot\environment.txt"), "captured        : the PC's own older capture`n")
+    $null = Invoke-Git $seed @("add", "-A")
+    $null = Invoke-Git $seed @("commit", "-q", "-m", "the PC's branch")
+    $pcHead = "$(Invoke-Git $seed @('rev-parse', 'HEAD'))".Trim()
+    # The base branch: an export, and stand-ins for the scripts the block runs.
+    $null = Invoke-Git $seed @("checkout", "-q", "-b", "base-test", "main")
+    # Leaving the PC's branch took its file and the emptied folders with it.
+    New-Item -ItemType Directory -Path (Join-Path $seed "data\install-snapshot") -Force | Out-Null
     [IO.File]::WriteAllText((Join-Path $seed "mods-source\3812454152\_info.ini"), "Name=Old`n")
     [IO.File]::WriteAllText((Join-Path $seed "data\install-snapshot\environment.txt"), "captured        : before`n")
     [IO.File]::WriteAllText((Join-Path $seed "data\mod-fingerprints.json"), "{}`n")
@@ -99,6 +109,9 @@ $repo = Split-Path -Parent $PSScriptRoot
 [IO.File]::WriteAllText((Join-Path $repo "mods-source/3812454152/_info.ini"), "Name=Updated`n")
 [IO.File]::WriteAllText((Join-Path $repo "data/install-snapshot/environment.txt"), "captured        : now`n")
 [IO.File]::WriteAllText((Join-Path $repo "data/mod-fingerprints.json"), "{`"mods`":{}}`n")
+# What the Python tools leave behind: ignored, and no bar to removing the checkout.
+New-Item -ItemType Directory -Path (Join-Path $repo "tools/__pycache__") -Force | Out-Null
+[IO.File]::WriteAllText((Join-Path $repo "tools/__pycache__/x.pyc"), "cache")
 Write-Host "stand-in capture: done"
 exit 0
 '@)
@@ -124,38 +137,45 @@ exit 0
     foreach ($pair in @(@("user.name", "test"), @("user.email", "test@example.invalid"), @("core.autocrlf", "false"))) {
         $null = Invoke-Git $clone @("config", $pair[0], $pair[1])
     }
+    # The clone as the owner's was on 14 Nov 2026: a tracked file changed, and
+    # untracked files, one of them at a path the base branch tracks.
+    [IO.File]::WriteAllText((Join-Path $clone "README.txt"), "the owner's own edit`n")
+    [IO.File]::WriteAllText((Join-Path $clone "notes-of-another-session.md"), "work in progress`n")
+    New-Item -ItemType Directory -Path (Join-Path $clone "tools") -Force | Out-Null
+    [IO.File]::WriteAllText((Join-Path $clone "tools\capture-all-mod-updates.ps1"), "an untracked file where the base branch has a tracked one`n")
+    $ownStatus = (Invoke-Git $clone @("status", "--porcelain")) -join "|"
     $env:SEST_TEST_REFERENCE_MARKER = $marker
     $env:SEST_TEST_CAPTURE_FAILS = $null
     $env:SEST_TEST_GAME_EXPORT = $null
+    function Test-CloneUntouched([string]$when) {
+        Check ("$(Invoke-Git $clone @('branch', '--show-current'))".Trim() -eq "pc-own" -and
+               "$(Invoke-Git $clone @('rev-parse', 'HEAD'))".Trim() -eq $pcHead) "$when the clone is on its own branch and commit"
+        Check (((Invoke-Git $clone @("status", "--porcelain")) -join "|") -eq $ownStatus -and
+               (Get-Content -LiteralPath (Join-Path $clone "README.txt") -Raw) -eq "the owner's own edit`n" -and
+               (Get-Content -LiteralPath (Join-Path $clone "tools\capture-all-mod-updates.ps1") -Raw) -like "an untracked file*") "$when its uncommitted work is as it was"
+    }
 
-    # --- a clone with changes of its own: refused, nothing made ----------------
-    [IO.File]::WriteAllText((Join-Path $clone "README.txt"), "edited`n")
-    $code = Invoke-Block $clone (Join-Path $root "run-dirty.txt")
-    $log = Get-Content -LiteralPath (Join-Path $root "run-dirty.txt") -Raw
-    Check ($code -ne 0 -and $log -match "uncommitted changes \(1;") "refuses a clone with uncommitted changes, and counts them"
-    Check ($log -match "(?m)^\s*M\s+README\.txt") "and lists them, so the refusal can be reported as it stands"
-    Check (@(Invoke-Git $origin @("branch", "--list", "chore/*")).Count -eq 0) "and pushes nothing"
-    Check ("$(Invoke-Git $clone @('branch', '--show-current'))".Trim() -eq "pc-own") "and leaves the clone on its branch"
-    $null = Invoke-Git $clone @("checkout", "-q", "--", "README.txt")
-
-    # --- the capture fails: nothing committed, and the block says where it stopped
+    # --- the capture fails: nothing committed, the checkout named and left ------
     $env:SEST_TEST_CAPTURE_FAILS = "1"
     $code = Invoke-Block $clone (Join-Path $root "run-failed.txt")
     $log = Get-Content -LiteralPath (Join-Path $root "run-failed.txt") -Raw
     Check ($code -ne 0 -and $log -match "capture refused or failed") "a capture that fails stops the block"
-    Check (@(Invoke-Git $origin @("branch", "--list", "chore/*")).Count -eq 0) "and nothing is pushed"
-    $stopped = "$(Invoke-Git $clone @('branch', '--show-current'))".Trim()
-    Check ($stopped -like "chore/workshop-refresh-*" -and $log.Contains($stopped)) "the clone is on the capture branch the message names ($stopped)"
-    Check ("$(Invoke-Git $clone @('rev-parse', 'HEAD'))".Trim() -eq $baseHead) "with no commit on it"
+    Check (@(Invoke-Git $origin @("for-each-ref", "--format=%(refname:short)", "refs/heads/chore") | Where-Object { $_ }).Count -eq 0) "and nothing is pushed"
+    $left = @(Get-Checkouts)
+    Check ($left.Count -eq 1 -and $log.Contains($left[0].FullName)) "the separate checkout is left and the message names it"
+    Test-CloneUntouched "after a failed capture"
     Check (-not (Test-Path -LiteralPath $marker)) "and the reference capture has not run"
     $env:SEST_TEST_CAPTURE_FAILS = $null
-    $null = Invoke-Git $clone @("checkout", "-q", "pc-own")
-    $null = Invoke-Git $clone @("branch", "-D", $stopped)
+    foreach ($dir in $left) {
+        $stale = "$(Invoke-Git $dir.FullName @('branch', '--show-current'))".Trim()
+        $null = Invoke-Git $clone @("worktree", "remove", "--force", $dir.FullName)
+        $null = Invoke-Git $clone @("branch", "-D", $stale)
+    }
 
-    # --- the capture ------------------------------------------------------------
+    # --- the capture, from a clone with work of its own in it ---------------------
     $code = Invoke-Block $clone (Join-Path $root "run.txt")
     $log = Get-Content -LiteralPath (Join-Path $root "run.txt") -Raw
-    Check ($code -eq 0) "the block runs to its end (exit $code)"
+    Check ($code -eq 0) "the block runs to its end from a clone with uncommitted work (exit $code)"
     if ($code -ne 0) { Write-Host $log }
     $pushed = @(Invoke-Git $origin @("for-each-ref", "--format=%(refname:short)", "refs/heads/chore") | Where-Object { $_ })
     Check ($pushed.Count -eq 1 -and $pushed[0] -match '^chore/workshop-refresh-\d{8}-\d{4}$') "one capture branch is pushed, named for the day and the minute ($($pushed -join ', '))"
@@ -168,19 +188,20 @@ exit 0
         Check ("$(Invoke-Git $origin @('show', "${b}:mods-source/3812454152/_info.ini"))".Trim() -eq "Name=Updated") "with the updated mod's file"
         Check ((Test-Path -LiteralPath $marker) -and ((Get-Content -LiteralPath $marker -Raw) -eq "ran on $b")) "the reference capture ran after it, from the capture branch"
     }
-    Check ("$(Invoke-Git $clone @('branch', '--show-current'))".Trim() -eq "pc-own") "the clone is back on the branch it was on"
-    Check (@(Invoke-Git $clone @("status", "--porcelain")).Count -eq 0) "and has no changes left in it"
+    Check (@(Get-Checkouts).Count -eq 0 -and @(Invoke-Git $clone @("worktree", "list")).Count -eq 1) "the separate checkout is removed, its ignored cache with it"
+    Test-CloneUntouched "after the capture"
+
     # --- the same with a newer public release installed: the game export follows --
     Remove-Item -LiteralPath $marker
     $env:SEST_TEST_GAME_EXPORT = "release"
     # A capture branch is named for the minute: wait for the next one, so the
     # second run cannot reuse the first run's branch name.
-    while ((Get-Date -Format 'yyyyMMdd-HHmm') -eq ($pushed[0] -replace '^chore/workshop-refresh-', '')) { Start-Sleep -Seconds 2 }
+    while ($pushed.Count -eq 1 -and (Get-Date -Format 'yyyyMMdd-HHmm') -eq ($pushed[0] -replace '^chore/workshop-refresh-', '')) { Start-Sleep -Seconds 2 }
     $code = Invoke-Block $clone (Join-Path $root "run-export.txt")
     $log = Get-Content -LiteralPath (Join-Path $root "run-export.txt") -Raw
     Check ($code -eq 0) "with a newer release installed the block runs to its end (exit $code)"
     if ($code -ne 0) { Write-Host $log }
-    $second = @(Invoke-Git $origin @("for-each-ref", "--format=%(refname:short)", "refs/heads/chore") | Where-Object { $_ -and $_ -ne $pushed[0] })
+    $second = @(Invoke-Git $origin @("for-each-ref", "--format=%(refname:short)", "refs/heads/chore") | Where-Object { $_ -and $pushed -notcontains $_ })
     Check ($second.Count -eq 1) "a second capture branch is pushed ($($second -join ', '))"
     if ($second.Count -eq 1) {
         $b2 = $second[0]
@@ -190,10 +211,10 @@ exit 0
         Check (($names -join "|") -eq "mods-source/_vanilla/changelog.txt") "and holds the exported game files only ($($names -join ', '))"
         Check ((Test-Path -LiteralPath $marker) -and ((Get-Content -LiteralPath $marker -Raw) -eq "ran on $b2")) "the reference capture still ran after it"
     }
-    Check ("$(Invoke-Git $clone @('branch', '--show-current'))".Trim() -eq "pc-own" -and
-           @(Invoke-Git $clone @("status", "--porcelain")).Count -eq 0) "and the clone is back on its branch, clean"
+    Check (@(Get-Checkouts).Count -eq 0) "and its checkout is removed too"
+    Test-CloneUntouched "after the capture with a game export"
     Check ("$(Invoke-Git $origin @('rev-parse', 'base-test'))".Trim() -eq $baseHead -and
-           "$(Invoke-Git $origin @('rev-parse', 'pc-own'))".Trim() -eq "$(Invoke-Git $seed @('rev-parse', 'pc-own'))".Trim()) "the base branch and the PC's branch are untouched on origin"
+           "$(Invoke-Git $origin @('rev-parse', 'pc-own'))".Trim() -eq $pcHead) "the base branch and the PC's branch are untouched on origin"
 }
 finally {
     $env:SEST_TEST_REFERENCE_MARKER = $savedMarker

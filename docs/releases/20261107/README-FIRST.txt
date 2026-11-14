@@ -61,17 +61,20 @@ A. Let Steam finish every Sea Power download, start Sea Power once to the
 B. One block does the rest. Open docs/packaging-and-recovery.md on branch
    claude/continue-previous-session-39wqwq (GitHub shows it), find "The
    capture for 0.9", and paste its PowerShell block as it stands. It needs
-   the game closed and a clone with no changes of its own, and refuses
-   otherwise. It makes a branch chore/workshop-refresh-<date-time> from
-   this work, runs the capture (tools\capture-all-mod-updates.ps1), commits
-   and pushes it, exports the game's own files as a second commit if the
+   the game closed and nothing else: it works in a checkout of its own
+   beside your clone (a folder sest-capture-<date-time>, about 1.8 GB,
+   removed at the end), so your clone, its branch and its uncommitted
+   files are not touched. Its first form switched the clone's branch and
+   refused your clone on 14 November, which had fifteen uncommitted files.
+   It makes a branch chore/workshop-refresh-<date-time> from this work,
+   runs the capture (tools\capture-all-mod-updates.ps1), commits and
+   pushes it, exports the game's own files as a second commit if the
    installed game is a newer public release (tools\export-game.ps1; a beta
-   is never exported), runs the reference capture
-   (tools\capture-beta-references.ps1) and puts the clone back on the
-   branch it was on. The branch your clone was on in November has none of
-   the three scripts as they are now, which is why the block changes
-   branch first. Nothing is installed, and the game, Steam, BepInEx and the
-   Workshop folders are only read.
+   is never exported) and runs the reference capture
+   (tools\capture-beta-references.ps1). The branch your clone is on has
+   none of the three scripts as they are now, which is why the block
+   works from this branch. Nothing is installed, and the game, Steam,
+   BepInEx and the Workshop folders are only read.
    Two ZIPs land in Downloads. SEST-Workshop-Capture-<date-time>.zip is a
    review copy of what the pushed branch holds.
    SEST-Beta-References-<date-time>-<6 hex>.zip holds the game's and the
