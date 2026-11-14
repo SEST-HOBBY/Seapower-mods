@@ -889,7 +889,7 @@ the pack stays on the export it has until the game's files come too.
    python3 tools/check_scenarios.py
    python3 tools/check_stale_phrases.py
    python3 tools/check_inventory.py
-   python3 tools/check_game_version.py                 # green now, but for Workshop ranges no bump can fix
+   python3 tools/check_game_version.py                 # green now; a Workshop range no bump can fix fails until reviewed (REVIEWED_EXCLUSIONS)
    python3 tools/check_vanilla_drift.py --since <baseline>   # green once the hand fixes are in
    ```
 
@@ -1214,8 +1214,12 @@ declare a range instead, two of them with an upper bound: Anchor Chain
 (3380210757) admits `0.4.0 <= v < 1.0.0`, and Coordinated Strike Tool
 (3806686336) admits `0.8.2 <= v < 0.9.0`, so a 0.9.x game marks it
 incompatible until its author widens the range and the next export brings
-the new manifest; nothing in this repo can change that, and
-`check_game_version.py` exits 1 on it until then. Another 18 have no
+the new manifest; nothing in this repo can change that. `check_game_version.py`
+exits 1 on such a range until it is reviewed into its `REVIEWED_EXCLUSIONS`
+(seen ADAPTED and loading on that game; keyed to the game version, the range,
+the exported `_info.ini`'s SHA-256 and the adapted DLL's SHA-256, the folder's
+only captured DLL, pinned and not held by SEST's loader), then reports it in an
+INFO line and fails it again when any of those moves. Another 18 have no
 `[Compatibility]` section at all, and one, Boeing P-8 Poseidon
 (3602046770), ships no `_info.ini`, so there is nothing for the check to fail
 them on; what the Mod Manager shows for them is not recorded here

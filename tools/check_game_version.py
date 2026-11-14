@@ -46,7 +46,18 @@ Four checks; each finding is a FAIL line and the run exits 1:
      carries one;
   3. no Workshop mod in data/load-order.tokens.txt declares an ExactVersion,
      or (having no ExactVersion or ApproximateVersion) a version range, that
-     excludes the game: SETUP never rewrites those;
+     excludes the game: SETUP never rewrites those, and SEST does not edit
+     another author's file. One listed in REVIEWED_EXCLUSIONS is reported in
+     an INFO line instead, while everything its review was keyed to still
+     holds: the game version, the declaration, the SHA-256 of the exported
+     mods-source/<id>/_info.ini, and the author DLL's SHA-256, which must be
+     the folder's only DLL in data/install-snapshot/plugin-dlls.txt, pinned
+     by an adapter in integration/beta-anchorchain/source/AssemblyAdapters*.cs
+     and not held in its StartupPolicy.cs. Any of them moving (an author
+     update, a new game, a retired adapter, a hold) fails it again until it
+     is reviewed; a new exclusion always fails. The Mod Manager
+     still lists a reviewed mod as not compatible at every start-up (its
+     Ignore button stores nothing): only the mod's author can change that;
   4. mods-source/_vanilla/changelog.txt is not from a newer game than the
      snapshot's changelog, which would mean the export landed and the
      snapshot did not. The versions are compared, not the builds: when the
@@ -81,6 +92,7 @@ files stay stale until python3 tools/build_all.py --from-scratch regenerates
 them, so run that and then this check again.
 """
 import argparse
+import hashlib
 import re
 from collections import Counter
 from pathlib import Path
@@ -127,6 +139,36 @@ INT32_MAX = 2147483647
 PLAIN = re.compile(r"[0-9]+\.[0-9]+\.[0-9]+")
 COMPAT_KEYS = ("ExactVersion", "ApproximateVersion", "GreaterThanVersion", "GreaterThanEqualToVersion",
                "LessThanVersion", "LessThanEqualToVersion", "ExcludeVersions")
+PLUGIN_DLLS = "data/install-snapshot/plugin-dlls.txt"
+ADAPTER_SOURCE = "integration/beta-anchorchain/source"
+# The loader's StartupHolds: a hash listed there is skipped before any adapter
+# runs (AssemblyPolicy.Prepare calls HoldRejectedStartup before AdapterFor).
+STARTUP_HOLDS = "integration/beta-anchorchain/source/StartupPolicy.cs"
+# "  <id>\<path>.dll   <size>  <sha256>  <versions>  <time>" in plugin-dlls.txt.
+DLL_LINE = re.compile(r"^\s{2}(.+?)\s{2,}\d+\s+([0-9a-f]{64}|unreadable)\s")
+
+# Workshop exclusions reviewed by hand (check 3): an author's own declaration that
+# excludes the game, which SETUP leaves alone and SEST does not edit, on a code mod
+# SEST's loader adapts and verifies on that game. Each entry names everything the
+# review looked at; it stops applying when any of it changes. Add one only after the
+# mod has been seen ADAPTED and loading in a BepInEx.log on that game.
+REVIEWED_EXCLUSIONS = {
+    "3806686336": {
+        "game": "0.9.2", "declares": "0.8.2 <= v < 0.9.0",
+        "info_sha256": "5ac79b3ce6d3c3d8344c6ac874f84a516413531c5c3fd2a2f1eabd21162233ce",
+        "dll": "CoordinatedStrikeTool.dll",
+        "dll_sha256": "093b8ad6478641948b0eaca720427e5cef3c8b4440142f6c33b16339dc2fc941",
+        "reviewed": "15 Nov 2026, 0.9.2 Build 261113: ADAPTED engagement-ranges=1, ui=4, plugin 1.3.1 loaded",
+    },
+    "3813157776": {
+        "game": "0.9.2", "declares": "0.8.3 <= v < 0.9.0",
+        "info_sha256": "a4cea41f0774098691c5fa0da41352dde35f325a282be7d1b2e12d1e50e50e2e",
+        "dll": "DynamicCampaignMod.dll",
+        "dll_sha256": "eacdb9a4c0353edd24543b631826e61f7cbcfc4f1a78de4fa80527aa5a2208f4",
+        "reviewed": "15 Nov 2026, 0.9.2 Build 261113: ADAPTED with the expected 22-kind audit, plugin 0.25.0.1 "
+                    "loaded, Global Maritime Operations 2028 started",
+    },
+}
 
 
 def parse_version(text):
@@ -341,6 +383,55 @@ def is_static(root, pack):
     return not any(writes_info(b) for b in pack_builders(root, pack))
 
 
+def captured_dlls(root):
+    """-> {'<id>\\<path>': sha256} for the [workshop] block of data/install-snapshot/plugin-dlls.txt."""
+    path, out, block = root / PLUGIN_DLLS, {}, None
+    if not path.exists():
+        return out
+    for line in path.read_text(encoding="utf-8-sig", errors="replace").splitlines():
+        head = re.match(r"^\[(.+?)\]", line)
+        if head:
+            block = head.group(1)
+            continue
+        match = DLL_LINE.match(line)
+        if match and block == "workshop":
+            out[match.group(1)] = match.group(2)
+    return out
+
+
+def adapter_pins(root):
+    """-> (pins, holds): the SHA-256 literals in AssemblyAdapters*.cs, and those in StartupPolicy.cs."""
+    def literals_in(paths):
+        return {pin for path in paths
+                for pin in re.findall(r'"([0-9a-f]{64})"', path.read_text(encoding="utf-8", errors="replace"))}
+    holds = root / STARTUP_HOLDS
+    return (literals_in(sorted((root / ADAPTER_SOURCE).glob("AssemblyAdapters*.cs"))),
+            literals_in([holds] if holds.exists() else []))
+
+
+def review_gaps(entry, wid, finding, version, info, dlls, pins, holds):
+    """-> what no longer matches a REVIEWED_EXCLUSIONS entry for this exclusion; [] when all of it does."""
+    gaps = []
+    if (entry["game"], finding) != (version, f"{entry['declares']}, which excludes {version}"):
+        gaps.append(f"reviewed as {entry['declares']} on {entry['game']}")
+    digest = hashlib.sha256(info.read_bytes()).hexdigest()
+    if digest != entry["info_sha256"]:
+        gaps.append(f"its _info.ini is sha256 {digest[:12]}, reviewed {entry['info_sha256'][:12]}")
+    dll = f"{wid}\\{entry['dll']}"
+    captured = dlls.get(dll)
+    if captured != entry["dll_sha256"]:
+        gaps.append(f"{PLUGIN_DLLS} has {dll} " + (f"as {captured[:12]}" if captured else "missing")
+                    + f", reviewed {entry['dll_sha256'][:12]}")
+    others = sorted(k for k in dlls if k.startswith(f"{wid}\\") and k != dll)
+    if others:
+        gaps.append(f"{PLUGIN_DLLS} also lists {', '.join(others)}, which the review did not see")
+    if entry["dll_sha256"] not in pins:
+        gaps.append(f"no adapter in {ADAPTER_SOURCE}/AssemblyAdapters*.cs pins {entry['dll_sha256'][:12]}")
+    if entry["dll_sha256"] in holds:
+        gaps.append(f"{STARTUP_HOLDS} holds {entry['dll_sha256'][:12]}, so the loader skips it before adapting it")
+    return gaps
+
+
 def load_order_ids(root):
     path = root / LOAD_ORDER
     tokens = [s.strip() for s in path.read_text(encoding="utf-8-sig").splitlines()
@@ -348,8 +439,13 @@ def load_order_ids(root):
     return [t for t in tokens if t.isascii() and t.isdigit()]
 
 
-def audit(root, version):
-    """-> (lines, problems, found): the report body, the FAIL findings, and how many per check."""
+def audit(root, version, reviewed=None):
+    """-> (lines, problems, found): the report body, the FAIL findings, and how many per check.
+
+    found["reviewed"] counts the Workshop exclusions reported under REVIEWED_EXCLUSIONS
+    (or <reviewed>), which are not problems.
+    """
+    reviewed = REVIEWED_EXCLUSIONS if reviewed is None else reviewed
     game = parse_semver(version)
     if game is None:
         raise ValueError(f"game version {version!r} is not MAJOR.MINOR.PATCH as the game reads it")
@@ -413,6 +509,7 @@ def audit(root, version):
     ids = load_order_ids(root)
     counts, unread, ranges, admitted = Counter(), [], 0, 0
     listed = {FAR_BEHIND: [], NEWER: [], NOT_SEMVER: []}
+    dlls, pins, holds, held, used = None, None, None, [], set()
     for wid in ids:
         info = root / "mods-source" / wid / "_info.ini"
         if not info.exists():
@@ -426,7 +523,18 @@ def audit(root, version):
             ranges += 1
             admitted += accepted
         if finding:
-            fail("workshop", f"{wid} {name} declares {finding}")
+            entry, gaps = reviewed.get(wid), []
+            if entry:
+                used.add(wid)
+                if dlls is None:
+                    dlls, (pins, holds) = captured_dlls(root), adapter_pins(root)
+                gaps = review_gaps(entry, wid, finding, version, info, dlls, pins, holds)
+            if entry and not gaps:
+                held.append((wid, name, finding, entry["reviewed"]))
+                found["reviewed"] += 1
+            else:
+                fail("workshop", f"{wid} {name} declares {finding}"
+                     + (f"; its review no longer holds: {'; '.join(gaps)}" if gaps else ""))
         if kind in listed:
             approx = compat["ApproximateVersion"]
             listed[kind].append((parse_version(approx) or (), wid, name, approx))
@@ -437,6 +545,17 @@ def audit(root, version):
                  + ", ".join(f"{counts[k]} {k}" for k in KINDS if counts[k]))
     lines.append(f"  Version ranges (read only without ExactVersion and ApproximateVersion): "
                  f"{ranges} declared, {admitted} admit {version}")
+    if held:
+        lines.append(f"INFO: {len(held)} reviewed author exclusion(s), reported and not failed: each mod's own "
+                     f"declaration excludes {version}, so the Mod Manager lists it as not compatible at every "
+                     "start-up and only its author can change that; SEST's loader adapts its pinned DLL and the "
+                     "review's game, declaration, _info.ini and DLL hashes all still hold:")
+        for wid, name, finding, note in held:
+            lines.append(f"  {wid}  {name}: {finding} (reviewed {note})")
+    # Only for the game the review was made on: a --version rehearsal of another game is no reason to drop it.
+    for wid in sorted(w for w in set(reviewed) - used if reviewed[w]["game"] == version):
+        lines.append(f"INFO: REVIEWED_EXCLUSIONS lists {wid}, which excludes nothing here now "
+                     f"(it admits {version}, or is not in the load order or not exported); remove it")
     below_minor = counts["one minor behind"] + counts[FAR_BEHIND]
     game_minor = ".".join(str(c) for c in game[:2])
     lines.append(f"INFO: {below_minor} mod(s) declare a minor version below {game_minor}, which the Mod Manager "
@@ -550,6 +669,7 @@ def main(argv=None):
     print(f"Game version check: {'FAILED' if problems else 'PASS'} "
           f"({found['packs']} pack(s), {found['builders']} builder(s), "
           f"{found['workshop']} Workshop exclusion(s) against {version}"
+          + (f"; {found['reviewed']} reviewed author exclusion(s) reported" if found["reviewed"] else "")
           + ("; the snapshot lags the export" if found["snapshot"] else "") + ")")
     return bool(problems)
 

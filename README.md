@@ -98,7 +98,7 @@ pwsh -File tools/tests/test_export_check_updates.ps1  # -CheckUpdates skips SEST
 python3 tools/check_inventory.py            # mods-source agrees with its export manifest (red on four line-ending mods until renormalised)
 python3 tools/check_alias_bases.py          # every #!alias / #!extend base resolves (after each export)
 python3 tools/check_vanilla_drift.py        # what changed in the game's own files since the last export, and what here depends on it
-python3 tools/check_game_version.py         # every SEST pack declares the installed game's version; which mods' ranges exclude it
+python3 tools/check_game_version.py         # every SEST pack declares the installed game's version; which mods' ranges exclude it (reviewed ones reported, new ones failed)
 python3 tools/check_load_order.py           # every SEST override still outranks its target, in the canonical order and the captured live one
 python3 tools/check_dependencies.py         # every pack's upstreams exported and ordered (stores, rosters, system names)
 python3 tools/check_scenarios.py            # the carved NF3 scenarios' counts, formations and section numbers

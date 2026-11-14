@@ -1,13 +1,16 @@
 """Regression cases for a game update leaving pack versions behind, proved on a small tree."""
 import contextlib
+import hashlib
 import io
 from pathlib import Path
 import shutil
 import sys
 import tempfile
 import unittest
+from unittest import mock
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+import check_game_version
 from check_game_version import (audit, bump, classify, judge, main, parse_semver, parse_version,
                                 read_compat, read_game_version)
 
@@ -52,6 +55,12 @@ RANGED_MOD = ("[Language_cn]\r\nName=协调\r\n\r\n[Language_en]\r\nName=Strike 
               "[Compatibility]\r\n"
               ";ApproximateVersion is the second check and will override all statements below.\r\n"
               "GreaterThanEqualToVersion=0.8.2\r\nLessThanVersion=0.9.0\r\n")
+STRIKE_DLL = "093b8ad6478641948b0eaca720427e5cef3c8b4440142f6c33b16339dc2fc941"
+# Shaped like data/install-snapshot/plugin-dlls.txt and AssemblyAdapters.cs.
+PLUGIN_DLLS = ("# Code DLLs the game can load.\n\n[workshop]  1 DLL(s)\n"
+               f"  200\\StrikeTool.dll      123392  {STRIKE_DLL}  1.3.1.0 / 1.3.1  2026-09-30 21:22\n\n"
+               "[game\\BepInEx]  0 DLL(s)\n")
+ADAPTERS = f'    internal const string StrikeHash = "{STRIKE_DLL}";\n'
 
 
 class GameVersionTests(unittest.TestCase):
@@ -148,6 +157,89 @@ class GameVersionTests(unittest.TestCase):
         problems = audit(self.root, "0.8.2")[1]
         self.assertIn("integration/alpha/SEST_Alpha/_info.ini declares no [Compatibility] ApproximateVersion", problems)
         self.assertIn("integration/alpha/build_patch.py writes _info.ini with no ApproximateVersion literal", problems)
+
+    def reviewed_strike(self):
+        """The ranged mod 200 as SEST's loader adapts it, with a review keyed to the 0.9.0 game."""
+        self.write(self.root / "data/install-snapshot/plugin-dlls.txt", PLUGIN_DLLS)
+        self.write(self.root / "integration/beta-anchorchain/source/AssemblyAdapters.cs", ADAPTERS)
+        info = self.root / "mods-source/200/_info.ini"
+        return {"200": {"game": "0.9.0", "declares": "0.8.2 <= v < 0.9.0",
+                        "info_sha256": hashlib.sha256(info.read_bytes()).hexdigest(),
+                        "dll": "StrikeTool.dll", "dll_sha256": STRIKE_DLL, "reviewed": "in this test"}}
+
+    def test_a_reviewed_author_exclusion_is_reported_not_failed(self):
+        reviewed = self.reviewed_strike()
+        lines, problems, found = audit(self.root, "0.9.0", reviewed)
+        self.assertNotIn("200 Strike Tool declares 0.8.2 <= v < 0.9.0, which excludes 0.9.0", problems)
+        self.assertEqual(found, {"packs": 2, "builders": 1, "reviewed": 1})
+        self.assertIn("  200  Strike Tool: 0.8.2 <= v < 0.9.0, which excludes 0.9.0 (reviewed in this test)", lines)
+        bump(self.root, "0.9.0")
+        self.write(self.alpha_info, "[Language_en]\nName=SEST Alpha\n\n[Compatibility]\nApproximateVersion=0.9.0\n")
+        out = io.StringIO()
+        with mock.patch.dict(check_game_version.REVIEWED_EXCLUSIONS, reviewed, clear=True), \
+                contextlib.redirect_stdout(out):
+            self.assertEqual(main(["--root", str(self.root), "--version", "0.9.0"]), 0)
+        self.assertEqual(out.getvalue().splitlines()[-1],
+                         "Game version check: PASS (0 pack(s), 0 builder(s), 0 Workshop exclusion(s) against 0.9.0; "
+                         "1 reviewed author exclusion(s) reported)")
+
+    def test_a_reviewed_exclusion_fails_again_when_anything_it_was_keyed_to_moves(self):
+        base = "200 Strike Tool declares 0.8.2 <= v < 0.9.0, which excludes 0.9.0; its review no longer holds: "
+        reviewed = self.reviewed_strike()
+        # The author edits the file, even only its description.
+        self.mod(200, RANGED_MOD.replace("Name=Strike Tool", "Name=Strike Tool\r\nDescription=v1.3.2"))
+        self.assertEqual([p for p in audit(self.root, "0.9.0", reviewed)[1] if p.startswith("200 ")],
+                         [base + f"its _info.ini is sha256 "
+                          f"{hashlib.sha256((self.root / 'mods-source/200/_info.ini').read_bytes()).hexdigest()[:12]}, "
+                          f"reviewed {reviewed['200']['info_sha256'][:12]}"])
+        self.mod(200, RANGED_MOD)
+        # The author ships a new DLL, which the loader's pinned adapter no longer matches.
+        self.write(self.root / "data/install-snapshot/plugin-dlls.txt", PLUGIN_DLLS.replace(STRIKE_DLL, "c" * 64))
+        self.assertIn(base + f"data/install-snapshot/plugin-dlls.txt has 200\\StrikeTool.dll as {'c' * 12}, "
+                             f"reviewed {STRIKE_DLL[:12]}", audit(self.root, "0.9.0", reviewed)[1])
+        # SEST retires the adapter.
+        self.write(self.root / "data/install-snapshot/plugin-dlls.txt", PLUGIN_DLLS)
+        self.write(self.root / "integration/beta-anchorchain/source/AssemblyAdapters.cs", "// retired\n")
+        self.assertIn(base + f"no adapter in integration/beta-anchorchain/source/AssemblyAdapters*.cs pins "
+                             f"{STRIKE_DLL[:12]}", audit(self.root, "0.9.0", reviewed)[1])
+        # SEST holds the image at startup, which the loader checks before any adapter.
+        self.write(self.root / "integration/beta-anchorchain/source/AssemblyAdapters.cs", ADAPTERS)
+        self.write(self.root / "integration/beta-anchorchain/source/StartupPolicy.cs",
+                   f'        ["{STRIKE_DLL}"] = "Strike tool: hook body changed",\n')
+        self.assertIn(base + f"integration/beta-anchorchain/source/StartupPolicy.cs holds {STRIKE_DLL[:12]}, "
+                             "so the loader skips it before adapting it", audit(self.root, "0.9.0", reviewed)[1])
+        (self.root / "integration/beta-anchorchain/source/StartupPolicy.cs").unlink()
+        # The author adds a second DLL the review never saw.
+        self.write(self.root / "data/install-snapshot/plugin-dlls.txt", PLUGIN_DLLS.replace(
+            "\n\n[game", f"\n  200\\Helper.dll      1024  {'d' * 64}  1.0.0.0 / 1.0.0  2026-11-16 10:00\n\n[game"))
+        self.assertIn(base + "data/install-snapshot/plugin-dlls.txt also lists 200\\Helper.dll, which the review "
+                             "did not see", audit(self.root, "0.9.0", reviewed)[1])
+        self.write(self.root / "data/install-snapshot/plugin-dlls.txt", PLUGIN_DLLS)
+        # The game moves on: the review was made on 0.9.0.
+        self.assertIn("200 Strike Tool declares 0.8.2 <= v < 0.9.0, which excludes 0.9.1; its review no longer "
+                      "holds: reviewed as 0.8.2 <= v < 0.9.0 on 0.9.0", audit(self.root, "0.9.1", reviewed)[1])
+        self.assertEqual(audit(self.root, "0.9.0", reviewed)[2]["workshop"], 0)
+
+    def test_a_new_author_exclusion_still_fails_beside_a_reviewed_one(self):
+        reviewed = self.reviewed_strike()
+        self.write(self.root / "data/load-order.tokens.txt", "# order\n100\n200\n300\n400\n")
+        self.mod(400, "[Language_en]\nName=Planner\n\n[Compatibility]\nLessThanVersion=0.9.0\n")
+        lines, problems, found = audit(self.root, "0.9.0", reviewed)
+        self.assertIn("400 Planner declares v < 0.9.0, which excludes 0.9.0", problems)
+        self.assertEqual((found["workshop"], found["reviewed"]), (1, 1))
+
+    def test_a_review_no_longer_needed_is_named(self):
+        reviewed = self.reviewed_strike()
+        # A rehearsal of another game is no reason to drop a review made for this one.
+        lines, problems, found = audit(self.root, "0.8.2", reviewed)
+        self.assertEqual((problems, found["reviewed"]), ([], 0))
+        self.assertFalse([line for line in lines if "REVIEWED_EXCLUSIONS" in line])
+        # The author widens the range on the reviewed game: the entry is named for removal.
+        self.mod(200, RANGED_MOD.replace("LessThanVersion=0.9.0", "LessThanVersion=0.10.0"))
+        lines, problems, found = audit(self.root, "0.9.0", reviewed)
+        self.assertEqual((found["workshop"], found["reviewed"]), (0, 0))
+        self.assertIn("INFO: REVIEWED_EXCLUSIONS lists 200, which excludes nothing here now (it admits 0.9.0, "
+                      "or is not in the load order or not exported); remove it", lines)
 
     def test_lower_bound_excludes_an_older_game(self):
         self.mod(200, "[Language_en]\nName=New Only\n\n[Compatibility]\nGreaterThanEqualToVersion=0.9.0\n")
