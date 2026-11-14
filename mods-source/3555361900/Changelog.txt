@@ -1,3 +1,9 @@
+14/11/26
+
+- Updated Super Etendard class as to not conflict with the new vanilla one
+- Added aircraft service dates
+- Updated compatibility to game version 0.9.0
+
 23/02/26
 
 - Added kinematics to R.550-2 Magic II missile
