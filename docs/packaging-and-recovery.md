@@ -1099,6 +1099,54 @@ and `check_game_version` is red on the two Workshop ranges and on nothing
 else. A second `build_all.py --from-scratch` left the tree clean. None of
 it has been run in the game.
 
+### The 0.9.2 run, 14 November 2026
+
+The first update taken in by the block under "The capture for 0.9", and the
+first with nothing done by hand on the PC. The block ran at 14:51 under
+Windows PowerShell 5.1 and pushed `chore/workshop-refresh-20261114-1451`:
+the capture (`637b4dc8`), then the game export as a second commit
+(`8b6615b1`), because `tools/export-game.ps1` found the installed game a
+public release newer than the export (0.9.2 Build 261113 against 0.9.0
+Build 261111). The owner's clone, on another branch with fifteen
+uncommitted files, was not touched. Both commits were taken in by path
+(`f0664e0a`, `fe52f5bc`), since the PC's commits are not SEST-DEV's.
+
+What the steps did:
+
+1. `python3 tools/apply_dropped_files.py` removed the ten files the capture
+   listed in `data/install-snapshot/game-files-dropped.txt` (`89fb7b3b`).
+   It acts only when the export holds the build the list was taken against,
+   which after the export commit it did.
+2. `python3 tools/check_vanilla_drift.py --since 3a2c2694` passed: 1,127
+   files changed, 2,639 in line endings only, one new unit. Most of the
+   1,127 are the `[Measured]` section baked again.
+3. As at 0.9.0, the change that mattered was found by reading the game's
+   own campaigns, not by a check: three new keys in Pacific Strike's
+   `[TaskForceMode]` and a new file beside its `campaign.ini`. The five
+   campaigns now write both. `python3 tools/check_vanilla_drift.py` lists
+   `campaigns/` files as OTHER, so this step is still: diff the stock
+   campaign headers by hand at every update.
+4. `python3 tools/check_game_version.py --bump 0.9.2` moved the 25 builders.
+5. Seven more author updates came with the capture. One removed a unit
+   SEST Name Fixes had named; the builder wrote the name anyway, for a unit
+   no mod ships. It now stops on that.
+6. Two `build_all.py --from-scratch` runs, the second with a clean tree;
+   `tools/refresh_upload_manifest.py`; the 14 checks; both test suites.
+
+The pack after the run: 4,596 files (4,591), 243 of them `#!extend` or
+`#!prepend` files; 1,636 entries on the world campaign's buy list; 4,552
+cost rows. Thirteen of the 14 checks pass, and `check_game_version` is red
+on the two Workshop ranges and on nothing else. None of it has been run in
+the game.
+
+The reference capture the block wrote (`SEST-Beta-References-...zip`, in no
+branch) was used for a first trial of the plugin sources against 0.9.2:
+`docs/code-on-0.9.2-20261114.md`. One reading error of the morning was
+found from the capture and is corrected there: the date in the first line
+of `BepInEx\LogOutput.log` is the date of `Sea Power.exe`, not of the
+launch, so an old date there does not mean BepInEx did not start. The
+snapshot's `bepinex.log` header gives the file's own time.
+
 ### What the update does to a Task Force Mode save
 
 Not known yet, but since 3 Oct there is a save to find out with. The 3 Oct

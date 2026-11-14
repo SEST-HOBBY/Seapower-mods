@@ -21,7 +21,7 @@ From Weapons Free in Southern Watch and Tasman Crossing in Southern Reach, those
 [h2]Global Maritime Operations 2028[/h2]
 A single worldwide campaign for [b]Dynamic Campaign Mod[/b]. Command either coalition across the Atlantic, Mediterranean, Indian Ocean and Pacific, moving forces on the strategic map and fighting engagements in Sea Power.
 [list]
-[*][b]196 bases, 293 force groups, 54 patrol routes and 1,633 recruitment entries[/b], including 40 additional real-world airfields.
+[*][b]196 bases, 293 force groups, 54 patrol routes and 1,636 recruitment entries[/b], including 40 additional real-world airfields.
 [*][b]Eight command stages[/b] give earlier milestones and progressive access to recruitment. Accepted Admiralty assignments reward escort, surveillance, area control and multi-phase operations as well as combat.
 [*][b]Operational logistics[/b] use finite fuel and ammunition. Depots produce supplies, convoys deliver them, airlifts move ammunition and replenishment ships sustain forces at sea.
 [*][b]Battle preparation and return[/b] (beta): engagements open with a paused checklist; Esc > End battle... returns through the debrief.

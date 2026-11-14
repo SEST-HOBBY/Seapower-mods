@@ -743,3 +743,13 @@ this campaign:
   new deck.
 
 No mission lost a unit, fit or squadron (`preflight --all`).
+
+## Sea Power 0.9.2 (14 November)
+
+Rebuilt on the game's 0.9.2 files and on seven more author updates
+(Southern Watch build notes, "Sea Power 0.9.2", has the whole update). For
+this campaign: the header writes the three unit-acquisition keys 0.9.2
+added to Pacific Strike and the folder ships `campaign_localizations.ini`;
+no mission file changed, and no unit the update added is placed or sold.
+The Ford that Replenishment forks is the Modern US Navy mod's rebuilt hull.
+Every pack declares 0.9.2. None of it has been run in the game here.

@@ -1,22 +1,25 @@
 SEST R12 FINAL + NATIONS + RED LINE 3-4 + RUSSIA + MAKRAN + R13: PC ACCEPTANCE
 14 November 2026 | SEST-DEV
-Game on your PC: Sea Power 0.9.2-261113b (your report of 14 November)
-Pack data: built on the game's 0.9.0 Build 261111 files (the 12 November
-export) and on the mods as installed on 14 November; every pack declares 0.9.0
+Game on your PC: Sea Power 0.9.2 Build 261113, a public release (your
+capture of 14 November, 14:51)
+Pack data: rebuilt on the game's 0.9.2 files (your export of that capture)
+and on the mods as installed then; every pack declares 0.9.2
 SEST code: matched to 0.8.7-261107 (Runtime 1.6.5 / UI 1.4.15, R13) and to
 0.8.7-261021 (Runtime 1.5.0 / UI 1.4.6) only; on 0.9 it does not load
 
 SEA POWER 0.9: READ THIS BEFORE ANYTHING BELOW
 This release was put together for the 0.8.7-261107 beta. The game became
-0.9.0 on 11 November, and your PC has since moved twice: Player-prev.log of
-your 14 November report is a 0.9.1-261112b session and Player.log a
-0.9.2-261113b one. The pack's data was rebuilt for 0.9.0 on 13 November and
-on the eighteen mods their authors updated by 14 November, on branch
+0.9.0 on 11 November, 0.9.1 on the 12th and 0.9.2 on the 13th, each a
+public release. Your block of 14 November ran as written: it pushed the
+capture and the game export (branch chore/workshop-refresh-20261114-1451)
+and wrote the reference ZIP, all of which are taken in. The pack's data is
+now built on the 0.9.2 game and on the 23 mods their authors updated
+between 12 and 14 November, on branch
 claude/continue-previous-session-39wqwq, which sits on top of
 release/r13-combined-20261112. None of it can be run where the pack is
-built. Your local test folder (SEST_090_PC_TEST, first in the load order of
-your report, with the Workshop copy out of the order) is the first place it
-has loaded. What that means for you:
+built. Your local test folder (SEST_090_PC_TEST, first in your load order,
+with the Workshop copy out of the order) is the only place it loads. What
+that means for you:
 
 - DO NOT RUN Prepare-PC.cmd or Repair-PC.cmd from this toolkit while the
   game is 0.9. Prepare-PC imports the release and then stops, at the
@@ -26,67 +29,52 @@ has loaded. What that means for you:
   loader's enable.flag (harmless: that loader is inactive on 0.9 anyway).
   Upload-PC and Finish-Upload then refuse for want of their receipts.
   Steps 1 and 6 to 9 below therefore wait for a toolkit made for 0.9.
-- SEST's code is off on 0.9. Each SEST plugin checks the game's
-  Seapower-Scripts.dll by SHA-256 and none is matched to a 0.9 build. Your
-  report gives the hash of the 0.9.2 file (3f56861f...), the first 0.9
-  hash on file; the code is matched from the reference capture of step B,
-  not from a hash. So World Operations and its awards, the F11 cost totals
-  and campaign costs, the Red Line runtime ribbons and the runtime
-  corrections are off until then. The campaigns and data files do not
-  depend on that code.
-- BepInEx may not be starting at all. In your 14 November report
-  BepInEx\LogOutput.log is still the log of the 12 November launch (0.9.0):
-  it was not rewritten in the 0.9.1 and 0.9.2 sessions, and BepInEx starts
-  that file afresh each time it loads. If so, Anchor Chain and every code
-  mod are off as well. Look whether winhttp.dll is still beside
-  Sea Power.exe, and say what you find.
+- No code mod loads on your PC at present: not SEST's, and not any other
+  author's. BepInEx\LogOutput.log of your 14 November launch (written
+  14:32) says so in two lines. Anchor Chain's own preloader: "Could not
+  find AnchorChain chainloader", although Anchor Chain 1.2.0 is installed,
+  on, and second in the order. SEST's beta loader: "INACTIVE: uninspected
+  game/preloader build", which is what it is built to say on a game file
+  it was not matched to. So World Operations and its awards, the F11 cost
+  totals and campaign costs, the Red Line runtime ribbons and the runtime
+  corrections are off, and so are Identify Expanded, Pop-Out Windows,
+  Dynamic Campaign Mod's code and every other plugin Anchor Chain loads.
+  The campaigns and
+  data files do not depend on any of it. If Anchor Chain's Workshop page
+  (3380210757) says what its author wants installed for 0.9, say what it
+  says: Steam cannot be read where this is written.
+- CORRECTION to this file as it stood this morning. It said BepInEx might
+  not be starting, because the log was "still the log of the 12 November
+  launch". That was a misreading: the date in the log's first line is the
+  date of Sea Power.exe, not of the launch. BepInEx starts at every
+  launch, and winhttp.dll is beside Sea Power.exe. Nothing to look for.
+- SEST's code has had a first trial against 0.9.2, from your reference
+  ZIP: docs/code-on-0.9.2-20261114.md. Every source compiles against the
+  0.9.2 files. With three pins moved (in a scratch copy, not in the
+  repository) the bindings of the cost panels, the debrief, the
+  preparation map, World Operations and the Contacts and Pop-Out fixes all
+  hold. One thing in the game changed under SEST's own code: the method
+  the runtime mission ribbons hook was rewritten in 0.9.2. And four other
+  authors' plugins call game code 0.9.2 no longer has (Enhanced Decoy Mod,
+  Multi-Stage Missiles, Osprey Mechanics, the flat Topographic Map); they
+  fail until their authors rebuild them, whoever loads them. No candidate
+  has been built: that is decision 6.
 - Dynamic Campaign Mod and Coordinated Strike Tool still declare game
   versions that end below 0.9.0, so the Mod Manager lists them as not
   compatible and SETUP leaves them alone; Global Maritime Operations 2028
-  needs Dynamic Campaign Mod. Only their authors can change that. Whether
-  either runs on 0.9 is not on file.
-- The game's own files here are 0.9.0. Ten files of that export are no
-  longer in your 0.9.2 install: three Wessex animation files, a planning
-  text of the South Atlantic campaign and six stock scenarios. The pack is
-  rebuilt on the game's files when their export arrives, and step B brings
-  it if 0.9.2 is a public release.
+  needs Dynamic Campaign Mod. Only their authors can change that.
 - 59 of your installed mods carry the 0.8.7 mark SETUP wrote into their
-  _info.ini before the update ("SEST marked this mod compatible"). Your
-  capture counted them as updated; they are not, and nothing was taken
-  from them.
+  _info.ini before the update ("SEST marked this mod compatible"). The
+  capture keeps each author's own file, and nothing is taken from a mark.
 
-WHAT TO DO ON THE PC NOW (game closed; nothing is installed or changed)
-A. Let Steam finish every Sea Power download, start Sea Power once to the
-   main menu and quit, so the logs are from a launch after the downloads.
-B. One block does the rest. Open docs/packaging-and-recovery.md on branch
-   claude/continue-previous-session-39wqwq (GitHub shows it), find "The
-   capture for 0.9", and paste its PowerShell block as it stands. It needs
-   the game closed and nothing else: it works in a checkout of its own
-   beside your clone (a folder sest-capture-<date-time>, about 1.8 GB,
-   removed at the end), so your clone, its branch and its uncommitted
-   files are not touched. Its first form switched the clone's branch and
-   refused your clone on 14 November, which had fifteen uncommitted files.
-   It makes a branch chore/workshop-refresh-<date-time> from this work,
-   runs the capture (tools\capture-all-mod-updates.ps1), commits and
-   pushes it, exports the game's own files as a second commit if the
-   installed game is a newer public release (tools\export-game.ps1; a beta
-   is never exported) and runs the reference capture
-   (tools\capture-beta-references.ps1). The branch your clone is on has
-   none of the three scripts as they are now, which is why the block
-   works from this branch. Nothing is installed, and the game, Steam,
-   BepInEx and the Workshop folders are only read.
-   Two ZIPs land in Downloads. SEST-Workshop-Capture-<date-time>.zip is a
-   review copy of what the pushed branch holds.
-   SEST-Beta-References-<date-time>-<6 hex>.zip holds the game's and the
-   mods' code as installed and is in no branch: hand that one over, because
-   matching SEST's code to 0.9 starts from it.
-   If you would rather not push from the PC, a ZIP like the ones of 14
-   November works too. For the game it is every .ini, .txt, .json, .cfg,
-   .xml, .md, .yaml, .yml and .csv file under
-   Sea Power_Data\StreamingAssets\original, with its folders, and the
-   game's changelog.txt.
-C. One look in the Mission Editor (Southern Watch test card, RU.2), with
-   SEST_090_PC_TEST loaded: Russian Navy 21's Admiral Gorshkov should show
+WHAT TO DO ON THE PC NOW (game closed; nothing here installs anything)
+A. Refresh your local test folder from integration\dist\SEST_Integration
+   of branch claude/continue-previous-session-39wqwq. Empty the folder
+   first rather than copying over it: files have left the pack since your
+   copy was made (the fork of one Korean round, and a name for an Italian
+   launcher its mod no longer ships). 4,596 files.
+B. One look in the Mission Editor (Southern Watch test card, RU.2), with
+   that folder loaded: Russian Navy 21's Admiral Gorshkov should show
    Russian Federation and the game's own Sovremenny the USSR. The pack sets
    that with an #!extend file, as it sets the cost catalogs, Cross-Deck and
    the combat-system profiles (243 such files). On the 0.8.7 betas the game
@@ -94,20 +82,26 @@ C. One look in the Mission Editor (Southern Watch test card, RU.2), with
    preloader was installed, unless SEST's Runtime repaired it, and that
    Runtime does not load on 0.9. If the Gorshkov shows the USSR, those
    files are not applied on 0.9: stop and report that before judging
-   anything else. With only the 26 October Workshop copy loaded instead,
-   which has no Russian stubs, use the card's J.2 and J.3 for the same
-   question: a Horizon takes a German NH90, and a Type 23 refuses an
-   MH-60R.
+   anything else.
+C. Start a new campaign (any one of the five; they are written alike) and
+   look at the first screens. 0.9.2 gave its own Pacific Strike three new
+   lines in the campaign file and a small file naming the "Points Based"
+   way of getting units; the five campaigns now carry the same. Wherever
+   the game shows that name and its sentence, they should read as in
+   Pacific Strike. A blank, a key name such as CampaignMode_points_Name, or
+   a campaign that will not start, is what to report.
+D. When mods or the game update again: the same block as on 14 November
+   (docs/packaging-and-recovery.md on this branch, "The capture for 0.9"),
+   pasted as it stands with the game closed. It leaves your clone alone,
+   pushes the capture, exports the game only for a newer public release,
+   and writes the two ZIPs to Downloads.
 
 WHAT CAN BE CHECKED ON 0.9 WITHOUT SEST'S CODE (step 3 below, in part)
 The commander nations, ranks, emblems and name pools; prices and the
 same-nation discount; the native awards and their citation dates; the two
 hold clocks; Red Line's P1 to P9 and R6's "neither ribbon is granted";
 Makran Line's four missions. They use campaign data and the game's own
-triggers only, so your local test folder is enough for them. Refresh it
-from integration\dist\SEST_Integration of this branch first: seventeen
-ships and three Rafales in it are forks of mod files their authors changed
-on 13 November.
+triggers only, so the local test folder is enough for them.
 New for 0.9, to look at in the same pass: the British commander's rank
 insignia from Lieutenant up (the game's own images, new in 0.9.0); that
 Prepare Airbase opens in one mission with one player airfield and in
@@ -125,7 +119,8 @@ What needs SEST's code and so waits for it to be matched to 0.9: steps 2,
 Red Line checks R1 to R4, and RU.1.
 
 DECISIONS WAITING FOR YOU (docs/campaigns/southern-watch/build-notes.md,
-"Sea Power 0.9.0" and "The mods of 14 November", has each with its figures)
+"Sea Power 0.9.0", "The mods of 14 November" and "Sea Power 0.9.2", has
+each with its figures)
 1. CIWS. 0.9.0 rebalanced the game's own guns (Phalanx Block 0 anchor 40 to
    65, Block 1 50 to 70, AK-630 20 to 40; volleys cut, cooldowns raised).
    The eleven mod CIWS SEST retuned on 3 October are still on the old
@@ -134,7 +129,9 @@ DECISIONS WAITING FOR YOU (docs/campaigns/southern-watch/build-notes.md,
    game's whole sensors file and is the winning definition of 220 of the
    game's sensors (the lookout, SPS-49, SPG-62, SQS-53 among them). This is
    older than 0.9.0. Restore the game's sections, as SEST already does for
-   weapons? It would change detection in every mission.
+   weapons? It would change detection in every mission. (0.9.2's changelog
+   has "modded sensors were not loaded properly" as fixed; what that
+   changes for this is not known.)
 3. The Royal Navy mod. 0.9.0's own Hermes, Leanders, Rothesay, Lynx HAS.2,
    Nimrods, Sea Dart and Sea Wolf have the ids of units and rounds mods
    already ship, and the mods' files load. The game's South Atlantic
@@ -148,6 +145,17 @@ DECISIONS WAITING FOR YOU (docs/campaigns/southern-watch/build-notes.md,
    is what it looks like, the pack's 243 #!extend files could be written
    the game's own way and stop depending on Anchor Chain's loader. It needs
    one test on the PC before any work: say if you want it prepared.
+6. The code for 0.9.2. The trial says a candidate is within reach (the
+   work is listed at the end of docs/code-on-0.9.2-20261114.md), and it
+   would bring a loader with it, which today nothing on your PC has. Two
+   things are yours to settle first. Whether to build it now or wait to
+   see what Anchor Chain's author does. And the ribbons: 0.9.2's own
+   campaigns award ribbons on conditions written in the campaign file
+   (a [RibbonAward_...] section testing variables that mission triggers
+   set), so Red Line's Personnel Recovery and Silent Passage might need no
+   plugin at all, if a trigger can see a recovered survivor and a mission
+   with no weapon launched. That wants a look at the game's triggers and
+   one test on the PC.
 
 The rest of this file is the acceptance plan as written for 0.8.7-261107,
 corrected where 0.9.0 or the rebuild made a statement untrue.
@@ -340,15 +348,31 @@ WHAT IS NEW SINCE THE R12 RIBBON TEST BUILD
   mission lost a unit, fit or squadron. The rebuild moved 17 forked ships
   and the three Rafale F5 aircraft onto their authors' new files, and
   dropped the fork of one round no ship carries any more (4,591 files in
-  the upload). Southern Watch and Southern Reach now need the Kuznetsov mod
-  for a round, no longer for a squadron. The game on the PC is
-  0.9.2-261113b; the pack is still built on the 0.9.0 game files.
+  the upload that morning). Southern Watch and Southern Reach now need the
+  Kuznetsov mod for a round, no longer for a squadron.
+- Sea Power 0.9.2 (14 Nov 2026, your capture of 14:51 and its game export):
+  the game's 0.9.2 files are taken in (4,500; ten files 0.9.2 no longer
+  ships are removed), with seven more author updates (228 files changed,
+  15 added, 6 removed), and all 25 packs are rebuilt and declare 0.9.2:
+  4,596 files in the upload, 243 #!extend and #!prepend files, 1,636
+  recruitment entries in the world campaign. From the game: almost all of
+  0.9.2's 1,127 changed files are re-measured areas and volumes, which the
+  forks take with their base files; the five campaigns write the three
+  unit-acquisition lines 0.9.2 added to Pacific Strike and ship its
+  campaign_localizations.ini; the new submarine Hai Shih is priced and in
+  the world campaign's buy list. From the mods: Euromod's Main Pack gives
+  186 rounds a volume and adds the Spearfish and the Royal Navy's
+  submarine sonars; the Modern British Navy adds the Astute and Vanguard
+  classes (priced, and in the buy list); the Modern US Navy re-parks the
+  Ford's deck and gives the MH-60S a fourth squadron; the Italian Navy mod
+  no longer ships its Skyguard launcher, so SEST no longer names it. No
+  builder stopped and no mission lost a unit, fit or squadron.
 
 PREPARE AND CHECK
 1. Close Sea Power. Keep SEST and the collection subscribed. Extract this
    COMPLETE toolkit into a NEW folder and run Prepare-PC.cmd. Keep the
    printed release checkout, the backup path and the line "VERIFIED: all
-   4591 canonical upload files match the release manifest." Upload-PC.cmd
+   4596 canonical upload files match the release manifest." Upload-PC.cmd
    prints the folder to upload (step 6). (On 0.9.0 this step does not
    complete: see the top of this file.)
    Prepare-PC installs both code and campaign/loadout data; Repair-PC alone
@@ -451,7 +475,7 @@ POST AFTER THE PC CHECKS
 
 RETAINED FEATURES
 - Global Maritime Operations 2028, the one world in the campaign menu since
-  R11: 196 bases, 293 force groups, 54 patrols and 1,633 recruitment entries;
+  R11: 196 bases, 293 force groups, 54 patrols and 1,636 recruitment entries;
   40 added airfields and 37 reviewed positions. The original World Sandbox
   stays under legacy_campaigns/ for tools\select-legacy-world.ps1 (see
   WORLD-CAMPAIGN-READ-ME.txt).

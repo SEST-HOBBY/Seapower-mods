@@ -4335,3 +4335,123 @@ export, and says why when it does not; the capture block runs it and
 commits what it exported as a second commit.
 `tools/apply_dropped_files.py` removes from the export the files a capture
 found the game no longer ships, once the export holds that build.
+
+## Sea Power 0.9.2 (14 November)
+
+The owner ran the capture block on the PC at 14:51 on 14 November. It
+pushed a capture of the mods (`637b4dc8`), an export of the game's own
+files (`8b6615b1`; `tools/export-game.ps1` exports only a public release
+newer than the export held here, and 0.9.2 Build 261113 is one) and wrote
+the reference capture the code is matched from. Both commits are taken in
+by path (`f0664e0a`, `fe52f5bc`). It was the first run of the new capture
+tools under Windows PowerShell 5.1, and it finished with no stage problem.
+
+**None of it has been seen in the game here.**
+
+**The game, 0.9.0 to 0.9.2.** 4,500 text files (4,505): five added, ten
+removed, 1,127 changed and 2,639 that differ in line endings only. The ten
+removed are the ones the morning's report listed; the capture wrote them to
+`data/install-snapshot/game-files-dropped.txt` and
+`tools/apply_dropped_files.py` took them out of the export (`89fb7b3b`).
+`check_vanilla_drift.py --since 3a2c2694` passes. What the 1,127 are:
+
+- About 1,060 unit and round files with the `[Measured]` section baked
+  again (`BakeVersion` 7 to 8, a new `InputHash`, some areas and volumes
+  moved). Every fork here takes its base file's section with it, which is
+  why 43 Replenishment files and 15 of Collection Fixes moved in the
+  rebuild with no change of ours.
+- The campaign header. Pacific Strike's `[TaskForceMode]` now has, between
+  `Enabled` and `EnableMultipleTaskForces`,
+
+  ```
+  UnitAcquisitionRules=points
+  DefaultUnitAcquisitionRule=points
+  CampaignLocalizationFile=campaign_localizations.ini
+  ```
+
+  and ships that file, three lines naming the rule ("Points Based") and
+  describing it. The two South Atlantic campaigns had the keys in 0.9.0
+  with other values and now say `waves|points`. As with the keys 0.9.0
+  added, nothing says what a campaign without them gets, so the five
+  campaigns write them as Pacific Strike does and ship its file, read from
+  the game at build time: a changed stock file stops the build. An Open
+  Allocation twin's file keeps the name and says what the twin sells,
+  since the stock sentence ("available ships ... expand as the campaign
+  progresses") is not true of it. `check_campaign_coverage` leaves the new
+  file out of the mission files and asks a twin for it.
+- Ribbons on conditions. The South Atlantic campaigns now name
+  `TaskForceModeRibbonAwardRules=<rule>` in a mission and define
+  `[RibbonAward_<rule>]` with `Ribbon=`, `AwardByVariableAND=` or
+  `AwardByVariableOR=` over campaign variables, and `RequiresRibbon=`. The
+  pack does not use it. It bears on Red Line's two runtime ribbons (that
+  campaign's notes).
+- The language files: strings for aerial refuelling, doctrine and
+  performance, navy names and ribbon citations, and a new `[OfficerRanks]`
+  section for four nations. The stock `commander_settings.ini` did not
+  change, and the pack's nations keep their names and ranks in their own.
+- One new unit, the Taiwanese submarine `rocn_ss_hai_shih`, which the game
+  builds from its Santa Fe (`#!alias`). It is priced as the Santa Fe is
+  (the catalog's GUPPY IIA boats) and is in the world campaign's buy list.
+  No mission places it.
+- The changelog has "[FIX] Mods: modded sensors were not loaded properly".
+  What that changes for the 220 game sensors whose winning definition is
+  the Wedgetail mod's old copy (decision 2) has not been seen.
+
+**The mods, 14 November afternoon.** Seven more author updates: 228 files
+changed, 15 added, 6 removed. Two of the seven (Modern US Navy, United
+States Naval Aviation) had also updated before the morning's report, so 23
+mods moved between 12 and 14 November.
+
+- Euromod - Main Pack (193 changed, 5 added): `Volume` on 186 rounds; new
+  are the Spearfish, three Royal Navy noisemakers, the Type 2046, 2054 and
+  2076 sonars, two periscopes, the UAP(4) outfit, an SMCS combat system
+  and a Vanguard launcher.
+- Euromod - Modern British Navy: the Astute and Vanguard classes. Both are
+  priced by class in the cost list and are in the world campaign's buy
+  list, which takes every hull a mod adds (1,636 entries, 1,633 before).
+- Modern US Navy: the Ford's parked aircraft are rebuilt (F-model Super
+  Hornets, an MH-60, an E-2D) and the EASR Ford's air group loses the
+  Block III F and the 2020 Growler; the MH-60S gains a fourth squadron and
+  new livery paths. Replenishment's two Ford forks take the new hulls.
+- Italian Navy mod (it was "Euromod - Cold War Italian Navy"): its
+  Skyguard-Aspide launcher `mm_skyguard_sam` is gone. SEST Name Fixes had
+  named that unit since 19 October; the name goes with it, and the builder
+  now stops on a name whose unit no mod ships, as it already did on a
+  corrected name whose line an author changed. Three Tornados lose their
+  aerial-refuelling section.
+- EUROMOD-Armada de Chile: `ch_mm-40`, its own `nations.ini` and its copies
+  of shared system and round names are gone. No mission, roster or cost
+  mapping named the round.
+- United States Naval Aviation: eight squadron emblems. The F-35C pack's
+  squadron file follows one of them.
+- Euromod - Modern Italian Navy: the version line only.
+
+**What the rebuild did.** Every pack declares 0.9.2. No builder stopped and
+no mission file changed. The upload is 4,596 files (4,591): the five
+`campaign_localizations.ini`. 243 are modifier files as before; the cost
+list has 4,552 rows (4,547). Thirteen of the 14 checks pass, with
+`check_game_version` red on the same two Workshop ranges (Coordinated
+Strike Tool and Dynamic Campaign Mod, both ending below 0.9.0); 40 mods
+now declare 0.9.0 or 0.9.1. `preflight --all` finds every unit, fit and
+squadron the missions name.
+
+**The PC, and a correction.** The notes above say BepInEx wrote no log
+after 12 November. That was a misreading of the log's first line, whose
+date is the date of `Sea Power.exe`; the capture's copy was written at
+14:32 on the 14th. BepInEx starts. What does not start is everything
+behind it: Anchor Chain's preloader reports "Could not find AnchorChain
+chainloader" with Anchor Chain 1.2.0 installed and on, and SEST's beta
+loader reports itself inactive on a game file it was not matched to. No
+code mod loads on that PC at present, SEST's or anyone's.
+
+**The code.** `docs/code-on-0.9.2-20261114.md` is a first trial of the
+plugin sources against the reference capture: they compile against 0.9.2,
+and with three pins moved in a scratch copy the bindings hold, except that
+the game rewrote the method the runtime mission ribbons hook, and that
+four other authors' plugins call game code 0.9.2 no longer has. No
+candidate is built; whether to build one now is the owner's decision 6.
+
+**To look at on the PC**, with the local test folder refreshed from this
+build: the Mission Editor look of RU.2 (are `#!extend` files applied on
+0.9?), and the start of a new campaign, where the game should show "Points
+Based" and its sentence as it does for Pacific Strike.

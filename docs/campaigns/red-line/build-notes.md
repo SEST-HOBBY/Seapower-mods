@@ -931,3 +931,34 @@ has been seen in the game. For this campaign:
 - **No unit 0.9.0 added is placed**, sold or generated in this campaign.
 
 Every pack declares 0.9.0.
+
+## Sea Power 0.9.2 (14 November)
+
+Rebuilt on the game's 0.9.2 files and the mods as installed on 14 November
+(Southern Watch build notes, "Sea Power 0.9.2", has the whole update). For
+this campaign:
+
+- The header writes the three unit-acquisition keys 0.9.2 added to Pacific
+  Strike, and the folder ships `campaign_localizations.ini`. No mission
+  file changed.
+- **The two runtime ribbons.** `sest_personnel_recovery` (C1 Pilot in the
+  Water) and `sest_silent_passage` (05 Under the Convergence) are granted
+  by SEST's Runtime, a postfix on
+  the game's `ApplyMissionRibbonAwards`. 0.9.2 rewrote that method: it is
+  now a wrapper over a new core that knows conditional awards. The members
+  the Runtime binds are still there; the postfix has to be read against
+  the new body before it is trusted (`docs/code-on-0.9.2-20261114.md`).
+  The same change gives the game its own conditional ribbons, written in
+  the campaign file: a mission names `TaskForceModeRibbonAwardRules=<rule>`
+  and `[RibbonAward_<rule>]` tests campaign variables that mission
+  triggers set. "The Pilot objective is completed" and "the Passage
+  objective is completed" can be written that way. "At least one survivor
+  was recovered" and "no weapon was launched" need a trigger that can see
+  them, which is not known. If one can, R1 to R4 of the test card need no
+  plugin. Until the owner decides, nothing here changes: the
+  `SestRuntimeRibbonAwards` lines stay, the game ignores them, and neither
+  ribbon is granted on 0.9, which is the state the test card's R6 checks.
+- No unit 0.9.2 or the seven mod updates added is placed, sold or
+  generated in this campaign.
+
+Every pack declares 0.9.2.
