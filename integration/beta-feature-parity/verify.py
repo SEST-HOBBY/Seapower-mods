@@ -34,7 +34,7 @@ workshop = a.workshop_references.resolve() if a.workshop_references else capture
 original = capture / 'references/workshop/library-1/3812461539/plugins/SEST.RuntimeFixes.dll'
 # A capture taken after a candidate was installed holds that candidate in the
 # Workshop folder; the parity checks then use the repository's preserved 1.5.0.
-if hashlib.sha256(original.read_bytes()).hexdigest() != '7ba6d6d9c58b6c3db31d731e951ed7ea3979925bdff054c9b92482dbe69c9986':
+if not original.exists() or hashlib.sha256(original.read_bytes()).hexdigest() != '7ba6d6d9c58b6c3db31d731e951ed7ea3979925bdff054c9b92482dbe69c9986':
     original = root / 'integration/runtime-fixes/SEST.RuntimeFixes.dll'
     assert hashlib.sha256(original.read_bytes()).hexdigest() == '7ba6d6d9c58b6c3db31d731e951ed7ea3979925bdff054c9b92482dbe69c9986', 'preserved Runtime 1.5.0 missing'
 runtime, ui = out / 'SEST.RuntimeFixes.dll', out / 'SEST.ContactsFix.dll'

@@ -20,7 +20,7 @@ public sealed class RuntimeFixesMod : IAnchorChainMod
 				using SHA256 sHA = SHA256.Create();
 				text = BitConverter.ToString(sHA.ComputeHash(inputStream)).Replace("-", string.Empty).ToLowerInvariant();
 			}
-			if (text != "499675cda59912054924ae42297bce7a82b12ca00957dabd684105a24aa353a9")
+			if (text != "3f56861f09e867f315b194c81a7a2450154ccc6bb5afb769b4956dfd4a00503a")
 			{
 				Api.Log("inactive: uninspected native assembly " + text);
 				return;

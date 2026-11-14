@@ -75,7 +75,7 @@ try {
             }
         }finally{$zip.Dispose()}
         $bundle=[ordered]@{format=1;workshop_item_id='3812461539';revision=$candidateReceipt.candidate_revision;archive='SEST-Beta-Features.zip'
-            archive_sha256=(Sha $zipPath);target_game_sha256=$candidateReceipt.target_game_sha256;target_game_label='0.8.7-261107'
+            archive_sha256=(Sha $zipPath);target_game_sha256=$candidateReceipt.target_game_sha256;target_game_label='0.9.2-261113'
             files=$fileHashes;features=@('World Operations','world service ribbons','Coordinated Strike styling and weapon estimates')}
         Put (J $built 'beta-support' 'manifest.json') ($bundle|ConvertTo-Json -Depth 6)
         $PublicPack=$built

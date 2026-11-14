@@ -16,7 +16,7 @@ differ from a build.py build; the receipt records which compiler produced them.
 param(
     [Parameter(Mandatory)][string]$Capture,
     [Parameter(Mandatory)][string]$Output,
-    [string]$Revision = 'R13-20261110-mission-awards-499675cd'
+    [string]$Revision = 'R14-20261114-sea-power-092-3f56861f'
 )
 Set-StrictMode -Version Latest
 $ErrorActionPreference = 'Stop'
@@ -27,28 +27,28 @@ $capture = (Resolve-Path $Capture).Path
 # Ordered, so captured_references keeps this order and build-receipt.json
 # is byte-reproducible (a plain hashtable enumerates in a varying order).
 $pins = [ordered]@{
-    'Seapower-Scripts.dll' = '499675cda59912054924ae42297bce7a82b12ca00957dabd684105a24aa353a9'
-    'Noesis.NoesisGUI.dll' = '7b1fd6a6b90d0692297906f5907a1b4a2072bf3bf25a983b36aaa5b5c043ebdd'
-    'AnchorChain.dll' = 'e272811050698640a8936834363da91769dbc83e017637e3629c21bca6bea764'
+    'Seapower-Scripts.dll' = '3f56861f09e867f315b194c81a7a2450154ccc6bb5afb769b4956dfd4a00503a'
+    'Noesis.NoesisGUI.dll' = 'c5f13e31230b3bda9abc5df656b8956a6e5bc8d58cdcacfeadb2e004d2774082'
+    'AnchorChain.dll' = '17abaf4b006f2fe984807f62661cf8b78f7b01e60bb04ae16046bda0620dd614'
     'AnchorChain.Preloader.dll' = '1ee1570f1e7f457ffa63c24ee4085b2cdea8069ea8cebf146de5ef027eaa3984'
     'IdentifyExpanded.dll' = '9f0ec630e9d7659082bdce61743a87895de14f1903a44c68395f8f158af8afd7'
-    'SeaPowerPopOut.dll' = 'a8f1092ac247032219ebf00aa773b91d14f4bb4a7f2575ca1a4594da57abd882'
+    'SeaPowerPopOut.dll' = '6f3668aaebe366f4fecc3de5af6a1479f1765d50f176b2bd68b3434191ce3ce5'
     'ContactLog.dll' = 'a1b8b450df0933df61984651fe2b19138acd605aa4b526bbfc23565d8295015e'
     'SeaPowerSquadPanel.dll' = '6230e8e78e2ba7ba222241d0c3dcc881d2507ebeeb4eab24b6401cc9144283dd'
     'CombatCosts.dll' = '8f7195ff1540d1901446b3783789c84e1f76bebe943da7606afd85f9dd3d78bc'
     '0Harmony.dll' = '1a21cc03424fc82c3dd1346905d16494536b9595ae4162228d99fb7c285c1031'
     'BepInEx.dll' = 'c65b42034bc8ffb9f0b336e416dc3884e3f99fc5a5a89eb1f2ff7868412322cd'
     'Mono.Cecil.dll' = '7ae470288fff4a402899c254d0a76cefef55877f5c54f96e83c797cc5bb6e2f6'
-    'UnityEngine.CoreModule.dll' = 'e59403b80679d6200746b4132466acec651e225cd8e687ce2b96787a393d8c69'
-    'UnityEngine.InputLegacyModule.dll' = '89c49ce8f2e25366a07f2d2fd56dc75c20066a0ed8c62fb19bb0ff5ce63fb3ac'
-    'UnityEngine.IMGUIModule.dll' = '1f671635c05cfeecdac0e24fe26f9ebe26f182e6a1ba3c3b1031b1e8145a865d'
+    'UnityEngine.CoreModule.dll' = '4a5d7300d9ffe075e0216570689a9f090e04bbf6ace60abc69ea9401c42a0c62'
+    'UnityEngine.InputLegacyModule.dll' = 'd4432ae56ce09d38fe07a004ee43c0a7c2b2f0676b233e54eb316fd1ab4d1808'
+    'UnityEngine.IMGUIModule.dll' = '7a28b268c7c561b337121675e634aaaf63af19a60ce4e9b92875cd6df8356053'
 }
 
 function Sha([string]$path) { (Get-FileHash -LiteralPath $path -Algorithm SHA256).Hash.ToLowerInvariant() }
 function J { $p = [string]$args[0]; for ($i = 1; $i -lt $args.Count; $i++) { $p = [IO.Path]::Combine($p, [string]$args[$i]) }; $p }
 
 $receiptIn = Get-Content -LiteralPath (J $capture 'capture.json') -Raw | ConvertFrom-Json
-if ($receiptIn.native_sha256 -ne $pins['Seapower-Scripts.dll']) { throw 'This candidate targets beta 0.8.7-261107 (499675cd) only.' }
+if ($receiptIn.native_sha256 -ne $pins['Seapower-Scripts.dll']) { throw 'This candidate targets Sea Power 0.9.2-261113 (3f56861f) only.' }
 foreach ($ref in $receiptIn.references) {
     if ((Sha (J $capture $ref.path)) -ne $ref.sha256) { throw ('Capture integrity failure: ' + $ref.path) }
 }
@@ -79,7 +79,7 @@ foreach ($name in $inputs.Keys) {
 # binary is accepted in its place; either way the hash must be 1.5.0's.
 $originalHash = '7ba6d6d9c58b6c3db31d731e951ed7ea3979925bdff054c9b92482dbe69c9986'
 $original = J $workshop '3812461539' 'plugins' 'SEST.RuntimeFixes.dll'
-if ((Sha $original) -ne $originalHash) {
+if (-not (Test-Path -LiteralPath $original) -or (Sha $original) -ne $originalHash) {
     $original = J $root 'integration' 'runtime-fixes' 'SEST.RuntimeFixes.dll'
     if ((Sha $original) -ne $originalHash) { throw 'Runtime source provenance does not match the captured 1.5.0.' }
     Write-Host 'captured Workshop runtime is a candidate build; using the preserved 1.5.0 binary from integration/runtime-fixes'

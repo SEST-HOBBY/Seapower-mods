@@ -11,8 +11,8 @@ namespace Sest.UiFixes
             new[] { "IdentifyExpanded", "9f0ec630e9d7659082bdce61743a87895de14f1903a44c68395f8f158af8afd7" },
             new[] { "SEST.MenuBackground", "9dfd561db256aaa2455ff0039783b46cfbaf113b641c97f0815121d3a4502515" },
             new[] { "SEST.RuntimeFixes", BuildPins.RuntimeSha256 },
-            // Pop-Out 1.1.3 and 1.2.0 have the same MonoBehaviour update methods.
-            new[] { "SeaPowerPopOut", ContactsSurfaceFix.PopOutHash, ContactsSurfaceFix.PopOut120Hash },
+            // Pop-Out 1.1.3 and the 1.2 line (1.2.3) have the same MonoBehaviour update methods.
+            new[] { "SeaPowerPopOut", ContactsSurfaceFix.PopOutHash, ContactsSurfaceFix.PopOut12Hash },
             new[] { "SeaPowerSquadPanel", "6230e8e78e2ba7ba222241d0c3dcc881d2507ebeeb4eab24b6401cc9144283dd" },
             new[] { "SeaPowerTopo", "25d42e53de90b0e0e1d0b47acd9708d6b24334c681e7f5735a504e147d79989e" },
             new[] { "UiWorkerProbe", "b87d7a1b2b97b2f717be8303ebf4c9fca29d730715bb6283ecbe4a2df594b7b7" },

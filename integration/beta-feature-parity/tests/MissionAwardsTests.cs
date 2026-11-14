@@ -150,26 +150,47 @@ static partial class MissionAwardsTests
         Check(Callers(game, Rules, "ApplyMissionRibbonAwards", Sig(apply3)).SequenceEqual(new[] { Rules + "::ApplyMissionRibbonAwards" }) &&
             apply2.Body.Instructions.Any(i => i.Operand is FieldReference f && f.Name == "_index") && apply2.Body.Instructions.Any(Calls("SeaPower.LinearCampaignEvent", "get_EventName")),
             "3-argument ApplyMissionRibbonAwards is reached only from the 2-argument one, with mission._index and EventName");
-        InOrder(apply3, "ApplyMissionRibbonAwards: commander nation, specs, rank, definitions, rows, persistent set, precedence order",
+        // 0.9.2: the patched 3-argument overload reads the commander's nation
+        // and rank and returns ApplyMissionRibbonAwardsCore's rows unchanged,
+        // so its postfix still sees the finished native grant.
+        InOrder(apply3, "ApplyMissionRibbonAwards: commander nation, rank, then the core's result returned as is",
             Calls("SeaPower.Singleton`1", "get_Instance"), Calls("SeaPower.LinearCampaign", "get_PersistentData"), Calls(Manager, "GetCommanderNation"),
-            Calls(Rules, "ReadMissionRibbonAwardSpecs"), Calls("System.Linq.Enumerable", "Where"), Calls("System.Linq.Enumerable", "GroupBy"),
             Calls(Manager, "ReadCommanderState"), Calls(Vm + "LinearCampaignTaskForceCommanderState", "get_Rank"), Calls(Vm + "LinearCampaignTaskForceCommanderRank", "get_DisplayName"),
+            Calls(Rules, "ApplyMissionRibbonAwardsCore"), Op(Code.Ret));
+        var core = rules.Methods.Single(m => m.Name == "ApplyMissionRibbonAwardsCore");
+        var coreCall = apply3.Body.Instructions.Single(Calls(Rules, "ApplyMissionRibbonAwardsCore"));
+        Check(coreCall.Next.OpCode.Code == Code.Ret && apply3.Body.Instructions.Count(i => i.OpCode.Code == Code.Ret) == 1 && core.IsStatic &&
+            core.Parameters.Select(p => p.ParameterType.FullName).SequenceEqual(new[] { Ini, "System.Int32", "System.String", Persistent, "System.String", "System.String",
+                "System.Func`3<System.String,System.Boolean,System.Boolean>" }),
+            "the wrapper's only return is the core's result: (ini, index, section, persistent data, nation, rank, condition check)");
+        InOrder(core, "ApplyMissionRibbonAwardsCore: specs, nation and condition filters, grouping, held set, requirement, definitions, rows, persistent set, precedence order",
+            Calls(Rules, "ReadMissionRibbonAwardSpecs"), Calls("System.Linq.Enumerable", "Where"), Calls("System.Linq.Enumerable", "Where"), Calls("System.Linq.Enumerable", "GroupBy"),
+            Calls(Rules, "ReadPersistentCommanderRibbonIds"), Calls(Spec, "get_RibbonId"), Calls("System.Collections.Generic.HashSet`1", "Contains"),
+            Calls("System.Linq.Enumerable", "Any"), Calls(Spec, "get_RequiresRibbon"),
             Calls(Rules, "ReadRibbonDefinition"), Calls(Definition, "ToAwardRow"),
             Calls(Rules, "AddPersistentCommanderRibbonRows"), Calls("System.Linq.Enumerable", "OrderBy"), Calls("System.StringComparer", "get_OrdinalIgnoreCase"), Calls("System.Linq.Enumerable", "ThenBy"));
-        var nationFilter = Type(game, Rules + "/<>c__DisplayClass11_0").Methods.Single(m => m.Name == "<ApplyMissionRibbonAwards>b__0");
+        var nationFilter = Type(game, Rules + "/<>c__DisplayClass14_0").Methods.Single(m => m.Name == "<ApplyMissionRibbonAwardsCore>b__0");
         Check(nationFilter.Body.Instructions.Any(Calls(Spec, "AllowsCommanderNation")), "native awards filter specs with MissionRibbonAwardSpec.AllowsCommanderNation");
+        // The two rules the runtime mirrors: a held ribbon, or a held one whose
+        // [Ribbon_<id>] ReplacesRibbon names this one, is not granted again.
+        var replaced = Type(game, Rules + "/<>c__DisplayClass14_1").Methods.Single(m => m.Name == "<ApplyMissionRibbonAwardsCore>b__6");
+        Check(replaced.Body.Instructions.Any(Calls(Rules, "ReadRibbonDefinition")) && replaced.Body.Instructions.Any(Calls(Definition, "get_ReplacesRibbon")),
+            "a held ribbon's ReplacesRibbon blocks the ribbon it replaces");
         var c = Type(game, Rules + "/<>c");
-        Check(c.Methods.Single(m => m.Name == "<ApplyMissionRibbonAwards>b__11_3").Body.Instructions.Any(Calls(Row, "get_Precedence")) &&
-            c.Methods.Single(m => m.Name == "<ApplyMissionRibbonAwards>b__11_4").Body.Instructions.Any(Calls(Row, "get_DisplayName")),
+        Check(c.Methods.Single(m => m.Name == "<ApplyMissionRibbonAwardsCore>b__14_4").Body.Instructions.Any(Calls(Row, "get_Precedence")) &&
+            c.Methods.Single(m => m.Name == "<ApplyMissionRibbonAwardsCore>b__14_5").Body.Instructions.Any(Calls(Row, "get_DisplayName")),
             "native award rows are ordered by Precedence, then DisplayName");
-        var toRow = apply3.Body.Instructions.First(Calls(Definition, "ToAwardRow"));
-        Check(toRow.Previous.OpCode.Code == Code.Ldstr && (string)toRow.Previous.Operand == "" && toRow.Previous.Previous.OpCode.Code == Code.Ldloc_3 &&
+        var toRow = core.Body.Instructions.First(Calls(Definition, "ToAwardRow"));
+        Check(toRow.Previous.OpCode.Code == Code.Ldstr && (string)toRow.Previous.Operand == "" &&
+            toRow.Previous.Previous.OpCode.Code == Code.Ldarg_S && ((ParameterDefinition)toRow.Previous.Previous.Operand).Name == "awardedCommanderRank" &&
             toRow.Previous.Previous.Previous.OpCode.Code == Code.Ldarg_1 && toRow.Previous.Previous.Previous.Previous.OpCode.Code == Code.Ldc_I4_1,
             "native rows are ToAwardRow(1, missionIndex, rank, \"\")");
+        Method(rules, "ReadPersistentCommanderRibbonIds", "System.Collections.Generic.IEnumerable`1<System.String>(" + Persistent + ")");
+        Property(Type(game, Definition), "ReplacesRibbon", "System.String");
 
         // The key reader the runtime key mirrors: [Mission{N}] first, then the
         // event's own section, in every campaign rule source.
-        var reader = Type(game, Rules + "/<ReadMissionRibbonAwardSpecs>d__21").Methods.Single(m => m.Name == "MoveNext");
+        var reader = Type(game, Rules + "/<ReadMissionRibbonAwardSpecs>d__24").Methods.Single(m => m.Name == "MoveNext");
         InOrder(reader, "ReadMissionRibbonAwardSpecs: rule sources, [Mission{N}], event section, pipe list, native spec parser",
             Calls(Rules, "EnumerateCampaignRuleSources"),
             i => i.OpCode.Code == Code.Ldstr && (string)i.Operand == "Mission{0}", i => i.OpCode.Code == Code.Ldstr && (string)i.Operand == "TaskForceModeRibbonAwards", Calls(Ini, "readValue"),
@@ -192,7 +213,7 @@ static partial class MissionAwardsTests
         var spec = Type(game, Spec);
         Property(spec, "RibbonId", "System.String");
         var allows = Method(spec, "AllowsCommanderNation", "System.Boolean(System.String)");
-        Check(!allows.IsStatic && Type(game, Spec + "/<>c__DisplayClass7_0").Methods.Single(m => m.Name == "<AllowsCommanderNation>b__0").Body.Instructions.Any(Calls(Manager, "IsSameNation")),
+        Check(!allows.IsStatic && Type(game, Spec + "/<>c__DisplayClass19_0").Methods.Single(m => m.Name == "<AllowsCommanderNation>b__0").Body.Instructions.Any(Calls(Manager, "IsSameNation")),
             "AllowsCommanderNation compares with LinearCampaignTaskForceCommanderManager.IsSameNation");
         Method(Type(game, Definition), "ToAwardRow", Row + "(System.Int32,System.Int32,System.String,System.String)");
         var row = Type(game, Row);
@@ -485,10 +506,11 @@ static partial class MissionAwardsTests
         return true;
     }
 
-    static List<string> Evaluate(IList specs, IList native, object evidence, Func<string, object> rowFor, List<string> log)
+    static List<string> Evaluate(IList specs, IList native, object evidence, Func<string, object> rowFor, List<string> log,
+        IEnumerable<string> held = null, Func<string, string> replaces = null)
     {
         var method = awards.GetMethod("Evaluate", All);
-        var extra = (IEnumerable)method.Invoke(null, new object[] { specs, native, evidence, RowFactory(method.GetParameters()[3].ParameterType, rowFor), new Action<string>(log.Add) });
+        var extra = (IEnumerable)method.Invoke(null, new object[] { specs, native, evidence, RowFactory(method.GetParameters()[3].ParameterType, rowFor), new Action<string>(log.Add), held, replaces });
         return extra.Cast<object>().Select(Id).ToList();
     }
     // Func<string, LinearCampaignTaskForceRibbonAwardRow> from Func<string, object>.
@@ -615,6 +637,15 @@ static partial class MissionAwardsTests
             "result>= compares the native Result value");
         Check(Evaluate(Specs(out error, "sest_undersea_operations?nolaunch"), native, clean, rowFor, log).Count == 0 && log.Last().Contains("already awarded"),
             "a ribbon the native rules already granted is not added twice");
+        // 0.9.2 parity: the commander's persistent set and ReplacesRibbon, as
+        // ApplyMissionRibbonAwardsCore applies them to its own specs.
+        Check(Evaluate(passage, native, clean, rowFor, log, new[] { "sest_rl05_passage" }).Count == 0 && log.Last().Contains("already awarded"),
+            "a ribbon the commander already holds from an earlier completion is not granted again");
+        Check(Evaluate(passage, native, clean, rowFor, log, new[] { "sest_rl05_passage_bar" }, id => id == "sest_rl05_passage_bar" ? "sest_rl05_passage" : null).Count == 0 &&
+            log.Last().Contains("already awarded as sest_rl05_passage_bar, which replaces it"),
+            "a ribbon replaced by one the commander holds is not granted");
+        Check(Evaluate(passage, native, clean, rowFor, log, new[] { "unrelated" }, id => null).SequenceEqual(new[] { "sest_rl05_passage" }),
+            "an unrelated held ribbon does not block the grant");
         Check(Evaluate(Specs(out error, "sest_rl05_passage?rescued>=1|sest_rl05_passage?nolaunch|sest_rl05_passage?nolaunch"), native, clean, rowFor, log).SequenceEqual(new[] { "sest_rl05_passage" }),
             "alternative specs for one ribbon: the first that qualifies grants it, once");
         Check(Evaluate(Specs(out error, "sest_rl05_passage,China?nolaunch"), native, clean, rowFor, log).Count == 0 && log.Last().Contains("commander nation") &&
@@ -685,6 +716,16 @@ static partial class MissionAwardsTests
         var application = AppDomain.CurrentDomain.GetAssemblies().Select(a => a.GetType("UnityEngine.Application", false)).First(t => t != null);
         foreach (var path in new[] { "streamingAssetsPath", "dataPath" })
             new HarmonyLib.Harmony("sest.tests.mission-awards-fixture").Patch(application.GetProperty(path).GetGetMethod(), prefix: new HarmonyLib.HarmonyMethod(typeof(MissionAwardsTests).GetMethod("UseTempStreamingAssets", All)));
+        // 0.9.2's ReadRibbonDefinition asks Singleton<LanguageResourceHandler>
+        // for the language (localised names and its cache key). Singleton's
+        // lookup needs Unity's Object, so the fixture answers as the game does
+        // while quitting: no instance, after one Debug warning, kept quiet here.
+        // ReadRibbonDefinition then reads the plain (unlocalised) values.
+        new HarmonyLib.Harmony("sest.tests.mission-awards-fixture").Patch(game.GetType("SeaPower.Singleton", true).GetProperty("Quitting", All).GetGetMethod(true),
+            prefix: new HarmonyLib.HarmonyMethod(typeof(MissionAwardsTests).GetMethod("NoSingletonInstances", All)));
+        var debug = AppDomain.CurrentDomain.GetAssemblies().Select(a => a.GetType("UnityEngine.Debug", false)).First(t => t != null);
+        new HarmonyLib.Harmony("sest.tests.mission-awards-fixture").Patch(debug.GetMethod("LogWarning", new[] { typeof(object) }),
+            prefix: new HarmonyLib.HarmonyMethod(typeof(MissionAwardsTests).GetMethod("QuietUnityLog", All)));
         // Native logging (SeaPower.Log) is then quiet: no Unity log handler here.
         SetField(game.GetType("SeaPower.Log", true), "_logLevel", System.Enum.ToObject(game.GetType("SeaPower.LogLevel", true), 0));
         object ini = Activator.CreateInstance(iniType, All, null, new object[] { "sest-mission-awards-test.ini" }, null);
@@ -692,8 +733,8 @@ static partial class MissionAwardsTests
         section("Mission15", new Dictionary<string, string> { { "TaskForceModeRibbonAwards", "sest_undersea_operations" },
             { "SestRuntimeRibbonAwards", AsRead("SestRuntimeRibbonAwards=sest_rl05_passage?objective:Passage=completed&objective:Unseen=completed&nolaunch|sest_rl05_us,US?nolaunch") } });
         section("Mission16", new Dictionary<string, string> { { "SestRuntimeRibbonAwards", "sest_rl05_passage?nolaunch|broken" } });
-        section("RL17", new Dictionary<string, string> { { "SestRuntimeRibbonAwards", "sest_rl05_passage?nolaunch" } });
-        foreach (var r in new[] { Tuple.Create("sest_undersea_operations", "Undersea Operations", "50"), Tuple.Create("sest_rl05_passage", "Undersea Passage", "40"), Tuple.Create("sest_rl05_us", "US Passage", "41") })
+        section("RL17", new Dictionary<string, string> { { "SestRuntimeRibbonAwards", "sest_rl17_event?nolaunch" } });
+        foreach (var r in new[] { Tuple.Create("sest_undersea_operations", "Undersea Operations", "50"), Tuple.Create("sest_rl05_passage", "Undersea Passage", "40"), Tuple.Create("sest_rl05_us", "US Passage", "41"), Tuple.Create("sest_rl17_event", "Event Section", "42") })
             section("Ribbon_" + r.Item1, new Dictionary<string, string> { { "DisplayName", r.Item2 }, { "Precedence", r.Item3 }, { "ImagePath", "ribbons/" + r.Item1 + ".png" } });
         // The campaign singleton the grant reads (its static _instance field),
         // with the commander's persistent data.
@@ -712,11 +753,12 @@ static partial class MissionAwardsTests
         string granted = run(Report(Ammo("Noisemaker", 3, 3, 0)));
         Check(granted == "sest_rl05_passage,sest_undersea_operations" && data["TaskForceCommanderRibbons"] == "sest_undersea_operations,sest_rl05_passage",
             "the runtime ribbon joins the native one in the debrief rows and the commander's Service Record set; the US-only spec is skipped for an Australian commander (" + granted + ")");
-        Check(run(Report(Ammo("Noisemaker", 3, 3, 0))) == granted && data["TaskForceCommanderRibbons"] == "sest_undersea_operations,sest_rl05_passage", "a replayed completion rewrites the same rows and keeps the set unchanged");
+        Check(run(Report(Ammo("Noisemaker", 3, 3, 0))) == "sest_undersea_operations" && data["TaskForceCommanderRibbons"] == "sest_undersea_operations,sest_rl05_passage",
+            "a replayed completion does not grant a runtime ribbon the commander already holds (0.9.2's native rule) and keeps the set unchanged");
         Check(run(Report(Ammo("Torpedo", 1, 0, 0))) == "sest_undersea_operations", "a torpedo launch leaves only the native award");
         data["TaskForceCommanderNation"] = "US";
-        Check(run(Report()) == "sest_rl05_passage,sest_rl05_us,sest_undersea_operations" && data["TaskForceCommanderRibbons"] == "sest_undersea_operations,sest_rl05_passage,sest_rl05_us",
-            "a US commander (TaskForceCommanderNation) also receives the US-only runtime ribbon");
+        Check(run(Report()) == "sest_rl05_us,sest_undersea_operations" && data["TaskForceCommanderRibbons"] == "sest_undersea_operations,sest_rl05_passage,sest_rl05_us",
+            "a US commander (TaskForceCommanderNation) also receives the US-only runtime ribbon, and not the one already held");
         data["TaskForceCommanderNation"] = "Australia";
         // Outside a debrief snapshot, or for another mission, nothing changes.
         IList plain = native15();
@@ -731,7 +773,7 @@ static partial class MissionAwardsTests
         Check(ReferenceEquals(args[3], plain) && data["TaskForceCommanderRibbons"] == "sest_undersea_operations,sest_rl05_passage,sest_rl05_us",
             "a snapshot for another mission index adds nothing, though its debrief would qualify");
         Check(Grant(ini, 16, "", MakeDebrief(11, 0, Report()), NativeRows()) == "", "a key with an invalid spec grants nothing (fail closed)");
-        Check(Grant(ini, 17, "RL17", MakeDebrief(11, 0, Report()), NativeRows()) == "sest_rl05_passage", "the key is also read from the mission event's own section, as natively");
+        Check(Grant(ini, 17, "RL17", MakeDebrief(11, 0, Report()), NativeRows()) == "sest_rl17_event", "the key is also read from the mission event's own section, as natively");
         Check(Grant(ini, 18, "", MakeDebrief(11, 0, Report()), NativeRows()) == "", "a mission without the key is untouched");
         Check((bool)awards.GetField("active", All).GetValue(null), "parse problems do not disable the feature for other missions");
         // A fault inside the evaluation: native result kept, feature off.
@@ -765,10 +807,13 @@ static partial class MissionAwardsTests
             (string)Invoke(policy, "TextOption", new[] { "[Runtime]", "TowedSensorGuard=1" }, "MissionAwards", "1") == "1", "MissionAwards=0 reads as off; a file without it leaves the awards on");
         using (var candidate = AssemblyDefinition.ReadAssembly(rt.Location))
             InOrder(candidate.MainModule.GetType("Sest.RuntimeFixes.RuntimeFixesMod").Methods.Single(m => m.Name == "TriggerEntryPoint"), "RuntimeFixesMod installs mission awards only after the native image check and only when MissionAwards is not 0",
-                i => i.OpCode.Code == Code.Ldstr && (string)i.Operand == "499675cda59912054924ae42297bce7a82b12ca00957dabd684105a24aa353a9", i => i.OpCode.Code == Code.Ldstr && (string)i.Operand == "MissionAwards",
+                i => i.OpCode.Code == Code.Ldstr && (string)i.Operand == "3f56861f09e867f315b194c81a7a2450154ccc6bb5afb769b4956dfd4a00503a", i => i.OpCode.Code == Code.Ldstr && (string)i.Operand == "MissionAwards",
                 Calls("Sest.RuntimeFixes.Policy", "TextOption"), Calls("Sest.RuntimeFixes.MissionAwards", "Install"));
         try { Directory.Delete(streamingAssets, true); } catch (DirectoryNotFoundException) { }
     }
+
+    static bool NoSingletonInstances(ref bool __result) { __result = true; return false; }
+    static bool QuietUnityLog() => false;
 
     // SaveDebriefSnapshot's shape (its own body cannot be compiled under mono):
     // records the context the prefix set, and faults when the debrief is a string.

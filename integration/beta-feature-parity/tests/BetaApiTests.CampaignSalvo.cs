@@ -135,4 +135,16 @@ static partial class BetaApiTests
             Code.Ldloc_3 => method.Body.Variables[3], Code.Ldloc_S or Code.Ldloc => shooter.Operand as VariableDefinition, _ => null };
         return local?.VariableType.FullName == "SeaPower.Aircraft";
     }
+
+    // Compares two method bodies by opcode and operand, with branch targets
+    // as instruction indexes (moved here from the retired Topography checks).
+    static string[] TopoInstructions(MethodDefinition method)
+        => method.Body.Instructions.Select(i => {
+            string op = i.OpCode.Name.EndsWith(".s", StringComparison.Ordinal) && i.Operand is Mono.Cecil.Cil.Instruction
+                ? i.OpCode.Name.Substring(0, i.OpCode.Name.Length - 2) : i.OpCode.Name;
+            string operand = i.Operand is Mono.Cecil.Cil.Instruction target ? "target:" + method.Body.Instructions.IndexOf(target) :
+                i.Operand is Mono.Cecil.Cil.Instruction[] targets ? String.Join(",", targets.Select(t => method.Body.Instructions.IndexOf(t))) :
+                i.Operand?.ToString();
+            return op + " " + operand;
+        }).ToArray();
 }

@@ -11,7 +11,7 @@ using SeapowerUI.ViewModels;
 
 namespace Sest.RuntimeFixes;
 
-// Beta 499675cd only (RuntimeFixesMod's native gate): SEST runtime mission
+// Sea Power 0.9.2-261113 (3f56861f) only (RuntimeFixesMod's native gate): SEST runtime mission
 // ribbons. A campaign names them in its own key, which the game ignores:
 //
 //   [Mission<N>]
@@ -33,7 +33,12 @@ namespace Sest.RuntimeFixes;
 // Several specs may name one ribbon: the first that qualifies grants it.
 //
 // The native debrief snapshot grants its mission ribbons only after its own
-// completion gate. A postfix on that grant adds each qualifying runtime ribbon
+// completion gate. On 0.9.2 ApplyMissionRibbonAwards(ini,int,string) reads the
+// commander's nation and rank and returns ApplyMissionRibbonAwardsCore's rows,
+// so a postfix on it still runs after the native grant and the native
+// persistent set. A ribbon the commander already holds, or holds a
+// replacement of ([Ribbon_<id>] ReplacesRibbon), is not granted again, as the
+// native core decides for its own specs. A postfix on that grant adds each qualifying runtime ribbon
 // as one more native award row, so the debrief rows, the commander's
 // TaskForceCommanderRibbons set and the campaign save carry it exactly as a
 // native award; the definition is the campaign's [Ribbon_<id>]. Rows are
@@ -95,8 +100,8 @@ internal static class MissionAwards
 
     [ThreadStatic] private static Snapshot current;
     private static bool active;
-    private static MethodInfo snapshotTarget, applyTarget, ruleSources, parseNative, readDefinition, addRows, allows, toRow, commanderNation, commanderState, readValue;
-    private static PropertyInfo specId, stateRank, rankName, persistentData, managerObjectives, missionResult, survivorsRescued, debriefObjectives, unitsByReportId, unitAmmo, launched, projectileFired, ciwsRounds, ammoType, ammoSubType;
+    private static MethodInfo snapshotTarget, applyTarget, ruleSources, parseNative, readDefinition, addRows, allows, toRow, commanderNation, commanderState, readValue, persistentIds;
+    private static PropertyInfo specId, replacesRibbon, stateRank, rankName, persistentData, managerObjectives, missionResult, survivorsRescued, debriefObjectives, unitsByReportId, unitAmmo, launched, projectileFired, ciwsRounds, ammoType, ammoSubType;
     private static FieldInfo campaignInstance, managerInstance, missionIndex, objectiveId, isCompleted, isFailed, isCanceled, completeOnEnd, failOnEnd, playerTaskforce, weaponReport;
     private static Type resultType;
     private static HashSet<int> exempt;
@@ -146,12 +151,14 @@ internal static class MissionAwards
         parseNative = Api.Method(rules, "TryParseMissionRibbonAwardSpec", spec, typeof(string));
         readDefinition = Api.Method(rules, "ReadRibbonDefinition", definition, ini, typeof(string));
         addRows = Api.Method(rules, "AddPersistentCommanderRibbonRows", typeof(void), persistent, typeof(IEnumerable<LinearCampaignTaskForceRibbonAwardRow>));
+        persistentIds = Api.Method(rules, "ReadPersistentCommanderRibbonIds", typeof(IEnumerable<string>), persistent);
         allows = Api.Method(spec, "AllowsCommanderNation", typeof(bool), typeof(string));
         toRow = Api.Method(definition, "ToAwardRow", typeof(LinearCampaignTaskForceRibbonAwardRow), typeof(int), typeof(int), typeof(string), typeof(string));
         commanderNation = Api.Method(manager, "GetCommanderNation", typeof(string), persistent);
         commanderState = Api.Method(manager, "ReadCommanderState", state, ini, persistent);
         readValue = Api.Method(ini, "readValue", typeof(string), typeof(string), typeof(string), typeof(string), typeof(bool));
         specId = Property(spec, "RibbonId", typeof(string));
+        replacesRibbon = Property(definition, "ReplacesRibbon", typeof(string));
         stateRank = Property(state, "Rank", rank);
         rankName = Property(rank, "DisplayName", typeof(string));
         persistentData = Property(campaign, "PersistentData", typeof(Dictionary<string, string>));
@@ -282,11 +289,18 @@ internal static class MissionAwards
         object rank = state == null ? null : stateRank.GetValue(state, null);
         string rankText = (rank == null ? null : (string)rankName.GetValue(rank, null)) ?? "";
         Evidence evidence = Collect(index, debrief, nation, PlayerWeaponReport());
+        // The commander's set as the native core read it, now with this
+        // debrief's native rows added by the core itself.
+        var held = data == null ? new List<string>() : ((IEnumerable<string>)persistentIds.Invoke(null, new object[] { data }) ?? Enumerable.Empty<string>()).ToList();
         List<LinearCampaignTaskForceRibbonAwardRow> extra = Evaluate(specs, native, evidence, id =>
         {
             object definition = readDefinition.Invoke(null, new object[] { ini, id });
             return definition == null ? null : (LinearCampaignTaskForceRibbonAwardRow)toRow.Invoke(definition, new object[] { 1, index, rankText, "" });
-        }, line => Api.Log("debrief mission " + index + ": " + line));
+        }, line => Api.Log("debrief mission " + index + ": " + line), held, id =>
+        {
+            object definition = readDefinition.Invoke(null, new object[] { ini, id });
+            return definition == null ? null : (string)replacesRibbon.GetValue(definition, null);
+        });
         if (extra.Count == 0) return null;
         List<LinearCampaignTaskForceRibbonAwardRow> merged = Merge(native, extra);
         // The native set union; null data is ignored as the native grant does.
@@ -295,15 +309,20 @@ internal static class MissionAwards
     }
 
     // One line per spec. Returns the new rows in spec order.
+    // alreadyHeld is the commander's persistent set; replaces gives a held
+    // ribbon's ReplacesRibbon. Both mirror ApplyMissionRibbonAwardsCore.
     internal static List<LinearCampaignTaskForceRibbonAwardRow> Evaluate(List<RuntimeSpec> specs, IReadOnlyList<LinearCampaignTaskForceRibbonAwardRow> native, Evidence evidence,
-        Func<string, LinearCampaignTaskForceRibbonAwardRow> rowFor, Action<string> log)
+        Func<string, LinearCampaignTaskForceRibbonAwardRow> rowFor, Action<string> log, IEnumerable<string> alreadyHeld = null, Func<string, string> replaces = null)
     {
         var held = new HashSet<string>(native.Where(r => r != null).Select(r => r.Id ?? ""), StringComparer.OrdinalIgnoreCase);
+        if (alreadyHeld != null) held.UnionWith(alreadyHeld.Where(id => !string.IsNullOrWhiteSpace(id)));
         var extra = new List<LinearCampaignTaskForceRibbonAwardRow>();
         foreach (RuntimeSpec spec in specs)
         {
-            string verdict;
+            string verdict, by = null;
             if (held.Contains(spec.RibbonId)) verdict = "already awarded";
+            else if (replaces != null && (by = held.FirstOrDefault(id => string.Equals(replaces(id), spec.RibbonId, StringComparison.OrdinalIgnoreCase))) != null)
+                verdict = "already awarded as " + by + ", which replaces it";
             else if (!(bool)allows.Invoke(spec.Native, new object[] { evidence.Nation })) verdict = "not for this commander nation";
             else if (!Qualifies(spec.Terms, evidence, out string unmet)) verdict = "not met: " + unmet;
             else

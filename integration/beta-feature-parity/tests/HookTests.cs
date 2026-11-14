@@ -18,8 +18,8 @@ static class HookTests
         using (var stream = File.OpenRead(path)) using (var sha = System.Security.Cryptography.SHA256.Create())
             return BitConverter.ToString(sha.ComputeHash(stream)).Replace("-", "").ToLowerInvariant();
     }
-    // UI 1.4.15 accepts Pop-Out Windows 1.1.3 and the captured 1.2.0. 1.2.0
-    // moved its pop-out control into a shared title menu; the stock Formation
+    // R14's UI accepts Pop-Out Windows 1.1.3 and the captured 1.2.3. The 1.2
+    // line moved its pop-out control into a shared title menu; the stock Formation
     // Manager must recognise that entry instead of a PopOutButton.
     static void PopOutTitleMenu(Assembly ui, Assembly pop)
     {
@@ -27,8 +27,8 @@ static class HookTests
         string actual = Sha(pop.Location);
         var surface = ui.GetType("Sest.UiFixes.ContactsSurfaceFix", true);
         var accepted = (string[])surface.GetField("PopOutHashes", All).GetValue(null);
-        Check(accepted.Length == 2 && accepted.Contains(PopOut113) && accepted.Contains(actual) && actual == "a8f1092ac247032219ebf00aa773b91d14f4bb4a7f2575ca1a4594da57abd882",
-            "UI accepts exactly Pop-Out Windows 1.1.3 and the captured 1.2.0");
+        Check(accepted.Length == 2 && accepted.Contains(PopOut113) && accepted.Contains(actual) && actual == "6f3668aaebe366f4fecc3de5af6a1479f1765d50f176b2bd68b3434191ce3ce5",
+            "UI accepts exactly Pop-Out Windows 1.1.3 and the captured 1.2.3");
         Check((string)surface.GetMethod("RequirePopOut", All).Invoke(null, new object[] { pop }) == actual, "Contacts surface, Formation UI and compass gates admit the captured Pop-Out image");
         bool rejected = false;
         try { ui.GetType("Sest.UiFixes.ContactsFix", true).GetMethod("RequireAny", All).Invoke(null, new object[] { pop, new[] { PopOut113 } }); }
@@ -40,12 +40,12 @@ static class HookTests
         var formation = ui.GetType("Sest.UiFixes.FormationUiMode", true);
         formation.GetMethod("BindTitleMenu", All).Invoke(null, new object[] { pop });
         Check(formation.GetField("titleEntries", All).GetValue(null) != null && formation.GetField("titleEntryId", All).GetValue(null) != null &&
-            formation.GetField("titleLookup", All).GetValue(null) != null, "Formation UI mode binds Pop-Out 1.2.0's title-menu entries");
+            formation.GetField("titleLookup", All).GetValue(null) != null, "Formation UI mode binds Pop-Out 1.2.3's title-menu entries");
         var add = Body(M(pop, "SeaPowerPopOut.PopOutScreen", "AddButton"));
         Check(add.Count(i => i.opcode == OpCodes.Ldstr && (string)i.operand == "popout") == 1 &&
             add.Count(i => (i.operand as MethodInfo)?.DeclaringType.FullName == "SeaPowerPopOut.SmartWindows.TitleMenu" && ((MethodInfo)i.operand).Name == "Set") == 1 &&
             !add.Any(i => i.opcode == OpCodes.Ldstr && (string)i.operand == "PopOutButton"),
-            "Pop-Out 1.2.0 adds its control as the 'popout' title-menu entry, not as a PopOutButton");
+            "Pop-Out 1.2.3 adds its control as the 'popout' title-menu entry, not as a PopOutButton");
         var set = Body(M(pop, "SeaPowerPopOut.SmartWindows.TitleMenu", "Set"));
         Check(set.Count(i => i.opcode == OpCodes.Ldstr && (string)i.operand == "SmartWindowsMenuButton") == 2 &&
             set.Any(i => (i.operand as FieldInfo)?.Name == "Entries") && set.Any(i => i.opcode == OpCodes.Stfld && (i.operand as FieldInfo)?.Name == "Id"),

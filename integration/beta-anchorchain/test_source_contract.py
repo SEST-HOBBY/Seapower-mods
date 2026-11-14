@@ -52,12 +52,12 @@ class BetaSourceContract(unittest.TestCase):
 
     def test_bootstrap_does_not_auto_activate(self):
         self.assertIn('"enable.flag"', self.boot)
-        self.assertIn('"enable-beta-261106-499675cd"', self.boot)
+        self.assertIn('"enable-092-261113-3f56861f"', self.boot)
         self.assertIn("if (enabled)", self.boot)
         self.assertIn('Logger.LogInfo("BETA SAFE BOOTSTRAP READY; enable="', self.boot)
 
     def test_beta_hash_gate_and_safe_fork_only(self):
-        self.assertIn("499675cda59912054924ae42297bce7a82b12ca00957dabd684105a24aa353a9", self.boot)
+        self.assertIn("3f56861f09e867f315b194c81a7a2450154ccc6bb5afb769b4956dfd4a00503a", self.boot)
         self.assertIn('Path.Combine(_payloadDirectory, "AnchorChain.dll")', self.boot)
         self.assertIn('GetField("_startOnce"', self.boot)
         self.assertIn("Sha256(payload), expected", self.boot)
@@ -91,7 +91,11 @@ class BetaSourceContract(unittest.TestCase):
     def test_metadata_preparation_precedes_clr_loading(self):
         self.assertLess(self.main.index("BetaAssemblyPolicy.Prepare(asmPath"), self.main.index("Assembly.LoadFile(prepared)"))
         policy = (HERE / 'source' / 'AssemblyPolicy.cs').read_text()
-        self.assertIn('ExtendedHash', policy)
+        self.assertIn('"ExtendedGuidance"', policy)
+        # R14: every admitted image is checked against the game's own members
+        # after any rewrite, and before the CLR sees it.
+        self.assertLess(policy.index('AdaptCapturedImage(module'), policy.index('UnresolvedNativeMembers(module, native)'))
+        self.assertLess(policy.index('UnresolvedNativeMembers(module, native)'), policy.index('module.Write(temporary)'))
         self.assertIn('SKIPPED before CLR load', policy)
         self.assertIn('InvalidNativeFields', policy)
 

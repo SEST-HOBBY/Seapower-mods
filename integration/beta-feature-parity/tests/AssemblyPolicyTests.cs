@@ -62,8 +62,11 @@ static class AssemblyPolicyTests
                 inspected++; if (prepared != null) allowed++;
             }
             Check(inspected > 60 && allowed > 20, "Complete captured managed Workshop set passes metadata preparation without broad exclusion");
-            Check(messages.Any(x => x.StartsWith("ADAPTED OspreyMechanics ")) && !messages.Any(x => x.Contains("OspreyDeckOps")),
-                "Dependent Osprey deck code is released once its OspreyMechanics dependency is adapted (R6)");
+            // R14: the 0.9 Osprey Mechanics names Aircraft.UpdateFuelConsumption(float),
+            // which 0.9.2 no longer has. It and the deck code built on it are held.
+            Check(messages.Any(x => x.StartsWith("SKIPPED before CLR load: OspreyMechanics.dll; names ") && x.Contains("UpdateFuelConsumption")) &&
+                messages.Any(x => x.StartsWith("SKIPPED before CLR load: OspreyDeckOps.dll; depends on OspreyMechanics")),
+                "Osprey deck code is held with its incompatible OspreyMechanics library (R14)");
             Console.WriteLine("Metadata discovery: " + inspected + " other DLLs inspected, " + allowed + " plugin assemblies admitted; no plugin entrypoints executed.");
             Console.WriteLine("Assembly pre-load/Identify beta geometry checks passed: " + checks + "; no Unity gameplay.");
         } finally { if (Directory.Exists(cache)) Directory.Delete(cache, true); }

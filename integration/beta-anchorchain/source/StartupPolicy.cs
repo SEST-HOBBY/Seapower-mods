@@ -8,14 +8,15 @@ public static partial class BetaAssemblyPolicy
 {
     // Each entry is an exact captured image whose own startup guard rejected
     // this native game. Changed author images are not matched by filename.
+    // R14: re-keyed to the 14 November 0.9.2 capture. Each reason is the
+    // author's own build-contract verdict on 0.9.2 (BetaApiTests runs every
+    // such guard against the captured game and requires this table to match).
     private static readonly Dictionary<string, string> StartupHolds = new(StringComparer.Ordinal) {
-        ["2247e384050029b671ec0673849688d735ed6e76127ec6ae3c37f63f92a33169"] = "Exterior Cameras: author camera contract rejected",
-        ["262669de6ea1b320724126d111c2a43dcfe42b93866e74fb1812da2ffcfd7937"] = "K5 Kraken contact strike: ObjectsManager.removeObject hook body changed",
-        ["1138dccfd42a630a17aa6e0131ce95497281265915b88d694ca5ce916ebe7b81"] = "XQ-58 shadow contacts: author game-assembly guard rejected",
-        ["ab546e6b0134c5a46c8f4ad3e347537e205a9da419088a53373097c70c813df2"] = "Alpine scoped runtime fixes: CheckFiringConstraints hook body changed",
-        ["5c10a344f5fba730cae191110e58dcd14d55e959f7bd67b50017765928de4f41"] = "MV-75/Cheyenne II systems: FollowCamera.lateUpdate hook body changed",
-        ["f933cec252c0c2ba99192e3f14b0f333d11456005c496a49d8b532d3e3187f81"] = "EC-2 comms jamming: AI.MaintainMPA hook body changed",
-        ["3c0b3b8fb9b01d16a8df2e085372ad04d95f611e6e378dedbd01e0c1d9f80aaa"] = "MV-75 crew escape: author game-assembly guard rejected",
+        ["1a3eb996201106c800133aa3ed884e7642c43fb58ea29fcd0c8d98390a739459"] = "Saronic Corsair strike USV: ObjectsManager.removeObject hook body changed",
+        ["3ef5efb4a68b70df72997083b648769ec7c7691a7893a28478fe031a0d9dc3ee"] = "Alpine scoped runtime fixes: CheckFiringConstraints hook body changed",
+        ["5e969d6e790ac3f59cd011a7acd0ce916c5f3fee31da0a0bf818efbc2b2b59a7"] = "MV-75/Cheyenne II systems: FollowCamera.lateUpdate hook body changed",
+        ["feb9a01d5fa0bd4916d634414c8ab31e37d2b1d980d9ca4fbfe4854c01b4df76"] = "EC-2 comms jamming: AI.MaintainMPA hook body changed",
+        ["da8a45c111325fa8b97a6a20d72d8a7ccf77799f1478171f0c73f8df563c593a"] = "K5 Kraken contact strike: ObjectsManager.removeObject hook body changed",
     };
 
     private static bool HoldRejectedStartup(string hash, string source, Action<string> log)

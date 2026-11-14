@@ -58,13 +58,13 @@ class Probe {
  }
  static int PopOutProvenance(string[] args,Assembly rt) {
   const string GroupHash="6230e8e78e2ba7ba222241d0c3dcc881d2507ebeeb4eab24b6401cc9144283dd";
-  const string PopOutHash="a8f1092ac247032219ebf00aa773b91d14f4bb4a7f2575ca1a4594da57abd882";
+  const string PopOutHash="6f3668aaebe366f4fecc3de5af6a1479f1765d50f176b2bd68b3434191ce3ce5";
   string cache=Path.Combine(Path.GetTempPath(),"SEST-PopOut-Provenance-"+Guid.NewGuid().ToString("N"));
   int fails=0;
   void Check(bool ok,string what){Console.WriteLine((ok?"PASS ":"FAIL ")+what);if(!ok)fails++;}
   try {
    string source=Path.Combine(args[2],"3818251045","SeaPowerSquadPanel.dll"), pop=Path.Combine(args[2],"3826396311","SeaPowerPopOut.dll");
-   Check(Sha(source)==GroupHash && Sha(pop)==PopOutHash,"captured Group Manager 0.2.17 and Pop-Out Windows 1.2.0 fixtures");
+   Check(Sha(source)==GroupHash && Sha(pop)==PopOutHash,"captured Group Manager 0.2.17 and Pop-Out Windows 1.2.3 fixtures");
    var log=new System.Collections.Generic.List<string>();
    string adapted=AnchorChain.BetaAssemblyPolicy.Prepare(source,Path.Combine(args[0],"Seapower-Scripts.dll"),cache,log.Add);
    Check(adapted!=null && adapted!=source && Sha(adapted)!=GroupHash && log.Exists(l=>l.Contains("ADAPTED SeaPowerSquadPanel")),

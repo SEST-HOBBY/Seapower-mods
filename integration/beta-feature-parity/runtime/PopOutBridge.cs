@@ -116,7 +116,7 @@ internal static class PopOutBridge
 		{
 			if (screenType == null && !popRejected && assembly.GetType("SeaPowerPopOut.PopOutScreen", throwOnError: false) != null)
 			{
-				if (!HashMatches(assembly, "5709ed68af4623fceee3f3badc8e06bdb9b98f8e095fb0deac2685a9ebc5fc36") && !HashMatches(assembly, "a8f1092ac247032219ebf00aa773b91d14f4bb4a7f2575ca1a4594da57abd882"))
+				if (!HashMatches(assembly, "5709ed68af4623fceee3f3badc8e06bdb9b98f8e095fb0deac2685a9ebc5fc36") && !HashMatches(assembly, "6f3668aaebe366f4fecc3de5af6a1479f1765d50f176b2bd68b3434191ce3ce5"))
 				{
 					popRejected = true;
 					Api.Log("pop-out bridge inactive for an uninspected Pop-Out DLL");

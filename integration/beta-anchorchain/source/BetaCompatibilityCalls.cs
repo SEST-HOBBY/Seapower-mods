@@ -14,44 +14,9 @@ namespace AnchorChain;
 
 public static partial class BetaCompatibilityCalls
 {
-    public static MapUnitViewModel VehicleViewModel(Vehicle vehicle)
-        => FindVehicleViewModel(vehicle, Globals._mainGameViewModel?.Map?.MapKnownUnits?.AllUnits)
-            ?? FindVehicleViewModel(vehicle, Globals._mainGameViewModel?.SecondMap?.MapKnownUnits?.AllUnits);
-
-    public static MapUnitViewModel FindVehicleViewModel(Vehicle vehicle, IEnumerable<MapUnitViewModel> units)
-        => vehicle == null ? null : units?.FirstOrDefault(view => ReferenceEquals(view.Unit, vehicle));
-
     private static readonly System.Collections.IEnumerable retiredFormationMembership = new object[0];
     public static System.Collections.IEnumerable LegacyFormationMembership(MapFormationViewModel unused)
         => retiredFormationMembership;
-
-    // The author supplies travelled metres (including its minimum hover
-    // equivalent). Native 261106 stores kilograms rather than range: use its
-    // own refreshed consumption ratio and conversion, then refresh displays.
-    public static void OspreyFuelDistance(Aircraft aircraft, float metres)
-    {
-        if (Single.IsNaN(metres) || Single.IsInfinity(metres) || metres < 0)
-            throw new ArgumentOutOfRangeException(nameof(metres));
-        aircraft.UpdateFuelConsumption();
-        aircraft.BurnFuel(aircraft.FuelForCruiseKm(metres / 1000f) * aircraft._consumptionCoefficient);
-        aircraft.UpdateFuelConsumption();
-    }
-
-    private static class DecoyStyle
-    {
-        internal static readonly FieldInfo Color = AccessTools.Field(typeof(WeaponContactViewModel), "_attackColor");
-        internal static readonly object Allied = Enum.Parse(Color.FieldType, "WeaponVectorAllied");
-    }
-
-    // The captured author call always supplies WeaponVectorAlliedColor. Beta's
-    // renderer stores a palette key instead of a fixed Noesis colour value.
-    public static void SetDecoyLineColor(WeaponContactViewModel contact, Noesis.Color unused)
-        => DecoyStyle.Color.SetValue(contact, DecoyStyle.Allied);
-
-    // Stable's ignorePath argument was ineffective (its comparison was thrown
-    // away). Preserve its actual first-match lookup using all active beta layers.
-    public static string GetLegacyFile(FileManager manager, string path, string ignorePath)
-        => manager.GetFile(path, LayerKind.All);
 
     // The sole old campaign speed call builds ConstantSpeed(float,ObjectBase).
     // Beta replaces that class/interface pair with a value-type SpeedRequest.
@@ -83,37 +48,6 @@ public static partial class BetaCompatibilityCalls
         return AccessTools.Method(type, name, parameters, generics);
     }
 
-    // WeaponLauncherEffects 1.0.18 finds WeaponContainer.launch and
-    // LaunchFromMagazine by their stable parameter lists. Beta Build 261026
-    // appended "bool failedLaunch = false" to both and left a successful
-    // launch unchanged, so exactly those two lists gain the flag; any other
-    // lookup passes through and fails or succeeds as the author wrote it.
-    private static readonly string[] StableLaunch = { "SeaPower.ObjectBase", "UnityEngine.Vector3", "UnityEngine.Vector3", "System.Single", "System.String" };
-    private static readonly string[] StableMagazineLaunch = { "System.String", "SeaPower.ObjectBase", "UnityEngine.Vector3", "UnityEngine.Vector3", "System.Single", "System.Single" };
-
-    public static MethodInfo LauncherEffectsMethod(Type type, string name, Type[] parameters, Type[] generics)
-    {
-        if (type == typeof(WeaponContainer) && parameters != null && parameters.All(p => p != null) &&
-            ((name == "launch" && parameters.Select(p => p.FullName).SequenceEqual(StableLaunch)) ||
-             (name == "LaunchFromMagazine" && parameters.Select(p => p.FullName).SequenceEqual(StableMagazineLaunch))))
-            parameters = parameters.Concat(new[] { typeof(bool) }).ToArray();
-        return AccessTools.Method(type, name, parameters, generics);
-    }
-
-    // SubModelStabilization 1.1.2 finds VesselLoader.loadShipFromInternalResources
-    // by its ten stable parameters. Beta Build 261026 made it void and passes
-    // the caller's VesselParameters first (vp); the adapted postfix takes vp.
-    private static readonly string[] StableVesselLoad = { "System.String", "System.String", "System.String", "System.Int32",
-        "SeaPower.GeoPosition", "SeaPower.GeoPosition", "SeaPower.Taskforce", "SeaPower.ResourceLoader+ResourceBatch", "System.String", "System.Boolean" };
-
-    public static MethodInfo StabilizationMethod(Type type, string name, Type[] parameters, Type[] generics)
-    {
-        if (type == typeof(VesselLoader) && name == "loadShipFromInternalResources" && parameters != null &&
-            parameters.All(p => p != null) && parameters.Select(p => p.FullName).SequenceEqual(StableVesselLoad))
-            parameters = new[] { typeof(VesselParameters) }.Concat(parameters).ToArray();
-        return AccessTools.Method(type, name, parameters, generics);
-    }
-
     // A not-yet-assigned/pooled unit is ineligible for an enemy hail. Returning
     // true preserves the caller's existing skip branch before IsEnemyUnit runs.
     public static bool SkipEnemyHailCandidate(ObjectBase unit)
@@ -124,24 +58,4 @@ public static partial class BetaCompatibilityCalls
     // until a taskforce exists. Assigned units retain the native decision.
     public static bool IsInitializedPlayerUnit(ObjectBase unit)
         => !ReferenceEquals(unit, null) && !ReferenceEquals(unit._taskforce, null) && unit.IsPlayerUnit;
-
-    // Beta's constructor branches to _sources.Add(this), rather than directly
-    // to ret. Reuse that real merge label and keep the new registration epilogue.
-    // The original transpiler and its one-argument validation remain intact.
-    public static CodeInstruction FindDecoyContactExit(List<CodeInstruction> body, Predicate<CodeInstruction> unused)
-    {
-        FieldInfo sources = AccessTools.Field(typeof(WeaponContactViewModel), "_sources");
-        CodeInstruction exit = null;
-        for (int i = 0; i + 5 < body.Count; i++) {
-            if (body[i].opcode != OpCodes.Ldarg_0 || body[i+1].opcode != OpCodes.Ldfld ||
-                !Equals(body[i+1].operand, sources) || body[i+2].opcode != OpCodes.Ldarg_0 ||
-                body[i+3].operand is not MethodInfo add || add.Name != "Add" || add.ReturnType != typeof(bool) ||
-                body[i+4].opcode != OpCodes.Pop || body[i+5].opcode != OpCodes.Ret) continue;
-            if (exit != null) throw new InvalidOperationException("Ambiguous beta contact registration epilogue");
-            exit = body[i];
-        }
-        if (exit == null || exit.labels.Count == 0)
-            throw new InvalidOperationException("Inspected beta contact registration epilogue/label changed");
-        return exit;
-    }
 }

@@ -166,7 +166,7 @@ try {
     # repaired files instead of treating them as an unrelated external overwrite.
     $state.phase='enabled'
     Write-Atomic $statePath ($state | ConvertTo-Json -Depth 8)
-    Write-Atomic $flag 'enable-beta-261106-499675cd'
+    Write-Atomic $flag 'enable-092-261113-3f56861f'
 } catch {
     $failure=$_
     if (Test-Path -LiteralPath $flag) { Remove-Item -LiteralPath $flag -Force }

@@ -36,21 +36,23 @@ static partial class BetaApiTests
             return File.Exists(path) ? Assembly.LoadFrom(path) : null;
         };
         try {
-            var paths=new Dictionary<string,string>();
-            foreach (string relative in new[] { "3813157776/DynamicCampaignMod.dll",
-                "3789188689/SubAmmunitionMod.dll", "3789188689/SecondThrustMod.dll", "3790594162/IdentifyExpanded.dll",
-                "3784474738/WeaponLauncherEffects.dll", "3784474738/SubModelStabilization.dll" }) {
+            var paths=new Dictionary<string,string>(); var relatives=new Dictionary<string,string>();
+            // R14: Dynamic Campaign Mod and Identify keep their private images.
+            // Sub Ammunition, Second Thrust and Automatic SAR were rebuilt by
+            // their authors for 0.9 and, like the R5 pair, now load unchanged.
+            var adaptedImages=new[] { "3813157776/DynamicCampaignMod.dll", "3790594162/IdentifyExpanded.dll" };
+            foreach (string relative in adaptedImages.Concat(new[] { "3789188689/SubAmmunitionMod.dll", "3789188689/SecondThrustMod.dll",
+                "3774105087/AutomaticSAR.dll", "3784474738/WeaponLauncherEffects.dll", "3784474738/SubModelStabilization.dll" })) {
                 string source=Path.Combine(workshop,relative); byte[] bytes=File.ReadAllBytes(source);
                 string adapted=BetaAssemblyPolicy.Prepare(source,native,cache,Console.WriteLine);
                 Check(adapted != null && File.Exists(adapted), "Current API image admitted: "+relative);
-                if (relative.EndsWith("WeaponLauncherEffects.dll") || relative.EndsWith("SubModelStabilization.dll"))
-                    Check(adapted == source, "Updated author image needs no obsolete R5 adapter: "+relative);
-                else Check(adapted != source, "Private API image generated: "+relative);
+                if (adaptedImages.Contains(relative)) Check(adapted != source, "Private API image generated: "+relative);
+                else Check(adapted == source, "Rebuilt author image needs no retired adapter: "+relative);
                 Check(bytes.SequenceEqual(File.ReadAllBytes(source)), "Author bytes retained: "+relative);
-                paths[Path.GetFileNameWithoutExtension(source)]=adapted;
+                paths[Path.GetFileNameWithoutExtension(source)]=adapted; relatives[Path.GetFileNameWithoutExtension(source)]=relative;
             }
-            Check(BetaAssemblyPolicy.Prepare(Path.Combine(workshop,"3789188689/SubAmmunitionMod.fixed.dll"),native,cache,Console.WriteLine)==null,
-                "Captured duplicate is excluded even when enumerated before the canonical image");
+            Check(!File.Exists(Path.Combine(workshop,"3789188689/SubAmmunitionMod.fixed.dll")),
+                "The captured 0.9 Sub Ammunition item no longer ships the duplicate .fixed image the loader used to exclude");
             using var resolver=new DefaultAssemblyResolver(); resolver.AddSearchDirectory(references);
             resolver.AddSearchDirectory(Path.GetDirectoryName(typeof(BetaAssemblyPolicy).Assembly.Location));
             var missing=new List<string>(); int resolved=0;
@@ -71,13 +73,6 @@ static partial class BetaApiTests
             foreach (string failure in missing) Console.WriteLine("MISSING "+failure);
             Check(missing.Count==0 && resolved>100, "All active direct native method/field operands resolve across the current fixtures");
             Console.WriteLine("Resolved native operands: "+resolved);
-            using (var ammo=ModuleDefinition.ReadModule(paths["SubAmmunitionMod"],new ReaderParameters { AssemblyResolver=resolver })) {
-                var calls=Types(ammo.Types).SelectMany(t=>t.Methods).Where(m=>m.HasBody).SelectMany(m=>m.Body.Instructions)
-                    .Where(i=>i.Operand is MethodReference call && call.DeclaringType.FullName=="SeaPower.Utils" && call.Name=="openIniFile").ToList();
-                Check(calls.Count==5 && calls.All(i=>((MethodReference)i.Operand).Parameters.Count==4 &&
-                    i.Previous.OpCode==Mono.Cecil.Cil.OpCodes.Ldc_I4 && (int)i.Previous.Operand==0),
-                    "All five real sub-ammunition INI sites append forceDisk=false");
-            }
 
             using (var campaignImage=ModuleDefinition.ReadModule(paths["DynamicCampaignMod"],new ReaderParameters { AssemblyResolver=resolver })) {
                 var nightCalls=Types(campaignImage.Types).SelectMany(t=>t.Methods).Where(m=>m.HasBody)
@@ -87,20 +82,29 @@ static partial class BetaApiTests
                     nightCalls[0].Previous.OpCode==Mono.Cecil.Cil.OpCodes.Ldnull,
                     "Exactly one real campaign night query supplies the new native default nation=null");
             }
-            string decoySource=Path.Combine(workshop,"3784474738/EnhancedDecoyMod.dll");
-            byte[] decoyBytes=File.ReadAllBytes(decoySource);
-            Check(BetaAssemblyPolicy.Prepare(decoySource,native,cache,Console.WriteLine)==null,
-                "Incompatible single-attacher decoy plugin is held before CLR load on multi-round native beta");
-            Check(File.ReadAllBytes(decoySource).SequenceEqual(decoyBytes), "Decoy author bytes and data remain untouched");
-            Check(!AppDomain.CurrentDomain.GetAssemblies().Any(x=>x.GetName().Name=="EnhancedDecoyMod"), "Held decoy image never enters CLR");
+            // R14: author images that still name game members 0.9.2 removed are
+            // held before CLR load by the generic native-member check, with
+            // the member named; Osprey deck code is held with its library.
+            foreach (var (relative, member) in new[] {
+                ("3784474738/EnhancedDecoyMod.dll", "SeaPower.WeaponSystemChaff::_ammoInUse"),
+                ("3784474738/MultiStageMissiles.dll", "SeaPower.ChaffCloud::launchChaffEffect"),
+                ("3806466625/OspreyMechanics.dll", "SeaPower.Aircraft::UpdateFuelConsumption(System.Single)"),
+                ("3826122523/SeaPowerTopoFlat.dll", "SeaPower.Globals::_alliedTaskforce"),
+                ("3806466625/OspreyDeckOps.dll", "depends on OspreyMechanics, which names game members this build does not have") }) {
+                string source=Path.Combine(workshop,relative); byte[] bytes=File.ReadAllBytes(source);
+                var messages=new List<string>();
+                Check(BetaAssemblyPolicy.Prepare(source,native,cache,messages.Add)==null, "Image incompatible with 0.9.2 is held before CLR load: "+relative);
+                Check(messages.Count==1 && messages[0].StartsWith("SKIPPED before CLR load: "+Path.GetFileName(source)+"; ") && messages[0].Contains(member),
+                    "Hold names the missing game member or held library: "+relative+" -> "+String.Join(" | ",messages));
+                Check(File.ReadAllBytes(source).SequenceEqual(bytes), "Held author bytes and data remain untouched: "+relative);
+                Check(!AppDomain.CurrentDomain.GetAssemblies().Any(x=>x.GetName().Name==Path.GetFileNameWithoutExtension(source)), "Held image never enters CLR: "+relative);
+            }
+            Check(BetaAssemblyPolicy.Prepare(Path.Combine(workshop,"3826122523/SeaPowerTopo.dll"),native,cache,Console.WriteLine)==Path.Combine(workshop,"3826122523/SeaPowerTopo.dll"),
+                "The 3D topographic map in the same item resolves on 0.9.2 and loads unchanged");
 
-            foreach (var pair in paths.Where(x=>x.Key!="EnhancedDecoyMod")) {
+            foreach (var pair in paths) {
                 var loaded=Assembly.LoadFile(pair.Value);
-                Check(BetaAssemblyPolicy.OriginalLocation(loaded)==Path.Combine(workshop,
-                    pair.Key=="DynamicCampaignMod" ? "3813157776/DynamicCampaignMod.dll" :
-                    pair.Key=="IdentifyExpanded" ? "3790594162/IdentifyExpanded.dll" :
-                    pair.Key=="WeaponLauncherEffects" || pair.Key=="SubModelStabilization" ? "3784474738/"+pair.Key+".dll" : "3789188689/"+pair.Key+".dll"),
-                    "Original asset provenance: "+pair.Key);
+                Check(BetaAssemblyPolicy.OriginalLocation(loaded)==Path.Combine(workshop,relatives[pair.Key]), "Original asset provenance: "+pair.Key);
                 if (pair.Key=="DynamicCampaignMod") {
                     var postfix=loaded.GetType("DynamicCampaignMod.Game.Patches.CampaignMenuPatch",true).GetMethod("Postfix",BindingFlags.NonPublic|BindingFlags.Static);
                     var instructions=PatchProcessor.GetOriginalInstructions(postfix);
@@ -160,91 +164,12 @@ static partial class BetaApiTests
         foreach (string name in BetaAssemblyPolicy.AdapterNames())
             Check(methods.Any(m=>m.Name=="R6_"+name), "R6 adapter has its own managed checks: "+name);
         foreach (var method in methods) {
-            if (new[] { "R6_MissileControlMod", "R6_OptimalTargetDist", "R6_ParallelRangeProbe", "R6_TestRange" }.Contains(method.Name)) {
-                string relative = "3784474738/" + method.Name.Substring(3) + ".dll";
-                string source = Path.Combine(context.Workshop, relative);
-                string prepared = BetaAssemblyPolicy.Prepare(source, context.Native, context.Cache, Console.WriteLine);
-                Check(prepared != null && (method.Name == "R6_ParallelRangeProbe" ? prepared == source : prepared != source),
-                    "Current author image has the reviewed R9 policy: " + relative);
-                Console.WriteLine(method.Name.Substring(3) + " legacy fixture superseded; current image receives its own startup checks.");
-                continue;
-            }
             int before=checks;
             try { method.Invoke(null,new object[] { context }); }
             catch (TargetInvocationException ex) when (ex.InnerException!=null) {
                 System.Runtime.ExceptionServices.ExceptionDispatchInfo.Capture(ex.InnerException).Throw();
             }
             Console.WriteLine(method.Name.Substring(3)+" checks passed: "+(checks-before));
-        }
-    }
-    // R5: WeaponLauncherEffects 1.0.18 and SubModelStabilization 1.1.2 from
-    // Euromod's Anchor Chain Expansion Pack. Metadata and reflection only; no
-    // Harmony patch is applied and no plugin or game code runs.
-    static void LauncherAndStabilizationChecks(Dictionary<string,string> paths, DefaultAssemblyResolver resolver)
-    {
-        const BindingFlags all=BindingFlags.NonPublic|BindingFlags.Public|BindingFlags.Static|BindingFlags.Instance;
-        using (var effects=ModuleDefinition.ReadModule(paths["WeaponLauncherEffects"],new ReaderParameters { AssemblyResolver=resolver })) {
-            var post=effects.GetType("WeaponLauncherEffectsAnchorChain.WeaponContainerLaunchLauncherEffectsPatch").Methods.Single(m=>m.Name=="Postfix");
-            var il=post.Body.Instructions;
-            Check(post.Parameters.Count==3 && post.Parameters[2].Name=="__result" && post.Parameters[2].ParameterType.FullName=="System.Boolean",
-                "Launcher postfix receives the beta launch result");
-            Check(il[0].OpCode==Mono.Cecil.Cil.OpCodes.Ldarg_2 && il[1].OpCode==Mono.Cecil.Cil.OpCodes.Brtrue && il[2].OpCode==Mono.Cecil.Cil.OpCodes.Ret &&
-                ReferenceEquals(il[1].Operand,il[3]), "A failed launch returns before the author's effect code");
-            foreach (string name in new[] { "WeaponContainerLaunchLauncherEffectsPatch", "WeaponContainerMagazineLaunchLauncherEffectsPatch" }) {
-                var target=effects.GetType("WeaponLauncherEffectsAnchorChain."+name).Methods.Single(m=>m.Name=="TargetMethod").Body.Instructions;
-                Check(target.Count(i=>(i.Operand as MethodReference)?.Name=="LauncherEffectsMethod")==1 &&
-                    !target.Any(i=>(i.Operand as MethodReference)?.DeclaringType.FullName=="HarmonyLib.AccessTools"),
-                    "Launcher lookup goes through the bridge: "+name);
-            }
-            foreach (string name in new[] { "WeaponSystemLaunchNativeEffectsPatch", "WeaponContainerInitLauncherEffectsPatch" }) {
-                var target=effects.GetType("WeaponLauncherEffectsAnchorChain."+name).Methods.Single(m=>m.Name=="TargetMethod").Body.Instructions;
-                Check(target.Any(i=>(i.Operand as MethodReference)?.DeclaringType.FullName=="HarmonyLib.AccessTools") &&
-                    !target.Any(i=>(i.Operand as MethodReference)?.Name=="LauncherEffectsMethod"), "Unchanged lookup keeps the author's call: "+name);
-            }
-        }
-        var vector=typeof(UnityEngine.Vector3);
-        var launch5=new[] { typeof(ObjectBase), vector, vector, typeof(float), typeof(string) };
-        var magazine6=new[] { typeof(string), typeof(ObjectBase), vector, vector, typeof(float), typeof(float) };
-        Check(AccessTools.Method(typeof(WeaponContainer),"launch",launch5,null)==null && AccessTools.Method(typeof(WeaponContainer),"LaunchFromMagazine",magazine6,null)==null,
-            "The author's stable launcher lookups fail on the beta, as captured");
-        var launch=BetaCompatibilityCalls.LauncherEffectsMethod(typeof(WeaponContainer),"launch",launch5,null);
-        var magazine=BetaCompatibilityCalls.LauncherEffectsMethod(typeof(WeaponContainer),"LaunchFromMagazine",magazine6,null);
-        Check(launch!=null && launch.ReturnType==typeof(bool) && launch.GetParameters().Length==6 && launch.GetParameters()[5].Name=="failedLaunch",
-            "Bridge resolves beta WeaponContainer.launch with failedLaunch");
-        Check(magazine!=null && magazine.ReturnType==typeof(bool) && magazine.GetParameters().Length==7 && magazine.GetParameters()[6].Name=="failedLaunch",
-            "Bridge resolves beta WeaponContainer.LaunchFromMagazine with failedLaunch");
-        Check(BetaCompatibilityCalls.LauncherEffectsMethod(typeof(WeaponContainer),"launch",new[] { typeof(int) },null)==null,
-            "Any other launcher lookup passes through unchanged");
-        using (var stabilizer=ModuleDefinition.ReadModule(paths["SubModelStabilization"],new ReaderParameters { AssemblyResolver=resolver })) {
-            var patch=stabilizer.GetType("SubModelStabilizationAnchorChain.VesselLoaderStabilizationPatch");
-            var post=patch.Methods.Single(m=>m.Name=="Postfix");
-            Check(post.Parameters.Count==2 && post.Parameters[0].Name=="vesselIniName" && post.Parameters[1].Name=="vp" &&
-                post.Parameters[1].ParameterType.FullName=="SeaPower.VesselParameters", "Stabilization postfix takes the caller's VesselParameters vp");
-            var target=patch.Methods.Single(m=>m.Name=="TargetMethod").Body.Instructions;
-            Check(target.Count(i=>(i.Operand as MethodReference)?.Name=="StabilizationMethod")==1 &&
-                !target.Any(i=>(i.Operand as MethodReference)?.DeclaringType.FullName=="HarmonyLib.AccessTools"), "Vessel loader lookup goes through the bridge");
-        }
-        var batch=typeof(ResourceLoader).GetNestedType("ResourceBatch",all);
-        var ten=new[] { typeof(string), typeof(string), typeof(string), typeof(int), typeof(GeoPosition), typeof(GeoPosition), typeof(Taskforce), batch, typeof(string), typeof(bool) };
-        Check(batch!=null && AccessTools.Method(typeof(VesselLoader),"loadShipFromInternalResources",ten,null)==null,
-            "The author's stable vessel loader lookup fails on the beta, as captured");
-        var load=BetaCompatibilityCalls.StabilizationMethod(typeof(VesselLoader),"loadShipFromInternalResources",ten,null);
-        Check(load!=null && load.ReturnType==typeof(void) && load.GetParameters().Length==11 && load.GetParameters()[0].Name=="vp" &&
-            load.GetParameters()[0].ParameterType==typeof(VesselParameters) && load.GetParameters()[3].Name=="vesselIniName",
-            "Bridge resolves the beta vessel loader with vp first");
-        // HarmonyX binds a patch parameter by the original's parameter name, or
-        // as __instance, __state or __result. Check the adapted patches against
-        // the real beta targets by reflection.
-        var launchPost=Assembly.LoadFile(paths["WeaponLauncherEffects"])
-            .GetType("WeaponLauncherEffectsAnchorChain.WeaponContainerLaunchLauncherEffectsPatch",true).GetMethod("Postfix",all);
-        Check(launchPost.GetParameters().Select(p=>p.Name).SequenceEqual(new[] { "__instance", "__state", "__result" }) &&
-            launchPost.GetParameters()[0].ParameterType==typeof(WeaponContainer) && launchPost.GetParameters()[2].ParameterType==launch.ReturnType,
-            "Launcher postfix binds __instance and __result to the beta launch");
-        var stabilizerPost=Assembly.LoadFile(paths["SubModelStabilization"])
-            .GetType("SubModelStabilizationAnchorChain.VesselLoaderStabilizationPatch",true).GetMethod("Postfix",all);
-        foreach (var parameter in stabilizerPost.GetParameters()) {
-            var match=load.GetParameters().SingleOrDefault(p=>p.Name==parameter.Name);
-            Check(match!=null && match.ParameterType==parameter.ParameterType, "Stabilization postfix parameter binds by name: "+parameter.Name);
         }
     }
     static void HailGuardFixture()
@@ -291,8 +216,6 @@ static partial class BetaApiTests
         foreach (string layer in new[] { high,low }) Directory.CreateDirectory(Path.Combine(layer,"dynamic_campaigns","test"));
         File.WriteAllText(Path.Combine(high,"dynamic_campaigns/test/campaign.json"),"{\"name\":\"higher priority\"}");
         File.WriteAllText(Path.Combine(low,"dynamic_campaigns/test/campaign.json"),"{\"name\":\"lower priority\"}");
-        Directory.CreateDirectory(Path.Combine(high,"ammunition"));
-        string ini=Path.Combine(high,"ammunition/test.ini"); File.WriteAllText(ini,"[SubAmmunition]\nSubAmmunitionName=child\n");
         var manager=(FileManager)FormatterServices.GetUninitializedObject(typeof(FileManager));
         typeof(FileManager).GetField("_fileIndex",BindingFlags.NonPublic|BindingFlags.Instance).SetValue(manager,
             new System.Collections.Concurrent.ConcurrentDictionary<string,HashSet<string>>(StringComparer.OrdinalIgnoreCase));
@@ -302,7 +225,6 @@ static partial class BetaApiTests
         Check(folders.Count==1 && folders[0].Replace('\\','/')=="dynamic_campaigns/test","Native beta campaign directories merge active layers");
         var files=manager.GetFiles(folders[0],LayerKind.All);
         Check(files.Count==2 && files[0]==Path.Combine(high,"dynamic_campaigns/test/campaign.json"),"Native beta campaign file ordering retains layer priority");
-        Check(BetaCompatibilityCalls.GetLegacyFile(manager,"ammunition/test.ini","")==ini,"Sub-ammunition lookup retains first active-layer match");
         // IniHandler's static initializer needs Unity's streamingAssetsPath.
         // Its live parser is a PC check; the real call operands/defaults are
         // checked above without substituting a fake parser or game assembly.

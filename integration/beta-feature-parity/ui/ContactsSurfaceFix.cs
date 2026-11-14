@@ -12,17 +12,18 @@ namespace Sest.UiFixes
     internal static class ContactsSurfaceFix
     {
         const BindingFlags All = ContactsFix.All;
-        // Pop-Out Windows 1.1.3 (3 Nov 2026 capture) and 1.2.0 (9 Nov 2026
-        // capture). Every PopOutScreen member the UI and Runtime bind (root,
-        // host, hint, windows, Instance, DisplayAvailable, HostOpening,
-        // Decorate, Move, Place, Remember, Open, UpdateScreen, Flatten,
-        // FindButtonsPanel) has identical IL in both. 1.2.0 changes only the
-        // title-bar controls: its pop-out button became the "popout" entry of
-        // a shared SmartWindowsMenuButton (FormationUiMode handles that), plus
-        // one settings default and its version text.
+        // Pop-Out Windows 1.1.3 (3 Nov 2026 capture) and 1.2.3 (14 Nov 2026
+        // capture, Sea Power 0.9.2). Every PopOutScreen member the UI and
+        // Runtime bind (root, host, hint, windows, Instance, DisplayAvailable,
+        // HostOpening, Decorate, Move, Place, Remember, Open, UpdateScreen,
+        // Flatten, FindButtonsPanel) had identical IL in 1.1.3 and 1.2.0; the
+        // R14 binding and IL tests pass unchanged against 1.2.3. The 1.2 line
+        // changed the title-bar controls: its pop-out button became the
+        // "popout" entry of a shared SmartWindowsMenuButton (FormationUiMode
+        // handles that). R14 replaces the 1.2.0 pin with 1.2.3.
         internal const string PopOutHash = "5709ed68af4623fceee3f3badc8e06bdb9b98f8e095fb0deac2685a9ebc5fc36";
-        internal const string PopOut120Hash = "a8f1092ac247032219ebf00aa773b91d14f4bb4a7f2575ca1a4594da57abd882";
-        internal static readonly string[] PopOutHashes = { PopOutHash, PopOut120Hash };
+        internal const string PopOut12Hash = "6f3668aaebe366f4fecc3de5af6a1479f1765d50f176b2bd68b3434191ce3ce5";
+        internal static readonly string[] PopOutHashes = { PopOutHash, PopOut12Hash };
         internal static string RequirePopOut(Assembly pop) { return ContactsFix.RequireAny(pop, PopOutHashes); }
         static MethodInfo getRoot;
         static FieldInfo trackedWindows;

@@ -21,7 +21,7 @@ ROOT = HERE.parents[1]
 REVISIONS = ("R12-", "R13-")
 # The game builds a bundle may target, as players read them in Player.log.
 GAME_LABELS = {
-    "499675cda59912054924ae42297bce7a82b12ca00957dabd684105a24aa353a9": "0.8.7-261107",
+    "3f56861f09e867f315b194c81a7a2450154ccc6bb5afb769b4956dfd4a00503a": "0.9.2-261113",
 }
 EXPECTED = {"AnchorChain.dll", "SEST.BetaSafeBootstrap.dll", "SEST.RuntimeFixes.dll",
             "SEST.ContactsFix.dll", "SEST.IdentifyDataPaths.dll"}
