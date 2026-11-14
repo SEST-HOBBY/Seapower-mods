@@ -1,9 +1,16 @@
   workshop : c:\program files (x86)\steam\steamapps\workshop\content\1286220
 
-unchanged since the last export : 199
+unchanged since the last export : 192
 skipped, SEST's own Workshop item: 3812461539
 
 UPDATED by their authors (re-export to pick the changes up):
-  3390330875  Euromod - Modern US Navy
+  3380210757  Anchor Chain
+  3455404959  Royal Australian Defence Forces [v0.7.6]
+  3555361900  Etendard Family Jets
+  3591820675  F-8 Crusader
+  3628201887  Clemenceau -class Aircraft Carrier
+  3789208859  Euromod-South Korea Navy
+  3812454152  Euromod-HD Hyundai Export Ships Mod
+  3820759806  Euromod - Modern Royal Australian Navy Mod
 
 To capture: re-run this script without -CheckUpdates, then commit and push.

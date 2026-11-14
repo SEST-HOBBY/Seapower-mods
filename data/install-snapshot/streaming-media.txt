@@ -801,7 +801,7 @@ original\: 705 picture/film file(s)
   ... and 58 more
 
 --- Workshop pictures named for loading screens, backgrounds or menus ---
-230 file(s) in 15 mod(s): 3491248180 (30), 3629144864 (10), 3630495619 (4), 3711297532 (2), 3732654992 (25), 3752415457 (2), 3758943352 (1), 3766210676 (3), 3775128499 (15), 3784474738 (1), 3789208859 (8), 3807164392 (1), 3812454152 (2), 3812461539 (98), 3820759806 (28)
+231 file(s) in 15 mod(s): 3491248180 (30), 3629144864 (10), 3630495619 (4), 3711297532 (2), 3732654992 (25), 3752415457 (2), 3758943352 (1), 3766210676 (3), 3775128499 (15), 3784474738 (1), 3789208859 (8), 3807164392 (1), 3812454152 (2), 3812461539 (99), 3820759806 (28)
   3491248180\ui\backgrounds\loading_screen_1.png                                                1,057
   3491248180\ui\backgrounds\loading_screen_10.png                                               2,341
   3491248180\ui\backgrounds\loading_screen_11.png                                               1,038
@@ -906,6 +906,7 @@ original\: 705 picture/film file(s)
   3807164392\ui\backgrounds\1.png                                                               1,839
   3812454152\ui\backgrounds\HDF.png                                                             2,008
   3812454152\ui\backgrounds\HDF_2.png                                                           2,164
+  3812461539\campaigns\sest-makran-line\art\00_campaign_background.png                          1,039
   3812461539\campaigns\sest-red-line\art\00_campaign_background.png                             1,062
   3812461539\campaigns\sest-southern-reach\art\00_campaign_background.png                       1,713
   3812461539\campaigns\sest-southern-watch\art\00_campaign_background.png                         941
@@ -922,7 +923,7 @@ original\: 705 picture/film file(s)
   3812461539\Gallery\visuals\loading\p8a_1920x1080.jpg                                            293
   3812461539\Gallery\visuals\loading\patriot_1920x1080.jpg                                        637
   3812461539\Gallery\visuals\loading\virginia_ssn_1920x1080.jpg                                   480
-  3812461539\Gallery\visuals\steam\collection-background.jpg                                      302
+  3812461539\Gallery\visuals\steam\collection-background.jpg                                      304
   3812461539\plugins\sest_menu.mp4                                                             10,336
   3812461539\ui\backgrounds\loading_screen_1.png                                                  364
   3812461539\ui\backgrounds\loading_screen_10.png                                                 639
