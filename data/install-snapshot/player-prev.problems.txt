@@ -1,6 +1,3 @@
 # Lines from Player-prev.log matching Exception/Error/not found/missing/failed.
-# 3 hit(s) - the first place to look when something did not load.
+# 0 hit(s) - the first place to look when something did not load.
 
-     56: [SEST Runtime] task-force debrief correction installed: append explicitly destroyed launch-snapshot hulls missing from section 3
-    137: [CombatWorker 0.3.1] Native fallback: NotSupportedException: Conflicting hook: io.github.yourname.second-thrust / Single CalculateThrustOverTime(SeaPower.AmmunitionParameters, Boolean, Single, Single)
-    143: [IDX][Localization.cs:42 Load] [IDX] localization ini not found for language 'en' or en

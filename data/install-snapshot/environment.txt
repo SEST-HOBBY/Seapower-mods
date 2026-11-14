@@ -1,6 +1,6 @@
-captured        : 2026-11-12T22:42:19
+captured        : 2026-11-14T14:53:14
 host os         : Microsoft Windows NT 10.0.26300.0
 powershell      : 5.1.26100.9818
-repo commit     : 2a481b639
-repo branch     : release/sest-workshop-20261101
+repo commit     : 6c9fa4588
+repo branch     : chore/workshop-refresh-20261114-1451
 redacted        : True
