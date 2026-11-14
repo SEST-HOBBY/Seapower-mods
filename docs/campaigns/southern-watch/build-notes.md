@@ -4227,3 +4227,111 @@ Every pack declares 0.9.0. `check_game_version.py` fails on two Workshop
 mods whose own ranges end below 0.9.0, Coordinated Strike Tool and Dynamic
 Campaign Mod, which only their authors can change; SETUP names them and
 leaves them alone.
+
+## The mods of 14 November (the game on the PC is 0.9.2)
+
+The owner's PC compared its 200 installed Workshop folders with this
+repository's fingerprints at `01cfa43b` and sent a report and the text of
+every mod it found changed, as three ZIPs
+(`data/install-snapshot/pc-report-20261114/`). It marks 77 mods as updated.
+Fifty-nine of them differ in one line, and the line is ours: the
+`ApproximateVersion` SETUP writes into an installed `_info.ini` when it
+marks a mod compatible (0.8.7, from before the update), under its "SEST
+marked this mod compatible" comment. The export keeps the author's file, so
+those are not updates and nothing was taken from them. Eighteen are authors'
+updates since the 12 November export: 175 files changed, 8 added, 5 removed
+(`15757d29`). After the take-in 17 of the 18 fingerprints equal the PC's
+own, the eighteenth differs by the author's `_info.ini` kept under our mark,
+and the 123 mods the PC found unchanged equal theirs.
+
+**None of it has been seen in the game here.** The owner's PC has the 0.9.0
+pack loaded as a local test folder (`SEST_090_PC_TEST`, first in the live
+load order, with the Workshop copy out of it).
+
+**What the authors changed.** Most of it is the 0.9 form, not content:
+
+- French Air Force (91 files): its 80 aircraft move to the 0.9 flight model
+  (`MaxYawRate`, `StallAoA`, `MaxAoA`, `CornerSpeed` and their like in place
+  of `YawRateLimit`), with aerial-refuelling systems, encyclopedia tags and,
+  on 22 of them, area keys.
+- The Flanker family (six aircraft) and the Kuznetsov mod's Su-33: the same
+  flight-model keys, `[Measured]` and `[AerialRefueling]`.
+- United States Naval Aviation (18): `Volume` on four aircraft and eleven
+  rounds and tanks, and two loadout names (Plane Guard, Sea Control).
+- The Tu-95K-22, the F-15J and the VH-3D declare 0.9.1 and write a number
+  for `RCS` (300, 50, 30) where they had a size word.
+- Eight mods changed a description, a read-me or the version line only and
+  now declare 0.9.0: Saronic Corsair, YF-23, MV-75, EC-2, B-21, Automatic
+  SAR, the FQ-44 Fury and Anduril Maritime Drones.
+
+What changed in substance:
+
+- **Korean weapon fits.** Euromod-South Korea Navy and the Hyundai export
+  ships replace the mod's "Harm-II" anti-ship round on every canister
+  launcher: `rok_ssm-700k` on both Sejong the Great files, the KDX-II's
+  KVLS fit and the frigates (two of FFG-811's launchers take the
+  land-attack `rok_ssm-750k`), and the Harpoon (`usn_rgm-84d`) on
+  `ko_ddh-971`. `ko_ddg-991`'s cells hold the SM-6 (`usn_rim-174a`) where
+  they held the SM-3 Block IIA, and `ko_ddg-995`'s KVLS-II holds the
+  Hyunmoo alone where it held the Hycore, the ASM-II and the HGV. Southern
+  Watch and Southern Reach sell seven of these hulls from the allied
+  reserve (`ko_ddg-991`, `-995`, `ko_ddh-971`, `-975_kvls`, `ko_ffg-811`,
+  `-818`, `-828`), and Southern Watch 06 and O3 place the 991. No price
+  here is read from a fit, so none changes; their forks in Replenishment
+  are rebased, and the fork of `rok_hgv` is gone with the last ship that
+  carried it.
+- **The F-15J** (`jasdf_f-15j_peaceeagle`) loses its `AirToAirIntercept`
+  fit and gains a sensor and date-based Sidewinder and Sparrow fits. No
+  mission or roster here names the fit.
+- **Euromod - Modern US Navy**: the Ford's parked aircraft (F/A-18F, MH-60
+  and E-2D deck models) and the MH-60S, with a longer squadron list. The
+  Ford is on sale in Southern Watch and Southern Reach; its Replenishment
+  fork is rebased.
+- **The Kuznetsov mod and the game's own file layers.** The mod used to
+  replace three of the game's squadron files whole (`usn_e-2c`, `usn_f-14a`
+  and `wp_ka-27`, to add liveries of its own). Those copies are gone from
+  `aircraft/`, and short files of the same names sit under a new
+  `overrides/` folder, holding only the squadron count and the sections the
+  mod adds, with short language files to match. It is the first use in the
+  collection of what 0.9.0's changelog calls file layers ("file layers
+  allow mods and user files to selectively overwrite game files"). Two
+  consequences here. The game's own squadron files now win for those three
+  aircraft, so the required-mods lists of Southern Watch and Southern Reach
+  name the Kuznetsov mod for a round (`su_rgb-12`) and no longer for the
+  Ka-27's squadron; every squadron a mission names is in the game's file.
+  And no tool in this repository reads an `overrides/` folder: to them the
+  mod simply stops shipping those paths, which is right for everything the
+  pack fields and blind to what the layer adds. If layers work as this use
+  suggests, the pack's own 243 `#!extend` and `#!prepend` files could be
+  written the game's way, with no loader between them and the game. That
+  wants one test on the PC before any work, and is the owner's decision.
+
+**What the rebuild did.** No builder stopped. The generated files that
+moved: seventeen forked hulls in Replenishment (fifteen Korean ships, the
+Kuznetsov and the Ford), `rok_hyunmoo_4_2`, the three Rafale F5 aircraft on
+the French mod's new files, one merged language file, the two required-mods
+lists and the owner column of `rok_hgv` in the cost list. The upload is
+4,591 files (4,592), 243 of them modifier files as before; the buy list and
+the cost rows keep their counts. Thirteen of the 14 checks pass, with
+`check_game_version` red on the same two Workshop ranges; it now lists five
+mods that declare 0.9.1. `preflight --all` finds every unit, fit and
+squadron the missions name.
+
+**The game has moved under all of it.** `Player.log` in the report is a
+launch of 0.9.2-261113b and the session before it 0.9.1-261112b. The export
+this pack is built on is still 0.9.0 Build 261111, and ten of its files are
+no longer in the install: three Wessex animation files, a planning text in
+the South Atlantic campaign folder and six stock scenarios. Whether 0.9.1
+and 0.9.2 are releases or betas is not on file (the PC's capture did not
+find the game's changelog), and that decides whether the export follows
+them. The report gives the SHA-256 of the 0.9.2 `Seapower-Scripts.dll`
+(`3f56861f...`), the first 0.9 hash on file. Its BepInEx log is still the
+12 November launch's: BepInEx wrote no log in the two later sessions, and
+if it did not start, Anchor Chain and every code mod were off in them.
+
+Two tools came with it. `tools/export-game.ps1` exports the game's own
+files only when the installed build is a public release newer than the
+export, and says why when it does not; the capture block runs it and
+commits what it exported as a second commit.
+`tools/apply_dropped_files.py` removes from the export the files a capture
+found the game no longer ships, once the export holds that build.

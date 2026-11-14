@@ -723,3 +723,23 @@ has been seen in the game. For this campaign:
 - **No unit 0.9.0 added is placed**, sold or generated in this campaign.
 
 Every pack declares 0.9.0.
+
+## The mods of 14 November
+
+Southern Watch build notes, "The mods of 14 November", has the record:
+eighteen author updates taken in from the PC's report of that day, the
+game on the PC at 0.9.2, the pack still built on the 0.9.0 game files. For
+this campaign:
+
+- The seven Korean hulls of the allied reserve carry new anti-ship rounds
+  (`rok_ssm-700k`, the Harpoon on `ko_ddh-971`), and `ko_ddg-991` the SM-6
+  in place of the SM-3 Block IIA. Prices and ids are as they were.
+- The required-mods list names the Kuznetsov mod for a round
+  (`su_rgb-12`, on the Type 001 of 09 Cold Route) and no longer for the
+  Ka-27's squadron in 07 Beneath the South: the mod stopped replacing the
+  game's squadron file, and the Steregushchiy's Ka-27 flies a squadron the
+  game's own file has.
+- The Ford's fork in Replenishment is rebased on the Modern US Navy mod's
+  new deck.
+
+No mission lost a unit, fit or squadron (`preflight --all`).

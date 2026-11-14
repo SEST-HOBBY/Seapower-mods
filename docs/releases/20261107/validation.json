@@ -20,7 +20,8 @@
     "Eight added airfields use generic model orientation where runway direction is not recorded.",
     "Reclaimed-island and land-mask coastal exceptions are documented in source.",
     "New native award rendering, long-list scrolling, nation selection and mission grants await owner PC checks; automated tests do not run Unity.",
-    "Nothing built for Sea Power 0.9.0 has been run in the game, and SEST's code does not load on it (game_090_20261113)."
+    "Nothing built for Sea Power 0.9.0 has been run in the game, and SEST's code does not load on it (game_090_20261113).",
+    "The mods of 14 Nov 2026 and the rebuild on them have not been run in the game here; the game on the owner's PC is 0.9.2-261113b and the pack is built on the 0.9.0 game files (mods_20261114)."
   ],
   "steam_published": false,
   "github_pushed": "yes: dev; release/r13-combined-20261112 at 2f8666fe, which carries every commit of the three branches it combines; claude/continue-previous-session-39wqwq, the 0.9.0 rebuild on top of it (game_090_20261113); feature/russia-registration-20261111 at ee148b04 (in review; the combined branch merged 1f23666c) and feature/makran-line-20261111 at b279af53 (nine commits short of the 79a12a6f that was combined); release/r13-20261111 (R13) is on origin only inside the combined branch; beta is created from dev for the PC check (docs/BRANCHES.md)",
@@ -1020,7 +1021,7 @@
   "beta_toolkit": {
     "branch": "beta",
     "base": "dev with the Steam images for R12 and the world campaign",
-    "canonical_upload": "prepare-workshop-upload.ps1 -VerifyOnly: 4592 files match the manifest (the 0.9.0 rebuild of 13 Nov; 4583 before it)",
+    "canonical_upload": "prepare-workshop-upload.ps1 -VerifyOnly: 4591 files match the manifest (the mods of 14 Nov; 4592 on the 0.9.0 rebuild of 13 Nov, 4583 before it)",
     "note": "the toolkit is built from beta once this release (release/r13-combined-20261112: the Russian registration, Makran Line and R13) is merged into dev and dev into beta, when beta carries dev",
     "note_090": "on Sea Power 0.9.0 the toolkit's Prepare-PC.cmd and Repair-PC.cmd stop inside the beta repair, whose reference check starts with the game file it was built for, before the data install; a data release for 0.9.0 needs a toolkit path that does not go through it (README-FIRST.txt, game_090_20261113)"
   },
@@ -1191,5 +1192,104 @@
     ],
     "not_run": "nothing built for 0.9.0 has been run in the game; nothing has been uploaded to Steam",
     "status": "built-and-unit-tested-on-the-0.9.0-export-pc-checks-pending"
+  },
+  "mods_20261114": {
+    "branch": "claude/continue-previous-session-39wqwq",
+    "date": "2026-11-14",
+    "capture": "the owner's PC, 2026-11-14 07:57 +10:00: a read-only comparison of its 200 installed Workshop folders with data/mod-fingerprints.json at 01cfa43b, sent as SEST-090-UPDATE-REPORT.zip (sha256 db094655...) and the whole text of each mod it found changed, SEST-UPDATED-MOD-TEXT-part01.zip and -part02.zip (bd8cc284..., 194d678c...); the report is data/install-snapshot/pc-report-20261114/",
+    "flagged_by_the_pc": {
+      "updated": 77,
+      "unchanged": 123,
+      "new": 0,
+      "not_on_disk": 0
+    },
+    "sest_marks_not_taken": "59 of the 77 differ only in the ApproximateVersion line SEST's SETUP writes into an installed _info.ini (0.8.7, under '; SEST marked this mod compatible'); the export keeps the author's file",
+    "taken": {
+      "commit": "15757d29",
+      "mods": 18,
+      "files_changed": 175,
+      "files_added": 8,
+      "files_removed": 5,
+      "ids": [
+        "3390330875",
+        "3411341227",
+        "3434072450",
+        "3434693420",
+        "3438479626",
+        "3478767194",
+        "3737267013",
+        "3758943352",
+        "3766210676",
+        "3774105087",
+        "3789208859",
+        "3796349767",
+        "3804868806",
+        "3810611344",
+        "3812454152",
+        "3813033771",
+        "3819522350",
+        "3821992229"
+      ],
+      "version_line_only": [
+        "3774105087",
+        "3804868806",
+        "3819522350"
+      ],
+      "author_info_kept_under_a_sest_mark": [
+        "3434072450"
+      ]
+    },
+    "integrity": "after the take-in 17 of the 18 fingerprints equal the PC's installed ones, 3434072450 differs by the author's _info.ini kept under SEST's mark, and all 123 mods the PC found unchanged equal theirs; the 182 untouched rows of _export-manifest.csv agree with their folders",
+    "authors_changes": {
+      "form": "French Air Force (91 files, 80 aircraft), the Flanker family (6) and the Kuznetsov mod's Su-33: the 0.9 flight-model keys, aerial refuelling, [Measured]; United States Naval Aviation: Volume on 4 aircraft and 11 rounds and tanks; Tu-95K-22, F-15J and VH-3D: a numeric RCS, and they declare 0.9.1; eight mods a description, a read-me or the version line only (0.9.0)",
+      "korean_fits": "Euromod-South Korea Navy and the Hyundai export ships: rok_ssm-700k where rok_harm-II was (usn_rgm-84d on ko_ddh-971, rok_ssm-750k on two of ko_ffg-811's launchers); ko_ddg-991 usn_rim-174a where usn_rim-161d was; ko_ddg-995's KVLS-II rok_hyunmoo_4_2 alone; no ship carries rok_hgv",
+      "f15j": "jasdf_f-15j_peaceeagle loses its AirToAirIntercept fit; no SEST mission or roster names it",
+      "kuznetsov_overrides": "the mod's whole-file copies of the game's usn_e-2c, usn_f-14a and wp_ka-27 squadron files are gone from aircraft/; short files of the same names are under a new overrides/ folder: the first use in the collection of 0.9.0's file layers; no tool here reads that folder"
+    },
+    "rebuild": "no builder stopped; moved: 17 Replenishment hull forks (15 Korean ships, the Kuznetsov, the Ford), rok_hyunmoo_4_2, the three Rafale F5 aircraft, one merged language file, the required-mods lists of Southern Watch and Southern Reach (the Kuznetsov mod for su_rgb-12, no longer for the Ka-27's squadron) and rok_hgv's owner in the cost list; Replenishment's fork of rok_hgv removed",
+    "counts": {
+      "upload_files": 4591,
+      "upload_files_before": 4592,
+      "extend_and_prepend_files": 243,
+      "world_catalogue": 1633,
+      "cost_rows": 4547
+    },
+    "build": "tools/build_all.py --from-scratch twice (499 s and 479 s); the second left the tree clean",
+    "release_gates": "13 of 14 checks passed (fidelity, coverage, deps, load order, preflight, weapons, alias, scenarios, stale phrases, inventory, drift, costs, world); game version FAILED on the same two Workshop ranges as on 13 Nov, 3806686336 Coordinated Strike Tool and 3813157776 Dynamic Campaign Mod; five mods now declare 0.9.1; 475 tools tests (1 skipped, the captured runtime binary's source check; pwsh 7.4.6, Windows PowerShell 5.1 not run); 462 campaign tests (test_build_pack, test_playtest_revision and test_red_line_pacing in one run)",
+    "canonical_upload": "prepare-workshop-upload.ps1 -VerifyOnly: 4591 files match the manifest (4592 before)",
+    "game_on_the_pc": {
+      "player_log": "0.9.2-261113b",
+      "player_prev_log": "0.9.1-261112b",
+      "seapower_scripts_sha256": "3f56861f09e867f315b194c81a7a2450154ccc6bb5afb769b4956dfd4a00503a",
+      "changelog": "not found by the PC's capture, so whether 0.9.1 and 0.9.2 are releases or betas is not on file",
+      "export_here": "0.9.0 Build 261111 (3a2c2694); not re-exported",
+      "export_files_no_longer_installed": [
+        "animations/animations_rn_wessex_has1.ini",
+        "animations/animations_rn_wessex_has3.ini",
+        "animations/animations_rn_wessex_hu5.ini",
+        "campaigns/south-atlantic-1982-uk/remove-before-release-planning.txt",
+        "missions/NATO/Charlies.ini",
+        "missions/NATO/Don't Mess With Texas (Blue Side).ini",
+        "missions/NATO/Prime Chance.ini",
+        "missions/Warsaw Pact/All Your Guam Belong to Us (Red Side).ini",
+        "missions/Warsaw Pact/Don't Mess With Texas (Red Side).ini",
+        "missions/Warsaw Pact/Valuable Target.ini"
+      ],
+      "bepinex_log": "still the log of the 12 Nov 22:29 launch (0.9.0): not rewritten in the 0.9.1 and 0.9.2 sessions",
+      "live_load_order": "SEST_090_PC_TEST, a local folder, first and on; the 200 Workshop mods in the canonical order; ACConfigs off; SEST's Workshop item is not in the order"
+    },
+    "tools": "82ace75e: the capture records the game's code hash, the files the game dropped and a moved game, and the paste-in block is in docs/packaging-and-recovery.md with a fixture test; with this record: tools/export-game.ps1 (the game export only for a newer public release), the block's game-export step and tools/apply_dropped_files.py",
+    "pc_next": [
+      "the block under 'The capture for 0.9' in docs/packaging-and-recovery.md: capture, the game export when the installed build is a newer public release, and the reference capture; or the game's text files and changelog.txt as a ZIP",
+      "the reference ZIP it writes (SEST-Beta-References-...), which matching SEST's code to 0.9 starts from",
+      "whether winhttp.dll is still beside Sea Power.exe (BepInEx wrote no log after 12 Nov)",
+      "the Mission Editor look of the Southern Watch test card, RU.2, with SEST_090_PC_TEST loaded",
+      "do not run this toolkit's Prepare-PC.cmd or Repair-PC.cmd while the game is 0.9"
+    ],
+    "owner_decisions_added": [
+      "0.9.0's file layers (the Kuznetsov mod's overrides/ folder): test once on the PC whether the pack's 243 #!extend and #!prepend files can be written the game's own way"
+    ],
+    "not_run": "nothing here has been run in the game; nothing has been uploaded to Steam",
+    "status": "mods-taken-in-built-and-unit-tested-game-export-for-0.9.2-pending"
   }
 }
