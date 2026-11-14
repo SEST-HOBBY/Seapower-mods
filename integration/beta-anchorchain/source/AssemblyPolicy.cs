@@ -199,6 +199,9 @@ public static partial class BetaAssemblyPolicy
             if (member is GenericInstanceMethod instance) { foreach (var argument in instance.GenericArguments) Type(argument); Member(instance.ElementMethod); return; }
             if (member?.DeclaringType == null) return;
             Type(member.DeclaringType);
+            // Get, Set, Address and .ctor of a multi-dimensional array are
+            // supplied by the runtime; its element type is checked above.
+            if (member.DeclaringType is ArrayType) return;
             if (!Native(member.DeclaringType) || !seen.Add("M " + member.FullName)) return;
             object resolved = null;
             try { resolved = member is MethodReference method ? resolver.Resolve(method) : member is FieldReference field ? resolver.Resolve(field) : (object)member; }

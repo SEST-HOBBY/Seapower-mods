@@ -99,8 +99,9 @@ static partial class BetaApiTests
                 Check(File.ReadAllBytes(source).SequenceEqual(bytes), "Held author bytes and data remain untouched: "+relative);
                 Check(!AppDomain.CurrentDomain.GetAssemblies().Any(x=>x.GetName().Name==Path.GetFileNameWithoutExtension(source)), "Held image never enters CLR: "+relative);
             }
-            Check(BetaAssemblyPolicy.Prepare(Path.Combine(workshop,"3826122523/SeaPowerTopo.dll"),native,cache,Console.WriteLine)==Path.Combine(workshop,"3826122523/SeaPowerTopo.dll"),
-                "The 3D topographic map in the same item resolves on 0.9.2 and loads unchanged");
+            string topo=BetaAssemblyPolicy.Prepare(Path.Combine(workshop,"3826122523/SeaPowerTopo.dll"),native,cache,Console.WriteLine);
+            Check(topo!=null && topo!=Path.Combine(workshop,"3826122523/SeaPowerTopo.dll"),
+                "The 3D topographic map in the same item resolves on 0.9.2 and is admitted through its shallow-water adapter (R6_Topography162)");
 
             foreach (var pair in paths) {
                 var loaded=Assembly.LoadFile(pair.Value);

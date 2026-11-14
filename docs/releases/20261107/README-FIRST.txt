@@ -68,15 +68,17 @@ PREPARE AND CHECK
      missing from the Workshop item's plugins folder, while the four other
      files are exactly the R12 World Map Costs build. Put that build's own
      file back from the release checkout, then run Prepare-PC.cmd again.
-     Open PowerShell and paste this block as it stands (it checks the file's
-     SHA-256 first and never overwrites anything):
+     Open PowerShell, paste this block as it stands, then type the Release
+     checkout path when asked (it checks the file's SHA-256 first and never
+     overwrites anything):
+       & { $ErrorActionPreference = 'Stop'
        $checkout = Read-Host 'Release checkout path from Prepare-PC'
        $src = Join-Path $checkout 'integration\beta-feature-parity\candidates\R12-WorldMapCosts-20261109\SEST.RuntimeFixes.dll'
        $dst = 'C:\Program Files (x86)\Steam\steamapps\workshop\content\1286220\3812461539\plugins\SEST.RuntimeFixes.dll'
        if ((Get-FileHash -LiteralPath $src -Algorithm SHA256).Hash -ne 'EED2E5083E8C843BDB64DCF8C98E7C14CDEE24D7192EFD30386A2B4C2039CFE8') { throw 'Not the R12 World Map Costs file; nothing copied.' }
        if (Test-Path -LiteralPath $dst) { throw 'A SEST.RuntimeFixes.dll is already there; nothing copied. Send the Prepare-PC error instead.' }
        Copy-Item -LiteralPath $src -Destination $dst
-       'Copied. Run Prepare-PC.cmd again.'
+       'Copied. Run Prepare-PC.cmd again.' }
    - "Existing SEST code differs from the captured baseline" or "An earlier
      candidate file already exists" (no journal, or a restored one): the
      test files are still in place without a journal that owns them. In
@@ -91,26 +93,37 @@ PREPARE AND CHECK
    only repairs code. The author-update guard and original restore journal
    remain in place. Steam branch, subscriptions and saves are unchanged.
 1b. R14's own check (first launch with R14 on). Start Sea Power to the main
-   menu, quit, and open Sea Power\BepInEx\LogOutput.log. The release
-   checkout's integration\beta-feature-parity\R11-PC-TESTS.txt, section
-   "R14 SEA POWER 0.9.2", lists what it must show; in short:
+   menu, quit, and open two logs. The release checkout's
+   integration\beta-feature-parity\R11-PC-TESTS.txt, section "R14 SEA POWER
+   0.9.2", lists what they must show; in short:
+   Sea Power\BepInEx\LogOutput.log:
    - "SEST Beta Safe Anchor Chain 0.6.0", "Sea Power 0.9.2-261113 verified
      (3f56861f)", "BETA SAFE BOOTSTRAP READY; enable=True", "Starting
-     bounded Anchor Chain 1.1.0 fork once." and "Bounded Anchor Chain
-     loader returned to bootstrap.";
+     bounded Anchor Chain 1.1.0 fork once.", "Loaded AnchorChain V1.1.0!"
+     and "Bounded Anchor Chain loader returned to bootstrap.";
    - [Beta compatibility] ADAPTED for exactly DynamicCampaignMod,
-     IdentifyExpanded, CoordinatedStrikeTool, SeaPowerSquadPanel, TestRange
-     and OptimalTargetDist;
+     IdentifyExpanded, CoordinatedStrikeTool, SeaPowerSquadPanel, TestRange,
+     OptimalTargetDist, MissileControlMod and SeaPowerTopo;
    - [Beta compatibility] SKIPPED before CLR load for exactly the twelve
      named at the top of this file (AlpineSeaPower twice), each with its
-     reason, and "Loaded assembly" for every other author plugin, with no
-     "Error loading assembly";
-   - the SEST Runtime 1.7.0 and UI Follow-up 1.5.0 install lines, and no
-     "disabled for this session" line.
+     reason, plus one expected line that is not one of them: "SKIPPED native
+     library before CLR metadata scan: version.dll" (Saronic Corsair's own
+     native helper);
+   - "Loaded assembly" for every other author plugin, with no "Error loading
+     assembly". Sub Ammunition's item also ships its pre-0.9 files in a
+     backups folder, so a second "Loaded assembly SecondThrustMod" and
+     "SubAmmunitionMod" line and two "Attempted to load a duplicate plugin"
+     warnings for them are expected; the current files load first and run.
+   %USERPROFILE%\AppData\LocalLow\Triassic Games\Sea Power\Player.log (SEST's
+   own lines are written there):
+   - "[SEST Runtime] ... installed" lines and "[SEST UI Follow-up] 1.5.0 beta
+     input fix installed; full Runtime 1.7.0 paired", and no "[SEST Runtime]
+     ... disabled for this session" line.
    Any difference stops the run here: quit, run R14\Capture-Repair-Results.cmd
-   and send the capture with the log. If the list matches, run SETUP -
-   double-click me.cmd from the Workshop item once (game closed): it should
-   end with "[ok] last launch: SEST's bundled loader started Anchor Chain".
+   and send the capture with both logs. If the lists match, run SETUP -
+   double-click me.cmd from the Workshop item once (game closed): among the
+   checks near its start it should print "[ok] last launch: SEST's bundled
+   loader started Anchor Chain", and it should finish with "All done".
 
 2. Load an existing world. Press F11 and select Service. Check the
    existing awards/progress, the longer ribbon list, scrolling and
@@ -151,9 +164,12 @@ PREPARE AND CHECK
    with MissionAwards=0 neither is granted) and, with R14, R1 to R4: win
    RL05 without launching anything and RLC1 with its pilot recovered, and
    judge each ribbon by the first of its two Player.log lines
-   (RIBBONS.txt explains both). For R4, replay one of the two missions and
-   win it again: R14 follows 0.9.2's own rule, so both lines then say
-   "already awarded" and the ribbon is not listed twice. Russian Federation (step 5): in the new
+   (RIBBONS.txt explains both). On 0.9.2 a won campaign mission cannot be
+   played again, so copy the campaign save before RL05 and before RLC1, and
+   restore the copy (or start a new campaign) before each further run of
+   that mission: R2's runs and R6 with MissionAwards=0 each need RL05 not
+   yet won. For R4, save, quit and reload: each ribbon shows once in the
+   Service Record, and the won mission's Play stays disabled. Russian Federation (step 5): in the new
    Southern Watch campaign's Situation window the Project 20380 corvette
    shows the Russian Federation flag and the Akula the USSR's; in the
    Mission Editor Russian Navy 21's Admiral Gorshkov and a Su-35S show
@@ -207,9 +223,10 @@ PREPARE AND CHECK
    With Pop-Out Windows 1.2.3 installed, check Contacts, Formation and F11
    pop-out and return, on the main and a second display if you have one.
    Check Identify Expanded appears once in Mod Manager, as Workshop. Check
-   the mods that now load as their authors built them for 0.9: Sub
-   Ammunition, Second Thrust, Automatic SAR, Missile Control and the 3D
-   Topographic Map; note any that misbehaves.
+   the mods that now load as their authors built them for 0.9 (Sub
+   Ammunition, Second Thrust, Automatic SAR) and the two that keep a small
+   SEST fix on 0.9.2 (Missile Control's steering check, the 3D Topographic
+   Map's 50 m shallow-water line); note any that misbehaves.
 5. Quit. Run "SEST beta features - turn off.cmd", start the game once and
    confirm it starts with the beta features off. On 0.9.2, Workshop code
    mods load only through SEST's loader, so SEST's plugins, Dynamic
@@ -298,9 +315,13 @@ WHAT IS NEW SINCE THE R12 RIBBON TEST BUILD
   every author plugin against the game's real members before it loads, and
   holds one that names code 0.9.2 removed, with the member named; the
   rewrites SEST made for author files that no longer exist are retired.
-  Six Alpine-family plugins whose own build check rejects 0.9.2 are held.
+  Two current author files still need a SEST fix and keep one: Missile
+  Control 0.1.18.1 (its own startup check would switch it off on 0.9.2)
+  and the Topographic Map 1.6.2 (the game's 50 m shallow-water line). Six
+  Alpine-family plugins whose own build check rejects 0.9.2 are held.
   The runtime mission ribbons follow 0.9.2's rule that a ribbon already
-  held, or held as its replacement, is not granted again. The repair
+  held, or held as its replacement, is not granted again (0.9.2 does not
+  let a won campaign mission be played again either). The repair
   recognises R13 and the fifteen earlier test builds; that path was not
   run here (the 0.8.7 reference ZIP it needs is not in the repository), so
   step 1 is its first test.
@@ -412,10 +433,11 @@ WHAT IS NEW SINCE THE R12 RIBBON TEST BUILD
   sunk or made to heave to, as Red Line's RL04 coaster is. The commander
   is a Pakistan Navy Commodore with the Navy's ten ranks (abbreviations
   not verified) and fictional ribbons only. Nothing in it has been run in
-  the game. The STEAM-*.txt files and the Steam images do not mention it
-  yet, because which update ships it is still your decision: the change
-  note and page description pasted in steps 7 and 8 describe four
-  campaigns.
+  the game. This update ships it: the upload includes
+  campaigns/sest-makran-line, and the change note, page, short and
+  collection texts pasted in steps 7 and 8 announce it as the fifth
+  campaign. To hold it back, do not post this update; ask for a build
+  without it.
 - World Operations (beta): DCM's own SITREP 001 is kept, with the short SEST
   brief shown first. Completed multi-phase Admiralty operations now count
   once each, and a completion replayed after a reload counts once. Tabs

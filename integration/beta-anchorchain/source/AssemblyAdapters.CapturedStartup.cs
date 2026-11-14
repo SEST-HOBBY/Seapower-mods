@@ -1,8 +1,12 @@
 // R9: fixes for the exact author images which failed in the 8 November
 // 22:23 Brisbane capture. Original Workshop images and assets are retained.
-// R14: both images are unchanged in the 14 November 0.9.2 capture, and
-// 0.9.2 keeps the native shapes each fix asserts below.
+// R14: the Test Range and Optimal Target images are unchanged in the 14
+// November 0.9.2 capture; Missile Control is a new 0.1.18 image (0.1.18.1,
+// de8ba98e) with the same steering validator. 0.9.2 keeps the native shapes
+// each fix asserts below.
 using System;
+using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using Mono.Cecil;
 using Mono.Cecil.Cil;
@@ -11,8 +15,16 @@ namespace AnchorChain;
 
 public static partial class BetaAssemblyPolicy
 {
+    internal const string CurrentMissileHash = "de8ba98e4694a922e8e370e3d11a4c29544ca4ddce7004a5e5a5ec8347adbef9";
     internal const string CurrentTestRangeHash = "f1639294f24ffb7c89723ea8a42a1ab6d35147bee503395f87dad3759a5a981c";
     internal const string CurrentOptimalHash = "61068dd0863501dacf1217250b3f4702f3778d6c6bcad38ab4be46eaa0c7375a";
+
+    private static ImageAdapter MissileControlCurrentAdapter() => new ImageAdapter {
+        Name = "MissileControlCurrent", Hashes = new[] { CurrentMissileHash },
+        RequireNative = CurrentSteeringNative,
+        RewriteMethod = CurrentSteeringRewrite,
+        ExpectedAudit = "locations=2, steering-g-load=1",
+    };
 
     private static ImageAdapter TestRangeCurrentAdapter() => new ImageAdapter {
         Name = "TestRangeCurrent", Hashes = new[] { CurrentTestRangeHash },
@@ -32,6 +44,70 @@ public static partial class BetaAssemblyPolicy
     {
         if (Hash(native.FileName) != "3f56861f09e867f315b194c81a7a2450154ccc6bb5afb769b4956dfd4a00503a")
             throw new InvalidOperationException("R14 requires the inspected 0.9.2-261113 game image");
+    }
+
+    private static void CurrentSteeringNative(ModuleDefinition native)
+    {
+        CurrentNativeSnapshot(native);
+        var weapon = native.GetType("SeaPower.WeaponBase");
+        var course = weapon.Methods.Single(m => m.Name == "setCourseTowardsPosition");
+        int Loads(string field) => course.Body.Instructions.Count(i => i.OpCode == OpCodes.Ldfld &&
+            i.Operand is FieldReference f && f.DeclaringType.FullName == "SeaPower.AmmunitionParameters" && f.Name == field);
+        // The new native far-field path loads max G once. The author's 0.1.18
+        // already replaces GLimitedTurnRate; no synthetic steering body is used.
+        if (Loads("_maxTurnG") != 1 || Loads("_maxTurnRateDegrees") != 0 || Loads("_terminalVerticalTurnRate") != 2 ||
+            course.Body.Instructions.Count(i => i.Operand is MethodReference m && m.Name == "GLimitedTurnRate") != 1 ||
+            course.Body.Instructions.Count(i => i.Operand is MethodReference m && m.Name == "FarFieldTurnRate") != 1 ||
+            !MissileControlModBody(weapon.Methods.Single(m => m.Name == "GLimitedTurnRate")).SequenceEqual(MissileControlModNativeGLimit))
+            throw new InvalidOperationException("Inspected current steering contract changed");
+    }
+
+    private static bool CurrentSteeringRewrite(AdapterScope scope, TypeDefinition type, MethodDefinition method)
+    {
+        if (type.FullName != "MissileControlMod.Hooks" || method.Name != "SteeringLimits") return false;
+        var il = method.Body.Instructions;
+        var count = il.Single(i => i.Offset == 0x0028);
+        if (method.Body.CodeSize != 268 || count.OpCode != OpCodes.Ldc_I4_0 || count.Previous.OpCode != OpCodes.Ldarg_0 ||
+            count.Next.OpCode != OpCodes.Ldc_I4_0 || count.Next.Next.OpCode != OpCodes.Ldc_I4_2 ||
+            count.Next.Next.Next.Operand is not MethodReference call || call.Name != "PatchSteeringLimits")
+            throw new InvalidOperationException("Inspected current MissileControl steering validator changed");
+        count.OpCode = OpCodes.Ldc_I4_1;
+        scope.Count("steering-g-load");
+        return false;
+    }
+
+    // The native GLimitedTurnRate body Missile Control 0.1.18 replaces, as
+    // 0.8.7 and 0.9.2 both have it.
+    private static readonly string[] MissileControlModNativeGLimit = {
+        "ldarg.0", "ldfld SeaPower.AmmunitionParameters::_maxTurnG:System.Single", "stloc.0",
+        "ldarg.0", "ldfld SeaPower.AmmunitionParameters::_maxTurnRateDegrees:System.Single", "stloc.1",
+        "ldc.r4 0x3F03B29A", "ldarg.1", "mul", "dup", "ldc.r4 0x43B40000", "ldloc.1", "div", "mul",
+        "ldc.r4 0x40C90FDB", "div", "stloc.2", "ldc.r4 0x40000000",
+        "call static System.MathF::Pow(System.Single,System.Single):System.Single",
+        "ldloc.2", "ldc.r4 0x411CCCCD", "mul", "div", "stloc.3", "ldloc.3", "ldloc.0", "ble.un.s ->33",
+        "ldloc.1", "ldloc.0", "ldloc.3", "div", "mul", "stloc.1", "ldloc.1", "ret" };
+
+    private static string[] MissileControlModBody(MethodDefinition method)
+        => method.Body.Instructions.Select(i => MissileControlModDescribe(i, method.Body.Instructions)).ToArray();
+
+    private static string MissileControlModDescribe(Instruction instruction, IList<Instruction> body)
+    {
+        string name = instruction.OpCode.Name;
+        switch (instruction.Operand) {
+            case FieldReference field:
+                return name + " " + field.DeclaringType.FullName + "::" + field.Name + ":" + field.FieldType.FullName;
+            case MethodReference method:
+                return name + (method.HasThis ? " instance " : " static ") + method.DeclaringType.FullName + "::" + method.Name + "(" +
+                    String.Join(",", method.Parameters.Select(p => p.ParameterType.FullName)) + "):" + method.ReturnType.FullName;
+            case float value:
+                return name + " 0x" + BitConverter.ToInt32(BitConverter.GetBytes(value), 0).ToString("X8", CultureInfo.InvariantCulture);
+            case Instruction target:
+                return name + " ->" + body.IndexOf(target);
+            case null:
+                return name;
+            default:
+                return name + " " + Convert.ToString(instruction.Operand, CultureInfo.InvariantCulture);
+        }
     }
 
     private static void CurrentSensorNative(ModuleDefinition native)

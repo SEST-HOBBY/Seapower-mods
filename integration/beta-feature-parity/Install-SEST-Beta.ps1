@@ -86,7 +86,9 @@ function New-IdentifyOrder([string]$Text) {
     if (!$section.Success) { throw 'usersettings.ini has no LoadOrder section; no settings changed.' }
     $count = [regex]::Match($section.Groups[1].Value, '(?im)^\s*NumberOfModFiles\s*=\s*(\d+)')
     if (!$count.Success) { throw 'NumberOfModFiles is missing; no settings changed.' }
-    $entries = @([regex]::Matches($section.Groups[1].Value, '(?im)^\s*Mod(\d+)Directory\s*=\s*([^,\r\n]+)\s*,\s*(True|False)\s*$') |
+    # 0.9.2 writes a third field, the item's Steam id (0 for a local folder);
+    # earlier builds wrote two. Both are read, and the id is kept.
+    $entries = @([regex]::Matches($section.Groups[1].Value, '(?im)^\s*Mod(\d+)Directory\s*=\s*([^,\r\n]+?)\s*,\s*(True|False)\s*(?:,\s*(\d+)\s*)?$') |
         Sort-Object { [int]$_.Groups[1].Value })
     if ($entries.Count -ne [int]$count.Groups[1].Value) { throw 'LoadOrder count is inconsistent; no settings changed.' }
     $keep = New-Object 'System.Collections.Generic.List[string]'
@@ -96,7 +98,8 @@ function New-IdentifyOrder([string]$Text) {
         if ($token -ieq 'IdentifyExpanded') { continue }
         $flag = $entry.Groups[3].Value
         if ($token -in @('3790594162', '3812461539')) { $flag = 'True' }
-        $keep.Add($token + ',' + $flag)
+        $suffix = ''; if ($entry.Groups[4].Success) { $suffix = ',' + $entry.Groups[4].Value }
+        $keep.Add($token + ',' + $flag + $suffix)
         $null = $seen.Add($token)
     }
     foreach ($required in @('3790594162', '3812461539')) {

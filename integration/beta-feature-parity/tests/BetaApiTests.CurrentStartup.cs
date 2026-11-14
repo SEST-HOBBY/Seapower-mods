@@ -31,6 +31,26 @@ static partial class BetaApiTests
         catch (TargetInvocationException ex) { throw new Exception(type.FullName + "." + method + " failed: " + ex.InnerException); }
     }
 
+    static void R6_MissileControlCurrent(R6Context context)
+    {
+        var assembly = CurrentPrepared(context, "MissileControlMod", out string image);
+        var compatibility = assembly.GetType("MissileControlMod.Compatibility", true);
+        // Runs the author's complete real startup dry run, not a reimplementation
+        // of its count check. It installs no Harmony patch and starts no Unity object.
+        CurrentInvoke(compatibility, "ValidateGame");
+        Check(true, "Missile Control 0.1.18.1 full author startup validator passes on 0.9.2 (it disables itself without the steering-g-load fix)");
+        var hooks = assembly.GetType("MissileControlMod.Hooks", true);
+        var course = typeof(WeaponBase).GetMethod("setCourseTowardsPosition", CurrentAll);
+        var source = PatchProcessor.GetOriginalInstructions(course, (ILGenerator)null);
+        var rewritten = ((IEnumerable<CodeInstruction>)hooks.GetMethod("SteeringLimits", CurrentAll).Invoke(null, new object[] { source })).ToList();
+        Check(rewritten.Count(i => i.operand is MethodInfo m && m.Name == "EffectiveGLimitedRate") == 1,
+            "Actual current steering transpiler replaces exactly one native G-limited helper");
+        Check(rewritten.Count(i => i.operand is MethodInfo m && m.Name == "EffectiveG") == 1,
+            "Actual far-field max-G site receives the author's effective-G behavior");
+        Check(rewritten.Count(i => i.operand is MethodInfo m && m.Name == "FarFieldTurnRate") == 1,
+            "Native far-field turn calculation remains in the real instruction stream");
+    }
+
     static void R6_TestRangeCurrent(R6Context context)
     {
         var assembly = CurrentPrepared(context, "TestRange", out string image);

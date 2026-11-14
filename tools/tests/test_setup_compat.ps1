@@ -511,13 +511,25 @@ try {
     $boot = "[Info   :   BepInEx] Loading [SEST Beta Safe Anchor Chain 0.6.0]`r`n[Info   :SEST Beta Safe Anchor Chain] Sea Power 0.9.2-261113 verified (3f56861f). Startup probe only until explicit enable.flag is present.`r`n"
     $readyOff = "[Info   :SEST Beta Safe Anchor Chain] BETA SAFE BOOTSTRAP READY; enable=False roots=3 workshopRegistered=True`r`n"
     $readyOn = "[Info   :SEST Beta Safe Anchor Chain] BETA SAFE BOOTSTRAP READY; enable=True roots=3 workshopRegistered=True`r`n[Info   :SEST Beta Safe Anchor Chain] Starting bounded Anchor Chain 1.1.0 fork once.`r`n"
-    $chained = "[Info   :AnchorChain] Loaded assembly SEST.RuntimeFixes, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null`r`n"
+    $chained = "[Info   :AnchorChain] Loaded assembly SEST.RuntimeFixes, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null`r`n[Info   :AnchorChain] Loaded AnchorChain V1.1.0!`r`n"
+    $chainedOnly = "[Info   :AnchorChain] Loaded assembly SEST.RuntimeFixes, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null`r`n"
     $returned = "[Info   :SEST Beta Safe Anchor Chain] Bounded Anchor Chain loader returned to bootstrap.`r`n"
     # Staged, not yet switched on (the menu probe): one warning that says
     # SEST's loader starts Anchor Chain once SETUP has switched it on.
     Put $bepLog (Bytes ($started + $notFound + $boot + $readyOff))
     $r = BuildCheck @('-ReleaseSha256', $h)
-    Check ($r.Count -eq '1' -and $r.Out -match "BepInEx\\LogOutput\.log says 'Could not find AnchorChain chainloader'" -and $r.Out -match 'On 0\.9\.2 Anchor Chain''s own preloader always finds no chainloader; SEST''s bundled loader starts Anchor Chain instead once SETUP''s last step has switched the bundled features on' -and $r.Out -notmatch '\[ok\]   last launch') "on 0.9.2 with SEST's loader not yet on (enable=False), the preloader's line is one warning that says what starts Anchor Chain"
+    Check ($r.Count -eq '1' -and $r.Out -match "BepInEx\\LogOutput\.log says 'Could not find AnchorChain chainloader'" -and $r.Out -match 'SEST''s bundled loader is installed but was not switched on at that launch' -and $r.Out -notmatch '\[ok\]   last launch') "on 0.9.2 with SEST's loader not switched on (enable=False), the preloader's line is one warning that says the loader was installed but off"
+    # No SEST bootstrap line at all on 0.9.2: SEST's loader is not installed yet.
+    Put $bepLog (Bytes ($started + $notFound))
+    $r = BuildCheck @('-ReleaseSha256', $h)
+    Check ($r.Count -eq '1' -and $r.Out -match 'once SETUP''s last step has installed and switched on the bundled features' -and $r.Out -notmatch '\[ok\]   last launch') "on 0.9.2 with no SEST loader in the log: one warning that says SETUP's last step installs it"
+    # The loader timed out, or stopped before it started: its own reason.
+    Put $bepLog (Bytes ($started + $notFound + $boot + "[Warning:SEST Beta Safe Anchor Chain] Safe bootstrap never observed a stable, registered Workshop directory. Not loading any plugin.`r`n"))
+    $r = BuildCheck @('-ReleaseSha256', $h)
+    Check ($r.Count -eq '1' -and $r.Out -match 'gave up after 60 seconds' -and $r.Out -notmatch 'once SETUP''s last step has installed') "on 0.9.2, the loader's 60-second limit: one warning naming it, not 'not switched on'"
+    Put $bepLog (Bytes ($started + $notFound + "[Error  :SEST Beta Safe Anchor Chain] Beta safe loader failed closed during probe setup: System.IO.IOException: simulated`r`n"))
+    $r = BuildCheck @('-ReleaseSha256', $h)
+    Check ($r.Count -eq '1' -and $r.Out -match 'SEST''s bundled loader stopped before it started' -and $r.Out -notmatch 'once SETUP''s last step has installed') "on 0.9.2, a probe-setup failure: one warning naming the loader's own line"
     # Switched on and run to the end: one [ok], no warning, on any build.
     Put $bepLog (Bytes ($started + $notFound + $boot + $readyOn + $chained + $returned + "[Message:   BepInEx] Chainloader startup complete`r`n"))
     $r = BuildCheck @('-ReleaseSha256', $h)
@@ -535,6 +547,14 @@ try {
     Put $bepLog (Bytes ($started + $notFound + $boot + $readyOn + "[Error  :SEST Beta Safe Anchor Chain] Bounded loader failed closed: System.InvalidOperationException: simulated`r`n"))
     $r = BuildCheck @('-ReleaseSha256', $h)
     Check ($r.Count -eq '1' -and $r.Out -match 'did not load at the last launch' -and $r.Out -match "SEST's bundled loader then stopped too: the log's 'Bounded loader failed closed' line gives the reason" -and $r.Out -notmatch '\[ok\]   last launch' -and $r.Out -notmatch 'once SETUP''s last step has switched') "SEST's loader failed closed: one warning naming its own reason, no [ok]"
+    # Returned, but Anchor Chain stopped inside (no 'Loaded AnchorChain V' or
+    # an abort line): one warning, not the [ok].
+    Put $bepLog (Bytes ($started + $notFound + $boot + $readyOn + $chainedOnly + "[Error  :AnchorChain] Anchor Chain loader aborted safely: System.IO.IOException: simulated`r`n" + $returned))
+    $r = BuildCheck @('-ReleaseSha256', $h)
+    Check ($r.Count -eq '1' -and $r.Out -match 'Anchor Chain stopped before it finished loading its mods' -and $r.Out -notmatch '\[ok\]   last launch') "SEST's loader returned after Anchor Chain aborted: one warning, no [ok]"
+    Put $bepLog (Bytes ($boot + $readyOn + $chained + "[Error  :AnchorChain] Aborting chainload: bounded progress budget exhausted.`r`n" + $returned))
+    $r = BuildCheck @('-ReleaseSha256', $h)
+    Check ($r.Count -eq '1' -and $r.Out -match 'Anchor Chain stopped before it finished loading its mods' -and $r.Out -notmatch '\[ok\]   last launch') "an 'Aborting chainload' line after Anchor Chain's completion line still warns"
     # Switched on but never back from Anchor Chain (the game closed while
     # starting): one warning.
     Put $bepLog (Bytes ($started + $notFound + $boot + $readyOn + $chained))

@@ -98,7 +98,8 @@ else:
 write_text(source / "README.txt", """SEST WORKSHOP FEATURE UPDATE
 
 """ + included + manifest["target_game_label"] + """ only (Sea Power 0.9.2 Build 261113). On every other
-game build SETUP installs none of it and changes no code.
+game build SETUP installs none of it, and puts the normal SEST plugins back if
+it was installed.
 
 With Sea Power closed, run SETUP - double-click me.cmd at the pack root.
 On that game build a fresh installation stages the features: start Sea

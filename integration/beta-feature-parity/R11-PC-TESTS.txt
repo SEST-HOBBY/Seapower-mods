@@ -4,46 +4,69 @@ Runtime 1.7.0 / UI 1.5.0 / loader bootstrap 0.6.0, for Seapower-Scripts.dll
 
 What changed for 0.9.2
 - Pins moved to the 14 November capture: the game, Noesis, Anchor Chain 1.2.0,
-  Pop-Out Windows 1.2.3 and three Unity modules. The enable flag is new, so a
-  0.9.2 installation is enabled afresh (stage, menu probe, enable).
+  Pop-Out Windows 1.2.3 and three Unity modules. The enable flag is new: an
+  installation that was enabled before (journal 'enabled') is repaired to R14
+  and switched on in one Prepare-PC or SETUP run; a fresh, restored or staged
+  one is staged, started once to the menu (the probe) and then enabled.
 - Every author plugin is checked against the game's real members before it
   loads. One that names game code 0.9.2 removed is held, with the member named.
 - Author plugins whose own build check rejects 0.9.2 are held before they load.
+- Two current author files keep a SEST fix: Missile Control 0.1.18.1 (its own
+  startup check would switch it off on 0.9.2) and the Topographic Map 1.6.2
+  (the game's 50 m shallow-water line).
 - Mission ribbons follow 0.9.2's rule: a ribbon already held, or held as its
-  replacement, is not granted again on a replayed mission.
+  replacement, is not granted again. 0.9.2 does not let a won campaign mission
+  be played again at all.
 
-BepInEx\LogOutput.log after the first launch to the menu (features staged)
+BepInEx\LogOutput.log after the first launch to the menu, only when the
+features were staged (an enabled installation repaired in one run goes
+straight to the next list)
 - SEST Beta Safe Anchor Chain 0.6.0: "Sea Power 0.9.2-261113 verified (3f56861f)."
 - BETA SAFE BOOTSTRAP READY; enable=False
 - Anchor Chain's own preloader still logs "Could not find AnchorChain
   chainloader". On 0.9.2 that is expected; SEST's loader starts Anchor Chain.
 
-After Enable, a full launch must show
+With the features on, a full launch must show in BepInEx\LogOutput.log
 - BETA SAFE BOOTSTRAP READY; enable=True, then "Starting bounded Anchor Chain
-  1.1.0 fork once." and "Bounded Anchor Chain loader returned to bootstrap."
+  1.1.0 fork once.", "Loaded AnchorChain V1.1.0!" and "Bounded Anchor Chain
+  loader returned to bootstrap.", with no "aborted safely", "setup failed" or
+  "Aborting chainload" line between them.
 - [Beta compatibility] ADAPTED lines for exactly: DynamicCampaignMod,
-  IdentifyExpanded, CoordinatedStrikeTool, SeaPowerSquadPanel, TestRange and
-  OptimalTargetDist.
+  IdentifyExpanded, CoordinatedStrikeTool, SeaPowerSquadPanel, TestRange,
+  OptimalTargetDist, MissileControlMod and SeaPowerTopo.
 - [Beta compatibility] SKIPPED before CLR load, for exactly these, each with
   its reason: EnhancedDecoyMod, MultiStageMissiles, OspreyMechanics and
   SeaPowerTopoFlat (name a game member 0.9.2 does not have), OspreyDeckOps
   (depends on OspreyMechanics), ExtendedGuidance (SEST profile), and the six
   whose own build check rejects 0.9.2: SaronicCorsairStrikeUSV, AlpineSeaPower
   (two items), BellSystemsFixtureTilt, EC2CommsJamming, K5KrakenContactStrike.
+- Also expected, not one of these: "[Beta compatibility] SKIPPED native library
+  before CLR metadata scan: version.dll; original file retained." (Saronic
+  Corsair's own native helper).
 - "Loaded assembly" for every other author plugin, with no "Error loading
-  assembly" line. Sub Ammunition, Second Thrust, Automatic SAR, Missile
-  Control, Parallel Range Probe and the 3D Topographic Map now load as their
-  authors built them, without a SEST rewrite: check each one works.
-- [SEST Runtime] and the UI Follow-up 1.5.0 install lines, with no
-  "disabled for this session" line.
+  assembly" line. Sub Ammunition, Second Thrust, Automatic SAR and Parallel
+  Range Probe now load as their authors built them, without a SEST rewrite:
+  check each one works. Sub Ammunition's item also ships its pre-0.9 files in
+  backups\ (SecondThrustMod_pre-090-api.dll, SubAmmunitionMod_pre-090-api.dll).
+  Anchor Chain reads subfolders, so a second "Loaded assembly SecondThrustMod"
+  and "SubAmmunitionMod" line and two "Attempted to load a duplicate plugin"
+  warnings are expected; the current files load first and are the ones that
+  run.
+
+And in Player.log (%USERPROFILE%\AppData\LocalLow\Triassic Games\Sea Power),
+where SEST's own lines are written
+- the "[SEST Runtime] ... installed" lines and "[SEST UI Follow-up] 1.5.0 beta
+  input fix installed; full Runtime 1.7.0 paired", with no "[SEST Runtime] ...
+  disabled for this session" line.
 
 Then play the checks in the sections below (F11 costs and history, debrief,
 second-mission preparation, World Operations, Coordinated Strike, Contacts and
 Formation pop-out/return with Pop-Out 1.2.3, Identify). For Red Line, read the
 two '[SEST Runtime] debrief mission N: runtime ribbon' verdict lines for RL05
-and RLC1; replay one of those missions and confirm the verdict is "already
-awarded" the second time. After testing, run R14\Capture-Repair-Results.cmd
-and send the capture.
+and RLC1. A won mission cannot be played again on 0.9.2: copy the campaign
+save before RL05 and RLC1 and restore it for each further run (the Red Line
+test card says which). After testing, run R14\Capture-Repair-Results.cmd and
+send the capture.
 
 R12 WORKSHOP-INCLUDED FEATURES — 9 NOVEMBER 2026
 

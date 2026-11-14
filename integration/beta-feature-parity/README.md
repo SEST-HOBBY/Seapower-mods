@@ -26,13 +26,18 @@ capture this holds Enhanced Decoy and Multi-Stage Missiles
 (`Aircraft.UpdateFuelConsumption(float)`) with Osprey Deck Ops, and the flat
 Topographic Map. The adapters, holds and bridges pinned to author files that
 no longer exist are retired with their tests: Automatic SAR, Better TacMap,
-both Missile Control adapters, Osprey, Parallel Range Probe, Topography, the
-old Test Range and Optimal Target images, and the inline Decoy, Sub
-Ammunition, Second Thrust and R5 rewrites. Their authors' current files load
-unchanged and every game member they name resolves. Still adapted: Dynamic
-Campaign Mod (same audit as before), Identify, Coordinated Strike, Squad
-Panel, and the current Test Range and Optimal Target images, whose native
-shapes 0.9.2 keeps.
+the older Missile Control adapter, Osprey, Parallel Range Probe, the 1.5/1.6.0
+Topography recipes, the old Test Range and Optimal Target images, and the
+inline Decoy, Sub Ammunition, Second Thrust and R5 rewrites. Two fixes are
+re-pinned to the current author files, which still need them: Missile Control
+0.1.18.1 (`de8ba98e`; without the steering-g-load rewrite its own
+`ValidateGame` throws on 0.9.2 and the plugin switches itself off) and the
+Topographic Map 1.6.2 (`4490a285`; its metre-domain shallow-water line is
+still -48 m against the game's -50 m). Still adapted as before: Dynamic
+Campaign Mod (same audit), Identify, Coordinated Strike, Squad Panel, and the
+current Test Range and Optimal Target images, whose native shapes 0.9.2 keeps.
+Every parameterless author `Validate*` method of the admitted images was run
+against the captured game: all return normally.
 
 **Author build guards.** Sixteen Alpine-family DLLs carry the author's own
 build check. Run against 0.9.2, six reject it (`HookChanged`): Saronic Corsair
@@ -46,7 +51,10 @@ SEST's decision to match the author's verdict.
 the commander's nation and rank and returns `ApplyMissionRibbonAwardsCore`'s
 rows unchanged, so the postfix still follows the native grant and its
 persistent set. The core now skips a ribbon the commander holds, or holds a
-replacement of (`ReplacesRibbon`); the runtime does the same. The game's new
+replacement of (`ReplacesRibbon`); the runtime does the same. 0.9.2 refuses
+to launch a won campaign mission again (`LaunchMission`,
+`TryPrepareTaskForceForMissionLaunch`), so a mission's runtime ribbons are
+judged once per campaign. The game's new
 `[RibbonAward_]` rules read campaign variables set by mission triggers, and no
 trigger sees survivors rescued or a mission without a launch, so Red Line's two
 runtime ribbons stay in the runtime.

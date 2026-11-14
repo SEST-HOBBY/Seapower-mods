@@ -29,7 +29,7 @@ A single worldwide campaign for [b]Dynamic Campaign Mod[/b]. Command either coal
 [b]Start a new world campaign for the complete revised layout.[/b] Existing saves keep their own world; WORLD-CAMPAIGN-READ-ME.txt explains how to reopen an original World Sandbox save.
 
 [h2]Operations and combat costs[/h2]
-Items marked [b](beta)[/b] need SEST's code, matched to Sea Power 0.9.2 Build 261113 (Runtime 1.7.0 / UI 1.5.0, installed by SETUP). On any other game build SETUP changes no code: these items and the F11 cost totals then wait; the campaigns and data do not.
+Items marked [b](beta)[/b] need SEST's code, matched to Sea Power 0.9.2 Build 261113 (Runtime 1.7.0 / UI 1.5.0, installed by SETUP). On any other game build SETUP installs none of SEST's code, and puts the normal SEST plugins back if it was installed: these items and the F11 cost totals then wait; the campaigns and data do not.
 [list]
 [*][b]World Operations[/b] (beta): F11 brings together Overview, Forces, Combat Costs and Service, with your next command milestone, recruitment unlocks and Admiralty tasks.
 [*][b]Cumulative Combat Costs[/b] reports recorded weapons expenditure and losses per mission and campaign, through F11 and in the Task Force debrief. [b]Estimated USD costs are separate from campaign credits and physical supplies.[/b]
@@ -48,7 +48,7 @@ Items marked [b](beta)[/b] need SEST's code, matched to Sea Power 0.9.2 Build 26
 [/olist]
 
 [h2]Compatibility and scope[/h2]
-Data built for Sea Power 0.9.2. SEST's code is matched to Sea Power 0.9.2 Build 261113; on any other build SETUP changes no code. On 0.9.2 SEST holds author plugins that call game code 0.9.2 removed, or whose own build check rejects it, until their authors update them; BepInEx\LogOutput.log names each one. Dynamic Campaign Mod (needed by Global Maritime Operations 2028) and Coordinated Strike Tool declare versions below 0.9.0.
+Data built for Sea Power 0.9.2. SEST's code is matched to Sea Power 0.9.2 Build 261113; on any other build SETUP installs none of it, and puts the normal SEST plugins back if it was installed. On 0.9.2 SEST holds author plugins that call game code 0.9.2 removed, or whose own build check rejects it, until their authors update them; BepInEx\LogOutput.log names each one. Dynamic Campaign Mod (needed by Global Maritime Operations 2028) and Coordinated Strike Tool declare versions below 0.9.0.
 
 The campaigns are fictional 2028-2029 operations using real and modded equipment. Coalition alignments, deployments and stocks are scenario assumptions, not statements of current national policy or readiness. English language.
 
