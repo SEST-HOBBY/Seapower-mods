@@ -1,0 +1,14 @@
+Paths in the CURRENT LOCAL CLONE vanilla snapshot not found in installed original/.
+A path may have moved or been removed; verify with fresh game files before deleting any exported path.
+Found: 10
+
+animations/animations_rn_wessex_has1.ini
+animations/animations_rn_wessex_has3.ini
+animations/animations_rn_wessex_hu5.ini
+campaigns/south-atlantic-1982-uk/remove-before-release-planning.txt
+missions/NATO/Charlies.ini
+missions/NATO/Don't Mess With Texas (Blue Side).ini
+missions/NATO/Prime Chance.ini
+missions/Warsaw Pact/All Your Guam Belong to Us (Red Side).ini
+missions/Warsaw Pact/Don't Mess With Texas (Red Side).ini
+missions/Warsaw Pact/Valuable Target.ini

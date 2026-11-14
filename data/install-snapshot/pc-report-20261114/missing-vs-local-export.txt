@@ -1,0 +1,9 @@
+Paths present in the CURRENT LOCAL CLONE but absent in installed changed mods.
+This is NOT confirmed author deletion unless the clone matches the pinned baseline.
+No files in the repo or Steam were edited.
+
+3390330875/version_counter_640.txt
+3438479626/aircraft/usn_e-2c_squadrons.ini
+3438479626/aircraft/usn_f-14a_squadrons.ini
+3438479626/aircraft/wp_ka-27_squadrons.ini
+3737267013/version_counter_117.txt

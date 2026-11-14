@@ -1,0 +1,13 @@
+captured_local=2026-11-14 07:57:09 +10:00
+game_root=C:\program files (x86)\steam\steamapps\common\Sea Power
+workshop_root=C:\program files (x86)\steam\steamapps\workshop\content\1286220
+repository_root=<USER>\Seapower-mods
+source_commit=01cfa43b012dd1cfaa2284765d0f6128c90562e5
+baseline_source=GitHub:01cfa43b012dd1cfaa2284765d0f6128c90562e5
+game_changelog_first_entries=<changelog missing>
+game_scripts_sha256=3f56861f09e867f315b194c81a7a2450154ccc6bb5afb769b4956dfd4a00503a
+steam_needs_download=0
+steam_needs_update=0
+steam_acf_found=True
+subscribed_sest_workshop_folder_on_disk=True
+temporary_sest_test_folder_present=True

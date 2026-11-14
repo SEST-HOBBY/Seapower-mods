@@ -1,13 +1,9 @@
-ANCHOR CHAIN SETUP
+Saronic Corsair ASV
 
-Subscribe to Anchor Chain and complete its one-time preloader installation:
-https://steamcommunity.com/sharedfiles/filedetails/?id=3380210757
-https://seapower-modders.github.io/AnchorChain/install-anchor-chain.html
+Close Sea Power. Copy version.dll from this mod folder into the Sea Power folder beside Sea Power.exe.
+Keep SaronicCorsairStrikeUSV.dll and HarmonyDependencies inside this mod folder. Enable Saronic Corsair in the mod manager and restart the game.
 
-If Anchor Chain already works, no separate installer is needed for this mod.
-Enable the mod and restart Sea Power. Keep its DLLs inside the mod folder.
-Harmony is supplied by the shared loader; do not install another copy.
-Restart after changing code mods. Game updates can require a patch update.
+The controller uses its own bootstrap. No additional loader subscription is required for Corsair.
+If version.dll already exists beside Sea Power.exe, preserve it and resolve ownership before replacing it.
 
-UPGRADING FROM THE OLD CORSAIR BOOTSTRAP
-With Sea Power closed, remove the old version.dll beside Sea Power.exe only if you installed it for Corsair. Keep any version.dll owned by another mod. The new Corsair package starts through Anchor Chain.
+To remove this bootstrap, close the game and remove only the Corsair version.dll you installed. Keep loaders used by other mods.
