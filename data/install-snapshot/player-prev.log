@@ -1,4 +1,4 @@
-# Player-prev.log - last 342 of 342 line(s), captured 2026-11-14T14:53:11.
+# Player-prev.log - last 342 of 342 line(s), captured 2026-11-14T22:04:40.
 # Unity writes this fresh each launch; -prev is the session before.
 
 Mono path[0] = 'C:/Program Files (x86)/Steam/steamapps/common/Sea Power/Sea Power_Data/Managed'
@@ -17,7 +17,7 @@ Direct3D:
     VRAM:     7989 MB
     Driver:   32.0.16.1088
 Begin MonoManager ReloadAssembly
-- Loaded All Assemblies, in  0.250 seconds
+- Loaded All Assemblies, in  0.214 seconds
 - Finished resetting the current domain, in  0.002 seconds
 [Physics::Module] Selected backend.
 [Physics::Module] Name: PhysX
@@ -35,7 +35,7 @@ Using Windows.Gaming.Input
 
 Input System polling thread started.
 [3D WebView] Using Vuplex 3D WebView for Windows v4.15.2 
-UnloadTime: 1.938400 ms
+UnloadTime: 1.434000 ms
 [3D WebView] System info (used by Vuplex support):
 Unity version: 6000.0.85f2
 Development build: False
@@ -90,9 +90,9 @@ LoadMaterialFromFile(effects/weapons/emitters/ramjet_large/ramjet_trail_material
 'fr_rafale_m_l': MaxPitchRate 29 deg/s sustained is out of reach of the drag model (turn drag factor held at 0.2)
 'plaaf_j-20a': the range needs a bypass ratio past 1.5; range, fuel or drag is likely wrong (or author BypassRatio)
 'plaaf_jh7a': the range needs a bypass ratio past 1.5; range, fuel or drag is likely wrong (or author BypassRatio)
-'usaf_a-10c_plus': the range needs a bypass ratio past 8.0; range, fuel or drag is likely wrong (or author BypassRatio)
-[2101 - HTTPRequestCompleted] - 10 -- 1 -- True -- k_EHTTPStatusCode200OK -- 3873
+[2101 - HTTPRequestCompleted] - 14 -- 1 -- True -- k_EHTTPStatusCode200OK -- 3873
 Unexpected timestamp values detected. This can occur in H.264 videos not encoded with the baseline profile. Timestamps will be skewed to correct the playback for C:\Program Files (x86)\Steam\steamapps\common\Sea Power\Sea Power_Data\sharedassets1.resource
+'usaf_a-10c_plus': the range needs a bypass ratio past 8.0; range, fuel or drag is likely wrong (or author BypassRatio)
 'usaf_b-52h_419_flts': the range needs a bypass ratio past 8.0; range, fuel or drag is likely wrong (or author BypassRatio)
 'usaf_mq-9a': cruise range implies SFC 2.35 lb/hp/h; range, drag and thrust disagree
 'usaf_mq-9_er': cruise range implies SFC 2.35 lb/hp/h; range, drag and thrust disagree

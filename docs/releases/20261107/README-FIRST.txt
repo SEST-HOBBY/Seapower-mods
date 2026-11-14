@@ -64,19 +64,26 @@ PREPARE AND CHECK
      above), installs the data and prints the VERIFIED line.
    If it stops instead:
    - "Installed candidate files are not a reviewed beta candidate ..." on an
-     enabled journal: your capture of 14 November showed SEST.RuntimeFixes.dll
-     missing from the Workshop item's plugins folder, while the four other
-     files are exactly the R12 World Map Costs build. Put that build's own
-     file back from the release checkout, then run Prepare-PC.cmd again.
-     Open PowerShell, paste this block as it stands, then type the Release
-     checkout path when asked (it checks the file's SHA-256 first and never
-     overwrites anything):
+     enabled journal: your PC still holds the R12 World Map Costs test build
+     of 9 November, except SEST.RuntimeFixes.dll in the Workshop item's
+     plugins folder. On 14 November it was missing; at 21:10 Steam put back
+     the published 1.5.0 one (7ba6d6d9). Put the test build's own file back
+     from the release checkout (the published one is moved to a folder in
+     Downloads, not deleted), then run Prepare-PC.cmd again. Open
+     PowerShell, paste this block as it stands, then type the Release
+     checkout path when asked (it checks both files' SHA-256 first):
        & { $ErrorActionPreference = 'Stop'
        $checkout = Read-Host 'Release checkout path from Prepare-PC'
        $src = Join-Path $checkout 'integration\beta-feature-parity\candidates\R12-WorldMapCosts-20261109\SEST.RuntimeFixes.dll'
        $dst = 'C:\Program Files (x86)\Steam\steamapps\workshop\content\1286220\3812461539\plugins\SEST.RuntimeFixes.dll'
-       if ((Get-FileHash -LiteralPath $src -Algorithm SHA256).Hash -ne 'EED2E5083E8C843BDB64DCF8C98E7C14CDEE24D7192EFD30386A2B4C2039CFE8') { throw 'Not the R12 World Map Costs file; nothing copied.' }
-       if (Test-Path -LiteralPath $dst) { throw 'A SEST.RuntimeFixes.dll is already there; nothing copied. Send the Prepare-PC error instead.' }
+       if ((Get-FileHash -LiteralPath $src -Algorithm SHA256).Hash -ne 'EED2E5083E8C843BDB64DCF8C98E7C14CDEE24D7192EFD30386A2B4C2039CFE8') { throw 'Not the R12 World Map Costs file; nothing changed.' }
+       if (Test-Path -LiteralPath $dst) {
+         if ((Get-FileHash -LiteralPath $dst -Algorithm SHA256).Hash -ne '7BA6D6D9C58B6C3DB31D731E951ED7EA3979925BDFF054C9B92482DBE69C9986') { throw 'The SEST.RuntimeFixes.dll there is not the published 1.5.0 file; nothing changed. Send the Prepare-PC error instead.' }
+         $keep = Join-Path $env:USERPROFILE ('Downloads\SEST-RuntimeFixes-published-' + (Get-Date -Format 'yyyyMMdd-HHmmss'))
+         New-Item -ItemType Directory -Path $keep | Out-Null
+         Move-Item -LiteralPath $dst -Destination $keep
+         "Published file moved to $keep"
+       }
        Copy-Item -LiteralPath $src -Destination $dst
        'Copied. Run Prepare-PC.cmd again.' }
    - "Existing SEST code differs from the captured baseline" or "An earlier
@@ -88,6 +95,15 @@ PREPARE AND CHECK
      in Downloads (do not delete them): Sea Power\BepInEx\plugins\
      SEST.BetaSafeBootstrap.dll and the folder Sea Power\BepInEx\config\
      SEST-BetaAnchorChain. Redo step 0a, then run Prepare-PC.cmd again.
+   - "An author configuration changed after this capture": a mod in the
+     collection was updated on Steam after the pack was built. Either send
+     the report it names and wait for a refreshed toolkit, or, to post now,
+     accept exactly the mods it lists as UPDATED: open a Command Prompt in
+     this toolkit folder and run Prepare-PC.cmd -AcceptUpdatedMods <id>
+     (several ids separated by commas). Until the next refresh the pack then
+     keeps its own copies of those mods' files from the capture (for
+     3390330875, Euromod - Modern US Navy: 39 ships, its weapons, sensors and
+     names). A new or removed subscription still stops the run.
    - Anything else: keep the window's text and send it; do not work round it.
    Prepare-PC installs both code and campaign/loadout data; Repair-PC alone
    only repairs code. The author-update guard and original restore journal

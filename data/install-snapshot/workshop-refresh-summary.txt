@@ -3,30 +3,27 @@ WORKSHOP REFRESH SUMMARY
 Written by tools/workshop_refresh_summary.py from data/install-snapshot/ and the
 canonical lists. Facts only; compatibility is judged in a later review.
 
-capture date           : 2026-11-14T14:53:14
-repo commit captured at: 6c9fa4588 (chore/workshop-refresh-20261114-1451)
-previous capture       : 600b0a46c05b
-previous export        : 15757d299511
-Sea Power              : 11-Nov-2026: 0.9.0 Build 261111 Public Release
+capture date           : 2026-11-14T22:04:43
+repo commit captured at: 23a17dc1f (chore/workshop-refresh-20261114-2204)
+previous capture       : f0664e0a9d87
+previous export        : f0664e0a9d87
+Sea Power              : 13-Nov-2026: 0.9.2 Build 261113 Public Release
   installed            : 13-Nov-2026: 0.9.2 Build 261113 Public Release
-  THE INSTALLED GAME IS NOT THE EXPORTED ONE: the pack and every check are built on
-  the export above. The installed build is a public release: if it is the newer, the game export is due
-  (docs/packaging-and-recovery.md, After a Sea Power update).
   game code            : Seapower-Scripts.dll SHA-256 3f56861f09e867f315b194c81a7a2450154ccc6bb5afb769b4956dfd4a00503a
-  export files the install no longer ships: 10 (data/install-snapshot/game-files-dropped.txt lists them)
+  export files the install no longer ships: 0
   Steam build id       : 26652114
   engine               : Unity 6000.0.85f2 (b028303d8e7d)
 
 COUNTS
-  A Steam-tracked subscriptions : 200
+  A Steam-tracked subscriptions : 201
   B Workshop folders on disk    : 201
   C canonical Workshop ids      : 200
   D catalog installed entries   : 200
   SEST entries in the order     : 1 (SEST_Integration)
-  SEST in the live order        : SEST_090_PC_TEST at 1 (on)
+  SEST in the live order        : 3812461539 at 203 (on, Workshop copy)
   local SEST folders (StreamingAssets): 1
   canonical Mod Manager entries : 201
-  live Mod Manager entries      : 202
+  live Mod Manager entries      : 203
   pending (NeedsDownload / NeedsUpdate): 0 / 0
 
 SINCE THE PREVIOUS CAPTURE
@@ -36,118 +33,25 @@ SINCE THE PREVIOUS CAPTURE
   (none)
   updated on the Workshop (Steam's timeupdated for the item changed, from
   appworkshop_1286220.acf; the exported files below are the full record):
-  3390330875  Euromod - Modern US Navy  2026-11-12 07:18 -> 2026-11-14 14:23
-  3411341227  Tu-95K-22  2026-08-31 23:53 -> 2026-11-14 02:26
-  3434072450  Sukhoi Su-27  2026-10-08 23:29 -> 2026-11-13 02:29
-  3434693420  F-15J Peace Eagle  2026-08-07 07:45 -> 2026-11-13 02:29
-  3438479626  1143.5 Kuznetsov  2026-10-08 23:29 -> 2026-11-13 02:40
-  3478767194  VH-3D Marine One Mod  2026-08-14 01:40 -> 2026-11-13 08:41
-  3488139470  Euromod - Modern Italian Navy  2026-11-12 03:57 -> 2026-11-14 12:48
-  3505420313  Italian Navy mod  2026-10-17 04:19 -> 2026-11-14 12:45
-  3599752717  Euromod - Modern British Navy  2026-10-17 12:08 -> 2026-11-14 11:45
-  3629144864  Euromod - Main Pack  2026-11-10 03:54 -> 2026-11-14 11:42
-  3737267013  US Naval Aviation  2026-11-11 08:19 -> 2026-11-14 14:27
-  3758943352  French Air Force  2026-10-12 03:14 -> 2026-11-13 05:44
-  3766210676  Saronic Corsair ASV  2026-11-09 19:01 -> 2026-11-13 09:02
-  3768036424  BetterTacMap  2026-10-19 07:11 -> 2026-11-12 23:13
-  3774105087  Automatic SAR  2026-10-31 19:35 -> 2026-11-13 11:04
-  3776730617  Euromod - Modern Armada de Chile  2026-11-07 10:17 -> 2026-11-14 12:35
-  3789208859  Euromod-South Korea Navy  2026-11-08 16:05 -> 2026-11-13 23:59
-  3796349767  YF-23 Black Widow II  2026-11-10 18:12 -> 2026-11-13 13:38
-  3804868806  Anduril FQ-44 Fury US Navy Carrier Wingmen  2026-11-10 18:13 -> 2026-11-13 07:59
-  3810611344  MV-75 Cheyenne II  2026-11-10 18:46 -> 2026-11-13 12:28
-  3812454152  Euromod-HD Hyundai Export Ships Mod  2026-11-11 20:53 -> 2026-11-13 23:26
-  3812461539   [SEST's own Workshop item]  2026-10-26 20:11 -> unknown
-  3813033771  EC-2 Stand Off Jammer  2026-11-09 22:32 -> 2026-11-13 13:38
-  3819522350  Anduril Maritime Drones  2026-11-10 18:04 -> 2026-11-13 07:54
-  3820576916  Steelfin (Alpine)  2026-11-10 18:03 -> 2026-11-13 07:53
-  3821992229  B-21 Raider  2026-11-02 14:15 -> 2026-11-13 07:52
-  exported files changed since the previous export (15757d299511; A added, D removed, M modified, R renamed):
-  3390330875  Euromod - Modern US Navy  files 321 -> 322  (A 0, D 1, M 9, R 0)
-      D version_counter_642.txt
+  3390330875  Euromod - Modern US Navy  2026-11-14 14:23 -> 2026-11-14 17:21
+  3812461539  SEST Integration Pack [SEST's own Workshop item]  unknown -> 2026-10-26 20:11
+  exported files changed since the previous export (f0664e0a9d87; A added, D removed, M modified, R renamed):
+  3390330875  Euromod - Modern US Navy  files 322 -> 321  (A 0, D 2, M 3, R 0)
+      D assets/models/aircraft/usn_mh-60s/usn_flir_mat.ini
+      D version_counter_644.txt
+      M aircraft/usn_mh-60r_p2.ini
       M aircraft/usn_mh-60s.ini
       M aircraft/usn_mh-60s_squadrons.ini
-      M assets/models/aircraft/usn_mh-60s/mh-60s_2_mat.ini
-      M language_cn/aircraft_names.ini
-      M language_en/aircraft_names.ini
-      M vessels/usn_cvn_gerald_r_ford.ini
-      M vessels/usn_cvn_gerald_r_ford_easr.ini
-      M vessels/usn_cvn_gerald_r_ford_easr_variants.ini
-      M vessels/usn_cvn_nimitz_2025_variants.ini
-  3488139470  Euromod - Modern Italian Navy  files 102 -> 102  (A 0, D 1, M 1, R 0)
-      D version_counter_56.txt
-      M _info.ini
-  3505420313  Italian Navy mod  files 270 -> 267  (A 0, D 3, M 8, R 0)
-      D land_units/mm_skyguard_sam.ini
-      D land_units/mm_skyguard_sam/textures/mm_skyguard_sam_mat.ini
-      D land_units/mm_skyguard_sam_variants.ini
-      M _info.ini
-      M aircraft/am_tornado_ecr.ini
-      M aircraft/am_tornado_ids.ini
-      M aircraft/am_tornado_ids_95.ini
-      M aircraft/mm_sh-3.ini
-      M aircraft/mm_sh-3_91.ini
-      M land_units/ei_aaa_sidam.ini
-      M land_units/ei_aaa_sidam_mistral.ini
-  3599752717  Euromod - Modern British Navy  files 120 -> 129  (A 0, D 1, M 4, R 0)
-      D version_counter_74.txt
-      M _info.ini
-      M aircraft/rn_sea_king_has6.ini
-      M aircraft/rn_sea_king_hc4.ini
-      M language_en/vessel_names.ini
-  3629144864  Euromod - Main Pack  files 757 -> 762  (A 0, D 1, M 193, R 0)
-      D version_counter_492.txt
-      M _info.ini
-      M ammunition/am_aspide_1_air.ini
-      M ammunition/bofors_cal_57mm_3P.ini
-      M ammunition/eu_30mm.ini
-      M ammunition/eu_30mm_bushmaster.ini
-      M ammunition/eu_30mm_kcb.ini
-      M ammunition/eu_35mm_AHEAD.ini
-      M ammunition/fr_am-39_blk2_mod1.ini
-      M ammunition/fr_am-39_blk2_mod2.ini
-      M ammunition/fr_cal_100mm.ini
-      M ammunition/fr_cal_76mm.ini
-      ... and 182 more
-  3737267013  US Naval Aviation  files 272 -> 272  (A 0, D 1, M 5, R 0)
-      D version_counter_118.txt
-      M aircraft/usn_e-2d_squadrons.ini
-      M aircraft/usn_ea-18g_squadrons.ini
-      M aircraft/usn_f-35c_squadrons.ini
-      M aircraft/usn_fa-18e_squadrons.ini
-      M aircraft/usn_fa-18f_squadrons.ini
-  3776730617  Euromod - Modern Armada de Chile  files 133 -> 130  (A 0, D 4, M 8, R 0)
-      D ammunition/ch_mm-40.ini
-      D language_en/nations.ini
-      D language_en/nations_reference.ini
-      D version_counter_11.txt
-      M _info.ini
-      M aircraft/ch_f-5e.ini
-      M aircraft/ch_kc135.ini
-      M land_units/ch_apc_m113.ini
-      M language_en/aircraft_names.ini
-      M language_en/ammunition_names.ini
-      M language_en/systemgroups.ini
-      M vessels/ch_ffg_adelaide_longhull.ini
   plugin DLLs changed:
-  [workshop] 3766210676\SaronicCorsairStrikeUSV.dll
-  [workshop] 3768036424\BetterTacMap.dll
-  [workshop] 3774105087\AutomaticSAR.dll
-  [workshop] 3796349767\AlpineSeaPower.dll
-  [workshop] 3804868806\AlpineSeaPower.dll
-  [workshop] 3804868806\XQ58Shadow.dll
-  [workshop] 3810611344\BellSystemsFixtureTilt.dll
-  [workshop] 3810611344\MV75CrewEscape.dll
-  [workshop] 3813033771\EC2CommsJamming.dll
-  [workshop] 3819522350\AlpineExteriorCameras.dll
-  [workshop] 3819522350\K5KrakenContactStrike.dll
-  [workshop] 3820576916\AlpineExteriorCameras.dll
+  (none)
   plugin DLLs new:
+  [workshop] 3812461539\plugins\SEST.MenuBackground.dll
+  [workshop] 3812461539\plugins\SEST.RuntimeFixes.dll
 
 INVENTORY
   subscribed + downloaded + canonical + catalogued: 200
   subscribed but unplaced (B not C):
-  3812461539   [SEST's own Workshop item]
+  3812461539  SEST Integration Pack [SEST's own Workshop item]
   canonical but not downloaded (C not B):
   (none)
   canonical but not catalogued (C not D):
@@ -155,10 +59,10 @@ INVENTORY
   catalogued installed but not on disk (D not B):
   (none)
   new uncatalogued subscriptions (B not in any catalog entry):
-  3812461539   [SEST's own Workshop item]
+  3812461539  SEST Integration Pack [SEST's own Workshop item]
   historical catalog entries (status not installed): 12
   Steam-tracked but not on disk: (none)
-  on disk but not Steam-tracked: 3812461539
+  on disk but not Steam-tracked: (none)
 
 AUTHORS' CHANGE NOTES (data/install-snapshot/workshop-change-notes.txt)
   3413868677  Red Storm Arsenal
@@ -171,14 +75,8 @@ AUTHORS' CHANGE NOTES (data/install-snapshot/workshop-change-notes.txt)
 
 EXPORTER UPDATE CHECK (export-mod-configs.ps1 -CheckUpdates)
     workshop : c:\program files (x86)\steam\steamapps\workshop\content\1286220
-  unchanged since the last export : 193
+  unchanged since the last export : 199
   skipped, SEST's own Workshop item: 3812461539
   UPDATED by their authors (re-export to pick the changes up):
     3390330875  Euromod - Modern US Navy
-    3488139470  Euromod - Modern Italian Navy
-    3505420313  Italian Navy mod
-    3599752717  Euromod - Modern British Navy
-    3629144864  Euromod - Main Pack
-    3737267013  US Naval Aviation
-    3776730617  Euromod - Modern Armada de Chile
   To capture: re-run this script without -CheckUpdates, then commit and push.

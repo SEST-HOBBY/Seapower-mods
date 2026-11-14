@@ -1,16 +1,6 @@
 # Files in mods-source\_vanilla\original that the installed game no longer ships.
-# export   : 11-Nov-2026: 0.9.0 Build 261111 Public Release
+# export   : 13-Nov-2026: 0.9.2 Build 261113 Public Release
 # installed: 13-Nov-2026: 0.9.2 Build 261113 Public Release
 
-compared: 4505 file(s) of the export
-no longer shipped (10):
-  animations/animations_rn_wessex_has1.ini
-  animations/animations_rn_wessex_has3.ini
-  animations/animations_rn_wessex_hu5.ini
-  campaigns/south-atlantic-1982-uk/remove-before-release-planning.txt
-  missions/NATO/Charlies.ini
-  missions/NATO/Don't Mess With Texas (Blue Side).ini
-  missions/NATO/Prime Chance.ini
-  missions/Warsaw Pact/All Your Guam Belong to Us (Red Side).ini
-  missions/Warsaw Pact/Don't Mess With Texas (Red Side).ini
-  missions/Warsaw Pact/Valuable Target.ini
+compared: 4500 file(s) of the export
+no longer shipped (0):

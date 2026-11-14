@@ -7,9 +7,14 @@
    'staged': Stage (no change unless Steam refreshed the staged files, which
    are staged again), then Enable and the data install. No journal, 'restored'
    or anything else: Stage, then stop until Sea Power has reached the main
-   menu once; the next run enables. Stage refuses an incomplete journal. #>
+   menu once; the next run enables. Stage refuses an incomplete journal.
+   -AcceptUpdatedMods <Workshop ids>: the owner's one-off decision to install
+   although those mods were updated by their authors after the capture. The
+   pack keeps its own copies of their files from the capture until the next
+   refresh. Any other change upstream (another updated mod, a new or removed
+   subscription) still stops the run. #>
 [CmdletBinding()]
-param([string]$MainRepository='', [string]$GameRoot='', [string]$WorkshopContentRoot='', [switch]$ImportOnly, [string]$AppDataRoot='')
+param([string]$MainRepository='', [string]$GameRoot='', [string]$WorkshopContentRoot='', [switch]$ImportOnly, [string]$AppDataRoot='', [string[]]$AcceptUpdatedMods=@())
 $ErrorActionPreference='Stop'
 Set-StrictMode -Version Latest
 $env:POWERSHELL_TELEMETRY_OPTOUT='1'
@@ -54,7 +59,17 @@ $checkArgs=@('-NoProfile','-ExecutionPolicy','Bypass','-File',(J $checkout 'tool
 if($WorkshopContentRoot){$checkArgs+=@('-WorkshopContentDir',$WorkshopContentRoot)}
 & powershell.exe @checkArgs
 if($LASTEXITCODE -ne 0 -or !(Test-Path -LiteralPath $report)){throw 'The author-update check failed. No beta/data installation was attempted.'}
-if([IO.File]::ReadAllText($report) -notmatch 'Nothing has changed upstream\.'){throw 'An author configuration changed after this capture. Keep the report and capture the new update before installation.'}
+$upstream=[IO.File]::ReadAllText($report)
+if($upstream -notmatch 'Nothing has changed upstream\.'){
+    $accept=@($AcceptUpdatedMods | ForEach-Object {[string]$_ -split '[,\s]+'} | Where-Object {$_})
+    $updatedIds=@()
+    $section=[regex]::Match($upstream,'(?s)UPDATED by their authors[^\r\n]*\r?\n(.*?)(?:\r?\n[ \t]*\r?\n|$)')
+    if($section.Success){$updatedIds=@([regex]::Matches($section.Groups[1].Value,'(?m)^[ \t]+(\d+)[ \t]') | ForEach-Object {$_.Groups[1].Value})}
+    $onlyUpdates=($upstream -notmatch 'NEW subscriptions' -and $upstream -notmatch 'EXPORTED but no longer subscribed' -and $updatedIds.Count -gt 0)
+    $unaccepted=@($updatedIds | Where-Object {$accept -notcontains $_})
+    if(!$accept.Count -or !$onlyUpdates -or $unaccepted.Count){throw 'An author configuration changed after this capture. Keep the report and capture the new update before installation.'}
+    Write-Host ('Accepted by -AcceptUpdatedMods: '+($updatedIds -join ', ')+' changed after the capture. The pack keeps its own copies of their files from the capture until the next refresh.') -ForegroundColor Yellow
+}
 $beta=J $PSScriptRoot $betaName
 if(!$AppDataRoot){$AppDataRoot=J ([Environment]::GetFolderPath('LocalApplicationData')) 'SEST'}
 $options=@{AppDataRoot=$AppDataRoot};if($GameRoot){$options.GameRoot=$GameRoot};if($WorkshopContentRoot){$options.WorkshopContentRoot=$WorkshopContentRoot}

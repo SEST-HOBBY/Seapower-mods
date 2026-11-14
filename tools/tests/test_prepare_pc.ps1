@@ -39,7 +39,9 @@ try{
     # the imported checkout, as stubs.
     Stub 'tools/export-mod-configs.ps1' (J $fixture 'tools' 'export-mod-configs.ps1') ($record+'''check-updates''
 $text=''Nothing has changed upstream.''
-if($env:SEST_PREPARE_UPSTREAM){$text=''Changed upstream: fixture.ini''}
+if($env:SEST_PREPARE_UPSTREAM){$text=''unchanged since the last export : 199''+"`r`n`r`n"+''UPDATED by their authors (re-export to pick the changes up):''+"`r`n"+''  3390330875  Euromod - Modern US Navy''+"`r`n"}
+if($env:SEST_PREPARE_NEW){$text+="`r`n"+''NEW subscriptions (not exported yet):''+"`r`n"+''  3999999999  A New Mod''+"`r`n"}
+if($env:SEST_PREPARE_UPSTREAM){$text+="`r`n"+''To capture: re-run this script without -CheckUpdates, then commit and push.''}
 [IO.File]::WriteAllText($ReportPath,$text)')
     Stub 'tools/install-workshop-release-data.ps1' (J $fixture 'tools' 'install-workshop-release-data.ps1') ($record+'(''data beta=''+(Split-Path -Leaf $BetaPackageRoot))')
     Stub 'tools/prepare-workshop-upload.ps1' (J $fixture 'tools' 'prepare-workshop-upload.ps1') ($record+'(''verify-upload ''+[bool]$VerifyOnly)')
@@ -86,7 +88,7 @@ if($Action -eq ''Enable''){
     # One Prepare-PC run in its own folder (a fresh main repository, so each
     # run's dated checkout is new). $Phase: the journal to start from, '' for
     # none, $null to keep the journal $AppData already has.
-    function Run([string]$Name,$Phase,[string]$AppData='',[hashtable]$Environment=@{}){
+    function Run([string]$Name,$Phase,[string]$AppData='',[hashtable]$Environment=@{},[string[]]$Accept=@()){
         $case=J $temp $Name;$main=J $case 'main'
         if(!$AppData){$AppData=J $case 'appdata'}
         New-Item -ItemType Directory -Path $main -Force | Out-Null
@@ -102,7 +104,7 @@ if($Action -eq ''Enable''){
         if(Test-Path -LiteralPath $prepared){Remove-Item -LiteralPath $prepared -Force}
         foreach($k in $Environment.Keys){Set-Item -Path ('Env:'+$k) -Value $Environment[$k]}
         $said=New-Object 'System.Collections.Generic.List[string]';$why=''
-        try{& $prepare -MainRepository $main -GameRoot $game -AppDataRoot $AppData 6>&1 | ForEach-Object {$said.Add([string]$_)}}
+        try{& $prepare -MainRepository $main -GameRoot $game -AppDataRoot $AppData -AcceptUpdatedMods $Accept 6>&1 | ForEach-Object {$said.Add([string]$_)}}
         catch{$why=$_.Exception.Message}
         finally{foreach($k in $Environment.Keys){Remove-Item -Path ('Env:'+$k) -ErrorAction SilentlyContinue}}
         $after=''
@@ -156,6 +158,16 @@ if($Action -eq ''Enable''){
     $r=Run 'upstream' 'enabled' '' @{SEST_PREPARE_UPSTREAM='1'}
     Assert ($r.why -match 'author configuration changed') ('author update: not refused: '+$r.why)
     Assert ((Steps $r) -eq 'check-updates' -and !$r.prepared) ('author update: a beta step ran: '+(Steps $r))
+    # The owner's one-off acceptance of exactly the updated mods it names.
+    $r=Run 'upstream-accepted' 'enabled' '' @{SEST_PREPARE_UPSTREAM='1'} @('3390330875')
+    Assert ($r.why -eq '' -and (Steps $r) -eq 'check-updates, repair Repair, data beta=R14, verify-upload True' -and $r.prepared) ('accepted author update: '+(Steps $r)+' '+$r.why)
+    Assert ($r.said -match 'Accepted by -AcceptUpdatedMods: 3390330875') 'accepted author update: no warning naming the accepted mod'
+    $r=Run 'upstream-other' 'enabled' '' @{SEST_PREPARE_UPSTREAM='1'} @('1234567890')
+    Assert ($r.why -match 'author configuration changed' -and (Steps $r) -eq 'check-updates' -and !$r.prepared) ('an update the owner did not name was accepted: '+(Steps $r))
+    $r=Run 'upstream-new' 'enabled' '' @{SEST_PREPARE_UPSTREAM='1';SEST_PREPARE_NEW='1'} @('3390330875')
+    Assert ($r.why -match 'author configuration changed' -and (Steps $r) -eq 'check-updates' -and !$r.prepared) ('a new subscription was accepted with the named update: '+(Steps $r))
+    $r=Run 'upstream-comma' 'enabled' '' @{SEST_PREPARE_UPSTREAM='1'} @('1234567890,3390330875')
+    Assert ($r.why -eq '' -and $r.prepared) ('a comma-separated list from powershell -File was not read: '+$r.why)
 
     # The owner's loop: no journal, run, menu check, run again, then a later run.
     $app=J $temp 'loop-appdata'
