@@ -128,8 +128,10 @@ appears.
 ## 7. A reveal at Classify and the Identify objective (21 October)
 
 7.1 **Night Market, then The Okean.** Win Night Market (take the
-semi-submersible; since 15 Nov she rides surfaced, as briefed, because the
-patrol has no sonar), then fly The Okean. The PDEA intel line comes up and
+semi-submersible), then fly The Okean. *Known issue on 0.9.2 (15 Nov):*
+the game's submarine AI takes her to 25-60 ft whatever the mission says,
+and the patrol has no sonar or underwater weapon, so she cannot be taken
+until the patrol gets an ASW hull or she gets a surface hull. The PDEA intel line comes up and
 the armed trawler Hai Xing 7 is on the plot classified from the start
 (`SLNarcoTaken`). Say exactly what the **Identify** objective ("Classify
 the armed trawler") does with a ship that starts classified: completes at

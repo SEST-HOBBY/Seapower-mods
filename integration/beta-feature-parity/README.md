@@ -5,7 +5,9 @@ Runtime 1.7.0 / UI 1.5.0 / bootstrap 0.6.0, revision
 261113 (`Seapower-Scripts.dll` `3f56861f…503a`) only. Built with
 `build-roslyn.ps1` against `SEST-Beta-References-20261114-145515-d8e3ce`, whose
 330 files match its own manifest; `verify.py` passes all 16 managed and
-installer checks. Nothing here has run in the game yet.
+installer checks. The first build of this revision passed step 1b on the PC on
+15 November; this rebuild, with the three game-hash holds and the save-only
+Costs tab, has not run in the game yet.
 
 **Pins.** Seven of the fifteen captured references moved: the game, Noesis
 (`c5f13e31…`), Anchor Chain 1.2.0 (`17abaf4b…`), Pop-Out Windows 1.2.3

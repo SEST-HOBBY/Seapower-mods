@@ -8,7 +8,9 @@ and on the mods as installed then; every pack declares 0.9.2
 SEST code: R14 (Runtime 1.7.0 / UI 1.5.0, loader bootstrap 0.6.0), matched to
 Sea Power 0.9.2 Build 261113 (Seapower-Scripts.dll 3f56861f) only, from your
 reference ZIP of 14 November. It is compiled here and passes the 16 managed
-and installer checks; it has never run in the game. This run is its first.
+and installer checks. Its first build passed step 1b on your PC on 15
+November; this rebuild has not run in the game yet, and this run is its
+first.
 Nothing has been uploaded to Steam. Post only after this run passes.
 
 WHAT CHANGED SINCE THE LAST VERSION OF THIS FILE
@@ -30,8 +32,10 @@ WHAT CHANGED SINCE THE LAST VERSION OF THIS FILE
   Shadow and MV-75 crew escape files are now held as well, so their
   "Unsupported game" lines go; the world Costs tab covers the loaded
   campaign save only, so a new campaign no longer shows an earlier
-  campaign's battles; and Sulu Line's Night Market semi-submersible now
-  rides surfaced, as her brief says, so the patrol's guns can take her.
+  campaign's battles. Known issue, not fixed: in Sulu Line's optional
+  Night Market, 0.9.2's submarine AI takes the semi-submersible to 25-60
+  ft whatever the mission says, and the patrol has no sonar or underwater
+  weapon, so she cannot be stopped yet.
 - Decision 6 is answered by the game's code: 0.9.2's own [RibbonAward_]
   rules test campaign variables that mission triggers set, and no trigger
   sees survivors rescued or a mission with no launch. Red Line's two
@@ -59,8 +63,9 @@ PREPARE AND CHECK
 1. Close Sea Power. Extract this COMPLETE toolkit into a NEW folder and run
    Prepare-PC.cmd. It prints "Release checkout: ..." and "Beta journal:
    <phase>". Keep both lines. What happens next depends on the phase:
-   - enabled (most likely: your PC still has the R12 World Map Costs test
-     build of 9 November): it repairs that installation to R14, installs the
+   - enabled (most likely: your PC has the first R14 build from your 15
+     November run): it upgrades that installation in place to this R14
+     rebuild, installs the
      release data and ends with the line "VERIFIED: all 4596 canonical
      upload files match the release manifest." Go to 1b.
    - none or restored: it stages R14 and stops with "Next: start Sea Power,
@@ -71,8 +76,10 @@ PREPARE AND CHECK
      above), installs the data and prints the VERIFIED line.
    If it stops instead:
    - "Installed candidate files are not a reviewed beta candidate ..." on an
-     enabled journal: your PC still holds the R12 World Map Costs test build
-     of 9 November, except SEST.RuntimeFixes.dll in the Workshop item's
+     enabled journal: after your 15 November run, which installed R14, this
+     is not expected; keep the window's text and send it, and do not use the
+     block below. Only on a PC that still holds the R12 World Map Costs test
+     build of 9 November, except SEST.RuntimeFixes.dll in the Workshop item's
      plugins folder. On 14 November it was missing; at 21:10 Steam put back
      the published 1.5.0 one (7ba6d6d9). Put the test build's own file back
      from the release checkout (the published one is moved to a folder in
@@ -244,9 +251,8 @@ PREPARE AND CHECK
    the pack stocks.
 4. Recheck the opening brief, world Combat Costs sidebar and direct F11
    totals. Start a NEW Global Maritime Operations campaign as blue: Costs
-   shows 0 manual battle reports and no USD totals. In Sulu Line's Night
-   Market, the semi-submersible is surfaced and the Jacinto's 76 mm offers
-   her as a target once she is classified. In Starting Airborne Flights select the RAAF E/A-18G and confirm
+   shows 0 manual battle reports and no USD totals. In Starting Airborne
+   Flights select the RAAF E/A-18G and confirm
    HARM (AGM-88C), AARGM (AGM-88E) and AARGM-ER (AGM-88G) choices. The three
    loadouts were data-tested; the selector still awaits an owner PC check.
    With Pop-Out Windows 1.2.3 installed, check Contacts, Formation and F11
@@ -346,13 +352,15 @@ WHAT IS NEW SINCE THE R12 RIBBON TEST BUILD
   rewrites SEST made for author files that no longer exist are retired.
   Two current author files still need a SEST fix and keep one: Missile
   Control 0.1.18.1 (its own startup check would switch it off on 0.9.2)
-  and the Topographic Map 1.6.2 (the game's 50 m shallow-water line). Six
-  Alpine-family plugins whose own build check rejects 0.9.2 are held.
+  and the Topographic Map 1.6.2 (the game's 50 m shallow-water line). Ten
+  author plugin files whose own build or game-hash check rejects 0.9.2 are
+  held.
   The runtime mission ribbons follow 0.9.2's rule that a ribbon already
   held, or held as its replacement, is not granted again (0.9.2 does not
   let a won campaign mission be played again either). The repair
-  recognises R13 and the fifteen earlier test builds; that path was not
-  run here (the 0.8.7 reference ZIP it needs is not in the repository), so
+  recognises the first R14 build of 14 November, R13 and the fifteen
+  earlier test builds. Your 15 November step 1 took the R12 World Map Costs
+  build to the first R14; repair from that R14 was not run here, so this
   step 1 is its first test.
 - Beta runtime R13 (Runtime 1.6.5 / UI 1.4.15, the merged
   feature/runtime-mission-awards-20261110): a campaign can name extra

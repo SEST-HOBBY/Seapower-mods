@@ -49,7 +49,7 @@
     "integration/beta-feature-parity/Install-SEST-Beta.ps1": "75d66354ecb6c5ff3a0132b2291e1a9bdc0e2de45ca334ed69fffdb3d977c4c2",
     "integration/beta-feature-parity/package.py": "40a9d622f2d346bd7558dcdd684be14bdf7f82f6d1a13e5e89df6e6650115d0b",
     "integration/beta-feature-parity/R11-PC-TESTS.txt": "b8b7b9454240be561153f1a57acd1e0b7a7f9a42d766f0289358433ffa5d0142",
-    "integration/beta-feature-parity/README.md": "e85d1456d535bdfb4552c71c46c3b98a9ed9da00652304d3a0e2550b2997abd6",
+    "integration/beta-feature-parity/README.md": "1c1d204ffb3e8045ea72844ba8c8ac5eac71ee4f341040d5e2ad6cd35a49ffbf",
     "integration/beta-feature-parity/Repair-SEST-Beta-Startup.ps1": "d6141130f89f40857810c76fb7cedbfb798cb790a6533939f13ee4c67bcc1e1b",
     "integration/beta-feature-parity/runtime/Api.cs": "cd90c198791ebdb50d8cfd9ec56f73c27e745a857037fd02f76481a5abce5f12",
     "integration/beta-feature-parity/runtime/CampaignCosts.cs": "bfdddc7b4282e96930d297fca3fea9905113af20ef6455a80b98162f26003179",

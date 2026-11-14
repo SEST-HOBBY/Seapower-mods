@@ -72,7 +72,7 @@
     {
       "name": "world-service-and-strike-bindings",
       "exit_code": 0,
-      "stdout": "[SEST Runtime] world service record is read-only; existing file preserved: InvalidDataException: unknown service record format\n[SEST Runtime] World Operations attached to Dynamic Campaign Mod 0.25.0.1\n[SEST Runtime] World Operations records each Admiralty result when Dynamic Campaign Mod files it; unread papers are also scanned\n[SEST Runtime] world service record not updated; World Operations stays open and retries in 30 s: IOException: The file '/tmp/SEST-World-Test-9b214e42f14c4d62bd5f77776f569e91/blocker' already exists.\nWorld service, lifecycle, UI model and optional-mod binding checks passed: 173",
+      "stdout": "[SEST Runtime] world service record is read-only; existing file preserved: InvalidDataException: unknown service record format\n[SEST Runtime] World Operations attached to Dynamic Campaign Mod 0.25.0.1\n[SEST Runtime] World Operations records each Admiralty result when Dynamic Campaign Mod files it; unread papers are also scanned\n[SEST Runtime] world service record not updated; World Operations stays open and retries in 30 s: IOException: The file '/tmp/SEST-World-Test-3303169492ce4f4e99688f061a7ae901/blocker' already exists.\nWorld service, lifecycle, UI model and optional-mod binding checks passed: 173",
       "stderr": ""
     },
     {
