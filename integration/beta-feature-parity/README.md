@@ -269,7 +269,8 @@ the first pop-out it checks itself on that monitor: if no draw pass or click
 arrives there, the button is withdrawn for the session with one log line and
 the panel never leaves the main screen; the Pop-Out monitor SEST opened then
 stays until the mission ends. SEST remembers a separate pop-out position.
-StrikePopOut=0 under [Runtime] turns it off. A full native-window migration is
+On 15 November the owner's PC drew no IMGUI on the Pop-Out monitor, so it is off by
+default; StrikePopOut=1 under [Runtime] turns it on for testing. A full native-window migration is
 a later UI task, not claimed in this build.
 
 Topography 1.5.1 retains the author's removed-option fallbacks; only its

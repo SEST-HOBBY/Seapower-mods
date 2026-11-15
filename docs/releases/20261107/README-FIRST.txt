@@ -267,9 +267,9 @@ PREPARE AND CHECK
    In Mod Manager untick one small code mod, save, restart: its "Loaded
    plugin" line is gone, and Player.log still shows "[SEST Runtime] ...
    installed" (saving in Mod Manager no longer switches SEST off); tick it
-   again and run SETUP. With a second monitor, press F8 in a mission and
-   use the panel's "Pop out" and "Return" (R11-PC-TESTS.txt lists the full
-   check). In Starting Airborne
+   again and run SETUP. Press F8 in a mission: the strike panel has no
+   "Pop out" button (off by default since your 15 Nov test showed Unity
+   draws no IMGUI on the second monitor). In Starting Airborne
    Flights select the RAAF E/A-18G and confirm
    HARM (AGM-88C), AARGM (AGM-88E) and AARGM-ER (AGM-88G) choices. The three
    loadouts were data-tested; the selector still awaits an owner PC check.
