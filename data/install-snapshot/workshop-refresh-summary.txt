@@ -3,10 +3,10 @@ WORKSHOP REFRESH SUMMARY
 Written by tools/workshop_refresh_summary.py from data/install-snapshot/ and the
 canonical lists. Facts only; compatibility is judged in a later review.
 
-capture date           : 2026-11-15T06:18:51
-repo commit captured at: c3a2a7a8c (chore/workshop-refresh-20261115-0618)
-previous capture       : 9de666e3bc82
-previous export        : 9de666e3bc82
+capture date           : 2026-11-15T12:05:30
+repo commit captured at: 2face37fa (chore/workshop-refresh-20261115-1204)
+previous capture       : 432d347b810c
+previous export        : 432d347b810c
 Sea Power              : 13-Nov-2026: 0.9.2 Build 261113 Public Release
   installed            : 13-Nov-2026: 0.9.2 Build 261113 Public Release
   game code            : Seapower-Scripts.dll SHA-256 3f56861f09e867f315b194c81a7a2450154ccc6bb5afb769b4956dfd4a00503a
@@ -33,130 +33,40 @@ SINCE THE PREVIOUS CAPTURE
   (none)
   updated on the Workshop (Steam's timeupdated for the item changed, from
   appworkshop_1286220.acf; the exported files below are the full record):
-  3380210757  Anchor Chain  2026-11-12 15:17 -> 2026-11-15 04:21
-  3455404959  Royal Australian Defence Forces [v0.7.6]  2026-10-17 22:08 -> 2026-11-15 00:32
-  3555361900  Etendard Family Jets  2026-02-24 04:51 -> 2026-11-15 05:46
-  3591820675  F-8 Crusader  2026-02-25 15:30 -> 2026-11-15 05:43
-  3628201887  Clemenceau -class Aircraft Carrier  2026-03-04 08:36 -> 2026-11-15 05:41
-  3789208859  Euromod-South Korea Navy  2026-11-13 23:59 -> 2026-11-14 22:34
-  3812454152  Euromod-HD Hyundai Export Ships Mod  2026-11-13 23:26 -> 2026-11-14 22:33
-  3820759806  Euromod - Modern Royal Australian Navy Mod  2026-11-07 16:13 -> 2026-11-15 00:29
-  exported files changed since the previous export (9de666e3bc82; A added, D removed, M modified, R renamed):
-  3390330875  Euromod - Modern US Navy  files 321 -> 321  (A 0, D 2, M 0, R 0)
-      D assets/models/aircraft/usn_mh-60s/usn_flir_mat.ini
-      D version_counter_644.txt
-  3455404959  Royal Australian Defence Forces [v0.7.6]  files 503 -> 467  (A 0, D 41, M 85, R 0)
-      D aircraft/Legacy Files/adf_ah-1g.ini
-      D aircraft/Legacy Files/raf_canberra_bomber.ini
-      D aircraft/Legacy Files/raf_canberra_bomber_squadrons.ini
-      D aircraft/Legacy Files/ran_S-70B-2_Seahawk_late.ini
-      D aircraft/Legacy Files/ran_S-70B-2_Seahawk_late_squadrons.ini
-      D aircraft/Legacy Files/ran_a-4g (RETIRED).ini
-      D aircraft/Legacy Files/ran_a-4g_squadrons (RETIRED).ini
-      D aircraft/Legacy Files/rn_h34.ini
-      D aircraft/Legacy Files/rn_h34_squadrons.ini
-      D aircraft/Retired/raaf_Mirage_IIIO(F).ini
-      D aircraft/Retired/raaf_Mirage_IIIO(F)_85.ini
-      D aircraft/Retired/raaf_Mirage_IIIO(F)_85_squadrons.ini
+  3775128499  PLAN Pack  2026-11-11 23:23 -> 2026-11-15 11:04
+  3812111085  PLAAF Aircraft Pack  2026-11-11 23:17 -> 2026-11-15 11:05
+  exported files changed since the previous export (432d347b810c; A added, D removed, M modified, R renamed):
+  3775128499  PLAN Pack  files 361 -> 360  (A 0, D 1, M 133, R 0)
+      D ammunition/plan_hhq-9b_early.ini
+      M _info.ini
+      M aircraft/plaaf_kj-500.ini
+      M aircraft/plaaf_kj-500_squadrons.ini
+      M aircraft/plaaf_kj-500a.ini
+      M aircraft/plaaf_kj-500a_squadrons.ini
+      M aircraft/plaaf_y-9dz.ini
+      M aircraft/plaaf_y-9dz_squadrons.ini
+      M aircraft/plaaf_y-9jz.ini
+      M aircraft/plaaf_y-9jz_squadrons.ini
+      M aircraft/plaaf_y-9lg.ini
+      M aircraft/plaaf_y-9lg_squadrons.ini
+      ... and 122 more
+  3812111085  PLAAF Aircraft Pack  files 211 -> 211  (A 0, D 1, M 125, R 0)
+      D ammunition/plaaf_flanker_tanker_pod.ini
+      M _info.ini
+      M aircraft/plaaf_h-6j.ini
+      M aircraft/plaaf_h-6j_squadrons.ini
+      M aircraft/plaaf_h-6k_early.ini
+      M aircraft/plaaf_h-6k_early_squadrons.ini
+      M aircraft/plaaf_h-6k_late.ini
+      M aircraft/plaaf_h-6k_late_squadrons.ini
+      M aircraft/plaaf_h-6n.ini
+      M aircraft/plaaf_h-6n_squadrons.ini
+      M aircraft/plaaf_j-10a.ini
+      M aircraft/plaaf_j-10a_squadrons.ini
       ... and 114 more
-  3555361900  Etendard Family Jets  files 51 -> 51  (A 0, D 3, M 27, R 0)
-      D aircraft/fr_super_etendard.ini
-      D aircraft/fr_super_etendard_squadrons.ini
-      D animations/animations_fr_super_etendard.ini
-      M Changelog.txt
-      M _info.ini
-      M aircraft/fr_etendard_IVM.ini
-      M aircraft/fr_etendard_IVM_squadrons.ini
-      M aircraft/fr_etendard_IVP.ini
-      M aircraft/fr_etendard_IVPM.ini
-      M aircraft/fr_etendard_IVPM_squadrons.ini
-      M aircraft/fr_etendard_IVP_squadrons.ini
-      M aircraft/fr_super_etendard_modernise.ini
-      ... and 18 more
-  3591820675  F-8 Crusader  files 67 -> 67  (A 0, D 0, M 39, R 0)
-      M Changelog.txt
-      M _info.ini
-      M aircraft/fr_f-8efn.ini
-      M aircraft/fr_f-8efn_early.ini
-      M aircraft/fr_f-8efn_early_squadrons.ini
-      M aircraft/fr_f-8efn_squadrons.ini
-      M aircraft/fr_f-8p.ini
-      M aircraft/fr_f-8p_squadrons.ini
-      M aircraft/ph_f-8h.ini
-      M aircraft/ph_f-8h_squadrons.ini
-      M aircraft/usn_f-8a.ini
-      M aircraft/usn_f-8a_squadrons.ini
-      ... and 27 more
-  3628201887  Clemenceau -class Aircraft Carrier  files 53 -> 53  (A 0, D 0, M 13, R 0)
-      M Changelog.txt
-      M ammunition/fr_cal_100mm.ini
-      M ammunition/fra_R440.ini
-      M vessels/fra_cv_clemenceau_60_deck_parkings.ini
-      M vessels/fra_cv_clemenceau_60_low.ini
-      M vessels/fra_cv_clemenceau_70_deck_parkings.ini
-      M vessels/fra_cv_clemenceau_70_low.ini
-      M vessels/fra_cv_clemenceau_80_deck_parkings.ini
-      M vessels/fra_cv_clemenceau_80_deck_parkings_variants.ini
-      M vessels/fra_cv_clemenceau_80_low.ini
-      M vessels/fra_cv_clemenceau_80_low_variants.ini
-      M vessels/fra_cv_clemenceau_90_deck_parkings.ini
-      ... and 1 more
-  3789208859  Euromod-South Korea Navy  files 163 -> 163  (A 0, D 0, M 14, R 0)
-      M vessels/ko_ddg-991.ini
-      M vessels/ko_ddg-995.ini
-      M vessels/ko_ddh-971.ini
-      M vessels/ko_ddh-975_kvls.ini
-      M vessels/ko_ff-951.ini
-      M vessels/ko_ffg-811.ini
-      M vessels/ko_ffg-818.ini
-      M vessels/ko_ffg-828.ini
-      M vessels/ko_lph-6111.ini
-      M vessels/ko_lph-6112.ini
-      M vessels/ko_pcc-756.ini
-      M vessels/ko_pkg-711.ini
-      ... and 2 more
-  3812454152  Euromod-HD Hyundai Export Ships Mod  files 47 -> 47  (A 0, D 0, M 10, R 0)
-      M vessels/ko_ffg-471.ini
-      M vessels/ko_hdf-3600.ini
-      M vessels/ko_kddx.ini
-      M vessels/ko_ocean-4300.ini
-      M vessels/ko_ocean-4300_pn.ini
-      M vessels/ko_opv.ini
-      M vessels/ko_pkg-711_scl.ini
-      M vessels/pn_ffg-06.ini
-      M vessels/pn_ffg-150.ini
-      M vessels/pn_ffg-150_2.ini
-  3820759806  Euromod - Modern Royal Australian Navy Mod  files 247 -> 247  (A 0, D 2, M 24, R 0)
-      D vessels/ran_ffg_mogami_improved.ini
-      D vessels/ran_ffg_mogami_improved_variants.ini
-      M _info.ini
-      M aircraft/raaf_ap-3c.ini
-      M aircraft/raaf_f-111c_aup.ini
-      M aircraft/raaf_fa-18a.ini
-      M aircraft/raaf_fa-18a_2011.ini
-      M aircraft/ran_seakingmk50ab.ini
-      M ammunition/adf_fz90.ini
-      M ammunition/adf_lau-3a.ini
-      M ammunition/adf_lau-68.ini
-      M ammunition/ran_an_slq_25_nixie_decoy.ini
-      ... and 14 more
   plugin DLLs changed:
-  [game\BepInEx] config\SEST-BetaAnchorChain\AnchorChain.dll
-  [game\BepInEx] plugins\SEST.BetaSafeBootstrap.dll
-  [workshop] 3380210757\AnchorChain.dll
-  [workshop] 3812461539\plugins\SEST.ContactsFix.dll
-  [workshop] 3812461539\plugins\SEST.IdentifyDataPaths.dll
-  [workshop] 3812461539\plugins\SEST.RuntimeFixes.dll
+  (none)
   plugin DLLs new:
-  [game\BepInEx] config\SEST-BetaAnchorChain\beta-api-r14-261113\093b8ad6478641948b0eaca720427e5cef3c8b4440142f6c33b16339dc2fc941\CoordinatedStrikeTool.dll
-  [game\BepInEx] config\SEST-BetaAnchorChain\beta-api-r14-261113\4490a285265314850f819b91fd3077e6ae37ca2c56020d69d90d1d31996380aa\SeaPowerTopo.dll
-  [game\BepInEx] config\SEST-BetaAnchorChain\beta-api-r14-261113\61068dd0863501dacf1217250b3f4702f3778d6c6bcad38ab4be46eaa0c7375a\OptimalTargetDist.dll
-  [game\BepInEx] config\SEST-BetaAnchorChain\beta-api-r14-261113\6230e8e78e2ba7ba222241d0c3dcc881d2507ebeeb4eab24b6401cc9144283dd\SeaPowerSquadPanel.dll
-  [game\BepInEx] config\SEST-BetaAnchorChain\beta-api-r14-261113\9f0ec630e9d7659082bdce61743a87895de14f1903a44c68395f8f158af8afd7\IdentifyExpanded.dll
-  [game\BepInEx] config\SEST-BetaAnchorChain\beta-api-r14-261113\de8ba98e4694a922e8e370e3d11a4c29544ca4ddce7004a5e5a5ec8347adbef9\MissileControlMod.dll
-  [game\BepInEx] config\SEST-BetaAnchorChain\beta-api-r14-261113\eacdb9a4c0353edd24543b631826e61f7cbcfc4f1a78de4fa80527aa5a2208f4\DynamicCampaignMod.dll
-  [game\BepInEx] config\SEST-BetaAnchorChain\beta-api-r14-261113\f1639294f24ffb7c89723ea8a42a1ab6d35147bee503395f87dad3759a5a981c\TestRange.dll
-  [workshop] 3380210757\AnchorChain.Runtime.dll
 
 INVENTORY
   subscribed + downloaded + canonical + catalogued: 200
@@ -185,15 +95,9 @@ AUTHORS' CHANGE NOTES (data/install-snapshot/workshop-change-notes.txt)
 
 EXPORTER UPDATE CHECK (export-mod-configs.ps1 -CheckUpdates)
     workshop : c:\program files (x86)\steam\steamapps\workshop\content\1286220
-  unchanged since the last export : 192
+  unchanged since the last export : 198
   skipped, SEST's own Workshop item: 3812461539
   UPDATED by their authors (re-export to pick the changes up):
-    3380210757  Anchor Chain
-    3455404959  Royal Australian Defence Forces [v0.7.6]
-    3555361900  Etendard Family Jets
-    3591820675  F-8 Crusader
-    3628201887  Clemenceau -class Aircraft Carrier
-    3789208859  Euromod-South Korea Navy
-    3812454152  Euromod-HD Hyundai Export Ships Mod
-    3820759806  Euromod - Modern Royal Australian Navy Mod
+    3775128499  PLAN Pack
+    3812111085  PLAAF Aircraft Pack
   To capture: re-run this script without -CheckUpdates, then commit and push.
