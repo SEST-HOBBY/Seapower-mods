@@ -2,9 +2,8 @@
 # Anchor Chain preloader) and the SEST pack's plugins. Size in bytes, SHA-256,
 # file version / product version, last write time.
 
-[workshop]  86 DLL(s)
-  3380210757\AnchorChain.dll       20480  071df2d98162ed7b6e51fc8141d49180dd5525a647c3bdb0f02d4480b7815f69  1.2.0.0 / 1.2.0+1684a98a088b36f2bca2b9fdf69dd1c776c53515  2026-11-15 05:01
-  3380210757\AnchorChain.Runtime.dll      254976  84d5fd5eeb00f7fcdba8a40dafa33b3b7bd0167fdc80bfed798827c59485e4e7  0.5.5.0 / 0.5.5+99a1bede8efe86372479ebad7e412a893229f303  2026-11-15 05:01
+[workshop]  85 DLL(s)
+  3380210757\AnchorChain.dll       19456  17abaf4b006f2fe984807f62661cf8b78f7b01e60bb04ae16046bda0620dd614  1.2.0.0 / 1.2.0+1684a98a088b36f2bca2b9fdf69dd1c776c53515  2026-11-15 12:14
   3606134711\LoadoutManager.dll      145920  326f247bb4648f00b8870278626d833c677370b6e3881f2889239760252d009f  1.0.0.0 / 1.0.0.0  2026-11-12 22:30
   3766210676\HarmonyDependencies\0Harmony.dll      204800  b07c5e36e12fb132db1b03057f0a9067a37dbee552d39e500f27805479bbbf6d  2.9.0.0 / 2.9.0  2026-10-30 19:40
   3766210676\HarmonyDependencies\Mono.Cecil.dll      339456  1b8b63d7747ddb50a909026274c3da48ad6c3c85d7abf56b4c5c39bbc23b8a4d  0.10.4.0 / 0.10.4.0  2026-10-30 19:39
