@@ -85,8 +85,13 @@ DIFFICULTIES = [
 # from the C8. Their pools are finite and whatever they hand over is gone
 # from them.
 ROSTER = [
-    dict(unit="pn_ffg-150", picks=["Variant1", "Variant2"], points=300,
-         note="BRP Jose Rizal and Antonio Luna: the fleet's two modern frigates"),
+    # Held from 15 Nov 2026: Euromod HD Hyundai Export Ships' update of 14 Nov
+    # left out ships/PN_FFG-150/PN_FFG-150.obj, so the Jose Rizal class
+    # (pn_ffg-150, pn_ffg-150_2) cannot load. The Miguel Malvar class takes its
+    # places in the missions. Restore this row and the missions' pn_ffg-150 once
+    # the author's item carries the model again.
+    # dict(unit="pn_ffg-150", picks=["Variant1", "Variant2"], points=300,
+    #      note="BRP Jose Rizal and Antonio Luna: the fleet's two modern frigates"),
     dict(unit="pn_ffg-06", picks=["Variant1", "Variant2"], points=320,
          note="the Miguel Malvar class, the newest hulls; VLS MICA"),
     dict(unit="phl_ff_hamilton", picks=["Variant1", "Variant2", "Variant3"], points=140,
@@ -130,7 +135,7 @@ ATTACK = "Attack|Close Air Support|Bomber|2|CAS/StrikePrecision"
 # SL04 and SL06 (the three resupply points the story has); everything a
 # sunk supply ship carried is lost until then.
 SUPPLY = ["phl_lpd_tarlac", "tha_aor_chula", "civ_ms_c8"]
-OPENING = ["pn_ffg-150", "pn_ffg-06", "phl_ff_hamilton", "phl_fs_pohang", "phl_h-76",
+OPENING = ["pn_ffg-06", "phl_ff_hamilton", "phl_fs_pohang", "phl_h-76",
            "phl_lpd_tarlac", "tha_aor_chula"]
 # The Thai detachment and the Air Force's FA-50s are released from the
 # second window; the one RAN frigate and her MH-60R from Service at Sea.
@@ -140,7 +145,7 @@ OPENING = ["pn_ffg-150", "pn_ffg-06", "phl_ff_hamilton", "phl_fs_pohang", "phl_h
 # integration/cross-deck/build_pack.py).
 PARTNERS = ["tha_ffg_naresuan", "tha_S-70B-7_Seahawk", "rok_f-50_ph"]
 RAN = ["ran_ffh_anzac", "ran_mh-60r"]
-HULLS = ["pn_ffg-150", "pn_ffg-06", "phl_ff_hamilton", "phl_fs_pohang", "phl_h-76"]
+HULLS = ["pn_ffg-06", "phl_ff_hamilton", "phl_fs_pohang", "phl_h-76"]
 
 # The commander. CommanderNations is the game's own key (nations.ini
 # Philippines). The game ships no Philippine name pool, so the pool is

@@ -174,7 +174,9 @@ COMPATIBILITY AND REGRESSION CHECKS
   the 1.5/1.6 rewrites); the flat-only image is held on 0.9.2.
 - Current Pop-Out Windows 1.2.3 is recognised by its inspected hash. Check Contacts,
   Group Manager and F11 windows on the main and secondary display.
-- F8 strike panel pop-out (needs a second monitor and Pop-Out 1.2.3). In a
+- F8 strike panel pop-out: OFF by default since 15 Nov (on the owner's PC Unity
+  drew no IMGUI on the Pop-Out monitor). Only with StrikePopOut=1 under
+  [Runtime] (needs a second monitor and Pop-Out 1.2.3): in a
   mission press F8: the title bar has a "Pop out" button. Click it: within
   2 s the panel moves to the Pop-Out monitor with the plan unchanged and the
   button reads "Return". There, drag it, click a time field and type 1234

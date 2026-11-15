@@ -59,7 +59,10 @@ def missions():
     # campaign and the browser quietly diverge. One line may differ, and
     # must: Sea Power 0.9.0's Campaign Mission flag, True in the copy under
     # campaigns/ and False in the browser's, as the game writes its own
-    # (CAMPAIGN_FLAG). The browser folder is the
+    # (CAMPAIGN_FLAG). A Generated or Replaced mission's browser copy also
+    # carries a small task group the campaign generates for itself
+    # (bp.STANDALONE_ESCORTS); bp.standalone_extra says exactly what that may
+    # add, and every other section must still match. The browser folder is the
     # campaign's own rule (Southern Reach files its two chapters apart), so
     # each campaign's spec says where its browser copy is.
     by_name = {}
@@ -80,9 +83,15 @@ def missions():
         ours = f.read_bytes()
         if ours.count(CAMPAIGN_FLAG) != 1:
             sys.exit(f"{f.name}: a campaign mission says CampaignMission=True once, under [Mission]")
-        if twin.read_bytes() != ours.replace(CAMPAIGN_FLAG, BROWSER_FLAG):
-            sys.exit(f"{f.name}: the campaign copy and the browser copy differ by more than "
-                     "the CampaignMission line")
+        got = twin.read_bytes()
+        if BROWSER_FLAG not in got:
+            sys.exit(f"{f.name}: the browser copy does not say CampaignMission=False")
+        if got != ours.replace(CAMPAIGN_FLAG, BROWSER_FLAG):
+            extra = bp.standalone_extra(ours.decode("utf-8"), got.decode("utf-8"))
+            if extra:
+                sys.exit(f"{f.name}: the campaign copy and the browser copy differ by more than "
+                         "the CampaignMission line and the standalone task group: "
+                         + ", ".join(extra))
     return found
 
 

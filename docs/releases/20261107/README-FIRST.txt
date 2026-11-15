@@ -73,7 +73,7 @@ PREPARE AND CHECK
    - enabled (most likely: your PC has the first R14 build from your 15
      November run): it upgrades that installation in place to this R14
      rebuild, installs the
-     release data and ends with the line "VERIFIED: all 4612 canonical
+     release data and ends with the line "VERIFIED: all 4626 canonical
      upload files match the release manifest." Go to 1b.
    - none or restored: it stages R14 and stops with "Next: start Sea Power,
      wait at the main menu about 10 seconds, quit, then run Prepare-PC.cmd

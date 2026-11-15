@@ -89,7 +89,7 @@ MISSION = dict(
         "home": S(6.92, 122.06, "Zamboanga"),
     },
     units=[
-        U("blue", "euromod-philippines", "pn_ffg-150", "patrol", variant="Variant1"),
+        U("blue", "euromod-philippines", "pn_ffg-06", "patrol", variant="Variant1"),
         U("blue", "philippines-luzon-line", "phl_h-76", "flight", squadron="Squadron2",
           alt=500, loadout="CAS", slot="HeloRecon"),
         U("blue", "philippines-luzon-line", "rok_f-50_ph", "strike", squadron="Squadron1",

@@ -54,6 +54,7 @@ Usage (repo root):
 """
 import argparse
 import collections
+import copy
 import functools
 import itertools
 import math
@@ -568,7 +569,120 @@ def campaign_rules(spec, open_allocation=False, allied=0):
                 or f"Brush.CrewSkill.{level}" not in t):
             raise SystemExit(f"campaign rules: the stock proficiency table's {level} row "
                              "has changed - rebase campaign_rules()")
+    # Ribbons and Awards, after the stock Awards and Promotions lines on the
+    # Commander tab: what this campaign's ribbons and awards are and what
+    # earns each, read from service_awards (rules_ribbon_lines), the tables
+    # its commander_settings.ini sections and mission award keys are written
+    # from, so the page cannot name a ribbon the campaign does not grant.
+    last = ('<TextBlock Text="- Select an award or ribbon to read its full citation." '
+            'FontSize="15" Foreground="#D8DDE8" TextWrapping="Wrap"/>')
+    said = rules_ribbon_lines(spec["SLUG"])
+    if said:
+        rows = [line.format("- Select an award or ribbon to read its full citation.", 14),
+                separator + "\n",
+                '<TextBlock Text="Ribbons and Awards" FontSize="17" FontWeight="Bold" '
+                'Foreground="White" TextWrapping="Wrap" Margin="0,0,0,6"/>']
+        rows += [line.format(_xml_text(s), 5) for s in said[:-1]]
+        rows.append('<TextBlock Text="{}" FontSize="15" Foreground="#D8DDE8" '
+                    'TextWrapping="Wrap"/>'.format(_xml_text(said[-1])))
+        swap(last, indent.join(rows), "awards section")
     return t
+
+
+def _ribbon_term(term):
+    """A runtime ribbon's condition (service_awards.RUNTIME terms) in words."""
+    kind, *args = term
+    if kind == "objective":
+        state = {"completed": "completed", "failed": "failed", "cancelled": "cancelled",
+                 "notfailed": "not failed"}[args[1]]
+        return f"the {args[0]} objective {state}"
+    if kind == "nolaunch":
+        return ("no weapon launched or gun round fired by any unit of the task force "
+                "(noisemakers, chaff, decoys, sonobuoys and CIWS rounds do not count)")
+    if kind == "rescued":
+        n = args[0]
+        return ("at least one survivor recovered" if n == 1 else
+                f"at least {number_words(n)} survivors recovered")
+    if kind == "result":
+        return "a result of " + re.sub(r"(?<!^)(?=[A-Z])", " ", args[0]) + " or better"
+    raise SystemExit(f"campaign rules: no words for the runtime ribbon term {term!r}")
+
+
+def rules_ribbon_lines(slug):
+    """The rules page's Ribbons and Awards lines for a campaign, from the
+    tables that write its ribbon definitions and award keys
+    (service_awards: CAMPAIGNS, MILESTONES, RUNTIME, GRANTS, REAL): the
+    completion ribbon, the operation ribbons, the runtime ribbons with their
+    conditions, and the national awards by commander nation. [] for a
+    campaign with no awards."""
+    sa = service_awards
+    slug = sa.base_slug(slug)
+    defs = sa.catalogue(slug)
+    if not defs:
+        return []
+    native, runtime = sa.grants(slug), sa.runtime_grants(slug)
+
+    def at(code):
+        return f"{code} {sa.MISSIONS[slug][code][0]}"
+
+    def by_date(pairs):
+        return sorted(pairs, key=lambda p: (tuple(sa.MISSIONS[slug][p[1]][1]), p[1]))
+
+    def listed(items):
+        return "; ".join(items)
+
+    out = []
+    final = sa.FINAL[slug]
+    out.append(f"- {defs[sa.award_id(slug)]['name']}: completing the campaign through "
+               f"{at(final)}.")
+    ops = by_date([(rid, code) for rid, code in native.items()
+                   if rid in {row[0] for row in sa.MILESTONES.get(slug, {}).values()}])
+    if ops:
+        out.append("- Operation ribbon" + ("s" if len(ops) > 1 else "") + ", for completing "
+                   + ("each" if len(ops) > 1 else "its") + " mission: "
+                   + listed(f"{defs[rid]['name']} ({at(code)})" for rid, code in ops) + ".")
+    for rid, code in by_date(list(runtime.items())):
+        row = next(r for r in sa.RUNTIME[slug][code] if r["id"] == rid)
+        terms = [_ribbon_term(t) for t in row["terms"]]
+        who = ("" if not row.get("nations") else
+               " For " + " or ".join(sa.describe(n) for n in row["nations"]) + " only.")
+        out.append(f"- {row['name']} ({at(code)}): " + " and ".join(terms) + "." + who)
+    if runtime:
+        out.append(("- This ribbon is" if len(runtime) == 1 else
+                    f"- These {number_words(len(runtime))} ribbons are")
+                   + " granted at the debrief by SEST's runtime, not by the game: without "
+                   "SEST's runtime installed, or with MissionAwards=0 under [Runtime] in "
+                   "plugins/sest_runtime.ini, "
+                   + ("it is" if len(runtime) == 1 else "they are") + " not granted.")
+    out.append("- These ribbons are fictional and go to any commander.")
+    awarded, _units = sa.award_nations(slug)
+    for nation in awarded:
+        rids = by_date([(rid, code) for rid, code in native.items()
+                        if sa.REAL.get(rid, {}).get("nation") == nation])
+        adjective = sa.ADJECTIVE.get(nation, (nation_name(nation), "a"))[0]
+        out.append(f"- {adjective} commander: "
+                   + listed(f"{defs[rid]['name']} ({at(code)})" for rid, code in rids) + ".")
+    units = by_date([(rid, code) for rid, code in native.items()
+                     if rid in sa.REAL and not sa.REAL[rid]["nation"]])
+    if units:
+        out.append("- The task group, whoever commands it: "
+                   + listed(f"{defs[rid]['name']} ({at(code)})" for rid, code in units) + ".")
+    offered = sa.commander_nations(slug)
+    rest = [sa.ADJECTIVE.get(n, (nation_name(n), "a"))[0] for n in offered if n not in awarded]
+    if awarded and rest:
+        names = rest[0] if len(rest) == 1 else ", ".join(rest[:-1]) + " and " + rest[-1]
+        out.append(f"- {names} commander{'s receive' if len(rest) > 1 else ' receives'} no "
+                   "national award: only the fictional ribbons"
+                   + (" and the task group's " + " and ".join(defs[r]["name"] for r, _c in units)
+                      if units else "") + ".")
+    if not awarded:
+        out.append("- No real national award is represented in this campaign.")
+    else:
+        out.append("- The real awards are game awards for a fictional operation, not real "
+                   "honours, and each citation says so.")
+    out.append("- Each needs its mission complete at its required result. None adds points, "
+               "renown or supplies.")
+    return out
 
 
 # ---------------------------------------------------------- open allocation
@@ -2266,6 +2380,110 @@ def waypoint_orders(mission, spec, kind, keys, orders, pending, tag, n):
     return "".join("/" + o for o in out)
 
 
+# Scenario-menu copies only (missions/<folder>/). The game builds the bought
+# force only while a LinearCampaign has a playedMission (SceneCreator
+# ._isLinearCampaign, scripts.il IL_0617-IL_0633); from the Scenarios menu
+# every Taskforce1 section loads as written, so a Generated or Replaced
+# mission played from there used to give the player the anchor hull alone.
+# The browser copy gets a small default task group beside it. Never written
+# under campaigns/: the campaign copy stays what the campaign generates on.
+# Types and variants are the ones each campaign already places.
+STANDALONE_ESCORTS = {
+    # The Jose Rizal class (pn_ffg-150) cannot load (sulu_line/tables.py):
+    # the Miguel Malvar class takes its place here as in the missions.
+    "sest-sulu-line": [dict(mod="euromod-philippines", type="pn_ffg-06", variant="Variant1"),
+                       dict(mod="philippines-luzon-line", type="phl_fs_pohang",
+                            variant="Variant1")],
+    "sest-makran-line": [dict(mod="pakistani-pack", type="pns_type_054a_p", variant="Variant3")],
+    "sest-red-line": [dict(mod="modern-plan-systems", type="plan_type_056a", variant="Variant1")],
+    "sest-southern-reach": [dict(mod="SEST_RAN_Fleet", type="ran_ffh_anzac", variant="Variant7")],
+    "sest-southern-watch": [dict(mod="SEST_RAN_Fleet", type="ran_ffh_anzac", variant="Variant3")],
+}
+STANDALONE_STATION = "_standalone"
+STANDALONE_ASTERN_NM = 1.5   # the clone station's distance behind the anchor's
+
+
+def standalone_escorts(mission):
+    """Escort unit dicts for the browser copy of a Generated/Replaced mission.
+
+    None for a dispatch (it ships once, under missions/, as authored), a
+    detached operation (the player's force deliberately does not sail) or a
+    mission that opts out with standalone_escorts=[]. They sail on their own
+    cloned station, so no resolver or trigger that names the anchor's station
+    counts them, and they follow the anchor's route."""
+    if (not (mission.get("generation") and mission.get("anchor"))
+            or mission.get("detached") or mission.get("group") == "dispatch"):
+        return []
+    rows = mission.get("standalone_escorts", STANDALONE_ESCORTS.get(SLUG, []))
+    if not rows:
+        return []
+    station, _, idx = mission["anchor"].partition("#")
+    ours = [u for u in mission["units"] if u["side"] == "blue" and u["station"] == station]
+    lead = ours[int(idx or 1) - 1]
+    carry = {k: lead[k] for k in ("route", "telegraph", "loop") if k in lead}
+    return [dict(carry, side="blue", station=STANDALONE_STATION, **r) for r in rows]
+
+
+def standalone_station(mission, coast=None):
+    """A copy of the anchor's station, moved STANDALONE_ASTERN_NM astern.
+    Berths are counted per station (place(), CoastPlacer.take), so a clone on
+    the same point would put its first escort exactly on the anchor.
+
+    With a coastline extract (`coast`, a coast-geography mission) and an
+    offshore anchor station, astern can be shoal water the anchor's own point
+    is not: then the quarters, the beams and ahead are tried in turn, and the
+    first with OFFSHORE_MIN of water wins. If none has it, astern is kept and
+    the placement gate says why."""
+    key = mission["anchor"].partition("#")[0]
+    a = mission["stations"][key]
+    heading = a.get("heading", 90)
+    pick = 180
+    if coast is not None and not a.get("coastal"):
+        for rel in (180, 135, 225, 90, 270, 0):
+            p = standalone_offset(a["at"], heading, rel)
+            if coast.covers(*p):
+                land, nm = coast.check(*p)
+                if not land and nm >= OFFSHORE_MIN:
+                    pick = rel
+                    break
+    # `follows`: on pool geography place() forms the group astern of the
+    # anchor station's SNAPPED point (open_water), which is proven water.
+    return dict(a, at=standalone_offset(a["at"], heading, pick), label="Task group",
+                follows=key, follows_bearing=pick)
+
+
+def standalone_offset(at, heading, rel):
+    """`at` moved STANDALONE_ASTERN_NM on the bearing `rel` degrees off `heading`."""
+    lat, lon = at
+    b = math.radians(heading + rel)
+    d = STANDALONE_ASTERN_NM / 60.0
+    return (lat + d * math.cos(b), lon + d * math.sin(b) / math.cos(math.radians(lat)))
+
+
+def standalone_extra(campaign_text, browser_text):
+    """Sections that break the rule between a campaign mission and its
+    mission-browser copy; [] when the copy keeps it.
+
+    The rule: apart from [Mission] (the CampaignMission flag, the unit counts
+    and formations), [Language_en] and the Zone sections, every campaign
+    section is in the browser copy unchanged, and the only sections the copy
+    adds are Taskforce1VesselN past the campaign's NumberOfTaskforce1Vessels
+    - the standalone escorts (STANDALONE_ESCORTS)."""
+    def secs(t):
+        return dict(re.findall(r"(?ms)^\[([^\]]+)\][^\n]*\n(.*?)(?=^\[|\Z)", t))
+    a = secs(campaign_text.replace("CampaignMission=True", "CampaignMission=False"))
+    b = secs(browser_text)
+    free = {"Mission", "Language_en", "Zones"}
+    bad = [s for s in a if s not in free and not s.startswith("Zone") and a[s] != b.get(s)]
+    n = int((re.search(r"(?m)^NumberOfTaskforce1Vessels=(\d+)", campaign_text) or [0, 0])[1])
+    for s in b:
+        if s not in a:
+            m = re.match(r"Taskforce1Vessel(\d+)$", s)
+            if not (m and int(m[1]) > n):
+                bad.append(s)
+    return bad
+
+
 def place(mission, snapper):
     """Give every authored unit a section id, a position and its credits."""
     centre = mission["centre"]
@@ -2380,6 +2598,15 @@ def place(mission, snapper):
             # is a station that was authored in the wrong place, and the
             # build should say so rather than quietly deform the encounter.
             key = spec["station"]
+            if (key not in station_snap and st.get("follows") in station_snap
+                    and not isinstance(snapper, CoastPlacer)):
+                # The Scenario-menu task group (standalone_station): it forms
+                # astern of where the anchor's station actually went, not on
+                # a proven point of its own that may be miles from the anchor.
+                (flat, flon), _d = station_snap[st["follows"]]
+                station_snap[key] = (standalone_offset(
+                    (flat, flon), mission["stations"][st["follows"]].get("heading", 90),
+                    st.get("follows_bearing", 180)), 0.0)
             if key not in station_snap:
                 station_snap[key] = open_water(snapper, st["at"],
                                                f"{mission['key']} {key}")
@@ -5468,7 +5695,11 @@ def deployment_zones(mission, placed, members):
             tag for tag, keys in keys_of.items()
             if tag.startswith("Taskforce1") and "TaskForceModeAirTaskingSlot" in keys}
         holders.discard(None)
-        keep_out = [spot[tag] for tag in spot if tag.startswith("Taskforce1") and tag not in holders]
+        # The Scenario-menu task group (standalone_escorts) is not cut out:
+        # the campaign never reads that copy, so its boxes stay the campaign
+        # copy's and the player can move the group with the anchor.
+        keep_out = [spot[tag] for tag in spot if tag.startswith("Taskforce1") and tag not in holders
+                    and tag not in mission.get("_standalone_tags", ())]
         units = [u for u in units if u[0] in holders]
         areas = [a for a in areas if a["counted"] & holders]
         mission["_holders"] = holders
@@ -5799,7 +6030,10 @@ def check_deployment_cover(mission, placed, zones):
         for entries in placed.values():
             for tag, keys, _n, _x in entries:
                 xz = unit_spot(keys)
-                if not tag.startswith("Taskforce1") or tag in holders or not xz:
+                if (not tag.startswith("Taskforce1") or tag in holders or not xz
+                        or tag in mission.get("_standalone_tags", ())):
+                    # The Scenario-menu copy's task group: the campaign never
+                    # reads that copy, so no generated slot can take it.
                     continue
                 for i, z_ in enumerate(zones, 1):
                     x0, x1, z0, z1 = zone_box(z_, centre)
@@ -6129,6 +6363,29 @@ def render(mission, placed, members):
             if len(group) > 1:
                 forms[side].append((mission["stations"][station].get("label", station),
                                     group))
+    # The Scenario-menu copy (standalone_escorts): the escorts sail as the
+    # anchor's own task group, so Formation Manager shows one group led by
+    # the lead ship. The anchor leaves any other formation it was in (a
+    # formation left with one member is no formation), and leads the Task
+    # group one - which a single escort would not have formed on its own.
+    escorts = mission.get("_standalone_tags")
+    lead = mission.get("_anchor_tag")
+    if escorts and lead:
+        groups = []
+        for label, group in forms["Taskforce1"]:
+            rest = [t for t in group if t != lead]
+            if set(rest) & set(escorts):
+                continue
+            if len(rest) > 1:
+                groups.append((label, rest))
+        own = [t for t in members.get(STANDALONE_STATION, ()) if t in escorts
+               and moves(t) == "afloat"]
+        if not own:
+            raise SystemExit(f"{mission['key']}: the Scenario-menu task group has no "
+                             "escort afloat to form on the anchor")
+        groups.append((mission["stations"][STANDALONE_STATION].get("label", "Task group"),
+                       [lead] + own))
+        forms["Taskforce1"] = groups
     # A formation is one group in the game: half of it switched off would
     # leave the other half flying a formation with no one in it.
     joins = mission.get("_enter", {})
@@ -9867,6 +10124,10 @@ def main():
                       reserve=[e["unit"] for e in spec.get("RESERVE_AIR", [])])
         built, worst, placements, reached = [], 0.0, {}, []
         for mission in missions:
+            # The Scenario-menu copy's task group (STANDALONE_ESCORTS) is
+            # placed on a copy taken before anything is placed or rendered:
+            # render() rewrites a mission's rows in place.
+            solo = copy.deepcopy(mission) if standalone_escorts(mission) else None
             if (mission.get("geography") or GEOGRAPHY) == "coast":
                 placer = CoastPlacer(coast_data(mission), mission)
             else:
@@ -9888,6 +10149,35 @@ def main():
             check_geometry(mission, placed, members)
             name, text = render(mission, placed, members)
             built.append((name, text, mission))
+            if solo is not None:
+                # The same mission again with the escorts appended last, so no
+                # existing section is renumbered, through the same gates: an
+                # escort that breaks the opening, standoff or coast rules
+                # still stops the build below. Only the report lists are
+                # trimmed back, so their lines are not printed twice.
+                coastal = (solo.get("geography") or GEOGRAPHY) == "coast"
+                sp = (CoastPlacer(coast_data(solo), solo) if coastal
+                      else Snapper(pool, limit_nm=solo.get("snap_limit", 60.0)))
+                solo["stations"][STANDALONE_STATION] = standalone_station(
+                    solo, sp.coast if coastal else None)
+                solo["units"] = list(solo["units"]) + standalone_escorts(solo)
+                notes = (COAST_CHECKED, UNPROVEN, RECOVERY_NOTES, CLOSURE_NOTES, PARKED_NOTES)
+                marks = [len(n) for n in notes]
+                splaced, smembers, _c, _f = place(solo, sp)
+                solo["_standalone_tags"] = {
+                    t for t, *_ in splaced["Taskforce1Vessel"][len(placed["Taskforce1Vessel"]):]}
+                check_reach(solo, splaced, smembers)
+                check_closure(solo, splaced, smembers)
+                check_opening(solo, splaced)
+                solve_arrival(solo, splaced, smembers)
+                check_coast_geometry(solo, sp)
+                check_geometry(solo, splaced, smembers)
+                sname, browse_text = render(solo, splaced, smembers)
+                for n, m in zip(notes, marks):
+                    del n[m:]
+                if sname != name:
+                    sys.exit(f"{name}: the Scenario-menu copy renders as {sname!r}")
+                mission["_browse_text"] = browse_text
             placements[mission["key"]] = placed
             reached.append((mission, mission_credits))
             units = sum(len(v) for v in placed.values())
@@ -10116,8 +10406,10 @@ def main():
 
         # The core missions ship twice: once under campaigns/, which is what
         # the linear campaign loads, and once under missions/, so they are
-        # also listed in the ordinary mission browser. Same bytes but for the
-        # CampaignMission line (emit), one builder
+        # also listed in the ordinary mission browser. Same sections but for
+        # the CampaignMission line (emit) and, in a Generated or Replaced
+        # mission, the standalone task group appended to the browser copy
+        # (standalone_extra says exactly what may differ), one builder
         # - and it means the campaign is playable mission by mission even on
         # an install where the Mod Manager does not surface a mod-supplied
         # campaign.
@@ -10130,7 +10422,10 @@ def main():
                 folders[folder] = (spec.get("BROWSE_DESC", {}).get(folder)
                                    or spec["INFO_DESC"])
                 emit(camp / "missions", name, text, mission, browsed=False)
-                emit(OUT / "missions" / folder, name, text, mission, browsed=True)
+                # The Scenario-menu copy carries the standalone task group
+                # (STANDALONE_ESCORTS); the campaign copy never does.
+                emit(OUT / "missions" / folder, name, mission.get("_browse_text", text),
+                     mission, browsed=True)
         for event in spec["EVENTS"]:
             (camp / "art" / f"{event['file']}.xml").write_text(event_page(event),
                                                                encoding="utf-8")

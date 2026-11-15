@@ -114,6 +114,19 @@ def scenario_copy(campaign_bytes, name):
     return campaign_bytes.replace(flag, b"[Mission]\nCampaignMission=False\n")
 
 
+def browser_copy_problems(campaign_bytes, browser_bytes, name):
+    """What is wrong with a mission-browser copy: [] when it is the campaign
+    copy but for the CampaignMission flag and, in a Generated or Replaced
+    mission, the standalone task group appended past the campaign's vessels
+    (bp.STANDALONE_ESCORTS, bp.standalone_extra)."""
+    flagged = scenario_copy(campaign_bytes, name)
+    if b"[Mission]\nCampaignMission=False\n" not in browser_bytes:
+        return ["[Mission] CampaignMission=False"]
+    if flagged == browser_bytes:
+        return []
+    return bp.standalone_extra(campaign_bytes.decode("utf-8"), browser_bytes.decode("utf-8"))
+
+
 class StockFormOf090(unittest.TestCase):
     """What Sea Power 0.9.0 (11 Nov 2026) added to its own Task Force campaigns
     and this builder now writes as the game does: the campaign map UI and the
@@ -2449,7 +2462,8 @@ class CreditMerge(unittest.TestCase):
             self.skipTest("pack not built")
         row = next(l for l in doc.read_text(encoding="utf-8").splitlines()
                    if l.startswith("| `euromod-main` |"))
-        self.assertIn("| pn_ffg-150 / fr_cal_76mm | The Island Road |", row)
+        # The Miguel Malvar stands in for the Jose Rizal (pn_ffg-150 held, 15 Nov 2026).
+        self.assertIn("| pn_ffg-06 / fr_cal_76mm | The Island Road |", row)
 
 
 class RosterOnSale(unittest.TestCase):
@@ -2914,14 +2928,15 @@ class MakranLineTaskGroup(unittest.TestCase):
         for word in ("datum", "rendezvous", "east", "west", "north", "south"):
             self.assertNotIn(word, mission_depth.REPORTS["MK03"].lower())
 
-    def test_the_campaign_and_browser_copies_are_the_same_bytes(self):
+    def test_the_campaign_and_browser_copies_differ_only_by_flag_and_standalone_escorts(self):
         if not self.CAMP.joinpath("campaign.ini").is_file():
             self.skipTest("pack not built")
         names = sorted(p.name for p in (self.CAMP / "missions").glob("*.ini"))
         self.assertEqual(len(names), 4)
         for name in names:
-            self.assertEqual(scenario_copy((self.CAMP / "missions" / name).read_bytes(), name),
-                             (self.BROWSE / name).read_bytes(), name)
+            self.assertEqual(browser_copy_problems((self.CAMP / "missions" / name).read_bytes(),
+                                                   (self.BROWSE / name).read_bytes(), name),
+                             [], name)
 
 
 class MakranLineReview(unittest.TestCase):
@@ -3876,7 +3891,10 @@ class SuluLineCoalition(unittest.TestCase):
     # until a roster does; the day one does, the test below fails until it
     # leaves the set. Makran Line's two (the Z-9CE on the Tughril and
     # Alamgir decks, design step P2) left it when its roster arrived.
-    AHEAD_OF_ROSTER = set()
+    # pn_ffg-150 is held from Sulu Line's roster while Euromod HD Hyundai
+    # Export Ships' item lacks ships/PN_FFG-150/PN_FFG-150.obj (15 Nov 2026,
+    # integration/campaign/sulu_line/tables.py); its Cross-Deck fit stays.
+    AHEAD_OF_ROSTER = {("pn_ffg-150", "phl_h-76")}
 
     def test_deck_fit_takes_each_campaign_deck_type(self):
         cd = cross_deck()
@@ -3919,19 +3937,132 @@ class SuluLineCoalition(unittest.TestCase):
                         {"Seahawk (S-70B / SH-60 / MH-60)": ["usn_mh-60r"]})
         self.assertNotIn("campaign", plain.lower())
 
-    def test_the_campaign_and_browser_copies_are_the_same_bytes(self):
+    def test_the_campaign_and_browser_copies_differ_only_by_flag_and_standalone_escorts(self):
         camp = self.built()
         names = sorted(p.name for p in (camp / "missions").glob("*.ini"))
         self.assertEqual(len(names), len(self.spec["MISSIONS"]))
         for name in names:
-            self.assertEqual(scenario_copy((camp / "missions" / name).read_bytes(), name),
-                             (self.BROWSE / name).read_bytes(), name)
+            self.assertEqual(browser_copy_problems((camp / "missions" / name).read_bytes(),
+                                                   (self.BROWSE / name).read_bytes(), name),
+                             [], name)
             brief = camp / "missions" / f"{name[:-4]}_briefing"
             files = [f for f in sorted(brief.rglob("*")) if f.is_file()]
             self.assertTrue(files, brief.name)
             for f in files:
                 twin = self.BROWSE / f.relative_to(camp / "missions")
                 self.assertEqual(f.read_bytes(), twin.read_bytes(), str(twin))
+
+
+class StandaloneEscorts(unittest.TestCase):
+    """A Generated or Replaced mission played from the Scenarios menu: the
+    game builds the bought force only inside a running linear campaign
+    (SceneCreator._isLinearCampaign), so the mission-browser copy carries a
+    small default task group beside the anchor hull. The campaign copy never
+    does, and a detached, dispatch or opted-out mission gets none."""
+
+    def tearDown(self):
+        bp.set_campaign(bp.campaign_specs()[0])
+
+    @staticmethod
+    def vessels(text):
+        m = re.search(r"(?m)^NumberOfTaskforce1Vessels=(\d+)", text)
+        n = int(m[1]) if m else 0
+        tags = {int(t) for t in re.findall(r"(?m)^\[Taskforce1Vessel(\d+)\]", text)}
+        return n, tags
+
+    def test_the_rule_is_only_appended_vessels(self):
+        camp = ("[Mission]\nCampaignMission=True\nNumberOfTaskforce1Vessels=1\n"
+                "[Taskforce1Vessel1]\nType=a\n[Trigger1]\nX=1\n")
+        ok = camp.replace("True", "False").replace("Vessels=1", "Vessels=2") \
+            + "[Taskforce1Vessel2]\nType=b\n"
+        self.assertEqual(bp.standalone_extra(camp, ok), [])
+        moved = ok.replace("Type=a", "Type=c")
+        self.assertEqual(bp.standalone_extra(camp, moved), ["Taskforce1Vessel1"])
+        extra = ok + "[Taskforce2Vessel1]\nType=d\n"
+        self.assertEqual(bp.standalone_extra(camp, extra), ["Taskforce2Vessel1"])
+
+    def test_the_clone_station_is_astern_of_the_anchor(self):
+        m = dict(anchor="escort", stations={"escort": S(-10.0, 130.0, "Escort", heading=90)})
+        st = bp.standalone_station(m)
+        self.assertEqual(st["label"], "Task group")
+        self.assertAlmostEqual(st["at"][0], -10.0, places=6)
+        self.assertAlmostEqual((130.0 - st["at"][1]) * 60 * math.cos(math.radians(10.0)),
+                               bp.STANDALONE_ASTERN_NM, places=6)
+
+    def test_opt_outs(self):
+        base = dict(generation="Generated", anchor="escort", group="core",
+                    units=[U("blue", "SEST_RAN_Fleet", "ran_ffh_anzac", "escort",
+                             route=[(-10.0, 131.0, 0)])])
+        bp.set_campaign(bp.campaign_specs()[0])
+        rows = bp.standalone_escorts(base)
+        self.assertTrue(rows)
+        self.assertTrue(all(r["station"] == bp.STANDALONE_STATION
+                            and r["route"] == [(-10.0, 131.0, 0)] for r in rows))
+        for change in (dict(detached=True), dict(group="dispatch"), dict(standalone_escorts=[]),
+                       dict(generation=False), dict(anchor=None)):
+            self.assertEqual(bp.standalone_escorts(dict(base, **change)), [], change)
+        rl06 = importlib.import_module("red_line.rl06_the_quiet_side").MISSION
+        self.assertEqual(rl06.get("standalone_escorts"), [])
+
+    def test_only_the_browser_copy_gains_the_task_group(self):
+        checked = 0
+        for spec in bp.campaign_specs():
+            bp.set_campaign(spec)
+            camp = PACK / "campaigns" / spec["SLUG"]
+            if not (camp / "campaign.ini").is_file():
+                self.skipTest("pack not built")
+            for m in spec["MISSIONS"]:
+                if m["group"] == "dispatch":
+                    continue
+                name = bp.mission_name(m) + ".ini"
+                ours = (camp / "missions" / name).read_text(encoding="utf-8")
+                theirs = (PACK / "missions" / bp.browse_folder(m) / name).read_text(
+                    encoding="utf-8")
+                n, tags = self.vessels(ours)
+                self.assertEqual(tags, set(range(1, n + 1)), name)
+                bn, btags = self.vessels(theirs)
+                want = len(bp.standalone_escorts(m))
+                self.assertEqual(bn - n, want, name)
+                self.assertEqual(btags, set(range(1, bn + 1)), name)
+                for i in range(n + 1, bn + 1):
+                    self.assertNotIn("TaskForceModeAnchor=True",
+                                     re.search(rf"(?ms)^\[Taskforce1Vessel{i}\].*?(?=^\[|\Z)",
+                                               theirs)[0], name)
+                checked += bool(want)
+        self.assertGreater(checked, 40)
+
+    def test_the_escorts_form_on_the_anchor(self):
+        # Formation Manager shows one group: the lead (anchor) ship first,
+        # then the escorts. The anchor is in no other formation of the copy,
+        # and no unit is in two.
+        checked = 0
+        for spec in bp.campaign_specs():
+            bp.set_campaign(spec)
+            if not (PACK / "campaigns" / spec["SLUG"] / "campaign.ini").is_file():
+                self.skipTest("pack not built")
+            for m in spec["MISSIONS"]:
+                want = len(bp.standalone_escorts(m))
+                if m["group"] == "dispatch" or not want:
+                    continue
+                name = bp.mission_name(m) + ".ini"
+                ours = (PACK / "campaigns" / spec["SLUG"] / "missions" / name).read_text(
+                    encoding="utf-8")
+                theirs = (PACK / "missions" / bp.browse_folder(m) / name).read_text(
+                    encoding="utf-8")
+                anchor = re.search(r"(?ms)^\[(Taskforce1Vessel\d+)\][^\[]*?"
+                                   r"^TaskForceModeAnchor=True", theirs)[1]
+                n = int(re.search(r"(?m)^NumberOfTaskforce1Vessels=(\d+)", ours)[1])
+                escorts = [f"Taskforce1Vessel{i}" for i in range(n + 1, n + want + 1)]
+                forms = [f.split("|")[0].split(",") for f in
+                         re.findall(r"(?m)^Taskforce1_Formation\d+=(.*)$", theirs)]
+                count = re.search(r"(?m)^Taskforce1_NumberOfFormations=(\d+)", theirs)
+                self.assertEqual(int(count[1]) if count else 0, len(forms), name)
+                led = [f for f in forms if f[0] == anchor]
+                self.assertEqual(led, [[anchor] + escorts], name)
+                tags = [t for f in forms for t in f]
+                self.assertEqual(len(tags), len(set(tags)), name)
+                checked += 1
+        self.assertGreater(checked, 40)
 
 
 class OpenAllocation(unittest.TestCase):
@@ -6709,6 +6840,90 @@ class RulesPage(unittest.TestCase):
         # itself: the page carries its bindings, not our numbers.
         self.assertEqual(cells, [f"{{Binding {lvl}CrewSkillSurvivalRequirement}}" for lvl in
                                  ("Green", "Trained", "Seasoned", "Veterans", "Ultra")])
+
+
+class RulesRibbons(unittest.TestCase):
+    """Each rules page's Ribbons and Awards section, on the Commander tab,
+    lists that campaign's ribbons and awards from service_awards - the
+    tables its ribbon definitions and award keys are written from."""
+
+    @staticmethod
+    def section(page):
+        start = page.index('<TextBlock Text="Ribbons and Awards"')
+        end = page.index("</StackPanel>", start)
+        return re.findall(r'<TextBlock Text="([^"]*)"', page[start:end])[1:]
+
+    def test_every_page_has_the_section_with_its_completion_ribbon(self):
+        import service_awards as sa
+        import xml.dom.minidom
+        pages = {}
+        for spec in bp.campaign_specs():
+            page = bp.campaign_rules(spec)
+            dom = xml.dom.minidom.parseString(page.encode("utf-8"))
+            self.assertEqual(page.count('Text="Ribbons and Awards"'), 1, spec["SLUG"])
+            # The section is on the Commander tab, after Awards and Promotions.
+            tab = page[page.index('<TabItem Header="Commander">'):]
+            tab = tab[:tab.index("</TabItem>")]
+            self.assertLess(tab.index("Awards and Promotions"), tab.index("Ribbons and Awards"))
+            said = self.section(page)
+            completion = sa.catalogue(spec["SLUG"])[sa.award_id(spec["SLUG"])]["name"]
+            final = sa.FINAL[spec["SLUG"]]
+            self.assertIn(f"- {completion}: completing the campaign through {final} "
+                          f"{sa.MISSIONS[spec['SLUG']][final][0]}.", said, spec["SLUG"])
+            for _code, (rid, name, _w, _s) in sa.MILESTONES[spec["SLUG"]].items():
+                self.assertTrue(any(name in s for s in said), (spec["SLUG"], name))
+            # Every award the campaign grants natively or at runtime is named,
+            # and no other campaign's completion ribbon is.
+            defs = sa.catalogue(spec["SLUG"])
+            for rid in list(sa.grants(spec["SLUG"])) + list(sa.runtime_grants(spec["SLUG"])):
+                self.assertTrue(any(defs[rid]["name"] in s for s in said), (spec["SLUG"], rid))
+            for other in sa.CAMPAIGNS:
+                if other != spec["SLUG"]:
+                    self.assertNotIn(sa.CAMPAIGNS[other][1], " ".join(said), spec["SLUG"])
+            # Text only: no markup extension, nothing unescaped.
+            self.assertFalse(any(s.startswith("{") for s in said), spec["SLUG"])
+            self.assertTrue(dom.getElementsByTagName("TextBlock"))
+            pages[spec["SLUG"]] = said
+        self.assertEqual(set(pages), set(sa.CAMPAIGNS))
+
+    def test_red_line_lists_its_runtime_ribbons(self):
+        spec = next(s for s in bp.campaign_specs() if s["SLUG"] == "sest-red-line")
+        said = self.section(bp.campaign_rules(spec))
+        self.assertIn("- Silent Passage Ribbon (RL05 Under the Convergence): the Passage "
+                      "objective completed and no weapon launched or gun round fired by any "
+                      "unit of the task force (noisemakers, chaff, decoys, sonobuoys and CIWS "
+                      "rounds do not count).", said)
+        self.assertIn("- Personnel Recovery Ribbon (RLC1 Pilot in the Water): the Pilot "
+                      "objective completed and at least one survivor recovered.", said)
+        self.assertTrue(any("MissionAwards=0" in s for s in said))
+        self.assertIn("- No real national award is represented in this campaign.", said)
+        for spec in bp.campaign_specs():
+            if spec["SLUG"] != "sest-red-line":
+                page = bp.campaign_rules(spec)
+                self.assertNotIn("Silent Passage", page, spec["SLUG"])
+                self.assertNotIn("MissionAwards=0", page, spec["SLUG"])
+
+    def test_national_awards_follow_the_commander_nation(self):
+        spec = next(s for s in bp.campaign_specs() if s["SLUG"] == "sest-sulu-line")
+        said = self.section(bp.campaign_rules(spec))
+        self.assertIn("- Philippine commander: Military Merit Medal (SL05 Celebes Gate); "
+                      "Distinguished Service Star (SL07 Balabac Strait).", said)
+        self.assertIn("- The task group, whoever commands it: Philippine Republic Presidential "
+                      "Unit Citation (SL07 Balabac Strait).", said)
+        self.assertIn("- Thai and Australian commanders receive no national award: only the "
+                      "fictional ribbons and the task group's Philippine Republic Presidential "
+                      "Unit Citation.", said)
+
+    def test_the_built_pages_carry_the_section(self):
+        import xml.dom.minidom
+        for spec in bp.campaign_specs():
+            built = PACK / "campaigns" / spec["SLUG"] / "campaign_rules_en.xml"
+            if not built.is_file():
+                self.skipTest("pack not built")
+            page = built.read_text(encoding="utf-8")
+            xml.dom.minidom.parseString(page.encode("utf-8"))
+            self.assertEqual(self.section(page), self.section(bp.campaign_rules(spec)),
+                             spec["SLUG"])
 
 
 class DefectorEscortFeatures(unittest.TestCase):
