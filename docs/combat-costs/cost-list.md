@@ -8,12 +8,12 @@ Ammunition, embarked aircraft, removable pods and tank contents are excluded fro
 
 | Kind | References | Historical prices | Current prices |
 |---|---:|---:|---:|
-| weapon | 2234 | 2234 | 2234 |
+| weapon | 2232 | 2232 | 2232 |
 | vessel | 1010 | 1010 | 1010 |
 | aircraft | 795 | 795 | 795 |
 | land | 513 | 513 | 513 |
 
-Preserved 5589 pre-existing usable price fields. Filled 3515 missing fields. No acquisition-point field was used as USD.
+Preserved 5589 pre-existing usable price fields. Filled 3511 missing fields. No acquisition-point field was used as USD.
 
 ## Weapon
 
@@ -660,7 +660,6 @@ Preserved 5589 pre-existing usable price fields. Filled 3515 missing fields. No 
 | `plaaf_cm-400akg_arm` | ASM | 2000000 | 2000000 | historical: rough model (anti-ship missile complete-round proxy); current: rough model (anti-ship missile complete-round proxy) | counted |
 | `plaaf_cm-802akg` | ASM | 2000000 | 2000000 | historical: rough model (anti-ship missile complete-round proxy); current: rough model (anti-ship missile complete-round proxy) | counted |
 | `plaaf_cm401` | Ballistic | 1500000 | 2200000 | historical: existing usable value preserved (tracker author catalog); current: existing usable value preserved (tracker author catalog) | counted |
-| `plaaf_flanker_tanker_pod` | Fuel tank | 25000 | 25000 | historical: rough model (external reusable fuel-tank hardware proxy, excluding fuel contents); current: rough model (external reusable fuel-tank hardware proxy, excluding fuel contents) | counted |
 | `plaaf_gb-1000` | Bomb | 22000 | 54000 | historical: existing usable value preserved (SEST checked research: Chinese GB-1000 1,000 kg LGB: model estimate from the US GBU-10 Paveway II (laser kit on the 2,000 lb Mk 84), GWAPS 1991 USD 22,000; CPI to 2026); current: existing usable value preserved (SEST checked research: Chinese GB-1000 1,000 kg LGB: model estimate from the US GBU-10 Paveway II (laser kit on the 2,000 lb Mk 84), GWAPS 1991 USD 22,000; CPI to 2026) | counted |
 | `plaaf_gb-250` | Bomb | 50000 | 50000 | historical: rough model (guided bomb complete-round proxy including guidance kit and body); current: rough model (guided bomb complete-round proxy including guidance kit and body) | counted |
 | `plaaf_gb-3` | ASM | 2000000 | 2000000 | historical: rough model (anti-ship missile complete-round proxy); current: rough model (anti-ship missile complete-round proxy) | counted |
@@ -776,7 +775,6 @@ Preserved 5589 pre-existing usable price fields. Filled 3515 missing fields. No 
 | `plan_fqf-2500` | ASW | 20000 | 20000 | historical: rough model (ASW rocket/depth-charge complete-round proxy); current: rough model (ASW rocket/depth-charge complete-round proxy) | counted |
 | `plan_hhq-7` | SAM | 33000 | 275000 | historical: existing usable value preserved (tracker author catalog); current: existing usable value preserved (tracker author catalog) | counted |
 | `plan_hhq-9b` | SAM | 345000 | 1110000 | historical: existing usable value preserved (tracker author catalog); current: existing usable value preserved (tracker author catalog) | counted |
-| `plan_hhq-9b_early` | SAM | 2500000 | 2500000 | historical: rough model (surface-to-air missile complete-round proxy); current: rough model (surface-to-air missile complete-round proxy) | counted |
 | `plan_hhq-9c` | SAM | 345000 | 1110000 | historical: existing usable value preserved (tracker author catalog); current: existing usable value preserved (tracker author catalog) | counted |
 | `plan_hhq_9a` | SAM | 345000 | 1110000 | historical: existing usable value preserved (tracker author catalog); current: existing usable value preserved (tracker author catalog) | counted |
 | `plan_hhq_9b` | SAM | 345000 | 1110000 | historical: existing usable value preserved (tracker author catalog); current: existing usable value preserved (tracker author catalog) | counted |

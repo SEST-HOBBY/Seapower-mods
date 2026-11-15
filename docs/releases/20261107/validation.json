@@ -78,7 +78,7 @@
     }
   },
   "release_branch": "sest-dev/exciting-fermi-kb5bs9 (the branch the PC installs, tests and posts from for this run: R14 and the 0.9.2 SETUP and PC-toolkit changes on top of claude/continue-previous-session-39wqwq at ac829bfb, which carries the 0.9.0 and 0.9.2 rebuilds on release/r13-combined-20261112; once merged into dev and dev into beta, the toolkit is built from beta again)",
-  "beta_package_sha256": "c5936c89aa5d1d605787f5078ba9e9e0d0f54d4d45c72d93cb5c0212f2d37c00",
+  "beta_package_sha256": "e967f1a69194cf148a220a3c85833822b9ab288399e71e2e1a5e848d0a8e976d",
   "managed_and_installer": {
     "format": 1,
     "status": "managed-and-fixture-checks-passed-needs-pc-gameplay",
@@ -134,7 +134,7 @@
       {
         "name": "assembly-preload-policy-and-identify-geometry",
         "exit_code": 0,
-        "stdout": "cant resolve internal call to \"UnityEngine.Time::get_unscaledTime\" (tested without signature also)\nMetadata discovery: 84 other DLLs inspected, 58 plugin assemblies admitted; no plugin entrypoints executed.\nAssembly pre-load/Identify beta geometry checks passed: 18; no Unity gameplay.\n\nYour mono runtime and class libraries are out of sync.\nThe out of sync library is: /tmp/claude-0/-home-user-Seapower-mods/b99d05e7-e016-5078-a9ab-c2deb264ce5c/scratchpad/trial/deps/UnityEngine.CoreModule.dll\n\nWhen you update one from git you need to update, compile and install\nthe other too.\nDo not report this as a bug unless you're sure you have updated correctly:\nyou probably have a broken mono install.\nIf you see other errors or faults after this message they are probably related\nand you need to fix your mono install first.",
+        "stdout": "cant resolve internal call to \"UnityEngine.Time::get_unscaledTime\" (tested without signature also)\nMetadata discovery: 83 other DLLs inspected, 58 plugin assemblies admitted; no plugin entrypoints executed.\nAssembly pre-load/Identify beta geometry checks passed: 18; no Unity gameplay.\n\nYour mono runtime and class libraries are out of sync.\nThe out of sync library is: /tmp/claude-0/-home-user-Seapower-mods/b99d05e7-e016-5078-a9ab-c2deb264ce5c/scratchpad/trial/deps/UnityEngine.CoreModule.dll\n\nWhen you update one from git you need to update, compile and install\nthe other too.\nDo not report this as a bug unless you're sure you have updated correctly:\nyou probably have a broken mono install.\nIf you see other errors or faults after this message they are probably related\nand you need to fix your mono install first.",
         "stderr": ""
       },
       {
@@ -152,7 +152,7 @@
       {
         "name": "world-service-and-strike-bindings",
         "exit_code": 0,
-        "stdout": "[SEST Runtime] world service record is read-only; existing file preserved: InvalidDataException: unknown service record format\n[SEST Runtime] World Operations attached to Dynamic Campaign Mod 0.25.0.1\n[SEST Runtime] World Operations records each Admiralty result when Dynamic Campaign Mod files it; unread papers are also scanned\n[SEST Runtime] world service record not updated; World Operations stays open and retries in 30 s: IOException: The file '/tmp/SEST-World-Test-d3325e1843164cc392dbb7f908c2f4da/blocker' already exists.\nWorld service, lifecycle, UI model and optional-mod binding checks passed: 207",
+        "stdout": "[SEST Runtime] world service record is read-only; existing file preserved: InvalidDataException: unknown service record format\n[SEST Runtime] World Operations attached to Dynamic Campaign Mod 0.25.0.1\n[SEST Runtime] World Operations records each Admiralty result when Dynamic Campaign Mod files it; unread papers are also scanned\n[SEST Runtime] world service record not updated; World Operations stays open and retries in 30 s: IOException: The file '/tmp/SEST-World-Test-7f273b4dfaa94e92ae64c07347acb11e/blocker' already exists.\nWorld service, lifecycle, UI model and optional-mod binding checks passed: 207",
         "stderr": ""
       },
       {
@@ -1403,7 +1403,7 @@
     "pins_moved": [
       "Seapower-Scripts.dll 3f56861f",
       "Noesis.NoesisGUI.dll c5f13e31",
-      "AnchorChain.dll (Anchor Chain 1.2.0) 17abaf4b, then 071df2d9 (Steam refresh of 15 Nov)",
+      "AnchorChain.dll (Anchor Chain 1.2.0) 17abaf4b (a 15 Nov refresh, 071df2d9, was rolled back)",
       "SeaPowerPopOut.dll (Pop-Out Windows 1.2.3) 6f3668aa",
       "UnityEngine.CoreModule.dll 4a5d7300",
       "UnityEngine.InputLegacyModule.dll d4432ae5",
@@ -1460,7 +1460,7 @@
       "existing-candidate-repair-rollback-1": "passed",
       "loader-source-contracts": "passed"
     },
-    "package": "beta-support/SEST-Beta-Features.zip c5936c89aa5d1d605787f5078ba9e9e0d0f54d4d45c72d93cb5c0212f2d37c00 with a repair receipt listing the first R14 build, R13 and the fifteen earlier sets",
+    "package": "beta-support/SEST-Beta-Features.zip e967f1a69194cf148a220a3c85833822b9ab288399e71e2e1a5e848d0a8e976d with a repair receipt listing the first R14 build, R13 and the fifteen earlier sets",
     "canonical_upload": "prepare-workshop-upload.ps1 -VerifyOnly is run on the PC by Prepare-PC; refresh_upload_manifest.py here: 4612 files match the manifest",
     "pc_state_14_nov": "the capture shows the R12 World Map Costs test build (repair-receipt previous set 13) with SEST.RuntimeFixes.dll missing from the Workshop item; README-FIRST step 1 gives the hash-checked recovery",
     "first_pc_run_15_nov": {
@@ -1493,7 +1493,8 @@
       "anchor_chain_change": "LoadPlugins now first calls a private TryStartRuntime, which loads AnchorChain.Runtime.dll 0.5.5 (R.A.T.S. Keel, 84d5fd5eeb00f7fcdba8a40dafa33b3b7bd0167fdc80bfed798827c59485e4e7) beside it and hands over. On 0.9.2 the author loader never starts (the unchanged preloader looks before Steam registers the Workshop folders), so Keel never runs; SEST's loader admits neither file. No Workshop DLL references the runtime.",
       "payload": "the five DLLs are byte-identical to the 15 Nov R14 rebuild; only captured_references and source_files in the receipt change",
       "cross_build_repair": "verify.py ran the upgrade from the first R14 build (package fac15248, the owner's install) to this package, with Anchor Chain moved between the two captures",
-      "not_pinned": "AnchorChain.Runtime.dll is recorded here, not pinned on the PC: SEST never loads it, and a PC pin would switch every Workshop code mod off at each Keel update"
+      "not_pinned": "AnchorChain.Runtime.dll is recorded here, not pinned on the PC: SEST never loads it, and a PC pin would switch every Workshop code mod off at each Keel update",
+      "rolled_back": "the author rolled the refresh back the same day: the 12:15 capture SEST-Beta-References-20261115-121546-19bf27 has AnchorChain.dll 17abaf4b again and no AnchorChain.Runtime.dll, so the pin returns to 17abaf4b and the candidate is built and verified against that capture"
     },
     "open_issue_fixes_15_nov": [
       "fork scans only ticked, existing Mod Manager folders and loads nothing when Anchor Chain is unticked, as Anchor Chain 1.2.0",

@@ -53,7 +53,7 @@
     {
       "name": "assembly-preload-policy-and-identify-geometry",
       "exit_code": 0,
-      "stdout": "cant resolve internal call to \"UnityEngine.Time::get_unscaledTime\" (tested without signature also)\nMetadata discovery: 84 other DLLs inspected, 58 plugin assemblies admitted; no plugin entrypoints executed.\nAssembly pre-load/Identify beta geometry checks passed: 18; no Unity gameplay.\n\nYour mono runtime and class libraries are out of sync.\nThe out of sync library is: /tmp/claude-0/-home-user-Seapower-mods/b99d05e7-e016-5078-a9ab-c2deb264ce5c/scratchpad/trial/deps/UnityEngine.CoreModule.dll\n\nWhen you update one from git you need to update, compile and install\nthe other too.\nDo not report this as a bug unless you're sure you have updated correctly:\nyou probably have a broken mono install.\nIf you see other errors or faults after this message they are probably related\nand you need to fix your mono install first.",
+      "stdout": "cant resolve internal call to \"UnityEngine.Time::get_unscaledTime\" (tested without signature also)\nMetadata discovery: 83 other DLLs inspected, 58 plugin assemblies admitted; no plugin entrypoints executed.\nAssembly pre-load/Identify beta geometry checks passed: 18; no Unity gameplay.\n\nYour mono runtime and class libraries are out of sync.\nThe out of sync library is: /tmp/claude-0/-home-user-Seapower-mods/b99d05e7-e016-5078-a9ab-c2deb264ce5c/scratchpad/trial/deps/UnityEngine.CoreModule.dll\n\nWhen you update one from git you need to update, compile and install\nthe other too.\nDo not report this as a bug unless you're sure you have updated correctly:\nyou probably have a broken mono install.\nIf you see other errors or faults after this message they are probably related\nand you need to fix your mono install first.",
       "stderr": ""
     },
     {
@@ -71,7 +71,7 @@
     {
       "name": "world-service-and-strike-bindings",
       "exit_code": 0,
-      "stdout": "[SEST Runtime] world service record is read-only; existing file preserved: InvalidDataException: unknown service record format\n[SEST Runtime] World Operations attached to Dynamic Campaign Mod 0.25.0.1\n[SEST Runtime] World Operations records each Admiralty result when Dynamic Campaign Mod files it; unread papers are also scanned\n[SEST Runtime] world service record not updated; World Operations stays open and retries in 30 s: IOException: The file '/tmp/SEST-World-Test-d3325e1843164cc392dbb7f908c2f4da/blocker' already exists.\nWorld service, lifecycle, UI model and optional-mod binding checks passed: 207",
+      "stdout": "[SEST Runtime] world service record is read-only; existing file preserved: InvalidDataException: unknown service record format\n[SEST Runtime] World Operations attached to Dynamic Campaign Mod 0.25.0.1\n[SEST Runtime] World Operations records each Admiralty result when Dynamic Campaign Mod files it; unread papers are also scanned\n[SEST Runtime] world service record not updated; World Operations stays open and retries in 30 s: IOException: The file '/tmp/SEST-World-Test-7f273b4dfaa94e92ae64c07347acb11e/blocker' already exists.\nWorld service, lifecycle, UI model and optional-mod binding checks passed: 207",
       "stderr": ""
     },
     {

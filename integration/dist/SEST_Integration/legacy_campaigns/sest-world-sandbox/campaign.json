@@ -6826,6 +6826,7 @@
     "planaf_z-20j": 39,
     "pns_sh-3h": 39,
     "pol_a330_mrtt": 242,
+    "profile_": 46,
     "qeaf_m2k-5dda": 46,
     "qeaf_m2k-5dda_late": 46,
     "qeaf_m2k-5eda": 46,
@@ -16619,6 +16620,13 @@
     },
     {
       "unit": "planaf_z-20j",
+      "side": "red",
+      "nation": "China",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "profile_",
       "side": "red",
       "nation": "China",
       "tier": 0,

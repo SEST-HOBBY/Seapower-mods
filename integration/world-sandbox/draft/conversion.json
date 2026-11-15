@@ -8460,7 +8460,7 @@
    },
    "red China": {
     "ships": 96,
-    "aircraft": 105
+    "aircraft": 106
    },
    "red Russia": {
     "ships": 111,
@@ -9024,6 +9024,7 @@
   "planaf_z-20j": "Role ASW",
   "pns_sh-3h": "Role ASW",
   "pol_a330_mrtt": "Role AEW",
+  "profile_": "Role Fighter",
   "qeaf_m2k-5dda": "Role Fighter",
   "qeaf_m2k-5dda_late": "Role Fighter",
   "qeaf_m2k-5eda": "Role Fighter",
@@ -10154,8 +10155,8 @@
    "Air": 107
   },
   "patrols": 49,
-  "catalogue": 1636,
-  "values": 1636,
+  "catalogue": 1637,
+  "values": 1637,
   "lanes_kept": 11,
   "lanes_authored": 11,
   "skipped_nodes": 34

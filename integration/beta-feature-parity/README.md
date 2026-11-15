@@ -3,21 +3,19 @@
 Runtime 1.7.0 / UI 1.5.0 / bootstrap 0.6.0, revision
 `R14-20261114-sea-power-092-3f56861f`, for the public release 0.9.2 Build
 261113 (`Seapower-Scripts.dll` `3f56861f…503a`) only. Built with
-`build-roslyn.ps1` against `SEST-Beta-References-20261115-061952-ecb9ec`, whose
-333 files match its own manifest; `verify.py` passes all 16 managed and
+`build-roslyn.ps1` against `SEST-Beta-References-20261115-121546-19bf27`, whose
+files match its own manifest; `verify.py` passes all 16 managed and
 installer checks and the upgrade from the first R14 build. The first build of this revision passed step 1b on the PC on
 15 November; this rebuild, with the three game-hash holds and the save-only
 Costs tab, has not run in the game yet.
 
 **Pins.** Seven of the fifteen captured references moved: the game, Noesis
-(`c5f13e31…`), Anchor Chain 1.2.0 (`071df2d9…`, Steam's refresh of 15
-November), Pop-Out Windows 1.2.3 (`6f3668aa…`) and the three Unity modules.
-The 15 November Anchor Chain keeps 1.2.0's public API and version labels. It
-adds one private step: when its own loader starts, it hands over to a second
-mod loader shipped beside it, `AnchorChain.Runtime.dll` 0.5.5 (R.A.T.S. Keel,
-`84d5fd5e…`). On 0.9.2 the author's loader never starts, because its preloader
-looks before Steam registers the Workshop folders, so Keel never runs. SEST's
-loader admits neither file as a plugin. Anchor Chain's preloader, Identify,
+(`c5f13e31…`), Anchor Chain 1.2.0 (`17abaf4b…`), Pop-Out Windows 1.2.3
+(`6f3668aa…`) and the three Unity modules. On 15 November Steam briefly
+shipped an Anchor Chain (`071df2d9…`) that hands over to a second loader,
+`AnchorChain.Runtime.dll` 0.5.5 (R.A.T.S. Keel); its author rolled it back the
+same day, so the pin is the original 1.2.0 again. Neither file would have run
+on 0.9.2, and SEST's loader admits neither as a plugin. Anchor Chain's preloader, Identify,
 Contact Log, Squad Panel, Combat Costs, Harmony, BepInEx and Cecil are
 unchanged. SEST's Anchor Chain fork exports every public member of Anchor
 Chain 1.2.0, so plugins built against 1.2.0 bind to it. The enable flag is

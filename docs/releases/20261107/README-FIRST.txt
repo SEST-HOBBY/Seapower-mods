@@ -28,10 +28,11 @@ WHAT CHANGED SINCE THE LAST VERSION OF THIS FILE
   Corsair strike, MV-75 fixture tilt, EC-2 comms jamming, K5 Kraken contact
   strike, Exterior Cameras in two items, XQ-58 Shadow, MV-75 crew escape).
   ExtendedGuidance stays off by the SEST profile. Their data stays.
-- Steam updated eight mods on 15 Nov, Anchor Chain among them; the pack
-  is rebuilt on them and SEST's code is re-pinned to the new Anchor Chain.
-  Without that re-pin, SETUP or Repair would have switched SEST's features,
-  and with them every Workshop code mod, off.
+- Steam updated ten mods on 15 Nov; the pack is rebuilt on them. Anchor
+  Chain's update (which added a second loader, R.A.T.S. Keel) was rolled
+  back by its author the same day, so SEST's code pins the original
+  Anchor Chain 1.2.0 again; a toolkit built for the rolled-back file would
+  have switched SEST's features, and every Workshop code mod, off.
 - From your first 0.9.2 run (15 Nov): the three Exterior Cameras, XQ-58
   Shadow and MV-75 crew escape files are now held as well, so their
   "Unsupported game" lines go; the world Costs tab covers the loaded
@@ -363,10 +364,9 @@ WHAT IS NEW SINCE THE R12 RIBBON TEST BUILD
   1.5.0, loader bootstrap 0.6.0, candidates/R14-20261114): SEST's code is
   matched to 0.9.2 from your reference ZIPs of 14 and 15 November. Seven
   of the fifteen pinned references moved (the game, Noesis, Anchor Chain
-  1.2.0, Pop-Out Windows 1.2.3 and three Unity modules); Anchor Chain moved
-  again with Steam's 15 November refresh, which keeps its API and adds a
-  second loader, AnchorChain.Runtime.dll 0.5.5 (R.A.T.S. Keel), that SEST
-  never starts. SEST's loader now checks
+  1.2.0, Pop-Out Windows 1.2.3 and three Unity modules); Steam's 15
+  November Anchor Chain refresh was rolled back the same day, so the pin
+  is the original 1.2.0. SEST's loader now checks
   every author plugin against the game's real members before it loads, and
   holds one that names code 0.9.2 removed, with the member named; the
   rewrites SEST made for author files that no longer exist are retired.

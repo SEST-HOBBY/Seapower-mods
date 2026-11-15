@@ -2329,11 +2329,6 @@
         "CurrentYearCost": "2000000",
         "Category": "ASM"
       },
-      "plaaf_flanker_tanker_pod": {
-        "WeaponCosts": "25000",
-        "CurrentYearCost": "25000",
-        "Category": "Fuel tank"
-      },
       "plaaf_gb-250": {
         "WeaponCosts": "50000",
         "CurrentYearCost": "50000",
@@ -2588,11 +2583,6 @@
         "WeaponCosts": "20000",
         "CurrentYearCost": "20000",
         "Category": "ASW"
-      },
-      "plan_hhq-9b_early": {
-        "WeaponCosts": "2500000",
-        "CurrentYearCost": "2500000",
-        "Category": "SAM"
       },
       "plan_hq-61b": {
         "WeaponCosts": "904904",
@@ -58914,48 +58904,6 @@
     },
     {
       "kind": "weapon",
-      "target": "plaaf_flanker_tanker_pod",
-      "origin": "completion",
-      "source": null,
-      "basis": "external reusable fuel-tank hardware proxy, excluding fuel contents",
-      "fields": {
-        "WeaponCosts": "25000",
-        "CurrentYearCost": "25000",
-        "Category": "Fuel tank"
-      },
-      "completion": {
-        "model": "fuel_tank",
-        "historical": "25000",
-        "current": "25000",
-        "category": "Fuel tank",
-        "source": null,
-        "basis": "external reusable fuel-tank hardware proxy, excluding fuel contents",
-        "source_id": "policy",
-        "historical_year": 2026,
-        "historical_basis": "2026 replacement proxy; IOC unknown",
-        "confidence": "rough model",
-        "current_low": "12500",
-        "current_high": "50000",
-        "disposition": "counted"
-      },
-      "field_methods": {
-        "historical": "rough model",
-        "current": "rough model"
-      },
-      "prior_origin": null,
-      "sources": [
-        {
-          "title": "SEST owner-authorized replacement-cost model, 24 October 2026",
-          "url": "https://github.com/SEST-HOBBY/Seapower-mods/blob/fix/complete-combat-costs-20261024/integration/combat-costs/coverage-policy.json"
-        },
-        {
-          "title": "SEST owner-authorized replacement-cost model, 24 October 2026",
-          "url": "https://github.com/SEST-HOBBY/Seapower-mods/blob/fix/complete-combat-costs-20261024/integration/combat-costs/coverage-policy.json"
-        }
-      ]
-    },
-    {
-      "kind": "weapon",
       "target": "plaaf_gb-1000",
       "source": null,
       "origin": "estimate",
@@ -61376,48 +61324,6 @@
         "confidence": "rough model",
         "current_low": "10000",
         "current_high": "40000",
-        "disposition": "counted"
-      },
-      "field_methods": {
-        "historical": "rough model",
-        "current": "rough model"
-      },
-      "prior_origin": null,
-      "sources": [
-        {
-          "title": "SEST owner-authorized replacement-cost model, 24 October 2026",
-          "url": "https://github.com/SEST-HOBBY/Seapower-mods/blob/fix/complete-combat-costs-20261024/integration/combat-costs/coverage-policy.json"
-        },
-        {
-          "title": "SEST owner-authorized replacement-cost model, 24 October 2026",
-          "url": "https://github.com/SEST-HOBBY/Seapower-mods/blob/fix/complete-combat-costs-20261024/integration/combat-costs/coverage-policy.json"
-        }
-      ]
-    },
-    {
-      "kind": "weapon",
-      "target": "plan_hhq-9b_early",
-      "origin": "completion",
-      "source": null,
-      "basis": "surface-to-air missile complete-round proxy",
-      "fields": {
-        "WeaponCosts": "2500000",
-        "CurrentYearCost": "2500000",
-        "Category": "SAM"
-      },
-      "completion": {
-        "model": "sam",
-        "historical": "2500000",
-        "current": "2500000",
-        "category": "SAM",
-        "source": null,
-        "basis": "surface-to-air missile complete-round proxy",
-        "source_id": "policy",
-        "historical_year": 2026,
-        "historical_basis": "2026 replacement proxy; IOC unknown",
-        "confidence": "rough model",
-        "current_low": "1250000",
-        "current_high": "5000000",
         "disposition": "counted"
       },
       "field_methods": {
@@ -91167,9 +91073,9 @@
   ],
   "coverage": {
     "weapon": {
-      "eligible": 2234,
-      "historical_known": 2234,
-      "current_known": 2234,
+      "eligible": 2232,
+      "historical_known": 2232,
+      "current_known": 2232,
       "sest_eligible": 142,
       "sest_historical_known": 142,
       "sest_current_known": 142,
@@ -110528,44 +110434,6 @@
       },
       {
         "kind": "weapon",
-        "id": "plaaf_flanker_tanker_pod",
-        "owner": "3812111085",
-        "path": "mods-source/3812111085/ammunition/plaaf_flanker_tanker_pod.ini",
-        "category": "Fuel tank",
-        "type": "Fueltank",
-        "historical": "25000",
-        "current": "25000",
-        "field_methods": {
-          "historical": "rough model",
-          "current": "rough model"
-        },
-        "field_sources": {
-          "historical": "external reusable fuel-tank hardware proxy, excluding fuel contents",
-          "current": "external reusable fuel-tank hardware proxy, excluding fuel contents"
-        },
-        "completion": {
-          "model": "fuel_tank",
-          "historical": "25000",
-          "current": "25000",
-          "category": "Fuel tank",
-          "source": null,
-          "basis": "external reusable fuel-tank hardware proxy, excluding fuel contents",
-          "source_id": "policy",
-          "historical_year": 2026,
-          "historical_basis": "2026 replacement proxy; IOC unknown",
-          "confidence": "rough model",
-          "current_low": "12500",
-          "current_high": "50000",
-          "disposition": "counted"
-        },
-        "disposition": "counted",
-        "historical_basis": "2026 replacement proxy; IOC unknown",
-        "historical_reference_year": 2026,
-        "current_low": "12500",
-        "current_high": "50000"
-      },
-      {
-        "kind": "weapon",
         "id": "plaaf_gb-1000",
         "owner": "3812111085",
         "path": "mods-source/3812111085/ammunition/plaaf_gb-1000.ini",
@@ -114037,44 +113905,6 @@
         "historical_reference_year": null,
         "current_low": null,
         "current_high": null
-      },
-      {
-        "kind": "weapon",
-        "id": "plan_hhq-9b_early",
-        "owner": "3775128499",
-        "path": "mods-source/3775128499/ammunition/plan_hhq-9b_early.ini",
-        "category": "SAM",
-        "type": "Missile",
-        "historical": "2500000",
-        "current": "2500000",
-        "field_methods": {
-          "historical": "rough model",
-          "current": "rough model"
-        },
-        "field_sources": {
-          "historical": "surface-to-air missile complete-round proxy",
-          "current": "surface-to-air missile complete-round proxy"
-        },
-        "completion": {
-          "model": "sam",
-          "historical": "2500000",
-          "current": "2500000",
-          "category": "SAM",
-          "source": null,
-          "basis": "surface-to-air missile complete-round proxy",
-          "source_id": "policy",
-          "historical_year": 2026,
-          "historical_basis": "2026 replacement proxy; IOC unknown",
-          "confidence": "rough model",
-          "current_low": "1250000",
-          "current_high": "5000000",
-          "disposition": "counted"
-        },
-        "disposition": "counted",
-        "historical_basis": "2026 replacement proxy; IOC unknown",
-        "historical_reference_year": 2026,
-        "current_low": "1250000",
-        "current_high": "5000000"
       },
       {
         "kind": "weapon",
@@ -225196,7 +225026,7 @@
       }
     ],
     "filled_fields": {
-      "weapon": 1938,
+      "weapon": 1934,
       "vessel": 246,
       "aircraft": 332,
       "land": 999
@@ -225214,11 +225044,11 @@
       "Ignore": 35,
       "Torpedo": 220,
       "Land Attack": 79,
-      "Fuel tank": 100,
+      "Fuel tank": 99,
       "Bomb": 121,
       "ARM": 42,
       "ASW": 63,
-      "SAM": 312,
+      "SAM": 311,
       "Sonobuoy": 67,
       "ICBM": 5,
       "SS": 55,
