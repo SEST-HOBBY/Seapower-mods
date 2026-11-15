@@ -62,6 +62,26 @@ language_en/sest_name_pools.ini adds commander name pools for
 nations the game has none for: common given names and surnames
 from public name statistics, which the game combines at random.
 
+The 16 files in ammunition_overwrite/ named <id>_SEST.ini
+draw an enemy missile that its mod left on another weapon's
+model with a model of the missile's own family. They name the
+model's folder and parts only: the model and its textures stay
+in the mod that ships them. Each lays the model block (mesh and
+paint) of a round shipped by:
+  the game itself (Sea Power)
+      plaaf_aspide-1a, plan_hy-1ja, usn_rum-139c
+  Modern PLAN Systems  (workshop 3775128499)
+      pla_hq-10, pla_yj-18, pla_yj-83, plaaf_yj-83
+  Red Storm Arsenal  (workshop 3413868677)
+      ir_nasir
+  Russian Navy 21  (workshop 3597650470)
+      wp_9m317ma, wp_ss-n-27a
+  TU-160 Blackjack  (workshop 3509329205)
+      wp_as-15, wp_as-15_antiship, wp_as-15_antiship_nuclear,
+      wp_as-15_nuclear
+  Type 003 Fujian / Type 004 CVN Aircraft Carriers  (workshop 3486502935)
+      plan_pl-10, plan_pl-15
+
 543 of the unit files here are another author's file with
 changes made to it. A Sea Power unit file is a whole-file
 override - there is no way to alter one line of somebody's

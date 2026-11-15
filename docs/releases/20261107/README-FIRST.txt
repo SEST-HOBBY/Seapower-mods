@@ -72,7 +72,7 @@ PREPARE AND CHECK
    - enabled (most likely: your PC has the first R14 build from your 15
      November run): it upgrades that installation in place to this R14
      rebuild, installs the
-     release data and ends with the line "VERIFIED: all 4596 canonical
+     release data and ends with the line "VERIFIED: all 4612 canonical
      upload files match the release manifest." Go to 1b.
    - none or restored: it stages R14 and stops with "Next: start Sea Power,
      wait at the main menu about 10 seconds, quit, then run Prepare-PC.cmd
@@ -260,7 +260,15 @@ PREPARE AND CHECK
    the pack stocks.
 4. Recheck the opening brief, world Combat Costs sidebar and direct F11
    totals. Start a NEW Global Maritime Operations campaign as blue: Costs
-   shows 0 manual battle reports and no USD totals. In Starting Airborne
+   shows 0 manual battle reports and no USD totals. In Sulu Line's The
+   Island Road, follow a Peykaap's Nasir with the weapon camera: a YJ-8
+   body in YJ-83 paint, not a Harpoon (it is bigger than the Harpoon was).
+   In Mod Manager untick one small code mod, save, restart: its "Loaded
+   plugin" line is gone, and Player.log still shows "[SEST Runtime] ...
+   installed" (saving in Mod Manager no longer switches SEST off); tick it
+   again and run SETUP. With a second monitor, press F8 in a mission and
+   use the panel's "Pop out" and "Return" (R11-PC-TESTS.txt lists the full
+   check). In Starting Airborne
    Flights select the RAAF E/A-18G and confirm
    HARM (AGM-88C), AARGM (AGM-88E) and AARGM-ER (AGM-88G) choices. The three
    loadouts were data-tested; the selector still awaits an owner PC check.
