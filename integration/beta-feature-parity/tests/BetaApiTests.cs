@@ -81,6 +81,7 @@ static partial class BetaApiTests
                 Check(nightCalls.Count==1 && ((MethodReference)nightCalls[0].Operand).Parameters.Count==4 &&
                     nightCalls[0].Previous.OpCode==Mono.Cecil.Cil.OpCodes.Ldnull,
                     "Exactly one real campaign night query supplies the new native default nation=null");
+                WorldShipyardPins(campaignImage);
             }
             // R14: author images that still name game members 0.9.2 removed are
             // held before CLR load by the generic native-member check, with

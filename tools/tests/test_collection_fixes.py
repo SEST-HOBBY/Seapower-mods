@@ -958,7 +958,7 @@ class EnemyMissileModels(unittest.TestCase):
     # (14 Nov 2026): the stubs ship byte for byte as reviewed. A deliberate
     # change re-reviews the stub and updates its digest here.
     REVIEWED = {
-        "ir_nasir": "6fb589fdac47a617c8c54b9e89b8bc74301411b3398cb5d2c33787e36a113d7b",
+        "ir_nasir": "6d9301d2dd42d23d3db1497a99538deb9e4c64b3cde626385f45b4054f530e20",
         "pla_hq-10": "f589ab77b565f4720b8633391c69b3f695229d82a1b56d09b66bda83a58c7106",
         "pla_yj-18": "71ff7d009ba34213a4bf923ba7b94c39669625d47b7b5cd1d5b83f3ec6358b5a",
         "pla_yj-83": "b7b552c9163222bb1a6cd6a18f2c1c25cede79e711cf5b21ecc95bd0dfa7e40b",
@@ -1219,6 +1219,30 @@ class EnemyMissileModels(unittest.TestCase):
             alone = {**real, material: [("3999999999", other)]}
             self.assertIn("the donor 3775128499 ships none",
                           self.refused("pla_yj-18", layer_index=lambda: alone))
+
+    def test_the_nasirs_launch_part_is_checked_against_its_launch_source(self):
+        # RSA's plan_yj83k (the material donor) sets no launch part; the
+        # Nasir's comes from the game's own plan_yj-8.ini, as vanilla draws it.
+        spec = self.b.MISSILE_MODELS["ir_nasir"]
+        self.assertEqual(spec["launch"], ("vanilla", "ammunition/plan_yj-8.ini"))
+        self.assertEqual(spec["models"]["ResourcesMeshForLaunch"], "wplan_yj-8_dummy")
+        self.assertEqual(spec["models"]["ResourcesMeshCanister"], "")
+        self.assertNotIn("ResourcesMeshSwitchTime", spec["models"])
+        self.assertIn("# Launch part as the game's ammunition/plan_yj-8.ini", self.stub("ir_nasir"))
+        vanilla = ("_vanilla/original", "ammunition/plan_yj-8.ini")
+        # The launch source moving its dummy stops the build, naming that file.
+        renamed = self.reading(*vanilla, lambda t: re.sub(
+            r"(?m)^ResourcesMeshForLaunch=wplan_yj-8_dummy\b", "ResourcesMeshForLaunch=other", t))
+        self.assertIn("donor vanilla's ammunition/plan_yj-8.ini has other",
+                      self.refused(read=renamed))
+        # Without the launch source the material donor is asked, and it has none.
+        self.assertIn("donor 3413868677's ammunition/plan_yj83k.ini has (not set)",
+                      self.refused(change=lambda s: s.pop("launch")))
+        # The round's own switch time must be the launch source's.
+        slower = self.reading(*vanilla, lambda t: re.sub(
+            r"(?m)^ResourcesMeshSwitchTime=0\.2\b", "ResourcesMeshSwitchTime=0.5", t))
+        self.assertIn("switches at 0.5, but the round switches at 0.2",
+                      self.refused(read=slower))
 
     def test_the_table_guards_stop_the_build(self):
         self.assertIn("AIM424_ROUNDS", self.refused(

@@ -140,6 +140,7 @@ internal static class WorldOperations
         if (session.GetProperty("Active", Api.All)?.PropertyType != typeof(bool) || battle.GetProperty("Active", Api.All)?.PropertyType != typeof(bool))
             throw new MissingMemberException("inspected DCM session lifecycle");
         WorldOpeningBriefing.Bind(a);
+        WorldShipyard.Bind(a); // never throws; logs and keeps DCM's shipyard on a mismatch
         campaignTick = a.GetType("DynamicCampaignMod.UI.CampaignUI", true).GetMethod("Tick", Api.All, null, Type.EmptyTypes, null);
         if (campaignTick?.ReturnType != typeof(void)) throw new MissingMemberException("captured strategic UI update");
         try
@@ -184,6 +185,7 @@ internal static class WorldOperations
         {
             Bind();
             WorldOpeningBriefing.Install();
+            WorldShipyard.Install();
             if (!tickAttached && campaignTick != null)
             {
                 Api.Postfix(campaignTick, typeof(WorldOperations), nameof(Poll), "io.github.sest-hobby.world-map-update");

@@ -304,7 +304,7 @@ stubs).
 
 | Id | Round the stub lands on | Was drawn as | Now drawn as (model block from) | Positions moved | Fielded |
 |---|---|---|---|---|---|
-| `ir_nasir` | Red Storm Arsenal (3413868677) | the game's AGM-84 Harpoon | the game's YJ-8 (C-801) body in Red Storm Arsenal's own YJ-83 paint (its `plan_yj83k.ini`); no booster, no launch part | all three to `0,0,-0.029`, the YJ-8's sustainer nozzle (the game's `plan_yj-8.ini`) | Sulu Line 01, 02, 04, 05; Southern Watch |
+| `ir_nasir` | Red Storm Arsenal (3413868677) | the game's AGM-84 Harpoon | the game's YJ-8 (C-801) body in Red Storm Arsenal's own YJ-83 paint (its `plan_yj83k.ini`), with the game's own YJ-8 launch dummy (`wplan_yj-8_dummy`, from the game's `plan_yj-8.ini`) for the round's 0.2 s; no booster, no canister | all three to `0,0,-0.029`, the YJ-8's sustainer nozzle (the game's `plan_yj-8.ini`) | Sulu Line 01, 02, 04, 05; Southern Watch |
 | `pla_yj-18` | PLAN Submarines (3594891803) | the stock Tomahawk | Modern PLAN Systems' YJ-18 (`plan_yj-18.ini`), torpedo-tube capsule for 2.9 s | underwater trail `0,0,-0.045` | Sulu Line 07 (Type 039C); Southern Watch 04, 10, 11, C1; Southern Reach 09, 11; Tasman Shield 01, 02, 03, 05, 09 |
 | `wp_ss-n-27a` | Russian Submarines (3468260539) | the stock Tomahawk, mod paint | Russian Navy 21's 3M-54 Kalibr (`rfn_3m54.ini`), launch stage for 2 s | booster `0,0,-0.06` | Southern Reach 02, 04, 06, 07, 10; Southern Watch 09; Tasman Shield 08, 09 (Akula) |
 | `pla_hq-10` | Type 003/004 carriers (3486502935) | the stock SA-N-5 Grail (Strela-2M) | Modern PLAN Systems' HQ-10 (`plan_hq-10.ini`) | - | Southern Watch D6 (Type 004) |
@@ -333,7 +333,8 @@ smaller than a Harpoon. No scale is set, by design (below).
 - its `[Models]` setting a mesh transform, stage or submodel key the new mesh would inherit;
 - its setting `ResourcesMaterialFolder` when the entry does not;
 - a position the entry moves that the round does not set;
-- a laid value no longer matching the donor's file;
+- a laid value no longer matching the donor's file (or, for a launch part an entry takes from
+  another file, `launch`, that file; the round's own switch time must then equal that file's);
 - the material the game reads not being the donor's own copy;
 - an id in both `MISSILE_MODELS` and `AIM424_ROUNDS`;
 - any entry setting a `Scale` key;

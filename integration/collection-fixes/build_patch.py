@@ -2905,6 +2905,9 @@ def build_aim424():
 #         particles: the [Particles] position keys laid, each one the round sets
 #         positions: (mod, file, key) the positions are read from, where they
 #                    are not the donor's keys of the same name
+#         launch:    (mod, file) whose ResourcesMeshForLaunch is laid, where it is
+#                    not the donor's; with no ResourcesMeshSwitchTime in the
+#                    entry, the round's own switch time must equal that file's
 #         why:       why the round's model was wrong and why this one
 MODEL_KEYS = ("ResourcesFolder", "ResourcesRoot", "ResourcesMesh", "ResourcesMaterialFolder",
               "ResourcesMaterial", "ResourcesMeshForLaunch", "ResourcesMeshCanister",
@@ -2950,16 +2953,20 @@ MISSILE_MODELS = {
         models=dict(ResourcesFolder="weapons/plan_yj-8/", ResourcesRoot="plan_yj-8",
                     ResourcesMesh="plan_yj-8", ResourcesMaterialFolder="weapons/plan_yj-8/",
                     ResourcesMaterial="plan_yj_83_mat.ini",
-                    ResourcesMeshForLaunch="", ResourcesMeshCanister=""),
+                    ResourcesMeshForLaunch="wplan_yj-8_dummy", ResourcesMeshCanister=""),
         particles=dict(BoosterEffectPosition="0,0,-0.029", InFlightEffectPosition="0,0,-0.029",
                        UnderwaterTrailPosition="0,0,-0.029"),
         # The YJ-8's sustainer nozzle; the C-704 has no separate booster.
         positions=("vanilla", "ammunition/plan_yj-8.ini", "SustainerEffectPosition"),
+        # The game's own YJ-8 shows its launch dummy, then switches to the body
+        # (plan_yj-8.ini:139-140); RSA's plan_yj83k sets no launch part.
+        launch=("vanilla", "ammunition/plan_yj-8.ini"),
         why="Red Storm Arsenal cloned the Nasir from the RGM-84 and drew it as the game's "
             "AGM-84 Harpoon. It is a rocket-powered C-704-family missile, and the only enemy "
             "missile of Sulu Line 01, The Island Road (Sulu Line 01, 02, 04, 05 and Southern "
             "Watch field it). The game's YJ-8 (C-801) body is its family's, in Red Storm "
-            "Arsenal's own YJ-83 paint for that body; no booster and no launch part are "
+            "Arsenal's own YJ-83 paint for that body. As on the game's own YJ-8, its launch "
+            "dummy shows for the round's 0.2 s before the body; no canister or booster is "
             "drawn, and the plume sits at the YJ-8's sustainer nozzle. It is larger than a "
             "real C-704: no scale may be set on a shared template."),
     "pla_yj-18": dict(
@@ -3397,15 +3404,34 @@ def missile_stub(uid, spec):
     dmod, drel = spec["donor"]
     dtok = "_vanilla/original" if dmod == "vanilla" else dmod
     donor = game_ini(read(dtok, drel))
+    lmod, lrel = spec.get("launch") or (dmod, drel)
+    launch = game_ini(read("_vanilla/original" if lmod == "vanilla" else lmod, lrel))
     for k, v in models.items():
         want = donor.get("Models", {}).get(k)
+        if k == "ResourcesMeshForLaunch" and spec.get("launch"):
+            want = launch.get("Models", {}).get(k)                  # the named launch source
+            drel_k, dmod_k = lrel, lmod
+        else:
+            drel_k, dmod_k = drel, dmod
         if k == "ResourcesMaterialFolder" and want is None:
             want = donor.get("Models", {}).get("ResourcesFolder")   # the loader's default
         if k in ("ResourcesMeshForLaunch", "ResourcesMeshCanister") and v == "":
             continue                                                 # no stage part drawn
         if want != v:
-            sys.exit(f"{uid}: [Models] {k}={v}, but the donor {dmod}'s {drel} has "
+            sys.exit(f"{uid}: [Models] {k}={v}, but the donor {dmod_k}'s {drel_k} has "
                      f"{want if want is not None else '(not set)'} - re-check the model")
+    note = []
+    if spec.get("launch"):
+        lswitch = launch.get("Models", {}).get("ResourcesMeshSwitchTime")
+        own = own_models.get("ResourcesMeshSwitchTime")
+        if "ResourcesMeshSwitchTime" not in models and own != lswitch:
+            sys.exit(f"{uid}: its launch part is {lmod}'s {lrel}, which switches at "
+                     f"{lswitch if lswitch is not None else '(not set)'}, but the round "
+                     f"switches at {own if own is not None else '(not set)'} - set "
+                     "ResourcesMeshSwitchTime or re-check the launch part")
+        who = "the game's" if lmod == "vanilla" else f"{lmod}'s"
+        note = [f"# Launch part as {who} {lrel}; the switch time,",
+                f"# {own_models.get('ResourcesMeshSwitchTime')} s, is the round's own."]
     pmod, prel, pkey = spec.get("positions") or (dmod, drel, None)
     source = game_ini(read("_vanilla/original" if pmod == "vanilla" else pmod, prel))
     for k, v in particles.items():
@@ -3440,7 +3466,7 @@ def missile_stub(uid, spec):
              f"# SEST Collection Fixes: {uid} ({tok}) is drawn with the model of the",
              f"# {spec['real']} from {dmod}'s {drel}. Model and effect-",
              "# position keys only; flight, seeker, warhead, signature, effects and name stay",
-             "# the author's.", "", "[Models]"]
+             "# the author's."] + note + ["", "[Models]"]
     lines += [f"{k}={models[k]}" for k in MODEL_KEYS if k in models]
     if particles:
         lines += ["", "[Particles]"] + [f"{k}={v}" for k, v in particles.items()]

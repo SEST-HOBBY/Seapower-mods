@@ -1168,9 +1168,11 @@ def nation_units(nations):
 # opening forces. The operator is the Nation= of the winning *_variants.ini or
 # *_squadrons.ini sections (Default's where a section has none); a type several
 # nations fly is listed under the side's nation with the most sections, ties in
-# side order. No era cut: most of the collection's units carry no ServiceDate,
-# so a 2028 filter would drop the J-10C and the KJ-500 as readily as the Knox;
-# the tier (the price band) orders the list instead. Left out: what is not a
+# side order. No era cut: ships carry ServiceDate on 767 of 886 catalogue
+# units, but aircraft coverage is sparser (439 of 751), so a 2028 filter would
+# drop the J-10C and the KJ-500 as readily as the Knox; the tier (the price
+# band) orders the list instead, and SEST's runtime orders and labels the
+# shipyard by service years (service_years.py). Left out: what is not a
 # fighting unit - civil and fishing hulls, merchant and intelligence roles,
 # target drones, satellites, balloons, decoys, rafts and mines - and ids with a
 # space, which a campaign cannot name.

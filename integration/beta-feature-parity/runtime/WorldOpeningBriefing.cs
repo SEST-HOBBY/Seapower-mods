@@ -69,6 +69,13 @@ internal static class WorldOpeningBriefing
         return current != null && definitionId.GetValue(current) as string == CampaignId;
     }
 
+    // The loaded DCM campaign is this world (WorldShipyard's guard).
+    internal static bool IsWorldCampaign()
+    {
+        var current = definition?.GetValue(null, null);
+        return current != null && definitionId?.GetValue(current) as string == CampaignId;
+    }
+
     // Postfix on BriefingPaper.Paper: only the returned markup changes. The
     // Briefing object, the message feed and the save are never modified.
     internal static void AfterPaper(object __0, ref string __result)
