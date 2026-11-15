@@ -4,7 +4,7 @@ unchanged since the last export : 198
 skipped, SEST's own Workshop item: 3812461539
 
 UPDATED by their authors (re-export to pick the changes up):
-  3775128499  PLAN Pack
-  3812111085  PLAAF Aircraft Pack
+  3380210757  Anchor Chain
+  3629144864  Euromod - Main Pack
 
 To capture: re-run this script without -CheckUpdates, then commit and push.

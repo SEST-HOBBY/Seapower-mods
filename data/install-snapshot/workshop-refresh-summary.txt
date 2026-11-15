@@ -3,10 +3,10 @@ WORKSHOP REFRESH SUMMARY
 Written by tools/workshop_refresh_summary.py from data/install-snapshot/ and the
 canonical lists. Facts only; compatibility is judged in a later review.
 
-capture date           : 2026-11-15T12:05:30
-repo commit captured at: 2face37fa (chore/workshop-refresh-20261115-1204)
-previous capture       : 432d347b810c
-previous export        : 432d347b810c
+capture date           : 2026-11-15T12:33:55
+repo commit captured at: 0a6add240 (chore/workshop-refresh-20261115-1233)
+previous capture       : 0a6add240239
+previous export        : 0a6add240239
 Sea Power              : 13-Nov-2026: 0.9.2 Build 261113 Public Release
   installed            : 13-Nov-2026: 0.9.2 Build 261113 Public Release
   game code            : Seapower-Scripts.dll SHA-256 3f56861f09e867f315b194c81a7a2450154ccc6bb5afb769b4956dfd4a00503a
@@ -33,39 +33,18 @@ SINCE THE PREVIOUS CAPTURE
   (none)
   updated on the Workshop (Steam's timeupdated for the item changed, from
   appworkshop_1286220.acf; the exported files below are the full record):
-  3775128499  PLAN Pack  2026-11-11 23:23 -> 2026-11-15 11:04
-  3812111085  PLAAF Aircraft Pack  2026-11-11 23:17 -> 2026-11-15 11:05
-  exported files changed since the previous export (432d347b810c; A added, D removed, M modified, R renamed):
-  3775128499  PLAN Pack  files 361 -> 360  (A 0, D 1, M 133, R 0)
-      D ammunition/plan_hhq-9b_early.ini
-      M _info.ini
-      M aircraft/plaaf_kj-500.ini
-      M aircraft/plaaf_kj-500_squadrons.ini
-      M aircraft/plaaf_kj-500a.ini
-      M aircraft/plaaf_kj-500a_squadrons.ini
-      M aircraft/plaaf_y-9dz.ini
-      M aircraft/plaaf_y-9dz_squadrons.ini
-      M aircraft/plaaf_y-9jz.ini
-      M aircraft/plaaf_y-9jz_squadrons.ini
-      M aircraft/plaaf_y-9lg.ini
-      M aircraft/plaaf_y-9lg_squadrons.ini
-      ... and 122 more
-  3812111085  PLAAF Aircraft Pack  files 211 -> 211  (A 0, D 1, M 125, R 0)
-      D ammunition/plaaf_flanker_tanker_pod.ini
-      M _info.ini
-      M aircraft/plaaf_h-6j.ini
-      M aircraft/plaaf_h-6j_squadrons.ini
-      M aircraft/plaaf_h-6k_early.ini
-      M aircraft/plaaf_h-6k_early_squadrons.ini
-      M aircraft/plaaf_h-6k_late.ini
-      M aircraft/plaaf_h-6k_late_squadrons.ini
-      M aircraft/plaaf_h-6n.ini
-      M aircraft/plaaf_h-6n_squadrons.ini
-      M aircraft/plaaf_j-10a.ini
-      M aircraft/plaaf_j-10a_squadrons.ini
-      ... and 114 more
+  3380210757  Anchor Chain  2026-11-15 04:21 -> 2026-11-15 12:00
+  3629144864  Euromod - Main Pack  2026-11-14 11:42 -> 2026-11-15 11:43
+  exported files changed since the previous export (0a6add240239; A added, D removed, M modified, R renamed):
+  3380210757  Anchor Chain  files 3 -> 1  (A 0, D 2, M 0, R 0)
+      D LICENSE-AnchorChain.md
+      D LICENSE-Keel.txt
+  3629144864  Euromod - Main Pack  files 762 -> 762  (A 0, D 1, M 2, R 0)
+      D version_counter_493.txt
+      M ammunition/rn_spearfish.ini
+      M assets/europack/materials/rn_spearfish/rn_spearfish_mat.ini
   plugin DLLs changed:
-  (none)
+  [workshop] 3380210757\AnchorChain.dll
   plugin DLLs new:
 
 INVENTORY
@@ -98,6 +77,6 @@ EXPORTER UPDATE CHECK (export-mod-configs.ps1 -CheckUpdates)
   unchanged since the last export : 198
   skipped, SEST's own Workshop item: 3812461539
   UPDATED by their authors (re-export to pick the changes up):
-    3775128499  PLAN Pack
-    3812111085  PLAAF Aircraft Pack
+    3380210757  Anchor Chain
+    3629144864  Euromod - Main Pack
   To capture: re-run this script without -CheckUpdates, then commit and push.
