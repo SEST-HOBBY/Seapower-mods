@@ -20,11 +20,21 @@ file (RU_REREGISTER, RU_BY_SECTION and RU_AIRCRAFT, the owner's rule of 11
 Nov 2026); what the rule leaves Soviet is in RU_LEFT_SOVIET and
 RU_AIRCRAFT_LEFT_SOVIET with the reason.
 
+Sixteen enemy missiles that a mod left on another weapon's model are drawn
+with a model of their own family by one #!extend each in
+ammunition_overwrite/ (MISSILE_MODELS, 15 Nov 2026). The stubs ship byte for
+byte as the design review checked them, every guard of build_missile_models
+stops the build on a fixture, and the KD-88 pair waits for the PC
+(MISSILE_MODELS_DEFERRED).
+
 The checks on built files need a build; run from the repository root:
     python3 -m unittest discover -s tools/tests -p 'test_collection_fixes.py' -v
 """
 import contextlib
+import copy
+import hashlib
 import importlib.util
+import inspect
 import re
 import sys
 import tempfile
@@ -928,6 +938,317 @@ class RussianRegistration(unittest.TestCase):
                 soviet = self.soviet(read(self.winner(uid, kind)[1]).replace("\r\n", "\n"))
                 for s in soviet:
                     self.assertEqual(bp.pick_nation(uid, s), "Russia" if s in wanted else "Soviet", s)
+
+
+def consolidator():
+    sys.path.insert(0, str(ROOT / "tools"))
+    import consolidate_packs
+    return consolidate_packs
+
+
+class EnemyMissileModels(unittest.TestCase):
+    """Sixteen enemy rounds a mod left on another weapon's model, drawn with a
+    model of their own family by one #!extend each in ammunition_overwrite/
+    (MISSILE_MODELS; docs/conflicts-and-load-order.md, 'Enemy missile models,
+    15 Nov 2026'). The KD-88 pair waits for a folder check on the PC
+    (MISSILE_MODELS_DEFERRED). setUpClass builds them into a temporary folder,
+    so every guard in build_missile_models passes on the export as it is."""
+
+    # sha256 of the drafts the design review checked against every donor
+    # (14 Nov 2026): the stubs ship byte for byte as reviewed. A deliberate
+    # change re-reviews the stub and updates its digest here.
+    REVIEWED = {
+        "ir_nasir": "6fb589fdac47a617c8c54b9e89b8bc74301411b3398cb5d2c33787e36a113d7b",
+        "pla_hq-10": "f589ab77b565f4720b8633391c69b3f695229d82a1b56d09b66bda83a58c7106",
+        "pla_yj-18": "71ff7d009ba34213a4bf923ba7b94c39669625d47b7b5cd1d5b83f3ec6358b5a",
+        "pla_yj-83": "b7b552c9163222bb1a6cd6a18f2c1c25cede79e711cf5b21ecc95bd0dfa7e40b",
+        "plaaf_aspide-1a": "f2eb97ec5c4926d51375bd8855de05a0a1946711e78f850a41c8d1ecd2d66036",
+        "plaaf_yj-83": "9b249e6fcceb79a5640c0b09443413d45d25b5f155e9386983aa0cce14b05e04",
+        "plan_hy-1ja": "9578ed4b75c9fc1e66b213ff7d1a18e5e9db0515f2d44195c0fbf802c20290d9",
+        "plan_pl-10": "1f767e9c277887b578461dfd65a22bbbb72a895e5e2047e839ab8cdc08346e5d",
+        "plan_pl-15": "6c15a4412759c9edd3105bae37c0a71cba0149b0e77eea3917ead8237d859098",
+        "usn_rum-139c": "7404ab11dfaf7811538c0fe82bc7762f7c0ed2e4fade8a58bb6936e82f6ff535",
+        "wp_9m317ma": "7e89d24350209c1d6204a00538fceccbba6baeb136c9bfc82e5b2da3ea2d7003",
+        "wp_as-15": "a653e4043d5ae32e8f6a5e98a51cde7ac642f2b186d5b8eaf8501541df729362",
+        "wp_as-15_antiship": "73edc11ed118df8c4bd1c8691978c508d14152fa257325d2646e54c546529912",
+        "wp_as-15_antiship_nuclear": "6b96b86df288b1587ca57577910be5e0c43fc90512787013d4ede00095ec14f1",
+        "wp_as-15_nuclear": "e0983625e61cd1890c6109fa9b132881ba89afc16ae3f41bd1824f96d72ddba0",
+        "wp_ss-n-27a": "7045d996fcadaa4081c543ef4735ea40729a40c3ad8c07a64a6afefbaec41bab",
+    }
+    # build_aim424's three stubs share the folder.
+    AIM424 = ("fury_aim424_SEST.ini", "usn_aim-424_OVWR.ini", "yf23_aim424_internal_SEST.ini")
+
+    @classmethod
+    def setUpClass(cls):
+        cls.b = builder()
+        with tempfile.TemporaryDirectory() as tmp, mock.patch.object(cls.b, "OUT", Path(tmp)):
+            cls.done = cls.b.build_missile_models()
+            cls.built = {p.name: p.read_bytes()
+                         for p in sorted((Path(tmp) / "ammunition_overwrite").glob("*"))}
+
+    def stub(self, uid):
+        return self.built[f"{uid}_SEST.ini"].decode("utf-8")
+
+    def base(self, uid):
+        """The text of the round's winning copy, the file its stub lands on."""
+        return read(self.b.layer_index()[f"ammunition/{uid}.ini"][0][1])
+
+    def test_each_stub_is_the_reviewed_draft_byte_for_byte(self):
+        self.assertEqual(sorted(self.built), sorted(f"{uid}_SEST.ini" for uid in self.REVIEWED))
+        for uid, digest in self.REVIEWED.items():
+            with self.subTest(uid=uid):
+                self.assertEqual(hashlib.sha256(self.built[f"{uid}_SEST.ini"]).hexdigest(),
+                                 digest, self.stub(uid))
+
+    def test_sixteen_ship_and_the_kd88_pair_waits(self):
+        self.assertEqual(sorted(self.b.MISSILE_MODELS), sorted(self.REVIEWED))
+        self.assertEqual(len(self.done), 16)
+        self.assertEqual(sorted(self.b.MISSILE_MODELS_DEFERRED), ["pla_kd-88", "plaaf_kd-88"])
+        self.assertNotIn("pla_kd-88_SEST.ini", self.built)
+        self.assertFalse((FIXES / "ammunition_overwrite" / "pla_kd-88_SEST.ini").exists())
+        # SEST's own plaaf_kd-88 keeps the Exocet until the PC check clears its edit.
+        built = FIXES / "ammunition" / "plaaf_kd-88.ini"
+        if built.exists():
+            self.assertRegex(section(read(built), "Models"), r"(?m)^ResourcesRoot=fr_am-39\s*$")
+        self.assertFalse(set(self.b.MISSILE_MODELS) & set(self.b.AIM424_ROUNDS))
+        for uid, spec in self.b.MISSILE_MODELS.items():
+            with self.subTest(uid=uid):
+                self.assertTrue(spec["why"].strip())
+
+    def test_each_stub_reads_as_its_entry_and_nothing_else(self):
+        for uid, spec in self.b.MISSILE_MODELS.items():
+            with self.subTest(uid=uid):
+                text = self.stub(uid)
+                self.assertNotIn("\r", text)
+                self.assertTrue(text.endswith("\n") and not text.endswith("\n\n"))
+                head = text.split("\n[", 1)[0].split("\n")
+                self.assertEqual(head[0], f"#!extend ammunition/{uid}.ini")
+                self.assertTrue(all(x == "" or x.startswith("# ") for x in head[1:]), head)
+                self.assertEqual(self.b.header_directives(text),
+                                 [("extend", [f"ammunition/{uid}.ini"])])
+                want = {"Models": spec["models"]}
+                if spec["particles"]:
+                    want["Particles"] = spec["particles"]
+                self.assertEqual(headers(text), list(want))
+                self.assertEqual(read_file_to_ini({}, text), want)
+                self.assertFalse([k for keys in want.values() for k in keys if "scale" in k.lower()])
+
+    def test_the_merged_round_changes_only_model_and_position_keys(self):
+        # The game's read: the extend first, then the base; the first value wins.
+        for uid, spec in self.b.MISSILE_MODELS.items():
+            with self.subTest(uid=uid):
+                base = self.base(uid)
+                alone = read_file_to_ini({}, base)
+                merged = read_file_to_ini(read_file_to_ini({}, self.stub(uid)), base)
+                self.assertEqual(sorted(merged), sorted(alone))
+                changed = [(s, k) for s in merged for k, v in merged[s].items()
+                           if alone.get(s, {}).get(k) != v]
+                for s, k in changed:
+                    self.assertTrue((s == "Models" and k.startswith("Resources"))
+                                    or (s == "Particles" and k.endswith("Position")), (s, k))
+                for k, v in spec["models"].items():
+                    self.assertEqual(merged["Models"][k], v)
+
+    def test_the_built_pack_is_the_rebuild(self):
+        on_disk = {p.name: p.read_bytes() for p in (FIXES / "ammunition_overwrite").glob("*")
+                   if p.name in self.built}
+        if not on_disk:
+            self.skipTest("SEST Collection Fixes not built")
+        self.assertEqual(on_disk, self.built)
+
+    def test_the_consolidated_folder_will_hold_nineteen(self):
+        # integration/dist is refreshed only by the full rebuild
+        # (tools/build_all.py), so this reads what consolidate_packs stages from
+        # the per-pack outputs, not dist: the folder's files in every source
+        # pack. dist holds these 19 once the rebuild has run.
+        if not any((FIXES / "ammunition_overwrite" / n).exists() for n in self.built):
+            self.skipTest("SEST Collection Fixes not built")
+        cp = consolidator()
+        names = sorted({p.name for pack in cp.source_packs()
+                        for p in (pack / "ammunition_overwrite").glob("*") if p.is_file()})
+        self.assertEqual(names, sorted(self.AIM424 + tuple(self.built)))
+        self.assertEqual(len(names), 19)
+
+    def test_neither_builder_deletes_the_others_files(self):
+        def names(out):
+            return sorted(p.name for p in (out / "ammunition_overwrite").glob("*"))
+        for order in (("build_aim424", "build_missile_models"),
+                      ("build_missile_models", "build_aim424")):
+            with self.subTest(order=order), tempfile.TemporaryDirectory() as tmp, \
+                    mock.patch.object(self.b, "OUT", Path(tmp)):
+                out = Path(tmp)
+                (out / "ammunition_overwrite").mkdir()
+                (out / "ammunition_overwrite" / "retired_SEST.ini").write_text("#!extend x\n")
+                self.b.clean_ammunition_overwrite()
+                self.assertEqual(names(out), [])
+                for step in order:
+                    getattr(self.b, step)()
+                self.assertEqual(names(out), sorted(self.AIM424 + tuple(self.built)))
+        # main() empties the folder once, ahead of both builders.
+        src = inspect.getsource(self.b.main)
+        clean = src.index("clean_ammunition_overwrite()")
+        self.assertLess(clean, src.index("build_aim424()"))
+        self.assertLess(clean, src.index("build_missile_models()"))
+        self.assertEqual(src.count("clean_ammunition_overwrite()"), 1)
+
+    def test_the_credits_name_every_donor(self):
+        text = consolidator().credits_text(
+            {f"ammunition_overwrite/{n}": b for n, b in self.built.items()})
+        self.assertIn("The 16 files in ammunition_overwrite/", text)
+        block = text.split("paint) of a round shipped by:\n", 1)[1].split("\n\n", 1)[0]
+        credited, current = {}, None
+        for line in block.splitlines():
+            if line.startswith("      "):
+                credited[current] += [x.strip() for x in line.split(",") if x.strip()]
+            else:
+                m = re.search(r"\(workshop (\d+)\)$", line)
+                current = m.group(1) if m else "vanilla"
+                self.assertTrue(m or line.strip() == "the game itself (Sea Power)", line)
+                credited[current] = []
+        want = {}
+        for uid, spec in self.b.MISSILE_MODELS.items():
+            want.setdefault(spec["donor"][0], []).append(uid)
+        self.assertEqual({k: sorted(v) for k, v in credited.items()},
+                         {k: sorted(v) for k, v in want.items()})
+
+    def test_the_header_scan_reads_every_line_before_the_first_section(self):
+        text = ("// the author's note\n#!Extend Ammunition\\IR_Nasir.ini, ammunition/b.ini\n"
+                "#!prepend ammunition/c.ini\n[General]\n#!alias ammunition/d.ini\n")
+        self.assertEqual(self.b.header_directives(text), [
+            ("extend", ["ammunition/ir_nasir.ini", "ammunition/b.ini"]),
+            ("prepend", ["ammunition/c.ini"])])
+        self.assertEqual(self.b.model_root({"ResourcesFolder": "Weapons\\PLAN_YJ-8\\",
+                                            "ResourcesRoot": "PLAN_YJ-8"}),
+                         "weapons/plan_yj-8/plan_yj-8")
+
+    def test_the_template_guard_reads_every_round_of_a_root(self):
+        records = self.b.ammunition_records()
+        self.assertGreater(len(records), 2000)
+        roots = {self.b.model_root(spec["models"]) for spec in self.b.MISSILE_MODELS.values()}
+        drawn = {rel for rel, files in records.items()
+                 if self.b.model_root({k: v for _p, keys, b in files if b
+                                       for k, v in keys.items()}) in roots}
+        # The game's own YJ-8 and Red Storm Arsenal's YJ-82s and YJ-83s share
+        # the Nasir's root; the TU-160's two Kh-55s share the AS-15s'.
+        for rel in ("ammunition/plan_yj-8.ini", "ammunition/plan_yj_82.ini",
+                    "ammunition/plan_yj83k.ini", "ammunition/kh-55.ini",
+                    "ammunition/kh-55sm.ini", "ammunition/it_aspide_1.ini"):
+            self.assertIn(rel, drawn)
+
+    def refused(self, uid="ir_nasir", change=None, spec=None, **patches):
+        """build_missile_models() with `uid` the only entry - its own entry, or
+        `spec`, after change(entry) - and the builder's names in `patches`
+        replaced; asserts nothing was written and returns the SystemExit's text."""
+        entry = copy.deepcopy(spec or self.b.MISSILE_MODELS[uid])
+        if change:
+            change(entry)
+        with tempfile.TemporaryDirectory() as tmp, \
+                mock.patch.object(self.b, "OUT", Path(tmp)), \
+                mock.patch.dict(self.b.MISSILE_MODELS, {uid: entry}, clear=True), \
+                contextlib.ExitStack() as stack:
+            for name, value in patches.items():
+                stack.enter_context(mock.patch.object(self.b, name, value))
+            with self.assertRaises(SystemExit) as caught:
+                self.b.build_missile_models()
+            self.assertEqual(list(Path(tmp).rglob("*.ini")), [])
+        self.assertIn(uid, str(caught.exception))
+        return str(caught.exception)
+
+    def reading(self, mod, rel, edit):
+        """read(), with (mod, rel)'s text passed through edit(text)."""
+        real = self.b.read
+
+        def fake(m, r):
+            text = real(m, r)
+            return edit(text) if (m, r) == (mod, rel) else text
+        return fake
+
+    def in_models(self, line):
+        """An edit that adds `line` to a file's [Models] block."""
+        return lambda t: re.sub(r"(?m)^\[Models\][^\n]*\n", lambda m: m.group(0) + line + "\n",
+                                t, count=1)
+
+    def test_the_round_guards_stop_the_build(self):
+        nasir = ("3413868677", "ammunition/ir_nasir.ini")
+        self.assertIn("copy wins now", self.refused(
+            change=lambda s: s.update(mod="3999999999")))
+        self.assertIn("alias/extend itself", self.refused(read=self.reading(
+            *nasir, lambda t: "#!alias ammunition/plan_yj83k.ini\n" + t)))
+        # A directive below a comment line is still in the header.
+        self.assertIn("alias/extend itself", self.refused(read=self.reading(
+            *nasir, lambda t: "# the author's notes\n#!prepend ammunition/x.ini\n" + t)))
+        aimed = ROOT / "mods-source/3999999999/ammunition_overwrite/ir_nasir_OVWR.ini"
+        real = self.b.header_targets()
+        self.assertIn("#!extends it", self.refused(header_targets=lambda: {
+            **real, "ammunition/ir_nasir.ini": [("extend", "3999999999", aimed)]}))
+        self.assertIn("would inherit", self.refused(read=self.reading(
+            *nasir, self.in_models("ResourcesMeshPosition=0,0,0.1"))))
+        self.assertIn("NumberOfStages, Stage1Mesh", self.refused(read=self.reading(
+            *nasir, self.in_models("NumberOfStages=1\nStage1Mesh=usn_agm-84"))))
+        self.assertIn("ResourcesMaterialFolder and the entry does not", self.refused(
+            "plaaf_yj-83", change=lambda s: s["models"].pop("ResourcesMaterialFolder")))
+        self.assertIn("sets no SustainerEffectPosition", self.refused(
+            change=lambda s: s["particles"].update(SustainerEffectPosition="0,0,-0.029")))
+
+    def test_an_author_change_stops_the_build(self):
+        nasir = ("3413868677", "ammunition/ir_nasir.ini")
+        said = self.refused(read=self.reading(*nasir, lambda t: re.sub(
+            r"(?m)^ResourcesMeshSwitchTime=0\.2\b", "ResourcesMeshSwitchTime=0.3", t)))
+        self.assertIn("ResourcesMeshSwitchTime=0.3, recorded 0.2", said)
+        self.assertIn("'was'", said)
+        self.assertIn("ResourcesMeshForDebris=usn_agm-84_d, recorded (not set)", self.refused(
+            read=self.reading(*nasir, self.in_models("ResourcesMeshForDebris=usn_agm-84_d"))))
+        self.assertIn("BoosterEffectPosition=0,0,0, recorded 0,0,-1", self.refused(
+            change=lambda s: s["was"].update(BoosterEffectPosition="0,0,-1")))
+
+    def test_donor_drift_and_a_shadowed_material_stop_the_build(self):
+        slower = self.reading("3775128499", "ammunition/plan_yj-18.ini", lambda t: re.sub(
+            r"(?m)^ResourcesMeshSwitchTime=2\.9\b", "ResourcesMeshSwitchTime=3.1", t))
+        self.assertIn("donor 3775128499's ammunition/plan_yj-18.ini has 3.1",
+                      self.refused("pla_yj-18", read=slower))
+        moved = self.reading("_vanilla/original", "ammunition/plan_yj-8.ini", lambda t: re.sub(
+            r"(?m)^SustainerEffectPosition=0,0,-0\.029\b", "SustainerEffectPosition=0,0,-0.031", t))
+        self.assertIn("re-check the nozzle", self.refused(read=moved))
+        material = "assets/models/ammunition/yj-18/yj-18_mat.ini"
+        real = self.b.layer_index()
+        with tempfile.TemporaryDirectory() as tmp:
+            other = Path(tmp) / "yj-18_mat.ini"
+            other.write_text("[Properties]\n_Color=1,0,0,1\n", encoding="utf-8")
+            above = {**real, material: [("3999999999", other)] + real[material]}
+            self.assertIn("is shadowed", self.refused("pla_yj-18", layer_index=lambda: above))
+            alone = {**real, material: [("3999999999", other)]}
+            self.assertIn("the donor 3775128499 ships none",
+                          self.refused("pla_yj-18", layer_index=lambda: alone))
+
+    def test_the_table_guards_stop_the_build(self):
+        self.assertIn("AIM424_ROUNDS", self.refused(
+            "usn_aim-424", spec=self.b.MISSILE_MODELS["ir_nasir"]))
+        self.assertIn("MISSILE_MODELS_DEFERRED", self.refused(
+            "pla_kd-88", spec=self.b.MISSILE_MODELS["ir_nasir"]))
+        self.assertIn("no entry may scale its mesh", self.refused(
+            change=lambda s: s["models"].update(ResourcesMeshScale="0.6,0.6,0.6")))
+        self.assertIn("not a model or effect-position key", self.refused(
+            change=lambda s: s["models"].update(AssetBundleMesh="usn_rim-7")))
+
+    def test_a_transform_on_a_shared_root_stops_the_build(self):
+        real = self.b.ammunition_records()
+        other = ROOT / "mods-source/3999999999/ammunition/sest_test_round.ini"
+
+        def models(text):
+            return self.b.game_ini(text)["Models"]
+        # Another round, on the Nasir's root spelt another way, turns its mesh.
+        turned = models("[Models]\nResourcesFolder=Weapons\\PLAN_YJ-8\\\n"
+                        "ResourcesRoot=PLAN_YJ-8\nResourcesMeshRotation=0,0,90\n")
+        said = self.refused(ammunition_records=lambda: {
+            **real, "ammunition/sest_test_round.ini": [(other, turned, True)]})
+        self.assertIn("drawn from weapons/plan_yj-8/plan_yj-8", said)
+        self.assertIn("sest_test_round.ini sets ResourcesMeshRotation=0,0,90", said)
+        # An extend that scales the game's own YJ-8, whose root comes from its base.
+        extend = ROOT / "mods-source/3999999999/ammunition_overwrite/plan_yj-8_OVWR.ini"
+        said = self.refused(ammunition_records=lambda: {**real, "ammunition/plan_yj-8.ini": [
+            (extend, models("[Models]\nResourcesMeshCanisterScale=1,1,1.2\n"), False)]
+            + real["ammunition/plan_yj-8.ini"]})
+        self.assertIn("plan_yj-8_OVWR.ini sets ResourcesMeshCanisterScale=1,1,1.2", said)
 
 
 if __name__ == "__main__":

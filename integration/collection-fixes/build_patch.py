@@ -19,6 +19,14 @@ Fury's) is given SEST's own flight model and model block by an Anchor Chain
 #!extend in ammunition_overwrite/, read from integration/common/aim424.py at
 build time (build_aim424, the player's decision of 14 Oct 2026).
 
+Sixteen enemy missiles that a mod left on another weapon's model (Red Storm
+Arsenal's Nasir on the game's AGM-84 Harpoon; the PLAN Submarines YJ-18, the
+Akula's Kalibr and the Tu-95's Kh-55s on the Tomahawk; and others) are drawn
+with a model of their own family that a mod or the game already ships, by one
+#!extend each in ammunition_overwrite/ that sets model and effect-position
+keys only (build_missile_models, MISSILE_MODELS; 15 Nov 2026). The two KD-88
+rounds wait for a folder check on the PC (MISSILE_MODELS_DEFERRED).
+
 Usage (repo root):  python3 integration/collection-fixes/build_patch.py
 """
 import functools
@@ -1087,7 +1095,9 @@ def main():
     extended = build_extends()
     russian = build_russian_registrations()
     retargeted = build_stale_overwrites()
+    clean_ammunition_overwrite()
     malice = build_aim424()
+    missiles = build_missile_models()
     flags = build_nation_flags()
     returned = build_stale_vanilla_files()
     built.extend(build_ford_wing_variants())
@@ -1125,6 +1135,9 @@ def main():
           f"{', '.join(retargeted)}")
     print(f"  + {len(malice)} AIM-424 round(s) given SEST's flight model and model block by "
           f"#!extend: {', '.join(malice)}")
+    print(f"  + {len(missiles)} enemy missile(s) drawn with a model of their own family by "
+          f"#!extend, model and effect-position keys only (donor in brackets): "
+          f"{', '.join(missiles)}; held for the PC check: {', '.join(MISSILE_MODELS_DEFERRED)}")
     print(f"  + {len(returned)} game file(s)/section(s) restored over stale mod copies: "
           f"{', '.join(returned)}")
     print(f"  + {len(fields)} large airbase(s) retuned to the game's launch-rate values: "
@@ -2741,14 +2754,22 @@ def aim424_laid(uid, spec, sest, nozzle, own):
     return laid
 
 
-def build_aim424():
-    """ammunition_overwrite/<file> for each id in AIM424_ROUNDS.
-    Returns 'id (n of m keys changed)' per round."""
-    sest, nozzle = aim424_sest()
+def clean_ammunition_overwrite():
+    """Empty ammunition_overwrite/ once, before build_aim424 and
+    build_missile_models write into it. The folder is theirs alone, and each
+    leaves the other's files in place."""
     out_dir = OUT / "ammunition_overwrite"
     if out_dir.is_dir():
-        for stale in out_dir.glob("*.ini"):     # this folder is this function's alone
+        for stale in out_dir.glob("*.ini"):
             stale.unlink()
+
+
+def build_aim424():
+    """ammunition_overwrite/<file> for each id in AIM424_ROUNDS.
+    Returns 'id (n of m keys changed)' per round. main() empties the folder
+    first (clean_ammunition_overwrite)."""
+    sest, nozzle = aim424_sest()
+    out_dir = OUT / "ammunition_overwrite"
     out_dir.mkdir(parents=True, exist_ok=True)
     found = aim424_ids()
     new = sorted(i for i in found if i not in AIM424_ROUNDS)
@@ -2832,6 +2853,624 @@ def build_aim424():
         differ = sum(own.get(sec, {}).get(k) != v
                      for sec, keys in laid.items() for k, v in keys.items())
         done.append(f"{uid} ({differ} of {total} keys changed)")
+    return done
+
+
+# -------------------------- Enemy missiles drawn with another weapon's model
+# Sixteen enemy rounds that a mod cloned from another weapon and left on that
+# weapon's model: Red Storm Arsenal's Nasir flies as the game's AGM-84
+# Harpoon, the PLAN Submarines YJ-18, the Akula's Kalibr and the Tu-95's four
+# Kh-55s as the Tomahawk, the Type 004's HQ-10 as an SA-N-5 Grail, the PLAN's
+# PL-10 as an R-60, and so on (docs/conflicts-and-load-order.md, 'Enemy
+# missile models, 15 Nov 2026', lists each with where it is fired). Each is
+# drawn instead with a model of its own family that another mod, or the
+# game, already ships and that a round of that type already uses, by one
+# #!extend per id in ammunition_overwrite/<id>_SEST.ini: line 1 is
+# '#!extend ammunition/<id>.ini', then comment lines, one [Models] block and,
+# where the new mesh's nozzle sits elsewhere, a [Particles] block of effect
+# positions only.
+#
+# 0.9.2's own #!extend applies it; no preloader is needed. The game registers
+# every modifier file of every layer, reads the extends before the base and
+# keeps the first value of a key, so only the keys set here change. An empty
+# launch or canister name is skipped, so blanking one draws no stage part.
+# Nothing at runtime measures the mesh, so flight, seeker, warhead,
+# signature, effects and name stay the author's.
+#
+# The model files are not in the export: what can be read is checked here
+# and the rest is the PC check in the doc section. The build stops when the
+# round's winning copy moves away from `mod`; when that copy is an alias,
+# extend or prepend itself, or any file names the round in a #! header line;
+# when a mod ships a file of the stub's name; when the round's model or
+# effect-position keys are no longer `was` (the author changed them); when
+# its [Models] sets a mesh transform, stage or submodel key, which the new
+# mesh would inherit; when it sets ResourcesMaterialFolder and the entry does
+# not; when it has no position key the entry moves; when a laid value no
+# longer matches the donor's file; when the material the game reads is not
+# the donor's own; and when any round the game reads sets a ResourcesMesh*
+# Position, Rotation or Scale key on a root an entry draws from. The loader
+# writes those keys onto the one cached template every round of a root
+# shares, so they would leak from one round to the others. For the same
+# reason no entry may set a Scale key: the Nasir is drawn at the YJ-8's own
+# size, about 40% longer than a real C-704.
+#
+#   id -> mod:       the provider whose copy wins today; the stub lands on it
+#         was:       that copy's [Models] Resources* and [Particles] *Position
+#                    keys as they read today
+#         donor:     (mod, file) whose model block is laid; 'vanilla' is the
+#                    game's own file
+#         real:      the missile, as the stub's comment names it
+#         models:    the [Models] keys laid (MODEL_KEYS only); a blank launch
+#                    or canister name draws no stage part
+#         particles: the [Particles] position keys laid, each one the round sets
+#         positions: (mod, file, key) the positions are read from, where they
+#                    are not the donor's keys of the same name
+#         why:       why the round's model was wrong and why this one
+MODEL_KEYS = ("ResourcesFolder", "ResourcesRoot", "ResourcesMesh", "ResourcesMaterialFolder",
+              "ResourcesMaterial", "ResourcesMeshForLaunch", "ResourcesMeshCanister",
+              "ResourcesMeshSwitchTime")
+MODEL_POSITION = re.compile(r"^(\w+EffectPosition|UnderwaterTrailPosition)$")
+# What the loader writes onto a root's shared template.
+MODEL_TRANSFORM = re.compile(
+    r"^ResourcesMesh(ForLaunch|Canister|ForDebris)?(Position|Rotation|Scale)$", re.I)
+# A key in the round's [Models] the new mesh would inherit: a transform set
+# for the old mesh, or a stage or submodel that names the old mesh's parts.
+MODEL_INHERITED = re.compile(
+    r"^(ResourcesMesh(ForLaunch|Canister|ForDebris)?(Position|Rotation|Scale)"
+    r"|NumberOfStages|Stage\d+\w*|SubModel\d+\w*)$", re.I)
+_TOMAHAWK_WAS = dict(
+    ResourcesFolder="weapons/usn_rgm-109/", ResourcesRoot="usn_rgm-109",
+    ResourcesMesh="usn_rgm-109", ResourcesMaterial="usn_rgm-109_mat",
+    ResourcesMeshForLaunch="usn_rgm-109_dummy", ResourcesMeshCanister="usn_rgm-109_dummy",
+    ResourcesMeshSwitchTime="3", BoosterEffectPosition="0,0,0",
+    InFlightEffectPosition="0,0,-0.022", UnderwaterTrailPosition="0,0,-0.022")
+_KH55 = dict(
+    mod="3395022688", was=_TOMAHAWK_WAS, donor=("3509329205", "ammunition/KH-55.ini"),
+    real="Kh-55 (AS-15 Kent)",
+    models=dict(ResourcesFolder="assets/models/weapon/KH-55/", ResourcesRoot="KH-55.obj",
+                ResourcesMesh="body", ResourcesMaterialFolder="assets/models/weapon/KH-55/",
+                ResourcesMaterial="KH-55_mat.ini", ResourcesMeshForLaunch="body_2",
+                ResourcesMeshCanister="body_2", ResourcesMeshSwitchTime="2"),
+    particles={},
+    why="The Tu-95 mod drew its four Kh-55 variants as the stock Tomahawk. The TU-160 mod's "
+        "Kh-55 model is the missile's own, with its folded-wing carriage part for the first "
+        "2 s. The Tu-95MS of Southern Watch 08's Russian air group carries them.")
+MISSILE_MODELS = {
+    # Fired at the player: the combat history counts ir_nasir and pla_yj-18.
+    "ir_nasir": dict(
+        mod="3413868677",
+        was=dict(ResourcesFolder="weapons/usn_agm-84/", ResourcesRoot="usn_agm-84",
+                 ResourcesMesh="usn_agm-84", ResourcesMaterial="plan_yj83_mat.ini",
+                 ResourcesMeshForLaunch="usn_rgm_84_dummy",
+                 ResourcesMeshCanister="usn_rgm_84_dummy", ResourcesMeshSwitchTime="0.2",
+                 BoosterEffectPosition="0,0,0", InFlightEffectPosition="0,0,-0.022",
+                 UnderwaterTrailPosition="0,0,-0.022"),
+        donor=("3413868677", "ammunition/plan_yj83k.ini"),
+        real="Nasir (C-704 family, Iran)",
+        models=dict(ResourcesFolder="weapons/plan_yj-8/", ResourcesRoot="plan_yj-8",
+                    ResourcesMesh="plan_yj-8", ResourcesMaterialFolder="weapons/plan_yj-8/",
+                    ResourcesMaterial="plan_yj_83_mat.ini",
+                    ResourcesMeshForLaunch="", ResourcesMeshCanister=""),
+        particles=dict(BoosterEffectPosition="0,0,-0.029", InFlightEffectPosition="0,0,-0.029",
+                       UnderwaterTrailPosition="0,0,-0.029"),
+        # The YJ-8's sustainer nozzle; the C-704 has no separate booster.
+        positions=("vanilla", "ammunition/plan_yj-8.ini", "SustainerEffectPosition"),
+        why="Red Storm Arsenal cloned the Nasir from the RGM-84 and drew it as the game's "
+            "AGM-84 Harpoon. It is a rocket-powered C-704-family missile, and the only enemy "
+            "missile of Sulu Line 01, The Island Road (Sulu Line 01, 02, 04, 05 and Southern "
+            "Watch field it). The game's YJ-8 (C-801) body is its family's, in Red Storm "
+            "Arsenal's own YJ-83 paint for that body; no booster and no launch part are "
+            "drawn, and the plume sits at the YJ-8's sustainer nozzle. It is larger than a "
+            "real C-704: no scale may be set on a shared template."),
+    "pla_yj-18": dict(
+        mod="3594891803", was=_TOMAHAWK_WAS,
+        donor=("3775128499", "ammunition/plan_yj-18.ini"),
+        real="YJ-18",
+        models=dict(ResourcesFolder="assets/models/ammunition/yj-18/", ResourcesRoot="YJ-18.obj",
+                    ResourcesMesh="yj-18",
+                    ResourcesMaterialFolder="assets/models/ammunition/yj-18/",
+                    ResourcesMaterial="yj-18_mat.ini", ResourcesMeshForLaunch="torpedo",
+                    ResourcesMeshCanister="torpedo", ResourcesMeshSwitchTime="2.9"),
+        particles=dict(UnderwaterTrailPosition="0,0,-0.045"),
+        why="PLAN Submarines drew its YJ-18 as the stock Tomahawk. Modern PLAN Systems' YJ-18 "
+            "model is the missile's own, in its torpedo-tube capsule for the first 2.9 s. "
+            "Fired by the Type 039C of Sulu Line 07 and by PLAN boats in Southern Watch, "
+            "Southern Reach and Tasman Shield."),
+    # Placed enemy units with a known loadout.
+    "wp_ss-n-27a": dict(
+        mod="3468260539", was={**_TOMAHAWK_WAS, "ResourcesMaterial": "wp_ss-n-21_mat.ini"},
+        donor=("3597650470", "ammunition/rfn_3m54.ini"),
+        real="3M-54K Kalibr",
+        models=dict(ResourcesFolder="assets/ammunition/3m54/", ResourcesRoot="3m54.obj",
+                    ResourcesMesh="3m54", ResourcesMaterialFolder="assets/ammunition/3m54/",
+                    ResourcesMaterial="3m54_mat.ini", ResourcesMeshForLaunch="3m54launch",
+                    ResourcesMeshCanister="3m54launch", ResourcesMeshSwitchTime="2"),
+        particles=dict(BoosterEffectPosition="0,0,-0.06"),
+        why="Russian Submarines drew the Akula's Kalibr as the stock Tomahawk with a mod "
+            "paint. Russian Navy 21's 3M-54 model is the missile's own, with its launch stage "
+            "for the first 2 s. The Akulas of Southern Reach 02, 04, 06, 07 and 10, Southern "
+            "Watch 09 and Tasman Shield 08 and 09 fire it."),
+    "pla_hq-10": dict(
+        mod="3486502935",
+        was=dict(ResourcesFolder="weapons/wp_sa-n-5/", ResourcesRoot="wp_sa-n-5",
+                 ResourcesMesh="wp_sa-n-5", ResourcesMaterial="wp_sa-n-5_mat",
+                 ResourcesMeshForLaunch="wp_sa-n-5_dummy", ResourcesMeshSwitchTime="0.5",
+                 BoosterEffectPosition="0,0,-0.012", InFlightEffectPosition="0,0,-0.012"),
+        donor=("3775128499", "ammunition/plan_hq-10.ini"),
+        real="HQ-10 (FL-3000N)",
+        models=dict(ResourcesFolder="assets/ammunition/", ResourcesRoot="HQ-10.obj",
+                    ResourcesMesh="hq-10", ResourcesMaterialFolder="assets/ammunition/",
+                    ResourcesMaterial="hq-10_mat.ini", ResourcesMeshForLaunch="launch",
+                    ResourcesMeshSwitchTime="0.1"),
+        particles={},
+        why="The carrier mod drew the HQ-10, a 120 mm RAM-class point-defence SAM, as the "
+            "stock SA-N-5 Grail, a shoulder-launched Strela-2M. Modern PLAN Systems' HQ-10 "
+            "model is the missile's own. The Type 004 of Southern Watch D6 carries it."),
+    "wp_9m317ma": dict(
+        mod="3564792549",
+        was=dict(ResourcesFolder="weapons/wp_sa-n-7/", ResourcesRoot="wp_sa-n-7",
+                 ResourcesMesh="wp_sa-n-7", ResourcesMaterial="wp_sa-n-7_mat",
+                 BoosterEffectPosition="0,0,-0.043", InFlightEffectPosition="0,0,-0.04"),
+        donor=("3597650470", "ammunition/rfn_9m317m.ini"),
+        real="9M317MA (Buk-M3)",
+        models=dict(ResourcesFolder="assets/ammunition/9m317m/", ResourcesRoot="9m317m.obj",
+                    ResourcesMesh="9m317m", ResourcesMaterialFolder="assets/ammunition/9m317m/",
+                    ResourcesMaterial="9m317m_mat.ini", ResourcesMeshForLaunch="9m317mlaunch",
+                    ResourcesMeshSwitchTime="1.0"),
+        particles={},
+        why="The BUK-M3 mod drew its 9M317MA as the SA-N-7 (9M38), a missile two generations "
+            "older. Russian Navy 21's 9M317M model is of its own family. The Buk-M3 of "
+            "Southern Watch O7 fires it. Russian Navy 21's own rfn_9m317m never draws it in "
+            "this install (Euromod aliases and extends that id), so the mesh is unseen."),
+    # Carried only by enemy air groups.
+    "wp_as-15": _KH55,
+    "wp_as-15_antiship": _KH55,
+    "wp_as-15_antiship_nuclear": _KH55,
+    "wp_as-15_nuclear": _KH55,
+    "plan_pl-10": dict(
+        mod="3417801942",
+        was=dict(ResourcesFolder="weapons/wp_aa-8/", ResourcesRoot="wp_aa-8",
+                 ResourcesMesh="wp_aa-8", ResourcesMaterial="wp_aa-8_mat",
+                 BoosterEffectPosition="0,0,-0.005", InFlightEffectPosition="0,0,-0.005"),
+        donor=("3486502935", "ammunition/plaaf_pl-10.ini"),
+        real="PL-10",
+        models=dict(ResourcesFolder="assets/ammunition/models/", ResourcesRoot="pl-10.obj",
+                    ResourcesMesh="PL-10", ResourcesMaterialFolder="assets/ammunition/materials/",
+                    ResourcesMaterial="pl-10_mat.ini"),
+        particles=dict(BoosterEffectPosition="0,0,-0.015", InFlightEffectPosition="0,0,-0.015"),
+        why="The Chinese Navy mod drew the PL-10, a modern short-range IR missile, as the "
+            "stock AA-8 Aphid (R-60), a much smaller 1970s missile. The carrier mod's PL-10 "
+            "model is the missile's own. The J-15A of Southern Watch 08 and D6 carries it."),
+    "plan_pl-15": dict(
+        mod="3417801942",
+        was=dict(ResourcesFolder="weapons/wp_aa-7c/", ResourcesRoot="wp_aa-7c",
+                 ResourcesMesh="wp_aa-7c", ResourcesMaterial="wp_aa-7c_mat",
+                 BoosterEffectPosition="0,0,-0.038", InFlightEffectPosition="0,0,-0.038"),
+        donor=("3486502935", "ammunition/plaaf_pl-15.ini"),
+        real="PL-15",
+        models=dict(ResourcesFolder="assets/ammunition/models/", ResourcesRoot="pl-15.obj",
+                    ResourcesMesh="pl-15", ResourcesMaterialFolder="assets/ammunition/materials/",
+                    ResourcesMaterial="pl-15_mat.ini"),
+        particles=dict(BoosterEffectPosition="0,0,-0.022", InFlightEffectPosition="0,0,-0.022"),
+        why="The Chinese Navy mod drew the PL-15, a long-range active-radar missile, as the "
+            "stock AA-7 Apex (R-24). The carrier mod's PL-15 model is the missile's own. The "
+            "J-15A of Southern Watch 08 and D6 carries it."),
+    "plaaf_yj-83": dict(
+        mod="3526982088",
+        was=dict(ResourcesFolder="assets/models/ammunition/KH-31/", ResourcesRoot="kd88.obj",
+                 ResourcesMesh="kd",
+                 ResourcesMaterialFolder="assets/models/ammunition/KH-31/textures/",
+                 ResourcesMaterial="YJ83_mat.ini", BoosterEffectPosition="0,0,-0.028",
+                 InFlightEffectPosition="0,0,-0.022"),
+        donor=("3775128499", "ammunition/plan_yj-83.ini"),
+        real="YJ-83K (air-launched)",
+        models=dict(ResourcesFolder="assets/models/ammunition/", ResourcesRoot="yj_83.obj",
+                    ResourcesMesh="yj_83", ResourcesMaterialFolder="assets/models/ammunition/",
+                    ResourcesMaterial="yj_83_mat.ini"),
+        # BoosterEffect is None in this round, so its booster position stays.
+        particles=dict(InFlightEffectPosition="0,0,-0.0345"),
+        why="The JH-7A mod drew its YJ-83K on its own KD-88 body (KH-31/kd88.obj, part 'kd'). "
+            "Modern PLAN Systems' YJ-83 model is the missile's own. The JH-7A of Southern "
+            "Watch 08 and D6 carries it."),
+    # Same-family stand-ins, and roots no 0.9.2 file uses.
+    "pla_yj-83": dict(
+        mod="3594891803",
+        was=dict(ResourcesFolder="weapons/plan_yj-8/", ResourcesRoot="plan_yj-8",
+                 ResourcesMesh="plan_yj-8", ResourcesMaterial="plan_yj-8_mat",
+                 ResourcesMeshForLaunch="wplan_yj-8_dummy", ResourcesMeshSwitchTime="0.2",
+                 BoosterEffectPosition="0,0,-0.0345", InFlightEffectPosition="0,0,-0.0345"),
+        donor=("3775128499", "ammunition/plan_yj-83.ini"),
+        real="YJ-83K (air-launched; J-15/J-15D only)",
+        models=dict(ResourcesFolder="assets/models/ammunition/", ResourcesRoot="yj_83.obj",
+                    ResourcesMesh="yj_83", ResourcesMaterialFolder="assets/models/ammunition/",
+                    ResourcesMaterial="yj_83_mat.ini", ResourcesMeshForLaunch="",
+                    ResourcesMeshCanister=""),
+        particles={},
+        why="PLAN Submarines' copy, which wins over the carrier mod's identical one, draws the "
+            "YJ-83K as the stock YJ-8 (C-801), its family's older missile with no intake. "
+            "Only the J-15 and J-15D carry it, so Modern PLAN Systems' YJ-83 model is laid "
+            "without its ship-launch part."),
+    "usn_rum-139c": dict(
+        mod="3629144864",
+        was=dict(ResourcesFolder="weapons/usn_rur-5/", ResourcesRoot="usn_rur-5",
+                 ResourcesMesh="usn_rur-5", ResourcesMaterial="usn_rur-5_mat",
+                 ResourcesMeshForLaunch="usn_rur-5_dummy", ResourcesMeshCanister="usn_rur-5_dummy",
+                 ResourcesMeshSwitchTime="0.2", BoosterEffectPosition="0,0,0",
+                 InFlightEffectPosition="0,0,0", UnderwaterTrailPosition="0,0,-0.022"),
+        donor=("vanilla", "ammunition/usn_rum-139a.ini"),
+        real="RUM-139C VL-ASROC",
+        models=dict(ResourcesFolder="weapons/usn_rum-139a/", ResourcesRoot="usn_rum-139a",
+                    ResourcesMesh="usn_rum-139a", ResourcesMaterialFolder="weapons/usn_rum-139a/",
+                    ResourcesMaterial="usn_rum-139a_mat",
+                    ResourcesMeshForLaunch="usn_rum-139a_dummy", ResourcesMeshCanister=""),
+        particles={},
+        why="Euromod drew the RUM-139C VL-ASROC as the stock RUR-5 ASROC. The game's own "
+            "RUM-139A model is the missile's. The JMSDF Maya of Red Line O2 (enemy) and 03 "
+            "(neutral) fires it. US ships' RUM-139A stay the RUR-5, as Euromod draws them."),
+    "plaaf_aspide-1a": dict(
+        mod="3812111085",
+        was=dict(ResourcesFolder="weapons/usn_aim-7/", ResourcesRoot="usn_aim-7",
+                 ResourcesMesh="usn_aim-7", ResourcesMaterial="usn_aim-7_mat",
+                 ResourcesMeshForLaunch="usn_aim-7", ResourcesMeshSwitchTime="0.2",
+                 BoosterEffectPosition="0,0,-0.022", InFlightEffectPosition="0,0,-0.022"),
+        donor=("vanilla", "ammunition/it_aspide_1.ini"),
+        real="Aspide Mk.1A / PL-11",
+        models=dict(ResourcesFolder="weapons/it_aspide/", ResourcesRoot="it_aspide",
+                    ResourcesMesh="it_aspide_1", ResourcesMaterialFolder="weapons/it_aspide/",
+                    ResourcesMaterial="it_aspide_mat", ResourcesMeshForLaunch=""),
+        particles=dict(BoosterEffectPosition="0,0,-0.0275"),
+        why="The PLAAF pack drew the Aspide Mk.1A (the PL-11 is a licence copy) on an AIM-7 "
+            "root, weapons/usn_aim-7, that no 0.9.2 file uses (the game's AIM-7 root is "
+            "usa_aim-7). The game's own Aspide model is the missile's. The J-8B of Southern "
+            "Watch 08 and D6 carries it."),
+    "plan_hy-1ja": dict(
+        mod="3417801942",
+        was=dict(ResourcesFolder="weapons/wp_ss-n-2/", ResourcesRoot="wp_ss-n-2",
+                 ResourcesMesh="wp_ss-n-2", ResourcesMaterial="wp_ss-n-2_mat",
+                 ResourcesMeshForLaunch="wp_ss-n-2_dummy", ResourcesMeshSwitchTime="0.5",
+                 BoosterEffectPosition="0,0,0", InFlightEffectPosition="0,0,-0.042"),
+        donor=("vanilla", "ammunition/plan_hy-1j.ini"),
+        real="HY-1JA (Chinese P-15 copy)",
+        models=dict(ResourcesFolder="weapons/plan_silkworm_collection/",
+                    ResourcesRoot="plan_silkworm_collection", ResourcesMesh="plan_hy-1a",
+                    ResourcesMaterialFolder="weapons/plan_silkworm_collection/",
+                    ResourcesMaterial="plan_hy-1a_mat", ResourcesMeshForLaunch="plan_hy-1a_dummy"),
+        particles=dict(BoosterEffectPosition="0,0.000098,-0.011548",
+                       InFlightEffectPosition="0,0,-0.043"),
+        why="The Chinese Navy mod drew the HY-1JA, the ship-launched Chinese P-15 copy, on a "
+            "Styx root, weapons/wp_ss-n-2, that no 0.9.2 file uses. The game's own HY-1 model "
+            "is the missile's. The Luda 051DT of Southern Watch 06 and 11 fires it."),
+}
+# Held back from the 15 Nov 2026 release until the owner's PC folder check.
+# Both would draw the PLAAF Aircraft Pack's (3812111085) kd-88.obj, but the
+# J-10C (3481228992) and JH-7A (3526982088) mods both ship
+# assets/models/ammunition/KD-88/ and outrank it, and the game's file index
+# ignores case, so a kd-88.obj of theirs would replace that mesh. The export
+# has no binaries; only a listing of those two folders on the PC clears it.
+# When it is clean, pla_kd-88 goes into MISSILE_MODELS as
+#   mod="3486502935", donor=("3812111085", "ammunition/plaaf_kd-88a.ini"), real="KD-88",
+#   was=dict(ResourcesFolder="weapons/fr_am-39/", ResourcesRoot="fr_am-39",
+#            ResourcesMesh="fr_am-39", ResourcesMaterial="fr_am-39_mat",
+#            ResourcesMeshSwitchTime="0.0", BoosterEffectPosition="0,0,-0.0345",
+#            InFlightEffectPosition="0,0,-0.0345"),
+#   models=dict(ResourcesFolder="assets/models/ammunition/kd-88/", ResourcesRoot="kd-88.obj",
+#               ResourcesMesh="kd-88", ResourcesMaterialFolder="assets/models/ammunition/kd-88/",
+#               ResourcesMaterial="kd-88a_mat.ini", ResourcesMeshForLaunch="launch",
+#               ResourcesMeshSwitchTime="1.5"), particles={}
+# and plaaf_kd-88, SEST's own whole file (the plaaf_kd-88 block of main()),
+# takes the same [Models] keys and InFlightEffectPosition=0,0,-0.0345 in that
+# block rather than by a stub.
+MISSILE_MODELS_DEFERRED = {
+    "pla_kd-88": "the Type 003/004 carrier mod's KD-88, drawn as the stock AM39 Exocet",
+    "plaaf_kd-88": "SEST's own KD-88 (3486502935's file with one delta), drawn as the stock "
+                   "AM39 Exocet",
+}
+
+
+def game_ini(text, data=None):
+    """{section: {key: value}} as IniHandler.ReadFileToIni reads one file into
+    `data`; pass one dict to several calls, extends first, to read them as the
+    game merges them. A comment line is skipped and a line cut at its first
+    ';', '//' or '#'; a '[ ...]', '[=...]', '[-...]' or '[*...]' header, and a
+    header repeated within one file, drop the keys that follow; a section seen
+    in an earlier file merges; a key already present keeps its first value,
+    matched without regard to case (tools/tests/test_collection_fixes.py
+    replays the same reader)."""
+    data = {} if data is None else data
+    seen, current = [], None
+    for raw in text.splitlines():
+        line = raw.strip()
+        if re.match(r"^(//|#|;)", line):
+            continue
+        line = re.split(r";|//|#", line, maxsplit=1)[0].strip()
+        m = re.match(r"^\[(.+)\]", line)
+        if m:
+            name = m.group(1)
+            if re.match(r"^[ =\-*]", name) or name in seen:
+                current = None
+            elif name in data:
+                current = data[name]
+            else:
+                current = data[name] = {}
+                seen.append(name)
+            continue
+        parts = line.split("=")
+        if current is None or len(parts) < 2:
+            continue
+        key = parts[0].strip()
+        if key.lower() not in {k.lower() for k in current}:
+            current[key] = "=".join(x.strip() for x in parts[1:])
+    return data
+
+
+def header_directives(text):
+    """[(keyword, [targets])] for the #! lines of a file's header - every line
+    before its first '[' line, as IniHandler.ScanForModifierFiles reads it -
+    lower-cased, the targets split at commas."""
+    out = []
+    for line in text.splitlines():
+        s = line.strip().lstrip("﻿")
+        if s.startswith("["):
+            break
+        m = re.match(r"#!(\w+)\s*(.*)$", s)
+        if m:
+            out.append((m.group(1).lower(), [t.strip().replace("\\", "/").lower()
+                                             for t in m.group(2).split(",") if t.strip()]))
+    return out
+
+
+@functools.lru_cache(maxsize=None)
+def layer_index():
+    """{lower-cased path: [(token, file)], the copy the game reads first} for
+    every .ini of the layers the game reads, in load_rank() order: SEST's packs
+    (as SEST_Integration; the consolidated dist aside), every mod in the load
+    order, then the game's own files. Paths match without regard to case, as
+    the game's layer index does (OrdinalIgnoreCase)."""
+    rank = load_rank()
+    layers = [(rank.get("SEST_Integration", -1), "SEST_Integration", p)
+              for p in sorted((ROOT / "integration").glob("*/SEST_*"))
+              if p.is_dir() and p.parent.name != "dist"]
+    layers += [(r, t, MODS / t) for t, r in rank.items()
+               if t != "SEST_Integration" and (MODS / t).is_dir()]
+    layers.append((len(rank), "_vanilla/original", MODS / "_vanilla" / "original"))
+    out = {}
+    for _r, tok, root in sorted(layers, key=lambda layer: layer[0]):
+        for p in sorted(root.rglob("*")):
+            if p.suffix.lower() == ".ini" and p.is_file():
+                out.setdefault(p.relative_to(root).as_posix().lower(), []).append((tok, p))
+    return out
+
+
+@functools.lru_cache(maxsize=None)
+def header_targets():
+    """{lower-cased target: [(keyword, token, file)]} for every #! directive in
+    the header of every copy of every file in the layers. Losing copies are
+    read too: which layers' modifier files the game registers is not narrowed
+    here."""
+    out = {}
+    for copies in layer_index().values():
+        for tok, p in copies:
+            for kw, targets in header_directives(read_file(p)):
+                for target in targets:
+                    out.setdefault(target, []).append((kw, tok, p))
+    return out
+
+
+def is_modifier(text):
+    return any(kw in ("extend", "prepend") for kw, _t in header_directives(text))
+
+
+@functools.lru_cache(maxsize=None)
+def ammunition_records():
+    """{lower-cased 'ammunition/<id>.ini': [(file, its [Models] keys, is the
+    base)]} for every round the layers define: each file that #!extends or
+    #!prepends it, then its base - the first copy that is not a modifier
+    itself - and, through an #!alias, the base that one reads."""
+    index, targets = layer_index(), header_targets()
+
+    def models(p):
+        return game_ini(read_file(p)).get("Models", {})
+
+    def base(rel, depth=0):
+        for _tok, p in index.get(rel, []):
+            text = read_file(p)
+            if is_modifier(text):
+                continue
+            out = [(p, models(p), True)]
+            for kw, aliased in header_directives(text):
+                if kw == "alias" and depth < 4:
+                    out += [r for t in aliased for r in base(t, depth + 1)]
+            return out
+        return []
+
+    rels = {r for r in index if r.startswith("ammunition/")}
+    rels |= {t for t in targets if t.startswith("ammunition/")}
+    return {rel: [(p, models(p), False) for kw, _tok, p in targets.get(rel, [])
+                  if kw in ("extend", "prepend")] + base(rel)
+            for rel in sorted(rels)}
+
+
+def model_root(models):
+    """ResourcesFolder + ResourcesRoot, lower-cased: the path the loader caches
+    a root's template under."""
+    low = {k.lower(): v for k, v in models.items()}
+    folder = low.get("resourcesfolder", "").replace("\\", "/").strip().rstrip("/")
+    return f"{folder}/{low.get('resourcesroot', '').strip()}".lower()
+
+
+def check_shared_templates(roots):
+    """Stop the build if any round the layers define - whole files, aliases,
+    and every extend or prepend over one, SEST's own included - sets a
+    ResourcesMesh* Position, Rotation or Scale key while drawn from a root in
+    `roots` ({root: [MISSILE_MODELS ids]})."""
+    for rel, files in ammunition_records().items():
+        merged, base = {}, {}
+        for _p, keys, is_base in files:
+            for k, v in keys.items():
+                merged.setdefault(k.lower(), v)
+                if is_base:
+                    base.setdefault(k.lower(), v)
+        drawn = {model_root(merged), model_root(base)} & set(roots)
+        sets = [(p, k, v) for p, keys, _b in files for k, v in keys.items()
+                if MODEL_TRANSFORM.match(k)]
+        if drawn and sets:
+            root = sorted(drawn)[0]
+            sys.exit(f"{rel}: drawn from {root}, which {', '.join(roots[root])} now draw(s), "
+                     "and " + "; ".join(f"{p.relative_to(ROOT).as_posix()} sets {k}={v}"
+                                        for p, k, v in sets)
+                     + ". The loader writes that onto the template every round of the root "
+                     "shares, so it would move, turn or scale those rounds too - drop the "
+                     "entry or pick another root (MISSILE_MODELS)")
+
+
+@functools.lru_cache(maxsize=None)
+def vanilla_model_blocks():
+    """[(file name, (folder, root, material) lower-cased)] for the game's own rounds."""
+    out = []
+    for f in sorted((MODS / "_vanilla" / "original" / "ammunition").glob("*.ini")):
+        m = {k.lower(): v for k, v in game_ini(read_file(f)).get("Models", {}).items()}
+        out.append((f.name, tuple(m.get(k, "").lower() for k in
+                                  ("resourcesfolder", "resourcesroot", "resourcesmaterial"))))
+    return out
+
+
+def missile_stub(uid, spec):
+    """The text of ammunition_overwrite/<uid>_SEST.ini, or sys.exit with what
+    stopped it (the guards are listed above MODEL_KEYS)."""
+    rel, name = f"ammunition/{uid}.ini".lower(), f"{uid}_SEST.ini"
+    models, particles = spec["models"], spec["particles"]
+    scaled = [k for k in list(models) + list(particles) if "scale" in k.lower()]
+    if scaled:
+        sys.exit(f"{uid}: the entry sets {', '.join(scaled)} - the loader writes it onto the "
+                 "template every round of the root shares, so no entry may scale its mesh")
+    stray = [k for k in models if k not in MODEL_KEYS]
+    stray += [k for k in particles if not MODEL_POSITION.match(k)]
+    if stray:
+        sys.exit(f"{uid}: {', '.join(stray)} is not a model or effect-position key - the "
+                 "stubs set those only (MODEL_KEYS)")
+    copies = layer_index().get(rel, [])
+    if not copies:
+        sys.exit(f"{uid}: no layer ships {rel} - drop it from MISSILE_MODELS")
+    tok, path = copies[0]
+    mod = spec["mod"]
+    if tok.lower() != mod.lower():
+        sys.exit(f"{uid}: {tok}'s copy wins now, not {mod}'s - re-check the round the stub "
+                 "lands on and update MISSILE_MODELS")
+    text = read(tok, path.relative_to(MODS / tok).as_posix())
+    if text.lstrip().startswith("#!") or header_directives(text):
+        sys.exit(f"{uid}: {mod}'s file is an alias/extend itself - extend its base instead")
+    aimed = [(kw, p) for kw, t, p in header_targets().get(rel, [])
+             if not (t == "SEST_Integration" and p.parent.name == "ammunition_overwrite"
+                     and p.name.lower() == name.lower())]
+    if aimed:
+        sys.exit(f"{uid}: " + "; ".join(f"{p.relative_to(ROOT).as_posix()} #!{kw}s it"
+                                        for kw, p in aimed)
+                 + " - decide which keys win before laying a model over it")
+    clash = [t for t, _p in layer_index().get(f"ammunition_overwrite/{name}".lower(), [])
+             if t != "SEST_Integration"]
+    if clash:
+        sys.exit(f"{uid}: {', '.join(clash)} ships ammunition_overwrite/{name}, which this "
+                 "stub would replace - rename the stub")
+    base = game_ini(text)
+    own_models, own_particles = base.get("Models", {}), base.get("Particles", {})
+    inherited = sorted(k for k in own_models if MODEL_INHERITED.match(k))
+    if inherited:
+        sys.exit(f"{uid}: {mod}'s [Models] sets {', '.join(inherited)}, which the new mesh "
+                 "would inherit and an #!extend cannot remove - decide them first")
+    if any(k.lower() == "resourcesmaterialfolder" for k in own_models) \
+            and "ResourcesMaterialFolder" not in models:
+        sys.exit(f"{uid}: {mod}'s round sets ResourcesMaterialFolder and the entry does not - "
+                 "the new material would be looked for in the round's own folder")
+    missing = [k for k in particles if k not in own_particles]
+    if missing:
+        sys.exit(f"{uid}: {mod}'s [Particles] sets no {', '.join(missing)} - the entry would "
+                 "add a position for an effect the round does not have")
+    have = {k: v for k, v in own_models.items() if k.lower().startswith("resources")}
+    have.update({k: v for k, v in own_particles.items() if MODEL_POSITION.match(k)})
+    if have != spec["was"]:
+        changes = [f"{k}={have.get(k, '(not set)')}, recorded {spec['was'].get(k, '(not set)')}"
+                   for k in sorted(set(have) | set(spec["was"]))
+                   if have.get(k) != spec["was"].get(k)]
+        sys.exit(f"{uid}: {mod}'s model or effect positions changed upstream - "
+                 + "; ".join(changes) + ". Re-check the entry against the round, then update "
+                 "'was' in MISSILE_MODELS")
+    dmod, drel = spec["donor"]
+    dtok = "_vanilla/original" if dmod == "vanilla" else dmod
+    donor = game_ini(read(dtok, drel))
+    for k, v in models.items():
+        want = donor.get("Models", {}).get(k)
+        if k == "ResourcesMaterialFolder" and want is None:
+            want = donor.get("Models", {}).get("ResourcesFolder")   # the loader's default
+        if k in ("ResourcesMeshForLaunch", "ResourcesMeshCanister") and v == "":
+            continue                                                 # no stage part drawn
+        if want != v:
+            sys.exit(f"{uid}: [Models] {k}={v}, but the donor {dmod}'s {drel} has "
+                     f"{want if want is not None else '(not set)'} - re-check the model")
+    pmod, prel, pkey = spec.get("positions") or (dmod, drel, None)
+    source = game_ini(read("_vanilla/original" if pmod == "vanilla" else pmod, prel))
+    for k, v in particles.items():
+        want = source.get("Particles", {}).get(pkey or k)
+        if want != v:
+            sys.exit(f"{uid}: [Particles] {k}={v}, but {pmod}'s {prel} has {pkey or k}="
+                     f"{want if want is not None else '(not set)'} - re-check the nozzle")
+    eff = {k.lower(): v for k, v in game_ini(text, {"Models": dict(models)})["Models"].items()}
+    mat = eff.get("resourcesmaterial", "")
+    folder = eff.get("resourcesmaterialfolder") or eff.get("resourcesfolder", "")
+    if mat.lower().endswith(".ini"):
+        where = (folder.replace("\\", "/").rstrip("/") + "/" + mat).lower()
+        found = layer_index().get(where, [])
+        if not found:
+            sys.exit(f"{uid}: its material {where} is in no layer")
+        if found[0][0] != dtok:
+            theirs = [p for t, p in found if t == dtok]
+            if not theirs:
+                sys.exit(f"{uid}: its material {where} comes from {found[0][0]}, and the donor "
+                         f"{dmod} ships none - re-check whose model this is")
+            if read_file(theirs[0]).replace("\r\n", "\n").strip() != \
+                    read_file(found[0][1]).replace("\r\n", "\n").strip():
+                sys.exit(f"{uid}: its material {where} is shadowed: {found[0][0]}'s copy, "
+                         f"which the game reads, differs from the donor {dmod}'s")
+    else:
+        block = (eff.get("resourcesfolder", "").lower(), eff.get("resourcesroot", "").lower(),
+                 mat.lower())
+        if not any(b == block for _f, b in vanilla_model_blocks()):
+            sys.exit(f"{uid}: the built-in material {mat} is paired with "
+                     f"{block[0]}{block[1]} by no 0.9.2 file - re-check the model")
+    lines = [f"#!extend {rel}", "",
+             f"# SEST Collection Fixes: {uid} ({tok}) is drawn with the model of the",
+             f"# {spec['real']} from {dmod}'s {drel}. Model and effect-",
+             "# position keys only; flight, seeker, warhead, signature, effects and name stay",
+             "# the author's.", "", "[Models]"]
+    lines += [f"{k}={models[k]}" for k in MODEL_KEYS if k in models]
+    if particles:
+        lines += ["", "[Particles]"] + [f"{k}={v}" for k, v in particles.items()]
+    stub = "\n".join(lines) + "\n"
+    if header_directives(stub) != [("extend", [rel])] or game_ini(stub) != dict(
+            Models=dict(models), **({"Particles": dict(particles)} if particles else {})):
+        sys.exit(f"{uid}: the stub does not read back as the entry - check 'real' and the keys")
+    return stub
+
+
+def build_missile_models():
+    """ammunition_overwrite/<id>_SEST.ini for each id in MISSILE_MODELS, after
+    every guard has passed. main() empties the folder first
+    (clean_ammunition_overwrite). Returns 'id (donor)' per round."""
+    for other, table in ((AIM424_ROUNDS, "AIM424_ROUNDS"),
+                         (MISSILE_MODELS_DEFERRED, "MISSILE_MODELS_DEFERRED")):
+        both = sorted(set(MISSILE_MODELS) & set(other))
+        if both:
+            sys.exit(f"{', '.join(both)}: in MISSILE_MODELS and {table} - one extend per "
+                     "round; decide which table it belongs to")
+    stubs, roots, done = {}, {}, []
+    for uid, spec in MISSILE_MODELS.items():
+        stubs[f"{uid}_SEST.ini"] = missile_stub(uid, spec)
+        roots.setdefault(model_root(spec["models"]), []).append(uid)
+        done.append(f"{uid} ({'game' if spec['donor'][0] == 'vanilla' else spec['donor'][0]})")
+    check_shared_templates(roots)
+    out_dir = OUT / "ammunition_overwrite"
+    out_dir.mkdir(parents=True, exist_ok=True)
+    for name, text in stubs.items():
+        (out_dir / name).write_text(text, encoding="utf-8", newline="\n")
     return done
 
 
