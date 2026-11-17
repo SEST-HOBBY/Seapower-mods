@@ -1,5 +1,12 @@
 Change log
 ----------
+[u8.24]
+-Added Compatibility for 0.8.7
+-Added Compatibility for 0.9.X Public Beta
+-Added 10 second grace period after mission load, in which Custom Loadouts will be instant (temporary addition, in lieu of proper campaign integration)
+-Fixed Custom Loadouts not appearing on 0.9.X
+-Fixed Unknown Linked Aircraft loadout in Falklands campaign UK02
+
 [u8.23]
 -Updated to Game Version 0.9.0
 

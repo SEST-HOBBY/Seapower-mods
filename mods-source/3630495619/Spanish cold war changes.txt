@@ -1,14 +1,23 @@
 SPANISH MOD (#coldwar)  CHANGELOG
 
+v3.72 - 20261115
+
+	- The English voiceover is being restored for Spanish units—replacing the new Argentine-accented ones—until the developers add specific voice options for Spanish.
+	- AB-212: New static model, non-EW version.
+	- R01: The exit angle of the deck elevator for the MD500 and Alouette II helicopters on the Dédalo was set to 0º.
+	- R01: The static helicopters on the Dédalo Late have been modified.
+	- R01: Improvements to flight deck operations.
+
+
 v3.71 - 20261112
 
 	- Added support for game update 0.9.0
 	- R01: Changed the LandingInterval value to 50 for aircraft landing points.
 	- R01: Changed the LandingInterval value to 60 for helicopter landing points.
-	- R01: Updated Marshal Paths to avoid issues in the latest beta.
+	- R01: Updated Rally Points to avoid issues in the latest beta.
 	- R11: Changed the LandingInterval value to 50 for aircraft landing points.
 	- R11: Changed the LandingInterval value to 60 for helicopter landing points.
-	- R11: Updated Marshal Paths to avoid issues in the latest beta.
+	- R11: Updated Rally Points to avoid issues in the latest beta.
 
 v3.70 - 20261110 - Happy Birthday Inma Edition.
 
