@@ -161,7 +161,6 @@ shared file wins for the mods above.
   3810611344    MV-75 Cheyenne II
   3595014060    NATO E-3A Sentry
   3603367264    NATO Ground Enhancement Series 2: Artillery
-  3551621846    NEBO-U
   3432592449    Nimitz Expanded
   3779799226    Operation STEADFAST LANTERN
   3752415457    Philippines: The Luzon Line
@@ -223,6 +222,7 @@ shared file wins for the mods above.
   3670643788    Shenyang J-50 (沈阳航空工业 歼-50)
   3601891050    Small and Medium-Sized UAV Series [WIP] (中小型无人机系列)
   3524112296    Soviet AEW&C + Transport Aircraft (A-50 / Il-76)
+  3551621846    SOVIET/RUSSIAN MODERN RADARS
   3820576916    Steelfin
   3451166840    Su-25 Frogfoot
   3762023575    Su-30SM2

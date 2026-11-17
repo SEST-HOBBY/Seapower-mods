@@ -1,32 +1,39 @@
-R14 SEA POWER 0.9.2 BUILD 261113 — 14 NOVEMBER 2026
-Runtime 1.7.0 / UI 1.5.0 / loader bootstrap 0.6.0, for Seapower-Scripts.dll
-3f56861f only. R13 was for beta 0.8.7-261107 and is inactive on 0.9.2.
+R15 SEA POWER 0.9.3 BUILD 261116 (PUBLIC BETA) — 17 NOVEMBER 2026
+Runtime 1.8.0 / UI 1.6.0 / loader bootstrap 0.7.0, for Seapower-Scripts.dll
+aae79728 only: the 0.9.3 Build 261116 public beta, the file on the owner's PC.
+The 0.9.3 public release is a different file; R15 stays off on it, as R14
+(for 0.9.2 Build 261113) stays off on every 0.9.3 file.
 
-What changed for 0.9.2
-- Pins moved to the 14 November capture: the game, Noesis, Anchor Chain 1.2.0,
-  Pop-Out Windows 1.2.3 and three Unity modules. Steam's 15 November Anchor
-  Chain refresh (071df2d9, with a second loader, R.A.T.S. Keel) was rolled
-  back by its author the same day; the pin is the original 1.2.0 (17abaf4b). The enable flag is new: an
-  installation that was enabled before (journal 'enabled') is repaired to R14
+What changed for 0.9.3
+- Pins moved to the 17 November capture. Two of the fifteen references
+  changed: the game and Group Manager (0.2.22). The enable flag is new: an
+  installation that was enabled before (journal 'enabled') is repaired to R15
   and switched on in one Prepare-PC or SETUP run; a fresh, restored or staged
   one is staged, started once to the menu (the probe) and then enabled.
+- Group Manager 0.2.22 loads as its author built it. SEST's rewrite for
+  0.2.17 is retired; the Stock UI / Enhanced UI switch, the layout correction
+  and the Group Manager pop-out are matched to 0.2.22.
 - Every author plugin is checked against the game's real members before it
-  loads. One that names game code 0.9.2 removed is held, with the member named.
-- Author plugins whose own build check rejects 0.9.2 are held before they load.
+  loads. One that names game code 0.9.3 does not have is held, with the member
+  named. New on this list: the Custom Loadout Editor's LoadoutManager0_8_7,
+  its own variant for the old game, which its selector does not use on 0.9.
+- Author plugins whose own build check rejects 0.9.3 are held before they
+  load. The Alpine-family files re-uploaded on 16 November are held again
+  under their new hashes; each author's check was run against this game file.
 - Two current author files keep a SEST fix: Missile Control 0.1.18.1 (its own
-  startup check would switch it off on 0.9.2) and the Topographic Map 1.6.2
-  (the game's 50 m shallow-water line).
-- Mission ribbons follow 0.9.2's rule: a ribbon already held, or held as its
-  replacement, is not granted again. 0.9.2 does not let a won campaign mission
-  be played again at all.
+  startup check would switch it off) and the Topographic Map 1.6.2 (the
+  game's 50 m shallow-water line).
+- Mission ribbons follow the game's rule since 0.9.2: a ribbon already held,
+  or held as its replacement, is not granted again, and a won campaign
+  mission cannot be played again at all.
 
 BepInEx\LogOutput.log after the first launch to the menu, only when the
 features were staged (an enabled installation repaired in one run goes
 straight to the next list)
-- SEST Beta Safe Anchor Chain 0.6.0: "Sea Power 0.9.2-261113 verified (3f56861f)."
+- SEST Beta Safe Anchor Chain 0.7.0: "Sea Power 0.9.3-261116 verified (aae79728)."
 - BETA SAFE BOOTSTRAP READY; enable=False
 - Anchor Chain's own preloader still logs "Could not find AnchorChain
-  chainloader". On 0.9.2 that is expected; SEST's loader starts Anchor Chain.
+  chainloader". On 0.9.3 that is expected; SEST's loader starts Anchor Chain.
 
 With the features on, a full launch must show in BepInEx\LogOutput.log
 - BETA SAFE BOOTSTRAP READY; enable=True, then "Starting bounded Anchor Chain
@@ -34,45 +41,52 @@ With the features on, a full launch must show in BepInEx\LogOutput.log
   loader returned to bootstrap.", with no "aborted safely", "setup failed" or
   "Aborting chainload" line between them.
 - [Beta compatibility] ADAPTED lines for exactly: DynamicCampaignMod,
-  IdentifyExpanded, CoordinatedStrikeTool, SeaPowerSquadPanel, TestRange,
-  OptimalTargetDist, MissileControlMod and SeaPowerTopo.
-- [Beta compatibility] SKIPPED before CLR load, for exactly these, each with
-  its reason: EnhancedDecoyMod, MultiStageMissiles, OspreyMechanics and
-  SeaPowerTopoFlat (name a game member 0.9.2 does not have), OspreyDeckOps
-  (depends on OspreyMechanics), ExtendedGuidance (SEST profile), and the ten
-  whose own build check rejects 0.9.2: SaronicCorsairStrikeUSV, AlpineSeaPower
-  (two items), BellSystemsFixtureTilt, EC2CommsJamming, K5KrakenContactStrike,
-  AlpineExteriorCameras (two items), XQ58Shadow, MV75CrewEscape.
-- After Steam's 15 November Anchor Chain refresh: still "Could not find
-  AnchorChain chainloader" and then "Starting bounded Anchor Chain 1.1.0 fork
-  once."; no "Started the Anchor Chain runtime." line and no "R.A.T.S. Keel"
-  or "Anchor Chain bootstrap" line.
+  IdentifyExpanded, CoordinatedStrikeTool, TestRange, OptimalTargetDist,
+  MissileControlMod and SeaPowerTopo. No ADAPTED line for SeaPowerSquadPanel:
+  Group Manager 0.2.22 loads from its own file.
+- [Beta compatibility] SKIPPED before CLR load, for exactly these seventeen,
+  each with its reason: EnhancedDecoyMod, MultiStageMissiles, OspreyMechanics,
+  SeaPowerTopoFlat and LoadoutManager0_8_7 (name a game member 0.9.3 does not
+  have), OspreyDeckOps (depends on OspreyMechanics), ExtendedGuidance (SEST
+  profile), and the ten whose own build check rejects 0.9.3:
+  SaronicCorsairStrikeUSV, AlpineSeaPower (two items), BellSystemsFixtureTilt,
+  EC2CommsJamming, K5KrakenContactStrike, AlpineExteriorCameras (two items),
+  XQ58Shadow, MV75CrewEscape.
+- Still "Could not find AnchorChain chainloader" and then "Starting bounded
+  Anchor Chain 1.1.0 fork once."; no "Started the Anchor Chain runtime." line
+  and no "R.A.T.S. Keel" or "Anchor Chain bootstrap" line.
+- New since the last PC run, to read once: "Loaded plugin" lines for the
+  Custom Loadout Editor's selector (SelectCLMVersion), Kinematic Range Uncap,
+  and the Liaoning's "ACC CV16" and "J-15 Systems"; none of them has run under
+  SEST's loader before.
 - Also expected, not one of these: "[Beta compatibility] SKIPPED native library
   before CLR metadata scan: version.dll; original file retained." (Saronic
   Corsair's own native helper).
 - "Loaded assembly" for every other author plugin, with no "Error loading
   assembly" line. Sub Ammunition, Second Thrust, Automatic SAR and Parallel
   Range Probe now load as their authors built them, without a SEST rewrite:
-  check each one works. Sub Ammunition's item also ships its pre-0.9 files in
-  backups\ (SecondThrustMod_pre-090-api.dll, SubAmmunitionMod_pre-090-api.dll).
-  Anchor Chain reads subfolders, so a second "Loaded assembly SecondThrustMod"
-  and "SubAmmunitionMod" line and two "Attempted to load a duplicate plugin"
-  warnings are expected; the current files load first and are the ones that
-  run.
+  check each one works. Sub Ammunition's item no longer ships its pre-0.9
+  files in backups\ (removed by its author on 17 November), so the two
+  "Attempted to load a duplicate plugin" warnings of the 0.9.2 runs should be
+  gone.
 
 And in Player.log (%USERPROFILE%\AppData\LocalLow\Triassic Games\Sea Power),
 where SEST's own lines are written
-- the "[SEST Runtime] ... installed" lines and "[SEST UI Follow-up] 1.5.0 beta
-  input fix installed; full Runtime 1.7.0 paired", with no "[SEST Runtime] ...
+- the "[SEST Runtime] ... installed" lines and "[SEST UI Follow-up] 1.6.0 beta
+  input fix installed; full Runtime 1.8.0 paired", with no "[SEST Runtime] ...
   disabled for this session" line.
+- "Formation UI mode control installed", "Formation performance: idle
+  discovery ..." and "Group Manager 0.2.22 pop-out bridge installed", and no
+  "Uninspected assembly: SeaPowerSquadPanel" line (the 16 and 17 November
+  sessions had three, with Group Manager 0.2.22 under R14).
 
 Then play the checks in the sections below (F11 costs and history, debrief,
 second-mission preparation, World Operations, Coordinated Strike, Contacts and
 Formation pop-out/return with Pop-Out 1.2.3, Identify). For Red Line, read the
 two '[SEST Runtime] debrief mission N: runtime ribbon' verdict lines for RL05
-and RLC1. A won mission cannot be played again on 0.9.2: copy the campaign
+and RLC1. A won mission cannot be played again since 0.9.2: copy the campaign
 save before RL05 and RLC1 and restore it for each further run (the Red Line
-test card says which). After testing, run R14\Capture-Repair-Results.cmd and
+test card says which). After testing, run R15\Capture-Repair-Results.cmd and
 send the capture.
 
 R12 WORKSHOP-INCLUDED FEATURES — 9 NOVEMBER 2026
@@ -117,7 +131,7 @@ That imports the reviewed source, checks author config updates, repairs
 the beta code and installs the backed-up campaign data. It prints separate
 data backup and canonical upload paths. It never submits anything to Steam.
 
-Run the root Prepare-PC.cmd once. R14\Repair-Beta-Startup.cmd alone changes
+Run the root Prepare-PC.cmd once. R15\Repair-Beta-Startup.cmd alone changes
 code only; the root command also installs the new world and ribbon data.
 If a check stops, retain its report and send the error. Do not print a
 success message or continue installing after a failed author-update check.
@@ -170,8 +184,8 @@ COORDINATED STRIKE TOOL
   the planner with a Noesis window or change its scheduling/launch algorithms.
 
 COMPATIBILITY AND REGRESSION CHECKS
-- Topography: the current 3D map loads as its author built it (R14 retires
-  the 1.5/1.6 rewrites); the flat-only image is held on 0.9.2.
+- Topography: the current 3D map loads as its author built it (R15 retires
+  the 1.5/1.6 rewrites); the flat-only image is held on 0.9.3.
 - Current Pop-Out Windows 1.2.3 is recognised by its inspected hash. Check Contacts,
   Group Manager and F11 windows on the main and secondary display.
 - F8 strike panel pop-out: OFF by default since 15 Nov (on the owner's PC Unity
@@ -203,7 +217,7 @@ from the imported source checkout with -PackPath pointing at Workshop item
 to one world entry. It never rewrites a save. Your current regional saves do
 not require this activation.
 
-After testing, quit and run R14\Capture-Repair-Results.cmd; send the new capture.
+After testing, quit and run R15\Capture-Repair-Results.cmd; send the new capture.
 Managed and installer checks cannot verify native Noesis rendering, Steam
 upload behavior or a complete world campaign. Treat this as a beta candidate
 until those PC checks pass. The canonical upload keeps normal-release active plugins and carries the

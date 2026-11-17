@@ -17,7 +17,7 @@
     runs sest-ui-keys.ps1 only when it and Contact Log's settings exist, a
     failure there is a warning, not a stop, and Contact Log downloaded with
     no settings yet is one note; step 1's sest-profile.ps1 names Sea Power
-    0.9.2 Build 261113 (the build the bundled R14 features are for), Build
+    0.9.3 Build 261116 (the build the bundled R15 features are for), Build
     261021, a beta or another game file by Seapower-Scripts.dll's SHA-256
     (and, for another file, the version the game's changelog gives and the
     one the pack's data declares), makes the discontinued PR #53
@@ -426,7 +426,7 @@ try {
     $profileTool = J $src 'sest-profile.ps1'
     $toolText = [IO.File]::ReadAllText($profileTool)
     Check ($toolText.Contains("'eab2297ba92c6013958bdb2cf16d5794a4731330818ce353f89dc2241e16a3bd'") -and $toolText.Contains("'3005bc6d4221a921008778a18dec06515d98c63d3afb6a3a2835b985ab2e7d62'")) "sest-profile.ps1 knows the stable Build 261021 and beta Build 261026 Seapower-Scripts.dll hashes"
-    Check ($toolText.Contains("[string]`$ReleaseSha256 = '3f56861f09e867f315b194c81a7a2450154ccc6bb5afb769b4956dfd4a00503a'")) "sest-profile.ps1 knows the Sea Power 0.9.2 Build 261113 Seapower-Scripts.dll hash"
+    Check ($toolText.Contains("[string]`$ReleaseSha256 = 'aae79728d911669aec8a84c5adb1c271d57ca27c585e00ba7f5ebe3d4ec47a74'")) "sest-profile.ps1 knows the Sea Power 0.9.3 Build 261116 Seapower-Scripts.dll hash"
     Check ($toolText -notmatch '(?m)^\s*exit\b') "sest-profile.ps1 never exits with a code of its own"
     function BuildCheck([string[]]$more) {
         $a = @('-NoProfile', '-NonInteractive', '-ExecutionPolicy', 'Bypass', '-File', $profileTool, '-GameDir', $game, '-PassThru') + $more
@@ -438,17 +438,17 @@ try {
     # 14a. The known builds, the tool on its own (a stand-in file's hash
     # passed for the one under test).
     $r = BuildCheck @('-ReleaseSha256', $h)
-    Check ($r.Code -eq 0 -and $r.Count -eq '0' -and $r.Out -match '\[ok\]   game code: Sea Power 0\.9\.2 Build 261113, the build SEST''s bundled R14 features were reviewed for' -and $r.Out -match 'SETUP''s last step installs or updates them on this build, unless you switched them off\.' -and $r.Out -match 'SEST Runtime Fixes 1\.5\.0 and SEST UI Follow-up, matched to Build 261021, stay off on it under their own SHA-256 checks' -and $r.Out -notmatch 'can start, each only') "0.9.2 hash: Build 261113, the build the bundled R14 features are for; Runtime Fixes 1.5.0 and UI Follow-up off; no warning"
+    Check ($r.Code -eq 0 -and $r.Count -eq '0' -and $r.Out -match '\[ok\]   game code: Sea Power 0\.9\.3 Build 261116 public beta, the build SEST''s bundled R15 features were reviewed for' -and $r.Out -match 'SETUP''s last step installs or updates them on this build, unless you switched them off\.' -and $r.Out -match 'SEST Runtime Fixes 1\.5\.0 and SEST UI Follow-up, matched to Build 261021, stay off on it under their own SHA-256 checks' -and $r.Out -notmatch 'can start, each only') "0.9.3 public beta hash: Build 261116, the build the bundled R15 features are for; Runtime Fixes 1.5.0 and UI Follow-up off; no warning"
     $r = BuildCheck @('-StableSha256', $h)
     Check ($r.Code -eq 0 -and $r.Count -eq '0' -and $r.Out -match '\[ok\]   game code: Sea Power 0\.8\.7 Build 261021, the build SEST Runtime Fixes 1\.5\.0 and SEST UI Follow-up are matched to' -and $r.Out -notmatch 'this pack targets' -and $r.Out -match 'SEST Runtime Fixes 1\.5\.0 and SEST UI Follow-up can start, each only if its own SHA-256 checks pass') "stable hash: Build 261021, the plugins may start under their own checks, no warning"
     $r = BuildCheck @('-CurrentBetaSha256', $h)
-    Check ($r.Count -eq '0' -and $r.Out -match '0\.8\.7-261107 \(499675cd\.\.\.\)' -and $r.Out -match '9 November 2026' -and $r.Out -match 'R13' -and $r.Out -match 'R14, for Sea Power 0\.9\.2 Build 261113 only: SETUP installs none of them on this build' -and $r.Out -match 'puts the\s+normal SEST plugins back' -and $r.Out -notmatch 'SETUP installs them on this build') '0.8.7-261107 beta: named as the build R13 was for; the bundled R14 features are not installed there; no warning'
+    Check ($r.Count -eq '0' -and $r.Out -match '0\.8\.7-261107 \(499675cd\.\.\.\)' -and $r.Out -match '9 November 2026' -and $r.Out -match 'R13' -and $r.Out -match 'R15, for the Sea Power 0\.9\.3 Build 261116 public beta only: SETUP installs none of them on this build' -and $r.Out -match 'puts the\s+normal SEST plugins back' -and $r.Out -notmatch 'SETUP installs them on this build') '0.8.7-261107 beta: named as the build R13 was for; the bundled R15 features are not installed there; no warning'
     $r = BuildCheck @('-PreviousBetaSha256', $h)
     Check ($r.Count -eq '0' -and $r.Out -match '7 November 2026' -and $r.Out -match 'R7') 'previous captured assembly: R7 profile retained'
     $r = BuildCheck @('-BetaSha256', $h)
     Check ($r.Code -eq 0 -and $r.Count -eq '0' -and $r.Out -match '\[note\] game code: Sea Power 0\.8\.7 Build 261026, a beta build of October 2026\.' -and $r.Out -notmatch 'This pack targets' -and $r.Out -match 'stay off under their SHA-256 checks' -and $r.Out -match 'Anchor Chain preloader finds no chainloader, so no Anchor Chain mod loads' -and $r.Out -match 'test candidate only; nothing installs it') "beta hash: Build 261026, plugins off under their SHA checks, no chainloader, the fork a test candidate, a note not a warning"
     $r = BuildCheck @()
-    Check ($r.Code -eq 0 -and $r.Count -eq '0' -and $r.Out -match ('\[note\] game code: Seapower-Scripts\.dll SHA-256 ' + $h.Substring(0, 16) + '\.\.\. is not a file SEST''s own code plugins are matched to\.') -and $r.Out -match 'stay off on it\. The pack''s campaigns and data files do not depend on it\.' -and $r.Out -match 'SEST''s bundled R14 features are for the Sea Power 0\.9\.2 Build 261113 file \(3f56861f\.\.\.\) only; SETUP does not install them on this one\.' -and $r.Out -notmatch 'not recognised|data only|neither Build') "unknown hash: named by its first 16 digits as a file no SEST plugin is matched to, the bundled R14 features not for it, no warning"
+    Check ($r.Code -eq 0 -and $r.Count -eq '0' -and $r.Out -match ('\[note\] game code: Seapower-Scripts\.dll SHA-256 ' + $h.Substring(0, 16) + '\.\.\. is not a file SEST''s own code plugins are matched to\.') -and $r.Out -match 'stay off on it\. The pack''s campaigns and data files do not depend on it\.' -and $r.Out -match 'SEST''s bundled R15 features are for the Sea Power 0\.9\.3 Build 261116 public beta file \(aae79728\.\.\.\) only; SETUP does not install them on this one\.' -and $r.Out -match 'The public release of 0\.9\.3 Build 261116 is a different file from the public beta\.' -and $r.Out -notmatch 'not recognised|data only|neither Build') "unknown hash: named by its first 16 digits as a file no SEST plugin is matched to, the bundled R15 features not for it, no warning"
     # The game's own changelog names the version, and the pack's _info.ini
     # (beside the script in a built pack, not in the source folder) what its
     # data is built for.
@@ -502,13 +502,13 @@ try {
     $r = BuildCheck @()
     Check ($r.Count -eq '1' -and $r.Out -match 'SEST has no record of Anchor Chain loading on this game build' -and $r.Out -match 'campaigns and data files play without it' -and $r.Out -notmatch 'reinstall the preloader') "on a file no SEST plugin is matched to the last-launch warning says what is known and does not send the player to reinstall"
     $r = BuildCheck @('-CurrentBetaSha256', $h)
-    Check ($r.Count -eq '1' -and $r.Out -match 'now for Sea Power 0\.9\.2 Build 261113 only, do not start it here' -and $r.Out -notmatch 'installs the bundled') "on the 0.8.7-261107 beta the last-launch warning says the bundled features no longer start Anchor Chain there"
+    Check ($r.Count -eq '1' -and $r.Out -match 'now for the Sea Power 0\.9\.3 Build 261116 public beta only, do not start it here' -and $r.Out -notmatch 'installs the bundled') "on the 0.8.7-261107 beta the last-launch warning says the bundled features no longer start Anchor Chain there"
     # 14e. SEST's bundled loader (SEST.BetaSafeBootstrap.dll, its log lines
     # as integration\beta-anchorchain\SEST.BetaSafeBootstrap.cs writes them).
-    # On 0.9.2 Anchor Chain's own preloader always finds no chainloader; the
+    # On 0.9.3 Anchor Chain's own preloader always finds no chainloader; the
     # bootstrap waits for the Workshop folders and starts Anchor Chain itself.
     $notFound = "[Error  :AnchorChain Preloader] Could not find AnchorChain chainloader`r`n"
-    $boot = "[Info   :   BepInEx] Loading [SEST Beta Safe Anchor Chain 0.6.0]`r`n[Info   :SEST Beta Safe Anchor Chain] Sea Power 0.9.2-261113 verified (3f56861f). Startup probe only until explicit enable.flag is present.`r`n"
+    $boot = "[Info   :   BepInEx] Loading [SEST Beta Safe Anchor Chain 0.7.0]`r`n[Info   :SEST Beta Safe Anchor Chain] Sea Power 0.9.3-261116 verified (aae79728). Startup probe only until explicit enable.flag is present.`r`n"
     $readyOff = "[Info   :SEST Beta Safe Anchor Chain] BETA SAFE BOOTSTRAP READY; enable=False roots=3 workshopRegistered=True`r`n"
     $readyOn = "[Info   :SEST Beta Safe Anchor Chain] BETA SAFE BOOTSTRAP READY; enable=True roots=3 workshopRegistered=True`r`n[Info   :SEST Beta Safe Anchor Chain] Starting bounded Anchor Chain 1.1.0 fork once.`r`n"
     $chained = "[Info   :AnchorChain] Loaded assembly SEST.RuntimeFixes, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null`r`n[Info   :AnchorChain] Loaded AnchorChain V1.1.0!`r`n"
@@ -518,22 +518,22 @@ try {
     # SEST's loader starts Anchor Chain once SETUP has switched it on.
     Put $bepLog (Bytes ($started + $notFound + $boot + $readyOff))
     $r = BuildCheck @('-ReleaseSha256', $h)
-    Check ($r.Count -eq '1' -and $r.Out -match "BepInEx\\LogOutput\.log says 'Could not find AnchorChain chainloader'" -and $r.Out -match 'SEST''s bundled loader is installed but was not switched on at that launch' -and $r.Out -notmatch '\[ok\]   last launch') "on 0.9.2 with SEST's loader not switched on (enable=False), the preloader's line is one warning that says the loader was installed but off"
-    # No SEST bootstrap line at all on 0.9.2: SEST's loader is not installed yet.
+    Check ($r.Count -eq '1' -and $r.Out -match "BepInEx\\LogOutput\.log says 'Could not find AnchorChain chainloader'" -and $r.Out -match 'SEST''s bundled loader is installed but was not switched on at that launch' -and $r.Out -notmatch '\[ok\]   last launch') "on 0.9.3 with SEST's loader not switched on (enable=False), the preloader's line is one warning that says the loader was installed but off"
+    # No SEST bootstrap line at all on 0.9.3: SEST's loader is not installed yet.
     Put $bepLog (Bytes ($started + $notFound))
     $r = BuildCheck @('-ReleaseSha256', $h)
-    Check ($r.Count -eq '1' -and $r.Out -match 'once SETUP''s last step has installed and switched on the bundled features' -and $r.Out -notmatch '\[ok\]   last launch') "on 0.9.2 with no SEST loader in the log: one warning that says SETUP's last step installs it"
+    Check ($r.Count -eq '1' -and $r.Out -match 'once SETUP''s last step has installed and switched on the bundled features' -and $r.Out -notmatch '\[ok\]   last launch') "on 0.9.3 with no SEST loader in the log: one warning that says SETUP's last step installs it"
     # The loader timed out, or stopped before it started: its own reason.
     Put $bepLog (Bytes ($started + $notFound + $boot + "[Warning:SEST Beta Safe Anchor Chain] Safe bootstrap never observed a stable, registered Workshop directory. Not loading any plugin.`r`n"))
     $r = BuildCheck @('-ReleaseSha256', $h)
-    Check ($r.Count -eq '1' -and $r.Out -match 'gave up after 60 seconds' -and $r.Out -notmatch 'once SETUP''s last step has installed') "on 0.9.2, the loader's 60-second limit: one warning naming it, not 'not switched on'"
+    Check ($r.Count -eq '1' -and $r.Out -match 'gave up after 60 seconds' -and $r.Out -notmatch 'once SETUP''s last step has installed') "on 0.9.3, the loader's 60-second limit: one warning naming it, not 'not switched on'"
     Put $bepLog (Bytes ($started + $notFound + "[Error  :SEST Beta Safe Anchor Chain] Beta safe loader failed closed during probe setup: System.IO.IOException: simulated`r`n"))
     $r = BuildCheck @('-ReleaseSha256', $h)
-    Check ($r.Count -eq '1' -and $r.Out -match 'SEST''s bundled loader stopped before it started' -and $r.Out -notmatch 'once SETUP''s last step has installed') "on 0.9.2, a probe-setup failure: one warning naming the loader's own line"
+    Check ($r.Count -eq '1' -and $r.Out -match 'SEST''s bundled loader stopped before it started' -and $r.Out -notmatch 'once SETUP''s last step has installed') "on 0.9.3, a probe-setup failure: one warning naming the loader's own line"
     # Switched on and run to the end: one [ok], no warning, on any build.
     Put $bepLog (Bytes ($started + $notFound + $boot + $readyOn + $chained + $returned + "[Message:   BepInEx] Chainloader startup complete`r`n"))
     $r = BuildCheck @('-ReleaseSha256', $h)
-    Check ($r.Code -eq 0 -and $r.Count -eq '0' -and $r.Out -match '\[ok\]   last launch: SEST''s bundled loader started Anchor Chain and ran its mod loading to the end \(BepInEx\\LogOutput\.log\)\.' -and $r.Out -match "Before it, the log says 'Could not find AnchorChain chainloader': that is Anchor Chain's own preloader" -and $r.Out -notmatch 'did not load at the last launch') "on 0.9.2, SEST's bundled loader returned after the preloader found no chainloader: one [ok], no warning"
+    Check ($r.Code -eq 0 -and $r.Count -eq '0' -and $r.Out -match '\[ok\]   last launch: SEST''s bundled loader started Anchor Chain and ran its mod loading to the end \(BepInEx\\LogOutput\.log\)\.' -and $r.Out -match "Before it, the log says 'Could not find AnchorChain chainloader': that is Anchor Chain's own preloader" -and $r.Out -notmatch 'did not load at the last launch') "on 0.9.3, SEST's bundled loader returned after the preloader found no chainloader: one [ok], no warning"
     $r = BuildCheck @()
     Check ($r.Count -eq '0' -and $r.Out -match '\[ok\]   last launch: SEST''s bundled loader started Anchor Chain' -and $r.Out -notmatch 'SEST has no record of Anchor Chain loading') "the bounded loader's [ok] does not depend on the game build"
     Put $settings (Bytes "[General]`r`nX=1`r`n[LoadOrder]`r`nNumberOfModFiles=1`r`nMod1Directory=9000001,True`r`n")

@@ -3,7 +3,8 @@ SEST WORKSHOP FEATURE UPDATE
 The F11 World Operations, service progress, Coordinated Strike refinements
 and debrief mission ribbons (for campaigns that define them) are included in
 this Workshop item for game build
-0.9.2-261113 only (Sea Power 0.9.2 Build 261113). On every other
+0.9.3-261116 public beta only (the public release of Sea
+Power 0.9.3 Build 261116 is another file). On every other
 game build SETUP installs none of it, and puts the normal SEST plugins back if
 it was installed.
 
@@ -25,11 +26,11 @@ local StreamingAssets\IdentifyExpanded folder to
 branch, native game DLLs or saves, and it does not force unknown game or
 author DLL versions: SETUP then says which file needs a SEST update.
 
-On 0.9.2 Anchor Chain's own preloader logs "Could not find AnchorChain
+On 0.9.3 Anchor Chain's own preloader logs "Could not find AnchorChain
 chainloader": it looks before Steam has registered the Workshop folders.
 SEST's loader waits for them and then starts Anchor Chain itself, so that
-line alone is not a fault. Author plugins that still name game code 0.9.2
-removed, or whose own build check rejects 0.9.2, are held before they load
+line alone is not a fault. Author plugins that still name game code 0.9.3
+lacks, or whose own build check rejects 0.9.3, are held before they load
 and named in BepInEx\LogOutput.log; their data is kept.
 
 To opt out, run one of these at the pack root (game closed); SETUP then

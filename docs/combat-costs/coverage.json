@@ -1090,6 +1090,21 @@
         "CurrentYearCost": "0",
         "Category": "Ignore"
       },
+      "cv16_726_chaff": {
+        "WeaponCosts": "1063",
+        "CurrentYearCost": "1500",
+        "Category": "Decoy"
+      },
+      "cv16_gb-500": {
+        "WeaponCosts": "50000",
+        "CurrentYearCost": "50000",
+        "Category": "Bomb"
+      },
+      "cv16_ly1_laser": {
+        "WeaponCosts": "90",
+        "CurrentYearCost": "90",
+        "Category": "Gun"
+      },
       "depth_charge": {
         "WeaponCosts": "20000",
         "CurrentYearCost": "20000",
@@ -2254,6 +2269,11 @@
         "CurrentYearCost": "6000",
         "Category": "Bomb"
       },
+      "pla_yj-82": {
+        "WeaponCosts": "2000000",
+        "CurrentYearCost": "2000000",
+        "Category": "ASM"
+      },
       "pla_yu-11_air": {
         "WeaponCosts": "1500000",
         "CurrentYearCost": "1500000",
@@ -2429,6 +2449,11 @@
         "CurrentYearCost": "2000000",
         "Category": "ASM"
       },
+      "plaaf_ls-6_250_ayone": {
+        "WeaponCosts": "2000000",
+        "CurrentYearCost": "2000000",
+        "Category": "ASM"
+      },
       "plaaf_mer_ls-6_250_6": {
         "WeaponCosts": "5000",
         "CurrentYearCost": "5000",
@@ -2524,10 +2549,20 @@
         "CurrentYearCost": "2000000",
         "Category": "ASM"
       },
+      "plaaf_yings-3_ayone": {
+        "WeaponCosts": "5000",
+        "CurrentYearCost": "5000",
+        "Category": "Pod"
+      },
       "plaaf_yings-iii": {
         "WeaponCosts": "5000",
         "CurrentYearCost": "5000",
         "Category": "Pod"
+      },
+      "plaaf_yj-91_ayone": {
+        "WeaponCosts": "2000000",
+        "CurrentYearCost": "2000000",
+        "Category": "ASM"
       },
       "plaaf_yj-91_l111": {
         "WeaponCosts": "2000000",
@@ -5859,6 +5894,11 @@
         "CurrentYearCost": "131000000",
         "Category": "FS"
       },
+      "plan_cv16_liaoning": {
+        "VesselCosts": "1754000000",
+        "CurrentYearCost": "4315000000",
+        "Category": "CV"
+      },
       "plan_ddg_luda_typ_051": {
         "VesselCosts": "24000000",
         "CurrentYearCost": "197000000",
@@ -5888,11 +5928,6 @@
         "VesselCosts": "100000000",
         "CurrentYearCost": "406000000",
         "Category": "SS"
-      },
-      "plan_type_001": {
-        "VesselCosts": "1754000000",
-        "CurrentYearCost": "4315000000",
-        "Category": "CV"
       },
       "plan_type_053h2g": {
         "VesselCosts": "110000000",
@@ -6378,6 +6413,11 @@
         "CurrentYearCost": "150000000",
         "Category": "OPV"
       },
+      "ko_pcc-756_pn": {
+        "VesselCosts": "75000000",
+        "CurrentYearCost": "75000000",
+        "Category": "Merchant"
+      },
       "mor_ptg_lazaga": {
         "VesselCosts": "50000000",
         "CurrentYearCost": "50000000",
@@ -6504,6 +6544,11 @@
         "Category": "SSBN"
       },
       "rn_ssn_astute": {
+        "VesselCosts": "3500000000",
+        "CurrentYearCost": "3500000000",
+        "Category": "SSN"
+      },
+      "rn_ssn_warspite": {
         "VesselCosts": "3500000000",
         "CurrentYearCost": "3500000000",
         "Category": "SSN"
@@ -7156,6 +7201,10 @@
         "AircraftCosts": "5000000",
         "CurrentYearCost": "40000000"
       },
+      "mm_s-2f_tracker": {
+        "AircraftCosts": "75000000",
+        "CurrentYearCost": "75000000"
+      },
       "msdvd_tu-214_aew": {
         "AircraftCosts": "350000000",
         "CurrentYearCost": "350000000"
@@ -7324,6 +7373,10 @@
         "AircraftCosts": "250000000",
         "CurrentYearCost": "250000000"
       },
+      "plan_ka-28_pg": {
+        "AircraftCosts": "30000000",
+        "CurrentYearCost": "30000000"
+      },
       "plan_kj-600a": {
         "AircraftCosts": "350000000",
         "CurrentYearCost": "350000000"
@@ -7347,6 +7400,10 @@
       "plan_z-9ce": {
         "AircraftCosts": "6200000",
         "CurrentYearCost": "14100000"
+      },
+      "planaf_j-15": {
+        "AircraftCosts": "32400000",
+        "CurrentYearCost": "66700000"
       },
       "planaf_z-20j": {
         "AircraftCosts": "27900000",
@@ -9675,6 +9732,11 @@
         "CurrentYearCost": "25000000",
         "Category": "Radar"
       },
+      "wp_55zh6": {
+        "LandCosts": "25000000",
+        "CurrentYearCost": "25000000",
+        "Category": "Radar"
+      },
       "wp_5p85te2": {
         "LandCosts": "12000000",
         "CurrentYearCost": "12000000",
@@ -9791,6 +9853,16 @@
         "Category": "SAM platform"
       },
       "wp_big_bird": {
+        "LandCosts": "25000000",
+        "CurrentYearCost": "25000000",
+        "Category": "Radar"
+      },
+      "wp_bigbird_maz": {
+        "LandCosts": "25000000",
+        "CurrentYearCost": "25000000",
+        "Category": "Radar"
+      },
+      "wp_bigbird_mzkt": {
         "LandCosts": "25000000",
         "CurrentYearCost": "25000000",
         "Category": "Radar"
@@ -9940,6 +10012,11 @@
         "CurrentYearCost": "12000000",
         "Category": "SAM platform"
       },
+      "wp_mzkt_96l6v1": {
+        "LandCosts": "12000000",
+        "CurrentYearCost": "12000000",
+        "Category": "SAM platform"
+      },
       "wp_mzkt_bigbird": {
         "LandCosts": "12000000",
         "CurrentYearCost": "12000000",
@@ -9949,11 +10026,6 @@
         "LandCosts": "12000000",
         "CurrentYearCost": "12000000",
         "Category": "SAM platform"
-      },
-      "wp_nebou": {
-        "LandCosts": "25000000",
-        "CurrentYearCost": "25000000",
-        "Category": "Radar"
       },
       "wp_neptune_site": {
         "LandCosts": "20000000",
@@ -9996,6 +10068,11 @@
         "Category": "Radar"
       },
       "wp_p-35_radar": {
+        "LandCosts": "25000000",
+        "CurrentYearCost": "25000000",
+        "Category": "Radar"
+      },
+      "wp_provotnik": {
         "LandCosts": "25000000",
         "CurrentYearCost": "25000000",
         "Category": "Radar"
@@ -10274,6 +10351,11 @@
         "LandCosts": "1000000",
         "CurrentYearCost": "1000000",
         "Category": "Vehicle"
+      },
+      "wp_tin_shield": {
+        "LandCosts": "25000000",
+        "CurrentYearCost": "25000000",
+        "Category": "Radar"
       },
       "wp_tochka": {
         "LandCosts": "12000000",
@@ -11451,6 +11533,47 @@
         {
           "title": "mm_av-8b_plus English description (mod 3505420313)",
           "url": "file:mods-source/3505420313/language_en/aircraft_names.ini"
+        }
+      ]
+    },
+    {
+      "kind": "aircraft",
+      "target": "mm_s-2f_tracker",
+      "origin": "completion",
+      "source": null,
+      "basis": "conventional combat-aircraft replacement proxy, excluding ammunition and removable priced pods",
+      "fields": {
+        "AircraftCosts": "75000000",
+        "CurrentYearCost": "75000000"
+      },
+      "completion": {
+        "model": "fighter",
+        "historical": "75000000",
+        "current": "75000000",
+        "category": "Aircraft",
+        "source": null,
+        "basis": "conventional combat-aircraft replacement proxy, excluding ammunition and removable priced pods",
+        "source_id": "policy",
+        "historical_year": 2026,
+        "historical_basis": "2026 replacement proxy; IOC unknown",
+        "confidence": "rough model",
+        "current_low": "37500000",
+        "current_high": "150000000",
+        "disposition": "counted"
+      },
+      "field_methods": {
+        "historical": "rough model",
+        "current": "rough model"
+      },
+      "prior_origin": null,
+      "sources": [
+        {
+          "title": "SEST owner-authorized replacement-cost model, 24 October 2026",
+          "url": "https://github.com/SEST-HOBBY/Seapower-mods/blob/fix/complete-combat-costs-20261024/integration/combat-costs/coverage-policy.json"
+        },
+        {
+          "title": "SEST owner-authorized replacement-cost model, 24 October 2026",
+          "url": "https://github.com/SEST-HOBBY/Seapower-mods/blob/fix/complete-combat-costs-20261024/integration/combat-costs/coverage-policy.json"
         }
       ]
     },
@@ -13316,6 +13439,47 @@
     },
     {
       "kind": "aircraft",
+      "target": "plan_ka-28_pg",
+      "origin": "completion",
+      "source": null,
+      "basis": "medium military helicopter fitted replacement proxy",
+      "fields": {
+        "AircraftCosts": "30000000",
+        "CurrentYearCost": "30000000"
+      },
+      "completion": {
+        "model": "helo",
+        "historical": "30000000",
+        "current": "30000000",
+        "category": "Aircraft",
+        "source": null,
+        "basis": "medium military helicopter fitted replacement proxy",
+        "source_id": "policy",
+        "historical_year": 2026,
+        "historical_basis": "2026 replacement proxy; IOC unknown",
+        "confidence": "rough model",
+        "current_low": "15000000",
+        "current_high": "60000000",
+        "disposition": "counted"
+      },
+      "field_methods": {
+        "historical": "rough model",
+        "current": "rough model"
+      },
+      "prior_origin": null,
+      "sources": [
+        {
+          "title": "SEST owner-authorized replacement-cost model, 24 October 2026",
+          "url": "https://github.com/SEST-HOBBY/Seapower-mods/blob/fix/complete-combat-costs-20261024/integration/combat-costs/coverage-policy.json"
+        },
+        {
+          "title": "SEST owner-authorized replacement-cost model, 24 October 2026",
+          "url": "https://github.com/SEST-HOBBY/Seapower-mods/blob/fix/complete-combat-costs-20261024/integration/combat-costs/coverage-policy.json"
+        }
+      ]
+    },
+    {
+      "kind": "aircraft",
       "target": "plan_kj-600a",
       "origin": "completion",
       "source": null,
@@ -13553,6 +13717,47 @@
         "confidence": "catalog comparator estimate",
         "current_low": "7050000",
         "current_high": "28200000",
+        "disposition": "counted"
+      },
+      "field_methods": {
+        "historical": "catalog comparator estimate",
+        "current": "catalog comparator estimate"
+      },
+      "prior_origin": null,
+      "sources": [
+        {
+          "title": "Combat Cost Tracker 0.7.1 captured catalog estimates; retain original reference-year basis",
+          "url": "https://steamcommunity.com/sharedfiles/filedetails/?id=3807187341"
+        },
+        {
+          "title": "SEST owner-authorized replacement-cost model, 24 October 2026",
+          "url": "https://github.com/SEST-HOBBY/Seapower-mods/blob/fix/complete-combat-costs-20261024/integration/combat-costs/coverage-policy.json"
+        }
+      ]
+    },
+    {
+      "kind": "aircraft",
+      "target": "planaf_j-15",
+      "origin": "completion",
+      "source": "plan_j-15",
+      "basis": "design/family/role catalog comparator plan_j-15; donor reference-year series retained; not a class-specific quote",
+      "fields": {
+        "AircraftCosts": "32400000",
+        "CurrentYearCost": "66700000"
+      },
+      "completion": {
+        "model": "fighter",
+        "historical": "32400000",
+        "current": "66700000",
+        "category": "Aircraft",
+        "source": "plan_j-15",
+        "basis": "design/family/role catalog comparator plan_j-15; donor reference-year series retained; not a class-specific quote",
+        "source_id": "tracker",
+        "historical_year": null,
+        "historical_basis": "donor reference year",
+        "confidence": "catalog comparator estimate",
+        "current_low": "33350000",
+        "current_high": "133400000",
         "disposition": "counted"
       },
       "field_methods": {
@@ -34139,6 +34344,48 @@
     },
     {
       "kind": "land",
+      "target": "wp_55zh6",
+      "origin": "completion",
+      "source": null,
+      "basis": "one radar installation/vehicle hardware proxy, not the whole defence system",
+      "fields": {
+        "LandCosts": "25000000",
+        "CurrentYearCost": "25000000",
+        "Category": "Radar"
+      },
+      "completion": {
+        "model": "radar",
+        "historical": "25000000",
+        "current": "25000000",
+        "category": "Radar",
+        "source": null,
+        "basis": "one radar installation/vehicle hardware proxy, not the whole defence system",
+        "source_id": "policy",
+        "historical_year": 2026,
+        "historical_basis": "2026 replacement proxy; IOC unknown",
+        "confidence": "rough model",
+        "current_low": "12500000",
+        "current_high": "50000000",
+        "disposition": "counted"
+      },
+      "field_methods": {
+        "historical": "rough model",
+        "current": "rough model"
+      },
+      "prior_origin": null,
+      "sources": [
+        {
+          "title": "SEST owner-authorized replacement-cost model, 24 October 2026",
+          "url": "https://github.com/SEST-HOBBY/Seapower-mods/blob/fix/complete-combat-costs-20261024/integration/combat-costs/coverage-policy.json"
+        },
+        {
+          "title": "SEST owner-authorized replacement-cost model, 24 October 2026",
+          "url": "https://github.com/SEST-HOBBY/Seapower-mods/blob/fix/complete-combat-costs-20261024/integration/combat-costs/coverage-policy.json"
+        }
+      ]
+    },
+    {
+      "kind": "land",
       "target": "wp_5p85te2",
       "origin": "completion",
       "source": null,
@@ -35141,6 +35388,90 @@
     {
       "kind": "land",
       "target": "wp_big_bird",
+      "origin": "completion",
+      "source": null,
+      "basis": "one radar installation/vehicle hardware proxy, not the whole defence system",
+      "fields": {
+        "LandCosts": "25000000",
+        "CurrentYearCost": "25000000",
+        "Category": "Radar"
+      },
+      "completion": {
+        "model": "radar",
+        "historical": "25000000",
+        "current": "25000000",
+        "category": "Radar",
+        "source": null,
+        "basis": "one radar installation/vehicle hardware proxy, not the whole defence system",
+        "source_id": "policy",
+        "historical_year": 2026,
+        "historical_basis": "2026 replacement proxy; IOC unknown",
+        "confidence": "rough model",
+        "current_low": "12500000",
+        "current_high": "50000000",
+        "disposition": "counted"
+      },
+      "field_methods": {
+        "historical": "rough model",
+        "current": "rough model"
+      },
+      "prior_origin": null,
+      "sources": [
+        {
+          "title": "SEST owner-authorized replacement-cost model, 24 October 2026",
+          "url": "https://github.com/SEST-HOBBY/Seapower-mods/blob/fix/complete-combat-costs-20261024/integration/combat-costs/coverage-policy.json"
+        },
+        {
+          "title": "SEST owner-authorized replacement-cost model, 24 October 2026",
+          "url": "https://github.com/SEST-HOBBY/Seapower-mods/blob/fix/complete-combat-costs-20261024/integration/combat-costs/coverage-policy.json"
+        }
+      ]
+    },
+    {
+      "kind": "land",
+      "target": "wp_bigbird_maz",
+      "origin": "completion",
+      "source": null,
+      "basis": "one radar installation/vehicle hardware proxy, not the whole defence system",
+      "fields": {
+        "LandCosts": "25000000",
+        "CurrentYearCost": "25000000",
+        "Category": "Radar"
+      },
+      "completion": {
+        "model": "radar",
+        "historical": "25000000",
+        "current": "25000000",
+        "category": "Radar",
+        "source": null,
+        "basis": "one radar installation/vehicle hardware proxy, not the whole defence system",
+        "source_id": "policy",
+        "historical_year": 2026,
+        "historical_basis": "2026 replacement proxy; IOC unknown",
+        "confidence": "rough model",
+        "current_low": "12500000",
+        "current_high": "50000000",
+        "disposition": "counted"
+      },
+      "field_methods": {
+        "historical": "rough model",
+        "current": "rough model"
+      },
+      "prior_origin": null,
+      "sources": [
+        {
+          "title": "SEST owner-authorized replacement-cost model, 24 October 2026",
+          "url": "https://github.com/SEST-HOBBY/Seapower-mods/blob/fix/complete-combat-costs-20261024/integration/combat-costs/coverage-policy.json"
+        },
+        {
+          "title": "SEST owner-authorized replacement-cost model, 24 October 2026",
+          "url": "https://github.com/SEST-HOBBY/Seapower-mods/blob/fix/complete-combat-costs-20261024/integration/combat-costs/coverage-policy.json"
+        }
+      ]
+    },
+    {
+      "kind": "land",
+      "target": "wp_bigbird_mzkt",
       "origin": "completion",
       "source": null,
       "basis": "one radar installation/vehicle hardware proxy, not the whole defence system",
@@ -36400,6 +36731,48 @@
     },
     {
       "kind": "land",
+      "target": "wp_mzkt_96l6v1",
+      "origin": "completion",
+      "source": null,
+      "basis": "one self-contained SAM launcher/TELAR, not a full multi-vehicle battery; ammunition excluded",
+      "fields": {
+        "LandCosts": "12000000",
+        "CurrentYearCost": "12000000",
+        "Category": "SAM platform"
+      },
+      "completion": {
+        "model": "land_sam",
+        "historical": "12000000",
+        "current": "12000000",
+        "category": "SAM platform",
+        "source": null,
+        "basis": "one self-contained SAM launcher/TELAR, not a full multi-vehicle battery; ammunition excluded",
+        "source_id": "policy",
+        "historical_year": 2026,
+        "historical_basis": "2026 replacement proxy; IOC unknown",
+        "confidence": "rough model",
+        "current_low": "6000000",
+        "current_high": "24000000",
+        "disposition": "counted"
+      },
+      "field_methods": {
+        "historical": "rough model",
+        "current": "rough model"
+      },
+      "prior_origin": null,
+      "sources": [
+        {
+          "title": "SEST owner-authorized replacement-cost model, 24 October 2026",
+          "url": "https://github.com/SEST-HOBBY/Seapower-mods/blob/fix/complete-combat-costs-20261024/integration/combat-costs/coverage-policy.json"
+        },
+        {
+          "title": "SEST owner-authorized replacement-cost model, 24 October 2026",
+          "url": "https://github.com/SEST-HOBBY/Seapower-mods/blob/fix/complete-combat-costs-20261024/integration/combat-costs/coverage-policy.json"
+        }
+      ]
+    },
+    {
+      "kind": "land",
       "target": "wp_mzkt_bigbird",
       "origin": "completion",
       "source": null,
@@ -36464,48 +36837,6 @@
         "confidence": "rough model",
         "current_low": "6000000",
         "current_high": "24000000",
-        "disposition": "counted"
-      },
-      "field_methods": {
-        "historical": "rough model",
-        "current": "rough model"
-      },
-      "prior_origin": null,
-      "sources": [
-        {
-          "title": "SEST owner-authorized replacement-cost model, 24 October 2026",
-          "url": "https://github.com/SEST-HOBBY/Seapower-mods/blob/fix/complete-combat-costs-20261024/integration/combat-costs/coverage-policy.json"
-        },
-        {
-          "title": "SEST owner-authorized replacement-cost model, 24 October 2026",
-          "url": "https://github.com/SEST-HOBBY/Seapower-mods/blob/fix/complete-combat-costs-20261024/integration/combat-costs/coverage-policy.json"
-        }
-      ]
-    },
-    {
-      "kind": "land",
-      "target": "wp_nebou",
-      "origin": "completion",
-      "source": null,
-      "basis": "one radar installation/vehicle hardware proxy, not the whole defence system",
-      "fields": {
-        "LandCosts": "25000000",
-        "CurrentYearCost": "25000000",
-        "Category": "Radar"
-      },
-      "completion": {
-        "model": "radar",
-        "historical": "25000000",
-        "current": "25000000",
-        "category": "Radar",
-        "source": null,
-        "basis": "one radar installation/vehicle hardware proxy, not the whole defence system",
-        "source_id": "policy",
-        "historical_year": 2026,
-        "historical_basis": "2026 replacement proxy; IOC unknown",
-        "confidence": "rough model",
-        "current_low": "12500000",
-        "current_high": "50000000",
         "disposition": "counted"
       },
       "field_methods": {
@@ -36863,6 +37194,48 @@
     {
       "kind": "land",
       "target": "wp_p-35_radar",
+      "origin": "completion",
+      "source": null,
+      "basis": "one radar installation/vehicle hardware proxy, not the whole defence system",
+      "fields": {
+        "LandCosts": "25000000",
+        "CurrentYearCost": "25000000",
+        "Category": "Radar"
+      },
+      "completion": {
+        "model": "radar",
+        "historical": "25000000",
+        "current": "25000000",
+        "category": "Radar",
+        "source": null,
+        "basis": "one radar installation/vehicle hardware proxy, not the whole defence system",
+        "source_id": "policy",
+        "historical_year": 2026,
+        "historical_basis": "2026 replacement proxy; IOC unknown",
+        "confidence": "rough model",
+        "current_low": "12500000",
+        "current_high": "50000000",
+        "disposition": "counted"
+      },
+      "field_methods": {
+        "historical": "rough model",
+        "current": "rough model"
+      },
+      "prior_origin": null,
+      "sources": [
+        {
+          "title": "SEST owner-authorized replacement-cost model, 24 October 2026",
+          "url": "https://github.com/SEST-HOBBY/Seapower-mods/blob/fix/complete-combat-costs-20261024/integration/combat-costs/coverage-policy.json"
+        },
+        {
+          "title": "SEST owner-authorized replacement-cost model, 24 October 2026",
+          "url": "https://github.com/SEST-HOBBY/Seapower-mods/blob/fix/complete-combat-costs-20261024/integration/combat-costs/coverage-policy.json"
+        }
+      ]
+    },
+    {
+      "kind": "land",
+      "target": "wp_provotnik",
       "origin": "completion",
       "source": null,
       "basis": "one radar installation/vehicle hardware proxy, not the whole defence system",
@@ -39214,6 +39587,48 @@
     },
     {
       "kind": "land",
+      "target": "wp_tin_shield",
+      "origin": "completion",
+      "source": null,
+      "basis": "one radar installation/vehicle hardware proxy, not the whole defence system",
+      "fields": {
+        "LandCosts": "25000000",
+        "CurrentYearCost": "25000000",
+        "Category": "Radar"
+      },
+      "completion": {
+        "model": "radar",
+        "historical": "25000000",
+        "current": "25000000",
+        "category": "Radar",
+        "source": null,
+        "basis": "one radar installation/vehicle hardware proxy, not the whole defence system",
+        "source_id": "policy",
+        "historical_year": 2026,
+        "historical_basis": "2026 replacement proxy; IOC unknown",
+        "confidence": "rough model",
+        "current_low": "12500000",
+        "current_high": "50000000",
+        "disposition": "counted"
+      },
+      "field_methods": {
+        "historical": "rough model",
+        "current": "rough model"
+      },
+      "prior_origin": null,
+      "sources": [
+        {
+          "title": "SEST owner-authorized replacement-cost model, 24 October 2026",
+          "url": "https://github.com/SEST-HOBBY/Seapower-mods/blob/fix/complete-combat-costs-20261024/integration/combat-costs/coverage-policy.json"
+        },
+        {
+          "title": "SEST owner-authorized replacement-cost model, 24 October 2026",
+          "url": "https://github.com/SEST-HOBBY/Seapower-mods/blob/fix/complete-combat-costs-20261024/integration/combat-costs/coverage-policy.json"
+        }
+      ]
+    },
+    {
+      "kind": "land",
       "target": "wp_tochka",
       "origin": "completion",
       "source": null,
@@ -40681,6 +41096,48 @@
     },
     {
       "kind": "vessel",
+      "target": "ko_pcc-756_pn",
+      "origin": "completion",
+      "source": null,
+      "basis": "merchant hull and fixed machinery replacement proxy, excluding cargo",
+      "fields": {
+        "VesselCosts": "75000000",
+        "CurrentYearCost": "75000000",
+        "Category": "Merchant"
+      },
+      "completion": {
+        "model": "merchant",
+        "historical": "75000000",
+        "current": "75000000",
+        "category": "Merchant",
+        "source": null,
+        "basis": "merchant hull and fixed machinery replacement proxy, excluding cargo",
+        "source_id": "policy",
+        "historical_year": 2026,
+        "historical_basis": "2026 replacement proxy; IOC unknown",
+        "confidence": "rough model",
+        "current_low": "37500000",
+        "current_high": "150000000",
+        "disposition": "counted"
+      },
+      "field_methods": {
+        "historical": "rough model",
+        "current": "rough model"
+      },
+      "prior_origin": null,
+      "sources": [
+        {
+          "title": "SEST owner-authorized replacement-cost model, 24 October 2026",
+          "url": "https://github.com/SEST-HOBBY/Seapower-mods/blob/fix/complete-combat-costs-20261024/integration/combat-costs/coverage-policy.json"
+        },
+        {
+          "title": "SEST owner-authorized replacement-cost model, 24 October 2026",
+          "url": "https://github.com/SEST-HOBBY/Seapower-mods/blob/fix/complete-combat-costs-20261024/integration/combat-costs/coverage-policy.json"
+        }
+      ]
+    },
+    {
+      "kind": "vessel",
       "target": "ko_pkg-711_scl",
       "source": "ko_pkg-711",
       "origin": "mapping",
@@ -41179,6 +41636,18 @@
     },
     {
       "kind": "vessel",
+      "target": "plan_cv16_liaoning",
+      "source": "ru_cv_varyag",
+      "origin": "mapping",
+      "basis": "Liaoning (ex-Varyag, Project 1143.6): same hull as ru_cv_varyag (author model estimate, price year 1991)",
+      "fields": {
+        "VesselCosts": "1754000000",
+        "CurrentYearCost": "4315000000",
+        "Category": "CV"
+      }
+    },
+    {
+      "kind": "vessel",
       "target": "plan_ddg_luda_typ_051",
       "source": "plan_dd_luda1",
       "origin": "mapping",
@@ -41393,18 +41862,6 @@
           "url": "https://github.com/SEST-HOBBY/Seapower-mods/blob/fix/complete-combat-costs-20261024/integration/combat-costs/coverage-policy.json"
         }
       ]
-    },
-    {
-      "kind": "vessel",
-      "target": "plan_type_001",
-      "source": "ru_cv_varyag",
-      "origin": "mapping",
-      "basis": "Liaoning (ex-Varyag, Project 1143.6): same hull as ru_cv_varyag (author model estimate, price year 1991)",
-      "fields": {
-        "VesselCosts": "1754000000",
-        "CurrentYearCost": "4315000000",
-        "Category": "CV"
-      }
     },
     {
       "kind": "vessel",
@@ -42610,6 +43067,48 @@
         "CurrentYearCost": "1441000000",
         "Category": "SSN"
       }
+    },
+    {
+      "kind": "vessel",
+      "target": "rn_ssn_warspite",
+      "origin": "completion",
+      "source": null,
+      "basis": "nuclear attack submarine replacement proxy, excluding weapons",
+      "fields": {
+        "VesselCosts": "3500000000",
+        "CurrentYearCost": "3500000000",
+        "Category": "SSN"
+      },
+      "completion": {
+        "model": "ssn",
+        "historical": "3500000000",
+        "current": "3500000000",
+        "category": "SSN",
+        "source": null,
+        "basis": "nuclear attack submarine replacement proxy, excluding weapons",
+        "source_id": "policy",
+        "historical_year": 2026,
+        "historical_basis": "2026 replacement proxy; IOC unknown",
+        "confidence": "rough model",
+        "current_low": "1750000000",
+        "current_high": "7000000000",
+        "disposition": "counted"
+      },
+      "field_methods": {
+        "historical": "rough model",
+        "current": "rough model"
+      },
+      "prior_origin": null,
+      "sources": [
+        {
+          "title": "SEST owner-authorized replacement-cost model, 24 October 2026",
+          "url": "https://github.com/SEST-HOBBY/Seapower-mods/blob/fix/complete-combat-costs-20261024/integration/combat-costs/coverage-policy.json"
+        },
+        {
+          "title": "SEST owner-authorized replacement-cost model, 24 October 2026",
+          "url": "https://github.com/SEST-HOBBY/Seapower-mods/blob/fix/complete-combat-costs-20261024/integration/combat-costs/coverage-policy.json"
+        }
+      ]
     },
     {
       "kind": "vessel",
@@ -47644,6 +48143,132 @@
         "current_low": "0",
         "current_high": "0",
         "disposition": "included or non-procured"
+      },
+      "field_methods": {
+        "historical": "rough model",
+        "current": "rough model"
+      },
+      "prior_origin": null,
+      "sources": [
+        {
+          "title": "SEST owner-authorized replacement-cost model, 24 October 2026",
+          "url": "https://github.com/SEST-HOBBY/Seapower-mods/blob/fix/complete-combat-costs-20261024/integration/combat-costs/coverage-policy.json"
+        },
+        {
+          "title": "SEST owner-authorized replacement-cost model, 24 October 2026",
+          "url": "https://github.com/SEST-HOBBY/Seapower-mods/blob/fix/complete-combat-costs-20261024/integration/combat-costs/coverage-policy.json"
+        }
+      ]
+    },
+    {
+      "kind": "weapon",
+      "target": "cv16_726_chaff",
+      "origin": "completion",
+      "source": null,
+      "basis": "shipborne passive chaff/IR cartridge proxy",
+      "fields": {
+        "WeaponCosts": "1063",
+        "CurrentYearCost": "1500",
+        "Category": "Decoy"
+      },
+      "completion": {
+        "model": "ship_chaff",
+        "historical": "1063",
+        "current": "1500",
+        "category": "Decoy",
+        "source": null,
+        "basis": "shipborne passive chaff/IR cartridge proxy",
+        "source_id": "policy",
+        "historical_year": 2015,
+        "historical_basis": "configured service-year CPI model",
+        "confidence": "rough model",
+        "current_low": "750",
+        "current_high": "3000",
+        "disposition": "counted"
+      },
+      "field_methods": {
+        "historical": "rough model",
+        "current": "rough model"
+      },
+      "prior_origin": null,
+      "sources": [
+        {
+          "title": "SEST owner-authorized replacement-cost model, 24 October 2026",
+          "url": "https://github.com/SEST-HOBBY/Seapower-mods/blob/fix/complete-combat-costs-20261024/integration/combat-costs/coverage-policy.json"
+        },
+        {
+          "title": "SEST owner-authorized replacement-cost model, 24 October 2026",
+          "url": "https://github.com/SEST-HOBBY/Seapower-mods/blob/fix/complete-combat-costs-20261024/integration/combat-costs/coverage-policy.json"
+        }
+      ]
+    },
+    {
+      "kind": "weapon",
+      "target": "cv16_gb-500",
+      "origin": "completion",
+      "source": null,
+      "basis": "guided bomb complete-round proxy including guidance kit and body",
+      "fields": {
+        "WeaponCosts": "50000",
+        "CurrentYearCost": "50000",
+        "Category": "Bomb"
+      },
+      "completion": {
+        "model": "guided_bomb",
+        "historical": "50000",
+        "current": "50000",
+        "category": "Bomb",
+        "source": null,
+        "basis": "guided bomb complete-round proxy including guidance kit and body",
+        "source_id": "policy",
+        "historical_year": 2026,
+        "historical_basis": "2026 replacement proxy; IOC unknown",
+        "confidence": "rough model",
+        "current_low": "25000",
+        "current_high": "100000",
+        "disposition": "counted"
+      },
+      "field_methods": {
+        "historical": "rough model",
+        "current": "rough model"
+      },
+      "prior_origin": null,
+      "sources": [
+        {
+          "title": "SEST owner-authorized replacement-cost model, 24 October 2026",
+          "url": "https://github.com/SEST-HOBBY/Seapower-mods/blob/fix/complete-combat-costs-20261024/integration/combat-costs/coverage-policy.json"
+        },
+        {
+          "title": "SEST owner-authorized replacement-cost model, 24 October 2026",
+          "url": "https://github.com/SEST-HOBBY/Seapower-mods/blob/fix/complete-combat-costs-20261024/integration/combat-costs/coverage-policy.json"
+        }
+      ]
+    },
+    {
+      "kind": "weapon",
+      "target": "cv16_ly1_laser",
+      "origin": "completion",
+      "source": null,
+      "basis": "per-projectile calibre-band replacement estimate, not cost per burst",
+      "fields": {
+        "WeaponCosts": "90",
+        "CurrentYearCost": "90",
+        "Category": "Gun"
+      },
+      "completion": {
+        "model": "projectile",
+        "historical": "90",
+        "current": "90",
+        "category": "Gun",
+        "source": null,
+        "basis": "per-projectile calibre-band replacement estimate, not cost per burst",
+        "source_id": "policy",
+        "historical_year": 2026,
+        "historical_basis": "2026 replacement proxy; IOC unknown",
+        "confidence": "rough model",
+        "current_low": "45",
+        "current_high": "180",
+        "disposition": "counted"
       },
       "field_methods": {
         "historical": "rough model",
@@ -58107,6 +58732,48 @@
     },
     {
       "kind": "weapon",
+      "target": "pla_yj-82",
+      "origin": "completion",
+      "source": null,
+      "basis": "anti-ship missile complete-round proxy",
+      "fields": {
+        "WeaponCosts": "2000000",
+        "CurrentYearCost": "2000000",
+        "Category": "ASM"
+      },
+      "completion": {
+        "model": "asm",
+        "historical": "2000000",
+        "current": "2000000",
+        "category": "ASM",
+        "source": null,
+        "basis": "anti-ship missile complete-round proxy",
+        "source_id": "policy",
+        "historical_year": 2026,
+        "historical_basis": "2026 replacement proxy; IOC unknown",
+        "confidence": "rough model",
+        "current_low": "1000000",
+        "current_high": "4000000",
+        "disposition": "counted"
+      },
+      "field_methods": {
+        "historical": "rough model",
+        "current": "rough model"
+      },
+      "prior_origin": null,
+      "sources": [
+        {
+          "title": "SEST owner-authorized replacement-cost model, 24 October 2026",
+          "url": "https://github.com/SEST-HOBBY/Seapower-mods/blob/fix/complete-combat-costs-20261024/integration/combat-costs/coverage-policy.json"
+        },
+        {
+          "title": "SEST owner-authorized replacement-cost model, 24 October 2026",
+          "url": "https://github.com/SEST-HOBBY/Seapower-mods/blob/fix/complete-combat-costs-20261024/integration/combat-costs/coverage-policy.json"
+        }
+      ]
+    },
+    {
+      "kind": "weapon",
       "target": "pla_yu-11_air",
       "origin": "completion",
       "source": null,
@@ -59970,6 +60637,48 @@
     },
     {
       "kind": "weapon",
+      "target": "plaaf_ls-6_250_ayone",
+      "origin": "completion",
+      "source": null,
+      "basis": "anti-ship missile complete-round proxy",
+      "fields": {
+        "WeaponCosts": "2000000",
+        "CurrentYearCost": "2000000",
+        "Category": "ASM"
+      },
+      "completion": {
+        "model": "asm",
+        "historical": "2000000",
+        "current": "2000000",
+        "category": "ASM",
+        "source": null,
+        "basis": "anti-ship missile complete-round proxy",
+        "source_id": "policy",
+        "historical_year": 2026,
+        "historical_basis": "2026 replacement proxy; IOC unknown",
+        "confidence": "rough model",
+        "current_low": "1000000",
+        "current_high": "4000000",
+        "disposition": "counted"
+      },
+      "field_methods": {
+        "historical": "rough model",
+        "current": "rough model"
+      },
+      "prior_origin": null,
+      "sources": [
+        {
+          "title": "SEST owner-authorized replacement-cost model, 24 October 2026",
+          "url": "https://github.com/SEST-HOBBY/Seapower-mods/blob/fix/complete-combat-costs-20261024/integration/combat-costs/coverage-policy.json"
+        },
+        {
+          "title": "SEST owner-authorized replacement-cost model, 24 October 2026",
+          "url": "https://github.com/SEST-HOBBY/Seapower-mods/blob/fix/complete-combat-costs-20261024/integration/combat-costs/coverage-policy.json"
+        }
+      ]
+    },
+    {
+      "kind": "weapon",
       "target": "plaaf_mer_ls-6_250_6",
       "origin": "completion",
       "source": null,
@@ -60780,6 +61489,48 @@
     },
     {
       "kind": "weapon",
+      "target": "plaaf_yings-3_ayone",
+      "origin": "completion",
+      "source": null,
+      "basis": "reusable launch rail, adapter or ejector-rack hardware proxy, excluding stores",
+      "fields": {
+        "WeaponCosts": "5000",
+        "CurrentYearCost": "5000",
+        "Category": "Pod"
+      },
+      "completion": {
+        "model": "rack",
+        "historical": "5000",
+        "current": "5000",
+        "category": "Pod",
+        "source": null,
+        "basis": "reusable launch rail, adapter or ejector-rack hardware proxy, excluding stores",
+        "source_id": "policy",
+        "historical_year": 2026,
+        "historical_basis": "2026 replacement proxy; IOC unknown",
+        "confidence": "rough model",
+        "current_low": "2500",
+        "current_high": "10000",
+        "disposition": "counted"
+      },
+      "field_methods": {
+        "historical": "rough model",
+        "current": "rough model"
+      },
+      "prior_origin": null,
+      "sources": [
+        {
+          "title": "SEST owner-authorized replacement-cost model, 24 October 2026",
+          "url": "https://github.com/SEST-HOBBY/Seapower-mods/blob/fix/complete-combat-costs-20261024/integration/combat-costs/coverage-policy.json"
+        },
+        {
+          "title": "SEST owner-authorized replacement-cost model, 24 October 2026",
+          "url": "https://github.com/SEST-HOBBY/Seapower-mods/blob/fix/complete-combat-costs-20261024/integration/combat-costs/coverage-policy.json"
+        }
+      ]
+    },
+    {
+      "kind": "weapon",
       "target": "plaaf_yings-iii",
       "origin": "completion",
       "source": null,
@@ -60867,6 +61618,48 @@
         "CurrentYearCost": "1650000",
         "Category": "ASM"
       }
+    },
+    {
+      "kind": "weapon",
+      "target": "plaaf_yj-91_ayone",
+      "origin": "completion",
+      "source": null,
+      "basis": "anti-ship missile complete-round proxy",
+      "fields": {
+        "WeaponCosts": "2000000",
+        "CurrentYearCost": "2000000",
+        "Category": "ASM"
+      },
+      "completion": {
+        "model": "asm",
+        "historical": "2000000",
+        "current": "2000000",
+        "category": "ASM",
+        "source": null,
+        "basis": "anti-ship missile complete-round proxy",
+        "source_id": "policy",
+        "historical_year": 2026,
+        "historical_basis": "2026 replacement proxy; IOC unknown",
+        "confidence": "rough model",
+        "current_low": "1000000",
+        "current_high": "4000000",
+        "disposition": "counted"
+      },
+      "field_methods": {
+        "historical": "rough model",
+        "current": "rough model"
+      },
+      "prior_origin": null,
+      "sources": [
+        {
+          "title": "SEST owner-authorized replacement-cost model, 24 October 2026",
+          "url": "https://github.com/SEST-HOBBY/Seapower-mods/blob/fix/complete-combat-costs-20261024/integration/combat-costs/coverage-policy.json"
+        },
+        {
+          "title": "SEST owner-authorized replacement-cost model, 24 October 2026",
+          "url": "https://github.com/SEST-HOBBY/Seapower-mods/blob/fix/complete-combat-costs-20261024/integration/combat-costs/coverage-policy.json"
+        }
+      ]
     },
     {
       "kind": "weapon",
@@ -91073,36 +91866,36 @@
   ],
   "coverage": {
     "weapon": {
-      "eligible": 2232,
-      "historical_known": 2232,
-      "current_known": 2232,
-      "sest_eligible": 142,
-      "sest_historical_known": 142,
-      "sest_current_known": 142,
+      "eligible": 2239,
+      "historical_known": 2239,
+      "current_known": 2239,
+      "sest_eligible": 145,
+      "sest_historical_known": 145,
+      "sest_current_known": 145,
       "unknown": []
     },
     "vessel": {
-      "eligible": 1010,
-      "historical_known": 1010,
-      "current_known": 1010,
-      "sest_eligible": 357,
-      "sest_historical_known": 357,
-      "sest_current_known": 357,
+      "eligible": 1012,
+      "historical_known": 1012,
+      "current_known": 1012,
+      "sest_eligible": 358,
+      "sest_historical_known": 358,
+      "sest_current_known": 358,
       "unknown": []
     },
     "aircraft": {
-      "eligible": 795,
-      "historical_known": 795,
-      "current_known": 795,
+      "eligible": 798,
+      "historical_known": 798,
+      "current_known": 798,
       "sest_eligible": 39,
       "sest_historical_known": 39,
       "sest_current_known": 39,
       "unknown": []
     },
     "land": {
-      "eligible": 513,
-      "historical_known": 513,
-      "current_known": 513,
+      "eligible": 518,
+      "historical_known": 518,
+      "current_known": 518,
       "sest_eligible": 27,
       "sest_historical_known": 27,
       "sest_current_known": 27,
@@ -93385,6 +94178,120 @@
         "historical_reference_year": 2026,
         "current_low": "0",
         "current_high": "0"
+      },
+      {
+        "kind": "weapon",
+        "id": "cv16_726_chaff",
+        "owner": "3774859959",
+        "path": "mods-source/3774859959/ammunition/cv16_726_chaff.ini",
+        "category": "Decoy",
+        "type": "Chaff",
+        "historical": "1063",
+        "current": "1500",
+        "field_methods": {
+          "historical": "rough model",
+          "current": "rough model"
+        },
+        "field_sources": {
+          "historical": "shipborne passive chaff/IR cartridge proxy",
+          "current": "shipborne passive chaff/IR cartridge proxy"
+        },
+        "completion": {
+          "model": "ship_chaff",
+          "historical": "1063",
+          "current": "1500",
+          "category": "Decoy",
+          "source": null,
+          "basis": "shipborne passive chaff/IR cartridge proxy",
+          "source_id": "policy",
+          "historical_year": 2015,
+          "historical_basis": "configured service-year CPI model",
+          "confidence": "rough model",
+          "current_low": "750",
+          "current_high": "3000",
+          "disposition": "counted"
+        },
+        "disposition": "counted",
+        "historical_basis": "configured service-year CPI model",
+        "historical_reference_year": 2015,
+        "current_low": "750",
+        "current_high": "3000"
+      },
+      {
+        "kind": "weapon",
+        "id": "cv16_gb-500",
+        "owner": "3774859959",
+        "path": "mods-source/3774859959/ammunition/cv16_gb-500.ini",
+        "category": "Bomb",
+        "type": "Bomb",
+        "historical": "50000",
+        "current": "50000",
+        "field_methods": {
+          "historical": "rough model",
+          "current": "rough model"
+        },
+        "field_sources": {
+          "historical": "guided bomb complete-round proxy including guidance kit and body",
+          "current": "guided bomb complete-round proxy including guidance kit and body"
+        },
+        "completion": {
+          "model": "guided_bomb",
+          "historical": "50000",
+          "current": "50000",
+          "category": "Bomb",
+          "source": null,
+          "basis": "guided bomb complete-round proxy including guidance kit and body",
+          "source_id": "policy",
+          "historical_year": 2026,
+          "historical_basis": "2026 replacement proxy; IOC unknown",
+          "confidence": "rough model",
+          "current_low": "25000",
+          "current_high": "100000",
+          "disposition": "counted"
+        },
+        "disposition": "counted",
+        "historical_basis": "2026 replacement proxy; IOC unknown",
+        "historical_reference_year": 2026,
+        "current_low": "25000",
+        "current_high": "100000"
+      },
+      {
+        "kind": "weapon",
+        "id": "cv16_ly1_laser",
+        "owner": "3774859959",
+        "path": "mods-source/3774859959/ammunition/cv16_ly1_laser.ini",
+        "category": "Gun",
+        "type": "Projectile",
+        "historical": "90",
+        "current": "90",
+        "field_methods": {
+          "historical": "rough model",
+          "current": "rough model"
+        },
+        "field_sources": {
+          "historical": "per-projectile calibre-band replacement estimate, not cost per burst",
+          "current": "per-projectile calibre-band replacement estimate, not cost per burst"
+        },
+        "completion": {
+          "model": "projectile",
+          "historical": "90",
+          "current": "90",
+          "category": "Gun",
+          "source": null,
+          "basis": "per-projectile calibre-band replacement estimate, not cost per burst",
+          "source_id": "policy",
+          "historical_year": 2026,
+          "historical_basis": "2026 replacement proxy; IOC unknown",
+          "confidence": "rough model",
+          "current_low": "45",
+          "current_high": "180",
+          "disposition": "counted"
+        },
+        "disposition": "counted",
+        "historical_basis": "2026 replacement proxy; IOC unknown",
+        "historical_reference_year": 2026,
+        "current_low": "45",
+        "current_high": "180"
       },
       {
         "kind": "weapon",
@@ -109586,6 +110493,44 @@
       },
       {
         "kind": "weapon",
+        "id": "pla_yj-82",
+        "owner": "3752415457",
+        "path": "mods-source/3752415457/ammunition/pla_yj-82.ini",
+        "category": "ASM",
+        "type": "Missile",
+        "historical": "2000000",
+        "current": "2000000",
+        "field_methods": {
+          "historical": "rough model",
+          "current": "rough model"
+        },
+        "field_sources": {
+          "historical": "anti-ship missile complete-round proxy",
+          "current": "anti-ship missile complete-round proxy"
+        },
+        "completion": {
+          "model": "asm",
+          "historical": "2000000",
+          "current": "2000000",
+          "category": "ASM",
+          "source": null,
+          "basis": "anti-ship missile complete-round proxy",
+          "source_id": "policy",
+          "historical_year": 2026,
+          "historical_basis": "2026 replacement proxy; IOC unknown",
+          "confidence": "rough model",
+          "current_low": "1000000",
+          "current_high": "4000000",
+          "disposition": "counted"
+        },
+        "disposition": "counted",
+        "historical_basis": "2026 replacement proxy; IOC unknown",
+        "historical_reference_year": 2026,
+        "current_low": "1000000",
+        "current_high": "4000000"
+      },
+      {
+        "kind": "weapon",
         "id": "pla_yj-83",
         "owner": "3594891803",
         "path": "mods-source/3594891803/ammunition/pla_yj-83.ini",
@@ -111722,6 +112667,44 @@
       },
       {
         "kind": "weapon",
+        "id": "plaaf_ls-6_250_ayone",
+        "owner": "3774859959",
+        "path": "mods-source/3774859959/ammunition/plaaf_ls-6_250_ayone.ini",
+        "category": "ASM",
+        "type": "Missile",
+        "historical": "2000000",
+        "current": "2000000",
+        "field_methods": {
+          "historical": "rough model",
+          "current": "rough model"
+        },
+        "field_sources": {
+          "historical": "anti-ship missile complete-round proxy",
+          "current": "anti-ship missile complete-round proxy"
+        },
+        "completion": {
+          "model": "asm",
+          "historical": "2000000",
+          "current": "2000000",
+          "category": "ASM",
+          "source": null,
+          "basis": "anti-ship missile complete-round proxy",
+          "source_id": "policy",
+          "historical_year": 2026,
+          "historical_basis": "2026 replacement proxy; IOC unknown",
+          "confidence": "rough model",
+          "current_low": "1000000",
+          "current_high": "4000000",
+          "disposition": "counted"
+        },
+        "disposition": "counted",
+        "historical_basis": "2026 replacement proxy; IOC unknown",
+        "historical_reference_year": 2026,
+        "current_low": "1000000",
+        "current_high": "4000000"
+      },
+      {
+        "kind": "weapon",
         "id": "plaaf_ls-6_500",
         "owner": "3506979898",
         "path": "mods-source/3506979898/ammunition/plaaf_ls-6_500.ini",
@@ -112852,6 +113835,44 @@
       },
       {
         "kind": "weapon",
+        "id": "plaaf_yings-3_ayone",
+        "owner": "3774859959",
+        "path": "mods-source/3774859959/ammunition/plaaf_yings-3_ayone.ini",
+        "category": "Pod",
+        "type": "Container",
+        "historical": "5000",
+        "current": "5000",
+        "field_methods": {
+          "historical": "rough model",
+          "current": "rough model"
+        },
+        "field_sources": {
+          "historical": "reusable launch rail, adapter or ejector-rack hardware proxy, excluding stores",
+          "current": "reusable launch rail, adapter or ejector-rack hardware proxy, excluding stores"
+        },
+        "completion": {
+          "model": "rack",
+          "historical": "5000",
+          "current": "5000",
+          "category": "Pod",
+          "source": null,
+          "basis": "reusable launch rail, adapter or ejector-rack hardware proxy, excluding stores",
+          "source_id": "policy",
+          "historical_year": 2026,
+          "historical_basis": "2026 replacement proxy; IOC unknown",
+          "confidence": "rough model",
+          "current_low": "2500",
+          "current_high": "10000",
+          "disposition": "counted"
+        },
+        "disposition": "counted",
+        "historical_basis": "2026 replacement proxy; IOC unknown",
+        "historical_reference_year": 2026,
+        "current_low": "2500",
+        "current_high": "10000"
+      },
+      {
+        "kind": "weapon",
         "id": "plaaf_yings-iii",
         "owner": "3812111085",
         "path": "mods-source/3812111085/ammunition/plaaf_yings-iii.ini",
@@ -113007,6 +114028,44 @@
         "historical_reference_year": null,
         "current_low": null,
         "current_high": null
+      },
+      {
+        "kind": "weapon",
+        "id": "plaaf_yj-91_ayone",
+        "owner": "3774859959",
+        "path": "mods-source/3774859959/ammunition/plaaf_yj-91_ayone.ini",
+        "category": "ASM",
+        "type": "Missile",
+        "historical": "2000000",
+        "current": "2000000",
+        "field_methods": {
+          "historical": "rough model",
+          "current": "rough model"
+        },
+        "field_sources": {
+          "historical": "anti-ship missile complete-round proxy",
+          "current": "anti-ship missile complete-round proxy"
+        },
+        "completion": {
+          "model": "asm",
+          "historical": "2000000",
+          "current": "2000000",
+          "category": "ASM",
+          "source": null,
+          "basis": "anti-ship missile complete-round proxy",
+          "source_id": "policy",
+          "historical_year": 2026,
+          "historical_basis": "2026 replacement proxy; IOC unknown",
+          "confidence": "rough model",
+          "current_low": "1000000",
+          "current_high": "4000000",
+          "disposition": "counted"
+        },
+        "disposition": "counted",
+        "historical_basis": "2026 replacement proxy; IOC unknown",
+        "historical_reference_year": 2026,
+        "current_low": "1000000",
+        "current_high": "4000000"
       },
       {
         "kind": "weapon",
@@ -113211,8 +114270,8 @@
       {
         "kind": "weapon",
         "id": "plan_48n6e1",
-        "owner": "SEST_Replenishment",
-        "path": "integration/replenishment/SEST_Replenishment/ammunition/plan_48n6e1.ini",
+        "owner": "3775128499",
+        "path": "mods-source/3775128499/ammunition/plan_48n6e1.ini",
         "category": "SAM",
         "type": "Missile",
         "historical": "345000",
@@ -113235,8 +114294,8 @@
       {
         "kind": "weapon",
         "id": "plan_726_4_chaff",
-        "owner": "3774859959",
-        "path": "mods-source/3774859959/ammunition/plan_726_4_chaff.ini",
+        "owner": "3413868677",
+        "path": "mods-source/3413868677/ammunition/plan_726_4_chaff.ini",
         "category": "Decoy",
         "type": "Chaff",
         "historical": "1500",
@@ -113885,8 +114944,8 @@
       {
         "kind": "weapon",
         "id": "plan_hhq-9b",
-        "owner": "SEST_Replenishment",
-        "path": "integration/replenishment/SEST_Replenishment/ammunition/plan_hhq-9b.ini",
+        "owner": "3775128499",
+        "path": "mods-source/3775128499/ammunition/plan_hhq-9b.ini",
         "category": "SAM",
         "type": "Missile",
         "historical": "345000",
@@ -115395,8 +116454,8 @@
       {
         "kind": "weapon",
         "id": "plan_yj-17",
-        "owner": "3775128499",
-        "path": "mods-source/3775128499/ammunition/plan_yj-17.ini",
+        "owner": "SEST_Replenishment",
+        "path": "integration/replenishment/SEST_Replenishment/ammunition/plan_yj-17.ini",
         "category": "ASM",
         "type": "Missile",
         "historical": "6720000",
@@ -115419,8 +116478,8 @@
       {
         "kind": "weapon",
         "id": "plan_yj-18",
-        "owner": "3775128499",
-        "path": "mods-source/3775128499/ammunition/plan_yj-18.ini",
+        "owner": "SEST_Replenishment",
+        "path": "integration/replenishment/SEST_Replenishment/ammunition/plan_yj-18.ini",
         "category": "ASM",
         "type": "Missile",
         "historical": "1930000",
@@ -115443,8 +116502,8 @@
       {
         "kind": "weapon",
         "id": "plan_yj-18a",
-        "owner": "3775128499",
-        "path": "mods-source/3775128499/ammunition/plan_yj-18a.ini",
+        "owner": "SEST_Replenishment",
+        "path": "integration/replenishment/SEST_Replenishment/ammunition/plan_yj-18a.ini",
         "category": "ASM",
         "type": "Missile",
         "historical": "1930000",
@@ -115491,8 +116550,8 @@
       {
         "kind": "weapon",
         "id": "plan_yj-18e",
-        "owner": "3812140001",
-        "path": "mods-source/3812140001/ammunition/plan_yj-18e.ini",
+        "owner": "SEST_Replenishment",
+        "path": "integration/replenishment/SEST_Replenishment/ammunition/plan_yj-18e.ini",
         "category": "ASM",
         "type": "Missile",
         "historical": "2000000",
@@ -115553,8 +116612,8 @@
       {
         "kind": "weapon",
         "id": "plan_yj-20",
-        "owner": "3775128499",
-        "path": "mods-source/3775128499/ammunition/plan_yj-20.ini",
+        "owner": "SEST_Replenishment",
+        "path": "integration/replenishment/SEST_Replenishment/ammunition/plan_yj-20.ini",
         "category": "Ballistic",
         "type": "Missile",
         "historical": "6720000",
@@ -115625,8 +116684,8 @@
       {
         "kind": "weapon",
         "id": "plan_yj-82",
-        "owner": "3752415457",
-        "path": "mods-source/3752415457/ammunition/plan_yj-82.ini",
+        "owner": "3711297532",
+        "path": "mods-source/3711297532/ammunition/plan_yj-82.ini",
         "category": "ASM",
         "type": "Missile",
         "historical": "730000",
@@ -118095,8 +119154,8 @@
       {
         "kind": "weapon",
         "id": "rfn_40n6e",
-        "owner": "3597650470",
-        "path": "mods-source/3597650470/ammunition/rfn_40n6e.ini",
+        "owner": "3629144864",
+        "path": "mods-source/3629144864/ammunition/rfn_40n6e.ini",
         "category": "SAM",
         "type": "Missile",
         "historical": "1600000",
@@ -118191,8 +119250,8 @@
       {
         "kind": "weapon",
         "id": "rfn_9m100",
-        "owner": "3597650470",
-        "path": "mods-source/3597650470/ammunition/rfn_9m100.ini",
+        "owner": "3629144864",
+        "path": "mods-source/3629144864/ammunition/rfn_9m100.ini",
         "category": "SAM",
         "type": "Missile",
         "historical": "300000",
@@ -118215,8 +119274,8 @@
       {
         "kind": "weapon",
         "id": "rfn_9m100e",
-        "owner": "3597650470",
-        "path": "mods-source/3597650470/ammunition/rfn_9m100e.ini",
+        "owner": "3629144864",
+        "path": "mods-source/3629144864/ammunition/rfn_9m100e.ini",
         "category": "SAM",
         "type": "Missile",
         "historical": "300000",
@@ -118431,8 +119490,8 @@
       {
         "kind": "weapon",
         "id": "rfn_9m96e",
-        "owner": "3597650470",
-        "path": "mods-source/3597650470/ammunition/rfn_9m96e.ini",
+        "owner": "3629144864",
+        "path": "mods-source/3629144864/ammunition/rfn_9m96e.ini",
         "category": "SAM",
         "type": "Missile",
         "historical": "1600000",
@@ -118455,8 +119514,8 @@
       {
         "kind": "weapon",
         "id": "rfn_9m96e2-1",
-        "owner": "3597650470",
-        "path": "mods-source/3597650470/ammunition/rfn_9m96e2-1.ini",
+        "owner": "3629144864",
+        "path": "mods-source/3629144864/ammunition/rfn_9m96e2-1.ini",
         "category": "SAM",
         "type": "Missile",
         "historical": "1600000",
@@ -165626,6 +166685,44 @@
       },
       {
         "kind": "vessel",
+        "id": "ko_pcc-756_pn",
+        "owner": "SEST_Replenishment",
+        "path": "integration/replenishment/SEST_Replenishment/vessels/ko_pcc-756_pn.ini",
+        "category": "Merchant",
+        "type": "Vessel",
+        "historical": "75000000",
+        "current": "75000000",
+        "field_methods": {
+          "historical": "rough model",
+          "current": "rough model"
+        },
+        "field_sources": {
+          "historical": "merchant hull and fixed machinery replacement proxy, excluding cargo",
+          "current": "merchant hull and fixed machinery replacement proxy, excluding cargo"
+        },
+        "completion": {
+          "model": "merchant",
+          "historical": "75000000",
+          "current": "75000000",
+          "category": "Merchant",
+          "source": null,
+          "basis": "merchant hull and fixed machinery replacement proxy, excluding cargo",
+          "source_id": "policy",
+          "historical_year": 2026,
+          "historical_basis": "2026 replacement proxy; IOC unknown",
+          "confidence": "rough model",
+          "current_low": "37500000",
+          "current_high": "150000000",
+          "disposition": "counted"
+        },
+        "disposition": "counted",
+        "historical_basis": "2026 replacement proxy; IOC unknown",
+        "historical_reference_year": 2026,
+        "current_low": "37500000",
+        "current_high": "150000000"
+      },
+      {
+        "kind": "vessel",
         "id": "ko_pkg-711",
         "owner": "SEST_Replenishment",
         "path": "integration/replenishment/SEST_Replenishment/vessels/ko_pkg-711.ini",
@@ -166974,6 +168071,30 @@
         "completion": null,
         "disposition": "counted",
         "historical_basis": "tracker author catalog; original reference-year basis retained",
+        "historical_reference_year": null,
+        "current_low": null,
+        "current_high": null
+      },
+      {
+        "kind": "vessel",
+        "id": "plan_cv16_liaoning",
+        "owner": "3774859959",
+        "path": "mods-source/3774859959/vessels/plan_cv16_liaoning.ini",
+        "category": "CV",
+        "type": "Vessel",
+        "historical": "1754000000",
+        "current": "4315000000",
+        "field_methods": {
+          "historical": "existing usable value preserved",
+          "current": "existing usable value preserved"
+        },
+        "field_sources": {
+          "historical": "reviewed catalog mapping: ru_cv_varyag",
+          "current": "reviewed catalog mapping: ru_cv_varyag"
+        },
+        "completion": null,
+        "disposition": "counted",
+        "historical_basis": "reviewed catalog mapping: ru_cv_varyag; original reference-year basis retained",
         "historical_reference_year": null,
         "current_low": null,
         "current_high": null
@@ -168504,30 +169625,6 @@
         "completion": null,
         "disposition": "counted",
         "historical_basis": "tracker author catalog; original reference-year basis retained",
-        "historical_reference_year": null,
-        "current_low": null,
-        "current_high": null
-      },
-      {
-        "kind": "vessel",
-        "id": "plan_type_001",
-        "owner": "3774859959",
-        "path": "mods-source/3774859959/vessels/plan_type_001.ini",
-        "category": "CV",
-        "type": "Vessel",
-        "historical": "1754000000",
-        "current": "4315000000",
-        "field_methods": {
-          "historical": "existing usable value preserved",
-          "current": "existing usable value preserved"
-        },
-        "field_sources": {
-          "historical": "reviewed catalog mapping: ru_cv_varyag",
-          "current": "reviewed catalog mapping: ru_cv_varyag"
-        },
-        "completion": null,
-        "disposition": "counted",
-        "historical_basis": "reviewed catalog mapping: ru_cv_varyag; original reference-year basis retained",
         "historical_reference_year": null,
         "current_low": null,
         "current_high": null
@@ -172777,6 +173874,44 @@
         "historical_reference_year": null,
         "current_low": null,
         "current_high": null
+      },
+      {
+        "kind": "vessel",
+        "id": "rn_ssn_warspite",
+        "owner": "3599752717",
+        "path": "mods-source/3599752717/vessels/rn_ssn_warspite.ini",
+        "category": "SSN",
+        "type": "Submarine",
+        "historical": "3500000000",
+        "current": "3500000000",
+        "field_methods": {
+          "historical": "rough model",
+          "current": "rough model"
+        },
+        "field_sources": {
+          "historical": "nuclear attack submarine replacement proxy, excluding weapons",
+          "current": "nuclear attack submarine replacement proxy, excluding weapons"
+        },
+        "completion": {
+          "model": "ssn",
+          "historical": "3500000000",
+          "current": "3500000000",
+          "category": "SSN",
+          "source": null,
+          "basis": "nuclear attack submarine replacement proxy, excluding weapons",
+          "source_id": "policy",
+          "historical_year": 2026,
+          "historical_basis": "2026 replacement proxy; IOC unknown",
+          "confidence": "rough model",
+          "current_low": "1750000000",
+          "current_high": "7000000000",
+          "disposition": "counted"
+        },
+        "disposition": "counted",
+        "historical_basis": "2026 replacement proxy; IOC unknown",
+        "historical_reference_year": 2026,
+        "current_low": "1750000000",
+        "current_high": "7000000000"
       },
       {
         "kind": "vessel",
@@ -189932,6 +191067,44 @@
       },
       {
         "kind": "aircraft",
+        "id": "mm_s-2f_tracker",
+        "owner": "3505420313",
+        "path": "mods-source/3505420313/aircraft/mm_s-2f_tracker.ini",
+        "category": "Aircraft",
+        "type": "Aircraft",
+        "historical": "75000000",
+        "current": "75000000",
+        "field_methods": {
+          "historical": "rough model",
+          "current": "rough model"
+        },
+        "field_sources": {
+          "historical": "conventional combat-aircraft replacement proxy, excluding ammunition and removable priced pods",
+          "current": "conventional combat-aircraft replacement proxy, excluding ammunition and removable priced pods"
+        },
+        "completion": {
+          "model": "fighter",
+          "historical": "75000000",
+          "current": "75000000",
+          "category": "Aircraft",
+          "source": null,
+          "basis": "conventional combat-aircraft replacement proxy, excluding ammunition and removable priced pods",
+          "source_id": "policy",
+          "historical_year": 2026,
+          "historical_basis": "2026 replacement proxy; IOC unknown",
+          "confidence": "rough model",
+          "current_low": "37500000",
+          "current_high": "150000000",
+          "disposition": "counted"
+        },
+        "disposition": "counted",
+        "historical_basis": "2026 replacement proxy; IOC unknown",
+        "historical_reference_year": 2026,
+        "current_low": "37500000",
+        "current_high": "150000000"
+      },
+      {
+        "kind": "aircraft",
         "id": "mm_sh-3",
         "owner": "3505420313",
         "path": "mods-source/3505420313/aircraft/mm_sh-3.ini",
@@ -192934,6 +194107,44 @@
       },
       {
         "kind": "aircraft",
+        "id": "plan_ka-28_pg",
+        "owner": "3774859959",
+        "path": "mods-source/3774859959/aircraft/plan_ka-28_pg.ini",
+        "category": "Aircraft",
+        "type": "Helicopter",
+        "historical": "30000000",
+        "current": "30000000",
+        "field_methods": {
+          "historical": "rough model",
+          "current": "rough model"
+        },
+        "field_sources": {
+          "historical": "medium military helicopter fitted replacement proxy",
+          "current": "medium military helicopter fitted replacement proxy"
+        },
+        "completion": {
+          "model": "helo",
+          "historical": "30000000",
+          "current": "30000000",
+          "category": "Aircraft",
+          "source": null,
+          "basis": "medium military helicopter fitted replacement proxy",
+          "source_id": "policy",
+          "historical_year": 2026,
+          "historical_basis": "2026 replacement proxy; IOC unknown",
+          "confidence": "rough model",
+          "current_low": "15000000",
+          "current_high": "60000000",
+          "disposition": "counted"
+        },
+        "disposition": "counted",
+        "historical_basis": "2026 replacement proxy; IOC unknown",
+        "historical_reference_year": 2026,
+        "current_low": "15000000",
+        "current_high": "60000000"
+      },
+      {
+        "kind": "aircraft",
         "id": "plan_ka-31",
         "owner": "3775128499",
         "path": "mods-source/3775128499/aircraft/plan_ka-31.ini",
@@ -193642,9 +194853,47 @@
       },
       {
         "kind": "aircraft",
+        "id": "planaf_j-15",
+        "owner": "3774859959",
+        "path": "mods-source/3774859959/aircraft/planaf_j-15.ini",
+        "category": "Aircraft",
+        "type": "Aircraft",
+        "historical": "32400000",
+        "current": "66700000",
+        "field_methods": {
+          "historical": "catalog comparator estimate",
+          "current": "catalog comparator estimate"
+        },
+        "field_sources": {
+          "historical": "design/family/role catalog comparator plan_j-15; donor reference-year series retained; not a class-specific quote",
+          "current": "design/family/role catalog comparator plan_j-15; donor reference-year series retained; not a class-specific quote"
+        },
+        "completion": {
+          "model": "fighter",
+          "historical": "32400000",
+          "current": "66700000",
+          "category": "Aircraft",
+          "source": "plan_j-15",
+          "basis": "design/family/role catalog comparator plan_j-15; donor reference-year series retained; not a class-specific quote",
+          "source_id": "tracker",
+          "historical_year": null,
+          "historical_basis": "donor reference year",
+          "confidence": "catalog comparator estimate",
+          "current_low": "33350000",
+          "current_high": "133400000",
+          "disposition": "counted"
+        },
+        "disposition": "counted",
+        "historical_basis": "donor reference year",
+        "historical_reference_year": null,
+        "current_low": "33350000",
+        "current_high": "133400000"
+      },
+      {
+        "kind": "aircraft",
         "id": "planaf_z-20j",
-        "owner": "3774572038",
-        "path": "mods-source/3774572038/aircraft/planaf_z-20j.ini",
+        "owner": "3774859959",
+        "path": "mods-source/3774859959/aircraft/planaf_z-20j.ini",
         "category": "Aircraft",
         "type": "Helicopter",
         "historical": "27900000",
@@ -220290,6 +221539,44 @@
       },
       {
         "kind": "land",
+        "id": "wp_55zh6",
+        "owner": "3551621846",
+        "path": "mods-source/3551621846/land_units/wp_55zh6.ini",
+        "category": "Radar",
+        "type": "Radar",
+        "historical": "25000000",
+        "current": "25000000",
+        "field_methods": {
+          "historical": "rough model",
+          "current": "rough model"
+        },
+        "field_sources": {
+          "historical": "one radar installation/vehicle hardware proxy, not the whole defence system",
+          "current": "one radar installation/vehicle hardware proxy, not the whole defence system"
+        },
+        "completion": {
+          "model": "radar",
+          "historical": "25000000",
+          "current": "25000000",
+          "category": "Radar",
+          "source": null,
+          "basis": "one radar installation/vehicle hardware proxy, not the whole defence system",
+          "source_id": "policy",
+          "historical_year": 2026,
+          "historical_basis": "2026 replacement proxy; IOC unknown",
+          "confidence": "rough model",
+          "current_low": "12500000",
+          "current_high": "50000000",
+          "disposition": "counted"
+        },
+        "disposition": "counted",
+        "historical_basis": "2026 replacement proxy; IOC unknown",
+        "historical_reference_year": 2026,
+        "current_low": "12500000",
+        "current_high": "50000000"
+      },
+      {
+        "kind": "land",
         "id": "wp_5p85te2",
         "owner": "3732654992",
         "path": "mods-source/3732654992/land_units/wp_5p85te2.ini",
@@ -221191,6 +222478,82 @@
         "id": "wp_big_bird",
         "owner": "3652906664",
         "path": "mods-source/3652906664/land_units/wp_big_bird.ini",
+        "category": "Radar",
+        "type": "Radar",
+        "historical": "25000000",
+        "current": "25000000",
+        "field_methods": {
+          "historical": "rough model",
+          "current": "rough model"
+        },
+        "field_sources": {
+          "historical": "one radar installation/vehicle hardware proxy, not the whole defence system",
+          "current": "one radar installation/vehicle hardware proxy, not the whole defence system"
+        },
+        "completion": {
+          "model": "radar",
+          "historical": "25000000",
+          "current": "25000000",
+          "category": "Radar",
+          "source": null,
+          "basis": "one radar installation/vehicle hardware proxy, not the whole defence system",
+          "source_id": "policy",
+          "historical_year": 2026,
+          "historical_basis": "2026 replacement proxy; IOC unknown",
+          "confidence": "rough model",
+          "current_low": "12500000",
+          "current_high": "50000000",
+          "disposition": "counted"
+        },
+        "disposition": "counted",
+        "historical_basis": "2026 replacement proxy; IOC unknown",
+        "historical_reference_year": 2026,
+        "current_low": "12500000",
+        "current_high": "50000000"
+      },
+      {
+        "kind": "land",
+        "id": "wp_bigbird_maz",
+        "owner": "3551621846",
+        "path": "mods-source/3551621846/land_units/wp_bigbird_maz.ini",
+        "category": "Radar",
+        "type": "Radar",
+        "historical": "25000000",
+        "current": "25000000",
+        "field_methods": {
+          "historical": "rough model",
+          "current": "rough model"
+        },
+        "field_sources": {
+          "historical": "one radar installation/vehicle hardware proxy, not the whole defence system",
+          "current": "one radar installation/vehicle hardware proxy, not the whole defence system"
+        },
+        "completion": {
+          "model": "radar",
+          "historical": "25000000",
+          "current": "25000000",
+          "category": "Radar",
+          "source": null,
+          "basis": "one radar installation/vehicle hardware proxy, not the whole defence system",
+          "source_id": "policy",
+          "historical_year": 2026,
+          "historical_basis": "2026 replacement proxy; IOC unknown",
+          "confidence": "rough model",
+          "current_low": "12500000",
+          "current_high": "50000000",
+          "disposition": "counted"
+        },
+        "disposition": "counted",
+        "historical_basis": "2026 replacement proxy; IOC unknown",
+        "historical_reference_year": 2026,
+        "current_low": "12500000",
+        "current_high": "50000000"
+      },
+      {
+        "kind": "land",
+        "id": "wp_bigbird_mzkt",
+        "owner": "3551621846",
+        "path": "mods-source/3551621846/land_units/wp_bigbird_mzkt.ini",
         "category": "Radar",
         "type": "Radar",
         "historical": "25000000",
@@ -222328,6 +223691,44 @@
       },
       {
         "kind": "land",
+        "id": "wp_mzkt_96l6v1",
+        "owner": "3551621846",
+        "path": "mods-source/3551621846/land_units/wp_mzkt_96l6v1.ini",
+        "category": "SAM platform",
+        "type": "SAM",
+        "historical": "12000000",
+        "current": "12000000",
+        "field_methods": {
+          "historical": "rough model",
+          "current": "rough model"
+        },
+        "field_sources": {
+          "historical": "one self-contained SAM launcher/TELAR, not a full multi-vehicle battery; ammunition excluded",
+          "current": "one self-contained SAM launcher/TELAR, not a full multi-vehicle battery; ammunition excluded"
+        },
+        "completion": {
+          "model": "land_sam",
+          "historical": "12000000",
+          "current": "12000000",
+          "category": "SAM platform",
+          "source": null,
+          "basis": "one self-contained SAM launcher/TELAR, not a full multi-vehicle battery; ammunition excluded",
+          "source_id": "policy",
+          "historical_year": 2026,
+          "historical_basis": "2026 replacement proxy; IOC unknown",
+          "confidence": "rough model",
+          "current_low": "6000000",
+          "current_high": "24000000",
+          "disposition": "counted"
+        },
+        "disposition": "counted",
+        "historical_basis": "2026 replacement proxy; IOC unknown",
+        "historical_reference_year": 2026,
+        "current_low": "6000000",
+        "current_high": "24000000"
+      },
+      {
+        "kind": "land",
         "id": "wp_mzkt_bigbird",
         "owner": "3732654992",
         "path": "mods-source/3732654992/land_units/wp_mzkt_bigbird.ini",
@@ -222401,44 +223802,6 @@
         "historical_reference_year": 2026,
         "current_low": "6000000",
         "current_high": "24000000"
-      },
-      {
-        "kind": "land",
-        "id": "wp_nebou",
-        "owner": "3551621846",
-        "path": "mods-source/3551621846/land_units/wp_nebou.ini",
-        "category": "Radar",
-        "type": "Radar",
-        "historical": "25000000",
-        "current": "25000000",
-        "field_methods": {
-          "historical": "rough model",
-          "current": "rough model"
-        },
-        "field_sources": {
-          "historical": "one radar installation/vehicle hardware proxy, not the whole defence system",
-          "current": "one radar installation/vehicle hardware proxy, not the whole defence system"
-        },
-        "completion": {
-          "model": "radar",
-          "historical": "25000000",
-          "current": "25000000",
-          "category": "Radar",
-          "source": null,
-          "basis": "one radar installation/vehicle hardware proxy, not the whole defence system",
-          "source_id": "policy",
-          "historical_year": 2026,
-          "historical_basis": "2026 replacement proxy; IOC unknown",
-          "confidence": "rough model",
-          "current_low": "12500000",
-          "current_high": "50000000",
-          "disposition": "counted"
-        },
-        "disposition": "counted",
-        "historical_basis": "2026 replacement proxy; IOC unknown",
-        "historical_reference_year": 2026,
-        "current_low": "12500000",
-        "current_high": "50000000"
       },
       {
         "kind": "land",
@@ -222749,6 +224112,44 @@
         "id": "wp_p-35_radar",
         "owner": "vanilla",
         "path": "mods-source/_vanilla/original/land_units/wp_p-35_radar.ini",
+        "category": "Radar",
+        "type": "Radar",
+        "historical": "25000000",
+        "current": "25000000",
+        "field_methods": {
+          "historical": "rough model",
+          "current": "rough model"
+        },
+        "field_sources": {
+          "historical": "one radar installation/vehicle hardware proxy, not the whole defence system",
+          "current": "one radar installation/vehicle hardware proxy, not the whole defence system"
+        },
+        "completion": {
+          "model": "radar",
+          "historical": "25000000",
+          "current": "25000000",
+          "category": "Radar",
+          "source": null,
+          "basis": "one radar installation/vehicle hardware proxy, not the whole defence system",
+          "source_id": "policy",
+          "historical_year": 2026,
+          "historical_basis": "2026 replacement proxy; IOC unknown",
+          "confidence": "rough model",
+          "current_low": "12500000",
+          "current_high": "50000000",
+          "disposition": "counted"
+        },
+        "disposition": "counted",
+        "historical_basis": "2026 replacement proxy; IOC unknown",
+        "historical_reference_year": 2026,
+        "current_low": "12500000",
+        "current_high": "50000000"
+      },
+      {
+        "kind": "land",
+        "id": "wp_provotnik",
+        "owner": "3551621846",
+        "path": "mods-source/3551621846/land_units/wp_provotnik.ini",
         "category": "Radar",
         "type": "Radar",
         "historical": "25000000",
@@ -224874,6 +226275,44 @@
       },
       {
         "kind": "land",
+        "id": "wp_tin_shield",
+        "owner": "3551621846",
+        "path": "mods-source/3551621846/land_units/wp_tin_shield.ini",
+        "category": "Radar",
+        "type": "Radar",
+        "historical": "25000000",
+        "current": "25000000",
+        "field_methods": {
+          "historical": "rough model",
+          "current": "rough model"
+        },
+        "field_sources": {
+          "historical": "one radar installation/vehicle hardware proxy, not the whole defence system",
+          "current": "one radar installation/vehicle hardware proxy, not the whole defence system"
+        },
+        "completion": {
+          "model": "radar",
+          "historical": "25000000",
+          "current": "25000000",
+          "category": "Radar",
+          "source": null,
+          "basis": "one radar installation/vehicle hardware proxy, not the whole defence system",
+          "source_id": "policy",
+          "historical_year": 2026,
+          "historical_basis": "2026 replacement proxy; IOC unknown",
+          "confidence": "rough model",
+          "current_low": "12500000",
+          "current_high": "50000000",
+          "disposition": "counted"
+        },
+        "disposition": "counted",
+        "historical_basis": "2026 replacement proxy; IOC unknown",
+        "historical_reference_year": 2026,
+        "current_low": "12500000",
+        "current_high": "50000000"
+      },
+      {
+        "kind": "land",
         "id": "wp_tochka",
         "owner": "3732654992",
         "path": "mods-source/3732654992/land_units/wp_tochka.ini",
@@ -225026,26 +226465,26 @@
       }
     ],
     "filled_fields": {
-      "weapon": 1934,
-      "vessel": 246,
-      "aircraft": 332,
-      "land": 999
+      "weapon": 1948,
+      "vessel": 250,
+      "aircraft": 338,
+      "land": 1009
     },
     "known_fields_preserved": 5589,
     "category_counts": {
       "Ballistic": 27,
-      "Decoy": 58,
-      "Gun": 216,
-      "ASM": 362,
+      "Decoy": 59,
+      "Gun": 217,
+      "ASM": 365,
       "AAM": 253,
       "Rocket": 29,
-      "Pod": 208,
+      "Pod": 209,
       "ATGM": 42,
       "Ignore": 35,
       "Torpedo": 220,
       "Land Attack": 79,
       "Fuel tank": 99,
-      "Bomb": 121,
+      "Bomb": 122,
       "ARM": 42,
       "ASW": 63,
       "SAM": 311,
@@ -225070,7 +226509,7 @@
       "PTM": 2,
       "SSK": 7,
       "RAFT": 8,
-      "Merchant": 50,
+      "Merchant": 51,
       "AGI": 6,
       "CL": 3,
       "DDG": 208,
@@ -225081,7 +226520,7 @@
       "CVN": 18,
       "LC": 12,
       "SSBN": 22,
-      "SSN": 70,
+      "SSN": 71,
       "FSG": 6,
       "TUG": 1,
       "AKL": 1,
@@ -225121,13 +226560,13 @@
       "T-AKR": 1,
       "UUV": 7,
       "CVH": 1,
-      "Aircraft": 793,
+      "Aircraft": 796,
       "Installation": 42,
       "AAA": 17,
-      "Radar": 63,
+      "Radar": 67,
       "Armour": 37,
       "Vehicle": 102,
-      "SAM platform": 110,
+      "SAM platform": 111,
       "Airbase": 54,
       "Missile site": 26,
       "Oil rig": 4,

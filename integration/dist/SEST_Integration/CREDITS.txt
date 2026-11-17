@@ -82,14 +82,14 @@ paint) of a round shipped by:
   Type 003 Fujian / Type 004 CVN Aircraft Carriers  (workshop 3486502935)
       plan_pl-10, plan_pl-15
 
-543 of the unit files here are another author's file with
+547 of the unit files here are another author's file with
 changes made to it. A Sea Power unit file is a whole-file
 override - there is no way to alter one line of somebody's
 aircraft without shipping the whole aircraft - so this is how a
 patch has to work, and this list is what it patches.
 
 Measured, not declared: every shipped unit file is diffed against
-every file of its kind in the collection, and the 543 below
+every file of its kind in the collection, and the 547 below
 came back 90% or more alike. The percentage is how much of the
 file is unchanged.
 Files carried for a mod that was removed from the Workshop are
@@ -138,7 +138,7 @@ listed whatever the percentage: they are still that author's.
        97%  aircraft/usn_p8_squadrons.ini
 
   Bréguet Br.1050 Alizé  (workshop 3628203171)
-       92%  ammunition/usn_ssq-47.ini
+       94%  ammunition/usn_ssq-47.ini
 
   BUK-M3  (workshop 3564792549)
        99%  land_units/wp_buk-m3.ini
@@ -301,6 +301,7 @@ listed whatever the percentage: they are still that author's.
       100%  vessels/ko_ocean-4300.ini
       100%  vessels/ko_ocean-4300_pn.ini
       100%  vessels/ko_opv.ini
+      100%  vessels/ko_pcc-756_pn.ini
       100%  vessels/ko_pkg-711_scl.ini
       100%  vessels/pn_ffg-06.ini
       100%  vessels/pn_ffg-150.ini
@@ -388,12 +389,14 @@ listed whatever the percentage: they are still that author's.
        99%  land_units/pla_airbase_modern.ini
 
   Modern PLAN Systems  (workshop 3775128499)
-      100%  ammunition/plan_48n6e1.ini
       100%  ammunition/plan_cj-10.ini
-      100%  ammunition/plan_hhq-9b.ini
       100%  ammunition/plan_yj-12a.ini
+      100%  ammunition/plan_yj-17.ini
+      100%  ammunition/plan_yj-18.ini
+      100%  ammunition/plan_yj-18a.ini
       100%  ammunition/plan_yj-18c.ini
       100%  ammunition/plan_yj-19.ini
+      100%  ammunition/plan_yj-20.ini
       100%  ammunition/plan_yj-62.ini
       100%  vessels/plan_type_051b_1997.ini
       100%  vessels/plan_type_051b_2017.ini
@@ -475,6 +478,7 @@ listed whatever the percentage: they are still that author's.
 
   Pakistani Pack  (workshop 3812140001)
       100%  ammunition/plan_cm-302.ini
+      100%  ammunition/plan_yj-18e.ini
 
   Philippines: The Luzon Line  (workshop 3752415457)
       100%  vessels/phl_ff_hamilton.ini

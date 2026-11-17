@@ -470,7 +470,7 @@ def small_placement():
     placed = {
         "Taskforce1Vessel": [
             ("Taskforce1Vessel1", _keys("plan_type_054a_p5", 0, 9), None, False),
-            ("Taskforce1Vessel2", _keys("plan_type_001", -12, 6), "Liaoning", False)],
+            ("Taskforce1Vessel2", _keys("plan_cv16_liaoning", -12, 6), "Liaoning", False)],
         "Taskforce2Vessel": [
             ("Taskforce2Vessel1", _keys("ran_ms_super_p", 0, -1), "MV Meridian Harmony", False)],
         "Taskforce2Aircraft": [
@@ -2462,8 +2462,7 @@ class CreditMerge(unittest.TestCase):
             self.skipTest("pack not built")
         row = next(l for l in doc.read_text(encoding="utf-8").splitlines()
                    if l.startswith("| `euromod-main` |"))
-        # The Miguel Malvar stands in for the Jose Rizal (pn_ffg-150 held, 15 Nov 2026).
-        self.assertIn("| pn_ffg-06 / fr_cal_76mm | The Island Road |", row)
+        self.assertIn("| pn_ffg-150 / fr_cal_76mm | The Island Road |", row)
 
 
 class RosterOnSale(unittest.TestCase):
@@ -3890,11 +3889,9 @@ class SuluLineCoalition(unittest.TestCase):
     # A campaign fit committed before the roster that sells it is held here
     # until a roster does; the day one does, the test below fails until it
     # leaves the set. Makran Line's two (the Z-9CE on the Tughril and
-    # Alamgir decks, design step P2) left it when its roster arrived.
-    # pn_ffg-150 is held from Sulu Line's roster while Euromod HD Hyundai
-    # Export Ships' item lacks ships/PN_FFG-150/PN_FFG-150.obj (15 Nov 2026,
-    # integration/campaign/sulu_line/tables.py); its Cross-Deck fit stays.
-    AHEAD_OF_ROSTER = {("pn_ffg-150", "phl_h-76")}
+    # Alamgir decks, design step P2) left it when its roster arrived, and the
+    # Jose Rizal's H-76 when her model came back (17 Nov 2026).
+    AHEAD_OF_ROSTER = set()
 
     def test_deck_fit_takes_each_campaign_deck_type(self):
         cd = cross_deck()

@@ -6011,7 +6011,7 @@
     "Which carrier facilities are at Longpo vs Yulin/Sanya; no carrier named (register check).",
     "Outside R01-R03, public reporting links Shandong (and reportedly Fujian) with Sanya - not used as evidence; the Fujian choice is SCENARIO CHOICE.",
     "No SSBN numbers or nuclear specifics (plan/seed exclusion).",
-    "If Liaoning (plan_type_001) is ever used as a Shandong stand-in: visible NameOverride, Variant3 or Default only for a current-dated world (Variant2 in date 2022-2023 only), J-15T Squadron2 does not resolve.",
+    "If Liaoning (plan_cv16_liaoning) is ever used as a Shandong stand-in: visible NameOverride, Variant3 or Default only for a current-dated world (Variant2 in date 2022-2023 only), J-15T Squadron2 does not resolve.",
     "Fidelity fixes: parent_or_colocated wording corrected; add R01:31 to the Lingshui link; record R03:97 bastion context.",
     "Escort classes (055, 052D) are authored; R03:99 names no escorts."
    ],

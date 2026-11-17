@@ -166,7 +166,10 @@ class BandaFrontHandoverTests(unittest.TestCase):
             # wp_40n6 (an alias of its S-400 round, 216 nm with a 33 ft floor),
             # which outranks S-400 SAM's 250 nm / 21000 ft copy, and with it one
             # wp_sa-21_40n6_tel no longer earns its place. It was 414 before.
-            self.assertEqual(413, sum(len(lean.units(side, "LandUnit")) for side in trim.SIDES))
+            # 420 since the 17 Nov 2026 export (27 mods updated, the radar
+            # mod and AEP's range layers among them): seven more land units
+            # earn their place. Which update moved each was not broken down.
+            self.assertEqual(420, sum(len(lean.units(side, "LandUnit")) for side in trim.SIDES))
             for side in trim.SIDES:
                 original_forms = [(key, tail) for _, key, _, tail in original.formation_specs(side)]
                 lean_forms = [(key, tail) for _, key, _, tail in lean.formation_specs(side)]

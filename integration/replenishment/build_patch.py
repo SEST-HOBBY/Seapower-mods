@@ -148,7 +148,7 @@ Name=SEST Replenishment At Sea
 Description=Working Replenishment At Sea for the modern fleet, alongside RE-power (3605013271). Ten upstream auxiliaries (Sacramento, Kilauea, T2, Boris Chilikin, Kazbek, Don tender, Delvar, Sealift Pacific, Algol, Teide) five merchant ships (the C8 and Seabee barge carriers, two Ro-Ros and the Soviet Mercur container ship) and two Philippine and Thai hulls (the LPD BRP Tarlac and the oiler HTMS Chula) get a tuned supply system using RE-power's field-proven SystemName=TruckSupplySystem. Each is forked from VANILLA (the Teide, which vanilla does not ship, from the Cold War Spanish pack) and given nothing but that block (and, on the Don, the reload flag for its two chaff launchers), so none of RE-power's other edits to those hulls - deleted optics, altered armour and acceleration - ride along under this pack's name. Eight modern replenishment ships arrive as new unit ids cloned from vanilla donors, five BLUE and three RED: Supply-class T-AOE, Lewis and Clark T-AKE, Henry J. Kaiser T-AO, JMSDF Mashuu, RFA Tide, PLAN Type 901 Fuyu, PLAN Type 903A Fuchi and Project 23130 Akademik Pashin. Each clone is refitted to its own navy and decade rather than wearing its 1960s donor's fit - Artisan and Sea Ceptor on the Tide, OPS-48 and NOLQ-2 on the Mashuu, Type 382/364 radar and twin Type 730 on the Fuyu - and they group in the editor under Replenishment (BLUE) and Replenishment (RED). Every supplier targets Vessel,Submarine so a boat can rearm; heavy strike and area-SAM rounds are metered by two counted SEST_ categories, derived from the data on each build rather than hand-listed, with per-hull MaxAmmoPoints ceilings deciding what each class of auxiliary can pass. Four rounds whose vanilla AmmoPoints and SupplyCategory a stats stub strips get exactly those two keys back, and six ammunition references upstream mistyped are repaired in place - launchers that had no round at all. Most importantly, ReloadableWithoutMagazine=True lands on every bare launcher of every modern hull, the Philippine and Thai navies' included - deck canisters, fixed tubes and Red Storm Arsenal's per-cell Mk41 VLS - because a launcher with no magazine and no such flag can never be reloaded, which is why anti-ship missiles and torpedoes do not replenish today. Must sit ABOVE every ship mod, RE-power included; this pack wins the hulls both touch and leaves RE-power's merchant suppliers to work below it.
 
 [Compatibility]
-ApproximateVersion=0.9.2
+ApproximateVersion=0.9.3
 """
 
 
@@ -319,8 +319,43 @@ def winning_ammo(ammo_id):
     found = _AMMO_INDEX.get(ammo_id.lower())
     if not found:
         return None, None
-    _, mod, path = sorted(found)[0]
+    # A file that opens with #!extend or #!prepend is not a copy of the round:
+    # the game lays it over the whole file below it (AEP's 17 Nov 2026
+    # plan_hq-10.ini is ten lines of guidance and model keys on Fujian's
+    # round). The copy the game loads is the first whole file; the layers
+    # above it are read by ammo_facts() for any key they restate.
+    ranked = sorted(found)
+    for _, mod, path in ranked:
+        if not _is_layer(read(path)):
+            return mod, path
+    _, mod, path = ranked[0]
     return mod, path
+
+
+def _is_layer(text):
+    """True for a file whose first directive is #!extend or #!prepend."""
+    for line in text.splitlines():
+        stripped = line.strip().lstrip("\ufeff")
+        if not stripped:
+            continue
+        if re.match(r"#!(extend|prepend)\s", stripped):
+            return True
+        if not stripped.startswith("#"):
+            return False
+    return False
+
+
+def ammo_layers(ammo_id):
+    """The #!extend / #!prepend files the game lays over the round's whole
+    file, highest priority first."""
+    winning_ammo(ammo_id)
+    out = []
+    for _, _mod, path in sorted(_AMMO_INDEX.get(ammo_id.lower(), [])):
+        text = read(path)
+        if not _is_layer(text):
+            break
+        out.append(text)
+    return out
 
 
 # surrogateescape, not the usual errors="replace". This pack ships some four
@@ -391,11 +426,16 @@ def ammo_facts(ammo_id, _seen=None):
         return None
     _seen.add(ammo_id)
     text = read(path)
+    layers = ammo_layers(ammo_id)
     def key(name):
-        m = re.search(rf"^{name}\s*=\s*([^\s/]+)", text, re.M)
-        return m.group(1) if m else None
+        # A layer's value replaces the whole file's.
+        for source in layers + [text]:
+            m = re.search(rf"^{name}\s*=\s*([^\s/]+)", source, re.M)
+            if m:
+                return m.group(1)
+        return None
     points, kind, target = key("AmmoPoints"), key("Type"), key("TargetType")
-    has_cat = bool(re.search(r"^SupplyCategory\s*=", text, re.M))
+    has_cat = any(re.search(r"^SupplyCategory\s*=", source, re.M) for source in layers + [text])
     target_file = _alias_target(text)
     if target_file and not (points and kind and target):
         parent = ammo_facts(Path(target_file).stem, _seen)

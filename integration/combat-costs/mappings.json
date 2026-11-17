@@ -3642,7 +3642,7 @@
       "basis": "PLAN Kilo 877EKM (364/365): same class as wp_ss_kilo (author model estimate, price year 1980)"
     },
     {
-      "target": "plan_type_001",
+      "target": "plan_cv16_liaoning",
       "source": "ru_cv_varyag",
       "basis": "Liaoning (ex-Varyag, Project 1143.6): same hull as ru_cv_varyag (author model estimate, price year 1991)"
     },

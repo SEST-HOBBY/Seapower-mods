@@ -18,7 +18,7 @@
 # first.
 #
 # Last, on the game build the pack's bundled features were reviewed for
-# (Sea Power 0.9.2 Build 261113), it installs or updates them
+# (the Sea Power 0.9.3 Build 261116 public beta), it installs or updates them
 # (sest-workshop-features.ps1 beside this file);
 # on any other build it puts the normal SEST plugins back if SEST's beta files
 # are installed. A refusal there is one [!!] warning, never a stop.
@@ -582,7 +582,7 @@ try {
     }
     # The game build, two beta test plugins and the last launch:
     # sest-profile.ps1, beside this file, reads Seapower-Scripts.dll's SHA-256
-    # (Sea Power 0.9.2 Build 261113, Build 261021, one of three October and
+    # (the Sea Power 0.9.3 Build 261116 public beta, Build 261021, one of three October and
     # November betas, or another file, Sea Power 0.9.0 among them),
     # BepInEx\plugins and BepInEx\LogOutput.log, and changes nothing. Its
     # [!!] lines (the discontinued PR #53 SEST.BetaAnchorBootstrap.dll is

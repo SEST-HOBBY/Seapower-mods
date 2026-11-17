@@ -122,7 +122,7 @@ MISSION = dict(
           alt=26000, weapons="Hold", loadout="Tanker",
           route=[(-33.50, 152.50, 26000), (-34.00, 153.10, 26000)], loop=True,
           telegraph=3),
-        U("red", "liaoning-type-001", "plan_type_001", "red_cv", name="Liaoning",
+        U("red", "liaoning-type-001", "plan_cv16_liaoning", "red_cv", name="Liaoning",
           route=[(-38.60, 154.90, 0)], telegraph=3),
         U("red", "type-003-004-maneuverwarfare", "plan_j-15", "red_air",
           name="Flying Shark 41", loadout="AirToAir",

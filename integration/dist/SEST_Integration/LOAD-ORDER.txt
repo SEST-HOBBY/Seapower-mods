@@ -148,7 +148,7 @@ bottom as you had them.
  126. 3716049886    MORE SU-24M VARIANTS
  127. 3806466625    V-22 Osprey / SV-22 2024 ASW prototype
  128. 3810611344    MV-75 Cheyenne II
- 129. 3551621846    NEBO-U
+ 129. 3551621846    SOVIET/RUSSIAN MODERN RADARS
  130. 3587091564    3M25 <<МЕТЕОРИТ>> (AS-X-19 Koala)
  131. 3681873198    Pickup truck extension
  132. 3412480633    Ground Upgrade: IFV

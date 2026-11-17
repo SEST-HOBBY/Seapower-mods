@@ -1,3 +1,66 @@
+# R15 — Sea Power 0.9.3 Build 261116 (public beta), 17 November 2026
+
+Runtime 1.8.0 / UI 1.6.0 / bootstrap 0.7.0, revision
+`R15-20261117-sea-power-093-aae79728`, for the 0.9.3 Build 261116 public beta
+(`Seapower-Scripts.dll` `aae79728…7a74`) only. Built with `build-roslyn.ps1`
+against `SEST-Beta-References-20261117-181824-e799d6`; `verify.py` passes all
+16 managed and installer checks and the upgrade from the released R14, in
+which the game and Group Manager change underneath the installed files. It
+has not run in the game.
+
+The 0.9.3 public release is a different file from the public beta (the beta
+carries toss bombing) and has not been captured. R15 stays off on it, as R14
+stays off on every 0.9.3 file.
+
+**Pins.** Two of the fifteen captured references moved: the game and Group
+Manager (`SeaPowerSquadPanel.dll` 0.2.22, `eff3fa12…`). The enable flag is
+`enable-093-261116-aae79728` and the private cache folder
+`beta-api-r15-261116`.
+
+**Game.** Nothing SEST binds was removed or renamed in 0.9.3. Of the game
+methods SEST hooks or the adapters assert a shape on, four bodies changed:
+`PauseMenuViewModel.InitialiseMissionPause` (it now reads
+`LinearCampaign.PlayedMissionIfRunning`; the Exit button SEST's postfix
+relabels in a world battle is built as before),
+`WeaponBase.setCourseTowardsPosition` and `WeaponSystemLauncher.OnUpdate`
+(the Missile Control and Optimal Target adapters' counts still hold, and the
+authors' own validators pass), and `AI.MaintainMPA` (hooked only by the held
+EC-2 jamming plugin). Task Force points are now booked in one account
+(`LinearCampaignTaskForcePointsAccount`); SEST reads no Task Force points.
+
+**Group Manager 0.2.22.** The author's file no longer calls
+`MapFormationViewModel.get_MembershipDisplay`, so the loader's 0.2.17 rewrite
+and its bridge call are retired and the plugin loads from its Workshop file.
+Every member SEST binds exists with the same signature; of the methods SEST
+hooks only `Plugin.LateUpdate` (a disposed guard) and
+`SquadBarController.UseState` (a backdrop call) changed, and SEST's patches
+on them are a postfix and a prefix. Formation UI mode, the layout correction
+and the pop-out bridge are re-pinned to `eff3fa12…`. The provenance test
+uses Identify Expanded for the cached-image case.
+
+**Holds.** Seventeen images are held before CLR load. By the member check:
+Enhanced Decoy, Multi-Stage Missiles, Osprey Mechanics (with Osprey Deck
+Ops), the flat Topographic Map and, new, the Custom Loadout Editor's
+`LoadoutManager0_8_7.dll` (`FileManager.FileExists(string)`). By profile:
+ExtendedGuidance. By the author's own build check, run against the 0.9.3
+file: Saronic Corsair USV and K5 Kraken (unchanged files), and the six
+Alpine-family images re-uploaded on 16 November under their new hashes
+(Alpine Sea Power, MV-75 fixture tilt, EC-2 jamming, Exterior Cameras,
+XQ-58 Shadow, MV-75 Crew Escape). Adapted as before: Dynamic Campaign Mod,
+Identify, Coordinated Strike, Test Range, Optimal Target, Missile Control
+and the Topographic Map.
+
+**Not re-pinned.** The CV16 helicopter flight-flag correction
+(`ui/PerformanceReview.cs`) still pins the Liaoning's old `CV16.dll`
+(`c592e4c1…`). The author's 17 November file (`6f3dc211…`) catches the
+failing read itself, so the correction reports itself inactive and nothing
+is lost. The stutter-diagnostic pins for Enhanced UI, Topographic Map and
+UI Worker Probe are older than their files, as in R14 (timing hooks only).
+
+**Not yet run under SEST's loader:** the Custom Loadout Editor's selector
+and beta variant, Kinematic Range Uncap, and the Liaoning's `CV16.dll` and
+`J15Systems.dll`. All four are admitted unchanged by the member check.
+
 # R14 — Sea Power 0.9.2 Build 261113, 14 November 2026
 
 Runtime 1.7.0 / UI 1.5.0 / bootstrap 0.6.0, revision

@@ -2,8 +2,9 @@ SEST R12 - RIBBONS AND NATIONAL AWARDS
 13 November 2026 | SEST-DEV
 
 WORLD OPERATIONS - F11 > SERVICE (BETA)
-World Operations needs SEST's code, which SETUP installs on Sea Power 0.9.2
-Build 261113 only; on any other build the world map has no SEST window and
+World Operations needs SEST's code, which SETUP installs on the Sea Power
+0.9.3 Build 261116 public beta only (the 0.9.3 public release is another
+file); on any other build the world map has no SEST window and
 these awards do not appear. 25 fictional world
 awards recognise manual battle service, distinct
 campaign battle days, theatre experience and successful Admiralty duties.
@@ -184,17 +185,18 @@ The Navy and Marine Corps Achievement Medal (O-4 and below) and the US Navy
 Unit and Meritorious Unit Commendations are no longer granted; a record
 earned with an earlier test build still shows.
 
-RED LINE RUNTIME RIBBONS - BETA RUNTIME R14 ONLY
+RED LINE RUNTIME RIBBONS - BETA RUNTIME R15 ONLY
 Two more fictional Red Line ribbons, for any commander, are defined in the
-campaign and keyed for SEST's beta runtime R14 (Runtime 1.7.0), which grants
-them at the debrief, as R13 (Runtime 1.6.5) did on the 0.8.7-261107 beta.
+campaign and keyed for SEST's beta runtime R15 (Runtime 1.8.0), which grants
+them at the debrief, as R13 (Runtime 1.6.5) did on the 0.8.7-261107 beta
+and R14 (Runtime 1.7.0) on 0.9.2 Build 261113.
 The game itself ignores the key: R12 (Runtime 1.6.4) and the standard build
-never grant them, and neither does R14 with MissionAwards=0 under [Runtime]
+never grant them, and neither does R15 with MissionAwards=0 under [Runtime]
 in plugins/sest_runtime.ini. Like every ribbon here, each also needs the
-mission's required result, and, as with the game's own ribbons on 0.9.2, a
+mission's required result, and, as with the game's own ribbons since 0.9.2, a
 ribbon the commander already holds is not granted again. This update's
-features are R14: on Sea Power 0.9.2 Build 261113, once SEST SETUP has
-installed them, R14 grants both ribbons when their terms are met. On
+features are R15: on the Sea Power 0.9.3 Build 261116 public beta, once SEST SETUP has
+installed them, R15 grants both ribbons when their terms are met. On
 0.8.7-261021 SEST keeps Runtime 1.5.0, and on any other build SEST's code
 does not load; on neither is a runtime ribbon granted. The game's own
 [RibbonAward_] rules, new in 0.9.2, cannot replace them: they test campaign
@@ -235,7 +237,7 @@ gallery flag set (public domain). Each campaign's art/ribbons/SOURCES.txt
 lists its pictures and sources. No AI imagery is used.
 
 PC CHECKS
-On Sea Power 0.9.2 with SEST's features installed, load an existing world
+On the Sea Power 0.9.3 public beta with SEST's features installed, load an existing world
 and check Service progress, wrapping and scrolling. Complete an accepted
 task, return to the map and compare task/battle counts. (World Operations
 is SEST's code; on any other build it is off.)
@@ -272,15 +274,15 @@ and a Cold War Su-27 the USSR; the Kuznetsov's 2016 fit shows Russian
 Federation and her 1991 fit the USSR. Pacific Strike's Action in the Taiwan
 Strait still generates its Soviet force. The Southern Watch test card's RU
 rows have the detail.
-On Sea Power 0.9.2 with this update's R14 (Runtime 1.7.0)
+On the Sea Power 0.9.3 public beta with this update's R15 (Runtime 1.8.0)
 installed by SETUP:
 complete RL05 without launching anything and RLC1 with its pilot recovered,
 and read each runtime ribbon's lines in Player.log (checks R1 to R4). The
 developer ribbon menu still offers neither ribbon, and with MissionAwards=0
-or on any build without R14 neither is granted (the Red Line test card's
+or on any build without R15 neither is granted (the Red Line test card's
 checks R5 and R6); that is expected. Each
 debrief logs two lines per runtime ribbon: judge by the first, the verdict.
 The second says "already awarded" after an award, or otherwise repeats the
 first. It is expected: Red Line's campaign.ini names itself as its [File]
 Base, and the game yields that file once as the open campaign and again as
-its base, so R14 reads the key twice.
+its base, so R15 reads the key twice.

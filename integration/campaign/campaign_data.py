@@ -2171,7 +2171,7 @@ MISSIONS.append(dict(
         # The PLAN Pack ships its own Fujian since 3 Oct, above the Fujian mod's
         # in the order, so the hull the game reads is the PLAN Pack's.
         U("red", "modern-plan-systems", "plan_cv_type_003", "red_cv", name="PLANS Fujian"),
-        U("red", "liaoning-type-001", "plan_type_001", "red_cv",
+        U("red", "liaoning-type-001", "plan_cv16_liaoning", "red_cv",
           name="PLANS Liaoning"),
         # No Type 055 or 052D: their files load YJ-17/YJ-20 hypersonics of
         # ~1000 NM that decided whether Ford lived from beyond any reach the
@@ -4393,7 +4393,9 @@ MISSIONS.append(dict(
         U("red", "s-300pmu2", "wp_tombstone", "s300", name="30N6E2 radar"),
         U("red", "s-300pmu2", "wp_kraz_tel", "s300", name="S-300 launcher"),
         U("red", "buk-m3", "wp_buk-m3", "buk", name="Buk-M3 TELAR"),
-        U("red", "nebo-u", "wp_nebou", "nebo", name="Nebo-U radar"),
+        # The radar mod's 17 Nov 2026 update replaced wp_nebou with wp_55zh6,
+        # the 55Zh6-1 Nebo-UE.
+        U("red", "nebo-u", "wp_55zh6", "nebo", name="Nebo-UE radar"),
         U("red", "iskander-m", "wp_iskander_m", "tel", name="Iskander-M launcher"),
         U("red", "j-16-multirole", "plaaf_j16", "enclave", name="Enclave 21",
           loadout="AirToAir", alt=25000, route=[(-2.00, 136.40, 30000)], enter=10),

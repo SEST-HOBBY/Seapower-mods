@@ -168,7 +168,7 @@ MISSION = dict(
           weapons="Tight"),
         U("blue", "modern-plan-systems", "plan_z-9c", "flight", alt=500, weapons="Hold",
           loadout="ASWHunter", slot="HeloRecon"),
-        U("blue", "liaoning-type-001", "plan_type_001", "group", name="Liaoning",
+        U("blue", "liaoning-type-001", "plan_cv16_liaoning", "group", name="Liaoning",
           weapons="Hold", route=[(-4.40, 128.50, 0)], telegraph=3),
         U("blue", "SEST_Replenishment", "plan_aor_type901", "group", variant="Variant1",
           name="Replenishment ship Hulunhu", weapons="Hold",

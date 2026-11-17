@@ -265,7 +265,7 @@ Hull variants are pinned (see World-level identity). 039B has 14 Changcheng hull
 - Outside R01-R03, public reporting links Shandong (and reportedly Fujian) to Sanya. This is not used as evidence.
 - No SSBN numbers or nuclear specifics are given.
 - Changcheng 25-28 is the hull name on 094, 094A and 096 alike. Use one Jin unit per world, or NameOverride the hulls.
-- Use Liaoning (plan_type_001) as a Shandong stand-in only with a NameOverride, and only with Variant3 or Default in a current-dated world.
+- Use Liaoning (plan_cv16_liaoning) as a Shandong stand-in only with a NameOverride, and only with Variant3 or Default in a current-dated world.
 - Fidelity fix: add R01:31 to the Lingshui tandem link.
 
 **Gaps**

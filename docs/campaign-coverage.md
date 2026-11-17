@@ -10,8 +10,8 @@ This campaign reaches 220 of the enabled mods and packs; the 5 it does not reach
 
 | class | meaning | mods |
 |---|---|---|
-| `unit` | places the unit; this mod wins its file | 142 |
-| `variant` | supplies the hull variant a placed or sold unit uses | 9 |
+| `unit` | places the unit; this mod wins its file | 141 |
+| `variant` | supplies the hull variant a placed or sold unit uses | 10 |
 | `squadron` | supplies the squadron a placed or sold airframe flies from | 9 |
 | `store` | supplies a round a placed or sold unit's loadout hangs | 9 |
 | `asset` | supplies a model folder a placed or sold unit's file draws from | 7 |
@@ -129,7 +129,7 @@ Sea and land positions in 23 of the 35 missions are snapped to points already us
 | `kc-46a` | KC-46A Pegasus - Strategic Tanker | `unit` | airbase_raaf_darwin deck / usaf_kc-46a_warp | White Water |
 | `kirov-pyotr-velikiy` | Kirov-class (Pyotr Velikiy Upgrade) | `variant` | wp_rkr_kirov_improved | Return Passage |
 | `kuznetsov-1143-5` | 1143.5 Kuznetsov | `unit` | ru_cv_kuznetsov deck / wp_su-33 | Return Passage |
-| `liaoning-type-001` | PLAN Type 001 Aircraft Carrier Liaoning | `unit` | plan_type_001 | Fujian's Shadow |
+| `liaoning-type-001` | PLAN Type 001 Aircraft Carrier Liaoning | `unit` | plan_lpd_type_071 deck / planaf_z-20j | Weapons Free |
 | `mare-nostrum-28` | Mare Nostrum '28 | `external` | a third-party Task Force Mode campaign (11 missions, Mediterranean 2028) that ships no unit, round or system; its missions place other mods' units, all of them in the order | - |
 | `merchants-expanded` | Merchants Expanded | `unit` | civ_ms_mairangi_bay | White Water |
 | `mh-60r-2154545636` | MH-60R Seahawk | `asset` | usn_cvn_nimitz_2000s_adou / assets/models/aircraft/usn_sh-60b | Flight Deck Day |
@@ -152,7 +152,7 @@ Sea and land positions in 23 of the 35 missions are snapped to points already us
 | `mv-75-cheyenne-ii` | MV-75 Cheyenne II | `unit` | usa_mv75_army | The Long Perimeter |
 | `nato-e-3a-sentry` | NATO E-3A Sentry | `asset` | plan_cvn_004 / assets/aircraft/materials | Long Reach |
 | `nato-ground-artillery` | NATO Ground Enhancement Series 2: Artillery | `unit` | kr_k9 | Joint Fires School |
-| `nebo-u` | NEBO-U | `unit` | wp_nebou | Second Ring |
+| `nebo-u` | SOVIET/RUSSIAN MODERN RADARS | `unit` | wp_55zh6 | Second Ring |
 | `nimitz-expanded` | Nimitz Expanded | `shadowed` | ships one file, `vessels/usn_cvn_nimitz_variants.ini`, which SEST Collection Fixes replaces - that patch is why it exists | - |
 | `operation-steadfast-lantern` | Operation STEADFAST LANTERN | `external` | a third-party Task Force Mode campaign (4 missions) plus a nation- flag table and one callsign key; nothing a SEST mission can name | - |
 | `p-8-poseidon` | Boeing P-8 Poseidon | `asset` | usn_p8 / aircraft/P8_Poseidon/Upgrade | White Water |
@@ -160,7 +160,7 @@ Sea and land positions in 23 of the 35 missions are snapped to points already us
 | `philippines-luzon-line` | Philippines: The Luzon Line | `squadron` | airfield_us deck / usn_sh-2f | Range Week |
 | `pickup-truck-extension` | Pickup truck extension | `unit` | civ_car_pickup_1983_assault_civ | Rig Seventeen |
 | `pla-land-unit-pack` | PLA Land Unit Pack | `unit` | pla_df-21c_tel | The Open Door |
-| `pla-plan-plaaf-aep` | PLA & PLAN & PLAAF AEP | `store` | plan_ss_type_039b / plan_yj-18 | Steel Highway |
+| `pla-plan-plaaf-aep` | PLA & PLAN & PLAAF AEP | `store` | plan_type_054a_p5 / plan_hq-16c | Blind Horizon |
 | `plaaf-aircraft-pack` | PLAAF Aircraft Pack | `unit` | pla_airbase_modern deck / plaaf_j-8b | The Open Door |
 | `plan-submarines` | PLAN Submarines | `unit` | plan_ss_type_039 | The Quiet Passenger |
 | `prithvi-tbm` | Prithvi TBM (大地弹道导弹) | `external` | Indian Prithvi II/III TELs kept for scenarios; no SEST mission places them, and the world campaign's India does not field them | - |
@@ -208,7 +208,7 @@ Sea and land positions in 23 of the 35 missions are snapped to points already us
 | `tu-95k-22` | Tu-95K-22 Bear G MOD | `unit` | wp_tu-95_bearg | Before the Lifeline |
 | `tu-95ms-x-101` | Tu-95MS (X-101) | `unit` | wp_tu95ms | Return Passage |
 | `type-003-004-maneuverwarfare` | Type 003 Fujian / Type 004 CVN Aircraft Carriers | `unit` | pla_airbase_modern deck / plan_j-15 | The Open Door |
-| `type-071-lpd` | PLAN Type 071 Amphibious Transport Dock | `unit` | plan_lpd_type_071 deck / planaf_z-20j | Weapons Free |
+| `type-071-lpd` | PLAN Type 071 Amphibious Transport Dock | `variant` | plan_lpd_type_071 | Weapons Free |
 | `type-12-ssm` | Type 12 SSM-ER Anti-Ship Missile System | `unit` | jp_12ssmht | Range Week |
 | `u-2` | U-2 "Dragon Lady" | `unit` | usaf_u-2_1960 | Before the Lifeline |
 | `ultimate-missile-workshop` | Ultimate Missile Workshop | `external` | a missile rebalance placed below every mod it duplicates on the player's call: its 95 contested rounds load from the mods that field them, and no unit in the collection hangs the 16 rounds only it ships | - |

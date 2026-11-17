@@ -25,10 +25,10 @@ Sea and land positions in 7 of the 10 missions are snapped to points already use
 | `auxilliary-merchant-pack` | Auxilliary Merchant Pack | `unit` | ran_ms_super_p | Celebes Gate |
 | `civil-aircraft-airbus` | Civil Aircraft Mod (Airbus Family) | `unit` | civ_a330 | Celebes Gate |
 | `civilian-as350` | Civilian AS350 Ecureuil/AStar MOD | `unit` | civ_as-350 | Night Market |
-| `euromod-main` | Euromod - Main Pack | `store` | pn_ffg-06 / fr_cal_76mm | The Island Road |
-| `euromod-philippines` | Euromod-HD Hyundai Export Ships Mod | `variant` | pn_ffg-06 | The Island Road |
+| `euromod-main` | Euromod - Main Pack | `store` | pn_ffg-150 / fr_cal_76mm | The Island Road |
+| `euromod-philippines` | Euromod-HD Hyundai Export Ships Mod | `variant` | pn_ffg-150 | The Island Road |
 | `euromod-ran` | Euromod - Modern Royal Australian Navy Mod | `variant` | ran_ssg_collins | Balabac Strait |
-| `euromod-south-korea` | Euromod-South Korea Navy | `store` | pn_ffg-06 / rok_ssm-700k | The Island Road |
+| `euromod-south-korea` | Euromod-South Korea Navy | `store` | pn_ffg-150 / rok_ssm-700k | The Island Road |
 | `ground-upgrade-spaa` | Ground Upgrade: SPAA | `unit` | ru_spaa_mt-lb_sosna | Fire Mission Jolo |
 | `iran-bell-212` | Iran Bell-212 | `unit` | irinavy_bell-212 | The Okean |
 | `iran-shahed-238` | Iran UAV Shahed 238 | `unit` | wp_shahed238_launcher | The Drone Yard |
@@ -38,13 +38,13 @@ Sea and land positions in 7 of the 10 missions are snapped to points already use
 | `philippines-luzon-line` | Philippines: The Luzon Line | `unit` | phl_h-76 | The Island Road |
 | `pickup-truck-extension` | Pickup truck extension | `unit` | civ_car_pickup_1983_assault_civ | Fire Mission Jolo |
 | `pla-land-unit-pack` | PLA Land Unit Pack | `store` | plan_type_052d_p3 / pla_cal_apfsds_30mm | Balabac Strait |
-| `pla-plan-plaaf-aep` | PLA & PLAN & PLAAF AEP | `store` | plan_type_052d_p3 / plan_hhq-9c | Balabac Strait |
+| `pla-plan-plaaf-aep` | PLA & PLAN & PLAAF AEP | `store` | plan_type_052d_p3 / plan_hhq-9b | Balabac Strait |
 | `plan-submarines` | PLAN Submarines | `unit` | plan_ss_type_039c | Balabac Strait |
 | `project-2498-zyetseth` | Project 2498 Zyetseth Class Assault Vessel | `unit` | civ_fv_okean_surprise | The Okean |
 | `re-power-resupply` | RE-power: the resupply mod | `unit` | civ_ms_super_p | The Okean |
 | `red-storm-arsenal` | Red Storm Arsenal | `unit` | _narco_narcosub_adv | Night Market |
 | `royal-australian-defence-forces` | Royal Australian Defence Forces | `asset` | phl_pt_jacinto / ships/Perth_parts | Night Market |
-| `sea-lynx` | Sea Lynx | `unit` | pn_ffg-06 deck / rn_sea_lynx | The Island Road |
+| `sea-lynx` | Sea Lynx | `unit` | pn_ffg-150 deck / rn_sea_lynx | The Island Road |
 | `shahed-136-zero-two` | Shahed-136 Kamikaze Drone (Geran-2) | `unit` | shahed_tel_black | Fire Mission Jolo |
 | `small-medium-uav-series` | Small and Medium-Sized UAV Series [WIP] (中小型无人机系列) | `unit` | sest_uav_forward deck / usn_rq7705 | Fire Mission Jolo |
 | `thailand-siam-shield` | Thailand: The Siam Shield | `roster` | tha_S-70B-7_Seahawk at 30 points | requisition roster |
@@ -52,9 +52,9 @@ Sea and land positions in 7 of the 10 missions are snapped to points already use
 | `us-naval-aviation` | United States Naval Aviation | `store` | rok_f-50_ph / usn_mk-82 | requisition roster |
 | `SEST_Allied_Fixes` | SEST Allied Fixes | `unit` | sest_uav_forward | Fire Mission Jolo |
 | `SEST_Collection_Fixes` | SEST Collection Fixes | `unit` | plaaf_jh7a | Balabac Strait |
-| `SEST_Cross_Deck` | SEST Cross-Deck | `deck` | pn_ffg-06 / phl_h-76 | The Island Road |
+| `SEST_Cross_Deck` | SEST Cross-Deck | `deck` | pn_ffg-150 / phl_h-76 | The Island Road |
 | `SEST_RAN_Fleet` | SEST RAN Fleet | `unit` | ran_ssg_collins | Balabac Strait |
-| `SEST_Replenishment` | SEST Replenishment At Sea | `unit` | pn_ffg-06 | The Island Road |
+| `SEST_Replenishment` | SEST Replenishment At Sea | `unit` | pn_ffg-150 | The Island Road |
 
 ## Not reached, and required by a mod that is
 
@@ -187,7 +187,7 @@ Left in the load order because removing one changes which file wins for the mods
 | `mv-75-cheyenne-ii` | MV-75 Cheyenne II |
 | `nato-e-3a-sentry` | NATO E-3A Sentry |
 | `nato-ground-artillery` | NATO Ground Enhancement Series 2: Artillery |
-| `nebo-u` | NEBO-U |
+| `nebo-u` | SOVIET/RUSSIAN MODERN RADARS |
 | `nimitz-expanded` | Nimitz Expanded |
 | `operation-steadfast-lantern` | Operation STEADFAST LANTERN |
 | `p-8-poseidon` | Boeing P-8 Poseidon |

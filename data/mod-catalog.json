@@ -2423,13 +2423,13 @@
     {
       "id": "nebo-u",
       "workshop_id": "3551621846",
-      "title": "NEBO-U",
+      "title": "SOVIET/RUSSIAN MODERN RADARS",
       "author": "SKIBIDI_RIZZLER123",
       "faction": "russia",
       "type": "land",
       "status": "active",
       "load_order": "Directly below MV-75 Cheyenne II, above 3M25 <<МЕТЕОРИТ>> (AS-X-19 Koala); it collides with nothing that changes hands, so the slot is a grouping choice.",
-      "notes": "Workshop 3551621846, by SKIBIDI RIZZLER. A single unit, wp_nebou: a VHF 3D early-warning radar (Nebo-U: 600 km, 100 target channels, floor 500 m) with an ESM fit, Soviet variant only, on the vanilla P-14 trailer mesh. It has no whole-file collisions, and the [General] sensor keys it sets match the 17 mods above it."
+      "notes": "Workshop 3551621846, by SKIBIDI RIZZLER; titled NEBO-U until its 17 Nov 2026 update, which renamed it and replaced its single unit wp_nebou with six radars: wp_55zh6 (55Zh6-1 Nebo-UE, the VHF early-warning radar SEST's Second Ring places), wp_bigbird_maz and wp_bigbird_mzkt (64N6E and 91N6E Big Bird), wp_mzkt_96l6v1 (96L6E), wp_tin_shield (36D6) and wp_provotnik (59N6E Protivnik-GE), each with a Soviet variant only, and its own [sensors] entries."
     },
     {
       "id": "wp-sattelite-center",

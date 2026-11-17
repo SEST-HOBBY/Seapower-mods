@@ -27,7 +27,7 @@ Sea and land positions are used as authored and checked against the coastline ex
 | `auxilliary-merchant-pack` | Auxilliary Merchant Pack | `unit` | anl_ms_bulk | Cold Route |
 | `b-1b` | B-1B Lancer | `store` | airbase_raaf_williamtown deck / usaf_f-15ex_SEII / dts_anaaq-33 | Tasman Crossing |
 | `cdg-modern-french-navy` | Charles De Gaulle & Modern French Navy Pack (WIP) | `unit` | fr_ffg_lafayette_modernized | Northern Priority |
-| `chinese-navy-plan` | Chinese Navy (PLAN) | `unit` | plan_type_001 deck / plan_z-18f | Cold Route |
+| `chinese-navy-plan` | Chinese Navy (PLAN) | `unit` | plan_z-18f | Cold Route |
 | `civil-aircraft-airbus` | Civil Aircraft Mod (Airbus Family) | `unit` | civ_a320 | Southern Departure |
 | `custom-loadout-editor` | Custom Loadout Editor | `store` | usn_fa-18e / usn_d-704 | requisition roster |
 | `dingtools-weapon-pack` | Dingtools Weapon Pack | `store` | airbase_raaf_east_sale deck / raaf_f-35a / dts_aim-260 | Turning North |
@@ -57,8 +57,7 @@ Sea and land positions are used as authored and checked against the coastline ex
 | `italian-navy-cold-war` | Italian Navy Mod | `roster` | mm_ddgh_durand_de_la_penne_02 at 260 points | requisition roster |
 | `kc-135` | KC-135 STRATOTANKER | `asset` | wp_il-78 / materials/ships | Macquarie Passage |
 | `kc-46a` | KC-46A Pegasus - Strategic Tanker | `unit` | usaf_kc-46a_boom | Southern Air Bridge |
-| `kuznetsov-1143-5` | 1143.5 Kuznetsov | `store` | plan_type_001 / su_rgb-12 | Cold Route |
-| `liaoning-type-001` | PLAN Type 001 Aircraft Carrier Liaoning | `unit` | plan_type_001 | Cold Route |
+| `liaoning-type-001` | PLAN Type 001 Aircraft Carrier Liaoning | `unit` | plan_cv16_liaoning | Cold Route |
 | `merchants-expanded` | Merchants Expanded | `unit` | civ_ms_mairangi_bay | Southern Departure |
 | `modern-plan-systems` | Modern PLAN Systems | `unit` | plan_type_054a_p5 deck / plan_z-9f | Southern Departure |
 | `modern-us-navy` | Modern US Navy | `roster` | usn_ddg-1000_cps at 480 points | requisition roster |
@@ -69,7 +68,8 @@ Sea and land positions are used as authored and checked against the coastline ex
 | `p-8-poseidon` | Boeing P-8 Poseidon | `asset` | usn_p8 / aircraft/P8_Poseidon/Upgrade | Southern Departure |
 | `philippines-luzon-line` | Philippines: The Luzon Line | `squadron` | airfield_small_1 deck / usn_sh-2f | Southern Departure |
 | `pla-land-unit-pack` | PLA Land Unit Pack | `store` | plan_type_054a_p5 / pla_cal_apfsds_30mm | Southern Departure |
-| `pla-plan-plaaf-aep` | PLA & PLAN & PLAAF AEP | `store` | plan_type_052d_p3 / plan_hhq-9c | The Southern Convoy |
+| `pla-plan-plaaf-aep` | PLA & PLAN & PLAAF AEP | `store` | plan_type_054a_p5 / plan_hq-16c | Southern Departure |
+| `plaaf-aircraft-pack` | PLAAF Aircraft Pack | `store` | plan_cv16_liaoning deck / planaf_j-15 / plaaf_pl-12a | Cold Route |
 | `plan-submarines` | PLAN Submarines | `unit` | plan_ssn_type_093b | Cold Route |
 | `rc-135-rivet-joint` | RC-135V/W Rivet Joint | `unit` | boeing_rc135 | Approaches |
 | `re-power-resupply` | RE-power: the resupply mod | `unit` | civ_ms_freighter_d | Southern Departure |
@@ -245,6 +245,7 @@ Left in the load order because removing one changes which file wins for the mods
 | `ka-27rld` | Ka-27RLD |
 | `kc-10a` | McDonnell Douglas KC-10A Extender - Strategic Tanker |
 | `kirov-pyotr-velikiy` | Kirov-class (Pyotr Velikiy Upgrade) |
+| `kuznetsov-1143-5` | 1143.5 Kuznetsov |
 | `mare-nostrum-28` | Mare Nostrum '28 |
 | `mh-60r-2154545636` | MH-60R Seahawk |
 | `mi-24` | Mil Mi-24 Hind |
@@ -260,12 +261,11 @@ Left in the load order because removing one changes which file wins for the mods
 | `mv-22b-osprey` | V-22 Osprey / SV-22 2024 ASW prototype |
 | `mv-75-cheyenne-ii` | MV-75 Cheyenne II |
 | `nato-ground-artillery` | NATO Ground Enhancement Series 2: Artillery |
-| `nebo-u` | NEBO-U |
+| `nebo-u` | SOVIET/RUSSIAN MODERN RADARS |
 | `nimitz-expanded` | Nimitz Expanded |
 | `operation-steadfast-lantern` | Operation STEADFAST LANTERN |
 | `pakistani-pack` | Pakistani Pack |
 | `pickup-truck-extension` | Pickup truck extension |
-| `plaaf-aircraft-pack` | PLAAF Aircraft Pack |
 | `prithvi-tbm` | Prithvi TBM (大地弹道导弹) |
 | `project-2498-zyetseth` | Project 2498 Zyetseth Class Assault Vessel |
 | `real-photos-aircraft` | Real photos of airplanes and helicopters |

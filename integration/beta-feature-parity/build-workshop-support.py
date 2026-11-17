@@ -21,7 +21,7 @@ ROOT = HERE.parents[1]
 REVISIONS = ("R12-", "R13-", "R14-", "R15-")
 # The game builds a bundle may target, as players read them in Player.log.
 GAME_LABELS = {
-    "aae79728d911669aec8a84c5adb1c271d57ca27c585e00ba7f5ebe3d4ec47a74": "0.9.3-261116",
+    "aae79728d911669aec8a84c5adb1c271d57ca27c585e00ba7f5ebe3d4ec47a74": "0.9.3-261116 public beta",
 }
 EXPECTED = {"AnchorChain.dll", "SEST.BetaSafeBootstrap.dll", "SEST.RuntimeFixes.dll",
             "SEST.ContactsFix.dll", "SEST.IdentifyDataPaths.dll"}
@@ -98,7 +98,8 @@ else:
                 "refinements are included in this Workshop item for game build\n")
 write_text(source / "README.txt", """SEST WORKSHOP FEATURE UPDATE
 
-""" + included + manifest["target_game_label"] + """ only (Sea Power 0.9.3 Build 261116, public beta). On every other
+""" + included + manifest["target_game_label"] + """ only (the public release of Sea
+Power 0.9.3 Build 261116 is another file). On every other
 game build SETUP installs none of it, and puts the normal SEST plugins back if
 it was installed.
 

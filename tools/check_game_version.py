@@ -108,7 +108,8 @@ REBUILD = "run python3 tools/build_all.py --from-scratch"
 # until Sea Power 0.9.0 (Build 261111) was released on 11 Nov 2026.
 KNOWN_BUILDS = {"261021": "the 0.8.7 release", "261026": "a beta of October 2026",
                 "261107": "the last 0.8.7 beta", "261111": "the 0.9.0 release",
-                "261112": "the 0.9.1 release", "261113": "the 0.9.2 release"}
+                "261112": "the 0.9.1 release", "261113": "the 0.9.2 release",
+                "261116": "0.9.3 (released and in public beta under one build number)"}
 
 # Every day in the changelog so far is zero-padded; a "2-Oct-2026" line must
 # still be read as the newest, not skipped for the one below it.

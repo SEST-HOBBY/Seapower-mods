@@ -166,7 +166,7 @@ MISSION = dict(
           name="MV Tasman Relief II (transport)", weapons="Hold"),
         U("blue", "re-power-resupply", "civ_ms_freighter_a", "lift",
           name="MV Tasman Relief III (transport)"),
-        U("red", "liaoning-type-001", "plan_type_001", "red_cv", name="Liaoning",
+        U("red", "liaoning-type-001", "plan_cv16_liaoning", "red_cv", name="Liaoning",
           route=[(-39.90, 151.30, 0)], telegraph=3),
         U("red", "modern-plan-systems", "plan_type_052d_p3", "red_cv",
           name="Type 052D (the flagship)", route=[(-39.90, 151.30, 0)], telegraph=3),

@@ -8,7 +8,6 @@ across every campaign in the pack.
 
 1. HARD REQUIRED (64): a mission or the roster names a file of theirs, or a mod above says it cannot run without them.
 
-  3438479626    a weapon a loadout hangs         1143.5 Kuznetsov
   3781062859    a model a unit draws             <<E-3G>>
   3499239964    a unit a mission places          [DEPRECATED] E-7A Wedgetail
   3459682829    a model a unit draws             A-10C
@@ -54,6 +53,7 @@ across every campaign in the pack.
   3752415457    a squadron a flight comes from   Philippines: The Luzon Line
   3789188689    a weapon a loadout hangs         PLA & PLAN & PLAAF AEP
   3733719765    a weapon a loadout hangs         PLA Land Unit Pack
+  3812111085    a weapon a loadout hangs         PLAAF Aircraft Pack
   3594891803    a unit a mission places          PLAN Submarines
   3774859959    a unit a mission places          PLAN Type 001 Aircraft Carrier Liaoning
   3808882954    a unit a mission places          RC-135V/W Rivet Joint
@@ -104,6 +104,7 @@ conveniences.)
 4. NOT USED BY THIS CAMPAIGN (146): enabled while it was built, and left in the order because removing one changes which copy of a
 shared file wins for the mods above.
 
+  3438479626    1143.5 Kuznetsov
   3587091564    3M25 <<МЕТЕОРИТ>> (AS-X-19 Koala)
   3673908868    <<Tu-16N>>
   3403661005    [DEPRECATED] S-70B-2 Seahawk with AGM-114 'Hellfire' Missiles
@@ -184,14 +185,12 @@ shared file wins for the mods above.
   3716049886    MORE SU-24M VARIANTS
   3810611344    MV-75 Cheyenne II
   3603367264    NATO Ground Enhancement Series 2: Artillery
-  3551621846    NEBO-U
   3432592449    Nimitz Expanded
   3779799226    Operation STEADFAST LANTERN
   3812140001    Pakistani Pack
   3681873198    Pickup truck extension
   3729578404    PLA Shenyang J-11BS
   3729579342    PLA Sukhoi Su-27UBK
-  3812111085    PLAAF Aircraft Pack
   3774572038    PLAN Type 071 Amphibious Transport Dock
   3731931836    Prithvi TBM (大地弹道导弹)
   3399699218    Project 2498 Zyetseth Class Assault Vessel
@@ -229,6 +228,7 @@ shared file wins for the mods above.
   3506979898    Shenyang J-16A (歼-16A 潜龙)
   3670643788    Shenyang J-50 (沈阳航空工业 歼-50)
   3601891050    Small and Medium-Sized UAV Series [WIP] (中小型无人机系列)
+  3551621846    SOVIET/RUSSIAN MODERN RADARS
   3820576916    Steelfin
   3451166840    Su-25 Frogfoot
   3762023575    Su-30SM2

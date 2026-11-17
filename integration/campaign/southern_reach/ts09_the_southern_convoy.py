@@ -152,7 +152,7 @@ MISSION = dict(
           name="MV Bass Highway"),
         U("blue", "merchants-expanded", "civ_ms_mairangi_bay", "convoy",
           name="MV Coral Pioneer"),
-        U("red", "liaoning-type-001", "plan_type_001", "red_cv", name="Liaoning",
+        U("red", "liaoning-type-001", "plan_cv16_liaoning", "red_cv", name="Liaoning",
           route=[(-39.20, 140.10, 0)], telegraph=3),
         U("red", "modern-plan-systems", "plan_type_052d_p3", "red_cv",
           name="Type 052D (the flagship)", route=[(-39.20, 140.10, 0)], telegraph=3),

@@ -55,7 +55,7 @@ across every campaign in the pack.
   3672497668    a unit a mission places          Fattah-2
   3758943352    a squadron a flight comes from   French Air Force
   3736147136    a model a unit draws             French Army Vehicles
-  3567228449    a weapon a loadout hangs         French Helicopter Package
+  3567228449    a model a unit draws             French Helicopter Package
   3503670861    a squadron a flight comes from   General Atomics MQ-9 Reaper
   3461044389    a weapon a loadout hangs         Gerald R. Ford-class CVN Aircraft Carrier (Updated Dependencies)
   3508275114    a unit a mission places          Ground Upgrade: SPAA
@@ -84,7 +84,6 @@ across every campaign in the pack.
   3390330875    a unit a mission places          Modern US Navy
   3456859157    a hull variant in use            Mogami-class Frigate
   3485917612    a unit a mission places          Moloti's Armed Merchantmen
-  3551621846    a unit a mission places          NEBO-U
   3812140001    a model a unit draws             Pakistani Pack
   3681873198    a unit a mission places          Pickup truck extension
   3789188689    a weapon a loadout hangs         PLA & PLAN & PLAAF AEP
@@ -94,7 +93,7 @@ across every campaign in the pack.
   3812111085    a unit a mission places          PLAAF Aircraft Pack
   3594891803    a unit a mission places          PLAN Submarines
   3774859959    a unit a mission places          PLAN Type 001 Aircraft Carrier Liaoning
-  3774572038    a unit a mission places          PLAN Type 071 Amphibious Transport Dock
+  3774572038    a hull variant in use            PLAN Type 071 Amphibious Transport Dock
   3399699218    a unit a mission places          Project 2498 Zyetseth Class Assault Vessel
   3605013271    a unit a mission places          RE-power: the resupply mod
   3769142422    a unit a mission places          Rebuilt J-16 / J-16D
@@ -113,6 +112,7 @@ across every campaign in the pack.
   3670643788    a weapon a loadout hangs         Shenyang J-50 (沈阳航空工业 歼-50)
   3601891050    a unit a mission places          Small and Medium-Sized UAV Series [WIP] (中小型无人机系列)
   3524112296    a unit a mission places          Soviet AEW&C + Transport Aircraft (A-50 / Il-76)
+  3551621846    a unit a mission places          SOVIET/RUSSIAN MODERN RADARS
   3820576916    a unit a mission places          Steelfin
   3451166840    a unit a mission places          Su-25 Frogfoot
   3503594612    a unit a mission places          SU-57 Felon (重刑犯)

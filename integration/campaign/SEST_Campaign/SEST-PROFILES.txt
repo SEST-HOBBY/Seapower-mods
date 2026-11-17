@@ -7,12 +7,14 @@ built for the game version the pack's _info.ini declares. The build report
 in step 1 changes nothing; the bundled feature installation runs at the end
 of SETUP.
 
-CURRENT RELEASE: SEA POWER 0.9.2 Build 261113 (13 November 2026)
-(Seapower-Scripts.dll 3f56861f...)
-- The pack's data is built for 0.9.2, and the bundled features are R14
-  (SEST Runtime 1.7.0, UI 1.5.0), reviewed for this build: F11 World
-  Operations, world service progress, campaign costs, Coordinated Strike
-  styling/cost summaries and the debrief mission ribbons.
+BUNDLED FEATURES: SEA POWER 0.9.3 Build 261116 PUBLIC BETA (16 November 2026)
+(Seapower-Scripts.dll aae79728...)
+- The bundled features are R15 (SEST Runtime 1.8.0, UI 1.6.0), reviewed for
+  this file only: F11 World Operations, world service progress, campaign
+  costs, Coordinated Strike styling/cost summaries and the debrief mission
+  ribbons. The pack's data is built on the game's 0.9.2 files.
+- The public release of 0.9.3 Build 261116 is a different file from the
+  public beta. SETUP installs none of the bundled features on it.
 - First installation: run SETUP, launch to the main menu, wait about ten
   seconds, quit, then run SETUP again. A successful menu probe is required.
 - Existing enabled SEST feature installation: close the game and run SETUP
@@ -31,15 +33,20 @@ CURRENT RELEASE: SEA POWER 0.9.2 Build 261113 (13 November 2026)
   feature installation. Keep the error and diagnostic report for review.
 - Managed/fixture checks passed; native gameplay acceptance is still required.
 
+EARLIER RELEASE: 0.9.2 Build 261113 (Seapower-Scripts.dll 3f56861f...)
+- The earlier R14 features (Runtime 1.7.0, UI 1.5.0) were reviewed for this
+  build. The bundled R15 installer makes no code changes on it; if SEST's
+  beta files are installed, SETUP puts the normal plugins back.
+
 EARLIER BETA: 0.8.7 Build 261107 (Seapower-Scripts.dll 499675cd...)
 - The earlier R13 features (Runtime 1.6.5, UI 1.4.15) were reviewed for
-  this beta. The bundled R14 installer makes no code changes on it; if
+  this beta. The bundled R15 installer makes no code changes on it; if
   SEST's beta files are installed, SETUP puts the normal plugins back.
 
 EARLIER RELEASE: 0.8.7 Build 261021 (Seapower-Scripts.dll eab2297b...)
 - Runtime Fixes 1.5.0 and UI Follow-up, which are matched to this build,
   remain selected, subject to their own game/author SHA-256 checks.
-- The bundled R14 feature installer makes no code changes on this build.
+- The bundled R15 feature installer makes no code changes on this build.
 
 OLDER BETAS AND ANY OTHER BUILD (Sea Power 0.9.0 included)
 - Campaign/data files remain available, subject to game compatibility.

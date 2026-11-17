@@ -2389,9 +2389,7 @@ def waypoint_orders(mission, spec, kind, keys, orders, pending, tag, n):
 # under campaigns/: the campaign copy stays what the campaign generates on.
 # Types and variants are the ones each campaign already places.
 STANDALONE_ESCORTS = {
-    # The Jose Rizal class (pn_ffg-150) cannot load (sulu_line/tables.py):
-    # the Miguel Malvar class takes its place here as in the missions.
-    "sest-sulu-line": [dict(mod="euromod-philippines", type="pn_ffg-06", variant="Variant1"),
+    "sest-sulu-line": [dict(mod="euromod-philippines", type="pn_ffg-150", variant="Variant1"),
                        dict(mod="philippines-luzon-line", type="phl_fs_pohang",
                             variant="Variant1")],
     "sest-makran-line": [dict(mod="pakistani-pack", type="pns_type_054a_p", variant="Variant3")],
@@ -10578,7 +10576,7 @@ def main():
                "Chain preloader and sets the whole order for you.")
     (OUT / "_info.ini").write_text(
         info(" - ".join(titles), blurb, general="",
-             tail="\n[Compatibility]\nApproximateVersion=0.9.2\n"),
+             tail="\n[Compatibility]\nApproximateVersion=0.9.3\n"),
         encoding="utf-8")
     # The pack-level lists, from the union of what every campaign reaches.
     set_campaign(dict(campaigns[0]["spec"], TITLE=" / ".join(titles)))

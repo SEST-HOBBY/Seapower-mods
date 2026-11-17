@@ -24,7 +24,7 @@ Sea and land positions are used as authored and checked against the coastline ex
 | `modern-plan-systems` | Modern PLAN Systems | `store` | pns_type_054a_p / plan_cal_76mm | The Fuel Road |
 | `pakistani-pack` | Pakistani Pack | `unit` | pns_type_054a_p | The Fuel Road |
 | `pla-land-unit-pack` | PLA Land Unit Pack | `store` | pns_type_054a_p / pla_cal_apfsds_30mm | The Fuel Road |
-| `pla-plan-plaaf-aep` | PLA & PLAN & PLAAF AEP | `store` | pns_ss_s-26p / plan_yj-18e | Hangor |
+| `pla-plan-plaaf-aep` | PLA & PLAN & PLAAF AEP | `store` | pns_type_054a_p / plan_ly-80n | The Fuel Road |
 | `plaaf-aircraft-pack` | PLAAF Aircraft Pack | `store` | paf_jf-17_blk_ii / plaaf_rkl-700a | requisition roster |
 | `re-power-resupply` | RE-power: the resupply mod | `unit` | civ_ms_freighter_a | The Fuel Road |
 | `us-naval-aviation` | United States Naval Aviation | `store` | paf_jf-17_blk_ii / usn_mk-82 | requisition roster |
@@ -173,7 +173,7 @@ Left in the load order because removing one changes which file wins for the mods
 | `mv-75-cheyenne-ii` | MV-75 Cheyenne II |
 | `nato-e-3a-sentry` | NATO E-3A Sentry |
 | `nato-ground-artillery` | NATO Ground Enhancement Series 2: Artillery |
-| `nebo-u` | NEBO-U |
+| `nebo-u` | SOVIET/RUSSIAN MODERN RADARS |
 | `nimitz-expanded` | Nimitz Expanded |
 | `operation-steadfast-lantern` | Operation STEADFAST LANTERN |
 | `p-8-poseidon` | Boeing P-8 Poseidon |

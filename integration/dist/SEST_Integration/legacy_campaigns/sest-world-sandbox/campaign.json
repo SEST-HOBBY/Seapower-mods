@@ -3920,7 +3920,7 @@
       "base": "home_chn_qingdao",
       "type": "Surface",
       "units": [
-        "plan_type_001",
+        "plan_cv16_liaoning",
         "plan_type_055_2020 x2",
         "plan_type_052d_p2_1 x2",
         "plan_type_054a_p4 x2",
@@ -6400,6 +6400,7 @@
     "plaaf_y-20a": 23,
     "plan_aor_type901": 247,
     "plan_aor_type903a": 146,
+    "plan_cv16_liaoning": 840,
     "plan_cv_type_003": 1064,
     "plan_ddg_type956e_early": 214,
     "plan_j-15": 46,
@@ -6417,7 +6418,6 @@
     "plan_ssn_type_093": 190,
     "plan_ssn_type_093a": 190,
     "plan_ssn_type_093b": 190,
-    "plan_type_001": 840,
     "plan_type_052d_p1": 206,
     "plan_type_052d_p2_1": 206,
     "plan_type_052d_p3": 206,
@@ -6713,6 +6713,7 @@
     "mm_ab47j": 39,
     "mm_av-8b_plus": 46,
     "mm_br1150": 89,
+    "mm_s-2f_tracker": 89,
     "mm_sh-3": 39,
     "mm_sh-3_91": 39,
     "msdvd_tu-214_AEW": 242,
@@ -6729,8 +6730,8 @@
     "paf_jf-17_blk_ii": 46,
     "paf_mirage_iii": 46,
     "ph_f-8h": 46,
-    "phl_h-76": 39,
-    "phl_t28": 2,
+    "phl_h-76": 25,
+    "phl_t28": 78,
     "pla_f-5": 46,
     "pla_h-6a": 172,
     "pla_h-6d": 172,
@@ -6799,6 +6800,7 @@
     "plan_j_15": 46,
     "plan_j_15t": 46,
     "plan_ka-28": 39,
+    "plan_ka-28_pg": 40,
     "plan_ka-31": 242,
     "plan_ka_28": 39,
     "plan_ka_28_mod": 39,
@@ -6823,6 +6825,7 @@
     "plan_z-9d": 39,
     "plan_z-9f": 39,
     "plan_z-9f_(2020)": 39,
+    "planaf_j-15": 46,
     "planaf_z-20j": 39,
     "pns_sh-3h": 39,
     "pol_a330_mrtt": 242,
@@ -7373,6 +7376,7 @@
     "ko_ocean-4300_pn": 141,
     "ko_opv": 98,
     "ko_pcc-756": 60,
+    "ko_pcc-756_pn": 60,
     "ko_pkg-711": 36,
     "ko_pkg-711_scl": 36,
     "ko_pkm-329": 16,
@@ -7584,6 +7588,7 @@
     "rn_ssn_swiftsure": 152,
     "rn_ssn_trafalgar": 160,
     "rn_ssn_valiant": 145,
+    "rn_ssn_warspite": 177,
     "rn_type22b12": 152,
     "rn_type22b2": 152,
     "rn_type23": 137,
@@ -9559,6 +9564,13 @@
     },
     {
       "unit": "iqaf_md500",
+      "side": "blue",
+      "nation": "US",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "mm_s-2f_tracker",
       "side": "blue",
       "nation": "US",
       "tier": 0,
@@ -12935,6 +12947,12 @@
       "tier": 1
     },
     {
+      "unit": "rn_ssn_warspite",
+      "side": "blue",
+      "nation": "UK",
+      "tier": 1
+    },
+    {
       "unit": "rn_swiftsure_class_ssn",
       "side": "blue",
       "nation": "UK",
@@ -14599,6 +14617,12 @@
       "aircraft": true
     },
     {
+      "unit": "ko_pcc-756_pn",
+      "side": "blue",
+      "nation": "Philippines",
+      "tier": 0
+    },
+    {
       "unit": "phl_ff_cannon",
       "side": "blue",
       "nation": "Philippines",
@@ -16031,6 +16055,13 @@
       "tier": 3
     },
     {
+      "unit": "plan_cv16_liaoning",
+      "side": "red",
+      "nation": "China",
+      "tier": 4,
+      "days": 20
+    },
+    {
       "unit": "plan_cv_fujian",
       "side": "red",
       "nation": "China",
@@ -16067,13 +16098,6 @@
     },
     {
       "unit": "plan_sshn_type_100",
-      "side": "red",
-      "nation": "China",
-      "tier": 4,
-      "days": 20
-    },
-    {
-      "unit": "plan_type_001",
       "side": "red",
       "nation": "China",
       "tier": 4,
@@ -16493,6 +16517,13 @@
       "aircraft": true
     },
     {
+      "unit": "plan_ka-28_pg",
+      "side": "red",
+      "nation": "China",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
       "unit": "plan_ka_28",
       "side": "red",
       "nation": "China",
@@ -16613,6 +16644,13 @@
     },
     {
       "unit": "plan_z-9f_(2020)",
+      "side": "red",
+      "nation": "China",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "planaf_j-15",
       "side": "red",
       "nation": "China",
       "tier": 0,

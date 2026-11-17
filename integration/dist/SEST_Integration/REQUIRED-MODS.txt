@@ -123,7 +123,6 @@ Workshop id   supplies                         mod
 3810611344    a unit a mission places          MV-75 Cheyenne II
 3595014060    a model a unit draws             NATO E-3A Sentry
 3603367264    a unit a mission places          NATO Ground Enhancement Series 2: Artillery
-3551621846    a unit a mission places          NEBO-U
 3812140001    a unit a mission places          Pakistani Pack
 3752415457    a unit a mission places          Philippines: The Luzon Line
 3681873198    a unit a mission places          Pickup truck extension
@@ -134,7 +133,7 @@ Workshop id   supplies                         mod
 3812111085    a unit a mission places          PLAAF Aircraft Pack
 3594891803    a unit a mission places          PLAN Submarines
 3774859959    a unit a mission places          PLAN Type 001 Aircraft Carrier Liaoning
-3774572038    a unit a mission places          PLAN Type 071 Amphibious Transport Dock
+3774572038    a hull variant in use            PLAN Type 071 Amphibious Transport Dock
 3399699218    a unit a mission places          Project 2498 Zyetseth Class Assault Vessel
 3808882954    a unit a mission places          RC-135V/W Rivet Joint
 3605013271    a unit a mission places          RE-power: the resupply mod
@@ -162,6 +161,7 @@ Workshop id   supplies                         mod
 3670643788    a unit a mission places          Shenyang J-50 (沈阳航空工业 歼-50)
 3601891050    a unit a mission places          Small and Medium-Sized UAV Series [WIP] (中小型无人机系列)
 3524112296    a unit a mission places          Soviet AEW&C + Transport Aircraft (A-50 / Il-76)
+3551621846    a unit a mission places          SOVIET/RUSSIAN MODERN RADARS
 3820576916    a unit a mission places          Steelfin
 3451166840    a unit a mission places          Su-25 Frogfoot
 3762023575    a unit a mission places          Su-30SM2

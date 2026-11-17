@@ -311,6 +311,7 @@
 | `wp_2s19` | land | 8000000 | 8000000 | rough model | rough model |
 | `wp_2s43` | land | 1000000 | 1000000 | rough model | rough model |
 | `wp_53-65K` | weapon | 285632 | 2010000 | CPI backcast of checked current price | existing usable value preserved |
+| `wp_55zh6` | land | 25000000 | 25000000 | rough model | rough model |
 | `wp_65-76` | weapon | 1500000 | 1500000 | rough model | rough model |
 | `wp_airbase_modern` | land | 250000000 | 250000000 | rough model | rough model |
 | `wp_aircraft_chaff` | weapon | 35 | 47 | existing usable value preserved | existing usable value preserved |
@@ -339,7 +340,6 @@
 | `wp_kraz_tel` | land | 5000000 | 5000000 | rough model | rough model |
 | `wp_mg-44` | weapon | 60000 | 60000 | rough model | rough model |
 | `wp_mig-31bm` | aircraft | 75000000 | 75000000 | rough model | rough model |
-| `wp_nebou` | land | 25000000 | 25000000 | rough model | rough model |
 | `wp_noisemaker` | weapon | 8000 | 8000 | rough model | rough model |
 | `wp_plab-100` | weapon | 15000 | 15000 | rough model | rough model |
 | `wp_pod_delta_fcr` | weapon | 5000 | 5000 | rough model | rough model |

@@ -51,11 +51,11 @@ if($env:SEST_PREPARE_UPSTREAM){$text+="`r`n"+''To capture: re-run this script wi
     & git -C $fixture -c user.name=SEST-DEV -c user.email=fixture@example.invalid commit --quiet -m 'Prepare-PC fixture'
     if($LASTEXITCODE -ne 0){throw 'Cannot initialise fixture repository'}
     $head=(& git -C $fixture rev-parse HEAD).Trim()
-    $bundle=J $toolkit 'SEST-Workshop-R14-fixture.bundle'
+    $bundle=J $toolkit 'SEST-Workshop-R15-fixture.bundle'
     & git -C $fixture bundle create $bundle refs/heads/sest-dev/fixture
     if($LASTEXITCODE -ne 0){throw 'Cannot bundle the fixture repository'}
-    $receipt=[ordered]@{format=1;release_commit=$head;release_branch='sest-dev/fixture';beta_directory='R14'
-        workshop_bundle=@{file='SEST-Workshop-R14-fixture.bundle';sha256=(Get-FileHash -LiteralPath $bundle -Algorithm SHA256).Hash.ToLowerInvariant()}}
+    $receipt=[ordered]@{format=1;release_commit=$head;release_branch='sest-dev/fixture';beta_directory='R15'
+        workshop_bundle=@{file='SEST-Workshop-R15-fixture.bundle';sha256=(Get-FileHash -LiteralPath $bundle -Algorithm SHA256).Hash.ToLowerInvariant()}}
     Json (J $toolkit 'SOURCE-RECEIPT.json') $receipt
     # The toolkit's beta folder: the installer and repair scripts as stubs that
     # move the journal the way the real ones do for the step they are given.
@@ -63,7 +63,7 @@ if($env:SEST_PREPARE_UPSTREAM){$text+="`r`n"+''To capture: re-run this script wi
 $state=$null;if(Test-Path -LiteralPath $journal){$state=Get-Content -LiteralPath $journal -Raw | ConvertFrom-Json}
 function Save([string]$Phase,[string]$Token){[IO.File]::WriteAllText($journal,(@{format=1;phase=$Phase;token=$Token} | ConvertTo-Json))}
 '
-    Stub 'integration/beta-feature-parity/Install-SEST-Beta.ps1' (J $toolkit 'R14' 'Install-SEST-Beta.ps1') ($journalCode+$record+'(''install ''+$Action+'' quiet=''+[bool]$Quiet+'' appdata=''+$AppDataRoot+'' game=''+$GameRoot)
+    Stub 'integration/beta-feature-parity/Install-SEST-Beta.ps1' (J $toolkit 'R15' 'Install-SEST-Beta.ps1') ($journalCode+$record+'(''install ''+$Action+'' quiet=''+[bool]$Quiet+'' appdata=''+$AppDataRoot+'' game=''+$GameRoot)
 New-Item -ItemType Directory -Path (Split-Path -Parent $journal) -Force | Out-Null
 if($Action -eq ''Stage''){
     if($state -and $state.phase -eq ''installing''){throw ''An incomplete candidate journal exists. Run Restore before staging again.''}
@@ -74,7 +74,7 @@ if($Action -eq ''Enable''){
     if($env:SEST_PREPARE_NO_PROBE){throw ''A successful menu probe has not been recorded. Launch beta to the menu, wait 10 seconds, quit, and retry Enable.''}
     Save ''enabled'' $state.token
 }')
-    Stub 'integration/beta-feature-parity/Repair-SEST-Beta-Startup.ps1' (J $toolkit 'R14' 'Repair-SEST-Beta-Startup.ps1') ($journalCode+$record+'(''repair ''+$Action+'' appdata=''+$AppDataRoot+'' game=''+$GameRoot)')
+    Stub 'integration/beta-feature-parity/Repair-SEST-Beta-Startup.ps1' (J $toolkit 'R15' 'Repair-SEST-Beta-Startup.ps1') ($journalCode+$record+'(''repair ''+$Action+'' appdata=''+$AppDataRoot+'' game=''+$GameRoot)')
     # The author-update check runs in Windows PowerShell; elsewhere pwsh
     # stands in for powershell.exe.
     if(!(Get-Command powershell.exe -CommandType Application -ErrorAction SilentlyContinue)){
@@ -116,7 +116,7 @@ if($Action -eq ''Enable''){
 
     $r=Run 'enabled' 'enabled'
     Assert ($r.why -eq '') ('enabled: Prepare-PC stopped: '+$r.why)
-    Assert ((Steps $r) -eq 'check-updates, repair Repair, data beta=R14, verify-upload True') ('enabled: wrong steps: '+(Steps $r))
+    Assert ((Steps $r) -eq 'check-updates, repair Repair, data beta=R15, verify-upload True') ('enabled: wrong steps: '+(Steps $r))
     Assert ($r.prepared) 'enabled: PREPARED-PC.json was not written'
     Assert (@($r.calls | Where-Object {$_ -like 'repair *'})[0] -like ('* appdata='+$r.appdata+' game='+$game)) 'enabled: -AppDataRoot or -GameRoot was not passed to Repair'
     $preparedRecord=Get-Content -LiteralPath (J $toolkit 'PREPARED-PC.json') -Raw | ConvertFrom-Json
@@ -124,7 +124,7 @@ if($Action -eq ''Enable''){
 
     $r=Run 'staged' 'staged'
     Assert ($r.why -eq '') ('staged: Prepare-PC stopped: '+$r.why)
-    Assert ((Steps $r) -eq 'check-updates, install Stage, install Enable, data beta=R14, verify-upload True') ('staged: wrong steps: '+(Steps $r))
+    Assert ((Steps $r) -eq 'check-updates, install Stage, install Enable, data beta=R15, verify-upload True') ('staged: wrong steps: '+(Steps $r))
     Assert ($r.calls[1] -like 'install Stage quiet=True appdata=*' -and $r.calls[2] -like 'install Enable quiet=False appdata=*') 'staged: Stage was not quiet or Enable was'
     Assert ($r.prepared -and $r.phase -eq 'enabled') 'staged: the run did not finish enabled and prepared'
 
@@ -160,7 +160,7 @@ if($Action -eq ''Enable''){
     Assert ((Steps $r) -eq 'check-updates' -and !$r.prepared) ('author update: a beta step ran: '+(Steps $r))
     # The owner's one-off acceptance of exactly the updated mods it names.
     $r=Run 'upstream-accepted' 'enabled' '' @{SEST_PREPARE_UPSTREAM='1'} @('3390330875')
-    Assert ($r.why -eq '' -and (Steps $r) -eq 'check-updates, repair Repair, data beta=R14, verify-upload True' -and $r.prepared) ('accepted author update: '+(Steps $r)+' '+$r.why)
+    Assert ($r.why -eq '' -and (Steps $r) -eq 'check-updates, repair Repair, data beta=R15, verify-upload True' -and $r.prepared) ('accepted author update: '+(Steps $r)+' '+$r.why)
     Assert ($r.said -match 'Accepted by -AcceptUpdatedMods: 3390330875') 'accepted author update: no warning naming the accepted mod'
     $r=Run 'upstream-other' 'enabled' '' @{SEST_PREPARE_UPSTREAM='1'} @('1234567890')
     Assert ($r.why -match 'author configuration changed' -and (Steps $r) -eq 'check-updates' -and !$r.prepared) ('an update the owner did not name was accepted: '+(Steps $r))
@@ -175,8 +175,8 @@ if($Action -eq ''Enable''){
     $second=Run 'loop-2' $null $app
     $third=Run 'loop-3' $null $app
     Assert ((Steps $first) -eq 'check-updates, install Stage' -and !$first.prepared) ('loop: first run: '+(Steps $first))
-    Assert ((Steps $second) -eq 'check-updates, install Stage, install Enable, data beta=R14, verify-upload True' -and $second.prepared) ('loop: second run: '+(Steps $second)+' '+$second.why)
-    Assert ((Steps $third) -eq 'check-updates, repair Repair, data beta=R14, verify-upload True' -and $third.prepared) ('loop: third run: '+(Steps $third)+' '+$third.why)
+    Assert ((Steps $second) -eq 'check-updates, install Stage, install Enable, data beta=R15, verify-upload True' -and $second.prepared) ('loop: second run: '+(Steps $second)+' '+$second.why)
+    Assert ((Steps $third) -eq 'check-updates, repair Repair, data beta=R15, verify-upload True' -and $third.prepared) ('loop: third run: '+(Steps $third)+' '+$third.why)
 
     # Branch names: sest-dev/ (above) is accepted; others still refused before
     # anything is fetched.

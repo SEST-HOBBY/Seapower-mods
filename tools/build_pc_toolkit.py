@@ -1,9 +1,9 @@
-"""Build the owner's PC toolkit for the R12 Workshop release (beta R14, Sea Power 0.9.2 Build 261113) from this checkout.
+"""Build the owner's PC toolkit for the R12 Workshop release (beta R15, Sea Power 0.9.3 Build 261116 public beta) from this checkout.
 
 The toolkit is what Prepare-PC.cmd, Repair-PC.cmd, Upload-PC.cmd and
 Finish-Upload.cmd run against on the gaming PC: the release docs and
 launchers from docs/releases/20261107, RIBBONS.txt, the reviewed beta package
-extracted as R14/, a git bundle of the release branch and SOURCE-RECEIPT.json,
+extracted as R15/, a git bundle of the release branch and SOURCE-RECEIPT.json,
 which Prepare-PC.ps1 and Upload-PC.ps1 read. Nothing here touches a game,
 Steam or a remote.
 
@@ -13,7 +13,7 @@ Steam or a remote.
 
 The checkout must be clean, so the receipt's commit is exactly what is built,
 and on a branch Prepare-PC.ps1 accepts. The beta-support package must be the
-R14 one for Sea Power 0.9.2 (integration/dist/SEST_Integration/beta-support);
+R15 one for the Sea Power 0.9.3 public beta (integration/dist/SEST_Integration/beta-support);
 an older package is refused before anything is written. --zip also writes the
 toolkit as one ZIP with every file at its root, entries sorted and dated at
 the commit time, so the same commit gives the same bytes, and prints its
@@ -32,10 +32,10 @@ from pathlib import Path, PurePosixPath
 
 ROOT = Path(__file__).resolve().parents[1]
 RELEASE = ROOT / 'docs' / 'releases' / '20261107'
-BETA_DIRECTORY = 'R14'
-# Seapower-Scripts.dll of Sea Power 0.9.2 Build 261113, the game the R14
+BETA_DIRECTORY = 'R15'
+# Seapower-Scripts.dll of the Sea Power 0.9.3 Build 261116 public beta, the game the R15
 # package was built and reviewed against.
-TARGET_GAME_SHA256 = '3f56861f09e867f315b194c81a7a2450154ccc6bb5afb769b4956dfd4a00503a'
+TARGET_GAME_SHA256 = 'aae79728d911669aec8a84c5adb1c271d57ca27c585e00ba7f5ebe3d4ec47a74'
 SUPPORT = ROOT / 'integration' / 'dist' / 'SEST_Integration' / 'beta-support'
 LAUNCHERS = ('Prepare-PC.cmd', 'Prepare-PC.ps1', 'Repair-PC.cmd', 'Upload-PC.cmd',
              'Upload-PC.ps1', 'Finish-Upload.cmd')
@@ -63,7 +63,7 @@ def check_branch(branch):
 
 
 def check_support(support):
-    """Stop unless the beta-support manifest describes this toolkit's beta for 0.9.2."""
+    """Stop unless the beta-support manifest describes this toolkit's beta for the 0.9.3 public beta."""
     revision = str(support.get('revision', ''))
     if not revision.startswith(BETA_DIRECTORY + '-'):
         sys.exit(f'The beta-support package is {revision or "unnamed"}, not {BETA_DIRECTORY}: '
@@ -72,7 +72,7 @@ def check_support(support):
     target = str(support.get('target_game_sha256', ''))
     if target != TARGET_GAME_SHA256:
         sys.exit(f'The beta-support package targets game {target[:12] or "(none)"}, not '
-                 f'Sea Power 0.9.2 ({TARGET_GAME_SHA256[:12]}).')
+                 f'the Sea Power 0.9.3 public beta ({TARGET_GAME_SHA256[:12]}).')
 
 
 def bundle_name(support):

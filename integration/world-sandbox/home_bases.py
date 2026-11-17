@@ -201,7 +201,7 @@ HOME_BASES = [
     # carriers, destroyers and nuclear boats, and garrisoned bases on the
     # Paracel and Spratly reefs; since 2025 its ships use Ream in Cambodia.
     naval("China", "home_chn_qingdao", "Qingdao (Northern Theater Navy)", 36.07, 120.35, [
-        ("plan_type_001", 1), ("plan_type_055_2020", 2), ("plan_type_052d_p2_1", 2),
+        ("plan_cv16_liaoning", 1), ("plan_type_055_2020", 2), ("plan_type_052d_p2_1", 2),
         ("plan_type_054a_p4", 2), ("plan_ssn_type_093a", 2), ("plan_aor_type901", 1)], yard=False),
     naval("China", "home_chn_zhanjiang", "Zhanjiang (Southern Theater Navy)", 21.2, 110.42, [
         ("plan_type_052d_p3", 2), ("plan_type_054a_p5", 2), ("plan_type_056a", 3),

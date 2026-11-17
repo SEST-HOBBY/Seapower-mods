@@ -90,7 +90,7 @@ MISSION = dict(
         "home": S(9.74, 118.75, "Puerto Princesa"),
     },
     units=[
-        U("blue", "euromod-philippines", "pn_ffg-06", "screen", variant="Variant1"),
+        U("blue", "euromod-philippines", "pn_ffg-150", "screen", variant="Variant1"),
         U("blue", "philippines-luzon-line", "phl_h-76", "flight", squadron="Squadron2",
           alt=500, loadout="CAS", slot="HeloRecon"),
         U("blue", "_vanilla", "civ_ms_roro_c", "convoy", name="MV Palawan Pioneer",

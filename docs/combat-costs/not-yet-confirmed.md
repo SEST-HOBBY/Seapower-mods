@@ -114,7 +114,7 @@ Historical research snapshot. The owner's subsequent request authorizes estimate
 | `plan_mss-02` | MSS-02 Chinese 324 mm mobile acoustic decoy. Modern PLAN Systems (3775128499). Carried by plan_cv_type_003. Config Type=MOSS, Mas… |  | not researched: no web searches left / sites blocked |
 | `plan_rbu2000` | FQF-2000 173 mm rocket depth charge from the RJZ-726-4 multifunction launcher (anti-submarine and anti-torpedo). Modern PLAN Syst… |  | not researched: no web searches left / sites blocked |
 | `plan_rgb-81` | Type 81 rocket depth charge for the Chinese FQF-3200 system (H/WHH-003 launcher). Modern PLAN Systems (3775128499). Carried by pl… |  | not researched: no web searches left / sites blocked |
-| `su_rgb-12` | RGB-12 anti-submarine rocket for the RBU-12000 launcher. Mod 3438479626. Carried by ru_cv_kuznetsov and plan_type_001. Config Typ… |  | not researched: no web searches left / sites blocked |
+| `su_rgb-12` | RGB-12 anti-submarine rocket for the RBU-12000 launcher. Mod 3438479626. Carried by ru_cv_kuznetsov (and the Liaoning until 17 Nov 2026). Config Typ… |  | not researched: no web searches left / sites blocked |
 | `usn_hydra` | Stock Hydra 70 2.75 in folding-fin aircraft rocket, normally carried in pods of up to 19. Config Type=AerialRocket, Mass=11 kg, W… |  | not researched: no web searches left / sites blocked |
 | `usn_moss` | Stock Mk 57 MOSS (Mobile Submarine Simulator), a 10 in submarine-launched decoy. Config FOCDate=1980, Mass=450 kg. Carried by the… |  | not researched: no web searches left / sites blocked |
 | `usn_zuni` | Stock 5.0 in Zuni folding-fin aircraft rocket (config comment: 'Mk32 warhead + Mk16 motor'), usually fired from the 4-round LAU-1… |  | not researched: no web searches left / sites blocked |
@@ -341,7 +341,7 @@ Historical research snapshot. The owner's subsequent request authorizes estimate
 | `wp_fattah2_tel` | Fattah-2 HGV-armed MRBM TEL, Iran. mods-source/3672497668/land_units/wp_fattah2_tel.ini. |  | not researched: no web searches left / sites blocked |
 | `wp_iskander_m` | Iskander-M (9K720) TEL with two wp_9k720_he missiles, Russia. mods-source/3681748718/land_units/wp_iskander_m.ini; 3732654992 shi… |  | not researched: no web searches left / sites blocked |
 | `wp_kraz_tel` | 5P85TE towed TEL of the S-300PMU2 on a KrAZ tractor. mods-source/3732654992/land_units/wp_kraz_tel.ini. Variants: Soviet, DDR, Cz… |  | not researched: no web searches left / sites blocked |
-| `wp_nebou` | Nebo-U (55Zh6U) VHF surveillance radar, Russia. mods-source/3551621846/land_units/wp_nebou.ini. |  | not researched: no web searches left / sites blocked |
+| `wp_55zh6` | Nebo-UE (55Zh6-1) VHF surveillance radar, Russia; wp_nebou until the mod's 17 Nov 2026 update. mods-source/3551621846/land_units/wp_55zh6.ini. |  | not researched: no web searches left / sites blocked |
 | `wp_sa-21_40n6_tel` | S-400 (SA-21) long-range TEL (40N6 load-out). mods-source/3392434750/land_units/wp_sa-21_40n6_tel.ini. |  | not researched: no web searches left / sites blocked |
 | `wp_sa-21_flaplid` | '36H6 Flaplid' engagement radar (30N6-family Flap Lid) for the SA-21 set. mods-source/3496055699/land_units/wp_sa-21_flaplid.ini;… |  | not researched: no web searches left / sites blocked |
 | `wp_sam_site_sa-21` | SA-21 SAM site: one land unit bundling two Tin Shield and one Big Bird radar with 12 four-round launcher groups (48N6E3, 40N6, 9M… |  | not researched: no web searches left / sites blocked |

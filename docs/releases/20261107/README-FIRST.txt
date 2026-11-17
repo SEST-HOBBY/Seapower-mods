@@ -1,63 +1,71 @@
-SEST R14 FOR SEA POWER 0.9.2: FULL PC ACCEPTANCE RUN
-(R12 Final + nations + Red Line 3-4 + Russia + Makran + R14)
-14 November 2026 | SEST-DEV
-Game on your PC: Sea Power 0.9.2 Build 261113, a public release (your
-capture of 14 November, 14:51)
-Pack data: rebuilt on the game's 0.9.2 files (your export of that capture)
-and on the mods as installed then; every pack declares 0.9.2
-SEST code: R14 (Runtime 1.7.0 / UI 1.5.0, loader bootstrap 0.6.0), matched to
-Sea Power 0.9.2 Build 261113 (Seapower-Scripts.dll 3f56861f) only, from your
-reference ZIP of 14 November. It is compiled here and passes the 16 managed
-and installer checks. Its first build passed step 1b on your PC on 15
-November; this rebuild has not run in the game yet, and this run is its
+SEST R15 FOR THE SEA POWER 0.9.3 PUBLIC BETA: PC TEST BUILD
+(R12 Final + nations + Red Line 3-4 + Russia + Makran + R15)
+17 November 2026 | SEST-DEV
+Game on your PC: Sea Power 0.9.3 Build 261116, the public beta (your
+reference ZIP of 17 November, 18:18; Seapower-Scripts.dll aae79728)
+Pack data: built on the game's 0.9.2 files (your export of 14 November) and
+on the mods as installed on 17 November, 17:48; every pack declares 0.9.3
+SEST code: R15 (Runtime 1.8.0 / UI 1.6.0, loader bootstrap 0.7.0), matched to
+the 0.9.3 Build 261116 public beta file (aae79728) only. It is compiled here
+and passes the 17 managed and installer checks, the upgrade from the
+released R14 among them. It has not run in the game yet; this run is its
 first.
-Nothing has been uploaded to Steam. Post only after this run passes.
+This is a test build for your PC. Nothing has been uploaded to Steam, and
+this build is not for posting as it stands: see "BEFORE ANY POSTING".
 
-WHAT CHANGED SINCE THE LAST VERSION OF THIS FILE
-- SEST's code is matched to 0.9.2 (R14). Prepare-PC and Repair-PC work again
-  on 0.9.2; the old "do not run Prepare-PC" warning is gone.
-- On 0.9.2 Anchor Chain's own preloader always logs "Could not find
-  AnchorChain chainloader": it looks before Steam has registered the
-  Workshop folders. SEST's loader waits for them and then starts Anchor
-  Chain itself. With SEST's features on, that line is expected; SETUP now
-  says so instead of warning.
-- SEST holds, before they load, the author plugins that call game code
-  0.9.2 removed (Enhanced Decoy Mod, Multi-Stage Missiles, Osprey Mechanics
-  and its deck operations, the flat Topographic Map) and those whose own
-  build check rejects 0.9.2 (the Alpine runtime fixes in two items, Saronic
-  Corsair strike, MV-75 fixture tilt, EC-2 comms jamming, K5 Kraken contact
-  strike, Exterior Cameras in two items, XQ-58 Shadow, MV-75 crew escape).
-  ExtendedGuidance stays off by the SEST profile. Their data stays.
-- Steam updated ten mods on 15 Nov; the pack is rebuilt on them. Anchor
-  Chain's update (which added a second loader, R.A.T.S. Keel) was rolled
-  back by its author the same day, so SEST's code pins the original
-  Anchor Chain 1.2.0 again; a toolkit built for the rolled-back file would
-  have switched SEST's features, and every Workshop code mod, off.
-- From your first 0.9.2 run (15 Nov): the three Exterior Cameras, XQ-58
-  Shadow and MV-75 crew escape files are now held as well, so their
-  "Unsupported game" lines go; the world Costs tab covers the loaded
-  campaign save only, so a new campaign no longer shows an earlier
-  campaign's battles. In Sulu Line's optional Night Market, 0.9.2's
-  submarine AI takes the semi-submersible to 25-60 ft whatever the
-  mission says, below anything a gun can hit; the corvette BRP Conrado
-  Yap now sails with the patrol, and her sonar and Mk 46 torpedoes reach
-  her there (to be confirmed on the PC, Sulu Line test card 7.1).
-- Decision 6 is answered by the game's code: 0.9.2's own [RibbonAward_]
-  rules test campaign variables that mission triggers set, and no trigger
-  sees survivors rescued or a mission with no launch. Red Line's two
-  ribbons therefore stay in SEST's runtime (R14).
+THIS RUN
+Steps 0, 1 and 1b put R15 on your PC and check that it started. After that
+the code mods load again (Global Maritime Operations, F11, pop-outs), and
+the work list can be played. Steps 2 to 5 are the full release checks, as
+passed for R14; they are needed again only before a posting.
+
+WHAT CHANGED SINCE R14
+- Steam moved your game to the 0.9.3 public beta on 17 November. R14 checks
+  for the 0.9.2 file and stayed off: your 18:18 start showed "Beta safe
+  loader INACTIVE" and no Workshop code mod loaded. R15 is the same code
+  matched to your 0.9.3 file. Nothing SEST uses was removed or renamed in
+  0.9.3.
+- The 0.9.3 public release is a different file from the public beta (the
+  beta adds toss bombing). R15 stays off on the public release, as R14
+  does. A build for it needs a reference ZIP taken with Steam's Betas
+  setting on None.
+- Group Manager 0.2.22 (16 November) no longer needs SEST's rewrite and
+  loads as its author built it. The Stock UI / Enhanced UI switch, the
+  layout correction and the Group Manager pop-out, which were off in your
+  last two 0.9.2 sessions ("Uninspected assembly: SeaPowerSquadPanel"), are
+  matched to 0.2.22 and should be back.
+- SEST holds, before they load, seventeen author plugin files. Five call
+  game code 0.9.3 does not have: Enhanced Decoy Mod, Multi-Stage Missiles,
+  Osprey Mechanics, the flat Topographic Map and, new, the Custom Loadout
+  Editor's LoadoutManager0_8_7 (its own variant for the old game; its
+  selector uses another on 0.9). Osprey's deck operations are held with
+  Osprey Mechanics, and ExtendedGuidance stays off by the SEST profile. Ten
+  are held because their own build check rejects 0.9.3: the Alpine runtime
+  fixes in two items, Saronic Corsair strike, MV-75 fixture tilt, EC-2
+  comms jamming, K5 Kraken contact strike, Exterior Cameras in two items,
+  XQ-58 Shadow and MV-75 crew escape. The Alpine-family files were
+  re-uploaded on 16 November; each author's check was run against your
+  0.9.3 file and still rejects it. Their data stays.
+- About 27 mods were updated on Steam between 15 and 17 November; the pack
+  is rebuilt on your 17:48 capture.
+- Sulu Line has the Jose Rizal class again: her model is back in the
+  author's mod (your check of 17 November), so the Miguel Malvar stand-in
+  is gone.
+- New author code that has not run under SEST's loader yet, to watch in
+  step 1b: the Custom Loadout Editor's selector, Kinematic Range Uncap, and
+  the Liaoning's deck systems and J-15 systems.
 - Dynamic Campaign Mod and Coordinated Strike Tool still declare game
   versions that end below 0.9.0. Global Maritime Operations 2028 needs
   Dynamic Campaign Mod.
-- 59 of your installed mods carry the 0.8.7 mark SETUP wrote into their
-  _info.ini before the update ("SEST marked this mod compatible"). The
-  capture keeps each author's own file, and nothing is taken from a mark.
+- Do not continue a 0.9.2 Task Force campaign save you want to keep: 0.9.3
+  books campaign points in a new account and writes it into the save. Copy
+  the save first.
 
 0. BEFORE STEP 1 (game closed; this installs nothing)
    a. Start Sea Power once only to open Mod Manager, then: switch your local
       test folder SEST_090_PC_TEST OFF, switch the subscribed "SEST
       Integration Pack - Modernised Campaigns" ON and move it to the top.
-      R14 installs into that Workshop item (3812461539) and refuses to stage
+      R15 installs into that Workshop item (3812461539) and refuses to stage
       while it is out of the load order. Keep the collection on. If Mod
       Manager lists Dynamic Campaign Mod or Coordinated Strike Tool as not
       compatible, click Ignore, not Disable mods: Disable mods switches them
@@ -70,43 +78,20 @@ PREPARE AND CHECK
 1. Close Sea Power. Extract this COMPLETE toolkit into a NEW folder and run
    Prepare-PC.cmd. It prints "Release checkout: ..." and "Beta journal:
    <phase>". Keep both lines. What happens next depends on the phase:
-   - enabled (most likely: your PC has the first R14 build from your 15
-     November run): it upgrades that installation in place to this R14
-     rebuild, installs the
-     release data and ends with the line "VERIFIED: all 4626 canonical
+   - enabled (expected: your PC has the released R14, switched on): it
+     upgrades that installation in place to R15, installs the release data
+     and ends with the line "VERIFIED: all 4616 canonical
      upload files match the release manifest." Go to 1b.
-   - none or restored: it stages R14 and stops with "Next: start Sea Power,
+   - none or restored: it stages R15 and stops with "Next: start Sea Power,
      wait at the main menu about 10 seconds, quit, then run Prepare-PC.cmd
-     again." Do that; the second run switches R14 on, installs the data and
+     again." Do that; the second run switches R15 on, installs the data and
      prints the VERIFIED line.
-   - staged: it switches R14 on (or asks for the main-menu launch first, as
+   - staged: it switches R15 on (or asks for the main-menu launch first, as
      above), installs the data and prints the VERIFIED line.
    If it stops instead:
-   - "Installed candidate files are not a reviewed beta candidate ..." on an
-     enabled journal: after your 15 November run, which installed R14, this
-     is not expected; keep the window's text and send it, and do not use the
-     block below. Only on a PC that still holds the R12 World Map Costs test
-     build of 9 November, except SEST.RuntimeFixes.dll in the Workshop item's
-     plugins folder. On 14 November it was missing; at 21:10 Steam put back
-     the published 1.5.0 one (7ba6d6d9). Put the test build's own file back
-     from the release checkout (the published one is moved to a folder in
-     Downloads, not deleted), then run Prepare-PC.cmd again. Open
-     PowerShell, paste this block as it stands, then type the Release
-     checkout path when asked (it checks both files' SHA-256 first):
-       & { $ErrorActionPreference = 'Stop'
-       $checkout = Read-Host 'Release checkout path from Prepare-PC'
-       $src = Join-Path $checkout 'integration\beta-feature-parity\candidates\R12-WorldMapCosts-20261109\SEST.RuntimeFixes.dll'
-       $dst = 'C:\Program Files (x86)\Steam\steamapps\workshop\content\1286220\3812461539\plugins\SEST.RuntimeFixes.dll'
-       if ((Get-FileHash -LiteralPath $src -Algorithm SHA256).Hash -ne 'EED2E5083E8C843BDB64DCF8C98E7C14CDEE24D7192EFD30386A2B4C2039CFE8') { throw 'Not the R12 World Map Costs file; nothing changed.' }
-       if (Test-Path -LiteralPath $dst) {
-         if ((Get-FileHash -LiteralPath $dst -Algorithm SHA256).Hash -ne '7BA6D6D9C58B6C3DB31D731E951ED7EA3979925BDFF054C9B92482DBE69C9986') { throw 'The SEST.RuntimeFixes.dll there is not the published 1.5.0 file; nothing changed. Send the Prepare-PC error instead.' }
-         $keep = Join-Path $env:USERPROFILE ('Downloads\SEST-RuntimeFixes-published-' + (Get-Date -Format 'yyyyMMdd-HHmmss'))
-         New-Item -ItemType Directory -Path $keep | Out-Null
-         Move-Item -LiteralPath $dst -Destination $keep
-         "Published file moved to $keep"
-       }
-       Copy-Item -LiteralPath $src -Destination $dst
-       'Copied. Run Prepare-PC.cmd again.' }
+   - "Installed candidate files are not a reviewed beta candidate ...": the
+     installed SEST files are not R14 or any earlier reviewed build. Keep
+     the window's text and send it; do not work round it.
    - "Existing SEST code differs from the captured baseline" or "An earlier
      candidate file already exists" (no journal, or a restored one): the
      test files are still in place without a journal that owns them. In
@@ -118,7 +103,7 @@ PREPARE AND CHECK
      SEST-BetaAnchorChain. Redo step 0a, then run Prepare-PC.cmd again.
    - "An author configuration changed after this capture": a mod in the
      collection was updated on Steam after the pack was built. Either send
-     the report it names and wait for a refreshed toolkit, or, to post now,
+     the report it names and wait for a refreshed toolkit, or, to go on now,
      accept exactly the mods it lists as UPDATED: open a Command Prompt in
      this toolkit folder and run Prepare-PC.cmd -AcceptUpdatedMods <id>
      (several ids separated by commas). Until the next refresh the pack then
@@ -129,45 +114,52 @@ PREPARE AND CHECK
    Prepare-PC installs both code and campaign/loadout data; Repair-PC alone
    only repairs code. The author-update guard and original restore journal
    remain in place. Steam branch, subscriptions and saves are unchanged.
-1b. R14's own check (first launch with R14 on). Start Sea Power to the main
+1b. R15's own check (first launch with R15 on). Start Sea Power to the main
    menu, quit, and open two logs. The release checkout's
-   integration\beta-feature-parity\R11-PC-TESTS.txt, section "R14 SEA POWER
-   0.9.2", lists what they must show; in short:
+   integration\beta-feature-parity\R11-PC-TESTS.txt, section "R15 SEA POWER
+   0.9.3", lists what they must show; in short:
    Sea Power\BepInEx\LogOutput.log:
-   - "SEST Beta Safe Anchor Chain 0.6.0", "Sea Power 0.9.2-261113 verified
-     (3f56861f)", "BETA SAFE BOOTSTRAP READY; enable=True", "Starting
+   - "SEST Beta Safe Anchor Chain 0.7.0", "Sea Power 0.9.3-261116 verified
+     (aae79728)", "BETA SAFE BOOTSTRAP READY; enable=True", "Starting
      bounded Anchor Chain 1.1.0 fork once.", "Loaded AnchorChain V1.1.0!"
      and "Bounded Anchor Chain loader returned to bootstrap.", and no
      "Started the Anchor Chain runtime.", "R.A.T.S. Keel" or "Anchor Chain
-     bootstrap" line (Steam's 15 November Anchor Chain ships a second
-     loader that SEST never starts);
+     bootstrap" line;
    - [Beta compatibility] ADAPTED for exactly DynamicCampaignMod,
-     IdentifyExpanded, CoordinatedStrikeTool, SeaPowerSquadPanel, TestRange,
-     OptimalTargetDist, MissileControlMod and SeaPowerTopo;
-   - [Beta compatibility] SKIPPED before CLR load for exactly the sixteen
+     IdentifyExpanded, CoordinatedStrikeTool, TestRange, OptimalTargetDist,
+     MissileControlMod and SeaPowerTopo (no line for SeaPowerSquadPanel:
+     Group Manager 0.2.22 loads from its own file);
+   - [Beta compatibility] SKIPPED before CLR load for exactly the seventeen
      named at the top of this file (AlpineSeaPower and AlpineExteriorCameras
      twice each), each with its
      reason, plus one expected line that is not one of them: "SKIPPED native
      library before CLR metadata scan: version.dll" (Saronic Corsair's own
      native helper);
    - "Loaded assembly" for every other author plugin, with no "Error loading
-     assembly". Sub Ammunition's item also ships its pre-0.9 files in a
-     backups folder, so a second "Loaded assembly SecondThrustMod" and
-     "SubAmmunitionMod" line and two "Attempted to load a duplicate plugin"
-     warnings for them are expected; the current files load first and run.
+     assembly" and no "Error loading plugin". Read once the "Loaded plugin"
+     lines of the four new arrivals: SelectCLMVersion (Custom Loadout
+     Editor), Kinematic Range Uncap, ACC CV16 and J-15 Systems. The two
+     "Attempted to load a duplicate plugin" warnings of the 0.9.2 runs
+     should be gone (Sub Ammunition's author removed the backups folder).
    %USERPROFILE%\AppData\LocalLow\Triassic Games\Sea Power\Player.log (SEST's
    own lines are written there):
-   - "[SEST Runtime] ... installed" lines and "[SEST UI Follow-up] 1.5.0 beta
-     input fix installed; full Runtime 1.7.0 paired", and no "[SEST Runtime]
+   - "[SEST Runtime] ... installed" lines and "[SEST UI Follow-up] 1.6.0 beta
+     input fix installed; full Runtime 1.8.0 paired", and no "[SEST Runtime]
      ... disabled for this session" line, and no "[Alpine Exterior Cameras]
      Unsupported game contract", "[XQ58Shadow] Startup failed" or "[MV-75
-     Crew Escape] Game assembly changed" line.
-   Any difference stops the run here: quit, run R14\Capture-Repair-Results.cmd
+     Crew Escape] Game assembly changed" line;
+   - "Formation UI mode control installed", "Formation performance: idle
+     discovery" and "Group Manager 0.2.22 pop-out bridge installed", and no
+     "Uninspected assembly: SeaPowerSquadPanel" line. One "CV16 type
+     correction inactive: Uninspected assembly: CV16" line is expected: the
+     Liaoning's author has fixed that fault in the new file.
+   Any difference stops the run here: quit, run R15\Capture-Repair-Results.cmd
    and send the capture with both logs. If the lists match, run SETUP -
    double-click me.cmd from the Workshop item once (game closed): among the
    checks near its start it should print "[ok] last launch: SEST's bundled
    loader started Anchor Chain", and it should finish with "All done".
 
+FULL RELEASE CHECKS (as passed for R14; needed again before a posting)
 2. Load an existing world. Press F11 and select Service. Check the
    existing awards/progress, the longer ribbon list, scrolling and
    citations. Complete an accepted Admiralty order and return to the map.
@@ -204,10 +196,10 @@ PREPARE AND CHECK
    heave-to (with a run where she is sunk first) and the damage condition's
    spelling; report what each shows. Red Line step 4: checks R5 and R6 on
    the same card (the developer ribbon menu offers neither runtime ribbon;
-   with MissionAwards=0 neither is granted) and, with R14, R1 to R4: win
+   with MissionAwards=0 neither is granted) and, with R15, R1 to R4: win
    RL05 without launching anything and RLC1 with its pilot recovered, and
    judge each ribbon by the first of its two Player.log lines
-   (RIBBONS.txt explains both). On 0.9.2 a won campaign mission cannot be
+   (RIBBONS.txt explains both). Since 0.9.2 a won campaign mission cannot be
    played again, so copy the campaign save before RL05 and before RLC1, and
    restore the copy (or start a new campaign) before each further run of
    that mission: R2's runs and R6 with MissionAwards=0 each need RL05 not
@@ -230,7 +222,7 @@ PREPARE AND CHECK
    counts fewer, or the Gorshkov shows the USSR (RU.2), stop and report it
    before judging anything else that depends on the pack's #!extend files
    (the cost catalogs, Cross-Deck, the combat-system profiles). Step 5 then
-   shows whether 0.9.2 applies them with SEST's code off. Makran Line:
+   shows whether the game applies them with SEST's code off. Makran Line:
    start a new campaign; the Service Record offers Pakistan only, as a Commodore,
    with the flag of Pakistan as emblem. Buy a Tughril, PNS Alamgir and the
    Z-9CE, and assign the Z-9CE to both decks; play The Fuel Road and note
@@ -278,23 +270,27 @@ PREPARE AND CHECK
    Check Identify Expanded appears once in Mod Manager, as Workshop. Check
    the mods that now load as their authors built them for 0.9 (Sub
    Ammunition, Second Thrust, Automatic SAR) and the two that keep a small
-   SEST fix on 0.9.2 (Missile Control's steering check, the 3D Topographic
+   SEST fix on 0.9.3 (Missile Control's steering check, the 3D Topographic
    Map's 50 m shallow-water line); note any that misbehaves.
 5. Quit. Run "SEST beta features - turn off.cmd", start the game once and
-   confirm it starts with the beta features off. On 0.9.2, Workshop code
+   confirm it starts with the beta features off. On 0.9.3, Workshop code
    mods load only through SEST's loader, so SEST's plugins, Dynamic
    Campaign Mod and the other code mods should not load then; data mods and
    the Task Force campaigns should. Note in the Mission Editor whether the
    Gorshkov still shows Russian Federation (RU.2) with SEST's code off.
    Quit and run "SEST beta features - turn on.cmd". Then run
-   R14\Capture-Repair-Results.cmd and keep the capture; send it with your
+   R15\Capture-Repair-Results.cmd and keep the capture; send it with your
    notes from steps 1b to 5. The automated checks passed; they do not establish
    native Noesis rendering or gameplay.
 
-POST AFTER THE PC CHECKS
-Post only if steps 1b to 5 passed. If any check failed, send the capture and
-your notes instead: the Steam texts describe R14 working on 0.9.2, and the
-held plugins they name are those of 1b.
+BEFORE ANY POSTING
+Do not post this build as it stands. Its code is matched to the public beta
+file; players on the normal 0.9.3 have another file, on which R15 stays off
+exactly as the live R14 does, and the Steam texts in this folder still
+describe R14 on 0.9.2. What a posting needs first: a reference ZIP taken
+with Steam's Betas setting on None, a build that covers that file, steps 2
+to 5, and new Steam texts. Steps 6 to 9 are the posting procedure, kept
+here for that later run.
 6. Run Upload-PC.cmd. It creates a verified publishing copy under
    StreamingAssets and puts STEAM-CHANGE-NOTE.txt on the clipboard. Keep
    this temporary Local mod disabled.
@@ -326,9 +322,9 @@ each with its figures)
    Nimrods, Sea Dart and Sea Wolf have the ids of units and rounds mods
    already ship, and the mods' files load. The game's South Atlantic
    campaigns then fly the mods' versions. Keep, or restore the game's?
-4. Answered by this release if it passes: data and code for 0.9.2 go up
-   together. The live item (26 October upload) declares 0.8.7 and its
-   LOAD-ORDER names three mods their author has since removed.
+4. Done on 15 November: data and code for 0.9.2 went up together (R14).
+   Since 16 November the game is 0.9.3 and R14's code is off on it; see
+   decision 7.
 5. The game's own file layers. 0.9.0 lets a mod overwrite part of a game
    file ("file layers", its changelog says), and since 13 November the
    Kuznetsov mod does it with short files in an overrides\ folder. If that
@@ -339,13 +335,20 @@ each with its figures)
    two ribbons stay in SEST's runtime, because no 0.9.2 trigger sees
    survivors rescued or a mission with no launch
    (docs/code-on-0.9.2-20261114.md, "Outcome: R14").
+7. New on 17 November: which 0.9.3 file SEST's code is built for. Your PC
+   is on the public beta; players on the normal branch have the public
+   release, a different file SEST has not seen. R15 here is for the beta
+   file only. Either the PC moves to the normal branch for release work,
+   or SEST's code learns to accept both files; each needs a reference ZIP
+   taken on the normal branch first.
 
 This is R12 Final (merged as PR #58) together with the commander nations and
 national awards (merged as PR #59), the combined release notes (merged as PR
 #60) and Red Line's victory paths, the heave-to and progress reports (step 3
 of the builder grammar, merged as PR #61), with step 4's two Red Line runtime
 ribbons (merged as PR #62), the beta runtime R13 that granted them on
-0.8.7-261107 (on release/r13-20261111) and R14, which grants them on 0.9.2,
+0.8.7-261107 (on release/r13-20261111), R14, which granted them on 0.9.2,
+and R15, which grants them on the 0.9.3 public beta,
 step 5's Russian Federation registration of the modern
 Russian ships and aircraft (on feature/russia-registration-20261111, in
 review) and step 5's Makran Line campaign (on feature/makran-line-20261111,
@@ -355,11 +358,21 @@ R12-RIBBON-EXPANSION.txt describes R12 Final before the commander nations: use
 it only for the R12 review findings fixed and the minor ones still open, and
 this file and RIBBONS.txt for the award counts, nations and PC steps. The
 R12-*.txt notes are records of the R12 builds; where they say R12\ or R13\,
-this toolkit's beta folder is R14\. None of the seven parts has been played
-on the owner's PC yet; with R14, step 4's PC checks R1 to R4 on the Red Line
-test card apply as well as R5 and R6.
+this toolkit's beta folder is R15\. With R15, step 4's PC checks R1 to R4
+on the Red Line test card apply as well as R5 and R6.
 
 WHAT IS NEW SINCE THE R12 RIBBON TEST BUILD
+- R15 for the Sea Power 0.9.3 Build 261116 public beta (17 Nov 2026;
+  Runtime 1.8.0 / UI 1.6.0, loader bootstrap 0.7.0,
+  candidates/R15-20261117): SEST's code is matched to the 0.9.3 public beta
+  file from your reference ZIP of 17 November, 18:18. Two of the fifteen
+  pinned references moved: the game and Group Manager (0.2.22). The
+  loader's Group Manager rewrite is retired, and the three formation
+  features are matched to 0.2.22. The six Alpine-family files re-uploaded
+  on 16 November are held under their new hashes; seventeen author plugin
+  files are held in all. The repair recognises the released R14 and every
+  earlier test build; the upgrade from R14 with the game and Group Manager
+  changed underneath it is one of the 17 checks.
 - R14 for Sea Power 0.9.2 Build 261113 (14 Nov 2026; Runtime 1.7.0 / UI
   1.5.0, loader bootstrap 0.6.0, candidates/R14-20261114): SEST's code is
   matched to 0.9.2 from your reference ZIPs of 14 and 15 November. Seven
@@ -438,17 +451,18 @@ WHAT IS NEW SINCE THE R12 RIBBON TEST BUILD
 - Red Line runtime ribbons (step 4, campaign side, merged as PR #62): RL05
   Silent Passage and RLC1 Personnel Recovery are defined in the Red Line
   campaign and keyed for SEST's runtime: R13 (Runtime 1.6.5) on the
-  0.8.7-261107 beta, and now R14 (Runtime 1.7.0), which this update ships
-  and SETUP installs on Sea Power 0.9.2 Build 261113 only: there it grants
+  0.8.7-261107 beta, R14 (Runtime 1.7.0) on 0.9.2, and now R15 (Runtime
+  1.8.0), which this build ships and SETUP installs on the Sea Power 0.9.3
+  Build 261116 public beta only: there it grants
   each at the debrief when its terms are met, and not again once held. The
   game itself ignores the key, as R12 (Runtime 1.6.4) does; neither ribbon
   is counted in the 75 above.
   Each debrief logs two Player.log lines per runtime ribbon: the first is the
   verdict; the second says "already awarded" or repeats it, as Red Line's
   campaign.ini is its own [File] Base and is read twice. The developer ribbon
-  menu offers neither (the Red Line test card's R5 and R6; R1 to R4 need R14,
-  which SETUP installs on Sea Power 0.9.2 Build 261113 only, and RIBBONS.txt
-  says what each needs).
+  menu offers neither (the Red Line test card's R5 and R6; R1 to R4 need R15,
+  which SETUP installs on the Sea Power 0.9.3 Build 261116 public beta only,
+  and RIBBONS.txt says what each needs).
 - Russian Federation (step 5, on feature/russia-registration-20261111, in
   review): SEST Collection Fixes registers to the game's Russia nation,
   which it names Russian Federation, instead of the USSR: 16 post-1991,
@@ -505,9 +519,11 @@ WHAT IS NEW SINCE THE R12 RIBBON TEST BUILD
   accepted alongside 1.1.3 after a method-by-method IL comparison, so the
   Contacts fix, Formation UI mode and camera compass stay on with it. The
   formation pop-out bridge now recognises the inspected Group Manager.
-  (R14 accepts Pop-Out 1.2.3 in place of 1.2.0, after the same checks.)
+  (R14 and R15 accept Pop-Out 1.2.3 in place of 1.2.0, after the same
+  checks.)
 - SETUP: the feature step runs only on the game build its bundle targets,
-  now Sea Power 0.9.2 Build 261113 (R14). On any other build it restores
+  now the Sea Power 0.9.3 Build 261116 public beta (R15). On any other
+  build it restores
   the normal Workshop plugins and continues, and problems
   are warnings, not errors. Three launchers sit beside SETUP:
   "SEST beta features - turn off.cmd", "- turn on.cmd" and "- remove.cmd".
@@ -593,7 +609,7 @@ RETAINED FEATURES
 - Reviewed beta features inside the normal Workshop SETUP flow, upgrade
   recovery and rollback over the 1.6.2, 1.6.3 and 1.6.4 test builds.
   Normal active release plugins stay in the upload; the installer selects
-  the five reviewed files on Sea Power 0.9.2 Build 261113.
+  the five reviewed files on the Sea Power 0.9.3 Build 261116 public beta.
 
 The owner accepted the four briefing/costs/page changes on 9 November.
 None of the seven parts has been played on that PC yet. R12 Final, the
@@ -608,9 +624,11 @@ rebuild of 13 November and the 0.9.2 rebuild of 14 November are on
 claude/continue-previous-session-39wqwq, on top of the combined branch; R14,
 the SETUP and PC-toolkit changes for 0.9.2 and this file are on
 sest-dev/exciting-fermi-kb5bs9, which starts from that branch's head
-(ac829bfb). None of it is on dev or beta.
-This toolkit's branch, sest-dev/exciting-fermi-kb5bs9, is the branch the PC
-installs, tests and posts from for this run, and the one its
-SOURCE-RECEIPT.json names; Prepare-PC.ps1 accepts sest-dev/ branches. Once
-the release is merged into dev and dev into beta, the toolkit is built from
-beta again (docs/BRANCHES.md). Nothing has been uploaded to Steam.
+(ac829bfb); R14 was posted from it on 15 November and it is open as a draft
+pull request into dev. R15 is on feature/r15-sea-power-093, cut from that
+branch. None of it is on dev or beta.
+This toolkit's branch, feature/r15-sea-power-093, is the branch the PC
+installs and tests from for this run, and the one its SOURCE-RECEIPT.json
+names; Prepare-PC.ps1 accepts feature/ branches. Once a release is merged
+into dev and dev into beta, the toolkit is built from beta again
+(docs/BRANCHES.md). R15 has not been uploaded to Steam.
