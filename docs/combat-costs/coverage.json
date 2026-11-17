@@ -91869,9 +91869,9 @@
       "eligible": 2239,
       "historical_known": 2239,
       "current_known": 2239,
-      "sest_eligible": 145,
-      "sest_historical_known": 145,
-      "sest_current_known": 145,
+      "sest_eligible": 148,
+      "sest_historical_known": 148,
+      "sest_current_known": 148,
       "unknown": []
     },
     "vessel": {
@@ -114270,8 +114270,8 @@
       {
         "kind": "weapon",
         "id": "plan_48n6e1",
-        "owner": "3775128499",
-        "path": "mods-source/3775128499/ammunition/plan_48n6e1.ini",
+        "owner": "SEST_Replenishment",
+        "path": "integration/replenishment/SEST_Replenishment/ammunition/plan_48n6e1.ini",
         "category": "SAM",
         "type": "Missile",
         "historical": "345000",
@@ -114944,8 +114944,8 @@
       {
         "kind": "weapon",
         "id": "plan_hhq-9b",
-        "owner": "3775128499",
-        "path": "mods-source/3775128499/ammunition/plan_hhq-9b.ini",
+        "owner": "SEST_Replenishment",
+        "path": "integration/replenishment/SEST_Replenishment/ammunition/plan_hhq-9b.ini",
         "category": "SAM",
         "type": "Missile",
         "historical": "345000",
@@ -114968,8 +114968,8 @@
       {
         "kind": "weapon",
         "id": "plan_hhq-9c",
-        "owner": "3775128499",
-        "path": "mods-source/3775128499/ammunition/plan_hhq-9c.ini",
+        "owner": "SEST_Replenishment",
+        "path": "integration/replenishment/SEST_Replenishment/ammunition/plan_hhq-9c.ini",
         "category": "SAM",
         "type": "Missile",
         "historical": "345000",

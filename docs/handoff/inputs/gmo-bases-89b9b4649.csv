@@ -1,0 +1,197 @@
+id,name,side,nation,kind,lat,lon_campaign,lon_east_west,depot,yard,income,supplyFrom
+usp_coronado_nas_north_island,Naval Air Station North Island,blue,US,AirBase,32.6992,242.78500400000001,-117.215,,,1,usp_sandiego_naval_base_san_diego
+usp_sandiego_naval_base_san_diego,Naval Base San Diego,blue,US,NavalBase,32.7,242.9,-117.1,True,,6,
+usp_kitsap_bremerton_psns,Puget Sound Naval Shipyard (Naval Base Kitsap - Bremerton),blue,US,NavalBase,47.6,237.4,-122.6,,True,3,usp_sandiego_naval_base_san_diego
+usa_norfolk_naval_station_norfolk,Naval Station Norfolk,blue,US,NavalBase,36.95,-76.33,-76.33,True,True,6,
+usa_norfolk_naval_station_norfolk_air,Chambers Field,blue,US,AirBase,36.937599,-76.289299,-76.2893,,,1,
+usa_jacksonville_nas_jacksonville,Naval Air Station Jacksonville,blue,US,AirBase,30.2358,-81.680603,-81.6806,,,1,usa_norfolk_naval_station_norfolk
+wpac_yokosuka_naval_base,Yokosuka Naval Base,blue,US,NavalBase,35.29,139.67,139.67,True,True,6,
+wpac_guam_naval_base_apra_harbor,Naval Base Guam (Apra Harbor),blue,US,NavalBase,13.44,144.65,144.65,True,,6,
+wpac_guam_andersen_afb,Andersen Air Force Base,blue,US,AirBase,13.584,144.929998,144.93,,,1,wpac_guam_naval_base_apra_harbor
+io_diego_garcia_nsf,Naval Support Facility Diego Garcia,blue,US,AirBase,-7.31327,72.411102,72.4111,,,1,me_bahrain_nsa_bahrain
+aus_stirling_hmas_stirling,HMAS Stirling,blue,Australia,NavalBase,-32.2,115.7,115.7,True,True,6,
+aus_tindal_raaf,RAAF Base Tindal,blue,Australia,AirBase,-14.5211,132.378006,132.378,,,1,aus_stirling_hmas_stirling
+me_bahrain_nsa_bahrain,Naval Support Activity Bahrain,blue,US,NavalBase,26.2,50.6,50.6,True,,6,
+me_bahrain_muharraq_airfield,Muharraq Airfield,blue,US,AirBase,26.270833,50.633611,50.6336,,,1,me_bahrain_nsa_bahrain
+hoa_djibouti_camp_lemonnier,Camp Lemonnier,blue,US,AirBase,11.55,43.15,43.15,,,1,me_bahrain_nsa_bahrain
+hoa_djibouti_pla_support_base,PLA Support Base (Djibouti),red,China,NavalBase,11.6,43.05,43.05,,,3,chn_hainan_yulin_naval_base
+hoa_djibouti_fr_ba188_heron,Heron Naval Facility,blue,France,NavalBase,11.55,43.16,43.16,,,3,home_fra_toulon
+hoa_djibouti_fr_ba188_heron_air,BA 188 Djibouti,blue,France,AirBase,11.55,43.16,43.16,,,1,
+hoa_djibouti_jp_base,JMSDF Djibouti Air Facility,blue,Japan,AirBase,11.55,43.14,43.14,,,1,me_bahrain_nsa_bahrain
+hoa_djibouti_it_base,Italian Support Base Djibouti,blue,Italy,NavalBase,11.5,43.2,43.2,,,3,home_ita_taranto
+med_rota_naval_station,Naval Station Rota,blue,US,NavalBase,36.6,-6.3,-6.3,,,3,med_sigonella_nas_sigonella
+med_sigonella_nas_sigonella,Naval Air Station Sigonella,blue,US,AirBase,37.401699,14.9224,14.9224,True,,6,
+med_souda_bay_nsa,Naval Support Activity Souda Bay,blue,US,NavalBase,35.5,24.1,24.1,,,3,med_sigonella_nas_sigonella
+med_souda_bay_nsa_air,Naval Support Activity Souda Bay airfield,blue,US,AirBase,35.531207,24.150673,24.1507,,,1,
+med_akrotiri_raf,RAF Akrotiri,blue,UK,AirBase,34.590401,32.9879,32.9879,,,1,home_uk_portsmouth
+chn_hainan_yulin_naval_base,Yulin Naval Base,red,China,NavalBase,18.2,109.6,109.6,True,,6,
+chn_hainan_longpo_naval_base,Longpo Naval Base,red,China,NavalBase,18.2,109.7,109.7,,,3,chn_hainan_yulin_naval_base
+chn_hainan_lingshui_airbase,Lingshui Airbase,red,China,AirBase,18.4944,109.987999,109.988,,,1,chn_hainan_yulin_naval_base
+chn_zhejiang_ningbo_naval_base,Ningbo Naval Base,red,China,NavalBase,29.9,121.7,121.7,True,True,6,
+hn_kola_olenya_airbase,Olenya Airbase,red,Russia,AirBase,68.151802,33.463902,33.4639,True,,6,
+rus_engels2_airbase,Engels-2 Airbase,red,Russia,AirBase,51.480499,46.215,46.215,,,1,home_rus_novorossiysk
+rus_ukrainka_airbase,Ukrainka Airbase,red,Russia,AirBase,51.169997,128.445007,128.445,,,1,home_rus_vladivostok
+rus_belaya_airbase,Belaya Airbase,red,Russia,AirBase,52.91487,103.575499,103.5755,,,1,home_rus_vladivostok
+hn_evenes_air_station,Evenes Air Station,blue,Norway,AirBase,68.491302,16.678101,16.6781,,,1,home_nor_haakonsvern
+jpn_kanoya_air_base,Kanoya Air Base,blue,Japan,AirBase,31.36672,130.838805,130.8388,,,1,home_jpn_kure
+jpn_atsugi_naf,Naval Air Facility Atsugi,blue,Japan,AirBase,35.454601,139.449997,139.45,,,1,home_jpn_kure
+jpn_okinawa_naha,JMSDF Naha Air Base,blue,Japan,AirBase,26.2,127.65,127.65,,,1,home_jpn_kure
+satl_falklands_raf_mount_pleasant,RAF Mount Pleasant,blue,UK,AirBase,-51.822642,-58.445777,-58.4458,,,1,satl_falklands_mare_harbour
+satl_falklands_mare_harbour,Mare Harbour,blue,UK,NavalBase,-51.9,-58.5,-58.5,True,,6,
+home_rus_severomorsk,Severomorsk (Northern Fleet),red,Russia,NavalBase,69.075,33.39,33.39,True,True,6,
+home_rus_vladivostok,Vladivostok (Pacific Fleet),red,Russia,NavalBase,43.105,131.9,131.9,True,True,6,
+home_jpn_kure,JMSDF Kure District,blue,Japan,NavalBase,34.228,132.555,132.555,True,True,6,
+home_nor_haakonsvern,Haakonsvern Naval Base (Bergen),blue,Norway,NavalBase,60.334,5.236,5.236,True,True,6,
+home_uk_portsmouth,HMNB Portsmouth,blue,UK,NavalBase,50.8,-1.11,-1.11,True,True,6,
+home_uk_lossiemouth,RAF Lossiemouth,blue,UK,AirBase,57.705,-3.339,-3.339,,,1,home_uk_portsmouth
+home_fra_toulon,Toulon Naval Base,blue,France,NavalBase,43.105,5.925,5.925,True,True,6,
+home_fra_brest,Brest Naval Base,blue,France,NavalBase,48.38,-4.482,-4.482,,,3,home_fra_toulon
+home_fra_saint_dizier,BA 113 Saint-Dizier,blue,France,AirBase,48.636,4.899,4.899,,,1,home_fra_toulon
+home_fra_lann_bihoue,BAN Lann-Bihoue,blue,France,AirBase,47.76,-3.44,-3.44,,,1,home_fra_toulon
+home_ita_taranto,Taranto Naval Base,blue,Italy,NavalBase,40.47,17.215,17.215,True,True,6,
+home_ita_gioia_del_colle,Gioia del Colle Air Base,blue,Italy,AirBase,40.767,16.933,16.933,,,1,home_ita_taranto
+home_esp_ferrol,Ferrol Naval Base,blue,Spain,NavalBase,43.473,-8.234,-8.234,True,True,6,
+home_esp_torrejon,Torrejon Air Base,blue,Spain,AirBase,40.487875,-3.456808,-3.4568,,,1,home_esp_ferrol
+home_deu_wilhelmshaven,Wilhelmshaven Naval Base,blue,Germany,NavalBase,53.515,8.135,8.135,True,True,6,
+home_deu_wittmund,Wittmund Air Base,blue,Germany,AirBase,53.548,7.667,7.667,,,1,home_deu_wilhelmshaven
+home_nld_den_helder,Den Helder Naval Base,blue,Netherlands,NavalBase,52.965,4.79,4.79,True,True,6,
+home_nld_eindhoven,Eindhoven Air Base,blue,Netherlands,AirBase,51.45,5.375,5.375,,,1,home_nld_den_helder
+home_grc_tanagra,Tanagra Air Base,blue,Greece,AirBase,38.34,23.565,23.565,,,1,home_grc_salamis
+home_pol_lask,Lask Air Base,blue,Poland,AirBase,51.552,19.179,19.179,,,1,home_swe_karlskrona
+home_tur_konya,Konya Air Base,blue,Turkey,AirBase,37.979,32.562,32.562,,,1,home_tur_golcuk
+home_swe_karlskrona,Karlskrona Naval Base,blue,Sweden,NavalBase,56.16,15.61,15.61,True,True,6,
+home_swe_ronneby,F 17 Ronneby,blue,Sweden,AirBase,56.267,15.265,15.265,,,1,home_swe_karlskrona
+home_bel_melsbroek,Melsbroek Air Base,blue,Belgium,AirBase,50.9,4.484,4.484,,,1,home_nld_den_helder
+home_dnk_frederikshavn,Frederikshavn Naval Base,blue,Denmark,NavalBase,57.444,10.561,10.561,True,True,6,
+home_dnk_karup,Karup Air Base,blue,Denmark,AirBase,56.297139,9.104311,9.1043,,,1,home_dnk_frederikshavn
+home_can_bagotville,CFB Bagotville,blue,Canada,AirBase,48.331,-70.996,-70.996,,,1,usa_norfolk_naval_station_norfolk
+home_kor_jinhae,Jinhae Naval Base,blue,South_Korea,NavalBase,35.128,128.655,128.655,True,True,6,
+home_kor_gimhae,Gimhae Air Base,blue,South_Korea,AirBase,35.18,128.938,128.938,,,1,home_kor_jinhae
+home_kor_pohang,Pohang Naval Air Base,blue,South_Korea,AirBase,35.988,129.42,129.42,,,1,home_kor_jinhae
+home_phl_subic,Subic Bay Naval Base,blue,Philippines,NavalBase,14.813,120.27,120.27,True,True,6,
+home_phl_basa,Basa Air Base,blue,Philippines,AirBase,14.987,120.493,120.493,,,1,home_phl_subic
+home_tha_sattahip,Sattahip Naval Base,blue,Thailand,NavalBase,12.656,100.907,100.907,True,True,6,
+home_tha_korat,Wing 1 Korat,blue,Thailand,AirBase,14.934,102.079,102.079,,,1,home_tha_sattahip
+home_nzl_ohakea,RNZAF Base Ohakea,blue,NewZealand,AirBase,-40.206,175.388,175.388,,,1,aus_stirling_hmas_stirling
+home_twn_hsinchu,Hsinchu Air Base,blue,RoC,AirBase,24.818,120.939,120.939,,,1,home_phl_subic
+home_isr_haifa,Haifa Naval Base,blue,Israel,NavalBase,32.828,35.01,35.01,True,True,6,
+home_isr_ramat_david,Ramat David Air Base,blue,Israel,AirBase,32.665,35.18,35.18,,,1,home_isr_haifa
+home_are_al_dhafra,Al Dhafra Air Base,blue,UAE,AirBase,24.248,54.547,54.547,,,1,me_bahrain_nsa_bahrain
+home_qat_al_udeid,Al Udeid Air Base,blue,Qatar,AirBase,25.117,51.315,51.315,,,1,me_bahrain_nsa_bahrain
+home_kwt_ali_al_salem,Ali Al Salem Air Base,blue,Kuwait,AirBase,29.347,47.521,47.521,,,1,me_bahrain_nsa_bahrain
+home_sau_dhahran,King Abdulaziz Air Base (Dhahran),blue,Saudi,AirBase,26.265,50.152,50.152,,,1,me_bahrain_nsa_bahrain
+home_bra_rio,Rio de Janeiro Naval Base,blue,Brazil,NavalBase,-22.877,-43.142,-43.142,True,True,6,
+home_bra_santa_cruz,Santa Cruz Air Base,blue,Brazil,AirBase,-22.932,-43.719,-43.719,,,1,home_bra_rio
+home_bra_salvador,Salvador Air Base,blue,Brazil,AirBase,-12.911,-38.331,-38.331,,,1,home_bra_rio
+home_ind_mumbai,Mumbai (Western Naval Command),blue,India,NavalBase,18.916,72.843,72.843,True,True,6,
+home_ind_ambala,Ambala Air Force Station,blue,India,AirBase,30.368,76.817,76.817,,,1,home_ind_mumbai
+home_ind_rajali,INS Rajali (Arakkonam),blue,India,AirBase,13.071,79.691,79.691,,,1,home_ind_mumbai
+home_egy_alexandria,Alexandria Naval Base,blue,Egypt,NavalBase,31.188,29.875,29.875,True,True,6,
+home_egy_cairo_west,Cairo West Air Base,blue,Egypt,AirBase,30.116,30.915,30.915,,,1,home_egy_alexandria
+home_chl_talcahuano,Talcahuano Naval Base,blue,Chile,NavalBase,-36.7,-73.1,-73.1,True,True,6,
+home_chl_punta_arenas,Punta Arenas (Third Naval Zone),blue,Chile,NavalBase,-53.16,-70.905,-70.905,True,,6,
+home_chl_chabunco,Chabunco Air Base (Punta Arenas),blue,Chile,AirBase,-53.003,-70.855,-70.855,,,1,home_chl_punta_arenas
+home_chl_santiago,Santiago Air Brigade (Pudahuel),blue,Chile,AirBase,-33.393,-70.786,-70.786,,,1,home_chl_talcahuano
+home_irn_bandar_abbas,Bandar Abbas Naval Base,red,Iran,NavalBase,27.14,56.21,56.21,True,True,6,
+home_irn_isfahan,Isfahan (8th Tactical Air Base),red,Iran,AirBase,32.751,51.861,51.861,,,1,home_irn_bandar_abbas
+home_irn_bushehr,Bushehr (6th Tactical Air Base),red,Iran,AirBase,28.945,50.835,50.835,,,1,home_irn_bandar_abbas
+home_prk_sunchon,Sunchon Air Base,red,North_Korea,AirBase,39.413,125.89,125.89,,,1,home_prk_nampo
+home_chn_qingdao,Qingdao (Northern Theater Navy),red,China,NavalBase,36.058,120.377,120.377,True,,6,
+home_chn_zhanjiang,Zhanjiang (Southern Theater Navy),red,China,NavalBase,21.2,110.42,110.42,True,,6,
+home_chn_dalian,Dalian Shipyard,red,China,NavalBase,38.93,121.66,121.66,,True,3,home_chn_qingdao
+home_chn_jiangnan,Jiangnan Shipyard (Changxing Island),red,China,NavalBase,31.356,121.732,121.732,,True,3,chn_zhejiang_ningbo_naval_base
+home_chn_huludao,Bohai Shipyard (Huludao),red,China,NavalBase,40.706,120.99,120.99,,True,3,home_chn_qingdao
+home_chn_fiery_cross,Fiery Cross Reef,red,China,NavalBase,9.549,112.889,112.889,,,3,chn_hainan_yulin_naval_base
+home_chn_fiery_cross_air,Fiery Cross Reef airfield,red,China,AirBase,9.549,112.889,112.889,,,1,
+home_chn_subi,Subi Reef,red,China,NavalBase,10.923,114.084,114.084,,,3,chn_hainan_yulin_naval_base
+home_chn_mischief,Mischief Reef,red,China,NavalBase,9.9,115.535,115.535,,,3,chn_hainan_yulin_naval_base
+home_chn_woody_island,Woody Island (Paracels),red,China,AirBase,16.835,112.34,112.34,,,1,chn_hainan_yulin_naval_base
+home_chn_ream,"Ream Naval Base (Cambodia, PLA support)",red,China,NavalBase,10.507,103.613,103.613,,,3,chn_hainan_yulin_naval_base
+home_chn_longtian,Longtian Air Base (Fujian),red,China,AirBase,25.5728,119.459999,119.46,,,1,chn_zhejiang_ningbo_naval_base
+home_chn_wuhu,Wuhu Air Base,red,China,AirBase,31.39,118.408,118.408,,,1,chn_zhejiang_ningbo_naval_base
+home_chn_wugong,Wugong Air Base,red,China,AirBase,34.275907,108.2658,108.2658,,,1,home_chn_qingdao
+home_rus_baltiysk,Baltiysk (Baltic Fleet),red,Russia,NavalBase,54.645,19.89,19.89,True,True,6,
+home_rus_novorossiysk,Novorossiysk (Black Sea Fleet),red,Russia,NavalBase,44.723,37.79,37.79,True,,6,
+home_rus_gadzhiyevo,Gadzhiyevo (Northern Fleet submarines),red,Russia,NavalBase,69.267,33.33,33.33,,,3,home_rus_severomorsk
+home_rus_vilyuchinsk,Vilyuchinsk (Pacific Fleet submarines),red,Russia,NavalBase,52.928,158.42,158.42,,,3,home_rus_vladivostok
+home_rus_severomorsk3,Severomorsk-3 (naval aviation),red,Russia,AirBase,68.866669,33.716667,33.7167,,,1,home_rus_severomorsk
+home_rus_chkalovsk,Chkalovsk (Kaliningrad),red,Russia,AirBase,54.766,20.397,20.397,,,1,home_rus_baltiysk
+home_rus_yelizovo,Yelizovo (Kamchatka),red,Russia,AirBase,53.168,158.454,158.454,,,1,home_rus_vladivostok
+home_irn_bushehr_naval,Bushehr Naval Base,red,Iran,NavalBase,28.98,50.82,50.82,,,3,home_irn_bandar_abbas
+home_irn_jask,Jask Naval Base,red,Iran,NavalBase,25.647,57.775,57.775,,,3,home_irn_bandar_abbas
+home_prk_nampo,Nampo (West Sea Fleet),red,North_Korea,NavalBase,38.716,125.389,125.389,True,True,6,
+home_prk_sinpo,Sinpo (East Sea Fleet submarines),red,North_Korea,NavalBase,39.994,128.163,128.163,,,3,home_prk_nampo
+home_vnm_cam_ranh,Cam Ranh Naval Base,red,Vietnam,NavalBase,11.924,109.177,109.177,True,True,6,
+home_idn_surabaya,Surabaya (Koarmada II),red,Indonesia,NavalBase,-7.2,112.73,112.73,True,True,6,
+home_idn_pekanbaru,Roesmin Nurjadin Air Base (Pekanbaru),red,Indonesia,AirBase,0.461,101.445,101.445,,,1,home_idn_surabaya
+home_idn_natuna,Raden Sadjad Air Base (Natuna),red,Indonesia,AirBase,3.92,108.37,108.37,,,1,home_idn_surabaya
+home_pak_karachi,Karachi Naval Dockyard,red,Pakistan,NavalBase,24.832,66.964,66.964,True,True,6,
+home_pak_minhas,PAF Base Minhas (Kamra),red,Pakistan,AirBase,33.869,72.401,72.401,,,1,home_pak_karachi
+home_pak_masroor,PAF Base Masroor (Karachi),red,Pakistan,AirBase,24.894,66.939,66.939,,,1,home_pak_karachi
+home_usa_pearl,Joint Base Pearl Harbor-Hickam,blue,US,NavalBase,21.372,202.055,-157.945,,,3,usp_sandiego_naval_base_san_diego
+home_usa_groton,Naval Submarine Base New London (Groton),blue,US,NavalBase,41.357,-72.09,-72.09,,,3,usa_norfolk_naval_station_norfolk
+home_usa_kings_bay,Naval Submarine Base Kings Bay,blue,US,NavalBase,30.8,-81.52,-81.52,,,3,usa_norfolk_naval_station_norfolk
+home_usa_bangor,Naval Base Kitsap-Bangor,blue,US,NavalBase,47.73,237.255,-122.745,,,3,usp_sandiego_naval_base_san_diego
+home_uk_faslane,HMNB Clyde (Faslane),blue,UK,NavalBase,56.063,-4.827,-4.827,,,3,home_uk_portsmouth
+home_jpn_yokosuka,JMSDF Yokosuka District,blue,Japan,NavalBase,35.307,139.65,139.65,,,3,home_jpn_kure
+home_ind_vizag,Visakhapatnam (Eastern Naval Command),blue,India,NavalBase,17.69,83.306,83.306,,,3,home_ind_mumbai
+home_deu_eckernfoerde,Eckernfoerde Naval Base,blue,Germany,NavalBase,54.47,9.85,9.85,,,3,home_deu_wilhelmshaven
+home_esp_cartagena,Cartagena Naval Base,blue,Spain,NavalBase,37.59,-0.98,-0.98,,,3,home_esp_ferrol
+home_grc_salamis,Salamis Naval Base,blue,Greece,NavalBase,37.97,23.545,23.545,True,,6,
+home_tur_golcuk,Golcuk Naval Base,blue,Turkey,NavalBase,40.734,29.821,29.821,True,True,6,
+home_rus_zaozersk,Zaozersk (Zapadnaya Litsa),red,Russia,NavalBase,69.438,32.38,32.38,,,3,home_rus_severomorsk
+reg_rus_kronstadt,Kronstadt Baltic Patrol Detachment,red,Russia,NavalBase,59.99,29.77,29.77,,,3,home_rus_baltiysk
+reg_rus_chernyakhovsk,Chernyakhovsk Baltic Aviation Detachment,red,Russia,AirBase,54.601676,21.782375,21.7824,,,1,home_rus_baltiysk
+reg_rus_krymsk,Krymsk Black Sea Aviation,red,Russia,AirBase,44.962905,37.999071,37.9991,,,1,home_rus_novorossiysk
+reg_rus_pskov,Pskov Air Mobility Group,red,Russia,AirBase,57.781316,28.39384,28.3938,,,1,home_rus_baltiysk
+reg_rus_tobruk,Tobruk Forward Operating Port,red,Russia,Port,32.08,23.98,23.98,,,0,home_rus_novorossiysk
+reg_rus_alkhadim,Al-Khadim Russian Expeditionary Detachment,red,Russia,AirBase,31.998501,21.191799,21.1918,,,0,home_rus_novorossiysk
+reg_rus_aljufra,Al-Jufra Russian Expeditionary Detachment,red,Russia,AirBase,29.198099,16.000999,16.001,,,0,home_rus_novorossiysk
+reg_rus_bamako,Bamako Air Detachment,red,Russia,AirBase,12.5335,-7.94994,-7.9499,,,0,home_rus_novorossiysk
+reg_rus_niamey,Niamey Air Detachment,red,Russia,AirBase,13.4815,2.18361,2.1836,,,0,home_rus_novorossiysk
+reg_rus_bangui,Bangui Training Detachment,red,Russia,AirBase,4.39848,18.518801,18.5188,,,0,home_rus_novorossiysk
+reg_rus_tartus,Tartus Forward Operating Port,red,Russia,Port,34.89,35.87,35.87,,,0,home_rus_novorossiysk
+reg_rus_hmeimim,Hmeimim Joint Training Air Detachment (scenario),red,Russia,AirBase,35.4011,35.9487,35.9487,,,0,home_rus_novorossiysk
+reg_irn_chabahar,Chabahar Iranian Maritime Detachment,red,Iran,NavalBase,25.285,60.63,60.63,,,3,home_irn_bandar_abbas
+reg_irn_konarak,Konarak Maritime Aviation Detachment,red,Iran,AirBase,25.44319,60.382167,60.3822,,,1,home_irn_bandar_abbas
+reg_irn_shiraz,Shiraz Southern Fighter Reserve,red,Iran,AirBase,29.5392,52.589802,52.5898,,,1,home_irn_bandar_abbas
+ops_aus_darwin,RAAF Base Darwin,blue,Australia,AirBase,-12.41497,130.88185,130.8818,,,0,aus_stirling_hmas_stirling
+ops_aus_edinburgh,RAAF Base Edinburgh,blue,Australia,AirBase,-34.705705,138.615564,138.6156,,,0,aus_stirling_hmas_stirling
+ops_aus_amberley,RAAF Base Amberley,blue,Australia,AirBase,-27.635381,152.711223,152.7112,,,0,aus_stirling_hmas_stirling
+ops_aus_williamtown,RAAF Base Williamtown,blue,Australia,AirBase,-32.796114,151.835025,151.835,,,0,aus_stirling_hmas_stirling
+ops_aus_learmonth,RAAF Base Learmonth,blue,Australia,AirBase,-22.235201,114.090024,114.09,,,0,aus_stirling_hmas_stirling
+ops_aus_scherger,RAAF Base Scherger,blue,Australia,AirBase,-12.6239,142.087006,142.087,,,0,aus_stirling_hmas_stirling
+ops_usa_kadena,Kadena Air Base,blue,US,AirBase,26.351667,127.769444,127.7694,,,0,wpac_yokosuka_naval_base
+ops_usa_misawa,Misawa Air Base,blue,US,AirBase,40.703201,141.367996,141.368,,,0,wpac_yokosuka_naval_base
+ops_usa_osan,Osan Air Base,blue,US,AirBase,37.091457,127.029448,127.0294,,,0,wpac_yokosuka_naval_base
+ops_usa_kunsan,Kunsan Air Base,blue,US,AirBase,35.903801,126.615997,126.616,,,0,wpac_yokosuka_naval_base
+ops_usa_hickam,Hickam Airfield,blue,US,AirBase,21.335278,202.051667,-157.9483,,,0,usp_sandiego_naval_base_san_diego
+ops_usa_lakenheath,RAF Lakenheath,blue,US,AirBase,52.40954,0.561161,0.5612,,,0,med_sigonella_nas_sigonella
+ops_usa_mildenhall,RAF Mildenhall,blue,US,AirBase,52.3619,0.486406,0.4864,,,0,med_sigonella_nas_sigonella
+ops_usa_whidbey,NAS Whidbey Island,blue,US,AirBase,48.351799,237.344002,-122.656,,,0,usp_sandiego_naval_base_san_diego
+ops_usa_oceana,NAS Oceana,blue,US,AirBase,36.820702,-76.033501,-76.0335,,,0,usa_norfolk_naval_station_norfolk
+ops_uk_marham,RAF Marham,blue,UK,AirBase,52.648395,0.550692,0.5507,,,0,home_uk_portsmouth
+ops_uk_brize_norton,RAF Brize Norton,blue,UK,AirBase,51.75,-1.58362,-1.5836,,,0,home_uk_portsmouth
+ops_fra_landivisiau,BAN Landivisiau,blue,France,AirBase,48.5303,-4.15164,-4.1516,,,0,home_fra_toulon
+ops_ita_amendola,Amendola Air Base,blue,Italy,AirBase,41.538443,15.717181,15.7172,,,0,home_ita_taranto
+ops_deu_nordholz,Nordholz Naval Air Base,blue,Germany,AirBase,53.767689,8.659201,8.6592,,,0,home_deu_wilhelmshaven
+ops_can_greenwood,CFB Greenwood,blue,Canada,AirBase,44.984402,-64.916901,-64.9169,,,0,usa_norfolk_naval_station_norfolk
+ops_can_comox,CFB Comox,blue,Canada,AirBase,49.7108,235.112999,-124.887,,,0,usp_sandiego_naval_base_san_diego
+ops_ind_utkrosh,INS Utkrosh,blue,India,AirBase,11.640194,92.72902,92.729,,,0,home_ind_mumbai
+ops_jpn_iwakuni,Iwakuni Air Base,blue,Japan,AirBase,34.146333,132.247238,132.2472,,,0,home_jpn_kure
+ops_chn_dingxin,Dingxin Air Base,red,China,AirBase,40.401402,99.789398,99.7894,,,0,home_chn_qingdao
+ops_chn_anshan,Anshan Air Base,red,China,AirBase,41.105301,122.853996,122.854,,,0,home_chn_qingdao
+ops_chn_cangxian,Cangxian Air Base,red,China,AirBase,38.403025,116.930924,116.9309,,,0,home_chn_qingdao
+ops_chn_zhangzhou,Zhangzhou Air Base,red,China,AirBase,24.561543,117.656374,117.6564,,,0,chn_zhejiang_ningbo_naval_base
+ops_chn_suixi,Suixi Air Base,red,China,AirBase,21.3958,110.199997,110.2,,,0,home_chn_zhanjiang
+ops_chn_ledong,Ledong Naval Air Base,red,China,AirBase,18.49391,108.83202,108.832,,,0,chn_hainan_yulin_naval_base
+ops_rus_monchegorsk,Monchegorsk Air Base,red,Russia,AirBase,67.986702,33.018299,33.0183,,,0,hn_kola_olenya_airbase
+ops_rus_shaykovka,Shaykovka Air Base,red,Russia,AirBase,54.2267,34.3717,34.3717,,,0,home_rus_baltiysk
+ops_rus_mongokhto,Kamenny Ruchey Naval Air Base,red,Russia,AirBase,49.235703,140.1931,140.1931,,,0,home_rus_vladivostok
+ops_rus_knevichi,Knevichi Airfield,red,Russia,AirBase,43.396256,132.148155,132.1482,,,0,home_rus_vladivostok
+ops_irn_bandar_abbas_air,Bandar Abbas Air Base,red,Iran,AirBase,27.2183,56.3778,56.3778,,,0,home_irn_bandar_abbas
+ops_irn_nojeh,Shahid Nojeh Air Base,red,Iran,AirBase,35.211601,48.6534,48.6534,,,0,home_irn_bandar_abbas
+ops_pak_rafiqui,PAF Base Rafiqui,red,Pakistan,AirBase,30.758101,72.282501,72.2825,,,0,home_pak_karachi
+ops_vnm_da_nang,Da Nang Air Base,red,Vietnam,AirBase,16.0439,108.198997,108.199,,,0,home_vnm_cam_ranh
+ops_idn_hasanuddin,Sultan Hasanuddin Air Base,red,Indonesia,AirBase,-5.075539,119.553702,119.5537,,,0,home_idn_surabaya
+ops_prk_orang,Orang Air Base,red,North_Korea,AirBase,41.428538,129.647555,129.6476,,,0,home_prk_nampo

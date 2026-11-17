@@ -71,7 +71,7 @@
     {
       "name": "world-service-and-strike-bindings",
       "exit_code": 0,
-      "stdout": "[SEST Runtime] world service record is read-only; existing file preserved: InvalidDataException: unknown service record format\n[SEST Runtime] World Operations attached to Dynamic Campaign Mod 0.25.0.1\n[SEST Runtime] World Operations records each Admiralty result when Dynamic Campaign Mod files it; unread papers are also scanned\n[SEST Runtime] world service record not updated; World Operations stays open and retries in 30 s: IOException: The file '/tmp/SEST-World-Test-e938d68cb9ab46cab27aa0c6a3d0cf85/blocker' already exists.\nWorld service, lifecycle, UI model and optional-mod binding checks passed: 207",
+      "stdout": "[SEST Runtime] world service record is read-only; existing file preserved: InvalidDataException: unknown service record format\n[SEST Runtime] World Operations attached to Dynamic Campaign Mod 0.25.0.1\n[SEST Runtime] World Operations records each Admiralty result when Dynamic Campaign Mod files it; unread papers are also scanned\n[SEST Runtime] world service record not updated; World Operations stays open and retries in 30 s: IOException: The file '/tmp/SEST-World-Test-088a9af840ca4390b20d3af66f1d3b17/blocker' already exists.\nWorld service, lifecycle, UI model and optional-mod binding checks passed: 207",
       "stderr": ""
     },
     {
@@ -114,8 +114,8 @@
   "tested_files": {
     "AnchorChain.dll": "750d574e7b25a34b4ca6f56ad83de441201152266be07db9185317d0cf82fbc0",
     "SEST.BetaSafeBootstrap.dll": "0fce399d3b061ad48225a77e0f144802f1b007e7a4da492e40b9dee53fb9e4f8",
-    "SEST.RuntimeFixes.dll": "e1420325edd51148fb2e2ee91f9a24689f1ef9c24af2e498581a063182ac1bc0",
-    "SEST.ContactsFix.dll": "ac3b1923b541e338548c39d05a7d4c44b027f8ec0b6e66a74e0c256bba03daab",
-    "SEST.IdentifyDataPaths.dll": "47eea4f32832c9c28019eeda9c3d8274d5f9aef768ca32c6c958ddf302f46953"
+    "SEST.RuntimeFixes.dll": "f545ee15926bccdcc05a84fa51a288dbff98d9e46996ce7cc4877335ba097f46",
+    "SEST.ContactsFix.dll": "e182785cd941ac51a055fb26ee9f4d3211866dae55b19cda012a6d06b882ce2b",
+    "SEST.IdentifyDataPaths.dll": "39a371c8c595093be623012460929c0da9e715b6f085dc32f8b64da208dc78ae"
   }
 }

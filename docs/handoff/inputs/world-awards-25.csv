@@ -1,0 +1,26 @@
+id,name,required,counter_in_code,citation
+meridian,Meridian Accord Service Ribbon,3,manual.Count,Completed three manually commanded world-campaign battles.
+iron-meridian,Iron Meridian Service Ribbon,10,manual.Count,Completed ten manually commanded world-campaign battles.
+joint-command,Joint Maritime Command Ribbon,20,manual.Count,Completed twenty manually commanded world-campaign battles.
+sustained-command,Sustained Command Service Ribbon,50,manual.Count,Completed fifty manually commanded world-campaign battles.
+operational-watch,Operational Watch Ribbon,5,days,"Commanded manual battles on five distinct campaign calendar days. This counts evidenced battle days, not assumed deployment time."
+enduring-watch,Enduring Watch Ribbon,15,days,Commanded manual battles on fifteen distinct campaign calendar days.
+expeditionary-command,Expeditionary Command Ribbon,3,theatres,Completed positioned manual battles in three different service theatres.
+global-command,Global Maritime Command Ribbon,6,theatres,Completed positioned manual battles in all six service theatres.
+admiralty-service,Admiralty Service Commendation,5,tasks.Count,"Completed five accepted Admiralty tasks: standalone orders, or whole multi-phase operations counted once each. Failed, lapsed, declined and cancelled tasks do not qualify."
+operational-versatility,Operational Versatility Ribbon,3,tasks.Select(t => t.Duty).Distinct().Count(),Completed accepted Admiralty tasks of three different types; each order kind and each operation type counts once.
+convoy-protection,Convoy Protection Ribbon,3,"Count(""CoverConvoy"", ""ConvoyRun"")",Completed three accepted convoy-escort orders or convoy-run operations.
+surveillance-service,Maritime Surveillance Ribbon,3,"Count(""Shadow"", ""FleetAction"")","Completed three accepted shadowing orders or fleet-action operations, which open with a shadowing phase."
+route-security,Route Security Ribbon,3,"Count(null, ""ConvoyRun"")","Completed three accepted convoy-run operations, each clearing the convoy's route of submarines before the escort."
+europe,European Waters Service Ribbon,2,manual battles with a recorded position in this theatre,Completed two manually commanded battles with a recorded engagement position in European Waters.
+europe-veteran,European Waters Veteran Ribbon,5,manual battles with a recorded position in this theatre,Completed five manually commanded battles with a recorded engagement position in European Waters.
+middle-east,Middle East and Indian Ocean Service Ribbon,2,manual battles with a recorded position in this theatre,Completed two manually commanded battles with a recorded engagement position in Middle East and Indian Ocean.
+middle-east-veteran,Middle East and Indian Ocean Veteran Ribbon,5,manual battles with a recorded position in this theatre,Completed five manually commanded battles with a recorded engagement position in Middle East and Indian Ocean.
+africa,African and Cape Routes Service Ribbon,2,manual battles with a recorded position in this theatre,Completed two manually commanded battles with a recorded engagement position in African and Cape Routes.
+africa-veteran,African and Cape Routes Veteran Ribbon,5,manual battles with a recorded position in this theatre,Completed five manually commanded battles with a recorded engagement position in African and Cape Routes.
+americas,Americas and Southern Ocean Service Ribbon,2,manual battles with a recorded position in this theatre,Completed two manually commanded battles with a recorded engagement position in Americas and Southern Ocean.
+americas-veteran,Americas and Southern Ocean Veteran Ribbon,5,manual battles with a recorded position in this theatre,Completed five manually commanded battles with a recorded engagement position in Americas and Southern Ocean.
+southern,Allied Southern Flank Service Ribbon,2,manual battles with a recorded position in this theatre,Completed two manually commanded battles with a recorded engagement position in Allied Southern Flank.
+southern-veteran,Allied Southern Flank Veteran Ribbon,5,manual battles with a recorded position in this theatre,Completed five manually commanded battles with a recorded engagement position in Allied Southern Flank.
+pacific,Pacific and East Asia Service Ribbon,2,manual battles with a recorded position in this theatre,Completed two manually commanded battles with a recorded engagement position in Pacific and East Asia.
+pacific-veteran,Pacific and East Asia Veteran Ribbon,5,manual battles with a recorded position in this theatre,Completed five manually commanded battles with a recorded engagement position in Pacific and East Asia.

@@ -184,8 +184,8 @@ COORDINATED STRIKE TOOL
   the planner with a Noesis window or change its scheduling/launch algorithms.
 
 COMPATIBILITY AND REGRESSION CHECKS
-- Topography: the current 3D map loads as its author built it (R15 retires
-  the 1.5/1.6 rewrites); the flat-only image is held on 0.9.3.
+- Topography: the current 3D map (1.6.2) loads with one small SEST fix, the
+  shallow-water line (R14 retired the 1.5/1.6 rewrites); the flat-only image is held on 0.9.3.
 - Current Pop-Out Windows 1.2.3 is recognised by its inspected hash. Check Contacts,
   Group Manager and F11 windows on the main and secondary display.
 - F8 strike panel pop-out: OFF by default since 15 Nov (on the owner's PC Unity

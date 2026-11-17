@@ -29,9 +29,9 @@
   "files": {
     "AnchorChain.dll": "750d574e7b25a34b4ca6f56ad83de441201152266be07db9185317d0cf82fbc0",
     "SEST.BetaSafeBootstrap.dll": "0fce399d3b061ad48225a77e0f144802f1b007e7a4da492e40b9dee53fb9e4f8",
-    "SEST.RuntimeFixes.dll": "e1420325edd51148fb2e2ee91f9a24689f1ef9c24af2e498581a063182ac1bc0",
-    "SEST.ContactsFix.dll": "ac3b1923b541e338548c39d05a7d4c44b027f8ec0b6e66a74e0c256bba03daab",
-    "SEST.IdentifyDataPaths.dll": "47eea4f32832c9c28019eeda9c3d8274d5f9aef768ca32c6c958ddf302f46953"
+    "SEST.RuntimeFixes.dll": "f545ee15926bccdcc05a84fa51a288dbff98d9e46996ce7cc4877335ba097f46",
+    "SEST.ContactsFix.dll": "e182785cd941ac51a055fb26ee9f4d3211866dae55b19cda012a6d06b882ce2b",
+    "SEST.IdentifyDataPaths.dll": "39a371c8c595093be623012460929c0da9e715b6f085dc32f8b64da208dc78ae"
   },
   "source_files": {
     "integration/beta-anchorchain/SEST.BetaSafeBootstrap.cs": "b7905d04bc59f55be5a7e1bf7affbcf28db154b4ed4307e8c64df21d5fb9880a",
@@ -48,7 +48,7 @@
     "integration/beta-feature-parity/identify/IdentifyDataPaths.cs": "1783be9b38e202885cc5ce1dcb3517fe2a4ab5d9332cb750a833529d6cab6825",
     "integration/beta-feature-parity/Install-SEST-Beta.ps1": "fc07909985116a9b1df91cc5301641e42949db3a32d604e56b1fcc9e989e3258",
     "integration/beta-feature-parity/package.py": "1663c02190966c5a37cc1489f34f8aa9d33fdebb83c88a8d7b54f9d8ca407037",
-    "integration/beta-feature-parity/R11-PC-TESTS.txt": "92da1ece71a67cc5d52ca91d6306ff8377ff4ca814d7067ac5a072bcd16113e4",
+    "integration/beta-feature-parity/R11-PC-TESTS.txt": "ebfa6f48aefa020dd6e64f01bf57466731758c4f217fa3d4608311be96e2357e",
     "integration/beta-feature-parity/README.md": "dbc466aee37e4642edcff2391c62cf52c9af50987660d9dab3e2778bd232eeb9",
     "integration/beta-feature-parity/Repair-SEST-Beta-Startup.ps1": "2f9f2de2439400d11a16d38bac023c9b1d4230ae0d380771ec399401da6e0203",
     "integration/beta-feature-parity/runtime/Api.cs": "cd90c198791ebdb50d8cfd9ec56f73c27e745a857037fd02f76481a5abce5f12",
@@ -92,7 +92,7 @@
     "integration/beta-feature-parity/runtime/WorldOperations.cs": "d973cdd99a049475b76a0cefcbc5c14d34fc039bfff1fd80b1e4920890d82df9",
     "integration/beta-feature-parity/runtime/WorldServiceLedger.cs": "6735c0efd8f97613159bf2b41b218a26f67d0d0e220c29442d18193ae5724a84",
     "integration/beta-feature-parity/runtime/WorldShipyard.cs": "1088f3ac27e99b177c3e2739e32576aa3b64f6108c8def1d937fa25126542471",
-    "integration/beta-feature-parity/runtime/WorldShipyardYears.cs": "e809fce1919baf803096588916ede8080480c14f776f3715cff8e0152a055f40",
+    "integration/beta-feature-parity/runtime/WorldShipyardYears.cs": "5ea58a6738160637973d5e9ea140df3f281f6090b66263d87cfd5f3070461bb3",
     "integration/beta-feature-parity/tests/AssemblyPolicyTests.cs": "f20671e50e839b94fef03312bd125aee7a35a31b5331bef742b744d4cca0ade4",
     "integration/beta-feature-parity/tests/BetaApiTests.CampaignSalvo.cs": "690e4a6cb3202422edbb1a8d798918370d3d07e430589598a5f028cfedc99d57",
     "integration/beta-feature-parity/tests/BetaApiTests.cs": "cfcec14366d49eaf037c74b73dbb48c0db13b81d0ce50a5dca1a36b39778d81e",

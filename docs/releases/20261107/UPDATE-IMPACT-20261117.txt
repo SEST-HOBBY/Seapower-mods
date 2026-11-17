@@ -1,0 +1,450 @@
+SEST AND THE 17 NOVEMBER UPDATE: IMPACT RECORD
+17 November 2026 | SEST-DEV
+
+This file records what changed on the owner's PC between 15 and 17
+November 2026, what each change did to the live R14 pack and to SEST's
+sources, what R15 already fixed, what four reviews of R15 found, and what
+is open or could not be established. It claims nothing beyond its sources,
+which section 9 names. It changes no file of the pack. Nothing in it was
+seen in the game on 0.9.3 with SEST switched on: R15 has not run there.
+
+Marks used on review findings:
+  [confirmed]   a second reader re-derived it from the files
+  [single]      one reviewer only; no second reader
+  [data only]   shown from files or game IL; effect in play not seen
+
+1. WHAT CHANGED ON THE PC, 15 TO 17 NOVEMBER
+- Game: Sea Power 0.9.2 Build 261113 (Seapower-Scripts.dll 3f56861f) to
+  0.9.3 Build 261116 PUBLIC BETA (aae79728). First start on it: 17 Nov
+  18:18 (reference ZIP SEST-Beta-References-20261117-181824-e799d6.zip).
+  The 0.9.3 public release is a different file (the beta carries toss
+  bombing). It has not been captured.
+- Group Manager (Workshop 3818251045, SeaPowerSquadPanel.dll): 0.2.17
+  (6230e8e7, capture of 15 Nov) to 0.2.22 (eff3fa12). The session logs
+  place the change between the 16 Nov 14:29 and 15:57 game starts.
+- Author mods: about 27 were updated on Steam (README-FIRST.txt). The text
+  export taken in at 62212cccf (capture of 17 Nov 17:48) differs from R14's
+  in 389 files under 18 mod folders: 3390330875 (Euromod Modern US Navy),
+  3505420313, 3551621846 (Soviet radars), 3599752717 (Euromod Modern
+  British Navy), 3606134711 (Custom Loadout Editor), 3628201887,
+  3628203171, 3628247436, 3629144864 (Euromod Main), 3630495619 and
+  3731208477 (Spanish Navy, Cold War and Modern), 3737267013, 3752415457
+  (Luzon Line), 3774859959 (Liaoning, 97 files), 3784474738 (Euromod AEP,
+  105 files), 3789188689 (PLA AEP), 3812454152 (HD Hyundai), 3818251045.
+  Mods whose update changed only models, textures or DLLs do not show in
+  a text diff; the difference between 18 and "about 27" was not itemised.
+- Alpine-family plugin files were re-uploaded on 16 Nov; six of the ten
+  images SEST holds have new hashes (validation.json, author_guards).
+- The game's own data: only the 0.9.3 changelog is in the repository
+  (data/install-snapshot/changelog.live.txt). There is no 0.9.3 export;
+  mods-source/_vanilla is still the 0.9.2 export.
+
+2. WHAT THAT DID TO THE LIVE R14 (Workshop item 3812461539)
+2a. The live item is the accepted build.
+- The subscribed item differs from upload-manifest.json in 481 unit files,
+  and only by the block the game itself writes at upload time: a
+  [Measured] section (BakeVersion, InputHash, areas, Volume) with the
+  three area keys moved out of [General]. This was shown by replaying the
+  game's writer over the manifest files: no file was left unexplained
+  (scratchpad cap1117-review/bake: live.json 481 rows, replay_bad.json
+  empty). This closes R14-STATUS.txt section 5, first item.
+- Four units could not be measured by the game: plan_type_055_2020,
+  pn_ffg-150, pn_ffg-150_2, rnn_ddg_zeven. These are the "four
+  model-measurement warnings" of R14-STATUS.txt section 6. Cause per unit
+  and effect in play: not established.
+2b. R14's code path for subscribers closed on 16 Nov, on any game build.
+- R14 pins Group Manager 0.2.17. With 0.2.22 delivered, R14's SETUP reports
+  "SEST beta features are off until SEST is updated for Group Manager" and
+  switches nothing on; on these game builds Workshop code mods load only
+  through SEST's loader, so they stay off too. Shown in fixture scenarios
+  (cap1117-review/codemods/setup-scenarios.txt, A and B), not on a PC.
+- On a PC where R14 was already switched on, the loader kept running on
+  0.9.2 but three features went off from the 16 Nov 15:57 start: Formation
+  UI mode, Formation layout correction and the Formation pop-out bridge
+  ("Uninspected assembly: SeaPowerSquadPanel"; sess1117 session_2 L113,
+  L120, L999; session_3 L117, L124, L970).
+2c. On 0.9.3 with R14 no Workshop code mod loads.
+- refs1117b/reports/BepInEx.log line 19: "Beta safe loader INACTIVE:
+  uninspected game/preloader build". The log is 20 lines; Player.log has
+  289 lines and no error or exception. R14 stayed inert, as designed.
+  Data mods and campaigns are not affected by this.
+2d. Data.
+- The live R14 data was built on the mods as captured before 15 Nov. Its
+  missions name plan_type_001 and wp_nebou, which the authors' current
+  mods no longer ship (section 3b). What a subscriber's game does with
+  those names today was not observed.
+
+3. WHAT IT DID TO SEST'S SOURCES, AND WHAT R15 ALREADY CHANGED
+3a. Code (b7757f410, 89b9b4649; validation.json r15_093_20261117).
+- Revision R15-20261117-sea-power-093-aae79728; Runtime 1.8.0, UI 1.6.0,
+  bootstrap 0.7.0; enable flag enable-093-261116-aae79728.
+- Two of fifteen pinned references moved: the game file and Group Manager.
+- Game 0.9.3: nothing SEST binds was removed or renamed. Four method
+  bodies under a SEST hook or adapter contract changed and were read
+  (PauseMenuViewModel.InitialiseMissionPause, WeaponBase.
+  setCourseTowardsPosition, WeaponSystemLauncher.OnUpdate, AI.MaintainMPA).
+- Group Manager 0.2.22: the loader rewrite made for 0.2.17 is retired
+  (0.2.22 no longer calls get_MembershipDisplay); the three Formation
+  features are re-pinned to eff3fa12.
+- Seventeen author plugin files are held before load and seven adapted
+  (lists in validation.json). New among the held: the Custom Loadout
+  Editor's LoadoutManager0_8_7.dll.
+- 17 managed and installer checks pass (verify_py), the upgrade from the
+  released R14 among them. validation.json line 23 says "16"; the block
+  and the toolkit's VALIDATION.json hold 17.
+- Not re-pinned, as stated in the block: the CV16 helicopter flight-flag
+  correction and three stutter-diagnostic pins.
+- Not yet run under the loader: Custom Loadout Editor selector, Kinematic
+  Range Uncap, CV16.dll, J15Systems.dll.
+3b. Data (62212cccf, 89b9b4649).
+- Liaoning: the author renamed plan_type_001 to plan_cv16_liaoning. R15
+  follows in every file the game reads (nine missions, two theatre
+  rosters, collection-fixes overlay, cost row, GMO campaign.json, gallery
+  profile picture).
+- Soviet radars: wp_nebou became wp_55zh6. R15 follows in Second Ring
+  (one unit, one objective), name fixes, cost row, profile picture.
+- Luzon Line: phl_h-76 is now Role=Attack; the Sulu Line helicopter row
+  reads Attack/ASW.
+- Sulu Line places the Jose Rizal class (pn_ffg-150) again in place of the
+  Miguel Malvar stand-in. See 4b item 6 for what this rests on.
+- SEST's whole-file copies of changed author hulls were rebased: 45
+  same-path files checked, no author line missing from the vessel copies
+  apart from SEST's own air groups [single].
+- Replenishment: five heavy PLAN anti-ship rounds (plan_yj-17, yj-18,
+  yj-18a, yj-18e, yj-20) are metered for the first time, and
+  ko_pcc-756_pn (new Hyundai hull) has a SEST copy. The five are the
+  correction of an R14 gap, not an effect of the update [single]. Two
+  SAM copies were dropped by mistake (4b item 1).
+- Every pack declares game 0.9.3 (26 _info.ini files); pack data is still
+  built on the 0.9.2 game export.
+- No dangling unit, round, loadout or squadron reference was found in the
+  missions, world campaign, cross-deck, cost catalogue or extend stubs
+  [single].
+
+4. REVIEW FINDINGS ON R15
+4a. Code, installer and toolkit
+Result: no fault found that stops Prepare-PC, the repair, the installer
+or SETUP's feature step on the PC as captured on 17 Nov 18:18. All 15
+captured references equal the R15 pins; the shipped payload DLLs carry
+only the 0.9.3 pins and equal the candidate and the build receipt; the
+toolkit scripts are byte-identical to the repository; the upgrade fixture
+(R14 on 0.9.2 with Group Manager 0.2.17, game and Group Manager swapped,
+then the R15 repair) passed 65 assertions. Every member the three SEST
+files bind in Group Manager exists in 0.2.22 with the same signature, and
+the hooked bodies are identical apart from UseState and LateUpdate, which
+SEST patches by prefix and postfix [single; fixtures under pwsh 7.4 on
+Linux only].
+ 1. A further update of the game or of one of six pinned author mods
+    stops R15 with the loader off. [confirmed]
+    Repair-SEST-Beta-Startup.ps1:66 disables enable.flag before the pin
+    loop (lines 81-100) and throws "Reference changed: <name>. Activation
+    remains disabled." The six: 3380210757 Anchor Chain, 3790594162
+    Identify Expanded, 3807187341 Combat Cost Tracker, 3819427362 Contact
+    Log, 3818251045 Group Manager, 3826396311 Pop-Out Windows.
+    Prepare-PC's -AcceptUpdatedMods does not get past it, and README-FIRST
+    step 1 does not say so. The second reader added: the install path
+    stops the same way (Install-SEST-Beta.ps1:210-211, "Build or mod
+    changed since the reviewed beta capture"). Does not occur on the PC
+    as captured. OPEN: README text and toolkit rebuild.
+ 2. upload-manifest.json and the toolkit's SOURCE-RECEIPT.json record
+    Runtime 1.7.0 / UI 1.5.0 and the 14 Nov capture for R15. [confirmed]
+    The code is 1.8.0 / 1.6.0. No script reads the fields; the PC run is
+    not affected. The second reader found no generator for the fields
+    (tools/refresh_upload_manifest.py keeps them) and that other fields
+    of the manifest (release_revision R12, release_date 2026-11-10) are
+    older still and unchecked. OPEN.
+ 3. R11-PC-TESTS.txt:187-188 credits R15 with retiring the Topography
+    1.5/1.6 rewrites (R14 did) and says the 3D map loads as its author
+    built it (it loads through the Topography162 adapter). [confirmed,
+    except the reviewer's statement that the same sentence is in
+    README-FIRST.txt, which the second reader did not find.] OPEN.
+ 4. tools/verify-live-workshop-item.ps1:79 still reads the R14 candidate
+    receipt, so run from this checkout after Prepare-PC it reports R15's
+    two plugins as differences and exits 1. Not on the Prepare-PC path.
+    [single] OPEN.
+ 5. After Repair-PC.cmd alone, or after Steam re-downloads the item, the
+    Workshop item carries R14's SETUP; run on 0.9.3 it restores the normal
+    plugins and takes R15 out (sest-workshop-features.ps1:185-197).
+    Recoverable by running Prepare-PC twice. README-FIRST does not warn.
+    [single] OPEN.
+ 6. Under R15 three "Stutter observations skipped ...: Uninspected
+    assembly" lines (EnhancedUIMod, SeaPowerTopo, UiWorkerProbe) and "CV16
+    type correction inactive" are expected, as under R14. README-FIRST
+    step 1b names only the CV16 line. [single] Note only.
+
+4b. SEST data against the update
+ 1. Replenishment builder regression: HHQ-9B and 48N6E1 lost their SEST
+    copy and their metering. [confirmed, by two reviewers and two second
+    readers]
+    integration/replenishment/build_patch.py:429-438 (new in 89b9b4649)
+    takes the first Type= line of an AEP #!extend layer whatever its
+    section. ammo_facts gives plan_hhq-9b Type "StageExhaust" and
+    plan_48n6e1 "None"; both are Missile in their base file. R15 deleted
+    SEST_Replenishment/ammunition/plan_hhq-9b.ini and plan_48n6e1.ini.
+    Ten rounds are misread; plan_hhq-9c (5300 points) and pla_hq-9b
+    (5250) would also qualify once read correctly. Effect: the PLAN
+    long-range SAMs replenish without the SEST_LongRangeSAM category.
+    The two second readers differ on the cure: one would read [General]
+    only in layers and base alike; the other found 10 whole ammunition
+    files whose first Type= precedes any section header and would apply
+    the section rule to layers only. OPEN; not decided here.
+ 2. How the game applies #!extend. [confirmed from scripts093.il; data
+    only]
+    IniHandler opens the highest-ranked file of a path, reads extend files
+    first, and a key already read is not replaced; the opened file is
+    removed from its own modifier list. So AEP's layer still applies over
+    a SEST whole copy (the five YJ copies lose nothing of AEP's). Where
+    AEP's self-named layer is the highest file of its path, the IL shows
+    only that layer being read and no step down to the base mod's file.
+    That contradicts the "next copy down" model in build_patch.py:322-326
+    and mission-seeds/build_land_defence.py:525. If the IL reading holds,
+    plan_hhq-9b, plan_48n6e1 and plan_hq-10 load on the PC without their
+    [General] section. No log line shows this either way. OPEN: needs a
+    Type 052D firing HHQ-9B and HQ-10 on the PC, with Player.log.
+ 3. Three SEST whole copies of game rounds hold 0.9.2 values that 0.9.3
+    changed. [confirmed]
+    usn_rgm-109c, usn_ugm-109c, usn_ugm-109b in SEST_Replenishment are
+    the 0.9.2 file plus one SupplyCategory line. The 0.9.3 changelog
+    lowers TLAM minimum range to 20 nm and Tomahawk cruise speed to
+    470 kt and resets TASM dates; those do not reach these rounds. 70
+    SEST files sit at a vanilla path (38 ammunition, 16 vessels, 3
+    systems, 9 language, 3 ui, _info.ini). Whether 0.9.3 changed any of
+    the other 67 cannot be told without a 0.9.3 export. OPEN.
+ 4. Liaoning's Variant1, named by nine SEST missions and both enemy
+    theatre rosters, now embarks 24 planaf_j-15, 4 Z-18, 2 Ka-28, 2 Ka-31
+    and 4 Z-9. [confirmed, by two reviewers and two second readers; data
+    only]
+    The old Variant1 listed ch_j-15, an aircraft no mod shipped, plus 12
+    helicopters. Missions: Southern Reach 09, 10, 12; Tasman Shield 04,
+    07, 09, 11; Southern Watch 11 (red); Red Line 04 (player side). The
+    missions were paced around three authored J-15 flights. The new
+    Variant1 has ServiceDate 2012|2018; Variant3 (2024|2035) fits the
+    mission dates but changes the wing to J-15T/J-15DT/J-35 and embarks
+    planaf_z-20j, a path two mods ship. Whether the AI launches the
+    embarked wing, and what the game does with a variant whose service
+    date has passed, were not established. OPEN: owner decision after
+    one PC run of Southern Reach 09.
+ 5. World campaign: no old-save alias for plan_type_001. [confirmed]
+    It is the only unit id in R14's campaign.json with no definition now.
+    build_dynamic_campaign.py:66-73 keeps two earlier renames loadable;
+    this one is missing. The second reader found the proposed fix
+    incomplete: write_legacy_hull_compatibility() (line 118) writes the
+    names file inside its loop, so a second alias overwrites the first.
+    The owner's linear-campaign save of 26 Oct also names plan_type_001.
+    That the Dynamic Campaign Mod fails on a missing id, rather than
+    skipping it, is assumed, not seen. OPEN.
+ 6. Jose Rizal back in Sulu Line rests on the owner's check of 17 Nov,
+    which is not recorded in the capture. The capture exports text only;
+    it does not show ships/PN_FFG-150/PN_FFG-150.obj. pn_ffg-150 is also
+    one of the four units the game could not measure at upload (2a).
+    [single] OPEN: confirm the model file on the PC or load Sulu Line 01.
+ 7. Liaoning's systems rewrite moved ownership of shared sensor names.
+    [confirmed; data only]
+    [Type_364] now comes from 3486502935 (Type Search to Targeting, no
+    datalink, one weapon channel); it is named by three Luda hulls, five
+    Red Storm hulls and SEST_Replenishment's plan_aor_type901 and
+    plan_aor_type903a. [Type_382] falls to Red Storm's. [Type_1493] is
+    now Liaoning's (range 380 to 180). H/RJZ-726 ESM and ECM were
+    retuned; the second reader added the Modern PLAN 052-family hulls to
+    those affected. Effect in play not established. OPEN: decision on a
+    SEST-owned sensor name for the two SEST oilers.
+ 8. Second Ring: wp_55zh6 carries the same radar values as wp_nebou. The
+    unit differs (own model, no [ControlSystem] hitbox, smaller
+    signatures). That the model is on the PC and that destroying it
+    completes the objective were not established. Briefing text still
+    says "Nebo-U". [single] OPEN: destroy it once on the PC.
+ 9. Euromod Main now aliases Russian Navy 21's rfn_9m100 onto its own,
+    weaker round (kill probability 0.95 to 0.9, range 9.32 to 8.1). One
+    SEST-placed corvette class carries it (Southern Reach 07, Tasman
+    Shield 08, Southern Watch 09). No SEST change proposed. [single]
+10. Six new units took generic cost proxies beside priced siblings
+    (ko_pcc-756_pn, mm_s-2f_tracker, plaaf_ls-6_250_ayone,
+    plaaf_yj-91_ayone, plan_ka-28_pg, wp_mzkt_96l6v1). [single] OPEN.
+11. Records not brought up to date. [confirmed on the items checked]
+    The offline gallery catalogue and four of its CSVs still list
+    plan_type_001 and wp_nebou; docs/mod-catalog.md:86 and :129,
+    data/mod-catalog.json (Liaoning and AEP entries),
+    docs/campaigns/southern-reach/campaign-bible.md:211 and
+    docs/collection-interop-audit.md describe the mods before the update.
+    validation.json's "data" line and README-FIRST "WHAT CHANGED SINCE
+    R14" do not mention the Liaoning air wing, the Second Ring radar, the
+    metered-round changes or the Tomahawk rounds. Not confirmed: the
+    reviewer's statement that AEP ships a KinematicRangeUncap plugin (the
+    text export shows none), and the entries for Euromod Main, British,
+    HD Hyundai and Luzon Line. OPEN.
+12. Author-side notes, no SEST change proposed [single]: the new Liaoning
+    names a launcher (HQ-10x24_Launcher) no mod defines; AEP's file
+    pla_hq-22a.ini extends plan_hhq-9b in place of the HQ-22A.
+Mods reviewed and found to have no SEST effect [single]: US Naval
+Aviation, Modern US Navy, British, Italian, Spanish (both), Clemenceau /
+Alize / Aquilon, Luzon Line rounds, Anchorchain Expansion, HD Hyundai's
+Malvar changes.
+
+4c. The owner's sessions of 15 and 16 November (0.9.2, R14)
+All findings in this part are [single]: no second reader. They describe
+R14 on 0.9.2, not R15. Four game sessions and four event logs were read.
+- Totals: 1,676 ERROR lines in 395 distinct messages, almost all
+  data-load errors from author mods. No exception has a SEST frame in its
+  stack, and no SEST Runtime or UI line reports a fault.
+ 1. Group Manager's update switched off the three Formation features
+    (2b). R15 re-pins them; that the hooks work on 0.2.22 in the game is
+    not established. Check on the first R15 run for "Group Manager 0.2.22
+    pop-out bridge installed".
+ 2. GMO world battles: the preparation checklist opened in all four
+    battles, and in none did "preparation map initialized N own-unit
+    plotting record(s)" follow; it does in every linear and single
+    mission start. The logs fit the gate in runtime/PreparationMap.cs
+    (:154, :228-232) being false in Dynamic Campaign Mod battles; they do
+    not prove it. SEST's to fix. OPEN.
+ 3. SEST-shipped unit files log load errors at spawn: ran_ffh_anzac,
+    ran_ddg_hobart, pn_ffg-06, ran_mh-60r, usn_p8, raaf_f-35a animations,
+    raaf_mq-4c_triton. Several are edited copies of author files; which
+    errors are inherited, and the effect of each in play, were not
+    established. OPEN.
+ 4. Southern Watch 02: the enemy Type 039B issued about 2,060 Yu-6 engage
+    tasks and launched none. Cause not established (game AI, author data
+    or scenario geometry). OPEN.
+ 5. Pilot ejection from four author aircraft (plaaf_j-16, plaaf_j-16d,
+    plan_j-15t, plan_j-15dt) throws NullReferenceException in
+    GameMain.FixedUpdate: Pilot=usmc_av-8a_crew is not an ammunition file.
+    Four occurrences. Author data; the lines are still in the 17 Nov
+    capture; SEST ships no override. OPEN: patch or report.
+ 6. The cost catalogue build stalls one frame for 0.23 to 0.51 s shortly
+    after each mission start (20 windows). Low priority.
+ 7. Dynamic Campaign Mod logs 44 hull-name substitutions (accepted
+    behaviour, check_dynamic_campaign.py:359-362) and four launchers
+    with no weapons.ini section, counted as one round per container.
+ 8. Not SEST's: SonarAudioLoaderAnchorChain null references at mission
+    teardown (15); XQ58Shadow's own build check failing from 16 Nov
+    15:57; the "yaw-to-aimpoint" debug lines (writer not identified);
+    the owner's NF3 draft scenarios exceeding the 5000 nmi map limit.
+    One item to check: 56 "identifyexpandednofcrships" missing-text lines
+    come from Identify Expanded, which SEST's loader adapts; whether the
+    key is missing upstream or dropped by the adaptation was not found.
+- Per-save ribbons: all eight Southern Watch debriefs show Ribbons=0, but
+  none of the missions played awards one; this shows nothing either way.
+- Contacts pop-out worked (10 "moved to the Pop-Out monitor" lines).
+
+5. STATE OF R15 AS BUILT (89b9b4649)
+- Fit to run on the PC as captured: no blocking fault found (4a).
+- Carries one known regression against R14: 4b item 1.
+- Carries data whose behaviour changed under it without a decision: 4b
+  items 3, 4 and 7.
+- Is not a posting candidate: matched to the public beta file only; the
+  Steam texts in this folder still describe R14 on 0.9.2.
+- Until an R15-class build for the public release is posted, subscribers
+  have no working SEST code path on any current game build (2b, 2c).
+
+6. OPEN, IN ORDER OF EFFECT ON THE NEXT PC RUN
+"OPEN" in sections 4 and 6 means open at commit 89b9b4649. When this
+record was written the working tree held uncommitted edits to
+README-FIRST.txt (the "Reference changed" entry with the six ids; the
+Tomahawk, Liaoning and YJ lines), upload-manifest.json (1.8.0 / 1.6.0 and
+the 17 Nov capture name), R11-PC-TESTS.txt (the Topography sentence),
+integration/replenishment/build_patch.py (a [General]-only read) and the
+R15 candidate folder. They were seen in git diff only. They were not
+reviewed, tested or rebuilt into the pack or the toolkit for this record,
+and it does not count them as fixes.
+Before the toolkit goes out (text and records; no code decision):
+- README-FIRST step 1: both "Reference changed" stop messages, the six
+  mod ids, and the warning about R14's SETUP in the Workshop item (4a
+  items 1 and 5). Rebuild the toolkit afterwards.
+- upload-manifest.json versions and capture name (4a item 2).
+- R11-PC-TESTS.txt Topography sentence (4a item 3).
+Before the toolkit goes out (builder):
+- Replenishment section rule and rebuild (4b item 1), with the choice
+  between the two cures made and a test added.
+To be seen on the PC:
+- R15 start-up, README-FIRST steps 0 to 1b (its first run).
+- Group Manager 0.2.22 bridge line (4c item 1).
+- Type 052D firing HHQ-9B and HQ-10 (4b item 2).
+- Southern Reach 09: does Liaoning launch her own wing (4b item 4).
+- PN_FFG-150 model present; Sulu Line 01 loads (4b item 6).
+- Second Ring: destroy the Nebo-UE radar (4b item 8).
+Owner decisions:
+- Liaoning variant for the nine missions (4b item 4).
+- Tomahawk rounds: drop the three copies, hand-apply the changelog
+  values, or wait for a 0.9.3 export (4b item 3).
+- SEST-owned sensor name for the two oilers (4b item 7).
+Later work:
+- plan_type_001 save alias, with the names-file fix (4b item 5).
+- Cost mappings (4b item 10); records and gallery catalogue (4b item 11).
+- verify-live-workshop-item.ps1 on the R15 receipt (4a item 4).
+- GMO preparation map; SEST unit-file errors; Type 039B; pilot patch
+  (4c items 2 to 5).
+- A reference ZIP of the 0.9.3 public release (Steam Betas on None), and
+  a build that covers it, before any posting.
+- A 0.9.3 game export.
+
+7. NOT ESTABLISHED
+- Anything in the game on 0.9.3 with SEST on. No log covers it.
+- The 0.9.3 public release file and whether R15's code fits it.
+- The PC's journal phase and loader file: BetaCompatibility\current.json
+  and the loader's AnchorChain.dll are not in the capture. "enabled" and
+  R14's 4ee172b5 are inferred from the R14 files being in place.
+- Windows PowerShell 5.1: every fixture ran under pwsh 7.4 on Linux.
+- Whether a mod updates again before the run (4a item 1).
+- The managed tests were not re-run by the reviewers; they rely on the
+  toolkit's VALIDATION.json. The 4,616 files of integration/dist were not
+  re-hashed against the manifest by the reviewers.
+- Which game data files 0.9.3 changed beyond what the changelog names.
+- Whether the game steps down to the base file under a self-named
+  #!extend layer (4b item 2), and whether any AEP plugin alters ini
+  loading.
+- Whether systems sections merge whole or key by key when their owner
+  changes; the repository's rule (highest definer owns the name) was
+  used.
+- Whether the AI flies Liaoning's embarked wing; how a variant's
+  ServiceDate is applied at mission placement.
+- How the game or the Dynamic Campaign Mod treats a save that names
+  plan_type_001.
+- Why four units could not be measured at upload, and its effect.
+- Which of the about 27 updated mods changed only binaries, and what
+  changed in them. No author DLL new in this capture was reviewed beyond
+  Group Manager.
+- BepInEx.log and stack traces exist only for the last two 0.9.2
+  sessions; the logs do not record UI actions, so F8, F11, Task Force
+  replay, deployment clearance and Regional Watch could not be assessed.
+- About 1,300 author-mod ERROR lines were counted and attributed, not
+  examined one by one.
+
+8. DISAGREEMENTS BETWEEN READERS, LEFT AS FOUND
+- Replenishment cure: [General]-only for base and layers, or for layers
+  only (4b item 1).
+- AEP #!extend files naming their own path: "34 of 36" (reviewer), 33
+  plus two near cases (second reader). The conclusion does not turn on it.
+- Mission years for the Liaoning missions: one reviewer writes 2028-29,
+  the other 2027-28. Only Tasman Shield 07 (Date=2029,2,11) was checked.
+- Old Liaoning deck: one reviewer wrote "no fixed-wing aircraft"; the
+  second reader notes 12 helicopters were embarked and that what the game
+  did with the undefined ch_j-15 entry is an inference.
+
+9. SOURCES
+- Repository at 89b9b4649 on feature/r15-sea-power-093; base 62b8c2c71
+  (R14); b7757f410 (code port), 62212cccf (17 Nov capture).
+- docs/releases/20261107/validation.json, block r15_093_20261117;
+  README-FIRST.txt; R14-STATUS.txt.
+- Owner's captures: refs9 (15 Nov), refs1117 (last 0.9.2 session),
+  refs1117b (first 0.9.3 start), sess1117 (eight session logs), cap1117
+  (Workshop capture of 17 Nov 17:48).
+- Game IL of 0.9.2 and 0.9.3 (scripts092.il, scripts093.il) and the
+  Group Manager 0.2.17 and 0.2.22 disassemblies.
+- Four reviews of 17 Nov (code, SEST data, author mods, session logs) and
+  the second readings of the first three. Their working files are in the
+  session scratchpad (cap1117-review, wf2) and are not in the repository.
+
+ADDENDUM, 18 November 2026 (after the reviews above)
+- Fixed in the commit that adds this record: the replenishment builder
+  reads the four supply keys from [General] only, in layers and whole
+  files alike. plan_hhq-9b, plan_48n6e1 and plan_hhq-9c are forked and
+  metered again (4,619 upload files). Rounds without layers read exactly
+  as before (compared over all 2,236 ammunition ids).
+- Fixed: upload-manifest.json records Runtime 1.8.0 / UI 1.6.0 and the
+  17 Nov reference ZIP; R11-PC-TESTS.txt no longer credits R15 with
+  retiring the Topography rewrites; README-FIRST names the "Reference
+  changed" stop and the six mods it concerns, the three Tomahawk rounds
+  left on 0.9.2 values, the Liaoning's new air wing and the five PLAN
+  rounds metered for the first time.
+- Left open for the owner: the Liaoning's variant in nine missions
+  (Variant1 as placed, or Variant3 for 2028); the gallery's stale ids;
+  the mod catalogue notes; a 0.9.3 game export.

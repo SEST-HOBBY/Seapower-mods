@@ -1,0 +1,15 @@
+{
+ "region": "india | africa | south-america | antarctica",
+ "nations": [{"key": "South_Africa", "side": "blue|red", "why": "one sentence; this is a scenario choice, say so"}],
+ "home_bases": [{"nation": "India", "id": "home_ind_karwar", "name": "INS Kadamba (Karwar)", "kind": "NavalBase|AirBase", "lat": 0.0, "lon": 0.0, "heading": 0, "yard": false, "depot": false, "port": null, "units": [["ins_d-66", 2, "optional label"]], "source": "url"}],
+ "sites": [{"region": "text", "source": "url", "assumption": "what is fiction",
+   "base": {"id": "reg_xxx_place", "name": "text", "side": "blue|red", "nation": "text", "kind": "NavalBase|Port|AirBase", "lat": 0.0, "lon": 0.0, "income": 3, "homeland": true, "supplyFrom": "existing depot id", "notObjectiveFor": ["red"]},
+   "forces": [{"name": "unique", "type": "Surface|Air", "units": ["unit_id x2 named A; B"], "at": [0.0, 0.0], "cargo": "full"}]}],
+ "patrols": [{"force": "force name", "points": [[0.0, 0.0], [0.0, 0.0], [0.0, 0.0]]}],
+ "airfields": [{"airport": "ICAO", "base": {"id": "ops_xxx_place", "name": "text", "side": "blue|red", "nation": "text", "kind": "AirBase", "lat": 0.0, "lon": 0.0, "income": 0, "startShare": 0.25, "field": {"unit": "airfield_small_1", "heading": 0.0, "lat": 0.0, "lon": 0.0}, "supplyFrom": "depot id"}, "orientation_evidence": "source"}],
+ "replenishment": {"unit_id": {"fuelT": 0, "ammoT": 0, "basis": "text"}},
+ "lanes": [{"name": "text", "weight": 1, "points": [[0.0, 0.0]]}],
+ "labels": [{"text": "text", "lat": 0.0, "lon": 0.0}],
+ "missing_units": [{"real": "class", "stand_in": "unit id or none", "quality": "exact|same class|same family|representative|proxy|none"}],
+ "activation": "in_bounds | needs_latMin"
+}

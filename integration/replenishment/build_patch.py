@@ -345,6 +345,16 @@ def _is_layer(text):
     return False
 
 
+def _general(text):
+    """The body of [General]; the whole text for a file that has no such
+    section header (a few rounds open with their keys)."""
+    m = re.search(r"^\[General\][^\n]*\n(.*?)(?=^\[|\Z)", text, re.M | re.S)
+    if m:
+        return m.group(1)
+    first = re.search(r"^\[", text, re.M)
+    return text[:first.start()] if first and first.start() else ("" if first else text)
+
+
 def ammo_layers(ammo_id):
     """The #!extend / #!prepend files the game lays over the round's whole
     file, highest priority first."""
@@ -426,16 +436,19 @@ def ammo_facts(ammo_id, _seen=None):
         return None
     _seen.add(ammo_id)
     text = read(path)
-    layers = ammo_layers(ammo_id)
+    # These four keys live in [General]. A layer's value replaces the whole
+    # file's, but only its [General]: AEP's layers carry Type=StageExhaust
+    # under [Launch_MainMotor] and Type=None under a fin section, and read
+    # section-blind those made the HHQ-9B and 48N6E1 look like no missile.
+    sources = [_general(source) for source in ammo_layers(ammo_id) + [text]]
     def key(name):
-        # A layer's value replaces the whole file's.
-        for source in layers + [text]:
+        for source in sources:
             m = re.search(rf"^{name}\s*=\s*([^\s/]+)", source, re.M)
             if m:
                 return m.group(1)
         return None
     points, kind, target = key("AmmoPoints"), key("Type"), key("TargetType")
-    has_cat = any(re.search(r"^SupplyCategory\s*=", source, re.M) for source in layers + [text])
+    has_cat = any(re.search(r"^SupplyCategory\s*=", source, re.M) for source in sources)
     target_file = _alias_target(text)
     if target_file and not (points and kind and target):
         parent = ammo_facts(Path(target_file).stem, _seen)

@@ -38,7 +38,7 @@ Sea and land positions in 7 of the 10 missions are snapped to points already use
 | `philippines-luzon-line` | Philippines: The Luzon Line | `unit` | phl_h-76 | The Island Road |
 | `pickup-truck-extension` | Pickup truck extension | `unit` | civ_car_pickup_1983_assault_civ | Fire Mission Jolo |
 | `pla-land-unit-pack` | PLA Land Unit Pack | `store` | plan_type_052d_p3 / pla_cal_apfsds_30mm | Balabac Strait |
-| `pla-plan-plaaf-aep` | PLA & PLAN & PLAAF AEP | `store` | plan_type_052d_p3 / plan_hhq-9b | Balabac Strait |
+| `pla-plan-plaaf-aep` | PLA & PLAN & PLAAF AEP | `store` | plan_type_052d_p3 / plan_hq-10 | Balabac Strait |
 | `plan-submarines` | PLAN Submarines | `unit` | plan_ss_type_039c | Balabac Strait |
 | `project-2498-zyetseth` | Project 2498 Zyetseth Class Assault Vessel | `unit` | civ_fv_okean_surprise | The Okean |
 | `re-power-resupply` | RE-power: the resupply mod | `unit` | civ_ms_super_p | The Okean |

@@ -51,6 +51,16 @@ WHAT CHANGED SINCE R14
 - Sulu Line has the Jose Rizal class again: her model is back in the
   author's mod (your check of 17 November), so the Miguel Malvar stand-in
   is gone.
+- Three Tomahawk rounds the pack carries (RGM-109C, UGM-109C, UGM-109B)
+  keep their 0.9.2 values: 0.9.3 changed TLAM minimum range, Tomahawk
+  cruise speed and the TASM profile, and the pack has no 0.9.3 game
+  export yet.
+- The Liaoning's new file gives the variant nine missions place a real air
+  wing (24 J-15s); before, that variant named a fighter no mod shipped.
+  Southern Reach 09/10/12, Tasman Shield 04/07/09/11, Southern Watch 11
+  and Red Line 04 will play harder or easier for it; not yet balanced.
+- Five heavy PLAN anti-ship rounds (YJ-17, YJ-18, YJ-18A, YJ-18E, YJ-20)
+  count against a supply ship's stock for the first time.
 - New author code that has not run under SEST's loader yet, to watch in
   step 1b: the Custom Loadout Editor's selector, Kinematic Range Uncap, and
   the Liaoning's deck systems and J-15 systems.
@@ -80,7 +90,7 @@ PREPARE AND CHECK
    <phase>". Keep both lines. What happens next depends on the phase:
    - enabled (expected: your PC has the released R14, switched on): it
      upgrades that installation in place to R15, installs the release data
-     and ends with the line "VERIFIED: all 4616 canonical
+     and ends with the line "VERIFIED: all 4619 canonical
      upload files match the release manifest." Go to 1b.
    - none or restored: it stages R15 and stops with "Next: start Sea Power,
      wait at the main menu about 10 seconds, quit, then run Prepare-PC.cmd
@@ -110,6 +120,13 @@ PREPARE AND CHECK
      keeps its own copies of those mods' files from the capture (for
      3390330875, Euromod - Modern US Navy: 39 ships, its weapons, sensors and
      names). A new or removed subscription still stops the run.
+   - "Reference changed: <file>. Activation remains disabled.": the game
+     or one of six mods SEST's code is matched to was updated after this
+     toolkit was built (Anchor Chain 3380210757, Identify Expanded
+     3790594162, Combat Cost Tracker 3807187341, Contact Log 3819427362,
+     Group Manager 3818251045, Pop-Out Windows 3826396311). R15 cannot be
+     switched on until a new reference ZIP is sent and a refreshed toolkit
+     comes back; -AcceptUpdatedMods does not get past this for those six.
    - Anything else: keep the window's text and send it; do not work round it.
    Prepare-PC installs both code and campaign/loadout data; Repair-PC alone
    only repairs code. The author-update guard and original restore journal

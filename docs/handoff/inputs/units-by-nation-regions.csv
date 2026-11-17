@@ -1,0 +1,730 @@
+nation_key,unit_id,type,role,display_name,operator_entries,source_mod,displacement
+india,civ_ms_bulk,Vessel,Merchant,Bulk Carrier,3,_vanilla,175000.0
+india,civ_ms_poltava,Vessel,Merchant,Poltava-class,4,3605013271,8000.0
+india,exp_rafale_b,Aircraft,Fighter,Rafale B,2,3758943352,
+india,exp_rafale_b_l,Aircraft,Fighter,Rafale B Late,2,3758943352,
+india,exp_rafale_c,Aircraft,Fighter,Rafale C,2,3758943352,
+india,exp_rafale_c_l,Aircraft,Fighter,Rafale C Late,2,3758943352,
+india,exp_rafale_m,Aircraft,Fighter,Rafale M,2,3758943352,
+india,exp_rafale_m_l,Aircraft,Fighter,Rafale M Late,2,3758943352,
+india,iaf_m2kh,Aircraft,Fighter,Mirage 2000 H (1984-2010),2,3758943352,
+india,iaf_m2ki,Aircraft,Fighter,Mirage 2000 I (2015-présent),2,3758943352,
+india,iaf_m2kth,Aircraft,Fighter,Mirage 2000 TH (1984-2010),2,3758943352,
+india,iaf_m2kti,Aircraft,Fighter,Mirage 2000 TI (2015-présent),2,3758943352,
+india,in_br1050,Aircraft,MPA,Br.1050 Alizé IN,3,3628203171,
+india,ins_F-33,Vessel,ASW,Nilgiri Class,8,3807164392,6670.0
+india,ins_F-47,Vessel,ASW,Shivalik Class,4,3807164392,6200.0
+india,ins_d-63,Vessel,ASW,ins_d-63,4,3807164392,7400.0
+india,ins_d-66,Vessel,ASW,Visakhapatnam Class,5,3807164392,7400.0
+india,ins_ff_blackwood,Vessel,ASW,Blackwood-class,4,_vanilla,1456.0
+india,usa_ah-64d,Helicopter,ASuW,AH-64D,1,SEST_Allied_Fixes,
+india,usa_ah-64e,Helicopter,ASuW,AH-64E,1,SEST_Allied_Fixes,
+india,usn_p8,Aircraft,MPA,P-8A Poseidon,1,SEST_Allied_Fixes,
+india,usn_p_8a,Aircraft,MPA,P-8A Poseidon,2,3413868677,
+india,wp_mig-29k_941,Aircraft,Fighter,MIG-29K 941,1,3417446309,
+india,wp_mig-29k_947,Aircraft,Fighter,MIG-29K 941,1,3417446309,
+india,wp_mig-29smt_918,Aircraft,Fighter,MIG-29SMT 918,1,3417446309,
+india,wp_ms_poltava_armed,Vessel,Spy,Poltava-class (AM),4,3485917612,8000.0
+india,wp_ptg_osa1,Vessel,ASuW,Osa-class,8,_vanilla,209.0
+india,wp_skr_petya3,Vessel,ASW,Petya III-class,10,_vanilla,1140.0
+india,wp_ss_foxtrot,Submarine,SS,Foxtrot-class,8,_vanilla,2475.0
+india,wp_ss_kilo,Submarine,SS,Kilo-class,4,_vanilla,3040.0
+brazil,ara_cl_belgrano,Vessel,AAW,ara_cl_belgrano,1,_vanilla,15200.0
+brazil,br_a330_mrtt,Aircraft,AEW,A330 MRTT,2,3758943352,
+brazil,bra_a4m,Aircraft,Fighter,AF-1A Skyhawk,3,3678767059,
+brazil,bra_ah11,Helicopter,ASW,AH-11A Sea Lynx,2,3678767059,
+brazil,bra_ah11b,Helicopter,ASW,AH-11B Super Lynx,2,3678767059,
+brazil,bra_ah15,Helicopter,ASW,AH-15 Super Cougar,2,3678767059,
+brazil,bra_cv_Sao_Paulo,Vessel,Carrier,bra_cv_Sao_Paulo,2,3678767059,32780.0
+brazil,bra_f-5em,Aircraft,Fighter,F-5EM,5,3678767059,
+brazil,bra_ff_garcia,Vessel,ASW,Garcia-class (Pará),5,3678767059,3400.0
+brazil,bra_ffg_niteroi,Vessel,AAW,Niterói-class,7,3678767059,33550.0
+brazil,bra_ffg_niteroi_2005,Vessel,AAW,Niterói-class (2005),7,3678767059,33550.0
+brazil,bra_ffg_tamandare,Vessel,AAW,Tamandaré-class,5,3678767059,3500.0
+brazil,bra_lph_Atlantico,Vessel,Carrier,Ocean-class (NAM Atlântico),2,3678767059,21500.0
+brazil,bra_lst_newport,Vessel,Landing,Newport-class,2,3678767059,8470.0
+brazil,bra_p-3am,Aircraft,MPA,P-3AM,2,3678767059,
+brazil,bra_sh-16,Helicopter,ASW,SH-16,2,3678767059,
+brazil,bra_sh-3d,Helicopter,ASW,SH-3D,2,3678767059,
+brazil,bra_ss_riachuelo,Submarine,SS,Riachuelo-class,5,3678767059,1900.0
+brazil,bra_ss_tikuna,Submarine,SS,Tikuna-class,2,3678767059,1207.0
+brazil,bra_ss_tupi,Submarine,SS,Tupi-class,5,3678767059,1207.0
+brazil,bra_type22b12,Vessel,ASW,Type 22 (Greenhalgh)-class,5,3678767059,4800.0
+brazil,bra_uh-12,Helicopter,Transport,UH-12,2,3678767059,
+brazil,bra_uh14,Helicopter,ASW,UH-14 Super Puma,2,3678767059,
+brazil,bra_uh15,Helicopter,ASW,UH-15 Super Cougar,2,3678767059,
+brazil,bre_m2kb,Aircraft,Fighter,Mirage F-2000 B (2006-2013),2,3758943352,
+brazil,bre_m2kc_rdi,Aircraft,Fighter,Mirage F-2000 C (2006-2013),2,3758943352,
+brazil,civ_e100,Aircraft,Airliner,civ_e100,1,_vanilla,
+brazil,civ_ms_freighter_d,Vessel,Merchant,Modern Freighter,19,3605013271,20000.0
+brazil,civ_ms_yuniy_partizan,Vessel,Merchant,Yuniy Partizan-class,5,3605013271,3950.0
+brazil,fab_c-95,Aircraft,Transport,fab_c-95,1,_vanilla,
+brazil,fr_alouette_II,Helicopter,Attack,fr_alouette_II,1,_vanilla,
+brazil,fr_as_332F,Helicopter,ASW,AS332F Super Puma,1,3567228449,
+brazil,fr_ec_725,Helicopter,ASW,H225M(EC725) Caracal,1,3567228449,
+brazil,rn_ss_oberon,Submarine,SS,rn_ss_oberon,3,_vanilla,2410.0
+brazil,rn_wasp_has1,Helicopter,ASW,rn_wasp_has1,1,_vanilla,
+brazil,usaf_f-5e,Aircraft,Fighter,usaf_f-5e,2,_vanilla,
+brazil,wp_skr_armed_partizan,Vessel,Spy,Yuniy Partizan-class (AM),5,3485917612,3950.0
+chile,ara_cl_belgrano,Vessel,AAW,ara_cl_belgrano,2,_vanilla,15200.0
+chile,ch_e3d,Aircraft,AEW,E-3D Sentry,3,3776730617,
+chile,ch_f-16,Aircraft,Fighter,F-16C Block 50 FACH,2,3776730617,
+chile,ch_f-16_mlu,Aircraft,Fighter,F-16AM/MLU FACH,3,3776730617,
+chile,ch_f-5e,Aircraft,Fighter,F-5E Tigre III,3,3776730617,
+chile,ch_ffg_adelaide_longhull,Vessel,AAW,Capitán Prat-class,3,3776730617,4100.0
+chile,ch_ffg_jacob_van_heemskerck,Vessel,AAW,Capitán Prat-class,3,3776730617,3690.0
+chile,ch_ffg_jvh,Vessel,AAW,Capitán Prat-class,3,SEST_World_Campaign,3690.0
+chile,ch_ffg_karel_doorman,Vessel,AAW,Blanco Encalada-class,3,3776730617,3320.0
+chile,ch_ffg_type22b2_barak,Vessel,ASW,Almirante Williams-class,2,3776730617,4900.0
+chile,ch_ffg_type23,Vessel,AAW,Almirante Cochrane-class,4,3776730617,4900.0
+chile,ch_ffg_type23_pida,Vessel,AAW,Almirante Cochrane-class,4,3776730617,4900.0
+chile,ch_kc135,Aircraft,Airliner,KC-135E,2,3776730617,
+chile,ch_ss_scorpene,Submarine,SS,O´Higgins-class,3,3776730617,1695.0
+chile,ch_ss_thomson_mlu,Submarine,SS,Thomson-class,3,3776730617,1440.0
+chile,civ_a330,Aircraft,Airliner,Airbus A330,1,3746453639,
+chile,fr_as_332F,Helicopter,ASW,AS332F Super Puma,1,3567228449,
+chile,fr_as_532SC,Helicopter,ASW,AS532SC Cougar,1,3567228449,
+chile,rn_ss_oberon,Submarine,SS,rn_ss_oberon,2,_vanilla,2410.0
+chile,usaf_f-5e,Aircraft,Fighter,usaf_f-5e,1,_vanilla,
+argentina,ara_a-4p,Aircraft,Bomber,ara_a-4p,4,_vanilla,
+argentina,ara_a-4q,Aircraft,Bomber,ara_a-4q,2,_vanilla,
+argentina,ara_b-707,Aircraft,MPA,ara_b-707,2,_vanilla,
+argentina,ara_cl_belgrano,Vessel,AAW,ara_cl_belgrano,3,_vanilla,15200.0
+argentina,ara_cv_veinticinco_de_mayo,Vessel,Carrier,ara_cv_veinticinco_de_mayo,2,_vanilla,19900.0
+argentina,ara_dagger,Aircraft,Fighter,ara_dagger,3,_vanilla,
+argentina,ara_dd_comodoro_py,Vessel,ASW,ara_dd_comodoro_py,2,_vanilla,3550.0
+argentina,ara_dd_sumner_fram2,Vessel,ASW,ara_dd_sumner_fram2,4,_vanilla,3320.0
+argentina,ara_ddg_hercules,Vessel,ASW,ara_ddg_hercules,3,_vanilla,4130.0
+argentina,ara_fs_drummond,Vessel,ASuW,ara_fs_drummond,4,_vanilla,1320.0
+argentina,ara_p-95,Aircraft,Airliner,ara_p-95,2,_vanilla,
+argentina,ara_pucara,Aircraft,Bomber,ara_pucara,2,_vanilla,
+argentina,ara_s-61d,Helicopter,ASW,ara_s-61d,3,_vanilla,
+argentina,ara_ss_santa_fe,Submarine,SS,ara_ss_santa_fe,2,_vanilla,2440.0
+argentina,civ_707,Aircraft,Airliner,707 Airliner,1,_vanilla,
+argentina,civ_fv_fishingboat_d,Vessel,Merchant,civ_fv_fishingboat_d,1,_vanilla,140.0
+argentina,civ_fv_sidetrawler,Vessel,Merchant,Side Trawler,1,_vanilla,700.0
+argentina,civ_ms_freighter_a,Vessel,Merchant,C4-class,1,3605013271,8200.0
+argentina,civ_ms_kommunist,Vessel,Merchant,Kommunist-class,1,3605013271,12700.0
+argentina,civ_ms_poltava,Vessel,Merchant,Poltava-class,1,3605013271,8000.0
+argentina,civ_ms_yuniy_partizan,Vessel,Merchant,Yuniy Partizan-class,3,3605013271,3950.0
+argentina,fgs_ss_type_209-1200,Submarine,SS,fgs_ss_type_209-1200,3,_vanilla,1285.0
+argentina,fr_alouette_III,Helicopter,Attack,fr_alouette_III,2,_vanilla,
+argentina,fr_mirage_iii,Aircraft,Fighter,fr_mirage_iii,1,3455404959,
+argentina,fr_sa-319,Helicopter,ASW,SA.316/319 Alouette III,2,3567228449,
+argentina,fr_super-etendard,Aircraft,Fighter,Super Etendard,1,3555361900,
+argentina,fr_super_etendard,Aircraft,Fighter,fr_super_etendard,1,_vanilla,
+argentina,fr_super_etendard_modernise,Aircraft,Fighter,Super Etendard Modernisé,1,3555361900,
+argentina,raf_sc-7,Aircraft,Airliner,raf_sc-7,5,_vanilla,
+argentina,rn_canberra,Aircraft,Bomber,rn_canberra,2,_vanilla,
+argentina,usaf_c-130,Aircraft,Transport,usaf_c-130,1,_vanilla,
+argentina,usn_ao_t2,Vessel,RAS,usn_ao_t2,2,SEST_Replenishment,16250.0
+argentina,usn_msc_adjutant,Vessel,MineSweep,Adjutant-class,2,_vanilla,400.0
+argentina,usn_p-2h,Aircraft,MPA,usn_p-2h,1,_vanilla,
+argentina,usn_pb_pgm-39,Vessel,FAC,PGM-39-class,2,_vanilla,150.0
+argentina,usn_s-2e,Aircraft,AEW,usn_s-2e,2,_vanilla,
+peru,fap_m2kdp,Aircraft,Fighter,Mirage 2000 DP,4,3758943352,
+peru,fap_m2kp,Aircraft,Fighter,Mirage 2000 P,4,3758943352,
+peru,ko_hdf-3600,Vessel,ASW,HDF 3600,2,SEST_Replenishment,3600.0
+south_africa,fr_f1a,Aircraft,Fighter,F1A,1,_vanilla,
+south_africa,fr_f1c,Aircraft,Fighter,F1C,1,_vanilla,
+south_africa,nrp_ssk_albacora,Submarine,SS,Albacora-class,3,_vanilla,1038.0
+south_africa,rn_wasp_has1,Helicopter,ASW,rn_wasp_has1,1,_vanilla,
+morocco,ae_ffg_descubierta,Vessel,ASW,Descubierta-class (Early),1,SEST_Replenishment,1479.0
+morocco,mor_ptg_lazaga,Vessel,ASuW,El Khattabi-class P300 (EEZ patrol),5,3630495619,285.0
+morocco,mor_ptm_lazaga,Vessel,ASuW,El Khattabi-class P300,5,SEST_Replenishment,285.0
+morocco,usa_ah-64e,Helicopter,ASuW,AH-64E,1,SEST_Allied_Fixes,
+morocco,usaf_f-5e,Aircraft,Fighter,usaf_f-5e,2,_vanilla,
+algeria,wp_mig-17,Aircraft,Fighter,MiG-17 Fresco,2,_vanilla,
+algeria,wp_mrk_nanuchka,Vessel,ASuW,Nanuchka-class,3,_vanilla,700.0
+algeria,wp_ptg_osa2,Vessel,ASuW,Osa 2-class,1,_vanilla,235.0
+algeria,wp_ss_kilo,Submarine,SS,Kilo-class,2,_vanilla,3040.0
+pakistan,civ_ms_poltava,Vessel,Merchant,Poltava-class,1,3605013271,8000.0
+pakistan,nrp_ssk_albacora,Submarine,SS,Albacora-class,1,_vanilla,1038.0
+pakistan,paf_j-10ce,Aircraft,Fighter,J-10CE,3,3812140001,
+pakistan,paf_j-7PG,Aircraft,Fighter,F-7PG,2,3812140001,
+pakistan,paf_jf-17_blk_i,Aircraft,Fighter,JF-17 Block I Thunder,3,3812140001,
+pakistan,paf_jf-17_blk_ii,Aircraft,Fighter,JF-17 Block II Thunder,3,3812140001,
+pakistan,paf_jf-17_blk_iii,Aircraft,Fighter,JF-17 Block III Thunder,3,3812140001,
+pakistan,paf_mirage_iii,Aircraft,Fighter,Mirage III,2,3812140001,
+pakistan,paf_zdk-03,Aircraft,AEW,ZDK-03,2,3812140001,
+pakistan,pla_f-5,Aircraft,Fighter,pla_f-5,1,_vanilla,
+pakistan,pla_q-5,Aircraft,Recon,pla_q-5,1,_vanilla,
+pakistan,plan_ffg_type_054a_late_rsa,Vessel,AAW,Type 054A-class,4,SEST_Replenishment,3963.0
+pakistan,plan_ffg_type_054a_rsa,Vessel,AAW,Type 054A-class,4,SEST_Replenishment,3963.0
+pakistan,plan_z-9ce,Helicopter,ASW,Z-9CE,2,3812140001,
+pakistan,pns_ffg_oliver_hazard_perry_longhull,Vessel,AAW,O.H. Perry-class frigate,2,3812140001,4100.0
+pakistan,pns_sh-3h,Helicopter,ASW,SH-3H,2,3812140001,
+pakistan,pns_ss_hangor,Submarine,SS,Daphné-class,4,_vanilla,1038.0
+pakistan,pns_ss_hashmat,Submarine,SS,pns_ss_hashmat,3,3812140001,1760.0
+pakistan,pns_ss_s-26p,Submarine,SS,Hangor-class (S-26P),7,3812140001,3600.0
+pakistan,pns_type_054a_p,Vessel,AAW,054A/P,5,3812140001,4200.0
+pakistan,rn_dd_battle,Vessel,ASuW_Gun,Battle-class,2,_vanilla,3310.0
+pakistan,rn_dd_c-class,Vessel,ASuW_Gun,C-class,4,_vanilla,2570.0
+pakistan,wp_ms_poltava_armed,Vessel,Spy,Poltava-class (AM),1,3485917612,8000.0
+uk,E7A_Wedgetail,Aircraft,AEW,E-7A Wedgetail,1,3499239964,
+uk,all_assault_raft,Vessel,Deco,Assault Raft,1,_vanilla,1.0
+uk,boeing_rc135,Aircraft,EW,RC-135V/W Rivet Joint,4,3808882954,
+uk,canberra_bomber,Aircraft,Airliner,English Electric Canberra (unfinished),1,3491248180,
+uk,civ_707,Aircraft,Airliner,707 Airliner,1,_vanilla,
+uk,civ_a320,Aircraft,Airliner,Airbus A320,3,3746453639,
+uk,civ_a330,Aircraft,Airliner,Airbus A330,5,3746453639,
+uk,civ_a380,Aircraft,Airliner,Airbus A380,1,3746453639,
+uk,civ_as-350,Helicopter,Transport,AS.350B,2,3806197116,
+uk,civ_dc-10,Aircraft,Airliner,DC-10 Airliner,2,_vanilla,
+uk,civ_fv_okean,Vessel,Merchant,Okean-class Trawler,1,_vanilla,700.0
+uk,civ_fv_okean_armed,Vessel,FAC,Side Trawler (AM),1,3485917612,700.0
+uk,civ_fv_sterntrawler_b,Vessel,Merchant,civ_fv_sterntrawler_b,2,_vanilla,900.0
+uk,civ_ms_amra,Vessel,Merchant,Amra-class,13,3605013271,20000.0
+uk,civ_ms_bulk,Vessel,Merchant,Bulk Carrier,23,_vanilla,175000.0
+uk,civ_ms_encounter,Vessel,Merchant,Encounter-class,8,_vanilla,26000.0
+uk,civ_ms_ivan_franko,Vessel,Merchant,Ivan Franko-class,1,_vanilla,20000.0
+uk,civ_ms_mairangi_bay,Vessel,Merchant,Mairangi Bay-class,16,3430106996,40000.0
+uk,civ_ms_ritina,Vessel,Merchant,Super Tanker,7,_vanilla,253000.0
+uk,civ_ms_roro_a,Vessel,Merchant,RORO A,2,SEST_Replenishment,30000.0
+uk,civ_ms_roro_b_armed,Vessel,Merchant,RORO B (AM),3,3485917612,6000.0
+uk,civ_ms_roro_ferry,Vessel,Merchant,civ_ms_roro_ferry,3,_vanilla,20000.0
+uk,civ_ms_searunner,Vessel,Merchant,civ_ms_searunner,1,_vanilla,10000.0
+uk,civ_ms_searunner_mod,Vessel,Merchant,civ_ms_searunner_mod,5,_vanilla,10000.0
+uk,civ_ms_super_p,Vessel,Merchant,Super P-class,8,3605013271,12700.0
+uk,h34,Helicopter,ASW,Sikorsky H-34,1,3491248180,
+uk,raac_ah_mk_1,Helicopter,ASuW,Apache AH.1,7,3599752717,
+uk,raac_lynx_ah7,Helicopter,Attack,Lynx AH.7,8,3599752717,
+uk,raaf_e-7a,Aircraft,AEW,E-7A,1,3820759806,
+uk,raf_canberra_bomber,Aircraft,Airliner,Electric English Canberra,1,3491248180,
+uk,raf_ef2000_fgr4,Aircraft,Fighter,Eurofighter Typhoon FGR.4 RAF,9,3587877691,
+uk,raf_ef2000_fgr4_late,Aircraft,Fighter,Eurofighter Typhoon FGR.4 RAF,9,3587877691,
+uk,raf_gr1,VTOL,Fighter,raf_gr1,8,_vanilla,
+uk,raf_gr3,VTOL,Fighter,raf_gr3,7,_vanilla,
+uk,raf_sc-7,Aircraft,Airliner,raf_sc-7,2,_vanilla,
+uk,raf_scout_ah1,Helicopter,Attack,raf_scout_ah1,2,_vanilla,
+uk,raf_victor,Aircraft,Airliner,raf_victor,2,_vanilla,
+uk,raf_vulcan,Aircraft,Bomber,raf_vulcan,4,_vanilla,
+uk,rn_aor_tide,Vessel,RAS,Tide-class AOR (stand-in),5,SEST_Replenishment,53000.0
+uk,rn_buccaneer_s1,Aircraft,Fighter,Buccaneer S.1,5,3491248180,
+uk,rn_buccaneer_s2,Aircraft,Fighter,Buccaneer S.2,4,3491248180,
+uk,rn_buccaneer_s2b,Aircraft,Fighter,Buccaneer S.2B,4,3491248180,
+uk,rn_canberra,Aircraft,Bomber,rn_canberra,9,_vanilla,
+uk,rn_churchill_class_ssn,Submarine,SSN,Churchill-class,4,3491248180,3500.0
+uk,rn_cv_centaur,Vessel,CVS,Centaur-class (STOVL),2,3491248180,29200.0
+uk,rn_cv_centaur_catobar,Vessel,CVS,Centaur-class (CATOBAR-Early),4,3491248180,29200.0
+uk,rn_cv_centaur_catobar_73,Vessel,CVS,Centaur-class (CATOBAR-Late),2,3491248180,29200.0
+uk,rn_cv_centaur_commando,Vessel,CVS,Centaur-class (Commando),4,3491248180,29200.0
+uk,rn_cv_invincible,Vessel,CVS,Invincible-class,3,3491248180,22000.0
+uk,rn_cv_invincible_deckparks,Vessel,CVS,Invincible-class (DP),3,3491248180,22000.0
+uk,rn_cv_invincible_refit,Vessel,CVS,Invincible-class (Refit),4,3491248180,22000.0
+uk,rn_cv_invincible_refit_deckparks,Vessel,CVS,Invincible-class (Refit-DP),4,3491248180,22000.0
+uk,rn_cvs_invincible,Vessel,Landing,rn_cvs_invincible,4,_vanilla,22000.0
+uk,rn_dd_battle,Vessel,ASuW_Gun,Battle-class,4,_vanilla,3310.0
+uk,rn_dd_c-class,Vessel,ASuW_Gun,C-class,2,_vanilla,2570.0
+uk,rn_dd_type42_batch2,Vessel,AAW,Type 42 (Sheffield)-class (Batch 2),5,3491248180,3500.0
+uk,rn_dd_type42_refit,Vessel,AAW,Type 42 (Sheffield)-class (Refit),9,3491248180,3500.0
+uk,rn_dd_z-class,Vessel,ASuW_Gun,Z-class,2,_vanilla,2570.0
+uk,rn_ddg_bristol,Vessel,ASW,rn_ddg_bristol,2,_vanilla,7100.0
+uk,rn_ddg_bristol_73,Vessel,ASW,rn_ddg_bristol_73,2,_vanilla,7100.0
+uk,rn_ddg_county-class_batch_1_75,Vessel,AAW,County-class (Batch 1),5,3491248180,6200.0
+uk,rn_ddg_county-class_batch_2_75,Vessel,AAW,County-class (Batch 2),5,3491248180,6200.0
+uk,rn_ddg_county-class_batch_2_82,Vessel,AAW,County-class (Batch 2-Refit),5,3491248180,6200.0
+uk,rn_ddg_county_batch1,Vessel,ASW,rn_ddg_county_batch1,5,_vanilla,6200.0
+uk,rn_ddg_county_batch2,Vessel,ASW,rn_ddg_county_batch2,5,_vanilla,6200.0
+uk,rn_ddg_county_batch2_75,Vessel,ASW,rn_ddg_county_batch2_75,5,_vanilla,6200.0
+uk,rn_ddg_sheffield,Vessel,ASW,rn_ddg_sheffield,6,_vanilla,4250.0
+uk,rn_ddg_sheffield_batch0,Vessel,ASW,rn_ddg_sheffield_batch0,2,_vanilla,4250.0
+uk,rn_ddg_sheffield_batch2,Vessel,ASW,rn_ddg_sheffield_batch2,5,_vanilla,4250.0
+uk,rn_ddg_type45,Vessel,AAW,Type 45 class,7,SEST_Replenishment,8500.0
+uk,rn_ddg_type45_22,Vessel,AAW,Type 45 class,7,SEST_Replenishment,8500.0
+uk,rn_ddg_type45_26,Vessel,AAW,Type 45 class,7,SEST_Replenishment,8500.0
+uk,rn_ff_amazon,Vessel,ASW,rn_ff_amazon,9,_vanilla,4130.0
+uk,rn_ff_broadsword,Vessel,ASW,rn_ff_broadsword,5,_vanilla,4130.0
+uk,rn_ff_leander,Vessel,ASW,rn_ff_leander,27,_vanilla,2900.0
+uk,rn_ff_leander_1963,Vessel,ASW,Leander-class,11,3491248180,2500.0
+uk,rn_ff_leander_1963_noVDS,Vessel,ASW,Leander-class (No VDS),6,3491248180,2500.0
+uk,rn_ff_leander_batch1,Vessel,ASW,Leander-class (Batch-1 Refit),9,3491248180,2500.0
+uk,rn_ff_leander_batch2,Vessel,ASW,Leander-class (Batch-2 Refit),8,3491248180,2500.0
+uk,rn_ff_leander_batch3,Vessel,ASW,Leander-class (Batch-3 Refit),6,3491248180,2790.0
+uk,rn_ff_rothesay,Vessel,ASW,Rothesay-class,10,3491248180,2150.0
+uk,rn_ff_type23,Vessel,AAW,Type 23 class (LIFEX),13,SEST_Replenishment,4900.0
+uk,rn_ff_type23_early,Vessel,AAW,Type 23 class,17,SEST_Replenishment,4900.0
+uk,rn_ff_type23_mlu,Vessel,AAW,Type 23 class (MLU),14,SEST_Replenishment,4900.0
+uk,rn_ff_type42,Vessel,AAW,Type 42 (Sheffield)-class (Batch 1),7,3491248180,3500.0
+uk,rn_frs1,VTOL,Fighter,rn_frs1,9,_vanilla,
+uk,rn_harrier_gr3,VTOL,Fighter,Harrier GR.3,2,3491248180,
+uk,rn_lpd_fearless,Vessel,ASW,rn_lpd_fearless,3,_vanilla,12314.0
+uk,rn_lph_ocean,Vessel,CVS,Ocean-class,2,SEST_Allied_Fixes,21500.0
+uk,rn_lph_ocean_09,Vessel,CVS,Ocean-class,2,SEST_Replenishment,21500.0
+uk,rn_lph_ocean_asw,Vessel,CVS,Ocean-class (ASW),2,SEST_Replenishment,21500.0
+uk,rn_lph_ocean_asw_00,Vessel,CVS,Ocean-class (ASW),2,SEST_Replenishment,21500.0
+uk,rn_lph_ocean_asw_13,Vessel,CVS,Ocean-class (ASW),2,SEST_Replenishment,21500.0
+uk,rn_lsl_roundtable,Vessel,Landing,rn_lsl_roundtable,7,_vanilla,5674.0
+uk,rn_lynx,Helicopter,ASW,Lynx HAS.3,4,3373356293,
+uk,rn_lynx_has2,Helicopter,ASW,Sea Lynx HAS.2,2,3491248180,
+uk,rn_lynx_has3,Helicopter,ASW,Sea Lynx HAS.3,2,3491248180,
+uk,rn_merlin_hm1,Helicopter,ASW,Merlin HM.1,5,3599752717,
+uk,rn_merlin_hm2,Helicopter,ASW,Merlin HM.2,5,3599752717,
+uk,rn_nimrod,Aircraft,Airliner,Hawker Siddeley Nimrod (unfinished),4,3491248180,
+uk,rn_nimrod_aew3,Aircraft,Airliner,Hawker Siddeley Nimrod AEW.3 (AH),2,3491248180,
+uk,rn_nimrod_mr1,Aircraft,Airliner,Hawker Siddeley Nimrod MR.1,6,3491248180,
+uk,rn_nimrod_mr2,Aircraft,Airliner,Hawker Siddeley Nimrod MR.2,6,3491248180,
+uk,rn_nimrod_r1,Aircraft,Airliner,Hawker Siddeley Nimrod R.1,2,3491248180,
+uk,rn_oberon_class,Submarine,SS,Oberon-class submarine,14,3491248180,2410.0
+uk,rn_opv_river_batch2,Vessel,ASuW,River-class (Batch II),6,SEST_Replenishment,2000.0
+uk,rn_sea_gannet,Aircraft,Fighter,Sea Gannet AS.4,4,3491248180,
+uk,rn_sea_gannet_aew,Aircraft,Fighter,Sea Gannet AEW.3,5,3491248180,
+uk,rn_sea_gannet_aew_7,Aircraft,Fighter,Sea Gannet AEW.7 (AH),5,3491248180,
+uk,rn_sea_gannet_ecm,Aircraft,Fighter,Sea Gannet AS.6/ECM.6,2,3491248180,
+uk,rn_sea_harrier,VTOL,Fighter,Sea Harrier FRS.1,4,3491248180,
+uk,rn_sea_harrier_early,VTOL,Fighter,Sea Harrier FRS.1 Early,4,3491248180,
+uk,rn_sea_king,Helicopter,ASW,Sea King HAS.5,8,3491248180,
+uk,rn_sea_king_aew,Helicopter,ASW,Sea King AEW.5,2,3491248180,
+uk,rn_sea_king_has5,Helicopter,ASW,rn_sea_king_has5,6,_vanilla,
+uk,rn_sea_king_has6,Helicopter,ASW,Sea King HAS.6,7,3599752717,
+uk,rn_sea_king_hc4,Helicopter,Transport,Sea King HC.4,4,3599752717,
+uk,rn_sea_lynx,Helicopter,ASW,Sea Lynx HAS.2,3,3455931957,
+uk,rn_sea_lynx_3,Helicopter,ASW,Sea Lynx HAS.3,2,3491248180,
+uk,rn_sea_lynx_has3,Helicopter,ASW,Sea Lynx HAS.3,3,3599752717,
+uk,rn_sea_lynx_mk8,Helicopter,ASW,Sea Lynx HMA.8,2,3599752717,
+uk,rn_sea_vixen,Aircraft,Fighter,Sea Vixen FAW.2,4,3491248180,
+uk,rn_ss_oberon,Submarine,SS,rn_ss_oberon,14,_vanilla,2410.0
+uk,rn_ss_porpoise,Submarine,SS,rn_ss_porpoise,9,_vanilla,2450.0
+uk,rn_ssbn_vanguard,Submarine,SSBN,Vanguard-class,5,3599752717,15900.0
+uk,rn_ssn_astute,Submarine,SSN,Astute-class,8,3599752717,7400.0
+uk,rn_ssn_churchill,Submarine,SSN,rn_ssn_churchill,4,_vanilla,4500.0
+uk,rn_ssn_churchill_late,Submarine,SSN,rn_ssn_churchill_late,4,_vanilla,4500.0
+uk,rn_ssn_swiftsure,Submarine,SSN,rn_ssn_swiftsure,7,_vanilla,4800.0
+uk,rn_ssn_trafalgar,Submarine,SSN,rn_ssn_trafalgar,8,_vanilla,5200.0
+uk,rn_ssn_valiant,Submarine,SSN,rn_ssn_valiant,3,_vanilla,4500.0
+uk,rn_ssn_warspite,Submarine,SSN,Warspite-class,6,3599752717,6000.0
+uk,rn_swiftsure_class_ssn,Submarine,SSN,Swiftsure-class,7,3491248180,4900.0
+uk,rn_type22b12,Vessel,ASW,Type 22 (Broadsword)-class (Batch-1),5,3491248180,4800.0
+uk,rn_type22b2,Vessel,ASW,Type 22 (Broadsword)-class (Batch-2),7,3491248180,4800.0
+uk,rn_type23,Vessel,ASW,Type 23 Duke-class,7,SEST_Replenishment,4130.0
+uk,rn_type23_refit,Vessel,ASW,Type 23 Duke-class (LIFEX Refit),7,SEST_Replenishment,4900.0
+uk,rn_valiant_class_ssn,Submarine,SSN,Valiant-class,3,3491248180,3500.0
+uk,rn_wasp,Helicopter,ASW,Wasp HAS.1,16,3491248180,
+uk,rn_wasp_has1,Helicopter,ASW,rn_wasp_has1,8,_vanilla,
+uk,rn_wessex,Helicopter,ASW,Westland Wessex HU.5,2,3491248180,
+uk,rn_wessex_has1,Helicopter,ASW,rn_wessex_has1,2,_vanilla,
+uk,rn_wessex_has3,Helicopter,ASW,rn_wessex_has3,2,_vanilla,
+uk,rn_wessex_hu5,Helicopter,Transport,rn_wessex_hu5,4,_vanilla,
+uk,rn_wildcat,Helicopter,ASW,AW159 Wildcat HMA2,4,3373356293,
+uk,type_21+ACSL_lynx,Vessel,AAW,Type 21-class,9,3491248180,1540.0
+uk,uk_a330_mrtt,Aircraft,AEW,A330 MRTT Voyager,3,3758943352,
+uk,uk_a400m_airdroop-para,Aircraft,AEW,A400M Atlas,3,3758943352,
+uk,uk_a400m_tankers,Aircraft,AEW,A-400M Atlas,3,3758943352,
+uk,uk_ah_mk_1,Helicopter,ASuW,AH MK 1,2,SEST_Allied_Fixes,
+uk,usaf_c-130,Aircraft,Transport,usaf_c-130,1,_vanilla,
+uk,usn_p8,Aircraft,MPA,P-8A Poseidon,1,SEST_Allied_Fixes,
+uk,usn_p_8a,Aircraft,MPA,P-8A Poseidon,4,3413868677,
+france,Mirage_III,Aircraft,Fighter,Dassault Mirage III,2,3491248180,
+france,civ_a320,Aircraft,Airliner,Airbus A320,2,3746453639,
+france,civ_a330,Aircraft,Airliner,Airbus A330,3,3746453639,
+france,civ_a380,Aircraft,Airliner,Airbus A380,2,3746453639,
+france,civ_as-350,Helicopter,Transport,AS.350B,1,3806197116,
+france,civ_dc-10,Aircraft,Airliner,DC-10 Airliner,1,_vanilla,
+france,civ_fv_okean,Vessel,Merchant,Okean-class Trawler,1,_vanilla,700.0
+france,civ_fv_okean_armed,Vessel,FAC,Side Trawler (AM),1,3485917612,700.0
+france,civ_fv_sterntrawler_c,Vessel,Merchant,civ_fv_sterntrawler_c,2,_vanilla,900.0
+france,civ_ms_ritina,Vessel,Merchant,Super Tanker,13,_vanilla,253000.0
+france,civ_ms_yuniy_partizan,Vessel,Merchant,Yuniy Partizan-class,1,3605013271,3950.0
+france,fr_a330_mrtt,Aircraft,EW,A330 MRTT Phénix,3,3758943352,
+france,fr_a400m_airdroop-para,Aircraft,AEW,A400M Atlas,5,3758943352,
+france,fr_a400m_sf,Aircraft,AEW,A400M Atlas,2,3758943352,
+france,fr_a400m_tankers,Aircraft,EW,A-400M Atlas,5,3758943352,
+france,fr_aliaca,Aircraft,Recon,Survey Copter Aliaca,2,3567256221,
+france,fr_alouette_II,Helicopter,Attack,fr_alouette_II,2,_vanilla,
+france,fr_alouette_III,Helicopter,Attack,fr_alouette_III,2,_vanilla,
+france,fr_aquilon_202,Aircraft,Fighter,Aquilon 202,3,3628247436,
+france,fr_as-350,Helicopter,Transport,fr_as-350,1,_vanilla,
+france,fr_as-565_sa,Helicopter,ASW,AS-565 SA,2,3567228449,
+france,fr_as_332B,Helicopter,ASW,AS332B Super Puma,2,3567228449,
+france,fr_as_332F,Helicopter,ASW,AS332F Super Puma,2,3567228449,
+france,fr_as_332M,Helicopter,ASW,AS332M Super Puma,4,3567228449,
+france,fr_as_532L,Helicopter,ASW,AS532L Cougar,4,3567228449,
+france,fr_as_532L2,Helicopter,ASW,AS532L2 Cougar,2,3567228449,
+france,fr_as_532SC,Helicopter,ASW,AS532SC Cougar,1,3567228449,
+france,fr_atl2,Aircraft,MPA,Breguet Atlantique 2,3,3567256221,
+france,fr_br1050,Aircraft,MPA,Br.1050 Alizé,6,3628203171,
+france,fr_br1050_ALH,Aircraft,MPA,Br.1050 Alizé ALH,3,3628203171,
+france,fr_br1050_ALM,Aircraft,MPA,Br.1050 Alizé ALM,5,3628203171,
+france,fr_camcopters,Helicopter,ASuW,Camcopters S-100 (drone helicopter),2,3567228449,
+france,fr_cvn_charles-de-gaulle,Vessel,Carrier,Charles de Gaulle (2018-2027),2,3567256221,42500.0
+france,fr_cvn_charles-de-gaulle_late,Vessel,Carrier,Charles de Gaulle (2027),2,3567256221,42500.0
+france,fr_ddg_horizon,Vessel,ASW,Horizon class,3,3567256221,7050.0
+france,fr_e2c,Aircraft,AEW,E-2C Hawkeye 2000,2,3567256221,
+france,fr_e2d,Aircraft,AEW,E-2D,2,3567256221,
+france,fr_ec_665_had-e,Helicopter,ASuW,EC-665 Tigre,2,3567228449,
+france,fr_ec_725,Helicopter,ASW,H225M(EC725) Caracal,2,3567228449,
+france,fr_edar_afv-ifv,Vessel,Landing,EDAR (infantry/armored fighting vehicle loadout),5,3567256221,200.0
+france,fr_edar_apc,Vessel,Landing,EDAR (armoured personnel carrier loadout),5,3567256221,200.0
+france,fr_edar_artillery,Vessel,Landing,EDAR (artillery vehicle loadout),5,3567256221,200.0
+france,fr_edar_empty,Vessel,Landing,EDAR,5,3567256221,200.0
+france,fr_edar_tank,Vessel,Landing,EDAR (tank loadout),5,3567256221,200.0
+france,fr_edar_vl,Vessel,Landing,EDAR (light vehicle loadout),5,3567256221,200.0
+france,fr_edas_afv-ifv,Vessel,Landing,EDAS (infantry/armored fighting vehicle loadout),15,3567256221,120.0
+france,fr_edas_apc,Vessel,Landing,EDAS (armoured personnel carrier loadout),15,3567256221,120.0
+france,fr_edas_artillery,Vessel,Landing,EDAS (artillery vehicle loadout),15,3567256221,120.0
+france,fr_edas_empty,Vessel,Landing,EDAS,15,3567256221,120.0
+france,fr_edas_tank,Vessel,Landing,EDAS (tank loadout),15,3567256221,120.0
+france,fr_edas_vl,Vessel,Landing,EDAS (light vehicle loadout),15,3567256221,120.0
+france,fr_etendard_IVM,Aircraft,Fighter,Etendard IVM,6,3555361900,
+france,fr_etendard_IVP,Aircraft,Recon,Etendard IVP,3,3555361900,
+france,fr_etendard_IVPM,Aircraft,Recon,Etendard IVPM,2,3555361900,
+france,fr_f-8efn,Aircraft,Fighter,F-8E(FN),3,3591820675,
+france,fr_f-8efn_early,Aircraft,Fighter,F-8E(FN),3,3591820675,
+france,fr_f-8p,Aircraft,Fighter,F-8P,2,3591820675,
+france,fr_f1a,Aircraft,Fighter,F1A,5,_vanilla,
+france,fr_f1c,Aircraft,Fighter,F1C,5,_vanilla,
+france,fr_f1e,Aircraft,Fighter,F1E,5,_vanilla,
+france,fr_fdi_amiral_ronarc'h,Vessel,AAW,Amiral Ronarch class,6,3567256221,4460.0
+france,fr_ffg_aquitaine_asw,Vessel,AAW,Aquitaine-class (ASW),5,3567256221,6172.0
+france,fr_ffg_aquitaine_modernized_aaw,Vessel,AAW,Aquitaine-class modernized (AAW),3,3567256221,6172.0
+france,fr_ffg_aquitaine_modernized_asw,Vessel,AAW,Aquitaine-class modernized (ASW),3,3567256221,6172.0
+france,fr_ffg_floréal,Vessel,ASuW,Floréal class,7,3567256221,3800.0
+france,fr_ffg_lafayette_modernized,Vessel,AAW,La Fayette-class modernized,4,3567256221,3800.0
+france,fr_ffg_lafayette_version_opv,Vessel,AAW,La Fayette-class version OPV,2,3567256221,3800.0
+france,fr_ffg_lafayette_version_opv_modernized,Vessel,AAW,La Fayette-class version OPV modernized,2,3567256221,3800.0
+france,fr_lhd_mistral,Vessel,Landing,Mistral class,4,3567256221,21300.0
+france,fr_m2k-5f,Aircraft,Fighter,Mirage 2000-5F,6,3758943352,
+france,fr_m2kc_rdi,Aircraft,Fighter,Mirage 2000C-RDI (1987-2022),3,3758943352,
+france,fr_m2kc_rdm,Aircraft,Fighter,Mirage 2000C-RDM (1983-1997),2,3758943352,
+france,fr_m2kd,Aircraft,Fighter,Mirage 2000-D,10,3758943352,
+france,fr_m2kd_rmv,Aircraft,Fighter,Mirage 2000-D RMV,10,3758943352,
+france,fr_mirage_iii,Aircraft,Fighter,fr_mirage_iii,1,3455404959,
+france,fr_mq-9a,Aircraft,AEW,MQ-9,7,3758943352,
+france,fr_nh90,Helicopter,ASW,NH-90 FR,2,3567228449,
+france,fr_nh90_tth,Helicopter,ASW,NH-90 TTH FR,2,3567228449,
+france,fr_nh90_tth_special_forces,Helicopter,ASW,NH-90 Special Forces FR,2,3567228449,
+france,fr_rafale_b,Aircraft,Fighter,Rafale B,20,3758943352,
+france,fr_rafale_b_l,Aircraft,Fighter,Rafale B Late,20,SEST_Rafale_F5,
+france,fr_rafale_b_l_nuclear,Aircraft,Fighter,Rafale B Late (Nuclear weapons),9,3758943352,
+france,fr_rafale_c,Aircraft,Fighter,Rafale C,21,3758943352,
+france,fr_rafale_c_l,Aircraft,Fighter,Rafale C Late,20,SEST_Rafale_F5,
+france,fr_rafale_m,Aircraft,Fighter,Rafale M,4,3758943352,
+france,fr_rafale_m_l,Aircraft,Fighter,Rafale M Late,4,SEST_Rafale_F5,
+france,fr_rafale_m_l_nuclear,Aircraft,Fighter,Rafale M Late (Nuclear weapons),4,3758943352,
+france,fr_rafale_m_tanker,Aircraft,EW,Rafale M Nounou,4,3758943352,
+france,fr_raft_fm,Vessel,FAC,Fusiliers marins,2,3567256221,3.4
+france,fr_raft_sof_black,Vessel,FAC,Commandos Marine (black version),2,3567256221,3.4
+france,fr_raft_sof_bme,Vessel,FAC,Commandos Marine (BME version),2,3567256221,3.4
+france,fr_sa-319,Helicopter,ASW,SA.316/319 Alouette III,5,3567228449,
+france,fr_sa-321,Helicopter,ASW,SA.321G,4,3567228449,
+france,fr_sa-321G,Helicopter,ASW,SA 321G Super Frelon,4,3567228449,
+france,fr_sa-321GA,Helicopter,Transport,SA.321GA,4,3567228449,
+france,fr_sa_342_gazelle,Helicopter,ASuW,SA-342 Gazelle,2,3567228449,
+france,fr_sa_342_gazelle_special_forces,Helicopter,ASuW,SA-342 Gazelle Special forces,2,3567228449,
+france,fr_sea_lynx,Helicopter,ASW,Sea Lynx MK.2,2,3455931957,
+france,fr_sea_lynx_4,Helicopter,ASW,Sea Lynx MK.4,3,3455931957,
+france,fr_ss_agosta,Submarine,SS,fr_ss_agosta,5,_vanilla,1760.0
+france,fr_ss_daphne,Submarine,SS,fr_ss_daphne,10,_vanilla,1038.0
+france,fr_ss_psm3g,Submarine,SSN,Commandos Marine,2,3567256221,17.0
+france,fr_ssbn_triomphant,Submarine,SSN,Triomphant-class,5,3567256221,14300.0
+france,fr_ssn_rubis,Submarine,SSN,Rubis class,3,3567256221,6920.0
+france,fr_ssn_suffren,Submarine,SSN,Suffren-class,7,3567256221,5300.0
+france,fr_ssn_suffren_dds,Submarine,SSN,Suffren-class (DDS),7,3567256221,5300.0
+france,fr_super-etendard,Aircraft,Fighter,Super Etendard,4,3555361900,
+france,fr_super_etendard,Aircraft,Fighter,fr_super_etendard,3,_vanilla,
+france,fr_super_etendard_modernise,Aircraft,Fighter,Super Etendard Modernisé,4,3555361900,
+france,fr_vsr700,Helicopter,ASuW,VSR 700 (drone helicopter),2,3567228449,
+france,fra_cv_clemenceau_60_deck_parkings,Vessel,Carrier,Clemenceau-class (1960)(Deck Parkings),3,3628201887,32780.0
+france,fra_cv_clemenceau_60_low,Vessel,Carrier,Clemenceau-class (1960),3,3628201887,32780.0
+france,fra_cv_clemenceau_70_deck_parkings,Vessel,Carrier,Clemenceau-class (1970)(Deck Parkings),3,3628201887,32780.0
+france,fra_cv_clemenceau_70_low,Vessel,Carrier,Clemenceau-class (1970),3,3628201887,32780.0
+france,fra_cv_clemenceau_80_deck_parkings,Vessel,Carrier,Clemenceau-class (1980)(Deck Parkings),3,3628201887,32780.0
+france,fra_cv_clemenceau_80_low,Vessel,Carrier,Clemenceau-class (1980),3,3628201887,32780.0
+france,fra_cv_clemenceau_90_deck_parkings,Vessel,Carrier,Clemenceau-class (1990)(Deck Parkings),3,3628201887,32780.0
+france,fra_cv_clemenceau_90_low,Vessel,Carrier,Clemenceau-class (1990),3,3628201887,32780.0
+france,usn_p-2h,Aircraft,MPA,usn_p-2h,1,_vanilla,
+france,wp_skr_armed_partizan,Vessel,Spy,Yuniy Partizan-class (AM),1,3485917612,3950.0
+australia,E7A_Wedgetail,Aircraft,AEW,E-7A Wedgetail,3,3499239964,
+australia,Mirage_III,Aircraft,Fighter,Dassault Mirage III,1,3491248180,
+australia,S-70B-2_Seahawk,Helicopter,ASW,S-70B-2,2,SEST_Allied_Fixes,
+australia,S2,Aircraft,AEW,Grumman S-2 Tracker,2,3491248180,
+australia,adf_ah-1g,Helicopter,ASuW,AH-1G (Fict),2,3455404959,
+australia,adf_ah-64e,Helicopter,ASuW,AH-64E ADF,3,SEST_Allied_Fixes,
+australia,anl_ms_bulk,Vessel,Merchant,Medium Bulk Carrier,9,3432668460,140000.0
+australia,aus_a330_mrtt,Aircraft,Airliner,KC-30A,2,3820759806,
+australia,aus_ec_665_had-e,Helicopter,ASuW,Tiger ARH,3,3820759806,
+australia,aus_mrh90_tth,Helicopter,Transport,MRH-90,3,3820759806,
+australia,canberra_bomber,Aircraft,Airliner,English Electric Canberra (unfinished),1,3491248180,
+australia,civ_707,Aircraft,Airliner,707 Airliner,1,_vanilla,
+australia,civ_a330,Aircraft,Airliner,Airbus A330,1,3746453639,
+australia,civ_a380,Aircraft,Airliner,Airbus A380,1,3746453639,
+australia,civ_ms_act_1,Vessel,Merchant,ACT 1-class,12,_vanilla,30000.0
+australia,civ_ms_act_1_armed,Vessel,Merchant,ACT 1-class (AM),12,3485917612,30000.0
+australia,civ_ms_freighter_b,Vessel,Merchant,Improved C4-class,2,3605013271,20000.0
+australia,civ_ms_mairangi_bay,Vessel,Merchant,Mairangi Bay-class,3,3430106996,40000.0
+australia,fr_as-350,Helicopter,Transport,fr_as-350,1,_vanilla,
+australia,fr_mirage_iii,Aircraft,Fighter,fr_mirage_iii,4,3455404959,
+australia,h34,Helicopter,ASW,Sikorsky H-34,1,3491248180,
+australia,ko_ocean-4300,Vessel,ASW,OCEAN 4300,2,SEST_Replenishment,4300.0
+australia,raaf_ap-3c,Aircraft,MPA,AP-3C,3,3820759806,
+australia,raaf_e-7a,Aircraft,AEW,E-7A,2,3820759806,
+australia,raaf_ea-18g,Aircraft,Fighter,EA-18G RAAF,2,3820759806,
+australia,raaf_ea-18g_2026,Aircraft,Fighter,EA-18G RAAF,2,3820759806,
+australia,raaf_f-111c,Aircraft,Bomber,raaf_f-111c,3,_vanilla,
+australia,raaf_f-111c_aup,Aircraft,Bomber,F-111C AUP,3,3820759806,
+australia,raaf_f-35a,Aircraft,Fighter,F-35A,5,SEST_RAAF_F-35A_JATM,
+australia,raaf_f-35a_blk4,Aircraft,Fighter,F-35A RAAF (Blk 4),4,3820759806,
+australia,raaf_f-4e,Aircraft,Fighter,F-4E RAAF,3,3455404959,
+australia,raaf_f-4e_79,Aircraft,Fighter,F-4E RAAF (Fict),2,3455404959,
+australia,raaf_fa-18a,Aircraft,Fighter,F/A-18A RAAF,4,3820759806,
+australia,raaf_fa-18a_2011,Aircraft,Fighter,F/A-18A RAAF,4,SEST_Allied_Fixes,
+australia,raaf_fa-18f,Aircraft,Fighter,F/A-18F RAAF,2,SEST_Allied_Fixes,
+australia,raaf_mq-4c_triton,Aircraft,MaritimePatrol,MQ-4C Triton,3,SEST_ADF_Persistent_ISR,
+australia,raaf_n22,Aircraft,Airliner,raaf_n22,1,_vanilla,
+australia,raaf_p8,Aircraft,MPA,P-8A RAAF,2,3820759806,
+australia,raaf_queenair,Aircraft,Airliner,Beechcraft Queen Air,1,3455404959,
+australia,raaf_searchmaster_b,Aircraft,Airliner,raaf_searchmaster_b,1,_vanilla,
+australia,raaf_searchmaster_l,Aircraft,Airliner,raaf_searchmaster_l,1,_vanilla,
+australia,raaf_winjeel,Aircraft,Airliner,CAC Winjeel,1,3455404959,
+australia,ran_C1A,Aircraft,Transport,C-1A RAN (Fict),2,3455404959,
+australia,ran_S-70B-2_Seahawk,Helicopter,ASW,S-70B-2 RAN,2,SEST_Allied_Fixes,
+australia,ran_S2,Aircraft,MPA,S-2E,3,3455404959,
+australia,ran_S2_late,Aircraft,MPA,S-2G,3,3455404959,
+australia,ran_a-4g,Aircraft,Bomber,ran_a-4g,1,_vanilla,
+australia,ran_a-4g_early,Aircraft,Fighter,A-4G (Early),3,3455404959,
+australia,ran_aor_supply,Vessel,RAS,Supply-class AOR (stand-in),3,SEST_RAN_Fleet,8190.0
+australia,ran_as350,Helicopter,Recon,AS.350BA (Trainer),2,3455404959,
+australia,ran_as350_recon,Helicopter,Recon,AS.350BA (Recon),2,3455404959,
+australia,ran_cv_centaur_84,Vessel,Carrier,Centaur-class RAN (Fict),2,3455404959,29200.0
+australia,ran_cv_centaur_catobar,Vessel,Carrier,Centaur-class RAN (Fict-CATOBAR),2,3455404959,29200.0
+australia,ran_cv_invincible,Vessel,Carrier,Invincible-class RAN (Fict),2,3455404959,22000.0
+australia,ran_dd_anzac,Vessel,ASuW_Gun,Australian Battle-class,3,3455404959,3310.0
+australia,ran_dd_anzac1968,Vessel,ASuW_Gun,Australian Battle-class,2,3455404959,3310.0
+australia,ran_dd_daring,Vessel,ASW,Daring-class,3,3455404959,3560.0
+australia,ran_dd_daring1968,Vessel,ASW,Daring-class,5,3455404959,3560.0
+australia,ran_ddg_hobart,Vessel,AAW,Hobart-class,4,SEST_RAN_Fleet,6391.0
+australia,ran_ddg_hobart_alt_early,Vessel,AAW,Hobart-class,4,SEST_Replenishment,9700.0
+australia,ran_ddg_hobart_alt_late,Vessel,AAW,Hobart-class,4,SEST_Replenishment,9700.0
+australia,ran_ddg_perth,Vessel,AAW,ran_ddg_perth,4,_vanilla,4526.0
+australia,ran_ddg_perth_91,Vessel,AAW,Perth-class (Late),4,3455404959,4526.0
+australia,ran_ddg_perth_early,Vessel,AAW,Perth-class (Early),4,3455404959,4526.0
+australia,ran_ddl_quickmatch_late,Vessel,AAW,Quickmatch-class,7,3820759806,4200.0
+australia,ran_de_type15,Vessel,ASW,Type 15-class RAN,2,3455404959,2300.0
+australia,ran_f-35b,VTOL,Fighter,F-35B RAN,2,3820759806,
+australia,ran_f-35b_late,VTOL,Fighter,F-35B RAN,2,3820759806,
+australia,ran_ffg_adelaide,Vessel,AAW,Adelaide-class (Long-hull),2,3455404959,4100.0
+australia,ran_ffg_adelaide_93,Vessel,AAW,Adelaide-class (Seahawk),7,3455404959,4100.0
+australia,ran_ffg_adelaide_ffg_upgrade,Vessel,AAW,Adelaide-class (FFG Upgrade),7,SEST_Replenishment,4100.0
+australia,ran_ffg_adelaide_shorthull,Vessel,AAW,ran_ffg_adelaide_shorthull,4,_vanilla,4100.0
+australia,ran_ffg_adelaide_upgrade,Vessel,AAW,Adelaide-class (FFG Upgrade),7,3820759806,4100.0
+australia,ran_ffg_mogami_yarra,Vessel,AAW,Yarra-class,12,3820759806,6200.0
+australia,ran_ffh_anzac,Vessel,ASW,Anzac-class,15,SEST_RAN_Fleet,3600.0
+australia,ran_ffh_anzac_wartime,Vessel,ASW,Anzac-class (Wartime Fit),15,3820759806,3600.0
+australia,ran_fv_sidetrawler,Vessel,Spy,Marlin-class Sloop (Armed),2,3432668460,700.0
+australia,ran_h34,Helicopter,ASW,Wessex HAS.31B,2,3455404959,
+australia,ran_h34_sar,Helicopter,SAR,Wessex HAS.31B SAR,2,3455404959,
+australia,ran_lhd-cv_canberra,Vessel,Landing,Canberra-class (Light Carrier),5,3820759806,26800.0
+australia,ran_lhd-cv_canberra_late,Vessel,Landing,Canberra-class (Light Carrier-Late),5,3820759806,26800.0
+australia,ran_lhd_canberra,Vessel,Landing,Canberra-class,5,SEST_RAN_Fleet,26800.0
+australia,ran_lhd_canberra_late,Vessel,Landing,Canberra-class (Late),5,3820759806,26800.0
+australia,ran_lsd_choules,Vessel,Landing,HMAS Choules LSD (stand-in),2,SEST_RAN_Fleet,13815.0
+australia,ran_lsh_tobruk,Vessel,Landing,Tobruk-class,2,3455404959,5674.0
+australia,ran_lsm_lsm1,Vessel,Landing,LSM-1-class (AU),5,3455404959,540.0
+australia,ran_majestic,Vessel,Carrier,Majestic-class,2,3455404959,20000.0
+australia,ran_majestic_59,Vessel,Carrier,Majestic-class,2,3455404959,20000.0
+australia,ran_melbourne,Vessel,Carrier,Majestic-class,2,3455404959,20000.0
+australia,ran_mh-60r,Helicopter,ASW,MH-60R RAN,3,SEST_Allied_Fixes,
+australia,ran_ms_antares,Vessel,Spy,Antares-class (Armed),25,3432668460,4000.0
+australia,ran_ms_austral,Vessel,Merchant,Austral-class (Armed),5,3432668460,33000.0
+australia,ran_ms_bulk,Vessel,Spy,Australian Prospector-class (Armed),9,3432668460,140000.0
+australia,ran_ms_jeparit,Vessel,Spy,Jeparit-class,11,3432668460,8000.0
+australia,ran_ms_mairangi_bay,Vessel,Spy,Mairangi Bay-class (Armed),18,3432668460,44500.0
+australia,ran_ms_roro_a,Vessel,Merchant,Strait-class RORO (Armed),6,3432668460,30000.0
+australia,ran_ms_super_p,Vessel,Spy,ran_ms_super_p,17,3432668460,12700.0
+australia,ran_msa_act_1,Vessel,Spy,ACT 1-class (Armed),12,3432668460,30000.0
+australia,ran_msc_ton,Vessel,MineSweep,Ton-class,7,3455404959,447.0
+australia,ran_oa_supply,Vessel,RAS,Tide-class,2,3455404959,25941.0
+australia,ran_opv_arafura,Vessel,AAW,Arafura-class OPV (stand-in),5,SEST_RAN_Fleet,2700.0
+australia,ran_pb_attack,Vessel,FAC,Attack-class,21,3455404959,146.0
+australia,ran_pb_fremantle,Vessel,FAC,Fremantle-class,16,3455404959,220.0
+australia,ran_river,Vessel,ASW,River(M)-class,5,3455404959,2560.0
+australia,ran_river_early,Vessel,ASW,River(M)-class,3,3455404959,2560.0
+australia,ran_river_mid,Vessel,ASW,River(M)-class,5,3455404959,2560.0
+australia,ran_scout,Helicopter,Attack,Scout AH.1,2,3455404959,
+australia,ran_sea_gannet,Aircraft,MPA,Gannet AS.1,3,3455404959,
+australia,ran_sea_gannet_aew,Aircraft,AEW,Gannet AEW.3 (Fict),2,3455404959,
+australia,ran_sea_harrier84,VTOL,Fighter,Sea Harrier FRS.50 (Fict),3,3455404959,
+australia,ran_sea_king_aew2,Helicopter,AEW,Sea King AEW.2A (Fict),2,3455404959,
+australia,ran_sea_lynx_3,Helicopter,ASW,Sea Lynx Mk.20A,2,3820759806,
+australia,ran_sea_venom,Aircraft,Fighter,Sea Venom FAW.53,3,3455404959,
+australia,ran_seakingmk50ab,Helicopter,Transport,Sea King Mk.50A/B,2,3820759806,
+australia,ran_ss_oberon,Submarine,SS,ran_ss_oberon,7,_vanilla,2410.0
+australia,ran_ss_oberon1968,Submarine,SS,Oberon-class (RAN-early),3,3455404959,2032.0
+australia,ran_ssg_collins,Submarine,SS,Collins-class,7,SEST_RAN_Fleet,3400.0
+australia,ran_uh-60m,Helicopter,ASW,UH-60M ADF,2,3820759806,
+australia,ran_westlandseaking,Helicopter,ASW,Sea King Mk.50,4,3455404959,
+australia,rn_canberra,Aircraft,Bomber,rn_canberra,1,_vanilla,
+australia,rn_sea_gannet,Aircraft,Fighter,Sea Gannet AS.4,1,3491248180,
+australia,usa_ah-64e,Helicopter,ASuW,AH-64E,1,SEST_Allied_Fixes,
+australia,usn_a-4g,Aircraft,Fighter,Douglas A-4G Skyhawk,3,3491248180,
+australia,usn_ea-18g,Aircraft,Fighter,EA-18G,1,SEST_Growler_NGJ_MALICE,
+australia,usn_fa-18a,Aircraft,Fighter,usn_fa-18a,3,_vanilla,
+australia,usn_fa-18f_blk3,Aircraft,Fighter,F/A-18F Block III,1,SEST_Growler_NGJ_MALICE,
+australia,usn_mh-60r,Helicopter,ASW,MH-60R,1,SEST_Allied_Fixes,
+australia,usn_p-2h,Aircraft,MPA,usn_p-2h,1,_vanilla,
+australia,usn_p-3c,Aircraft,MPA,P-3C,2,_vanilla,
+australia,usn_p8,Aircraft,MPA,P-8A Poseidon,1,SEST_Allied_Fixes,
+australia,usn_p_8a,Aircraft,MPA,P-8A Poseidon,2,3413868677,
+australia,usn_sh-2g,Helicopter,ASW,SH-2G Super Seasprite,1,3413868677,
+newzealand,civ_ms_mairangi_bay,Vessel,Merchant,Mairangi Bay-class,1,3430106996,40000.0
+newzealand,raf_vulcan,Aircraft,Bomber,raf_vulcan,1,_vanilla,
+newzealand,ran_a-4g,Aircraft,Bomber,ran_a-4g,1,_vanilla,
+newzealand,ran_ms_mairangi_bay,Vessel,Spy,Mairangi Bay-class (Armed),1,3432668460,44500.0
+newzealand,rn_wasp_has1,Helicopter,ASW,rn_wasp_has1,1,_vanilla,
+newzealand,rnzaf_a-4k,Aircraft,Bomber,A-4K Kahu,2,3455404959,
+newzealand,rnzaf_p8,Aircraft,MPA,P-8A RNZAF,2,3820759806,
+newzealand,rnzn_ff_leander_batch1,Vessel,ASW,Leander-class RNZN (Batch-1B),2,3455404959,2990.0
+newzealand,rnzn_ff_leander_batch2,Vessel,ASW,Leander-class RNZN (Batch-2TA),2,3455404959,3200.0
+newzealand,rnzn_ff_leander_batch3,Vessel,ASW,Leander-class RNZN (Batch-3),3,3455404959,3245.0
+newzealand,rnzn_ff_leander_batch3refit,Vessel,ASW,Leander-class RNZN (Batch-3),3,3455404959,3245.0
+newzealand,rnzn_ff_rothesay,Vessel,ASW,Rothesay-class RNZN,3,3455404959,2560.0
+newzealand,rnzn_sh-2gi,Helicopter,ASW,SH-2G,2,3455404959,
+newzealand,rnzn_wasp,Helicopter,ASW,Wasp HAS.1 RNZN,2,3455404959,
+newzealand,usn_p-3c,Aircraft,MPA,P-3C,1,_vanilla,
+newzealand,usn_p8,Aircraft,MPA,P-8A Poseidon,1,SEST_Allied_Fixes,
+newzealand,usn_p_8a,Aircraft,MPA,P-8A Poseidon,1,3413868677,
+egypt,ae_ffg_descubierta,Vessel,ASW,Descubierta-class (Early),2,SEST_Replenishment,1479.0
+egypt,civ_a330,Aircraft,Airliner,Airbus A330,1,3746453639,
+egypt,civ_fv_dhow,Vessel,SmallCivilian,Dhow Boat,1,_vanilla,140.0
+egypt,eaf_m2kbm,Aircraft,Fighter,Mirage 2000 BM (1986-2019),2,3758943352,
+egypt,eaf_m2kem,Aircraft,Fighter,Mirage 2000 EM (1986-2019),2,3758943352,
+egypt,exp_rafale_b,Aircraft,Fighter,Rafale B,1,3758943352,
+egypt,exp_rafale_b_l,Aircraft,Fighter,Rafale B Late,1,3758943352,
+egypt,exp_rafale_c,Aircraft,Fighter,Rafale C,1,3758943352,
+egypt,exp_rafale_c_l,Aircraft,Fighter,Rafale C Late,1,3758943352,
+egypt,idn_tu-16ks1,Aircraft,HeavyBomber,Tu-16KS-1,1,3455404959,
+egypt,rn_dd_z-class,Vessel,ASuW_Gun,Z-class,2,_vanilla,2570.0
+egypt,usa_ah-64a,Helicopter,ASuW,AH-64A,1,SEST_Allied_Fixes,
+egypt,usa_ah-64d,Helicopter,ASuW,AH-64D,1,SEST_Allied_Fixes,
+egypt,wp_mig-17,Aircraft,Fighter,MiG-17 Fresco,1,_vanilla,
+egypt,wp_mig-21,Aircraft,Fighter,MiG-21bis Fishbed,14,_vanilla,
+egypt,wp_mig-29m2_967,Aircraft,Fighter,MIG-29M2 967,1,3417446309,
+egypt,wp_mig-29m_961,Aircraft,Fighter,MIG-29M 961,1,3417446309,
+egypt,wp_pt_p6,Vessel,FAC,P6-class,1,_vanilla,77.0
+egypt,wp_pt_shershen,Vessel,FAC,Shershen-class,3,_vanilla,161.0
+egypt,wp_pt_shershen-e,Vessel,FAC,Shershen E-class,5,_vanilla,161.0
+egypt,wp_pt_shershen-er,Vessel,FAC,Mol-class,2,_vanilla,161.0
+egypt,wp_ptg_osa1,Vessel,ASuW,Osa-class,8,_vanilla,209.0
+egypt,wp_ss_romeo,Submarine,SS,Romeo-class,6,_vanilla,1730.0
+egypt,wp_tu-16,Aircraft,HeavyBomber,Tu-16,2,_vanilla,
+egypt,wp_tu-16n,Aircraft,HeavyBomber,Tu-16N,2,3673908868,
+iran,civ_a320,Aircraft,Airliner,Airbus A320,3,3746453639,
+iran,civ_a330,Aircraft,Airliner,Airbus A330,2,3746453639,
+iran,ir_aor_delvar,Vessel,RAS,ir_aor_delvar,8,SEST_Replenishment,904.0
+iran,ir_fab_boghammar,Vessel,FAC,Boghammar,2,_vanilla,7.0
+iran,ir_ffg_alvand,Vessel,ASuW,Alvand-class,5,_vanilla,1540.0
+iran,ir_ffg_alvand_95,Vessel,ASuW,Alvand-class,5,SEST_Replenishment,1540.0
+iran,ir_il-76md,Aircraft,Airliner,IR-IL-76MD,2,3524112296,
+iran,ir_pf_bayandor,Vessel,FAC,Bayandor-class,5,_vanilla,1135.0
+iran,ir_pt_kaivan,Vessel,FAC,Kaivan-class,5,_vanilla,150.0
+iran,ir_pt_parvin,Vessel,FAC,Parvin-class,4,_vanilla,150.0
+iran,ir_ptg_combattante_II,Vessel,ASuW,La Combattante IIa,13,_vanilla,275.0
+iran,ir_ptg_kaivan,Vessel,FAC,Kaivan-class,5,_vanilla,150.0
+iran,ir_ptg_peykaap_2,Vessel,FAC,Peykaap II-class,2,SEST_Replenishment,14.0
+iran,ir_ptg_peykaap_3,Vessel,FAC,Peykaap III-class,2,SEST_Replenishment,14.0
+iran,ir_ptg_peykaap_3_export,Vessel,FAC,Peykaap III-class (Export),2,SEST_Replenishment,14.0
+iran,irh_bell-212,Helicopter,ASuW,IRHBell-212,2,3549377308,
+iran,iriaa_bell-212,Helicopter,ASuW,IRIAABell-212,2,3549377308,
+iran,iriaf_ah-1j,Helicopter,ASuW,AH-1J,4,_vanilla,
+iran,iriaf_f-14a,Aircraft,Fighter,F-14A IRIAF,4,_vanilla,
+iran,iriaf_f-4d,Aircraft,Fighter,F-4D,3,_vanilla,
+iran,iriaf_f-4e,Aircraft,Fighter,F-4E,12,_vanilla,
+iran,irina_sh-3d,Helicopter,ASW,ASH-3D IRINA,4,_vanilla,
+iran,irinavy_bell-212,Helicopter,ASuW,IRINAVYBell-212,2,3549377308,
+iran,usaf_c-130,Aircraft,Transport,usaf_c-130,1,_vanilla,
+iran,usaf_f-5e,Aircraft,Fighter,usaf_f-5e,10,_vanilla,
+iran,usn_sh-3h,Helicopter,ASW,SH-3H,1,_vanilla,
+spain,ae_ao_teide,Vessel,RAS,Teide-class BP11,2,SEST_Replenishment,8190.0
+spain,ae_cvl_dedalo,Vessel,CVS,Dedalo-class (Early),2,SEST_Replenishment,16416.0
+spain,ae_cvl_dedalo_late,Vessel,CVS,Dedalo-class (Late),2,SEST_Replenishment,16416.0
+spain,ae_cvl_principe_asturias,Vessel,CVL,Principe de Asturias-class R11,2,SEST_Replenishment,17188.0
+spain,ae_dd_churruca_fram_i,Vessel,ASW,Churruca-class FRAM I,5,3630495619,3550.0
+spain,ae_dd_churruca_fram_ib,Vessel,ASW,Churruca-class FRAM II,2,3630495619,3550.0
+spain,ae_ffg_alvaro_bazan,Vessel,AAW,Alvaro de Bazan-class (Early),5,SEST_Replenishment,5853.0
+spain,ae_ffg_baleares,Vessel,ASW,Baleares-class (Early),6,3630495619,4130.0
+spain,ae_ffg_baleares_late,Vessel,ASW,Baleares-class (Late),6,SEST_Replenishment,4177.0
+spain,ae_ffg_bonifaz,Vessel,AAW,Bonifaz-class,6,SEST_Replenishment,6300.0
+spain,ae_ffg_cristobal_colon,Vessel,AAW,Alvaro de Bazan-class (Late),2,SEST_Replenishment,6391.0
+spain,ae_ffg_descubierta,Vessel,ASW,Descubierta-class (Early),5,SEST_Replenishment,1479.0
+spain,ae_ffg_descubierta_late,Vessel,ASW,Descubierta-class (Late),7,SEST_Replenishment,1479.0
+spain,ae_ffg_santa_maria,Vessel,AAW,Santa María-class (Early),7,3630495619,4100.0
+spain,ae_ffg_santa_maria_late,Vessel,AAW,Santa María-class (Late),7,3630495619,4100.0
+spain,ae_lhd_juan_carlos,Vessel,CVL,Juan Carlos I-class L61,2,SEST_Replenishment,26800.0
+spain,ae_lpa_castilla,Vessel,Landing,Castilla L20-class L20,3,3630495619,16300.0
+spain,ae_lpd_galicia,Vessel,Landing,Galicia L50-class L50,3,SEST_Replenishment,13815.0
+spain,ae_lsd_galicia,Vessel,Landing,Galicia L31-class L31,2,3630495619,9375.0
+spain,ae_lst_hernan_cortes,Vessel,Landing,Hernan Cortes-class L40,3,3630495619,8470.0
+spain,ae_msc_jucar,Vessel,MineSweep,Jucar-class,9,3630495619,400.0
+spain,ae_mso_guadalete,Vessel,MineSweep,Guadalete-class,5,3630495619,850.0
+spain,ae_opv_meteoro,Vessel,AAW,Meteoro-class BAM,7,SEST_Replenishment,2700.0
+spain,ae_ptg_lazaga,Vessel,ASuW,Lazaga-class,7,3630495619,275.0
+spain,ae_ptm_lazaga,Vessel,ASuW,Lazaga-class,5,SEST_Replenishment,285.0
+spain,ae_sa_tiburon,Submarine,SS,Tiburón-class,3,3630495619,79.3
+spain,ae_ss_s31,Submarine,SS,Balao-class (Fleet snorkel),3,3630495619,2415.0
+spain,ae_ss_s32,Submarine,SS,GUPPY IIA-class (Late sail),4,3630495619,2435.0
+spain,ae_ss_s33,Submarine,SS,GUPPY IIA-class (Early sail),2,3630495619,2435.0
+spain,ae_ssk_galerna,Submarine,SS,Galerna-class (Early),5,3630495619,1790.0
+spain,ae_ssk_galerna_mod,Submarine,SS,Galerna-class (Late),5,3630495619,1790.0
+spain,ae_ssk_s80,Submarine,SS,S80-class,3,3731208477,2965.0
+spain,ae_ssk_s80_plus,Submarine,SS,S80 Plus-class,5,3731208477,2965.0
+spain,civ_a320,Aircraft,Airliner,Airbus A320,1,3746453639,
+spain,civ_a330,Aircraft,Airliner,Airbus A330,1,3746453639,
+spain,civ_fv_okean,Vessel,Merchant,Okean-class Trawler,1,_vanilla,700.0
+spain,civ_fv_okean_armed,Vessel,FAC,Side Trawler (AM),1,3485917612,700.0
+spain,civ_ms_freighter_d,Vessel,Merchant,Modern Freighter,2,3605013271,20000.0
+spain,es_ffg_baleares,Vessel,ASW,Baleares-class (SeaPower version),6,_vanilla,4130.0
+spain,es_ss_galerna,Submarine,SS,Galerna-class (SeaPower version),5,_vanilla,1760.0
+spain,es_ssk_delfin,Submarine,SS,Delfín-class (SeaPower version),5,_vanilla,1038.0
+spain,eu_ef2000_fgr4,Aircraft,Fighter,Eurofighter Typhoon FGR.4,1,3587877691,
+spain,eu_ef2000_fgr4_late,Aircraft,Fighter,Eurofighter Typhoon FGR.4 Late,1,3587877691,
+spain,fr_alouette_II,Helicopter,Attack,fr_alouette_II,1,_vanilla,
+spain,fr_alouette_III,Helicopter,Attack,fr_alouette_III,1,_vanilla,
+spain,fr_as_332B,Helicopter,ASW,AS332B Super Puma,5,3567228449,
+spain,fr_as_532C,Helicopter,ASW,AS532C Cougar,6,3567228449,
+spain,fr_f1c,Aircraft,Fighter,F1C,2,_vanilla,
+spain,fr_f1e,Aircraft,Fighter,F1E,1,_vanilla,
+spain,sp_a330_mrtt,Aircraft,AEW,A330 MRTT,2,3758943352,
+spain,sp_ec_665_had-e,Helicopter,ASuW,EC-665 Tiger,2,3567228449,
+spain,sp_nh90_mspt,Helicopter,ASW,HT-29 MSPT,2,3567228449,
+spain,sp_nh90_tth,Helicopter,ASW,HT-29 Caimán SPA,2,3567228449,
+spain,spa_a400m_airdroop-para,Aircraft,AEW,A400M Atlas,2,3758943352,
+spain,spa_a400m_tankers,Aircraft,AEW,A-400M Atlas,2,3758943352,
+spain,spa_ab212,Helicopter,ASW,AB-212 ASW,3,3630495619,
+spain,spa_ab212v1,Helicopter,ASW,AB-212 ASW,2,3731208477,
+spain,spa_ah-1g,Helicopter,Attack,AH-1G,2,3630495619,
+spain,spa_av-8a,VTOL,Fighter,AV-8S,2,3630495619,
+spain,spa_av-8b,VTOL,Fighter,AV-8B,2,3731208477,
+spain,spa_av-8b_plus,VTOL,Fighter,AV-8B+,2,3731208477,
+spain,spa_ef2000,Aircraft,Fighter,C.16 Typhoon,5,3731208477,
+spain,spa_f-18a,Aircraft,Fighter,C.15 (F/A-18A),6,3731208477,
+spain,spa_f-18m,Aircraft,Fighter,C.15M (EF-18M),5,3731208477,
+spain,spa_f-4c,Aircraft,Fighter,F-4C,3,3630495619,
+spain,spa_f104g,Aircraft,Fighter,F-104G,2,3630495619,
+spain,spa_f1c,Aircraft,Fighter,Mirage F1CE,3,3630495619,
+spain,spa_f1e,Aircraft,Fighter,Mirage F1EE,2,3630495619,
+spain,spa_md500,Helicopter,ASW,MD500,3,3630495619,
+spain,spa_mirage_iii,Aircraft,Fighter,Mirage IIIEE,4,3630495619,
+spain,spa_p-3a,Aircraft,MPA,P-3A,2,3630495619,
+spain,spa_s-55,Helicopter,ASW,S-55B,2,3630495619,
+spain,spa_sh-3d,Helicopter,ASW,SH-3D,3,3630495619,
+spain,spa_sh-3d_AEW,Helicopter,AEW,SH-3D AEW,2,3630495619,
+spain,spa_sh-3dv1,Helicopter,ASW,SH-3D,2,3731208477,
+spain,spa_sh-60b,Helicopter,ASW,SH-60B LAMPS III,2,3731208477,
+spain,spa_sh-60b_block1,Helicopter,ASW,SH-60B LAMPS III Block1,2,3731208477,
+spain,spa_sh-60bv1,Helicopter,ASW,SH-60B LAMPS III (L51),2,3731208477,
+spain,spa_sh-60bv1_block1,Helicopter,ASW,SH-60B LAMPS III Block1 (L51),2,3731208477,
+spain,usaf_f-5a,Aircraft,Fighter,usaf_f-5a,1,_vanilla,
+spain,usn_fa-18a,Aircraft,Fighter,usn_fa-18a,4,_vanilla,
+us,civ_ms_c7s68,Vessel,Merchant,Lancer-class,21,_vanilla,33000.0
+us,civ_ms_c8,Vessel,Merchant,Barge Carrier,22,SEST_Replenishment,44600.0
+us,civ_ms_freighter_a,Vessel,Merchant,C4-class,61,3605013271,8200.0
+us,civ_ms_freighter_b,Vessel,Merchant,Improved C4-class,13,3605013271,20000.0
+us,civ_ms_mairangi_bay,Vessel,Merchant,Mairangi Bay-class,15,3430106996,40000.0
+us,civ_ms_ritina,Vessel,Merchant,Super Tanker,13,_vanilla,253000.0
+us,civ_ms_roro_a,Vessel,Merchant,RORO A,6,SEST_Replenishment,30000.0
+us,civ_ms_roro_c,Vessel,Merchant,RORO C,11,_vanilla,33900.0
+us,civ_ms_seabee,Vessel,Merchant,Seabee-class,7,SEST_Replenishment,55660.0
+us,civ_ms_sealift_pacific,Vessel,Merchant,Medium Tanker,37,SEST_Replenishment,34000.0
+us,civ_ms_super_p,Vessel,Merchant,Super P-class,1,3605013271,12700.0
+us,usaf_c-130,Aircraft,Transport,usaf_c-130,3,_vanilla,
+us,usmc_kc-130j,Aircraft,Airliner,KC-130J,5,3737267013,
